@@ -1,47 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.135.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793965624;
-	b=n8euPAPYhIMS+Ncm37qmJGcf0qrQTzhJjVIOq6KkOj1asg7UQBVORU1xqnW7Ni8/hOZN
-	 6/BWSqrh5JmhY3bqPGG5ITV0x8A0d4WaB5XwhobdFBOXyNn8eJJqdN1HmWxgrtCOM1Cps
-	 tRgsYxymwL4cia6k2DYc5SU9gNl2Nt0p8zlGtyv6/fdGfyb6XmxMtF40LqZbvBoD6z8e0
-	 Wfif4sHS5LZznm0VvIEgyGPTPZWtn/PjQYCE+NZxQqTsP7iywtMcKkDkM3r1dA/0QBiQl
-	 2wrfl3ovzs4s2juU/AAlLMos9FeyWMPydfDv53jgHXKqcU+7YOms/CxHGXPKf8Q3u2w==
+	t=1793965762;
+	b=v7qo+OC9Ds0Yl4LEQMsxZb3qhupBQS+iN6cOJ8ATWX3ixP9aBz65NMIzGCu65ASNceu8
+	 BdElLv1bAPoWoqz+66+JerBsWovmKA1/kanZkQAmNEaCty1qAC3azx38OFYWynv6AmxXb
+	 tSFfjZuD1x3Ofyq4KJVZKq2cXu2spT6rpZ9y0kkzpxU/X7O6kOGbAlG7Fhk/wy6lzk39k
+	 VfywtoDLJyJKMC2cothTI6gAHzNKokxYcgq6F4ynUjajbUp9gnqnVvtxK2GXm0prEbXMu
+	 C2MPKvacI/y7wG9uBavIO09MoUR5FjNYztoHQlsJ9+9wH0ltBSiU6xNNzZhqTJieFiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793965624;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=mmCJKWmPBAetLsmyF2KDGRLUSU9wtqnr7FZpaiea0rw=;
-	b=BzPmcBjgr3Ad028oyv4DfMHwzm8u0fBaU/cidJDQiYJ6iVAgbp0P9gP6UZd6WVu5/zHW
-	 1QgzQMHxLAJWj6fxWoIpw+dk14nChwRem/eGGg9dK06pm6X8hCcRwjSWovMub2UiXeVYT
-	 TXJ2OvaIK3bmk9AuYY0Qer0rI2G40pInYdbRvsGqBJIopwjDFnQUIcP51JBA8qV84xtzo
-	 4tZDJic/bdJ1m/6NMna8Rv4zHZKPLIvEgXrp9LDf+s9rwnZL4nhERTwD/i3JMYSC4Zpjn
-	 VgHnk1RoiM73gtSF9IiKvvml7tLHEbZ1gkcFf97+B4awZnnYVfyw3XgYlGw7VwpfICA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793965762;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:References;
+	bh=GFq6zkIeXsKagh+H9ZkryOLiIeem2Yj35L0/DB3QvGA=;
+	b=Unn3zqGVxBRBIwt9vYcT8IsoaLQ5JnEY2hbfXOBJFvFp1yXHnHQZQuoxVAwsw5oik8Xs
+	 NSZqLniAtbU7KAo6r0GyAv36veVElW4SPjjDrlAkctXG5QuzF4VJ7zXqG2RWvBZRY8vct
+	 2rce1WN6N7WSLFb7ysfleK4SQS4AmrSLVGNMAJz86IH+CXD4rN29TEpfMf5z4vyBfdEvP
+	 MMqauCvmDZIXkvpk9DhDYae+uWpP9qAEw31ylE+U0xvFHBOFrxOCnzp9now5Wwd23oJgK
+	 gvxWRNjoVO2EEQN+I2IfgoRZfvhPmjVHO+lCzdKtM85O5uwmEnBTyDZ2LfRAZhcHT/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Onnm5/ul";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=cYRmobhu;
+	arc=none smtp.remote-ip=74.6.135.123
+Received: from sonic310-13.consmr.mail.bf2.yahoo.com (sonic310-13.consmr.mail.bf2.yahoo.com [74.6.135.123])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51169606A32E;
-	Fri,  6 Nov 2026 11:47:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994D8606A329
+	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 11:49:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 994D8606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Onnm5/ul
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC921F0089F;
-	Fri,  6 Nov 2026 11:47:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793965623;
-	bh=mmCJKWmPBAetLsmyF2KDGRLUSU9wtqnr7FZpaiea0rw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Onnm5/ulWr0sv+JICpebrelYSa3gBbRBbi/0Iy4J8PVZwpMbDekgmjOTnHS3MMz6h
-	 FyqnBYDaIfWxhSIPADFOs/bCqIzFiFQUSxlMrA9M/6/zJ/an/YPY1nIkAD0qdp/9Cx
-	 YS6SsS9r8EaLVRHlkGke0YsVDVJ95wuJPuWZGd9Woervr9neNdimreSYFWRDY6XMxA
-	 RW+A+J6hl/7lq5gTEBHAm5pg2mIRCM1FsRjQ7gxRkSJbBbl13bcl6KUfxWQT3KoBQW
-	 ioSAb9xkidzgHEGGIUfEyrpXydMOmp1wk5DFrm8AcN2L+ckM59lybYcez6JXxurMLx
-	 PHmiDbL28t2bQ==
-Message-ID: <66da4fbf-7449-4c49-9963-02d22ce5705e@kernel.org>
-Date: Fri, 6 Nov 2026 11:46:58 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=cYRmobhu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793965760; bh=GFq6zkIeXsKagh+H9ZkryOLiIeem2Yj35L0/DB3QvGA=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=cYRmobhuoznPQTT1MoJ3Xt8TpvGRp6O+2pFrKj0LVe9icIYUYl0lEd5WLen32KSBKatPwXnSSmh4OMvwqDhiHrHwg06pY5AnV3hgxNLSxYJEz28dyMy+Cn2CPzTBAVLJZ9Hzws6G0zl/9zGmttubxTXDJvBsZtrHH011mqsCUn6gVoNyavxPkf3UDpq8QQvCy6z8XGm2rYmiTUoB5w8Hb2bHYhPEEEnqRfEwRUkH6nzA4y2HEAPOVobEVeiNV099eAbFDn8K1MKrR/SStA6ipoCTI/Gm6P0SDJhKCHWIswaBcm3ZAogg1F8B2IhVaYBA5HQ1Ho5Vb9feuaXW8IcOqA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793965760; bh=ATsUMP3BUdw65MlOA8sVerWMNvG3qvNeBeKezp0nF96=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=DR8jTsFiB7TmN1A27xIUzzSP508emTF2G896fE+Mzh5wIL8cD4nchUI0U8qQTHJF1C2zDcZXMbY5LOlcl+z1/OX/Qdzr+4tdRuTLcJgIun8Rcfi5/8mBj6rxpR5CgFVeDn4/OazjN3y8dEpCMQgKWWeWWTgfxDaZxcP2VaMXGh1JFXSlsrhr6BjAokAJUtF7NR5V0DneEZ5kMdfLaSBZLb2tP5zEs0ZWOuXE2C2rabaincqpLuPmhISpJIwjYgG86ygYNGEdJs1mKK9v3CY3a7MdjOBzuzvPVzEPMdzNJu4I5K4u4QR8i9schBW/9iR11YmQEvPhISsTcDY18nCvQQ==
+X-YMail-OSG: 5DP.kuwVM1luZe6XXA2uG5R2SpM_xJGnARXro8TPD1LwKOWuNAtF3W1CZpt2MB7
+ 5jLk2ICc_XV9OFPTPRcvI1VU6y1V1Vn7mnHBfPC0umxO6Zxu1PVr0PcpZeEA5ssdx1nOhNxZBVGu
+ e91THDGckyzFhIrCYxzJi7y9CKf__gCWhwqOmMfQzZ2SSd.I962AS_l2MTad_9LbHs9x4_dEVRDA
+ n.i.7BjXTV77Z2731ViTqAmhUIx484F_7hHlvvt3c8kuYGr.Y1cxt9KVjXchzB3kQ7XRCbjSVF1P
+ qVXsdgU9owS6FjvvIlC5HhJu69GPSHRaWWiPkSGIFaNYQjNygJRo2xg5icrW7wqIZFR4vFN4o_6a
+ Z0U2BskHAtLlzkThMpduf6.pqO.pVJku2lH3k5RHxIdGUU_s_YoPo.CNka124ecVEzqDjXurWQ8Y
+ K6mYq5jGwMog3qDLKAwu7hEkG0ZheGvIy2YYTU.Rcp03Cez2NZRbY7zvj1gF2i7OpRym5qK2I5jy
+ Gt1gE3IR4jAXETVtpDph989TtVasU09DCrOpjy20rBhBlKUsWJJSHnEixjqZkrX79hkn7EE5ydrq
+ BwLcItsodfo2s7NbZO_vupH.tanpPMxuEOMfdz.dREhUNiOyNWuCZdhShd20x2.OwwXvhqveCbF2
+ XVHFjQrlsm_zE2JhH7pU_zAqgUGaluEjHUp8EZSy70XMtexo8y_8IVe5rFtEXNVDyVIvku8jXk03
+ jtMPpU.U3vCKD2dierJpzVnJzCw_OWC6jnaZfx.YNy9N8bfAP1RYWnvX1OmjvcOcarJUtjTsqUMC
+ PFd2nbKeXQ.5sjzgLOJF5heZG6t4FcgxRf26HbPeMcswsXObr2pTSBaUNsoBqScIJW38dFuyWtRO
+ Sl_Lj9zx335lQuPN_tb4JcRy2aC7lslLfjNp7FxJkXupw2wXF1B2FmqeAQTsnaf8J4Za2PnGFv3i
+ Wmm_gLGyrSI2j9nYINFQLAopFTKQmT7.6OhEhxPtTnN1FyGxKBwM7Z7D6XEoa5cs7p_R0MpxorAR
+ EmhonAwrkhiN6pjlN1kK5w7zaZi6npPqhvD8c8A9XjWjXpZisJEzIhjWl.rWK69EZgJyFN46cVdv
+ h1s..fm9TYKErpNV6lE5PsBfthO3xk6R4XbkDRbHgBgD16RpuKjWBH5GdP_bC_8bZw3D.sVxHsXb
+ OWkIfRoKXtKuON6TttT33cBaX0awR0bTZJLEZ459m83Up2bUQiHsfva1hivji28TEDmjN4jcltU9
+ ydHxPyANxbjNWO5mjA5GlX_YNxtsPuyDSi8DVAyDhK7oMiQxBfM20CUVO_.nhavBg8EUiK7_XFnv
+ nXx.e0MYOnv2wgPyCV7SwXYmUj8EmVWZKjyOng3eodAVCBwE5BUlSrbAu8GFyaKwyJUPQF8Gse2P
+ gATgG8dwCSvMzN72vXBWFTaayKRvEV356PJehORtJ7ZRdRguyZd0rJG8sOxeL3RtQZeWlUBaQ7y5
+ kxTvKsdDn3lF132qRoeWjzxF8eG48bBL2Oqn_YWGN.sjoXkkoRNLw4KNpDPa6fibseowWwUm0.hk
+ BYF0QHJ5beUx00BJafKGbyk_Uzxgwk1Bokawqe1Nnj6ahrVdbdRzHjogUydCJI3ZgH4.TcBivDmX
+ vicDJe2aHUNTaMKF9MDxlvy2DIwJ_fg0Uwr_6oOqLH7F6VNWATgHrLnuICTp8tS.q8xXbcdHM_Rz
+ I.FN.P8d.5io8SnE1VmbzouGiZbbfC3GJacYgfW30t4VeAM7X1wvLtsHOIbz.yEXmfgm_tmAcdw4
+ 5Kr.C09PBc4vChJ_lu0GK5t_MEhZQRRMWQbnrErMea8frAq9ezgoQevumriaqKhZEml1gU60QM2i
+ oOp3VtKYvcDtFeOeH2Ix.Gu3YJY7f6sn6IIMVZKyDhwQJmkoo5Cq.rVP.QmE9wehNOoQrrNQnGSI
+ 867RlDC6_3fubz1no3qeiqWsGuY7BEICWMpjyG0qJASpDmiB5cHPFBH1Irs23P40ruvlDqJtp4dx
+ veG6WpraIKZfNmKk7hVCVBMohCBOuIJ20ul7Z._7dZ0wKHNQwY.XiElpeA0JRKyXazOWrFz4UX80
+ de_T7HaUSM9Q1rjYFKZZAd_h7R_o3TdXLByn411X__nVa4xvnRPQiEYBESuyx.4wywiKYYVztjYN
+ osPssvDfaWAtQB0OntOQIBvIUwiibNuG8f9HWqC4E05.lQfJBPMPsCjUCa1VZVqbOIfdkYRuRntp
+ 5Gt52VTeMjo8yRcWJ9p4yMIFVxKL0IJYRGWWTmpOiqExhacB9Y0dwn9urdESJzPiQEiz.gJpxAeH
+ zr1D1dRkTCUo52k4PsR9FwUAFndgEOOOZzA--
+X-Sonic-MF: <laurian.iacob@yahoo.com>
+X-Sonic-ID: 064a999d-8026-49ee-89b0-7b9ccbf51b14
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic310.consmr.mail.bf2.yahoo.com with HTTP; Fri, 6 Nov 2026 11:49:20 +0000
+Received: by hermes--production-ir2-5dd9bf4598-ck52d (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 8164e76d67edcc433b51d334a9ea5c3a;
+          Fri, 06 Nov 2026 11:49:18 +0000 (UTC)
+From: Laurian Iacob <laurian.iacob@yahoo.com>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Laurian Iacob <laurian.iacob@yahoo.com>
+Subject: [PATCH] media: i2c: ds90ub960: use scope-based guard(mutex)
+Date: Fri,  6 Nov 2026 13:48:59 +0200
+Message-ID: <20261106114859.1579-1-laurian.iacob@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,118 +91,465 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] dt-bindings: media: qcom,sm8150-camss: Add SM8150
- CAMSS
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org
-References: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
- <20261106-sm8150-v7.4-rc1-camss-v2-2-39ee37787b00@andrewgigena.dev>
- <IWvxuoWpGYwCLU5ciL8gkh5DK0QqOKvsLCmpHsl5wj-04snX7qeL5mH24L7rzTMihCKZN4yX0_gDn78dY71OSA==@protonmail.internalid>
- <540014fb-d271-4e20-9a3c-3f2fb66723ce@linaro.org>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <540014fb-d271-4e20-9a3c-3f2fb66723ce@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+References: <20261106114859.1579-1-laurian.iacob.ref@yahoo.com>
 
-On 06/11/2026 11:20, Vladimir Zapolskiy wrote:
->> +maintainers:
->> +  - Andrew Gigena<mail@andrewgigena.dev>
->> +
->> +description: |
->> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
->> +
->> +properties:
->> +  compatible:
->> +    const: qcom,sm8150-camss
->> +
->> +  clocks:
->> +    minItems: 27
->> +    maxItems: 27
->> +
->> +  clock-names:
->> +    items:
->> +      - const: camnoc_axi
->> +      - const: cpas_ahb
->> +      - const: csiphy0
->> +      - const: csiphy0_timer
->> +      - const: csiphy1
->> +      - const: csiphy1_timer
->> +      - const: csiphy2
->> +      - const: csiphy2_timer
->> +      - const: csiphy3
->> +      - const: csiphy3_timer
-> I ask you to switch to the new CSI2 PHY driver, please exclude these I/O
-> spaces from the CAMSS container device.
-> 
-> It makes no sense to deal with all-phy-combined supplies and the multitude
-> of other solved problems.
-> 
-> The cost of changing the device to exploit the new CSIPHY driver is
-> close to zero.
-> 
-> --
-> Best wishes,
-> Vladimir
+Modernize the locking in the ds90ub960 driver by converting manual
+mutex_lock() and mutex_unlock() operations to the scope-based
+guard(mutex) and scoped_guard(mutex) macros from <linux/cleanup.h>.
 
-So I'm fine to take the patch as is - but if Andrew _wants_ to take on 
-switching to csiphy driver - that would be a welcome series ofc.
+This simplifies error handling by allowing the removal of multiple
+'out_unlock' goto labels and ensuring locks are safely released upon
+function exit or block termination.
 
-Its up to you Andrew.
-
+Signed-off-by: Laurian Iacob <laurian.iacob@yahoo.com>
 ---
-bod
+ drivers/media/i2c/ds90ub960.c | 171 +++++++++++++---------------------
+ 1 file changed, 67 insertions(+), 104 deletions(-)
+
+diff --git a/drivers/media/i2c/ds90ub960.c b/drivers/media/i2c/ds90ub960.c
+index 7d7ba6d349fc..d603d12f026f 100644
+--- a/drivers/media/i2c/ds90ub960.c
++++ b/drivers/media/i2c/ds90ub960.c
+@@ -748,24 +748,19 @@ static int ub960_read(struct ub960_data *priv, u8 reg, u8 *val, int *err)
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = regmap_read(priv->regmap, reg, &v);
+ 	if (ret) {
+ 		dev_err(dev, "%s: cannot read register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+-		goto out_unlock;
++		if (err)
++			*err = ret;
++		return ret;
+ 	}
+ 
+ 	*val = v;
+-
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
+-	if (ret && err)
+-		*err = ret;
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int ub960_write(struct ub960_data *priv, u8 reg, u8 val, int *err)
+@@ -776,19 +771,19 @@ static int ub960_write(struct ub960_data *priv, u8 reg, u8 val, int *err)
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = regmap_write(priv->regmap, reg, val);
+-	if (ret)
++	if (ret) {
+ 		dev_err(dev, "%s: cannot write register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+ 
+-	mutex_unlock(&priv->reg_lock);
+-
+-	if (ret && err)
+-		*err = ret;
++		if (err)
++			*err = ret;
++		return ret;
++	}
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static int ub960_update_bits(struct ub960_data *priv, u8 reg, u8 mask, u8 val,
+@@ -800,19 +795,18 @@ static int ub960_update_bits(struct ub960_data *priv, u8 reg, u8 mask, u8 val,
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = regmap_update_bits(priv->regmap, reg, mask, val);
+-	if (ret)
++	if (ret) {
+ 		dev_err(dev, "%s: cannot update register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+ 
+-	mutex_unlock(&priv->reg_lock);
+-
+-	if (ret && err)
+-		*err = ret;
++		if (err)
++			*err = ret;
++	}
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static int ub960_read16(struct ub960_data *priv, u8 reg, u16 *val, int *err)
+@@ -824,24 +818,20 @@ static int ub960_read16(struct ub960_data *priv, u8 reg, u16 *val, int *err)
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = regmap_bulk_read(priv->regmap, reg, &__v, sizeof(__v));
+ 	if (ret) {
+ 		dev_err(dev, "%s: cannot read register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+-		goto out_unlock;
++		if (err)
++			*err = ret;
++
++		return ret;
+ 	}
+ 
+ 	*val = be16_to_cpu(__v);
+-
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
+-	if (ret && err)
+-		*err = ret;
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int ub960_rxport_select(struct ub960_data *priv, u8 nport)
+@@ -877,24 +867,22 @@ static int ub960_rxport_read(struct ub960_data *priv, u8 nport, u8 reg,
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = ub960_rxport_select(priv, nport);
+ 	if (ret)
+-		goto out_unlock;
++		goto out;
+ 
+ 	ret = regmap_read(priv->regmap, reg, &v);
+ 	if (ret) {
+ 		dev_err(dev, "%s: cannot read register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+-		goto out_unlock;
++		goto out;
+ 	}
+ 
+ 	*val = v;
+ 
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
++out:
+ 	if (ret && err)
+ 		*err = ret;
+ 
+@@ -910,23 +898,19 @@ static int ub960_rxport_write(struct ub960_data *priv, u8 nport, u8 reg,
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = ub960_rxport_select(priv, nport);
+ 	if (ret)
+-		goto out_unlock;
++		goto out;
+ 
+ 	ret = regmap_write(priv->regmap, reg, val);
+ 	if (ret)
+ 		dev_err(dev, "%s: cannot write register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+-
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
++out:
+ 	if (ret && err)
+ 		*err = ret;
+-
+ 	return ret;
+ }
+ 
+@@ -939,23 +923,20 @@ static int ub960_rxport_update_bits(struct ub960_data *priv, u8 nport, u8 reg,
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = ub960_rxport_select(priv, nport);
+ 	if (ret)
+-		goto out_unlock;
++		goto out;
+ 
+ 	ret = regmap_update_bits(priv->regmap, reg, mask, val);
+ 	if (ret)
+ 		dev_err(dev, "%s: cannot update register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+ 
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
++out:
+ 	if (ret && err)
+ 		*err = ret;
+-
+ 	return ret;
+ }
+ 
+@@ -969,27 +950,24 @@ static int ub960_rxport_read16(struct ub960_data *priv, u8 nport, u8 reg,
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = ub960_rxport_select(priv, nport);
+ 	if (ret)
+-		goto out_unlock;
++		goto out;
+ 
+ 	ret = regmap_bulk_read(priv->regmap, reg, &__v, sizeof(__v));
+ 	if (ret) {
+ 		dev_err(dev, "%s: cannot read register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+-		goto out_unlock;
++		goto out;
+ 	}
+ 
+ 	*val = be16_to_cpu(__v);
+ 
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
++out:
+ 	if (ret && err)
+ 		*err = ret;
+-
+ 	return ret;
+ }
+ 
+@@ -1030,24 +1008,22 @@ static int ub960_txport_read(struct ub960_data *priv, u8 nport, u8 reg,
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = ub960_txport_select(priv, nport);
+ 	if (ret)
+-		goto out_unlock;
++		goto out;
+ 
+ 	ret = regmap_read(priv->regmap, reg, &v);
+ 	if (ret) {
+ 		dev_err(dev, "%s: cannot read register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+-		goto out_unlock;
++		goto out;
+ 	}
+ 
+ 	*val = v;
+ 
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
++out:
+ 	if (ret && err)
+ 		*err = ret;
+ 
+@@ -1063,23 +1039,20 @@ static int ub960_txport_write(struct ub960_data *priv, u8 nport, u8 reg,
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = ub960_txport_select(priv, nport);
+ 	if (ret)
+-		goto out_unlock;
++		goto out;
+ 
+ 	ret = regmap_write(priv->regmap, reg, val);
+ 	if (ret)
+ 		dev_err(dev, "%s: cannot write register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+ 
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
++out:
+ 	if (ret && err)
+ 		*err = ret;
+-
+ 	return ret;
+ }
+ 
+@@ -1092,20 +1065,18 @@ static int ub960_txport_update_bits(struct ub960_data *priv, u8 nport, u8 reg,
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = ub960_txport_select(priv, nport);
+ 	if (ret)
+-		goto out_unlock;
++		goto out;
+ 
+ 	ret = regmap_update_bits(priv->regmap, reg, mask, val);
+ 	if (ret)
+ 		dev_err(dev, "%s: cannot update register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+ 
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
++out:
+ 	if (ret && err)
+ 		*err = ret;
+ 
+@@ -1144,18 +1115,18 @@ static int ub960_read_ind(struct ub960_data *priv, u8 block, u8 reg, u8 *val,
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = ub960_select_ind_reg_block(priv, block);
+ 	if (ret)
+-		goto out_unlock;
++		goto out;
+ 
+ 	ret = regmap_write(priv->regmap, UB960_SR_IND_ACC_ADDR, reg);
+ 	if (ret) {
+ 		dev_err(dev,
+ 			"Write to IND_ACC_ADDR failed when reading %u:%x02x: %d\n",
+ 			block, reg, ret);
+-		goto out_unlock;
++		goto out;
+ 	}
+ 
+ 	ret = regmap_read(priv->regmap, UB960_SR_IND_ACC_DATA, &v);
+@@ -1163,14 +1134,12 @@ static int ub960_read_ind(struct ub960_data *priv, u8 block, u8 reg, u8 *val,
+ 		dev_err(dev,
+ 			"Write to IND_ACC_DATA failed when reading %u:%x02x: %d\n",
+ 			block, reg, ret);
+-		goto out_unlock;
++		goto out;
+ 	}
+ 
+ 	*val = v;
+ 
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
++out:
+ 	if (ret && err)
+ 		*err = ret;
+ 
+@@ -1186,18 +1155,18 @@ static int ub960_write_ind(struct ub960_data *priv, u8 block, u8 reg, u8 val,
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = ub960_select_ind_reg_block(priv, block);
+ 	if (ret)
+-		goto out_unlock;
++		goto out;
+ 
+ 	ret = regmap_write(priv->regmap, UB960_SR_IND_ACC_ADDR, reg);
+ 	if (ret) {
+ 		dev_err(dev,
+ 			"Write to IND_ACC_ADDR failed when writing %u:%x02x: %d\n",
+ 			block, reg, ret);
+-		goto out_unlock;
++		goto out;
+ 	}
+ 
+ 	ret = regmap_write(priv->regmap, UB960_SR_IND_ACC_DATA, val);
+@@ -1205,12 +1174,10 @@ static int ub960_write_ind(struct ub960_data *priv, u8 block, u8 reg, u8 val,
+ 		dev_err(dev,
+ 			"Write to IND_ACC_DATA failed when writing %u:%x02x: %d\n",
+ 			block, reg, ret);
+-		goto out_unlock;
++		goto out;
+ 	}
+ 
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
++out:
+ 	if (ret && err)
+ 		*err = ret;
+ 
+@@ -1226,18 +1193,18 @@ static int ub960_ind_update_bits(struct ub960_data *priv, u8 block, u8 reg,
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = ub960_select_ind_reg_block(priv, block);
+ 	if (ret)
+-		goto out_unlock;
++		goto out;
+ 
+ 	ret = regmap_write(priv->regmap, UB960_SR_IND_ACC_ADDR, reg);
+ 	if (ret) {
+ 		dev_err(dev,
+ 			"Write to IND_ACC_ADDR failed when updating %u:%x02x: %d\n",
+ 			block, reg, ret);
+-		goto out_unlock;
++		goto out;
+ 	}
+ 
+ 	ret = regmap_update_bits(priv->regmap, UB960_SR_IND_ACC_DATA, mask,
+@@ -1246,12 +1213,10 @@ static int ub960_ind_update_bits(struct ub960_data *priv, u8 block, u8 reg,
+ 		dev_err(dev,
+ 			"Write to IND_ACC_DATA failed when updating %u:%x02x: %d\n",
+ 			block, reg, ret);
+-		goto out_unlock;
++		goto out;
+ 	}
+ 
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
++out:
+ 	if (ret && err)
+ 		*err = ret;
+ 
+@@ -1272,12 +1237,10 @@ static int ub960_reset(struct ub960_data *priv, bool reset_regs)
+ 	if (ret)
+ 		return ret;
+ 
+-	mutex_lock(&priv->reg_lock);
+-
+-	ret = regmap_read_poll_timeout(priv->regmap, UB960_SR_RESET, v,
+-				       (v & bit) == 0, 2000, 100000);
+-
+-	mutex_unlock(&priv->reg_lock);
++	scoped_guard(mutex, &priv->reg_lock) {
++		ret = regmap_read_poll_timeout(priv->regmap, UB960_SR_RESET, v,
++					       (v & bit) == 0, 2000, 100000);
++	}
+ 
+ 	if (ret)
+ 		dev_err(dev, "reset failed: %d\n", ret);
+-- 
+2.43.0
+
