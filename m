@@ -1,49 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976128;
-	b=zDh0JA1s5e1JP7AezIolOZt0d5cHWVpC9pA320LPzSstTmEtpXowI4/4ruE14rYxb5ru
-	 VTNJTTqydPv/ZNKc8ujCDWyqgVJ0MYrkmboDfZQBMvfwUsauEwK+w0XHbMaPo8XGzAwB8
-	 CUrSD1M+V1KSvGzhD2oORnWxrkFASBcCKEm76Z6PdHPIRy72jLTC0xWZp8DaGCjghDfyK
-	 2Q0CtJEw40xsPhQe97Pk51tlEQxaTBtddvDdbM2jgsuVdGABJ7526h/sDvB6wkOM0JDEE
-	 wM0lYD7xq+pP9+815yoXfWokD8rva2Y3PzAVdFHXB7N4eh3DXlNFz5V8xA5EpeB3OtQ==
+	t=1793976171;
+	b=lPtKpLkTs3OVgZgIigVfbhNL3IIEt2iUlvk8aDPQXuIJzN7qAfMY5cRAqknJKFjHJl/l
+	 +HEtzeyzN6SviYKUsgEZAa8WY0UzQ5KE3voKMSZ/LRawamI6/eZ5XjDLWIrjtB5RQq8gL
+	 rGx9rWnxTIIPnOEPxRjmAK4TRglTB363y10xOCbIddnGEoY9+q4yJOS1YDH9dXhb0FmbW
+	 T2EIfp3LVWdSO1ULwlXa9O+FIFExo8WeNmxGl/UaEB8FZqGw4/nOI+KXamIsGQgWVDzD2
+	 Cxg8Ox8z9nqCdEW7guNcF+1oe/eYU25TSpINJNYdkLlc75OLZfge8OCEinjdfQvZZfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976128;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=dPrT1d3tfAdRZHoFdKvhwwCCJALbTuZcl0ma0HWZQHQ=;
-	b=OHNBMRT/wD5zaowN6P9prBWC3w+J3kMaD64HULbCv+hHTe0sWQZENFPua+hJR3dJuot/
-	 0S3S+UeflNWYgNZjwYcPvz9fa6zvPtkDsNekaRyVznAC8iPxNgha/LuXndnPkPgf6YrAp
-	 rMy7Eo6qFJWQ5PNXbJ8vj+BOsFBPFZNhEMFr1F3wk4cyp/AqR5t6A+uatYWZusAFWeSek
-	 R+ct+bWKNxQO7pYGjkKznyJG5tpeg32na0vziDZGVvRbwPw452Ywf0Rvk6MyPqcYFZMmb
-	 3wPQWBSdmjqRb6hiKRlMAu0zSb2qVFhs/GsCKD9Dov+jrteaOIXxOigf37k2g83M5wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976171;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=2nx4btjrzTIyOhcmjsp4Gmy2ZMmA3W+VBNA1Er2UBuw=;
+	b=uULXPYe+JPzrziYt4krrSqx70W1MYQ55Fhu3S3KGE/P13DOq93CmmtUascgu/xmvyMrl
+	 Eyft4gfPiH4e5KvIS7Y8fsxDTZqHmhqAiCJOTq0uhVNTu4vnfaq47BC6im5p/3/++Z/aT
+	 K+YisNDeecXZo3bpaE6ZVYRgBpnkMPYrYuy9kXofDKv9NO7FZEnJy0OapusFSu7lrrMV6
+	 UYMw5kwUFllMjOG3F2Z4Kclc+fAG9EtjxtB8zO81Uvao1yDHblLq/kdCdB0kMb/xTH8Or
+	 e9Zo1BRPYWDwib7uuq9fKU9QJdNGL/EU8F3i6Dd8nQxh1OwJRPt7R5gywjLrx3o1r6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="B/mbpzSL";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8390E606A32F
-	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 14:42:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8390E606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="OW+9Brl/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9C2606A329;
+	Fri,  6 Nov 2026 14:42:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=B/mbpzSL
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BD2F41650;
-	Fri,  6 Nov 2026 06:42:03 -0800 (PST)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C297A3F673;
-	Fri,  6 Nov 2026 06:41:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793976126; bh=RROBsGVNy+Oakstf6DXz+xH01uQZXz9GOkcgQ0meiw4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=B/mbpzSLUIxkLsvdYEgUGs2NsLPfEoaHIS2u4uoKA+TM6l8BAPmmaFFiWCiMC/+zG
-	 RnZu7A5UIYQ7u/AWqfgGaXvhX9c5DxYbnRdfhdakUjLrptQLm8mu5OPAnNzPX6lE/G
-	 B3q1sAgPLmHroCXLRJ29Lu6hp0qwTMoNkNoh4n1Q=
-Message-ID: <2e448ac1-7b4f-4d45-90db-dfe9dc5ad329@arm.com>
-Date: Fri, 6 Nov 2026 14:41:57 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OW+9Brl/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB5E1F0089F;
+	Fri,  6 Nov 2026 14:42:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793976170;
+	bh=2nx4btjrzTIyOhcmjsp4Gmy2ZMmA3W+VBNA1Er2UBuw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OW+9Brl/0wBK+AEHlYVNAg7A2106UP15/AZokd1oJDRfjrT9CZshwWAhMcVaJ/5NA
+	 h9unnC1g1ELGgJABWeJ9hq6WQSHcm2t6umStmmTx3CuiR9LZuThyBWsdPATe8rl+b5
+	 UPi4fjD1dgWB5oqceDj+hR01BoTqLVjdkC51TLVlYgXm1o2Ck7nR7HF0hY9+8lT1KV
+	 6TnfpLQtsGZTxMa4qCK5DPfzRo/cwXCmRNPdjZZFCr5qpbLUjjyqABfXwlzslP9+A9
+	 oLWtMo+l3M0X2w/YYUd9utlCs6tlevtyh9ch6bxaKkcmL+eVrs85ohcWgOAzUSU76M
+	 YgJos78nIgpOQ==
+Message-ID: <e1dca050-a82a-4c15-b8dd-ea88f6a69852@kernel.org>
+Date: Fri, 6 Nov 2026 14:42:45 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -54,77 +52,75 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 01/14] mm: Add an allocator for CoCo shared memory
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- linux-coco@lists.linux.dev
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
- Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
- Will Deacon <will@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>, Ritesh Harjani
- <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
- Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
- <rick.p.edgecombe@intel.com>, "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
- linaro-mm-sig@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org, linux-mm@kvack.org, kvmarm@lists.linux.dev,
- patches@lists.linux.dev
-References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
- <20261104164555.3555725-2-aneesh.kumar@kernel.org>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261104164555.3555725-2-aneesh.kumar@kernel.org>
+Subject: Re: [PATCH v7 1/8] dt-bindings: media: qcom: Add JPEG encoder binding
+To: Rob Herring <robh@kernel.org>,
+ Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, mchehab@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ loic.poulain@linaro.org, dmitry.baryshkov@oss.qualcomm.com,
+ gjorgji.rosikopulos@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261106082522.1448390-1-atanas.filipov@oss.qualcomm.com>
+ <20261106082522.1448390-2-atanas.filipov@oss.qualcomm.com>
+ <W72h_ikFna43y3RzXvaORkVFJddI5yvhAb6XT0TEQPsYskZWMphYac7rIV2CfhUQxH7EE7jXKfg0wNs_-b9AtQ==@protonmail.internalid>
+ <20261106133143.GA2705755-robh@kernel.org>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261106133143.GA2705755-robh@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/11/2026 16:45, Aneesh Kumar K.V (Arm) wrote:
-> Confidential-computing guests may require memory shared with the host to
-> be aligned and transitioned in units larger than PAGE_SIZE. Several DMA
-> users need struct page-backed allocations satisfying these requirements.
-> Provide a common allocator instead of requiring each user to open-code
-> this sequence.
-> 
-> Add alloc_cc_shared_pages() and its node-aware variant. The allocator
-> rounds the requested size to the architecture's shared granule,
-> allocates suitably aligned contiguous pages and transitions the
-> complete range to shared state. It also preserves the caller's GFP
-> policy.
-> 
-> A private-to-shared transition may alter memory contents. Mask
-> __GFP_ZERO from the underlying allocation and when requested, clear the
-> complete transitioned range after cc_make_shared() succeeds.
+On 06/11/2026 13:31, Rob Herring wrote:
+>> +      - const: camnoc_axi
+>> +      - const: camnoc_axi_src
+> These 2 don't sound like clocks that are part of this block. And 'src'
+> sounds like the parent clock? Use assigned-clocks for parent clocks (or
+> just retrieve the parent from the clk api).
 
-This is not true for pKVM though. It is the other way around. i.e,
-pages must be cleared before transition (e.g., from private to shared)
-to make sure the contents don't leak into the host.
+_src is a parent clock indeed.
 
-Do we need to handle such cases with a pre_conversion and 
-post_conversion hook ?
-
-Cheers
-Suzuki
-
+---
+bod
