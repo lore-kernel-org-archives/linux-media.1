@@ -1,49 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979275;
-	b=EL8PNy0mW2V4mSCAD61MLsh+I8al8yJB0ZEMPWZXOTtGGLyPRR6ev3kyMjb8XbKQtCVV
-	 V3UC9Qk7JxH1H+8NzpDZTnMAi6HjFioEU8xkZgdtjqrLmmzhpicFjW1m80CxyXAgupRJh
-	 zv/1QBgBefJiyapebvOWPJEx1NYejqpI4cQEykPpE/Wm3KBbA9EF742OAO7kQFSjg5WsT
-	 wJFSzSjTrE+1uYndBbckZTVriXLkNPd3hiGGd+TIsbNStPCN82mu7uYbjVUi+jthgnSVj
-	 1VOxA5BOQCU9I+zn7B/prqfqmzvXFLRLUP22esBr/h/Q1wvnV3UtNP4Y5eBWpAKUPow==
+	t=1793979528;
+	b=1Vvv1SjOtj5buTBC2RKw+Rid0+y2DMLoi3YlxN42No94g3wgC+agFkyu/Nk5VYy87tql
+	 jzeAE4pOjsJOnVOqChHgySC2ZmrOFimXpXKvM/TLNO1t7LLdsl2T6W0aLR7FrgT++lwId
+	 i/oKL+bLfSICfVxEljSvKRgBWpxJ4uVQ6hWzf9tRKWN7sBQtZA1701oGCMGQrFJLDmqB1
+	 vlrkc0uKlTQq4hKCizouJpezLoWhorMftOjX7qSlLHvVRrg7ODMVVuKuby/Ts7RCjw849
+	 qtrZ/MN0Ueb16fG0TeZEJGcv+5CVUWL6dKndN0tJVZh9hGt5UPGlYhpRR1HgDeEexlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979275;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Uj6b08bxBrGPMBQHtFI05sMh6Xoy8ejNAgMPUPWV1BQ=;
-	b=z59dzBwDoeiMUTqk1MEFdNVc6WRg36qbZb7F8Z5BKW2gHh7lcLldfJbqQrfsq56NSsaO
-	 dBET2tppS8pbFp15lDfzRB8rzG4ySmSXX9iiUruHQr/GuM4tSYfDGoSspZNjb7F0kvgJ3
-	 T9BRD84nvbWDLcIUAXofs4XfhtdmeuahpuYWdm6VJ+/VlzLpgi8kQG+Tfz82zf1WJN5cO
-	 9b5QYzrcxbDzvfWFXJNskvNPSBbdoemGByalAfEk3wTxzSLHpK+E/rRwW10AkflZvqZdA
-	 5OuhWDADmKNl/O1ksWli+uVf9Ksj4tdu/wEfqbhDg7p1FyK8MGwQo7Djc1q0NdI56gQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979528;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qAsxFteOOkjn85+iiSYU4HCwymsUrf5TgwAhY4i0RPc=;
+	b=QqE8uHqy+YdgblwCMH53jAT5fYleNF90yewA8wFGBxLcjHQdX48JmV14aPu41SukKMSx
+	 oqA4bVyPs6ZyKAznD6dV9Q6VmR4uvvgoiKpHbEGA04v0eCMJR1nt2XdtsIOocJYMF6bOr
+	 la+rNidsM/4IPgKTyBIjmeEmFk2oBREj7e71uQxtI9m1ytt2jzoKCvsrF7YhOMtUcrjtg
+	 ktENKZNLMM6Y0BFaggG7oDLkdnt/ftb/H17gHIt4/66gPkU8QSFgq/OBmbLKMvD/30c1y
+	 yckhaiiH2dAqzOmgBfgHRBrRgxLOz1fO1xpI8Lj934Iq1ZVHufex6ppWyCltksdmQ6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HoIuxL1I;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1C066606A326
-	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 15:34:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C066606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dJAJQYE1;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E197606A32D
+	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 15:38:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E197606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HoIuxL1I
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 20D391682;
-	Fri,  6 Nov 2026 07:34:30 -0800 (PST)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2B6803F632;
-	Fri,  6 Nov 2026 07:34:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793979273; bh=kbtuYZHukFIc3XIsRQp6dsFZOem1VpVxmEcgHFZmqd0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=HoIuxL1ItDLUGlcavjNXD/JxrmPk3WBhtY7TT2qM8F45c/7Q3yyjSI+pQ153K1fb0
-	 YXClJGmCHDlVOTNxhr9aTezROBBizZumSyroGckV652hcFVqpuVFnjin2TJWlbTvqZ
-	 Bx38XYVnikraEyti5l13jjcvEmncaKF99Gps4Xng=
-Message-ID: <397b7702-ae85-472b-909e-05b3c4135c61@arm.com>
-Date: Fri, 6 Nov 2026 15:34:23 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dJAJQYE1
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3b0e0e65adbso358673a91.3
+        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 07:38:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793979528; x=1794584328; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qAsxFteOOkjn85+iiSYU4HCwymsUrf5TgwAhY4i0RPc=;
+        b=dJAJQYE1w/j77c18sxLOlo+mr1HuEXlS37uqbWjJ4X/5lm97x75Vp+apbxqyhKE+Fn
+         HWTJcV1wWbDg5zUaT5jhN8RLS3k6SY9lJX5jXuG9wWu+dB9lWbchMLk6X6vnoBTqWw3s
+         pV1RRNRbPPvXt40PH1AIzIM8v4w5Me3sSeOn3O6aAE1+sP7AnnZam8Vyuj0MZ1TKiWij
+         pFwvVGrnmK/BCISZfmfpAa/tKPjMkdNwTZ0V9h0795WuYHlTlfZ1/VmoW2x83SisKvVT
+         LACJSAj484px3o9i8slantTN37v6/QJsYLYkZAwN/uv/GL41bimO30PxYXrM91Vr43Pf
+         HjwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793979528; x=1794584328;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qAsxFteOOkjn85+iiSYU4HCwymsUrf5TgwAhY4i0RPc=;
+        b=pz58EZbL4CFT2OqfkdWc2/CYPmyphVCwvYad8Y5y7BesLK1ufIYDJ5ooBXYHHD2qwm
+         nAQI9zuMxGaSrMoyLQ4xKWjzJuUJT4YyDGwXDwKrNbNmn72r0eVcelDkaDZKl51NBzjE
+         I+wlF/uCLqSEMdJ24H5/UlzowGcGVJ4099glbEHuH/RzivOI9kXzdk5coX0qZHvpreRe
+         8Q9iK14Nw1oe9/esQQAXGtM2agxX9qA8ICjIoUrjhh+/dVgjJ6c60FPodOjear5sn3pk
+         lDH9lw1LP9zi5JKZ7ayW0k060Xq6W/ksJru7pFtpHOQeI16cT3K0Tq0dXusMamJfoMy5
+         530A==
+X-Forwarded-Encrypted: i=1; AL+hErH9b2miysg7ND9XuF5TgGIiIp7S1wMXNzaPbWaaf02S6u0t/LEeqDLJwaut86x61izHrz9JeTDW9c99ug==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8IMZmrVe4p9XojCEmsAPxdHxVcI39XSIB3CyRusNKK8mZGSc4Q
+	JzigY/YZwt1cLxl97gxuRcgRjdHPpnJ/rOvuIau93hB1huAQbDK+Q8f9
+X-Gm-Gg: AYBFou2Gv1g4Rv4j4ip39XPEmXJ69lL1uND8HYASlJdZTUbaII0IL12OlpVL2VVQZYg
+	yg/FqOT96hjprd4/Y34YV2n34pQgZR7x5BVWVxhwS3ecrCY9+YfnhZfvUgEDrJ8X3Eb3kzSULWB
+	PQ4/4ScgT8YEYPMt9AH68iP+aRSp9TT2d5NgTlnRhiEIOOVWH5c2MJ32WLc9ZYiUWiI3sXEcLlY
+	cZw3dtMQNmmkX2P43GUxe2c985QvFhqdEDxQsjDrbKrKQzLhw9zLUGpGEduXbpNtdkX7IAZzjyI
+	Te7/6EYm/bKnQqDqNdfCRf7hCtG9qFGdo61jsdrucXAAAGsM35237y4F9oMG9LnycXoz37ANax4
+	L9PBStXdyqP1xLDuUFQk9U/JzhAriyn/BCtmUdbk3ChgHZIxVsvnkO3sBoIoxF7hfTOgvgGNAZY
+	O40aRGBMGAsoAspMvOFgebRMLYf3Fdn/DBaEeD+pyki4w79sk5YBH9yV+LVYtalQSHFP6UcJU/Z
+	vjSIp5p4KAN3nEVLQmOi4r/hg4f40Y8UTncStFfHq2v1cC6XhqhlXe7QwPG+3dWPdRxxSIQ2Chy
+	DlcGHfVn6GQENmL+DPnKGYtooVXXZ1DTZUfXxwV4tmj1GFmJ
+X-Received: by 2002:a17:90b:388d:b0:3a7:9adb:2a0d with SMTP id 98e67ed59e1d1-3b0db13e119mr2605368a91.0.1793979527519;
+        Fri, 06 Nov 2026 07:38:47 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b32b2b57sm9067695a91.15.2026.11.06.07.38.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 07:38:47 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: cx23885: altera-ci: drain CI status work before free
+Date: Sat,  7 Nov 2026 00:38:31 +0900
+Message-ID: <20261106153831.2736659-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -53,89 +96,60 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 01/14] mm: Add an allocator for CoCo shared memory
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, linux-coco@lists.linux.dev
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
- Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
- Will Deacon <will@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>, Ritesh Harjani
- <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
- Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
- <rick.p.edgecombe@intel.com>, "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
- linaro-mm-sig@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org, linux-mm@kvack.org, kvmarm@lists.linux.dev,
- patches@lists.linux.dev
-References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
- <20261104164555.3555725-2-aneesh.kumar@kernel.org>
- <2e448ac1-7b4f-4d45-90db-dfe9dc5ad329@arm.com> <yq5ald76ou4m.fsf@kernel.org>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <yq5ald76ou4m.fsf@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06/11/2026 15:30, Aneesh Kumar K.V wrote:
-> Suzuki K Poulose <suzuki.poulose@arm.com> writes:
-> 
->> On 04/11/2026 16:45, Aneesh Kumar K.V (Arm) wrote:
->>> Confidential-computing guests may require memory shared with the host to
->>> be aligned and transitioned in units larger than PAGE_SIZE. Several DMA
->>> users need struct page-backed allocations satisfying these requirements.
->>> Provide a common allocator instead of requiring each user to open-code
->>> this sequence.
->>>
->>> Add alloc_cc_shared_pages() and its node-aware variant. The allocator
->>> rounds the requested size to the architecture's shared granule,
->>> allocates suitably aligned contiguous pages and transitions the
->>> complete range to shared state. It also preserves the caller's GFP
->>> policy.
->>>
->>> A private-to-shared transition may alter memory contents. Mask
->>> __GFP_ZERO from the underlying allocation and when requested, clear the
->>> complete transitioned range after cc_make_shared() succeeds.
->>
->> This is not true for pKVM though. It is the other way around. i.e,
->> pages must be cleared before transition (e.g., from private to shared)
->> to make sure the contents don't leak into the host.
->>
->> Do we need to handle such cases with a pre_conversion and
->> post_conversion hook ?
->>
-> 
-> Patch 2 does something similar.
+From: Hyunjung Ko <hj351016@gmail.com>
 
-Ah, yes! Thanks
+altera_ci_irq() schedules inter->work (netup_read_ci_status) from the
+cx23885 interrupt path, but nothing cancels it on teardown. The worker
+netup_read_ci_status() obtains the fpga_internal via container_of() and
+takes inter->fpga_mutex, so it must not outlive that structure.
 
-Cheers
-Suzuki
+On device removal cx23885_finidev() calls free_irq() and then drains only
+its own works (cx25840_work, ir_rx_work, ir_tx_work) before unregistering
+the device, which reaches altera_ci_release(). free_irq() waits for the
+interrupt handler to finish but does not cancel a work the handler has
+already scheduled, and inter->work is not among the drained works.
+altera_ci_release() then frees the fpga_internal via
+kfree(state->internal).
 
-> 
-> -aneesh
+If the CI interrupt fires shortly before free_irq(), inter->work is left
+queued on the system workqueue and runs after the fpga_internal has been
+freed, so netup_read_ci_status() dereferences freed memory and operates on
+inter->fpga_mutex in a freed structure (use-after-free).
+
+Drain the work with cancel_work_sync() before freeing the fpga_internal, in
+the final-release branch where it is about to be freed. altera_ci_release()
+does not hold inter->fpga_mutex, so the drain cannot deadlock against the
+handler.
+
+The sibling NetUP CI driver cimax2.c has an identically-named
+netup_read_ci_status() work and had the same use-after-free fixed in commit
+4e143d662ca9 ("media: cx23885: cancel NetUP CI work before teardown");
+altera-ci.c has the same pattern but was not covered by that change.
+
+Found by static analysis and code review; not runtime-reproduced (needs a
+NetUP CI card on cx23885 hardware and an interrupt racing device removal).
+
+Fixes: 349bcf02e361 ("[media] Altera FPGA based CI driver module")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ drivers/media/pci/cx23885/altera-ci.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/media/pci/cx23885/altera-ci.c b/drivers/media/pci/cx23885/altera-ci.c
+index 20a3b6c..94930e2 100644
+--- a/drivers/media/pci/cx23885/altera-ci.c
++++ b/drivers/media/pci/cx23885/altera-ci.c
+@@ -496,6 +496,7 @@ void altera_ci_release(void *dev, int ci_nr)
+ 
+ 			ci_dbg_print("%s: Actually removing\n", __func__);
+ 
++			cancel_work_sync(&temp_int->internal->work);
+ 			remove_inode(temp_int->internal);
+ 			kfree(state->internal);
+ 		}
+-- 
+2.43.0
 
