@@ -1,57 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.92.124.107
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793993779;
-	b=Y79GcNKMEAiB/vnMRB3FPmAVp9zQl6TbCxayQsN7xW0/kQw0wlKNkjOWIeOrkdQeJGJv
-	 vkLdlNGFds6nvijJz4AwG6CU/PzGNgNSuLsTTR3dOAvLVeOdYwDguDA3mxCWsXOXhm6Yo
-	 aHgBYVNt2q2NDySdvZkexv/mQIg9jGTqVTYnVMS+anMxVx848VPcq3QcMfIuufGBFxka/
-	 Czasu+5ECqBl13lRTuOWFL1AZsWbOyCyj9FfBKycILG+aROd9+pk9NCI2LaSRMIzEY8FM
-	 +KbbZPUJkfFGTVnn31BCAUFOv1mBiceYweDtJj6HvEAAiwfKadB2pxdjBLq0te2Scrg==
+	t=1793994201;
+	b=pDlCzcxnQAqEIgEzb9YePsz3iizoolk4Kld7X6zwBBZ2PA6QRd607Z1hilR/Jmyn0d/7
+	 Z4RmvAA0Amg0LxxC5VgGdsHTUooT4ks99hxdO0LT7dga/Ec8HO31cAG5LksyFbJsZuVBg
+	 duriQySll2McCSR5pAZx0n43+mXSqeA9ptsouXGhciirA9p/vQLMKrapSDj1hBNEbd66j
+	 8FIi7PA0gRwxpFkStHtLWo5b5q+yKfNb0LdeJuDJ/z+0H2eJ4kGf5l04v8FanSsHlFN4R
+	 9n9YYOBNhkJiIJVJrQRZ4goDICqPps5rDV+igryTHy3ELlQNaoDm80KPbd5UZXOogbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793993779;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6xTKEOGFRLXidPHrCfmBqE6GgEsv5eOpzmihaPx4Isg=;
-	b=NJVBymrv81Z/NnePomWgz/4vlGI5XtfhIcplrlwEPN9YCSI5aoX97THT8j9WOhKzRC9W
-	 e+fZnJIu35LzC+5i8Y/irNdqHMBHBitsb++U9meUOBTlz1ftxJg8M/XYnFFtnX5uMlaFB
-	 oRSUUcpJl/YF3BMOyZuTWIVoBQ4Bl8eh4haaYKYumRX2iqAZHreE1kakOGzVfrsuN9J69
-	 QJKjCK5lnxTW0Hu/GsARcN+L+4szRB+1xUu+vVL+XMSTqueKxqgL3F/ohncme4sk1eXrm
-	 dZ91QhApBiZEHnrhyZ4hLk5bOgebEM+7cwpHpWwioJN6k5A5ZUIHUWO1KeD1qNos88g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793994201;
+	h=DMARC-Filter:X-mail-filterd:Received:X-mail-filterd:X-lpn-mailing:
+	 X-lpn-spamrating:X-lpn-spamlevel:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 DKIM-Signature;
+	bh=hN/NHAY6mGKS8bjJoc5hqizE+odACcbb+5+aa+JqYE4=;
+	b=DlJkjPBvpPDdWzxxGbp23RNOMku561qK3mpJ92aLNrqXqvCzFv7wTCHcE8Wq0rcPUnL5
+	 VMgQCW3qYa4ZrllAFl4sokWLNs4kxXG1ACAsTZBMmnlc2wCBEax1yDntyvrAEC9uj3fbW
+	 tj9BCbijpsY7u+9YiKsRac93OuU3u5kY+KMNSDYU4EU/BS0T9L9MjsOEMGwum4uNKokh3
+	 Bl1hWx7X9LhajjwM4f1M/W+dIpPfU0gLnGLK7m8dp0VamPlhb7Hoke6tslE6oS5nKdry5
+	 KCgx/adUdCfWtuSh+nTeSLH/UHC4ZYYrPJ798Uw+zA3sZAloSAHeHZBWcX7MP8jhsPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=modelmiser.com;
-	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=O03VjtsC;
-	arc=none smtp.remote-ip=185.70.43.97
-Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
+	dmarc=pass header.from=laposte.net;
+	spf=pass smtp.mailfrom=laposte.net;
+	dkim=pass header.d=laposte.net header.i=@laposte.net header.a=rsa-sha256 header.s=lpn-wlmd header.b=lKB73I5L;
+	arc=none smtp.remote-ip=160.92.124.107
+Received: from smtp-outgoing-1903.laposte.net (smtp-outgoing-1903.laposte.net [160.92.124.107])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E4A606A32C
-	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 19:36:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55E4A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605B1606A326
+	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 19:43:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 605B1606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=laposte.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=laposte.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=O03VjtsC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1793993774; x=1794252974;
-	bh=6xTKEOGFRLXidPHrCfmBqE6GgEsv5eOpzmihaPx4Isg=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=O03VjtsCY5bZQorTEx3GDBoMlcCM6LY58ixfoMVronH0DkRdO5QEQKeUEIrKPUG9F
-	 9QSU5u2Uf5kj1iS8sVpiOJqaNi4MMCJJcMWLZrHdwiBlaMVUA+3peZK2NIzGL+4cVH
-	 fPmeuoE8Cuy3oSNiWZp2s5+EpWpByvVCFEsYLZUus/HQQE/tPSeZIkk6KvckFzVS0t
-	 I0a8vUQm92JcXmgL6rhSNTHwEVBx0jYgsHcpBqfSmcyGo5NBRWbFx/AEfUpMynt3jO
-	 1eS5e4kWEKsOXLWOJKETZcbLO2siyrGhaF63fqHuAJLeqZv51CYYaIgNz8pvCPA1al
-	 Sq+JmjylcG7tQ==
-Date: Fri, 06 Nov 2026 19:36:07 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
-From: Chad Aldreda <ca@modelmiser.com>
-Cc: Johan Hovold <johan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, driver-core@lists.linux.dev, linux-media@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] Documentation: devres: warn about device nodes in managed memory
-Message-ID: <20261106193600.3267465-2-ca@modelmiser.com>
-Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: 9b7570ea9211575eca35ac2ab2eedd2b8679507e
+	dkim=pass (2048-bit key, unprotected) header.d=laposte.net header.i=@laposte.net header.a=rsa-sha256 header.s=lpn-wlmd header.b=lKB73I5L
+X-mail-filterd: {"version":"1.9.7","queueID":"4jLqNB5x4Zz1qqhq","contextId":
+ "e420a065-3b56-4a61-85b7-347ef073f7a7"}
+Received: from outgoing-mail.laposte.net (localhost.localdomain [127.0.0.1])
+	by mlpnf0119.laposte.net (SMTP Server) with ESMTP id 4jLqNB5x4Zz1qqhq;
+	Fri,  6 Nov 2026 20:43:06 +0100 (CET)
+X-mail-filterd: {"version":"1.9.7","queueID":"4jLqNB1crBz1qqhn","contextId":
+ "fbf6046d-009c-4dc4-94a1-a15aa1984c7f"}
+X-lpn-mailing: LEGIT
+X-lpn-spamrating: 36
+X-lpn-spamlevel: not-spam
+Received: from [192.168.1.2] (m-dj.hd.free.fr [82.67.82.126])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mlpnf0119.laposte.net (SMTP Server) with ESMTPSA id 4jLqNB1crBz1qqhn;
+	Fri,  6 Nov 2026 20:43:06 +0100 (CET)
+Message-ID: <169ccc0e-d513-4ae4-9a46-cb11be7d1178@laposte.net>
+Date: Fri, 6 Nov 2026 20:43:05 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -61,89 +62,64 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: libcamera: pipeline: simple: Disable packed mono for VGA sensors
+ on Intel IPU6/IPU7
+To: Fernando Rimoli <fernandorimoli11@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <johannes.goede@oss.qualcomm.com>,
+ Milan Zamazal <mzamazal@redhat.com>, Sakari Ailus <sakari.ailus@iki.fi>,
+ Robert Mader <robert.mader@collabora.com>,
+ libcamera-devel@lists.libcamera.org, linux-media@vger.kernel.org
+References: <c218b8a2-9e69-4ef3-b36c-7df7e7637d4d@laposte.net>
+ <3a98bb5e-a4c4-40b7-ad4d-1b251c03b4ff@oss.qualcomm.com>
+ <20261101164311.GA3368923@killaraus.ideasonboard.com>
+ <304e2a5a-f8d8-427d-84f5-b6f4498452df@laposte.net>
+ <20261101195019.220940-1-fernandorimoli11@gmail.com>
+ <6cfa9260-b48d-484e-9c88-b75feb0392f9@laposte.net>
+ <20261105004652.147540-1-fernandorimoli11@gmail.com>
+ <5bb49b41-368c-4889-9f56-9a477e85694f@laposte.net>
+ <20261106163039.18237-1-fernandorimoli11@gmail.com>
+Content-Language: fr
+From: Alain Cousinie <alain.cousinie@laposte.net>
+In-Reply-To: <20261106163039.18237-1-fernandorimoli11@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=laposte.net; s=lpn-wlmd; t=1793994191; bh=hN/NHAY6mGKS8bjJoc5hqizE+odACcbb+5+aa+JqYE4=; h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:Content-Transfer-Encoding; b=lKB73I5LWFm1JgotRHwaN3X34an2TCowWsm+20u4PlaLHjvbxMpwoQzojjKWo02QV8zBRXve4kMykOS0kdNVG7As1pm4WiHRVb+Re4J/PV+82GB62Hn7tm1OIQ3xXCFdzT2KUZliOYi8nMu5bZGtV+d3HhzJQHIhnzCUuVtt+3I1fPiPWMarbpj67tfiWAdtE9gg6m3earpCI+2uYLCWdSvtvySSkpXQR2Uf7FfDCl42JqKNnh3WoOKKh4EEm7RCccUBRCHbYl/9FFYgVBHyrFnE9G10k4tqxVLLNxJuhlhll7k41NSoxD6JliI9ljfKZCe65dTU1lvl0xuuBb5XBg==;
 
-devres entries are not reference counted, so managed memory must not
-hold state that can still be reached after the driver unbinds. State
-that rule for its common case, a cdev, miscdevice or video_device
-embedded in devm_kzalloc()'d driver state that an open file can still
-reach, including the v4l2_device and media_device that v4l2_release() in
-v4l2-dev.c reads on every close, and say where each kind of node frees
-its state on the last reference: the struct device release behind
-cdev_device_add(), per its kernel-doc in fs/char_dev.c, and the
-v4l2_device release callback in
-Documentation/driver-api/media/v4l2-device.rst. That the video_device
-release callback runs first, and must not free the shared state, follows
-v4l2_device_release() in v4l2-dev.c, the video_device's struct device
-release. A miscdevice has no release callback, so a kref, with its
-ordering against misc_deregister(), is spelled out here; it is not in
-the miscdevice documentation. An embedded media_device is also reached
-by media request files and the media device node without a v4l2_device
-reference, and has no reference count of its own; the text says so and
-leaves its lifetime out. The point that unregistering does not close
-open files follows the cdev_del() kernel-doc. That an open through a
-cached inode can still reach ->open() follows chrdev_open(), which uses
-inode->i_cdev while the cdev has references; the same kernel-doc says
-the cdev can no longer be opened, which holds for a new lookup, and for
-a cached inode only once the last reference is gone.
-
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Chad Aldreda <ca@modelmiser.com>
----
- .../driver-api/driver-model/devres.rst        | 36 +++++++++++++++++++
- 1 file changed, 36 insertions(+)
-
-diff --git a/Documentation/driver-api/driver-model/devres.rst b/Documentati=
-on/driver-api/driver-model/devres.rst
-index 4f0b90e7e1..6dc6ab261e 100644
---- a/Documentation/driver-api/driver-model/devres.rst
-+++ b/Documentation/driver-api/driver-model/devres.rst
-@@ -208,6 +208,42 @@ Lifetime of a devres entry begins on devres allocation=
- and finishes
- when it is released or destroyed (removed and freed) - no reference
- counting.
+Le 06/11/2026 =C3=A0 17:30, Fernando Rimoli a =C3=A9crit=C2=A0:
 =20
-+Because nothing counts references, managed memory must not hold state
-+that the core or the driver's file operations can still reach after the
-+driver unbinds. A common case is driver state in devm_kzalloc()'d
-+memory that an open file can still reach: state embedding a struct cdev
-+or struct video_device, or the v4l2_device and media_device a
-+video_device points to, which the core touches on every close, or a
-+struct miscdevice whose file operations use the state. Unregistering
-+the node in ->remove() does not close files that are already open, and
-+for a cdev an open through an already cached inode can still reach the
-+driver's ->open(). Allocate such state with kzalloc() and free it when
-+the last reference to it is dropped:
-+
-+- for a cdev, from the release callback of a struct device embedded in
-+  the same state, with dev->devt set, and added with cdev_device_add();
-+  see its kernel-doc in fs/char_dev.c. ->remove() calls
-+  cdev_device_del() and then put_device(); a probe that fails after
-+  device_initialize() calls cdev_device_del() if cdev_device_add()
-+  succeeded, then put_device(), never kfree().
-+- for a video_device, from the release callback of its v4l2_device; see
-+  Documentation/driver-api/media/v4l2-device.rst. The video_device
-+  release callback runs before that and must not free the state. The
-+  v4l2_device release callback is not the last access to an embedded
-+  struct media_device: media request files and the media device node
-+  reach it without a v4l2_device reference, and the media core gives it
-+  no reference count, so its lifetime is not covered here.
-+- a miscdevice has no release callback, so the driver counts the
-+  references itself, for example with a kref that ->probe()
-+  initializes, ->open() takes (and drops again if it then fails) and
-+  ->release() drops, and that ->remove(), or a probe that fails after
-+  misc_register(), drops only after misc_deregister() has returned.
-+
-+In each case, dropping a reference is the last access to the state by
-+whoever drops it. Keeping the memory is not enough on its own: file
-+operations that run after ->remove() must not touch the hardware or
-+other managed resources.
-+
- devres core guarantees atomicity to all basic devres operations and
- has support for single-instance devres types (atomic
- lookup-and-add-if-not-found).  Other than that, synchronizing
---=20
-2.43.0
+> Thanks for the retest. It rules out the rate and link frequency, but
+> not the stride: on Alder Lake the same 800-byte lines with an 832-byte
+> stride stream and stop cleanly. Packed VGA stalls on your Meteor Lake
+> and works on Alder Lake, which points at the MTL ISYS driver or
+> firmware, as Sakari suggested.
+>=20
+>> it validates your recent patch proposal to disable packed mono for VGA=
+ sensors on this platform.
+>=20
+> I haven't proposed that. I argued against a libcamera rule, as it would
+> also drop formats that work, and I agree with Laurent and Sakari that
+> the fix belongs in the kernel.
 
+Hi Fernando,
 
+First, please accept my apologies. I completely misinterpreted your comme=
+nt and thought you were proposing to disable packed mono for VGA; thank y=
+ou for correcting me.The fact that the 832-byte stride streams cleanly on=
+ Alder Lake but stalls=20
+on Meteor Lake definitely narrows it down to a MTL ISYS driver or firmwar=
+e bug, just as Sakari suggested.
+
+Has a formal bug ticket already been opened for this regression with the =
+Intel IPU6/ISYS team,=20
+or should I open one myself? If so, please let me know the preferred trac=
+ker.
+Since my setup is fully operational and the issue is 100% reproducible on=
+ my hardware,=20
+I would be more than happy to test any experimental kernel patches or fir=
+mware updates
+the team or Intel can provide to help fix this.
+
+Best regards,
+Alain
