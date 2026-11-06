@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793938317;
-	b=N5LYPz2lLqdGKSoGwEHgMzMSWNLZHy1zgSVrz893jRQxGPfORTdFyUK1e3HGPJ+ui7yH
-	 VzHELI0PR6MbZxphiVGfVY0ylFdhJECd8GsEyIU4+8jAKc29fgftfxFPssDLYK1SKoJFx
-	 MeJHFjZWAVQ53N6MU27X8/thMTC0EWYK6yRryM9KtyDGmYbn0zLVJGUkd4WWN71rR9oqN
-	 9FdA0aONRm8Ar/VzknRBumcExFwF1mLAnE7jmJeIvGq7PCx47NcyL/ovnTI1dGUK490eo
-	 6y5d+PwniaS8zNlQlaYxsYKBRd1eifSeYoy3yErMykVb0WoXqWlR/9VoENuwSSctDQA==
+	t=1793938621;
+	b=e75aSUL9GiAFQSzNpx+dSzhj1VPbI+ozn/PCxAMrkVXg7aCZ6y6XwV/OFRvMLEyuxdUn
+	 LE8rO6wtTtvvqDZ2nCerA4Dv7G2PWdUGM+8+Z/TWXppo+KhvhjWXxSI5hhCEE1oEZkASe
+	 fUJ5Ts9gB9o2IMjLH1y4csNiutPPDFdwZpTHQkuiIe1mKhye2vbfWiw21MHq5nbTlYTEd
+	 pN+YN3Ex5ZO/GVSBFom03oZCN02KQnPAl4ZpzOyK4kGjjtIXxD8g0yhtNLLJl0Fc2taGK
+	 PK0CME6wVkDX20X1p5zplXzM9UKMuBlGF1Tql5ALJwMdLSv5DRq6xlxPshsc9I0ks9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793938317;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=dy+6W3dhUjW+vdHYi6MZ5rHw2N/o7H/3Oheai7WIFWA=;
-	b=G59Z6ours26i2SC7lJWKWWUwl+GJ8cqZVK6eEUCIKAzM32EeYb+Tw8IGQR5s7wIi7KGd
-	 VPR9vNPe+c37mc3dbudGRVxZnmNHZlKkmSAnZYgX2qtc4WyVNYC84lXWrXqk2uNsZ43Xu
-	 oe5lMyXBVGOsWo9jkPv25Q6V2Uk7eTf/OyDTaFJIarXOoVKN2POdZsPVBTqa8DVdw/MiG
-	 50hvCQ5UYdpZ5F/Kxynod5l8ymcUeOuvUB9zw+p3IkEB+vUESeP5Rria/InwPDgyLFXKL
-	 ocIyaREL4HwH8WqgMhkyDhS7Eum7Elk4G0dGjMRBgx3/sR/ktRf9tvDP5S+umdwDFcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793938621;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=IFRCE426UTc7sdwYXe1TU+8o/imwLSKisQnbNMcuaUE=;
+	b=KOs82iSsTDjY2fa8/19LAK4qL3F4HFsknB7je8wP94Tiyq5hiD2jVXfWxQ6WtnhmM5iT
+	 ZJdWxiQf5ilRbCj7d2kf9xDa0Vb7iJ+/yJGQA9sh7y199Nhb3cRg/alAl9Et9uurp2gzp
+	 McHbAUSKvHH7nitgUgQ5XT2L9mtNYTC05spt7IKSlsKzhs9ueikucucP5cNS5Rg1J1npe
+	 Z1eQIUKHbjhnavbYqBPqxXrbxUeBEMa4sOvaqeQ22JS4gA5f7oVRmlvGGGIXuRIBpDHbl
+	 6xXisxMfhxUSHZv4C0jJOGO3/SONdsfSjD5RLHZH7TYHZlo1/2MfPFEcYrhtoP1PPow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="QFeftPX/";
-	arc=none smtp.remote-ip=79.135.106.121
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="0PSuoYQ/";
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F29606A32E;
-	Fri,  6 Nov 2026 04:11:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2F29606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774C2606A328
+	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 04:17:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 774C2606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=QFeftPX/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793938314; x=1794197514;
-	bh=dy+6W3dhUjW+vdHYi6MZ5rHw2N/o7H/3Oheai7WIFWA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=QFeftPX/l+4YFzEwk1n2K6tt9NqpXrFSauKBIYlomoBgRBklgKjYJttpHYFgfajmH
-	 Uh29tm6sNqQKbkiAEA4QwSQmcXVpBymw3Phao92cQBCgtLrwsMkSK9ugqEx6/RQZW6
-	 6W0cNMa7i57IGCZagYsETBEob3XMxTC4yqc4WFtUhCIfbAmv6Ms8+3xLb7IFPonioI
-	 FHLvyo3BjV2vZWgNXg1Er/cxF9nzEBguxJAJ1XxNdBL8r30IeHxRH3QH66hTGISCVu
-	 0ck0k68Ttmj+4SXk3heGDaBL2ELyPIMLk7LGPp8xPSYCyfW7tiU86AtOI9brP08BX9
-	 tYeM20YwfqIkg==
-Date: Fri, 06 Nov 2026 04:11:48 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, George Neacsu <geocausa@gmail.com>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v9 3/3] media: ipu-bridge: Add Sony IMX681
-Message-ID: <20261106041116.78937-4-lsa.uz@pm.me>
-In-Reply-To: <20261106041116.78937-1-lsa.uz@pm.me>
-References: <20261106041116.78937-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 8899de5a8329939039e6e2530309d37221b2eb38
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0PSuoYQ/
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-14394530ec6so380873c88.1
+        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 20:17:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793938620; x=1794543420; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IFRCE426UTc7sdwYXe1TU+8o/imwLSKisQnbNMcuaUE=;
+        b=0PSuoYQ/sCYEOgxrzrYUEjIs689Jf5aIAV/ibbqqocYuVykp3jPiOXUR6N8O0mRQ0g
+         FxYoiOcpXXbj5DwaFwQIjWrFFbCgpi7EjrwRiykn3++Pj6+twbNrTV+jEtawKZgMlJFM
+         SwhNl7gijMdnYJV3vldVZmtExXfOMWiSQCxMqOPwAfo9oN2/yxsGZivmuhmpeCGZcJM5
+         WnBB0Sd2hyIYoHY89EYpDJ5cvhBnQ0glC22sFfqJWndLiUm+Sm/o4DpbJWrtsza/bVq+
+         bx2zNKG6oJoTLNX6cuojFw16Lu7tNewxblxsSmEy75pjOQYUhzcpB/+WIZGXgzDjbWJ0
+         55Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793938620; x=1794543420;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IFRCE426UTc7sdwYXe1TU+8o/imwLSKisQnbNMcuaUE=;
+        b=z5aXla1w4uC/JloeWqqV9y7MwOjvrg5cddLs7oi0hd/mghisyooO2bNfZ9IzPoSXQM
+         NNdQgJdubV5EGX1jj9iqFuj0E1CWsCWwEJ467ox+sByBVGfn4gr3M37YQq+MJl6OzqZZ
+         nUYAASYsICyk/dvAwInlbwB6dAQLKKp1aIQ2Lax7+LuP+nxloQZ7zOIEqeLoKf66PgxO
+         tlFekZuij+scboBwZLU5BTUPpTYQa2+lDBJx1J8swH+EIuB1WVx0w/KbhRssj7rw/nWN
+         +4sGr4FvJqrUGzcaO5HasXasTWSylFsN5unLvAOVE14ZrqelaYnbUncWq81GQkWv+UMt
+         rtzQ==
+X-Gm-Message-State: APuU4Z9NF7hSCywrWqP1wOi3mVODQcr96kTlvFlek71wA0eE0IKJNNpT
+	9EdYLqanc1dno/Kjjx71RaBDvN2ihcReNoLeo17F1jiJYX5Fw1+hn6Qz
+X-Gm-Gg: AYBFou1Uwgkiv3e7wlaMVOiaNO2S9Oh0rrcwtcqqT/ttlzQOEXxuqXLUMgypqR2FIFi
+	ROUssHOx+XjZ9GX1HpJifqtrBCnRg0LHkyL0GikxaweH/SODG2K8TxQIfzQkJJluNWOVDJTEcOS
+	nxYkJNmW02gxLH0w01McBXu2jQ2zAxxe2n6oMtEHAQAz8Q0R9+9oOktqBON5aXrwFBn+iQ6yHuC
+	1YBvbnw3VDV0GB6cVfNqigTsl/geUCuYW8AmnyeDWta3qameBlZaJ2gb828+cMDvYLAOUn0WTgQ
+	oJaKbvGjyE0YZMGGKrklH6oEF0kPjM0PEk3yWQNOxOi0NJ7zFqCV+CEq+xlz1Jm4uCb/I1Bcj3E
+	sXreLejA+BMIlg8KcAsLy2As9+VM/wticKpvEvj5pXrZKDDMR2Gi52fKElD9dl/8P3EfQgKD5+e
+	fRE1iEaaoAY/Id2lbR5qiH9kv6YhKDE0Oa6JYbfFvqZKOR8AaHs9X/4Thig5b/MWL+Ycwp+TcOD
+	/LSaXzzkeOGT9Vzf9F563wulXXxuGIq8j6Yplz9la7w3Ofx+HV9lg4WzRL/Id92jcXnxOVlBCfz
+	qUQZVUIn7JU95XDMRREWXFuJnAxMXqIAI5qC3YlCx/PAIGroLd/zUu1dOipx
+X-Received: by 2002:a05:7022:5f1a:b0:1b2:4e79:bfb0 with SMTP id a92af1059eb24-1b25d31aafcmr1190947c88.23.1793938620004;
+        Thu, 05 Nov 2026 20:17:00 -0800 (PST)
+Received: from homik.search.charter.net ([2603:8002:ad40:56f0:5644:8cb0:c50e:37b6])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4f03f5sm1698464c88.21.2026.11.05.20.16.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 20:16:58 -0800 (PST)
+From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	kees@kernel.org,
+	justinstitt@google.com,
+	morbo@google.com,
+	alx@kernel.org,
+	shlomojune6@gmail.com,
+	Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Subject: [PATCH v3] media: siano: Replace strlcat() with seq_buf in sms_ir_init()
+Date: Thu,  5 Nov 2026 20:16:53 -0800
+Message-ID: <20261106041653.439536-1-nikitash.mariiaw@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104090239.311074-1-nikitash.mariaw@gmail.com>
+References: <20261104090239.311074-1-nikitash.mariaw@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,39 +103,63 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7) carries
-a Sony IMX681 as its user-facing sensor, enumerated as ACPI device
-SONY0681. Add it so ipu_bridge_connect_sensors() builds its half of the
-graph; without the entry the sensor is never connected, whatever driver is
-present.
+In preparation for removing the deprecated strlcat() API[1],
+replace the strscpy() and strlcat() calls with seq_buf operations
+to construct the IR device path.
 
-One link frequency, 969.6 MHz, on two CSI-2 lanes.
+This preserves the resulting string, including truncation behavior.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+Link: https://github.com/KSPP/linux/issues/370 [1]
+Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
 ---
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
+Changes in v3:
+- Replace snprintf() with seq_buf operations after reproducing
+  the GCC -Wformat-truncation warning noted by David Laight.
+- Drop the previous Reviewed-by tags due to the implementation change.
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 3739c4a2a8c..2759c776cfc 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -124,6 +124,8 @@ static const struct ipu_sensor_config ipu_supported_sen=
-sors[] =3D {
- =09IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
- =09/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
- =09IPU_SENSOR_CONFIG("TBE20A0", 1, 200000000),
-+=09/* Sony IMX681 */
-+=09IPU_SENSOR_CONFIG("SONY0681", 1, 969600000),
- =09/* STMicroelectronics VD55G1 (found on Lenovo X1 Carbon G14) */
- =09IPU_SENSOR_CONFIG("TBE20A1", 1, 402000000),
- =09/* Toshiba T4KA3 */
---=20
-2.54.0
+Changes in v2:
+- No code changes.
+- Remove the statement about buffer capacities from the commit message.
+- Add Reviewed-by tags from Alejandro Colomar and Shihuang Liu.
 
+ drivers/media/common/siano/smsir.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/common/siano/smsir.c b/drivers/media/common/siano/smsir.c
+index 283770d583d5..faca379ceebc 100644
+--- a/drivers/media/common/siano/smsir.c
++++ b/drivers/media/common/siano/smsir.c
+@@ -12,6 +12,7 @@
+ 
+ #include "smscoreapi.h"
+ 
++#include <linux/seq_buf.h>
+ #include <linux/types.h>
+ #include <linux/input.h>
+ 
+@@ -41,6 +42,7 @@ int sms_ir_init(struct smscore_device_t *coredev)
+ 	int err;
+ 	int board_id = smscore_get_board_id(coredev);
+ 	struct rc_dev *dev;
++	struct seq_buf s;
+ 
+ 	pr_debug("Allocating rc device\n");
+ 	dev = rc_allocate_device(RC_DRIVER_IR_RAW);
+@@ -55,8 +57,10 @@ int sms_ir_init(struct smscore_device_t *coredev)
+ 	snprintf(coredev->ir.name, sizeof(coredev->ir.name),
+ 		 "SMS IR (%s)", sms_get_board(board_id)->name);
+ 
+-	strscpy(coredev->ir.phys, coredev->devpath, sizeof(coredev->ir.phys));
+-	strlcat(coredev->ir.phys, "/ir0", sizeof(coredev->ir.phys));
++	seq_buf_init(&s, coredev->ir.phys, sizeof(coredev->ir.phys));
++	seq_buf_puts(&s, coredev->devpath);
++	seq_buf_puts(&s, "/ir0");
++	seq_buf_terminate(&s);
+ 
+ 	dev->device_name = coredev->ir.name;
+ 	dev->input_phys = coredev->ir.phys;
+-- 
+2.43.0
 
