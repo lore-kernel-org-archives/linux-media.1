@@ -1,110 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979951;
-	b=cmHwUTXFa2g8OX3Zcd8QWfCHvP8Q8vctzDmY1w+kKO0UZDC71KDh9E1IYcRcjfGhbhwd
-	 yQi01ayzohLMYQSyykjlvZ/Ovp5B+y0M6RUWw5SlE5HW/0ZyJVvA2AyjqXWdE5JFjs5MO
-	 ELINClAgEFoWKmbOQZzSd3HXUX6yY9chdzRXlDDwBDbULlQHBkWCnojQeinTXRMaPxd8c
-	 RRLLmuxZI3UlOlk0qiWal6B7VHeRJE2U90hcZvamfWsGArm2eMxNaUvfXwl5L1BqLMtaD
-	 Iq0Ag+ZL17XZawGZGpUOnnYoNiBCG1VUYX8a0rBmEZfS8dGRkgm0MFCIt+uKEYghfIg==
+	t=1793981164;
+	b=kRa/sGTFldmHXKYyWotQnGo80JI6+vBI2J3Pz8aZDiOWXaX6ck1eJEmwKI2w6Taewh/x
+	 aQ+CeWqrsQYdlYQFhSd7XUZQITRiPSGLintsSFr4cv8814j2qZejM3fJTRl1NUyejEZlK
+	 EMpXKgEmdvoSqdO5lStBo2svYa180jhhgrgd6L7RungzTBGY1yf6eNjZEiWh8GRwD7mwQ
+	 rtMQrFlZbAiViUeMB8KSxOsypKKpD/n2DqJ1ijzTEM+oHGBYP1+frsNAUyoeO+WOhv0Qt
+	 1HNozvBm4KSV7k3claJcqquXayZmmNw60LmKk01aPe8AAdN2hkxZ4fAj6DY8U2wSH4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979951;
-	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=Sf7jpXPq+wp6SBfVuD5VhfW8K2K7PrL3pzRu30lk/Qs=;
-	b=t27Nu6A4dSRstJ2ekZeqCVyEvHldmsoFWbvoTg7/G1cQWZGlYU1LJ20ysML27/six1kx
-	 p8Z1G2xe7BkCvfOLYLaWEsdk7W5T+HtJFcMGWUhwvrwtdqyupVSJCE+DVZiKCQOAFRN+K
-	 d7lgcsa39gU1hGl/rgR5bgxOiCVQ9LlmgUD3Vk/NcQDtFhAuXfkvKbsyqxpb/NQV+5WJF
-	 zB0XxL8C7Jf8jIC10FnLpX+lLjTebst3AlGcfyI7punLCOse6ayCubasqmWdKZTp9JfH8
-	 itDVk1eemmDQN7dB09x3WJ/oVB0PElknFKRSKQFx5i62ZB3bTZc2aBfBMxzRPw+QawQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981164;
+	h=Received:DKIM-Signature:Date:From:To:List-Id:CC:Subject:User-Agent:
+	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/mhag25y81gUMkrL3EENy8sQBewx7mU++psw5ygJKWg=;
+	b=rABduRXZPpJWLYMittmgOWvgCngFNCuBe7+mpDVpYH2SNARyp+fbh1lJXcFVs7uZALgg
+	 iP/2x/4xzrs4HIbdU8bt4y1Hvix17RTIgmTOlvyJDETI6MKELBE8sHfBRVUHVTnsIspa5
+	 Fhz46nMQMOX4i8UOebbnhji9L1uKwsy+Ie62Bs4DJ3FycmVoPNi0IkEdcnvi3gxhfO1W8
+	 8ghpLFLhTjm5HpFw0hLzFKCzs6X2wJJj2yp2w+9ET5jO8DFYofkgvv37oZVSUZxmB8X+v
+	 qyc5qlYWrdSHXjO4z1z6MIu6rWWSowDOm7V61hLrdpe9weiK71kEt7tWinMmBBi2LwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NHfHZnPS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZV1/1gBT";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15F30606A329;
-	Fri,  6 Nov 2026 15:45:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C909D606A329;
+	Fri,  6 Nov 2026 16:06:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NHfHZnPS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1B21F008A1;
-	Fri,  6 Nov 2026 15:45:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZV1/1gBT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A3FF1F008A7;
+	Fri,  6 Nov 2026 16:06:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793979950;
-	bh=Sf7jpXPq+wp6SBfVuD5VhfW8K2K7PrL3pzRu30lk/Qs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=NHfHZnPSDSHLthC28xmc7Tynk3g3EuBVtAtF3YePrjls2avEgiFGihXMqKalL6SYK
-	 SeJfbKbhS1SHWhGP9tCN6jALT7jREvu0x9m17dhcE0oLL42alVk0H4Ve6UWnQsZ17V
-	 pOd3zRki1UcQZ29EAFK0E5v9T4pzWtOa2Z1QlBdeIUapAvd2pzBNLlIfkVE6aLRurr
-	 uq5rcOkbHr9280TJ3ts+7TSC30ovRao2lHyLtEiO9tHldNoUeF0owFJmmy9pFG8jCG
-	 5cQRmxsKh588fJfaFewhWE1XgoaoMSVyjoOt6yV+WAzO5GfLn/FYQd7wPywABOqUIP
-	 iCRRMFk+OTbyQ==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: linux-coco@lists.linux.dev,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Joerg Roedel <joro@8bytes.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Radu Rendec <radu@rendec.net>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
-	linaro-mm-sig@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-media@vger.kernel.org, linux-mm@kvack.org,
-	kvmarm@lists.linux.dev, patches@lists.linux.dev
-Subject: Re: [PATCH v9 14/14] irqchip/gic-v3-its: Preallocate VPE L1 tables
-In-Reply-To: <86zevn1c9a.wl-maz@kernel.org>
-References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
- <20261104164555.3555725-15-aneesh.kumar@kernel.org>
- <86zevn1c9a.wl-maz@kernel.org>
-Date: Fri, 06 Nov 2026 21:15:29 +0530
-Message-ID: <yq5ah5huoteu.fsf@kernel.org>
+	s=k20260515; t=1793981163;
+	bh=/mhag25y81gUMkrL3EENy8sQBewx7mU++psw5ygJKWg=;
+	h=Date:From:To:List-Id:CC:Subject:In-Reply-To:References;
+	b=ZV1/1gBT0ez6/v4J7hq0Ek6jYvfhONe+zTr8ay8eTFQXGo3nbEpm7nEbf1+yqfI5l
+	 oicQM/WRSfW6b8NbtZlCjiiTzu1iUWryTYI9fooONaH5cTKgu6E5VCFvapuQse699i
+	 1hW5LwFN9ExmliYnhW+b2FCkA55Be3xMx004p/NvwxEwAMPo1D/gjpXomSPrhG0awG
+	 4tI1Ui0DBFcAFwq13o2rla090EJwGx3NM8maMgsc8cLDgFYZurumq51Aa7nny1d6ZM
+	 F/+jz5ceBo3Gm7xSi/784uBbzpNghe8541SH8qJ4ebFbaa97n+ba0FmXXtTXIdmaK3
+	 hG9tkKNeuu/qw==
+Date: Fri, 06 Nov 2026 08:06:02 -0800
+From: Kees Cook <kees@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>,
+ Mariia Nikitash <nikitash.mariiaw@gmail.com>
+CC: Alejandro Colomar <alx+linux-hardening@kernel.org>, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, justinstitt@google.com, morbo@google.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_media=3A_siano=3A_Replace_strl?=
+ =?US-ASCII?Q?cat=28=29_with_snprintf=28=29_in_sms=5Fir=5Finit=28=29?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20261106102723.1cc4d350@pumpkin>
+References: <20261104090239.311074-1-nikitash.mariiaw@gmail.com> <ausVkYs1-3rJ5Fj0@devuan> <20261105113229.4126d872@pumpkin> <CAPDEY+X7q2yeWaa7J=Nre+pQqUa2C760Hh9NovdGNSQ=VsEr8w@mail.gmail.com> <20261106102723.1cc4d350@pumpkin>
+Message-ID: <1EAA42AE-92F8-4CB7-B490-CDB6DA9FFCE9@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -114,42 +62,73 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Marc Zyngier <maz@kernel.org> writes:
 
-> On Wed, 04 Nov 2026 16:45:55 +0000,
-> "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> wrote:
->> 
->> VPE L1 tables are allocated from the CPU-starting callback, where sleeping is
->> not allowed.  Remove the page allocation from this atomic path.
->> 
->> Use a blocking allocation for the boot CPU and record the resulting table
->> order.  Allocate a page of that order from the sleepable CPU hotplug prepare
->> stage for each secondary CPU.  Consume the preallocated page only when the CPU
->> cannot inherit an existing redistributor or ITS table.
->> 
->> Reclaim unused preallocations after the CPU reaches the online state, and from
->> the prepare-state teardown when CPU bring-up aborts.
+
+On November 6, 2026 2:27:23 AM PST, David Laight <david=2Elaight=2Elinux@g=
+mail=2Ecom> wrote:
+>On Thu, 5 Nov 2026 17:44:00 -0800
+>Mariia Nikitash <nikitash=2Emariiaw@gmail=2Ecom> wrote:
 >
-> No. The way to do it is to move the ITS probing out of the
-> non-sleepable CPU hotplug path.
+>> On Thu, Nov 5, 2026 at 3:32=E2=80=AFAM David Laight <david=2Elaight=2El=
+inux@gmail=2Ecom>
+>> wrote:
+>> >
+>> > On Wed, 4 Nov 2026 12:25:17 +0100
+>> > Alejandro Colomar <alx+linux-hardening@kernel=2Eorg> wrote:
+>> > =20
+>> > > Hi Mariia,
+>> > > =20
+>> > > > Date: 2026-11-04 01:02:39-0800
+>> > > > From: Mariia Nikitash <nikitash=2Emariiaw@gmail=2Ecom>
+>> > > >
+>> > > > In preparation for removing the deprecated strlcat() API[1],
+>> > > > replace the strscpy() and strlcat() calls with a single snprintf(=
+)
+>> > > > call to construct the IR device path=2E
+>> > > >
+>> > > > Both the source and destination buffers have the same capacity, =
+=20
+>> > >
+>> > > The line above seems irrelevant, and potentially confusing=2E
+>> > > The size of the input is not important, because since we're appendi=
+ng
+>> > > stuff after it, truncation may actually happen=2E =20
+>> >
+>> > And gcc's stupid format overflow check is going to complain=2E =20
+>>=20
+>> Thanks for pointing this out! I initially tested with Clang, but reprod=
+uced
+>> the warning with GCC=2E I've switched to seq_buf for v3=2E
 >
-> I proposed a potential hack at [1] (which I find far more palatable
-> than this proposal), but the real fix is to probe the ITSs as
-> devices.
->
+>That is entirely OTT=2E
+>Currently scnprintf() doesn't complain=2E
 
-Could you share a bit more detail on what you have in mind?
 
-Are you suggesting that we create a platform device for each ITS and
-initialize it through the driver's probe callback, while the rest of the
-GIC initialization stays in the existing early boot path?
+What does GCC say about it? Is it mad about src >=3D dest length but the f=
+ormat adds chars?
 
-Would that mean the main GIC is operational during early boot, while
-ITS-dependent features, such as MSI delivery and direct injection, become
-available after the ITS devices probe?
+I agree that seq_buf isn't needed here; that's really only for complicated=
+ cases where the simpler solutions don't fit=2E (In this case, snprintf-lik=
+e is best=2E)
 
-Is that the split you have in mind?
+Both seq_buf and scnprintf avoid the warning because GCC just happens to n=
+ot recognize the pattern when using those helpers, so this is just silencin=
+g the warning, much like strlcat() did too=2E
 
--aneesh
+Truncation was the norm already, so scnprintf is probably the best fit, bu=
+t I think it may be worth looking at the surrounding code and conventions t=
+o decide if truncation should be communicated upward to the caller (i=2Ee=
+=2E fail), or if the structures involved should be adjusted to avoid trunca=
+tion chance, etc etc=2E If possible we should avoid the weakness, but if no=
+t, just use the minimal solution here, which is scnprintf, though that kick=
+s the warning down the road=2E=2E=2E
+
+-Kees
+
+
+--=20
+Kees Cook
