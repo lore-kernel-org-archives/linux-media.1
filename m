@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794000805;
-	b=ny2TdHV0LWiIuAiH23L8YKrA5/fQNxBess3ADAaYBNZ3WiIqRrxmKlihNGcfePZeX6tI
-	 96e+RS6YmqxY1rtf7gqLEXXf7/ejJZAsCibhWEoeyjK0kH6jeIbskRXXKw+7VPDLUkTdB
-	 sOBrmTvoCwu9sfeAIgggTpfSlkqIbTxzIqYLxI4x81Gpn/1AMHru+PEHIg6INRd23o5MQ
-	 EhITp46NxLLdiU9zaelH7hjhwElFCsC8vy4eSKipq+8+2vOf1UKAiE69mE9EmmESC9Rji
-	 iCQTTc/011DT5M9L7hrrzVOTBMkieNbqdn/6EqXwHMG6uKe5h7KkxssPP8Bq0nb/fKg==
+	t=1794000801;
+	b=Dm2gASpoCP8DFba4uGFoRQJfPxXdpd3Og/izQF38sJhMEBZdDmp87SXaiciA2rukLSN2
+	 DWAf2mxf8rGmjlpE1CjgrFmcsGh2aSLXgWK3u67kO0kAoas7X76p448VMsU6KA+cF6MIU
+	 F0mLqYcIaukI6WpTMjATjKSTRYBFLlhUjlfssmdvgqqr1G/DZjqZdx//YEEm+omnZfAW7
+	 Yk0ig5aAYVWhiDZmoyoK4vv/ShwnyIY1hMY6YkWI1gZu0GC9qKfmyHWFjnuQ8ao+W9ul9
+	 KvmGGhCPNrQLlni5LGvB3v3ZasL1wor5EOFiW/2JBdC9joLwzp4hxD3JFV1xwQGFWBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794000805;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794000801;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Npe+5kOXQ9S8Xwjn4qNT7v1IwKvsMfsugQVWOv6ADkI=;
-	b=y9su9s/loK46Rm6dEgq3809AMULswm67fCY4Ie1F/fTYiy6TPTXeUyKXKukTs85Ab3uN
-	 xfYNEJCWyVKcI2nWf4jw0dc1IzHt+69ZaCcYdtOZX++1cH8fLAhF4Rt/DqpOybXWmhsJA
-	 iLVpA0THyju3NhVKtakelS4218mgN61mAWFnq70SyYmhFckmOHyCUWc+p03oA6cu4qUtF
-	 DAoN04SjYDqYCgY2h4PCwJrjOfyKwL8LckT5LHi8MUbj7U80rej3Q8BUO7LqhWsko+gSy
-	 cS+43G2pC0oTqfBnMu1bQdqEfWaXOlJeyHCPkTzZKjp/FNj3ffqkPByXKQ6bMiz7A4g==
+	bh=wIpKQDsh/yOzhOKZHhW/5XtxRKTngpabn3QNYnDjDus=;
+	b=aRDUpu/Ca92YEKpJFNrhY+LE+YYwDq4Q/lSRTMSLaSTUa61bam1mIsa0OwFcwcnT0XBb
+	 Tz4pN9LUSvKDvkwTL43km4dIFYIw2dC8egIDP5Yu7grzPGvr/5Ty4xgAPDovFWdAZWV1Z
+	 WuwYqL7UYEZ2ioKHmtXe+bN6WWYwnrU/RXbrCA/sKJxq+Xtr7V1ski9eamG3RHagApCSa
+	 3IhYp3k+rbck9HElRhaPYjLnqcwyTs1cE/EozHI8PgMw7zE/agvfeg5+saqBCOntvftSw
+	 HLE7xePwfskqEF8LtC7AQ+JEjCDmHQ6gNfkQDfP8JRbQM5Zx5j4BHD64LOBc55Yq/uQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0gqCtsw4;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T7wwe2pw;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BC0606A329
-	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 21:33:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49BC0606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A18606A326
+	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 21:33:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0A18606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0gqCtsw4
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so13935105e9.3
-        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 13:33:25 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T7wwe2pw
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a215e64962so12729245e9.1
+        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 13:33:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794000804; x=1794605604; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794000799; x=1794605599; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Npe+5kOXQ9S8Xwjn4qNT7v1IwKvsMfsugQVWOv6ADkI=;
-        b=0gqCtsw4hlWzx0hyXYUZfKmkq0xlODedGMQE/eDzPDol60Ikalnnhdz+cOn5hx6gJA
-         aTAXzvUN9g+5mWo/5N0++bgkoIsXB5dnalDL3iS/xhPC/pJkfFORBRGyk6/G8qs528Vn
-         TBFp3H2j9Lnqt45ekXAA/N6XarIkbhdMRRzT/jG3wpT8UgPNznEFD0411Ame/VXca8ET
-         oQc0PTxPGRdnr3kOx/QMov1CkmbNYY7mVeI6hdhi0Oavd0hqDMIJSDm4rI0MZ+uv/OQ7
-         4+Rr0PNyEhAfm2Xsi0WPPIaD8Mw8ha4DX+iNkk27Va30kZtTjSX6ujaf88xtNa20uxj/
-         yTlg==
+        bh=wIpKQDsh/yOzhOKZHhW/5XtxRKTngpabn3QNYnDjDus=;
+        b=T7wwe2pwM8JaPUx0w3QuWttchC/LyJ97IohB1LI322K1zgLprOGMPddmGK8X/fF+R+
+         iq8lHQgSODEac9uoJv5J/Lm9B5x863MxGiBjUQj/Wp1+KRMwsjxjmrpPvYnKOSwyo+j2
+         /KW1IH/46KvckHMbwoFBVplgnDjK3zDbU31H/MxxAbK4LGcPyqf7wjRAnm4BjGsls9ng
+         vCzlm8V6+NZ+G/EyLgUprWqQeOLW7T5qqOvlnbj6sDrq6vJOROP/2insBBqgCsQxVM5P
+         zH08pndcKBHnWMhnbHRG8ufBKaDayPlGYqrZBrRNlPMsNmTKHx1XaRTrL64rG6tVfN3j
+         tfyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794000804; x=1794605604;
+        d=1e100.net; s=20260707; t=1794000799; x=1794605599;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Npe+5kOXQ9S8Xwjn4qNT7v1IwKvsMfsugQVWOv6ADkI=;
-        b=Ytd6RuLImqbWXqrebd2jBVJ7yZWzPJEbacymI0aXfT2s3ajPOmA1Ft/Ox2VjAAzCZu
-         ZZOZlcDw1Y5CP3M11+M4frqQK18/tEJ/ZOqphH0DdZz8cqqr6+VT90so3MNuHP3l/Vpw
-         7Sstc5+6sFYEkU3NLSex9Qspoh74l3HYnJEsrvFItdsp8DiMccBXjOohcTYAJ/FkXydA
-         TLP4Zam9Y5O8zCqYWvC6DLYzsf/tiBYe+AuoEmbHYhzQzFv9fzQlCATJ5dYlRGxT7YJc
-         oH+eM5lV+Y1NuNRFUwswfAwRVfMUmsBGWcxfimSa4OV6rHENNK80NZ6TJIPv5zF7Ijei
-         2M9A==
-X-Forwarded-Encrypted: i=1; AKwUvBw329yxcpmDQgcXD60Q6gbNHwFTEbFMz8PtIVbx8BrLCpbOu8r5cedSNsZIWrbkS9MkPqRBhVhubs7Cqg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FIYy1WjPvTlsN6uBoaUqqSbYNTq4HxBW/sjpsWpf6kR2IoXy/
-	WzhRBPmPNSyIpatzumCVisyf199oVlnDOOKrCNaWOxgVmvG7cY89Xb3s
-X-Gm-Gg: AYBFou1TVGt+MXag+nRb54KfOFYYssQxyV2l+qHcWK3CCGes8GcIJ3ULybjdPZYyEQG
-	Y6HV7t987K1cp2v4eFOsDdaSTYiVs+no2WULqzOgjY7vaqCtNMVJiVH5BL4cT9StlDyegG/c74i
-	/GrSja1hWUAmWUWkiprGYYJuaz9s1qS3Gm8B4WrKjx7TEA9bYJdoPCt0sKPkRtviaZ33pVbHqYI
-	60mRK47BacbE2sJ6HbFpy8mQqiAo57FR+NZBCum6Nmp+EebQ+zataIBYC4/7QLJrPA01Sg9yyj2
-	QQRzB4TVVyO4wLR9K9E2sm4Vk183cZaxZT8ir2m5z9Kc1/tayXqaVJfOg4LdwRLYB66d+BitQgF
-	IFFARJfBFjun2Egil5anRVFqsNojcbyvCOjnkpaaSHJ+D+fsSK7oETklTJX6E7Nhww3+A2mbc4a
-	M3S0DCXrRzejcbq6fgG72cjdHc3pv4GQvFy07EAyq+amMYKIeW2KfocyomEiImVGsksue0Oc7uQ
-	auijPu9gulCD4V8C6rEtOzZ9w/ZYSN2YidbFqOKbhyziLIefeJVP5GkUhWpu1tHAp0CUDCV2Uas
-	TYfw/VAX2d/bl2LUXpCiNmULpu/qBhsz41LGCls+ve9X/VREEqTG+gG3yFjRxGEnFhkBfw==
-X-Received: by 2002:a05:600c:4e41:b0:4a1:f68a:9736 with SMTP id 5b1f17b1804b1-4b6dfe8f3c1mr65241445e9.26.1794000803439;
-        Fri, 06 Nov 2026 13:33:23 -0800 (PST)
+        bh=wIpKQDsh/yOzhOKZHhW/5XtxRKTngpabn3QNYnDjDus=;
+        b=YkWX5/b8+W6TJOoubCZfQBd6FCdBBasL5UVRKjaz2mFGqm4jMU2AS/Mg88KQv0sfKa
+         dR/7kBfBGzo6XoRXYMY0oqCBx/tY1XBQ3tgisrQhzwzHZG6MzUScm1dO6pTaH3RYK/4d
+         1aWBejUV03YBIIuHaD8OxSz14fullJ/n6ddRVfEe3vosFg4tQ86P1XqmgK4eOeooiXIV
+         N3lpKvx9i2m0UZRp44NYiGt8wUc8afx4pLxrwDJD59nIJgvKASCwOceztIwM91uSEp/E
+         pSA65JcOhtTP4tordmdyKlv4Afl+/r8sXTWCT3XALKwKpQFAg+n0b1MFbbnX1D0vcvJW
+         xsuA==
+X-Forwarded-Encrypted: i=1; AKwUvBwWlYaDAyKoEGVoaxPSWjMekJo/Ox/Jg0OlkzWQk0XJacW2gnnkK3mMukVbpqpk4Wu6QdsaZETCxNG42g==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9eOvALDRF/o/2Q6MFtj4kDCqkwvF0ALmm2o8mIPh9nul0D6OpW
+	XC1grB0NSWCc1oIOqSyHU017QHR36jUnQ2Jo/6FdhfCUYKJqX71gqQvF
+X-Gm-Gg: AYBFou1AtRZ6G8kOXXbslCGiF0QW85JT25zZzG5iTF5BokdpYf7qKRL0abUKWnhcw7s
+	Rxx1W85dxdsEM67TcF+SDJqbnssnpPQST2EfLebHntnxKGmWDj/I/XJ01BIJRBg6PK9kVSiyCgv
+	x2RG4euC+jMt2fLeoWU483MXXlCSUiYER1Cku0/Hnb5A4EebAxdr6AOo54q+DV+DDvmTdJ/kjW2
+	uYNA0XLbjq5PkUsZo4Fc/z0PmcVd+FwsK87NHjYjo3Fe8ftKav0TPSeZUN/Igu9er6cnS+Um4Gh
+	9lCO1IwE3/9H+Vfl3Bh5fj9eoPb8+oaSnDr/vwTyrVj+Z2p3BN+l+az5PjkTBLuj6fizgPR6bTd
+	iJn69+xgf8JhmqflGM0HGrEUJ3jfyWbV8LIZR4CI6yRAXC3LCFklrMvnWHQPC3SJMGmmi7oEfeO
+	xX7bOsk5avPXhbvBT0CdyvoM5y2iMBH/YXnFTL5eS198/OtA9II/NkWXgNx8h11kbK8YLoOSGXs
+	sfRYdaH6gYlNvzGpwkVXkEt4CgXT3MJACvqZmfkWcthfShXY0bmiU3hCUWA/lTiAIp/fOghhe+F
+	YUnlHe7cZxNf15XvRpMWHbDadmiyMR8cJl6Se/zolDGaV8BRkXYslY1L6hwQp/tbC2Wib8tTU05
+	NI7CACcexRKWz3P0=
+X-Received: by 2002:a05:600c:8b05:b0:4a7:462c:6b9e with SMTP id 5b1f17b1804b1-4b6e0172847mr72592585e9.32.1794000799410;
+        Fri, 06 Nov 2026 13:33:19 -0800 (PST)
 Received: from figssurface ([176.223.29.246])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7efb272f5sm8804845e9.15.2026.11.06.13.33.21
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d72333f9sm5758043f8f.29.2026.11.06.13.33.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 13:33:22 -0800 (PST)
+        Fri, 06 Nov 2026 13:33:18 -0800 (PST)
 From: Afonso Figuinha <afonso.figuinha@gmail.com>
-To: Tin Posavec <tin.posavec04@gmail.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Bingbu Cao <bingbu.cao@amd.com>,
 	Dan Scally <dan.scally@ideasonboard.com>,
 	Hans de Goede <hansg@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] media: ov9734, ipu-bridge: Enable the camera on the Intel NUC M15
-Date: Fri,  6 Nov 2026 21:33:19 +0000
-Message-ID: <20261106213319.104745-1-afonso.figuinha@gmail.com>
+	linux-kernel@vger.kernel.org,
+	Tianshu Qiu <tian.shu.qiu@intel.com>
+Subject: Re: [PATCH 0/4] media: ov9734: Support the Microsoft Surface Laptop 1 front camera
+Date: Fri,  6 Nov 2026 21:33:16 +0000
+Message-ID: <20261106213316.104672-1-afonso.figuinha@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261017-ov9734-ipu6-v1-0-86eab22ae258@gmail.com>
-References: <20261017-ov9734-ipu6-v1-0-86eab22ae258@gmail.com>
+In-Reply-To: <20261105230327.10852-1-afonso.figuinha@gmail.com>
+References: <20261105230327.10852-1-afonso.figuinha@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -106,36 +107,18 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Tin,
+Hi all,
 
-I tested this series on a Microsoft Surface Laptop 1, which has the
-same OV9734 behind an IPU3 CIO2. There an INT3472 discrete device
-provides the clock enable and the reset GPIO, and the _PR0 power
-resource of the sensor does nothing.
+Please disregard this series. I missed that Tin Posavec posted the same
+changes on 17 October:
+https://lore.kernel.org/linux-media/20261017-ov9734-ipu6-v1-0-86eab22ae258@gmail.com/
 
-I used 6.19.8-surface-3 with patches 1 and 2 applied (they apply with
-one-line offsets). Patch 3 does not apply there because the sensor list
-differs, so I added the same entry by hand.
+Patches 1 to 3 of my series duplicate that series. I will test it on
+the Surface Laptop 1 (IPU3) and reply there.
 
-- the sensor probes and the chip ID reads back;
-- libcamera master with the OV9734 fixes from series 6330 [1] (IPU3
-  pipeline) streams 1280x704 NV12 at 30 fps;
-- the sensor is runtime suspended when idle;
-- unloading and reloading the module gives no kernel warnings;
-- v4l2-compliance 1.32.0 on the subdev: 45/46, only the known
-  SUBSCRIBE_EVENT failure.
+Patch 4 (control event support) is not in Tin's series. I can send it
+on its own, on top of Tin's series, later.
 
-Not tested: probe deferral at boot with these exact patches, and
-system suspend.
+Sorry for the noise.
 
-Tested-by: Afonso Figuinha <afonso.figuinha@gmail.com> # Surface Laptop 1 (IPU3)
-
-I posted a duplicate series by mistake before I saw yours, and I have
-withdrawn it. Its patch 4 sets V4L2_SUBDEV_FL_HAS_EVENTS and uses the
-control event helpers, which fixes the SUBSCRIBE_EVENT failure. I can
-send it on top of your series, or you can fold it in, as you prefer.
-
-[1] https://patchwork.libcamera.org/project/libcamera/list/?series=6330
-
-Thanks,
 Afonso
