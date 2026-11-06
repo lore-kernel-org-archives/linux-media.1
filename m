@@ -1,98 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793997827;
-	b=S4mm2S/c5eQrya0cxNOUUpUHNCrg/9weUffG2y1W/tukMwNsEAy2R/nYOQh+XquDFh/0
-	 eGYYmSROinNe2lK6enPkI30/YDJYtqjsHWWm6LFIxTk4WcTSQlrdRyfVAqu+wnHexSf3r
-	 psD7tnR+Sqhgq03lPp4JyAayPy0fNAzluKM+rn20gEKFHVdSskl709mJ/PVVdsbtMNMte
-	 kCKf5t+dmx6l5Nh+yWP4WGzFyZaFJKteMWH5qdbWPBCHDGv4wDovkCmqvqmR70pxXEd3F
-	 b48gyiQ1JsSGCYpivgovG4GWTpQJ3J7tpAxsTRDO2PkYWaT94M5vK31qxHe0QyKO31A==
+	t=1793998551;
+	b=jegSHXlCR4Cb0lRmcBhbWeSL2BLvECXhTQp5qUJcGdXsz6C9ryFd1xCRwSYFAABIogIn
+	 EgS3/gX3OFCRj/gnXoENt+czmjDXEFiH0WFARPUtcXmUQjRb2o79zUdB5kdE47dZTZgeM
+	 kOEVvryow6EkW8Qx1TxFaMCa/k9r5XAYHbIRP1xX22uo4zHuuOlWnyoFoPVGJmqYlhdep
+	 J+aufViYmwaeQE23Q7Qwhb1JGc3lfwOAPCypR/EPtMMUICAPqU4p1hhUWULf8C0lWqM3W
+	 91K7woT1COPPwciP/rdMaDXSOPcxhJGuAIwxnLp+7xhOssQjUOKH9PFsJ3fqHflZLBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793997827;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793998551;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AaqI4nsVwt8NwQMUqrGb4oKNqMy0e/MDsMcjH/j6UQo=;
-	b=NKidmMsRdbHvWXs1gE/iq53QV/c/QurqMehHjEDbDTnT+mtfeaGP3ESdFwwi2BMPx/CP
-	 5yr1VWX+WiLfeI6KcDdtesG9sqzfNUK/QqzS/zP7qaiVga/fMEey55TTEitWt+mHfPKdX
-	 RfrSwoqsvTqwfcI9kaaDnpratFrcNUrMkzdt59sJyzQyGwhs33NFcymXnKDEAffqybPC+
-	 6WOfWYXjFS9R0lFJbeAnykCSrVlDW+6wlLm9bPQ3xj/b5Ki9f1y7tVya+L2dpOuRfzGfv
-	 URCBiwPw0XGzSrWLzMm8ynQS6NyrCI6lMqfy9+CYXSicHOKn5+8mDuv152InOx4/0PA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=R3GadRqkUrlUWiVQ1/haVsz74SA4u36BlKTcEUmJ2ko=;
+	b=agMu4JvSp9vq6OH6NvFj03Htiy0+5ho5+zWH9Jm6QJsirpkg0UpUIeM2jL6mpjMVvY96
+	 vxpWcoWpbpKxTjVvJrAFmc/Kj5WVFC9CKyb1c6YeWkdk+Afze4uN/xxubod66zKk5XcXP
+	 rdk3un6LAddkezCUmGrjh0m2mwJMKPle1o5Hz6Z1jhcv6K9I2JO4y6cTgzmhA/x00/N8R
+	 8Fu0Y/6ydPr4VkD2v3offGQCc54erR+m+smuFXdJcQVQ35LFKtFOiJ1clLak7lQMADPTl
+	 6toSl0g+hld4Q4ehnm6qSX1//f9EZkemVTSDr7ElJ+h3Ubq7qCgE6BQ+Zof/iiW6Wpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jQH2BzUH;
-	arc=none smtp.remote-ip=74.125.224.41
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="r/WC8+Pi";
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE8C606A337
-	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 20:43:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCE8C606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0904606A32C
+	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 20:55:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0904606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jQH2BzUH
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-67be1e468a8so647141d50.0
-        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 12:43:46 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r/WC8+Pi
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso1623025e9.1
+        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 12:55:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793997826; x=1794602626; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AaqI4nsVwt8NwQMUqrGb4oKNqMy0e/MDsMcjH/j6UQo=;
-        b=jQH2BzUHos+6wVQQVrDY0Db3P0nk5zQMZ8YzcSOOuzGGG+IqNiVNHmxDukOpVanSFn
-         BdYNUUo2AdHsX1jjY3in/R4k7k6EiNTRVALyQFO7RVEW0mSJ/mrLmGWQiytj11HcjdOK
-         ZtSQ05+zOeG9lotPJGrdMIitnMwCjoYp35FenSPEPxXYLfVvRC71WLV/1FMwA+IK6VaG
-         BnR3wHv/vQBJn//+qD7NrX7dVn21OjvoHPkcfQLn9POqGmO3lEhzCBt8BIOWwNvgrolF
-         OOLMxsg0cMaA/D5Nibvvt6O8lYjdhPgN+gWsOOMnTb6/uxpgR/xTokK/kO1PLoYLDO/U
-         03KQ==
+        d=gmail.com; s=20260707; t=1793998549; x=1794603349; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R3GadRqkUrlUWiVQ1/haVsz74SA4u36BlKTcEUmJ2ko=;
+        b=r/WC8+PiKuYGcgHsp53IhgtATamLlvmJ9DxHOqwkIsCelkKWWRQIrBdiCIZD1k0eJL
+         UosQXsLyF1Z7uEToXzt04F8abWfCoKztejsGn58VfW/HmzSB8UJMxcuk0SwF3Co0uJNr
+         Z/NmmI4XzLPCpudKJlLslycAYpZVnmiqSzKXhkD/7Yb2F16MsZlE0vU+vJchCXX+VlF4
+         l+ZDdF/lzQBnNI64oOQCRHKn/XLYq6BCZm4ESXKnrNjq+ZFxfSmSdvhbQtMoM4UClk4R
+         U5xXEwTNI/To0847cbJoe7RvXGtDPHYQNbaBNG8WF7wdmfXLe5FDIlmI2SXq0ES+2gqi
+         jpVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793997826; x=1794602626;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AaqI4nsVwt8NwQMUqrGb4oKNqMy0e/MDsMcjH/j6UQo=;
-        b=pWFS9KQ72QS+V0XD8WXNo4QwcygV6Zp2++htrtNr1PaGY2chQ9fVHn4j52qCXWjLqM
-         ZAI32lWwaItGqjgUhFY+nf026XnvPLM40ogrOpl2EhT1MEcGQqLABPoQYMEnuJgOy0z/
-         SUSw+oOjGmo7BJBMZUG4reeo65fJB8v2vXy4KVTBoIVKNydT08+a0NBiSeNmPvFIAOxb
-         a0gIUZg7o8N46xDyYPMOA3LQxV7TCsuVJxxt2FVeJr7Sk4nNo1HbJOHFKrrKvQUKeseZ
-         u1mAReWDUW89TZTFN+CI/FuQFVNDnxPXacQk9929qKmw0NEqvPbT1kWcsVoOzYQGF9SZ
-         3sEw==
-X-Forwarded-Encrypted: i=1; AL+hErFvG4MiELk3tPxmdvTKlBj9V9lkkPcSps3L/0YEgtVzZRKN1AvdWnzRpxnD712rhDMRJ+IyGzx1PbxSJw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/14qAyswvvDPo9AC+OrqN8HiEfKg76RhBvq4CEsq59YIa0gZse
-	3DKgJL09rW/TJDXw7fzb4s7qbj6SuVZ/Jcw3/n8oRaegAgkqm06laiA0
-X-Gm-Gg: AYBFou0PsAe79BwsDOdM1ccL+qPi/De3G5gcp2tm75ocltq6Q2zL3KhL9Mu6tNHMnoD
-	0/RbEK3rpuJq/WiTkS/cvShaZr5zbZz7LVr/COjiclmbIUOvH2iQfwVd7VfTZHYaiJwt7LS08Oe
-	zS7LP6cvzdeIxq+YZOOerGDzGQ24PTs0h11YaDI3HyDE2Q3TocgkF3XWANy9ZqQXgJobNyAgau9
-	AvpO5rUzR9ATmX7CXjXxh1p+9gHHNrPd3xbvXzbb6YjN009ezvwXAD6rrg7RRlqkTmTKj1C4nRN
-	fvO+yZd4e+KFTVF4JqMlQkOGiiMHq0FSAVaYp9tWnM8PbyKj15XVHk8jcyQ2EKEKZgR+iCqfO0Y
-	CqmzNDT9jmBzOoZhUp9hFDBmWerGeOEAaLOeW2yZOHgt4DuNq9ITnBsNlYFxQbJ6saGD+LkUN2T
-	Z9clxBWcBToHE7g7CWNnTt1VZiZM+YVEqhfWK4qpEnA6j4KFksyyFuJE1TfZXYcYq7a+jEnQYIZ
-	ktQm/9mbwuPAryBc9mVV2dHkpnZ+Xcg5Qbk7WVmwBPPo989oLmBMxeXWSZlKOSIl2VSrBl+7jl9
-	ac/O1alApSVb//VYCOxj2l3gVmxydrMQWNwQgkfVNrT/D9VlC5DCYNdnHDw9BLvqy9o=
-X-Received: by 2002:a05:690e:408b:b0:679:a190:cf34 with SMTP id 956f58d0204a3-67c14578350mr2134231d50.98.1793997825658;
-        Fri, 06 Nov 2026 12:43:45 -0800 (PST)
-Received: from carlos-MacBookPro11-2.home.arpa ([181.216.192.12])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c135ada39sm2731818d50.16.2026.11.06.12.43.42
+        d=1e100.net; s=20260707; t=1793998549; x=1794603349;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R3GadRqkUrlUWiVQ1/haVsz74SA4u36BlKTcEUmJ2ko=;
+        b=2CGJIhWGWkuoKdR87TDG7/LV0wisCu7j1cMkGo1aZZ6l+U+vXeExT2S7CfFlAnBee4
+         WkCdY+WMnclh0mm5TIHUD6CTCaMKxqHkA8gCNXTpwDnDNkb0Z8jAmB203jE7Ky4tzUmp
+         5w31UzpWi/PcSKxpzBJ3541Z/uO7qlL1zmt4pujvWGdJEIrjX6YS8WLzHTz1xF4uAN9l
+         uW5cCyMmZOAluACzWebPtOnhonun5SdrkaoSwHwjJyuCVdNFdIM9+BGqsC5OVlbCG0lw
+         S/OX04W7QFyP0PcSbHsjJnSCtX9PmA1o6HaNlroLRxx6xEbCB33pJfQH3MA6zxu6NeaR
+         fBVA==
+X-Forwarded-Encrypted: i=1; AKwUvBw8ey8lHpyWzGpbkIss9tLp/5gmR5XLEYpMg5xFqby/sAUBoKZO8Tp2I+yDseKrxHcALN8MQ7wc801yWw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HJDt9dmQnf8HN27giLMxGV+rUl83oH0rp0QlMe5Fq2Ye/vtRs
+	uSHf7C8Y4JSbjqfHPYZmyybqLYudQvCg8E7mZuuHqKVHSB9NcfDrBHcJ
+X-Gm-Gg: AYBFou3FZoyTbJLEvKsVGWspb2loroBImlVdaIIOi++BFICts1UjAgKPOnyptHUo61a
+	+hg2oiq29+adv9Qr/8OrFbCXIiQoSCPL90PS40sAz9Xx7igUZ58nBP0Sc+vwHXyOcbswB/sVMqj
+	xu536mOjoeKX7Rs3QgEaborT4edd9sunCeLd4woKnM0WDA8MYz1O0Hxq8HF8FQGC+1CneV5D2ZP
+	P5ghZ6LBOniRM0sgOFUk3OqgyMwBDD4WLJBYWQXo7+DNDoOkskfbGsKisL1g1WCAgaNyPv7OvM5
+	Tw8VpPShzeYLxPiRJy/bXkMuAwSKDruaNLpbSVY5zr5HdL2Qo+Do0nGCe+2g0FPREuRA8utN0N1
+	RQCER1GoOIoUtBTGYN/0rA8gEmvophWI2FsM7za6BNqZe7vrVPJT4/9jhlypuTY4scB5bihPTd4
+	bvh41BbFQ4Asp5lAUVkONbQuUS2EAgzgMhwHyZbRO21znkq8slCDZmkvsT3V1lrbJKFqOyBudaJ
+	H1Wxa6YJoRjmRChdVCB0deLusMBPOXUQMPH4cFsHX5lIATokTIZJbJJ5Lr/R2b8iGQMLwYRxpMH
+	deNjQhnzCUdbYBmV09HxTtQY5ffpeXzrY0L+B8WMgPJvrzMzAoVGgw==
+X-Received: by 2002:a05:600c:4fc9:b0:4a2:d99:3171 with SMTP id 5b1f17b1804b1-4b6e017053fmr65530385e9.23.1793998548862;
+        Fri, 06 Nov 2026 12:55:48 -0800 (PST)
+Received: from localhost.localdomain ([87.13.215.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e3271abasm7354075e9.4.2026.11.06.12.55.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 12:43:45 -0800 (PST)
-From: Carlos Alberto <carlosalberto4ti@gmail.com>
-To: gregkh@linuxfoundation.org
+        Fri, 06 Nov 2026 12:55:48 -0800 (PST)
+From: Francesco Giandinoto <testata.nucleare13@gmail.com>
+To: sakari.ailus@linux.intel.com
 Cc: mchehab@kernel.org,
-	hverkuil@xs4all.nl,
-	patrik.r.jakobsson@gmail.com,
+	gregkh@linuxfoundation.org,
 	linux-media@vger.kernel.org,
-	devel@driverdev.osuosl.org,
+	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	carlosalberto4ti@gmail.com
-Subject: [PATCH 2/2] staging: media: wire up facetimehd in Kconfig and Makefile
-Date: Fri,  6 Nov 2026 17:43:29 -0300
-Message-ID: <20261106204329.2176266-3-carlosalberto4ti@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106204329.2176266-1-carlosalberto4ti@gmail.com>
-References: <20261106204329.2176266-1-carlosalberto4ti@gmail.com>
+	Francesco Giandinoto <testata.nucleare13@gmail.com>
+Subject: [PATCH v2] staging: media: ipu3: Fix alignment issues and remove an unnecessary blank line in ipu3-v4l2.c
+Date: Fri,  6 Nov 2026 21:53:47 +0100
+Message-ID: <20261106205347.10407-1-testata.nucleare13@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,35 +100,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Enable building the Apple FaceTime HD (BCM1570) camera driver as part of
-the media staging subsystem.
+Fix alignment issues and remove an unnecessary blank line before a closing
+brace in ipu3-v4l2.c, as reported by checkpatch.pl.
 
-Signed-off-by: Carlos Alberto <carlosalberto4ti@gmail.com>
+Signed-off-by: Francesco Giandinoto <testata.nucleare13@gmail.com>
 ---
- drivers/staging/media/Kconfig  | 1 +
- drivers/staging/media/Makefile | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/staging/media/ipu3/ipu3-v4l2.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/staging/media/Kconfig b/drivers/staging/media/Kconfig
-index e7f4c16..fab872f 100644
---- a/drivers/staging/media/Kconfig
-+++ b/drivers/staging/media/Kconfig
-@@ -4,5 +4,6 @@ if STAGING_MEDIA
- source "drivers/staging/media/ipu3/Kconfig"
- source "drivers/staging/media/max96712/Kconfig"
- source "drivers/staging/media/starfive/Kconfig"
-+source "drivers/staging/media/facetimehd/Kconfig"
+diff --git a/drivers/staging/media/ipu3/ipu3-v4l2.c b/drivers/staging/media/ipu3/ipu3-v4l2.c
+index 61fdefe78..e9b2ce2b4 100644
+--- a/drivers/staging/media/ipu3/ipu3-v4l2.c
++++ b/drivers/staging/media/ipu3/ipu3-v4l2.c
+@@ -248,7 +248,7 @@ static int imgu_subdev_set_selection(struct v4l2_subdev *sd,
+ 	struct v4l2_rect *rect;
  
- endif
-diff --git a/drivers/staging/media/Makefile b/drivers/staging/media/Makefile
-index 7d704eb..aaa3e2d 100644
---- a/drivers/staging/media/Makefile
-+++ b/drivers/staging/media/Makefile
-@@ -2,3 +2,4 @@
- obj-$(CONFIG_VIDEO_IPU3_IMGU)	+= ipu3/
- obj-$(CONFIG_VIDEO_MAX96712)	+= max96712/
- obj-$(CONFIG_VIDEO_STARFIVE_CAMSS) += starfive/
-+obj-$(CONFIG_VIDEO_FACETIMEHD)	+= facetimehd/
+ 	dev_dbg(&imgu->pci_dev->dev,
+-		 "set subdev %u sel which %u target 0x%4x rect [%ux%u]",
++		"set subdev %u sel which %u target 0x%4x rect [%ux%u]",
+ 		 imgu_sd->pipe, sel->which, sel->target,
+ 		 sel->r.width, sel->r.height);
+ 
+@@ -291,7 +291,7 @@ static int imgu_link_setup(struct media_entity *entity,
+ 	WARN_ON(pad >= IMGU_NODE_NUM);
+ 
+ 	dev_dbg(&imgu->pci_dev->dev, "pipe %u pad %u is %s", pipe, pad,
+-		 str_enabled_disabled(flags & MEDIA_LNK_FL_ENABLED));
++		str_enabled_disabled(flags & MEDIA_LNK_FL_ENABLED));
+ 
+ 	imgu_pipe = &imgu->imgu_pipe[pipe];
+ 	imgu_pipe->nodes[pad].enabled = flags & MEDIA_LNK_FL_ENABLED;
+@@ -306,7 +306,7 @@ static int imgu_link_setup(struct media_entity *entity,
+ 		__clear_bit(pipe, imgu->css.enabled_pipes);
+ 
+ 	dev_dbg(&imgu->pci_dev->dev, "pipe %u is %s", pipe,
+-		 str_enabled_disabled(flags & MEDIA_LNK_FL_ENABLED));
++		str_enabled_disabled(flags & MEDIA_LNK_FL_ENABLED));
+ 
+ 	return 0;
+ }
+@@ -753,7 +753,6 @@ static int imgu_fmt(struct imgu_device *imgu, unsigned int pipe, int node,
+ 		} else {
+ 			fmts[i] = &imgu_pipe->nodes[inode].vdev_fmt.fmt.pix_mp;
+ 		}
+-
+ 	}
+ 
+ 	if (!try) {
 -- 
-2.53.0
+2.56.0
 
