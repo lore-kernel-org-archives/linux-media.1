@@ -1,94 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793994252;
-	b=GgMuVf3eG3d56sIkhG7zTfRbIuV03UG9M2KyTRslx1Pz/cmlwFGqWgR0wO93O4G28meP
-	 WaPcsnJAPeTR6xu3F8ZFkxHTbQs18FBqwGPh3AzdEM6dJTutTjcVynEaQwqBrg5qfbZk6
-	 O8TZC9OtJJCslorK+INDmroN57zO1FGLuQZVVHjDGl83Lab/EKcMKIKgZNtOXBYzicOQz
-	 vumD29RvWypNYvrRe0OzFCC44WOQl8Gff+vMnsOe/toNSaZ0IYyETMasOIvf/61WtvujP
-	 whcovO4BbKZnLzvsy+UONNGSzCiYqcsKSsBSFsAsHIlVtOXiUYSB14tw1JE3O8TolYQ==
+	t=1793995106;
+	b=gY2BnGQLaz1aNWauJ1i7Yzz6yDU4IJKr5NHH+94lDex1jpJjrN6vms+Ha/FgmihKJFT3
+	 KLrhxgjc4dYwZUDDoehXyicMITFVfHFqwzgYRgTNTxyllKmtU3Yde5dTKYC/+JU/8ZWWw
+	 qR3+JhzimuYYhsl49B/qUQLGeT8qSrpR+S1mZOLN+ywHQVwPeT/+fGUmZ6yvJiXudKnGy
+	 kCGSo7oGOU6kTwDDPQ8fKvN2LLFNi/KMMyXXuI9Wy9QK+F6WhXv6gZBCQf6ljQPI9+nsI
+	 vw3UlUIGZUNxEG6EndcdUztUCfjenKIqiHiCaUXVdv78r8AYcXrlzQWNK0kPJr7r6wA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793994252;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yH+uT6HKFwSfsz9asBe1dm2/HfQO5A2IC9muIRzxhY8=;
-	b=MwWIy7syHlTV73nUqihuW1yfx/MQ3Fk7HxCN4H/VBey0H8QIgNZ/O9AD8vvgWcIhwPnl
-	 5i1HJRHsmoGcd3bqwH9BlNhallQmHvhfsN5h8XZpeY3A4gaPU+G2aqAimLDoit4+usXBJ
-	 8gWcZhRHoshKI9IYwasswSrVYz6D9Dr+lyQWONEYX9ziO0qxEcwDZiWWG899bhwiJliK7
-	 mWdk1vqCPQTA3Sz2B6RjZSLNC7q7EoK+4bpCZ42tGXhePMSXhatRvVEzGsTXMLvWM9LIa
-	 8MThQb66yEu15jNTVkEob4ryvJ19vLq5kq4fNO2mWTqV5wwrPBTrjV+depXMlgOwP7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793995106;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=rvVPM5gnUIHp0SZSoZsXfZVom0dvgZrdFovenWxXywA=;
+	b=e0yqe5NftA987C1Cm0UXcDEzER/Rn9MXMRFYlDBbCQApXl6Wd6ym24wQdSKO1/rSzI6u
+	 RPnmH13bSJI6Qop0mbZkaXKxJKAm6uROxmkydFgfL9ixjhk1GatuyNFsIEiUMH9W4vJAs
+	 Y1msuqWQ1e1rPTMdk/33FGAK4uzEw/otnOLuJOaA3eFdcO0VZDoNXIFm/53wOSULU7BIV
+	 A0MAVeu5qn57Q9AJvbbR8d2R4UCuXveOopt59ktieV7GEOp9gD+uN9MUdndpZUQN2J9Ws
+	 QxElFEyrpGwny4nGSLKHeFdAszAuTMDz3/L7/kkN9qZ/F7twxhNohjRhQ5IWxXcMZUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SuBIsyUE;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=FiVs9C5c;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF1A2606A329
-	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 19:44:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF1A2606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65A7606A326;
+	Fri,  6 Nov 2026 19:58:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C65A7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SuBIsyUE
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e09aa5264so592124f8f.2
-        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 11:44:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793994250; x=1794599050; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yH+uT6HKFwSfsz9asBe1dm2/HfQO5A2IC9muIRzxhY8=;
-        b=SuBIsyUEJB2eLevaEPpigwz3HGG1GGAW+q+6ItQQaGvsu81Nu4zyJ4GANAI2lfw/z/
-         sxAQ5461HvLZBkqWoqXBBJzSRPGkqwF84b4vOfs6CaINNDc+NEpgY7Iuprh4+essIRBZ
-         nNG0dprqrRH4qhYz2wzF3gY4sdX2fTmHu4M+TKgZBOci1oYk2amaxLNreBi/rQygtk+h
-         elop4XTHfWm8BJu5a/R7aNVmvLPLh9CFR4jMtDKS0PtM0Xa6jf21AOIN/0Uy/M589a5q
-         hZDI3WlM+YmfYb4uOyGxsULBdL8G1qh8sLBXtH2738iyJF0fUUFGJ7knuVu4kfJSTomL
-         rzGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793994250; x=1794599050;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yH+uT6HKFwSfsz9asBe1dm2/HfQO5A2IC9muIRzxhY8=;
-        b=0nRK96/0ACOPrPzFW8Y9b+s5/P/9sQf2iw9waznm0SAHohJ/ECtBDHZr7C/GQFzxGL
-         3nOegb5idIvKvOj8gRzuT4lND+vMeWuG6GXLcq7jLR/2gU2gfAdaj+Jh5mUtaetbwUXO
-         CRVY4yM0ghbhMQuVFlt0La+TV8U2LzMAULuKRSa9oiaalZVtVbKrNF96GTf0rAr27/HU
-         rS1Q2AwztgZo2+c+04shyUHAks5RgI2rDsI6RKb0e950e9NDjXS+00StGA1Wkrt6xnyn
-         gEqqesXhDUezrpJjkhVs9JG6T1JZXqZaGY8mbPrNnegJz6jNejxAnlIb0dFwTikfB+3H
-         LH1w==
-X-Forwarded-Encrypted: i=1; AKwUvBxpsdDVzEnTD0c2nEFTeuy4tnSWfW9xd9PUQo4SJrIKBqGwpX7Hw3X8JVJkUKma5wqBjAqysMFQYM/8ow==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8MvSnV+61S5gg6Wnt8zz8oQaC1xTMl6yXAriVbkDiuX0JkH2d4
-	YbDKU03k73cc23tA7l+xtgbRKtpPrTcdVW05TdEGIXp3CLTahaf0l6Xw
-X-Gm-Gg: AYBFou0GMBVC3knaMqBY8ERhlfd4BkQVue+sFOAPe+efqd62HlNHUrUreOWLHTGyOcq
-	CzNgXLQCqWbcbvDLdRDnZl3fMwYhqIp3Um91YN82hw7biBnLroB0nO9UWnARvZS69x5Q8gWGfas
-	XcuWpz6J/bmyYFGiy9PCTsCBolQ9pknEWka+y4w0NAOb71KgCo1708OMTJq1KPlxvabb50h8Wsh
-	slk44/Hi/8j0A8AcSlr9FIQXW8aQJH5fHtjXY61tJ+tAwMdoFmviIuk384f6/40blsisKnbLV40
-	EP15rdIHVOwEx6SPP6qDieI5NOCRmNZwVwsbLOryQBFt1ChP0dwz7QO7fT4SBlds7PCi/Fim+L5
-	05jWYHnsrJ1U1h1QBMvVtvk6yOlbFJRFVL0uxCg97Q/gVSKp5bes6kU2MciAvtJcWE9rwC729mg
-	aSHZJHcTOXr7viHmVUxrFUBG0o5w1qdgY33IZYGCPws/awo43oTvEUSodqBoOWb1ETnqf+5ybEQ
-	ysPlZfU50i1Ha4ur/MaTuMZVL/WlISlFLn4H3WTDoOE7mfDvoFhOveEyaqOiNpkGLzyhoBKRewD
-	3tP+YYJQmERmofHjrzbmczZH817PDVItImvHl8lrnPtJAoSGD5VYMA==
-X-Received: by 2002:a05:600c:46c8:b0:4a1:fbd2:f689 with SMTP id 5b1f17b1804b1-4b6dea69526mr63988215e9.7.1793994250067;
-        Fri, 06 Nov 2026 11:44:10 -0800 (PST)
-Received: from localhost.localdomain ([87.13.215.38])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc628dsm5512894f8f.48.2026.11.06.11.44.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 11:44:09 -0800 (PST)
-From: Francesco Giandinoto <testata.nucleare13@gmail.com>
-To: sakari.ailus@linux.intel.com
-Cc: mchehab@kernel.org,
-	gregkh@linuxfoundation.org,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Francesco Giandinoto <testata.nucleare13@gmail.com>
-Subject: [PATCH] staging: media: ipu3: Fix alignment issues and remove an unnecessary blank line in ipu3-v4l2.c
-Date: Fri,  6 Nov 2026 20:42:26 +0100
-Message-ID: <20261106194226.8233-1-testata.nucleare13@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=FiVs9C5c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793995103;
+	bh=rvVPM5gnUIHp0SZSoZsXfZVom0dvgZrdFovenWxXywA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=FiVs9C5cLeayJGzkBxA5xpWhCjNmXA7ViMLi88EB8N09UZ/9/AyaYGkQcTOKGi//r
+	 0HP/sp7ihq/fR4WMmP1NvkkRzr4C2uzb2yrTx/+HWwEaVtU2UepVMP192L4PwmjKAV
+	 mCI3DIZ8P6zMxWBSP5Yjrk5BFCuPLe/2T6/JcyVlxjP3EDalLL6Iv0ZuADvyHtXhPp
+	 aqpEZW2/fOSH6pEKJk/JHZhXdNxMJ7kxrOhSzX1ORMOXjcZujrdk69EB2UUQiu/HQZ
+	 wPWEIY2U8stVYeHg9mWYKeKUBoeepNJf84HZrJUe/nZfQzSArE8oe9Pu3IPd4UskPP
+	 axgfqZJb9SjxQ==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2E21F17E05D6;
+	Fri, 06 Nov 2026 20:58:21 +0100 (CET)
+Message-ID: <ff90b48a069e4e4af77b7911e1d0b9eb07fae1d7.camel@collabora.com>
+Subject: Re: [PATCH v2 6/8] media: docs: pixfmt-reserved: describe the QC08C
+ and QC10C layout
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Rob Clark	
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jesszhan0024@gmail.com>, Sean Paul	 <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie	 <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Mauro Carvalho Chehab	 <mchehab@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Bryan
+ O'Donoghue <bod@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, Jordan
+ Crouse	 <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org, Vikash
+ Garodia	 <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal	
+ <dikshita.agarwal@oss.qualcomm.com>, Robert Mader
+ <robert.mader@collabora.com>,  Neil Armstrong <neil.armstrong@linaro.org>
+Date: Fri, 06 Nov 2026 14:58:19 -0500
+In-Reply-To: <20261106-ubwc-format-docs-v2-6-82949f88f030@oss.qualcomm.com>
+References: <20261106-ubwc-format-docs-v2-0-82949f88f030@oss.qualcomm.com>
+	 <20261106-ubwc-format-docs-v2-6-82949f88f030@oss.qualcomm.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-le9a9/Avb80E7NOSGrS5"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -98,53 +99,41 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Fix alignment issues and remove an unnecessary blank line before a closing
-brace in ipu3-v4l2.c, as reported by checkpatch.pl.
----
- drivers/staging/media/ipu3/ipu3-v4l2.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+--=-le9a9/Avb80E7NOSGrS5
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/staging/media/ipu3/ipu3-v4l2.c b/drivers/staging/media/ipu3/ipu3-v4l2.c
-index 61fdefe78..e9b2ce2b4 100644
---- a/drivers/staging/media/ipu3/ipu3-v4l2.c
-+++ b/drivers/staging/media/ipu3/ipu3-v4l2.c
-@@ -248,7 +248,7 @@ static int imgu_subdev_set_selection(struct v4l2_subdev *sd,
- 	struct v4l2_rect *rect;
- 
- 	dev_dbg(&imgu->pci_dev->dev,
--		 "set subdev %u sel which %u target 0x%4x rect [%ux%u]",
-+		"set subdev %u sel which %u target 0x%4x rect [%ux%u]",
- 		 imgu_sd->pipe, sel->which, sel->target,
- 		 sel->r.width, sel->r.height);
- 
-@@ -291,7 +291,7 @@ static int imgu_link_setup(struct media_entity *entity,
- 	WARN_ON(pad >= IMGU_NODE_NUM);
- 
- 	dev_dbg(&imgu->pci_dev->dev, "pipe %u pad %u is %s", pipe, pad,
--		 str_enabled_disabled(flags & MEDIA_LNK_FL_ENABLED));
-+		str_enabled_disabled(flags & MEDIA_LNK_FL_ENABLED));
- 
- 	imgu_pipe = &imgu->imgu_pipe[pipe];
- 	imgu_pipe->nodes[pad].enabled = flags & MEDIA_LNK_FL_ENABLED;
-@@ -306,7 +306,7 @@ static int imgu_link_setup(struct media_entity *entity,
- 		__clear_bit(pipe, imgu->css.enabled_pipes);
- 
- 	dev_dbg(&imgu->pci_dev->dev, "pipe %u is %s", pipe,
--		 str_enabled_disabled(flags & MEDIA_LNK_FL_ENABLED));
-+		str_enabled_disabled(flags & MEDIA_LNK_FL_ENABLED));
- 
- 	return 0;
- }
-@@ -753,7 +753,6 @@ static int imgu_fmt(struct imgu_device *imgu, unsigned int pipe, int node,
- 		} else {
- 			fmts[i] = &imgu_pipe->nodes[inode].vdev_fmt.fmt.pix_mp;
- 		}
--
- 	}
- 
- 	if (!try) {
--- 
-2.56.0
+Le vendredi 06 novembre 2026 =C3=A0 15:44 +0200, Dmitry Baryshkov a =C3=A9c=
+rit=C2=A0:
+> QC08C and QC10C are documented as opaque formats with four planes, or
+> eight for interlaced video. Neither is true for the drivers: Venus and
+> Iris use a single memory plane, nothing produces interlaced buffers, and
+> the display controller and the GPU import these buffers, so the layout
+> is part of the contract between them.
+>=20
+> Describe the sections of the buffer, their order, strides, line counts
+> and alignment. The compressed contents stay opaque, they depend on the
+> UBWC configuration of the platform.
+>=20
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
+Rob just confirmed that this is effectively the mapping we want. The
+documentation is very good and clear, thanks!
+
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
+--=-le9a9/Avb80E7NOSGrS5
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCau4xWwAKCRDZQZRRKWBy
+9H95AQD0W0EpVRjA9u3syfINUKQp4eVW0FWycmSQ/ZDtyELW+wEAqxnKS5wKwwN/
+BytTNG87Umh7YQL4bFl+EKtHdbPaRg4=
+=C+65
+-----END PGP SIGNATURE-----
+
+--=-le9a9/Avb80E7NOSGrS5--
