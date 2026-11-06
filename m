@@ -1,94 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793951220;
-	b=Cu/VpV8dNaT3/GZHiT8Uq0vFWPJmYsVxqf2fz5xRMi04FqLOrzvlvOUpun7rSUKNdaes
-	 QZ0yBa5+uUm8aGUYKk8vHVkoPvRjMdJzM6pS18fF03UleH9w+kjy5SU3sbBjzsCiBic4S
-	 7Nd5qutZ5f/59lJzSDqfUdJkfXXXD2ywkCIk4dXLzo53IC/pvLPr5yx65DsuMKC/s3A/6
-	 w8vqkC1ypt/sxbBWdrPuI3gZ9edz4cFftqaZ5D0H+08oV7mSR4inl/4zvaq1ibA3TmGcq
-	 I2wQDFXG02YAS4H7HTcO4cjH1lPMGpqzbqldcZC6kAJW7qj5NUgSG2c4UGiyXMd893Q==
+	t=1793952000;
+	b=N3x/WgP8qxhGodz7rDY3wvO8CntUMkdzYNzjPuOVEYOCiogmHNkWDS88DS9GDMHDiXAE
+	 KZTKSh+ZzAkYNGfbawQ6HPHPT+UBWPT15CfIJkipHfnnBRcSEt68XAotx57YUEtP/lZ//
+	 1+XkzSTIm2VHH5cMJ1fnPpcT9AXtWEOpVE+rBOSHFN8SL750JaNOrr4bgqeMHfNqTX3/9
+	 OshFShZnqHQr1JlfaJ40IYdnPDj0VpD0Zlq5cKzSeY1Uek5K/38XgrywOdYuVsGLBlLE9
+	 jDSaa4yWIN/IcmtVYGEo8XW9/5jbD4L7TaD7KiP3ipiBGqdq1Dky9atty3BuRo5BKqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793951220;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=CuJmOzkn/aajdKzupwKXYaLbxRN7lmDJXXx5kcYCJHM=;
-	b=rGY+tIOwa+mEOtOgfeCBH2qksdAvVrzGvnoMBT6XOoPFCdszYPAV6wg5IXExl4RJWB+t
-	 7aJz+6iEj8tty9EWknWDMml3XOKwufx6aZttanBbJ3BgmrDSuEPjoOOAPWIGoLLm2uxxk
-	 1iYINLQ7sQVfM6f8VWNodfJLq/2aPrddxGRjnvKNG3NbjRu1lJT3YPiZNJXcIGH4Lsmg6
-	 NMF4T/xVyNSKedpm3BGhhgPmEceDT+7V5vtml+394Hfg8HUQGDCrZ9cKicwukJ4UQUMGm
-	 1DToulpppIf3k52nAt0iIHCZXafU29iHY3NMLyvDsq/XiQsDbVo/03DS9/Pm3ZOgVUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793952000;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=v1nxiWNvDsl1hp8WE7cbHLaFPIl8xhWiB32WOkhgz2s=;
+	b=JJPVMTBfmPbxgQWt5n0ibb05q1qg+xO9JMm3yTKN41m1HF215ekMlUm4QE04VK4uWCW7
+	 EjF2J7sN8JBivHjBYSgNY383N7QdvzMy28PUSGxAXQfRwtToM+2DQS0Jn0R3ZwrOZT21a
+	 TPnNgQc5pXsUgeABkv1f/T34xbhwQBAdw5GCyTu0SaEsVPBKmHH80Fz5JqAHmb6ukYUR7
+	 6co/j8P+7x8ItHvlAxyD/BCwM9Btkq9LBnaYY0CJ4FiFboskEXw+H139IMjM7uS+15vU+
+	 oi2F0y033jTfko76GvZoY1auyVNvnOMzgPN1LtWYvGY7SJ1F+K0Eyz4SR3Ra5qowy0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x6WIGICk;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=otwkvtkc;
+	arc=none smtp.remote-ip=109.224.244.17
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 668B0606A330
-	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 07:47:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 668B0606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4BE608360B
+	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 07:59:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D4BE608360B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x6WIGICk
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1a2761c69fbso929298c88.0
-        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 23:47:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793951219; x=1794556019; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CuJmOzkn/aajdKzupwKXYaLbxRN7lmDJXXx5kcYCJHM=;
-        b=x6WIGICkrsqiieFicNlGJmFPW4aEQNGk69o+2wmMufM0fNx2hU9/SpfVwQZ/ggkb4E
-         lFAGbZjwWyP57KOsh7SN8BNeBSOENVOg5RRoFIWaG3Z+KPxOAHsvi+m42Ts3lwL26oZc
-         RjNooBOyLI8fXnb2xCXfKoqHM9GKC+sN+zXjSZ+UVOWIhtyhooABhiW1WdQJ8qxQZT4y
-         AV4Fyndf3PSvS8AlJ+xRP9mrLOCCpW0+SX7Ou/xXevWzxSm9dDG7FUvEExEMe7YrbnZT
-         6Pqq6TL80tS2mVsWLrNOZWe4RyGY0AeZvP6jKzBlP1ieoS0pVX0NigOhILu5ij0Y5ZVn
-         ky8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793951219; x=1794556019;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CuJmOzkn/aajdKzupwKXYaLbxRN7lmDJXXx5kcYCJHM=;
-        b=uq4d5PuJlxJjTsSFklHXiRJfoaC/ce6KqpuRQ1AvaoMDSTciWQDTNTkzyoKr5taYD+
-         5PwUSM6wbGyOEqvzQWRBQ6s63Damuw4OsRg4lPrP6H3RYHpDWbKcZoTPKyzELhXvLszK
-         6uOA2tmwe7y6xSZxVgHtDy/HFlB3qdES5WuE/IsSDukFA6tHUPwn8XYbwY3SRrrwU6yp
-         46CdnRY2q77Se3cdSlBBrhMf8E9Ch08mJRc84ktooj+lj0z9Rk9YIsOl3i0Dl9dflEVh
-         3ZAGktrXuB0W3BjxNE2XUTwbTb8xKv7K0Mdt0hyKKfo+CrloHMxKqjlw6apsjunDzUk5
-         goZQ==
-X-Gm-Message-State: APuU4Z8YAIejwrC1ljGvztXpRg43ZwVWgjr01HAsXdprEj2xknarmEKf
-	sycg8SSEhC+XIo4LfotvKtpWNHXJ/hvcmHPGNTTLtL39BhXLRkTlwV8ckbohx4rR
-X-Gm-Gg: AYBFou1ZYPKlUVt2g0McAVEOWfNFvZCIyF7pjfiVSE6XSmZBur14D/l3xK1iDP1noGn
-	cfj04LJu0nRUJIQG4NDrJROEylxv3rSxpAOCHmr4PIHX5Myx/fysr3cDScGnlG5mnmNkhWynCP2
-	DRvhfQqheb7UFoCxsWts0S6ZGNSGmxo5ZxL1ZxbPu3mLtbm5DiGF2NIuyW7+cEl/aextg4pOX4M
-	SHNpec16Jd9ZjhtBNYWd5kQgHy5q+LJzK7Vz1GRmizWDRofWvict3plFVTYuZJEpWbQD314u6g/
-	WqbeUdDmH4ypD6sYVyj45sVqFXbwORaUN+PW1oAuSUU2P3RCk+tztSj+um7s85zwBj4HapvYdgm
-	Mlrm/+j8YSbYtP1k6goMK2DpQoRuVPQgEK0GaOwx/RLNJ3ajBY9uBc+U7R9bxJL39qFGzS1FD/n
-	UEkEvS+0qNjaLcKjxSJUUM8XOtN+y9ndCFm053hjHhrYYplT5DewL2WgztPRDCi703j6/Ml2peU
-	IKSb/NPGjYjI9JJ5ZqdGpF1TE1ojvXKme19Kqp77pslglhebOkLlTS4YLAhsxtfChIypmpnKHBI
-	Lr659PGn9jype4PlpbgbZKC3voOjrDR0eFOjzI27ldx+9j6vBRVBPuX1BsQ=
-X-Received: by 2002:a05:7023:a86:b0:144:c127:dd1b with SMTP id a92af1059eb24-1b25d36f504mr2959762c88.39.1793951219227;
-        Thu, 05 Nov 2026 23:46:59 -0800 (PST)
-Received: from homik.search.charter.net ([2603:8002:ad40:56f0:d023:a7eb:667a:a3c5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4a610fsm3040853c88.11.2026.11.05.23.46.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 23:46:58 -0800 (PST)
-From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-To: hverkuil@kernel.org,
-	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	kees@kernel.org,
-	justinstitt@google.com,
-	morbo@google.com,
-	Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Subject: [PATCH] media: radio: Replace strlcat() with seq_buf in TEA drivers
-Date: Thu,  5 Nov 2026 23:46:39 -0800
-Message-ID: <20261106074639.452630-1-nikitash.mariiaw@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=otwkvtkc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793951996; x=1794211196;
+	bh=v1nxiWNvDsl1hp8WE7cbHLaFPIl8xhWiB32WOkhgz2s=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=otwkvtkc3DlziLQew+IU4qO6/zBfJ5/S496aHJXavnVC+iRHIsr9Hr8BHpdr5LZ/n
+	 WjThr3BrslxS6tWdDSEx9oOxLddFwf7bRoBUdM2sSNG2PD34+p4XorI33OD25mzgkd
+	 hm11Ol5w1zrLfJxO7aVrmZB5wQ44skz2heMJ7FWJ9O7hfnk0fIDjmOof0C25vSdCZi
+	 XNRWsT4u0dR0ZXCJ7PBl9n03GRi8cxmjcL0ZegAKk+u/UOzHU4syg0bg1J1cYf5iml
+	 tfzfxP58ee125bmisrLHgLBzxSrG2fQV6bri83nWfl4b04g7+ja9Jlfe39xRZ9qlUL
+	 vIKip5VSkwV8w==
+Date: Fri, 06 Nov 2026 07:59:49 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, Jakob Berg Jespersen <dev@berg.pm>, George Neacsu <geocausa@gmail.com>, Bryan O'Donoghue <bod@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, Simon Kruse <simon0x+git@proton.me>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] media: i2c: ov13858: add regulator, clock and reset GPIO handling
+Message-ID: <20261106075941.9756-1-lsa.uz@pm.me>
+In-Reply-To: <20261016210246.58562-1-lsa.uz@pm.me>
+References: <20261016210246.58562-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: eeb78e8150a51e158ec5410fe35eeb13bdaf97dd
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -98,83 +64,17 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-In preparation for removing the deprecated strlcat() API[1],
-replace the strscpy() and strlcat() calls used to construct
-V4L2 card names in the TEA5777 and TEA575x radio drivers.
+Hi Sakari,
 
-seq_buf tracks the current write position and remaining capacity
-across appends, avoiding repeated scans of the destination buffer.
-This preserves the resulting strings, including truncation behavior.
+Is there anything you would like changed in v4? It applies to v7.4-rc1,
+before or after the ov13858 analogue gain v2:
+https://lore.kernel.org/all/20261002093507.43584-1-lsa.uz@pm.me/
 
-Link: https://github.com/KSPP/linux/issues/370 [1]
-Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
----
- drivers/media/radio/radio-tea5777.c | 10 ++++++++--
- drivers/media/radio/tea575x.c       | 10 ++++++++--
- 2 files changed, 16 insertions(+), 4 deletions(-)
+Both carry an Assisted-by tag, which 7.4-rc1 no longer accepts; please
+drop it when applying, or I will resend without it.
 
-diff --git a/drivers/media/radio/radio-tea5777.c b/drivers/media/radio/radio-tea5777.c
-index fb9de7bbcd19..2b1c7f6ddd60 100644
---- a/drivers/media/radio/radio-tea5777.c
-+++ b/drivers/media/radio/radio-tea5777.c
-@@ -13,6 +13,7 @@
- #include <linux/init.h>
- #include <linux/module.h>
- #include <linux/sched.h>
-+#include <linux/seq_buf.h>
- #include <linux/slab.h>
- #include <media/v4l2-device.h>
- #include <media/v4l2-dev.h>
-@@ -255,10 +256,15 @@ static int vidioc_querycap(struct file *file, void  *priv,
- 					struct v4l2_capability *v)
- {
- 	struct radio_tea5777 *tea = video_drvdata(file);
-+	struct seq_buf s;
- 
- 	strscpy(v->driver, tea->v4l2_dev->name, sizeof(v->driver));
--	strscpy(v->card, tea->card, sizeof(v->card));
--	strlcat(v->card, " TEA5777", sizeof(v->card));
-+
-+	seq_buf_init(&s, (char *)v->card, sizeof(v->card));
-+	seq_buf_puts(&s, (const char *)tea->card);
-+	seq_buf_puts(&s, " TEA5777");
-+	seq_buf_terminate(&s);
-+
- 	strscpy(v->bus_info, tea->bus_info, sizeof(v->bus_info));
- 	return 0;
- }
-diff --git a/drivers/media/radio/tea575x.c b/drivers/media/radio/tea575x.c
-index c37315226c42..e49228eb7c46 100644
---- a/drivers/media/radio/tea575x.c
-+++ b/drivers/media/radio/tea575x.c
-@@ -9,6 +9,7 @@
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/slab.h>
-+#include <linux/seq_buf.h>
- #include <linux/sched.h>
- #include <asm/io.h>
- #include <media/v4l2-device.h>
-@@ -221,10 +222,15 @@ static int vidioc_querycap(struct file *file, void  *priv,
- 					struct v4l2_capability *v)
- {
- 	struct snd_tea575x *tea = video_drvdata(file);
-+	struct seq_buf s;
- 
- 	strscpy(v->driver, tea->v4l2_dev->name, sizeof(v->driver));
--	strscpy(v->card, tea->card, sizeof(v->card));
--	strlcat(v->card, tea->tea5759 ? " TEA5759" : " TEA5757", sizeof(v->card));
-+
-+	seq_buf_init(&s, (char *)v->card, sizeof(v->card));
-+	seq_buf_puts(&s, (const char *)tea->card);
-+	seq_buf_puts(&s, tea->tea5759 ? " TEA5759" : " TEA5757");
-+	seq_buf_terminate(&s);
-+
- 	strscpy(v->bus_info, tea->bus_info, sizeof(v->bus_info));
- 	return 0;
- }
--- 
-2.43.0
+Sergey
 
