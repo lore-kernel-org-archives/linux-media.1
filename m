@@ -1,92 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793939756;
-	b=P49SCd1x5aAIBF6j/oqgBJ82mH33Nuc+JsErfGSCwa2Wu0wpYp656VvkX8pBqKuVvRE1
-	 SUYLLbD4J6b0CZoUsNq0KP7eZ1lublFCpexdpODVv6CBNoM7U2NPgP4Y3F2CSK7fmsXs+
-	 CUCbAg3QgtSKgKC7Y4gWbI0PHpbvo33EPck2yUE5oaR5rypVIPoYiAMcQtIq2BpjCGPhm
-	 sjWSWD0e+wsLv3VNUk9Jaukam42SZIBf37sMdX2ZRMsvg71+IuERFcRa/+P3a0h47WHxT
-	 wDdW5/jv/qg5wl4yVZvbbUGGmJH8mneUvk+I4sHOtkYbsR0xeHQ9pY9eycx9I+THCqw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793939756;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793941173;
+	b=Oth8Ft96llJ9jgBPPYEb3F530/uonMGSlSdDkSqm2cuBkIBxywcno4TAliRXjAUQ6QAC
+	 rTsja9QgmXDmmix6bTSIl//vmF48UiQlSD8DQV44mwKyrYdCAbEYTSqmaDjhqZ9ocxpMx
+	 gLiW/F5w9Hpo0s+zsN9XUsaVujc7XuoYDGRsByxiJUQJby1oh1tTswENcHK4uBN+/rBwv
+	 ASVwnBPWD5RgHqMoBaU4oTBiuybreoaXf3qjW5KGz51GknIxZ6DJWw/aI/1mTpS1Wp+C3
+	 Pwz0PTEG2I2FuEgi4OIa/ynCSwVnXDmj8B+E0tz/Zr9GPTECNx4Y+iNNKjbMn/pMlIA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793941173;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rNfdsim6JmlWhi4wC/pPC/d/fJvMZLNKiWhCufGclNE=;
-	b=xA6TRVgU8MPp3G0ZNewmUFH7CYMsjjVvkyUuX3VHrcwhK34AzxE5mjdOZcHBzIisDHgI
-	 iRPLe6ah7wZQuleBEMGB0Oe2xlftA6eOUZmJRm8SzTrFKe/mjcLSlVjsC0L+qkdG9ivK7
-	 JUO/3XRiWB8AchZlxAQco/kBrp7KZmnEOVwygnSvmcC/e1KhTe1JgTlUtW/onG+mya22C
-	 /ZhkvqeMCAhQnMMgpj7qjvQR+GbfoCusEkG5yDYYqHNEuTZ3zTGDbXaRaZQoVtbLmK86o
-	 7h5f+GCIPDy1Yr/k5+EencBVtpwnB0z2ndBM+NffGX+U7b5I6X7B1mJ64IBeRo797Fg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=nk53h9xGi0i8b4U2D9YQl5+MCk7G9ktrexEt257Eljk=;
+	b=BlZS0D2LU0Hyb3K//zbW6NZzS+X3Xp0zY6DjVrvd/F0muvIPKrrmeN9dgzCAM5hmkBwq
+	 151UW6WcXHnmOk7Qy0SBbDpI9KWEso7mTPuMShea+9OvWl/p9sv9K/5y+wGt/SGxS00LE
+	 k6X2VFjdcG3uryi1NfHtvbb9wZyBybpuWB/pJPUXY1lZt/GZu45CQtXL03wgi+em36dm0
+	 OAANDt0aUvNjs79tcqpafA0nI63VWphxjhUAYhwAlm3h6j1poV6cTaIkmwLKsB8xf1ecy
+	 4Ftet0UfEuNi0FVns65C2fv6nicXk9xalSBLl0Oy49oikkgEvNd1mtT09ySIpR/Chqw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jTACDzCa;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ESnQB5SX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE557606A31B
-	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 04:35:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE557606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5938F606A31B
+	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 04:59:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5938F606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jTACDzCa
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b0a519049aso166640a91.1
-        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 20:35:55 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ESnQB5SX
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b56c428212so216087a12.2
+        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 20:59:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793941172; cv=none;
+        d=google.com; s=arc-20260327;
+        b=q6UPo5q8GkD5vpnbuf0XRPOgUKk4YJkZ9zTEKT83hm9Fg/wDs3/HveSTbP57FdJ0J5
+         oZD9F9gfdX6RqhtCt0/ZIUkBzZBCFdySwHJL5/5iKjT5cdfbtSXVFWfjnoKumSXDpBAA
+         GdZoQRKj/0na/jputIyhqmfGGgeW/zdv1l/yBVfudg5H169tiDDwVhy4gkVIbG2Wguzk
+         AFRl9mzTNI5xDHom7hgYo+xq9jJXYzNusaqAt4jzIdgwNcm3wlZFJb5DGoROtIX9FTJ7
+         q9gkNpWIT1clhuDT82tyabPeDfi5l2PN5wUNqTklgkqKJtkO5WHRZBLS0hvizAeKP5cL
+         aoIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=nk53h9xGi0i8b4U2D9YQl5+MCk7G9ktrexEt257Eljk=;
+        fh=lnYtzPLvSJB6hsU0dtemELGTWhOFHmzwEJoIE9NWTvY=;
+        b=LpFM8AQrrncDqpmVxkFh4gkYEoeTywHTFoLzZk52C8Xj0KNYKVHJKJrKv4XrzUMZhy
+         E2A7+E8dvEfi0r7bsz53tFd+CwQc0rsfO+ma0lCZMGMYhH+Dy5elql1CUi0HJCUzM+TI
+         kfa4bTpaZms1xx3Ovz0OXeOgYUigkQyph7Xbax6OVZ33A9O9tC/NoJj1eVNAwNEHdGDg
+         MK/32xVOs/4lBQYB7zkI1vsjKvNNA1rPPzfACh3LdMHzMGHn8x1o+wjLbqF9E9j3lgLB
+         IL5tFeGkGqiA5OoTDbMvYWOoWjaTJK1snThb64OEXEwcDqPETTahhX87noeh9VG8lQkr
+         tKvA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793939755; x=1794544555; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rNfdsim6JmlWhi4wC/pPC/d/fJvMZLNKiWhCufGclNE=;
-        b=jTACDzCac2Ap7ipMOkR9opZR3ZLHb1GdpGAzbS1HvOMvEg5tVrS8wUsQerXPqikdk4
-         GGSGOcvMtFx5P6BUdVbmmJ+fE8bx7nvB4cWaq3IBM8H5L9pf+P/yTiNmSx30YrHyprZH
-         yIQhXlgpCILziLVViPSb48a7C5ALaBg+Pke59/L1DsYRXKvr6s/oEOQlKUUZabaXLbj3
-         T7pLacqbE/JOmvHmTdN2yK8xA909tuOgTQ2FRdv3VFqBTPQQ7gPEkX7fGfO7g6iV5MZ3
-         ZPkkJe45ldeZ1vbfOUKrWa56JvYCZn4qJsXXj88KR4jaJZHuL1oLfJwKkVWfTTZZE/zD
-         TjFA==
+        d=gmail.com; s=20260707; t=1793941172; x=1794545972; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nk53h9xGi0i8b4U2D9YQl5+MCk7G9ktrexEt257Eljk=;
+        b=ESnQB5SXngposlYGfWXteZKpzmQdpN2v3wkEdKkj7ePkswkwBH40yzRKijfjaHGfoG
+         BZH5RS1JoUo3wQfDbxoqJoS1J3KrBLHk9+EpgI2sqWqWG51cvTdMckyoXb+hiKxwbQqd
+         sEvUF0l9ZI/QIsqyznngu0pWX5hHCaed3T1HKNaAJMipa5uyh7IAB8y36+82bMN0DL81
+         0syn1FJTN+2Xre42vGhxcIIgN4c0YSBWkxCGXWlhy84NsOma8DOz9uYsLkvoGhXJPiCt
+         QHFcJ8lcLaz8VXa1fWMALzF5myV3GwSD3km8ydMpSl3FQcLUjMa0gk4g7BgWhBvUf+sI
+         /f5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793939755; x=1794544555;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rNfdsim6JmlWhi4wC/pPC/d/fJvMZLNKiWhCufGclNE=;
-        b=AvsVK886RlJSbbmR6UYLqETmhN8Ws/3zy4vaymeJuuRUoxXIfJGStf47oKsAU2oPD4
-         GqkO0ocx/lJ0zqfXa+cVvDPSCwh9UdTMDvAiC/xqiM1k6k8NtAuzEVdvDekL/rfvl148
-         2hgtePvh6y24L5FhCE53AkU/Xv/cWM283aI++4+Eq+ebzeg6H743sKNPLHajkvkhk3Zt
-         AUYxkU9ps6n38rGbXuuHBSNU5aQFELz2gIPRhqFab5NYlaj79xTI+ePJPzg2lBc0tPHq
-         0VriF5+0xilJJeGWgQm63Ajse5sN62+GFbLolsOrbQpSm8xwVQsAO8S76PMZ9X6ykNV3
-         HBwQ==
-X-Forwarded-Encrypted: i=1; AL+hErHzJq1Tz/EgHzG0l6bMVZksBhx0V6jSf0MURkYfQqQd5QSaKFp/77Md4uLyppvB6tPj0ODm8y8IXU8MrQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9MG9yckti+jE2ugyFT37b6D53CRPKvxiY728b6xSXwR8JlUyq6
-	nD6WGfGwEwSlz4eApw/UaAvvFef+8kiw81+zRKCy9xxC/9eKH+zi9u/z
-X-Gm-Gg: AYBFou19Egv4kcDSiCOW/yiu+gFsRw8WjdyfiJM/RyOPL0+mwK3XsjIlB2do3uWm00b
-	aRH2aSBUxB21fZ7ZdyMH/XY4qg/igcpV/rzi9BcK9IqAL40MYprTxLhWhTr7ZdNOc33KxpfT/E0
-	ekgwEspk9AhDn14fTu/SIWML04MnF3EUAcbZh1Dhc0bSsI1ZZMbkoxttmndXoWbu7l0OWP8qmfA
-	ds2ue1SyCuQpEXKGHh83rlgns1qf2R+oIJZrd1yPPinFNIiiJYEI9wkqmhPtY1dsjEIJ5I2st/J
-	PLNNiuuzCm2wcuqnP9+MjiSg36joxDKc/JtQRQHInWktPBUXqn64YSI8q61XOjX8YYRWTybrxH+
-	88yeVkXW2AHxpTxa+aKSNIR+V9KfGWm2vhi9TI5aRZEuuBtgR0dNC6FPV/g6mGoTelRXYXJp7on
-	tlkUtCRzvLBkIXPqYEiKaBBb62+BhVv4dvIUBF2aA1yivzK1f7K5zXXoGv8tA61E/WJbu2veuiR
-	MzXrDqZJvDiHm3b0lzWuVvkLVxd2smApvOm8pj4/MfPH0G3Lr9GW+4/XnYHHwoAKdoKZdnIycyd
-	SnoOTYlE4u3xnuCHf9PhhXTwHahDFbxMpsvjAziaPKwNhV3DcQ==
-X-Received: by 2002:a17:90b:33cc:b0:3b0:9deb:d991 with SMTP id 98e67ed59e1d1-3b0db6d37famr1221823a91.35.1793939755107;
-        Thu, 05 Nov 2026 20:35:55 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7cb447esm1610110a91.17.2026.11.05.20.35.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 20:35:54 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Martin Tuma <martin.tuma@digiteqautomotive.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] media: mgb4: cancel err_work before freeing the vin device
-Date: Fri,  6 Nov 2026 13:35:41 +0900
-Message-ID: <20261106043541.1902730-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1793941172; x=1794545972;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=nk53h9xGi0i8b4U2D9YQl5+MCk7G9ktrexEt257Eljk=;
+        b=P5m7DhFOxT3itNrzUN/k333V0Vsj/0swd+1mlF6dk1pjkoUno9P2XPy/SAtXbAYQE9
+         LnZtZU5A/k/5DBl1kxjMhCJkJYLngCsn8+mtIVIL1FI68IkzlI91jET6L2mj/mIYhh5/
+         EcaP78zJ4zZJ83/VtOkdjtBZqlZcU8FqYVCPmb6pOHCDYXdfByAkOEJyRat6KFOGubHp
+         zubUSfSGUAnvi6hGKYWycJEUnaOW0iLStkNws2c0RVwc8M2vfnXSDmXPRVQZeMy3DFDB
+         en2OtI2wq3n/Y6hfZ6EMeuhob6CAgwancHgVFwxtUY0ZkT54G+XTdBX2PfCGlgDpTnPK
+         bfFw==
+X-Gm-Message-State: APuU4Z8KX1eaLRg0UPPWz7RIQ7JyOtdsPMzsL2OaCav7LJiDq5l1ndMs
+	qnNjzvwIMm7S/MSICIBVKwjwIPSDApkErUdY4Lh5i709V4MMTqhLmXUC/hXIfRd1U/u/tVrhMAc
+	yvtQIWwq9FfTjFK97+v3GJwMW7YWhZB1+sfuPjn32BA==
+X-Gm-Gg: AYBFou0/Ay4QAJyp69IEwgDEzWZGX/D8RA93SScYdTjHQkdXiTjpgpaiIkv3OqcHzit
+	dgKU9rT560WUoIVE0B8yb0Emq3QzxnxLkgy0QXHYBVJdFE2G0ZmBlXTlwCOwUqOewGSS2qv1G2G
+	EiT8t01x/ibxus/nBpcMmG5zyK1xqnddex8gXFrTOxyVeoZttahu1o7unOlBy4CNxAW3ikjDQbH
+	cI9sPZGWsXj2qJcTl27DK2YXCYvxKhqWW5Y3YVCxq+nEbNPjlUWCYbOYad9p/h11Fj38E5MT+cp
+	xdEfXE6UzSgwnmD+QUoO+EWHgfPX9+JM/EdRivzPU0VgrcEuiRzHWV30QpNKc88ErGBMIaruVmI
+	wWBgYufQ92IULgTQEpw8tiWlhYoJUV3LYdsJlJg==
+X-Received: by 2002:a17:907:d03:b0:c41:1e13:8891 with SMTP id
+ a640c23a62f3a-c4d34a64653mr110110366b.9.1793941171526; Thu, 05 Nov 2026
+ 20:59:31 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -96,49 +99,76 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Shantanu Sarkar <shantanu.connect58@gmail.com>
+Date: Fri, 6 Nov 2026 10:29:14 +0530
+X-Gm-Features: AclHuK_6yVfvd4MvFxvFI_KwNC62wXAmnA8mSmYy2zvtvvaMyEA2xYUb-GFYXG0
+Message-ID: <CAK8Z4SCRhWcbL5i6NgwiLWDCX48YbMfcJ_+nFrGxKMZiN1vG3w@mail.gmail.com>
+Subject: [REGRESSION] media: em28xx: list_del corruption on dual-TS disconnect
+To: "Jiangong.Han" <jiangong.han@windriver.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, regressions@lists.linux.dev, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Hyunjung Ko <hj351016@gmail.com>
+Hi,
 
-The input (vin) device schedules err_work (signal_change) from its error
-interrupt handler err_handler(). On device removal, mgb4_vin_free() masks
-and frees the error IRQ, but never drains err_work before kfree(vindev):
+Commit 826915b6b65e ("media: em28xx: fix use-after-free of
+dev_next->devlist on disconnect"), merged for v7.3 and backported to
+stable, makes em28xx_close_extension() unconditionally do
 
-	xdma_disable_user_irq(vindev->mgbdev->xdev, err_irq);
-	free_irq(vin_irq, vindev);
-	free_irq(err_irq, vindev);
-	...
-	kfree(vindev);
+if (dev->dev_next)
+list_del(&dev->dev_next->devlist);
 
-free_irq() only synchronises against the IRQ handler itself; it does not
-wait for a work item the handler has already queued on the system
-workqueue. If an error interrupt fires shortly before removal, the queued
-signal_change() work can run after vindev has been freed and dereferences
-it (vindev->mgbdev->video, vindev->vdev, vindev->queue, vindev->timings),
-causing a use-after-free.
+On a dual-TS board whose secondary device is not audio-only (the
+normal DVB case), dev_next->devlist was never added to em28xx_devlist.
+em28xx_duplicate_dev() kmemdup()s the zero-allocated primary in
+em28xx_usb_probe() before request_modules() links the primary, so
+dev_next->devlist is {NULL, NULL}, and the list_del() on disconnect
+crashes. On current mainline (7.4.0-rc1, 05441d697f7f), with
+CONFIG_DEBUG_LIST=y:
 
-Note the dma_work counterpart is already drained via cancel_work_sync() in
-stop_streaming(); err_work has no corresponding cancel on any path. Add a
-cancel_work_sync() for err_work in mgb4_vin_free(), placed after both IRQs
-are freed so the handler can no longer re-queue the work.
+  em28xx 5-1:0.244: Closing input extension
+  list_del corruption, ffff88810de88250->next is NULL
+  ------------[ cut here ]------------
+  kernel BUG at lib/list_debug.c:53!
+  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+  CPU: 1 UID: 0 PID: 32 Comm: kworker/1:1 Not tainted 7.4.0-rc1 #1 PREEMPT(full)
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009)
+  Workqueue: usb_hub_wq hub_event
+  Call Trace:
+   em28xx_close_extension+0x15a/0x390
+   em28xx_usb_disconnect+0x16b/0x2f0
+   usb_unbind_interface+0x295/0x9c0
+   device_release_driver_internal+0x48d/0x7d0
+   bus_remove_device+0x444/0x560
+   device_del+0x523/0x8f0
+   usb_disable_device+0x3d4/0x8d0
+   usb_disconnect+0x346/0x9a0
+   hub_event+0x1bd6/0x4d10
 
-Found by code review; not reproduced (requires the Digiteq MGB4 frame
-grabber and an error interrupt racing device removal).
+Reproducer: syzbot's C reproducer for the bug the commit fixes
+(https://syzkaller.appspot.com/bug?extid=99d6c66dbbc484f50e1c), with
+one byte changed so the emulated 2040:026d device (WinTV-dualHD
+01595) exposes a DVB isoc endpoint 0x84 instead of the audio endpoint
+0x83, i.e. in the memcpy of the extra endpoint descriptor:
 
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
- drivers/media/pci/mgb4/mgb4_vin.c | 2 ++
- 1 file changed, 2 insertions(+)
+-"\x83\x99\x35\x19\x1f"
++"\x84\x99\x35\x19\x1f"
 
-diff --git a/drivers/media/pci/mgb4/mgb4_vin.c b/drivers/media/pci/mgb4/mgb4_vin.c
---- a/drivers/media/pci/mgb4/mgb4_vin.c
-+++ b/drivers/media/pci/mgb4/mgb4_vin.c
-@@ -1068,6 +1068,8 @@ void mgb4_vin_free(struct mgb4_vin_dev *vindev)
- 	free_irq(vin_irq, vindev);
- 	free_irq(err_irq, vindev);
+Results in QEMU (x86_64, syzbot's upstream config, 5 min per boot):
+  - tree at 826915b6b65e^ (before the commit):  no crash (3 of 3 boots)
+  - same tree with 826915b6b65e applied:         crash above (3 of 3)
+  - mainline 05441d697f7f (7.4.0-rc1):           crash above (2 of 2)
+The unmodified syzbot reproducer (audio-only secondary) is fixed by
+the commit, as intended. I have not tested real hardware or the stable
+backports (6.12.y, 6.18.y, 7.2.y, 7.3.y carry the same change).
 
-+	cancel_work_sync(&vindev->err_work);
-+
- 	device_remove_groups(&vindev->vdev.dev, module_groups(vindev->mgbdev));
+How this was found: we were testing AI coding agents on old syzbot
+bugs, and an AI-assisted review of the candidate patches flagged this
+path; I then confirmed it with the reproducer above. No AI-written
+patch is included.
 
- 	mgb4_i2c_free(&vindev->deser);
+#regzbot introduced: 826915b6b65e
+
+Thanks,
+Shantanu
