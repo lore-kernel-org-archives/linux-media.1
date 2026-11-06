@@ -1,100 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793938114;
-	b=PtJIbdPCQHHV9HTWVrMuxUIHvNVDlzFd3DSDXFvK6P7uCMG17L8UV9sIhO3iwgwuT5SF
-	 7o9l67B/rVmZDW/ncbW5K3qh4dmMZTqFpmZ7EeXHT1zu9xjN+wRTslPc/GYnt53GPFEmm
-	 2psMg9NI/Z4KvlKCKyrWkw+vAEQVwmClGavcpmWoGGxjnYinMsoJL9aVHqJ3r9vBsQmWd
-	 aAb7GsbWZiY6uxTIbH5KrwAkeWo+WfOZqn7YMSKFvlPdT2DwDQQMUbgYR6a42HQL0nXxL
-	 iVCPO7pTf4q+Q1KA4awDngo7qlIdT6KOwo4jnriLj5AzumBj8k8ar/HagjYz/dfqiKQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793938114;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/pk3SmESaznUmyk4iOi3We1OgCG1jt/asSQB3At8gf0=;
-	b=acTIFuYXYpc3JnSJ6wVJGBilnIK0NseNAahDOSQ7uIM6a/EfMiU6SBWTp+JtxTXtsqFN
-	 tj7CuouFr6aoLPdc0Uorlib3aBG5spJiluOCJzt6ao7YODmVKAaP+vHNdEAk/wcf+gfS8
-	 TEL66G3LMvcSoVvDeKm8vfAYdBJcbEIS8AIPOlL4See7lSnLQvhNp5fm1p4EHgLwkOO90
-	 gYoE+/9wVrhQvfUzgxfezlSbPSg9oUGYaSNAIhznF54eV/1eAIEgSPTWjT5WjV2VajtM+
-	 Beo8PE0KSfXq9vrlA6YOTfXszkDmmHmGnQsV/80Kt9jwLuwk5QglPolM3bZGD7Pf5Dw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AaCL5TeV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.45
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793938295;
+	b=JLrvGdTjHyr+EqR945KHZJ34HhAjjyPmQ68TBVxH8Q4fdLf4ghR4Bx23JuZZ9GUr+IqZ
+	 fdnGzCxy0uQo/IdOXxikrDB/2ESvQPdtZA5ihJjl0cHpxTNXX5rHk00bgCK3ptq7JqSgs
+	 PVwjLQ3ltV7dKryf/J0o/2Gw5pBQP2jm/o62CNbH3bhxRM2GWrTuvn/vujtw6Cm1/V0py
+	 72h/v+BINeF0szJnXk9EQDzXbHEbzgjWpLA2t9Gkst1PlR1u/81IGujEu5reTYRro6mj0
+	 jaiVxdtoAbxFT5ROHVv77adncrdQ6D5I6nQJcskUillAW28a36p2VcveMPBTsAPyj5Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793938295;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=fbk6DkOtVNpfer0G5WmCzh3Nahh3tZmIvlpCq/JTH2g=;
+	b=Hz0ZRWA7pMGXxLU9OSKkReYWYyx6z/oeG1feEJwWJlHRZDvksMojUu60O3YtOH8Lhzea
+	 ZFCuzEc2cmwb4dVzvFuw/F8Pzb5dhXA3upzkGzJxWO9o9rxVi3sc5Ms4yyO1x7oZt3Itd
+	 TId0WWJ3joq3Ps2J6weYUB9jRZPy8F+guLW+nRG1SuXTFpnQjw2T8yeQIFhVyFr3BHGXd
+	 E4FDOSV23vqc7bMQ3we0m74EoQPEkxHog4R4DhA/Wn5cKdwI/YDKRiiITv1KAQqo3/3ju
+	 m5POEHH9z6CEwBawDwxxMMifWrNF+SQ3DkjypjSviKoc8/p2IuRR02MY2gN9Ac/JibA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=aX4taz+s;
+	arc=none smtp.remote-ip=185.70.43.22
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19506606A32C
-	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 04:08:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19506606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC46606A332;
+	Fri,  6 Nov 2026 04:11:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BC46606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AaCL5TeV
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-843b6f8e2c7so313107a34.1
-        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 20:08:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793938113; cv=none;
-        d=google.com; s=arc-20260327;
-        b=h4erHSghQo3VC306wux8uq0d8nlpquyZlmttFWMjjnxO4vRn33iTS/bT9n23Obmgl4
-         hupkjCaA5Z/4YlvoBi8pTdRqPPoJAqhXJPj6nmc/a6Z8DDefxNVdgyVcGFynAghXlnRW
-         U8tuI0ZjFYKnnpBr1S5T2suDwgz+Ou9fgxef5BJzIUt7Tn1BuuE90I+hfayXEvYoRolX
-         ZymXlEUldDvJ+rUQmHwqObZqngZED4RyvA0tsTOw3MB/yKnaFIcYmKRw9Z8tbVRu0vzK
-         81Kee9oE3Ef8x+10GTc3rPs2y6/j0Abtls8ju8mNrtbk7lqHN92idi+i7VPmDV7350Tz
-         NoFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/pk3SmESaznUmyk4iOi3We1OgCG1jt/asSQB3At8gf0=;
-        fh=VBmx1HEnJ0N86Ep2+e4KXvmwmQRxpr15igT6WiiED+0=;
-        b=N+rOAwHVMbwmDo4u6MvwwDl92Xazbt8YXF+3577l6S9u9K6TH2DpsaHDONR2HL80Jd
-         tqqAWZb6LM3m4iQFXKTJnDU0PDEYvgEJJCdFmKIpJDaUE14yrF0+gpWPH3K3H5rU/53A
-         tinoRve78hdRUlaeT7SAUOf3Wv1rxK6ZcfJrViWq+jpivjW9OUzdxgdzfdMItfR5kNIs
-         KKZsxwPYNyWNdVBcFofV/+lKnQr8xlieBkWLoZ/2hSERevR4g5X0D5TNoLMpAgdCJWNt
-         U34r9T32BcqA6n+3vZdmb4YgdRsak1Qs4e+tzytmvNLoH09Wk2OaMxixrnTAp9ygk/5r
-         hJkg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793938113; x=1794542913; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/pk3SmESaznUmyk4iOi3We1OgCG1jt/asSQB3At8gf0=;
-        b=AaCL5TeVWhCmOWRruX6RQ6uYlbxEmgGW0Fu1FL4Te6OGDFc2+E0dbhTmVykihBcvXc
-         qW10F+az4GWUxFwfiqI+9lc4XYVEIwEDIhY4R4GQl+Wt06dOdwqAqbrKFKjIbCSDCFWz
-         pYZpH++iT7LvufaCGF9Z1/BAjBZFjjaztq2+Y1vL3wkwrdDuXfW3sQ57A/rzTShVijSe
-         ZAoS0eFzO5FsQdT+jdv+jDpQRsSMcmGkQc4UTpwS5svzqAROo8Kpf1MKedp0lW+tMIuY
-         bss/LwjkCpG+lqsPeXxivKA3ZOlWwv4t1kExE7+N5n/+/dIHDNJf7GsRmJOWy7EVuft0
-         8hTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793938113; x=1794542913;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/pk3SmESaznUmyk4iOi3We1OgCG1jt/asSQB3At8gf0=;
-        b=ssTYPkcfVEKDB+VZVM3UwL1lA6IPRq36Ve3Y6xQAP3XFeZJo1Yzoehzlu+fm9SEW4M
-         mBMzjcrHKj7OLIB88kpjQG8sxn4doJac4d1P6xPRvw7aueS5GfZh3kXizMdIqpgLIPG8
-         eEcAx/n9D4jeTShzY9tyD7LWGZspX2+MLLnqSDFyTBfeKS5vB9/hZ75gjtZ8TTcRRv39
-         agP9xw6xGncgJHKmAo4aUGGRelOrRnNAe/szL2qJixZlfKd67MMWaZsUOPClAO9EFwFX
-         vMpT+8ijEnH5wMyqXlnaJQ5qu9zq36oYzQJKu/RyeeNgGFlQMsVqbJXovXgGkEK2oluC
-         auVw==
-X-Forwarded-Encrypted: i=1; AKwUvBxB2cdlcFqMjYEaf0PvGdtCaUmhurojyKh/b6/hyaLjvb+2DrOMxRLSjg1kJtzu4tgu5N1Q/m/m81LRrw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9aUEr0nP7n4lOqI9X2mqVIhDrJm+eHtwF0EStW38WhM7q2M/f1
-	wkM1gtObEAcHwbMZxA2VY1crDlVTZgv75PNSZUykk04cMiZZ2DYbfxhSEOs0SRHz4tDoKxCAy03
-	YfXnaMOyozkA6+StfbnayS/7PJg6AUnc=
-X-Gm-Gg: AYBFou0Zan+kuM3mRcRlY7WXO4z//FXZauqSftJWFKSMu9eodB8+aQOAuN3EvjfJotr
-	q40cbgQ2jB8WIC3/UGkQLlQmyw6gEdHQVYlds5vG3tTTqgWZlnDq6rvXQtAYZv14PcSxvoAiyUM
-	G70vc5IDEMrydyeo4I2ThLQx1K907xmNoHdLrM10r5ZR5kzodc5d9UAfG5XvhDcHgsSSMXyyXpH
-	T8Joe5XNc1A9lS+heoTJbRGb2rBtaeSxLojZAhTUB+n1vqoGPHrMMg3YZl/VNrH2YV883vtrXjT
-	WP8WMALLbT7laPivpQf8O56ipMwPrI0e8eUnMD1c24UmS96Hc09fIrqSMfHyM6ijrx6ne16RFI0
-	kAeBENOZwtPR7fxHIpixgk4ZAf90w0wDYxYBOHRg7GZIOqcxjZQxBgAlH48R0Q5RUbhAWMxMJ
-X-Received: by 2002:a05:6808:190a:b0:53a:6769:c35b with SMTP id
- 5614622812f47-567e14c6645mr1033843b6e.12.1793938112995; Thu, 05 Nov 2026
- 20:08:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=aX4taz+s
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793938291; x=1794197491;
+	bh=fbk6DkOtVNpfer0G5WmCzh3Nahh3tZmIvlpCq/JTH2g=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=aX4taz+sONttMq3YY12Pv7DNDVm+tCS0imydR+EWKGAgsy4ek9xQf2EfyOeY7CpHQ
+	 1+IIAq8pjzGWweiHiWx62WmCRLzUBqGXQJmlijof4rVhCGORTg1+dGw5AeWCdBDMAi
+	 MJz9CQ8LYd/vTC54j5cKZqKphgB0jGmGrmFZyPm1q8kanQmgX1Zv9EjFhIb2az2+RL
+	 Ohm80ZnJpTZt84dTNBDvcuRdS0VDx60zbhy2PKTTYjFliQaOLJC04N9rzb3+6NV+SB
+	 W5ewkOhMf64tpzd1b5AE1XZgjwI9ii3e29NRgXSLUHg1edrqgcFhO7iwoJfGICzctp
+	 GyNdS09EAeGeQ==
+Date: Fri, 06 Nov 2026 04:11:24 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, George Neacsu <geocausa@gmail.com>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v9 0/3] Add support for the Sony IMX681 camera sensor
+Message-ID: <20261106041116.78937-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: fdbb2db56b7eae1a3baa03bdf685700f05536a2e
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,94 +61,72 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
- <ausVkYs1-3rJ5Fj0@devuan> <20261105113229.4126d872@pumpkin>
-In-Reply-To: <20261105113229.4126d872@pumpkin>
-From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Date: Thu, 5 Nov 2026 20:08:20 -0800
-X-Gm-Features: AclHuK9Esb9F2uyydCP0odZv_dxt9WsR5I2SP--qP46odrTEOGmh5Cneq9YrqqY
-Message-ID: <CAPDEY+WvnrFgriCyvL6tjY2GiBJ+Dsz0Tz4hJz=n1xW_fywTEQ@mail.gmail.com>
-Subject: Re: [PATCH] media: siano: Replace strlcat() with snprintf() in sms_ir_init()
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, mchehab@kernel.org, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com, 
-	morbo@google.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 5, 2026 at 3:32=E2=80=AFAM David Laight
-<david.laight.linux@gmail.com> wrote:
->
-> On Wed, 4 Nov 2026 12:25:17 +0100
-> Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
->
-> > Hi Mariia,
-> >
-> > > Date: 2026-11-04 01:02:39-0800
-> > > From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-> > >
-> > > In preparation for removing the deprecated strlcat() API[1],
-> > > replace the strscpy() and strlcat() calls with a single snprintf()
-> > > call to construct the IR device path.
-> > >
-> > > Both the source and destination buffers have the same capacity,
-> >
-> > The line above seems irrelevant, and potentially confusing.
-> > The size of the input is not important, because since we're appending
-> > stuff after it, truncation may actually happen.
->
-> And gcc's stupid format overflow check is going to complain.
+The Sony IMX681 is the user-facing camera on the Microsoft Surface Pro 11
+for Business (Intel Lunar Lake, IPU7), ACPI device SONY0681. Without a
+driver the camera does not appear at all.
 
-Thanks for pointing this out! I initially tested with Clang, but
-reproduced the warning with GCC. I've switched to seq_buf for v3.
+  1/3  dt-bindings: media: Add Sony IMX681        (mine)
+  2/3  media: i2c: Add Sony IMX681 sensor driver  (Andre's, co-developed)
+  3/3  media: ipu-bridge: Add Sony IMX681         (mine)
 
->
-> David
->
+The driver is Andre's, reverse-engineered from I2C traces taken under
+Windows.
 
-Best,
-Mariia
+Changes in v9
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
-> >
-> > > and the return values are unused. This preserves the resulting
-> > > string, including truncation behavior.
-> > >
-> > > Link: https://github.com/KSPP/linux/issues/370 [1]
-> > > Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-> >
-> > Except for the small comment above,
-> >
-> > Reviewed-by: Alejandro Colomar <alx@kernel.org>
-> >
-> >
-> > Cheers,
-> > Alex
-> >
-> > > ---
-> > >  drivers/media/common/siano/smsir.c | 4 ++--
-> > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/media/common/siano/smsir.c b/drivers/media/commo=
-n/siano/smsir.c
-> > > index 283770d583d5..636ff228108b 100644
-> > > --- a/drivers/media/common/siano/smsir.c
-> > > +++ b/drivers/media/common/siano/smsir.c
-> > > @@ -55,8 +55,8 @@ int sms_ir_init(struct smscore_device_t *coredev)
-> > >     snprintf(coredev->ir.name, sizeof(coredev->ir.name),
-> > >              "SMS IR (%s)", sms_get_board(board_id)->name);
-> > >
-> > > -   strscpy(coredev->ir.phys, coredev->devpath, sizeof(coredev->ir.ph=
-ys));
-> > > -   strlcat(coredev->ir.phys, "/ir0", sizeof(coredev->ir.phys));
-> > > +   snprintf(coredev->ir.phys, sizeof(coredev->ir.phys),
-> > > +            "%s/ir0", coredev->devpath);
-> > >
-> > >     dev->device_name =3D coredev->ir.name;
-> > >     dev->input_phys =3D coredev->ir.phys;
-> > > --
-> > > 2.43.0
-> > >
-> > >
-> >
->
+Rebased on v7.4-rc1, where v8 no longer applied: imx576 went in next to
+2/3's Makefile line. No functional change; imx681.c is byte for byte v8's.
+- 2/3: the Makefile line follows imx678.
+- 3/3: the bridge entry follows the IMX471 ones, in the table's order
+  there. This also keeps it apart from the VD55G0 entry in [1], so the
+  two series apply in either order.
+
+All tags are kept. On v7.4-rc1, 2/3 and 3/3 build with W=3D1 and sparse
+clean, alone and together with [1]; the tests below are v8's.
+
+While this sensor streams, IPU7's CSI-2 receiver logs "Received packet is
+too long" once per frame, and the frames are complete. Andre sees the same
+with his downstream driver, so it does not come from this series.
+
+Tested with v8 on the Surface Pro 11 for Business, on media next
+2dcdfb625c3 with KASAN and lockdep:
+- the clock is INT3472:02-clk at 19.2 MHz, with the sensor as consumer;
+- v4l2-compliance 46 of 46, no warnings;
+- 3844x2640 at 30.01 fps;
+- the four flip states give the four Bayer orders, and EBUSY while
+  streaming;
+- runtime suspend after streaming, and capture after unbind and bind;
+- no KASAN or lockdep report from the driver;
+- W=3D1 and sparse clean, dt_binding_check clean.
+
+[1] https://lore.kernel.org/all/20261103103235.94397-1-lsa.uz@pm.me/
+v8: https://lore.kernel.org/all/20261002082537.74084-1-lsa.uz@pm.me/
+
+Andre Gilerson (1):
+  media: i2c: Add Sony IMX681 sensor driver
+
+Sergey Lebedev (2):
+  dt-bindings: media: Add Sony IMX681
+  media: ipu-bridge: Add Sony IMX681
+
+ .../bindings/media/i2c/sony,imx681.yaml       |  108 ++
+ MAINTAINERS                                   |    8 +
+ drivers/media/i2c/Kconfig                     |   10 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/imx681.c                    | 1032 +++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |    2 +
+ 6 files changed, 1161 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx681=
+.yaml
+ create mode 100644 drivers/media/i2c/imx681.c
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+--=20
+2.54.0
+
+
