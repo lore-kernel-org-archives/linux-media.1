@@ -1,101 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793962345;
-	b=MQ92Xl2TGG87itPmf9HFR/mXHC2c4kyeFmJ/s8F1m0hoYcBUWYyB0esQ9a6gyBaEvl4S
-	 8ir9g11+cwcecCH5b7CfuFr6y4mDmAYoxzVCEQPSACslRhzx/FJC1N2aB5gRTJypZWNm5
-	 EEfatsBSEWktuNpQgjypofZQjhfIpuaSSADeXv2qfZGToT92iiEVDHZF0czxnWdo/z/9x
-	 A4//1NOHBCV/ttucr33HbVEtMJosykgFoxfUHonmWg/seHCKh3wwdAzR8gM9E3iXGl8iH
-	 Rb+NhKj/lpPprnF2R4pH42IQr8f2VWvWqeKWmPm8o2oAZCym7fIsozF/tyyYOFAnywg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793962345;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793964021;
+	b=dK/N2c61HS6sS+DzVt0vc7sQxoI5nT6/0vXoz0u4+2Ks2thxmuzISFZgkkNF+gIsMluK
+	 gB00mgdCo0Z5cHoRTT+esKIsS285oEjviXffKOcMzp77Jv3N91gyU7povRdYK4LdRIh3u
+	 7O/WW3byI6CkoaH6tcEk6jASPI4VOI4Xue2b03TNVe4PPQ5FevrV2t8Jjh507T/bs59ig
+	 LGWFYu59HI8f3s3cxXRDLbJO1UgDeidnTWsV+9KY2BURQdRjxpDfoHJiu2yPgiMBlXtFO
+	 SMUu3CRROdF/udV7NdUxvBCLpX2+e1wjqz2s/L0hILLEI93qj7+3RiiPpSubRqld1tA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964021;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=kaiSXMdHY6dt/gJdfV7T6qu30oh9hfVCJo7KmSZyiNY=;
-	b=aFUA/npQuXAGECo3HUhImMe0k8ZqC7Gg4XxMDc0ib8NvFNIxBKvmistO4uyR/691ql0u
-	 3aRgGLNwoNWmPPVroUDEjo91PAELH9W3Xbh5YLU6GWYk2IxesNFVYMtbZy2irL3NiMcMR
-	 kr+c1NanaOzwGW4ne/JYYLyYpEu3WZ/ajySp28rhQlwAhb5zBg2J9+cQj3v/pcH2q/8Oh
-	 cllE5qyuIkH6l6GY2F0bMGmLOVsJaslK9815AUM1yuy0Lj7WSi8/SF1JMSnjz5c5azKts
-	 UhU9rNdl08Z0Ks7IvtNupd8iBwB682td1W4IlmXQMh/zdggkU2ymF9HWxqa77oyifjQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lvN3tpWT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=QF85CmmgfQB0K98VDXkXqbQirpwlNX5Roqb9EMySWGw=;
+	b=4mK+easLQ6pdd6uO7xi+8iDbLoj3gtI9h3ja2zBVoMShdv+DddNrxupjtJ2JPLN08eP2
+	 aoZWWEu7t/Y+dht0xWz3/8rbY4Rx2YMQ5N8q96AfUl06wKatn1S9NYUBpWHh9pDhaSM6i
+	 JiuPYqAsMW06Gs8CJ0C/KkGf1KVBzvrBYKdQDbriKdFHuBzwxQ1rnmWWvPvWi7Cm/wNdK
+	 7Nl/ocwwY3FCNvjZCeWn849NjPS320q0OSkTYubLGN10hhyMdFhEwEzTTzqi2G16Bdaxa
+	 9hLCC1hDkyROtfvM6EeXh8F/ijH20D6WWzBQEM/lXPSrhLBcdtV6hmOnGYWm8KcoQgw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=DUFumtMK;
+	arc=none smtp.remote-ip=209.85.208.180
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB37A606EE9C
-	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 10:52:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB37A606EE9C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1B9606A32F
+	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 11:20:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E1B9606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lvN3tpWT
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so3762285e9.3
-        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 02:52:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793962343; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NT/2ZKXC0JhjS2NPG6lTQlfUyndU7zTeMSwFKY33PbJNhjTZFTGKp5KEV5FoJ0nyoV
-         dTR0uxj56GZdJYa8EtSWv/PYhWriRqwHoVT6EOJd15Qoo9nfTO2CubUOvZQZkaRSsuri
-         ZoqMFa11AhBJdRskVHrMC6zH36Pju2k5Ihou8lELP3QAvQglDOUhkXyy7118HM+0eWsB
-         TMQH6gC/uvbFwFAnEXkFQ/mvqPddt3auFq2DyYAB9mErOlSHhEWSKM3FEPPf3cWy3ALQ
-         JiHKZOZM3l4erSbg0hJrTkCCvCjj+kj+HHHIVVRKwyGhOySbELpEayVgnGj5IQB+68Ig
-         zGdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kaiSXMdHY6dt/gJdfV7T6qu30oh9hfVCJo7KmSZyiNY=;
-        fh=8QKwnx2xbtvhkO8zPYkdLkyKjHdFR0+6+M7e707IoiY=;
-        b=bX/HAtnoSLOFLdMBYjXd+AayuLTp+gtHpS5Stu8MJIIxaFBbV7erRkcyNn04rNeN90
-         XQZXGOX7ye6s6fyZWSJlQdXXy5Gv62VNv9z/YLdV+mXJe1d+4vr+oVxGtZFuf27qN97E
-         TMU3tKRlbtcdW/HTh0VAD56yxoO6mdXMGoJha+M/bCl8RWibTlMz66nnv/dTjmW0puKn
-         JrVLxNdWI11Vjb+CQpWhdtKbX2s/L2cOa2sD5IUEwmIoCE6ED2h1UkcIJPFzNJD6akZR
-         0zTDIYABRbQgMEmrgjdN6EFNyKXmm2BlmBjknyEoqARbjUcDgEGJqvnuDpSWPbp5QWsF
-         wC2w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=DUFumtMK
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3ab1cb6eb70so549091fa.1
+        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 03:20:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793962343; x=1794567143; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kaiSXMdHY6dt/gJdfV7T6qu30oh9hfVCJo7KmSZyiNY=;
-        b=lvN3tpWTeQpNWoDkbs3yHEwVfqoGP1Ll9s/HrfhG8tEDDv3PUO1hwT15EkduXS+rWm
-         aKWxHsXRIUr2QeleSRc+K0NgYrShBjliU8NjORCRwkrNoin3iunoivkUiQVSnOVPn3Rx
-         3bw9l9mkskwPFOKzC57OGkiAtMteSYznGOZSX7n89i8iGMDsWXZApoeXQWBtfBEuFZpy
-         KcN8x+453vC/bhc1y32uowH4Ej1eJXdn8Ad0zClYJTCUv5BGywALZQmlFJ5fvNLFRNKj
-         DMkqNrtPcHnNDWbKKAFD0WvieXZcGyKH6qqVqbR80niPzNimQRLquSkHFkxdOBQvYL9E
-         L88Q==
+        d=linaro.org; s=google; t=1793964019; x=1794568819; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QF85CmmgfQB0K98VDXkXqbQirpwlNX5Roqb9EMySWGw=;
+        b=DUFumtMK1phvIfSGAyjvBixjvVUbWj1LhChEW4qMThx2dH1KWLjydGDlGxwzpHi34F
+         ydA4JtviInKqlL9MBEr4abhaPmqh35/Uak9OQijt/vKOoxpyIl7pLa4orHyfSO4vuI8h
+         SglDNnGd8ZUztb4n0NY4SsyAZ9xEeS9rvIb8Uji0t3mFVucpO92chNyBayYeqhSZXz7f
+         pju8gY1T4R95xWyHa0+c6Mq3d7+y2EYrsAokrF5RWngcDjic2+Aau7B9OAqIXzMIdHn4
+         4rVW8y1o56QVlQPc1f89iBiWKmHxDUxq16YvDKR0r+xTHHx+sXdDVn4V3wvaoTs7a4WC
+         gHvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793962343; x=1794567143;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793964019; x=1794568819;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kaiSXMdHY6dt/gJdfV7T6qu30oh9hfVCJo7KmSZyiNY=;
-        b=tkTAMeIiXNSUvq1TE4KNQnBXY151G6bei98cnF08l9VGs7UldwWS1LZj2eoQlY5pS0
-         BoNsubkcY8N2MgoTS+CZNB7/IlytgrIjRAuRzvVjxLpeLDVPbaqJLlcY10OPFLm556Bz
-         KjPz3TIwalyI6uUDdBaoEbcvAG1tkYAkDdeWwHrACbp8qZTxivV1SQG7XgwfNWUkRvcr
-         GElukN5FhPSWt1pUt7I0KKO/T1ebeSkU6+ckzsbpCZsWgRtEtrphEG4eKxdai3JFC0QY
-         ORUCj+sbA5J+qrHDx4yS4zgSRBGvFQXHUG9ImCfqxla7SYNA4EUSEYBT0fURuZdA1JrH
-         vR3g==
-X-Forwarded-Encrypted: i=1; AKwUvBzpjf3FM2RKbWWU9xHdHxcffixx6LFCCqPDPw2KUt1amfpxFL0pyHXeaH/BuUNGvWmHnxwWdR9Wakx1cw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+l8ww4djj/E9IrVTv0JAn8/y4AbgUz/FdOBuSOBq4jpmyazdXk
-	AqP7O2RngcvkQa5sdqdtcrHh44z1KwITEP6rxn30Qcyg/1VFIY76+17llUfShZkFxcSuhMELjQJ
-	un0zZr8FO4tZIRmIz9C/XA+T38bOLdZI=
-X-Gm-Gg: AYBFou1kFqCmVcOayh4A0or6+a+dgH9LadQI0FsGE4Bjp9TrW4TIv91c7KESOmUajQX
-	MzXrJpFcKXGes2N2LJj91ETT2zKMLRge8vHRKFyZO3q0QchmLDCPso3kGvvkDrxoWjKuufLI+gZ
-	3kEpY9oZIw1vP749q/DhSVf8nH8oN1DLA3vJdFkczkxqXrq9O+c9Iyx7kDinva0qNALxSe1Z9Vc
-	+dU/xOSA98CNDPoor29wYWRWIOVbLe523f99iGgbbV/ctR9VQrZA20Gxu5QfePsNLaUQdYHUaQl
-	xoiSnHGhyc49ipTjgWd9FwrdGntFU8ThJ1ke3rup+JQB2ZrPLkZt5nS6a6RSdpdBnwtBN1QAIGK
-	qwIn+TtjRUeziJs5ZecQROB4Z6T/6O/2214qXvw7+7W/stX5p+ZaGprvIx3oTabctNSePKsTo6I
-	8MBijNlrJIoYD1UsiUkw0bowud1rG+RiyNhPavLQpfpiCFR4WvmcFVnICyFA==
-X-Received: by 2002:a05:600c:4e43:b0:49f:f099:6fb1 with SMTP id
- 5b1f17b1804b1-4b6de0cd91dmr32855205e9.15.1793962343270; Fri, 06 Nov 2026
- 02:52:23 -0800 (PST)
+        bh=QF85CmmgfQB0K98VDXkXqbQirpwlNX5Roqb9EMySWGw=;
+        b=nlwZQVRr2xk/wFRKcQSMYG6a5Xcravrkz/X5S9fBy6yyEMxvfeGCCkhoMom1m0BkUr
+         z9UBDZYNEAkQCAaikfl1igjNduWf9e38rAWjP/tudx+tQNktJ9tRL2oVPjK5ftwGXkBV
+         9dBSXpQ8rvYZxvb2Kbfh92SYesQZ84xjLDf4EEkhe1s9N9LWFdhC18uBqWcBbe6SX8rP
+         GfGZlruYbWEVxP4XE+SptszAXGPWnt72iD1TLZluDHxOrwaKdfbucrP+DrQWhHbZ+uMb
+         OA52KNBEU7XcCXAg3lq6a/VW0hHMgTYOJWqzoY9qEw7aDpwWj5qSCtLveqPS+aksU61g
+         afOw==
+X-Forwarded-Encrypted: i=1; AKwUvBxGXQ4Ixbjo3eulP/qKxpH0QB8yPZ2jXgCAW2dEvSJ7ZMhdd/2MMV6j5vqZeMG2hRNe3E78FgxWU/rxNw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/eaD7MqGbtBrQTP5dQZd2I+hjtcz6B8ETO8q3cAwe+pdaJBzMP
+	Q1iFPOpSrGygkkVI/OQqu+N7A9D0h/tYQ9hY8wemtBmcFUmqXQ3lHNf31rSFGo/HwSo=
+X-Gm-Gg: AYBFou19OYWC64qq0K1xU65bGw3uoTPDJdQLYsjzbcfK0w8ZKRCf9pYYrHuaNm5WKfv
+	Ssv9GNNC+8ZMIxsLoUCGfr4JnzrFXtSlIOgQwoWqiPl3LzGb0NOSyTTh6xM7I/WvEyhyRhqueL2
+	W5+tfDxiMbTa37koqx/BdU+kVGqMXsopBpfw+LUN8bdZv5VMLVaJbuvL0TMFbw4WH4gplWN+PRB
+	pu3h0fe7Y6oQBkKueVX1KrcEoxKkH+Whe0Audvn6FGgLkqQCD68F16DQ6T5wgPTDtYG/4Niwhnn
+	39SP+6QtpmiderdHH2HFKA826H0rlVzHg9FGEVvq3CE+5AIo/AA+D4m9EkTeOfvg+Z8yb7/lIWT
+	pH1YD+g0nfRqSuB+T5Qi5OiIwOmb7klnspTKc+gEcjY4S1HP3ML9PZHLFB+gxDCOVqDF9C4RZBD
+	ocM2YMX7RqBd5r6E/0ZSGwofkXps+kJYci+Z510ftqjaLS/ynTko2cA/U2Zelcrs4EGdGfT8Srf
+	6XNAZejpqOmPUvaM3/daVcv+Nx/eTHQmwFkM8iWaJZ/NAFK4KiYRxDG6f+P8a2KWKDFq8ZSLmbl
+	hv6qopCX/srvRiZjzu13eov1hliOib8uDMnuMjdvQFvlgQMxenN/yRvNn38hugCkp7AVZMSApSc
+	6oJveaw==
+X-Received: by 2002:a05:651c:a201:20b0:3ab:1864:5004 with SMTP id 38308e7fff4ca-3acf36dacb5mr4022961fa.0.1793964018157;
+        Fri, 06 Nov 2026 03:20:18 -0800 (PST)
+Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acf5facfe9sm2950231fa.21.2026.11.06.03.20.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 03:20:17 -0800 (PST)
+Message-ID: <540014fb-d271-4e20-9a3c-3f2fb66723ce@linaro.org>
+Date: Fri, 6 Nov 2026 13:20:16 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,81 +91,96 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105-mali-c55-renesas-dts-v6-0-7dff41bf7107@kernel.org> <20261105-mali-c55-renesas-dts-v6-6-7dff41bf7107@kernel.org>
-In-Reply-To: <20261105-mali-c55-renesas-dts-v6-6-7dff41bf7107@kernel.org>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Fri, 6 Nov 2026 10:51:57 +0000
-X-Gm-Features: AclHuK84X0AV3nOTm5UaYtDdNo8XHTBLk32hG-FVymrE-EyctstaEQaOUyISrDM
-Message-ID: <CA+V-a8t5BeTXN--GZUMWsoKkJ7PK8f-iFeFp+XXuKO9x2cc2fQ@mail.gmail.com>
-Subject: Re: [PATCH v6 6/6] media: mali-c55: Assert the ISP core reset last
-To: Linus Walleij <linusw@kernel.org>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] dt-bindings: media: qcom,sm8150-camss: Add SM8150
+ CAMSS
+To: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
+ <20261106-sm8150-v7.4-rc1-camss-v2-2-39ee37787b00@andrewgigena.dev>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v2-2-39ee37787b00@andrewgigena.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 5, 2026 at 1:02=E2=80=AFPM Linus Walleij <linusw@kernel.org> wr=
-ote:
->
-> Asserting the ISP core reset before the register and AXI interface resets
-> can leave the RZ/V2H ISP in a state where the first register access after
-> the next power-on stalls the bus.
->
-> Keep the bulk reset API and reorder the reset names so that hresetn and
-> aresetn are asserted before vresetn. The bulk API asserts resets in array
-> order and deasserts them in reverse order, so this also releases vresetn,
-> aresetn and hresetn in that order.
->
-> Suggested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
+Hi Andrew.
+
+On 11/6/26 05:24, Andrew Gigena via B4 Relay wrote:
+> From: Andrew Gigena <mail@andrewgigena.dev>
+> 
+> Document the Qualcomm SM8150 Camera Subsystem. The IP integrates four
+> CSIPHY, four CSID (two full and two lite), two VFE and two VFE-Lite
+> instances, with 27 clocks, 12 interrupts, eight IOMMU streams, four
+> interconnect paths and three power domains.
+> 
+> SM8150 has a different register layout, clock tree and power domain
+> topology from SM8250, so describe it in a dedicated schema instead of
+> using qcom,sm8250-camss as a fallback.
+> 
+> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
 > ---
->  drivers/media/platform/arm/mali-c55/mali-c55-core.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
->
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Tested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>   .../bindings/media/qcom,sm8150-camss.yaml          | 412 +++++++++++++++++++++
+>   1 file changed, 412 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
+> new file mode 100644
+> index 000000000000..26f8939001df
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
+> @@ -0,0 +1,412 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/qcom,sm8150-camss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm SM8150 Camera Subsystem (CAMSS)
+> +
+> +maintainers:
+> +  - Andrew Gigena <mail@andrewgigena.dev>
+> +
+> +description: |
+> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,sm8150-camss
+> +
+> +  clocks:
+> +    minItems: 27
+> +    maxItems: 27
+> +
+> +  clock-names:
+> +    items:
+> +      - const: camnoc_axi
+> +      - const: cpas_ahb
+> +      - const: csiphy0
+> +      - const: csiphy0_timer
+> +      - const: csiphy1
+> +      - const: csiphy1_timer
+> +      - const: csiphy2
+> +      - const: csiphy2_timer
+> +      - const: csiphy3
+> +      - const: csiphy3_timer
 
-Cheers,
-Prabhakar
+I ask you to switch to the new CSI2 PHY driver, please exclude these I/O
+spaces from the CAMSS container device.
 
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/driver=
-s/media/platform/arm/mali-c55/mali-c55-core.c
-> index 241a625f7284..e37f87e36eab 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> @@ -70,10 +70,17 @@ static const char * const mali_c55_clk_names[MALI_C55=
-_NUM_CLKS] =3D {
->         "hclk",
->  };
->
-> +/*
-> + * The reset bulk API asserts the resets in array order and deasserts th=
-em in
-> + * reverse order. The video core reset (vresetn) must be asserted last, =
-after
-> + * the register (hresetn) and AXI (aresetn) interface resets. Otherwise =
-the
-> + * ISP can be left in a state where the first register access after the =
-next
-> + * power-on stalls the bus.
-> + */
->  static const char * const mali_c55_reset_names[MALI_C55_NUM_RESETS] =3D =
-{
-> -       "vresetn",
-> -       "aresetn",
->         "hresetn",
-> +       "aresetn",
-> +       "vresetn",
->  };
->
->  /*
->
-> --
-> 2.56.0
->
->
+It makes no sense to deal with all-phy-combined supplies and the multitude
+of other solved problems.
+
+The cost of changing the device to exploit the new CSIPHY driver is
+close to zero.
+
+-- 
+Best wishes,
+Vladimir
