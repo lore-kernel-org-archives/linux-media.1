@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793935534;
-	b=rYCDnhHApiCcGvq9xhXn8AnKqihp+6+OSxZYMhMiM4rMXHGr74nkHET44fqIHbzXZezl
-	 RLvof4eYs1DxyRLim3jR7iYFyS8ShfOFSIR2wovUx0AKOnA3/Ofm1ljMMV+lmS39yIK30
-	 hEabPHogs09PN+6WHyq6d41LjdvCm8+fATv93YlhHSkWVrEG1VDiqYurD81yUhSHmZf9L
-	 30SWtcdFxZSD+ukLNBWFRdYO0BN83rs0GJS+abbA7aiR1YUiBhz+bJ6WdmXq3LOurc7TP
-	 QnEZeSotxpR003Jm7r/p8m0V1vJTD1H1nOv2brDRbLWpmV08RSHKS7TgfK+57/MkciQ==
+	t=1793935535;
+	b=Sj+WIbwZao7f5e2JhANBkzcWExb44LsB7jDHYt9/ZQeGdXt2IgJozv9sirM1x9ruwCic
+	 2dvmyKMl5n7Kk49BblO4V45YrJp2n/k6G7kgfPwBjVveBheMMn05ichbOxwo6jIDMUOS8
+	 8jllI3tIvde9NsmDCoSxqiURFEokfS7iCKNvJwF93BjN3qKHxMTUi5a8KXH/pem32A5EC
+	 XzEOXWwKCBL4PDZbdILfgK1jc3w/Ir9P6xWl9CugxtPPiKQVZyTSeSWfvlYuycNG8U2oB
+	 sHuzqu64oPFV2fiDa8BrIJpv7HeSbGz5+7kM4krqrHOaq99O0oFTl5Qaqxi907hLcpQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793935534;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4FAtyZ6cutU5gi2YegQDVpl3eipKNh1GuYURLgtFckE=;
-	b=naCusciG1uLdQrw3x1SjF6nVKM9uRCgOcKdT8t6YwA4qpo6Xh0wVJEbI227Eln4lamSn
-	 KgK+bGtu8u6ZvxZ3IU71p/YwQQE7ToMrFb4shpDjpz2sLxUz6aN1NzYJOCSPPZwvm7fwt
-	 C3+hLCk39QChQfJqtKrtvTQ6h5KS6k31SSkou7SKsVhxz3Mtxd+GO9sjxisHv3BCsdFF6
-	 7/V6pX4bP41ViLfBreXvMjip07/jnwGKIwZIYZYBqrKh4CEeFO4r2E8MG4CSZqaIUfYZR
-	 DblrtLlAbOmllDEneplOFRaSWCLbvATZIOJ1njOcdWQ6b2jQCXDOqLOKYE+2MFbLwxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793935535;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=UGUXLH1WriYi3S3fHZ4G+RtgsHLbzdQENfqGJ4Ij2M8=;
+	b=swYHMkTU/2a0om9RUitVXdiV6o7N/9RNBQWBxUboBUk8z8rp6hvF5ZBZNAmIOvREnyjS
+	 XXntrlo3p8NVWzuC7QEvcIX+nR2tySphwyTWChWNDzQ0+GxL1+1m6JVjnX50JMeGeAJNB
+	 rMNNpTWzJsv/C0EMxY4wdhrhAnzssPfjxhsb05Mn5EAgCyf1r13RZmN9KX3Dp0+DrF3yp
+	 BzrAXlIaK6cQduNtnuf9PWSjt1O2X4YgAK5Yftm9HyeUKDUeHkwwE5F23KDCW9fFo+MKF
+	 7Pp7B/zRI2nA4dIkhLlmOmt0qn5qO8O1bOlCNuEtEwOcz6gjt5Ch3OxECdA3QT7ByFw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isyGNlY7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GzU9QK71;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4548E606A329;
-	Fri,  6 Nov 2026 03:25:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB003606A326;
+	Fri,  6 Nov 2026 03:25:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isyGNlY7
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GzU9QK71
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793935533;
-	b=upS72JLRva6R3g/rYdZ+oxsUs7O7x4m/E2TAc48JwXST6BkTnFN6bha8+sLnMIZH+Whs
-	 LTd5Hru0pM8h/d9NjADO/YkLOoUGIv6yldkZ/w3L3mru9zCtnAbRVPnYpigzMEbW2hKYU
-	 Cchmjn0rV3UYQYlpw2Q37yrLO9pmU3mOw9RVESQD9NDCVOGlf7WPO88IYOL5FhOJWvwqR
-	 o1ooCjN9kGonONEkRArvhr4ULwm/+VMdq/so8MA2O24EVVeVcvQRLwLn/0pkhKY2RDE7v
-	 yXqwBWyka7Yhb2ToZ44PCF3x1gKxAoj1yPc8XOuPSYred3FED35+vqMBtWaVAfUfDrA==
+	t=1793935534;
+	b=Oall/iB4qLeI4mRD/Zp5aPdhXrWVRkNPdsb6tKQS1J1vLbXDso7BxKkuumsp82sQZlx8
+	 n5UcKuQgaB6Ji+2mWTyFHvPRkI5mXO3et7/7IltD2JW53ljxWySot+Es6Y0orE2BLFKy5
+	 V4Oi0SkLLtkuG+qiI9IDwVRmYluu6uzBeOKZwdDzLOvprEhmEyruWG/SRLeZJKgPsGAbo
+	 ZYFJDQ0cwvI13+ZHAJertTrVW8Kvw9ANoQYtyf/bRc+QFdiTCtmycRFxB3qxpxRYwaHjX
+	 lcJD+9n6vI6tecAg6UNh0xxHwLEaV4/mG4TeR2naWds0brp9i1NMOWgK/etodTIuh6w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793935533;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4FAtyZ6cutU5gi2YegQDVpl3eipKNh1GuYURLgtFckE=;
-	b=Wh7RRu8tJCkcvIHg0GzSX+JHKU3gSwd7MoreajekX1IV9NPzvYfOpI1aofRMG3fAEwjC
-	 /pV0Ddl2YSjnoBvPsOFsPFzxaSx6Gt4VXGtyEpRoF9JYwKSxdpA+kRFUCGLulcC0RACnl
-	 YqN4dSDpR3A0eClID2s5KgeRuXHOUBkF1bOK4ewVbEwH8/K8eemgxz5zpO6TaRCCgILaQ
-	 r3ZXRy0lXPMFYa2uEI1at0tThPiGfE6/ODmnRByvF/4wQK/Kow2rAsy7V8u6AxsKSMG/7
-	 gUnSHFUQBdVzcGpi8KnCwyc7P+sCublfEnFjvsJfTjKpAN43dH3X5H/k4Ck4erchnZg==
+	c=relaxed/relaxed; t=1793935534;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=UGUXLH1WriYi3S3fHZ4G+RtgsHLbzdQENfqGJ4Ij2M8=;
+	b=nyPQR2uvZlXvs+ZWwVDp3usXcwD0J98e9eTs/yhr9Mdy9RFi5DkesymOrLAgnfs47V4Z
+	 iMLxZqNAtrYF1GLWKZvPM19K0iSkC2Onv7bMOESqblJ+g+FhuvJ4e9kweeyZ8JQQLbiOJ
+	 YS5YNqiKFN9PtOSdT4PqUyxy/Jas8cIT4jueAWwXX67B1dFEaXTVqCIe/bv6Ghb5fxIHA
+	 YmaR3cxgfucqqfCQjaBvODH8D+prb/Re7+jrAr0TLIsbmdyNuWR7MLGrOxWoqRcphSABQ
+	 dqO6lcdW7Fi/5I9YrcoyBF4mBKwQ3/jePRad8CO9l0iqD2k/I7HUHrP8gFgZQJeOrmg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 31FCB1F008A3;
+	by smtp.kernel.org (Postfix) with ESMTPS id 28D4E1F008A2;
 	Fri,  6 Nov 2026 03:25:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793935533;
-	bh=4FAtyZ6cutU5gi2YegQDVpl3eipKNh1GuYURLgtFckE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=isyGNlY7KOSY2sFcsv/BaK1827bzwgKcXCoaacLKdx2A+aLViDMNfvf4geW98Q2V7
-	 dl0oQMI1DRfM10OFqZNbx0nPdFOM+jPCoDxqUY0/oFTNj5IAaT2qtVDz1t0GG5cbFI
-	 s5NcjpqxdhNMa5k8gsUttPqZT4oaDomBpPeFBJ/3ma90obpMK6KkkJDtfcYUM5zkz/
-	 wVEyDP+pNTbtYVSMG+7qnTkY9Dof/VHcHjct2DgcqcfiFin8x38mog9g8CuBnRht9u
-	 AX9nEDEgL0HCOsSGXPOX0B+75BQZb49dcqwSAIA3ToL80smUGnbqbRNbyOHavm5QJn
-	 l7S9jZW5NbulQ==
+	s=k20260515; t=1793935534;
+	bh=UGUXLH1WriYi3S3fHZ4G+RtgsHLbzdQENfqGJ4Ij2M8=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=GzU9QK71AlaYTzjyjJyYRcKBnkxMo1OZ+54aqyIMfEasKnEK9x14DnKpPXG+0dQjU
+	 RnmtKCWjIbhWckJirQc4NXIdqMi09HK1TJ9Fu8jG8kzqfwIYmV0kX9Ky8XGOUJPMxh
+	 IWDUSch24Bwl7wtloxL8RGaIPMAesrsmqcxgg4DFo7umVERMwdG0mcQWNWb9tQiK8Y
+	 BrQzGGaKW0HNElUr4zBggVvyRIi6FI6U69G5F383xC1uTvdVaijci3h43lYRmF/ckJ
+	 Yw+uFiaVo0GT/SgtwWc6KWOr/BbEECP2R9wa2VBv2oBKLzqouadusTBBmVwb6Z+uU4
+	 34A9vAn+FwLOA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AF13445B92;
+	by lkml.kernel.org (Postfix) with ESMTP id 789DD45B8A;
 	Fri,  6 Nov 2026 03:25:32 +0000 (UTC)
 From: Andrew Gigena via B4 Relay <devnull+mail.andrewgigena.dev@kernel.org>
-Date: Fri, 06 Nov 2026 03:24:54 +0000
-Subject: [PATCH v2 3/5] media: qcom: camss: Match VFE lite clocks by name
- prefix
+Subject: [PATCH v2 0/5] media: qcom: camss: Add SM8150 CAMSS support
+Date: Fri, 06 Nov 2026 03:24:51 +0000
+Message-Id: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,9 +84,12 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-sm8150-v7.4-rc1-camss-v2-3-39ee37787b00@andrewgigena.dev>
-References: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
-In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr0K6dkhbQMSV9zAsxnaAmlBMB6uG9
+ O4CHsDlS95/fxFMwRGLc7aIQNGxm/wK+pAJM6DvCZxdWWipj0rJEng8qUpCrPMSglFgcGQGW1h
+ bkdSoainW7SNQ595799r+mJ+3O5l5i23G4Hiewmc/jmrz/n1EBRJqbKqixAa17i7obaBX73rym
+ FuKok0pfQFJ665r0wAAAA==
+X-Change-ID: 20261104-sm8150-v7.4-rc1-camss-d3dd5e02a170
 To: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
  Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -100,53 +103,80 @@ Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-media@vger.kernel.org, Andrew Gigena <mail@andrewgigena.dev>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793935531; l=1422;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793935531; l=3089;
  i=mail@andrewgigena.dev; s=20261104; h=from:subject:message-id;
- bh=2iraXBb5zNtm/r+ImYDkshzAf5Ek9NUXiemEdTIIU6Q=;
- b=LTtcKd0GgAp9XbWN+VH8CNJQKE6a/Mh1li3LvFsoa+Rw8EwOlPtbH+gEXH8PTiXfvlNNw3JdU
- 15P1RDicxrSDXb/66oMyY2IbHMK+LdgpJw1cw0IbWNmmPGzKohhGUFt
+ bh=qLVJbZNBqU02j9nDuuDniRv57jjqg5cA/kA8QxuVntM=;
+ b=PYcC/EQh4zF8hn21EmdBlq17VpmgZQ2Cy3YQKqECxFxBxwEjdcRuRJvErOXRfOiPgGiLpqDCP
+ 3JJI6lxH6/GD/K7zuBWszqJYI4oiPWM9cN2uUitJrhKPBqzDL8LrtwQ
 X-Developer-Key: i=mail@andrewgigena.dev; a=ed25519;
  pk=OMhlYIBaOEC8g4mJ4JCKy7kbg+lrwRxuujieZF8Ne6U=
 X-Endpoint-Received: by B4 Relay for mail@andrewgigena.dev/20261104 with
  auth_id=1402
 X-Original-From: Andrew Gigena <mail@andrewgigena.dev>
 Reply-To: mail@andrewgigena.dev
-Content-Transfer-Encoding: 7bit
 
-From: Andrew Gigena <mail@andrewgigena.dev>
+This series adds SoC-level CAMSS support for the Qualcomm SM8150
+(Snapdragon 855), based on v7.4-rc1.
 
-vfe_match_clock_names() builds the expected lite clock name from
-vfe->id, but vfe->id is the index of the VFE in the resources array.
-On SoCs where the lite VFEs come after the full VFEs, the generated
-name is vfe_lite2, vfe_lite3, ... and never matches the actual
-vfe_lite0/vfe_lite1 clocks, so their rates are never programmed.
+SM8150 contains four CSIPHY, four CSID (two full and two lite), two
+VFE and two VFE-Lite instances. The blocks are close to the existing
+SDM845/SM8250/SC8280XP implementations, so the driver change only adds
+platform data and hooks the SoC into the existing Gen2 CSIPHY, Gen2
+CSID and VFE 17x code paths. No new register programming sequences are
+introduced.
 
-This affects SM8150, SC7280 and SC8280XP. On a Pixel 4 (SM8150),
-streaming through VFE-lite0 left cam_cc_ife_lite_0_clk at 19.2 MHz and
-failed with "VFE reset timeout".
+The series documents the SM8150 CCI compatible, which the CCI nodes use
+with qcom,msm8996-cci as the fallback. The patches are ordered bindings
+first, then driver data, then the DT description. The series is
+intentionally SoC-level only: it does not add a board DTS, camera
+sensor drivers, or board-specific camera wiring.
 
-Match any clock whose name starts with "vfe_lite" when the VFE is a
-lite instance, in addition to the existing exact matches.
+Testing: with a local Pixel 4 (google-flame) board port and
+out-of-tree IMX363, IMX481 and IMX520 sensor drivers, the rear wide
+(IMX363) and rear tele (IMX481) cameras stream, and the front (IMX520)
+path has produced frames. The board port itself is not part of this
+series.
+
+checkpatch reports no errors. The only warning is the new-binding
+"MAINTAINERS needs updating" prompt, which is a false positive because
+the existing CAMSS entry already covers qcom,*camss* bindings.
+
+Changes in v2:
+- Address the review comments from Sashiko, Bryan and Val.
+- Drop the internal CAMCC *_src clocks from the binding, the example and
+  the DTS; the binding now lists 27 clocks instead of 42.
+- Remove clock-lanes from the CSI endpoints and use an unnumbered
+  endpoint in the example, matching the other CAMSS bindings.
+- Describe vdda-phy-supply as 0.88V and vdda-pll-supply as 1.2V.
+- Move the CSIPHY supplies from the CSID resources to the CSIPHY
+  resources, so they are enabled before the PHY is accessed.
+- Add a separate fix for the VFE lite clock rates
+- Tidy the CAMSS_8150 switch ordering.
+- Link to v1: https://patch.msgid.link/20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev
 
 Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 1 +
- 1 file changed, 1 insertion(+)
+Andrew Gigena (5):
+      dt-bindings: i2c: qcom-cci: Document SM8150 compatible
+      dt-bindings: media: qcom,sm8150-camss: Add SM8150 CAMSS
+      media: qcom: camss: Match VFE lite clocks by name prefix
+      media: qcom: camss: Add support for SM8150
+      arm64: dts: qcom: sm8150: Add CAMSS and CCI nodes
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 2680a9914765..9866ac09eefd 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -914,6 +914,7 @@ static int vfe_match_clock_names(struct vfe_device *vfe,
- 	return (!strcmp(clock->name, vfe_name) ||
- 		!strcmp(clock->name, vfe_lite_name) ||
- 		!strcmp(clock->name, "vfe_lite") ||
-+		(vfe->res->is_lite && !strncmp(clock->name, "vfe_lite", 8)) ||
- 		!strcmp(clock->name, "camnoc_axi") ||
- 		!strcmp(clock->name, "camnoc_rt_axi"));
- }
+ .../devicetree/bindings/i2c/qcom,i2c-cci.yaml      |   2 +
+ .../bindings/media/qcom,sm8150-camss.yaml          | 412 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8150.dtsi               | 320 ++++++++++++++++
+ .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     |   2 +
+ drivers/media/platform/qcom/camss/camss-vfe.c      |   3 +
+ drivers/media/platform/qcom/camss/camss.c          | 267 +++++++++++++
+ drivers/media/platform/qcom/camss/camss.h          |   1 +
+ 7 files changed, 1007 insertions(+)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261104-sm8150-v7.4-rc1-camss-d3dd5e02a170
 
--- 
-2.56.0
+Best regards,
+--  
+Andrew Gigena <mail@andrewgigena.dev>
 
 
