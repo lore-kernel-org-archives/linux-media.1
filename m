@@ -1,120 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793978517;
-	b=JTf6lFYAhj1YJS6xivjnQ0fgQDbYIAcd9iuuEqKQw99jrl1fEprxypYfC7YmxPO+WG4k
-	 ebZHKCTB4692zCs5QHFh19/vbmVKZGd0+CFcfiXBzMrOE1a5x37JmoFF5UFV2UrVtcDuQ
-	 2q6W+nGncI1avuGic97g9oDHMA151P80q4FEazAu0WrLZprUQJjdHhNCLfl4KWYWr2W4P
-	 3V2EkeJ3Pwb0fYw26ev3S+nWTV5l0P02Z/HgXyMceRsHk73prIyFglNPIs4nLsPxO2/Ix
-	 X2TdDllmqE7+JUIz+IdPaWXSzx2bcPIZX88t10zZ3s224a+ue3pgeAImw8G2Peyt3bQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978517;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1rxOFc+cZPr208SIBHT4IjzKUbYQTfkbGhsqB2LqDE4=;
-	b=PT0vpSYsGBhTJZfS/fENYHCE/NCCKIA40m4v4rmRizbzqfebTCnIPySnCE9xnAK4mIPD
-	 azqQhaIRJrPbnpV5tHQQ84gnDe3x8kHSMdg3uTEsrrZ3HD//mas+8DYOHOcOk9n1uTEZi
-	 z5HiNP+dnxgA3bKr0uPHWJkTUVC8Bcmmnll639XPB/RNdiSNObM0bR0RYVIk3DmaYVUfy
-	 +CNymOCakL8ItROMaNp1u1ZKdg4bfkZf545MToyHahxM3nTrXGvUKy6a4Ft/tKR2DdfH1
-	 s883UfYkcAJ/7e+7T2BGHGoANHdXisSWF0ir7/LtiWmyk6TMqnji/VCjkTVT3n54j7A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XWbB0bjV;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=s8OZ3Fjz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793979022;
+	b=DilXxVzVf0gzWulX8Gk3GNEsDf/Bek64gMS2RdNMrR+G6GuvTlxYhNrK05kRBFDe1xz+
+	 h7PbPs7cq1pV+htTCDVPESkh/HZUNLjb/uxXefPSzonJxDXYFG2zJ+dHVDjn65cUhc+fP
+	 36/tPc1cpP1Y/+6MV/D80Y9GTA8YDAhJ3WYyk60q0UOfuqQoxPH5sjg5Awp4h+Wh8k028
+	 Ln6NOKDcdP0b/Thby8eSlhzOUYTeTzayrJu1vkyR+EU/p9B3cgc9hbk31fxeBZSuadh9R
+	 s17mmON4b341Lz++55k2Rs8ImBkX8hXz43g5NlwI/n2H5+vZr3vR1MhwMyTVDdxhCKw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979022;
+	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
+	 References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=6ajX4lfiph+VivXIsw2riYK43KZT3Do0cgXxc26s8IY=;
+	b=euK2x3Itm+g1vihfqM9K9oqNA7S392+uN/nMds1LN1Q3EUuJcInPovZCI318ktVkI87g
+	 E3DisGOEysPeScFcg8izKHmrmHwajn+H9h2Dz3s6rp51M4cKa7nvPqrTIL7LbNI59ZAEK
+	 iK386wOxwl7dI8vhtkMj8JDDHmi4f5bBiUCHKH+PyzMQtKQ7/LTQULQ180rxTTnBt4Jfi
+	 cijOLa8ylOHjz2xQWo4Vd0IV3bROU3+MiyAwUTWXqtCRH4McTWAGqUTBK5lWf+BZWrFdM
+	 Vpqo48JYv5SMEDEGQwiT633S8xsegYGhJy18FXQiqu7TBl2NUrBVm8NQtqFdZikDFBQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZRYmaiq/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789C8606A335
-	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 15:21:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 789C8606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0499F606A32C;
+	Fri,  6 Nov 2026 15:30:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XWbB0bjV;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=s8OZ3Fjz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793978515;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1rxOFc+cZPr208SIBHT4IjzKUbYQTfkbGhsqB2LqDE4=;
-	b=XWbB0bjVdo1gOhZbv4AvOauhXiwJI4bkxMui1V+Vw+p/P6lRoENL5PlMOYRl5naW3lqrZI
-	pK45MpSU4Vy9SrNs8BcW/EftzPxemVAK+CZGHZezhYBr5s7/Q/5nChtLdJW0lYMbr22w4p
-	NI4DHw6UAwKhNXUqNmAdoSO3m5zUsIE=
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com
- [209.85.210.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-53-b7C2PKUFOQGkOVjpJFNMNg-1; Fri, 06 Nov 2026 10:21:52 -0500
-X-MC-Unique: b7C2PKUFOQGkOVjpJFNMNg-1
-X-Mimecast-MFC-AGG-ID: b7C2PKUFOQGkOVjpJFNMNg_1793978512
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-843cf077bf7so1201418a34.2
-        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 07:21:52 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793978512; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Pt9ndp4/oHKoyLQrF+DHExjNftgLl+JFGEJMzMcpakpKSDXNzeN5P5mYzHZx3DJdxl
-         DIIIWGyL2O+iHUSTEF3Ka0X1K/I7g41tuiU+aqYovmBY36kDRqqfVA/RxjgaQdynDTgS
-         n78VRyQ6HtZfOuhGeO8Gys7WUQ8en3ClH78WrOiI4n9Fod18oU1owP4+mrvYGRzrr5Fu
-         t2AGPRZaZB3TwT7duqNDvkzbpPpl7JdMra9gXpPhDleOJOEc2wjBqo89tZQM/7pcWa6o
-         3GfOZ3IexwKWhCnJPUE4MPDQrDXdipm+WmJJvle7zMJv7GV/4TsLQbGSrEMZu7SlC441
-         g8Tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1rxOFc+cZPr208SIBHT4IjzKUbYQTfkbGhsqB2LqDE4=;
-        fh=xyTYgm0C7CqT0bplRYAAmpmgyENj1PdpWy3rMRmkahY=;
-        b=s8LsMGMroRly5ZbFnB8rHGLO5vr763q93aTjWrypFHWNp7Z5s2RjXVujR243e86KAA
-         i3Ls6qUMjzfXovZgqnCnawfUmgAQeO4XgrGfdKNCxYB0NmoYe6ZiD4/oD8nKaTGFYZ9R
-         uCXqbbCELAvI9AkffD/OFPMRiO8Cwx4IWrlEtNFTbrfxC+M9dmxtVUeL8ey4PKhJ0bvo
-         aFVt49fKkIg+oS/CHfX6SXYvlcds6eJOjM7r6WPnOvNGGMiee4WH49Rg31l2KIN53V9D
-         Ji6TW/9zRzqT7MitmL4JolvtQq+RKeu2VbeCxE5S00J+jjAAehyi1Z1b7Mq+kKzWxQ0b
-         OJVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793978512; x=1794583312; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1rxOFc+cZPr208SIBHT4IjzKUbYQTfkbGhsqB2LqDE4=;
-        b=s8OZ3FjzHURNyBqkqIBU1Bg8DoKgxzEWVuozmHY19KhKFA2dCgDz9cUW8YyLpMBdmE
-         lTBo4b+VaFcPoEDEYdkRPHb4kdCbDm21vf9OrO+KZgAMDeBJnM8+pb8i/BXTsvVpokqj
-         HoO8pQbI31Qd9XtPwTG0Qa6+jZ6kDv6F+76vhl5ydemxmOZB4TsAgIem2B+cBpW26x4E
-         BCVq5wtr5Z2/ELwPD2wCZ5HKTdtNP8OGCbaOromawRYTrODwsJzhiGUOnS2TgxcZhUM+
-         ietb50h4MKGBTficTllREZT6vRv2lQOj3sqija+kHQJMbr65cPuQ6nyHlsKsp7BXUn3l
-         Ksig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793978512; x=1794583312;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1rxOFc+cZPr208SIBHT4IjzKUbYQTfkbGhsqB2LqDE4=;
-        b=TPewfBFC0Zpn+KYmaxfn2HXLpgAXAtaHftqV3cLXoIIWGF+j+KzJZvqksMdinoKgOM
-         7uQQFfUFiWqDXcTipNQfzvrxOef1rMMLXTqk7ChF0szJCHM3a7ESP5q6xWqFVtoQkybQ
-         Eubrs+Nk5dMFqoglCtj3NH39AoSBeafWocG0LyH63dZoh+tLKzQ8tLJfe7/+gUdzxWTl
-         Gt6JV5+Bw2MZX6YAZl6T+qRMLgqana+KQo3cOCP33ogpO/jEU+JsQ9ZMTjOVXAHQ8hfP
-         u3Tm9LifLb4YyjTxltZ/xSPlESVzVFjB/yR3g+WDOvVBX9nMGUcwdahs4+qsp5Zq9epn
-         Jn0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwaDgBg5Q1PTUj48FFp1UBCx+Wjmi60qKBz0oKj12D1lhVR3hFLry5rUk/RGnmeJQpfhF7Ju2t8DTwJag==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8wtPniCkzqL+2zdXiCWNNplz9+y01c0MJf2D/Ei4JymTbGzhP8
-	GGKqRgVgkWutgR6uV5dBsi0H18qqGDxAhG7i1fjgHgA2QZyQtuzEadLJCLe5cWXxmPDy0y4Dsyr
-	+0VOo+ynTSgOP8HblPVE0qE6qNHjNca1+d5jw8rC40h+g6WuJb3onGtVE0XZ4R8YUVxRZ8ZLC1C
-	g/ATLIB8tSTa5n7L9L5yrGUpykfyGq5zSoGCebwPg=
-X-Gm-Gg: AYBFou1aTYDYcHmRzN2ryIfhVnmmQyBZthWBbpbETw2Qqj1hF1XarFseJj+OrK35NH3
-	+v1SpZimuTVtbpxJzUn3dxkpfyUZxMI8PboTVDtnh8b/O1A1/0+qXncSxeWnCn6tvNfUHF16IB1
-	OsZ6SQpz56w7llU4X/0MyvQFyfsLyjvm9YcbLRYo5loee6PJeINuiWBAK5
-X-Received: by 2002:a05:6808:181f:b0:4d7:17d5:6c9b with SMTP id 5614622812f47-567e098b040mr2230461b6e.9.1793978512046;
-        Fri, 06 Nov 2026 07:21:52 -0800 (PST)
-X-Received: by 2002:a05:6808:181f:b0:4d7:17d5:6c9b with SMTP id
- 5614622812f47-567e098b040mr2230427b6e.9.1793978511464; Fri, 06 Nov 2026
- 07:21:51 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZRYmaiq/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2E4D1F0089F;
+	Fri,  6 Nov 2026 15:30:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793979021;
+	bh=6ajX4lfiph+VivXIsw2riYK43KZT3Do0cgXxc26s8IY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=ZRYmaiq/u/SQjBF4ufiS7XCsUtIWBR8hL8WYwn3u9em1LPif/YCL7ChpmRJhgOyIX
+	 7IC3EXVPCAkmKpLit8fAZGhbU6zO4Vo41xdkh0y1FE4VLwuE7EJ30uktOPNCEggpHD
+	 MbD1RX7dmUIkjT1awTBDV15avM4RN85WC1q1el5mr5tbkabk3V6dhoZUlfF40LSpgk
+	 KGlR22lgb9rXJhGOGQUNnGEHkpSn3m9hgHzxauJLxhjdxnvoN5U5o3aZh72JhgeHUT
+	 8BdOqsA5VITYBbXwdbZ6w5prD5p1MVjT+3jhhqFtkmeHdpWI1SXbbXixdwYl6O4EkL
+	 ecOySiCRp0UYA==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	linux-coco@lists.linux.dev
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Radu Rendec <radu@rendec.net>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+	linaro-mm-sig@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-media@vger.kernel.org, linux-mm@kvack.org,
+	kvmarm@lists.linux.dev, patches@lists.linux.dev
+Subject: Re: [PATCH v9 01/14] mm: Add an allocator for CoCo shared memory
+In-Reply-To: <2e448ac1-7b4f-4d45-90db-dfe9dc5ad329@arm.com>
+References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
+ <20261104164555.3555725-2-aneesh.kumar@kernel.org>
+ <2e448ac1-7b4f-4d45-90db-dfe9dc5ad329@arm.com>
+Date: Fri, 06 Nov 2026 21:00:01 +0530
+Message-ID: <yq5ald76ou4m.fsf@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -124,326 +114,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-v2_20230123_tjmercier_google_com-v4-0-1819a017000b@redhat.com>
- <20261104-v2_20230123_tjmercier_google_com-v4-3-1819a017000b@redhat.com> <fb40349c-18d2-45d6-9278-8f20e1b8dc74@amd.com>
-In-Reply-To: <fb40349c-18d2-45d6-9278-8f20e1b8dc74@amd.com>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Fri, 6 Nov 2026 16:21:40 +0100
-X-Gm-Features: AclHuK8xPUV12Kp92h3MGmY0EG1MyX4e69V4l27RPz6qll1dAX1c6CSJcZPwZjc
-Message-ID: <CADSE00+NL-tyQVaTiS0Xdin7f-P_2c84P0qs-X66VqYze0-kGQ@mail.gmail.com>
-Subject: Re: [PATCH v4 3/8] dma-buf: transfer memcg charges via DMA_BUF_IOCTL_XFER_CHARGE
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
-	John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
-	Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
-	Stephen Smalley <stephen.smalley.work@gmail.com>, Shuah Khan <shuah@kernel.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
-	Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, cgroups@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org, 
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, op-tee@lists.trustedfirmware.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Wed, Nov 4, 2026 at 2:52=E2=80=AFPM Christian K=C3=B6nig <christian.koen=
-ig@amd.com> wrote:
->
-> On 11/4/26 12:09, Albert Esteve wrote:
-> > dma-heap already supports charging a specific cgroup at allocation
-> > time via charge_fd in DMA_HEAP_IOCTL_ALLOC. However, dma-bufs can
-> > originate from any exporter (DRM, V4L2, etc.), and the allocator may
-> > not know the final owner at allocation time.
-> >
-> > Add DMA_BUF_IOCTL_XFER_CHARGE to transfer a dma-buf's memcg charge
-> > to a different cgroup after allocation. The target is identified by
-> > charge_fd, which may be a cgroupfd or a pidfd.
-> >
-> > The transfer charges the new cgroup before uncharging the old one,
-> > preserving the original charge on failure. Concurrent transfers are
-> > serialized by the dma-buf reservation lock, so lockdep covers the
-> > locking order of the charge path early. The transfer implementation
-> > is generic (mem_cgroup_transfer_charge) and not dma-buf specific, so
-> > it can be reused by other subsystems.
-> >
-> > Not all dma-buf exporters back their buffers with reclaimable system
-> > memory. Some represent device registers, VRAM, or carved-out pools
-> > where size is not a meaningful memory cost. The xfer ioctl returns
-> > -EOPNOTSUPP for buffers whose memcg is not set. Exporters opt in by
-> > passing a memcg through dma_buf_export_info at export time. Currently
-> > only the system heap sets it, other exporters can opt in as needed.
-> >
-> > Usage example:
-> >   int cg_fd =3D open("/sys/fs/cgroup/clients/app1", O_RDONLY | O_DIRECT=
-ORY);
-> >
-> >   struct dma_buf_transfer_charge xfer =3D {
-> >       .charge_fd =3D cg_fd,
-> >   };
-> >   ioctl(dmabuf_fd, DMA_BUF_IOCTL_XFER_CHARGE, &xfer);
-> >   /* charge now on app1's cgroup */
-> >   close(cg_fd);
-> >
-> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> > ---
-> >  drivers/dma-buf/dma-buf.c    | 42 ++++++++++++++++++++++++++++++++++++=
-++++++
-> >  include/linux/dma-buf.h      |  3 ++-
-> >  include/linux/memcontrol.h   | 13 +++++++++++++
-> >  include/uapi/linux/dma-buf.h | 26 ++++++++++++++++++++++++++
-> >  mm/memcontrol.c              | 42 ++++++++++++++++++++++++++++++++++++=
-++++++
-> >  5 files changed, 125 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> > index 837666273550..3bd26fbb1109 100644
-> > --- a/drivers/dma-buf/dma-buf.c
-> > +++ b/drivers/dma-buf/dma-buf.c
-> > @@ -540,6 +540,45 @@ static long dma_buf_import_sync_file(struct dma_bu=
-f *dmabuf,
-> >  }
-> >  #endif
-> >
-> > +/* Transfer a dma-buf's memcg charge; see struct dma_buf_transfer_char=
-ge */
-> > +static long dma_buf_xfer_charge(struct dma_buf *dmabuf,
-> > +                             const void __user *user_data)
-> > +{
-> > +     struct dma_buf_transfer_charge arg;
-> > +     struct mem_cgroup *memcg;
-> > +     unsigned int nr_pages =3D PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
-> > +     int ret =3D 0;
-> > +
-> > +     if (copy_from_user(&arg, user_data, sizeof(arg)))
-> > +             return -EFAULT;
-> > +
-> > +     if (!IS_ENABLED(CONFIG_MEMCG))
-> > +             return 0;
-> > +
-> > +     if (arg.flags !=3D 0)
-> > +             return -EINVAL;
-> > +
-> > +     memcg =3D mem_cgroup_get_from_fd(arg.charge_fd);
-> > +     if (IS_ERR(memcg))
-> > +             return PTR_ERR(memcg);
-> > +
-> > +     dma_resv_lock(dmabuf->resv, NULL);
-> > +
-> > +     if (!dmabuf->memcg) {
-> > +             ret =3D -EOPNOTSUPP;
-> > +             goto out;
-> > +     }
-> > +
-> > +     if (dmabuf->memcg !=3D memcg &&
-> > +         !mem_cgroup_transfer_charge(&dmabuf->memcg, memcg, MEMCG_DMAB=
-UF, nr_pages))
->
-> Please move the calculation of nr_pages after taking the dma_resv_lock().
->
-> We currently don't have anybody dynamically changing DMA-buf sizes but ju=
-st to be on the save side.
+Suzuki K Poulose <suzuki.poulose@arm.com> writes:
 
-Sounds like a good defensive option. I was also tempted to move it.
-Will do for v5.
-
+> On 04/11/2026 16:45, Aneesh Kumar K.V (Arm) wrote:
+>> Confidential-computing guests may require memory shared with the host to
+>> be aligned and transitioned in units larger than PAGE_SIZE. Several DMA
+>> users need struct page-backed allocations satisfying these requirements.
+>> Provide a common allocator instead of requiring each user to open-code
+>> this sequence.
+>> 
+>> Add alloc_cc_shared_pages() and its node-aware variant. The allocator
+>> rounds the requested size to the architecture's shared granule,
+>> allocates suitably aligned contiguous pages and transitions the
+>> complete range to shared state. It also preserves the caller's GFP
+>> policy.
+>> 
+>> A private-to-shared transition may alter memory contents. Mask
+>> __GFP_ZERO from the underlying allocation and when requested, clear the
+>> complete transitioned range after cc_make_shared() succeeds.
 >
-> With that done Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.co=
-m>
-
-Thanks!
-
-BR,
-Albert.
-
+> This is not true for pKVM though. It is the other way around. i.e,
+> pages must be cleared before transition (e.g., from private to shared)
+> to make sure the contents don't leak into the host.
 >
-> Regards,
-> Christian.
->
-> > +             ret =3D -ENOMEM;
-> > +
-> > +out:
-> > +     dma_resv_unlock(dmabuf->resv);
-> > +     mem_cgroup_put(memcg);
-> > +     return ret;
-> > +}
-> > +
-> >  static long dma_buf_ioctl(struct file *file,
-> >                         unsigned int cmd, unsigned long arg)
-> >  {
-> > @@ -590,6 +629,9 @@ static long dma_buf_ioctl(struct file *file,
-> >               return dma_buf_import_sync_file(dmabuf, (const void __use=
-r *)arg);
-> >  #endif
-> >
-> > +     case DMA_BUF_IOCTL_XFER_CHARGE:
-> > +             return dma_buf_xfer_charge(dmabuf, (const void __user *)a=
-rg);
-> > +
-> >       default:
-> >               return -ENOTTY;
-> >       }
-> > diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> > index 85dd747c9b36..b01149d26b44 100644
-> > --- a/include/linux/dma-buf.h
-> > +++ b/include/linux/dma-buf.h
-> > @@ -507,7 +507,8 @@ struct dma_buf_attachment {
-> >   * @priv:    Attach private data of allocator to this buffer
-> >   * @memcg:   memcg to charge for this buffer's memory. Set only for
-> >   *           buffers backed by system memory where @size reflects the
-> > - *           actual allocation in bytes.
-> > + *           actual allocation in bytes. Enables charge transfer via
-> > + *           DMA_BUF_IOCTL_XFER_CHARGE.
-> >   *
-> >   * This structure holds the information required to export the buffer.=
- Used
-> >   * with dma_buf_export() only.
-> > diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> > index f8ec751b7d7b..af02d9777fe9 100644
-> > --- a/include/linux/memcontrol.h
-> > +++ b/include/linux/memcontrol.h
-> > @@ -676,6 +676,11 @@ struct mem_cgroup *mem_cgroup_get_from_fd(int fd);
-> >  bool mem_cgroup_reserve_dmabuf(struct mem_cgroup *memcg, gfp_t gfp,
-> >                              unsigned int nr_pages);
-> >
-> > +bool mem_cgroup_transfer_charge(struct mem_cgroup **ptr_memcg,
-> > +                             struct mem_cgroup *new_memcg,
-> > +                             enum memcg_stat_item item,
-> > +                             unsigned int nr_pages);
-> > +
-> >  void __mem_cgroup_uncharge(struct folio *folio);
-> >
-> >  /**
-> > @@ -1197,6 +1202,14 @@ static inline void mem_cgroup_cancel_dmabuf(stru=
-ct mem_cgroup *memcg,
-> >  {
-> >  }
-> >
-> > +static inline bool mem_cgroup_transfer_charge(struct mem_cgroup **ptr_=
-memcg,
-> > +                                           struct mem_cgroup *new_memc=
-g,
-> > +                                           enum memcg_stat_item item,
-> > +                                           unsigned int nr_pages)
-> > +{
-> > +     return true;
-> > +}
-> > +
-> >  static inline void mem_cgroup_uncharge(struct folio *folio)
-> >  {
-> >  }
-> > diff --git a/include/uapi/linux/dma-buf.h b/include/uapi/linux/dma-buf.=
-h
-> > index e827c9d20c5d..0aaf2e7d593b 100644
-> > --- a/include/uapi/linux/dma-buf.h
-> > +++ b/include/uapi/linux/dma-buf.h
-> > @@ -168,6 +168,31 @@ struct dma_buf_import_sync_file {
-> >       __s32 fd;
-> >  };
-> >
-> > +/**
-> > + * struct dma_buf_transfer_charge - Transfer a dma-buf's memcg charge
-> > + *
-> > + * Any holder of a dma-buf file descriptor can perform a
-> > + * DMA_BUF_IOCTL_XFER_CHARGE to attribute the buffer's memory
-> > + * cost to a specific cgroup, or move it from one cgroup to
-> > + * another.  The ioctl charges the new cgroup before uncharging
-> > + * the old one atomically.  On failure the original charge is
-> > + * preserved.  If the buffer has no existing memcg charge, the
-> > + * ioctl returns -EOPNOTSUPP.
-> > + */
-> > +struct dma_buf_transfer_charge {
-> > +     /** @flags: Reserved, must be zero */
-> > +     __u32 flags; /* unused for now */
-> > +     /**
-> > +      * @charge_fd: File descriptor identifying the target cgroup.
-> > +      *
-> > +      * May be either a pidfd, in which case the charge moves to the
-> > +      * memory cgroup of the referenced process, or a cgroupfd obtaine=
-d
-> > +      * by opening a cgroup v2 directory, in which case the charge mov=
-es
-> > +      * directly to that cgroup's memory controller.
-> > +      */
-> > +     __u32 charge_fd;
-> > +};
-> > +
-> >  #define DMA_BUF_BASE         'b'
-> >  #define DMA_BUF_IOCTL_SYNC   _IOW(DMA_BUF_BASE, 0, struct dma_buf_sync=
-)
-> >
-> > @@ -179,5 +204,6 @@ struct dma_buf_import_sync_file {
-> >  #define DMA_BUF_SET_NAME_B   _IOW(DMA_BUF_BASE, 1, __u64)
-> >  #define DMA_BUF_IOCTL_EXPORT_SYNC_FILE       _IOWR(DMA_BUF_BASE, 2, st=
-ruct dma_buf_export_sync_file)
-> >  #define DMA_BUF_IOCTL_IMPORT_SYNC_FILE       _IOW(DMA_BUF_BASE, 3, str=
-uct dma_buf_import_sync_file)
-> > +#define DMA_BUF_IOCTL_XFER_CHARGE    _IOW(DMA_BUF_BASE, 4, struct dma_=
-buf_transfer_charge)
-> >
-> >  #endif
-> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> > index 17fdefc56b97..3e717b5663c8 100644
-> > --- a/mm/memcontrol.c
-> > +++ b/mm/memcontrol.c
-> > @@ -5752,6 +5752,48 @@ void mem_cgroup_cancel_dmabuf(struct mem_cgroup =
-*memcg, unsigned int nr_pages)
-> >  }
-> >  EXPORT_SYMBOL_GPL(mem_cgroup_cancel_dmabuf);
-> >
-> > +/**
-> > + * mem_cgroup_transfer_charge - move a charge between memcgs
-> > + * @ptr_memcg: pointer to the memcg to transfer from
-> > + * @new_memcg: target memcg; caller must hold a reference
-> > + * @item: stat counter to adjust
-> > + * @nr_pages: number of pages to transfer
-> > + *
-> > + * Transfers @nr_pages of charge from *@ptr_memcg to @new_memcg and, o=
-n
-> > + * success, stores @new_memcg in *@ptr_memcg.
-> > + *
-> > + * Updates to *@ptr_memcg must be serialized by the caller.
-> > + * Returns %true on success, %false if the charge against @new_memcg
-> > + * failed.
-> > + */
-> > +bool mem_cgroup_transfer_charge(struct mem_cgroup **ptr_memcg,
-> > +                             struct mem_cgroup *new_memcg,
-> > +                             enum memcg_stat_item item,
-> > +                             unsigned int nr_pages)
-> > +{
-> > +     struct mem_cgroup *old_memcg =3D *ptr_memcg;
-> > +
-> > +     if (!new_memcg || mem_cgroup_disabled())
-> > +             return true;
-> > +
-> > +     if (try_charge(new_memcg, GFP_KERNEL, nr_pages))
-> > +             return false;
-> > +
-> > +     mod_memcg_state(new_memcg, item, nr_pages);
-> > +     css_get(&new_memcg->css);
-> > +     *ptr_memcg =3D new_memcg;
-> > +
-> > +     if (old_memcg) {
-> > +             /* Uncharge old cgroup */
-> > +             mod_memcg_state(old_memcg, item, -nr_pages);
-> > +             if (!mem_cgroup_is_root(old_memcg))
-> > +                     refill_stock(old_memcg, nr_pages);
-> > +             mem_cgroup_put(old_memcg);
-> > +     }
-> > +
-> > +     return true;
-> > +}
-> > +
-> >  /**
-> >   * mem_cgroup_uncharge_dmabuf - uncharge a dma-buf from its memcg
-> >   * @dmabuf: buffer to uncharge
-> >
+> Do we need to handle such cases with a pre_conversion and 
+> post_conversion hook ?
 >
 
+Patch 2 does something similar.
+
+-aneesh
