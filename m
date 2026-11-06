@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793954487;
-	b=IyVhPsmHXg+o26vkcEI0Ph1lpNvhsRdl3ZHok2MI7bn5GyfptlpFeq05ssRkuAiq5RGh
-	 1AQqlEQLp3Lb2RplyPq56bp+tsyBK4sI9orkg3qkumAqfurCBtsIU2QgWHPsdPlQ7GOb8
-	 /3YjoiRnUn+aU08+rCJjX/JLQYSglfC9PbhKqAJ4FeSyvrZDfCIcO6+5WJuTIisKK4X+h
-	 zYrf6LhUvTUd1pN0CMcwnCEPtZsQOHoDCATFq+uP6ZksXSJtDE7kcPpg3qEhO3V2Uh+Db
-	 3WBBWOPvYx+e1nB2fhBFMISKWsz7krccKyqFfZC4PJLZRYEdhJmWBV//WAqAA0r7DkQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793954487;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-FangMail-Miltered:X-FangMail-Envelope:X-FangMail-Bounce-Flag:
-	 X-FangMail-Outinfo:X-CLEAN:Message-Id:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=rgRY6L8wp214AvSgqKYYx0hBLRjhaRRvysoMuM44BjM=;
-	b=uPISq3qRG8MG/KymGX2X7XxJrn8cIpoWtNQRy5zKmbTUTtL1WmzolKMeDI48ut9e3k74
-	 Xg363u13S5/3eWwgFwwvpR4t4C+LXM0fwgmbgRWmDtowV9+gXKB5cpd22n4XyI0zTlyWD
-	 OjJ/OHS6+6vCIW2pfjA1BSQ03ealHuHi89kEpus9C5BqpA+JVnh6z9JvnIZb3Qil4OqF9
-	 mAX4vRyzu1nhtfuPq2XXDxcgXm3IwNs5nrsqA3rVm+3Y6M/JCd653swXV/+aACdWBGeFa
-	 WyDCQbR+MOm07zrg20oetf0gwZn9BbSBAkrXsRo/nx27wMBicWH+3ZiZENEmLIpIHcQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=isoftstone.com;
-	spf=pass smtp.mailfrom=isoftstone.com;
-	arc=none smtp.remote-ip=219.143.121.9
-Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793955900;
+	b=0zTo+DFHfkCNytzW5ahBPFVSwZ3vUY7wxNUYlZ0b+Q+FCfqmlYpncoHSq6T8LyQ24Nct
+	 bFvViW7l1dHxc4XG8WrsZS0VLF9WqUBdr1ASUaFfpWtzu5DZPVCf91MFKfFkWNxlc2q8j
+	 XIqvgmQ3Pku0FTYyybGnZq2+QkT1JyT1r3YTlyddjOhG0pRCOm6/jqL8z+1z87Xmk9KOY
+	 fdi9u0uOayN6/+Imp7xuNSfazBxZZ14aiLiStEkZujV+uYe4pjztwDMM48rtAOMxUrZno
+	 weFOkgL5crxGxehqM5TBZMX0vffuAlQqUktwLJr9k6OokAuGtBVLRnMv1KOM3tUTmlw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793955900;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qT+CO1ROEeD8xYhFaFdRagN6Eagy/YoQJaHT5lWNYnU=;
+	b=e9g7L0/HtY1SLNQ8h3F78DSzwpH/TUyUUA8RXdfeq69afNBNgq2Zlo6mJcpXREDWsn+c
+	 W1VP6XGjdoqsH39KByRi9ff/lGE5r5pdbKcxvx+BIfl46OAltNrrFqaTTrAkQivK/j9Nk
+	 CJjWJ/PjwFqq95hIJdngQRB3uC5+8B7J3Unt/hNWuI/qD9weXa7S2iC/xUb3Pdu3ni9th
+	 MqHS59kURDw7tPrddftj4BSAXkWRaua8gXBYnQwvsyt+dh87+eK/4axgyDuXm/8rMVFl9
+	 dOrdpKgXqdrqF5pdIoqELGu3cCtIE76V3swVjLchffHInZQDQTsqCyHZTS9ZXcRWUpw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UP6BVeMQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3912A606A326;
+	Fri,  6 Nov 2026 09:04:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UP6BVeMQ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793955899;
+	b=oB/QY+Twf7ojXQIw1F874QykmP79dBheCUKaLOST4To+L+vBf98MTReTHVBnmMqSoJ3a
+	 AlSMCFAgsA9y84THnhSpGZ3ONJRxAsGziKsVs4GbVdkb8m8E3DFoIaznHWRz+hbcfPfgY
+	 wDPXyKJ/G7UJdppBI+HNOD5yAcp5ghzSalm9uJRQ32ngc/Dx/NovciVSwnPuwb9Joq1XU
+	 lAk4Y+2fL3xJSuT9pKaA4FPA36rspHDcBPwEC6jx60IEvAztfaZwQGduwZ1T5bQne2vSX
+	 tDhMdw9bT56kpvU+/fgFYC260qE1mklONsywaNd1pfO/+PdpazdIcNZZKOhHHMB4lBQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793955899;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qT+CO1ROEeD8xYhFaFdRagN6Eagy/YoQJaHT5lWNYnU=;
+	b=ejrZlZcLwgG7Vjl1Ib/D1X3KnZT4PjzvSDvXrjNp48063jliNQF6Vkrmp5efHIdwRwFS
+	 oqBLfD5eRxRCFkhmfsjpTQNdyJQLTp7ozk4c6PvxS+ekLyBiVugJSVNcLDwJeq5+KqPjf
+	 ondEKvvx6WYg55KQ8gFYmQGlQNMrrBUFc91fNNGo9Xvnc0qezadHWmALnAYujsqskyaDw
+	 RpSGZyZjux/u0QY2x+R+doRXhdWpEIgC6mDeJwp3fHgPLmersFVNSXfZ/fy/IxQGNNmV8
+	 QfKKF3qlqzAfVeCCCGz48e6FfuOfjpdYDSAFlJsD4c6UgjD6mXFiHVCmC2bmyyqT26g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C77F606A329;
-	Fri,  6 Nov 2026 08:41:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C77F606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
-Received: from ldzh.. (unknown [221.226.109.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dlzhangak@isoftstone.com)
-	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jLXhN6Cksz4Dr7;
-	Fri, 06 Nov 2026 16:41:08 +0800 (CST)
-From: zhangdaolong <dlzhangak@isoftstone.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Antti Palosaari <crope@iki.fi>,
-	Valery Borovsky <vebohr@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+930e6201080a31e9d0c8@syzkaller.appspotmail.com,
-	dlzhangak@isoftstone.com,
-	stable@vger.kernel.org
-Subject: [PATCH] media: msi2500: return buffers as QUEUED in buf_queue() before start_streaming()
-Date: Fri,  6 Nov 2026 16:41:08 +0800
-X-Mailer: git-send-email 2.48.1
+	by smtp.kernel.org (Postfix) with ESMTPS id 3CFEB1F008A1;
+	Fri,  6 Nov 2026 09:04:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793955899;
+	bh=qT+CO1ROEeD8xYhFaFdRagN6Eagy/YoQJaHT5lWNYnU=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=UP6BVeMQrXnZ9e7n9eNiUOoZefgA7bnoSPeCticKzRkbs5qvWQ83UoUH/GoanCPr6
+	 Ggi+wtftll8RbBHZSZxJcgVr32Q0rMV3eGMcMJtjfXCwb8HNLbYVkxipUBf+50ABwy
+	 rcB+qR2Ao/TU0T5jci0iZYf6uUlknv8052eNkxQ0WjjAbQe3+fyJ4rBWqaehXGIcsV
+	 gtQZLQwS8vtJY/8MrCz0xh5+LYgghRJ9xbQzB5cNY+CaHhXAIp2kWfvhGeGAWWiAS7
+	 yEIJplzLU7tmTsTgq6s8xD1rB5necoWtW/4pT49ev+MY1YageVy6rX9AITL0C+EbMQ
+	 yOee1oD3ahcAg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C3A0145B3F;
+	Fri,  6 Nov 2026 09:04:58 +0000 (UTC)
+From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
+Date: Fri, 06 Nov 2026 12:04:56 +0300
+Subject: [PATCH] media: verisilicon: suspend the device before
+ unregistering it on remove
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -61,65 +83,109 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TLS: YES
-X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
-X-SOURCE-IP: 221.226.109.28 unknown Fri, 06 Nov 2026 16:41:09 +0800
-X-FangMail-Miltered: at fangwg01 with ID 6AED92A4.003 by FangMail milter!
-X-FangMail-Envelope: 1793954469/4jLXhN6Cksz4Dr7/6AED92A4.003/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
-X-FangMail-Bounce-Flag: 1793954469.6AED92A4.003
-X-FangMail-Outinfo: 1793954469/6AED92A4.003/4jLXhN6Cksz4Dr7/dlzhangak@isoftstone.com/1
-X-CLEAN: YES
-Message-Id: <1793954471.6AED92A4.003.4jLXhN6Cksz4Dr7@fangwg01>
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AED92A4.003/4jLXhN6Cksz4Dr7
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261106-hantro-remove-v1-1-d0a4678886d7@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvyJ7TlAPgn0lOqittYc01ohA/HvSc
+ QZmGlRkwgqzaMD4UKWSB+hJQDx83lHSNhiMMlZrZeWQNxfJeJYHpfMpRBes0snBaC7GRO//W9b
+ eP1YuNu9fAAAA
+X-Change-ID: 20261106-hantro-remove-9afbc9b601f9
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Frank Li <Frank.Li@nxp.com>, Tharit Tangkijwanichakul <tharitt97@gmail.com>, 
+ linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793955898; l=3507;
+ i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=xS7oIoyimsaMRzqUpXTDBfcEIedzp94Ticoi5FpW/N4=;
+ b=UveIQ1ueDQ9B30eFN2EHpuRf6itGbRtnVmhgM4utBXIjk1hHI0f0mylWYoYHySNVftCf9fxIi
+ JL/Cv/6DmByCniakqQ9eDo0+UfNchjMmlWUmP1CQB8cNP+9XSUhhTR4
+X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
+ pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
+X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
+ auth_id=1409
+X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
+Reply-To: shomenkow@gmail.com
+Content-Transfer-Encoding: 7bit
 
-When vb2_start_streaming() is invoked, it first passes all pre-queued
-buffers on q->queued_list to the driver via buf_queue() before setting
-q->start_streaming_called and invoking start_streaming(). If
-start_streaming() subsequently returns an error, videobuf2 requires all
-buffers passed to the driver to be returned with VB2_BUF_STATE_QUEUED
-and warns via WARN_ON(!list_empty(&q->done_list)) if any buffer was
-completed with VB2_BUF_STATE_ERROR or VB2_BUF_STATE_DONE.
+From: Sergei Khomenkov <shomenkow@gmail.com>
 
-If the USB device disconnects before vb2_start_streaming() runs (for
-example when v4l2_read() races with msi2500_disconnect()), dev->udev is
-already NULL when vb2_start_streaming() enters. msi2500_buf_queue() sees
-!dev->udev and immediately completes each pre-queued buffer with
-VB2_BUF_STATE_ERROR (moving it onto q->done_list) instead of adding it
-to dev->queued_bufs. Right after that, msi2500_start_streaming() also
-sees !dev->udev and returns -ENODEV, triggering
-WARN_ON(!list_empty(&q->done_list)) in vb2_start_streaming().
+The clocks are enabled and disabled by the runtime PM callbacks.
+hantro_remove() calls v4l2_device_unregister() and clk_bulk_unprepare()
+first and only then pm_runtime_dont_use_autosuspend(), which suspends
+an active device right away. By then v4l2_device_unregister() has
+cleared the driver data (it points to the v4l2_device, the first member
+of struct hantro_dev), so hantro_runtime_suspend() dereferences NULL.
 
-Fix this by checking vb2_start_streaming_called(vb->vb2_queue) in
-msi2500_buf_queue() when !dev->udev: return VB2_BUF_STATE_QUEUED when
-start_streaming() has not been called yet, and VB2_BUF_STATE_ERROR when
-streaming is already active.
+The device is always active at that point: the driver core resumes it
+before calling remove(), and its put only starts the 100 ms autosuspend
+timer. So every unbind and every module unload, with or without a
+decode before it, gives an "Unpreparing enabled" warning for each clock
+and then that oops.
 
-Reported-by: syzbot+930e6201080a31e9d0c8@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=930e6201080a31e9d0c8
-Fixes: 977e444f59ad ("[media] Mirics MSi3101 SDR Dongle driver")
+Stop runtime PM before the unregister and the unprepare. If runtime PM
+is forbidden through sysfs (power/control set to "on"), the device is
+still active after that, so disable its clocks and mark it suspended by
+hand.
+
+The probe error path unwinds in the same order. It can only hit this if
+a job runs between the encoder node registration and a later probe
+failure, so it is left for a follow-up.
+
+Found with an LLM coding assistant while porting mainline Linux to a
+Rockchip RK3026 board (G1, ID 0x6731); the assistant also drafted this
+change. Tested on that board. Without this change, unloading the idle
+module (runtime status "suspended") gives the warnings and the oops.
+With it, the idle module unloads with no warning or oops, and so it does
+right after an H.264 or VP8 decode with the autosuspend delay raised to
+10 s through sysfs; the clock enable and prepare counts are back to
+their values before the load. The same holds with power/control set to
+"on", over three load, decode and unload cycles on one boot. kmemleak
+reports nothing after five load, decode and unload cycles. Built with
+W=1 with and without CONFIG_PM. Not tested on other SoCs or with a
+power domain.
+
+Fixes: 556ab0b2741d ("media: hantro: release runtime resources when device_run fails")
 Cc: stable@vger.kernel.org
-Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
+Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
 ---
- drivers/media/usb/msi2500/msi2500.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/media/platform/verisilicon/hantro_drv.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/usb/msi2500/msi2500.c b/drivers/media/usb/msi2500/msi2500.c
-index 282256ab812a..d89db57f924f 100644
---- a/drivers/media/usb/msi2500/msi2500.c
-+++ b/drivers/media/usb/msi2500/msi2500.c
-@@ -625,7 +625,9 @@ static void msi2500_buf_queue(struct vb2_buffer *vb)
+diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+index 26e5d5547466..8af47375d471 100644
+--- a/drivers/media/platform/verisilicon/hantro_drv.c
++++ b/drivers/media/platform/verisilicon/hantro_drv.c
+@@ -1286,10 +1286,16 @@ static void hantro_remove(struct platform_device *pdev)
+ 	hantro_remove_enc_func(vpu);
+ 	media_device_cleanup(&vpu->mdev);
+ 	v4l2_m2m_put(vpu->m2m_dev);
+-	v4l2_device_unregister(&vpu->v4l2_dev);
+-	clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
++	/* Suspend first: v4l2_device_unregister() clears the driver data. */
+ 	pm_runtime_dont_use_autosuspend(vpu->dev);
+ 	pm_runtime_disable(vpu->dev);
++	/* Runtime PM forbidden through sysfs: the device is still active. */
++	if (IS_ENABLED(CONFIG_PM) && !pm_runtime_status_suspended(vpu->dev)) {
++		clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
++		pm_runtime_set_suspended(vpu->dev);
++	}
++	v4l2_device_unregister(&vpu->v4l2_dev);
++	clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
+ 	reset_control_assert(vpu->resets);
+ }
  
- 	/* Check the device has not disconnected between prep and queuing */
- 	if (unlikely(!dev->udev)) {
--		vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_ERROR);
-+		vb2_buffer_done(&buf->vb.vb2_buf,
-+				vb2_start_streaming_called(vb->vb2_queue) ?
-+				VB2_BUF_STATE_ERROR : VB2_BUF_STATE_QUEUED);
- 		return;
- 	}
- 
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261106-hantro-remove-9afbc9b601f9
+
+Best regards,
 -- 
-2.48.1
+Sergei Khomenkov <shomenkow@gmail.com>
+
 
