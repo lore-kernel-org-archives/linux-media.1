@@ -1,90 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794013326;
-	b=VVxeijGwMrWhi1DoZnyXglqFRG9HpCAiarmcz7uZljcBU4/PpOunyfjWn2vWw5cbSRw5
-	 sVPVNzEXr/rBKohxn1dJg02b46IkOar2krZcjWb+71Rkn5HWPmhZJOxH7s57m4XTaQvqp
-	 ram/J4g2k8FQyg/lpUlnbC2MftBsFgbVaw4ube6N0t/J0neUiH6jIsetSqAtkpddQR7nT
-	 8aueiS+XmWQ3WEK4jGmytW3/g8Z82LnrLX3SNVrk8eZO+dr77Q/0xePHPTiayROpYCBo0
-	 IGOBBR5Y7lpej7h/3z0j2MyXLzDuNV4qm1gFZsECPbS1fmLVLZX8pKHaDAWfPEN2YTw==
+	t=1794022775;
+	b=f2fczCVKT9aF5fQ51AtIOUtwE7jck6/cLPuLFffcXpkGn0l46g8l8Q2Qn6plmULUnXio
+	 Ilqr9yS2naKqfhPRC3g7x6f+h890ttbxXqgiY60KvF7ujTB9jT3rqDZ3uUPyRcmsbNCE2
+	 QYMlMZ7WsfOJpi5iPF/oOki9IT87BkXjb1m9hqXjf6R8ljcDmd1vmG2Psi6rWhi7yAzLN
+	 mknWwxFowrT+Sgv4MFfeouO8ycQMgWDyxAu1pBp28bdXpRtSEHDTSN+RfjLwWWzD3x084
+	 Z3dylWufRwfHXTuqds9oJJp+Fduyn1RI2lP5yd22ZjoMGzzXBoDxF9qNQwV0MBKKp2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794013326;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794022775;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=WVOppmOPF0oNPzwcOcitqSAGp8bpqXEMygjr0XfAqEE=;
-	b=QkSRGHIRb3LzaSjWW/+PJiDBcx1fO1ebvaQMr837DeYyoycAF2ECDXGjraRFkx9TgRSq
-	 XO6/sBDxLhhAFOMk+1sjvu82haAcJTPKfQBJK3EwTVSC018ctxk3mG4e4wvFqXCICIQTV
-	 j66Ou4/8alcMw9zxh/ZnGADjYZlbtwRgwj4cDCoD/IZpPbPGja8IHEqV/hOfb+X2lZEo3
-	 1bkyBiGlPVekjaWwvpvPgLUmYEJ8yx4z3iaCgQTEC2Jvk6HkAyPdO+DvQ5SCK2gVYgS7d
-	 KhzvDGzZVjlCF759MpcnQBGgrCPLdDtpiHeI7jMU+odhraxV71slD+7npAU7b9nKxtA==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Sde4rWYPzlk+BjvGEtm/0bEjWk4rqiDVQzGqAxbKKl8=;
+	b=Lax6mot66T8+Q2bjU+B62K0tsA3A2xNnsDf2D9x2ZuLfYLVBaAVYjotn46Ka/1IugpA1
+	 sPSl2Vpe1061gIbFx+bDzyzipHnUNWKNgWvJb2p0O4ko70q9Q+B4B9QbECO+7XK5xVQuW
+	 dX8s5M4Qu/laCQdXlsOiLP6iE9nW5KVBsTO/cNsm8iMjat/HQv2+wzubI5fxkcTjtPBSs
+	 18DxLAfhmw5GfcPaQE+LwsDjGW7I2X/qHlZVNxhOewMpLA1qfJPEmDYr9N+uSs9Fh7cdl
+	 5e6oXKeoV4e9xwViTZ/7jGPT0Gqio0nTIbycGBw0wJQHMd4rFJnyKegCwZPVtFRCe5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HUJAVbfA;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DvtMkzgz;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337416082BC1
-	for <linux-media@vger.kernel.org>; Sat,  7 Nov 2026 01:02:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 337416082BC1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94921606A32D
+	for <linux-media@vger.kernel.org>; Sat,  7 Nov 2026 03:39:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94921606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=HUJAVbfA
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso10678005e9.2
-        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 17:02:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DvtMkzgz
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3712b6d9843so42697eec.1
+        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 19:39:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794013325; x=1794618125; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794022775; x=1794627575; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WVOppmOPF0oNPzwcOcitqSAGp8bpqXEMygjr0XfAqEE=;
-        b=HUJAVbfAXgHnnfOkKEqfhXt7eOqE/3lxwihUWmgBgG+QO2xO3Fb3L00X3zIy6iGr+P
-         fBCcYkwhfRxizQUPDVM+v1TTjarkWPtRoA/uHniB3oRuhcJ9Z2G+TpoZGSh2DdWscIqI
-         O1Kwa9W32sC/mcHITA3jTUcie3AShYLY3WraKRGogb3b4TCpUcC0tgr2wGn9WgoRifDH
-         gKPJ1hTfx5JNYDX+deZEp98DZCbWHVoEbV7/AH5pVGydvQmMpp4Jcp5F47TVhNuIvxtX
-         SuwCc4RML2+idWggnNsHCt30mCgj9p9Pq5gHb7+ycKJGAVxsYcJsrny5qNbM2wDa1Ajk
-         IJ2w==
+        bh=Sde4rWYPzlk+BjvGEtm/0bEjWk4rqiDVQzGqAxbKKl8=;
+        b=DvtMkzgzjLMcaDQoyNjMQKjUQqxyzlLBiQUkoif9cFrK4HXhCvPfUWH4F4+h+8f5HW
+         +NYmIIMExeqOloneuyGJPB53Xjg+3mlvtFzXNhw+1Mhg/Ay/fE8H1TazVpzMYFLmGp8U
+         IoOIkP6qV4Mybf2IeOVuYOXhvi2F7j4ej16WFry6WxxSRSOCo68sMiZIstPgpuYCh0Mj
+         J4NuXpfR2jhLFwL09bkvkL/gW76a+/8SP7X9ysVqq/y+2J509YDGFZZ6x/BQGQ+sauim
+         l5/Aatx7kFufP396rJ3KVLrv5uwLI9zyY7c/NMYY8oTc/QDMUreCN/46UrKltJeyzqP1
+         tgow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794013325; x=1794618125;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WVOppmOPF0oNPzwcOcitqSAGp8bpqXEMygjr0XfAqEE=;
-        b=CWkvbqPSkAQLanp7zp+dr0r90Gz2kNcnH08alnohusaSfzM6Ri/dZTosYa+x0qUiiD
-         w3VOAPIDzMmWLsEM42TD3KauX92PuS/Zz8JTNQVLsw4VoWWAiqgn27KSCAhAU0t0BYmo
-         JmD5oSCdcJTUCzuxxh9LrWWQhT3ezN28QsviLKzAMkv/JwtKznaaaQWQC9RjQc36SVOi
-         Oytw+YyuisQe7/cZPdgz9rggmC/tseM83V9RoBo7l0znMg072j6Nd/grL8ht9456FtV9
-         QjJB3Jl06EG6UQUeJLwJd9KwVhNfXM1mW1cCWCorRFhIlz4ZBkj49umNk/KTdifno2TN
-         qKkQ==
-X-Gm-Message-State: APuU4Z8w0k9E5Sz59xdsurkqz6d4TXbYofkKAimVF3lr+/SAMGfMsbhu
-	eYNzrQ/KHHgpRSISwO6b84bzlJsQG5U+ZtYdPaw0TscR/N7ek2gHZeudcjb8iutY9Oi0Q5ZZ2Z1
-	/XjCp
-X-Gm-Gg: AYBFou2j1OhZMki1niE58HrIfAv1mj+eEk8STQqfaCd8aPJJxkxYjJS3bOPFd+OhYJF
-	gRcugd3jQ7vIDVZ3QYIwF3f1FGprbfhEmYQ1MDERKtNSr9JYVVqoW+N6Sqae3ioA1NXVLOYJ5Ed
-	U1xTeaNY5tA4zh7uEnodlJ7jT7YXiY8PkNCycIevN+046GqmG/61EWyFGTY8nzLqYBpUciNA1Zp
-	caV0ev8AF/XRoasWsJE5Opfv+OqvLocmPJAttzYj2DNml8REHbZ3uh+GA3jlPl6RGjzujOJtylb
-	5MCBM+bLweauho48U4RJFx7mnQmWTV93T8ZllxIG7//HUKOfdkKpDLegw+ZOY8Ugjyzy9hqHzOv
-	KJV8WCfoBm5z4YPQHEXmYPOhUR0tgFPZuGcXM73v8chtgwbcHOWK+s5XN6TEfhI/jfdq2tWcmuZ
-	6WrJz3nQbmdVT10NNZa+Zt/IV5sRJfkC2xW2b+ymExNHViTq+2KsYJRoNWId4+qyDs5py//auDf
-	geo8800yrEbBMg5NShTaiz9KRLYHRHsQpr9/cjiCpSe5v623YIHzkdhH9jlbVUsTZaMXUXuTHCR
-	wP7vPFGU/B+sLYGS+lwd2w==
-X-Received: by 2002:a05:600c:4f0f:b0:4a2:e0c:2b0a with SMTP id 5b1f17b1804b1-4b6df5ea98dmr73002115e9.16.1794013324705;
-        Fri, 06 Nov 2026 17:02:04 -0800 (PST)
-Received: from [127.0.0.1] ([109.77.115.215])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e3291531sm24526375e9.15.2026.11.06.17.02.03
+        d=1e100.net; s=20260707; t=1794022775; x=1794627575;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Sde4rWYPzlk+BjvGEtm/0bEjWk4rqiDVQzGqAxbKKl8=;
+        b=dZ7OFoAYsZ5J5Hudcq4YAN6k8SX2vIQBSExpPRWRddcYwWTEeRCpJYR8ftpfftpCLK
+         NjhYvX7tUw7QXpY5BoFwvixbwV4MavyXQjhWjvMUdfueFvkqomTZSBlZDWqxrDZ8yA2a
+         KTE/KmeVKrMV11uqA257oHNd+JOR5kIVC8HAzi/ihi7RqXO/kVnuoEkYJl3cK1UuKfHG
+         JaJMW6xhZWdJVruFLKgGpxp+ct37lF5mLMcG66ttM2bz/mZqIDLQUigY7Qwb8SNr4uMi
+         fup89Iak+ySiNMJrIDHv3PQAGWDamwPK+PadM+i7yXNVhtixd7fCS3WD2VXOtHnHy0xu
+         n83Q==
+X-Gm-Message-State: APuU4Z/IRPUeqqjejkn52XU9vwB94t2lPpps3qc65CVDS7+wJ5lAj21d
+	Zh1hWiLpjYd5YaguTrobfqpiRz+VODQ8gl5WnSi4514YdK/I1bprfuxc
+X-Gm-Gg: AYBFou3fTVYsW5EuhO5bA+yrOSWUbaDojt6x5TUP6Oo8vqZMaohthIgrYS20iryRa7D
+	1BXeA9Rw78QiizIQ1odPntc+ilVT9P8OEpz32sMege+ArIrNJXqqRFrJp36gaOmLWcZ+foqYsQ/
+	8k0mX5B6KATr3CwVr97AkBMHUvvXM364wH02vymo3yXaGR3deQ54BkLGKSdfnw8/vka9HYYBuVv
+	XXUWwwshswUm5By7Eid7Ky0KbVQ2cC11OUHDSL4EpBUDNQ8vZg2E59ZTnb84L2hgsYzIbphnYU0
+	pLBrPUf7/YTYyGBIuK9BdKw7XhhjiQtmy+HWQ7eo/LUf0hPH27Ke/it7sBKd209jYOfG2kZMh+W
+	4JlFSS6/1I96Y6SkmSXa1JMqGfZPFrf8+1ylmN7vI6wqH3vxm05vH4ycJ4bbik+Le98C79uVxNV
+	L8XTrmGoH7uTa1jXgLexI3iJbIuQhtFErP7oC9e8rE8TF5jBXR6emmnGRLL6dM/1pdikK6OM0Nx
+	cK/7i7E6haqRTj42MlkFpJtmlkbXTtF6/n7ysCvf8yK3d4DEUXE8f3C48Zi59d5a5NlHv+CYYjK
+	SJ1/QOEVrsJpzuXY2ooxSscO6yykz8EO31jZljT1eoKnkrI2b0LYI5wuZ+Y=
+X-Received: by 2002:a05:7300:10c:b0:36a:1e9e:ae61 with SMTP id 5a478bee46e88-36f7710a6e3mr5903376eec.38.1794022774554;
+        Fri, 06 Nov 2026 19:39:34 -0800 (PST)
+Received: from homik.search.charter.net ([2603:8002:ad40:56f0:e335:1852:72d2:7bdd])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa922c6c7sm13790821eec.10.2026.11.06.19.39.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 17:02:04 -0800 (PST)
-From: bryan.odonoghue@linaro.org
-X-Google-Original-From: bod@kernel.org
-Date: Sat, 07 Nov 2026 01:01:52 +0000
-Subject: [PATCH v3 09/11] media: qcom: camss: Switch on frame_sync_en for
- x1e/x2e
+        Fri, 06 Nov 2026 19:39:33 -0800 (PST)
+From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	kees@kernel.org,
+	justinstitt@google.com,
+	morbo@google.com,
+	alx@kernel.org,
+	shlomojune6@gmail.com,
+	Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Subject: [PATCH v4] media: siano: Replace strlcat() with scnprintf() in sms_ir_init()
+Date: Fri,  6 Nov 2026 19:39:28 -0800
+Message-ID: <20261107033928.13891-1-nikitash.mariiaw@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
+References: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -94,91 +103,51 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-v4l2-frame-sync-v3-9-e5bf7073a35d@kernel.org>
-References: <20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org>
-In-Reply-To: <20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2079; i=bod@kernel.org;
- h=from:subject:message-id; bh=DXNUQKSL1UUmzc8AGuykclATY5iBLPt7wD2yXM5hnAA=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq7nh/S6VmlcFdfBkMCXtHjo8D/B2ArAk4K59QI
- gk6UhV8bjSJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCau54fwAKCRAicTuzoY3I
- OugeD/9kSVCLRPiCuIo3sJuPXfxeAcvqE3cKWqAtbtXSS//SuZxbzlayEcM8SyieSQQuy0s0LhX
- QeiczEXKS2yYZ0aHWWrI2YUUU5Y8YWnO8hj1ySrt3rPVuMEWfPZLciXJlaGSugbvBpizLjBpzI2
- WTwoQc0oP4xqjN1/9PF1L+0yjd70ZU5+uMxGSOq3RNlunM4OBWZsMJYdShPYAEVIYJykvyQpTXK
- LpXUV1okjlx/hYeLvV5Jh5TygtS0hxfqaeTfr3ugGiWJ3+FsSBD/XAdJrh4ljg5OhGgErigTQBQ
- LZypl/zdYwJavXdaE6M1btwe4qb2YFY/za8jsL3R7Gqg9EmDMvo+DaBnSLr4n6oC93gCerOqx4F
- R41eYxhqhD0uSNmsv9SUp62BVUrXlk6m5hxq0GxtSBW/0zTDkyS5QyV37VxoWcFKXt7xL3sYXlN
- rA6wWWb/n0PGh/5j1YhLPiKWSaDn5nWswURE09oxWDkY5/dznljUomrjjK+Tocjj8zP6KcecRjN
- 9OOrmM2U/eJx1xyfBgjZlHW1hDqrYLyDYS9Al+rb2e73p1yPejvsSTgDctRe0KwSINZ3h+1WizM
- MMXkXQvTnsiZ29xKkg7ExaJEph8gZilOPe6Rmmh+NbwXm0neu0TRAoFM/45S4axaeEZAF6c5DdY
- bAmUweoGQRMjvOg==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In preparation for removing the deprecated strlcat() API[1], replace
+the strscpy() and strlcat() calls with a single bounded scnprintf()
+call to construct the IR device path.
 
-Switch frame_sync_en to true to track and consume SOF/EOF data.
+This preserves the original NUL-terminated output, including partial
+or omitted "/ir0" suffixes when the 32-byte buffer is too small.
 
-Tested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org> # x1e CRD
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+Link: https://github.com/KSPP/linux/issues/370 [1]
+Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
 ---
- drivers/media/platform/qcom/camss/camss.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Changes in v4:
+- Replace seq_buf with scnprintf(), as suggested by David Laight
+  and Kees Cook.
+- Remove the unused seq_buf include and local variable.
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index b7821019241d7..7911b30494ac9 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4255,6 +4255,7 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
- 		.reg = { "csid0" },
- 		.interrupt = { "csid0" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_680,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -4275,6 +4276,7 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
- 		.reg = { "csid1" },
- 		.interrupt = { "csid1" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_680,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -4295,6 +4297,7 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
- 		.reg = { "csid2" },
- 		.interrupt = { "csid2" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_680,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -4316,6 +4319,7 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
- 		.interrupt = { "csid_lite0" },
- 		.csid = {
- 			.is_lite = true,
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_680,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -4338,6 +4342,7 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
- 		.interrupt = { "csid_lite1" },
- 		.csid = {
- 			.is_lite = true,
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_680,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
+Changes in v3:
+- Replace snprintf() with seq_buf operations after reproducing
+  the GCC -Wformat-truncation warning noted by David Laight.
+- Drop the previous Reviewed-by tags due to the implementation change.
 
+Changes in v2:
+- No code changes.
+- Remove the statement about buffer capacities from the commit message.
+- Add Reviewed-by tags from Alejandro Colomar and Shihuang Liu.
+
+ drivers/media/common/siano/smsir.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/common/siano/smsir.c b/drivers/media/common/siano/smsir.c
+index 283770d583d5..6952871c5816 100644
+--- a/drivers/media/common/siano/smsir.c
++++ b/drivers/media/common/siano/smsir.c
+@@ -55,8 +55,8 @@ int sms_ir_init(struct smscore_device_t *coredev)
+ 	snprintf(coredev->ir.name, sizeof(coredev->ir.name),
+ 		 "SMS IR (%s)", sms_get_board(board_id)->name);
+ 
+-	strscpy(coredev->ir.phys, coredev->devpath, sizeof(coredev->ir.phys));
+-	strlcat(coredev->ir.phys, "/ir0", sizeof(coredev->ir.phys));
++	scnprintf(coredev->ir.phys, sizeof(coredev->ir.phys),
++		  "%s/ir0", coredev->devpath);
+ 
+ 	dev->device_name = coredev->ir.name;
+ 	dev->input_phys = coredev->ir.phys;
 -- 
-2.56.0
+2.43.0
 
