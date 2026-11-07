@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048461;
-	b=UIgRiCEz+p01sPdKvm6go3AwLD56UvtbBvI3aIglFVx+XhRxObkL3dXVqmceNx+/1q5j
-	 dM18cm7lJFU2BCpGrL/apa5Shc9qb1ny66cHuLMTujioShvXzEt1nbuK0X5nszMCN3c1j
-	 6KfV73bpwP/4/7wuW88iG5w0fgw3EXGWRt8XgqveJgv797mg3/46IxRE7d3ogHJlHhksS
-	 bCxw6GUpslTYnjDKVkoy3t1qFzIFPyklD4St8l/YLvNl2bkCgARAUjaZW1ha9XJIfRFP1
-	 GnWN8rW60dHRFP3tdroyb+9qKsI4VRIA1rX8KT0HQ0jzu2n46WRErV63C9WxRZPKoIQ==
+	t=1794048464;
+	b=Jck4nNq+U2DHSjEtyI/vohDN7d5FU3N+layduFWKGgYvrAPNUmU3Mo2K2c/DyJ5RcBXX
+	 sDcnq3d5wpcwkr+OyVK00BMgAmsDlHCNy737AENp/bb9g2B0Evt4Gee/l4yGDRfQFmCH2
+	 Ft3O7+gD+LKM1wSBzO8q1RX9KZ18rOFktZHEHRlo51EB7u1aWbHh4DGsz0jkzaAWBuEG1
+	 Hc24ohSqjwRswKORkrYt74Z2n4qQ2OKlRecit+kPN4h4T+xYOStGsLxOetIimui+Tpk+q
+	 S7r+KHDDfoiwEmfp4hblSULzV0hfFpD1XAS9Qqi/j6CvJaLQOSq7VirT1WKX6Glr25w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048461;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048464;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=rW6VoKT52yP08kYUcZyVOPG+H41QN9/GqRijZgl3S1g=;
-	b=yTZjmqJx8qxw8xj77KIi+IreJ6pYo4jlpPly0UvkW7bTzScunU36KFWaN4aURgtyaJYo
-	 tWFtsqdacUXp8+EH4DNbpRMEVNr6L0ggR714ASGK1aK1gyt3YVVZqqGaOZknNyybtsKnk
-	 hwbTAnBSeEVahV3y+mwdtymqTdVSFHKYoTVqrpMPR2643qEThcYzs+4eLWND81MmWWBXW
-	 ArJAh+QTkmAGDFcNwTkTyiMflM2b5dtDHc9EppQn6dr64VkdENy5iUigf1BeOHvA5eGFE
-	 X1jp4QTeQejpcelDeBKgwbjciu39SmkJsLbGZOIlFtH6iYwub/xpSH0TX6pD2QYFW0g==
+	bh=lE3xmFujzdL9mAxvq99OHiv8yHFQXZ5P/LTujcPa22k=;
+	b=HxGysDYjG8rDsAIVn/MGAalKbcjja5HYCFiO2u/+RCqgkM3pXST8q572LQhMUL6QwxJR
+	 YyMayXBCNjef0OyuIegDO70t0aRkPYZDO587Vhhaln6YCB5Q6j4d+MJHKei+1b1h2Ap4r
+	 9fHbOFR/1DsHIeHhSn7Fb/J4+2kIlpYD+SkXCx40F9JWvhbnmurpgOBxjTPeCwviTs0r4
+	 m49J9V558rUpcElKRWEPSLr7up09KAbueYQd58O57UHB+4SlhHW+I0awa/ZxNHt00NNp3
+	 vKOq29ZX2hD3WmNInO5Cl1rCZ4bWtwteil4G7WWo1ZJiBYhztS2ClyxdDO+oRjWN7uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="fcSTe+/q";
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X7Wlg3DU;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF57606A337
-	for <linux-media@vger.kernel.org>; Sat,  7 Nov 2026 10:47:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EF57606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA52606D823
+	for <linux-media@vger.kernel.org>; Sat,  7 Nov 2026 10:47:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBA52606D823
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fcSTe+/q
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so18666655e9.3
-        for <linux-media@vger.kernel.org>; Sat, 07 Nov 2026 02:47:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X7Wlg3DU
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso9920955e9.1
+        for <linux-media@vger.kernel.org>; Sat, 07 Nov 2026 02:47:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794048460; x=1794653260; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794048462; x=1794653262; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rW6VoKT52yP08kYUcZyVOPG+H41QN9/GqRijZgl3S1g=;
-        b=fcSTe+/qtfweQdCUA56HDS2ncQq0PlxOZREAztU9rO5E5Lvspxw8RtA063mujF0yPY
-         8PTkH/iW1nLmFQbFZC5JzS2IInAuT1A3pp19JbsNzNekKScf1Lepnm9P9ZcNVw0pHNmA
-         B2We6JOQsPZObdhzUYl57if8AVA5gtJLouq4raq/qZc15h5W0dYYgPyKB6o/8B5kDt5N
-         e9zsDh8xA9OzPtkrxXlr8EY1EqlKzU2eX/6PXqbLaAya4333aiMbgzxgRYqKaZzX1ssm
-         IlE7RBq4RBrQrVs0Ywcie0WuZ4wCmGZwz5luhjllXKVFHupuSgIwer+fG4KykYZ87Onv
-         vRQg==
+        bh=lE3xmFujzdL9mAxvq99OHiv8yHFQXZ5P/LTujcPa22k=;
+        b=X7Wlg3DUIcRHTVrYGzxJ2BEaIfyXqmm3nJPYTC+NuLtMcYPhGC0ng+vGEYGOBhMRiA
+         snJtFNDG/G5soobH+RFH5AwHv9/y1znuzh1F6vvdyV3gGK4jyVEdZnX7ArfWiEBhVKHA
+         D8UjlPO7XiNX86BFtfrdOSlHuMm6J5jWEP3Is8AdtTIEgMdZq/MiDXETWyxKI007X7LL
+         9Abus2RajP/Hw2HUfdo8gsNLTWJ0ZObARhvH4TJEShkgN5K2JdZAzPOqXBD+hB5g1c9l
+         RPm1ZRn99JiW4UAb9afvDAu847ki3SWcfP/UvsBgwoqQM+gEklTZy+6Oxw8KgL9cl98c
+         HYbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794048460; x=1794653260;
+        d=1e100.net; s=20260707; t=1794048462; x=1794653262;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rW6VoKT52yP08kYUcZyVOPG+H41QN9/GqRijZgl3S1g=;
-        b=dDI8kry5Qfe9BI6HhDAnYlGjS+i/8KEZpDw7xCrj9ShcnLLj1hRR7LPiVwd6KZ9s0b
-         lGCVQk3raGgFO9ndtkBXzAP4NmQ3/cXdabY2FoG2CHzQ6+7viX0DnXzLKpJRzK36jfvo
-         5Xl1i3AxxJk1WERBf7utbO7hKZ9YlDRDeKXJNFnwqF6NNzxEKMItANEsqAvysmsl0Nyk
-         8BWe8MSP241z9MqEmili4Sr1qAlNh+6ncU19R4Gm39iYYz0weAuvypTXSwBszIgszCDU
-         BS7uQmcFO5XyCof4h8vaITe1b1fLxRhVozw4//JxkJt6yU/pWBn+JdZtq0fdgdgM8qz4
-         a02g==
-X-Forwarded-Encrypted: i=1; AKwUvByUu3+kWqG741iSZb6LVHCiMJB0NQBmhxwuT5NT7UEfRmEOr5BDbScDvdSQQvmxcT6qs/0I+5TM+VlAAQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+1OvFrzc9mXc4T+tyV/wfFfAkoY9MtL45nIpwSdpDQCX11VHHL
-	CwwoH5ALWYKzk+i28K7sEl4KEhnlnSxaiiaGJm/JtvCFSLsSZC8SWs2U
-X-Gm-Gg: AYBFou1FsYMdKkgequtTUcr4H0EI6WVqc2VS2n5b92eMRovZB33CrigAFJJss9erP91
-	AWzHJ2+Z18ybd/c4BUwQKUHCOgZuwY9ag/Q1CQye2PDb/lMO9D2x7oLKAA4w1cZWwpGVTljMAz1
-	yn9Ql//ooHqHliuLr9gkfLwgUp9e6y8b04RSUNMR7k/gec3ogga3AcDATT7PbPi1nislWXTMEhU
-	MOXDKWhtcHNgAT6LofkEPuYJH1L8P1NdIgM2Qi4XMYhtouk2GBybHZ9kcSYYOgJ0rsovnPorOCj
-	6a5RjnEgW+LQ0sC+6PFLjQOU/AXuuBoQX5dlcg6bOnXcnJq3i73OWtkd0PIYaEzS3cbG1+dIzx0
-	Cc9pA1VYpRTbwvFuPsmKe30W/OQcxUqcE6Ufa1OGvJIUEEHwwjnEDezM1PJ3XHeV366bV83IQmz
-	PjsgRf8ZJbejREeqZm0eAqO3RNu0xdNo8RvV6wCCv97dyy1oyjwIqwlZTKSrDjQEnhpW7QQ93nW
-	SuEaw5HvDpVSjFSAo28k2NxiNQbbaTC8/4zzDmxamLLOcvvq5nUsqBS+WkbkyAlstWK8ngUigQ7
-	HrC1NiOjSVAr4V8Lb96nKaVm5ozytjAislYeEWApJH32S8YzYXEfS0hctRTDis/nMMISoFqXvr4
-	9I7HBwkMkVQGFmD7OWLLAhXgvb/5uz7NcawpM4bAmG5UQHCSp+9c+UrS2+e5JcG4gL9NWxciz6j
-	K23Qv0yZWdBloOzAjJYSbnadSuAlUxKs8Jwckq
-X-Received: by 2002:a05:600c:3104:b0:4a1:fe26:24f0 with SMTP id 5b1f17b1804b1-4b6df7d4119mr94096405e9.20.1794048459465;
-        Sat, 07 Nov 2026 02:47:39 -0800 (PST)
+        bh=lE3xmFujzdL9mAxvq99OHiv8yHFQXZ5P/LTujcPa22k=;
+        b=zyWXHeiPbNAosDeHfAtczvs/VW885lgW+glmQzp3ad/+l1xrYS3G3QUkcZZ07yme8E
+         LcmwxZ1NxRaQ63Dzg2/YJ6xIDV9KIofz300e2vWETTb5Nods409ojilvCuwCdde+7lE9
+         L42SkKvyYwCpj+r8QVa6tdxffGszKhoCyfnXMoegkSrb+YMGS8LrQlWY0+UdF7B/KIuO
+         UIFeclqMzsXafTdcvBiETRDcdUvz1GIkH9rvPYMlOaBCY/0cVoZgSyZ4iq+w1YXaTpUU
+         6XD9S/J0l/kkwkC3/WI13pGAP6evA1xlGqtMlfcZQLzOTKdP/hfpeKqSBHwVvyxDQA7x
+         9KCg==
+X-Forwarded-Encrypted: i=1; AKwUvBz0rlPeIZdLKHU4upE+LwTNaw/OP6pFuGSz9O3BfVqi8SOfHgpvfRXvjhWW1YEAeCzxMa4tmnwj8D+AbA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3oBfItefosriRxC9xd3gePVGR5aft/xSWpLgtgkSAXQfEZQwh
+	j3eOLVuJKpT3XS4IYAivpbFTC1ScDUGMB8vLdWegcJuGIBjs2TxAu5vq
+X-Gm-Gg: AYBFou3bE0VOZZkbSs4dR+Gulm1YAFNayvEGQ9gJw10wSx5l7c+Ws8oVJuviZ7tM9S+
+	cXYp3J3ulkmDPvJ0e3I3a50rXPqFRM6fTyiANi/XeWjtqie9II0YuwZHXS/hk/CN+NV35z4iUgI
+	M1+wBLad3gJTGBPwC+X+RIclWF65BYO5L0/7vGya0pV3E7iXwfXhkVtB1YlhqfFdZ5BiaZccLXe
+	bQIqgEik/OfWskSbFyVMY5GIpFEimTN00iHaUAcuHluvg/PVT8XaZT0PszJsN0qkK6+D/713d0c
+	ZcYrJhpq2q/qO4vl3V1u/tq7IHL1laYptRiw2EhCv8mtgEaivfs+0U7KaakWA16dOOt00VN50cJ
+	zH6oJ/K12IHQNHQGfpAkdE/GRKrce+MS70Tpf0uT7xThde168n1VuzE0hTgRos6XCI+Iy1wa7IZ
+	dOdmAmZ31S6IORpwIdo0w3aEEqbRh048aa6i/JVpWw5uvQtxQCDia1KnfVxZ2aCunlhx0kSTLvb
+	91YDEdEcBapg0chko04dOokAatfuLi4zJW52Rubj/L+nKwKW1FqQ6was/t5a4iUOcdszKMAT/yF
+	BMNNxhNFNjExsh09FCY79OIWLBaABBtPsRN1uaP00LQeFWgSpqsCZ73RsDQs9A5kB9hdinu/dCh
+	xZM7m2Sw+gagN6dNWlKQzmdk5Y10EzFiLT/fwzD0Y0Rf2dKPywMnenOUNwNw7cUaGmVEHaCdFgP
+	Uv6LX8p1p4bZt3OIXN8p0VSKDvxEThl3YXzZNH
+X-Received: by 2002:a05:600c:3f12:b0:4a2:1a:a11d with SMTP id 5b1f17b1804b1-4b6d82b2c91mr92859825e9.0.1794048462222;
+        Sat, 07 Nov 2026 02:47:42 -0800 (PST)
 Received: from localhost.localdomain (dynamic-2a02-3100-b149-1401-90c6-65b4-035d-1e3d.310.pool.telefonica.de. [2a02:3100:b149:1401:90c6:65b4:35d:1e3d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b795024730sm47935635e9.4.2026.11.07.02.47.38
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b795024730sm47935635e9.4.2026.11.07.02.47.41
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 07 Nov 2026 02:47:39 -0800 (PST)
+        Sat, 07 Nov 2026 02:47:41 -0800 (PST)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Tomasz Figa <tfiga@chromium.org>,
 	Marek Szyprowski <m.szyprowski@samsung.com>,
@@ -95,9 +95,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	dri-devel@lists.freedesktop.org,
 	linaro-mm-sig@lists.linaro.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/3] media: uvcvideo: synchronize imported DMA-BUFs for CPU access
-Date: Sat,  7 Nov 2026 11:47:02 +0100
-Message-Id: <20261107104703.44111-3-kmehltretter@gmail.com>
+Subject: [PATCH v2 3/3] media: vivid: synchronize imported DMA-BUFs for CPU access
+Date: Sat,  7 Nov 2026 11:47:03 +0100
+Message-Id: <20261107104703.44111-4-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20261107104703.44111-1-kmehltretter@gmail.com>
 References: <20261107104703.44111-1-kmehltretter@gmail.com>
@@ -112,30 +112,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-uvcvideo writes USB payloads into imported DMA-BUFs with the CPU without
-cache synchronization, leaving physical RAM stale for non-coherent DMA
-importers.
+When configured to use vb2-vmalloc, vivid accesses imported DMA-BUFs with
+the CPU without cache synchronization, leaving physical RAM stale after
+capture.
 
-Set uses_cpu_access to bracket the driver's CPU access.
+Set uses_cpu_access on vb2-vmalloc queues to bracket the driver's CPU
+access.
 
-Fixes: ccc4c539c05f ("[media] v4l: uvc: add support for DMABUF importing")
+Fixes: c88a96b023d8 ("[media] vivid: add core driver code")
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/media/usb/uvc/uvc_queue.c | 1 +
- 1 file changed, 1 insertion(+)
+v2:
+- Set uses_cpu_access only when vivid uses vb2_vmalloc_memops
+  (allocators[dev->inst] != 1) instead of unconditionally (Tomasz Figa).
 
-diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
-index 3c002c8f442f..1f92ee96e071 100644
---- a/drivers/media/usb/uvc/uvc_queue.c
-+++ b/drivers/media/usb/uvc/uvc_queue.c
-@@ -247,6 +247,7 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
- 	queue->queue.drv_priv = queue;
- 	queue->queue.buf_struct_size = sizeof(struct uvc_buffer);
- 	queue->queue.mem_ops = &vb2_vmalloc_memops;
-+	queue->queue.uses_cpu_access = true;
- 	queue->queue.timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC
- 		| V4L2_BUF_FLAG_TSTAMP_SRC_SOE;
- 	queue->queue.lock = &queue->mutex;
+ drivers/media/test-drivers/vivid/vivid-core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/test-drivers/vivid/vivid-core.c b/drivers/media/test-drivers/vivid/vivid-core.c
+index c042d92db175..f6c7460cdba7 100644
+--- a/drivers/media/test-drivers/vivid/vivid-core.c
++++ b/drivers/media/test-drivers/vivid/vivid-core.c
+@@ -919,8 +919,10 @@ static int vivid_create_queue(struct vivid_dev *dev,
+ 	if (buf_type == V4L2_BUF_TYPE_VBI_CAPTURE)
+ 		q->max_num_buffers = 32768;
+ 
+-	if (allocators[dev->inst] != 1)
++	if (allocators[dev->inst] != 1) {
+ 		q->io_modes |= VB2_USERPTR;
++		q->uses_cpu_access = true;
++	}
+ 	q->drv_priv = dev;
+ 	q->buf_struct_size = sizeof(struct vivid_buffer);
+ 	q->ops = ops;
 -- 
 2.39.5 (Apple Git-154)
 
