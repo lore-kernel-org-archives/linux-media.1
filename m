@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.44
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794023447;
-	b=2ppg3iOXCZ7LxLj8RiPh3BSzUw4/4UP3tzi+WMoZ6ooiW9xq1Q++ZfTIzyW8kZ5wVoPU
-	 JiSE4L6lPEnEATFlCQFg2NdGWYbp0KC2O12xheHFj77mmESbQhJyOYtEPD/5Agxpa7kwf
-	 kMiI/wK1P3uX9Fd13lSgrOkBasozhTDCvm6HSXQ+2iLtAnHAUI6kJxxjmimqx5Us/Zea3
-	 T0noIlkDVCx9PqupiRGZMJjVU1kJj7Il5Yx+/rLO7u9TPgj11akuQEJoko1jg+UUToxyV
-	 9Z6yVAYNZJqIWTKfsXFA94L+HBBS4+ZaHB/at59hdupLFvypgdz9mDM0bHcPqXdVLag==
+	t=1794025926;
+	b=vMtrNwxoO0bWfO5PU1Dtc46KpePuHrCzcHPaIOUFFrRcLUViTN0peQQ9CtPthvfVzrip
+	 dTjWzex+vDoJG41LmwEIfLctvGHTBUPuTTck/J1X3VO9n+3NmDyuubbWdIpBzLPO3LlDr
+	 ySxD/O0+sP6Oq3pZ6DjhtJu8a/Uv3vu41XgMYAToSqIaY9N1e9m+JQ5NiuviTvIeD05Jf
+	 niPr62VSQptOpF0xZWaE1mxtHwSG/HLY3lbowQFeAGM4taOTKsJBlCbMbXZ5d2+ctU+W4
+	 9Z1gvkJwFyILMm7Izf641wpw7WqgsN2DI6oNZd+7aaMqwdVxtdn80xJGs60XDvsli0g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794023447;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794025926;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=8DsBB/++J1ezqdBf8vyGFjxYITqM0+YluqzVccQohus=;
-	b=Smw163zRxfARsJneUX1vJcF9h+Iz2MZZGvu3z9uMSwWfFTWziOnce4U51SZTDj1CvV0E
-	 QIIfBUp29zKCRt8hf2/7enaR9july4UQ114SWK2yTvf3JE33HjngMBweIiO4IT9Qpyzmu
-	 Jhnhlsq4d/1oSwoKtKom7n8PrFT/e6cEI90Gc3TV/eRyMOnYBdAOvn/6+BnDcFxcGc+SB
-	 EdaMSBK+MDNWXmf4+oPFBLBozC4S8G7MU9IwUL8hJi04U3lz/WanDRumccRKNEgth7qyd
-	 KagSemCywzluyEviYrfHqgc14MMQ9kHHT7NzLMH0nXaMN6Fn+kTaorTXbc7B5c8hEug==
+	bh=UXb4T+4yF65d01rXW8bhdUP5pOZHT/ojuN1hL7c/AAM=;
+	b=Kr6+rpxZ98816ov3bejmkh11kw+5G2oA7agOErsAK5zxj/WCu6nrvyhXL7S6FOx+gCOt
+	 T+D5ZaQzDorVcKVr+lCx9G4avR1ggD8oUd8Cx23TGIInTBVPJe77HS+ntOE4cqYMn+FPb
+	 KQzF5706CtsfpKrHkFtIhxthlQHAmIlhGMTZalej3gtND0oB3rjfkrv1nD3DcrDP8awZd
+	 qApAziTm3IydEM9RumgwfltMy/d3y28qthLmCNdGAvj4CyBy0h7fdnOp58uCIzPz1S3l9
+	 fiFaw1qqBFt5C1mQeXEzP84teMQvNBJwEAJhP4yQVSWks3EFWedpM3UC/KxbqH5WUDA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rE1ZTDNq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lhTcNhgU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F42606A326
-	for <linux-media@vger.kernel.org>; Sat,  7 Nov 2026 03:50:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7F42606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A88F606A32E
+	for <linux-media@vger.kernel.org>; Sat,  7 Nov 2026 04:32:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A88F606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rE1ZTDNq
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so14974595e9.0
-        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 19:50:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794023445; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lhTcNhgU
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-491846221ffso1144929f8f.3
+        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 20:32:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794025924; cv=none;
         d=google.com; s=arc-20260327;
-        b=DlwPLHFEbzLIuvnQ2wW21YvmtjSP6zsG8tgUDszO5DWZg/ili5+FX7sdS8H4MMTRiP
-         9O1opWHrPRWwfm9M56j5hUVOLI+bq3u1Ee2+avOYneKCw7vbKCacO5fUgaEydcvGvdHV
-         LSYwtHXTHYYyQlVdMCzFhhE0RmloASf0fNMuV28Gvpb8uLMAxAmcDxSpEM5gp+yXe7av
-         eIJwdI7OZU2nwCRkMkLraWzaLdwSCmalA9SjAFOFBJGc88ItXcroYiU1w5mZfMHMJHAy
-         Ef8vL2iz2dY39MBQYPFJt39IGxWWKtzz7rwKF6kVwK91iOId5AgQkfDAPT44i5bhnJzz
-         CUYg==
+        b=MQWlybTJbQpaRO836ctztCSsOf2bGaDYpa+a86QwjHWCOxT1DjY6qRLNywwwDzPvYz
+         WBMPlQ91TM4KUj0gWjZbMxf1o3OejOxmrNs1q/hD/kugsasUpKS62++QhNFz14JQgvLK
+         SFNphZa4to1yrYPmzsB5ahEylkKG/gz2/yjAoxOBeA5KxvTD/tW6thdYGqEuKLEJdEfx
+         FWh35YIHJNHucF2wtJMO2Xka0fivLBNC4xtT2FHzEcQuqcgK76FPfDI9rdfI4+ggZnUV
+         NQDLcDp5sWPFbUMYMNzTF94tVCIq6R3War+T5mcY2h0VL1CFzfxRo0ZssmG50W96r/j/
+         qzvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=8DsBB/++J1ezqdBf8vyGFjxYITqM0+YluqzVccQohus=;
-        fh=+pMofUoDNpRmqTqbEXno0GjRhvpwlmw6ASmlwD85zGU=;
-        b=k5gMwO6ixK8sxCyu9mh2Ua6iFzoY3tV4Y46iDMWSWY9T+hxgWTRcc85hnF7VDzjvYJ
-         tP8trO3beFxs4lyEBvGMzxmrl4M7uvHTnNsgxKuVMCdnQUP5Jtt56hdfdIV9rQC9OUcq
-         1xKaid7xhcCxfoIA2cCxuu4DcvrMsus28uNxwGrUGsvtc/nEo4adZaP+pU6450MruEhU
-         fu0+DBsWentxLr7e/41gSdoSwOj96CSLtHy7+4aiexW+dVOQNztfkWz51kJ5QFmREk6l
-         jipCJgw2a6k64sxNJ3IYZtVHQMwJVuLXKwBhIW+1pkx3SoF0XD2ufGJsNEfo7Cbm1rAP
-         7fWQ==;
+        bh=UXb4T+4yF65d01rXW8bhdUP5pOZHT/ojuN1hL7c/AAM=;
+        fh=x8/GirkP6jDo88+HvGOC4MU0slsL/7pnslltYmJqCuU=;
+        b=fbjp2RwZ4mx81Ez/pdvB/2bByaCrRYs3XNek+VkoACg0jig0TC4P1RxeV39QsLRXin
+         +cO2TEyH/U4eki+5OA9WkEZOqLhqgHHIHs2YVqRhWV/N/Z7LdyRHbpehLxBitQBcdPNA
+         kyhwnvoKLr95jLaUUwJa6bgsPxmqQpGK+rMka8aLF4kLMx23sZo+jbHQcyLDNfj/3QDV
+         9tXleLU9CXh3L4d9h1Fd2a4RnHhen/mxm3o9UdMiZ3kDmocBw0bjkrRdJQGp7QSi2nlX
+         xDu1DYeFG6Ozj+eDjLEvGMWEanFhAtrFjHBf0GuFG0tdZDuhJ3QpkivsbNEpoDhBAQe1
+         tzvw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794023445; x=1794628245; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794025924; x=1794630724; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=8DsBB/++J1ezqdBf8vyGFjxYITqM0+YluqzVccQohus=;
-        b=rE1ZTDNqUJ0IAulplsLTzvuxc6VvShh1uFVwvIMIimVxLj7CXPXCV3jyIvvVntz/FN
-         10tvlHlbNHqAOult/EKnl/N1+30mKmmdX6dOaa2If7ydYpjxfnUa0jNheIGFwP+P8RH0
-         x0A9nBiEGNe82RcBUrT6ANl6iV59DsEvpExnuZMDr6ZXGkoCY4QLXZ/sBmlGOcLZHBLm
-         kpSJQoHdnknWtF92qQvml2mi9M3KZb/gKCEL6NMABIPLPQq7BBuvvUPgV4n03UmYzZ0g
-         DQRGMZfgJIkqK6skEX4ZrKBv+/pc7GFDtdmllZtVkjuIMHZ2ckw66X4dZgGn8Wkn49Ue
-         1tnw==
+        bh=UXb4T+4yF65d01rXW8bhdUP5pOZHT/ojuN1hL7c/AAM=;
+        b=lhTcNhgUGZGmJscgsQiceRcIbM98qm6Vd0daoPOmsUQVvGAQgB06t4miVd5d7husrA
+         ZbCUcz2UrGZeDVRNgZsY/UON1EO3fd5xoug0eFrej8XtNl+VGBszzcyA1t7K7G1nQm/i
+         rE/5xon8hFZUYlMs+wL17SN1xbvkSQvwXcTRaXmaIrCt30Af/D0p2VpOo0qSXXh7dzFw
+         q+PbVwvJEdCywa/JQ/ESWJX48o3rVt5NvO3WuwMgZKVQS9/SYH35CghdXXCbGpH8LBUk
+         ZEdmIgjRABhyXs4RbSCr7HSJTNcodLK6Lpg8ZhcJSNC8ohtxM2an5jqgmdYDMCxSResM
+         ROAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794023445; x=1794628245;
+        d=1e100.net; s=20260707; t=1794025924; x=1794630724;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8DsBB/++J1ezqdBf8vyGFjxYITqM0+YluqzVccQohus=;
-        b=E1X3/J9LiDtLQdienV1nTZLltTCla0O0jnS1HL1NNZWzFBBV8IV3RysFzWgNCMklUg
-         /hK6ybOgJioPuxLzDkXj2/cq38RHKyAUFOu/G2cAsp1lUHyepmslhbbBwr2GO2tNX0fn
-         /dTwSP3nO6F+YDpD6ew0fOVl/nI0rn/qD+eYe25KcPkeWDiQ31Yv/JjOtB9CEdk6iEYJ
-         /kU4jHmVagknxWYXqjd2VlKD04zxNdeAi6kjfk4elovqjNzkyRcdqdSEHxOslgG6ylRa
-         XkrYmccUJHGTYjXjNUNjhBDh0Kw33VlMEAqAcB8WavgjrDQx3gl9EmZheCMG0ELEeMuv
-         nkOw==
-X-Forwarded-Encrypted: i=1; AL+hErFBJYfggY0i8eA77f9gqIC324BCypXe60vWZvm5zF3mH3DGQOr6zV/k/wWKr0bidvmSpNdTe6DxJyRlLQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z98yf8Mm3gU+pME3M1esBGLG2FBel22cA0Qo1erHRRL17ggKI2j
-	kZ+iEfV73HfzEatWbfG3Tls7xOwZ3btVih7UPE1PUbBqW6vNld8duh/SrTePFrc+YG4jqMwpsnG
-	VzrTaKYBJxYmY/pO6fSBHMEb+domuv7E=
-X-Gm-Gg: AYBFou1K+zbQngWKW2TnkhUP5YaXir28gE8kz+tT2aj4BDIjO7oED+6Di5TPv5wy3ZO
-	1NDCMX1JkSOEfQ30wtQoEXX0BK1Glh4hXXOCW0nmBl37tvIHInZAac8kVX5BOQ+7cvoijovkFCY
-	XaZI7Kt7yO91Uaskxv+easjLiH6ut9y46es8GaIgXdHdBDXoXwq8Vx/nVQBxb24LdN32vPLfzuC
-	FJm7rsZsCZsHtGloLP2iwnMnVtqkQweQoc0XgWfAhu7F1J7vImkgcWFTVsCfeuRtEO8nLnYOnPc
-	W3BruXIlQwGTOK8yMOKFlvxWLPCxFw5yZzkDYQ5CbUxh9gSjXpy+cZb0ynpRUt6AU9qO9q0D1bh
-	RrFCDsTDYUZFAdH5clhEc7+bxNQRcZ3V9NWt9JVmzhQyhox5AyDQDxUyCKIhowLtDzuU3d/w=
-X-Received: by 2002:a05:6000:2203:b0:48e:2a6c:153b with SMTP id
- ffacd0b85a97d-493cb334277mr2973714f8f.35.1794023444836; Fri, 06 Nov 2026
- 19:50:44 -0800 (PST)
+        bh=UXb4T+4yF65d01rXW8bhdUP5pOZHT/ojuN1hL7c/AAM=;
+        b=BFrg85JxHHt7zYnXQtSZ85oqj6/SeAnHXy6c1qajTY7rAXMjl2KnlSHnhMJYTAWFCh
+         SBLYar2nMGoQe4Xk8Lf5rQVFUgTL6o4psVyYgDjtf/6neApFxyHvfpYHhIOCp7xlWs1V
+         AU1NhAjVmDs54M8Z7O3ayrCIFnCgyQKhrW3rXccT+igBH3jfK9zCFQFWEuKNdkvqM9W4
+         yi2PeAR6gIcv0S2clDcqYECDLF5lBK40X1A18ToxNHgyCZNOGaRDimOLL7sLrFLLaX1A
+         ynrK+jXX35Lh+LEs9JDayv6iwrSdw5Etz8gM84iI4nd9V/+YrXdKZtNWt+gn69ahRLvr
+         WXuw==
+X-Forwarded-Encrypted: i=1; AL+hErHrbkUHWaeuYpa5/QLUIVLhPvU72/gLLtf1B2LmJRX8hRRIovLLd+jPMJIoqkIB+OplBG0bT/D0S+5Zsg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xW3EX8z/GdP+q4tnJkqyTdaLa7fbAJ1ZoS8XPBUCH0taRYgfx
+	QZaj2tVybSSIAGS8yZzr2fb8X2ATyntOnS3z7yLDBTpP8xnBltOVHut69HMgLXYs4g7oMvOmO8Z
+	urpbBMoR2rvgXyx0YFTunmZTb79V6S/X0FcFdQC0=
+X-Gm-Gg: AYBFou1NWW1bz9aGpsTOsKB1qh53JdQy+pUoBe/J0xP3rOUhVjo7JEajbbq3UCWWnHV
+	pGkjYXEyqrH80Mm0SmR1RRSXSuEg2/q2zObVb3vmoeMOEjonkJywVVUfJuFmQ+Lpclxy50e3SoM
+	AqkUU7V06ezHDNoH90WjPA/IVlUsK1RQa4r+yTMjam+aburk8UycPXjhw+s451JXl5FXRR5nU3X
+	oJvFl+CYReFUuwHqarzHwfjJyuGjoXH8+48+8FbDrDj37yRguqbhq31JEA9QoENdn+0QTVmqLQ5
+	GtzaeTloLFYSE5UcJdMaccsIR2g0zTl2Ba7qxcA0BbIjwoTuiGkA77XH26CpN2mX2O0U/zq0Xr/
+	GSnT0QR++SgFrlPVkn6Vv22p4k76IuuRnSAO6PLweejE7KqUSAL9XqdnhIJu5M6X8JdP/epg=
+X-Received: by 2002:a05:6000:2c03:b0:493:28c4:331e with SMTP id
+ ffacd0b85a97d-49328c435cemr5949999f8f.28.1794025924400; Fri, 06 Nov 2026
+ 20:32:04 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,118 +104,131 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
- <ausVkYs1-3rJ5Fj0@devuan> <20261105113229.4126d872@pumpkin>
- <CAPDEY+X7q2yeWaa7J=Nre+pQqUa2C760Hh9NovdGNSQ=VsEr8w@mail.gmail.com>
- <20261106102723.1cc4d350@pumpkin> <1EAA42AE-92F8-4CB7-B490-CDB6DA9FFCE9@kernel.org>
-In-Reply-To: <1EAA42AE-92F8-4CB7-B490-CDB6DA9FFCE9@kernel.org>
+References: <20261106074639.452630-1-nikitash.mariiaw@gmail.com> <au2uDjVhB9232IuB@devuan>
+In-Reply-To: <au2uDjVhB9232IuB@devuan>
 From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Date: Fri, 6 Nov 2026 19:50:33 -0800
-X-Gm-Features: AclHuK8S23Z0xNdnv0TQ6fL-U428vp435ZwNqPtWkfKo8mNDXQ1VtJpE_Dhy960
-Message-ID: <CAPDEY+UVqhg9R-Nk-vqie7kNoadr0JcXMKHsjShmWbHkWuexhA@mail.gmail.com>
-Subject: Re: [PATCH] media: siano: Replace strlcat() with snprintf() in sms_ir_init()
-To: Kees Cook <kees@kernel.org>
-Cc: David Laight <david.laight.linux@gmail.com>, 
-	Alejandro Colomar <alx+linux-hardening@kernel.org>, mchehab@kernel.org, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, justinstitt@google.com, morbo@google.com
+Date: Fri, 6 Nov 2026 20:31:53 -0800
+X-Gm-Features: AclHuK9rBZ-IeP-aPeV2Q8ycPShnWIqSPPLruBPolqxGt1zwis9sIKCEuFaBges
+Message-ID: <CAPDEY+Wa2+zxSVz8fewXDP78eA8-3ymAKurXuvB1Dhx7heLMiQ@mail.gmail.com>
+Subject: Re: [PATCH] media: radio: Replace strlcat() with seq_buf in TEA drivers
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: hverkuil@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	kees@kernel.org, justinstitt@google.com, morbo@google.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 6, 2026 at 8:06=E2=80=AFAM Kees Cook <kees@kernel.org> wrote:
+On Fri, Nov 6, 2026 at 2:39=E2=80=AFAM Alejandro Colomar
+<alx+linux-hardening@kernel.org> wrote:
 >
+> Hi Mariia,
 >
->
-> On November 6, 2026 2:27:23 AM PST, David Laight <david.laight.linux@gmai=
-l.com> wrote:
-> >On Thu, 5 Nov 2026 17:44:00 -0800
-> >Mariia Nikitash <nikitash.mariiaw@gmail.com> wrote:
+> > Date: 2026-11-05 23:46:39-0800
+> > From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
 > >
-> >> On Thu, Nov 5, 2026 at 3:32=E2=80=AFAM David Laight <david.laight.linu=
-x@gmail.com>
-> >> wrote:
-> >> >
-> >> > On Wed, 4 Nov 2026 12:25:17 +0100
-> >> > Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
-> >> >
-> >> > > Hi Mariia,
-> >> > >
-> >> > > > Date: 2026-11-04 01:02:39-0800
-> >> > > > From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-> >> > > >
-> >> > > > In preparation for removing the deprecated strlcat() API[1],
-> >> > > > replace the strscpy() and strlcat() calls with a single snprintf=
-()
-> >> > > > call to construct the IR device path.
-> >> > > >
-> >> > > > Both the source and destination buffers have the same capacity,
-> >> > >
-> >> > > The line above seems irrelevant, and potentially confusing.
-> >> > > The size of the input is not important, because since we're append=
-ing
-> >> > > stuff after it, truncation may actually happen.
-> >> >
-> >> > And gcc's stupid format overflow check is going to complain.
-> >>
-> >> Thanks for pointing this out! I initially tested with Clang, but repro=
-duced
-> >> the warning with GCC. I've switched to seq_buf for v3.
+> > In preparation for removing the deprecated strlcat() API[1],
+> > replace the strscpy() and strlcat() calls used to construct
+> > V4L2 card names in the TEA5777 and TEA575x radio drivers.
 > >
-> >That is entirely OTT.
-> >Currently scnprintf() doesn't complain.
+> > seq_buf tracks the current write position and remaining capacity
+> > across appends, avoiding repeated scans of the destination buffer.
+> > This preserves the resulting strings, including truncation behavior.
+> >
+> > Link: https://github.com/KSPP/linux/issues/370 [1]
+> > Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+> > ---
+> >  drivers/media/radio/radio-tea5777.c | 10 ++++++++--
+> >  drivers/media/radio/tea575x.c       | 10 ++++++++--
+> >  2 files changed, 16 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/media/radio/radio-tea5777.c b/drivers/media/radio/=
+radio-tea5777.c
+> > index fb9de7bbcd19..2b1c7f6ddd60 100644
+> > --- a/drivers/media/radio/radio-tea5777.c
+> > +++ b/drivers/media/radio/radio-tea5777.c
+> > @@ -13,6 +13,7 @@
+> >  #include <linux/init.h>
+> >  #include <linux/module.h>
+> >  #include <linux/sched.h>
+> > +#include <linux/seq_buf.h>
+> >  #include <linux/slab.h>
+> >  #include <media/v4l2-device.h>
+> >  #include <media/v4l2-dev.h>
+> > @@ -255,10 +256,15 @@ static int vidioc_querycap(struct file *file, voi=
+d  *priv,
+> >                                       struct v4l2_capability *v)
+> >  {
+> >       struct radio_tea5777 *tea =3D video_drvdata(file);
+> > +     struct seq_buf s;
+> >
+> >       strscpy(v->driver, tea->v4l2_dev->name, sizeof(v->driver));
+> > -     strscpy(v->card, tea->card, sizeof(v->card));
+> > -     strlcat(v->card, " TEA5777", sizeof(v->card));
+> > +
+> > +     seq_buf_init(&s, (char *)v->card, sizeof(v->card));
+> > +     seq_buf_puts(&s, (const char *)tea->card);
+> > +     seq_buf_puts(&s, " TEA5777");
+> > +     seq_buf_terminate(&s);
+> > +
 >
->
+> Why are the casts needed?
 
-Hi Kees,
+Hi Alex,
 
+I added the casts to make conversions from u8/__u8 to
+character-pointer types expected by the seq_buf helpers explicit.
 
-> What does GCC say about it? Is it mad about src >=3D dest length but the =
-format adds chars?
-
-GCC 13 reported -Wformat-truncation:
-
-error: =E2=80=98/ir0=E2=80=99 directive output may be truncated writing 4 b=
-ytes
-into a region of size between 1 and 32
+I'm also considering simplifying these two-part string constructions
+using scnprintf() instead. Would this approach be preferred?
 
 
-note: =E2=80=98snprintf=E2=80=99 output between 5 and 36 bytes
-into a destination of size 32
 
-Both devpath and ir.phys are 32-byte buffers, so the suffix may not fit.
+> Have a lovely day!
+> Alex
 
-
-> I agree that seq_buf isn't needed here; that's really only for complicate=
-d cases where the simpler solutions don't fit. (In this case, snprintf-like=
- is best.)
-
-That makes sense.
-
-
-> Both seq_buf and scnprintf avoid the warning because GCC just happens to =
-not recognize the pattern when using those helpers, so this is just silenci=
-ng the warning, much like strlcat() did too.
->
-> Truncation was the norm already, so scnprintf is probably the best fit, b=
-ut I think it may be worth looking at the surrounding code and conventions =
-to decide if truncation should be communicated upward to the caller (i.e. f=
-ail), or if the structures involved should be adjusted to avoid truncation =
-chance, etc etc. If possible we should avoid the weakness, but if not, just=
- use the minimal solution here, which is scnprintf, though that kicks the w=
-arning down the road...
-
-I traced the USB/SDIO initialization paths and checked the caller's
-error handling. The existing code permits truncation, so I kept v4
-focused on preserving that behavior with scnprintf(). Any broader
-changes to truncation handling could be addressed separately.
-
-Thank you!
-
->
-> -Kees
->
->
-
+Thanks,
 Mariia
+>
+> >       strscpy(v->bus_info, tea->bus_info, sizeof(v->bus_info));
+> >       return 0;
+> >  }
+> > diff --git a/drivers/media/radio/tea575x.c b/drivers/media/radio/tea575=
+x.c
+> > index c37315226c42..e49228eb7c46 100644
+> > --- a/drivers/media/radio/tea575x.c
+> > +++ b/drivers/media/radio/tea575x.c
+> > @@ -9,6 +9,7 @@
+> >  #include <linux/module.h>
+> >  #include <linux/init.h>
+> >  #include <linux/slab.h>
+> > +#include <linux/seq_buf.h>
+> >  #include <linux/sched.h>
+> >  #include <asm/io.h>
+> >  #include <media/v4l2-device.h>
+> > @@ -221,10 +222,15 @@ static int vidioc_querycap(struct file *file, voi=
+d  *priv,
+> >                                       struct v4l2_capability *v)
+> >  {
+> >       struct snd_tea575x *tea =3D video_drvdata(file);
+> > +     struct seq_buf s;
+> >
+> >       strscpy(v->driver, tea->v4l2_dev->name, sizeof(v->driver));
+> > -     strscpy(v->card, tea->card, sizeof(v->card));
+> > -     strlcat(v->card, tea->tea5759 ? " TEA5759" : " TEA5757", sizeof(v=
+->card));
+> > +
+> > +     seq_buf_init(&s, (char *)v->card, sizeof(v->card));
+> > +     seq_buf_puts(&s, (const char *)tea->card);
+> > +     seq_buf_puts(&s, tea->tea5759 ? " TEA5759" : " TEA5757");
+> > +     seq_buf_terminate(&s);
+> > +
+> >       strscpy(v->bus_info, tea->bus_info, sizeof(v->bus_info));
+> >       return 0;
+> >  }
+> > --
+> > 2.43.0
+> >
+> >
+>
 > --
-> Kees Cook
+> <https://www.alejandro-colomar.es>
