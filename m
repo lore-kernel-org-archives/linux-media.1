@@ -1,55 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794034478;
-	b=3P6zwJ+dt8s0fPe6Q4XFFi4088nNUA3tes10zvODiR+ubqSw+lEfvHNWnWiHnJjfviZk
-	 QwyDbR9Xyt+n0EHcwth5kKbPNPajOl/XspY/gigGhEIDUMzoCL5s/jwWZ+HKazA3WLSlr
-	 jgt3eQSXpb19gBzyPD3G195LNKZ+qvBV3lQunqmPyyK+NCvX1IbhvAg1/irO46r1e/Eau
-	 45ibBCI+SHbuWkQ2RYX7D5myvMvCqs05V/6M41aFLBez3hT0dSE3DysaaKn/ddb+8yYdT
-	 y8YhFYxZYQ+oszHt73zbdYJXc3u6KBSTVsyH+LXw+9jsbTL6D4+zKWftQ3fOQ2ptuHw==
+	t=1794034487;
+	b=GPg5s/+7Sq+R7kdt4qKw3pf0NqNQrB9jM1GetKITG3O/xjYpn7tsNrekd/EHH9c06q+d
+	 sSCcd70kM+SJ4yhPHqn6z7MBkUS/wYn3UUnWflYAHONcD/VSglUI0VHSowdPFqTz/EbVd
+	 idCt51pnZszJ2LInpzuO/U4sIhEPv6lrB+MfrkUkduV/M/3c7MofHPqweKBlpWAWOLHMN
+	 ljbgy/tNd82iczK1VQ5H8AEXUU9tq/t5LXhS0t+obnEKmMoCD0cqoNYAD5U3j5SJAPPVa
+	 uaCi/Gfk+ILokiqhLQC2A3TmjjCYvCv5jdlcbrc2SyLX5hofhXPnC5NGatlqrxI+1DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794034478;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794034487;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
 	 X-HM-Spam-Status:DKIM-Signature;
-	bh=E0aUa3hDU1kr8wBZk8oZBIWIwJyImWt2F40Ntf0+M8Y=;
-	b=jZ/5l1qDAPFwCtqideqUN3UGfkCgkv570tvI53FmHLqejuI/jJmYpnG2c5CCliKTRqcD
-	 eBO/Hp/cDg9Znohc+odNbxWH68RHjLPB9aIGkw5VndTbvWD3zNJLBl7Bi65KkgfOrhZ6t
-	 h3StRS5TCezxFw7E3uSVH7j/NaCWRD+01JZEBk79WPWotA7yv054AhZtiMof5Aq38UcTW
-	 HgQReCZdpDx+MxRqJv6T+Zul+SztYM4P22MY2kOe0nHSXkoc1W+c5rrBeCFwVAHeZEDQl
-	 49czB/05xX876zh15ub9BsbFj2jWZXCiqAzDn9AGPfXbQJyfC0UMsConCEG06m2Yshw==
+	bh=/FCux6jgIPm46jP4gUFYYgvKYW+4Rz5Ju8SSHD0kUhE=;
+	b=P6MZ1d4ciySbzRZ4PnvArDj5ccpLRWn+piipf8Am3TYoUnfrdJ7NUFtG2ckDHF7MIZVe
+	 12+R6hLgiwAiu60xsmxzbzrPNDzm/eKwpW4Qg0Y5WP6pT2hrObLb0vxRfc19G7zeDSVee
+	 3XBYOpHoj7G0i86hJPhEiJgkOO1Hkx5RdPo8tqF6qLaFPSAoxO6IpyxaFnTrdJ8yJpYsF
+	 YTmBU5LZSL4yp8AFAloITOezyjeLO7ruQC+IFFzN0DYjXi1H8t1yKFy8kchmO+Gw1CzI1
+	 594muLgP9KtuW5HKjeQk01RNC4j24KSDvCDwuvbIjwZlNf7XWdQdnrmITH0JmKJCaiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.sdu.edu.cn;
 	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b="FV9/e+DD";
-	arc=none smtp.remote-ip=45.254.49.198
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=G1onGQ1W;
+	arc=none smtp.remote-ip=45.254.49.197
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1100F606A32C;
-	Sat,  7 Nov 2026 06:54:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1100F606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16ABE606A32C;
+	Sat,  7 Nov 2026 06:54:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16ABE606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=FV9/e+DD
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=G1onGQ1W
 Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 53d65d8f3;
-	Sat, 7 Nov 2026 14:54:31 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 53d65d8fa;
+	Sat, 7 Nov 2026 14:54:36 +0800 (GMT+08:00)
 From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Philipp Zabel <p.zabel@pengutronix.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH] media: coda: Fix potential use-after-free after VDOA removal
-Date: Sat,  7 Nov 2026 14:54:30 +0800
-Message-ID: <20261107-0d0c29e10a-media-coda-1@mail.sdu.edu.cn>
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] media: mediatek: mdp3: Fix potential use-after-free on SCP removal
+Date: Sat,  7 Nov 2026 14:54:35 +0800
+Message-ID: <20261107-0d0c29e10a-media-mediatek-mdp3-1@mail.sdu.edu.cn>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -61,356 +58,341 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1b4c990bb03a1kunmeb5d581082b4d
+X-HM-Tid: 0aa1b4c9a39903a1kunmde59ae2f82b65
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTxhDVkpLThpLHUkYQ0MeTFYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT0hIVkNKGEtOSk5MGhoeGVYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0hKTE
 	1DVUpLS1VKQktLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=FV9/e+DDCp6Y53QuDBlChI1sS0VjP2qCvk64BSfSRGzrcxc9byubICv3Ko0qwCpHpcAbTnVV/74u4crvb76WgYDWFVMUoQIEJO9FhdqKSORqMi9L4cWOfEyHhN4eDCPhu/JgSwKytPeGcJBs9ZXeAdQftPwH7zNXMT3qMKC/SYg=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=E0aUa3hDU1kr8wBZk8oZBIWIwJyImWt2F40Ntf0+M8Y=;
+	b=G1onGQ1WeE2CyEpmKCJixxA/33f6sKFropE31Up8JTuxaXXSkhd0XLVIDTC+kVxOAALy6gbEsLbUhTadqDe+nSf7IkGdYznvlNDZD8BPOK5M6creVX4+iLleoBfx21wOwBsLzuA9aSqswWQxMQ/LMwHBMDRvV+eX/UqA1J8Spzo=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
+	bh=/FCux6jgIPm46jP4gUFYYgvKYW+4Rz5Ju8SSHD0kUhE=;
 	h=date:mime-version:subject:message-id:from;
 
-VDOA can be unbound while CODA still holds its driver data and open
-contexts. Their next transfer or close then accesses released state
-and device-managed resources.
+MDP contexts can outlive the SCP driver whose data they use for VPU
+teardown. Unregistering only the V4L2 parent neither disconnects the
+video node nor finishes these sessions.
 
-Retain the VDOA state for its consumers and contexts. Serialize hardware
-access with removal, stop outstanding transfers and balance the clock
-references before disconnecting the retained contexts. Also release a
-VDOA context when opening CODA fails.
+Link MDP to SCP and disconnect the video node before draining jobs and
+closing every VPU session. Release hardware dependencies during remove,
+while retaining the software state for the last open file. Balance the
+remoteproc references on session shutdown and failed initialization.
 
 This issue was found by our static analysis tool under development.
 
-Fixes: e7f3c5481035 ("[media] coda: use VDOA for un-tiling custom macroblock format")
+Fixes: 61890ccaefaf ("media: platform: mtk-mdp3: add MediaTek MDP3 driver")
 Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 ---
-Validation: x86-64 GCC W=1 changed-object compilation passed. An
-extracted-code test with mocked services reports an ASan failure before
-the fix and passes after it; this is not a kernel reproducer. No
-hardware test, ARM64 build or full linked-kernel build.
+Validation: Changed-object compilation passed with W=1 in the recorded
+configuration. No hardware/kernel runtime test or full linked-kernel
+build.
 OpenAI Codex assisted with source review, patch implementation and
 commit-message drafting. The submitter has reviewed the changes.
 
- .../platform/chips-media/coda/coda-common.c   |  14 +-
- .../platform/chips-media/coda/imx-vdoa.c      | 133 ++++++++++++++++--
- .../platform/chips-media/coda/imx-vdoa.h      |   8 ++
- 3 files changed, 134 insertions(+), 21 deletions(-)
+ .../platform/mediatek/mdp3/mtk-mdp3-core.c    | 84 ++++++++++++++-----
+ .../platform/mediatek/mdp3/mtk-mdp3-core.h    |  1 +
+ .../platform/mediatek/mdp3/mtk-mdp3-m2m.c     | 34 ++++++--
+ .../platform/mediatek/mdp3/mtk-mdp3-m2m.h     |  3 +-
+ .../platform/mediatek/mdp3/mtk-mdp3-vpu.c     |  2 +-
+ 5 files changed, 96 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/media/platform/chips-media/coda/coda-common.c b/drivers/media/platform/chips-media/coda/coda-common.c
-index be37ea568bfe..b519cf8541de 100644
---- a/drivers/media/platform/chips-media/coda/coda-common.c
-+++ b/drivers/media/platform/chips-media/coda/coda-common.c
-@@ -396,7 +396,7 @@ const char *coda_product_name(int product)
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
+index f412aadb5996..9fe42181a08c 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.c
+@@ -108,6 +108,7 @@ int mdp_vpu_get_locked(struct mdp_dev *mdp)
+ err_init_vpu:
+ 	mdp_vpu_unregister(mdp);
+ err_reg_vpu:
++	rproc_shutdown(mdp->rproc_handle);
+ err_load_vpu:
+ 	mdp->vpu_count--;
+ 	return ret;
+@@ -118,19 +119,24 @@ void mdp_vpu_put_locked(struct mdp_dev *mdp)
+ 	if (--mdp->vpu_count == 0) {
+ 		mdp_vpu_dev_deinit(&mdp->vpu);
+ 		mdp_vpu_unregister(mdp);
++		rproc_shutdown(mdp->rproc_handle);
  	}
  }
  
--static struct vdoa_data *coda_get_vdoa_data(void)
-+static struct vdoa_data *coda_get_vdoa_data(struct device *dev)
+-void mdp_video_device_release(struct video_device *vdev)
++static void mdp_hardware_cleanup(struct mdp_dev *mdp)
  {
- 	struct device_node *vdoa_node;
- 	struct platform_device *vdoa_pdev;
-@@ -410,9 +410,7 @@ static struct vdoa_data *coda_get_vdoa_data(void)
- 	if (!vdoa_pdev)
- 		goto out;
+-	struct mdp_dev *mdp = (struct mdp_dev *)video_get_drvdata(vdev);
+ 	int i;
  
--	vdoa_data = platform_get_drvdata(vdoa_pdev);
--	if (!vdoa_data)
--		vdoa_data = ERR_PTR(-EPROBE_DEFER);
-+	vdoa_data = devm_vdoa_get(dev, &vdoa_pdev->dev);
++	flush_workqueue(mdp->job_wq);
++	flush_workqueue(mdp->clock_wq);
++
+ 	for (i = 0; i < mdp->mdp_data->pp_used; i++)
+ 		if (mdp->cmdq_clt[i])
+ 			cmdq_mbox_destroy(mdp->cmdq_clt[i]);
  
- 	put_device(&vdoa_pdev->dev);
- out:
-@@ -2721,6 +2719,8 @@ static int coda_open(struct file *file)
- err_clk_enable:
- 	pm_runtime_put_sync(dev->dev);
- err_pm_get:
-+	if (ctx->vdoa)
-+		vdoa_context_destroy(ctx->vdoa);
- 	v4l2_fh_del(&ctx->fh, file);
- 	v4l2_fh_exit(&ctx->fh);
- err_coda_name_init:
-@@ -3220,9 +3220,9 @@ static int coda_probe(struct platform_device *pdev)
- 	dev->iram_pool = pool;
++	mdp_vpu_shared_mem_free(&mdp->vpu);
+ 	scp_put(mdp->scp);
++	mdp->scp = NULL;
  
- 	/* Get vdoa_data if supported by the platform */
--	dev->vdoa = coda_get_vdoa_data();
--	if (PTR_ERR(dev->vdoa) == -EPROBE_DEFER)
--		return -EPROBE_DEFER;
-+	dev->vdoa = coda_get_vdoa_data(&pdev->dev);
-+	if (IS_ERR(dev->vdoa))
-+		return PTR_ERR(dev->vdoa);
+ 	destroy_workqueue(mdp->job_wq);
+ 	destroy_workqueue(mdp->clock_wq);
+@@ -151,10 +157,16 @@ void mdp_video_device_release(struct video_device *vdev)
+ 		if (!IS_ERR_OR_NULL(m))
+ 			mtk_mutex_put(m);
+ 	}
++}
++
++void mdp_video_device_release(struct video_device *vdev)
++{
++	struct mdp_dev *mdp = video_get_drvdata(vdev);
  
- 	ret = v4l2_device_register(&pdev->dev, &dev->v4l2_dev);
- 	if (ret)
-diff --git a/drivers/media/platform/chips-media/coda/imx-vdoa.c b/drivers/media/platform/chips-media/coda/imx-vdoa.c
-index cd085c1c73f4..d9249c943dfa 100644
---- a/drivers/media/platform/chips-media/coda/imx-vdoa.c
-+++ b/drivers/media/platform/chips-media/coda/imx-vdoa.c
-@@ -9,7 +9,9 @@
- #include <linux/clk.h>
- #include <linux/device.h>
- #include <linux/interrupt.h>
-+#include <linux/kref.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/dma-mapping.h>
- #include <linux/platform_device.h>
- #include <linux/videodev2.h>
-@@ -74,6 +76,12 @@ enum {
- };
- 
- struct vdoa_data {
-+	struct kref		ref;
-+	/* Serializes context hardware access with removal. */
-+	struct mutex		lock;
-+	unsigned int		num_contexts;
-+	bool			removed;
-+	int			irq;
- 	struct vdoa_ctx		*curr_ctx;
- 	struct device		*dev;
- 	struct clk		*vdoa_clk;
-@@ -126,7 +134,7 @@ static irqreturn_t vdoa_irq_handler(int irq, void *data)
- 	return IRQ_HANDLED;
+-	mdp_vpu_shared_mem_free(&mdp->vpu);
+ 	v4l2_m2m_release(mdp->m2m_dev);
++	ida_destroy(&mdp->mdp_ida);
+ 	kfree(mdp);
++	video_device_release(vdev);
  }
  
--int vdoa_wait_for_completion(struct vdoa_ctx *ctx)
-+static int vdoa_wait(struct vdoa_ctx *ctx)
- {
- 	struct vdoa_data *vdoa = ctx->vdoa;
- 
-@@ -142,17 +150,43 @@ int vdoa_wait_for_completion(struct vdoa_ctx *ctx)
- 
+ static void mdp_put_device(void *_dev)
+@@ -213,11 +225,45 @@ static int mdp_mm_subsys_deploy(struct mdp_dev *mdp, enum mdp_infra_id id)
  	return 0;
  }
-+
-+int vdoa_wait_for_completion(struct vdoa_ctx *ctx)
+ 
++static int mdp_get_scp(struct mdp_dev *mdp)
 +{
-+	struct vdoa_data *vdoa = ctx->vdoa;
-+	int ret;
++	struct device_node *node;
++	struct platform_device *scp_pdev;
++	struct device_link *link;
++	int ret = -EPROBE_DEFER;
 +
-+	mutex_lock(&vdoa->lock);
-+	ret = vdoa->removed ? -ENODEV : vdoa_wait(ctx);
-+	mutex_unlock(&vdoa->lock);
++	node = of_parse_phandle(mdp->pdev->dev.of_node, "mediatek,scp", 0);
++	if (node) {
++		scp_pdev = of_find_device_by_node(node);
++		of_node_put(node);
++	} else {
++		scp_pdev = __get_pdev_by_id(mdp->pdev, NULL, MDP_INFRA_SCP);
++	}
++	if (!scp_pdev)
++		return -EPROBE_DEFER;
 +
++	link = device_link_add(&mdp->pdev->dev, &scp_pdev->dev,
++			       DL_FLAG_AUTOREMOVE_CONSUMER);
++	if (!link) {
++		ret = -ENOMEM;
++		goto err_put;
++	}
++	if (!device_is_bound(&scp_pdev->dev))
++		goto err_put;
++
++	mdp->scp = platform_get_drvdata(scp_pdev);
++	if (mdp->scp)
++		return 0;
++
++err_put:
++	put_device(&scp_pdev->dev);
 +	return ret;
 +}
- EXPORT_SYMBOL(vdoa_wait_for_completion);
- 
-+static void vdoa_stop(struct vdoa_data *vdoa)
-+{
-+	if (!vdoa->curr_ctx)
-+		return;
 +
-+	if (vdoa_wait(vdoa->curr_ctx))
-+		writel(VDOASRR_SWRST, vdoa->regs + VDOASRR);
-+	writel(0, vdoa->regs + VDOAIE);
-+	synchronize_irq(vdoa->irq);
-+	vdoa->curr_ctx = NULL;
-+}
-+
- void vdoa_device_run(struct vdoa_ctx *ctx, dma_addr_t dst, dma_addr_t src)
+ static int mdp_probe(struct platform_device *pdev)
  {
- 	struct vdoa_q_data *src_q_data, *dst_q_data;
- 	struct vdoa_data *vdoa = ctx->vdoa;
- 	u32 val;
+ 	struct device *dev = &pdev->dev;
+ 	struct mdp_dev *mdp;
+-	struct platform_device *mm_pdev;
+ 	struct resource *res;
+ 	int ret, i, mutex_id;
  
--	if (vdoa->curr_ctx)
--		vdoa_wait_for_completion(vdoa->curr_ctx);
-+	mutex_lock(&vdoa->lock);
-+	if (vdoa->removed)
-+		goto out_unlock;
+@@ -285,27 +331,16 @@ static int mdp_probe(struct platform_device *pdev)
+ 		goto err_destroy_job_wq;
+ 	}
  
-+	vdoa_stop(vdoa);
- 	vdoa->curr_ctx = ctx;
- 
- 	reinit_completion(&ctx->completion);
-@@ -192,9 +226,44 @@ void vdoa_device_run(struct vdoa_ctx *ctx, dma_addr_t dst, dma_addr_t src)
- 	/* Enable interrupts and start transfer */
- 	writel(VDOAIE_EITERR | VDOAIE_EIEOT, vdoa->regs + VDOAIE);
- 	writel(VDOASRR_START, vdoa->regs + VDOASRR);
-+out_unlock:
-+	mutex_unlock(&vdoa->lock);
- }
- EXPORT_SYMBOL(vdoa_device_run);
- 
-+static void vdoa_release(struct kref *ref)
-+{
-+	struct vdoa_data *vdoa = container_of(ref, struct vdoa_data, ref);
-+
-+	put_device(vdoa->dev);
-+	kfree(vdoa);
-+}
-+
-+static void vdoa_put(void *data)
-+{
-+	struct vdoa_data *vdoa = data;
-+
-+	kref_put(&vdoa->ref, vdoa_release);
-+}
-+
-+struct vdoa_data *devm_vdoa_get(struct device *dev, struct device *supplier)
-+{
-+	struct vdoa_data *vdoa;
-+	int ret;
-+
-+	device_lock(supplier);
-+	vdoa = dev_get_drvdata(supplier);
-+	if (vdoa)
-+		kref_get(&vdoa->ref);
-+	device_unlock(supplier);
-+	if (!vdoa)
-+		return ERR_PTR(-EPROBE_DEFER);
-+
-+	ret = devm_add_action_or_reset(dev, vdoa_put, vdoa);
-+	return ret ? ERR_PTR(ret) : vdoa;
-+}
-+EXPORT_SYMBOL(devm_vdoa_get);
-+
- struct vdoa_ctx *vdoa_context_create(struct vdoa_data *vdoa)
- {
- 	struct vdoa_ctx *ctx;
-@@ -204,16 +273,26 @@ struct vdoa_ctx *vdoa_context_create(struct vdoa_data *vdoa)
- 	if (!ctx)
- 		return NULL;
- 
-+	mutex_lock(&vdoa->lock);
-+	if (vdoa->removed)
-+		goto err_unlock;
-+
- 	err = clk_prepare_enable(vdoa->vdoa_clk);
--	if (err) {
--		kfree(ctx);
--		return NULL;
+-	mdp->scp = scp_get(pdev);
+-	if (!mdp->scp) {
+-		mm_pdev = __get_pdev_by_id(pdev, NULL, MDP_INFRA_SCP);
+-		if (WARN_ON(!mm_pdev)) {
+-			dev_err(&pdev->dev, "Could not get scp device\n");
+-			ret = -ENODEV;
+-			goto err_destroy_clock_wq;
+-		}
+-		mdp->scp = platform_get_drvdata(mm_pdev);
 -	}
-+	if (err)
-+		goto err_unlock;
- 
-+	kref_get(&vdoa->ref);
-+	vdoa->num_contexts++;
- 	init_completion(&ctx->completion);
- 	ctx->vdoa = vdoa;
-+	mutex_unlock(&vdoa->lock);
- 
- 	return ctx;
-+
-+err_unlock:
-+	mutex_unlock(&vdoa->lock);
-+	kfree(ctx);
-+	return NULL;
- }
- EXPORT_SYMBOL(vdoa_context_create);
- 
-@@ -221,12 +300,15 @@ void vdoa_context_destroy(struct vdoa_ctx *ctx)
- {
- 	struct vdoa_data *vdoa = ctx->vdoa;
- 
--	if (vdoa->curr_ctx == ctx) {
--		vdoa_wait_for_completion(vdoa->curr_ctx);
--		vdoa->curr_ctx = NULL;
-+	mutex_lock(&vdoa->lock);
-+	if (!vdoa->removed) {
-+		if (vdoa->curr_ctx == ctx)
-+			vdoa_stop(vdoa);
-+		clk_disable_unprepare(vdoa->vdoa_clk);
-+		vdoa->num_contexts--;
- 	}
 -
--	clk_disable_unprepare(vdoa->vdoa_clk);
-+	mutex_unlock(&vdoa->lock);
-+	vdoa_put(vdoa);
- 	kfree(ctx);
+-	if (!mdp->scp) {
+-		ret = -EPROBE_DEFER;
++	ret = mdp_get_scp(mdp);
++	if (ret)
+ 		goto err_destroy_clock_wq;
+-	}
+ 
+ 	mdp->rproc_handle = scp_get_rproc(mdp->scp);
+ 	dev_dbg(&pdev->dev, "MDP rproc_handle: %p", mdp->rproc_handle);
+ 
+ 	mutex_init(&mdp->vpu_lock);
+ 	mutex_init(&mdp->m2m_lock);
++	INIT_LIST_HEAD(&mdp->contexts);
+ 
+ 	for (i = 0; i < mdp->mdp_data->pp_used; i++) {
+ 		mdp->cmdq_clt[i] = cmdq_mbox_create(dev, i);
+@@ -373,10 +408,19 @@ static int mdp_probe(struct platform_device *pdev)
+ static void mdp_remove(struct platform_device *pdev)
+ {
+ 	struct mdp_dev *mdp = platform_get_drvdata(pdev);
++	struct video_device *vdev = mdp->m2m_vdev;
+ 
+-	v4l2_device_unregister(&mdp->v4l2_dev);
++	if (!vdev) {
++		kfree(mdp);
++		return;
++	}
+ 
+-	dev_dbg(&pdev->dev, "%s driver unloaded\n", pdev->name);
++	/* Keep the software state until removal and all open files finish. */
++	get_device(&vdev->dev);
++	mdp_m2m_device_unregister(mdp);
++	mdp_hardware_cleanup(mdp);
++	v4l2_device_unregister(&mdp->v4l2_dev);
++	put_device(&vdev->dev);
  }
- EXPORT_SYMBOL(vdoa_context_destroy);
-@@ -291,11 +373,16 @@ static int vdoa_probe(struct platform_device *pdev)
- 		return ret;
+ 
+ static int __maybe_unused mdp_suspend(struct device *dev)
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
+index 05cade1d098e..cf9662bd2792 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-core.h
+@@ -134,6 +134,7 @@ struct mdp_dev {
+ 	struct v4l2_m2m_dev			*m2m_dev;
+ 	/* synchronization protect for m2m device operation */
+ 	struct mutex				m2m_lock;
++	struct list_head			contexts;
+ 	atomic_t				suspended;
+ 	refcount_t				job_count;
+ };
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
+index ad3ae89c231c..ce0efe15866d 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.c
+@@ -490,7 +490,7 @@ static int mdp_m2m_queue_init(void *priv,
+ 	src_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
+ 	src_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
+ 	src_vq->dev = &ctx->mdp_dev->pdev->dev;
+-	src_vq->lock = &ctx->ctx_lock;
++	src_vq->lock = &ctx->mdp_dev->m2m_lock;
+ 
+ 	ret = vb2_queue_init(src_vq);
+ 	if (ret)
+@@ -504,7 +504,7 @@ static int mdp_m2m_queue_init(void *priv,
+ 	dst_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
+ 	dst_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
+ 	dst_vq->dev = &ctx->mdp_dev->pdev->dev;
+-	dst_vq->lock = &ctx->ctx_lock;
++	dst_vq->lock = &ctx->mdp_dev->m2m_lock;
+ 
+ 	return vb2_queue_init(dst_vq);
+ }
+@@ -577,6 +577,11 @@ static int mdp_m2m_open(struct file *file)
+ 		goto err_free_ctx;
  	}
  
--	vdoa = devm_kzalloc(&pdev->dev, sizeof(*vdoa), GFP_KERNEL);
-+	vdoa = kzalloc_obj(*vdoa);
- 	if (!vdoa)
- 		return -ENOMEM;
- 
--	vdoa->dev = &pdev->dev;
-+	vdoa->dev = get_device(&pdev->dev);
-+	kref_init(&vdoa->ref);
-+	mutex_init(&vdoa->lock);
-+	ret = devm_add_action_or_reset(&pdev->dev, vdoa_put, vdoa);
-+	if (ret)
-+		return ret;
- 
- 	vdoa->vdoa_clk = devm_clk_get(vdoa->dev, NULL);
- 	if (IS_ERR(vdoa->vdoa_clk)) {
-@@ -310,6 +397,7 @@ static int vdoa_probe(struct platform_device *pdev)
- 	ret = platform_get_irq(pdev, 0);
++	if (!video_is_registered(vdev)) {
++		ret = -ENODEV;
++		goto err_unlock_mutex;
++	}
++
+ 	ret = ida_alloc(&mdp->mdp_ida, GFP_KERNEL);
  	if (ret < 0)
- 		return ret;
-+	vdoa->irq = ret;
- 	ret = devm_request_threaded_irq(&pdev->dev, ret, NULL,
- 					vdoa_irq_handler, IRQF_ONESHOT,
- 					"vdoa", vdoa);
-@@ -323,6 +411,22 @@ static int vdoa_probe(struct platform_device *pdev)
+ 		goto err_unlock_mutex;
+@@ -593,7 +598,6 @@ static int mdp_m2m_open(struct file *file)
+ 	ctx->fh.ctrl_handler = &ctx->ctrl_handler;
+ 	v4l2_fh_add(&ctx->fh, file);
+ 
+-	mutex_init(&ctx->ctx_lock);
+ 	ctx->m2m_ctx = v4l2_m2m_ctx_init(mdp->m2m_dev, ctx, mdp_m2m_queue_init);
+ 	if (IS_ERR(ctx->m2m_ctx)) {
+ 		dev_err(dev, "Failed to initialize m2m context\n");
+@@ -609,8 +613,6 @@ static int mdp_m2m_open(struct file *file)
+ 		goto err_release_m2m_ctx;
+ 	}
+ 
+-	mutex_unlock(&mdp->m2m_lock);
+-
+ 	/* Default format */
+ 	default_format.type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
+ 	default_format.fmt.pix_mp.width = limit->out_limit.wmin;
+@@ -620,6 +622,9 @@ static int mdp_m2m_open(struct file *file)
+ 	default_format.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+ 	mdp_m2m_s_fmt_mplane(file, &ctx->fh, &default_format);
+ 
++	list_add_tail(&ctx->list, &mdp->contexts);
++	mutex_unlock(&mdp->m2m_lock);
++
+ 	dev_dbg(dev, "%s:[%d]", __func__, ctx->id);
+ 
  	return 0;
+@@ -647,6 +652,7 @@ static int mdp_m2m_release(struct file *file)
+ 	struct device *dev = &mdp->pdev->dev;
+ 
+ 	mutex_lock(&mdp->m2m_lock);
++	list_del(&ctx->list);
+ 	v4l2_m2m_ctx_release(ctx->m2m_ctx);
+ 	if (mdp_m2m_ctx_is_state_set(ctx, MDP_VPU_INIT))
+ 		mdp_vpu_put_locked(mdp);
+@@ -727,7 +733,25 @@ int mdp_m2m_device_register(struct mdp_dev *mdp)
+ 
+ void mdp_m2m_device_unregister(struct mdp_dev *mdp)
+ {
++	struct mdp_m2m_ctx *ctx;
++
++	mutex_lock(&mdp->m2m_lock);
+ 	video_unregister_device(mdp->m2m_vdev);
++	v4l2_m2m_suspend(mdp->m2m_dev);
++
++	list_for_each_entry(ctx, &mdp->contexts, list) {
++		vb2_queue_error(v4l2_m2m_get_src_vq(ctx->m2m_ctx));
++		vb2_queue_error(v4l2_m2m_get_dst_vq(ctx->m2m_ctx));
++		v4l2_m2m_streamoff(NULL, ctx->m2m_ctx,
++				   V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
++		v4l2_m2m_streamoff(NULL, ctx->m2m_ctx,
++				   V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
++		if (mdp_m2m_ctx_is_state_set(ctx, MDP_VPU_INIT)) {
++			mdp_vpu_put_locked(mdp);
++			atomic_andnot(MDP_VPU_INIT, &ctx->curr_param.state);
++		}
++	}
++	mutex_unlock(&mdp->m2m_lock);
  }
  
-+static void vdoa_remove(struct platform_device *pdev)
-+{
-+	struct vdoa_data *vdoa = platform_get_drvdata(pdev);
-+
-+	platform_set_drvdata(pdev, NULL);
-+	mutex_lock(&vdoa->lock);
-+	vdoa_stop(vdoa);
-+	disable_irq(vdoa->irq);
-+	while (vdoa->num_contexts) {
-+		clk_disable_unprepare(vdoa->vdoa_clk);
-+		vdoa->num_contexts--;
-+	}
-+	vdoa->removed = true;
-+	mutex_unlock(&vdoa->lock);
-+}
-+
- static const struct of_device_id vdoa_dt_ids[] = {
- 	{ .compatible = "fsl,imx6q-vdoa" },
- 	{}
-@@ -331,6 +435,7 @@ MODULE_DEVICE_TABLE(of, vdoa_dt_ids);
+ void mdp_m2m_job_finish(struct mdp_m2m_ctx *ctx)
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.h b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.h
+index dfc59e5b3b87..f473f5f20aa2 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.h
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-m2m.h
+@@ -27,6 +27,7 @@ struct mdp_m2m_ctrls {
+ };
  
- static struct platform_driver vdoa_driver = {
- 	.probe		= vdoa_probe,
-+	.remove		= vdoa_remove,
- 	.driver		= {
- 		.name	= VDOA_NAME,
- 		.of_match_table = vdoa_dt_ids,
-diff --git a/drivers/media/platform/chips-media/coda/imx-vdoa.h b/drivers/media/platform/chips-media/coda/imx-vdoa.h
-index a62eab476d58..e0ab414ddf5a 100644
---- a/drivers/media/platform/chips-media/coda/imx-vdoa.h
-+++ b/drivers/media/platform/chips-media/coda/imx-vdoa.h
-@@ -6,11 +6,13 @@
- #ifndef IMX_VDOA_H
- #define IMX_VDOA_H
+ struct mdp_m2m_ctx {
++	struct list_head			list;
+ 	u32				id;
+ 	struct mdp_dev			*mdp_dev;
+ 	struct v4l2_fh			fh;
+@@ -36,8 +37,6 @@ struct mdp_m2m_ctx {
+ 	u32				frame_count[MDP_M2M_MAX];
  
-+struct device;
- struct vdoa_data;
- struct vdoa_ctx;
+ 	struct mdp_frameparam		curr_param;
+-	/* synchronization protect for mdp m2m context */
+-	struct mutex			ctx_lock;
+ };
  
- #if (defined CONFIG_VIDEO_IMX_VDOA || defined CONFIG_VIDEO_IMX_VDOA_MODULE)
- 
-+struct vdoa_data *devm_vdoa_get(struct device *dev, struct device *supplier);
- struct vdoa_ctx *vdoa_context_create(struct vdoa_data *vdoa);
- int vdoa_context_configure(struct vdoa_ctx *ctx,
- 			   unsigned int width, unsigned int height,
-@@ -22,6 +24,12 @@ int vdoa_wait_for_completion(struct vdoa_ctx *ctx);
- 
- #else
- 
-+static inline struct vdoa_data *devm_vdoa_get(struct device *dev,
-+					      struct device *supplier)
-+{
-+	return NULL;
-+}
-+
- static inline struct vdoa_ctx *vdoa_context_create(struct vdoa_data *vdoa)
+ int mdp_m2m_device_register(struct mdp_dev *mdp);
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-vpu.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-vpu.c
+index 67f3001153ae..c1fd639930e5 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-vpu.c
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-vpu.c
+@@ -62,7 +62,7 @@ void mdp_vpu_shared_mem_free(struct mdp_vpu_dev *vpu)
  {
- 	return NULL;
+ 	struct device *dev;
+ 
+-	if (IS_ERR_OR_NULL(vpu))
++	if (IS_ERR_OR_NULL(vpu) || !vpu->scp)
+ 		return;
+ 
+ 	dev = scp_get_device(vpu->scp);
 
 base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
