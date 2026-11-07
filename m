@@ -1,73 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794059795;
-	b=IO51J1zbk22Egbd0sJUcB93cFT3eydPW5Nd9aJmlO9g2FtwM+rYV9iSlFgkUz8QNlbyx
-	 s8XDqdpSQWXtG4znuM4J3jFRLHf1UW2bxMX1bv0tx9QKjzTVCsbpvxyQIaFTNKYzM0mi0
-	 opGaoaNDoyOrzv4Oa4e+MdD91WHICMQrKC4fUwHHhhCjlG0zp4FX79xNE1GaWAUBZ4Z50
-	 EtYe7f4XF9ZIXEPe9ikGNJhkNOVMeoAfPS3KL9gvjUlizSJltHdJ9df4cS7K53+/+mPqV
-	 Pu4lBcC0fCzwej+HkDK9ZD7EAvV7hozI/KPb/3smVolB20V8zVEYhL+nPkbRX+6F6mg==
+	t=1794060093;
+	b=Nc3pxvtbNdheru1Dsk+zKgOH16ttUnpkWZbZUjooJtt8O8OAW9Bu5XLV7LvGOQYmNn9T
+	 0TFcWTXDGBl29p0TcomChaZaZjSzRIhsVgr5V8oGddNc3i4/+ofo1LWATuM1dZYkCyFyZ
+	 0v585yzouSp3jgPeu0oon4t0LTJyR/AQcLUz3sjz75C7VDHw/iFpYp06/JWTKv82jJbZ+
+	 SbO/74EfwgrbKINQz4yDzcppvLpCfr3dcUItR04KBBaqGLrAmSzRwsdlu12A0aeJdHxJb
+	 Se5zNlBV+VYozFteyzLp2s6jmcCPDpMzgT9zoBagihnbSoxE7gKkRaT5iV/Fe6CwnwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794059795;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
-	 X-Pm-Original-To:Received:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6TDIa4WBe03aqlzFy9TN8awAuksm28T92BfNeJQsqFs=;
-	b=UUWxd3iK43Asvx5SxBSEMO6VP78ofOCFQmj+wm2yf4wsWFL6jnUbqz0Ihcz9xmQ5Lwh+
-	 CmJnJukpcYQrWu1Zf+yj+VtuUW/4DPOgQnDmbH6yNThdgqVKqUM1ct3d1mhaixCLtX87t
-	 tCyaaRsW7Kh6KvYwrG01fL9/kSIBxaCWDSHHLfeWt3QT2I1Eere8a444Mwch+K+oox0ee
-	 b7jyYRUUAnMu+FWtkkC9musimr9edPoH1U7CLR15xp0p5KOUEJUR4OF8nsJCOII67mjN2
-	 XqbycosU1u4JQXOmUv7Lv9meJZEWa6nWxX53ePo3Xw4i7QKbClMSA00GyG4BP1Vj2dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060093;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Tjy5R3kSXgm6HnNAptypQU+3DBcvi4rbrJtEK8ytvbE=;
+	b=fd/1SLZ3RpLuuQgj+9FVJGOyo+ciLKnF/nBcWUU8iVLbJBS4dYFRh/sF3d3uH5aCun/L
+	 83DX3ExrrMxoNSSgCKNR6wVZLfzaSaT00xk6wtYHJi+UMbrq0GHbMF1ha7sMEyvAvPWZi
+	 b+ZnBQL06UlfdcTvyeDkN16Hp91B/LC4ZsgJ3Gwy2uP/tR0wLZF/eMr+wS2npu00Qq1Ze
+	 rYC0PrTnEt397ZoBtLAURegDJ7xlbgMn0Kpu6jH187p9BXezWfogeArYUatT7n5k7DA39
+	 M5Lw0wPw8McwC4Xc3rbW11ErrcaX2EC+G+8qb288dHZKR8RUu1xhOB3xU72Kz6TBXog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=younes.io;
-	spf=pass smtp.mailfrom=younes.io;
-	dkim=pass header.d=younes.io header.i=@younes.io header.a=rsa-sha256 header.s=purelymail3 header.b=oSVOeTmc;
-	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b="mGhbr0/r";
-	arc=none smtp.remote-ip=34.202.193.197
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Rhj+/pfK";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C880606A332
-	for <linux-media@vger.kernel.org>; Sat,  7 Nov 2026 13:56:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C880606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=younes.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=younes.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57431606A326;
+	Sat,  7 Nov 2026 14:01:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=younes.io header.i=@younes.io header.a=rsa-sha256 header.s=purelymail3 header.b=oSVOeTmc;
-	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b=mGhbr0/r
-DKIM-Signature: a=rsa-sha256; b=oSVOeTmcxLLUBomE4OrFL/BBmxJdRciQ+RsuktVDWk3vlhuRgZoWvhhB4stg/BHIev1M9AgQSz6yk052hjxuIWUctFdf8YfTN3q2yjUoKNgbPcum8NGvVZqHC+fICJijAmNi/53PaWE8YiiximjVdfrCXCd4Ure5g+8cZncGG/f4AIn5c6WG+8HhMPOhEuvbcNR3Tc94EjvrvzMeY/vvrbwT9ClCGsW+DGv3Oo0Qw5lnN9euLkoaoRymFq34YjfEoHuv7dvFrisZRoGlKkkrF07WNrsg5uSYslncazQaoIQOGnJZJShDlguL0jhlHuezqMBCIk0pd8goyIyCJL/Kxw==; s=purelymail3; d=younes.io; v=1; bh=Fc6IXWLwH5VrIIY4TpPhp1GmAfGDN5J90ztlIHB9e0c=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=mGhbr0/r7rErQIyfbQs8b8HFkifVWABVgEVIcYD7l8kfYuVa4UeErsSmyEzvm3LVD3ZzHYbk5Dp7vkE600JNYsFlue5uWgkwQkYgyEP1pMVAJtnIFEx4eWsvu7JGLOm8sCOv9wHPn0lZlpKOxjm51Wh+d3YiTiB8ZQupyj9lC2C4WWxoco59dbEN9yTYN1ebYAnuXTKxPims2vdSqGUwMUB0ztlo33r7WHlwgKf9R71rU4Gsa7vJgbDcihud2Mve2kOceA1VDfrdkvYYijI7aWkrBsxFBA9P/QeGBLuaSnOpXhVOjzRwPExPCtfXL8I7KJn6P9t2TZTOZ3ChmIp3xQ==; s=purelymail3; d=purelymail.com; v=1; bh=Fc6IXWLwH5VrIIY4TpPhp1GmAfGDN5J90ztlIHB9e0c=; h=Feedback-ID:Received:From:To:Subject:Date;
-Feedback-ID: 1578161:62319:null:purelymail
-X-Pm-Original-To: linux-media@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1341206260;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Sat, 07 Nov 2026 13:55:39 +0000 (UTC)
-From: Younes Akhouayri <git@younes.io>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Matthew Brost <matthew.brost@intel.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH 7/8] rust: drm: Add JobQueue
-Date: Sat, 7 Nov 2026 13:55:38 +0000
-Message-ID: <kw-1794059738.215694434-299782-0@younes.io>
-In-Reply-To: <20261106140752.520386-9-phasta@kernel.org>
-References: <20261106140752.520386-2-phasta@kernel.org>
- <20261106140752.520386-9-phasta@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rhj+/pfK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E2431F0089F;
+	Sat,  7 Nov 2026 14:01:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794060092;
+	bh=Tjy5R3kSXgm6HnNAptypQU+3DBcvi4rbrJtEK8ytvbE=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=Rhj+/pfKh3TrFdYQTCB5rpTV4ItTz0OAfcEOwQ7weHKoG75w4QAxuaERMgxIj9A56
+	 h5dUPYrAbYReQVUljm+x+pw/GAzBMwjQew87axKjP6Z4ZkgfkZDIKHvbawKuFjQWqH
+	 HjcEtWZUVs47P4j/qLFif+Xd/SQlP8ay//4m+9NKr5KGFgG+coRic0rJISYfCXMIMD
+	 rGF+P/O9heEvRxnThSCjG6C9+dkJOxao7mNNdk/2PV+G3LdRfmeVOCM8FFZ6zFJmuh
+	 ZqVu6uuWQ17SxbelTIWXx5kifwdgFTG02swQjAlnyqwwltqrYCCFE6nufdjjQKb1Ry
+	 ZHh5ym+mVbvYw==
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -77,52 +49,157 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3] phy: qcom-mipi-csi2: Add support for single
+ power-domain SoCs
+From: bod@kernel.org
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ gjorgji.rosikopulos@oss.qualcomm.com, 
+ hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com, 
+ jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org, 
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261102213936.1251316-1-anusha.nandi@oss.qualcomm.com>
+References: <20261102213936.1251316-1-anusha.nandi@oss.qualcomm.com>
+Date: Sat, 07 Nov 2026 14:01:26 +0000
+Message-Id: <179406008633.650304.8875272498498712274.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4863; i=bod@kernel.org;
+ h=from:subject:message-id; bh=j2oZfaTQTF1f+5fNUFF8F0vY/y/dM4CiJV9kbMyThm4=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq7y84INY4wTlo8D5pcMhdxku5/5vJDAeUbGGQr
+ ARIcjjH7AeJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCau8vOAAKCRAicTuzoY3I
+ Ot7VD/9Uk+dq3VDSVufm77poglKmBXaU8BJl+HKSICEulqWPBV+DkkTZKA92cWzqNPjvgRHDY5e
+ o8iLhTMs3kovqD3A5IrbhqfHw+YNWe7gBgOTv6ZowRl8hPshfZNymO/25lrVCCeO9jCUFE5uQUs
+ Q0e1hq8UAqsx+FgetsvV3L7MPGFW6/h1NT0mzp+LYRal/1Arkq8+MNsLu1I1mEbiF0Y5qlVzETW
+ 7tFc1/Vk8MRv4kOtgaewRD3u6jcR2pYjQm/VOyenTvvABvQGiWova5eYvM0GAyW57t5lzUw0BgV
+ g4Uv+Kvx0J3QQiDaXsRruRoE5lLNE3BbUMKWa+EaprL6NtVXJsrP55VhIKilprqu9zBqtT7qVR2
+ 4+iLbWWL95SX6A+DnKHdfoVHGMwRLONbA+QEo/bEZXAyri5PhVYR6dSLPpkkRMtKNc8KepnNxZM
+ 7K4wDhYE9f6HcqcuAoNQMK2rXqadLB7T5WVH3Q4pPR49iIWo1Do5KebmKOqHayV9HhYHk7OFxKX
+ k4194dyC34k9u7+/G8M4ya/SXVMRTEtXCx6yO9oAInvlMGBixEFMerXFFXOfGmCu98C1or+1/2R
+ IOWzdOxoLcK2NRNNWHuwuyRH525+eLNDDK5tlkJtsr+zKxN208bSNom1GClTHsi42vmUpZ4wGTp
+ aydpZjFh07X5Bhg==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On Fri, 6 Nov 2026 15:07:52 +0100, Philipp Stanner wrote:
+On 2026-11-02 13:39 -0800, Anusha Arun Nandi wrote:
+> sa8775p, qcs8300 and sc7280 each list exactly one power-domain ("top")
+> on the CSI2 PHY node. For a device with a single power-domain phandle,
+> the generic platform-bus code (platform_probe() ->
+> dev_pm_domain_attach()) auto-attaches it via genpd_dev_pm_attach()
+> before the driver's own probe() runs. phy_qcom_mipi_csi2_probe() then
+> unconditionally calls devm_pm_domain_attach_list(), which fails with
+> -EEXIST because dev->pm_domain is already set, and the driver treats
+> that as fatal:
+> 
+>   1. qcom-mipi-csi2-phy ace6000.phy: error -EEXIST: Failed to attach
+>   power-domain list
+>   2. qcom-mipi-csi2-phy ace6000.phy: probe with driver qcom-mipi-csi2-phy
+>   failed with error -17
+> 
+> x1e80100 is unaffected: it lists three power-domains, so the generic
+> code does not auto-attach any of them (auto-attach only applies to
+> single-power-domain devices); the driver's explicit attach is the
+> only one that runs.
+> 
+> For the single power-domain case, call dev_pm_domain_attach() instead
+> of devm_pm_domain_attach_list(): it returns early when dev->pm_domain
+> is already set, so csi2phy->pd_list is left NULL rather than built up
+> by hand. The three call sites that walk pd_list for genpd
+> performance-state scaling now guard against a NULL pd_list, which is
+> harmless since scaling is unused (scaled = false) on every SoC that has
+> a single "top" domain.
+> 
+> devm_pm_domain_attach_list() returns the number of attached
+> power-domains on success, so a bare "ret < 0" check in probe() is not
+> enough to catch the case where it succeeds without actually attaching
+> any domains. phy_qcom_mipi_csi2_attach_pm_domains() now also checks for
+> that case directly and reports -ENODEV, keeping probe()'s own check
+> unchanged.
+> 
+> Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
+> Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+> ---
+>  .../phy/qualcomm/phy-qcom-mipi-csi2-core.c    | 25 +++++++++++--------
+>  1 file changed, 15 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
+> index c0a4fa20eaf0..269232499fca 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
+> @@ -43,7 +43,7 @@ phy_qcom_mipi_csi2_set_clock_rates(struct mipi_csi2phy_device *csi2phy,
+>  	}
+>  
+>  	pstate = 0;
+> -	for (i = 0; i < csi2phy->pd_list->num_pds; i++) {
+> +	for (i = 0; csi2phy->pd_list && i < csi2phy->pd_list->num_pds; i++) {
+>  		unsigned int perf;
+>  
+>  		if (!csi2phy->soc_cfg->genpds[i].scaled)
+> @@ -174,7 +174,7 @@ static int phy_qcom_mipi_csi2_power_on(struct phy *phy)
+>  unset_rate:
+>  	dev_pm_opp_set_rate(csi2phy->dev, 0);
+>  
+> -	for (i = 0; i < csi2phy->pd_list->num_pds; i++) {
+> +	for (i = 0; csi2phy->pd_list && i < csi2phy->pd_list->num_pds; i++) {
+>  		if (!csi2phy->soc_cfg->genpds[i].scaled)
+>  			continue;
+>  
+> @@ -204,7 +204,7 @@ static int phy_qcom_mipi_csi2_power_off(struct phy *phy)
+>  
+>  	dev_pm_opp_set_rate(csi2phy->dev, 0);
+>  
+> -	for (i = 0; i < csi2phy->pd_list->num_pds; i++) {
+> +	for (i = 0; csi2phy->pd_list && i < csi2phy->pd_list->num_pds; i++) {
+>  		if (!csi2phy->soc_cfg->genpds[i].scaled)
+>  			continue;
+>  
+> @@ -231,7 +231,11 @@ static int phy_qcom_mipi_csi2_attach_pm_domains(struct mipi_csi2phy_device *csi2
+>  {
+>  	struct dev_pm_domain_attach_data pd_data = { 0 };
+>  	const char **pd_names;
+> -	int i;
+> +	int i, ret;
 > +
-> +            drop(jq); // Release lock.
-> +            T::run_job(work.fctx, runnable_job);
-> +            jq = work.inner.lock(); // Retake lock.
+> +	/* Single power-domain devices are already attached by the bus core. */
+> +	if (csi2phy->soc_cfg->num_genpds == 1)
+> +		return dev_pm_domain_attach(csi2phy->dev, 0);
+>  
+>  	pd_names = devm_kzalloc(csi2phy->dev,
+>  				sizeof(char *) * csi2phy->soc_cfg->num_genpds,
+> @@ -245,8 +249,12 @@ static int phy_qcom_mipi_csi2_attach_pm_domains(struct mipi_csi2phy_device *csi2
+>  	pd_data.pd_names = pd_names;
+>  	pd_data.num_pd_names = csi2phy->soc_cfg->num_genpds;
+>  
+> -	return devm_pm_domain_attach_list(csi2phy->dev, &pd_data,
+> -					  &csi2phy->pd_list);
+> +	ret = devm_pm_domain_attach_list(csi2phy->dev, &pd_data,
+> +					 &csi2phy->pd_list);
+> +	if (ret < 0)
+> +		return ret;
 > +
-> +            // run_job() above needs to be called without lock protection. Thus,
-> +            // it is possible that the driver instructed completion right before
-> +            // we could re-take the lock.
-> +            if jq.last_completed >= seqno {
-> +                *jq.as_mut().project().capacity += u64::from(job.cost);
-> +                fence.signal(Ok(()));
-> +
-> +                // Drop here directly if possible. Otherwise, let the DropWorker
-> +                // take care of it.
-> +                if core::mem::needs_drop::<T::JobDataType>() {
-> +                    jq.drop_list.push_back(job);
-> +                }
-> +            } else {
-> +                jq.running_jobs.push_back(job);
-> +            }
+> +	return 0;
+>  }
+>  
+>  static int phy_qcom_mipi_csi2_parse_routing(struct mipi_csi2phy_device *csi2phy)
+> @@ -369,11 +377,8 @@ static int phy_qcom_mipi_csi2_probe(struct platform_device *pdev)
+>  		return ret;
+>  
+>  	ret = phy_qcom_mipi_csi2_attach_pm_domains(csi2phy);
+> -	if (ret < 0 || csi2phy->pd_list == NULL) {
+> -		if (ret == 0)
+> -			ret = -ENODEV;
+> +	if (ret < 0)
 
-When the IRQ wins the race, `complete_jobs_up_to_seqno()` kicks the DropWorker before the job lands on `drop_list`, and this branch pushes it there without kicking again. Am I reading it right that the job then sits on `drop_list` until the next completion or until the queue drops? If so, is that acceptable, or does this path need a `check_start_drop_worker()` too?
+I thought you said you were going to fix this ?
+
+Once done you may add
 
 
-> +        self.with_inner(|inner| {
-> +            let mut inner = inner.lock();
-> +            let drop_list = core::mem::take(&mut inner.drop_list);
-> +            let waiting_jobs = core::mem::take(&mut inner.waiting_jobs);
-> +            let mut running_jobs = core::mem::take(&mut inner.running_jobs);
-> +
-> +            while let Some(job) = running_jobs.pop_front() {
-> +                let fence = job.fence.as_ref().expect("fence not present");
-> +                fence.signal(Err(self.err));
-> +            }
-> +
-> +            drop(inner);
-> +            drop(drop_list);
-> +            drop(waiting_jobs);
-> +            drop(running_jobs);
-> +        })
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-In the `while let Some(job) = running_jobs.pop_front()` loop, `job` goes out of scope at the end of each iteration, while `inner` is still locked. If `JobDataType` has a `Drop` impl, that ends up in `DriverFence::drop` -> `synchronize_rcu()`; so is sleeping there with the irq spinlock held intended, or should those jobs be collected and dropped after `drop(inner)` like `drop_list` and `waiting_jobs` are?
+But not until ;)
 
-Regards,
-Younes
