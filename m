@@ -1,100 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.42
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794043489;
-	b=J5ErAtO0GM6JsxbuK/mDMbuXDK376R0QubjFGX81qh5sqIKbFh8kLO6DpE9GGJ+g3Hep
-	 b7qm8MMcHprFfjIEDTkwglBlVfglTLxXvAcF4KyiCPJF2bKVIQ4pj/wWU1L6hEPj7CyX2
-	 3ZgPeg435yhxsZRV+fOf064/CWTu64VJ0rzoAlxYvo7CTB33cFn9HnJrMCCdGGH5mZxRB
-	 YvQbpgY7GZWbCJtJOfowATPZpJ4tu50XNGIcUIfhaj6ZnUb4CoDoQrZxmWLmt4r2Wf20q
-	 ZABfRx6Y8+mkLgUbdf0IeYeZX321Et2jmk+G9QBPRwaXRIui2d+OL/ucXPQAtZ+X4PQ==
+	t=1794045362;
+	b=ZAlcOjkvMCotOgWUsXYdNO0i8elscu0dMD5QEHcuIX4e0pjIaoBBJ+8JVdoZ1FfV6BOH
+	 Sc3/c15MCxT/uJoA5OD5dUUlm5BucWdAk21JpYops/n2fssXsi0sdUzgO1N/5M5YPAHpi
+	 fGKD1GIF9RWotj/xEHQT2dBcZm1uJAMhfd4Kqqt8ODA7ycAjYU5z9Ym6xaMwHBPScIqrj
+	 gKml1wSlPgtoi40ZwL2CUuWmRMJ6uuZnD/lqYg3XCFb0tYkEPHJJv2b6fsgGCcq63o5Oc
+	 OoWHGK8nFmpauDvXI05lvUt26aWfQAzKB/ricZ3UFbX7E1yGQepbj8BTT4TzeOKjRsA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794043489;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=teIWFoxvai1QgmA58nk8sElOSZ5xnCHuXb5DRKtxj7c=;
-	b=OKtnyqH9qDP27HNhJrEfcB9Yl+XNTH7QXN+6UX/jq1SKkrN9XXt0aUNlAph96FL2AmWp
-	 I6wnQJKE9KEVgK12hk0JfbnDHFSDAUrncEdurlxJQyIBKmy7O/LUJLIM2bFoDY+Uqc/Qv
-	 sgHeEtveOqEXQ0VAJglt5oDc9g7oWbLVrrk9Eu2U4dmUa+eaiK1QF4iaPuFRD0QGb/Mfx
-	 9KpOPl2mMryrjV2e0bb6h7yZpOKPjAODMVhoI1a66wGwFWzAGIesBFzrqOZKKkvH4F4f1
-	 IRPzE4CW5eOcrTu1Ioxnghv9VIk5vpBLm41nrQeCrZ6nmB4eHFexAKc2GHLLja7biMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045362;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8Qlhw53FUFtjz9D2o+mP94pxb7JZcB7gFHF597qaOlc=;
+	b=mmX3p25t/LMaUXLazS0dn4OwwzsmhQ9CpsT2P3hO+09QdD53EFuUamPrRSMRDQdVYgE3
+	 iLJ4JeZnWM/JoD+v2XMpr+vGDjRxtOT0aQ6MNGEHEgH8kOtXnSeLrtQy1jOxFl9SXh/m0
+	 hlxJzdr7AMbUSjEH4ajCAqUCqu7g6tTxBh7cYoUazSpRzGWrFAjfvhWFehMUwz9IXIFzq
+	 AGK0+gVcPvAQU4fGmvwzEJt/az0YzrosrhRHc48QMZuJ/Glw9+x6J5Xliiw4ex2PzVGs2
+	 7vtbKgXh+MdMDwjZtZtg3gegyThHGVW7Hmv5W4iopNH7ZdcEkxMflXLX5KeTQxAhd+w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dKRf62T0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.42
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nbu1bSMZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717B4606A32C;
+	Sat,  7 Nov 2026 09:56:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nbu1bSMZ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794045360;
+	b=3CDE3gDd7PeUfOW9LLQD188Ya4HMhWtSu7NPmRMWW8P4/p9RAbs7teCJJsgNnOBBpwrX
+	 b0l7tjTqRljgQA1tJE9r2bMoqjMAcWskewQPf3zjW9yz8wpl2mgurCZgY1EPo8h0JRZHB
+	 u4NL4LUgMNVU4jdGU3mlxYwkI1XY+ayTyUxginUm4DjcwteJb8dcKHfpO86ozvKE6hhB6
+	 PoZ/uX70Pu7Z5+N46G55Se+OoBfbuFGArfmulhtSCB1alO0wEYZfrcuTY0qJvJKmZRsi7
+	 XAQea0sOeycUydC6C/AtNwcXnSb2s378UcU/EzRKJjHk8TMwPjmkNpY0VYbWQbzXMeQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794045360;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8Qlhw53FUFtjz9D2o+mP94pxb7JZcB7gFHF597qaOlc=;
+	b=JfyuTxs1U5sFRilykRSMt+GX1Sgf6UgrMyNwTVjM1L5BLcMy0xOy4UiQoDHOoHxJic+W
+	 g/sj3XdFDLX7k7258+7FfLtJesc1ZrMM93IuwBNl+5FPYF6vJ1IJ45NkjmbIXLfhABE3r
+	 KccA2vaKRlb1cNh0MA0gXrTYAvrXVW/Z8dXhT20MCWwYdSNCYvst7hvwim/yfr9uE/FgA
+	 yzKWKPVAEjMiuhePp1ekF777ZbiEbyRmYRNn3JAHi/LRxWWxg12wwb6aLb+a05ksA8ObO
+	 RI5QPxm/1y2CY9JVfSg8ZWlcT28ydeU4AZAEuxauh/5fdkzqOUx75+ZDytqMmtBVtsw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5FC606A32C
-	for <linux-media@vger.kernel.org>; Sat,  7 Nov 2026 09:24:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E5FC606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dKRf62T0
-Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-4ad89c49e0dso399452fac.2
-        for <linux-media@vger.kernel.org>; Sat, 07 Nov 2026 01:24:49 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794043488; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LIjfkI17Gs+ewPvHSNXX+EkXccX15or1PbAuL1ONlxey0x9awfbHZR22FrJYbzZis4
-         SqkVYPk3zzeNieNiQMvay+pmZFNletp3kJgPOfqABxdtxWzhG38SkTEw2e5hp1GqHE5m
-         aj/dVKP5MKWBCBDeYqCa5djnLrT9c/hQxptGCeOS2RIrhwTA4YGV5IONvFkz2VRmHxWo
-         I/t1NIVYK4FgX4oPBEOVh4QsxSP6yK0FlaShSktULmWVPG0Kb7an1WC/ZA5RTROkA5LM
-         o8aZqW1G1lEnzi7vsAcaclKTT50e5dTCTUX76uMJq73b1FHFtpzD/SKG2C5LFw51JiJf
-         ZPLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=teIWFoxvai1QgmA58nk8sElOSZ5xnCHuXb5DRKtxj7c=;
-        fh=20cXDr6TxPh4WG+Uxi6OP8xWB6tC7W5Bhg8qQ3fJwP4=;
-        b=D4WSwr5kFUz2tb7mut17viU3PbHiy5eLVbwvdc3BaWHdBKVTvtqNqlxETWRzOavW70
-         Jqbvvl6+M5IlFvCOS98L8OS0xKKILap3YSS0KlyaleSeMQdXw6UfkVr6QwsydKsq4P9i
-         kmZj0/Zwfj+Odu6tGUmZ/0NLeLDwYbnt3OD0vLJ+Xyj8lNklNNqfgNODo1gUWCslojg3
-         Cor4ano3fmEO0HbvlWY1ry47GdxrWSorD6ba9iE/hu6n8SdQ3JGfKUAfoVX0Nz2EXBem
-         1Sj7cydw76w4QgZKlF5RBTXQvK8in81MPFQhWP0ENaQ9KckV8o9uIldTAb44zCald2LJ
-         TPNg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794043488; x=1794648288; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=teIWFoxvai1QgmA58nk8sElOSZ5xnCHuXb5DRKtxj7c=;
-        b=dKRf62T0qDchXjN7y+3oYgItIUBw4g1wOVebySojyArE5WrnJkLBtygXKAlQMmAvZm
-         kdFOrYwoB7UAttCcsl1YTPMs72CKId+u00yjTJgIhZ3uBIcRU88RPLA2Yr40t9cHWy3G
-         dbf//uJPrVgjxTfI4dZzKh9MufpLsSorH2scs/XaB1mx1wop8OzYjvwM1uD/vdtXt45p
-         P/CvVRegJWAfAcBhATsMy/NC+FdF72PISsB0bLC81+KTb5VhQ/ejLnvo8CX+R2M0TEje
-         I1+6vdAqk32Rq2F8b03cZ0YH04HzSDSKrfCsVo+GjS3nVFcyuMKOoe31iKAlWmPn3Lpy
-         Rcbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794043488; x=1794648288;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=teIWFoxvai1QgmA58nk8sElOSZ5xnCHuXb5DRKtxj7c=;
-        b=vtBn35i+vKfcwN9iad1aHri6F/Z+q6meIqkCVvsHxLQJhQ4W07yOVwWv8qkIVw5Zc4
-         Bvh7k8mVAeCqzSzEs0wJsBdtznDQFeKF+F6tuNFdp3AtqwBnKtM7QD5gH0pY1i7bSPo/
-         dxVGgVat/NRtI0XUHeLASeOKWNJliymtlNoSgEKyQsNf5VKSEJy9GqYf/mwc7/P1LR8F
-         7g9V/G+U3PojGxKLktU4SMkPXAVFzLAMorA6X74tL5DgeeYIMOLZBJ/vdbd8JD0Kh4P9
-         wvbtWYSz1R+VDVm8fxEdK2T6eXOwj4uX2CBYn2k2CAgu0KbiF8tupRAHyP1heWWTJzGa
-         4QqA==
-X-Forwarded-Encrypted: i=1; AKwUvBwSw46lOcecnoBayskUbrjTmafnJyGVu66yeJ/5LoBqfniabyDKq7jMfYIxwWhhLbGJMU17vNvuIKfQaA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z//kKw6q6lu9j73hSUfLvy9osHuIIXgA+MFkewzgH9t7H3wlmAJ
-	Q1FKXdctTs7KbqxjL/GJ7TaeY6gKK5ekNGk9Uco5/0IAJxcFLGsEsWJQWtuKjRo9cgzjYzPqWpN
-	K/eBZRDkw4VkQ0VTG8DHuYrlD/KBKgWM=
-X-Gm-Gg: AYBFou3kM3LpIzbc3QG3UskhsJCYpGLls+vWNjLyhNVrRQgsqG3zwxeZ0Arfsp9rfcd
-	wbwwvGUFWqtrS4yl9zxasiVszlUIOVtkq09JBmt2oqh2yfbiP3yIlaNRZzdClyfe43qQW8gJheQ
-	5x34SxfKHBjmIA93kbXYIDns3hBuOj/Z+vNthqvYLWILvFqGTIVhmm0+dTbwnPOvb6YVza2noGZ
-	gKW1x2u21LFvJoIB1EVpc89RvoDxnTfh9ElozD0rxij32gcfx+pHWX15dCCOQd7bNzL8l6VRIcu
-	SwUGb4DoYg2p09x7CHiXcYhiZIuOaYR6p7We/6wItmBgahmt2xGKoRWY9TQ+5jLOQ+fbQ//4Wqw
-	JsNKkW5VryKcKAau4vh/Fvb50FCwN8ZsoiRw=
-X-Received: by 2002:a05:6808:1246:b0:567:cbf5:bbab with SMTP id
- 5614622812f47-567e14643fbmr3397829b6e.60.1794043488173; Sat, 07 Nov 2026
- 01:24:48 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 954381F0089F;
+	Sat,  7 Nov 2026 09:55:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794045360;
+	bh=8Qlhw53FUFtjz9D2o+mP94pxb7JZcB7gFHF597qaOlc=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Nbu1bSMZmYJ+pSoM0ebg1At+Yx7ySWQVVbtPFMeQrfn9QpROhzXS81YAtjXVgeV6D
+	 k//GDpiajpFk7xCLvQzGbQiuhEs+wAo5FX4Q1UdohTAJIG6TOmTU/IFw/OUVcJhjbH
+	 kBU4NSUXiKP8wvBqr4N/fskvNihld3WWsmCyvm/vf6LCuUvacWovGgubuWn3+NUFUP
+	 vtCbK8LeGJCofOSvADeeHGuNujDGk1ZAyopy5xu29kgv+toPjIQFeLEqDP3r8/S0f8
+	 /iH0GDYstgnx6jYGse9vY5theX2ojzXz0zuZlhI4+ReSmOTxxUMZqfj7LptIFz6VgJ
+	 9Oh2RqdHAWpTA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 25C2C47B4E;
+	Sat,  7 Nov 2026 09:55:59 +0000 (UTC)
+From: Ruk Doe via B4 Relay <devnull+info.doany.io@kernel.org>
+Date: Sat, 07 Nov 2026 09:55:55 +0000
+Subject: [PATCH] Revert "media: siano: Convert to use sysfs_emit_at() API"
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,159 +82,461 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106204329.2176266-1-carlosalberto4ti@gmail.com>
-In-Reply-To: <20261106204329.2176266-1-carlosalberto4ti@gmail.com>
-From: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Date: Sat, 7 Nov 2026 10:24:36 +0100
-X-Gm-Features: AclHuK_3rVhhaI0Q0HYZNd1pYmMhMO7iRMGrNGROwjLOJBeK6Hdfo1HdSx7nPEI
-Message-ID: <CAMeQTsZAfgfBadAV28-k9jmKoqJi03xghmnAqUwK8Unzd8JEsw@mail.gmail.com>
-Subject: Re: [PATCH 0/2] staging: media: facetimehd: add driver for Apple
- FaceTime HD camera
-To: Carlos Alberto <carlosalberto4ti@gmail.com>
-Cc: gregkh@linuxfoundation.org, mchehab@kernel.org, hverkuil@xs4all.nl, 
-	linux-media@vger.kernel.org, devel@driverdev.osuosl.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-siano-revert-v1-1-704ffc11fc6b@doany.io>
+X-B4-Tracking: v=1; b=H4sIAKr17moC/yXMQQ5AMBCF4avIrDXplGjiKmJRNRiLkg4iEXdXL
+ L/kvf8CocgkUGcXRDpYeAkJmGfgJxdGUtwng9GmQtRWCbuwqDSluKnSocdCU2mshXRZIw18frm
+ m/S17N5Pf3gbc9wOjJowDcAAAAA==
+X-Change-ID: 20261107-siano-revert-4a1c130e4277
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>, 
+ linux-kernel@vger.kernel.org, ye xingchen <ye.xingchen@zte.com.cn>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794045354; l=21809;
+ i=info@doany.io; s=20261107; h=from:subject:message-id;
+ bh=VIkMRaNTHHjCDP+MZEIhs6QNuorbd9wE0fCLPYDZojw=;
+ b=h76ls/N0EsaMzosAw/8e3/CqKNysRmostbKVr3Bj16r9scFtYyC0OWIBpbxRldg1yJ5CMhgD8
+ zbmnqBYUHm0BQ9o9wvUDMKQxACsVHyqzt9Ewly8LrY6R+NOlrXECfNK
+X-Developer-Key: i=info@doany.io; a=ed25519;
+ pk=TBxzz5FhdHVfnNz1WIg8x49EuXI/bLC0e8VgmH2Hg0U=
+X-Endpoint-Received: by B4 Relay for info@doany.io/20261107 with
+ auth_id=1440
+X-Original-From: Ruk Doe <info@doany.io>
+Reply-To: info@doany.io
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 6, 2026 at 9:43=E2=80=AFPM Carlos Alberto
-<carlosalberto4ti@gmail.com> wrote:
->
-> This patch series introduces the facetimehd driver to drivers/staging/med=
-ia/.
-> The driver supports the Broadcom BCM1570 (PCI ID 14e4:1570) PCIe Image Si=
-gnal
-> Processor found in Apple MacBook Pro, MacBook Air, and iMac machines (spa=
-nning
-> generations from 2013 to 2019).
+From: Ruk Doe <info@doany.io>
 
-Hi Carlos, thanks for working on the driver.
+This reverts commit 2f7d0c94396e8df1db6a5bc3b6ea272d640e874d.
 
-I don't mind people using AI for coding but I don't think an AI code
-dump is the proper way to upstream this driver. Multiple people have
-approached me recently on wanting to upstream this so my plan is to do
-it myself. The problem is that we have a high stream of mostly AI
-generated fixes queued on github. I would like to handle those before
-submission.
+The statistics text is written to smsdvb_debugfs::stats_data, a
+PAGE_SIZE array that sits a few bytes into a kzalloc()ed struct, after
+a kref and a spinlock, so it is not page aligned. sysfs_emit_at() is
+meant for sysfs show() buffers and rejects any buffer with a non-zero
+offset_in_page(): it WARNs and returns 0 without writing anything.
 
->
-> Historically, this driver remained out-of-tree primarily because it lacke=
-d a
-> redistributable firmware binary and relied on extracting proprietary blob=
-s from
-> macOS recovery packages. We have addressed this blocker by developing Ope=
-nFTHD,
-> a 100% clean-room, open-source firmware (GPL-2.0-only) written in freesta=
-nding
-> C and bare-metal embedded Rust. A separate patch for linux-firmware adds
-> facetimehd/firmware.bin.
+As a result, stats_count stays 0, so the "already filled" check at the
+top of the print functions never short-circuits. Since v6.6, every
+statistics message from the device runs the whole formatter again, and
+each of its sysfs_emit_at() calls WARNs with a full backtrace from the
+URB completion path:
 
-This was never really the blocker. There are other drivers in the
-kernel without redistributable firmware. Our current script would have
-been fine.
+  RIP: 0010:sysfs_emit_at+0x69/0xd0
+  Call Trace:
+   <IRQ>
+   smsdvb_print_isdb_stats_ex+0xb7/0x670 [smsdvb]
+   smsdvb_update_isdbt_stats_ex+0x30/0x880 [smsdvb]
+   smsdvb_onresponse+0x2cc/0x740 [smsdvb]
+   smscore_onresponse+0x8f/0x530 [smsmdtv]
+   smsusb_onresponse+0xae/0x1a0 [smsusb]
+   __usb_hcd_giveback_urb+0xac/0x130
 
-I had a quick glance at the OpenFTHD and it seems rather simplistic
-for what the original firmware does. Did you only include code for the
-sensor and not the ISP? ov5650 support is not included in the mainline
-kernel.
+Reads of the debugfs "stats" file also never return any data.
 
--Patrik
+With a PX-S1UD (3275:0080) receiving ISDB-T, the reporter counted 536
+warnings in 3 seconds and saw /var/log/syslog and kern.log each grow to
+about 101 GB and fill the root file system. The reporter also sees
+block noise and TS continuity errors that do not occur with the same
+tuner on Windows, and another user attributes such TS packet drops to
+the warning flood. Distribution kernels such as Ubuntu's enable
+CONFIG_SMS_SIANO_DEBUGFS, so this hits ordinary users, not only
+developers.
 
->
-> Key capabilities included in this submission:
-> - Modern V4L2 and videobuf2-dma-sg implementation compatible with Linux 6=
-.12+
->   through 7.0+ (removal of deprecated vb2 callbacks).
-> - Seamless PipeWire and Flatpak streaming via in-page USERPTR offset supp=
-ort
->   (programming obj->byte_offset into ISP DMA descriptors) and chained sca=
-tterlist
->   iteration with for_each_sg().
-> - Discrete framesize enumeration (1080p, 720p, VGA, QVGA) and matching
->   discrete frameintervals for WebRTC, PipeWire, OBS, and browser capture.
-> - Native V4L2_PIX_FMT_YUYV pixel pipeline with power-of-two 8-pixel macro=
-block
->   stride alignment and immediate Auto White Balance (AWB) on channel star=
-t.
-> - Hardware ePTZ digital zoom (VIDIOC_G_SELECTION / VIDIOC_S_SELECTION for
->   V4L2_SEL_TGT_CROP), executing lossless sensor crop without host CPU ove=
-rhead.
-> - Auto-Exposure Photometry Metering (V4L2_CID_EXPOSURE_METERING: Average,
->   Center-Weighted, Spot, Matrix).
-> - Wide Dynamic Range / HDR (V4L2_CID_WIDE_DYNAMIC_RANGE) tone adaptation.
-> - Camera status / privacy indicator LED control (V4L2_CID_ILLUMINATORS_1)=
-.
-> - Runtime module parameters and power profiles (High Performance, Balance=
-d,
->   Aggressive Low Power sensor sleep) exposed under /sys/module/facetimehd=
-/parameters/.
->
-> The driver has been validated on physical hardware (MacBook Pro Retina 15=
--inch
-> Mid 2014, MacBookPro11,2, PCI 03:00.0) running Linux 7.0.0-14-generic,
-> streaming cleanly at a steady 30.0 fps in both native V4L2 and PipeWire
-> (GNOME Cheese / Snapshot in Flatpak containers) with zero dropped frames.
->
-> Repository & Upstream Pull Request References:
-> - Out-of-tree repository: https://github.com/patjak/facetimehd
-> - Tracking Pull Request: https://github.com/patjak/facetimehd/pull/368
-> - Active branch with test suite: https://github.com/programandosolucoes/f=
-acetimehd/tree/linux-6.12-compat
-> - OpenFTHD clean-room firmware: https://github.com/programandosolucoes/op=
-en-fthd-firmware
->
-> A TODO file is provided detailing the roadmap for graduating from staging
-> into drivers/media/pci/facetimehd/.
->
-> Carlos Alberto (2):
->   staging: media: facetimehd: add driver for Apple FaceTime HD (BCM1570)
->     PCIe camera
->   staging: media: wire up facetimehd in Kconfig and Makefile
->
->  drivers/staging/media/Kconfig                 |    1 +
->  drivers/staging/media/Makefile                |    1 +
->  drivers/staging/media/facetimehd/Kconfig      |   16 +
->  drivers/staging/media/facetimehd/Makefile     |    5 +
->  drivers/staging/media/facetimehd/TODO         |   18 +
->  .../staging/media/facetimehd/fthd_buffer.c    |  125 ++
->  .../staging/media/facetimehd/fthd_buffer.h    |   73 +
->  drivers/staging/media/facetimehd/fthd_ddr.c   |  670 ++++++++
->  drivers/staging/media/facetimehd/fthd_ddr.h   |   30 +
->  .../staging/media/facetimehd/fthd_debugfs.c   |  198 +++
->  .../staging/media/facetimehd/fthd_debugfs.h   |   17 +
->  drivers/staging/media/facetimehd/fthd_drv.c   |  600 +++++++
->  drivers/staging/media/facetimehd/fthd_drv.h   |  133 ++
->  drivers/staging/media/facetimehd/fthd_hw.c    |  712 ++++++++
->  drivers/staging/media/facetimehd/fthd_hw.h    |  128 ++
->  drivers/staging/media/facetimehd/fthd_isp.c   | 1483 +++++++++++++++++
->  drivers/staging/media/facetimehd/fthd_isp.h   |  768 +++++++++
->  drivers/staging/media/facetimehd/fthd_reg.h   |  184 ++
->  .../staging/media/facetimehd/fthd_ringbuf.c   |  135 ++
->  .../staging/media/facetimehd/fthd_ringbuf.h   |   44 +
->  drivers/staging/media/facetimehd/fthd_v4l2.c  |  881 ++++++++++
->  drivers/staging/media/facetimehd/fthd_v4l2.h  |   34 +
->  22 files changed, 6256 insertions(+)
->  create mode 100644 drivers/staging/media/facetimehd/Kconfig
->  create mode 100644 drivers/staging/media/facetimehd/Makefile
->  create mode 100644 drivers/staging/media/facetimehd/TODO
->  create mode 100644 drivers/staging/media/facetimehd/fthd_buffer.c
->  create mode 100644 drivers/staging/media/facetimehd/fthd_buffer.h
->  create mode 100644 drivers/staging/media/facetimehd/fthd_ddr.c
->  create mode 100644 drivers/staging/media/facetimehd/fthd_ddr.h
->  create mode 100644 drivers/staging/media/facetimehd/fthd_debugfs.c
->  create mode 100644 drivers/staging/media/facetimehd/fthd_debugfs.h
->  create mode 100644 drivers/staging/media/facetimehd/fthd_drv.c
->  create mode 100644 drivers/staging/media/facetimehd/fthd_drv.h
->  create mode 100644 drivers/staging/media/facetimehd/fthd_hw.c
->  create mode 100644 drivers/staging/media/facetimehd/fthd_hw.h
->  create mode 100644 drivers/staging/media/facetimehd/fthd_isp.c
->  create mode 100644 drivers/staging/media/facetimehd/fthd_isp.h
->  create mode 100644 drivers/staging/media/facetimehd/fthd_reg.h
->  create mode 100644 drivers/staging/media/facetimehd/fthd_ringbuf.c
->  create mode 100644 drivers/staging/media/facetimehd/fthd_ringbuf.h
->  create mode 100644 drivers/staging/media/facetimehd/fthd_v4l2.c
->  create mode 100644 drivers/staging/media/facetimehd/fthd_v4l2.h
->
-> --
-> 2.53.0
->
+stats_data is not a sysfs buffer, so go back to scnprintf() bounded by
+PAGE_SIZE - n, as the code did before.
+
+Fixes: 2f7d0c94396e ("media: siano: Convert to use sysfs_emit_at() API")
+Cc: stable@vger.kernel.org
+Closes: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2162139
+Signed-off-by: Ruk Doe <info@doany.io>
+---
+Compile tested only, with W=1, on top of media-committers next
+(v7.4-rc1); I don't have the hardware. The patch is a plain revert and
+restores the print functions to their exact state before 2f7d0c94396e.
+
+This is a regression since v6.6, so please consider it for fixes.
+---
+ drivers/media/common/siano/smsdvb-debugfs.c | 334 ++++++++++++++++++----------
+ 1 file changed, 217 insertions(+), 117 deletions(-)
+
+diff --git a/drivers/media/common/siano/smsdvb-debugfs.c b/drivers/media/common/siano/smsdvb-debugfs.c
+index c482777e1..71517dd86 100644
+--- a/drivers/media/common/siano/smsdvb-debugfs.c
++++ b/drivers/media/common/siano/smsdvb-debugfs.c
+@@ -45,48 +45,89 @@ static void smsdvb_print_dvb_stats(struct smsdvb_debugfs *debug_data,
+ 
+ 	buf = debug_data->stats_data;
+ 
+-	n += sysfs_emit_at(buf, n, "is_rf_locked = %d\n", p->is_rf_locked);
+-	n += sysfs_emit_at(buf, n, "is_demod_locked = %d\n", p->is_demod_locked);
+-	n += sysfs_emit_at(buf, n, "is_external_lna_on = %d\n", p->is_external_lna_on);
+-	n += sysfs_emit_at(buf, n, "SNR = %d\n", p->SNR);
+-	n += sysfs_emit_at(buf, n, "ber = %d\n", p->ber);
+-	n += sysfs_emit_at(buf, n, "FIB_CRC = %d\n", p->FIB_CRC);
+-	n += sysfs_emit_at(buf, n, "ts_per = %d\n", p->ts_per);
+-	n += sysfs_emit_at(buf, n, "MFER = %d\n", p->MFER);
+-	n += sysfs_emit_at(buf, n, "RSSI = %d\n", p->RSSI);
+-	n += sysfs_emit_at(buf, n, "in_band_pwr = %d\n", p->in_band_pwr);
+-	n += sysfs_emit_at(buf, n, "carrier_offset = %d\n", p->carrier_offset);
+-	n += sysfs_emit_at(buf, n, "modem_state = %d\n", p->modem_state);
+-	n += sysfs_emit_at(buf, n, "frequency = %d\n", p->frequency);
+-	n += sysfs_emit_at(buf, n, "bandwidth = %d\n", p->bandwidth);
+-	n += sysfs_emit_at(buf, n, "transmission_mode = %d\n", p->transmission_mode);
+-	n += sysfs_emit_at(buf, n, "modem_state = %d\n", p->modem_state);
+-	n += sysfs_emit_at(buf, n, "guard_interval = %d\n", p->guard_interval);
+-	n += sysfs_emit_at(buf, n, "code_rate = %d\n", p->code_rate);
+-	n += sysfs_emit_at(buf, n, "lp_code_rate = %d\n", p->lp_code_rate);
+-	n += sysfs_emit_at(buf, n, "hierarchy = %d\n", p->hierarchy);
+-	n += sysfs_emit_at(buf, n, "constellation = %d\n", p->constellation);
+-	n += sysfs_emit_at(buf, n, "burst_size = %d\n", p->burst_size);
+-	n += sysfs_emit_at(buf, n, "burst_duration = %d\n", p->burst_duration);
+-	n += sysfs_emit_at(buf, n, "burst_cycle_time = %d\n", p->burst_cycle_time);
+-	n += sysfs_emit_at(buf, n, "calc_burst_cycle_time = %d\n", p->calc_burst_cycle_time);
+-	n += sysfs_emit_at(buf, n, "num_of_rows = %d\n", p->num_of_rows);
+-	n += sysfs_emit_at(buf, n, "num_of_padd_cols = %d\n", p->num_of_padd_cols);
+-	n += sysfs_emit_at(buf, n, "num_of_punct_cols = %d\n", p->num_of_punct_cols);
+-	n += sysfs_emit_at(buf, n, "error_ts_packets = %d\n", p->error_ts_packets);
+-	n += sysfs_emit_at(buf, n, "total_ts_packets = %d\n", p->total_ts_packets);
+-	n += sysfs_emit_at(buf, n, "num_of_valid_mpe_tlbs = %d\n", p->num_of_valid_mpe_tlbs);
+-	n += sysfs_emit_at(buf, n, "num_of_invalid_mpe_tlbs = %d\n", p->num_of_invalid_mpe_tlbs);
+-	n += sysfs_emit_at(buf, n, "num_of_corrected_mpe_tlbs = %d\n",
+-			   p->num_of_corrected_mpe_tlbs);
+-	n += sysfs_emit_at(buf, n, "ber_error_count = %d\n", p->ber_error_count);
+-	n += sysfs_emit_at(buf, n, "ber_bit_count = %d\n", p->ber_bit_count);
+-	n += sysfs_emit_at(buf, n, "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
+-	n += sysfs_emit_at(buf, n, "pre_ber = %d\n", p->pre_ber);
+-	n += sysfs_emit_at(buf, n, "cell_id = %d\n", p->cell_id);
+-	n += sysfs_emit_at(buf, n, "dvbh_srv_ind_hp = %d\n", p->dvbh_srv_ind_hp);
+-	n += sysfs_emit_at(buf, n, "dvbh_srv_ind_lp = %d\n", p->dvbh_srv_ind_lp);
+-	n += sysfs_emit_at(buf, n, "num_mpe_received = %d\n", p->num_mpe_received);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_rf_locked = %d\n", p->is_rf_locked);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_demod_locked = %d\n", p->is_demod_locked);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_external_lna_on = %d\n", p->is_external_lna_on);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "SNR = %d\n", p->SNR);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "ber = %d\n", p->ber);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "FIB_CRC = %d\n", p->FIB_CRC);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "ts_per = %d\n", p->ts_per);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "MFER = %d\n", p->MFER);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "RSSI = %d\n", p->RSSI);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "in_band_pwr = %d\n", p->in_band_pwr);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "carrier_offset = %d\n", p->carrier_offset);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "modem_state = %d\n", p->modem_state);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "frequency = %d\n", p->frequency);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "bandwidth = %d\n", p->bandwidth);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "transmission_mode = %d\n", p->transmission_mode);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "modem_state = %d\n", p->modem_state);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "guard_interval = %d\n", p->guard_interval);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "code_rate = %d\n", p->code_rate);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "lp_code_rate = %d\n", p->lp_code_rate);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "hierarchy = %d\n", p->hierarchy);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "constellation = %d\n", p->constellation);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "burst_size = %d\n", p->burst_size);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "burst_duration = %d\n", p->burst_duration);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "burst_cycle_time = %d\n", p->burst_cycle_time);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "calc_burst_cycle_time = %d\n",
++		      p->calc_burst_cycle_time);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_rows = %d\n", p->num_of_rows);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_padd_cols = %d\n", p->num_of_padd_cols);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_punct_cols = %d\n", p->num_of_punct_cols);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "error_ts_packets = %d\n", p->error_ts_packets);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "total_ts_packets = %d\n", p->total_ts_packets);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_valid_mpe_tlbs = %d\n", p->num_of_valid_mpe_tlbs);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_invalid_mpe_tlbs = %d\n", p->num_of_invalid_mpe_tlbs);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_corrected_mpe_tlbs = %d\n", p->num_of_corrected_mpe_tlbs);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "ber_error_count = %d\n", p->ber_error_count);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "ber_bit_count = %d\n", p->ber_bit_count);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "pre_ber = %d\n", p->pre_ber);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "cell_id = %d\n", p->cell_id);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "dvbh_srv_ind_hp = %d\n", p->dvbh_srv_ind_hp);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "dvbh_srv_ind_lp = %d\n", p->dvbh_srv_ind_lp);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_mpe_received = %d\n", p->num_mpe_received);
+ 
+ 	debug_data->stats_count = n;
+ 	spin_unlock(&debug_data->lock);
+@@ -107,49 +148,78 @@ static void smsdvb_print_isdb_stats(struct smsdvb_debugfs *debug_data,
+ 
+ 	buf = debug_data->stats_data;
+ 
+-	n += sysfs_emit_at(buf, n, "statistics_type = %d\t", p->statistics_type);
+-	n += sysfs_emit_at(buf, n, "full_size = %d\n", p->full_size);
+-
+-	n += sysfs_emit_at(buf, n, "is_rf_locked = %d\t\t", p->is_rf_locked);
+-	n += sysfs_emit_at(buf, n, "is_demod_locked = %d\t", p->is_demod_locked);
+-	n += sysfs_emit_at(buf, n, "is_external_lna_on = %d\n", p->is_external_lna_on);
+-	n += sysfs_emit_at(buf, n, "SNR = %d dB\t\t", p->SNR);
+-	n += sysfs_emit_at(buf, n, "RSSI = %d dBm\t\t", p->RSSI);
+-	n += sysfs_emit_at(buf, n, "in_band_pwr = %d dBm\n", p->in_band_pwr);
+-	n += sysfs_emit_at(buf, n, "carrier_offset = %d\t", p->carrier_offset);
+-	n += sysfs_emit_at(buf, n, "bandwidth = %d\t\t", p->bandwidth);
+-	n += sysfs_emit_at(buf, n, "frequency = %d Hz\n", p->frequency);
+-	n += sysfs_emit_at(buf, n, "transmission_mode = %d\t", p->transmission_mode);
+-	n += sysfs_emit_at(buf, n, "modem_state = %d\t\t", p->modem_state);
+-	n += sysfs_emit_at(buf, n, "guard_interval = %d\n", p->guard_interval);
+-	n += sysfs_emit_at(buf, n, "system_type = %d\t\t", p->system_type);
+-	n += sysfs_emit_at(buf, n, "partial_reception = %d\t", p->partial_reception);
+-	n += sysfs_emit_at(buf, n, "num_of_layers = %d\n", p->num_of_layers);
+-	n += sysfs_emit_at(buf, n, "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "statistics_type = %d\t", p->statistics_type);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "full_size = %d\n", p->full_size);
++
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_rf_locked = %d\t\t", p->is_rf_locked);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_demod_locked = %d\t", p->is_demod_locked);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_external_lna_on = %d\n", p->is_external_lna_on);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "SNR = %d dB\t\t", p->SNR);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "RSSI = %d dBm\t\t", p->RSSI);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "in_band_pwr = %d dBm\n", p->in_band_pwr);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "carrier_offset = %d\t", p->carrier_offset);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "bandwidth = %d\t\t", p->bandwidth);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "frequency = %d Hz\n", p->frequency);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "transmission_mode = %d\t", p->transmission_mode);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "modem_state = %d\t\t", p->modem_state);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "guard_interval = %d\n", p->guard_interval);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "system_type = %d\t\t", p->system_type);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "partial_reception = %d\t", p->partial_reception);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_layers = %d\n", p->num_of_layers);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
+ 
+ 	for (i = 0; i < 3; i++) {
+ 		if (p->layer_info[i].number_of_segments < 1 ||
+ 		    p->layer_info[i].number_of_segments > 13)
+ 			continue;
+ 
+-		n += sysfs_emit_at(buf, n, "\nLayer %d\n", i);
+-		n += sysfs_emit_at(buf, n, "\tcode_rate = %d\t", p->layer_info[i].code_rate);
+-		n += sysfs_emit_at(buf, n, "constellation = %d\n", p->layer_info[i].constellation);
+-		n += sysfs_emit_at(buf, n, "\tber = %-5d\t", p->layer_info[i].ber);
+-		n += sysfs_emit_at(buf, n, "\tber_error_count = %-5d\t",
+-				   p->layer_info[i].ber_error_count);
+-		n += sysfs_emit_at(buf, n, "ber_bit_count = %-5d\n",
+-				   p->layer_info[i].ber_bit_count);
+-		n += sysfs_emit_at(buf, n, "\tpre_ber = %-5d\t", p->layer_info[i].pre_ber);
+-		n += sysfs_emit_at(buf, n, "\tts_per = %-5d\n", p->layer_info[i].ts_per);
+-		n += sysfs_emit_at(buf, n, "\terror_ts_packets = %-5d\t",
+-				   p->layer_info[i].error_ts_packets);
+-		n += sysfs_emit_at(buf, n, "total_ts_packets = %-5d\t",
+-				   p->layer_info[i].total_ts_packets);
+-		n += sysfs_emit_at(buf, n, "ti_ldepth_i = %d\n", p->layer_info[i].ti_ldepth_i);
+-		n += sysfs_emit_at(buf, n, "\tnumber_of_segments = %d\t",
+-				   p->layer_info[i].number_of_segments);
+-		n += sysfs_emit_at(buf, n, "tmcc_errors = %d\n", p->layer_info[i].tmcc_errors);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\nLayer %d\n", i);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tcode_rate = %d\t",
++			      p->layer_info[i].code_rate);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "constellation = %d\n",
++			      p->layer_info[i].constellation);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tber = %-5d\t",
++			      p->layer_info[i].ber);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "\tber_error_count = %-5d\t",
++			      p->layer_info[i].ber_error_count);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "ber_bit_count = %-5d\n",
++			      p->layer_info[i].ber_bit_count);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tpre_ber = %-5d\t",
++			      p->layer_info[i].pre_ber);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tts_per = %-5d\n",
++			      p->layer_info[i].ts_per);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "\terror_ts_packets = %-5d\t",
++			      p->layer_info[i].error_ts_packets);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "total_ts_packets = %-5d\t",
++			      p->layer_info[i].total_ts_packets);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "ti_ldepth_i = %d\n",
++			      p->layer_info[i].ti_ldepth_i);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "\tnumber_of_segments = %d\t",
++			      p->layer_info[i].number_of_segments);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "tmcc_errors = %d\n",
++			      p->layer_info[i].tmcc_errors);
+ 	}
+ 
+ 	debug_data->stats_count = n;
+@@ -171,50 +241,80 @@ static void smsdvb_print_isdb_stats_ex(struct smsdvb_debugfs *debug_data,
+ 
+ 	buf = debug_data->stats_data;
+ 
+-	n += sysfs_emit_at(buf, n, "statistics_type = %d\t", p->statistics_type);
+-	n += sysfs_emit_at(buf, n, "full_size = %d\n", p->full_size);
+-
+-	n += sysfs_emit_at(buf, n, "is_rf_locked = %d\t\t", p->is_rf_locked);
+-	n += sysfs_emit_at(buf, n, "is_demod_locked = %d\t", p->is_demod_locked);
+-	n += sysfs_emit_at(buf, n, "is_external_lna_on = %d\n", p->is_external_lna_on);
+-	n += sysfs_emit_at(buf, n, "SNR = %d dB\t\t", p->SNR);
+-	n += sysfs_emit_at(buf, n, "RSSI = %d dBm\t\t", p->RSSI);
+-	n += sysfs_emit_at(buf, n, "in_band_pwr = %d dBm\n", p->in_band_pwr);
+-	n += sysfs_emit_at(buf, n, "carrier_offset = %d\t", p->carrier_offset);
+-	n += sysfs_emit_at(buf, n, "bandwidth = %d\t\t", p->bandwidth);
+-	n += sysfs_emit_at(buf, n, "frequency = %d Hz\n", p->frequency);
+-	n += sysfs_emit_at(buf, n, "transmission_mode = %d\t", p->transmission_mode);
+-	n += sysfs_emit_at(buf, n, "modem_state = %d\t\t", p->modem_state);
+-	n += sysfs_emit_at(buf, n, "guard_interval = %d\n", p->guard_interval);
+-	n += sysfs_emit_at(buf, n, "system_type = %d\t\t", p->system_type);
+-	n += sysfs_emit_at(buf, n, "partial_reception = %d\t", p->partial_reception);
+-	n += sysfs_emit_at(buf, n, "num_of_layers = %d\n", p->num_of_layers);
+-	n += sysfs_emit_at(buf, n, "segment_number = %d\t", p->segment_number);
+-	n += sysfs_emit_at(buf, n, "tune_bw = %d\n", p->tune_bw);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "statistics_type = %d\t", p->statistics_type);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "full_size = %d\n", p->full_size);
++
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_rf_locked = %d\t\t", p->is_rf_locked);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_demod_locked = %d\t", p->is_demod_locked);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_external_lna_on = %d\n", p->is_external_lna_on);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "SNR = %d dB\t\t", p->SNR);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "RSSI = %d dBm\t\t", p->RSSI);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "in_band_pwr = %d dBm\n", p->in_band_pwr);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "carrier_offset = %d\t", p->carrier_offset);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "bandwidth = %d\t\t", p->bandwidth);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "frequency = %d Hz\n", p->frequency);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "transmission_mode = %d\t", p->transmission_mode);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "modem_state = %d\t\t", p->modem_state);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "guard_interval = %d\n", p->guard_interval);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "system_type = %d\t\t", p->system_type);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "partial_reception = %d\t", p->partial_reception);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_layers = %d\n", p->num_of_layers);
++	n += scnprintf(&buf[n], PAGE_SIZE - n, "segment_number = %d\t",
++		      p->segment_number);
++	n += scnprintf(&buf[n], PAGE_SIZE - n, "tune_bw = %d\n",
++		      p->tune_bw);
+ 
+ 	for (i = 0; i < 3; i++) {
+ 		if (p->layer_info[i].number_of_segments < 1 ||
+ 		    p->layer_info[i].number_of_segments > 13)
+ 			continue;
+ 
+-		n += sysfs_emit_at(buf, n, "\nLayer %d\n", i);
+-		n += sysfs_emit_at(buf, n, "\tcode_rate = %d\t", p->layer_info[i].code_rate);
+-		n += sysfs_emit_at(buf, n, "constellation = %d\n", p->layer_info[i].constellation);
+-		n += sysfs_emit_at(buf, n, "\tber = %-5d\t", p->layer_info[i].ber);
+-		n += sysfs_emit_at(buf, n, "\tber_error_count = %-5d\t",
+-				   p->layer_info[i].ber_error_count);
+-		n += sysfs_emit_at(buf, n, "ber_bit_count = %-5d\n",
+-				   p->layer_info[i].ber_bit_count);
+-		n += sysfs_emit_at(buf, n, "\tpre_ber = %-5d\t", p->layer_info[i].pre_ber);
+-		n += sysfs_emit_at(buf, n, "\tts_per = %-5d\n", p->layer_info[i].ts_per);
+-		n += sysfs_emit_at(buf, n, "\terror_ts_packets = %-5d\t",
+-				   p->layer_info[i].error_ts_packets);
+-		n += sysfs_emit_at(buf, n, "total_ts_packets = %-5d\t",
+-				   p->layer_info[i].total_ts_packets);
+-		n += sysfs_emit_at(buf, n, "ti_ldepth_i = %d\n", p->layer_info[i].ti_ldepth_i);
+-		n += sysfs_emit_at(buf, n, "\tnumber_of_segments = %d\t",
+-				   p->layer_info[i].number_of_segments);
+-		n += sysfs_emit_at(buf, n, "tmcc_errors = %d\n", p->layer_info[i].tmcc_errors);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\nLayer %d\n", i);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tcode_rate = %d\t",
++			      p->layer_info[i].code_rate);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "constellation = %d\n",
++			      p->layer_info[i].constellation);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tber = %-5d\t",
++			      p->layer_info[i].ber);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "\tber_error_count = %-5d\t",
++			      p->layer_info[i].ber_error_count);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "ber_bit_count = %-5d\n",
++			      p->layer_info[i].ber_bit_count);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tpre_ber = %-5d\t",
++			      p->layer_info[i].pre_ber);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tts_per = %-5d\n",
++			      p->layer_info[i].ts_per);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "\terror_ts_packets = %-5d\t",
++			      p->layer_info[i].error_ts_packets);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "total_ts_packets = %-5d\t",
++			      p->layer_info[i].total_ts_packets);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "ti_ldepth_i = %d\n",
++			      p->layer_info[i].ti_ldepth_i);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "\tnumber_of_segments = %d\t",
++			      p->layer_info[i].number_of_segments);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "tmcc_errors = %d\n",
++			      p->layer_info[i].tmcc_errors);
+ 	}
+ 
+ 
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261107-siano-revert-4a1c130e4277
+
+Best regards,
+--  
+Ruk Doe <info@doany.io>
+
+
