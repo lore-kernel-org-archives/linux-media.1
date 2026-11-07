@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794013322;
-	b=v1Mnm7TWOe5RTWY1kk+dmQaVvV3YFO3KyZkNkHOW3YAJR4/CWCq+FFkuGeX2QyekmhAW
-	 Yq1MySHgk7izckEwPlHBv6M/yeXn1rZl6nm4Hspa2Kad2+pDBTjrm7DMhhaZa72bC5jD5
-	 QykoCrQProxoOQZ8vIdA0JB/2KDtGo/YYZZ0+aJgoerbwxoWrEstDyWQNdaEzpsnNHYw+
-	 KJudwkPxWZsIDO66fpSGE6JmLHScwSzG/ASG0CPOUIA6uCEzJ6RmpS7iuZSyC87pugDL6
-	 W0CsHG8v66MHWKXwQvsCxjHfSr4e3RLJsJzdiQBa156mjwYDrklcCOd3jTklpINWLGA==
+	t=1794013324;
+	b=sz0b78d64Xdjw1ilEuQfzc7wWABlCMfuh64iCxkxe3RmBQ1KhCllLG8YJsLraXO+r61V
+	 Z4A/1fvnDKTXqZyJOQqC5ZTwxn6eppDmkP+/f+c8JFGFnjS0hRxFokey/WH9m/mBd9hML
+	 Q7gxq+IA8Lk6y0YhFM5qq77tTgFxfNGNeDPvS8z3TIdIWQkMerjvSpSWFg1GnJwD4rNYJ
+	 hBaX4GRF82ds/y/nfh6BsldUDwUSxluTcwtuTedTqnAmawqgtIpWooN0eMKv3npOTB5y1
+	 3KJNqm2Kf3x9VhY3aUPe2/RHdrGsVU2WbpyM35VaxKWNHYuPVNALzPeu9kM1ZEYp45Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794013322;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794013324;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
 	 X-Google-Original-From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=cwULloUIaYoXz2vD6C9IL15PuOFsPnKMD2iSjIzuNfk=;
-	b=QaTmVQMdC/cpfJe+4zEuPmUe7/Z26sisEZ7x3SdijGE5DUIOJTxzflr53DJZwHMBGoxv
-	 3lgo0M4B2yFBM0vzo/Qsmc6vx13yAsykIINjJzzALSQcfXQMJHHZHbqpYnl1MQjkFa87U
-	 lOzB/g9Aacl38ViDKg8mM+/D9ieoyvifCGfYTuyozM3w7ThACYHPlbVieMiephdWGmYbW
-	 LY/blz07dEZVY3f4ef0sUEjXJ015qHnSwVcSjXpMYi28LXlO9Oieq5VoQD0UDMlFm8SIJ
-	 Ht8BhzWVuSmgbSVoxa4u7lqT9+ggizGwRIgoWYUjDd52kSVw20kcO+A1aQk4GCbSdVQ==
+	bh=igziLQ/HM70M+hvHbUEphORXXG147FBpN8LuUx0t3j8=;
+	b=IMUudOciKxlhOOikBM5sQ/IDnec1oArjkWp3jRnkOqAIsvn5i/X61XkO2+inHuusVH4B
+	 c5yS5BNbTIIzWKA3Dl/dLQIK1BExpn8WOr2/1t2gKPonPlOPRic4/i3aZzXS+mhHiJTJc
+	 pdC3tTe/3CRBmPmmFf9KH7ZV80ArJ5+3lheKm7461SaQfqTD+D7WkRyB37Sl0NDr+QcJy
+	 2YEmGMtS3RINMoscZ7q2FugegIB1VKE5ma2/Bt7TXzkWZs9u+JZnyucs3FN6bq6Hg4S2k
+	 X+IdG7NVE+Y49UFGuKAbIhKwzfeCBpNqnjHAz8Y4Ef+fTUjtC4FLgr3Eu6DDlNmHrag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gZK2BcCc;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=aPDXlVaC;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CC2606D837
-	for <linux-media@vger.kernel.org>; Sat,  7 Nov 2026 01:02:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75CC2606D837
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727FD606EEA7
+	for <linux-media@vger.kernel.org>; Sat,  7 Nov 2026 01:02:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 727FD606EEA7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=gZK2BcCc
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso13219715e9.1
-        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 17:02:02 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=aPDXlVaC
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a208d93758so12480375e9.3
+        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 17:02:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794013321; x=1794618121; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1794013323; x=1794618123; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cwULloUIaYoXz2vD6C9IL15PuOFsPnKMD2iSjIzuNfk=;
-        b=gZK2BcCcaQ+9w/+bYNY/xGefbwh+SJhOuLgDgA2JgmHOjhWqqu3UMxf89GQBklRrSd
-         fKLpqoW39Avdc3YvwaIUb04ckWA+7q4BzimDFYdu+AUbP6TpJ+qseREnivgjIPS/TLse
-         OUkajj2ZM5D7G7QH8mOAwan/7tML9nnmdbZ3yKfiHDBmMPeeYpZZYZI8nst/uNLkqCil
-         fzn4+AS1mUwPXruaJ/SGwpcdRpC/xmyTPcJq4spH1BKV9wgmkLES96xR62cHmP3p0DqY
-         6B5PnyKMJxlzktYBrCE5EZzmi30GXHlufFGokMITp9xLYMy9rNn2CZgn4wHGvZGpzbWF
-         No8w==
+        bh=igziLQ/HM70M+hvHbUEphORXXG147FBpN8LuUx0t3j8=;
+        b=aPDXlVaCNEUc6uxCvkeKZhkrOqvXji8JiVK+MTcii4xA1lsViUhXJKiwz9idVdzii4
+         FmFsDXjuyQv5qq6ZPOPnWwIVNxhVug8THi7w7nEyKT36sBD2PLIC/UMcKl3bA9jQU7MU
+         FuReQhsSKuiYKwwUfNWphfvHmDr6gzf+7O/Wre9GQfNntFT89N9APq/hMXCUKfJtc+bd
+         2fb2MAK9K7sBbVmsucVf2hRI0kLapJ5de1A0VKrnLwbljDJRb/81N7yaptVUyF++F8Wn
+         9HfiTot6Y7RfoqYUvE0Ef8Hlj7pohNn8CpMWBxzhGSvLxYUBdiKF9c/M70ha671+x7CL
+         mxZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794013321; x=1794618121;
+        d=1e100.net; s=20260707; t=1794013323; x=1794618123;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cwULloUIaYoXz2vD6C9IL15PuOFsPnKMD2iSjIzuNfk=;
-        b=aW+POikoB9EWyKFtru1I5QFDQbTR0o+SqhmWNiFWvfG6x0jQn+OlJjsd4iC0wNQH1w
-         8E8d+x3M0XQMizzoWVEvwKPPgPRujwdYqYlPOh8Z2Shg+ksMzxGW1FNKFKOhxBEn6zZj
-         XaWGO84zloVA8xAWdLLygPFFLKUmvXL+jagMNDV1UdVncbVxVnmIbJ0b4IpvPsJuTXOa
-         aXwtz+P0voK/xIrxT3U3E6L6FbGXuLemUdPickGRHOgdyFUJlDCj9mvSGOMNBWcLZDh+
-         VTF3bOMxtEgZc6kgOYIpWsq5uveAdSIIBsdD5RP5f9K/8YinV7rTWvvsF6uGDa6vGC+H
-         aRvg==
-X-Gm-Message-State: APuU4Z+KXTS8EoKsVIneiT+e/1WCwHYNO6iEA+8r5ntUeByilj5Ehnon
-	4ROiP3QxzTdTaLkqTl9rwV930YfMqww2Cll6x1ZTNJWLKa1MjaQQuKgE7B7lY4BFVQ2nBOdTxtr
-	MMO94
-X-Gm-Gg: AYBFou2ebl+xxdffSOQzLZKoatey3pHni/+uhcjDs5gcxoXQoDpRl2jYqhK1CZ6sgV8
-	m42cy15ANp9dcecFd4NG2zlNTRFCLkbbwUrZZt3K1vqW9uzHwQaDBJXGje60WUKRQIbP7pbXg7d
-	7dK71I2Yh4z7HYDDzyVfmXqfKsOnhrZVK8cTTKJ+LwzZbePEC5uFJSzydpLgrDF/l1oZEIJVQhd
-	gQrj/4k09hBatsJ0u5rqu2/cQ7WIa/RquED/+lz+a4eA3uxFChhDIOO+wx3F7W/USlmtzsJK263
-	MkOgRHmypOJscXpUT3gNmHtMv5F0eVArOf/+OQ9xudW042aNc0Q2WVHwR4gtJGFtX/uJR+r3e1h
-	UjYZ+LTFZacaG+Rk2wyFOZeCojziQDTpL63vBPJ6w0kwhSdwv1GBe2dAIJfb1ye7YxM9H2hzU7f
-	WR+vg5h2kn30kY1Jis+YXCFbo+D1GL+nZT89iWl5X08F3ukIzNrgE40z9ffZyBT+FTKiU0eyY9D
-	XGhZlqDmevuplWh7MLqfC2V2vn1GV6vsxK/kjUHdk90xfVPwfBlNqJ7ZvI2NTPlDXDntqCf53RC
-	zxpPTGVIHGbKkIGBYaG/kA==
-X-Received: by 2002:a05:600c:6814:b0:4a1:da58:1ee with SMTP id 5b1f17b1804b1-4b6df4f2554mr82962045e9.31.1794013320886;
-        Fri, 06 Nov 2026 17:02:00 -0800 (PST)
+        bh=igziLQ/HM70M+hvHbUEphORXXG147FBpN8LuUx0t3j8=;
+        b=mzyvf7fENFGFKGiztJfvnPvT1QsUeQKDa034+D6CEHc1vpfaB6HaHTWoQ7A6B2DYM8
+         fGBiw3emVzeODApKY52tkdzXK+aOmm8pQsDe1GMB9xOR8Q+RLlEob9viS3gcWHnRWeZt
+         L4QWpUUEGzlg6Ulu38fmdpL4GJ+NHoWQYuaNzNMow2LbYDUBfwIxPHdIrRHzqQd35qdI
+         ItNiu+ur9DNPM3GX0CFZaADTAo9OkqEV2J5wcVnQ/NTsHS1pSkKdssg7fyI4/DUF8lPf
+         3NgLQwf9tes7KvwzRpWTUVy//fXTOTySjCvq6koKmFU5HF1q5xfg48HZwusDYsSQDKaB
+         z2ug==
+X-Gm-Message-State: APuU4Z9aE56khhX1Q8BQTMi2dFL6rwaF2lpZsNszMSJ58CoyVXHfozjg
+	83AYk/xfDLHhVjsFwX5v9Gx5NokWQOxLZy/ysUx0ZRYnEeTLHs1WXv2jcxTkjtt8OQpZSGnL0uD
+	WVBdm
+X-Gm-Gg: AYBFou2ja2jzig9rn+YaxrT2/2kQqFCBsMUuizQ96IHk9XOktqU7eXOdVPOH6JrjyNR
+	t9IlAGVlPO/RMSz/SKov1WpijrBHBULR8YUWQUW88M3RtDK8fyDsPZR8m8wJh0cPMG/p8Azm8z4
+	dKJ7pau6bNJAIVjin7OSeJLbjJIfXr8zsLbmMc1tMgP/e2mYkpynZXSY/m7NkcFrfHZmhw1bsgW
+	Z6eAVdzuBkFTw1oBZY0UTClV/1Tbw8A49aBslPOXBh2wrRvlyBCfREszltprGQw9Hpe2tybfeWk
+	nzzs/dJw2xmqxJJBsqFZ/jAzSWpnBxq2hWg27BuEAA9OFazdNp+Ap0k4Zx3b0bEH//YvMvJ2/kx
+	LwG7rcgLV21Wi2LgAJ961AkjKWq3RoV61pECfQf/fOh0VmgBn2vDNNDkTkpvGP7iWaftle7YdtV
+	IuP1WEWf1xVz3hDTyFCol5Tr+2T9X2JLt2Cc+bJmzQyCxzvjTyV9DSRV460xfuiMNfXIFBxCEKg
+	MxAhnsCVbhrsqXOY4FTMvdqyxCb4fZWLDm2Nn3JxGq2YKJ3XVn+JTel+KitvBNv+CZwB7smT/HQ
+	LiOdSZkm2Uysawxk82HqVQ==
+X-Received: by 2002:a05:600c:3f06:b0:4ac:da92:2bd4 with SMTP id 5b1f17b1804b1-4b6dc6ded37mr61083345e9.1.1794013322848;
+        Fri, 06 Nov 2026 17:02:02 -0800 (PST)
 Received: from [127.0.0.1] ([109.77.115.215])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e3291531sm24526375e9.15.2026.11.06.17.02.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e3291531sm24526375e9.15.2026.11.06.17.02.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 17:02:00 -0800 (PST)
+        Fri, 06 Nov 2026 17:02:02 -0800 (PST)
 From: bryan.odonoghue@linaro.org
 X-Google-Original-From: bod@kernel.org
-Date: Sat, 07 Nov 2026 01:01:48 +0000
-Subject: [PATCH v3 05/11] media: qcom: camss: csid-680: Enable RDI SOF
+Date: Sat, 07 Nov 2026 01:01:50 +0000
+Subject: [PATCH v3 07/11] media: qcom: camss: csid-340: Enable RDI SOF
  tracking
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-v4l2-frame-sync-v3-5-e5bf7073a35d@kernel.org>
+Message-Id: <20261107-v4l2-frame-sync-v3-7-e5bf7073a35d@kernel.org>
 References: <20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org>
 In-Reply-To: <20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -106,80 +106,121 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1922; i=bod@kernel.org;
- h=from:subject:message-id; bh=fCzv68buAwxsczHI96n29xaXwuX+5lf+63yPz+cuhLQ=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq7nh9zEiRkUUXRCR+iMuw9E1ljDxeTvSSlD3OI
- B1gf0EYW9OJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCau54fQAKCRAicTuzoY3I
- OlriEACiXTL2j1V9wLVWE6FebRVlIUL945TiGxvFSQyCEUXpAcmSSEYZyqczz3LFZsvlH55pJ9G
- kRYoFyjs0i1PWG5yqMYr2vSKg7eg0J9Qe90FjYMXAG/xu9I7XPQUXBbqSz4hXmAqpYTszHFHBPB
- G5CKm4BMYc/EtK6lW+TZ/mbGixVxHQt14aKgz36IjPErjZHfq7E1AttFH3bqiidB4NS8cvuxkg9
- 0gOvMQR1D0J51PKCN/XXzDjud/z6xzERSy3lY4eoYxOC2PHZ2piSyzxLtkT3agbNR5+/pNwcG3H
- gr14mA3Mu27CZKzDVjUYQIbQLTAuqIb+MGHLC2MgmRBuTNpIOvjUvWdbooRUv9VJP81BVE3KNPA
- 73Ba1qpM7lLvHOGWqBkA3GW/uzCn1vrZkGzOJuRh+7WBPRyAMpiKyGQJpAjJA0fKInDYcBoWQ++
- tNHWxUP7geG9khibKUzR0499UQpRVmDqDCGEJCuhszglsA74D9Ar3Ob6mec8OnfQ1D78XwxVAxo
- JQdOzoOsBAkVokySUMMstb2UvaTHLqi/4/pSZaPorL2uAYPu2kOkk6M1n94uFMd90oMmhCtUdDA
- zJRMwyVkGK+OywgNI09EwW/Hl2AqTlH825wmvoLjULZU7OTIlx97YcvzRoZ229a9Fb8nawihJ8n
- erRM72EIXw2/qiw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3599; i=bod@kernel.org;
+ h=from:subject:message-id; bh=MncIzD59S3oLf/Z9yXfphHr3qsEuFxgg2/+h3fLe7Lc=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq7nh+jGIB1G6UR5OM7KPgemRPLu8vO8aWpo4g3
+ cj9T47I5yaJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCau54fgAKCRAicTuzoY3I
+ OuRBD/9p4lnbbTAgWUSKToTJeWc4OdQuyWp9sIy9XKtiS4Hmq/Z2hkrkqksCGOYqxdml9OF6qfw
+ VUIIS1gyv2+nJxGDaK7NFz5h9jabvZ4Vyn3MstZ6dNM0DJB6WowU8nif9M96nGgyk40vFhP5qVq
+ Wzl4H6JvXZkl793BDy8HLCeZNSkUbvoPzPsSO1oCv452upV/rhO1PzdVCSwSz4kAE26OsAkxndr
+ mpu3T8uyzuycFKMJPaFNQwymUV0gnswWHxpIHyxnkX7q+HYZ2cfud8kUfj+vaqO6k9aCTN+h1SZ
+ fFDRCOs9O6AEVmzTznKDtrjXdOH585wlwlFNXiTAyWyIbydP0T4Z5jvxlkhEvfg2xA2KlS/agMg
+ slJSfqxTzhe43U2uFGdckij86kNy9hAo4bhqJI4kQFhzZeR4em7SspIKwQUMuc7GTWy9y9d5f2o
+ Vp1DWXo6F37nq5l8RhlJb/DX7SADXbqT/TxMqc7vSyqvKGzlDoJ285uTSSlhrC+n2jRbIdBeELK
+ Romwkx08btHGeR/CZQa6U86IeqFzchin+bMn+sCJ3LN1hrzt1vp2wX4SMeBBLWIJx1YXY9+rOKS
+ GYXyPrqqgWaWmoXl3+KL8jp4wI5epPDI85GCIb7gw0MwkdoLeTzIEn0+6Emz2jkG8XAhHHGU2Jz
+ ARr7A6IrnPs59KQ==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Similarly to the sm8650 we can quite easily switch on V4L2_EVENT_FRAME_SYNC
-for x1e/x2e which uses csid-680.
+Add silicon specific changes to get SOF triggering V4L2_EVENT_FRAME_SYNC on
+the '340' CSID. Covers QCM2290.
 
-Do so now.
+Unlike gen2 the 340 CSID has a per-interface IRQ block at
+0x030 + 0x10 * iface, so the SOF mask and status have to be handled per
+interface rather than globally. Run the existing csid_port_iface_map[]
+through it so that PIX and RDI0-2 are all covered.
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+The spurious interrupt warning needs to account for the new per-interface
+status too, otherwise every SOF would be reported as spurious.
+
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- drivers/media/platform/qcom/camss/camss-csid-680.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/media/platform/qcom/camss/camss-csid-340.c | 39 +++++++++++++++++++++-
+ 1 file changed, 38 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid-680.c b/drivers/media/platform/qcom/camss/camss-csid-680.c
-index 345a67c8fb947..452640e72f6d5 100644
---- a/drivers/media/platform/qcom/camss/camss-csid-680.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid-680.c
-@@ -296,6 +296,20 @@ static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8
- 	writel(val, csid->base + CSID_RDI_CFG0(port));
+diff --git a/drivers/media/platform/qcom/camss/camss-csid-340.c b/drivers/media/platform/qcom/camss/camss-csid-340.c
+index eca3f07b8a8a2..42ff629ce410d 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid-340.c
++++ b/drivers/media/platform/qcom/camss/camss-csid-340.c
+@@ -22,6 +22,12 @@
+ #define		CSID_RST_PHY_CLK			BIT(3)
+ #define		CSID_RST_CSID_CLK			BIT(4)
+ 
++/* Per-interface IRQ block, indexed by enum csid_iface */
++#define CSID_IFACE_IRQ_STATUS(iface)				(0x030 + 0x10 * (iface))
++#define CSID_IFACE_IRQ_MASK(iface)				(0x034 + 0x10 * (iface))
++#define		CSID_IFACE_IRQ_INFO_INPUT_SOF		BIT(12)
++#define CSID_IFACE_IRQ_CLEAR(iface)				(0x038 + 0x10 * (iface))
++
+ #define CSID_IRQ_STATUS						(0x070)
+ #define CSID_IRQ_MASK						(0x074)
+ #define		CSID_IRQ_MASK_RST_DONE			BIT(0)
+@@ -83,6 +89,17 @@ static void __csid_configure_rx(struct csid_device *csid, struct csid_phy_config
+ 	writel_relaxed(val, csid->base + CSID_CSI2_RX_CFG1);
  }
  
-+static void __csid_configure_rdi_irq(struct csid_device *csid, u8 enable, u8 rdi)
++static void __csid_configure_iface_irq(struct csid_device *csid, u8 enable,
++				       enum csid_iface iface)
 +{
-+	u32 val;
-+
-+	val = readl(csid->base + CSID_CSI2_RDIN_IRQ_MASK(rdi));
++	u32 val = 0;
 +
 +	if (enable)
-+		val |= CSID_CSI2_RDIN_INFO_INPUT_SOF;
-+	else
-+		val &= ~CSID_CSI2_RDIN_INFO_INPUT_SOF;
++		val = CSID_IFACE_IRQ_INFO_INPUT_SOF;
 +
-+	writel(val, csid->base + CSID_CSI2_RDIN_IRQ_MASK(rdi));
++	writel_relaxed(val, csid->base + CSID_IFACE_IRQ_MASK(iface));
 +}
 +
- static void csid_configure_stream(struct csid_device *csid, u8 enable)
+ static void __csid_configure_stream(struct csid_device *csid, u8 enable, u8 port, u8 vc)
  {
- 	int i;
-@@ -307,6 +321,7 @@ static void csid_configure_stream(struct csid_device *csid, u8 enable)
- 		if (csid->phy.en_vc & BIT(i)) {
- 			__csid_configure_rdi_stream(csid, enable, i, 0);
- 			__csid_configure_rx(csid, &csid->phy, 0);
-+			__csid_configure_rdi_irq(csid, enable, i);
- 			__csid_ctrl_rdi(csid, enable, i);
- 		}
- 	}
-@@ -395,6 +410,9 @@ static irqreturn_t csid_isr(int irq, void *dev)
- 		if (val)
- 			writel(val, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR(i));
+ 	struct v4l2_mbus_framefmt *input_format = &csid->fmt[MSM_CSID_PAD_FIRST_SRC + port];
+@@ -125,6 +142,7 @@ static void __csid_configure_stream(struct csid_device *csid, u8 enable, u8 port
+ 		format->decode_format, port, vc);
  
-+		if (val & CSID_CSI2_RDIN_INFO_INPUT_SOF)
-+			csid_sof_event(csid, i);
+ 	writel_relaxed(val, csid->base + CSID_CFG0(iface));
++	__csid_configure_iface_irq(csid, enable, iface);
+ 	writel_relaxed(enable, csid->base + CSID_CTRL(iface));
+ }
+ 
+@@ -169,15 +187,34 @@ static int csid_reset(struct csid_device *csid)
+ static irqreturn_t csid_isr(int irq, void *dev)
+ {
+ 	struct csid_device *csid = dev;
++	u32 iface_val = 0;
+ 	u32 val;
++	int i;
+ 
+ 	val = readl_relaxed(csid->base + CSID_IRQ_STATUS);
+ 	writel_relaxed(val, csid->base + CSID_IRQ_CLEAR);
 +
- 		if (val & CSID_CSI2_RDIN_RUP_DONE)
- 			csid_rup_complete(csid, i);
++	/* Read and clear the IRQ status of each enabled interface */
++	for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS; i++) {
++		enum csid_iface iface = csid_port_iface_map[i];
++		u32 status;
++
++		if (!(csid->phy.en_vc & BIT(i)))
++			continue;
++
++		status = readl_relaxed(csid->base + CSID_IFACE_IRQ_STATUS(iface));
++		writel_relaxed(status, csid->base + CSID_IFACE_IRQ_CLEAR(iface));
++		iface_val |= status;
++
++		if (status & CSID_IFACE_IRQ_INFO_INPUT_SOF)
++			csid_sof_event(csid, i);
++	}
++
+ 	writel_relaxed(CSID_IRQ_CMD_CLEAR, csid->base + CSID_IRQ_CMD);
  
+ 	if (val & CSID_IRQ_MASK_RST_DONE)
+ 		complete(&csid->reset_complete);
+-	else
++	else if (!iface_val)
+ 		dev_warn_ratelimited(csid->camss->dev, "Spurious CSID interrupt\n");
+ 
+ 	return IRQ_HANDLED;
 
 -- 
 2.56.0
