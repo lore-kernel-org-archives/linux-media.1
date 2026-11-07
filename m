@@ -1,86 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794058753;
-	b=hN5brY882AokUYikoadCiPKLQ8cGsIG2MEQ8b5N8IykQysuFupoyNrEoJcIUsMvehMsF
-	 4mgUQC6Po8vDGlrEZQifjET4vLxdigASVQ4EgWsO81+pgSdG0Wkgi+UAaBYvONkDq/UcL
-	 EdBQpv5QsPgd3h/dc8FLR9xl2obysp9HuaaELaZxb077XJclMm5UKlMJcVataLEd4Gqxc
-	 aIn8ux5now4LlqtxehnZKtULe7cSIlFrovR04b3RdYwnSnms1ebj4lLpW5qHeyUz7rJVs
-	 NuVZkJbbOw/ZLIprdfCz/3Np3WCmHwNmByZe+bfPU9shRcXqC51braQFtY7LX95pPOg==
+	t=1794059795;
+	b=IO51J1zbk22Egbd0sJUcB93cFT3eydPW5Nd9aJmlO9g2FtwM+rYV9iSlFgkUz8QNlbyx
+	 s8XDqdpSQWXtG4znuM4J3jFRLHf1UW2bxMX1bv0tx9QKjzTVCsbpvxyQIaFTNKYzM0mi0
+	 opGaoaNDoyOrzv4Oa4e+MdD91WHICMQrKC4fUwHHhhCjlG0zp4FX79xNE1GaWAUBZ4Z50
+	 EtYe7f4XF9ZIXEPe9ikGNJhkNOVMeoAfPS3KL9gvjUlizSJltHdJ9df4cS7K53+/+mPqV
+	 Pu4lBcC0fCzwej+HkDK9ZD7EAvV7hozI/KPb/3smVolB20V8zVEYhL+nPkbRX+6F6mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794058753;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=60HfFRLQNhaGSHuWAKIr0pymjvkfxobZad0q1Kl1YHo=;
-	b=L/qv/uEtM85kCHARjaOQBm4gZ48xCpORzanPqdrqaaHCNJ7AzlrGnbV+bX57Oa4ve85m
-	 fEg97cVnurL3XQGhGFXEaFib0nhndUV8LYES51gwoG0b4GGae9lL6vXZXW2OtKgn4NMJF
-	 VfamltscESk9lohXZ5QRXpTlbfOcVt/XEeXxgr7HlC0Qcdxhz+3vRpotIUsMO+aZHd+Eu
-	 Zhc3QRxpY7R8WjtILy2XOhNqN7RtdK6c35cLobRZ/tzag+kbHyoci1UyXOBKTAdlpCiXv
-	 sJ9JU74IRehZ36Y1UgOzltqZs79qtJWUIDza4RcycIxE75Yp0oV2fVX8rR/h/TDiItA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794059795;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
+	 X-Pm-Original-To:Received:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6TDIa4WBe03aqlzFy9TN8awAuksm28T92BfNeJQsqFs=;
+	b=UUWxd3iK43Asvx5SxBSEMO6VP78ofOCFQmj+wm2yf4wsWFL6jnUbqz0Ihcz9xmQ5Lwh+
+	 CmJnJukpcYQrWu1Zf+yj+VtuUW/4DPOgQnDmbH6yNThdgqVKqUM1ct3d1mhaixCLtX87t
+	 tCyaaRsW7Kh6KvYwrG01fL9/kSIBxaCWDSHHLfeWt3QT2I1Eere8a444Mwch+K+oox0ee
+	 b7jyYRUUAnMu+FWtkkC9musimr9edPoH1U7CLR15xp0p5KOUEJUR4OF8nsJCOII67mjN2
+	 XqbycosU1u4JQXOmUv7Lv9meJZEWa6nWxX53ePo3Xw4i7QKbClMSA00GyG4BP1Vj2dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OX9Wvyqy;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=younes.io;
+	spf=pass smtp.mailfrom=younes.io;
+	dkim=pass header.d=younes.io header.i=@younes.io header.a=rsa-sha256 header.s=purelymail3 header.b=oSVOeTmc;
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b="mGhbr0/r";
+	arc=none smtp.remote-ip=34.202.193.197
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C34606A330
-	for <linux-media@vger.kernel.org>; Sat,  7 Nov 2026 13:39:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4C34606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C880606A332
+	for <linux-media@vger.kernel.org>; Sat,  7 Nov 2026 13:56:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C880606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=younes.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=younes.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OX9Wvyqy
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4b7252a32c8so13311445e9.0
-        for <linux-media@vger.kernel.org>; Sat, 07 Nov 2026 05:39:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794058751; x=1794663551; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=60HfFRLQNhaGSHuWAKIr0pymjvkfxobZad0q1Kl1YHo=;
-        b=OX9Wvyqy8007fdh0vspfUTVomQmw9PZiknsy2c5tog70UB6fuZRwbW7XHXN1J7dMO4
-         cXCFUkWsD95cnboSABiiXlg08Uu4I+HTc8zjdUceXlI5inNzpxBtxxqr7R3pCSwDpXwo
-         CE3OkHwSLTZgGnLpEurpgDeDaSYS+cn1atLNgSOQwkJt38Xbvu+2WtXjV/+89TBi4PB2
-         p8cmW8TDjUbSZdU/FpDUWxtIKoIksCgn8i5FwRq371+bvUyjUTlSH2AdDzgovIP8LEjC
-         2ZxPhknYZJWaE61ooUpfhdTnlOlt236Wi+ITT7QOF/E11WT63CmozubP+WAEAdiwBWv+
-         vLdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794058751; x=1794663551;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=60HfFRLQNhaGSHuWAKIr0pymjvkfxobZad0q1Kl1YHo=;
-        b=w0cmGeNcBdLExf1d0exG/x0ySRPS0UY+9lyJ86hbzJIv/9SyTmgS1IO6t47a8EUSEZ
-         hOMw7DFTOO8KumY7FgY/i1xCf6wmFUtyWHGhDVCctCnEgZIUK6g8taKz0eNB1Uewarwo
-         XjEGOS4eNUNhMoknzSEfDrfEe3jzaQbGnROcDlu71Fys4k5YoCjUtlL11cEGCLhMSZl+
-         ELKI8MnSvDnVaAKXbH/NJR5gQpP5W9lTnCyaHIY8wl/QDmM9FP8K4B3XhsSpOM4REqfi
-         W3abaEnEpg8Z3jqS3giX2nI1kuH+NsfYpB+qL0e47a4QORVNxcDxxefBkzA7sFKht1Rt
-         Tbug==
-X-Forwarded-Encrypted: i=1; AKwUvBxABsTyE2buzoQfwTRjA6MQ8XE6afjBTVXbIYL1DqXZAmPMCD1q5mPb0qgkqLz739d6pzdAGb58LTnisQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BTiBrj0Bb+bEKXejjNzpmtu/+j9/IxsJJ5VbRU6DcAamravVC
-	nkMHNvqXSsAjnGaSqGPeaAPqSsrNPWSP+xjE7IJBvrGsAWweYQ/33M2T
-X-Gm-Gg: AYBFou2U0ZiyQuQFffLCcyY2UxUMsXv/2mhIgAo0rwrV7V7qRK6QF8KM9e8Cdkj8ppr
-	zc6GApCtaI4csFYIzJoxg3VHP4zumhtGO/6O3iTrkrXZa5bS1vaRQqUL16LyC2ACPlydh5AXrMp
-	l3UZsywYfBCTpH5ZR6YZLj/JvbYGa+HSmCHVp3odvU4RIcltCSclSVtqrWNi4ZbMPZEPuCn62/R
-	5xKusFbexUNBO06jfoHHvkbY98MBVb2lE8p+FIH4HIbHxudzo2juxjwg7jse6EpdbYdL0jHMWUc
-	prV0XrFnHexyNeBlY4latQTV4c8kP+kytsjCbyskuHBoLZtBJfHzDaRruIlbuE8E+wZxQs/vmji
-	/mJr8cnaFRacnRdPHx2HY/as9QFlQ9+3tj/NvaWBDQfpo6vh1NVOPrzYPdW9q4hhJZhinbMh2+9
-	pLhvgeO04gjEx4Cv8eSuBwa0510B4cpGXwq3uBykbUq1Xw460sShmTdm32mgfvDdPVPfEqlGs4s
-	VwQs4sD8bXQYT2xyKpvF02CTWw4ZA1lJfcVzJSGS2PwQgPCscJXwBe+74vl1HLaqROliCvBm8Iz
-	q79iQeyfSt3S5weTDYNQT2tRSXVTiPDz4/v5A3KhqDDARpiJPOuN2QhI+L8Tks3S7FaD0IQ=
-X-Received: by 2002:a05:600c:4e05:b0:4a2:c2b:a91b with SMTP id 5b1f17b1804b1-4b6de973c54mr87477975e9.10.1794058750949;
-        Sat, 07 Nov 2026 05:39:10 -0800 (PST)
-Received: from smtpclient.apple ([77.83.249.177])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e2e9ad7esm71189685e9.1.2026.11.07.05.39.07
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sat, 07 Nov 2026 05:39:09 -0800 (PST)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=younes.io header.i=@younes.io header.a=rsa-sha256 header.s=purelymail3 header.b=oSVOeTmc;
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail3 header.b=mGhbr0/r
+DKIM-Signature: a=rsa-sha256; b=oSVOeTmcxLLUBomE4OrFL/BBmxJdRciQ+RsuktVDWk3vlhuRgZoWvhhB4stg/BHIev1M9AgQSz6yk052hjxuIWUctFdf8YfTN3q2yjUoKNgbPcum8NGvVZqHC+fICJijAmNi/53PaWE8YiiximjVdfrCXCd4Ure5g+8cZncGG/f4AIn5c6WG+8HhMPOhEuvbcNR3Tc94EjvrvzMeY/vvrbwT9ClCGsW+DGv3Oo0Qw5lnN9euLkoaoRymFq34YjfEoHuv7dvFrisZRoGlKkkrF07WNrsg5uSYslncazQaoIQOGnJZJShDlguL0jhlHuezqMBCIk0pd8goyIyCJL/Kxw==; s=purelymail3; d=younes.io; v=1; bh=Fc6IXWLwH5VrIIY4TpPhp1GmAfGDN5J90ztlIHB9e0c=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=mGhbr0/r7rErQIyfbQs8b8HFkifVWABVgEVIcYD7l8kfYuVa4UeErsSmyEzvm3LVD3ZzHYbk5Dp7vkE600JNYsFlue5uWgkwQkYgyEP1pMVAJtnIFEx4eWsvu7JGLOm8sCOv9wHPn0lZlpKOxjm51Wh+d3YiTiB8ZQupyj9lC2C4WWxoco59dbEN9yTYN1ebYAnuXTKxPims2vdSqGUwMUB0ztlo33r7WHlwgKf9R71rU4Gsa7vJgbDcihud2Mve2kOceA1VDfrdkvYYijI7aWkrBsxFBA9P/QeGBLuaSnOpXhVOjzRwPExPCtfXL8I7KJn6P9t2TZTOZ3ChmIp3xQ==; s=purelymail3; d=purelymail.com; v=1; bh=Fc6IXWLwH5VrIIY4TpPhp1GmAfGDN5J90ztlIHB9e0c=; h=Feedback-ID:Received:From:To:Subject:Date;
+Feedback-ID: 1578161:62319:null:purelymail
+X-Pm-Original-To: linux-media@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1341206260;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Sat, 07 Nov 2026 13:55:39 +0000 (UTC)
+From: Younes Akhouayri <git@younes.io>
+To: Philipp Stanner <phasta@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Matthew Brost <matthew.brost@intel.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH 7/8] rust: drm: Add JobQueue
+Date: Sat, 7 Nov 2026 13:55:38 +0000
+Message-ID: <kw-1794059738.215694434-299782-0@younes.io>
+In-Reply-To: <20261106140752.520386-9-phasta@kernel.org>
+References: <20261106140752.520386-2-phasta@kernel.org>
+ <20261106140752.520386-9-phasta@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,56 +76,53 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v7 2/4] media: rockchip: Add JPEG decoder driver
-From: Sergei Khomenkov <shomenkow@gmail.com>
-In-Reply-To: <20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
-Date: Sat, 7 Nov 2026 15:38:56 +0200
-Cc: Lucas Sinn <lucas.sinn@wolfvision.net>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <596F6C9E-4A5D-4AE8-8D26-7A7247050D7D@gmail.com>
-References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
- <20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
-To: Sascha Hauer <s.hauer@pengutronix.de>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-Hi Sascha,
+On Fri, 6 Nov 2026 15:07:52 +0100, Philipp Stanner wrote:
+> +
+> +            drop(jq); // Release lock.
+> +            T::run_job(work.fctx, runnable_job);
+> +            jq = work.inner.lock(); // Retake lock.
+> +
+> +            // run_job() above needs to be called without lock protection. Thus,
+> +            // it is possible that the driver instructed completion right before
+> +            // we could re-take the lock.
+> +            if jq.last_completed >= seqno {
+> +                *jq.as_mut().project().capacity += u64::from(job.cost);
+> +                fence.signal(Ok(()));
+> +
+> +                // Drop here directly if possible. Otherwise, let the DropWorker
+> +                // take care of it.
+> +                if core::mem::needs_drop::<T::JobDataType>() {
+> +                    jq.drop_list.push_back(job);
+> +                }
+> +            } else {
+> +                jq.running_jobs.push_back(job);
+> +            }
 
-> +/* Bytes per pixel used to size a coded buffer for a given resolution. */
-> +#define RKJPEGD_CODED_MAX_DEPTH	2
+When the IRQ wins the race, `complete_jobs_up_to_seqno()` kicks the DropWorker before the job lands on `drop_list`, and this branch pushes it there without kicking again. Am I reading it right that the job then sits on `drop_list` until the next completion or until the queue drops? If so, is that acceptable, or does this path need a `check_start_drop_worker()` too?
 
-A valid JPEG can be larger than 2 bytes per pixel. libjpeg-turbo sizes
-its worst case in tj3JPEGBufSize() at 3 bytes per pixel for 4:2:0, 4
-for 4:2:2 and 6 for 4:4:4, plus 2 KiB. Quality 100 noise comes close:
-2.75 bytes per pixel at 4:2:0, both from libjpeg and from the Hantro H1
-encoder on an RK3026. Such a frame does not fit the default buffer; by
-your commit message a truncated one fails through BUF_EMPTY, so the
-client gets an ERROR buffer for a valid picture. I can't run the VDPU720
-to confirm.
 
-The default only matters to clients that pass sizeimage 0. GStreamer
-1.26 asks for max_width * max_height / 2 of the enumerated range; at
-65528x65528 that wraps in its 32-bit calculate_max_sizeimage() to about
-255 MiB, which the driver keeps, so 1.26 is not affected. Its main
-branch (08ea5bc9fab9) asks for width * height bytes of the stream,
-which the driver keeps too, so these frames would not fit. Both are
-from reading the code; I did not run them on this driver.
+> +        self.with_inner(|inner| {
+> +            let mut inner = inner.lock();
+> +            let drop_list = core::mem::take(&mut inner.drop_list);
+> +            let waiting_jobs = core::mem::take(&mut inner.waiting_jobs);
+> +            let mut running_jobs = core::mem::take(&mut inner.running_jobs);
+> +
+> +            while let Some(job) = running_jobs.pop_front() {
+> +                let fence = job.fence.as_ref().expect("fence not present");
+> +                fence.signal(Err(self.err));
+> +            }
+> +
+> +            drop(inner);
+> +            drop(drop_list);
+> +            drop(waiting_jobs);
+> +            drop(running_jobs);
+> +        })
 
-Would 3 bytes per pixel be acceptable as the default, and as a floor
-for smaller requests, like the 2 bytes per pixel floor in 6/7 of your
-hantro-based v1? 4:4:4 at quality 100 would still not fit, but the
-subsampling is not known before the header is parsed.
+In the `while let Some(job) = running_jobs.pop_front()` loop, `job` goes out of scope at the end of each iteration, while `inner` is still locked. If `JobDataType` has a `Drop` impl, that ends up in `DriverFence::drop` -> `synchronize_rcu()`; so is sleeping there with the irq spinlock held intended, or should those jobs be collected and dropped after `drop(inner)` like `drop_list` and `waiting_jobs` are?
 
-Thanks,
-Sergei
+Regards,
+Younes
