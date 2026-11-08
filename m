@@ -1,78 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794140251;
-	b=zAr5+SEoVrJJV7e9lKYbIGOiAYdGoPpq7kPJhVAuknzP3C4v/MQHgS363kZrqqbwM2bp
-	 Js4rAmsYsWEtmqBCEQ7lL2XGSy6vKc7tTi5iNpUdoShQYbZseYISdvox7NVkkoiCH6pR7
-	 U1GLAakyIKznG4eVt6LhTl3NiD6qhV5hwBD8UvLX7TMeghw95po67wt7Y6W1Si8VC9wHL
-	 N6M64zUZTyJtKnqafyu3s9iqrkUPcOQZWUh45g3Q0nIqvFgIzcr8hYRZZ0RnXj3zscPzc
-	 bhwbk9EndbYMYC/F4KcoLYnbPDiiQ4QFwsnFNQfp4WLqSvM1QIvBQW1iMNBd81TH1eQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794140251;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=A9T3kebVC4ppMNHbKazVT18cQwoFokrR7mtviiZqRvo=;
-	b=FQDs3OLcYEktzvbojXxDBpigiCbu/BJfNP7jgXE3F6LjAjAjslJ1oEeIGq6bvDZBvyLX
-	 8FaL4ECTMnBVMrx698S6xEIMksHZhswlvZKEf/KuPy/prCqTkaovHrvR3SNbhDCd7igc4
-	 VuhacfTB6TAHl3P39SAe8JY8NoBGO6CkUUh4/qjrjzsk6Z460nkPo6eO3ubuibWM2bqGr
-	 I5p/Ug5ye9/7jDDPVO9D8BSMlWnyC37Y2sVkRuAw55yYaQlPQC8gUBBWWxhKzs2Hccex1
-	 t03CMDdDRF5x4fO14KdhCewA4CF1wGlTk7fFk8Ds4cYGb2mkIZO+BQZ5MUb4eYMEiwQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ENIK5G+9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893C7606D80B;
-	Sun,  8 Nov 2026 12:17:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ENIK5G+9
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794140250;
-	b=WgKgSVP1D8Lnd66lV4eeMcn3gYuP4Il+GYlQXSkEAGrP9lBW402rTsCufy4rqkRgqPN+
-	 ODTl5sloUipYpNv9ycV1SIkx5WNSdHbWxEib832EA5lWRnJDGhbWnH1t4uCQS3sHVQAiN
-	 ddLGG9bcF0UBabq5TlKg+jRiwa1ZZzC+lpT+RLKduLbVoIoHnoKs2HN3Gi91Ty1QNW+A7
-	 hI56C+i6SHE37Xv8Zi7iszj+0BxI1WWFAevGxzbdlXcgmE4bxJ1sU/cKKypsB013HzYPs
-	 aouEwuy1NapgUKNRVzuV80GxS2oMbPgOH9p4EG5AN3ncpGPNXk07IDa/wPR1B13JLxw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794140250;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=A9T3kebVC4ppMNHbKazVT18cQwoFokrR7mtviiZqRvo=;
-	b=KvWGApn1zRDjKCZJPH+FgwMhNexwz6fPTwzrLksUEv0gTnvRL89QF6uV5O2k8LUSQawB
-	 vprldx6rBRCCT8GBI0R3sppFiPkSDJvZ9qHkWq50fgQQ36J1Ljxy6GnE6uP8a+fCSqPjI
-	 6grPwuJ48RPN8nP31tqmc5q0gZ0vxFcFib5Ry+NGNEdRHmZiSw19f5B3iVZ4/8F9TqSdd
-	 Uz/T6LxWYXVbr5Ydf02hWyoEoqYiTPzFgmPsYgL4j49mcbXMFoLa42YahtDRxXwk5mdCb
-	 Pu/l1BLa93SzX4MIFhNkFJ0slguEucRtN9IkjtYzgbhTBMTzdDQXEV5OlbNqTWrgbAg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794140946;
+	b=sMQCboHbyfUQgTd11kM3wT1riePun4JMwn2BXt4TyNvA/koCRHJ0Ui8cYNILunyeAVgp
+	 gsVr94VfZbZT0hyVHm5r4RRT9bvu6JWa+vptuqr22PKN960Y27MOuSjNsK2TXa+3CpUNP
+	 1TT3crWFffjQa1cMEMQ566biAZk77IriIyVb8YbftAmYCEWCH8pleDJBA+SircGOXre6B
+	 r6RjkhZ8OZDNbjV1ei2uZBk+VN/p1jCnj4glQXel3+WGkx0JT4z7ruxoMnnzs1od1jpR7
+	 rgxtuPh+VRwnpyoXpIa1cJ2Hb3cOda+oiXeOGftkRDQRh7J1fBOYwMhYe7ecwlrk8iw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794140946;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8Si8+elJrOqJ4FlfCJWkOKmX5QdVoxka9MT8fi02MVY=;
+	b=n17Xj9gdwEFPi0rGbLBY42VGNnI8chUmXZg5XowqIgDc+c6ySZiR/JrCaN0K5Pdz/3a7
+	 VLf/8DguMH2YBleJh/lC9NCPUZJif2/aiAfFpeWK2ZNYo13mDK8bHjC0Wtk2YFrR749IS
+	 aolJ+SZDD+EkzyQ5Q4DgsPfk6gTCX6W3/ZQ2ellbekHf5ChEl6ACeTlRIX2zi5MxjTOcX
+	 7xV7ixAnTVbszM6F+QzK1p1rfljCYfeNrU4LYZYE32/AzwvA+OrAlf1uv60HsODNs4I1j
+	 Kt0MmjTMFT3dUo6JxId4gPOaGTbbrtUwoAEJzPtfN6ny1maCieDgurfDC2e2PfdMn5A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="S+Yg+so/";
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8F8431F008A5;
-	Sun,  8 Nov 2026 12:17:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794140250;
-	bh=A9T3kebVC4ppMNHbKazVT18cQwoFokrR7mtviiZqRvo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ENIK5G+90u8fx7/HHyAK1sAfwJ9ib57iPpvKTeU2AyrCva7Khoai96HWwBAW+g2K3
-	 6qWj8mvCTt24Z1hwfPbExXFtSBVQ2Fg/B7xvtVkHWaVsHJ87aoGE/c7pOVPBuHiQ6m
-	 yinYltyezmMIX0oMHrlKTIXOWDas7JDv25axUbHwdKPXGCqMDMzJCRq/oo7HC1+uxu
-	 /JTy5XHw2LnsB2hQa4GB7egwKmwMCtC+7KJXp+qPKGhsZphaou2J2DJWM4T1SuHM2S
-	 7eTu4EGwXbhclln7z2NQnfEx+Y20CLwC7Ems4VOusANm9EO0Ln5rzlcdxNY/w7FleD
-	 gigoPh0frhKbg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 111DC47F4F;
-	Sun,  8 Nov 2026 12:17:28 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sun, 08 Nov 2026 12:17:25 +0000
-Subject: [PATCH v3 2/2] media: imx258: Reuse existing CCS defines
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33ABA606A320
+	for <linux-media@vger.kernel.org>; Sun,  8 Nov 2026 12:29:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33ABA606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S+Yg+so/
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-37071c0f42aso166249eec.0
+        for <linux-media@vger.kernel.org>; Sun, 08 Nov 2026 04:29:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794140944; x=1794745744; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8Si8+elJrOqJ4FlfCJWkOKmX5QdVoxka9MT8fi02MVY=;
+        b=S+Yg+so/wrYSMEqce3JawMB8vT2zIoQojZ/DHUYMAuB5JrUIMjTCcq/nFfwR38Rqgt
+         6e4j3Rr3HdIB+zBUDjJzr7VFBOs8LZRU0hSmSWAgqYRY+c4yiQqdYHa3aNVm4Lk6rtFt
+         EadmBXCYDUD8OpJablBSr7NsiOt0bMSooAhCOr5fPlSWe+i1CsGj0a0WCso9uaXh2/4n
+         aM9vHDv+d81UjDxeyl34pBEl3R/xzIASSnA9eEtXc7pCNSWS+7aU+b1Ux9UOpI9dbxd0
+         b9jBLeMU8Es4H7PeoLjhUOVcaZp76C3YXdTk2AbMwpW5nYamlDQ7r+jojZ8JRLkBIjVF
+         pudQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794140944; x=1794745744;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8Si8+elJrOqJ4FlfCJWkOKmX5QdVoxka9MT8fi02MVY=;
+        b=W8sDJ+ItMCUsIbQFsqr8IIGyxnAl5WudNkmeXPKFa5MHTNEpclkFWHZX0dTNrQHttK
+         EbQMyzrKZ/bkTpYFTbH/ImuJOypYsZ5ZFJqUbXEKT5/ViNil4QFiaG0ppwA4LXSyD/Bi
+         8nnf1pmVqpNarLRMgseZeUuY6hkOiIAJdIC6MbTrBAtH384eXlPtv9prGe9rk080N/UF
+         6QCb9jHE/CrvDThwD57ya5ai5rbB22f4AkQvD03j9V0EkyAdR56JfKqFMnAGvAIzerT9
+         iqbJzmg79DEmvRE0uIpfbRlKkUTsFNgJYJ+9rVlxsk/GNGHQJYvvvYDSIVxvjQZTJMMe
+         fjkg==
+X-Forwarded-Encrypted: i=1; AL+hErEdz7UJk+C4bfimiCJ9gvsDGScLLjCZABGacbfJwdy5hrAPnYpiqpEM8n4HGHnjJwmB7AfU5JZCnENWHA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/RxZLOBFFm6JRUMQGfWV72BgKHB5shzXHLkd0pSJWPUZ0GcCFb
+	EwnlC8B94X1GB7sZhkxyeMTtK4vVGcoJQWZo+PjIQFN5qXWcHU3Zt7Cb
+X-Gm-Gg: AYBFou2kgYo7nvhQwf+tnOKVgdeQFcnEYR2WJJhDhvA6HWJ/2BhAUs66kxkWG4UxaD0
+	d1KvLrA2LDPfoc5HVLIajprJjGCNAwKU7bSLMpH+CxIlsDB+sQQbB5tTLbr31c47dFSvQxoihwO
+	dZeuWUfLwlqeCPCPB2OFXez/7iSIJqT+yyjQl5f80RuUJ0lXH+jDLZ+LmvJCLMVqqqkPHxYcemc
+	jyqe4vBp5YIDnG9fMcXFyrCzKQQ0xbUjkZuqgXHYBo3uAx2RoI7Q7Te8ADhQNhchqR6seTJYxQb
+	EV4lprYlvcNI7NjJTXNA4XlWB9dDPL4qTIB3HLFyH2gWNhZkPxAeOEDiI9HUHGh7ywik6181tR+
+	o17PxDuVJzN4nqssAaW60R5RWMNYuByA+zGHi+R43nzuIuTYl5f6f/jmr+9c4qN5cK71R5zQZtj
+	7hOA6sr9Y6TA+eZ4HiA0zJhQlVv1A0hPDL1plqpO768wf3AnOrO6ZuhCFQwUkA8le2Hc5wDKQRN
+	h0WZgzdreIjez1RA30dQxB49swZ2hiA8HvRWq4Flwtdj3uMHtTnEVr0DoZrch+DX5B03dq7gxpF
+	P1bJzpnPjSNLZVoCLuczemszY0u6ikffcgEk5Eiyc8InRlhlkYFiJARIYlxtgx2xFvKj4BBMGuR
+	KAxHltZxszMcX5Cb79J1lJ4ewbPveS/l6
+X-Received: by 2002:a05:7022:418c:b0:1b2:3448:840f with SMTP id a92af1059eb24-1b39fecac01mr3000460c88.7.1794140944129;
+        Sun, 08 Nov 2026 04:29:04 -0800 (PST)
+Received: from codespaces-88e7e5.2t4prynt4dlezbzls5ze3dxsqg.rx.internal.cloudapp.net ([13.71.3.101])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3731487edsm6036253c88.2.2026.11.08.04.29.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 04:29:03 -0800 (PST)
+From: Lame Morupisi <lamemorupisi12@gmail.com>
+To: hansg@kernel.org
+Cc: mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	andy@kernel.org,
+	gregkh@linuxfoundation.org,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Lame Morupisi <lamemorupisi12@gmail.com>
+Subject: [PATCH] staging: media: atomisp: Fix block comment formatting
+Date: Sun,  8 Nov 2026 12:28:40 +0000
+Message-ID: <20261108122840.85622-1-lamemorupisi12@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -82,627 +101,62 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-imx355-ccsify-v3-2-366ce7ae1bef@ixit.cz>
-References: <20261108-imx355-ccsify-v3-0-366ce7ae1bef@ixit.cz>
-In-Reply-To: <20261108-imx355-ccsify-v3-0-366ce7ae1bef@ixit.cz>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=20747; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=uIR21wrEB4MN4gmhs1AEt4JnqKyYA1wf3dfn1f2BCkE=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq8GhXVyRCiVPeEX3MZnSrqFIzM1mUhJBTPWqHZ
- 1C8z5rwpgGJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCavBoVwAKCRBgAj/E00kg
- cnqXEACweR52yE51xGqUswCftkBhbEhPRF20E/Q1dWM94UBy/Y3nUZX6rj3w84U0V/k1aMbvtDu
- SxXkghU9qReSq5emp4zp48mbUkx4/9s4JKQ54n4HzRtwowYnoW3Mq5CUb0pAXTRZC401PnLl49Y
- fqWi/BPutHQD614Mu8B6VAV9P9GKkCLlJUTi4s9XtyFhDWlnUqRIgJjOi84oED1t3T4vlRl+HRT
- YS7ZDg3Mv7pnKOSiAEjlTJMWlrPPmWJYE1njQKiio9QKEOu5RtWxKZ8AzrxoqSy45A68n0d3eCz
- tPRhDngbGMtGTGzm9um1gG47MAU3o+ULbvQ7+VX3+gRi7hpvzl6iY03I8xF+dsCLfxH66UeUtUU
- 4KKgIlzzPrfFvsgeLpUtK9y+s6uHg+xmjyekL3puVBU97ice2qfi0q6qqN7vnX1LsLxiVDKcSsh
- e8taE3QLilYd4tZ8iBnEgUqFrfCRIDHtMu98DCWL5IHMwxkrPvejZI7q5ey2HxxGoMtWxYEdwFg
- 8u0uZFG4FXnoiaWbVWIfz8rcoCK8OBUYEqF6qb5M8FYiUWXEk5CaLPEZJ8AxehDRTJGOv/5GqBG
- 92ad2qNAjw+75V3X+1nyrljcSrIWdqxELilVeNqCc/NWak4LA43HqOJnBU5nGiTqneTyVPxGrWN
- tMnTP3l6e9qgJxw==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: David Heidelberg <david@ixit.cz>
+Align the multiline comment describing the MIPI frame memory
+layout with the kernel coding style.
 
-The driver may not be MIPI CCS compliant, but does use same address and
-often set same values as compliant drivers. Do not redefine registers we
-already know and are standard.
+Move the opening comment delimiter to its own line and align
+the subsequent lines consistently. This is a formatting-only
+change and does not affect driver functionality.
 
-No functional changes.
-
-Signed-off-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: Lame Morupisi <lamemorupisi12@gmail.com>
 ---
- drivers/media/i2c/imx258.c | 218 +++++++++++++++++++--------------------------
- 1 file changed, 90 insertions(+), 128 deletions(-)
+ .../staging/media/atomisp/pci/sh_css_mipi.c   | 31 ++++++++++---------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/media/i2c/imx258.c b/drivers/media/i2c/imx258.c
-index 065c33380f60c..231ab0037579a 100644
---- a/drivers/media/i2c/imx258.c
-+++ b/drivers/media/i2c/imx258.c
-@@ -10,128 +10,89 @@
- #include <linux/regulator/consumer.h>
- #include <linux/unaligned.h>
- 
- #include <media/v4l2-cci.h>
- #include <media/v4l2-ctrls.h>
- #include <media/v4l2-device.h>
- #include <media/v4l2-fwnode.h>
- 
--#define IMX258_REG_MODE_SELECT		CCI_REG8(0x0100)
--#define IMX258_MODE_STANDBY		0x00
--#define IMX258_MODE_STREAMING		0x01
--
--#define IMX258_REG_RESET		CCI_REG8(0x0103)
-+#include "ccs/ccs-regs.h"
- 
- /* Chip ID */
--#define IMX258_REG_CHIP_ID		CCI_REG16(0x0016)
- #define IMX258_CHIP_ID			0x0258
- 
- /* V_TIMING internal */
- #define IMX258_VTS_30FPS		0x0c50
- #define IMX258_VTS_30FPS_2K		0x0638
- #define IMX258_VTS_30FPS_VGA		0x034c
- #define IMX258_VTS_MAX			65525
- 
- /* HBLANK control - read only */
- #define IMX258_PPL_DEFAULT		5352
- 
- /* Exposure control */
--#define IMX258_REG_EXPOSURE		CCI_REG16(0x0202)
- #define IMX258_EXPOSURE_OFFSET		10
- #define IMX258_EXPOSURE_MIN		4
- #define IMX258_EXPOSURE_STEP		1
- #define IMX258_EXPOSURE_DEFAULT		0x640
- #define IMX258_EXPOSURE_MAX		(IMX258_VTS_MAX - IMX258_EXPOSURE_OFFSET)
- 
- /* Analog gain control */
--#define IMX258_REG_ANALOG_GAIN		CCI_REG16(0x0204)
- #define IMX258_ANA_GAIN_MIN		0
- #define IMX258_ANA_GAIN_MAX		480
- #define IMX258_ANA_GAIN_STEP		1
- #define IMX258_ANA_GAIN_DEFAULT		0x0
- 
- /* Digital gain control */
- #define IMX258_REG_GR_DIGITAL_GAIN	CCI_REG16(0x020e)
- #define IMX258_REG_R_DIGITAL_GAIN	CCI_REG16(0x0210)
- #define IMX258_REG_B_DIGITAL_GAIN	CCI_REG16(0x0212)
- #define IMX258_REG_GB_DIGITAL_GAIN	CCI_REG16(0x0214)
- #define IMX258_DGTL_GAIN_MIN		0
- #define IMX258_DGTL_GAIN_MAX		4096	/* Max = 0xFFF */
- #define IMX258_DGTL_GAIN_DEFAULT	1024
- #define IMX258_DGTL_GAIN_STEP		1
- 
- /* HDR control */
--#define IMX258_REG_HDR			CCI_REG8(0x0220)
--#define IMX258_HDR_ON			BIT(0)
--#define IMX258_REG_HDR_RATIO		CCI_REG8(0x0222)
- #define IMX258_HDR_RATIO_MIN		0
- #define IMX258_HDR_RATIO_MAX		5
- #define IMX258_HDR_RATIO_STEP		1
- #define IMX258_HDR_RATIO_DEFAULT	0x0
- 
--/* Test Pattern Control */
--#define IMX258_REG_TEST_PATTERN		CCI_REG16(0x0600)
--
- #define IMX258_CLK_BLANK_STOP		CCI_REG8(0x4040)
- 
--/* Orientation */
--#define REG_MIRROR_FLIP_CONTROL		CCI_REG8(0x0101)
--#define REG_CONFIG_MIRROR_HFLIP		0x01
--#define REG_CONFIG_MIRROR_VFLIP		0x02
--
- /* IMX258 native and active pixel array size. */
- #define IMX258_NATIVE_WIDTH		4224U
- #define IMX258_NATIVE_HEIGHT		3192U
- #define IMX258_PIXEL_ARRAY_LEFT		8U
- #define IMX258_PIXEL_ARRAY_TOP		16U
- #define IMX258_PIXEL_ARRAY_WIDTH	4208U
- #define IMX258_PIXEL_ARRAY_HEIGHT	3120U
- 
- /* regs */
--#define IMX258_REG_PLL_MULT_DRIV                  CCI_REG8(0x0310)
- #define IMX258_REG_IVTPXCK_DIV                    CCI_REG8(0x0301)
- #define IMX258_REG_IVTSYCK_DIV                    CCI_REG8(0x0303)
- #define IMX258_REG_PREPLLCK_VT_DIV                CCI_REG8(0x0305)
- #define IMX258_REG_IOPPXCK_DIV                    CCI_REG8(0x0309)
- #define IMX258_REG_IOPSYCK_DIV                    CCI_REG8(0x030b)
- #define IMX258_REG_PREPLLCK_OP_DIV                CCI_REG8(0x030d)
- #define IMX258_REG_PHASE_PIX_OUTEN                CCI_REG8(0x3030)
- #define IMX258_REG_PDPIX_DATA_RATE                CCI_REG8(0x3032)
- #define IMX258_REG_SCALE_MODE                     CCI_REG8(0x0401)
- #define IMX258_REG_SCALE_MODE_EXT                 CCI_REG8(0x3038)
- #define IMX258_REG_AF_WINDOW_MODE                 CCI_REG8(0x7bcd)
--#define IMX258_REG_FRM_LENGTH_CTL                 CCI_REG8(0x0350)
--#define IMX258_REG_CSI_LANE_MODE                  CCI_REG8(0x0114)
- #define IMX258_REG_X_EVN_INC                      CCI_REG8(0x0381)
- #define IMX258_REG_X_ODD_INC                      CCI_REG8(0x0383)
- #define IMX258_REG_Y_EVN_INC                      CCI_REG8(0x0385)
- #define IMX258_REG_Y_ODD_INC                      CCI_REG8(0x0387)
--#define IMX258_REG_BINNING_MODE                   CCI_REG8(0x0900)
--#define IMX258_REG_BINNING_TYPE_V                 CCI_REG8(0x0901)
- #define IMX258_REG_FORCE_FD_SUM                   CCI_REG8(0x300d)
--#define IMX258_REG_DIG_CROP_X_OFFSET              CCI_REG16(0x0408)
--#define IMX258_REG_DIG_CROP_Y_OFFSET              CCI_REG16(0x040a)
--#define IMX258_REG_DIG_CROP_IMAGE_WIDTH           CCI_REG16(0x040c)
--#define IMX258_REG_DIG_CROP_IMAGE_HEIGHT          CCI_REG16(0x040e)
--#define IMX258_REG_SCALE_M                        CCI_REG16(0x0404)
--#define IMX258_REG_X_OUT_SIZE                     CCI_REG16(0x034c)
--#define IMX258_REG_Y_OUT_SIZE                     CCI_REG16(0x034e)
--#define IMX258_REG_X_ADD_STA                      CCI_REG16(0x0344)
--#define IMX258_REG_Y_ADD_STA                      CCI_REG16(0x0346)
--#define IMX258_REG_X_ADD_END                      CCI_REG16(0x0348)
--#define IMX258_REG_Y_ADD_END                      CCI_REG16(0x034a)
--#define IMX258_REG_EXCK_FREQ                      CCI_REG16(0x0136)
--#define IMX258_REG_CSI_DT_FMT                     CCI_REG16(0x0112)
--#define IMX258_REG_LINE_LENGTH_PCK                CCI_REG16(0x0342)
- #define IMX258_REG_SCALE_M_EXT                    CCI_REG16(0x303a)
--#define IMX258_REG_FRM_LENGTH_LINES               CCI_REG16(0x0340)
- #define IMX258_REG_FINE_INTEG_TIME                CCI_REG8(0x0200)
--#define IMX258_REG_PLL_IVT_MPY                    CCI_REG16(0x0306)
--#define IMX258_REG_PLL_IOP_MPY                    CCI_REG16(0x030e)
-+/* Link rate registers: two 16-bit halves, unlike the CCS 32-bit one */
- #define IMX258_REG_REQ_LINK_BIT_RATE_MBPS_H       CCI_REG16(0x0820)
- #define IMX258_REG_REQ_LINK_BIT_RATE_MBPS_L       CCI_REG16(0x0822)
- 
- struct imx258_reg_list {
- 	u32 num_of_regs;
- 	const struct cci_reg_sequence *regs;
- };
- 
-@@ -175,147 +136,147 @@ struct imx258_mode {
- };
- 
- /*
-  * 4208x3120 @ 30 fps needs 1267Mbps/lane, 4 lanes.
-  * To avoid further computation of clock settings, adopt the same per
-  * lane data rate when using 2 lanes, thus allowing a maximum of 15fps.
-  */
- static const struct cci_reg_sequence mipi_1267mbps_19_2mhz_2l[] = {
--	{ IMX258_REG_EXCK_FREQ, 0x1333 },
-+	{ CCS_R_EXTCLK_FREQUENCY_MHZ, 0x1333 },
- 	{ IMX258_REG_IVTPXCK_DIV, 10 },
- 	{ IMX258_REG_IVTSYCK_DIV, 2 },
- 	{ IMX258_REG_PREPLLCK_VT_DIV, 3 },
--	{ IMX258_REG_PLL_IVT_MPY, 198 },
-+	{ CCS_R_PLL_MULTIPLIER, 198 },
- 	{ IMX258_REG_IOPPXCK_DIV, 10 },
- 	{ IMX258_REG_IOPSYCK_DIV, 1 },
- 	{ IMX258_REG_PREPLLCK_OP_DIV, 2 },
--	{ IMX258_REG_PLL_IOP_MPY, 216 },
--	{ IMX258_REG_PLL_MULT_DRIV, 0 },
-+	{ CCS_R_OP_PLL_MULTIPLIER, 216 },
-+	{ CCS_R_PLL_MODE, 0 },
- 
--	{ IMX258_REG_CSI_LANE_MODE, 1 },
-+	{ CCS_R_CSI_LANE_MODE, 1 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_H, 1267 * 2 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_L, 0 },
- };
- 
- static const struct cci_reg_sequence mipi_1267mbps_19_2mhz_4l[] = {
--	{ IMX258_REG_EXCK_FREQ, 0x1333 },
-+	{ CCS_R_EXTCLK_FREQUENCY_MHZ, 0x1333 },
- 	{ IMX258_REG_IVTPXCK_DIV, 5 },
- 	{ IMX258_REG_IVTSYCK_DIV, 2 },
- 	{ IMX258_REG_PREPLLCK_VT_DIV, 3 },
--	{ IMX258_REG_PLL_IVT_MPY, 198 },
-+	{ CCS_R_PLL_MULTIPLIER, 198 },
- 	{ IMX258_REG_IOPPXCK_DIV, 10 },
- 	{ IMX258_REG_IOPSYCK_DIV, 1 },
- 	{ IMX258_REG_PREPLLCK_OP_DIV, 2 },
--	{ IMX258_REG_PLL_IOP_MPY, 216 },
--	{ IMX258_REG_PLL_MULT_DRIV, 0 },
-+	{ CCS_R_OP_PLL_MULTIPLIER, 216 },
-+	{ CCS_R_PLL_MODE, 0 },
- 
--	{ IMX258_REG_CSI_LANE_MODE, 3 },
-+	{ CCS_R_CSI_LANE_MODE, 3 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_H, 1267 * 4 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_L, 0 },
- };
- 
- static const struct cci_reg_sequence mipi_1272mbps_24mhz_2l[] = {
--	{ IMX258_REG_EXCK_FREQ, 0x1800 },
-+	{ CCS_R_EXTCLK_FREQUENCY_MHZ, 0x1800 },
- 	{ IMX258_REG_IVTPXCK_DIV, 10 },
- 	{ IMX258_REG_IVTSYCK_DIV, 2 },
- 	{ IMX258_REG_PREPLLCK_VT_DIV, 4 },
--	{ IMX258_REG_PLL_IVT_MPY, 212 },
-+	{ CCS_R_PLL_MULTIPLIER, 212 },
- 	{ IMX258_REG_IOPPXCK_DIV, 10 },
- 	{ IMX258_REG_IOPSYCK_DIV, 1 },
- 	{ IMX258_REG_PREPLLCK_OP_DIV, 2 },
--	{ IMX258_REG_PLL_IOP_MPY, 216 },
--	{ IMX258_REG_PLL_MULT_DRIV, 0 },
-+	{ CCS_R_OP_PLL_MULTIPLIER, 216 },
-+	{ CCS_R_PLL_MODE, 0 },
- 
--	{ IMX258_REG_CSI_LANE_MODE, 1 },
-+	{ CCS_R_CSI_LANE_MODE, 1 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_H, 1272 * 2 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_L, 0 },
- };
- 
- static const struct cci_reg_sequence mipi_1272mbps_24mhz_4l[] = {
--	{ IMX258_REG_EXCK_FREQ, 0x1800 },
-+	{ CCS_R_EXTCLK_FREQUENCY_MHZ, 0x1800 },
- 	{ IMX258_REG_IVTPXCK_DIV, 5 },
- 	{ IMX258_REG_IVTSYCK_DIV, 2 },
- 	{ IMX258_REG_PREPLLCK_VT_DIV, 4 },
--	{ IMX258_REG_PLL_IVT_MPY, 212 },
-+	{ CCS_R_PLL_MULTIPLIER, 212 },
- 	{ IMX258_REG_IOPPXCK_DIV, 10 },
- 	{ IMX258_REG_IOPSYCK_DIV, 1 },
- 	{ IMX258_REG_PREPLLCK_OP_DIV, 2 },
--	{ IMX258_REG_PLL_IOP_MPY, 216 },
--	{ IMX258_REG_PLL_MULT_DRIV, 0 },
-+	{ CCS_R_OP_PLL_MULTIPLIER, 216 },
-+	{ CCS_R_PLL_MODE, 0 },
- 
--	{ IMX258_REG_CSI_LANE_MODE, 3 },
-+	{ CCS_R_CSI_LANE_MODE, 3 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_H, 1272 * 4 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_L, 0 },
- };
- 
- static const struct cci_reg_sequence mipi_640mbps_19_2mhz_2l[] = {
--	{ IMX258_REG_EXCK_FREQ, 0x1333 },
-+	{ CCS_R_EXTCLK_FREQUENCY_MHZ, 0x1333 },
- 	{ IMX258_REG_IVTPXCK_DIV, 5 },
- 	{ IMX258_REG_IVTSYCK_DIV, 2 },
- 	{ IMX258_REG_PREPLLCK_VT_DIV, 3 },
--	{ IMX258_REG_PLL_IVT_MPY, 100 },
-+	{ CCS_R_PLL_MULTIPLIER, 100 },
- 	{ IMX258_REG_IOPPXCK_DIV, 10 },
- 	{ IMX258_REG_IOPSYCK_DIV, 1 },
- 	{ IMX258_REG_PREPLLCK_OP_DIV, 2 },
--	{ IMX258_REG_PLL_IOP_MPY, 216 },
--	{ IMX258_REG_PLL_MULT_DRIV, 0 },
-+	{ CCS_R_OP_PLL_MULTIPLIER, 216 },
-+	{ CCS_R_PLL_MODE, 0 },
- 
--	{ IMX258_REG_CSI_LANE_MODE, 1 },
-+	{ CCS_R_CSI_LANE_MODE, 1 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_H, 640 * 2 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_L, 0 },
- };
- 
- static const struct cci_reg_sequence mipi_640mbps_19_2mhz_4l[] = {
--	{ IMX258_REG_EXCK_FREQ, 0x1333 },
-+	{ CCS_R_EXTCLK_FREQUENCY_MHZ, 0x1333 },
- 	{ IMX258_REG_IVTPXCK_DIV, 5 },
- 	{ IMX258_REG_IVTSYCK_DIV, 2 },
- 	{ IMX258_REG_PREPLLCK_VT_DIV, 3 },
--	{ IMX258_REG_PLL_IVT_MPY, 100 },
-+	{ CCS_R_PLL_MULTIPLIER, 100 },
- 	{ IMX258_REG_IOPPXCK_DIV, 10 },
- 	{ IMX258_REG_IOPSYCK_DIV, 1 },
- 	{ IMX258_REG_PREPLLCK_OP_DIV, 2 },
--	{ IMX258_REG_PLL_IOP_MPY, 216 },
--	{ IMX258_REG_PLL_MULT_DRIV, 0 },
-+	{ CCS_R_OP_PLL_MULTIPLIER, 216 },
-+	{ CCS_R_PLL_MODE, 0 },
- 
--	{ IMX258_REG_CSI_LANE_MODE, 3 },
-+	{ CCS_R_CSI_LANE_MODE, 3 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_H, 640 * 4 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_L, 0 },
- };
- 
- static const struct cci_reg_sequence mipi_642mbps_24mhz_2l[] = {
--	{ IMX258_REG_EXCK_FREQ, 0x1800 },
-+	{ CCS_R_EXTCLK_FREQUENCY_MHZ, 0x1800 },
- 	{ IMX258_REG_IVTPXCK_DIV, 5 },
- 	{ IMX258_REG_IVTSYCK_DIV, 2 },
- 	{ IMX258_REG_PREPLLCK_VT_DIV, 4 },
--	{ IMX258_REG_PLL_IVT_MPY, 107 },
-+	{ CCS_R_PLL_MULTIPLIER, 107 },
- 	{ IMX258_REG_IOPPXCK_DIV, 10 },
- 	{ IMX258_REG_IOPSYCK_DIV, 1 },
- 	{ IMX258_REG_PREPLLCK_OP_DIV, 2 },
--	{ IMX258_REG_PLL_IOP_MPY, 216 },
--	{ IMX258_REG_PLL_MULT_DRIV, 0 },
-+	{ CCS_R_OP_PLL_MULTIPLIER, 216 },
-+	{ CCS_R_PLL_MODE, 0 },
- 
--	{ IMX258_REG_CSI_LANE_MODE, 1 },
-+	{ CCS_R_CSI_LANE_MODE, 1 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_H, 642 * 2 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_L, 0 },
- };
- 
- static const struct cci_reg_sequence mipi_642mbps_24mhz_4l[] = {
--	{ IMX258_REG_EXCK_FREQ, 0x1800 },
-+	{ CCS_R_EXTCLK_FREQUENCY_MHZ, 0x1800 },
- 	{ IMX258_REG_IVTPXCK_DIV, 5 },
- 	{ IMX258_REG_IVTSYCK_DIV, 2 },
- 	{ IMX258_REG_PREPLLCK_VT_DIV, 4 },
--	{ IMX258_REG_PLL_IVT_MPY, 107 },
-+	{ CCS_R_PLL_MULTIPLIER, 107 },
- 	{ IMX258_REG_IOPPXCK_DIV, 10 },
- 	{ IMX258_REG_IOPSYCK_DIV, 1 },
- 	{ IMX258_REG_PREPLLCK_OP_DIV, 2 },
--	{ IMX258_REG_PLL_IOP_MPY, 216 },
--	{ IMX258_REG_PLL_MULT_DRIV, 0 },
-+	{ CCS_R_OP_PLL_MULTIPLIER, 216 },
-+	{ CCS_R_PLL_MODE, 0 },
- 
--	{ IMX258_REG_CSI_LANE_MODE, 3 },
-+	{ CCS_R_CSI_LANE_MODE, 3 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_H, 642 * 4 },
- 	{ IMX258_REG_REQ_LINK_BIT_RATE_MBPS_L, 0 },
- };
- 
- static const struct cci_reg_sequence mode_common_regs[] = {
- 	{ CCI_REG8(0x3051), 0x00 },
- 	{ CCI_REG8(0x6B11), 0xCF },
- 	{ CCI_REG8(0x7FF0), 0x08 },
-@@ -353,34 +314,34 @@ static const struct cci_reg_sequence mode_common_regs[] = {
- 	{ CCI_REG8(0x9104), 0x00 },
- 	{ CCI_REG8(0x4648), 0x7F },
- 	{ CCI_REG8(0x7420), 0x00 },
- 	{ CCI_REG8(0x7421), 0x1C },
- 	{ CCI_REG8(0x7422), 0x00 },
- 	{ CCI_REG8(0x7423), 0xD7 },
- 	{ CCI_REG8(0x5F04), 0x00 },
- 	{ CCI_REG8(0x5F05), 0xED },
--	{IMX258_REG_CSI_DT_FMT, 0x0a0a},
--	{IMX258_REG_LINE_LENGTH_PCK, 5352},
--	{IMX258_REG_X_ADD_STA, 0},
--	{IMX258_REG_Y_ADD_STA, 0},
--	{IMX258_REG_X_ADD_END, 4207},
--	{IMX258_REG_Y_ADD_END, 3119},
-+	{CCS_R_CSI_DATA_FORMAT, 0x0a0a},
-+	{CCS_R_LINE_LENGTH_PCK, 5352},
-+	{CCS_R_X_ADDR_START, 0},
-+	{CCS_R_Y_ADDR_START, 0},
-+	{CCS_R_X_ADDR_END, 4207},
-+	{CCS_R_Y_ADDR_END, 3119},
- 	{IMX258_REG_X_EVN_INC, 1},
- 	{IMX258_REG_X_ODD_INC, 1},
- 	{IMX258_REG_Y_EVN_INC, 1},
- 	{IMX258_REG_Y_ODD_INC, 1},
--	{IMX258_REG_DIG_CROP_X_OFFSET, 0},
--	{IMX258_REG_DIG_CROP_Y_OFFSET, 0},
--	{IMX258_REG_DIG_CROP_IMAGE_WIDTH, 4208},
-+	{CCS_R_DIGITAL_CROP_X_OFFSET, 0},
-+	{CCS_R_DIGITAL_CROP_Y_OFFSET, 0},
-+	{CCS_R_DIGITAL_CROP_IMAGE_WIDTH, 4208},
- 	{IMX258_REG_SCALE_MODE_EXT, 0},
- 	{IMX258_REG_SCALE_M_EXT, 16},
- 	{IMX258_REG_FORCE_FD_SUM, 0},
--	{IMX258_REG_FRM_LENGTH_CTL, 0},
--	{IMX258_REG_ANALOG_GAIN, 0},
-+	{CCS_R_FRAME_LENGTH_CTRL, 0},
-+	{CCS_R_ANALOG_GAIN_CODE_GLOBAL, 0},
- 	{IMX258_REG_GR_DIGITAL_GAIN, 256},
- 	{IMX258_REG_R_DIGITAL_GAIN, 256},
- 	{IMX258_REG_B_DIGITAL_GAIN, 256},
- 	{IMX258_REG_GB_DIGITAL_GAIN, 256},
- 	{IMX258_REG_AF_WINDOW_MODE, 0},
- 	{ CCI_REG8(0x94DC), 0x20 },
- 	{ CCI_REG8(0x94DD), 0x20 },
- 	{ CCI_REG8(0x94DE), 0x20 },
-@@ -390,47 +351,47 @@ static const struct cci_reg_sequence mode_common_regs[] = {
- 	{ CCI_REG8(0x7FB0), 0x00 },
- 	{ CCI_REG8(0x9010), 0x3E },
- 	{ CCI_REG8(0x9419), 0x50 },
- 	{ CCI_REG8(0x941B), 0x50 },
- 	{ CCI_REG8(0x9519), 0x50 },
- 	{ CCI_REG8(0x951B), 0x50 },
- 	{IMX258_REG_PHASE_PIX_OUTEN, 0},
- 	{IMX258_REG_PDPIX_DATA_RATE, 0},
--	{IMX258_REG_HDR, 0},
-+	{CCS_R_HDR_MODE, 0},
- };
- 
- static const struct cci_reg_sequence mode_4208x3120_regs[] = {
--	{IMX258_REG_BINNING_MODE, 0},
--	{IMX258_REG_BINNING_TYPE_V, 0x11},
-+	{CCS_R_BINNING_MODE, 0},
-+	{CCS_R_BINNING_TYPE, 0x11},
- 	{IMX258_REG_SCALE_MODE, 0},
--	{IMX258_REG_SCALE_M, 16},
--	{IMX258_REG_DIG_CROP_IMAGE_HEIGHT, 3120},
--	{IMX258_REG_X_OUT_SIZE, 4208},
--	{IMX258_REG_Y_OUT_SIZE, 3120},
-+	{CCS_R_SCALE_M, 16},
-+	{CCS_R_DIGITAL_CROP_IMAGE_HEIGHT, 3120},
-+	{CCS_R_X_OUTPUT_SIZE, 4208},
-+	{CCS_R_Y_OUTPUT_SIZE, 3120},
- };
- 
- static const struct cci_reg_sequence mode_2104_1560_regs[] = {
--	{IMX258_REG_BINNING_MODE, 1},
--	{IMX258_REG_BINNING_TYPE_V, 0x12},
-+	{CCS_R_BINNING_MODE, 1},
-+	{CCS_R_BINNING_TYPE, 0x12},
- 	{IMX258_REG_SCALE_MODE, 1},
--	{IMX258_REG_SCALE_M, 32},
--	{IMX258_REG_DIG_CROP_IMAGE_HEIGHT, 1560},
--	{IMX258_REG_X_OUT_SIZE, 2104},
--	{IMX258_REG_Y_OUT_SIZE, 1560},
-+	{CCS_R_SCALE_M, 32},
-+	{CCS_R_DIGITAL_CROP_IMAGE_HEIGHT, 1560},
-+	{CCS_R_X_OUTPUT_SIZE, 2104},
-+	{CCS_R_Y_OUTPUT_SIZE, 1560},
- };
- 
- static const struct cci_reg_sequence mode_1048_780_regs[] = {
--	{IMX258_REG_BINNING_MODE, 1},
--	{IMX258_REG_BINNING_TYPE_V, 0x14},
-+	{CCS_R_BINNING_MODE, 1},
-+	{CCS_R_BINNING_TYPE, 0x14},
- 	{IMX258_REG_SCALE_MODE, 1},
--	{IMX258_REG_SCALE_M, 64},
--	{IMX258_REG_DIG_CROP_IMAGE_HEIGHT, 780},
--	{IMX258_REG_X_OUT_SIZE, 1048},
--	{IMX258_REG_Y_OUT_SIZE, 780},
-+	{CCS_R_SCALE_M, 64},
-+	{CCS_R_DIGITAL_CROP_IMAGE_HEIGHT, 780},
-+	{CCS_R_X_OUTPUT_SIZE, 1048},
-+	{CCS_R_Y_OUTPUT_SIZE, 780},
- };
- 
- struct imx258_variant_cfg {
- 	const struct cci_reg_sequence *regs;
- 	unsigned int num_regs;
- };
- 
- static const struct cci_reg_sequence imx258_cfg_regs[] = {
-@@ -771,54 +732,54 @@ static int imx258_set_ctrl(struct v4l2_ctrl *ctrl)
- 	 * Applying V4L2 control value only happens
- 	 * when power is up for streaming
- 	 */
- 	if (pm_runtime_get_if_in_use(imx258->dev) == 0)
- 		return 0;
- 
- 	switch (ctrl->id) {
- 	case V4L2_CID_ANALOGUE_GAIN:
--		ret = cci_write(imx258->regmap, IMX258_REG_ANALOG_GAIN,
-+		ret = cci_write(imx258->regmap, CCS_R_ANALOG_GAIN_CODE_GLOBAL,
- 				ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_EXPOSURE:
--		ret = cci_write(imx258->regmap, IMX258_REG_EXPOSURE,
-+		ret = cci_write(imx258->regmap, CCS_R_COARSE_INTEGRATION_TIME,
- 				ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_DIGITAL_GAIN:
- 		ret = imx258_update_digital_gain(imx258, ctrl->val);
- 		break;
- 	case V4L2_CID_TEST_PATTERN:
--		ret = cci_write(imx258->regmap, IMX258_REG_TEST_PATTERN,
-+		ret = cci_write(imx258->regmap, CCS_R_TEST_PATTERN_MODE,
- 				ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_WIDE_DYNAMIC_RANGE:
- 		if (!ctrl->val) {
--			ret = cci_write(imx258->regmap, IMX258_REG_HDR,
-+			ret = cci_write(imx258->regmap, CCS_R_HDR_MODE,
- 					IMX258_HDR_RATIO_MIN, NULL);
- 		} else {
--			ret = cci_write(imx258->regmap, IMX258_REG_HDR,
--					IMX258_HDR_ON, NULL);
-+			ret = cci_write(imx258->regmap, CCS_R_HDR_MODE,
-+					CCS_HDR_MODE_ENABLED, NULL);
- 			if (ret)
- 				break;
--			ret = cci_write(imx258->regmap, IMX258_REG_HDR_RATIO,
-+			ret = cci_write(imx258->regmap, CCS_R_EXPOSURE_RATIO,
- 					BIT(IMX258_HDR_RATIO_MAX), NULL);
- 		}
- 		break;
- 	case V4L2_CID_VBLANK:
--		ret = cci_write(imx258->regmap, IMX258_REG_FRM_LENGTH_LINES,
-+		ret = cci_write(imx258->regmap, CCS_R_FRAME_LENGTH_LINES,
- 				imx258->cur_mode->height + ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_VFLIP:
- 	case V4L2_CID_HFLIP:
--		ret = cci_write(imx258->regmap, REG_MIRROR_FLIP_CONTROL,
-+		ret = cci_write(imx258->regmap, CCS_R_IMAGE_ORIENTATION,
- 				(imx258->hflip->val ?
--				 REG_CONFIG_MIRROR_HFLIP : 0) |
-+				 CCS_IMAGE_ORIENTATION_HORIZONTAL_MIRROR : 0) |
- 				(imx258->vflip->val ?
--				 REG_CONFIG_MIRROR_VFLIP : 0),
-+				 CCS_IMAGE_ORIENTATION_VERTICAL_FLIP : 0),
- 				NULL);
- 		break;
- 	default:
- 		dev_info(imx258->dev,
- 			 "ctrl(id:0x%x,val:0x%x) is not handled\n",
- 			 ctrl->id, ctrl->val);
- 		ret = -EINVAL;
- 		break;
-@@ -1028,17 +989,18 @@ static int imx258_get_selection(struct v4l2_subdev *sd,
- 
- /* Start streaming */
- static int imx258_start_streaming(struct imx258 *imx258)
- {
- 	const struct imx258_reg_list *reg_list;
- 	const struct imx258_link_freq_config *link_freq_cfg;
- 	int ret, link_freq_index;
- 
--	ret = cci_write(imx258->regmap, IMX258_REG_RESET, 0x01, NULL);
-+	ret = cci_write(imx258->regmap, CCS_R_SOFTWARE_RESET,
-+			CCS_SOFTWARE_RESET_ON, NULL);
- 	if (ret) {
- 		dev_err(imx258->dev, "%s failed to reset sensor\n", __func__);
- 		return ret;
+diff --git a/drivers/staging/media/atomisp/pci/sh_css_mipi.c b/drivers/staging/media/atomisp/pci/sh_css_mipi.c
+index 971b685cd..57179298d 100644
+--- a/drivers/staging/media/atomisp/pci/sh_css_mipi.c
++++ b/drivers/staging/media/atomisp/pci/sh_css_mipi.c
+@@ -130,21 +130,22 @@ ia_css_mipi_frame_calculate_size(const unsigned int width,
+ 		even_line_bytes = odd_line_bytes;
  	}
  
- 	/* 12ms is required from poweron to standby */
- 	fsleep(12000);
+-	/*  a frame represented in memory:  ()- optional; data - payload words.
+-	*  addr		0	1	2	3	4	5	6	7:
+-	*  first	SOF	(SOL)	PACK_H	data	data	data	data	data
+-	*		data	data	data	data	data	data	data	data
+-	*		...
+-	*		data	data	0	0	0	0	0	0
+-	*  second	(EOL)	(SOL)	PACK_H	data	data	data	data	data
+-	*		data	data	data	data	data	data	data	data
+-	*		...
+-	*		data	data	0	0	0	0	0	0
+-	*  ...
+-	*  last		(EOL)	EOF	0	0	0	0	0	0
+-	*
+-	*  Embedded lines are regular lines stored before the first and after
+-	*  payload lines.
++	/*
++	 * a frame represented in memory: () - optional; data - payload words.
++	 * addr         0       1       2       3       4       5       6       7:
++	 * first        SOF     (SOL)   PACK_H  data    data    data    data    data
++	 *              data    data    data    data    data    data    data    data
++	 *              ...
++	 *              data    data    0       0       0       0       0       0
++	 * second       (EOL)   (SOL)   PACK_H  data    data    data    data    data
++	 *              data    data    data    data    data    data    data    data
++	 *              ...
++	 *              data    data    0       0       0       0       0       0
++	 * ...
++	 * last         (EOL)   EOF     0       0       0       0       0       0
++	 *
++	 * Embedded lines are regular lines stored before the first and after
++	 * payload lines.
+ 	*/
  
-@@ -1085,28 +1047,28 @@ static int imx258_start_streaming(struct imx258 *imx258)
- 	}
- 
- 	/* Apply customized values from user */
- 	ret =  __v4l2_ctrl_handler_setup(imx258->sd.ctrl_handler);
- 	if (ret)
- 		return ret;
- 
- 	/* set stream on register */
--	return cci_write(imx258->regmap, IMX258_REG_MODE_SELECT,
--			 IMX258_MODE_STREAMING, NULL);
-+	return cci_write(imx258->regmap, CCS_R_MODE_SELECT,
-+			 CCS_MODE_SELECT_STREAMING, NULL);
- }
- 
- /* Stop streaming */
- static int imx258_stop_streaming(struct imx258 *imx258)
- {
- 	int ret;
- 
- 	/* set stream off register */
--	ret = cci_write(imx258->regmap, IMX258_REG_MODE_SELECT,
--			IMX258_MODE_STANDBY, NULL);
-+	ret = cci_write(imx258->regmap, CCS_R_MODE_SELECT,
-+			CCS_MODE_SELECT_SOFTWARE_STANDBY, NULL);
- 	if (ret)
- 		dev_err(imx258->dev, "%s failed to set stream\n", __func__);
- 
- 	/*
- 	 * Return success even if it was an error, as there is nothing the
- 	 * caller can do about it.
- 	 */
- 	return 0;
-@@ -1183,17 +1145,17 @@ static int imx258_set_stream(struct v4l2_subdev *sd, int enable)
- }
- 
- /* Verify chip ID */
- static int imx258_identify_module(struct imx258 *imx258)
- {
- 	int ret;
- 	u64 val;
- 
--	ret = cci_read(imx258->regmap, IMX258_REG_CHIP_ID,
-+	ret = cci_read(imx258->regmap, CCS_R_SENSOR_MODEL_ID,
- 		       &val, NULL);
- 	if (ret) {
- 		dev_err(imx258->dev, "failed to read chip id %x\n",
- 			IMX258_CHIP_ID);
- 		return ret;
- 	}
- 
- 	if (val != IMX258_CHIP_ID) {
-
+ 	words_per_odd_line = (odd_line_bytes + 3) >> 2;
 -- 
-2.55.0
-
+2.56.0
 
