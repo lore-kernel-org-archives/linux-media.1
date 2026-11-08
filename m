@@ -1,86 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794166819;
-	b=SGTeCtGYZz96YNVT/az7qiarradYTTYzAkg5ivCq8JhsmlHdrKCMvi34WHd573Wm7KPX
-	 Wcv3XuT8NIrokbcxMrwdKTjAbLRurWz5k8116TZZZbM5JPd+jDD60R/Rs6hfXSdljLMW6
-	 1dnnwmw2IOD/O+eq/n7KEZPGWLwmL/mB99OwHFi/OYSeUhbWG4F+61So5e+0F944w0/YV
-	 2up63yT2eYmBgoA60HkhEUZh/a3yfevjzra2fLg+dznASMgs+ZEN765mBsCyFr4rOtriK
-	 yeX/VxzfzJQFlxm4OiDQQvNLwBLN6I8rt6A2gdNDph+zWJncWhWwwFryS+h673OIJeQ==
+	t=1794168483;
+	b=ZFB5fPT3d4vQeWnTO+SencsPHE0Aq6ZoaFgBG9wx3V/7F+CFn8CiAEegVEnt7QM7SkXv
+	 yAfAIteZycXRiQHASow8Nx00A6CieVv/GDxdLgSWUdm70MOLGIXr3r1Ds2/fm/V1ikGld
+	 qxRS8PvBopKkakZIQ3aamR0uHTm6IjiRmF0oUR6SeckHdzy3avQE/fIT4TGNtCjfPuiS6
+	 Bjp3pIaqLg4Zl2bAgNkIqdCYeYuB6oG/MJlX+PReMf/JMDMFXnYa+46mH/u538BJa17+e
+	 D99fF6VGg4PdXbp9yKqPB1i4DVwqRap6/0oMXOwsscNvqVhKFTyChpTYNROD8uv7ZUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794166819;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794168483;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=jgN6Bg/88EVvG7gizqtM+Fbm0QD1WzCs1dkA6abj+Xo=;
-	b=0kWfXu4PT8NP0x0c5Lw7Ai3SIL8jbAURCSutGmP9PvDJ3uM3ogPxBauVnKhDMv+ZzKGV
-	 4w7Vw6FnhV8zX3b0rSTRwHVvw37rFemwE1PYvcZ/PsXvUm3AUZgrfZIi7QqkQD2ZHGqhB
-	 NFXXXLx7Pnl/eYP/PhQZTrGq3/R4cQvWPSeSm+cB6KixnG59eNG7dXK721duHfDm1Fk23
-	 cnC0M+kAtJKxFeOK+fJWsjE4wajxfBFgP/EfO9BacKx7qheXMiu9RhDGJD/ZT3N66mxWz
-	 9HVFlHkLZwCliBwVbKTfRNjMldZpOHf5So4i0ZDlljpKFmN0NJ4gHbIVIAax7X2O13w==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=AKFhX2kTzcPr0xphsyszWaihfxahRuh70nv/fwZfZKU=;
+	b=Zq0emwV0HbBiH73dFbvGIyPS/WzDKPJCVqpugM8lzea7zED1+ESkvESnkhF7tdmzdewY
+	 rGlxUii2kwFua83sHEG1eWT3l2AYmCPB+2GwxkQK7WzrVqMV9pnYBd5rzd89vw4SmfEQm
+	 66y9bmn2/EQ9qQPrdd5MP3uUnohb0xne6XizrsniPChfyDAVJMGsdgVF2hK1NKASetjeu
+	 sXFgwzO1J2xrJZHBX3zI4GBjIGhvRTn8HxJvQ1wXA92SELg2H7MjTyZe1YshF/+/opDf1
+	 jKhSfAsnSuPl+gWQJN3V+StCBaG/z8nRsMGu4ZWVNZzd3XAlk5CpJJy7IqNdPE0vGBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RbBUkI2C;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wBRcKNqS;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADADF606A321
-	for <linux-media@vger.kernel.org>; Sun,  8 Nov 2026 19:40:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADADF606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7418F606A33A
+	for <linux-media@vger.kernel.org>; Sun,  8 Nov 2026 20:08:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7418F606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RbBUkI2C
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b3a142c6cfso17403c88.1
-        for <linux-media@vger.kernel.org>; Sun, 08 Nov 2026 11:40:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wBRcKNqS
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so1954955e9.3
+        for <linux-media@vger.kernel.org>; Sun, 08 Nov 2026 12:08:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794166818; x=1794771618; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=jgN6Bg/88EVvG7gizqtM+Fbm0QD1WzCs1dkA6abj+Xo=;
-        b=RbBUkI2CuwYbQhZJnK3u11+VhhgeD9WZgGtPrXZCV3OHDulaniBy6IrzW58fETO7JI
-         kj/pEZQFvHHCBqWXxoeUPENyJdWpkLt8e6bLf/K6C0Y7Ai7wmKDISOG41zl55+vMvGEp
-         B9dXz9zKNiDIV8Pull71+2cj/pk87Zau/p/RZy5yfH5mrMbGGe3kROZsaAO0KWSPPfF/
-         jNkCVpQHVcuCmQboKGcP0l0wT5QVVQIXejbaicgwytYkmdSlE97Ay7ib3dXxbAUT4OJP
-         oKRoRpPBc5KPqA5GEkKOrP4RlMsAn69zSUnvgIPHsq8jDTO8NtY/US9HG1Fz4Ozb5yEw
-         /rZw==
+        d=gmail.com; s=20260707; t=1794168482; x=1794773282; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AKFhX2kTzcPr0xphsyszWaihfxahRuh70nv/fwZfZKU=;
+        b=wBRcKNqSAz36TTDwUf5ZOcSL8WudVNLCqD5t/lH5GhVDm7QF/V0exVUJWErSCrGj1H
+         n0jS4cebVkJfkAGphSRhqB/HxUANeaTIdWx5U2qA561nZzkVLx7TKz87KhbFWubHF8S0
+         N+ovVfagIlEM3o8xlH6/uvaSCHBQeHbEYYbKl27dtqeBvxauUuOAVZiJ5UEejGJoaMeG
+         zxXKPRx3KTdKCB2ArgW8xu+Pqh0SLBHhpvCk4VtkmSP+UWANVq264VihJNHRp8jdW+kY
+         5VhmcTiONg4v2h3Pb2l7pTMnwIPxmD0pXTUyt55F1/qQ0uoetVTnnrnNrJ7xdtMjYwOe
+         dXAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794166818; x=1794771618;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=jgN6Bg/88EVvG7gizqtM+Fbm0QD1WzCs1dkA6abj+Xo=;
-        b=YJzOe0Ywr/tEPqcLy2rfxhONuhSC8QoNnUwrra7Ce4sDyIENWSSBRsc9p1VMYMwV1t
-         ihLCSGBNELH8AEv1HXbgigfCYRfDpXnSEeMZge/L6ACR5WtSRI5VnCrtvWrzP16qTjFg
-         SzMZ6d/V1rMsfvlZAk/ZvCaeX+fL+HtJghz+QWqaVsj2TlE24SimJvo3Fcrmwc0sTD02
-         YuQk3Jg9wAE5QnmONJkUVxyPeOV89bhkhGwz8oEYgeBzACdVGmzRImtqc6RH2oewctoT
-         WDmK9QRJU8BD69q0KCtvXhTpE+YwufJwqyMnKzw5sZl6ZQ9mhOsNuw+CkbsItt+JCxfo
-         N0Lw==
-X-Gm-Message-State: APuU4Z9uqiJujriID1HN1tar4blkM9n0NB3lSBLpam1B5GWdR7kYZItV
-	pxw8V5MsiApgfVq1LXAnD1mZno/3IiOFd0WNK1978h/YIUhl+QWfk0Zm
-X-Gm-Gg: AYBFou0aiCnUcfK1vYhzglHdQiNh8IMnCtsYPLz7kXrKSS0ebRfUfPDdhNwp+uBMj+d
-	d6HBgwGVYCcJARoVTUDsksvV3/+ORHJBOwrPF2ruTTjed2kCpXG9kQKeXKJvHkAcMFPnNHJ1UBf
-	+Ah0i3zdIzJkmcKScP5uuKesXqCeFV4z1YocMgj24uzr4i7Xz7aXHtBS4pdVijSBPtVNLOel5J2
-	8Lid7atbb2jiAvnS262qugZxO08PkpehT45DIohAbJG/ubUmLVgBmp/wCHlWp+P84RJN7KTzIDy
-	JqHuPwNkvoMj9/piDr3uTqFECYVWPBJMlieX/FmmlMubAFQxlRQ4eE4/YUGuBEc7KwxGO0+PVXD
-	xKlgbblf+Vo6wYLpE+W0zGBMLXTNiQmLJDvLiaJdeev3tQk6sivPF3f+PAfzcIXIZ39tfEiXpbL
-	llA2YMNmYklDr3iupB0pR8Xg+iol/nnSz16WeCVnqaDb7gyGVt9FGhd63cqVeFyuXCCsCKMjtcH
-	akapoX82J8ud6ihelhamqjt+cPTWKoGSrS1DyPcGPrP+SQ3oQ3LRyikdkkWajl/drnYLWP1q6bx
-	A1SziKItjHOIPo29KaVbMCpZp0olWXVMTIo3pvY=
-X-Received: by 2002:a05:693c:62cc:b0:36e:66d8:1424 with SMTP id 5a478bee46e88-3725024039amr6431662eec.0.1794166817576;
-        Sun, 08 Nov 2026 11:40:17 -0800 (PST)
-Received: from [192.168.1.11] ([2401:4900:881e:93af:b6d8:a723:b13b:3c1b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3726039c635sm6997517eec.0.2026.11.08.11.40.13
+        d=1e100.net; s=20260707; t=1794168482; x=1794773282;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AKFhX2kTzcPr0xphsyszWaihfxahRuh70nv/fwZfZKU=;
+        b=DXfj5FPvV03TkL8W3U68Vfu0Zod0EFZ16si9/Z+WpGkAeuIF8sceMOHQN8trYBTrxq
+         56FIdbvKDa/v56NusqpJMzzax2lrYaKEhPjF76YVuYlpf85cdyqEthH0UE4PrLAfCZjR
+         /CvGA/QGNc3uuDoUoO2MUVNRt/xnorMIVJZfF4NNbkATTwprCg1jqb7R3TGyTZ7AZotx
+         YEzDbSrGF8tGRwLxVPFOhVYo3xWY2x4XLQUwlRFBupvjT6pQnX+SP/dgSmG1uM4UF2MK
+         SNUvc4h5u8DvSreheBXLfTN9yZLXjWPxQpYaxeQWcUIObcll/t7kryuA8HUc2GUXTtvU
+         wsFw==
+X-Forwarded-Encrypted: i=1; AL+hErGSOdbk4NwfOz+IohaJR00BJGzgxlUa2o0twCLuKXoGzNywG6W/fHYbAHOdVEMCkEQ1E+77txQyVV2HEQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/KwMHheCxfeJrqKpa534Lkrx4eMrRIfRL5zOfWFo5zllNj+U2D
+	G5si9UAqdZrJ4C6qn/JjcTFQ/YZGGJIe9kyhfokA4KqMet/Apc39NCo8
+X-Gm-Gg: AYBFou3c1dm+FQKeqhfvdWc4bYZjIWGVQtxDcR0i01S3S9RrPLJOYp/4ECChfG/tzcL
+	uf3cSZ6Alx1YYjcfyzkh7MYLnHd4j/8NM6tVMFPLudZiw/N4W0qiNZLSn8eXSx2szbjYRJzq9U2
+	SBMhGi/vBVB1baN9vdE+F2xjn+lO2GqS1SsxsuEUe+edsaQDenvw7gNupL+klcrEaxKPWfuHUvA
+	K1JW7ObqHMxs/Xektz7yPdU+rqzILK3+2swhqwUQGMf9m9zOE7YxMCqv3nI1VQWS+48/N+h1YTl
+	RCCyXFCw6X8fPav1Uim7YBn68SspE2FOIUuN7AKLk7y/gJIGFoN9/Cz3ihkHwO8hELhQQ5uCspl
+	ELRRCTKQDRCaJD06aXkSRv+Ik6e51d8URsxRrOZpjAf3lnWo2PZXHuTImMvNj/Se+PSxp0GRjjx
+	F31x5jp6ZidCPb/1ZiEu4932yzgZTPvGhKQuJNdUCTux5/Vuecy5M3YVEBU6jS0WMlyNFlpRh23
+	4lij8L64QAO7TJIC7QvfCnsw6kG24nhLLuJr+UYjL8uALv49UMqoZLoU70CPXg+bPHUDoBcIffS
+	VAOf8ynMDbTf1BIUNcOnyCILshCGQEgTKlKgrswezvkZxlPuDWFA1X1vmZhK3KAg
+X-Received: by 2002:a05:600c:8b6f:b0:4a5:1cf1:b7bd with SMTP id 5b1f17b1804b1-4b9633cddd6mr40682765e9.16.1794168481504;
+        Sun, 08 Nov 2026 12:08:01 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90ee249d3sm87320515e9.7.2026.11.08.12.08.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 11:40:16 -0800 (PST)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Mon, 09 Nov 2026 01:10:06 +0530
-Subject: [PATCH] dt-bindings: media: i2c: ti,tvp514x: Convert to DT schema
+        Sun, 08 Nov 2026 12:08:01 -0800 (PST)
+Date: Sun, 8 Nov 2026 20:08:00 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Cc: nicolas.dufresne@collabora.com, benjamin.gaignard@collabora.com,
+ p.zabel@pengutronix.de, mchehab@kernel.org, linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com,
+ morbo@google.com
+Subject: Re: [PATCH] media: verisilicon: Replace strlcat() with seq_buf
+Message-ID: <20261108200800.2b3b15cf@pumpkin>
+In-Reply-To: <20261105084518.386234-1-nikitash.mariiaw@gmail.com>
+References: <20261105084518.386234-1-nikitash.mariiaw@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,171 +101,65 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-ti-tvp514x-v1-1-151cc74f67bd@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDc2ND3ZJM3ZKyAlNDkwpdY5NkC6NkUyNjQzMjJaCGgqLUtMwKsGHRsbW
- 1AL3/gCxcAAAA
-X-Change-ID: 20260731-ti-tvp514x-34c82c523162
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Vaibhav Hiremath <hvaibhav@ti.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bhargav Joshi <j.bhargav.u@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794166813; l=4336;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=9Qksg9VZxIypnPAp453R1HaC6dfK5tRPmx4sBRRlbx4=;
- b=11eMTlJzawxRvobdnfXimGV0AkJ7uFuerwq5N6G3Jh7usGfM97q8uN0xjLajUswQEorQvn3nt
- U3K2dFrJeIOAI4BKgH3VNBthR4Ugkd+tlNeTSFZuzpZ/rX82W0ntAPj
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Convert Texas Instruments TVP514x video decoder from text to DT schema.
-The legacy text binding marked the port endpoint as required, but
-in-tree DTS files omit it. Make the endpoint optional.
+On Thu,  5 Nov 2026 00:45:18 -0800
+Mariia Nikitash <nikitash.mariiaw@gmail.com> wrote:
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- .../devicetree/bindings/media/i2c/ti,tvp514x.txt   | 44 -------------
- .../devicetree/bindings/media/i2c/ti,tvp514x.yaml  | 72 ++++++++++++++++++++++
- 2 files changed, 72 insertions(+), 44 deletions(-)
+> In preparation for removing the deprecated strlcat() API[1], replace
+> the strscpy() and strlcat() calls with seq_buf operations when
+> constructing Hantro video device names.
+> 
+> This preserves the resulting strings, including truncation
+> when the compatible string and suffix exceed the destination
+> buffer's capacity.
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ti,tvp514x.txt b/Documentation/devicetree/bindings/media/i2c/ti,tvp514x.txt
-deleted file mode 100644
-index 46752cc71f2eb..0000000000000
---- a/Documentation/devicetree/bindings/media/i2c/ti,tvp514x.txt
-+++ /dev/null
-@@ -1,44 +0,0 @@
--* Texas Instruments TVP514x video decoder
--
--The TVP5146/TVP5146m2/TVP5147/TVP5147m1 device is high quality, single-chip
--digital video decoder that digitizes and decodes all popular baseband analog
--video formats into digital video component. The tvp514x decoder supports analog-
--to-digital (A/D) conversion of component RGB and YPbPr signals as well as A/D
--conversion and decoding of NTSC, PAL and SECAM composite and S-video into
--component YCbCr.
--
--Required Properties :
--- compatible : value should be either one among the following
--	(a) "ti,tvp5146" for tvp5146 decoder.
--	(b) "ti,tvp5146m2" for tvp5146m2 decoder.
--	(c) "ti,tvp5147" for tvp5147 decoder.
--	(d) "ti,tvp5147m1" for tvp5147m1 decoder.
--
--- hsync-active: HSYNC Polarity configuration for endpoint.
--
--- vsync-active: VSYNC Polarity configuration for endpoint.
--
--- pclk-sample: Clock polarity of the endpoint.
--
--For further reading on port node refer to Documentation/devicetree/bindings/
--media/video-interfaces.txt.
--
--Example:
--
--	i2c0@1c22000 {
--		...
--		...
--		tvp514x@5c {
--			compatible = "ti,tvp5146";
--			reg = <0x5c>;
--
--			port {
--				tvp514x_1: endpoint {
--					hsync-active = <1>;
--					vsync-active = <1>;
--					pclk-sample = <0>;
--				};
--			};
--		};
--		...
--	};
-diff --git a/Documentation/devicetree/bindings/media/i2c/ti,tvp514x.yaml b/Documentation/devicetree/bindings/media/i2c/ti,tvp514x.yaml
-new file mode 100644
-index 0000000000000..d39dd6c37c073
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/ti,tvp514x.yaml
-@@ -0,0 +1,72 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/ti,tvp514x.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments TVP514x video decoders
-+
-+maintainers:
-+  - Vaibhav Hiremath <hvaibhav@ti.com>
-+  - Mauro Carvalho Chehab <mchehab@kernel.org>
-+
-+description:
-+  The TVP5146/TVP5146m2/TVP5147/TVP5147m1 device is high quality, single-chip
-+  digital video decoder that digitizes and decodes all popular baseband analog
-+  video formats into digital video component. The tvp514x decoder supports
-+  analog- to-digital (A/D) conversion of component RGB and YPbPr signals as
-+  well as A/D conversion and decoding of NTSC, PAL and SECAM composite and
-+  S-video into component YCbCr.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,tvp5146
-+      - ti,tvp5146m2
-+      - ti,tvp5147
-+      - ti,tvp5147m1
-+
-+  reg:
-+    maxItems: 1
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    unevaluatedProperties: false
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+        required:
-+          - hsync-active
-+          - vsync-active
-+          - pclk-sample
-+
-+    required:
-+      - endpoint
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        video-decoder@5c {
-+            compatible = "ti,tvp5146m2";
-+            reg = <0x5c>;
-+
-+            port {
-+                endpoint {
-+                    hsync-active = <1>;
-+                    vsync-active = <1>;
-+                    pclk-sample = <0>;
-+                };
-+            };
-+        };
-+    };
+This is just stupid...
 
----
-base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
-change-id: 20260731-ti-tvp514x-34c82c523162
+David
 
-Best regards,
--- 
-Bhargav
+> 
+> Link: https://github.com/KSPP/linux/issues/370 [1]
+> Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+> ---
+>  drivers/media/platform/verisilicon/hantro_drv.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+> index 26e5d5547466..2bfcd45cc55e 100644
+> --- a/drivers/media/platform/verisilicon/hantro_drv.c
+> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/platform_device.h>
+>  #include <linux/pm.h>
+>  #include <linux/pm_runtime.h>
+> +#include <linux/seq_buf.h>
+>  #include <linux/slab.h>
+>  #include <linux/videodev2.h>
+>  #include <linux/workqueue.h>
+> @@ -883,6 +884,7 @@ static int hantro_add_func(struct hantro_dev *vpu, unsigned int funcid)
+>  	const struct of_device_id *match;
+>  	struct hantro_func *func;
+>  	struct video_device *vfd;
+> +	struct seq_buf s;
+>  	int ret;
+>  
+>  	match = of_match_node(of_hantro_match, vpu->dev->of_node);
+> @@ -902,9 +904,12 @@ static int hantro_add_func(struct hantro_dev *vpu, unsigned int funcid)
+>  	vfd->vfl_dir = VFL_DIR_M2M;
+>  	vfd->device_caps = V4L2_CAP_STREAMING | V4L2_CAP_VIDEO_M2M_MPLANE;
+>  	vfd->ioctl_ops = &hantro_ioctl_ops;
+> -	strscpy(vfd->name, match->compatible, sizeof(vfd->name));
+> -	strlcat(vfd->name, funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER ?
+> -		"-enc" : "-dec", sizeof(vfd->name));
+> +
+> +	seq_buf_init(&s, vfd->name, sizeof(vfd->name));
+> +	seq_buf_puts(&s, match->compatible);
+> +	seq_buf_puts(&s, funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER ?
+> +			"-enc" : "-dec");
+> +	seq_buf_terminate(&s);
+>  
+>  	if (funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER) {
+>  		vpu->encoder = func;
 
