@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794114282;
-	b=QICgx+rr7u6BG2tPN+9sq4roVmSvYCg/VSidDbWxiao+e6ujJmtbvgBs4afho7Bu3d/L
-	 oo/3CsTiJ5R+83ZXLUlSq8l3xmfc2eRtRlSvkppbLwJEn7p2oHtd68pr6g7N4m7+cKe/O
-	 4LYiY7o8YgxHdR3SLifKkm8+iYWFhPrsqKTjSaPky3TniuLn3aUKsl/8dfnllyuyDT/MF
-	 P5rujVfzRgizXfgLdeY06zhzuHfCy0Z+ywV+Inx6ET5NWRdbWiGxWXbBrcx9RWGH1MyD4
-	 ejgctBtzW2n0bxLQN6GOck5B/oXlv3dZfhQAoZSkok6JbIQ9qYr0hcyGsv9aQkeBjoQ==
+	t=1794114416;
+	b=yT3noetZcfDaehYt/deuMBw7+gFpBdEueLAGPPsgNzx/xLASL+XCdFjkoDJdQr2BdHy2
+	 PsdsS2pBah8uNr/FxO4s7DT+24JRIJrCwkxjrocPF+/4J1ZToxmmD1ndY2qoTIXYwffVn
+	 D0u8qjKfNqQST6Tq1A9hKup6eOsxtie32pwtOeJu4d9dqDpT1uzFpd7PQWqjHSlpLX3lE
+	 G3/mB5bj2EGSdjd7FxJ84W7xF6yXmgzYALMDMO7Pmk0NOo9b90IlY9KolIuIUBNPsu3LW
+	 329n7rEVZkQpGazrDiVu90Vb+QBVQewOPodeceG9TbKXIDLVRJST66HqsrGGub5aKJg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794114282;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794114416;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QEKHb5MJBvVmkBuLyEsrJmpMsyORSfp6gXnGRGehkh0=;
-	b=h8D5bJX4wdpU/9XLrfwPXa96E3e139HoBWTIE5dCK13/R2f2P/v2R4hdkPkv+tgDrTkK
-	 8YqUaqoWYuqxfsY9B7AOanfJzWj5VNmyyakT/CZwbkEcBfhmAs5FGX0SfU7e6SWNbOyr6
-	 l3GTNcl8Xs6l8TzfDZRH36EWCLn30AUpCQJUeAyFfPMOomVegsXIuAGmEHXf8rd4q4MXc
-	 aeVHgURgaKA0ea01N1U2d9pys+gAyQ7z+xmDIdHwXus/CQ4gGcF2KxbaLz3a+WBFvfWJQ
-	 ClrEkzjMAZX9rthUqp8NvnFgaQmUJaAZOdvgUizapI1yhqmHoK8oeHzAE+P6WsFf7zA==
+	bh=GcD4B/NC+LPFa4i7abrIGM3Q2OUWv45Xz+W+4d/g96Q=;
+	b=a+VbGJGy8l2ttrbD/Ks/97S8hj5bYSCtINPpmd50VPDewZr5PWsW5IQNIzh6S+W8C0l3
+	 0INcyvc01EgLqyRnoDV6Qip3yb7OOVs2/8chkmmsJiVKBsiKysCKox/juMHT0VfI4FSPa
+	 CsfK5YPcG9mBENQHzwpDgviNIRNZ9NetIE6kp055yCNZVrrZ7A1T+3JMmFhR9AA+ELWbH
+	 gi4LMul9qEO/a2wK8FXuiTe+n7KvXgOBwnkhY87MLVACISuKC4iJMVps3MOYNsUlYlM5c
+	 ZHJEojHOfoLpL6D22fVKA1gU6Gnp9MDSPFsNOXD/aGBsfS041iJjE+t7nlTzWOLIXxA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TkhPy/Vm";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n3lOJzt1;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A597E606A31A;
-	Sun,  8 Nov 2026 05:04:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F07F606A31A;
+	Sun,  8 Nov 2026 05:06:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkhPy/Vm
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n3lOJzt1
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794114281;
-	b=qtMKXuCxl7q7JzOfticpvs5hoJKJ8DCBIJoYBtlQXXhsDALh1AP4svL4jdoGv6lC3ro+
-	 mKN7EhA9wyfgoA3skSxEyl95YJIcz5/S5YhCqkdYM/54aJ0vcRL5uZS7Vv0NttS36/l+U
-	 8CnwVNYIXJdklm2T8ZTPbXGWQoV8BALl06XIDQX0kc/KS6dhsn++c577Yb0a2kvcpTL7l
-	 E44BJm5hLiinmCs778Fup05GuZfXB0brgzLNyXPYlMdjrsQqceOKau6LMbJ4K1wPUCURw
-	 zsNTkiekipYHJvbZcPidZGhKDBTJXuFmfdKBzcRTSJj1N94OIm2mJKegA+uhNGfGBHw==
+	t=1794114416;
+	b=vHFcTRlLO8qvcS7kc1A2Uqh1gbeQ0U4aTjyUp9VFXdPKXZYDAGJyqppGRQZLCMLjC9jZ
+	 y5In0hX43KhjXImlRHoZmsgrQO4Aqz/HkMYhl0t9vEpgMr40h7Nv2M9wfYc7LXg6PClyU
+	 AG5BH2vgKdzotMJJ5iBvZkDsDXg2ukfa9NX5WTORnBxAXpdcx1/2yXXAbCZHPHhisRclU
+	 lKlK/wmqws0v2q8jywq3y/LeeF1JQ7Hu2ZYw9Ls2IG0m25chGQFQqdcgx/2xBvB6eTGwA
+	 BIzMe2p4gdXv8zyrbKSmua16yihsKuGEUnOG+DMfjVc78AHlx/+HZM59pdoS0f+Nw8Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794114281;
+	c=relaxed/relaxed; t=1794114416;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QEKHb5MJBvVmkBuLyEsrJmpMsyORSfp6gXnGRGehkh0=;
-	b=td5ZxiW0REPr+F4wb20u0Yml4Ed7RM/LsUNDgyInkgBBWfs2aOiLR7vN+2vGZuFaMveY
-	 d7rAjvAijrpCKCIvMhDNdxG7IyjoYT8PYphTE9/p6bL+JacBWk03mJ8E+HaaAr01t+dM7
-	 enf90YzME5hu0BnTrQURiP42epyMPYz0lyi6fDh/h+XH666ytA9ykc/hWu6pLo0NxnqzU
-	 PL8ngP28R/520d3tyR6pauKxtMr/TVXUafZI4+5Ozb5bHlmFooXUVPTk7tggEQIyBzZVK
-	 uT3JB9skcLTNdfNzwREfrz4mpsv0ilmEC9YfnqIHdc9uvO3vuGJPwnYXFvdEN+6bGGQ==
+	bh=GcD4B/NC+LPFa4i7abrIGM3Q2OUWv45Xz+W+4d/g96Q=;
+	b=wxxgrZ2NQbYzg+lTQwT9OXMpbDLF/jvYXWirmBfdyJDOLnZKMylZtu5v1we1b7k1ARYN
+	 l40qBT6+4mtwCOVsnMNBgYUPYva3YLYtIMYnaLPWKQeGJ9bVxoXV4hsoRIPM2EJX3qJqY
+	 9klnQsR0kkrVHHVRnTo7B/hxvA84ZCJ6B0k7HhKorpjV1r988cVC0Hv4h2NrLGPkcvbLc
+	 B2bYSLvoDjloxQ7xJ/uDMCSUplQsWOcPFpRSIBCk8xcd8WNBGvhknY0mE3osmD2DD/xTx
+	 HuAix2ElZk/o5vqOh/9LwtOf8V8nkCuTGFDBga/gNA8t0gmvhtzqBt+GKtNmSfxow2w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EB2341F0089F;
-	Sun,  8 Nov 2026 05:04:40 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 85D421F0089F;
+	Sun,  8 Nov 2026 05:06:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794114281;
-	bh=QEKHb5MJBvVmkBuLyEsrJmpMsyORSfp6gXnGRGehkh0=;
+	s=k20260515; t=1794114416;
+	bh=GcD4B/NC+LPFa4i7abrIGM3Q2OUWv45Xz+W+4d/g96Q=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=TkhPy/VmWFvVwGJAwI0FuTVclTIFPZIYAMXlirZda8IsYTVl6X5q8WIUCPSsEZ1BD
-	 kUTC77aWoEt0LgYDTJYclCwyyFoul/wAmuIJRTpTsQQJn/rZDhPoCWATVv/a1NcDD7
-	 CPwbGHF67RxesIHgiIJtqfk7MJ3XM73ZmK21Cl6cH9Mq6bZ/4G0X1RDDpCaSahJ2X2
-	 WEdlRbJuYk23/d9LXvr6rB5emnnI+nZjATQgHkqOh+vDSooc5YqFB35dVJHRPUsV+5
-	 JVihFYWFaoWRhTPlhrlDY9cb7bhMyTKh+hwvjgKK01Kw/FOhowbuG5Zw9jOYnA9BNr
-	 OtcCRFRI2m73Q==
+	b=n3lOJzt1DhcnFWAcKq9WlrWuNyYvo44tVqVEa8zInf+rW+2RDVUXWqFhVNav0y/dU
+	 OqG6+fmu54V3HF4n7boBuCK90C1q+XIk8Dh+bijjf4LSRB+KlAyR8vSCLpmEBNv/L6
+	 OC1cFF8PNJKSw3gYehk3tylWQe3ha0kKywklP8W2evnj63LHTG9kkJQINvYKF4ywG5
+	 9lzlfBqagplQQ/j5nmuGNl8zMrUNKGGN3Y3PC8L4F3rDbDrTqBCdBi2IV6HzrqbmOu
+	 Go/L8f0RB+QLTOIAE0DMwFp9VHz7rqIzq0CsGZLiuFkTQS5GnQI/sE11yWNOVmtfJ5
+	 3zCIV3YELl2dg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7919B47DCF;
-	Sun,  8 Nov 2026 05:04:40 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id E69C447DF7;
+	Sun,  8 Nov 2026 05:06:54 +0000 (UTC)
 From: DelaySystem via B4 Relay <devnull+DelaySystem.tubot.lat@kernel.org>
-Date: Sat, 07 Nov 2026 21:04:40 -0800
-Subject: [PATCH v2] media: ipu6: declare firmware files with
- MODULE_FIRMWARE
+Date: Sat, 07 Nov 2026 21:06:54 -0800
+Subject: [PATCH] staging: media: tegra-video: use dev_err_probe() in CSI/VI
+ probe
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,23 +84,24 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-batch1-s1-ipu6-fw-v2-1-0e8567a1aefa@tubot.lat>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQ6CMBBEf4Xs2TVsG0v05H8YDm1pZY0B0hbUk
- P67Be9mTi+ZebNCdIFdhEu1QnALRx6HAuJQge31cHfIXWEQtVBEdYNGJ9sTRkKeZoX+hZ0S3mu
- lpT0TlN0UnOf37ry1P46zeTibNtHW6DmmMXz204W23j//QljSnaSQ2vvGiGuazZiOT52gzTl/A
- TZpOXXEAAAA
-X-Change-ID: 20261107-batch1-s1-ipu6-fw-d62ffa6a3c91
-To: sakari.ailus@linux.intel.com
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- mchehab@kernel.org, DelaySystem <DelaySystem@tubot.lat>
+Message-Id: <20261107-batch1-s2-tegra-probe-v1-1-b4775e6437e5@tubot.lat>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDQAxA4atI1g1MBmqpVyldzE/UuFBJpqUg3
+ r2jLr/FexsYq7BB12yg/BWTZa6gWwNpDPPAKLkavPMtkXtgDCWNhOax8KABV10iY879nenpsqM
+ ItV2Ve/md39f7sn3ixKkcM9j3P5PoQpN5AAAA
+X-Change-ID: 20261107-batch1-s2-tegra-probe-ddf5e190d01b
+To: luca.ceresoli@bootlin.com, mchehab@kernel.org, skomatineni@nvidia.com, 
+ thierry.reding@kernel.org, jonathanh@nvidia.com, gregkh@linuxfoundation.org
+Cc: linux-tegra@vger.kernel.org, linux-media@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ DelaySystem <DelaySystem@tubot.lat>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1921;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2702;
  i=DelaySystem@tubot.lat; h=from:subject:message-id;
- bh=+GbCL4YspWticqNV8WYJ8X7lc408t7KsybFEoDp2+3U=;
- b=owGbwMvMwCH2SNl4+SzWXm/G02pJDFkfmF5MOxB/6aL/830JWZVTZ8Z/Kr17SCDdf1Yd2+vft
- W2re25s7ShlYRDjYJAVU2QRk+F5X39fJ87aas4JmDmsTCBDGLg4BWAicc8ZGa7s7H5yUcBnnuTX
- w/cceOW1Exh+n49xdw48mTmV/Z3ilmcM/51Py62prXxulpY38cPBv6e0X/K+DPg+O2Zj1iQDkyy
- XGkYA
+ bh=HadRakgfetZKfm5cBPmgCO0PbLmnRqlErwjrkQRxrOE=;
+ b=owGbwMvMwCH2SNl4+SzWXm/G02pJDFkfmPMuPLl/SnLyI83elVuCq5deXp+gs9VSV9vGtVnsL
+ 4/BnnCxjlIWBjEOBlkxRRYxGZ739fd14qyt5pyAmcPKBDKEgYtTACbyfSkjw+l9nf7nRc6vPrqd
+ +YjtL/9w3+s3g+x+RqyTSO6x9N9R9ZLhf+bJ2cf/qnf7eF06clJtf9ulDZpRR6bd+WEUENDC+O2
+ qJh8A
 X-Developer-Key: i=DelaySystem@tubot.lat; a=openpgp;
  fpr=161C0CEF7FDF2C5E3B3A9CC8E22333A79A058D4B
 X-Endpoint-Received: by B4 Relay for DelaySystem@tubot.lat/default with
@@ -111,46 +112,76 @@ Content-Transfer-Encoding: 7bit
 
 From: DelaySystem <DelaySystem@tubot.lat>
 
-The driver requests one of eight firmware blobs at runtime depending on
-the detected SoC (IPU6, IPU6SE, IPU6EP, IPU6EPADLN, IPU6EPMTL, IPU7,
-IPU7P5 or IPU8), selected through isp->cpd_fw_name, but never declares
-them.  As a result modinfo shows no firmware: lines and initramfs
-generators cannot pick up the dependency automatically.
+Clock, populate and other probe-time resource lookups can return
+-EPROBE_DEFER.  Convert the remaining open-coded dev_err() + return
+sites in tegra_csi_probe() and tegra_vi_probe() to dev_err_probe(),
+which suppresses the error message on deferral and records the deferral
+reason.  This matches the existing dev_err_probe() use in vip.c and in
+the regulator/MIPI paths of tegra_csi_probe() itself.
 
-Add MODULE_FIRMWARE() for every blob the driver can request.
+No functional change other than defer handling.
 
-Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Link: https://lore.kernel.org/all/apqB28RBDZV4BlDZ@kekkonen.localdomain/
 Signed-off-by: DelaySystem <DelaySystem@tubot.lat>
 ---
-Changes in v2:
-- Resend with corrected Cc list (v1 accidentally reached only Sakari and linux-kernel: repeated --cc flags do not accumulate in b4); no code change.
-- Adds linux-media@vger.kernel.org and Mauro Carvalho Chehab to Cc.
-- Link to v1: https://patch.msgid.link/20261107-batch1-s1-ipu6-fw-v1-1-1d5323aff7b2@tubot.lat
----
- drivers/media/pci/intel/ipu6/ipu6.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/staging/media/tegra-video/csi.c |  6 ++----
+ drivers/staging/media/tegra-video/vi.c  | 16 ++++++----------
+ 2 files changed, 8 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-index cdf812c02960..ec2a9c2bf587 100644
---- a/drivers/media/pci/intel/ipu6/ipu6.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -1028,3 +1028,11 @@ MODULE_AUTHOR("Yunliang Ding <yunliang.ding@intel.com>");
- MODULE_AUTHOR("Hongju Wang");
- MODULE_LICENSE("GPL");
- MODULE_DESCRIPTION("Intel IPU6 PCI driver");
-+MODULE_FIRMWARE(IPU6SE_FIRMWARE_NAME);
-+MODULE_FIRMWARE(IPU6EP_FIRMWARE_NAME);
-+MODULE_FIRMWARE(IPU6_FIRMWARE_NAME);
-+MODULE_FIRMWARE(IPU6EPMTL_FIRMWARE_NAME);
-+MODULE_FIRMWARE(IPU6EPADLN_FIRMWARE_NAME);
-+MODULE_FIRMWARE(IPU7_FIRMWARE_NAME);
-+MODULE_FIRMWARE(IPU7P5_FIRMWARE_NAME);
-+MODULE_FIRMWARE(IPU8_FIRMWARE_NAME);
+diff --git a/drivers/staging/media/tegra-video/csi.c b/drivers/staging/media/tegra-video/csi.c
+index 5a5fca378ae6..9ec04ad3a893 100644
+--- a/drivers/staging/media/tegra-video/csi.c
++++ b/drivers/staging/media/tegra-video/csi.c
+@@ -810,10 +810,8 @@ static int tegra_csi_probe(struct platform_device *pdev)
+ 		csi->clks[i].id = csi->soc->clk_names[i];
+ 
+ 	ret = devm_clk_bulk_get(&pdev->dev, csi->soc->num_clks, csi->clks);
+-	if (ret) {
+-		dev_err(&pdev->dev, "failed to get the clocks: %d\n", ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret, "failed to get the clocks\n");
+ 
+ 	csi->vdd = devm_regulator_get(&pdev->dev, "avdd-dsi-csi");
+ 	if (IS_ERR(csi->vdd))
+diff --git a/drivers/staging/media/tegra-video/vi.c b/drivers/staging/media/tegra-video/vi.c
+index d8c77d1290ef..34507a52016e 100644
+--- a/drivers/staging/media/tegra-video/vi.c
++++ b/drivers/staging/media/tegra-video/vi.c
+@@ -1875,11 +1875,9 @@ static int tegra_vi_probe(struct platform_device *pdev)
+ 	vi->soc = of_device_get_match_data(&pdev->dev);
+ 
+ 	vi->clk = devm_clk_get(&pdev->dev, NULL);
+-	if (IS_ERR(vi->clk)) {
+-		ret = PTR_ERR(vi->clk);
+-		dev_err(&pdev->dev, "failed to get vi clock: %d\n", ret);
+-		return ret;
+-	}
++	if (IS_ERR(vi->clk))
++		return dev_err_probe(&pdev->dev, PTR_ERR(vi->clk),
++				     "failed to get vi clock\n");
+ 
+ 	if (!pdev->dev.pm_domain) {
+ 		ret = -ENOENT;
+@@ -1888,11 +1886,9 @@ static int tegra_vi_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	ret = devm_of_platform_populate(&pdev->dev);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev,
+-			"failed to populate vi child device: %d\n", ret);
+-		return ret;
+-	}
++	if (ret < 0)
++		return dev_err_probe(&pdev->dev, ret,
++				     "failed to populate vi child device\n");
+ 
+ 	vi->dev = &pdev->dev;
+ 	vi->ops = vi->soc->ops;
 
 ---
 base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
-change-id: 20261107-batch1-s1-ipu6-fw-d62ffa6a3c91
+change-id: 20261107-batch1-s2-tegra-probe-ddf5e190d01b
 
 Best regards,
 --  
