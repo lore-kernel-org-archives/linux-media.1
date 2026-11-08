@@ -1,99 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.32.148.24
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794088190;
-	b=TnJv/1Nh7walVjVNyQ3ezpsMd8QuiTgOeN2aONuORQwSfdTYmkXYzG6EhC4B/GIe8Im8
-	 4/ls7mvkxEyjpB/8mlM03woELACLxBQoWhLPwwPrSFaoRkWWrjihvr5d/TWEaRuWgZsi3
-	 WsqYA0SZ9IWm1u4xGmwS91u49crpjS3vAFFSLY1YbgNVyIIGZBjNNWsPaR1X8EQulo2Qf
-	 GNFfhN6b7IPNahY3x0QZPNYvl/lxQ495B4IeRjozqKr0cPDJxp7aBEix9vvXdhXErL2x+
-	 Gwum9rlXdaDNEmAmHiDB1Ip/lIrzuyO0EzgDtfbwB/LgILp8Mc/bENhCTmX3lHqgFDg==
+	t=1794101473;
+	b=NP+Knk0jOtnu8qOk0pUSd8R2ML6Z2cKRcggnHkEt6pTJnyu/KdlZ8IjLWl/kV/c5aWo4
+	 WIKm5poy8O5zCA89E3W7F6TARZ5AvsmeD1af6iUEF+CcvywuXOd1i82dzTT4a9EiZpmlV
+	 5AjRQoaqKZSNeAL2N/9B/Eu24nIfeGGx7RciJSSK0SUiwP3n/yuPIkEvjSnpWQmxYuUOm
+	 bC77oBw/dN1s7EZLkxUkbrRGVwXZQkVmdDQxo8UB2QJvtDhx5WBG+dLT05YI7YdQvAxIF
+	 ZaTdjLU7m4HK1ZcI+vFGr4afCTaIbvm+nlQbF1SNefUjZbjoNBkcoJU3HIWpnCPuMlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794088190;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7CcbexiGTPXAWIvnrM/nJrvHhyzwph2eaGwbgRfapUY=;
-	b=KLK8oXzf088c5pdT0hrhq7CMIxXyAcVAZJTGo3uvuheAgX7NNBL9U7EMYfbRoleRbtTk
-	 K5DsSv+UQEkigT+8680/+ljzzHk645HODo68TRboAEKg3rMr7q/0l0S6lr/lyZsUhTFxm
-	 ebS/rAWvZYHtO6blvRfbwcxdYc+CBY9L9qF9qHp0jXtO2rDqH6b9RHU4b+ZZilD9I+M0C
-	 1FQTV5gmr9e6HK7qDHjxLlvpY8naZueuFUt4ma6jV3ftWfHdv+SH52sWOXeCyD5I+aSwV
-	 lilzj8yMWvBjEgv/T/h2vJfk2uvIxwiR0kYw6ogIJxKvnRP+W/4xerlVQ/m2bMwWUuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794101473;
+	h=DMARC-Filter:DKIM-Signature:To:Date:Subject:X-sib-id:Message-Id:
+	 Origin-messageId:X-Mailin-EID:Cc:List-Unsubscribe-Post:Feedback-ID:
+	 From:List-Unsubscribe:X-CSA-Complaints:Content-Transfer-Encoding:
+	 X-Mailer:Mime-Version;
+	bh=aZoT8Rsgv6ZRpZog2Yv8ZExkygxeRKZGgV/LAEavvwk=;
+	b=i5ifztalqRNruEyh9l6EnDpZsWAHLZZDA1nB+3tn7OrDvzZwwII2/SggVhNsSuzSaXi/
+	 sa9p7sIXtFfEFjoasqNjdOkFpg+NQ+sIhfDl/PxvCTtvrIGttBF+KcqdSFZcKAgSCIdAr
+	 Y/U2j4drmTAKSlwlJCrwjtZURVTfTN1/p2POcGBzV+MVcqIlLEJjHR/iEJ/k6TIafmeBP
+	 PTfdNcaD3O/XJ3Tt6xkQAgRqCi8JG/TWW/jPd+E+EhA6TwgrPIjCPak+f0OF4TzXAfHMH
+	 Wxq1aFk249FanQvO1brEZPotXEJY7m49bej3AgLrP7T8nlt7kL+COJD4yqU3bbMYkLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dFfvFE5o;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=tubot.lat;
+	spf=pass smtp.mailfrom=gx.d.sender-sib.com;
+	dkim=pass header.d=tubot.lat header.i=@tubot.lat header.a=rsa-sha256 header.s=brevo1 header.b=pkpGcunl;
+	arc=none smtp.remote-ip=77.32.148.24
+Received: from gx.d.sender-sib.com (gx.d.sender-sib.com [77.32.148.24])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52AE7606A326
-	for <linux-media@vger.kernel.org>; Sat,  7 Nov 2026 21:49:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52AE7606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFD9606A330
+	for <linux-media@vger.kernel.org>; Sun,  8 Nov 2026 01:31:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DFD9606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tubot.lat
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gx.d.sender-sib.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dFfvFE5o
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso445954f8f.1
-        for <linux-media@vger.kernel.org>; Sat, 07 Nov 2026 13:49:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794088189; x=1794692989; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7CcbexiGTPXAWIvnrM/nJrvHhyzwph2eaGwbgRfapUY=;
-        b=dFfvFE5oX5R9QGCQ9h4uy9o52M4fQKjo0s3Z663o4wVqWnnvvD65je6S+5i8DFUJIh
-         qxMqxiCS8Lm/O6L412ePaBtMG+ozsUSpEQaoItdaEDsyV8la2KiWDK/92WLZyAsylm3L
-         Tcd8xz7psdNw6YLfE3gE3/gAezJoH3uRSbjjxzXDghaJv2/dXjSW9Hfrj1X+z+aiibXy
-         lTF4OzTkHcMUQUyPY1/tTUi0ksdZCpkvrJHizodhXR/f02hwQHEBSsZKwoB6KavGmLIg
-         OeiNmF0ifWj5q0HbOxVkeBKSvT788iMqGhjHGQyY7HL68/vMOuXMxaPHOYZhNlX7EcAu
-         Xhgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794088189; x=1794692989;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7CcbexiGTPXAWIvnrM/nJrvHhyzwph2eaGwbgRfapUY=;
-        b=NMm69j5ca5Cd6TSoOj4ypCX1YB0WHQvtE9L07khuTemj2j8XDPxyJ3t3cmJGwRXKRR
-         tXx5GQMT0BD8ebyA0zjvFVHYdiGjQ+E+HFj4xW0YfNpH8vgAoHGJulGuZ22cTWLEAH17
-         gkeXcyaEfx2aC6IV1c70Skn29sUqssYFmX9IIjuG3GNmgKZy0sZcLPXwB5x3JJGsnU1i
-         2Rljpk06iVpnbLN4CAMQDUR8RR/JmX6UEfE27s7QRHqHcxZllFbfQlGLBe/up8p/k0v1
-         8LsNra8Y9I08pgBC2JsnF1QA4qmveNaZhHoPNbWSWjqIipCGIchGhQbjYx+3itG/mTDg
-         MuSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx9OR2ZRYwOIGfyA9MOlXWp7JenuO8Hjx/R9VhC+f3gKfWbHnYPIsMGg5I7wSE0tOqEmHeyzn73sGF1DA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8U2SrJXMp7CtBETJFvxor4/2oybB9XHdUk02oG/8fwvYjyGtBq
-	Qh1VlvU41SjvMj9mY3VUR7p/kf7IAi4slcOAaGi0SwADp3mfTLQ/kfNa
-X-Gm-Gg: AYBFou2TJhbXjUI1dcAsAjPO2T26U+5V1NtYqVyEIrZzT3bnH0gFg7qkVvqPpmOsyxh
-	UozRyHRxjCmbw0l9IjpF1DRvam2SCHR9Ysrldjc3WCbJJrg3sGeWKaf7Lw8zlKeKRcFEqU2yMSC
-	+RkYTzwJSxaOrGB0Y8NR1bWg2t3Yni2HX72Zzws3Zzr6tgH+YQWgb3cy8zHbQGJQcKmV82E9B0M
-	hnlATcdgomAkxml7ZJl8cp7sdAPGTspVLfVHDFOiPqV51FTcDBF8Rjv+Q1DsRZaAejTptzD8Bjq
-	f2hgEs6T7mfGI5KGRILQnnShNvt4RydMAEIqZ2+kVEZXOIox9AauaqPCWsCAzKyTTFues5c4yBt
-	Gim+G7DAJ1AcJEBK8D8/oUwzZq1Q1FO42lxd1flBhrnT3eOCtnKwFLLSPIe59Kt7pip12Vdj1hi
-	J6ntsrd8IwX7upKs44Eo9In+I4ujbTLfXO37gkfMhGeMJ1nfOLFhtfjnXYxYl7pcTexwno91FNv
-	lZhNKysvCuWouprLh7vg+FubVBPMWriUsXcOfipzgds8Uf1dpEnEuDuNBhQUbxahuXulyS9COS9
-	9SRuFw6+y71qR4gCFujDhwneXBqk+PKhNFZDhAQoplyhG4gkR1sAc1laN9vvQNM=
-X-Received: by 2002:a05:600c:8705:b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-4b94d75ecbbmr1722145e9.2.1794088188503;
-        Sat, 07 Nov 2026 13:49:48 -0800 (PST)
-Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cb76697sm64774315e9.0.2026.11.07.13.49.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 13:49:47 -0800 (PST)
-From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: Alain Cousinie <alain.cousinie@laposte.net>
-Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Milan Zamazal <mzamazal@redhat.com>,
-	Sakari Ailus <sakari.ailus@iki.fi>,
-	Robert Mader <robert.mader@collabora.com>,
-	libcamera-devel@lists.libcamera.org,
-	linux-media@vger.kernel.org
-Subject: Re: libcamera: pipeline: simple: Disable packed mono for VGA sensors on Intel IPU6/IPU7
-Date: Sat,  7 Nov 2026 21:49:43 +0000
-Message-ID: <20261107214944.181140-1-fernandorimoli11@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <169ccc0e-d513-4ae4-9a46-cb11be7d1178@laposte.net>
-References: <c218b8a2-9e69-4ef3-b36c-7df7e7637d4d@laposte.net> <3a98bb5e-a4c4-40b7-ad4d-1b251c03b4ff@oss.qualcomm.com> <20261101164311.GA3368923@killaraus.ideasonboard.com> <304e2a5a-f8d8-427d-84f5-b6f4498452df@laposte.net> <20261101195019.220940-1-fernandorimoli11@gmail.com> <6cfa9260-b48d-484e-9c88-b75feb0392f9@laposte.net> <20261105004652.147540-1-fernandorimoli11@gmail.com> <5bb49b41-368c-4889-9f56-9a477e85694f@laposte.net> <20261106163039.18237-1-fernandorimoli11@gmail.com> <169ccc0e-d513-4ae4-9a46-cb11be7d1178@laposte.net>
+	dkim=pass (2048-bit key, unprotected) header.d=tubot.lat header.i=@tubot.lat header.a=rsa-sha256 header.s=brevo1 header.b=pkpGcunl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tubot.lat;
+ q=dns/txt; s=brevo1; bh=aZoT8Rsgv6ZRpZog2Yv8ZExkygxeRKZGgV/LAEavvwk=;
+ h=from:subject:date:to:cc:mime-version:content-transfer-encoding:list-unsubscribe:x-csa-complaints:list-unsubscribe-post:message-id:x-sib-id:feedback-id;
+        b=pkpGcunlwfsLX85rxk4wnnnXDtSqDQgwQdqM1zOMgSAWbHIV4k+OWIlkUXoKNDq6TyghaFJTlVd/
+        9rzaQr1Kq7Z6CYDkz72r3SQv9ElNmipZjLVIH4reKM2yqZekf3QCj/3XbKEToHK7jPYgV2mO2NnB
+        7QMPijZ/CkCdLtrw200DnVJJl4AGEdzyFNo+S1rA3sawoyma76utHMvkLYD+2QRBNCe9FIw41UjM
+        U5ilil8JcnVEb5FhuaPpHPm5QnYmcxVDRqKIjVb0CmMNIRLU0BoifFBKKjKnq4da4zTq//zA7pte
+        0PcWM3lSCJUURx/tFrMazWsYSNCnNBqZsYyNUw==
+To: <linux-media@vger.kernel.org>
+Date: Sat,  7 Nov 2026 17:31:06 -0800
+Subject: What should bridge drivers use instead of __v4l2_subdev_state_alloc()?
+X-sib-id: jO7KjgaLpm6PIkIJvZD7S4OioFGVbVvWRR30Wkq0Ir8fdhhJuxnymlx1RxnrtVUlMobaH8UtV8zBjB3x3QBOXcbAKLFM141u4uPBpQHLj5A0P10wGyxInwDYCW1FSt3oXEqxLzSuB90dSfww8WLHOghsVpIfnvtGjKo6eXkKlN9CMPb7hQMMkvXK
+Message-Id: <20261108013106.1162346-1-DelaySystem@tubot.lat>
+Origin-messageId: <20261108013106.1162346-1-DelaySystem@tubot.lat>
+X-Mailin-EID: NDczOTMwODc4fmxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZ348MjAyNjExMDgwMTMxMDYuMTE2MjM0Ni0xLURlbGF5U3lzdGVtQHR1Ym90LmxhdD5%2BZ3guZC5zZW5kZXItc2liLmNvbQ%3D%3D
+Cc: "Mauro Carvalho Chehab" <mchehab@kernel.org>,  "Sakari Ailus" <sakari.ailus@linux.intel.com>,  "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>,  "Hans Verkuil" <hverkuil+cisco@kernel.org>,  "Tomi Valkeinen" <tomi.valkeinen+renesas@ideasonboard.com>,  "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>,  <linux-kernel@vger.kernel.org>,  "DelaySystem" <delaysystem@tubot.lat>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Feedback-ID: 77.32.148.24:11287567_-1:11287567:Sendinblue
+From: "DelaySystem" <DelaySystem@tubot.lat>
+X-CSA-Complaints: csa-complaints@eco.de
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -102,18 +64,39 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
 
-Hi Alain,
 
-> Has a formal bug ticket already been opened for this regression with the Intel IPU6/ISYS team,
-> or should I open one myself? If so, please let me know the preferred tracker.
+Hello,
 
-Not that I know of. The mainline ipu6 driver has no tracker: bugs go
-to linux-media, and Sakari maintains the driver. A new thread with a
-"media: intel/ipu6:" subject, sent to Sakari's linux.intel.com address,
-is easier to find than this libcamera one. Include the kernel version,
-the IPU PCI id, the firmware file it loads and the log you posted.
+While working on drivers/staging/media/tegra-video I ran into the FIXME
+above __tegra_channel_try_format() in vi.c (added by commit 40aaab9d773b
+in 2022):
 
-Fernando
+	/* FIXME: Drop this call, drivers are not supposed to use
+	 * __v4l2_subdev_state_alloc(). */
+
+The driver needs a scratch TRY state to negotiate formats with the remote
+sensor subdev from video-node ioctl context, where no subdev file handle
+exists. I looked for the intended replacement, but:
+
+- there is no non-dunder allocator in drivers/media or include/media;
+- v4l2_subdev_call_state_try() is documented for legacy non-MC drivers
+  only, has no in-tree users, and allocates one state per call, while the
+  driver needs one state across enum_frame_size + set_fmt + get_crop;
+- the active-state APIs have the wrong semantics here, since try_fmt must
+  not disturb ACTIVE state;
+- the same FIXME is still present in mainline vsp1 and staging atomisp,
+  and mainline stm32-dcmi still calls the dunder directly, with (as far
+  as I can tell) zero conversions since the 2022 rename.
+
+So my question: is a new core helper the intended direction for the
+bridge-driver scratch-TRY-state case, and if so, is there any guidance
+on the shape it should take? Or is there an existing pattern I missed?
+
+If a new helper is the answer, I am happy to implement it and convert
+the in-tree users.
+
+Thank you,
+DelaySystem
+
