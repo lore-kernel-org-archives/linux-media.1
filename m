@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794114416;
-	b=yT3noetZcfDaehYt/deuMBw7+gFpBdEueLAGPPsgNzx/xLASL+XCdFjkoDJdQr2BdHy2
-	 PsdsS2pBah8uNr/FxO4s7DT+24JRIJrCwkxjrocPF+/4J1ZToxmmD1ndY2qoTIXYwffVn
-	 D0u8qjKfNqQST6Tq1A9hKup6eOsxtie32pwtOeJu4d9dqDpT1uzFpd7PQWqjHSlpLX3lE
-	 G3/mB5bj2EGSdjd7FxJ84W7xF6yXmgzYALMDMO7Pmk0NOo9b90IlY9KolIuIUBNPsu3LW
-	 329n7rEVZkQpGazrDiVu90Vb+QBVQewOPodeceG9TbKXIDLVRJST66HqsrGGub5aKJg==
+	t=1794114973;
+	b=VEEugvMYahaHO70h4cv3jnziT8ktyN4FDogYOL4BNNGFohRM1Ixd2KadxnGDpW+i/Fk2
+	 59XsorgC4c+1DoO47fF9GXmdh1kHcvKwDy0r9/C6cm2ajB5c/IXd3vgv+rSNKdIxIjYg6
+	 DhEu/Ps8hrZbj1bm577cQd6N/hRG6nWmevBN87lgmROFUPuPJ7WEglejZc7ARCTg07wFB
+	 +DA3n45+4QOf+exDFMk3mvAlZCJJ615O2ae0dDJcsXX1PORfzG1EpNI7VzMhl84MM2kU8
+	 3JGKCZ3dmEKFR5YIlIy5uTEeaO9dRC8TZ/M2LjSL9d8nUurnoLuGns+5fQ5NfrIhc4g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794114416;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794114973;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GcD4B/NC+LPFa4i7abrIGM3Q2OUWv45Xz+W+4d/g96Q=;
-	b=a+VbGJGy8l2ttrbD/Ks/97S8hj5bYSCtINPpmd50VPDewZr5PWsW5IQNIzh6S+W8C0l3
-	 0INcyvc01EgLqyRnoDV6Qip3yb7OOVs2/8chkmmsJiVKBsiKysCKox/juMHT0VfI4FSPa
-	 CsfK5YPcG9mBENQHzwpDgviNIRNZ9NetIE6kp055yCNZVrrZ7A1T+3JMmFhR9AA+ELWbH
-	 gi4LMul9qEO/a2wK8FXuiTe+n7KvXgOBwnkhY87MLVACISuKC4iJMVps3MOYNsUlYlM5c
-	 ZHJEojHOfoLpL6D22fVKA1gU6Gnp9MDSPFsNOXD/aGBsfS041iJjE+t7nlTzWOLIXxA==
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=GaJ0kJ7iGwr4NJdNnl3p/qA/RRPtTceFFlBooGp8kRY=;
+	b=Xz66yJtOiQzCVYhtxVebiFtauBHgWpqjJGKa9UBOEQpo0cceuE0+VLNWaxHTvoHmMC2p
+	 +1RL7lOwjx7Jzs0AO58FMxp/fmZ+OJWrdYZJO2GOMTv79wp+0YCmvDkxHMUfS6FnQFKQf
+	 +8sM5M8kXpniEYzzMXOc9XXgDE+oZszsbhGRqFdKspvW51mFJcAdF62XxsgJTsAJtLbx/
+	 giMUDUqu/OWB3QDXf1oAeI0aJqeyyVBp02nRWioT7hsVeiPhjV4BXvOnCbRT5FGhoYlB1
+	 ybbIJHwf5VH41xz/IJaZolq9eT/taKNcYx0roOQ941qz7FfkYvbvnx471xNOz6mqvLw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n3lOJzt1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ee7vqJqb;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F07F606A31A;
-	Sun,  8 Nov 2026 05:06:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5996C606A31A;
+	Sun,  8 Nov 2026 05:16:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n3lOJzt1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ee7vqJqb
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794114416;
-	b=vHFcTRlLO8qvcS7kc1A2Uqh1gbeQ0U4aTjyUp9VFXdPKXZYDAGJyqppGRQZLCMLjC9jZ
-	 y5In0hX43KhjXImlRHoZmsgrQO4Aqz/HkMYhl0t9vEpgMr40h7Nv2M9wfYc7LXg6PClyU
-	 AG5BH2vgKdzotMJJ5iBvZkDsDXg2ukfa9NX5WTORnBxAXpdcx1/2yXXAbCZHPHhisRclU
-	 lKlK/wmqws0v2q8jywq3y/LeeF1JQ7Hu2ZYw9Ls2IG0m25chGQFQqdcgx/2xBvB6eTGwA
-	 BIzMe2p4gdXv8zyrbKSmua16yihsKuGEUnOG+DMfjVc78AHlx/+HZM59pdoS0f+Nw8Q==
+	t=1794114972;
+	b=oL0FJ9NN6kD2oz6KZ7Te742CtBSLQavRBod0mI3N1fe0f/Duc/E62roypS2UWZQ1Vap7
+	 r7lH0bWSNTyTGWptPK3sEBNPmTzXCHsnSn82e3RvXqKZXGrp137+EGlXXnY1PUuCTAlbv
+	 UsVngdUQ+wEX4uciZcnkz+UonWYb6Tt0/HncZIwTGj2bcXtt7cQToH2aAjVlTbowk16b2
+	 jg/pCwy0GTeMD8EZwJ21ZMjWfw/MEmDAL0Pyvgni4T8mPAs+4G9VfpJ+pY0y1K2VPaZmx
+	 eTkd7QDUhKEd8RaHqBX4huFeHYG6AoO/mw6yT1qhYpkwQC2PqLg3JZRwI1V2Otg+jLg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794114416;
+	c=relaxed/relaxed; t=1794114972;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GcD4B/NC+LPFa4i7abrIGM3Q2OUWv45Xz+W+4d/g96Q=;
-	b=wxxgrZ2NQbYzg+lTQwT9OXMpbDLF/jvYXWirmBfdyJDOLnZKMylZtu5v1we1b7k1ARYN
-	 l40qBT6+4mtwCOVsnMNBgYUPYva3YLYtIMYnaLPWKQeGJ9bVxoXV4hsoRIPM2EJX3qJqY
-	 9klnQsR0kkrVHHVRnTo7B/hxvA84ZCJ6B0k7HhKorpjV1r988cVC0Hv4h2NrLGPkcvbLc
-	 B2bYSLvoDjloxQ7xJ/uDMCSUplQsWOcPFpRSIBCk8xcd8WNBGvhknY0mE3osmD2DD/xTx
-	 HuAix2ElZk/o5vqOh/9LwtOf8V8nkCuTGFDBga/gNA8t0gmvhtzqBt+GKtNmSfxow2w==
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=GaJ0kJ7iGwr4NJdNnl3p/qA/RRPtTceFFlBooGp8kRY=;
+	b=dI08UNewVADlCq7KxMnXpkgJXsUspY8ZOuSKzIRiAO6P71L2SC8/cKMGV7jdR/R6ytUV
+	 OIfdSu6dvH+GkT8Z3WcAY0lDL7uNPj3EhMI5CooIUrA94TiIVCPwky6eDRL0mTJUDbLlJ
+	 6SbjxxAAK/qikYHSYwkUFO+CmPsYlPtTr965sqT8PEfXaMh8JsvpudaTUQCutsMOBnkmt
+	 a4x7AQG7dLpQuJnzG/0ZBv1/yLRJR9Ab287JTrNDuY7jFE/R9xcT26SBnaeKs7nLcVVsY
+	 hXAtaDKoJVhFCZVo2WPmMCpOpy80fUt//QNLlPYEE7MC/2NQ9aSEUMFnny3IZRYvJ1g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 85D421F0089F;
-	Sun,  8 Nov 2026 05:06:55 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id D85BE1F0089F;
+	Sun,  8 Nov 2026 05:16:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794114416;
-	bh=GcD4B/NC+LPFa4i7abrIGM3Q2OUWv45Xz+W+4d/g96Q=;
+	s=k20260515; t=1794114972;
+	bh=GaJ0kJ7iGwr4NJdNnl3p/qA/RRPtTceFFlBooGp8kRY=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=n3lOJzt1DhcnFWAcKq9WlrWuNyYvo44tVqVEa8zInf+rW+2RDVUXWqFhVNav0y/dU
-	 OqG6+fmu54V3HF4n7boBuCK90C1q+XIk8Dh+bijjf4LSRB+KlAyR8vSCLpmEBNv/L6
-	 OC1cFF8PNJKSw3gYehk3tylWQe3ha0kKywklP8W2evnj63LHTG9kkJQINvYKF4ywG5
-	 9lzlfBqagplQQ/j5nmuGNl8zMrUNKGGN3Y3PC8L4F3rDbDrTqBCdBi2IV6HzrqbmOu
-	 Go/L8f0RB+QLTOIAE0DMwFp9VHz7rqIzq0CsGZLiuFkTQS5GnQI/sE11yWNOVmtfJ5
-	 3zCIV3YELl2dg==
+	b=ee7vqJqbfoVpzwntvymbHhBetWeh4SBmLaPCjXyh4JvGWODgkrXTJmSmT8PAafYF7
+	 SRDZ6W6lAsjVFAvODwDe6cUcDx0eAZJjj7XoTzX0o8puqeUkFYBKGiYklIX1sjGIEG
+	 PcCmKcUUeYyZf64OCTxT13xtCj3d85Tpp74O/hhpsYAwFHAhW4ERWIRIDEH+U5/QqV
+	 91JRePqZJV/wO8iDMfUdbqmaZ3Vk33dVoaZnG6KRxiJRBQuGX1owO5Gfh3XPfMbuH/
+	 B7vrUW4+Aw11CkxEp74UlcC092+aJyCIJsvOdS2HrOFz6TVLui53uWB2deay4dD/SK
+	 fkBJMuwqx/n5Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E69C447DF7;
-	Sun,  8 Nov 2026 05:06:54 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 539F447DF7;
+	Sun,  8 Nov 2026 05:16:11 +0000 (UTC)
 From: DelaySystem via B4 Relay <devnull+DelaySystem.tubot.lat@kernel.org>
-Date: Sat, 07 Nov 2026 21:06:54 -0800
-Subject: [PATCH] staging: media: tegra-video: use dev_err_probe() in CSI/VI
- probe
+Date: Sat, 07 Nov 2026 21:16:11 -0800
+Subject: [PATCH] staging: media: imx: ic-prp: add FORMAT_TRY frame interval
+ support
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,104 +84,204 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-batch1-s2-tegra-probe-v1-1-b4775e6437e5@tubot.lat>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDQAxA4atI1g1MBmqpVyldzE/UuFBJpqUg3
- r2jLr/FexsYq7BB12yg/BWTZa6gWwNpDPPAKLkavPMtkXtgDCWNhOax8KABV10iY879nenpsqM
- ItV2Ve/md39f7sn3ixKkcM9j3P5PoQpN5AAAA
-X-Change-ID: 20261107-batch1-s2-tegra-probe-ddf5e190d01b
-To: luca.ceresoli@bootlin.com, mchehab@kernel.org, skomatineni@nvidia.com, 
- thierry.reding@kernel.org, jonathanh@nvidia.com, gregkh@linuxfoundation.org
-Cc: linux-tegra@vger.kernel.org, linux-media@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- DelaySystem <DelaySystem@tubot.lat>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261107-batch1-m1-prp-try-v1-1-56a08f54791b@tubot.lat>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMAyA4VchPdukRYTEVzEetlGlJOLSDYIhv
+ DtTj9/h/zdIYioJrtUGJosmfU8FfKogDG56CmpfDDXVLTN16F0OA+OLMVrEbB88d+ToQuKb3kP
+ poslD19/zdv87zX6UkL8j2PcDkrMvbnUAAAA=
+X-Change-ID: 20261107-batch1-m1-prp-try-370a050eb4db
+To: slongerbeam@gmail.com
+Cc: linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org, 
+ vickramk.207@gmail.com, linux-staging@lists.linux.dev, 
+ linux-media@vger.kernel.org, mchehab@kernel.org, imx@lists.linux.dev, 
+ p.zabel@pengutronix.de, DelaySystem <DelaySystem@tubot.lat>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2702;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5034;
  i=DelaySystem@tubot.lat; h=from:subject:message-id;
- bh=HadRakgfetZKfm5cBPmgCO0PbLmnRqlErwjrkQRxrOE=;
- b=owGbwMvMwCH2SNl4+SzWXm/G02pJDFkfmPMuPLl/SnLyI83elVuCq5deXp+gs9VSV9vGtVnsL
- 4/BnnCxjlIWBjEOBlkxRRYxGZ739fd14qyt5pyAmcPKBDKEgYtTACbyfSkjw+l9nf7nRc6vPrqd
- +YjtL/9w3+s3g+x+RqyTSO6x9N9R9ZLhf+bJ2cf/qnf7eF06clJtf9ulDZpRR6bd+WEUENDC+O2
- qJh8A
+ bh=WVwUtRUjTKbxdRiEtnEo30aSNjX2ZGooES481TnxQgg=;
+ b=owGbwMvMwCH2SNl4+SzWXm/G02pJDFkfWGd9fOqwyWtq5BOrH5nv1DU/vb/7omYJ/+TszM3r1
+ mhZaXyX7ChlYRDjYJAVU2QRk+F5X39fJ87aas4JmDmsTCBDGLg4BWAij14yMmwO4DdmCFppdeZt
+ 3zWtkF+P/rv9OcNbaPl0Z+PTJUlKn34w/A94EjT/0BobpxkrN/Y+8Res3C9p1r7QOz2Rs/fG+YV
+ 1N5gB
 X-Developer-Key: i=DelaySystem@tubot.lat; a=openpgp;
  fpr=161C0CEF7FDF2C5E3B3A9CC8E22333A79A058D4B
 X-Endpoint-Received: by B4 Relay for DelaySystem@tubot.lat/default with
  auth_id=1447
 X-Original-From: DelaySystem <DelaySystem@tubot.lat>
 Reply-To: DelaySystem@tubot.lat
-Content-Transfer-Encoding: 7bit
 
-From: DelaySystem <DelaySystem@tubot.lat>
+From: Vickram Kapoor <vickramk.207@gmail.com>
 
-Clock, populate and other probe-time resource lookups can return
--EPROBE_DEFER.  Convert the remaining open-coded dev_err() + return
-sites in tegra_csi_probe() and tegra_vi_probe() to dev_err_probe(),
-which suppresses the error message on deferral and records the deferral
-reason.  This matches the existing dev_err_probe() use in vip.c and in
-the regulator/MIPI paths of tegra_csi_probe() itself.
+Implement frame interval handling for V4L2_SUBDEV_FORMAT_TRY
+by storing and retrieving per-pad intervals from the subdev state.
+Also add a PRP-specific init_state callback to initialize TRY intervals
+from the active default, and move default interval initialization to
+prp_init().
 
-No functional change other than defer handling.
-
+Link: https://lore.kernel.org/all/20260426002659.119625-1-vickramk.207@gmail.com/
+Signed-off-by: Vickram Kapoor <vickramk.207@gmail.com>
 Signed-off-by: DelaySystem <DelaySystem@tubot.lat>
 ---
- drivers/staging/media/tegra-video/csi.c |  6 ++----
- drivers/staging/media/tegra-video/vi.c  | 16 ++++++----------
- 2 files changed, 8 insertions(+), 14 deletions(-)
+Compile-tested only: x86_64, VIDEO_IMX_MEDIA=m via COMPILE_TEST, zero
+warnings. No i.MX hardware here for runtime testing; hardware testing
+by others is welcome.
+---
+ drivers/staging/media/imx/imx-ic-prp.c | 87 +++++++++++++++++++++++++---------
+ 1 file changed, 64 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/staging/media/tegra-video/csi.c b/drivers/staging/media/tegra-video/csi.c
-index 5a5fca378ae6..9ec04ad3a893 100644
---- a/drivers/staging/media/tegra-video/csi.c
-+++ b/drivers/staging/media/tegra-video/csi.c
-@@ -810,10 +810,8 @@ static int tegra_csi_probe(struct platform_device *pdev)
- 		csi->clks[i].id = csi->soc->clk_names[i];
+diff --git a/drivers/staging/media/imx/imx-ic-prp.c b/drivers/staging/media/imx/imx-ic-prp.c
+index b2c648149964..3f1690d22483 100644
+--- a/drivers/staging/media/imx/imx-ic-prp.c
++++ b/drivers/staging/media/imx/imx-ic-prp.c
+@@ -87,6 +87,18 @@ __prp_get_fmt(struct prp_priv *priv, struct v4l2_subdev_state *sd_state,
+ 		return &priv->format_mbus;
+ }
  
- 	ret = devm_clk_bulk_get(&pdev->dev, csi->soc->num_clks, csi->clks);
--	if (ret) {
--		dev_err(&pdev->dev, "failed to get the clocks: %d\n", ret);
--		return ret;
--	}
++static struct v4l2_fract *
++__prp_get_frame_interval(struct prp_priv *priv,
++			 struct v4l2_subdev_state *sd_state,
++			 unsigned int pad,
++			 enum v4l2_subdev_format_whence which)
++{
++	if (which == V4L2_SUBDEV_FORMAT_TRY)
++		return v4l2_subdev_state_get_interval(sd_state, pad);
++
++	return &priv->frame_interval;
++}
++
+ /*
+  * V4L2 subdev operations.
+  */
+@@ -398,22 +410,25 @@ static int prp_get_frame_interval(struct v4l2_subdev *sd,
+ 				  struct v4l2_subdev_frame_interval *fi)
+ {
+ 	struct prp_priv *priv = sd_to_priv(sd);
+-
+-	/*
+-	 * FIXME: Implement support for V4L2_SUBDEV_FORMAT_TRY, using the V4L2
+-	 * subdev active state API.
+-	 */
+-	if (fi->which != V4L2_SUBDEV_FORMAT_ACTIVE)
+-		return -EINVAL;
++	struct v4l2_fract *interval;
++	int ret = 0;
+ 
+ 	if (fi->pad >= PRP_NUM_PADS)
+ 		return -EINVAL;
+ 
+ 	mutex_lock(&priv->lock);
+-	fi->interval = priv->frame_interval;
++	interval = __prp_get_frame_interval(priv, sd_state, fi->pad,
++					    fi->which);
++	if (!interval) {
++		ret = -EINVAL;
++		goto out;
++	}
++
++	fi->interval = *interval;
++out:
+ 	mutex_unlock(&priv->lock);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ static int prp_set_frame_interval(struct v4l2_subdev *sd,
+@@ -421,24 +436,50 @@ static int prp_set_frame_interval(struct v4l2_subdev *sd,
+ 				  struct v4l2_subdev_frame_interval *fi)
+ {
+ 	struct prp_priv *priv = sd_to_priv(sd);
+-
+-	/*
+-	 * FIXME: Implement support for V4L2_SUBDEV_FORMAT_TRY, using the V4L2
+-	 * subdev active state API.
+-	 */
+-	if (fi->which != V4L2_SUBDEV_FORMAT_ACTIVE)
+-		return -EINVAL;
++	struct v4l2_fract *interval;
++	int ret = 0;
+ 
+ 	if (fi->pad >= PRP_NUM_PADS)
+ 		return -EINVAL;
+ 
+ 	mutex_lock(&priv->lock);
++	interval = __prp_get_frame_interval(priv, sd_state, fi->pad,
++					    fi->which);
++	if (!interval) {
++		ret = -EINVAL;
++		goto out;
++	}
+ 
+ 	/* No limits on valid frame intervals */
+ 	if (fi->interval.numerator == 0 || fi->interval.denominator == 0)
+-		fi->interval = priv->frame_interval;
++		fi->interval = *interval;
+ 	else
+-		priv->frame_interval = fi->interval;
++		*interval = fi->interval;
++out:
++	mutex_unlock(&priv->lock);
++
++	return ret;
++}
++
++static int prp_init_state(struct v4l2_subdev *sd,
++			  struct v4l2_subdev_state *sd_state)
++{
++	struct prp_priv *priv = sd_to_priv(sd);
++	struct v4l2_fract *interval;
++	unsigned int pad;
++	int ret;
++
++	ret = imx_media_init_state(sd, sd_state);
 +	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed to get the clocks\n");
++		return ret;
++
++	mutex_lock(&priv->lock);
++
++	for (pad = 0; pad < PRP_NUM_PADS; pad++) {
++		interval = v4l2_subdev_state_get_interval(sd_state, pad);
++		if (interval)
++			*interval = priv->frame_interval;
++	}
  
- 	csi->vdd = devm_regulator_get(&pdev->dev, "avdd-dsi-csi");
- 	if (IS_ERR(csi->vdd))
-diff --git a/drivers/staging/media/tegra-video/vi.c b/drivers/staging/media/tegra-video/vi.c
-index d8c77d1290ef..34507a52016e 100644
---- a/drivers/staging/media/tegra-video/vi.c
-+++ b/drivers/staging/media/tegra-video/vi.c
-@@ -1875,11 +1875,9 @@ static int tegra_vi_probe(struct platform_device *pdev)
- 	vi->soc = of_device_get_match_data(&pdev->dev);
+ 	mutex_unlock(&priv->lock);
  
- 	vi->clk = devm_clk_get(&pdev->dev, NULL);
--	if (IS_ERR(vi->clk)) {
--		ret = PTR_ERR(vi->clk);
--		dev_err(&pdev->dev, "failed to get vi clock: %d\n", ret);
--		return ret;
--	}
-+	if (IS_ERR(vi->clk))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(vi->clk),
-+				     "failed to get vi clock\n");
+@@ -450,10 +491,6 @@ static int prp_registered(struct v4l2_subdev *sd)
+ 	struct prp_priv *priv = sd_to_priv(sd);
+ 	u32 code;
  
- 	if (!pdev->dev.pm_domain) {
- 		ret = -ENOENT;
-@@ -1888,11 +1886,9 @@ static int tegra_vi_probe(struct platform_device *pdev)
- 	}
+-	/* init default frame interval */
+-	priv->frame_interval.numerator = 1;
+-	priv->frame_interval.denominator = 30;
+-
+ 	/* set a default mbus format  */
+ 	imx_media_enum_ipu_formats(&code, 0, PIXFMT_SEL_YUV);
  
- 	ret = devm_of_platform_populate(&pdev->dev);
--	if (ret < 0) {
--		dev_err(&pdev->dev,
--			"failed to populate vi child device: %d\n", ret);
--		return ret;
--	}
-+	if (ret < 0)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "failed to populate vi child device\n");
+@@ -487,7 +524,7 @@ static const struct v4l2_subdev_ops prp_subdev_ops = {
+ };
  
- 	vi->dev = &pdev->dev;
- 	vi->ops = vi->soc->ops;
+ static const struct v4l2_subdev_internal_ops prp_internal_ops = {
+-	.init_state = imx_media_init_state,
++	.init_state = prp_init_state,
+ 	.registered = prp_registered,
+ };
+ 
+@@ -504,6 +541,10 @@ static int prp_init(struct imx_ic_priv *ic_priv)
+ 	ic_priv->task_priv = priv;
+ 	priv->ic_priv = ic_priv;
+ 
++	/* init default frame interval */
++	priv->frame_interval.numerator = 1;
++	priv->frame_interval.denominator = 30;
++
+ 	for (i = 0; i < PRP_NUM_PADS; i++)
+ 		priv->pad[i].flags = (i == PRP_SINK_PAD) ?
+ 			MEDIA_PAD_FL_SINK : MEDIA_PAD_FL_SOURCE;
 
 ---
 base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
-change-id: 20261107-batch1-s2-tegra-probe-ddf5e190d01b
+change-id: 20261107-batch1-m1-prp-try-370a050eb4db
 
 Best regards,
 --  
