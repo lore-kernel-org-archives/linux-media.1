@@ -1,69 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.120
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216818;
-	b=iOs/z2DGEsdtDxaRyMrGTW2j0VWeOK92gCMDRyh/r85R4xIrGa6lx7C4kwCa4cO8NUvP
-	 dtGaVpfY5SdUnL7g6R91vfnJIPaeY/PnLQKvCBkvtX18yUCAFUXS/munZyK4yU42kMKV6
-	 DyyLCx9cTJ7ecpUaS/hv1LcYQHHgZKsXMzeRMg+kVy3dEya4H9Cbfu1V9VxUIxOQe0Lua
-	 9fWpOyy6ieGDaGM19DEY8mv1eh3kfaCU9GFBQs2ksb/9+yJTsTHKfT3ey5bBbHpY1uYUv
-	 0Lhqa9gIAxqChFyow4vXvrVqIDS2RB8w4vera61BrgdHg6lbe5MUE5R4/oIgJ6pKJxQ==
+	t=1794216855;
+	b=tL/TCWtbIp/NRoYRaZtxgXQ+ZY2rLnc4Qak6DFLOKPk6a3uynA09X9y3Q1irBWpkT3Yn
+	 uQ6wTIAIqTXixBwar1QuT+DCbbJTmKrhkAgVLRrlBofrUyiHMU+jlvgndXO3L3fE0OH7Z
+	 J/8N/ejD9cH6ka+qVJzB3J+aYDLO9WziugiiuRCbD1qmHmlrUkMDlTC7KfUkPAO3cg9BI
+	 k8+jjXyAKlEeBMBmhoLOqv3ZuSFyhRyQw/iaL0ORAUGkLV37e/Qa1HOGJLnzcKYnji6G6
+	 SqvQowyVRmLE5+lAnq0A3Lpd9Ilo1NTc3Sq8ztBn69eEb7gURHSxQBaBICsV2FszyTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216818;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=tdrqNXvbOJfnmlPst0iypdpdKmNbCcqOM+pkeWm09qc=;
-	b=mnLpGzEdVEg0aBSo6ggIQvi7vl3gRlnQsa0FOR6SwaHp3lzjYFdUHCAMydn22qot9Shx
-	 7JNScjykwM2uOZA/VeJM3ecESpohKfwD3UyrjnU//g8d4v67XsUDeRw8YsznB9OxraSgf
-	 k83sNuqwYEvmO8D0hEuQGaCwHbNYIhZoylemxwhk3um869MA3nPqnl9mf8sIq1HV77qcK
-	 pUo7hCqBTRHYAb4a9qnrQnSy4tLNWdHqPcE9jUWJHZWRaaDKHeNk3PWayhUBGqrJhGWlQ
-	 3eMRx3i9MY2jIBMtQTDtNbwNj3tCjgUh6aMRvkrEtaY+SCBFSyTpUQnaF26EKhMLYeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216855;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=n4GaosAghDqO6pAayHdy/5ViKOQOZe9uvaTY4SQf0mY=;
+	b=l/oEFV0qjfeWi35gE9MQHtuDU8IUOVUivBvy6gk1YBDj2mhV4sOrsmQRxTGc1q5kAFai
+	 i0kTyfeal39DXMFEvvB5g16VXa9azKY+UA3cPLeddkuuX9tIK8BHfVkgXEv8IYKlF6ONA
+	 ouFI7MoGL50r+oz65qxCaETlvRxygCVCHJXebek8wYvX0mxpqnYjklX0uDhL8LM4y4t+Q
+	 L/IvGcqhMt4idTgQBb1W7kd5Y6Hy6qe+5B1QX/PgRpNksdnyzhquDv/CsX/gfjjQT2BII
+	 Uf7dJ7DY1JeBb9eH87JcgHZP0rAgLFkDNnFvTMhUyJGtSNzIBEkQo2ZZYqlv5FmKOVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=XFhDgguA;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=jmkDiJoQ;
+	arc=none smtp.remote-ip=79.135.106.120
+Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91308606A321;
-	Mon,  9 Nov 2026 09:33:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91308606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8615606A323
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 09:34:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8615606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=XFhDgguA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794216784;
-	bh=tdrqNXvbOJfnmlPst0iypdpdKmNbCcqOM+pkeWm09qc=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=XFhDgguAQjvgw9TZqisvDJsFQxJ12Vo+EtmHyNwd/1jkzbMQ1ASLm96lYiq03V9Vm
-	 /YNRzyLOSEGgQo8vTULvk5KrNnMAobqDKIP8Xo98wREsDQxfKDQpWfmBCqbBO/iBRl
-	 pkzbTmcTsfNgo0H/qP6LSrZfUWgk90zKosWNUmPQ=
-X-QQ-mid: zesmtpgz7t1794216768t23ed94af
-X-QQ-Originating-IP: QejUh9wpFsrmFWP65cpzSdFpRsHVcwdB0Drmsw1YPsU=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 09 Nov 2026 17:32:45 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 1809446386184203717
-EX-QQ-RecipientCnt: 9
-From: raoxu <raoxu@uniontech.com>
-To: sakari.ailus@linux.intel.com
-Cc: mchehab@kernel.org,
-	hverkuil@kernel.org,
-	laurent.pinchart+renesas@ideasonboard.com,
-	prabhakar.mahadev-lad.rj@bp.renesas.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH] media: i2c: ov5645: Initialize the default mode
-Date: Mon,  9 Nov 2026 17:32:45 +0800
-Message-ID: <2870CBB9F723E453+20261109093245.3777610-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=jmkDiJoQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794216852; x=1794476052;
+	bh=n4GaosAghDqO6pAayHdy/5ViKOQOZe9uvaTY4SQf0mY=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=jmkDiJoQ3jdyua2YKHF10eJXBkEMoOX0bRLhzpMr1XtSLrAZs1YwFtYiR6U0adAKa
+	 QaWTfDiFDhiBL+PchGOghzPfXu0/xNX7LtUq12DfTJSZDQRAiMmT7c5oGS8Qlu83cl
+	 zNhTonvaK5GBNIi2IKoZxI9vhyk/FenzEMSi+N45qyzzfyDeXbbBEmRtlVjRB75x/x
+	 92e0s4APnzV7AN+37gs9SxQ9PTI5229TJbiUcMlzPr6BteXS0qpbNFfZqGJVsQJcCj
+	 Pc+pExztRPVH2UBxTl+Z/aG8n6UZ+L0LS5nHMn6AMmlB0/d0+nB2S+XyF/lXdNln/s
+	 KxTHcB/e4BNWA==
+Date: Mon, 09 Nov 2026 09:34:03 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] media: Add the ST VD55G0 global shutter sensor
+Message-ID: <20261109093353.3757-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 74ed771a4eab9a2850d6d5d62174c245ddcb0a0f
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -73,83 +61,113 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: M5AoSkhGr8pkVSUAhN/flHLD3yDWrYYyCw4RC58g1HIH0DJUa50p6TwE
-	DnNDPju5fCtm0bek4s4XvXAGPKrdM1dvbFqseimZZ4K49hfZy0B7eZlEPjEItQOi6AAtaxF
-	w1WrtN224pqhp8ztbQI1dYVPHJX7QQky7w0inRIll1VY05s/3/2dbl3Qz9S7YdMDoQKsK93
-	iclZdjMfJQba6Atbc0tW8hAA/k6mVKJq01oQBdtycKgFplVQwS/Qt9QEYvptNrDE5xkmDFK
-	diSOsaPM1+V1+zJP1K/efTao0qGoBGoS2PF9BUYlHx4zKK3PH+5GcIuInmO4+D+aIoR4vkX
-	zsIj5ZfUiMRY7Qu/a3C7axVUBzx3PNLp8hWWVjbyIv/UdkbAJ5RTFLJtAvPxUfSA46RaUwA
-	MKca76rX46dSV/j/kwYCIUj8a1KswcNFHDwFiWFTh3iL6y7ltDv9qjOsID+txSeE2Z3cd0u
-	tx67JVV5qiuZZ3hX9oKs8mdtnfBbv0O58Po4ts6eVbKlKNEyAGfZi38D4rp6wu0tc0R5aVS
-	yB3jJ+yBXRYjGmKiQQ3Ps1UdVffeplfQVmNMFiP1MPS9kxGZIngN0gJPs+YIBx6lRZNTBzd
-	Ykr+lnpoJ3aY41QO66gHC9q61AVUOXeFsrPrO5cWsGVlRF0xcL2is1cML4xZ5hvWFpRw8V0
-	axwv0slFQHuLjTOWA/KZ/ARDR83jCDaJ44jSNVo4smrrC8Ul2vDwk34ZlpMZxgEzfyrelmK
-	A16AuN5eB2H50RerllXKf83/GJSVMCU5Gh8tPuaRJ1ClPrOEm5WUNMAmMyBadY+LJ1UV2yL
-	Jn0AlAKnUUloODDBiu/Azja55jzMtCw8FrLHqZnLWD/CJgwYdilDlENBsrncsihoc49tHu2
-	Xax/tz6NcbdIqfvYHbSeGiJK4TAqCnrY+iQsZGort6e2LKC8MVKep3FoMzyUxuHzCE2i+Lv
-	urxq5JJ2Ph3YGI7sDdc1e7q96Y3Q9q2DaN6k3HEbHam2mD48E98pNLi1TXIoddhv1TJ85QP
-	s+yqi2kP4WvewOInUJKCcfYO7rBXY7RlSTndKIZ04ss2XFq9IJ
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Xu Rao <raoxu@uniontech.com>
+The ST VD55G0 is a 644x604 monochrome global shutter sensor. It is the
+infrared camera of the Microsoft Surface Pro 11 for Business with Intel
+(Lunar Lake, IPU7) and of the Surface Pro 9 (Alder Lake, IPU6), ACPI
+device SMO55F0. Without a driver the camera does not appear at all.
 
-ov5645_init_state() initializes the default 1920x1080 format through a
-TRY-format operation. As a result, ov5645_set_format() does not update
-the driver private current_mode, which is only changed for ACTIVE
-formats.
+  1/4  dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
+  2/4  media: i2c: Add ST VD55G0 global shutter sensor driver
+  3/4  media: ipu-bridge: Add ST VD55G0
+  4/4  media: ipu-bridge: Add the Surface Pro 9 and 11 infrared illuminator
 
-Starting streaming without an explicit ACTIVE format then dereferences
-a NULL current_mode in ov5645_enable_streams(). The pixel rate and link
-frequency controls also use values unrelated to the default 1080p mode.
+The driver is a port of ST's own downstream driver, firmware patch
+included, as vd55g1 carries its own:
+https://github.com/STMicroelectronics/vd55g0-linux-driver
+2/4 carries Benjamin's Co-developed-by, and its clock tree is based on
+his.
 
-Initialize current_mode to the same 1920x1080 mode used by init_state(),
-and use that mode to initialize the pixel rate and link frequency
-controls. ACTIVE format changes continue to update the mode and controls
-through the existing path.
+Changes in v3
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
-The supplied fix was reviewed and this commit message prepared with
-OpenCode AI assistance.
+- 2/4, the three points of Sashiko's review of v2 2/4:
+  - under auto exposure, a stopped sensor's exposure and gains read back
+    what the last stream applied, not the manual values set before;
+  - probe holds a runtime PM reference until the subdev is registered,
+    so the sensor no longer suspends 22 ms after probe;
+  - RUNTIME_PM_OPS() and pm_ptr(), so the ops go with CONFIG_PM=3Dn.
+- 2/4: register with v4l2_async_register_subdev_sensor(), so that the
+  privacy LED the firmware describes is lit while streaming (Jizhou
+  Tong); a failed registration now goes through dev_err_probe(), as the
+  LED can defer probe.
+- 3/4: SMO55F0 moves before VD55G1, so the table stays in vendor order.
+  imx681 v10 3/3 adds SONY0681 at the same place, so whichever of the two
+  goes second needs a trivial fixup.
+- Fernando's Tested-by on 3/4 and 4/4. Not on 2/4: he offered it for
+  the Sashiko fixes alone, and 2/4 now also registers differently.
+  Fernando, if you want it on 2/4 as it is now, say so and I will add
+  it back.
+- The Assisted-by tags are dropped; see the end of this letter.
 
-Fixes: f92711869c53 ("media: i2c: ov5645: Use subdev active state")
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Cc: stable@vger.kernel.org
----
- drivers/media/i2c/ov5645.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+v2: https://lore.kernel.org/all/20261103103235.94397-1-lsa.uz@pm.me/
 
-diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
-index a8d740ed4dc9..e77d70078097 100644
---- a/drivers/media/i2c/ov5645.c
-+++ b/drivers/media/i2c/ov5645.c
-@@ -1024,6 +1024,7 @@ static int ov5645_probe(struct i2c_client *client)
+On both machines the sensor needs Hao Yao's int3472 fix, which sets the
+24 MHz clock the SSDB asks for; without it the sensor runs at four
+fifths of every rate this series computes. Its v2 fixes the Surface Pro
+11; on the Surface Pro 9 the _DSM wants 0 rather than 3 (Fernando):
+https://lore.kernel.org/all/20251208035122.2147678-1-hao.yao@intel.com/
 
- 	ov5645->i2c_client = client;
- 	ov5645->dev = dev;
-+	ov5645->current_mode = &ov5645_mode_info_data[1];
+Tested with v3 on the Surface Pro 11 for Business, on v7.4-rc1 with Hao
+Yao's int3472 v2 and D. Manresa's ipu-bridge v5 1/2, KASAN and lockdep
+on, IPU7 run by the ipu6 driver, in three boots:
+- probe defers until ipu-bridge has made the endpoint, then binds;
+- after probe the sensor stays active and suspends about 1 s later,
+  with no power-off inside probe;
+- probe forced to fail at registration with a test-only parameter: no
+  clock or regulator warning, and a deferral prints no error. As a
+  control, the same failure after a runtime suspend inside probe gives
+  three warnings per probe (clock already disabled and unprepared,
+  unbalanced regulator disables);
+- every mode runs at 59.14 fps, in Y8 and Y10 at all four sizes and in
+  Y10 packed at full size;
+- under auto exposure, exposure and the gains read back what the sensor
+  applies, and after the stream stops, what it last applied;
+- the illuminator through led_mode, and the privacy LED that INT3472
+  describes, lit while streaming and off otherwise;
+- three unload and reload cycles, each with a capture;
+- s2idle for 20 s with the camera idle, and in the middle of a stream,
+  which the ISYS refuses: the sensor gets no callback, the stream goes
+  on, and a stream and compliance pass after both;
+- v4l2-compliance 46 of 46, and 54 of 54 through the media device, with
+  two warnings for the read-only crop;
+- no KASAN, lockdep or Oops report; the only other WARNING is the ipu6
+  driver's lockdep_assert_held() at each stream start, as with v2;
+- checkpatch --strict, W=3D1 and sparse clean on x86_64, i386,
+  allmodconfig and without CONFIG_PM; smatch and coccicheck clean; each
+  patch builds on its own; dt_binding_check clean, and it refuses a
+  VD55G0 example at 125 MHz.
+3/4 only moves its line and 4/4 does not change, so their unload test
+is v2's. The Surface Pro 9 entry is Fernando's test, not mine.
 
- 	endpoint = of_graph_get_endpoint_by_regs(dev->of_node, 0, -1);
- 	if (!endpoint)
-@@ -1095,12 +1096,14 @@ static int ov5645_probe(struct i2c_client *client)
- 	ov5645->pixel_clock = v4l2_ctrl_new_std(&ov5645->ctrls,
- 						&ov5645_ctrl_ops,
- 						V4L2_CID_PIXEL_RATE,
--						1, INT_MAX, 1, 1);
-+						1, INT_MAX, 1,
-+						ov5645->current_mode->pixel_clock);
- 	ov5645->link_freq = v4l2_ctrl_new_int_menu(&ov5645->ctrls,
- 						   &ov5645_ctrl_ops,
- 						   V4L2_CID_LINK_FREQ,
- 						   ARRAY_SIZE(link_freq) - 1,
--						   0, link_freq);
-+						   ov5645->current_mode->link_freq,
-+						   link_freq);
- 	if (ov5645->link_freq)
- 		ov5645->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+Tool use, per Documentation/process/generated-content.rst (Assisted-by
+tags in commits were dropped in 7.4-rc1):
 
---
-2.50.1
+* My contributions to this series were prepared with Claude Code
+  (claude-opus-5-5); work by others in it is their own.
+* This replaces any Assisted-by tags in earlier versions.
+
+Sergey Lebedev (4):
+  dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
+  media: i2c: Add ST VD55G0 global shutter sensor driver
+  media: ipu-bridge: Add ST VD55G0
+  media: ipu-bridge: Add the Surface Pro 9 and 11 infrared illuminator
+
+ .../bindings/media/i2c/st,vd55g1.yaml         |   27 +-
+ MAINTAINERS                                   |    9 +
+ drivers/media/i2c/Kconfig                     |   11 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/vd55g0.c                    | 2442 +++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |   70 +-
+ include/media/ipu-bridge.h                    |    6 +-
+ 7 files changed, 2559 insertions(+), 7 deletions(-)
+ create mode 100644 drivers/media/i2c/vd55g0.c
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+--=20
+2.54.0
+
 
