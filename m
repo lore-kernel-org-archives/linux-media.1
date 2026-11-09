@@ -1,63 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227497;
-	b=ksYi70fn+REqPvspoxj8kCmnDV5iZDlh75fQLeVfKuv53MDOld34wEAyWhanY6ZNfthx
-	 9RXrGprnXXkIe1KDU10Cl5916IJ76CNVGgVnLwj90MnqKX9BtW+gKY/lDfYrpBgwpuZcJ
-	 tiMGkI7JWWUv5MNoKUTuDr7l2anphrnH3b3TDSOlazOkyUWTWvHoDSTQ1vK+z7NFMbTsv
-	 h9K2+xugfxPzulXy9cnmz06MVVIwykrWbxU8pa5TcQNZu2fPPZjJU13VwycOqYBJ9J1Zl
-	 QJ/SFh4Ae3V68GTPQKTkqiComD26f8jICtFCqWv8flMdYuIA/gQjITnxGZNGulJycEQ==
+	t=1794228387;
+	b=ryM+gtLI/ZH+0KybGSDmYkFYiY4gAhJ7zmY1SPZuyxNqqZyjVIuFko3IroycheGq+st+
+	 JomA9uHRehX30An9D1FYA8+P+AchBNIzHMU4ALmW6IbXXerpYzzoxScFR6T0eQwg10HU/
+	 srwAL20fxLqxOBy54LFhUGxlXPzrDuB6sTTg4dnQ6qz+288mnuhIlr57OrHdbzrsReWuO
+	 JndNjo20ZR9TGVYABNtM9Ijdxok5Gja8U53MWNvJR8lqFE2BJX7CPY4A5GWa32stqsnPr
+	 1QpPDu+YvJgivYIn2k1C49KZvFgMLkAb7k+0KEsi0PSIRM4tRye5JnkDbZnIr75Aydg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227497;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=JGdQjssGCQLpg6AsSzBPTbjJOXtkrQX8V8KWmYZSf54=;
-	b=udWk+dJYWI8hgqM/x1NKS1xYAOlIpmxul79wK26b9RsC7sNfbcRPL0RhkMup3lFmrg8+
-	 MehtEdaP7DBQs4YfQJNE1ZBY13kgbs5qmQbE4SvB4B/Lz+cIA9ZNOvgUA/ZDTUO7hCTuP
-	 E06iJNIyHtAgzaAUvomtc8ifBXPrd3JHv53jLCvQxxqbGf+pXRG+pienP8mWhMfhV6GGU
-	 XPo41gJ7zs9hmQmE9s/EM2o5EDu8R+epmgBShZO+pj3N6NmmBtiSIJQrXUnPT3fdZXXPD
-	 j9a25QlZ1teQF8vSqyJ/t22ICcnQ6VEx7s6XjF8QPvQMvt2h9wd0QFBsdvmTpU/wKbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228387;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=H+sb1qDVJksy0tD0IS7N8/CuqeviGEq2b64P7nj5BAQ=;
+	b=h0IeuyLA5TG/mUwELOdApGuoymA+POlvR6p4FSaEQV2eooi0fq1dSiZ5a3etpx7I1EMt
+	 3Q0E9JBC4HJc1uG8TL6GS1TMhkBLdu0kb6GVc7Td9uOQLbd5rp5ihf33VeOMbLA30mvQ5
+	 CWlX1R4cM42rMjmxCY5aeTtP/xg+XY1qmq+DHTxRO0PdyYBPP660/AmXmKBx8SjikAlCK
+	 YJ/zJbcQ5Nw/wjLuasc/6tEPv1FOHnxqDSt1zqc7iQJ51kp+cvV5cVvKoU4ZUQoo5KPMW
+	 GQQpQUgys78nOfD53ma/8pmWRbEra0VLtOH+PBPdgeCrUPbwzDQuhper8C4GAVmdnNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Kg7HlYh2;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KPPLQo23;
+	arc=none smtp.remote-ip=79.135.106.28
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCA6606D827;
-	Mon,  9 Nov 2026 12:31:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDCA6606D827
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD33606A334
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 12:46:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECD33606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Kg7HlYh2
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BCEB2981;
-	Mon,  9 Nov 2026 13:29:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794227351;
-	bh=xBs+FZDtGIlwtTPVFyPtdGeWugakZJOmOZJZsX+RPno=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Kg7HlYh2pqQbp5oCClYnPyGL3xXB2qZNTQb5pYPJQ+ZFq7Rf6yxztN+/ePGogZwq0
-	 hcWvUgwo/E1F5/q8U81GjDi82QNTOvJOQk2rxYvk3wo6GOkFyDQaSR2oNvMKjI6caV
-	 chFRMJ+0fYBjrV+HVoTHDIkePhasaoPuGLk39EO0=
-Date: Mon, 9 Nov 2026 14:31:32 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KPPLQo23
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794228383; x=1794487583;
+	bh=H+sb1qDVJksy0tD0IS7N8/CuqeviGEq2b64P7nj5BAQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=KPPLQo23A8NXsFplVV7EbwpYeIgcaxVs6/ds2/hFo2cxGl8cV4jzSerneGwLyDatd
+	 L412kcstuPT0gO/X0Er5LCKbv1SVYTUYwSwn/UV2RmaeI3Rpa0gcLGIy/VOglMp7Ls
+	 x/aLES49nXlI+tqwPvo8VGAsP9IswXXJ1kDhPghC7pJYJeWfXCndPwUcStHiWMzd3V
+	 LjE3tFRJHTSni3U5SnA74IviAaglnGDZKUVjCl0AQske/ZH3SHjLZbm9fXIPZ13FUF
+	 EJbCH4Tct3K2z/77+GLxK+RDm2uuIW9UPVk3ueZnp92DCZ7M+PUsm/HCO0q/NPcstU
+	 ORS3OkCbyvb5g==
+Date: Mon, 09 Nov 2026 12:46:16 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: "D. Manresa" <dmanresa@gmail.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] media: ipu-bridge: don't reference the module
- image from software nodes
-Message-ID: <20261109123132.GA921524@killaraus.ideasonboard.com>
-References: <20261010155626.2766298-1-dmanresa@gmail.com>
- <20261010155626.2766298-2-dmanresa@gmail.com>
- <avGxxCtAsVYKFxSq@kekkonen.localdomain>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
+Message-ID: <20261109124610.85065-1-lsa.uz@pm.me>
+In-Reply-To: <avGwRaKSqXdtXkII@kekkonen.localdomain>
+References: <20261109093353.3757-1-lsa.uz@pm.me> <20261109093353.3757-3-lsa.uz@pm.me> <avGwRaKSqXdtXkII@kekkonen.localdomain>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: d36449cd1cb0f1090ed47c1f08f5c850fea00f72
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -68,38 +65,37 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <avGxxCtAsVYKFxSq@kekkonen.localdomain>
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 09, 2026 at 01:43:00PM +0200, Sakari Ailus wrote:
-> Hi D.,
-> 
-> On Sat, Oct 10, 2026 at 05:56:25PM +0200, D. Manresa wrote:
-> > The software nodes the bridge registers are deliberately never
-> > unregistered, so that a later rebind can reuse them. Nothing reachable
-> > from them may therefore point into the module image, but two properties
-> > still do: the "link-frequencies" values point at cfg->link_freqs in
-> > ipu_supported_sensors[], and the "lens-focus" property name is a string
-> > literal.
-> > 
-> > Both dangle once the module is unloaded. Re-probing sensor drivers then
-> > read poisoned link frequencies from the surviving nodes and fail:
-> > 
-> >   ov5693: supported link freq 419200000 not found
-> > 
-> > Copy both into struct ipu_sensor, where the other property names and
-> > values already live.
-> > 
-> > Assisted-by: LLM
-> > Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
-> > Fixes: 68b9bcc8a534 ("media: ipu3-cio2: Add support for instantiating i2c-clients for VCMs")
-> > Signed-off-by: D. Manresa <dmanresa@gmail.com>
-> 
-> Could we have a real name here, please?
+Hi Sakari,
 
-If you think this patch is important, just drop authorship completely.
+Thank you for the quick and thorough review. I am working on v4 with
+the rest of your comments, which will take a few days. Two points
+first, as your answers may change the code.
 
--- 
-Regards,
+On Mon, Nov 09, 2026 at 01:36:37PM +0200, Sakari Ailus wrote:
+>> +static const s64 vd55g0_ev_bias_menu[] =3D {
+>> +=09-3000, -2500, -2000, -1500, -1000, -500,
+>> +=09    0,
+>> +=09  500,  1000,  1500,  2000,  2500, 3000,
+>
+> Is this
 
-Laurent Pinchart
+The sentence seems to have been cut off here. What did you mean? The
+table is vd55g1's, in the control's 0.001 EV units.
+
+>> +=09if (!ret) {
+>> +=09=09sensor->expo_ctrl->val =3D expo;
+>> +=09=09sensor->again_ctrl->val =3D again;
+>> +=09=09sensor->dgain_ctrl->val =3D dgain;
+>
+> Can you use __v4l2_ctrl_s_ctrl()? That way events get handled correctly.
+
+These three are volatile while auto exposure is on, which is the only
+time g_volatile_ctrl() is called. v4l2-controls.rst says to set
+ctrl->val there, and that a volatile control does not generate
+V4L2_EVENT_CTRL_CH_VALUE; cluster_changed() skips volatile controls, so
+__v4l2_ctrl_s_ctrl() would not send one either. Did I miss a case?
+
+Sergey
+
