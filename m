@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794223583;
-	b=eWrQRZ9lvjlOUs6jAARrguSDDfeqTPMwPREyqC42GezgdRPi8Voc/dkhhEzuf5F2gpPa
-	 9XClYYDvp7A8GLP457AC0Z6QK/JK8TZSzr+eAF8gHwD+kk1MiqyrUn57YanEYk6COmug8
-	 fToyLGaPk6ejWW6nwQS7EZ8Hs0EQ3k/WPvo7xuJkBciSV5MpmJFu09SlzScsgzKswtQ9H
-	 LKwLhqHLii6685bypw4HbzgI/baakQRDXQeDC/1uW7Xx7UZVtMsXHZhJ1+0hUiInAVgLj
-	 UOfn4RK4oN8JiKuYu/R5YRzDH8/w13m12YZd2cxhtnsZ2ePGz7tuIo6CWLTiiBdYFQA==
+	t=1794223587;
+	b=mLF2c7ea6AY/3B9lKHijYTDstyT9udfbXaN5qqAvS6LORUkyli1g57pQBuetrYjHaNYn
+	 DaY7am3g9EkDgZbYw5LcmkmpVYfUdjnimSjB14Fgy9hf6aLkTVzO8Vw+BtjhfE1gEy80w
+	 hOv/b49NrqM6PynHTM9LlwgetTsvBAiVclTre8Y5xC/VfPp3bek8dWkxP9XLoL2lX/TuL
+	 67uwlhfvAeXmQggD98iYY7r1AXbywKqMOIZgIz9Xu62NQFNNfDCqaP9hFzXs+KmtIM9JA
+	 Oww82LjkJQuQHyuu2fOxrtihihWYDwSOtC25UuPYNRvlZsWOIPMx4sBSZmJQ25jCvnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223583;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794223587;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=4LnKOcOfjOxw1Gy1LWaPdnyzL4eZDSNOc7K6l6M5+J8=;
-	b=Srnu7dH52fJKxMCAv4+vZSKteyJV+4cN2MXB4ofK2Mr3UN4UqBaGFLZ4pn8If3YN5RlD
-	 qFq3KbVDjdge1tJCDU7If+YKR4PsUV41JTX3pIpihi2o9vu7skmZdTuoMXDRjauLrKIUa
-	 hSTecqOOeX2t5p/2154fd2Oh3Kje30SF/kk69sEsqydeuveF/8bLFONXhw8gg2OuahB9u
-	 T5eaEJKwv86ndY5gR6ZCYuHveqDW3NcbFeWngggCyTCNAEAMyGc0bEQiBSgKDllGqfWi1
-	 gqqQBOiOAbUdnQ/rTBAk92O814p0XaoCrYZxG4khPLS8iIzsUyrADRMOTlD1nShyXnw==
+	bh=7OADbxMRrJk9ViHbHj+40nGiyF3MmPNTVpb/SYTVwYg=;
+	b=37gQwAaolxeJCozvdVuWiySDL4XFTh3NU0d3tNQkBfb72vwxKYHXzeUVFEj5NEue99zi
+	 2pVwEaGyMHSJtn70JAkA9C6KGhs0ZpJ1anzgrK7d/X83DoCCgYr3vWJuCSr0rjhZRL5tw
+	 y5e9dhkqKECgk5m1TAzt/uJC3ff3EsNogRc6Jf3qbKFbYA4+lP16lNvxEMedAMYWv+lpK
+	 D0w/9g3PpqPDKpFpGPIUU29TI/mUUbQoliPDTKT5o8EzAz6YJkfe1gS2XQZNstKEqarMc
+	 R/mBycA4NiV0eDYlD5xlrbuKcm4U9qgY204eU06V/4YtTabI83Xs+X113yUSYRk1OnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=fatecpompeia.edu.br;
 	spf=none smtp.mailfrom=fatecpompeia.edu.br;
-	dkim=pass header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Toa6QxoX;
-	arc=none smtp.remote-ip=209.85.128.178
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	dkim=pass header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=eIOTZTOc;
+	arc=none smtp.remote-ip=74.125.224.47
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC21606D80A
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 11:26:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AC21606D80A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CF6606D820
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 11:26:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4CF6606D820
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fatecpompeia.edu.br
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fatecpompeia.edu.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Toa6QxoX
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b0d63f60bcso9018267b3.3
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 03:26:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=eIOTZTOc
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-6798af41644so512817d50.2
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 03:26:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fatecpompeia-edu-br.20260707.gappssmtp.com; s=20260707; t=1794223581; x=1794828381; darn=vger.kernel.org;
+        d=fatecpompeia-edu-br.20260707.gappssmtp.com; s=20260707; t=1794223586; x=1794828386; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4LnKOcOfjOxw1Gy1LWaPdnyzL4eZDSNOc7K6l6M5+J8=;
-        b=Toa6QxoXSnQoHX2expveKKbcYOW1CPvKMxPlXWNyUAnW2D6kimKi4F2FBq7oDVI3V1
-         +eEq0htQSgwENJojD1RQti93F8/SjFTS9eJ2GlOKiBTOiKOd7K2/vmD8TPf3W6AB5E6E
-         7NSjLEcYh9efzXT18T6SKSYMzkF5YWNN2ii0ukKlzl3yE/F0Z3kgOxtsw9cL6WiVXfYO
-         0l/dB4yYhzy7pE4gnyKF5pQrq91+61SB21hbSH8CHG+PAw+Y+BEqrJtCA5zcTN9odnGs
-         +CFBRDx5IhEM5zAfTLrBK/gfWl2J54DQpz5kc3626uD03e2ltRY9juSmwSz70KU/csZ8
-         esig==
+        bh=7OADbxMRrJk9ViHbHj+40nGiyF3MmPNTVpb/SYTVwYg=;
+        b=eIOTZTOcfNImoH1UbMU1sjyHjADSTni8/f5LhkO2WlWtDaOIiT704rh8nw53voLfto
+         Z0GE9A4XezzZuAqEtsoycFMm6tjjB2ZKZeAWT9OSHshMBXmti0/b9pDfd6L+CLzBRZQi
+         9jqDrRBQAtRDhQdaxG2GB2jqG2Iqc1+XV6SrhzlgeO4UfKJ/Oimr+2im4eXA77K7wWyq
+         AbevrUZxHZx//Xt0UtJymC9LS77vqfY3O19X/dERdHKxwk1g6UiD3S4n0P1pYuLgBLJq
+         s3jrJf9bRgenEAPCfscu6LrKPTRJXNiYwibThb3cadnefveExHlsBpkFXaTa9SOT1R0x
+         FCSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794223581; x=1794828381;
+        d=1e100.net; s=20260707; t=1794223586; x=1794828386;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4LnKOcOfjOxw1Gy1LWaPdnyzL4eZDSNOc7K6l6M5+J8=;
-        b=gtckHqF2SdA+aFhc04SfmCRYF2TIoQPN+/MGdmCrDu9FVPz7wun8ON6PGsMVjGF/r2
-         0Z6nnZLYnltYE1qFsWxKLcm9NVJTvBTshF97nOQ3He3T9zBv2/Z9eufzKYHG7+/MQsyV
-         1Ys58cVQQEMCd19xKzHyz0ru8/pIxZKg1U27Lj2uVSVJ25sBZFmoxPiyu5Aek6hjbSC6
-         nnqn0CF/7ddAntITLXMhIR3/9uSHPjBCmIIjHphRa06007vh7yIM64d9RVL843Ls3jZA
-         Eb5ueNEaF5BFtcWMAPpXXeFOwA+pnwk+/27jQu8tdOA0tXzd12BNR+2tXCOcz9e5rbWf
-         dQyA==
-X-Forwarded-Encrypted: i=1; AL+hErFzD33TTAQ4JzmA/CYNvivJHCL09cwpd3L60vtuefnI5AxEygNSiz6vWS31ZDhLTypeaz4ZkshOoDUC2g==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/8bYE2PIT/Wkt0x6HojX50GVXoELYFO7pjQvIkVuP36mCdJGAl
-	jhVlGWT5ToKM55M5RazYL64w6KzO1Rk6BVfuMH/xQQ0RG//A9y66qV5jihNK2v5JWEA=
-X-Gm-Gg: AYBFou0CyDo8TqjcO9xiGat5RAu9JrOzVYsOo1bSEwU6uYAsdOwMfDaj+RWNIL5B+zg
-	P6TUvTWD+athvSuurmSQI2V1UKafYKy4qSBcY6atUwRm9t6ridT0esekOJKJjDgV8ZoFmxwr45F
-	Tsh7frv5sdPXU5fOAmQmL6IZ0oq1qejQZa8xfTHuTacqx0DmrkMvDjrgGni+T0Jph7gTWxrNMlF
-	OK0V+135cvn6TtfDjjsKletYMlCpAewosGhL+aIutaWDsL92IDe1Au3VkVxHTfn24hK1a0sIRhm
-	u6aVLUZWUumy+7Wq2Hbl4UOLSUVpNNKtv4bslK1KJG9wByEy7rNXakkEaGWulMuMUBfV8DeU5UX
-	u25xRU/VsXpm0sZ6a3gGIZSZkPlhJnfEwO7QcmraN30lqaOLoBdDroXUza4Le4w3xSoou/9kqfe
-	qgFiRsgVREAy9EiTiLRd1sp8BNfb9ZeDOQurEvcg5wV7s64WRBeh1JvQGwIJk6TR6NxMjehV2KT
-	azHC3NO9taqP3HdGXZNy7fUY1RS+8FiYe5BLKl5CU8mXYJb8AqFLG6hDF86RkCdRPlDhUK1p2NK
-	AdR/0m0caDuLamK3HJpA23zynzxo2Jw7K3KnLckrftu4AY2qxYikt3NcVlyke49y/8c=
-X-Received: by 2002:a05:690c:c14f:b0:8b1:9fef:6cdf with SMTP id 00721157ae682-8b36cadc20cmr17979887b3.60.1794223581496;
-        Mon, 09 Nov 2026 03:26:21 -0800 (PST)
+        bh=7OADbxMRrJk9ViHbHj+40nGiyF3MmPNTVpb/SYTVwYg=;
+        b=Vn6/LeoW3wZ3hisHd7q4d6qiESL1jIyi23pVLhRqQI78uthk/u75Vu4RbyKyl3SMGU
+         PxM18Gs4RHmg5x2jbzdsLu443aPwzWnYLYHhNCJpMB/+FoTiW0JEKxqgHTC/5SnanO1T
+         EeQ7hXjBB6WhheeNg06QFlD8ZIQ8vnlugf8SSlmJoNx5GaZvVgPf1/5BbyfeRBt6Rpqp
+         vAprhDE1fKsT+6uC80K5uzYf/VxHC0n9sdVbDFHs7XtzR9SLXYmslyoyOOUyxh3r0wCC
+         NLIkootoOptkGnh849+FcVAmcaa52FBUScAPcopb3Ep85cIhuWT9Z9i1luQ09ojznZTa
+         sZfQ==
+X-Forwarded-Encrypted: i=1; AL+hErHu+WMlq+yu+3XUvb67qpwQjCNwZ3n3Bj9JZy9rH69rYynQPVV6T0f1z0MiJAjPxQ7wYoigzmG2Wuxd1g==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ONgdV1kTfY69K4EmwtbG4qSEITjKILMyW0k/H5amCNlDTpc/E
+	QiAH2ME5Wm30QsS01cy32A0Xorm1r5oLAXcTervH50KUTRz25YSspKy6tWduZi6GjmA=
+X-Gm-Gg: AYBFou3w0yKuE5i9hp6eIaj/D1ZDl5t9LcRp7lVzwsRFVus7weX32tYF5jE+RSwi1LN
+	6ZMJb2HYaOQE0zKEWnyJfOLp2YDKENat8gGI1tWqJRIEErtUnG9AzzjMOAFn75nLdJwmvuFNmTm
+	GyBQNxd/IaxTscP4mAPIj80e4rNJGTSgkknoFsfYvD5E2lkH84uHCzBargh+vGrFM0DzLxMYfXC
+	M7aE3naOiGQZ4j23OiItw/xXAFkdXT6gn7ago1E2RP037pAKXJJjIo7gHR1yiiUJ0Jyh0Flb8My
+	m8KIZKYN7qh4v3PTblLJ3IG0tFX7qJgawzL7t7NRVm+gG32p8wv0rMepAWb6c2hFHSacXVDFflm
+	L6WUcm3NhGwse7FRunjxXGm5UqEULLjRpssXqo4i/Yp5hCOixVr0dtCieRByNJgAd6IYwfPqfX3
+	7pzXjcL5NEvRMAshMQydqwirmDPm3aD4TDTMIck0uKvAh9d7YI1b2oWBB7JLd1nJbUwSAc4tcDb
+	xUSwkIyInEWZ1I7YFMmf9fLwngoV/JXRzYWeiEuvucExcRwo5i+adNL72rvYcnzHg3p0IDro2PF
+	2h6DMTiEfmW6nVl3vvLNQT8e6ytv9D130Wj9+otAQmxgBb95rC2Pe8FYExkTPdQRQ/w=
+X-Received: by 2002:a05:690e:134b:b0:677:cdbf:41ad with SMTP id 956f58d0204a3-67c3d7ab40dmr2809227d50.12.1794223585596;
+        Mon, 09 Nov 2026 03:26:25 -0800 (PST)
 Received: from localhost.localdomain ([2a09:bac5:dd4:1c96::2d9:5d])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b36bbffb49sm32385477b3.28.2026.11.09.03.26.17
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b36bbffb49sm32385477b3.28.2026.11.09.03.26.21
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 03:26:21 -0800 (PST)
+        Mon, 09 Nov 2026 03:26:25 -0800 (PST)
 From: Allan Siriani <allan@fatecpompeia.edu.br>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -90,9 +90,9 @@ Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
 	linux-media@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/4] media: qcom: camss: Use contiguous DMA buffers
-Date: Mon,  9 Nov 2026 08:26:08 -0300
-Message-Id: <20261109112611.94010-2-allan@fatecpompeia.edu.br>
+Subject: [PATCH v2 2/4] media: qcom: camss: vfe-4-1: program the RDI write master buffer size
+Date: Mon,  9 Nov 2026 08:26:09 -0300
+Message-Id: <20261109112611.94010-3-allan@fatecpompeia.edu.br>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20261109112611.94010-1-allan@fatecpompeia.edu.br>
 References: <20261109112611.94010-1-allan@fatecpompeia.edu.br>
@@ -107,102 +107,165 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+The RDI outputs use the write masters in frame based mode. In that mode
+vfe_wm_frame_based() only sets the FRM_BASED bit of WR_CFG and leaves
+WR_BUFFER_CFG and WR_IMAGE_SIZE untouched: they keep their reset value or
+whatever a previous line based (PIX) stream left there, so nothing tells
+the write master how big the buffer is. If the sensor sends more data
+than the configured format, the write master keeps writing past the end
+of the V4L2 buffer. When the CAMSS runs without an IOMMU, as on
+MSM8226 today (the SoC has one, but it is not described in the upstream
+DT; its VFE 4.0 shares this register layout), that corrupts unrelated
+memory.
 
-The VFE write masters are programmed with a single base address per
-plane and then write the whole plane from there. video_buf_init() took
-that address from sg_dma_address() of the first scatterlist entry of a
-vb2_dma_sg buffer, which is only correct when the whole plane is mapped
-as one contiguous range in the device address space.
+Program WR_BUFFER_CFG in frame based mode as the downstream VFE 4.0/4.1
+driver does (msm_vfe40_axi_cfg_wm_reg(): words per line, lines minus one
+and burst length, IMAGE_SIZE unused), from the bytesperline and height
+of the active format, and clear it again when the write master is
+released.
 
-Neither the driver nor the hardware can handle a plane split across
-several DMA segments, so scatter-gather buffers were never really
-supported here. The issue stayed dormant because vb2_dma_sg gives no
-IOVA contiguity guarantee but still tries hard to keep the number of
-segments low, and with an IOMMU dma_map_sgtable() usually maps the
-whole table into a single IOVA range. The mapping therefore almost
-always came back contiguous in the device address space, so reading
-only the first entry happened to work.
+Pass the active format to the wm_frame_based() op for that. The VFE 4.7
+and 4.8 implementations, which use a different register layout, are left
+unchanged.
 
-Where that does not hold, the write master runs past the first segment
-and writes the rest of the frame into memory belonging to someone else.
-
-This recently surfaced as patch proposals enforcing contiguity in
-camss itself, walking the scatterlist to verify that the DMA segments
-follow each other, which amounts to re-implementing what the dma-contig
-framework already provides.
-
-Use vb2_dma_contig instead. It guarantees that each plane is mapped as
-a single contiguous range in the device address space, one IOVA range
-when an IOMMU is present, physically contiguous memory when there is
-none.
-
-Fixes: 0ac2586c410f ("media: camss: Add files which handle the video device nodes")
-Reported-by: Allan Siriani <allan@fatecpompeia.edu.br>
-Link: https://lore.kernel.org/all/20261104202313.72494-2-allan@fatecpompeia.edu.br/
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Tested-by: Allan Siriani <allan@fatecpompeia.edu.br> # MSM8226 (no IOMMU), both sensors
 Signed-off-by: Allan Siriani <allan@fatecpompeia.edu.br>
 ---
- drivers/media/platform/qcom/camss/Kconfig       |  2 +-
- drivers/media/platform/qcom/camss/camss-video.c | 14 ++++----------
- 2 files changed, 5 insertions(+), 11 deletions(-)
+ .../media/platform/qcom/camss/camss-vfe-4-1.c | 34 ++++++++++++++++---
+ .../media/platform/qcom/camss/camss-vfe-4-7.c |  3 +-
+ .../media/platform/qcom/camss/camss-vfe-4-8.c |  3 +-
+ .../platform/qcom/camss/camss-vfe-gen1.c      |  5 +--
+ .../platform/qcom/camss/camss-vfe-gen1.h      |  3 +-
+ 5 files changed, 39 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
-index b51745c94..e1967bc20 100644
---- a/drivers/media/platform/qcom/camss/Kconfig
-+++ b/drivers/media/platform/qcom/camss/Kconfig
-@@ -5,7 +5,7 @@ config VIDEO_QCOM_CAMSS
- 	depends on (ARCH_QCOM && IOMMU_DMA) || COMPILE_TEST
- 	select MEDIA_CONTROLLER
- 	select VIDEO_V4L2_SUBDEV_API
--	select VIDEOBUF2_DMA_SG
-+	select VIDEOBUF2_DMA_CONTIG
- 	select V4L2_FWNODE
- 	select GENERIC_PHY
- 	imply PHY_QCOM_MIPI_CSI2
-diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
-index 0852eb6f1..5de6ff5ec 100644
---- a/drivers/media/platform/qcom/camss/camss-video.c
-+++ b/drivers/media/platform/qcom/camss/camss-video.c
-@@ -13,7 +13,7 @@
- #include <media/v4l2-device.h>
- #include <media/v4l2-ioctl.h>
- #include <media/v4l2-mc.h>
--#include <media/videobuf2-dma-sg.h>
-+#include <media/videobuf2-dma-contig.h>
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-4-1.c b/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
+index 9cf1ccdb2..53ebc12c4 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
+@@ -107,6 +107,7 @@
+ #define VFE_0_BUS_IMAGE_MASTER_n_WR_UB_CFG_OFFSET_SHIFT	16
+ #define VFE_0_BUS_IMAGE_MASTER_n_WR_IMAGE_SIZE(n)	(0x080 + 0x24 * (n))
+ #define VFE_0_BUS_IMAGE_MASTER_n_WR_BUFFER_CFG(n)	(0x084 + 0x24 * (n))
++#define VFE_0_BUS_IMAGE_MASTER_n_WR_BUFFER_CFG_BURST_LEN	0x3
+ #define VFE_0_BUS_IMAGE_MASTER_n_WR_FRAMEDROP_PATTERN(n)	\
+ 							(0x088 + 0x24 * (n))
+ #define VFE_0_BUS_IMAGE_MASTER_n_WR_IRQ_SUBSAMPLE_PATTERN(n)	\
+@@ -269,14 +270,39 @@ static void vfe_wm_enable(struct vfe_device *vfe, u8 wm, u8 enable)
+ 			    1 << VFE_0_BUS_IMAGE_MASTER_n_WR_CFG_WR_PATH_SHIFT);
+ }
  
- #include "camss-video.h"
- #include "camss.h"
-@@ -154,16 +154,10 @@ static int video_buf_init(struct vb2_buffer *vb)
- 						   vb);
- 	const struct v4l2_pix_format_mplane *format =
- 						&video->active_fmt.fmt.pix_mp;
--	struct sg_table *sgt;
- 	unsigned int i;
+-static void vfe_wm_frame_based(struct vfe_device *vfe, u8 wm, u8 enable)
++/*
++ * In frame based mode (RDI) the write master stores the incoming data as is,
++ * with no line structure. Program its buffer size in WR_BUFFER_CFG (words per
++ * line, lines, burst length) as the downstream msm_vfe40_axi_cfg_wm_reg()
++ * does, and clear WR_IMAGE_SIZE, which may hold a stale line based setup,
++ * so that the write master is bounded by the size of the V4L2 buffer.
++ */
++static void vfe_wm_frame_based(struct vfe_device *vfe, u8 wm,
++			       struct v4l2_pix_format_mplane *pix, u8 enable)
+ {
+-	if (enable)
++	u32 reg;
++
++	if (enable) {
++		/*
++		 * bytesperline is aligned to 8 bytes (one bus word) on the RDI
++		 * outputs, and sizeimage >= bytesperline * height.
++		 */
++		reg = VFE_0_BUS_IMAGE_MASTER_n_WR_BUFFER_CFG_BURST_LEN;
++		reg |= (min(pix->height, 4096U) - 1) << 4;
++		reg |= (pix->plane_fmt[0].bytesperline / 8) << 16;
++
++		writel_relaxed(0, vfe->base +
++			       VFE_0_BUS_IMAGE_MASTER_n_WR_IMAGE_SIZE(wm));
++		writel_relaxed(reg, vfe->base +
++			       VFE_0_BUS_IMAGE_MASTER_n_WR_BUFFER_CFG(wm));
+ 		vfe_reg_set(vfe, VFE_0_BUS_IMAGE_MASTER_n_WR_CFG(wm),
+ 			1 << VFE_0_BUS_IMAGE_MASTER_n_WR_CFG_FRM_BASED_SHIFT);
+-	else
++	} else {
+ 		vfe_reg_clr(vfe, VFE_0_BUS_IMAGE_MASTER_n_WR_CFG(wm),
+ 			1 << VFE_0_BUS_IMAGE_MASTER_n_WR_CFG_FRM_BASED_SHIFT);
++		writel_relaxed(0, vfe->base +
++			       VFE_0_BUS_IMAGE_MASTER_n_WR_BUFFER_CFG(wm));
++	}
+ }
  
--	for (i = 0; i < format->num_planes; i++) {
--		sgt = vb2_dma_sg_plane_desc(vb, i);
--		if (!sgt)
--			return -EFAULT;
--
--		buffer->addr[i] = sg_dma_address(sgt->sgl);
--	}
-+	for (i = 0; i < format->num_planes; i++)
-+		buffer->addr[i] = vb2_dma_contig_plane_dma_addr(vb, i);
+ static void vfe_get_wm_sizes(struct v4l2_pix_format_mplane *pix, u8 plane,
+@@ -313,7 +339,7 @@ static void vfe_wm_line_based(struct vfe_device *vfe, u32 wm,
  
- 	if (format->pixelformat == V4L2_PIX_FMT_NV12 ||
- 			format->pixelformat == V4L2_PIX_FMT_NV21 ||
-@@ -699,7 +693,7 @@ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
+ 		wpl = vfe_word_per_line(pix->pixelformat, bytesperline);
  
- 	q = &video->vb2_q;
- 	q->drv_priv = video;
--	q->mem_ops = &vb2_dma_sg_memops;
-+	q->mem_ops = &vb2_dma_contig_memops;
- 	q->ops = &msm_video_vb2_q_ops;
- 	q->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
- 	q->io_modes = VB2_DMABUF | VB2_MMAP | VB2_READ;
+-		reg = 0x3;
++		reg = VFE_0_BUS_IMAGE_MASTER_n_WR_BUFFER_CFG_BURST_LEN;
+ 		reg |= (height - 1) << 4;
+ 		reg |= wpl << 16;
+ 
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-4-7.c b/drivers/media/platform/qcom/camss/camss-vfe-4-7.c
+index 76729607d..308c845f2 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-4-7.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-4-7.c
+@@ -317,7 +317,8 @@ static void vfe_wm_enable(struct vfe_device *vfe, u8 wm, u8 enable)
+ 			    1 << VFE_0_BUS_IMAGE_MASTER_n_WR_CFG_WR_PATH_SHIFT);
+ }
+ 
+-static void vfe_wm_frame_based(struct vfe_device *vfe, u8 wm, u8 enable)
++static void vfe_wm_frame_based(struct vfe_device *vfe, u8 wm,
++			       struct v4l2_pix_format_mplane *pix, u8 enable)
+ {
+ 	if (enable)
+ 		vfe_reg_set(vfe, VFE_0_BUS_IMAGE_MASTER_n_WR_ADDR_CFG(wm),
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-4-8.c b/drivers/media/platform/qcom/camss/camss-vfe-4-8.c
+index b2f7d855d..65df06a42 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-4-8.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-4-8.c
+@@ -290,7 +290,8 @@ static void vfe_halt_clear(struct vfe_device *vfe)
+ 	writel_relaxed(0x0, vfe->base + VFE_0_BUS_BDG_CMD);
+ }
+ 
+-static void vfe_wm_frame_based(struct vfe_device *vfe, u8 wm, u8 enable)
++static void vfe_wm_frame_based(struct vfe_device *vfe, u8 wm,
++			       struct v4l2_pix_format_mplane *pix, u8 enable)
+ {
+ 	if (enable)
+ 		vfe_reg_set(vfe, VFE_0_BUS_IMAGE_MASTER_n_WR_ADDR_CFG(wm),
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-gen1.c b/drivers/media/platform/qcom/camss/camss-vfe-gen1.c
+index d84a375e3..f05676c2b 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-gen1.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-gen1.c
+@@ -66,7 +66,7 @@ static int vfe_disable_output(struct vfe_line *line)
+ 	spin_lock_irqsave(&vfe->output_lock, flags);
+ 
+ 	if (line->id != VFE_LINE_PIX) {
+-		vfe->ops_gen1->wm_frame_based(vfe, output->wm_idx[0], 0);
++		vfe->ops_gen1->wm_frame_based(vfe, output->wm_idx[0], NULL, 0);
+ 		vfe->ops_gen1->bus_disconnect_wm_from_rdi(vfe, output->wm_idx[0], line->id);
+ 		vfe->ops_gen1->enable_irq_wm_line(vfe, output->wm_idx[0], line->id, 0);
+ 		vfe->ops_gen1->set_cgc_override(vfe, output->wm_idx[0], 0);
+@@ -244,7 +244,8 @@ static int vfe_enable_output(struct vfe_line *line)
+ 		vfe->ops_gen1->set_rdi_cid(vfe, line->id, 0);
+ 		vfe->ops_gen1->wm_set_ub_cfg(vfe, output->wm_idx[0],
+ 					    (ub_size + 1) * output->wm_idx[0], ub_size);
+-		vfe->ops_gen1->wm_frame_based(vfe, output->wm_idx[0], 1);
++		vfe->ops_gen1->wm_frame_based(vfe, output->wm_idx[0],
++						    &line->video_out.active_fmt.fmt.pix_mp, 1);
+ 		vfe->ops_gen1->wm_enable(vfe, output->wm_idx[0], 1);
+ 		vfe->ops_gen1->bus_reload_wm(vfe, output->wm_idx[0]);
+ 	} else {
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-gen1.h b/drivers/media/platform/qcom/camss/camss-vfe-gen1.h
+index 6d5f96565..83856c0bc 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-gen1.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe-gen1.h
+@@ -44,7 +44,8 @@ struct vfe_hw_ops_gen1 {
+ 	void (*set_realign_cfg)(struct vfe_device *vfe, struct vfe_line *line, u8 enable);
+ 	void (*set_qos)(struct vfe_device *vfe);
+ 	void (*set_xbar_cfg)(struct vfe_device *vfe, struct vfe_output *output, u8 enable);
+-	void (*wm_frame_based)(struct vfe_device *vfe, u8 wm, u8 enable);
++	void (*wm_frame_based)(struct vfe_device *vfe, u8 wm,
++			       struct v4l2_pix_format_mplane *pix, u8 enable);
+ 	void (*wm_line_based)(struct vfe_device *vfe, u32 wm, struct v4l2_pix_format_mplane *pix,
+ 			      u8 plane, u32 enable);
+ 	void (*wm_set_ub_cfg)(struct vfe_device *vfe, u8 wm, u16 offset, u16 depth);
 -- 
 2.43.0
 
