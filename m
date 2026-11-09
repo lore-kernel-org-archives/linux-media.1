@@ -1,100 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242063;
-	b=Rf69KsqElrtrf+qgJ/J6p6Ye/mIK6RiST/xJqR4kSqL/irWOWdo4/DKbtZW/ylP4k55p
-	 AoqAKtwllGnDvuHQouQ9/nvzBJ1cNAOrx24IcPFtrBzJENhHvB9BUOBIYDZvsOpigXnxB
-	 XYloI95RWmt31QhVoof/GBOZ54wmzk5YHDVkb5aonCdTgrWZcmdzsjFOW2Z3OAXrcEvzL
-	 pFstL/7pQI/eIDzi7EvlI+KImywsgj4dUNNb+Csinw9IyCWhlZTiY8cW2sgwe0NgUZ8SU
-	 XLUj884TEkIncjCL0ieQTinFeBfVxv1Bgn5Q+dL11HIpAV9KiDbPQFeUc5rsATN0O0Q==
+	t=1794242529;
+	b=rvhX0P9yGYQO41ZwrgNROv+5zC2hJCoz+T2Lph65oWpcGlSTB46etpqf+/CjvtTnhWoD
+	 izWXItk/KKoSXXaXAQRvTuT0JwuP3qwT4AoWs3G/vNAF7Mi3IEM3cBZ+Hb37khGR2lxgF
+	 CnatqbEyEkEtYE1aEf0f1DraFgJQLbeXE8bClZCHG9fDtk46BtQzKKevxByTAN2X7cVlX
+	 gu8+wtO8eXkp/csecdf2sUDXkxTWEwiHckb3ZSfcRoQ6CP4FcgmQsbQFRSfAKJtMeY6et
+	 /5pd8LzUzwoOPW29NlOpu38KlUQStTCuNGenZef8M1y+f3++fYtiCB9lXwjA+9+1eYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242063;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242529;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=RbYLKZJReBRYNMnQD9Gq9gm7nUierN4cjniygw/hBYA=;
-	b=fSGvjZFJ+7ZackKS8477TaFy8sfo3tqjMRM/VpjtD2XvcdV/1PNsS/YK+LhO2srcJjEo
-	 tYWw6VqGO60GZu9U5cjjCOLPNQJ2AX3jrzyW433/Znf0cwLP/pPwyC4Rk/VKFPFcx4jz2
-	 TLMRpB+dEtziREqadyqlCgoOTfIfhpVQIqk2AW+6U7z5zQrB6XwQZkHg5AaOuVJfQvFfe
-	 BX/OIho/87R0do/U6kjMZpULU5kBaIDxUofJ6tnXH44VoqcvNd76NaKESVWjlRvGDIzJF
-	 pqbIZWVxY+kuMP8yaEIRynFzO0HnlmOiR4uLEeCqBMIMNuZiHdlKTEpziNFRs/TuQUA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rTBkN4SoXpbnTrjKm6a9r9Hi9WyVrqwpfUB5k5zGKJU=;
+	b=xi6obiwpxHO+/CWgjS9j2B3r6pagcUCITRr/Sch+A5BJYcRFSXn8LevgFXfmQNCpeUnt
+	 pPW9yaJ5b8HM+IWDHd1lVl+3VLXmt9wIiIUUDmQgS3Gigg3aagZShKqmxKEpQ8hfMMelj
+	 VMD0Sd6h1hVsCQG/MOwKiW3thDfp3cMgiR6VcvXxkkKmJbJ9ev56SFMb6jNJJ9PSOglgv
+	 QlKfZRtefrMi+KCMZJj3WY9+Bjwwte/VnKkmTyfXRoLI9jrHLfMEssjapXCDZNu7tPngq
+	 /pJJOUHh4ln23tApYRDQD3tqUfkjtT7mqUg15PjgvkBBoU/SkJ73kdIn2jFrZYFazNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x4mCWU8m;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="fk/Wy5WQ";
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3E1606A321
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 16:34:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F3E1606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212E7606A325
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 16:42:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 212E7606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x4mCWU8m
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-492f6b7f70dso715224f8f.0
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 08:34:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fk/Wy5WQ
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so8824435e9.3
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 08:42:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794242062; x=1794846862; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RbYLKZJReBRYNMnQD9Gq9gm7nUierN4cjniygw/hBYA=;
-        b=x4mCWU8mmXnl3LLBdoTqcB3RuNv0n1+H3dzghvwZ0PithQOwP0JtmZN+sbHTAnmwbD
-         VNYyoNrNGokWVcEyttMwdtkMtrX7u3iPcCgK7xcPcDe5lJm0tykkpv3PointI7HRyGUz
-         X+lkA2GtiOc06G6dmKzFhqU63q3Nffl0rI/BNOiZI+0XdvdfwOVhJUP0vZOpNWvsrkM/
-         o8UxpS1K39JqluaEulbWKOl0srp2GQltBXBr2TxujujhzFP4+VupVDG2DZ1Gi9w1XeNv
-         0xPMkhgxitKIVipgbBAWEHs3Lwuz5ukWryGSlklJZhk3DxXEB+rpAnEtp+PSV91+UBaY
-         lFUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242062; x=1794846862;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794242527; x=1794847327; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RbYLKZJReBRYNMnQD9Gq9gm7nUierN4cjniygw/hBYA=;
-        b=2Ydw8TnXxczHGTfjspzVyMFQD4/mmNlDDcThQw+dHQyudgbt/K0Q/T5BflnZFKoJY7
-         Fub5sbVfN0yBlhqm/0lz/NNZGJeqLzIuAixmCQBQz2rW1nd8lrX0/XKMtCVABQeG6hbN
-         IHQJJWJpiDBaRBK8bv5Zm+ooBhZhDeOuMRzZ9Ah7kWeYt3lQky0PZtgakzYs/UuRcy+O
-         Tg76B2gfNOyZUyRwlgJVXI2e7AVJGnEBmwHCNxyL4Yfj3c7GZXeJ7/V+Efq2xrKhPYsT
-         2oARVq+ofNS7zdtH5dXVgz3sqAJr2phKr4aY4I5XEPvX24m+664i8dCdVojLU/Lzu7SQ
-         0PYw==
-X-Forwarded-Encrypted: i=1; AL+hErG4w5wUnSIOlReVnz74bOa2uJ18Kq10yySwv2xeVvOoWexQIbNVbgdWrNXXvhZlfmrwAHogxOgUD0icqw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8V/yWL3rtX6T4RSCVvIYx/HYbvZaeiwgKL3G8tmc2JRHID/2Sj
-	AMhhiy+sMmHxP3Uv3uuQPx8JUUOPd3CJffGc+vhExAih7FDQOlksHdg=
-X-Gm-Gg: AYBFou2rA1F1kdaZcRbvYxZUINsw+KgKD+47T5hvz+mGyfDyzS0/WOLuoZOM8tNO+RV
-	JPJ3GoQzvm0bqVhMBAIqNb33/XfY4RW4aa4S0KkIfW5mwywlmQhFbYAS8MTbt8a0etYFF8HATi2
-	p5M9XuilEzTxJLr5UVEbkqXSnwYrJXtRqUYLXOfbi8bodoaqXi3fpjvllJEPcmoU14DnSUk9+s6
-	oqqTXSTwNEd9CXefMA8OBOmsWraNN8OoGespAUkM5scBTiHRLIXcgg7W54lv85LVcmFLCBu4+Pp
-	DtsQNcaEb754+FwYU6mCpnGGJeNpn/NvNSERYoM1welhup5mGY1llnI5QAwBRy6jVUgoXn0Dm7M
-	6kl3KTXJAXGm/xKnjCm/7wvPjkh1IWUcsG1u5/+cmIaaRKRkeGsz5O9a1UlSWdne+MCrr5oKBcP
-	6MTfmK2uDJ47+T9meq/VdoDQ0UNtHNhX9iMw3FDxDinLMWgOVp6/UJpQrWaMSdnOLZTiSSHX56d
-	ElEPmy+Bqw8WHwI4H3QUyBiZNIobY0C8xF3K/XOl0SpMpFGWuLo0/3kesW2ARHJOUsmAqomUmkn
-	COu94t4wszbZmCkMUn97+R1I3EmwQiCq5wJFPJ9yUxI2VZQ+BqCqOCq3zHQ1LxoU2SjswxwPlq/
-	ynWSa/bqcCVeknBhvT66kJ/xh+HbhpXynZtTE+o0245wQFXmaNqrdKVHQL4NVEoCOJ4YBEjZhxw
+        bh=rTBkN4SoXpbnTrjKm6a9r9Hi9WyVrqwpfUB5k5zGKJU=;
+        b=fk/Wy5WQCkWdrah+qLMkXKaos3bTrw3VzUEGV9pSdILWJp2hlmbRjEzGBmV1bKwBJy
+         XxBdw6jsIznlDUqJUlEUo3FwW0YnH7+a3nfRimB4b4WzowxYh803gXzalSJFwzfkMXYl
+         1rzi9QoOuS1UTNcE7mQHA6tESqziqaEBvmpsckEZ4PwtXmuwFS84r2vvpl6M50bORGdq
+         IFlGwM4zwaZmLsM3IvPqQ8nPz5tB1tcfuUQvLinXbWruDJFjdNxmUczmwB0r6DF4Ko1Q
+         Jd13Tq9tesDAqI7DZAR8EXNCbZr0F4/K8Z69mU9CiXtpZoOLHmFPUdwq2RMB+GhZ+B1C
+         SH/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794242527; x=1794847327;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rTBkN4SoXpbnTrjKm6a9r9Hi9WyVrqwpfUB5k5zGKJU=;
+        b=RB4M33JvqEQY02NF81xFeaGNM+wdaLWhHm17AnNaFEYkQna8Bg6Pt7I2F5aHKvXoec
+         xKYbCQer3ne3bEZ5ECnpuXkQa52MHFXnii7BzqsFHxzBZKm93tZDzeWqpRjsS5MIuqXr
+         Lf5kZ3+JsJcA79tss2wqCtDmrX+GvjjxhHEHAd+Cn8gzXeUbhWojhl8JlCoGHih2X+Wd
+         zr8HgyqHCpVrZ/+urfhBVvrqQM8TstZxoM3d5hKwOIPLETFWhTVUC+oz5Dqo1OP/lBBl
+         ajmS9oCqH4G2xgox2x/DoaULep23GRfapdTMJeTsbZhhYBl9HCV+wrD0tuxbGmvVlYGF
+         tDvA==
+X-Forwarded-Encrypted: i=1; AL+hErGl2PxDkyQZmC1VEXzjiGaL0/A9Ci+emQ6QBZFWdMFVZvD+2L1VYx4deK6wYl+R+hklMy+MkeYHyZFMRg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JLHxKWcdKczE1S19wpTivdPXGOMYDM1BAq41ygRmNBtB0yeQt
+	hj8UpW3yuaay1HBH0rOnok/wSTCAjV0OKNrsGB7VWapkNgxXRSmJEnI=
+X-Gm-Gg: AYBFou1LMIT6nK76eEW5DTWClbE8O/B5FiTXKEH1xNAWYfj1uByPZQEsT/yEtYlwv2j
+	0SScuTHVMZcRQldCnR/25cfh6S3evtLDHTPGD8fSQiqhsCPcPt4vDp6gLlbiJQZX44xK/yfHrXl
+	uvW9yLXqpQlqkPlRM8f7qGbjvFoepJYd9RPdGlEB9SsC66krTqO6wRD52TQPezZUgyxXnKWD1Qs
+	QfslIiLshODemD1TfPv48ffJ4X9/Z1dCvnIte88O8fGCeGGOiz3IW6E7Orc5pIPgwEnMUQeKsX8
+	Rlnhlwk8V+pdg2qkjBdzM/OVcFcABMBG0yuRSq9B2KuYf9vmqSkn1ZKCuflEiwtlTlRguljzKId
+	k8S9dLwX7qtL3dGZ99tNQBqpULtcPsKO+A+Hnbzjs+IA1lHntmgbU2iXo0UlhRziMahPtBAU/2M
+	fi6aXolrro7oHygVQ8jzKQyBwodRcOj993Q2Ms3q5QQ4jP+rFlIfElIyLshCCAdzAR95st1b2Bh
+	084fD61yqn54L5qrjQYS9Nmd05vhAR78pu2pt3TbEv+yU6ftBYR1gy05uNfnoxDn915CMqijYO4
+	DfeR4TXChaSKnga5brcVeHF6/s2eGA53oJqSdmKmxN6O09ecXeqdrRAz+L8n7tixD+iSaOfR24f
+	SnbiDYM8+BhtWngnW3OR6Got2dZJR1OnSNdjyg47WFwFxANMaUahmt1ehqeWIir0J2auNGLOUDg
 	==
-X-Received: by 2002:a05:6000:288d:b0:48e:25e1:5eb8 with SMTP id ffacd0b85a97d-4982b28aa42mr46827f8f.3.1794242061567;
-        Mon, 09 Nov 2026 08:34:21 -0800 (PST)
+X-Received: by 2002:a05:600c:8b24:b0:4a2:d:5ccc with SMTP id 5b1f17b1804b1-4b960d9b66fmr79533325e9.10.1794242527085;
+        Mon, 09 Nov 2026 08:42:07 -0800 (PST)
 Received: from chateau ([194.65.85.67])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597ef6db0sm11269050f8f.59.2026.11.09.08.34.20
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597371cc4sm10639482f8f.36.2026.11.09.08.42.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:34:21 -0800 (PST)
+        Mon, 09 Nov 2026 08:42:06 -0800 (PST)
 From: Sergey Zagursky <gvozdoder@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Sergey Zagursky <gvozdoder@gmail.com>,
+To: Arpith Alexander <arpith99@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Lixu Zhang <lixu.zhang@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Jake Steinman <j@metarealtyinc.ca>,
 	Dan Scally <dan.scally@ideasonboard.com>,
 	Hans de Goede <hansg@kernel.org>,
-	Lixu Zhang <lixu.zhang@intel.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
 	regressions@lists.linux.dev
-Subject: [REGRESSION] ipu-bridge: HM1092 entry hides IVSC-attached OV02C10 on Dell XPS 16 9640
-Date: Mon,  9 Nov 2026 16:30:02 +0000
-Message-ID: <20261109142140.ov02c10-hm1092-regression.e938253b8516@gmail.com>
+Subject: Re: [PATCH] media: ivsc: csi: Add sensor node in bound callback
+Date: Mon,  9 Nov 2026 16:41:59 +0000
+Message-ID: <ivsc-csi-tested.20261109163952.eaa256f0cc02@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103200226.100989-1-arpith99@gmail.com>
+References: <20261103200226.100989-1-arpith99@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -106,70 +111,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi Arpith,
 
-Since v7.3 the built-in camera of my Dell XPS 16 9640 (Meteor Lake
-IPU6, OV02C10 behind the Intel IVSC, plus a Himax HM1092 IR sensor in
-ACPI as HIMX1092:00) is no longer found by libcamera. It works with
-v7.2.8.
+Same regression on a Dell XPS 16 9640 (BIOS 1.4.1, OV02C10 behind the
+IVSC, HIMX1092:00 in ACPI). I reported it before finding your patch:
+https://lore.kernel.org/r/20261109142140.ov02c10-hm1092-regression.e938253b8516@gmail.com/
 
-The cause is commit 4fdb0342f05e ("media: ipu-bridge: Add Himax HM1092
-IR sensor"). ipu-bridge now adds an async connection for the HM1092,
-which has no driver in the kernel, so the IPU6 ISYS notifier never
-completes. The OV02C10 binds to the IVSC CSI sub-notifier, and its
-sub-device node is only created from the ISYS .complete() callback, so
-it never appears. The sensor driver probes and the entity is in the
-media graph without a device node, and libcamera skips it:
+I tested the same change (identical apart from the declaration of ret)
+on CachyOS 7.2.8, with modules built from kernel.org v7.2.8 sources:
+- 7.2.8 plus only the HM1092 entry from 4fdb0342f05e: no sub-device
+  node for the OV02C10, libcamera skips the sensor.
+- Same plus this change: the node is created, libcamera and PipeWire
+  find the camera, and "cam -c1 --capture=10" streams at 30 fps.
+- This change without the HM1092 entry, so .complete() runs after the
+  node already exists: still one node for the sensor, streams fine.
+No kernel warnings in any of these.
 
-  ERROR V4L2 v4l2_device.cpp:92 'ov02c10 20-0036': Failed to open V4L2 device '': No such file or directory
-  ERROR SimplePipeline simple.cpp:1930 No valid pipeline for sensor 'ov02c10 20-0036', skipping
+Tested-by: Sergey Zagursky <gvozdoder@gmail.com>
 
-This is the same problem that commit 7456b40bc992 ("media: i2c: cvs:
-Add sensor node in bound callback") fixed for CVS in v7.4-rc1. The
-IVSC path still has it.
+Sakari, if you pick this up, could you also add
+Closes: https://lore.kernel.org/r/20261109142140.ov02c10-hm1092-regression.e938253b8516@gmail.com/
 
-I can see two possible fixes, and I'm not sure which you would prefer:
-
-- Revert 4fdb0342f05e. The comment above the ipu-bridge sensor table
-  says not to add sensors that are not supported, and I found no
-  HM1092 driver in mainline or linux-next.
-- Do for IVSC what 7456b40bc992 did for CVS. I'll reply to this mail
-  with that patch.
-
-The second one only covers sensor nodes. As far as I can tell from
-the code (not tested, my sensor has no VCM), a VCM instantiated by
-ipu-bridge still gets its node only from .complete(), so with an
-HM1092 in the tree a camera with a lens would lose focus control
-regardless of IVSC.
-
-Testing, all on CachyOS kernels. Their ipu-bridge and ivsc-csi
-modules have the same srcversion as modules built from kernel.org
-v7.2.8, and the test modules were built from kernel.org v7.2.8 sources
-with clang 23.1.4 (the kernel itself was built with clang 22.1.8) and
-loaded unsigned, so the kernel was tainted (E):
-
-- 7.3.1: camera missing as described.
-- 7.2.8: camera works.
-- 7.2.8 with only the HM1092 entry from 4fdb0342f05e added to
-  ipu-bridge: camera missing, same libcamera errors.
-- Same, plus the patch applied to ivsc-csi: the sensor gets its
-  sub-device node, libcamera lists the camera, PipeWire exposes it,
-  and "cam -c1 --capture=10" streams at 30 fps. No kernel warnings.
-- 7.2.8 with only the patch applied (no HM1092 entry, so .complete()
-  runs after .bound() has already created the node): the sensor has
-  exactly one sub-device node and streams at 30 fps. No kernel
-  warnings.
-
-I have not booted v7.4-rc2 itself. The patch is against v7.4-rc2 and
-builds without warnings with W=1 under GCC and clang.
-
-Hardware: Dell XPS 16 9640, BIOS 1.4.1. libcamera 0.7.2.
-
-#regzbot introduced: 4fdb0342f05e
-
-This report and the patch were prepared with the help of an AI
-assistant (Claude); I reviewed them and ran the tests above on my
-machine.
+I used an AI assistant (Claude) to analyse the problem; the tests
+above ran on my machine.
 
 Thanks,
 Sergey
