@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794231321;
-	b=NnRI276VAcNqtmK6d2NHzlzCPoNfJMNYbusiI6y8MYzaaVcHJ5wRct6ZomJtvTo/0ROz
-	 AKp3r9OIfpMi7GMUVXESrEkICbkAQxT1ft08dywIdK4s51BwBBu593432DZSbFc/brJWm
-	 qait2YGW/M6+pizj9PBzt50fTfY3vgXXnMrqUpjRZgVOWis0pVApuMPO4j9aKoPGZf4Er
-	 Xt5yO998g0eAxtx+hu8yhTF6E8MiekQxunvn2vYLLNPZhxSJojd/23yxNRDvISlcB8x9f
-	 n0DHRzzks2gcT7MY79KQmng2G6J9bnOvuEtOs6R2Qwr9+uAf1ZejZ9D+Hf82mVVZ7mQ==
+	t=1794231333;
+	b=0/QlgV3HIBm7DG5+VbTQwTKmZbs6AWua/0rLnJLsAFya1bz2p2LQXQTxDRdwlGNUkT+m
+	 5TsChJqJhNriErXlfORFyze2SV735sFNCTQLKoqdg+R3uUCtt0P9DvFMnjniYg51Z2r8/
+	 3PBNVTAN5j9vvPvaZkc1E5bqCwuaLLVIOD8yWOVLtZNlVnibCR/6YpQRPA/9iqT5loLvc
+	 yCsRAn56sKj9ULfAEde4SI5k4Anp2dA/f60dr7jZwoBeaKvQIAqMUBAH0TLGIxEQpHZ2g
+	 xY59c/ap38v3l/dLwIFW81ysYS9iyXEpPE7RiR1FBVT8R14rX7C4Vx2O7VYhLxxtE4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231321;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231333;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=RHbobrqtkCfVlo6cAi/46bOTcxdKLYt7G6907V67RpU=;
-	b=2o9/j51pM4kAiRxHq/2yI2z31oCeHTTVZpwNB0mh/I85loJzwL7c1xrlurXK337TKrt+
-	 F2anHLwAa/Sacr+4xhDFk3JSUFzCZknyF1UjmajI/CT2cqCQJ7HmbqEpL0Ej0IDYiPUkJ
-	 eF5qNFw8xCZ5MivcJNXG1gS040sjPS62Te4LWs/uljAJ4aFS63YyiyzJKRRrSCmaB5z0e
-	 wK2RXjM04K5ReWtHwgTGcNwlD6tUcyYIU+HUshevAe7e5PC93T4gg7X/dwN8xW5SXxKTu
-	 J23gut6dpZ/Zc9b7BjyMFmqIxAHFqQ2Mhtc2VeMq3auVTfubTi3Dkx237OLAdViQXuQ==
+	bh=estD3HstV78utNXv39tKhRc6B26Eq4vvZGB5TDFeXC4=;
+	b=TXNwTi0mseKfTTZTPT96h2qnDYRNN4zPCZffb5ZR9ko1OWdD7wSuoiv4JL8H9wRY3lly
+	 wBcYdOvzDyfE/EeVTaakdueANQnjyjbbmAAeZJWWJCxAk1Bb87e5uURGXpx+jO7yHnXDp
+	 OCd9pWsOMDYX0z4ZGc6Ho/xk3Uw5eJ2EmqUzSuFgCgbKL9O5uT/j56uSfHYqWtF7DrFUR
+	 CECvWqV5n3MWhLS0QRxziCQ8e43oPYkhO5d7LVAXybE17zoTz11jRhL/oRV7BnGdUO2xd
+	 EscSzNoI/JC6UGIBSz5Owzzfd11zwrescc73VwERJShGiPaRJv52xrtVHhQ6kgcTeEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="nfO+R05/";
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=p28idVDk;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDF8606D806;
-	Mon,  9 Nov 2026 13:35:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCDF8606D806
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524A1606D826;
+	Mon,  9 Nov 2026 13:35:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 524A1606D826
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=nfO+R05/
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=p28idVDk
 Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:7074:f4f4:e983:bf17])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B551ADA8;
-	Mon,  9 Nov 2026 14:32:52 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3EF2DDA8;
+	Mon,  9 Nov 2026 14:33:04 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794231177;
-	bh=bpXqtsWqrM7gLL19B+WOY0IajzWlW8W1W+pHV9t3RfU=;
+	s=mail; t=1794231189;
+	bh=UUfSeQ3FfDUzEykHg5AwzI0IDfapjjOpkrDBSJB0Y/U=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=nfO+R05/8lny3xwqOQq7VCdtcyJajKfIR+ijISm1FDsptMAeOGKEpDnpNd4fhqkKx
-	 dDQmecBTrZBN6gOaTBZqT2IKGs8SFgtttOdrz6VXZZfR7HGIT5jW80C9mDL1xuUKOL
-	 LEVWozrhYmP9SORQDTuUurcUYhmpRsr0pD2lcCTI=
+	b=p28idVDko2Ty89O356tq5AXPgCcrwafwd8+bHCv6lzvpnmKEkhz0GA8vdGywkMVrf
+	 a0J+FGfEQggOILb0UKJNUM6gjFQTs3Gl7sKic6gtiOsDlwdH+vkpc83mCWyUrOMJM3
+	 YBAeurO1tI/VVFuHBl1QwnL6QEuZabU23RWyVtxY=
 From: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Date: Mon, 09 Nov 2026 22:34:27 +0900
-Subject: [PATCH v4 06/13] media: vsp1: Support full VSPB on R-Car M3-W,
- M3-N and E3
+Date: Mon, 09 Nov 2026 22:34:29 +0900
+Subject: [PATCH v4 08/13] media: rcar-fcp: Handle resets
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,7 +57,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-6-1b2072e8c37e@ideasonboard.com>
+Message-Id: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-8-1b2072e8c37e@ideasonboard.com>
 References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
 In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>, 
@@ -78,75 +77,105 @@ Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
  Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.2
 
-From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+On some versions of the FCP, such as the one on the X5H, reset control
+is required to operate the FCP. Add support for handling resets
+optionally, to continue supporting versions that do not require it.
 
-The M3-W, M3-N and E3 SoCs integrate a VSPB that reports the same
-version ID as the VSPBD in the H3 and H3-N, but includes additional
-entities compared to the VSPBD. The VSPBD device entry in the driver
-matches on the version ID only, which results in the VSPB being handled
-as a VSPBD. The driver therefore doesn't support the CLU, LUT and HGO
-entities in the M3-W, M3-N and E3 SoCs.
-
-To fix it, split the device entry in two, one for the VSPBD with an
-additional SoC ID match, and one for the VSPB. The VSPBD entry needs to
-be listed first, otherwise the VSPB entry will match on H3 and H3-N as
-well.
-
-The VI6_IP_VERSION_MODEL_VSPBD_GEN3 macro is renamed to
-VI6_IP_VERSION_MODEL_VSPB_GEN3 to indicate that the VSPBD is the special
-case.
-
-Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
----
- drivers/media/platform/renesas/vsp1/vsp1_drv.c  | 13 ++++++++++++-
- drivers/media/platform/renesas/vsp1/vsp1_regs.h |  2 +-
- 2 files changed, 13 insertions(+), 2 deletions(-)
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_drv.c b/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-index 762a9e776a94d50accad070068f92f6dabb81035..5597595414fe787413c7daa5a3142faa9ced8408 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_drv.c
-@@ -781,14 +781,25 @@ static const struct vsp1_device_info vsp1_device_infos[] = {
- 		.wpf_count = 1,
- 		.uapi = true,
- 	}, {
--		.version = VI6_IP_VERSION_MODEL_VSPBD_GEN3,
-+		.version = VI6_IP_VERSION_MODEL_VSPB_GEN3,
- 		.model = "VSP2-BD",
-+		.soc = VI6_IP_VERSION_SOC_H3,
- 		.gen = 3,
- 		.features = VSP1_HAS_BRU | VSP1_HAS_WPF_VFLIP,
- 		.rpf_count = 5,
- 		.wpf_count = 1,
- 		.num_bru_inputs = 5,
- 		.uapi = true,
-+	}, {
-+		.version = VI6_IP_VERSION_MODEL_VSPB_GEN3,
-+		.model = "VSP2-B",
-+		.gen = 3,
-+		.features = VSP1_HAS_BRU | VSP1_HAS_CLU | VSP1_HAS_HGO
-+			  | VSP1_HAS_LUT | VSP1_HAS_WPF_VFLIP,
-+		.rpf_count = 5,
-+		.wpf_count = 1,
-+		.num_bru_inputs = 5,
-+		.uapi = true,
- 	}, {
- 		.version = VI6_IP_VERSION_MODEL_VSPBC_GEN3,
- 		.model = "VSP2-BC",
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_regs.h b/drivers/media/platform/renesas/vsp1/vsp1_regs.h
-index 10cfbcd1b6e0b3a9c0a8daaa990babfaeb8dde0c..4c0315656e9f81a9656b58fb6f0233f8a22ac0e1 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_regs.h
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_regs.h
-@@ -792,7 +792,7 @@
- #define VI6_IP_VERSION_MODEL_VSPS_V2H	(0x12 << 8)
- #define VI6_IP_VERSION_MODEL_VSPD_V2H	(0x13 << 8)
- #define VI6_IP_VERSION_MODEL_VSPI_GEN3	(0x14 << 8)
--#define VI6_IP_VERSION_MODEL_VSPBD_GEN3	(0x15 << 8)
-+#define VI6_IP_VERSION_MODEL_VSPB_GEN3	(0x15 << 8)
- #define VI6_IP_VERSION_MODEL_VSPBC_GEN3	(0x16 << 8)
- #define VI6_IP_VERSION_MODEL_VSPD_GEN3	(0x17 << 8)
- #define VI6_IP_VERSION_MODEL_VSPD_V3	(0x18 << 8)
+---
+Changes in v4:
+- use devm_reset_control_get_optional_exclusive
+
+Changes in v2:
+- handle errors
+---
+ drivers/media/platform/renesas/rcar-fcp.c | 30 ++++++++++++++++++++++++++++--
+ 1 file changed, 28 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/platform/renesas/rcar-fcp.c b/drivers/media/platform/renesas/rcar-fcp.c
+index dfb0ca93e854dd0bb8aedfb757fd786ef6e45542..d782101842af7acbb3c0675d72677bc5a4854cac 100644
+--- a/drivers/media/platform/renesas/rcar-fcp.c
++++ b/drivers/media/platform/renesas/rcar-fcp.c
+@@ -16,6 +16,7 @@
+ #include <linux/mutex.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/reset.h>
+ #include <linux/slab.h>
+ 
+ #include <media/rcar-fcp.h>
+@@ -29,6 +30,7 @@ struct rcar_fcp_device {
+ 	struct list_head list;
+ 	struct device *dev;
+ 	void __iomem *base;
++	struct reset_control *rstc;
+ };
+ 
+ static LIST_HEAD(fcp_devices);
+@@ -162,20 +164,25 @@ static int rcar_fcp_probe(struct platform_device *pdev)
+ 
+ 	fcp->dev = &pdev->dev;
+ 
++	platform_set_drvdata(pdev, fcp);
++
+ 	fcp->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(fcp->base))
+ 		return PTR_ERR(fcp->base);
+ 
+ 	dma_set_max_seg_size(fcp->dev, UINT_MAX);
+ 
++	fcp->rstc = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
++	if (IS_ERR(fcp->rstc))
++		return dev_err_probe(&pdev->dev, PTR_ERR(fcp->rstc),
++				     "failed to get reset control\n");
++
+ 	pm_runtime_enable(&pdev->dev);
+ 
+ 	mutex_lock(&fcp_lock);
+ 	list_add_tail(&fcp->list, &fcp_devices);
+ 	mutex_unlock(&fcp_lock);
+ 
+-	platform_set_drvdata(pdev, fcp);
+-
+ 	return 0;
+ }
+ 
+@@ -190,6 +197,24 @@ static void rcar_fcp_remove(struct platform_device *pdev)
+ 	pm_runtime_disable(&pdev->dev);
+ }
+ 
++static int fcp_pm_runtime_suspend(struct device *dev)
++{
++	struct rcar_fcp_device *fcp = dev_get_drvdata(dev);
++
++	return reset_control_assert(fcp->rstc);
++}
++
++static int fcp_pm_runtime_resume(struct device *dev)
++{
++	struct rcar_fcp_device *fcp = dev_get_drvdata(dev);
++
++	return reset_control_deassert(fcp->rstc);
++}
++
++static const struct dev_pm_ops fcp_pm_ops = {
++	RUNTIME_PM_OPS(fcp_pm_runtime_suspend, fcp_pm_runtime_resume, NULL)
++};
++
+ static const struct of_device_id rcar_fcp_of_match[] = {
+ 	{ .compatible = "renesas,fcpf" },
+ 	{ .compatible = "renesas,fcpv" },
+@@ -202,6 +227,7 @@ static struct platform_driver rcar_fcp_platform_driver = {
+ 	.remove		= rcar_fcp_remove,
+ 	.driver		= {
+ 		.name	= "rcar-fcp",
++		.pm = pm_ptr(&fcp_pm_ops),
+ 		.of_match_table = rcar_fcp_of_match,
+ 		.suppress_bind_attrs = true,
+ 	},
 
 -- 
 2.47.3
