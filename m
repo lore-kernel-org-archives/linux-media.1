@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229379;
-	b=SVkOXUUyjTxuzYrfycum3vEzMeiKFlukKHv4h4X/61FBY1xEDak/j+t7EOCKxyP/Onje
-	 Citkz82ZcZs2/LOv0Ej+E6NogDVnKuMF4XuBRVzMtnDdDZBUNoR4ZcY0BzaOFGpKb7g8f
-	 w4HJnUdJKM5a0j/h9ROe/6Fof2CMHvJ5ljDT5IvDZOpsdRsEbNFAD5TajwRQkb5PGvUwX
-	 WJlnvDJv++rxuWJZ01+BzF331PwW0O9fzWk9+7qqE7jEthOL5UQlLv5Fi33CSTI83T9Ko
-	 kRMjOOfSg0F48bI3Zz3D7nbuVpo4+5lLYKMxxJcOuRCIV/M/ovVDm1VZb5I8G0pl+Hw==
+	t=1794229383;
+	b=KVXVhGy5ebOiskDBdq+Z/Q7+n/r9iiF7go8pE8sDgJAXPGYtAJmNxhkkWNjagQ8gyOFT
+	 XfD5V7HNyZfLczJYfwsJa+7aVHo13SFxqYt7omoQYDcwkDWQ354GEHpYwWcnlKp99qW0T
+	 fDbNPd6O13TLgqY03uVewnXnj0/iXAHrREiJmOGEgFLrZPYYEkZeAYQfX0JuGv68ZI0HK
+	 8fJukUS92n1vAirmmflH3mSLF33FCuvR/b7FYyNvP+oCTkNbVD/SZDBvyg7do8489ISyh
+	 WCIF/zfk2MjCV6sR5bc8Nt4xIw2PYsWgnoCbOSWAmvUHovutxpdIYW8SJQtOLi91oHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229379;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=2pqezEh1l4R7qbedrIHueLpYvtHBQ5vBsWVh1r02B6E=;
-	b=tuGnhOLqWN14w+jkkb1czx+4KqrBZVvG6cy9ycOcvzdIC/WR0nNFyWZ9IqBZzjoKlp1Y
-	 Lw04k7j86heVZej+kmEZc1/oXv+ET+ux8wnASIuAbV0IyqcxgxMV+X8udv3oDoF1vhH/1
-	 ghyjxrXy3yPzWHwM9TdPAOC71kXcduQm8g8ILfxXvmGRJRCbF5ImbWmOlyY+v5TD0Pekb
-	 RHwUl/O8Cgy+GGkUwvwKYtsPjpXimkunuJes2x3Ya1t5IXf1UjKywN6Z07JvEo84Y40pU
-	 wsjH2aU/CpsaHP8XKnVe5V+ByrbU8lnDgzHJ2+cD7Gdrxv6ANu2Xn5nm06usMskgguQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229383;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=vx6Ms7DaSLXJkW1vJMuP19hrsjj4bkb+6EJX49nS2u8=;
+	b=wGPqxpHlmIh+SSRhQA5jH0Hr5DR6ptXUzsneERkAo2FCkASZz93xbUI28vVx4lAieGtK
+	 51dswpEsNnCTqY9e3einAGSWOTdTmXwyI+yfJsL7Z9lszqgX8n6G9yoCttHUqYPLmZzFf
+	 ZcSUnAAoJkPkoLINfT7saiYtHGkpoAsrlLrWIdYDoe/OPMD8NfGoCZQioYDUimXXtGEkX
+	 CeOcnYIHowHPUrdQRAhfltSzcIQMZNsAaGxjg0aa/+WsZfHV1Zd0sFNhBMkfWH29VnF9g
+	 D5DrvYlPrIRKRBtjMRPBk+v80boQTOYEWK16A93P5I6yG+r1vDeoQyZK1Vli/RbHk9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uzwViQ64;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="h2fJta/Z";
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A75606A332
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 13:02:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0A75606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6951E606A321;
+	Mon,  9 Nov 2026 13:03:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6951E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uzwViQ64
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4d21051042so122567166b.0
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 05:02:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794229377; x=1794834177; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2pqezEh1l4R7qbedrIHueLpYvtHBQ5vBsWVh1r02B6E=;
-        b=uzwViQ64DH2LIUj+FzmUKBO0qVhxfSrG7q0hxpNX4RC2k0EXoO25G2zdi0yjSX5gFq
-         EJBYQnvz0n1EdlPUpZoNMOrpxkRXvgBkmns8wMCEz6e1GBSxGNMJchdo9MQInL5EAPAb
-         lh9Y7vTyR3DZO+u7NvFvzzHdZzTEDWyW+mot3rsG/qPrLxgfF5sqCPYdhnCtIpM0hdh9
-         UcJJdQUR2X/rtjonn5+IRPrA7AZEclxBAGVJlI2loWeQFlkVcylKFrsKrNI7UZVaPI/Y
-         FbjsEIIEg2/UMK53aMS5yqNWwXs1XuVsA6KQoCFxHjN7rFsO7aFRJphbgQ+FZyK0SdGQ
-         jF/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794229377; x=1794834177;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2pqezEh1l4R7qbedrIHueLpYvtHBQ5vBsWVh1r02B6E=;
-        b=QfjJ3WPHTzD+UdxcBFHnywd/ysqdtcJJ2O8WT6HPF0Ni4Sj7FMTdCpqVDvpq7bwYM+
-         2f1zU7ptO5VecLSOkx5oxfkRjiSV/qVcr+5a1UFbiGDkj59e9tQxJZwPGdXJ3n3nrSY5
-         0ODdJWr9Xe8TXbfYo4lyHBvnSMZBSyDM8xTJhUtA8b9LOgVEientLIwUWFMmbUNxUDds
-         gsRyhCJeNrt04eKuKs49rSu7TlfTTJI6OYVWwaUAVR1qjoD/9bgLJm8+EoXvyw+7RTxl
-         0oeRgFITml3g3A99rlMY8mu/bNY4tVcyV/G0fRctqI9exKz5C/+98UKebIoKkDStOzwP
-         4A6Q==
-X-Forwarded-Encrypted: i=1; AL+hErGJ3b6qTYvYfo0dPQU5Hm1BcSuNvaAmtUiKv1PyAPWCN1jqGsFMcfzUQoKGdUvatGuI6hhuGo3yS0oZIQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+UxR6iqppzfJc9Dt/Lo1CFUbJrZI2ZRcoQoHC6VG+AOHl00mTs
-	duMjxLBth/SxlbKRQZj1QgCf8b0s+r6J3OKLqKhPWpx/Po5BYbPbEKFRX/Zu0KsixCM=
-X-Gm-Gg: AYBFou2zO3CwvzKR4Sfrsa11FjoM5OobsKWj2t2b4tAmbRwxl1Z7h1xaV6fwIl/1cSL
-	wTD9qHhzohsK/6lA8F+eKZM1W2Arfvz4iEQz0YxpNqzj4v923Isnz3GHpqST7eSS1J+x8sLiTxw
-	nfOJCTTThLg/q4M1bOqW57HbkRk20bD8sHlykm2L7kDsctj/7aG2JHw1AEKLmxiqK9D727bW4+3
-	yvj2Lr/1GTKZ1phPz6TvVjBsLEWbzQ1xJcK1w1mzJVQVmB+HuN5NEw3F3A3QKk5TpArHZd/ZogO
-	nqcYeQKvOcwn/WkvzGD45DC/U3lsGMqAGyoUftke/sY+f865DLeTlxBUJZdDTxaOkyiMmI6UvLi
-	hxLw7OppWkF87j4g+S8fk8kbQVc75feK+ZYpsBQa+Xl+RMZA7x4WwOnP/3prMY5+WJDvb0oD9V5
-	2f9aeQzseo7/om01zFmaH3pg3fvHSpG4GbGWHdDudMuAaX2182VDqpdHTRmnt2t/kswnqZFA13z
-	GJBP3vboEF7TUSwDZTuJvcAhsC69K1Y2SCOGHDAzd/9fvs3G9LpjG5C4oeWaStcxfRpUM1vB8OZ
-	iHO1TQmNFwUb3z9QHbisVdzAs2ydQLVu5Bx6LGQ=
-X-Received: by 2002:a17:907:6e88:b0:c49:bc1f:fe2d with SMTP id a640c23a62f3a-c4d6d4fa5eamr275959166b.28.1794229376222;
-        Mon, 09 Nov 2026 05:02:56 -0800 (PST)
-Received: from [192.168.0.167] ([109.76.74.9])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d69f9483esm163287866b.19.2026.11.09.05.02.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 05:02:51 -0800 (PST)
-Message-ID: <919e9806-5e1b-49ee-a88a-7b6dd6d93c18@linaro.org>
-Date: Mon, 9 Nov 2026 13:02:48 +0000
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=h2fJta/Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794229382; x=1825765382;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=64RKfb+JM7ihLo+ucl0KWxre6Pov9mD8NahlY9fQh/Q=;
+  b=h2fJta/ZDBSNvBodkwUMG/+dlGl2n4bc5EJ2KXRYOiJn1TqEl8GEOqjC
+   Qty38acf9EYYZdG/9Wwe+N5TjXXjSCvjW6YYEuaDRYdPL9B0qnxqwsFj+
+   r+VpDX0Hs0KIZwI1w2ty7zROnxIunMwHH8g/chsnkg6t1BPEkQiTSpCl5
+   v15oAWC80/bVi8t1aR4rNfgj8Df4CGV6M9ua5l9LhYMvagKe12XMLwaHs
+   mqKodgCf6LMpPcwRiEIrPQP53hgNe8EHKcoA8Pb4obHhMQP3vAYn/rlls
+   UQP+9kmtxiyobV7XFJoRE5bBaju/sgaePCTojOTadagDAIqhMM4xGuByT
+   w==;
+X-CSE-ConnectionGUID: b25Oek+yS0iJMIInwnZpSA==
+X-CSE-MsgGUID: j/UfINtdToaCKA1+6eKfjA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2951823"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2951823"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:03:02 -0800
+X-CSE-ConnectionGUID: BDl7lsweQBq86zMoWj4whA==
+X-CSE-MsgGUID: lhfaR/UmQNqbEW9ClEKaJw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="8034179"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.119])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:02:59 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id BD4E9121B96;
+	Mon, 09 Nov 2026 15:02:56 +0200 (EET)
+Date: Mon, 9 Nov 2026 15:02:56 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: b.danias@tutamail.com
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Serin Yeh <serin.yeh@intel.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Robert Foss <rfoss@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/3] media: i2c: ov8856: Enable runtime PM before
+ registering the sub-device
+Message-ID: <avHEgEcEet-T9dmK@kekkonen.localdomain>
+References: <20261104-ov8856-pm-fixes-v1-0-1958b730ce66@tutamail.com>
+ <20261104-ov8856-pm-fixes-v1-2-1958b730ce66@tutamail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,64 +90,97 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] media: qcom: camss: always stop the pipeline in
- stop_streaming
-To: Allan Siriani <allan@fatecpompeia.edu.br>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Todor Tomov <todor.too@gmail.com>, Hans Verkuil <hverkuil@kernel.org>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261109112611.94010-1-allan@fatecpompeia.edu.br>
- <20261109112611.94010-4-allan@fatecpompeia.edu.br>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261109112611.94010-4-allan@fatecpompeia.edu.br>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-ov8856-pm-fixes-v1-2-1958b730ce66@tutamail.com>
 
-On 09/11/2026 11:26, Allan Siriani wrote:
-> Fixes: 89013969e232 ("media: camss: sm8250: Pipeline starting and stopping for multiple virtual channels")
-> Reviewed-by: Bryan O'Donoghue<bryan.odonoghue@linaro.org>
-> Signed-off-by: Allan Siriani<allan@fatecpompeia.edu.br>
-> ---
->   drivers/media/platform/qcom/camss/camss-video.c | 14 +++++++++-----
->   1 file changed, 9 insertions(+), 5 deletions(-)
+Hi Babis,
+
+On Wed, Nov 04, 2026 at 11:42:48AM +0200, Babis Danias via B4 Relay wrote:
+> From: Babis Danias <b.danias@tutamail.com>
 > 
-> diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
-> index 5de6ff5ec..8341666f9 100644
-> --- a/drivers/media/platform/qcom/camss/camss-video.c
-> +++ b/drivers/media/platform/qcom/camss/camss-video.c
-> @@ -313,12 +313,16 @@ static void video_stop_streaming(struct vb2_queue *q)
->   		entity = pad->entity;
->   		subdev = media_entity_to_v4l2_subdev(entity);
->   
-> +		/*
-> +		 * Subdevs without .s_stream(), such as a sensor pixel array
-> +		 * entity, return -ENOIOCTLCMD, as at stream on. On a real error
-> +		 * keep going: the pipeline must be stopped and the buffers
-> +		 * returned to vb2 in any case.
-> +		 */
+> ov8856_probe() registers the async sub-device before it enables runtime
+> PM. But the sub-device can be used as soon as it is registered. On ACPI
+> systems where ipu-bridge instantiates a VCM for the sensor, the bridge's
+> .bound() callback queues a work item that runtime-resumes the sensor.
+> If the work runs before probe reaches pm_runtime_enable(),
+> pm_runtime_get_sync() fails with -EACCES and the VCM is never created:
+> 
+>   [  213.265894] ov8856 i2c-OVTI8856:00: Error -13 runtime-resuming sensor, cannot instantiate VCM
+> 
+> On a Dell Latitude 7320 Detachable this happened on every bind of the
+> rear sensor after the IPU6 ISYS driver had probed, so the dw9714 focus
+> motor never showed up. Documentation/driver-api/media/v4l2-subdev.rst
+> asks drivers to enable runtime PM before registering the sub-device.
+> 
+> Enable runtime PM first, and hold a usage reference until registration
+> is done, so that the sensor can't be suspended halfway through. Drop the
+> reference with pm_runtime_put(), which also lets the sensor suspend once
+> probe is done, as the old pm_runtime_idle() call did. If registration
+> fails, undo the runtime PM setup. The probe_error_media_entity_cleanup
+> label then has no users left, so remove it.
+> 
+> The problem was found, and this patch written, with the help of an AI
+> coding assistant (Claude Opus 5.5). See the cover letter for details.
+> 
+> Fixes: 879347f0c258 ("media: ov8856: Add support for OV8856 sensor")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Babis Danias <b.danias@tutamail.com>
+> ---
+>  drivers/media/i2c/ov8856.c | 23 ++++++++++++++++-------
+>  1 file changed, 16 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
+> index 988ce0310..f9bcdd412 100644
+> --- a/drivers/media/i2c/ov8856.c
+> +++ b/drivers/media/i2c/ov8856.c
+> @@ -2425,22 +2425,31 @@ static int ov8856_probe(struct i2c_client *client)
+>  		goto probe_error_v4l2_ctrl_handler_free;
+>  	}
+>  
+> +	/* Set the device's state to active if it's in D0 state. */
+> +	if (full_power)
+> +		pm_runtime_set_active(ov8856->dev);
+> +	/*
+> +	 * The sub-device can be used as soon as it is registered, so enable
+> +	 * runtime PM first, and hold a reference until registration is done.
+> +	 */
+> +	pm_runtime_get_noresume(ov8856->dev);
 
-this comment is completely redundant - it looks like LLM word-salad.
+Don't do pm_runtime_get_noresume() here, instead call pm_runtime_idle()
+after enabling Runtime PM, perhaps still after registering the async
+sub-device.
 
-Please drop.
+> +	pm_runtime_enable(ov8856->dev);
+> +
+>  	ret = v4l2_async_register_subdev_sensor(&ov8856->sd);
+>  	if (ret < 0) {
+>  		dev_err(ov8856->dev, "failed to register V4L2 subdev: %d",
+>  			ret);
+> -		goto probe_error_media_entity_cleanup;
+> +		goto probe_error_pm_runtime_disable;
+>  	}
+>  
+> -	/* Set the device's state to active if it's in D0 state. */
+> -	if (full_power)
+> -		pm_runtime_set_active(ov8856->dev);
+> -	pm_runtime_enable(ov8856->dev);
+> -	pm_runtime_idle(ov8856->dev);
+> +	pm_runtime_put(ov8856->dev);
+>  
+>  	return 0;
+>  
+> -probe_error_media_entity_cleanup:
+> +probe_error_pm_runtime_disable:
+> +	pm_runtime_disable(ov8856->dev);
+> +	pm_runtime_set_suspended(ov8856->dev);
+> +	pm_runtime_put_noidle(ov8856->dev);
+>  	media_entity_cleanup(&ov8856->sd.entity);
+>  
+>  probe_error_v4l2_ctrl_handler_free:
+> 
 
->   		ret = v4l2_subdev_call(subdev, video, s_stream, 0);
-> -
-> -		if (ret) {
-> -			dev_err(video->camss->dev, "Video pipeline stop failed: %d\n", ret);
-> -			return;
-> -		}
-> +		if (ret && ret != -ENOIOCTLCMD)
-> +			dev_err(video->camss->dev,
-> +				"Failed to stop %s: %d\n", entity->name, ret);
->   	}
->   
->   	video_device_pipeline_stop(vdev);
-> -- 2.43.0
+-- 
+Regards,
 
+Sakari Ailus
