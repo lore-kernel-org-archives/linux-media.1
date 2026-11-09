@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794231344;
-	b=zybhkXhjvv825YkZkNg38lTuX6z5tPIh1lx5BT3NzBHgLAXGpNiuqwLRdPJgRfkxb4+T
-	 3oscyjJbbDSm1tW6o6+EwlCui11ziZ8OI6Rc76c9B4yYvB8FTTLKRe/c1B4zgKSBtIStI
-	 kMK5/sjdd5S/hYDz5Opg7pyO9WYQD412zYDRj+ukgaCyxAheeWB2cClg9hhpOQNIhS4en
-	 mfh1Lu9ob/RH3xiJ0A7gq2Ecg8ltV71Du0SkIJzJ4ELGjdJlQmSzNaucqMQTqPcN/xE71
-	 Gv/jcXSmUf15JyNgTTN5hFCVJsLTBQnizMqFjlOx9+ccrcn6sQn4x9LQomXsV7FA0lA==
+	t=1794231362;
+	b=cDe+jcThbIEWaEvRfmKlPRYePKJfBeba6+jipJeo5eB/Ok69f+4Rj5a0pW0KWJoOyqvc
+	 cpRJVbi8F2E+wqZ3HRt5ip6N+/y7q9ULtB3kfBl5dIC9GRF1HhwmM0m9OEyVdne9tKXcw
+	 dag3vJWe/QL9coAY/rqGJR3MbviCs2wQb9mVCRSkcNGhrtP4GywnBmO4DMchdJP7T0CG+
+	 +SEmyZPKvQsq0OiEyVT9fb6ecFouYN0O1fG4BZ1Pxp11tUnfM0/cRhLT5YbLLfUH/prqY
+	 PNKulDQX+ZOt1+VkQp37tfEoVxj2IEq2P4jh8e9uxmYUkfwwHQcacZTosL1craiylXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231344;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231362;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=c8Z1ip9TBXqKyI4X7VpGPnuu1/adw5JmuFhegoSwDwg=;
-	b=hxvxqbprxgenjF5BY9Fdc/VoEs3sjjaIYobZA/ttdgMmoKUGZHG1LcYQqkNEDxNvv8IU
-	 sndqJ/rltkst7ytLhJDnlxR7Fx2oQJqiByZxt/OQSpNsI+UOxJtXKfbcn22tNrfj9jBXL
-	 y+YdPLjySxIKyf3+uI9YCZdF9ByDXE1sqSiJyb1mbdrrkTKZyCDufZ7DAe+hHPjQ6WiXY
-	 O+M4Az6EV2XRt/g9jahF4xSdMXyXBsCfN8K/sM+7lHo6uJWtfKStQzlCvk82GiTZf/P7w
-	 hcUBf28zoyQ8AUVEUO09D5Ni91/qsVo3I6Qp96vIqqbkXJa0VZX1LL6v6D9enLQZTdQ==
+	bh=uznXjmkiTWgfr98zmBQdrDMNZkUNxUCbvJ6ZfvHz890=;
+	b=MjuyCUXoAA433Vka9yXOegjKqKVvWBSTBQHbpQW7UV+Vju0SWlcb+VO6JGWRZIhOGIsd
+	 J6MXD5w/ULlpiiFXmrFJ065dWJBGSE5nAMRc7CpEEBcR+mrGbymoNbb8e0jE3jcJUGsUF
+	 uV09thvu9RM3hn+OfwUUsJ5Z8DaBsmoLbHDvwjhO7gc9GCWbVSb+0n3WCG3uoUtatk5e8
+	 g0Dwgl1ovU8TRwXD1bho7XHiMK5/IujrfZR1sSyLIiVXLhuCDfNsFvzNfVTbQgA6fjN7t
+	 DALzcl6UwL3HbkGmXwljFF8kf5KG7nW9EN4LRUaWa+jc2bS5EmasqqfUgEDQnXH7OcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=lZBX8DlQ;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=NpDJfk8W;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE17606A321;
-	Mon,  9 Nov 2026 13:35:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEE17606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE77606D822;
+	Mon,  9 Nov 2026 13:36:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DE77606D822
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=lZBX8DlQ
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=NpDJfk8W
 Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:7074:f4f4:e983:bf17])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 04E24DA8;
-	Mon,  9 Nov 2026 14:33:15 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8CCAA219;
+	Mon,  9 Nov 2026 14:33:33 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794231201;
-	bh=KQzB3A+G40tugQO/kEHn9gWiWxMD7lAli5QEf2SIV6w=;
+	s=mail; t=1794231218;
+	bh=gGqO8nVz867c6XThKctEkhYpYd9ubmcf2l1S/Rb7Zr0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=lZBX8DlQ0enOn55uNC/yuLzlcKs37ydeU08tZF/kUzHqTrs+hvTMOzVftfBZmTRVL
-	 VwjDwk24xBjyQ6j1FkY4cwCkkicl2Flh7n03tmJ67wE2VYG2NishztUVapdFhW5PDo
-	 PfH+XKle9ABjF0fDRsn6wN/Wz25RuAciYb/A1TN8=
+	b=NpDJfk8W/JZFZnnW4MrohS7IVZJm99HTCMLNVdLC8uuBy1S+YWPwR+/V5v3s5ZPz6
+	 35arQ74YMKo9Ns8IVX5iPHZeKhKrPbbV2sfrui6e2xfonlVUg7pfBJyRzhEYhBG2Mn
+	 mYAdeFdN4YKP0ZFomtE8xGUFeCYwrvfmhmf1ZBVE=
 From: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Date: Mon, 09 Nov 2026 22:34:31 +0900
-Subject: [PATCH v4 10/13] media: vsp1: Fix du_complete race condition issue
+Date: Mon, 09 Nov 2026 22:34:34 +0900
+Subject: [PATCH DNI v4 13/13] media: rcar-fcp: Check device revision at
+ probe time
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -57,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-10-1b2072e8c37e@ideasonboard.com>
+Message-Id: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-13-1b2072e8c37e@ideasonboard.com>
 References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
 In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>, 
@@ -74,72 +75,220 @@ Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-pm@vger.kernel.org, linux-media@vger.kernel.org, 
  Paul Elder <paul.elder+renesas@ideasonboard.com>, 
- Phong Hoang <phong.hoang.wz@renesas.com>
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.2
 
-From: Phong Hoang <phong.hoang.wz@renesas.com>
+From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-vsp1_du_pipeline_frame_end() runs in hardirq context and tests
-drm_pipe->du_complete before calling it. vsp1_du_setup_lif() clears
-the same pointer on the CRTC-disable path while holding only drm->lock,
-a mutex that does not serialize against the IRQ. On SMP, du_complete
-can be cleared between the NULL check and the call, leading to NULL
-pointer dereference.
+Verify that the device revision register reports a valid value,
+otherwise reject the device.
 
-Therefore, fixing this issue by using READ_ONCE()/WRITE_ONCE() for
-du_complete and ensuring du_private is initialized first.
-
-Signed-off-by: Phong Hoang <phong.hoang.wz@renesas.com>
-Reviewed-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
 ---
- drivers/media/platform/renesas/vsp1/vsp1_drm.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Changes since v2:
 
-diff --git a/drivers/media/platform/renesas/vsp1/vsp1_drm.c b/drivers/media/platform/renesas/vsp1/vsp1_drm.c
-index adb89e69938903e3bb617c0ea4857e1d2fcfa312..c2bf34c1e57fae45dd6d419167889f59f575434b 100644
---- a/drivers/media/platform/renesas/vsp1/vsp1_drm.c
-+++ b/drivers/media/platform/renesas/vsp1/vsp1_drm.c
-@@ -35,8 +35,10 @@ static void vsp1_du_pipeline_frame_end(struct vsp1_pipeline *pipe,
- 				       unsigned int completion)
+- Add FCP type information
+- Reject devices with an unsupported version
+
+Changes since v1:
+
+- Use devm_platform_ioremap_resource()
+---
+ drivers/media/platform/renesas/rcar-fcp.c | 126 ++++++++++++++++++++++++++++--
+ 1 file changed, 120 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/media/platform/renesas/rcar-fcp.c b/drivers/media/platform/renesas/rcar-fcp.c
+index d782101842af7acbb3c0675d72677bc5a4854cac..93584fdc19cf46e021efeed0f47064dea96a4edb 100644
+--- a/drivers/media/platform/renesas/rcar-fcp.c
++++ b/drivers/media/platform/renesas/rcar-fcp.c
+@@ -14,28 +14,80 @@
+ #include <linux/list.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
++#include <linux/of_device.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/property.h>
+ #include <linux/reset.h>
+ #include <linux/slab.h>
+ 
+ #include <media/rcar-fcp.h>
+ 
+-#define RCAR_FCP_REG_RST		0x0010
+-#define RCAR_FCP_REG_RST_SOFTRST	BIT(0)
+-#define RCAR_FCP_REG_STA		0x0018
+-#define RCAR_FCP_REG_STA_ACT		BIT(0)
++#define RCAR_FCP_REG_VCR			0x0000
++#define RCAR_FCP_REG_VCR_CATEGORY		(1 << 8)
++#define RCAR_FCP_REG_VCR_REVISION_H3_ES1	(1 << 0)
++#define RCAR_FCP_REG_VCR_REVISION_M3W		(2 << 0)
++#define RCAR_FCP_REG_VCR_REVISION_V3M		(3 << 0)
++#define RCAR_FCP_REG_VCR_REVISION_H3		(4 << 0)
++#define RCAR_FCP_REG_VCR_REVISION_D3		(5 << 0)
++#define RCAR_FCP_REG_VCR_REVISION_M3N		(6 << 0)
++#define RCAR_FCP_REG_VCR_REVISION_V3H		(7 << 0)
++#define RCAR_FCP_REG_VCR_REVISION_E3		(8 << 0)
++#define RCAR_FCP_REG_VCR_REVISION_V4H		(10 << 0)
++#define RCAR_FCP_REG_VCR_REVISION_V4M		(11 << 0)
++#define RCAR_FCP_REG_VCR_REVISION_X5H_V1	(12 << 0)
++
++#define RCAR_FCP_REG_CFG0			0x0004
++#define RCAR_FCP_REG_CFG0_FCPVSEL		BIT(1)
++
++#define RCAR_FCP_REG_RST			0x0010
++#define RCAR_FCP_REG_RST_RIIFRST		BIT(22)
++#define RCAR_FCP_REG_RST_RSIFRST		BIT(21)
++#define RCAR_FCP_REG_RST_DCMPRST		BIT(20)
++#define RCAR_FCP_REG_RST_MODRST			BIT(4)
++#define RCAR_FCP_REG_RST_SOFTRST		BIT(0)
++
++#define RCAR_FCP_REG_STA			0x0018
++#define RCAR_FCP_REG_STA_ACT			BIT(0)
++
++#define RCAR_FCP_REG_TL_CTRL			0x0070
++#define RCAR_FCP_REG_TL_CTRL_TLEN		BIT(31)
++#define RCAR_FCP_REG_TL_CTRL_VPOS_C(n)		((n) << 16)
++#define RCAR_FCP_REG_TL_CTRL_VPOS_Y(n)		((n) << 0)
++
++#define RCAR_FCP_REG_PICINFO1			0x00c4
++#define RCAR_FCP_REG_PICINFO1_STRIDE_DIV16	((n) << 0)
++
++#define RCAR_FCP_REG_BA_ANC_Y0			0x0100
++#define RCAR_FCP_REG_BA_ANC_Y1			0x0104
++#define RCAR_FCP_REG_BA_ANC_Y2			0x0108
++#define RCAR_FCP_REG_BA_ANC_C			0x010c
++#define RCAR_FCP_REG_BA_REF_Y0			0x0110
++#define RCAR_FCP_REG_BA_REF_Y1			0x0114
++#define RCAR_FCP_REG_BA_REF_Y2			0x0118
++#define RCAR_FCP_REG_BA_REF_C			0x011c
++
++enum rcar_fcp_type {
++	RCAR_FCPF,
++	RCAR_FCPV,
++};
+ 
+ struct rcar_fcp_device {
+ 	struct list_head list;
+ 	struct device *dev;
+ 	void __iomem *base;
+ 	struct reset_control *rstc;
++	enum rcar_fcp_type type;
+ };
+ 
+ static LIST_HEAD(fcp_devices);
+ static DEFINE_MUTEX(fcp_lock);
+ 
++static inline u32 rcar_fcp_read(struct rcar_fcp_device *fcp, u32 reg)
++{
++	return ioread32(fcp->base + reg);
++}
++
+ static inline void rcar_fcp_write(struct rcar_fcp_device *fcp, u32 reg, u32 val)
  {
- 	struct vsp1_drm_pipeline *drm_pipe = to_vsp1_drm_pipeline(pipe);
-+	void (*du_complete)(void *data, unsigned int status, u32 crc);
+ 	iowrite32(val, fcp->base + reg);
+@@ -154,15 +206,62 @@ EXPORT_SYMBOL_GPL(rcar_fcp_soft_reset);
+  * Platform Driver
+  */
  
--	if (drm_pipe->du_complete) {
-+	du_complete = READ_ONCE(drm_pipe->du_complete);
-+	if (du_complete) {
- 		struct vsp1_entity *uif = drm_pipe->uif;
- 		unsigned int status = completion
- 				    & (VSP1_DU_STATUS_COMPLETE |
-@@ -44,7 +46,7 @@ static void vsp1_du_pipeline_frame_end(struct vsp1_pipeline *pipe,
- 		u32 crc;
++static int rcar_fcp_setup(struct rcar_fcp_device *fcp)
++{
++	static const char * const models[] = {
++		[RCAR_FCPF] = "FCPF",
++		[RCAR_FCPV] = "FCPV",
++	};
++	static struct {
++		u32 version;
++		const char *name;
++	} versions[] = {
++		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_H3_ES1, "H3 ES1.x" },
++		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_M3W, "M3W" },
++		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_V3M, "V3M" },
++		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_H3, "H3" },
++		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_D3, "D3" },
++		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_M3N, "M3N" },
++		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_V3H, "V3H" },
++		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_E3, "E3" },
++		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_V4H, "V4H" },
++		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_V4M, "V4M" },
++		{ RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_X5H_V1, "X5H v1.0" },
++	};
++
++	unsigned int i;
++	u32 version;
++
++	/* Check the device version register. */
++	version = rcar_fcp_read(fcp, RCAR_FCP_REG_VCR);
++
++	for (i = 0; i < ARRAY_SIZE(versions); ++i) {
++		if (versions[i].version == version)
++			break;
++	}
++
++	if (i >= ARRAY_SIZE(versions)) {
++		dev_err(fcp->dev, "Invalid FCP version 0x%08x\n", version);
++		return -ENODEV;
++	}
++
++	dev_dbg(fcp->dev, "%s %s device found\n", models[fcp->type],
++		versions[i].name);
++
++	return 0;
++}
++
+ static int rcar_fcp_probe(struct platform_device *pdev)
+ {
+ 	struct rcar_fcp_device *fcp;
++	int ret;
  
- 		crc = uif ? vsp1_uif_get_crc(to_uif(&uif->subdev)) : 0;
--		drm_pipe->du_complete(drm_pipe->du_private, status, crc);
-+		du_complete(drm_pipe->du_private, status, crc);
- 	}
+ 	fcp = devm_kzalloc(&pdev->dev, sizeof(*fcp), GFP_KERNEL);
+ 	if (fcp == NULL)
+ 		return -ENOMEM;
  
- 	if (completion & VSP1_DL_FRAME_END_INTERNAL) {
-@@ -698,8 +700,8 @@ int vsp1_du_enable(struct device *dev, unsigned int pipe_index,
- 		 * Register a callback to allow us to notify the DRM driver of frame
- 		 * completion events.
- 		 */
--		drm_pipe->du_complete = cfg->callback;
- 		drm_pipe->du_private = cfg->callback_data;
-+		WRITE_ONCE(drm_pipe->du_complete, cfg->callback);
+ 	fcp->dev = &pdev->dev;
++	fcp->type = (uintptr_t)device_get_match_data(&pdev->dev);
  
- 		/* Disable the display interrupts. */
- 		vsp1_write(vsp1, VI6_DISP_IRQ_STA(pipe_index), 0);
-@@ -768,7 +770,7 @@ int vsp1_du_disable(struct device *dev, unsigned int pipe_index)
- 			brx->inputs[rpf->brx_input].rpf = NULL;
- 		}
+ 	platform_set_drvdata(pdev, fcp);
  
--		drm_pipe->du_complete = NULL;
-+		WRITE_ONCE(drm_pipe->du_complete, NULL);
- 		pipe->num_inputs = 0;
+@@ -178,12 +277,27 @@ static int rcar_fcp_probe(struct platform_device *pdev)
+ 				     "failed to get reset control\n");
  
- 		dev_dbg(vsp1->dev, "%s: pipe %u: releasing %s\n",
+ 	pm_runtime_enable(&pdev->dev);
++	ret = pm_runtime_resume_and_get(&pdev->dev);
++	if (ret < 0)
++		goto error_pm_disable;
++
++	ret = rcar_fcp_setup(fcp);
++	if (ret < 0)
++		goto error_pm_put;
++
++	pm_runtime_put(&pdev->dev);
+ 
+ 	mutex_lock(&fcp_lock);
+ 	list_add_tail(&fcp->list, &fcp_devices);
+ 	mutex_unlock(&fcp_lock);
+ 
+ 	return 0;
++
++error_pm_put:
++	pm_runtime_put(&pdev->dev);
++error_pm_disable:
++	pm_runtime_disable(&pdev->dev);
++	return ret;
+ }
+ 
+ static void rcar_fcp_remove(struct platform_device *pdev)
+@@ -216,8 +330,8 @@ static const struct dev_pm_ops fcp_pm_ops = {
+ };
+ 
+ static const struct of_device_id rcar_fcp_of_match[] = {
+-	{ .compatible = "renesas,fcpf" },
+-	{ .compatible = "renesas,fcpv" },
++	{ .compatible = "renesas,fcpf", .data = (void *)RCAR_FCPF },
++	{ .compatible = "renesas,fcpv", .data = (void *)RCAR_FCPV },
+ 	{ },
+ };
+ MODULE_DEVICE_TABLE(of, rcar_fcp_of_match);
 
 -- 
 2.47.3
