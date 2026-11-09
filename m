@@ -1,85 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794234516;
-	b=I2WudJr9TunKyg0LeXtvyiijSwwnMblnGCTZs6fWs59h+jRUyNCcF9tx+YBCcY/uF8GJ
-	 O41FF+8dwgDWFeQefgHWSybadmte42w9TjVEpWOb8/OV17qd4rEwVZ9opAW3nFfcLb4sl
-	 hbtfZcrnA2gH8HHh9mtnLiyJjC3If0UxFGrkFFu/oCCS+3Ht4CqqjYVFkyIQUbfLNGS2r
-	 jkTcvnswA9fwoiTuQRWLHZEiNGeTYV69fW8ycs8BNeY6R8A8OHSl+sF9xMiXO/xluA4Ds
-	 pTs06pgogotHHBRHLrqZ9jQwBJGeqmA3y1k9D54ODeH3A49U+2NjQOI350ZvqmX7L2g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794234516;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794235493;
+	b=p6zpOxjYrnqDCj12gJca0goYYuywhiVFBWdWko4M900tsAj/dO49EERIxhJXmGAllpvK
+	 JpmKTAcxP6GJ/aYCU23V1g7i8ULDxs0Dou5NiHT2bZ/S6+TXkoDCLgMEpRhFmmChBPqns
+	 6cvxcGMny7YcYpzSRe+IpKfZbhfoYEA2BihWFvqVxR584VkkiCsHxqDXaUoMwxgPebwcl
+	 Tk2YBg/rC195QtIM0YuCvmVMfPGIL+zmk9MA4JE8mTh/o7EkZCEcCkyxBtiNz+csEZBwD
+	 o/crewvtHTZlCoKSuEwNEXjcU2bFn7XNZr8ilyB+T5O33g4//abR8YMLwl6FkuraLww==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794235493;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4mPPXH3aJnZxVYx37Wxl7Lr/b+DLAle+zs+cy9uzIU4=;
-	b=ZSlblrtUe2s1QlXmx65Dppc8rNR/2Qq8kmBFOj+a+Rij+5EtCAXuiE09FamHZk7stnZq
-	 V2Ym5X3iYM89kusC9498HNg1EDyHB4wSI8/FK+Mgv3N2jcwgyw8dfBUvvD/FdF/z364I6
-	 nH2uhOVhlKNr8pHdwRbRCJALh686r1Wvh2NcJ9RBgVvA2ufwifYknOM3MXsI3slqwiLaR
-	 MUaav5tbcoaIFZcA+GDueVJOb7nzj77UBi9L2r1h9KrAF6BYKW2LafVuEv/fYqpPBT9GU
-	 gGTbasTq999KgjYzhoszff4+sPHk6njC2R7mUVxPhCW1muk6TTrRy0tu/rOmE47ajdQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ieee.org;
-	spf=pass smtp.mailfrom=ieee.org;
-	dkim=pass header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=QToSrRLd;
-	arc=none smtp.remote-ip=209.85.167.175
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=E5X0aK4lGSvPrdX7cpb6XEojnCQxm1GC3dItr8iBnTo=;
+	b=WDVeQtSuwkurq9jjKHHG6eKYAI+EELcU1lAzrhk3GB0zL3vDa8yG7WUIVosp5VbQ581q
+	 3j7PuUIVcdsUTzKBCzC0yi8ax4aPSK/dzAuDLrwaC811jdJzJPXk26Ysb9VRa0YWmfvO0
+	 RP3s80OanJaqOZUCk2zgQRXkSBfCMhKbOsX6KPVvKl4vo6At/8/7JpSEuqt/G3aYsUYhj
+	 3EW3mhdd24XAbE/PCPft+E5eM2MRO/UirD7gMOjJJJtZEZuBfej/Kqr+j18hV7VFeyg0Z
+	 Byqlaib8cyuRC9fX9n9wD3cVhSWWHNJMjBnKiq4s1CaL0n2S4J0b4g7esIcgRlxEK+A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mm5tqw4H;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E045A606D80A
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 14:28:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E045A606D80A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D07606A31C
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 14:44:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98D07606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=QToSrRLd
-Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-53656465d1dso410184b6e.2
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 06:28:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mm5tqw4H
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4c9abc1824so140204466b.1
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 06:44:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794235492; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qMnPEhUBM4tzlPge/Yr12NAFwsqh3Tqk/KE53ai85J8DXfNEr6UE2BwCy57Bao0u4a
+         qYm/B7jMGqiJMhH6M3dWZCz57Tp+d/7pAzGNWjjDtKccz62QIon+9Dx+96Xdff+tsej0
+         e2JIVOV8NYVyWOYud4UYIovbheKt2U5OWYERNZLz/qvvu0uBrM43cOsriS9k9Kng2uQ+
+         Bh83CzFCF7mzktstpFUIU3V+8zSWCpxFbqCZggUxiqENjVzPPkqFFz7fa7EsEu/8g4if
+         WyLOsLiyO5qfRs5XKWOd4CVnGNmxIwRHXWyPodiw3wobhapLSP9D7rXGCAPB9Ev++uYp
+         Ljmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=E5X0aK4lGSvPrdX7cpb6XEojnCQxm1GC3dItr8iBnTo=;
+        fh=IoObdFk+DCwz2uQFNcLLbspuf6oVFri+uXigX1ZSzrU=;
+        b=PyqaXP+5FHqGdO0SKo3oz4tPl85eWsXBknJXPXDmPTPgQfM2uXqT1lZKR8LBjU1ZoZ
+         xK7TabXDiyU41uxxxguJ3tUR4TkXDaCNibAwmhJo/tQjRUMm14L1TeKb8UPL+3aSJgRc
+         8rxqrexnlNVlvbi9NCMZDWkaruZL0+joz2yUEV5qGx1fWjctuiXsEWPnQtfDRS/G2ACP
+         CQ5Bb4jmJeAzSZD+ofLJeO/ZKCrO6OOQffyyLqUrNZLRpzWbWlYPC+BMP0iPw7eZSrhd
+         zHNPxkfzIJpd4ChfSPaI7BSsqcNgnuwmKnakMe6YeN8ri9D+rD5t9KqpzZCUJn5lzRi7
+         p0Kw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1794234515; x=1794839315; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794235492; x=1794840292; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4mPPXH3aJnZxVYx37Wxl7Lr/b+DLAle+zs+cy9uzIU4=;
-        b=QToSrRLd4t7HkK/8/o4zJPpEAuQS72r5AsdEqGxsfs3VQep2BS+ODfK/0F7W3Z1rc/
-         tBbwNxS+IXjBBrpvsaLMbhTj+SAFf8+iPVMYOibtHJhgTg9dnW3tuVGfbA6BgqcFUscx
-         84KtGfnFSdWbppCe9hBZzzxNj7c/tdZTvLFdY=
+        bh=E5X0aK4lGSvPrdX7cpb6XEojnCQxm1GC3dItr8iBnTo=;
+        b=mm5tqw4HLkEAYwxkVAGFQdiUaORFmvkuPw9UB87sNNk3i6lMxavweuisPZYUK/CT1h
+         KOjPo7pgnd8LN272URm3edqqk21fIGQ/4oM0cCV750lM2e8gBpArAPcSoVwR18z79Fhd
+         ranHton6NsqSWJNQA3K2AQWvyJbfI6xn+4aozez/H0VnZDTGdpPHTXoqtt8gg9pFhdc9
+         KL30xPY+CzT9eFaH3CFtdvPBFoaNUQXaWY454pRdG1p2CeuIA7AxGWd5eGUXaugqaTHf
+         Usup3xbkT/xTWPaEnufMlIeCAIZSxPz8k7/9wjDrEPrt72uG3+eRH+k3oBjFYjDhvH1S
+         Ca3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794234515; x=1794839315;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4mPPXH3aJnZxVYx37Wxl7Lr/b+DLAle+zs+cy9uzIU4=;
-        b=jtm9h0KOA8Hzi4DjonymNgtfpNExWvxcLNqIqDfGJ8SScfsnRSnkhO2TQJP85R1kg8
-         yF2YpCcqPFZ4Gf4I0T5bunIxaNZl/EopoNmCp8rIBxqZWjopT8MsLVYhOj9pmsTblYtc
-         41Eosh4+5cgV9SH/U7DSRZC2y4N5uxU+bUc9qbLAHjhUN4KcOTaRYGqRWgZQR+cKDWd0
-         0235J0ZtYPcciKabiAlB3YMsDwFPA6Yp7J9aK8kP6F42VDAMuP8nEOdv3UJT3a2am2JD
-         Hi9Hg6wA76ySwRg6duquZbch5RRfDTggwrMaBm4hVScPG+PFGaVVnqdofB1Z2tjwwhnr
-         WqLg==
-X-Forwarded-Encrypted: i=1; AL+hErFVLTHcsKaQ2AYxMWehHamOrI5ycMYCvLoGAINxEm86Pg8Ls8lxo2+0EKr32T+6pXWWrO8N8ykRHNCjqg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8F5/IP9BKDWOh5BtQ91WeS83R9gLKIXw0DeHzpjnqSS6gFXS4l
-	mtkbsdu4HPWAvoFSdqs2ziJ4yUGEWAELDzLflAhBj0/KTc7ex2tsbwVCyYzDFM97Tg==
-X-Gm-Gg: AYBFou18E34aeVF68wdi5Cp+mcpBrQEbU72lb8oOR/9bbOX1aMSinSDgkithGGEBAFZ
-	6qtaLQ5wqOJpjn0TduNEcBf/ZkBJ5IPyxMIipJqCQi+LWWfhsO4VUmqEyPPP/JcdpgII/42amM8
-	W+c0k4VilDcz2DWr733NXZN18O/GpFkUJYrh3UR47w8bjfPEhk+nbKmeRdjL8oMUqDPQrIXa8J8
-	2uyjmgPD2y5vGzGWnrv3K0LiYRRNKlAOkfieub/NR37/qVoU8SSE8fwB8sIW68kEk0DpSDPf1Vf
-	cOkHgStT0dQgdgE0SmfubXcxJcITYIi4tMEBZ08Db/al3UkeY6sHw9EN1zh6VkSSJ5rsgyojGll
-	RxJcp6HgMDk9npv1xGbQbGdj9VF4SPgo6+0dtIFKnMZ6OjKNA1DVlU7pmZbu8m6OQjhnOIni4wc
-	YPy3JQraGXM2YdYgO9Lt5CXQ7e8OeByUUwyp2J6UAZXWOlPfkfIL+YBK3Yzedf2lXnzL2BWr9G/
-	5+iqnAzV6BVgQsNZcuNgB2TgwqB99koqOdWLSZVYfbjndGUAdwxHmJPLs+qGTirrV0SlKIwQU0Z
-	xuGoi3+bKtb0Jzmii1lRuIie/IfFx4nbeHdw68p28sPP
-X-Received: by 2002:a05:6808:1495:b0:4fc:3dc7:66af with SMTP id 5614622812f47-5681432edb1mr2821350b6e.10.1794234514790;
-        Mon, 09 Nov 2026 06:28:34 -0800 (PST)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.googlemail.com with ESMTPSA id 5614622812f47-56813e56700sm4463564b6e.17.2026.11.09.06.28.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 06:28:32 -0800 (PST)
-Message-ID: <5a2b5e08-c33b-4513-8457-b8ac21563121@ieee.org>
-Date: Mon, 9 Nov 2026 08:28:31 -0600
+        d=1e100.net; s=20260707; t=1794235492; x=1794840292;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=E5X0aK4lGSvPrdX7cpb6XEojnCQxm1GC3dItr8iBnTo=;
+        b=iq3qEL2V9kWOCxqcuOTebcHNYRLj5NRKbAoMZdbcyYNAxoMHzqzHeKWoLCkABDWrI1
+         x/8RLLnKTenKiTw2qs1GwkIgdtmYEhIo4ECzu8Um6LmFmRq4mkKUIop5vaLjaRciO7LY
+         iakyUYJKinYWJl+t2JHpc2S7P6CglWkcAgcGo0QCyxEFsCYRVsvRNiblHjHn97BLpSGK
+         ruzrq+6ZzjMZ//h9F8gPZJcvnbgBEWNxfGWbePiUWf0rn4ttc+k7oArcwukzJi0BttOS
+         8+h6Spt5VEOXxT1lCnsbWQ/aS4zyPMgWJqE2MCUeAtf4iC6FrCyBl66Z7AxchBt/pQE+
+         LW0Q==
+X-Forwarded-Encrypted: i=1; AL+hErHYukQ/5ltR5hJds8fgtKmX//CV5YhifqxJ8gSj0qI2OSBKLqXdzOlNj+csZfj3vv2wFnRRryY2CvRqOQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YcUYL97ohYpC/ffrx3V3oT2O5XSUwMwbGDYypg37/EAGxp4Zo
+	8z2AWLPIA4sqwFWwYq33FwQWMDn3OuATbCeA8h3C1edIC6qJOaePyZARkfjZSBOKaCXdqtBuVIS
+	dsBefXCElj89ptNmkuVnjG0Ffq0iqsXw=
+X-Gm-Gg: AYBFou1LJQMYCLCyEdxkgSXpOBGXXWskk9/00A+ptZTnv/yL8gVhrux2ylDl4wI2xge
+	uQcVuByNKq8M1CuV0eyC11z1SgIOUNhatxOo6cNkCxeVXiwVL4JSmjmjXvBmoTCGlDt5pp3shVg
+	+bmmagkpIBFKIpbRBUi8OtK8BF/UovBya9Gs0kx5KIHGCwCgFg9Vr8AUxbrNp/2KSSKo4poIvzC
+	UxiJdnZmqFhEUKpelIVkNibZ1jMg6TIJ7+vE2noS3Og6RJz5srRUNCpIW60V21QowmVeuT860cx
+	ATWx80eV/2kWTXArU4S+JBUcwz8Y8/qXbrpd/vCaG8Tgd6nvNNl4nW9nL+ADSOP1DYfDnXfWSml
+	jRvzbUg6pDl9IOcgXitrZzIZDiWPb0QTRy/RW
+X-Received: by 2002:a17:907:844:b0:c29:f5d8:9c82 with SMTP id
+ a640c23a62f3a-c4d6db58c84mr325111966b.49.1794235491848; Mon, 09 Nov 2026
+ 06:44:51 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,80 +103,61 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [syzbot] [greybus?] [usb?] KASAN: slab-out-of-bounds Read in
- gb_svc_request_handler
-To: Chandradhar Kumar <chandradhar.2003@gmail.com>
-Cc: syzbot <syzbot+693652ded53d3eb9cb91@syzkaller.appspotmail.com>,
- elder@kernel.org, gregkh@linuxfoundation.org, greybus-dev@lists.linaro.org,
- johan@kernel.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-usb@vger.kernel.org,
- syzkaller-bugs@googlegroups.com
-References: <6aec63fd.5f5735a5.290c1c.0002.GAE@google.com>
- <46a139a9-198c-45c1-b41c-521def10a0df@ieee.org> <au8s1_tIBa0mpTSL@TheRealOne>
-Content-Language: en-US
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <au8s1_tIBa0mpTSL@TheRealOne>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261017-ov9734-ipu6-v1-0-86eab22ae258@gmail.com>
+ <20261017-ov9734-ipu6-v1-2-86eab22ae258@gmail.com> <avG8ZgDPVWCr1pja@kekkonen.localdomain>
+In-Reply-To: <avG8ZgDPVWCr1pja@kekkonen.localdomain>
+From: Tin Posavec <tin.posavec04@gmail.com>
+Date: Mon, 9 Nov 2026 15:44:38 +0100
+X-Gm-Features: AclHuK_PHfWehNIYSFaUtvinypIscMfmjsHD97Wco3q2H8fRNHwkYNi4pk5IzQ4
+Message-ID: <CAOJcTPXBQTFRR_m2S2ZrwXbZdMLHHz0DGG7=2BtFsv1ouY3Tog@mail.gmail.com>
+Subject: Re: [PATCH 2/3] media: i2c: ov9734: Add power on/off sequencing support
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Bingbu Cao <bingbu.cao@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	afonso.figuinha@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/7/26 8:17 AM, Chandradhar Kumar wrote:
-> On Thu, Nov 05, 2026 at 08:08:01AM -0600, Alex Elder wrote:
->> Here is what I see happening at the beginning of gb_connection_recv():
->> - If the connection is disabled or offloaded, return immediately
->> - If the size of the buffer (passed in as the "size" argument) is less
->>    than the size of an operation message header, return
->> - If the 16-bit size embedded in the message header is less than the
->>    size of the buffer, return
->>
->> In other words, after these checks, we know:
->>
->>    sizeof(header) <= buffer size (size)       AND
->>    buffer size (size) <= size encoded in the header (msg_size)
-> No, it does not verify this, it verify:
-> 	size encoded in the header <= size (buffer size)
+Hi Sakari,
 
-You're right, I misread this.
+On Mon, Nov 09, 2026 at 02:28:22PM +0200, Sakari Ailus wrote:
+> > +     if (ov9734->reset || ov9734->powerdown) {
+> > +             /*
+> > +              * Keep reset/powerdown asserted for at least 2 ms on a
+> > +              * back-to-back off-on cycle.
+> > +              */
+>
+> The comment isn't useful. Please drop it.
 
-We don't read the header unless size tells us the entire
-message ("buffer size") is at least the size of the header.
+I'll drop it in v2.
 
-And then we ensure the buffer contains the entire message
-(whose msg_size is decoded from the header).
+> > +             fsleep(2 * USEC_PER_MSEC);
+> > +             gpiod_set_value_cansleep(ov9734->powerdown, 0);
+> > +             gpiod_set_value_cansleep(ov9734->reset, 0);
+>
+> The sensor appears to need a single GPIO (xshutdown). I wonder what's the
+> other one.
 
-But if the size encoded in the message header is bogus
-(and in particular, smaller than the header size) we
-have a problem.
+There isn't one that I know of. I based the GPIO handling on ov01a10,
+which requests both a reset and a powerdown GPIO. On the NUC M15 the
+INT3472 provides neither of them, and on the Surface Laptop 1 it
+provides the reset GPIO, as Afonso reported. I'll keep only the reset
+GPIO in v2.
 
->> Therefore (transitive property), this is true:
->>
->>    sizeof(header) <= size encoded in the header (msg_size)
-> So, the transitive property is not true.
+> > +     /* Give the sensor time to start up before accessing it */
+>
+> Ditto.
 
-Agreed.  Thanks for explaining where I was wrong.
+I'll drop this one too.
 
-> I have sent a patch for this bug which verify the msg_size and header
-> separately, which fixes the out of bounds read.
-> patch link: https://lore.kernel.org/all/20261106094303.55158-1-chandradhar.2003@gmail.com/
+> > +     fsleep(20 * USEC_PER_MSEC);
+>
+> 8192 external clock cycles are required for this.
 
-					-Alex
-> Hey please review the patch if there is something wrong or there are any
-> other way to fix the bug.
-> 
-> Thanks.
->>
->> And it's not possible after these checks for this to be true:
->>
->>      header.size < sizeof(struct gb_operation_msg_hdr)
->>
->> or put another way:
->>
->>      msg_size < sizeof(header)        cannot hold
->>
->>
->> It surprises me this would be missed in the AI summary--and I
->> fear I'm mistaken.  If I'm missing something or wrong about this,
->> please feel free to say so.
->>
->> 					-Alex
+I'll wait for 8192 external clock cycles in v2.
 
+Thank you for the feedback.
+
+Regards,
+
+Tin Posavec
