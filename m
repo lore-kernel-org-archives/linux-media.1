@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229292;
-	b=BHjHaYzK2fys1Brlpfw+84Oe7E62cXQwKxWFO6rZLGY9Lp8np4049I15CEvyt9KWZCow
-	 gqxhVqRuCGM6VtSza3MAOMuKpy6rv+TS5uvjlbuSRq67HqzmRggYD3WoCdBZ0UsNEArxG
-	 yKPdi0xdcO9e+NhSoaaYyaNqIpwSZsRFff0KIKMdOSnd9BTB7q4lH1r3DmdCSibIljTb7
-	 mPcWky92QeOGi2AmuKogkFZdGfS9AYQRzZfsUjIARHqqa7kMwcckCVR0YtO6rPy4Eo9C4
-	 V08HPvsuQ8oLroU41a0h4P5L54at79ZBe4xSDZ/DvkaRtoNvVBdfF4lilY0gTl3XRWA==
+	t=1794229379;
+	b=SVkOXUUyjTxuzYrfycum3vEzMeiKFlukKHv4h4X/61FBY1xEDak/j+t7EOCKxyP/Onje
+	 Citkz82ZcZs2/LOv0Ej+E6NogDVnKuMF4XuBRVzMtnDdDZBUNoR4ZcY0BzaOFGpKb7g8f
+	 w4HJnUdJKM5a0j/h9ROe/6Fof2CMHvJ5ljDT5IvDZOpsdRsEbNFAD5TajwRQkb5PGvUwX
+	 WJlnvDJv++rxuWJZ01+BzF331PwW0O9fzWk9+7qqE7jEthOL5UQlLv5Fi33CSTI83T9Ko
+	 kRMjOOfSg0F48bI3Zz3D7nbuVpo4+5lLYKMxxJcOuRCIV/M/ovVDm1VZb5I8G0pl+Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229292;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=GrnS4jLv9hDP6qcIq7PmJP9UPyicS96uU+61H009H4c=;
-	b=ozueAw4sPsTaWv7oUUyenI6AXK0xgAK2b6nMZIOEaCYNb5/PRODawKkwwSMHsojm1u2f
-	 SdVJ2UJeJLNYhM+/cd96gQ5ALNVe8jXv6U0xyTY70dkKIiFEND300Kgt7kR0g9noWIqXT
-	 c9GDFq1/C8tCYJOoQG8KdCPFyqHs6/CjzldAap9prFACiK2KsCC37oYRHsCtE4xV8sUl0
-	 Q1aaF3vV1or/Hn50XkOMQnU9HIdaqKAi821yerHetc8g7YCiqeZL7mQJz/IUxVQ57gDRA
-	 /KwIqLnn+8VKitwn5Osf+N2F//sB0vJKHKJdK4kldNbAXbWios2JQn4EVEnVDl7DWgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229379;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=2pqezEh1l4R7qbedrIHueLpYvtHBQ5vBsWVh1r02B6E=;
+	b=tuGnhOLqWN14w+jkkb1czx+4KqrBZVvG6cy9ycOcvzdIC/WR0nNFyWZ9IqBZzjoKlp1Y
+	 Lw04k7j86heVZej+kmEZc1/oXv+ET+ux8wnASIuAbV0IyqcxgxMV+X8udv3oDoF1vhH/1
+	 ghyjxrXy3yPzWHwM9TdPAOC71kXcduQm8g8ILfxXvmGRJRCbF5ImbWmOlyY+v5TD0Pekb
+	 RHwUl/O8Cgy+GGkUwvwKYtsPjpXimkunuJes2x3Ya1t5IXf1UjKywN6Z07JvEo84Y40pU
+	 wsjH2aU/CpsaHP8XKnVe5V+ByrbU8lnDgzHJ2+cD7Gdrxv6ANu2Xn5nm06usMskgguQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=g16flIQi;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uzwViQ64;
+	arc=none smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7113A606A31C;
-	Mon,  9 Nov 2026 13:01:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7113A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A75606A332
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 13:02:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0A75606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=g16flIQi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794229291; x=1825765291;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OhnZ8KrQ1e0IGGbUwmpfLGs0XbCEpAloNu6dadFWA+w=;
-  b=g16flIQiSxjfI8VP4zj+dEaT2uGQALOajlj+zwNTlDDtShyZnaW0uZSJ
-   RHncDRDL0w3llEJH56KJ+qRfXoirUPi+xhL5MdffVzdz7tpZcgakJS/Bs
-   OiS0kt/9AhBGmn/r1V/0yDszekK8Nw2qkW2rS/JJh3Ir3bj/9LH34tQYr
-   oe89nL3XwehoI/K8vSpip/xSZNlWarw5ckugXpOrzfetg4ZlIAS4es3M6
-   /fakIZwghYpK7G6Pj824u6a4UtfDLNARSkHNRPSkfknuM4hIeyjOM0a9y
-   uNVzdAeIsjRbk0eYG40Y0dQjk0YwxApJDIqnB78Z3Xl1NDq0dgz/ZJC8K
-   w==;
-X-CSE-ConnectionGUID: QfFUXbeNQXSazI6XlD9j0w==
-X-CSE-MsgGUID: xOPI8AicSDSJJwHpM9Yxsw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2866101"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2866101"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:01:30 -0800
-X-CSE-ConnectionGUID: 039pQ77LTj2MWhcf819ksA==
-X-CSE-MsgGUID: actMIGJiT6OrtWqfwZ7O9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="9634622"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.119])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:01:28 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id BA32F121B96;
-	Mon, 09 Nov 2026 15:01:24 +0200 (EET)
-Date: Mon, 9 Nov 2026 15:01:24 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: b.danias@tutamail.com
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Serin Yeh <serin.yeh@intel.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Robert Foss <rfoss@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] media: i2c: ov8856: Don't power off a suspended
- sensor in remove()
-Message-ID: <avHEJFI-DNz074FS@kekkonen.localdomain>
-References: <20261104-ov8856-pm-fixes-v1-0-1958b730ce66@tutamail.com>
- <20261104-ov8856-pm-fixes-v1-1-1958b730ce66@tutamail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uzwViQ64
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4d21051042so122567166b.0
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 05:02:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794229377; x=1794834177; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2pqezEh1l4R7qbedrIHueLpYvtHBQ5vBsWVh1r02B6E=;
+        b=uzwViQ64DH2LIUj+FzmUKBO0qVhxfSrG7q0hxpNX4RC2k0EXoO25G2zdi0yjSX5gFq
+         EJBYQnvz0n1EdlPUpZoNMOrpxkRXvgBkmns8wMCEz6e1GBSxGNMJchdo9MQInL5EAPAb
+         lh9Y7vTyR3DZO+u7NvFvzzHdZzTEDWyW+mot3rsG/qPrLxgfF5sqCPYdhnCtIpM0hdh9
+         UcJJdQUR2X/rtjonn5+IRPrA7AZEclxBAGVJlI2loWeQFlkVcylKFrsKrNI7UZVaPI/Y
+         FbjsEIIEg2/UMK53aMS5yqNWwXs1XuVsA6KQoCFxHjN7rFsO7aFRJphbgQ+FZyK0SdGQ
+         jF/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794229377; x=1794834177;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2pqezEh1l4R7qbedrIHueLpYvtHBQ5vBsWVh1r02B6E=;
+        b=QfjJ3WPHTzD+UdxcBFHnywd/ysqdtcJJ2O8WT6HPF0Ni4Sj7FMTdCpqVDvpq7bwYM+
+         2f1zU7ptO5VecLSOkx5oxfkRjiSV/qVcr+5a1UFbiGDkj59e9tQxJZwPGdXJ3n3nrSY5
+         0ODdJWr9Xe8TXbfYo4lyHBvnSMZBSyDM8xTJhUtA8b9LOgVEientLIwUWFMmbUNxUDds
+         gsRyhCJeNrt04eKuKs49rSu7TlfTTJI6OYVWwaUAVR1qjoD/9bgLJm8+EoXvyw+7RTxl
+         0oeRgFITml3g3A99rlMY8mu/bNY4tVcyV/G0fRctqI9exKz5C/+98UKebIoKkDStOzwP
+         4A6Q==
+X-Forwarded-Encrypted: i=1; AL+hErGJ3b6qTYvYfo0dPQU5Hm1BcSuNvaAmtUiKv1PyAPWCN1jqGsFMcfzUQoKGdUvatGuI6hhuGo3yS0oZIQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+UxR6iqppzfJc9Dt/Lo1CFUbJrZI2ZRcoQoHC6VG+AOHl00mTs
+	duMjxLBth/SxlbKRQZj1QgCf8b0s+r6J3OKLqKhPWpx/Po5BYbPbEKFRX/Zu0KsixCM=
+X-Gm-Gg: AYBFou2zO3CwvzKR4Sfrsa11FjoM5OobsKWj2t2b4tAmbRwxl1Z7h1xaV6fwIl/1cSL
+	wTD9qHhzohsK/6lA8F+eKZM1W2Arfvz4iEQz0YxpNqzj4v923Isnz3GHpqST7eSS1J+x8sLiTxw
+	nfOJCTTThLg/q4M1bOqW57HbkRk20bD8sHlykm2L7kDsctj/7aG2JHw1AEKLmxiqK9D727bW4+3
+	yvj2Lr/1GTKZ1phPz6TvVjBsLEWbzQ1xJcK1w1mzJVQVmB+HuN5NEw3F3A3QKk5TpArHZd/ZogO
+	nqcYeQKvOcwn/WkvzGD45DC/U3lsGMqAGyoUftke/sY+f865DLeTlxBUJZdDTxaOkyiMmI6UvLi
+	hxLw7OppWkF87j4g+S8fk8kbQVc75feK+ZYpsBQa+Xl+RMZA7x4WwOnP/3prMY5+WJDvb0oD9V5
+	2f9aeQzseo7/om01zFmaH3pg3fvHSpG4GbGWHdDudMuAaX2182VDqpdHTRmnt2t/kswnqZFA13z
+	GJBP3vboEF7TUSwDZTuJvcAhsC69K1Y2SCOGHDAzd/9fvs3G9LpjG5C4oeWaStcxfRpUM1vB8OZ
+	iHO1TQmNFwUb3z9QHbisVdzAs2ydQLVu5Bx6LGQ=
+X-Received: by 2002:a17:907:6e88:b0:c49:bc1f:fe2d with SMTP id a640c23a62f3a-c4d6d4fa5eamr275959166b.28.1794229376222;
+        Mon, 09 Nov 2026 05:02:56 -0800 (PST)
+Received: from [192.168.0.167] ([109.76.74.9])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d69f9483esm163287866b.19.2026.11.09.05.02.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 05:02:51 -0800 (PST)
+Message-ID: <919e9806-5e1b-49ee-a88a-7b6dd6d93c18@linaro.org>
+Date: Mon, 9 Nov 2026 13:02:48 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,77 +90,64 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-ov8856-pm-fixes-v1-1-1958b730ce66@tutamail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] media: qcom: camss: always stop the pipeline in
+ stop_streaming
+To: Allan Siriani <allan@fatecpompeia.edu.br>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Todor Tomov <todor.too@gmail.com>, Hans Verkuil <hverkuil@kernel.org>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261109112611.94010-1-allan@fatecpompeia.edu.br>
+ <20261109112611.94010-4-allan@fatecpompeia.edu.br>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261109112611.94010-4-allan@fatecpompeia.edu.br>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Babis,
-
-Thanks for the set.
-
-On Wed, Nov 04, 2026 at 11:42:47AM +0200, Babis Danias via B4 Relay wrote:
-> From: Babis Danias <b.danias@tutamail.com>
-> 
-> ov8856_remove() calls ov8856_power_off() unconditionally. The sensor is
-> normally runtime-suspended by then, so its regulators and clock get
-> disabled a second time. On every unbind, the regulator core refuses the
-> extra disable with an "unbalanced disables" warning, and the clock
-> framework warns that the clock is already disabled and unprepared.
-> 
-> For the clock this is more than a warning: the clock framework keeps
-> one enable count per clock, shared by all its consumers. Where sensors
-> share a clock, such as the TPS68470 clock that int3472 hands to every
-> sensor behind it, the extra disable can stop the clock under another
-> sensor that is streaming.
-> 
-> This has been the case on devicetree systems since the power handling
-> was added. Since commit 609a71568664 ("media: i2c: ov8856 : remove ACPI
-> node bypass mechanism"), it happens on ACPI systems too. Seen on a Dell
-> Latitude 7320 Detachable (rear OV8856 behind a TPS68470) when unbinding
-> the driver:
-> 
->   [  220.072107] unbalanced disables for CORE
->   [  220.072109] WARNING: drivers/regulator/core.c:3262 at _regulator_disable+0xc3/0x150, CPU#2: tee/8667
->   [  220.072825] tps68470-clk already disabled
->   [  220.072828] WARNING: drivers/clk/clk.c:1188 at clk_core_disable+0x82/0x140, CPU#2: tee/8667
->   [  220.073620] tps68470-clk already unprepared
->   [  220.073623] WARNING: drivers/clk/clk.c:1047 at clk_core_unprepare+0x1cf/0x200, CPU#2: tee/8667
-> 
-> Power the sensor off only if it isn't runtime-suspended, then mark it
-> suspended, as other sensor drivers such as ov5675 do.
-> 
-> The problem was found, and this patch written, with the help of an AI
-> coding assistant (Claude Opus 5.5). See the cover letter for details.
-> 
-> Fixes: 0c2c7a1e0d69 ("media: ov8856: Add devicetree support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Babis Danias <b.danias@tutamail.com>
+On 09/11/2026 11:26, Allan Siriani wrote:
+> Fixes: 89013969e232 ("media: camss: sm8250: Pipeline starting and stopping for multiple virtual channels")
+> Reviewed-by: Bryan O'Donoghue<bryan.odonoghue@linaro.org>
+> Signed-off-by: Allan Siriani<allan@fatecpompeia.edu.br>
 > ---
->  drivers/media/i2c/ov8856.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>   drivers/media/platform/qcom/camss/camss-video.c | 14 +++++++++-----
+>   1 file changed, 9 insertions(+), 5 deletions(-)
 > 
-> diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
-> index 42c4b9c4e..988ce0310 100644
-> --- a/drivers/media/i2c/ov8856.c
-> +++ b/drivers/media/i2c/ov8856.c
-> @@ -2367,7 +2367,9 @@ static void ov8856_remove(struct i2c_client *client)
->  	pm_runtime_disable(ov8856->dev);
->  	mutex_destroy(&ov8856->mutex);
->  
-> -	ov8856_power_off(ov8856->dev);
-> +	if (!pm_runtime_status_suspended(ov8856->dev))
-> +		ov8856_power_off(ov8856->dev);
-> +	pm_runtime_set_suspended(ov8856->dev);
+> diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
+> index 5de6ff5ec..8341666f9 100644
+> --- a/drivers/media/platform/qcom/camss/camss-video.c
+> +++ b/drivers/media/platform/qcom/camss/camss-video.c
+> @@ -313,12 +313,16 @@ static void video_stop_streaming(struct vb2_queue *q)
+>   		entity = pad->entity;
+>   		subdev = media_entity_to_v4l2_subdev(entity);
+>   
+> +		/*
+> +		 * Subdevs without .s_stream(), such as a sensor pixel array
+> +		 * entity, return -ENOIOCTLCMD, as at stream on. On a real error
+> +		 * keep going: the pipeline must be stopped and the buffers
+> +		 * returned to vb2 in any case.
+> +		 */
 
-Also setting the device suspended should be conditional to its status, not
-just powering it off.
+this comment is completely redundant - it looks like LLM word-salad.
 
->  }
->  
->  static int ov8856_probe(struct i2c_client *client)
-> 
+Please drop.
 
--- 
-Regards,
+>   		ret = v4l2_subdev_call(subdev, video, s_stream, 0);
+> -
+> -		if (ret) {
+> -			dev_err(video->camss->dev, "Video pipeline stop failed: %d\n", ret);
+> -			return;
+> -		}
+> +		if (ret && ret != -ENOIOCTLCMD)
+> +			dev_err(video->camss->dev,
+> +				"Failed to stop %s: %d\n", entity->name, ret);
+>   	}
+>   
+>   	video_device_pipeline_stop(vdev);
+> -- 2.43.0
 
-Sakari Ailus
