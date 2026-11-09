@@ -1,100 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794255464;
-	b=GNwklYxfykP2PlRTpf0H1+IxRiTOoiFoTIp8hytTUyUldTRbcdX9sNfq9VjjJa6LvMVv
-	 LO+oXWFEMIA+erzEoVFa+lnRdTXPtKBwW290JyUx0mR+38UEyzUbe8IqET38yZ/wh5D+d
-	 jMDIHy33viHlCS1JvjfWSyKicnriFcK+r76WuYHv7/t0Vhe1IdMgwNNa7ZoCzMLNfGMQr
-	 c1E/U0a7gvAWm0e3z7xIJQwR+EQZBFUDLWX2H6neghhE2Y08vJd1V02ZyrqS0wl0z1n7o
-	 Pa3TgyUg4yI//OBs+m77hGrHw5MBVWv2Kqv+q57bZ5JSICN7EF8ADKqur2bE6wTMsUw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794255464;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ltRfrvbZQq2u14YHzE9ATEjjt/vP6akccZZlMBuYSXQ=;
-	b=Vo4PdcXnXPi+nJSGMqhN0dVyrflPbOsLf+vOzKzbvouEzEcA8XnRK9VBWb6g1tzLokaA
-	 b62Tz0NekawXYlqS6jdkfZnxn8kgZSD2zfCxHCxaQ1cOZ9yVywNT65aGXw9VIL5lNFFZR
-	 q3+fSH4C0iUMzU7qXi+E8w87kFxci9GVAfMVeyd61/WyyKd8+ELGUgXNi7CGsShmQcZoK
-	 DelUfTprN+ikhx+Sb8LTR27/xfQXSUSt/bSCDQf6uGn7VP02gig8/luimPGtpLFIJxxox
-	 MRJFSFLtKL9qGNYr32XKdjPSbf7CJiSyd+G2a+/rzGdIdCUEqsqdVF8L+PSxA3N2ocw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P0sZXvsq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.130.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794258615;
+	b=4HGBOW3qOYbyUCyAToteZFkO9i3/4DS2PZLULquETgENeFJJRVyCZwunrkeRHnKGZQWL
+	 y062ODgvbO6mOp/vGn/yryA2e1MlJFkolRBhoTgBqclmkjLAYw6Pjdeo72l+eKKwW7ZHM
+	 I1uWjtkMGQB6hfBgH5Pk6l0fCb38bztCPe4vCYYIq54T8LwztpwGR+eOCQYUKUhIdlKMn
+	 HkpVT3a8iMK4iF59Uacrm8973UaqV4uIJfS9pPtKnC0PcybPcsIVqKejruvzgEfzkpy3d
+	 EL+hYHCfkZeIyWFMj4DL12Gng3XEGjWsttGev9mvJATpaWIXkyUBXyK3m3vkPEX+zDQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794258615;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:References;
+	bh=g4f41ef3kWSKX5qXwGEjvgmce7MkNP0+yJw+Z8GwAV4=;
+	b=gzXVSgxhL/nHg5OlLmvzj9/1RpZB5gax74fifvQCYJjnU6tvSN/qt5+Kw/pzgRzqJTRF
+	 Cyve3F3Q0cwTJ22uGJx2NRa+cY6Vczm2d8hZsqp8HuldJPBlOUvIfQ7e9lwSL6UX/if3u
+	 PxHif6p7FXgkZkE2rsmI5lzAHaNxDhIQ8kBa4nkM1907pC6ba3k/nvgEfKqKPsCQ2G4r6
+	 2wn6NVL/TD8BXhBmb0afbNVPeKt7g3LXYJ9vxyZeVN8+bSeY+bSuJNzqujTAvCUkTOC2M
+	 SLO/c7x7IOo/vzjJdcAeIipQf5S4Vl6vsEOGi8CIK7d/AsogCQRdeC7AISoC3JcCJ6w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=GvQChmxR;
+	arc=none smtp.remote-ip=74.6.130.41
+Received: from sonic308-2.consmr.mail.bf2.yahoo.com (sonic308-2.consmr.mail.bf2.yahoo.com [74.6.130.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A65606A31C
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 20:17:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81A65606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF1A606A325
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 21:10:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADF1A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=P0sZXvsq
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b579ed8da6so47a12.1
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 12:17:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794255463; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gWgciUAd3V1SPmUIuGa/oHOzTho/mN6cOtUnrSyxxGNgVVRKUmojep1DcuPfyLQlxW
-         ASqSPNJWiKom0ccehEqtY4/YZSzSNXax0vsq2ONeQ+eGz00MD+xa6mjZ7tPONqrgrvRt
-         svNDwY7ZXdS8q1Tov5w6MI2M1Sl4jYZwTy2e3TkE8ho8bbGNmq+NMX+xqV1SJvEBrJAb
-         BoECFcdJ3n53qNZrQKciKAPfIksIijDFxLDyIp7VZlZRhdSYvc0bWAM/r1Uvbw/EoCO1
-         Fa0pa7QqZSubZTh2l0mx45XnWndxduU4GygzEHgtWLoTWXDsUgz42fm759xQwP0l9ls5
-         S1Zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ltRfrvbZQq2u14YHzE9ATEjjt/vP6akccZZlMBuYSXQ=;
-        fh=UnURVo4WdhE8JDWdssg9W6HqHKYX6IxLg/9EUr2cv4Y=;
-        b=L3nrgJIGyMiK4ZA/MJ1Jkbdva6++fjw4do2/sy4vK8IxxYXZbBqWcLRxtAYaogfpim
-         iwNN0789irhVAcWL4wMxHbr15lg6Kj25ngs8Z4PYImZDsUWZmKKwm+sffDXvSQiEALsz
-         6weWRGnho32JsH0t9AqXu+mw/qmZ1pRU4kDAEI2iFUUU44zLPBnwccxdWpqaBfPXkpES
-         acF31VFBNoFfRvVormouzJD2U1RiUxzLHzTykAuKx2N+eamiZAOeYYdeiaqiKL6RCHno
-         UgNRD8XIr2WJP1eRyhWsiBWhBq9IqsSRnjkp6NyXMrZw55xu/7Tq34osnbYE1Y5SsFSg
-         ii8A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794255463; x=1794860263; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ltRfrvbZQq2u14YHzE9ATEjjt/vP6akccZZlMBuYSXQ=;
-        b=P0sZXvsqIohLE8Gp0wvO3DZJR6gUx3reQ55TVmSn9CykBgFrZfrQjaLL4smDuM0j1b
-         5waQ6jjkuJjTO+9bK6d70m2Utj/Bo3ByzfIn4qpnN36A4OGr4mTtX+4jwHJPIdtm2UYI
-         zUcvRkOzUEgrz0Rkzq4ZKf2kebSPB1+kFy/+FfAG7cS+e78EJV0P0VlujXhU9iu9Hp0A
-         8i/yBt+1uCLDsBJyHn0CJe6rqPWpfuqyQiS+hb/gskzYbsqtWwWGnajuRq7Q8FrF6ozZ
-         eZEXUqvB8fN1LtEJQnXQhyPhUQZhECtR14nfrxmKUEg2/dcOy13bALzuaFxJftMKZ4jM
-         dprg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794255463; x=1794860263;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ltRfrvbZQq2u14YHzE9ATEjjt/vP6akccZZlMBuYSXQ=;
-        b=ruQL6Wg7ZoELszgi2wKCCFOTtXTJhh3IESNAWuP2nl1uf2ogwJNJ4B2+sM6Hrrq4Fs
-         2brKUbm34T5E3X56GmDfHb2jPXLz2xGpzBC62x7u6PbdaMckp9xlINA31KZ4PSLwJGkH
-         7saUCJu+5erBf8zBgcDd9qOrf4TS5sCYah6rlwpZ+iI2gHRvL8dOjmnMfXirFSpfJJHt
-         GQz6hJ4RVrhTnbpnMIl74BjF8YK8XiJf+TaxwYsoQH1M7lnWUroNEABA89191UqFkmRU
-         tOSw0/L1RbJsr0AaX7d88vfdwIYzMSqc8EzavItkJNckQpYmwfffGy4+dMICIoGkdq+K
-         KxxA==
-X-Forwarded-Encrypted: i=1; AL+hErFFoelN2lUuIsyDUjdAxuIZV60fJx8wH2IxyXmexdL8fczCqkOou9vgIBdnweK5NQoCOJ6JDH6Rd9QwGg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9s+rqW54sje1iWdjpYMw5NwxeAjUSbop2HwWl6wUHAi/+vtyql
-	M93V/iaQe17sC/7bgzk7fkPLv+yHQImrDMctaIEeeZxmDdE4KBluzTy1rRcYHNm1kqX8MQyRc74
-	JkZh0lgeFcV9AsxO4N5zsOjTQKy0gtm4jyLPAoSwZ
-X-Gm-Gg: AYBFou1ruQQV8W/5NSf1dkuWYHqpEYf/GAaxWFot63AbXoxt9ZEOBCeXvJ1pVDIY9Hi
-	qF9B9KQb/HdtFV3TxsfPODg8BXN435Gf/QkOFlDn1OBHS5pa4uTVibSRWB3zfQXXhc90d9h9qQQ
-	yIr2bIQo5NGAqxt5wQoNAJPhhBj4U21towjwg/J3S+qFM0g6zsnDR8x6HstUJ8m6SalSkIXYce8
-	XMGLJelFj14ofQCZDDVo8XsDQJh9JHG9XpLQ32aNAa81Ic4PeQqQKY3Xg7MJ/euqaxH+JPKz8lo
-	52DGBWYbH8gQsIF3H2mTE4WZS0cEFzPxKCq0uwzQ5KAWAlfyL9N40IsSAsOgmQcyXuEnTIrX15Z
-	wNiFisJQ8bCzw5Z5mrUjF6oa/QOQ1XLrX3o4h9s2L5t9MY5XsXLIz+5h4mNK/RjHDSGM=
-X-Received: by 2002:aa7:d7d3:0:b0:6b1:a517:5bce with SMTP id
- 4fb4d7f45d1cf-6b756af180fmr22485a12.16.1794255462346; Mon, 09 Nov 2026
- 12:17:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=GvQChmxR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794258613; bh=g4f41ef3kWSKX5qXwGEjvgmce7MkNP0+yJw+Z8GwAV4=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=GvQChmxRgEku3EuCZO0g0c9DA78HJFhaGuamu3712P2wl90LMP/+wnG3MxKZHkIBZmVj9mxTdvOaPYmE1oMfC+Wtd0pNS3JepB7v73vHXBr60s7tuuO5icTByIRKp+mfsecQSrSo4DRZ+g6q4nRnf4jis8AWpMSeNYhIMTG/UjixxzEEEtWUSakrd6D1V6+9ankY+UCE7zHCKiBIt+PQ8zp++CCQ8Q3eNn/dLG6WMK0O9AZ54qBcVdrrhE/YiOm3TGPan0jwZIUO+PghtwlGhwX63wXdiU91QBex09EQwTWaFPk8+ZXvsqoXp90i4Rg1OTfbgQsGr6TjXtShkZgjZQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794258613; bh=6gzqf5ffLHRtr6QSoQA+ZF5oKY1b3VvNjkSbtQZA12b=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=aBaTY/BdQQkVqEFtWhg7MfYrgdb+pBGFEg+E4augK+gGwjKFL2hytuXEygeIOqC7WTCJHnBa+zlkJ+l6I6YoFAJVnFpklogEmGZgy3T6j1WcNHsPLNEb1tistLdpp2g1XqD4PhJ9VLOZJlqG2Gq4HJRMy89KPmZksUlzictPhfNFiDJvebNBvsEswMfH6OAEw2e/y2TTC2+gce4jWZUZ5xja1ZS6ua/YrHA17HzepSH8hgBx186kKkJHuPyIl0MgcyOucWjsBP9rkWfaEctuYThtH+l1T4AjY1Ro2xXxzN43GPbWn2SqMOZ1ZFhljSmq0w+GtzHG1LNmESKD6UJURA==
+X-YMail-OSG: g_AOH4cVM1k5T_qXLFrFwkECR1KdiLVxkFoslLlihnIG_86Q2knTttCSBVGxoDX
+ .BP4DiGJgqO6Ah3WokKJSogfHg.dw9yycbK7mtBn1pJer4HT2xLgwziReKHreb2v.SPUmG8tGajZ
+ Km6DdC6MtOTWv60HKd9z2zyzYIie4p6XFqZ4cXwW8eilJhNd.ElDB0t.M_ohep0X3B9RUfbGDG7m
+ A4zqQ_JroC8ZVtmlVi8GIv7Uqncwdo4IVjQDahshi1pHWtWMq6LUat6yVIHg_1BYMMp6ugKIG59r
+ c1du7V5lr6TAe_Lmkecs.ZcvSmGXng5Sw3gCtA3h3umCfqf4.alhcoyS6fDsO63WxBU52TFXEzyQ
+ iMb4we4LF2.OBJIkObfjuTNWtAahB0.aFB3nrZnpyOfCTOoFODpev7IDe621_2feYV1qavJM.G7I
+ 8FJVBL_IlucKZGrGT8O9OzwwqfaYut9qV7.NKak4IFmZyBPVL0l0E.Dh48rtrPKUptStfITYHrH4
+ kAMv5DEFWIULafrNtgtbc.WBlP1WDSq4FbpICnVbQ_XvgPg4VXaNFjc83Foy.INZFFDlx4pCAZ1b
+ Kh_ZFE7i2pqyBHAIsKt7hMVsEOKPm5fnMCXhgS.R4TnwzdAIfNEdR465WE_6vO4LpEv9E9hL6DH0
+ G3KPtkl_t.5Ki8lQkI3TFceOeGaPvvCHh1zb.CnOC9pxTu0mEf..hP8pdZe_WpRlF.CIiuzZaD9w
+ LP4FGiN2SwYWOfA9CX_h.lvvXgE_c3DBH_nd1H2yPK5M2hIM9yH1wCwPZJx8I73_9yG3rJhE06By
+ VLll_fu7KF7TPgI563rXpjBjroJ3tx7SaZHU0jzf5UJobxsz6WtLCp97hdFRFZmuzDzZVLswabdP
+ gSfW0g2Gwmp6iZCbsyy4ktL32WRjTLs3oggjri2JYjdEmxGvbajpKUNWlS0hqSJGUOPTRI.8WwbZ
+ k9B1Ur4PWhgRBr0FeeMTq0VJFMAEnBpwdECB0GOazNGI7kN1pf4q_sXJcJReY9ok5SyTEVTw5jcY
+ ilJBVvndtXmjAULFuySB0OwLIlqr4CKb1CSXynxzmJ0ffVXcPuCQebzVHBKNypmBxqoFOTqXXw8b
+ 8Vahb7wXnjX_CnopeKq88w5G6UceRoL.AZZHk231hJv0aDH5D.ZiH4ghNGnIfl2yb7DEZeigtvl5
+ Gh8y0EpNa0W3workrYrjW3kYnqEpqXCP.ETmVeLOWUA_fNIuF_J65uiWasYzrYCZ5gbvvFrW8OXF
+ KZzBr1DSlRcDUVsXP1afXBElZMjAs6Hke6MoDF9hlF1KZ77YpZGUSW4mnKATW6gjP7p7VjfzMPbl
+ Rm9b6gEVBjtFsYFZRBAm8CdCm8c25GQnJOBstYS.sAL3MEVgOGp9L61ttrDfJM2RaKmZRNr9WmFy
+ DmjbMcH6QweTAe8XZ49JJXMKVYD2ELQmv0yiv2aUHSkTz8wJ_6RFtBE3cm1.imP48qjYaQEMWXgK
+ 6N_te37DZ9I5FGQEWwoH6dhTxnUUvtJeA5OJKkGynAgKnEirpSwTTPJccRtgLLy6rNuvpN4kS3..
+ 2kAjLnTJ_bIwplEgXw0gCe5WkSFFvPdS0WtnHOKXW7UXVoRAUCWytC_1gymgphFAcYHdONHGSehX
+ ZiG_W4gItQpSrEYf4HgigpewfkBhxz0ybe7jrVveVfwkJZNUl0sSOzy.P7POYEZrVa3DUfC9zaie
+ UpDgnAmk7R4WqXxV2EHqaizkPqop7bJ4tN8FhgXZA3Ru6wYsKaaDmo53x97FGVn0w3DBkZxjERIg
+ HNiiVytE5tC7RtzuC.fgLI_0FsH1zgCT3WZm1ogCxyQZRzu65ipbFQLHs10jrEBq9T1h8r6hFW7M
+ qC.rEa016yLwDyctVCtmeSA6tDD9t.dxWk0Jw6jqQWxwvgHxi4Uiz5FMKQoHpKVaT7Jt4zDn91_j
+ X37CHs5jm34hPZDZJ_jNfAEA0aehsZ4iPo9sznxHrwILoI5cxit7_yh8K_Jk0A.5y.xgwVjjPeND
+ m0XWxgE6moRQlIW09M5EwoxKZ21q9tWq4e3AbNTkeeDrLUnH7meKguHXOAywnjcaBeuce8mJKltY
+ cZ7WAqLAePv4JM5F5F8BtXH2kmbKwFCT09u4BhVhPkipfYSrw4dP5lxPVQ_3gzC8btOUkKqdd1nI
+ Li5CtEEIHCpywW80h4Kp6i.DxnRLbs8.oMWyDRkPQIc2Ez3L6gV74rDKovzUPYfZ63.K99H5ooJw
+ xoU984j6aTAjXktJoI22F8khz8XQyU7Ruyt8cUZI_GUC0LIeGCuBzJ6pwLcq_aU5MANcLC6_ummp
+ y_uAzceMlRG4aBXPGw0VL_sOJjYiX7Us-
+X-Sonic-MF: <laurian.iacob@yahoo.com>
+X-Sonic-ID: df5fb5cc-4cd2-41fa-94e3-cafebf2495ba
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic308.consmr.mail.bf2.yahoo.com with HTTP; Mon, 9 Nov 2026 21:10:13 +0000
+Received: by hermes--production-ir2-5dd9bf4598-9c455 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 61376fa3b656664a2024a29cceeed25d;
+          Mon, 09 Nov 2026 21:10:10 +0000 (UTC)
+From: Laurian Iacob <laurian.iacob@yahoo.com>
+To: tomi.valkeinen@ideasonboard.com,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Laurian Iacob <laurian.iacob@yahoo.com>
+Subject: [PATCH v2] media: i2c: ds90ub960: use guard(mutex) in simple register accessors
+Date: Mon,  9 Nov 2026 23:09:40 +0200
+Message-ID: <20261109210940.7751-1-laurian.iacob@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,57 +91,177 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015163915.1166043-1-almasrymina@google.com>
- <20261015163915.1166043-4-almasrymina@google.com> <20261020121858.3b9107c5@kernel.org>
- <CAHS8izPwWT+vbgAe49m5vXsRxT3unbfjLTkVZBScgAPdQTo2dQ@mail.gmail.com>
- <20261021132304.23e0a4e7@kernel.org> <CAHS8izNTbs8ONvjhiw+6cRkZQq+cX3t=BZK9aCr39JNkVbY9gA@mail.gmail.com>
- <20261109104959.181a3b35@kernel.org>
-In-Reply-To: <20261109104959.181a3b35@kernel.org>
-From: Mina Almasry <almasrymina@google.com>
-Date: Mon, 9 Nov 2026 12:17:30 -0800
-X-Gm-Features: AclHuK_0MFErjqghvOz060hZJCCzy2vAPCeLH5qWi-kHJsJTH_MqHsOjMY4lEMM
-Message-ID: <CAHS8izPcFSLdmq16ZrUDKpCqUJf513EMs+Y45brc56s+mUBmeg@mail.gmail.com>
-Subject: Re: [PATCH net v4 3/4] netdevsim: support devmem RX and TX bindings
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
-	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Simon Horman <horms@kernel.org>, 
-	Shuah Khan <shuah@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Dragos Tatulea <dtatulea@nvidia.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>, 
-	Kaifeng Wang <kaifengw@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+References: <20261109210940.7751-1-laurian.iacob.ref@yahoo.com>
 
-On Mon, Nov 9, 2026 at 10:50=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> wr=
-ote:
->
-> On Sat, 7 Nov 2026 22:21:48 -0800 Mina Almasry wrote:
-> > So I started looking into whether we can improve test and fuzz
-> > coverage with an improved netdevsim. My LLM prototyped full datapath
-> > (with devmem) and offload support in netdevsim so the hardware
-> > selftests and packetdrill run and pass in a plain VM without physical
-> > NICs. I posted the branch at:
-> >
-> > https://github.com/mina/linux/tree/nsim-devmem-rx-tx
-> >
-> > The main problem is the total LLM generated diff to netdevsim: 62
-> > files changed with 5,525 additions and 672 deletions :( So it's a big
-> > change.
->
-> Great! Please keep that slop to yourself, tho.
-> Upstream isn't built to host people weekend slop.
+Convert the manual mutex_lock()/mutex_unlock() of reg_lock in
+ub960_read(), ub960_write(), ub960_update_bits() and ub960_read16() to
+guard(mutex), and in ub960_reset() to scoped_guard(mutex).
 
-Understood and sorry for the bad suggestion! I was indeed unsure how
-you felt about including that kind of slop in test code. It was a bit
-too tempting to suggest it to enable the extra test coverage.
+With the lock released automatically on return, the error paths can
+return directly, which drops the out_unlock label from ub960_read() and
+ub960_read16().
 
---=20
-Thanks,
-Mina
+The rxport, txport and indirect register accessors are left unchanged,
+as they still rely on goto-based error handling and include/linux/cleanup.h
+asks that goto and cleanup helpers not be mixed within one function.
+
+No functional change intended.
+
+Signed-off-by: Laurian Iacob <laurian.iacob@yahoo.com>
+---
+
+Notes:
+    Changes in v2:
+     - Fix ub960_update_bits() always returning 0 when regmap_update_bits()
+       fails
+     - Don't convert the rxport/txport/indirect accessors, which still use
+       goto-based error handling (see include/linux/cleanup.h)
+     - Drop unrelated blank-line changes
+     - Reword subject and changelog to match the reduced scope
+    
+    v1: https://lore.kernel.org/all/20261106114859.1579-1-laurian.iacob@yahoo.com/
+    
+    Compile-tested only (W=1); no DS90UB960/954 hardware available.
+
+ drivers/media/i2c/ds90ub960.c | 68 +++++++++++++++--------------------
+ 1 file changed, 28 insertions(+), 40 deletions(-)
+
+diff --git a/drivers/media/i2c/ds90ub960.c b/drivers/media/i2c/ds90ub960.c
+index 7d7ba6d349fc..ee410bae1216 100644
+--- a/drivers/media/i2c/ds90ub960.c
++++ b/drivers/media/i2c/ds90ub960.c
+@@ -748,24 +748,20 @@ static int ub960_read(struct ub960_data *priv, u8 reg, u8 *val, int *err)
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = regmap_read(priv->regmap, reg, &v);
+ 	if (ret) {
+ 		dev_err(dev, "%s: cannot read register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+-		goto out_unlock;
++		if (err)
++			*err = ret;
++		return ret;
+ 	}
+ 
+ 	*val = v;
+ 
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
+-	if (ret && err)
+-		*err = ret;
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int ub960_write(struct ub960_data *priv, u8 reg, u8 val, int *err)
+@@ -776,19 +772,18 @@ static int ub960_write(struct ub960_data *priv, u8 reg, u8 val, int *err)
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = regmap_write(priv->regmap, reg, val);
+-	if (ret)
++	if (ret) {
+ 		dev_err(dev, "%s: cannot write register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
++		if (err)
++			*err = ret;
++		return ret;
++	}
+ 
+-	mutex_unlock(&priv->reg_lock);
+-
+-	if (ret && err)
+-		*err = ret;
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int ub960_update_bits(struct ub960_data *priv, u8 reg, u8 mask, u8 val,
+@@ -800,19 +795,18 @@ static int ub960_update_bits(struct ub960_data *priv, u8 reg, u8 mask, u8 val,
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = regmap_update_bits(priv->regmap, reg, mask, val);
+-	if (ret)
++	if (ret) {
+ 		dev_err(dev, "%s: cannot update register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
++		if (err)
++			*err = ret;
++		return ret;
++	}
+ 
+-	mutex_unlock(&priv->reg_lock);
+-
+-	if (ret && err)
+-		*err = ret;
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int ub960_read16(struct ub960_data *priv, u8 reg, u16 *val, int *err)
+@@ -824,24 +818,20 @@ static int ub960_read16(struct ub960_data *priv, u8 reg, u16 *val, int *err)
+ 	if (err && *err)
+ 		return *err;
+ 
+-	mutex_lock(&priv->reg_lock);
++	guard(mutex)(&priv->reg_lock);
+ 
+ 	ret = regmap_bulk_read(priv->regmap, reg, &__v, sizeof(__v));
+ 	if (ret) {
+ 		dev_err(dev, "%s: cannot read register 0x%02x (%d)!\n",
+ 			__func__, reg, ret);
+-		goto out_unlock;
++		if (err)
++			*err = ret;
++		return ret;
+ 	}
+ 
+ 	*val = be16_to_cpu(__v);
+ 
+-out_unlock:
+-	mutex_unlock(&priv->reg_lock);
+-
+-	if (ret && err)
+-		*err = ret;
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int ub960_rxport_select(struct ub960_data *priv, u8 nport)
+@@ -1272,12 +1262,10 @@ static int ub960_reset(struct ub960_data *priv, bool reset_regs)
+ 	if (ret)
+ 		return ret;
+ 
+-	mutex_lock(&priv->reg_lock);
+-
+-	ret = regmap_read_poll_timeout(priv->regmap, UB960_SR_RESET, v,
+-				       (v & bit) == 0, 2000, 100000);
+-
+-	mutex_unlock(&priv->reg_lock);
++	scoped_guard(mutex, &priv->reg_lock) {
++		ret = regmap_read_poll_timeout(priv->regmap, UB960_SR_RESET, v,
++					       (v & bit) == 0, 2000, 100000);
++	}
+ 
+ 	if (ret)
+ 		dev_err(dev, "reset failed: %d\n", ret);
+-- 
+2.43.0
+
