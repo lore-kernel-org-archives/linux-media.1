@@ -1,66 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794204613;
-	b=5Tcw/ggUNV9TPBcn8PhKhpcNvtBI/gDYYLLlciUkgxnglJ1XyMQoZjsf8JjNLl7kRoi9
-	 FT0Md1RtoFdWzd1MHpqk7mI4gvTI2zA7/kWzr93WB4IHqJc7JOzzhMRUk7Atbh0ucMMvJ
-	 XoCyCYGLzPHkpVNA6oSJiTSne03PFtVy8A54Jhmia9+5kJJd1Su+ns4v7skqnCX/5FYXg
-	 jTp4+BDUJWN2xJnTcdrsqm2f8zje5mznDhoW+JbpzB3GucPxFBq5VUhWDLHYTd95oJLjv
-	 IIZOpYKHWNWURPwvqTAoBJYTxIcFSuj08Zn6qqRx9U2KCEhfXBKNDJnpjxLU7rWy8hQ==
+	t=1794204756;
+	b=4rIHoNhM8oHeRz3j3PpMLtYfJmm7uYCWXfvl7iBixMsMNt9oyIIqTaVRw+vhulA/sTpo
+	 QEZOsDy7sg+XqDp9NN+NR3X6BKpfAOhEKFuAoiYzfUf3S5CEMmkmcKrvkdtmjwozgkZUU
+	 AI8WE/dEOdt/EkrJVNfkkwazbhct196M9cDOnHpR2zKknU7qmYNVna5mLtIR2e50bjX4i
+	 G2NZVJUV1oKNGAAlYgK7PKNpKDI42FFHuZFbFSsE7ee4qBDM1DYAqKDhi0bRm7mbYVd3C
+	 XK1OaH+sKoe4ksy4vn6rqA8lmX8mdHtpBWp7eOfZ8PZA1P5uG8JlCbMoG+fxwDgU5DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794204613;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kHmCaYxfDHn8K47bQjI+v/3u5wpeXFxvlLdiSYaq980=;
-	b=0JxwI9FVMA4LM22RLVPyaTolmNoi6DRc7FtU+ofaQ076TVUHhfDTfcrIccMWLOsF7IWj
-	 5Mh/mKSa6sXZbVzvdIhsawMcI0dZnAIspmF4Yfz0iuLVMdZkuN35VonPOV9hNZN5o5nd0
-	 VfcIYfmGLYOWWVBm03NCC1J6pL+z9gcZLoYnsSkuuiv02Y5eyXkBs3il9Bx9E4joUeWPe
-	 gD9s9q4ytBmVsfw2HHLDtGre2OO75mILztKAPNckZ5hs9/PAsuhyfj0Jq2NYFldnyJCM9
-	 Dzt1Se/1lQ5uH9LPLnv0rcfeRe0uWF2LQP0qHsy+zLct79gfqxRP3ljQ9tEo/E5bDRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794204756;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1UcMxn0eRaSO2tdKlZvKawz2XVhbWZCZbyW9cb8JhqU=;
+	b=3CDiHdIMqrYn3DySM2ZQOPisTsvQ99zg0GzqsAW+fDt0I9bEXklXe9qA1fmVuSoPGqbf
+	 5drR0rLIsP5NRu3zRZHyoJL+B9UhAc9cox9LwPlt4x0hiDTLpAjLjVrZK6tzmUm9zVFpf
+	 bcKrVYG44SRQZ1J8OgXe/Qu+g/ZH4DcLicDX9gxRakGBLXOdbsJQmKvFsuYA3Vn9o3TVG
+	 yKoQLuOXj2arzQ+vLPCvMaxlr+pAh9aX+MbTZV/SrkhPqHhqlZYtxFnpSywsqg7ucSDXi
+	 8ygxXAr/fkgFq/q1mcDIA09PC6+9ED5BYNhO/stHnRTX8RMZxbeTBg8AuotHad4qT7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="xVBy4/HL";
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C0055606A31C;
-	Mon,  9 Nov 2026 06:10:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0055606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ypFOmIcC;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F98606A321
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 06:12:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73F98606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=xVBy4/HL
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ypFOmIcC
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so936645eec.0
+        for <linux-media@vger.kernel.org>; Sun, 08 Nov 2026 22:12:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=xVBy4/HL0A9+2H31cSsWHvQHnP9gbSDrHiAM8fkJn46Knr2s+E3JXEyNiJ+R74/9Yncq8NkdHvvkH
-	 FwT9/mxIchDiYyvh3AmiyN1wmzJJ01DI/omGOyFdbl/WHknMzBBRYjZdL33kB42Pp0libmrTH+qKRN
-	 e3dUBGSkRC6l7c7I=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af163c07b6-c6a40;
-	Mon, 09 Nov 2026 14:10:08 +0800 (CST)
-X-RM-TRANSID:2ee96af163c07b6-c6a40
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af163bfd18-8376f;
-	Mon, 09 Nov 2026 14:10:08 +0800 (CST)
-X-RM-TRANSID:2eea6af163bfd18-8376f
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-To: Bin Liu <bin.liu@mediatek.com>,
+        d=gmail.com; s=20260707; t=1794204756; x=1794809556; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1UcMxn0eRaSO2tdKlZvKawz2XVhbWZCZbyW9cb8JhqU=;
+        b=ypFOmIcCCXirRaYF2vctT7IyVr9bqprzHJYmx6d4kV/4990vsFXxGtvUxCVi88u2AA
+         mHsIy2gDoqHFC38an+MSkhl9DBiuDy7+bsFW5UI+XPNpuzydlV3bSXozkDCk/Ir8Aoz9
+         nB6VwmUJOpqPVywRdm/Djv9vFpv2Ze04xnlh4vZQVLynICxH1x72j+Cn2FY3+NrWhBFd
+         zErbr73yuYHBuiKSK0j/0t8vomotfpUcZE1LQOFXpE3WJdOxYIWmpupKs9xCx4gBpWJz
+         IVeRsvB5ZP4IdgiO2uIs9VPL65vdubBvZgSFFxf510mmZhV6i6uyFuS38wR7Ey4UgrHV
+         iOag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794204756; x=1794809556;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1UcMxn0eRaSO2tdKlZvKawz2XVhbWZCZbyW9cb8JhqU=;
+        b=d0XC1F9lR5D1jjA9gaDKk0qHwKnlkF0eGbH9APdXIoiQmLebSnRpFmCzWcsNQ0Q94t
+         5wsTTmtPTo8xt4wyAwQof+XOsxaVxmIk7jVyteFT5C+UsnBityhEie/yyE35TPjZ+NdR
+         qP8boOwciQ2Qs8mxIscuv0ztkw2uR0/xQiRI9zkEtNDPJxeDBvNLbTpfv8Hu2qoxuU4X
+         7nRzdx9r1d/L5QzLJ5iCINjYWvtTeAGpqP+gWyvkMDA4pzfiH7Ogd1Wenu+sPmrALOEt
+         saiaO3SND2W1blBKnBBbtD9fJljIM7mWBWY8CeA+XSEESh6jopJFMZwU2go62PuTOt88
+         l1gg==
+X-Forwarded-Encrypted: i=1; AL+hErGM763icmWz8bC2RGNlfmWwObsBJWYTiaLthx0fFj7miRwKWbhhIXn2/V0jqx4ghuKzcmdG/u84AkUVcQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/nqKOso8P5dgYCkH2wVSSqIHySUbRYsOdNmu/hL9VKiZ5nS9Xp
+	Jgz67/ynTff2eGspbZq6+g3nuyXD/1rh+osNMlL008y2f+I4jsTvfoMxsEAYqCE5Cbnpew==
+X-Gm-Gg: AYBFou1aTn2/LXWaTxMGEvBqidbatcUykSNx5UBy5FZdDpQfWbNTbZvsxiE2YAAsfnV
+	GllG7JWqKplLjernx19s1sHJoQE5l7cYcKmZGKGfCqzYDsBs1C3EoqAIVG4WsdbLtbiA7lJVtZQ
+	q60sUdtASm+vgLYty8T2aRq5r1Makg8i49y1xql6hUpHqRuRwVczT9a4riXId/BkHepEg5Exr2q
+	XZ7KkEr+YoK7hBWHHDQXBQ19SgOe/Dj0s6EVNUng5CD/lW+85IxZ/tKQR31AmBMHzC3RkiXyleg
+	29Tjz3AB6y2K8Ys40FnT/uRmdHZEoRA70/4k+FHZPjJpgQlI1bZBZcxk/qGKbwTB5TxMw7Pcn1r
+	sZbrkmFy/oXwDfqM8k2VLSfL9GmDgTdyJSPTiY3E977wLIUFrJnqabW3yVeDeAYpvUGSGw7uXAy
+	Doq5wVk0l6sKYDDtr7Mq2VCT7pGfwuqbNkLbxmlGASssg6q6T6dHdoixgh2f+GxJveVR51SwYko
+	8GfHxEd49pCiPpxFTpUtZZxKPHvGlleUOJVGKrTfqGSocqPP9CpK8K4j+Pf7G/8vtNz3zj2yCPe
+	q1nazeKEVUaRUNBIwXawEBH1uDIIumSyEf+5WE0hilPtt20crjjgAN0mlyZB7fjpuI2vP1IXirU
+	s7RT+iefQVH8N2PsEVWQeXXcS6SziG8Np9A==
+X-Received: by 2002:a05:7300:d20b:b0:36a:7b3c:4e0a with SMTP id 5a478bee46e88-372571d7f02mr4839228eec.24.1794204755480;
+        Sun, 08 Nov 2026 22:12:35 -0800 (PST)
+Received: from codespaces-88e7e5.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net ([4.240.39.203])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265a16c49sm9835409eec.10.2026.11.08.22.12.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 22:12:34 -0800 (PST)
+From: Lame Morupisi <lamemorupisi12@gmail.com>
+To: hansg@kernel.org
+Cc: mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	andy@kernel.org,
+	gregkh@linuxfoundation.org,
 	linux-media@vger.kernel.org,
-	linux-mediatek@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: mtk-jpeg: fix runtime PM leak in mtk_jpeg_dec_device_run()
-Date: Mon,  9 Nov 2026 14:10:06 +0800
-Message-ID: <20261109061006.1043-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Lame Morupisi <lamemorupisi12@gmail.com>
+Subject: [PATCH v2] staging: media: atomisp: Clarify MIPI frame layout comment
+Date: Mon,  9 Nov 2026 06:12:23 +0000
+Message-ID: <20261109061223.17144-1-lamemorupisi12@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261108122840.85622-1-lamemorupisi12@gmail.com>
+References: <20261108122840.85622-1-lamemorupisi12@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -72,47 +106,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mtk_jpeg_dec_device_run() takes a runtime PM reference with
-pm_runtime_resume_and_get() and releases it in mtk_jpeg_dec_irq()
-after the hardware signals completion.  If mtk_jpeg_set_dec_dst()
-fails, however, the function jumps to dec_end without ever starting
-the hardware, so the interrupt never fires and the PM reference is
-leaked, keeping the device runtime-resumed forever.
+Clarify the description of the MIPI frame memory layout by
+explaining the meaning of optional fields and payload words.
 
-mtk_jpeg_set_dec_dst() returns -EINVAL when the component count or
-the per-component plane sizes parsed from the JPEG header do not
-match the destination buffer, so the leak is reachable from
-userspace with a crafted bitstream.
+Leave the frame layout diagram unchanged to preserve its
+existing representation.
 
-Drop the reference before jumping to dec_end.
-
-Fixes: 5827e4b14ee7 ("media: platform: Improve power on and power off flow")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+Signed-off-by: Lame Morupisi <lamemorupisi12@gmail.com>
 ---
-Verified against current upstream master.  The multi-core decode
-worker handles the same failure correctly (setdst_end/clk_end path
-does pm_runtime_put()); only the single-core device_run misses it.
-Not runtime-tested (no MediaTek JPEG hardware).
+ drivers/staging/media/atomisp/pci/sh_css_mipi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
---- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-+++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-@@ -1011,6 +1011,8 @@ static void mtk_jpeg_dec_device_run(void *priv)
+diff --git a/drivers/staging/media/atomisp/pci/sh_css_mipi.c b/drivers/staging/media/atomisp/pci/sh_css_mipi.c
+index 971b685cd..09c2b1286 100644
+--- a/drivers/staging/media/atomisp/pci/sh_css_mipi.c
++++ b/drivers/staging/media/atomisp/pci/sh_css_mipi.c
+@@ -130,7 +130,8 @@ ia_css_mipi_frame_calculate_size(const unsigned int width,
+ 		even_line_bytes = odd_line_bytes;
+ 	}
  
- 	mtk_jpeg_set_dec_src(ctx, &src_buf->vb2_buf, &bs);
--	if (mtk_jpeg_set_dec_dst(ctx, &jpeg_src_buf->dec_param, &dst_buf->vb2_buf, &fb))
-+	if (mtk_jpeg_set_dec_dst(ctx, &jpeg_src_buf->dec_param, &dst_buf->vb2_buf, &fb)) {
-+		pm_runtime_put(jpeg->dev);
- 		goto dec_end;
-+	}
- 
- 	schedule_delayed_work(&jpeg->job_timeout_work,
+-	/*  a frame represented in memory:  ()- optional; data - payload words.
++	/* Frame representation in memory: () denotes optional fields;
++	 * data denotes payload words.
+ 	*  addr		0	1	2	3	4	5	6	7:
+ 	*  first	SOF	(SOL)	PACK_H	data	data	data	data	data
+ 	*		data	data	data	data	data	data	data	data
 -- 
-2.39.2
-
-
+2.56.0
 
