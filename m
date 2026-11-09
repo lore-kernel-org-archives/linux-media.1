@@ -1,60 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.102
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216901;
-	b=rBZTLnhogc9AEHQwFumIuyaxt96nRXXBUz4ntKacPJb2B4WPIwzk5AUCab4v/eWY1bwj
-	 woS5OsYynS+XKwuJpZmCLkxHlnOJ5yRH6QIJcRVZ/OJ7B9QtDjYL/GBGNpj5YVQDRCwRG
-	 BY0uEVRIorj8EMTvixeK+f5oawGXdYPnFal7bgCLJ8lbViQBIxTHIH+HsU5Pj1f61HXwE
-	 gMhppra9f/PJqxCiYGJP4+nXa+blhPJ60rf25MrAm+erkjoH16bko02yNbAFcwn2HoaxS
-	 VEo1kTwH4FkLHYcP+7wmTKonB/W0yAPkwsz0Ys8ULJEGd//HcQ7kQ48vZ70RLGSAcPw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216901;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8QDOiIrFq9d9zPkD3MbgEKaxPlnCuUeJKOCRgNAL7wc=;
-	b=GO1PFG6GquLfDL9KVDfvbuQhkRVPUZKRkWkH9+6vT5rXOIpYkJpHTxwFsEuz9phkbjRM
-	 DQF8I/fx40aXSRN4zQtgJ0Xyu+s+sabz8ZuIUs1CON1kNnnsKo446UZr6/5eWQetGZ2Y3
-	 pLaEfVemwoB1EPSOkr7Za3b2jjXjvRgsTCuF9Zz5T3FyXqfw3G77rtXiNRucML+Hj8dya
-	 Gfny6yrzP/AF87Isc+0OBGIRbgCu5UKfN5aBHdR7a4BrGR6VeGQNaDU163mIlxHIo2KdK
-	 K8lT4ccJo4WrZxr13MGmBhg4H26AE0LMmriIwdtxPd8I7sY+7JFm/CoUs9v7USxj0eA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=O9A74aSl;
-	arc=none smtp.remote-ip=185.70.43.102
-Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794216958;
+	b=u6RdndhoLsXDl9ImfnQjxU+h53k08oHG26/WKrzHOnzwrbwxWLkiqaJgw34ePVTxreC3
+	 FSgBIn3BTo5C3gZJ0mEGoxN67Dg2+50+OfFvKciPEEKqfXbd9FkXwALiLVyQ7UZkRbCfx
+	 dKYn/pzmAZYi9DUeqNnuVJdZxx7gMEWNAcr3NXdG1WNPHIgo29QWqrZFbmuIw3FEcHUAH
+	 o3sH7FNXlvaUbLnbfmbGfCptLd3i+dUcjdqwvOH9vN2Jk1jVJR86LOUC6Equk65y4sCF1
+	 0G4m1GEzWUc+9iZ8SsoExd1NgTw3NuDsDbWzf8l9ix1nxYcNy2O1TZQ4wEFr1HSkxnw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216958;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=xbeM8g8zqHzgMBSkaZOk8eKUdUcdQmlNvh1nMX8yoaE=;
+	b=yTmzSZJh1j+RWd3MInWkL6f3/U98o1/6xEg0SmTAgZr2oGy+SqUHiox8NxMCP85uPD5L
+	 Pv9IOhkk6bEyr1qmvBMa4vGIPlKsN3aipvwDTmucjy7r/eNIUxmloPCxDTI46asIX1odp
+	 4n+XuQmSeReWSRwNkqrR1diJI2BM8pGBJ8e230aK4xyihCUnNyoxlf6VjdyCC71fJKpgI
+	 +v0D0e+SoCHSoYXeJTAlBQmhn1ZS5jQo851dGWAKtFsNgKisDageUF6RcZBwmVZMco9xG
+	 hS7T62zWhwxdIdrXzNIa/X4PX8r9Kgg4dZClnYAWX3znTUbghWOiULH4WVY7yC48D1A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k59Rh23j;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dkgMrfzk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264CC606D80E;
-	Mon,  9 Nov 2026 09:35:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 264CC606D80E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119E0606A31C
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 09:35:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 119E0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=O9A74aSl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794216898; x=1794476098;
-	bh=8QDOiIrFq9d9zPkD3MbgEKaxPlnCuUeJKOCRgNAL7wc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=O9A74aSlekAcTauohTZd8SlsjrcV/vHHVJZXIkDam3DIWiTmDFjDoPOeK/C7S6HQ3
-	 Z01IPsH13iKNm9Y9WMlgjLW7MoVPN8cMfdh6ne966vTo09kujHil1vvasmlPh6T81P
-	 9UOyQRr/uO3+QGQzvb+hpqniTXK2xwXRpH2r9MAlKD6FRYi1ORoemiQn+kQEhjbIRP
-	 5lTOSmoZ/lM0fSB3V56F8/jlYIeD8F+bUphmZ3n7CrVnAG4eNfjFh5mezxDiOq0lBI
-	 fSbwMUX/mXFwDhykEuAGCTe07gbNomQuB1ps3D4bdUEyPrxMA3tBNcKF83ajDihaJY
-	 jWOd2w6xodz4g==
-Date: Mon, 09 Nov 2026 09:34:50 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 4/4] media: ipu-bridge: Add the Surface Pro 9 and 11 infrared illuminator
-Message-ID: <20261109093353.3757-5-lsa.uz@pm.me>
-In-Reply-To: <20261109093353.3757-1-lsa.uz@pm.me>
-References: <20261109093353.3757-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 17716d4d0b38517f4ff4c07889187a5375b7ca17
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k59Rh23j;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dkgMrfzk
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96AihX2008411
+	for <linux-media@vger.kernel.org>; Mon, 9 Nov 2026 09:35:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xbeM8g8zqHzgMBSkaZOk8eKUdUcdQmlNvh1nMX8yoaE=; b=k59Rh23j1+/mJ9Iz
+	Q/lSh/AFKzplHqzHWeTReZ/CAiPKqq0uTUQKjsY9kcQja5Np1X0FwurOR/v9SGHn
+	NlhtUAAJsrhBc3RgyJ+KY9aEIes4/h4vW5hUB44tt5Ak1VvPT1DAWYS4E7td+hnL
+	mXQAbNn1qufc5SuHtVT5vXxzm00jz3l1S9trDw7ix/lndzSb7XN0ne8BxYstlJSo
+	eiEvS/EMRYadWnRFTBKtZvKZm/ICNzaEekUdxeQwfd9YKTs7Yf23CuFF8sPDVeZc
+	CUYqrDznXhnubQ/kFmucDz+gjFYspnQvAUlWMsTn99jfZ6xOB5pkh2jGhlXhUAmH
+	7wU/Rg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsw5k5gjd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 09:35:57 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cb93c874bso160867385a.0
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 01:35:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794216956; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TzYoswxVoqC2g01Rn2tD0QdXWrRTjN6cVG8HV/azAgGm8rXRtnOziRoFBxhxYwZM5o
+         uE9Nwdgv5bN0FltT62kM73d/99vMUCj4LdtyRIbVTj2kUxy5MRv15thUOBnzV8zAfOf1
+         B/cdJonw2CjTXZnAXPpa2VIrrOgp38P6CZ8jbvPlPBauImPAHLGq+Ia6+bkmqYPfMuvi
+         /L5eeP4mctSbXUTbpvTNv//dwABhpz7+F3mRGhbnC+RD0vQO7fP8ZeB1EGjuCbbOuAcs
+         doYqsPH4Ew9YWSTaWV1yLpdyuSoOSt2nRcATdscrC5/MHont+FtSix7Om1w4NJEYhwG3
+         4x0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xbeM8g8zqHzgMBSkaZOk8eKUdUcdQmlNvh1nMX8yoaE=;
+        fh=SaLGpr4UUEVrWbpnu/TrbJ9MKOQ84ODy09D8UeqZXDs=;
+        b=eTZJbCDyGtt1mPrhpV5f5lAMj88gt6ba2uikl4ygPliEifNrtkp/wSEM+BlWJOvwUP
+         KEsGekijH0XGi20I3fbTp4IverRcjXTFXa4AwDQxJ3zOxc4ZXfvp338Z7imLVE9di6ZA
+         r/NNn8ZHkQDAG4GkrFcbUcCgVUBCGUgEOeqKYA8UrcfkGe8SpoERHE71X/m60jvQ0OwG
+         4DZvNeyI4/OzQI7dkDtyMSxVqjzZ934LajV/ShqdgWUwDZNI4PddSZBqLhaLhHSzDffQ
+         mGPt/6pge9GVuKEnZRjZmAxMsTB8e/sT8Z3J/QiteqWUN4l6No79k017yEGuBxaiZBA7
+         88bQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794216956; x=1794821756; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xbeM8g8zqHzgMBSkaZOk8eKUdUcdQmlNvh1nMX8yoaE=;
+        b=dkgMrfzk/OeSKfPGyF0nkbZlsCBZY/4M+o2Rq5l/N1k5FcWldWJpDaOE9GhCMldOJO
+         Qoosjgag6Ivm/1WuSs+zo2Bk9beQsfiv0tS1kcHVtLiM3DjBZyx2OaUDaBONRBAYCmBk
+         aMe1DcyQ8IsCOl2o8HdLfZpBHaAPeroqiyuIH3jyADxcjfgk5ec8eKB0mYUCGUGixDYC
+         VdH7OGHIQJADJUBt0TfHZ6Ju3HgktXMQICNyVyxOhRHhOsrhUTf782zw6yHV6xLwT4/L
+         u5q8A4ELCR/Xnr//HA4ZZSdxyJOGNmWmlxBtOTB7YUpdFLJsjkhcF6rdzuB40GgvhwL8
+         a68Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794216956; x=1794821756;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xbeM8g8zqHzgMBSkaZOk8eKUdUcdQmlNvh1nMX8yoaE=;
+        b=tL9synGV1GcV8dSVi+1IoRRZI4b4awm5xB7hf0ow1mwdjYu1/qyJyziAmDtXYvqMZT
+         HPplBXZ+AV7otM8STs5VZt3PYO6Rcu0xZsMYeRUX0rhwwyfx44hKoFKpcsrwa3oCd0dy
+         2NDrF69M3QKr7Ip5/SvYOQOrOTbibyLhfzhLrcoY19UZV+R4pbpKJr3WdqlZSWAha0Dn
+         9m1Gwn0ZIIUmRJSMfveDoT+WRVvjjV1AJNNTeCSezON3fpYDk7NzLc90Z4XvRhO8sNck
+         CF08dqHsRuFR5qMvl9SUz22VLCNTNPHnCWvwlJe3fnZU/P/S2ciLAvZh0yjFWLIzIXKl
+         +IVg==
+X-Forwarded-Encrypted: i=1; AL+hErGGKFSPghKJ3qhFTBa0kbb7WN5V86gig0u1CNga7Eo1xAmyamCRUH93L8+enz2REYvpwz40VF6yT2e7RQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/hrwhHzkL9B4mYLFKIvK8Yplqp9bsdBHVcWuXjOMgKDz6zWKUm
+	ZnRna+/h/aX99pwIuSgbAQipyeUwxuGdQ2FbGxEozztiXMx0pkvNIeGAOs29DJlK/AQNrJq3xG0
+	fzw/VNePVLg12YPfG0lo3u0HJxbgzW7GwireWh3BZWHAsUF6M98led+DKU/k+8NFEOwpU6RZrk1
+	3v8WQPe9B/25upUE0MdcsqlA5Xpz1k7aZOXkxRqdpVSGcQrBjq/Go=
+X-Gm-Gg: AYBFou0U6IRQr+WDnqMERnyBpJP/oe0F5ctRPGCIgvIrJV6L1gkrY7ZT5+51viAXPV9
+	j5nI+U42ARqDsSZdDbgMFotFWbrHf/WFTzqHjaXl2hZ2QIqemSLFT6R3YYjDYt5f3IZxycV4sgZ
+	slm5knFhknd6Zbqo/1zEzpVtixxJ+NjCtfTCDJEio0u3KMcFLD1fYnju5YqdJ+v4AyGX0Kf7Y9n
+	KXlUUdpBkFbflp/csfFXwoKXiZZtXoKeSdPw1YFkHvsyqYRGI4cYKpIhNXm8+HI3e1uSHUewtU=
+X-Received: by 2002:a05:620a:4381:b0:939:944b:2814 with SMTP id af79cd13be357-94784201bc5mr489627885a.19.1794216956248;
+        Mon, 09 Nov 2026 01:35:56 -0800 (PST)
+X-Received: by 2002:a05:620a:4381:b0:939:944b:2814 with SMTP id
+ af79cd13be357-94784201bc5mr489626285a.19.1794216955763; Mon, 09 Nov 2026
+ 01:35:55 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,185 +128,206 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org> <20261107-v4l2-frame-sync-v3-2-e5bf7073a35d@kernel.org>
+In-Reply-To: <20261107-v4l2-frame-sync-v3-2-e5bf7073a35d@kernel.org>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Mon, 9 Nov 2026 10:35:44 +0100
+X-Gm-Features: AclHuK_kRS6_i-mtkKs6t_W1vede9PNYOgkyMo3-4PjlVizTB2VyTP2OY2wOt6E
+Message-ID: <CAFEp6-2L36F=Q59zEHU_6q-atG8=aU4je4OYOF_CTSTjek0VdA@mail.gmail.com>
+Subject: Re: [PATCH v3 02/11] media: qcom: camss: Introduce SOF sequence tracking
+To: bryan.odonoghue@linaro.org
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, "Bryan O'Donoghue" <bod@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzOCBTYWx0ZWRfX32qBDO4m30oe
+ jdZ+ioq1zqNBhG1dsBR+K5WyknQmozRBg2OgCoo5P7oHt+ZxGbEv1MU5wNsN03R56fsffCrlqpZ
+ OJVA1J+q3AEPvskWGAl7XdXV3vLPWJW4O8dIYaP1PUUoCBcCHeyhy12XiaHt8Aff41DUxSlS3dA
+ nL24jN2EEAL5w784JM/EZVwgikC8UTNtoLpC4EYQF4D+zZ1mtiF0ujPk7TZQ6S6nbWZqopwoef1
+ z+z4sb1VE4saonb5Npa2UedmyecsiUI411Rz9S/LloFc80HFyQjSx3MSLe6I/GWBldE9DYOoIf5
+ l9hIP7HVezIirGw9S/jDc9jpz3TUOdKRo/cNiWFJf1RdX27w2YCcx6WTnlfcmre2hRL6Fd1jhQE
+ oKKUFcNdMPSXF6UyYFVZbGTAOokjlq3hHPOgZaGMbwyuFyIcORC0rm5mN9BxmxeZXUmTmktkAjA
+ VRSoahGXo+E0wF2viyQ==
+X-Proofpoint-ORIG-GUID: LPSNz59x6g_yO6Ag3NbTNR5wzx5kx3cJ
+X-Proofpoint-GUID: LPSNz59x6g_yO6Ag3NbTNR5wzx5kx3cJ
+X-Authority-Analysis: v=2.4 cv=G/aJgNk5 c=1 sm=1 tr=0 ts=6af193fd cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=KKAkSRfTAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=ySw4tsHwzHfE-Ekmi8kA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzOCBTYWx0ZWRfX1xGNaCQtZBRY
+ VYBzYrgGwf+SA5gYdU/TjvwLBk4vEmaqLtgxI28+IZZt6yJZbd5ddn0ZPu1L5ZBYTlsnxpB6ovd
+ 3ss+Lm/s3j15+KyPB8qatwvJGOvP8RQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 spamscore=0 phishscore=0 clxscore=1015
+ bulkscore=0 adultscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090038
 
-On the Surface Pro 9 and on the Surface Pro 11 with Intel, the infrared
-illuminator is driven by the VD55G0's GPIO 1, which strobes it during
-the exposure. The ACPI tables do not describe it, so the sensor driver
-finds no st,leds and offers no V4L2_CID_FLASH_LED_MODE.
+On Sat, Nov 7, 2026 at 2:01=E2=80=AFAM <bryan.odonoghue@linaro.org> wrote:
+>
+> From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>
+> In order to communicate to user-space CSI2 SOF events we will need to hoo=
+k
+> into and control v4l2_ctrl_subdev_subscribe_event. In-line with other
+> implementations of FRAME_SYNC have CSI decoders which support the event
+> always generate it in our case if and only if an atomic user count
+> indicates it should be so.
+>
+> A flag in the CSID descriptor indicates if frame_sync_en is supported so
+> for each SoC that supports it this flag should be true. Since bool is fal=
+se
+> by default no negative enumeration of existing or in-flight CSID is
+> required.
+>
+> Subsequent patches will enable on a per-CSID basis.
+>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 
-Give the sensor's software node st,leds from a DMI match, as the
-upside-down quirk gives a rotation. dev_properties gains an entry for it,
-as a sensor can also have a lens-focus reference. The software nodes
-outlive the module, so the property name goes into struct
-ipu_property_names and the GPIO numbers into struct ipu_sensor, where
-nothing points into the module image.
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Tested-by: Fernando Rimoli <fernandorimoli11@gmail.com> # Surface Pro 9, IP=
-U6
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
-v3: no change.
-v2: the st,leds name and GPIO numbers live in the bridge's own
-structs, as the software nodes outlive the module (Fernando); the
-Surface Pro 9 is added (Fernando).
-
-D. Manresa's ipu-bridge series changes the same lens-focus line;
-whichever of the two lands second needs a trivial rebase:
-https://lore.kernel.org/all/20261026082549.662885-1-dmanresa@gmail.com/
-
- drivers/media/pci/intel/ipu-bridge.c | 68 +++++++++++++++++++++++++++-
- include/media/ipu-bridge.h           |  6 ++-
- 2 files changed, 71 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index c99c85b7e6f..8d2025acf7a 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -283,6 +283,42 @@ static const struct dmi_system_id upside_down_sensor_d=
-mi_ids[] =3D {
- =09{} /* Terminating entry */
- };
-=20
-+/*
-+ * Sensor GPIOs that drive an illuminator, for machines whose ACPI tables =
-do
-+ * not say which. They reach the sensor driver as its own leds property.
-+ */
-+struct ipu_sensor_leds {
-+=09const char *hid;
-+=09u32 gpios[IPU_MAX_LED_GPIOS];
-+=09unsigned int nr_gpios;
-+};
-+
-+/* The infrared illuminator, strobed by the VD55G0's GPIO 1 */
-+static const struct ipu_sensor_leds surface_pro_ir_leds =3D {
-+=09.hid =3D "SMO55F0",
-+=09.gpios =3D { 1 },
-+=09.nr_gpios =3D 1,
-+};
-+
-+static const struct dmi_system_id sensor_leds_dmi_ids[] =3D {
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Surface Pro 9"),
-+=09=09},
-+=09=09.driver_data =3D (void *)&surface_pro_ir_leds,
-+=09},
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME,
-+=09=09=09=09=09"Surface Pro for Business 11th Edition with Intel"),
-+=09=09},
-+=09=09.driver_data =3D (void *)&surface_pro_ir_leds,
-+=09},
-+=09{} /* Terminating entry */
-+};
-+
- static const struct ipu_property_names prop_names =3D {
- =09.clock_frequency =3D "clock-frequency",
- =09.rotation =3D "rotation",
-@@ -292,6 +328,7 @@ static const struct ipu_property_names prop_names =3D {
- =09.remote_endpoint =3D "remote-endpoint",
- =09.link_frequencies =3D "link-frequencies",
- =09.clock_noncontinuous =3D "clock-noncontinuous",
-+=09.st_leds =3D "st,leds",
- };
-=20
- static const char * const ipu_vcm_types[] =3D {
-@@ -563,6 +600,22 @@ int ipu_bridge_parse_ssdb(struct acpi_device *adev, st=
-ruct ipu_sensor *sensor)
- }
- EXPORT_SYMBOL_NS_GPL(ipu_bridge_parse_ssdb, "INTEL_IPU_BRIDGE");
-=20
-+static const struct ipu_sensor_leds *
-+ipu_bridge_get_leds(const struct ipu_sensor_config *cfg)
-+{
-+=09const struct dmi_system_id *dmi_id;
-+=09const struct ipu_sensor_leds *leds;
-+
-+=09for (dmi_id =3D dmi_first_match(sensor_leds_dmi_ids); dmi_id;
-+=09     dmi_id =3D dmi_first_match(dmi_id + 1)) {
-+=09=09leds =3D dmi_id->driver_data;
-+=09=09if (!strcmp(cfg->hid, leds->hid))
-+=09=09=09return leds;
-+=09}
-+
-+=09return NULL;
-+}
-+
- static void ipu_bridge_create_fwnode_properties(
- =09struct ipu_sensor *sensor,
- =09struct ipu_bridge *bridge,
-@@ -570,7 +623,8 @@ static void ipu_bridge_create_fwnode_properties(
- {
- =09struct ipu_property_names *names =3D &sensor->prop_names;
- =09struct software_node *nodes =3D sensor->swnodes;
--=09unsigned int i =3D 0;
-+=09const struct ipu_sensor_leds *leds;
-+=09unsigned int i =3D 0, d =3D 3;
-=20
- =09sensor->prop_names =3D prop_names;
-=20
-@@ -624,10 +678,20 @@ static void ipu_bridge_create_fwnode_properties(
- =09if (sensor->vcm_type) {
- =09=09sensor->vcm_ref[0] =3D
- =09=09=09SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
--=09=09sensor->dev_properties[3] =3D
-+=09=09sensor->dev_properties[d++] =3D
- =09=09=09PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
- =09}
-=20
-+=09leds =3D ipu_bridge_get_leds(cfg);
-+=09if (leds) {
-+=09=09memcpy(sensor->led_gpios, leds->gpios,
-+=09=09       sizeof(sensor->led_gpios));
-+=09=09sensor->dev_properties[d++] =3D
-+=09=09=09PROPERTY_ENTRY_U32_ARRAY_LEN(names->st_leds,
-+=09=09=09=09=09=09     sensor->led_gpios,
-+=09=09=09=09=09=09     leds->nr_gpios);
-+=09}
-+
- =09sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_BUS_TYPE)] =3D
- =09=09PROPERTY_ENTRY_U32(names->bus_type,
- =09=09=09=09   V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
-diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-index 3ef94c2b767..7383bdf5a45 100644
---- a/include/media/ipu-bridge.h
-+++ b/include/media/ipu-bridge.h
-@@ -12,6 +12,7 @@
- #define IPU_MAX_LANES=09=09=09=094
- #define IPU_MAX_PORTS=09=09=09=094
- #define MAX_NUM_LINK_FREQS=09=09=093
-+#define IPU_MAX_LED_GPIOS=09=09=094
-=20
- /* Values are educated guesses as we don't have a spec */
- #define IPU_SENSOR_ROTATION_NORMAL=09=090
-@@ -136,6 +137,7 @@ struct ipu_property_names {
- =09char remote_endpoint[16];
- =09char link_frequencies[17];
- =09char clock_noncontinuous[20];
-+=09char st_leds[8];
- };
-=20
- struct ipu_node_names {
-@@ -178,8 +180,10 @@ struct ipu_sensor {
- =09const char *vcm_type;
-=20
- =09struct ipu_property_names prop_names;
-+=09/* The software nodes outlive the module, so these values live here */
-+=09u32 led_gpios[IPU_MAX_LED_GPIOS];
- =09struct property_entry ep_properties[IPU_BRIDGE_EP_NUM_ENTRIES];
--=09struct property_entry dev_properties[5];
-+=09struct property_entry dev_properties[6];
- =09struct property_entry ipu_properties[3];
- =09struct property_entry ivsc_properties[1];
- =09struct property_entry ivsc_sensor_ep_properties[4];
---=20
-2.54.0
-
-
+> ---
+>  drivers/media/platform/qcom/camss/camss-csid.c | 54 ++++++++++++++++++++=
++++++-
+>  drivers/media/platform/qcom/camss/camss-csid.h | 12 ++++++
+>  2 files changed, 65 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/med=
+ia/platform/qcom/camss/camss-csid.c
+> index a00791b00feb7..7f33fb81ca8cc 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csid.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csid.c
+> @@ -760,6 +760,7 @@ static int csid_set_power(struct v4l2_subdev *sd, int=
+ on)
+>  static int csid_set_stream(struct v4l2_subdev *sd, int enable)
+>  {
+>         struct csid_device *csid =3D v4l2_get_subdevdata(sd);
+> +       unsigned int i;
+>         int ret;
+>
+>         if (enable) {
+> @@ -778,6 +779,10 @@ static int csid_set_stream(struct v4l2_subdev *sd, i=
+nt enable)
+>         }
+>
+>         if (csid->phy.need_vc_update) {
+> +               /* Set to -1 as we want to do atomic_inc_return to read *=
+/
+> +               for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS; i++)
+> +                       atomic_set(&csid->sof_seq[i], -1);
+> +
+>                 csid->res->hw_ops->configure_stream(csid, enable);
+>                 csid->phy.need_vc_update =3D false;
+>         }
+> @@ -1316,9 +1321,56 @@ static int csid_link_setup(struct media_entity *en=
+tity,
+>         return 0;
+>  }
+>
+> +static int csid_frame_sync_add(struct v4l2_subscribed_event *sev, unsign=
+ed int elems)
+> +{
+> +       struct csid_device *csid =3D v4l2_get_subdevdata(vdev_to_v4l2_sub=
+dev(sev->fh->vdev));
+> +
+> +       atomic_inc(&csid->frame_sync_users);
+> +
+> +       return 0;
+> +}
+> +
+> +static void csid_frame_sync_del(struct v4l2_subscribed_event *sev)
+> +{
+> +       struct csid_device *csid =3D v4l2_get_subdevdata(vdev_to_v4l2_sub=
+dev(sev->fh->vdev));
+> +
+> +       atomic_dec(&csid->frame_sync_users);
+> +}
+> +
+> +static const struct v4l2_subscribed_event_ops csid_frame_sync_ops =3D {
+> +       .add =3D csid_frame_sync_add,
+> +       .del =3D csid_frame_sync_del,
+> +};
+> +
+> +static int csid_subscribe_event(struct v4l2_subdev *sd, struct v4l2_fh *=
+fh,
+> +                               struct v4l2_event_subscription *sub)
+> +{
+> +       struct csid_device *csid =3D v4l2_get_subdevdata(sd);
+> +
+> +       if (sub->type !=3D V4L2_EVENT_FRAME_SYNC)
+> +               return v4l2_ctrl_subdev_subscribe_event(sd, fh, sub);
+> +
+> +       if (!csid->res->frame_sync_en)
+> +               return -EINVAL;
+> +
+> +       return v4l2_event_subscribe(fh, sub, 0, &csid_frame_sync_ops);
+> +}
+> +
+> +void csid_sof_event(struct csid_device *csid, unsigned int id)
+> +{
+> +       struct v4l2_event event =3D {
+> +               .type =3D V4L2_EVENT_FRAME_SYNC,
+> +               .u.frame_sync.frame_sequence =3D
+> +                       atomic_inc_return(&csid->sof_seq[id]),
+> +       };
+> +
+> +       if (atomic_read(&csid->frame_sync_users))
+> +               v4l2_event_queue(csid->subdev.devnode, &event);
+> +}
+> +
+>  static const struct v4l2_subdev_core_ops csid_core_ops =3D {
+>         .s_power =3D csid_set_power,
+> -       .subscribe_event =3D v4l2_ctrl_subdev_subscribe_event,
+> +       .subscribe_event =3D csid_subscribe_event,
+>         .unsubscribe_event =3D v4l2_event_subdev_unsubscribe,
+>  };
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/med=
+ia/platform/qcom/camss/camss-csid.h
+> index 5296b10f6bac8..a9d88909d37fc 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csid.h
+> +++ b/drivers/media/platform/qcom/camss/camss-csid.h
+> @@ -141,6 +141,7 @@ struct csid_hw_ops {
+>
+>  struct csid_subdev_resources {
+>         bool is_lite;
+> +       bool frame_sync_en;
+>         const struct csid_hw_ops *hw_ops;
+>         const struct parent_dev_ops *parent_dev_ops;
+>         const struct csid_formats *formats;
+> @@ -167,6 +168,8 @@ struct csid_device {
+>         struct v4l2_ctrl_handler ctrls;
+>         struct v4l2_ctrl *testgen_mode;
+>         const struct csid_subdev_resources *res;
+> +       atomic_t frame_sync_users;
+> +       atomic_t sof_seq[MSM_CSID_MAX_SRC_STREAMS];
+>  };
+>
+>  struct camss_subdev_resources;
+> @@ -248,4 +251,13 @@ u32 csid_hw_version(struct csid_device *csid);
+>  u32 csid_src_pad_code(struct csid_device *csid, u32 sink_code,
+>                       unsigned int match_format_idx, u32 match_code);
+>
+> +/*
+> + * csid_sof_event - Track SOF generate V4L2_EVENT_FRAME_SYNC
+> + * @csid: CSID device
+> + * @id: CSID src-stream ID
+> + *
+> + *  Called from the CSID interrupt handler on SOF of the path driving th=
+e event.
+> + */
+> +void csid_sof_event(struct csid_device *csid, unsigned int id);
+> +
+>  #endif /* QC_MSM_CAMSS_CSID_H */
+>
+> --
+> 2.56.0
+>
