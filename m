@@ -1,120 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794231874;
-	b=asH8zvQdWA+z4C3VHacqDj74HLwLKkjRPydwrgB31uy97btCEzwyBNQpLczxyFGowoCD
-	 sKRHBkpOdFzPL8yqjmUNEql5EQy5cBMa3aCJCIDzPVSkp8jD9SDduNxsRWFQBp4BhoFLC
-	 v7gBgiHaz9pY/ajR3+csx9QzgNorFZE6enIZa1t1vFvs9uOJlVww5hHucyhZAM6OT+iv2
-	 AfY5kI2odjNxbi7W1jqmD4oLeUSFV8AcH6P8hiBXe851L64qCyPtgly7PqBlQ0mK8g4/4
-	 yfjM/TWLvutpdwRJV1Bg3HNm7lPqyHcb8hUmiO5dkTNcpcI2c4aXW79KFBypmhCfjmg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231874;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=bghOY7pp4PqTwolmTpdD1zvT8+4Tek4EN2nSOV+gjQQ=;
-	b=bca9f/IbXYKeMdZu20P/J4qBGSRcdzhVUDP4BAdf2wET9c+2b0QNPINcMGFE+dr5nNL1
-	 nlsS023QVezilaErctZqXLy1MoYumY+AHj/QefXRpRUW9tePL73yiSlw+HndBVChsQJOZ
-	 pnyHdxpvtIrsos8m9X9mlfakCpQGEo9V4mhodX/yqzbMh9kGeJYlbOkMWEMJkm98sRNl+
-	 cJb6IOX8d5VKsNCR0qRcroa9SLL3F/ky0cqPfdRhejCkbcYReGcdjjsY72MA1kYSx3k97
-	 a3sPeA1vnX5bIxC5VhyFBJiAEuIxFbZD6PG8BHUcDvANGybDH/XMJ1LduXGZjvagulA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TImMvHFX;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=YvJeU9XV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794233459;
+	b=1Tj3bkbVzlmS7w+wmkssKuo/sWDN+bnM3SzuUt3aELOsRv64b5NwkMBGNFxmF64nrBY6
+	 UPg+DcoiwB0X37+vl2prTIm6d2EdZOfK0MRWLW/pQ7cA0gERGq/WkqGCVzbv2aqL5amRR
+	 sjpMqAI+5eaSCBoHOFPpq0Zb7XnX0Zrev0efSizspkvITytAbsrcgDhGaLXK6xuDOxyAS
+	 2kH6j207uGcm4yO102ft75Y4fLkxBwFZF6wYRhCUKGZkn5BWtNfaMHHsSdd5AUAnCziHh
+	 NIgf4XThF28u2ghg3lMMRF78EpynLMpFWEQYFtuNDoE+pQXR3YGn2uF/HSICAC9G4gg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794233459;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=Tz1cDpa5AepSCwsliEOBWV2ZbIXpdMUmAVTrHLbgBBk=;
+	b=LUqBGljX5ry2GZ/4PBDyfpTPr7M8UQzziruZLhs3fD5P7+8pPgxDyJiZyc4Fk0XPY6P/
+	 TXSrphdScCtsfPl1ikED7twQN1q0ipQuDrzhO4Qjo3JkVTDXeBgd1zWJ8JV8Ak+X7zRY7
+	 ZchTk1cvWt8CFdJ3E7N6zCrmSUwFCzDM6R8yJuSHbG1N/PHBSadGU5s4Ft5G/L2hRkM2r
+	 YG6WJLgURkm0Ub2VPFS1p090rPUw697BAjuBGGXyncLvuL6elvmXusPjSitYMi+x7JEE0
+	 OsyWzCMcayGundHaiLuuB/oXuPBVilAXEQjEVAeZF7sJHCMA0ia7zah3yMjq3czucuw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CE1606D831
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 13:44:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3CE1606D831
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TImMvHFX;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=YvJeU9XV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794231872;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bghOY7pp4PqTwolmTpdD1zvT8+4Tek4EN2nSOV+gjQQ=;
-	b=TImMvHFXpxlE3RZ/IESRjzXY1Bz3uz7xYgDzlWTn5NUo4sYbsDhB250NNUtPlMXxdG6DBc
-	WGLwO6SrQB9OF8tN3uQs4q77tBIalQZPSuzMxkuyVzd/PCVOY7m+CBdrO/4kVUtIPdziQv
-	zULBqgLEhzg8pLONbEyJmnj8v9psdCA=
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
- [209.85.167.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-190-zo6j2nKvPqykIxF8yRxrhw-1; Mon, 09 Nov 2026 08:44:31 -0500
-X-MC-Unique: zo6j2nKvPqykIxF8yRxrhw-1
-X-Mimecast-MFC-AGG-ID: zo6j2nKvPqykIxF8yRxrhw_1794231871
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4e778acdbc6so1026087b6e.3
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 05:44:31 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794231871; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i5Edj8ydylrKkSTk0YlMiCSECvrcOd1xhsTd4SlNfAeo5aGrN5RrpEZTMh69uEl4yR
-         Ug+3GaMyOfkAUQjATkC0I5ESGOtlUMMOMTRWr+7Z8IoAlqm1qXckKXqzIvZZZGacl2bA
-         twMnz0OA2kRRy5JWiqJuRTDkFY3SX6GOcndfveW36ES+qqVqu+ZmQJApm1At7geZnfDQ
-         +Wuk3ydAUSWSgD6NNUAUQv1kDJ+3ilAoAf4UF+Kf9vDiLZe9hiR2QDCflBK6vQY5GBRL
-         gD10XQ/8/Pa8yhD+f4QqtnVlVuYHVO0tZi2xeRPlRxzEalF1qu1P54CJcVZXxyR5qDD+
-         UsEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bghOY7pp4PqTwolmTpdD1zvT8+4Tek4EN2nSOV+gjQQ=;
-        fh=mhnpMF0VLzjhrNfP4oPW+V1+Ue4cvI2ILbIqpl7YsMo=;
-        b=pRyv5h+54XlGIdJzsKw81MWa/sUBjGzULNx1XK6ndLzu5QVRtLBUZWHxCrcdLRumjv
-         aZlBtlb9EA55c5ITUtCXZwRJvWTOG5b0bEj8Z3+ovw0WNwdJMRzr99Zr3vgvhf/1xeXw
-         C//uyILVGRqCnau3GZunCNs+FuuBCf2imhROJe97i0aVKvsNVsHvNPja5mCUAdItlu0/
-         mIW7/lOQUPq/jbct3x59nKGFTBWBnbFCjP8CCh4J0RjD+iGAnI8asU6/6kuQgsCIquuq
-         j8dm1VdCDRSOI+EFE8pgjOZirTdgunN2Ke6h59wLsknWIyUKjPkW4XVxa4HUt2t4yD+q
-         4QLQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794231871; x=1794836671; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bghOY7pp4PqTwolmTpdD1zvT8+4Tek4EN2nSOV+gjQQ=;
-        b=YvJeU9XVwfRisHtjyrCD+g+YGGD92Y4vF2X6jtfhy6ghLt1eFKkMwEPTldRNTAcYwI
-         GItFYO/P+dcWYTGtr8Jy81fAkwVcwgfbfg96bG+xjrb/OnsMZLb+hZW5MN3U/ZKjDpC0
-         BOcktFnfPUXucHdwF1+UR4tDqvpRyDMezw8t4YfkxvDhMjaakRyGd2bAZ87J4j/v9ugf
-         hJ2UzlhDvtuOcRc/LSpuVIkVHAqmBkkuIvITMWlo8AhVzCCkUw0C8YPHftpTxw4nf6N3
-         L7byH35l6GMhiO9yNgS5JmHr9mlH1MPlA50sUGYgHyc+7k5qS/eYAJOO66qnWTunj81x
-         ywUA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2718606A31C
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 14:10:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2718606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c40f29667e6so134801966b.0
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 06:10:58 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794231871; x=1794836671;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bghOY7pp4PqTwolmTpdD1zvT8+4Tek4EN2nSOV+gjQQ=;
-        b=GwegRhryBZ119p5mfq3KbfTPjla63jp+EiQcPv5It1OvU+t9aFVcxtIVR7IbBA4QNG
-         l9Na8I72BYEU+u9A4urBImQLcG288eWpjAtQuvFdQFKSY2HigtCvRB3ewUmxH1l2+/ab
-         3vuvwF9PhzudZmxwexLSYvqHf45E6tIC2JNgynoHjBaaORoU1KSNWeMPbEKmQFDHPqnh
-         II1nUas+1QLtd7KOdqeJL3Z7/mkovcyVFsPuMwqMYm7yo00fIeFPnooBkjb4Jg6oWsp2
-         plVP9j0MrDxRrGRKeSfM5+npXGBMf0CtKXyZDpOl7Jju8KMyJmvcsOCxRsKvPcgL4mh3
-         2kRw==
-X-Forwarded-Encrypted: i=1; AL+hErEelIbPQLlL52DZimqgU6+O6YSqv+Pg3TpyO16qUAIjht735JlXHSTKUddvK20Geg5yMjeWz28xBlfNRA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z98UNlozTNmdqRybG7hLsBiLxmYIxXmttnh2TOAiWuB6grJt3w4
-	5U6JAIxXpEVrKqeY4Kfp30uLPh3mm8m0MwzJD6v/g05dREE5jLCUrCNqufJRZWkMCVfosEcnhTa
-	+qvghg3DFG6EV8eKnK/WCaOPoNTqmtLJrygnhYgpZhiP9jkO2Y7B5b7t2W5+hXftJHiTT8vD4j+
-	AkREYSbVokB+wSyXK4y9XeLvm7nO63NxXtMUOZ0JI=
-X-Gm-Gg: AYBFou2M2rnVAQc0Uzrpysga+5Rg8/Et1loJksEf5QEeyPlrw4xMpGH3PJrD4JQqZ5o
-	Nuq/JkMX7pW1ojr7vYJ5qF93eZeBWVXSZ3vHz3wPwIEAzY/4maIxe5sJgL3rxx2U5avfRV67KEo
-	9zL4CCvksjseytg08+vDfVDNVuhYYm7pKKMDX07OUpSDhJI5sxYDhi/rBI
-X-Received: by 2002:a05:6808:4fe9:b0:4d7:17d5:6c9b with SMTP id 5614622812f47-56814022659mr2709776b6e.9.1794231870735;
-        Mon, 09 Nov 2026 05:44:30 -0800 (PST)
-X-Received: by 2002:a05:6808:4fe9:b0:4d7:17d5:6c9b with SMTP id
- 5614622812f47-56814022659mr2709756b6e.9.1794231870169; Mon, 09 Nov 2026
- 05:44:30 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794233457; x=1794838257;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Tz1cDpa5AepSCwsliEOBWV2ZbIXpdMUmAVTrHLbgBBk=;
+        b=zZ8QtPHKvif6zNFHUeMH3YFvhChPUKKDuOiy6BWKU9pbSlGvIDK0fAPKs4AR8LSjA/
+         +Tn8r96yHW8ywZRBpWrWSdB7Q5nTtmvhFYScDlTMrAHaTOKxZ2gd/MWRm4dof9293sM6
+         VqYaKrPC505hpEduCVwIHab9l3Mu1O10XNOM8rJYG0nQZNbQy+dbfbhCiDTWbA7GZY5p
+         3N28hbhCdqZwJ969Y9vSxnJiSnLD6nrwWyrwcI+RmTytieoOTekQlBwJmNRymqeNfbf1
+         NYpepLCgo4NXEgdAAzHW8XcEDOCswrAVm4tb60VLkhxZ9KsvF/Ew+bZucNGiJWoQJIlm
+         iu3w==
+X-Forwarded-Encrypted: i=1; AL+hErFeXGRIt1QLN2HZ4S9YwRZF0WSGjynhN1iR/2Eg4az5o3ZWreXwzAm8LNCl2lwMV5i6RxsvxbUdMZ4QBw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rhxXPfbUiUIT7e9K1yIwb/m8lzdKMH5CAJ8Z4weceDasejo7K
+	eiUEYysM3mD+McdihD4G7FlVjlDGv4dIlV77r1HRsKsNR307pTE5c25SZHc7HxW3WfE=
+X-Gm-Gg: AYBFou31Rnz5ZLoVLbPo9DAQnCiTq1pk3tsLd2Z39qOBz86nuGHua+sZ2I7iPjIptGl
+	/X1X0AMfz3/HYEXkgKPhF2wVnsa5p3uo+YCSivnxC1YR6rwY9UEx4lYaIRtuFbJms/7pX/b7BsV
+	L0wfA6yw5HKArjw1elzFPDdYw1NfeNrsBBccQ1AMCf0x7I6TVzU2Gaq1JWxPxB4PKS2Ypyi/AFu
+	FdMF2Vsl9j5jp4rzSHPCEBUEp9tEUOBoy+vEM3yau20ZmzqLi8R5GmizG8vQdJnil+lJvab2JoK
+	o3MDMnH3kfjaKPMZJxqT7ULVvaBkk9rEXN2K3pvlCFh01OxJ9Yh5iN4mLA2GNULn4FjRLM4nryN
+	Rp/CANe8XBd47lq4Srf1GgGzu4aoE5NY1788nhojo7yE2JoZab8Uc70FqgW8L7MPwzyDUUOs/Bv
+	EnZdLFRjuEZjmQdZSlBGfECcSzUtvLYmIMxbNVsX5Jbprq4Ri89br7ewJC1waDHpvttW0CnccCD
+	akDesgI4kmwJty8jh7sW/2ZzGkA+iBODOmwEe7yYFQExIPq4YNYBV4Z7tL8GObLUcichEA/uUeP
+	y7nlqA/XicPmRl/PUsoRwoSDzH1mxAGFK459xHQPbcJFMPm2aNa5Yp4kTU7jL3MZnw==
+X-Received: by 2002:a17:906:f596:b0:c41:64c1:cc2d with SMTP id a640c23a62f3a-c4d6d1afdc8mr292911666b.2.1794233457308;
+        Mon, 09 Nov 2026 06:10:57 -0800 (PST)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com. [209.85.208.46])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d69f944ecsm171892766b.23.2026.11.09.06.10.54
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 06:10:54 -0800 (PST)
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so1370377a12.2
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 06:10:54 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFyf2O6OlgXnmX7AcUzyyXlMPVHUnw5oV7S7PtxyMUDW8l2jmYJZ1yOIYIdKOjfJWR26zfZRrLXMihqfg==@vger.kernel.org
+X-Received: by 2002:a05:6402:51d0:b0:6af:9a96:5324 with SMTP id
+ 4fb4d7f45d1cf-6b722473406mr2715103a12.33.1794233454340; Mon, 09 Nov 2026
+ 06:10:54 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -124,131 +80,90 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106131829.3228926-1-cui.tao@linux.dev> <20261106131829.3228926-3-cui.tao@linux.dev>
- <1e18fcfd-785d-43cc-afd6-d181bf8305eb@amd.com> <CABdmKX0nCB2hT+iMh=BB-nC=fUBPof8YvjvO-gtEw+zcHZgvZA@mail.gmail.com>
- <b0f530ef-bbfd-4112-aa51-82fdad6c4ba2@amd.com>
-In-Reply-To: <b0f530ef-bbfd-4112-aa51-82fdad6c4ba2@amd.com>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Mon, 9 Nov 2026 14:44:17 +0100
-X-Gm-Features: AclHuK-kxgj3T37bjFOZ7HtSClpdxsaDMPyjW53dccz7zE1_ZSRFcURRmSZwzSI
-Message-ID: <CADSE00L3AfcnfcboK1TdPQiW7ZW1KpxG70b1oyWFqpLciOG6ng@mail.gmail.com>
-Subject: Re: [PATCH 2/7] dma-buf/udmabuf: account the page array metadata to memcg
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: "T.J. Mercier" <tjmercier@google.com>, Tao Cui <cui.tao@linux.dev>, akpm@linux-foundation.org, 
-	dgilbert@interlog.com, mkp@kernel.org, loberman@redhat.com, 
-	jmeneghi@redhat.com, kraxel@redhat.com, vivek.kasireddy@intel.com, 
-	mst@redhat.com, jasowangio@gmail.com, eperezma@redhat.com, 
-	stefanha@redhat.com, sgarzare@redhat.com, rostedt@goodmis.org, 
-	vdonnefort@google.com, mhiramat@kernel.org, jgg@ziepe.ca, 
-	kevin.tian@intel.com, axboe@kernel.dk, linux-mm@kvack.org, 
-	James.Bottomley@hansenpartnership.com, sumit.semwal@linaro.org, 
-	phasta@kernel.org, joro@8bytes.org, will@kernel.org, 
-	linux-scsi@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
-	kvm@vger.kernel.org, virtualization@lists.linux.dev, 
-	linux-trace-kernel@vger.kernel.org, iommu@lists.linux.dev, 
-	io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bobbyeshleman@meta.com, mathieu.desnoyers@efficios.com, robin.murphy@arm.com, 
-	mason@kernel.org, harry@kernel.org, vbabka@suse.cz, cuitao@kylinos.cn
+References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
+ <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-13-1b2072e8c37e@ideasonboard.com>
+In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-13-1b2072e8c37e@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 9 Nov 2026 15:10:41 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVh2RiRhBHmuYupK5H81njgaqNCuFWVUiHjTN17+8a+dQ@mail.gmail.com>
+X-Gm-Features: AclHuK_UOMGJNMSt7XpVPImhuSlb374iqFlByrKa5-w4LBZZoP4MvZOgp7Ag9nE
+Message-ID: <CAMuHMdVh2RiRhBHmuYupK5H81njgaqNCuFWVUiHjTN17+8a+dQ@mail.gmail.com>
+Subject: Re: [PATCH DNI v4 13/13] media: rcar-fcp: Check device revision at
+ probe time
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-media@vger.kernel.org, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 9, 2026 at 11:56=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 11/6/26 18:25, T.J. Mercier wrote:
-> > On Fri, Nov 6, 2026 at 5:23=E2=80=AFAM Christian K=C3=B6nig <christian.=
-koenig@amd.com> wrote:
-> >>
-> >> On 11/6/26 14:18, Tao Cui wrote:
-> >>> From: Tao Cui <cuitao@kylinos.cn>
-> >>>
-> >>> udmabuf pins the pages of a memfd and hands them out as a dma-buf.  T=
-he
-> >>> data pages keep the accounting of the memfd they were instantiated in=
-,
-> >>> but the bookkeeping around them does not: the page pointer array and
-> >>> the pinned_folios array, both sized by the buffer page count, plus th=
-e
-> >>> transient folios array sized by the memfd folio count, are plain
-> >>> GFP_KERNEL.  A 1GB buffer costs about 4MB of uncharged SUnreclaim
-> >>> memory, and size_limit_mb defaults to INT_MAX.
-> >>>
-> >>> Charge the three kvmalloc allocations so the creator pays for the
-> >>> metadata it induces.  The system heap in the same subsystem already
-> >>> accounts its buffer allocation;
-> >
-> > Only if the mem_accounting param is set to true. We (Android)
-> > currently depend on it being disabled because system heap buffers
-> > don't have a single owner for their entire lifetime (ownership often
-> > changes immediately after they are allocated), and the kernel doesn't
-> > have the ability to switch who is charged for the buffer memory quite
-> > yet. Albert is working hard on it at the moment.
->
-> Good point, making sure that Albert is on CC as well.
->
-> So basically we not only need to charge the backing store of a DMA-buf to=
- somebody else, but also the housekeeping overhead.
+Hi Paul,
 
-For system heaps the housekeeping size is fixed at creation so it
-kindof fits the reservation model nicely. We'd only need it to account
-for the overhead (as part of the MEMCG_DMABUF stat probably).
+On Mon, 9 Nov 2026 at 14:36, Paul Elder
+<paul.elder+renesas@ideasonboard.com> wrote:
+> From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+>
+> Verify that the device revision register reports a valid value,
+> otherwise reject the device.
+>
+> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+
+Thanks for the update!
+
+> ---
+> Changes since v2:
+
+You missed the changes since v3...
+
+> --- a/drivers/media/platform/renesas/rcar-fcp.c
+> +++ b/drivers/media/platform/renesas/rcar-fcp.c
+> @@ -14,28 +14,80 @@
 
 >
-> Mhm, this here also complicates the charge transfer Albert is working on.
+> -#define RCAR_FCP_REG_RST               0x0010
+> -#define RCAR_FCP_REG_RST_SOFTRST       BIT(0)
+> -#define RCAR_FCP_REG_STA               0x0018
+> -#define RCAR_FCP_REG_STA_ACT           BIT(0)
+> +#define RCAR_FCP_REG_VCR                       0x0000
+> +#define RCAR_FCP_REG_VCR_CATEGORY              (1 << 8)
+> +#define RCAR_FCP_REG_VCR_REVISION_H3_ES1       (1 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_M3W          (2 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_V3M          (3 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_H3           (4 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_D3           (5 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_M3N          (6 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_V3H          (7 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_E3           (8 << 0)
 
-The transfer would just move the charge as a single unit. But yeah,
-the complexity will come from lazy exporters or any other exporter
-where the bookkeeping grows or changes.
+For R-Car V3U, the revision number is 9 (according to the documentation,
+I haven't boot-verified this), which is missing.
 
->
-> @Albert not something we need to take care about now, but please keep tha=
-t in mind while working on that stuff.
+> +#define RCAR_FCP_REG_VCR_REVISION_V4H          (10 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_V4M          (11 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_X5H_V1       (12 << 0)
 
-Noted. The issue already exists so my series does not make it worse. I
-will note this for a follow up series.
+"git grep -l renesas,fcp -- arch/arm64/boot/dts/renesas/*dtsi"
+shows a few more SoCs having FCP blocks.
 
-Thanks for tagging me!
+Interestingly, the documentation for all of the recent RZ parts (G2UL,
+G2L, V2L, G3L, G3E, V2N, V2H, T2H, N2H) claims they use 9, just like
+R-Car V3U.
 
-BR,
-Albert
+Gr{oetje,eeting}s,
 
->
-> Regards,
-> Christian.
->
-> >
-> > Could you update the message to note the mem_accounting param pls?
-> >
-> >>> the data pages here stay with the
-> >>> memfd.
-> >
-> > memfd / udmabuf is a little special because it uses shmem for the
-> > backing store, which is already tracked by memcg under all conditions
-> > (except hugetlb). We don't currently use udmabuf, so the lack of memcg
-> > charge transfer for udmabuf is not an issue. But once we get charge
-> > transfer working for the system heap it'd be good to follow up with
-> > udmabuf.
-> >
-> >> T.J. needs to take a look here, but I fear that this might break uAPI.
-> >
-> > Thanks for looping me in Christian. The buffer allocations cost
-> > gigabytes, but these metadata arrays are only 4MB per 1GB of buffer,
-> > so I don't expect charging them to break anyone. Leaving them
-> > uncharged is an accounting gap though, since someone could spam many
-> > udmabufs from the same memfd and only pay for the memfd pages once. So
-> > this change is ok with me.
-> >
-> >> A lot of the DMA-buf resources are intentionally not charged against m=
-emcg.
-> >>
-> >> Regards,
-> >> Christian.
-> >>
-> >>>
-> >>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> >
-> > With the commit message updated to mention the mem_accounting param:
-> > Reviewed-by: T.J. Mercier <tjmercier@google.com>
->
+                        Geert
 
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
