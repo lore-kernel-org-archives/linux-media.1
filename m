@@ -1,100 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794204756;
-	b=4rIHoNhM8oHeRz3j3PpMLtYfJmm7uYCWXfvl7iBixMsMNt9oyIIqTaVRw+vhulA/sTpo
-	 QEZOsDy7sg+XqDp9NN+NR3X6BKpfAOhEKFuAoiYzfUf3S5CEMmkmcKrvkdtmjwozgkZUU
-	 AI8WE/dEOdt/EkrJVNfkkwazbhct196M9cDOnHpR2zKknU7qmYNVna5mLtIR2e50bjX4i
-	 G2NZVJUV1oKNGAAlYgK7PKNpKDI42FFHuZFbFSsE7ee4qBDM1DYAqKDhi0bRm7mbYVd3C
-	 XK1OaH+sKoe4ksy4vn6rqA8lmX8mdHtpBWp7eOfZ8PZA1P5uG8JlCbMoG+fxwDgU5DQ==
+	t=1794206749;
+	b=Was65inxGMhq63eg3+gjhN14gIE26moz0DZV7KxRkLA7NZqUByWfsD3ExAtB4j9JAKj/
+	 Zspre7RMUQBB0uZRC/TY8bDlxHTd+K1qRnHLKcrs6ahzvyfOO+sl0oEcF8m5F7gWQjtMK
+	 wtzmlrdVZGwRQTvEWL9mWyhOtxtbtwwZzeJf8x+Y7ef/ZID3AIoIo+pVhyzLIuKv5/Zf2
+	 9+l5Jnruwlz2DPsXJVRn8qnCYMRUgpwkSEqcm2eemRIWNX+FCNSX3ekZynkldZGRQKzKb
+	 q83IfRAend4JKYvZfAv2Rbq7g8mgiKu2keIu0Dp7YjSCXcGi655HNE4tccOlAMj4xCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794204756;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794206749;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=1UcMxn0eRaSO2tdKlZvKawz2XVhbWZCZbyW9cb8JhqU=;
-	b=3CDiHdIMqrYn3DySM2ZQOPisTsvQ99zg0GzqsAW+fDt0I9bEXklXe9qA1fmVuSoPGqbf
-	 5drR0rLIsP5NRu3zRZHyoJL+B9UhAc9cox9LwPlt4x0hiDTLpAjLjVrZK6tzmUm9zVFpf
-	 bcKrVYG44SRQZ1J8OgXe/Qu+g/ZH4DcLicDX9gxRakGBLXOdbsJQmKvFsuYA3Vn9o3TVG
-	 yKoQLuOXj2arzQ+vLPCvMaxlr+pAh9aX+MbTZV/SrkhPqHhqlZYtxFnpSywsqg7ucSDXi
-	 8ygxXAr/fkgFq/q1mcDIA09PC6+9ED5BYNhO/stHnRTX8RMZxbeTBg8AuotHad4qT7g==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=VbgrA0BhhyOaMNoYIr3wWIPZv+I5yFfOyDuxCpBBfGk=;
+	b=0dZRmh/fbGFrjt1WMKVkcDfP586Ajq28pcceuKblM28DhzTT5N+n2CFDZLF7TPN/wznO
+	 GgXVGoDULT5vAQzqEEo8lHgvN9/C+KsLuW+dnRuLDgi+PNWx3T4fflVb1peW3urqZ6Cat
+	 EjKCCi8YGa1Htbo11whuIl91HCuFNp0XiSR9N7kCRyOok/qIIgWjE8VhlMaJvIs02sFsG
+	 7yyH1UefY/G0YwB1dOHFsgjhhaV9ZR3BNccg89owmAXSrT5synkGZNT5zb1c5l5ZJFgVd
+	 8FGYjbebqWif8/pdn5n9YsJ4xAPoXSqUHRwRHOZlkZkbhb7R2QgFXnJmaTE4HJZ2ebg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ypFOmIcC;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wVTyJbIB;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F98606A321
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 06:12:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73F98606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB97606A31C
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 06:45:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAB97606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ypFOmIcC
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so936645eec.0
-        for <linux-media@vger.kernel.org>; Sun, 08 Nov 2026 22:12:36 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wVTyJbIB
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-492f563d1c6so94801f8f.3
+        for <linux-media@vger.kernel.org>; Sun, 08 Nov 2026 22:45:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794204756; x=1794809556; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1UcMxn0eRaSO2tdKlZvKawz2XVhbWZCZbyW9cb8JhqU=;
-        b=ypFOmIcCCXirRaYF2vctT7IyVr9bqprzHJYmx6d4kV/4990vsFXxGtvUxCVi88u2AA
-         mHsIy2gDoqHFC38an+MSkhl9DBiuDy7+bsFW5UI+XPNpuzydlV3bSXozkDCk/Ir8Aoz9
-         nB6VwmUJOpqPVywRdm/Djv9vFpv2Ze04xnlh4vZQVLynICxH1x72j+Cn2FY3+NrWhBFd
-         zErbr73yuYHBuiKSK0j/0t8vomotfpUcZE1LQOFXpE3WJdOxYIWmpupKs9xCx4gBpWJz
-         IVeRsvB5ZP4IdgiO2uIs9VPL65vdubBvZgSFFxf510mmZhV6i6uyFuS38wR7Ey4UgrHV
-         iOag==
+        d=gmail.com; s=20260707; t=1794206747; x=1794811547; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VbgrA0BhhyOaMNoYIr3wWIPZv+I5yFfOyDuxCpBBfGk=;
+        b=wVTyJbIBW8123YwTpvcYXtYZ2PFI3g3DMU5rLfnSrNe+HxYzRz+SKdSW1fiimbF32t
+         plqF1bSOfaXVme8V1AdPppWM+sVNPic0XqMKTs56dWyGdMo5PKa3aL+ZrCFlb7D+oDrj
+         FveVWWGHm4ABApszy5NPmEOT884aXB0s+eO4jfRhIzJX3TmkM/4M03qCEyCn24Lmrxe+
+         pZLVVhvkm2K3a2fY9Bs82fe0wRe+j0WAYw+trXLNoCQQuuNQTCm1RADlxpY++6iqlRAo
+         UOkbabAvXrf7/D9DnEE6s70XcI7pgicycuil9GZe8fhZ0+NP1FCH6XPvvYRI9pPyXA85
+         tgRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794204756; x=1794809556;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1UcMxn0eRaSO2tdKlZvKawz2XVhbWZCZbyW9cb8JhqU=;
-        b=d0XC1F9lR5D1jjA9gaDKk0qHwKnlkF0eGbH9APdXIoiQmLebSnRpFmCzWcsNQ0Q94t
-         5wsTTmtPTo8xt4wyAwQof+XOsxaVxmIk7jVyteFT5C+UsnBityhEie/yyE35TPjZ+NdR
-         qP8boOwciQ2Qs8mxIscuv0ztkw2uR0/xQiRI9zkEtNDPJxeDBvNLbTpfv8Hu2qoxuU4X
-         7nRzdx9r1d/L5QzLJ5iCINjYWvtTeAGpqP+gWyvkMDA4pzfiH7Ogd1Wenu+sPmrALOEt
-         saiaO3SND2W1blBKnBBbtD9fJljIM7mWBWY8CeA+XSEESh6jopJFMZwU2go62PuTOt88
-         l1gg==
-X-Forwarded-Encrypted: i=1; AL+hErGM763icmWz8bC2RGNlfmWwObsBJWYTiaLthx0fFj7miRwKWbhhIXn2/V0jqx4ghuKzcmdG/u84AkUVcQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/nqKOso8P5dgYCkH2wVSSqIHySUbRYsOdNmu/hL9VKiZ5nS9Xp
-	Jgz67/ynTff2eGspbZq6+g3nuyXD/1rh+osNMlL008y2f+I4jsTvfoMxsEAYqCE5Cbnpew==
-X-Gm-Gg: AYBFou1aTn2/LXWaTxMGEvBqidbatcUykSNx5UBy5FZdDpQfWbNTbZvsxiE2YAAsfnV
-	GllG7JWqKplLjernx19s1sHJoQE5l7cYcKmZGKGfCqzYDsBs1C3EoqAIVG4WsdbLtbiA7lJVtZQ
-	q60sUdtASm+vgLYty8T2aRq5r1Makg8i49y1xql6hUpHqRuRwVczT9a4riXId/BkHepEg5Exr2q
-	XZ7KkEr+YoK7hBWHHDQXBQ19SgOe/Dj0s6EVNUng5CD/lW+85IxZ/tKQR31AmBMHzC3RkiXyleg
-	29Tjz3AB6y2K8Ys40FnT/uRmdHZEoRA70/4k+FHZPjJpgQlI1bZBZcxk/qGKbwTB5TxMw7Pcn1r
-	sZbrkmFy/oXwDfqM8k2VLSfL9GmDgTdyJSPTiY3E977wLIUFrJnqabW3yVeDeAYpvUGSGw7uXAy
-	Doq5wVk0l6sKYDDtr7Mq2VCT7pGfwuqbNkLbxmlGASssg6q6T6dHdoixgh2f+GxJveVR51SwYko
-	8GfHxEd49pCiPpxFTpUtZZxKPHvGlleUOJVGKrTfqGSocqPP9CpK8K4j+Pf7G/8vtNz3zj2yCPe
-	q1nazeKEVUaRUNBIwXawEBH1uDIIumSyEf+5WE0hilPtt20crjjgAN0mlyZB7fjpuI2vP1IXirU
-	s7RT+iefQVH8N2PsEVWQeXXcS6SziG8Np9A==
-X-Received: by 2002:a05:7300:d20b:b0:36a:7b3c:4e0a with SMTP id 5a478bee46e88-372571d7f02mr4839228eec.24.1794204755480;
-        Sun, 08 Nov 2026 22:12:35 -0800 (PST)
-Received: from codespaces-88e7e5.mimvmn1ww3huhhjmzljqefhnig.rx.internal.cloudapp.net ([4.240.39.203])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265a16c49sm9835409eec.10.2026.11.08.22.12.32
+        d=1e100.net; s=20260707; t=1794206747; x=1794811547;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VbgrA0BhhyOaMNoYIr3wWIPZv+I5yFfOyDuxCpBBfGk=;
+        b=BhDgsFRMLTXqGgtFe02Bi4r0EwaP/P15ON+BKDuHS/61TQukYBEaZAf9PqOE8n9S3f
+         qFfNU6eKHlhNfiZkYBaiCq4HfEWw460yb0UOxlDno8Uajz0FrNMZJdb8dRrCB6sp4S9z
+         NtBxUx8qpyr7piWX03xVhE7B8Bi7Gnwi4M/R+X7sRbmV3ai1IcuYYEr0etg6YCCHsnGb
+         3bNVQmICZgL/T96UmLVKOswWaBP9UF0mfTNbcEBvfH647Ee0SGvh0TJ6cMc4tx6NfFMa
+         m6ohpCbmo0tms3wdnQc8tHLRDj2AWqn58bmabWXJIP2LB19V4Y35bI1O2CC26jKtACqP
+         pVkg==
+X-Forwarded-Encrypted: i=1; AL+hErHSGURE703mwlYFIqUEciHtzzmUkb31UdDhobpMhlzn4YIFu61tAiUBC+M7Fe44jkezUjLWsIyrAOrxRQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+AMrPtrojm3crpkX8P0pZc4BNIJuCHm0Ig/+EVTrjulGWSPGk/
+	4yqdvlbiXibveoQPRj7rr0fbSvUqR5WiMqjWx97ANegeDAAY97YA/NEX
+X-Gm-Gg: AYBFou1JgaK6uGEstxyPiwbhTsriK5VW1sfEnWVj+QBKvBV1SSIPEE7fXso3AEaQX2a
+	+el5R2tTkF8xIyNsW3DS/CwmEU9gDWZGLcqMcMiGAeD5H4gUwpQQOE/qmr2zk204tDViMra0n2V
+	sTBvTO6EZJ5WwQ5jYeTAnvVqXqJtAsQ1AnwXqDCPz9M7zyojQnf27FU0yUlR6eyYRGRUpyyLqXr
+	scSZ5Z/wbhgRmqqwDTjbsp4yUJrl5aUJKJULwaRa9/B7tkBwp0kdWZY/nxPUFid8pt2fKRy0sFv
+	pjlgHllHf3aTL63kSgvh7rVVMKxjsipJA5SE2nax0XpDJhKs+eJg3sfXhAy10lSl48B/cpehwik
+	FpShfDljJudjDysUvqw/aY+LbpYKNteoqCjSkGbsvsw2IwJi6IViHRH+BUudpW2+haPzI2XIJuU
+	HEEueAiAT3f4oND+3zwEB0oNB6woXClJWuLgkMJpKmpBeevc8XsvVjMzAxXeEuFhltMS+qge9xm
+	mJrryzTWQ9IfYbSkvvVnPYOk7USgYkZpvnf/+mxRTjUA8ApyPf660kOT3uymndrObfyEYw4V0KS
+	T+MnHA4e6+zX4SkjWTkd6EjezT56GUGvNALbZM8DTDsCYbralXWybdphYhTWL+hbUQ1slrP9OIL
+	IB9Mr9fnRbeI207LroEjf71qNH3D5f9Aw7oZ4Kv2rBOi1NjZxmkWsi4E0C5mdnu+ElOyuLxAw1G
+	RvQytazgZmSDI=
+X-Received: by 2002:a05:6000:383:b0:492:7d9c:fcf8 with SMTP id ffacd0b85a97d-49585bae5b9mr5438445f8f.49.1794206747118;
+        Sun, 08 Nov 2026 22:45:47 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597186eb9sm7827905f8f.35.2026.11.08.22.45.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 22:12:34 -0800 (PST)
-From: Lame Morupisi <lamemorupisi12@gmail.com>
-To: hansg@kernel.org
-Cc: mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	andy@kernel.org,
-	gregkh@linuxfoundation.org,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Lame Morupisi <lamemorupisi12@gmail.com>
-Subject: [PATCH v2] staging: media: atomisp: Clarify MIPI frame layout comment
-Date: Mon,  9 Nov 2026 06:12:23 +0000
-Message-ID: <20261109061223.17144-1-lamemorupisi12@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261108122840.85622-1-lamemorupisi12@gmail.com>
+        Sun, 08 Nov 2026 22:45:46 -0800 (PST)
+Date: Mon, 9 Nov 2026 09:45:42 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Lame Morupisi <lamemorupisi12@gmail.com>
+Cc: hansg@kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com,
+	andy@kernel.org, gregkh@linuxfoundation.org,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] staging: media: atomisp: Clarify MIPI frame layout
+ comment
+Message-ID: <avFsFu5YzloDMbNb@stanley.mountain>
 References: <20261108122840.85622-1-lamemorupisi12@gmail.com>
+ <20261109061223.17144-1-lamemorupisi12@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,33 +102,27 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109061223.17144-1-lamemorupisi12@gmail.com>
 
-Clarify the description of the MIPI frame memory layout by
-explaining the meaning of optional fields and payload words.
+On Mon, Nov 09, 2026 at 06:12:23AM +0000, Lame Morupisi wrote:
+> Clarify the description of the MIPI frame memory layout by
+> explaining the meaning of optional fields and payload words.
+> 
+> Leave the frame layout diagram unchanged to preserve its
+> existing representation.
+> 
+> Signed-off-by: Lame Morupisi <lamemorupisi12@gmail.com>
+> ---
 
-Leave the frame layout diagram unchanged to preserve its
-existing representation.
+Why are you sending a v2?
 
-Signed-off-by: Lame Morupisi <lamemorupisi12@gmail.com>
----
- drivers/staging/media/atomisp/pci/sh_css_mipi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+https://staticthinking.wordpress.com/2022/07/27/how-to-send-a-v2-patch/
 
-diff --git a/drivers/staging/media/atomisp/pci/sh_css_mipi.c b/drivers/staging/media/atomisp/pci/sh_css_mipi.c
-index 971b685cd..09c2b1286 100644
---- a/drivers/staging/media/atomisp/pci/sh_css_mipi.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css_mipi.c
-@@ -130,7 +130,8 @@ ia_css_mipi_frame_calculate_size(const unsigned int width,
- 		even_line_bytes = odd_line_bytes;
- 	}
- 
--	/*  a frame represented in memory:  ()- optional; data - payload words.
-+	/* Frame representation in memory: () denotes optional fields;
-+	 * data denotes payload words.
- 	*  addr		0	1	2	3	4	5	6	7:
- 	*  first	SOF	(SOL)	PACK_H	data	data	data	data	data
- 	*		data	data	data	data	data	data	data	data
--- 
-2.56.0
+The lines are not aligned now.
+
+regards,
+dan carpenter
+
 
