@@ -1,79 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794231840;
-	b=yTQp2YkSpmUbGK8yr81nlV2UrDuFC3PTAVY8UlCC5KcvH+0AEMziQDJTg3FgTkVkidP+
-	 TFR6SFic8KRyi2IDAaxmXrkZUC/zBTHlSTUSpkvqA/1D1eVbOaEf8YVbWeHsuYHamgPGY
-	 NUkDjoJBMGmy9JeE7nFF5A2sopUnyPU40adZ5kNqAX2nRwdKKrROc5g7WjfXS196PmFdB
-	 iBeQZTffSTwv4ZdiOIJhBNQ4GtiWI5/LcP/vUkJRVj0xFzfp6X6KWfilSerFl72ycYTTS
-	 gJ48kLp5NDq3O8RKLWfisdORMpgMaFXGiuhNn8NDS5i15gIi6O68gFdxjL2VZ8mHiAA==
+	t=1794231874;
+	b=asH8zvQdWA+z4C3VHacqDj74HLwLKkjRPydwrgB31uy97btCEzwyBNQpLczxyFGowoCD
+	 sKRHBkpOdFzPL8yqjmUNEql5EQy5cBMa3aCJCIDzPVSkp8jD9SDduNxsRWFQBp4BhoFLC
+	 v7gBgiHaz9pY/ajR3+csx9QzgNorFZE6enIZa1t1vFvs9uOJlVww5hHucyhZAM6OT+iv2
+	 AfY5kI2odjNxbi7W1jqmD4oLeUSFV8AcH6P8hiBXe851L64qCyPtgly7PqBlQ0mK8g4/4
+	 yfjM/TWLvutpdwRJV1Bg3HNm7lPqyHcb8hUmiO5dkTNcpcI2c4aXW79KFBypmhCfjmg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231840;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=uQPEtNnmLlScHzIoED0cbGAI+vw3fcSsbnPTSfV6adM=;
-	b=YzLO/F8t3ECGAqfBToNVaLHNS/GUpgLy47PzG4oqnsvTgpK4RJoiZDoJdD5U+Ac8CFJV
-	 EGa90TXcZcl6PQ/74KqNszvxm4je5IdmcQZjsGYaEexH5Rca0i/hPbFS46qadZmT75G0r
-	 WIdW1aCZsSAqyiSe5n9ahAHIsPStHonjbBU57HqoL7akHq87S4bMAvKJVbYYknWu8dfxK
-	 birbXi5G6sauwGO/SrYApsDbEYyo12tzh4n7bfaQEqpGHD7+DCMWNu4HejDbZ2mPAzOwK
-	 wppT9i6qecW5C6jnKdQuG2T1X08RFjjXzKgpJ5SBDkQmX3ABWGXPPIOwc7T6HLPu2nA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231874;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=bghOY7pp4PqTwolmTpdD1zvT8+4Tek4EN2nSOV+gjQQ=;
+	b=bca9f/IbXYKeMdZu20P/J4qBGSRcdzhVUDP4BAdf2wET9c+2b0QNPINcMGFE+dr5nNL1
+	 nlsS023QVezilaErctZqXLy1MoYumY+AHj/QefXRpRUW9tePL73yiSlw+HndBVChsQJOZ
+	 pnyHdxpvtIrsos8m9X9mlfakCpQGEo9V4mhodX/yqzbMh9kGeJYlbOkMWEMJkm98sRNl+
+	 cJb6IOX8d5VKsNCR0qRcroa9SLL3F/ky0cqPfdRhejCkbcYReGcdjjsY72MA1kYSx3k97
+	 a3sPeA1vnX5bIxC5VhyFBJiAEuIxFbZD6PG8BHUcDvANGybDH/XMJ1LduXGZjvagulA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFv5ScoH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3402606A32A;
-	Mon,  9 Nov 2026 13:43:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFv5ScoH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794231839;
-	b=lG96xWLSy5XFfp2TMOIYrBVkKaQ+VBADwRz4p/M2sUwZ5/zRbjGhLs8jHA/fTInXt5JH
-	 NHFM+sYE7acMZlympfex1cMEKiMDe6+On9ddowo53UTKLm9ALHa4dqFzVSuxLEULxy0Ki
-	 ZZ1qybt4b8//Izwevapqm3OmDfnYgWGyNW/v93AKFdCnNA2aupdg58NUpxkfIvx0mb8j3
-	 wZ9uh3gx0PfODpVk2rfNhbohELad4LNpwnBKzt+WwrGSRLMtoGicZIS0FhEDLnL4aQDlH
-	 KmlHqT6o+pWrzGWeaMG2sff4tfFiX/kYU6CYBkGZ+3sds15gvl9sDQ9MCdDPgt0Ixkw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794231839;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=uQPEtNnmLlScHzIoED0cbGAI+vw3fcSsbnPTSfV6adM=;
-	b=cqm9nPwAZPY2fjZiArfLYyw3VQ9gCurGoqhE4NwI3DMMQe5mz3jfA3IXNnVA7tFMjGmt
-	 ZbIK05gmypGp1djMFkrTtp+DJ1GHpwRVY3mLsGPmMDWTENX0Cib9vGuXhEzLjyVYvi4+O
-	 Hs93N0N5q5Qoj15r94F2/CS4uhh4Rz3L+WiXpqza8o5Ub+5+lHOD3yoLPfYIf83KuqIM5
-	 ugtHYRhmDUm8oJEzLQy7hFrTzJ4FadHkkXk5hvpRqJJ3HO/99wHzed43ITBilyEjPTu6v
-	 Kt7V3iXVH1x7w2IVBCOWO98hZhBz0E0UYhhfIYijp9QjGFeYQcWWxgMERGbQAdJHPsg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TImMvHFX;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=YvJeU9XV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5A2901F008A3;
-	Mon,  9 Nov 2026 13:43:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794231839;
-	bh=uQPEtNnmLlScHzIoED0cbGAI+vw3fcSsbnPTSfV6adM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=OFv5ScoHr6NEX0ohHKaYpAnOpZrheTiWrjXo99Rlw0ygg1U/Dn2oZPucD7D+8evGk
-	 3ZdZ6nLr/wwUQMeiwrO0+o3V4FNVo6AKlCD15SjOWuyiwb6dBPGZnlLzTGRsZQvJAq
-	 rcRTKisoxYnKf1AqpS5adK5I7K/uq0hrDQb95ZRoLAVRLBuq2paQZqIW2tjyQ+s8ol
-	 a5IWZTRu+qt+El3jWoPmmaqwBKUVVvrALlDIhQjxzRRg2Df/NeAtmCw2ybQ5w2EVdm
-	 HY2WvmPMfTprGz22zP/oPpqBZb14pNIwXoecP2b5HKsQnWLFs5UleEunL1Acfd0lXo
-	 u+z+Buf8ObpoA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DFA6F484C5;
-	Mon,  9 Nov 2026 13:43:57 +0000 (UTC)
-From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
-Date: Mon, 09 Nov 2026 16:43:53 +0300
-Subject: [PATCH 3/3] media: verisilicon: leave room for the JPEG header and
- one stream burst
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CE1606D831
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 13:44:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3CE1606D831
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TImMvHFX;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=YvJeU9XV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794231872;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bghOY7pp4PqTwolmTpdD1zvT8+4Tek4EN2nSOV+gjQQ=;
+	b=TImMvHFXpxlE3RZ/IESRjzXY1Bz3uz7xYgDzlWTn5NUo4sYbsDhB250NNUtPlMXxdG6DBc
+	WGLwO6SrQB9OF8tN3uQs4q77tBIalQZPSuzMxkuyVzd/PCVOY7m+CBdrO/4kVUtIPdziQv
+	zULBqgLEhzg8pLONbEyJmnj8v9psdCA=
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
+ [209.85.167.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-190-zo6j2nKvPqykIxF8yRxrhw-1; Mon, 09 Nov 2026 08:44:31 -0500
+X-MC-Unique: zo6j2nKvPqykIxF8yRxrhw-1
+X-Mimecast-MFC-AGG-ID: zo6j2nKvPqykIxF8yRxrhw_1794231871
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4e778acdbc6so1026087b6e.3
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 05:44:31 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794231871; cv=none;
+        d=google.com; s=arc-20260327;
+        b=i5Edj8ydylrKkSTk0YlMiCSECvrcOd1xhsTd4SlNfAeo5aGrN5RrpEZTMh69uEl4yR
+         Ug+3GaMyOfkAUQjATkC0I5ESGOtlUMMOMTRWr+7Z8IoAlqm1qXckKXqzIvZZZGacl2bA
+         twMnz0OA2kRRy5JWiqJuRTDkFY3SX6GOcndfveW36ES+qqVqu+ZmQJApm1At7geZnfDQ
+         +Wuk3ydAUSWSgD6NNUAUQv1kDJ+3ilAoAf4UF+Kf9vDiLZe9hiR2QDCflBK6vQY5GBRL
+         gD10XQ/8/Pa8yhD+f4QqtnVlVuYHVO0tZi2xeRPlRxzEalF1qu1P54CJcVZXxyR5qDD+
+         UsEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bghOY7pp4PqTwolmTpdD1zvT8+4Tek4EN2nSOV+gjQQ=;
+        fh=mhnpMF0VLzjhrNfP4oPW+V1+Ue4cvI2ILbIqpl7YsMo=;
+        b=pRyv5h+54XlGIdJzsKw81MWa/sUBjGzULNx1XK6ndLzu5QVRtLBUZWHxCrcdLRumjv
+         aZlBtlb9EA55c5ITUtCXZwRJvWTOG5b0bEj8Z3+ovw0WNwdJMRzr99Zr3vgvhf/1xeXw
+         C//uyILVGRqCnau3GZunCNs+FuuBCf2imhROJe97i0aVKvsNVsHvNPja5mCUAdItlu0/
+         mIW7/lOQUPq/jbct3x59nKGFTBWBnbFCjP8CCh4J0RjD+iGAnI8asU6/6kuQgsCIquuq
+         j8dm1VdCDRSOI+EFE8pgjOZirTdgunN2Ke6h59wLsknWIyUKjPkW4XVxa4HUt2t4yD+q
+         4QLQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794231871; x=1794836671; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bghOY7pp4PqTwolmTpdD1zvT8+4Tek4EN2nSOV+gjQQ=;
+        b=YvJeU9XVwfRisHtjyrCD+g+YGGD92Y4vF2X6jtfhy6ghLt1eFKkMwEPTldRNTAcYwI
+         GItFYO/P+dcWYTGtr8Jy81fAkwVcwgfbfg96bG+xjrb/OnsMZLb+hZW5MN3U/ZKjDpC0
+         BOcktFnfPUXucHdwF1+UR4tDqvpRyDMezw8t4YfkxvDhMjaakRyGd2bAZ87J4j/v9ugf
+         hJ2UzlhDvtuOcRc/LSpuVIkVHAqmBkkuIvITMWlo8AhVzCCkUw0C8YPHftpTxw4nf6N3
+         L7byH35l6GMhiO9yNgS5JmHr9mlH1MPlA50sUGYgHyc+7k5qS/eYAJOO66qnWTunj81x
+         ywUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794231871; x=1794836671;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bghOY7pp4PqTwolmTpdD1zvT8+4Tek4EN2nSOV+gjQQ=;
+        b=GwegRhryBZ119p5mfq3KbfTPjla63jp+EiQcPv5It1OvU+t9aFVcxtIVR7IbBA4QNG
+         l9Na8I72BYEU+u9A4urBImQLcG288eWpjAtQuvFdQFKSY2HigtCvRB3ewUmxH1l2+/ab
+         3vuvwF9PhzudZmxwexLSYvqHf45E6tIC2JNgynoHjBaaORoU1KSNWeMPbEKmQFDHPqnh
+         II1nUas+1QLtd7KOdqeJL3Z7/mkovcyVFsPuMwqMYm7yo00fIeFPnooBkjb4Jg6oWsp2
+         plVP9j0MrDxRrGRKeSfM5+npXGBMf0CtKXyZDpOl7Jju8KMyJmvcsOCxRsKvPcgL4mh3
+         2kRw==
+X-Forwarded-Encrypted: i=1; AL+hErEelIbPQLlL52DZimqgU6+O6YSqv+Pg3TpyO16qUAIjht735JlXHSTKUddvK20Geg5yMjeWz28xBlfNRA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z98UNlozTNmdqRybG7hLsBiLxmYIxXmttnh2TOAiWuB6grJt3w4
+	5U6JAIxXpEVrKqeY4Kfp30uLPh3mm8m0MwzJD6v/g05dREE5jLCUrCNqufJRZWkMCVfosEcnhTa
+	+qvghg3DFG6EV8eKnK/WCaOPoNTqmtLJrygnhYgpZhiP9jkO2Y7B5b7t2W5+hXftJHiTT8vD4j+
+	AkREYSbVokB+wSyXK4y9XeLvm7nO63NxXtMUOZ0JI=
+X-Gm-Gg: AYBFou2M2rnVAQc0Uzrpysga+5Rg8/Et1loJksEf5QEeyPlrw4xMpGH3PJrD4JQqZ5o
+	Nuq/JkMX7pW1ojr7vYJ5qF93eZeBWVXSZ3vHz3wPwIEAzY/4maIxe5sJgL3rxx2U5avfRV67KEo
+	9zL4CCvksjseytg08+vDfVDNVuhYYm7pKKMDX07OUpSDhJI5sxYDhi/rBI
+X-Received: by 2002:a05:6808:4fe9:b0:4d7:17d5:6c9b with SMTP id 5614622812f47-56814022659mr2709776b6e.9.1794231870735;
+        Mon, 09 Nov 2026 05:44:30 -0800 (PST)
+X-Received: by 2002:a05:6808:4fe9:b0:4d7:17d5:6c9b with SMTP id
+ 5614622812f47-56814022659mr2709756b6e.9.1794231870169; Mon, 09 Nov 2026
+ 05:44:30 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,96 +124,131 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-hantro-buflimit-v1-3-f0b86ce61e66@gmail.com>
-References: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
-In-Reply-To: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Chen-Yu Tsai <wenst@chromium.org>, 
- Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-media@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794231837; l=2875;
- i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
- bh=WFzfE2RiWdT+i+qq0glggXPv17AxZu0PiVwPxE5rxXQ=;
- b=pPK6FLWKeibNzXyvohaaL0PsnBvzKTougQAG6KwXp2yfxpo4tasR1lz+/mNE91PalLZ0uU93p
- 0Pp3dUaw9zCAA3hw1AA6gCnAy32OCAfz/TuRbgsnNesnOQZWA78mcPb
-X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
- pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
-X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
- auth_id=1409
-X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
-Reply-To: shomenkow@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <20261106131829.3228926-1-cui.tao@linux.dev> <20261106131829.3228926-3-cui.tao@linux.dev>
+ <1e18fcfd-785d-43cc-afd6-d181bf8305eb@amd.com> <CABdmKX0nCB2hT+iMh=BB-nC=fUBPof8YvjvO-gtEw+zcHZgvZA@mail.gmail.com>
+ <b0f530ef-bbfd-4112-aa51-82fdad6c4ba2@amd.com>
+In-Reply-To: <b0f530ef-bbfd-4112-aa51-82fdad6c4ba2@amd.com>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Mon, 9 Nov 2026 14:44:17 +0100
+X-Gm-Features: AclHuK-kxgj3T37bjFOZ7HtSClpdxsaDMPyjW53dccz7zE1_ZSRFcURRmSZwzSI
+Message-ID: <CADSE00L3AfcnfcboK1TdPQiW7ZW1KpxG70b1oyWFqpLciOG6ng@mail.gmail.com>
+Subject: Re: [PATCH 2/7] dma-buf/udmabuf: account the page array metadata to memcg
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: "T.J. Mercier" <tjmercier@google.com>, Tao Cui <cui.tao@linux.dev>, akpm@linux-foundation.org, 
+	dgilbert@interlog.com, mkp@kernel.org, loberman@redhat.com, 
+	jmeneghi@redhat.com, kraxel@redhat.com, vivek.kasireddy@intel.com, 
+	mst@redhat.com, jasowangio@gmail.com, eperezma@redhat.com, 
+	stefanha@redhat.com, sgarzare@redhat.com, rostedt@goodmis.org, 
+	vdonnefort@google.com, mhiramat@kernel.org, jgg@ziepe.ca, 
+	kevin.tian@intel.com, axboe@kernel.dk, linux-mm@kvack.org, 
+	James.Bottomley@hansenpartnership.com, sumit.semwal@linaro.org, 
+	phasta@kernel.org, joro@8bytes.org, will@kernel.org, 
+	linux-scsi@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+	kvm@vger.kernel.org, virtualization@lists.linux.dev, 
+	linux-trace-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+	io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bobbyeshleman@meta.com, mathieu.desnoyers@efficios.com, robin.murphy@arm.com, 
+	mason@kernel.org, harry@kernel.org, vbabka@suse.cz, cuitao@kylinos.cn
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Sergei Khomenkov <shomenkow@gmail.com>
+On Mon, Nov 9, 2026 at 11:56=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 11/6/26 18:25, T.J. Mercier wrote:
+> > On Fri, Nov 6, 2026 at 5:23=E2=80=AFAM Christian K=C3=B6nig <christian.=
+koenig@amd.com> wrote:
+> >>
+> >> On 11/6/26 14:18, Tao Cui wrote:
+> >>> From: Tao Cui <cuitao@kylinos.cn>
+> >>>
+> >>> udmabuf pins the pages of a memfd and hands them out as a dma-buf.  T=
+he
+> >>> data pages keep the accounting of the memfd they were instantiated in=
+,
+> >>> but the bookkeeping around them does not: the page pointer array and
+> >>> the pinned_folios array, both sized by the buffer page count, plus th=
+e
+> >>> transient folios array sized by the memfd folio count, are plain
+> >>> GFP_KERNEL.  A 1GB buffer costs about 4MB of uncharged SUnreclaim
+> >>> memory, and size_limit_mb defaults to INT_MAX.
+> >>>
+> >>> Charge the three kvmalloc allocations so the creator pays for the
+> >>> metadata it induces.  The system heap in the same subsystem already
+> >>> accounts its buffer allocation;
+> >
+> > Only if the mem_accounting param is set to true. We (Android)
+> > currently depend on it being disabled because system heap buffers
+> > don't have a single owner for their entire lifetime (ownership often
+> > changes immediately after they are allocated), and the kernel doesn't
+> > have the ability to switch who is charged for the buffer memory quite
+> > yet. Albert is working hard on it at the moment.
+>
+> Good point, making sure that Albert is on CC as well.
+>
+> So basically we not only need to charge the backing store of a DMA-buf to=
+ somebody else, but also the housekeeping overhead.
 
-hantro_try_fmt() keeps any non-zero sizeimage on the JPEG encoder's
-CAPTURE queue, however small, and hantro_buf_prepare() then accepts a
-plane of that size. hantro_jpeg_header_assemble() writes the 624-byte
-header into the plane with the CPU before the hardware starts, and a
-plane smaller than the header also makes the WARN_ON() in
-hantro_h1_jpeg_enc_set_buffers() and
-rockchip_vpu2_jpeg_enc_set_buffers() fire on every job, which userspace
-can trigger at will. After the header the encoder writes its stream in
-bursts, one of them even when the stream limit is 0; on the RK3026
-VEPU1 a burst is 64 bytes. A plane smaller than the header plus 64 bytes
-is therefore written past its end.
+For system heaps the housekeeping size is fixed at creation so it
+kindof fits the reservation model nicely. We'd only need it to account
+for the overhead (as part of the MEMCG_DMABUF stat probably).
 
-Raise a smaller request to header_size + 64, so that every plane the
-driver accepts holds the header and at least one such burst.
+>
+> Mhm, this here also complicates the charge transfer Albert is working on.
 
-Found with an LLM coding assistant while porting mainline Linux to a
-Rockchip RK3026 board (VEPU1); the assistant also drafted the code and
-this message. Tested on that board: a 640x480 CAPTURE format set with
-sizeimage 1, 600, 656 and 689 reads back 688, 688, 688 and 689, a
-656-byte DMABUF plane is then refused with EINVAL, and frames that do
-not fit a 688-byte plane stop exactly at its end and come back with the
-ERROR flag. A request of 600, now raised to 688, encodes with no
-warning; before this change it was kept, and the encode hit the
-WARN_ON() at hantro_h1_jpeg_enc.c:50 (hantro_h1_jpeg_enc_set_buffers(),
-reported in hantro_h1_jpeg_enc_run()). Also before it, with 32 and 8
-bytes after the header (a stream limit of 0), the encoder wrote one
-burst, 32 and 56 bytes past the plane. The burst size is measured there
-only; not tested on other SoCs.
+The transfer would just move the charge as a single unit. But yeah,
+the complexity will come from lazy exporters or any other exporter
+where the bookkeeping grows or changes.
 
-Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
----
- drivers/media/platform/verisilicon/hantro_v4l2.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+>
+> @Albert not something we need to take care about now, but please keep tha=
+t in mind while working on that stuff.
 
-diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 83af9fa1ce94..cc35beac8338 100644
---- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-+++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-@@ -394,6 +394,16 @@ static int hantro_try_fmt(const struct hantro_ctx *ctx,
- 		 */
- 		pix_mp->plane_fmt[0].sizeimage = fmt->header_size +
- 			pix_mp->width * pix_mp->height * fmt->max_depth;
-+	} else if (fmt->codec_mode == HANTRO_MODE_JPEG_ENC) {
-+		/*
-+		 * The JPEG encoder writes the header with the CPU, then the
-+		 * stream in bursts, one of them even when the stream limit
-+		 * is 0. Leave room for both; a burst is 64 bytes on the
-+		 * RK3026 VEPU1.
-+		 */
-+		pix_mp->plane_fmt[0].sizeimage =
-+			max_t(u32, pix_mp->plane_fmt[0].sizeimage,
-+			      fmt->header_size + 64);
- 	}
- 
- 	return 0;
+Noted. The issue already exists so my series does not make it worse. I
+will note this for a follow up series.
 
--- 
-2.53.0
+Thanks for tagging me!
 
+BR,
+Albert
+
+>
+> Regards,
+> Christian.
+>
+> >
+> > Could you update the message to note the mem_accounting param pls?
+> >
+> >>> the data pages here stay with the
+> >>> memfd.
+> >
+> > memfd / udmabuf is a little special because it uses shmem for the
+> > backing store, which is already tracked by memcg under all conditions
+> > (except hugetlb). We don't currently use udmabuf, so the lack of memcg
+> > charge transfer for udmabuf is not an issue. But once we get charge
+> > transfer working for the system heap it'd be good to follow up with
+> > udmabuf.
+> >
+> >> T.J. needs to take a look here, but I fear that this might break uAPI.
+> >
+> > Thanks for looping me in Christian. The buffer allocations cost
+> > gigabytes, but these metadata arrays are only 4MB per 1GB of buffer,
+> > so I don't expect charging them to break anyone. Leaving them
+> > uncharged is an accounting gap though, since someone could spam many
+> > udmabufs from the same memfd and only pay for the memfd pages once. So
+> > this change is ok with me.
+> >
+> >> A lot of the DMA-buf resources are intentionally not charged against m=
+emcg.
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> >>>
+> >>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> >
+> > With the commit message updated to mention the mem_accounting param:
+> > Reviewed-by: T.J. Mercier <tjmercier@google.com>
+>
 
