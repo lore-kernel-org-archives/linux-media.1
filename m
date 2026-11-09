@@ -1,71 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.82.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794265567;
-	b=clLI/8xna0QYCaUXNlFgeEzB9fUZZwWp/C1aVRITbLW9g/kMUnFjudeqwZfiYWqsof9I
-	 Yk3JBvDqrWU1HJHgTvpmuVw4sTX6OvmQfCMGGYBrra8iMqekrB5uKdB9HcMyU9BeTGhpp
-	 1kn/ANVo8oeiFrrVIVpW/enB7AM5jNSeNSUJutB2LONLpr0zvmbrgB8mbeu/Oo6JSkiZn
-	 IsEvghmMZmckVKPNDEUv1BOZHihAPS4MIoNSzWxsD6rHf2SySUWo2vlOfYosPc101oKeZ
-	 HgDMjO9jBgjSwDcPhkM8FgxYqwzTPiZQ+/G5H2ugU4958jC2x94gUwGaTmIEZat3Tog==
+	t=1794266190;
+	b=zRVGPdq1x0RHk3DTnyBZqeAhPT4Pc+eZlXWSj9NyLxd4kx595fQ7qe1RIqNIJU6cI4OC
+	 kGWeXU7pGhp5mTY9mxWaso9JPyYaJGwBvkDPsmdEhyNp/Hc6et6fL4NWvgdf7ObLQ7t0i
+	 /GZfzSZmJM5XIFqeWgqyancX97T+vPtHPWNmTpXMn1WrCxkrH9xLXVv0m+O735yo1PEay
+	 KnxUH7m2Af3UIU2/rWRnQFKG3v8Gj7o1g9MiDnlvQT2dOd/6of08GrbAnXhotyBH3pXh9
+	 u2ANrne3MH3SVsC5crzoPp58GcNo6mQZ6rsC7QWcOttVb6jnCsSrhJWH0qcJCJ5yeRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794265567;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=U1SHI1w/RnQ/LW4m+0Hh+qVKQdWDnUn2TmXmHO+DxG0=;
-	b=m7RrXt2/dOnqpD3j2ATXW4Ulq561tigr2812LNncWYrdc0fWYXsHizwugz/Oh938S5eL
-	 yYsT/WSEJkxp/Bxg991IKpQq2kSwoYndqE3Lo82oK5U+eX2yfuW3x8bTERbC9tkgUlTHw
-	 B4Baiw9tS4r0Cd1XTCrBWt+lUEITwLsH/80o7ckXmy8vJbqSVy5339T9PrixFwwlssqBO
-	 QCC3iUqI9PjF4EGIznxRo+Z8HgPKus/4eZg4Ihk7LNcnBoyfS4ym8g8LlBJBv61XOkIcZ
-	 KokdOtbCkZ16227orOwDBkEL4xOR1yVq3fLbresWoZUrJg63TpPtcTZaDrvC4scb8Kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794266190;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 References;
+	bh=ltnr/+G+3z7GhzFVAEBSNNIy+NSu2Lv4d3u3TtzEZtU=;
+	b=Kj2m9x2QrzIdK7KtoJ/JoQHJ7+lW0CUAIgnIkutoxVKeeVidzUIsVlFtthuzQMLuRqTO
+	 3HxU8K2yK7zsIKu3wQn6NpctQKbGocnC6PUrETu8ROct2GzZT2cJ5Tf9gqyeKOMRLEq3t
+	 wv3ikiuZjGcOXakjibhGCdd1i6R8Vbv8G4g+cgY8QsJq32x6MzoGEfVynXr9i9rDeTC2N
+	 icw7O5h43UzjNVc1F/Rp3qNlyuzLkAFsqUEye/Hr/jlbMD3Fn8KWomSxgf1eND3Kvv4zi
+	 EvU2yTGJoWLKmVhG2H+0Ax9LnATVleFmufAx1ZiaufIlXUldtlPC69mJegx6gckFqqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=RpIWK9rt;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=yahoo.pl;
+	spf=pass smtp.mailfrom=yahoo.pl;
+	dkim=pass header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=kxHFFzIF;
+	arc=none smtp.remote-ip=34.2.82.16
+Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08856606A325;
-	Mon,  9 Nov 2026 23:06:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08856606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE33606A321
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 23:16:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AE33606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=RpIWK9rt
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2AE0133D;
-	Tue, 10 Nov 2026 00:03:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794265416;
-	bh=5tzFgyfxwWQfocd3QLAWDXzBSro0If9o1QGzqiZw60s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RpIWK9rtwJGOC0ctrtUrhBeLe3+/F/uhCIiE/9ea5dwmr51jHsadpm3WCtISeY2I0
-	 GHRsGtUsWSkTlaLKEVluCdcq4XOc2t1E22Ua8NQSzAYjRp9kjM9574GprQasw9AV9H
-	 U3A+L5SO+r2vAPhM95uVHiLrWghHPtWoRxq/1qqY=
-Date: Tue, 10 Nov 2026 01:05:56 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: "G.N. Zhou (OSS)" <guoniu.zhou@oss.nxp.com>
-Cc: Frank Li <frank.li@nxp.com>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Rui Miguel Silva <rmfrfs@gmail.com>,
-	Purism Kernel Team <kernel@puri.sm>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Alice Yuan <alice.yuan@nxp.com>
-Subject: Re: [PATCH] media: imx-mipi-csis: add support for
- MEDIA_BUS_FMT_YUYV8_1X16
-Message-ID: <20261109230556.GA77654@killaraus.ideasonboard.com>
-References: <20261009-csis_sam-v1-1-81f2b0fb76ef@oss.nxp.com>
- <20261014215606.GB283442@killaraus.ideasonboard.com>
- <AMBPR04MB3355230D320B45E39F65B74126FA9C2@AMBPR04MB335523.eurprd04.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=kxHFFzIF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1794266187; bh=ltnr/+G+3z7GhzFVAEBSNNIy+NSu2Lv4d3u3TtzEZtU=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=kxHFFzIFI9s+fT2cRQiWF0EV2klmDt9uTiUbl94uKx5arcZ3JfOoSQYaXlXIgAYwgVP8TVBDCZFLID7Xm6F1gm0NUhz73kWLHRp/rHVC0Gwz3n3VKEaqAkn/6aZM36isosKymDATCuk2iplJy9q6qss9BSpeAkUYiYVjCzniOt8ySSEYf+JCqX/+aSfb08v/XdEQlDccX649FwvKpX7duk+zOhAj1BXSj8we2J8cuHSctbh7JkFnDLzkAJlARte7FhUxkSxmK0vtteAsKgLHsfAE9O1JhajBBx4ma/u1b8KTuhNEIine90ZB38i7ELBYNdp10R7+wgDz80VL7Hqutw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794266187; bh=ujjZToLGF/dNgRfErsyg9RSGiqWvxnqDWgUYtKWrwla=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=MdmLwmEDvwjvkg8E21jh8BkQamV1RCMgQOxWoBEAXIMJKa33bte1Sy+6R3Tgh71WGKHxvcWDBKFtIuCQ9jqYfgNI7cqp0qSlW0u5qLveF/gzSdaDdHOh7wPlgltwvwanjNBUiddBdrrIrTZhI/Y4ZrE2sXyBa1/IIc32vEpqZgNPFlJiWKaEoHOMngTfcnJspOesUVQLEPsi5rpLEPNOMu/V4GioNoU0zYHmqmAKqGXHkO1JHhYZ0kzJm48N/6PI+QAxDm3pR3VHfhPVD6eiLZeVf+BpZJZk+ygeRE79bse7HkXO1ehoD6fxFwItLxASsW0TH8SXet5mfFORkY5iYA==
+X-YMail-OSG: WSBXLAoVM1kzegwyILIQ4bV70tIvWNhLI47AQ.Purmnegym10mkmYYKfn0IwFQB
+ CkFKdTgKdqll3SgCXbR2lAlEMUOnzhwxaaukjM2_iTdWYLOphjiHTKycARpvYPYx027D19MWEp.h
+ adAmHWO_zZHQF7Kui47c6L52IsSB5CAFeNFyaS10torClpaZuMTn4vsDjcbY69N8kJEC3QYFbaqb
+ TlYHzqdQSZESiqaFJ_ZvLrb0VBMROAaIKQ3DfHth8j0gVXCMsik6WXKLBDGNl6s1T6mAYNkqzopq
+ H20W6GdeL0WgkEjCDS8VcFfByXRSn60BHiggkDDLhPPlPYr32LItnHGehnUT.ApmckXtHU_H4d_A
+ 5F7Kc8bLG.JBL6tXtdeYWDUyQX6csoVrWlyAqyMnA_KvG4HX0HKwMV2pA533vrHtDhTcNwzjmduI
+ biPlClb9bDmSmtAgOBXSn.a7GTN0cQ6zclZMFjLngCQKOTF9JqERQTcPBtXFrV1fvd6Ic4TudmzN
+ v9LeeO1LRrd.Ev8teEH4KnrfS44gpRyMFXrIQpzTvrDDNzQSf6.ESgAk7oi8I4G_3pLD_ICZ5y65
+ AcH0xEoD4bowoPHKcaEXXnuchQeEVMrieSdGxJzuJNLikOpFJdzVdwpNqL2MA7s.DPKh3KneWc.D
+ etK9ZNIFujdi.XSnZCv4tbNG4lDSvm0LAtMVq2P2BBM30NNRDdZ1e_ODPLsN7OchkFn4x.Pkhys9
+ Yjj8IRukB_u.FVjlOSxRYuMzmBTE2uv6oGI.wSCk1sfN4BBFemKkyONuiXGvQPt5KJwoDZGKkFjD
+ Cl.Y2MxgtS0P084r_vIJPUwOTQiJ.Hep98lTtonxZbVnv8uAFFB_v4T7W7N70PS3H8fC5Ezzo0pk
+ au_.Pa9dHtMkz9Lf66uCUz58KjHBTBsSyTQbUimrIkMLcCEpxVEb8.Lnkp49yAn_wI6XsSyYQVFF
+ w11IGjQcGVNjQTF6uOhB4KRGG1QxrfrLtUTTPy0YkQdRrBt4.yF6JeY0RyMd7kxqyKaLeeu5i3Mx
+ PuTsxRv.t9Lb8Zut_bVz30Wy0tfBBBRRRCa3ZxZ618KWINpG4w9auv_KPR2fjdp07RxLHorT7258
+ Q4_SSTIv0z6tOFFLvap0S1hppgOP6MgxjLMkxnLuAqpJRZb_.le31t1ZsgguSe3X39Bx6w.r28NM
+ F7Goy06xRFfftq2OmM5cRtBXzkJ5vubOLHG0iNNtSXU35eBPB5jhxLperQasEEJrhAl4LyvSDpxb
+ ey0v8g3wLkEVcxNF1VKh9wxMqVTYM3r1zhrpXVj8hK3ClupPO2y7eGsskG0WCiRo9QOrNkJrNfse
+ BnKOcdpqYlE42RGSY7cyndJQvqn1Q4P9YCq3rDjgD80uFJztjn0ljrC5b6rElV2qdYnyvjG5u9_1
+ EwQ05og.e0N7vEmZPCoj2RXiwqdD6Rbm592hTYHKo9BkW36ICbOajLUQxlnGOqvHao9cUUDOvvKp
+ KKF9B8emnYxvf_sriPC2kgHKO8SrhuoBlEGNYPq0t55XARtH.EZY_WHYndT8HgHNgIUoaAXWznov
+ xHeZOrGXoJQL_jsp06ZH_N1_0LY3_X4a50gjx5srUNRj.rafBq2jK7rktWgeU0hFAsjwoHjNfaZU
+ iznrmXo2bv9ynEFUM36I0az398EgIcRhdAM6.yIUJEC5BOUhAccjePhbfDMNkIoWhXh_eze1cFxy
+ 4A5uoZa5KimrJCusy5Xru4yZBN_vU_YVyUSEzURm8b.ElLyxj1pp4KW1NGK3CN22bfBMjJ27TNSY
+ Q7pjatwEyJWaVNWXb2Rwo1TQ7c3slosWYbHI9gavsqbNt_JJlBuiiOBHsMDcwqPgNTvdenJ5Hbcr
+ Y0duLk92idBNc9MA1l2U3PfS2CK7w3_IJfChF1blRybaMLxFUmDDHfIJ7JlhgQcUp24TGMdEqynQ
+ d161Ay1RLE4BrfZX0SJEvta01vmQv9eUstCjMY89IsfAoN42oqH7HEGWpvrx.YO8JSXY0VnM.Yri
+ YpfcfP4hzuC8mVjDWIvHwY2I-
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: 8f642e59-6e65-4565-a8a9-eba782ec6a9d
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-101 with HTTP; Mon, 9 Nov 2026 23:16:27 +0000
+Received: from dip144.lsn.ir2.yahoo.com ([87.248.99.153])
+          by hello (SMTP) with SMTP ID d24e8f6e67628daad9045ce19de4aea3;
+          Mon, 09 Nov 2026 23:16:22 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Date: Tue, 10 Nov 2026 00:16:20 +0100
+Subject: [PATCH] staging: media: av7110: remove commented-out code in
+ av7110_hw.c
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -75,76 +84,96 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <AMBPR04MB3355230D320B45E39F65B74126FA9C2@AMBPR04MB335523.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-av7110-hw-commented-dead-code-v1-1-3ef26d2673df@yahoo.pl>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw6CMBBG4Vchs3aSDgsuvopxUTq/MiYU0yKaE
+ N7doquTb3M2ykiGTOdqo4TVss2xQE4VhdHHO9i0mGpXNyLi2K/tkfHNYZ4mxAXKCq+FCg591w/
+ iusa1QuXxTLjZ5/e/XP/Or+GBsBxT2vcv1mReLYEAAAA=
+X-Change-ID: 20261110-av7110-hw-commented-dead-code-c989b1086071
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Tomasz Unger <tomasz.unger@yahoo.pl>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794266181; l=2420;
+ i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
+ bh=8L0SKizL+Q76ZAVeVC8cUXjbPIjPKGIzYD7kON3gByI=;
+ b=VIgdqiaP729AfNuiNU5zXY4DYf6KGLEQ/aE6L8JoWqUgBLZtvxAw+T4c4U08pZ/uQV/fPliXh
+ 4LrABBUUhPdDw8VB1zpCswjj5ewzw8qCWjQnOp1Xq8LpBNhazG4X55Q
+X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
+ pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
+References: <20261110-av7110-hw-commented-dead-code-v1-1-3ef26d2673df.ref@yahoo.pl>
 
-On Thu, Oct 15, 2026 at 03:31:53AM +0000, G.N. Zhou (OSS) wrote:
-> On Thursday, October 15, 2026 5:56 AM, Laurent Pinchart wrote:
-> > On Fri, Oct 09, 2026 at 06:58:41PM +0800, guoniu.zhou@oss.nxp.com wrote:
-> > > From: Alice Yuan <alice.yuan@nxp.com>
-> > >
-> > > Add MEDIA_BUS_FMT_YUYV8_1X16 to the list of supported bus formats.
-> > >
-> > > The format uses the same CSI-2 YUV422 8-bit data type and 16-bit
-> > > parallel bus width as MEDIA_BUS_FMT_UYVY8_1X16, but with a different
-> > > component ordering. Supporting YUYV allows sensors and bridge devices
-> > > that output YUYV formatted YUV422 data to be used with the i.MX MIPI
-> > > CSIS driver without requiring format conversion.
-> >
-> > What sensor(s) do you have in mind ? CSI-2 does not support other component
-> > orderings, the YUV4222_8B data type specifies the ordering on the bus as [U1,
-> > Y1, V1, Y2], and V4L2 maps that to MEDIA_BUS_FMT_UYVY8_1X16.
-> 
-> The sensor is the OV5640. Its driver already advertises MEDIA_BUS_FMT_YUYV8_1X16
-> for CSI-2 mode in mainline (ov5640.c, ov5640_csi2_formats[]). According to datasheet,
-> ov5640 ISP reorders YUV components via register 0x4300 before transmitting over the
-> CSI-2 link using the YUV422_8B data type. The CSIS itself is a pass-through — it does not
-> interpret or reorder pixel data, it just forwards whatever the sensor sends. Without
-> YUYV8_1X16 in the CSIS format table, media link validation fails when using the OV5640
-> in YUYV mode.
+Remove commented-out code from av7110_hw.c: two saa7146_setgpio()
+calls and an ARM_ClearIrq() call in av7110_bootarm(), and three
+dprintk() debug calls in __av7110_send_fw_cmd(), av7110_send_fw_cmd()
+and av7110_fw_cmd().
 
-That makes sense. Overall we may have been better off by not exposing
-MEDIA_BUS_FMT_YUYV8_1X16 in the ov5640 driver and relying on the DMA
-engine on the host side to handle different YUV formats, but as the
-driver exposes it, it makes sense to support it here too. I don't like
-that all CSI-2 receiver drivers would need to be patched to support
-this, but the number of YUV components ordering isn't as large as for
-CFA patterns, so we can live with it.
+All of these lines have been commented out since the beginning of git
+history (Linux 2.6.12-rc2). They serve no purpose and only clutter the
+source.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+---
+ drivers/staging/media/av7110/av7110_hw.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-> > > Signed-off-by: Alice Yuan <alice.yuan@nxp.com>
-> > > Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-> > > ---
-> > >  drivers/media/platform/nxp/imx-mipi-csis.c | 5 +++++
-> > >  1 file changed, 5 insertions(+)
-> > >
-> > > diff --git a/drivers/media/platform/nxp/imx-mipi-csis.c
-> > > b/drivers/media/platform/nxp/imx-mipi-csis.c
-> > > index 5f9691d76434..14a00b9fcedf 100644
-> > > --- a/drivers/media/platform/nxp/imx-mipi-csis.c
-> > > +++ b/drivers/media/platform/nxp/imx-mipi-csis.c
-> > > @@ -382,6 +382,11 @@ static const struct csis_pix_format
-> > mipi_csis_formats[] = {
-> > >             .output = MEDIA_BUS_FMT_UYVY8_1X16,
-> > >             .data_type = MIPI_CSI2_DT_YUV422_8B,
-> > >             .width = 16,
-> > > +   }, {
-> > > +           .code = MEDIA_BUS_FMT_YUYV8_1X16,
-> > > +           .output = MEDIA_BUS_FMT_YUYV8_1X16,
-> > > +           .data_type = MIPI_CSI2_DT_YUV422_8B,
-> > > +           .width = 16,
-> > >     },
-> > >     /* RGB formats. */
-> > >     {
-> > >
-> > > ---
-> > > base-commit: b38d06ad1e13c32970d58039c154f009b81a3368
-> > > change-id: 20261009-csis_sam-c5c10ed12322
+diff --git a/drivers/staging/media/av7110/av7110_hw.c b/drivers/staging/media/av7110/av7110_hw.c
+index b0bd7666d48b..13ed214e6ef9 100644
+--- a/drivers/staging/media/av7110/av7110_hw.c
++++ b/drivers/staging/media/av7110/av7110_hw.c
+@@ -209,8 +209,6 @@ int av7110_bootarm(struct av7110 *av7110)
+ 	/* boot */
+ 	dprintk(1, "load boot code\n");
+ 	saa7146_setgpio(dev, ARM_IRQ_LINE, SAA7146_GPIO_IRQLO);
+-	//saa7146_setgpio(dev, DEBI_DONE_LINE, SAA7146_GPIO_INPUT);
+-	//saa7146_setgpio(dev, 3, SAA7146_GPIO_INPUT);
+ 
+ 	ret = request_firmware(&fw, fw_name, &dev->pci->dev);
+ 	if (ret) {
+@@ -248,7 +246,6 @@ int av7110_bootarm(struct av7110 *av7110)
+ 	saa7146_setgpio(dev, RESET_LINE, SAA7146_GPIO_OUTHI);
+ 	msleep(30);	/* the firmware needs some time to initialize */
+ 
+-	//ARM_ClearIrq(av7110);
+ 	ARM_ResetMailBox(av7110);
+ 	SAA7146_ISR_CLEAR(av7110->dev, MASK_19 | MASK_03);
+ 	SAA7146_IER_ENABLE(av7110->dev, MASK_03);
+@@ -303,8 +300,6 @@ static int __av7110_send_fw_cmd(struct av7110 *av7110, u16 *buf, int length)
+ 	u32 stat;
+ 	int err;
+ 
+-//	dprintk(4, "%p\n", av7110);
+-
+ 	if (!av7110->arm_ready) {
+ 		dprintk(1, "arm not ready.\n");
+ 		return -ENXIO;
+@@ -430,8 +425,6 @@ static int av7110_send_fw_cmd(struct av7110 *av7110, u16 *buf, int length)
+ {
+ 	int ret;
+ 
+-//	dprintk(4, "%p\n", av7110);
+-
+ 	if (!av7110->arm_ready) {
+ 		dprintk(1, "arm not ready.\n");
+ 		return -1;
+@@ -452,8 +445,6 @@ int av7110_fw_cmd(struct av7110 *av7110, int type, int com, int num, ...)
+ 	u16 buf[MAX_XFER_SIZE];
+ 	int i, ret;
+ 
+-//	dprintk(4, "%p\n", av7110);
+-
+ 	if (2 + num > ARRAY_SIZE(buf)) {
+ 		pr_warn("%s(): len=%d is too big!\n", __func__, num);
+ 		return -EINVAL;
 
--- 
-Regards,
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261110-av7110-hw-commented-dead-code-c989b1086071
 
-Laurent Pinchart
+Best regards,
+--  
+Tomasz Unger <tomasz.unger@yahoo.pl>
+
