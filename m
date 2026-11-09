@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216239;
-	b=h8msgaTRq1K0d8izeQPjoYNmvTANHvPCXo2bFx0QD2BTIDO0cN1Liiq9fL4UeAheBpx1
-	 tqo45fqUqSf+tarwwhZhZSl92txxEVGizUO1jFaEUAiJNIhl1qaP5TWw3J6lXmkvxlhbS
-	 vKAicBaysGAvUCfinxM3+IbBn7mAxdyga2Rd+6tATVgbwuDVR0HviBMpmwqhLDgoj12wm
-	 g31qDWvGmmWZGUcJIvBeoqWtQv2Pu3/LvCiuVkO179qBE0fcdKIsRovPNmowYKMPWvXjM
-	 fQNwG+5bUKfhJe0uv/HreolDbwCMgRoDs0JDl39e5KGg3jcftvMmLI1fF7sk+5oIJGQ==
+	t=1794216375;
+	b=TWL+zofpk3aP7Y2iFfUF2KZhJdNPGoALFj39YH3Nf6q4NLoy7kNo5wbq5BShKE+jmAv5
+	 sMnnz8f3JybhAW++0g2osfDGUDJXwCSzXXsWBIjC73Z26ZJ6dxphRgD8g2PcZviv70mkQ
+	 H056ttS3skbgi2t3ek1YaWNdTWiPJrxylNK49gv2BZNx9qhfr763v2CUU5i7HPv0BFD+J
+	 h2Qtb2zGgVlrjps6ZihBy7Yli8NAelDSsE0NkIXr3MToZbF8eyO1aaWDqrURmcnFH4Q/v
+	 t3aMEec1Rxa2LJHjLkXPY0FL+P/DAveQUIbN4QIUByrcBPGN+fVjEkM9P23+bOm6yyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216239;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=HDwAzR2IrjNAkk6aLI7CjbKBnmUzvZC8rlHJAyt8QD0=;
-	b=hZttvPXtBEDmiYGScR84wcyGvVpgq6Rql/UHOi1HgxXhhUPXTsKQtLr9SRX+3zZehNTK
-	 SP08oaS+yat+W29EH69MiTfMiHxukscokabBii70IwwLYBeJqMDSnq0EM4CRbcxRelOWj
-	 lJvkJkOCrUw+0jdWSNRUUZy8+iRK3vWiwYbwzm4IeFLUoe+mfi9yVrJQ2+EXNCL3X+uEl
-	 341H4rEvBxEHFAYyQwQnvdF8m6LND7/uDDMcW5f1zw0XHMKedRiQyMrn45r/3Tv4wh2GG
-	 Rpyx4xmTO6gKkBIrWjzaQ974KWbyl5UBYIljSgRWAgoUMwiQ8vmE3msxrVpZOIvalTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216375;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=xCks8UrSH+VWc/F2r/+LPe2AEvt2gZs6moebIigxeqM=;
+	b=5QbetClr+Mhocd/dB7q+uJys5CHSEyAvvXOts01ADHo6tWq0G+h+BvN4lm4CocV2Grn+
+	 qkNPlvMPZd31Pf0U5x3aqdMp3hpYLhjkubNWNm477IXH069F+3geh0W8XQk/V0qNDt8dK
+	 kthNXoV7JooFRspdApnmhVBkgYM3Ew8z0xXnNHga/8246wM7lUTKr5Pdnj2lxOU+VGejC
+	 iHM2YhXsLznzTLrZ6f/Dz67d4+WADJL8PegCWi5GkJVAkMi5+uSkKd13j/4EgDzbpv43q
+	 cuiNRgZTLO8MuFGyB1RrwDzXY7KtRNzofb3gyTutXXqW1IlRi8lPTL2G7eq+B9krA3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lfFYjeHw;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dc3ekRzl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74127606A32A;
-	Mon,  9 Nov 2026 09:23:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74127606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D765F606A333
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 09:26:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lfFYjeHw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794216239; x=1825752239;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=jl/wyNGwoFZHG71iF6sIRuGXlc8Flt2IukMC3n54hJ8=;
-  b=lfFYjeHwhrDDlEcdtD68qcr3kIklNA+Mwrf9lm1ydsZzhPhPaXe30v5Q
-   u1ar5JoQ8ZqbnPFezqpBJ+C+Of46K4ktS2B+XudiJon1L9jI6GzyKsAE8
-   9k1tl0qTSYABDBwvi4Vkl8D0jU/BoQqFzyGlI6Bxg0qc3XLYzNOObVjh8
-   tklPTOfgj3yE06bV26lsV9HpcfqUnEwxJvkzyqqNV2SEnKuakOtUzTEde
-   VvWKZ2AWz8JiLzHDA0OpJHFP/q27I4dfWjF4O4CZo7dOsWFW3+aVPsJb5
-   zfFvcjN6uHoXJvpRZUw6nxHfSZMUDSsQb2e7fN7UG3rKyaohtM4pe6+OC
-   g==;
-X-CSE-ConnectionGUID: rdp67H5LTo61xxFZTFGyuw==
-X-CSE-MsgGUID: 3//OFI5MQm2yg/NGngZiNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2974277"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2974277"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 01:23:58 -0800
-X-CSE-ConnectionGUID: 7zoMaFEDRKGaQeQRKa9+Sg==
-X-CSE-MsgGUID: +t+NodOhTaaYH1IlNKIuMQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="8004237"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.119])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 01:23:56 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 24E2C121B96;
-	Mon, 09 Nov 2026 11:23:54 +0200 (EET)
-Date: Mon, 9 Nov 2026 11:23:54 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: DelaySystem@tubot.lat
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	mchehab@kernel.org
-Subject: Re: [PATCH v2] media: ipu6: declare firmware files with
- MODULE_FIRMWARE
-Message-ID: <avGRKmGuMCfR4WeI@kekkonen.localdomain>
-References: <20261107-batch1-s1-ipu6-fw-v2-1-0e8567a1aefa@tubot.lat>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dc3ekRzl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47B21F008BC
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 09:26:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794216374;
+	bh=xCks8UrSH+VWc/F2r/+LPe2AEvt2gZs6moebIigxeqM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=dc3ekRzl9jhlTGykBc6MsS/EYBkAqbrpUtBfS/eZW8F7HLXGB3/n90cYR558neyKy
+	 l6aZ7sJvmbZCIE252dc4Z7ccHWBxO0NnECDb+N1ptCSoXmBQB9Y+L/pgLKw5XOTpWi
+	 i+/VnRz9D/1jJKiiY07bJJtOD4G7MWERUFPWrpAYmyuv+hCYfEqwsIkydTPmDnpIkU
+	 PQl/Yi5d/rLb8qzjFAwMIAZigZu4rhkryZ5741g3/LtBprAT4kQLlhhtMiUY2tss8p
+	 dNo/j5PQ4zqfvRMD5WkPd6h1vUKEPQFNgAuyyrNASsxApKhaAgOUcSEhS7Fz0TqYjn
+	 weeVNUewkxvbA==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5c1479be604so361500e87.1
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 01:26:14 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEE9OwqlSBVAzoNoX4D0uE7pY1ME8VJc62Fco9lpkfXlYQrDawVFaxgqCeOgjqqjG/kk4vKKps8lv7sVw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FT0moAIAzTEfQ0sMHXonF3S79ny57sttqYURykql1/Wd43/KY
+	0+rCvNhz+ktnF6OpUMXFmxL8rpnXQfJXDeheL0EqFBfpxouYvgCZzH1JVWncUX74GjxmrGahCBL
+	qg1/OU3ATMhas4fPcAG5A56+wNuOGDEU=
+X-Received: by 2002:a05:6512:3ca9:b0:5bf:a209:f81f with SMTP id
+ 2adb3069b0e04-5c14bffe580mr845244e87.37.1794216373494; Mon, 09 Nov 2026
+ 01:26:13 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,57 +59,46 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107-batch1-s1-ipu6-fw-v2-1-0e8567a1aefa@tubot.lat>
+References: <20261105231626.7152-1-devnexen@gmail.com>
+In-Reply-To: <20261105231626.7152-1-devnexen@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 9 Nov 2026 10:26:01 +0100
+X-Gmail-Original-Message-ID: <CAD++jLksFHZRFCk9JWQz+Kec-Gjx0dEXchUfLuTewJvOx-dnUw@mail.gmail.com>
+X-Gm-Features: AclHuK_9Rmp9F6cTuV3nG0AEgFGsWirUN0agYA9OdNz8NRGFTWTf4-hUbCEhoyQ
+Message-ID: <CAD++jLksFHZRFCk9JWQz+Kec-Gjx0dEXchUfLuTewJvOx-dnUw@mail.gmail.com>
+Subject: Re: [PATCH v2] media: mali-c55: Require an enabled link to start a
+ video node
+To: David Carlier <devnexen@gmail.com>
+Cc: jacopo.mondi@ideasonboard.com, dan.scally@ideasonboard.com, 
+	nayden.kanchev@arm.com, mchehab@kernel.org, hverkuil+cisco@kernel.org, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Fri, Nov 6, 2026 at 12:16=E2=80=AFAM David Carlier <devnexen@gmail.com> =
+wrote:
 
-On Sat, Nov 07, 2026 at 09:04:40PM -0800, DelaySystem via B4 Relay wrote:
-> From: DelaySystem <DelaySystem@tubot.lat>
-> 
-> The driver requests one of eight firmware blobs at runtime depending on
-> the detected SoC (IPU6, IPU6SE, IPU6EP, IPU6EPADLN, IPU6EPMTL, IPU7,
-> IPU7P5 or IPU8), selected through isp->cpd_fw_name, but never declares
-> them.  As a result modinfo shows no firmware: lines and initramfs
-> generators cannot pick up the dependency automatically.
-> 
-> Add MODULE_FIRMWARE() for every blob the driver can request.
-> 
-> Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> Link: https://lore.kernel.org/all/apqB28RBDZV4BlDZ@kekkonen.localdomain/
-> Signed-off-by: DelaySystem <DelaySystem@tubot.lat>
+> mali_c55_pipeline_ready() skips queues whose link is disabled, but such
+> a queue can still start streaming on its own, as the video node pads
+> lack MEDIA_PAD_FL_MUST_CONNECT. Stopping it later sees a ready pipeline
+> and disables the ISP under the connected queues still capturing.
+>
+> Mark the video node pads MUST_CONNECT so that starting a disconnected
+> node fails with -ENOLINK.
+>
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> Signed-off-by: David Carlier <devnexen@gmail.com>
 
-Could we have a real name here? Same for From:.
+It checks out:
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-> ---
 > Changes in v2:
-> - Resend with corrected Cc list (v1 accidentally reached only Sakari and linux-kernel: repeated --cc flags do not accumulate in b4); no code change.
-> - Adds linux-media@vger.kernel.org and Mauro Carvalho Chehab to Cc.
-> - Link to v1: https://patch.msgid.link/20261107-batch1-s1-ipu6-fw-v1-1-1d5323aff7b2@tubot.lat
-> ---
->  drivers/media/pci/intel/ipu6/ipu6.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-> index cdf812c02960..ec2a9c2bf587 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6.c
-> @@ -1028,3 +1028,11 @@ MODULE_AUTHOR("Yunliang Ding <yunliang.ding@intel.com>");
->  MODULE_AUTHOR("Hongju Wang");
->  MODULE_LICENSE("GPL");
->  MODULE_DESCRIPTION("Intel IPU6 PCI driver");
-> +MODULE_FIRMWARE(IPU6SE_FIRMWARE_NAME);
-> +MODULE_FIRMWARE(IPU6EP_FIRMWARE_NAME);
-> +MODULE_FIRMWARE(IPU6_FIRMWARE_NAME);
-> +MODULE_FIRMWARE(IPU6EPMTL_FIRMWARE_NAME);
-> +MODULE_FIRMWARE(IPU6EPADLN_FIRMWARE_NAME);
-> +MODULE_FIRMWARE(IPU7_FIRMWARE_NAME);
-> +MODULE_FIRMWARE(IPU7P5_FIRMWARE_NAME);
-> +MODULE_FIRMWARE(IPU8_FIRMWARE_NAME);
-> 
+> - Add missing Signed-off-by.
+> - Cc stable, as d5f281f3dd29 is in the stable tree.
 
--- 
-Regards,
+No Cc: stable@vger.kernel.org actually added?
 
-Sakari Ailus
+But Jacopo can certainly add that when applying the patch.
+
+Yours,
+Linus Walleij
