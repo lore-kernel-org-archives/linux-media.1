@@ -1,109 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794200947;
-	b=obaFBlhf8deLemHRuz1WNUyKUzbIONsw+yIBScs+7MkJQIf2d1XdWrz+5IJbtzVdM1aX
-	 fSdJ31bk+ltV2UUZi+x2t/FomTbbRmEfyrqUD6YXpbUfjbE2gcJlisjrXwBVnfhXYMsAw
-	 ICeSsCGMGDepLseNsjAyxMVMmDs08Blo5qFxbyGxydojO9ixb9nJHlahvXQm7XCFuCG3o
-	 sjvmXOusUNiNtQrorM/gkERHwjCI3IrVAZbG2B8m3wbKR25wQWXImt9QeN+pAjZWxS6eB
-	 4GxQvJUqVReaTer0GZkazGIUBhXnXwmU7hLNGTfqWAxEwE9o76oMvEMKpVCqEZu3dsg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794200947;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=BkcR+ZLxe9zkWgjsfqjrBRDG0Uq1k3350+T8Vgf63os=;
-	b=asu0sjRybT0Vg9iearcajDiXKE2F7NvE0lfH5HiiKXqhScnQmfVwdGBFj/aI5Sg5+COs
-	 ZTnpnkaq6Zz31SYeM7MO5eJnZTmkTY1CiEicIumB4B1CX/MCeeacKwJ8CprDSd1F6WWnc
-	 OEtR4YVRDzFlKuBPf3hJ9gz9PsZbx4YC8HCeT6EdqBnD/iowQuWCjlRSjjWGnoRXX6I0y
-	 sj5bVAu1c94Uo99i/1B8+eZc4tbQEOd1esxEZMJH2lWIltWO9jusk/unbRsnali6Y3qg/
-	 1DVqBvB+SAnyITjepjBAzdkgos1fAQs8/R/MMqGJShMHj1pMsMUY7AdRLF2ovUdaSMw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NFONTcJy;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Aejwbafv;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.42.132
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794202149;
+	b=JY7o0TIFEGVTqhEjQcIogS9vZ0lngbs1gA6I0DPxi1CErHCd9TSSTkC6lgn2pjg/JB2k
+	 2Nq57EAr3kgF6667r3Jc8vRuvLvledWcPCf3tSIVil28mIcShSxmFOYupv3D3GyqKJ3qP
+	 kuStu2hQYc7sX3TsACQQwcTifYtzEitSgAmqCVWe9bAwqfO8loMGrPZMJEhtvQN4+IL80
+	 87IOkboYTMA+QbXtj5hP1QVeF3bIV4hHXuc3Whr52O3RIErvBzGxp++uAwMifEBbDk/Jc
+	 d0xKjvppYmIHtouI5eLEBRqUxMkunxdcuW5edjpX4qTE3vdL6VuXPfC32hUb3xat1bA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794202149;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ZPK3G6WcUNJm/NBQA6x3rnmngrLs4UuomZbHOqt+qaE=;
+	b=10oyLveAFavSNJCtW2uScRZ73+Wd0qMqUDDHdVdp1huWBvuy7FDHAdZZ4eAGQpvMoBNa
+	 3g0MbLR9XcXGtubp79igGsrAf1NNMwMxnoq+XteGbNlArZZeb7tLnFzNhB6NiUuFwzFDk
+	 V+ZrWNSjDTeLL2X5ELtBJu1EKEUaNi9iSCfgxb+ZFbLO2VPkSybJvAKvYM+uJktraqw07
+	 j1HhrGG3y5llLiEbUMl46PpiDvxCJR9lRtrwtmmslRpPDCZkWZhDsGyNli5K3uhT8vCMi
+	 a7/+kqZkIfm0+t0v5Cbt+wzQFWyHwN02G9Fm3AAWeP7hWNB8HWIrvAXOk2obQqntj9Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chipsnmedia.com;
+	spf=fail smtp.mailfrom=chipsnmedia.com;
+	dkim=pass header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=x1Pn3Bsb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.42.132
+Received: from SLXP216CU001.outbound.protection.outlook.com (mail-koreacentralazon11021132.outbound.protection.outlook.com [40.107.42.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72E4606A325
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 05:09:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D72E4606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E804606A31C;
+	Mon,  9 Nov 2026 05:29:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E804606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NFONTcJy;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Aejwbafv
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A93JwZ12745446
-	for <linux-media@vger.kernel.org>; Mon, 9 Nov 2026 05:09:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BkcR+ZLxe9zkWgjsfqjrBRDG0Uq1k3350+T8Vgf63os=; b=NFONTcJy06KvrYNb
-	kPgmVLAnfo9tslTRz08wE5X8JMZb4lR5YbIdbZzRF5aveTd0TftSx062FELQzi6c
-	IfHRD5hn68H0kORzitp8SCa1xOncIabq/qhPaFbkgWG1zCEVW88K9SqrCYB8oC5V
-	Vx+QscZ1aBVgGVxUQaoI2jYqRe5gHqVc2i2CYEvO/pqyKjyQE24kyfhUQ7TG6yJw
-	Dp4fRMoL08Rce9q1RL3lE8L0+8arwi8SJLwD2REXpzffLc8vu0BK0Q5FInzPMC8k
-	uzaPHxpIR7iWSNVTTTBpTuC50dQjOwt48tCFTJT1v40CsaNLF8QaPsw/k0buIEdY
-	eoBcQw==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsvrevm5e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 05:09:05 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36de26cb4b3so618410eec.1
-        for <linux-media@vger.kernel.org>; Sun, 08 Nov 2026 21:09:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794200945; x=1794805745; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BkcR+ZLxe9zkWgjsfqjrBRDG0Uq1k3350+T8Vgf63os=;
-        b=AejwbafvTvZqvQtYsrWknIjFUJpMuC9QMmgYNXnKxU7oOpTSPKlm1RJcadc4iVGXRc
-         cNSg//g4BJgpyap7jlLv01fAD3N75FlopMm2TezqQYSEUnTT7xsbSHFXNkbO57bGfaxq
-         yuQD7gwjoIg7JCgeD9jP6MK7RNJl+DEMDaKuI3T9X5XhG9+ZVjhqSoN07XssEmE+j9H6
-         tmbIJrWm5i1XJMiSt4B6eCBbA1PUq4nG4GhHSKy/FdrVhnpg4/mDPjHBwQaS71Mnwq+E
-         wbl1KvgByrYxxAeYCxXHfFtcdqRjMw6eRTx1LJRoRb7dT+wb1W97PbLsqXMN2l5b8Dz6
-         Dipw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794200945; x=1794805745;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BkcR+ZLxe9zkWgjsfqjrBRDG0Uq1k3350+T8Vgf63os=;
-        b=mD5HxJqZoqspO06LC6NRYNlhIo5RGpklEbWEQkgGsPC5uOArYA8n8zKKHKDLPMtkAl
-         mC+Xt+AVGBKfwk6ZJMgWw7W3UqOYkF+n4okQKNyDyFtjaaXhJESEr/gizbo4FQATlvLW
-         lGdOshtzJb614KdFCfkJmogmKKiQoLidWzYxCWZkN/fhDoQ/jAJAT/d7t5wD9I445EfT
-         4Uq3UjwawJqzzAnyFloYq2xZJ1kn1M/ydtKq3ejae6p7OjnBHjg8pa7zIIszYKzjASEL
-         ZOOVedp7tR+r4uhSG8dR5jnxtwM1FrY5+9pjXHH84Q82Nv6dX980EhMT7qZA39pEl+8I
-         WMCQ==
-X-Gm-Message-State: APuU4Z+SZRqEdGbTyuU5EcvCM8WCIMSIRmHGX4cI+kR1FMD1r/FpasAd
-	1y3rZ9orukISddCFZvvL4KcTIRxlO2oydQu2t7D4xUG+IWkfP76o1TDo112kmTzJUmuNPAp/yVJ
-	QngTH01DQsnwt9dX18DQYMUmvbJyWZlgOs7MvG6OF2wldzgOqhOvwdfZVuvkGmsMFyw==
-X-Gm-Gg: AYBFou2//oUzm6lgPUzq9jwVlABurR+o2LBhHs1gSzSao9aOLLaUMDR1qHodqYYqRK5
-	H9zZpYBpM7Sx9Cra57s2tl1vXRcsBxxsMRnLu8m8dsiAJ71NVY6n9w81Io94cUEq7CaOHj1Gjvq
-	+Gk6IIsWHVpbyRzmixJenqDle+59u7fohjFu6Qj8KIZlLLevOqSg+JrqvIkW91l5xlVuVVDKr0l
-	+Vcl1SRND18xzjjySI8MWwM9mIFW+Ah6aDZUlmhgoSCVWCsonwSeCVW+gj4tujPkMEcnAltOy5J
-	SAPXECvitSsAiPEi86mIH+zeAukTtD74ZqtFrYa/whyKrcCsdjTOp4oTsI2HEqY3D6N5Y3mWAEw
-	YQ4iMoZf3X88QVV+XP7zI6FH+UIkpu7QkYy2+gTr3jysjKqpnKfXIE/LMqIWNAlFfs01mvRbgIo
-	79MDA=
-X-Received: by 2002:a05:7301:fc0c:b0:369:f961:ccf8 with SMTP id 5a478bee46e88-37256bf3bc4mr5155110eec.19.1794200945073;
-        Sun, 08 Nov 2026 21:09:05 -0800 (PST)
-X-Received: by 2002:a05:7301:fc0c:b0:369:f961:ccf8 with SMTP id 5a478bee46e88-37256bf3bc4mr5155084eec.19.1794200944468;
-        Sun, 08 Nov 2026 21:09:04 -0800 (PST)
-Received: from [10.204.100.41] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372669d2826sm10522367eec.29.2026.11.08.21.08.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Nov 2026 21:09:03 -0800 (PST)
-Message-ID: <831090d5-57c6-46dd-559a-bd6abebb982c@oss.qualcomm.com>
-Date: Mon, 9 Nov 2026 10:38:57 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=x1Pn3Bsb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lSStbsuGLfKAPCnwjwxWMVPXlVXT8pKoPRxgR3+q8IFUm0HIisctqWyJuqb2WrN6/hNTLEJAFuGtkoDigc1kQFDCCDs0IcJLA75KNFIUwyCl3O/oa6CTp8b+nmcNssDSUtj+zeYSn8xnzkh+7+t2rRToV7xsiMfwT2+lNmsz4T9PFv4++lqXuwEGGSwut2rhXWWgdz2jb1guyJodtNjgcaisWjFje9PNSOcZPL+sIuGauTpYBN4BztMacSem3domiuGYJ3+u5XkxWNl4+YJvhKRmucxF1/WU6TinjerNnvBKKvKnVxrboIfZSJPKRKRTKQ7pFewG+Jgg7a13XMwN4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZPK3G6WcUNJm/NBQA6x3rnmngrLs4UuomZbHOqt+qaE=;
+ b=oKkyu1WVmg8gfGmv27sFbif5fWi3GSo8a+Rg1XUcSlJlp5scrTFz5nLg24O2lZ/2vZCNH/il9Tm24LcipuusefYPohaIVKJfLSU71jejuni5Vx6WcuG/itL+L1pYZMJRXEC1eYWue42po3bEYY7hcnOWEIrQ20ie1QtatT5TrbEUwCbdwodwwZl68P2pplkujzU3zHRMSOaKZEp96NpOUTpVox/Ani6oHenwBhQqcqPM4toilOyRWbBS2jAOVl0Inn0YwOtbXhSp/QPVUqYkrKQ7l/jAvEAFMhc0X6e67rCe9e/QtjWHLFg0mJ5xaSASWD4AivdS3RvOUNGCaJs02w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
+ header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZPK3G6WcUNJm/NBQA6x3rnmngrLs4UuomZbHOqt+qaE=;
+ b=x1Pn3BsbU1u0x0c2KUOhEgcm4fgyxUTEZV+F6E0+RiPOP2Th+U/Ibb+9Bz7dhqstNFAYb6bEEHSuCC/cGjomWSeG657dgkaIVMHsRnMCnno/HVebvzI2xyygYth6quCdRxFV4EXunGzexeewGGZTQtG50AlErrTU6MmUes5yg0yd9Q4MqBVNqeDV8MKdpZqA6lDWh1xRi6WuP4vpiNH9VG2DbPO7tXqqclDF3ES278nB9ZKegOqqNF76LEMiNUdL654oWgS6ezhCCK9s4gm2gX0glsDhfRi1rkyKgBB2XjHZPXG1ErJPTbNCuHhBQvUlkiUoRwrMC2cjnFZ7Yr7SrA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
+Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM (2603:1096:101:f::14) by
+ PUVP216MB596218.KORP216.PROD.OUTLOOK.COM (2603:1096:301:173::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
+ 2026 05:29:03 +0000
+Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
+ ([fe80::8f6c:834c:6cef:7be]) by SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
+ ([fe80::8f6c:834c:6cef:7be%5]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
+ 05:29:03 +0000
+From: "Jackson.lee" <jackson.lee@chipsnmedia.com>
+To: mchehab@kernel.org,
+	hverkuil-cisco@xs4all.nl,
+	nicolas.dufresne@collabora.com,
+	bob.beckett@collabora.com
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	jackson.lee@chipsnmedia.com,
+	lafley.kim@chipsnmedia.com,
+	b-brnich@ti.com,
+	hverkuil@xs4all.nl,
+	nas.chung@chipsnmedia.com
+Subject: [PATCH v2 0/9] fix decoder corruption, stalls and seek issues
+Date: Mon,  9 Nov 2026 14:28:44 +0900
+Message-Id: <20261109052853.110-1-jackson.lee@chipsnmedia.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SL2P216CA0135.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:1::14) To SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:f::14)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -113,256 +102,178 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH 3/3] media: iris: Fix use-after-free on unbind with open
- sessions
-Content-Language: en-US
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Hungyu Lin <dennylin0707@gmail.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>, stable@vger.kernel.org
-References: <20261017-iris-handle-unbind-v1-0-7809148eb90f@oss.qualcomm.com>
- <2rWHCgRwgvQ8e4bhpYnYDjIzh1pjQNSNjdBFELmGe_h6iZzVLuoQDpUPAD64feN0mYHgyoDf3AYwIu-5ilkZdA==@protonmail.internalid>
- <20261017-iris-handle-unbind-v1-3-7809148eb90f@oss.qualcomm.com>
- <46e9506d-1eae-48d4-803d-d731d85fd376@kernel.org>
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <46e9506d-1eae-48d4-803d-d731d85fd376@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAyMCBTYWx0ZWRfX1Xa3JIy2S+ON
- xf68iomwu7Ub35N8AsLr9RdaaBaXcoIc7LB90tSyXX37YeD+5p3AsjKKKh/YZdUJq91usKPUsJ9
- jhueggPrGO+4uKnY4DlH9aPA1A/uixE=
-X-Proofpoint-GUID: pUjEilP5pxW7-nhnzxOWtnr7tKJLir-l
-X-Authority-Analysis: v=2.4 cv=FrKQbGrq c=1 sm=1 tr=0 ts=6af15571 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=c2_qRZQ2Q0IXdIFigvUA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-ORIG-GUID: pUjEilP5pxW7-nhnzxOWtnr7tKJLir-l
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAyMCBTYWx0ZWRfXyTgcpEw+8R3w
- qOg8HnHFy0j+2qu7z7qCeemvI7BnMOj2rs81KWBtLJfIJFFj7ovY6PqeDSZff52E2+GhosOfg64
- MG3yojLtEEf8jBZwxS2ARi6KMROB24eUny7uEdcXB6aO0Y5vpY+aNbLCjtg3Ro0OIS+3fegr5Qt
- i2+Hh8hRqf2i/LIX+knIc2pmnQDtkhX8tQDwGZQ6hjUNCp6WEG0o78TFpxIekPfvl1ZHEwh7L7Q
- EFzWj9am7xYtO/KJfI4H4O2v1k1pmlhm4eZjMGW77xH8ADOa/M4atsQLNS4C76oiIuhftkavb6d
- R9RaFRFe8NpsnoFZWHVG/fnAtthL9w5F1unTMri8hTuEA77EkHDyHnhA0jwV5pKzPt/HTXzSv8B
- bRHBfkSLz6p6itC5kHLcIAPZSQPI+0gGiNheiX4axMSFWnI2CQWEuc+5NS00zGjvjRljCXoDMLR
- tnhDNEU+H8c/VTZh7OQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 spamscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090020
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SLXP216MB1148:EE_|PUVP216MB596218:EE_
+X-MS-Office365-Filtering-Correlation-Id: 23b231d4-8a11-49ee-8ad9-08df3e225dbd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|52116014|23010399003|38350700014|10067099003|56012099006|261021123027099003|261021135927099003|261021121427099003|261022075727099003|261022105027099003|261009223027099003|261026140227099003|261028144727099003|261026121527099003|261102123227099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	4vGHmVSAyFF8kGJe0arrj9C3J+tKdOcDTqwAK+NapKbe8bAmboC9xganFgte+kbaoeoBXq2QfsSQfS32gi0I6Z6wIT6y1Pam5xehAp0kncSfh6I9/oBROQobRfUbbEBR8nCZ4TGa4DIJN1tkmz3lSOmU96O3uRDnxgYYynBEJlsDMiCmrc4c6HDJn5j6vhwAkDuv6FtDu1OdFcEVBXuB2JW8mbVzIUyB17vSxzOmwJfOWgJbWv6pDVXDMf9bdq4+SQMWeWr90kFVnsmd6YZh3RPr0xsfz86kJEnTdmSPco3Q0cvmPE/ZPMSpbVXmtYUaVIIYOS1DWvN+NKwL8ctCj7gJbc9BD1UzjQEYy54C8Fs/xpvXBdlyVK0uoLLdYxvz7k9I5TZ+vimLxsCB2v4p3my+7bGwlv7eKYnAjrvaavyXYH7MFI8PEjFYKKT+xo2ydFrCmejN7hOtwFmelLmIimO+Cx8zMySQ4IA8PkRBT+hmK4Ts0YfpqObreEvZQRS054Mc8rTpZtNv9OT2XbmqLxGZWdGrLWYTrqlMgJlHuwbo5CwTmG2a0y6DXZ//YPaInlXyFxUC7MeXWXHOXZVdqslTmotO12DFdKHd4NIZApPZ8GACbrrrE1GG9xsrPd2BgvbnRNsu0gWKfuX74n9UlafpZt+QpnipRMmR1jUIiEQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SLXP216MB1148.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(52116014)(23010399003)(38350700014)(10067099003)(56012099006)(261021123027099003)(261021135927099003)(261021121427099003)(261022075727099003)(261022105027099003)(261009223027099003)(261026140227099003)(261028144727099003)(261026121527099003)(261102123227099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?zUCqrhhB430SmuEWtcviuScOkmlUdJ4Tn14RsUzk568D+r3edIV/QF/jKyiN?=
+ =?us-ascii?Q?xfhkddQT3rBSbiYs3D200wwq4tKrS0RNBD+Rxw59de7N270LFRl+OWq7fiuI?=
+ =?us-ascii?Q?xOO/t5XgBPZHX2ogBLADucCmfWUcc0W8upd/xK1PT5Xeke5haF2VferxWHXq?=
+ =?us-ascii?Q?ppzmTO0kUld1BRTlkK/T/+lBueqZvgWc/l6OMIHB+VI8puCqqHyLM+zxbygt?=
+ =?us-ascii?Q?VM2KQeYAzrQ5KKY3WeBls6+G1ELBaxcLO/ZQPAW3qFzW+/QXgmS/ile10GG/?=
+ =?us-ascii?Q?m9V+VSN8L1gU1E6d5od02HDTrGO1oRLMh1/sa9t3G/ouIBTGG/svi18DGBM4?=
+ =?us-ascii?Q?lwy1KTUUoSoYhmEPDTIWwkOYOEIT5q+UjFzzq5+M7PAMPHhl+mX4E5hpx96j?=
+ =?us-ascii?Q?jCBW8QP67pSjPrcAMFjYo5vbIi0Ux25eE9avOQDp7VXIQSezws/2+VaLOe7i?=
+ =?us-ascii?Q?wScRGttYkv4aODg1floydDJucbfwDHJkz3qay6eygpMgKtIhEtI1ypX2B91J?=
+ =?us-ascii?Q?fU7TcBGqHikRYI2h9ctaIUnGvSzgR3yJdh+db8i0z9IAtbwSe07BiWIwiYJH?=
+ =?us-ascii?Q?rT7YCHSL5dopcteKU5/qt68u5HkTxYada18g8Vrh+YlY1tw/pnERZWPlT81/?=
+ =?us-ascii?Q?BeM7/MAh7SpGLrjf88O52mtyvoP3hsuFgTU1UXQkh3Wxi6VA3bf8hsHu9xuz?=
+ =?us-ascii?Q?IgQuDyf8N4BlKZkfyJscOVDmy+etRmfmjsEduOByoA5TfwZb0yPmpUA76w2T?=
+ =?us-ascii?Q?sBHZYZXk061PXdf+zpJ1+MsDvXPPOjt2Q2wIe+NIPV+CNZTUUMxTHhRRsQpz?=
+ =?us-ascii?Q?zh/qW5sji0oDdCv1r6EpEngqR1Qg5I4vuQ9yMok8KBDazSvQ38QNI1SP720X?=
+ =?us-ascii?Q?6IfVUMAdpUepEPNIup5cXmBjQVJaVY92h87/GF+w8EO0ng/kOFu7DtuF+QlI?=
+ =?us-ascii?Q?zWUfYaNd0oVPf/ZEKR6y7ANuHc0/KNKYoGLrObMyK3rVSupwL6fyaDCJ+t6/?=
+ =?us-ascii?Q?plxQzFnKuFf1OIqbAr7ZnGZr3pSr+SpCcf6h8lm+WcBcL+pZoMrNw+ABpTf2?=
+ =?us-ascii?Q?tc5KPT3iLgtxF7RZQYEnwF0G55miZvFa+YQx27WRL3LbvIjsSvQxMS3jVSwU?=
+ =?us-ascii?Q?3V21ytrdOwHZee/SbNPQgx0qkldhXASKs5HkFm/YfUOktNly2P/+HHgIVNrc?=
+ =?us-ascii?Q?oezJCSUp9fnYpZuXsUSnbMPn9lu+UqB+eP0OzUHrbLYFQwYgvy9vJE19wUXh?=
+ =?us-ascii?Q?bTT9NmsWvga44PdZUW8bQI5tFGi3gb0aLPUW5clUVO6IOjBNMUmfmohsu4OU?=
+ =?us-ascii?Q?n6cn0j1ChhhfrLn6r0ce2rn+bP7qlvHyFq9chrPHyD2FuTIKlUv7Jwz2ZR8R?=
+ =?us-ascii?Q?2mu+ayQ1XyKn8YcClwdBSsBUgcLagVD3TyxxVjDFaJVLgFXUL0k3C+fGgulc?=
+ =?us-ascii?Q?RTcNllqZV8/wqxp8HLiRX5m7b/ADNb7OVFhzKxOZIJkHTIkIEKWQlBH7dBKo?=
+ =?us-ascii?Q?xrYUW///IWfCeDdpjpe4/tKyEEv1SlIp840Ux/AurvBfaUyNXkbfXLkcQb2J?=
+ =?us-ascii?Q?YHSILh4i0LVyc/3tgzDMZ2+Hce0Tx+cPo0zmqU2YZ4jZrNoVH9ulWXJ/cR/B?=
+ =?us-ascii?Q?TGEP7CcOOPqHA0Iu0tYRR9AcYnry7DB6buJC/vGNUvNJi1S0w3jiANBApAUp?=
+ =?us-ascii?Q?c7vhb5NDc9pfOzIV1OHuu5saOjH4jTrsHmINd5g47QzhuxQW7YHdY3OWaQsM?=
+ =?us-ascii?Q?tbRh8es7YejLABb5Xd242qwwtPvZXNw=3D?=
+X-OriginatorOrg: chipsnmedia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23b231d4-8a11-49ee-8ad9-08df3e225dbd
+X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 05:29:03.3563
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N4a2XTSWLAQoBARsxCyFDg+IZaqYUdmN/bgdfdn8cguVGNPJdzmpmf8xsSDuQ4d9uzDbahjNbE+rC2azTf+Y/s9LHv7C7QCiLPbaHENcdjE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUVP216MB596218
+
+From: Jackson Lee <jackson.lee@chipsnmedia.com>
+
+This series fixes a set of decoder problems in the wave5 driver that show
+up as corrupted output, stalled or crashed instances, and lost frames
+across seeks. All of them carry a Fixes: tag.
+
+Locking and job ownership
+  1. Serialise removal of OUTPUT buffers between finish_decode(),
+     streamoff_output() and the start_decode() error path.
+  4. Acknowledge the interrupt only after it has been dispatched, so a
+     completion the VPU adds meanwhile is no longer dropped and does not
+     leave an instance waiting forever.
+  5. Finish each m2m job exactly once. A second v4l2_m2m_job_finish() from
+     the same context could clear curr_ctx under v4l2_m2m_try_run() and
+     oops in the m2m worker.
+
+Decode scheduling
+  6. Issue DEC_PIC only when the ring buffer holds bitstream that no queued
+     command will consume. The current check compares two unrelated
+     counters, which sends commands against an empty ring or duplicates
+     one already in flight and corrupts the output. A delayed work restarts
+     an instance left idle with data still buffered.
+
+Seek / flush
+  2. Drop the consumed-byte tally on OUTPUT streamoff, so it is not
+     credited to the first buffers queued after a seek.
+  3. Wait between FLUSH retries instead of spending the retry budget in
+     microseconds, and ignore dec_info when reading it failed.
+  8. Re-establish the display flags from the vb2 buffer states after a
+     flush, so buffers held by userspace are not decoded into.
+  9. Do not reset the frame buffers on a CAPTURE streamoff that is only
+     part of a seek.
+
+Timestamps
+  7. Hand OUTPUT timestamps to decoded pictures in decode order. One
+     completion can consume several source buffers, and keeping only the
+     last timestamp lost the others ("Too old frames, bug in decoder" in
+     GStreamer).
+
+Changes in v2
+-------------
+- 1/9: wave5_handle_src_buffer() peeks the head of the OUTPUT ready queue
+  with v4l2_m2m_next_src_buf() instead of walking the queue, which raced
+  with VIDIOC_QBUF adding to it under rdy_spinlock only.
+- 4/9: Reworded the commit message and the comment: the firmware does not
+  update W5_RET_QUEUE_CMD_DONE_INST until the interrupt is acknowledged
+  through W5_VPU_VINT_REASON_CLR and W5_VPU_VINT_CLEAR. No code change.
+- 5/9: job_abort() no longer ends a job that device_run() is still running
+  or about to run, which released v4l2_m2m_cancel_job()'s wait early. A
+  per-instance run_lock is held across device_run() and taken in
+  job_abort(), which now finishes through the same ownership check.
+  start_decode() leaves the finish to device_run() when it fails.
+  Wrapped the oops line in the commit message (checkpatch).
+- 6/9: release() disables the unstall timer instead of cancelling it, so
+  a device_run() still executing at close cannot re-arm it on the freed
+  instance.
+- 8/9: Wrapped the oops line in the commit message (checkpatch).
+- 2/9, 3/9, 7/9 and 9/9 are unchanged.
+- Added Brandon's Tested-by to 2/9, 3/9, 4/9, 7/9 and 8/9. It is not
+  carried on 5/9 and 6/9, whose code changed since v1.
+
+Link to v1: https://lore.kernel.org/r/20261007015946.53-1-jackson.lee@chipsnmedia.com
+
+Testing
+-------
+Tested on a TI J721S2 EVM (Wave521C, product code 0x521c, firmware
+revision 363254) with GStreamer 1.24.13 and the v4l2h264dec/v4l2h265dec
+elements.
+
+fluster (GStreamer-H.264-V4L2-Gst1.0 / GStreamer-H.265-V4L2-Gst1.0):
+
+  JVT-AVC_V1      77/135  (-j1 and -j3, identical per vector)
+  JCT-VC-HEVC_V1 133/147  (-j1 and -j3, identical per vector)
+
+The pass/fail result of every vector is the same as with v1. The
+remaining AVC failures are interlaced, MBAFF/PAFF, FMO and SP slice
+streams. 11 of the 14 HEVC failures are Main10 streams, which this SoC
+does not decode ("no support for 10 bit depth"); the others are
+PICSIZE_A_Bossen_1, PICSIZE_B_Bossen_1 and DELTAQP_A_BRCM_4.
+
+No oops, call trace, workqueue warning or "invalid display frame index"
+message was logged during the runs.
+
+v4l2-compliance 1.28.1-5233, SHA: fc15e229d9d3:
+
+  Total for wave5-dec device /dev/video0: 47, Succeeded: 47, Failed: 0, Warnings: 2
+  Total for wave5-enc device /dev/video1: 47, Succeeded: 47, Failed: 0, Warnings: 0
+
+For the job_abort() and release() changes, three concurrent
+v4l2h264dec pipelines were also run looping a 1 s clip with flushing
+seeks, seeking to random positions every 700 ms, and interrupted or
+killed 100 times. No stall, oops or hang was seen.
+
+Brandon Brnich (2):
+  media: chips-media: wave5: Ensure Atomic Access to src_buf list
+  media: chips-media: wave5: Stop FrameBuf Reset During Seek
+
+Jackson Lee (7):
+  media: chips-media: wave5: drop the consumed-byte tally on OUTPUT
+    streamoff
+  media: chips-media: wave5: wait before retrying a refused flush
+  media: chips-media: wave5: ack the interrupt after dispatching it
+  media: chips-media: wave5: finish a job only once
+  media: chips-media: wave5: decode only when the ring holds unclaimed
+    bitstream
+  media: chips-media: wave5: stamp decoded pictures from a decode-order
+    queue
+  media: chips-media: wave5: restore the display flags after a flush
+
+ .../chips-media/wave5/wave5-vpu-dec.c         | 337 +++++++++++++++---
+ .../platform/chips-media/wave5/wave5-vpu.c    |  29 +-
+ .../platform/chips-media/wave5/wave5-vpuapi.c |  19 +-
+ .../platform/chips-media/wave5/wave5-vpuapi.h |  14 +
+ 4 files changed, 334 insertions(+), 65 deletions(-)
 
 
-On 11/3/2026 5:10 PM, Bryan O'Donoghue wrote:
-> On 17/10/2026 04:16, Vishnu Reddy wrote:
->> The driver unbind can be triggered through sysfs while a client has a
->> video session running. The devm resources will be freed when the unbind
->> completes. That leads to use after free for the running sessions.
->>
->> Keep the memory of the core and its device allocated until the last
->> file descriptor is closed. Stop new sessions as soon as the removal
->> starts. Make sure the interrupt thread cannot run on the core after it
->> is freed.
->
-> There's too much going on in this patch in one place. The commit log is
-> indicative of that too. At a minimum the IRQ stuff should be separated because
-> IMO its not really a use-after-free its a race condition that already exists,
-> its just more obvious when you free in this fashion.
+base-commit: 58348f64125e9a3e44d3abb275ca7f4e6c9641e5
+--
+2.43.0
 
-I'll split the IRQ change as a separate patch in next revision.
-
->
->>
->> Fixes: 38506cb7e8d2 ("media: iris: add platform driver for iris video device")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
->> ---
->>   drivers/media/platform/qcom/iris/iris_probe.c | 56 +++++++++++++++++++--------
->>   1 file changed, 40 insertions(+), 16 deletions(-)
->>
->> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c
->> b/drivers/media/platform/qcom/iris/iris_probe.c
->> index 4cb678bd56f0..25876957381b 100644
->> --- a/drivers/media/platform/qcom/iris/iris_probe.c
->> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
->> @@ -243,6 +243,15 @@ static int iris_register_video_device(struct iris_core
->> *core, enum domain_type t
->>       return ret;
->>   }
->>
->> +static void iris_core_release(struct v4l2_device *v4l2_dev)
->> +{
->> +    struct iris_core *core = container_of(v4l2_dev, struct iris_core,
->> v4l2_dev);
->> +
->> +    mutex_destroy(&core->lock);
->> +    put_device(core->dev);
->> +    kfree(core);
->> +}
->> +
->
-> What you would have here is an admixture of devm allocated stuff and
-> hand-allocated, refcounted with custom v4l2_release() which might all work
-> but, it's not obvious to me does work i.e. core is hand allocated while
-> reg_base, response_packet etc are devm() managed.
-
-reg_base and response_packet are safe: after iris_remove() the IRQ is
-freed and the core is in IRIS_CORE_DEINIT, so nothing uses them. Only
-the core structure must outlive remove(), so only that is refcounted.
-
->
-> A much simpler solution to your problem is :
->
-> static struct platform_driver iris_driver = {
->     .driver = {
->         .suppress_bind_attrs = true,
->         ...
->     },
-> };
->
-
-This was discussed in [1]. Dmitry noted it is a sign of a badly written driver,
-and I agree: it removes the unbind interface to avoid the problem instead of
-fixing remove().
-
-[1]
-https://lore.kernel.org/all/CAO9ioeUvV+3sME9P1bJTpDOSty=uojOKak659XCf337++vPVNg@mail.gmail.com
-
->>   static void iris_remove(struct platform_device *pdev)
->>   {
->>       struct iris_core *core;
->> @@ -251,18 +260,20 @@ static void iris_remove(struct platform_device *pdev)
->>       if (!core)
->>           return;
->>
->> +    video_unregister_device(core->vdev_dec);
->> +    video_unregister_device(core->vdev_enc);
->> +
->>       disable_delayed_work_sync(&core->sys_error_handler);
->>
->>       iris_core_deinit(core);
->>
->> -    video_unregister_device(core->vdev_dec);
->> -    video_unregister_device(core->vdev_enc);
->> +    devm_free_irq(core->dev, core->irq, core);
->
->
->
->>
->>       v4l2_device_unregister(&core->v4l2_dev);
->>
->>       iris_unreserve_iova_region(core->dev, core->iova_state);
->>
->> -    mutex_destroy(&core->lock);
->> +    v4l2_device_put(&core->v4l2_dev);
->>   }
->>
->>   static void iris_sys_error_handler(struct work_struct *work)
->> @@ -281,53 +292,64 @@ static int iris_probe(struct platform_device *pdev)
->>       u64 dma_mask;
->>       int ret;
->>
->> -    core = devm_kzalloc(&pdev->dev, sizeof(*core), GFP_KERNEL);
->> +    core = kzalloc_obj(*core);
->>       if (!core)
->>           return -ENOMEM;
->> -    core->dev = dev;
->> +    core->dev = get_device(dev);
->> +
->> +    core->v4l2_dev.release = iris_core_release;
->> +    kref_init(&core->v4l2_dev.ref);
->>
->>       core->state = IRIS_CORE_DEINIT;
->>       mutex_init(&core->lock);
->>       init_completion(&core->core_init_done);
->>
->>       core->response_packet = devm_kzalloc(core->dev, IFACEQ_CORE_PKT_SIZE,
->> GFP_KERNEL);
->> -    if (!core->response_packet)
->> -        return -ENOMEM;
->> +    if (!core->response_packet) {
->> +        ret = -ENOMEM;
->> +        goto err_put_core;
->> +    }
->>
->>       INIT_LIST_HEAD(&core->instances);
->>       INIT_DELAYED_WORK(&core->sys_error_handler, iris_sys_error_handler);
->>
->>       core->reg_base = devm_platform_ioremap_resource(pdev, 0);
->> -    if (IS_ERR(core->reg_base))
->> -        return PTR_ERR(core->reg_base);
->> +    if (IS_ERR(core->reg_base)) {
->> +        ret = PTR_ERR(core->reg_base);
->> +        goto err_put_core;
->> +    }
->>
->>       core->irq = platform_get_irq(pdev, 0);
->> -    if (core->irq < 0)
->> -        return core->irq;
->> +    if (core->irq < 0) {
->> +        ret = core->irq;
->> +        goto err_put_core;
->> +    }
->>
->>       core->iris_platform_data = of_device_get_match_data(core->dev);
->>
->>       core->ubwc_cfg = qcom_ubwc_config_get_data();
->> -    if (IS_ERR(core->ubwc_cfg))
->> -        return PTR_ERR(core->ubwc_cfg);
->> +    if (IS_ERR(core->ubwc_cfg)) {
->> +        ret = PTR_ERR(core->ubwc_cfg);
->> +        goto err_put_core;
->> +    }
->>
->>       ret = devm_request_threaded_irq(core->dev, core->irq, iris_hfi_isr,
->>                       iris_hfi_isr_handler,
->>                       IRQF_TRIGGER_HIGH | IRQF_NO_AUTOEN,
->>                       "iris", core);
->>       if (ret)
->> -        return ret;
->> +        goto err_put_core;
->>
->>       iris_init_ops(core);
->>
->>       ret = iris_init_resources(core);
->>       if (ret)
->> -        return ret;
->> +        goto err_put_core;
->>
->>       ret = iris_reserve_iova_region(dev, &core->iova_state,
->> IRIS_NP_RESERVE_IOVA_START,
->>                          IRIS_NP_RESERVE_IOVA_SIZE);
->>       if (ret)
->> -        return ret;
->> +        goto err_put_core;
->>
->>       ret = v4l2_device_register(dev, &core->v4l2_dev);
->>       if (ret)
->> @@ -368,6 +390,8 @@ static int iris_probe(struct platform_device *pdev)
->>       v4l2_device_unregister(&core->v4l2_dev);
->>   err_unresv_iova_region:
->>       iris_unreserve_iova_region(dev, core->iova_state);
->> +err_put_core:
->> +    v4l2_device_put(&core->v4l2_dev);
->>
->>       return ret;
->>   }
->>
->> -- 
->> 2.34.1
->
->
