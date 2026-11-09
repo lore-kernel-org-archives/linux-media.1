@@ -1,80 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.82.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794266190;
-	b=zRVGPdq1x0RHk3DTnyBZqeAhPT4Pc+eZlXWSj9NyLxd4kx595fQ7qe1RIqNIJU6cI4OC
-	 kGWeXU7pGhp5mTY9mxWaso9JPyYaJGwBvkDPsmdEhyNp/Hc6et6fL4NWvgdf7ObLQ7t0i
-	 /GZfzSZmJM5XIFqeWgqyancX97T+vPtHPWNmTpXMn1WrCxkrH9xLXVv0m+O735yo1PEay
-	 KnxUH7m2Af3UIU2/rWRnQFKG3v8Gj7o1g9MiDnlvQT2dOd/6of08GrbAnXhotyBH3pXh9
-	 u2ANrne3MH3SVsC5crzoPp58GcNo6mQZ6rsC7QWcOttVb6jnCsSrhJWH0qcJCJ5yeRg==
+	t=1794267200;
+	b=Pjkmw80J1rKN5Mr046tXCJwqfeUqTyeIzhgYhPCMe6d8Aact+gj9GTDHMhjEAG1ps55/
+	 +z1iOIwmwdnPS6+mJCc36mBagMPtnUgpTKVkkjotcmDsSw1tuTpVukmeHfLv6bkYUnCU5
+	 U5y3DpLpCxbSwK2sR/zG66ScPoQ64Gfanj2vU6NrgPjRCzaTe35EVskTW3zq4bR+A0CjE
+	 HhmCaRK8VzJexWqNnU2sk/oJXjzvLzpmf28lCNWWqT7DQnWgxesyHdsafrEB7Y5xQ553g
+	 77N6ZPughyvIYux06NP7K+f8HKuCol+XxxypyMlB/fqvK566GSlSfAyNMzagNSwwYjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794266190;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 References;
-	bh=ltnr/+G+3z7GhzFVAEBSNNIy+NSu2Lv4d3u3TtzEZtU=;
-	b=Kj2m9x2QrzIdK7KtoJ/JoQHJ7+lW0CUAIgnIkutoxVKeeVidzUIsVlFtthuzQMLuRqTO
-	 3HxU8K2yK7zsIKu3wQn6NpctQKbGocnC6PUrETu8ROct2GzZT2cJ5Tf9gqyeKOMRLEq3t
-	 wv3ikiuZjGcOXakjibhGCdd1i6R8Vbv8G4g+cgY8QsJq32x6MzoGEfVynXr9i9rDeTC2N
-	 icw7O5h43UzjNVc1F/Rp3qNlyuzLkAFsqUEye/Hr/jlbMD3Fn8KWomSxgf1eND3Kvv4zi
-	 EvU2yTGJoWLKmVhG2H+0Ax9LnATVleFmufAx1ZiaufIlXUldtlPC69mJegx6gckFqqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794267200;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=i7SlRV1MdWG/+4eUN0UybyzUnUjM2xBaq8VCAdNH59I=;
+	b=BtvcdMjwslmUf1BYYZxnVPe68ZwgwYejbSdlv1n3amkssHY5IRqGZ4ms57n/twx1y5Al
+	 H02J97ffVhxTxX8q1ZLtvXEraBZJxPtYa+uWxt765vwQ/KmE0LzypRlnhUPFr1ITmaS5f
+	 IU0ZBRJPJ9pmc8cqR0fWPFGkuBU75bJEShoRjt1QnS/4QbiBuEHA+v2ZMoVocXomFnL78
+	 otXooHDBWFT5aR9CZrz3xA6YjVulOWs7KkRn6Y+BVRhhrytsFt1sTUAkiZgeN8KP2uwme
+	 jz96oIDPBoYavnO5wjvDjaNKsLVwJ+TPXWMU2YSiWMXUqu6qvi4GlbaikNjl5a9rr4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.pl;
-	spf=pass smtp.mailfrom=yahoo.pl;
-	dkim=pass header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=kxHFFzIF;
-	arc=none smtp.remote-ip=34.2.82.16
-Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ozq0BZWv;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE33606A321
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 23:16:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AE33606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7885606A321
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 23:33:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7885606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=kxHFFzIF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1794266187; bh=ltnr/+G+3z7GhzFVAEBSNNIy+NSu2Lv4d3u3TtzEZtU=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=kxHFFzIFI9s+fT2cRQiWF0EV2klmDt9uTiUbl94uKx5arcZ3JfOoSQYaXlXIgAYwgVP8TVBDCZFLID7Xm6F1gm0NUhz73kWLHRp/rHVC0Gwz3n3VKEaqAkn/6aZM36isosKymDATCuk2iplJy9q6qss9BSpeAkUYiYVjCzniOt8ySSEYf+JCqX/+aSfb08v/XdEQlDccX649FwvKpX7duk+zOhAj1BXSj8we2J8cuHSctbh7JkFnDLzkAJlARte7FhUxkSxmK0vtteAsKgLHsfAE9O1JhajBBx4ma/u1b8KTuhNEIine90ZB38i7ELBYNdp10R7+wgDz80VL7Hqutw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794266187; bh=ujjZToLGF/dNgRfErsyg9RSGiqWvxnqDWgUYtKWrwla=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=MdmLwmEDvwjvkg8E21jh8BkQamV1RCMgQOxWoBEAXIMJKa33bte1Sy+6R3Tgh71WGKHxvcWDBKFtIuCQ9jqYfgNI7cqp0qSlW0u5qLveF/gzSdaDdHOh7wPlgltwvwanjNBUiddBdrrIrTZhI/Y4ZrE2sXyBa1/IIc32vEpqZgNPFlJiWKaEoHOMngTfcnJspOesUVQLEPsi5rpLEPNOMu/V4GioNoU0zYHmqmAKqGXHkO1JHhYZ0kzJm48N/6PI+QAxDm3pR3VHfhPVD6eiLZeVf+BpZJZk+ygeRE79bse7HkXO1ehoD6fxFwItLxASsW0TH8SXet5mfFORkY5iYA==
-X-YMail-OSG: WSBXLAoVM1kzegwyILIQ4bV70tIvWNhLI47AQ.Purmnegym10mkmYYKfn0IwFQB
- CkFKdTgKdqll3SgCXbR2lAlEMUOnzhwxaaukjM2_iTdWYLOphjiHTKycARpvYPYx027D19MWEp.h
- adAmHWO_zZHQF7Kui47c6L52IsSB5CAFeNFyaS10torClpaZuMTn4vsDjcbY69N8kJEC3QYFbaqb
- TlYHzqdQSZESiqaFJ_ZvLrb0VBMROAaIKQ3DfHth8j0gVXCMsik6WXKLBDGNl6s1T6mAYNkqzopq
- H20W6GdeL0WgkEjCDS8VcFfByXRSn60BHiggkDDLhPPlPYr32LItnHGehnUT.ApmckXtHU_H4d_A
- 5F7Kc8bLG.JBL6tXtdeYWDUyQX6csoVrWlyAqyMnA_KvG4HX0HKwMV2pA533vrHtDhTcNwzjmduI
- biPlClb9bDmSmtAgOBXSn.a7GTN0cQ6zclZMFjLngCQKOTF9JqERQTcPBtXFrV1fvd6Ic4TudmzN
- v9LeeO1LRrd.Ev8teEH4KnrfS44gpRyMFXrIQpzTvrDDNzQSf6.ESgAk7oi8I4G_3pLD_ICZ5y65
- AcH0xEoD4bowoPHKcaEXXnuchQeEVMrieSdGxJzuJNLikOpFJdzVdwpNqL2MA7s.DPKh3KneWc.D
- etK9ZNIFujdi.XSnZCv4tbNG4lDSvm0LAtMVq2P2BBM30NNRDdZ1e_ODPLsN7OchkFn4x.Pkhys9
- Yjj8IRukB_u.FVjlOSxRYuMzmBTE2uv6oGI.wSCk1sfN4BBFemKkyONuiXGvQPt5KJwoDZGKkFjD
- Cl.Y2MxgtS0P084r_vIJPUwOTQiJ.Hep98lTtonxZbVnv8uAFFB_v4T7W7N70PS3H8fC5Ezzo0pk
- au_.Pa9dHtMkz9Lf66uCUz58KjHBTBsSyTQbUimrIkMLcCEpxVEb8.Lnkp49yAn_wI6XsSyYQVFF
- w11IGjQcGVNjQTF6uOhB4KRGG1QxrfrLtUTTPy0YkQdRrBt4.yF6JeY0RyMd7kxqyKaLeeu5i3Mx
- PuTsxRv.t9Lb8Zut_bVz30Wy0tfBBBRRRCa3ZxZ618KWINpG4w9auv_KPR2fjdp07RxLHorT7258
- Q4_SSTIv0z6tOFFLvap0S1hppgOP6MgxjLMkxnLuAqpJRZb_.le31t1ZsgguSe3X39Bx6w.r28NM
- F7Goy06xRFfftq2OmM5cRtBXzkJ5vubOLHG0iNNtSXU35eBPB5jhxLperQasEEJrhAl4LyvSDpxb
- ey0v8g3wLkEVcxNF1VKh9wxMqVTYM3r1zhrpXVj8hK3ClupPO2y7eGsskG0WCiRo9QOrNkJrNfse
- BnKOcdpqYlE42RGSY7cyndJQvqn1Q4P9YCq3rDjgD80uFJztjn0ljrC5b6rElV2qdYnyvjG5u9_1
- EwQ05og.e0N7vEmZPCoj2RXiwqdD6Rbm592hTYHKo9BkW36ICbOajLUQxlnGOqvHao9cUUDOvvKp
- KKF9B8emnYxvf_sriPC2kgHKO8SrhuoBlEGNYPq0t55XARtH.EZY_WHYndT8HgHNgIUoaAXWznov
- xHeZOrGXoJQL_jsp06ZH_N1_0LY3_X4a50gjx5srUNRj.rafBq2jK7rktWgeU0hFAsjwoHjNfaZU
- iznrmXo2bv9ynEFUM36I0az398EgIcRhdAM6.yIUJEC5BOUhAccjePhbfDMNkIoWhXh_eze1cFxy
- 4A5uoZa5KimrJCusy5Xru4yZBN_vU_YVyUSEzURm8b.ElLyxj1pp4KW1NGK3CN22bfBMjJ27TNSY
- Q7pjatwEyJWaVNWXb2Rwo1TQ7c3slosWYbHI9gavsqbNt_JJlBuiiOBHsMDcwqPgNTvdenJ5Hbcr
- Y0duLk92idBNc9MA1l2U3PfS2CK7w3_IJfChF1blRybaMLxFUmDDHfIJ7JlhgQcUp24TGMdEqynQ
- d161Ay1RLE4BrfZX0SJEvta01vmQv9eUstCjMY89IsfAoN42oqH7HEGWpvrx.YO8JSXY0VnM.Yri
- YpfcfP4hzuC8mVjDWIvHwY2I-
-X-Sonic-MF: <tomasz.unger@yahoo.pl>
-X-Sonic-ID: 8f642e59-6e65-4565-a8a9-eba782ec6a9d
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-101 with HTTP; Mon, 9 Nov 2026 23:16:27 +0000
-Received: from dip144.lsn.ir2.yahoo.com ([87.248.99.153])
-          by hello (SMTP) with SMTP ID d24e8f6e67628daad9045ce19de4aea3;
-          Mon, 09 Nov 2026 23:16:22 +0000 (UTC)
-From: Tomasz Unger <tomasz.unger@yahoo.pl>
-Date: Tue, 10 Nov 2026 00:16:20 +0100
-Subject: [PATCH] staging: media: av7110: remove commented-out code in
- av7110_hw.c
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ozq0BZWv
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 82E9033D;
+	Tue, 10 Nov 2026 00:30:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794267054;
+	bh=GMcSjTTqfRhiPv7b224/7EvjUU5Ml1qJiNNfAnvTtdY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ozq0BZWvrDyF4iJpgrCHItI8huKgZY+P5PLrseU2YAo0cX5K9d0fI4+qOuJvD+Jph
+	 btNkw2Gl9MWV8at6cZAmwbyN0pRJMFVRn8ef41vLFNP19fG/zlPRMHle+YiJ0rgmBv
+	 0Dal5fq0hz1fi8E73DzyYa32Cfco0Tt502EbEqXE=
+Date: Tue, 10 Nov 2026 01:33:15 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Nicolas Dufresne <nicolas@ndufresne.ca>
+Cc: Sakari Ailus <sakari.ailus@iki.fi>, linux-media@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hans@jjverkuil.nl>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: Re: [PATCH] Documentation: media: Document impact of errors on
+ buffer fields
+Message-ID: <20261109233315.GA1000823@killaraus.ideasonboard.com>
+References: <20261030103815.3098340-1-laurent.pinchart@ideasonboard.com>
+ <auR63iwOm_mih97K@valkosipuli.retiisi.eu>
+ <20261030140958.GB3109745@killaraus.ideasonboard.com>
+ <auUepevHsfBZB2nV@valkosipuli.retiisi.eu>
+ <9fe913fc3f750462a4655d51fa1a2f110a02ea18.camel@ndufresne.ca>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,96 +67,99 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-av7110-hw-commented-dead-code-v1-1-3ef26d2673df@yahoo.pl>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw6CMBBG4Vchs3aSDgsuvopxUTq/MiYU0yKaE
- N7doquTb3M2ykiGTOdqo4TVss2xQE4VhdHHO9i0mGpXNyLi2K/tkfHNYZ4mxAXKCq+FCg591w/
- iusa1QuXxTLjZ5/e/XP/Or+GBsBxT2vcv1mReLYEAAAA=
-X-Change-ID: 20261110-av7110-hw-commented-dead-code-c989b1086071
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Tomasz Unger <tomasz.unger@yahoo.pl>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794266181; l=2420;
- i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
- bh=8L0SKizL+Q76ZAVeVC8cUXjbPIjPKGIzYD7kON3gByI=;
- b=VIgdqiaP729AfNuiNU5zXY4DYf6KGLEQ/aE6L8JoWqUgBLZtvxAw+T4c4U08pZ/uQV/fPliXh
- 4LrABBUUhPdDw8VB1zpCswjj5ewzw8qCWjQnOp1Xq8LpBNhazG4X55Q
-X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
- pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
-References: <20261110-av7110-hw-commented-dead-code-v1-1-3ef26d2673df.ref@yahoo.pl>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9fe913fc3f750462a4655d51fa1a2f110a02ea18.camel@ndufresne.ca>
 
-Remove commented-out code from av7110_hw.c: two saa7146_setgpio()
-calls and an ARM_ClearIrq() call in av7110_bootarm(), and three
-dprintk() debug calls in __av7110_send_fw_cmd(), av7110_send_fw_cmd()
-and av7110_fw_cmd().
+Hi Nicolas,
 
-All of these lines have been commented out since the beginning of git
-history (Linux 2.6.12-rc2). They serve no purpose and only clutter the
-source.
+On Mon, Nov 02, 2026 at 09:40:22PM -0500, Nicolas Dufresne wrote:
+> Le samedi 31 octobre 2026 à 00:48 +0200, Sakari Ailus a écrit :
+> > On Fri, Oct 30, 2026 at 04:09:58PM +0200, Laurent Pinchart wrote:
+> > > On Fri, Oct 30, 2026 at 01:09:18PM +0200, Sakari Ailus wrote:
+> > > > On Fri, Oct 30, 2026 at 12:38:15PM +0200, Laurent Pinchart wrote:
+> > > > > When an error occurs related to a captured buffer, hardware can produce
+> > > > > less data than expected (or no data at all), and timestamps may be
+> > > > > unreliable or unavailable if the device uses hardware timestamping.
+> > > > > Document this in the description of the V4L2_BUF_FLAG_ERROR flag.
+> > > > > 
+> > > > > Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > > > > ---
+> > > > > I've posted a corresponding fix to v4l2-compliance in [1] to relax the
+> > > > > bytesused and timestamp checks.
+> > > > > 
+> > > > > [1] https://lore.kernel.org/linux-media/20261030103717.3098080-1-laurent.pinchart@ideasonboard.com
+> > > > > ---
+> > > > >  Documentation/userspace-api/media/v4l/buffer.rst | 5 +++++
+> > > > >  1 file changed, 5 insertions(+)
+> > > > > 
+> > > > > diff --git a/Documentation/userspace-api/media/v4l/buffer.rst b/Documentation/userspace-api/media/v4l/buffer.rst
+> > > > > index 94dc2719e907..5a7a1511cee7 100644
+> > > > > --- a/Documentation/userspace-api/media/v4l/buffer.rst
+> > > > > +++ b/Documentation/userspace-api/media/v4l/buffer.rst
+> > > > > @@ -503,6 +503,11 @@ Buffer Flags
+> > > > >  	streaming may continue as normal and the buffer may be reused
+> > > > >  	normally. Drivers set this flag when the ``VIDIOC_DQBUF`` ioctl is
+> > > > >  	called.
+> > > > > +
+> > > > > +	Depending on the type of error, the buffer may contain less or no
+> > > > > +	data. In such cases the ``bytesused`` field can be lower than expected,
+> > > > > +	including being zero. The ``timestamp`` field may also be zero or be
+> > > > > +	otherwise unreliable.
+> > > > 
+> > > > Could we say that if bytesused field is non-zero, then there is a
+> > > > timestamp, but when bytesused is zero, there's no data and probably no
+> > > > expectation of a valid timestamp either?
+> > > 
+> > > How about this?
+> > > 
+> > > 	Depending on the type of error, the buffer may contain less data than
+> > > 	expected, or no data at all. The ``bytesused`` field reflects that
+> > > 	situation. When ``bytesused`` is zero, the ``timestamp`` field may be
+> > > 	unreliable and may be zero.
+> > 
+> > Looks good to me.
+> 
+> Since its not specified, have you asked yourself if this is CAPTURE device
+> behaviour, or if you do believe this should be true for all type of devices ?
+> 
+> I've had recent discussion for M2M in regard to CAPTURE buffer ERROR. The API
+> has a gap and we don't know if we should complete a capture buffer when an
+> OUTPUT buffer triggered an error. If the timestamp copy should be honoured and
+> what the byeused size should be and mean.
 
-Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
----
- drivers/staging/media/av7110/av7110_hw.c | 9 ---------
- 1 file changed, 9 deletions(-)
+Good question. The bytesused field is actually not well specified for
+OUTPUT devices. The documentation only states that it's set by
+applications, therefore at QBUF time, even if that's not explicitly
+stated. There would be no interaction with the ERROR flag then, as the
+flag is set by drivers at DQBUF time.
 
-diff --git a/drivers/staging/media/av7110/av7110_hw.c b/drivers/staging/media/av7110/av7110_hw.c
-index b0bd7666d48b..13ed214e6ef9 100644
---- a/drivers/staging/media/av7110/av7110_hw.c
-+++ b/drivers/staging/media/av7110/av7110_hw.c
-@@ -209,8 +209,6 @@ int av7110_bootarm(struct av7110 *av7110)
- 	/* boot */
- 	dprintk(1, "load boot code\n");
- 	saa7146_setgpio(dev, ARM_IRQ_LINE, SAA7146_GPIO_IRQLO);
--	//saa7146_setgpio(dev, DEBI_DONE_LINE, SAA7146_GPIO_INPUT);
--	//saa7146_setgpio(dev, 3, SAA7146_GPIO_INPUT);
- 
- 	ret = request_firmware(&fw, fw_name, &dev->pci->dev);
- 	if (ret) {
-@@ -248,7 +246,6 @@ int av7110_bootarm(struct av7110 *av7110)
- 	saa7146_setgpio(dev, RESET_LINE, SAA7146_GPIO_OUTHI);
- 	msleep(30);	/* the firmware needs some time to initialize */
- 
--	//ARM_ClearIrq(av7110);
- 	ARM_ResetMailBox(av7110);
- 	SAA7146_ISR_CLEAR(av7110->dev, MASK_19 | MASK_03);
- 	SAA7146_IER_ENABLE(av7110->dev, MASK_03);
-@@ -303,8 +300,6 @@ static int __av7110_send_fw_cmd(struct av7110 *av7110, u16 *buf, int length)
- 	u32 stat;
- 	int err;
- 
--//	dprintk(4, "%p\n", av7110);
--
- 	if (!av7110->arm_ready) {
- 		dprintk(1, "arm not ready.\n");
- 		return -ENXIO;
-@@ -430,8 +425,6 @@ static int av7110_send_fw_cmd(struct av7110 *av7110, u16 *buf, int length)
- {
- 	int ret;
- 
--//	dprintk(4, "%p\n", av7110);
--
- 	if (!av7110->arm_ready) {
- 		dprintk(1, "arm not ready.\n");
- 		return -1;
-@@ -452,8 +445,6 @@ int av7110_fw_cmd(struct av7110 *av7110, int type, int com, int num, ...)
- 	u16 buf[MAX_XFER_SIZE];
- 	int i, ret;
- 
--//	dprintk(4, "%p\n", av7110);
--
- 	if (2 + num > ARRAY_SIZE(buf)) {
- 		pr_warn("%s(): len=%d is too big!\n", __func__, num);
- 		return -EINVAL;
+At DQBUF time, I'm not sure what should happen for OUTPUT devices. I
+could image a theoretical use case where a driver would want to report
+how many bytes have been consumed in case an error occurred and only
+part of the buffer was consumed, but I don't know if there are any real
+use cases for that.
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-av7110-hw-commented-dead-code-c989b1086071
+The same likely applies to the timestamp. I think the current
+documentation is quite vague there too. It states that
 
-Best regards,
---  
-Tomasz Unger <tomasz.unger@yahoo.pl>
+  For output streams the driver stores the time at which the last data
+  byte was actually sent out in the ``timestamp`` field. For output
+  streams that use ``V4L2_BUF_FLAG_TIMESTAMP_COPY`` the application has
+  to fill in the timestamp which will be copied by the driver to the
+  capture stream.
 
+So for a pure OUTPUT device I can imagine that the returned timestamp
+could be unreliable when an error occurs, while for a M2M device with
+TIMESTAMP_COPY the timestamp on the output side will not be modified by
+the driver, and the timestamp on the capture side should probably be
+always copied.
+
+Should I document that the behaviour described by this patch only
+applies to capture devices ?
+
+-- 
+Regards,
+
+Laurent Pinchart
