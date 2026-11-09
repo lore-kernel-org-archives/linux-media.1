@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794246671;
-	b=FS4x/cybyHU7YtGJ+sEz+kST5Yt+D/pyZazIp/c1RkLL7ka2+T49s7a9OMy0Cai1JPBG
-	 84v6M8qxqCP3HwJ77M0lxu28cKvWb6lohDHp2doT+jvzdlToIcVpWCkQPaXPEizM2JrI4
-	 oNaknHPF7i/xREE5UMr/avsAgUFmHoYaMJ5agtfXLdFVavrLLG/iNaIE+MCzyNk8iq+q1
-	 s+uPbaf314r2NlUaRBIieJ8tgMmz/SO49YY+rJDzB/QOkK0sf/kaHHsOIW+/JAVmWqNaK
-	 MvghNw6zlf8s9/j85DLMdwo98tzdERFiHlUWcoOc5DQoEMZBj8VpGyywdxb6P3e7qvg==
+	t=1794246674;
+	b=M6WcNANEAotTQHCaeEM9sDIikpTvjno3gnG7tZ+eXnejMJnWIcrGZOXkVWrDUGNMFH4J
+	 qgN/KKju3n42nMO7q7W6f0e8VpMUPMrPUEm2FDwK+FqkajmVdLBm9kG6Fzjg7wxrtcWBZ
+	 Ul1FKngcurAe+IY5HH3tzVVb1Ka/Khd9H65NSu/+3FuaBE+Ob14BMV+ZVracOo+pv9hE/
+	 6vlVeOylavVyR83Fr0Ay/2v+4LRzNOjPMu8lfcgjPcM2KFwHErWa1Acz7Vvo3o749OlI8
+	 w3IGZiYgfMv89asQwVB5pDx2KzrCvjrc1XZk21l7XOC2WiUYg33qhXu5IaD8FBOAT7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794246671;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246674;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=dRPAaRbuPiDQoNbXSXuTf0QKQZLyeuwtHbl0ZEG8jNI=;
-	b=FYSxv8eWQ1lvhgajopM5R3szmA7SYn5rLYVwBarDfSWHwMqKfV88jNFE2PI0de2tp0V9
-	 7ooyiiTz10ABrsnd1EVV9/skSFjqugi33zZ3hBaW0AfFetska8AzZihhead894YGt8eec
-	 M2kEHEW7l1tkYfzFHhJoH0yCmZyDactdQPdsaUVjujFNLnoePuL559NGUO9jr/qfUL+X6
-	 t6tk2cf4A8c3gxmADl6K4ojCnU42Tbe91tD3VAnMhDlAOy1hCGELARhXaG2aItaNKAbsv
-	 7e+7Ur2e1ejMy1aH2PDQ2CDNYM4R/YK182dflYIM20VW2m3kC4wYerv0C5u/CxtKs2Q==
+	bh=EMH3OXraqN/u0b7tImF7Qn3xU7G/zv7ZwqiQdfYEX2U=;
+	b=mf7iWUfPs2BoH74obL9zrsysAvm4PIZXlNyDb/FZNQrvEtXpYbuQLqlH47tc/9V7u49Q
+	 5zQ5hygyak9vmW6WXCyqvRI+X0oVAg2VMFp36FNQuo+jNIt74aVsYXFnXRqjn/okjMubS
+	 a/bKyCad20c8ayBnVWKXq9X8B7ZIG07Z4I1DHON6wD6zP5toO+q21rNr9ibOHX40cdkAD
+	 pyKzwQMJ7XW9fzHD/RgWvWYxkWh/MESeKKiqBVCuJ/odxld3UULqDU1kOAeWw1ac/joRC
+	 1kweuORSHg3PcBp2PNxRsI8qEdaRvu9PDto+UeGLJLfGC2Oik6Dv+Yqnv0wGC20WFwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0vkYq3KB;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=moAnIuGC;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5D360A2617
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 17:51:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E5D360A2617
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C711660A3821
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 17:51:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C711660A3821
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0vkYq3KB
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4910b863b84so754265f8f.0
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 09:51:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=moAnIuGC
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso12748675e9.1
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 09:51:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794246670; x=1794851470; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794246672; x=1794851472; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dRPAaRbuPiDQoNbXSXuTf0QKQZLyeuwtHbl0ZEG8jNI=;
-        b=0vkYq3KBgJnH92WkNlV75oKqOta2YnOms6B5exYl8Nnlir+glHt7Is9QMKBbcY7zEr
-         gl5FPuqIVjAVUV2tba1ddyLVe+iYE8IA8iutq53EMZ6NhaBM7rWx6CXYCBXujJjCOVZa
-         xBEQs0Jtzhg4PflluRlFiy/9PYM3cfn2CviaF+K0iUjOUEf90jVCDjwbb5eoI51oJvQg
-         Bd/k3cYHbab5S59HjaY84D8ZEeyHheSG8nc8m4hrZD21EV3yIwTB9pwHKVVXON07iKjj
-         P+RHbsxtyu4gZs449lsCR8xSdTGagVMDMibvi4bdWdJSM1PukzQQa8ZqpsQv6Xr3Z9qW
-         fjsA==
+        bh=EMH3OXraqN/u0b7tImF7Qn3xU7G/zv7ZwqiQdfYEX2U=;
+        b=moAnIuGC/sD2YwtcreaQOJJCH6tTrMmgzZNXQFIZa+F/p2rwXs4PRlGzvmTTl8tb+J
+         R8Sr3alHVkQVnxX5Yr2u8dm+I7ILfhu7SIBaBkD1KXDIABOk8O0YNvFzkMa4orRSx7jw
+         1GWQefqQV4IQcsTIcxh8c9sVJgZ25m+Z/ruu/FQ/sMp/63+hUEAvMVm5PP/BPf00JRWt
+         PFOllp0c+WYJndhAeZqi2KWac3TEcX8e0IVmHL82hiuRxXQ0aIoOFHoW7vM5E0g57uPT
+         kE1pazNcr/bytWFcYIAWAZAG8ryrxleurkojLZM4VINuIE6cQ4f5eBmXsdVlybPycXOw
+         p9HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794246670; x=1794851470;
+        d=1e100.net; s=20260707; t=1794246672; x=1794851472;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dRPAaRbuPiDQoNbXSXuTf0QKQZLyeuwtHbl0ZEG8jNI=;
-        b=XrXWkLNb6LgrFCb9RUL9U5AI3S7qkOq0wxN8Hq8Ah6hPRVwP4s42ihVM6PFAHAX9ms
-         R1qYWS2PpP2UqcTsUqI6JAnxMj6sqEyVQ6OFLFezyDNfrylPCdv+EHJ3gdWi4sgi9Fgc
-         XVQOKpSA9gl96PuBjIzz751uQ2bMa08XrZtcWQx+VK/H81qwP0QHs48JG/0UfR2VN3M2
-         fffU9QsKn0LDPG7Bu2b13AWY10i55A/1G3uV9Up29mCZ9gwdoDYvtfD/7MCTeC68GNhQ
-         yT4hI+TmKm37yJIIFY06I7JvjDjZ8u7liAMA2EfFMsMLzMVucaGTfEOunnwbnpLxbrE2
-         ZrVA==
-X-Forwarded-Encrypted: i=1; AL+hErGSh41bsBjUDivIZZYVYyImqX3G89jJaFjYJDmhXOY4Z/M3KRLV4Wn5ERAIIylRI9+0wuGouPdKG0TxXw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8zGo14lzux7saLEUFAc3Jzs+Bp+3jLjYtkavMM9nzLhVTTWDN2
-	cZAaqjSr/ZjLVZXJ7rU7BfWCv6ZdEbSvX6BFsv4E6vgf2lV8crMnYSSaeJEmIA==
-X-Gm-Gg: AYBFou3vO32apVm43HXv/a/a8VN0i3O27VI1kGqfeOQ/51eg2a0Y4cUg+23N1Ur2Mi3
-	hm2RSzdHiBIFe0Q+8/0SoLYaoMd2yju6UpluU6uxw1x3P7cBn82OLQ1TQLHIqkKHa5ElnsQFqHD
-	syPqEdkQezWF5oJJCrC1jnkbG6HKvNH22H4NVr0BXGGkb77CpQe4KYEw3TnljWJ0IClqO0vzGYL
-	StzmUiUSnyRjZEmm2hxwpXQ/t0wYWTknsAQ6sUQRjm0evhhgvEUQjIBkrXfNhiYI762S053f2zl
-	9lDbY9EYO/Sv7OzX/DFUwxkIubUQq6FEIhKbaCDD/ZEdhiLzy1nFnXGnvzB7Y3b+h5fbsGnHwkN
-	3Ul0YyExvjbgSwOhxCt3XG4IEdVUT6C+EL77agkx0GyjZxruFTiWJoi0p6mW/pOBqiQp9IjzrcC
-	Nqo/JG5jwD030DTMWqS6ZubVmv7PyTOtjYJYac8bNJtg40OZ+mBFIDbuBE9bvHqUeYcc8SzDDRu
-	cHpnRoiwqHUQnOLVm/i2/0hZ8spRG6HE9CG8OSsQmmB+XlIEvcFRKR7WEe6mnOmUG56catDQoF0
-	jkoAULLzPhOewfvniwRzPikojzMFwAi3BygUcRfx4YgzaCJ7bwOXozXk/3+wlp0nZ7cCXxpqIUg
-	hhhwBtlHPkgCRV4Fsn/+y01kKWJgXm55rgV+FpuoIQlsY5719HgKztJow1lamaAYTbRZ1rwy9LW
-	KZ761SPlKxDnBl5q7b4i0aIC2K/DsVe/FHez0D2uYLOvEr5kAsYZ+ld+nDzBNcmtXWZaJlsP0fw
-	FdMlxYO3MuE2k1v+DmGFyhL/MtTALJWYV+WiM5SfgVK1l/ywN8=
-X-Received: by 2002:adf:e184:0:b0:495:b427:1e6f with SMTP id ffacd0b85a97d-4982e920d55mr359034f8f.0.1794246669666;
-        Mon, 09 Nov 2026 09:51:09 -0800 (PST)
+        bh=EMH3OXraqN/u0b7tImF7Qn3xU7G/zv7ZwqiQdfYEX2U=;
+        b=z3VnM28DHnffRulqtu0AzbmPzA17YSB5q1o70KqFiU+0YoqjKwEiPEtn+hxEuIr0cO
+         GEqvOSLcSvBnKD0B1iyo0chwP/AITYkYraS1kTB6BnG4WnvhlIC04sNr7Mg0TvbvEufo
+         5wTCokQyZ7y41PRGi9HVsCLXQfikT5SpU+HNQu+vpOSbpUa0EEUuM1gGNx2pH5aZ2Yu1
+         XJmVRLDvedkYHL/OsplyjvLDhsLbNNNs9c62uDaejFAOmg7uvuqtKFCbEit5tk1ygWzR
+         zaqkDEffCBATx04ASVlanJjESyFhiK/Vt7eA2hyFFZ6ugvUNlBlj0IYnDWMnOcOJyvnT
+         s2WA==
+X-Forwarded-Encrypted: i=1; AL+hErHNB9Cq65z4lq8xjkmsJ0r9fUqAf76r6ACa2WB2Iy0sF2A8BG1oUet/7ouhtxouVKG3GrQATEQswaSR4w==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/rJXKYUdHWNzyOwZL4PE3sA4eu5eocTpOUOAGjeSj0OXUbzR77
+	j8R3Nb55bp+baQOzkiZNN2wPBBcbY+bG8fYD0KzisPX4nrGDPg9JBu+4
+X-Gm-Gg: AYBFou2tjF/FbDxDNcBRvpUZhUYYT2x7ARLrVWKLCLc6Efe3W1Khu5zmrod6916asqo
+	90LxRyyLsHNLAyp3+A1ZV7xywPEmP2iIYCrbKqCIdX2GY0QYcViz0XHqQP5EbyZx+rLY7SE3HIz
+	zOjC5eOqOMTq5WqX0qxUXrPv2jJeaswv6TF41vsMnERU/xmi7ZwMKGHtJz5RrMm0fKRGWnPuy9O
+	L9MgjFNBYc9Izv6J5ScFFr8N/e+JktdtpFlLFy7l0RWI6u/pICKUAvHuXnGEbq2MrWQ7TpSpgs2
+	G2fRJ1yqiV/YEkmbheIKG5w+J4su9yD/GjbCpOWAeEz9dX7L94J8jvRcpAMX3XvvMeczLkNqNTJ
+	nHgOUhb71vP8bDXw9G8wSf40c//Ft2R6qA59UsalpHEJ8N61pZMiMxLaIw3nkpihf4izN+FNhzw
+	wSTmDfAAaSDJHhm/1RXpGgbKZXteSCYcXkpwXzKejgJi50HB9Zwsh8GuOV6laAU/KCet02U3D/8
+	2woBVwVEX3L9PYAbGQlWniUMWo3Oc5HWul4qXCs3eatMW74UqOutcZ2BQY9RX/lHKm60hdY7hsF
+	OfYSUOj7JXGVQ4yIhuL/GoGblOYlnCsSfJ+9oAkSiYMQcqnERV4xWMRsUR+cT1Ldxpe5W+d0rH3
+	qMjARnzDIido51eldKrgp1Yld6IND4oOab1XrsK7UoZA980Ljv4E8tty0vh4eCZxwhPikQJYwZ7
+	1bFR49jXrh2J6h3sMnIw+aPOt7t/hEIeD/5fZQESkHt69MOaWNkv83zsw+xHBwLvXLl9anKplKM
+	ZsK7T2ZAXsGkX60H1QytJdXMLU5khY9NlIGOHSu1r1so34QBZA=
+X-Received: by 2002:a05:600c:4ec7:b0:4a1:ddaa:571e with SMTP id 5b1f17b1804b1-4b963c8591bmr96421945e9.15.1794246672153;
+        Mon, 09 Nov 2026 09:51:12 -0800 (PST)
 Received: from jernej-laptop (86-58-12-36.dynamic.telemach.net. [86.58.12.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a4238sm200717f8f.54.2026.11.09.09.51.08
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a4238sm200717f8f.54.2026.11.09.09.51.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 09:51:09 -0800 (PST)
+        Mon, 09 Nov 2026 09:51:11 -0800 (PST)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil@kernel.org>
@@ -96,9 +96,9 @@ Cc: Maxime Ripard <mripard@kernel.org>,
 	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH v2 03/11] staging: media: cedrus: h264: mark long-term references in the frame info
-Date: Mon,  9 Nov 2026 18:50:08 +0100
-Message-ID: <20261109175016.42061-4-jernej.skrabec@gmail.com>
+Subject: [PATCH v2 05/11] staging: media: cedrus: mpeg2: derive the field order of field pictures
+Date: Mon,  9 Nov 2026 18:50:10 +0100
+Message-ID: <20261109175016.42061-6-jernej.skrabec@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109175016.42061-1-jernej.skrabec@gmail.com>
 References: <20261109175016.42061-1-jernej.skrabec@gmail.com>
@@ -113,123 +113,110 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The frame info of a reference has a reference type for each field, in
-bits 1:0 for the top field and 5:4 for the bottom one, which is 1 for a
-long-term reference. The driver never sets it, so the hardware handles
-long-term references like short-term ones, also where they differ, like
-in temporal direct and implicit weighted prediction. The vendor library
-sets it.
+The hardware uses the top field first bit of the picture header to tell
+the first field of a frame from the second one. However,
+top_field_first is always 0 in field pictures, so userspace passes
+V4L2_MPEG2_PIC_FLAG_TOP_FIELD_FIRST cleared, and the second field of
+every top field first pair is predicted from the wrong reference.
 
-Set it from the DPB entry of each reference. When the second field of a
-pair is decoded into the buffer of the first one, the entry of the
-output buffer keeps the reference type of the first field.
+Detect the second field in the driver instead: it has the opposite
+parity of the previous field and is decoded into the same capture
+buffer. This works with unmodified userspace.
 
-This fixes MR8_BT_B and MR9_BT_B of the H.264 conformance suite.
-
-Fixes: 6eb9b758e307 ("media: cedrus: Add H264 decoding support")
+Fixes: 50e761516f2b ("media: platform: Add Cedrus VPU decoder driver")
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- .../staging/media/sunxi/cedrus/cedrus_h264.c  | 24 ++++++++++++++++++-
- .../staging/media/sunxi/cedrus/cedrus_regs.h  |  8 +++++++
- 2 files changed, 31 insertions(+), 1 deletion(-)
+ drivers/staging/media/sunxi/cedrus/cedrus.h   |  5 +++
+ .../staging/media/sunxi/cedrus/cedrus_mpeg2.c | 32 +++++++++++++++++--
+ 2 files changed, 35 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c b/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
-index e8229c60d3f5..97958ceee8d1 100644
---- a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
-+++ b/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
-@@ -69,13 +69,19 @@ static void cedrus_fill_ref_pic(struct cedrus_ctx *ctx,
- 				struct cedrus_buffer *buf,
- 				unsigned int top_field_order_cnt,
- 				unsigned int bottom_field_order_cnt,
-+				u32 ref_type,
- 				struct cedrus_h264_sram_ref_pic *pic)
- {
- 	struct vb2_buffer *vbuf = &buf->m2m_buf.vb.vb2_buf;
-+	u32 frame_info;
+diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.h b/drivers/staging/media/sunxi/cedrus/cedrus.h
+index c2318521d7e5..572e70a94b3f 100644
+--- a/drivers/staging/media/sunxi/cedrus/cedrus.h
++++ b/drivers/staging/media/sunxi/cedrus/cedrus.h
+@@ -144,6 +144,11 @@ struct cedrus_ctx {
+ 			void		*entry_points_buf;
+ 			dma_addr_t	entry_points_buf_addr;
+ 		} h265;
++		struct {
++			bool		pair_pending;
++			unsigned int	pair_dst;
++			u8		pair_structure;
++		} mpeg2;
+ 		struct {
+ 			unsigned int	last_frame_p_type;
+ 			unsigned int	last_filter_type;
+diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c b/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
+index 8252a47994aa..315b0e5b3c88 100644
+--- a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
++++ b/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
+@@ -58,7 +58,7 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, struct cedrus_run *run)
+ 	struct vb2_queue *vq;
+ 	const u8 *matrix;
+ 	unsigned int i;
+-	bool field;
++	bool field, tff;
+ 	u32 reg;
  
- 	pic->top_field_order_cnt = cpu_to_le32(top_field_order_cnt);
- 	pic->bottom_field_order_cnt = cpu_to_le32(bottom_field_order_cnt);
--	pic->frame_info = cpu_to_le32(buf->codec.h264.pic_type << 8);
-+
-+	frame_info = VE_H264_FRAME_INFO_TOP_REF_TYPE(ref_type) |
-+		     VE_H264_FRAME_INFO_BOT_REF_TYPE(ref_type) |
-+		     VE_H264_FRAME_INFO_PIC_TYPE(buf->codec.h264.pic_type);
-+	pic->frame_info = cpu_to_le32(frame_info);
- 
- 	pic->luma_ptr = cpu_to_le32(cedrus_buf_addr(vbuf, &ctx->dst_fmt, 0));
- 	pic->chroma_ptr = cpu_to_le32(cedrus_buf_addr(vbuf, &ctx->dst_fmt, 1));
-@@ -83,12 +89,21 @@ static void cedrus_fill_ref_pic(struct cedrus_ctx *ctx,
- 	pic->mv_col_bot_ptr = cpu_to_le32(cedrus_h264_mv_col_buf_addr(buf, 1));
- }
- 
-+static u32 cedrus_h264_ref_type(const struct v4l2_h264_dpb_entry *dpb)
-+{
-+	if (dpb->flags & V4L2_H264_DPB_ENTRY_FLAG_LONG_TERM)
-+		return VE_H264_FRAME_INFO_REF_TYPE_LONG_TERM;
-+
-+	return VE_H264_FRAME_INFO_REF_TYPE_SHORT_TERM;
-+}
-+
- static int cedrus_write_frame_list(struct cedrus_ctx *ctx,
- 				   struct cedrus_run *run)
- {
- 	struct cedrus_h264_sram_ref_pic pic_list[CEDRUS_H264_FRAME_NUM];
- 	const struct v4l2_ctrl_h264_decode_params *decode = run->h264.decode_params;
- 	const struct v4l2_ctrl_h264_sps *sps = run->h264.sps;
-+	u32 output_ref_type = VE_H264_FRAME_INFO_REF_TYPE_SHORT_TERM;
- 	struct vb2_queue *cap_q;
- 	struct cedrus_buffer *output_buf;
- 	struct cedrus_dev *dev = ctx->dev;
-@@ -117,8 +132,13 @@ static int cedrus_write_frame_list(struct cedrus_ctx *ctx,
- 		position = cedrus_buf->codec.h264.position;
- 		used_dpbs |= BIT(position);
- 
-+		/*
-+		 * The second field of a pair is decoded into the buffer of the
-+		 * first one, which keeps its reference type.
-+		 */
- 		if (run->dst->vb2_buf.timestamp == dpb->reference_ts) {
- 			output = position;
-+			output_ref_type = cedrus_h264_ref_type(dpb);
- 			continue;
- 		}
- 
-@@ -128,6 +148,7 @@ static int cedrus_write_frame_list(struct cedrus_ctx *ctx,
- 		cedrus_fill_ref_pic(ctx, cedrus_buf,
- 				    dpb->top_field_order_cnt,
- 				    dpb->bottom_field_order_cnt,
-+				    cedrus_h264_ref_type(dpb),
- 				    &pic_list[position]);
+ 	seq = run->mpeg2.sequence;
+@@ -87,6 +87,26 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, struct cedrus_run *run)
+ 		cedrus_write(dev, VE_DEC_MPEG_IQMINPUT, reg);
  	}
  
-@@ -174,6 +195,7 @@ static int cedrus_write_frame_list(struct cedrus_ctx *ctx,
- 	cedrus_fill_ref_pic(ctx, output_buf,
- 			    decode->top_field_order_cnt,
- 			    decode->bottom_field_order_cnt,
-+			    output_ref_type,
- 			    &pic_list[position]);
- 
- 	cedrus_h264_write_sram(dev, CEDRUS_SRAM_H264_FRAMEBUFFER_LIST,
-diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_regs.h b/drivers/staging/media/sunxi/cedrus/cedrus_regs.h
-index 05e6cbc548ab..961fe023bb43 100644
---- a/drivers/staging/media/sunxi/cedrus/cedrus_regs.h
-+++ b/drivers/staging/media/sunxi/cedrus/cedrus_regs.h
-@@ -616,6 +616,14 @@
- #define VE_AVC_SRAM_PORT_OFFSET		0x2e0
- #define VE_AVC_SRAM_PORT_DATA		0x2e4
- 
-+/* Frame info word of a frame buffer list entry in the AVC SRAM */
-+#define VE_H264_FRAME_INFO_PIC_TYPE(v)		SHIFT_AND_MASK_BITS(v, 9, 8)
-+#define VE_H264_FRAME_INFO_BOT_REF_TYPE(v)	SHIFT_AND_MASK_BITS(v, 5, 4)
-+#define VE_H264_FRAME_INFO_TOP_REF_TYPE(v)	SHIFT_AND_MASK_BITS(v, 1, 0)
++	/*
++	 * top_field_first is always 0 in field pictures, but the hardware
++	 * uses this bit to tell the first field of a frame from the second.
++	 * A field is the second one when it has the opposite parity of the
++	 * previous field and is decoded into the same capture buffer.
++	 */
++	if (pic->picture_structure == V4L2_MPEG2_PIC_FRAME) {
++		tff = !!(pic->flags & V4L2_MPEG2_PIC_FLAG_TOP_FIELD_FIRST);
++		ctx->codec.mpeg2.pair_pending = false;
++	} else {
++		bool second = ctx->codec.mpeg2.pair_pending &&
++			      ctx->codec.mpeg2.pair_structure != pic->picture_structure &&
++			      ctx->codec.mpeg2.pair_dst == run->dst->vb2_buf.index;
 +
-+#define VE_H264_FRAME_INFO_REF_TYPE_SHORT_TERM	0
-+#define VE_H264_FRAME_INFO_REF_TYPE_LONG_TERM	1
++		tff = (pic->picture_structure == V4L2_MPEG2_PIC_TOP_FIELD) != second;
++		ctx->codec.mpeg2.pair_pending = !second;
++		ctx->codec.mpeg2.pair_structure = pic->picture_structure;
++		ctx->codec.mpeg2.pair_dst = run->dst->vb2_buf.index;
++	}
 +
- #define VE_VP8_PPS			0x214
- #define VE_VP8_PPS_PIC_TYPE_P_FRAME		BIT(31)
- #define VE_VP8_PPS_LAST_SHARPNESS_LEVEL(v)	SHIFT_AND_MASK_BITS(v, 30, 28)
+ 	/* Set MPEG picture header. */
+ 
+ 	reg = VE_DEC_MPEG_MP12HDR_SLICE_TYPE(pic->picture_coding_type);
+@@ -96,7 +116,7 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, struct cedrus_run *run)
+ 	reg |= VE_DEC_MPEG_MP12HDR_F_CODE(1, 1, pic->f_code[1][1]);
+ 	reg |= VE_DEC_MPEG_MP12HDR_INTRA_DC_PRECISION(pic->intra_dc_precision);
+ 	reg |= VE_DEC_MPEG_MP12HDR_INTRA_PICTURE_STRUCTURE(pic->picture_structure);
+-	reg |= VE_DEC_MPEG_MP12HDR_TOP_FIELD_FIRST(pic->flags & V4L2_MPEG2_PIC_FLAG_TOP_FIELD_FIRST);
++	reg |= VE_DEC_MPEG_MP12HDR_TOP_FIELD_FIRST(tff);
+ 	reg |= VE_DEC_MPEG_MP12HDR_FRAME_PRED_FRAME_DCT(pic->flags & V4L2_MPEG2_PIC_FLAG_FRAME_PRED_DCT);
+ 	reg |= VE_DEC_MPEG_MP12HDR_CONCEALMENT_MOTION_VECTORS(pic->flags & V4L2_MPEG2_PIC_FLAG_CONCEALMENT_MV);
+ 	reg |= VE_DEC_MPEG_MP12HDR_Q_SCALE_TYPE(pic->flags & V4L2_MPEG2_PIC_FLAG_Q_SCALE_TYPE);
+@@ -188,6 +208,13 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, struct cedrus_run *run)
+ 	return 0;
+ }
+ 
++static int cedrus_mpeg2_start(struct cedrus_ctx *ctx)
++{
++	memset(&ctx->codec.mpeg2, 0, sizeof(ctx->codec.mpeg2));
++
++	return 0;
++}
++
+ static void cedrus_mpeg2_trigger(struct cedrus_ctx *ctx)
+ {
+ 	struct cedrus_dev *dev = ctx->dev;
+@@ -205,5 +232,6 @@ struct cedrus_dec_ops cedrus_dec_ops_mpeg2 = {
+ 	.irq_disable	= cedrus_mpeg2_irq_disable,
+ 	.irq_status	= cedrus_mpeg2_irq_status,
+ 	.setup		= cedrus_mpeg2_setup,
++	.start		= cedrus_mpeg2_start,
+ 	.trigger	= cedrus_mpeg2_trigger,
+ };
 -- 
 2.43.0
 
