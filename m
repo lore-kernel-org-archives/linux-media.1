@@ -1,83 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794224586;
-	b=1P7IouJToH7OnlTvpejuGedrIZ9HKMOKrz8j2NLg4nB5m0gKPNq2dvYINcAlTP8Bu/1A
-	 OkReVTCaJKRjQORBjO6c+mJn6E5kw5Ny4cBwVl6QAsmfZjo6pQ5clxMiV0TTsPmREYn5I
-	 EjOfEAab4JdOAnn+fY35NiUnOF9B/LPV8iVCKxAF1ngP+axAGagAjpjVJg9L+R9PGS6QK
-	 Y/DkcN5WQ5zy7RLVInMSUX1YjV7/FnyG1nUBDCqZOxIl172LwmWGJBIA/u648Vz5A6bfv
-	 BL9xxEbN0CUJ3/cbKUJMiZ5PvFrcxkNAOL6VqHA0wZp+eadvQS0KXxOjAksPuz+vnyQ==
+	t=1794224822;
+	b=MaRgD3htE8oIAeZIpTVETyHhTkIJbOogVSm1RiG+qMSdPITShyYd4itl1n24piXa/Lzq
+	 ivqqZwnD6gDiypOOtn//+CoRb6f7BLoyCsH1fm7awxF3Ur7IXh3R5w00sZzT5KtjLc5w7
+	 2swdYOE4JNDMbW66z6qI5k0ptAT3DYFOxWL+IxeC63eHltmLszkRpuHZ87TvfxS3moXXs
+	 9AllU3k+daBhe44HK5SklB8Ixzl+KIzLoBttABIZuHsSEe/4/AKZk/C/hEOiCo43ZbV5t
+	 4888Yc5saIWM6lj8O3fQIzsLzHAgfVtven8mEpCfk+XOC1mWK8yeBwE27Ja2cWx8v7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794224586;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224822;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=KmBZRsciR8DPhlZqPxESh6IpeTD/hkndOkOwZa7ckLo=;
-	b=o6jVtB7hLs5wVexXrqgUtl5uttzK31TJeS7NmuI2MnMIB9nGQWhP3r4OrABGNe6Z1omQ
-	 CCj/dBRQMVWuB4nLmWBm4sGi0U57NawsLeRYNEyf8Y+jrBCq5+5hqwjM+mLa5UBBDjtD4
-	 sC7t2xtP0xeJz5/1SLyS2iH41b4fcTb4VOlbZKd/BC2xmc3migNSlU71NzPYM6killT0x
-	 y3MwOdHTBw6Dp/HrFGo8v9SbOnDzgmAgd1Mf/9jJNqFJiOQmVe9kCmdqALWZOCaknfOOS
-	 qZjjBRr0Uj+8aMeWtiwLiaLDvjjJYksKwfilAilHjbnZj5PgM1XZQfdhIBxmei53k1A==
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=y63kdnd7evsFLFYwXbJ7wftE0OUmJITgzNwtHyiWHkM=;
+	b=h42nwJaos1iVn+Gsf/hPQ97UUcXlZw/+nj1tYGmfEzxrxiBlqFnxLeR1+Jw/+qe1ZQSu
+	 cIOT/zNvDMKqaM/hhSlTmUFt1IOJYBg4Rn4vtqKZLvZ3rzLTT+wyV4vJF6L1PCzTlrfRT
+	 g6rLlBFTP0ftbQldhx/4O8zngJTvqAPjN6vCwxBiuVfw1qZZHvLLNoKOb7Cs56jsabu8k
+	 z+DvIVaR/gbrVXU71kpCITuf4PJgqbofSG+kd1IP/+M/NuH43ezgY5nznKSjTvr7tcnPF
+	 tUwQyvbADyCs6PRHidzrR5Ct5Apgdu0In8U/L3Tfx3qr5u25GVwclOwEYetL0+6Vj4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Aw01t8gt;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K584xvzH;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175C0606A325;
-	Mon,  9 Nov 2026 11:43:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 175C0606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CA4606A322
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 11:47:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9CA4606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Aw01t8gt
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K584xvzH
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794224586; x=1825760586;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cTGzfwzQVoiq9hsl0Sc5mq1pROanVaVZp3VqGiIUImQ=;
-  b=Aw01t8gt292nCZN/SVzuUPO085ai0WerStmwRq4bwdS9RwgvQaKVGbUt
-   hrGicbMj9cjkCISYIkq8pQgk5599MfOFjCT/FGlYgDdHZLl6MEzqGk3PZ
-   aHV4ULCyTiizCo5sGrFnb3OeVQSWY94WsMAwIk8VOexyyu2UgAdQX+9nt
-   10Zu09iWCLwV7JdMHZboAhJNxtV8BB77FkKxqA1ugI3LkGBjYUed+ILpN
-   NS45FKMrPBtxWLurhbqGbCK8nq+10FeK0IUHZtI5oVpgzqKhkOvrwu4zl
-   2g6vIiZGDaSdFg2EaN3bmHWLd+Eu8j5Q562bsgP9OQjC1tIe/E11mha0B
-   Q==;
-X-CSE-ConnectionGUID: 5OtIJPy4RsuPnvXNMsHN6A==
-X-CSE-MsgGUID: wiSN13ArTMOXqZWawBAohQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2976523"
+  t=1794224822; x=1825760822;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=heIQ/4MpJOo2wkUvzYqJz3S9WX6VmGV2lXaoxnb2aJA=;
+  b=K584xvzHokQLFo1vSbc0LZlJuHC+ogssHrfhpj2N/+ivez/HjQUzTC74
+   qyttKckc3yHre2rE1FR8+G8PLdkm6IvvobRtgoOD0Yr//Xc6ftnGcNmFR
+   Dt7fuKKLc7Ak7c1XvMgKZ3/BwveuyyflX5Cvp/78Vhs+myhASrQubE0wZ
+   hj8X0WYqGm4VwSZUEzWk1ihOyMCswIa2C+0tHDXZA16H8P4Qldg+LpCd5
+   YnKkeFuSjCh8xDOhZAZtNG+7XPTTxdci4V8cZZbLgFf44Y3FgrfbUQQS9
+   uqxzdD+FAE8jVLIuWQPu2OcEQP62B5xhmCvd9mdB5VPhdnlqEAymXZv8/
+   g==;
+X-CSE-ConnectionGUID: EuVodZR7TwSwvbvIphUnqg==
+X-CSE-MsgGUID: 730J/UQmSca5ESku4gWJzw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2933635"
 X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2976523"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 03:43:05 -0800
-X-CSE-ConnectionGUID: mTkSe0LDRhu0+2X+gxR/XA==
-X-CSE-MsgGUID: ZAnfzOVLSSWAbwl7ayJrgg==
+   d="scan'208";a="2933635"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 03:47:01 -0800
+X-CSE-ConnectionGUID: PCnAgCmwQkaTKfheyeNMcQ==
+X-CSE-MsgGUID: yeQ01YcwTby2f8GN/c0+nQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7726200"
+   d="scan'208";a="9622698"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.119])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 03:43:03 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id D2103121B96;
-	Mon, 09 Nov 2026 13:43:00 +0200 (EET)
-Date: Mon, 9 Nov 2026 13:43:00 +0200
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 03:47:01 -0800
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id A515F121B96;
+	Mon, 09 Nov 2026 13:46:57 +0200 (EET)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1xQNpx-000000000af-1WYC;
+	Mon, 09 Nov 2026 13:46:57 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: "D. Manresa" <dmanresa@gmail.com>
-Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] media: ipu-bridge: don't reference the module
- image from software nodes
-Message-ID: <avGxxCtAsVYKFxSq@kekkonen.localdomain>
-References: <20261010155626.2766298-1-dmanresa@gmail.com>
- <20261010155626.2766298-2-dmanresa@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: antti.laakso@linux.intel.com,
+	hans@jjverkuil.nl
+Subject: [PATCH 1/1] MAINTAINERS: ipu6: Change Antti's R: line to M:
+Date: Mon,  9 Nov 2026 13:46:57 +0200
+Message-ID: <20261109114657.2262-1-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -87,36 +86,29 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010155626.2766298-2-dmanresa@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi D.,
+Make Antti a maintainer of the IPU6 driver.
 
-On Sat, Oct 10, 2026 at 05:56:25PM +0200, D. Manresa wrote:
-> The software nodes the bridge registers are deliberately never
-> unregistered, so that a later rebind can reuse them. Nothing reachable
-> from them may therefore point into the module image, but two properties
-> still do: the "link-frequencies" values point at cfg->link_freqs in
-> ipu_supported_sensors[], and the "lens-focus" property name is a string
-> literal.
-> 
-> Both dangle once the module is unloaded. Re-probing sensor drivers then
-> read poisoned link frequencies from the surviving nodes and fail:
-> 
->   ov5693: supported link freq 419200000 not found
-> 
-> Copy both into struct ipu_sensor, where the other property names and
-> values already live.
-> 
-> Assisted-by: LLM
-> Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
-> Fixes: 68b9bcc8a534 ("media: ipu3-cio2: Add support for instantiating i2c-clients for VCMs")
-> Signed-off-by: D. Manresa <dmanresa@gmail.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Could we have a real name here, please?
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..e13bca12b6ff 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13541,7 +13541,7 @@ F:	drivers/staging/media/ipu3/
+ 
+ INTEL IPU6 INPUT SYSTEM DRIVER
+ M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+-R:	Antti Laakso <antti.laakso@linux.intel.com>
++M:	Antti Laakso <antti.laakso@linux.intel.com>
+ R:	"Sapre, Sarang" <sarang.sapre@intel.com>
+ R:	Divyamani Tripathi <divyamani.tripathi@intel.com>
+ R:	Manik Bajpai <manik.bajpai@intel.com>
 
 -- 
-Regards,
+2.47.3
 
-Sakari Ailus
