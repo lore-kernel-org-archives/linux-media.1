@@ -1,89 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.129.82
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794259051;
-	b=ColWOJPvs2DNLq1m2S7r7g861BcR0+ce99Hmim54+5VfGPa52yAfImsJAMlmh0j9aN5t
-	 YMgIIGFUjjhfmVYF+UwJnsHcgEA/G4Tcy4+oKG6h5giemZzhNvaitPi/HwbDWJiMXzrJw
-	 rKm/Kya+HnXhhYbpl8NLaCoqm2jqkEc2m+kZSTacfcAd+jmHAXQE8bLIi6JEYHGRenhiw
-	 3gvYxBJv2JQGoOwxu1F5VJTkZqMIlTHvubsV6O8pjA8YQeQ/3kK2Jxi+cXlS+Xe27AVGs
-	 UC3hQM6RsF/g8gFENCCefagxgV6RVsZS9a8C2RYaCx5c5PBtLV+gQK97/iG6jquqz/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794259051;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JEYXfU1U8URc2Pv4E4ZpGfok3ipwYXJn6tUppDNmvZ4=;
-	b=FVerOj2nShbCr71WmUgMr2k2otydjQ8gq3OBDyRAPbnpZ8od0zV97wp+jzuHNqwKziGR
-	 0e1PT76cnD6a4IecmLesbYRj+vSWQpKfm4XqtDVUKuttird9iFPBOCK7B4f9hGuz5rB0g
-	 nTqPVc6eDQT7dKU54uJHLZtvLf950XrwRdMEu1ge8rp6DgLVIBKdNwbcHxg4jN1rdyo3I
-	 +Y4aQLLV0Fu99ZRWbm9dCcEyVyQrNQjSiIZollJq++CDDrUJiYCT+gYA++En2emUk0YSU
-	 8HfDLBB/orM0AQzDG9FWWYw41HrSq4ACoGs+B0TjFmiMw+9M6s+2miuq8luxPI8az/A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b="OlSmHg/F";
-	arc=none smtp.remote-ip=74.6.129.82
-Received: from sonic317-27.consmr.mail.bf2.yahoo.com (sonic317-27.consmr.mail.bf2.yahoo.com [74.6.129.82])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794263925;
+	b=Dfm6YP4wTa7nxdEdEz7IUjuzglRXyFwBkudBkjDTTegqj4O6iSx8ZreW5DqoqVoQPFGD
+	 fBJLU2ai4ofeObtpwaq38CaA/k0fFa+nCcCMpH8XlTzMHW+0bP5z1OQuysC8IOP5+NzHJ
+	 udXeLJGljweWuwFaoOgcMCIUzn/2Crcc9U0NUo905pvWglfu1lKBdcQKUaeBRxZ7IZ5la
+	 dl4ZL5Jnq27A29IHN4fK5W9qCyvsmGeV/QRf39MsaSEKnpxxOw5LDQXtLhOEx08NfdfGY
+	 XdLRb0rCQxzJ/txKNuWJbOVbJETQmV3tegTihljRJjF4nw+ppvFCGRYu2d+rqo8GYZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794263925;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=3eXfdK+/ERlcqk0A2RmXoKMP6hm5guIAqsMLPqJM56Q=;
+	b=d8b5u3A3xkz66HoL8Nk4QqByliwOwrgeJjU6o6syXnxVCO9t6am5ftMPOv8WEMI5EGJ6
+	 T7sbqkZwUSHYpOHbB6cpR06JjlI5W1G7CtfyjAguqNC6bmEw+vO9AcnObfz3uTqZzZAc2
+	 aKItEzDrB0f7f03W6APEccUBipvERdy7chsZIgsUkVifLPaEiwocIOhpC9MsRQjjW6iGq
+	 8jhJ1EOVxucu8J7l1xjxwanV8ipWOxhpqGBz71gNIjK5MGw4gfWmZePGw8U37II5QXZT3
+	 8ora0LSI1iI28crY9wyob/xU+nr+I0PvlIjCnzzB9yt4+x5ucdGeZ3F2LHq2zCSAAqw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TrTJl8WM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81CF606A31C;
+	Mon,  9 Nov 2026 22:38:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TrTJl8WM
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794263924;
+	b=JfuiznkQzdIHPkXWEz6tDRXZvn9NS/a9ZMVrC8aSQwmMH9l60DxYZkHjzj76qayL+kQ7
+	 oV27y1J5W30l4CRBijreVfyWBflzQd371NelMOdBy8eIrE9Hx+L8yxAclTNBfqtx4g+Bj
+	 C1WIXESWJvb+je3AaMjy8SlkgouvIlOL3LBCBw5JVfI8JkKw2oNU8UuAdlkGHrQ55D0xz
+	 j9zCxmq60qS1/rsA6aVUefLjRyP7uDcxG6LFvGoSIhfIeyek7C9X8IsiJpWy8rYKq8PBT
+	 ETzdc1slXR8mH29ijqwsRZ5M87L2cvTZkPVaXMg/kvZI5FzD8coS3sXesGc/Ci7jmrg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794263924;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=3eXfdK+/ERlcqk0A2RmXoKMP6hm5guIAqsMLPqJM56Q=;
+	b=Dn1PQjLL/rAq3LBlVbXiKPqe1A6ySLigCCfbrwb49Jc1JyqrwKfBAcE+RG6G+r4B3h12
+	 TwqgB/n3EWaP+cTSM6ZZd+7H/ZotynRXGoP5KK2C92nYwomoa3QF3NT5IYa/XEwKDZipH
+	 R/iKK2qemXiKmcTAAXKCcYsa1mJeFQBnUQmhcgeYbuveKTIRk6sWdEuyXZ6CvGG9THaYw
+	 Fh4lF92/rLaZ8msNjWwSZl4IEeiPVz1sWb/RYIjd7F7fcvSxYcKwLt7K+JXZDQJUoStMs
+	 9AbEXOGjvDAik+0BcanlQTPzip139LxK2w97RGMa3b+qDWSJkEPA2jfGHQSHcpXpxPQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F466606A330
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 21:17:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F466606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=OlSmHg/F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794259050; bh=JEYXfU1U8URc2Pv4E4ZpGfok3ipwYXJn6tUppDNmvZ4=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=OlSmHg/FUKOhRWfmKE7j8Ac2XMNl+zoEGewIx9k8o9wWrP/55uFDVjINBmUDXvKljHlbZrOkUt8NC3fV4jt8YR9vsAl5wAPd8MF0zhhqw+z/VGt7549iVGZr6dxDA5pyXdqAKQyixrkMKoaWSOMYx8uusYjc25hU1aTPq5VTtRYH9ayM6jVZGw7nwpG/pAqobbsb98WciZr1DLI2dn4namA5Fc6Sa4md414z60H2+V/qcdAR3FT8olSX7Vx/OrHRaHnmXiMWXcKaa4VNjVNCLeHf6U4h947+a3XwYzF/9Z1PtgsnFudzb4ybNxmOV6wV7VrsYf6CqjOf6CwpM725zA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794259050; bh=0+TYf67+QjJoeQRcKp42ARBIsirGSgU2qRrgbgDZkMo=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=pY4SR4AAJpIhMlrvOOomJw+hsKp3AVuyZF5jYyHVwFyDDWe2GXq1tPpZCZnp63Nfj9wPMpNh80aMXMcIl8HGSxYpViHztTNAkiASw4skLXq+kh89EH7F6mkhH496X1hdkqWhpzUoIbBCbBVeD1Q08fc6jhWL50Miz7tHKo8oscMeWkUQd4IVECJ/HhNaZ7XjLYHvXtIJAhKzJSHsltznDC52jvq+FLhWg3NqxYSIFENPstlwwfE74+GiGAjMOqSSXAI+CKoJQI3psb6pshB7h9twYXAjM/MnjgVNJinbIrhy1tTobi9wPpZ/bVhkYIt5vORcD/3xGdNJGEZrUzrLaA==
-X-YMail-OSG: Tgl8SNMVM1lVrN5jVoNX4.jTIPQmpt9M9h46xfk9v.Y0QtLfdMB1wmYmgsKOyIl
- B_wUph1Ku6VoJ91I0jM9n8zIijrP6tKkqfnUUIn3b2EW1VahwXSSKvmIXdgrdcXw07c4pE.DtFMh
- h9vfV5q.FpFLwm6aBrOeN1c5j7j_BgJswmdjzSafVfU4hosYdotPC4rCtS1HAoCD9U92i87VOnV_
- x5Qr3_EXWrSr7Fm51ymQ7JIyLUhYZ6oZygsyhpm0uVMVaP4XQHDw3hTqTNKFrSdyD_ZB41dUuU8l
- kudPWk52fGw4x5nIraJd8qV_dz16TWb0afVRSpuBxf.gu3gsBCTTACpblGsn1BvE.7BXwSDVX32j
- QRoypnKipohpe1ZgBHbjDDZ5YlJP.9pBB7yOxEIRKVCfSLsT3p049VaFAUweqNG2lvorlAaAVv3l
- gQiCEZQf0rDnrKExZt_fdnPurl86me1_Vsbn9rOcInUem63Z_aeZEIOdaIfrkXsWWVEDNYk.1iQs
- rzpFlPAQ9tkzEVUrn4z7HTVHiHQh4JrU8C5qYwqTCuUU9iJl1gZx4.0Uyn.ouBiXRcE.DdXTa6oV
- 7CvQO4v1SAEEM9ZJf.rexQNRFqilNwJ1qTuxEY27TMXSrxiKEVLx2NpcAyY50w02ZF_gynVI4EuR
- nsd6gv7yrzsaeqHW3DHgXvGu2PtRHai3ce_hB7H7Vz698DlIVv5Px0kbpodgOKxeBf8pGl.SCrFB
- 4kvz7ojVrMH8jN.5s_gvuROWpCsy6zXfOuvjWUoceDlH.nS4Z4zd2ETh.6Gf_MzGF8Fqa.n3sIlg
- 9S.lUNwUO.E7bB47cSwRRbtmTqtt7AvMVVSEF3HyPlFdAvjmVFcaskAiJU8IIvFri.uhrfvC9r3c
- VnaTce.7Dqnk1X.ELU5wAP2o1hJA2_tlbRFdQs2Fu6yDJREqonEMISU2OsWCAdq3k7WkGPzi_0lb
- JaEzjsmpd6laIpHVN3Ei0lUTF2MqYqMAcJNmmbsp_V_GByyijEskOK4TOmQdmWmc1BoaHU4FGHQD
- 2VZtGmB5e.gHtncruPAj53rl88hZan1zzDkSeXpeVhhHZfZZWGh_7OHdeev80lOCJBQYYT5AwOZZ
- gjH2oa0DFB5g8iu2shM8GkF5zJqVG0RQQCTFzWpb3Ot00pc3ta36xjGhfDeiUx.gdXYVQ8CSE6VZ
- qC1mEAJZzrr5aHWpP53RydxroGbCaFeSFFLmzn0KAd0kO1eW8hejKCPLXtZc3IiEfpl8j25NJB1M
- hGAKMPklAfuWsmRCm237ltzMXmLuM8nK_14i59B8ytvwf1PcmSbY6QLqe34WAROUrmiG1axogaeA
- EvcLDJdlX_U39zrcbX7IXPY9y9kkTUlVzjtgSXksR4juifMPqkH0fYvLVA97lg5EWAKDaZbR9nbZ
- tQFb0Qw8JHhSfLf5wRrOviIiJlX5_cLPcuui4BzI6XJkViZbypDyD_ly.dfV.OOkK6SdocQf7dV9
- Iqea8gFh35fqg2Qew6pXex77nLcTijSqSTdXlcyuUTXs61iNnDN8HK0FBvTnaC3IIvAwl7Xqr7SF
- 8SovI_cAF4YtQ4ORZfTyt8MyccI95N24TzOlqDL_VrnVrQ1UE9Ljt0TpUla36drFusGjZbu9ra54
- UCVVzOjEmSMSbAkSi0S3xzTpDqTx5qi9qTxGkAN6l._cUmRVhvmG_9k0GPB0IjJNMKUrhcUIkCS5
- FoMkaXCkwnYyYfd2XL2uMWJBQQ4GPKKvx6nTJ1Wtn_WFph9o1MaGkyzeXDPZWRNrwwwaCEtJ3ozj
- dtxzfLsexRY6Mlb9DBOy4beAaBz7vm0CFvovUJlwPiKl3MgY.zMYROQaugR2pSDrNmBM3L6YFteX
- CuTjtWULpapYo4yl6sY9FvEKvji36YMTPJHR2h5E.zQfuiMwIbFkpZ6o0LotzsEc4t_OlFiQvePZ
- Of4SUAH3gMJ44WYCLWxykI409ZKS4uZ47VAoBQrqipDEWomsydjfzM9kiZtElD4eOg4XjJxp2IFn
- q9DMbCQUKuxg.59ObkbSW9HI2btaLGqZ37blwe1rG0dlqW9IydbkcajWQpYdJ5wx0PwN2m.9pGd2
- wn0xUdrJ5WkE1Oi342F2TxoF9NesYfOSV_atXkuLgMAWIONZe.hDauvaKK6Pb_MYhggaeOgLYdlK
- Kdk2iX4hFGN7tgvG6NXAQYhJFqGCFK6p9zBOVemHxFPI19vphxGNKPgx2pIUUOdOsuQDOQ.CzZly
- sLVnBln9TVBBHQLhlCjcZRQ8aQRPsPZXykA93bPf4Fk2ulGzeoYFh4cIBGd0i8.0lGkngYg1E13Z
- W3b5pCkPuDz.0FhsoGtsPKbA9OV_JgHM3hO4Y
-X-Sonic-MF: <laurian.iacob@yahoo.com>
-X-Sonic-ID: 1b7985fb-3b4d-4ae8-8e1a-4586d8568523
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic317.consmr.mail.bf2.yahoo.com with HTTP; Mon, 9 Nov 2026 21:17:30 +0000
-Received: by hermes--production-ir2-5dd9bf4598-c45bs (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 90404a0c6e0834d8f8b330b4d7fcd50a;
-          Mon, 09 Nov 2026 21:17:28 +0000 (UTC)
-From: Laurian Iacob <laurian.iacob@yahoo.com>
-To: tomi.valkeinen@ideasonboard.com,
-	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: ds90ub960: use scope-based guard(mutex)
-Date: Mon,  9 Nov 2026 23:17:26 +0200
-Message-ID: <20261109211726.8316-1-laurian.iacob@yahoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261106114859.1579-1-laurian.iacob@yahoo.com>
-References: <20261106114859.1579-1-laurian.iacob@yahoo.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id A71141F0089F;
+	Mon,  9 Nov 2026 22:38:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794263924;
+	bh=3eXfdK+/ERlcqk0A2RmXoKMP6hm5guIAqsMLPqJM56Q=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=TrTJl8WMN3N7AJTgKcENnPah1MGYVCfEey0K+tj3Q8798T1OHePKtJPEsK7r7xV2n
+	 B6H2bLPxavfWziR+fFTTqm1KRgBel/zcN7OWXHEoG2fTWDUFdrknXv+zjJykK67qej
+	 Dvw3/1czLu24v8BnNwymj7Nxe41+OP3xFJxniHJjUzI/Am2W9GII0udyheq8s2twtG
+	 A+LbLsj725KmHB0L966dNDFsTCFPV5SoKLIgnKc1Xi2lv8b3wVHkQKPuMrJzgdzi4+
+	 7kPQHPV3iYwLPFiuvjY2VPC2NFx0NVp7Noxto9DgTqZLVmDz52ExRa3+CLf77nvaMM
+	 iwFFbnS8EN2gQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 02878486C3;
+	Mon,  9 Nov 2026 22:38:43 +0000 (UTC)
+From: Gaurav Suman via B4 Relay <devnull+gauravsuman007.gmail.com@kernel.org>
+Subject: [PATCH 0/8] Add SM8150 CAMSS and LG G8x ThinQ camera sensors
+Date: Mon, 09 Nov 2026 22:38:18 +0000
+Message-Id: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,13 +83,141 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFpL8moC/x3MTQqAIBBA4avIrBNUUKyrRAt/xpqFFgoRSHdPW
+ n6L9zo0rIQNFtah4k2NzjIgJwbhcGVHTnEYlFBGSjHzlq3UggeXsTpuYlJCW+t9VDCaq2Ki5/+
+ t2/t+AguuhF8AAAA=
+X-Change-ID: 20261109-sm8150-camera-6df20588bbd2
+To: Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Gaurav Suman <gauravsuman007@gmail.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794263921; l=5453;
+ i=gauravsuman007@gmail.com; s=default; h=from:subject:message-id;
+ bh=V0gxOM2+wQBEiJW7jBW/SNch7ZQr8m8J9Q6jbHcbWdU=;
+ b=Bj65NyVHBcsx5uucl2Sxdj4GMPIoqzce0DT+tdCySvmN00TKqBD31U4Q1VDTUGctkA/xJdWmD
+ d3jWcSFHafIDDqgmgUrU38ErgAEJd/WgH3KG0NYxLgH6cOXj/x+gUSo
+X-Developer-Key: i=gauravsuman007@gmail.com; a=ed25519;
+ pk=lnUC0mQfc0KyA0LE73pQ4+QWYVRaCD8Sd3XWxLZO+JY=
+X-Endpoint-Received: by B4 Relay for gauravsuman007@gmail.com/default with
+ auth_id=1467
+X-Original-From: Gaurav Suman <gauravsuman007@gmail.com>
+Reply-To: gauravsuman007@gmail.com
 
-This patch is superseded by v2:
-https://lore.kernel.org/all/20261109210940.7751-1-laurian.iacob@yahoo.com/
+This series adds camera support for the Qualcomm SM8150 (Titan 175) and
+the three cameras of the LG G8x ThinQ:
 
-v2 fixes ub960_update_bits() returning 0 on error and drops the
-conversion of functions that still use goto.
+ - CAMSS for SM8150: four CSIPHYs, two CSIDs/VFEs plus two lite pairs,
+   reusing the gen2 CSID and VFE 17x code with SM8150 clock rates, the
+   CSIPHY v1.1 lane table and camnoc_axi set to 400 MHz by the driver,
+ - a driver for the Samsung S5K3M3 13MP sensor (wide camera),
+ - a driver for the Samsung S5KGD1 32MP quad-Bayer sensor (front
+   camera, 2x2 binned mode),
+ - a lens driver for the autofocus part of the ON Semiconductor
+   LC898123F40 OIS/AF controller (main camera module).
 
-Thanks,
-Laurian
+The main camera, a Sony IMX363, uses the driver from the sdm670-mainline
+tree (Pixel 3a), which its author plans to submit; it is not part of
+this series. The board DT for the G8x will follow once the bindings are
+settled.
+
+The sensor register settings come from the phone's vendor camera module
+data. Each driver supports one mode for now.
+
+Testing: on an LG G8x ThinQ, all three sensors stream RAW10 at 30 fps
+through CSID0/VFE0 RDI0 into libcamera's simple pipeline handler and
+GPU software ISP (GNOME Snapshot), and the lens moves with
+V4L2_CID_FOCUS_ABSOLUTE. The patches apply to next-20261105; the
+drivers build with W=1 without warnings and the bindings pass
+dt_binding_check. The same code runs on the phone on top of the
+postmarketOS 7.0 kernel (only the client_info callback argument
+differs).
+
+Tree and test notes: https://github.com/gauravsuman007/nura-g8x
+
+This series was written and tested with the help of an AI coding
+assistant (Claude Opus 5.5, Anthropic). I have reviewed every patch and
+the test results, and I am responsible for them.
+
+Gaurav Suman (8):
+  dt-bindings: media: Add qcom,sm8150-camss
+  media: qcom: camss: Add SM8150 support
+  dt-bindings: media: i2c: Add Samsung S5K3M3 image sensor
+  media: i2c: Add Samsung S5K3M3 image sensor driver
+  dt-bindings: media: i2c: Add Samsung S5KGD1 image sensor
+  media: i2c: Add Samsung S5KGD1 image sensor driver
+  dt-bindings: media: i2c: Add ON Semiconductor LC898123F40
+  media: i2c: Add ON Semiconductor LC898123F40 lens autofocus driver
+
+.../bindings/media/i2c/onnn,lc898123f40.yaml  |   46 +
+ .../bindings/media/i2c/samsung,s5k3m3.yaml    |  104 +
+ .../bindings/media/i2c/samsung,s5kgd1.yaml    |  105 +
+ .../bindings/media/qcom,sm8150-camss.yaml     |  389 ++
+ MAINTAINERS                                   |   25 +
+ drivers/media/i2c/Kconfig                     |   30 +
+ drivers/media/i2c/Makefile                    |    3 +
+ drivers/media/i2c/lc898123.c                  |  138 +
+ drivers/media/i2c/s5k3m3-regs.h               |   71 +
+ drivers/media/i2c/s5k3m3.c                    |  451 ++
+ drivers/media/i2c/s5kgd1-regs.h               | 6137 +++++++++++++++++
+ drivers/media/i2c/s5kgd1.c                    |  451 ++
+ .../qcom/camss/camss-csiphy-3ph-1-0.c         |   80 +
+ drivers/media/platform/qcom/camss/camss-vfe.c |    2 +
+ drivers/media/platform/qcom/camss/camss.c     |  250 +
+ drivers/media/platform/qcom/camss/camss.h     |    1 +
+ 16 files changed, 8283 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,lc898123f40.yaml
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k3m3.yaml
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5kgd1.yaml
+ create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
+ create mode 100644 drivers/media/i2c/lc898123.c
+ create mode 100644 drivers/media/i2c/s5k3m3-regs.h
+ create mode 100644 drivers/media/i2c/s5k3m3.c
+ create mode 100644 drivers/media/i2c/s5kgd1-regs.h
+ create mode 100644 drivers/media/i2c/s5kgd1.c
+
+---
+Gaurav Suman (8):
+      dt-bindings: media: Add qcom,sm8150-camss
+      media: qcom: camss: Add SM8150 support
+      dt-bindings: media: i2c: Add Samsung S5K3M3 image sensor
+      media: i2c: Add Samsung S5K3M3 image sensor driver
+      dt-bindings: media: i2c: Add Samsung S5KGD1 image sensor
+      media: i2c: Add Samsung S5KGD1 image sensor driver
+      dt-bindings: media: i2c: Add ON Semiconductor LC898123F40
+      media: i2c: Add ON Semiconductor LC898123F40 lens autofocus driver
+
+ .../bindings/media/i2c/onnn,lc898123f40.yaml       |   46 +
+ .../bindings/media/i2c/samsung,s5k3m3.yaml         |  104 +
+ .../bindings/media/i2c/samsung,s5kgd1.yaml         |  105 +
+ .../bindings/media/qcom,sm8150-camss.yaml          |  389 ++
+ MAINTAINERS                                        |   23 +
+ drivers/media/i2c/Kconfig                          |   30 +
+ drivers/media/i2c/Makefile                         |    3 +
+ drivers/media/i2c/lc898123.c                       |  138 +
+ drivers/media/i2c/s5k3m3-regs.h                    |   71 +
+ drivers/media/i2c/s5k3m3.c                         |  451 ++
+ drivers/media/i2c/s5kgd1-regs.h                    | 6137 ++++++++++++++++++++
+ drivers/media/i2c/s5kgd1.c                         |  451 ++
+ .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     |   80 +
+ drivers/media/platform/qcom/camss/camss-vfe.c      |    2 +
+ drivers/media/platform/qcom/camss/camss.c          |  250 +
+ drivers/media/platform/qcom/camss/camss.h          |    1 +
+ 16 files changed, 8281 insertions(+)
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261109-sm8150-camera-6df20588bbd2
+
+Best regards,
+-- 
+Gaurav Suman <gauravsuman007@gmail.com>
+
+
