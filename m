@@ -1,103 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242583;
-	b=eedjX0wu82eLczWLHHgHymdl+5teugq6eV3OCmDmRPyEr8Qm7r22szG00Mhtsuo1lbji
-	 FwauBlUvzEUWvcf2YulJYAGBER2Hf2MosTE7UcubHh43EJyhnPzltXUYJEBZzOspCOcvA
-	 L9gdV5oZggBLKTJis+jITLPMwuXaGdFAUqZdSOsnJxKSVMA+R5LxWxXKhsTg0pgFoS8vE
-	 sBJVji1gppZmd6duwRMK1o98yQbGMvf/Dkxa//1CF9cQlhhhhwrUmmggnVbbAP3vBaJwW
-	 thvv2kAd41/gBr7+OekzhXNc8nbadNO+7mLk8gnBD/7z1AGiM4hDR5Eqfb3SWZ/HqtA==
+	t=1794244679;
+	b=N9D+NL2sXL2s6x9K+xO8UBEjb69FNRzfVL3B56RXXLlVmE5ZfFj3LZsvI2+t+3I/kozK
+	 wgwYsldmUTpVKwgx6p/1u/l/GHlALGQOdjVruh5Vj6PVJ2Bd1uqQ1f7kWDmVZuJlHx7Fv
+	 OpztiZeocJfLbCUR6yMwZljhip9gsuvGziU8kf/xVBTyxUqy6PdAyvvvEH9bb49uW/zSk
+	 e6sLHx0vQR0FVRzriYXkQeehqbBl+HB0vLVPAs1pCSonfmUrQBcRH23o2xSFmg/dPYnGW
+	 B0Z/WNqdojS8FN4gsZNDAJDa4CiE1T2iDciNzNMQ4JvA9qvEzlKdi9pTsHkOyQH/C8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242583;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794244679;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=1p3sNv9U0haI1WuvGOs57nA1tjZY34nraLgEt04/CiM=;
-	b=j48xXB+ylyd3NczaokXnDlCw6zxbkcsDywcy9qwNZLicL6iUU3rvq3TVvDpDOB8lI983
-	 UTHpQwdSKgTrDyxoBbvbpHo7klGLDE8g7XcfvmnMFh7vmY29De9T9gv+7vOcDvafjQwh+
-	 AqurBLHUL5SP7wNOpn78BhgPuVGhmmbWA/MFN6QyOLsDIJXy23Km043s1BGBo8r9izLdd
-	 yu1TwqdW3CmPS76s29TlhQL+7hUsL1UPfgZL39ARtFycXBrSGQTdIFjeNMb/ON5OFDY8g
-	 y3lgfDQ8cYGW+iXlucChL/tvYWc4wIkyHbt2YYcaAR4+2WgfMZC7+gtMSe65q+za2GA==
+	bh=4TaVc8RNeAzFNs1Ph3vgOybQkr83PU7asLdiABCA4EI=;
+	b=ZsckgH/2N9oXHOdxHZYVUzbkLDBfucI9IAyszykv7/qSxrYvichycne1iUxH8A8ObFab
+	 jE6kgbgi1TEPE1sJbo9VaFG98dgCGr5HCCwoy4rpBY1pleQk5xVzn2u4hgaO8CMj1D3D1
+	 4UgIOfGzBE9B2Aw6nVJ+yuURFRHmt5HFfJSwU+TivgCukXfZ+CRSBV1PDz1hx55bRBpMd
+	 mN1KyIClawd4//k248HpqtowSpHHtO3i8i1k9nurDz17r8Ys2fn8e3k1KoRu6ygLhdwyA
+	 KcrsHuwZsxOBp/UiTsoZL+nRpIM/0Wr7eZ2Xd5vVzLeT0xZTEaRNruHhkWZ3tEWATAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SXCBCBHs;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dmarc=none header.from=fatecpompeia.edu.br;
+	spf=none smtp.mailfrom=fatecpompeia.edu.br;
+	dkim=pass header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=WjEApXFE;
+	arc=none smtp.remote-ip=209.85.217.50
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A4AE606A326
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 16:43:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A4AE606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E53606A325
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 17:17:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16E53606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fatecpompeia.edu.br
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fatecpompeia.edu.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SXCBCBHs
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso7637195e9.1
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 08:43:03 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=WjEApXFE
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7d2db6408cfso610650137.1
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 09:17:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794242582; x=1794847382; darn=vger.kernel.org;
+        d=fatecpompeia-edu-br.20260707.gappssmtp.com; s=20260707; t=1794244677; x=1794849477; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1p3sNv9U0haI1WuvGOs57nA1tjZY34nraLgEt04/CiM=;
-        b=SXCBCBHsSo1J3DlH0uGTefaGDiNWDaEN/fnhbLD8gFE+j797GgHng4PCUXhmlz/IwZ
-         Xzf0cqS65Wz1nm33DkPDkGlAXzU2rNlNPHnuqPrtbCo099yQIwByXzcd3gRqQuJMAXtC
-         fKjKxOq/AX/4sfUdAzFjkNSA63Vlp5t2SJgU87Ei8z7TbTIwnaQFq2AdCrXQB1H8T6O3
-         1Fq6Jeau9PjXj8VsM3fc7CDDERRxqAAQUpPqX3ueemsIE+SgEYpSj/WHycpoeb5qGBOF
-         hMAWXtj6H0FIFhuLJZwLzGcchMW936rAoYj6P/6MEEkCtXEfAIYwVYljth/8G9HcYpff
-         7dsA==
+        bh=4TaVc8RNeAzFNs1Ph3vgOybQkr83PU7asLdiABCA4EI=;
+        b=WjEApXFE1pTnIb+KmmPuTjctaOkqfyxAgG2LeCOpwF4Csad+fG/qqRpt/cdm+D9G0M
+         1pP6PJHRBFg+h1ltlJZycyYIwFiWqylUZAVSOsK16VKLgp6XHPleHVTM6rVuNCByXiVv
+         4GTwnAMk/drrkd/D3ZbjHpDr2NszDRBGF9uxwvxqmS8/RVEpAD3b6VSI1JpP8wbgsZO+
+         3Dm8KX3Ep3EjqFPEmwpzerftrK7VnpLb6691tL2/9qEXtnhFhct8uouFz96K2gI0P3BR
+         co2shXK4eXnDpAiBL0vkj7Hgr/VHsOhjzAi+c8bFoVsDz8wMffsgYGQkOszFmGbVcWip
+         KC4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242582; x=1794847382;
+        d=1e100.net; s=20260707; t=1794244677; x=1794849477;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1p3sNv9U0haI1WuvGOs57nA1tjZY34nraLgEt04/CiM=;
-        b=yYAUaN+bDq6J3I/wAAaHth3SpR0/dcp3q9m6LzSwGs2RqoG1BKi0uO/pwPpY3pVvWi
-         F7GD6nrP8vsjRWRVgfxQoGq/smYyWkB0ojlnzld6cTIKk/l11tJRPK8GfM7+lrbOC2Kz
-         ETxI+2gJhUsK+ssK1RNQISEb7EeZqlhxAuXIrJMjXhVrXHTED2pZckMloxNJIErzilFC
-         Soy/8slKH/ExZunVD3v+KHkYFExyUYNogZHF4lLPg/lftU/2wmzcqJxiYsvk18QUS1zN
-         rpo/6DoYv3j01bX5VKINtKsR1wBt+XteBaKVFBrbBbWItT/ZnAJEqgFroRbEFFDXV/Uk
-         uqqg==
-X-Forwarded-Encrypted: i=1; AL+hErH02GqFUgW6BwcoDhDle1sZDI3QLP16hEz7y2Ts30xUmwfJHRzZmpd2F5Fu8wRFEE+UYcPPgY4UoMA47A==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8C8vUJaF598xWNq+3bZb+m9wZRs+KVSW/lLQ2KPCwzCSHwN8hK
-	n+ZE0VctQFBqFfHmhd8LDtqufrO4r1ikFy/XE6uo0jFg27HoTW5EZCk=
-X-Gm-Gg: AYBFou0hLvQR1O2RtBh98NpwcZ2xaS+t+XxwZdjrpuh/qfcOp/4H9pg1XvSG+eq5i7v
-	G2WD/pdzhv31b1DjNW9f6Yv3q5EWXs6OH4jPQJbYTWkJh9408G3lIcleet2ccqciBKzcHVgCocX
-	9A8F2h4g/Y1XEQDfnjxM5USR2L2jNSgMFSWxZNvCmzGLdzkJq5/1jrCCn7SKExzC429QPj+BWkV
-	kCAGtQKhqd13kaQa07beBJInsRcWsZN2O59wqNMXzYwONtTHseNE1Do/Ju/3pAQAO61rKk7KMzg
-	220yebwu6JZA44naQAEDMv5IGsGQs7zpWXh0MY2X88kxIHCGugCfC8AXXj/pZ2berNLnHZLr1jB
-	fdsn+VWziq62djzCA/w0I4SnT1dNAESrcjVm5HLF1ISiiR90tJ8F7iJa/GfUCyCVfPotbP4irCk
-	WSwQD/8ZGI6ftl5EBwa1uX2EnM6nsAmjpnGqd/UJELb7Zn6s1tclOJUOEPhc06YdIXNKJQ8IPhn
-	ADUj9Kq7TcH7oOlMVxDR6PqNex471qETBQlazLpwan5phzfo+G3ys6bSQ4rsgvIa9cywx9iiX7P
-	KRG97wXVXosSljgUBiKuQw/eckufPpTbxYiHGm7p1VvtVPIkPw9sWdUWpryp3icSzI8dMiVGSFL
-	m3CYO/ow/zo+Vi+AWm1vK2QmZX7Xl6ZLpmvBtlP3zbXqwJqOYwX59hCREHuZuRZV6yyZS9pk7RQ
-	==
-X-Received: by 2002:a05:600c:46d1:b0:4a1:7d9b:d4ae with SMTP id 5b1f17b1804b1-4b960d9c486mr96080385e9.5.1794242581971;
-        Mon, 09 Nov 2026 08:43:01 -0800 (PST)
-Received: from chateau ([194.65.85.67])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7efb1547fsm441798645e9.11.2026.11.09.08.43.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:43:01 -0800 (PST)
-From: Sergey Zagursky <gvozdoder@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Arpith Alexander <arpith99@gmail.com>,
-	Jake Steinman <j@metarealtyinc.ca>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Lixu Zhang <lixu.zhang@intel.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
+        bh=4TaVc8RNeAzFNs1Ph3vgOybQkr83PU7asLdiABCA4EI=;
+        b=kVZTltMj20t9tpd1W6qE/53u0/ceaw691l6rqQ2lCEmoeDR4o3vdV/voEH3rqiIoGy
+         /DpB5F4EZucGyH6FfaOO1Qpgi9PRcc+0j4U5COpXGOmpSl721+ufkloCVYI3y2/sgXsK
+         mDzFbRJWbqMw5D2NckfD8rcOTOCHmkX1IM4w8JdTQUQzWbYFKzjzA0HApan3cEfnWxiL
+         /zgJ4hSeBiw+viTHlzioiP0LsqtXPnUNtNug2JOOWDqrcAP6u+RTrgGXxH58HpKf+UK1
+         IEfkTu9dSiRDvghIhQQvZj6OnFiCV36tVAlDynWN3lIcDNBY9baD308J8oBAvdco9VCP
+         kZqw==
+X-Forwarded-Encrypted: i=1; AL+hErF6YWWXORuUScj9d80COPw8qrYKy2Exl9eKfv2I9qObAQiRrfEzpPUTgn0r+tZyDbKc7Be48EZf3+76yw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FXLzxSZuATzGbt3e8CHOjf9dLhwLQvClQik2lhfvQVNDDYdUF
+	AbVhkGvruiFpinA9GcZthWV2n7VRCBCLQj09pTwvdFMCMX3pTs86zIpfJvrZRY7it14=
+X-Gm-Gg: AYBFou2XvFc16aNHPyR/dhksmS+k6FeHV6BrIOsvTNm9TriUt7ToTqSXdZCAPKYCRBy
+	eoIKsbjsxRrtUKwerqnGd/SeLztLEyIKAvIY7aCqFJZIAS8lGvxyHS0p4wchmYZ3sHvTC9R5SuG
+	fChvzkx/2AvsCQIjwTk2muuLAbBUYAao/FApHu5JjkIFXKGVZqNrz/0Tnxfu5AkMjInqBZ91OE0
+	lUSnjPM6kInPv1sExCyhy2Tr36JAaAxWCUmX57nCYH54oThHZplMrm7VZmxqza9JtuL4cMDTyIk
+	JSngf5jTkvahg6bhyESTR86XNjSPKStzC4dY6UUVwN/XJWZtJBxaBpdnlyZmuLUUg7vhFyItclN
+	uz3rhtQV5ctMh0ATU63hWaeCe7w4dOxVaxhJQ5H7VWhk0dJOehpuNPbrubxjtgWYp/FUCd0I7Os
+	vDqWlm8ZwCZZs9FZ5iVjSbKF592U+KEjhe+J80lO+Eg15pxD/LN2CPy73qVeVsBFP6ZCEZP3E80
+	t/c7BjvGEQOj60F6syEs6uibCKuONxyg/xDnJjN//5AQ7joV/HOiJq3nEVYxQIp/rvAQy/28LUV
+	yvOZdqjXH8g65j2FTsIfwuzjllwrplGz0T2n0Sc8WD1caCcpYS99bI8787gnAeZpkZJv
+X-Received: by 2002:a05:6102:2922:b0:7d2:b348:6355 with SMTP id ada2fe7eead31-7d2db26a095mr1451337137.23.1794244676733;
+        Mon, 09 Nov 2026 09:17:56 -0800 (PST)
+Received: from localhost.localdomain ([2a09:bac5:dd4:1c96::2d9:5d])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c200838f0sm156302241.9.2026.11.09.09.17.53
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 09 Nov 2026 09:17:56 -0800 (PST)
+From: Allan Siriani <allan@fatecpompeia.edu.br>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Todor Tomov <todor.too@gmail.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [REGRESSION] ipu-bridge: HM1092 entry hides IVSC-attached OV02C10 on Dell XPS 16 9640
-Date: Mon,  9 Nov 2026 16:42:49 +0000
-Message-ID: <regression-followup.20261109163952.eaa256f0cc02@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109142140.ov02c10-hm1092-regression.e938253b8516@gmail.com>
-References: <20261109142140.ov02c10-hm1092-regression.e938253b8516@gmail.com>
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] media: qcom: camss: vfe-4-1: program the RDI write master buffer size
+Date: Mon,  9 Nov 2026 14:17:50 -0300
+Message-Id: <20261109171750.76883-1-allan@fatecpompeia.edu.br>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <7f8e0938-2b35-43df-afe7-18b0ad917698@linaro.org>
+References: <20261109112611.94010-1-allan@fatecpompeia.edu.br> <20261109112611.94010-3-allan@fatecpompeia.edu.br> <7f8e0938-2b35-43df-afe7-18b0ad917698@linaro.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -109,17 +107,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-I won't send the patch I mentioned: Arpith Alexander already posted the
-same change on November 4, and I've replied there with my Tested-by:
-https://lore.kernel.org/r/20261103200226.100989-1-arpith99@gmail.com/
+On 09/11/2026 12:57, Bryan O'Donoghue wrote:
+> Requires a Fixes: tag
 
-A correction to the revert option: there is no HM1092 driver in
-mainline or linux-next yet, but one is under review on this list,
-including ACPI enumeration for HIMX1092:
-https://lore.kernel.org/r/20261106121907.42745-1-j@metarealtyinc.ca/
+Fixes: 4c98a5f57f90 ("media: camss: Add VFE files")
 
-#regzbot monitor: https://lore.kernel.org/all/20261103200226.100989-1-arpith99@gmail.com/
-#regzbot fix: media: ivsc: csi: Add sensor node in bound callback
+> This feels like a slop-comment which is no bueno
 
-Thanks,
-Sergey
+Agreed, it adds nothing. Dropped in v3, together with the comment above
+the function.
+
+> (pix->height - 1) << 4
+>
+> Silently truncating here is incorrect.
+
+Done, v3 writes (pix->height - 1) << 4 as vfe_wm_line_based() does.
