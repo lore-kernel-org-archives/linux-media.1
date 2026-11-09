@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794255223;
-	b=aQ1MJcrk9J2dvFuILrlW6/VncsJ+BAfg8ZRFNXoxeQH4F4F64AGOZY12GW9J1Ncx4c3D
-	 s8ByWcfqPgcjUbjcM/+qc9Y7P/3dE7lXrzvO8CWGjJTwSaM0aYYlipj/gD1Hi/fSH+GNn
-	 4vtmcCaOPlu4rwxwanZ5JWpgB5E+j1AD4fUCQ6dD4ZXtf/e6mIP6E6BuJNXks+6K2hz3v
-	 Ogt5jJzrI9U+rejfbzdYQVTGQctToIf0VvHQ9HsWhtdHbRSa8GaNq8welAFbKgSHdv4GU
-	 BbexgUMxD+s84oxNdWLUvBdviYf4etZQqEPU5NdGYMIm4ZHRNgQ8LIgaLHaOnKQRFRw==
+	t=1794255302;
+	b=GJroU0+0w4uPYyheOBFumhLPUT7ewphX5ZSLopLFAUEWbPCA491pIfLv1rrY49bPswYs
+	 UDiMEHJmPxCEw2r3kx3ahLvj5fi4fbSCJu4tMiXn3zFAPLOwutzefxjT/T4M40vX67aqd
+	 fU8XhNLEe56ws04ZJkcXrN84g4Srm09cAFMFb69WQBAzRPnHSXbgioL/QElKxHQMAqrIl
+	 xNY/3+/t1mmQONiYnoJJIOPPs1kbhg07kg3esEnx3QCWe5lXEUOk9gozw++ZO+q1swlqb
+	 Xg9pICZ1VH0cr4i70ElyM1DxTalubOkXVbBnCWf9WsZvYukiMpTUcND+2AkmNSfMO4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794255223;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794255302;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
 	 User-Agent:MIME-Version;
-	bh=YSCGEzeWWAPqh/ksAtltPnsmySA1/jcrf4RHYCNZRdg=;
-	b=FV1Ppbz8gVw8oVL4P//AFceNWlmlOUZgMxWZscPwSGTM8HCTl57fbcC/4jOL726C7WGI
-	 DFEH2llFVCOGMlRUSv4y58nl9fVV5NDRTyBKQh5p6gtEEeDqF4IjefDa9XkKJ4WZe+HzG
-	 3yAn0Gxj9VVn0Cc2kV4xx4wy1XfkTpE6tLkdvh7EITDuMgWSvNNkYtSsCfO9kXsAH5otM
-	 uXLnqv5Tquj7osub0PNgDk+BHX7ho3tEAkPaZ249hqmhRkWaTC5FgxuxQpu/NPHTcLubb
-	 y3X3DbsJfyW9dfSwBIyYl91FH7QGWJKbIwYpWzLSbqKch8Wg6K8f0zNTvH0FM150i+A==
+	bh=FoxVs0lzm+EWWwB8m+Smx/prpVCN9fk/Ey2Oni4TNLc=;
+	b=2JdtPPaW/Qhhdro1L4mfQt67jjIMMNo2HJeejJg4iMHCkDMoZRQ0larA8ig4BNQ+wW/F
+	 gaFt7P/P65Y0tAfXN52v4pgIBZ+RoRg2cc8Ylm1OaXlGGLluJ8xVzPGHK6Oh8VgCSEpaK
+	 4H7Ed6zjJHDPLsFEz2BYZjwk+ik7bSOEi/PT7jj5VV0Cb5dpOm3kN6ZloGEIIzRJoTiR3
+	 lAXDDQt4s5bwtB19UKnxMt2HUE7GrwE5qmMj1tHHnSk5a34ru7/jIJh4cOXj+WrGO8F9M
+	 ZPvzbDgst44cI2QcNQQwJAT0sv+3UFwXX4Q+pKVQTy07YGOIlYJMklfCMR+EMhPUm0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=fYbpZIgn;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=o3HD5sT1;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51456606A325;
-	Mon,  9 Nov 2026 20:13:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51456606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39493606A325;
+	Mon,  9 Nov 2026 20:15:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39493606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=fYbpZIgn
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=o3HD5sT1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794255221;
-	bh=O0vRUmNb98jIjHzllNWMnc9SLyEM2EEnJum+aKO5URQ=;
+	s=mail; t=1794255300;
+	bh=N1uMDEJ15LlMOkMdvFMaUU6VCm39ARI9V8pnLrmhems=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=fYbpZIgn5AbtaF5p0rOtPf2qh+psn0+RGOuZ4DbeFDe5EsyRjTpQ7vj19UuUHRh4t
-	 kO/RNsD6cc90lW/1uX4l9KPFul06G0klv1QYFbu3k3ObTLLYy1WphR/0BBmXTmK2uJ
-	 kMXIBwm41ibEfZDCvtxuSHfCDUVdpoxanys0h67Jpefoi+84u0moDg66hOvttg1AT+
-	 g0MOCbF4LCMz6YSafbQ+Dpvj4Z9MjmSqcG9v/mQXKl4jT6/bleBYkUkzs8anVkU5BL
-	 cSDdO7C6AUPH1rPUy5ddiyt16koYvhJKz0eJUgt9mI9W64iUb7oTZ7pZRyu+v5vB3Y
-	 umcbzMcx3SdJQ==
+	b=o3HD5sT1HbBcSDCC7dDr/wyQeOlGdIsY9qO7fZBschoxDabUzbDyIE/Mz2aW8Ty/l
+	 B8UlO1MHkhY2gZuyzL4q0L6nSlGEJwBOeijJEtR4zC2fx2VH8QQdxkG8TquuEXcP07
+	 5NIjidMFYeNmA5YLmvrgNZwjL3y8onM6nkHVQctISrNmMEUXcF3HI8l0wxETfb9I2y
+	 Mp5dpB8aMmeKiGzf+Ppk58bnqTL2aSYvanOh/mgotbxvyNcAFM7izQUMSVAZYCjlGa
+	 FcCmMPQQDtYkOLQoU0A7/xLFq+CO3SvWz+GrkcfpyfjqtBNrKJE63ZN18JhAocYjkf
+	 l0BTkFB2p099w==
 Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9C1D017E0269;
-	Mon, 09 Nov 2026 21:13:39 +0100 (CET)
-Message-ID: <46826fd8fb3f346de07d63568a789840613d37cf.camel@collabora.com>
-Subject: Re: [PATCH 2/3] media: verisilicon: program the H1 JPEG stream
- limit in 64-bit words
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7B5DE17E0269;
+	Mon, 09 Nov 2026 21:14:58 +0100 (CET)
+Message-ID: <d8ba9d67a9452bc44be219d5327aa9d7ad83275f.camel@collabora.com>
+Subject: Re: [PATCH 3/3] media: verisilicon: leave room for the JPEG header
+ and one stream burst
 From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 To: shomenkow@gmail.com, Benjamin Gaignard
  <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>
@@ -63,10 +63,10 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
 	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
 	linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Date: Mon, 09 Nov 2026 15:13:38 -0500
-In-Reply-To: <20261109-hantro-buflimit-v1-2-f0b86ce61e66@gmail.com>
+Date: Mon, 09 Nov 2026 15:14:57 -0500
+In-Reply-To: <20261109-hantro-buflimit-v1-3-f0b86ce61e66@gmail.com>
 References: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
-	 <20261109-hantro-buflimit-v1-2-f0b86ce61e66@gmail.com>
+	 <20261109-hantro-buflimit-v1-3-f0b86ce61e66@gmail.com>
 Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -82,7 +82,7 @@ Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-o9hkqN2/RSZzwbWE3DSQ"
+	protocol="application/pgp-signature"; boundary="=-OjhiqkHAYs9mqbhDUydw"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -94,7 +94,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-o9hkqN2/RSZzwbWE3DSQ
+--=-OjhiqkHAYs9mqbhDUydw
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -102,100 +102,83 @@ Le lundi 09 novembre 2026 =C3=A0 16:43 +0300, Sergei Khomenkov via B4 Relay=
  a =C3=A9crit=C2=A0:
 > From: Sergei Khomenkov <shomenkow@gmail.com>
 >=20
-> The H1 JPEG encoder takes the stream buffer limit in 64-bit words. The
-> same register reads back the stream size in bits when the frame is
-> done, which hantro_h1_jpeg_enc_done() already divides by 8. The driver
-> writes the room left in the CAPTURE plane in bytes, so the hardware may
-> write up to eight times the buffer size, and a stream that does not fit
-> runs past the end of the plane into whatever memory follows it.
+> hantro_try_fmt() keeps any non-zero sizeimage on the JPEG encoder's
+> CAPTURE queue, however small, and hantro_buf_prepare() then accepts a
+> plane of that size. hantro_jpeg_header_assemble() writes the 624-byte
+> header into the plane with the CPU before the hardware starts, and a
+> plane smaller than the header also makes the WARN_ON() in
+> hantro_h1_jpeg_enc_set_buffers() and
+> rockchip_vpu2_jpeg_enc_set_buffers() fire on every job, which userspace
+> can trigger at will. After the header the encoder writes its stream in
+> bursts, one of them even when the stream limit is 0; on the RK3026
+> VEPU1 a burst is 64 bytes. A plane smaller than the header plus 64 bytes
+> is therefore written past its end.
 >=20
-> Userspace can get there. hantro_try_fmt() keeps any non-zero CAPTURE
-> sizeimage, and even the default of header_size + width * height * 2 is
-> not a bound: at quality 100 a high-entropy frame takes up to about 2.75
-> bytes per pixel. On a 640x480 frame the encoder wrote 230 KB past the
-> end of a default-sized buffer, on a 1920x1088 frame 1.6 MB. Without an
-> IOMMU in front of the encoder that is memory owned by someone else.
->=20
-> Write the limit in 64-bit words, rounded down to whole 64-byte bursts:
-> on the RK3026 the encoder writes the stream in 64-byte bursts and
-> finishes a burst it has started, so a limit that is not a multiple of 8
-> words lets it write up to 56 bytes past it. Rockchip's MPP library
-> programs this register the same way for H.264, in 64-bit words rounded
-> down to a multiple of 8 (mpp/hal/vpu/h264e/hal_h264e_vepu1_v2.c). The
-> stream starts header_size (624) bytes into the plane, so its address
-> stays 8-byte aligned. A stream that does not fit now stops at the limit
-> with a buffer-full interrupt, and the frame comes back with the ERROR
-> flag. A plane with less than one burst after the header is left to the
-> next patch.
->=20
-> The STM32MP25 VENC uses the same code, so it gets this change too. I
-> cannot test it there, and its interrupt handler does not get the stop
-> of the previous patch. rockchip_vpu2_jpeg_enc_set_buffers() writes
-> VEPU_REG_STR_BUF_LIMIT in bytes the same way, and
-> rockchip_vpu2_jpeg_enc_done() divides the read-back by 8 as well; I
-> cannot test the VEPU2 either, so this patch leaves it alone.
+> Raise a smaller request to header_size + 64, so that every plane the
+> driver accepts holds the header and at least one such burst.
 >=20
 > Found with an LLM coding assistant while porting mainline Linux to a
 > Rockchip RK3026 board (VEPU1); the assistant also drafted the code and
-> this message. Tested on that board, with CAPTURE buffers imported
-> through DMABUF from a larger buffer filled with a pattern: without this
-> change the encoder wrote the rest of the stream past the end of the
-> plane in each of 16 overflowing frames (640x480 to 1920x1088, quality
-> 100, 12 of them in default-sized planes). With this and the previous
-> patch, 14 overflowing frames (640x480 and 1920x1088, four of them queued
-> back to back) stopped exactly at the limit with BUFFER_FULL in the
-> status, nothing past the plane changed, and frames that fit are byte for
-> byte the same as before. With the limit in words but not rounded down to
-> a burst, the encoder wrote up to 56 bytes past it. Not tested on other
-> SoCs.
+> this message. Tested on that board: a 640x480 CAPTURE format set with
+> sizeimage 1, 600, 656 and 689 reads back 688, 688, 688 and 689, a
+> 656-byte DMABUF plane is then refused with EINVAL, and frames that do
+> not fit a 688-byte plane stop exactly at its end and come back with the
+> ERROR flag. A request of 600, now raised to 688, encodes with no
+> warning; before this change it was kept, and the encode hit the
+> WARN_ON() at hantro_h1_jpeg_enc.c:50 (hantro_h1_jpeg_enc_set_buffers(),
+> reported in hantro_h1_jpeg_enc_run()). Also before it, with 32 and 8
+> bytes after the header (a stream limit of 0), the encoder wrote one
+> burst, 32 and 56 bytes past the plane. The burst size is measured there
+> only; not tested on other SoCs.
 
-Trim this down, simple patch, simple explanation please.
-
-Nicolas
+Trim this.
 
 >=20
 > Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
 > ---
->  drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
+>  drivers/media/platform/verisilicon/hantro_v4l2.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 >=20
-> diff --git a/drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c b/dr=
-ivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c
-> index 86cc1a07026f..1e548e91612b 100644
-> --- a/drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c
-> +++ b/drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c
-> @@ -55,7 +55,15 @@ static void hantro_h1_jpeg_enc_set_buffers(struct hant=
-ro_dev *vpu,
->  =09vepu_write_relaxed(vpu, vb2_dma_contig_plane_dma_addr(dst_buf, 0) +
->  =09=09=09=09ctx->vpu_dst_fmt->header_size,
->  =09=09=09   H1_REG_ADDR_OUTPUT_STREAM);
-> -=09vepu_write_relaxed(vpu, size_left, H1_REG_STR_BUF_LIMIT);
-> +=09/*
-> +=09 * The stream buffer limit is counted in 64-bit words, not in bytes
-> +=09 * (the register reads back the stream size in bits once the frame is
-> +=09 * done). On the RK3026 the encoder writes the stream in 64-byte
-> +=09 * bursts and finishes a burst it has started, so give it whole
-> +=09 * bursts only.
-> +=09 */
-> +=09vepu_write_relaxed(vpu, round_down(size_left, 64) / 8,
-> +=09=09=09   H1_REG_STR_BUF_LIMIT);
-> =20
->  =09if (pix_fmt->num_planes =3D=3D 1) {
->  =09=09src[0] =3D vb2_dma_contig_plane_dma_addr(src_buf, 0);
+> diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/m=
+edia/platform/verisilicon/hantro_v4l2.c
+> index 83af9fa1ce94..cc35beac8338 100644
+> --- a/drivers/media/platform/verisilicon/hantro_v4l2.c
+> +++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
+> @@ -394,6 +394,16 @@ static int hantro_try_fmt(const struct hantro_ctx *c=
+tx,
+>  =09=09 */
+>  =09=09pix_mp->plane_fmt[0].sizeimage =3D fmt->header_size +
+>  =09=09=09pix_mp->width * pix_mp->height * fmt->max_depth;
+> +=09} else if (fmt->codec_mode =3D=3D HANTRO_MODE_JPEG_ENC) {
+> +=09=09/*
+> +=09=09 * The JPEG encoder writes the header with the CPU, then the
+> +=09=09 * stream in bursts, one of them even when the stream limit
+> +=09=09 * is 0. Leave room for both; a burst is 64 bytes on the
+> +=09=09 * RK3026 VEPU1.
+> +=09=09 */
+> +=09=09pix_mp->plane_fmt[0].sizeimage =3D
+> +=09=09=09max_t(u32, pix_mp->plane_fmt[0].sizeimage,
+> +=09=09=09      fmt->header_size + 64);
 
---=-o9hkqN2/RSZzwbWE3DSQ
+Did you mean to align to 64 instead ?
+
+>  =09}
+> =20
+>  =09return 0;
+
+--=-OjhiqkHAYs9mqbhDUydw
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavIpcgAKCRDZQZRRKWBy
-9JuFAQCBSHD0DnlJcOBDiXGPg/dhjcYXwTNNZWmP3OEtJlmkTgEAyssYRGYjNnfH
-wU1G2QrfY/efG4Vnk4Um81kMeQFSkQI=
-=DqXL
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavIpwQAKCRDZQZRRKWBy
+9JhRAP0Uyg+Q//c+hMJ7bQhqP6NRUPies38ldLRzcUIRtFGSFgEA8yxBDE2ptokv
+twYKX3KCvRjzKE802b1cKw7220Hddgg=
+=AjfV
 -----END PGP SIGNATURE-----
 
---=-o9hkqN2/RSZzwbWE3DSQ--
+--=-OjhiqkHAYs9mqbhDUydw--
