@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794263927;
-	b=VvqM04wsXxoNx2b23wzFTCVmclU8AOuNAEOb51edqA6hXrItSeygqMGWf2uBPRgGX7Ra
-	 twSCQBQKMy9kzo8sYHBb6s+uQoPCJH646fpTtz3VRzs1c4EN7MvNvZ523nE6REV0jm6ZD
-	 Afbt8uANAi4nB1W5HPVYnbQcOHXUId7GgQbr/udKiKWEo4cThKzwioH+jr0GPtSP6HsRX
-	 zMEcNSqTA1/YsGYXDsAeeemADT1gthIp2x9A5Bu/AdWdGvurgcdZWaOVB+7ntFVmWL5Ex
-	 6UB1tp0YUJGtupueYS9b74to/1fDLvzVSyKqHRvnHM23gVPg1AkzkEJ73fZNKDwv/vg==
+	t=1794263928;
+	b=yLQz87Ir8obUpfhZFl6brdumRgO8KLoxCucXYFlaiFwDYQz9S5LEJGLglZw6Xq2o28+V
+	 L9CQM8O7ICS9cRe10uMVeOD08sISb28veg7Q+EARM3PTPJztoI3Xn7FEOwg+C7emtylQF
+	 AmB+Z0XY2vv9I7Cb2VPNthasvb5kLoIWmWJSrDasvAYulzx9SIpk5l+bKLZxaFrfNua5o
+	 uhvijGykZ2XEIVhylp2WhYk3CmHTS++aUpwbRQStQL4Z9SdoYKR/Z/FAFInVn/g6se9Ax
+	 UvBVhzaeDYhPdtPKBVd+8W3T3sQSuJ/XptYcybT1k33QqbmUFwqnuPJPfDkAHol+Kyg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794263927;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794263928;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nhoHj9wxKOWE0684qQSTtyjmkkOXGorTgPJgBZKFxRM=;
-	b=Xqpq6QMp5Sf4XZmZJRxS428FiJep/n/8vBR2XyLBXqtsmc6vKWygHkvn2G4GdRUd27su
-	 oEfa8rHbyHyyaauFE/ImGija8stQDERuPUgerz6ekYoLbqHq6bgdG0t4O56sCymk2l9OO
-	 yAvzRSkDGyQljEHjjxOEfZ/0W18V8oo8seCbfyMV3mHMBQDaMpSrC5Z4p/rKEWO63aH/X
-	 GP0QOV9fH+X9adwN4wCXgXrqoRJhG+pWA5xCMhiy6iGZOTOYZvdl+a8Hb7RAvjY7fkS+I
-	 KKf6xzjQuMPGRin0F8wZl7EMSmEGX8Oa473CAwZBR8pUPsrbW8QL2vt6tQw9g5ICu/g==
+	bh=6/Dm+GFqSP+RPZZpbEmkldSJ9aNGdfHY9wqUSsIZRKI=;
+	b=EqtloS/M5ZCzS1y6VDtoykDbTX5pV+qmeYzwjGHHScPsgvDsnx3yrU/YVIwrkpKqKUkC
+	 3VdKLQOiFCaUHsbtTytb+qtekezUk2NwsDueRXcPXcbHiyALGtYTOyADkvi86ayvZRaDn
+	 K680VRNOAbAQVO98bzl/swuuZOZFzyHEhXqrgWnUNiE8/jUoHZXGV+buyU1pabHmk/EfP
+	 x9Y+MeqCL2HeCNkQuq67w0U+a4593j1nG7ul8GCcBZiAxSS/Ns0Baj0TJpS6UtCo0iPA1
+	 dW2jJozxtPyb7ffH1XxY1NPnf6wqyVvNSGSUxB5pjvkrU39ehEXu8PehcCnJKwxzN+A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlXOrYtt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmzJ15C1;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84527606A338;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F8C60A2604;
 	Mon,  9 Nov 2026 22:38:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlXOrYtt
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmzJ15C1
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794263927;
-	b=rU2Ox3KkkQaKYnzfzz6Q1LhAZ0U35ZGeSQKQpxxOoHMG4AHv6zaJnB8dkbqbIoVjIQZl
-	 0o7tLKCSL/K7sMCPqEDYGOQ4XXEv5jU6bGE+PKjOyPdRwByB1dspic9FYXylgqhRUvR7/
-	 HI8hrcW3h+OUE/OJZcjRfmKx96BIyX1l0Djqsq1RKB1tg/uj758iupSiATarpX1LFzrTI
-	 wnEkZ2kAyi8zJwYAeTS9WttLlqgoK4kedWFGAPdUyXfRO9fOoWUuNx51gnRwUZGR6WVQ4
-	 8S71YA2i9V7dkz9FFNmK9aOJDV1L/m6g/tcBv3mRmfgyjgsryhYBsI9Z/JBVdpIl5RA==
+	b=HyxZL1iPNDNVe8KkKYjKO+I6WCdXw1W8DOLHL+30vOr5L96rAIpzbsdgJylJZGonXRHc
+	 vsBhp1GNFQEzf/JxCX72etKklOX+7eUeS9J0U2dHX0B29DNfNF4NkyWXCU3zwLMKo0uxL
+	 7Bo4YQZzxOD0Cb6ym9HDTsYsBrYbL4crZHkdMVE2ZaO597Z52yl1IMQJCrheqEQnc+frc
+	 A+dXMstVPnLiNn4uKjDzNWJHWEiwam1emKxBwDtLhLR5q3OLzTZvPQJG491PXpxSTU46D
+	 pD1ojzUCwyuwtohkM4Ci/5sgmVPX4onSrK+rw76ArsN9BDIcWRrtz2ZuukovfhAy+IQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794263927;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nhoHj9wxKOWE0684qQSTtyjmkkOXGorTgPJgBZKFxRM=;
-	b=YhMwNZIS4+oVXHw4rYOa/Wvs4hrL4sRUWre4Pv4fPwnIDDzqlZRMv4rT3op+RiPgMgK3
-	 bGWlJ5yuP2n/QeNsN7CDUqmdYpVtc5VDqTWgJc7kEq+NPDtSNZUKAEE8FrEcbyTrJkfn4
-	 y9FoDrY4oIqZ9OqAGAcFfs/dAop6u/VQ/PigFjV4if7gEpAeEta+po3N9iwNr8ITZ7UIl
-	 oLd3SJfI+F2qTtnOJfStBCJyoRCPN1UvgzaxYT2Pgkj5hqrfUKqWTvsWpAp+glbVEyIYI
-	 ACiXE6Vf/ZIXlLjfkIoUOaXKZTw7C4GhOXFa/PsgSPmog9JG4H2P9Nmrm294yJOA8lQ==
+	bh=6/Dm+GFqSP+RPZZpbEmkldSJ9aNGdfHY9wqUSsIZRKI=;
+	b=o4opENTDodQ8eh+ucfgzB8GNl4t0nK4lU/u/mzqeoikXgShdatQzXRSl+hF4OQoprrKm
+	 X5yYVeXn/drXVsbKpu+MK9Lge0SgYVl9UvNUHE9BcW+NF+fAw5/VwihmZnP3nusEuh04V
+	 2D9sD9Sm21SL7bz0rLQzVGw6H93C5faiDMvYcLnSD+PVvn1w/MEbWnW9cVIhiM9AnRjsb
+	 tDlpM7Icg1VbJjzUdW2c0OSI6XixdDkL9kvWmkdsniNQ28qfhHEll8dw59/72TfUzwta4
+	 Uc6AWwfTxU+zoGFrO8TEn/lU4zdEICjc7k1WJZfc138/cgc9+BioPVfdsyRhse+OV3Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id AA15E1F008A2;
-	Mon,  9 Nov 2026 22:38:43 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 42E8D1F0089F;
+	Mon,  9 Nov 2026 22:38:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794263927;
-	bh=nhoHj9wxKOWE0684qQSTtyjmkkOXGorTgPJgBZKFxRM=;
+	bh=6/Dm+GFqSP+RPZZpbEmkldSJ9aNGdfHY9wqUSsIZRKI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=MlXOrYttLyy/rfvlDgy9nxF8AuLZJQHm6a3Gt6oonaueRKBFkom8tkKn7BB7Xd7XN
-	 +BRxAPzMCL95YSmRYGaD2ujHsmH1NFk9QA5gYPlMmEhglETyq9J3z4t2gtjE0gkgkz
-	 lkv858hw6xUrFCDdpOPLUMK7whR5OS30uA9xcWGeKGxUpSr9UWe24YJcedSKqrQ5kP
-	 LzgsrDyckF+podwy87ZfmkMQMrK7NvqG3SdKABcyy2fpD83ixzW60Se2KlPiyT4S3W
-	 Wq0FRYqPcZX2WRcaoySRlqRel+Ei3h09+eLNeEoQINywNq8LUQvyWpE36HH/xvnOgH
-	 L8HpTFkCa9IOw==
+	b=SmzJ15C1NzHHZcAXWyriTDDJVuffl5DKhSOcwn67pDnoMGdC0nMcoeKkU2HLvjiez
+	 nLkSTJ4zyJtu7ZxmtQx4XFXlaTWkZkcDqquxvkRIrPuYR07bpfn0sA6mwqycCbTX5/
+	 XoqbG0ytU5BauTwyNNfQQZjqDINWlMRJU0Gek9aJf1W53xqd2JpFmG+UO88/+fARRi
+	 ITMrvSXu+vA8T4B/uXjdeZ5jVuecFlmvqnj3StO2tJDkE/EEOuwMNFykAkVXyLm/yu
+	 uT1fYTPyVfiiscM7/8HRDaUSIBw9HQBupmCYPbH+q/SO/BdyeL97mXn2cSzNeTWz2U
+	 s1IK8hUooOFSA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 31EB9486C7;
+	by lkml.kernel.org (Postfix) with ESMTP id A4711486DF;
 	Mon,  9 Nov 2026 22:38:43 +0000 (UTC)
 From: Gaurav Suman via B4 Relay <devnull+gauravsuman007.gmail.com@kernel.org>
-Date: Mon, 09 Nov 2026 22:38:20 +0000
-Subject: [PATCH 2/8] media: qcom: camss: Add SM8150 support
+Date: Mon, 09 Nov 2026 22:38:26 +0000
+Subject: [PATCH 8/8] media: i2c: Add ON Semiconductor LC898123F40 lens
+ autofocus driver
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-sm8150-camera-v1-2-3d2e7b407516@gmail.com>
+Message-Id: <20261109-sm8150-camera-v1-8-3d2e7b407516@gmail.com>
 References: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
 In-Reply-To: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
 To: Bryan O'Donoghue <bod@kernel.org>, 
@@ -97,11 +98,11 @@ To: Bryan O'Donoghue <bod@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794263921; l=14748;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794263921; l=7472;
  i=gauravsuman007@gmail.com; s=default; h=from:subject:message-id;
- bh=6ZQ6VviKYnXXWuPKJK9iWwrOXNoI2mwR3OpcvUWhR2w=;
- b=ADsdxAM5TmoPbkLKSXi4zjOfyJi1kLgIx9m8Zzc9gDPQ3jIMiOvMKjMIVEyNqbKedTDcBEK5O
- Cfg9SAKqWX6D29DMsWimtSfNdkMxaBldvf+i9A/79kbXvoVJhx8tfZq
+ bh=aXld3phNDaFjb9XBLc+lkcUeUGkLUlYruxuB+5QHU0Q=;
+ b=sATE1weRvLYnW21DnVXmSGRhsvo6h4uhzitB7inax8Gq8QKq5U9fdfJc1M3yNAcytlgzq8jpq
+ f2djMqzQY4FD5XYucDpZK18g3gLoXsVZpVgnHkZ4P75+Wn24Gkl2oe/
 X-Developer-Key: i=gauravsuman007@gmail.com; a=ed25519;
  pk=lnUC0mQfc0KyA0LE73pQ4+QWYVRaCD8Sd3XWxLZO+JY=
 X-Endpoint-Received: by B4 Relay for gauravsuman007@gmail.com/default with
@@ -112,438 +113,222 @@ Content-Transfer-Encoding: 7bit
 
 From: Gaurav Suman <gauravsuman007@gmail.com>
 
-Add the SM8150 (Titan 175) camera subsystem. The CSID, VFE and bus
-blocks are the same as on SM6150/SDM845 (Titan 17x), so the gen2 CSID
-and VFE 17x code is reused, but SM8150 needs its own resources:
+Add a V4L2 lens sub-device driver for the autofocus function of the
+LC898123F40 OIS/AF controller. The controller runs firmware from its
+own flash; the lens position is a 32-bit value written to register
+0xf01a, and 0xf012 = 1 enables the servo, as in the LG G8x ThinQ
+vendor camera data. Only V4L2_CID_FOCUS_ABSOLUTE (0..2047) is
+supported; image stabilisation is not.
 
- - four CSIPHYs, four CSIDs and four VFEs (two of each are lite),
- - clock rates from the SM8150 camera clock controller tables,
- - camnoc_axi at 400 MHz. At its 19.2 MHz boot rate the VFE gets a
-   start of frame and one reg update but never a buffer done,
- - the CSIPHY v1.1 lane settings (downstream cam_csiphy_1_1_hwreg.h).
-   The SM6150 entry uses the QCM2290 v1.2 table; with it the sensor
-   streams but the CSID never sees data.
-
-Tested on an LG G8x ThinQ with three sensors on CSIPHY0, 1 and 2 (4
-lanes each, up to 1190 Mbps per lane): 30 fps RAW10 through CSID0
-and VFE0 RDI0, with libcamera's simple pipeline handler.
+Tested on an LG G8x ThinQ: sweeping the position visibly moves focus
+on the IMX363 main camera.
 
 This was written and tested with the help of an AI coding assistant
 (Claude Opus 5.5, Anthropic); I reviewed the change and the results.
 
 Signed-off-by: Gaurav Suman <gauravsuman007@gmail.com>
 ---
- .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     |  80 +++++++
- drivers/media/platform/qcom/camss/camss-vfe.c      |   2 +
- drivers/media/platform/qcom/camss/camss.c          | 250 +++++++++++++++++++++
- drivers/media/platform/qcom/camss/camss.h          |   1 +
- 4 files changed, 333 insertions(+)
+ MAINTAINERS                  |   7 +++
+ drivers/media/i2c/Kconfig    |  10 ++++
+ drivers/media/i2c/Makefile   |   1 +
+ drivers/media/i2c/lc898123.c | 138 +++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 156 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-index dac8d2ecf79957dc05c5524dc439791ce097c785..3d8992d5dbc7bfd1f7447303f44386e67d90b830 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-@@ -144,6 +144,81 @@ csiphy_lane_regs lane_regs_sa8775p[] = {
- 	{0x0664, 0x7F, 0x00, CSIPHY_DEFAULT_PARAMS},
- };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b13cf3ad43a185802b31a89176fd85d5ba2c6d1b..ab3d82598865973241112a0e5636e3679ea8d35d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -20984,6 +20984,13 @@ S:	Maintained
+ T:	git git://linuxtv.org/media.git
+ F:	drivers/media/i2c/ov9734.c
  
-+/* SM8150 (Titan 175): CSIPHY v1.1, 2-phase lane settings */
-+static const struct
-+csiphy_lane_regs lane_regs_sm8150[] = {
-+	{0x0004, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x002C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0034, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x001C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0014, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0028, 0x00, 0x00, CSIPHY_DNP_PARAMS},
-+	{0x003C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0000, 0x90, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0008, 0x0E, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x000C, 0x00, 0x00, CSIPHY_DNP_PARAMS},
-+	{0x0010, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0038, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0060, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0064, 0x7F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0704, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x072C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0734, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x071C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0714, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0728, 0x04, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x073C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0700, 0x80, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0708, 0x0E, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x070C, 0xA5, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0710, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0738, 0x1F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0760, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0764, 0x7F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0204, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x022C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0234, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x021C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0214, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0228, 0x00, 0x00, CSIPHY_DNP_PARAMS},
-+	{0x023C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0200, 0x90, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0208, 0x0E, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x020C, 0x00, 0x00, CSIPHY_DNP_PARAMS},
-+	{0x0210, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0238, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0260, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0264, 0x7F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0404, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x042C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0434, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x041C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0414, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0428, 0x00, 0x00, CSIPHY_DNP_PARAMS},
-+	{0x043C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0400, 0x90, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0408, 0x0E, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x040C, 0x00, 0x00, CSIPHY_DNP_PARAMS},
-+	{0x0410, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0438, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0460, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0464, 0x7F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0604, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x062C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0634, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x061C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0614, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0628, 0x00, 0x00, CSIPHY_DNP_PARAMS},
-+	{0x063C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0600, 0x90, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0608, 0x0E, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x060C, 0x00, 0x00, CSIPHY_DNP_PARAMS},
-+	{0x0610, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0638, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0660, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0664, 0x7F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+};
++ON SEMICONDUCTOR LC898123 LENS DRIVER
++M:	Gaurav Suman <gauravsuman007@gmail.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/i2c/onnn,lc898123f40.yaml
++F:	drivers/media/i2c/lc898123.c
 +
- /* GEN2 1.0 2PH */
- static const struct
- csiphy_lane_regs lane_regs_sdm845[] = {
-@@ -1131,6 +1206,7 @@ static bool csiphy_is_gen2(u32 version)
- 	switch (version) {
- 	case CAMSS_2290:
- 	case CAMSS_6150:
-+	case CAMSS_8150:
- 	case CAMSS_6350:
- 	case CAMSS_7280:
- 	case CAMSS_8250:
-@@ -1221,6 +1297,10 @@ static int csiphy_init(struct csiphy_device *csiphy)
- 		regs->lane_regs = &lane_regs_sdm845[0];
- 		regs->lane_array_size = ARRAY_SIZE(lane_regs_sdm845);
- 		break;
-+	case CAMSS_8150:
-+		regs->lane_regs = &lane_regs_sm8150[0];
-+		regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8150);
-+		break;
- 	case CAMSS_2290:
- 	case CAMSS_6150:
- 		regs->lane_regs = &lane_regs_qcm2290[0];
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 2680a9914765fa2c8f3c2b38a5f4f0e0bcf4d873..4f89e8901d530410b243581d3953b6b023a8c7c3 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -343,6 +343,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
- 	case CAMSS_660:
- 	case CAMSS_2290:
- 	case CAMSS_6150:
-+	case CAMSS_8150:
- 	case CAMSS_6350:
- 	case CAMSS_7280:
- 	case CAMSS_8x96:
-@@ -2004,6 +2005,7 @@ static int vfe_bpl_align_rdi(struct vfe_device *vfe)
+ ONBOARD USB HUB DRIVER
+ M:	Matthias Kaehlcke <mka@chromium.org>
+ L:	linux-usb@vger.kernel.org
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index 2477db9a17fac4d5278e2428f9b840a0698e56af..fa4d26a27381bd23eafc88dd0af0facbe2fc8ac4 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -1022,6 +1022,16 @@ config VIDEO_DW9807_VCM
+ 	  capability. This is designed for linear control of
+ 	  voice coil motors, controlled via I2C serial interface.
  
- 	switch (vfe->camss->res->version) {
- 	case CAMSS_6150:
-+	case CAMSS_8150:
- 	case CAMSS_6350:
- 	case CAMSS_7280:
- 	case CAMSS_8250:
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index c54185c93a8a98fc6a20fdb8e0f9f8e61bc41058..bda61bf1f573965e662c00545bc207f5a30867b9 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -5699,6 +5699,255 @@ static const struct camss_resources sdm845_resources = {
- 	.vfe_num = ARRAY_SIZE(vfe_res_845),
- };
++config VIDEO_LC898123
++	tristate "LC898123F40 lens autofocus support"
++	select V4L2_CCI_I2C
++	help
++	  This is a driver for the autofocus function of the ON
++	  Semiconductor LC898123F40 optical image stabilisation and
++	  autofocus controller, controlled via I2C serial interface.
++	  Only the lens position is controlled; image stabilisation is
++	  not supported. The controller runs firmware from its own flash.
++
+ endif
  
-+static const struct camss_subdev_resources csiphy_res_sm8150[] = {
-+	/* CSIPHY0 */
-+	{
-+		.regulators = {
-+			{ .supply = "vdd-csiphy-1p2", .init_load_uA = 35000 },
-+			{ .supply = "vdd-csiphy-1p8", .init_load_uA = 5000 }
-+		},
-+		.clock = { "csiphy0", "csiphy0_timer" },
-+		.clock_rate = { { 400000000 },
-+				{ 300000000 } },
-+		.reg = { "csiphy0" },
-+		.interrupt = { "csiphy0" },
-+		.csiphy = {
-+			.id = 0,
-+			.hw_ops = &csiphy_ops_3ph_1_0,
-+			.formats = &csiphy_formats_sdm845
-+		}
-+	},
-+	/* CSIPHY1 */
-+	{
-+		.regulators = {
-+			{ .supply = "vdd-csiphy-1p2", .init_load_uA = 35000 },
-+			{ .supply = "vdd-csiphy-1p8", .init_load_uA = 5000 }
-+		},
-+		.clock = { "csiphy1", "csiphy1_timer" },
-+		.clock_rate = { { 400000000 },
-+				{ 300000000 } },
-+		.reg = { "csiphy1" },
-+		.interrupt = { "csiphy1" },
-+		.csiphy = {
-+			.id = 1,
-+			.hw_ops = &csiphy_ops_3ph_1_0,
-+			.formats = &csiphy_formats_sdm845
-+		}
-+	},
-+	/* CSIPHY2 */
-+	{
-+		.regulators = {
-+			{ .supply = "vdd-csiphy-1p2", .init_load_uA = 35000 },
-+			{ .supply = "vdd-csiphy-1p8", .init_load_uA = 5000 }
-+		},
-+		.clock = { "csiphy2", "csiphy2_timer" },
-+		.clock_rate = { { 400000000 },
-+				{ 300000000 } },
-+		.reg = { "csiphy2" },
-+		.interrupt = { "csiphy2" },
-+		.csiphy = {
-+			.id = 2,
-+			.hw_ops = &csiphy_ops_3ph_1_0,
-+			.formats = &csiphy_formats_sdm845
-+		}
-+	},
-+	/* CSIPHY3 */
-+	{
-+		.regulators = {
-+			{ .supply = "vdd-csiphy-1p2", .init_load_uA = 35000 },
-+			{ .supply = "vdd-csiphy-1p8", .init_load_uA = 5000 }
-+		},
-+		.clock = { "csiphy3", "csiphy3_timer" },
-+		.clock_rate = { { 400000000 },
-+				{ 300000000 } },
-+		.reg = { "csiphy3" },
-+		.interrupt = { "csiphy3" },
-+		.csiphy = {
-+			.id = 3,
-+			.hw_ops = &csiphy_ops_3ph_1_0,
-+			.formats = &csiphy_formats_sdm845
-+		}
-+	},
+ menu "Flash devices"
+diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+index 7e714dbcbf69d55576be1abe76311c3478511201..836bf5b8a44e260567b34977b191c1f0f6e3667e 100644
+--- a/drivers/media/i2c/Makefile
++++ b/drivers/media/i2c/Makefile
+@@ -36,6 +36,7 @@ obj-$(CONFIG_VIDEO_DW9714) += dw9714.o
+ obj-$(CONFIG_VIDEO_DW9719) += dw9719.o
+ obj-$(CONFIG_VIDEO_DW9768) += dw9768.o
+ obj-$(CONFIG_VIDEO_DW9807_VCM) += dw9807-vcm.o
++obj-$(CONFIG_VIDEO_LC898123) += lc898123.o
+ obj-$(CONFIG_VIDEO_ET8EK8) += et8ek8/
+ obj-$(CONFIG_VIDEO_GC0308) += gc0308.o
+ obj-$(CONFIG_VIDEO_GC0310) += gc0310.o
+diff --git a/drivers/media/i2c/lc898123.c b/drivers/media/i2c/lc898123.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..69516ad964d6035e8b2db91ad9fc9c95fa8c9b80
+--- /dev/null
++++ b/drivers/media/i2c/lc898123.c
+@@ -0,0 +1,138 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * ON Semiconductor LC898123F40 OIS/AF controller, autofocus part only
++ * (LG G8x rear main camera). The controller runs its own factory-flashed
++ * firmware; the lens position is a 32-bit big-endian value in 0xF01A and
++ * 0xF012 = 1 enables the servo, as LG's CamX module data does.
++ */
++#include <linux/delay.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/pm_runtime.h>
++#include <linux/regulator/consumer.h>
++#include <media/v4l2-cci.h>
++#include <media/v4l2-ctrls.h>
++#include <media/v4l2-device.h>
++
++#define LC898123_REG_SERVO	CCI_REG32(0xf012)
++#define LC898123_REG_AF_POS	CCI_REG32(0xf01a)
++#define LC898123_REG_OIS_CTRL	CCI_REG8(0xf100)
++#define LC898123_POS_MAX	2047
++#define LC898123_POS_DEFAULT	1024
++
++struct lc898123 {
++	struct regmap *regmap;
++	struct v4l2_subdev sd;
++	struct v4l2_ctrl_handler ctrls;
++	struct v4l2_ctrl *focus;
 +};
 +
-+static const struct camss_subdev_resources csid_res_sm8150[] = {
-+	/* CSID0 */
-+	{
-+		.regulators = {},
-+		.clock = { "vfe0_cphy_rx", "vfe0_csid" },
-+		.clock_rate = { { 400000000 },
-+				{ 400000000, 480000000, 600000000 } },
-+		.reg = { "csid0" },
-+		.interrupt = { "csid0" },
-+		.csid = {
-+			.is_lite = false,
-+			.hw_ops = &csid_ops_gen2,
-+			.parent_dev_ops = &vfe_parent_dev_ops,
-+			.formats = &csid_formats_gen2
-+		}
-+	},
-+	/* CSID1 */
-+	{
-+		.regulators = {},
-+		.clock = { "vfe1_cphy_rx", "vfe1_csid" },
-+		.clock_rate = { { 400000000 },
-+				{ 400000000, 480000000, 600000000 } },
-+		.reg = { "csid1" },
-+		.interrupt = { "csid1" },
-+		.csid = {
-+			.is_lite = false,
-+			.hw_ops = &csid_ops_gen2,
-+			.parent_dev_ops = &vfe_parent_dev_ops,
-+			.formats = &csid_formats_gen2
-+		}
-+	},
-+	/* CSID_LITE0 */
-+	{
-+		.regulators = {},
-+		.clock = { "vfe_lite0_cphy_rx", "vfe_lite0_csid" },
-+		.clock_rate = { { 400000000 },
-+				{ 400000000, 480000000, 600000000 } },
-+		.reg = { "csid_lite0" },
-+		.interrupt = { "csid_lite0" },
-+		.csid = {
-+			.is_lite = true,
-+			.hw_ops = &csid_ops_gen2,
-+			.parent_dev_ops = &vfe_parent_dev_ops,
-+			.formats = &csid_formats_gen2
-+		}
-+	},
-+	/* CSID_LITE1 */
-+	{
-+		.regulators = {},
-+		.clock = { "vfe_lite1_cphy_rx", "vfe_lite1_csid" },
-+		.clock_rate = { { 400000000 },
-+				{ 400000000, 480000000, 600000000 } },
-+		.reg = { "csid_lite1" },
-+		.interrupt = { "csid_lite1" },
-+		.csid = {
-+			.is_lite = true,
-+			.hw_ops = &csid_ops_gen2,
-+			.parent_dev_ops = &vfe_parent_dev_ops,
-+			.formats = &csid_formats_gen2
-+		}
-+	},
++static int lc898123_set_ctrl(struct v4l2_ctrl *ctrl)
++{
++	struct lc898123 *lc = container_of(ctrl->handler, struct lc898123, ctrls);
++
++	if (ctrl->id != V4L2_CID_FOCUS_ABSOLUTE)
++		return -EINVAL;
++	return cci_write(lc->regmap, LC898123_REG_AF_POS, ctrl->val, NULL);
++}
++
++static const struct v4l2_ctrl_ops lc898123_ctrl_ops = { .s_ctrl = lc898123_set_ctrl };
++
++static int lc898123_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
++{
++	struct lc898123 *lc = container_of(sd, struct lc898123, sd);
++	int ret = 0;
++
++	cci_write(lc->regmap, LC898123_REG_OIS_CTRL, 0, &ret);
++	cci_write(lc->regmap, LC898123_REG_SERVO, 1, &ret);
++	if (!ret)
++		ret = __v4l2_ctrl_handler_setup(&lc->ctrls);
++	return ret;
++}
++
++static const struct v4l2_subdev_internal_ops lc898123_internal_ops = {
++	.open = lc898123_open,
 +};
 +
-+static const struct camss_subdev_resources vfe_res_sm8150[] = {
-+	/* VFE0 */
-+	{
-+		.regulators = {},
-+		.clock = { "gcc_axi_hf", "camnoc_axi", "cpas_ahb", "slow_ahb_src",
-+			   "vfe0", "vfe0_axi" },
-+		.clock_rate = { { 0 },
-+				{ 400000000 },
-+				{ 0 },
-+				{ 0 },
-+				{ 400000000, 558000000, 637000000, 847000000, 950000000 },
-+				{ 0 } },
-+		.reg = { "vfe0" },
-+		.interrupt = { "vfe0" },
-+		.vfe = {
-+			.line_num = 3,
-+			.is_lite = false,
-+			.has_pd = true,
-+			.pd_name = "ife0",
-+			.hw_ops = &vfe_ops_170,
-+			.formats_rdi = &vfe_formats_rdi_845,
-+			.formats_pix = &vfe_formats_pix_845
-+		}
-+	},
-+	/* VFE1 */
-+	{
-+		.regulators = {},
-+		.clock = { "gcc_axi_hf", "camnoc_axi", "cpas_ahb", "slow_ahb_src",
-+			   "vfe1", "vfe1_axi" },
-+		.clock_rate = { { 0 },
-+				{ 400000000 },
-+				{ 0 },
-+				{ 0 },
-+				{ 400000000, 558000000, 637000000, 847000000, 950000000 },
-+				{ 0 } },
-+		.reg = { "vfe1" },
-+		.interrupt = { "vfe1" },
-+		.vfe = {
-+			.line_num = 3,
-+			.is_lite = false,
-+			.has_pd = true,
-+			.pd_name = "ife1",
-+			.hw_ops = &vfe_ops_170,
-+			.formats_rdi = &vfe_formats_rdi_845,
-+			.formats_pix = &vfe_formats_pix_845
-+		}
-+	},
-+	/* VFE_LITE0 */
-+	{
-+		.regulators = {},
-+		.clock = { "gcc_axi_hf", "camnoc_axi", "cpas_ahb", "slow_ahb_src",
-+			   "vfe_lite0" },
-+		.clock_rate = { { 0 },
-+				{ 400000000 },
-+				{ 0 },
-+				{ 0 },
-+				{ 320000000, 400000000, 480000000, 600000000 } },
-+		.reg = { "vfe_lite0" },
-+		.interrupt = { "vfe_lite0" },
-+		.vfe = {
-+			.line_num = 4,
-+			.is_lite = true,
-+			.hw_ops = &vfe_ops_170,
-+			.formats_rdi = &vfe_formats_rdi_845,
-+			.formats_pix = &vfe_formats_pix_845
-+		}
-+	},
-+	/* VFE_LITE1 */
-+	{
-+		.regulators = {},
-+		.clock = { "gcc_axi_hf", "camnoc_axi", "cpas_ahb", "slow_ahb_src",
-+			   "vfe_lite1" },
-+		.clock_rate = { { 0 },
-+				{ 400000000 },
-+				{ 0 },
-+				{ 0 },
-+				{ 320000000, 400000000, 480000000, 600000000 } },
-+		.reg = { "vfe_lite1" },
-+		.interrupt = { "vfe_lite1" },
-+		.vfe = {
-+			.line_num = 4,
-+			.is_lite = true,
-+			.hw_ops = &vfe_ops_170,
-+			.formats_rdi = &vfe_formats_rdi_845,
-+			.formats_pix = &vfe_formats_pix_845
-+		}
-+	},
-+};
++static const struct v4l2_subdev_ops lc898123_ops = { };
 +
-+static const struct resources_icc icc_res_sm8150[] = {
-+	{
-+		.name = "ahb",
-+		.icc_bw_tbl.avg = 38400,
-+		.icc_bw_tbl.peak = 76800,
-+	},
-+	{
-+		.name = "hf_0",
-+		.icc_bw_tbl.avg = 2097152,
-+		.icc_bw_tbl.peak = 2097152,
-+	},
-+};
++static int lc898123_probe(struct i2c_client *client)
++{
++	struct lc898123 *lc;
++	u64 val;
++	int ret;
 +
-+static const struct camss_resources sm8150_resources = {
-+	.version = CAMSS_8150,
-+	.pd_name = "top",
-+	.csiphy_res = csiphy_res_sm8150,
-+	.csid_res = csid_res_sm8150,
-+	.vfe_res = vfe_res_sm8150,
-+	.icc_res = icc_res_sm8150,
-+	.icc_path_num = ARRAY_SIZE(icc_res_sm8150),
-+	.csiphy_num = ARRAY_SIZE(csiphy_res_sm8150),
-+	.csid_num = ARRAY_SIZE(csid_res_sm8150),
-+	.vfe_num = ARRAY_SIZE(vfe_res_sm8150),
-+};
++	lc = devm_kzalloc(&client->dev, sizeof(*lc), GFP_KERNEL);
++	if (!lc)
++		return -ENOMEM;
++	ret = devm_regulator_get_enable_optional(&client->dev, "vdd");
++	if (ret && ret != -ENODEV)
++		return dev_err_probe(&client->dev, ret, "vdd supply\n");
++	if (!ret)
++		usleep_range(10000, 12000);	/* controller boot from flash */
 +
- static const struct camss_resources sm6150_resources = {
- 	.version = CAMSS_6150,
- 	.pd_name = "top",
-@@ -5824,6 +6073,7 @@ static const struct of_device_id camss_dt_match[] = {
- 	{ .compatible = "qcom,sdm845-camss", .data = &sdm845_resources },
- 	{ .compatible = "qcom,sm6150-camss", .data = &sm6150_resources },
- 	{ .compatible = "qcom,sm6350-camss", .data = &sm6350_resources },
-+	{ .compatible = "qcom,sm8150-camss", .data = &sm8150_resources },
- 	{ .compatible = "qcom,sm8250-camss", .data = &sm8250_resources },
- 	{ .compatible = "qcom,sm8550-camss", .data = &sm8550_resources },
- 	{ .compatible = "qcom,sm8650-camss", .data = &sm8650_resources },
-diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index 7dc2fd9f03e0dc2ded8e4a603d6cfec4d8e6a62b..74d8cc2921be9da7673494cd0785c8f9b90b4a3e 100644
---- a/drivers/media/platform/qcom/camss/camss.h
-+++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -89,6 +89,7 @@ enum camss_version {
- 	CAMSS_8x39,
- 	CAMSS_8x53,
- 	CAMSS_8x96,
-+	CAMSS_8150,
- 	CAMSS_8250,
- 	CAMSS_8280XP,
- 	CAMSS_8300,
++	lc->regmap = devm_cci_regmap_init_i2c(client, 16);
++	if (IS_ERR(lc->regmap))
++		return PTR_ERR(lc->regmap);
++	ret = cci_read(lc->regmap, LC898123_REG_AF_POS, &val, NULL);
++	if (ret)
++		return dev_err_probe(&client->dev, ret, "no response\n");
++	cci_write(lc->regmap, LC898123_REG_SERVO, 1, NULL);
++
++	v4l2_i2c_subdev_init(&lc->sd, client, &lc898123_ops);
++	lc->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
++	lc->sd.internal_ops = &lc898123_internal_ops;
++	lc->sd.entity.function = MEDIA_ENT_F_LENS;
++
++	v4l2_ctrl_handler_init(&lc->ctrls, 1);
++	lc->focus = v4l2_ctrl_new_std(&lc->ctrls, &lc898123_ctrl_ops,
++				      V4L2_CID_FOCUS_ABSOLUTE, 0, LC898123_POS_MAX,
++				      1, LC898123_POS_DEFAULT);
++	if (lc->ctrls.error) {
++		ret = lc->ctrls.error;
++		goto err;
++	}
++	lc->sd.ctrl_handler = &lc->ctrls;
++	ret = media_entity_pads_init(&lc->sd.entity, 0, NULL);
++	if (ret)
++		goto err;
++	ret = v4l2_async_register_subdev(&lc->sd);
++	if (ret)
++		goto err_entity;
++	return 0;
++
++err_entity:
++	media_entity_cleanup(&lc->sd.entity);
++err:
++	v4l2_ctrl_handler_free(&lc->ctrls);
++	return ret;
++}
++
++static void lc898123_remove(struct i2c_client *client)
++{
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct lc898123 *lc = container_of(sd, struct lc898123, sd);
++
++	v4l2_async_unregister_subdev(sd);
++	media_entity_cleanup(&sd->entity);
++	v4l2_ctrl_handler_free(&lc->ctrls);
++}
++
++static const struct of_device_id lc898123_of_match[] = {
++	{ .compatible = "onnn,lc898123f40" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, lc898123_of_match);
++
++static struct i2c_driver lc898123_driver = {
++	.driver = {
++		.name = "lc898123",
++		.of_match_table = lc898123_of_match,
++	},
++	.probe = lc898123_probe,
++	.remove = lc898123_remove,
++};
++module_i2c_driver(lc898123_driver);
++
++MODULE_DESCRIPTION("LC898123F40 autofocus driver");
++MODULE_LICENSE("GPL");
 
 -- 
 2.49.1
