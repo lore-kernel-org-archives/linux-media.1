@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239370;
-	b=Ue/7fyEh7tE1Pm9EiFOQpO1gFzWiodG/EJPOB3Riua0OzEhknQd2VEqGjrrwyGcWW4Vz
-	 wl8c32H7bzb0SF6t2YtIvWe//QozaI/I9kt4jBtXZljwaCZTIErJym4g6bGFGEDB9ydFa
-	 l4P7Bq1KRa9c0kyfDiNfkgl9pd8AStbB6NEvBZ4LLD8820sLAU+uiykzkePpkpGWRqxxG
-	 Mp5klZw3pkn9ZcvoZY9MS7fAfzkBLAImZI9RAWITOIXUthbnlTAPBe3sBDFyL7C6P5M47
-	 +hPpiN9HngNvFevToJTZVp/v5YnCPGgKDB+nkCOMklS7efm72HtOc8xpZWQZr2oZ8EA==
+	t=1794239420;
+	b=0dz6dhdvBDmQOYja4tancvwv93jw56R/nuObFkCPd2huveEwKo5gDidjNI0uSXJCqZ5G
+	 APMVmT/EgCH/aaaMX0lF5614rShl5Kb+HnRACYdKZfG0ryDigkovnJ9R/rQXXSGQPSoEM
+	 fltripwwkw7YlBYuAZG3tgaAel4IyTd0DiU0i6R+2vCU5iDEgJN26nQxRMBBhFKvIRW0i
+	 Jn5uPlZo8SdN9+koO4t89XpaLbjMAiOzXLVYW3mvbTNamvClqlwOYCd1+OKS7UWoK/lte
+	 dci1+wrZUSgWBRXUgBPqacxBqMM+8QbQ2Aq6r2jM3TiaA3VVEUZhdT1PHnyL4kGMH+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239370;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239420;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=LUmC7pupp+6flD6iWqGdbBq5uSMsUVJdiyX/xJTa3rQ=;
-	b=qsdUFTOYRUOiSTNEPFAGJu8/JZndHIAuUxVSMIJxIQ3Onz3PaejUdPOBHi439id6TFkH
-	 8urTtSdaMn+Gk4Mxh8qXnNZhiLmQrTCO2IHVa1Jl2VdCz0T48ILjulN4tntzoXzPCFTNA
-	 bQTqoHaGtApbC303xEOs24E7OtOEAbBHCjq+s/S8yIDGUAV99S7eQ5iwW3pr+WYPoAkVG
-	 dHgsGXX26Psjcrmxb8jPwR35Wpt6501E8+pUv18ZlndH+TDIPTyzL5oLVWiKF3+attTs1
-	 W4bzW0CQnave9lmbwvYtP4sL/SKBpQd8MYadQOl/Zsx0e47i6Q4aXj5G2evp6exrCFg==
+	bh=2p6CUqRLEssOKWLdU6YDLfy7whJKTepklUCynGnWpPc=;
+	b=VsV0c5kbISaKrklLwpTw9SbvGZEVlYTKtR5cBzRvs9Tjt28FYUutQsB66nT+9uYZkJHS
+	 m+2Yy8vL8n3MVcIGW6EkW1s3xmlPhtw84GvO7fOsqVXhwRTjwYUSMyRrtIPIm3/7KVqb3
+	 UU2hCOnJkQlGezt0uOt87/TstOcNlTfwMFOuCZo7CdKfbyruL2efSxd3RclCeCaO6+deC
+	 GdyR1O7hlgBTXjSpH2flnyb/laQYYNMGgyFDBccW3m8uA8ApBOsxO6tDrBaQtoxgdGour
+	 mzWcSP0fM3/w/KiZ8WdQzFvh7kkiRz676eZokoOKiKOj3V27WVM3K5TEmbjWzb7ajKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AWeyvyXt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="D/OdJKmp";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F2ED606A332;
-	Mon,  9 Nov 2026 15:49:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1667606A331;
+	Mon,  9 Nov 2026 15:50:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AWeyvyXt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F3071F008A1;
-	Mon,  9 Nov 2026 15:49:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D/OdJKmp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DCAF1F008BC;
+	Mon,  9 Nov 2026 15:50:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794239369;
-	bh=LUmC7pupp+6flD6iWqGdbBq5uSMsUVJdiyX/xJTa3rQ=;
+	s=k20260515; t=1794239419;
+	bh=2p6CUqRLEssOKWLdU6YDLfy7whJKTepklUCynGnWpPc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AWeyvyXtRt1eagDS3pzVnhYlLAkyBSL9nIInaVRAVIk0fWhNtfnpBW7pxJGINFWoK
-	 RmuvXFsQAj4q2bpBxcog6oRCPZ4ZzsIlLm8M8EaRa2QaCtQQQ6cQUIGNswlzx+hpAU
-	 Ega0/f0yNE9ZaPn+8VsLqFP6l+PIu0XK3nQEooKB50bivlJA6VA9xofhgdbXNiKbdy
-	 OOBVX3jkRFLp8ykqmvYynJ1h1INC9LpP+nLDVz8vALXxHUipJDs4ydLwIu9uksiJQS
-	 elmOwbIL88q1FUl+kdJTPBuqdCpOgfTy5Yow9hPNGCYTWIrdDEabdN9NZ+yYfJbV7p
-	 fG5G7qpWFfEuA==
-Message-ID: <0ce1e478-83aa-4d5b-845d-4751d597fe72@kernel.org>
-Date: Mon, 9 Nov 2026 15:49:27 +0000
+	b=D/OdJKmp8l9kgc9gKUFPITsbs95e8Z0jZG2j7ulPpl7tXaQuoQ1c6UzOrmO32zIKC
+	 8lRYCz+che2eDOf57VQFUluuA6p7bYLgQkqFhAJubSqpeQ9czUbxPYWkQ+yiiVoMzt
+	 rrWFIuzp3Bvw+6xHOV3a0NLHHE6Sz0Ep1bC5lbVi2HyCaA/MI5DtY6UvpCQ9S2EV/I
+	 5yl7riPmWrS6kCcOvZBIUiulO6DtNTYyaHmpunxqE8OLt72/eiFnJYTr0dW81zBW4a
+	 025S9X7st9KMD87XLiadCOPECnNaJuRzFoU+F7Aw09pOirJlIZrUmqkmU5ckf12gZy
+	 u/TiPj10arTpw==
+Message-ID: <8f1679ef-caad-4873-acb2-4faa04a1d9cc@kernel.org>
+Date: Mon, 9 Nov 2026 15:50:16 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,17 +52,16 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/11] media: qcom: camss: Switch on frame_sync_en for
- csid-340
-To: bryan.odonoghue@linaro.org,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 03/11] media: qcom: camss: Use SOF sequence tracking
+ for vb.sequence
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>, bryan.odonoghue@linaro.org
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org>
- <r_TOfw9mnkUeBFPsw9y9MrVpLN2bnQ_VdNf5_mE3SP4XLb2-v6NPn96Vwm1cX73dehIOmn26JC2KywS5ClkCLQ==@protonmail.internalid>
- <20261107-v4l2-frame-sync-v3-11-e5bf7073a35d@kernel.org>
+ <20261107-v4l2-frame-sync-v3-3-e5bf7073a35d@kernel.org>
+ <crjR444yGrRKOohEVzfhYdoqIGCsi1tUpZLgBeeVGuinXQwMsZKZ9ZqkiU4uby7YTCrsbE5SfutnA8JQ49kDSw==@protonmail.internalid>
+ <CAFEp6-1tMwheRKaN=sEgF9abzNZOLS79OePq1GOwtm8JGXjSug@mail.gmail.com>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -108,42 +107,17 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20261107-v4l2-frame-sync-v3-11-e5bf7073a35d@kernel.org>
+In-Reply-To: <CAFEp6-1tMwheRKaN=sEgF9abzNZOLS79OePq1GOwtm8JGXjSug@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 07/11/2026 01:01, bryan.odonoghue@linaro.org wrote:
-> From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> 
-> Switch frame_sync_en to true to track and consume SOF/EOF data.
-> 
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
-> ---
->   drivers/media/platform/qcom/camss/camss.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index bfff28e789b04..ac12960264adf 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -733,6 +733,7 @@ static const struct camss_subdev_resources csid_res_2290[] = {
->   		.reg = { "csid0" },
->   		.interrupt = { "csid0" },
->   		.csid = {
-> +			.frame_sync_en = true,
->   			.hw_ops = &csid_ops_340,
->   			.parent_dev_ops = &vfe_parent_dev_ops,
->   			.formats = &csid_formats_gen2
-> @@ -749,6 +750,7 @@ static const struct camss_subdev_resources csid_res_2290[] = {
->   		.reg = { "csid1" },
->   		.interrupt = { "csid1" },
->   		.csid = {
-> +			.frame_sync_en = true,
->   			.hw_ops = &csid_ops_340,
->   			.parent_dev_ops = &vfe_parent_dev_ops,
->   			.formats = &csid_formats_gen2
-> 
-> --
-> 2.56.0
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+On 09/11/2026 09:49, Loic Poulain wrote:
+>> +atomic_t *csid_get_sof_seq(struct media_pad *pad)
+> I would go with a `const atomic_t *` to preserve explicit ownership
+> within the CSID.
+> This is also what atomic_read is using, so that should work.
+
+I'll amend on application.
+
+---
+bod
