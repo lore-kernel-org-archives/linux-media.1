@@ -1,63 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.167
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794183874;
-	b=z/VXxc99UpzWoaM73JNokE7p8ne923uKAqaejzDEUTY3OpkxHLHHdQzVPKYyWZTeEaAe
-	 a/dY8nfZREKIZdFGl+m0xKNFLIN+icdVKLKkyxa6X7hZIAhLUT703Gk3iFvo//KG08aTj
-	 Au0kJ+b5vz+puEhE3ZFbKNQ04sU0TXkRKpCJ1NMRRpMsHFl20tiJFuk0LbdBF4ikyJU1Z
-	 jB+xwJmk2cddqbaZoKolV6kZof3dqpG/REkpqPPPch7A8CtGSMRCiaY+LQ6rkxJZ6z7TR
-	 bSlBgLn/O2opT+xKXQB+ITOtbbxHX4AFScTViAh/EOPm8sX8kDqsDh/YE2yjWf3LY9w==
+	t=1794191586;
+	b=bsdVSb9yBrIPinUCvOgbWwMwmBa/ZHfWib2iWaHoCAmZlZYvJ30eeTIa4XiyP6cl+7fT
+	 LggaC/P9chpqJRoJDyKTqXAQaCnZaP8w4Y9dMFqCquNorKTV6RT3omNjSDJtGY/DUenXW
+	 KpVHn7ZlCcf/eY8tjCvWLwQB8sbeENMkeHzcM1imRK1P2U58Z4OpBlxLllyRukuSKTJJf
+	 OcaA/8wcaBrPumtDurjDC1s2QR38qweR0cPTEfXDqotZOn4G3jSOvZWVDeLr8xDHqK1c2
+	 gfGFdIjd2LN/uUrrCcdcCjdC0b1g3PiI7f1671T0s6aWcyuMd5TDeMw3DbVe0TFc1nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794183874;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=MSrsGOd6epxr5Av5d0/wv507jZgM6FYHT2dSap7aFHQ=;
-	b=ndEY0GYlVqzSXwmKyCNmPtg21isjxeLYyJFFwfFUIOE2ZNW4jdcZkDzYhUwR/QdtEhgN
-	 qjNottZvE7UU8UHyqGvJh7bgT7LVJe47EyO8l3FdzJuHvb/7qoI0yYNNimTA8TmrjS+xP
-	 MsdxN1MjqlyNEjQeCINdiPFNr16/i1HYg3BB7wHiW2QsxKbGC6zjSjbnhAtCsf/EFEjeo
-	 CJrhUvMsPoRz2J0gZNKmjMtuaKAZqU/TFdxRV8KquSZ5wNBq4S8dNxDRJL/jvNrgxnxig
-	 t4rXkNCR+Co2Bo4WN6P/+9f3TBt75HrjrGE7YNKlLDDu1rLN0jxak6eYnlyM6kp0Z0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794191586;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kB3IFpQ0ZIO1cp7bsYqiegxOLRHS/D0OEp5d5P2E9bs=;
+	b=JAwccPKTQlzJA3BtvrFuVkLnWISt8OZTReIUaj8EWoCElROuHRh8irVeXtppWyGumEst
+	 ZVfBT18nQTFqXREAi9gwpZwoLYTr9v+kXkaCuCIHVbBytc8WGHNChzhe5YfszRvKp+6ka
+	 OvLxYXAeqv0MK+elylZyuIMmFmgq7nIAj8zGP8J/QLtZLtYbRaMX32dykopoAsvKEaDH6
+	 FoHu9zj2+kdHZXgUvTmKVQZqf2yeW+ssD9vuHJ2uusvMZKd4I+Dj0QLlh2INgNrCmNkli
+	 6bZIL+AdW4/iKoz8r21boWGqJ32iO00wfT6BOUPLHBPd4PEPwoEAa1zJ2cQwcIGFfYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=bI3kP+HT;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ojX0EpIo;
+	arc=none smtp.remote-ip=95.215.58.167
+Received: from mta1.migadu.com (out-167.mta1.migadu.com [95.215.58.167])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9185A606A31C;
-	Mon,  9 Nov 2026 00:24:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9185A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA20606A320
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 02:33:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FA20606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=bI3kP+HT
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D8AEC2F8;
-	Mon,  9 Nov 2026 01:22:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794183730;
-	bh=/MlpY1rBdT2Z4meYa4LYkH8ChsrsxlDfWGXDlmOD3QA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bI3kP+HTPBAr8vgoQE3CgFxzz1h+8NaqeLw6e5wXK45Z1MKBbQmDGhzoCaFluslTO
-	 QiomdqqvbkaF3lbzkIpIxJzf0XKDmDwf98Y7w3FuHFbUfs8Iy5VgkPtkXe21z9y5Ka
-	 lL9XOaiB3c8uSXm6Rfg0ZCA+SiyJCZDtW8xPjqeE=
-Date: Mon, 9 Nov 2026 02:24:29 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: b.danias@tutamail.com
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Serin Yeh <serin.yeh@intel.com>, Robert Foss <rfoss@kernel.org>,
-	Hans de Goede <hansg@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 3/3] media: i2c: ov8856: Power off the sensor during
- system suspend
-Message-ID: <20261109002429.GD806758@killaraus.ideasonboard.com>
-References: <20261104-ov8856-pm-fixes-v1-0-1958b730ce66@tutamail.com>
- <20261104-ov8856-pm-fixes-v1-3-1958b730ce66@tutamail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ojX0EpIo
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nmqRaiM/EiJNizjn79AmK4k2MmWrkYTwEz2GWquosKA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794191583; v=1; x=1794796383;
+ b=ojX0EpIoXW4Q3WWoKTSHFyYfVB5/NGKPMoZkCmCbZqBScUyhu6sLm3yjkz3APWW4PPjlGsGs
+ 08BhfDJF0/bIs+cEwtmQZ/pXWdCFPiZK/kLkGbfQD3yI047xH2MZMmKuO4QwBQXVhNIdwf/A+O3
+ H3ZmjPkz0bDxno5X6rlhxv2w=
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fa418301c63af391;
+	Mon, 09 Nov 2026 02:33:03 +0000
+X-Mizu-Trace-ID: fa418301c63af391
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c6bf9ef4-5a61-4f4f-ab39-11d1ddf59d64@linux.dev>
+Date: Mon, 9 Nov 2026 10:32:01 +0800
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,81 +58,98 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104-ov8856-pm-fixes-v1-3-1958b730ce66@tutamail.com>
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, akpm@linux-foundation.org, dgilbert@interlog.com,
+ mkp@kernel.org, loberman@redhat.com, jmeneghi@redhat.com, kraxel@redhat.com,
+ vivek.kasireddy@intel.com, mst@redhat.com, jasowangio@gmail.com,
+ eperezma@redhat.com, stefanha@redhat.com, sgarzare@redhat.com,
+ rostedt@goodmis.org, vdonnefort@google.com, mhiramat@kernel.org,
+ jgg@ziepe.ca, kevin.tian@intel.com, axboe@kernel.dk, linux-mm@kvack.org,
+ James.Bottomley@hansenpartnership.com, sumit.semwal@linaro.org,
+ phasta@kernel.org, joro@8bytes.org, will@kernel.org,
+ linux-scsi@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org, virtualization@lists.linux.dev,
+ linux-trace-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bobbyeshleman@meta.com, mathieu.desnoyers@efficios.com,
+ robin.murphy@arm.com, mason@kernel.org, aesteve@redhat.com,
+ harry@kernel.org, vbabka@suse.cz, cuitao@kylinos.cn
+Subject: Re: [PATCH 2/7] dma-buf/udmabuf: account the page array metadata to
+ memcg
+To: "T.J. Mercier" <tjmercier@google.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20261106131829.3228926-1-cui.tao@linux.dev>
+ <20261106131829.3228926-3-cui.tao@linux.dev>
+ <1e18fcfd-785d-43cc-afd6-d181bf8305eb@amd.com>
+ <CABdmKX0nCB2hT+iMh=BB-nC=fUBPof8YvjvO-gtEw+zcHZgvZA@mail.gmail.com>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <CABdmKX0nCB2hT+iMh=BB-nC=fUBPof8YvjvO-gtEw+zcHZgvZA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 11:42:49AM +0200, Babis Danias via B4 Relay wrote:
-> From: Babis Danias <b.danias@tutamail.com>
-> 
-> On a Dell Latitude 7320 Detachable, the rear OV8856 stays powered for
-> the whole of s2idle once the dw9714 VCM driver is bound, even with the
-> camera idle. Tracing a 20 second suspend shows the sensor's clock and
-> regulators enabled about 0.5 s after "PM: suspend entry", and disabled
-> only just before "PM: suspend exit". Without the VCM driver bound, they
-> stay off.
-> 
-> ipu-bridge links the VCM to the sensor with a runtime PM device link,
-> which makes the sensor a supplier of the VCM. The dw9714 driver has
-> system sleep callbacks, so the VCM can't use direct-complete, and
-> dpm_clear_superiors_direct_complete() then clears direct_complete for
-> the sensor as well. The sensor goes through the full system suspend
-> path, where acpi_subsys_suspend() runtime-resumes it before calling the
-> driver's suspend callback. But ov8856 has had no system sleep callbacks
-> since commit 19ae6ba57f88 ("media: i2c: ov8856: Drop system suspend and
-> resume handlers"), so nothing powers the sensor off again.
-> 
-> This matters since commit 609a71568664 ("media: i2c: ov8856 : remove
-> ACPI node bypass mechanism") made the runtime PM callbacks control the
-> sensor's power on ACPI systems.
-> 
-> Use DEFINE_RUNTIME_DEV_PM_OPS(), so that pm_runtime_force_suspend()
-> powers the sensor off during system suspend, and
-> pm_runtime_force_resume() powers it on again only if it was in use. With
-> this, the sensor is off for the whole suspend. It is still powered up
-> for a few milliseconds at suspend entry, by acpi_subsys_suspend().
-> 
-> The problem was found, and this patch written, with the help of an AI
-> coding assistant (Claude Opus 5.5). See the cover letter for details.
+Hello，Christian，T.J.
 
-No. I'm really tired of the combination of bad PM APIs and cargo-cult in
-drivers/media/i2c/. I don't want to see dozens of LLM slop series for
-sensor drivers.
-
-> Fixes: 609a71568664 ("media: i2c: ov8856 : remove ACPI node bypass mechanism")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Babis Danias <b.danias@tutamail.com>
-> ---
->  drivers/media/i2c/ov8856.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
+在 2026/11/7 01:25, T.J. Mercier 写道:
+> On Fri, Nov 6, 2026 at 5:23 AM Christian König <christian.koenig@amd.com> wrote:
+>>
+>> On 11/6/26 14:18, Tao Cui wrote:
+>>> From: Tao Cui <cuitao@kylinos.cn>
+>>>
+>>> udmabuf pins the pages of a memfd and hands them out as a dma-buf.  The
+>>> data pages keep the accounting of the memfd they were instantiated in,
+>>> but the bookkeeping around them does not: the page pointer array and
+>>> the pinned_folios array, both sized by the buffer page count, plus the
+>>> transient folios array sized by the memfd folio count, are plain
+>>> GFP_KERNEL.  A 1GB buffer costs about 4MB of uncharged SUnreclaim
+>>> memory, and size_limit_mb defaults to INT_MAX.
+>>>
+>>> Charge the three kvmalloc allocations so the creator pays for the
+>>> metadata it induces.  The system heap in the same subsystem already
+>>> accounts its buffer allocation;
 > 
-> diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
-> index f9bcdd412..848e981ff 100644
-> --- a/drivers/media/i2c/ov8856.c
-> +++ b/drivers/media/i2c/ov8856.c
-> @@ -2462,9 +2462,8 @@ static int ov8856_probe(struct i2c_client *client)
->  	return ret;
->  }
->  
-> -static const struct dev_pm_ops ov8856_pm_ops = {
-> -	SET_RUNTIME_PM_OPS(ov8856_power_off, ov8856_power_on, NULL)
-> -};
-> +static DEFINE_RUNTIME_DEV_PM_OPS(ov8856_pm_ops, ov8856_power_off,
-> +				 ov8856_power_on, NULL);
->  
->  #ifdef CONFIG_ACPI
->  static const struct acpi_device_id ov8856_acpi_ids[] = {
-> @@ -2484,7 +2483,7 @@ MODULE_DEVICE_TABLE(of, ov8856_of_match);
->  static struct i2c_driver ov8856_i2c_driver = {
->  	.driver = {
->  		.name = "ov8856",
-> -		.pm = &ov8856_pm_ops,
-> +		.pm = pm_ptr(&ov8856_pm_ops),
->  		.acpi_match_table = ACPI_PTR(ov8856_acpi_ids),
->  		.of_match_table = ov8856_of_match,
->  	},
+> Only if the mem_accounting param is set to true. We (Android)
+> currently depend on it being disabled because system heap buffers
+> don't have a single owner for their entire lifetime (ownership often
+> changes immediately after they are allocated), and the kernel doesn't
+> have the ability to switch who is charged for the buffer memory quite
+> yet. Albert is working hard on it at the moment.
+> 
+> Could you update the message to note the mem_accounting param pls?
+> 
+>>> the data pages here stay with the
+>>> memfd.
+> 
+> memfd / udmabuf is a little special because it uses shmem for the
+> backing store, which is already tracked by memcg under all conditions
+> (except hugetlb). We don't currently use udmabuf, so the lack of memcg
+> charge transfer for udmabuf is not an issue. But once we get charge
+> transfer working for the system heap it'd be good to follow up with
+> udmabuf.
+> 
+>> T.J. needs to take a look here, but I fear that this might break uAPI.
+> 
+> Thanks for looping me in Christian. The buffer allocations cost
+> gigabytes, but these metadata arrays are only 4MB per 1GB of buffer,
+> so I don't expect charging them to break anyone. Leaving them
+> uncharged is an accounting gap though, since someone could spam many
+> udmabufs from the same memfd and only pay for the memfd pages once. So
+> this change is ok with me.
+> 
+>> A lot of the DMA-buf resources are intentionally not charged against memcg.
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> 
+> With the commit message updated to mention the mem_accounting param:
+> Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Thanks, Christian，T.J.
 
--- 
-Regards,
+I'll update the commit message to clarify the mem_accounting parameter
+and pick up your Reviewed-by tag in v2.
 
-Laurent Pinchart
+Tao
+
