@@ -1,102 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794208632;
-	b=gsqphySg29AX/O7BwgK0GMVdIueXCFwOOqkYsQjbP26S6ypCdK57Y/9uzTpUi90cMAfq
-	 zJZma2WJIgGQ7+jbh2l3PYaHXdrjZ43CyeYRNRToK9e166sZ7ggT7BuBFIQcV/KQdTJ2g
-	 fWoxFQZsoCcYWvbxdNKfLwAKOd/sdm99lmOpFhPg4K+0hDB3cAdnY9Vmc5r05B85V1lKp
-	 WEbkOMcbYxAKM1y5lDwK4fitaC4tKKY6qUQNUkLXBSF+I0sZCW7fFc7NUSm3UypjzCzIb
-	 GfIDKT/t1JYw5CcoErmftlmfw2/pTuVbF6QzxWMEmZ6y0IqTxp+oOYo7ohftBtnUxaA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794208632;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=vkfjb1KMUhCuFS4hDPHj1OK/zxxuMuMzrtCl6Oxe2aM=;
-	b=pmPMhR09m9aFEdEj/eQRJZipTHHu05lf4OW1E/j/ZIvIU14dO+RLKU9NKWh/6Gs8DXFm
-	 aFv4vzLJI4Qzl6ZpuYUQaiUU/QVtm9e8ANNYE29BX50JwoCUOiWZ6pULCV2RciDU5x08F
-	 cLJf12D7DcyGVcQRMk4COWkUbb7sQYbLBMBNNwB9K62uFz5xVbZxG5MD+pJDumdMv+Ra0
-	 QDxq38asew2wUYkF45DkbO7123dG5hCzXWIrV4euyNhNl1eMNg5fJo0tc8L2sMqX9NKzd
-	 ImQF32NcI5uX9BRheDC8PZKxdMZmKOdILnJlLFbHhhNQWH+jrGF9jI7UXoWTlAcMuvA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ak04tw2M;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.169
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794208662;
+	b=V/q/afe81ZDA087goDijCwIhD8rL+oE3sq07eGGcjnba/pNmc/tJ1L/vy9kB7XGhV/JY
+	 ueKTcgg2RgcS4ik2ziiyxM0QPldCH4FHtiwNDL0jxr5AdlnjvOG2ZJLuZph08QGznwo++
+	 XWTTjDFp9hRKr3CcGkS9Ig12jn8bydbhbr1QCtILE0r/w9lH9birTIOsfxJMtbNRFMp71
+	 9KZuQLhJsY8oJdyu1Nu+YIL/M0h6qHyR0ME4Zig5c5316R3OFWmnLkFKHQGU8Fnyala9A
+	 5voH8fYB6qWym1DeSoFOtdflBuyyke2kbkdUTEgrjTTaUkN++UchGFfvDc30xSi+Ceg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794208662;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:Content-Language:To:Cc:
+	 References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=gkyD08qufefw7fu3/LZdMf+j5IM9zRBtd6mHq2oqAaA=;
+	b=3GiWGgHjlel4ofe1s7jkdHzhq6X+0yBo7IkcH5HE2PJsKNq3yg/Sz69c4rz5h2/Brwoy
+	 uvRosSEQWE2FtFKPhTJeMGsnb/kQUKE4PgcFAMCLcfEThsSHaRhBZ1343nDWdxy7XMEH0
+	 Ywp9XbWNtlFyLCUPtx6zmsfXweC1W0maJ5okJMaifkCU5RxMYgZX9jBatgFab7LAvfxOD
+	 glx/DkCJh6IGrimqcpob2QARSfIwsHRifL4KfMp7rO2o5n4+FP8UgFzP+1NF6KoKIScLb
+	 Fo+SMf7ukBdSSKFwfdq+kSot0q2RFRjMDaUU1ZB+wAyd7Z0i0azCaFW1Equ2XF4kSVg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=n2nx95Av;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aQZ9L6j3;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7825B606A321
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 07:17:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7825B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FCC606A321
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 07:17:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58FCC606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ak04tw2M
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8b0cf2c0785so4288637b3.3
-        for <linux-media@vger.kernel.org>; Sun, 08 Nov 2026 23:17:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794208631; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Gy7EmSKTYYluq0LlVZ6MtiBDlw+ZjlPogCqlHlbJFUDTk3nKaQFSMwyVGgo50iBSR3
-         gaykC1EukEVT5ikL9Z+Kg5NPmMSvhEZtCtsBn7THSAzGNYGWaO4lq/gCoxt1PRNl+uXJ
-         K4ohnsNVP6yz6cqoXRnCfM6lAQ5U8JIw0RprChoI5SMd0U86lkRbK9+z3g/85Zyp77HD
-         wo9qcbF+C9cW6Q/vIaFRf+3l1E/hziFvc2QJ213shLXyMXyNVVQlAoTvLpnVg+uzGhro
-         OEkl+6UdSoHxddm7Hn7v9gCMZfr5Sq3ynQ46SZj5hsx/Sz1mUFOxF5ImHkYzPBEZdmaW
-         Gyjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vkfjb1KMUhCuFS4hDPHj1OK/zxxuMuMzrtCl6Oxe2aM=;
-        fh=MOH8f3JrCMxAA8/hhCfvSzN5H39zZnuwHM1mZ9Zq4LM=;
-        b=dohmITQDFWXIkOxCMK4JZZwAvjxU/U/MEh78dsaaJ1/4hCRy0a3i7MJZTg76anTmFT
-         YYNbbbExFMwoiLh53R1POdQy0DjtptFYGIr0FN9zVHMjaigK5OoRbGhxNFt59v7WbLMM
-         WRkBhWTMEZ93qgj4Ev6X/WIlzsRbP4SL6tGLDFPMZJR1k/VCXQPygdLaf1KPIyvcGUrT
-         TZHdw+SkevZmZX2X/yl+dpU0lD7/2N+n+R4n7VPUHk8HYq9jZ5fP/50igSzqhc+TKQyE
-         HsUgMZj6D9jwjH4c48AN0FKXyXGS2WIFL7Zz07b+Gcf/oYDFwj6Raya67EcvUzsyukt2
-         Mw3A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=n2nx95Av;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aQZ9L6j3
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96A06x3580985
+	for <linux-media@vger.kernel.org>; Mon, 9 Nov 2026 07:17:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gkyD08qufefw7fu3/LZdMf+j5IM9zRBtd6mHq2oqAaA=; b=n2nx95AvPetNgfNw
+	c+IyVlt9gf5zkuhg7zIBnTzizhUL80xHm6XsewdRkstQBUxLFnbGzn6OA4sVKkNv
+	53Bxevvgu3HKdU+uMd0E9/6uRf/4ipxiAo3sPQj/bY9HBYaq87dR05svJMZcKp67
+	6gN9LBQ719QuRY3Qf6CJTkHcVHWJwJAXRWrZ5P7rL8/29yly+8hUDWI6AZzFW5Ta
+	1zG04Ubu5TPAzMg0GMw4RKmokQ9FYQvs4ByBAZmBIIdxpm6spfHwcFR1d1ELPk0f
+	45vQ+XhsmMzdOU7wBmcsfCVHKUuYg9VOm5f9okhIlb2iadaqdUw7z3AkVkwS9ZoD
+	ZHBRLg==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsv7354xn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 07:17:41 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36fe0b57d91so704087eec.0
+        for <linux-media@vger.kernel.org>; Sun, 08 Nov 2026 23:17:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794208631; x=1794813431; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vkfjb1KMUhCuFS4hDPHj1OK/zxxuMuMzrtCl6Oxe2aM=;
-        b=ak04tw2Mn++2xHlOwLTyQhYjWitumxxJdeSqLBSApNcn4ohDtl9yCVGfcBJIlXg5rV
-         kcLmqfpcRcTUw+2KK1gK+9uE1BtIWgFgZXoqIrN6BT4K7YoFKNWC2dowPoGLMgZtXJK0
-         lo8xpwGvvNoii1Jw8TIEvUe/eD0zBgE5pamTrf4WxPLA7HucCrTcYuoIWzsMVeCgXAhF
-         IDZFuK8QDBX4I5Lj5DMmrbLiDSIcam1qDNWsZCAzMShGO8eytXbSxwcQNSVONbiyMJs0
-         Mib6evM/SIxgnFJw+Ge+d+9I0vuZEo+1wHnmxPOSf84w6sPP4sJmonUYiZF/ISf38+lZ
-         krpg==
+        d=oss.qualcomm.com; s=google; t=1794208661; x=1794813461; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gkyD08qufefw7fu3/LZdMf+j5IM9zRBtd6mHq2oqAaA=;
+        b=aQZ9L6j3wCyxzDVZ7fZl9fPhsD+9bqztZ6ClltLlxIkPDU56nL7/dTThQtVLOPork0
+         yIuXL5HCg0UmZVSj2ERWufEyyXSDCVKEj4AC66uqN7DsBOJOFfcePLfsCPQgfcBD+23V
+         rIZ+cR9ceJJRA+IOzEbcL4bxBE7g+atv6DYL63YGFYVzHknHrtoyBU5dFAdE9hVRHlnR
+         0fU+Mm6Al2IGBLT8BfR+NEkeF4/WigkHVBARGKJ6xz+wYzfz4CQLYNljU2/bytw9J0WF
+         1vG+Po5n6pdWz/i3G2N6afnYpw8qQr/HsijzM9IyoIcpr4I/9rJqzodRZdoUJKuezOAY
+         QnLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794208631; x=1794813431;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vkfjb1KMUhCuFS4hDPHj1OK/zxxuMuMzrtCl6Oxe2aM=;
-        b=uvWqCfDsq6CyXkCDwbKFf2z3biyX9r3RffWpG5AI7MyYy5+dr25YTIgWzcesZhG7o4
-         Xh2iDCVIyessZ0LUGl6LXKVQs8BKwKCpKr1HpSMDVhWdIY5dadD7PNYwDwbIvsfB5Qup
-         rLv1HkMs6UhpO4e9CC/oXOTf7g87wASUb+Pd1ZRkXWC3FByBOmrAsUkU3k5xk9zvfaNq
-         p4y28LIt+8uF9l2GvYmLXjAwNZqAIPXGnuFIFEacg6gCMm5lh9w5HEcSn6ltD47baIy7
-         tI1lzlxaeNBQ8QaiBKfAeeWlkE7yYzzj67TV0DQjkfQp3Y77jK0NytNIO70jC0bHY9n4
-         yHfg==
-X-Forwarded-Encrypted: i=1; AL+hErHcMUnG7yjoEGHzWqe2NbsCocAb7SuQV2AU6flVJ6miW3xV+3fd/r9H0obWmGezjejqHgVSzaSU9TS3VA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+H/tMNnRMLlIf09Pb4Zk2iHGKjDVrc3uPvhNCAxtv2IhKPZG4l
-	+rIr9wxdsjkWbh8ZD0EcJec36C7amvjaLqELNa5NUDFRnwsiCdQxTNE9JcQ1qgSFHe3a56roNCA
-	/lSI5LE+sUOXEYtPn6dhkEot6tNpc5ko=
-X-Gm-Gg: AYBFou1SbEb6aWQ/cNt4mcn8CoT/TgsabdfiLb1NjWnFLDWMtLjQZlarHW8hcNMzQxQ
-	epD57926p3A24KHlzR7YoT1Ug7CvSelWj9NIz0PSYeaW73mE7xsp8qCKfQLPw1kKeVAg6PfvAj3
-	KmWQ8SrGlrI/a9gofg+AxlQJ1KLRmGRpJYpe/X/QeJR1zx8B1lRht/AiKoAM7Re7FfHJ9HOPSo4
-	oVKaNwodys9Y66aUc2bOpgxWmoWlVwHtrdY7Ec077g1qDhxvB5/jxKT8g+xNbqEolgYNfKZHUrY
-	9PAaSiNzLD5Uunc2KbJbESMlZY4sfc1Ir+8vf9WREB4KHfQWSvxWMl5YUDBPHSgWK9G+FaDjgmb
-	YdMvpv0wk3sEwe2GIRvHAsPv4xBrWqOWJ5VZZL1a8DdSCq6UJjlk7TabDjEUFGzHeLXvKukNyfX
-	7vDC2HlhJxIvRRGDwQCoTgsSBguNmNmRtnXvG6tQTnRLGhDRPxawNBSV5JxQ9imZqnSYkK8H5/9
-	Dbu6zDJ54RbqsGe6HKjO1yhDy2CPboC5SD3S+2CUoAIrYTx6BLEwFeXDNkoZA==
-X-Received: by 2002:a05:690c:e1c2:10b0:8b3:5b88:a200 with SMTP id
- 00721157ae682-8b36cc11208mr12210177b3.109.1794208631674; Sun, 08 Nov 2026
- 23:17:11 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794208661; x=1794813461;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gkyD08qufefw7fu3/LZdMf+j5IM9zRBtd6mHq2oqAaA=;
+        b=cku8Epnt6Jsc5ZdRzVltFjRk2lnYEXfnNHINVr/aleiROackqiZZFSFLYqmtBiGjdh
+         h73TzTh2JOz/708RKpa8YxpNBdjd8lhDMsbKBPwGnH/qop8crSaPGTY2vm+VJecC3etT
+         0qKGE3uCJBkJR/JrdQE+LTpQWMNHrXFd2FjoH0XLJgaJwv1HcMEDUg9mFvM4Knv3KfH2
+         N3ES4JvucT5tYXsrJ5M6mTWhuPoNwsCru05+WPoIL6VMSI4ww3EfD3aw+MXwZUnz9Ma3
+         jjoMh2yuFcjfrhvtQ5jVgW8bHplyhsuqbUeWaBuN9/6dqyujfKb1z9wzxwz80iPX16Xy
+         0bxg==
+X-Forwarded-Encrypted: i=1; AL+hErE92ZUHeLJsk00Lr2mT9DX68qGf78Xh+vKm3wOULYvLj4WMpetksZV0rAcKbRXD/Mcd6dwPp+jpCC9vAw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z88+1oaxX7WGdFN/y3sa2SRNa9VC1iht5//Y55X4QO3v9LYae+4
+	wcWioDqprB5cVG3qaQr989VfS8p0gsfFLx89XDI+2iwPQsGFSuQg3bxeKL6pgNmRLSP4zYXL2vd
+	C9olQKVvefb+Vwzyw9TMu/hmxzFt/jaGmObAebVAbdxENGlW5zo+bLSy7DteF0C+h7bcklWVN0Q
+	==
+X-Gm-Gg: AYBFou2MJOCt+kHC1K8iJDBf0W/MXfR9ebjMHdANYUxujUbaHQRYLiJitJ511Tb+xra
+	leGx0oPghlRY3tQuENTsuSBHbdwAaYY8CaoKTlBdOekMiaXbRtdGwOz0nrfK52s0HyNN2voGanQ
+	67TL0kCXsdA7S6iS6ivWNSQY6Xbp1G7m1vTfuVAwJn/Zb5BYtg3KVUDYz6F24DWFQaG+YPLkZZe
+	DTxMyv16O/wX2A0PWXP18FjD6pt5bVb1R11LlQJvo+PYkXZMJwo7VUd/KpdtDIh4OCCwP5Dw9go
+	209xqDwRBTLVLPj2Ym1S0uX+epIz04Kb7BD8aHMuUfFYe1XyCiD+AHWZYXBorK7sXrDYuybCvv9
+	AYya89t/5U7+/o/lLfpP5RAiX2hHAqwpm0LR+i51Pg4B/HeYHVMe2BlnmuodvUoLUbyAH1CQ7h7
+	qZMlw=
+X-Received: by 2002:a05:7300:2215:b0:36d:48e:82de with SMTP id 5a478bee46e88-37256615312mr9264629eec.12.1794208660521;
+        Sun, 08 Nov 2026 23:17:40 -0800 (PST)
+X-Received: by 2002:a05:7300:2215:b0:36d:48e:82de with SMTP id 5a478bee46e88-37256615312mr9264578eec.12.1794208659818;
+        Sun, 08 Nov 2026 23:17:39 -0800 (PST)
+Received: from [10.204.100.41] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265d05514sm10504348eec.15.2026.11.08.23.17.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 08 Nov 2026 23:17:39 -0800 (PST)
+Message-ID: <e23fca3f-1e4b-f130-d034-8a7a02c41616@oss.qualcomm.com>
+Date: Mon, 9 Nov 2026 12:47:33 +0530
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -106,43 +115,308 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108122840.85622-1-lamemorupisi12@gmail.com> <20261109061223.17144-1-lamemorupisi12@gmail.com>
-In-Reply-To: <20261109061223.17144-1-lamemorupisi12@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 9 Nov 2026 09:16:35 +0200
-X-Gm-Features: AclHuK-khSe0RY2oOjw5lfhiP__nKv0BAQPXQtNw1CLUbmOomaA01kYuN2YE9Zs
-Message-ID: <CAHp75VdiqcjyDaF89s1MSs_Wrs0QomWdsm1fTcLmhEJWspoH9Q@mail.gmail.com>
-Subject: Re: [PATCH v2] staging: media: atomisp: Clarify MIPI frame layout comment
-To: Lame Morupisi <lamemorupisi12@gmail.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com, 
-	andy@kernel.org, gregkh@linuxfoundation.org, linux-media@vger.kernel.org, 
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH 1/3] media: qcom: iris: improve probe error reporting
+Content-Language: en-US
+To: Dipayaan Roy <dipayaan.roy@oss.qualcomm.com>, linux-media@vger.kernel.org
+Cc: vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com,
+        abhinav.kumar@linux.dev, bod@kernel.org, mchehab@kernel.org,
+        p.zabel@pengutronix.de, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261106153126.120858-1-dipayaan.roy@oss.qualcomm.com>
+ <20261106153126.120858-2-dipayaan.roy@oss.qualcomm.com>
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20261106153126.120858-2-dipayaan.roy@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAyOCBTYWx0ZWRfX6YL8+HZ0C1Ju
+ YUxVqqFH1CKpTaR9Hj1zsFDqRs6l3iS/qvlSpF8gtSd31srtUKBYW6y0bz/pN+bX/nQUIZAHBhl
+ vhveqUzB02TvCCs9Fczj8qVwdjhmbV7p47B7sUho95w/m47hFwrfhmirNLOpDTvtu/UmzQ8ddTa
+ Pa3OVY3iRiEwdXrV1jnGA+JpOIQvh0fQoy29JxIL1Ret4SOipXJPGGEzOlOp3Ryx5TIcwYsNlTq
+ R3HABREdj1A7CheHE23uZTSuHohCVlMB2jqGxe9p0D7hPb2aX6X1eiHT0jiLdGU7ElcgH6uCaUi
+ nHMvR6QJ2vvroi77o4f8hac6DVOpV5mOyw1a7hazL7Tgsziy+67PiTJzQdUafsugAf+LZGoGCkj
+ Te/eeMgNdGHIsV+Dp2ffoJ+S5bLsM0rtweJaM1EFh3O+bbygFb8Vw56W+W0QZzEGlyTENokV5Mp
+ 5UI3Neiw1mYiwlKNkVw==
+X-Proofpoint-ORIG-GUID: kl5DrXrQR3ZD3oIWMDnwZ7bfzchHGQ4-
+X-Authority-Analysis: v=2.4 cv=bcb+w+PB c=1 sm=1 tr=0 ts=6af17395 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=NqrKHNM9XWQKvme67EQA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAyOCBTYWx0ZWRfXy5vXywgxM1h7
+ /kHmd92tzIGweble/bcrzM2je7dzhR+5tLAqhLZDjvuCQpghhy8P1NoN6YXYIiXFbf+yzK5i5OS
+ XuChnGtk+iyePUKchWl+kkpnAnOosvM=
+X-Proofpoint-GUID: kl5DrXrQR3ZD3oIWMDnwZ7bfzchHGQ4-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 suspectscore=0 spamscore=0 clxscore=1015
+ phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090028
 
-On Mon, Nov 9, 2026 at 8:12=E2=80=AFAM Lame Morupisi <lamemorupisi12@gmail.=
-com> wrote:
+
+On 11/6/2026 9:01 PM, Dipayaan Roy wrote:
+> The Iris probe path returned errors from resource initialization and
+> device registration without identifying the operation that failed. This
+> made failures difficult to diagnose, especially when several resources
+> were acquired during probe.
 >
-> Clarify the description of the MIPI frame memory layout by
-> explaining the meaning of optional fields and payload words.
+> Use dev_err_probe() at probe and resource initialization failure paths to
+> report useful context while preserving deferred-probe handling. Also
+> validate the platform match data before it is dereferenced.
 >
-> Leave the frame layout diagram unchanged to preserve its
-> existing representation.
+> Successful probe behavior and existing cleanup paths remain unchanged.
+>
+> Signed-off-by: Dipayaan Roy <dipayaan.roy@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/iris/iris_probe.c | 98 ++++++++++++++++++++-------
+>  1 file changed, 74 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
+> index 41dec90f3e2b..dd48fa750013 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
+> @@ -19,6 +19,7 @@
+>  static int iris_init_icc(struct iris_core *core)
+>  {
+>  	const struct icc_info *icc_tbl;
+> +	int ret;
+>  	u32 i = 0;
+>  
+>  	icc_tbl = core->iris_platform_data->icc_tbl;
+> @@ -36,7 +37,12 @@ static int iris_init_icc(struct iris_core *core)
+>  		core->icc_tbl[i].peak_bw = 0;
+>  	}
+>  
+> -	return devm_of_icc_bulk_get(core->dev, core->icc_count, core->icc_tbl);
+> +	ret = devm_of_icc_bulk_get(core->dev, core->icc_count, core->icc_tbl);
+> +	if (ret)
+> +		return dev_err_probe(core->dev, ret,
+> +				     "failed to acquire interconnects\n");
+> +
+> +	return 0;
+>  }
+>  
+>  static int iris_init_power_domains(struct iris_core *core)
+> @@ -62,7 +68,8 @@ static int iris_init_power_domains(struct iris_core *core)
+>  
+>  	ret = devm_pm_domain_attach_list(core->dev, &iris_pd_data, &core->pmdomain_tbl);
+>  	if (ret < 0)
+> -		return ret;
+> +		return dev_err_probe(core->dev, ret,
+> +				     "failed to attach power domains\n");
+>  
+>  	ret =  devm_pm_domain_attach_list(core->dev, &iris_opp_pd_data, &core->opp_pmdomain_tbl);
+>  	/* backwards compatibility for incomplete ABI SM8250 */
+> @@ -73,13 +80,20 @@ static int iris_init_power_domains(struct iris_core *core)
+>  						 &core->opp_pmdomain_tbl);
+>  	}
+>  	if (ret < 0)
+> -		return ret;
+> +		return dev_err_probe(core->dev, ret,
+> +				     "failed to attach OPP power domains\n");
+>  
+>  	ret = devm_pm_opp_set_config(core->dev, &iris_opp_clk_data);
+>  	if (ret)
+> -		return ret;
+> +		return dev_err_probe(core->dev, ret,
+> +				     "failed to configure OPP clocks\n");
+>  
+> -	return devm_pm_opp_of_add_table(core->dev);
+> +	ret = devm_pm_opp_of_add_table(core->dev);
+> +	if (ret)
+> +		return dev_err_probe(core->dev, ret,
+> +				     "failed to add OPP table\n");
+> +
+> +	return 0;
+>  }
+>  
+>  static int iris_init_clocks(struct iris_core *core)
+> @@ -88,7 +102,8 @@ static int iris_init_clocks(struct iris_core *core)
+>  
+>  	ret = devm_clk_bulk_get_all(core->dev, &core->clock_tbl);
+>  	if (ret < 0)
+> -		return ret;
+> +		return dev_err_probe(core->dev, ret,
+> +				     "failed to acquire clocks\n");
+>  
+>  	core->clk_count = ret;
+>  
+> @@ -97,8 +112,10 @@ static int iris_init_clocks(struct iris_core *core)
+>  
+>  static int iris_init_reset_table(struct iris_core *core,
+>  				 struct reset_control_bulk_data **resets,
+> -				 const char * const *rst_tbl, u32 rst_tbl_size)
+> +				 const char * const *rst_tbl, u32 rst_tbl_size,
+> +				 const char *name)
+>  {
+> +	int ret;
+>  	u32 i = 0;
+>  
+>  	*resets = devm_kzalloc(core->dev,
+> @@ -110,25 +127,34 @@ static int iris_init_reset_table(struct iris_core *core,
+>  	for (i = 0; i < rst_tbl_size; i++)
+>  		(*resets)[i].id = rst_tbl[i];
+>  
+> -	return devm_reset_control_bulk_get_exclusive(core->dev, rst_tbl_size, *resets);
+> +	ret = devm_reset_control_bulk_get_exclusive(core->dev, rst_tbl_size,
+> +						    *resets);
+> +	if (ret)
+> +		return dev_err_probe(core->dev, ret,
+> +				     "failed to acquire %s resets\n", name);
+> +
+> +	return 0;
+>  }
+>  
+>  static int iris_init_resets(struct iris_core *core)
+>  {
+> +	const struct iris_platform_data *data = core->iris_platform_data;
+>  	int ret;
+>  
+>  	ret = iris_init_reset_table(core, &core->resets,
+> -				    core->iris_platform_data->clk_rst_tbl,
+> -				    core->iris_platform_data->clk_rst_tbl_size);
+> +				    data->clk_rst_tbl,
+> +				    data->clk_rst_tbl_size,
+> +				    "clock");
+>  	if (ret)
+>  		return ret;
+>  
+> -	if (!core->iris_platform_data->controller_rst_tbl_size)
+> +	if (!data->controller_rst_tbl_size)
+>  		return 0;
+>  
+>  	return iris_init_reset_table(core, &core->controller_resets,
+> -				     core->iris_platform_data->controller_rst_tbl,
+> -				     core->iris_platform_data->controller_rst_tbl_size);
+> +				     data->controller_rst_tbl,
+> +				     data->controller_rst_tbl_size,
+> +				     "controller");
+>  }
+>  
+>  static int iris_init_resources(struct iris_core *core)
+> @@ -195,6 +221,8 @@ static int iris_reserve_iova_region(struct device *dev, struct dma_iova_state **
+>  	return 0;
+>  
+>  err_free_iova:
+> +	dev_err(dev, "failed to reserve IOVA range %#lx-%#lx\n",
+> +		end - chunk, end - 1);
+>  	iris_unreserve_iova_region(dev, state);
+>  	dev->bus_dma_limit = dma_limit;
+>  
+> @@ -204,8 +232,17 @@ static int iris_reserve_iova_region(struct device *dev, struct dma_iova_state **
+>  static int iris_register_video_device(struct iris_core *core, enum domain_type type)
+>  {
+>  	struct video_device *vdev;
+> +	const char *name;
+>  	int ret;
+>  
+> +	if (type == DECODER)
+> +		name = "decoder";
+> +	else if (type == ENCODER)
+> +		name = "encoder";
+> +	else
+> +		return dev_err_probe(core->dev, -EINVAL,
+> +				     "invalid video device type %d\n", type);
+> +
+>  	vdev = video_device_alloc();
+>  	if (!vdev)
+>  		return -ENOMEM;
+> @@ -220,18 +257,18 @@ static int iris_register_video_device(struct iris_core *core, enum domain_type t
+>  		strscpy(vdev->name, "qcom-iris-decoder", sizeof(vdev->name));
+>  		vdev->ioctl_ops = core->iris_v4l2_ioctl_ops_dec;
+>  		core->vdev_dec = vdev;
+> -	} else if (type == ENCODER) {
+> +	} else {
+>  		strscpy(vdev->name, "qcom-iris-encoder", sizeof(vdev->name));
+>  		vdev->ioctl_ops = core->iris_v4l2_ioctl_ops_enc;
+>  		core->vdev_enc = vdev;
+> -	} else {
+> -		ret = -EINVAL;
+> -		goto err_vdev_release;
+>  	}
+>  
+>  	ret = video_register_device(vdev, VFL_TYPE_VIDEO, -1);
+> -	if (ret)
+> +	if (ret) {
+> +		dev_err_probe(core->dev, ret,
+> +			      "failed to register %s video device\n", name);
+>  		goto err_vdev_release;
+> +	}
+>  
+>  	video_set_drvdata(vdev, core);
+>  
+> @@ -306,17 +343,22 @@ static int iris_probe(struct platform_device *pdev)
+>  		return core->irq;
+>  
+>  	core->iris_platform_data = of_device_get_match_data(core->dev);
+> +	if (!core->iris_platform_data)
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "missing platform match data\n");
+>  
+>  	core->ubwc_cfg = qcom_ubwc_config_get_data();
+>  	if (IS_ERR(core->ubwc_cfg))
+> -		return PTR_ERR(core->ubwc_cfg);
+> +		return dev_err_probe(dev, PTR_ERR(core->ubwc_cfg),
+> +				     "failed to get UBWC configuration\n");
+>  
+>  	ret = devm_request_threaded_irq(core->dev, core->irq, iris_hfi_isr,
+>  					iris_hfi_isr_handler,
+>  					IRQF_TRIGGER_HIGH | IRQF_NO_AUTOEN,
+>  					"iris", core);
+>  	if (ret)
+> -		return ret;
+> +		return dev_err_probe(dev, ret, "failed to request IRQ %d\n",
+> +				     core->irq);
+>  
+>  	iris_init_ops(core);
+>  
+> @@ -327,11 +369,14 @@ static int iris_probe(struct platform_device *pdev)
+>  	ret = iris_reserve_iova_region(dev, &core->iova_state, IRIS_NP_RESERVE_IOVA_START,
+>  				       IRIS_NP_RESERVE_IOVA_SIZE);
+>  	if (ret)
+> -		return ret;
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to reserve IOVA region\n");
+>  
+>  	ret = v4l2_device_register(dev, &core->v4l2_dev);
+> -	if (ret)
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to register V4L2 device\n");
+>  		goto err_unresv_iova_region;
+> +	}
+>  
+>  	ret = iris_register_video_device(core, DECODER);
+>  	if (ret)
+> @@ -346,8 +391,11 @@ static int iris_probe(struct platform_device *pdev)
+>  	dma_mask = core->iris_platform_data->dma_mask;
+>  
+>  	ret = dma_set_mask_and_coherent(dev, dma_mask);
+> -	if (ret)
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to set DMA mask %#llx\n",
+> +			      (unsigned long long)dma_mask);
+>  		goto err_vdev_unreg_enc;
+> +	}
+>  
+>  	dma_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
+>  	dma_set_seg_boundary(&pdev->dev, DMA_BIT_MASK(32));
+> @@ -355,8 +403,10 @@ static int iris_probe(struct platform_device *pdev)
+>  	pm_runtime_set_autosuspend_delay(core->dev, AUTOSUSPEND_DELAY_VALUE);
+>  	pm_runtime_use_autosuspend(core->dev);
+>  	ret = devm_pm_runtime_enable(core->dev);
+> -	if (ret)
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to enable runtime PM\n");
+>  		goto err_vdev_unreg_enc;
+> +	}
+>  
+>  	return 0;
+>  
 
-...
+Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
-> -       /*  a frame represented in memory:  ()- optional; data - payload =
-words.
-> +       /* Frame representation in memory: () denotes optional fields;
-> +        * data denotes payload words.
-
-This uses the wrong multi-line comment style.
-
-...
-
-And as Dan said, you missed changelog to explain. (But in any case
-neither v1 nor v2 is good to go.)
-
---=20
-With Best Regards,
-Andy Shevchenko
