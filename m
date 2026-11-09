@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.120
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794247669;
-	b=Pjvl8MN4uQOPx6hkygtcJZ9ThxGBHzxOJJiItCGiU+qnHPwf7Nc609AipryF8+Tdcall
-	 RwITkN8XavH2vkhy+0/cuFwgW5l2XhmDHCW0cekPyIjtvGlmfQPk2h8HsMp8K9ix6hzGE
-	 wVvF/e2Eea9J3ByO0dWe7ohgG0qNOChmCcgHHpjwtcZy3heGgU+tVDb/fsj4YiHg8f83L
-	 pnT51Ho52BPaGPl3OR6J6ibotIP/Yyb+HdVkg0mPey6gVkwz5LZQlgX3w4HAxhjDQkH+z
-	 FtmQ72MFZZ68AmZLXTU9GpFOPKSdWa7VqvvQhCy/viv07cKax+Ua7Vd7zJGZ5RHf1xQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794247669;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1Gd+Z3/OLlRqwOYO36qAhtu9JC5HL8fvtZ/EZ5rAaLg=;
-	b=NoKUgpbjpIXTpLXnkzrZBJ8XBBxqz26DHOo/l+2fS0TDFlo8nyvn8Eexfm+PJ+bK2cWz
-	 xNtL9kJaCvXqC0RTY+B/o3Ll4bztPuG0bGRFBnWOl8GsKN+l9Z+cXwkaRcfZhJxAfATag
-	 LzZEMf/Ac8eEL8knSrN4IZ7IsO2vuHC2JWlrHMiopAZ+icTaDCYd/2vsIczEeq5T8zM67
-	 FeXVkBCmGIgWV/etE4kuHVNUC08TaIs2R70JYodzpptBpPjnzqZHyX5AeNCuN+D5/5fTN
-	 u5kZm0v7WZoF7+Lzu1e+yH4hrWmXME8TX5bA33EtXqfbJAXTLbrNSFWzspUvPDXoN9A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=K0GjaAFo;
-	arc=none smtp.remote-ip=79.135.106.120
-Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794248318;
+	b=i35aiZ2mmKVV6XqjyRDW956BMb/g/96p7K+vm2VfhmMlXe4glDk4bhTraow5xPHicvZc
+	 J47WOrUBHJ9m9jE8bvm9+09gUXZX5nHF9mXA4WntKJ4cT4hDWPtn7PMz5s/hJuuA7CR+x
+	 GL7F0zmFdvtFSiMETGmfQZ+7153rDxEeFnNAJ+s/03qe0jheu3cwNMaeiU93uj83JXv9Z
+	 tFxult18M6bhjGnrNEQ3z5uyt2biV7FzAGp+anhZL3Ky19w3pxCIaypFk7zJzq42hQjB3
+	 b4wRbD+b5aqeIme50vdNWnF6B0AMVC2o8Vdwfr4oAB3Wpz0lDo8aoaZ8tI1Tx7dEaSw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794248318;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=rn4jxzymr3xIQjsK3V3E5Saab8nvDIumub1F4bo27cU=;
+	b=hw8QvA3uc9LZj+ce7ex5QB6/PeMB2ZwQ9WpaTopevbqWkje+87SDtYRDP1spRFbYmrZ9
+	 AqaE+MAZGQeX+3QHea4OiW1gT+EPmynOhYEFjF0/ymsJ/WCmbtld89nuJKbsjsCQZwODu
+	 /FF6Zu7ULZwz5O68rk+l/ZTLiuGHi8IcVakKK/pg63VvMCjTHHCqOcgVkP71am6BIxoBE
+	 H92bAcqbpVvSLHPyezd7TrkicBGBM437+uqv0kkLUj5kMwWcbrllA6GbQTCAVESzTVm27
+	 E2WbA2PvoAnmZ21TPIAgKv5V5mWW13606z6Wt7jPzfOFfLsC1Pazlnct4Fw2JVc6K4w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EGfyNEcz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E480606A330;
+	Mon,  9 Nov 2026 18:18:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EGfyNEcz
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794248317;
+	b=uiK60a7xnP+ysYFSILyML2HBxMUQX1WCzA+JKfdRWdwcGZEt27ABUuYiLwPvsmnEqyab
+	 6pc0DcuLN0wfak+oN6sOo27LX9RcOOCPEZkLNbrViu1nKs1KLOyVhWKSAD2EU9MiZN6MB
+	 iEvQd5emBA0+augwgi5Dp3unr/sV9x9NLgRMeeHvaXNv/sFUOFyEKQg+9zfdXL1ehRcw0
+	 YswIPEydMBTo7tPPjD4Rys39cMmgxYoH79jsv4sX5SWNmk5ciMs3/cJOqXKmwkiVH4DZH
+	 kbTrsw2lvIQZ99qhBTJJKjuetJCh3dYmIFWvM9BGYiK9RLwalk7aWR62ibt3aL7Mnmw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794248317;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=rn4jxzymr3xIQjsK3V3E5Saab8nvDIumub1F4bo27cU=;
+	b=IMIo92kivNUBAStOZEkg48d/hT7hsjM/K0yaM3zNP70AMzZndBxl8AiaEoVNPq5EICD0
+	 lYrGgY1L66DCP5HidyNRcc47sUR2DuMuxcaRgM7AuxizIwbHNkghz1e/0j165VzdFhsVg
+	 EsroHCoS+OkA4KL4aBe9Q44PCD+Va3CKZ5w/yvAILf3beiwb4bFKT9QyM0Y0sazMeBhLr
+	 ggKRc28YnCFZv1KO8uSQb8U7H+2SiUeUEM0eehQS+2PYy/RAshyE6cb3f4N3tY0av1SMt
+	 XeYISd4vYV+t5MVr/u67kxT3GgN2HQlLUhpzX6Wi0aaAgh263K+mjODJQC/31CqNbMQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC71606A321
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 18:07:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CC71606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=K0GjaAFo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794247666; x=1794506866;
-	bh=1Gd+Z3/OLlRqwOYO36qAhtu9JC5HL8fvtZ/EZ5rAaLg=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=K0GjaAFoIez5E2XWNtv8OOtthbVyffwJW8gLJUU52J0oixcrvCidSFq6zZ0wmYSq9
-	 sFDIK+UOKwRujTAkTSFQVo5zHLCbjjFEyRRQ7/JHep9tMI5qmcwTsvicZcBpXYO2Vh
-	 iejqxG/4eQ3HkOzaH/IcoOlCaBHGL/uLX+e6QYjAWLfde+ze0QJotjIWnFV/cgV/0J
-	 G6ITKJ4Ow0XnwgoCQX4HzArGhUIozMRI06XnMoqJyDqAxCFJzqAFC3u1Gutt/n1cyg
-	 xJvPMssD28jbMftZwy9kDuj9nfq5BRDocAfd8Q4PuD5z3nAwjouIjoW4TLlG/va/z8
-	 9CTi5fP/Bwg2A==
-Date: Mon, 09 Nov 2026 18:07:38 +0000
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] media: i2c: vd55g1: Bound the number of st,leds entries
-Message-ID: <20261109180732.84703-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 4c63b7482c0eacdcf5397257a4892c43328949ae
+	by smtp.kernel.org (Postfix) with ESMTPS id 691911F008A2;
+	Mon,  9 Nov 2026 18:18:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794248317;
+	bh=rn4jxzymr3xIQjsK3V3E5Saab8nvDIumub1F4bo27cU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=EGfyNEczYF6bQg3N7xs0rmL4hfxeQvYHRG5phuKbPkXXIc3tS86rlVLUQdGQL1Crz
+	 zuUk1B1zKao4VS3non5aXy2NcLA2B8jycBnsFmyNumtC4yHv8lcePmFo7lN+j3WEi/
+	 XV6vDPlRq4S09iq6tpxhNcuEKzVBbVXIx5u+sNPiVgJlZChGUpTinGNphBxLeLOYAe
+	 1iyuBxSs3iyf9xxJVb7JXYxKhVtX+UhPgVWoaRQZtBGAVv1q/dgVJ6/x2Xgu9Vr6wa
+	 /gQraj6/4GA0QkQYIuTx1rhWQLXOA1A+pKRg7s4NvKTi8nVAG+dFrpRnizr3OCidZ9
+	 qj7254DrU+FkA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CF455485B2;
+	Mon,  9 Nov 2026 18:18:35 +0000 (UTC)
+From: Tin Posavec via B4 Relay <devnull+tin.posavec04.gmail.com@kernel.org>
+Date: Mon, 09 Nov 2026 19:17:50 +0100
+Subject: [PATCH v2 1/3] media: i2c: ov9734: Return -EPROBE_DEFER if no
+ endpoint is found
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -61,56 +83,87 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-ov9734-ipu6-v2-1-0481b512c4c0@gmail.com>
+References: <20261109-ov9734-ipu6-v2-0-0481b512c4c0@gmail.com>
+In-Reply-To: <20261109-ov9734-ipu6-v2-0-0481b512c4c0@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Bingbu Cao <bingbu.cao@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Afonso Figuinha <afonso.figuinha@gmail.com>, 
+ Tin Posavec <tin.posavec04@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794248315; l=1997;
+ i=tin.posavec04@gmail.com; s=20261109; h=from:subject:message-id;
+ bh=hZlhgr7t27xWi5riQyDtNa929Y92ZQWSKOxXOnT5Jec=;
+ b=1DQaXamNgIOeEsrMg8uF62lXMBw7Lki1z4WySjsX17gDSYQITGxwLmUDvjflXhtae4Q3fUsFb
+ aoNOcnFjGK+Btf0U9LGIM86BCKPH24Fswcpcwlh0bplyCrWE63Jo0me
+X-Developer-Key: i=tin.posavec04@gmail.com; a=ed25519;
+ pk=h4O+VaAXzwd3B9L6H8RltugTkzF65lam1c1ls5knAVg=
+X-Endpoint-Received: by B4 Relay for tin.posavec04@gmail.com/20261109 with
+ auth_id=1463
+X-Original-From: Tin Posavec <tin.posavec04@gmail.com>
+Reply-To: tin.posavec04@gmail.com
+Content-Transfer-Encoding: 7bit
 
-vd55g1_parse_dt_gpios() reads st,leds into a stack array of
-VD55G1_NB_GPIOS entries, and vd55g1_parse_dt_gpios_array() reads as
-many entries as the property has. The binding allows four, but nothing
-checks that at run time, and on ACPI the property can come from a
-software node or _DSD that no schema validates. A fifth entry is
-written past the array.
+From: Tin Posavec <tin.posavec04@gmail.com>
 
-Refuse more entries than the sensor has GPIOs.
+With ipu-bridge, the fwnode graph endpoint of the sensor is only created
+when ipu-bridge is initialized, which may happen after the sensor driver
+has first probed. ov9734_check_hwcfg() then returns -ENXIO, so the probe
+fails and is not retried, and the sensor stays unbound.
 
-Fixes: e56616d7b23c ("media: i2c: Add driver for ST VD55G1 camera sensor")
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+Drop the check for a missing endpoint and return the error code of
+v4l2_fwnode_endpoint_alloc_parse() instead, which is -EPROBE_DEFER for
+a NULL endpoint since commit 8015a49d8b33 ("media: v4l2-fwnode: Return
+-EPROBE_DEFER on parsing NULL endpoints"). Report the error with
+dev_err_probe(), so that the reason for a deferral is recorded and
+parsing errors are logged.
+
+Also drop the generic error message from probe, which would otherwise
+be logged on every deferred probe attempt.
+
+Signed-off-by: Tin Posavec <tin.posavec04@gmail.com>
+Tested-by: Afonso Figuinha <afonso.figuinha@gmail.com> # Surface Laptop 1 (IPU3)
 ---
-Found while reviewing the vd55g0 driver, which has the same check.
-There is no VD55G1 here, so this was tested with a module that runs
-vd55g1_parse_dt_gpios_array(), copied unchanged, on a software node,
-with a guard word after the four-entry array. Five st,leds entries
-overwrite the guard and the call succeeds; with this patch it fails
-with -EINVAL. Four entries parse as before.
+ drivers/media/i2c/ov9734.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-Tool use, per Documentation/process/generated-content.rst (Assisted-by
-tags in commits were dropped in 7.4-rc1):
+diff --git a/drivers/media/i2c/ov9734.c b/drivers/media/i2c/ov9734.c
+index 8f39609ad..49711fa17 100644
+--- a/drivers/media/i2c/ov9734.c
++++ b/drivers/media/i2c/ov9734.c
+@@ -838,13 +838,10 @@ static int ov9734_check_hwcfg(struct device *dev)
+ 		return -ENXIO;
+ 
+ 	ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
+-	if (!ep)
+-		return -ENXIO;
+-
+ 	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
+ 	fwnode_handle_put(ep);
+ 	if (ret)
+-		return ret;
++		return dev_err_probe(dev, ret, "failed to parse endpoint\n");
+ 
+ 	if (!bus_cfg.nr_of_link_frequencies) {
+ 		dev_err(dev, "no link frequencies defined");
+@@ -893,11 +890,8 @@ static int ov9734_probe(struct i2c_client *client)
+ 	int ret;
+ 
+ 	ret = ov9734_check_hwcfg(&client->dev);
+-	if (ret) {
+-		dev_err(&client->dev, "failed to check HW configuration: %d",
+-			ret);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	ov9734 = devm_kzalloc(&client->dev, sizeof(*ov9734), GFP_KERNEL);
+ 	if (!ov9734)
 
-* My contributions to this series were prepared with Claude Code
-  (claude-opus-5-5); work by others in it is their own.
-* This replaces any Assisted-by tags in earlier versions.
-
- drivers/media/i2c/vd55g1.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-index e3939bb9bd4..2e847af3f1e 100644
---- a/drivers/media/i2c/vd55g1.c
-+++ b/drivers/media/i2c/vd55g1.c
-@@ -1854,6 +1854,11 @@ static int vd55g1_parse_dt_gpios_array(struct vd55g1=
- *sensor,
- =09=09*nb =3D 0;
- =09=09return 0;
- =09}
-+=09if (*nb > VD55G1_NB_GPIOS) {
-+=09=09dev_err(sensor->dev, "%s lists %d GPIOs, the sensor has %d\n",
-+=09=09=09prop_name, *nb, VD55G1_NB_GPIOS);
-+=09=09return -EINVAL;
-+=09}
-=20
- =09ret =3D device_property_read_u32_array(sensor->dev,
- =09=09=09=09=09     prop_name, array, *nb);
---=20
-2.54.0
+-- 
+2.53.0
 
 
