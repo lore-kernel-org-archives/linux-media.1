@@ -1,86 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229075;
-	b=FZ77HIW76FEfy0c2Yny8DVfwPvuetCmeVY5XYFs5FchJEPKdD8xqIljbeHLryXh4xph+
-	 3arHwbeuCYRHd5QFQLSW+s9xm2MhawsSC5ZNx6UVDpybW6z2moKesuGdPffRE2U9gsz0K
-	 2TJEWAP1WOtEuzx3i7OtBQoNYUTMQl96hVr1tpxIPvQQw1/ftbJ8QPToiYG7kEPdIYOOq
-	 VYPp7vVyX+tKxe+5AT9TMRMYAMW86p+XlWKEOyz0vGuv4Zu71mKoPJEzv2x1u2bovgHta
-	 iArBSBMEm2rXxcMGvBffja0GRo/RWWrI8IGY71M17B6jamWNzIYpveTRfLGn1wnUowg==
+	t=1794229193;
+	b=H0ltAJRb7dJ0lhT2AKc+W1XGKLqJRxun9P3bgAzIUq4CUzV/FYAgdAoa97v4/iCuis+E
+	 G4ca0xR+u80ASoGNzyScRu1yRsVdrleeVrdMx+f+FQJj4Z87/4vZFnevOEHcHHy3bfuoP
+	 567aROSKDE/qVGWPdmiJUbHmXEE5s9i8A5NTsZU2yq7FSYYRC710XQLJbYx6BggpQRn2w
+	 p4QBGt7ialkL/hs9b8s4ymSEQkeuziikUJ3ruQfxO5n6pdGnjeQK+pfuBZR3yr2MTUJIJ
+	 y5UJpTaOIItHOxaOUgCcrEs++7e63lLFFuS7TZmYguOR1lkppd3F26fWu0gVDmWSRug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229075;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=wyy6bj7a11JEqmvDJpj3bQb2yikehoJWRBg5g2tkGFM=;
-	b=aj1fnfUKUhQedev1Uk4xmXUG8NnD+p1vhaq6OMCjkJSlgtzKiDmikl3oasCghxqd9k4f
-	 SfBIcP8/TYaCqaEmrVqvhulqli2szM5msrz9qqRKnj2uGyEsT0K1GLKnCCtjj+1NLfHDy
-	 x29ayW8qyOAl72ntqCtvoRRSCrxHtK5x10QBs5Rv9mHZ0Z7VYF+sbCsk7h5Bznsb4Eqra
-	 Q2rAIW7e2BPVRsXxbf6iB30ZpDtEv7dGIVT2OaKdCTm8CFwx0RSnFICWznmWcY9Y1ICGA
-	 aDsWghB/htu/Q8TCji9MjhA2oc0+t9fQwmCBmHDQYhH1aMxbCUNbh+thYy8e8uPhIXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229193;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=dHJxQX6qrdjoJ9xxCpDciOGfZ1moJmuMFI7elkZmNW0=;
+	b=L6TsJObbw+Fga3lBc4UzpLzsuRW0z/iVzC/58ib1NE4YZtcXeX3cnP+G91Z2dmtnOPe9
+	 Mh+7oKZeun49KjOGzmJNGAK59vvXxH64/9z7QlL0VyTAm+Pa0hHAu81grTTKKTKxSdj+P
+	 tTHuQj22YojpGDKWCz4+NebLOCDfacNpgoIkblLPPG0d44lLXysHia2tKIT+K/NlUK1Ng
+	 22BJkOPHKpUus93HMa1YHPWeAnIJtYzH9+LjMYsAbxQgTZmfdaN+K+hcXvxXn90VajjpU
+	 WbDro4DrAW3/NQqeabCJUzNuDlrLkp6Lowl9nZqhM6JbybJX4uxHcCzX9SlwgaV0xnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=CLgHMq6l;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b0ZQJEl2;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7BD606A31C
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 12:57:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB7BD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA56A606A334;
+	Mon,  9 Nov 2026 12:59:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA56A606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=CLgHMq6l
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so6891935e9.0
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 04:57:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794229073; x=1794833873; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wyy6bj7a11JEqmvDJpj3bQb2yikehoJWRBg5g2tkGFM=;
-        b=CLgHMq6lC/oa24etmU5uFOjanSEBhpMx2wF82F4+zWSCY/XU0I9/ziXs+kkm4nYTW/
-         /WLu4CD9tygvMMVCsBLZPNYtYB5OIkSIjZzh4Qa50BKbzSu2WxGOrCvGVlhXLQHbmLXn
-         x2SiOE4cZ7upzDNteFyZG94MpGO+Vi9zojFzo1RSwL1yVJgexWHA/8HYxG/NhNgqxbRw
-         MpkeJbN7s07O3l/IRtucYkIS3xDEQj5vF1rYC23HuZeFmz80NdQQdxuNnVUSKMiKYROy
-         8olnNnKw/+SlbL1BLc1aUYI5wRWkyHLNMjTRgVW7qKAXmSAt4Ea1qR4PUfmQu0dlz82D
-         QzkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794229073; x=1794833873;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wyy6bj7a11JEqmvDJpj3bQb2yikehoJWRBg5g2tkGFM=;
-        b=IrGRfMqP2ofRGCpibr2hgD2e1EyMrBycG/Y76RGe9QuTlcYqpPebpBKoMIcfVODe7m
-         iKa/KM9R9jp0p8OdJFyqcGc+Q+hLwpiNEBZa3mi0uRriDw9IRZHXqgDMEY/OKeKkVlke
-         Ytc9I03tUfJGs8YhOuLeA89DuR7kgA7/OTpZjJXmdNQuhWoDasaudMK4T/lHYVgqPZa4
-         WdzkrDmQEEhHu7j4LukTcaQEdYauxsxWyhf+ZwO/PqBn5wb4CTSXqxQOtW4nnKgzsDdA
-         jjbs2fnG1a6pJsw4yuTcm92xFFwjDYoRD7/86vwS8VjsZhG9yZQkweOLELYLgZhKHK5U
-         3p5Q==
-X-Forwarded-Encrypted: i=1; AL+hErGNyNy7GTtK5rJf8eTm49+SJ6NVvy6sK5k/ZXSijmMYJdB/3bmhAaPj/itEowI23mftuKWXBmCjEo45Ag==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BAMFKVVyGGbZDTaMJWlbXO6z3+MS7ZYkXw7LmNcSaomS0O9Bd
-	ZUWXqpKOa5ZCTxQy2M7bNw7g0+BgcJkwhA2YUuYq0o9/eMu6MlihrDresB5yWXhOINw=
-X-Gm-Gg: AYBFou32EfFCrZIVLvoVDZ4PtCA2Bfx0rnEFvN/u3lYXzOnj5msVXOY2HeuSXd3W9+x
-	G9LCgPWyb1CfuOYt47aZgF403PJ4yXXI0Reo8OadUnAarjsaSWpEotDQGbC3kExJDtgrswe0jKu
-	b7Y7facfh0S6UaWlDT1hRC2MhLdbKar6p9fXmmV44Mk3xmqMTwgLzY5Mr5QvKCJyqRE5mxTsHoD
-	7Tv4i9Jnfo/PK2Cr92TrDsaSa997jqmdps281izDwxiYqlgKvlb+kRFKactW+NE9hfgcR7vZm9H
-	Trj0BWv+lSiTGb5m3La/RsAGbOsSwQl42PUkd/1plwge+6INBtJj6Uh0NMSCeeVnwVkJ2DT24Jm
-	JMcd4/DXrqTp6k6a7BCBtuYhTc8vLvofo0qlAyiCaifRlQUNCBqysMfvP5IGwWe8UzZh5LTZEe6
-	Yux1WXRM5yTJOSQJ4cr5Oky2SY9GeeZNer49hvOclfp21z2vgGdgBej8zJv0BloFl/JQqhWNcSm
-	LwUU3W9ccQgQjwuwi98ALUKUGm1elWVVPfABIxllCGWla2xhH5Ripso82ie1qKoDeLOkXr5G1SR
-	BAjypsmOM4qkyam1vjqS189ZZsd60qV48WdNGQ==
-X-Received: by 2002:a05:600c:1d0a:b0:4a2:191f:7cb8 with SMTP id 5b1f17b1804b1-4b963c6c86amr71185815e9.17.1794229072922;
-        Mon, 09 Nov 2026 04:57:52 -0800 (PST)
-Received: from [192.168.0.167] ([109.76.74.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e6eca30asm237745875e9.7.2026.11.09.04.57.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 04:57:52 -0800 (PST)
-Message-ID: <7f8e0938-2b35-43df-afe7-18b0ad917698@linaro.org>
-Date: Mon, 9 Nov 2026 12:57:51 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b0ZQJEl2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794229192; x=1825765192;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6dmvxcz7lqwbDDHNjfP4aPXb8rd73wq3lQfjHzl0tcs=;
+  b=b0ZQJEl2AoWe/JLecb5OUbKNfavJW/zFw943YmNgcwiOuvpRXOpd/W6D
+   eVI4rLJwDKH4pPK/Sun8xzvDfCSw1KP2dOn809+DlcnNLotJHFjESIdrz
+   lORG5t7U+P5GkyTXD98pXn5jb3J4qDLaBx6DF0U9KWhtnwGsiEVOHjl2i
+   eSIEXeVW+iHScPax5A3RtZmpcxm87xVmaugfxvw9K01Udaz6vEOT6rclk
+   03B6p+Et0axtqMMiS8xYD5iCQLz8tMj+nzxfgYMDZdqa8OmZ6c0HA3aP0
+   szpC8nGsX6Ngn0CgZNIdiFW8OhXYcv0jEjoYn8NYvBlZ55fzPTw+5ie7x
+   Q==;
+X-CSE-ConnectionGUID: U/3AekPXTJKd2vZ+zBS8Ow==
+X-CSE-MsgGUID: 1BjrRjniT26F4FgyrzLSVw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2849198"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2849198"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:59:51 -0800
+X-CSE-ConnectionGUID: ljgYPguSQQ+aqfsa0muZ2A==
+X-CSE-MsgGUID: JqzhGJqXRE6iA6j8DG6Qdg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="7869393"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.119])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:59:47 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 5E107121B96;
+	Mon, 09 Nov 2026 14:59:44 +0200 (EET)
+Date: Mon, 9 Nov 2026 14:59:44 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Peter Marshall <pm@petermarshall.ca>,
+	George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>,
+	Fernando Rimoli <fernandorimoli11@gmail.com>,
+	"D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/4] media: i2c: Add ST VD55G0 global shutter sensor
+ driver
+Message-ID: <avHDwGAe99WYaty9@kekkonen.localdomain>
+References: <20261109093353.3757-1-lsa.uz@pm.me>
+ <20261109093353.3757-3-lsa.uz@pm.me>
+ <avGwRaKSqXdtXkII@kekkonen.localdomain>
+ <20261109124610.85065-1-lsa.uz@pm.me>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,92 +97,49 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] media: qcom: camss: vfe-4-1: program the RDI write
- master buffer size
-To: Allan Siriani <allan@fatecpompeia.edu.br>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Todor Tomov <todor.too@gmail.com>, Hans Verkuil <hverkuil@kernel.org>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261109112611.94010-1-allan@fatecpompeia.edu.br>
- <20261109112611.94010-3-allan@fatecpompeia.edu.br>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261109112611.94010-3-allan@fatecpompeia.edu.br>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109124610.85065-1-lsa.uz@pm.me>
 
-On 09/11/2026 11:26, Allan Siriani wrote:
->   .../media/platform/qcom/camss/camss-vfe-4-1.c | 34 ++++++++++++++++---
->   .../media/platform/qcom/camss/camss-vfe-4-7.c |  3 +-
->   .../media/platform/qcom/camss/camss-vfe-4-8.c |  3 +-
->   .../platform/qcom/camss/camss-vfe-gen1.c      |  5 +--
->   .../platform/qcom/camss/camss-vfe-gen1.h      |  3 +-
->   5 files changed, 39 insertions(+), 9 deletions(-)
-Requires a Fixes: tag
+Hi Sergey,
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-4-1.c b/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
-> index 9cf1ccdb2..53ebc12c4 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
-> @@ -107,6 +107,7 @@
->   #define VFE_0_BUS_IMAGE_MASTER_n_WR_UB_CFG_OFFSET_SHIFT	16
->   #define VFE_0_BUS_IMAGE_MASTER_n_WR_IMAGE_SIZE(n)	(0x080 + 0x24 * (n))
->   #define VFE_0_BUS_IMAGE_MASTER_n_WR_BUFFER_CFG(n)	(0x084 + 0x24 * (n))
-> +#define VFE_0_BUS_IMAGE_MASTER_n_WR_BUFFER_CFG_BURST_LEN	0x3
->   #define VFE_0_BUS_IMAGE_MASTER_n_WR_FRAMEDROP_PATTERN(n)	\
->   							(0x088 + 0x24 * (n))
->   #define VFE_0_BUS_IMAGE_MASTER_n_WR_IRQ_SUBSAMPLE_PATTERN(n)	\
-> @@ -269,14 +270,39 @@ static void vfe_wm_enable(struct vfe_device *vfe, u8 wm, u8 enable)
->   			    1 << VFE_0_BUS_IMAGE_MASTER_n_WR_CFG_WR_PATH_SHIFT);
->   }
->   
-> -static void vfe_wm_frame_based(struct vfe_device *vfe, u8 wm, u8 enable)
-> +/*
-> + * In frame based mode (RDI) the write master stores the incoming data as is,
-> + * with no line structure. Program its buffer size in WR_BUFFER_CFG (words per
-> + * line, lines, burst length) as the downstream msm_vfe40_axi_cfg_wm_reg()
-> + * does, and clear WR_IMAGE_SIZE, which may hold a stale line based setup,
-> + * so that the write master is bounded by the size of the V4L2 buffer.
-> + */
-> +static void vfe_wm_frame_based(struct vfe_device *vfe, u8 wm,
-> +			       struct v4l2_pix_format_mplane *pix, u8 enable)
->   {
-> -	if (enable)
-> +	u32 reg;
-> +
-> +	if (enable) {
-> +		/*
-> +		 * bytesperline is aligned to 8 bytes (one bus word) on the RDI
-> +		 * outputs, and sizeimage >= bytesperline * height.
-> +		 */
+On Mon, Nov 09, 2026 at 12:46:16PM +0000, Sergey Lebedev wrote:
+> Hi Sakari,
+> 
+> Thank you for the quick and thorough review. I am working on v4 with
+> the rest of your comments, which will take a few days. Two points
+> first, as your answers may change the code.
+> 
+> On Mon, Nov 09, 2026 at 01:36:37PM +0200, Sakari Ailus wrote:
+> >> +static const s64 vd55g0_ev_bias_menu[] = {
+> >> +	-3000, -2500, -2000, -1500, -1000, -500,
+> >> +	    0,
+> >> +	  500,  1000,  1500,  2000,  2500, 3000,
+> >
+> > Is this
+> 
+> The sentence seems to have been cut off here. What did you mean? The
+> table is vd55g1's, in the control's 0.001 EV units.
 
-and sizeimage >= bytesperline * height ?
+Uh, yes. I meant to ask if this is a firmware limitation. I guess so?
 
-Which sizeimage => pix_mp->plane_fmt[i].sizeimage ?
+> 
+> >> +	if (!ret) {
+> >> +		sensor->expo_ctrl->val = expo;
+> >> +		sensor->again_ctrl->val = again;
+> >> +		sensor->dgain_ctrl->val = dgain;
+> >
+> > Can you use __v4l2_ctrl_s_ctrl()? That way events get handled correctly.
+> 
+> These three are volatile while auto exposure is on, which is the only
+> time g_volatile_ctrl() is called. v4l2-controls.rst says to set
+> ctrl->val there, and that a volatile control does not generate
+> V4L2_EVENT_CTRL_CH_VALUE; cluster_changed() skips volatile controls, so
+> __v4l2_ctrl_s_ctrl() would not send one either. Did I miss a case?
 
-This feels like a slop-comment which is no bueno - please read this 
-stuff before posting and make sure it actually makes sense...
+Ack.
 
-> +		reg = VFE_0_BUS_IMAGE_MASTER_n_WR_BUFFER_CFG_BURST_LEN;
-> +		reg |= (min(pix->height, 4096U) - 1) << 4;
+-- 
+Regards,
 
-I don't agree with this clamp lets just have a consistent logic albeit 
-flawed with vfe_wm_line_based()
-
-=>
-
-(pix->height - 1) << 4
-
-Silently truncating here is incorrect. If we need additional validation 
-it should happen in try_fmt(). For this patch just stuff into the 
-bit-fields the value given.
-
----
-bod
-
+Sakari Ailus
