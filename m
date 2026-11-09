@@ -1,60 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794220629;
-	b=XVvZHhaTRu5uvmipM3xTpmyoxgpBdhKbtN9k3YlQvSpGS2BSv2wFk5kYUIDfeXEXncgt
-	 +J5QULDXVpTm2BuB8imQVJOjN9CTSi2wufJECXVDNTPndyclg/0rpb5+dboUOyKnYryuA
-	 uBXvn9tQ6G6bTs140FxmP6mkeJTId+7OdH+cNxnwq1oY1ZplgtbqNyT3zrHfq8P0mXdZ5
-	 SdkPNCwYxIEqSQOPk07Od5IY/QM5IOrL/gNsPcai6PTD+68KHueMwOHXS5KJumQz9LD94
-	 SoGOoMB3Y64yJeEGaCNcI7HFhZqEFdhYQWELrLg6IjXAVRo+uZ78xiXbJ1P2i01SRAg==
+	t=1794221066;
+	b=yvls/31K5KKYg9zvzRR2ov2ZKwraze6XoQtct5UV6nhSh9QZu3uGKvgSsNGnczIsOIvI
+	 j+aDyo6XqwbC6NvdU89HodALEklIjbmqGLro2voj75uE/2aJf6DEiOOQtrSRo7pMrXhOh
+	 XtmNSLua2y9qbNQ3teWqxhz9y79COsDG+FhNbPsYgLgqQmUFUDuT7mjWYHh6ZIKqBXsFX
+	 hgsAr+932RAsP2eHY1u6dwXqnxIQevmsvicTCwLsphKiHEoFFNt7DEYd+cEzi9Vw9CQL6
+	 0AiuiNrojiKg8C5Y20Yh2jyFFsqlPw4CX7Pd5BnHT1UpXM1oWjdsqqMzMoA9817ESPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794220629;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=RgiXM5r9puzO2EF/c9LYyxKCbLgzsjgycU7HBuwYv14=;
-	b=vmsk6Q1mULc0F3bFBSRk+oGTV5WOH3420DuRME/ZN40qK2ABLE2IvXn6IkDk2qpdHoDw
-	 vSIGq8yUnBVR3DEMyfCqtaZaEEc9D9NxQwPUkddEi9dL1YsRp2epqtiegosHbiVi1NXI3
-	 8SgAbZhatgXAGGI0ycQ8p49g8h3Rz2Xj7Md+fd/iv3eKMjiQ6P1Gt91C07cjrOWJ46AkP
-	 Z7IvdY+oekyXU5/0JjmMuB7rwR3kXGdnjTln+5dsAmPWmZ0OJWNduDy4fvulwKaj3HfPy
-	 Sx+6BcY4mgrfjn4n3T9nejoDXbKdRLeoCMHctVlqt6aHic3+xzF+CpYOMs4Svpgcarg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221066;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=TXr2TKEYrIDqnyQ+02ZfHnpl8vf7msiDB6kAkQN1rZM=;
+	b=YbAVNSbzV1Q0G6YrutAEgs/EmYlf6QrVaqPDBh12Y9NmLhs7t2vYVnhwLOMzPVJn1F6u
+	 e4wTYf/jj/MAfRJvEoLP3d9Y1p0A8cYn98vxrXYUfg/95V6A9JljgG3lnotScOyjOjgkn
+	 4+Bqo9+JbjWnbs9AEtqlGqDYWdBpsSwIWKWkgMuSuv3BDCO/cfmMcWf77TeemzruzDql5
+	 Lgx9Dxq0a5gvH7UfMCULgW+f8SZx2r5KjbMQX32fxbF7OP/mFvP1Cid30uWveYLKgejSG
+	 EcQZOGRIXKTaYp00lKDK95qhGF9pmDHiy7h1KhLrMX4u0FJOdKHns/dMpV84VpiNeDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=S7Y1lMou;
-	arc=none smtp.remote-ip=109.224.244.116
-Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mfOpr55J;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7DC606A321
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 10:37:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC7DC606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F1D606A31C;
+	Mon,  9 Nov 2026 10:44:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=S7Y1lMou
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794220623; x=1794479823;
-	bh=RgiXM5r9puzO2EF/c9LYyxKCbLgzsjgycU7HBuwYv14=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=S7Y1lMouhSsXanUL2M88fpxKKj/V7JtNNiWE2kkXW4PMPlAsxwxXMGp+2EgvSimiX
-	 gBjGNl0BWTz9lr2rruucIByBkB9npPaJfR5+lfwZHKoo9sh7D/Ks2V/afRQuqvKS4F
-	 jqthYrW3V/dctInVG5X67ZjYit0E+h5vYnhGiSoRIMt2yRkURI2ProyCTP/ou+B958
-	 maIADTiGv0o5YjDAYHx4DtdsS3c6mDYPulrEbk6Nc0Ngf4ryeR0seRoDp05yLunwYy
-	 8CwB9luL3vn21xlVo/zSEm+ME2WtpvZjEjzIb1MtgTJl5g/iUwVsmZmmJEJlr+h9wr
-	 7jW5aM/znH/Kg==
-Date: Mon, 09 Nov 2026 10:36:54 +0000
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
-Message-ID: <20261109103645.32173-1-lsa.uz@pm.me>
-In-Reply-To: <66c9105b-4da7-4b57-a0a1-e33c093f1529@foss.st.com>
-References: <20261109093353.3757-1-lsa.uz@pm.me> <20261109093353.3757-2-lsa.uz@pm.me> <66c9105b-4da7-4b57-a0a1-e33c093f1529@foss.st.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 7f23696f074205ce908f5e43290b2a74f03e6da2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mfOpr55J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34E151F0089F;
+	Mon,  9 Nov 2026 10:44:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794221066;
+	bh=TXr2TKEYrIDqnyQ+02ZfHnpl8vf7msiDB6kAkQN1rZM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mfOpr55JSOEAKsYIRwZlPYVVji4xFQLSCZnYgYFBPvHuYw5tqPT6lpcFI9qJa0aep
+	 VERbNONOWWRfHvh/4pt0kOHo5GTHTckTKsADwINYHKcBPYIEykbTiHYKFVvv6Iayco
+	 P56iKD/4w8gwEuVziu3200TNGNO+AhB2cOwaCB72Mkz71mMNHxSY5o0Mp5g7LawzBY
+	 /hqT65DQ7N9EF/R0bmufgMI1JGQVXsKSu8+Hb/tg6OQ6csPirqc+IoZQPamOaOwii6
+	 nfY5lMRBzsqXWKW0jlB2p3CN9fmRVT3ZMcVZGIxc577QjbgavPnbuP3Z9CnA+a/9r1
+	 tz7C6CPoEbMHA==
+Date: Mon, 9 Nov 2026 11:44:22 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Andrew Gigena <mail@andrewgigena.dev>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Andi Shyti <andi.shyti@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH v3 2/7] dt-bindings: media: qcom,sm8150-camss: Add SM8150
+ CAMSS
+Message-ID: <20261109-slick-transparent-ostrich-28ddad@quoll>
+References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
+ <20261106-sm8150-v7.4-rc1-camss-v3-2-0103e8a0bbcd@andrewgigena.dev>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -65,23 +68,71 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v3-2-0103e8a0bbcd@andrewgigena.dev>
 
-Hi Benjamin,
+On Fri, Nov 06, 2026 at 06:35:34PM +0000, Andrew Gigena wrote:
+> Document the Qualcomm SM8150 Camera Subsystem. The IP integrates four
+> CSIPHY, four CSID (two full and two lite), two VFE and two VFE-Lite
+> instances, with 19 clocks, 8 interrupts, eight IOMMU streams, four
+> interconnect paths and three power domains.
+> 
+> The CSIPHY I/O spaces are not part of the CAMSS container device: each
+> CSIPHY is driven by the dedicated qcom,sm8150-csi2-phy driver, so this
+> binding only describes the VFE and CSID resources. Each CSI input port
+> is described with data lanes starting at 1, as required by the CAMSS
+> PHY mode.
+> 
+> Describe SM8150 in a dedicated schema instead of reusing another SoC's
+> schema.
+> 
+> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+> ---
+>  .../bindings/media/qcom,sm8150-camss.yaml          | 285 +++++++++++++++++++++
+>  1 file changed, 285 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
+> new file mode 100644
+> index 000000000000..371ff1ce0bd2
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
+> @@ -0,0 +1,285 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/qcom,sm8150-camss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm SM8150 Camera Subsystem (CAMSS)
+> +
+> +maintainers:
+> +  - Andrew Gigena <mail@andrewgigena.dev>
+> +
+> +description:
+> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,sm8150-camss
+> +
+> +  reg:
+> +    maxItems: 8
+> +
+> +  reg-names:
+> +    items:
+> +      - const: vfe0
+> +      - const: csid0
+> +      - const: vfe1
+> +      - const: csid1
+> +      - const: vfe_lite0
+> +      - const: csid_lite0
+> +      - const: vfe_lite1
+> +      - const: csid_lite1
 
-Yes. The single file came from Krzysztof's answer on v1. I offered to
-fold the compatible into st,vd55g1.yaml with an if/then for the
-link-frequency minimum, and he replied with a link to Peter's 2/7, which
-adds the VD55G0 to that binding. His review of that patch asked only to
-keep the file name and to move allOf to the bottom, so I read it as one
-file for both:
-https://lore.kernel.org/all/20261020-cute-peccary-of-attack-2376af@quoll/
-https://lore.kernel.org/all/20260903-utopian-vagabond-mamba-44caea@quoll/
+Seems you ignored my last review, so repeating:
 
-I am happy to do either. Once you and the DT maintainers agree, I will
-send v4 promptly. For a separate file, it brings back v1's
-st,vd55g0.yaml with your Co-developed-by, and its MAINTAINERS line in
-2/4.
+From which binding did you copy such order of entries?
 
-Sergey
+Best regards,
+Krzysztof
 
