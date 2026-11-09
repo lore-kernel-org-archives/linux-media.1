@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.49
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794235493;
-	b=p6zpOxjYrnqDCj12gJca0goYYuywhiVFBWdWko4M900tsAj/dO49EERIxhJXmGAllpvK
-	 JpmKTAcxP6GJ/aYCU23V1g7i8ULDxs0Dou5NiHT2bZ/S6+TXkoDCLgMEpRhFmmChBPqns
-	 6cvxcGMny7YcYpzSRe+IpKfZbhfoYEA2BihWFvqVxR584VkkiCsHxqDXaUoMwxgPebwcl
-	 Tk2YBg/rC195QtIM0YuCvmVMfPGIL+zmk9MA4JE8mTh/o7EkZCEcCkyxBtiNz+csEZBwD
-	 o/crewvtHTZlCoKSuEwNEXjcU2bFn7XNZr8ilyB+T5O33g4//abR8YMLwl6FkuraLww==
+	t=1794238155;
+	b=b9r2XXHTuTYJl0C9i+aOTeMHpg17SM8UJh4RN4zpH4olSv75lNJ8riHPA7jfbLgqHA31
+	 AuQ7IHFDBwkbK8djP1l2reqg9RIyz2VMOCbtcuMeLxtzyNQ2w2IG1ZXL+0pj0kFd3EvLK
+	 1ShAJddjy1hsqm/hGCLEsbvfXoNJ5qetvcDmfB/D8GXF6yKZ0eeA13Vbtg7vF0ew4aUpY
+	 bVhDzkOQm+d8SLk/oRlIAd6RDwD5WBfE02RpNxQ3gxvhum002tsNiK5SrhHrx+xUwusaV
+	 OmAyOA6WnfDqxm/cBqXeDsQCMGnAohzsQl968r1ohO4HDsJ1k8Gn4q80HD0iWqCpu1Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794235493;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794238155;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=E5X0aK4lGSvPrdX7cpb6XEojnCQxm1GC3dItr8iBnTo=;
-	b=WDVeQtSuwkurq9jjKHHG6eKYAI+EELcU1lAzrhk3GB0zL3vDa8yG7WUIVosp5VbQ581q
-	 3j7PuUIVcdsUTzKBCzC0yi8ax4aPSK/dzAuDLrwaC811jdJzJPXk26Ysb9VRa0YWmfvO0
-	 RP3s80OanJaqOZUCk2zgQRXkSBfCMhKbOsX6KPVvKl4vo6At/8/7JpSEuqt/G3aYsUYhj
-	 3EW3mhdd24XAbE/PCPft+E5eM2MRO/UirD7gMOjJJJtZEZuBfej/Kqr+j18hV7VFeyg0Z
-	 Byqlaib8cyuRC9fX9n9wD3cVhSWWHNJMjBnKiq4s1CaL0n2S4J0b4g7esIcgRlxEK+A==
+	bh=uWtym8Gp7QxkU+5AEHRXNK4W470XlfYu29fZWNp2vyQ=;
+	b=kSr81bJiyRTW0NlEqlg2tVHleMJKATgh2Euuf3CeT0ROHk3hklYdvz437HtIkHRLjG74
+	 aPZr1iyoVxD9rrVHe1tjhKS5C6iW92xMz+ke3jG54IkJldK4kO0sCuSVA01SEbcs2OSxK
+	 aeIoxRWo8SjoGE84C9mM4w50W2eEKhZ5o+qiBqC21Nv55CJsqcF+jWRfEGQzQGdTjy93s
+	 e51OX0h8cnof7mBEBhusX8v7XeahjK4jMlreXhmbL4yYiUWmcT02LhBif7ZDaZ4/8SPeZ
+	 vq05CvmhVtLlJ/6ZzVq9LfI9LpmD3fw+V7M1yO2eIwZAN05yDGEmLiTTRIiG6pM6q6Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mm5tqw4H;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="T/jTkjNC";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D07606A31C
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 14:44:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98D07606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA996606A326
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 15:29:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA996606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mm5tqw4H
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4c9abc1824so140204466b.1
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 06:44:53 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794235492; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T/jTkjNC
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso492060a91.1
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 07:29:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794238154; cv=none;
         d=google.com; s=arc-20260327;
-        b=qMnPEhUBM4tzlPge/Yr12NAFwsqh3Tqk/KE53ai85J8DXfNEr6UE2BwCy57Bao0u4a
-         qYm/B7jMGqiJMhH6M3dWZCz57Tp+d/7pAzGNWjjDtKccz62QIon+9Dx+96Xdff+tsej0
-         e2JIVOV8NYVyWOYud4UYIovbheKt2U5OWYERNZLz/qvvu0uBrM43cOsriS9k9Kng2uQ+
-         Bh83CzFCF7mzktstpFUIU3V+8zSWCpxFbqCZggUxiqENjVzPPkqFFz7fa7EsEu/8g4if
-         WyLOsLiyO5qfRs5XKWOd4CVnGNmxIwRHXWyPodiw3wobhapLSP9D7rXGCAPB9Ev++uYp
-         Ljmg==
+        b=algoerStUOYtao3887lggQR8jr6+lTmKmzBrdcuFnW9iT8+tN7MdD6K3mqnfp6I2bv
+         /sexxkvDJV5qy4Y333dHvfFaWePJQbDW00CzHnNHIVpfo4eUXUIpeCJ2mquZOcj611si
+         k4VX9Qe/FxBrdTdO+6VDYxQUdvkEpWCw1j7vD3JwFcVWJoFgcyxEOMzIS2sMPW8lHsDi
+         0a7fLJpUAD9RPa6gNmv9KJeS/qZXt+29ILshQctXqGhC3zlaLCmRU+2jx09BWhyKY+1r
+         6/b4XEDK5P0m2m44AtjvPG1xkPGydvdqbbBFW93ziGItVCS+OB5yWtovtPBGnOhj0ej9
+         Eqlg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=E5X0aK4lGSvPrdX7cpb6XEojnCQxm1GC3dItr8iBnTo=;
-        fh=IoObdFk+DCwz2uQFNcLLbspuf6oVFri+uXigX1ZSzrU=;
-        b=PyqaXP+5FHqGdO0SKo3oz4tPl85eWsXBknJXPXDmPTPgQfM2uXqT1lZKR8LBjU1ZoZ
-         xK7TabXDiyU41uxxxguJ3tUR4TkXDaCNibAwmhJo/tQjRUMm14L1TeKb8UPL+3aSJgRc
-         8rxqrexnlNVlvbi9NCMZDWkaruZL0+joz2yUEV5qGx1fWjctuiXsEWPnQtfDRS/G2ACP
-         CQ5Bb4jmJeAzSZD+ofLJeO/ZKCrO6OOQffyyLqUrNZLRpzWbWlYPC+BMP0iPw7eZSrhd
-         zHNPxkfzIJpd4ChfSPaI7BSsqcNgnuwmKnakMe6YeN8ri9D+rD5t9KqpzZCUJn5lzRi7
-         p0Kw==;
+        bh=uWtym8Gp7QxkU+5AEHRXNK4W470XlfYu29fZWNp2vyQ=;
+        fh=MFjimxBj2BE0PW7QGmlynszuODUobc2j2aAihP7dKU4=;
+        b=BGY6J5Px/v7lQXQGZmoGTbI1gXZ0ts7n83iI9x26u7hQHeuRTeRvR5YO+V2kBoShMg
+         mbSggcWTNdXQY+IYtHUsax7fF0I0y/J1UPpVTFS+1Ii1UWOuxvCclT37Hsog8BTOxndh
+         8Wc6Grp4a+gJvubJFb8F3ZERkjT6QdQW4xWvf/XJrN4rvmafnjFNEse+D/17n1RC21lh
+         fNBQLCkTp49HURMavAxpMmpln+vq7rEv3lOHkRtN6Li9NQR+FkK1yTIl/02wqf4eujmC
+         V9XP/KkNsKz9ubaCkMIkTYWWR7+p/mdBv0/82G6E21YJvCBOlQlVqNM7j36bWB+mte+H
+         nrqQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794235492; x=1794840292; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794238154; x=1794842954; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=E5X0aK4lGSvPrdX7cpb6XEojnCQxm1GC3dItr8iBnTo=;
-        b=mm5tqw4HLkEAYwxkVAGFQdiUaORFmvkuPw9UB87sNNk3i6lMxavweuisPZYUK/CT1h
-         KOjPo7pgnd8LN272URm3edqqk21fIGQ/4oM0cCV750lM2e8gBpArAPcSoVwR18z79Fhd
-         ranHton6NsqSWJNQA3K2AQWvyJbfI6xn+4aozez/H0VnZDTGdpPHTXoqtt8gg9pFhdc9
-         KL30xPY+CzT9eFaH3CFtdvPBFoaNUQXaWY454pRdG1p2CeuIA7AxGWd5eGUXaugqaTHf
-         Usup3xbkT/xTWPaEnufMlIeCAIZSxPz8k7/9wjDrEPrt72uG3+eRH+k3oBjFYjDhvH1S
-         Ca3Q==
+        bh=uWtym8Gp7QxkU+5AEHRXNK4W470XlfYu29fZWNp2vyQ=;
+        b=T/jTkjNCMQ5s23Qj6eKbyXmaGTNzG4Q7lvTuWmj1LykQOQ7aGT2bJbvo43lmprx8CH
+         9LLj7XrM091oIjHcCrolDIjdXto5lpU95EnJpdWE1cdVH6eJq+3PpVVJpNWO7bPPaQd2
+         Ht3DGpMQR37bM/4HbaO7PMyNADf1QU27kU6hlopnWbMtvmxGqqUvzwfMH7KS6Gjte+tG
+         1UKjNbfvOacaqH4JKx49QAA2va+1PX9QglAg94xuEPldzkImHmp6aEIxmEvUPOBKicnH
+         qD2HSuaN+7IlDlkJhDDqCKlJ3NoMntoTPXFpptviYhnonjT/yiW/tT30djIe6jJoYWRr
+         zmvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794235492; x=1794840292;
+        d=1e100.net; s=20260707; t=1794238154; x=1794842954;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=E5X0aK4lGSvPrdX7cpb6XEojnCQxm1GC3dItr8iBnTo=;
-        b=iq3qEL2V9kWOCxqcuOTebcHNYRLj5NRKbAoMZdbcyYNAxoMHzqzHeKWoLCkABDWrI1
-         x/8RLLnKTenKiTw2qs1GwkIgdtmYEhIo4ECzu8Um6LmFmRq4mkKUIop5vaLjaRciO7LY
-         iakyUYJKinYWJl+t2JHpc2S7P6CglWkcAgcGo0QCyxEFsCYRVsvRNiblHjHn97BLpSGK
-         ruzrq+6ZzjMZ//h9F8gPZJcvnbgBEWNxfGWbePiUWf0rn4ttc+k7oArcwukzJi0BttOS
-         8+h6Spt5VEOXxT1lCnsbWQ/aS4zyPMgWJqE2MCUeAtf4iC6FrCyBl66Z7AxchBt/pQE+
-         LW0Q==
-X-Forwarded-Encrypted: i=1; AL+hErHYukQ/5ltR5hJds8fgtKmX//CV5YhifqxJ8gSj0qI2OSBKLqXdzOlNj+csZfj3vv2wFnRRryY2CvRqOQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8YcUYL97ohYpC/ffrx3V3oT2O5XSUwMwbGDYypg37/EAGxp4Zo
-	8z2AWLPIA4sqwFWwYq33FwQWMDn3OuATbCeA8h3C1edIC6qJOaePyZARkfjZSBOKaCXdqtBuVIS
-	dsBefXCElj89ptNmkuVnjG0Ffq0iqsXw=
-X-Gm-Gg: AYBFou1LJQMYCLCyEdxkgSXpOBGXXWskk9/00A+ptZTnv/yL8gVhrux2ylDl4wI2xge
-	uQcVuByNKq8M1CuV0eyC11z1SgIOUNhatxOo6cNkCxeVXiwVL4JSmjmjXvBmoTCGlDt5pp3shVg
-	+bmmagkpIBFKIpbRBUi8OtK8BF/UovBya9Gs0kx5KIHGCwCgFg9Vr8AUxbrNp/2KSSKo4poIvzC
-	UxiJdnZmqFhEUKpelIVkNibZ1jMg6TIJ7+vE2noS3Og6RJz5srRUNCpIW60V21QowmVeuT860cx
-	ATWx80eV/2kWTXArU4S+JBUcwz8Y8/qXbrpd/vCaG8Tgd6nvNNl4nW9nL+ADSOP1DYfDnXfWSml
-	jRvzbUg6pDl9IOcgXitrZzIZDiWPb0QTRy/RW
-X-Received: by 2002:a17:907:844:b0:c29:f5d8:9c82 with SMTP id
- a640c23a62f3a-c4d6db58c84mr325111966b.49.1794235491848; Mon, 09 Nov 2026
- 06:44:51 -0800 (PST)
+        bh=uWtym8Gp7QxkU+5AEHRXNK4W470XlfYu29fZWNp2vyQ=;
+        b=XS+aU++5CiU9aOd/Jj1JFspBijKkUjzKnLzah04gEEaQVR3LKeMIWXp18EFFVqn5/j
+         7t9Crd8UlfTkXz5+hh1Y4dEr8y8GqXkPrKzJBVrJwME2xSdrH/d+086EoCitVMZ4lbb6
+         zi9fjQugMaxTaSBYz3Z/eMVo56TjxL3wXknt0ZDTvUzf8ab+pImbC7VhqLaRNbd+ZUNP
+         4P4Gs5sq+xwSfX9NHCfVAL5wE/XdqJQVvxHhjH12aGk745hgFJtU9gW/AIMqZEZk6uo/
+         0dZNgSTxUdyk9bHABccog3d6L6ptqTSnAkCYZk58D2HE/ZWAwrnoN1dRyp+iyh0syvAi
+         1gAw==
+X-Forwarded-Encrypted: i=1; AL+hErG87mMut7sg8rRMq2CrEkfYlZM9lJ5DLgefnkcoALJTvt1uiYdAs4CXSd8ARQFdZaIQxKUzisEGIiBQ7A==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+I2+FYu988ULKnq++geoSteb71NqlVKHISwn+gtoYwzZX9+T9m
+	wksXHpk5PdtezKmY421UKlXD/BSnxTFD6ZKXQjk2ejgjzHtAKLuKZPv/SJ3MjCM/jQg6oA1pLkC
+	dfDId77Y2bY/P9IVK0MaOb+GoP7fO6Is=
+X-Gm-Gg: AYBFou078J6IjSE6R1wlZW+qZmDkwkKPdwgWwAbVcftlA3yQbWkWhNlwRoG8hBIRgy8
+	TbYUvNBAMRbYuB4dIK4/izgLTBLsxrw02mtsDSugVG2FmoxaPo5J9IAKIytpmllwx15khjfTSsF
+	gLNdW42Fsp9rc7La640FNqJ7bAxWP01AqkxB3fb6Jo7wqj4+CoqSjYljMbX9y54S7KnANVDh5Mv
+	++SxlLdzgrovPow2BdAjzRp86SH9hlNiTe+EbEs+Sr6fr++c7CAJvrDrmg1MU8E1cdcFB36rhZV
+	ApkLX34ISlxrRSQaa5LjhPA57HhNDOZ3TkOYleoZ9gh+uDFXXqf8/fz0AFFTmspCJo/agF9er3F
+	G5NgU3LYlVXc42iEI7vcOoT10hURzZZgllM2N
+X-Received: by 2002:a17:90b:3846:b0:3a8:86b7:ad95 with SMTP id
+ 98e67ed59e1d1-3b12d551ea2mr4149539a91.60.1794238154064; Mon, 09 Nov 2026
+ 07:29:14 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,60 +103,49 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261017-ov9734-ipu6-v1-0-86eab22ae258@gmail.com>
- <20261017-ov9734-ipu6-v1-2-86eab22ae258@gmail.com> <avG8ZgDPVWCr1pja@kekkonen.localdomain>
-In-Reply-To: <avG8ZgDPVWCr1pja@kekkonen.localdomain>
+References: <20261017-ov9734-ipu6-v1-0-86eab22ae258@gmail.com> <20261106213319.104745-1-afonso.figuinha@gmail.com>
+In-Reply-To: <20261106213319.104745-1-afonso.figuinha@gmail.com>
 From: Tin Posavec <tin.posavec04@gmail.com>
-Date: Mon, 9 Nov 2026 15:44:38 +0100
-X-Gm-Features: AclHuK_PHfWehNIYSFaUtvinypIscMfmjsHD97Wco3q2H8fRNHwkYNi4pk5IzQ4
-Message-ID: <CAOJcTPXBQTFRR_m2S2ZrwXbZdMLHHz0DGG7=2BtFsv1ouY3Tog@mail.gmail.com>
-Subject: Re: [PATCH 2/3] media: i2c: ov9734: Add power on/off sequencing support
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Bingbu Cao <bingbu.cao@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+Date: Mon, 9 Nov 2026 16:29:02 +0100
+X-Gm-Features: AclHuK-U8rQmDUyvnC-q6tkSSB0zdCuCY_wtvaJnryp7uBCrwIqtqh9zYwI_ohw
+Message-ID: <CAOJcTPVzGOsaaPLpvShKJZ4yrk2Yws=dA4Q0X48N8UeS-24siQ@mail.gmail.com>
+Subject: Re: [PATCH 0/3] media: ov9734, ipu-bridge: Enable the camera on the
+ Intel NUC M15
+To: Afonso Figuinha <afonso.figuinha@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Bingbu Cao <bingbu.cao@amd.com>, 
 	Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	afonso.figuinha@gmail.com
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Sakari,
+Hi Afonso,
 
-On Mon, Nov 09, 2026 at 02:28:22PM +0200, Sakari Ailus wrote:
-> > +     if (ov9734->reset || ov9734->powerdown) {
-> > +             /*
-> > +              * Keep reset/powerdown asserted for at least 2 ms on a
-> > +              * back-to-back off-on cycle.
-> > +              */
->
-> The comment isn't useful. Please drop it.
+On Fri, Nov 06, 2026 at 09:33:19PM +0000, Afonso Figuinha wrote:
+> I tested this series on a Microsoft Surface Laptop 1, which has the
+> same OV9734 behind an IPU3 CIO2.
 
-I'll drop it in v2.
+Thank you very much for testing and for the detailed report. I'm very
+glad it works on your Surface Laptop 1 too.
 
-> > +             fsleep(2 * USEC_PER_MSEC);
-> > +             gpiod_set_value_cansleep(ov9734->powerdown, 0);
-> > +             gpiod_set_value_cansleep(ov9734->reset, 0);
->
-> The sensor appears to need a single GPIO (xshutdown). I wonder what's the
-> other one.
+I'm now working on v2, which addresses Sakari's comments. In patch 2,
+v2 will wait 8192 external clock cycles after power-on
+instead of 20 ms, and request only the reset GPIO. The changes are
+small, so I expect it to keep working, but the shorter delay applies to
+your Surface as well.
 
-There isn't one that I know of. I based the GPIO handling on ov01a10,
-which requests both a reset and a powerdown GPIO. On the NUC M15 the
-INT3472 provides neither of them, and on the Surface Laptop 1 it
-provides the reset GPIO, as Afonso reported. I'll keep only the reset
-GPIO in v2.
+I no longer have the NUC M15, as I have recently moved to a different
+work laptop, so I can't test v2 on hardware myself and I'll say so in
+the v2 cover letter. I would be very grateful if you could test v2 when
+I send it. I'll Cc you on it.
 
-> > +     /* Give the sensor time to start up before accessing it */
->
-> Ditto.
+> I posted a duplicate series by mistake before I saw yours, and I have
+> withdrawn it. Its patch 4 sets V4L2_SUBDEV_FL_HAS_EVENTS and uses the
+> control event helpers, which fixes the SUBSCRIBE_EVENT failure. I can
+> send it on top of your series, or you can fold it in, as you prefer.
 
-I'll drop this one too.
-
-> > +     fsleep(20 * USEC_PER_MSEC);
->
-> 8192 external clock cycles are required for this.
-
-I'll wait for 8192 external clock cycles in v2.
-
-Thank you for the feedback.
+Please send it as a separate patch, under your name. It doesn't depend
+on this series (it applies to media next as it is), and the
+SUBSCRIBE_EVENT failure is there without these patches as well.
 
 Regards,
 
