@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239345;
-	b=uPVSfa7bHHUvOYKWoUmx+4UwBTdpAJsZYIb7NMs79FtlfsbDKhWtos5Ji6XlaNXCeQKm
-	 EG9Mw1GmsmIG00d95zS8Bsc3GRrOI2J7zK499ySABZ5LSyo5RHsyrEi3wBreA92RNGnQX
-	 bgibvgo4hG4EePwu9MqEmRAGecxpNdkxgyLpXlxoT1FU0VkkSNfGTisuzVGYN+B3qnIqW
-	 tla9ZlcCB8BUCUm6J7YIk5Rc9f2zHE6ZkXJ9c57QFJZF1S+DY+f/Xj0rdqvfilYMML3+7
-	 aexY4rLs44euJnzJecrPeRU1AE3mvyZhPceaPVYea4lLFGwP2dYYxDEKaIHHugksi3A==
+	t=1794239370;
+	b=Ue/7fyEh7tE1Pm9EiFOQpO1gFzWiodG/EJPOB3Riua0OzEhknQd2VEqGjrrwyGcWW4Vz
+	 wl8c32H7bzb0SF6t2YtIvWe//QozaI/I9kt4jBtXZljwaCZTIErJym4g6bGFGEDB9ydFa
+	 l4P7Bq1KRa9c0kyfDiNfkgl9pd8AStbB6NEvBZ4LLD8820sLAU+uiykzkePpkpGWRqxxG
+	 Mp5klZw3pkn9ZcvoZY9MS7fAfzkBLAImZI9RAWITOIXUthbnlTAPBe3sBDFyL7C6P5M47
+	 +hPpiN9HngNvFevToJTZVp/v5YnCPGgKDB+nkCOMklS7efm72HtOc8xpZWQZr2oZ8EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239345;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239370;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=raBij4qEhPxjWCEZowqML0scqr3lOT8uQMEhUh4pvtg=;
-	b=l9UH43W826Bs07mvjzp6r4avxsRkEfERo0JG6uGLUVRFnxO6bmN9cUdEHxUc+ck+7+hS
-	 vwE4FC4745klt7iGwSFHAqlEE45bTwYFslnuPXjYByZHYg0JJSyvCD0R35MZcFUAMlQmM
-	 fkupwqNAe91cpR1hfMJ7slDAzvoGGmWYppKGd/6wAm+jTtSKIdJ9QAORpWJbY54yHs0t9
-	 bYUgRO/5E2zIPGJdTC9QtNLpgNm4n5HuIFRoXGnU7zFbIZTtnHyI+UAcRItqLtp4cs/is
-	 /WPn+vZlAoKgyBT9jmgAWFILuQbBRmrdIK6WG50itUXOClhwwUP19Fc1CMrrkbrdaeQ==
+	bh=LUmC7pupp+6flD6iWqGdbBq5uSMsUVJdiyX/xJTa3rQ=;
+	b=qsdUFTOYRUOiSTNEPFAGJu8/JZndHIAuUxVSMIJxIQ3Onz3PaejUdPOBHi439id6TFkH
+	 8urTtSdaMn+Gk4Mxh8qXnNZhiLmQrTCO2IHVa1Jl2VdCz0T48ILjulN4tntzoXzPCFTNA
+	 bQTqoHaGtApbC303xEOs24E7OtOEAbBHCjq+s/S8yIDGUAV99S7eQ5iwW3pr+WYPoAkVG
+	 dHgsGXX26Psjcrmxb8jPwR35Wpt6501E8+pUv18ZlndH+TDIPTyzL5oLVWiKF3+attTs1
+	 W4bzW0CQnave9lmbwvYtP4sL/SKBpQd8MYadQOl/Zsx0e47i6Q4aXj5G2evp6exrCFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2rCxtPX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AWeyvyXt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3C9606A31C;
-	Mon,  9 Nov 2026 15:49:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F2ED606A332;
+	Mon,  9 Nov 2026 15:49:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2rCxtPX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FE8E1F0089F;
-	Mon,  9 Nov 2026 15:49:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AWeyvyXt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F3071F008A1;
+	Mon,  9 Nov 2026 15:49:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794239344;
-	bh=raBij4qEhPxjWCEZowqML0scqr3lOT8uQMEhUh4pvtg=;
+	s=k20260515; t=1794239369;
+	bh=LUmC7pupp+6flD6iWqGdbBq5uSMsUVJdiyX/xJTa3rQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=T2rCxtPXhIZX26HoJu/nFrUYRkxj85C42oxGcE/v+M0q2+MM8xJOD3hJ2U+kaZAIw
-	 HYaCvCPl7Y9pDFmM1lCEGxCGh+0dpY6UniED+mtyT6uM9O1FsWKQcn2T5CFvIoUE+s
-	 hXNZnjgTME7NvzT6925zJHPbxJezv2gS0ln54xsOoU0jZDQBE4E/AIsuc36WMh/O1d
-	 3A3SkM/k9M1u5LyBGPJUFhw2G3CjQOeyI88ACGcsD/afINB9K5RIxeQmzp4DRhVa0a
-	 LMbpUxDq8cLbUsPsMs1gaNxB2O6xuw9MA/+YvCsmdMfcRddVlH1smHDffRlJBMc6Rq
-	 L9Ve0s7W+bZOw==
-Message-ID: <8616d39e-738f-49f1-9ea0-3482d3f27d5e@kernel.org>
-Date: Mon, 9 Nov 2026 15:49:01 +0000
+	b=AWeyvyXtRt1eagDS3pzVnhYlLAkyBSL9nIInaVRAVIk0fWhNtfnpBW7pxJGINFWoK
+	 RmuvXFsQAj4q2bpBxcog6oRCPZ4ZzsIlLm8M8EaRa2QaCtQQQ6cQUIGNswlzx+hpAU
+	 Ega0/f0yNE9ZaPn+8VsLqFP6l+PIu0XK3nQEooKB50bivlJA6VA9xofhgdbXNiKbdy
+	 OOBVX3jkRFLp8ykqmvYynJ1h1INC9LpP+nLDVz8vALXxHUipJDs4ydLwIu9uksiJQS
+	 elmOwbIL88q1FUl+kdJTPBuqdCpOgfTy5Yow9hPNGCYTWIrdDEabdN9NZ+yYfJbV7p
+	 fG5G7qpWFfEuA==
+Message-ID: <0ce1e478-83aa-4d5b-845d-4751d597fe72@kernel.org>
+Date: Mon, 9 Nov 2026 15:49:27 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,8 +52,8 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/11] media: qcom: camss: csid-340: Enable RDI SOF
- tracking
+Subject: Re: [PATCH v3 11/11] media: qcom: camss: Switch on frame_sync_en for
+ csid-340
 To: bryan.odonoghue@linaro.org,
  Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
  Loic Poulain <loic.poulain@oss.qualcomm.com>,
@@ -61,8 +61,8 @@ To: bryan.odonoghue@linaro.org,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org>
- <qN79eFMjTmrURojfTgPvCGv_WrYLw4ASWwvs-Lb1O-Awx7xgiFaMVMHGoYcKn8yHjp_5RQMItil0aSONLJcbIA==@protonmail.internalid>
- <20261107-v4l2-frame-sync-v3-7-e5bf7073a35d@kernel.org>
+ <r_TOfw9mnkUeBFPsw9y9MrVpLN2bnQ_VdNf5_mE3SP4XLb2-v6NPn96Vwm1cX73dehIOmn26JC2KywS5ClkCLQ==@protonmail.internalid>
+ <20261107-v4l2-frame-sync-v3-11-e5bf7073a35d@kernel.org>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -108,25 +108,42 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20261107-v4l2-frame-sync-v3-7-e5bf7073a35d@kernel.org>
+In-Reply-To: <20261107-v4l2-frame-sync-v3-11-e5bf7073a35d@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 07/11/2026 01:01, bryan.odonoghue@linaro.org wrote:
 > From: Loic Poulain <loic.poulain@oss.qualcomm.com>
 > 
-> Add silicon specific changes to get SOF triggering V4L2_EVENT_FRAME_SYNC on
-> the '340' CSID. Covers QCM2290.
-> 
-> Unlike gen2 the 340 CSID has a per-interface IRQ block at
-> 0x030 + 0x10 * iface, so the SOF mask and status have to be handled per
-> interface rather than globally. Run the existing csid_port_iface_map[]
-> through it so that PIX and RDI0-2 are all covered.
-> 
-> The spurious interrupt warning needs to account for the new per-interface
-> status too, otherwise every SOF would be reported as spurious.
+> Switch frame_sync_en to true to track and consume SOF/EOF data.
 > 
 > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 > Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
-
+> ---
+>   drivers/media/platform/qcom/camss/camss.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+> index bfff28e789b04..ac12960264adf 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -733,6 +733,7 @@ static const struct camss_subdev_resources csid_res_2290[] = {
+>   		.reg = { "csid0" },
+>   		.interrupt = { "csid0" },
+>   		.csid = {
+> +			.frame_sync_en = true,
+>   			.hw_ops = &csid_ops_340,
+>   			.parent_dev_ops = &vfe_parent_dev_ops,
+>   			.formats = &csid_formats_gen2
+> @@ -749,6 +750,7 @@ static const struct camss_subdev_resources csid_res_2290[] = {
+>   		.reg = { "csid1" },
+>   		.interrupt = { "csid1" },
+>   		.csid = {
+> +			.frame_sync_en = true,
+>   			.hw_ops = &csid_ops_340,
+>   			.parent_dev_ops = &vfe_parent_dev_ops,
+>   			.formats = &csid_formats_gen2
+> 
+> --
+> 2.56.0
 Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
