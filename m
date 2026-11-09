@@ -1,58 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794230484;
-	b=5E5VG4C5XekNvcBYEtzFCOFnDAFR7ywObQQPstUXI1y57Q3qxSyUpqLZmEbPpVToNSxy
-	 +o3UR7S3xvhDCH3DTH0+r1xsjKJ6CWQJ7XztIjlat9jEoQebFtbKDxr965fxXC76ah1H2
-	 SDSilbIT1tNK80Mc496xBAVcBexu8d9D7l+OGfs1BuBnFX1reIMmIjr/gKvgPT2Ir+rfC
-	 H8y5dS7xf0Ux1bsddirNLntjmSho5CGIfmppIcG/JVR5gBjdwWZEat/XDhrfqz5aP0agI
-	 2uG5SSBd/G/OcydZ5JINSsy/D/ItgJKStLCOrJ1q4tKhnLyb8SxxuGLEaDgknOqF/Ng==
+	t=1794230885;
+	b=w0XlwO+jZx4n7Ze9sKxfhMLYr/38Q19qSNVBz4EsyXth39Ln/9RUJcmBrBtv0l+dMI9C
+	 AP13x/FLOMGolXL6yyjPjZf2hQLMqi+sbNRJJqcyuELO8iG4KawIpqmNcbxpBj4g63SDm
+	 bQ2dUli2Jq6MgzT7R18+sWAFEss9RM2Ntfk9LLfPbZ7X6RbT41cGwdB4GLSIOrmLsZrNa
+	 PdmANjf72YzlVWG+mVlG+gcB67Ivc6xpxxdVP0LIrFD3KuxO4wDtCIp5zeBgbnDr95Ycg
+	 DhigyRINdzyDOg2rUJuUP6f0YFytmMiL4OTKGTOFTcEa1vEUbyRNrbLm5AxKU/8e3gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794230484;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dSDOttOUZlbRzOTWEjKBcPBDk84wy77ID43rCwcUDVI=;
-	b=GWCxCLlltAIgJ6FNeTz36tvlaiDYWPvibF2jpnLuWOCdqLqwy++OyYiEhzdlVpH4sgsx
-	 vzqFIYa9o+LFeU+s5dd7Avfl5QbMQsh+gyH3OAwV+4g/KKFmBciOMXhmlcfZC4l5Kzoj3
-	 9SbeyDscACQ3L/0YzauQpTOyXukeklO8+RFnt9x/U0CBHnRwarMBOiPqfYfx17yinM+dl
-	 QtfX3Em1oLpk/MsAAGMPl2Pr6tS3C2GaB7UsISuKAU6J8Tb9oR9wKX4KZaS9FUWcdftAk
-	 O+pFCVro3EHXFbzf83dPE8KFIlNydOrBcF/M/tAOF9CT0uFsF2WcLErdk8KqEUx0PJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794230885;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=d1CDxwvd6FwMPzqWiptzkkTL3Tfq+jCUCb3bvgTMGjI=;
+	b=qYc3yTJWa6LDOKe6bILgIWH7HPDEVXdOZOgCP6LmCZaZHJpZDhziI/N5nDlLuoxHz3HK
+	 8NgSfXDazix6l8ze9YiMlKrq3wAU5idlDbkkaRUonNkfTfW5Saj3Tz6rqBWeWO+qUInHi
+	 IUk+juy6yFxAyXq9/d5zeZNZ97k9o6XYowFVTApS9YLZSXbhesF9oOIUJaMgC6V1dtXgj
+	 FIHxhYCk9VBiKK5OJgUaomqShjggjQPkcdK/RznabCDTQJa5A1JzyZpuW34R+HX4u9C9X
+	 k2K87hNKO8pHD3xQ/FqQpRR/1kCIe+zTrieAy80hdDjphsQgMLAj7c/p1FGmPG5roAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rnm2OZ43;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=nVzjVU8O;
+	arc=none smtp.remote-ip=109.224.244.122
+Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D48606A31C;
-	Mon,  9 Nov 2026 13:21:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A601606A31C;
+	Mon,  9 Nov 2026 13:28:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A601606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rnm2OZ43
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFF331F0089F;
-	Mon,  9 Nov 2026 13:21:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794230483;
-	bh=dSDOttOUZlbRzOTWEjKBcPBDk84wy77ID43rCwcUDVI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Rnm2OZ43+sNN2aJJ52eRSZhb+eqAhS0A4vIyS9o1EgF2JmB9rRXJJMj6l3lgx4wJg
-	 AlxTQ5BR40MI2Hn9bUmUvgh1JoU7OMTQWgJY68SwtXc4y0UXSJDS3FsdS6LMCYbsNE
-	 ptwUXL4uVBXJ60moWUQZClLUvLZAT6jg6TGMa62lc+OIndtPBAMfabo6Z1PLer2hva
-	 s7Fl6mbCkFosCu+JvZ2k59W24/GVlgJkPB2y7lZrk/5eqfLsc/+VLPXvhIoNc/8PvL
-	 qEK5U+ELNg52phl2lFHfIFr2YMT+6wvczJuVGV/pArLaL48EuEO6F5tutar1rpipAG
-	 a5c6KfPcxQvjQ==
-Date: Mon, 9 Nov 2026 14:21:20 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Antoni Pokusinski <apokusinski01@gmail.com>
-Cc: vigneshr@ti.com, andi.shyti@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, aaro.koskinen@iki.fi, andreas@kemnade.info, 
-	khilman@baylibre.com, rogerq@kernel.org, tony@atomide.com, jmkrzyszt@gmail.com, 
-	sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, 
-	linux-omap@vger.kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH 1/3] dt-bindings: i2c: ti,omap4-i2c: Add DMA properties
-Message-ID: <20261109-psychedelic-kudu-of-tenacity-b06ada@quoll>
-References: <20261105200556.34240-2-apokusinski01@gmail.com>
- <20261105200556.34240-3-apokusinski01@gmail.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=nVzjVU8O
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794230879; x=1794490079;
+	bh=d1CDxwvd6FwMPzqWiptzkkTL3Tfq+jCUCb3bvgTMGjI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=nVzjVU8OkAQj5/qD5urYjmL2pK8F8+9HDrOTDT1+nSYUY+UJU5hBj2SS6P5RwKfT9
+	 h2aFdqPTQ5RC6RYY+n3U2oUWia5S18b2w0q2fs148IfdcyFnQT1N02e6BjJD//KEsb
+	 lAvcTCYW2E9YimJGTuFfVw0TE7nfKc1B3CU2hQVOvup5W8IdH2CCz+oumLuigxDCMk
+	 L1IYwFCfXvm5QuOQg+nTqKVpoK8d0OZyP34yGMYO8ODihmXusbtvX2ddG8StX5qoiA
+	 X/VFM3irnn7RBRgv3Pwj7v9jX+ZxIgWLNVkkiJHem5sv+pGf4KOYiSA9et3WFn1T8P
+	 PjD7zOD7wSHZQ==
+Date: Mon, 09 Nov 2026 13:27:53 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
+Message-ID: <20261109132746.22125-1-lsa.uz@pm.me>
+In-Reply-To: <avHDwGAe99WYaty9@kekkonen.localdomain>
+References: <20261109093353.3757-1-lsa.uz@pm.me> <20261109093353.3757-3-lsa.uz@pm.me> <avGwRaKSqXdtXkII@kekkonen.localdomain> <20261109124610.85065-1-lsa.uz@pm.me> <avHDwGAe99WYaty9@kekkonen.localdomain>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: a3bee21ddf5233bc865bcf357b8e7637d7aa5563
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -63,38 +65,46 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261105200556.34240-3-apokusinski01@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 05, 2026 at 09:05:52PM +0100, Antoni Pokusinski wrote:
-> Document the TX and RX DMA request channels featured
-> by the OMAP I2C controller.
-> 
-> Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
-> ---
->  .../devicetree/bindings/i2c/ti,omap4-i2c.yaml        | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml b/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
-> index 58d32ceeacfc..ff946fdfaad3 100644
-> --- a/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
-> +++ b/Documentation/devicetree/bindings/i2c/ti,omap4-i2c.yaml
-> @@ -37,6 +37,16 @@ properties:
->    clock-names:
->      const: fck
->  
-> +  dmas:
-> +    items:
-> +      - description: TX DMA channel phandle
-> +      - description: RX DMA channel phandle
-> +
-> +  dma-names:
-> +    items:
-> +      - const: tx
-> +      - const: rx
+Hi Sakari,
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Mon, Nov 09, 2026 at 02:59:44PM +0200, Sakari Ailus wrote:
+>> >> +static const s64 vd55g0_ev_bias_menu[] =3D {
+>> >> +=09-3000, -2500, -2000, -1500, -1000, -500,
+>> >> +=09    0,
+>> >> +=09  500,  1000,  1500,  2000,  2500, 3000,
+>> >
+>> > Is this
+>>
+>> The sentence seems to have been cut off here. What did you mean? The
+>> table is vd55g1's, in the control's 0.001 EV units.
+>
+> Uh, yes. I meant to ask if this is a firmware limitation. I guess so?
 
-Best regards,
-Krzysztof
+No, it is the driver's. The firmware has both a target and a
+compensation register (UM2829, 14.7.3, Table 39 [1]):
+
+  AE_COMPENSATION       VALUE  15:0  SFP 8.8  Compensation in EV
+  AE_TARGET_PERCENTAGE  VALUE  15:0  UI       Percentage relative to satura=
+tion
+
+where "100 means saturated image". The driver writes the target from
+this table, 27 * 2^EV, as vd55g1 does:
+
+=09static const unsigned int index2exposure_target[] =3D {
+=09=093, 5, 7, 10, 14, 19, 27, 38, 54, 76, 108, 153, 216,
+=09};
+
+So +2.5 and +3 EV ask for 153 and 216, above saturation; I have not
+tested what the AE does there.
+
+v4 keeps vd55g1's table, unless you or Benjamin prefer the compensation
+register.
+
+[1] https://www.st.com/resource/en/user_manual/um2829-how-to-integrate-and-=
+configure-the-vd55g0-device-from-a-hardware-and-software-perspective-stmicr=
+oelectronics.pdf
+
+Sergey
 
