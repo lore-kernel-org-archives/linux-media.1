@@ -1,110 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794245490;
-	b=XcByaJOd+9OZLFFO6yPT4wC2ahTYYSOqtQx6bZliSJxv1lz9VzH/3LObrl8exX9PVP3z
-	 nIecG4wBS/sHgA1UzUs2X0SSzcV820OZYX9uyowoeYtpCD8NR2ZUopp+1wQ98EZQKUXL6
-	 DV5x7w55DIkYTEFtEQANbCU73R/0IzAbF+mOiX6OWubIEXDFxHU/wjsNMIHVtxzo+lvK/
-	 lqn7MCs/pJomhxzso9eH2D1/hgS1/GDxLZiXndyROHNSIByiY1TrxG6zG1POHmzQPcIFB
-	 CAcBv05fstsDzTkB1r9n/DG1dW8nE0B2IZ0UN5vd+qcDEicMM5PiQKIQJjC7Lem3UOg==
+	t=1794246667;
+	b=CGwzL6sX8gY6r/xg6iBRFoASeOdfYsWHBCvr6eHDdHp0+VzqnYxiZ2/v/YGg2DYn5iRg
+	 V2pK6jNoZW5r2dlShur5jx9+H/yx2eCMq7kTb9tC7pgPcaO2N7IA/8ZZF0WVWgUHsAThX
+	 Llum4QDT+hwUrdHLMlKwKw6lB571SE8YrXNg7dKK4PWwgoGM86QyLOQEwqxPKe4Y58ipm
+	 Aw5bgOzf1ZhQyfyF5eD7Kh9Jdmuhv3YELyXUyGvDfySi0VB2SDRpg2NsS6ur48DguXZBL
+	 AR25m81rEZSL/mZh5A+ZX3MAKSO1QuCPcqleSvw98cr8BngkjsN39Lj60tTqd4j4wug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794245490;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Jba9YTfpv2o6XFwrhMZ/0GoEqiFmykqBRWRUZQ/DELo=;
-	b=ac/kun+QCEcXO79DtOBTBrrBEd4nL5ec0LAbf5YYtdWwTDPpTH3wdHr57aJeI6yqtgZ7
-	 yvHyC0VPTpOKkR6UXNdmOO0l4NfA042QtjZ/E9y7plNDRKALr2MHRjM4fRyRla6TVbJof
-	 a0gQAVIkWStFnJgi4EZsXxjHMPONg9gpI1w33s7DaGp041aUEnI3aj+ryiBQZuWNquONI
-	 kWXL5mASv/JMK65m6xmqtZyEs7rO+6YCcw7yzhWb/lHuIzldVBaZ4te4SyC//Wf09xKAD
-	 ckL6MiIMWTMh2A5goIKPbjkTSFeJNV76Af74bklv5Ec1dAtedYVitoMXyqFb+0ffBiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246667;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=t2EBWm0WsMjUhoHR6YsRGN60RmHktL80iMChWst02Po=;
+	b=MSYDH4gznKGhyU61zVSDQ8BsZfAGjOxls8j0lpGzIQZljn7jWGFA5HdeSM9dn446dehC
+	 dbAI/aP4DTf2eBftS8vd+DcxLjjkRZuftLanZgBFFG2Hnve6L4mr0+Wuecjg8geWaiyIG
+	 F3jJwyg6NvEa0u8wj9PNXtZhxhkExHB8fuKNlSryMxT2RLCLZudnow3UkPAWHnTQujnYW
+	 ChBd7NCNw7hJmAd/1eG/FgYF3m7Chmk0VXnqadhPct/fBita2WjY9ZxQS9GsRlGm54SQQ
+	 E75LyRlAUaKtYEjqxRBqPbYGh5kjnL2auOsi9W4ndaTSp+jC/IzJ7V9H9ZV2cev/95g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NigkGu1q;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bYwL2Dag;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HoaoxZsx;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D614C606A330
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 17:31:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D614C606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F44606A330
+	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 17:51:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6F44606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NigkGu1q;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bYwL2Dag
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9HH4uw1525215
-	for <linux-media@vger.kernel.org>; Mon, 9 Nov 2026 17:31:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Jba9YTfpv2o6XFwrhMZ/0GoEqiFmykqBRWRUZQ/DELo=; b=NigkGu1qQjA3ANzD
-	/6hAxXrynh4xMsmFeYkLy1+iNeLPA3Ion7dkHS656M3psjOOTg8Z68F3UL/vmShT
-	zORfzWglAV6Edd6vMHw7X2I1XRAYJHTBO5yPfwkGcvg+wGffn54JEMGgMo3p3rQm
-	0gNwi+ptCQDtnMmLpuKeogqkok5wOovOvQQjvKsF9Y0+e8vEUiGlNQlT552S//Dm
-	JuQuOstbv7gA7wFbdq8Z1hhCui7x1OX/dJQckDnPQlBn2wOCp9vupFA59465K1fo
-	80hwbgKnbNxWn/YXMJp94HsYZXteeOdA4xa69+5RHukwwwwSZB7kAEdDoEKmemW8
-	McYjSw==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hufx80qpy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 17:31:28 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5ece7f075c4so343284e0c.2
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 09:31:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HoaoxZsx
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4b4571ff080so14309875e9.1
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 09:51:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794245488; x=1794850288; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Jba9YTfpv2o6XFwrhMZ/0GoEqiFmykqBRWRUZQ/DELo=;
-        b=bYwL2DagUmMF2ukutLGF2UDXAEloPVf2gTMQpmEYBeFYUL0L+lsqQ1XBEcy0Q4nzxV
-         cTA+KJ+Mh6aHF2eN1cabkKuKQyru2wj0gMKVtPzp/YwuNb0ndX9C/Jeld9Drr/aITJD3
-         FwbpmVkte0AvowACovZoXJgoV2i4K5JNvJUjkh8af07KAoqIFf2QUcZ3Zp8BSdq8E2Yt
-         uMYmmSrYRxFheXMhAePlHOLlKpdRWqjeZNVkRZXhP7v1U3lzFG2ZhsXLvgSM6vuFzapq
-         HGZ9F98DFDBmUdkP3h0DgTCrUc4pa9rKFLKwx40V7siBbwcY3RXT6DNJT3wPodT1b5GP
-         ESVA==
+        d=gmail.com; s=20260707; t=1794246665; x=1794851465; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t2EBWm0WsMjUhoHR6YsRGN60RmHktL80iMChWst02Po=;
+        b=HoaoxZsxyVMYO7A9pJFtu/iYFEg+f72EGw9QLVjFJE1HpTzbWLkfVaZ3wfPTwBJOJv
+         LaEed3CGew4U5eVFlkjAjVHOamdVyWk5GjA2Gfj5eS7f6R6NAtznYfDZjriR3oQLSlVq
+         Fjnty9h3WOQhwPENUtwCnQEzVmflcTlIFbUjzotP6r6LNMRQQ56MbJEdFEZW8TvokG6l
+         JEt8F/sl86ZDoxo1T2XeBNU6Mbgd5hAcsIGU/dpAp33L0y2wNchvHTIiHgVbm+NrFOpv
+         Xau7kYeYxJOcELxYfQzRPUlm4kE43KXYNEvwKtOijWSxAdZfiOwp1hfw/vIVcts1S5Zb
+         if1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794245488; x=1794850288;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794246665; x=1794851465;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Jba9YTfpv2o6XFwrhMZ/0GoEqiFmykqBRWRUZQ/DELo=;
-        b=wgfWaETaNjW9yftD5fCxPv1piAlrBHAjead/aji6oudmk+l4SikttyA+AFjgcl75tx
-         ++oXoZicbDYFS+JOc6FGH9+ivdwykti6+qo+bsqIGtm0T32zbUrrMHtE45RulSJaeLc7
-         icM6MuI7wWmbMwev5tr/+PNWYVWdP46lZygFAIRMoo7STrV5YMBUYOZIHJxaK3ZlbPuY
-         6Cmw7jUdQB1m+os0ZNzjZPxO5nY4K613SJ/HwI1Ddt0a+3OtwApNYeDQ6n1RVsGkTu0r
-         z/h9ky0VMlTCvGLQlt5EGDvkcWEuyX6Lj433NdxoHxGCZGOBxMz5A+EhtbTjdEfdIB9A
-         j2mA==
-X-Gm-Message-State: APuU4Z/rxQu3CzBj3hI8Zt+cFNNv48HPzJTt1OrglBCQNWa63n+wXc4r
-	PSLrDIZvc6J5Zgkaw0Xusk2d4kq/QJT6xjkx1dg9vvISIUnghBZbRezDaAOQ+DZUlz+vvNVJSq4
-	zBXUOoGRwNGOowGeTWsw1iu2qaF8Gdaybrf/6AY4RLuNUWDO9JiCn5/qDUuSWQYt6uQ==
-X-Gm-Gg: AYBFou30peF5BhHrWEOZ1tnj+hcrIUJbI4qsJdgixpUyh6JvFcmdFqfrioyPPL4EhGJ
-	S76lo66IIfzQWLSGT7A/w67hT0na0CpAtyCc6+U5Q/Zj009F2z0FCSPMFNyp7CLCoOoCWAmhK6V
-	ocZag9zQALQEMB1PkArc9zArKKNq1X1zCjZUpl3jcXreRFmt6qloaHs7gLoBFKqWdKzHDk1ysH0
-	pnRotK1yHa+dwJgaaEMm/+vBxJcpCsGW2XIpjSVcRYqRsGLw3lqfD7q8eZwqARWIxmmWqI0s5aW
-	qfHcweaxYhQ2Dnu6vbzKsH0FYVYiIP7Zta/L543Cs2SbaR3csitzPa2hQQSuwcotPviFbx1a8w/
-	UswsPd+j/Jhz/Oo/SyxgKLc4+IIQH6SRereq0YaFsjUM9Tu6nFMhHBycmUh+x47bm9pkHLEacjy
-	xpdJlbFBWoUv4=
-X-Received: by 2002:a05:6122:e465:b0:5ea:c11b:432c with SMTP id 71dfb90a1353d-5ece724b48dmr1768668e0c.15.1794245487959;
-        Mon, 09 Nov 2026 09:31:27 -0800 (PST)
-X-Received: by 2002:a05:6122:e465:b0:5ea:c11b:432c with SMTP id 71dfb90a1353d-5ece724b48dmr1768589e0c.15.1794245487449;
-        Mon, 09 Nov 2026 09:31:27 -0800 (PST)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fe63e6sm3867185e9.7.2026.11.09.09.31.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 09:31:26 -0800 (PST)
-Message-ID: <93c00a19-9d6c-4a51-91df-ae75ef112cb4@oss.qualcomm.com>
-Date: Mon, 9 Nov 2026 19:31:25 +0200
+        bh=t2EBWm0WsMjUhoHR6YsRGN60RmHktL80iMChWst02Po=;
+        b=Kkn9PfNqMFfruOx2RPV0VP22B4/ErfK5Z1T6X1cJct+3p1QyKjylrJXB63x2XIKXOu
+         RqU7rT+OhhsJmhaqn+z6LKW/JSAc9DLgrpxhdK9/n99v7Tg6diTADAqpFsb5j5maGCwD
+         bxYut9rGLeBcgkcJxLZXrTNyVM0Tj0PilZO9d0wMBSMdEhNYVJCobw/hxo1qBpff9z1d
+         c+ZyX2aiZuojXxXETkjt+if4OumxSfjq1QKzg30s3lqqJ30wdanI2fQLHH5R71HKisKq
+         KYbRAv8o0Xfok5WKaeh/b8W/vIGVlFivhTTPUJNu2Sui8v8WpMSBKN82XFseU6XyNcNG
+         uHtQ==
+X-Forwarded-Encrypted: i=1; AL+hErHzVx0LGY3Rs5JBYiBzubSmZP+lUDHY4U7qKQOoU8IhLWLgH2QiBX9mr9wU+zb9Xd/aHIyh+J40+r/hJA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/k6cjQHGrOW688cb6uVisdyTFQyPAnDXtPTmrWUePBdWOElxYV
+	yABcVpDnEtr1T/hju/QgJZrFUl/AUe1FXXm1PvWE8UpZTX+A/0/15Z8x
+X-Gm-Gg: AYBFou0KqkzGPxHAW8kDOpoUDF2gXniDW99TbNfxyEOcarYP0JCw1Mx02w47gSmkCBS
+	h5FW7L7e9rx9wZPrVEatp3ffQTu3lXfVS63vFDpfU6toQRL4fBhh/HG3+Ig9z1Gx6vNfENxVZk6
+	VhXlq6CN1cLPKWEyb5f7dGRn6ff9LBT6Co8k00LaC8YwGU/CXc84H01p2PE/3VMR+JNOct5wGgl
+	vhljSGW5UiAoi2oxrKbCM7HbfQRQbPTLw+BlJLAw5BvmOeBJYZhK6h+XdEiHuZKonuPoh2fbUSm
+	pHfD36WF2pJykJ9H1y7kUGK3VUrVH5SVlnCGLqds5zFW2y7dN4DPHuX+AYi7KocOceZWBkbmiof
+	Cxmqyx/otjMWHULtEKDM8cpHR36h93C3FpoLNoPaxDDIES3ZmBjN8gE7egdhXXeS8exV6U9fe8Y
+	3TuaLfZjtkmbPbhtF71rZwE4CeLEJhpsQCoIRDJGlVri6+WYGjkBePAFJsGKL9RxvkMlfeMs0GP
+	A2tvW4yy1K3zQyfRQ2vlA0lGvsAx+qGsqv7wvrBiqUto1ExkXvrJ/XGtrxVh1r4vVYqJvdeRWnD
+	r+pqvdv1O99HMmxHWNhcjRuxHbIeLmYClDVDWtNJmfnAdSgaqGmrLAgAtyes3+NaeUGIPmEtJDQ
+	h7TwEsaj3pXFsPceJtfFVlO4Y5v8zl5sLt+vZZFHZP6HUZNp0pWVaiZgtC2RDbxNuGoXCEqZwAy
+	0tXkBLI59clh6df8HgX6ns5dcMlMUeh3Fs4cbfZYLaUjpYzp5h4npvxOec705E40kQATDAuQbOr
+	BsMvfE5QyoAHS6/QbZj3WB1BoZaUymULSMz
+X-Received: by 2002:a05:6000:3c5:b0:48e:6419:ddf2 with SMTP id ffacd0b85a97d-4982e641f54mr399339f8f.17.1794246665055;
+        Mon, 09 Nov 2026 09:51:05 -0800 (PST)
+Received: from jernej-laptop (86-58-12-36.dynamic.telemach.net. [86.58.12.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a4238sm200717f8f.54.2026.11.09.09.51.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 09:51:04 -0800 (PST)
+From: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+	Paul Kocialkowski <paulk@sys-base.io>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Samuel Holland <samuel@sholland.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: [PATCH v2 00/11] staging: media: cedrus: assorted fixes and VP8 4K support
+Date: Mon,  9 Nov 2026 18:50:05 +0100
+Message-ID: <20261109175016.42061-1-jernej.skrabec@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -114,181 +108,89 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/11] Add SOF sequence logic
-To: bryan.odonoghue@linaro.org,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-References: <20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=AbYkjHXG c=1 sm=1 tr=0 ts=6af20370 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=bC-a23v3AAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
- a=5jSOgbY-jEdhu9h03aEA:9 a=QEXdDO2ut3YA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
- a=FO4_E8m0qiDe52t0p3_H:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: MbacPARd7fjBo41NjnrfQ5LcdDihLTAW
-X-Proofpoint-ORIG-GUID: MbacPARd7fjBo41NjnrfQ5LcdDihLTAW
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA2OSBTYWx0ZWRfXxGlIPnQ9OjjJ
- qL01732Znsk1XJQdW+lseeRSwe+oHL+RPQJvt2AJyHp9bwFmq/nxXjOmnbmmR01ta0QIMqqvI0V
- e6mO6BGRKsQMBLzEdDj5kXL9qpQXAdc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA2OSBTYWx0ZWRfX7sUPEH8sSO50
- 5j2Mw/iszoY4wjne4J9AgnyGnOFDkKGiDhVazaQvZaAxDG/Hx3cydN0D8q+dCUkF+pt17kd5R39
- Sk4KkwwKkZr2rfCqV6mXLEu15bTGyGXN2RRaeeyBa4xVX1EdBPp3NlZka2nKudUlRWYNT9i/396
- XKqChsLn/kTfAs7HK14YR37/i0uaFOgyPM/U8l1+taaDftmpWHEf8VsOsfvYSoFthLZwYHc6tvd
- QIdCaE+em/OS1RiA9FgN68nAytuOMv+XdBB/rKMt5cppczgmldi+1vu0XI5ZK32ydjl/vwVYzVk
- EwXc5wB9GinU8IZTqb/Z8HnyUxVdJXPwpYsb5YnB3TeBX4pEiepUJbPYigrSyBcU6XBgOCwKiSX
- XTRFLbvm/YA5GTEq6euy6LMd2jI24iqeIb6KJj8nQXa0nDZEsLADnvMq2yaPY0tixS3bcx+lFRL
- 8vPY5z1xIfdR6OEieWg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_06,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0
- impostorscore=0 bulkscore=0 spamscore=0 clxscore=1015 adultscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611090069
+Content-Transfer-Encoding: 8bit
 
-Hi Bryan,
+This series fixes a number of bugs in the Cedrus driver, found while
+running the conformance suites and comparing with the vendor library,
+mostly on H616.
 
-The whole series were verified on RB8 board (SA8775P).
+Patches 1-10 are fixes:
+- patch 1 fixes MV-col buffer leak when the file handle is closed
+  without STREAMOFF,
+- patches 2 and 7 reject H.264/HEVC SPS and VP8 frame sizes beyond the
+  hardware limits, and fail jobs whose picture doesn't fit the buffers,
+  preventing memory overruns and hardware hangs,
+- patch 3 marks H.264 long-term references, which fixes MR8_BT_B and
+  MR9_BT_B conformance samples,
+- patches 4-6 fix MPEG-2 field picture decoding (field height, field
+  order detection and references of the second field),
+- patch 8 enlarges VP8 probability table to the size used by the vendor
+  libraries, since the hardware uses the area past it as scratch space,
+- patch 9 switches H616 to the 256-bit DDR mode, which fixes corrupted
+  reference chroma in H.264 and VP8,
+- patch 10 clears the sizes of the H.264 DRAM buffers on start, which
+  fixes a double free when a narrow H.264 stream follows a wide one on
+  the same file handle.
 
-Tested-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+Patch 11 is new functionality: VP8 decoding of frames wider than 2048
+pixels. It depends on patch 10.
 
-~Gjorgji
+Changes in v2:
+- patches 2 and 7: check only the hardware limits in try_ctrl. Check
+  whether the picture fits the buffers in the setup callbacks instead,
+  which fail the job with an error buffer. try_ctrl could be bypassed
+  by setting the control before the buffers were allocated (Nicolas,
+  Sashiko).
+- patch 2: describe what the HEVC decoder takes from the SPS.
+- patch 7: limit VP8 frames to 4080 pixels in width, as the frame size
+  register holds 8-bit macroblock counts.
+- patch 3: pass the reference type instead of a bool (Nicolas), and
+  keep the reference type of the first field when the second field of
+  a pair is decoded into the same buffer (Sashiko).
+- patch 4: halve the macroblock aligned height for the boundary of a
+  field, like the vendor library does (Nicolas).
+- patch 10: new.
+- patch 11: set the DRAM buffer sizes only once both buffers are
+  allocated and clear them first, so that a failed allocation or the
+  data of another codec can't leave stale sizes (Sashiko).
+- collected Reviewed-by tags.
 
-On 11/7/2026 3:01 AM, bryan.odonoghue@linaro.org wrote:
-> v3:
-> - Added CSID-340 patches from Loic wit permission - Loic
-> - Explains the initial -1. - Loic
-> - Drops the .id field enumeration - Gjorgji
-> - Accumulates RB as indicated.
-> - Link to v2: https://patch.msgid.link/20261102-v4l2-frame-sync-v2-0-25cbed7a772f@kernel.org
-> 
-> v2:
-> - Amends series title to drop EOF
-> - Drops EOF inclusion until we actually use it for stats production seq_no - Gjorgji, bod
-> - Moves QoS into pm_runtime() callbacks - Loic
-> - Switches on vb.sequence change for every SoC the silicon enabling code
->   supports - bod, Loic
-> - Link to v1: https://patch.msgid.link/20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org
-> 
-> v1:
-> 
-> This series enables SOF AND EOF event tracking making use of both events.
-> Whilst the code is actually very simple the functionality we want to build
-> off of that simple code is not.
-> 
-> - SOF
->   Serves two functions. Firstly. Informing user-space of CSID SOF events.
->   Standard Linux V4L2_EVENT_FRAME_SYNC is trigger from this event.
->   User-space wants to capture this trigger because it allows user-space to
->   better align the time a frame begins to events elsewhere such as IMU
->   event timestamps.
-> 
->   That functionality is directly applicable in this series.
-> 
->   However we will also build on the SOF event in later patches to allow us
->   to begin programming of shadow-registers for the next camera frame.
-> 
->   When the EOF event happens, we switch from one shadow bank to the next.
->   This is only possible if you have the SOF event.
-> 
->   So SOF serves the immediate purpose of timestamp alignment in user-space
->   as well as the 'evil plan' to trigger off of it programming camera
->   parameters for the next frame.
-> 
-> - EOF
->   EOF even on its own is useful because it allows us to increment
->   vb.sequence for each frame as per the spec not just when we have
->   buffer-data.
-> 
-> There is another purpose to having an SOF and EOF event with sequence
-> numbers and that is.
-> 
-> User-space submits a parameters buffer. Kernel accepts that parameters
-> buffer but can make no guarantee about _when_ the entire buffer will be
-> applied.
-> 
-> So when kernel finishes application of the entire params sequence the
-> returned buffer contains the sequence number - from the EOF tracking which
-> informs user-space _which_ frame vb.sequence its given params buffer was
-> applied.
-> 
-> Similarly when kernel produces a statistics buffer that buffer will have a
-> sequence number - and that sequence number will align to the frame sequence
-> number that the statistics describe.
-> 
-> Thus SOF/EOF tracking is fundamental to passing parameters, returning
-> statistics to user-space and for the IPA algorithm in user-space to
-> understand which stats, params and frames are related.
-> 
-> The first patch in the series addresses a corner-case when a quiescent
-> system can take quite a while to wake from idle, too long in fact such that
-> the SOF event is effectively missed.
-> 
-> On 'normal' systems doing lots of things, this is not a problem we would
-> see however on my test X1-CRD system running from ramdisk - there's
-> basically nothing else happening and the wake-time becomes apparent.
-> 
-> This is not strictly speaking a bugfix since right now nothing in CAMSS
-> cares about SOF or EOF so if we take an additional 2.5 ms to process a
-> data-buffer on a fully quiescent system, that's not the end of the world.
-> 
-> OTOH as soon as you start to care about SOF/EOF then missing those events
-> is no bueno.
-> 
-> The CPU latency value chosen is 100% stolen from IPU7 which seems like a
-> good starting point - the stealing obviously - and happens to also work.
-> 
-> This series is really an enabling series for more work to come but even on
-> its own is an improvement on the current situation.
-> 
-> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
-> ---
-> Bryan O'Donoghue (9):
->       media: qcom: camss: Introduce CPU latency QoS during streaming
->       media: qcom: camss: Introduce SOF sequence tracking
->       media: qcom: camss: Use SOF sequence tracking for vb.sequence
->       media: qcom: camss: csid-gen3: Enable RDI SOF driving
->       media: qcom: camss: csid-680: Enable RDI SOF tracking
->       media: qcom: camss: csid-gen2: Enable RDI SOF tracking
->       media: qcom: camss: Switch on frame_sync_en logic for csid-gen3.
->       media: qcom: camss: Switch on frame_sync_en for x1e/x2e
->       media: qcom: camss: Switch on frame_sync_en for csid-gen2
-> 
-> Loic Poulain (2):
->       media: qcom: camss: csid-340: Enable RDI SOF tracking
->       media: qcom: camss: Switch on frame_sync_en for csid-340
-> 
->  drivers/media/platform/qcom/camss/camss-csid-340.c | 39 ++++++++++++-
->  drivers/media/platform/qcom/camss/camss-csid-680.c | 18 ++++++
->  .../media/platform/qcom/camss/camss-csid-gen2.c    | 15 +++++
->  .../media/platform/qcom/camss/camss-csid-gen3.c    | 27 +++++++++
->  drivers/media/platform/qcom/camss/camss-csid.c     | 68 +++++++++++++++++++++-
->  drivers/media/platform/qcom/camss/camss-csid.h     | 21 +++++++
->  drivers/media/platform/qcom/camss/camss-vfe-17x.c  |  5 +-
->  drivers/media/platform/qcom/camss/camss-vfe.c      |  9 ++-
->  drivers/media/platform/qcom/camss/camss-vfe.h      |  1 +
->  drivers/media/platform/qcom/camss/camss.c          | 65 ++++++++++++++++++++-
->  drivers/media/platform/qcom/camss/camss.h          |  2 +
->  11 files changed, 265 insertions(+), 5 deletions(-)
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261029-v4l2-frame-sync-0d6fb94ab6e6
-> 
-> Best regards,
-> --  
-> ---
-> bod
+v1: https://lore.kernel.org/linux-sunxi/20261102170303.1973892-1-jernej.skrabec@gmail.com/
+
+Please take a look.
+
+Best regards,
+Jernej
+
+Jernej Skrabec (11):
+  staging: media: cedrus: free MV-col buffers in buf_cleanup
+  staging: media: cedrus: reject too large H.264/HEVC SPS
+  staging: media: cedrus: h264: mark long-term references in the frame
+    info
+  staging: media: cedrus: mpeg2: use the field height for field pictures
+  staging: media: cedrus: mpeg2: derive the field order of field
+    pictures
+  staging: media: cedrus: mpeg2: fix the references of field pictures
+  staging: media: cedrus: validate VP8 frame size
+  staging: media: cedrus: vp8: use the vendor probability table size
+  staging: media: cedrus: h616: use the 256-bit DDR mode
+  staging: media: cedrus: h264: clear the DRAM buffer sizes on start
+  staging: media: cedrus: vp8: support frames wider than 2048 pixels
+
+ drivers/staging/media/sunxi/cedrus/cedrus.c   | 40 +++++++++-
+ drivers/staging/media/sunxi/cedrus/cedrus.h   | 49 ++++++++++++
+ .../staging/media/sunxi/cedrus/cedrus_h264.c  | 66 +++++++++++++----
+ .../staging/media/sunxi/cedrus/cedrus_h265.c  | 32 +++++---
+ .../staging/media/sunxi/cedrus/cedrus_hw.c    | 14 +++-
+ .../staging/media/sunxi/cedrus/cedrus_mpeg2.c | 74 ++++++++++++++++---
+ .../staging/media/sunxi/cedrus/cedrus_regs.h  |  8 ++
+ .../staging/media/sunxi/cedrus/cedrus_video.c | 15 ++--
+ .../staging/media/sunxi/cedrus/cedrus_video.h |  5 ++
+ .../staging/media/sunxi/cedrus/cedrus_vp8.c   | 72 +++++++++++++++++-
+ 10 files changed, 329 insertions(+), 46 deletions(-)
+
+
+base-commit: 27285b099fbc5cb2ae3aef20f3bbd7b3c88b3005
+-- 
+2.43.0
 
