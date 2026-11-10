@@ -1,79 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794305257;
-	b=qODU2Rjr+Owv5Kt52zDh0RgixBuTp5GP1NpwK8AY5zwLfaWo4sC5tOXkzecYLuC7Cb58
-	 /jETSDcAJc40OBQmIPGea3HArCTE8PjcyLtWWCSdlwu/X6vJSmL6J2X447+fT5oqQmZrS
-	 8e8Mn+l6xfFXZnsKlz5JnCFQ2oKbHZjmRABcaNSJLALrnFjCDOmPLq2FJplqfOX4S+Veg
-	 FpYAH45TKQhUvRfMOQrsKJKs3jQMEI9r+CpTHOCXc40hSI3gDld6MoTaX7JWPAmRIw/U7
-	 2C174G5hd5fYnpGJc8BUKHWmgs5BiW/1YhwiTwhZY3z+6GQ2AcG7ifpvrD67uIQTG+w==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794305256;
+	b=A8Wq0nL00Wi1f48JEzFdUA3n4GjVB0Qoe58ssLVywp2EvPLO2/Wojeiv503yHkHCes4T
+	 WBF1WplMEDb0gU9UbpHggNvAlN/4ztvHiM59S75G978cgXzx+VSDcxpNvJaQqz3cyesS1
+	 2EjBipHKNQ3WsY579e4lDfCyihaTU9OpO0v4+39APY3iRRzFPTdOOCpfGUIm5nReg0czv
+	 xF1N67VWfTRVXtGpMSJlNUp3HtSsEW/6cXOeJFM9WRXBCr2C6ORbpgxSBAdjRUABv61B6
+	 cLfLOFLOyygvqEVLGz8YJpxu/yus0roqY0/QYEB5fMXcDrfMF588RmtJpKG2pwWGIaA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305257;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305256;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DVSGY+ikZjR75l/iBgjjxuFAk9HeQ6YTF4NOlMUD23U=;
-	b=eWYa6OVjGvFxUSxBQZGVTEbhyGGDl9poFFVaccpN21b021ShIOFGlZ0lF0vTfPWmwDlI
-	 dZFYLej02rxk+IPortgoxH9ZuMF2nJkU9RTzwbmkIOCOxNgb+c7sOCu8Ks6oKtFoKO38w
-	 teE1VNbrspP4sXlOh048tj+udMk4ngHkk6PRAb0TSdFChrmhaP71QwgoyYWjR1XEWDEJj
-	 WmaIFVidTtF7Lr+QuIjKT/ClBkoFynOHSnEF1xSVeTn+yKkuMDrUnwJOJDWYRKeQogMX8
-	 +r/yHaclpJZeAXLqTCcMztJ6FUX8tyNMqTOH2/+8aqloalov/166NNBm/dt2HFWNVrw==
+	bh=ndUgljkXPpQ4RPobFe+Rt4r7F45caUQat1TJoLag+34=;
+	b=fxJpsKNNKQuXCUv4fq/k09UsriO9q67XgVBSVQ7tN3p2KVHoxMhZ1I+HA4p9eGMaAkiM
+	 OGU0hXuNHk+z1mUbxO/S95zvVdzvq6Rb2olWHa64rKGNfsnFrSTQEZtQFoTme78gh+rA4
+	 zDTvgmCqothgTtiswEF3QWgvPUO1xp7eLUWYCWx9Mos/hRmwJ9aPFuT+0MdvIDAOBCNoP
+	 2Qg70w5qq16Qr61hG+ldIYUZlaZQw156bCYs4+VBN9j8Gpwh6YNRvT0UYmneO37kFWSUf
+	 MyFJ4i+UI/2fcJ/izRgsqXC77ZFo34bdgMsylH0j+s8Ni841aAtvemSDmrAf3jP5GIw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gjb5RIaw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Hwsl/LRE";
+	arc=fail smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9206B60A2607;
-	Tue, 10 Nov 2026 10:07:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086FB60A263B;
+	Tue, 10 Nov 2026 10:07:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gjb5RIaw
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hwsl/LRE
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305257;
-	b=LIfsKi02U1RZVr7+mtp70QbX6MTGaOu55UYd+UJOeesU0AI7OBCGUpgveLinKeOt6R4n
-	 Wh12jUy0jLrMoFvvo8PtuJohg0cJIZNujJfOCimZRRW9BpJzswPvBAWWNuzMW3qcXGL2/
-	 4LWLZQzAv2NE4dTq29i3fs8aJsNiwuxnMhLZn01KL1SpZ1QC0KPB621PgtVYZTjfYhROT
-	 PjNCfw5e2hT/PK+Mep1YlKMvR8Vlb5teyIsAOePG6yBI9ompX1M0480mWWpZu459uiI+y
-	 X0vsbz/ep07lratmjVnNTXgJ4CqElrVKt3UDG44yLY7S8rQ27GPJurGA/WGSPGS/Oug==
+	t=1794305255;
+	b=DZLoUIsSqsd8kpBLidAb0HIUzcYoy1g7xXMWqkNVSXPzhVzdzfUvzMI2gpihKdpYqzs6
+	 jCl1lQSvaczwREJR5Y860Frh2+8CDTCPuWTxu7AVdBr/dx7W5+6Srhd7n2wbifGVviz6u
+	 QKlrHZcGYN2LqjwkosYJTAy15RP24Xg2t8gn6ID+6GPSh4bI2yNx+Yzi8p2wKbp+nbUGC
+	 mlUKB1So02QIdbPr/VVPBOYfqWP4JPd2xFRhGGh1UTAZkI7kuUEuYKhq4kUfmIb88Wrbh
+	 u3OZlYg0+zDkQqpOnNX4LvtsooCD4KDgLuPCLA2CZlUigTSDyCoADdDs9lKTEEwX9sg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305257;
+	c=relaxed/relaxed; t=1794305255;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DVSGY+ikZjR75l/iBgjjxuFAk9HeQ6YTF4NOlMUD23U=;
-	b=bwyj30sjEXhTF80povIwmQehUJuZ5bM01WUnjQ8V6u+AAjLTW2exE0CemOFNvbygWfXw
-	 XPrtJBAUHHEjjYYv+FsbkboqmS2qG1TO3gNZZSlBD+YiWeVfU5d1zECiV0I53GEKt5W+b
-	 9moJ0sgDhjoljsDwtCLt/V90eqiT3+L1wo7DkLqIJudscCeRWxxfwEqEQxLGJVpEfk3w6
-	 p6EVhgZf1cYORrNqqFKXYbP9w9szTkhZr9f/KPXe5DcezhmCNrxBVhepy7lfI8j8goaef
-	 jcxojNUB8xOeNHYEKlQ+0JjQCeoeihmsu8YkWIMjCn8+BJpuCl4U593JK981FHC3SvA==
+	bh=ndUgljkXPpQ4RPobFe+Rt4r7F45caUQat1TJoLag+34=;
+	b=aCDm+adZEmjy+ci8wkrcAWUo9zJ6vDyhodIHSM1a0Nw1RRyDFF9AQZvXzbL5vXMX5xNH
+	 Y85lz0d/IPf+XIIm2bNLUPrpyYulphd5dZy1FCTGNFeGjzc8c6A+uRQH63jFnP5klPk1g
+	 BBzl1B8RXiA/2lT5g7JN8dVmTkg3zM/jP0d1Mfu+EYjyCC2MCM/WW5Vhdf4/lzlKut7sV
+	 lqdiLdM7zyO9EDPL6oFJP4ekmoz5vuFvVQbebbypnM4fNuMtFAT1bTuIU1njh+JJXlQWv
+	 xhfwOrDw+YRY2iAPUgiu/BOdEVJMkzAm3wH653QKoAO3/F+S4kRYXGPFJ65zB2mKpVw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E81971F008A1;
-	Tue, 10 Nov 2026 10:07:33 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 7470B1F008A2;
+	Tue, 10 Nov 2026 10:07:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305257;
-	bh=DVSGY+ikZjR75l/iBgjjxuFAk9HeQ6YTF4NOlMUD23U=;
+	s=k20260515; t=1794305255;
+	bh=ndUgljkXPpQ4RPobFe+Rt4r7F45caUQat1TJoLag+34=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Gjb5RIawi8F1ELfoluECWnHKpGwyXaKr+v4Bq6R1FNwvmKqSHQQZD3nJZz88s3MPH
-	 mcV6KFK0ZEn9/CTspVh312FpcD8EZh4WakDYSQV58vLsTrdpSRddnogMgErSdEXF8o
-	 g1DpIKnCyV4lWDZknr79rIvwqOnT/WK5rbo17K/2kTZAWkyyYSt4c53/9Bqva/h0sP
-	 uTwvLyUJUmrI0z3iuaOJJm69ANI2OsGiIrywF/O8UueIygufXOgVAhiPH+o/XT7PWn
-	 KgMtEiR1+V2nUkdzwVQYwfFnPNEsEitZikrbIigMmB/Fa58sIRc7Kh5fvbeQOoIn9g
-	 F7M82JgyOU8ww==
+	b=Hwsl/LRE/2YQIO1C+pTljgL1EYaajiSI3xRckDsojaVXJPdKe3YosPKQlTl42OP6+
+	 E7rkrbqPZSxL8CISzUTQNnUZpnvyV+J2QlsVXsffDP92Q1Yb+MANIC9V3NnuDFJXqX
+	 2LIf+GFNW9ZFqayPqIjfY5YSaZJ1bkenhrhW6JQ+CM8Eyv7BMvEn7ASi++WOUmhjUT
+	 sgIQrxeS3IYUjEFYNeCb9yILP1PSD7fkt9H4XwHMDhhIDRhl7XSQTJd2VAm7zf9O4B
+	 HJQ3AirJN1kbVXUiUGLTNScIHzxvtNFlWV+ulkOfbcvLNPg/PpcBM2KqdCofOx+kYK
+	 B67aGjhnEYkZQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5DD9048ABA;
+	by lkml.kernel.org (Postfix) with ESMTP id 03F1F48A8A;
 	Tue, 10 Nov 2026 10:07:32 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 10:07:37 +0000
-Subject: [PATCH RFC 07/10] media: v4l2-hevc-enc: Add a constant bitrate
- mode
+Date: Tue, 10 Nov 2026 10:07:32 +0000
+Subject: [PATCH RFC 02/10] media: uapi: Add HEVC stateless encode support
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-hevc-encode-uapi-v1-7-38ae9fcfedd4@gmail.com>
+Message-Id: <20261110-hevc-encode-uapi-v1-2-38ae9fcfedd4@gmail.com>
 References: <20261110-hevc-encode-uapi-v1-0-38ae9fcfedd4@gmail.com>
 In-Reply-To: <20261110-hevc-encode-uapi-v1-0-38ae9fcfedd4@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -93,11 +92,11 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Hans Verkuil <hverkuil@kernel.org>, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305251; l=6157;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305251; l=24728;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=23ba8LskleVLZZbBxcmsP87XKCLHrF2u42oZjR6n+6k=;
- b=Gttsa90tsSGrgff3Gw4/JqPdfDS28JuD0I+laEZgjKtrfsmHsfMtHkft+VDMK/mlBnQ3tsbcZ
- RTR6ruVgS3zAAYtAn0bOnbMPX+dCinf+dBHktpxIbP41GibMUIX/rIZ
+ bh=GsdAHN+4rLXtRSxUci6QV1SjOXdVar1MOULA8Xw/szM=;
+ b=1k9gNn1th2sg9j6/8bJll5qNfpUqHyrRuxR7czhHMYdY1Rbr3qZ15wgnhvTsSew5ziQnAkOZ6
+ A7PKBg2Kjl5DS1H4Qpx+BnbBMdjK30/t5w3p+UUnosVUIGdVoVTwCJ6
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -108,163 +107,583 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The HEVC encode core leaves the constant bitrate mode to the drivers, so
-each driver needs its own frame rate control.
+Introduce the per-picture controls of a stateless HEVC encoder, modelled
+on the H.264 stateless encode uAPI: the sequence and picture parameter
+sets keep using the existing V4L2_CID_STATELESS_HEVC_SPS and _PPS
+controls (and struct v4l2_ctrl_hevc_sps/pps), and a new
+V4L2_CID_STATELESS_HEVC_ENCODE_PARAMS control carries what the slice
+segment headers of one picture need.
 
-Provide the mode in the core with the codec independent rate control of
-the H.264 encode core (v4l2-enc-cbr): one QP state for the stream, I
-pictures 4 QP below the P pictures (the default of the Rockchip MPP
-library for HEVC), picture size targets from a GOP plan with the I/P
-size ratio and IDR period measured on the stream, and the deviation from
-that plan spread over the next pictures. The size target of the current
-picture is available to drivers whose hardware also controls the rate
-within a picture.
+Unlike H.264, HEVC signals reference picture marking explicitly in every
+slice header through the reference picture set (RPS). The encode params
+therefore carry the RPS as a list of reference pictures identified by
+the timestamp of the OUTPUT buffer they were encoded from, each marked
+as used by the current picture or kept for later pictures, and short or
+long term. The kernel knows the picture order count of each
+reconstructed picture it keeps, so it turns that list into
+st_ref_pic_set() and the long-term part of the slice header, builds the
+reference picture lists, and drops every picture that is not listed,
+exactly like a decoder does (8.3.2). Hardware with a single reference
+read port selects its reference simply by having one entry marked as
+used.
 
-A driver rate control with an estimate callback still replaces the mode.
+The flags that carry slice header syntax elements use the same bit
+values as their V4L2_HEVC_SLICE_PARAMS_FLAG_* counterparts.
+
+Add a read-only V4L2_CID_STATELESS_HEVC_ENCODE_FEEDBACK control that
+describes how the picture was actually encoded: the values the kernel
+settled on (slice QP, the resolved reference picture lists) and
+statistics measured by the hardware. Since applications never set it,
+v4l2_ctrl_request_complete() copies the value the driver set at the end
+of the encode run into the request, so the feedback can be read back per
+request without read-only request support. The statistics are kept in a
+codec-agnostic struct v4l2_stateless_encode_stats, so that the H.264
+encoder can report the same data.
+
+Validate the new compound controls: reject NAL unit types that are not
+VCL picture types, TemporalId values that H.265 forbids for the given
+type, IRAP pictures with P/B slices or used references, P/B pictures
+without a used reference and duplicate references; zero the fields that
+are not coded for the given slice type.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/v4l2-core/Kconfig         |  1 +
- drivers/media/v4l2-core/v4l2-hevc-enc.c | 35 +++++++++++++++++++++++++++++++++
- include/media/v4l2-hevc-enc.h           | 11 +++++++++--
- 3 files changed, 45 insertions(+), 2 deletions(-)
+ drivers/media/v4l2-core/v4l2-ctrls-core.c | 194 ++++++++++++++++++++++++++++++
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c |   9 ++
+ include/media/v4l2-ctrls.h                |   4 +
+ include/uapi/linux/v4l2-controls.h        | 188 +++++++++++++++++++++++++++++
+ include/uapi/linux/videodev2.h            |   2 +
+ 5 files changed, 397 insertions(+)
 
-diff --git a/drivers/media/v4l2-core/Kconfig b/drivers/media/v4l2-core/Kconfig
-index eb245deb4622..0de0bad58791 100644
---- a/drivers/media/v4l2-core/Kconfig
-+++ b/drivers/media/v4l2-core/Kconfig
-@@ -60,6 +60,7 @@ config V4L2_HEVC_ENC_RBSP
- # Used by drivers that need v4l2-hevc-enc.ko
- config V4L2_HEVC_ENC
- 	tristate
-+	select V4L2_ENC_CBR
- 	select V4L2_HEVC_ENC_RBSP
- 
- config V4L2_HEVC_ENC_RBSP_KUNIT_TEST
-diff --git a/drivers/media/v4l2-core/v4l2-hevc-enc.c b/drivers/media/v4l2-core/v4l2-hevc-enc.c
-index e2aa7d2da96c..a167c4af6288 100644
---- a/drivers/media/v4l2-core/v4l2-hevc-enc.c
-+++ b/drivers/media/v4l2-core/v4l2-hevc-enc.c
-@@ -18,6 +18,7 @@
- #include <linux/sort.h>
- #include <linux/v4l2-controls.h>
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+index cb2b4b72914f..bdeabeb4c751 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+@@ -11,6 +11,7 @@
  #include <media/v4l2-ctrls.h>
-+#include <media/v4l2-enc-cbr.h>
- #include <media/v4l2-hevc.h>
- #include <media/v4l2-hevc-enc.h>
- #include <media/v4l2-hevc-enc-rbsp.h>
-@@ -26,6 +27,12 @@
- #define RBSP_UPDATE_AUD			BIT(0)
- #define RBSP_UPDATE_PARAMETER_SETS	BIT(1)
+ #include <media/v4l2-event.h>
+ #include <media/v4l2-fwnode.h>
++#include <media/v4l2-hevc.h>
  
-+/*
-+ * Constant bitrate mode: I pictures 4 QP below the P pictures, the default
-+ * of the Rockchip MPP library for HEVC.
-+ */
-+#define RC_CBR_QP_DELTA_INTRA		4
+ #include "v4l2-ctrls-priv.h"
+ 
+@@ -19,6 +20,21 @@ static const union v4l2_ctrl_ptr ptr_null;
+ #define V4L2_HEVC_MAX_SHORT_TERM_REF_PIC_SETS	64
+ #define V4L2_HEVC_MAX_LONG_TERM_REF_PICS_SPS	32
+ 
++#define V4L2_HEVC_ENCODE_FLAGS_ALL \
++	(V4L2_HEVC_ENCODE_FLAG_SLICE_SAO_LUMA | \
++	 V4L2_HEVC_ENCODE_FLAG_SLICE_SAO_CHROMA | \
++	 V4L2_HEVC_ENCODE_FLAG_SLICE_TEMPORAL_MVP_ENABLED | \
++	 V4L2_HEVC_ENCODE_FLAG_MVD_L1_ZERO | \
++	 V4L2_HEVC_ENCODE_FLAG_CABAC_INIT | \
++	 V4L2_HEVC_ENCODE_FLAG_COLLOCATED_FROM_L0 | \
++	 V4L2_HEVC_ENCODE_FLAG_SLICE_DEBLOCKING_FILTER_DISABLED | \
++	 V4L2_HEVC_ENCODE_FLAG_SLICE_LOOP_FILTER_ACROSS_SLICES_ENABLED | \
++	 V4L2_HEVC_ENCODE_FLAG_REFERENCE | \
++	 V4L2_HEVC_ENCODE_FLAG_NO_OUTPUT_OF_PRIOR_PICS | \
++	 V4L2_HEVC_ENCODE_FLAG_NO_PIC_OUTPUT | \
++	 V4L2_HEVC_ENCODE_FLAG_NUM_REF_IDX_ACTIVE_OVERRIDE | \
++	 V4L2_HEVC_ENCODE_FLAG_DEBLOCKING_FILTER_OVERRIDE)
 +
- /* Table A.8: MaxLumaPs and MaxLumaSr (main tier is enough to pick a level) */
- static const struct {
- 	u8 level_idc;
-@@ -150,6 +157,7 @@ int v4l2_hevc_enc_init(struct v4l2_hevc_enc *enc)
- 	memset(&enc->state_next, 0, sizeof(enc->state_next));
- 	memset(&enc->ref, 0, sizeof(enc->ref));
- 	enc->state_serial = 0;
-+	v4l2_enc_cbr_reset(&enc->cbr, RC_CBR_QP_DELTA_INTRA);
+ static void fill_event(struct v4l2_event *ev, struct v4l2_ctrl *ctrl,
+ 		       u32 changes)
+ {
+@@ -116,6 +132,8 @@ static void std_init_compound(const struct v4l2_ctrl *ctrl, u32 idx,
+ 	struct v4l2_ctrl_h264_scaling_matrix *p_h264_scaling_matrix;
+ 	struct v4l2_ctrl_av1_sequence *p_av1_sequence;
+ 	struct v4l2_ctrl_hevc_sps *p_hevc_sps;
++	struct v4l2_ctrl_hevc_encode_params *p_hevc_enc_params;
++	struct v4l2_ctrl_hevc_encode_feedback *p_hevc_enc_feedback;
+ 	void *p = ptr.p + idx * ctrl->elem_size;
  
- 	if (!enc->max_l0_refs)
- 		enc->max_l0_refs = 1;
-@@ -1052,6 +1060,18 @@ static int ref_step(struct v4l2_hevc_enc *enc)
- 	return 0;
+ 	if (ctrl->p_def.p_const)
+@@ -195,6 +213,20 @@ static void std_init_compound(const struct v4l2_ctrl *ctrl, u32 idx,
+ 		/* 4:2:0 */
+ 		p_hevc_sps->chroma_format_idc = 1;
+ 		break;
++	case V4L2_CTRL_TYPE_HEVC_ENCODE_PARAMS:
++		p_hevc_enc_params = p;
++		/* A valid default: an IDR picture. */
++		p_hevc_enc_params->nal_unit_type = V4L2_HEVC_NAL_IDR_W_RADL;
++		p_hevc_enc_params->nuh_temporal_id_plus1 = 1;
++		p_hevc_enc_params->slice_type = V4L2_HEVC_SLICE_TYPE_I;
++		p_hevc_enc_params->flags = V4L2_HEVC_ENCODE_FLAG_REFERENCE;
++		break;
++	case V4L2_CTRL_TYPE_HEVC_ENCODE_FEEDBACK:
++		p_hevc_enc_feedback = p;
++		p_hevc_enc_feedback->nal_unit_type = V4L2_HEVC_NAL_IDR_W_RADL;
++		p_hevc_enc_feedback->nuh_temporal_id_plus1 = 1;
++		p_hevc_enc_feedback->slice_type = V4L2_HEVC_SLICE_TYPE_I;
++		break;
+ 	}
  }
  
-+/*
-+ * The core provides the constant bitrate mode unless the driver has its own
-+ * rate control.
-+ */
-+static bool rc_core_cbr(const struct v4l2_hevc_enc *enc,
-+			const struct v4l2_hevc_enc_state *state)
+@@ -449,6 +481,12 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
+ 	case V4L2_CTRL_TYPE_HEVC_DECODE_PARAMS:
+ 		pr_cont("HEVC_DECODE_PARAMS");
+ 		break;
++	case V4L2_CTRL_TYPE_HEVC_ENCODE_PARAMS:
++		pr_cont("HEVC_ENCODE_PARAMS");
++		break;
++	case V4L2_CTRL_TYPE_HEVC_ENCODE_FEEDBACK:
++		pr_cont("HEVC_ENCODE_FEEDBACK");
++		break;
+ 	case V4L2_CTRL_TYPE_AV1_SEQUENCE:
+ 		pr_cont("AV1_SEQUENCE");
+ 		break;
+@@ -988,6 +1026,140 @@ static int validate_av1_sequence(struct v4l2_ctrl_av1_sequence *s)
+  * in order to properly detect unchanged controls with v4l2_ctrl_type_op_equal's
+  * memcmp.
+  */
++static int
++validate_hevc_encode_params(struct v4l2_ctrl_hevc_encode_params *p)
 +{
-+	return state->frame_rc_enable &&
-+	       state->bitrate_mode == V4L2_MPEG_VIDEO_BITRATE_MODE_CBR &&
-+	       !(enc->rc_ops && enc->rc_ops->estimate);
++	u8 nal_unit_type = p->nal_unit_type;
++	bool used = false;
++	unsigned int i, j;
++
++	if (p->flags & ~V4L2_HEVC_ENCODE_FLAGS_ALL)
++		return -EINVAL;
++
++	/* Only the VCL NAL unit types of Table 7-1 that can be produced. */
++	if (nal_unit_type > V4L2_HEVC_NAL_RASL_R &&
++	    (nal_unit_type < V4L2_HEVC_NAL_BLA_W_LP ||
++	     nal_unit_type > V4L2_HEVC_NAL_CRA_NUT))
++		return -EINVAL;
++
++	if (p->slice_type > V4L2_HEVC_SLICE_TYPE_I)
++		return -EINVAL;
++
++	if (!p->nuh_temporal_id_plus1 ||
++	    p->nuh_temporal_id_plus1 > V4L2_HEVC_MAX_SUB_LAYERS)
++		return -EINVAL;
++
++	/* IRAP pictures only contain I slices and have TemporalId 0. */
++	if (v4l2_hevc_nal_is_irap(nal_unit_type) &&
++	    (p->slice_type != V4L2_HEVC_SLICE_TYPE_I ||
++	     p->nuh_temporal_id_plus1 != 1))
++		return -EINVAL;
++
++	/* TSA and STSA pictures cannot have TemporalId 0 (7.4.2.2). */
++	if (nal_unit_type >= V4L2_HEVC_NAL_TSA_N &&
++	    nal_unit_type <= V4L2_HEVC_NAL_STSA_R &&
++	    p->nuh_temporal_id_plus1 == 1)
++		return -EINVAL;
++
++	if (p->num_refs > V4L2_HEVC_DPB_ENTRIES_NUM_MAX)
++		return -EINVAL;
++
++	if (p->five_minus_max_num_merge_cand > 4)
++		return -EINVAL;
++
++	if (p->slice_cb_qp_offset < -12 || p->slice_cb_qp_offset > 12 ||
++	    p->slice_cr_qp_offset < -12 || p->slice_cr_qp_offset > 12)
++		return -EINVAL;
++
++	if (p->num_ref_idx_l0_active_minus1 >= V4L2_HEVC_DPB_ENTRIES_NUM_MAX - 1 ||
++	    p->num_ref_idx_l1_active_minus1 >= V4L2_HEVC_DPB_ENTRIES_NUM_MAX - 1 ||
++	    p->collocated_ref_idx >= V4L2_HEVC_DPB_ENTRIES_NUM_MAX - 1)
++		return -EINVAL;
++
++	if (p->flags & V4L2_HEVC_ENCODE_FLAG_DEBLOCKING_FILTER_OVERRIDE &&
++	    !(p->flags & V4L2_HEVC_ENCODE_FLAG_SLICE_DEBLOCKING_FILTER_DISABLED)) {
++		if (p->slice_beta_offset_div2 < -6 ||
++		    p->slice_beta_offset_div2 > 6 ||
++		    p->slice_tc_offset_div2 < -6 ||
++		    p->slice_tc_offset_div2 > 6)
++			return -EINVAL;
++	} else {
++		p->slice_beta_offset_div2 = 0;
++		p->slice_tc_offset_div2 = 0;
++	}
++
++	if (!(p->flags & V4L2_HEVC_ENCODE_FLAG_DEBLOCKING_FILTER_OVERRIDE))
++		p->flags &= ~V4L2_HEVC_ENCODE_FLAG_SLICE_DEBLOCKING_FILTER_DISABLED;
++
++	/* An IDR picture empties the DPB: it has no reference picture set. */
++	if (v4l2_hevc_nal_is_idr(nal_unit_type)) {
++		p->pic_order_cnt_val = 0;
++		p->num_refs = 0;
++	}
++
++	for (i = 0; i < V4L2_HEVC_DPB_ENTRIES_NUM_MAX; i++) {
++		struct v4l2_hevc_encode_ref *ref = &p->refs[i];
++
++		if (i >= p->num_refs) {
++			memset(ref, 0, sizeof(*ref));
++			continue;
++		}
++
++		if (ref->flags & ~(V4L2_HEVC_ENCODE_REF_FLAG_USED_BY_CURR_PIC |
++				   V4L2_HEVC_ENCODE_REF_FLAG_LONG_TERM))
++			return -EINVAL;
++
++		zero_reserved(*ref);
++
++		for (j = 0; j < i; j++)
++			if (p->refs[j].timestamp == ref->timestamp)
++				return -EINVAL;
++
++		if (ref->flags & V4L2_HEVC_ENCODE_REF_FLAG_USED_BY_CURR_PIC)
++			used = true;
++	}
++
++	/* NumPicTotalCurr is 0 for BLA and CRA pictures (7.4.7.2). */
++	if (v4l2_hevc_nal_is_irap(nal_unit_type) && used)
++		return -EINVAL;
++
++	/* P and B slices need at least one reference (7.4.7.2). */
++	if (p->slice_type != V4L2_HEVC_SLICE_TYPE_I && !used)
++		return -EINVAL;
++
++	if (p->slice_type == V4L2_HEVC_SLICE_TYPE_I) {
++		p->num_ref_idx_l0_active_minus1 = 0;
++		p->num_ref_idx_l1_active_minus1 = 0;
++		p->collocated_ref_idx = 0;
++		p->five_minus_max_num_merge_cand = 0;
++		p->flags &= ~(V4L2_HEVC_ENCODE_FLAG_NUM_REF_IDX_ACTIVE_OVERRIDE |
++			      V4L2_HEVC_ENCODE_FLAG_SLICE_TEMPORAL_MVP_ENABLED |
++			      V4L2_HEVC_ENCODE_FLAG_COLLOCATED_FROM_L0 |
++			      V4L2_HEVC_ENCODE_FLAG_CABAC_INIT);
++	}
++
++	if (p->slice_type != V4L2_HEVC_SLICE_TYPE_B) {
++		p->num_ref_idx_l1_active_minus1 = 0;
++		p->flags &= ~V4L2_HEVC_ENCODE_FLAG_MVD_L1_ZERO;
++
++		/* collocated_from_l0_flag is inferred to be 1 (7.4.7.1). */
++		if (p->slice_type == V4L2_HEVC_SLICE_TYPE_P)
++			p->flags |= V4L2_HEVC_ENCODE_FLAG_COLLOCATED_FROM_L0;
++	}
++
++	if (!(p->flags & V4L2_HEVC_ENCODE_FLAG_NUM_REF_IDX_ACTIVE_OVERRIDE)) {
++		p->num_ref_idx_l0_active_minus1 = 0;
++		p->num_ref_idx_l1_active_minus1 = 0;
++	}
++
++	if (!(p->flags & V4L2_HEVC_ENCODE_FLAG_SLICE_TEMPORAL_MVP_ENABLED))
++		p->collocated_ref_idx = 0;
++
++	zero_reserved(*p);
++
++	return 0;
 +}
 +
- static int rc_step(struct v4l2_hevc_enc *enc)
+ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
+ 				 union v4l2_ctrl_ptr ptr)
  {
- 	struct v4l2_hevc_enc_state *state = &enc->state_active;
-@@ -1074,6 +1094,17 @@ static int rc_step(struct v4l2_hevc_enc *enc)
- 		if (range)
- 			qp -= (state->quality - state->quality_min) *
- 			      (state->qp_max - state->qp_min) / range;
-+	} else if (rc_core_cbr(enc, state)) {
-+		ret = v4l2_enc_cbr_begin(&enc->cbr, state->bitrate,
-+					 &state->timeperframe,
-+					 state->sps.pic_width_in_luma_samples *
-+					 state->sps.pic_height_in_luma_samples,
-+					 slice_type == V4L2_HEVC_SLICE_TYPE_I,
-+					 state->qp_min, state->qp_max);
-+		if (ret)
-+			return ret;
+@@ -1008,6 +1180,7 @@ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
+ 	struct v4l2_ctrl_hevc_slice_params *p_hevc_slice_params;
+ 	struct v4l2_ctrl_hdr10_mastering_display *p_hdr10_mastering;
+ 	struct v4l2_ctrl_hevc_decode_params *p_hevc_decode_params;
++	struct v4l2_ctrl_hevc_encode_feedback *p_hevc_enc_feedback;
+ 	struct v4l2_area *area;
+ 	struct v4l2_rect *rect;
+ 	void *p = ptr.p + idx * ctrl->elem_size;
+@@ -1402,6 +1575,21 @@ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
+ 			return -EINVAL;
+ 		break;
+ 
++	case V4L2_CTRL_TYPE_HEVC_ENCODE_PARAMS:
++		return validate_hevc_encode_params(p);
 +
-+		qp = v4l2_enc_cbr_qp(&enc->cbr);
- 	} else {
- 		if (!enc->rc_ops || !enc->rc_ops->estimate)
- 			return -EOPNOTSUPP;
-@@ -1382,6 +1413,10 @@ int v4l2_hevc_enc_complete(struct v4l2_hevc_enc *enc,
- 	    !v4l2_hevc_nal_is_sub_layer_non_ref(nal_unit_type))
- 		enc->ref.prev_tid0_poc = encode->pic_order_cnt_val;
++	case V4L2_CTRL_TYPE_HEVC_ENCODE_FEEDBACK:
++		p_hevc_enc_feedback = p;
++
++		memset(&p_hevc_enc_feedback->reserved0, 0,
++		       sizeof(p_hevc_enc_feedback->reserved0));
++		memset(&p_hevc_enc_feedback->reserved1, 0,
++		       sizeof(p_hevc_enc_feedback->reserved1));
++		memset(&p_hevc_enc_feedback->stats.reserved0, 0,
++		       sizeof(p_hevc_enc_feedback->stats.reserved0));
++		p_hevc_enc_feedback->stats.reserved1 = 0;
++		break;
++
+ 	case V4L2_CTRL_TYPE_HDR10_CLL_INFO:
+ 		break;
  
-+	if (rc_core_cbr(enc, state))
-+		v4l2_enc_cbr_end(&enc->cbr, (u64)bytesused * 8,
-+				 &state->timeperframe, state->qp_min,
-+				 state->qp_max);
- 	if (enc->rc_ops && enc->rc_ops->complete)
- 		enc->rc_ops->complete(enc, state, bytesused, stats);
+@@ -2185,6 +2373,12 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
+ 	case V4L2_CTRL_TYPE_HEVC_DECODE_PARAMS:
+ 		elem_size = sizeof(struct v4l2_ctrl_hevc_decode_params);
+ 		break;
++	case V4L2_CTRL_TYPE_HEVC_ENCODE_PARAMS:
++		elem_size = sizeof(struct v4l2_ctrl_hevc_encode_params);
++		break;
++	case V4L2_CTRL_TYPE_HEVC_ENCODE_FEEDBACK:
++		elem_size = sizeof(struct v4l2_ctrl_hevc_encode_feedback);
++		break;
+ 	case V4L2_CTRL_TYPE_HDR10_CLL_INFO:
+ 		elem_size = sizeof(struct v4l2_ctrl_hdr10_cll_info);
+ 		break;
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+index a0ac858968b6..123b56a32ed5 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+@@ -1239,6 +1239,8 @@ const char *v4l2_ctrl_get_name(u32 id)
+ 	case V4L2_CID_STATELESS_HEVC_ENTRY_POINT_OFFSETS:	return "HEVC Entry Point Offsets";
+ 	case V4L2_CID_STATELESS_HEVC_EXT_SPS_ST_RPS:		return "HEVC Short Term Ref Sets";
+ 	case V4L2_CID_STATELESS_HEVC_EXT_SPS_LT_RPS:		return "HEVC Long Term Ref Sets";
++	case V4L2_CID_STATELESS_HEVC_ENCODE_PARAMS:		return "HEVC Encode Parameters";
++	case V4L2_CID_STATELESS_HEVC_ENCODE_FEEDBACK:		return "HEVC Encode Feedback";
+ 	case V4L2_CID_STATELESS_AV1_SEQUENCE:			return "AV1 Sequence Parameters";
+ 	case V4L2_CID_STATELESS_AV1_TILE_GROUP_ENTRY:		return "AV1 Tile Group Entry";
+ 	case V4L2_CID_STATELESS_AV1_FRAME:			return "AV1 Frame Parameters";
+@@ -1597,6 +1599,13 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
+ 		*type = V4L2_CTRL_TYPE_HEVC_EXT_SPS_LT_RPS;
+ 		*flags |= V4L2_CTRL_FLAG_DYNAMIC_ARRAY;
+ 		break;
++	case V4L2_CID_STATELESS_HEVC_ENCODE_PARAMS:
++		*type = V4L2_CTRL_TYPE_HEVC_ENCODE_PARAMS;
++		break;
++	case V4L2_CID_STATELESS_HEVC_ENCODE_FEEDBACK:
++		*type = V4L2_CTRL_TYPE_HEVC_ENCODE_FEEDBACK;
++		*flags |= V4L2_CTRL_FLAG_READ_ONLY;
++		break;
+ 	case V4L2_CID_STATELESS_VP9_COMPRESSED_HDR:
+ 		*type = V4L2_CTRL_TYPE_VP9_COMPRESSED_HDR;
+ 		break;
+diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
+index 63f1aa373735..042d30b061da 100644
+--- a/include/media/v4l2-ctrls.h
++++ b/include/media/v4l2-ctrls.h
+@@ -50,6 +50,8 @@ struct video_device;
+  * @p_hevc_sps:			Pointer to an HEVC sequence parameter set structure.
+  * @p_hevc_pps:			Pointer to an HEVC picture parameter set structure.
+  * @p_hevc_slice_params:	Pointer to an HEVC slice parameters structure.
++ * @p_hevc_encode_params:	Pointer to an HEVC encode parameters structure.
++ * @p_hevc_encode_feedback:	Pointer to an HEVC encode feedback structure.
+  * @p_hdr10_cll:		Pointer to an HDR10 Content Light Level structure.
+  * @p_hdr10_mastering:		Pointer to an HDR10 Mastering Display structure.
+  * @p_area:			Pointer to an area.
+@@ -83,6 +85,8 @@ union v4l2_ctrl_ptr {
+ 	struct v4l2_ctrl_hevc_sps *p_hevc_sps;
+ 	struct v4l2_ctrl_hevc_pps *p_hevc_pps;
+ 	struct v4l2_ctrl_hevc_slice_params *p_hevc_slice_params;
++	struct v4l2_ctrl_hevc_encode_params *p_hevc_encode_params;
++	struct v4l2_ctrl_hevc_encode_feedback *p_hevc_encode_feedback;
+ 	struct v4l2_ctrl_vp9_compressed_hdr *p_vp9_compressed_hdr_probs;
+ 	struct v4l2_ctrl_vp9_frame *p_vp9_frame;
+ 	struct v4l2_ctrl_hdr10_cll_info *p_hdr10_cll;
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index 3aca0f8c5248..cb88a560bdfa 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -2159,6 +2159,8 @@ struct v4l2_ctrl_mpeg2_quantisation {
+ #define V4L2_CID_STATELESS_HEVC_ENTRY_POINT_OFFSETS (V4L2_CID_CODEC_STATELESS_BASE + 407)
+ #define V4L2_CID_STATELESS_HEVC_EXT_SPS_ST_RPS  (V4L2_CID_CODEC_STATELESS_BASE + 408)
+ #define V4L2_CID_STATELESS_HEVC_EXT_SPS_LT_RPS  (V4L2_CID_CODEC_STATELESS_BASE + 409)
++#define V4L2_CID_STATELESS_HEVC_ENCODE_PARAMS	(V4L2_CID_CODEC_STATELESS_BASE + 410)
++#define V4L2_CID_STATELESS_HEVC_ENCODE_FEEDBACK	(V4L2_CID_CODEC_STATELESS_BASE + 411)
  
-diff --git a/include/media/v4l2-hevc-enc.h b/include/media/v4l2-hevc-enc.h
-index 4797102e34b3..3db131370c56 100644
---- a/include/media/v4l2-hevc-enc.h
-+++ b/include/media/v4l2-hevc-enc.h
-@@ -9,6 +9,7 @@
- #include <linux/types.h>
- #include <linux/v4l2-controls.h>
- #include <linux/videodev2.h>
-+#include <media/v4l2-enc-cbr.h>
- #include <media/v4l2-hevc-enc-rbsp.h>
+ enum v4l2_stateless_hevc_decode_mode {
+ 	V4L2_STATELESS_HEVC_DECODE_MODE_SLICE_BASED,
+@@ -2673,6 +2675,192 @@ struct v4l2_ctrl_hevc_ext_sps_lt_rps {
+ 	__u16	flags;
+ };
  
- struct v4l2_ctrl_handler;
-@@ -186,8 +187,10 @@ struct v4l2_hevc_enc_ops {
- /**
-  * struct v4l2_hevc_enc_rc_ops - driver rate control
-  *
-- * The core selects the QP itself for the direct QP and constant quality
-- * modes. These callbacks provide the constant and variable bitrate modes.
-+ * The core selects the QP itself for the direct QP, constant quality and
-+ * constant bitrate modes. These callbacks replace the constant bitrate
-+ * mode of the core (if @estimate is set) and provide the variable bitrate
-+ * mode.
-  *
-  * @estimate: return the QP of the next picture in @qp
-  * @complete: account for a completed picture
-@@ -231,6 +234,9 @@ struct v4l2_hevc_enc_rc_ops {
-  * @rbsp: NAL unit writer
-  * @slice: slice segment header of the current picture
-  * @qp: SliceQpY of the current picture
-+ * @cbr: constant bitrate rate control of the core. In that mode,
-+ *	 @cbr.target_bits is the size target of the current picture in bits,
-+ *	 for hardware with a rate control within the picture.
-  * @header_size: number of bytes the core wrote at the start of the
-  *		 CAPTURE buffer. The hardware writes from that offset.
-  * @parameter_sets_pending: parameter sets were written for a picture that
-@@ -261,6 +267,7 @@ struct v4l2_hevc_enc {
- 	struct v4l2_hevc_enc_rbsp rbsp;
- 	struct v4l2_hevc_slice_header slice;
- 	int qp;
-+	struct v4l2_enc_cbr cbr;
- 	unsigned int header_size;
- 	bool parameter_sets_pending;
++#define V4L2_STATELESS_ENCODE_STATS_FLAG_QP		0x00000001
++#define V4L2_STATELESS_ENCODE_STATS_FLAG_SSE_LUMA	0x00000002
++#define V4L2_STATELESS_ENCODE_STATS_FLAG_BLOCKS		0x00000004
++#define V4L2_STATELESS_ENCODE_STATS_FLAG_SKIP_BLOCKS	0x00000008
++
++/**
++ * struct v4l2_stateless_encode_stats - stateless encoder per-frame statistics
++ *
++ * Statistics measured by the hardware while encoding one frame. Only the
++ * fields whose V4L2_STATELESS_ENCODE_STATS_FLAG_{} bit is set in @flags are
++ * valid, the others are zero. This structure does not depend on the codec.
++ *
++ * @flags: see V4L2_STATELESS_ENCODE_STATS_FLAG_{}
++ * @header_size: number of bytes the kernel wrote at the start of the
++ *		 CAPTURE buffer (parameter sets, access unit delimiter, slice
++ *		 header) before the hardware-produced data
++ * @qp_sum: sum of the luma quantisation parameters of all blocks counted in
++ *	    @qp_count. Valid with V4L2_STATELESS_ENCODE_STATS_FLAG_QP.
++ * @qp_count: number of blocks summed in @qp_sum. @qp_sum / @qp_count is the
++ *	      average QP of the frame.
++ * @qp_min: smallest luma quantisation parameter used in the frame
++ * @qp_max: largest luma quantisation parameter used in the frame
++ * @reserved0: padding field. Should be zeroed by applications.
++ * @sse_luma: sum of squared errors between the source and the reconstructed
++ *	      luma samples of the frame. Valid with
++ *	      V4L2_STATELESS_ENCODE_STATS_FLAG_SSE_LUMA.
++ * @num_intra_blocks: number of 8x8 luma blocks coded with intra prediction.
++ *		      Valid with V4L2_STATELESS_ENCODE_STATS_FLAG_BLOCKS, like
++ *		      @num_inter_blocks.
++ * @num_inter_blocks: number of 8x8 luma blocks coded with inter prediction,
++ *		      including skipped blocks
++ * @num_skip_blocks: number of 8x8 luma blocks coded in skip mode, part of
++ *		     @num_inter_blocks. Valid with
++ *		     V4L2_STATELESS_ENCODE_STATS_FLAG_SKIP_BLOCKS.
++ * @reserved1: padding field. Should be zeroed by applications.
++ */
++struct v4l2_stateless_encode_stats {
++	__u32	flags;
++	__u32	header_size;
++	__u32	qp_sum;
++	__u32	qp_count;
++	__s8	qp_min;
++	__s8	qp_max;
++	__u8	reserved0[6];
++	__u64	sse_luma;
++	__u32	num_intra_blocks;
++	__u32	num_inter_blocks;
++	__u32	num_skip_blocks;
++	__u32	reserved1;
++};
++
++#define V4L2_HEVC_ENCODE_REF_FLAG_USED_BY_CURR_PIC	0x01
++#define V4L2_HEVC_ENCODE_REF_FLAG_LONG_TERM		0x02
++
++/**
++ * struct v4l2_hevc_encode_ref - HEVC encoder reference picture set entry
++ *
++ * @timestamp: timestamp of the OUTPUT (source) buffer from which the
++ *	       reference picture was encoded. Use v4l2_timeval_to_ns() to
++ *	       convert the struct timeval to a __u64.
++ * @flags: see V4L2_HEVC_ENCODE_REF_FLAG_{}
++ * @reserved: padding field. Should be zeroed by applications.
++ */
++struct v4l2_hevc_encode_ref {
++	__u64	timestamp;
++	__u8	flags;
++	__u8	reserved[7];
++};
++
++/*
++ * The first flags have the same values as the V4L2_HEVC_SLICE_PARAMS_FLAG_{}
++ * flags that carry the same slice header syntax element.
++ */
++#define V4L2_HEVC_ENCODE_FLAG_SLICE_SAO_LUMA			(1ULL << 0)
++#define V4L2_HEVC_ENCODE_FLAG_SLICE_SAO_CHROMA			(1ULL << 1)
++#define V4L2_HEVC_ENCODE_FLAG_SLICE_TEMPORAL_MVP_ENABLED	(1ULL << 2)
++#define V4L2_HEVC_ENCODE_FLAG_MVD_L1_ZERO			(1ULL << 3)
++#define V4L2_HEVC_ENCODE_FLAG_CABAC_INIT			(1ULL << 4)
++#define V4L2_HEVC_ENCODE_FLAG_COLLOCATED_FROM_L0		(1ULL << 5)
++#define V4L2_HEVC_ENCODE_FLAG_SLICE_DEBLOCKING_FILTER_DISABLED	(1ULL << 7)
++#define V4L2_HEVC_ENCODE_FLAG_SLICE_LOOP_FILTER_ACROSS_SLICES_ENABLED (1ULL << 8)
++#define V4L2_HEVC_ENCODE_FLAG_REFERENCE				(1ULL << 16)
++#define V4L2_HEVC_ENCODE_FLAG_NO_OUTPUT_OF_PRIOR_PICS		(1ULL << 17)
++#define V4L2_HEVC_ENCODE_FLAG_NO_PIC_OUTPUT			(1ULL << 18)
++#define V4L2_HEVC_ENCODE_FLAG_NUM_REF_IDX_ACTIVE_OVERRIDE	(1ULL << 19)
++#define V4L2_HEVC_ENCODE_FLAG_DEBLOCKING_FILTER_OVERRIDE	(1ULL << 20)
++
++/**
++ * struct v4l2_ctrl_hevc_encode_params - HEVC stateless encode parameters
++ *
++ * Per-picture parameters of a stateless HEVC encode run. The kernel writes
++ * the NAL unit header and the slice segment header(s) from these values,
++ * or has the hardware write them.
++ *
++ * @nal_unit_type: NAL unit type of the coded slice segments (ITU-T Rec.
++ *		   H.265 Table 7-1, VCL types 0 to 9 and 16 to 21)
++ * @nuh_temporal_id_plus1: TemporalId of the picture plus 1
++ * @slice_type: slice type of the picture, see V4L2_HEVC_SLICE_TYPE_{}
++ * @pic_parameter_set_id: identifies the PPS in use
++ * @pic_order_cnt_val: picture order count of the picture (PicOrderCntVal).
++ *		       The kernel derives slice_pic_order_cnt_lsb from it.
++ * @num_ref_idx_l0_active_minus1: maximum reference index for reference
++ *				  picture list 0, used with
++ *				  V4L2_HEVC_ENCODE_FLAG_NUM_REF_IDX_ACTIVE_OVERRIDE
++ * @num_ref_idx_l1_active_minus1: maximum reference index for reference
++ *				  picture list 1, used with
++ *				  V4L2_HEVC_ENCODE_FLAG_NUM_REF_IDX_ACTIVE_OVERRIDE
++ * @collocated_ref_idx: reference index of the collocated picture used for
++ *			temporal motion vector prediction
++ * @five_minus_max_num_merge_cand: maximum number of merging motion vector
++ *				   prediction candidates subtracted from 5
++ * @slice_cb_qp_offset: difference to be added to pps_cb_qp_offset
++ * @slice_cr_qp_offset: difference to be added to pps_cr_qp_offset
++ * @slice_beta_offset_div2: deblocking parameter offset for beta divided by 2
++ * @slice_tc_offset_div2: deblocking parameter offset for tC divided by 2
++ * @num_refs: number of valid entries in @refs
++ * @reserved: padding field. Should be zeroed by applications.
++ * @refs: reference picture set of the picture: every previously encoded
++ *	  picture that the current picture or a following picture uses for
++ *	  inter prediction. Pictures that are not listed are removed from the
++ *	  decoded picture buffer.
++ * @flags: see V4L2_HEVC_ENCODE_FLAG_{}
++ */
++struct v4l2_ctrl_hevc_encode_params {
++	__u8	nal_unit_type;
++	__u8	nuh_temporal_id_plus1;
++	__u8	slice_type;
++	__u8	pic_parameter_set_id;
++	__s32	pic_order_cnt_val;
++	__u8	num_ref_idx_l0_active_minus1;
++	__u8	num_ref_idx_l1_active_minus1;
++	__u8	collocated_ref_idx;
++	__u8	five_minus_max_num_merge_cand;
++	__s8	slice_cb_qp_offset;
++	__s8	slice_cr_qp_offset;
++	__s8	slice_beta_offset_div2;
++	__s8	slice_tc_offset_div2;
++	__u8	num_refs;
++	__u8	reserved[7];
++	struct v4l2_hevc_encode_ref refs[V4L2_HEVC_DPB_ENTRIES_NUM_MAX];
++	__u64	flags;
++};
++
++#define V4L2_HEVC_ENCODE_FEEDBACK_FLAG_REFERENCE		0x01
++
++/**
++ * struct v4l2_ctrl_hevc_encode_feedback - HEVC stateless encode feedback
++ *
++ * Read-only description of how a picture was actually encoded. The kernel
++ * sets it when the encode run completes, so applications read it from the
++ * completed request.
++ *
++ * @timestamp: timestamp of the OUTPUT (source) buffer that was encoded
++ * @pic_order_cnt_val: picture order count of the picture
++ * @nal_unit_type: NAL unit type that was used
++ * @nuh_temporal_id_plus1: TemporalId that was used, plus 1
++ * @slice_type: slice type that was used, see V4L2_HEVC_SLICE_TYPE_{}
++ * @slice_qp: luma quantisation parameter of the first slice (SliceQpY)
++ * @num_ref_idx_l0_active: number of entries in reference picture list 0
++ * @num_ref_idx_l1_active: number of entries in reference picture list 1
++ * @reserved0: padding field. Should be zeroed by applications.
++ * @ref_idx_l0: index in &v4l2_ctrl_hevc_encode_params.refs of each entry of
++ *		reference picture list 0
++ * @ref_idx_l1: index in &v4l2_ctrl_hevc_encode_params.refs of each entry of
++ *		reference picture list 1
++ * @reserved1: padding field. Should be zeroed by applications.
++ * @stats: statistics measured while encoding the picture
++ * @flags: see V4L2_HEVC_ENCODE_FEEDBACK_FLAG_{}
++ */
++struct v4l2_ctrl_hevc_encode_feedback {
++	__u64	timestamp;
++	__s32	pic_order_cnt_val;
++	__u8	nal_unit_type;
++	__u8	nuh_temporal_id_plus1;
++	__u8	slice_type;
++	__s8	slice_qp;
++	__u8	num_ref_idx_l0_active;
++	__u8	num_ref_idx_l1_active;
++	__u8	reserved0[2];
++	__u8	ref_idx_l0[V4L2_HEVC_DPB_ENTRIES_NUM_MAX];
++	__u8	ref_idx_l1[V4L2_HEVC_DPB_ENTRIES_NUM_MAX];
++	__u8	reserved1[4];
++	struct v4l2_stateless_encode_stats stats;
++	__u64	flags;
++};
++
+ /* Stateless VP9 controls */
  
+ #define V4L2_VP9_LOOP_FILTER_FLAG_DELTA_ENABLED	0x1
+diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
+index e19628c520e6..a5673254e315 100644
+--- a/include/uapi/linux/videodev2.h
++++ b/include/uapi/linux/videodev2.h
+@@ -1993,6 +1993,8 @@ enum v4l2_ctrl_type {
+ 	V4L2_CTRL_TYPE_HEVC_DECODE_PARAMS	= 0x0274,
+ 	V4L2_CTRL_TYPE_HEVC_EXT_SPS_ST_RPS	= 0x0275,
+ 	V4L2_CTRL_TYPE_HEVC_EXT_SPS_LT_RPS	= 0x0276,
++	V4L2_CTRL_TYPE_HEVC_ENCODE_PARAMS	= 0x0277,
++	V4L2_CTRL_TYPE_HEVC_ENCODE_FEEDBACK	= 0x0278,
+ 
+ 	V4L2_CTRL_TYPE_AV1_SEQUENCE	    = 0x280,
+ 	V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY = 0x281,
 
 -- 
 2.55.0
