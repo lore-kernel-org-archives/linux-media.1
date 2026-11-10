@@ -1,101 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794314236;
-	b=375/VGseGVdpd8f6bpu/guw8KXSzIOQCLDWZKh42QET9oysCGnugbVQYmWog2zjSqcND
-	 zkNtXtto4o2O6FewMqg4StaT/4Gvmoh+jNQcAL70/JYZGALBPgxjppLt5JiOwMSbtDy44
-	 OfhYDjMwWrWtKR+d5JehkPwfUZ85G4N9+AS+24Snw6o3vIQerDgZTXdYE/rTN4WCjcx4V
-	 eksn7GfJTWppAOB1RK0FtMPFZ6/7fI+mh25QrrvO9+VgQcVrduo/7xi0qlraNJjn59LAD
-	 gtuJTwmcQEivYCetJlT+tEnGQBFleKkcxdmSTvLwIv5FFyilUnkIe5ZLCBzktZGiewQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314236;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794314282;
+	b=K7QGiyoYUu4sT9aAh5ROxcoJjChVtngpP++r4o8hwYj9XdqG0ViOjzBsHL3tXUSFDH7b
+	 rAOzblEKQ7ZjZNaPKefFOejswG2tgqqwzC5mLjrE60BCqFnYhK4X2xd+/ArX6DMv7ajxB
+	 hA10OWYvDO8puTpSLZN1XpW03+RIiXrWnuPMk8HpFiKaJD9zaJeVxatHccurCc2Lx5Nu6
+	 ERBlvS85oeSeBG6mRBHd14YWgnC8pk8meKYJX8CSM+D8KdFQN8KoGYRL1qOq6IIoKGEkw
+	 pCwjTYXpGm+Yw7L7NRUg73Y9l+8dwlET3zN7vv8f7s0tMORX8gMWLO9YYxyFk5ywMDQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314282;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=87rulhgJfiv21qEaTxseqV/cAge3CoEQMJ20JUEXXlI=;
-	b=nEt1YrsXqPfS5LAlpUsBkE+j//CoY0NNvglulD+Dsh6QRY5MmjhLDkCC9yAWUnbzVn86
-	 qjWFx1k0v2lzqKP7QF+niVvmho4cQaqKC1j5wRF6rkNt4rsdcvMSLfjWchfGcuz7gm+g/
-	 fT5/sbtK3thoZWyX2XzZB3L5M1XZYEWMYA+8xNYusaMIAtXAD1g10oh1RlPAGObUH+K+1
-	 VLYRA+jYF1G4uxAsBmxvGaO5ngt2/CZCB6QFv00zhYTdA/i6cpLEgIYan7MHsynmItcUb
-	 SaEAbAlS0eT+LgqbSxGzJ97D62wEq4b0ytbQYFZg1DAa7r56Z6dvrEjmXtxG6HygHig==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QaxtLhML;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=LIqybWUTQzegIEfoVn3a6+qxGy8XVtvbVV2ymuSqRgc=;
+	b=JaON2/8wDhvPs6HEWjiaXIbfGVh9d+iyrWmoISvZc5zXbnrKX/IoYOXyrmsY4Zy2xwGD
+	 TAo+XrMYDQq1U3seBrd61xp6vmp+tLd3qiGRZBhumNZari2DTJY3atSV+X49I8S6AZzaq
+	 z7ftaa5OffXStB0tE58j4TkoXwSzmLkl4HZahJ+DUx6KHM+LRMoV7dnZerF9XdWmmAT0x
+	 u4xSAMK58yFlwJl4pvxqkm6MhrePvNQTdcPBeqQeDWnUkymn0lp+fcVnNma/MNZDbiTvP
+	 jlWUxs0h2mUqE1mZrcC5wxISFlEy1xwAn4U+/7RoHr6gvfl7vEzI2HOuvhtUuHuzlng==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=metarealtyinc.ca;
+	spf=pass smtp.mailfrom=metarealtyinc.ca;
+	dkim=pass header.d=metarealtyinc.ca header.i=@metarealtyinc.ca header.a=rsa-sha256 header.s=google header.b=RhEL56TW;
+	arc=none smtp.remote-ip=209.85.217.48
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95966606A31C
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 12:37:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95966606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC673606A31C
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 12:38:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC673606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QaxtLhML
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c49c32650adso100286966b.0
-        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 04:37:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794314234; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NctFh6regAZwqGhSo7WktZy8UiiRVtK9BWs1KvvkHZk//scZxgi1MI+Xl1tIO6QKzb
-         qTRcZqcoNxMrfmYGzFmbfhWLf0ZZWH6SPJd6kdOZWZ3y6O/3L6Be9FaJCLlzidZt3CD6
-         cFu36B485pEgsORnmqTPmz20+VceSrQLWjTKW/kaoOvejM6ye2XKq6e5j6G3H2Qp1V4r
-         hFnQXVI7YXor1Murl6TFWbu5L090x1rVGpQtYoD82KsLpG9aBDUGI4aFP3DMjzfv9eYE
-         po4wZiCLePBVVguBO0nPhZop/huzULR93BJpqnSMeP/u6ZE3OdSvw/m4amfuaFAwKE4U
-         oJQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=87rulhgJfiv21qEaTxseqV/cAge3CoEQMJ20JUEXXlI=;
-        fh=L0mcTKM7qiiAPVgThxySYaV5nqK6RMcViTiwVJ/UOs8=;
-        b=R8GCPNktx3oWfk7OMSm+0KMHjxEWe5cVHjQ0e26nIfzMbI8zV8DSQqRm3S2rZjT61G
-         BUbU0grBeXET0eWemibR8s6mK859XyoWt0CSbFe9NhlkrIQHXvzDN8EAKxL9huQdGpMN
-         rAqp5pURyXnun9YrU3H+ybU3gxQlpyNkzJ6OukTgnQslyjAsVQtZhFYMRyLChfI21Cma
-         X+uZaOG1dm+v3/671ZjLGEZO2evHfUICHvhT4LHr5Il3hgpt7I4mcvw1w7phFPuJmyuG
-         cLEnEcbaq8aXLPkDgwViE9Rx95+LEXMnCK48W0/vIsS/5yy75JS9V6dq1cr+zETeN5JJ
-         N51A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=metarealtyinc.ca header.i=@metarealtyinc.ca header.a=rsa-sha256 header.s=google header.b=RhEL56TW
+Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-77bf892b496so742366137.0
+        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 04:38:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794314234; x=1794919034; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=87rulhgJfiv21qEaTxseqV/cAge3CoEQMJ20JUEXXlI=;
-        b=QaxtLhMLzna2DqFnl8rF0kzUuQU4IXhwXr/jgqsxFsK029Wl0NXvyNa3kBQTnhNlew
-         meP8pvjnlMfYi4qcE8fCHtuwCV33S83R56oo8Dz5kufwGjs/nfQkCkYD+W5vAjxXYWLH
-         drlGFjUqr3CrE/ddqO3eZNxUKm9z+6r15U+DwhqkKgoJUucg5+hesGYXy3t373HHvxHI
-         KWKqWfbo481m0UFJzbAeQqX806D/S/Sl9lLyqUMeXCsHONVEvI9ABrEU4p3Co0Jz7YbY
-         ry/8kz88NHnyvl5G159qP4/d2DX0izhVLbcZckPIuTyC411wBprFPKPDpSTE99Tg7QaD
-         w+dA==
+        d=metarealtyinc.ca; s=google; t=1794314281; x=1794919081; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LIqybWUTQzegIEfoVn3a6+qxGy8XVtvbVV2ymuSqRgc=;
+        b=RhEL56TWvZBXkEIEDYfBQgetrfcsntdz9+ZDPeqE/R5D/l7VBDa8SbFKKD2SNgQ5x2
+         394OOvhKe/y5ClVwdIb1P4XsznMFbB/0VIcXtvPWj3i/xjUH7A5QtEYipC/c620fZvgk
+         4JFfpKE9lEufOGNsrIlYIhFHM69Y7biG82vOKYUkDXXUjChSkhEOiMsOERFtWzMKL0hS
+         0RQCfKzdyQEnlpDUHx3JgZ0MYIbzEEAt2LOE6yYkTIx8rY16niz2/wKaxfIpnlKS28Ph
+         xsjRZpmFpfaEY9B1gLvG3yAEWKjNJT64BKCf6xZuj8lsdPg+4htkegzdxmLfg5px8Q//
+         xCQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794314234; x=1794919034;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=87rulhgJfiv21qEaTxseqV/cAge3CoEQMJ20JUEXXlI=;
-        b=NEz/am4dX2pkOmWZzFcwBsmJ5Owu0Qb0t34tynZZeTLqRKArV91SS+bF5KrQ1XuS0p
-         a4yDIFE58xK2Du8S/4yTlMSxA7mHH0cPIDx1xTU3BNgYUrHuvLiJJJktFT1ZqwrtC9/M
-         vDhWEB5osFL5z/4AlMs2Aalubm7cqrmVj8Jligdc0fgtp4E/qxXr2SIQ4Teivf6jKI++
-         CMRO8pIlPvRo7uBM/8X106cKKvzdO74GXQtcZVwofnrMZ+j4XlMEAMCL7kQeFAUhkppx
-         bB+bJIrXpTGEIt3QS3OrcQy3Iv/mfrhPXFJOugFtgYh3veX2iOpLgYRq45VeC5DgqMP2
-         0TNQ==
-X-Forwarded-Encrypted: i=1; AL+hErFa7snzaugOtHr0NDZ7u+td45PvkrmdG2FrsQzf+FqAGRgXAevdDN/RMaObTAsbTePoqIki3uRZLpj0jQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cEZ47nEIeNkdm+puYLuf7wOaXAud4kZScTKPJNAsdkO1nsyCF
-	gLFBGOsEzvkoy2GylKG5jeA2iaFT36uSuBGnnA22VaI7si9R5GqJjU3Nxw4svkFQ4poJ1c3oRCf
-	An7zD5IiYlnlILuRJDty9POmIWb9q/50=
-X-Gm-Gg: AYBFou1JjvhRJl6gH+8JJdYzEEiiIuWtS5wHDM5vzEuZzPE4sbP5P0uUi8tvIE83DLs
-	X/DbZJn5F9WpZhLVkrWJLkAAHKQDsMzdE8YpiuaSZzUQJLz0jXDAfVdHCTkW3nUuMiOx5+gidwN
-	1MBbTh8H2lgz8M14qpzjgzUsbJqu8O6RSW5fumRh+MDuqZ4Z8dxXTQwm/R5H3glgi3d8+ST+dgc
-	UxAIrHc+mHHSpmPFxRIxj6kMyRUcOtdvKtmHpVh7Ki1GOCw0QfedIPkUTLe3iViobdHYX7ybcdG
-	cMfx1cpu8Lvk8Yw0yZyTgpg6yZMkuNCoZo1YGBZeV5HMYx+1Ui2ANatf8TxroyUnxCU/ZHjdUsP
-	lZBAtsBOYnT0x460DwIOLSLvLz+qIbJmU2eyvZbtY4o44XQfwtS0mWy5smOGaqOvA5L5Ht/RRWv
-	mAzQHgriFcGJ7twLRkmnY=
-X-Received: by 2002:a17:907:843:b0:c46:645f:cedc with SMTP id
- a640c23a62f3a-c50496efa2fmr206469866b.46.1794314233766; Tue, 10 Nov 2026
- 04:37:13 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794314281; x=1794919081;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LIqybWUTQzegIEfoVn3a6+qxGy8XVtvbVV2ymuSqRgc=;
+        b=z1XezETbjbxWoNhJ0Im9ob/RLUvh1/sRjUYTWj5Kk116JDBUExIo49CI9u2g+bRT1y
+         xtrcF/VfxcixR+ZLUgIP8ZLR9+Kvl0rvOK2CUrUzuWg5aK1MGEXUq4TgK5lg0b3UUndH
+         pagymwD3U9PpWHJ2LKqw2PDX300r8FdJyazCt8nD4bHbOJ8xFoBVA9bfIrDzrBuxaa5c
+         /02tIByON1swpRSdEmViBaISCPBju+lN6UWYLN2jg5dWFqBIRoV3Bz6rYrNKAGusIydz
+         3f2D14oU0PeAIumM4ULh8KVJ5HYL/qehP2GHJMJwVBS+JPTbPggnawwuNg/3ZAgAhPy5
+         RtBA==
+X-Forwarded-Encrypted: i=1; AL+hErEHtdVgZQkk9WbzxD91VJnva4TL09p7Rv7NERJ7ICfTKm8OvVc7xl49qukceeymJrbTFbkDAxqpyawleA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9KnyrV4oSCOGgmBY2TNmI3DYxRJ7f0QzXcwWxHacDuYqZpvGzL
+	HF0anNc1bwkIxBaX+UeciE4BArW/X09p1ZKPQUwk7IUoLzDP0cK9JQLlIk1WKzbBoVA=
+X-Gm-Gg: AYBFou0CLPUD2Rf2A7QkFtcNJHh3UozSeqn3lkMlW5pXQMhmZqCUywnWNTgE8dxSFXQ
+	janoGamllqXL6qEqWMy7FewZ+6LvdmvTysqfu4dPgvu3S5JmPgvr7oSXjTJPJtrnQTe0zga8bul
+	Kr7pAvtoYDInnwrYe5u+krDGIUWzX9hDBOZDKca3XGoCZd0GEYlJ8VBTZ/eeKbVUpdw3GUwVbJU
+	amrrQusCvU2KtmSrWmj5HeXvoYA0jas9pYIGgyxEd2nkNzLw9/J4bPmry14PjRuVFf8lFBCJvbp
+	OMXdx9/ELcsjUMWDyFvR3nshvuxPK7tqP0r69LI5NOfgnEKXFBLW9JsnxUZ0+4fQ9hmhlqyyXFI
+	j1RNKQfktKPvTV/RuFKXCrmFA1YLV1h4Jx3rsRYwNFBTd2UbzNP7Jd1Ekx70UhmUlhrEP+SLZK5
+	vnSdhpwLloZf7rUgBXhiPQSBXvSGL2/hFHGveYjL90uRkU1K8fHbrcyyjyV/lTSogyGObT00coM
+	c0DXIWkz9tdEtrToq//sjVmSC6N/adgBsMwwtc2Xe/6rbGgBheQ78QvNP92ahfxwnGjGTjpu2F7
+	5VzwliDFXB+3T9fWWCJsFYwkV8oVLkL0Xbs3q4Ez7faXxNlHbyhKFQStLTgKs8dIqR/2A8jPuNZ
+	F92HJGYhFVFuFTYvszThM1RF+8I8lZYtsDDS9XNJKvQ81m+SwbBHnukbBPsR52GU/b41ibPu966
+	EzXUZsGa+DYzrfJpr/PbZ1F8w+c1jjmIWri8V/765C1bAII890Bm8oxINtVZjSs1cm
+X-Received: by 2002:a05:6102:94c:b0:7c3:9b8d:5124 with SMTP id ada2fe7eead31-7d301ba5407mr716189137.18.1794314280680;
+        Tue, 10 Nov 2026 04:38:00 -0800 (PST)
+Received: from jake-laptop ([2607:fea8:c6:a700::879a])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d30209ff97sm1658194137.0.2026.11.10.04.37.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 04:37:59 -0800 (PST)
+From: Jake Steinman <j@metarealtyinc.ca>
+To: arpith99@gmail.com
+Cc: sakari.ailus@linux.intel.com,
+	gvozdoder@gmail.com,
+	lixu.zhang@intel.com,
+	mchehab@kernel.org,
+	antti.laakso@linux.intel.com,
+	mehdi.djait@linux.intel.com,
+	dan.scally@ideasonboard.com,
+	hansg@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: Re: [PATCH] media: ivsc: csi: Add sensor node in bound callback
+Date: Tue, 10 Nov 2026 07:37:57 -0500
+Message-ID: <20261110123757.730188-1-j@metarealtyinc.ca>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103200226.100989-1-arpith99@gmail.com>
+References: <20261103200226.100989-1-arpith99@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,110 +109,18 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261031210922.323-1-drifabdelmalekmohamedsaid@gmail.com>
-In-Reply-To: <20261031210922.323-1-drifabdelmalekmohamedsaid@gmail.com>
-From: DRIF ABDELMALEK MOHAMED SAID <drifabdelmalekmohamedsaid@gmail.com>
-Date: Tue, 10 Nov 2026 13:37:02 +0100
-X-Gm-Features: AclHuK-L9Xy9_jIPCQDlfmK_CNn6002vmZtvxWl3lyu2iMFsjY1T0_prMJR207g
-Message-ID: <CA+xk8n_CwetRPVJtQRQLehqXFJstwb-hYPDyP2ZGyPiYOXFacA@mail.gmail.com>
-Subject: Re: [PATCH v2] media: em28xx: fix v4l2 use-after-free after failed init
-To: mchehab@kernel.org, hverkuil+cisco@kernel.org, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Cc: linux-usb@vger.kernel.org, 
-	syzbot+1e71765881a6fc43185f@syzkaller.appspotmail.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hello,
-Just following up on this patch to see if anyone has had a chance to
-review it or if any changes are needed.
-Thanks,
-Drif Abdelmalek Mohamed Said
+(Resending, my first copy had a broken Cc list.)
 
-On Sat, Oct 31, 2026 at 10:09=E2=80=AFPM Drif Abdelmalek Mohamed Said
-<drifabdelmalekmohamedsaid@gmail.com> wrote:
->
-> em28xx_v4l2_init() publishes the new object in dev->v4l2 before the
-> video device is registered. If a later initialization step fails -past
-> v4l2_device_register-,  the error path unregisters the device nodes and
-> drops the initial v4l2_device reference, but previously left dev->v4l2
-> pointing at the freed object.
->
-> syzbot reported:
->
-> BUG: KASAN: slab-use-after-free in v4l2_device_disconnect+0xa4/0xc0
->                 drivers/media/v4l2-core/v4l2-device.c:78
->
-> em28xx_v4l2_fini() is called later from USB disconnect. It reads
-> dev->v4l2 before taking dev->lock, and on the failed-init path it owns
-> no reference. The last close of the video node can therefore drop the
-> final v4l2_device reference and free the object between that read and
-> its use in v4l2_device_disconnect(), causing a use-after-free.
->
-> Fixing this by clearing dev->v4l2 under dev->lock in the init error path
-> before dropping the initial reference, and read it under dev->lock in fin=
-i.
-> This makes fini see NULL after a failed init, while the successful path
-> continues to hold the initial reference until fini is done.
->
-> Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-> Reported-by: syzbot+1e71765881a6fc43185f@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D1e71765881a6fc43185f
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gm=
-ail.com>
-> ---
-> v2: added unlock in early return in em28xx_v4l2_fini
-> v1:https://lore.kernel.org/all/20261031204723.1415-1-drifabdelmalekmohame=
-dsaid@gmail.com/T/
->  drivers/media/usb/em28xx/em28xx-video.c | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/=
-em28xx/em28xx-video.c
-> index 84424284d486..924a3f7977c9 100644
-> --- a/drivers/media/usb/em28xx/em28xx-video.c
-> +++ b/drivers/media/usb/em28xx/em28xx-video.c
-> @@ -2414,7 +2414,7 @@ static int em28xx_v4l2_open(struct file *filp)
->   */
->  static int em28xx_v4l2_fini(struct em28xx *dev)
->  {
-> -       struct em28xx_v4l2 *v4l2 =3D dev->v4l2;
-> +       struct em28xx_v4l2 *v4l2;
->
->         if (dev->is_audio_only) {
->                 /* Shouldn't initialize IR for this interface */
-> @@ -2426,13 +2426,17 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
->                 return 0;
->         }
->
-> -       if (!v4l2)
-> -               return 0;
-> -
->         dev_info(&dev->intf->dev, "Closing video extension\n");
->
->         mutex_lock(&dev->lock);
->
-> +       /* matches em28xx_v4l2_init error paths */
-> +       v4l2 =3D dev->v4l2;
-> +       if (!v4l2){
-> +               mutex_unlock(&dev->lock);
-> +               return 0;
-> +       }
-> +
->         v4l2_device_disconnect(&v4l2->v4l2_dev);
->
->         em28xx_uninit_usb_xfer(dev, EM28XX_ANALOG_MODE);
-> @@ -3129,6 +3133,9 @@ static int em28xx_v4l2_init(struct em28xx *dev)
->                 vb2_video_unregister_device(&v4l2->vdev);
->         }
->
-> +       /* matches check in em28xx_v4l2_fini (under the same lock) */
-> +       dev->v4l2 =3D NULL;
-> +
->         mutex_unlock(&dev->lock);
->
->         /*
-> --
-> 2.43.0
->
+Sorry about this, the HM1092 ipu-bridge entry went in ahead of the
+driver. The change matches the CVS fix and looks right to me.
+
+Reviewed-by: Jake Steinman <j@metarealtyinc.ca>
+
+Sergey's VCM point probably still holds: a VCM instantiated by
+ipu-bridge only gets its node from .complete(). Sakari, if you'd rather
+not rely on per-bridge fixes until the hm1092 driver lands, I'm fine
+with reverting 4fdb0342f05e.
+
+Jake
