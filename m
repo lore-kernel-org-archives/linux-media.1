@@ -1,63 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794301224;
-	b=5IVnGTxUaQL2T9aONwlV8DYq2p+dtGhvJeLEEgmby9/8Fc8Bb+0WtU0HQAe0LeIcfSZ6
-	 YYxjmqEyh6ycd6Zedx3wWWScRu0OhyGx9wbQf/hNl7PLKHyUTSUFICTqZjMHjVs+UB0p4
-	 Ep3AnFqkOBvV6uGUtNj4fZZ3aRJZNLXIbX4ww1u5drTYAWBb1quFBZKgifzqDW19yZ/Q8
-	 4fNdfsIXlrxHJz3U5EhwyUmw/+CfQ00muBKaF3ThdJq2mgqc4s1rB0LtgPzTeQ9LTZpVn
-	 zyO/+M8lu3EMcaGh5k2OiQ5bJaY+cQxBURvsXWYgNj/0Am5cQqkh0hILOxKhkfnjllQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301224;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=lQtZOpUfiYCTJSBMFgdGb2GeoFfEdKFJd20iCHb6o+M=;
-	b=hB/12sLZfkoN3W4Xsnqmmgt6O6tOhSbM6slGABfqSKU/t1DdeYFQGXZB8J3MLPFlijt+
-	 wjQpEz3cToKkmNEFZPaLK3A45w/HWdL3gik7qQjO4yf5xzhLAZ94T664vQCsShfMEq52b
-	 5lM4DRBPmo1biiLfbWmbukoGcstjbVa4all2V/mtSqz9Z1S2fGPDjdkYssILX7XPDD62C
-	 xOZOC8U/TmqxtfUrIFn9rlKj+U/59uakY9/yaX6XuIboIflYC6t6KOBp3eUqOCbVWBY7J
-	 FkIgkcct2iHIUvvB5LdU5i7jviGXwz6jthp3+VyqKuuhZ1oF/45JCfhLmQNv3Ne0sKA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=irTTzZ58;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794301260;
+	b=xPLpTQgoIkkFMTKIWr4S2/16Cy8J9ZfXCEcFjmAXAENbYLkcUMhP2+wBPyGVUq4LftzO
+	 7wugHmyRMKb9rN/QNzeWaHMZniBfdqHkQD+6Fle+UtkdihXbtHSy8/1H3w8b2o9P47+J1
+	 BGIKWYWXQeSP0IQXz/EUM0ZwuvZwP0oDMmNvAseqcifcEYZEWWdpX9vMRw/xSk4019Kd6
+	 VH2IpHy5GJuNLGmX8hOFPbkd3SuWAS4dcolnfRaAutsKFFHUkX68auONr7LigN9aherS4
+	 Tv5NZoj6HCLggvYbk52ny5uS+EUCIgTfJA1JJDO+BsbQnm8VlRq2i1Y7xieZTi1Lnsg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301260;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=D/l1DG9pW0EG2fGxLRQvmW7PF5RxeWs5LWhd8jRdOqg=;
+	b=e+9HeVlleDQZ+QRP4LvvvtqjQPeekINAgda04Es8oRLagJk40hl1LVx1nkcmWSo8NV7j
+	 Zvxt32Z6zP/1bAMcOOGxn5NWFLFdObhGQjmcdBrVTS8YoMToADVkD/DSwOZQ9BiSns4qw
+	 nE01eDopXGNR/pTIoIbScXI6bgLUlvfrcevd/GNZV158dj8mnaISD8au9qrmlabm8A7QQ
+	 9EAGP9CmAS4id8+JKFXTDSxHY0VNRahcLvSJ/32SDsEaJaoDb+L+3rT38Y2JLjSSIjmuk
+	 CTJ4/VhhbguTzsIBEd2fPklTez7Nn4zW4Kv936c4/Bp7aVRuFx6Wj8EXi5QT/iPG1Lg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GJvzQyop;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE76606A321;
-	Tue, 10 Nov 2026 09:00:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABE76606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E02E606A32A
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 09:01:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E02E606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=irTTzZ58
-Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DA5CAC14;
-	Tue, 10 Nov 2026 09:57:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794301079;
-	bh=lQtZOpUfiYCTJSBMFgdGb2GeoFfEdKFJd20iCHb6o+M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=irTTzZ58ctngpld/5PbZUALYREhgVH75GSxEArM0asIzdV6GUBIteZmbasJvaVRQl
-	 dZRo8ZdfV/iF2cetbmAUNF3MPflHmaxY64wO2cAKG3BPccZFj1VZiSK6ANovZFXYFa
-	 P0/qRG8k6VKpTgQUVPBmcYLwA5gtYV2IWDXVooGM=
-Date: Tue, 10 Nov 2026 10:00:18 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David CARLIER <devnexen@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	dan.scally@ideasonboard.com, nayden.kanchev@arm.com, mchehab@kernel.org, 
-	hverkuil+cisco@kernel.org, linusw@kernel.org, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] media: mali-c55: Require an enabled link to start a
- video node
-Message-ID: <avLYoCrMB_L3gTPT@zed>
-References: <20261105231626.7152-1-devnexen@gmail.com>
- <avHo8IXKwjsWNzO3@zed>
- <CA+XhMqyKNd2maRXmmpL=aOMB-z4X3JgCD5ofiHpMubtFHuS_0g@mail.gmail.com>
- <avLQuNJ_KPOH7Ao8@zed>
- <CA+XhMqwfK+zoXb2_9XBUnjd9cLY_D0WwykbSccQR6kKqriZezA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GJvzQyop
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b31ca7e0bcso19015557b3.0
+        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 01:01:00 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794301259; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BnVCLll1qdQeZWXIB4NkSVGfutVdVAVO9nkE5uGkMbnHyLNINrtkGddL+sje5CjM9i
+         N/NFENKHq5bAckAHwvN9clGKY2Uv3p8U3ETh0xrAan3Yx59U+WNOwHlVyYaBrYGP7A6B
+         uhbzH2sPdWVatTrPDOKxf4goLohwWrpYizDLGeMlYesFC+OWSmNHw61L5WuTht6JflSH
+         TEpj1N0xVSWYARdyZI3M68MF9m6Pc6IyiXRIbqMmhk5jpWcqePjs3iqKDzYqQR2Nta/R
+         z3E+9HdMc/0etHFf+dMF3e5S/wemLYLBVAIc/EAj67rUFcHa1IUv/MdYBsoHhpxW2u10
+         WKZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=D/l1DG9pW0EG2fGxLRQvmW7PF5RxeWs5LWhd8jRdOqg=;
+        fh=EsTV9iOgbXIcf/HZtbMRantZyaFs8iykxu6423qNoLU=;
+        b=B9KmNgo6zEETQk+Q3bB0JqQWlB86aRAnt5L8zxqbQ6UcwdBueRmCu9azhV/iL/0gUK
+         RsDphPolDzavzQpaUWB4AYWeND7r3IPS1Irj4pzYKkfrCoyUIJkhgAJhkjEzNPtzQ7zi
+         oU+9g1WV0ccXnwUOWtAAmdSXfQKczynTprmSuqhMO+Tkhs9Ln/8x/cyz05DAL14Bn2mh
+         1LXc/3lFj65+KzyHUtHTuL+VN98bVb3lAmhxlD+cjow9ASn7oNI/tX001R5MqLqfc/aT
+         lYwsqBi05A4Opcleck5ZojbhfX05zHOBbzuzXxhlqV79LgKyU4taXEt+oa4Y7oyQ66ub
+         jcUg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794301259; x=1794906059; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=D/l1DG9pW0EG2fGxLRQvmW7PF5RxeWs5LWhd8jRdOqg=;
+        b=GJvzQyoptkDCdPCZ/sPVeyL8ENbjQKHTUh8dYiC5dwW1lpWOq3vZJPAcL0nA3xN0wD
+         HbetLjWQUco9N2S2KtXvPNSBvo8w4PmIWY3YjQBndMuG11972LQegMYFBdC5tba5aZWv
+         3MydGcVu0/PbzwXeuk30zI+dUwGEkHMTKsC+IXh+qMQC+NcFUvW/H8BMEhRViju7F4tE
+         +cyoepPvuIb63LxOMgvZjQa27IapA877VS+A/QC8d40Vz7kFy0IM5g7612xi0QCAiz2I
+         9f1OMoP7yR5r4ubfkuovT5BWdpGJNCIv0HUV9EW2+toxW7VckmVW12cq4wON+pOoCmRh
+         vt1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794301259; x=1794906059;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D/l1DG9pW0EG2fGxLRQvmW7PF5RxeWs5LWhd8jRdOqg=;
+        b=dz2/lwjcTwAnXhk40P2KgMnnsKf2h5vcA7X1DGcrD6wMPool7Uc6Kof+lnhi9ORKmF
+         pbmZw21+UDgBcdy5geKKm1FwCDA5pbRRzgJEIRvFLBJrEnQtm1eX1l88cXM+sGkO0SG3
+         urrT3B0HadHwEQiQ5iWl6NoRt7GGuc7dqzbB1ZYkzdtIEmyauPtGNFqhrVJcSNYIfB0S
+         E2IzTcblFtOKnf+Xij5tCv/hJlPniwppShfN5k0zQX2ZfRXb3AJjWxzdpIlDgKKzXa/A
+         YvF+DIMOp3pFUmRdA6F0pDwPgwYW1NT1H033vY1DjOtqBqfZC2ls6C7Yav6LGpx4D1rM
+         3cJg==
+X-Forwarded-Encrypted: i=1; AL+hErHl0Wf84FyIXeDXerP6T1YEBdj7j3jZup+GlKuzWGNo7AaYd0/TxHT/+Rc/jUPjWQ8N1cQpKuIkopxJ7g==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9DPgEHE6HzQ6CSG8klvSMy4VwdOmhkXVtC+dZGXNrB9Ygy8gi2
+	Gz3mx+8jbhNAwsCeDr8MyX4958Ki45oVy6xszFP5B0YpZbuE0QtaprEzkF2F5kRHoZaA1Vt7Ymp
+	ehMCmrZHZXmksDbEWQW3j9KQEwEUpXQo=
+X-Gm-Gg: AYBFou1oa4joqTnQVehIifpfn70sSyiwzfpQWWd6YldEI4vaeL9GqSNOi9XkfbjGPel
+	y4N9gYwicSuiNoF3+G8l8aaXaqPVe8As1UroiCUlCEpzQsRjQRJ5gq99KWX+ft98Sr11k7hrJT7
+	8JvbXvGsSiP58T1Eb+Jq5TdwV1DTZdnt+nnfKwqe02eP+95ExNrMw7f1JUhd+ZdCPIrziOJE1eK
+	3an+DpreI4Q9h6nmcKudw8cJjZgwlzAVKRvqokNn7ohdrZdp276Xl3ww1zXLBuG/5f9NnPnvDb+
+	D/KMWV7pUrQaTOHjBiolVbDWmQwz4COQfFCRTOZpb6x2lElUVhw6Krx2i28ZV+Bhg85u86cBjx4
+	Lj2WwgUo04eZ3y1Tw4O8//Jjxu4+pHLPK+g5U1BVFKdFL97ZTha1vlYCFKGghrIMyQAJB/UT8dX
+	QMz+fTLOIgjq5o+HhDqtvXdgfXHh+zdXC5RL+EpaHqKro8qwdiRgQok1T638BCc7LU7Qzt4/3t0
+	+CgxKJV9EOVBCF6Mgd6Jgykd5hZXOOu3N65Px67N9UiUZ5jr3wgaT15PPdEsR0=
+X-Received: by 2002:a05:690c:6e83:b0:8af:1843:a9e5 with SMTP id
+ 00721157ae682-8b3929e7519mr14686337b3.23.1794301258389; Tue, 10 Nov 2026
+ 01:00:58 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,57 +106,51 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CA+XhMqwfK+zoXb2_9XBUnjd9cLY_D0WwykbSccQR6kKqriZezA@mail.gmail.com>
+References: <20261110050448.69521-1-patelshivani2283@gmail.com>
+In-Reply-To: <20261110050448.69521-1-patelshivani2283@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 10 Nov 2026 11:00:21 +0200
+X-Gm-Features: AclHuK9lhRV4tkWDS8XhwM4LHpotMMW9vXUbmZoMQV9ygME13b4eHzMp8NHQLR4
+Message-ID: <CAHp75Ve3E7qCXOQi_q9SmTkwhfSnPdWZy1cse0G=BFJ0FBoptg@mail.gmail.com>
+Subject: Re: [PATCH] staging: media: atomisp: Fix leading space indentation
+To: Shivani Patel <patelshivani2283@gmail.com>
+Cc: outreachy@lists.linux.dev, Hans de Goede <hansg@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
+	linux-staging@lists.linux.dev, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi David
-
-On Tue, Nov 10, 2026 at 08:32:00AM +0000, David CARLIER wrote:
-> Fair point, sorry for the shortcuts.
+On Tue, Nov 10, 2026 at 7:05=E2=80=AFAM Shivani Patel
+<patelshivani2283@gmail.com> wrote:
 >
-> > What does it mean "rather than through the graph" ?
-> > enable_streams() is propagated by drivers along the pipeline by design
->
-> Badly worded, sorry. I only meant that start_streaming() takes the
-> resizer from cap_dev->rsz rather than from the remote end of an enabled
-> link, so it enables it even with the link disabled.
->
-> > Is this a typo ? From FR we can't go to the DS resizer.
->
-> Not for data, no. I meant the media_pipeline_populate() walk: from the
+> Replace spaces at the beginning of the line with a tab in
+> atomisp_find_in_fmt_conv_by_atomisp_in_fmt() function parameter list
+> to conform to the Linux kernel coding style.
 
-Ah ok
+Nice try! But, sorry, no.
 
-> ISP source video pad it follows the immutable link into the DS resizer
-> sink pad and, through the internal route, its source pad. A
-> MUST_CONNECT on that pad would then fail FR only streaming with the DS
-> link disabled.
+...
 
-This means (and reading Documentation/admin-guide/media/mali-c55.rst I
-think it was intended) that if you link-enable the DS-pipe you will have to
-start streaming on the DS capture node, otherwise streaming will never
-start due to mali_c55_pipeline_ready() returning false ?
+>  const struct atomisp_in_fmt_conv *atomisp_find_in_fmt_conv_by_atomisp_in=
+_fmt(
+> -    enum atomisp_input_format atomisp_in_fmt)
+> +       enum atomisp_input_format atomisp_in_fmt)
 
-I wish I had a system with a DS pipe to test with.
+The whole format of this prototype is broken (in v4l2 is a strong
+requirement to follow the 80 character per line rule). On top of that
+is it really the only issue of a kind?
 
-What I'm after here: I'm trying to figure out if your change
-introduces any requirement on how pipe have to be handled and if this
-has any implication on how libcamera works on mali.
+>  {
 
-A use case is continous capture from DS while only taking seldom
-pictures from FR. In this case I have to link both pipes, start both
-of them and feed buffers continuously to DS and only sporadically to
-FR. The key here is the requirement to call STREAMON on both capture
-nodes if they're linked.
+...
 
-In other words, if you want to use both pipes you need to link both of them
-and call STREAMON on both capture devices, even if in a session you will be
-capturing from one of them.
+Also note, this kind of patch for _this_ driver will be ignored, it's
+not a priority for it *at all*. Try something better like [1].
 
-I think it's fine and matches the documentation in mali-c55.rst and
-the libcamera pipeline handler.
+[1]: https://lore.kernel.org/linux-media/20261027230807.2407261-1-vladurare=
+s@gmail.com/
 
->
-> Thanks for the reviews.
-> Cheers.
+--=20
+With Best Regards,
+Andy Shevchenko
