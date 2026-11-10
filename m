@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794295077;
-	b=bBt/LBuCbLzki8fc4jw5cTgPj/n384dYZB9cnvUScYB2xXx8EsIxXlbX4ZuC1/uYGrIq
-	 dWji+jLj5X1+ME3NnTXNkRfmDsNxhbjG9q2WTBJ+3dH5DoJprmVa0fTs3i7+ImqkXF+jA
-	 pXEuVic54EFPxDSkxETbw08Aeeg+9NflHzmMvIlnr0Ob3uDo8Dc9eYhT+EXEtgr3nA6V4
-	 Ke6O3m6uQMF+bmWFCpRtgYObHBqycq3FcRN+1uXZOCdL2yT8C+UuPAOfogHwSWvDjTOt+
-	 M9TAOcas3yaOK5jlcaRR6d+kU2rJpE66Nx92t9lyoMbYxQyFcXYP2LwDaK3oeTjN66Q==
+	t=1794295078;
+	b=PRcNNsHwtlVZDuV6bVjPc/3rC3q1oc/eY9UI3aDAOMDbCKU35/kJQHY8Ggylih2bB/6x
+	 JyWqBKXM0lqnAhS5J5Jsf55UuPBydIyOx40+VRtJLpaaSlnJAIVBDOD4tdy3adk5T91av
+	 +1sTsDWCrtgurv+gDuKzpsWorEn5FZBLIxb+OkQTA4MfqqBU1l5kDJlSejs4A0CEQNrJh
+	 qBnXRoxVbplUUzf4VXDOtOPz9T3NjbH8HEt0NP4ot0x/37kbUbI7Kb03atqmrwQeDORpj
+	 Qj/lVH0D1rcA6ipEXgLRR0RJFdOr9IKORN5ZsUdsgCUoG67ab7wF8v4lzWnyzhBWQuw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794295077;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=nbjokYsP/PPktFQVGK4/4wc40PIaNaNW8MewYjdMp20=;
-	b=G7U5QNDLQJqwNCSAcJkhwOWBws3ZfWKqKQGR46k73RGArn+JUz6TeYgnMLMJ98pFgJXM
-	 PK9K5xUeLF9d+njuOJKNUr6gnZuFxrZNvsP2RaMCKE0YLm85uZsZR5CseBfGzN8hyI/Br
-	 R2B1Wfe19yUkABPcmnOtbMLywOEUKajVKUuP869Oderp4pemWsOzBP6kkKX7Z/d9fMVkB
-	 K0GGd+58DhtJUBpXo6EI03hneoKQupUWNNOfq8rOCYjIpvWjHjRD8vGOJl07mY3hwR8WI
-	 U0xZanP8uIUxIyJ311zw/VKIz5059nx4EK9/xxH0XDsCUcLHiRIth+/7mX9tEfxvWyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295078;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Syq/VG6u0EUV0TyeNdEvx71To3HzGWr4DnR5Dla39eE=;
+	b=xjzpEg7wsTtlXGaisLzkn7UWcbB5yXiFWcSM7rsptu5L3czfz3P8rd+Nt95UDA7/dB/V
+	 dPGqZH9b9FWBJqzdZgNunBZ2o9/+vMQsYHf5Hle0m2M2/9I5/q+yW/RfK4tLoF29S6TxU
+	 h83jo3DKwL1gpl74XXJKCxQnKIQBQ1gpKnlZ2OT5MXQuSxz5S6qnZt6uD7WjLhC91baKb
+	 APVg9MPF1QA0ipms+TwFKZq4YrnOwOlL6E3rEjvU6nq6TaicGdNe/hCZY/GbFNsjfjsSs
+	 q6EyrDuqTXP7zzTWr0hRQcFaWOdvruPCjyMjn3ONOKlG9KQus0HF/o899AYLEOfQXuw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eil38Y9+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L+etW16e;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5319560A382F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C407960A3833;
 	Tue, 10 Nov 2026 07:17:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eil38Y9+
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L+etW16e
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794295077;
-	b=jxEk+a+bGQf28d6haf5zSPEZ1CgtB2E+7vFFvWjNK4h3Ilp2mtcTCE+Hw27Ou6fdCSMa
-	 sOkaBedb4Ozm+DNRzGabcyTGNJkmO26DA0tgOSyk3ueis/e3Ga+OC1FUHcLnJr7uB+UGX
-	 HbRrPcFm3i5xch3H1SBS51JKsQuL545fUty7S0+9HS13edFZNl8zssWpkmvedo1iUnWyC
-	 kqBdR2sEF/be4DfbDocxDdEijWwMxUh9/zGR50BChVHHlDGHsBP1PBb4mD7GBKUWflG54
-	 1LJg7FZ9gvCL+KoltBzxibp/Cyo6SutfU040MErr8LeS3PvPKTS/hOwLQX/m1X1CP1A==
+	b=IC1ji7fHoUXbVCY4IjbAL2wwW7ENHWWQ0L7IbKRfN4d8mr0Iid0PCij0lFqVSQdVSFZj
+	 LrqSSGhtmezOYIBMs+oXN+GwOqEcgk1fS7n0MKto+9WA75IkOjXVE7y06wCKalkQa/DYm
+	 oojBPyo5VkbM4ovnwz2LS70yWp2cOCEd3zUUl9rPfr6+o/fvyyMsNJ2kuu9Ar6i+DarQu
+	 ZTcIDvD0A2RkfB6Bxiv46KpntPr2ccp/KCjtUBVm46eRX/nYzVOQEHglgi2ckFTo9t5Li
+	 z9Yei5AdIy3K989o3Ev6tyPcUnCa/Cwkd8VpUSeu9MC4VcZ8ltJv064ghc0lZl3HAsA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794295077;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=nbjokYsP/PPktFQVGK4/4wc40PIaNaNW8MewYjdMp20=;
-	b=a/9cnt2nisc40GX1jw5ZTGC/ZJusOTl/yxOo9XtUAf3vBWCW4llb1d6qfxxlaZX13f6W
-	 8VRiHZ7Ep+E2PBDbF49TNn/Lq5Sj/qE9qKUTyGHy71XLTHptPxnrD14DDF8xXtAr+yKK0
-	 B//zWmDWkPxdiX1UrF0gVk0c86f4lbSUVzxbDyZsLQvQVdXHYQAlshkpxDkxjZ/7DvSAc
-	 o5Wmx497HZCugvsv9LLR1zGA7HmTDRzvDJU1oZZMP0UmdYCjMMG7ne/drtoSG5qCMPx19
-	 w99qg+ZCeCJOspT+DujJT8eui+eJU9y29iBxMqqVjGRO4VwNvSSSRPTI+UALYB4rIew==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Syq/VG6u0EUV0TyeNdEvx71To3HzGWr4DnR5Dla39eE=;
+	b=CKjcBWY4w8STpSFmJUwsbZ4uiymQG8ikP430WgqI7SFkcEFqIgF+TVqx+Qxs4Fnh5v/S
+	 rvvn1Xn+74pufZbf+Nr3EEDE9wlP0/W6FBoICs5wZP6aoqcf+7ZWEP1C69/mfHf6SMHsv
+	 wKGXbaoUw2n4jUPoEgQL2n/vdqf5LLNeoEolw+3HR3+VZ1GYBgC7UBKqNyw645H9w58OE
+	 ydNl7684nf7QTLWtTsFJCf7lS/xOpmkJs8J/bSp00Y5eDwOZpGCv1nkyxbW5SqzVKFmjb
+	 80r49xnh/5BqzQXsT+iIfHdO9s9TNa4wEABOLGbIguzXu59KvB6djn0mblRStlVqv1g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 70D2F1F008BC;
+	by smtp.kernel.org (Postfix) with ESMTPS id 849A41F00900;
 	Tue, 10 Nov 2026 07:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794295077;
-	bh=nbjokYsP/PPktFQVGK4/4wc40PIaNaNW8MewYjdMp20=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=eil38Y9+30QF29BTbzBGmFogArMmWe+npbRIa83Ka6PT33SjLvQd74ja7qvC+Sqem
-	 m72N0nLvS2ZEBG1gZSYEeJNOjg3nRW2e4xSjlFpdvwHzfngHTDLonEee4gxIMU2tew
-	 jSk4C6FYHU2Gy6xi3/5k1XHFB5fD0fxLMX6hMIPW2tTviSUwuevK5PFdBdAaa5Nhaf
-	 Ko9S2427DUtpt9irG0iIAEGF7s6q2SvXmIs4dJJSXnKH/lZkjaAnK6OShzjZeQQhJk
-	 XXldjhXASO78rlK9lFcAhRQ1k69A0jTf13r6FB6ObW4b2FolNT6jzT7WWei4diTmQB
-	 UBaL/J7peLGsw==
+	bh=Syq/VG6u0EUV0TyeNdEvx71To3HzGWr4DnR5Dla39eE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=L+etW16eG4+4VkLtKAey3K9Il+00A7ulPzRiUHYK0zwbWY4qW6Sl7Gyeej4PupoPU
+	 Rrzkj9+4z1pCd8k2OvmqHWg9r7yVM0P7l+uK8ZuCznl14Zuuh6dcz55uZcqGnUSZr5
+	 UveUqqpmNjrYtj84skD1UYsPk+KXa4Rhp4lcJQ2dSSM+4ZokNM/djEubGYY5HS0OWf
+	 zX1dwhAbRBR97VhFTtRMaoa8B7ctvDyU6hxkKdV1kJGkUScc9xJHrZaht1/VYddITS
+	 qX4wqN2NQFQ5VdUW4Msu7+pkbwr4Olyw7g8+79PXoBD68Kj8Zb379QG/KdkQnnUiie
+	 mtRraqe5AV9fA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 04F8E4896C;
+	by lkml.kernel.org (Postfix) with ESMTP id 17F4C48986;
 	Tue, 10 Nov 2026 07:17:56 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH 0/6] media: verisilicon: Fix the JPEG encoder format
- handling
-Date: Tue, 10 Nov 2026 07:17:55 +0000
-Message-Id: <20261110-hantro-jpeg-enc-fixes-v1-0-fc4dc7e985d2@gmail.com>
+Date: Tue, 10 Nov 2026 07:17:56 +0000
+Subject: [PATCH 1/6] media: verisilicon: Enforce a minimum CAPTURE
+ sizeimage for the encoder
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -85,11 +84,9 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQ6CUAwEf4X0bBNKDBF/xXiA5xbL4UFekZgQ/
- t2qx5nN7E6OYnC6VjsVbOY25wA5VZSefR7B9gimpm5aEak55FpmnhaMjJxY7Q3nTvUyaNufO1G
- Kdin4DZHe7n/21zAhrd8zOo4Pg5Gx2HkAAAA=
-X-Change-ID: 20261110-hantro-jpeg-enc-fixes-9ff8bf6a491f
+Message-Id: <20261110-hantro-jpeg-enc-fixes-v1-1-fc4dc7e985d2@gmail.com>
+References: <20261110-hantro-jpeg-enc-fixes-v1-0-fc4dc7e985d2@gmail.com>
+In-Reply-To: <20261110-hantro-jpeg-enc-fixes-v1-0-fc4dc7e985d2@gmail.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
  Philipp Zabel <p.zabel@pengutronix.de>, 
@@ -103,85 +100,77 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-mediatek@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295075; l=3705;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295075; l=2359;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=l9EdD9HrzhlWt2Mxz7G0VDbz8OEfjBCsYmrzJUDKy3g=;
- b=pi/yod5JmjP0rOoxwnmNHQb0ZQ9V1eeK6lS4pqG836wIV8uK2VFJ0ld9b0TW9Sn74GkP4W7tE
- RWNvxT+f1D5CsFH+e3+Jq+ye8xhJODewYuTAGrk7Fy1Bks++w55aSky
+ bh=JZp96kO/mnNire/RWZRp8mhzguO6gPrOB+RSbq8LmyE=;
+ b=GbglH2henZdZbatiRF3yY1AIw0wsgD91zd+CE6dFqdxAa6CQ9mIlW7YOuHV06xHuLDEKep/PX
+ H5R85Dp/SW4AAeNQy0bqYU91qBlwXMq8eUa2JVAEJ57N9wj7NLD/zsz
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-This series fixes the format handling of the Hantro JPEG encoders,
-found with v4l2-ctl, v4l2-compliance and GStreamer on the RK3588
-VEPU121.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The encoder accepted a CAPTURE sizeimage far too small for the selected
-resolution, and setting the OUTPUT format never updated the coded size,
-so the sequence mandated by the stateful encoder specification (CAPTURE
-format first, then OUTPUT) left a 96x32 coded format under a 1920x1088
-raw one. The JPEG encoders program the hardware from the OUTPUT size
-and use the difference as the crop inside the last macroblock, so this
-ended in IOMMU page faults, a frame processing timeout and a wedged
-encoder. Patches 1 and 2 fix the two ioctl paths, patch 3 refuses a job
-whose geometry or CAPTURE buffer the hardware can't be programmed with,
-as a last line of defence, and patch 4 reports the fixed colorimetry of
-JPEG instead of propagating whatever the application set, which also
-fixes a v4l2-compliance failure on the encoder.
+For coded formats hantro_try_fmt() only computes sizeimage when the
+application passes 0, and otherwise accepts any value. On the encoder
+that lets the CAPTURE buffers be far too small for the selected
+resolution.
 
-Patch 5 fixes a CAPTURE S_FMT that v4l2-ctl --stream-mmap issues after
-the OUTPUT queue is set up: it failed with -EBUSY but left the raw
-format descriptor reset to the default (three planes) under a
-negotiated two-plane format, so the next job read a plane from IOVA 0.
+This is easy to hit: "v4l2-ctl --set-fmt-video=width=1920,height=1080,
+pixelformat=JPEG" does G_FMT, modifies the size and calls S_FMT, so it
+passes back the 6768 byte sizeimage of the 96x32 default format. The
+driver accepts it for 1920x1088, the hardware runs out of stream buffer
+on every frame and the encoder only produces empty buffers.
 
-Patch 6 limits the advertised frame size to 8176x8176: both Rockchip
-encoder register layouts hold the size in 9-bit macroblock counts, so
-8192 was programmed as 0 macroblocks.
-
-Tested on an Orange Pi 5 (RK3588S, VEPU121): with patches 1-5, an
-explicit CAPTURE 1920x1080 JPEG plus OUTPUT NM12 stream gives 8
-decodable 1920x1088 frames, a requested sizeimage of 1000 is raised to
-4178544 and a larger one is kept, G_FMT on CAPTURE follows the OUTPUT
-format, v4l2-compliance passes 49/49 (58/58 with streaming) with sRGB /
-ITU-R 601 / full range on both queues, nine GStreamer v4l2jpegenc
-pipelines reach EOS, and v4l2-ctl --stream-mmap no longer faults. Patch
-3's checks are not reachable from userspace once patches 1 and 2 are
-applied; no run printed them. With patch 6, NV12, I420, YUYV and UYVY
-encodes from 96x96 up to 8176x8176 (including 8176x1080, 1920x8176 and
-a cropped 8168x8164) decode back at 53 dB PSNR, 8192 wide or high is
-refused at S_FMT, and a probe with the reserved bit above each field
-set showed the hardware does not take a 512 macroblock count.
-
-This series was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit messages, and I reviewed and tested
-every change as described above.
+The stateful encoder specification lets the encoder adjust sizeimage to
+match hardware requirements. For the encoder, clamp the requested
+sizeimage up to the worst-case frame size already used as the default,
+while still allowing applications to ask for larger buffers. The
+decoder behaviour is unchanged.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Arun Iyengar (6):
-      media: verisilicon: Enforce a minimum CAPTURE sizeimage for the encoder
-      media: verisilicon: Keep the encoder coded size in sync with OUTPUT
-      media: verisilicon: Refuse JPEG encode jobs with inconsistent geometry
-      media: verisilicon: Report fixed JPEG colorimetry on the encoder
-      media: verisilicon: Don't reset the encoder raw format while OUTPUT buffers exist
-      media: verisilicon: rockchip: Limit the JPEG encoder to 8176x8176
+ drivers/media/platform/verisilicon/hantro_v4l2.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
- .../platform/verisilicon/hantro_h1_jpeg_enc.c      |  5 ++
- drivers/media/platform/verisilicon/hantro_jpeg.c   | 37 +++++++++
- drivers/media/platform/verisilicon/hantro_jpeg.h   |  5 ++
- drivers/media/platform/verisilicon/hantro_v4l2.c   | 88 +++++++++++++++++++---
- .../verisilicon/rockchip_vpu2_hw_jpeg_enc.c        |  5 ++
- .../media/platform/verisilicon/rockchip_vpu_hw.c   | 11 ++-
- 6 files changed, 139 insertions(+), 12 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-hantro-jpeg-enc-fixes-9ff8bf6a491f
+diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
+index 83af9fa1ce94..c022b978f72b 100644
+--- a/drivers/media/platform/verisilicon/hantro_v4l2.c
++++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
+@@ -386,14 +386,24 @@ static int hantro_try_fmt(const struct hantro_ctx *ctx,
+ 			pix_mp->plane_fmt[0].sizeimage +=
+ 				hantro_av1_mv_size(pix_mp->width,
+ 						   pix_mp->height);
+-	} else if (!pix_mp->plane_fmt[0].sizeimage) {
++	} else {
++		u32 max_size = fmt->header_size +
++			pix_mp->width * pix_mp->height * fmt->max_depth;
++		u32 *sizeimage = &pix_mp->plane_fmt[0].sizeimage;
++
+ 		/*
+ 		 * For coded formats the application can specify
+ 		 * sizeimage. If the application passes a zero sizeimage,
+ 		 * let's default to the maximum frame size.
++		 *
++		 * The encoder must also be able to fit the worst-case
++		 * frame for the current resolution, so never let the
++		 * application go below it. Larger values are kept.
+ 		 */
+-		pix_mp->plane_fmt[0].sizeimage = fmt->header_size +
+-			pix_mp->width * pix_mp->height * fmt->max_depth;
++		if (ctx->is_encoder)
++			*sizeimage = max(*sizeimage, max_size);
++		else if (!*sizeimage)
++			*sizeimage = max_size;
+ 	}
+ 
+ 	return 0;
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
