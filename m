@@ -1,61 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794299125;
-	b=WJDe7sPW21exPZRBJoEDu02CuUZdlCH33ZxB/ujtA8bFQTNOFbTmzprdhrbg4LyMhDg2
-	 5RVHyPZmz8gzkcssrSt/00wGLGVUoHssFCqQ0eCL9ofYB4MlvTYWt786z4bcNkVWHARua
-	 9vtNMjgOdWzFFC8S1um7L9pLqTZNVen0uqKCv9YrGhsMnHjQDMstPWSJSrutyvlImd2sW
-	 voqARjhgKb9rTnLY23Jk4ATOKrs+9rVvo0sCEt1O1/mGkY46J5zgyD7zSzlKghzJy2t8W
-	 CmxL+EK6+yJJImWnsFo4qUw1EEHjpF95+yPcOQRgKD7F6jzZQgQfBoOmf/i+G7/p7/w==
+	t=1794299186;
+	b=Dl+2GhPfgKPSPmtwerFKU6v4WmI0Cwec/yYFu7JpCKynx2mrYkME300SRUCC/Xf1CIuB
+	 TGvkXgYGrp4mtAel+S22fqPGxomPkaGyTx4x67DK3XNKHjNpabahk5OOMl6yU5EkwqEFM
+	 wTczp43bB8mvXvGZ5RM5yv9h0Jy5C2DM9ug+cUlMx8YemovmG0ht87YFaRxdrqxi3T9gl
+	 bbangbuLZwZUv3x7PgEVYMN3F8Q2hgFRTk/ZYYbTPOkL9cKDgZELXjbaYnT363l6eax2V
+	 U9pgjpSErH7Zzgw8Pvj5Rov1+u+HGyFDDK/sEdHtPsKDBGv9arcrDkx349ASrlWvgMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299125;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794299186;
 	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=ufmIDOh2L6uh/i4ech0rAzXFt49ugypcaTJasZ0KXIA=;
-	b=oHjhLfWntZxCg49c6M+TonKx4QgdG6qlQGT4lhHJOM0WV56g+un9rfZza+mwE34Z8MAY
-	 YiQA2zqHE9dLYQh/evUiXDhhJE5IBVnYn3x8u5nfJP75Z5Yq32TmAErJ+UDYOipZOAqpP
-	 gbESr4884Su4/cUYUXUxu86WkJJ3er6RX09V6d61XsldgI1LsEQu4Ez0T72iDGS17pdbS
-	 a4J7UsmuvLHcSPCAw/j5Z8z7KGOPj+1ileGh0i+rqOkI55eUzFfRYw3JNRcpsjT0dItnf
-	 tZ5Fqqr9WW/aSnYHA5tTYhP76FSwRJyUA1PAs8jpMXCbECZb18hhSjwYJyTOEsOt51A==
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=jM2KqtLZR5KZmZwUFYUmasLVvZOZGtObPE9IUiUfJtI=;
+	b=bRUrigy7fjWpJN0J0baTUWwdmdCAvXy8Jqa5MVB2ty22aA/D+HyefV1rgCWsiYIQWwWR
+	 VMl/Q1Ml6ax3yrlP3eC1PDkANCVO64X5C10FyERMJs8agsYA6p3aRNsE30KWoGzVwklMr
+	 RAd0kD3PlreO7o33MdUgZhReqyTW0QNQtZFG04uTe1oe/7QmWMb5jOMX/Dl6G3CxPzPwa
+	 /m6OHYAVCHne6VoF/AppBiEbgL2uA65gSXy2tqkQ6okcYJu11n3ORgEw8BMmbItuEJRuk
+	 1wyhTrUExW/yDuNB4vdFZAWJzFdbdEAvOKr5BhfIaF+9zXdwYzarhjvV57vZqv9bb2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=foSXU7sT;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=HhMBjprX;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E0860A5BDA;
-	Tue, 10 Nov 2026 08:25:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6E0860A5BDA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3159E60A2603;
+	Tue, 10 Nov 2026 08:26:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3159E60A2603
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=foSXU7sT
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=HhMBjprX
 Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C006033D;
-	Tue, 10 Nov 2026 09:23:00 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A167233D;
+	Tue, 10 Nov 2026 09:24:01 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794298980;
-	bh=ufmIDOh2L6uh/i4ech0rAzXFt49ugypcaTJasZ0KXIA=;
+	s=mail; t=1794299041;
+	bh=1OMliKISCKOc37E0qcZlbyxk2XFCqhg/vUhAN14HK9U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=foSXU7sTr1YE6Lp1YJEFK9R/jZzWDqhTuY2amVPC2qzcxAeaeLH+ro1kRTo9AjvpX
-	 wrXm3M8EYLx+6qhwcsaHkXvtuO2whpQgkRkRqRICfYKvKuFDFu0U+uqzc5GyppD6gg
-	 z719R5aijWNsYkCIXZNSQa/lZ/cF+IGU24RNNpmk=
-Date: Tue, 10 Nov 2026 09:25:19 +0100
+	b=HhMBjprXpI3uIHD5g6b++Nd0w1JZL5n5oTyrHRcIDInjC42gHHkAojv6T0csp6uKE
+	 UVGd8B+f4lZ9JOuYUADjCGN9+aDLtFa2yIanGK5xOlfVlFYVtaE8ZwTDMBPsejoY3X
+	 2M6xTMzvi2lQGnB2Ca+cXsTYTyQJP0WcR3npfb3w=
+Date: Tue, 10 Nov 2026 09:26:20 +0100
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David CARLIER <devnexen@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+To: Linus Walleij <linusw@kernel.org>
+Cc: David Carlier <devnexen@gmail.com>, jacopo.mondi@ideasonboard.com, 
 	dan.scally@ideasonboard.com, nayden.kanchev@arm.com, mchehab@kernel.org, 
-	hverkuil+cisco@kernel.org, linusw@kernel.org, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+	hverkuil+cisco@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH v2] media: mali-c55: Require an enabled link to start a
  video node
-Message-ID: <avLQuNJ_KPOH7Ao8@zed>
+Message-ID: <avLU-wAht46lTUlC@zed>
 References: <20261105231626.7152-1-devnexen@gmail.com>
- <avHo8IXKwjsWNzO3@zed>
- <CA+XhMqyKNd2maRXmmpL=aOMB-z4X3JgCD5ofiHpMubtFHuS_0g@mail.gmail.com>
+ <CAD++jLksFHZRFCk9JWQz+Kec-Gjx0dEXchUfLuTewJvOx-dnUw@mail.gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,57 +65,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CA+XhMqyKNd2maRXmmpL=aOMB-z4X3JgCD5ofiHpMubtFHuS_0g@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jLksFHZRFCk9JWQz+Kec-Gjx0dEXchUfLuTewJvOx-dnUw@mail.gmail.com>
 
-Hi David
-
-please don't cut out context from replies, especially if they're not
-super long.
-
-On Mon, Nov 09, 2026 at 07:57:31PM +0000, David CARLIER wrote:
-> Hi Jacopo,
+On Mon, Nov 09, 2026 at 10:26:01AM +0100, Linus Walleij wrote:
+> On Fri, Nov 6, 2026 at 12:16 AM David Carlier <devnexen@gmail.com> wrote:
 >
-> On Mon, Nov 09, 2026 at 04:52:50PM +0100, Jacopo Mondi wrote:
-> > Can you elaborate on how this could happen ?
+> > mali_c55_pipeline_ready() skips queues whose link is disabled, but such
+> > a queue can still start streaming on its own, as the video node pads
+> > lack MEDIA_PAD_FL_MUST_CONNECT. Stopping it later sees a ready pipeline
+> > and disables the ISP under the connected queues still capturing.
 > >
-> > How can streaming start if you VIDIOC_STREAMON() on a capture device
-> > without an enabled link to the resizer subdev ?
+> > Mark the video node pads MUST_CONNECT so that starting a disconnected
+> > node fails with -ENOLINK.
+> >
+> > Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> > Signed-off-by: David Carlier <devnexen@gmail.com>
 >
-> video_device_pipeline_alloc_start() only walks enabled links, so with
-> the link disabled the pipeline is the video node pad alone. Nothing in
-> it fails validation, as the only -ENOLINK check in
-> __media_pipeline_start() is for MUST_CONNECT pads. start_streaming()
-> then enables cap_dev->rsz directly rather than through the graph.
-
-What does it mean "rather than through the graph" ?
-enable_streams() is propagated by drivers along the pipeline by design
-
-> So with the ds link disabled: STREAMON ds, then fr, params and stats
-> (the last one starts the ISP), then STREAMOFF ds.
-> mali_c55_pipeline_ready() skips ds and returns true, so the ISP is
-> stopped under fr.
-
-so a STREAMOFF on a disconnected capture node could potentially stop
-the other. Feels like mali_c55_pipeline_ready() is not the right
-function to use, but if we mandate that a capture node has to be
-connected if STREAMON is called on it, then we're safe ?
-
+> It checks out:
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
 >
-> > Why not the resizer ?
+> > Changes in v2:
+> > - Add missing Signed-off-by.
+> > - Cc stable, as d5f281f3dd29 is in the stable tree.
 >
-> The ISP to resizer links are immutable and enabled, so the sink pads
-> are always connected. Flagging the resizer source pad would break the
-> valid case instead: starting fr walks through the ISP into resizer ds
+> No Cc: stable@vger.kernel.org actually added?
+>
+> But Jacopo can certainly add that when applying the patch.
 
-Is this a typo ? From FR we can't go to the DS resizer.
+I don't have any C55 with the DS pipe fitted to test with, so I'll
+just
+Acked-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
-> and its source pad via the internal route, so fr only capture with ds
-> disabled would fail with -ENOLINK. The video node pad is where the walk
-> starts and what pipeline_ready() checks, so the flag goes there.
-
-Anyway, yes, there is a single link between the resizer's source pad
-and the capture device, if the SINK pad of the capture device is
-marked as MUST_CONNECT then the link between the two is enabled.
+and I can Cc stable indeed
 
 >
-> Cheers.
+> Yours,
+> Linus Walleij
+
+Thanks
+   j
