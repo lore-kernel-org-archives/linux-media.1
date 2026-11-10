@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319446;
-	b=N7naAwud888Ca5Oz0MlStEBVOS/UqIZNkK1mPX2T8x5zF375dH3mKmgpX8vv5bM0J6Se
-	 v0O2lGP1a4pE1Pgys+1TbAyl5xNB0rPMs0Wgh2COyM8leaVbcZ7L4J23NxHWqmbYgAl3r
-	 qFhXY8MigEOAeSvU7URChrNsd/rjcrzJ+ZlF+QFxzkM9vY+XpXYh6SbQf913oSEGGU9hy
-	 v2aro8rozmNFT/NKLesTW14aXhXvfz+LIWM8QBNEmQtooABO0Xiv2Sq4gRF7QYEVyZmKU
-	 9HNj42cJ6a3k8Urpbd5ap11gEFwAF0MRo2hP+G41YlSMuMoARPhBiOhzmiCcp4j6vDw==
+	t=1794319442;
+	b=LU7Id7SOsxY5U9X65OOHX6fmGtRtw1a58THDTfBBM+AqeCb4bkNw5RCMYWZgnkPZQpxQ
+	 6aqEglyCmv2OQ32E1BppodlRn22Sz3SIDwr3Rk3vnZIdZheprOxyAmlgNjG87/eKX+cD2
+	 uE22XMT9sUQnEE3mFDU8xKd/JjpQo3HOqu2P7pcK/WU/ZTLVJXwMtzeVB2ooYHTRWRj/4
+	 bwyfOFaqmyhp4zquFBiZfmy2W/YfIIvsGQw5Uwy4pZoKz6PR20AFUQo8G8s2/rkwXEnPV
+	 iR8yGCTrAVkIZ7JDfypE/UzRrwyTir4LCn2bDb3li4BaeQezF+P+ydgJMVHSPdzcUKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319446;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319442;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=jBJ0xr9s4TDhGS4dXYDJWJFbpc87NgnKnIA5mNyiSzY=;
-	b=x18cLGUYgoKlazbBywkw/Q3YemmcH3C+CjjJnl3SPlQeuutOh4qFrGiyY0Qagr7NbXUN
-	 5H+IHZ5Bm0YkatS9PkwDUW6xiBJHz07ovcUbuO9/L1kYLMadeuUxF98xk1sPB1qBFS5ZF
-	 O+gTJgZAwtmwfJfy5Icqw/AaJiTDhH68G2yQhEsKJtO2NvjEIOGyFMoaHkxN6IXlYt70O
-	 tATfom5yjVYNiu66amBruGFVwCgw+NRjS2XUVTPfKMI+62j7jzoAjqhLdTqjg0WeLOYrL
-	 Nhe/EeFY3llulxDepu/OZ2aa8RdZiku4h/J6PfH0dY6RpIrKcQ9JZlerVYtI+xlqWdg==
+	bh=7SNMRn19gqfsW+FItqWvv1LuPX61ETlQLvBBtwgnLk8=;
+	b=pQYljiXG2AD7/zJo6y8AgUyAMlNHEpN5+UqpXaLC/oPBdFu4/FOcZr9OTgxthKkOLvz7
+	 m09Co1zA1Jjt6KF2yp9s1Blt+bNFeostLmwzBNe7ImzHnsenYjmFdnKVNeVR6TMC+CP1M
+	 tfgjC096oOK77aVAUvCHhzmxLEV6CpdlaUFaI4uq6pQP+iUCasMkiHgD7G7HvWDCeeOho
+	 4PoBusnx++/Wq48QCJETFG1Euq066jFWDLKQyecb7h+5rFUC2wR909p2JJJp+GLLcWcIn
+	 6jVfrY5X9w0u9iHJ/HJDiUCjVFaADEzujJ6j8kxpD+ndRimxYgyqHM5A6Tuql64wAsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LWX006/k";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bu7n3QLm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33DF60A2603;
-	Tue, 10 Nov 2026 14:04:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LWX006/k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 316141F0089F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7549260A3801;
 	Tue, 10 Nov 2026 14:04:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bu7n3QLm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE7B1F008A4;
+	Tue, 10 Nov 2026 14:04:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794319445;
-	bh=jBJ0xr9s4TDhGS4dXYDJWJFbpc87NgnKnIA5mNyiSzY=;
+	s=k20260515; t=1794319442;
+	bh=7SNMRn19gqfsW+FItqWvv1LuPX61ETlQLvBBtwgnLk8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LWX006/k50e/zo/KIHRIDuJV+keMqzJwIjmlbo/f3X5Up9tZ5PsyfL7nD1kEjorrJ
-	 tZOVSzsC9FkPlZfUq23UtI8ad1QTniAFoJ40mUAADDL14GisFH2aVRhwfjSAaJXwbu
-	 XWWUj9U39zhb5w5vJiWoleJjvzdhzbgTQmjyGRSzRWOF23Trby6kDx6kLojUNJbVQL
-	 Vil/q4nWwCze8LSQl16IymqBD6sUuVdATG13GLXrWnvCVD0f3KlQ0sJqQq9EmSdMCt
-	 eNaEBrBoabfCrj+ud6cLnuI6IWoEYuVHlxuSZeUadfy7SE9Jdldj3hIho9lwiiZjld
-	 VQAqvQivewuQg==
+	b=Bu7n3QLmvgnBFxAUzsXp+zBHdfasZrfsr9bEVGDoCCjE6tOPhomgenywWBEyUi8Md
+	 XmWunn1fAt4ODGkOfS2Sdf8Pku7sgb+05xdakzQVzBmWPYICKs3SICmmREuyB8Gizn
+	 vKZhJhBugOu3gfuTIIF2sxj0B37DoyzyGv0BRsSg1i5KsRrYxVw33iIwDRq54uBrIx
+	 1+CPpF0w4GhGRPEMRb7GEhGPu4jJeP3TOjaQtNOmIgBWTw8INq/FmAXNDpHsnxKRWG
+	 Ycuaeu43jve+QNzy9jr6q9JuHf4ev2Jkl5FSG7RdzHqx1PF+Rf0z9OFJfCQ8VBIlGa
+	 MG+VJZfIq9dyQ==
 From: Joshua Crofts <crofts@kernel.org>
-Date: Tue, 10 Nov 2026 15:03:50 +0100
-Subject: [PATCH 4/4] media: i2c: vd56g3: remove redundant
+Date: Tue, 10 Nov 2026 15:03:49 +0100
+Subject: [PATCH 3/4] media: i2c: vd55g1: remove redundant
  pm_runtime_dont_use_autosuspend() calls
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-media-remove-dont-use-autosuspend-v1-4-cc07e71b30f9@kernel.org>
+Message-Id: <20261110-media-remove-dont-use-autosuspend-v1-3-cc07e71b30f9@kernel.org>
 References: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
 In-Reply-To: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -67,11 +67,11 @@ To: Sakari Ailus <sakari.ailus@linux.intel.com>,
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Joshua Crofts <crofts@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794319431; l=1163;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794319431; l=1167;
  i=crofts@kernel.org; s=20260422; h=from:subject:message-id;
- bh=rNohVn5PccJKHfqSx+Gswt1OdxA+A4uAaVBJFien/yQ=;
- b=zEWAvwqHvWbN8bXGudlf4KULxgTX8p/b32D8/V5sCP2VqZwTuWtcwL7L/dMTwik1ZjfyEjjFB
- QbwjHmOPw0SAtorqgtLxFTCMZ5XYOwvvqQv7mb/m30cvo26llchQ4aM
+ bh=3JtUFHLngK+Z4hf+nqLJAp9bQMJ0gI/2RWoh+fAZLO0=;
+ b=WYB/9H7CQlpn6Jo1yOxwDAXkqL645vFB+dzQlNEh53uJVV9drXuFAiZXn7pBZpewo66ItZEGi
+ OcGIuZdIdPdBh9AdUTBotZEU5ZaGmEdYRNTVQn6FMMr6vaTUzQ9JW7Y
 X-Developer-Key: i=crofts@kernel.org; a=ed25519;
  pk=Xd+UVoRPiiI0K3LHQ2XIcXmO0jvVuFTv9eTx3lgBphI=
 
@@ -83,29 +83,29 @@ Remove the redundant function calls.
 
 Signed-off-by: Joshua Crofts <crofts@kernel.org>
 ---
- drivers/media/i2c/vd56g3.c | 2 --
+ drivers/media/i2c/vd55g1.c | 2 --
  1 file changed, 2 deletions(-)
 
-diff --git a/drivers/media/i2c/vd56g3.c b/drivers/media/i2c/vd56g3.c
-index a42210d0ab8d54a9132a5077875138c2440152bb..e4ad01973a24201a20dd43c86ac6de9817889049 100644
---- a/drivers/media/i2c/vd56g3.c
-+++ b/drivers/media/i2c/vd56g3.c
-@@ -1538,7 +1538,6 @@ static int vd56g3_probe(struct i2c_client *client)
+diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+index 3a3ce32b0610eb23d42b622f2173a505df120176..8ea68dc9b1d99d11a7678138a5b6f7147b595f0a 100644
+--- a/drivers/media/i2c/vd55g1.c
++++ b/drivers/media/i2c/vd55g1.c
+@@ -2053,7 +2053,6 @@ static int vd55g1_probe(struct i2c_client *client)
  err_power_off:
  	pm_runtime_disable(dev);
  	pm_runtime_put_noidle(dev);
 -	pm_runtime_dont_use_autosuspend(dev);
- 	vd56g3_power_off(dev);
+ 	vd55g1_power_off(dev);
  
  	return ret;
-@@ -1555,7 +1554,6 @@ static void vd56g3_remove(struct i2c_client *client)
- 	if (!pm_runtime_status_suspended(sensor->dev))
- 		vd56g3_power_off(sensor->dev);
- 	pm_runtime_set_suspended(sensor->dev);
--	pm_runtime_dont_use_autosuspend(sensor->dev);
+@@ -2070,7 +2069,6 @@ static void vd55g1_remove(struct i2c_client *client)
+ 	if (!pm_runtime_status_suspended(&client->dev))
+ 		vd55g1_power_off(&client->dev);
+ 	pm_runtime_set_suspended(&client->dev);
+-	pm_runtime_dont_use_autosuspend(&client->dev);
  }
  
- static const struct of_device_id vd56g3_dt_ids[] = {
+ static const struct of_device_id vd55g1_dt_ids[] = {
 
 -- 
 2.47.3
