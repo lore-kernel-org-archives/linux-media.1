@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794298572;
-	b=NW0ULlN6KD6p4tfUsXjvWyAqq/lRvrdTOVPU44wydCXv4e2Ewe50KHePVrTkDQ4SZib1
-	 gnmLmYfrfTnwiUPBviKbrQ7grd+8hHMsGLw+7iur1IyemPrZj4ErPN7lNV4ro1KEm21td
-	 4ZOeGAhtFr+NMg7i+ZOS/kDQr1zNGp7ADP5Yj9jKFPm1Ta6ru2Vg5jiy17gBE/qgEYmLX
-	 52PCfx3IeTD0GAw5vvT2030x7lYQE5h7TMhBgAj01+ZZXWMQGagk7YB7smjmcjqpRRRNR
-	 B9/GPpq2nCUnyDc//0N9KfbIlDXpEbYfAZO+dGOWFkidIx5mjZ+/6ufuUs+vV8x1tTA==
+	t=1794298711;
+	b=39g+/WnpuEGOmCeZV4wbRfV+bObVgyx8uXHY41vaAw55BKiKcrScMbo0ZKIgfxxjo+DR
+	 OYrpdwf6HeIXGmhf43hAAV8jimj2we9h0/OD6pBSzGdYYSTee00LTGm0S2qrn3Ljvy82r
+	 o/ENN+6P7ub2kwt+hUIA8IcCALtqbDEDn0Nprrl6ZTFKzXffwdAUokinJQp+uHCT6RxGA
+	 NcsIu0N6uL8KZqZ2U7nVbPKoTIC2dCBw7EVnD1OAFJo6b7sehYaIEa4QMnDpBB0usXADL
+	 +cnpUihFiOJvIuyJp1/ferxAECiebzR9NXFqZEbzlWAfw6YPb51b/SQZNhB4OhUNpDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794298572;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794298711;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vnhLj9uQ2n0hRVWZvDngQTqmw9KtxQ3EQlGh60Cbtxo=;
-	b=tf2Q8RdJTv7iJ+4aaQ2ZipuvICkPbsrgRaw3/O/0Bevtgil7pYI45HlsxIfEbHMPXKnZ
-	 v1nuCIBkEkLBB4M8/xX2jAkbmNzI4s//wQgJbSDjTtKm/qgviCwBc3AM64RmaBXehDqzC
-	 S8AQwLw7K0WsZt+D7qmpg7Kr+E8SuXNYAatqyWafSxdwPlkutsZ8RoVL2k6J9JkOErBW5
-	 bECWcwsJ6/Lcxh1sPq62TXXBROfoZF5o1LiVWuLGjaArd6uZEA+vn/W0WOZiHY5BLHMR1
-	 vWldy0IixHePzxcvmP9DVEXhOdtVO+u5UJOO2JhCfSPOWJqaNbbmg3hL0ShqfUVqZZg==
+	bh=ooIF9l2ke67KDVhc/kJP05DrltCEvdLdF23YLb4ic/0=;
+	b=eecqsr34J+YUPRqXnJz6hx7TTFG/J00uibVNCU8wozWTUaA0VJkxhYcuydF0wDGF9q9F
+	 0pMOyu0UfmujkrYgYhxb+bOBA9f0ctlDwgd9Xl1ZtjASi4g+wsE+Ezf7mE+Ry3gFsC+L0
+	 AfkzgZA6Kly9pA2iqnwzLejVFn/NcXV6233ZfVcUT7JSBZs2Tji1Mwl8VkaeZpNgDDS4j
+	 6RsGLPa05iFXSlu//M8Gmdi5dbPnZRLyWsMS44ueRZ3LBa2fDNkY23V/M70tTdf0jMMHC
+	 /06M5lpiM3wx+tV4XG7z7dVZVbBCwKEA6JkcnVut5dvTdMIvFwdufvmzpsXLNO2ZH7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WwdszGw5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nj2D9liz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18ADD606A31C;
-	Tue, 10 Nov 2026 08:16:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7DC5606A31C;
+	Tue, 10 Nov 2026 08:18:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WwdszGw5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB7C01F0089F;
-	Tue, 10 Nov 2026 08:16:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nj2D9liz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D46AC1F008AB;
+	Tue, 10 Nov 2026 08:18:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794298571;
-	bh=vnhLj9uQ2n0hRVWZvDngQTqmw9KtxQ3EQlGh60Cbtxo=;
+	s=k20260515; t=1794298710;
+	bh=ooIF9l2ke67KDVhc/kJP05DrltCEvdLdF23YLb4ic/0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WwdszGw5BCIinx5MHfSq3dnnQQ+MLDaCoA9wEYZ3DtHq+REBuxfbIweFqQSWkYkcM
-	 jfqlnt347oF9Ar8LwTy8JF0O2uI1TtEci1mxe+HTtl0uVTJxYSi5VIPOX+7kK0kfKa
-	 0kIMBNA/ZodobvP8uAbURT5H1pqjvs1aJKpDt+D43UaMyh5l655sz0IWGRNeoeXSpA
-	 J9pw0biFgT792MABObS45AVWz7Bbad7wn7sIVedVGN1OaNl8zyhnV5MjmV98R59lW+
-	 D9Wx79rZGVmlGJAWy2lguSDw8GnC15JQZ1df+qr/QtADONtGH5EP386W6ROYTel5Jv
-	 i562845iCeWzQ==
-Date: Tue, 10 Nov 2026 09:16:08 +0100
+	b=Nj2D9lizDyZkQsO64U/IpvjHu4ZrduS99dklw/+CHSJtp5hTFL1w+DVbjVCgMlRQu
+	 1vCIANvWg6bxnFWGFmYvLOVa/PK9k1AKVVZOZoiUgV+Z46JvqXHL7LSavPNo89UWKN
+	 66O7xgZsMd4LAvbv4gh/c0iEIVt767AEQvL35m6zcmOoMTrjng2oBw5EBao63yu9n1
+	 DaH1LWq7ptIHmMJ3PXZERcamoxOc5urwzDhfeAEqGpdC+DwI8TTvXWpOZ5AQlD5hzE
+	 /7lunmpcogmCZNKPI2Gmv6vSOMLxo6VUOV/BkbLn/xv9HfexzGghxa8DFohAVp8z8x
+	 Et3EcLOS2SQTA==
+Date: Tue, 10 Nov 2026 09:18:27 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Gaurav Suman <gauravsuman007@gmail.com>
 Cc: Bryan O'Donoghue <bod@kernel.org>, 
@@ -49,11 +49,10 @@ Cc: Bryan O'Donoghue <bod@kernel.org>,
 	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
 	linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/8] dt-bindings: media: i2c: Add Samsung S5K3M3 image
- sensor
-Message-ID: <20261110-qualified-starfish-of-potency-0f7cde@quoll>
+Subject: Re: [PATCH 4/8] media: i2c: Add Samsung S5K3M3 image sensor driver
+Message-ID: <20261110-honest-tall-tortoise-e4ac47@quoll>
 References: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
- <20261109-sm8150-camera-v1-3-3d2e7b407516@gmail.com>
+ <20261109-sm8150-camera-v1-4-3d2e7b407516@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -65,117 +64,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261109-sm8150-camera-v1-3-3d2e7b407516@gmail.com>
+In-Reply-To: <20261109-sm8150-camera-v1-4-3d2e7b407516@gmail.com>
 
-On Mon, Nov 09, 2026 at 10:38:21PM +0000, Gaurav Suman wrote:
-> Add bindings for the Samsung S5K3M3 (ISOCELL 3M3) 13MP sensor, used
-> as the wide camera of the LG G8x ThinQ.
-> 
-> This was written and tested with the help of an AI coding assistant
-> (Claude Opus 5.5, Anthropic); I reviewed the change and the results.
+On Mon, Nov 09, 2026 at 10:38:22PM +0000, Gaurav Suman wrote:
+> +	s->regmap = devm_cci_regmap_init_i2c(client, 16);
+> +	if (IS_ERR(s->regmap))
+> +		return PTR_ERR(s->regmap);
+> +	s->mclk = devm_clk_get(dev, NULL);
+> +	if (IS_ERR(s->mclk))
+> +		return dev_err_probe(dev, PTR_ERR(s->mclk), "no clock\n");
+> +	ret = clk_set_rate(s->mclk, S5K3M3_MCLK);
+> +	if (ret)
+> +		return ret;
+> +	s->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(s->reset))
+> +		return dev_err_probe(dev, PTR_ERR(s->reset), "no reset gpio\n");
+> +	for (i = 0; i < ARRAY_SIZE(s5k3m3_supplies); i++)
+> +		s->supplies[i].supply = s5k3m3_supplies[i];
+> +	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(s->supplies), s->supplies);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = s5k3m3_check_hw(s);
+> +	if (ret) {
+> +		if (ret != -EPROBE_DEFER)
+> +			s5k3m3_power_off(dev);
+> +		return ret;
+> +	}
+> +
+> +	ret = s5k3m3_init_ctrls(s);
+> +	if (ret)
+> +		goto err_power;
+> +	s->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+> +	s->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
+> +	s->pad.flags = MEDIA_PAD_FL_SOURCE;
+> +	ret = media_entity_pads_init(&s->sd.entity, 1, &s->pad);
+> +	if (ret)
+> +		goto err_ctrls;
+> +	s->sd.state_lock = s->ctrls.lock;
+> +	ret = v4l2_subdev_init_finalize(&s->sd);
+> +	if (ret)
+> +		goto err_entity;
+> +
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_enable(dev);
+> +	ret = v4l2_async_register_subdev_sensor(&s->sd);
+> +	if (ret)
+> +		goto err_pm;
+> +	pm_runtime_idle(dev);
+> +	return 0;
 
-Drop paragraph, it goes to the changelog, not commit msg. You need to
-review better, because it has obvious and trivial misindentation. If you
-just copied existing code you would see it is different. Instead of
-using existing bindings as base, you just generated new stuff with new
-issues.
+This is hardly readable code. I don't get how Claude could even generate
+that... but if did, then you use poor tools thus your work can be
+ignored.
 
-I might be ignoring your contributions based on that.
-
-> 
-> Signed-off-by: Gaurav Suman <gauravsuman007@gmail.com>
-> ---
->  .../bindings/media/i2c/samsung,s5k3m3.yaml         | 104 +++++++++++++++++++++
->  1 file changed, 104 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5k3m3.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3m3.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..434f5d4326b726d0a65288a2a91b750e38a8706e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3m3.yaml
-> @@ -0,0 +1,104 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/samsung,s5k3m3.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Samsung S5K3M3 Image Sensor
-> +
-> +description:
-> +  Samsung S5K3M3 (ISOCELL 3M3) is a 13MP image sensor controlled over a
-> +  serial camera control bus. The driver supports 4160x3120 at 30 frames per
-> +  second, RAW10 over a 4-lane MIPI D-PHY interface.
-
-Drop driver.
-
-> +
-> +maintainers:
-> +  - Gaurav Suman <gauravsuman007@gmail.com>
-> +
-> +allOf:
-> +  - $ref: /schemas/media/video-interface-devices.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: samsung,s5k3m3
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description: MCLK supply clock.
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    description: Active low GPIO connected to RESET pad of the sensor.
-> +    maxItems: 1
-> +
-> +  vdda-supply:
-> +    description: Analogue voltage supply, 2.8 volts.
-> +
-> +  vddd-supply:
-> +    description: Digital core voltage supply.
-> +
-> +  vddio-supply:
-> +    description: Digital I/O voltage supply, 1.8 volts.
-> +
-> +  port:
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml#
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          data-lanes:
-> +            items:
-> +              - const: 1
-> +              - const: 2
-> +              - const: 3
-> +              - const: 4
-> +
-> +        required:
-> +          - data-lanes
-> +          - link-frequencies
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - reset-gpios
-> +  - port
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +      #include <dt-bindings/gpio/gpio.h>
-
-Messed indentation.
-
+Just open any existing recent driver and compare. Sending code which is
+completely different than our coding style - visible with naked eye -
+proves that you just sent us slop.
 
 Best regards,
 Krzysztof
