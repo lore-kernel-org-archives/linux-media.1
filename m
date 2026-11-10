@@ -1,59 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320230;
-	b=4bchJD0AX4jqVXS9OYZsWeZJRd+KclE9dZcaGEIWTkvz5ZrXqZAyqxuXfJ2TqpWKmZzm
-	 XJSBoTvZkUphnjvnxYfpvr/2WCY86FsVHfrE12T1aDVgi2YePq8PZe3dmA/DRr25Jpf8L
-	 8atibqihDAqYcKFs901OZ0Tc/KObgs+kqbvDsLLU4yXnqXW+COhRNwNkFygSpV0Lkfihv
-	 bh7/2nAvBWLmHO0M+cHLuckbeYHIQx7kKelofXLCpnIRCuSDr6j5RXvmM+v7psXX3245Y
-	 PgA43SIPrPltJiLVDTAYmhwyHP6AjyOngi2i00TIidOpSVCc0fXh65SXOq3dI8vR0JA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320230;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Q1JlDUJI5Cr+wvZH4apGh3ldcaH5uiMtQ5yIrEgM70I=;
-	b=PCwA3SDFV43cbT38prdBEv0Jg1KOsbCuxuVVpVNpnp2XYkt1LqgPaLo5EMqF5P+ZKDBR
-	 03Ia/s6SuDHuY3nxbUlgkeDp2AccYqYr1A7Stbpv+U2ssC0TWNn3rLCIjcWISAI0UP4Zt
-	 XxE+oTaoqlpMIlm+whLhclRGeOV6m9W80lTHqbXEDUkAmgiIGMk0qeUinA7XKvbZavZ0+
-	 5Lp8A14V/rUIPSmRQjjRwVqBTIqM0j0sWhllvy+G4SV1u+b27FM66zquI/rjPKZtPocmc
-	 KVTkm82BuRv5kQeLzUDqMCxs2dSsWhTMZxS2IFFGkk1G/EAH9JnHql21/FAaximlkog==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XN/0197K";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.0
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794320426;
+	b=ei4VeSRsZprLAlvQIFWxJw+bpbI+aLLoVFJ1nmVghANB3Kk0tGxuo+oqwf+OLo8isfA5
+	 h+42/txOrb+5NzpNrQH1ExxcAJCFAnk32acNQJW0mEcFaw1tvyRf3J+dPOZFw4FGOUW04
+	 Y3hZeIjD3Iws0+pb+/3kMXcLOKpBmfOtFbMpQ+RoViRmwoWX4hUi5PCzILM/c5Ujj1Pwn
+	 nx13zx2e1banzNTFSocHt0/js0dHc7U/XVTKA3SUFHDcOlFvIYa8r57adLKAkHIuYUjq5
+	 tPvgrNIpSiY2dtoaYAyoY+dZOF6ZIxIzVeDMiir7YKlt3ijXu7ExQnSijqToaE3KNiQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320426;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=28+70BB/vqFkrOTl5aGj+wmLYtgO03wAwUj90WH8apU=;
+	b=VrzQOul+zTnz2ZB+0GfuxuLK5yXTaLlSz4223hdtn9nCk6K7tqPwArb/g6YG5PspZKSB
+	 7pz+kSMvxVb0CFXsJO9pO71grviyEFpva4RcprgBek30fVAJFPiFAp8zTtyuMjdnHWDeX
+	 KzHi0ZI9v8GV1tAud0ebSvHsh10Iv0BzMLEjXwvx5Jc06tdKBDShP2qcSqZtYQlIIzzo/
+	 G7Q/Qu7i9I+mex00eL+yBncIo5ddyBE1/uVcJjoWs2ETuA5cVtZ1yNlD/tt2IDDXod1a2
+	 fj72mM3t7EGruzJWmD9Qn06IfCuT517BTzWcV9IPt99VoU3XZlNHD+jI7DEomMF9JQw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=evQdWX2F;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.0
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013000.outbound.protection.outlook.com [52.101.72.0])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F01A606A33A;
-	Tue, 10 Nov 2026 14:17:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEF5606A321;
+	Tue, 10 Nov 2026 14:20:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BEF5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XN/0197K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22EA01F008A2;
-	Tue, 10 Nov 2026 14:17:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794320229;
-	bh=Q1JlDUJI5Cr+wvZH4apGh3ldcaH5uiMtQ5yIrEgM70I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XN/0197Kbsl3bS0d4loNWvHP3zFSp4ZM+NesLngQAu3Tf0XyEWT9bbZBbBKLQHrlT
-	 t2O2roTpnMpeo4GFk0Ikw65l8JrCR4+VTpA6NWTtEK0ISh8APYigKmqDEYs4H79Fmu
-	 T1DFqaf20aZh5BbmHJFwAgh1wL27zQA23TLP//PkeEHtVK4JZ4ZXwuf2c9LrijAmIk
-	 uSshncFp0VAgTGMupdw7xFgJNYZxnlKgLGVSjaH1sgvtHCe/wIvUVBmiCJwNZCiQje
-	 UWBFy1JJ4A8t60U0AJQf2EPZ/6YFnvapyODV6t1sfMG01SEUZv7Lm2kewkGb8Q4rKe
-	 7h/RW5ykxAAgw==
-Date: Tue, 10 Nov 2026 15:17:06 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Michael Riesch <michael.riesch@collabora.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
-Message-ID: <avMgJ7MFks0sKD7T@houat>
-References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
- <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
- <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org>
- <avMM6a6xcDHT-zCR@houat>
- <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=evQdWX2F
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fzjUtXuEG1KAhr8yuOHGhjJj1/SZTsq/vAha2hj/iLjWK34M+t3ioqZVj6mSgev93+yLYLr+lp2Pzl1RUaFbg0A90CgYhdc865LML8kJ8Ha+4Asd8lhZELZo9i9dn+TCLtl6qCZjh+K5xJT6NMhUDvBWmHOX6yJqKu8zuwaj8eBytgbWkkbPwlW3WFvkHiAhTCE96ZdsqDENHeywGulN9/06CF8rGP+bYxurGv4Bwe2lRNZKJWHAEVoeKe21WXmTqPR4lpa4skEazmM6Od7nYs1VLg4KbV2AZHnf1xOmzojDDY2fVhlgyuKaE+BXVX0KVQ3OaOV4D0NByPycCM3ijQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=28+70BB/vqFkrOTl5aGj+wmLYtgO03wAwUj90WH8apU=;
+ b=HDKrP3mUI5OH/fEKBezsipYh4mNbPR16ugCviAUcgq5U24oNnPi/zdozbW1iSKpPyNKJX7I6jMIt3LS73vAicN2XJyTW+mYCAJDTydQJq4UQ1Eyk8rBJ0VynXEO6cewjMsRfhRsE9vsUW3S0Bfs6REAMOdte4396NMLp4Zzs1R/C9ICYO8bXVKlNzr5/N6tGVHYKEBi2vwtzs/jZJc/t0gUQwRGp6jVoOQpgwy6tIs9TCIAgI0dOhXJuYAWXup1MhAJEXYlLoB1JqMvBekkQcwDhFLDSl4e25AgvnDAXUoVregnrHg43Dmdr0BmpWXJ8B+7w0HD58y5hWVTklTSBDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=28+70BB/vqFkrOTl5aGj+wmLYtgO03wAwUj90WH8apU=;
+ b=evQdWX2FVUjH12672dfTaxr7+FgQ6axQMdJQ55YWXxOnkp6cRKmFZm5G5fy2sD0D1pbd30VQX/OHRjG8Bjdej+LFV3hjEy9dNygLi8UbpRtlm0tpDzcqh6eqwAtHuHFPkpH4Ary+eTCiU4YY6+fX6N0Jxduv/RciZCPnT58q49OzkAB1X5B/zf84cqQUnoc3qbEJBuRx5eFlGjro2Ba5wwwkqLr6g7NmyaujDBXYrxQ6ZHEupwYOff8GyD+0GnMmQlvoNhei68Q0Vh7oyhbkvWuO4sV5f/L2Xno+NI7m83xsWIkz9P8fpiSZcL92qWEIJj7wywOEas1lU22uPKJHOw==
+Received: from DU7PR01CA0045.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:50e::18) by GVXPR10MB9105.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:150:1e2::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 14:20:20 +0000
+Received: from DB1PEPF000509EF.eurprd03.prod.outlook.com
+ (2603:10a6:10:50e:cafe::39) by DU7PR01CA0045.outlook.office365.com
+ (2603:10a6:10:50e::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Tue,
+ 10 Nov 2026 14:20:20 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ DB1PEPF000509EF.mail.protection.outlook.com (10.167.242.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 14:20:19 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 10 Nov
+ 2026 15:21:16 +0100
+Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 10 Nov
+ 2026 15:20:19 +0100
+Message-ID: <e43e01a5-4121-4ca4-8216-8f20728759d1@foss.st.com>
+Date: Tue, 10 Nov 2026 15:20:39 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -63,189 +104,93 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="f4gycnlj27uzbn3m"
-Content-Disposition: inline
-In-Reply-To: <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] media: i2c: vd55g1: remove redundant
+ pm_runtime_dont_use_autosuspend() calls
+To: Joshua Crofts <crofts@kernel.org>, Sakari Ailus
+	<sakari.ailus@linux.intel.com>, Dave Stevenson
+	<dave.stevenson@raspberrypi.com>, David Heidelberg <david@ixit.cz>, "Mauro
+ Carvalho Chehab" <mchehab@kernel.org>, Sylvain Petinot
+	<sylvain.petinot@foss.st.com>
+CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
+ <20261110-media-remove-dont-use-autosuspend-v1-3-cc07e71b30f9@kernel.org>
+Content-Language: en-GB
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+In-Reply-To: <20261110-media-remove-dont-use-autosuspend-v1-3-cc07e71b30f9@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509EF:EE_|GVXPR10MB9105:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72d54cc1-099d-41f2-d0fb-08df3f35c03f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|4143699003|11063799006|56012099006|261021123027099003|261026121527099003|261022075727099003|261009221727099003|261009221227099003|261009223027099003|261009223327099003|261009220027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	4jZpNLzZ452u/FycLW1ro0gm/ieVsbyM11Xuv9N9a+jM1StW+ra32xGiolkCdbsbPBopi8LecqGcQ8egXx/hzdGHG63jcTbOvzkMpgykWvsK0JCSdKNOcdosdHwimagb1Z0qHTQl9qqAkL0/D8MkF1s0M9+R8GnOGRZ/2qKPqeyBij5QZYY7+Gm2ASsLfp42ndQYMOZGvsuHcY2UcjZHa1/RV0/zVeL7koNjki2v2hwc6dk5wwcyklhxUWli+OoChizetBp8p+m+3yp3U/+nbu7WB4sNVX3exW3hMW1MGHhX0mGko4JSgxapBsfjw99bESHx0glAQDyO2X5EI2fDK/rD2T5XKRZI9NCR/ZV9BQxAFSTQrMOG0lZFCbcszuekGcsVh5Y8/PwzLun6IcP0KkDsS7n5YcaSHs288Sg7omVXkF69GL8w39uVl9/r7KfhudqikYaaPpYQSkNBQgLp0+Q4On9kafQ5kjWnLvOYRptPFtxS95/dNUvB6cOuh6JPNYEABEs92py0g2cvdrEa+p4yy3yzRneSLyTpd09IIpl6+Dc+wzBi+k2RsO5s5kiCcsq+7/pczv0zUGcSgIM7W0ALnSHPiDXgUEcd2yqen5ZvJt1FOgX1JYAOx07b0966NEjra/MJPAbRPPG9UQeh6cSN2cIY67dOVl5r/3aBUYthzKsRO2ARrAnDI7ioMmgT2TRk8Yh31OxcJH8IAo+yaw==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(4143699003)(11063799006)(56012099006)(261021123027099003)(261026121527099003)(261022075727099003)(261009221727099003)(261009221227099003)(261009223027099003)(261009223327099003)(261009220027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	1cIV7cWF9sAbXHPtwNQt8qj55V8Zuhpdot7yPq7oMLiRZREllyNqi/0zGDHJiR6FH48BEpoSq+E86+Z5ZpANlnRYoVT7sYzJPH5nC2swJcvDaHdc4PnW7Y0DsIRc4WF4oAXONCVSPvNrC6KRYjl0ckLZwEqZxT++5nu40TRAbj0VQO80unswTyoGLaDHGrF52CA2DVMZZv1M1Ohsm+tmQm1y6xt1J1UwIEL7pya0xPzDbMBLdz89LycsP9451WtInbglTMNy1p/rncfk4+Bv5v1wmPiEhPKGQ7uoSEWmo85e3aR+onRv2PwqYMGTI/UIOtR5yeBvxtdLtNZ3yyPhFjqhOEoeeBhoguAIV66faeRfOIoMwLwFOwhG/hR8T6I1v9bw50PcHTojDud8SQw56f3BZPGd5mEO6YHLIHdQUu9DmNSfMrjgxHCRCLGi3+Vc
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 14:20:19.9975
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72d54cc1-099d-41f2-d0fb-08df3f35c03f
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509EF.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR10MB9105
 
+Hi Joshua,
 
---f4gycnlj27uzbn3m
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
-MIME-Version: 1.0
+Le 10/11/2026 à 15:03, Joshua Crofts a écrit :
+> Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
+> driver core is now responsible for undoing any
+> pm_runtime_use_autosuspend() calls on driver exit.
+> 
+> Remove the redundant function calls.
+> 
+> Signed-off-by: Joshua Crofts <crofts@kernel.org>
 
-On Tue, Nov 10, 2026 at 02:30:51PM +0100, Hans Verkuil wrote:
-> On 10/11/2026 13:33, Maxime Ripard wrote:
-> > Hi Hans,
-> >=20
-> > On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
-> >> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
-> >>> Hi everyone,
-> >>>
-> >>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@kern=
-el.org> wrote:
-> >>>
-> >>>> On media-centric camera pipelines, every entity is known at boot time
-> >>>> and described statically (for example via device-tree).
-> >>>>
-> >>>> The V4L2 framework assumes that every entity of the camera
-> >>>> pipeline is always present. This is a reasonable assumption for
-> >>>> integrated cameras in laptops or phones. However, in automotive syst=
-ems,
-> >>>> cameras (e.g. rear-view or surround-view) can be damaged or disconne=
-cted.
-> >>>> When the framework assumes all sensors are present, a single missing
-> >>>> camera can prevent the entire pipeline from operating.
-> >>>
-> >>> This series has been discussed at the Camera & ISP "unconference" in
-> >>> Pragues (during Linux Plumbers)
-> >>>
-> >>> The notes can be found here:
-> >>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus=
-=2Eideasonboard.com/T/#u
-> >>
-> >> What is missing in this discussion is how userspace can indicate that =
-it
-> >> actually can handle partially instantiated pipelines.
-> >>
-> >> Today if one or more parts do not come up, the devices nodes are also =
-not
-> >> created. This is typically exactly what you want.
-> >=20
-> > That's very arguable? We have plenty of other examples where we allow to
-> > show a software representation of something that isn't available in
-> > hardware, starting with virtually any memory buffer allocation, but also
-> > disabled CPUs, swapped pages, etc.
-> >=20
-> > For things a bit more related to drivers, things like USB root hubs are
-> > also pretty analogous. The "root" device will always be created, even if
-> > devices connected to it are non-functional, missing or whatever. It's
-> > the primary interface that these devices might or might not attach to.
-> >=20
-> > So it's a bit hard to understand why the device nodes not showing up is
-> > exactly what we always want.
->=20
-> It's simply how V4L2 works today: video devices do not appear until
-> all components are instantiated.
+That's an easy one. Thank you.
 
-Sure but that's exactly what we're trying to change.
+Reviewed-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
 
-> Most video devices consist of multiple devices (bridges, i2c devices,
-> etc.) and unless all are found and initialized, you can't capture. So
-> bridge drivers postpone creating the video/media devices until
-> everything is there.
->=20
-> That also means that applications can safely assume that if a video devic=
-e appears,
-> it is functioning.
+> ---
+>  drivers/media/i2c/vd55g1.c | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+> index 3a3ce32b0610eb23d42b622f2173a505df120176..8ea68dc9b1d99d11a7678138a5b6f7147b595f0a 100644
+> --- a/drivers/media/i2c/vd55g1.c
+> +++ b/drivers/media/i2c/vd55g1.c
+> @@ -2053,7 +2053,6 @@ static int vd55g1_probe(struct i2c_client *client)
+>  err_power_off:
+>  	pm_runtime_disable(dev);
+>  	pm_runtime_put_noidle(dev);
+> -	pm_runtime_dont_use_autosuspend(dev);
+>  	vd55g1_power_off(dev);
+>  
+>  	return ret;
+> @@ -2070,7 +2069,6 @@ static void vd55g1_remove(struct i2c_client *client)
+>  	if (!pm_runtime_status_suspended(&client->dev))
+>  		vd55g1_power_off(&client->dev);
+>  	pm_runtime_set_suspended(&client->dev);
+> -	pm_runtime_dont_use_autosuspend(&client->dev);
+>  }
+>  
+>  static const struct of_device_id vd55g1_dt_ids[] = {
+> 
 
-Ish. The only safe assumption you can make about this is that it was
-functional at probe time. Anything after that is very much up in the
-air. If the device broken after probe for example, or if we have no way
-to tell if it's functional to begin with, that assumption is no longer
-true. So sure, that's what applications have been doing so far because
-there was no better way to do it, but I wouldn't qualify it as a "safe"
-assumption.
+-- 
+Regards,
+Benjamin
 
-> If we add fault tolerance, and you allow video devices to appear even if =
-they are
-> not functioning (or partially functioning), then that contract breaks.
->
-> >=20
-> >> But here you allow partial instantiation, and how does userspace
-> >> signal that? It must be an 'opt-in' mechanism, but how is that done?
-> >> There are no devices yet, so that can't be used, so what alternatives
-> >> are there?
-> >>
-> >> We've been discussion Fault Tolerant V4L2 for many years now, and ever=
-y time
-> >> I raise this issue, but I never received any proposals.
-> >>
-> >> This must be solved.
-> >=20
-> > Is there any way to? You're saying at the same time that we must not
-> > create the device, but that an application would need to signal to that
-> > device that it can indeed be created. It's a circular dependency that
-> > cannot be solved on a per-device basis.
-> >=20
-> > During the meeting, we had a discussion that the media device should be
-> > created as a "skeleton", and then as other devices probe they would fill
-> > in the blanks. How would that not work? Also what is your main concern
-> > exactly that makes you ask to not do that in the first place (or make it
-> > opt-in)?
->=20
-> Applications today assume that everything works when the device nodes app=
-ear.
->=20
-> If you change the behavior, then they just see a skeleton driver and how
-> would they know that they need to wait until all components are found and
-> it is ready for use? Or what to do if some parts are faulty?
-
-I really think that this discussion is not solely about probe. It's
-something we discussed during the meeting, but I think we should try to
-handle "my device was broken at probe" and "my device became broken
-while the system was up" exactly the same way.
-
-And while it's true that our assumptions currently deal with the former
-fine, we just don't deal at all with the second, and everything you're
-saying here could still happen.
-
-So, to answer your questions, I think it's entirely application
-specific. A video-conferencing application would error out or might want
-to wait forever for its only relevant sensor to show up. A multi-stream
-dashboard in a car would just show a blank screen and show the other
-streams. I'm not sure we should (or can) come up with a policy at the
-kernel level.
-
-> One solution might be that bridge drivers capable of fault tolerant behav=
-ior would
-> create a /sys entry called 'v4l-fault-tolerance' (just an example) somewh=
-ere.
->=20
-> Applications that can handle this can find that entry and write '1' to it.
-> After that the driver will start creating devices even if not everything =
-is
-> available. Without it it will just block (the current behavior).
->
-> It's also tied to your use-case: for the same hardware your use-case migh=
-t be
-> fine with the current situation (non-fault-tolerant), or you want to enab=
-le it.
->=20
-> There might be other ways to implement this: e.g. a module option or a Kc=
-onfig
-> option.
-
-Yeah, I guess that could work
-
-> Also note that systemd opens video nodes as they are created. It used to =
-use
-> v4lctl for that, but that might be integrated now.
->=20
-> So that should keep working. I think it just calls QUERYCAP, so that is l=
-ikely
-> to just work.
->=20
-> Regardless, I want to see an RFC for this, demonstrating that someone has
-> thought about it. If you think this can be done safely without an opt-in =
-mechanism,
-> then explain so in the RFC.
-
-ACK. Thanks!
-Maxime
-
---f4gycnlj27uzbn3m
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCavMnWwAKCRAnX84Zoj2+
-dpVIAX9KNwBIEvTOWb3p1/iAU8ZDpB0gmxXB42LjS75W+ClqR0PN8Bz2yzNOLLqA
-gERdl28BgKA/oqA2cjLXGI53OZybUy76PRIpJeY4hYEU1q/1h7hewApkLKlexzTb
-aphzOQRV5w==
-=BM8y
------END PGP SIGNATURE-----
-
---f4gycnlj27uzbn3m--
