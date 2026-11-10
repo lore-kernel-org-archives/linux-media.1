@@ -1,85 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321768;
-	b=wzBT+8P/cV98KT4kj76mOG89PuahFXrRB2+xws9xA8eN90mTFULfW7snBj9JztqI9r02
-	 MTQAGkStZBOQk9KEJe6owuWjpyKTw/7Kn74LDMiTUI4toT17AuXy3WcCRNVYAFpeWWM9Q
-	 l7K4s7EgBNSXl7wly5CrsNU3M3OsQikVz+G6zgFbaZkWhJbLLZebM65r5pKseXM3dCd+M
-	 IfAyfyOU+epCwoCUN8uIOz2bOT1HdVgDyJv8gT725thoK5uN65EKldc7W/BLALD/GG2a2
-	 VCFQJ50owTkvOEAcxk3fmxO/vFqKyVeKYf2zyugtZPwjluXl63DFD/HOIG2pSNPP4yw==
+	t=1794321843;
+	b=JMwIb+ms/EOXW0i562Ykklou3UUHcPyfz7a0ABFTvregh5D3xEgU9hFFWm36MD5pIzzA
+	 NgYy3+ni2AI+RNlnPIZizyyYRhB/xDlRUsdfnSxQjuve8uoojR9d9yCrVmWwY53HHYYV8
+	 x/S8chdqPF3nicuwF7OlyE7tr1QNVz0S8eW3wa1sUJxNS3LybpTQ7gVSzDT0CyR+7l8FH
+	 D7NO6/ygdvPodn6JuSe6B+yjp0V3SAZu0J3dHnMUgsKA0LAseTn+Vh2ACWxjjluZQo/yQ
+	 DDY4LcxCWJS0dAbPIc4mC/t5wErBZFfYldqLA/w6g6qIzoqCX4tANXLwZzE9fSM2NPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321768;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=iU+EzkbKMFrOZFFUWDUX+jv1j+DUirQeUzUM2Odhqp0=;
-	b=ZockHefmMGvL9oKl5oiwgtLdGDampeok/+TXup4t9Gb3xTcl/HOlV4El7bmX2v1gLUy+
-	 B3lw3izEFhTc6b3AzCkaHD5wtW79KSy35xaof2tvfs9fTQpn0W0mznRSSn2DLhD/oULyp
-	 ds88S3jQzh1J44qGgFK661OEdpnPNyYZd39mOMJZbthe4Q1dDOBJL8NSe3sUPdTzX8sWo
-	 XkV5OwwBG21H9YnljM4BlAd6woEi14xpVt4t+Dclo/W4Trk8G1Utzx+WUaLThsAwzBIPv
-	 EwCsIHrnLy9VQZ5Drbkv5piP0Ywty89D10gHWHiQ4i/KbhIeuJ5aBJujWVAvCFinrMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321843;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gia8LhdESnYkbXhIwY1Vosv087dRAttescO8GIO7vx4=;
+	b=hddP7JA6glZ8GzNtDT7ednRmDbIp1zeHen7IRyj5YQKgJrNM7HoVx91GYI6kGWGGZD+Y
+	 Dv/oy6BOGRK6ldyjgZBI0ODW5EkRdFFpc1OXjzk2BGFYVc44Fz2E9+6TshTB12SKMOKSB
+	 Km11TTNYEfeHiuVmImfjHheFY8pJW8L4RGKTxdnJ+yV2lAayrswcSk0wjCd/KMtTtNq6o
+	 A/2WAhBnqvP0N3H8ej/N0lu9qitiD136Wo4IYiRTmaJNvAhD3WetFpA1A7QrWPgikre4K
+	 jbjNJHJ1gGn/wwCUX9bDLlIiRS549Xc9U09OH740nKJxlhchQukCtLsiTIwxNM4jtmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zpSlcvgK;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b1AHjRT6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386FE606A332
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 14:42:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 386FE606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998C4606A31C;
+	Tue, 10 Nov 2026 14:44:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zpSlcvgK
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c3fd91337baso362088566b.3
-        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 06:42:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794321767; x=1794926567; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iU+EzkbKMFrOZFFUWDUX+jv1j+DUirQeUzUM2Odhqp0=;
-        b=zpSlcvgKQl4GAF+LAEWwXo102Dk6lRikWqRJTDbMVSdWsHj7c3FRe/SdIx4D6DmgCj
-         +TeNDxHm/XD7kdkMGcaXqBUFnkHMTqxgb9NhSUWUm7n1o/xzOd3YbjcZlRGl1Ly+rrf9
-         Ip8WihiP4WCqVbJBKydkH0HRz1sRDBFGoQ8HJafvhSQrODlgYoCpcZcg0U2HLEX1IRF3
-         4TaDSGjDgXx/pU4U9x5GiQxlFjtGhUHXnDwhjtMPqnXHwRsp4vMms1LgHbg0+/67vCjZ
-         /doYZIydqNjewM46rQvM56F8F/poFKOb5HpYtovpd5bT3je56+Rn4ScuTIg2GqUDPHrn
-         zTYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794321767; x=1794926567;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iU+EzkbKMFrOZFFUWDUX+jv1j+DUirQeUzUM2Odhqp0=;
-        b=IatZYBqI/lTikMLGtwaW32D4liX2gKR+aSKJsUhj1U8qTNEhQN1pO3iu30gp1YzhRr
-         WqVeYEu7n/CjCWHwCGtqXrXJv8g4vJkM8IdhqTnIv/H0gXFduJgc5g876ASLKuOoRFIx
-         vUfpnBsqYHql2E5S0cF07xXp51PuZk3j7YpRaLL62k6g6o+RhuMigJtBuVVaEzpDWNy8
-         SpmFkXNIGb11QRRPgQ0AX05Lo38u0Rn0aILArTa1rMoD36A7Xv3kS8oEe99B28D8KOdT
-         0Iq3mRjqcOIIPMB+tIA97uSFwCIwoLt395jDU9N2khmpCVZvlTTh+iNL2VHilMXwxHcc
-         3ENg==
-X-Gm-Message-State: APuU4Z/Vdv3M3LYiKnuhTtyemSuu2y3UDj8I/ZL/Vko9SB4otP8bn7/I
-	YLLAJTBlyiimqyxzOUg+T1QdTEK58aOZY4IwLTTIsW4NL0u3St9HepXZk+Hvjo95aYo=
-X-Gm-Gg: AYBFou1FeuO2uJn50Ir9Zlo/zyR3R7MJwNWM9zYwtuZAisTkn14wJtheZ4PmKjW1Vf2
-	/NMNZjwOv2L7jATxgwpzrRynnzdnOUIBA0uN+FgALbfyQRGtdgPQoZQoAyGRnQ8mq98SV6eg1QT
-	nUNmVAKEKeFVggeH9TMQYM7OAdRBld+SrDysRaZ/M0eWsHnL85JbJgkCWW5cs7jsbdLBiIjZkWH
-	0Mv9ZV0803FyefH/+LnBw5IPagyb670TbVs7GJ3J9c7aZ4UKH59l+0kMpOpq9SMuyLKTW810p07
-	NifJVaRpj5bz11KC2MQU53fRZTdHfDZGEiEJz7CDz0w6TM64ot127pS6sMhBZvYGb88OVIzNoEs
-	Ku3e3RbX6WKvaviPXAte4uqXFty/BUecdvuCcMQsAL3CXyHiZA2VpkYBoysUVG4D7Rj8/2ULMLn
-	9fP3SnxlQWvsIwcZfllqr44sOO7TI9i30TlH4PY36OSohxhcLLmA5h1ZoIuhoWURjVILDQEDyXF
-	AVzz5Bgk5CKciM+Br19dPxZKet1kRU9OIv98+V4jKEnOIWizqcMQuwk2R+TNr8r9wE7naT87BSk
-	cl/r4PVjZpa97wA3rcOc823hxTVa2q27wSlhpEH6C5o=
-X-Received: by 2002:a17:907:e849:b0:c49:9383:a28 with SMTP id a640c23a62f3a-c50495ef6d1mr244854866b.35.1794321766382;
-        Tue, 10 Nov 2026 06:42:46 -0800 (PST)
-Received: from [192.168.0.167] ([109.78.220.165])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a65f267sm112205666b.71.2026.11.10.06.42.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 06:42:45 -0800 (PST)
-Message-ID: <ee2aedde-6688-4cfd-9f92-3703b081247d@linaro.org>
-Date: Tue, 10 Nov 2026 14:42:44 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b1AHjRT6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47ECF1F0089F;
+	Tue, 10 Nov 2026 14:44:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794321843;
+	bh=gia8LhdESnYkbXhIwY1Vosv087dRAttescO8GIO7vx4=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=b1AHjRT67qZpelhp9AkITROdM7TrDbd50xCsls1gixEEU601eqCIEVh/K8An+gLJi
+	 irdCs5NPnV8sCAS36C3t1ngEn+sLxsbK1WkfTH4NqZd65VtfZ1LpPD7QUuZQjyeSjm
+	 d5KM1TfX8ZdAs/J9GzGG5BQeP7dpRe+maWF+aV8yBxzVS+hnLgUsQYHsI6qOt6+loy
+	 k6UhEm2iO/6UKzqFAAvcgaQq4Hnn+u7bzoZtvOwVLR+wY/oVjOJ2yNzf0rVTrPkNlj
+	 ehs8iXKxjmBYJIwC9Oy/gHb5X9UW13HwcCl1fntQEBL7v39aPAFp8MKkyZ8Hz9sI46
+	 hFsdlPkzUZLSg==
+Message-ID: <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
+Date: Tue, 10 Nov 2026 15:43:59 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,145 +52,187 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] media: iris: Fix use-after-free on unbind with
- open sessions
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>,
- Stefan Schmidt <stefan.schmidt@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Hungyu Lin <dennylin0707@gmail.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, sashiko-bot <sashiko-bot@kernel.org>,
- stable@vger.kernel.org
-References: <20261110-iris-handle-unbind-v2-0-86d5f6f1dea8@oss.qualcomm.com>
- <20261110-iris-handle-unbind-v2-3-86d5f6f1dea8@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261110-iris-handle-unbind-v2-3-86d5f6f1dea8@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Michael Riesch <michael.riesch@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+ <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
+ <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org> <avMM6a6xcDHT-zCR@houat>
+ <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org> <avMgJ7MFks0sKD7T@houat>
+Content-Language: en-US, nl
+In-Reply-To: <avMgJ7MFks0sKD7T@houat>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/11/2026 14:09, Vishnu Reddy wrote:
-> The driver can be unbound through sysfs while a client has a video
-> session open. The core is devm allocated and freed when remove()
-> returns, so the open sessions then use freed memory.
+On 10/11/2026 15:17, Maxime Ripard wrote:
+> On Tue, Nov 10, 2026 at 02:30:51PM +0100, Hans Verkuil wrote:
+>> On 10/11/2026 13:33, Maxime Ripard wrote:
+>>> Hi Hans,
+>>>
+>>> On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
+>>>> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
+>>>>> Hi everyone,
+>>>>>
+>>>>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@kernel.org> wrote:
+>>>>>
+>>>>>> On media-centric camera pipelines, every entity is known at boot time
+>>>>>> and described statically (for example via device-tree).
+>>>>>>
+>>>>>> The V4L2 framework assumes that every entity of the camera
+>>>>>> pipeline is always present. This is a reasonable assumption for
+>>>>>> integrated cameras in laptops or phones. However, in automotive systems,
+>>>>>> cameras (e.g. rear-view or surround-view) can be damaged or disconnected.
+>>>>>> When the framework assumes all sensors are present, a single missing
+>>>>>> camera can prevent the entire pipeline from operating.
+>>>>>
+>>>>> This series has been discussed at the Camera & ISP "unconference" in
+>>>>> Pragues (during Linux Plumbers)
+>>>>>
+>>>>> The notes can be found here:
+>>>>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus.ideasonboard.com/T/#u
+>>>>
+>>>> What is missing in this discussion is how userspace can indicate that it
+>>>> actually can handle partially instantiated pipelines.
+>>>>
+>>>> Today if one or more parts do not come up, the devices nodes are also not
+>>>> created. This is typically exactly what you want.
+>>>
+>>> That's very arguable? We have plenty of other examples where we allow to
+>>> show a software representation of something that isn't available in
+>>> hardware, starting with virtually any memory buffer allocation, but also
+>>> disabled CPUs, swapped pages, etc.
+>>>
+>>> For things a bit more related to drivers, things like USB root hubs are
+>>> also pretty analogous. The "root" device will always be created, even if
+>>> devices connected to it are non-functional, missing or whatever. It's
+>>> the primary interface that these devices might or might not attach to.
+>>>
+>>> So it's a bit hard to understand why the device nodes not showing up is
+>>> exactly what we always want.
+>>
+>> It's simply how V4L2 works today: video devices do not appear until
+>> all components are instantiated.
 > 
-> Only the core structure needs to outlive remove(), because it is the
-> only thing the file operations of an open session still use. Allocate
-> it with kzalloc and tie it to the reference count of its v4l2_device,
-> which every registered video device holds. It is freed when the last
-> file descriptor is closed. The other devm resources (register mapping,
-> response packet, clocks, power domains, interconnects) are only used by
-> the power on/off sequence, the clock and bandwidth votes and the
-> interrupt handler. All of them are released with the unbind, after the
-> core is shut down.
+> Sure but that's exactly what we're trying to change.
 > 
-> To make sure nothing uses them afterwards, set a removing flag at the
-> start of iris_remove(). It makes core init, new sessions, command
-> writes and the clock and interconnect votes fail with -ENODEV, so a
-> client still holding a file descriptor cannot power the hardware on or
-> vote for resources that are gone. A client waiting for the firmware
-> only times out and returns an error without touching them. Runtime PM
-> is also disabled explicitly in iris_remove() instead of with devm,
-> because its callbacks use the core.
+>> Most video devices consist of multiple devices (bridges, i2c devices,
+>> etc.) and unless all are found and initialized, you can't capture. So
+>> bridge drivers postpone creating the video/media devices until
+>> everything is there.
+>>
+>> That also means that applications can safely assume that if a video device appears,
+>> it is functioning.
 > 
-> Fixes: 38506cb7e8d2 ("media: iris: add platform driver for iris video device")
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260926064921.976721F000FF@smtp.kernel.org
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/iris/iris_core.c      | 10 +++++-
->   drivers/media/platform/qcom/iris/iris_core.h      |  2 ++
->   drivers/media/platform/qcom/iris/iris_hfi_queue.c | 15 +++++++-
->   drivers/media/platform/qcom/iris/iris_power.c     | 13 +++++++
->   drivers/media/platform/qcom/iris/iris_probe.c     | 44 ++++++++++++++++++-----
->   drivers/media/platform/qcom/iris/iris_vidc.c      |  3 ++
->   6 files changed, 76 insertions(+), 11 deletions(-)
+> Ish. The only safe assumption you can make about this is that it was
+> functional at probe time. Anything after that is very much up in the
+> air. If the device broken after probe for example, or if we have no way
+> to tell if it's functional to begin with, that assumption is no longer
+> true. So sure, that's what applications have been doing so far because
+> there was no better way to do it, but I wouldn't qualify it as a "safe"
+> assumption.
 > 
-> diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media/platform/qcom/iris/iris_core.c
-> index d558475986ff0..bdac6b8c98e44 100644
-> --- a/drivers/media/platform/qcom/iris/iris_core.c
-> +++ b/drivers/media/platform/qcom/iris/iris_core.c
-> @@ -43,7 +43,10 @@ static int iris_wait_for_system_response(struct iris_core *core)
->   	ret = wait_for_completion_timeout(&core->core_init_done,
->   					  msecs_to_jiffies(HW_RESPONSE_TIMEOUT_VALUE));
->   	if (!ret) {
-> -		core->state = IRIS_CORE_ERROR;
-> +		mutex_lock(&core->lock);
-> +		if (!core->removing)
-> +			core->state = IRIS_CORE_ERROR;
-> +		mutex_unlock(&core->lock);
->   		return -ETIMEDOUT;
->   	}
->   
-> @@ -56,6 +59,11 @@ int iris_core_init(struct iris_core *core)
->   	int ret;
->   
->   	mutex_lock(&core->lock);
-> +	if (core->removing) {
-> +		ret = -ENODEV;
-> +		goto exit;
-> +	}
-> +
->   	if (core->state == IRIS_CORE_INIT) {
->   		ret = 0;
->   		goto exit;
-> diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
-> index 3e4cf652bf39a..379f0666a42cb 100644
-> --- a/drivers/media/platform/qcom/iris/iris_core.h
-> +++ b/drivers/media/platform/qcom/iris/iris_core.h
-> @@ -62,6 +62,7 @@ struct qcom_ubwc_cfg_data;
->    * @iris_firmware_desc: a pointer to the firmware-specific descriptive data
->    * @ubwc_cfg: UBWC configuration for the platform
->    * @state: current state of core
-> + * @removing: set when driver removal starts, blocks core init and resource votes
->    * @iface_q_table_daddr: device address for interface queue table memory
->    * @sfr_daddr: device address for SFR (Sub System Failure Reason) register memory
->    * @iface_q_table_vaddr: virtual address for interface queue table memory
-> @@ -108,6 +109,7 @@ struct iris_core {
->   	const struct iris_firmware_desc		*iris_firmware_desc;
->   	const struct qcom_ubwc_cfg_data		*ubwc_cfg;
->   	enum iris_core_state			state;
-> +	bool					removing;
->   	dma_addr_t				iface_q_table_daddr;
->   	dma_addr_t				sfr_daddr;
->   	void					*iface_q_table_vaddr;
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_queue.c b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-> index 545bbe75e1740..e0cfa5107d1d9 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-> @@ -128,13 +128,26 @@ int iris_hfi_queue_cmd_write_locked(struct iris_core *core, void *pkt, u32 pkt_s
->   
->   int iris_hfi_queue_cmd_write(struct iris_core *core, void *pkt, u32 pkt_size)
->   {
-> -	int ret;
-> +	int ret = 0;
-> +
-> +	mutex_lock(&core->lock);
-> +	if (core->removing)
-> +		ret = -ENODEV;
-> +	mutex_unlock(&core->lock);
-> +	if (ret)
-> +		return ret;
->   
->   	ret = pm_runtime_resume_and_get(core->dev);
->   	if (ret < 0)
->   		return ret;
->   
->   	mutex_lock(&core->lock);
-> +	if (core->removing) {
-> +		mutex_unlock(&core->lock);
-> +		ret = -ENODEV;
-> +		goto exit;
-> +	}
-> +
+>> If we add fault tolerance, and you allow video devices to appear even if they are
+>> not functioning (or partially functioning), then that contract breaks.
+>>
+>>>
+>>>> But here you allow partial instantiation, and how does userspace
+>>>> signal that? It must be an 'opt-in' mechanism, but how is that done?
+>>>> There are no devices yet, so that can't be used, so what alternatives
+>>>> are there?
+>>>>
+>>>> We've been discussion Fault Tolerant V4L2 for many years now, and every time
+>>>> I raise this issue, but I never received any proposals.
+>>>>
+>>>> This must be solved.
+>>>
+>>> Is there any way to? You're saying at the same time that we must not
+>>> create the device, but that an application would need to signal to that
+>>> device that it can indeed be created. It's a circular dependency that
+>>> cannot be solved on a per-device basis.
+>>>
+>>> During the meeting, we had a discussion that the media device should be
+>>> created as a "skeleton", and then as other devices probe they would fill
+>>> in the blanks. How would that not work? Also what is your main concern
+>>> exactly that makes you ask to not do that in the first place (or make it
+>>> opt-in)?
+>>
+>> Applications today assume that everything works when the device nodes appear.
+>>
+>> If you change the behavior, then they just see a skeleton driver and how
+>> would they know that they need to wait until all components are found and
+>> it is ready for use? Or what to do if some parts are faulty?
+> 
+> I really think that this discussion is not solely about probe. It's
+> something we discussed during the meeting, but I think we should try to
+> handle "my device was broken at probe" and "my device became broken
+> while the system was up" exactly the same way.
 
-This locking scheme is looks racy, what's the point of this granularity ?
+If the HW breaks after probe, then you get EIO etc. errors. It's very rare and
+the only requirement in that case is that you return an error and don't crash
+the kernel. It's accepted that if the HW breaks, the application breaks as well.
+And you have to replace your hardware.
 
----
-bod
+It's been working like that for >23 years (that's when I started working with
+V4L). This also means that for >23 years applications have exactly this expectation
+of how video devices behave. It's really part of the uAPI even though I don't
+think it is ever explicitly stated.
+
+To be clear: I really want to see Fault Tolerant V4L2 happening. It's clearly
+very useful for a specific type of use-case.
+
+But first we need a solution for this specific uAPI issue. Note that this is
+now to opt-in to Fault Tolerance, but in the future we might have other opt-ins
+as well that modify the behavior.
+
+Regards,
+
+	Hans
+
+> 
+> And while it's true that our assumptions currently deal with the former
+> fine, we just don't deal at all with the second, and everything you're
+> saying here could still happen.
+> 
+> So, to answer your questions, I think it's entirely application
+> specific. A video-conferencing application would error out or might want
+> to wait forever for its only relevant sensor to show up. A multi-stream
+> dashboard in a car would just show a blank screen and show the other
+> streams. I'm not sure we should (or can) come up with a policy at the
+> kernel level.
+> 
+>> One solution might be that bridge drivers capable of fault tolerant behavior would
+>> create a /sys entry called 'v4l-fault-tolerance' (just an example) somewhere.
+>>
+>> Applications that can handle this can find that entry and write '1' to it.
+>> After that the driver will start creating devices even if not everything is
+>> available. Without it it will just block (the current behavior).
+>>
+>> It's also tied to your use-case: for the same hardware your use-case might be
+>> fine with the current situation (non-fault-tolerant), or you want to enable it.
+>>
+>> There might be other ways to implement this: e.g. a module option or a Kconfig
+>> option.
+> 
+> Yeah, I guess that could work
+> 
+>> Also note that systemd opens video nodes as they are created. It used to use
+>> v4lctl for that, but that might be integrated now.
+>>
+>> So that should keep working. I think it just calls QUERYCAP, so that is likely
+>> to just work.
+>>
+>> Regardless, I want to see an RFC for this, demonstrating that someone has
+>> thought about it. If you think this can be done safely without an opt-in mechanism,
+>> then explain so in the RFC.
+> 
+> ACK. Thanks!
+> Maxime
+
