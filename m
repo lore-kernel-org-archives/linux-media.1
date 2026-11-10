@@ -1,91 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794349485;
-	b=oYSD3Ik0WWV5bRcfPcx9PddgP1CxR/gjChVmKv3Oe1WvcibEiZaghWfHEkJ00UC3YROp
-	 iuW9+8uhMVuarzxTc284iIVODIXvi1Bg68h/RAZPOTiw7ZzRypV88mYU6+Xjygy4dIEku
-	 cdxd8lHgFyJmrNCc70p7nK/U2l0UavIHkHc31w/16HfZ1herNzCoOctBSG5DGJpc6w/Pp
-	 rr1KbvB8RvHHw9gOzWwsGvRiaRSG99SJMoZEASVpUrsBsyjpNfXxxPID2+3NKdAWBunlI
-	 mjTTgigSGyT7cQ8jb6opoBTNjvVWENCrc8uOrMpzkCSpRSl3fkzs7cYgmQsjhIA9bEw==
+	t=1794353838;
+	b=GSVq+oPBmjYzkrntndOZC450ggfEV+exdcYGwswF6m3U4mUb/Lqtz8NyktyA9++NTtvW
+	 Of41VEu91JNXxYkSg3cg9nXh6BLk9DdukSfVc4c24VIzHs4MVyTsPYPe57tVKKxf+IOoM
+	 lPdCG2fi6tUadCN8C03RnuJr18hZd/yGB+2sMoS6f3tJZnBDTIFxl+zZIehp5xrlS/QO0
+	 STQ+e9ileK5ISySgxA76Okr/v93001kDWtGyfQC42gQAcnOdH8Avmx93lWOgTTW8qjjh+
+	 DyqcK7u7fiTalEttG2pfoLcOZoCP17GoOLGzwJfJCSMII+BSvc1X/D0n+g+sOInLoeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794349485;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794353838;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=J78cfmAO5c/8RMgwJFrdko9q9pXZgG9FioRV6oWOxJU=;
-	b=pH/VzJ6loMowAI4h7slbusGGBMYEhdwoQbUFKCVkyXIebGBdKVhl1I9nS6ic90BbZLW8
-	 GYt9h7FxklCEyYGVlmIvrlPIJx8Ioca/cym/oKNt0Ds5JHEQyNuniCY51LxUBZiC+FCWu
-	 lh1R3xO3mm1nu82tCG3uhZhNqV54b50KyZdGuKfqYbjRoNbiiMkAOFkIVUksdqQkIsZBx
-	 D78MeAQTVa/W6gLSy6a4a6B1BAADzz+HO136/eeIlhiyibPdgj5kpva4v5ejCQO+dILT+
-	 oL15IRK8S6QDcndLPod3Rxzz9hV0LeukOszJBQni+h0Lr9d3CXFhOMf4/5YmA7cva9A==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=nucm/aleCVbqWE1ilGDcefpNzHQgxL4IFzC4QCL3uuo=;
+	b=R4QxH8qIY8HOgI3ol6URcqZROU4Bk/+6PD9cyeW5Zd0m+nbs6TtPxOKlOhSFn/1KFp5r
+	 Hb8MMC7pGXFvxPYqx/HCsdg91X1m4RU8tXyqZ2ok1BK5I9Bi838UPN9dhpyECc4RCJdFL
+	 QvmZFY9PUj+Ci2+T0ZKAY5JEuIe0aky/zm380cXnx8Wtc0EXlu5FDy+Ra+k65ulaHZXGh
+	 JN9E+L9HFysoLtXYiHl0cOfj0TmORI9NItbE/TzbBOZO8CI3lUmqGNA7ylVeL4vMChWVg
+	 3lpXpxMMxXIkRtKqOlOtnuIAoK3Rg3fRr1P0IPmKZAE1OWA+/JELhctbtJSPQYKN7pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yeDk6ZyC;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U6zkm0r+;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 664E0606A320
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 22:24:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 664E0606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3542D606A31C
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 23:37:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3542D606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yeDk6ZyC
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-37198ed3727so3266655eec.0
-        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 14:24:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U6zkm0r+
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-170135e43c7so337640c88.0
+        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 15:37:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794349484; x=1794954284; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794353837; x=1794958637; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J78cfmAO5c/8RMgwJFrdko9q9pXZgG9FioRV6oWOxJU=;
-        b=yeDk6ZyCfgkxoDEXhjOxP2cxy0HvzUprG9b7m9aQw1Ez0wR/ORih8c8h1I323tq1qL
-         lxAev85gOIEZiqzk5o2VnNO04ABsG+7gwxlapO3jJQ53DpT5jSy7Sv1cdBnFFLK3yJnJ
-         ILHHMSqUsslekSbydXMT8h+h91B29o9MhGfKoTsMSDKquflV1fkdNlZCSHrwJ1YHsKtD
-         FWCNVseWOEYdEwjUOKCNK1HTKRlHzeDciT4qF7wMhgPUlSwsMvMi9p7TyqXri0Iqt6nM
-         djPXlKN/D13/zkyJ1rKxnOofrAgwb7FTea50bgrTNiQEs8vtBeBATfocmggQo0JXoXCJ
-         +sVA==
+        bh=nucm/aleCVbqWE1ilGDcefpNzHQgxL4IFzC4QCL3uuo=;
+        b=U6zkm0r+Li0Gw+HszhANqyt3xoRZtlLyb5QfVwaorfokcRRa9+8SuufNx11mYAigdO
+         UI0ONO0j7dw9r3ouGdCazB9drEGI+AOKGYB2T+u82KQk/BDGn6HbAYh0+b7yF2QGgOQw
+         weK1SrNYANzm1DCaTZzA4Cov4dx3vRqGKH6t097njBU/WiyIN5oLKbPgwCgPcxmYxOZV
+         I0BvswsPSbj7BbUPaE4qnUFRi3GwXFUGgWYr102xEFEiSEjyqV06LGcvrpn9N9fq7q7r
+         qM2hIfcpgE2NW+VbDSKTCJwddFnHub4hDH04UOnjMM0oybYsAN9WWbBTMS4amhaucuph
+         SIKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794349484; x=1794954284;
+        d=1e100.net; s=20260707; t=1794353837; x=1794958637;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=J78cfmAO5c/8RMgwJFrdko9q9pXZgG9FioRV6oWOxJU=;
-        b=rs6E+1T4xM2lQsH4xd5TeqXrxbgrDnCaUdYl05EZ2t0E42vNRluSDcepPYJvqUR1Is
-         K7N9KQvmWSN4Cl1Gko+hXJforIAo/vzi3LbmO1DygcdJQW0Fiubp8kcBllFrUSHizusJ
-         GAoeKr1FCGnqB0b/+83de6EArTooqGfeTVz9oXj3V6ZDJwBSPJKYZYhvccLjecd2fU7K
-         3NMnF7EMV545xvhwHNtwmQuOHT/VPrrcwndiP6in0obeaQCTpCPDnEgPvdvs9NgjMmST
-         Ay4n7O/PydhO+Uf8r5Ni58SDYPMJCKf0NNd4RFePScprGp8jvkXzoEF09SFXKRvDrkWv
-         PJnw==
-X-Gm-Message-State: APuU4Z9iADfyW0d1Fpzr9MjrSAFcCWKAiYEpUZIYcv96EOGfI/aCu1vG
-	hLIzRVX6w0dpuux6WCyLpLNtLX/SLf5dnwApzYy7Rsi0Sxdv5YlVXOMA
-X-Gm-Gg: AYBFou0x1XnryZ1HTFbK39laB4ENqj5kR/ZTf9hV9dFJuovio2Ck5Fu000mTZvW2RKD
-	sA/UMAmjIYbRVp7PKDmYxjkZ3ygh/97igT23O8+TmDqFwhB2w4kPFeDdxELnev0/wvQvwjJs24x
-	GEHhNFs09dXRaaEshx4nwKNBKyMbjygsQBwmsFxtLStzid9o74fhQJFTjCRD8sadnhe/oaEzoDT
-	A5jaFb+eZcn0BFAknDG5yUSELRcYw0+F9w9xUbNErBQUlAKxJ4pE21+zK31r+L62zMOlmj4c/oQ
-	mUHkNa5/zDDYZLnPPxyuj6eEIScQPnVF6QKF4VAcjQPAQnubWpR6Ii9vyxvoBwFBgd18Vn5E6ug
-	A4nUf7t14oukdA1in6RAucvleO7K1BAFKABZtCdSqCJd77EawMJ95/PNbn7KGey5Yg81s7uZLCN
-	AEUBLMlpBEpHbG9d8Cmh2sg1qGcDIdmtn2scCj8bb4HvyhGuvNW4k3yqiY++BrkoN8aWXP34cti
-	/z3lwcKzKfjGE8YSLgrmVSyPJyrXn5mXAUX6WzK2xyUjzwZdx0BaVEltT1Tzn7+GlE6kIzqO5Sg
-	xZFplTJKEZyHNGKcZ5fSBwSL6LXHgTsoR2rZE0qYW10LLZOfKVgGrKbRvFg=
-X-Received: by 2002:a05:7022:2594:b0:1b3:a8a6:b55e with SMTP id a92af1059eb24-1b3bef4c391mr1435246c88.24.1794349483523;
-        Tue, 10 Nov 2026 14:24:43 -0800 (PST)
+        bh=nucm/aleCVbqWE1ilGDcefpNzHQgxL4IFzC4QCL3uuo=;
+        b=uPkIYLrIOFVgN6wAnjOeg+asWBbScgYMKAL6z7Abx5ruFgljsJYmKXNfTciELxOBK8
+         DiZ78Ms8hU0B9K5Zr49VXg/oIRl1smfjqXwsu6jcrdNyBfHyJe/WM2rjwvOZBdvMnIfn
+         tkm40P3/aYdbxaZ8fBvUtAcNGQcXKdTP5SFTCWLrDzNch7kCVQ+uUuQ7QRk5zYhBUH1C
+         j8FDmemdrWP8/dwG9RkIh2HLWV3uDGZ6Lb9X48eiW/gPhbAt36m9znLl9UgUhTAJnVuk
+         ksrD9P0yi2iNi5pYTb9RjG/Vbvsehiz+z48wkHwLPLnmiKDf2mLX3mtcEpDJm3lMa5Me
+         1OTQ==
+X-Gm-Message-State: APuU4Z8d5RDeVLR2uJc52bNWVtZDWrehs7NwO5cdGH+uiAYRWcgAOJQH
+	zbjg0DRDwgKBFkEZgwyDkf31buIwHx1BLBBT3NKpduuzWayseTYwI0SV
+X-Gm-Gg: AYBFou3yj51JILC0rmwGzEt4GYrLwU0MC2NJD86mQYDx9Ja0JVjIvv9zYwIM6Gl0D43
+	rpkbOjdOuqoQVMRBJhoygjBvQHW5D0KPh23DaG6sAeQhpFPGC46Rd1DFIw7jj+/DIqDxiLGTN4K
+	2iJDrsT9LOyJ+XIdExl5ETT5ePYu6DbE2hTJSltHoBDQqV5LLQWoxZqajL4dfFHT2kxL289pGjo
+	HfI10SUOQj9/9TzrcXUW9r5rChV7If+2RETRXXNIl8N4M5i8Y0YqI3z5hbDE2au3MlcRjgRPwl3
+	svCfdv2evjCmpQAeaZofdwvkzPd2/MMRBeiyiMKKWez0NfZiQU2LsFmQu1oW7TJECRnZ3foAIzN
+	UY+pg7Dx4YIVmR51Mk3VTPeiyUX2TGUl/szWcBwgJ334ZV1X6/wOtRU0B6OINtdf7QnXXtL0v81
+	ZVfIZetG0SRvb+285JKJKsd/XnRzDgcmd7cYtcJCh+w8GK3GWCmpMGRa12RjkuMr7yF0EDSCyGy
+	JhT1hIndacBKgF/AdAZAPm7+0la1tlslOplvA8Q2BKLPuVG3GD6+ZUQ+RmdqK0zIiX+5SV7Mxk+
+	KSRdjfUBM3hwchzpifx3JCJcFwh8ZAc0l0OqjDYPviRXQVE5vFeWUvQu2Avi3v8lPZ4=
+X-Received: by 2002:a05:7022:2608:b0:18d:96e8:b913 with SMTP id a92af1059eb24-1b3c036707cmr794553c88.47.1794353837204;
+        Tue, 10 Nov 2026 15:37:17 -0800 (PST)
 Received: from localhost.localdomain (wood.seclab.cs.ucsb.edu. [128.111.49.37])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b4efc2sm8424966c88.15.2026.11.10.14.24.43
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11346sm11981419c88.7.2026.11.10.15.37.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 14:24:43 -0800 (PST)
+        Tue, 10 Nov 2026 15:37:16 -0800 (PST)
 From: Praneeth Balasubramanian <praneethb2002@gmail.com>
-X-Google-Original-From: Praneeth Balasubramanian <praneeth@ucsb.edu>
 To: Hans Verkuil <hverkuil@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Praneeth Balasubramanian <praneeth@ucsb.edu>
-Subject: [PATCH] media: hdpvr: Hold io_mutex when restarting streaming after a timeout
-Date: Tue, 10 Nov 2026 14:24:35 -0800
-Message-Id: <20261110222435.205738-1-praneeth@ucsb.edu>
+	Praneeth Balasubramanian <praneeth@ucsb.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: hdpvr: Hold io_mutex when restarting streaming after a timeout
+Date: Tue, 10 Nov 2026 15:37:08 -0800
+Message-Id: <20261110233708.318348-1-praneethb2002@gmail.com>
 X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -97,6 +96,8 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+
+From: Praneeth Balasubramanian <praneeth@ucsb.edu>
 
 hdpvr_start_streaming() expects dev->io_mutex to be held by the caller,
 as its comment says. Every caller takes it except the restart in the
@@ -120,10 +121,16 @@ The missing lock was found with an LLM-based tool that checks callers
 against the locking rules stated in kernel comments.
 
 Fixes: a503ff812430 ("[media] hdpvr: fix interrupted recording")
+Cc: stable@vger.kernel.org
 Signed-off-by: Praneeth Balasubramanian <praneeth@ucsb.edu>
 ---
 
 Notes:
+    Changes in v2:
+    - Add Cc: stable, as the media CI requires.
+    - Resent so that the author matches the Signed-off-by. Gmail rewrote
+      the From: header of v1. No code change.
+    
     This was found by an LLM-based static analysis (GPT-5.6) that checks
     kernel code against the rules stated in its comments, as part of research
     at UCSB SecLab. The patch and changelog were drafted with Claude Opus 5.5.
