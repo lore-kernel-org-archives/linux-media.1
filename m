@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794336080;
-	b=2mRUZjY4JkjlT8aC9qV+OuXRVDrqKaFutH+j9Up6Y+86QtwXEGD+jvc9BHms60a0JvhM
-	 GggOwTl1/TbIu28jn5Ad0+ofcAOHdHVQuG0vVhf8dQSOHYvrTYSnQjt5QSAD6/x5oset+
-	 E/PJa2PRfeYxuADXFVh7S0mBf1TjsPWgVl50Nl+BVU5k2IYLEZgSM/Uz7F4vhbHwBGzf4
-	 AX93sFXyb7eSWTH+ChSsxgbhO2hSa0eoocihLC9gFfjr3nDnxKr7XHrQnTb6ipvxkMmtP
-	 3UFTNry0rkjbPLWhSZh2cYEM9ZIiRW5ZDU7IYH0xCodFYSb47lEBTz1e084XFuT5TSg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336080;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794338625;
+	b=D+Ur2HEbfLfM7c6u5rTdQrHooDWlIHeEsfs607iqlee+SaqY3K09CWiaTEUN8EbaIS1N
+	 /xxxkCo2QCJ1HlClxCyFot3evu+NmsaP+F1byo0qR6gLPe/s56Ae/umU8K4jEUqcMB2G/
+	 sVci6ovMozwjw3LMRBkYpODJ2FxtPeCpIeCbRYfEcDEV/2kD/f6Qx2BrZjUovniqW+DBo
+	 r1yIttJjyX03VezJYlDRpl4n0JrL/IvyD8s00Q9hJhifJ9dwT4Eobdg64G6UxvIFs3BnH
+	 3/ysBYb9M/MwzZe8Udu1HWxzxHjNcjyTnEoBjj7F6ZLYDdtq6W2p/DeKKpXbCP2JWJw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338625;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=av4ENrPPV1tGMkw5tLRd7+RJ2zUb0Iw82xvXCZIZOuU=;
-	b=yDONL6T3Bx7GX6w+1u/prFJ0loWmZPiVu5awTiROPrmaeoOoj5tOBUVFWKxmFf1mOlNv
-	 ejLsvTNIr9byxi/eN5XNW5hHnW0uikJoxDqR0lSLqMdOKaup9hLc46uqUTdWZ/mT0CXuC
-	 +721sJOsjNqn/XyWY/6NcJUMnVAhPdGYLeOL/IsIeq1a6BhK3jmBpVSRWHmaW+phx2BoC
-	 QBKL5Wbi324ZEacu+PBpV8mnrGNBovOU/FPJcXnSQYGoOx2ZdD+bRHv629wMkqgJUObxz
-	 FW/VDzHKIRYrAv8Kx6aqnNLUVjA5/4dPlDex774zr4u9gbREDugNIs9jbgNxmY1mtwg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="DtcS/EXD";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=VhSwB8C2Atai4f63OWY2MkRGEM/VR9CghwTRTwW7K+s=;
+	b=dA2kWf4et+3/un31VEoJ5G4KAcDudmynkw+ACYkm9vKpPowCQ38nwrJip8K37Zmc/G5b
+	 I0n0y6ua7rNHABJTjEXo9OpgLTvuWdrBH7TfZr2rz7jHfWUYoYYQ42UcN4HFX0RXHyf2a
+	 MbysijsYGQAjxlpZv9GNaTl6KOsd67VPSENCAuzh4lNb+jHtxLlnwECAcGXAT/FkaUw66
+	 htvRTzcQjWhR2v+sypYOXdyzmRjMYdMqaYS/MXY0J5I7JJtUOjObrzgqBweXi09zCVEsi
+	 bxeJ3kqipdyDL36G97Fly8q2OMPxZBd60c69Zo7lXasOBe3L78AqrQu3dqbf/jUVhZw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=metarealtyinc.ca;
+	spf=pass smtp.mailfrom=metarealtyinc.ca;
+	dkim=pass header.d=metarealtyinc.ca header.i=@metarealtyinc.ca header.a=rsa-sha256 header.s=google header.b=fLEPEzDY;
+	arc=none smtp.remote-ip=209.85.217.51
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF0160A6F52
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 18:41:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAF0160A6F52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC102606A31C
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 19:23:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC102606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DtcS/EXD
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso18762155e9.0
-        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 10:41:19 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794336078; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hIRQvK8N40OOv+Xe6PI2O8odJt/CdgG9UWLebVVI1RZ5ZFSwcjNaltZmD9bD5sddMN
-         e2Rt7mrDQjCnQnH+1TvgK/B0e87kSuA75q2IqL7OQu14kle8XnhE9sB5k3a1AypHzSQ8
-         LAxT0v8gCaNtZhzMFe0g9cP6x+co7nmAtndz7ne8RWq/Grwpr3WdB1oBoMoEftXhtFwV
-         tl7GOm1HSVyNZUDP0f4sRsSm33nRIEDRVkHiYoBBPURJjhPU+OifQ64r8kIyVxi21ljE
-         kYjjmwqPkak4mi4sWDtz/O7dTaSlbzJcqT89CTO4UjhAOEbR+pXCors5RKJOKM3WKWh0
-         5LjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=av4ENrPPV1tGMkw5tLRd7+RJ2zUb0Iw82xvXCZIZOuU=;
-        fh=QSqGzsxusVsT2Y8v0HP4Oh/FFUrQGFPwhJXcxp2utEg=;
-        b=JYf5RgoRHJG8w9TKUcLV3VcB9/ypL/Ejvwg2aj0lDULg7Dq0dRSVBQHJqtY1f2EdK9
-         8h16Nh+N4XfAnrYVvSIsOk+N7V65WX4kmJwGUbun5ul9mi7nmuNa0nauM1x9fHNIAx2o
-         MxYHFMYFxjGFQyWnObU4OHwdYszOjp7V0ANbzir2uI+bx7qhLlMMF3XpE/pnSEKs5Ns2
-         QfQnNwlDd1Y+leLi1S7TUNTn3qpLiJtkYveopjAplyb6cUe7TXL25Gz3lMo43WGmnACW
-         CSyfQJ7NbrjMllp3FtCfAe20Ejum3fYMxnC94EzIhA5d6vjbI64XAAorCiL+LcAsSVgS
-         UEAA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=metarealtyinc.ca header.i=@metarealtyinc.ca header.a=rsa-sha256 header.s=google header.b=fLEPEzDY
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7d2dc9a7b52so1328552137.3
+        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 11:23:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794336078; x=1794940878; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=av4ENrPPV1tGMkw5tLRd7+RJ2zUb0Iw82xvXCZIZOuU=;
-        b=DtcS/EXD9Ce+96Ky5V6gDgJEKfa8GTqySzpgPBqvf+DY8iFoulGaFbygjpNNvjG/jX
-         CFeUtcWzvnPfCOu1H5kobRE8nwug+xDTEUERU4B6M59NUgrJ1evjNpEeDcVAbesU4Uyj
-         hlrjUAthBeVRD8Qb4uzBlnjokI7iy/1e3Fyuye2yUNSt8i2CB4Z4gvMul/+ZeO/bUv8K
-         QVZxdvamx3o4dwIWpG9m4m3Xpj6vC+K3wGn1eTjpjB0N5qY531tLbw9bNgZtJDU8qDCV
-         jcfFyWlXhJQqIjO7bo+Ch/eZCNRN6Ln++xQ4tvg6vvBN7qtKqydo1aEMqufS9zaCxXtG
-         94Dg==
+        d=metarealtyinc.ca; s=google; t=1794338624; x=1794943424; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VhSwB8C2Atai4f63OWY2MkRGEM/VR9CghwTRTwW7K+s=;
+        b=fLEPEzDYbIYtk1YbU6ZmQpN6irlYIbBy0+uzUm1tcfWI8thnbfx8ctYWTRONw5iGRx
+         gVXevkQWwdbO4mlY6VdPaAcs+HVyvM6rYEke+zrR2L8ush8he8JnmAEi54U7DYZH2SiJ
+         B1iAmBwLBsrh8rPez3XkG3JHR+opkleBp7yBHkh3lBocaod9L4mAliH5xqyuniESCdL2
+         b6dJB38qeeN6byO1kfjjVy2BGQmfvrreIeRjuxVfhbqlRX60+QC3YuJUw9xVDkjvbMKZ
+         r5+v4CdYoC074M1C5bokgLsqlXv3cq1dFcyfr0yD+HEdRVg2A1+HDodmXmqgiuRdZYiO
+         4F0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794336078; x=1794940878;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=av4ENrPPV1tGMkw5tLRd7+RJ2zUb0Iw82xvXCZIZOuU=;
-        b=vORi/BlJRt0VPWCD0NIRNzXabcmkYvDTuLkneb50yV4vfhXuHzc08oMPqTi/uT/uRc
-         YHzAgCU63GdOe82OqVQEpwMxkiiB9+CU9Z6R77kuzyPwC6gddXzMc25bc5Bg/nSAPjsF
-         iZkO1+WGcucw/kK7/Yu21j2EteCPZDsph0iJYQLvyOG+lMLWtsQnC7FC71A5x3kGLMTt
-         a1MXGmUBgf4Ar2LFpqZX1cLaYrmfpXiA4QvvEdGYCyCnvUkl4XtJg/R21rajkHueYo97
-         Ugh4PIffU0SIDCERRSNL5SHyj0IDhosrh7LQwLbiV9YAnrBE2pTpABKAulFoo/XIqZ0o
-         6UVw==
-X-Forwarded-Encrypted: i=1; AL+hErEv3CjFtLqVzZqzVK/MXo25yfT/1Z54sQza0WxduTsRHDAjvSHfmncp0y+ilYe7TA513zoQ+4uii4EyaQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Cr6wu5lcI5fKp/0TQtDtKK3AZp5NYMU0Iz7hdW/1EoIEUj8IT
-	vZY4opdgyAc7J5yOEOoGhJXVUU0XRmi22SJEOoE/FYiaGg47QQVoiejkVqGTVXNQ8zQpxD7fIbm
-	OxZ2PjBDSnXEfrjRfSbp+cqfx0XtLvT8=
-X-Gm-Gg: AYBFou0ZrBFTcSiA8LrTzltPC8imwiqxFGIdU6qDSs6JjXFFKkY1BN44D8pVTgnvV8p
-	+b2uTcsh3hvhVwW7lXA/A32mmRCTjBQ+9IAxTGnLhLoGqPk6MUOyUxUc4rfKUYMnYzmh5gpzjWB
-	IOs74ttvMwol/mW0lMaiEVuR26loDQkfO7g7Yr2OlM4/vi7G/E34YOZX6NkqSx8EN4Aq7tjwj4J
-	FtPBRkk4VUAFDl17kwsgwCvpF0q4EoskQ5CZplAQqW6A5THqcYTWI6Wl3C9bru2BTMRzWqWSFlc
-	NzI5FfZHXZ0kkFlO1we1IbXguWWzdN19S8Z9I6jxmj4VYIBwMIHpek9zwTrmAaRTRYNqAFebXKi
-	vR5mzZCU/x2LAXYMViDvV9K2eNsZH4PTmyChqLAUk7v6ppEXMC2r7M+J9eLgnY/wAKeqAYg2p
-X-Received: by 2002:a05:600c:4e41:b0:4b7:6942:39be with SMTP id
- 5b1f17b1804b1-4ba0234ed60mr59966285e9.24.1794336077840; Tue, 10 Nov 2026
- 10:41:17 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794338624; x=1794943424;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VhSwB8C2Atai4f63OWY2MkRGEM/VR9CghwTRTwW7K+s=;
+        b=DrgT+csuQTep0bdp9vtStr6v0X8RKdj5OUvs7u2NBtq/tTcA15mHCFk+c9YFADNoOq
+         f+Em21+FO2m2Tcc2i4AEeeFfyi3JPGFvn0zfLZqvjph2283Fpcd43EPMlzpmvSzgRFP6
+         V6s7sq7NXzAlRIOo/edE/AZutMy+x0vFddJHuxp7Tb37ovdxYNwCU/vQePJAu86awszK
+         6JDkSLsuWpSRcksmxMJ5OMu9o57iaaa++CLkPPj5tRmGCUJ+6d5kX9B3RcS6Ax4I1DvZ
+         qeirm79O7kMwh728n8pT5GidOJ5Nrms0VbHmzGrPZv/S+fURuXj48UiisggIJlliZbcU
+         bGhQ==
+X-Forwarded-Encrypted: i=1; AL+hErGRcQpHEHmonp6MjTcOHDpwTrhAn7Z3uLTwWVXwc+9hPKvBqXux0hXHGAp9f74IJwFbfSgJJ+BNjOAn6g==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9i9v5PMxXS7SeIWRt1qHtZDlUWzqkno35yVznrBFL6AII9kpN4
+	kIcg8wU5mSgonE1r4DSbiDaDjiS0438zjCKhhWiipz/nuCrCOdaT8qjdNQUtABzzwzc=
+X-Gm-Gg: AYBFou31UM84hRaWNp3S4xw4/eZpuAOPdaDVMuQgplykIn6GohdhphQlAh8g8EBPazj
+	WxiXN4/f/hJShQ1nFM2Z9LxQzBodoqi++FzmnNXEJa0Dagoj+5DsMlc7Og9lbqUuSnOPmc2N+9w
+	rd2j/ZVVRDGHSxIXFwYbaxcgMa9JiJ0WfNYlXFzvvGCUZsDBJvVW2GEGXHBLD1cU+wDcHZ8dCc6
+	P3dKZKKJYQwsmQX4gHMxsUZmZvh0xbYWrxozumm7N5jA0hP2UjG4eBYEyUUNBfBeAElE9il8DDV
+	zhGmVIsnTyaGH7fea8LvQ3RdckEG429mPe8rKrdkAdu2MpWmQ3w79O8twXj+CaAsOdgJoV7zWsg
+	np1TrKGDrXC54sj+dnj4hrlHSTJAGlUpkYJb3uPRnzf2iZOpog6LaaPaSQ5+AArvqkA3PDhPdV4
+	3rTwQ6mFb56uVx0t3Yltf5tvG5nFDH18QOmblc0qkO21//DAFde03NNJIX+xW/VG2NgYiiL7wye
+	gfvjWijkdm8blcS6l6Asu3C1OQbjGDPweCn8h3KWSR5E7KP8SB8ykjGc7XmQkzoarfdF1MRjwNz
+	z/is0cgl9A2aUJoNXDv7uuA+vA0ZjAdBBq5XY093UWhs3b5n4/L/2lTK5L3lyikvfWmHPUIErpt
+	+srQNt/XLSEYVIQxVu7vN1OjeCyVtedde8DKZBPOHF1dQh/D/KNOKiv8xAYxndcM6xg9Fzn2Uek
+	tXs0JP8eOqPbuFRouPO/18BXJyatgD04i8QRXEAFr4ZSXXg4PlRv8IyHiKZ8rBHazU
+X-Received: by 2002:a05:6102:510f:b0:7cc:80ba:5e5c with SMTP id ada2fe7eead31-7d301b91214mr1618345137.6.1794338623819;
+        Tue, 10 Nov 2026 11:23:43 -0800 (PST)
+Received: from jake-laptop ([2607:fea8:c6:a700::879a])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d3023aed1csm2368632137.10.2026.11.10.11.23.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 11:23:43 -0800 (PST)
+From: Jake Steinman <j@metarealtyinc.ca>
+To: sakari.ailus@linux.intel.com
+Cc: bingbu.cao@intel.com,
+	antti.laakso@linux.intel.com,
+	mchehab@kernel.org,
+	hansg@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: ipu6: Don't stop or close a stream that failed to start
+Date: Tue, 10 Nov 2026 14:23:41 -0500
+Message-ID: <20261110192341.1305587-1-j@metarealtyinc.ca>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <avLwlhbOg-9EJo7g@kekkonen.localdomain>
+References: <20261106121905.42571-1-j@metarealtyinc.ca> <avLwlhbOg-9EJo7g@kekkonen.localdomain>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,152 +103,34 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106074639.452630-1-nikitash.mariiaw@gmail.com>
- <cd073632-0919-4015-8daf-39cfe24391e8@kernel.org> <20261110135444.7d8070ec@pumpkin>
-In-Reply-To: <20261110135444.7d8070ec@pumpkin>
-From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Date: Tue, 10 Nov 2026 10:41:06 -0800
-X-Gm-Features: AclHuK9_7M2m4zG_NQ4qW5SK5DvtnSnNqDvZRn6nCgKPOE6JXbdQL3_rS3KQX_Y
-Message-ID: <CAPDEY+X=pVsiY5cib8e_Vu3KNW0QNV6hXF+GSLs9gyD8rMXa6w@mail.gmail.com>
-Subject: Re: [PATCH] media: radio: Replace strlcat() with seq_buf in TEA drivers
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, hverkuil@kernel.org, mchehab@kernel.org, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com, 
-	morbo@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 5:54=E2=80=AFAM David Laight
-<david.laight.linux@gmail.com> wrote:
->
-> On Tue, 10 Nov 2026 11:08:30 +0100
-> Hans Verkuil <hverkuil+cisco@kernel.org> wrote:
->
-> > On 06/11/2026 08:46, Mariia Nikitash wrote:
-> > > In preparation for removing the deprecated strlcat() API[1],
-> > > replace the strscpy() and strlcat() calls used to construct
-> > > V4L2 card names in the TEA5777 and TEA575x radio drivers.
-> > >
-> > > seq_buf tracks the current write position and remaining capacity
-> > > across appends, avoiding repeated scans of the destination buffer.
-> > > This preserves the resulting strings, including truncation behavior.
-> > >
-> > > Link: https://github.com/KSPP/linux/issues/370 [1]
-> > > Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-> >
-> > Nacked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-> >
+Hi Sakari,
 
-Hi,
+On Tue, Nov 10, 2026 at 12:23:18PM +0200, Sakari Ailus wrote:
+> Please be careful with git send-email arguments in the future.
 
+Sorry, that was a quoting mistake in my Cc list. It's fixed for future
+sends.
 
+> I wonder if any firmware communication failure, a timeout or other error
+> should trigger the IPU reset (once the users are gone). The functions
+> communicating with the firmware should also probably check that condition.
+> I just sent a PR on IPU reset changes, they probably don't address this
+> problem though.
 
-> > This is silly. Just use scnprintf().
->
-> Or wait for someone to add a call that just does what is needed.
-> In this case the first stscpy() returns the length (and it is often
-> known).
-> So you could have:
->         len =3D strscpy(buf, tea->card[, buflen]);
->         len =3D strscpy_at(buf, len, " TEA5777"[, buflen]);
-> or:
->         len =3D strscat(buf, buflen, tea->card, " TEA5777", ....);
-> or some variant that will do a strnlen(buf, buflen) to get the offset.
->
-> But it really is best to leave the strlcat() calls in there for now.
->
+Agreed. This patch also applies cleanly on top of your ipu6 branch. With
+"media: ipu6: Return errors from stream stop and close" there, a failed
+start already marks need_reset in ipu6_isys_start_stream_firmware(), and
+this patch only skips the stop and close calls that can't succeed.
 
-Thanks Hans and David for the feedback.
+One thing I've seen on Panther Lake: the PSYS is a child of the ISYS, and
+as far as I can tell the ISYS isn't runtime suspended while the PSYS is in
+use. So need_reset can stay set until the last PSYS user goes away, which
+in practice means restarting PipeWire.
 
-I agree that seq_buf is too complex here. I'll look into using
-scnprintf() as Hans suggested.
+"media: ipu6: Don't mark need_reset based on returned buffers" covers the
+IPU7 case from my need_reset RFC, so please drop that one. I'll test your
+ipu6 branch on Panther Lake and report back.
 
-David, I also see your point about leaving strlcat() in place until a
-more suitable append helper is available. I'll revisit the approach
-before deciding on a v2.
-
-
-Best,
-Mariia
-
-> David
->
-> >
-> > Regards,
-> >
-> >       Hans
-> >
-> > > ---
-> > >  drivers/media/radio/radio-tea5777.c | 10 ++++++++--
-> > >  drivers/media/radio/tea575x.c       | 10 ++++++++--
-> > >  2 files changed, 16 insertions(+), 4 deletions(-)
-> > >
-> > > diff --git a/drivers/media/radio/radio-tea5777.c b/drivers/media/radi=
-o/radio-tea5777.c
-> > > index fb9de7bbcd19..2b1c7f6ddd60 100644
-> > > --- a/drivers/media/radio/radio-tea5777.c
-> > > +++ b/drivers/media/radio/radio-tea5777.c
-> > > @@ -13,6 +13,7 @@
-> > >  #include <linux/init.h>
-> > >  #include <linux/module.h>
-> > >  #include <linux/sched.h>
-> > > +#include <linux/seq_buf.h>
-> > >  #include <linux/slab.h>
-> > >  #include <media/v4l2-device.h>
-> > >  #include <media/v4l2-dev.h>
-> > > @@ -255,10 +256,15 @@ static int vidioc_querycap(struct file *file, v=
-oid  *priv,
-> > >                                     struct v4l2_capability *v)
-> > >  {
-> > >     struct radio_tea5777 *tea =3D video_drvdata(file);
-> > > +   struct seq_buf s;
-> > >
-> > >     strscpy(v->driver, tea->v4l2_dev->name, sizeof(v->driver));
-> > > -   strscpy(v->card, tea->card, sizeof(v->card));
-> > > -   strlcat(v->card, " TEA5777", sizeof(v->card));
-> > > +
-> > > +   seq_buf_init(&s, (char *)v->card, sizeof(v->card));
-> > > +   seq_buf_puts(&s, (const char *)tea->card);
-> > > +   seq_buf_puts(&s, " TEA5777");
-> > > +   seq_buf_terminate(&s);
-> > > +
-> > >     strscpy(v->bus_info, tea->bus_info, sizeof(v->bus_info));
-> > >     return 0;
-> > >  }
-> > > diff --git a/drivers/media/radio/tea575x.c b/drivers/media/radio/tea5=
-75x.c
-> > > index c37315226c42..e49228eb7c46 100644
-> > > --- a/drivers/media/radio/tea575x.c
-> > > +++ b/drivers/media/radio/tea575x.c
-> > > @@ -9,6 +9,7 @@
-> > >  #include <linux/module.h>
-> > >  #include <linux/init.h>
-> > >  #include <linux/slab.h>
-> > > +#include <linux/seq_buf.h>
-> > >  #include <linux/sched.h>
-> > >  #include <asm/io.h>
-> > >  #include <media/v4l2-device.h>
-> > > @@ -221,10 +222,15 @@ static int vidioc_querycap(struct file *file, v=
-oid  *priv,
-> > >                                     struct v4l2_capability *v)
-> > >  {
-> > >     struct snd_tea575x *tea =3D video_drvdata(file);
-> > > +   struct seq_buf s;
-> > >
-> > >     strscpy(v->driver, tea->v4l2_dev->name, sizeof(v->driver));
-> > > -   strscpy(v->card, tea->card, sizeof(v->card));
-> > > -   strlcat(v->card, tea->tea5759 ? " TEA5759" : " TEA5757", sizeof(v=
-->card));
-> > > +
-> > > +   seq_buf_init(&s, (char *)v->card, sizeof(v->card));
-> > > +   seq_buf_puts(&s, (const char *)tea->card);
-> > > +   seq_buf_puts(&s, tea->tea5759 ? " TEA5759" : " TEA5757");
-> > > +   seq_buf_terminate(&s);
-> > > +
-> > >     strscpy(v->bus_info, tea->bus_info, sizeof(v->bus_info));
-> > >     return 0;
-> > >  }
-> >
-> >
->
+Jake
