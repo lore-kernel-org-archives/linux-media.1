@@ -1,92 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312173;
-	b=PvvgvNc/DySnYO5jJMoWww+fVtZJpOHcRCbJ/9LSuaSS7dnLelQiPrMfe57TjlknPr7B
-	 8L6mei/c0W7uDS9xPg/P0GwfwP2R483KZl1eWFnFLn9W/tfEPMU8h6cTV9oSTnoVw9EWc
-	 Z01/uWUKsJkGfV10JwIvUrV7ZndFbrzq3kHvOmogLflpCTD0DwMXEkmSwh2875qx2tHC0
-	 71xAbXHs8Q/TWj5Ij7Qp69bPMvExb7TcNg/eVH55CZpVe/itk9xpsbWTrGGbLxiavwTmO
-	 J4SNEcrC2HpWo9Q1kNKh0b0NU7Nv4ARRf9rXlbIN/BlbMxmt+WCfTAPWWx+Q8TEIgQA==
+	t=1794312489;
+	b=4GTmbEqMqEFCry3Y9H0+jLh3GzIvqCD/TrGy0NG28EP+u1rjKTGeQxrwdRUvkeT5N3Tu
+	 AH6+gHBza132wGMxLFOVvaLhM39Eg1eP7ROVYHtKsehVHM87F7L7r01+ry49wMXkUu3JJ
+	 I0sAmrqWPL7owMU9hbgaTg+tA0swj5kpcfzyx0ciOi8MKYSobAVDtYPCNJAM3Y2oJA9Z+
+	 mXdnDa4sL1N3CjiPqVdh7N57exbZ8r3mNq7nBmsCZWMi/8c3/m2XaZkTS+hPSecPWBzih
+	 S6QqK/RBSkqzqtr0eQB1i1rFuo9yiRfJagfeBtdTs/v3C5Dvwm8pm8mabVSvUM5UJLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312173;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=w5IMEhy4okHKxHyGpwkRamhqKC6oRcjh0YGoxUqp7KY=;
-	b=xtbIHdFi/QKsbS+vwakxWS2ZBHv5apvXKt+LORyTOna/gfF70RPDypSnHQWNSznJ+FPe
-	 ha9wJYyZtC1e8feJcU9x1HwvI+MyK0ONjGK3w9dsCW/99Mbw0hvlBAveEEp9wnVCtIWHM
-	 cBjr7zoylNWo0rXTmc+AqLig6TVF9FBNYBDncQGbQBIV7Dc7Br+JQv+vFuQwTavlrDLNh
-	 VdpkZvXMo5xyZPIamAyc2rMAEprHxYQ3TPeYL9Cj4d4yd+OaXwBQuhqqXvhNj/XGfgIiZ
-	 78DJmsRP2oj+DW109VtSnWpJC21myQS7qpT7W+/nA0kxggW50G+7SZIT15wGOJhKxhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312489;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=P8/heUieETMGb69SCBfFmn3mVLIEZOk6McxUDGUu/Hc=;
+	b=HWhFJWqu30Pknl/fKOzMhIsil6hexJLontQhOK41PQSLJADgEcEetzZ9lx0lO8P+eV9m
+	 mmFn0lfNbHdzUkE5cv8OvDZ8HcSb9TiuvuXGHPu7+FDIYgXVOBGtk6J2Ek3Y6Db1Hbpl0
+	 eYZqwKnz7A8ElUcp/YSM/z+tNVZ0JYqeqLpPCQgcus40iGEHz0g7itvRdbHq5jZ/jmV7P
+	 llW6FLI/akq4eoiKkzgh3bbb8zsEoOubJ2nMi7pcq4tMMJ/nhKRetIh9+eKDIrcNV4mhR
+	 KO7inFkBiOoRR8RlLhB95NiaOCawy07OpGUrrF/XE1R34dlGACkqXfPsZC9d3YFPWdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="W4W3Ie/Z";
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzTxeCqd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5C3606A332;
-	Tue, 10 Nov 2026 12:02:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E5C3606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF58606A335;
+	Tue, 10 Nov 2026 12:08:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W4W3Ie/Z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794312173; x=1825848173;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HhAUpNuzDozuVjdF12LqWeLLpGws7iUzN3G4eEtCwpk=;
-  b=W4W3Ie/ZTOhfDceUYt/hfGTR9WEnF3IxHLCZROpY0nzYhYadsW0UBL22
-   FJZMVpnqdZGL8YulX+F93KbHjrzM0s/dQsXWktfqmBAOydBOizj03Shz0
-   9+Ie+4gytcOFmzh/2qWXKB378vCqnsZJ2L6c8fUe9wL2ku/aYTiN4ELGK
-   BCDYqpcE2F6Y/KHOrN0HuBWMTjMotGO/WonZQ1GoY+BZOzx+CG7Zx7W2s
-   9jXxNH6dBpXb9afRxeScTYil3WsLKsFToTPsO0FkrN0G14Ms5zENofq88
-   kEW3RQdQ5mGJBD16qMeNgQWfPZQYX6+3mMA6mCRpAiSQ+gPpmuRV/Rhph
-   Q==;
-X-CSE-ConnectionGUID: 9xoshxrkT6Gfb1+SnOyFSw==
-X-CSE-MsgGUID: 3BTVNRAsTjuo04ME/zTAbA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3156162"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="3156162"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 04:02:53 -0800
-X-CSE-ConnectionGUID: ZqmuHCDMTKyLwUC/7lBmqg==
-X-CSE-MsgGUID: A8Fj9ojISPexeUfkUXUf7A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8174905"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.11])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 04:02:48 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 0CCB6121B7B;
-	Tue, 10 Nov 2026 14:02:46 +0200 (EET)
-Date: Tue, 10 Nov 2026 14:02:46 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
-Cc: Mario Limonciello <superm1@kernel.org>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
-	Benjamin Chan <benjamin.chan@amd.com>, King Li <King.Li@amd.com>,
-	Caspar Adriani <caspar.adriani@proton.me>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Arec Kao <arec.kao@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 2/3] platform/x86: amd_isp4: add the OV13B10
- (OMNI13B1) board configuration
-Message-ID: <avMH5glolytc9L86@kekkonen.localdomain>
-References: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
- <20261103155313.114347-3-saif.elden.hatim@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzTxeCqd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5FF21F008A3;
+	Tue, 10 Nov 2026 12:08:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794312488;
+	bh=P8/heUieETMGb69SCBfFmn3mVLIEZOk6McxUDGUu/Hc=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=WzTxeCqd3wC1uQMrpFJSIL3pB6ktt9lIlookmz8twFXwIy7+UCraXQWjHD4lJ+xmw
+	 cmBf2Hyd8uKI5w7VlLlmJIkiLejTmimtw5v/wyVNz5uIBxhhX3tBnfxpc+CqFC2219
+	 FT0S93pFDxIeyiRAFTjQ+9CnutVrRBl1zWcQT5pS9uHuFOUPiHSHaP9pXFwabUmpDi
+	 AxwvIkgHOIw6FPmR1RM8M/JWSQ9w+tnzvjNO50x+Nhzfq9CsqlrqQTz45EnE7VRWoP
+	 4Hr1WV2f8vLiFxSEuoERl+rZ+DLd7PxiZT6ell8XQrrZanum7/slOk9uQjUNA0Ryt5
+	 QAPE6/fw/blyw==
+Message-ID: <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org>
+Date: Tue, 10 Nov 2026 13:08:05 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -96,23 +51,71 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103155313.114347-3-saif.elden.hatim@gmail.com>
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
+To: Mattijs Korpershoek <mkorpershoek@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Michael Riesch <michael.riesch@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+ <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
+Content-Language: en-US, nl
+In-Reply-To: <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Seifelden,
+On 23/10/2026 14:26, Mattijs Korpershoek wrote:
+> Hi everyone,
+> 
+> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@kernel.org> wrote:
+> 
+>> On media-centric camera pipelines, every entity is known at boot time
+>> and described statically (for example via device-tree).
+>>
+>> The V4L2 framework assumes that every entity of the camera
+>> pipeline is always present. This is a reasonable assumption for
+>> integrated cameras in laptops or phones. However, in automotive systems,
+>> cameras (e.g. rear-view or surround-view) can be damaged or disconnected.
+>> When the framework assumes all sensors are present, a single missing
+>> camera can prevent the entire pipeline from operating.
+> 
+> This series has been discussed at the Camera & ISP "unconference" in
+> Pragues (during Linux Plumbers)
+> 
+> The notes can be found here:
+> https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus.ideasonboard.com/T/#u
 
-Thanks for the set.
+What is missing in this discussion is how userspace can indicate that it
+actually can handle partially instantiated pipelines.
 
-On Tue, Nov 03, 2026 at 06:53:12PM +0300, Seifelden Abdelmonem wrote:
-> +#define AMDISP_OV13B10_HID		"OMNI13B1"
+Today if one or more parts do not come up, the devices nodes are also not
+created. This is typically exactly what you want. But here you allow partial
+instantiation, and how does userspace signal that? It must be an 'opt-in'
+mechanism, but how is that done? There are no devices yet, so that can't
+be used, so what alternatives are there?
 
-Any idea who allocates these HIDs? Omnivision ACPI ID prefix is "OVTI" and
-"OMNI" is indeed unallocated. I presume these HIDs have been "allocated" by
-AMD? This is not the first time something like this happens but it would be
-good to avoid it from happening in the future.
+We've been discussion Fault Tolerant V4L2 for many years now, and every time
+I raise this issue, but I never received any proposals.
 
--- 
+This must be solved.
+
 Regards,
 
-Sakari Ailus
+	Hans
+
+> 
+> I intend to rework V2 based on the feedback I've received on the list
+> and at the "unconference".
+> 
+> I'll try to reuse Sakari's work on media graph events from:
+> https://git.linuxtv.org/sailus/media_tree.git/log/?h=partial-reg
+> 
+> Thanks again for the feedback I've received so far.
+
+
