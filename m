@@ -1,61 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319963;
-	b=rt2TM979t6cfJWp+oQ1YDLOPllVlf1sZNbAV5OZ1Gd+DS+8vR2QqZLlPYh1cMAoVVb8N
-	 IvibE5cQdDf4EWHfj/YEnVfDY6+5tK3adWpogSHL/GvnuP0jkut4wEeaJMOIkNpGVdE02
-	 ofAKAIctqdo5kcwhz70D5xMKCqSrEkopn/w1PjROwInduS473c2xzulSx/3qM6JUnPWDB
-	 E/bXL78gTlyJBl9aJR6BPOmCBQvDbGzu4sx0GoZQ10BCQYoM22qUJ6517V5ummDWduTzs
-	 UlQ47f6vviwpdGc2aWp0coQT+gpBXKqOrzniQTJHQsH8l2IE4FOgfN67HSUmLpV8S6A==
+	t=1794320230;
+	b=4bchJD0AX4jqVXS9OYZsWeZJRd+KclE9dZcaGEIWTkvz5ZrXqZAyqxuXfJ2TqpWKmZzm
+	 XJSBoTvZkUphnjvnxYfpvr/2WCY86FsVHfrE12T1aDVgi2YePq8PZe3dmA/DRr25Jpf8L
+	 8atibqihDAqYcKFs901OZ0Tc/KObgs+kqbvDsLLU4yXnqXW+COhRNwNkFygSpV0Lkfihv
+	 bh7/2nAvBWLmHO0M+cHLuckbeYHIQx7kKelofXLCpnIRCuSDr6j5RXvmM+v7psXX3245Y
+	 PgA43SIPrPltJiLVDTAYmhwyHP6AjyOngi2i00TIidOpSVCc0fXh65SXOq3dI8vR0JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319963;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=1GulGFhMi9XBU0Cv2GT0yx0lTEUgKTglxY+lL/xbMYA=;
-	b=wOc9PRiHphIxp2j0Df/YA3dD44zNxMTpkXKv3dhGalBUr1mKezDhmIBJHVS8oTTifFsD
-	 fTg7oRhoPT78U+XTB46aHbyl86C2K41lWSdwc1XKR1B35JEELThNpJObh5vW1sWx7eSoU
-	 nsgauCf14aQ8Mo+TBfXP61SzhoYPIlhdF2rFvoa9eagnm/vh+2Bc+fh7uwo6aYDsN21uh
-	 2+xYgDtDKtRYlQ03sw43XAx+VLIwFuh36LFuJ+xfMBO1B+urc/rSh2ydQPTSYOou2DZgJ
-	 LKKNYf4MXddHAFe3ANksWTanCa9CbqmKR2psAjwX6BrhoB2ZR92vB6ZcdQYtrD30eKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320230;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Q1JlDUJI5Cr+wvZH4apGh3ldcaH5uiMtQ5yIrEgM70I=;
+	b=PCwA3SDFV43cbT38prdBEv0Jg1KOsbCuxuVVpVNpnp2XYkt1LqgPaLo5EMqF5P+ZKDBR
+	 03Ia/s6SuDHuY3nxbUlgkeDp2AccYqYr1A7Stbpv+U2ssC0TWNn3rLCIjcWISAI0UP4Zt
+	 XxE+oTaoqlpMIlm+whLhclRGeOV6m9W80lTHqbXEDUkAmgiIGMk0qeUinA7XKvbZavZ0+
+	 5Lp8A14V/rUIPSmRQjjRwVqBTIqM0j0sWhllvy+G4SV1u+b27FM66zquI/rjPKZtPocmc
+	 KVTkm82BuRv5kQeLzUDqMCxs2dSsWhTMZxS2IFFGkk1G/EAH9JnHql21/FAaximlkog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=pGuJ1Hl8;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XN/0197K";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0248606A325;
-	Tue, 10 Nov 2026 14:12:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0248606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F01A606A33A;
+	Tue, 10 Nov 2026 14:17:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=pGuJ1Hl8
-Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AF5E7C4A;
-	Tue, 10 Nov 2026 15:10:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794319818;
-	bh=rVu4JJZ6/if5MnVIbP7ES8Ykchj/m79GGXbfUF39ZtQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pGuJ1Hl8YQadvMBXBhyLTt0yC5HWa6pONUzrJOTNG5kY3MlSzR+d1EUBRIqUYabxz
-	 OVlnZf17Puf01iOHn669qsirMqd4v1eKHoSn8OYvN8kAGo8vp6xvqzYVkVqHAa4LdH
-	 uWhaUpPNh86n0yKeqTCY2ohvei4Dds8CgIjFMNTU=
-Date: Tue, 10 Nov 2026 15:12:38 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David CARLIER <devnexen@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Nayden Kanchev <nayden.kanchev@arm.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] media: mali-c55: Fix frame sequence numbers on
- dual-pipe hardware
-Message-ID: <avMkYct3Ms2kwJ5a@zed>
-References: <20260930174621.791831-1-devnexen@gmail.com>
- <avMX7TrGYCUl8c4C@zed>
- <CA+XhMqz--zg_rR8_TqziuPXLRDDP1Y1xcNV7WS9_004AfaBtuA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XN/0197K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22EA01F008A2;
+	Tue, 10 Nov 2026 14:17:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794320229;
+	bh=Q1JlDUJI5Cr+wvZH4apGh3ldcaH5uiMtQ5yIrEgM70I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XN/0197Kbsl3bS0d4loNWvHP3zFSp4ZM+NesLngQAu3Tf0XyEWT9bbZBbBKLQHrlT
+	 t2O2roTpnMpeo4GFk0Ikw65l8JrCR4+VTpA6NWTtEK0ISh8APYigKmqDEYs4H79Fmu
+	 T1DFqaf20aZh5BbmHJFwAgh1wL27zQA23TLP//PkeEHtVK4JZ4ZXwuf2c9LrijAmIk
+	 uSshncFp0VAgTGMupdw7xFgJNYZxnlKgLGVSjaH1sgvtHCe/wIvUVBmiCJwNZCiQje
+	 UWBFy1JJ4A8t60U0AJQf2EPZ/6YFnvapyODV6t1sfMG01SEUZv7Lm2kewkGb8Q4rKe
+	 7h/RW5ykxAAgw==
+Date: Tue, 10 Nov 2026 15:17:06 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Michael Riesch <michael.riesch@collabora.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
+Message-ID: <avMgJ7MFks0sKD7T@houat>
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+ <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
+ <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org>
+ <avMM6a6xcDHT-zCR@houat>
+ <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -65,212 +63,189 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="f4gycnlj27uzbn3m"
 Content-Disposition: inline
-In-Reply-To: <CA+XhMqz--zg_rR8_TqziuPXLRDDP1Y1xcNV7WS9_004AfaBtuA@mail.gmail.com>
+In-Reply-To: <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org>
 
-Hi David
 
-On Tue, Nov 10, 2026 at 01:35:56PM +0000, David CARLIER wrote:
-> Hi,
+--f4gycnlj27uzbn3m
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
+MIME-Version: 1.0
+
+On Tue, Nov 10, 2026 at 02:30:51PM +0100, Hans Verkuil wrote:
+> On 10/11/2026 13:33, Maxime Ripard wrote:
+> > Hi Hans,
+> >=20
+> > On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
+> >> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
+> >>> Hi everyone,
+> >>>
+> >>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@kern=
+el.org> wrote:
+> >>>
+> >>>> On media-centric camera pipelines, every entity is known at boot time
+> >>>> and described statically (for example via device-tree).
+> >>>>
+> >>>> The V4L2 framework assumes that every entity of the camera
+> >>>> pipeline is always present. This is a reasonable assumption for
+> >>>> integrated cameras in laptops or phones. However, in automotive syst=
+ems,
+> >>>> cameras (e.g. rear-view or surround-view) can be damaged or disconne=
+cted.
+> >>>> When the framework assumes all sensors are present, a single missing
+> >>>> camera can prevent the entire pipeline from operating.
+> >>>
+> >>> This series has been discussed at the Camera & ISP "unconference" in
+> >>> Pragues (during Linux Plumbers)
+> >>>
+> >>> The notes can be found here:
+> >>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus=
+=2Eideasonboard.com/T/#u
+> >>
+> >> What is missing in this discussion is how userspace can indicate that =
+it
+> >> actually can handle partially instantiated pipelines.
+> >>
+> >> Today if one or more parts do not come up, the devices nodes are also =
+not
+> >> created. This is typically exactly what you want.
+> >=20
+> > That's very arguable? We have plenty of other examples where we allow to
+> > show a software representation of something that isn't available in
+> > hardware, starting with virtually any memory buffer allocation, but also
+> > disabled CPUs, swapped pages, etc.
+> >=20
+> > For things a bit more related to drivers, things like USB root hubs are
+> > also pretty analogous. The "root" device will always be created, even if
+> > devices connected to it are non-functional, missing or whatever. It's
+> > the primary interface that these devices might or might not attach to.
+> >=20
+> > So it's a bit hard to understand why the device nodes not showing up is
+> > exactly what we always want.
+>=20
+> It's simply how V4L2 works today: video devices do not appear until
+> all components are instantiated.
+
+Sure but that's exactly what we're trying to change.
+
+> Most video devices consist of multiple devices (bridges, i2c devices,
+> etc.) and unless all are found and initialized, you can't capture. So
+> bridge drivers postpone creating the video/media devices until
+> everything is there.
+>=20
+> That also means that applications can safely assume that if a video devic=
+e appears,
+> it is functioning.
+
+Ish. The only safe assumption you can make about this is that it was
+functional at probe time. Anything after that is very much up in the
+air. If the device broken after probe for example, or if we have no way
+to tell if it's functional to begin with, that assumption is no longer
+true. So sure, that's what applications have been doing so far because
+there was no better way to do it, but I wouldn't qualify it as a "safe"
+assumption.
+
+> If we add fault tolerance, and you allow video devices to appear even if =
+they are
+> not functioning (or partially functioning), then that contract breaks.
 >
-> On Tue, 10 Nov 2026 at 13:22, Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> wrote:
+> >=20
+> >> But here you allow partial instantiation, and how does userspace
+> >> signal that? It must be an 'opt-in' mechanism, but how is that done?
+> >> There are no devices yet, so that can't be used, so what alternatives
+> >> are there?
+> >>
+> >> We've been discussion Fault Tolerant V4L2 for many years now, and ever=
+y time
+> >> I raise this issue, but I never received any proposals.
+> >>
+> >> This must be solved.
+> >=20
+> > Is there any way to? You're saying at the same time that we must not
+> > create the device, but that an application would need to signal to that
+> > device that it can indeed be created. It's a circular dependency that
+> > cannot be solved on a per-device basis.
+> >=20
+> > During the meeting, we had a discussion that the media device should be
+> > created as a "skeleton", and then as other devices probe they would fill
+> > in the blanks. How would that not work? Also what is your main concern
+> > exactly that makes you ask to not do that in the first place (or make it
+> > opt-in)?
+>=20
+> Applications today assume that everything works when the device nodes app=
+ear.
+>=20
+> If you change the behavior, then they just see a skeleton driver and how
+> would they know that they need to wait until all components are found and
+> it is ready for use? Or what to do if some parts are faulty?
+
+I really think that this discussion is not solely about probe. It's
+something we discussed during the meeting, but I think we should try to
+handle "my device was broken at probe" and "my device became broken
+while the system was up" exactly the same way.
+
+And while it's true that our assumptions currently deal with the former
+fine, we just don't deal at all with the second, and everything you're
+saying here could still happen.
+
+So, to answer your questions, I think it's entirely application
+specific. A video-conferencing application would error out or might want
+to wait forever for its only relevant sensor to show up. A multi-stream
+dashboard in a car would just show a blank screen and show the other
+streams. I'm not sure we should (or can) come up with a policy at the
+kernel level.
+
+> One solution might be that bridge drivers capable of fault tolerant behav=
+ior would
+> create a /sys entry called 'v4l-fault-tolerance' (just an example) somewh=
+ere.
+>=20
+> Applications that can handle this can find that entry and write '1' to it.
+> After that the driver will start creating devices even if not everything =
+is
+> available. Without it it will just block (the current behavior).
 >
-> > Hi David
-> >
-> > On Wed, Sep 30, 2026 at 06:46:21PM +0100, David Carlier wrote:
-> > > The single frame_sequence counter in struct mali_c55_isp is incremented
-> > > in mali_c55_set_plane_done(), which runs once per completed buffer per
-> > > capture device rather than once per frame. Hardware fitted with the
-> > > downscale pipe always hits this: mali_c55_pipeline_ready() refuses to
-> > > start the ISP unless both the full-resolution and the downscale queues
-> > > are streaming, so the counter advances twice per frame.
-> > >
-> > > Each video node then reports sequence numbers 0, 2, 4, ..., which
-> > > userspace reads as a dropped frame between every pair of frames, and the
-> > > two pipes never number the same frame alike, contrary to
-> >
-> > Sorry to ask, this is not meant to be detrimental to the value of this
-> > patch, but in these days I feel like I should ask:
-> >
-> > - is this an error found running the system with an FR/DS pipeline
-> > - is this a report from an LLM
-> >
->
-> I honestly use LLM to find this issue.
-> I paid attention however if the increment in mali_c55_set_plane_done()
-> and above all mali_c55_pipeline_ready() requires the queues when
-> MALI_C55_GPS_DS_PIPE_FITTED is set.
+> It's also tied to your use-case: for the same hardware your use-case migh=
+t be
+> fine with the current situation (non-fault-tolerant), or you want to enab=
+le it.
+>=20
+> There might be other ways to implement this: e.g. a module option or a Kc=
+onfig
+> option.
 
-Thanks, as said in the previous reply, we know the current handling of
-frame sequence is broken, which makes it easier for me to accept a
-patch not tested on real hw.
+Yeah, I guess that could work
 
-Honestly, commit messages reporting such a precise analysis of an
-issue suggest the patch comes from from a real device, not from
-analysis, and I wonder if in 6 months, if we ever find an issue with
-this patch we'll remember it hasn't actually been tested.
+> Also note that systemd opens video nodes as they are created. It used to =
+use
+> v4lctl for that, but that might be integrated now.
+>=20
+> So that should keep working. I think it just calls QUERYCAP, so that is l=
+ikely
+> to just work.
+>=20
+> Regardless, I want to see an RFC for this, demonstrating that someone has
+> thought about it. If you think this can be done safely without an opt-in =
+mechanism,
+> then explain so in the RFC.
 
-It's a general concern regarding the increasing amount of LLM
-generated fixes which come from code analysis rather than actual
-testing.
+ACK. Thanks!
+Maxime
 
-Usage of LLM is now not required to be disclosed, but I wonder if for
-our own safety we shouldn't clearly say "This issue has been found by
-an LLM inspecting the code and not tested on a device." on all these
-automated patches.
+--f4gycnlj27uzbn3m
+Content-Type: application/pgp-signature; name="signature.asc"
 
->
-> Cheers.
->
-> >
-> > Mostly I'm curious to know as I can't test on a system with a DS pipe
-> > fitted, knowing you actually tested this would make me more confident
-> > in accepting the patch
-> >
-> > > Documentation/admin-guide/media/mali-c55.rst. The V4L2_EVENT_FRAME_SYNC
-> > > event and the statistics and parameters buffers only read the counter,
-> > > so their sequence numbers stop identifying a frame too.
-> > >
-> > > Increment the counter once per frame, when the ISP start interrupt is
-> > > handled, and stamp each capture buffer when mali_c55_set_next_buffer()
-> > > programs it, as it is written out during the following frame. Stamping
-> > > at completion would be off by one whenever DONE(n) and START(n+1) are
-> > > handled in the same interrupt, since ISP_START is processed first. Hold
-> > > the counter at UINT_MAX while the ISP is stopped, as the first buffers
-> > > are programmed before it starts, so the first frame gets sequence zero.
-> > >
-> > > Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> > > Cc: stable@vger.kernel.org
-> > > Assisted-by: Claude:claude-opus-5
-> > > Signed-off-by: David Carlier <devnexen@gmail.com>
-> > > ---
-> > > v2:
-> > >  - Stamp the buffer sequence in mali_c55_set_next_buffer() instead of
-> > >    at completion, which broke when START(n+1) and DONE(n) are handled
-> > >    together (Jacopo)
-> > >  - Reset the counter when the ISP stops instead of when it starts
-> > >
-> > > v1: https://lore.kernel.org/r/20260801205311.386692-1-devnexen@gmail.com
-> > > ---
-> > >  drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 5 +++--
-> > >  drivers/media/platform/arm/mali-c55/mali-c55-common.h  | 4 ++++
-> > >  drivers/media/platform/arm/mali-c55/mali-c55-core.c    | 1 +
-> > >  drivers/media/platform/arm/mali-c55/mali-c55-isp.c     | 3 ++-
-> > >  4 files changed, 10 insertions(+), 3 deletions(-)
-> > >
-> > > diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> > b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> > > index ff01553026fb..fa073ce4b2bd 100644
-> > > --- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> > > +++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> > > @@ -413,6 +413,9 @@ void mali_c55_set_next_buffer(struct
-> > mali_c55_cap_dev *cap_dev)
-> > >               return;
-> > >       }
-> > >
-> > > +     /* The buffer is written out during the frame following this one.
-> > */
-> > > +     buf->vb.sequence = cap_dev->mali_c55->isp.frame_sequence + 1;
-> > > +
-> > >       pix_mp = &cap_dev->format.format;
-> > >
-> > >       mali_c55_cap_dev_update_bits(cap_dev, MALI_C55_REG_Y_WRITER_MODE,
-> > > @@ -457,7 +460,6 @@ void mali_c55_set_next_buffer(struct
-> > mali_c55_cap_dev *cap_dev)
-> > >  void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
-> > >                            enum mali_c55_planes plane)
-> > >  {
-> > > -     struct mali_c55_isp *isp = &cap_dev->mali_c55->isp;
-> > >       struct mali_c55_buffer *buf;
-> > >
-> > >       scoped_guard(spinlock, &cap_dev->buffers.processing_lock) {
-> > > @@ -476,7 +478,6 @@ void mali_c55_set_plane_done(struct mali_c55_cap_dev
-> > *cap_dev,
-> > >
-> > >       /* If the other plane is also done... */
-> > >       buf->vb.vb2_buf.timestamp = ktime_get_boottime_ns();
-> > > -     buf->vb.sequence = isp->frame_sequence++;
-> > >       vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
-> > >  }
-> > >
-> > > diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-> > b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-> > > index 13a3e9dc4243..50f2b7a85f62 100644
-> > > --- a/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-> > > +++ b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-> > > @@ -76,6 +76,10 @@ struct mali_c55_isp {
-> > >       struct media_pad *remote_src;
-> > >       /* Mutex to guard vb2 start/stop streaming */
-> > >       struct mutex capture_lock;
-> > > +     /*
-> > > +      * Sequence of the frame being processed, incremented at SOF. Held
-> > at
-> > > +      * UINT_MAX while stopped so the first frame gets sequence 0.
-> > > +      */
-> > >       unsigned int frame_sequence;
-> > >  };
-> > >
-> > > diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> > b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> > > index fb81141d1653..be562156b295 100644
-> > > --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> > > +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> > > @@ -573,6 +573,7 @@ static irqreturn_t mali_c55_isr(int irq, void
-> > *context)
-> > >       for_each_set_bit(i, &interrupt_status, MALI_C55_NUM_IRQ_BITS) {
-> > >               switch (i) {
-> > >               case MALI_C55_IRQ_ISP_START:
-> > > +                     mali_c55->isp.frame_sequence++;
-> > >                       mali_c55_isp_queue_event_sof(mali_c55);
-> > >
-> > >
-> >  mali_c55_set_next_buffer(&mali_c55->cap_devs[MALI_C55_CAP_DEV_FR]);
-> > > diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-> > b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-> > > index e128adf6ee37..dd3bce287a3d 100644
-> > > --- a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-> > > +++ b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-> > > @@ -342,7 +342,6 @@ static int mali_c55_isp_enable_streams(struct
-> > v4l2_subdev *sd,
-> > >
-> > >       src_sd = media_entity_to_v4l2_subdev(isp->remote_src->entity);
-> > >
-> > > -     isp->frame_sequence = 0;
-> > >       ret = mali_c55_isp_start(mali_c55, state);
-> > >       if (ret) {
-> > >               dev_err(mali_c55->dev, "Failed to start ISP\n");
-> > > @@ -380,6 +379,7 @@ static int mali_c55_isp_disable_streams(struct
-> > v4l2_subdev *sd,
-> > >       isp->remote_src = NULL;
-> > >
-> > >       mali_c55_isp_stop(mali_c55);
-> > > +     isp->frame_sequence = UINT_MAX;
-> > >
-> > >       return 0;
-> > >  }
-> > > @@ -584,6 +584,7 @@ int mali_c55_register_isp(struct mali_c55 *mali_c55)
-> > >       int ret;
-> > >
-> > >       isp->mali_c55 = mali_c55;
-> > > +     isp->frame_sequence = UINT_MAX;
-> >
-> > The patch looks ok to me:
-> > Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> >
-> > but I wish we could test it.
-> >
-> > Knowing the current frame counter stamping is broken already makes it
-> > easier for me to collect this patch.
-> >
-> > >
-> > >       v4l2_subdev_init(sd, &mali_c55_isp_ops);
-> > >       sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE |
-> > V4L2_SUBDEV_FL_HAS_EVENTS;
-> > >
-> > > base-commit: 95f76f51937fdfb0fc1e14cae606b1ef574a56f3
-> > > --
-> > > 2.55.0
-> > >
-> >
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCavMnWwAKCRAnX84Zoj2+
+dpVIAX9KNwBIEvTOWb3p1/iAU8ZDpB0gmxXB42LjS75W+ClqR0PN8Bz2yzNOLLqA
+gERdl28BgKA/oqA2cjLXGI53OZybUy76PRIpJeY4hYEU1q/1h7hewApkLKlexzTb
+aphzOQRV5w==
+=BM8y
+-----END PGP SIGNATURE-----
+
+--f4gycnlj27uzbn3m--
