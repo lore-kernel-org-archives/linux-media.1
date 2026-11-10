@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794305123;
-	b=pFx0F1EccWmjaQ5Uo975n4fNHSSNfvYgScYpOoep8xsEJyawAzVG7Dpu1ZPsIJEKuzwE
-	 OQE4VbfbspxySI7OitY+TtJNmq1xdxV2kH8JrKzUC89CgZ68wsn+7bwGCPxrSzGTj9Nb1
-	 nMzA1ktHm04Z03AxKC4T6MHSmdbp7kQn1nqw2XS/Lwjoq44lUjEVNrokUplpG5ZkHOXTp
-	 wGoQTZ5AFWNbTCAcJW0ycRJwQ4dvz/j6NAvORprZPzlQgbil2qEj4w3y3ZWI8FAEKo6t+
-	 idkUt0ASdt147YihgRVtKFxr9UW5tz19/ylMcN/Bdg9qXTWQP47C9NPVf4xUl7NX4vg==
+	b=vzUSsy3a7tJmMA1DrGk3b8of+GBl5v35GWzcqmUpfdLyU9T0pIj9KP+C8mluwvq028QQ
+	 BGfbphlzEtS51AdLUS9suvcfBC6dGbf5eq8MSjL/b6OYjRlglErpafriRrdKQN9bYxemI
+	 whuOAvWo5zJDcBgiAyhu6G7eDFOtyltcKwrNhYQi2ZgXwkyEGNqxoD2bdjxUVCqYHVW0Z
+	 nG8tRaPt1LiCgkqTJfvah7cm6uIXkhbVS+g/3RWqC+q9NhsVc4ogKwGjmUUwQg7j6N44k
+	 H1VBCI7kcXSS7yDFjMoK3sKgknbi6Ys2D8IShvRRftUw2lUGfbyoSrgAt9qu3Pir3Cw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794305123;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=J1l+yp+9bGZ5T8DXIQd1s/3x46JxGIjeoVPbXjIZcDQ=;
-	b=xcazW5hyGuENowRDGp0MS16u62Tg8a4simLQJx+gfs0l6wfLMAQaGqjsg8AvSqDtAWJ1
-	 GaVR9UqrSfods41X17X154KM96y2SzZ32p+iZH3zo/ujV9xD5NcGIVTHeWTL1zdsFl48G
-	 JMs7yUPmM4l1bKFB9Azez9BiDgQaBJGBnYas9nEEWCP/+JObr7/vnNm+gk0Vwv8h+15+w
-	 t4yGS93J3TLFvf1D87vuPPlxFFDkpiAkrUhDHvHK1FYZL2cmF4lf0La2pD/MS10qnwdl4
-	 9wHUXZFGWZShvD678evWv6aq9yCB9m4+F3/YfWPStSl6336txMUvZ4AOIO+392tB83A==
+	bh=PyHG8Ic7Op90jQ8OChfT0P/wjVfS8Pr0IGieJYiHN78=;
+	b=IABFTfnyZhwODT39cwuIobP8bG9LRyk5kY+wVPAsWZXZzqgjFkBjHQrQgg0lUMaQvN8L
+	 /zmtWKF1+ZELOQ15HkZ1CaPix7amVKlGlCmyNbY7TPGDZ5ikosUaI+5gHuHfKZwmj9UZF
+	 408ve+yrYIGZ9tJqUS8+xxtR5oAKi4x0e9yH/KJ0v3UgKPeFOtf1r/vph1f7kBD56Tq++
+	 wQW/Ojkvle+LBy0wS2254V7XytzKu1UHlkHOYBRGpR5oA0ZAx7IIogbNHJs60WcVBJ1sh
+	 +pZDhCuAS9onVNj2LoHviXvbDsxZRxXxyZs8yXdfrHvqsyKNLRQswqgbq67dpbj4Wwg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dEhahqFF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDm0NIxQ;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EED8606A331;
-	Tue, 10 Nov 2026 10:05:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBFB60A262C;
+	Tue, 10 Nov 2026 10:05:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dEhahqFF
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fDm0NIxQ
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305123;
-	b=iqbI/os5gQ+G0oak89DH+/+6tkHVvRzvck9osNjSgsb+Z1c6Y/2rB7rwvN78wrg1QzcW
-	 WiosZQO3jCYbpajSvSD2tgot6e/Jf+ZFT/5bfqLak6P96LNq6t9wjY9awcky7uWZ1s2aC
-	 5ND2pGDxjpuZgIES30XunOtxpjlOvtX4lsddlt409Ny3VGNd2a98v48gI29UX693hrAIm
-	 XT7PoP5ReKHqMdy5DKyKfJ+75pFdz8sq+Fni6czrYbagBEvOiHd8cEwZnlKvSklnZPaaw
-	 I/eW+XVhogUkQSsOldHzQnfG8RjB/VSRHQT+gqK7DJKteN07w9zrOoRoTmzJIPV0s/Q==
+	t=1794305122;
+	b=HUdGjqOXP5sVeYKLy1WL4QPEGZzWeu9pWuvPDhLi67UB2Perh2lu1o7ruBBYdhUuOSJ8
+	 BsSJ/qYsMw2h7Wv3GQzoyU14prpOAMHhhVQT+YT9aD2dP4dyazc4x8zJh5f2IB7Nq9um6
+	 XNPFypG50Nf/E+K3HGtoPQmny6nvVLgYjg4p8p+aCnzSKVzt2I5uhd5/pGbbwxMNNOU/i
+	 JIR35RF83Pp9ZpJO9ZI9BD/1T8jovEsb0mAF5wAagMvd9AzjVvCMVmHzWGq0ziIgUqkWD
+	 vIl9R/CblLsD/M/5Z8AXTuwMhrGeWYvzytGrkl+6KUcRpI0G2J9yOR0gGbmmiijYsJQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305123;
+	c=relaxed/relaxed; t=1794305122;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=J1l+yp+9bGZ5T8DXIQd1s/3x46JxGIjeoVPbXjIZcDQ=;
-	b=RQx21pTaepQzsDBCft7LAAabDPns1yFxmRj2ZekFaH8Nhg/LRaUXGUudAaDozTijLzrC
-	 AGo3E0Za6JZgzw7erhqGnkXbEBr1L5RHaIXxgxCgWrLnH5F4vPt9Cmovz35lF9bqp+Tmn
-	 L8iK9SfW1ctRUaljC//aYCE78oohLXSIcXRrbRr9jEGWYgjghTh+lQxSbD/JLf9dns/bF
-	 w53HJvbaUu0adAY0iFtOk5zNZvMi5AJ5sQKKyqUi+bZTdEILv6VLT01dCk5bRd8V9X0lJ
-	 VmQ2Y5kJESaU3tzxSTTsgpOMBwn9vLWWeBRPCB0Dnlx/odBSfffnWKhdGGPH5LPp2wA==
+	bh=PyHG8Ic7Op90jQ8OChfT0P/wjVfS8Pr0IGieJYiHN78=;
+	b=ZoDxyWDrkhVPB1EIWWWAYLFFCQnD4+qbxytOAuaA+SW4g9Oym529DIyOQr0Pbqnie3W7
+	 OBL94z2knoArYGBz9KSCfqdwndTxkHbiNeZYXOmQFh1O8rqKdzBKXzzMWXaHbQZiJdnpv
+	 Ji7gA9+eMiF+vwaiVOsqPxxbrCFgJHgppCfJg1q63NsN1fQidYsb4dDBvbdgE8j18XXWN
+	 w5NLcSKfA2Gct6dOMubX/hLDVaIoXwZ6zjTNFCiWlOHiuFrf1cLyFK4XkPutHFpnpXjMm
+	 pbGxCDCkXdxG/9fsgRMwOkyJMPA+Ff6XFF9XTkCNwLRrrh+Hvc7yHEIFXURjk35miRA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 806E41F008A6;
+	by smtp.kernel.org (Postfix) with ESMTPS id E336E1F008BD;
 	Tue, 10 Nov 2026 10:05:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305123;
-	bh=J1l+yp+9bGZ5T8DXIQd1s/3x46JxGIjeoVPbXjIZcDQ=;
+	s=k20260515; t=1794305122;
+	bh=PyHG8Ic7Op90jQ8OChfT0P/wjVfS8Pr0IGieJYiHN78=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=dEhahqFFRSilG2Jafa44QoqLGAQhbA//cwGNB+Y4KvIao/KubOG9BFjL/5vi5xM7O
-	 EVNpTxu90R2/MU+STkUymNj3ue8mxixr1kPLrdQttH+vY3zf4B3F4SoWiLHSzH0RJe
-	 GX02p2knZfKkwK8G3YsNbPWImj84qOUvNx6heNFSD5to/BKdwNyWC4ybcsIPPHw8hi
-	 JkCWsPOxNZi1nqVW8bUeywxrhMpATHnH0mif7aBjZN+D1ukCLpvYJnaJQkRKpb9ECx
-	 cdopBQW2XrfsCxibg/CQ03LSoQFKg7isvj+muawkz7pMf53QoFR7CaoiK2xXmFdEPb
-	 5YaNk3SxJn1Vw==
+	b=fDm0NIxQaHcaxO/2ZCGOmtqhlwcZwcNVwywH2WZGDd3YmmVtEy5n9p0kKXhlpgiXD
+	 I5gBMpwsyiegj9s8k4H7JPf3L6k6OykTEDjP244DKF4LrWWPvJB5NMM1PE6O+ulZ8n
+	 i1pto8PxVuSsYcTSkXcV1F3a9DNZxoXW/j/CiBu68IZYWVhkvTenQYHqO6ZjbuElVJ
+	 IbUkSmM8eJbuhc7eHSO+8qH9Kgp9Wl8i6szjZmj9GyyvKssTTY/hEYQ6Lwq26Ji+rB
+	 TxoP82LNE8AEcfuPlWxabvOtA9Cx844qvp42frPfzFBdwMRnysEZd+DXUVvkYKmS0D
+	 baobqFmXWcFwQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 202BA48A9A;
+	by lkml.kernel.org (Postfix) with ESMTP id 4088A48AA2;
 	Tue, 10 Nov 2026 10:05:18 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 10:05:22 +0000
-Subject: [PATCH RFC 08/11] media: v4l2-core: Re-encode oversized pictures
- in the encode CBR
+Date: Tue, 10 Nov 2026 10:05:24 +0000
+Subject: [PATCH RFC 10/11] media: v4l2-core: Add a peak bitrate to the
+ encode rate control
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-h264-encode-fixes-v1-8-7a64486df499@gmail.com>
+Message-Id: <20261110-h264-encode-fixes-v1-10-7a64486df499@gmail.com>
 References: <20261110-h264-encode-fixes-v1-0-7a64486df499@gmail.com>
 In-Reply-To: <20261110-h264-encode-fixes-v1-0-7a64486df499@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -95,11 +95,11 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Michael Tretter <m.tretter@pengutronix.de>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305116; l=8744;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305116; l=11037;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=QMdkDsTtjT2f31/k5IiRqFS0jwAS6O/W4Mg+KxiK5yY=;
- b=i+tWYFhI3iyE+rcGo8CsnnwAeixqPB+iZpTLdpsimztsk0AZhnJdGSSwCYcndF2spEB3hV/yc
- Crea5Lqz1DiBb8W0ZLbZeDE3frRdy+ruL4v7gxwTZqjcxtFY0TYDbOi
+ bh=4ZSNVI7P3amt01p+9Zv5wPzZ7NFnJ91AGJLHCriemG4=;
+ b=hQAdZzhQ76gwBQ8Zlnl6cH+4kimIa+xVVfUvt/I8wcVMeXFQNm6XnaiUirPUThgvLZXpksb0y
+ pEsDu25H0KDDW/m21GxSGGpbkvOvRpCzmAlOYMrDwcKb9WV4oOuUnVs
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -110,228 +110,281 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-A scene change in a P picture can make it many times larger than its size
-target: the QP state of the constant bitrate rate control was set for the
-content before. The rate control repays the excess over the next pictures,
-but the peak bitrate around that picture, together with an I picture
-nearby, can exceed what a decoder buffer of the stream takes.
+The stateless encode cores read V4L2_CID_MPEG_VIDEO_BITRATE_PEAK for
+V4L2_MPEG_VIDEO_BITRATE_MODE_VBR, but their rate control only has a
+constant bitrate model.
 
-The Rockchip MPP library codes such a picture a second time with a higher
-QP. Do the same in v4l2-enc-cbr, for drivers that can encode a picture
-again: v4l2_enc_cbr_reencode() asks for a second pass when the picture is
-above 1.5 times its target (I pictures) or 3 times (P pictures), when it
-exceeds its target by more than 0.15 s of the bitrate (it alone moves the
-bitrate of a three second window by more than 5%), and when that window
-is more than 10% off the target. The second pass is coded 1, 2 or 3 QP
-higher for a picture above, 1.5 times or twice that threshold. A picture
-is coded at most twice. The window is a running sum of the picture sizes
-that decays over three seconds, which needs no history buffer.
+Give the model a peak bitrate, which makes it a variable bitrate one: the
+bitrate is met on average over the stream, and the peak bitrate bounds
+every second of it.
 
-The QP state then learns from the size of the second pass, with its error
-counted at the QP of the state.
+- The deviation of the coded sizes from the GOP plan is spread over two
+  seconds of pictures instead of 8 pictures, so that the picture sizes
+  can follow the content for a while.
+- The size target of a picture is limited to what is left of the peak in
+  the last second (the sizes of up to 128 pictures are kept for it), and
+  its QP is raised by the QP steps between its expected size and that: a
+  P picture is expected at the size of the last P picture, an I picture
+  at the larger of the last I picture and the last P picture times the
+  measured I/P size ratio, each at the QP difference. The QP state counts
+  the raise as part of the QP error of the picture.
+
+A picture the history cannot foresee (an I picture at a cut to much
+harder content) can still take the second over the peak; re-encoding is
+up to the driver.
+
+In a host simulation against a model encoder (sizes halving every 6 QP;
+720p and 1080p, 256 kbit/s to 20 Mbit/s, peak 1.5 times the bitrate, IDR
+periods 1, 10, 30 and 120, a 3x and 0.33x change of the content), the
+bitrate is within 0.3% of the target and every second within the peak
+wherever QP 51 can reach the target. With the content alternating
+between two complexities 4x apart every 3 seconds, the largest second is
+0.79-1.0 times the peak, or 1.24-1.26 times where the cut falls on an I
+picture. The constant bitrate mode is not changed.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/v4l2-core/v4l2-enc-cbr.c | 94 +++++++++++++++++++++++++++++++++-
- include/media/v4l2-enc-cbr.h           |  9 ++++
- 2 files changed, 101 insertions(+), 2 deletions(-)
+ drivers/media/v4l2-core/v4l2-enc-cbr.c | 116 +++++++++++++++++++++++++++++++--
+ include/media/v4l2-enc-cbr.h           |  24 ++++++-
+ 2 files changed, 135 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/media/v4l2-core/v4l2-enc-cbr.c b/drivers/media/v4l2-core/v4l2-enc-cbr.c
-index 70810b3fea23..28826e32c418 100644
+index 87db60469182..c9e806bbabcb 100644
 --- a/drivers/media/v4l2-core/v4l2-enc-cbr.c
 +++ b/drivers/media/v4l2-core/v4l2-enc-cbr.c
-@@ -16,6 +16,11 @@
-  * the size the plan expects at this point of the GOP is spread over the next
-  * pictures, so that the bitrate converges to the target.
-  *
-+ * A picture far above its size target that also moves the bitrate of the
-+ * last three seconds well away from the target can be coded a second time
-+ * with a higher QP (the re-encode of the Rockchip MPP library): I pictures
-+ * above 1.5 times their target, P pictures above 3 times (a scene change).
+@@ -30,6 +30,13 @@
+  * The QP to size relation (6 QP steps per halving) is the same for H.264
+  * and HEVC, so the model does not depend on the codec. Only the QP delta of
+  * the I pictures is a parameter.
 + *
-  * After each picture the QP state moves by a fraction of the QP error
-  * 6 * log2(size / target) (a QP step of 6 halves the size): slowly for small
-  * errors, so that the QP does not follow the size noise from picture to
-@@ -29,6 +34,7 @@
++ * With a peak bitrate (v4l2_enc_cbr_set_peak()), the same model gives a
++ * variable bitrate: the bitrate is the average over the stream and the
++ * peak bitrate a bound over any second of it. The deviation from the plan
++ * is spread over two seconds instead of a few pictures, so that the size of
++ * the pictures can follow the content, and a picture that would take the
++ * last second over the peak gets a lower size target and a higher QP.
+  */
  
  #include <linux/export.h>
- #include <linux/int_log.h>
-+#include <linux/math.h>
- #include <linux/math64.h>
- #include <linux/minmax.h>
- #include <linux/module.h>
-@@ -66,6 +72,16 @@
-  */
- #define CBR_STEP_UP_MAX		(4 * 256)
- #define CBR_STEP_DOWN_MAX	(2 * 256)
+@@ -44,6 +51,8 @@
+ 
+ /* The accumulated size error is spread over this many pictures. */
+ #define CBR_WINDOW		8
++/* With a peak bitrate, over this many seconds of pictures */
++#define VBR_WINDOW_SECONDS	2
+ /* Limit of the accumulated size error, in seconds of the bitrate */
+ #define CBR_BUFFER_SECONDS	3
+ /* I/P size ratio, 1/16 units: initial value (10x) and limits (1.5x .. 30x) */
+@@ -181,6 +190,76 @@ static int cbr_qp_initial(u64 bits, unsigned int samples)
+ 	return clamp(DIV_ROUND_CLOSEST(qp_q8, 256), 15, 45);
+ }
+ 
++/* Sum of the sizes of the last @count pictures */
++static u64 vbr_window_sum(const struct v4l2_enc_cbr *cbr, unsigned int count)
++{
++	unsigned int i, index = cbr->peak_index;
++	u64 sum = 0;
++
++	count = min(count, cbr->peak_count);
++	for (i = 0; i < count; i++) {
++		index = (index + V4L2_ENC_CBR_PEAK_PICS - 1) %
++			V4L2_ENC_CBR_PEAK_PICS;
++		sum += cbr->peak_bits[index];
++	}
++
++	return sum;
++}
++
 +/*
-+ * Re-encode: size thresholds in halves of the target (I 1.5x, P 3x), the
-+ * least excess over the target (1/20 of the bits of the three second
-+ * window, i.e. 0.15 s of the bitrate) and the least deviation of the window
-+ * from the target (1/10).
++ * QP steps (1/256 units) that bring a picture of @bits at @qp, coded at
++ * @qp_pic instead, down to @room: 6 QP steps per halving.
 + */
-+#define CBR_REENC_THR_INTRA	3
-+#define CBR_REENC_THR_INTER	6
-+#define CBR_REENC_JUMP_DIV	20
-+#define CBR_REENC_DEV_DIV	10
++static int vbr_qp_add(u64 bits, int qp, int qp_pic, u64 room)
++{
++	if (!bits)
++		return 0;
++
++	return 6 * (cbr_log2_q8(bits) - cbr_log2_q8(room)) -
++	       (qp_pic - qp) * 256;
++}
++
++/*
++ * Keep the last second (at most V4L2_ENC_CBR_PEAK_PICS pictures) within the
++ * peak bitrate: limit the size target of the picture to what is left of the
++ * peak, and raise its QP by the QP steps between its expected size and
++ * that. A P picture is expected at the size of the last one, an I picture
++ * at the larger of the last I picture and the last P picture times the I/P
++ * size ratio (which follows a change of the content sooner), each at the
++ * QP difference.
++ */
++static void vbr_bound(struct v4l2_enc_cbr *cbr,
++		      const struct v4l2_fract *timeperframe, unsigned int fps,
++		      int qp_max)
++{
++	unsigned int pics = clamp(fps, 1U, V4L2_ENC_CBR_PEAK_PICS);
++	u64 peak = cbr_nominal(max(cbr->bitrate_peak, cbr->bitrate),
++			       timeperframe) * pics;
++	u64 used = vbr_window_sum(cbr, pics - 1);
++	u64 room = max_t(u64, peak > used ? peak - used : 0, 8);
++	int add;
++
++	cbr->target_bits = min(cbr->target_bits, room);
++
++	if (cbr->intra)
++		add = max(vbr_qp_add(cbr->i_bits, cbr->i_qp, cbr->qp_pic, room),
++			  vbr_qp_add(div_u64(cbr->p_last_bits * cbr->ratio, 16),
++				     cbr->p_qp - cbr->qp_delta_intra,
++				     cbr->qp_pic, room));
++	else
++		add = vbr_qp_add(cbr->p_last_bits, cbr->p_qp, cbr->qp_pic,
++				 room);
++
++	add = min(DIV_ROUND_UP(add, 256), qp_max - cbr->qp_pic);
++	if (add <= 0)
++		return;
++
++	cbr->qp_pic += add;
++	cbr->qp_peak_add = add;
++
++	pr_debug("  peak: %llu bits left of %llu, QP +%d", room, peak, add);
++}
++
+ /**
+  * v4l2_enc_cbr_reset() - reset the rate control state
+  * @cbr: the rate control state
+@@ -195,6 +274,22 @@ void v4l2_enc_cbr_reset(struct v4l2_enc_cbr *cbr, int qp_delta_intra)
+ }
+ EXPORT_SYMBOL_GPL(v4l2_enc_cbr_reset);
  
- /* log2(x) in 8.8 fixed point */
- static int cbr_log2_q8(u64 x)
-@@ -218,6 +234,7 @@ int v4l2_enc_cbr_begin(struct v4l2_enc_cbr *cbr, u32 bitrate,
- 		cbr->bitrate = bitrate;
- 		cbr->nominal = nominal;
- 		cbr->buffer_bits = 0;
-+		cbr->window_bits = nominal * CBR_BUFFER_SECONDS * fps;
- 	}
++/**
++ * v4l2_enc_cbr_set_peak() - set the peak bitrate
++ * @cbr: the rate control state
++ * @bitrate_peak: peak bitrate in bits per second, 0 for a constant bitrate
++ *
++ * A non-zero peak bitrate makes the rate control a variable bitrate one:
++ * the bitrate of v4l2_enc_cbr_begin() is met on average, and no second of
++ * the stream goes over the peak bitrate (a peak below the bitrate counts as
++ * the bitrate). Takes effect from the next v4l2_enc_cbr_begin().
++ */
++void v4l2_enc_cbr_set_peak(struct v4l2_enc_cbr *cbr, u32 bitrate_peak)
++{
++	cbr->bitrate_peak = bitrate_peak;
++}
++EXPORT_SYMBOL_GPL(v4l2_enc_cbr_set_peak);
++
+ /**
+  * v4l2_enc_cbr_begin() - set up the size target of the next picture
+  * @cbr: the rate control state
+@@ -284,12 +379,17 @@ int v4l2_enc_cbr_begin(struct v4l2_enc_cbr *cbr, u32 bitrate,
  
- 	if (intra) {
-@@ -258,6 +275,7 @@ int v4l2_enc_cbr_begin(struct v4l2_enc_cbr *cbr, u32 bitrate,
+ 	target = (s64)cbr->plan_bits -
+ 		 div_s64(cbr->buffer_bits - max_t(s64, expected, 0),
+-			 CBR_WINDOW);
++			 cbr->bitrate_peak ? VBR_WINDOW_SECONDS * fps :
++					     CBR_WINDOW);
+ 	cbr->target_bits = clamp_t(s64, target,
  				   max_t(u64, cbr->plan_bits / 4, 8),
  				   cbr->plan_bits * 2);
  	cbr->intra = intra;
-+	cbr->qp_reenc = 0;
+ 	cbr->qp_reenc = 0;
++	cbr->qp_peak_add = 0;
++
++	if (cbr->bitrate_peak)
++		vbr_bound(cbr, timeperframe, fps, qp_max);
  
  	pr_debug("+ v4l2-enc-cbr: begin");
  	pr_debug("  nominal: %llu bits, plan: %llu bits, target: %llu bits",
-@@ -284,6 +302,70 @@ int v4l2_enc_cbr_qp(const struct v4l2_enc_cbr *cbr)
- }
- EXPORT_SYMBOL_GPL(v4l2_enc_cbr_qp);
+@@ -408,12 +508,17 @@ void v4l2_enc_cbr_end(struct v4l2_enc_cbr *cbr, u64 bits,
+ 			   div64_u64(cbr->window_bits,
+ 				     CBR_BUFFER_SECONDS * fps);
  
-+/**
-+ * v4l2_enc_cbr_reencode() - decide on coding the picture a second time
-+ * @cbr: the rate control state
-+ * @bits: size of the coded picture in bits
-+ * @timeperframe: frame interval
-+ * @qp: QP the picture was coded with, within the QP limits of the codec
-+ * @qp_max: highest QP of the picture
-+ *
-+ * Called after a picture was coded and before v4l2_enc_cbr_end(), by
-+ * drivers that can code the same picture again. A picture is coded at most
-+ * twice. When it returns true, v4l2_enc_cbr_qp() gives the higher QP of the
-+ * second pass, which keeps the size target; v4l2_enc_cbr_end() is then
-+ * called with the size of the second pass only.
-+ *
-+ * Return: true if the picture should be coded again.
-+ */
-+bool v4l2_enc_cbr_reencode(struct v4l2_enc_cbr *cbr, u64 bits,
-+			   const struct v4l2_fract *timeperframe, int qp,
-+			   int qp_max)
-+{
-+	unsigned int fps = cbr_fps(timeperframe);
-+	u64 n = CBR_BUFFER_SECONDS * fps;
-+	u64 window = cbr->nominal * n;
-+	u64 thr, ins;
-+	int add;
++	cbr->peak_bits[cbr->peak_index] = min_t(u64, bits, U32_MAX);
++	cbr->peak_index = (cbr->peak_index + 1) % V4L2_ENC_CBR_PEAK_PICS;
++	cbr->peak_count = min(cbr->peak_count + 1, V4L2_ENC_CBR_PEAK_PICS);
 +
-+	if (!cbr->bitrate || !cbr->target_bits || cbr->qp_reenc)
-+		return false;
-+
-+	thr = div_u64(cbr->target_bits * (cbr->intra ? CBR_REENC_THR_INTRA :
-+					  CBR_REENC_THR_INTER), 2);
-+	if (bits <= thr)
-+		return false;
-+
-+	/* The picture alone moves the window by more than 5% ... */
-+	if (bits - cbr->target_bits <= div_u64(window, CBR_REENC_JUMP_DIV))
-+		return false;
-+
-+	/* ... and the window is more than 10% off the target. */
-+	ins = cbr->window_bits - div64_u64(cbr->window_bits, n) + bits;
-+	if (abs_diff(ins, window) <= div_u64(window, CBR_REENC_DEV_DIV))
-+		return false;
-+
-+	if (bits > 2 * thr)
-+		add = 3;
-+	else if (2 * bits > 3 * thr)
-+		add = 2;
-+	else
-+		add = 1;
-+
-+	if (qp + add > qp_max)
-+		return false;
-+
-+	cbr->qp_pic = qp + add;
-+	cbr->qp_reenc = add;
-+
-+	pr_debug("+ v4l2-enc-cbr: re-encode");
-+	pr_debug("  size: %llu bits, target: %llu bits, window: %llu bits, picture QP %d",
-+		 bits, cbr->target_bits, ins, cbr->qp_pic);
-+
-+	return true;
-+}
-+EXPORT_SYMBOL_GPL(v4l2_enc_cbr_reencode);
-+
- /**
-  * v4l2_enc_cbr_end() - account for a coded picture
-  * @cbr: the rate control state
-@@ -307,9 +389,17 @@ void v4l2_enc_cbr_end(struct v4l2_enc_cbr *cbr, u64 bits,
- 
- 	cbr->buffer_bits = clamp_t(s64, cbr->buffer_bits + (s64)bits -
- 				   (s64)cbr->nominal, -limit, limit);
-+	/* Sum of the picture sizes over about three seconds */
-+	cbr->window_bits = cbr->window_bits + bits -
-+			   div64_u64(cbr->window_bits,
-+				     CBR_BUFFER_SECONDS * fps);
- 
--	/* QP error of the picture, 1/256 units */
--	err = 6 * (cbr_log2_q8(bits) - cbr_log2_q8(cbr->target_bits));
-+	/*
-+	 * QP error of the picture, 1/256 units. A re-encoded picture was coded
-+	 * above the QP of the state: its error at the state counts that too.
-+	 */
-+	err = 6 * (cbr_log2_q8(bits) - cbr_log2_q8(cbr->target_bits)) +
-+	      cbr->qp_reenc * 256;
+ 	/*
+-	 * QP error of the picture, 1/256 units. A re-encoded picture was coded
+-	 * above the QP of the state: its error at the state counts that too.
++	 * QP error of the picture, 1/256 units. A picture coded above the QP
++	 * of the state (re-encoded, or raised for the peak bitrate) counts
++	 * that too: the state would have given a picture that much larger.
+ 	 */
+ 	err = 6 * (cbr_log2_q8(bits) - cbr_log2_q8(cbr->target_bits)) +
+-	      cbr->qp_reenc * 256;
++	      (cbr->qp_reenc + cbr->qp_peak_add) * 256;
  
  	step = err / 8;
  	if (err > CBR_ERR_SLOW)
+@@ -425,6 +530,8 @@ void v4l2_enc_cbr_end(struct v4l2_enc_cbr *cbr, u64 bits,
+ 	if (!cbr->intra) {
+ 		cbr->qp_q8 += step;
+ 		cbr->p_bits = cbr->p_bits ? (7 * cbr->p_bits + bits) / 8 : bits;
++		cbr->p_last_bits = bits;
++		cbr->p_qp = clamp(cbr->qp_pic, qp_min, qp_max);
+ 		cbr->since_i++;
+ 
+ 		/* I/P size ratio, once a few P pictures were coded */
+@@ -439,6 +546,7 @@ void v4l2_enc_cbr_end(struct v4l2_enc_cbr *cbr, u64 bits,
+ 		 * estimate: only all-intra streams steer the QP fully with it.
+ 		 */
+ 		cbr->i_bits = bits;
++		cbr->i_qp = clamp(cbr->qp_pic, qp_min, qp_max);
+ 
+ 		/*
+ 		 * Above its share of the GOP at the largest I/P ratio, an I
 diff --git a/include/media/v4l2-enc-cbr.h b/include/media/v4l2-enc-cbr.h
-index c47e459a1d1e..867e176ecb36 100644
+index 867e176ecb36..4f4874c41d2a 100644
 --- a/include/media/v4l2-enc-cbr.h
 +++ b/include/media/v4l2-enc-cbr.h
-@@ -23,6 +23,8 @@
-  * @qp_intra_add_q8: QP increase of the I pictures after I pictures larger
-  *		     than their share of the GOP at the largest I/P ratio
-  * @qp_pic: QP of the current picture
-+ * @qp_reenc: QP increase of the second pass of the current picture, 0 if
-+ *	      it was coded once
-  * @ratio: I/P picture size ratio in 1/16 units
-  * @gop: measured IDR period in pictures, 0 until two I pictures were seen
-  * @since_i: pictures coded since the last I picture
-@@ -31,6 +33,8 @@
-  * @p_bits: running mean of the P picture sizes
-  * @i_bits: size of the last I picture
-  * @buffer_bits: accumulated difference between the coded and nominal sizes
-+ * @window_bits: sum of the coded sizes over about three seconds (each size
-+ *		 decays by 1/(3 * fps) per picture)
+@@ -12,6 +12,9 @@
+ #include <linux/types.h>
+ #include <linux/videodev2.h>
+ 
++/* Pictures of the peak bitrate window: one second, up to 128 pictures. */
++#define V4L2_ENC_CBR_PEAK_PICS	128U
++
+ /**
+  * struct v4l2_enc_cbr - constant bitrate rate control state
+  * @qp_delta_intra: QP of the I pictures below the QP of the P pictures
+@@ -37,8 +40,17 @@
+  *		 decays by 1/(3 * fps) per picture)
   * @plan_bits: planned size of the current picture
   * @target_bits: size target of the current picture
++ * @bitrate_peak: peak bitrate in bits per second, 0 for a constant bitrate
++ * @qp_peak_add: QP increase of the current picture for the peak bitrate
++ * @i_qp: QP of the last I picture
++ * @p_last_bits: size of the last P picture
++ * @p_qp: QP of the last P picture
++ * @peak_bits: sizes of the last pictures, for the peak bitrate
++ * @peak_index: next entry of @peak_bits
++ * @peak_count: valid entries of @peak_bits
   *
-@@ -47,6 +51,7 @@ struct v4l2_enc_cbr {
- 	int qp_intra_ref_q8;
- 	int qp_intra_add_q8;
- 	int qp_pic;
-+	int qp_reenc;
- 	unsigned int ratio;
- 	unsigned int gop;
- 	unsigned int since_i;
-@@ -55,6 +60,7 @@ struct v4l2_enc_cbr {
- 	u64 p_bits;
- 	u64 i_bits;
- 	s64 buffer_bits;
-+	u64 window_bits;
+- * Only @qp_delta_intra is set by the user, after v4l2_enc_cbr_reset().
++ * Only @qp_delta_intra is set by the user, after v4l2_enc_cbr_reset(), and
++ * @bitrate_peak by v4l2_enc_cbr_set_peak().
+  * @target_bits is valid from v4l2_enc_cbr_begin() of a picture until its
+  * v4l2_enc_cbr_end().
+  */
+@@ -63,9 +75,19 @@ struct v4l2_enc_cbr {
+ 	u64 window_bits;
  	u64 plan_bits;
  	u64 target_bits;
++
++	u32 bitrate_peak;
++	int qp_peak_add;
++	int i_qp;
++	u64 p_last_bits;
++	int p_qp;
++	u32 peak_bits[V4L2_ENC_CBR_PEAK_PICS];
++	unsigned int peak_index;
++	unsigned int peak_count;
  };
-@@ -65,6 +71,9 @@ int v4l2_enc_cbr_begin(struct v4l2_enc_cbr *cbr, u32 bitrate,
+ 
+ void v4l2_enc_cbr_reset(struct v4l2_enc_cbr *cbr, int qp_delta_intra);
++void v4l2_enc_cbr_set_peak(struct v4l2_enc_cbr *cbr, u32 bitrate_peak);
+ int v4l2_enc_cbr_begin(struct v4l2_enc_cbr *cbr, u32 bitrate,
+ 		       const struct v4l2_fract *timeperframe,
  		       unsigned int samples, bool intra, int qp_min,
- 		       int qp_max);
- int v4l2_enc_cbr_qp(const struct v4l2_enc_cbr *cbr);
-+bool v4l2_enc_cbr_reencode(struct v4l2_enc_cbr *cbr, u64 bits,
-+			   const struct v4l2_fract *timeperframe, int qp,
-+			   int qp_max);
- void v4l2_enc_cbr_end(struct v4l2_enc_cbr *cbr, u64 bits,
- 		      const struct v4l2_fract *timeperframe, int qp_min,
- 		      int qp_max);
 
 -- 
 2.55.0
