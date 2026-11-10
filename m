@@ -1,47 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317455;
-	b=4OwmweSg5a5Y7ER+nP3h0sUbMTJKK2F7CnRX7eo3C0D0WZ4lXDn/6mYNEeW5ILL/9ot4
-	 XRIqn8nzGddqZO3YEw/C0hGFhdrWvTjrdjK6JZPJ70ajw1P3RIZH0xVaNSD8XdhOyhJXE
-	 zJTL+NY7f1pTWaM6nYuLBj7IyKGMoVlgwUHxmA/PeCoVRRtVzuSqSFasxydA2ayo8OJS7
-	 DYcEFjZRbzhpTk3Ijj4gdqCeUDJGT2JxJugMZ05ORqEzJcarANo057aPeuGkuzWJa2NaV
-	 HQXloXMAgQTqVnuPbp7+RUZwT9UYEUg9Nz/HoC55CQbfwi0PblzuhpbW3f0NuwHv01A==
+	t=1794318015;
+	b=YVw65SEbScjZoIAk2Qq2uANq2fy7Ri6zo4VRME7d5j61XEyxlRhUCesNfJuIkQ0OYsQC
+	 IL6Y3klFRZEnAv8dolmxKZLbobv60sjPwlkt263s1r3+gwVRyrVdnTo4uqsmIgPcY+SJs
+	 mdfsZniGd9uXRXBpBWJ+86M9mRQPNixM81R90mskhwXxUGlJCu9XWCBgou5Q+sK98QBjq
+	 nAHSPSfpL402gV8HxtUzkJajWR1PHhoUVORvWYALkFj2+X3GsX3aV0hqFWUPsJ5zbcfPm
+	 U6TkohRPbI6/gz8jcdszniiyWzCUHrQ8iYkbWtDz5Mw4OmP+Beu2hi2Y40+oMpQEd8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317455;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=SY5c0gY3hP74V7jRM01ScvNFPqsuwWzfpS3pFf8E/N0=;
-	b=QIpXRyJX74GbYHy+yWvlshPeud0KKIvoZYDIq4q1/0CjVzGJ0Qz8UPUIetmz64WRsGfo
-	 3THajpyBzi65lIDnu/XadDFeWL6b+VyRJ5PwcUUppAMouprVzOlSeowQ9OU7iqV738Ls2
-	 if/p3eygkXjWjVXeYQUkVjTG5T1gd5DZdUXlcW4sFZ/hZ+ZzwCLKbIo+0uxSLU+Vp8Hkc
-	 HTJyLniomiFXvTwfr5ylr6r6rd4mGoD6Y1aitYC4Sj3wVNOZB5bhLcun+KeI8pwyG5o2T
-	 eo2Cb64eiGdU+lmeI9P2jmUXwq1GggjAKhq2gyqbkTmnywlHLPKzs1UDo7J79mHySwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318015;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=3c2WpukRa6d5qbdvXnuRxcTvhXaqbpkaY6h5ED2Zn2k=;
+	b=X8PMkknMZo15t1UAy6NICEzlaIDcsqkVuKtGEUr8t60cr5M2y4BZkgsEYtINPzYRs98x
+	 ZyKC/psQd+MneqxBqgoqjXoQHTmKPrKbmxMR59lnP/fC0T9KgLe4Vi/g/n9g+vWlGApv0
+	 pck7jtj0PPxhYATRc0q2gQACnboq2O8k/nrsE6XHicelxXFxuiu1zPXWfCTVv6wySegPj
+	 KwHNk1O7zDWXwkAKjQmcJp0Y34mr7sBzpqwrLzuX5hTLOiaHVonLSnUCwmuUIt7VZRXMb
+	 uGW2Amtg6NmRc7bR130Krog06Q9pXLMlaRv5qHAmxt9Eq9MVTCwUzJMjsGJQUH+iNmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ISMXptHu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=cryspen.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFF2606A7E5;
-	Tue, 10 Nov 2026 13:30:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ISMXptHu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A211F0089F;
-	Tue, 10 Nov 2026 13:30:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794317454;
-	bh=SY5c0gY3hP74V7jRM01ScvNFPqsuwWzfpS3pFf8E/N0=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=ISMXptHubCg4IbFF4dkwvJ/vioGq7FP6sYlZFbC0LmlasricAOZ5fHZFAFuHobY8b
-	 wEQXXynUsu2t4W3B4t3RE2rgQDH1A4OzRvOGTNOMOr1zl2Df/q3FHH38lKBm3Ik8ix
-	 sjEgjEm+/mvb89Y6L+kdAw3nNjM12YDNJ6YvryGlu3p0ROXXzCI2Iri+hxP8/bbwLM
-	 GvxgmGFory9l1hp1jQmrkkGLIBOWdupXUCqp+bFvXpj3IAEOc2IJa/836s8WEw/EFG
-	 vbgHwXHrtoddShoSY3MKXOLTmCSjg2hSqJwvd670MNOy/pkcXf/9XrBbx8kx+KjYsG
-	 V+FLTdNrBlqEQ==
-Message-ID: <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org>
-Date: Tue, 10 Nov 2026 14:30:51 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F7E60A2621
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 13:40:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42F7E60A2621
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cryspen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-490c3ae81d3so1343945f8f.2
+        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 05:40:15 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794318014; x=1794922814;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3c2WpukRa6d5qbdvXnuRxcTvhXaqbpkaY6h5ED2Zn2k=;
+        b=JR/f5O7Yr33xfgIqa+Yn0IfVQxuxrZhR3AjecczZ+JVUrTmkYe9GZmNr6YFIXP+o3u
+         0073DJSnFWZ8XgMMHMHKT6SLpOhoYReKJBYmYvOxtfLxT8jQpF8Hx+i2TluYewAheanX
+         uvV5ZVB64JO9xNKDf2RBtzwhW2yMOk01IUO/3D8T9cSescKDUdpU/qeIRkadMYqBYjRy
+         gGgyAcLx+FRj+fjxniYk3GFkGw5kbq1li6Qq8WvYmhvlD04CvV3/LSumwXKg9gk3h8xO
+         pJc9tKMS+9OGORr2VYw/EyWOnYaVRR/2g9oMFoUYM4bMYNzzWFhTdRuK6EboPdDFg/oP
+         0Qlw==
+X-Forwarded-Encrypted: i=1; AL+hErFiwW4XKi7O5fXIh2VAdwaRq8h+fofa0Dbfxdql+PdMzFXVRASvDoWfOGaf4oBNKP5gTFgM+ZJgf23B7w==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ezN+cxLoCOTe4wwuNPgnMLC+9Gdra2V+zkpjdp6PDf9vE6TuT
+	9qVp/WYGDmsNQeeMkIsjjS1UH86TVh1Dt+Bj46GPQtSVSs7pMd2I4fhz
+X-Gm-Gg: AYBFou1nRYUoujzK1t3vprHnIStxmHeSyd3rsSlqiP6mhkA8efXVzniw27o3DsYCSij
+	VPP3fnaADWR52bKQy8xVf+u3xnwbMoSaN+fHOftN0MEpNcwr8A+LtzqlMPricRAosZXIj4s6imP
+	Ui+s5gT/lvvJqzRGWwCpci5z+jwEGkSBL8mnuGp19BB3+pdgqCBUOQ30Xt7SK3MncSY/dH5QA7K
+	f4GmbljH0ha/0YwdiCDzHn0X09nZDbN5dnQeihoAddabTE2hbicc5v02dDA1CmAj4rbtyAesocy
+	xzQKHzmJOjHZ8/Gm/r5z8WM3Np4MlRfTYRdsmLsljiZKuyURfpywjVxRML1f3phd5aZqTpzfZIt
+	8+ROAzpzYExTMSLxHj5IJz5IIXP4TWXxSQbSzYLS8QaTdAKQOCDeG5hunzGtL9X1IERVxt8SS7L
+	BsxCvqcYi0xDnGl8+kK76B620OM7bLV7x+0URjfA3VNTGujo8VjArfx7JtTPhZnO/NMn9mJAp0B
+	7M4XyLSVntImhhiNsU20xKAFKZ4w56AZfSSIO9zPPtFipCulSZtBbBZb96B1NNtsXelArV2KRfW
+	hL7vZB+J/34VlJC8YpGFdjqbuv3s52lsXPkJlyGyhw8N6I99OBzEjBCYEmoY12qbEoHMvZV6tem
+	Sef83g9UJ8m8kwUrJOZ/QEUUM+qRY51CdHLM/lcfXt1sh5KCO32XatDXz4p75WnDh
+X-Received: by 2002:a5d:584f:0:b0:488:823d:5086 with SMTP id ffacd0b85a97d-49827fd20ffmr5377884f8f.0.1794318013331;
+        Tue, 10 Nov 2026 05:40:13 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498362eb158sm5074218f8f.36.2026.11.10.05.40.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 05:40:12 -0800 (PST)
+Date: Tue, 10 Nov 2026 16:40:09 +0300
+From: Dan Carpenter <dan@cryspen.com>
+To: Kincses =?iso-8859-1?Q?Benj=E1min?= <kincses.benjamin2007@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: media: atomisp: fix spelling in hmm_bo log
+ messages
+Message-ID: <avMeucyFU9r_nfP2@stanley.mountain>
+References: <CAB9ndWsADtrZNFLafOoO7qAdgWncBbKbBkLVv4P8b6jyTwx4qw@mail.gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,136 +88,22 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Michael Riesch <michael.riesch@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
- <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
- <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org> <avMM6a6xcDHT-zCR@houat>
-Content-Language: en-US, nl
-In-Reply-To: <avMM6a6xcDHT-zCR@houat>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAB9ndWsADtrZNFLafOoO7qAdgWncBbKbBkLVv4P8b6jyTwx4qw@mail.gmail.com>
 
-On 10/11/2026 13:33, Maxime Ripard wrote:
-> Hi Hans,
+On Tue, Nov 10, 2026 at 12:57:49PM +0100, Kincses Benjámin wrote:
+> Three hmm_bo log messages misspell the past tense of 'bind'.
+> Fix them to use 'bound', as listed in scripts/spelling.txt.
+> Only string literals are changed; no functional change.
 > 
-> On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
->> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
->>> Hi everyone,
->>>
->>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@kernel.org> wrote:
->>>
->>>> On media-centric camera pipelines, every entity is known at boot time
->>>> and described statically (for example via device-tree).
->>>>
->>>> The V4L2 framework assumes that every entity of the camera
->>>> pipeline is always present. This is a reasonable assumption for
->>>> integrated cameras in laptops or phones. However, in automotive systems,
->>>> cameras (e.g. rear-view or surround-view) can be damaged or disconnected.
->>>> When the framework assumes all sensors are present, a single missing
->>>> camera can prevent the entire pipeline from operating.
->>>
->>> This series has been discussed at the Camera & ISP "unconference" in
->>> Pragues (during Linux Plumbers)
->>>
->>> The notes can be found here:
->>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus.ideasonboard.com/T/#u
->>
->> What is missing in this discussion is how userspace can indicate that it
->> actually can handle partially instantiated pipelines.
->>
->> Today if one or more parts do not come up, the devices nodes are also not
->> created. This is typically exactly what you want.
-> 
-> That's very arguable? We have plenty of other examples where we allow to
-> show a software representation of something that isn't available in
-> hardware, starting with virtually any memory buffer allocation, but also
-> disabled CPUs, swapped pages, etc.
-> 
-> For things a bit more related to drivers, things like USB root hubs are
-> also pretty analogous. The "root" device will always be created, even if
-> devices connected to it are non-functional, missing or whatever. It's
-> the primary interface that these devices might or might not attach to.
-> 
-> So it's a bit hard to understand why the device nodes not showing up is
-> exactly what we always want.
+> Signed-off-by: Benjamin Kincses <kincses.benjamin2007@gmail.com>
+> ---
 
-It's simply how V4L2 works today: video devices do not appear until all components
-are instantiated. Most video devices consist of multiple devices (bridges, i2c
-devices, etc.) and unless all are found and initialized, you can't capture. So
-bridge drivers postpone creating the video/media devices until everything is there.
+The patch is corrupted.  Read the first couple paragraphs of
+Documentation/process/email-clients.rst
 
-That also means that applications can safely assume that if a video device appears,
-it is functioning.
-
-If we add fault tolerance, and you allow video devices to appear even if they are
-not functioning (or partially functioning), then that contract breaks.
-
-> 
->> But here you allow partial instantiation, and how does userspace
->> signal that? It must be an 'opt-in' mechanism, but how is that done?
->> There are no devices yet, so that can't be used, so what alternatives
->> are there?
->>
->> We've been discussion Fault Tolerant V4L2 for many years now, and every time
->> I raise this issue, but I never received any proposals.
->>
->> This must be solved.
-> 
-> Is there any way to? You're saying at the same time that we must not
-> create the device, but that an application would need to signal to that
-> device that it can indeed be created. It's a circular dependency that
-> cannot be solved on a per-device basis.
-> 
-> During the meeting, we had a discussion that the media device should be
-> created as a "skeleton", and then as other devices probe they would fill
-> in the blanks. How would that not work? Also what is your main concern
-> exactly that makes you ask to not do that in the first place (or make it
-> opt-in)?
-
-Applications today assume that everything works when the device nodes appear.
-
-If you change the behavior, then they just see a skeleton driver and how
-would they know that they need to wait until all components are found and
-it is ready for use? Or what to do if some parts are faulty?
-
-One solution might be that bridge drivers capable of fault tolerant behavior would
-create a /sys entry called 'v4l-fault-tolerance' (just an example) somewhere.
-
-Applications that can handle this can find that entry and write '1' to it.
-After that the driver will start creating devices even if not everything is
-available. Without it it will just block (the current behavior).
-
-It's also tied to your use-case: for the same hardware your use-case might be
-fine with the current situation (non-fault-tolerant), or you want to enable it.
-
-There might be other ways to implement this: e.g. a module option or a Kconfig
-option.
-
-Also note that systemd opens video nodes as they are created. It used to use
-v4lctl for that, but that might be integrated now.
-
-So that should keep working. I think it just calls QUERYCAP, so that is likely
-to just work.
-
-Regardless, I want to see an RFC for this, demonstrating that someone has
-thought about it. If you think this can be done safely without an opt-in mechanism,
-then explain so in the RFC.
-
-Regards,
-
-	Hans
-
-> 
-> Maxime
+regards,
+dan carpenter
 
