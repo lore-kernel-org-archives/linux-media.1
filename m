@@ -1,58 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315115;
-	b=gwXTaTq/xqg9uRiTDQJDgnYGwY/MGmXE57X3l6/BxeVKfPJNDZ+N2gy04Krw/T3TwVt1
-	 e5W9FFCwX/nxc5zH7RFRqalCWkzJuaaBspf/dT3FuwF3lzNpLijKlxSJQmW4Co04dAvYI
-	 cUKfKMnBaKc5ht7Sfx6W0bYiKxnBtqV1HslSNxEHe/EfEyK/ypyOnRRFrjavXa9W+GDy4
-	 ZGNcq47aMP0d5NHr9lOI21DFWkpZZGyfj5LNAV4uSESZfmS2iEBhKJO1X76Tn4C0xrty/
-	 JXId8238yWMPGpA4o3e2JR2wsgYVsPI12J/7vN1Y32mrBc8fLolESb0++DCSBmU8aQQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315115;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=o6ZRq948QsADnFAUQY5GoxSIt3X/NH3XtT3nDaQJYOU=;
-	b=D9/ITU8zEEZGbOoEojA78r7y9bRMFcVVxPRyq4Gr2vMw5IHyhV8cA6CMixb2fiy7ATKi
-	 HtiAjJ/8PUTW/ExJDEKSpiszREHbSLSQTIXIR0lqr91UqWq5ClMY8NK2c0dWQunuyEa2r
-	 wTaAhBejgXmjPPvS2hOd+VRmHKOro9czC0qr3t97mf+LyoCs5ANu68ryzkmGIM7Uow9Xc
-	 VgB9cmQ8zTXFnS/7iV66GJLoQfKn+V7Wp99rC7I7ElP7EPWExRvrQ73Hl2k/Jm2jaPGJS
-	 j4tEZVQNY8prA6EZCp9/Bd1OKR+bFJeS3m5pR3djilFqSG9D+Y9Ql3+K4pyGgL2pl9Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=v+hAuVRO;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794316222;
+	b=sUScXFEDG6XfAho4thOMV/1xFqmqKHW/8mcVvHgs/fBjpKw2+q8Yd23CpRma+yyLib1o
+	 7A1SxafIsnrOXbyYawcPM8cRRzPw5XjPN6uuIt447igF++3CLzfVo4r0eoR2scgTCzpUZ
+	 X1HDFyLTDpNgr9Pg2XKyHagIHJRefGNlT8OvY9Xfcw2CCxK531lIm0OU5G5TazFnRAT/E
+	 P/d8lEKWRXy40uj7zf2MUi5B1xAzEQlOyEtpyOi5EZc6hOQMoWRN4qoKM7O1teJicpHVD
+	 jgud0t0+BN6mb7nM6lBCU6TQKnZJuTRvx1eD8XrM/ldpd9moPB0VZBmAt0yVKZ5cZMQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316222;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received;
+	bh=tFhGeWPMb1PBc86u5Bnfejx9Gi5hzNkST1rc5EOHv4o=;
+	b=gkcIdvSQZBJDI3xujajCVYRjFtp+U5/ouiTai/hJkA0lG9Q5ayVRlib7LsOc7BLGLcDl
+	 OdV/daNkxigTC7GNWcgEdxXAUNZXZaO1uRSK6/e7k/gR6BubifR0eYrU41KZAk+22sHM0
+	 1FI4p43ikYYl1CgNnLXA776GsNs+3cUPpRqgJ39twzcimryTtlybnynuIHhgPedx4gDmg
+	 oa6d0FCd66DfbVOR/gP0DR7uyhtmTashLfXEe79LFNiV6YtqMJcXoj/hm/Q3ySSyONVBY
+	 5JTYLuFFapcHOS9c5QfkPYwUZOerVBvTKPn6wNQalreTSDE4ZC+If9pq1DR3l4AmC8A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=t3ZJAWRd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D26606A321;
+	Tue, 10 Nov 2026 13:10:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=t3ZJAWRd
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794316222;
+	b=nbT8Vec70bO3T9seZyumw6lM25/QkipxEUMmiz0Qs0iSjnINZsQD+V1z09mc1IqW4JBA
+	 KI/U3Ib1D/OQV4CL+kXqLbCTl7bGjPSkFyZAiy4jocv9FyNWRr4aN5eOm6pdR15MasGpr
+	 amOSDhoGYeQyssTlOUPlnLN+J97oXn6NN0fNJ8y8SJPMSnw6sdWwLUgJ+PSEUNvGFrtYE
+	 iJs03PqCNEByW7BxdHossXoIhYqgxwTARizTqw55aLh6iHv74eSBM0fJIMdmrRMu/OEOL
+	 RC2RUXIhRmuVOZido16UDKDGLUiSDOdttle7gP7xp/YjyMwkbfkAkRTfa5pG12UB4Rw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794316222;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received;
+	bh=tFhGeWPMb1PBc86u5Bnfejx9Gi5hzNkST1rc5EOHv4o=;
+	b=ZyN5JPQlnc9ouv/aCloJY3CAsmJSgmaNU8KDVib6QMqzzCj9PZKYtAz9pDuANVa7MhPa
+	 W44tfSfsSd/1vjqrA5ZiqaUEsqkXeSmBDZXnfNdX/lEGDk8YXCifKGS7FQQeeHTu2tHJr
+	 hZ0UEgd9F2zo588QnKYT0l4O85jzwTgtaA0ZZXMTOEtqgbKRmlf7twE0rsRluq8e8WhVY
+	 O+5JtYeb7bTA9hY/I5GhvaITwQ96ekBlSe3t/yW+RAnjcfvNToWpR7yayw3EiNuCRqvj+
+	 XgkC0t3HBLRtd5u6hMjs7PrN/FfCuHF9L84mfa8ZP3DmTft3ZA2GFAdQjW/whRes1RA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B770660A2619;
-	Tue, 10 Nov 2026 12:51:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B770660A2619
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=v+hAuVRO
-Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1C7D5C14;
-	Tue, 10 Nov 2026 13:49:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794314970;
-	bh=tZg6m4kE4VjEb+t/13S1aUCh2EFh1x/sQctG+yZyfRo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=v+hAuVROC3MtMAaS+SJi2ko2AxdzxXDBQER/0lEIUTU3qBsYzKKsDZBnaDfS3NBVZ
-	 LNkoHyk49m27qj+DUCtiRSekFS7Ib7FmriHSxLJKXaSS9uhQqAZmRyGkeagahUxsMN
-	 +4jz6j1PtYvdxRvENK+gNldaKBkEgWA+4s1MrLCQ=
-Date: Tue, 10 Nov 2026 13:51:49 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Li Youhong <dayou5941@163.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Nayden Kanchev <nayden.kanchev@arm.com>, linux-media@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] media: mali-c55: Keep IRQ requested during suspend
-Message-ID: <avMP-y1B9K0cp4M8@zed>
-References: <20261027-mali-c55-irq-supend-resume-v2-1-759b3f5b2cfd@kernel.org>
+	by smtp.kernel.org (Postfix) with ESMTPS id 6ED7F1F008A2;
+	Tue, 10 Nov 2026 13:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=korg;
+	t=1794316222; bh=tFhGeWPMb1PBc86u5Bnfejx9Gi5hzNkST1rc5EOHv4o=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=t3ZJAWRdjFB98XDAr6LcrckmwDth4hSK1/Yjma75dS0CUpE2u0IqgrTy0q0/06q7n
+	 dGwVX0fx7YdEwXDjFXsxy3X+dTPDlTXFAvrPquG0cNbc6qzklH8dniBUPvhRwKLMrs
+	 Qrevhg1zEXEpXGsn4dhUXCD8Xph2FeEbBiQjB2/c=
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E42AC48B5E;
+	Tue, 10 Nov 2026 13:10:20 +0000 (UTC)
+From: Richard Leitner <richard.leitner@linux.dev>
+Date: Tue, 10 Nov 2026 14:10:10 +0100
+Subject: [PATCH v3 1/8] media: i2c: ov9282: handle error from exposure
+ range update
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -62,191 +78,65 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261027-mali-c55-irq-supend-resume-v2-1-759b3f5b2cfd@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-ov9282-fixes-v3-1-cb6df80cbc22@linux.dev>
+References: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
+In-Reply-To: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+ "Paul J. Murphy" <paul.j.murphy@intel.com>, 
+ Martina Krasteva <martinax.krasteva@intel.com>, 
+ Richard Leitner <richard.leitner@linux.dev>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+ Jacopo Mondi <jacopo@jmondi.org>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794316220; l=1053;
+ i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
+ bh=b3Jbh3NXBCORRMCvX19hEQQG/dyvlyW8ukNEV55mjLk=;
+ b=0LYX0WlBpqGTpmcWQoTr02nPDBI8Qozf5gOjnEVM+uzVkF/oAlMZI5BT5QSU/HRlsNEDJHjvP
+ S0Z7x2+EW0HBA5OoNg9mHiy0laO0w0fmlb8okJtkKr9enMoyJjgEGjN
+X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
+ pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
+X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
+ with auth_id=350
 
-Hi Linus
+When setting V4L2_CID_VBLANK the V4L2 range for the exposure control is
+updated by v4l2_ctrl_modify_range(). This range update missed a return
+value check, which resulted in ov9282_set_ctrl() not returning on an error
+from that function call.
 
-On Tue, Oct 27, 2026 at 03:08:05PM +0100, Linus Walleij wrote:
-> The interrupt is currently freed on every runtime suspend and requested
-> again on runtime resume. Apart from tying interrupt ownership to the
-> power state rather than to the driver lifetime, this leaves remove to
-> guess whether an action is installed for the IRQ.
->
-> Request the interrupt once during probe and free it during remove.
->
-> Disable and synchronize the IRQ before powering the ISP off, and enable
-> it only after a successful power-on.
->
-> Hold a runtime PM reference during probe until the IRQ is installed,
-> and stop runtime PM and drain the IRQ before unregistering the media
-> entities during remove.
->
-> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
-> This is essentially my reply with the "proper fix" for:
-> https://lore.kernel.org/linux-media/20260903025526.2657105-1-dayou5941@163.com/
->
-> Keep the Mali-C55 interrupt requested for the driver's lifetime instead
-> of changing interrupt ownership along with the runtime power state.
-> Synchronize and disable the IRQ before power-off, and enable it after
-> power-on. Hold a PM reference until probe installs the IRQ, and stop
-> runtime PM and drain the IRQ before removing the media entities.
->
-> Tested on the Renesas RZ/V2H board with the other in-flight patches
-> (DTS changes and the TPG enablement) doing full suspend/resume cycles
-> with wakeup from RTC and NMI and capturing images before and after
-> the test.
->
-> This patch was authored with the assistance of an LLM.
-> ---
-> Changes in v2:
-> - Drop the wakeup-source binding patch and all ISP wakeup handling.
-> - Drop the patch retaining ISP power for wakeup; keep the IRQ lifetime fix.
-> - Link to v1: https://patch.msgid.link/20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org
-> ---
->  .../media/platform/arm/mali-c55/mali-c55-core.c    | 44 ++++++++++++----------
->  1 file changed, 24 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> index f28e9f4354ac..3c2816b6a96b 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-> @@ -675,8 +675,7 @@ static int __maybe_unused mali_c55_runtime_suspend(struct device *dev)
->  {
->  	struct mali_c55 *mali_c55 = dev_get_drvdata(dev);
->
-> -	if (irq_has_action(mali_c55->irqnum))
-> -		free_irq(mali_c55->irqnum, dev);
-> +	disable_irq(mali_c55->irqnum);
->  	__mali_c55_power_off(mali_c55);
->
->  	return 0;
-> @@ -745,20 +744,9 @@ static int __maybe_unused mali_c55_runtime_resume(struct device *dev)
->  	if (ret)
->  		return ret;
->
-> -	/*
-> -	 * The driver needs to transfer large amounts of register settings to
-> -	 * the ISP each frame, using either a DMA transfer or memcpy. We use a
-> -	 * threaded IRQ to avoid disabling interrupts the entire time that's
-> -	 * happening.
-> -	 */
-> -	ret = request_threaded_irq(mali_c55->irqnum, NULL, mali_c55_isr,
-> -				   IRQF_ONESHOT, dev_driver_string(dev), dev);
-> -	if (ret) {
-> -		__mali_c55_power_off(mali_c55);
-> -		dev_err(dev, "failed to request irq\n");
-> -	}
-> +	enable_irq(mali_c55->irqnum);
->
-> -	return ret;
-> +	return 0;
->  }
->
->  static const struct dev_pm_ops mali_c55_pm_ops = {
-> @@ -825,27 +813,42 @@ static int mali_c55_probe(struct platform_device *pdev)
->  	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
->  	pm_runtime_use_autosuspend(&pdev->dev);
->  	pm_runtime_set_active(&pdev->dev);
-> +	pm_runtime_get_noresume(dev);
+Fix this by checking the return value and returning it on error.
 
-Why is it relevant to hold a PM reference during the installation of
-the IRQ handler ?
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Fixes: 14ea315bbeb75 ("media: i2c: Add ov9282 camera sensor driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+---
+ drivers/media/i2c/ov9282.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
->  	pm_runtime_enable(&pdev->dev);
->
->  	ret = mali_c55_media_frameworks_init(mali_c55);
->  	if (ret)
->  		goto err_pm_runtime_disable;
->
-> -	pm_runtime_idle(&pdev->dev);
-> -
->  	mali_c55->irqnum = platform_get_irq(pdev, 0);
->  	if (mali_c55->irqnum < 0) {
->  		ret = mali_c55->irqnum;
->  		goto err_deinit_media_frameworks;
->  	}
->
-> +	/*
-> +	 * The driver needs to transfer large amounts of register settings to
-> +	 * the ISP each frame, using either a DMA transfer or memcpy. We use a
-> +	 * threaded IRQ to avoid disabling interrupts the entire time that's
-> +	 * happening.
+diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+index 039a47c1918cb..546b43c209097 100644
+--- a/drivers/media/i2c/ov9282.c
++++ b/drivers/media/i2c/ov9282.c
+@@ -608,6 +608,8 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+ 					       ov9282->cur_mode->height -
+ 					       OV9282_EXPOSURE_OFFSET,
+ 					       1, OV9282_EXPOSURE_DEFAULT);
++		if (ret)
++			return ret;
+ 		break;
+ 	}
+ 
 
-Does this comment still apply in your opinion ? I mean, thread_irq are
-pretty regular stuff, do we need to justify its usage ?
+-- 
+2.53.0
 
-> +	 */
-> +	ret = request_threaded_irq(mali_c55->irqnum, NULL, mali_c55_isr,
-> +				   IRQF_ONESHOT, dev_driver_string(dev), dev);
-> +	if (ret) {
-> +		dev_err(dev, "failed to request irq\n");
-> +		goto err_deinit_media_frameworks;
-> +	}
-> +
-> +	pm_runtime_put_autosuspend(dev);
-> +
->  	return 0;
->
->  err_deinit_media_frameworks:
->  	mali_c55_media_frameworks_deinit(mali_c55);
->  err_pm_runtime_disable:
-> -	pm_runtime_set_suspended(&pdev->dev);
->  	pm_runtime_disable(&pdev->dev);
-> +	pm_runtime_put_noidle(dev);
-> +	pm_runtime_set_suspended(&pdev->dev);
->  	kfree(mali_c55->context.registers);
->  err_power_off:
->  	__mali_c55_power_off(mali_c55);
-> @@ -859,12 +862,13 @@ static void mali_c55_remove(struct platform_device *pdev)
->  {
->  	struct mali_c55 *mali_c55 = platform_get_drvdata(pdev);
->
-> +	pm_runtime_disable(&pdev->dev);
 
-It amazes me how, after so many years, I still can't find a clear, firm
-indication of what is the intended call order for pm_runtime_disable()
-and the other pm_runtime calls is during a driver's remove.
-
-Media drivers seem to do different things with some disabling pm
-before setting the state to suspended, other doing the other way
-around.
-
-In the end, I think this doesn't make any difference, but in this
-specific occurance:
-
-1) Is this re-ordering required to support the new interrupt handling?
-or
-2) Is it a change that is worth doing anyway ? (and I should say "should
-go in a different patch on its own")
-
-> +	free_irq(mali_c55->irqnum, &pdev->dev);
->  	mali_c55_media_frameworks_deinit(mali_c55);
-> -	if (!pm_runtime_suspended(&pdev->dev)) {
-> +	if (!pm_runtime_status_suspended(&pdev->dev)) {
-
-I guess this is required because you moved pm_runtime_disable() up
-
-Thanks
-  j
-
->  		__mali_c55_power_off(mali_c55);
->  		pm_runtime_set_suspended(&pdev->dev);
->  	}
-> -	pm_runtime_disable(&pdev->dev);
->  	kfree(mali_c55->context.registers);
->  	of_reserved_mem_device_release(&pdev->dev);
->  }
->
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20260918-mali-c55-irq-supend-resume-30b507a20011
->
-> Best regards,
-> --
-> Linus Walleij <linusw@kernel.org>
->
