@@ -1,99 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794338625;
-	b=D+Ur2HEbfLfM7c6u5rTdQrHooDWlIHeEsfs607iqlee+SaqY3K09CWiaTEUN8EbaIS1N
-	 /xxxkCo2QCJ1HlClxCyFot3evu+NmsaP+F1byo0qR6gLPe/s56Ae/umU8K4jEUqcMB2G/
-	 sVci6ovMozwjw3LMRBkYpODJ2FxtPeCpIeCbRYfEcDEV/2kD/f6Qx2BrZjUovniqW+DBo
-	 r1yIttJjyX03VezJYlDRpl4n0JrL/IvyD8s00Q9hJhifJ9dwT4Eobdg64G6UxvIFs3BnH
-	 3/ysBYb9M/MwzZe8Udu1HWxzxHjNcjyTnEoBjj7F6ZLYDdtq6W2p/DeKKpXbCP2JWJw==
+	t=1794340002;
+	b=xyYaBTQvtWyaUEOQOCLM6KujBDWrJZ4Ss7V1Pv5jv2MSMqQjdsI17iBQqD71pYxGIj4j
+	 cUGhsnp/b64boRUUlN09Ifjw3Wl1YDWhszvYFfpB+3w6+olsmOqPnhyfdMmlDDy4oCyS8
+	 o/KBvsLYWXBx8dez19BcLF+CdEjLeF+336zbXl0vX9G/kqgq4caUkpmwOA9L/rKDtRaE1
+	 fNlnDv9XqubDKPTZZ0LpkRSNtrb4RG8NVBr5JdneLx40a6ezm3C4aZ/tj4u8OvaqMEAqa
+	 cp9by80NXTvUCJl3H6CYoMhKPmU7p7bt0xIh90lqQsPCh0exMw1r+pCiYgkBC8LIY8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338625;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=VhSwB8C2Atai4f63OWY2MkRGEM/VR9CghwTRTwW7K+s=;
-	b=dA2kWf4et+3/un31VEoJ5G4KAcDudmynkw+ACYkm9vKpPowCQ38nwrJip8K37Zmc/G5b
-	 I0n0y6ua7rNHABJTjEXo9OpgLTvuWdrBH7TfZr2rz7jHfWUYoYYQ42UcN4HFX0RXHyf2a
-	 MbysijsYGQAjxlpZv9GNaTl6KOsd67VPSENCAuzh4lNb+jHtxLlnwECAcGXAT/FkaUw66
-	 htvRTzcQjWhR2v+sypYOXdyzmRjMYdMqaYS/MXY0J5I7JJtUOjObrzgqBweXi09zCVEsi
-	 bxeJ3kqipdyDL36G97Fly8q2OMPxZBd60c69Zo7lXasOBe3L78AqrQu3dqbf/jUVhZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340002;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=s78xVEGiTbd40PYo5ZCRciMpKWzAs00uAC9ZgFZwEl8=;
+	b=t2s9zsGXq0K8YkrDS7ppw1h+jEIpQjeGiWm6HLopuexf7HRNlXxRZJnjiBsIDoOi8kRY
+	 2XVeO4TKDaD5nHgzgN3JwnVdOYId7/Ad+rpb+iTAPm2z3IrL6kJmY4X1WWo6JpUutR+qv
+	 xy/xFlVSJGvZwtBrsPArlFSw2SphQgDuUHegVzfP/Hm+ACVoY1TFiwPN+fGS4mKTXfyzt
+	 7eosSjLqsFq9+vjGfJA3GlVefDE7Ji7+WiWar0cahsNY19lmWE8uONXlivSgPtN78oUtN
+	 /IEt1o9L5DpUVKU1RQFznV25/jBq0fufIvx51Asal9ZSSxdTmbFLzCP/EIjzPUIZTxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=metarealtyinc.ca;
-	spf=pass smtp.mailfrom=metarealtyinc.ca;
-	dkim=pass header.d=metarealtyinc.ca header.i=@metarealtyinc.ca header.a=rsa-sha256 header.s=google header.b=fLEPEzDY;
-	arc=none smtp.remote-ip=209.85.217.51
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=r00O5qmu;
+	arc=none smtp.remote-ip=79.135.106.121
+Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC102606A31C
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 19:23:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC102606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27E07606A321;
+	Tue, 10 Nov 2026 19:46:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27E07606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=metarealtyinc.ca header.i=@metarealtyinc.ca header.a=rsa-sha256 header.s=google header.b=fLEPEzDY
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7d2dc9a7b52so1328552137.3
-        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 11:23:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=metarealtyinc.ca; s=google; t=1794338624; x=1794943424; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VhSwB8C2Atai4f63OWY2MkRGEM/VR9CghwTRTwW7K+s=;
-        b=fLEPEzDYbIYtk1YbU6ZmQpN6irlYIbBy0+uzUm1tcfWI8thnbfx8ctYWTRONw5iGRx
-         gVXevkQWwdbO4mlY6VdPaAcs+HVyvM6rYEke+zrR2L8ush8he8JnmAEi54U7DYZH2SiJ
-         B1iAmBwLBsrh8rPez3XkG3JHR+opkleBp7yBHkh3lBocaod9L4mAliH5xqyuniESCdL2
-         b6dJB38qeeN6byO1kfjjVy2BGQmfvrreIeRjuxVfhbqlRX60+QC3YuJUw9xVDkjvbMKZ
-         r5+v4CdYoC074M1C5bokgLsqlXv3cq1dFcyfr0yD+HEdRVg2A1+HDodmXmqgiuRdZYiO
-         4F0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794338624; x=1794943424;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VhSwB8C2Atai4f63OWY2MkRGEM/VR9CghwTRTwW7K+s=;
-        b=DrgT+csuQTep0bdp9vtStr6v0X8RKdj5OUvs7u2NBtq/tTcA15mHCFk+c9YFADNoOq
-         f+Em21+FO2m2Tcc2i4AEeeFfyi3JPGFvn0zfLZqvjph2283Fpcd43EPMlzpmvSzgRFP6
-         V6s7sq7NXzAlRIOo/edE/AZutMy+x0vFddJHuxp7Tb37ovdxYNwCU/vQePJAu86awszK
-         6JDkSLsuWpSRcksmxMJ5OMu9o57iaaa++CLkPPj5tRmGCUJ+6d5kX9B3RcS6Ax4I1DvZ
-         qeirm79O7kMwh728n8pT5GidOJ5Nrms0VbHmzGrPZv/S+fURuXj48UiisggIJlliZbcU
-         bGhQ==
-X-Forwarded-Encrypted: i=1; AL+hErGRcQpHEHmonp6MjTcOHDpwTrhAn7Z3uLTwWVXwc+9hPKvBqXux0hXHGAp9f74IJwFbfSgJJ+BNjOAn6g==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9i9v5PMxXS7SeIWRt1qHtZDlUWzqkno35yVznrBFL6AII9kpN4
-	kIcg8wU5mSgonE1r4DSbiDaDjiS0438zjCKhhWiipz/nuCrCOdaT8qjdNQUtABzzwzc=
-X-Gm-Gg: AYBFou31UM84hRaWNp3S4xw4/eZpuAOPdaDVMuQgplykIn6GohdhphQlAh8g8EBPazj
-	WxiXN4/f/hJShQ1nFM2Z9LxQzBodoqi++FzmnNXEJa0Dagoj+5DsMlc7Og9lbqUuSnOPmc2N+9w
-	rd2j/ZVVRDGHSxIXFwYbaxcgMa9JiJ0WfNYlXFzvvGCUZsDBJvVW2GEGXHBLD1cU+wDcHZ8dCc6
-	P3dKZKKJYQwsmQX4gHMxsUZmZvh0xbYWrxozumm7N5jA0hP2UjG4eBYEyUUNBfBeAElE9il8DDV
-	zhGmVIsnTyaGH7fea8LvQ3RdckEG429mPe8rKrdkAdu2MpWmQ3w79O8twXj+CaAsOdgJoV7zWsg
-	np1TrKGDrXC54sj+dnj4hrlHSTJAGlUpkYJb3uPRnzf2iZOpog6LaaPaSQ5+AArvqkA3PDhPdV4
-	3rTwQ6mFb56uVx0t3Yltf5tvG5nFDH18QOmblc0qkO21//DAFde03NNJIX+xW/VG2NgYiiL7wye
-	gfvjWijkdm8blcS6l6Asu3C1OQbjGDPweCn8h3KWSR5E7KP8SB8ykjGc7XmQkzoarfdF1MRjwNz
-	z/is0cgl9A2aUJoNXDv7uuA+vA0ZjAdBBq5XY093UWhs3b5n4/L/2lTK5L3lyikvfWmHPUIErpt
-	+srQNt/XLSEYVIQxVu7vN1OjeCyVtedde8DKZBPOHF1dQh/D/KNOKiv8xAYxndcM6xg9Fzn2Uek
-	tXs0JP8eOqPbuFRouPO/18BXJyatgD04i8QRXEAFr4ZSXXg4PlRv8IyHiKZ8rBHazU
-X-Received: by 2002:a05:6102:510f:b0:7cc:80ba:5e5c with SMTP id ada2fe7eead31-7d301b91214mr1618345137.6.1794338623819;
-        Tue, 10 Nov 2026 11:23:43 -0800 (PST)
-Received: from jake-laptop ([2607:fea8:c6:a700::879a])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d3023aed1csm2368632137.10.2026.11.10.11.23.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 11:23:43 -0800 (PST)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: sakari.ailus@linux.intel.com
-Cc: bingbu.cao@intel.com,
-	antti.laakso@linux.intel.com,
-	mchehab@kernel.org,
-	hansg@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: ipu6: Don't stop or close a stream that failed to start
-Date: Tue, 10 Nov 2026 14:23:41 -0500
-Message-ID: <20261110192341.1305587-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <avLwlhbOg-9EJo7g@kekkonen.localdomain>
-References: <20261106121905.42571-1-j@metarealtyinc.ca> <avLwlhbOg-9EJo7g@kekkonen.localdomain>
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=r00O5qmu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794339999; x=1794599199;
+	bh=s78xVEGiTbd40PYo5ZCRciMpKWzAs00uAC9ZgFZwEl8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=r00O5qmuxYq8woAmduOcwzbPp//3pqWtRHU06KLx4nJEh1m491NSiuQNCJC+f24Md
+	 wXvFwxvvc6CmHRnmO9gxlFiogtk6Y61qPHickO6HWXigvTlG4vaDzY5RNo6Eoor1CZ
+	 CUUvuBFRIZmaAISphfzEpHRRLEfPPKORzUtreQGHp4gxWPHMw+DCJV2htNQQF5tUzi
+	 GJpx8bUCObqF5CW0gj7WNlheYnlZ5MguQCW5rZYitmysK+Dhky4kAHAmigB4DPrMRY
+	 1U8Kk3q8KMY9JXA86kOZ1tJFDNXHUlaI5PcNCnoPIuZ4bcr/7xrqMj1EpdYvUApdf/
+	 BQCwN08GLntsw==
+Date: Tue, 10 Nov 2026 19:46:29 +0000
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
+Message-ID: <20261110194620.46374-1-lsa.uz@pm.me>
+In-Reply-To: <3750472c-5a49-48f6-a8bf-0bae45e4c01b@foss.st.com>
+References: <20261109093353.3757-1-lsa.uz@pm.me> <20261109093353.3757-3-lsa.uz@pm.me> <avGwRaKSqXdtXkII@kekkonen.localdomain> <20261109124610.85065-1-lsa.uz@pm.me> <avHDwGAe99WYaty9@kekkonen.localdomain> <20261109132746.22125-1-lsa.uz@pm.me> <3750472c-5a49-48f6-a8bf-0bae45e4c01b@foss.st.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: a6624b0f434eaf29d2bdf4eea112c843ac323dd3
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,34 +64,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sakari,
+Hi Benjamin,
 
-On Tue, Nov 10, 2026 at 12:23:18PM +0200, Sakari Ailus wrote:
-> Please be careful with git send-email arguments in the future.
+On Tue, Nov 10, 2026 at 10:46:57AM +0100, Benjamin Mugnier wrote:
+> From a user perspective they are mostly interchangeable. vd55g1 uses
+> AE_TARGET_PERCENTAGE while vd56g3 uses AE_COMPENSATION for instance.
+>
+> The downstream driver uses AE_TARGET_PERCENTAGE and that's why you have
+> it here. It would make more sense to use AE_COMPENSATION semantic wise,
+> but this is not a deal breaker.
 
-Sorry, that was a quoting mistake in my Cc list. It's fixed for future
-sends.
+I tried AE_COMPENSATION on the VD55G0 here, with the firmware patch the
+driver loads. Positive values work as UM2829 says, but a negative one
+drives the AE to its maximum.
 
-> I wonder if any firmware communication failure, a timeout or other error
-> should trigger the IPU reset (once the users are gone). The functions
-> communicating with the firmware should also probably check that condition.
-> I just sent a PR on IPU reset changes, they probably don't address this
-> problem though.
+A white sheet in front of the camera, the illuminator on, each value in
+a stream of its own:
+- AE_TARGET_PERCENTAGE 7, 14, 27: exposure 27, 49, 89 lines;
+- target 7 with +1 EV (0x0100) and +2 EV (0x0200): 48 and 91 lines;
+- target 14 with -1 EV (0xff00): 1796 lines, analogue gain 24, digital
+  gain 2048.
 
-Agreed. This patch also applies cleanly on top of your ipu6 branch. With
-"media: ipu6: Return errors from stream stop and close" there, a failed
-start already marks need_reset in ipu6_isys_start_stream_firmware(), and
-this patch only skips the stop and close calls that can't succeed.
+On the Dgrey test pattern every negative value did the same: -0.5, -1
+and -2 EV in two's complement, and -1 and -2 EV as sign and magnitude
+(0x8100, 0x8200). AE_TARGET_PERCENTAGE works both ways, so v4 keeps it.
 
-One thing I've seen on Panther Lake: the PSYS is a child of the ISYS, and
-as far as I can tell the ISYS isn't runtime suspended while the PSYS is in
-use. So need_reset can stay set until the last PSYS user goes away, which
-in practice means restarting PipeWire.
+Is this known for the VD55G0 firmware?
 
-"media: ipu6: Don't mark need_reset based on returned buffers" covers the
-IPU7 case from my need_reset RFC, so please drop that one. I'll test your
-ipu6 branch on Panther Lake and report back.
+Sergey
 
-Jake
