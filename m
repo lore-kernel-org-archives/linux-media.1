@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794305121;
-	b=qv/GDvfkK7SphsZTE8AUGf+wSder09/hNY0laoUmUt7i5UVnRjorAwR7SR4KDY+Hpro7
-	 sbyioCQcENUtUVQKfFB7nOULVllpPPN6E0YBIl/QNMQT9pTkykCIckOZ7xtTQpdPQbYRg
-	 mtgzMIxtUWKKgVpD7f7dvl9K4eOhRItNbVm9+X2cex4+lmDFy5YUAUsb5wvdRL4+nWE6e
-	 D9/VR07d+ANFd6OVBDL5kaG00xWsby3qaJxnqR596MCTCGQDvDlC8daXFe5oKq+aOzTZa
-	 3ysbGtM229693WC7Rswjax8i2L1TP5BHNDMabDHWZisIxX0D2mV8Q+WVh9rSSQPQcAg==
+	t=1794305258;
+	b=RvPz70aTxFu2nEY0P02bQqrEzbDxrNo0Wni39QnsAlOjbGw0RPwcic1VHFU56Pokdu0W
+	 6n3HCEYh3MQBbEhJCqNnhJc2frVAk6kOfLhmlyNo8He4Y7OIUpGTz16Z6rO1/2AMrq1Mq
+	 YAsbbFtmTKCvHUQ3KCpcBIC0HicJbk2qqFI0h9iIqdacS0hHb01Ch8w6H1loiiFqTI3ui
+	 0E7CnnG8V1mRM+c063NtVN+eRHLSulKzB8jvP5NJKsCNjYSYdkhu49PaiuepW4dsmZWnA
+	 +NyNq+AmeEvAeatYnSYEfUcWz9h65pGbRCQua8NOZFCC7U1133eFnxqg6Xcg+zsZ15A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305121;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305258;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SAaxaBUZqt+5yM3o1Sn3l7P3VMtS2rIqUac1ZncTLRk=;
-	b=WPS8t7hyFrdxzVl/Vv0zXzJLdryKnIHUu8FIz36GhgU8Q+QBxSijwfa/7n586pJDvEXm
-	 /xAkHVDudol4YHHqMGkeJkM2LpAAQh3mUuaPURtrUM4ko14AgOXVLyLw3l7tIaUiroxpn
-	 lvYzst1mSL74TB5uZB53QRLI4SW5WptWQ6gF9L3xfWfZirp4xRnzHhYN1bsAhk4JIQ/lA
-	 I/zbavDI4OGQ2M9dPgnDWeES+lG0EG2h+QIjrMj/DTs1TVAI5D5cU0yNKMP+xO3JApc4a
-	 qXdiXZR+27SWRgmXGd92wSWnetXksr2ElPtWzODdyNy65r5lY1h6rvcgNvQ8G2iyf4w==
+	bh=uRZAg7wDFr7pZXCpJ15P9xrJIPjH1pkNUo+tj7lZq08=;
+	b=yTK3vgPg26n6inp5JddAAtXxRlzcnzKTm5nYZ8m0A6qdjLcTuFRct5lnesObtzom1c+Y
+	 0Omvhy/25UW87QDRecie2DoZTX3dRiFR6gIGF2dqy6Hb0XzeaQLuFles5Tx5RzaxFu6UA
+	 b9na7qfpA1e+b6nF/irCM5ePGH6VWbOvyck2cmPNeCj8QQACdQOan3coW6hPxudiLzl+d
+	 r2ZtOjYnbLDX9TJGiGWHc6ASr2rIf0xMzy9by/z2UaT+t3p9dONbdoWcnT5vt//uzse5R
+	 X/8smPuxTJ7VsbA+RHxFNyzEJKZ+RJbj0s8I5Nvp2y/5hw8MTUvEL8Sn0cRnhK2tRLA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=axYHAGmY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cjNHk0m+;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1EB6606A33F;
-	Tue, 10 Nov 2026 10:05:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49FFF60A263D;
+	Tue, 10 Nov 2026 10:07:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=axYHAGmY
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cjNHk0m+
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305120;
-	b=otNZLkelL5+Z2wZSEcPXp+hu4Zl29oWjBqnwucUh/vWM3EsejjS7NN5qj1Ph4psJPBY/
-	 1pL94bKksSSV3std1GkwUj+5hdrY2dIdvdy0QDq/EoCO1EBjfWAnIPjnaiFL+NZoQyiEM
-	 LemsvEpmOkRR86Q8ABBqbqS5wzoO6EQ5ltA5ISJTJpBdYFE2ztCzFkBGWPlJjbN+8MgSh
-	 iLvGp21b2fnBfZDYgjF7IWzUWJa6rKYHA4EPmg/rCcV52EsCGQfQUsoh+xteqxthM3Zf4
-	 KGzCnwx7bs7rKJFA6NVQIuoYl8uUY61vOhcyp6PiwmqY5IL5BQHDEQMliFe7/LvxfZQ==
+	t=1794305256;
+	b=y2GUZCTkhIb32L7x1Cetm1Iv6QtxVzTGTbaE7vtjOr0WOYyDlfW71fkIjCTgj7T4g4VF
+	 ys4keoXVrQQ5n6gBkwL5jegoUpNKztyVj8mwjX6ECkw3UNq+oOAtNffy8NZ+R8G9HumOK
+	 ebj4Kbl/A1+nw+/SZXTN3qXPcIlrIqjyHpdJbFxxyfRMp33zF5Tp8JQ9OIibpDgHMERHE
+	 RYrOJOBcfTOuBczxcS9pmokye7bs0cettVMGuEKCjYVfCBurZhfrE56q2es8Vl1TupWT1
+	 AjPp+mxq+50SrITtVYO6wfIrJQi1oebTEZgbwBLKcu4Iq5gcdPuiYozT8mj3NncXgzQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305120;
+	c=relaxed/relaxed; t=1794305256;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SAaxaBUZqt+5yM3o1Sn3l7P3VMtS2rIqUac1ZncTLRk=;
-	b=TN2cG8rMv3Li5ARAQTObXuaQB1bJpcrPo6L2EYuocWzvNtsyy96bI6/dYh+djKWRhD2f
-	 S7qVgga0aS+iqMz7nUac4kov8XelNRRUEZTqBLbngQKuFND3PMcKo9/wnA1jW6Qlbylbk
-	 auZjd0G9XPOo7MIHvmC89WVqsujJOCmckDDPBO9h6W8wkIF17B3fJuTLB/XVC0rygbYtr
-	 s59WHsGqjSnLbSTEbDUrr1GDf8La+E9Qe8p80TuNGPLh4u7Oc8rRtje4n2yV+Cv55t4wn
-	 9j24cQBOR1NWyc8rJB8LtfmBWw9JGyW6xaOqQjATK7mNGOSLhb2dBB5N0Y+WxixtqMQ==
+	bh=uRZAg7wDFr7pZXCpJ15P9xrJIPjH1pkNUo+tj7lZq08=;
+	b=ltQ0BXr2KMCZAoZTVUXzAV0ya4QeakwujKrekpg7XPR5DNg8KMJikA5MeQyD9/xGM9Dr
+	 hdg0GBCiNTbcpaIAmhmR5rvKiizD2OLsPRezwbMQQN+09aD8AupuPcCLglNHugWJs7Ss7
+	 JsGRVw34Ye5PBWCrKH/JqbnsexexCSnexCzZyeSlYtoU2G5uEqFO7XSVUpwvutOT87jHB
+	 chsKYdW+vZ8Z2flwAB/AKYyEuwkGyJ9hVkATfIuddVF7RlzLeT9s5ZN3ySuKdNeYiy3sX
+	 iIIohTJS0DDUzy9WlrTqv5bz4MSh29hbN9MU0kENdMfkGM8hExS3E7D6gvgdnE1aoWw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7C8BF1F008A5;
-	Tue, 10 Nov 2026 10:05:19 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 9A0AD1F008A4;
+	Tue, 10 Nov 2026 10:07:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305120;
-	bh=SAaxaBUZqt+5yM3o1Sn3l7P3VMtS2rIqUac1ZncTLRk=;
+	s=k20260515; t=1794305256;
+	bh=uRZAg7wDFr7pZXCpJ15P9xrJIPjH1pkNUo+tj7lZq08=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=axYHAGmYlThc8qrobXe/2lFxgW9JYsPN4HWR6R/4FN/GBzzeCxck2Ba6BEdZFE3ge
-	 H5WggeINgiYH6uFTz55iSqqU9GMysdeHgt/+4IRygyaCiLOk3y/LON0wy6AdJarrkn
-	 tLBGr+L+pPTiYexj871Nrla7CtkfQ51rls3OIUeh0pDFPzQRJae8n4xudxlBrXFSjY
-	 Vg8+B5ePxZ4e1WuoQ9sytj1f/R9LDuzm+41oUyQKa0osUXy825kEflkLQkS6cHD0Jb
-	 4b3UeiaOBx+ojqZfcnKKsOj3NI42/MtLyXIIp2s5v/9Vvb5progouVfjv2qGsFqinz
-	 LPBmoG7FqXPsQ==
+	b=cjNHk0m+8odtOkXeFr0Hp9qvXhBCZiJ6KTEBlghWV/kNSyIHG0+P5f2Wf4Fk47MX9
+	 lM+A7M2OqKgXn0UmqGo3t6Lf0Iret6K4XwA4IyZbOKMBk3mXmXZ+lDRKh89P6OC1Y+
+	 J3yiIHgjufnC9rBxx/JmgxqLvE4Y25J22PH9J0fn9UR+T3+TcSL2AbtmQJLIYZtxPx
+	 N+w4oR6jB6MJ18fEYC2AXLEtG3u2THAieiZF0jnqfxoDstwedGitooJCObEy1yiCJS
+	 p6+Yy4YnTzfvVrYUZLaoz8I7JX0Kz705PNo3IbZ+cESRm+ZPpJ/XhSh7gEP8YAM1pe
+	 w3gUPOp9FYalg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0D4A548A96;
-	Tue, 10 Nov 2026 10:05:18 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 298DF48AAE;
+	Tue, 10 Nov 2026 10:07:32 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 10:05:21 +0000
-Subject: [PATCH RFC 07/11] media: v4l2-core: Halve the I picture QP
- increase of the encode CBR
+Date: Tue, 10 Nov 2026 10:07:34 +0000
+Subject: [PATCH RFC 04/10] media: hevc: Add KUnit tests for the stateless
+ encode RBSP writer
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,22 +84,20 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-h264-encode-fixes-v1-7-7a64486df499@gmail.com>
-References: <20261110-h264-encode-fixes-v1-0-7a64486df499@gmail.com>
-In-Reply-To: <20261110-h264-encode-fixes-v1-0-7a64486df499@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Paul Kocialkowski <paulk@sys-base.io>
+Message-Id: <20261110-hevc-encode-uapi-v1-4-38ae9fcfedd4@gmail.com>
+References: <20261110-hevc-encode-uapi-v1-0-38ae9fcfedd4@gmail.com>
+In-Reply-To: <20261110-hevc-encode-uapi-v1-0-38ae9fcfedd4@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Paul Kocialkowski <paulk@sys-base.io>, 
  Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Hans Verkuil <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, 
- Michael Tretter <m.tretter@pengutronix.de>, 
- Arun Iyengar <aiyengar1990@gmail.com>
+ Hans Verkuil <hverkuil@kernel.org>, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305116; l=3550;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305251; l=29394;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=YKak4DZnLwR2w4xlIVJzMqRQDjjIsHD6EnCSZHiTMQg=;
- b=1gdG3JuQ7+8Rxswlkfvv/ue4PfaZlhd8GVpVWfzDJW42hefHn7koR1L/PcaxDzfrLqpIiXXdj
- 9htJmEruwERAKNc+yxC9uTHcUhKLk7SzwbZ90ZyeLf+9Nw88KIOEjal
+ bh=jW9YYWZ5mtR+o5eOCweMm/2RiLwYVzJGPtGi/AdOQW8=;
+ b=w6Keh6ipbnsQKjS5kbUiJGMmO6UVn6t07opdWx9P1XRtUgvPEdygoxfgcL4I9IW7+QRg8VBw3
+ s383+wPoOkvBXpVZTO1UghyoK2mREm5n2TeaAHp/c/LrkdhltDycxMW
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -110,90 +108,792 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-After an I picture above its share of the GOP at the largest I/P size
-ratio, the constant bitrate rate control raises the QP of the following
-I pictures. It adds the increase to the mean of the QP state now and at
-the previous I picture, so all of it reaches the next I picture, and it
-limits the increase by the QP of the I picture, four steps below the
-state.
+Check the HEVC RBSP writer byte for byte: Exp-Golomb coding, emulation
+prevention (including zero runs that do not start on byte boundaries
+and the NAL unit header, which is not subject to it), error handling,
+and the VPS, SPS, PPS, access unit delimiter and slice segment headers
+of three configurations that between them use every syntax element the
+writer can produce:
 
-The Rockchip MPP library, whose behaviour this follows, adds the increase
-to the current state before the mean, so that half of it reaches the I
-picture, and limits it by the QP state. Do the same: an I picture that
-came out large because of a passing scene is not penalised twice.
+- 720p Main level 3.1 with SAO, AMP, TMVP and a VUI with colour
+  description and timing;
+- 640x360 coded as 640x368 with a conformance window, PCM, long-term
+  references and a PPS with dependent slices, output flag, extra slice
+  header bits, CABAC init, chroma QP offsets, 2x2 uniform tiles,
+  deblocking override, list modification and slice header extension;
+- 2160p60 Main 10 high tier level 5.1 with three temporal sub-layers,
+  default scaling lists, a full VUI, VPS timing, non-uniform tiles with
+  wavefront parallel processing and deblocking disabled.
+
+No HEVC encoder was available to produce the expected bitstreams, so
+they come from an independent implementation that builds bit lists from
+the H.265 syntax tables and applies emulation prevention as a separate
+pass, and that parses them back to check every syntax element. The VPS
+of the first configuration also matches the VPS commonly found in x265
+output for such a stream (from memory: it could not be regenerated
+here).
+
+Add a .kunitconfig so the tests can be run with:
+
+  ./tools/testing/kunit/kunit.py run --kunitconfig=drivers/media/v4l2-core
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/v4l2-core/v4l2-enc-cbr.c | 36 ++++++++++++++++++----------------
- 1 file changed, 19 insertions(+), 17 deletions(-)
+ drivers/media/v4l2-core/.kunitconfig               |   5 +
+ drivers/media/v4l2-core/Kconfig                    |  13 +
+ drivers/media/v4l2-core/Makefile                   |   1 +
+ drivers/media/v4l2-core/v4l2-hevc-enc-rbsp-kunit.c | 696 +++++++++++++++++++++
+ 4 files changed, 715 insertions(+)
 
-diff --git a/drivers/media/v4l2-core/v4l2-enc-cbr.c b/drivers/media/v4l2-core/v4l2-enc-cbr.c
-index 32f98052e981..70810b3fea23 100644
---- a/drivers/media/v4l2-core/v4l2-enc-cbr.c
-+++ b/drivers/media/v4l2-core/v4l2-enc-cbr.c
-@@ -47,8 +47,10 @@
- /*
-  * The I QP increase after oversized I pictures: at most 4 QP (1/256 units)
-  * per I picture for an I picture twice its largest share, and in all at most
-- * a quarter QP per QP step below 45, up to 6 QP (more where the QP is low,
-- * where a QP step changes the size by fewer bits).
-+ * a quarter QP per step of the QP state below 45, up to 6 QP (more where the
-+ * QP is low, where a QP step changes the size by fewer bits). It raises the
-+ * current state in the mean of cbr_qp_intra(), so half of it reaches the I
+diff --git a/drivers/media/v4l2-core/.kunitconfig b/drivers/media/v4l2-core/.kunitconfig
+new file mode 100644
+index 000000000000..4ef422b5e0a8
+--- /dev/null
++++ b/drivers/media/v4l2-core/.kunitconfig
+@@ -0,0 +1,5 @@
++CONFIG_KUNIT=y
++CONFIG_MEDIA_SUPPORT=y
++CONFIG_MEDIA_SUPPORT_FILTER=n
++CONFIG_VIDEO_DEV=y
++CONFIG_V4L2_HEVC_ENC_RBSP_KUNIT_TEST=y
+diff --git a/drivers/media/v4l2-core/Kconfig b/drivers/media/v4l2-core/Kconfig
+index 9f9eda5d6eac..bc6bf06aa681 100644
+--- a/drivers/media/v4l2-core/Kconfig
++++ b/drivers/media/v4l2-core/Kconfig
+@@ -57,6 +57,19 @@ config V4L2_H264_ENC
+ config V4L2_HEVC_ENC_RBSP
+ 	tristate
+ 
++config V4L2_HEVC_ENC_RBSP_KUNIT_TEST
++	tristate "KUnit tests for the V4L2 HEVC encode RBSP writer" if !KUNIT_ALL_TESTS
++	depends on KUNIT
++	select V4L2_HEVC_ENC_RBSP
++	default KUNIT_ALL_TESTS
++	help
++	  Build the KUnit tests of the HEVC NAL unit writer used by stateless
++	  HEVC encoders. They check the VPS, SPS, PPS, access unit delimiter
++	  and slice segment headers it writes, byte for byte, against known
++	  bitstreams.
++
++	  If unsure, say N.
++
+ # Used by drivers that need v4l2-vp9.ko
+ config V4L2_VP9
+ 	tristate
+diff --git a/drivers/media/v4l2-core/Makefile b/drivers/media/v4l2-core/Makefile
+index 3dda145d94d1..6bf89b90165f 100644
+--- a/drivers/media/v4l2-core/Makefile
++++ b/drivers/media/v4l2-core/Makefile
+@@ -33,6 +33,7 @@ obj-$(CONFIG_V4L2_H264) += v4l2-h264.o
+ obj-$(CONFIG_V4L2_H264_ENC) += v4l2-h264-enc.o v4l2-h264-enc-rbsp.o \
+ 			       v4l2-h264-enc-rc.o
+ obj-$(CONFIG_V4L2_HEVC_ENC_RBSP) += v4l2-hevc-enc-rbsp.o
++obj-$(CONFIG_V4L2_HEVC_ENC_RBSP_KUNIT_TEST) += v4l2-hevc-enc-rbsp-kunit.o
+ obj-$(CONFIG_V4L2_ISP) += v4l2-isp.o
+ obj-$(CONFIG_V4L2_JPEG_HELPER) += v4l2-jpeg.o
+ obj-$(CONFIG_V4L2_MEM2MEM_DEV) += v4l2-mem2mem.o
+diff --git a/drivers/media/v4l2-core/v4l2-hevc-enc-rbsp-kunit.c b/drivers/media/v4l2-core/v4l2-hevc-enc-rbsp-kunit.c
+new file mode 100644
+index 000000000000..53f89dd02904
+--- /dev/null
++++ b/drivers/media/v4l2-core/v4l2-hevc-enc-rbsp-kunit.c
+@@ -0,0 +1,696 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * KUnit tests for the V4L2 HEVC encode RBSP writer
++ *
++ * The expected bitstreams come from an independent reference writer
++ * (bit lists per syntax element, then a separate emulation prevention
++ * pass), and were parsed back with an independent syntax parser. The VPS
++ * of configuration A also matches the VPS commonly found in x265 output for
++ * a single-layer Main level 3.1 stream with 5 DPB pictures and 2 reorder
 + * pictures.
-  */
- #define CBR_INTRA_ADD_STEP	(4 * 256)
- #define CBR_INTRA_ADD_QP_END	45
-@@ -126,25 +128,25 @@ static u64 cbr_plan(const struct v4l2_enc_cbr *cbr, unsigned int fps,
- }
- 
- /*
-- * QP of an I picture: the mean of the QP state now and at the previous I
-- * picture (the current state weighs 70% when it rose from 33 or below to 35
-- * or above: content that got much harder), plus the increase after
-- * oversized I pictures, less the I QP delta. All-intra streams use the
-- * state alone, which then follows the I pictures fully.
-+ * QP of an I picture: the mean of the QP state now, raised by the increase
-+ * after oversized I pictures, and the state at the previous I picture (the
-+ * current state weighs 70% when it rose from 33 or below to 35 or above:
-+ * content that got much harder), less the I QP delta. All-intra streams use
-+ * the state alone, which then follows the I pictures fully.
-  */
- static int cbr_qp_intra(const struct v4l2_enc_cbr *cbr)
- {
- 	int cur = cbr->qp_q8, ref = cbr->qp_intra_ref_q8, q8;
- 
--	if (cbr->gop == 1 || ref < 0)
-+	if (cbr->gop == 1 || ref < 0) {
- 		q8 = cur;
--	else if (cur >= 35 * 256 && ref <= 33 * 256)
--		q8 = (3 * ref + 7 * cur) / 10;
--	else
--		q8 = (ref + cur) / 2;
--
--	if (cbr->gop != 1)
--		q8 += cbr->qp_intra_add_q8;
-+	} else {
-+		cur += cbr->qp_intra_add_q8;
-+		if (cur >= 35 * 256 && ref <= 33 * 256)
-+			q8 = (3 * ref + 7 * cur) / 10;
-+		else
-+			q8 = (ref + cur) / 2;
++ */
++
++#include <kunit/test.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/v4l2-controls.h>
++#include <media/v4l2-hevc.h>
++#include <media/v4l2-hevc-enc-rbsp.h>
++
++#define BUF_SIZE	256
++
++/* Expected bitstreams */
++
++static const u8 vps_a[] = {
++	0x00, 0x00, 0x00, 0x01, 0x40, 0x01, 0x0c, 0x01, 0xff, 0xff, 0x01, 0x60,
++	0x00, 0x00, 0x03, 0x00, 0x90, 0x00, 0x00, 0x03, 0x00, 0x00, 0x03, 0x00,
++	0x5d, 0x95, 0x98, 0x09,
++};
++
++static const u8 sps_a[] = {
++	0x00, 0x00, 0x00, 0x01, 0x42, 0x01, 0x01, 0x01, 0x60, 0x00, 0x00, 0x03,
++	0x00, 0x90, 0x00, 0x00, 0x03, 0x00, 0x00, 0x03, 0x00, 0x5d, 0xa0, 0x02,
++	0x80, 0x80, 0x2d, 0x16, 0x59, 0x59, 0xa4, 0x93, 0x6b, 0x9a, 0x80, 0x80,
++	0x80, 0x82, 0x00, 0x00, 0x03, 0x00, 0x02, 0x00, 0x00, 0x03, 0x00, 0x32,
++	0x10,
++};
++
++static const u8 pps_a[] = {
++	0x00, 0x00, 0x00, 0x01, 0x44, 0x01, 0xc1, 0x71, 0x81, 0x12,
++};
++
++static const u8 vps_b[] = {
++	0x00, 0x00, 0x00, 0x01, 0x40, 0x01, 0x1c, 0x01, 0xff, 0xff, 0x01, 0x60,
++	0x00, 0x00, 0x03, 0x00, 0x90, 0x00, 0x00, 0x03, 0x00, 0x00, 0x03, 0x00,
++	0x5a, 0xbc, 0x09,
++};
++
++static const u8 sps_b[] = {
++	0x00, 0x00, 0x00, 0x01, 0x42, 0x01, 0x11, 0x01, 0x60, 0x00, 0x00, 0x03,
++	0x00, 0x90, 0x00, 0x00, 0x03, 0x00, 0x00, 0x03, 0x00, 0x5a, 0x48, 0x01,
++	0x40, 0x80, 0x5c, 0x7c, 0xbe, 0xfb, 0x91, 0x21, 0x77, 0xaf, 0x88,
++};
++
++static const u8 pps_b[] = {
++	0x00, 0x00, 0x00, 0x01, 0x44, 0x01, 0x4b, 0x5a, 0x89, 0xe8, 0xa6, 0x89,
++	0x2f, 0x8a, 0x97, 0x40,
++};
++
++static const u8 vps_c[] = {
++	0x00, 0x00, 0x00, 0x01, 0x40, 0x01, 0x2c, 0x05, 0xff, 0xff, 0x22, 0x20,
++	0x00, 0x00, 0x03, 0x00, 0x90, 0x00, 0x00, 0x03, 0x00, 0x00, 0x03, 0x00,
++	0x99, 0x00, 0x00, 0x1b, 0x03, 0x00, 0x00, 0x03, 0x03, 0xe9, 0x00, 0x00,
++	0xea, 0x60, 0xe8,
++};
++
++static const u8 sps_c[] = {
++	0x00, 0x00, 0x00, 0x01, 0x42, 0x01, 0x25, 0x22, 0x20, 0x00, 0x00, 0x03,
++	0x00, 0x90, 0x00, 0x00, 0x03, 0x00, 0x00, 0x03, 0x00, 0x99, 0x00, 0x00,
++	0x68, 0x00, 0x78, 0x08, 0x00, 0x87, 0x13, 0x63, 0x46, 0xe4, 0x91, 0xba,
++	0x5f, 0xfe, 0x00, 0x08, 0x00, 0x07, 0x6e, 0x12, 0x20, 0x13, 0x6c, 0x20,
++	0x00, 0x00, 0x7d, 0x20, 0x00, 0x1d, 0x4c, 0x1b, 0xed, 0x04, 0x02, 0x08,
++};
++
++static const u8 pps_c[] = {
++	0x00, 0x00, 0x00, 0x01, 0x44, 0x01, 0x6c, 0x06, 0x10, 0x2f, 0x0d, 0xa0,
++	0x50, 0x28, 0x11, 0x29, 0x20,
++};
++
++static const u8 slice_a_idr[] = {
++	0x00, 0x00, 0x00, 0x01, 0x26, 0x01, 0xaf, 0x22,
++};
++
++static const u8 slice_a_p[] = {
++	0x00, 0x00, 0x00, 0x01, 0x02, 0x01, 0xd0, 0x41, 0xf4, 0xc6, 0x7c,
++};
++
++static const u8 slice_b_b[] = {
++	0x00, 0x00, 0x00, 0x01, 0x02, 0x01, 0x20, 0x29, 0x19, 0x2d, 0x50, 0x2b,
++	0x48, 0xcb, 0x4e, 0x21, 0x64, 0x16, 0x18, 0xfe, 0x78, 0x06, 0xc0,
++};
++
++static const u8 slice_b_dep[] = {
++	0x00, 0x00, 0x00, 0x01, 0x02, 0x01, 0x28, 0x57,
++};
++
++static const u8 slice_b_cra[] = {
++	0x00, 0x00, 0x00, 0x01, 0x2a, 0x01, 0xd0, 0xe0, 0xe7, 0xfc,
++};
++
++static const u8 slice_c_tsa[] = {
++	0x00, 0x00, 0x00, 0x01, 0x04, 0x03, 0xb4, 0x1f, 0xfe, 0x55, 0x10, 0xa6,
++	0x6c, 0x7b, 0x80,
++};
++
++static const u8 aud[] = {
++	0x00, 0x00, 0x00, 0x01, 0x46, 0x02, 0x30,
++};
++
++static const u8 exp_golomb[] = {
++	0xa6, 0x42, 0x98, 0xe2, 0x04, 0xa6, 0x42, 0xc7, 0x0f, 0xde, 0xad, 0xbe,
++	0xef, 0x00, 0x00, 0x00, 0x01, 0xff, 0xff, 0xff, 0xff,
++};
++
++/* Configurations */
++
++#define MAIN_PTL(level)							\
++	{								\
++		.general_profile_idc = V4L2_HEVC_PROFILE_IDC_MAIN,	\
++		.general_profile_compatibility_flags = 0x60000000,	\
++		.general_level_idc = (level),				\
++		.flags = V4L2_HEVC_PTL_FLAG_PROGRESSIVE_SOURCE |	\
++			 V4L2_HEVC_PTL_FLAG_FRAME_ONLY_CONSTRAINT,	\
 +	}
- 
- 	return DIV_ROUND_CLOSEST(q8, 256) - cbr->qp_delta_intra;
- }
-@@ -350,8 +352,8 @@ void v4l2_enc_cbr_end(struct v4l2_enc_cbr *cbr, u64 bits,
- 			      cbr->qp_intra_add_q8;
- 			cbr->qp_intra_add_q8 =
- 				clamp_t(s64, add, 0,
--					clamp((CBR_INTRA_ADD_QP_END -
--					       cbr->qp_pic) * 64, 0,
-+					clamp(CBR_INTRA_ADD_QP_END * 64 -
-+					      cbr->qp_q8 / 4, 0,
- 					      CBR_INTRA_ADD_MAX));
- 		}
- 
++
++/* A: 720p Main, CTB 64, SAO, AMP, TMVP, VUI with colour and timing */
++static const struct v4l2_ctrl_hevc_sps sps_a_cfg = {
++	.pic_width_in_luma_samples = 1280,
++	.pic_height_in_luma_samples = 720,
++	.log2_max_pic_order_cnt_lsb_minus4 = 4,
++	.sps_max_dec_pic_buffering_minus1 = 4,
++	.sps_max_num_reorder_pics = 2,
++	.sps_max_latency_increase_plus1 = 5,
++	.log2_diff_max_min_luma_coding_block_size = 3,
++	.log2_diff_max_min_luma_transform_block_size = 3,
++	.chroma_format_idc = 1,
++	.flags = V4L2_HEVC_SPS_FLAG_AMP_ENABLED |
++		 V4L2_HEVC_SPS_FLAG_SAMPLE_ADAPTIVE_OFFSET |
++		 V4L2_HEVC_SPS_FLAG_SPS_TEMPORAL_MVP_ENABLED |
++		 V4L2_HEVC_SPS_FLAG_STRONG_INTRA_SMOOTHING_ENABLED,
++};
++
++static const struct v4l2_hevc_sps_video video_a_cfg = {
++	.ptl = MAIN_PTL(93),
++	.flags = V4L2_HEVC_SPS_VIDEO_FLAG_TEMPORAL_ID_NESTING |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_PARAMETERS_PRESENT |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_VIDEO_SIGNAL_TYPE_PRESENT |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_COLOUR_DESCRIPTION_PRESENT |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_TIMING_INFO_PRESENT,
++	.video_format = V4L2_HEVC_VUI_VIDEO_FORMAT_UNSPECIFIED,
++	.colour_primaries = V4L2_HEVC_VUI_COLOUR_BT709,
++	.transfer_characteristics = V4L2_HEVC_VUI_TRANSFER_BT709,
++	.matrix_coeffs = V4L2_HEVC_VUI_MATRIX_BT709,
++	.num_units_in_tick = 1,
++	.time_scale = 25,
++};
++
++static const struct v4l2_ctrl_hevc_pps pps_a_cfg = {
++	.flags = V4L2_HEVC_PPS_FLAG_SIGN_DATA_HIDING_ENABLED |
++		 V4L2_HEVC_PPS_FLAG_PPS_LOOP_FILTER_ACROSS_SLICES_ENABLED,
++};
++
++/*
++ * B: 640x360 coded as 640x368 with a conformance window, CTB 32, PCM,
++ * long-term references, and a PPS with most optional slice header syntax
++ * enabled: dependent slices, output flag, extra bits, CABAC init, chroma QP
++ * offsets, 2x2 uniform tiles, deblocking override, list modification and
++ * header extension.
++ */
++static const struct v4l2_ctrl_hevc_sps sps_b_cfg = {
++	.video_parameter_set_id = 1,
++	.seq_parameter_set_id = 1,
++	.pic_width_in_luma_samples = 640,
++	.pic_height_in_luma_samples = 368,
++	.sps_max_dec_pic_buffering_minus1 = 2,
++	.log2_diff_max_min_luma_coding_block_size = 2,
++	.log2_diff_max_min_luma_transform_block_size = 3,
++	.max_transform_hierarchy_depth_inter = 1,
++	.max_transform_hierarchy_depth_intra = 1,
++	.pcm_sample_bit_depth_luma_minus1 = 7,
++	.pcm_sample_bit_depth_chroma_minus1 = 7,
++	.log2_diff_max_min_pcm_luma_coding_block_size = 1,
++	.chroma_format_idc = 1,
++	.flags = V4L2_HEVC_SPS_FLAG_PCM_ENABLED |
++		 V4L2_HEVC_SPS_FLAG_PCM_LOOP_FILTER_DISABLED |
++		 V4L2_HEVC_SPS_FLAG_LONG_TERM_REF_PICS_PRESENT |
++		 V4L2_HEVC_SPS_FLAG_SPS_TEMPORAL_MVP_ENABLED,
++};
++
++static const struct v4l2_hevc_sps_video video_b_cfg = {
++	.ptl = MAIN_PTL(90),
++	.flags = V4L2_HEVC_SPS_VIDEO_FLAG_TEMPORAL_ID_NESTING |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_CONFORMANCE_WINDOW,
++	.conf_win_bottom_offset = 4,
++};
++
++static const struct v4l2_ctrl_hevc_pps pps_b_cfg = {
++	.pic_parameter_set_id = 1,
++	.num_extra_slice_header_bits = 2,
++	.num_ref_idx_l0_default_active_minus1 = 1,
++	.init_qp_minus26 = -4,
++	.diff_cu_qp_delta_depth = 1,
++	.pps_cb_qp_offset = -2,
++	.pps_cr_qp_offset = 3,
++	.num_tile_columns_minus1 = 1,
++	.num_tile_rows_minus1 = 1,
++	.pps_beta_offset_div2 = -2,
++	.pps_tc_offset_div2 = 1,
++	.log2_parallel_merge_level_minus2 = 2,
++	.flags = V4L2_HEVC_PPS_FLAG_DEPENDENT_SLICE_SEGMENT_ENABLED |
++		 V4L2_HEVC_PPS_FLAG_OUTPUT_FLAG_PRESENT |
++		 V4L2_HEVC_PPS_FLAG_SIGN_DATA_HIDING_ENABLED |
++		 V4L2_HEVC_PPS_FLAG_CABAC_INIT_PRESENT |
++		 V4L2_HEVC_PPS_FLAG_CONSTRAINED_INTRA_PRED |
++		 V4L2_HEVC_PPS_FLAG_TRANSFORM_SKIP_ENABLED |
++		 V4L2_HEVC_PPS_FLAG_CU_QP_DELTA_ENABLED |
++		 V4L2_HEVC_PPS_FLAG_PPS_SLICE_CHROMA_QP_OFFSETS_PRESENT |
++		 V4L2_HEVC_PPS_FLAG_TILES_ENABLED |
++		 V4L2_HEVC_PPS_FLAG_UNIFORM_SPACING |
++		 V4L2_HEVC_PPS_FLAG_LOOP_FILTER_ACROSS_TILES_ENABLED |
++		 V4L2_HEVC_PPS_FLAG_PPS_LOOP_FILTER_ACROSS_SLICES_ENABLED |
++		 V4L2_HEVC_PPS_FLAG_DEBLOCKING_FILTER_CONTROL_PRESENT |
++		 V4L2_HEVC_PPS_FLAG_DEBLOCKING_FILTER_OVERRIDE_ENABLED |
++		 V4L2_HEVC_PPS_FLAG_LISTS_MODIFICATION_PRESENT |
++		 V4L2_HEVC_PPS_FLAG_SLICE_SEGMENT_HEADER_EXTENSION_PRESENT,
++};
++
++/*
++ * C: 2160p60 Main 10 high tier level 5.1, 3 temporal sub-layers, default
++ * scaling lists, full VUI (extended SAR, BT.2020 PQ full range, chroma
++ * location, timing, bitstream restriction), VPS timing, 3x2 non-uniform
++ * tiles with wavefront parallel processing and deblocking disabled.
++ */
++static const struct v4l2_ctrl_hevc_sps sps_c_cfg = {
++	.video_parameter_set_id = 2,
++	.seq_parameter_set_id = 2,
++	.pic_width_in_luma_samples = 3840,
++	.pic_height_in_luma_samples = 2160,
++	.bit_depth_luma_minus8 = 2,
++	.bit_depth_chroma_minus8 = 2,
++	.log2_max_pic_order_cnt_lsb_minus4 = 12,
++	.sps_max_dec_pic_buffering_minus1 = 5,
++	.log2_diff_max_min_luma_coding_block_size = 3,
++	.log2_diff_max_min_luma_transform_block_size = 3,
++	.max_transform_hierarchy_depth_inter = 2,
++	.max_transform_hierarchy_depth_intra = 2,
++	.chroma_format_idc = 1,
++	.sps_max_sub_layers_minus1 = 2,
++	.flags = V4L2_HEVC_SPS_FLAG_SCALING_LIST_ENABLED |
++		 V4L2_HEVC_SPS_FLAG_AMP_ENABLED |
++		 V4L2_HEVC_SPS_FLAG_SPS_TEMPORAL_MVP_ENABLED |
++		 V4L2_HEVC_SPS_FLAG_STRONG_INTRA_SMOOTHING_ENABLED,
++};
++
++static const struct v4l2_hevc_sps_video video_c_cfg = {
++	.ptl = {
++		.general_tier_flag = 1,
++		.general_profile_idc = V4L2_HEVC_PROFILE_IDC_MAIN_10,
++		.general_profile_compatibility_flags = 0x20000000,
++		.general_level_idc = 153,
++		.flags = V4L2_HEVC_PTL_FLAG_PROGRESSIVE_SOURCE |
++			 V4L2_HEVC_PTL_FLAG_FRAME_ONLY_CONSTRAINT,
++	},
++	.flags = V4L2_HEVC_SPS_VIDEO_FLAG_TEMPORAL_ID_NESTING |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VPS_TIMING_INFO_PRESENT |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_PARAMETERS_PRESENT |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_ASPECT_RATIO_INFO_PRESENT |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_OVERSCAN_INFO_PRESENT |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_VIDEO_SIGNAL_TYPE_PRESENT |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_VIDEO_FULL_RANGE |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_COLOUR_DESCRIPTION_PRESENT |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_CHROMA_LOC_INFO_PRESENT |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_TIMING_INFO_PRESENT |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_POC_PROPORTIONAL_TO_TIMING |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_BITSTREAM_RESTRICTION |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_TILES_FIXED_STRUCTURE |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_MOTION_VECTORS_OVER_PIC_BOUNDARIES |
++		 V4L2_HEVC_SPS_VIDEO_FLAG_VUI_RESTRICTED_REF_PIC_LISTS,
++	.aspect_ratio_idc = V4L2_HEVC_VUI_ASPECT_RATIO_IDC_EXTENDED,
++	.sar_width = 4,
++	.sar_height = 3,
++	.video_format = V4L2_HEVC_VUI_VIDEO_FORMAT_UNSPECIFIED,
++	.colour_primaries = V4L2_HEVC_VUI_COLOUR_BT2020,
++	.transfer_characteristics = V4L2_HEVC_VUI_TRANSFER_SMPTE2084,
++	.matrix_coeffs = V4L2_HEVC_VUI_MATRIX_BT2020_NCL,
++	.chroma_sample_loc_type_top_field = 2,
++	.chroma_sample_loc_type_bottom_field = 2,
++	.num_units_in_tick = 1001,
++	.time_scale = 60000,
++	.max_bytes_per_pic_denom = 2,
++	.max_bits_per_min_cu_denom = 1,
++	.log2_max_mv_length_horizontal = 15,
++	.log2_max_mv_length_vertical = 15,
++};
++
++static const struct v4l2_ctrl_hevc_pps pps_c_cfg = {
++	.pic_parameter_set_id = 2,
++	.init_qp_minus26 = 8,
++	.diff_cu_qp_delta_depth = 2,
++	.num_tile_columns_minus1 = 2,
++	.num_tile_rows_minus1 = 1,
++	.column_width_minus1 = { 19, 19 },
++	.row_height_minus1 = { 16 },
++	.flags = V4L2_HEVC_PPS_FLAG_CU_QP_DELTA_ENABLED |
++		 V4L2_HEVC_PPS_FLAG_TILES_ENABLED |
++		 V4L2_HEVC_PPS_FLAG_ENTROPY_CODING_SYNC_ENABLED |
++		 V4L2_HEVC_PPS_FLAG_DEBLOCKING_FILTER_CONTROL_PRESENT |
++		 V4L2_HEVC_PPS_FLAG_PPS_DISABLE_DEBLOCKING_FILTER,
++};
++
++static const u32 entry_points_b[] = { 99, 1999, 6 };
++static const u32 entry_points_c[] = { 49, 59 };
++
++struct hevc_rbsp_slice_case {
++	const char *name;
++	const struct v4l2_ctrl_hevc_sps *sps;
++	const struct v4l2_ctrl_hevc_pps *pps;
++	struct v4l2_hevc_slice_header sh;
++	const u8 *expected;
++	unsigned int expected_size;
++};
++
++#define SLICE_CASE(n, s, p, e, ...)					\
++	{								\
++		.name = n, .sps = s, .pps = p,				\
++		.sh = { __VA_ARGS__ },					\
++		.expected = e, .expected_size = sizeof(e),		\
++	}
++
++static const struct hevc_rbsp_slice_case slice_cases[] = {
++	SLICE_CASE("A IDR", &sps_a_cfg, &pps_a_cfg, slice_a_idr,
++		   .nal_unit_type = V4L2_HEVC_NAL_IDR_W_RADL,
++		   .nuh_temporal_id_plus1 = 1,
++		   .slice_type = V4L2_HEVC_SLICE_TYPE_I,
++		   .slice_qp_delta = 2,
++		   .flags = V4L2_HEVC_ENCODE_FLAG_SLICE_SAO_LUMA |
++			    V4L2_HEVC_ENCODE_FLAG_SLICE_SAO_CHROMA),
++	SLICE_CASE("A P", &sps_a_cfg, &pps_a_cfg, slice_a_p,
++		   .nal_unit_type = V4L2_HEVC_NAL_TRAIL_R,
++		   .nuh_temporal_id_plus1 = 1,
++		   .slice_type = V4L2_HEVC_SLICE_TYPE_P,
++		   .slice_pic_order_cnt_lsb = 8,
++		   .st_rps = {
++			.num_negative_pics = 2,
++			.used_by_curr_pic_s0 = 0x1,
++			.delta_poc_s0_minus1 = { 0, 1 },
++		   },
++		   .five_minus_max_num_merge_cand = 2,
++		   .slice_qp_delta = -3,
++		   .flags = V4L2_HEVC_ENCODE_FLAG_SLICE_TEMPORAL_MVP_ENABLED |
++			    V4L2_HEVC_ENCODE_FLAG_SLICE_SAO_LUMA |
++			    V4L2_HEVC_ENCODE_FLAG_SLICE_LOOP_FILTER_ACROSS_SLICES_ENABLED),
++	SLICE_CASE("B B", &sps_b_cfg, &pps_b_cfg, slice_b_b,
++		   .nal_unit_type = V4L2_HEVC_NAL_TRAIL_R,
++		   .nuh_temporal_id_plus1 = 1,
++		   .slice_type = V4L2_HEVC_SLICE_TYPE_B,
++		   .slice_segment_address = 5,
++		   .slice_pic_order_cnt_lsb = 3,
++		   .st_rps = {
++			.num_negative_pics = 1,
++			.num_positive_pics = 1,
++			.used_by_curr_pic_s0 = 0x1,
++			.used_by_curr_pic_s1 = 0x1,
++			.delta_poc_s0_minus1 = { 0 },
++			.delta_poc_s1_minus1 = { 1 },
++		   },
++		   .num_long_term_pics = 1,
++		   .lt = { { .poc_lsb_lt = 0, .delta_poc_msb_present = true,
++			     .delta_poc_msb_cycle_lt = 1 } },
++		   .num_ref_idx_l0_active_minus1 = 1,
++		   .num_ref_idx_l1_active_minus1 = 1,
++		   .collocated_ref_idx = 1,
++		   .slice_cb_qp_offset = 1,
++		   .slice_cr_qp_offset = -1,
++		   .slice_beta_offset_div2 = 2,
++		   .slice_tc_offset_div2 = -2,
++		   .num_entry_point_offsets = ARRAY_SIZE(entry_points_b),
++		   .entry_point_offset_minus1 = entry_points_b,
++		   .flags = V4L2_HEVC_ENCODE_FLAG_NO_PIC_OUTPUT |
++			    V4L2_HEVC_ENCODE_FLAG_SLICE_TEMPORAL_MVP_ENABLED |
++			    V4L2_HEVC_ENCODE_FLAG_NUM_REF_IDX_ACTIVE_OVERRIDE |
++			    V4L2_HEVC_ENCODE_FLAG_MVD_L1_ZERO |
++			    V4L2_HEVC_ENCODE_FLAG_CABAC_INIT |
++			    V4L2_HEVC_ENCODE_FLAG_DEBLOCKING_FILTER_OVERRIDE |
++			    V4L2_HEVC_ENCODE_FLAG_SLICE_LOOP_FILTER_ACROSS_SLICES_ENABLED),
++	SLICE_CASE("B dependent", &sps_b_cfg, &pps_b_cfg, slice_b_dep,
++		   .nal_unit_type = V4L2_HEVC_NAL_TRAIL_R,
++		   .nuh_temporal_id_plus1 = 1,
++		   .slice_type = V4L2_HEVC_SLICE_TYPE_B,
++		   .slice_segment_address = 10,
++		   .flags = V4L2_HEVC_SLICE_HEADER_FLAG_DEPENDENT_SLICE_SEGMENT),
++	SLICE_CASE("B CRA", &sps_b_cfg, &pps_b_cfg, slice_b_cra,
++		   .nal_unit_type = V4L2_HEVC_NAL_CRA_NUT,
++		   .nuh_temporal_id_plus1 = 1,
++		   .slice_type = V4L2_HEVC_SLICE_TYPE_I,
++		   .slice_qp_delta = -1,
++		   .flags = V4L2_HEVC_ENCODE_FLAG_NO_OUTPUT_OF_PRIOR_PICS |
++			    V4L2_HEVC_ENCODE_FLAG_DEBLOCKING_FILTER_OVERRIDE |
++			    V4L2_HEVC_ENCODE_FLAG_SLICE_DEBLOCKING_FILTER_DISABLED),
++	SLICE_CASE("C TSA", &sps_c_cfg, &pps_c_cfg, slice_c_tsa,
++		   .nal_unit_type = V4L2_HEVC_NAL_TSA_N,
++		   .nuh_temporal_id_plus1 = 3,
++		   .slice_type = V4L2_HEVC_SLICE_TYPE_P,
++		   .slice_pic_order_cnt_lsb = 4095,
++		   .st_rps = {
++			.num_negative_pics = 1,
++			.used_by_curr_pic_s0 = 0x1,
++			.delta_poc_s0_minus1 = { 1 },
++		   },
++		   .five_minus_max_num_merge_cand = 1,
++		   .slice_qp_delta = 5,
++		   .num_entry_point_offsets = ARRAY_SIZE(entry_points_c),
++		   .entry_point_offset_minus1 = entry_points_c),
++};
++
++static void hevc_rbsp_expect(struct kunit *test, struct v4l2_hevc_enc_rbsp *rbsp,
++			     int ret, const u8 *expected, unsigned int size)
++{
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	KUNIT_ASSERT_EQ(test, v4l2_hevc_enc_rbsp_bytes(rbsp), size);
++	KUNIT_EXPECT_MEMEQ(test, rbsp->data, expected, size);
++}
++
++static u8 *hevc_rbsp_buffer(struct kunit *test, struct v4l2_hevc_enc_rbsp *rbsp)
++{
++	u8 *buf = kunit_kzalloc(test, BUF_SIZE, GFP_KERNEL);
++
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, buf);
++	v4l2_hevc_enc_rbsp_init(rbsp, buf, BUF_SIZE);
++
++	return buf;
++}
++
++/* Exp-Golomb codes, and no emulation prevention outside NAL units. */
++static void hevc_rbsp_exp_golomb(struct kunit *test)
++{
++	struct v4l2_hevc_enc_rbsp rbsp;
++	unsigned int i;
++	static const s32 se[] = { 1, -1, 2, -2, 0, 7, -7 };
++
++	hevc_rbsp_buffer(test, &rbsp);
++
++	for (i = 0; i < 9; i++)
++		v4l2_hevc_enc_rbsp_ue(&rbsp, i);
++	for (i = 0; i < ARRAY_SIZE(se); i++)
++		v4l2_hevc_enc_rbsp_se(&rbsp, se[i]);
++	v4l2_hevc_enc_rbsp_bits(&rbsp, 0xdeadbeef, 32);
++	v4l2_hevc_enc_rbsp_ue(&rbsp, 0xfffffffe);
++	v4l2_hevc_enc_rbsp_trailing_bits(&rbsp);
++
++	hevc_rbsp_expect(test, &rbsp, v4l2_hevc_enc_rbsp_error(&rbsp),
++			 exp_golomb, sizeof(exp_golomb));
++}
++
++struct hevc_rbsp_epb_case {
++	const char *name;
++	u8 in[8];
++	unsigned int in_size;
++	u8 out[12];
++	unsigned int out_size;
++};
++
++static const struct hevc_rbsp_epb_case epb_cases[] = {
++	{ "00 00 00", { 0, 0, 0 }, 3, { 0, 0, 3, 0 }, 4 },
++	{ "00 00 01", { 0, 0, 1 }, 3, { 0, 0, 3, 1 }, 4 },
++	{ "00 00 02", { 0, 0, 2 }, 3, { 0, 0, 3, 2 }, 4 },
++	{ "00 00 03", { 0, 0, 3 }, 3, { 0, 0, 3, 3 }, 4 },
++	{ "00 00 04", { 0, 0, 4 }, 3, { 0, 0, 4 }, 3 },
++	{ "5 zeros", { 0, 0, 0, 0, 0 }, 5, { 0, 0, 3, 0, 0, 3, 0 }, 7 },
++	{ "00 00 03 00", { 0, 0, 3, 0 }, 4, { 0, 0, 3, 3, 0 }, 5 },
++	{ "00 01 00 00 00 01", { 0, 1, 0, 0, 0, 1 }, 6,
++	  { 0, 1, 0, 0, 3, 0, 1 }, 7 },
++	{ "00 00", { 0, 0 }, 2, { 0, 0 }, 2 },
++};
++
++/*
++ * Emulation prevention inside a NAL unit payload, with the bytes written
++ * as fields that do not line up with byte boundaries (3 + 5 + 16 bits).
++ */
++static void hevc_rbsp_epb(struct kunit *test)
++{
++	struct v4l2_hevc_enc_rbsp rbsp;
++	unsigned int i, j;
++
++	for (i = 0; i < ARRAY_SIZE(epb_cases); i++) {
++		const struct hevc_rbsp_epb_case *c = &epb_cases[i];
++		u8 out[2 + ARRAY_SIZE(c->out)];
++
++		hevc_rbsp_buffer(test, &rbsp);
++
++		/* TRAIL_N header: 0x00 0x01, not subject to prevention. */
++		v4l2_hevc_enc_rbsp_nal_begin(&rbsp, false, V4L2_HEVC_NAL_TRAIL_N,
++					     1);
++		for (j = 0; j + 3 <= c->in_size; j += 3) {
++			u32 v = c->in[j] << 16 | c->in[j + 1] << 8 | c->in[j + 2];
++
++			v4l2_hevc_enc_rbsp_bits(&rbsp, v >> 21, 3);
++			v4l2_hevc_enc_rbsp_bits(&rbsp, v >> 16, 5);
++			v4l2_hevc_enc_rbsp_bits(&rbsp, v, 16);
++		}
++		for (; j < c->in_size; j++)
++			v4l2_hevc_enc_rbsp_bits(&rbsp, c->in[j], 8);
++
++		out[0] = 0x00;
++		out[1] = 0x01;
++		memcpy(&out[2], c->out, c->out_size);
++
++		KUNIT_EXPECT_EQ_MSG(test, v4l2_hevc_enc_rbsp_error(&rbsp), 0,
++				    "%s", c->name);
++		KUNIT_EXPECT_EQ_MSG(test, v4l2_hevc_enc_rbsp_bytes(&rbsp),
++				    c->out_size + 2, "%s", c->name);
++		KUNIT_EXPECT_MEMEQ_MSG(test, rbsp.data, out, c->out_size + 2,
++				       "%s", c->name);
++	}
++}
++
++static void hevc_rbsp_errors(struct kunit *test)
++{
++	struct v4l2_hevc_enc_rbsp rbsp;
++	struct v4l2_ctrl_hevc_sps sps = sps_a_cfg;
++	u8 buf[8];
++
++	/* A buffer that is too small. */
++	v4l2_hevc_enc_rbsp_init(&rbsp, buf, sizeof(buf));
++	KUNIT_EXPECT_EQ(test, v4l2_hevc_enc_rbsp_vps(&rbsp, true, &sps,
++						     &video_a_cfg),
++			-ENOSPC);
++	KUNIT_EXPECT_EQ(test, v4l2_hevc_enc_rbsp_bytes(&rbsp), sizeof(buf));
++
++	/* The error is sticky. */
++	v4l2_hevc_enc_rbsp_bits(&rbsp, 1, 1);
++	KUNIT_EXPECT_EQ(test, v4l2_hevc_enc_rbsp_error(&rbsp), -ENOSPC);
++
++	/* Values that cannot be represented. */
++	hevc_rbsp_buffer(test, &rbsp);
++	v4l2_hevc_enc_rbsp_ue(&rbsp, U32_MAX);
++	KUNIT_EXPECT_EQ(test, v4l2_hevc_enc_rbsp_error(&rbsp), -EINVAL);
++
++	hevc_rbsp_buffer(test, &rbsp);
++	v4l2_hevc_enc_rbsp_se(&rbsp, S32_MIN);
++	KUNIT_EXPECT_EQ(test, v4l2_hevc_enc_rbsp_error(&rbsp), -EINVAL);
++
++	/* Parameter sets the writer cannot express. */
++	sps.num_short_term_ref_pic_sets = 1;
++	hevc_rbsp_buffer(test, &rbsp);
++	KUNIT_EXPECT_EQ(test, v4l2_hevc_enc_rbsp_sps(&rbsp, true, &sps,
++						     &video_a_cfg),
++			-EINVAL);
++	KUNIT_EXPECT_EQ(test, v4l2_hevc_enc_rbsp_bytes(&rbsp), 0);
++}
++
++struct hevc_rbsp_ps_case {
++	const char *name;
++	const struct v4l2_ctrl_hevc_sps *sps;
++	const struct v4l2_hevc_sps_video *video;
++	const struct v4l2_ctrl_hevc_pps *pps;
++	const u8 *vps, *sps_exp, *pps_exp;
++	unsigned int vps_size, sps_size, pps_size;
++};
++
++#define PS_CASE(n, x)							\
++	{								\
++		.name = n, .sps = &sps_##x##_cfg,			\
++		.video = &video_##x##_cfg, .pps = &pps_##x##_cfg,	\
++		.vps = vps_##x, .vps_size = sizeof(vps_##x),		\
++		.sps_exp = sps_##x, .sps_size = sizeof(sps_##x),	\
++		.pps_exp = pps_##x, .pps_size = sizeof(pps_##x),	\
++	}
++
++static const struct hevc_rbsp_ps_case ps_cases[] = {
++	PS_CASE("A", a),
++	PS_CASE("B", b),
++	PS_CASE("C", c),
++};
++
++static void hevc_rbsp_ps_desc(const struct hevc_rbsp_ps_case *c, char *desc)
++{
++	strscpy(desc, c->name, KUNIT_PARAM_DESC_SIZE);
++}
++
++KUNIT_ARRAY_PARAM(hevc_rbsp_ps, ps_cases, hevc_rbsp_ps_desc);
++
++static void hevc_rbsp_vps_test(struct kunit *test)
++{
++	const struct hevc_rbsp_ps_case *c = test->param_value;
++	struct v4l2_hevc_enc_rbsp rbsp;
++	int ret;
++
++	hevc_rbsp_buffer(test, &rbsp);
++	ret = v4l2_hevc_enc_rbsp_vps(&rbsp, true, c->sps, c->video);
++	hevc_rbsp_expect(test, &rbsp, ret, c->vps, c->vps_size);
++}
++
++static void hevc_rbsp_sps_test(struct kunit *test)
++{
++	const struct hevc_rbsp_ps_case *c = test->param_value;
++	struct v4l2_hevc_enc_rbsp rbsp;
++	int ret;
++
++	hevc_rbsp_buffer(test, &rbsp);
++	ret = v4l2_hevc_enc_rbsp_sps(&rbsp, true, c->sps, c->video);
++	hevc_rbsp_expect(test, &rbsp, ret, c->sps_exp, c->sps_size);
++}
++
++static void hevc_rbsp_pps_test(struct kunit *test)
++{
++	const struct hevc_rbsp_ps_case *c = test->param_value;
++	struct v4l2_hevc_enc_rbsp rbsp;
++	int ret;
++
++	hevc_rbsp_buffer(test, &rbsp);
++	ret = v4l2_hevc_enc_rbsp_pps(&rbsp, true, c->sps, c->pps);
++	hevc_rbsp_expect(test, &rbsp, ret, c->pps_exp, c->pps_size);
++}
++
++static void hevc_rbsp_slice_desc(const struct hevc_rbsp_slice_case *c,
++				 char *desc)
++{
++	strscpy(desc, c->name, KUNIT_PARAM_DESC_SIZE);
++}
++
++KUNIT_ARRAY_PARAM(hevc_rbsp_slice, slice_cases, hevc_rbsp_slice_desc);
++
++static void hevc_rbsp_slice_test(struct kunit *test)
++{
++	const struct hevc_rbsp_slice_case *c = test->param_value;
++	struct v4l2_hevc_enc_rbsp rbsp;
++	int ret;
++
++	hevc_rbsp_buffer(test, &rbsp);
++	ret = v4l2_hevc_enc_rbsp_slice_header(&rbsp, true, c->sps, c->pps,
++					      &c->sh);
++	hevc_rbsp_expect(test, &rbsp, ret, c->expected, c->expected_size);
++}
++
++/* Several NAL units in a row, as at the start of an access unit. */
++static void hevc_rbsp_access_unit(struct kunit *test)
++{
++	struct v4l2_hevc_enc_rbsp rbsp;
++	unsigned int offset = 0;
++	u8 *buf;
++	int ret;
++
++	buf = hevc_rbsp_buffer(test, &rbsp);
++
++	ret = v4l2_hevc_enc_rbsp_aud(&rbsp, true, V4L2_HEVC_AUD_PIC_TYPE_PI, 2);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	KUNIT_EXPECT_MEMEQ(test, buf + offset, aud, sizeof(aud));
++	offset += sizeof(aud);
++
++	ret = v4l2_hevc_enc_rbsp_vps(&rbsp, true, &sps_c_cfg, &video_c_cfg);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	KUNIT_EXPECT_MEMEQ(test, buf + offset, vps_c, sizeof(vps_c));
++	offset += sizeof(vps_c);
++
++	ret = v4l2_hevc_enc_rbsp_sps(&rbsp, true, &sps_c_cfg, &video_c_cfg);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	KUNIT_EXPECT_MEMEQ(test, buf + offset, sps_c, sizeof(sps_c));
++	offset += sizeof(sps_c);
++
++	ret = v4l2_hevc_enc_rbsp_pps(&rbsp, true, &sps_c_cfg, &pps_c_cfg);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	KUNIT_EXPECT_MEMEQ(test, buf + offset, pps_c, sizeof(pps_c));
++	offset += sizeof(pps_c);
++
++	KUNIT_EXPECT_EQ(test, v4l2_hevc_enc_rbsp_bytes(&rbsp), offset);
++
++	/* Without start codes, each NAL unit loses its first four bytes. */
++	v4l2_hevc_enc_rbsp_init(&rbsp, buf, BUF_SIZE);
++	ret = v4l2_hevc_enc_rbsp_pps(&rbsp, false, &sps_c_cfg, &pps_c_cfg);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, v4l2_hevc_enc_rbsp_bytes(&rbsp),
++			sizeof(pps_c) - 4);
++	KUNIT_EXPECT_MEMEQ(test, buf, pps_c + 4, sizeof(pps_c) - 4);
++}
++
++static struct kunit_case hevc_rbsp_test_cases[] = {
++	KUNIT_CASE(hevc_rbsp_exp_golomb),
++	KUNIT_CASE(hevc_rbsp_epb),
++	KUNIT_CASE(hevc_rbsp_errors),
++	KUNIT_CASE_PARAM(hevc_rbsp_vps_test, hevc_rbsp_ps_gen_params),
++	KUNIT_CASE_PARAM(hevc_rbsp_sps_test, hevc_rbsp_ps_gen_params),
++	KUNIT_CASE_PARAM(hevc_rbsp_pps_test, hevc_rbsp_ps_gen_params),
++	KUNIT_CASE_PARAM(hevc_rbsp_slice_test, hevc_rbsp_slice_gen_params),
++	KUNIT_CASE(hevc_rbsp_access_unit),
++	{}
++};
++
++static struct kunit_suite hevc_rbsp_test_suite = {
++	.name = "v4l2-hevc-enc-rbsp",
++	.test_cases = hevc_rbsp_test_cases,
++};
++
++kunit_test_suite(hevc_rbsp_test_suite);
++
++MODULE_DESCRIPTION("KUnit tests for the V4L2 HEVC encode RBSP writer");
++MODULE_LICENSE("GPL");
 
 -- 
 2.55.0
