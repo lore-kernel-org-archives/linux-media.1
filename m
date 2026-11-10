@@ -1,97 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794287101;
-	b=2mVfUAmIpvW5C/eV+zJWFyVlL3aqXbhgAE6DKfFH2IzsPJkxC4JKovNYih6mFVrgTONG
-	 UcXWKf8YkODkURpjun4gLtchOF8FNW0shsB6eyS5Kt0iJFTj2qwMdEZRv/gqlXh6f8pwK
-	 X4hBdknFnv4fWOpTt4BuvNG1j58MOT27Wh3S525Q9XQo/v3UPs6KYjNMkGRqjlRFO8ihw
-	 QVm3TtL4TCljjbLzl6GsHxDxIAXTKxZqS1hoTaLV6xa3wTzLOp+7sMCVfXiV3SDuEUgkc
-	 6kN4/l126ldqAx4pf4HU24dhBN6ZUfnnwec60ctHyQ7g+iuV1vM1XnY6D/37K4HezZA==
+	t=1794287356;
+	b=KTJ01KOd/RKFxWKn8E/GEtYA+21y1EYtthpTM5F6TJ9RiuRJNuoK0fa/jPEwfdYVJwto
+	 pynTyRXd/kmY4nxa8Vbnq3dla8M+MLUuEf7wNCrqXQ4keeK38rrAP1JAf/WxHpQ7kCUd9
+	 HJv6x/Qw2C4mGqJ1xBC8n4R287TfRH8/R8xanLsjGcfyj7KsLFVjyMVmIYMbfINSbm5DX
+	 8TccUQMuekNfTFtCJekSxNKHZTU3hdFxV9Z/KWzH8qeij/CH49hQrq11lE5EzOxNYvC3o
+	 ud19GZ9en+fffFTGsGryYPHKAtAcDW5DOP9QgtYzAoQ9PJjuIfH4+rRnIpt6Y1Ula5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794287101;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=x28Xh8Kl636Xj0Syxm9iILHuaCS0bk0qyS/PVv+3B/0=;
-	b=CqgBh812+eN4XwOuE6DENjfV0sQRUnMgz5ahJffHeW+hWreZw3ML/AgwRlyZCjDwV8D1
-	 VmBVEOx4602jCjPSHrSR7qIeUsO/eT8ZWypSzLJjPNCY5wXWHSzl2Euf1itItYe7TNxQ8
-	 i7mmmXLi5lFg1rFKrty5bWnuYD3rzoAS4qkcRly1ziUZn2rrBLKbuV+rpC8cMzeegCeGO
-	 Pdj6whfiIZCE+h89I7ToHtwOaUDffI1TlksjaXrxmJxE/QPdcQ30K52ncPMAzh4V1osDI
-	 VbCDHu4q7sj1rSICBzsONm0FcK5lE5Qp5e1k8feEqUk87StJ0hgDqR/rS8EcHO9wDTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794287356;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=enesq/UKeCnx/XvxGfuNAHXR5IZUIO60cQotEHifdas=;
+	b=GdSxdk9MOyjGIGnp5lh4Qg5wcm2N2CvEN/98A0G/98eBLyHKfBNJQfvK9IcBMqdmcA1T
+	 O7CSzxLnvEGpsCja6JAGbXhwP4FAjb/yU6k3IqHCowjwQjLosKWSfojkhMJ53XYjwiUUt
+	 vZJubyHn67VVQPIA58FN45pU/tSYVPbpVYJJvcxnqejeS27JZW8LVyfILeAyiqVZAcw1U
+	 p/BLU9lUMtI6eWsG1/SKPKFEfaNxHf4JRl76gTQ6bIeHHG8SMlJTEd3I6A+qVXGZdnJNs
+	 ZMxfG5ZBDrYC2PGf2hsiZ5TxYWzpHrHB76EXYGbV9VfNih8EKJA1Pz7QuTIop5fdOJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JSmG0iTw;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OeqwOsoW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9AD606D6B8
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 05:05:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA9AD606D6B8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C21060A2619;
+	Tue, 10 Nov 2026 05:09:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JSmG0iTw
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-37000e7234bso2570819eec.1
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 21:05:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794287100; x=1794891900; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x28Xh8Kl636Xj0Syxm9iILHuaCS0bk0qyS/PVv+3B/0=;
-        b=JSmG0iTw+XJl0Z2LL+TIXz9lpLOf9odVdw8J0XbHmv2HQVNCLjWCK7cIEbTCztUoXL
-         Qdz7r48OnFyqpDdUTDxMAktGekc4qHvmD0G36pK5uW77jOboolVDKKzq7bPTEASrzX2V
-         hQm18XozQiUWui4yslZNtvEiFRLeJ8UObSOQnGApg42Ei742cCvhaATRLxdU/zHgTglI
-         L46/KhlrocCy5+p75pN+hXfhQnmDg4u8DlvpU37NYTEK5ggD0y7iwJb2gN/s4X3FpRaw
-         R2VwcAjh3Mr3PK/NuuQr1C0GwH9TttE50vrksXH4WnypNfJ9BKLOQShwrb+wF6QnmuiW
-         0JRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794287100; x=1794891900;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x28Xh8Kl636Xj0Syxm9iILHuaCS0bk0qyS/PVv+3B/0=;
-        b=H35XWDY5PcmBzH/5W1T0++QyqODZjmJF/O8G9r5Y8ICDcu08H4/wrk21PLeOB7DnlQ
-         xy+RD5H0eP202DsiEXqlUppM6s0e4OACjV/x2nXqKiyHjkaDEzjLYHDHrAKuRX/oqnx8
-         4zzUOteuVHzMICAGovvcLnGlY+mlIID/P9ZRobl8sYFSnWXiaUEzH1+J2UITxqLjMvdl
-         EKroPlvDHBDzlJ+u+9NIZLlE21zxg0WqWGGc2SDAQz5UV8IU9loERzSYJjJWVfxRRuvK
-         b52O14Tsvvx0yXPC2tFi9JouGsZJzFNxvWGCxKQjBoJ8KOmNZlLoNdmXUTcCzwyiWfJF
-         wz4w==
-X-Forwarded-Encrypted: i=1; AL+hErHOigcGaTEGPu+gpEuzU5h/4Co1pcmtQy2o3AXzvDLvzB6r4DP5TQi/wjuZ15L9SLDbxnL5diZhehFizQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8K9ssCT68oUZX7Z3/TySQdw8FRGhgR0iCdkTiBCDM0YQTTXTYe
-	uwjyVzsmrq+OQJknAD8/ckcmuVy0o4mrKp213q+9ft0vya4EDyB21Zfh
-X-Gm-Gg: AYBFou0TfL/XhAC4nbfZaHZFmy60iwsLI3lBrrfqt92+Pa/U6w096ZZvC5JeKbmvDMA
-	SIrMjtKh/pPxwR+ZxrBqN626iqz4hmW6FTmzQdxkW9zTL4H5X9G3/dYRC2D17aIGHgXds/r+DmM
-	HKhRPNm0pFDw65KdJp4NCFz4E+Dlbj0BHhupBy8Us0biJ49PrQ3TV/CFhcLEWHYmKnoAItjrm60
-	JHKZczdfPg1TLEmS3M7LjkQh8QGvHXZpELYTmbjIgDfmPiBmRZB+FgfjhauIJHIyB73h4+H1qFY
-	OmpDoySImV53fOFcQhIm50yAecw62D/YBfDpl/oM79kuwODwBB4IqqexJj2jHXXH8CC5xz0q355
-	Z1d/kynzTRB9tlHiV6PkV9xR7zL27pUZeZ0Ibp+9EbmJPLp4FItG5kO+XgRRyxQuyIOU/vzHdtc
-	r+mifaOYq8PcsOer/8hXIyGRmAiHMpQBgllHZDO9Jup5w9vg1P0cx+4i8MAr/RVYU9pNoc79ePR
-	w9lwO0OYOXdmi9G9i4EBFtK7gg+dzM7ZumJX1L056wtWA+6gYGlunN+BTLe5JH6H+bE/o+3z/1u
-	3juqMPhKh9yfjx/amQxVwyBJb4f4B5VFbF7RMY6Xfi/BvMtr18go3VDQLXVdZoaMzkDYKv0W6rL
-	3RGX8MCR8Jsot/m0ln9xqzhWbtBBGvLmbEx7L1s8=
-X-Received: by 2002:a05:7301:4d14:b0:375:4f3e:643d with SMTP id 5a478bee46e88-3754f3e6572mr1368404eec.27.1794287099742;
-        Mon, 09 Nov 2026 21:04:59 -0800 (PST)
-Received: from localhost.localdomain ([203.92.58.30])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e9e03sm6550235eec.23.2026.11.09.21.04.55
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 21:04:58 -0800 (PST)
-From: Shivani Patel <patelshivani2283@gmail.com>
-To: outreachy@lists.linux.dev,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-staging@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OeqwOsoW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3124C1F008BE;
+	Tue, 10 Nov 2026 05:09:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794287356;
+	bh=enesq/UKeCnx/XvxGfuNAHXR5IZUIO60cQotEHifdas=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OeqwOsoW2uzm3BI0lIMh5DG2zvWmjPZMh2QyBKfhoIJO5Vi7kE/RWns+s1rRMfxbS
+	 h9ShebFTKG5OELdze8CmBD0B30KHP+VoF0wPqu82oHgAgyZ6IOMFV5Ft6agGPH6XTf
+	 br/Mjwh+fSCnHOrUCIVJEcEaFrionGcn66rdFk8jwKp4C6Jb5zwu0b0FGycHSKz6YL
+	 hb7+02ZKSny03+YyfZWt8gDnjw3asYfoJnQ0GKnLxgVvEUVxXI8rUDYFW51galdk4o
+	 w0rb3VJUVjfGTA/jT+zrItW2sgM/6JTHbnziNPPrFvrMPvRP8+U25sMKmWnMdohjGS
+	 HZO7S1/5G6sQA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Tarang Raval <tarang.raval@siliconsignals.io>,
 	linux-media@vger.kernel.org,
-	Shivani Patel <patelshivani2283@gmail.com>
-Subject: [PATCH] staging: media: atomisp: Fix leading space indentation
-Date: Tue, 10 Nov 2026 10:34:48 +0530
-Message-ID: <20261110050448.69521-1-patelshivani2283@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Kate Hsuan <hpa@redhat.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] platform: int3472: discrete: Support multiple HIDs per GPIO map entry
+Date: Tue, 10 Nov 2026 00:09:12 -0500
+Message-ID: <20261110050908.407088-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107050619-failed-6.18-844982d3b993@kernel.org>
+References: <20261107050619-failed-6.18-844982d3b993@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,28 +65,142 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace spaces at the beginning of the line with a tab in
-atomisp_find_in_fmt_conv_by_atomisp_in_fmt() function parameter list
-to conform to the Linux kernel coding style.
+From: Tarang Raval <tarang.raval@siliconsignals.io>
 
-Signed-off-by: Shivani Patel <patelshivani2283@gmail.com>
+[ Upstream commit edd0dd59aca038b7f32cf893170928d4a3b2297e ]
+
+Each int3472_gpio_map entry currently maps exactly one ACPI HID to a
+GPIO quirk. As more sensors needing the same quirk are identified, this
+means adding a full duplicate table entry per HID, differing only in
+the HID string, which does not scale.
+
+Change int3472_gpio_map::hid to a NULL-terminated hids array so a
+single entry can match any number of ACPI HIDs, letting new HIDs be
+added to the relevant array instead of duplicating quirk entries.
+
+Cc: linux-media@vger.kernel.org
+Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
+Tested-by: Kate Hsuan <hpa@redhat.com>
+Reviewed-by: Kate Hsuan <hpa@redhat.com>
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+
+Keep the consolidated vana mapping for SONY471A and TBE20A0, which
+were not previously listed, so the subsequent handshake-delay fix applies
+unchanged. Perform the HID scan in the existing GPIO mapping routine
+instead of introducing a separate matching helper.
+
+Stable-dep-of: 844982d3b993 ("platform/x86: int3472: Increase handshake GPIO delay to 200 ms")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/media/atomisp/pci/atomisp_subdev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/platform/x86/intel/int3472/discrete.c | 45 ++++++++++++++++---
+ 1 file changed, 39 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_subdev.c b/drivers/staging/media/atomisp/pci/atomisp_subdev.c
-index bdd2d9b18..773fcea56 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_subdev.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_subdev.c
-@@ -96,7 +96,7 @@ const struct atomisp_in_fmt_conv *atomisp_find_in_fmt_conv(u32 code)
+diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
+index 96c33ba80002f..a4c24f1cd0a4d 100644
+--- a/drivers/platform/x86/intel/int3472/discrete.c
++++ b/drivers/platform/x86/intel/int3472/discrete.c
+@@ -123,10 +123,31 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int3472_discrete_device *int3472,
+ 	return desc;
  }
  
- const struct atomisp_in_fmt_conv *atomisp_find_in_fmt_conv_by_atomisp_in_fmt(
--    enum atomisp_input_format atomisp_in_fmt)
-+	enum atomisp_input_format atomisp_in_fmt)
- {
- 	int i;
++/*
++ * Other vana-supply users (e.g. ST, Toshiba, Sony sensors) can be added to
++ * this array instead of adding new quirk table entries.
++ */
++static const char * const power_enable_hids_vana[] = {
++	"SONY471A", /* imx471 on Lenovo X9-14 and X9-15 */
++	"TBE20A0", /* imx471 on Lenovo X1 Carbon G14 */
++	NULL
++};
++
++static const char * const power_enable_hids_vdd[] = {
++	"INT33F0", /* mt9m114 */
++	NULL
++};
++
++static const char * const power_enable_hids_enable[] = {
++	"INT347E", /* ov7251 */
++	NULL
++};
++
+ /**
+  * struct int3472_gpio_map - Map GPIOs to whatever is expected by the
+  * sensor driver (as in DT bindings)
+- * @hid: The ACPI HID of the device without the instance number e.g. INT347E
++ * @hids: NULL-terminated array of ACPI HIDs of the devices without the
++ * instance number e.g. INT347E
+  * @type_from: The GPIO type from ACPI ?SDT
+  * @type_to: The assigned GPIO type, typically same as @type_from
+  * @enable_time_us: Enable time in usec for GPIOs mapped to regulators
+@@ -135,7 +156,7 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int3472_discrete_device *int3472,
+  * GPIO_ACTIVE_HIGH otherwise
+  */
+ struct int3472_gpio_map {
+-	const char *hid;
++	const char * const *hids;
+ 	u8 type_from;
+ 	u8 type_to;
+ 	bool polarity_low;
+@@ -145,25 +166,32 @@ struct int3472_gpio_map {
  
+ static const struct int3472_gpio_map int3472_gpio_map[] = {
+ 	{	/* mt9m114 designs declare a powerdown pin which controls the regulators */
+-		.hid = "INT33F0",
++		.hids = power_enable_hids_vdd,
+ 		.type_from = INT3472_GPIO_TYPE_POWERDOWN,
+ 		.type_to = INT3472_GPIO_TYPE_POWER_ENABLE,
+ 		.con_id = "vdd",
+ 		.enable_time_us = GPIO_REGULATOR_ENABLE_TIME,
+ 	},
+ 	{	/* ov7251 driver / DT-bindings expect "enable" as con_id for reset */
+-		.hid = "INT347E",
++		.hids = power_enable_hids_enable,
+ 		.type_from = INT3472_GPIO_TYPE_RESET,
+ 		.type_to = INT3472_GPIO_TYPE_RESET,
+ 		.con_id = "enable",
+ 	},
+ 	{	/* ov08x40's handshake pin needs a 45 ms delay on some HP laptops */
+-		.hid = "OVTI08F4",
++		.hids = (const char * const[]) { "OVTI08F4", NULL },
+ 		.type_from = INT3472_GPIO_TYPE_HANDSHAKE,
+ 		.type_to = INT3472_GPIO_TYPE_HANDSHAKE,
+ 		.con_id = "dvdd",
+ 		.enable_time_us = 45 * USEC_PER_MSEC,
+ 	},
++	{	/* Sensors which expect "vana" as con_id for power enable */
++		.hids = power_enable_hids_vana,
++		.type_from = INT3472_GPIO_TYPE_POWER_ENABLE,
++		.type_to = INT3472_GPIO_TYPE_POWER_ENABLE,
++		.con_id = "vana",
++		.enable_time_us = GPIO_REGULATOR_ENABLE_TIME,
++	},
+ };
+ 
+ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3472, u8 *type,
+@@ -171,6 +199,7 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
+ 					    unsigned int *enable_time_us)
+ {
+ 	struct acpi_device *adev = int3472->sensor;
++	const char * const *hids;
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(int3472_gpio_map); i++) {
+@@ -182,7 +211,11 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
+ 		if (*type != int3472_gpio_map[i].type_from)
+ 			continue;
+ 
+-		if (!acpi_dev_hid_uid_match(adev, int3472_gpio_map[i].hid, NULL))
++		for (hids = int3472_gpio_map[i].hids; *hids; hids++) {
++			if (acpi_dev_hid_uid_match(adev, *hids, NULL))
++				break;
++		}
++		if (!*hids)
+ 			continue;
+ 
+ 		dev_dbg(int3472->dev, "mapping type 0x%02x pin to 0x%02x %s\n",
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
 
