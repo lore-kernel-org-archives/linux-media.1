@@ -1,101 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794321084;
-	b=JtYog+ojthxJ95vIBM5eFMNeM+T16jgzsfFtZXPECGEVtQgGDhN6BDcvyV2CfVI8x9ex
-	 RdRtRbo9VrCXOTzsCGzkXB+oR71GRwGuj4G3OQUBPHUNbagKIkqXtW48+EEF/UPsJfJv2
-	 OTbqZMosGrldMBSFrgerWjRaOCa7zM24AMO6WMIPNghOpxMCUxnu8ApgaeHoT5fTDiasl
-	 neVU9zuryOTvjegSgQtxuqo5/ByTmryAYG5xG6BX96z3MLSlU4ZebGPcRm95mE+un4+GZ
-	 7QTMsuysbiI0bTU6iBH6N7Qe06QyAle8ap4z27HTGo1yJs6pSv9qGaA/Cio0VAd6BuA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321084;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794321768;
+	b=wzBT+8P/cV98KT4kj76mOG89PuahFXrRB2+xws9xA8eN90mTFULfW7snBj9JztqI9r02
+	 MTQAGkStZBOQk9KEJe6owuWjpyKTw/7Kn74LDMiTUI4toT17AuXy3WcCRNVYAFpeWWM9Q
+	 l7K4s7EgBNSXl7wly5CrsNU3M3OsQikVz+G6zgFbaZkWhJbLLZebM65r5pKseXM3dCd+M
+	 IfAyfyOU+epCwoCUN8uIOz2bOT1HdVgDyJv8gT725thoK5uN65EKldc7W/BLALD/GG2a2
+	 VCFQJ50owTkvOEAcxk3fmxO/vFqKyVeKYf2zyugtZPwjluXl63DFD/HOIG2pSNPP4yw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321768;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=VN2C42hTSkg0KU2a7wZ+MLbopQWA8HT6dYbN/a2Rpa4=;
-	b=Grg+AtU9JgUehfJMOkptMvmlsuLKf1gZQLk9eoD9v7QUUBbG6Jez9lijOrNUQENt63y0
-	 Cmtbv+8jIdtRk/OMvyAKbowG8SaalBYFRkKK1yf7vyS27UwtWQWC2iMCeXKdlCs7YwEqo
-	 NjDhoWeZnzpTwlEkNk9oAvyrLrMNWtIgDOY0OaUBGDf2v6YxPnskwQfB9M2bmFP9Kb25u
-	 3a11o3MblpD7n8isqFlVj8DJubIVxKcbdub0ZZdXtJGE9gbaQtMzwaHzLuNIHTnhFqsEb
-	 Bq8Cqwd7egU/BLPOGrrJgqyCgs3kIo5YXH9UZXqrSvPz/0Isl6Z2y/XHcdhW0RWvm4g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=s2u1ttrh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.44
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=iU+EzkbKMFrOZFFUWDUX+jv1j+DUirQeUzUM2Odhqp0=;
+	b=ZockHefmMGvL9oKl5oiwgtLdGDampeok/+TXup4t9Gb3xTcl/HOlV4El7bmX2v1gLUy+
+	 B3lw3izEFhTc6b3AzCkaHD5wtW79KSy35xaof2tvfs9fTQpn0W0mznRSSn2DLhD/oULyp
+	 ds88S3jQzh1J44qGgFK661OEdpnPNyYZd39mOMJZbthe4Q1dDOBJL8NSe3sUPdTzX8sWo
+	 XkV5OwwBG21H9YnljM4BlAd6woEi14xpVt4t+Dclo/W4Trk8G1Utzx+WUaLThsAwzBIPv
+	 EwCsIHrnLy9VQZ5Drbkv5piP0Ywty89D10gHWHiQ4i/KbhIeuJ5aBJujWVAvCFinrMw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zpSlcvgK;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF00606A326
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 14:31:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FF00606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386FE606A332
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 14:42:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 386FE606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=s2u1ttrh
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6d290b10a35so813097eaf.2
-        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 06:31:22 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794321082; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XQX+Xt6mo1feFOssi9/b4fXrUE88UFukMZKo0iJH/WcLoC+zOYwm/bD7vmxur0RGAq
-         XiJiOEJpm1RubIL4x52xAax5c+uwmPkpnfbokcVZ9t4xAGBvAYXBrq26MeA+JmR5I9al
-         RKn/fQMdjQ3tVVuoEw2CdG7HDs79tAelDyrAS28lursUmRA+nCe2qE7XGuSk+lSCzf+W
-         RwLabcdGwbrScTTymPEf4ZJoLfWox7NFGF67eUU90cludEmh+PunwtkJdGK0Du3Oe8aT
-         G3XcnF98D1HZDH5McD/dhsXgsDjHqOHkfzUhGJq3tJrJuTKMcDkZLZDUmRId48LTij2O
-         WOuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=VN2C42hTSkg0KU2a7wZ+MLbopQWA8HT6dYbN/a2Rpa4=;
-        fh=BJHsdRoqgRHQWeIetGCc3RfOozZExVmsMNgrMeNj5uk=;
-        b=CYhBDpLtVWURCvgL5SP9wfJUjPBzgDzanF2UQyMyeRl6ltoxUTVFzhcjUG8jR1Je95
-         spNOHJxi/0TXSoWribmX5B6At/uDj7DtYWLSit3cRiqsrjlitDGqNhjz+7mHkdH4jdol
-         0aqv74I3KopeWgJQ3vfcczlo9ctHOPc/DvZ9+uzQ2SyaVlNqsJue5c04Uqf6b7l9RHw1
-         i89rc19gdVezgPKH2c47yG/IRO0ALWfmV+1uAwKo5XctS+Mn5G6Tk39v3XOG61smIm0s
-         HxGtBvn3P+AzDeYwS+5APY6zMX7RMX+iwNuOtJ4SR6TbfLz/Cdbki2XRAnzMC6g8jE8s
-         GoEg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zpSlcvgK
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c3fd91337baso362088566b.3
+        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 06:42:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1794321082; x=1794925882; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VN2C42hTSkg0KU2a7wZ+MLbopQWA8HT6dYbN/a2Rpa4=;
-        b=s2u1ttrhX5AmUNl3Tnp3e0Zwc1EpMtqqNoi4LRUWxJhDxfbtDFUeXNNHzlZtQEPekB
-         z75iH7JkVY3Q3uHZIi++1c0TYzouyFDe+JkuGXKJ1e/UoXSq6KpsLMXrCOGXRfgqpfhf
-         OaGBR3v5waPeNut++si8sV44FBRAt6+BO1ztQ9aqZsJoMSIXss9xKVFLh+wf2OxDRUGN
-         0RIYGnjkNBPZn3huvoDzbRlnwbR6f2iSGgQZeJB0jH6Fu+Sjp6xrD88CcoVJ6npWrMb7
-         7dFon6efKVH52iKvyxaSCCcVWD+OntRRAZWBPB3zB1RfkU9rgfRR/V62195xbJdhwBQs
-         AeEg==
+        d=linaro.org; s=google; t=1794321767; x=1794926567; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iU+EzkbKMFrOZFFUWDUX+jv1j+DUirQeUzUM2Odhqp0=;
+        b=zpSlcvgKQl4GAF+LAEWwXo102Dk6lRikWqRJTDbMVSdWsHj7c3FRe/SdIx4D6DmgCj
+         +TeNDxHm/XD7kdkMGcaXqBUFnkHMTqxgb9NhSUWUm7n1o/xzOd3YbjcZlRGl1Ly+rrf9
+         Ip8WihiP4WCqVbJBKydkH0HRz1sRDBFGoQ8HJafvhSQrODlgYoCpcZcg0U2HLEX1IRF3
+         4TaDSGjDgXx/pU4U9x5GiQxlFjtGhUHXnDwhjtMPqnXHwRsp4vMms1LgHbg0+/67vCjZ
+         /doYZIydqNjewM46rQvM56F8F/poFKOb5HpYtovpd5bT3je56+Rn4ScuTIg2GqUDPHrn
+         zTYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794321082; x=1794925882;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VN2C42hTSkg0KU2a7wZ+MLbopQWA8HT6dYbN/a2Rpa4=;
-        b=DzdA8R03Wxeijo7rUDISfJGO+KihpM/BRBKxpjnnuBDAeIOWvo7NQSWP32bmdhj4MK
-         eEnMAAf/8Sa3xytzLLLwhjBXIyhyVG21RV0WHWZmk9EsDuMFJ9JEdy43gay62TK2oiiZ
-         xKwSpshj2kNzGtilf4v3/w8o6X3il7Ez5V6dFwW8fZSeXEaV5CF9+hIBxgFysWOR3Svk
-         p4tp9NDWF1MQZtFOepqj6Yo40tXxZeHAv9vu1aVJU4Q03Ixsp6/p/BF603v0lFlUjisQ
-         Op2FqmXzUPw4YY/OtlVtn9UZIWl1zFTL0C22CRLPpq7IBoKFJ/gMTPkckinv4klQbPCB
-         +oIg==
-X-Forwarded-Encrypted: i=1; AL+hErGm1XBYSvSzgbVRM20bBqhbUgZBvton1+cwhK7AtdS1s0mfRl0iQRVaKAeC7r4AMs0WNUBU+kvhS5vcxw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ho57mfq430gTVIu/qY+1hO2OG99JHo7I4YUF6i7h0cLqZ2lYq
-	76ZjX2n16pygJyX2kcTOvnccFeMjV94vlj49wVFEWDbB9jzvfGywtdXwdzGbk3Z98PgP+GNp709
-	jD1b70z1/oTMztLGFKi1RZ4GjzW6a6VjT/+sjjSHtLA==
-X-Gm-Gg: AYBFou1AI7mmOamnhtijNQc2N7b4E7OlDQh/3tfid6p94CgdPGyKB850JP//cPaSOP6
-	NROcAauzkuJF5NHei9f9ZEIIFUE/jNzcKrMlhngD2i8z1drMBd28jhVgz5AeGr3TItyEA8UNosR
-	IdG1Ozo6imeyNIrp7z6LTDZaPHPq0GcnEud3QqDAO8WDJbUejrFSVV+KUbR4sLvUV0+8a/pndP7
-	JkV5yRZ1pWEeGuZCy233EToblojtu5DOy+kMUuVefxUY25f/WI1bQdqksKf0CnMxHWAIVH66JZX
-	oD5PZrXSuJARgdlvdv5FblZtMfheoOlFpgGv5JD9a81xPfImu0DS+z0mgHaSAd5en39ccMuc05e
-	uA+tn43eL8b8WnIgLkZhBotddrT28QnHRgL4pUsgRtuC51nMEwVstTDBPRRhPiazEA7Oqr1w9El
-	I2LPv5L2aBPQGOmWVw6R5EOjeh48OIA2Xux5lpRUfg9Guk55ALDTl9ML5oBoAWpNuF6EdmW8s0m
-	A==
-X-Received: by 2002:a05:6820:3395:20b0:6f6:96f1:1bb with SMTP id
- 006d021491bc7-718a4993108mr819221eaf.36.1794321081581; Tue, 10 Nov 2026
- 06:31:21 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794321767; x=1794926567;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iU+EzkbKMFrOZFFUWDUX+jv1j+DUirQeUzUM2Odhqp0=;
+        b=IatZYBqI/lTikMLGtwaW32D4liX2gKR+aSKJsUhj1U8qTNEhQN1pO3iu30gp1YzhRr
+         WqVeYEu7n/CjCWHwCGtqXrXJv8g4vJkM8IdhqTnIv/H0gXFduJgc5g876ASLKuOoRFIx
+         vUfpnBsqYHql2E5S0cF07xXp51PuZk3j7YpRaLL62k6g6o+RhuMigJtBuVVaEzpDWNy8
+         SpmFkXNIGb11QRRPgQ0AX05Lo38u0Rn0aILArTa1rMoD36A7Xv3kS8oEe99B28D8KOdT
+         0Iq3mRjqcOIIPMB+tIA97uSFwCIwoLt395jDU9N2khmpCVZvlTTh+iNL2VHilMXwxHcc
+         3ENg==
+X-Gm-Message-State: APuU4Z/Vdv3M3LYiKnuhTtyemSuu2y3UDj8I/ZL/Vko9SB4otP8bn7/I
+	YLLAJTBlyiimqyxzOUg+T1QdTEK58aOZY4IwLTTIsW4NL0u3St9HepXZk+Hvjo95aYo=
+X-Gm-Gg: AYBFou1FeuO2uJn50Ir9Zlo/zyR3R7MJwNWM9zYwtuZAisTkn14wJtheZ4PmKjW1Vf2
+	/NMNZjwOv2L7jATxgwpzrRynnzdnOUIBA0uN+FgALbfyQRGtdgPQoZQoAyGRnQ8mq98SV6eg1QT
+	nUNmVAKEKeFVggeH9TMQYM7OAdRBld+SrDysRaZ/M0eWsHnL85JbJgkCWW5cs7jsbdLBiIjZkWH
+	0Mv9ZV0803FyefH/+LnBw5IPagyb670TbVs7GJ3J9c7aZ4UKH59l+0kMpOpq9SMuyLKTW810p07
+	NifJVaRpj5bz11KC2MQU53fRZTdHfDZGEiEJz7CDz0w6TM64ot127pS6sMhBZvYGb88OVIzNoEs
+	Ku3e3RbX6WKvaviPXAte4uqXFty/BUecdvuCcMQsAL3CXyHiZA2VpkYBoysUVG4D7Rj8/2ULMLn
+	9fP3SnxlQWvsIwcZfllqr44sOO7TI9i30TlH4PY36OSohxhcLLmA5h1ZoIuhoWURjVILDQEDyXF
+	AVzz5Bgk5CKciM+Br19dPxZKet1kRU9OIv98+V4jKEnOIWizqcMQuwk2R+TNr8r9wE7naT87BSk
+	cl/r4PVjZpa97wA3rcOc823hxTVa2q27wSlhpEH6C5o=
+X-Received: by 2002:a17:907:e849:b0:c49:9383:a28 with SMTP id a640c23a62f3a-c50495ef6d1mr244854866b.35.1794321766382;
+        Tue, 10 Nov 2026 06:42:46 -0800 (PST)
+Received: from [192.168.0.167] ([109.78.220.165])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a65f267sm112205666b.71.2026.11.10.06.42.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 06:42:45 -0800 (PST)
+Message-ID: <ee2aedde-6688-4cfd-9f92-3703b081247d@linaro.org>
+Date: Tue, 10 Nov 2026 14:42:44 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,59 +89,146 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
- <20261110-media-remove-dont-use-autosuspend-v1-1-cc07e71b30f9@kernel.org>
-In-Reply-To: <20261110-media-remove-dont-use-autosuspend-v1-1-cc07e71b30f9@kernel.org>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 10 Nov 2026 14:31:03 +0000
-X-Gm-Features: AclHuK84_ic0UdOeQ2rcg3KxPlmvl592YOsU0rOC64Ni2y4sJscVe72p5w5VszY
-Message-ID: <CAPY8ntApNSnG-iAVpkez-qsWeEOW061c4ABBwaadWkXZ+KCQ5w@mail.gmail.com>
-Subject: Re: [PATCH 1/4] media: i2c: imx355: remove redundant
- pm_runtime_dont_use_autosuspend() calls
-To: Joshua Crofts <crofts@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, David Heidelberg <david@ixit.cz>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
-	Sylvain Petinot <sylvain.petinot@foss.st.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] media: iris: Fix use-after-free on unbind with
+ open sessions
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Stefan Schmidt <stefan.schmidt@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Hungyu Lin <dennylin0707@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, sashiko-bot <sashiko-bot@kernel.org>,
+ stable@vger.kernel.org
+References: <20261110-iris-handle-unbind-v2-0-86d5f6f1dea8@oss.qualcomm.com>
+ <20261110-iris-handle-unbind-v2-3-86d5f6f1dea8@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261110-iris-handle-unbind-v2-3-86d5f6f1dea8@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 10 Nov 2026 at 14:03, Joshua Crofts <crofts@kernel.org> wrote:
->
-> Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
-> driver core is now responsible for undoing any
-> pm_runtime_use_autosuspend() calls on driver exit.
->
-> Remove the redundant function calls.
->
-> Signed-off-by: Joshua Crofts <crofts@kernel.org>
-
-Acked-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-
+On 10/11/2026 14:09, Vishnu Reddy wrote:
+> The driver can be unbound through sysfs while a client has a video
+> session open. The core is devm allocated and freed when remove()
+> returns, so the open sessions then use freed memory.
+> 
+> Only the core structure needs to outlive remove(), because it is the
+> only thing the file operations of an open session still use. Allocate
+> it with kzalloc and tie it to the reference count of its v4l2_device,
+> which every registered video device holds. It is freed when the last
+> file descriptor is closed. The other devm resources (register mapping,
+> response packet, clocks, power domains, interconnects) are only used by
+> the power on/off sequence, the clock and bandwidth votes and the
+> interrupt handler. All of them are released with the unbind, after the
+> core is shut down.
+> 
+> To make sure nothing uses them afterwards, set a removing flag at the
+> start of iris_remove(). It makes core init, new sessions, command
+> writes and the clock and interconnect votes fail with -ENODEV, so a
+> client still holding a file descriptor cannot power the hardware on or
+> vote for resources that are gone. A client waiting for the firmware
+> only times out and returns an error without touching them. Runtime PM
+> is also disabled explicitly in iris_remove() instead of with devm,
+> because its callbacks use the core.
+> 
+> Fixes: 38506cb7e8d2 ("media: iris: add platform driver for iris video device")
+> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260926064921.976721F000FF@smtp.kernel.org
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 > ---
->  drivers/media/i2c/imx355.c | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-> index c0dafabf5dc9ad6237c9c9380d6122edfedc96f3..89e42312265822428cbf0b909627c66415b3282f 100644
-> --- a/drivers/media/i2c/imx355.c
-> +++ b/drivers/media/i2c/imx355.c
-> @@ -1298,7 +1298,6 @@ static int imx355_probe(struct i2c_client *client)
->  error_subdev_cleanup_runtime_pm:
->         pm_runtime_disable(imx355->dev);
->         pm_runtime_set_suspended(imx355->dev);
-> -       pm_runtime_dont_use_autosuspend(imx355->dev);
->         v4l2_subdev_cleanup(&imx355->sd);
->  error_media_entity_free:
->         media_entity_cleanup(&imx355->sd.entity);
-> @@ -1329,7 +1328,6 @@ static void imx355_remove(struct i2c_client *client)
->                 pm_runtime_set_suspended(imx355->dev);
->         }
->
-> -       pm_runtime_dont_use_autosuspend(imx355->dev);
->  }
->
->  static const struct acpi_device_id imx355_acpi_ids[] __maybe_unused = {
->
-> --
-> 2.47.3
->
+>   drivers/media/platform/qcom/iris/iris_core.c      | 10 +++++-
+>   drivers/media/platform/qcom/iris/iris_core.h      |  2 ++
+>   drivers/media/platform/qcom/iris/iris_hfi_queue.c | 15 +++++++-
+>   drivers/media/platform/qcom/iris/iris_power.c     | 13 +++++++
+>   drivers/media/platform/qcom/iris/iris_probe.c     | 44 ++++++++++++++++++-----
+>   drivers/media/platform/qcom/iris/iris_vidc.c      |  3 ++
+>   6 files changed, 76 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media/platform/qcom/iris/iris_core.c
+> index d558475986ff0..bdac6b8c98e44 100644
+> --- a/drivers/media/platform/qcom/iris/iris_core.c
+> +++ b/drivers/media/platform/qcom/iris/iris_core.c
+> @@ -43,7 +43,10 @@ static int iris_wait_for_system_response(struct iris_core *core)
+>   	ret = wait_for_completion_timeout(&core->core_init_done,
+>   					  msecs_to_jiffies(HW_RESPONSE_TIMEOUT_VALUE));
+>   	if (!ret) {
+> -		core->state = IRIS_CORE_ERROR;
+> +		mutex_lock(&core->lock);
+> +		if (!core->removing)
+> +			core->state = IRIS_CORE_ERROR;
+> +		mutex_unlock(&core->lock);
+>   		return -ETIMEDOUT;
+>   	}
+>   
+> @@ -56,6 +59,11 @@ int iris_core_init(struct iris_core *core)
+>   	int ret;
+>   
+>   	mutex_lock(&core->lock);
+> +	if (core->removing) {
+> +		ret = -ENODEV;
+> +		goto exit;
+> +	}
+> +
+>   	if (core->state == IRIS_CORE_INIT) {
+>   		ret = 0;
+>   		goto exit;
+> diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
+> index 3e4cf652bf39a..379f0666a42cb 100644
+> --- a/drivers/media/platform/qcom/iris/iris_core.h
+> +++ b/drivers/media/platform/qcom/iris/iris_core.h
+> @@ -62,6 +62,7 @@ struct qcom_ubwc_cfg_data;
+>    * @iris_firmware_desc: a pointer to the firmware-specific descriptive data
+>    * @ubwc_cfg: UBWC configuration for the platform
+>    * @state: current state of core
+> + * @removing: set when driver removal starts, blocks core init and resource votes
+>    * @iface_q_table_daddr: device address for interface queue table memory
+>    * @sfr_daddr: device address for SFR (Sub System Failure Reason) register memory
+>    * @iface_q_table_vaddr: virtual address for interface queue table memory
+> @@ -108,6 +109,7 @@ struct iris_core {
+>   	const struct iris_firmware_desc		*iris_firmware_desc;
+>   	const struct qcom_ubwc_cfg_data		*ubwc_cfg;
+>   	enum iris_core_state			state;
+> +	bool					removing;
+>   	dma_addr_t				iface_q_table_daddr;
+>   	dma_addr_t				sfr_daddr;
+>   	void					*iface_q_table_vaddr;
+> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_queue.c b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
+> index 545bbe75e1740..e0cfa5107d1d9 100644
+> --- a/drivers/media/platform/qcom/iris/iris_hfi_queue.c
+> +++ b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
+> @@ -128,13 +128,26 @@ int iris_hfi_queue_cmd_write_locked(struct iris_core *core, void *pkt, u32 pkt_s
+>   
+>   int iris_hfi_queue_cmd_write(struct iris_core *core, void *pkt, u32 pkt_size)
+>   {
+> -	int ret;
+> +	int ret = 0;
+> +
+> +	mutex_lock(&core->lock);
+> +	if (core->removing)
+> +		ret = -ENODEV;
+> +	mutex_unlock(&core->lock);
+> +	if (ret)
+> +		return ret;
+>   
+>   	ret = pm_runtime_resume_and_get(core->dev);
+>   	if (ret < 0)
+>   		return ret;
+>   
+>   	mutex_lock(&core->lock);
+> +	if (core->removing) {
+> +		mutex_unlock(&core->lock);
+> +		ret = -ENODEV;
+> +		goto exit;
+> +	}
+> +
+
+This locking scheme is looks racy, what's the point of this granularity ?
+
+---
+bod
