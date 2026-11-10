@@ -1,106 +1,106 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794328763;
-	b=2jU8/OGOAsVpSQ+ntQuOoy/hnoYhgm9V5zCp4FZ2jAtS6699h8fXgnjz6OQpsnBZZpWi
-	 hd42WWlHSX9Oz18BYmYn85rIoK/voKlm44/3+XNuSdQVjBly2YytVUZYNcXXoDyIpHpWZ
-	 TrAWvUTuwpy3DlveYeLlTcGDsks7HMAv5YbMt2/XuxbHrTcPpx1iT4Dzx2NLJwpF8Gf0Z
-	 KzRTk0O1psPtshbPht4yr/Xkcf7cYehOCdEZeVBN+DwsMgnbLvgLqTtn596TreuAOVwdr
-	 5k8sbySs0doF+a+JkUcmZgrx8AJ1rd7A5R+IrmH9Y/wdU0ctvJLbRCd380+QeH2exGA==
+	t=1794328766;
+	b=EshXzu92y5Xo8gm+ctO18uVM6JxcPvSUiR4oGv2IAvai4BZJb7oFtq8bDCJSlSJU78ug
+	 JxRsu3uGRq8V4sniz81OjUHybHyVZkUfoHIPwAH0A5sNkt8pPlh+BKCbe6EEm3nMa8ycC
+	 PpLaQ2j6kTMKtTjCla1FG9wonW0vIkRSQr0aFQq/B6HHisIu7hz/gf6loPISDn5HQTsHb
+	 zYx1PW41+FJX3N3zR6uZc5Cwrnyqo2e3tOJXDc6aTCrwysTl+j++LJKF60EUONnOFbzpe
+	 mwmWpPEf58yqFleXHUzw+ImgqqXpp0aKzY4tIE3VDhq3JXDb7vzIZxOGWnRot/X0QWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794328763;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794328766;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
 	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=VJiVHhGRcwV/rD/F4p3bmkosbUsG62dv3yDIyyclfPI=;
-	b=EJW0MnNNnxSRiCjk5UYearYCcO7eJuHEQsfMgRMz8NMmMOnA0nBj01oSTrM4AKWs6b9W
-	 bo0eBKIgYFRvneBFQAixGKzNF9TzN9vrtiZPDzSkYOEBbvpEVli0mbUrftTY0mOFGumiN
-	 hkNCpgdVo6egxOcODcB9lu0+GAsHdzPY04+H5xUPIZnOeNnISn8PmGcOiIxZyDg7MTcCU
-	 yjzSPo7iBGn6t+iwEkS1Ws0LWAgdCUeCVUxSKQcjFtJjH2fveml/52zrbVhFoJHrICsHF
-	 zogjF8i1foCcjmlHZDFLuNS2Dx6BTvbp8q/OTiM427nf2VmhNPC8s6swusRR+z1Vueg==
+	bh=IK4ypl3sK+dcDjebsl+QYQOGbd37vVTs0ONXYO+4p2U=;
+	b=Y/DdqVSwg5Dkzu6nPFJfAzEsjLVEgmw8PFxhVP3tOOUU0oZVWY1Dq79zSFWl3/j15Kqd
+	 l+B+isKaojqtgfvgR6t1cvvW6JXg8VQGWGFBUdWaVQfSMj2hIFfbMpqEoEMH5356+Ydt9
+	 Xtpv4/A98ZZukgg265LcopwC75Ba/IC+HRTdoxSayZB5qNyAG6vw1xIcYK1esE5hyA5uG
+	 /yJzDmdzusj55xzsW60Jrc8lFzJYYneT+MJSHXurBEUqa8qVrbNvO2yaEvmmfL8YUE4aS
+	 FNtR7rlWBMYa11uXmu9xlztedSsx4MXmZasZ6wqOBhmN4WATQRrwkFCdSiyQnV+zMEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JhGSG7BL;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OIPQ0FrO;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nIt4vP0Y;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="R/6/vY0y";
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5C8606A89D
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 16:39:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE5C8606A89D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30900606BAD0
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 16:39:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30900606BAD0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JhGSG7BL;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OIPQ0FrO
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAF04qG141430
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 16:39:21 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nIt4vP0Y;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R/6/vY0y
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAF03383691348
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 16:39:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=VJiVHhGRcwV
-	/rD/F4p3bmkosbUsG62dv3yDIyyclfPI=; b=JhGSG7BLDJq4ohUZrZ6dKIwwTC8
-	T5GVtlb5c7lbdevV/rGYRjd/M6Nv1VLvGZUmKDrESRYPq11iPXHejxBkTI8az+C2
-	TBsIh9JenICZKncyTqJifHCfD/Aoh7nSYsuV6ztkfX69sojom0mTrVoPfE75Cf/i
-	FJpKM+OBm2PENk1cP8Ipl20GxH1iMotmutYX4/x97GisI8XGi3cWPHA2pUh3oOZ8
-	iJiWcX00VB6CZffuh66aj1fKHwHSFfAmTU3Yg0ZkQc8/41olZlRGUT1m4VDAkrkO
-	/h09xlofaSil13yLovqmU5b5zlXCgMHcU6clNCpCuR0wWTd6lEFIKGlCmTA==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4humjg4csg-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=IK4ypl3sK+d
+	cDjebsl+QYQOGbd37vVTs0ONXYO+4p2U=; b=nIt4vP0YqljacaMICeODODdk6UP
+	peemM+FXOoDVWJbFORb2bK5O/ALOWl1hlk4IFSdBDDvz15nGWTV5132hySqCeSJL
+	QUvRBsC9B1owfFVzqvz1YzVbnDeTbg1vtVcxptY8OcmmssE77N7G1HZu86aAG7dY
+	dmGiUQXyyg27JrStCMZ3Rf+TJydE2yF7Q1uEPf6lPBLQq2Kcmg1Cx1a6RIBWzy/2
+	vM/dpJkIQEG5cw9V3jqbiUK9n/ddbRutTTm/+Rq6+kOlKgMIf2ZNjj0b5QfDZXGR
+	m0DbgtRpdDB4h1EUpykM9dFO7rIttOHJufP4+4Krb8opYxoxlRNgiOF+CGw==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv03csqqe-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 16:39:20 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-990835cec5aso1518279241.0
-        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 08:39:20 -0800 (PST)
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 16:39:25 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-999ef3a68adso387325241.3
+        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 08:39:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794328760; x=1794933560; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794328765; x=1794933565; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VJiVHhGRcwV/rD/F4p3bmkosbUsG62dv3yDIyyclfPI=;
-        b=OIPQ0FrOMrQx6LS9rKSvXiZ/aFDerQQI9xF5RQo9B0YAkm2QDUWiRFqhRDzRWavWTA
-         oQSX5oRwk5V7KK4NfdiQy7WD6vKYwAhdRF5JnXtaVHjcBkeaPWOV/3ez5mCXlPYDVjdY
-         YV1oc+90pvRuphYAFqFzfFXHtPR+fOIu0G7IHwGb0gGu+PqfaNgHEq0kRtvdDxsuDwf1
-         OcrUYflQ1NYK7THkMjI9Ok8+8s+6aEeVhekMYNQnL8skdseVLcj8EJ2gOLoa8J4yMx6f
-         JMD6Pl/j74msfqvUZAPiLSm6ZBIZg1DLUgPHpEfO5hW6Glcr5zY9vjTWOWCTr3zDvQAF
-         vR4Q==
+        bh=IK4ypl3sK+dcDjebsl+QYQOGbd37vVTs0ONXYO+4p2U=;
+        b=R/6/vY0ywwhlG2NwJWLQEhvRwkFjBDUdtHKflCVqcEvPpo2L/nP5apGCZEIfW3zSfe
+         TqwPKbg5l5LSET3EIS1o4mfBpMHmqOAYiFDANXCqMq/u1rXsWHxwk2xNcIynzBbTSKQX
+         COgtd4t9cr70E6HDb/vZ8GDenTdPjkXbsIeVTADuTnKSsRWXT1k3cbf8gX6K5wx59KHQ
+         V5HG34UTZTz5mwsJc3cnbahgpz56A4Y+RY78pKPrKzRiCBH5UxjZAY7X6pBReZwuZWTb
+         osJJ4ecb96IBNiltbWQ/ubIZjvyS3hGG1ZseSDoLx1t2e7J+qD6keII1Hw5f5MT3cKsS
+         B4+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794328760; x=1794933560;
+        d=1e100.net; s=20260707; t=1794328765; x=1794933565;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VJiVHhGRcwV/rD/F4p3bmkosbUsG62dv3yDIyyclfPI=;
-        b=gaDF9xOtQn7W14MH+3hw665OnkFbUcL1S5HzGqWxZPJYJZuPCCUkcaofCU5yBV78bo
-         iuhGk5pOWvHC+tBL5YNcw4XhlRXouHlqY2xnMZVld768Iyus8f1fIros30N/LC63qCMW
-         0Pn2uxKc8QSNiqd7eGXTa/TxgLC2p1Alonv2c+Snbb360A5Akxf6sc4XGdG2TS31majv
-         73n3L2MBT1PzFeXVo/dOzezo5Rcs2gNPfi+bpKBoALZ3Rer/rOnpHVYDtnjFmH7Y8NUx
-         5lF7rZVCahuDdn/3/GUpMDjZgqb36J3VhG58K45S5AwVUGrX96/US5cyJLxy1tQIKAKi
-         pW0g==
-X-Gm-Message-State: APuU4Z81X/8XGpe1ZwvdF8Ny8xV0eVy3Nu6jY25YntB8EfwJJ9RixDRP
-	tHx2K0j563ZGUYOvzvTBQeT3fFmbYZ2TPRzEbtlHrZqIJj/ZKdVKXRKxOW7iNDnqjbwK7ml7BJ4
-	mu4JeTu94fNdVFBpbQqC4Wy0o8lPHEIIJSBA8BO9+G8GWk8NbuEJR2a44oqNzZW9MzerRhSbdQH
-	C3
-X-Gm-Gg: AYBFou2lc9pQ6vAw7GJF24vRMdlieL4/QacJd9qsSRgNRijOdcfzCppF2lWZQAHngK7
-	hTqx4mZ4u/2zmLfA8YrCorci22LLpx+0INlih0bWZpc05EGSfm4KInRE08OjMmnQhmp9a3tApdb
-	NAJCqWQEZhWOAu8d1yfGuy3BSmWta/RbbdxMVcSVvV85b79ixB4NxNyBTKM1fkmnX8ZxB1kqTQH
-	ObNoAq8MZFdNh3Mk+g/Z7hRjMnq/CvayLv2O6DRfJd8hrrHwoZllqcz21qofTOgKbHIODDQkeQ9
-	QilQfx3ymrNpOnt3t8f47rNly4UL55OFRDa5U2Gg+AK0rYmU9nYr+VyuVMpWxX1smAJLk5ESaIj
-	FhT+/il6vUuuAleyZ4dFfVuAq4isGgR/mzNsRKqib1/41+OsmEDoIUJZmL1Q9iuRfOSK+ZpNVrw
+        bh=IK4ypl3sK+dcDjebsl+QYQOGbd37vVTs0ONXYO+4p2U=;
+        b=N5kZaPh2bEbL2lW87Pv1/KBL8kYTKvsQcYMqy3fXZQXFjGWdQQrJxAAlmV8GyHrHgl
+         jggpwbIBdtF1Ud/MOy7x0w7wdP4qJgeTCn53qC/3aWv/u0deIJZnwzewCMfmTfuyscXB
+         yy9mAXnK7b3X31AXmUB7Ww32+L8TB9uNltPOtCtIi9Bc5P8Cfx7XwFufeLMsB3i06jTT
+         Syn2zsRySS+bpBY7oi2KvjB83DEHTK7K6rfX1vsWoPE4/C1iw319ZOHFe3tnLZqehJ1B
+         /ASkvf9Xc+ri0eY9H0QViNZEpBXggXlYLWXMY6eO+0QHiVp2iXhuoewfMNuBofNqsSiy
+         qzzQ==
+X-Gm-Message-State: APuU4Z/tFypjZ5gDno+4+mLUqeNtjP2kB8Irh306P9N+S3ZEm5InkzRj
+	CpdxkSoH99YvWI6yd0fh9uM6Fqxte+qihS93Ylqo8XJ9xdIawMSOgGPt5q3EePlAHMN+Rgi2Afi
+	kIy1xQK7oHefh8gassleR/Kl4QGVHN4ckwsd5XPDroPGE9KpW0GyFCSBD0Kana4pp57irS6cJmd
+	ea
+X-Gm-Gg: AYBFou1XatCvC/N0oSxhEI81aA3BtP+A87p/Kltt7PefGhFraiuhk3ZwddJ4J/uRwYz
+	nJ9bZ0dqcx/h+PdZnkdb/Hq8xDjN5f93EFCE4SVUlxh6HS8yenydn7HyaTzh+tlnHfAunCqe62c
+	VcPDRMYa1Z7kAKbZDtQQfFU3PNuuWPqdd4GUh4eRSGIZcmeNYbwT5uDE1MCwOGK296SL/wGoQLt
+	Kyp6NGC5PVn+aOP2G5XEUycEmX6OmqVAq4im/drKAjquygs7ZbTpQYqfgSoquAc05PyO4HfN1BO
+	/doG9WqInPWK56o2G9+GXkz0INQmEvBir/rBQupsMuLNS3wy2M+v0ZeizxrfQigWGNpZHQQDj/0
+	0XYKxPJW6UjIIu2KwMl27VMFeylu3Xb6V6LpM74YUZb8SRoYNcmGU3JeI/l937qiFaWklo1hVLA
 	==
-X-Received: by 2002:a05:6102:290b:b0:7b9:5abb:eb17 with SMTP id ada2fe7eead31-7d494cdfadbmr19316137.3.1794328759884;
-        Tue, 10 Nov 2026 08:39:19 -0800 (PST)
-X-Received: by 2002:a05:6102:290b:b0:7b9:5abb:eb17 with SMTP id ada2fe7eead31-7d494cdfadbmr19306137.3.1794328759300;
-        Tue, 10 Nov 2026 08:39:19 -0800 (PST)
+X-Received: by 2002:a05:6102:6d0:b0:7cc:25bc:3b20 with SMTP id ada2fe7eead31-7d301b84a8fmr1006555137.7.1794328764518;
+        Tue, 10 Nov 2026 08:39:24 -0800 (PST)
+X-Received: by 2002:a05:6102:6d0:b0:7cc:25bc:3b20 with SMTP id ada2fe7eead31-7d301b84a8fmr1006534137.7.1794328763889;
+        Tue, 10 Nov 2026 08:39:23 -0800 (PST)
 Received: from lin-0772.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01ff3428sm85130395e9.15.2026.11.10.08.39.17
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01ff3428sm85130395e9.15.2026.11.10.08.39.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 08:39:18 -0800 (PST)
+        Tue, 10 Nov 2026 08:39:23 -0800 (PST)
 From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 To: linux-media@vger.kernel.org
 Cc: bod@kernel.org, mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
@@ -109,9 +109,9 @@ Cc: bod@kernel.org, mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
         gjorgji.rosikopulos@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         atanas.filipov@oss.qualcomm.com
-Subject: [PATCH v8 3/8] media: v4l2-jpeg: Add a baseline JPEG header writer
-Date: Tue, 10 Nov 2026 18:39:04 +0200
-Message-Id: <20261110163909.78085-4-atanas.filipov@oss.qualcomm.com>
+Subject: [PATCH v8 5/8] arm64: dts: qcom: sm8250: Add JPEG encoder node
+Date: Tue, 10 Nov 2026 18:39:06 +0200
+Message-Id: <20261110163909.78085-6-atanas.filipov@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261110163909.78085-1-atanas.filipov@oss.qualcomm.com>
 References: <20261110163909.78085-1-atanas.filipov@oss.qualcomm.com>
@@ -125,277 +125,125 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2NiBTYWx0ZWRfX0+HUjpFwMFWj
- bKvFu4A9Jmq4uqvXRpuFSyufurJKnr/FeoUD/fJgo8GS3gfdylMpItGTjjcD+H8Z38YWfrA7GaK
- cJYzeuRwxj9i/sbdraP9x7iMJokPRIeMh4S0gFfFQtySB4hDWyHJcT23pAEdkEGDE2z1PudKGwc
- MP9srrpYJhWOR64ZQo8nakePTrU+8oxTkVU9Mq5y8RFbHKHdK6yM+k2o4ZbHxnLgRFX8wv/mVdz
- mcAlLVFC7n8/ZYtMH6olTBBkPpLrdXKV0YxLQjGozbxW34Bn6O1Vn0HiCSkN99lW4E4BP0jAeT0
- AVRTlwiOnWZWt6BKq4Gza0sK2woyO5kFPmxDPMa07Wiy/w29IWeGkeyC08Ygy+FCR/0ZXlMYmkL
- s16GOKatSJraF6/mNFQDqKovYeghSn0zQaLNFAPPv9T99qzPpboljKdqPltrH0X63/OhCeTvVnB
- y2OP61i8Q5twj3G7I/w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2NiBTYWx0ZWRfX2TcMaUmRyy6f
- PBlHpDx5dQ9OQUPuJVfwjTNdcd/MxMkbbxrEmaJKZsmGxUp5Lvwj0/L7eMD2OghElLlsqVx+DEg
- PbAyVJTC3to4rr89rxuPiFEc9Md4PYA=
-X-Proofpoint-GUID: duTlT8DJPq-wslVQp3DQ5fEvN1qoht49
-X-Authority-Analysis: v=2.4 cv=B6gsQ+tM c=1 sm=1 tr=0 ts=6af348b8 cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+X-Proofpoint-ORIG-GUID: -k71JCa40yUe24j80T5Y3IsAfvFUUv3o
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2NiBTYWx0ZWRfX5L0TdNyWk7nR
+ ww4QihdUiofzROOaaLC70OpvhBOC+tm4rud6df8KmHMzT2K6aqLDLpK4bWz28Q4uJRlYNS9M5+i
+ oUGHN37dHkrNPrK9dVYhOECWoXCO3xU=
+X-Authority-Analysis: v=2.4 cv=FuiQbGrq c=1 sm=1 tr=0 ts=6af348bd cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=uaGMt4ufPnOKGkpinpYA:9 a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-ORIG-GUID: duTlT8DJPq-wslVQp3DQ5fEvN1qoht49
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=DnMRqvjp_ngGNQOL0aAA:9 a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-GUID: -k71JCa40yUe24j80T5Y3IsAfvFUUv3o
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2NiBTYWx0ZWRfX/LulAPmS8d6d
+ L9IdHvKmexNU496CmmuoXA7ObyKxBxozv4LddJkqNK/SB1FYvBzSLNYU/ldYZrkbLs4RiJG6+0v
+ sQQ8+QDbVqxL7tO9k4nSaeKwcks25mI+t/hgy2NM0HcYHyCL1OLvID/UeC6FgEJK4QadhYlRuH3
+ tGe5Kx5njK/xQAV8CVzPAuZQ3I1UzJA7KOLPiFQd8C/nUkPqQIHxC4MPnRB63mm0QcQSe18L7iy
+ lgOWRCCcYgcw57ak4NNduUrXwN3rQXKz64rcYcdP9hOy8goC6Guj1QdC2zvXFI0aupTK3raFo4M
+ 2VprLgG0QLaYjv8Guy4FU/7C3baWmPub/I+e0Z6IF7d2/0aByZaUpRaw19Pm2vNqJ25AI4cBgu/
+ wrSVXLJQdc0Sq9N2TnPlSayRZDJpGZoQFiF2+edRtSP6tLEi/87DQ/NUb92XWzfr3jdBDaMaKNf
+ jC6YtlnvJkIJdhvPF4g==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 malwarescore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ impostorscore=0 bulkscore=0 adultscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
  definitions=main-2611100066
 
-Several V4L2 JPEG encoder drivers build the JPEG header in the driver
-from a fixed template and patch the image size and quantization tables
-for each frame. Add v4l2_jpeg_write_header() for the baseline case: it
-writes SOI, an optional JFIF APP0, one DQT segment per table, SOF0, the
-ITU-T T.81 Annex K reference Huffman tables in one DHT segment and SOS,
-and returns the offsets of the fields set per frame. Add
-v4l2_jpeg_hdr_set_size() to set the image size in such a header.
+Add the JPEG encoder hardware node to the SM8250 device tree so the
+qcom-jpeg V4L2 encoder driver can bind and operate on this platform.
 
-The field values come from media/jpeg.h, so the driver keeps only the
-hardware specifics.
-
-Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 ---
- drivers/media/v4l2-core/v4l2-jpeg.c | 165 ++++++++++++++++++++++++++++
- include/media/v4l2-jpeg.h           |  31 ++++++
- 2 files changed, 196 insertions(+)
+ arch/arm64/boot/dts/qcom/sm8250.dtsi | 72 ++++++++++++++++++++++++++++
+ 1 file changed, 72 insertions(+)
 
-diff --git a/drivers/media/v4l2-core/v4l2-jpeg.c b/drivers/media/v4l2-core/v4l2-jpeg.c
-index 36a0f1a1b0d97..f466dc6a457de 100644
---- a/drivers/media/v4l2-core/v4l2-jpeg.c
-+++ b/drivers/media/v4l2-core/v4l2-jpeg.c
-@@ -13,7 +13,10 @@
- #include <linux/errno.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/stddef.h>
-+#include <linux/string.h>
- #include <linux/types.h>
-+#include <media/jpeg.h>
- #include <media/v4l2-jpeg.h>
+diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+index f975c2183269a..7e8447df40188 100644
+--- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+@@ -4480,6 +4480,78 @@ cci1_i2c1: i2c-bus@1 {
+ 			};
+ 		};
  
- MODULE_DESCRIPTION("V4L2 JPEG header parser helpers");
-@@ -711,3 +714,165 @@ int v4l2_jpeg_parse_header(void *buf, size_t len, struct v4l2_jpeg_header *out)
- 	return marker;
- }
- EXPORT_SYMBOL_GPL(v4l2_jpeg_parse_header);
++		jpeg_enc: jpeg-encoder@ac53000 {
++			compatible = "qcom,sm8250-jpeg-enc";
++			status = "disabled";
 +
-+/* baseline JPEG header writer */
++			reg = <0x0 0x0ac53000 0x0 0x1000>;
 +
-+/* Segment length of a header struct: the marker is not counted */
-+#define JPEG_SEG_LEN(hdr)	(sizeof(struct hdr) - offsetof(struct jpeg_seg_hdr, length))
++			interrupts = <GIC_SPI 474 IRQ_TYPE_EDGE_RISING>;
 +
-+struct jpeg_hdr_buf {
-+	u8 *buf;
-+	size_t len;
-+	size_t pos;
-+};
++			power-domains = <&camcc TITAN_TOP_GDSC>,
++					<&rpmhpd RPMHPD_MX>,
++					<&rpmhpd RPMHPD_MMCX>;
++			power-domain-names = "titan_top", "mx", "mmcx";
 +
-+/* Writes past the end only advance pos; v4l2_jpeg_write_header() checks it */
-+static void jpeg_put_bytes(struct jpeg_hdr_buf *b, const void *src, size_t n)
-+{
-+	if (b->pos + n <= b->len) {
-+		if (src)
-+			memcpy(b->buf + b->pos, src, n);
-+		else
-+			memset(b->buf + b->pos, 0, n);
-+	}
-+	b->pos += n;
-+}
++			clocks = <&camcc CAM_CC_JPEG_CLK>,
++				 <&gcc GCC_CAMERA_SF_AXI_CLK>,
++				 <&camcc CAM_CC_CORE_AHB_CLK>,
++				 <&camcc CAM_CC_CPAS_AHB_CLK>,
++				 <&camcc CAM_CC_CAMNOC_AXI_CLK>;
 +
-+static void jpeg_put_u8(struct jpeg_hdr_buf *b, u8 val)
-+{
-+	jpeg_put_bytes(b, &val, 1);
-+}
++			clock-names = "core",
++				      "bus",
++				      "config",
++				      "cpas",
++				      "camnoc_axi";
 +
-+static void jpeg_put_be16(struct jpeg_hdr_buf *b, u16 val)
-+{
-+	u8 data[2] = { val >> 8, val & 0xff };
++			interconnects = <&mmss_noc MASTER_CAMNOC_SF 0 &mc_virt SLAVE_EBI_CH0 0>;
++			interconnect-names = "camnoc";
 +
-+	jpeg_put_bytes(b, data, sizeof(data));
-+}
++			iommus = <&apps_smmu 0x2040 0x400>;
 +
-+static void jpeg_put_dht(struct jpeg_hdr_buf *b, u8 class_id, const u8 *table, size_t len)
-+{
-+	jpeg_put_u8(b, class_id);
-+	jpeg_put_bytes(b, table, len);
-+}
++			operating-points-v2 = <&jpeg_opp_table>;
 +
-+/**
-+ * v4l2_jpeg_write_header - write a baseline JPEG header
-+ * @buf: destination buffer
-+ * @len: length of the destination buffer
-+ * @params: header parameters
-+ * @layout: returns the header size and the offsets of the fields set per frame
-+ *
-+ * Writes SOI, an optional JFIF APP0, one DQT segment per quantization table,
-+ * SOF0, one DHT segment with the reference Huffman tables of ITU-T.81 Annex K
-+ * and SOS. Width, height and the quantization table values are written as
-+ * zero; set them with v4l2_jpeg_hdr_set_size() and through the
-+ * @layout->dqt_offset offsets.
-+ *
-+ * Returns 0 on success, -EINVAL for an unsupported number of components or
-+ * -ENOSPC if @buf is too small.
-+ */
-+int v4l2_jpeg_write_header(void *buf, size_t len, const struct v4l2_jpeg_hdr_params *params,
-+			   struct v4l2_jpeg_hdr_layout *layout)
-+{
-+	static const u8 jfif[] = {
-+		'J', 'F', 'I', 'F', JFIF_IDENT_TERM,
-+		JFIF_VERSION_MAJOR, JFIF_VERSION_MINOR,
-+		JFIF_UNITS_NONE,
-+		JFIF_DENSITY_HI, JFIF_DENSITY_LO,	/* X density */
-+		JFIF_DENSITY_HI, JFIF_DENSITY_LO,	/* Y density */
-+		JFIF_THUMBNAIL_SIZE, JFIF_THUMBNAIL_SIZE,
-+	};
-+	struct jpeg_hdr_buf b = { .buf = buf, .len = len };
-+	unsigned int nc = params->num_components;
-+	unsigned int ntables = nc == JPEG_COMP_MONO ? 1 : 2;
-+	unsigned int i;
++			jpeg_opp_table: opp-table {
++				compatible = "operating-points-v2";
 +
-+	if (nc != JPEG_COMP_MONO && nc != JPEG_COMP_COLOR)
-+		return -EINVAL;
++				opp-100000000 {
++					opp-hz = /bits/ 64 <100000000>;
++					opp-peak-kBps = <262560>;
++					required-opps = <&rpmhpd_opp_svs_l1>,
++							<&rpmhpd_opp_low_svs>;
++				};
 +
-+	memset(layout, 0, sizeof(*layout));
++				opp-200000000 {
++					opp-hz = /bits/ 64 <200000000>;
++					opp-peak-kBps = <524760>;
++					required-opps = <&rpmhpd_opp_svs_l1>,
++							<&rpmhpd_opp_svs>;
++				};
 +
-+	jpeg_put_be16(&b, SOI);
++				opp-400000000 {
++					opp-hz = /bits/ 64 <400000000>;
++					opp-peak-kBps = <978600>;
++					required-opps = <&rpmhpd_opp_svs_l1>,
++							<&rpmhpd_opp_svs_l1>;
++				};
 +
-+	if (params->jfif) {
-+		jpeg_put_be16(&b, APP0);
-+		jpeg_put_be16(&b, sizeof(__be16) + sizeof(jfif));
-+		jpeg_put_bytes(&b, jfif, sizeof(jfif));
-+	}
++				opp-480000000 {
++					opp-hz = /bits/ 64 <480000000>;
++					opp-peak-kBps = <1095600>;
++					required-opps = <&rpmhpd_opp_svs_l1>,
++							<&rpmhpd_opp_nom>;
++				};
 +
-+	/* one 8-bit table per segment, luma Tq 0, chroma Tq 1 */
-+	for (i = 0; i < ntables; i++) {
-+		jpeg_put_be16(&b, DQT);
-+		/* length field, Pq/Tq byte, table */
-+		jpeg_put_be16(&b, sizeof(__be16) + sizeof(u8) + V4L2_JPEG_PIXELS_IN_BLOCK);
-+		jpeg_put_u8(&b, i ? JPEG_QTABLE_CHROMA : JPEG_QTABLE_LUMA);
-+		layout->dqt_offset[i] = b.pos;
-+		jpeg_put_bytes(&b, NULL, V4L2_JPEG_PIXELS_IN_BLOCK);
-+	}
++				opp-600000000 {
++					opp-hz = /bits/ 64 <600000000>;
++					opp-peak-kBps = <1095600>;
++					required-opps = <&rpmhpd_opp_svs_l1>,
++							<&rpmhpd_opp_turbo>;
++				};
++			};
++		};
 +
-+	layout->sof_offset = b.pos;
-+	jpeg_put_be16(&b, SOF0);
-+	jpeg_put_be16(&b, JPEG_SEG_LEN(jpeg_sof_hdr) + nc * sizeof(struct jpeg_sof_comp));
-+	jpeg_put_u8(&b, JPEG_SAMPLE_PRECISION_BITS);
-+	jpeg_put_be16(&b, 0);		/* height */
-+	jpeg_put_be16(&b, 0);		/* width */
-+	jpeg_put_u8(&b, nc);
-+	for (i = 0; i < nc; i++) {
-+		jpeg_put_u8(&b, i + 1);
-+		jpeg_put_u8(&b, i ? JPEG_SAMPLING_H1V1 : params->luma_sampling);
-+		jpeg_put_u8(&b, i ? JPEG_QTABLE_CHROMA : JPEG_QTABLE_LUMA);
-+	}
-+
-+	jpeg_put_be16(&b, DHT);
-+	/* length field, then per table class a Tc/Th byte and the DC and AC tables */
-+	jpeg_put_be16(&b, sizeof(__be16) + ntables * (2 * sizeof(u8) + V4L2_JPEG_REF_HT_DC_LEN +
-+						      V4L2_JPEG_REF_HT_AC_LEN));
-+	jpeg_put_dht(&b, V4L2_JPEG_LUM_HT | V4L2_JPEG_DC_HT, v4l2_jpeg_ref_table_luma_dc_ht,
-+		     V4L2_JPEG_REF_HT_DC_LEN);
-+	jpeg_put_dht(&b, V4L2_JPEG_LUM_HT | V4L2_JPEG_AC_HT, v4l2_jpeg_ref_table_luma_ac_ht,
-+		     V4L2_JPEG_REF_HT_AC_LEN);
-+	if (nc == JPEG_COMP_COLOR) {
-+		jpeg_put_dht(&b, V4L2_JPEG_CHR_HT | V4L2_JPEG_DC_HT,
-+			     v4l2_jpeg_ref_table_chroma_dc_ht, V4L2_JPEG_REF_HT_DC_LEN);
-+		jpeg_put_dht(&b, V4L2_JPEG_CHR_HT | V4L2_JPEG_AC_HT,
-+			     v4l2_jpeg_ref_table_chroma_ac_ht, V4L2_JPEG_REF_HT_AC_LEN);
-+	}
-+
-+	jpeg_put_be16(&b, SOS);
-+	jpeg_put_be16(&b, JPEG_SEG_LEN(jpeg_sos_hdr) + nc * sizeof(struct jpeg_sos_comp) +
-+		      sizeof(struct jpeg_sos_tail));
-+	jpeg_put_u8(&b, nc);
-+	for (i = 0; i < nc; i++) {
-+		jpeg_put_u8(&b, i + 1);
-+		jpeg_put_u8(&b, i ? JPEG_TABLE_SEL_CHROMA : JPEG_TABLE_SEL_LUMA);
-+	}
-+	jpeg_put_u8(&b, JPEG_SPECTRAL_START);
-+	jpeg_put_u8(&b, JPEG_SPECTRAL_END);
-+	jpeg_put_u8(&b, JPEG_APPROX_HIGH_LOW);
-+
-+	if (b.pos > len)
-+		return -ENOSPC;
-+
-+	layout->size = b.pos;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(v4l2_jpeg_write_header);
-+
-+/**
-+ * v4l2_jpeg_hdr_set_size - set the image size in a header from v4l2_jpeg_write_header()
-+ * @buf: header buffer
-+ * @layout: layout returned by v4l2_jpeg_write_header()
-+ * @width: image width
-+ * @height: image height
-+ */
-+void v4l2_jpeg_hdr_set_size(void *buf, const struct v4l2_jpeg_hdr_layout *layout, u16 width,
-+			    u16 height)
-+{
-+	u8 *sof = (u8 *)buf + layout->sof_offset;
-+
-+	put_unaligned_be16(height, sof + offsetof(struct jpeg_sof_hdr, height));
-+	put_unaligned_be16(width, sof + offsetof(struct jpeg_sof_hdr, width));
-+}
-+EXPORT_SYMBOL_GPL(v4l2_jpeg_hdr_set_size);
-diff --git a/include/media/v4l2-jpeg.h b/include/media/v4l2-jpeg.h
-index 62dda1560275a..d789ccfeba734 100644
---- a/include/media/v4l2-jpeg.h
-+++ b/include/media/v4l2-jpeg.h
-@@ -167,8 +167,39 @@ struct v4l2_jpeg_header {
- 	enum v4l2_jpeg_app14_tf app14_tf;
- };
- 
-+/**
-+ * struct v4l2_jpeg_hdr_params - baseline JPEG header parameters
-+ * @num_components: number of color components, 1 (grey) or 3 (YCbCr)
-+ * @luma_sampling: luma horizontal and vertical sampling factors, as in the
-+ *	SOF0 component specification (0x11, 0x21 or 0x22); chroma uses 0x11
-+ * @jfif: emit a JFIF APP0 segment after SOI
-+ */
-+struct v4l2_jpeg_hdr_params {
-+	u8 num_components;
-+	u8 luma_sampling;
-+	bool jfif;
-+};
-+
-+/**
-+ * struct v4l2_jpeg_hdr_layout - offsets of the fields set per frame
-+ * @size: header size in bytes
-+ * @sof_offset: offset of the SOF0 marker
-+ * @dqt_offset: offset of the luma and chroma quantization table values
-+ *	(V4L2_JPEG_PIXELS_IN_BLOCK bytes in zigzag order), 0 if not present
-+ */
-+struct v4l2_jpeg_hdr_layout {
-+	u32 size;
-+	u32 sof_offset;
-+	u32 dqt_offset[2];
-+};
-+
- int v4l2_jpeg_parse_header(void *buf, size_t len, struct v4l2_jpeg_header *out);
- 
-+int v4l2_jpeg_write_header(void *buf, size_t len, const struct v4l2_jpeg_hdr_params *params,
-+			   struct v4l2_jpeg_hdr_layout *layout);
-+void v4l2_jpeg_hdr_set_size(void *buf, const struct v4l2_jpeg_hdr_layout *layout, u16 width,
-+			    u16 height);
-+
- extern const u8 v4l2_jpeg_zigzag_scan_index[V4L2_JPEG_PIXELS_IN_BLOCK];
- extern const u8 v4l2_jpeg_ref_table_luma_qt[V4L2_JPEG_PIXELS_IN_BLOCK];
- extern const u8 v4l2_jpeg_ref_table_chroma_qt[V4L2_JPEG_PIXELS_IN_BLOCK];
+ 		camss: camss@ac6a000 {
+ 			compatible = "qcom,sm8250-camss";
+ 			status = "disabled";
 -- 
 2.34.1
 
