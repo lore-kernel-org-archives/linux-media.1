@@ -1,136 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794328425;
-	b=aZKCxTG/zQPBYv8BX5j2zIJJ/uA8EOOi7BcLVAMk5nTK0c0GdBfT4iQVF1Wo6gGIakDT
-	 dfZ4sklp9rZyxzdDi5nbClkY9Bfy/sED/nAbZW5DCiYwxViICNeC42PwtrEBQSU54G1sH
-	 4sfCvztZChXArc6tboitF2gLmn7yHf4LKBwSXvfN1mK9XjsKpRFXikONjovQb1YAEgtw3
-	 VlN3Q43t9VpVG/DScCaNIQastZXFdrDGIjaddma2rsVFvv6FSzB6hDivVGIVDqWsywdBP
-	 pzzUaPcGJ9hH4f8RBcHefUkzUGf4JD8qiN2xBJcRbnX1ZXQxdOVmgPEYU3yvADJILEQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794328425;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794328756;
+	b=bnvyoff50w8SpouICqgtiLGrRybwV65COeP2Tgc7fvvx6UMTEkYGCtYF5X9pxkMNKaob
+	 3Z0unLUAKT9v6SCzmoS6n/81KMoUTUy/AsZfxQIi/ps+45d1+1PjV0+ms2Q7nyZAdpQYi
+	 Mn4J2ePiFPqp30WGg4MGubVFJPV1gjod1sp1fpwN8uo9zWBeorwxu2RVzgTIucdNn++1M
+	 uQ8uOX2xn7kfgrV7G28zWmWCwKXGsgZNq8fcWGTMG6+RnPczr8DXL7ysJUE53PwBh22c5
+	 5U2veA0PeeoIvRxsJu05Jobg/0NnyTJEXc34+2J9xvNZ3S/vRTGb3T+b9rbrOGiIsuQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794328756;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=X6S1+/lOPuUXlCiUEldUuAULQZkWFTPyCxxXfdQ2Y68=;
-	b=gYBSAXlDJWOQTzXT+1Oht9q+4JObn57XtyoCTrxmo+31MCVPpPQYG4XgqhYgxUg9x0xN
-	 L6sFjbomFsbUXTohK611+gRh/6iLDEZnU7mg9IX9QYe3qvQY1Xb+aF1WdslhZn/lRqp7F
-	 aIe4r7HBolte0HxoLCJ4GdY+RZsTAA/8aIeFr1tOqCvLTTYrUroVJhPnz738fLcs6NKjg
-	 2Wh+jbmobU2veC1CEg6SOTZW41CHJtUjikggLwJxnNM4PA/cQYV+6FqsfPlJS/IIrrzT4
-	 hGlr7jq8FyxQW7jYGSIdwPWXMNsVAVwwGD/0lPB8LLJJpwujesuJFngG0lNs026cbDA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Bx3BiRgO;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=ZTwqEC2y;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+	bh=j+o2nprUYXBdBSz7frmpunKhFOcmNU/yzoBemgnoWw8=;
+	b=ENORRwm/Gn01pKd3yeN59hCwuhGpIeUAQsZ24TChruD0e8jMhQxGKMNxjxTHCe52RaXF
+	 xCnAORntQbECb0Zt+EQhn2Xa7sJra8ejPSdK8hGPXM1GDxSwIWqb9mrFz4ZC7BQY+iUzi
+	 Yo+xZw7GYMKj5+yF+7cpxbglfaFlD9ZC5VmjfNbpA5yX4g03MkfyZkO1MCQJoLwMLFdH7
+	 scTLubyG0VcMVFrRVHfFgnBBcGonah69qDjZfOg0GESs9izCmaBozXuOB4ns/l/8SrHzP
+	 Hs7XdmvhfhjSxGV8sm6LWY7ZJVpbGXlYtst5dc1OnpxCLa4c2SlaXhPiV2KnZOFUDbg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DIP+1din;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aHg4IrRa;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A737606A21A;
-	Tue, 10 Nov 2026 16:33:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A737606A21A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1CE606A228
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 16:39:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE1CE606A228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Bx3BiRgO;
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=ZTwqEC2y
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6AAEwCco3291787;
-	Tue, 10 Nov 2026 10:33:37 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=X6S1+/lOPuUXl
-	CiUEldUuAULQZkWFTPyCxxXfdQ2Y68=; b=Bx3BiRgOX+uwyT4W1zuoJxiYZ2oYJ
-	kNqMZCInqPeS6VvWJuvOfrKB9FmIYUbDuH3tg6Q/LNu3IIlBEfwEToi/a/C891az
-	Uf4IKKqjOBG8dsCjOyVJYJBRMWaiphhdgqHd9sAAAKe1aWV4jeDzloTZd173R5Vv
-	A1D39txSryq2I/XA3lUBFP9lG2/YC8xUUY6sOSl3bNef0B5JTtB5BWwlDQbm7miG
-	a2VoPWs9Lv0vJljmC+9m2ZGKsTpbjAOxg9maEGjSreyWRVt9q6+AKuoAYikj70ZI
-	8bbcI4hm/8ST7C1Xdu4QdAp98417cVicRizpFsFTtDU96dyXgltVG0Oig==
-Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010050.outbound.protection.outlook.com [52.101.46.50])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4hv0j0acs8-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 10 Nov 2026 10:33:36 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yF7EzAPONQGu0MwIX0PnJ70fxOUNz97MCzWtyihus+dqwqmYOXtmQaS52kKgCYGgYmkkyNTzHiook0zHc3macY4Fx4nJF8Tr3LYuzgnNPSBWFRB1KKT+lLNPTPiEd0YQkCodmMScTEbNFrkcV8XEd0nApXrh9i4F1Bk5v20O9XMS5VF5OKTMGc25L/oyuYhL9JeyK/2kxDz8xu3CxsOmFtQ6WSE49werwctRG4QUycn1sy+sQzmQLuZWSYDYi6dvsTKsHLGQGo3SuOPiNMItUWHH0kVJ/4kHWYiyAWUKfpaZVFQPM2KUNGDfPVa7qJqawv4MabLDwxUCL5vcDEyuEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X6S1+/lOPuUXlCiUEldUuAULQZkWFTPyCxxXfdQ2Y68=;
- b=N9FQiuvl571NiToyuffqspxqGkUcySETm5RszSlid96hGxFzvtmFoLpEx7StkAzgMDamtYoZmsa4e3zRWS23nBgEjfPEkUArFzk0MepGnEnVX2qrdnNb+sEKupEJBQLURkgoa6wEbn+toSX9ILcMEBaKt1hgY4UvBIplxXFCrPda7nRFEZwAKIIGxRN507QGX9TILG388llKm9XRs0TDByfAEDXsn79sgs9z6Mr+ycEGwFxwPl6B3tZWyt2QXr9WnRdtGaUliiQL3Bre0bAldew4n2fC2Qee4cTQUjk/kNpqpgJ2suoUUYTfrBkeylJhKNMut2J3A0IUI5/cTKsZBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DIP+1din;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aHg4IrRa
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAF0MAw3713747
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 16:39:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=j+o2nprUYXBdBSz7frmpunKhFOcmNU/yzoB
+	emgnoWw8=; b=DIP+1dinwYv4heyRZM52uBIN3cW+o2MsOcpUw2ntV+TmYXjjFff
+	StCqLUboE1IJukQPCN+jv4ghVDk1r1bYD2eAG1TXLvSciqquzLJGzJ+gOjW7w6Id
+	ANsfElCvygG7Z3qtypLmkh/GZJwnkCnAjRRB+UkXkyNXDJ/yiBGyZY2oMQyHcShg
+	i+sGsSNXF6zsdjJhO+lZ15iZCgQ5zoHFvTWIveACcfTR6t8E44NC4YKo635egg1x
+	KC9mRyj02ze6ARc+rBlF9elJJ0BpMolT2ASY2F1WoOX12FoNs7Wjo8i31G2gHBuq
+	+ZK7rAeE5sZwCgHZpW2kqp9Q/mbQx2K8RSQ==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huvtdamxm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 16:39:14 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-99870ee564fso1690279241.1
+        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 08:39:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X6S1+/lOPuUXlCiUEldUuAULQZkWFTPyCxxXfdQ2Y68=;
- b=ZTwqEC2yaxl5PAASZUZRHqHbpcaZ67vd+KFcr2QhVQmqZUF10GUNxWVSP+dwycv2c45e++2g0vOy9wh6KQrIAQR/wC+UWnHVofH6CcvL50GKLaeIQdyF3nkNUNFrlxJTNT2/OK0kbV8J2tAVWAtstSCyEcB03UE5icFA2b9Yo3o=
-Received: from MN2PR03CA0003.namprd03.prod.outlook.com (2603:10b6:208:23a::8)
- by IA4PR10MB901375.namprd10.prod.outlook.com (2603:10b6:207:10e::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 16:33:33 +0000
-Received: from BN2PEPF00004FC1.namprd04.prod.outlook.com
- (2603:10b6:208:23a:cafe::94) by MN2PR03CA0003.outlook.office365.com
- (2603:10b6:208:23a::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 16:33:33 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BN2PEPF00004FC1.mail.protection.outlook.com (10.167.243.187) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 16:33:32 +0000
-Received: from DFLE206.ent.ti.com (10.64.6.64) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
- 2026 10:32:50 -0600
-Received: from DFLE201.ent.ti.com (10.64.6.59) by DFLE206.ent.ti.com
- (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
- 2026 10:32:50 -0600
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE201.ent.ti.com
- (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 10 Nov 2026 10:32:50 -0600
-Received: from b-brnich.dhcp.ti.com (b-brnich.dhcp.ti.com [128.247.75.1])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AAGWoH31141135;
-	Tue, 10 Nov 2026 10:32:50 -0600
-From: Brandon Brnich <b-brnich@ti.com>
-To: <devarsht@ti.com>, <mchehab@kernel.org>, <hverkuil@kernel.org>,
-        <benjamin.gaignard@collabora.com>, <linux-media@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-CC: <k-willis@ti.com>, <jai.luthra@ideasonboard.com>,
-        Brandon Brnich
-	<b-brnich@ti.com>
-Subject: [PATCH v8 0/4] E5010 Probe Cleanup and Adding autosuspend
-Date: Tue, 10 Nov 2026 10:32:43 -0600
-Message-ID: <20261110163247.48712-1-b-brnich@ti.com>
-X-Mailer: git-send-email 2.43.0
+        d=oss.qualcomm.com; s=google; t=1794328753; x=1794933553; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j+o2nprUYXBdBSz7frmpunKhFOcmNU/yzoBemgnoWw8=;
+        b=aHg4IrRaQO/ySMj4zNymyGlccBY44KOIammI7xlMbtsoKOr119HSqozkCSiPuV0GT9
+         4W8DdgHLr/2DfgXmSLlMmvMLB9LFXMdhqsAKsFn+n2icvW5FKMezKp0+yL0IWGDQ/yK3
+         bQRJHCXtRfaS9pyEwlZTDusLm0LJPs4Xf/aojfmkOju4spAQdXEcTIYtK/TSQklQM6IO
+         eUMm2Vm1oDrHoeBhTpwfOJCEQGBoGLqAgHSXZtNH3tIoq00nhOeh1x2fTkrtGDxOUaDf
+         4MldhMBOmslO9cTo8+8bHG01b3pmn3zLMNA+rHDVNcoCJZEVogz/eFpi2Xp5HFA2GNSH
+         cY0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794328753; x=1794933553;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j+o2nprUYXBdBSz7frmpunKhFOcmNU/yzoBemgnoWw8=;
+        b=2vZfFUn3PTVOlS6W/+VH+XBJghk8AJy3NyHMkPIDuy8wiV7NTvv+txbZOtqPB9lGM0
+         EXNUQRHZUQJO3G5Bcvc2uzwWzFj41PPwp/Jzi7vSm3p4HEG9r7IW6dM0PfwEydf4Ssjv
+         BNmazhSt1aapzrmP0/JKShQlw48R607YpOeWOveIEUbk2CwOaDlhHfPWirlFOJi02OxK
+         5Vd3PSFA3ot8CQhLEvdrFq7A0OFP5t7N0Rof4vkY5kBP1CBGWFo4BJ02UJDcCgpdo79q
+         SboS7Wm4oApa3Zgq3QiSvyCGSiYwaL+AwN77fAsznrc+E4Zp3XzJHLxGmDjP6VXTfRTm
+         QeRg==
+X-Gm-Message-State: APuU4Z+1dhrNrmw46ytcMcikv98dQyun/ddd+VHoz2yZAX+yqw87VdzY
+	p/r8evY/1jHCxowUHEYfw9R2gQ5+r43nDyeYQxoNvrQd2BUaao+3wHtlZBhKraHA8GGCNJMynb5
+	riAw+jdJPqXdyYmf/cA6w01a2+4YsJXpasn8jPyrDkq8c6gsr154mSibeReZgENx34fLLpDQ/Hf
+	I4
+X-Gm-Gg: AYBFou3nktlNQYT4aqoPjQPA/wC26TWKckElxw5mHX0lGunL93db55QNH8eFD1Sh6ty
+	F5dXG+4lbz8MnIRUDlFNq1oPGBc7y3DXxFGEzj1uz1GRrbbaptMP90T22CLsDJe2jQkthVmdjBk
+	ki+mCdB6yOc5kE8civj+jRBZPamwRH/AgmjbBet6z3t9BWrb+ycXSnU7xu//Dhi1ctu3SPe/uFB
+	aSwfX+384saGTaudPfSjpfyU/UFOyHuF66r0y2UWJUpQRvNZAIhZKnf7COqcL2rjaDzMX0NuJeB
+	YkBI4jlF9ippRuyt2L94p+7zIwBE0EhXU7SHlOOd3AYagFO7WM6/CX1y+ZL8JzGBWLqnUaTWoPp
+	2fOfZAkfuND+i7JjC1v8TIAS+YU9RJUzDEaCySKDyxrX/88H+ZLjjUP39niAh1gd5Ew6V4/qJrQ
+	==
+X-Received: by 2002:a67:e11a:0:b0:7cc:33c9:b3cb with SMTP id ada2fe7eead31-7d301befa23mr1131042137.29.1794328752762;
+        Tue, 10 Nov 2026 08:39:12 -0800 (PST)
+X-Received: by 2002:a67:e11a:0:b0:7cc:33c9:b3cb with SMTP id ada2fe7eead31-7d301befa23mr1131026137.29.1794328752166;
+        Tue, 10 Nov 2026 08:39:12 -0800 (PST)
+Received: from lin-0772.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01ff3428sm85130395e9.15.2026.11.10.08.39.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 08:39:11 -0800 (PST)
+From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+To: linux-media@vger.kernel.org
+Cc: bod@kernel.org, mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        loic.poulain@linaro.org, dmitry.baryshkov@oss.qualcomm.com,
+        gjorgji.rosikopulos@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        atanas.filipov@oss.qualcomm.com
+Subject: [PATCH v8 0/8] Add Qualcomm JPEG V4L2 encoder for SM8250 and SC7280
+Date: Tue, 10 Nov 2026 18:39:01 +0200
+Message-Id: <20261110163909.78085-1-atanas.filipov@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -141,148 +121,291 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC1:EE_|IA4PR10MB901375:EE_
-X-MS-Office365-Filtering-Correlation-Id: d503b8c8-346b-490b-48b7-08df3f485bdf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|23010399003|376014|56012099006|18002099003|3023799007|10067099003|261022115727099003|261022105027099003|261021123027099003|261021135927099003|261022113327099003|261021121427099003|261022075727099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	tItyclEIPr2KBvI7lDCApMe8sUBVCfDylrX4KYqijomVwDjGMkxSYdBQzfaOJqps4X0VhDpk3ZOzz5NQZxiknncRPQ6iPgZbey0v4kHSlKRt+xBWFdrkfTEWdkTTj4npx4rHFSGgi/hHltEhuTBda48Q7z4GIAryrDtge0d46dr5w/vP3IY6r8Qs99Uk+B751o/iBrWMZfPIX/ZfDSMlDA/0jmcTlATRynm5NrjIc6wpLtrK1StkPx6k25rBNC0pVxsAPa3sZEKXfEOs4IFNqFI0M8ouXwFW6g0t+kGzHLXGT/0ZmzkCZOB71sehOefVjndpHQSumWWQKN+9T6SfAkB7c66lELy5TRMfvOupT6eLh+6y7USsjwx21acHmYadUuxIJ6SK1nRjcDpZ79p0/v5INOBwbywilRRsMg8Tp0lhlkrplic5th71F3TYCr/On7HiQF/EQJ1l9nUU/jY/56c/bBENRJ62+5Qk+233LRZcwRqjHB0926Ry/hIEdHfAiQ+1ilxERTp1DRxYaG9itxvnI4SlNf2eGBHWk3cqkbKYx+TU9Wpvsai0g1a+30z7joNIomdJUloqouUlc1FW5zAFP5g9EzIHY8cTD+aixQP/oh1X1bpTU1HAcQXUNmfMD0Z6dEoPsKe+8/CHiKuVpw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(23010399003)(376014)(56012099006)(18002099003)(3023799007)(10067099003)(261022115727099003)(261022105027099003)(261021123027099003)(261021135927099003)(261022113327099003)(261021121427099003)(261022075727099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	gZ3mSaoG9dPzu10NK58ZQtEiUUd/C1yF4zOOBNbhrM01icC7zp0Y2cV663hXR+IdDv1Qs6nrImXRjwqYWQ6D/HFJmDIcPaocpRR3Ldzk4VGxWBjpnKSut4D5lH0wI8UN7bIbmytR7Q/VceOKOPeTKw0AeeCWh67JTwekq5su70hoheTd4njlFUwrhyQdoz+iwSN5iZ+dNmou5Txajj2XXNuiu6kJdaNrPVvJ+xsUjOvOPAZF4gBbLtKxY5BAkdgjJ1i4AuZslmFDQ+Yg6tk4vFUjOO7VGU06T0+em9T3CjzCHeIBTWgrkHFnhLTOt4aH1r4girvDADKz+q0d+oEBfW/kW5yjTcrTL3oBdMXOirqwYf9pao3xWdABxaCjSLNLRzDbWH9oHUXwyJNShltnHiA/ILi7y+ZcSSZplQ6Dtfd6DGXy2j/BxyFDFtgkixmw
-X-Exchange-RoutingPolicyChecked:
-	oRcN9kLQAxiadriUgRr3l/JMdgsAiBwqBmwRmb/twrWvG2sNAlw/r6P6QjPuReP6F9nKM7kWlzEJ6+umOTyVZ8bUhXHCgPeGu0ajYqyp0r+p7IthFaSWjmdSQ0Xqi5bG3MiaTlqdk0OYUtQC10lbBFCXaN6yb4STs4MRbJqfQNaV4AmzrWWbv2SlBRT5D8CWv6kRxyMttKzinIPwvd6qMwMcf/PVF2mu70kXsPZxX796jV3Zk/WBJ7uYJbxaTnAGv61p++SWyOKLEWL0HpO5e3XDwUH0lMJxm401DM8miTdFqoprGhFmoQHCGG4bYrGd66x2SrQQxFqINUn84Cweuw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 16:33:32.0204
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d503b8c8-346b-490b-48b7-08df3f485bdf
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FC1.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR10MB901375
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2NSBTYWx0ZWRfX9uDteEFpbGYg
- ldBM3BPDkiwK2pyxNLAJmJ/ot0jzAIxyObhLB7m2lv7t/lkLr9I3MiEvJAhsaWzKv+JqQpHDxI6
- agNHXiVYKZNs5VFqWENoQOONDca1jpxcd9oPbGucTBmB1eBDt1IAaDcedejXTc4i2psaJ1RHYjS
- lHlpWUl5pd8EGtd25NEy3njMHkVqkJIdibEq/3UBYZMUuSMLX6iIhajkpX/OAbNoGHSGR7upA7Y
- egayYZJYk6AYNqFJu+sdrp4Rh4rdJu1uuzA3W7UWNBXXFaw49es2kijQ5dz2ykjdgp4InRjm3Ws
- teK58XbBXwhK5QN89Ws5tA9nQEJf9h3oT13FbPr1/gs9XxzCNgPdTgTKZ332TygkC1fKcqEC1Zu
- AYdM8Z3FPNBo3mykWSXPVEUuvVFsV+owcbO+SevFQ4QsWoBm0nJeQs26HLuGLf5UYvuUdee1wiG
- GpHKDfGE+AlHiGvoDeA==
-X-Proofpoint-GUID: HAglwNLoPiKhsVw5aX2__e4CcLj9_jtj
-X-Proofpoint-ORIG-GUID: HAglwNLoPiKhsVw5aX2__e4CcLj9_jtj
-X-Authority-Analysis: v=2.4 cv=BrgIUoX5 c=1 sm=1 tr=0 ts=6af34760 cx=c_pps
- a=MMVmnpyRbxvAcRc6a9dgEg==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=zJRp6_cAMcgA:10 a=AlMIdn_sM9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22
- a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=bhPt5b0YHANfMn-v9gAA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2NSBTYWx0ZWRfXwoHjjJmkiQ3N
- I4UPneN+3Dg7AQ1QHl2DxhzwycbzMugFVSHXDR+IxCESL4XhgfBuYnO0AEstti6Fo4EKiTToOwQ
- vKIjF62p4HA1jiqKWAyFJM6DXbegNDQ=
+X-Proofpoint-GUID: Z3Vv7tt40TfjM2XVw9oLlBz0T2I6Fqki
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2NiBTYWx0ZWRfXwWhTLqkicT8d
+ qMsZOuKSe1AW7CUJirKzIzSr5YXui/AJWUG9onJOzoyvIm1Smx1kAEBLEvRgHc25z603LYpR2Dg
+ MNG3oa1P2SRg2TmA7N9USqBYoWe2zwo=
+X-Proofpoint-ORIG-GUID: Z3Vv7tt40TfjM2XVw9oLlBz0T2I6Fqki
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2NiBTYWx0ZWRfX7duNXoxmuLCl
+ E20EohBQmfknmSUnvWxLyuSRO00mbuStv1YcIfFu5Msb6U+v30YWjZzLVuy5nlw/JnL9/VFLZqp
+ QrCS0/amUw5b0wUhIz4FuX1/tw2wiAOMJU9GKj5xVdNlQ/MFwLHnR6i0Ah5iTIk9z+QOaTqSHtA
+ NDcHw8cN9k5o0JbbjU2FZtqnxQSzAKEZsQFY326PnmJSolJCoi1Jm4KoiPu7uhEWNMNH1CVKbLB
+ 9RhG/oDISb/pD90NicoqVqluY05Yilgo3nzXY75eTnvVPe4v6XfGOUmq7n/aiJn/ghBWE7COOs/
+ FBKDUaV5xMpamkETMNmnZX2AbCeRC4UpT1gdL6pmryS6UT6eVVj0XmEf0apn9CLlIw+M+YmWnNN
+ 9My2PquOfPGC8EO0jQrBjmbDXWJ7avFpZm+yyTXQ9o/QujIyegD31hrXL1rZVeAnFbYshIes4T6
+ Ir6ckjOj8XW+LHxdUQg==
+X-Authority-Analysis: v=2.4 cv=ArR7T+9P c=1 sm=1 tr=0 ts=6af348b2 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=70q_-rFcRKED9NXvpuIA:9
+ a=TOPH6uDL9cOC6tEoww4z:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- clxscore=1015 malwarescore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
+ bulkscore=0 clxscore=1015 spamscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 phishscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100065
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100066
 
-Hello all,
+The goal is to upstream a standards-based JPEG encode path using the
+V4L2 M2M framework, with DT-described hardware resources and SoC DTS
+integration.
 
-I noticed a report from the intel bot[0] which pointed out a valid issue
-with the driver never calling e5010_init_device unless CONFIG_PM was
-enabled. 
+The JPEG encoder is a standalone hardware IP within the camera
+subsystem. It is modelled as a peer node of CAMSS directly under the
+SoC bus, with all resources self-described in its own device tree node
+(power-domains, clocks, interconnects, iommus). This follows the
+consensus reached in the v4 review thread (Bryan O'Donoghue, Konrad
+Dybcio, Gjorgji Rosikopulos).
 
-While looking at probe though, I noticed that the clk_enable was never
-properly called. That has now been fixed with a proper remove path as
-well.
+Supported compatibles:
+- qcom,sm8250-jpeg-enc
+- qcom,sc7280-jpeg-enc
 
-Lastly, I cleaned up the goto jumps in probe to fix an issue where the
-m2m_dev wasn't being freed.
+Driver scope and design choices:
+- uses the standard V4L2 mem2mem and vb2 framework
+- the JPEG header is written by a common v4l2-jpeg helper
+- all resources come from DT (clocks, interconnects, iommu,
+  power-domains)
+- power is managed with power-domains (SM8250: TITAN_TOP_GDSC, MX,
+  MMCX; SC7280: TITAN_TOP_GDSC, CX) and the OPP framework
+- the driver selects the core clock for each job from the image size;
+  the OPP table votes the SoC rails and the DDR bandwidth
 
-The rest of the series is setting up the driver for properly adding in
-support for autosuspend. Last patch adds in autosuspend support and
-moves e5010_init_device into probe for cases where PM isn't enabled.
+Note on the camera NoC AXI clock (camnoc_axi): several camera blocks
+share this clock. For now there is no upstream driver that aggregates
+their votes, so the driver does this: while the encoder is powered, it
+sets a minimum rate on the camera NoC AXI clock source with
+clk_set_rate_range(). The minimum is 300 MHz on SM8250 and 150 MHz on
+SC7280, the lowest levels. Another user of the clock cannot set a lower
+rate. The series does not depend on the camcc icc-clk series.
+
+Functional validation:
+- tested with v4l2-ctl and GStreamer (v4l2jpegenc) on RB5 (SM8250)
+  and RB3 Gen2 (QCS6490)
+- v4l2-compliance passes
+- throughput and DDR traffic measured for each OPP on both boards; the
+  OPP bandwidth values and the reference throughput come from these
+  measurements
+
+Known limitations:
+- no scaling
+- width and height must be multiples of 16
+- the camera NoC AXI clock has a fixed minimum rate; its bandwidth is
+  not aggregated with the other camera blocks (see the note above)
 
 Changes since v7:
 
-- patch 3 subject wasn't formatted correctly after I updated it so
-  wasn't properly showing up
+  Binding (dt-bindings: media: qcom: Add JPEG encoder binding):
+  - Dropped the camnoc_axi_src clock. It is the parent of camnoc_axi,
+    not a clock of the block. The core clock is now the first clock.
+    (Rob, Bryan)
+
+  Driver (media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder):
+  - The camera NoC AXI clock source is now taken with clk_get_parent()
+    from camnoc_axi. (Rob)
+
+  DTS (arm64: dts: qcom: sm8250, kodiak):
+  - Dropped the camnoc_axi_src clock; the core clock is first. (Rob)
 
 Changes since v6:
 
-- Patch 2 changed order of calls during remove cleanup. video unregister
-  now happens before pm disable
-- patch 3 was updated to account for the case where a reset was called
-  and the device was never properly reinitialized
-- patch 3 has moved setting the last_run_context to NULL as well to
-  always update QP values when device is turned back on/reinitialized
-- removed the r-b by Kendall, Devarsh, and Jai since I have made a
-  slight code change requested by Devarsh
-- patch 4 remove the last_run_context in runtime resume hook that it had
-  before because I moved it to patch 3
-- patch 4 has updates to commit message to accurately reflect why
-  init_device was added to probe
-- patch 4 has updates where disable autosuspend now comes before disable
-  pm
+  Series:
+  - Added SC7280 (Kodiak) support and RB3 Gen2.
+  - Split the driver patch into media/jpeg.h constants, a common
+    v4l2-jpeg header writer and the driver. (Dmitry)
+  - The SoC nodes are disabled by default and enabled per board (new
+    qrb5165-rb5 and qcs6490-rb3gen2 patches).
+  - No dependency on the camcc icc-clk series any more.
+
+  Binding (dt-bindings: media: qcom: Add JPEG encoder binding):
+  - Added qcom,sc7280-jpeg-enc (titan_top and cx power domains).
+  - New clock names: core, bus, config, camnoc_axi. (Dmitry)
+  - Added the camnoc_axi_src clock.
+  - SM8250 power domains: titan_top, mx, mmcx. (Dmitry)
+
+  media/jpeg.h (media: jpeg: Add JPEG baseline and JFIF APP0 constants):
+  - New patch with the standard JPEG/JFIF values. (Dmitry)
+
+  v4l2-jpeg (media: v4l2-jpeg: Add a baseline JPEG header writer):
+  - New patch with a common header writer; the qcom JFIF header code is
+    removed from the driver. (Dmitry)
+
+  Driver (media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder):
+  - Added SC7280 support.
+  - Power domains are attached with devm_pm_domain_attach_list(); the
+    OPP table votes the SoC rails with required-opps. (Dmitry)
+  - Fixed the clock/OPP order in runtime PM. (Dmitry)
+  - Minimum camera NoC AXI rate with clk_set_rate_range().
+  - The core clock is selected from a measured reference throughput.
+  - GENMASK()/BIT() with FIELD_GET()/FIELD_PREP(). (Dmitry)
+  - JFIF tables from the common V4L2 JPEG helpers. (Dmitry)
+  - qcom_jenc_v420_* names; removed the qcom_jpeg_hw_ops table.
+    (Dmitry)
+  - Removed the custom performance controls. G/S_PARM is not used
+    either; the driver selects the clock and bandwidth itself.
+    (Dmitry, Gjorgji)
+
+  DTS (arm64: dts: qcom: sm8250, kodiak):
+  - required-opps on every OPP for the power domains. (Dmitry)
+  - Interconnect on the mmss_noc camnoc SF path to EBI; added the
+    camnoc_axi_src clock.
+  - OPP bandwidth values from measured DDR traffic.
+  - New kodiak node for SC7280.
 
 Changes since v5:
 
-- Fix patch 1 not properly removing all references to the
-  fail_after_video_register_device label
+  Binding (dt-bindings: media: qcom,sm8250-jpeg-enc):
+  - Removed GCC_CAMERA_HF_AXI_CLK (hf_axi) clock and hf-mnoc interconnect
+    path. The JPEG encoder uses only the SF CAMNOC port; the HF port is for
+    real-time capture pipelines. (Loic Poulain)
+  - Added RPMHPD_MMCX and RPMHPD_MX to power-domains. (bod)
+  - Added power-domain-names property with entries "titan_top", "mmcx", "mx".
+  - Added power-domain-names to the required list.
+
+  DTS (arm64: dts: qcom: sm8250):
+  - Removed GCC_CAMERA_HF_AXI_CLK (hf_axi) clock and hf-mnoc interconnect
+    path from jpeg-encoder node. (Loic Poulain)
+  - Added RPMHPD_MMCX and RPMHPD_MX to power-domains. (bod)
+  - Added power-domain-names = "titan_top", "mmcx", "mx".
 
 Changes since v4:
 
-- Change authorship of patch 1 since Myeonghun sent a similar patch
-  first
-- addressed Devarsh's comments in Patch 1 to follow similar naming
-  structure as rest of probe function
-- Moved the clk_enable call after pm_runtime_enable here so I can check
-  success of that call. If runtime pm is enabled then don't enable the
-  clock here
-- Patch 3 no changes
-- Patch 4 I added the macro requested by Devarsh instead of using magic
-  number
-- failure to power on now goes through the existing no_ready_buf_err path,
-  so buffers are marked as error and the job is finished
+  Architecture:
+  - Dropped patch 1/5 (devm_of_platform_populate in camss.c) entirely.
+    JPEG is now a peer node of CAMSS, not a child node. (bod)
+  - Dropped patch 2/5 (camss binding unevaluatedProperties). (krzk, bod)
+  - Moved jpeg-encoder DTS node from camss@ to soc@ level. (bod)
+
+  Binding (dt-bindings: media: qcom,sm8250-jpeg-enc):
+  - Renamed binding file from qcom,jpeg-encoder.yaml to
+    qcom,sm8250-jpeg-enc.yaml to match compatible string convention.
+  - Renamed compatible from qcom,sm8250-jenc to qcom,sm8250-jpeg-enc
+    for readability. (Bjorn Andersson)
+  - Added power-domains property and required entry. (bod)
+  - Added iommus description with SID value 0x2040 for SM8250. (bod)
+  - Dropped soc{} wrapper from example; node is directly under soc. (Dmitry)
+  - Added Gjorgji Rosikopulos as co-maintainer.
+  - Patch order corrected: binding before driver before DTS. (krzk)
+
+  Driver (media: qcom: jpeg):
+  - Removed <linux/mod_devicetable.h> include. (Uwe Kleine-Koenig)
+  - Removed dev_dbg calls from OPP clock selection path. (Dmitry)
+  - Removed camss_dev field and pm_runtime_resume_and_get(camss_dev);
+    PM is now managed independently via power-domains. (Dmitry)
+  - Removed incorrect device_link_add() to parent; not needed in peer
+    node model.
+  - Moved file-local defines out of qcom_jenc_defs.h to their respective
+    .c files. (Dmitry)
+  - Fixed dev_pm_opp_put() placement: called before rc check. (Dmitry)
+  - Replaced _DEFINE_DEV_PM_OPS() with SYSTEM_SLEEP_PM_OPS() +
+    RUNTIME_PM_OPS() macros, consistent with other media drivers. (Frank Li)
+  - Fixed Kconfig source order to alphabetical. (krzk)
+  - Updated compatible string in driver match table to qcom,sm8250-jpeg-enc.
+
+  DTS (arm64: dts: qcom: sm8250):
+  - Added status = "disabled" to jpeg-encoder node.
+  - Used 0x0 instead of bare 0 for zero cells in reg property. (Dmitry)
+  - Dropped opp-peak-kBps and opp-avg-kBps from OPP table; no upstream
+    aggregation mechanism available yet.
 
 Changes since v3:
 
-  - patches 1 and 2 are new in v4
-  - patch 3 remains unchanged
-  - patch 4:
-      - updated goto to match changes in patch 1
-      - update PM calls in probe
+  CAMSS binding (dt-bindings: media: qcom,sm8250-camss):
+  - Added as new patch 2/5; allows #address-cells, #size-cells, ranges,
+    and child nodes using unevaluatedProperties: false.
 
-Best,
-Brandon
+  Binding (dt-bindings: media: qcom,jpeg-encoder):
+  - Dropped soc and camss wrapper nodes from example. (Dmitry)
+  - Removed opp-level from all OPP table entries. (Dmitry)
 
-[0]: https://lore.kernel.org/oe-kbuild-all/202608140323.qyc8mKlp-lkp@intel.com/
+  CAMSS (media: qcom: camss):
+  - Replaced patch 1/4 with Bryan O'Donoghue's original upstream commit.
+
+  Driver (media: qcom: jpeg):
+  - Cleaned up driver patch commit. (bod)
+
+  DTS (arm64: dts: qcom: sm8250):
+  - Restored camss interconnect-names to original values.
+
+Changes since v2:
+
+  Binding (dt-bindings: media: qcom,jpeg-encoder):
+  - IOMMU stream IDs documented in binding description. (bod)
+  - Dropped "Properties documented:" section from commit message. (krzk)
+  - Dropped clocks minItems constraint. (krzk)
+  - Renamed clock-names to match hardware signal names. (krzk)
+  - Renamed interconnect-names to reflect path topology. (krzk, Dmitry)
+
+  DTS (arm64: dts: qcom: sm8250):
+  - Removed cell-index; use lowercase hex. (Dmitry)
+  - Moved jpeg-encoder node into the camss block as a child node. (bod)
+
+  Driver (media: qcom: jpeg):
+  - Sort obj-y entries alphabetically in qcom/Makefile. (krzk)
+  - Use devm_mutex_init() instead of mutex_init(). (Frank Li)
+
+Changes since v1:
+
+  Binding (dt-bindings: media: qcom,jpeg-encoder):
+  - Removed qcm6490 and sm8550 compatible strings; SM8250 only.
+  - Fixed clock-names block in the binding example.
+  - Dropped reg-names: with a single reg entry it is unnecessary.
+  - Removed description literal block scalar (|).
+  - Dropped _clk suffix from clock-names.
+  - Added iommus description in the properties section.
+
+  Driver (media: qcom: jpeg):
+  - Migrated to devm_clk_bulk_get_all().
+  - Migrated to the OPP framework for clock rate management.
+  - Switched to RUNTIME_PM_OPS() and SYSTEM_SLEEP_PM_OPS() macros.
+  - platform_set_drvdata() moved to immediately after allocation.
+  - .pm uses pm_ptr().
+
+Atanas Filipov (8):
+  dt-bindings: media: qcom: Add JPEG encoder binding
+  media: jpeg: Add JPEG baseline and JFIF APP0 constants
+  media: v4l2-jpeg: Add a baseline JPEG header writer
+  media: qcom: jpeg: Add Qualcomm JPEG V4L2 encoder
+  arm64: dts: qcom: sm8250: Add JPEG encoder node
+  arm64: dts: qcom: qrb5165-rb5: Enable JPEG encoder
+  arm64: dts: qcom: kodiak: Add JPEG encoder node
+  arm64: dts: qcom: qcs6490-rb3gen2: Enable JPEG encoder
+
+ .../bindings/media/qcom,sm8250-jpeg-enc.yaml  |  190 ++
+ arch/arm64/boot/dts/qcom/kodiak.dtsi          |   67 +
+ arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts  |    4 +
+ arch/arm64/boot/dts/qcom/qrb5165-rb5.dts      |    4 +
+ arch/arm64/boot/dts/qcom/sm8250.dtsi          |   72 +
+ drivers/media/platform/qcom/Kconfig           |    1 +
+ drivers/media/platform/qcom/Makefile          |    1 +
+ drivers/media/platform/qcom/jpeg/Kconfig      |   15 +
+ drivers/media/platform/qcom/jpeg/Makefile     |    7 +
+ .../media/platform/qcom/jpeg/qcom_jenc_dev.c  |  379 ++++
+ .../media/platform/qcom/jpeg/qcom_jenc_dev.h  |  122 ++
+ .../media/platform/qcom/jpeg/qcom_jenc_v420.c | 1541 +++++++++++++++++
+ .../media/platform/qcom/jpeg/qcom_jenc_v420.h |   45 +
+ .../qcom/jpeg/qcom_jenc_v420_hw_info.h        |  215 +++
+ .../media/platform/qcom/jpeg/qcom_jenc_v4l2.c | 1175 +++++++++++++
+ .../media/platform/qcom/jpeg/qcom_jenc_v4l2.h |   13 +
+ drivers/media/v4l2-core/v4l2-jpeg.c           |  165 ++
+ include/media/jpeg.h                          |   79 +
+ include/media/v4l2-jpeg.h                     |   31 +
+ 19 files changed, 4126 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc.yaml
+ create mode 100644 drivers/media/platform/qcom/jpeg/Kconfig
+ create mode 100644 drivers/media/platform/qcom/jpeg/Makefile
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_dev.c
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_dev.h
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_v420.c
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_v420.h
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_v420_hw_info.h
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.c
+ create mode 100644 drivers/media/platform/qcom/jpeg/qcom_jenc_v4l2.h
 
 
-Brandon Brnich (3):
-  media: imagination: e5010: Fix clk never enabled without CONFIG_PM
-  media: imagination: e5010: Update e5010_init_device Call Sites to
-    Ensure Proper Device State
-  media: imagination: e5010: Enable autosuspend for runtime PM
-
-Myeonghun Pak (1):
-  media: imagination: e5010: release m2m device on probe failure
-
- .../platform/imagination/e5010-jpeg-enc.c     | 91 +++++++++++--------
- .../platform/imagination/e5010-jpeg-enc.h     |  1 +
- 2 files changed, 56 insertions(+), 36 deletions(-)
-
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
 -- 
-2.43.0
+2.34.1
 
