@@ -1,72 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315086;
-	b=kLr3K7AIfqkw5wNx7tZGj/ZlCoYWxjDoVu+ZHa2lqsCYd/9scbmH+hwNWb/kr2Yfuz3c
-	 2HaobogN/J4DcXeLqNjaC/OPRd1UbHFgnSQEp19vWyfqL3walB4F2EnasqsxL3oG/XyWj
-	 I8PlAW9HU5OTV8QhWLxOdWmwThaRLlwe7ePysFK1SrgqyOKFhYm//tWi6Jd20yV7U2tpe
-	 5j2BlRm//WPbWOTmJ26gPDFCsuRnKXJYDgm7GmUNYbjMaTGXSeZ0qY+bYLiXbo1GTXwAM
-	 S+Q6KZ9K27AW9dPIlZo+L//WxVNnL04v3Aw9bVmU6EsgjnjpJfvPl/mFiq9gdvV7HGQ==
+	t=1794315115;
+	b=gwXTaTq/xqg9uRiTDQJDgnYGwY/MGmXE57X3l6/BxeVKfPJNDZ+N2gy04Krw/T3TwVt1
+	 e5W9FFCwX/nxc5zH7RFRqalCWkzJuaaBspf/dT3FuwF3lzNpLijKlxSJQmW4Co04dAvYI
+	 cUKfKMnBaKc5ht7Sfx6W0bYiKxnBtqV1HslSNxEHe/EfEyK/ypyOnRRFrjavXa9W+GDy4
+	 ZGNcq47aMP0d5NHr9lOI21DFWkpZZGyfj5LNAV4uSESZfmS2iEBhKJO1X76Tn4C0xrty/
+	 JXId8238yWMPGpA4o3e2JR2wsgYVsPI12J/7vN1Y32mrBc8fLolESb0++DCSBmU8aQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315086;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:
-	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=RxZl6p7PH/ZzZkbb7ep2WA/FeXnjYV/M8ID/0T9gT/Q=;
-	b=LwDyGzNEb/1Wd83dW3PzJavZex7H8CQkGvCt12fbx7VdJ6sYdzbEtJOJ1yNYRgbE54vw
-	 dj6oqiTBdR3DClWnGaoOpM9avbv0yLI+X9kNCrf7c14IbkOfF2WE/BpT6739hoQSUGHsR
-	 gN/VQQTg+Pc4n1Ubaj82P+fDJbNvac+Tb5y4+mDyvZSO+9Q6QNwfY370qYTiXMrQRitsH
-	 vRuh7RECL0YVdGVrd3vdmPBpjtMeWDMXNHV6/SWaVJA3le4a5BeTcd/JeFGaJbKXwR4Qi
-	 iTFj5UHnmduwBjc5b4IJQ72TFAWx6usP+YusVNyw6csHJzVYypXamXZJNg9DF4DX4Zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315115;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=o6ZRq948QsADnFAUQY5GoxSIt3X/NH3XtT3nDaQJYOU=;
+	b=D9/ITU8zEEZGbOoEojA78r7y9bRMFcVVxPRyq4Gr2vMw5IHyhV8cA6CMixb2fiy7ATKi
+	 HtiAjJ/8PUTW/ExJDEKSpiszREHbSLSQTIXIR0lqr91UqWq5ClMY8NK2c0dWQunuyEa2r
+	 wTaAhBejgXmjPPvS2hOd+VRmHKOro9czC0qr3t97mf+LyoCs5ANu68ryzkmGIM7Uow9Xc
+	 VgB9cmQ8zTXFnS/7iV66GJLoQfKn+V7Wp99rC7I7ElP7EPWExRvrQ73Hl2k/Jm2jaPGJS
+	 j4tEZVQNY8prA6EZCp9/Bd1OKR+bFJeS3m5pR3djilFqSG9D+Y9Ql3+K4pyGgL2pl9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=smail.nju.edu.cn;
-	spf=pass smtp.mailfrom=smail.nju.edu.cn;
-	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=5bdoU13O;
-	arc=none smtp.remote-ip=54.204.34.130
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=v+hAuVRO;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3DC606A326;
-	Tue, 10 Nov 2026 12:51:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E3DC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B770660A2619;
+	Tue, 10 Nov 2026 12:51:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B770660A2619
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=5bdoU13O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1794315073;
-	bh=RxZl6p7PH/ZzZkbb7ep2WA/FeXnjYV/M8ID/0T9gT/Q=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=5bdoU13OhJjaFzk/UuAJm2aB75OBjAaY7TWqMD6y4sPfAWcFVL4mqTyc9SBD6EJbl
-	 rGRYOjsZy00/QxNw3P6mEMTdIuum5/pQ46qNYYjYaakWyiwhCfS9668moIVIb85wkv
-	 /9Gp9Qg40ELwGPCC+N2Yj1iNWmldK19PTs/v07Ck=
-X-QQ-mid: zesmtpip2t1794315069t11fc89a1
-X-QQ-Originating-IP: DOWT+SLXdKkkQCd8sDpgnmX258kipbcc6y7odjw9PsU=
-Received: from workstation-Precision-7920-Towe ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 10 Nov 2026 20:51:07 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 12170903532052178925
-From: Kang Chen <k.chen@smail.nju.edu.cn>
-To: Yonghong Song <yonghong.song@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org
-Subject: [PATCH] bpf: make dmabuf iterator stay drained after NULL
-Date: Tue, 10 Nov 2026 20:51:06 +0800
-Message-Id: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=v+hAuVRO
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1C7D5C14;
+	Tue, 10 Nov 2026 13:49:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794314970;
+	bh=tZg6m4kE4VjEb+t/13S1aUCh2EFh1x/sQctG+yZyfRo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=v+hAuVROC3MtMAaS+SJi2ko2AxdzxXDBQER/0lEIUTU3qBsYzKKsDZBnaDfS3NBVZ
+	 LNkoHyk49m27qj+DUCtiRSekFS7Ib7FmriHSxLJKXaSS9uhQqAZmRyGkeagahUxsMN
+	 +4jz6j1PtYvdxRvENK+gNldaKBkEgWA+4s1MrLCQ=
+Date: Tue, 10 Nov 2026 13:51:49 +0100
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Li Youhong <dayou5941@163.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Nayden Kanchev <nayden.kanchev@arm.com>, linux-media@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] media: mali-c55: Keep IRQ requested during suspend
+Message-ID: <avMP-y1B9K0cp4M8@zed>
+References: <20261027-mali-c55-irq-supend-resume-v2-1-759b3f5b2cfd@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -76,100 +62,191 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: MWxZUaxBV+u3RaK5TkvHNA8gQCfm4CUQUAkd7XR7zg0OxlQA1dsg7vic
-	nxNR/6js4aTsuzNYX6BLi02iCHAfuQM5E0+rycFBciLzi4fuIaWPgDUPuFUhiL86j310D1A
-	cutER53OiSFGN9SZPj2Fwm+azkiti5zwyGf7kJ9Am/aGNNpa+CT2+reH89+qoWDKxdM+UTq
-	m+OeIQYsODX+655wFJC8GsOWuXuw/QUASTTOIqsqExZpZCFVxODhYm9dBYvFyFywo+59QGM
-	2cf1xSJTnvAkDE+IVa9NULrpSPCVKmNGfZKxVsDVlo9oVYGdyPemFwqIZWenCKuCqRvOIYG
-	Ga6VgqHnSA0VUnmUcyy29o8pNkvJ3URWvMy5eh0x5Qu8q8h6jUq3ZxPTbkb9wAFGfDN2ye0
-	t2yUHYLbDDF+5kz/2dQecWk0YpIbKPoDS8n2leJcW4ryhVaWuuiKeb+Jd9TNQlzpX1MMdwT
-	hzGENWGN2+SAyP/h1ZJ8hM4MYaSro5YvhiRVbRwiwYQaP/rq31Fix53DC4s7qHQ9ASL1Xu2
-	3CC27bShbD3VDgzhruEqkS0oxzXbrBHyI9hiogSRIoqasn+9nMW4gzvQ3ROgn8TuIW2V0vs
-	DwBYRjUVFCxkB3rzEWqqWUOSnA10xJgawnqv3MnPnnRQvA/NUuuEezKz9UYV8XaRrMG1251
-	jes556nTem7chi3RKpqGtnsHnGdN7jODre1FjAPiVGTuD//hTjTAsVJFW/1Bf6yZnBDvWAu
-	V571BDHKRHmAbB+PdN0hLIs/iXQjwpILvZ5TzcOw908mCdR8iWNzr6Vfu6+nQM9Qk0T2W/N
-	JUE4u8rcibpYd2P0f7MbjsqjzpaRPS4vowKj3jKVEos7OI4fl13Nu/Jr/dDrzhSR5eAn5se
-	y8NI8tIzy4ZJJGpdOx7l4/AT3HJ3EYghO+P6a6Ogw3f0OLquIDNuyMP/QwcP+cTuYjyvkiv
-	FXz84nuwk62IXVqDRCataltp23nKEBGsH32XqfQdjEnWojXcaeZqehdLwJn22cmAUexszPV
-	WfX0kHMJtC1P+ZugW1MG/ZDlj7i56QlYFT46/wCQ==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027-mali-c55-irq-supend-resume-v2-1-759b3f5b2cfd@kernel.org>
 
-bpf_iter_dmabuf_next() uses kit->dmabuf == NULL to mean "iteration has
-not started".  dma_buf_iter_next() also returns NULL at the end of the
-list, so a next() call after exhaustion restarts from the list head.
+Hi Linus
 
-The verifier relies on the iterator contract that once next() returns
-NULL it keeps returning NULL: process_iter_next_call() marks the
-iterator DRAINED and treats the result of later next() calls as the
-constant zero.  A restarted dmabuf iteration therefore hands the BPF
-program a kernel pointer while the verifier believes R0 == 0.
+On Tue, Oct 27, 2026 at 03:08:05PM +0100, Linus Walleij wrote:
+> The interrupt is currently freed on every runtime suspend and requested
+> again on runtime resume. Apart from tying interrupt ownership to the
+> power state rather than to the driver lifetime, this leaves remove to
+> guess whether an action is installed for the IRQ.
+>
+> Request the interrupt once during probe and free it during remove.
+>
+> Disable and synchronize the IRQ before powering the ISP off, and enable
+> it only after a successful power-on.
+>
+> Hold a runtime PM reference during probe until the IRQ is installed,
+> and stop runtime PM and drain the IRQ before unregistering the media
+> entities during remove.
+>
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+> This is essentially my reply with the "proper fix" for:
+> https://lore.kernel.org/linux-media/20260903025526.2657105-1-dayou5941@163.com/
+>
+> Keep the Mali-C55 interrupt requested for the driver's lifetime instead
+> of changing interrupt ownership along with the runtime power state.
+> Synchronize and disable the IRQ before power-off, and enable it after
+> power-on. Hold a PM reference until probe installs the IRQ, and stop
+> runtime PM and drain the IRQ before removing the media entities.
+>
+> Tested on the Renesas RZ/V2H board with the other in-flight patches
+> (DTS changes and the TPG enablement) doing full suspend/resume cycles
+> with wakeup from RTC and NMI and capturing images before and after
+> the test.
+>
+> This patch was authored with the assistance of an LLM.
+> ---
+> Changes in v2:
+> - Drop the wakeup-source binding patch and all ISP wakeup handling.
+> - Drop the patch retaining ISP power for wakeup; keep the IRQ lifetime fix.
+> - Link to v1: https://patch.msgid.link/20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org
+> ---
+>  .../media/platform/arm/mali-c55/mali-c55-core.c    | 44 ++++++++++++----------
+>  1 file changed, 24 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> index f28e9f4354ac..3c2816b6a96b 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> @@ -675,8 +675,7 @@ static int __maybe_unused mali_c55_runtime_suspend(struct device *dev)
+>  {
+>  	struct mali_c55 *mali_c55 = dev_get_drvdata(dev);
+>
+> -	if (irq_has_action(mali_c55->irqnum))
+> -		free_irq(mali_c55->irqnum, dev);
+> +	disable_irq(mali_c55->irqnum);
+>  	__mali_c55_power_off(mali_c55);
+>
+>  	return 0;
+> @@ -745,20 +744,9 @@ static int __maybe_unused mali_c55_runtime_resume(struct device *dev)
+>  	if (ret)
+>  		return ret;
+>
+> -	/*
+> -	 * The driver needs to transfer large amounts of register settings to
+> -	 * the ISP each frame, using either a DMA transfer or memcpy. We use a
+> -	 * threaded IRQ to avoid disabling interrupts the entire time that's
+> -	 * happening.
+> -	 */
+> -	ret = request_threaded_irq(mali_c55->irqnum, NULL, mali_c55_isr,
+> -				   IRQF_ONESHOT, dev_driver_string(dev), dev);
+> -	if (ret) {
+> -		__mali_c55_power_off(mali_c55);
+> -		dev_err(dev, "failed to request irq\n");
+> -	}
+> +	enable_irq(mali_c55->irqnum);
+>
+> -	return ret;
+> +	return 0;
+>  }
+>
+>  static const struct dev_pm_ops mali_c55_pm_ops = {
+> @@ -825,27 +813,42 @@ static int mali_c55_probe(struct platform_device *pdev)
+>  	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
+>  	pm_runtime_use_autosuspend(&pdev->dev);
+>  	pm_runtime_set_active(&pdev->dev);
+> +	pm_runtime_get_noresume(dev);
 
-Use an invalid pointer value as the drained sentinel so the iterator
-state keeps its one-pointer ABI, and skip dma_buf_put() for it.
+Why is it relevant to hold a PM reference during the installation of
+the IRQ handler ?
 
-Fixes: 6eab7ac7c5ee ("bpf: Add open coded dmabuf iterator")
-Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
----
- kernel/bpf/dmabuf_iter.c | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+>  	pm_runtime_enable(&pdev->dev);
+>
+>  	ret = mali_c55_media_frameworks_init(mali_c55);
+>  	if (ret)
+>  		goto err_pm_runtime_disable;
+>
+> -	pm_runtime_idle(&pdev->dev);
+> -
+>  	mali_c55->irqnum = platform_get_irq(pdev, 0);
+>  	if (mali_c55->irqnum < 0) {
+>  		ret = mali_c55->irqnum;
+>  		goto err_deinit_media_frameworks;
+>  	}
+>
+> +	/*
+> +	 * The driver needs to transfer large amounts of register settings to
+> +	 * the ISP each frame, using either a DMA transfer or memcpy. We use a
+> +	 * threaded IRQ to avoid disabling interrupts the entire time that's
+> +	 * happening.
 
-diff --git a/kernel/bpf/dmabuf_iter.c b/kernel/bpf/dmabuf_iter.c
-index cd500248abd9..a2b7c38f9ae6 100644
---- a/kernel/bpf/dmabuf_iter.c
-+++ b/kernel/bpf/dmabuf_iter.c
-@@ -156,6 +156,13 @@ struct bpf_iter_dmabuf_kern {
- 	struct dma_buf *dmabuf;
- } __aligned(8);
- 
-+/*
-+ * The iterator state is one pointer wide because struct bpf_iter_dmabuf is
-+ * part of the generated vmlinux.h ABI.  Use an invalid pointer value as the
-+ * "drained" sentinel instead of growing the state.
-+ */
-+#define DMABUF_ITER_DONE	((struct dma_buf *)1L)
-+
- __bpf_kfunc_start_defs();
- 
- __bpf_kfunc int bpf_iter_dmabuf_new(struct bpf_iter_dmabuf *it)
-@@ -173,11 +180,25 @@ __bpf_kfunc struct dma_buf *bpf_iter_dmabuf_next(struct bpf_iter_dmabuf *it)
- {
- 	struct bpf_iter_dmabuf_kern *kit = (void *)it;
- 
-+	/*
-+	 * The verifier assumes that an iterator which returned NULL keeps
-+	 * returning NULL (see process_iter_next_call()).  Without this check
-+	 * the NULL left by the last dma_buf_iter_next() would be interpreted
-+	 * as "not started" and the iteration would restart from the list head.
-+	 */
-+	if (kit->dmabuf == DMABUF_ITER_DONE)
-+		return NULL;
-+
- 	if (kit->dmabuf)
- 		kit->dmabuf = dma_buf_iter_next(kit->dmabuf);
- 	else
- 		kit->dmabuf = dma_buf_iter_begin();
- 
-+	if (!kit->dmabuf) {
-+		kit->dmabuf = DMABUF_ITER_DONE;
-+		return NULL;
-+	}
-+
- 	return kit->dmabuf;
- }
- 
-@@ -185,7 +206,7 @@ __bpf_kfunc void bpf_iter_dmabuf_destroy(struct bpf_iter_dmabuf *it)
- {
- 	struct bpf_iter_dmabuf_kern *kit = (void *)it;
- 
--	if (kit->dmabuf)
-+	if (kit->dmabuf && kit->dmabuf != DMABUF_ITER_DONE)
- 		dma_buf_put(kit->dmabuf);
- }
- 
--- 
-2.34.1
+Does this comment still apply in your opinion ? I mean, thread_irq are
+pretty regular stuff, do we need to justify its usage ?
 
+> +	 */
+> +	ret = request_threaded_irq(mali_c55->irqnum, NULL, mali_c55_isr,
+> +				   IRQF_ONESHOT, dev_driver_string(dev), dev);
+> +	if (ret) {
+> +		dev_err(dev, "failed to request irq\n");
+> +		goto err_deinit_media_frameworks;
+> +	}
+> +
+> +	pm_runtime_put_autosuspend(dev);
+> +
+>  	return 0;
+>
+>  err_deinit_media_frameworks:
+>  	mali_c55_media_frameworks_deinit(mali_c55);
+>  err_pm_runtime_disable:
+> -	pm_runtime_set_suspended(&pdev->dev);
+>  	pm_runtime_disable(&pdev->dev);
+> +	pm_runtime_put_noidle(dev);
+> +	pm_runtime_set_suspended(&pdev->dev);
+>  	kfree(mali_c55->context.registers);
+>  err_power_off:
+>  	__mali_c55_power_off(mali_c55);
+> @@ -859,12 +862,13 @@ static void mali_c55_remove(struct platform_device *pdev)
+>  {
+>  	struct mali_c55 *mali_c55 = platform_get_drvdata(pdev);
+>
+> +	pm_runtime_disable(&pdev->dev);
+
+It amazes me how, after so many years, I still can't find a clear, firm
+indication of what is the intended call order for pm_runtime_disable()
+and the other pm_runtime calls is during a driver's remove.
+
+Media drivers seem to do different things with some disabling pm
+before setting the state to suspended, other doing the other way
+around.
+
+In the end, I think this doesn't make any difference, but in this
+specific occurance:
+
+1) Is this re-ordering required to support the new interrupt handling?
+or
+2) Is it a change that is worth doing anyway ? (and I should say "should
+go in a different patch on its own")
+
+> +	free_irq(mali_c55->irqnum, &pdev->dev);
+>  	mali_c55_media_frameworks_deinit(mali_c55);
+> -	if (!pm_runtime_suspended(&pdev->dev)) {
+> +	if (!pm_runtime_status_suspended(&pdev->dev)) {
+
+I guess this is required because you moved pm_runtime_disable() up
+
+Thanks
+  j
+
+>  		__mali_c55_power_off(mali_c55);
+>  		pm_runtime_set_suspended(&pdev->dev);
+>  	}
+> -	pm_runtime_disable(&pdev->dev);
+>  	kfree(mali_c55->context.registers);
+>  	of_reserved_mem_device_release(&pdev->dev);
+>  }
+>
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260918-mali-c55-irq-supend-resume-30b507a20011
+>
+> Best regards,
+> --
+> Linus Walleij <linusw@kernel.org>
+>
