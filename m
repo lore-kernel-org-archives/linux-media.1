@@ -1,120 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794305935;
-	b=NbJe9LMpbvyrb/z8P78q8WnERkBfEv1c6KhEhXwB7qcv4UGXpIdvtqbY2kImoFaI6yEz
-	 +zRd6PqkIEM/ENvQK0aC5A3xnAmMPUAYeu8lqB2bSyOa9RsX3FIbBToRLXcG4+dwN8Pnm
-	 XI2NbXon0VzonAarDD9gAJ/HxlfoCqY2V99r0OvjmqbBe1dDgRXnGK03CHB/PSRQnuIRO
-	 G/5Xm/EtnReHkVmbJyePi7j6o7HggjIWj3oKAN8Gqb1s2/qaDc8MLrR8xTY3PNWr1X76a
-	 ARq5q6fUilYiZsQKjn+NUdv1JVFkTay7EZXf+MJ4igrg1zMX6n5Wj7yfVlv4INjcdrg==
+	t=1794306203;
+	b=hWvuIwjLaT9EONEItbhG87QZP+J3d/loLdeWv17CkZp6vFjBapO6fQ+leqUSI2PQgYba
+	 K9Ax3E1Gp7XbRcso0rS3wRLANN0bVmvz1H97bEgbdSHDpj4NTB3A6j3Z2GUfgdR0jKzj7
+	 G6lrZha6clF/mHLm+bGlToyDwk75LvEyCJFJfW1AyENkF+4bdhpiO932+U5AlwkIvoa3U
+	 RFumgrP/BqyHwrjp26Ed+5vvpl8DImycJOPw0pP3/+dMSYx36OZSJyxFUI76A8o9/JJxB
+	 z91+jZA0AqCfMtYC8ETh5TP0QW2ApTW0vEuXXtIhgcS+rpy2sNvKsVnyP5WmcGX7mQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305935;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=I/EFu7Fs/aroypMjEq5BPl5EvpaGvb9lezW04r2LTCE=;
-	b=EarP+hpOvpoR3OcXuAcHUOOF9lgQvBuSQfby6R7j3dWTncACw409Ov0bdsHQ8zz5XI+W
-	 499mxmWw3GAIOOq9s4XGlJhgUPhiyUCj1eleCM1CApteOhun8BhLg1y3ILhVrziNaB2Ae
-	 28dkbiNdpf9hkoWb9M9cUvAWoecipemyxbsnJAxy5J9b0FcLKUmspLQC6vZIv+7jYBPPL
-	 bAf4qeYFs/kA0DwM2eeFyqgpp9yw/yQxFcGVkJa/NBEoJ13VxVOpMhtWmDWmzfpBTrNU2
-	 /s+lXclRDqTIv2zPLQNoyYKydL4pzhdjGiklSpKcSopI4csIX6nf3WtRwagzTx7zVXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794306203;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=4Z0jCGvHX7DYTMHYJJkZX4Syiq7dm23F/7eJvYhL9hA=;
+	b=F5dcIxJ6aq+q3r0aGMA7gbEkukdP/ptUDtu3OSwacoA0bz9PY/BqKtvRY1x8qun5YUZO
+	 M8wCVhCF8fuiMa1PcGrxM3I2psBSZdACheLte4mz/sBR+lBcENC+hfrnZCVDbn1HajR/l
+	 sVAMPKaI4/6bGwX+6W97ovVKXtKwL2ZPiX+VzfPSiDlrReXfUJ1zd5H39vEOg9kfGZGVQ
+	 aLZ0dlqmc/MYn5+vw8paw3joehRM719qd37ea8XYxvVfF4/enQ4RJWcMMne6gMqFuEFtS
+	 BPxTuKAQt96pVDKMbQOrVbItZZH6eP6Mj9ylVpdxWFX0IRZZ/mYIlKM+MRQJuIvEO8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Xgv2aIeX;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=H0hhAM2B;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a6Mfbo73;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A56606A321
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 10:18:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32A56606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D627E606A330;
+	Tue, 10 Nov 2026 10:23:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D627E606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Xgv2aIeX;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=H0hhAM2B
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA7l4BO1154995
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 10:18:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=I/EFu7Fs/ar
-	oypMjEq5BPl5EvpaGvb9lezW04r2LTCE=; b=Xgv2aIeX/aafN7Ei/rMWPqmcw8/
-	1xTLyJHBiscFRwYSoOsDxc9RZeUw7seu03C1GVCqSyzLLgRqvzzVuBMaVgNOsaR4
-	+A765VBXjklqNTRJPO54YRoR5LrFjdqGAwEmJt3ICm8H0yEAFKOlSYjhDiqCqumy
-	IyfycVeSYxFxdTQAUI8ghyh19PeziFnYaWhejUdrSc276ZLEWAqimz37itX3B92t
-	vzNe9J+labWkSN7nGVQvRUE1Li+QUcmm+U4IAiJ/3S7f5Q8y02cttfvq28uXTSYF
-	hpPG1EWgvRQNQ7UxbDrheFwch+RaQtbtZkjAJkU+12DjRqp0dJCFThgEgMQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hutv49n2q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 10:18:54 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93caf7856ffso421500585a.3
-        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 02:18:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794305933; x=1794910733; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I/EFu7Fs/aroypMjEq5BPl5EvpaGvb9lezW04r2LTCE=;
-        b=H0hhAM2BSin6OoSYGbeHKUNAqzlObCheQ1XOkBXt5UGMORq7RJByImX54Wzwu/67x5
-         tg0H0vCX/uuJFAd95L1ECdEWLniFt7G4NSkzed8/de3+zHBM37kFnVb7bnzj7a8V663M
-         8klFjzOoJuoaLkEqn+Lkh470xDNoWU1I6JIO1brrlJS1rvtB53e5RLJG8fbP2oZQdh2w
-         Sq017FP+GAgFJzcNFQPAvssfTfY2ttAqXCLsyfAxwydMEvEy+Qu8hVYPBocZ75dN9jJk
-         u0ezET1LA2qfVN8McJpN9ZndQ3a/0Sfpr5DsHWt4PyQUUzjAOkiyeeieZNnUJmmf75km
-         CdqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794305933; x=1794910733;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I/EFu7Fs/aroypMjEq5BPl5EvpaGvb9lezW04r2LTCE=;
-        b=RNd6xpAkLlAgYC0gcNUYydnNcRGA4N698IfGTjU0z9qp21e5kDXITzmxLTtCOdWFru
-         bD3iTQ1Y9Z6QwIPGv4PVBP9u9U7Z4onoKLAiM5/oX08gqdQrz45pnBb4r2XNGV3Bp6wT
-         9UO2u3ZsuC4KPlru83j37TU3Nlf9MpVpXWkY8MDSLneGyIdHEY9MlM8YdIcc62lDEjL3
-         UF9/Dyl38OLe0vMowt+qF2wfy/J5qk9CQugGSM70Ti5tSECuzf+BRMy8Cp+aiivmMLe/
-         h2ItdWPjDfADX3SD+lPB1Jul0EELZNgFIA0PwtDIoja2vcnlMV6PwMcUvIvYEgfVOT+q
-         9qdw==
-X-Gm-Message-State: APuU4Z+/96QBqOVkTmyvnLfC986NGj6z5FMsvPOAQ3M5BwEC3NZ2QFjo
-	2u00yGgf5+YfJt/+ciCZSpRKTGdH4QXIwk4cp1bDEqpD2pkwCCKtTrLvPA9QctZGGMlbLl7bWBo
-	poZeJc5fhrgPytkGF2iCu3HEWq02Fw2vad2ql/tEnRtRk8hC4wIMVbNr7AS1oqk+23A==
-X-Gm-Gg: AYBFou2JoZUa8cDUSCJ7SDXMGkmdXcH54wZURXEjy5OBBKVLKcRfMz835Q7/fpcX/SR
-	SRjxfs/QoKvMBDmPBz1kefF58APuVj9eBYhdjemU8hSyJ3GtEUi03tQI/yqttyMLLl1X5updKUD
-	On4qKdYAu3ex212Dfa33Nn3bWXjNXgh+H5urnI3cmJhr3KZcaRK8UDq1/ZZHKXxNLtud0P4DSJv
-	HJMUlQZI9Ldc+XsY8eoyJlcx32KIVodF7E4d02v7e7xXSccXoKb+rOtu/wi+UprHx3UphFe1TTc
-	/PBNLjamloCwAFs30cfPpPvqvHGjYilVkxWfch/IpP7iq5T9h1c9ovo2sXvm1QfHzQTbvOFehkV
-	wGTvtzJYlna7c0K8R6tUznScfc8ZRMDsFt8hIUV4nBVZ6wPagmyzFPwinbX6WB1KXRb0A9LqY1w
-	==
-X-Received: by 2002:a05:620a:4593:b0:93e:6c4f:bdf1 with SMTP id af79cd13be357-9479f2b062emr334978985a.17.1794305933370;
-        Tue, 10 Nov 2026 02:18:53 -0800 (PST)
-X-Received: by 2002:a05:620a:4593:b0:93e:6c4f:bdf1 with SMTP id af79cd13be357-9479f2b062emr334976685a.17.1794305932853;
-        Tue, 10 Nov 2026 02:18:52 -0800 (PST)
-Received: from lin-0772.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fe2f09sm63168165e9.4.2026.11.10.02.18.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 02:18:51 -0800 (PST)
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>
-Cc: linux-media@vger.kernel.org, bod@kernel.org, mchehab@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
-        konradybcio@kernel.org, loic.poulain@linaro.org,
-        loic.poulain@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
-        gjorgji.rosikopulos@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        atanas.filipov@oss.qualcomm.com
-Subject: Re: [PATCH v7 1/8] dt-bindings: media: qcom: Add JPEG encoder binding
-Date: Tue, 10 Nov 2026 12:18:49 +0200
-Message-Id: <20261110101849.3768125-1-atanas.filipov@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261106133143.GA2705755-robh@kernel.org>
-References: <20261106082522.1448390-1-atanas.filipov@oss.qualcomm.com> <20261106082522.1448390-2-atanas.filipov@oss.qualcomm.com> <20261106133143.GA2705755-robh@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a6Mfbo73
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794306202; x=1825842202;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Wjszt7vM3bw02fZ3cs7BjKTSZKJ0qHoKwjXdiaPJRyI=;
+  b=a6Mfbo73+SrM3sHiDwcDI0oxsil3Nlx7SCNXYP3I6fYQSfnduqBmAgoJ
+   vqfsvcgtvY2wZcKGMFcQWzfst6xp9vlCsfuwVXUc5FahzmmHnLH2tsf+j
+   1whNY2yqnjHiw+ONzJ+em1GbANlfKq8ofmUbYfeU2E8AWC+FOqMesgHQU
+   unvcpHZ+3p/+RB9DaBM1NJ00oP2HTmyPyel5inqrMmWjxMEDOaa77oUBq
+   1BS0pHO9wiCFXfWj7f7k6WiVJ9Bq9D478fU6ZRmb4ZjO/PJLaPg1HeZYJ
+   VrnT9NsyR3zUSh01h3h/pHM1zAm0fW1+7nUinFg7XiqhIuxRfbcGgSCjy
+   Q==;
+X-CSE-ConnectionGUID: eccd8BY8SZa3LFclk4bP7Q==
+X-CSE-MsgGUID: 6ZvqUCJvT0O6NcMe9BvH9Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2947232"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="2947232"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:23:21 -0800
+X-CSE-ConnectionGUID: d1DTb5iFQ/SQSrBs5v72qg==
+X-CSE-MsgGUID: WQBGl42RT7Ohb2uQR2e6MQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="8263477"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.11])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:23:19 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 201A0121B7B;
+	Tue, 10 Nov 2026 12:23:18 +0200 (EET)
+Date: Tue, 10 Nov 2026 12:23:18 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jake Steinman <j@metarealtyinc.ca>
+Cc: bingbu.cao@intel.com, antti.laakso@linux.intel.com, mchehab@kernel.org,
+	hansg@kernel.org, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: ipu6: Don't stop or close a stream that failed to
+ start
+Message-ID: <avLwlhbOg-9EJo7g@kekkonen.localdomain>
+References: <20261106121905.42571-1-j@metarealtyinc.ca>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -124,58 +84,75 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA0MCBTYWx0ZWRfX9oMs38Skj4RR
- WnMdWOiC7+QAtBIh/w+RPS8v2IDjf56wLkrCbK5xxU7kaYhqideDR6vr5UC9dWGKbLSw2OyJx0e
- Tc7NnkLLbPm31SJ3cFW1a8X8iLeZNKA=
-X-Proofpoint-ORIG-GUID: ODL2XbZtmpP65fdI_MWIC4kBaUas71vC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA0MCBTYWx0ZWRfX28RkoGFiz8c2
- qNl7zLAawS+5dTqXjrF3encdGddUN+ts1Rr1XpRemZ8c55xcPnAm/OaS46WecwnFDn+pbR9/u3G
- wYXIK0SU0YsvdPFEb3frgZ5O2+/sgrihnHh+Vwst6Z1WpffdIR8m7W1EEaQaAeFxk/jVjmnKJHq
- 7odNgspqrh1G1ZOTmWGzWUvzZfXJxAmtoT9RkGWOfVo9BItu/Hl2aKUw8SHLru4klP2Z6M4/eEi
- nb7Uq0qUQUIGf9msAnJkR+4BM644ODWNG2rkKg2DX6v72nhMNNWXBWILB+pt5Izmwhze02cgCZ8
- dRPuVQUlpyrtkxFne49CehNZntU25T85odRxw26MhSRWi6neRzogUHtZcLt70WFVAF17aUqmbw2
- SAzU62pRhb8k7XydRHa5vdwAjgwB/WtGHJcHwQdjOGpB8G4u0WMSKpdk6eJmSV0k+sEGzq3fPC9
- /bcs5y+CtZA66sSQehw==
-X-Authority-Analysis: v=2.4 cv=B54sQ+tM c=1 sm=1 tr=0 ts=6af2ef8e cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=cRrya0eItvTHvl-yL4UA:9
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: ODL2XbZtmpP65fdI_MWIC4kBaUas71vC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
- malwarescore=0 adultscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100040
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106121905.42571-1-j@metarealtyinc.ca>
 
-On Fri, Nov 06, 2026 at 07:31:43AM -0600, Rob Herring wrote:
->> +      - const: camnoc_axi
->> +      - const: camnoc_axi_src
->
-> These 2 don't sound like clocks that are part of this block. And 'src'
-> sounds like the parent clock? Use assigned-clocks for parent clocks (or
-> just retrieve the parent from the clk api).
+Hi Jake,
 
-Right, camnoc_axi_src is the parent of camnoc_axi. I will drop it from
-the binding in v8.
+Please be careful with git send-email arguments in the future.
 
-For the encoder, camnoc_axi alone would be enough, as its memory
-traffic goes through the camera NoC. The problem is CAMSS: on SM8250
-it sets the rate of camnoc_axi_src directly, and a rate range on
-camnoc_axi does not limit that. So the driver keeps its minimum rate
-on the parent. In v8 it gets the parent with clk_get_parent(), so DT
-does not need the extra clock.
+On Fri, Nov 06, 2026 at 07:19:05AM -0500, Jake Steinman wrote:
+> When ipu6_isys_start_stream_firmware() fails, the firmware stream is
+> either not open or has already been closed by its own error path. Since
+> commit eb68e9f1c6eb ("media: ipu6: Bridge the gap between streams in
+> V4L2 and IPU6 firmware"), the err_requeue_buffers label in
+> ipu6_isys_csi2_enable_streams() falls through to
+> err_stop_stream_firmware, so the driver then sends STREAM_STOP and
+> STREAM_CLOSE for that stream as well. Each of those waits for a
+> response that never comes.
+> 
+> On Panther Lake (IPU7.5) I have seen this after the firmware rejected a
+> stream start: stop and close both timed out, a later stream open timed
+> out too, and the ISYS needed a power cycle before anything could stream
+> again.
+> 
 
->> +      - const: core
->
-> I would expect the main clock for the block to come first in the list,
-> not last.
+I wonder if any firmware communication failure, a timeout or other error
+should trigger the IPU reset (once the users are gone). The functions
+communicating with the firmware should also probably check that condition.
+I just sent a PR on IPU reset changes, they probably don't address this
+problem though.
 
-OK, I will move core to the first place in v8.
+> Requeue the buffers and go straight to freeing the stream on this path.
+> The CSI-2 receiver error path still stops and closes the stream, which
+> is open there.
+> 
+> Fixes: eb68e9f1c6eb ("media: ipu6: Bridge the gap between streams in V4L2 and IPU6 firmware")
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
+> ---
+>  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
+> index 1525454..ed4e4f6 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
+> @@ -678,8 +678,11 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
+>  	}
+>  
+>  	ret = ipu6_isys_start_stream_firmware(stream, &bl, &desc);
+> -	if (ret)
+> -		goto err_requeue_buffers;
+> +	if (ret) {
+> +		/* The firmware has no open stream to stop or close here. */
+> +		ipu6_isys_buffer_list_queue(&bl, IPU6_ISYS_BUFFER_LIST_FL_INCOMING, 0);
+> +		goto err_free_stream_firmware;
+> +	}
+>  
+>  	if (!csi2->streaming_vc) {
+>  		ret = (IS_IPU7(isp) || IS_IPU8(isp)) ?
+> @@ -704,7 +707,6 @@ err_stop_stream_csi2:
+>  	else
+>  		ipu6_isys_csi2_stream_disable(csi2);
+>  
+> -err_requeue_buffers:
+>  	ipu6_isys_buffer_list_queue(&bl, IPU6_ISYS_BUFFER_LIST_FL_INCOMING, 0);
+>  
+>  err_stop_stream_firmware:
 
-Thanks,
-Atanas
+-- 
+Regards,
+
+Sakari Ailus
