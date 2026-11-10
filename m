@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794305291;
-	b=bXjSUNIidSIBuxlcF+qzlSqjZ2T6sB4Rg5QYxA6VzfP4O0ugDofOKsyD0YCbFEr1yOqB
-	 0+khtbNxxOh/ya6N3LIBSF47qJhLvB/UiYaPcVouR9/70R0tJq5kjPx7iqOHWT8ESMxrK
-	 g8L3DTfiFCm+3dMBxpaEQqiw8uN8zrz6+lx0I0v0RA6oZUxvLxLKfZLUIwYXbQf+4buCf
-	 Y8E2FZfyqZsGo9GnQJZ21/qzNCNsWVnWjaMq3hVNLBPy/OTtTn8SGNbkTWvNCZP0zJY1m
-	 cmcIMRWUO8fmHx9oSQa3kYhEM4bRE1NjQtmKGMj8+CacTdVTlbn4hNM6K9G76zukV9w==
+	t=1794305289;
+	b=pYQfnE+np45R5IBfGSjvfhUyjPUsCMrNgRC589TUQQ17Rqm+ZWWL+ZXJOmzJZZ/9nKle
+	 TcU/KDUm2C4xTMYtBWsp3+I71OuOvrQ6NRt9TyxcXROLro011L5f1rkMfyPvHAu+abvjQ
+	 AQVo83NifiAjBIzFlUEsKUaJ+5HI+askho810r9JYYbDk8KsEEfjEvXeXHXaF30OCnLSp
+	 Vdvq3xLHez6YHizD4OF4Zl7b/dvRN0SglLx6vcbE+gqA0yDkZk4iMfpLDcS46AL2YWwxP
+	 PNEP+gv5meqNaKvvAY4IYMAiq/MBMAm8OxVa5wFGimCDaHh06AiPeRYWy2CRa/SK8aQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305291;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305289;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=U6qxJU6eC3Q/bchS7RacWJNWxRDNMV4uNktgoQL7w8Q=;
-	b=1Vk6p6H20eKWgL+Ep4/xsxzbX1QI70sd4Zlr9S54X6+zgTfeGTOfmsEVr80RPCfv3YUr
-	 P9wjL4jrc5M9sTBselRco9lz37QyZt8MnnACSPQbDhMv5etpu+5UM2CTM7ptq6R8jMSBp
-	 HAsV5nQLwB+3gU14ZNqjQIyF4VTyNYjR8jCGxUpkVgOzbF5rl8oDROmYzF0N/lYhZ0LtE
-	 T6t8uP7JSCDZ2GgpkqVgiC4KwjQk6s7At4HZpMPR8x4oUDiPquZZ6rvgUGVUdeEDSol70
-	 E+t2XH85tz2miQ1MSjiZ139gkhCAIhOEHp+qKtGVUlFeJM6L3xR5WAP6LPuLT3MKxPA==
+	bh=mzP6mkQqBJ2czTJ6YFbl+lnGd5vAEuykbrNW2Ee3wlw=;
+	b=gAWF7a2lLcWmHyRZbYY5bmb2nsRZ1Lvg9w77j+f4/vzxhcJSpi8xWKUkGWpgpY5oGFR/
+	 6yrMGGtbvHcDhRqiz8O0YykjLf5Jg6e/IG0q2AMn2lbrtTNcS4CqAqOoE9SkQMWtpYYnO
+	 ZvzU3U2KyAqaMT9KrExyyt/KhpYpaHcMKIDkZdLxIOwK8GKrF/z97sjC7X1vwiPxNex0i
+	 9nRfXfoKFGBBYDDDon4LZpPUBK8r2fiGZwgxH2tk3tePvk//aOFHZQPymQaBDk6ANDjWg
+	 F/sDyEuZf7ascR7bhq4wIBmHU2/WSKRTkXZh2wmbJ45wHF7jRGqTtz5znSacv/cHI6w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hkElKgQC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvu3+TlR;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBAE606B50E;
-	Tue, 10 Nov 2026 10:08:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E392606AA76;
+	Tue, 10 Nov 2026 10:08:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hkElKgQC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvu3+TlR
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305291;
-	b=3oU0SDBegbA21IVpz/wd/wLmf73gLyCSpODYunpZkYE4vo7c35Um5Fh5j1AbaoTnrfB6
-	 zPzfAFybxcjEN0MAkoCffLTgKz6gj4DmNmxG2Uax7jfVkh+sqZdQuwPD/iRVSDTvLKh8v
-	 yE64JDlDvmT5wOYAz476kAbxjkaHbFGTGvIp1S8P/pBSt4qqZ4COKYzzhewuqKe8Xl+Fz
-	 9yjXNWD5FkzRyKHo2bJJSTinuSY/gKvU5ELt78rQUqk2c8KOCcTIMJSzH78NcKe0BeKlc
-	 gmmvZzxORgprVOznIyDuO+lz39XvHr24L051djFbIJROsLbzdkmJDftVTtmCgoRNUcg==
+	t=1794305288;
+	b=ioEWTgqQE02D0MPYzd5vPmrvYwlhkcVDFE6fpRSS0QM1x0hrlpZU92zn3Zhtyp6qj2At
+	 rRcGbfuzjQsGX7PH1T8X+sGb9ps9j6iSKR1ouzYJhJHWHKVxgTekbCH6D14+AIVXeZ6af
+	 zNDKvwuTcFSSKXXY6XSWdJv3eB8UhNp+fQFGFf0gc00aghoRaUG4pcesurg92gm42vJBw
+	 hnjQTg3hem8WIHxxqXW7iRTi7tuDod5Rg0Pq5UM7dCbBnB9Gb/8BQrEz3jNVpwNtyrK9Z
+	 4Gqpn2MD8PyWzjFWnrgADp4f82WNsWq5I3/kOGO377TXLsXIym652ZDeCnUjpnUOzxw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305291;
+	c=relaxed/relaxed; t=1794305288;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=U6qxJU6eC3Q/bchS7RacWJNWxRDNMV4uNktgoQL7w8Q=;
-	b=wtTlIG20j+2SsiDpTOJjjKVjPuVK2jFIOi33QP47bvxZxNz/1BV5qHfEeHzUJXPYtci4
-	 Yq8Ml/Dx3AgcUbMQD5G+oeubs7vdd6Mhbyq+P1wRuOSNotaq4uNR4kcyaglECBb5Xlthe
-	 +1p0GPlYj6vW9acb58heox3WK1i2OswusVfvNL8GXrw3uAdbx5KaF69gTOZJE8qJbnhNL
-	 fXTF1eBlUfeFmjJxpWLUjt1gussRL5Wm7gfXtPaIUG9DfZIYU+PkFbHSTnTExztjn6+Ah
-	 aAuHNBYPc2Qsh09LR17OJzNMsSla7iGPD7gVK8YpNLxCzfbWUvmoCz61uTFljSoUShA==
+	bh=mzP6mkQqBJ2czTJ6YFbl+lnGd5vAEuykbrNW2Ee3wlw=;
+	b=xyp/PhThgCrhTB5aK98GWMZBor7c0EMXr0aArUasOcooCjjLa5aljeTpo1/ngLZRwpAt
+	 rihWe4QK80fZbHwyKx5jFjL3FCQ6bJugJUb9Za49MQZPWLadHPGIf1LplsY4cb/QLniis
+	 CzOJkjPviH0jtVMEK7TcJz+jeU0orCqLt/FGHl2uOA3MikwgIlMz4dHefc2M6SBY5uoQg
+	 Qu51M8X0vVVLj1CNyAF4HCHaMycq1r/pBSywpQKbHkOEPFJ6hyN7BrW60s6VQKUSGx8ac
+	 M+6jAn4dwqhG0IUZVJ5Qdf2+lvwLWsOv1rfWN2t/xpdX/OjxUJe2qQxoRs/AKJol/Qg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5CA871F008A2;
-	Tue, 10 Nov 2026 10:08:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305291;
-	bh=U6qxJU6eC3Q/bchS7RacWJNWxRDNMV4uNktgoQL7w8Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=hkElKgQCF9iJFu5nJZ2/fX0ANR7TzUr3kN9lcdSg699suV/Jx+BLLA9udQRtO9tY+
-	 //y9BRG5HQW3iRiGdg6wLQ/D8HOr0H7QxEMYEIKivTfDsBq9nh3Rp3IQ60YnrKGzOZ
-	 ZZegptyrjXGNj+LzsHPnXyO+8SSGJNtwG5cJyj9gjPFOOA2KO8VZ56zeKVGVXMBKcb
-	 aQizxFyuKe7mxGDBh96lc6nF7wyIixlQgAybx2ZwYImByj1THyIZr90u0nG2SjZlzT
-	 H/OV+dp7qdLoo0+AZtoxMXeaTTt+JKZmmyLHPHS1ngzUq2qTjwXpY5QylZQBYyip6c
-	 hfgcE8ZQkm/zQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 20ECB48AEF;
+	by smtp.kernel.org (Postfix) with ESMTPS id EB3871F008A7;
 	Tue, 10 Nov 2026 10:08:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794305288;
+	bh=mzP6mkQqBJ2czTJ6YFbl+lnGd5vAEuykbrNW2Ee3wlw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=fvu3+TlRkSnAhuihviT2A9Cb+zrd8Sk9oVa5F/NEmKenDSUHxww12al8TtIiUC9g7
+	 kjDx+AT51ZLqlfvRYo6kuo5HkbB08JzuT46qfWASANG405KI76RgRrvf6EKKz4ZRCT
+	 3pOo1WDNduD6C4/YSRClGOGnhOLYaa92SJadDp6OissOeHVlWBvrd3H+0nHQcOUQmx
+	 pyrypWPKDa+T5ygq1mDEgLIKQcnjp6u+yfC4W6xW5TS1GfjANKtyrUPZs6MeMaFnVR
+	 dA31ok/p101h+RPEvwtRlkaLrLknnUKymWAWhYzKSFH3rxzM4TF3KRLKAnUGKPXSwx
+	 6htTbUqxAbP2Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9263C48AD3;
+	Tue, 10 Nov 2026 10:08:04 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 10:08:14 +0000
-Subject: [PATCH RFC 12/12] arm64: dts: rockchip: Add the VEPU580 encoder
- cores to the RK3588
+Date: Tue, 10 Nov 2026 10:08:07 +0000
+Subject: [PATCH RFC 05/12] media: rockchip: rkvenc: Don't enable adaptive
+ QP with the row rate control
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-rkvenc-v1-12-ea8b47122d8c@gmail.com>
+Message-Id: <20261110-rkvenc-v1-5-ea8b47122d8c@gmail.com>
 References: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
 In-Reply-To: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -100,11 +100,11 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Hans Verkuil <hverkuil@kernel.org>, Jiaxing Hu <gahing@gahingwoo.com>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305283; l=3181;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305283; l=3648;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=kagifa6Lmg0J/Xo2eD/GKAYer7IvTfvqdz6aGlCXzQU=;
- b=Z55zyJzLXjk5M0iOHQBuQmkiC3qqZVinOuzqIhqBgV9OAHTjmiFRh0C7Jcn5sf5tp6ip/f6hn
- dUnPCBOY7WSCOjYQ4VM4zLV2TEaEVljLIwKq9tLlNcHjTz+3XVBALkU
+ bh=tLKMbjBrFkOCagEOqlv6uXY4NBsMdfw5qJbiBJd+iIo=;
+ b=lo5eJNn04MYXqUEt3tXUrIg0BJZcQ1BF25ZTy1Dqp4LeRaO2C6Z2alDIUl2ex+h914cJCyJpJ
+ LIXBslSRMkrD5CnUnYMQtMvnUy1f0KtwL+36JX2yy8vJpJ/t0RvgIji
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -115,85 +115,84 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Add the two VEPU580 (RKVENC) video encoder cores and their IOMMUs.
-
-Interrupts, clocks, resets, power domains and the clock rates (500 MHz
-AXI, 800 MHz core) are taken from the Rockchip BSP rk3588s.dtsi. Each
-IOMMU has two register banks and two interrupts, and keeps the BSP's
-rockchip,disable-mmu-reset.
+The row rate control setup enables the texture adaptive QP (aq_en) with
+MPP's MADI threshold and QP step tables, as MPP does. On the board it
+costs PSNR at the same bitrate in every case measured: 0.7-1.3 dB for
+H.264 (where SSIM drops too) and 0.3-0.7 dB for HEVC (1080p60 clips, 2 to
+16 Mb/s, CBR). Leave it off: only the row size deviation moves the QP
+within a picture, and the aq_mode field of the row rate control
+parameters goes away.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 56 +++++++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
+ drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c    | 3 +--
+ drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c | 9 ++++++---
+ drivers/media/platform/rockchip/rkvenc/rkvenc.h         | 2 --
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index aa69fd3793fd..9c813e6475c5 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1397,6 +1397,62 @@ vepu121_3_mmu: iommu@fdbac800 {
- 		#iommu-cells = <0>;
- 	};
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c b/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c
+index 5bc6960a521a..a3d35a7fdc3f 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-hevc.c
+@@ -40,12 +40,11 @@ static const struct v4l2_hevc_enc_rps_limits rkvenc_hevc_rps_limits = {
  
-+	vepu580_0: video-codec@fdbd0000 {
-+		compatible = "rockchip,rk3588-vepu580";
-+		reg = <0x0 0xfdbd0000 0x0 0x6000>;
-+		interrupts = <GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RKVENC0>, <&cru HCLK_RKVENC0>,
-+			 <&cru CLK_RKVENC0_CORE>;
-+		clock-names = "aclk", "hclk", "core";
-+		assigned-clocks = <&cru ACLK_RKVENC0>, <&cru CLK_RKVENC0_CORE>;
-+		assigned-clock-rates = <500000000>, <800000000>;
-+		resets = <&cru SRST_A_RKVENC0>, <&cru SRST_H_RKVENC0>,
-+			 <&cru SRST_RKVENC0_CORE>;
-+		reset-names = "aclk", "hclk", "core";
-+		iommus = <&vepu580_0_mmu>;
-+		power-domains = <&power RK3588_PD_VENC0>;
-+	};
-+
-+	vepu580_0_mmu: iommu@fdbdf000 {
-+		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
-+		reg = <0x0 0xfdbdf000 0x0 0x40>, <0x0 0xfdbdf040 0x0 0x40>;
-+		interrupts = <GIC_SPI 99 IRQ_TYPE_LEVEL_HIGH 0>,
-+			     <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RKVENC0>, <&cru HCLK_RKVENC0>;
-+		clock-names = "aclk", "iface";
-+		power-domains = <&power RK3588_PD_VENC0>;
-+		rockchip,disable-mmu-reset;
-+		#iommu-cells = <0>;
-+	};
-+
-+	vepu580_1: video-codec@fdbe0000 {
-+		compatible = "rockchip,rk3588-vepu580";
-+		reg = <0x0 0xfdbe0000 0x0 0x6000>;
-+		interrupts = <GIC_SPI 104 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RKVENC1>, <&cru HCLK_RKVENC1>,
-+			 <&cru CLK_RKVENC1_CORE>;
-+		clock-names = "aclk", "hclk", "core";
-+		assigned-clocks = <&cru ACLK_RKVENC1>, <&cru CLK_RKVENC1_CORE>;
-+		assigned-clock-rates = <500000000>, <800000000>;
-+		resets = <&cru SRST_A_RKVENC1>, <&cru SRST_H_RKVENC1>,
-+			 <&cru SRST_RKVENC1_CORE>;
-+		reset-names = "aclk", "hclk", "core";
-+		iommus = <&vepu580_1_mmu>;
-+		power-domains = <&power RK3588_PD_VENC1>;
-+	};
-+
-+	vepu580_1_mmu: iommu@fdbef000 {
-+		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
-+		reg = <0x0 0xfdbef000 0x0 0x40>, <0x0 0xfdbef040 0x0 0x40>;
-+		interrupts = <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH 0>,
-+			     <GIC_SPI 103 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_RKVENC1>, <&cru HCLK_RKVENC1>;
-+		clock-names = "aclk", "iface";
-+		power-domains = <&power RK3588_PD_VENC1>;
-+		rockchip,disable-mmu-reset;
-+		#iommu-cells = <0>;
-+	};
-+
- 	vdec0: video-codec@fdc38000 {
- 		compatible = "rockchip,rk3588-vdec";
- 		reg = <0x0 0xfdc38000 0x0 0x100>,
+ /*
+  * Row rate control: MPP's HEVC deviation thresholds are {2n, n, p, 2p}
+- * with the adjustments {-2, -1, 0, 1, 2} and AQ mode 1.
++ * with the adjustments {-2, -1, 0, 1, 2}.
+  */
+ static const struct vepu580_row_rc rkvenc_hevc_row_rc = {
+ 	.qp_adj = { -2, -1, 0, 1, 2, 0, 0, 0, 0 },
+ 	.dthd_outer = 2,
+-	.aq_mode = true,
+ };
+ 
+ static int rkvenc_hevc_state_constrain(struct v4l2_hevc_enc *enc,
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c b/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
+index ab23845a288d..86703dc659f6 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc-vepu580.c
+@@ -805,7 +805,6 @@ void vepu580_setup_hevc_tuning(struct rkvenc_core *core, bool intra)
+ const struct vepu580_row_rc vepu580_h264_row_rc = {
+ 	.qp_adj = { -2, -1, 0, 1, 2, 0, 0, 0, 1 },
+ 	.dthd_outer = 4,
+-	.aq_mode = false,
+ };
+ 
+ void vepu580_setup_row_rc(struct rkvenc_core *core,
+@@ -825,9 +824,13 @@ void vepu580_setup_row_rc(struct rkvenc_core *core,
+ 	thd = 5 * row_bits / 16;
+ 
+ 	rkvenc_or(core, VEPU580_ENC_PIC, FIELD_PREP(VEPU580_ENC_PIC_PIC_QP, qp));
++	/*
++	 * MPP also enables the texture adaptive QP here (aq_en). With its
++	 * tables that costs 0.3-1.3 dB of PSNR at the same bitrate (and SSIM
++	 * for H.264), so the QP only follows the row size deviation.
++	 */
+ 	rkvenc_set(core, VEPU580_RC_CFG,
+-		   VEPU580_RC_CFG_RC_EN | VEPU580_RC_CFG_AQ_EN |
+-		   (cfg->aq_mode ? VEPU580_RC_CFG_AQ_MODE : 0) |
++		   VEPU580_RC_CFG_RC_EN |
+ 		   FIELD_PREP(VEPU580_RC_CFG_RC_CTU_NUM, blocks_per_row));
+ 	rkvenc_set(core, VEPU580_RC_QP,
+ 		   FIELD_PREP(VEPU580_RC_QP_RANGE, qp_range) |
+diff --git a/drivers/media/platform/rockchip/rkvenc/rkvenc.h b/drivers/media/platform/rockchip/rkvenc/rkvenc.h
+index 3515ffc2b490..c2dd0bb91c51 100644
+--- a/drivers/media/platform/rockchip/rkvenc/rkvenc.h
++++ b/drivers/media/platform/rockchip/rkvenc/rkvenc.h
+@@ -264,12 +264,10 @@ void vepu580_setup_hevc_tuning(struct rkvenc_core *core, bool intra);
+  * struct vepu580_row_rc - codec-specific row rate control parameters
+  * @qp_adj: QP adjustment for each of the nine deviation buckets
+  * @dthd_outer: multiple of the base threshold for the outer buckets
+- * @aq_mode: value of rc_cfg.aq_mode
+  */
+ struct vepu580_row_rc {
+ 	s8 qp_adj[9];
+ 	unsigned int dthd_outer;
+-	bool aq_mode;
+ };
+ 
+ extern const struct vepu580_row_rc vepu580_h264_row_rc;
 
 -- 
 2.55.0
