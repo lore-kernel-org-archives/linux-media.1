@@ -1,74 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794316223;
-	b=vnAs9iIpP/IVAgaPUdm8iR8/xnOB/XheUaTYHvgep0Bu0TZnPxELNK++pwsvuztL0Mwt
-	 rz5j50X0UxqsU7W6zUET6DuluorFp8vXatQFTiZmwARAdehFxPAjTlcncf0jAXchbhWZD
-	 TQ6OypHXIfR2eG8/IkhsoQbytEpRMtO05w5fu4uxFI/w0NoBzGmmo51HBxkx7IRElLv9S
-	 WgMrpJCHwZi8icj2upLRAEia/UgjkDFBHU3ZrP+7mnHXCf7QIGKLpyicZ4vVJFKOKiZW6
-	 Y329HXIXUP42Rtyu8SRg/DCGd3eor/XYSf0viDe2WXoT8bFnKtzuTj+gWHl2pKdXdGA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316223;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received;
-	bh=LqMiD0XkT5N3kO9m0vJOTEGBA05EDYmMTnOj0puIq8A=;
-	b=ok15mdnr4AThI5tAPDbHGsnJG6dSeGFbxAgHLceGoWAiCDuX8Nfya3ZZKPXZqwnFTwba
-	 Uez4B6A/wokTl3zkQfFC+oRVcvVul9S8RT8O7MIkJw5okIl38YuMGeI9f9hCD5VkC99HD
-	 BebjDrQOnrTj1HN6/EjozAYXreO1TVvBvGx48r/bqchVZk1b4H+OSzHQh9RRMfAI+C42B
-	 iRWLrljP+spxKEwYjojVc5kAGLvASBCMR6lB4sYDwaZ1xGee9fT9DmI3v2T2EQstJ1H2W
-	 jZba5AgvNpm34kg/0zfmgSIXwkRs2NAA8WpF6BMhhHQsPFIWgjOIdKInkdC4GE/gPyw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=MPvOEwYN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794316975;
+	b=HXwjnuJ9+DKKsILxCl6HgNutPwFb/KgGKz/Hu7IaSSe4gFHNvL0kyvh6wkV1m61T+H8S
+	 uIqP/HBqwADx7yeGxXHAruZg7RaLtfadFjoFFPlWPdl3EyvonnC8lPisp54zR/nQwJG/u
+	 wWHJlE6jK1s11PEhM7RqDrZldehy0KUNS1qtwqOzzBdM8N7UqXzeMq2JOrnIodsUtwHsw
+	 KdVXBkMb0NTb7YX+TD6tC01pioHeqHLq+m7eLJNjB0CTaA5whts5Gq7o5BfxEeQsMoz6o
+	 xO8CLRzpGFldaBiUqrrFTQoHqzrF7HtyUymPqM5XeR3nkk3rV3BG9VBRQSH5ec/j9Gw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316975;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=XeO964uUPSLwtzP70XsCBAGb4qL+qATxOz1wVc1F6Dg=;
+	b=DBHqkx5Ea80XEiTimBpVf1tM930MvnZykCvz5WmsN3cKi5PI5zoCpZS7DWrSVHxVKg+/
+	 ncqXTaBfabUS8UkZr0bQyrSwuPGLlneZ7qYA/z3/8I4wb0iy0SBIbGnnE5PJ9CBdeM3Xw
+	 kIJjdQ/VYJh94yPIsPKodUhLis/82ATXnBx1oUL+bCILtjEyQI1U27MWktFSvwT0PLG2m
+	 ZlIHMPlim6cVF19+TJgI0jNZMhT2t4vOC5oMYS/MvBZ9q0QWwsaGh9IMlVdio/6xMyGja
+	 NBAnSDX13W1oRou7mTxu/qpctGk4ngoTskgKtfuQiLZzfGr2w8lCKcjEY8E4uwt4xmQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=TthVUSRr;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5E4606A760;
-	Tue, 10 Nov 2026 13:10:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F1E606A76F;
+	Tue, 10 Nov 2026 13:22:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42F1E606A76F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=MPvOEwYN
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794316222;
-	b=nBOYu8wK1XF9GQbIESbALXbnKFrC9aPOvJMn/5Isqi+hZp7BJTjLYWYdkZY9wN23kwvK
-	 hzMOwJBbj2SMGUnj5T6kwKLe+a4RwqCAAr7Zcwe8J4iFmhELF42M9KfbWndE0mSHaocMj
-	 E7akaLTFpMUUdgLRTeXy2ZKlB8cB032Dwc4ZAIfI2n7xmoo9UvYLAW5dk/L0Xqqi8wCry
-	 jgXPAMUM5hopru1x1KWX5/uWY4sP2FfJHOjH+k+Xx3b5g+tVt3WS91vn4Ua42yC29Vxdh
-	 gTf0es2bhn278S92fxakgUz2xiWKGgpnpsZFfe++E64+4H5inP9nuFP1QjXwr06jRug==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794316222;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received;
-	bh=LqMiD0XkT5N3kO9m0vJOTEGBA05EDYmMTnOj0puIq8A=;
-	b=2kbzvSBnT1NZ4j2cFCwq13unbDUWUVrkp3HEXKY/dWLRr65emBHbD6XCHrj40A2MYYnN
-	 +ucGSwQ5VWGHfIY3KOkw/JM0RGCKxQ351Ko+vUfD7MzVoR6YMlvVo9UU8w533mm80DPKd
-	 IbhKNJiLKDpT0uVspujbzjqb9DvaiFjZVNaXcaFE26VpDNdHNFiwXtYOeSawdlEzJkRhp
-	 q+PaloPhl2HobGmthnwUgjKhF6tvL16EZNo+jwMa84jsdrofn8Uo02ksOXiZlE89NTCau
-	 O8RiaCrkON+KX7jErnaMUeiLnFeZqOZmN4j4DZ3jaQ3Bz4vAJo4eac7ozZpYdAMvAJg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 89BA61F008A4;
-	Tue, 10 Nov 2026 13:10:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=korg;
-	t=1794316222; bh=LqMiD0XkT5N3kO9m0vJOTEGBA05EDYmMTnOj0puIq8A=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=MPvOEwYNFY19k9/wqQ/wg7UqwHn/uuq5P3X7A1ThfQtV22/fKI33uTYmu35xli1KC
-	 EBQT4StBXogg8TJ/B3SIZURdccJuKPGUkFh5nWaBDghtleZ/qDZmyLja1G4vOfPzIb
-	 T9AO6d5d9GMwQNa8BqkXHnOrv0lAwzpG3znm22Q4=
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1595148B6E;
-	Tue, 10 Nov 2026 13:10:21 +0000 (UTC)
-From: Richard Leitner <richard.leitner@linux.dev>
-Date: Tue, 10 Nov 2026 14:10:12 +0100
-Subject: [PATCH v3 3/8] media: i2c: ov9282: fix flash duration to/from
- microseconds conversion
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=TthVUSRr
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 51F2CC14;
+	Tue, 10 Nov 2026 14:20:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794316829;
+	bh=h6z6z5gce8U4pqtxTIISYTaxBt5TCij7rxt3To8CkhM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=TthVUSRr5ZaK9b2P3huwddCCvt864ORCPxjaPJbs7IHY8/2zmTk0tBipPz/14nqyW
+	 Pf9lYKUCrM66jYYwWdashBWVBKkqQ6y16WLes8034DZFg84nbQJD0PAK1UYrRYFqUU
+	 7tJok+8Iu/10N7YfkwA98kwHadaoAHd35L+aJ1gE=
+Date: Tue, 10 Nov 2026 14:22:48 +0100
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Nayden Kanchev <nayden.kanchev@arm.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] media: mali-c55: Fix frame sequence numbers on
+ dual-pipe hardware
+Message-ID: <avMX7TrGYCUl8c4C@zed>
+References: <20260930174621.791831-1-devnexen@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -78,183 +63,161 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261110-ov9282-fixes-v3-3-cb6df80cbc22@linux.dev>
-References: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
-In-Reply-To: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
- "Paul J. Murphy" <paul.j.murphy@intel.com>, 
- Martina Krasteva <martinax.krasteva@intel.com>, 
- Richard Leitner <richard.leitner@linux.dev>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Jacopo Mondi <jacopo@jmondi.org>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794316220; l=5864;
- i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=sFAsSai1H8mqjPv48p0oNAtuGFDOfbrY1Rs4595uPMw=;
- b=1WtJ2tgcV1MEnedoxITWlh1yKowcbhhvhMzb9AFG1+Ht+G3SG2/UrR0hmNhD4QdIrQaTSxA51
- YJRf+iXn6j2DKCX3BVG1BwWJ03i6+cPhWYPLXbpgl003bkdyJaizrJH
-X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
- pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
-X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
- with auth_id=350
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260930174621.791831-1-devnexen@gmail.com>
 
-Currently the flash duration is converted to/from microseconds using a
-fixed OV9282_STROBE_SPAN_FACTOR constant. This is inaccurate as it was
-found that the "step width of shift and span" (which is not documented
-further in the datasheet) scales with the line, so the span is counted
-in lines. This was verified by comparing the stobe pulses measured on
-the camera module against the calculated line times.
+Hi David
 
-As this is the same conversion as for the exposure: rename those functions
-to a more generic ov9282_us_to_lines/ov9282_lines_to_us and use them also
-for the flash/strobe duration.
+On Wed, Sep 30, 2026 at 06:46:21PM +0100, David Carlier wrote:
+> The single frame_sequence counter in struct mali_c55_isp is incremented
+> in mali_c55_set_plane_done(), which runs once per completed buffer per
+> capture device rather than once per frame. Hardware fitted with the
+> downscale pipe always hits this: mali_c55_pipeline_ready() refuses to
+> start the ISP unless both the full-resolution and the downscale queues
+> are streaming, so the counter advances twice per frame.
+>
+> Each video node then reports sequence numbers 0, 2, 4, ..., which
+> userspace reads as a dropped frame between every pair of frames, and the
+> two pipes never number the same frame alike, contrary to
 
-Fixes: b95d8058a2786 ("media: i2c: ov9282: implement try_ctrl for strobe_duration")
-Cc: stable@vger.kernel.org
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
----
- drivers/media/i2c/ov9282.c | 65 +++++++++++++++++-----------------------------
- 1 file changed, 24 insertions(+), 41 deletions(-)
+Sorry to ask, this is not meant to be detrimental to the value of this
+patch, but in these days I feel like I should ask:
 
-diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index d60396e46ab0f..9dfee500a73af 100644
---- a/drivers/media/i2c/ov9282.c
-+++ b/drivers/media/i2c/ov9282.c
-@@ -136,8 +136,6 @@
- #define OV9282_REG_MIN		0x00
- #define OV9282_REG_MAX		0xfffff
- 
--#define OV9282_STROBE_SPAN_FACTOR	192
--
- static const char * const ov9282_supply_names[] = {
- 	"avdd",		/* Analog power */
- 	"dovdd",	/* Digital I/O power */
-@@ -491,18 +489,31 @@ static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
- }
- 
- /**
-- * ov9282_exposure_to_us() - Convert an exposure register value to microseconds
-+ * ov9282_lines_to_us() - Convert a number of lines to microseconds
-  * @ov9282: pointer to ov9282 device
-- * @exposure: exposure register value to convert
-+ * @lines: line count to convert
-  *
-- * Return: microsecond representation of the given exposure register value.
-+ * Return: microsecond representation of the given line count.
-  */
--static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
-+static u32 ov9282_lines_to_us(struct ov9282 *ov9282, u32 lines)
- {
--	return div_u64((u64)exposure * ov9282_line_time_ns(ov9282),
-+	return div_u64((u64)lines * ov9282_line_time_ns(ov9282),
- 		       NSEC_PER_USEC);
- }
- 
-+/**
-+ * ov9282_us_to_lines() - Convert µs to line count
-+ * @ov9282: pointer to ov9282 device
-+ * @duration: microseconds value to convert
-+ *
-+ * Return: number of lines fitting into the given duration
-+ */
-+static u32 ov9282_us_to_lines(struct ov9282 *ov9282, u32 duration)
-+{
-+	return DIV_ROUND_UP((u64)duration * NSEC_PER_USEC,
-+			    ov9282_line_time_ns(ov9282));
-+}
-+
- /**
-  * ov9282_update_controls() - Update control ranges based on streaming mode
-  * @ov9282: pointer to ov9282 device
-@@ -551,7 +562,7 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
-  */
- static int ov9282_update_exp_gain(struct ov9282 *ov9282, u32 exposure, u32 gain)
- {
--	u32 exposure_us = ov9282_exposure_to_us(ov9282, exposure);
-+	u32 exposure_us = ov9282_lines_to_us(ov9282, exposure);
- 	int ret, ret_hold;
- 
- 	dev_dbg(ov9282->dev, "Set exp %u (~%u us), analog gain %u",
-@@ -579,34 +590,6 @@ static int ov9282_update_exp_gain(struct ov9282 *ov9282, u32 exposure, u32 gain)
- 	return ret ? ret : ret_hold;
- }
- 
--static u32 ov9282_us_to_flash_duration(struct ov9282 *ov9282, u32 value)
--{
--	/*
--	 * Calculate "strobe_frame_span" increments from a given value (µs).
--	 * This is quite tricky as "The step width of shift and span is
--	 * programmable under system clock domain.", but it's not documented
--	 * how to program this step width (at least in the datasheet available
--	 * to the author at time of writing).
--	 * The formula below is interpolated from different modes/framerates
--	 * and should work quite well for most settings.
--	 */
--	u32 frame_width = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
--
--	return value * OV9282_STROBE_SPAN_FACTOR / frame_width;
--}
--
--static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
--{
--	/*
--	 * Calculate back to microseconds from "strobe_frame_span" increments.
--	 * As the calculation in ov9282_us_to_flash_duration uses an integer
--	 * divison round up here.
--	 */
--	u32 frame_width = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
--
--	return DIV_ROUND_UP(value * frame_width, OV9282_STROBE_SPAN_FACTOR);
--}
--
- static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
- {
- 	struct ov9282 *ov9282 =
-@@ -672,7 +655,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
- 		break;
- 	case V4L2_CID_FLASH_DURATION:
- 		ret = cci_write(ov9282->regmap, OV9282_REG_STROBE_FRAME_SPAN,
--				ov9282_us_to_flash_duration(ov9282, ctrl->val), NULL);
-+				ov9282_us_to_lines(ov9282, ctrl->val), NULL);
- 		break;
- 	default:
- 		dev_err(ov9282->dev, "Invalid control %d", ctrl->id);
-@@ -691,11 +674,11 @@ static int ov9282_try_ctrl(struct v4l2_ctrl *ctrl)
- 
- 	if (ctrl->id == V4L2_CID_FLASH_DURATION) {
- 		u32 us = ctrl->val;
--		u32 fd = ov9282_us_to_flash_duration(ov9282, us);
-+		u32 fd = ov9282_us_to_lines(ov9282, us);
- 
- 		/* get nearest strobe_duration value */
--		u32 us0 = ov9282_flash_duration_to_us(ov9282, fd);
--		u32 us1 = ov9282_flash_duration_to_us(ov9282, fd + 1);
-+		u32 us0 = ov9282_lines_to_us(ov9282, fd);
-+		u32 us1 = ov9282_lines_to_us(ov9282, fd + 1);
- 
- 		if (abs(us1 - us) < abs(us - us0))
- 			ctrl->val = us1;
-@@ -1279,7 +1262,7 @@ static int ov9282_init_controls(struct ov9282 *ov9282)
- 	v4l2_ctrl_new_std(ctrl_hdlr, &ov9282_ctrl_ops,
- 			  V4L2_CID_FLASH_STROBE_OE, 0, 1, 1, 0);
- 
--	exposure_us = ov9282_exposure_to_us(ov9282, OV9282_EXPOSURE_DEFAULT);
-+	exposure_us = ov9282_lines_to_us(ov9282, OV9282_EXPOSURE_DEFAULT);
- 	ov9282->flash_duration =
- 		v4l2_ctrl_new_std(ctrl_hdlr, &ov9282_ctrl_ops,
- 				  V4L2_CID_FLASH_DURATION, 0, exposure_us, 1,
+- is this an error found running the system with an FR/DS pipeline
+- is this a report from an LLM
 
--- 
-2.53.0
+Mostly I'm curious to know as I can't test on a system with a DS pipe
+fitted, knowing you actually tested this would make me more confident
+in accepting the patch
 
+> Documentation/admin-guide/media/mali-c55.rst. The V4L2_EVENT_FRAME_SYNC
+> event and the statistics and parameters buffers only read the counter,
+> so their sequence numbers stop identifying a frame too.
+>
+> Increment the counter once per frame, when the ISP start interrupt is
+> handled, and stamp each capture buffer when mali_c55_set_next_buffer()
+> programs it, as it is written out during the following frame. Stamping
+> at completion would be off by one whenever DONE(n) and START(n+1) are
+> handled in the same interrupt, since ISP_START is processed first. Hold
+> the counter at UINT_MAX while the ISP is stopped, as the first buffers
+> are programmed before it starts, so the first frame gets sequence zero.
+>
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+> v2:
+>  - Stamp the buffer sequence in mali_c55_set_next_buffer() instead of
+>    at completion, which broke when START(n+1) and DONE(n) are handled
+>    together (Jacopo)
+>  - Reset the counter when the ISP stops instead of when it starts
+>
+> v1: https://lore.kernel.org/r/20260801205311.386692-1-devnexen@gmail.com
+> ---
+>  drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 5 +++--
+>  drivers/media/platform/arm/mali-c55/mali-c55-common.h  | 4 ++++
+>  drivers/media/platform/arm/mali-c55/mali-c55-core.c    | 1 +
+>  drivers/media/platform/arm/mali-c55/mali-c55-isp.c     | 3 ++-
+>  4 files changed, 10 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> index ff01553026fb..fa073ce4b2bd 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> @@ -413,6 +413,9 @@ void mali_c55_set_next_buffer(struct mali_c55_cap_dev *cap_dev)
+>  		return;
+>  	}
+>
+> +	/* The buffer is written out during the frame following this one. */
+> +	buf->vb.sequence = cap_dev->mali_c55->isp.frame_sequence + 1;
+> +
+>  	pix_mp = &cap_dev->format.format;
+>
+>  	mali_c55_cap_dev_update_bits(cap_dev, MALI_C55_REG_Y_WRITER_MODE,
+> @@ -457,7 +460,6 @@ void mali_c55_set_next_buffer(struct mali_c55_cap_dev *cap_dev)
+>  void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
+>  			     enum mali_c55_planes plane)
+>  {
+> -	struct mali_c55_isp *isp = &cap_dev->mali_c55->isp;
+>  	struct mali_c55_buffer *buf;
+>
+>  	scoped_guard(spinlock, &cap_dev->buffers.processing_lock) {
+> @@ -476,7 +478,6 @@ void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
+>
+>  	/* If the other plane is also done... */
+>  	buf->vb.vb2_buf.timestamp = ktime_get_boottime_ns();
+> -	buf->vb.sequence = isp->frame_sequence++;
+>  	vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
+>  }
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-common.h b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> index 13a3e9dc4243..50f2b7a85f62 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> @@ -76,6 +76,10 @@ struct mali_c55_isp {
+>  	struct media_pad *remote_src;
+>  	/* Mutex to guard vb2 start/stop streaming */
+>  	struct mutex capture_lock;
+> +	/*
+> +	 * Sequence of the frame being processed, incremented at SOF. Held at
+> +	 * UINT_MAX while stopped so the first frame gets sequence 0.
+> +	 */
+>  	unsigned int frame_sequence;
+>  };
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> index fb81141d1653..be562156b295 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> @@ -573,6 +573,7 @@ static irqreturn_t mali_c55_isr(int irq, void *context)
+>  	for_each_set_bit(i, &interrupt_status, MALI_C55_NUM_IRQ_BITS) {
+>  		switch (i) {
+>  		case MALI_C55_IRQ_ISP_START:
+> +			mali_c55->isp.frame_sequence++;
+>  			mali_c55_isp_queue_event_sof(mali_c55);
+>
+>  			mali_c55_set_next_buffer(&mali_c55->cap_devs[MALI_C55_CAP_DEV_FR]);
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
+> index e128adf6ee37..dd3bce287a3d 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
+> @@ -342,7 +342,6 @@ static int mali_c55_isp_enable_streams(struct v4l2_subdev *sd,
+>
+>  	src_sd = media_entity_to_v4l2_subdev(isp->remote_src->entity);
+>
+> -	isp->frame_sequence = 0;
+>  	ret = mali_c55_isp_start(mali_c55, state);
+>  	if (ret) {
+>  		dev_err(mali_c55->dev, "Failed to start ISP\n");
+> @@ -380,6 +379,7 @@ static int mali_c55_isp_disable_streams(struct v4l2_subdev *sd,
+>  	isp->remote_src = NULL;
+>
+>  	mali_c55_isp_stop(mali_c55);
+> +	isp->frame_sequence = UINT_MAX;
+>
+>  	return 0;
+>  }
+> @@ -584,6 +584,7 @@ int mali_c55_register_isp(struct mali_c55 *mali_c55)
+>  	int ret;
+>
+>  	isp->mali_c55 = mali_c55;
+> +	isp->frame_sequence = UINT_MAX;
 
+The patch looks ok to me:
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+
+but I wish we could test it.
+
+Knowing the current frame counter stamping is broken already makes it
+easier for me to collect this patch.
+
+>
+>  	v4l2_subdev_init(sd, &mali_c55_isp_ops);
+>  	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE | V4L2_SUBDEV_FL_HAS_EVENTS;
+>
+> base-commit: 95f76f51937fdfb0fc1e14cae606b1ef574a56f3
+> --
+> 2.55.0
+>
