@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794305259;
-	b=zJ4Xvj8huvMikLZ0jqfsIgXfXbBNuN3K0VmBFr9qbDrCoPFh3kmgjyc7mE2PQpm7H2aW
-	 z7xiLT4UCrxWaANt3a3yUmqFWIxN6eeGpO2oV/FI7hTU397IHR/6SDiGT/jjmbxTc7mVv
-	 pny/9JC8pa8W0SrF5VKvqQm5SRfyjv4sy67MqwAv3VWcqWPG0wXtYuYMN74QiqSOYDcb7
-	 aKggC1Pb6c7Emfe356ghNx4MJlwVw0tVpxRVJMvbjyM7nkkBn1yD77mZALWa2DITroGXr
-	 J/VL7UkEW/DPDubiq3kiVzsqcR4Kuq0rYC4Gy2h2N39PHXoO8drHNYxh5pqwzSmlzMQ==
+	t=1794305257;
+	b=qODU2Rjr+Owv5Kt52zDh0RgixBuTp5GP1NpwK8AY5zwLfaWo4sC5tOXkzecYLuC7Cb58
+	 /jETSDcAJc40OBQmIPGea3HArCTE8PjcyLtWWCSdlwu/X6vJSmL6J2X447+fT5oqQmZrS
+	 8e8Mn+l6xfFXZnsKlz5JnCFQ2oKbHZjmRABcaNSJLALrnFjCDOmPLq2FJplqfOX4S+Veg
+	 FpYAH45TKQhUvRfMOQrsKJKs3jQMEI9r+CpTHOCXc40hSI3gDld6MoTaX7JWPAmRIw/U7
+	 2C174G5hd5fYnpGJc8BUKHWmgs5BiW/1YhwiTwhZY3z+6GQ2AcG7ifpvrD67uIQTG+w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305259;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305257;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dJ5SwTX6kMq4QS/dCi1lNi2sh2+0vyNohp9x9or1oWc=;
-	b=qa5yAkSU4VQxJ0YdSkedXdQVviT54+/fSQ88MXMcgyVji9uiSmnURwZ/yRnNlRIfGfF6
-	 JCThrYY9Q6wHpv9cRsFhizkHu2MIL13lCwDLEdW9E9dXBQnGjkAUcdYefKPFCkEFDAKyK
-	 1SxmMUHk4cJKlw+6uHNyBc3IX6EyHrTHJ6j3k1kExP1BiW5lVFTAuwVmi3wSRHptRFpBZ
-	 xDdQvfyHP+rhe5Q5tjyfks2J6KE8djU4u1ty6dv/v2llaTpcfbhnR8I6JzjFicCUDJmab
-	 wK+YiiJFElTVStUbVBPKQFg0TCKB72XqTxvhAo6oLu8eEsplDiAFBFbtyJVafYlUZ3A==
+	bh=DVSGY+ikZjR75l/iBgjjxuFAk9HeQ6YTF4NOlMUD23U=;
+	b=eWYa6OVjGvFxUSxBQZGVTEbhyGGDl9poFFVaccpN21b021ShIOFGlZ0lF0vTfPWmwDlI
+	 dZFYLej02rxk+IPortgoxH9ZuMF2nJkU9RTzwbmkIOCOxNgb+c7sOCu8Ks6oKtFoKO38w
+	 teE1VNbrspP4sXlOh048tj+udMk4ngHkk6PRAb0TSdFChrmhaP71QwgoyYWjR1XEWDEJj
+	 WmaIFVidTtF7Lr+QuIjKT/ClBkoFynOHSnEF1xSVeTn+yKkuMDrUnwJOJDWYRKeQogMX8
+	 +r/yHaclpJZeAXLqTCcMztJ6FUX8tyNMqTOH2/+8aqloalov/166NNBm/dt2HFWNVrw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aup5jWYF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gjb5RIaw;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C5B60A3811;
-	Tue, 10 Nov 2026 10:07:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9206B60A2607;
+	Tue, 10 Nov 2026 10:07:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aup5jWYF
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gjb5RIaw
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305259;
-	b=KQ79lXblUAHddQx4gNEFLqZ7L5kIXX65BdiHmOxT4YF6V+oR9/VuwjQfEz6OIJLCGVYv
-	 4Q3qUbPwqoRqLD51ya6bH+hHhQD4TH0sCZjjxxDNXAM8k31QeRouZOAQa4r6iPil2bu3E
-	 AF2GkgymsazrpmkqDqnmLIJX7qGmToDYRIYXdOrRBsv7QQ1Aqf7LqP7Xbkn45QRa/qo4K
-	 LEaCoR4E1sDNYZ6Dg/9kkdws6tEz6HJvreSjkWSMxl05prt7T90n5gAIVEb2gztlQR3+j
-	 oRJKQz1BojfJDCnMWHpqG/iomQEh4ASdOcod0en+5xZenEla2TMqzgMbW5gqxyGzefg==
+	t=1794305257;
+	b=LIfsKi02U1RZVr7+mtp70QbX6MTGaOu55UYd+UJOeesU0AI7OBCGUpgveLinKeOt6R4n
+	 Wh12jUy0jLrMoFvvo8PtuJohg0cJIZNujJfOCimZRRW9BpJzswPvBAWWNuzMW3qcXGL2/
+	 4LWLZQzAv2NE4dTq29i3fs8aJsNiwuxnMhLZn01KL1SpZ1QC0KPB621PgtVYZTjfYhROT
+	 PjNCfw5e2hT/PK+Mep1YlKMvR8Vlb5teyIsAOePG6yBI9ompX1M0480mWWpZu459uiI+y
+	 X0vsbz/ep07lratmjVnNTXgJ4CqElrVKt3UDG44yLY7S8rQ27GPJurGA/WGSPGS/Oug==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305259;
+	c=relaxed/relaxed; t=1794305257;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dJ5SwTX6kMq4QS/dCi1lNi2sh2+0vyNohp9x9or1oWc=;
-	b=KzhQEyLBXzCT3J9LQ6Q3ZFBZpoqkj1z8jdwumxfPDzqmBYmEvXchy4FWp00iIpJueOFP
-	 gm6WcwTKO38xGL7bFbw+/agcArsJpcGkRlEmpBqnSoETY04HtDgFeALqgYh6fsB8V52Rq
-	 EVl77XBCIbJSaS0ZDd5coraIMXH3gqWtV9i2vs040es4gMgz6OfOv+rqM0KldmXjL334Y
-	 GzOIcm4I9bQ2pxVVYZY/OJexESqqiBAhRbt0ptX4FALWHNtSGr5T92s1XIdDNvz+P2W4e
-	 aX9bFZrCphvAt4Z0ZeJ/MUR/W8yTflDbL4y8E2qqBsK83EJbmXKPIV1icWWrTajKzWg==
+	bh=DVSGY+ikZjR75l/iBgjjxuFAk9HeQ6YTF4NOlMUD23U=;
+	b=bwyj30sjEXhTF80povIwmQehUJuZ5bM01WUnjQ8V6u+AAjLTW2exE0CemOFNvbygWfXw
+	 XPrtJBAUHHEjjYYv+FsbkboqmS2qG1TO3gNZZSlBD+YiWeVfU5d1zECiV0I53GEKt5W+b
+	 9moJ0sgDhjoljsDwtCLt/V90eqiT3+L1wo7DkLqIJudscCeRWxxfwEqEQxLGJVpEfk3w6
+	 p6EVhgZf1cYORrNqqFKXYbP9w9szTkhZr9f/KPXe5DcezhmCNrxBVhepy7lfI8j8goaef
+	 jcxojNUB8xOeNHYEKlQ+0JjQCeoeihmsu8YkWIMjCn8+BJpuCl4U593JK981FHC3SvA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6D8001F00900;
-	Tue, 10 Nov 2026 10:07:36 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id E81971F008A1;
+	Tue, 10 Nov 2026 10:07:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305259;
-	bh=dJ5SwTX6kMq4QS/dCi1lNi2sh2+0vyNohp9x9or1oWc=;
+	s=k20260515; t=1794305257;
+	bh=DVSGY+ikZjR75l/iBgjjxuFAk9HeQ6YTF4NOlMUD23U=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=aup5jWYFeMoEPkHZvXUCDsNsYk1ASIVxYV+QVR7Ed3tgh4aOuVO/SfDI6+8pq851Z
-	 ZCKg0In8TQwBPhZSuU6jC21e+z1qpiJrz+u3KhVWqlxprKHBIpgW8X/nraRnCCPURv
-	 NKSD4ev3V6gCuUAbFNgv1/7GxStvh6NfyWA1BKgyHw9N0e1oiJvBK5TzDs16KcnhhV
-	 NsnZNtVBkb1B01HlRganZkkFVJuKo8gVQp1BDEjevlNFvyYXzXvEtJJfL8g8eso/SY
-	 5JB5jcj/Zxs5LoJ/sOF8wmKltnKjxM1XOnDdITDBN7lSliHG0ei6DEkHU2RIV9skDd
-	 ztfr9zQ/KByFQ==
+	b=Gjb5RIawi8F1ELfoluECWnHKpGwyXaKr+v4Bq6R1FNwvmKqSHQQZD3nJZz88s3MPH
+	 mcV6KFK0ZEn9/CTspVh312FpcD8EZh4WakDYSQV58vLsTrdpSRddnogMgErSdEXF8o
+	 g1DpIKnCyV4lWDZknr79rIvwqOnT/WK5rbo17K/2kTZAWkyyYSt4c53/9Bqva/h0sP
+	 uTwvLyUJUmrI0z3iuaOJJm69ANI2OsGiIrywF/O8UueIygufXOgVAhiPH+o/XT7PWn
+	 KgMtEiR1+V2nUkdzwVQYwfFnPNEsEitZikrbIigMmB/Fa58sIRc7Kh5fvbeQOoIn9g
+	 F7M82JgyOU8ww==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 818A248AC2;
+	by lkml.kernel.org (Postfix) with ESMTP id 5DD9048ABA;
 	Tue, 10 Nov 2026 10:07:32 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 10:07:39 +0000
-Subject: [PATCH RFC 09/10] media: v4l2-hevc-enc: Re-encode oversized
- pictures
+Date: Tue, 10 Nov 2026 10:07:37 +0000
+Subject: [PATCH RFC 07/10] media: v4l2-hevc-enc: Add a constant bitrate
+ mode
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-hevc-encode-uapi-v1-9-38ae9fcfedd4@gmail.com>
+Message-Id: <20261110-hevc-encode-uapi-v1-7-38ae9fcfedd4@gmail.com>
 References: <20261110-hevc-encode-uapi-v1-0-38ae9fcfedd4@gmail.com>
 In-Reply-To: <20261110-hevc-encode-uapi-v1-0-38ae9fcfedd4@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -93,11 +93,11 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Hans Verkuil <hverkuil@kernel.org>, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305251; l=3645;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305251; l=6157;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=BLpAo/ixfrwr4n6bp3710+JDuneOuRSPbETSTp9CIrU=;
- b=+xbqip82hxr2sijn1KFdJqn+hIKzMJ43VyBK2/bw+6Z1rl7XZP/9SJl56bCM+5EKcg8qStMfW
- fmINAf9Bl1CBG5PSNAVySLZ7SImXk5w03LxDG6zUMyiXJaPAii6PrjK
+ bh=23ba8LskleVLZZbBxcmsP87XKCLHrF2u42oZjR6n+6k=;
+ b=Gttsa90tsSGrgff3Gw4/JqPdfDS28JuD0I+laEZgjKtrfsmHsfMtHkft+VDMK/mlBnQ3tsbcZ
+ RTR6ruVgS3zAAYtAn0bOnbMPX+dCinf+dBHktpxIbP41GibMUIX/rIZ
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -108,87 +108,163 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-A scene change in a P picture can make it many times larger than its size
-target, and the peak bitrate around it can then exceed what a decoder
-buffer of the stream takes. v4l2-enc-cbr can ask for a second pass of such
-a picture at a higher QP (v4l2_enc_cbr_reencode()).
+The HEVC encode core leaves the constant bitrate mode to the drivers, so
+each driver needs its own frame rate control.
 
-Provide v4l2_hevc_enc_reencode() in the HEVC encode core for drivers whose
-hardware writes the slice header: called after the hardware finished a
-picture and before v4l2_hevc_enc_complete(), it returns true with the new
-QP in enc->qp when the constant bitrate mode wants the picture encoded
-again. Hardware that takes the slice header from the core cannot use it:
-that header holds the QP of the first pass.
+Provide the mode in the core with the codec independent rate control of
+the H.264 encode core (v4l2-enc-cbr): one QP state for the stream, I
+pictures 4 QP below the P pictures (the default of the Rockchip MPP
+library for HEVC), picture size targets from a GOP plan with the I/P
+size ratio and IDR period measured on the stream, and the deviation from
+that plan spread over the next pictures. The size target of the current
+picture is available to drivers whose hardware also controls the rate
+within a picture.
+
+A driver rate control with an estimate callback still replaces the mode.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/v4l2-core/v4l2-hevc-enc.c | 39 +++++++++++++++++++++++++++++++++
- include/media/v4l2-hevc-enc.h           |  2 ++
- 2 files changed, 41 insertions(+)
+ drivers/media/v4l2-core/Kconfig         |  1 +
+ drivers/media/v4l2-core/v4l2-hevc-enc.c | 35 +++++++++++++++++++++++++++++++++
+ include/media/v4l2-hevc-enc.h           | 11 +++++++++--
+ 3 files changed, 45 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/media/v4l2-core/Kconfig b/drivers/media/v4l2-core/Kconfig
+index eb245deb4622..0de0bad58791 100644
+--- a/drivers/media/v4l2-core/Kconfig
++++ b/drivers/media/v4l2-core/Kconfig
+@@ -60,6 +60,7 @@ config V4L2_HEVC_ENC_RBSP
+ # Used by drivers that need v4l2-hevc-enc.ko
+ config V4L2_HEVC_ENC
+ 	tristate
++	select V4L2_ENC_CBR
+ 	select V4L2_HEVC_ENC_RBSP
+ 
+ config V4L2_HEVC_ENC_RBSP_KUNIT_TEST
 diff --git a/drivers/media/v4l2-core/v4l2-hevc-enc.c b/drivers/media/v4l2-core/v4l2-hevc-enc.c
-index 2e0ba832b868..d49cee336558 100644
+index e2aa7d2da96c..a167c4af6288 100644
 --- a/drivers/media/v4l2-core/v4l2-hevc-enc.c
 +++ b/drivers/media/v4l2-core/v4l2-hevc-enc.c
-@@ -1369,6 +1369,45 @@ static int ref_complete(struct v4l2_hevc_enc *enc, u64 timestamp)
+@@ -18,6 +18,7 @@
+ #include <linux/sort.h>
+ #include <linux/v4l2-controls.h>
+ #include <media/v4l2-ctrls.h>
++#include <media/v4l2-enc-cbr.h>
+ #include <media/v4l2-hevc.h>
+ #include <media/v4l2-hevc-enc.h>
+ #include <media/v4l2-hevc-enc-rbsp.h>
+@@ -26,6 +27,12 @@
+ #define RBSP_UPDATE_AUD			BIT(0)
+ #define RBSP_UPDATE_PARAMETER_SETS	BIT(1)
+ 
++/*
++ * Constant bitrate mode: I pictures 4 QP below the P pictures, the default
++ * of the Rockchip MPP library for HEVC.
++ */
++#define RC_CBR_QP_DELTA_INTRA		4
++
+ /* Table A.8: MaxLumaPs and MaxLumaSr (main tier is enough to pick a level) */
+ static const struct {
+ 	u8 level_idc;
+@@ -150,6 +157,7 @@ int v4l2_hevc_enc_init(struct v4l2_hevc_enc *enc)
+ 	memset(&enc->state_next, 0, sizeof(enc->state_next));
+ 	memset(&enc->ref, 0, sizeof(enc->ref));
+ 	enc->state_serial = 0;
++	v4l2_enc_cbr_reset(&enc->cbr, RC_CBR_QP_DELTA_INTRA);
+ 
+ 	if (!enc->max_l0_refs)
+ 		enc->max_l0_refs = 1;
+@@ -1052,6 +1060,18 @@ static int ref_step(struct v4l2_hevc_enc *enc)
  	return 0;
  }
  
-+/**
-+ * v4l2_hevc_enc_reencode() - decide on encoding the picture a second time
-+ * @enc: the core context
-+ * @bytesused: size of the encoded picture in bytes, with the headers the core
-+ *	       wrote
-+ *
-+ * In the constant bitrate mode of the core, a picture far above its size
-+ * target can be encoded again with a higher QP (see v4l2_enc_cbr_reencode()).
-+ * Drivers that can run the hardware again for the same picture call it after
-+ * the hardware finished it and before v4l2_hevc_enc_complete(). If it returns
-+ * true, @enc->qp holds the new QP and the driver encodes the picture again,
-+ * with the same size target and the same headers, writing the slice data
-+ * from the same offset. Only for hardware that writes the slice header
-+ * (V4L2_HEVC_ENC_FLAG_HW_SLICE_HEADER): the slice header of the core holds the
-+ * QP of the first pass.
-+ *
-+ * Return: true if the picture is to be encoded again.
++/*
++ * The core provides the constant bitrate mode unless the driver has its own
++ * rate control.
 + */
-+bool v4l2_hevc_enc_reencode(struct v4l2_hevc_enc *enc, unsigned int bytesused)
++static bool rc_core_cbr(const struct v4l2_hevc_enc *enc,
++			const struct v4l2_hevc_enc_state *state)
 +{
-+	struct v4l2_hevc_enc_state *state = &enc->state_active;
-+	bool intra = state->encode.slice_type == V4L2_HEVC_SLICE_TYPE_I;
-+	int qp_max = intra ? state->qp_max_i : state->qp_max;
-+
-+	if (!(enc->flags & V4L2_HEVC_ENC_FLAG_HW_SLICE_HEADER) ||
-+	    !rc_core_cbr(enc, state))
-+		return false;
-+
-+	if (!v4l2_enc_cbr_reencode(&enc->cbr, (u64)bytesused * 8,
-+				   &state->timeperframe, enc->qp,
-+				   min(qp_max, 51)))
-+		return false;
-+
-+	enc->qp = rc_clamp_qp(state, v4l2_enc_cbr_qp(&enc->cbr));
-+
-+	return true;
++	return state->frame_rc_enable &&
++	       state->bitrate_mode == V4L2_MPEG_VIDEO_BITRATE_MODE_CBR &&
++	       !(enc->rc_ops && enc->rc_ops->estimate);
 +}
-+EXPORT_SYMBOL_GPL(v4l2_hevc_enc_reencode);
 +
- /**
-  * v4l2_hevc_enc_complete() - complete the encode run of a picture
-  * @enc: the core context
+ static int rc_step(struct v4l2_hevc_enc *enc)
+ {
+ 	struct v4l2_hevc_enc_state *state = &enc->state_active;
+@@ -1074,6 +1094,17 @@ static int rc_step(struct v4l2_hevc_enc *enc)
+ 		if (range)
+ 			qp -= (state->quality - state->quality_min) *
+ 			      (state->qp_max - state->qp_min) / range;
++	} else if (rc_core_cbr(enc, state)) {
++		ret = v4l2_enc_cbr_begin(&enc->cbr, state->bitrate,
++					 &state->timeperframe,
++					 state->sps.pic_width_in_luma_samples *
++					 state->sps.pic_height_in_luma_samples,
++					 slice_type == V4L2_HEVC_SLICE_TYPE_I,
++					 state->qp_min, state->qp_max);
++		if (ret)
++			return ret;
++
++		qp = v4l2_enc_cbr_qp(&enc->cbr);
+ 	} else {
+ 		if (!enc->rc_ops || !enc->rc_ops->estimate)
+ 			return -EOPNOTSUPP;
+@@ -1382,6 +1413,10 @@ int v4l2_hevc_enc_complete(struct v4l2_hevc_enc *enc,
+ 	    !v4l2_hevc_nal_is_sub_layer_non_ref(nal_unit_type))
+ 		enc->ref.prev_tid0_poc = encode->pic_order_cnt_val;
+ 
++	if (rc_core_cbr(enc, state))
++		v4l2_enc_cbr_end(&enc->cbr, (u64)bytesused * 8,
++				 &state->timeperframe, state->qp_min,
++				 state->qp_max);
+ 	if (enc->rc_ops && enc->rc_ops->complete)
+ 		enc->rc_ops->complete(enc, state, bytesused, stats);
+ 
 diff --git a/include/media/v4l2-hevc-enc.h b/include/media/v4l2-hevc-enc.h
-index f1d3da3269f1..5be449e5ec03 100644
+index 4797102e34b3..3db131370c56 100644
 --- a/include/media/v4l2-hevc-enc.h
 +++ b/include/media/v4l2-hevc-enc.h
-@@ -285,6 +285,8 @@ int v4l2_hevc_enc_init(struct v4l2_hevc_enc *enc);
- void v4l2_hevc_enc_exit(struct v4l2_hevc_enc *enc);
- int v4l2_hevc_enc_step(struct v4l2_hevc_enc *enc,
- 		       struct vb2_v4l2_buffer *buffer);
-+bool v4l2_hevc_enc_reencode(struct v4l2_hevc_enc *enc,
-+			    unsigned int bytesused);
- int v4l2_hevc_enc_complete(struct v4l2_hevc_enc *enc,
- 			   struct vb2_v4l2_buffer *buffer,
- 			   const struct v4l2_stateless_encode_stats *stats);
+@@ -9,6 +9,7 @@
+ #include <linux/types.h>
+ #include <linux/v4l2-controls.h>
+ #include <linux/videodev2.h>
++#include <media/v4l2-enc-cbr.h>
+ #include <media/v4l2-hevc-enc-rbsp.h>
+ 
+ struct v4l2_ctrl_handler;
+@@ -186,8 +187,10 @@ struct v4l2_hevc_enc_ops {
+ /**
+  * struct v4l2_hevc_enc_rc_ops - driver rate control
+  *
+- * The core selects the QP itself for the direct QP and constant quality
+- * modes. These callbacks provide the constant and variable bitrate modes.
++ * The core selects the QP itself for the direct QP, constant quality and
++ * constant bitrate modes. These callbacks replace the constant bitrate
++ * mode of the core (if @estimate is set) and provide the variable bitrate
++ * mode.
+  *
+  * @estimate: return the QP of the next picture in @qp
+  * @complete: account for a completed picture
+@@ -231,6 +234,9 @@ struct v4l2_hevc_enc_rc_ops {
+  * @rbsp: NAL unit writer
+  * @slice: slice segment header of the current picture
+  * @qp: SliceQpY of the current picture
++ * @cbr: constant bitrate rate control of the core. In that mode,
++ *	 @cbr.target_bits is the size target of the current picture in bits,
++ *	 for hardware with a rate control within the picture.
+  * @header_size: number of bytes the core wrote at the start of the
+  *		 CAPTURE buffer. The hardware writes from that offset.
+  * @parameter_sets_pending: parameter sets were written for a picture that
+@@ -261,6 +267,7 @@ struct v4l2_hevc_enc {
+ 	struct v4l2_hevc_enc_rbsp rbsp;
+ 	struct v4l2_hevc_slice_header slice;
+ 	int qp;
++	struct v4l2_enc_cbr cbr;
+ 	unsigned int header_size;
+ 	bool parameter_sets_pending;
+ 
 
 -- 
 2.55.0
