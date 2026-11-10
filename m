@@ -1,63 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794267200;
-	b=Pjkmw80J1rKN5Mr046tXCJwqfeUqTyeIzhgYhPCMe6d8Aact+gj9GTDHMhjEAG1ps55/
-	 +z1iOIwmwdnPS6+mJCc36mBagMPtnUgpTKVkkjotcmDsSw1tuTpVukmeHfLv6bkYUnCU5
-	 U5y3DpLpCxbSwK2sR/zG66ScPoQ64Gfanj2vU6NrgPjRCzaTe35EVskTW3zq4bR+A0CjE
-	 HhmCaRK8VzJexWqNnU2sk/oJXjzvLzpmf28lCNWWqT7DQnWgxesyHdsafrEB7Y5xQ553g
-	 77N6ZPughyvIYux06NP7K+f8HKuCol+XxxypyMlB/fqvK566GSlSfAyNMzagNSwwYjg==
+	t=1794268857;
+	b=B/LuVkCcaorLNNFgccyWXVYyT1H2+VVX4Ag9yew96sJH3Ba5Mo8rP22JuYnaGexn+HPy
+	 uP+IsyVlBR/FlM6Jn8p2d30iHm+zZkqlS7hUMxgCqAJzVqI18PxpFs0Uln4oxavnzHMYB
+	 uDRdr/He0/I6B9ThAep1cDyaPUdmfiUOpYdVsqjP5CTm6pTZk2RDDVN3/S+JiGQ0JmkP+
+	 Gm1ALeHqGGgC7PbBBVzLIKMvhH5FyOQRU/9oiX5YkdQVxUjw/4nBN6BHtbyfdrs2cGYHc
+	 8Jl2k4sXYenFrtZUDgFomaeSH4yDSET2HO2xMNu3052mG3dSRHnRSEgxHkSTsXancZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794267200;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=i7SlRV1MdWG/+4eUN0UybyzUnUjM2xBaq8VCAdNH59I=;
-	b=BtvcdMjwslmUf1BYYZxnVPe68ZwgwYejbSdlv1n3amkssHY5IRqGZ4ms57n/twx1y5Al
-	 H02J97ffVhxTxX8q1ZLtvXEraBZJxPtYa+uWxt765vwQ/KmE0LzypRlnhUPFr1ITmaS5f
-	 IU0ZBRJPJ9pmc8cqR0fWPFGkuBU75bJEShoRjt1QnS/4QbiBuEHA+v2ZMoVocXomFnL78
-	 otXooHDBWFT5aR9CZrz3xA6YjVulOWs7KkRn6Y+BVRhhrytsFt1sTUAkiZgeN8KP2uwme
-	 jz96oIDPBoYavnO5wjvDjaNKsLVwJ+TPXWMU2YSiWMXUqu6qvi4GlbaikNjl5a9rr4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268857;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=S6Ki4zlbzehwsQUYNDGHpittBTiQ7SrejFTBf5yJLpI=;
+	b=udzE//giPfEkPfh3NBYp4Jt5AqC0QTALk6du3m3HODnP7XvUZHOiJOqwAbkpWFjfpbta
+	 4WVwUkWq5ul9UZQ47YTHITkRCORx8YIQkFAXYAGGAoZZTwmSd4ANOPeSdjzNfIkGnRJr/
+	 7OL+7wT4mi/ctnNoOLn6BFMuQaLCttpjioLlzXJ65uisydyJtiRvZSk22TdCzNwO3MZJC
+	 Oh3S0lLWjJXYrzqf3J9IxiKtnn3XskyOrTCJfyFddPgXnv3/dp9r0v4XWzX68KQYeKbmx
+	 vogjNHtYEDK/88ku2ssusPQ2ySWiF/GPWltlP/qCGk7oKUNlAEIk+Ffdty2BcCaChNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ozq0BZWv;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="deozIxz/";
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7885606A321
-	for <linux-media@vger.kernel.org>; Mon,  9 Nov 2026 23:33:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7885606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54785606A33E
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 00:00:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54785606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ozq0BZWv
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 82E9033D;
-	Tue, 10 Nov 2026 00:30:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794267054;
-	bh=GMcSjTTqfRhiPv7b224/7EvjUU5Ml1qJiNNfAnvTtdY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ozq0BZWvrDyF4iJpgrCHItI8huKgZY+P5PLrseU2YAo0cX5K9d0fI4+qOuJvD+Jph
-	 btNkw2Gl9MWV8at6cZAmwbyN0pRJMFVRn8ef41vLFNP19fG/zlPRMHle+YiJ0rgmBv
-	 0Dal5fq0hz1fi8E73DzyYa32Cfco0Tt502EbEqXE=
-Date: Tue, 10 Nov 2026 01:33:15 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Nicolas Dufresne <nicolas@ndufresne.ca>
-Cc: Sakari Ailus <sakari.ailus@iki.fi>, linux-media@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hans@jjverkuil.nl>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Subject: Re: [PATCH] Documentation: media: Document impact of errors on
- buffer fields
-Message-ID: <20261109233315.GA1000823@killaraus.ideasonboard.com>
-References: <20261030103815.3098340-1-laurent.pinchart@ideasonboard.com>
- <auR63iwOm_mih97K@valkosipuli.retiisi.eu>
- <20261030140958.GB3109745@killaraus.ideasonboard.com>
- <auUepevHsfBZB2nV@valkosipuli.retiisi.eu>
- <9fe913fc3f750462a4655d51fa1a2f110a02ea18.camel@ndufresne.ca>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=deozIxz/
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-490f38e9688so1149731f8f.0
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 16:00:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794268856; x=1794873656; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S6Ki4zlbzehwsQUYNDGHpittBTiQ7SrejFTBf5yJLpI=;
+        b=deozIxz/aGLnxTDbgoDjHa8Nq0xmOsMrD8iijQkW1P4nF7hUt3TN6minRfpOckwpEP
+         MH8cy2KjdHGt16ApzZLcpoe+zhdeksal5/pnr6I+TcQRsTCklK2ct7oVvoeflkq0l5cL
+         OzQ85Dgs6+w3/9mQwalx+mc491efpiATwmjfct78qe7gA0CFA1q0ZOlQaauNpMBQp7K+
+         Oj9dj5lmjukGVHglA8CHXKMpdD0XmZfI29qoy+pGOEslgCu8USE8/FRmf/FYwZFW+3Vc
+         3h2a90My3w4IF2oP5UJKDZDIv+ULOx6KAwmIhCIW773jtJliQNO3c/GGW3MCixqqmSK9
+         2Ypw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794268856; x=1794873656;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S6Ki4zlbzehwsQUYNDGHpittBTiQ7SrejFTBf5yJLpI=;
+        b=roAZ3rglwHVmfvi3gPpyMBkAysDo50zAjmYUcN6nbLUC3ee1XGxbfDVwxngNT3PbnF
+         1UT0AJ6gv+A2PRb1/NMWbU43xISMjXU5IKzljWKeTSmr61UYQJ/ASV5G1UbtZ5NbDbsX
+         Njk/NLcNHRKYoL3cbtKKN0S1e52BtIrRYDv7n1FZbvMFc+geIPS3187FsYtHTDiEG76m
+         Zshvk/KBZKwye9k9Hccskp0pqCUUMvPA0EYQTmA3cIe9sPd1GQ378xEm+/bsj9/BMax0
+         iiO5RL/FcC++LwNxCvs1jIRDF9HqA+bC31ktxPUQ3oLHzl6IU9HCh6y6hBVvY7VYt2n3
+         UL4A==
+X-Forwarded-Encrypted: i=1; AL+hErHrZbiQXnxqtDc7UMohye2fydLv8iOLRhyhUURwFlAiG4fgAj9XSMSnWjZSRrSbFCPGK/D6CI0GmrnQ5g==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8k8GskIpiJ4SpjlJ89sYrC/OjjxAlvLhIqNR8B3w7KBGd6BTSl
+	QEd3uZXIG2eaiH2jjNerjbAZmRKMyjra7OS2Dymf/UgiwymrKu1oPiK6E09kT5XjcYjES2MziTK
+	Hyeg/
+X-Gm-Gg: AYBFou0aqzr3/n5G4xVJZcMjZ0FoWdaxdujmKBrTTM8TrMasp8KLCHfV2DLUstrMdrO
+	YVaStUGHJ37T+pLQNVAb30ZdqrE1DidcOp8yMuRXri5mq6m7Ifq8+xiT5UKJoDhIie/2wHhorYg
+	75d2Y/fuHMx3HzQvpVrbTymDFtx6tAFzU/mLFILJRBS/8UQx9JYvEF7qIyq9I0hqCSmRJS/budr
+	PrKULqCETXYfY2AGTXp3WpnfcZLkriXZFML32cYyGloU/3vSsWV5FygIbXL0AfR1yxTONPj+C49
+	yU7EdeR/DQx9TzdcaKoyMaxVBsXDGPXi02WI7/1pC8VqXZGolcQn2cSEqhCqO8RjNJEHNxH1EXd
+	L8dJqiX+pnuDMIUSmhdlBL82Yn3hk3rN8byq9FTXrMDRRQ029P7j9aQZhR81Q0w0Kfdv3nhBoUy
+	x2X9bwM3qvZEltEhH1o2l8D3QbiMVq/7/ECvfW8wMZCYBuxpSk4omjfkW6QNuzefAqi/nHXEM3+
+	aHJl+Eo3kmsmpviP6VkwesK4IX4AC/bwG4RSAKscHSXkBFi0fJDDvyFmOLttD0vPe/22FX5h3U0
+	K1eDzpa9YA8P3PMjFd9Vztiz+bgFs5DFJtgCAr4=
+X-Received: by 2002:adf:f391:0:b0:48e:d7c:4bc3 with SMTP id ffacd0b85a97d-4982f2b5ce0mr1045706f8f.21.1794268855287;
+        Mon, 09 Nov 2026 16:00:55 -0800 (PST)
+Received: from [192.168.0.167] ([109.76.74.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498365cbbe5sm1882531f8f.42.2026.11.09.16.00.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 16:00:53 -0800 (PST)
+Message-ID: <5d775896-5c7e-4830-862e-a9b02b840177@linaro.org>
+Date: Tue, 10 Nov 2026 00:00:53 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,99 +91,31 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9fe913fc3f750462a4655d51fa1a2f110a02ea18.camel@ndufresne.ca>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/8] media: qcom: camss: Add SM8150 support
+To: gauravsuman007@gmail.com, Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
+ <20261109-sm8150-camera-v1-2-3d2e7b407516@gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261109-sm8150-camera-v1-2-3d2e7b407516@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Nicolas,
+On 09/11/2026 22:38, Gaurav Suman via B4 Relay wrote:
+> This was written and tested with the help of an AI coding assistant
+> (Claude Opus 5.5, Anthropic); I reviewed the change and the results.
 
-On Mon, Nov 02, 2026 at 09:40:22PM -0500, Nicolas Dufresne wrote:
-> Le samedi 31 octobre 2026 à 00:48 +0200, Sakari Ailus a écrit :
-> > On Fri, Oct 30, 2026 at 04:09:58PM +0200, Laurent Pinchart wrote:
-> > > On Fri, Oct 30, 2026 at 01:09:18PM +0200, Sakari Ailus wrote:
-> > > > On Fri, Oct 30, 2026 at 12:38:15PM +0200, Laurent Pinchart wrote:
-> > > > > When an error occurs related to a captured buffer, hardware can produce
-> > > > > less data than expected (or no data at all), and timestamps may be
-> > > > > unreliable or unavailable if the device uses hardware timestamping.
-> > > > > Document this in the description of the V4L2_BUF_FLAG_ERROR flag.
-> > > > > 
-> > > > > Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > > > > ---
-> > > > > I've posted a corresponding fix to v4l2-compliance in [1] to relax the
-> > > > > bytesused and timestamp checks.
-> > > > > 
-> > > > > [1] https://lore.kernel.org/linux-media/20261030103717.3098080-1-laurent.pinchart@ideasonboard.com
-> > > > > ---
-> > > > >  Documentation/userspace-api/media/v4l/buffer.rst | 5 +++++
-> > > > >  1 file changed, 5 insertions(+)
-> > > > > 
-> > > > > diff --git a/Documentation/userspace-api/media/v4l/buffer.rst b/Documentation/userspace-api/media/v4l/buffer.rst
-> > > > > index 94dc2719e907..5a7a1511cee7 100644
-> > > > > --- a/Documentation/userspace-api/media/v4l/buffer.rst
-> > > > > +++ b/Documentation/userspace-api/media/v4l/buffer.rst
-> > > > > @@ -503,6 +503,11 @@ Buffer Flags
-> > > > >  	streaming may continue as normal and the buffer may be reused
-> > > > >  	normally. Drivers set this flag when the ``VIDIOC_DQBUF`` ioctl is
-> > > > >  	called.
-> > > > > +
-> > > > > +	Depending on the type of error, the buffer may contain less or no
-> > > > > +	data. In such cases the ``bytesused`` field can be lower than expected,
-> > > > > +	including being zero. The ``timestamp`` field may also be zero or be
-> > > > > +	otherwise unreliable.
-> > > > 
-> > > > Could we say that if bytesused field is non-zero, then there is a
-> > > > timestamp, but when bytesused is zero, there's no data and probably no
-> > > > expectation of a valid timestamp either?
-> > > 
-> > > How about this?
-> > > 
-> > > 	Depending on the type of error, the buffer may contain less data than
-> > > 	expected, or no data at all. The ``bytesused`` field reflects that
-> > > 	situation. When ``bytesused`` is zero, the ``timestamp`` field may be
-> > > 	unreliable and may be zero.
-> > 
-> > Looks good to me.
-> 
-> Since its not specified, have you asked yourself if this is CAPTURE device
-> behaviour, or if you do believe this should be true for all type of devices ?
-> 
-> I've had recent discussion for M2M in regard to CAPTURE buffer ERROR. The API
-> has a gap and we don't know if we should complete a capture buffer when an
-> OUTPUT buffer triggered an error. If the timestamp copy should be honoured and
-> what the byeused size should be and mean.
+Right, well please review patches on-list before sending duplicates.
 
-Good question. The bytesused field is actually not well specified for
-OUTPUT devices. The documentation only states that it's set by
-applications, therefore at QBUF time, even if that's not explicitly
-stated. There would be no interaction with the ERROR flag then, as the
-flag is set by drivers at DQBUF time.
+https://lore.kernel.org/linux-media/20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev/
 
-At DQBUF time, I'm not sure what should happen for OUTPUT devices. I
-could image a theoretical use case where a driver would want to report
-how many bytes have been consumed in case an error occurred and only
-part of the buffer was consumed, but I don't know if there are any real
-use cases for that.
-
-The same likely applies to the timestamp. I think the current
-documentation is quite vague there too. It states that
-
-  For output streams the driver stores the time at which the last data
-  byte was actually sent out in the ``timestamp`` field. For output
-  streams that use ``V4L2_BUF_FLAG_TIMESTAMP_COPY`` the application has
-  to fill in the timestamp which will be copied by the driver to the
-  capture stream.
-
-So for a pure OUTPUT device I can imagine that the returned timestamp
-could be unreliable when an error occurs, while for a M2M device with
-TIMESTAMP_COPY the timestamp on the output side will not be modified by
-the driver, and the timestamp on the capture side should probably be
-always copied.
-
-Should I document that the behaviour described by this patch only
-applies to capture devices ?
-
--- 
-Regards,
-
-Laurent Pinchart
+---
+bod
