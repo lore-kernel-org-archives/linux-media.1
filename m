@@ -1,73 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794316223;
-	b=k7MVgST30tsaLGw0jpcr/pI7NWbTqyhS9i7JcPSYI+aSD7au3m6Q6HTM+5oVgVKtVAyX
-	 F5GHZ7896TU+AhUP6UCyKnGmDF/FfAxBzaENRVw8lCxqmTrtGQ/skiitL+NprnknnNBpm
-	 ivMWlZ79IopxTuaXp4NEs/zXymU+cPhem2DA6fjLe2icpHiUgbVM98r6gkMd5YUIrQgK1
-	 CFgBdtAQGW2WTGxatMaFVxofBGpEoziY/wjuL2y3GH+nNAM8wu5jI2pivfdjPDRFgWWDV
-	 1VCkIvQ5e9yN69M9eNOYZzqyMMe7DgpTEQLwUTt1ZfU4u7BRDt2BrYd4OferB8DE4tQ==
+	t=1794316224;
+	b=AWWvz7Vjnj/MD/cplUcW3S7Ib7jAr75j1Ux0KWtnp8yNmCrx/PyDSsRKK+0w7GeNafjz
+	 9K2rBQtI5S2Bul4wqGsyWf2yWM3qyowxaeZdK1sVj+chOhOBGSHlzxOpytWVeqVvAZf5t
+	 8wrpgDPSYv8g/Je/+D/pKXyaMtWAsJYF+Q04x2NueygJabwfx45ywkxhpEC+89eXGOeo2
+	 XgUl7DKkpJ4r8JC29kXy5zvvKUjHiC6z60NcB10VZshG3yL9KsYBvysWh0+6mPvM0wCMi
+	 H6OI15kHQ1LqVZA4o9HoZhiMWZstvnnl7zOOr7pE/Q1ZIDPDRMPxKmg6SuBZZWNYKhA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316223;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316224;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received;
-	bh=fQCv38k3pTCw0BrKeHRMrviBVXzFv4wgTvyadDALiDU=;
-	b=tmgJejBkNTSqVmXz8fRbhgZIGkQAvMrWWSyRRLBV8E4VN1wqS8Mr+BgesMq/oPakZ2Hu
-	 pchoEIgkcYyTXixz3hH+o7hGKpWfspDZr3aOkfhh1kwjTa4PJeluMvhQSQiZ1jkYryCgX
-	 eMiBYxOGrpEtOiKrKvbWnge9I3ah0HUE2Xv45mfHjMi8CjrJxwlRZ31OON15EuMiejcJn
-	 DzRWYu9u8NLQriFdwP6jf/TLWQ8oO22SBwiX3a6cLZarobqsrxL3shnp2ZI1sjNe0aITF
-	 sHWRHsGMc4jkaT+zpL8amDNi9n1D6+1t34iNywoBPnOQTgU2F/T2ZOD/Ecl4FBzfL9g==
+	bh=AnHw7XXRUHp9Mp0ZPEBPnMwy+2oxoVKw7fR1LwyvpIo=;
+	b=qohRidahAIScct9iOhnob6+aXEUoatF9z7iXLfhyrbfjonEsYaHDUzl6QPnMRiisLc4x
+	 FbHFv/be/8LUAKKjBZ214XHDdkU6Bg/8tXwHEvHU6y+UhjBjPa8AdVfNxFjQrdzCDmsOU
+	 VuuZbQlCMA4pOHSRd8dNl5DRXGuy12YbSxSHUsXUz69jpyTeBt7vd9o0t9ehlkQf2odsC
+	 cqxStVeo5EcCel2Jn26DZd/TF7z0WnTLPvQFbuVnIDwcZURGYcd3cF2UeCPOoyvNLHlHa
+	 xQq5t29bbOtEjXOS+pULMNmrM1Z4cugIHOS94lbxLfOyYgEKrnrqgKskF8RinD71BSg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=bM2aF6u+;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b="UeOo/oFt";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E015A606A75E;
-	Tue, 10 Nov 2026 13:10:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB550606A776;
+	Tue, 10 Nov 2026 13:10:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=bM2aF6u+
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=UeOo/oFt
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794316222;
-	b=q3XoEsqjKOUAaryhmurGB3ziNCDZ9fvHb+EHU+0LhQ9Vzl6+3ysSUNN0le+56Ww8idcK
-	 AJvTHDrsvb/vQ1VeLb4m/dEsj/Ldpu+DXRmpEggTjfUjB9seIAN9wnjVTuwkx6gPCtU0b
-	 SgPQSAmd8Y/Tje2vRAeyPutxZus1FxkIO/B9ukRUjCTtoOmaQtXhhAI4bblC5kGKyyHuV
-	 GTa89bX5Gfg4iiBkLWWt6KIQN7PJ3ZdmBDVCw0N8BLFgQDG3ZBU9N2HZFRBFsr0+ZInGy
-	 7Jca/2U0YDC5vlCfBPOFecXmuEtFLz681tYe2RY0oLsP+8fG6oP97GWtP4Hwz0rAruQ==
+	t=1794316223;
+	b=gnCnQbfGFYwtS/f5PM7iVFVnO3iwpEgeNQLYScusesT1xtzY9GaDui8J9E62VTTZT/h6
+	 qXFauVZ26Ci2x8ekk+lUrWNH3PQ3WgpmhifEeSrdLgVPkOVflcPYT8UqmpRkTNoEeGOe5
+	 xJLrGeeM8EvNnqFpyQ6Spef0Ek21NXrf8FcVuvT2J9XUiGMdtiApE/xAH3LQ3F+CLeCex
+	 DQ3i/2uSxsvX0816kwasZo/rRBDcv5CjGnvRpvIi4k8xmPE9kiDI5v5oDjY56M7XJAZiq
+	 YF7sCFh9Zqk4S4KZXLyp1em+C8Ku4xkjBtByU7TytfzvSiMwHYz+2jsLNUPd8Y1dFqA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794316222;
+	c=relaxed/relaxed; t=1794316223;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received;
-	bh=fQCv38k3pTCw0BrKeHRMrviBVXzFv4wgTvyadDALiDU=;
-	b=EFzY9nj86AcKFF8zUyDKYGdJuWZjYERYyAuoClRKpE3pw2ntGsQ6JahIOaRyXq8edpSr
-	 WkBfIQldUod+LxSJbrvyNk7pGQVWylLqiLNT5Zo/9nCixtZmIJFPPOWuVoUC3itLtH5NT
-	 XTTpKvRE906BkqC29DSs081ZpJcbtlUC/kbJGFkKyVnJicK4An5bTNAWSTuGl/tBGW998
-	 vdEEaqmar/Jl0rJxBaEh4q+/mO+83LtaWBjQz+13Oz/yVwd5+Fs+F5yaXetYdq5srKrP6
-	 aOUIYVPGqVFgtk06GUCjcJ1pF8Zbdgq38ZPM1lcp/seFQGyytB3sb2cBJ/h8XX2nzEw==
+	bh=AnHw7XXRUHp9Mp0ZPEBPnMwy+2oxoVKw7fR1LwyvpIo=;
+	b=uD/PaVEYK+HIVj7eZ8w1lCUwkqrpfuoiOH3x7/TUOShy+DRT+t7+vF/J2iYHvGy5IkrF
+	 tqY2jWDvR92JdXKWK933pOB2LDskNgBHZh9U1JDh7aQrp5dS/aVj8FsgdLtq5Tlr5qT1K
+	 6YdxKvEDQToynPnXITmNoIzxpxkZQSCJjheNq2a8ss3Kop+DM29/7VnPw0frx1cwhWxYM
+	 gbZUPhQfKesJWDQDZIW0JYQbCDgApa8bjpV+PMlqp3R83T+vv405QMPT27PN8jkR7bbWo
+	 GafC5MLlypovKjU8PDXouGiVMq3iOuB4CFAb1x/HwgGuwQOKj6oNF67jPX5NUORX8ug==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9E4001F008A5;
+	by smtp.kernel.org (Postfix) with ESMTPS id 782341F008A3;
 	Tue, 10 Nov 2026 13:10:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=korg;
-	t=1794316222; bh=fQCv38k3pTCw0BrKeHRMrviBVXzFv4wgTvyadDALiDU=;
+	t=1794316223; bh=AnHw7XXRUHp9Mp0ZPEBPnMwy+2oxoVKw7fR1LwyvpIo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=bM2aF6u+Vhav3s+UbQ7nNTSNIBo/W8qTI5agb5uIMz39+P4CjwrH6HOu73y3lk6hF
-	 tV+IXVbCQyZVa8CBSwRKYTrxW7jhXmO2zGTRU1xehdCsi9dqpArolE5/bk79t6CR6f
-	 MEOD03YR1HRYYsiPHKuUR/eVZQzqqMYPShLSRCJc=
+	b=UeOo/oFt6DmjMV9mNkp98srMuU5js9JpxKjS/gh8MBLiorKlfzj6l2AOT9eRnREIA
+	 yz37ErYRwTtb6SXNSeQPl4mYm2H3mFZCaU849tWNgv0Lru76mzYUUWagxTQY7wRnWT
+	 Cp1lnL8rpC4Qi5O5GWHmaf97Bq5bv7BtgdM2Dq9I=
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2696D48B72;
+	by lkml.kernel.org (Postfix) with ESMTP id 013B148B6A;
 	Tue, 10 Nov 2026 13:10:21 +0000 (UTC)
 From: Richard Leitner <richard.leitner@linux.dev>
-Date: Tue, 10 Nov 2026 14:10:13 +0100
-Subject: [PATCH v3 4/8] media: i2c: ov9282: fix flash duration range
+Date: Tue, 10 Nov 2026 14:10:11 +0100
+Subject: [PATCH v3 2/8] media: i2c: ov9282: fix pixel rate and line time
  calculation
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -79,8 +79,8 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-ov9282-fixes-v3-4-cb6df80cbc22@linux.dev>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261110-ov9282-fixes-v3-2-cb6df80cbc22@linux.dev>
 References: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
 In-Reply-To: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -97,130 +97,127 @@ Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794316220; l=4577;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794316220; l=4128;
  i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=usS5DrW8tPZbsTVsTMBDQAnUgGIvevUFDPNMekfxlto=;
- b=81FWcfzxPK5BwY+PG/mXwXUBb06vy+Be9+BS9XBZCVC8ctpa20wgAM544Ngbpk48aFuwrLMF5
- o7Pd0f6JcVsDiVxvcSg2j3XKM2ZKkWf/lE9kZAMA1ghEv1x8Iu2M+V5
+ bh=vEUkcmhrgbccMnrDYbK6Bg1byQZHGlfGlZNdCKAMiuU=;
+ b=mEqQuSHLSwfITSoGjXfDyvKub52W7OZOymcD+YY09BUBQkTWVW01eU4cOX0ErxhtOY+8AXVHQ
+ cSx2x3kBY2zD2N3Zrmda0yGMKy20sl4bqgqg9rMicZnP7GSLjf/Wdt4
 X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
  pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
 X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
  with auth_id=350
 
-The flash_duration range calculation was broken. The maximum was
-calculated from the current exposure time. This limited the hardware
-without a strong reason. The minimum was fixed to 0, although the
-hardware treats register values 0 and 1 equally for the strobe_duration.
-The default value was never calculated from the raw register value to
-actual microseconds.
+The OV9282_PIXEL_RATE_8BIT is calculated incorrectly from the
+OV9282_LINK_FREQ. The hardware scales the pixel rate by changing the
+multiplier from 0x50 (for 10 bit) to 0x60 (for 8 bit). Resulting in a
+x1.2 factor.
 
-Furthermore the flash_duration range update sat inside
-ov9282_update_exp_gain(), which ov9282_set_ctrl() only reaches if
-pm_runtime_get_if_in_use() doesn't return early. So with the sensor idle
-the range kept whatever value it had when it last streamed.
+The current OV9282_PIXEL_RATE_8BIT calculation scales from /10
+(for 10 bit) to /8 (for 8 bit). This results in a x1.25 factor.
 
-Fix those issues by correctly calculating the values on line time changes
-(i.e. HBLANK updates) as this is the "time base" for the register value.
+As all the inputs to the pixel rate calculation are constant in this
+driver also define the OV9282_PIXEL_RATE_{8,10}BIT as constants.
+Additionally introduce a new function to calculate the current
+line time in nanoseconds and use it in ov9282_exposure_to_us().
 
-The maximum is chosen to be S32_MAX microseconds. This was done to keep
-the code short and avoid additional back-and-forth conversions. As the
-hardware allows strobe durations from 1 up to U32_MAX line times, S32_MAX
-microseconds is always in this range. Line times for the supported
-modes, hblank values and pixel rates may vary between ~7.5 and ~205
-microseconds.
+Kudos to Dave Stevenson for pointing me into the right direction!
 
-Fixes: b95d8058a2786 ("media: i2c: ov9282: implement try_ctrl for strobe_duration")
+Link: https://lore.kernel.org/linux-media/CAPY8ntBaSHjztuSLTOtv9KYvEbmcbinSMJ78ZDg+0sZg-1fz3Q@mail.gmail.com/
 Fixes: df60764ea5210 ("media: i2c: ov9282: dynamic flash_duration maximum")
+Fixes: 43ac0cac18f41 ("media: i2c: ov9282: Add support for 8bit readout")
 Cc: stable@vger.kernel.org
 Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 ---
- drivers/media/i2c/ov9282.c | 41 +++++++++++++++++++++++++++++++----------
- 1 file changed, 31 insertions(+), 10 deletions(-)
+ drivers/media/i2c/ov9282.c | 50 +++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 36 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index 9dfee500a73af..44ac2043f5651 100644
+index 546b43c209097..d60396e46ab0f 100644
 --- a/drivers/media/i2c/ov9282.c
 +++ b/drivers/media/i2c/ov9282.c
-@@ -514,6 +514,26 @@ static u32 ov9282_us_to_lines(struct ov9282 *ov9282, u32 duration)
- 			    ov9282_line_time_ns(ov9282));
+@@ -10,10 +10,12 @@
+ #include <linux/delay.h>
+ #include <linux/i2c.h>
+ #include <linux/math.h>
++#include <linux/math64.h>
+ #include <linux/module.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
++#include <linux/time64.h>
+ 
+ #include <media/v4l2-cci.h>
+ #include <media/v4l2-ctrls.h>
+@@ -111,11 +113,14 @@
+ #define OV9282_LINK_FREQ	400000000
+ #define OV9282_NUM_DATA_LANES	2
+ 
+-/* Pixel rate */
+-#define OV9282_PIXEL_RATE_10BIT		(OV9282_LINK_FREQ * 2 * \
+-					 OV9282_NUM_DATA_LANES / 10)
+-#define OV9282_PIXEL_RATE_8BIT		(OV9282_LINK_FREQ * 2 * \
+-					 OV9282_NUM_DATA_LANES / 8)
++/*
++ * Pixel rate: Derived from the PLL2 clock tree.
++ * For 10 bit it's exactly the same as the sample PLL configuration.
++ * For 8 bit the PLL2 multiplier (REG_PLL_CTRL_0D) is changed 0x50 -> 0x60,
++ * which results in x1.2 and therefore 160 MHz x 1.2 = 192 MHz.
++ */
++#define OV9282_PIXEL_RATE_10BIT	160000000
++#define OV9282_PIXEL_RATE_8BIT	192000000
+ 
+ /*
+  * OV9282 native and active pixel array size.
+@@ -472,6 +477,32 @@ static inline struct ov9282 *to_ov9282(struct v4l2_subdev *subdev)
+ 	return container_of(subdev, struct ov9282, sd);
  }
  
 +/**
-+ * ov9282_update_ctrl_flash_duration() - Update flash_duration control range
++ * ov9282_line_time_ns() - Calculate duration of one sensor line.
 + * @ov9282: pointer to ov9282 device
 + *
-+ * As the actual microseconds value of the flash_duration range (default,
-+ * minimum, maximum) are dependent on the line time recalculate and apply them
-+ * to the v4l2 property in this function.
-+ *
-+ * Return: 0 if successful, error code otherwise.
++ * Return: line time in nanoseconds.
 + */
-+static int ov9282_update_ctrl_flash_duration(struct ov9282 *ov9282)
++static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
 +{
-+	u32 fd_min_us = ov9282_lines_to_us(ov9282, 1);
-+	u32 fd_def_us = ov9282_lines_to_us(ov9282,
-+					   OV9282_STROBE_FRAME_SPAN_DEFAULT);
++	u64 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
 +
-+	return __v4l2_ctrl_modify_range(ov9282->flash_duration, fd_min_us,
-+					S32_MAX, 1, fd_def_us);
++	return div_u64(hts * NSEC_PER_SEC, *ov9282->pixel_rate->p_cur.p_s64);
++}
++
++/**
++ * ov9282_exposure_to_us() - Convert an exposure register value to microseconds
++ * @ov9282: pointer to ov9282 device
++ * @exposure: exposure register value to convert
++ *
++ * Return: microsecond representation of the given exposure register value.
++ */
++static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
++{
++	return div_u64((u64)exposure * ov9282_line_time_ns(ov9282),
++		       NSEC_PER_USEC);
 +}
 +
  /**
   * ov9282_update_controls() - Update control ranges based on streaming mode
   * @ov9282: pointer to ov9282 device
-@@ -577,12 +597,6 @@ static int ov9282_update_exp_gain(struct ov9282 *ov9282, u32 exposure, u32 gain)
- 		goto error_release_group_hold;
+@@ -510,15 +541,6 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
+ 					mode->vblank_max, 1, mode->vblank);
+ }
  
- 	ret = cci_write(ov9282->regmap, OV9282_REG_AGAIN, gain, NULL);
--	if (ret)
--		goto error_release_group_hold;
+-static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
+-{
+-	/* calculate exposure time in µs */
+-	u32 frame_width = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
+-	u32 trow_us = frame_width / (ov9282->pixel_rate->val / 1000000UL);
 -
--	ret = __v4l2_ctrl_modify_range(ov9282->flash_duration,
--				       0, exposure_us, 1,
--				       OV9282_STROBE_FRAME_SPAN_DEFAULT);
- 
- error_release_group_hold:
- 	ret_hold = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0, NULL);
-@@ -616,6 +630,11 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
- 		if (ret)
- 			return ret;
- 		break;
-+	case V4L2_CID_HBLANK:
-+		ret = ov9282_update_ctrl_flash_duration(ov9282);
-+		if (ret)
-+			return ret;
-+		break;
- 	}
- 
- 	/* Set controls only if sensor is in power on state */
-@@ -1192,8 +1211,9 @@ static int ov9282_init_controls(struct ov9282 *ov9282)
- 	const struct ov9282_mode *mode = ov9282->cur_mode;
- 	struct v4l2_fwnode_device_properties props;
- 	u32 hblank_min;
--	u32 exposure_us;
- 	u32 lpfr;
-+	u32 fd_min;
-+	u32 fd_def;
- 	int ret;
- 
- 	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 12);
-@@ -1262,11 +1282,12 @@ static int ov9282_init_controls(struct ov9282 *ov9282)
- 	v4l2_ctrl_new_std(ctrl_hdlr, &ov9282_ctrl_ops,
- 			  V4L2_CID_FLASH_STROBE_OE, 0, 1, 1, 0);
- 
--	exposure_us = ov9282_lines_to_us(ov9282, OV9282_EXPOSURE_DEFAULT);
-+	fd_min = ov9282_lines_to_us(ov9282, 1);
-+	fd_def = ov9282_lines_to_us(ov9282, OV9282_STROBE_FRAME_SPAN_DEFAULT);
- 	ov9282->flash_duration =
- 		v4l2_ctrl_new_std(ctrl_hdlr, &ov9282_ctrl_ops,
--				  V4L2_CID_FLASH_DURATION, 0, exposure_us, 1,
--				  OV9282_STROBE_FRAME_SPAN_DEFAULT);
-+				  V4L2_CID_FLASH_DURATION, fd_min, S32_MAX, 1,
-+				  fd_def);
- 
- 	ret = v4l2_fwnode_device_parse(ov9282->dev, &props);
- 	if (!ret) {
+-	return exposure * trow_us;
+-}
+-
+ /**
+  * ov9282_update_exp_gain() - Set updated exposure and gain
+  * @ov9282: pointer to ov9282 device
 
 -- 
 2.53.0
