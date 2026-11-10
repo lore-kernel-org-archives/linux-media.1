@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794340543;
-	b=xbeg4OlCe3zxeIg/r7aya7fGJ6QZxwH4+zPayEr086ca7hiZ+kIqSdqYsi3AN/cUTYoA
-	 LRmgPIl0FuRirjqBTsfYi4pW6Q+ve+h/eJID+x+bkSsPFWvlzwyReuj8/bjAwG/STXF72
-	 LCqMCriDXGEWpklotLxDomnq1B6FGB0exreMslImmAvRzRitJ6I0NRMhzzsStU7bUEWVK
-	 V/GyktsHFS/Y/ohtaKBpUZsNWweEqspDa1kRmex9ysCUNql2heDVsC5yXUSOuNfTLua8v
-	 VKdog7vtIKTew9ip0ZO+JBk8Ft75V4NKkoAHQFcCrvfv1cBC8A5a1+CaKD0uvKgUWtw==
+	t=1794340539;
+	b=MI1aBStY7ERGIRlmqmEFjZU32is4kQvN0VWGqUbs25a/4plmomP7IzC9rfr/VlSc9eHd
+	 RHXH2GF5sUie0g6n1jB1hBMjVICwDnyJ1rW1mm2oqMbIZuEUOXjzzGPGy3XUD6DLO38xV
+	 27dks4xZ6YJpnD4JXm3lWksL/BTVprYzSEHn88JeWvb8cTlrqo/BShy5Tj/O2C0MAWbuT
+	 BMj028QGKCZ255m1BxEbhJGEGo2UvbvAV4CFUN1ea4vgvwOCWHIKxdGgkCtDr+3sHvfOv
+	 7E2XwnFXcQDxTxs1PEekNu+VAUS+FH/7Ij2/xyDTgAeyczDxje69dvFLPjFO5VColUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794340543;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340539;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=OSPH1DjCz3ytXCkSpwALhsI+V4Nz7XdAxrkt0DEPaM8=;
-	b=DpBwCdQE0ZwhmVD6OFG53qS3qyRaZM90C//AMiucHckkYRCZbn6DruYak/LuhQsyeD92
-	 Rmu5KDsOd9umJEIU3eDQ/SrAmyxtMaqc8+4d5nn9wcncJey+WI0yUtVKvfkgtRc0hlDEm
-	 CR01mzJYAJyevQ1Q5Fm6Ms3Wfu/HJynaGd/toyMkvkeGrVgmGVw+rh3ayFphBoGl1Ljox
-	 SND9nF8LLg9+ap1wXYTDKn/C44SSP8neqM72OBFMNdgppnTHCUM4J546s4Nxuvu80UlgM
-	 wx/2550LrGPMs1rmavAcaGxQ5sBQ2rfoUc024aR3hHVla/t7k//pF8J+JOBDfE4HDiA==
+	bh=mh8xxQxLI1386Z2affx51MJuVqSIzJ5Xz7MXSE9mxjk=;
+	b=BTrZc5hRaqpGSAxnvEyz75PWvyl2x8ERKI9uDKQ+D6++s0/0N90/1DNzJ38URdfsin4J
+	 PmucavZ9Wm9y4S6SFWDAkZA2NSTTpsHmMziEzGg6sQ1xTo40nUvgGagzVitpMIr/3Q5LZ
+	 +y9d3XeJOe4ddHRhnuRqJNMVJNBefQOpWC1jCcRDi28T7da4p7bw38f8QSZOfc3JnmWbB
+	 wTgg4W7PRoDqh123hhhHcr1BoTrfiaN6pa6Mqseq+WRxQm1csJ2+/UVwZMOq99nF9MCdL
+	 pbaKtJpNTIDbpC8OBr4o/zZBxO0HaOWZ4ou/5UM43USuEa97JUiKxH6RujUBEBBgWcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=UkT6q4kg;
-	arc=none smtp.remote-ip=109.224.244.17
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=ZpfSN+26;
+	arc=none smtp.remote-ip=185.70.43.16
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071AE606A323
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 19:55:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 071AE606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41EB660A2615;
+	Tue, 10 Nov 2026 19:55:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41EB660A2615
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=UkT6q4kg
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=ZpfSN+26
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794340541; x=1794599741;
-	bh=OSPH1DjCz3ytXCkSpwALhsI+V4Nz7XdAxrkt0DEPaM8=;
+	s=protonmail3; t=1794340536; x=1794599736;
+	bh=mh8xxQxLI1386Z2affx51MJuVqSIzJ5Xz7MXSE9mxjk=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=UkT6q4kgWgYrvFqdEYgK44pa+CUa36ijN1sqrmsmnIFwTgsc0ika+/UcAs83VYrQh
-	 f6oFZ5SPkNa2482tlPjji++LzVkO064uoW+YlKEIcn6FMJhuJ6vrk1CYV9Bgc9mJ5c
-	 dv4yUcsFOXIWFUmXLMzGhtbmWaKBZEHvvGc4O9mUvZMfR0uF1u8niFX8eMR498IqVq
-	 /Txb7pKRQ/NuyxsI5YvBDvxpAVuy+UT72tIZXZijcW67nYPp2Qa3qhi5NDtG1EtB/y
-	 alHyNERYOmGuY84DyoANmCKtu+9CaIOc/9p+jWl0SjmAo0ibjyHHeswKp7lStVTT6r
-	 S8ijCZ26ExMLw==
-Date: Tue, 10 Nov 2026 19:55:36 +0000
+	b=ZpfSN+26LxLbQzJYLxJ4oqk52+9L73rm5SwKws9sV23dblac17LR75mWR7Qq3J0zt
+	 jfMkEy1vKOegS3kOD00RJT8KTgxIOmqKKnOzE8nhPZxqov8IL9k5+rtUkjEh5mcjPZ
+	 ST6GkoUDe8to14Oy69RHhANXb8L5x+5OT4MZKiyWgwGKwIobADemznMmE/0PGvSqfU
+	 vK8DKnrwy2Sffr6Ep28VvrjbH4BY5RmqSxsJSeGbqUQK2OT2OvnV7a4vfwI81GJZqX
+	 h6uZ0mlkEA21rhfVHwdjUsdYg63pnnnEnZ9VOXjPtPU1F6Y7n93N36tizMdqjiQWml
+	 YweD77nZ5eajg==
+Date: Tue, 10 Nov 2026 19:55:31 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
 From: Sergey Lebedev <lsa.uz@pm.me>
 Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 5/6] media: ipu-bridge: Index the sensor device properties as the endpoint ones
-Message-ID: <20261110195454.48176-6-lsa.uz@pm.me>
+Subject: [PATCH v4 4/6] media: ipu-bridge: Add ST VD55G0
+Message-ID: <20261110195454.48176-5-lsa.uz@pm.me>
 In-Reply-To: <20261110195454.48176-1-lsa.uz@pm.me>
 References: <20261110195454.48176-1-lsa.uz@pm.me>
 Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: e6d6dc47be8f214a639f15f9092d287ed3482731
+X-Pm-Message-ID: 5272035d8f1a0cd28cef0ccb76250390f5e3e7fd
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,96 +67,44 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Fill dev_properties through an enum and IPU_BRIDGE_NEXT_PROPERTY(), as
-ep_properties already is, so that an entry can be added without
-counting slots by hand. No functional change.
+The infrared camera of the Surface Pro 11 with Intel is an ST VD55G0,
+enumerated by ACPI as SMO55F0 and wired to the IPU7 over one CSI-2 data
+lane.
 
+The vd55g0 driver takes only a link frequency whose MIPI rate, twice it,
+is an integer multiple of the input clock. 396 MHz gives 792 Mbps, 33
+times the 24 MHz the sensor's SSDB lists on the Surface Pro 8, 9, 10 and
+11, and within the sensor's 750 to 1200 Mbps. Peter Marshall's earlier
+patch for the Surface Pro 9 used 380 MHz, 760 Mbps, which is not a
+multiple of 24 MHz, so the driver would refuse it:
+https://lore.kernel.org/all/20260918221705.323510-4-pm@petermarshall.ca/
+
+Tested-by: Fernando Rimoli <fernandorimoli11@gmail.com> # Surface Pro 9, IP=
+U6
 Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
 ---
-New in v4 (Sakari). The series that keeps what the software nodes point
-to out of the module image is probably D. Manresa's, recalled on v3; it
-changes the same lens-focus line, so whichever lands second needs a
-trivial rebase:
-https://lore.kernel.org/all/20261026082549.662885-1-dmanresa@gmail.com/
+v4: no change.
+v3: moved before VD55G1, for vendor order. imx681 v10 3/3 adds SONY0681
+at the same place, so whichever lands second needs a trivial fixup.
 
- drivers/media/pci/intel/ipu-bridge.c | 19 ++++++++-----------
- include/media/ipu-bridge.h           | 11 ++++++++++-
- 2 files changed, 18 insertions(+), 12 deletions(-)
+ drivers/media/pci/intel/ipu-bridge.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
 /ipu-bridge.c
-index c99c85b7e6f..2399a3d52b6 100644
+index 3739c4a2a8c..c99c85b7e6f 100644
 --- a/drivers/media/pci/intel/ipu-bridge.c
 +++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -570,7 +570,7 @@ static void ipu_bridge_create_fwnode_properties(
- {
- =09struct ipu_property_names *names =3D &sensor->prop_names;
- =09struct software_node *nodes =3D sensor->swnodes;
--=09unsigned int i =3D 0;
-+=09unsigned int i =3D 0, d =3D 0;
-=20
- =09sensor->prop_names =3D prop_names;
-=20
-@@ -612,19 +612,16 @@ static void ipu_bridge_create_fwnode_properties(
- =09=09=09SOFTWARE_NODE_REFERENCE(&nodes[SWNODE_SENSOR_ENDPOINT]);
- =09}
-=20
--=09sensor->dev_properties[0] =3D PROPERTY_ENTRY_U32(
--=09=09=09=09=09sensor->prop_names.clock_frequency,
--=09=09=09=09=09sensor->mclkspeed);
--=09sensor->dev_properties[1] =3D PROPERTY_ENTRY_U32(
--=09=09=09=09=09sensor->prop_names.rotation,
--=09=09=09=09=09sensor->rotation);
--=09sensor->dev_properties[2] =3D PROPERTY_ENTRY_U32(
--=09=09=09=09=09sensor->prop_names.orientation,
--=09=09=09=09=09sensor->orientation);
-+=09sensor->dev_properties[IPU_BRIDGE_NEXT_PROPERTY(d, DEV_CLOCK_FREQUENCY)=
-] =3D
-+=09=09PROPERTY_ENTRY_U32(names->clock_frequency, sensor->mclkspeed);
-+=09sensor->dev_properties[IPU_BRIDGE_NEXT_PROPERTY(d, DEV_ROTATION)] =3D
-+=09=09PROPERTY_ENTRY_U32(names->rotation, sensor->rotation);
-+=09sensor->dev_properties[IPU_BRIDGE_NEXT_PROPERTY(d, DEV_ORIENTATION)] =
-=3D
-+=09=09PROPERTY_ENTRY_U32(names->orientation, sensor->orientation);
- =09if (sensor->vcm_type) {
- =09=09sensor->vcm_ref[0] =3D
- =09=09=09SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
--=09=09sensor->dev_properties[3] =3D
-+=09=09sensor->dev_properties[IPU_BRIDGE_NEXT_PROPERTY(d, DEV_LENS_FOCUS)] =
-=3D
- =09=09=09PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
- =09}
-=20
-diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-index 3ef94c2b767..284e0d6cc93 100644
---- a/include/media/ipu-bridge.h
-+++ b/include/media/ipu-bridge.h
-@@ -89,6 +89,15 @@ enum ipu_bridge_ep_props {
- =09IPU_BRIDGE_EP_NUM_ENTRIES
- };
-=20
-+enum ipu_bridge_dev_props {
-+=09IPU_BRIDGE_DEV_CLOCK_FREQUENCY,
-+=09IPU_BRIDGE_DEV_ROTATION,
-+=09IPU_BRIDGE_DEV_ORIENTATION,
-+=09IPU_BRIDGE_DEV_LENS_FOCUS,
-+=09IPU_BRIDGE_DEV_NUM_OF,
-+=09IPU_BRIDGE_DEV_NUM_ENTRIES
-+};
-+
- /*
-  * Get the index of the next property in a property array, with a given ma=
-ximum
-  * value.
-@@ -179,7 +188,7 @@ struct ipu_sensor {
-=20
- =09struct ipu_property_names prop_names;
- =09struct property_entry ep_properties[IPU_BRIDGE_EP_NUM_ENTRIES];
--=09struct property_entry dev_properties[5];
-+=09struct property_entry dev_properties[IPU_BRIDGE_DEV_NUM_ENTRIES];
- =09struct property_entry ipu_properties[3];
- =09struct property_entry ivsc_properties[1];
- =09struct property_entry ivsc_sensor_ep_properties[4];
+@@ -124,6 +124,8 @@ static const struct ipu_sensor_config ipu_supported_sen=
+sors[] =3D {
+ =09IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
+ =09/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
+ =09IPU_SENSOR_CONFIG("TBE20A0", 1, 200000000),
++=09/* STMicroelectronics VD55G0 */
++=09IPU_SENSOR_CONFIG("SMO55F0", 1, 396000000),
+ =09/* STMicroelectronics VD55G1 (found on Lenovo X1 Carbon G14) */
+ =09IPU_SENSOR_CONFIG("TBE20A1", 1, 402000000),
+ =09/* Toshiba T4KA3 */
 --=20
 2.54.0
 
