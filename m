@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794305253;
-	b=TZ4IahOA6AYqD+F9/SNjEB3RF2+wrDsThGs9Wl8Het2r2Qpa9gsV5P7cK9pya/Y/ZuCj
-	 pDmkzW2AqxFScNBwLosvPijYp3caDZ21h7iLN2MdMkLAYxA/0eOW9bVherxV9P+/awTgp
-	 UzgnI3qb+RjpJ4DNp0dcKMRybuY3PvGn9NSH3Ughwb/F9Vb6Nyu8VXLSrxF8HCco08ka4
-	 ReZT2OMmaZQ1k6s94rDHyatqNGWIQzlUDmpEZwY19ehSj6VuL9snKfQ7r22AdXVlGbXlE
-	 G+S1GQnN6XodUTepyYe1Hd5yM7gTlh4b0BGiq5L1LrXxMTZ6XGzDHtM7McX/xb5umzQ==
+	t=1794305259;
+	b=n3nuqKLlcaDIpddQKOKAwShy9cnC/tFLVq0vI58EfVbUEKc8gvgqZ9Tnr5El+MnhA9Pc
+	 GsDiHX7vyGFK59RXY/YQ+Xb8roDbILRo7Cv4hVPhJYIn8cZI3AP6LFwyQ0JAD+Iq9BBhe
+	 4fq0UV21QatywC5Rp5ecd8U2mnSWVXzQpn85v4dPrF8FuZoT5uIPgz5v9TZKqW8W78ws4
+	 RhyF5n38MnoCSF7wb6Jd4+69SASDiM7sAp4Ovsmqix3iGL7vmvNYbV/Bn/CmYjxbNlwzh
+	 Od23Czfgvu6KjAJT1OTPdThR1yq6lVJn/eRCciPRcvERnZbTntBbQkqYsbWJybCfMVQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305253;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=QHsE6dTEDtQEYud7euc+L6Au22IECnhdNteVKSvNFyk=;
-	b=Vao/gr3GTcLExYT7F1mukfBEP5za2G6iMsZhpfVONdLPrytjJToZkFSOs27xBvCbK4fQ
-	 Q4WATo/t2m40RN3n2yMTGu8rtuaaXmexSx5kUMYSYcZl/Q+n+m+S9Op6A6F9+h7DsAdCX
-	 /CootAfCFJmmxHqLfzpJeoqvugFEiJcy03SI/BxRTzxxWigFvLA2Vv4nnHYdVw74eJ8Q4
-	 M0tf9W086qRD/fFEbDJnUFIq2xeJqCTKjQcWvsyXqEa5U+SIOcWkOxdEAmiPtP5huzwjb
-	 q7bsnthOYmD7h9+sW0FmDlw2aO8c97rUBi68mBUYQYWN84nOFJx1mJl1RKxZlRNapwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305259;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9ao8K5/T+J6vVSApsC1JJR7GkMSRx6aXdz7Pw677rMw=;
+	b=Yf3CpW8M9rmtuuJ87Pu9b6zz6zU7IBUS1TYI3QtuCY5JQtCuV65DzPv5qOyk0FcaJuiq
+	 LFUts+15+dBWz2KNd9B0OUc69P5gkmryRG6Qdi8cx2Sze85pqh8bIT8N/F9pbcTlaQmyf
+	 WIV+mNP5l+QLZWvm1WmekXDsVhwkj8v00iHlH/FI6RSefnt8ZWsUpXQ10blV4aEJSQ85P
+	 7praXX8sJ8I0sHeL4nwRIZ2KWdi13XIj8rF7/srFiZ8kOA00t1vdNd6nTbBsVHfRh0ESH
+	 DC1noBYYzv7WaGNpsSAoOibAPRmdTieu5AZDY4XO2yYG/rlLtJrF9B4rIL0lpru0S4A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PHIyuaKL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ID3QL+vT;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AEB606A321;
-	Tue, 10 Nov 2026 10:07:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBD860A3812;
+	Tue, 10 Nov 2026 10:07:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PHIyuaKL
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ID3QL+vT
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794305253;
-	b=oievTY6Wd344K2FNb2hIi/R+DI0+LwNzO22UNQV4sZM53WRRuJdd60e33crffM3aGJVe
-	 xB+jZvKW9Ptpd2GXQPKp3/5lSaHui0RzLjpJRRdvVKXPyI55XINxupeaEAyVGxZDLY/0m
-	 g254vBS6p0c1BnSFAdgjkOpEZrzgkLOtL7kg6jWkw1H9vRCFtz3dauqaTnyTRw1CpNo0h
-	 61bXXdTMW2+yUx+mRWAIHn/5+vzsHCqB4lUTvo4oi9Xf02uR+D9G+YrCf/EdDAwBHqudH
-	 QgFGfhuQpE9nt+JFfiInj2AtmoftxENOd4mJu7AO3zWOw1sXRq2p2qggmDqRQcnQQow==
+	t=1794305259;
+	b=nbFrGAzNIBjeVeSPVz3uHN2LwgdW03Gefs8ryJl9AgLkVi1hKVHbdraWHvNKCa7LfSRs
+	 zYVMlc3NOMepxYiwN5XewBEUI130Ps3sz6CKfMTVCBYfOWbo1IzcoeNLuxiKvoFBEQsiT
+	 bTbXOfg/AtC509rBuxHuYi2VS9RnDt1KPbp/jUvhtdEtc+7Xme+v4Og+NU46MZ7EOkd3R
+	 E6X4NCBXf1lcguuB9djl9fgFTRfzHtVRhzVN7YFFEbzazYd9j6Fb2aO41Wa+6/fBlBKic
+	 6SEOTA3ICKHSo57pr4I5mnVs5x3Cpz4fUtwua8WnI2sjOrUscQHCerL5Jk/g6DQzK6Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794305253;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=QHsE6dTEDtQEYud7euc+L6Au22IECnhdNteVKSvNFyk=;
-	b=G/Kkz5UEBrtdfmFfnzkGwBjDdnVgBadalDq0cDPekwDzcpQuybzhF+Ukfsu5E0rhWBWZ
-	 fKJGOcEi4MqwZdsnDeXjZ3KZndAldC2su1IybnbaG/CUWHD8yelKT+bAO1Pqb11vE6iyA
-	 QiqlQvyWULmE41qpBSN8HVgY0nhxVvfNG1hqbDmuBMB2EWnEX8qqWQ4c1NSDlUxk+WOmC
-	 vAzNNP1q8KTlKZ6vvcwTDa/bfn1PTAggLKUH3/O9Y5h6y1T/wG/hOtGSzkmgjjj+L3LHB
-	 1wqHm8I2bPCGeQsZLMJQdN5WP/QIqqUUkAb5QUPLFvvRX8iuvK1j3aJk1N2DU88Lx+Q==
+	c=relaxed/relaxed; t=1794305259;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9ao8K5/T+J6vVSApsC1JJR7GkMSRx6aXdz7Pw677rMw=;
+	b=NLtx6ZNf3ILbvCTwQ6nOVhVaDBHutqp7w2W5DoOUorwjulWCqCD2FdAAV0QqdYBHsXQZ
+	 Q5UViAqaXRAGRxJ3uEeHmIW2Z6FGmYa3MAtr8T4onjTpStAXDTVzTDDQKtbJrM10fQo7K
+	 0alz/IjC5UTnZUui+oxrjdrt0F7tw/FmWm048Qt53GbA556/xP4sTcOU4dGJvNP/U/lZg
+	 mwvzbYQkq0rJYAS1eROn62y3gpWaeClx8++ipUH0u2Y08jSWNN4wNeF4InBx8VJROKbpD
+	 Jf5OnE0KbLGv/SBlKHG6v+eHyIiPdRblJxqjsTYRUXHk7ZZ11yWXXT6Km39L3uV4aBg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 580FE1F0089F;
-	Tue, 10 Nov 2026 10:07:32 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id EC1281F0089F;
+	Tue, 10 Nov 2026 10:07:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794305253;
-	bh=QHsE6dTEDtQEYud7euc+L6Au22IECnhdNteVKSvNFyk=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=PHIyuaKLxHZgRdYrAQrZ77WawtHfb9LKnn2JFtwDesk4tBaoVT5MtQ/SApyieP5sB
-	 IgdR5tbzrux5hdm7xu87JmBD8FbZbFfPcSRm2txza+xcqZabVYtbKhGcdNfYtzmrsv
-	 UGC/pozPP+Jhk2+kp2gf9n6hAfTyqe+zXwbj3izwmmrP20R3JJB1XD6menHaSOhS9D
-	 EIdMS5RvFcjUaRFCojAK+v9HFfr3UrlPpVmMiYx5xhzKiEfiohWS8L7ep+UoF0e3YV
-	 4e6NM1E7HJ8bxHeWkqN1OHjYtPl2/7VMCfvS4bOjNjEpcqfUTGb76MfnPbta93BXJf
-	 AVpsRIiQnI53Q==
+	s=k20260515; t=1794305259;
+	bh=9ao8K5/T+J6vVSApsC1JJR7GkMSRx6aXdz7Pw677rMw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ID3QL+vT2QOTai2kmbPTwOQqMzZ8HMbLSKErlahBFB/WBD1Lra7dJZv05vfyPYd4N
+	 HqVrHBAIkC3zeGGEjIihD+fWzk+PuYKKg9B4shnGkSpPgRtAe3hMc6BG/ahqJzkt08
+	 lU4aMMeKrCSpQspm6bQ0RStRUl/UBpekqafWXAmKJD3ygZudMbhrkVn4eZZS2mTeMY
+	 lv6IRTH5vZdk3ZjfiMokiBuU6r7seccc01/0fF0uOQJt3KTjAjGunEDdq5V593McTo
+	 wv1t90Q07VX0T2XTIdaEcsMfh2U+x6ySGCbycMCA6c+v8QqA6VO1L9n3qz7SG1S8qQ
+	 rEH1OZbZDYqzg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CC00E48A7C;
-	Tue, 10 Nov 2026 10:07:31 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 6FCAD48ABE;
+	Tue, 10 Nov 2026 10:07:32 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH RFC 00/10] media: Add a V4L2 HEVC stateless encode uAPI and
- helpers
-Date: Tue, 10 Nov 2026 10:07:30 +0000
-Message-Id: <20261110-hevc-encode-uapi-v1-0-38ae9fcfedd4@gmail.com>
+Date: Tue, 10 Nov 2026 10:07:38 +0000
+Subject: [PATCH RFC 08/10] media: v4l2-hevc-enc: Add QP limits for the I
+ pictures
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -85,210 +84,125 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/11Ty24cOQz8FWPOGYCUKJLKdYH9gL0GOUh8xBMgt
- tdjBwGC/PvS3iDA9FFqVhVVVf3zdI3nS1xPH+9+np7j++V6eXyoA364O9n9evgS54vX+dSgMSL
- C+T6+2zke7NHj/LqeLufVeE7Yfejup4I9PUdefrxTfjr98/dfp8//X15f99ewlzey32PP8e9rC
- b78nn1aL3Zfch/v0hETZ2OWQY7bCXYyug9HX0IL3LBbe+f5gxKTcJNONKf6aBC5UjZ1sAlZFzU
- AZHKLItbpIQKxcVvxju68w1eLPpuDBWdR+i0KVrpZI50tlol06OwwXHMAxTArP2LzYcMwU5q79
- 6ZOfXJXSLC03kuVDdlbgDe9RRnXGmUJC7BRYbnRJFUohZbqslvrK+CgNUe5NRh6OghAp8mwsHM
- LUhZriY2c58FDrq3JZTbw8iIb68rFid0TyXI6zo522JAHWTmwOGbQ6ggac8XcYnMt0ZxjazOwW
- 9TkJIES0d1sac80ervDeqv0mG1gvRHwFpWrV6JpkQDcZW+lnAS49wQa7sQ4qc3Dhr6Y2SM1vO3
- RJvtSj8AdXcs/Rd2rm/WDGzF6M+XcFYBsrwTGMkocRFtcvCq1rfGhGzNQO+9GDKyd9izMKnod6
- H3m4DIy8oDK6o6ZkNDQGO2tcilviclmFCpC3Ln3wQ3VHpGZS2IJFLv3IcQiCrYp2+Zp6v2gtRa
- g2pSRc2PCGAMrdGKi8qi+OVcQ2g5uuDr3atpAkeSN9WcwLuWIodWPMXZlP+S9h3td42yP375dX
- qoe3DTEycqTUeugVp9oRF/VsobaqiUhQafPv379B0kygumRBAAA
-X-Change-ID: 20261110-hevc-encode-uapi-a26990b358b3
+Message-Id: <20261110-hevc-encode-uapi-v1-8-38ae9fcfedd4@gmail.com>
+References: <20261110-hevc-encode-uapi-v1-0-38ae9fcfedd4@gmail.com>
+In-Reply-To: <20261110-hevc-encode-uapi-v1-0-38ae9fcfedd4@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Paul Kocialkowski <paulk@sys-base.io>, 
  Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Hans Verkuil <hverkuil@kernel.org>, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305251; l=9759;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794305251; l=3795;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=Z1BQ5cXyaAhXO6BO5tRHmO1fyC4asnDS7NBf/na01e4=;
- b=G6HaDXA+sokBZheUQDioslIeodxaAwEoCNsz+BVlG/yQOd1YoP3tKwv64VSJUDoGUn73wVW5j
- AfgCymQ4DAYCN/+pJvSr9ajYQBwYH/goUOpxb6Z/ryIxcS4iF0q6/AO
+ bh=AE4kglGiR5u7/pgWxx7FMl4jnb/lWjlmJsY7hLn1kAM=;
+ b=VLX/BGi7saL9KOTcpT5V6O7pX9fdNr0GoOZRt7wCU3xHbiW6aYEvcFaHsQnXZgxO4sMrgIMEw
+ C/ZhaQo7CJTDHRp7AmwMKg+LeiLa/C0reqCPgbF6AfMAv81KEzRQ92m
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi everyone,
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-This RFC proposes a V4L2 uAPI for stateless HEVC (H.265) encoders, built
-on the kernel-driven design of Paul Kocialkowski's H.264 stateless
-encode series, "[PATCH 00/14] media: Add V4L2 H.264 stateless encode and
-VC8000E support" (v1, 2026-05-22):
-https://lore.kernel.org/all/20260522101653.2565125-1-paulk@sys-base.io/
-(https://patchwork.kernel.org/project/linux-media/list/?series=1099281)
+The frame rate control of the core limits all pictures to the range of
+V4L2_CID_MPEG_VIDEO_HEVC_MIN_QP and V4L2_CID_MPEG_VIDEO_HEVC_MAX_QP. The
+I pictures, coded several QP steps below the P pictures, then reach very
+low QP values at high bitrates, where they cost many bits for little
+quality.
 
-It applies on media next 6628e7d4c6b2 (v7.4-rc1) with, in this order,
-patches 1-7 of that series and my "[PATCH RFC 00/11] media: h264:
-Stateless encode core follow-ups" applied first (the prerequisite lines
-below). Only patches 7-9 here need them: they use the codec-independent
-constant bitrate helper (v4l2-enc-cbr) of the follow-ups; patches 1-6
-and 10 only share Kconfig/Makefile context. As far as I can tell, this is
-the first HEVC stateless encode proposal. It is meant to help the H.264
-discussion as much as to add HEVC: HEVC makes one answer to reference
-handling concrete. I expect to adapt it to the rework of the H.264 core helpers
-that Paul announced for v2.
-
-What it reuses from the H.264 design:
-- V4L2_PIX_FMT_HEVC_SLICE on the CAPTURE queue, with one access unit per
-  buffer;
-- the existing V4L2_CID_STATELESS_HEVC_SPS/PPS controls and structures
-  for the coding tools. The parts a decoder never needed (profile, tier
-  and level, conformance window, VUI, VPS) are derived in the kernel
-  from the format, S_PARM, S_SELECTION and the stateful HEVC
-  profile/level/tier controls;
-- the kernel writes the VPS, SPS, PPS, AUD and, unless the hardware does
-  it, the slice segment header;
-- the QP comes from the stateful QP/rate control controls: direct QP,
-  constant quality and constant bitrate in the core;
-- the driver API: init/step/complete/exit, state_constrain and
-  reconstruction buffer callbacks.
-
-What is new:
-- V4L2_CID_STATELESS_HEVC_ENCODE_PARAMS: the NAL unit type, TemporalId,
-  slice type and POC of the picture, the slice header syntax elements
-  that the SPS/PPS enable, and its reference picture set, given as a
-  list of OUTPUT buffer timestamps, each marked used-by-current-picture
-  and/or long-term. The kernel keeps the reconstructed pictures,
-  computes the POC deltas, codes the RPS, builds the default reference
-  lists and drops every picture that is not listed, exactly as a decoder
-  does (8.3.2). Userspace keeps full control of the GOP structure,
-  long-term references and temporal layers without any MMCO-like
-  syntax. Hardware with one reference read port uses the single entry
-  marked as used.
-- V4L2_CID_STATELESS_HEVC_ENCODE_FEEDBACK, read-only: the values the
-  kernel settled on (QP, resolved reference lists) and hardware
-  statistics, in a codec-agnostic struct v4l2_stateless_encode_stats
-  (QP sum/min/max, luma SSE, block counts) that H.264 could share.
-  Applications never set it, so v4l2_ctrl_request_complete() stores the
-  value the driver set at the end of the run in the request, and it can
-  be read per request today, without read-only requests.
-- A kernel HEVC NAL unit writer (v4l2-hevc-enc-rbsp) with byte-wise
-  emulation prevention, and an encode core (v4l2-hevc-enc) for the
-  RPS/DPB, accommodation, headers and feedback.
-- KUnit tests for both: byte-exact VPS/SPS/PPS/AUD/slice headers for
-  three configurations (vectors from an independent reference
-  implementation, see the commit message), and GOP sequences through
-  the core.
-- Patches 7-9: the constant bitrate mode of the core on v4l2-enc-cbr,
-  QP limits for I pictures and a re-encode hook for drivers whose
-  hardware writes the slice header.
-
-The uAPI was checked against two unrelated encoders: the Rockchip
-VEPU580 (RK3588; its driver is posted separately as an RFC) and the
-VeriSilicon VC8000E (its HEVC registers are in Paul's series). Both
-write slice headers from registers and take CPU-written parameter sets,
-and both map one-to-one onto the resolved slice header structure.
-
-Questions where I would particularly like feedback:
-1. Explicit references for HEVC versus the sliding window of the H.264
-   v1 series: is the asymmetry fine, or should H.264 go explicit too?
-2. Should the H.264 and HEVC bit writers become one shared helper, as
-   the rate control now is?
-3. Is a read-only feedback control the right pattern, and should the
-   stats be their own codec-agnostic control?
-4. Capability discovery: reject-on-use plus written-back accommodation,
-   or a dedicated caps control?
-5. HEVC_SLICE reuse, or HEVC_SL alongside the H264_SL rename?
-
-Not covered yet: multi-slice, tiles/WPP with kernel-written headers
-(a driver can still signal uniform tile columns, as the VEPU580 driver
-does above 4096 pixels), RPS candidates in the SPS, custom scaling
-lists, weighted prediction, SEI/HRD, 4:2:2/4:4:4 and 10-bit beyond what
-the SPS can express (Main 10 is signalled but untested).
-
-Testing: the touched files build with W=1 on arm64. The KUnit tests
-pass on UML (23 tests: 19 for the RBSP writer, 4 for the core).
-"make SPHINXDIRS=userspace-api/media htmldocs" gives no new warnings.
-On hardware, the uAPI and helpers ran on an Orange Pi 5 (RK3588S)
-through the VEPU580 driver, on a v7.3-based kernel whose HEVC encode
-files are byte-identical to this series:
-- constant bitrate, IDR period 120: 1080p60 (300 pictures of two clips)
-  at 2, 4, 8 and 16 Mbit/s and 2160p30 (120 pictures of two clips) at
-  20 and 40 Mbit/s, within 3.4% of the target, the largest one second
-  window at most 1.35 times the bitrate; PSNR at equal bitrate against
-  the driver's earlier private rate control: +0.27 to +1.0 dB on the
-  animation clips, -0.05 to -0.13 dB on the natural ones (+0.27 dB on
-  average); 4104x2160, 5120x2880 and 8192x4320 in tile columns; every
-  stream decodes in FFmpeg;
-- with earlier revisions of these patches: 1080p and 4K at
-  fixed QP and constant quality with GOP 1/10/30, long-term references,
-  TMVP on/off and SAO off, plus two 4K streams in parallel, decode in
-  FFmpeg without errors at 38-59 dB PSNR, and the feedback control
-  matched the expected NAL type, POC, QP and reference list on every
-  picture.
-
-This series was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code, the documentation and the commit messages, and I
-reviewed and tested every change as described above.
+Take the limits of the I pictures from V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_MIN_QP
+and V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_MAX_QP when the driver has them, with
+a frame rate control. Without these controls, nothing changes.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Arun Iyengar (10):
-      media: hevc: Add H.265 syntax definitions
-      media: uapi: Add HEVC stateless encode support
-      media: hevc: Add stateless encode RBSP writer
-      media: hevc: Add KUnit tests for the stateless encode RBSP writer
-      media: hevc: Add stateless encode core
-      media: hevc: Add KUnit tests for the stateless encode core
-      media: v4l2-hevc-enc: Add a constant bitrate mode
-      media: v4l2-hevc-enc: Add QP limits for the I pictures
-      media: v4l2-hevc-enc: Re-encode oversized pictures
-      media: docs: Document the HEVC stateless encode uAPI
+ drivers/media/v4l2-core/v4l2-hevc-enc.c | 24 +++++++++++++++++++++---
+ include/media/v4l2-hevc-enc.h           |  7 +++++++
+ 2 files changed, 28 insertions(+), 3 deletions(-)
 
- .../media/v4l/ext-ctrls-codec-stateless.rst        |  411 ++++++
- .../userspace-api/media/v4l/pixfmt-compressed.rst  |    3 +
- .../media/v4l/videodev2.h.rst.exceptions           |    2 +
- .../userspace-api/media/v4l/vidioc-g-ext-ctrls.rst |    8 +
- .../userspace-api/media/v4l/vidioc-queryctrl.rst   |   12 +
- drivers/media/v4l2-core/.kunitconfig               |    6 +
- drivers/media/v4l2-core/Kconfig                    |   37 +
- drivers/media/v4l2-core/Makefile                   |    4 +
- drivers/media/v4l2-core/v4l2-ctrls-core.c          |  194 +++
- drivers/media/v4l2-core/v4l2-ctrls-defs.c          |    9 +
- drivers/media/v4l2-core/v4l2-hevc-enc-kunit.c      |  554 +++++++
- drivers/media/v4l2-core/v4l2-hevc-enc-rbsp-kunit.c |  696 +++++++++
- drivers/media/v4l2-core/v4l2-hevc-enc-rbsp.c       |  977 +++++++++++++
- drivers/media/v4l2-core/v4l2-hevc-enc.c            | 1510 ++++++++++++++++++++
- include/media/v4l2-ctrls.h                         |    4 +
- include/media/v4l2-hevc-enc-rbsp.h                 |  279 ++++
- include/media/v4l2-hevc-enc.h                      |  300 ++++
- include/media/v4l2-hevc.h                          |  132 +-
- include/uapi/linux/v4l2-controls.h                 |  188 +++
- include/uapi/linux/videodev2.h                     |    2 +
- 20 files changed, 5327 insertions(+), 1 deletion(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-hevc-encode-uapi-a26990b358b3
-prerequisite-patch-id: fd11f19266754d1bd40bf61dd5d1da74a0dc13c2
-prerequisite-patch-id: 7c7edc7344998d520efaf7b430c90fd527c704c7
-prerequisite-patch-id: 4689de770eb1bcdc153d6beda2e392d0ce6f344d
-prerequisite-patch-id: 0afdcc24892eac773036d05d8f504e5ccb35eb62
-prerequisite-patch-id: ecc849b3328d4396380f0cfc331536c16d2e0d28
-prerequisite-patch-id: c62d0fd16706c4328624948805eb2f8d7b223ae0
-prerequisite-patch-id: e955d15603fd070034960a1362e4867c2f124d69
-prerequisite-patch-id: 76eb64d7920ddc1f268afa6f13df14cf9d1931c8
-prerequisite-patch-id: 654c303a6e9e4a3108e9ae9b7c9aa78f95b82c0c
-prerequisite-patch-id: 96f470c1f8b2ca83ffc496f41fd173e925180501
-prerequisite-patch-id: fa3430fcef00637bb84f9401bb9045dd46194298
-prerequisite-patch-id: da666def8ed2b5296da8dee1be387b2818ba3cc3
-prerequisite-patch-id: 7e532c86fbd0f7bd6705ac4f1544b7d7d27cbc26
-prerequisite-patch-id: 09e1836b24606834b9ac4aa3c851d39f564cfef6
-prerequisite-patch-id: fd8fcc747458e52344df760a17b61748361bfbb1
-prerequisite-patch-id: 883eefffa7ea70d39d357467780cb4f2b69c8d36
-prerequisite-patch-id: aa018c975f9b1f0555164d46446dea01d6496823
-prerequisite-patch-id: d8d6323a5177f6b1ce661a86ee5813d55b4a3570
+diff --git a/drivers/media/v4l2-core/v4l2-hevc-enc.c b/drivers/media/v4l2-core/v4l2-hevc-enc.c
+index a167c4af6288..2e0ba832b868 100644
+--- a/drivers/media/v4l2-core/v4l2-hevc-enc.c
++++ b/drivers/media/v4l2-core/v4l2-hevc-enc.c
+@@ -645,6 +645,12 @@ static void prepare_rc(struct v4l2_hevc_enc *enc,
+ 	state->qp_min = enc_ctrl_val(enc, V4L2_CID_MPEG_VIDEO_HEVC_MIN_QP,
+ 				     -qp_bd_offset);
+ 	state->qp_max = enc_ctrl_val(enc, V4L2_CID_MPEG_VIDEO_HEVC_MAX_QP, 51);
++	state->qp_min_i = enc_ctrl_val(enc,
++				       V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_MIN_QP,
++				       state->qp_min);
++	state->qp_max_i = enc_ctrl_val(enc,
++				       V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_MAX_QP,
++				       state->qp_max);
+ 	state->qp_i = enc_ctrl_val(enc, V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_QP, 30);
+ 	state->qp_p = enc_ctrl_val(enc, V4L2_CID_MPEG_VIDEO_HEVC_P_FRAME_QP,
+ 				   state->qp_i);
+@@ -1072,10 +1078,23 @@ static bool rc_core_cbr(const struct v4l2_hevc_enc *enc,
+ 	       !(enc->rc_ops && enc->rc_ops->estimate);
+ }
+ 
++/* QP limits of the picture: the I picture ones with a frame rate control */
++static int rc_clamp_qp(const struct v4l2_hevc_enc_state *state, int qp)
++{
++	int qp_bd_offset = 6 * state->sps.bit_depth_luma_minus8;
++
++	if (state->frame_rc_enable &&
++	    state->encode.slice_type == V4L2_HEVC_SLICE_TYPE_I)
++		qp = clamp(qp, state->qp_min_i, state->qp_max_i);
++	else
++		qp = clamp(qp, state->qp_min, state->qp_max);
++
++	return clamp(qp, -qp_bd_offset, 51);
++}
++
+ static int rc_step(struct v4l2_hevc_enc *enc)
+ {
+ 	struct v4l2_hevc_enc_state *state = &enc->state_active;
+-	int qp_bd_offset = 6 * state->sps.bit_depth_luma_minus8;
+ 	u8 slice_type = state->encode.slice_type;
+ 	unsigned int range;
+ 	int qp, ret;
+@@ -1114,8 +1133,7 @@ static int rc_step(struct v4l2_hevc_enc *enc)
+ 			return ret;
+ 	}
+ 
+-	qp = clamp(qp, state->qp_min, state->qp_max);
+-	enc->qp = clamp(qp, -qp_bd_offset, 51);
++	enc->qp = rc_clamp_qp(state, qp);
+ 
+ 	return 0;
+ }
+diff --git a/include/media/v4l2-hevc-enc.h b/include/media/v4l2-hevc-enc.h
+index 3db131370c56..f1d3da3269f1 100644
+--- a/include/media/v4l2-hevc-enc.h
++++ b/include/media/v4l2-hevc-enc.h
+@@ -128,6 +128,11 @@ struct v4l2_hevc_enc_ref {
+  * @frame_rc_enable: V4L2_CID_MPEG_VIDEO_FRAME_RC_ENABLE
+  * @qp_min: V4L2_CID_MPEG_VIDEO_HEVC_MIN_QP
+  * @qp_max: V4L2_CID_MPEG_VIDEO_HEVC_MAX_QP
++ * @qp_min_i: V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_MIN_QP, @qp_min if the driver
++ *	      has no such control. Limits the I pictures with a frame rate
++ *	      control instead of @qp_min.
++ * @qp_max_i: V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_MAX_QP, @qp_max if the driver
++ *	      has no such control
+  * @qp_i: V4L2_CID_MPEG_VIDEO_HEVC_I_FRAME_QP
+  * @qp_p: V4L2_CID_MPEG_VIDEO_HEVC_P_FRAME_QP
+  * @qp_b: V4L2_CID_MPEG_VIDEO_HEVC_B_FRAME_QP
+@@ -153,6 +158,8 @@ struct v4l2_hevc_enc_state {
+ 	bool frame_rc_enable;
+ 	int qp_min;
+ 	int qp_max;
++	int qp_min_i;
++	int qp_max_i;
+ 	int qp_i;
+ 	int qp_p;
+ 	int qp_b;
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
