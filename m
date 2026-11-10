@@ -1,100 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794293777;
-	b=OfZ0oe2yX5WYlhcQ1CFCLrV1uF6vx1/SV2YOh6f6IeT36XqtGoHuAI3uVbxuU7ji5yNP
-	 3o+GK+2catfTPhJff6/P6ODPankjGVrK/hnMUGs2ms3VyWlocqjKgdeLrOySPL9UKMLTL
-	 hVUBk7n1f+zuJIfdtcLGi7n85/S3A6ltYOa3f7t4RS7kiWo4YXEYDUzcBCG6RpK7tx26+
-	 jl4CM3TXEvBUyIENTNNRTTU6OHQy/9hVDaLhHvTALGVaRcyFM7Nql61lDswUbPPUeBZtu
-	 dxorhoxDlP44VMOjH/llKmxVplLrwUKIl+z6Youn1cBubRN63jrAe9bJlKyQbQKBE3A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293777;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=gv29PVlI4VqmDiKhon5UhDcIb7a0X1gnIhvI6TovMh8=;
-	b=cJr3XZe9BCxNcudVAE2LVdBaUytEp2PoKw6ikD5yzLh75zOoG6YyXIMFLozV89DtjT2A
-	 BSnluXGR9FGndCk2KeYq3V+8Q9sYXorOJmhG2A+L6q/6NwbSiy0Tkg6+nBBbgoWZGrZMe
-	 V3/CIb0jx88sG0VvCfMP2PbW1xqR/zHl4pvhwlS61TBeXb5oDTiUf0jqpTbKuts9cnk6w
-	 gmxW7e4uCCQn8mfi7jivvexUSnqJqjMHDqk+6p30ex0XRNZq00v1zlPJa8VCZrSc/oaIk
-	 Uhzn5uGGWcEcJpeKs2WHta06j4hogGYNVPNVWOgV4YpwrHRhHIlnO48xP/ury4oLY1A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=INdN09EU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794294278;
+	b=Cb2KNgycrF6ZrTdB3MSuvmOebWYss9kD+yj4Z+eMUGUWoeJ0bXFWpuQk2n+w8eWySk13
+	 nKw4ytSYm1F27Pw0fSj2EDNYrEtmCbWHvjy0nxyvYgxrWrxD8vsId8o3euCAjnygAtOey
+	 gW6LNemQXYKd0wO9N+oLAYJSh+CoZ4lyyeXzCNborGviwWxon7dNpWInBTBH2Cx4IjJM4
+	 X2PvZnzXjyDC0uhqbw+D1wXKmasFG6nrWMpnWnSofZsmyZfqTDOkHPXjKLiz3aGxzkhcF
+	 UnpRLaxZnV+2guD+PuahhQWHyZ2LDgD44cQFnT9UKzQRUANEX2DG4N+O2kDzCbSnWJg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294278;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:Date:Message-ID:X-MBO-RS-META:
+	 X-MBO-RS-ID;
+	bh=ehyKSSubsQ3ecNy9eM7eWLGxpE5AFmj7l5Cxp8L0dfY=;
+	b=N/thxW280Sv8sVJqpQXZ1M0VdWDp1WjCN3c7u3uLaI/ngTNKOhspeskV5Xamisf72DuG
+	 Obaq+ia4b9Be5GMqJ+qeelGKHhjEKSBRAukt9Ztg8TAKxRUQKLy4uyxOsFJbrhRqLAjiM
+	 yb8uDglFp7pM6cOVm1Shhfo/4pMGDs5leffw2uPwQtAc6iN2QIeLbahO6UMIzFba175rw
+	 R+E2cAqhDkhVyFsPpO6T2F4NvY9I+yAF6ZmZ2ai1KOLzGIM5tIMy5wqGRwL9KCY6UAVoT
+	 8SUxd7uKR6/T+KDUpaDXNF9MieuhvZzQJrBxr2/Qz1QwDyMGmr/RrFwECHoZL082oIg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=XLY+FtIF;
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1823D606A325
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 06:56:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1823D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB003606A31C;
+	Tue, 10 Nov 2026 07:04:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB003606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=INdN09EU
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36ff9c9da34so2891749eec.1
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 22:56:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794293776; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DhVZ2VTElSwgM3GJnAR4cWudzJAXXkNxq7dZJr+iwSmvtYUC1cwa4qnp/ND7fJwrC6
-         epbIp85zjbMPrUWhHNoIFu65CQmcn7j3qo0zXyoVd07uBQvjUgsKo7ddgYlwVSp9sFuA
-         JqP7LfuJjqIV5XsJ+lpR+qNpShHxKxDej2DcmOpwlEiRmr0uYts5l0OjHwvcLSfOr8uH
-         1gPGAKDKsgPO1X0RpBL/D4IEUejPFLMjG8ccztEh/xyV//BWxVokE3jWNU5otcfD6dOG
-         wIvm/4DEx6z/ax8qr28Qj/kKvNBHT9fNtbTT7D0nj28IR25gkESmVS/o8ixgrkJGvFx3
-         l9Yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gv29PVlI4VqmDiKhon5UhDcIb7a0X1gnIhvI6TovMh8=;
-        fh=AVBptOg8gZajo+oV7qqd8gLnLMLzpMC+g3dA1O8jHTc=;
-        b=DeLeQ0vPXayel/9nB0CezO050zOgen56rT5xuZ11tPkNRwWYaVtQndxBofWTE486XD
-         Vc50z3Bojr9lpfkIqVxYuxnWGQDL1tEOiEftB4PAeIlkcHOtPbtvF06spSsU5A9Cli3X
-         MFuT9OOoJjbKMlPM+aKcjRVpR9fqTTMU2J58mysIPz3eiglyUwYOGiFXE7nWA/RrnNY5
-         WYeD8bLhFhAUcO56DUO+d90KQ4KJZxR0FKfvo93/xjGXxfhEKCHqMBhu3QmBr35cmM6l
-         BPMBUIWW0DMwkKjewx1G883SVx51iGuj9fx2LzJjBgUDHicDzQtpgsgX+l9BKKCpGhpG
-         g3Og==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794293776; x=1794898576; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gv29PVlI4VqmDiKhon5UhDcIb7a0X1gnIhvI6TovMh8=;
-        b=INdN09EUKAvnXut6IrHtz1ZA3BVBr9e6B+gc+BjVw2cdz0pXF2Db7DalKQlpoAatMo
-         TrIc7sDgF+cmqIsTWU6zycIytSh7Tg+7F0mLcts/6UjZDwdeysRU/UJkYrgCTGNAQKsp
-         vTCSDGFsS+dIpLgli2l9b+sk7Io2i2hXi473fGg0jOCCJ8IvlkiNKSjtHWP19eQ32u+1
-         z073VEPcI5i0u/KLM56dnc1j692W2S+GSwEiLlG7M5oniuV+Q621Yr0j71BIYRh2p8Qe
-         FtMXzJxpGWxI9m6LhaxBVUbfXmdAinIc1jjWTG2fpEZ1PljUHdNipQl39fSq99zBVvj5
-         4ahQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794293776; x=1794898576;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gv29PVlI4VqmDiKhon5UhDcIb7a0X1gnIhvI6TovMh8=;
-        b=QM0Dqzd6H4rRRYDz0VdmkFdlTbnkr3xe/XQxlpWyXFW8dRb9X5xMJpFwgWVPdsaX4b
-         r6CZJpsUgkaB8CrJfCG2pYFVjBR7JloV6Xtc5ByzmgiaVtCeaNiRWADT0Jdw0QLnGVvW
-         5px7Ji2pNAAWm8pefKWAC7BKmfQqHBA6dROScU3g2BY3BIfz13+r/839txhszEdTf6tC
-         rzWsaObLmK6iKTyjFO5DOV6Amrdo32UHb/WUoi6guAM7E3+dHM1BK3phUIulOZSXsjwK
-         oBB9jnWq/ZMPMqo3Txud5U7CYe4XBlWzHDpdsQppV3YBQfaXYj6E7QljbRjq1eqpiiy3
-         FCGA==
-X-Forwarded-Encrypted: i=1; AL+hErG+E2q5oOqK10yCDXu6Zp+WDnz8OPMDTWO9B2DMzCIDgc6u3/rfiF8ZdHITiP1MPQtxD+Fc9u/o7Nc4eQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hN7ZE5iu3SKo1b2Xy8+8uCjsdC2TaCU9GYNI+RZ+hYjHkpzmY
-	C6hQSNPdkC7sOSclXrRDRdwfA7tiu9iH3PXm1aSn3E95aw5b4NXGpYpa8G4YVx1DS61ZvIFUEh1
-	XbkWkjFaA/rOT8x+wQi5e8PmBbDbXpL2Virdf5Lo=
-X-Gm-Gg: AYBFou1eMSlA94BFya8bzBqtCHKLtp9/XCOgjaiOdcmmYmGXh5Sg3mX44yxWUVV7szA
-	ql8PQXmrwbmgrqs8FSY14e0tcmHGHl0+fcIXl23Aa4BYeVewVZeahk4/IqdT0i0wyC8OFyINo0T
-	/AXueMTBNsn9t5xbI/zC6x9c5ekWDitA714doYix5W4iTWRwSI9bgEnULw9igGFhBPPTKPempWX
-	DAHgHy4pQyyAJE+ukNPLEHM0b3KNsWDJpEdUL+iNLPAmyYs0EbSwNpsCG0G81+0Uvipoba0YjtM
-	UYQcmLuscPdunZvLyPGY4ltVhx/TKH8ePlsukbSxdtNeTUNdgz3IbZk3E5lxkNu2ZRq0w+rlRen
-	LXZStKMdOben2OklCm/C13zSJxNT0fFq4ph7uz9Na98zpk6M7QhixcYL0T7/jzIoWk+BS
-X-Received: by 2002:a05:7301:18ad:b0:36a:1294:59e0 with SMTP id
- 5a478bee46e88-3751f462675mr2049626eec.24.1794293775810; Mon, 09 Nov 2026
- 22:56:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=XLY+FtIF
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jNyM52Z0FzKqL2;
+	Tue, 10 Nov 2026 08:04:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794294273;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ehyKSSubsQ3ecNy9eM7eWLGxpE5AFmj7l5Cxp8L0dfY=;
+	b=XLY+FtIF75cVqIrp9ug/rEZowOjusw2GdXnqx6PSUGwJsGJ4SnteGdxr8Sv6k77RnAmdfv
+	b38pUrxiTOQQRmTkBeGQmY69nRO9qXUYIPZ+vJEEYU9B2yC+njaR+61uqAk0z729lnD93i
+	L7hLKH/pTmMwjIUjUy4QB0wNlpczazIlGivESsOkFeobwCg4JbI2mTL+ifaTMrrPK+ZnS2
+	rOvEUYWonFEFL3lnwhdw4AI77hauioG4+Yb+E8BzxyNbYcGUwG16+qm/SBjq3eY4rouwF5
+	VzeFd5dLRP06laOIsUIrORv0vT58E7X18QpAIOyyND85vbpOUax5zeu5Uv7erg==
+From: Tobias Hahn <tobiashahn@mailbox.org>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Subject: iris: SC8280XP firmware stops responding after a decoder client is
+ killed mid-stream
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,74 +68,56 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109045307.1167784-1-hj351016@gmail.com>
-In-Reply-To: <20261109045307.1167784-1-hj351016@gmail.com>
-From: khj <hj351016@gmail.com>
-Date: Tue, 10 Nov 2026 15:56:04 +0900
-X-Gm-Features: AclHuK-sqbPvnKyMJ84OYA3XkEoK-7U1o08imiJGCwa7o_TRyFoPrgq9Cv4NOyQ
-Message-ID: <CAGr5VtOXSDR+ZAHy-e+baVjvWSeUCrShdaAF23zLRfbwiJ7W3w@mail.gmail.com>
-Subject: Re: [PATCH] media: mgb4: cancel err_work on teardown to avoid use-after-free
-To: Martin Tuma <martin.tuma@digiteqautomotive.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 Nov 2026 08:04:31 +0100
+Message-ID: <179429427186.1835985.16996823740690159470@mailbox.org>
+X-MBO-RS-META: m56mb8wjrmt8tp5axmbzbwdon3g3dhtt
+X-MBO-RS-ID: c8d9cb1d0e59893083a
 
-Please disregard this patch -- it is an accidental duplicate of
+Hi,
 
-  [PATCH] media: mgb4: cancel err_work before freeing the vin device
-  https://lore.kernel.org/linux-media/20261106043541.1902730-1-hj351016@gma=
-il.com/
+a bug report against the stock iris driver. Note: the reproduction
+and the measurements were done with the help of an AI assistant
+(Claude); I've checked the observations on my machine but have not
+analysed the driver code myself.
 
-which is the same one-line fix and already carries
+Hardware/software: Lenovo ThinkPad X13s (SC8280XP), firmware
+qcom/sc8280xp/LENOVO/21BX/qcvss8280.mbn
+(video-firmware.1.1-b158087140355883dc40b004032856a8feb5d565,
+linux-firmware 20260916, HFI Gen1), kernel 7.3.0-rc4, iris driver
+unmodified from v7.3-rc4.
 
-  Reviewed-by: Martin T=C5=AFma <martin.tuma@digiteqautomotive.com>
+When a decoding process is killed while the decoder is busy, the
+firmware sometimes never goes idle again. Afterwards every two seconds:
 
-Please apply that reviewed version instead; sorry for the noise.
+  qcom-iris aa00000.video-codec: skip power collapse, wfi=3D0x1, idle=3D0x400=
+00000, pcr=3D0x0, ctrl=3D0x40000001)
+  qcom-iris aa00000.video-codec: failed to suspend
+
+and every new session fails:
+
+  qcom-iris aa00000.video-codec: session open failed
+
+The video block stays powered (battery drain on a laptop). Only
+reloading the module recovers it (rmmod qcom_iris; modprobe qcom_iris).
+
+Reproducer (8-bit HEVC, 3840x2080, about 8 s):
+
+  timeout -s KILL 0.8 gst-launch-1.0 filesrc location=3Dclip.mkv ! \
+      matroskademux ! h265parse ! v4l2h265dec ! fakesink sync=3Dfalse
+
+Varying the kill time between 0.4 and 1.2 s, 3 of 8 runs left the
+firmware hung with the stock module.
+
+With a locally modified module (the 10-bit change from my other mail,
+which does not touch the session teardown) the picture was the same:
+4 of 8 runs with a 10-bit 4K clip, 3 of 8 with the 8-bit clip above.
+With that module, killing a real-time playback (sync=3Dtrue) did not
+trigger it in 6 runs, and neither did mpv stopping playback in an
+orderly way (0 of 18). So it seems to need the decoder to be busy at
+full speed when the file descriptor is closed - but those negative
+results were not repeated with the stock module.
+
+Happy to test patches or provide more details.
 
 Thanks,
-Hyunjung
-
-2026=EB=85=84 11=EC=9B=94 9=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 1:53, h=
-yunjungg <hj351016@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> From: Hyunjung Ko <hj351016@gmail.com>
->
-> The err IRQ handler (err_handler) schedules vindev->err_work
-> (signal_change), which dereferences vindev (vindev->mgbdev, vindev->vdev,
-> vindev->queue). mgb4_vin_free() disables and frees the err IRQ, so no new
-> err_work is scheduled, but it never cancels an err_work that was already
-> queued by the last interrupt before kfree(vindev). As err_work runs on
-> the system workqueue with no timing bound, it can execute after vindev is
-> freed, dereferencing freed memory -- a use-after-free.
->
-> Cancel err_work after the interrupts are freed (so it cannot be
-> re-queued) and before vindev is freed, mirroring the existing
-> cancel_work_sync(&vindev->dma_work) in stop_streaming().
->
-> Fixes: 0ab13674a9bd ("media: pci: mgb4: Added Digiteq Automotive MGB4 dri=
-ver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
-> ---
->  drivers/media/pci/mgb4/mgb4_vin.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/media/pci/mgb4/mgb4_vin.c b/drivers/media/pci/mgb4/m=
-gb4_vin.c
-> index b247854..64b7a9b 100644
-> --- a/drivers/media/pci/mgb4/mgb4_vin.c
-> +++ b/drivers/media/pci/mgb4/mgb4_vin.c
-> @@ -1068,6 +1068,8 @@ void mgb4_vin_free(struct mgb4_vin_dev *vindev)
->         free_irq(vin_irq, vindev);
->         free_irq(err_irq, vindev);
->
-> +       cancel_work_sync(&vindev->err_work);
-> +
->         device_remove_groups(&vindev->vdev.dev, module_groups(vindev->mgb=
-dev));
->
->         mgb4_i2c_free(&vindev->deser);
-> --
-> 2.43.0
->
+Tobias Hahn
