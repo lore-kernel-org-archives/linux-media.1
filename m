@@ -1,105 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794286694;
-	b=yVG7/s7osCjGzZ9rPiYAgGT2/Sf8TiR3txeOTjxe6xeOA2aS7NWsuJojD7+bBadxHsy2
-	 iDDcsEgiqKYk0CnfAPRPoPtdjMaBoOe9+6gFKGyxIR+iZ+Ml0ENTrHMuaFITXOZe72Vwu
-	 dIyEEhNT9cT6yHeG0R25aTYpq9vfLnSIzHUepVOIonVhnSpzK1b1OTtTzr59Enfv5K1kD
-	 2CLN9X/8YPrLRxiE2vlaK485TCWmQchXFwe51+J46D0duQtLWc35c8zJ11+W5RBnEJOvA
-	 WjVC27PfhhBtwS94iLv6HbO0Sq2q7PzNQ28YR246iASS3ZxAO7YSjjiQak+v4pjiOLg==
+	t=1794287101;
+	b=2mVfUAmIpvW5C/eV+zJWFyVlL3aqXbhgAE6DKfFH2IzsPJkxC4JKovNYih6mFVrgTONG
+	 UcXWKf8YkODkURpjun4gLtchOF8FNW0shsB6eyS5Kt0iJFTj2qwMdEZRv/gqlXh6f8pwK
+	 X4hBdknFnv4fWOpTt4BuvNG1j58MOT27Wh3S525Q9XQo/v3UPs6KYjNMkGRqjlRFO8ihw
+	 QVm3TtL4TCljjbLzl6GsHxDxIAXTKxZqS1hoTaLV6xa3wTzLOp+7sMCVfXiV3SDuEUgkc
+	 6kN4/l126ldqAx4pf4HU24dhBN6ZUfnnwec60ctHyQ7g+iuV1vM1XnY6D/37K4HezZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794286694;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794287101;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=BF0zJDysZvAQi5ZREmGCFHRf3kxrNa2ATRxkO/XkHAg=;
-	b=sxUdPoaqEpZ9QDg6qnh2twY0d6rEnX0Okv59giRWkkxR6etGvuQADT8w+FQBwDi6JNkp
-	 8u4d+YB+DPvjF2lf578GyKt71UkGriDBImioL4eJVCL0mbvFnwdMRU06JrlQtlPoU4Wqg
-	 P5EwDkfDd1OqlPPEcZfJkAOjIS6QsUHJI14jQ90BK41mshvRkUGqUDVd9MBdBU+HM+8wh
-	 qXNeboyl3NW+LQN+ggqaqVLC1TC/hjr1iOeCSC03DFYaR5HdCBM1ooTApSt7LF5z99pWg
-	 djqCPtRPIwaS++HHZOSb0rLg/VBJaIujW5qGfeKgJakQdm7ig2+OA/PJrbVjQ2kM7CA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=x28Xh8Kl636Xj0Syxm9iILHuaCS0bk0qyS/PVv+3B/0=;
+	b=CqgBh812+eN4XwOuE6DENjfV0sQRUnMgz5ahJffHeW+hWreZw3ML/AgwRlyZCjDwV8D1
+	 VmBVEOx4602jCjPSHrSR7qIeUsO/eT8ZWypSzLJjPNCY5wXWHSzl2Euf1itItYe7TNxQ8
+	 i7mmmXLi5lFg1rFKrty5bWnuYD3rzoAS4qkcRly1ziUZn2rrBLKbuV+rpC8cMzeegCeGO
+	 Pdj6whfiIZCE+h89I7ToHtwOaUDffI1TlksjaXrxmJxE/QPdcQ30K52ncPMAzh4V1osDI
+	 VbCDHu4q7sj1rSICBzsONm0FcK5lE5Qp5e1k8feEqUk87StJ0hgDqR/rS8EcHO9wDTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nvwIdZtM;
-	arc=none smtp.remote-ip=209.85.219.51
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JSmG0iTw;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F3D606A339
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 04:58:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16F3D606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9AD606D6B8
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 05:05:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA9AD606D6B8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nvwIdZtM
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-91eb7d147b0so7368686d6.3
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 20:58:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JSmG0iTw
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-37000e7234bso2570819eec.1
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 21:05:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794286693; x=1794891493; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BF0zJDysZvAQi5ZREmGCFHRf3kxrNa2ATRxkO/XkHAg=;
-        b=nvwIdZtM9Pt5Bd7P/nqNAHjCmHYsdoF3+bg1aU4Uj4g+A+FTkoW8Qnrc44qy+EcCOt
-         pThQsTuLKnqJaT8NtMFVsR5aKYVxRkHuUIZCeh/7ry59sNVDowmMILlDtO9BEEeubLUI
-         4046XPJkKYWD5WVWzZqhLZvyXI4QOSEyba8OonaRUyFSPBm6slZ4T/3xLHl494vL0z+q
-         niSvC4A11CxejW+bKF2W0eOyevNxNinL3ERhbEJ++7lUWW30q3w4b3PoOpxksag/xh5u
-         sLNqpnR1d++ElxyF9ioOl7mXKDmKQPQBPscXjWtcxyp0OiNsOty+L0vOACuhuI7wosM6
-         jWHw==
+        d=gmail.com; s=20260707; t=1794287100; x=1794891900; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=x28Xh8Kl636Xj0Syxm9iILHuaCS0bk0qyS/PVv+3B/0=;
+        b=JSmG0iTw+XJl0Z2LL+TIXz9lpLOf9odVdw8J0XbHmv2HQVNCLjWCK7cIEbTCztUoXL
+         Qdz7r48OnFyqpDdUTDxMAktGekc4qHvmD0G36pK5uW77jOboolVDKKzq7bPTEASrzX2V
+         hQm18XozQiUWui4yslZNtvEiFRLeJ8UObSOQnGApg42Ei742cCvhaATRLxdU/zHgTglI
+         L46/KhlrocCy5+p75pN+hXfhQnmDg4u8DlvpU37NYTEK5ggD0y7iwJb2gN/s4X3FpRaw
+         R2VwcAjh3Mr3PK/NuuQr1C0GwH9TttE50vrksXH4WnypNfJ9BKLOQShwrb+wF6QnmuiW
+         0JRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794286693; x=1794891493;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BF0zJDysZvAQi5ZREmGCFHRf3kxrNa2ATRxkO/XkHAg=;
-        b=yqCVXxUO+bT8z2gNzBqldz2rhjKSQmyZ2IyOSNeFl1wIJ/wnpHYmbY6o2F/H4RLq1g
-         H8f/8d+7z42Y0ip6vc22hTl+RCNlV+fnVwtHOeSi92Cirsru5SjHN/7c9AecW+Ell4xg
-         ba9OPPlEzgEZz2snrtkxtaPvyUrI82cbuzBh4f/0j7tBsqPijJhoro1iFxvgdxuqLAZQ
-         idrgnjynLrikyDpitSdnqwVkd4PDkT62puhMQ+71uTF430F2PuXb9c4a1NQc41IPtubs
-         W50UqltL4qoKIqDrHsixt9mNLhomHJJinXh8WnBAS18fth+dhEHpk5asjdi4OqgCZcvA
-         qCBg==
-X-Forwarded-Encrypted: i=1; AL+hErE+ovmC4ZhKfAwwpPXWG13DP/51YxWyhzyvtKDw28Sco5DO4nXQjt6WOpp0YR1xrBon+JA8affC/zrC7Q==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CeI9tJANGnN27rllo2+Wy1AlhnyfbFq6Tbs41xjZWClc/g/7s
-	PfPKjEmXcUohH6Cnzz1ljlReRKK3KgVoxT7fi7aFkL6h4DGK0RA/vpI=
-X-Gm-Gg: AYBFou2Qv5PMlEawufLmb2Q21PN2e0PtLYrgZCWsBnqF8jzDhFbY/5p3kT+AYJUr40X
-	gMawAJ1drYdLCtDExMbpnn16etEKkzDyAbvu9rpNBejr6mBtlHwDuoMiUpaMiF8e+SWFZ44vnAR
-	bJYZdott2L97T3DbF2CFALe1ZIhJl5eAnGWJY05kiC0m6RDser32n0DBQ0wd139DTGidO3lBkW4
-	5IfsK8mKX4TFanIpcPA+1uwi8M/VZIgiwM3cl+PqgWf6PEyJy9qY+QRcka/5N25ciArhkYZWNzx
-	L6IxRv3Y/hx/hbFonqKkQB5tZHNBtipdPU81zRVaDLHrkEnKPmJsZ5mt2aVs8EDrWAZ+poZSciI
-	teAbWWTo49hvKsAyqIHWS7eNY/nEmpi6skFzi7JNOV4otQrgrDePj9wLZ5OldQ3icA4zmxYgfgT
-	gijHkkttIbAVNkmh+Ewq2q268apPTm27HIVemMjj9XgZp9pPlHHnRoX6rePYHYzBFDqHUoiZ4TL
-	xZ8sppzZypui5uNUgczb22zQKdHenbgy79uLcPUmuHciz56G3N/3hHoVJLWtx28NNvsT9nROTVB
-	sRyMbKoFrqNUZe5X3fIy9j2Wao3znBpp0RMpApGviCkMTHTSpcim9ywZdnvlY8bKdVyUBlH2fUS
-	+m4MQAqyBtiVNolYhb7Tjaf1k6BOo3XLKMMpyh3gysGjMEvgPOE6nKDQuyr0J5zJan60ZUqRsJu
-	B/FfPZM+aeVw==
-X-Received: by 2002:a05:6214:85c7:20b0:91e:9ab9:bf37 with SMTP id 6a1803df08f44-91eef88a091mr21824886d6.14.1794286692755;
-        Mon, 09 Nov 2026 20:58:12 -0800 (PST)
-Received: from localhost.localdomain ([104.39.152.7])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef04f89c1sm12462836d6.23.2026.11.09.20.58.11
+        d=1e100.net; s=20260707; t=1794287100; x=1794891900;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x28Xh8Kl636Xj0Syxm9iILHuaCS0bk0qyS/PVv+3B/0=;
+        b=H35XWDY5PcmBzH/5W1T0++QyqODZjmJF/O8G9r5Y8ICDcu08H4/wrk21PLeOB7DnlQ
+         xy+RD5H0eP202DsiEXqlUppM6s0e4OACjV/x2nXqKiyHjkaDEzjLYHDHrAKuRX/oqnx8
+         4zzUOteuVHzMICAGovvcLnGlY+mlIID/P9ZRobl8sYFSnWXiaUEzH1+J2UITxqLjMvdl
+         EKroPlvDHBDzlJ+u+9NIZLlE21zxg0WqWGGc2SDAQz5UV8IU9loERzSYJjJWVfxRRuvK
+         b52O14Tsvvx0yXPC2tFi9JouGsZJzFNxvWGCxKQjBoJ8KOmNZlLoNdmXUTcCzwyiWfJF
+         wz4w==
+X-Forwarded-Encrypted: i=1; AL+hErHOigcGaTEGPu+gpEuzU5h/4Co1pcmtQy2o3AXzvDLvzB6r4DP5TQi/wjuZ15L9SLDbxnL5diZhehFizQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8K9ssCT68oUZX7Z3/TySQdw8FRGhgR0iCdkTiBCDM0YQTTXTYe
+	uwjyVzsmrq+OQJknAD8/ckcmuVy0o4mrKp213q+9ft0vya4EDyB21Zfh
+X-Gm-Gg: AYBFou0TfL/XhAC4nbfZaHZFmy60iwsLI3lBrrfqt92+Pa/U6w096ZZvC5JeKbmvDMA
+	SIrMjtKh/pPxwR+ZxrBqN626iqz4hmW6FTmzQdxkW9zTL4H5X9G3/dYRC2D17aIGHgXds/r+DmM
+	HKhRPNm0pFDw65KdJp4NCFz4E+Dlbj0BHhupBy8Us0biJ49PrQ3TV/CFhcLEWHYmKnoAItjrm60
+	JHKZczdfPg1TLEmS3M7LjkQh8QGvHXZpELYTmbjIgDfmPiBmRZB+FgfjhauIJHIyB73h4+H1qFY
+	OmpDoySImV53fOFcQhIm50yAecw62D/YBfDpl/oM79kuwODwBB4IqqexJj2jHXXH8CC5xz0q355
+	Z1d/kynzTRB9tlHiV6PkV9xR7zL27pUZeZ0Ibp+9EbmJPLp4FItG5kO+XgRRyxQuyIOU/vzHdtc
+	r+mifaOYq8PcsOer/8hXIyGRmAiHMpQBgllHZDO9Jup5w9vg1P0cx+4i8MAr/RVYU9pNoc79ePR
+	w9lwO0OYOXdmi9G9i4EBFtK7gg+dzM7ZumJX1L056wtWA+6gYGlunN+BTLe5JH6H+bE/o+3z/1u
+	3juqMPhKh9yfjx/amQxVwyBJb4f4B5VFbF7RMY6Xfi/BvMtr18go3VDQLXVdZoaMzkDYKv0W6rL
+	3RGX8MCR8Jsot/m0ln9xqzhWbtBBGvLmbEx7L1s8=
+X-Received: by 2002:a05:7301:4d14:b0:375:4f3e:643d with SMTP id 5a478bee46e88-3754f3e6572mr1368404eec.27.1794287099742;
+        Mon, 09 Nov 2026 21:04:59 -0800 (PST)
+Received: from localhost.localdomain ([203.92.58.30])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e9e03sm6550235eec.23.2026.11.09.21.04.55
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 20:58:12 -0800 (PST)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Eddie James <eajames@linux.ibm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Jammy Huang <jammy_huang@aspeedtech.com>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Billy Tsai <billy_tsai@aspeedtech.com>,
+        Mon, 09 Nov 2026 21:04:58 -0800 (PST)
+From: Shivani Patel <patelshivani2283@gmail.com>
+To: outreachy@lists.linux.dev,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-staging@lists.linux.dev,
 	linux-media@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH v2 1/2] media: aspeed: join IRQ and work before probe cleanup
-Date: Mon,  9 Nov 2026 23:58:08 -0500
-Message-ID: <20261109235731-aspeed-v2-1-mhun512@gmail.com>
-In-Reply-To: <20261109235731-aspeed-v2-0-mhun512@gmail.com>
-References: <20261109235731-aspeed-v2-0-mhun512@gmail.com>
+	Shivani Patel <patelshivani2283@gmail.com>
+Subject: [PATCH] staging: media: atomisp: Fix leading space indentation
+Date: Tue, 10 Nov 2026 10:34:48 +0530
+Message-ID: <20261110050448.69521-1-patelshivani2283@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -109,91 +101,30 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The setup failure path unprepares the clocks before devres frees the IRQ.
-An IRQ handler that has sampled an enabled status can still queue
-resolution work. Masking the source does not synchronize that handler.
+Replace spaces at the beginning of the line with a tab in
+atomisp_find_in_fmt_conv_by_atomisp_in_fmt() function parameter list
+to conform to the Linux kernel coding style.
 
-Save the IRQ number after a successful request, then free the action and
-drain resolution work before the manual JPEG and clock cleanup. Turn the
-engine off after the work has finished. Request the IRQ after reset,
-clock and JPEG initialization so earlier init failures have no live IRQ.
-
-Fixes: 3536169f8531 ("media: aspeed: fix clock handling logic")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Shivani Patel <patelshivani2283@gmail.com>
 ---
-No hardware testing.
+ drivers/staging/media/atomisp/pci/atomisp_subdev.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-With reset-default masking, no probe IRQ failure has been demonstrated;
-this part hardens cleanup ordering.
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_subdev.c b/drivers/staging/media/atomisp/pci/atomisp_subdev.c
+index bdd2d9b18..773fcea56 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_subdev.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_subdev.c
+@@ -96,7 +96,7 @@ const struct atomisp_in_fmt_conv *atomisp_find_in_fmt_conv(u32 code)
+ }
+ 
+ const struct atomisp_in_fmt_conv *atomisp_find_in_fmt_conv_by_atomisp_in_fmt(
+-    enum atomisp_input_format atomisp_in_fmt)
++	enum atomisp_input_format atomisp_in_fmt)
+ {
+ 	int i;
+ 
+-- 
+2.50.1 (Apple Git-155)
 
-Changes in v2:
-- Join the IRQ and resolution work before manual probe-failure cleanup.
-- Rebase onto managed reserved-memory initialization.
-- Clean up JPEG and clocks if the late IRQ request fails.
-- Split normal last-close ordering into patch 2.
-
- drivers/media/platform/aspeed/aspeed-video.c | 24 ++++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/media/platform/aspeed/aspeed-video.c b/drivers/media/platform/aspeed/aspeed-video.c
---- a/drivers/media/platform/aspeed/aspeed-video.c
-+++ b/drivers/media/platform/aspeed/aspeed-video.c
-@@ -308,6 +308,7 @@
-  * perf:		holds the statistics primary for debugfs
-  */
- struct aspeed_video {
-+	int irq;
- 	void __iomem *base;
- 	struct clk *eclk;
- 	struct clk *vclk;
-@@ -2232,14 +2233,6 @@
- 		return -ENODEV;
- 	}
- 
--	rc = devm_request_threaded_irq(dev, irq, NULL, aspeed_video_irq,
--				       IRQF_ONESHOT, DEVICE_NAME, video);
--	if (rc < 0) {
--		dev_err(dev, "Unable to request IRQ %d\n", irq);
--		return rc;
--	}
--	dev_info(video->dev, "irq %d\n", irq);
--
- 	video->reset = devm_reset_control_get(dev, NULL);
- 	if (IS_ERR(video->reset)) {
- 		dev_err(dev, "Unable to get reset\n");
-@@ -2286,8 +2279,19 @@
- 
- 	aspeed_video_init_jpeg_table(video->jpeg.virt, video->yuv420);
- 
-+	rc = devm_request_threaded_irq(dev, irq, NULL, aspeed_video_irq,
-+				       IRQF_ONESHOT, DEVICE_NAME, video);
-+	if (rc < 0) {
-+		dev_err(dev, "Unable to request IRQ %d\n", irq);
-+		goto err_free_jpeg;
-+	}
-+	video->irq = irq;
-+	dev_info(video->dev, "irq %d\n", irq);
-+
- 	return 0;
- 
-+err_free_jpeg:
-+	aspeed_video_free_buf(video, &video->jpeg);
- err_unprepare_vclk:
- 	clk_unprepare(video->vclk);
- err_unprepare_eclk:
-@@ -2341,6 +2345,10 @@
- 
- 	rc = aspeed_video_setup_video(video);
- 	if (rc) {
-+		set_bit(VIDEO_STOPPED, &video->flags);
-+		devm_free_irq(video->dev, video->irq, video);
-+		cancel_delayed_work_sync(&video->res_work);
-+		aspeed_video_off(video);
- 		aspeed_video_free_buf(video, &video->jpeg);
- 		clk_unprepare(video->vclk);
- 		clk_unprepare(video->eclk);
