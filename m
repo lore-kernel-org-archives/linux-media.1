@@ -1,47 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321843;
-	b=JMwIb+ms/EOXW0i562Ykklou3UUHcPyfz7a0ABFTvregh5D3xEgU9hFFWm36MD5pIzzA
-	 NgYy3+ni2AI+RNlnPIZizyyYRhB/xDlRUsdfnSxQjuve8uoojR9d9yCrVmWwY53HHYYV8
-	 x/S8chdqPF3nicuwF7OlyE7tr1QNVz0S8eW3wa1sUJxNS3LybpTQ7gVSzDT0CyR+7l8FH
-	 D7NO6/ygdvPodn6JuSe6B+yjp0V3SAZu0J3dHnMUgsKA0LAseTn+Vh2ACWxjjluZQo/yQ
-	 DDY4LcxCWJS0dAbPIc4mC/t5wErBZFfYldqLA/w6g6qIzoqCX4tANXLwZzE9fSM2NPA==
+	t=1794324513;
+	b=3aT4V1Yf774GqES8UTO9G3Amzb2ewDMMBNdDqE7KeDixfH4kBI8tTX9M/V2WXgR+1iCI
+	 OQWLkte6HTiHVLMzl2nmCf6dzttEhgSvcR4JboUc93krackHazZkzySduBNeivmnwNxB/
+	 ns2GolMOjt02inI8POGftmOTt7Gl8eQemoqiMnMizDJaTCmrkf7jZfFHnWIJd+QTclQ8s
+	 zE2/8f8wMTnJ/iXxCvk3QTy0ouSKPVviiLPfhEw6sTFEqIf6gA/UYbtvvXN7P4LTHsaGj
+	 almIBUn7QEc+LRF+c8vTV+qVdVSQsUUgG8E6r4Ocf54+4a2vV3jn5+CThuWddqKaBHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321843;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gia8LhdESnYkbXhIwY1Vosv087dRAttescO8GIO7vx4=;
-	b=hddP7JA6glZ8GzNtDT7ednRmDbIp1zeHen7IRyj5YQKgJrNM7HoVx91GYI6kGWGGZD+Y
-	 Dv/oy6BOGRK6ldyjgZBI0ODW5EkRdFFpc1OXjzk2BGFYVc44Fz2E9+6TshTB12SKMOKSB
-	 Km11TTNYEfeHiuVmImfjHheFY8pJW8L4RGKTxdnJ+yV2lAayrswcSk0wjCd/KMtTtNq6o
-	 A/2WAhBnqvP0N3H8ej/N0lu9qitiD136Wo4IYiRTmaJNvAhD3WetFpA1A7QrWPgikre4K
-	 jbjNJHJ1gGn/wwCUX9bDLlIiRS549Xc9U09OH740nKJxlhchQukCtLsiTIwxNM4jtmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324513;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=o6QztJNcMLb+3r+A/33tYDWhHoFXbgz4LvPYWOb+ua8=;
+	b=xZVeHgiViEnhBc0cF4b/z0RQMOry34NBDNqTnRgES40qLh/gcrsQvW9jIkggRbGo2AfF
+	 D2K5wMJC7IDkFRYDtMMWQPxwgBs1dt0B1x75Heabiohv/7V5UhmB3e7AKXf5RFE3nhNfk
+	 qOeqvxi4CerwlTOSK6La180GgO05JYve7N3Bpi4QHXeCb2/pcbJ1MN7SoGySphLUqjY/V
+	 EgTpDuB3pl1cUDYbYOnPrwRybB+hCHyBsf5AG4vFz79AMmnyqlro1/wpPABpH1CVXTAIb
+	 WDZqucPPZfFIDaS1Gz5leYkSch3N65z8J0kgUQ/6jqbZ6QTEesk3Z9m1Ismg2CLbTEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b1AHjRT6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Zs4Hgng4;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998C4606A31C;
-	Tue, 10 Nov 2026 14:44:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0345B606A31C;
+	Tue, 10 Nov 2026 15:28:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0345B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b1AHjRT6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47ECF1F0089F;
-	Tue, 10 Nov 2026 14:44:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794321843;
-	bh=gia8LhdESnYkbXhIwY1Vosv087dRAttescO8GIO7vx4=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=b1AHjRT67qZpelhp9AkITROdM7TrDbd50xCsls1gixEEU601eqCIEVh/K8An+gLJi
-	 irdCs5NPnV8sCAS36C3t1ngEn+sLxsbK1WkfTH4NqZd65VtfZ1LpPD7QUuZQjyeSjm
-	 d5KM1TfX8ZdAs/J9GzGG5BQeP7dpRe+maWF+aV8yBxzVS+hnLgUsQYHsI6qOt6+loy
-	 k6UhEm2iO/6UKzqFAAvcgaQq4Hnn+u7bzoZtvOwVLR+wY/oVjOJ2yNzf0rVTrPkNlj
-	 ehs8iXKxjmBYJIwC9Oy/gHb5X9UW13HwcCl1fntQEBL7v39aPAFp8MKkyZ8Hz9sI46
-	 hFsdlPkzUZLSg==
-Message-ID: <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
-Date: Tue, 10 Nov 2026 15:43:59 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Zs4Hgng4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794324511;
+	bh=jO4u7WBmBDYq8GnBWne/sGH31cOQS9UMls67gM39wcg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Zs4Hgng49EW72YQW0r6BfuksYOtEDmwGLTab4TFuK38YNEu1T8U0b6+btt3b+ZYGB
+	 5YZiUES3UWQSRwhffH1jSKyxnFzlH7CLr8O/BDkahhdvPDW0wVJt/yjK8KCW+xHZXc
+	 Ea9R5lQC/vIQFFg5OdNRBG/nbiEcLb9tVAGx9RoPRnUjHyoXqvvkeSvyaD+wweEvKj
+	 iHdcUN7PT2GLLvfjgpSjGBm6L3SWU42hr3k5Ucy4K2H0xLcf7JeRuLPgx5EpmmhIt5
+	 T+zXH/rpFPhxH1CTybWVg/+rubC+kAdbUMum226SjueczJpjkmAHV1F+KfN+e+E5Qs
+	 63DspjmpILZCw==
+Received: from benjamin-XPS-13-9310.home (unknown [100.64.1.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: benjamin.gaignard)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 172CF17E080B;
+	Tue, 10 Nov 2026 16:28:31 +0100 (CET)
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+To: mchehab@kernel.org,
+	nicolas.dufresne@collabora.com,
+	hverkuil+cisco@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel@collabora.com,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Subject: [PATCH v1] media: codecs: vp9: Add tile_info control
+Date: Tue, 10 Nov 2026 16:28:26 +0100
+Message-ID: <20261110152826.128259-1-benjamin.gaignard@collabora.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,188 +70,234 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Michael Riesch <michael.riesch@collabora.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
- <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
- <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org> <avMM6a6xcDHT-zCR@houat>
- <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org> <avMgJ7MFks0sKD7T@houat>
-Content-Language: en-US, nl
-In-Reply-To: <avMgJ7MFks0sKD7T@houat>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/11/2026 15:17, Maxime Ripard wrote:
-> On Tue, Nov 10, 2026 at 02:30:51PM +0100, Hans Verkuil wrote:
->> On 10/11/2026 13:33, Maxime Ripard wrote:
->>> Hi Hans,
->>>
->>> On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
->>>> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
->>>>> Hi everyone,
->>>>>
->>>>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@kernel.org> wrote:
->>>>>
->>>>>> On media-centric camera pipelines, every entity is known at boot time
->>>>>> and described statically (for example via device-tree).
->>>>>>
->>>>>> The V4L2 framework assumes that every entity of the camera
->>>>>> pipeline is always present. This is a reasonable assumption for
->>>>>> integrated cameras in laptops or phones. However, in automotive systems,
->>>>>> cameras (e.g. rear-view or surround-view) can be damaged or disconnected.
->>>>>> When the framework assumes all sensors are present, a single missing
->>>>>> camera can prevent the entire pipeline from operating.
->>>>>
->>>>> This series has been discussed at the Camera & ISP "unconference" in
->>>>> Pragues (during Linux Plumbers)
->>>>>
->>>>> The notes can be found here:
->>>>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus.ideasonboard.com/T/#u
->>>>
->>>> What is missing in this discussion is how userspace can indicate that it
->>>> actually can handle partially instantiated pipelines.
->>>>
->>>> Today if one or more parts do not come up, the devices nodes are also not
->>>> created. This is typically exactly what you want.
->>>
->>> That's very arguable? We have plenty of other examples where we allow to
->>> show a software representation of something that isn't available in
->>> hardware, starting with virtually any memory buffer allocation, but also
->>> disabled CPUs, swapped pages, etc.
->>>
->>> For things a bit more related to drivers, things like USB root hubs are
->>> also pretty analogous. The "root" device will always be created, even if
->>> devices connected to it are non-functional, missing or whatever. It's
->>> the primary interface that these devices might or might not attach to.
->>>
->>> So it's a bit hard to understand why the device nodes not showing up is
->>> exactly what we always want.
->>
->> It's simply how V4L2 works today: video devices do not appear until
->> all components are instantiated.
-> 
-> Sure but that's exactly what we're trying to change.
-> 
->> Most video devices consist of multiple devices (bridges, i2c devices,
->> etc.) and unless all are found and initialized, you can't capture. So
->> bridge drivers postpone creating the video/media devices until
->> everything is there.
->>
->> That also means that applications can safely assume that if a video device appears,
->> it is functioning.
-> 
-> Ish. The only safe assumption you can make about this is that it was
-> functional at probe time. Anything after that is very much up in the
-> air. If the device broken after probe for example, or if we have no way
-> to tell if it's functional to begin with, that assumption is no longer
-> true. So sure, that's what applications have been doing so far because
-> there was no better way to do it, but I wouldn't qualify it as a "safe"
-> assumption.
-> 
->> If we add fault tolerance, and you allow video devices to appear even if they are
->> not functioning (or partially functioning), then that contract breaks.
->>
->>>
->>>> But here you allow partial instantiation, and how does userspace
->>>> signal that? It must be an 'opt-in' mechanism, but how is that done?
->>>> There are no devices yet, so that can't be used, so what alternatives
->>>> are there?
->>>>
->>>> We've been discussion Fault Tolerant V4L2 for many years now, and every time
->>>> I raise this issue, but I never received any proposals.
->>>>
->>>> This must be solved.
->>>
->>> Is there any way to? You're saying at the same time that we must not
->>> create the device, but that an application would need to signal to that
->>> device that it can indeed be created. It's a circular dependency that
->>> cannot be solved on a per-device basis.
->>>
->>> During the meeting, we had a discussion that the media device should be
->>> created as a "skeleton", and then as other devices probe they would fill
->>> in the blanks. How would that not work? Also what is your main concern
->>> exactly that makes you ask to not do that in the first place (or make it
->>> opt-in)?
->>
->> Applications today assume that everything works when the device nodes appear.
->>
->> If you change the behavior, then they just see a skeleton driver and how
->> would they know that they need to wait until all components are found and
->> it is ready for use? Or what to do if some parts are faulty?
-> 
-> I really think that this discussion is not solely about probe. It's
-> something we discussed during the meeting, but I think we should try to
-> handle "my device was broken at probe" and "my device became broken
-> while the system was up" exactly the same way.
+Some hardware accelerators needs to know tiles location and size
+in the bitstream.
+Tiles size are coded inside the bitstream so it is up to the
+userland to provide theses information by calling
+V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY control.
 
-If the HW breaks after probe, then you get EIO etc. errors. It's very rare and
-the only requirement in that case is that you return an error and don't crash
-the kernel. It's accepted that if the HW breaks, the application breaks as well.
-And you have to replace your hardware.
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+---
+ .../media/v4l/ext-ctrls-codec-stateless.rst   | 42 +++++++++++++++++++
+ .../media/v4l/vidioc-g-ext-ctrls.rst          |  4 ++
+ drivers/media/v4l2-core/v4l2-ctrls-core.c     |  8 ++++
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  5 +++
+ include/media/v4l2-ctrls.h                    |  2 +
+ include/uapi/linux/v4l2-controls.h            | 27 ++++++++++++
+ include/uapi/linux/videodev2.h                |  2 +
+ 7 files changed, 90 insertions(+)
 
-It's been working like that for >23 years (that's when I started working with
-V4L). This also means that for >23 years applications have exactly this expectation
-of how video devices behave. It's really part of the uAPI even though I don't
-think it is ever explicitly stated.
-
-To be clear: I really want to see Fault Tolerant V4L2 happening. It's clearly
-very useful for a specific type of use-case.
-
-But first we need a solution for this specific uAPI issue. Note that this is
-now to opt-in to Fault Tolerance, but in the future we might have other opt-ins
-as well that modify the behavior.
-
-Regards,
-
-	Hans
-
-> 
-> And while it's true that our assumptions currently deal with the former
-> fine, we just don't deal at all with the second, and everything you're
-> saying here could still happen.
-> 
-> So, to answer your questions, I think it's entirely application
-> specific. A video-conferencing application would error out or might want
-> to wait forever for its only relevant sensor to show up. A multi-stream
-> dashboard in a car would just show a blank screen and show the other
-> streams. I'm not sure we should (or can) come up with a policy at the
-> kernel level.
-> 
->> One solution might be that bridge drivers capable of fault tolerant behavior would
->> create a /sys entry called 'v4l-fault-tolerance' (just an example) somewhere.
->>
->> Applications that can handle this can find that entry and write '1' to it.
->> After that the driver will start creating devices even if not everything is
->> available. Without it it will just block (the current behavior).
->>
->> It's also tied to your use-case: for the same hardware your use-case might be
->> fine with the current situation (non-fault-tolerant), or you want to enable it.
->>
->> There might be other ways to implement this: e.g. a module option or a Kconfig
->> option.
-> 
-> Yeah, I guess that could work
-> 
->> Also note that systemd opens video nodes as they are created. It used to use
->> v4lctl for that, but that might be integrated now.
->>
->> So that should keep working. I think it just calls QUERYCAP, so that is likely
->> to just work.
->>
->> Regardless, I want to see an RFC for this, demonstrating that someone has
->> thought about it. If you think this can be done safely without an opt-in mechanism,
->> then explain so in the RFC.
-> 
-> ACK. Thanks!
-> Maxime
+diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
+index d7a3b8ef03a7..effd3eb47e29 100644
+--- a/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
++++ b/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
+@@ -2050,6 +2050,48 @@ This structure contains all loop filter related parameters. See sections
+       - When set, the bitstream contains additional syntax elements that
+         specify which mode and reference frame deltas are to be updated.
+ 
++``V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY (struct)``
++    Specifies VP9 Tile Info entry as describe in section 6.4 "Decode tile syntax"
++    of :ref:`vp9`.
++    MiRowStart, MiRowEnd, MiColStart and MiColEnd can be retrieved from struct
++    v4l2_ctrl_vp9_frame using tile_row and tile_col.
++
++.. c:type:: v4l2_ctrl_vp9_tile_info_entry
++
++.. raw:: latex
++
++    \small
++
++.. tabularcolumns:: |p{1.2cm}|p{9.2cm}|p{6.9cm}|
++
++.. cssclass:: longtable
++
++.. flat-table:: struct v4l2_ctrl_vp9_tile_info_entry
++    :header-rows:  0
++    :stub-columns: 0
++    :widths:       1 1 2
++
++    * - __u32
++      - ``tile_offset``
++      - Specifies the offset from the tile data after frame header,
++        i.e. where the coded tile data actually starts.
++    * - __u32
++      - ``tile_size``
++      - Specifies the size in bytes of the coded tile.
++        Equivalent to "tile_size" in :ref:`vp9`
++    * - __u32
++      - ``tile_row``
++      - Specifies the row of the current tile.
++        Equivalent to "tileRow" in :ref:`vp9`
++    * - __u32
++      - ``tile_col``
++      - Specifies the col of the current tile.
++        Equivalent to "tileCol" in :ref:`vp9`
++
++.. raw:: latex
++
++    \normalsize
++
+ .. _v4l2-codec-stateless-hevc:
+ 
+ ``V4L2_CID_STATELESS_HEVC_SPS (struct)``
+diff --git a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+index d78328152b75..836b227c10c9 100644
+--- a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
++++ b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
+@@ -258,6 +258,10 @@ still cause this situation.
+       - ``p_vp9_frame``
+       - A pointer to a struct :c:type:`v4l2_ctrl_vp9_frame`. Valid if this
+         control is of type ``V4L2_CTRL_TYPE_VP9_FRAME``.
++    * - struct :c:type:`v4l2_ctrl_vp9_tile_info_entry` *
++      - ``p_vp9_tile_info_entry``
++      - A pointer to a struct :c:type:`v4l2_ctrl_vp9_tile_info_entry`. Valid if this
++        control is of type ``V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY``.
+     * - struct :c:type:`v4l2_ctrl_hdr10_cll_info` *
+       - ``p_hdr10_cll``
+       - A pointer to a struct :c:type:`v4l2_ctrl_hdr10_cll_info`. Valid if this control is
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+index 6e751a043a21..a426a716f3d4 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+@@ -425,6 +425,9 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl)
+ 	case V4L2_CTRL_TYPE_VP9_FRAME:
+ 		pr_cont("VP9_FRAME");
+ 		break;
++	case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
++		pr_cont("VP9_TILE_INFO_ENTRY");
++		break;
+ 	case V4L2_CTRL_TYPE_HEVC_SPS:
+ 		pr_cont("HEVC_SPS");
+ 		break;
+@@ -1415,6 +1418,8 @@ static int std_validate_compound(const struct v4l2_ctrl *ctrl, u32 idx,
+ 
+ 	case V4L2_CTRL_TYPE_VP9_FRAME:
+ 		return validate_vp9_frame(p);
++	case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
++		break;
+ 	case V4L2_CTRL_TYPE_AV1_FRAME:
+ 		return validate_av1_frame(p);
+ 	case V4L2_CTRL_TYPE_AV1_SEQUENCE:
+@@ -2135,6 +2140,9 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
+ 	case V4L2_CTRL_TYPE_VP9_FRAME:
+ 		elem_size = sizeof(struct v4l2_ctrl_vp9_frame);
+ 		break;
++	case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
++		elem_size = sizeof(struct v4l2_ctrl_vp9_tile_info_entry);
++		break;
+ 	case V4L2_CTRL_TYPE_AV1_SEQUENCE:
+ 		elem_size = sizeof(struct v4l2_ctrl_av1_sequence);
+ 		break;
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+index e062f2088490..f7a98925027b 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+@@ -1228,6 +1228,7 @@ const char *v4l2_ctrl_get_name(u32 id)
+ 	case V4L2_CID_STATELESS_MPEG2_QUANTISATION:		return "MPEG-2 Quantisation Matrices";
+ 	case V4L2_CID_STATELESS_VP9_COMPRESSED_HDR:	return "VP9 Probabilities Updates";
+ 	case V4L2_CID_STATELESS_VP9_FRAME:			return "VP9 Frame Decode Parameters";
++	case V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY:		return "VP9 Tile Info Entry";
+ 	case V4L2_CID_STATELESS_HEVC_SPS:			return "HEVC Sequence Parameter Set";
+ 	case V4L2_CID_STATELESS_HEVC_PPS:			return "HEVC Picture Parameter Set";
+ 	case V4L2_CID_STATELESS_HEVC_SLICE_PARAMS:		return "HEVC Slice Parameters";
+@@ -1602,6 +1603,10 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
+ 	case V4L2_CID_STATELESS_AV1_SEQUENCE:
+ 		*type = V4L2_CTRL_TYPE_AV1_SEQUENCE;
+ 		break;
++	case V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY:
++		*type = V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY;
++		*flags |= V4L2_CTRL_FLAG_DYNAMIC_ARRAY;
++		break;
+ 	case V4L2_CID_STATELESS_AV1_TILE_GROUP_ENTRY:
+ 		*type = V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY;
+ 		*flags |= V4L2_CTRL_FLAG_DYNAMIC_ARRAY;
+diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
+index cec9217d97ac..286e72a00a9d 100644
+--- a/include/media/v4l2-ctrls.h
++++ b/include/media/v4l2-ctrls.h
+@@ -45,6 +45,7 @@ struct video_device;
+  * @p_h264_pred_weights:	Pointer to a struct v4l2_ctrl_h264_pred_weights.
+  * @p_vp8_frame:		Pointer to a VP8 frame params structure.
+  * @p_vp9_compressed_hdr_probs:	Pointer to a VP9 frame compressed header probs structure.
++ * @p_vp9_tile_info_entry:	Pointer to a VP9 tile info structure.
+  * @p_vp9_frame:		Pointer to a VP9 frame params structure.
+  * @p_hevc_sps:			Pointer to an HEVC sequence parameter set structure.
+  * @p_hevc_pps:			Pointer to an HEVC picture parameter set structure.
+@@ -83,6 +84,7 @@ union v4l2_ctrl_ptr {
+ 	struct v4l2_ctrl_hevc_slice_params *p_hevc_slice_params;
+ 	struct v4l2_ctrl_vp9_compressed_hdr *p_vp9_compressed_hdr_probs;
+ 	struct v4l2_ctrl_vp9_frame *p_vp9_frame;
++	struct v4l2_ctrl_vp9_tile_info_entry *p_vp9_tile_info_entry;
+ 	struct v4l2_ctrl_hdr10_cll_info *p_hdr10_cll;
+ 	struct v4l2_ctrl_hdr10_mastering_display *p_hdr10_mastering;
+ 	struct v4l2_area *p_area;
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index d17e41d51d2e..8eb8da0073cd 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -2642,6 +2642,8 @@ struct v4l2_ctrl_hevc_ext_sps_lt_rps {
+ 
+ /* Stateless VP9 controls */
+ 
++#define V4L2_VP9_MAX_TILE_COUNT			512
++
+ #define V4L2_VP9_LOOP_FILTER_FLAG_DELTA_ENABLED	0x1
+ #define V4L2_VP9_LOOP_FILTER_FLAG_DELTA_UPDATE	0x2
+ 
+@@ -2924,6 +2926,31 @@ struct v4l2_ctrl_vp9_compressed_hdr {
+ 	struct v4l2_vp9_mv_probs mv;
+ };
+ 
++#define V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY (V4L2_CID_CODEC_STATELESS_BASE + 302)
++/**
++ * struct v4l2_ctrl_vp9_tile_info_entry - VP9 Tile Info entry
++ *
++ * Represents a single VP9 tile inside. Note that MiRowStart,
++ * MiRowEnd, MiColStart and MiColEnd can be retrieved from struct
++ * v4l2_ctrl_vp9_frame using tile_row and tile_col.
++ * See section 6.4 "Decode tile syntax" for more details.
++ *
++ * @tile_offset: offset from the tile data after frame header,
++ * i.e. where the coded tile data actually starts.
++ * @tile_size: specifies the size in bytes of the coded tile. Equivalent to
++ * "tile_size" in the VP9 Specification.
++ * @tile_row: specifies the row of the current tile. Equivalent to "tileRow" in
++ * the VP9 Specification.
++ * @tile_col: specifies the col of the current tile. Equivalent to "tileCol" in
++ * the VP9 Specification.
++ */
++struct v4l2_ctrl_vp9_tile_info_entry {
++	__u32 tile_offset;
++	__u32 tile_size;
++	__u32 tile_row;
++	__u32 tile_col;
++};
++
+ /* Stateless AV1 controls */
+ 
+ #define V4L2_AV1_TOTAL_REFS_PER_FRAME	8
+diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
+index 5373dba640fa..b4338af93a39 100644
+--- a/include/uapi/linux/videodev2.h
++++ b/include/uapi/linux/videodev2.h
+@@ -1903,6 +1903,7 @@ struct v4l2_ext_control {
+ 		struct v4l2_ctrl_mpeg2_quantisation __user *p_mpeg2_quantisation;
+ 		struct v4l2_ctrl_vp9_compressed_hdr __user *p_vp9_compressed_hdr_probs;
+ 		struct v4l2_ctrl_vp9_frame __user *p_vp9_frame;
++		struct v4l2_ctrl_vp9_tile_info_entry *p_vp9_tile_info_entry;
+ 		struct v4l2_ctrl_hevc_sps __user *p_hevc_sps;
+ 		struct v4l2_ctrl_hevc_pps __user *p_hevc_pps;
+ 		struct v4l2_ctrl_hevc_slice_params __user *p_hevc_slice_params;
+@@ -1984,6 +1985,7 @@ enum v4l2_ctrl_type {
+ 
+ 	V4L2_CTRL_TYPE_VP9_COMPRESSED_HDR	= 0x0260,
+ 	V4L2_CTRL_TYPE_VP9_FRAME		= 0x0261,
++	V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY	= 0x0262,
+ 
+ 	V4L2_CTRL_TYPE_HEVC_SPS			= 0x0270,
+ 	V4L2_CTRL_TYPE_HEVC_PPS			= 0x0271,
+-- 
+2.53.0
 
