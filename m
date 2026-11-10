@@ -1,91 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794353838;
-	b=GSVq+oPBmjYzkrntndOZC450ggfEV+exdcYGwswF6m3U4mUb/Lqtz8NyktyA9++NTtvW
-	 Of41VEu91JNXxYkSg3cg9nXh6BLk9DdukSfVc4c24VIzHs4MVyTsPYPe57tVKKxf+IOoM
-	 lPdCG2fi6tUadCN8C03RnuJr18hZd/yGB+2sMoS6f3tJZnBDTIFxl+zZIehp5xrlS/QO0
-	 STQ+e9ileK5ISySgxA76Okr/v93001kDWtGyfQC42gQAcnOdH8Avmx93lWOgTTW8qjjh+
-	 DyqcK7u7fiTalEttG2pfoLcOZoCP17GoOLGzwJfJCSMII+BSvc1X/D0n+g+sOInLoeQ==
+	t=1794354378;
+	b=VvZ+bNe2CNMcqfHANoctdqDBOP+4VRKOD944/OeOLmGGCO2jSKWgtD8l64stf+/Djre9
+	 0fzzXwHwVVhF7jqWQyAwr6iRvKTiDPYF7LAd8cQvjaXKhbdo9xOfF1+8aux0RlzjQMOEh
+	 ioSbNivDLCMdCV1Rrcqfgn/nVz5/pZBGKuQg1vEqtsy2gwij6NwMwb8sApqYBadOanD8m
+	 GG1MFz+u3qaLCaAqsGcoguWh39J7KehutDoJvEypXxxVKYwxeyLMOUMhYemW3PnK7j5Sc
+	 PcSDEGmxHSQ8lGbHsexK3mPRkbtfa2PQEu56BsczJevBD1AK7M8ixSva4dqYtWnzU9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794353838;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=nucm/aleCVbqWE1ilGDcefpNzHQgxL4IFzC4QCL3uuo=;
-	b=R4QxH8qIY8HOgI3ol6URcqZROU4Bk/+6PD9cyeW5Zd0m+nbs6TtPxOKlOhSFn/1KFp5r
-	 Hb8MMC7pGXFvxPYqx/HCsdg91X1m4RU8tXyqZ2ok1BK5I9Bi838UPN9dhpyECc4RCJdFL
-	 QvmZFY9PUj+Ci2+T0ZKAY5JEuIe0aky/zm380cXnx8Wtc0EXlu5FDy+Ra+k65ulaHZXGh
-	 JN9E+L9HFysoLtXYiHl0cOfj0TmORI9NItbE/TzbBOZO8CI3lUmqGNA7ylVeL4vMChWVg
-	 3lpXpxMMxXIkRtKqOlOtnuIAoK3Rg3fRr1P0IPmKZAE1OWA+/JELhctbtJSPQYKN7pA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794354378;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=WCdKUUEAMgyuIUvweS/CVZqWS7quwtCy3Zzak2dFXXY=;
+	b=Uaj8ktt/5Jc4azU/jgZqrJ7D0a+PPPEtyADr32Ploe0ybbVxcpJ+d7HL1t/ubpFeFvt7
+	 Ncs9Kdc2xGUIshrLA5KVQtisYmVMfLtvdSgrzvGsxMltj0AXQrEbNwZ3DZNmzMVIPVmi6
+	 UAutCyde6jv0ZCpkETTUMWAZwWltBZPiaKS7RSGO9BD8qNjYpSXcjTNCiUqxgleBZoRf7
+	 +CGVT2yyGKpHImhkj9aCyW2SAPNK+3kjBZrQPBPHGmYTuMLmNtB0FjZSwqCdg03G69oEu
+	 l6tnbnrfki72rqcJeDgAeryiOXNLpwH0Wk8YwbDz90Mhc0ag07fDfCPH+8Ar4OUMRSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=fail header.from=andrewgigena.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U6zkm0r+;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	arc=none smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3542D606A31C
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 23:37:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3542D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99053606A321
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 23:46:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99053606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=andrewgigena.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U6zkm0r+
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-170135e43c7so337640c88.0
-        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 15:37:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794353837; x=1794958637; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nucm/aleCVbqWE1ilGDcefpNzHQgxL4IFzC4QCL3uuo=;
-        b=U6zkm0r+Li0Gw+HszhANqyt3xoRZtlLyb5QfVwaorfokcRRa9+8SuufNx11mYAigdO
-         UI0ONO0j7dw9r3ouGdCazB9drEGI+AOKGYB2T+u82KQk/BDGn6HbAYh0+b7yF2QGgOQw
-         weK1SrNYANzm1DCaTZzA4Cov4dx3vRqGKH6t097njBU/WiyIN5oLKbPgwCgPcxmYxOZV
-         I0BvswsPSbj7BbUPaE4qnUFRi3GwXFUGgWYr102xEFEiSEjyqV06LGcvrpn9N9fq7q7r
-         qM2hIfcpgE2NW+VbDSKTCJwddFnHub4hDH04UOnjMM0oybYsAN9WWbBTMS4amhaucuph
-         SIKg==
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b305312e4fso22724397b3.2
+        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 15:46:17 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794353837; x=1794958637;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794354376; x=1794959176;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nucm/aleCVbqWE1ilGDcefpNzHQgxL4IFzC4QCL3uuo=;
-        b=uPkIYLrIOFVgN6wAnjOeg+asWBbScgYMKAL6z7Abx5ruFgljsJYmKXNfTciELxOBK8
-         DiZ78Ms8hU0B9K5Zr49VXg/oIRl1smfjqXwsu6jcrdNyBfHyJe/WM2rjwvOZBdvMnIfn
-         tkm40P3/aYdbxaZ8fBvUtAcNGQcXKdTP5SFTCWLrDzNch7kCVQ+uUuQ7QRk5zYhBUH1C
-         j8FDmemdrWP8/dwG9RkIh2HLWV3uDGZ6Lb9X48eiW/gPhbAt36m9znLl9UgUhTAJnVuk
-         ksrD9P0yi2iNi5pYTb9RjG/Vbvsehiz+z48wkHwLPLnmiKDf2mLX3mtcEpDJm3lMa5Me
-         1OTQ==
-X-Gm-Message-State: APuU4Z8d5RDeVLR2uJc52bNWVtZDWrehs7NwO5cdGH+uiAYRWcgAOJQH
-	zbjg0DRDwgKBFkEZgwyDkf31buIwHx1BLBBT3NKpduuzWayseTYwI0SV
-X-Gm-Gg: AYBFou3yj51JILC0rmwGzEt4GYrLwU0MC2NJD86mQYDx9Ja0JVjIvv9zYwIM6Gl0D43
-	rpkbOjdOuqoQVMRBJhoygjBvQHW5D0KPh23DaG6sAeQhpFPGC46Rd1DFIw7jj+/DIqDxiLGTN4K
-	2iJDrsT9LOyJ+XIdExl5ETT5ePYu6DbE2hTJSltHoBDQqV5LLQWoxZqajL4dfFHT2kxL289pGjo
-	HfI10SUOQj9/9TzrcXUW9r5rChV7If+2RETRXXNIl8N4M5i8Y0YqI3z5hbDE2au3MlcRjgRPwl3
-	svCfdv2evjCmpQAeaZofdwvkzPd2/MMRBeiyiMKKWez0NfZiQU2LsFmQu1oW7TJECRnZ3foAIzN
-	UY+pg7Dx4YIVmR51Mk3VTPeiyUX2TGUl/szWcBwgJ334ZV1X6/wOtRU0B6OINtdf7QnXXtL0v81
-	ZVfIZetG0SRvb+285JKJKsd/XnRzDgcmd7cYtcJCh+w8GK3GWCmpMGRa12RjkuMr7yF0EDSCyGy
-	JhT1hIndacBKgF/AdAZAPm7+0la1tlslOplvA8Q2BKLPuVG3GD6+ZUQ+RmdqK0zIiX+5SV7Mxk+
-	KSRdjfUBM3hwchzpifx3JCJcFwh8ZAc0l0OqjDYPviRXQVE5vFeWUvQu2Avi3v8lPZ4=
-X-Received: by 2002:a05:7022:2608:b0:18d:96e8:b913 with SMTP id a92af1059eb24-1b3c036707cmr794553c88.47.1794353837204;
-        Tue, 10 Nov 2026 15:37:17 -0800 (PST)
-Received: from localhost.localdomain (wood.seclab.cs.ucsb.edu. [128.111.49.37])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11346sm11981419c88.7.2026.11.10.15.37.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 15:37:16 -0800 (PST)
-From: Praneeth Balasubramanian <praneethb2002@gmail.com>
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Praneeth Balasubramanian <praneeth@ucsb.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: hdpvr: Hold io_mutex when restarting streaming after a timeout
-Date: Tue, 10 Nov 2026 15:37:08 -0800
-Message-Id: <20261110233708.318348-1-praneethb2002@gmail.com>
-X-Mailer: git-send-email 2.25.1
+        bh=WCdKUUEAMgyuIUvweS/CVZqWS7quwtCy3Zzak2dFXXY=;
+        b=m+ksnV4jTDix2Dyj2XNul9x3fYZ8LgT3/8KE4pkLM7OaUjJlmGwmOkrnRiH+4L2HVi
+         QKmPMXEed+TT8QCweF70kIv6Nl+bUi6TvTw/q6lky3YIP+HxTZ+SjkbgfNspSEU3Qpa4
+         oU/HQMbPyXxNHyOjgih90KyBW7LK6HLengsLfoZJu/YWDUonqa7kqtoH1s6mqLrk30Dy
+         6yRg3Qp9A8T9FaXBGaT9V1YOCRWRyXhEVCAvuKA+aZOgYNPDFGfX8uk8sQyMgGM+x9Nf
+         Ftax6oD/7d57dec6vbk4mi6NZxx6SQ3SQ7Lt+tW4Ig42BDuGlr4PUezYbGTF26sEwFi4
+         SbqQ==
+X-Forwarded-Encrypted: i=1; AL+hErF04sQUrj3yBBLvKp8pGESxYtt7+OP3YnjyBk4QO3ytbySlf2Sk03LaY8ex1O5m5hU1iGEt5QLOqY19pw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+MUWOVJ44JYOkwjUBuYTTfI1gnQnZioIa3x0GZH/LmJMPFiM7h
+	fMcriJo4+vm8gWYbOj0/6ImPLOH6xiyGErh3sFNttnHdvMdwwhBgD21S
+X-Gm-Gg: AYBFou3+F+kKXJB3LRSeoKSOL5ZUXdlKhd1Pw9ObCGp0Y+KIUTly0DNxCQd8cy9VxIA
+	UJLRd/crHg0kZPNQtW4n/gYhnej2eeW+8YlIRVsE5lVbqzM93ofzu5AAdcT6/8SyGUfalq2StTJ
+	rY/tP3aWoECyDBBfrccx70fCYcGNuySxa4hustuBpNZ5ucIxtjnWcLVQRIHXMF/aW37nRQiOz+V
+	XpizqwcfHgMABp4e+yxVSQRmx3oQyKzsw3eXwFtn2DgGzMHj2N11a+leI7poNWPifxez0DbpQ7P
+	tPYX5qpssg5FD26tcgXqTvfk+LLlGlD7Oa7Ut4QqtRAb6TSV9nOWE3ynmRNDbTJ24EKtgO/RVQc
+	lZMV3uMuzF+2YVurUkF2t2DnKesk8p22jCdBZL9CSLFq9+vf+xTODWZEcxMqvo7x8d2GJU1L8Pz
+	BLVevzChZ5twqcegzMMpqnd5f/vGN5RbFj6hu2/+yrVmKQf5XOdZ3fzcIr0/dWMLSfMwhZKTePS
+	OmdbwWz8sIHBeIySdEwLXp9NCZnIqScUc4ZzRAoBPIrWrGll8jVwaJK2yPWCMPgbjUxNY/ZoK7h
+	5zCEAN8UKMgxJizaGksAhNWaYtvQcgX+q83DdwEILN7mm5QWtBNcV+YdCpHyDKN3ctIzdfB0
+X-Received: by 2002:a05:690c:e3ea:b0:8b3:15c2:24a6 with SMTP id 00721157ae682-8b3a7ff3419mr7031107b3.17.1794354376630;
+        Tue, 10 Nov 2026 15:46:16 -0800 (PST)
+Received: from ?IPV6:2800:a4:806:ef00:2f77:7097:372d:6d14? ([2800:a4:806:ef00:2f77:7097:372d:6d14])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3933c59cfsm31871827b3.17.2026.11.10.15.46.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 15:46:16 -0800 (PST)
+Message-ID: <ab79818e-4b4c-4b58-bd2f-57d9ae4cddc3@andrewgigena.dev>
+Date: Tue, 10 Nov 2026 23:46:06 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -95,70 +75,61 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/7] dt-bindings: media: qcom,sm8150-camss: Add SM8150
+ CAMSS
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org
+References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
+ <20261106-sm8150-v7.4-rc1-camss-v3-2-0103e8a0bbcd@andrewgigena.dev>
+ <21be3761-9da9-48c6-aaa1-b56f8625167a@linaro.org>
+Content-Language: en-US
+From: Andrew Gigena <mail@andrewgigena.dev>
+In-Reply-To: <21be3761-9da9-48c6-aaa1-b56f8625167a@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Praneeth Balasubramanian <praneeth@ucsb.edu>
+Hi Vladimir,
 
-hdpvr_start_streaming() expects dev->io_mutex to be held by the caller,
-as its comment says. Every caller takes it except the restart in the
-read timeout path of hdpvr_read(). Commit 6bc5a4a19275 ("media: hdpvr:
-fix locking and a missing msleep") added the lock around the
-hdpvr_stop_streaming() call there, but not around the restart.
+> That's an intermix of names, and you will get a review comment from
+> Krzysztof about it, I stand aside.
+>
+> Here too.
 
-The restart checks dev->status before its USB control transfers, which
-can take seconds, and sets STATUS_STREAMING afterwards. In that time
-another thread can start and then stop streaming with
-VIDIOC_ENCODER_CMD. hdpvr_stop_streaming() sets STATUS_SHUTTING_DOWN,
-drops io_mutex and waits in flush_work() for the worker to exit. The
-restart then sets STATUS_STREAMING and schedules the worker again. The
-worker does not exit, so flush_work() can wait forever.
+Krzysztof did comment. I kept the vfe0/csid0/vfe1/csid1 order from
+sc8280xp-camss.yaml in reg-names and interrupt-names, and asked him if
+he prefers another grouping.
 
-Take io_mutex around the restart, like the other callers. A restart
-that races with a stop then sees STATUS_SHUTTING_DOWN and returns
--EAGAIN.
+> Drop 'gcc_axi_sf'.
 
-The missing lock was found with an LLM-based tool that checks callers
-against the locking rules stated in kernel comments.
+Downstream sm8150-camera.dtsi feeds GCC_CAMERA_SF_AXI_CLK to CPAS and
+x1e80100-camss.yaml has gcc_axi_sf, so it is used. Can you explain why it
+should go?
 
-Fixes: a503ff812430 ("[media] hdpvr: fix interrupted recording")
-Cc: stable@vger.kernel.org
-Signed-off-by: Praneeth Balasubramanian <praneeth@ucsb.edu>
----
+> Drop 'cam_' prefix and 'cam_sf_0_mnoc' also.
 
-Notes:
-    Changes in v2:
-    - Add Cc: stable, as the media CI requires.
-    - Resent so that the author matches the Signed-off-by. Gmail rewrote
-      the From: header of v1. No code change.
-    
-    This was found by an LLM-based static analysis (GPT-5.6) that checks
-    kernel code against the rules stated in its comments, as part of research
-    at UCSB SecLab. The patch and changelog were drafted with Claude Opus 5.5.
-    I reviewed the patch and take responsibility for it.
-    
-    Testing: builds without new warnings with W=1 (x86_64). Not
-    runtime-tested, since I do not have an HD-PVR. The hang is from reading
-    the code, not from a reproduction.
-    
-    The patch applies to mainline 9ba46df34488 and to next-20261109.
+Prefix dropped. I kept sf_0_mnoc because SM8150 has a CAMNOC SF path.
+Should I remove it too?
 
- drivers/media/usb/hdpvr/hdpvr-video.c | 2 ++
- 1 file changed, 2 insertions(+)
+> Or C-PHY, right?..
+> In fact you shall drop bus-type from here, because the link between
+> CAMSS and PHY's output is not a CSI-2 bus, it makes it inapplicable.
 
-diff --git a/drivers/media/usb/hdpvr/hdpvr-video.c b/drivers/media/usb/hdpvr/hdpvr-video.c
-index 4290b2367fa3..b7afcebe80e6 100644
---- a/drivers/media/usb/hdpvr/hdpvr-video.c
-+++ b/drivers/media/usb/hdpvr/hdpvr-video.c
-@@ -475,7 +475,9 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
- 				 * streaming.
- 				 */
- 				msleep(4000);
-+				mutex_lock(&dev->io_mutex);
- 				err = hdpvr_start_streaming(dev);
-+				mutex_unlock(&dev->io_mutex);
- 				if (err) {
- 					ret = err;
- 					goto err;
--- 
-2.25.1
+Agreed, bus-type is gone from the CAMSS ports. It only exists on the PHY
+sensor input now.
 
+Best regards,
+Andrew
