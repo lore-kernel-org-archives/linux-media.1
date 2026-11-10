@@ -1,111 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327197;
-	b=cvLXffpkRoeAz3TL0VlHiQkWj/X2Oc2lOLim2hjzwnXS2baS4G/r3kuI0LJjbcFs0+mj
-	 RAykVLHMi2ObhTQOZlaZqzDUyCZvRgvXLsN+tTHSrDfN9OhZmGQ/YFu1ihI+qB1fba2g3
-	 T9TXY2iKPMBIvvXZnlkK9mz/yHqQqs68bXHxod102B6NDxXjd8hT7MfJYVwMpI09Mdti/
-	 U5HsbMRjmk4HmHOmYewRuu0i7LHZ5f00cl2SResV7C8r+E7o3BXPuD995khiS38OCmaCW
-	 /LmpUSl5xgytx1JuKaSm4j2wpgbFD3mQnFzD3S5uLCPzpJONtpnuBFV7olkvluKTHpg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327197;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=;
-	b=fzd7fNwyvO+iU5vWX7reHH7jX5nKe86/ITno9tj8jhCxLY1ytvqWExVUhj8D2YSTBLJV
-	 3kdlIF46KPwGqOhTec8vyGrfcVTs+iFst/FTrXgemrb60z7GAVl0Y/w7DNpzn3bhh5t2F
-	 U2/6Yts+An1OdQ91JNRtUKqBPjb8giRFiGhh6XKHYrd8R5u9ATcx9cQw8PXnABNCsZUFv
-	 bZ+V9cy5crFdYWIP8NJCYi66WBzThkfXx8H71BJlRJDMk83/MHNoXdN5s5Bz8n7bJc/SV
-	 Atqx63yk7DGI5rctjXneE/6nlt6yoL5aofYkIrDAOzLXDgELrtoO2DXInbWfuhtOO7g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=asQC+qHD;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=pjDZKFBW;
-	arc=none smtp.remote-ip=103.168.172.142
-Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794327887;
+	b=At+B68mzAaIpEoVQ/lZDgQGdpj/X00AuaOu5lC9vMK+NrpK/08SmGxmhGC+DduMY5h9S
+	 hi6YfkvzKCwZErh0MR0Ezk2ijZ4lAXOnzQC/gaIkjqkgpcAxsg7/J1N74iVTLV6tVg2rM
+	 Dyg33gQ5h0ZnJlCgRAMZZsJ70od4KrhT753o7v52vFqc8dxZo++2Q9qbveEqhUhUHuID6
+	 Iurt3RoSONx8sPO5ss48Lhur7tsZJGqBlxhw+hxK5KBvpRtKyDI2l9TU+iaCXrA6ggoez
+	 /FTjuhcxy87MjU8CqItvcxQDGWvGm2FqzCoGJ1JY1iDSkSvqhuWeHqAgSBy75Pi07jQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327887;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:CC:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=6umkUeuYZUt5fsIw0iUqsua2idewj8kC2O4j5/Ef9WE=;
+	b=JgrAj1DecUJacfPF9gad+C8QOlI8YzJ6ccA0nCGiWGs6+Jzr38wxfegIQSfVZ74qCvsg
+	 TyS1XLe/XdEc65s3yUsQ1GDE9QUy1lKQR2Iai+axCeeiW4yq4M1ZYAZ/PvmOaorEcX8ZU
+	 68/we1xxBt4SlIh4J9qltUZSn4NjBDQcXx1EW9wnkfWlONqmslc4jGA1QrwFM0DwUYo/C
+	 0GML+8MngaREm9pXzx4otwP/kJjIjopBmt3lraIHO3fp9gtRLvCP/5J8yvQRk7Qt18Ver
+	 9rYaNOOKpgC8SpuIPaK98ktH//sSezM0oyKgR91jBXkGFon/nxMrkPK2hOPMPQGtN6A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ti.com;
+	spf=pass smtp.mailfrom=ti.com;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Ti4zF+We;
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=T5ibHcdF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3426606A323
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 16:13:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3426606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F228360A263D;
+	Tue, 10 Nov 2026 16:24:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F228360A263D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=asQC+qHD;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=pjDZKFBW
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailflow.phl.internal (Postfix) with ESMTP id 111A413813D7
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 11:13:15 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 10 Nov 2026 11:13:16 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794327177;
-	 x=1794334377; bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=; b=
-	asQC+qHDAv/I83EYngLJ0bkBe+uuEnPcLg0jrc2OX9kVtaPYAd/md3quox9jqmy4
-	S/jELTpXjA2k1IxJWtdK3HZW4IriVAHis0xufJR256BBPAzbfZ5QsGw2eqYq1k/I
-	S4qzaUtb3Ob4GAV2mxThnKp0r/zG0TfcXAK+eUmyQOHhHqtyGONG7gkgzRBQG2d0
-	/gzJT11LHsGNvLKSZnn9JL3iytYjrT3V7KZt2FZsHfjjQeZHywjaesrjJhD0e7vN
-	Y6/iN3Jg7w8xS8OVdYMBSUZOfxDnVhVfPJGqKe/oSxsAZXPn7y2e4GOOItdMLZ2R
-	LLVckhHoSzC+MGE1iJu5eg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794327177; x=
-	1794334377; bh=4stWdQp7BpJLS0676322fsmeG4ymFjAT9IbMRkPmpp0=; b=p
-	jDZKFBWlX484yfO06iZThedU7MnSaqyMkXKHKaXomC5/xVavgZU65SsCjokZJWML
-	GjeTj8Lq4+LWeI1CWzzxuQj2m4isbVa0ssa9g7eZhXilCypVINe5kxTBiobUF6uZ
-	Gtle0jaTmJtlAyGlrtNmbTTDPt9uAjbADo1dgbyzsDA47ykOoKjYt1o87LKBSqHb
-	mP2YIbspjWDiF2EJOgZRHTKT7VhzsY0TtBEN2nWcPAnRSw5Q7HRlPmorpTONvfpP
-	auvP37j94bGeH1y2GQ4LwX12DjFEZi+3xGQave3kINRA2PBRPI5FXxcFzbhhhvXR
-	Tsc8Y3Jb1FgwsS6Y0dcjg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794327177; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
-	s=fm2:rsa-sha256:jMeLyHHUsFox2N89wLUZ+uDrSTkppBi2TifaxN3Xn6a2B68
-	ZIfcbV3VDETunnSQm7ooHN0DtzRrKKt+2MxHyDp84J471/Ez46c7DWgjo0npG5UK
-	l0TLRkNrWCvfM++V9v6pps01msFYdO8xPwkllZi/+9/TswQJ5bErBTbH5wnyMqtf
-	h6rd7fv7/HruPljEJbXj7wbtU05ZhpQY9UE7ZH8HkfQg6aeofM8D/VMjuMI+BfU4
-	o0jv7U599iuytX8OLEcOzYW+gRT/nfxIy5a/9AfTyaMyKVNYFzcC96yogoCD8Y4y
-	QzSBnIusmtW+ZCM6w1Vc2q+BEW5FvxE4GWNoThw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:NY+qH6VFe1gb9eaYka4u3Pju9dQg6z2rB5jHAxzea+M=:YUoKa4y1cAE3r8AhMFawDzVW7orX9AEZ4cmB97mmTGA=;
-X-ME-Sender: <xms:gELzat-KhdG49YOXD28knxP-wmxhvouurLuqg65ijoK_1PztTiM67w>
-    <xme:gELzashOw3MORHNRaj5VZYoHPjgRatChT2__Hps4-a7QS4ExIju8qL8_9B3SiDtB2
-    sGKQug7JFF_lfIFqrxv09JzfzrzZWKrRlvdLjWPWqavJafwb6XI9q0tBA>
-X-ME-Proxy-Cause: dmFkZTEwJqmeu88i0D1P4NSr1o0RdeyL0ncQrpwlZpsRiyH4mGhKK76jqiY9/AURvmAyKQ
-    Xh2LjT8fovpOgpIQnvH5QYWZs5UCg8lDhPsbwXo4GfEZeWp/aOvfLOYPWjqnmAFI1BwG/q
-    XyZG43p0HoLIgnysLFo6MzsLlgysOWgB08DJdha5yxDuEjeXR7MU6VvvNb4tgDJLpz9WaL
-    DOmlUn0Mje4CQssJm+pxYVCWPCE7uxZNBjliBSIc14Pa1+Q+euFKNdLxxVitjY9vJ+1g1T
-    +rig9iVkFuoti3t+qEcHMM2vh4+G+ag1IzrG3We9+FcQnC6cOfB1bItA6vAPi6A+u1KULf
-    wxoJ36bIqa+kM9OWApvgKo4MId3H8RRe0FCkMwp8Cj2i2hPzQqFijO+zALFklT7XBp4yQ4
-    D0Bsmvzif3sMMCJY2OSk1bwCPIIRPEFuJI4Mi/vpw7sfUa+jfrhN159tiieQQE7aztSV43
-    DlSawBFw+hJYm5oAPkD2NlBoL/gRh3vgmwf+Y/GbihlHM/o3EcsWCertLTOcD6iStWXR7G
-    LAS2aVSdVtxoGSiZj2/kYUSfLhEBFCn05KpxcrFYCW/FmzT2YT72YPVx3p0wR8sMiJ3lAW
-    x+8+3z8XttowLJjfinG9ew4R0xJsilSkEkmhmN5AqofFDl0uTCDo7P0ixMQQ
-X-ME-Proxy: <xmx:hkLzak2BPEyGi10FxxkrY3byRVHSjq_0wLclV2jUuSmkyRE3xcj4fw>
-    <xmx:hkLzakkySXPgYGwh_r1Ql-VHDAdYXcQ3p0tjVOV29OCOWQo8MbFMmw>
-    <xmx:hkLzavloJp1yUj6WriMMnPneQ8pVgU9Ew-sH84r-kdZ-OdXPheHDYw>
-    <xmx:hkLzarPnZB-B1EOixQtLefzjQeDp3wnHNrTbJ3SPpTKyjOvpO-EsFA>
-    <xmx:iULzajThipr-UxTyuQQEJ7jWDCsE73KlfzXTf41eZRpd8Rpi4a2MNCT2>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id AC32432A0097; Tue, 10 Nov 2026 11:12:48 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Ti4zF+We;
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=T5ibHcdF
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAEwIWO1618394;
+	Tue, 10 Nov 2026 10:24:37 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=6umkUeuYZUt5fsIw0iUqsua2idewj8kC2O4j5/Ef9
+	WE=; b=Ti4zF+WeCpEDwK5QYKhTg37sWRDTOZp9+W4MkjaHRehiUkgwH2/qPEGjO
+	O0mk3Pac7nSWWreuJxPHV8HXHU108HyvK5pon+xCcm3nzNkwyuY4re5OAMv948xq
+	W2keQu39rqWTRLzf4B6x7J/oopxUJSfm1sfM6n0e2KDPxBbpwXLtQYYslIXbYmCG
+	RrDxrR7oLkFmFsptyVMB4iIkTTdVTtYZG/BuhIwJfo+20t8qfJoLiQjkgDXJ2RRs
+	9VNr67M9ayjN896dFaOzVDrefo+YeL1D/9Ct/iSIrjKUpwMkhtOofbbCQe93LhpL
+	HXkxbJWZoxtqrEFeVzHSEx3mapgEg==
+Received: from ph7pr06cu001.outbound.protection.outlook.com (mail-westus3azon11010040.outbound.protection.outlook.com [52.101.201.40])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hv0kst82m-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 10:24:37 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ikrQP072C+ZhiML6A2cXz3lMah4xP1AAPS4tlPTQ6+jN8q32SJgmXFP/wlq9kK+JokGCQFfujSFiMI/MtWp8sJmBTJpW3GE7Cva7iPAMT+OYUUbK/qLzlAfqMHymKZQRfFn74YUcI5ZrbFfDSluMVGqKnj3SIf1mAzo4MRh8emp5z3fiBY8vMkkJkMPsBLTKLtB8IafFw5jZzaziSQpfNBwCwHfV7SiP/8mBpaI1K1hkjxaQiZfcr/v3XxEIQPn+elD2uCvD/eBus5y2N4p/jJ63aNB9n6jhb7GjSM6hb5w11KpgHI6RTiaEcmL809d98Qfpch/nZV7hsWUUXIKZRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6umkUeuYZUt5fsIw0iUqsua2idewj8kC2O4j5/Ef9WE=;
+ b=O3cQev39/2QGOBr/1EXYuHsGINs1K+Hit5wiM4i4nXuMcNtzEezmmaL8bCSgTEXlZUDiFC6QGZGk7W3PNqxxrbzqPerP8vAyco5pbavMKULYZHG+kWv/KXPNksIBtvsygsm9i+UfneIcy6QEFBckxXrp6zAKIjfzWV4wt5Khae4OIG7pJ6j8lu8PnXJLENprLVwdFSjKK+FrLMiaZb8uT7PwAHDuvNa6Mo1v5sFmZA0AtRDxNYmxt3fG4kbbn4TnJeraRxLztW/eWQFp3w5hOft+jHvkUWSkEz70b5DESKfsnfn+LSyl+gJ9QBkhD96Y1TZ51P87uGmBtxwJufU+MQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6umkUeuYZUt5fsIw0iUqsua2idewj8kC2O4j5/Ef9WE=;
+ b=T5ibHcdFJxx/Zuo3AZEZnKi0YlYYowKxCb/1oL8g1HZhCyrKESpl50NYssU8ebbJ9M/Fl3B5bnLovNhvq7VfVWcM4+aMOMw9dVYMCTG7XbZXkf6D9Z/XxgzkxE4xmr2sRWyJB38wZsv+45ZqwXZHdHjsBeADoJU6fqMyShYA+1M=
+Received: from DM6PR02CA0128.namprd02.prod.outlook.com (2603:10b6:5:1b4::30)
+ by SJ2PR10MB7827.namprd10.prod.outlook.com (2603:10b6:a03:568::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Tue, 10 Nov
+ 2026 16:24:29 +0000
+Received: from BN2PEPF0000A803.namprd02.prod.outlook.com
+ (2603:10b6:5:1b4:cafe::4d) by DM6PR02CA0128.outlook.office365.com
+ (2603:10b6:5:1b4::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
+ Nov 2026 16:24:25 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ BN2PEPF0000A803.mail.protection.outlook.com (10.167.245.164) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 16:24:25 +0000
+Received: from DLEE200.ent.ti.com (157.170.170.75) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
+ 2026 10:23:59 -0600
+Received: from DLEE202.ent.ti.com (157.170.170.77) by DLEE200.ent.ti.com
+ (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
+ 2026 10:23:59 -0600
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE202.ent.ti.com
+ (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 10 Nov 2026 10:23:59 -0600
+Received: from [128.247.75.1] (b-brnich.dhcp.ti.com [128.247.75.1])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AAGNxIh1124949;
+	Tue, 10 Nov 2026 10:23:59 -0600
+Message-ID: <762a1a3d-ac18-4220-a9fd-bafcb247ee6b@ti.com>
+Date: Tue, 10 Nov 2026 10:23:59 -0600
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,97 +134,150 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AK-jVwBtQCQR
-Date: Tue, 10 Nov 2026 17:12:28 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- "Jonathan Cameron" <jic23@kernel.org>
-Cc: "Svyatoslav Ryhel" <clamor95@gmail.com>,
- "Arnd Bergmann" <arnd@kernel.org>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- "Bartosz Golaszewski" <brgl@kernel.org>, "Mark Brown" <broonie@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Daniel Thompson" <danielt@kernel.org>,
- "Helge Deller" <deller@gmx.de>, devicetree@vger.kernel.org,
- "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- dri-devel@lists.freedesktop.org, "Jingoo Han" <jingoohan1@gmail.com>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Lee Jones" <lee@kernel.org>,
- "Liam Girdwood" <lgirdwood@gmail.com>, "Linus Walleij" <linusw@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-fbdev@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-watchdog@vger.kernel.org,
- "Guenter Roeck" <linux@roeck-us.net>, linuxppc-dev@lists.ozlabs.org,
- llvm@lists.linux.dev, "Mauro Carvalho Chehab" <mchehab@kernel.org>,
- mfd@lists.linux.dev, "Michael Hennerich" <michael.hennerich@analog.com>,
- patches@opensource.cirrus.com, "Pavel Machek" <pavel@kernel.org>,
- "Rob Herring" <robh@kernel.org>, "Sebastian Reichel" <sre@kernel.org>,
- "Support Opensource" <support.opensource@diasemi.com>
-Message-Id: <991009b6-e62b-46bd-9a0b-43c3b7a6d10a@app.fastmail.com>
-In-Reply-To: <avM5EnC9yujUZcCO@nsa>
-References: 
- <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
- <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
- <20260912232047.19c4cb10@jic23-hlaptop> <avM5EnC9yujUZcCO@nsa>
-Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/4] media: imagination: e5010: Update
+To: <devarsht@ti.com>, <mchehab@kernel.org>, <hverkuil@kernel.org>,
+        <sebastian.fricke@collabora.com>, <benjamin.gaignard@collabora.com>,
+        <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <k-willis@ti.com>, <jai.luthra@ideasonboard.com>, <stable@vger.kernel.org>
+References: <20261110155810.18521-1-b-brnich@ti.com>
+ <20261110155810.18521-4-b-brnich@ti.com>
+Content-Language: en-US
+From: Brandon Brnich <b-brnich@ti.com>
+In-Reply-To: <20261110155810.18521-4-b-brnich@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A803:EE_|SJ2PR10MB7827:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4b84b18-7af6-47c9-25a3-08df3f4715f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|22082099003|18002099003|10067099003|261028144727099003|261102123227099003|261021135927099003|261022115727099003|261026140227099003|56012099006|261022075727099003|261021123027099003|261022105027099003|261021121427099003|261009223027099003|4143699003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	kQnPvmFIZhzEoEX+VIOCnx0g8Ymzxk/DNggvOijbMmNalYb+xRK5FVoqoX8ctx5TXq7Kp2qr5huixa7zQsOhCAQhlmE5GOyAxRQb6Obw+m1zQLKvArhkMIXbUY8mWwL0XdCWsBcnCSwF3PS1fcuxdfiNpdqIIg+9Q1rDNIxIZVvfyVZb3usZ0UpasW3WX2B1jNYD6OfQl9DRrrzi0N756lpYj/rDtUL0PecxZepgkhv+dRmkNwPLAG8g1eppsJy/EIBKpJ4EV+fAmiEkzkcVa/ZCdVIDujDY3xVdASVbfMUmAaykj/G3sqv5GqyAoKdw2mN3aIREE+dZ5IkolrxvHtrntN/Sx2ADU8n8YnWrCOdtGc4+4zoc9Lbz02FcepthiTGEerpgQirKIDWJvOB/Z84H3LjQRkeE+4LkOolvKCF2y116wnjwp9hEAs7JhDwkCig+qBrtmR5SC28oUJPB98FW9zXgor3qb7EEMfPOYkhO1ABaVx+cljLhfKomZVYCUQbs2tilSiNCGPFm5nbaKwvJJiOj9znDIzKrUM1KgYRTAFFkWo0Lpfnot4zWauhWTao+67yES1pOR6ick2zW9uVvsijHworoemOteSzU/sPoOKwB2r//ciVwAxPyDh6+xI9cC3toX37d13Up9zjCiav7Dph+l8P1dQJVSgEs5YwjqSqoZDhQuiD6dUGxUL0M5YM7VqmqvVljAmZa0cRDOw==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(261028144727099003)(261102123227099003)(261021135927099003)(261022115727099003)(261026140227099003)(56012099006)(261022075727099003)(261021123027099003)(261022105027099003)(261021121427099003)(261009223027099003)(4143699003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	d4D6EsvQWRo8hV0kHnfrByDqBjni52F6oBzBr9UDttcuvdKwJYvzaqLXycmEfpOMILGQxl97UeKiWDxdfqNC15HCYxxLYYmUOU3WGDPEJfwhu07EOLsJbwYllAk84zjQAMjrQnjcJoXQDWQVuj4j5NVCaU77twr+bSGkX3+7catkk0MrlPCm3kiFgkgupsjI7ToznGP1CWsyhUYvz3Ij9AexFV0tvS4iiJJSDCZVzCEFgAyRftWaSsRg+fm8hInHh+WnvjAtRXRS9OnSc8k1n81HniD+FeqEjigbExGjpKf5RDhV8A1W6VjXpvmkn/JMVx1h0PHVCquxsbpBAjueV8Nj9Fi2OPGc4/EMnDn6vzXidmxzvicbUWokYB6e1hIBL7CwNKRqvcKKEnf2dLU3He4ullITYRDRAW+8iWtdeAQP0wwYszrTFt25BBprcURa
+X-Exchange-RoutingPolicyChecked:
+	To38PdwFP3Cx47pHSko8zEuDV+b1hBXmRyqSE+LUlunmuR4fGueUvE5xIWm+mZdSYs+YolXcyON+po+f06gvHH4kKJbt/WxWi2ULIE5EMsk8UhTM0YMm2iz7YjTlEn+0h1SAiOrI8MWx990r/+po9Loh10ByENdBkhi9WITvPO+L/9nAprckYh535hUB9RQZvJX+sruTFcu4fji3QaUCp/7yFr2Ugw6iGW7WFsMNHPZ7FbM3G1ekHzkuXbvGZgJYbyQIV1EsKe0b2NNwr3y7JyUGnp941luq12ioVY5YlpRNx+AS3sOYr3/xTJAGTwveWE10uXnlauclU+I7zdiX4w==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 16:24:25.1994
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4b84b18-7af6-47c9-25a3-08df3f4715f1
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000A803.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR10MB7827
+X-Proofpoint-ORIG-GUID: Qs_n8i5aUzlmK6BYU2RzlLk4TswCKlUb
+X-Authority-Analysis: v=2.4 cv=bcH+w+PB c=1 sm=1 tr=0 ts=6af34545 cx=c_pps
+ a=TO2QspbEOyvqwnNCDF3LgQ==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=VwQbUJbxAAAA:8
+ a=sozttTNsAAAA:8 a=18iZY3HW1OHlVmvoSgwA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2NSBTYWx0ZWRfX5ypQC8F5M6cm
+ q6hpXe0bPU3Nlq1iSb0dRySugTBKqj9bRxJtx2sjsaOdedNZ3y6QKavNA7Z7aFHXRfSUI6bVXfJ
+ /JikQatHpgkt8KqOFWiCse+HnRqPQ36f8QB3F5aFTbSuGvZnG1whFpxaxUmShewieXBSudYslyW
+ oIYpzJTPc8fQPXaj6RUsU6yc5WrFmQTKpB5ykdnhN4kYV3to8sew0XZ8dgXOH1qrKBTK1THprAJ
+ Y08Ex5mxEfVRdMWMMU8LtoK4zQK7N8GCQrBDzSABo1Z4rvoH/xszRmRmW0Cb+o6dEglHxQ1Ib4p
+ YtonCUp+94wZgOwPMSg7K3kvqCMwe/z9vGsywwxfmE9sRRYGJszLAxmuG+G8sSw+rQs8TMDtAy0
+ nUvFsEg8lcFgmdNkGZNJgT6WI6k0VH3TVBOgcpcuCnv+pB+JwSfHiq3whndp3wkt8zkNB9NAxC/
+ jPjbZoxV23xu7zD1Uig==
+X-Proofpoint-GUID: Qs_n8i5aUzlmK6BYU2RzlLk4TswCKlUb
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2NSBTYWx0ZWRfXzp9U2XpXsRDs
+ jRpKvofK0vEVkjey4+RkQbimOsYdbg1bVUCEc0s88z042sjOjQNAYUnzshh4sr/VLDdoYOkno8E
+ zSUs9lKheABr3K1FEVKQvPCP5A+b6Yw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 adultscore=0 priorityscore=1501 spamscore=0
+ impostorscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100065
 
-On Tue, Nov 10, 2026, at 16:39, Nuno S=C3=A1 wrote:
-> On Sat, Sep 12, 2026 at 11:20:47PM +0100, Jonathan Cameron wrote:
->> On Thu, 10 Sep 2026 20:14:15 +0200 "Arnd Bergmann" <arnd@arndb.de> wr=
-ote:
+Hi All,
 
->> > drivers/iio/adc/ad7793.c
->> Maybe. Analog devices ack needed.
->>=20
->> Production part but this one indeed fails to probe.  Analog
->> folk, do you want to fix this one up?
->
-> Given it's production we should fix. Looking at platdata seems to nice=
-ly
-> fir in DT. Issue is that I don't have HW with me to test. So I'll maybe
-> just remove platdata and assume some defaults.
+Will need to resend this series because the subject got cut. Will 
+re-send shortly.
 
-Sounds good. I already dropped my removal patch for this one.
+On 11/10/26 09:58, Brandon Brnich wrote:
+> The PM framework skips the runtime resume hook if the device was never on
+> in the first place. This results in a crash in the system resume hook when
+> a call to e5010_init_device attempts a write to a powered down device.
+> 
+> Move e5010_init_device to the resume hook to ensure register write only
+> occurs when device is properly powered on.
+> 
+> e5010_init_device needs to be called after e5010_reset for next
+> device_run to have all registers properly reset. Without this call,
+> register values are stale. Similarly, e5010_last_context_run should be
+> set to NULL in e5010_init_device so the next device_run call does not
+> use stale QP values.
+> 
+> Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Brandon Brnich <b-brnich@ti.com>
+> ---
+>   .../platform/imagination/e5010-jpeg-enc.c     | 19 ++++++++++++-------
+>   1 file changed, 12 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.c b/drivers/media/platform/imagination/e5010-jpeg-enc.c
+> index 17ea616ff1795..4e77112b59197 100644
+> --- a/drivers/media/platform/imagination/e5010-jpeg-enc.c
+> +++ b/drivers/media/platform/imagination/e5010-jpeg-enc.c
+> @@ -986,6 +986,8 @@ static int e5010_init_device(struct e5010_dev *e5010)
+>   {
+>   	int ret = 0;
+>   
+> +	e5010->last_context_run = NULL;
+> +
+>   	/*TODO: Set MMU in bypass mode until support for the same is added in driver*/
+>   	e5010_hw_bypass_mmu(e5010->mmu_base, 1);
+>   
+> @@ -1488,7 +1490,9 @@ static void e5010_device_run(void *priv)
+>   
+>   device_busy_err:
+>   	e5010_reset(e5010->dev, e5010->core_base, e5010->mmu_base);
+> -
+> +	ret = e5010_init_device(e5010);
+> +	if (ret)
+> +		v4l2_err(&e5010->v4l2_dev, "failed to initialize device after reset\n");
+>   no_ready_buf_err:
+>   	if (s_vb) {
+>   		v4l2_m2m_src_buf_remove_by_buf(ctx->fh.m2m_ctx, s_vb);
+> @@ -1517,6 +1521,13 @@ static int e5010_runtime_resume(struct device *dev)
+>   		return ret;
+>   	}
+>   
+> +	ret = e5010_init_device(e5010);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to re-enable e5010 device\n");
+> +		clk_disable_unprepare(e5010->clk);
+> +		return ret;
+> +	}
+> +
+>   	return 0;
+>   }
+>   
+> @@ -1549,12 +1560,6 @@ static int e5010_resume(struct device *dev)
+>   	if (ret < 0)
+>   		return ret;
+>   
+> -	ret = e5010_init_device(e5010);
+> -	if (ret) {
+> -		dev_err(dev, "Failed to re-enable e5010 device\n");
+> -		return ret;
+> -	}
+> -
+>   	v4l2_m2m_resume(e5010->m2m_dev);
+>   
+>   	return ret;
 
->> > drivers/iio/frequency/ad9523.c
->> Maybe. Analog Devices ack needed.
->>=20
->
-> Hmm we definitely use this one and we have OF support out of tree with
-> likely some DT abuse of what can be in DT or not. Not sure if I have
-> some HW around but we'll need to fix it.
->
-> In general for ADI parts, I think we can drop the ones that are not
-> recommended for new designs. All the others I tempted to say we should
-> keep. Naturally we need to fix all the drivers that do not compile
-> without platdata. And for the ones with defaults we can also just remo=
-ve
-> platdata and use the plain defaults.
-
-Ok, I'll leave it alone as well now.
-
-I currently still have patches to remove adp8860/8870 (backlight), ad7877
-(touchscreen), ad714x (touch) and adxl34x (input, not the iio one), which
-are currently unusable with DT but are all listed as in production.
-
-I assume you want to fix all of these and keep them in the kernel,
-but possibly still remove the adxl34x and only keep the IIO driver for
-that part?
-
-I also have patches to remove platform_data probing from ad5761, adf4350,
-ad5791, ad5421 and ad5504, these all have DT support.
-
-See=20
-https://git.kernel.org/pub/scm/linux/kernel/git/arnd/playground.git/log/=
-?h=3Dboard-remove-7.4
-for the updated series. I hope to slowly get through that. Let
-me know if you want me to skip any more of those patches.
-
-Thanks,
-
-    Arnd
