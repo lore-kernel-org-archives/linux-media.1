@@ -1,58 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317138;
-	b=OYDr990B2ZAatEw9wf2sHQ3yrOqCfozQogESMNEHfKtZHHEvv8OZ/S9jH+zDSCMklZpx
-	 LYa02dJUf9sgzlyLwwehYFy/zTa0JfvLi/lfRBKJZKKe0bHe/aqjHvc9szqElfsPiy4OK
-	 21PW1HGCWQcVY97ADdWYMmT4hiHWG419Q6US0ePUkSVqh4WlWPTU+EvmBGKmDIag+OEgE
-	 Tiox4ozhUTk5CvV6nirNjpz6HSn8T+/+ukri5DQYZjknQ0fzV6L9GbeyC1CqaZBFfK+MY
-	 nLXre1UQwusPayqtETx0vzcVPCcFPW4xXXyx2MIKZeBIp9/z6rPj5kirnxic1sxFdpw==
+	t=1794317455;
+	b=4OwmweSg5a5Y7ER+nP3h0sUbMTJKK2F7CnRX7eo3C0D0WZ4lXDn/6mYNEeW5ILL/9ot4
+	 XRIqn8nzGddqZO3YEw/C0hGFhdrWvTjrdjK6JZPJ70ajw1P3RIZH0xVaNSD8XdhOyhJXE
+	 zJTL+NY7f1pTWaM6nYuLBj7IyKGMoVlgwUHxmA/PeCoVRRtVzuSqSFasxydA2ayo8OJS7
+	 DYcEFjZRbzhpTk3Ijj4gdqCeUDJGT2JxJugMZ05ORqEzJcarANo057aPeuGkuzWJa2NaV
+	 HQXloXMAgQTqVnuPbp7+RUZwT9UYEUg9Nz/HoC55CQbfwi0PblzuhpbW3f0NuwHv01A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317138;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=t4MAlczZwz+Z9fOfs1ne27AiExRYMI5kWrI8EdWvW98=;
-	b=oRGMcojQSS1KT9vtxkURMXgxj80QmyP4t1Xidex4zMiMaZB5duZBPMw0p5a+TeINFN0s
-	 GmQcr/XIPbD8sNKSKUwEcYViKCq4XhKh+vQ05/Jvak0PmVJ5qwYCaxZMZv5G9dnYVYkrj
-	 mYvAimhyl50ahMW2wfTvpmW1cJj6CYNX/70xSkmxlLHIIq9+ZiTwVsky7l81fyl6lCZ8x
-	 5vE1kYgRBcgZ0LC47YpQwiKSUkngyzLbGf8Dcax+s3ZOSGckJ7YhUMgjo0caq1CW3kBv5
-	 FpR35oBb84Ldu5OhUJzDbWanPiYRsGrO/Mo1o9Vh3of65A4vCLTgSaRfR3yUUoHmLVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794317455;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=SY5c0gY3hP74V7jRM01ScvNFPqsuwWzfpS3pFf8E/N0=;
+	b=QIpXRyJX74GbYHy+yWvlshPeud0KKIvoZYDIq4q1/0CjVzGJ0Qz8UPUIetmz64WRsGfo
+	 3THajpyBzi65lIDnu/XadDFeWL6b+VyRJ5PwcUUppAMouprVzOlSeowQ9OU7iqV738Ls2
+	 if/p3eygkXjWjVXeYQUkVjTG5T1gd5DZdUXlcW4sFZ/hZ+ZzwCLKbIo+0uxSLU+Vp8Hkc
+	 HTJyLniomiFXvTwfr5ylr6r6rd4mGoD6Y1aitYC4Sj3wVNOZB5bhLcun+KeI8pwyG5o2T
+	 eo2Cb64eiGdU+lmeI9P2jmUXwq1GggjAKhq2gyqbkTmnywlHLPKzs1UDo7J79mHySwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=oaeEYBjW;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ISMXptHu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B063660727A8;
-	Tue, 10 Nov 2026 13:25:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B063660727A8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFF2606A7E5;
+	Tue, 10 Nov 2026 13:30:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=oaeEYBjW
-Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 32323C14;
-	Tue, 10 Nov 2026 14:23:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794316993;
-	bh=wUMu5EA83ukUYsWdEZ++l3SaNDehH1CosyCK6910r4Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oaeEYBjWQEX7IO4L9ABR66Cx0fvkBOR+6KRdzXzjQ/fP7EgwvkyKcTCTjQQSHg6hr
-	 uGI1k4Fupr8XJtLlQMmG1oyf8p6wxrZP+zT9cdY3Hjw5xzF1yzJlaMbO/JMKFYWxyw
-	 yuCU9y9vnz7cKOTmJa81CvqfRM/fHTgzLuvcexDo=
-Date: Tue, 10 Nov 2026 14:25:33 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: linux-media@vger.kernel.org, dan.scally@ideasonboard.com, 
-	jacopo.mondi@ideasonboard.com, mchehab@kernel.org, hverkuil+cisco@kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: mali-c55: Disable colour space conversion for RGB
- outputs
-Message-ID: <avMbJMoEWGrfhl4X@zed>
-References: <20261006234242.11934-1-devnexen@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ISMXptHu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A211F0089F;
+	Tue, 10 Nov 2026 13:30:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794317454;
+	bh=SY5c0gY3hP74V7jRM01ScvNFPqsuwWzfpS3pFf8E/N0=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=ISMXptHubCg4IbFF4dkwvJ/vioGq7FP6sYlZFbC0LmlasricAOZ5fHZFAFuHobY8b
+	 wEQXXynUsu2t4W3B4t3RE2rgQDH1A4OzRvOGTNOMOr1zl2Df/q3FHH38lKBm3Ik8ix
+	 sjEgjEm+/mvb89Y6L+kdAw3nNjM12YDNJ6YvryGlu3p0ROXXzCI2Iri+hxP8/bbwLM
+	 GvxgmGFory9l1hp1jQmrkkGLIBOWdupXUCqp+bFvXpj3IAEOc2IJa/836s8WEw/EFG
+	 vbgHwXHrtoddShoSY3MKXOLTmCSjg2hSqJwvd670MNOy/pkcXf/9XrBbx8kx+KjYsG
+	 V+FLTdNrBlqEQ==
+Message-ID: <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org>
+Date: Tue, 10 Nov 2026 14:30:51 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -62,51 +51,136 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261006234242.11934-1-devnexen@gmail.com>
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Michael Riesch <michael.riesch@collabora.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+ <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
+ <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org> <avMM6a6xcDHT-zCR@houat>
+Content-Language: en-US, nl
+In-Reply-To: <avMM6a6xcDHT-zCR@houat>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi David
+On 10/11/2026 13:33, Maxime Ripard wrote:
+> Hi Hans,
+> 
+> On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
+>> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
+>>> Hi everyone,
+>>>
+>>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@kernel.org> wrote:
+>>>
+>>>> On media-centric camera pipelines, every entity is known at boot time
+>>>> and described statically (for example via device-tree).
+>>>>
+>>>> The V4L2 framework assumes that every entity of the camera
+>>>> pipeline is always present. This is a reasonable assumption for
+>>>> integrated cameras in laptops or phones. However, in automotive systems,
+>>>> cameras (e.g. rear-view or surround-view) can be damaged or disconnected.
+>>>> When the framework assumes all sensors are present, a single missing
+>>>> camera can prevent the entire pipeline from operating.
+>>>
+>>> This series has been discussed at the Camera & ISP "unconference" in
+>>> Pragues (during Linux Plumbers)
+>>>
+>>> The notes can be found here:
+>>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus.ideasonboard.com/T/#u
+>>
+>> What is missing in this discussion is how userspace can indicate that it
+>> actually can handle partially instantiated pipelines.
+>>
+>> Today if one or more parts do not come up, the devices nodes are also not
+>> created. This is typically exactly what you want.
+> 
+> That's very arguable? We have plenty of other examples where we allow to
+> show a software representation of something that isn't available in
+> hardware, starting with virtually any memory buffer allocation, but also
+> disabled CPUs, swapped pages, etc.
+> 
+> For things a bit more related to drivers, things like USB root hubs are
+> also pretty analogous. The "root" device will always be created, even if
+> devices connected to it are non-functional, missing or whatever. It's
+> the primary interface that these devices might or might not attach to.
+> 
+> So it's a bit hard to understand why the device nodes not showing up is
+> exactly what we always want.
 
-On Wed, Oct 07, 2026 at 12:42:27AM +0100, David Carlier wrote:
-> The colour space conversion block is only programmed for YUV formats,
-> and its configuration is kept across streaming sessions. An RGB stream
-> started after a YUV one thus still converts its output to YUV.
->
-> Clear the conversion configuration for non-YUV formats.
->
-> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> ---
->  drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> index ff01553026fb..2425a069a939 100644
-> --- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-> @@ -577,6 +577,10 @@ static void mali_c55_cap_dev_format_configure(struct mali_c55_cap_dev *cap_dev)
->  				MALI_C55_REG_CS_CONV_CONFIG,
->  				MALI_C55_CS_CONV_FILTER_MASK,
->  				MALI_C55_CS_CONV_FILTER_ENABLE);
-> +	} else {
-> +		/* Don't inherit the conversion set up by a previous YUV stream. */
-> +		mali_c55_cap_dev_write(cap_dev, MALI_C55_REG_CS_CONV_CONFIG,
-> +				       0);
+It's simply how V4L2 works today: video devices do not appear until all components
+are instantiated. Most video devices consist of multiple devices (bridges, i2c
+devices, etc.) and unless all are found and initialized, you can't capture. So
+bridge drivers postpone creating the video/media devices until everything is there.
 
-nit: fits on one line. I'll adjust it when applying.
+That also means that applications can safely assume that if a video device appears,
+it is functioning.
 
-The patch seems correct to me
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+If we add fault tolerance, and you allow video devices to appear even if they are
+not functioning (or partially functioning), then that contract breaks.
 
-Thanks
-   j
+> 
+>> But here you allow partial instantiation, and how does userspace
+>> signal that? It must be an 'opt-in' mechanism, but how is that done?
+>> There are no devices yet, so that can't be used, so what alternatives
+>> are there?
+>>
+>> We've been discussion Fault Tolerant V4L2 for many years now, and every time
+>> I raise this issue, but I never received any proposals.
+>>
+>> This must be solved.
+> 
+> Is there any way to? You're saying at the same time that we must not
+> create the device, but that an application would need to signal to that
+> device that it can indeed be created. It's a circular dependency that
+> cannot be solved on a per-device basis.
+> 
+> During the meeting, we had a discussion that the media device should be
+> created as a "skeleton", and then as other devices probe they would fill
+> in the blanks. How would that not work? Also what is your main concern
+> exactly that makes you ask to not do that in the first place (or make it
+> opt-in)?
 
->  	}
->  }
->
-> --
-> 2.55.0
->
+Applications today assume that everything works when the device nodes appear.
+
+If you change the behavior, then they just see a skeleton driver and how
+would they know that they need to wait until all components are found and
+it is ready for use? Or what to do if some parts are faulty?
+
+One solution might be that bridge drivers capable of fault tolerant behavior would
+create a /sys entry called 'v4l-fault-tolerance' (just an example) somewhere.
+
+Applications that can handle this can find that entry and write '1' to it.
+After that the driver will start creating devices even if not everything is
+available. Without it it will just block (the current behavior).
+
+It's also tied to your use-case: for the same hardware your use-case might be
+fine with the current situation (non-fault-tolerant), or you want to enable it.
+
+There might be other ways to implement this: e.g. a module option or a Kconfig
+option.
+
+Also note that systemd opens video nodes as they are created. It used to use
+v4lctl for that, but that might be integrated now.
+
+So that should keep working. I think it just calls QUERYCAP, so that is likely
+to just work.
+
+Regardless, I want to see an RFC for this, demonstrating that someone has
+thought about it. If you think this can be done safely without an opt-in mechanism,
+then explain so in the RFC.
+
+Regards,
+
+	Hans
+
+> 
+> Maxime
+
