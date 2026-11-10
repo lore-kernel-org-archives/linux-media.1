@@ -1,84 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794305345;
-	b=qCCIAK/liSUsVmo3njfnluzfSoj31pHZs8dolNYUUCgZGn+/z/qJSiCZdckbfo+VHVFp
-	 K45AU+NoZ89j+lEnmjC3KMcIKrKflzLogYD/ILLBqydv+XXJP63pX/rjSDZh8FxZcY9Gy
-	 u0FzAUWGXewLB6WTcBPUlBUJrG7uUucDICv0UjwZvJcC+2dAeOyy0RW4PvIjvMQG5e3+S
-	 URLvwRRpN+9nplE8JWrvPEQBCQi3vz/CgXuFSS0Y49vxtPOnjbLaHfGljUNuvGTsq1tbB
-	 uEbo5xic4MMx40KyaGuTMW4NY98hwyiYpCo0SP75OwvEuM8rSgnWdk8+wFSZYkjHspw==
+	t=1794305600;
+	b=drQ03F8oAqKGvYQdvZUbmr2afomM1WtAC22TeEH9YEWhs1BYZQZbWoSBjzGfYqHriufV
+	 6A/EMrfJe6NbiWf8F/hWHndCxg5gY08b7Q+Qcat202cVEFdpazOcbYv/hZN1hPVhoIc5X
+	 F/FbBZ/SuGHIrcsFG0Flt+FTZ8inS/M+Gf7f9LXDmhf+d9XJJfVpPvXQfyX1bWFLwvyGo
+	 yeoDVzMBtGNIDTw2SaBDm0NOzSWyVHi7nYA3RBT3a26Yc2BCTE2RiHpLhUIIwR6/3lJpA
+	 JVGgmIcpFnj2FhakLiD+6Gv6m9a3MEVa2ugBZfTb844tSkuOaLHtvQV0hCV+GsXQEdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305345;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=TkBTbuy0DpeI8nIAcEwwOqJ2O7MQrrYCZJhG/k+EVe4=;
-	b=vppV0VPoeCqUtOLbV8iDGE5Rwp2tzext4JYDOpxCPUJYAc/1LU0+e3eXN0njtFWa8kXI
-	 p9LZuNwCLvlBTpYAzBSjdsms8ZwwLWEyLYJsKhcY8MxgN2zdFL+nQw56a8qyWgp/3qyiI
-	 tahbVcdaQrzmY/9GUnjV/eFpR+Og86EuUwn2ljUXqStF9vWuL0H4Ogb1id2Nv7FfH6zvg
-	 OyUnp3TMbiaAUG+qetcRD+8zY+AdEh4StPJqLkJALiIxfLB+bUGag03smvxJb8JxUqHkm
-	 s9OCmkdgCeZMDl9y3PCt1B4IJBCx4NG2MIqp1X8+GnpK3aWobu7iVH+zKCCqoEDP29Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305600;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7lZki/LBL0F86IwmD+ZREFy3qnWUNsldGDK/mcimVKo=;
+	b=SycYPTy5GQ0KPVWT7IhNkeYBzfsmCYauqhOcj36eNiEhJjWT4/XftNQvgBpDw4lGvqJ8
+	 jEIT6Voybrn+TFoV0vKfLK4UO/ymrwysEfMyuJLQLpk2hbSzcA/qeFA7HLOYpx/hmCsmE
+	 UKh679+SJcCMfFVX62OA4Gn+Ym4J+qpRTLf7LK7XagaJI6EKYTy8Sz2EL+qfhkCMe0cgM
+	 g6PQf815ShM3aUnrupHw7Ehs2DOu8zB2Jr+jOm5XX2D6bzdxSTBSpwjJOGoMC30X5xHz8
+	 9LwhUnK6cp4BUseMqr0hVfKK9+XyRnrI7XWrKwHWwkL7caoVs1I5I6fBvFmRtnHpXiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QORtUhbi;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R+nTugQx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6806F60710AA;
-	Tue, 10 Nov 2026 10:09:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6806F60710AA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE88D606A331;
+	Tue, 10 Nov 2026 10:13:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QORtUhbi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794305344; x=1825841344;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=KnQUhoRluuFeY+pp23B3MM79eqJfQXr4D6zi3F4Tv+I=;
-  b=QORtUhbiS/YSGZGhlCEJedYCjTqNq69seibLUStQzg7ZzM5KsEI+zeYk
-   TliBDi6MzTMu/foF6N5DnhM25Z9bdTbVpGHugbMVsReIynt2UUaHTMNLe
-   rOoYng+KBXYyJ6S6A/R8SHY7ZnZrfm4YrkxuLTiIoocLcIxQq6jhUTbBu
-   PLnQmbD4CnTX2S0EO8M4zOa/PmtU7MklDoMM2rI/tsXRJQ7CNCRiMTVn/
-   M+aVHRAH6hQzr94Xdo9dHDa/PCRwClc58YgCExuDt+Fg+k7wISplaogZu
-   a8Bgw8HVeeYwSwDIHSSoa1jojkvbvuCRjFbId3EDOZzmNtspO7dOm3qPG
-   A==;
-X-CSE-ConnectionGUID: 5ibcnwqHQZaRnecMY4hUVA==
-X-CSE-MsgGUID: +9aSGeZuTo6ZEhbe0vBUaw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3071064"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="3071064"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:09:03 -0800
-X-CSE-ConnectionGUID: tba2USrHSJG8vIoXGFsvrw==
-X-CSE-MsgGUID: ByJlKxEbSwiOu7TbyfXR5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="9893325"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.11])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:09:01 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id C4420121B7B;
-	Tue, 10 Nov 2026 12:09:00 +0200 (EET)
-Date: Tue, 10 Nov 2026 12:09:00 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Marek =?iso-8859-1?Q?Konr=E1d?= <konrad.marek@seznam.cz>
-Cc: linux-media@vger.kernel.org,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	"Sapre, Sarang" <sarang.sapre@intel.com>,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>,
-	Manik Bajpai <manik.bajpai@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: ipu6: Fix ISYS runtime PM race during probe
-Message-ID: <avLtPItSlHcyNCXG@kekkonen.localdomain>
-References: <20261105114311.49242-1-konrad.marek@seznam.cz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R+nTugQx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 484C91F008A1;
+	Tue, 10 Nov 2026 10:13:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794305599;
+	bh=7lZki/LBL0F86IwmD+ZREFy3qnWUNsldGDK/mcimVKo=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=R+nTugQx2Ko5IKMnMDEZYXzbne9QVOibmpJBeM4hwwgYeLhC+t8Qlw5vywGYKPCJj
+	 EkMrjwUrGHpJB0yS6BHTQUjcN5n/AvRetx5szQelim7Rr4nPzQAIoqNx+cCRT6FhmT
+	 qQcJo8rDDwq2nq9kxvwQjpoAEy5twIEZ4W4r1heQV3dpAa+EWJl+m+RaCRQD7naHMc
+	 G/OTsRMVT4DuG8vNbf9ZFYsAp5x/7PFPpINPOo3Z4cIkyCXaJsPsTBlxuqYlqKa7wA
+	 6PrTt2mfYw4eH5WDrvrHMob30PvH8bbUHYr4bFdfH2E1k4vyJ54qCLHqePZS2veXSB
+	 hpnbE70gWbP4A==
+Message-ID: <ed2a6a4e-f480-4b39-9684-0dbd2d55e261@kernel.org>
+Date: Tue, 10 Nov 2026 11:13:16 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -88,70 +51,91 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261105114311.49242-1-konrad.marek@seznam.cz>
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] media: verisilicon: Replace strlcat() with seq_buf
+To: David Laight <david.laight.linux@gmail.com>,
+ Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Cc: nicolas.dufresne@collabora.com, benjamin.gaignard@collabora.com,
+ p.zabel@pengutronix.de, mchehab@kernel.org, linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com,
+ morbo@google.com
+References: <20261105084518.386234-1-nikitash.mariiaw@gmail.com>
+ <20261108200800.2b3b15cf@pumpkin>
+Content-Language: en-US, nl
+In-Reply-To: <20261108200800.2b3b15cf@pumpkin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Marek,
-
-On Thu, Nov 05, 2026 at 01:43:09PM +0200, Marek Konrád wrote:
-> ISYS and PSYS are auxiliary devices and PSYS is a child of ISYS.  In
-> ipu6_pci_probe(), resuming PSYS to initialise the MMU and authenticate the
-> firmware also resumes the ISYS parent.  However, ISYS probe has been
-> deferred until bus_ready_to_probe is set, so ISYS is marked RPM_ACTIVE
-> without its runtime_resume callback having run.
+On 08/11/2026 21:08, David Laight wrote:
+> On Thu,  5 Nov 2026 00:45:18 -0800
+> Mariia Nikitash <nikitash.mariiaw@gmail.com> wrote:
 > 
-> The driver then drops the PSYS reference using pm_runtime_put(), which only
-> schedules the idle transition asynchronously.  When PSYS finally suspends,
-> the runtime PM core queues an idle request for ISYS as well.  This request
-> can run after the deferred ISYS probe has published dev->driver but before
-> isys_probe() has called dev_set_drvdata(), making isys_runtime_pm_suspend()
-> dereference a NULL isys pointer:
+>> In preparation for removing the deprecated strlcat() API[1], replace
+>> the strscpy() and strlcat() calls with seq_buf operations when
+>> constructing Hantro video device names.
+>>
+>> This preserves the resulting strings, including truncation
+>> when the compatible string and suffix exceed the destination
+>> buffer's capacity.
 > 
->   BUG: kernel NULL pointer dereference, address: 000000000000031c
->   ...
->   isys_runtime_pm_suspend
->   bus_pm_runtime_suspend
->   rpm_callback
->   rpm_suspend
->   pm_runtime_work
+> This is just stupid...
 > 
-> Make both runtime PM transitions synchronous and complete them before
-> bus_ready_to_probe is set.  pm_runtime_put_sync() waits for PSYS to be
-> suspended, dropping the active child count of ISYS.  pm_runtime_suspend()
-> then suspends ISYS while its driver is still unbound, so no suspend
-> callback can run during the probe.  The first real runtime resume happens
-> later, when the driver data is available.
+> David
 > 
-> Signed-off-by: Marek Konrád <konrad.marek@seznam.cz>
+>>
+>> Link: https://github.com/KSPP/linux/issues/370 [1]
+>> Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
 
-Thanks for the patch.
+Nacked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-Does this patch
-<URL:https://lore.kernel.org/linux-media/20261103163814.96980-1-arpith99@gmail.com/T/#u>
-address your problem as well?
+Just use scnprintf.
 
-> ---
->  drivers/media/pci/intel/ipu6/ipu6.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-> index cdf812c02960..905b03b7e76d 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6.c
-> @@ -827,7 +827,8 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
->  	}
->  
->  	ipu6_mmu_hw_cleanup(isp->psys->mmu);
-> -	pm_runtime_put(&isp->psys->auxdev.dev);
-> +	pm_runtime_put_sync(&isp->psys->auxdev.dev);
-> +	pm_runtime_suspend(&isp->isys->auxdev.dev);
->  
->  	/* Configure the arbitration mechanisms for VC requests */
->  	ipu6_configure_vc_mechanism(isp);
-
--- 
 Regards,
 
-Sakari Ailus
+	Hans
+
+>> ---
+>>  drivers/media/platform/verisilicon/hantro_drv.c | 11 ++++++++---
+>>  1 file changed, 8 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+>> index 26e5d5547466..2bfcd45cc55e 100644
+>> --- a/drivers/media/platform/verisilicon/hantro_drv.c
+>> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
+>> @@ -17,6 +17,7 @@
+>>  #include <linux/platform_device.h>
+>>  #include <linux/pm.h>
+>>  #include <linux/pm_runtime.h>
+>> +#include <linux/seq_buf.h>
+>>  #include <linux/slab.h>
+>>  #include <linux/videodev2.h>
+>>  #include <linux/workqueue.h>
+>> @@ -883,6 +884,7 @@ static int hantro_add_func(struct hantro_dev *vpu, unsigned int funcid)
+>>  	const struct of_device_id *match;
+>>  	struct hantro_func *func;
+>>  	struct video_device *vfd;
+>> +	struct seq_buf s;
+>>  	int ret;
+>>  
+>>  	match = of_match_node(of_hantro_match, vpu->dev->of_node);
+>> @@ -902,9 +904,12 @@ static int hantro_add_func(struct hantro_dev *vpu, unsigned int funcid)
+>>  	vfd->vfl_dir = VFL_DIR_M2M;
+>>  	vfd->device_caps = V4L2_CAP_STREAMING | V4L2_CAP_VIDEO_M2M_MPLANE;
+>>  	vfd->ioctl_ops = &hantro_ioctl_ops;
+>> -	strscpy(vfd->name, match->compatible, sizeof(vfd->name));
+>> -	strlcat(vfd->name, funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER ?
+>> -		"-enc" : "-dec", sizeof(vfd->name));
+>> +
+>> +	seq_buf_init(&s, vfd->name, sizeof(vfd->name));
+>> +	seq_buf_puts(&s, match->compatible);
+>> +	seq_buf_puts(&s, funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER ?
+>> +			"-enc" : "-dec");
+>> +	seq_buf_terminate(&s);
+>>  
+>>  	if (funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER) {
+>>  		vpu->encoder = func;
+> 
+> 
+
