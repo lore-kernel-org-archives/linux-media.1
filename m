@@ -1,80 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794306203;
-	b=hWvuIwjLaT9EONEItbhG87QZP+J3d/loLdeWv17CkZp6vFjBapO6fQ+leqUSI2PQgYba
-	 K9Ax3E1Gp7XbRcso0rS3wRLANN0bVmvz1H97bEgbdSHDpj4NTB3A6j3Z2GUfgdR0jKzj7
-	 G6lrZha6clF/mHLm+bGlToyDwk75LvEyCJFJfW1AyENkF+4bdhpiO932+U5AlwkIvoa3U
-	 RFumgrP/BqyHwrjp26Ed+5vvpl8DImycJOPw0pP3/+dMSYx36OZSJyxFUI76A8o9/JJxB
-	 z91+jZA0AqCfMtYC8ETh5TP0QW2ApTW0vEuXXtIhgcS+rpy2sNvKsVnyP5WmcGX7mQw==
+	t=1794308658;
+	b=TkTJLf0T7azYdXwb9pVuhLstMSqtcspZsFOSb6dagER7wqbhp6g5ZQBXKiYKMFD3mO2N
+	 xcqgT2EnkyEYbEQcZpG2h/sqWVgF+nlh+LEPK/CyAc+eGHNXZizDbRkqvsgg9ZOc7BdHe
+	 d/jwKo5aMQ6gj1+h1oTR1LC2Niaz/s0/QlP5t+PNDmNwmlxQsDypBKWvU7qsZohSsmaX1
+	 UZk4p8VR6L7WcyW2/yYQnDX2KzhT0uR95jAQwqndWkMOOfBZxGHX3msa4eF7mlAcCmasG
+	 /o30329Rs9Tlih2N10iRa1AOXp5tG2NbBCYGwNVaw91tLak7e7dl4Geq3H8bwYmQCzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794306203;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=4Z0jCGvHX7DYTMHYJJkZX4Syiq7dm23F/7eJvYhL9hA=;
-	b=F5dcIxJ6aq+q3r0aGMA7gbEkukdP/ptUDtu3OSwacoA0bz9PY/BqKtvRY1x8qun5YUZO
-	 M8wCVhCF8fuiMa1PcGrxM3I2psBSZdACheLte4mz/sBR+lBcENC+hfrnZCVDbn1HajR/l
-	 sVAMPKaI4/6bGwX+6W97ovVKXtKwL2ZPiX+VzfPSiDlrReXfUJ1zd5H39vEOg9kfGZGVQ
-	 aLZ0dlqmc/MYn5+vw8paw3joehRM719qd37ea8XYxvVfF4/enQ4RJWcMMne6gMqFuEFtS
-	 BPxTuKAQt96pVDKMbQOrVbItZZH6eP6Mj9ylVpdxWFX0IRZZ/mYIlKM+MRQJuIvEO8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794308658;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=WAywVlrX++mUZVVsIyzfP/BpfT3zDp/kOabAQ4D1QIs=;
+	b=mvFcYc4n0o4H3iCwZeSsC2Lj8H3/9lr7qckmA2xqLAJlfYvDKiJrEoOoVV2CZU0rOQfI
+	 Ek6pFVWvo9JwCirY/UP7BGCFkoxDol1f6TcSKJhXEhrJxRup8Bv7qyd/QXlLgj6/s1IMF
+	 JFnxlwOApiRm75dBBooa0Bit6Y8me/IhVBiItkZ1VHqKoNmlftAW90mlBiVGYW3XYMCvj
+	 wrlT3BhVl+602XhNveTavfBWhV4Pup86jckaojNW4btJPr7NnpMjji6AR/ZqrDH/H7U+e
+	 jm949rHfik2ffVUaYj0WoLBTWXdw7Muf2cQqrFE5/yzbb03QDgch1Ecw4T8b+uSoMqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a6Mfbo73;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B0oLPXzp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D627E606A330;
-	Tue, 10 Nov 2026 10:23:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D627E606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25667606A321
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 11:04:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a6Mfbo73
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794306202; x=1825842202;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Wjszt7vM3bw02fZ3cs7BjKTSZKJ0qHoKwjXdiaPJRyI=;
-  b=a6Mfbo73+SrM3sHiDwcDI0oxsil3Nlx7SCNXYP3I6fYQSfnduqBmAgoJ
-   vqfsvcgtvY2wZcKGMFcQWzfst6xp9vlCsfuwVXUc5FahzmmHnLH2tsf+j
-   1whNY2yqnjHiw+ONzJ+em1GbANlfKq8ofmUbYfeU2E8AWC+FOqMesgHQU
-   unvcpHZ+3p/+RB9DaBM1NJ00oP2HTmyPyel5inqrMmWjxMEDOaa77oUBq
-   1BS0pHO9wiCFXfWj7f7k6WiVJ9Bq9D478fU6ZRmb4ZjO/PJLaPg1HeZYJ
-   VrnT9NsyR3zUSh01h3h/pHM1zAm0fW1+7nUinFg7XiqhIuxRfbcGgSCjy
-   Q==;
-X-CSE-ConnectionGUID: eccd8BY8SZa3LFclk4bP7Q==
-X-CSE-MsgGUID: 6ZvqUCJvT0O6NcMe9BvH9Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2947232"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="2947232"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:23:21 -0800
-X-CSE-ConnectionGUID: d1DTb5iFQ/SQSrBs5v72qg==
-X-CSE-MsgGUID: WQBGl42RT7Ohb2uQR2e6MQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8263477"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.11])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:23:19 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 201A0121B7B;
-	Tue, 10 Nov 2026 12:23:18 +0200 (EET)
-Date: Tue, 10 Nov 2026 12:23:18 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jake Steinman <j@metarealtyinc.ca>
-Cc: bingbu.cao@intel.com, antti.laakso@linux.intel.com, mchehab@kernel.org,
-	hansg@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: ipu6: Don't stop or close a stream that failed to
- start
-Message-ID: <avLwlhbOg-9EJo7g@kekkonen.localdomain>
-References: <20261106121905.42571-1-j@metarealtyinc.ca>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B0oLPXzp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B2BB1F008A2;
+	Tue, 10 Nov 2026 11:04:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794308657;
+	bh=WAywVlrX++mUZVVsIyzfP/BpfT3zDp/kOabAQ4D1QIs=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=B0oLPXzpNlIOqULJ9va3TtF22Uih2cg5oWjarp26qW2CbwyHmgd52JWvERhw2oLeO
+	 OoH+DvSdEw+74SBbxrifAA/m7S0T043eKSV7iC4Y7GUIumNTl2se4anDx07j9X7ki7
+	 phHCQX7Cu7A3QL3aHwtsxK3O6c4IXUMLeNhLVTQXINZgdbSiYtbAJNKAS8dc9SksTB
+	 lh39IdsUFBlpalYnU6E3FW6V3DfkfTGdZc7WfGH0UzlQIv6DnCgQMWkNQOdQN0JGg0
+	 SFCP8Jfxk43uuR2C5SQh3B5Tkg1k6Sov4jwC9pBsnOmRv3XBrPcWiOrOh4mqyuSGtd
+	 yGLRemDMDiHSg==
+Message-ID: <4fdd23e2-bd84-4182-946c-8295766de8f7@kernel.org>
+Date: Tue, 10 Nov 2026 12:04:14 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,75 +51,145 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106121905.42571-1-j@metarealtyinc.ca>
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] Documentation: media: Document impact of errors on buffer
+ fields
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Nicolas Dufresne <nicolas@ndufresne.ca>
+Cc: Sakari Ailus <sakari.ailus@iki.fi>, linux-media@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+References: <20261030103815.3098340-1-laurent.pinchart@ideasonboard.com>
+ <auR63iwOm_mih97K@valkosipuli.retiisi.eu>
+ <20261030140958.GB3109745@killaraus.ideasonboard.com>
+ <auUepevHsfBZB2nV@valkosipuli.retiisi.eu>
+ <9fe913fc3f750462a4655d51fa1a2f110a02ea18.camel@ndufresne.ca>
+ <20261109233315.GA1000823@killaraus.ideasonboard.com>
+Content-Language: en-US, nl
+In-Reply-To: <20261109233315.GA1000823@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Jake,
+Hi all,
 
-Please be careful with git send-email arguments in the future.
+It seems I missed this discussion, so apologies for being late to the party...
 
-On Fri, Nov 06, 2026 at 07:19:05AM -0500, Jake Steinman wrote:
-> When ipu6_isys_start_stream_firmware() fails, the firmware stream is
-> either not open or has already been closed by its own error path. Since
-> commit eb68e9f1c6eb ("media: ipu6: Bridge the gap between streams in
-> V4L2 and IPU6 firmware"), the err_requeue_buffers label in
-> ipu6_isys_csi2_enable_streams() falls through to
-> err_stop_stream_firmware, so the driver then sends STREAM_STOP and
-> STREAM_CLOSE for that stream as well. Each of those waits for a
-> response that never comes.
+On 10/11/2026 00:33, Laurent Pinchart wrote:
+> Hi Nicolas,
 > 
-> On Panther Lake (IPU7.5) I have seen this after the firmware rejected a
-> stream start: stop and close both timed out, a later stream open timed
-> out too, and the ISYS needed a power cycle before anything could stream
-> again.
+> On Mon, Nov 02, 2026 at 09:40:22PM -0500, Nicolas Dufresne wrote:
+>> Le samedi 31 octobre 2026 à 00:48 +0200, Sakari Ailus a écrit :
+>>> On Fri, Oct 30, 2026 at 04:09:58PM +0200, Laurent Pinchart wrote:
+>>>> On Fri, Oct 30, 2026 at 01:09:18PM +0200, Sakari Ailus wrote:
+>>>>> On Fri, Oct 30, 2026 at 12:38:15PM +0200, Laurent Pinchart wrote:
+>>>>>> When an error occurs related to a captured buffer, hardware can produce
+>>>>>> less data than expected (or no data at all), and timestamps may be
+>>>>>> unreliable or unavailable if the device uses hardware timestamping.
+>>>>>> Document this in the description of the V4L2_BUF_FLAG_ERROR flag.
+>>>>>>
+>>>>>> Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>>>>>> ---
+>>>>>> I've posted a corresponding fix to v4l2-compliance in [1] to relax the
+>>>>>> bytesused and timestamp checks.
+>>>>>>
+>>>>>> [1] https://lore.kernel.org/linux-media/20261030103717.3098080-1-laurent.pinchart@ideasonboard.com
+>>>>>> ---
+>>>>>>  Documentation/userspace-api/media/v4l/buffer.rst | 5 +++++
+>>>>>>  1 file changed, 5 insertions(+)
+>>>>>>
+>>>>>> diff --git a/Documentation/userspace-api/media/v4l/buffer.rst b/Documentation/userspace-api/media/v4l/buffer.rst
+>>>>>> index 94dc2719e907..5a7a1511cee7 100644
+>>>>>> --- a/Documentation/userspace-api/media/v4l/buffer.rst
+>>>>>> +++ b/Documentation/userspace-api/media/v4l/buffer.rst
+>>>>>> @@ -503,6 +503,11 @@ Buffer Flags
+>>>>>>  	streaming may continue as normal and the buffer may be reused
+>>>>>>  	normally. Drivers set this flag when the ``VIDIOC_DQBUF`` ioctl is
+>>>>>>  	called.
+>>>>>> +
+>>>>>> +	Depending on the type of error, the buffer may contain less or no
+>>>>>> +	data. In such cases the ``bytesused`` field can be lower than expected,
+>>>>>> +	including being zero. The ``timestamp`` field may also be zero or be
+>>>>>> +	otherwise unreliable.
+>>>>>
+>>>>> Could we say that if bytesused field is non-zero, then there is a
+>>>>> timestamp, but when bytesused is zero, there's no data and probably no
+>>>>> expectation of a valid timestamp either?
+>>>>
+>>>> How about this?
+>>>>
+>>>> 	Depending on the type of error, the buffer may contain less data than
+>>>> 	expected, or no data at all. The ``bytesused`` field reflects that
+>>>> 	situation. When ``bytesused`` is zero, the ``timestamp`` field may be
+>>>> 	unreliable and may be zero.
+>>>
+>>> Looks good to me.
+>>
+>> Since its not specified, have you asked yourself if this is CAPTURE device
+>> behaviour, or if you do believe this should be true for all type of devices ?
+>>
+>> I've had recent discussion for M2M in regard to CAPTURE buffer ERROR. The API
+>> has a gap and we don't know if we should complete a capture buffer when an
+>> OUTPUT buffer triggered an error. If the timestamp copy should be honoured and
+>> what the byeused size should be and mean.
+> 
+> Good question. The bytesused field is actually not well specified for
+> OUTPUT devices. The documentation only states that it's set by
+> applications, therefore at QBUF time, even if that's not explicitly
+> stated. There would be no interaction with the ERROR flag then, as the
+> flag is set by drivers at DQBUF time.
+
+Strictly speaking there are no requirements for the bytesused field for
+output devices. For capture we have no requirements for bytesused when
+queuing a buffer, and for output it is the flip side: we have no requirements
+when dequeuing the buffer.
+
+Now, that said, ideally drivers should just preserve the bytesused field
+when dequeuing output buffers. And bytesused definitely must not be >
+length field, so it can't contain a random value. This is regardless of
+whether the error flag is set or not.
+
+I think v4l2-compliance can give a warning if bytesused was not preserved,
+and a failure if it is > length.
+
+Test it with the test-media script first, though. To ensure that our
+test drivers all do the right thing :-)
+
+> 
+> At DQBUF time, I'm not sure what should happen for OUTPUT devices. I
+> could image a theoretical use case where a driver would want to report
+> how many bytes have been consumed in case an error occurred and only
+> part of the buffer was consumed, but I don't know if there are any real
+> use cases for that.
+> 
+> The same likely applies to the timestamp. I think the current
+> documentation is quite vague there too. It states that
+> 
+>   For output streams the driver stores the time at which the last data
+>   byte was actually sent out in the ``timestamp`` field. For output
+>   streams that use ``V4L2_BUF_FLAG_TIMESTAMP_COPY`` the application has
+>   to fill in the timestamp which will be copied by the driver to the
+>   capture stream.
+> 
+> So for a pure OUTPUT device I can imagine that the returned timestamp
+> could be unreliable when an error occurs, while for a M2M device with
+> TIMESTAMP_COPY the timestamp on the output side will not be modified by
+> the driver, and the timestamp on the capture side should probably be
+> always copied.
+
+I agree with that. However, I am not certain if m2m drivers always do this.
+I'd say that we check for this in v4l2-compliance, and if we find drivers
+that fail the test we fix them. Should it turn out that for some hardware
+this is not possible to do for some reason, then we can always relax the
+requirement.
+
+> 
+> Should I document that the behaviour described by this patch only
+> applies to capture devices ?
 > 
 
-I wonder if any firmware communication failure, a timeout or other error
-should trigger the IPU reset (once the users are gone). The functions
-communicating with the firmware should also probably check that condition.
-I just sent a PR on IPU reset changes, they probably don't address this
-problem though.
+It would be nice to cover both capture and output devices, if possible.
 
-> Requeue the buffers and go straight to freeing the stream on this path.
-> The CSI-2 receiver error path still stops and closes the stream, which
-> is open there.
-> 
-> Fixes: eb68e9f1c6eb ("media: ipu6: Bridge the gap between streams in V4L2 and IPU6 firmware")
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
-> ---
->  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-> index 1525454..ed4e4f6 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-> @@ -678,8 +678,11 @@ static int ipu6_isys_csi2_enable_streams(struct v4l2_subdev *sd,
->  	}
->  
->  	ret = ipu6_isys_start_stream_firmware(stream, &bl, &desc);
-> -	if (ret)
-> -		goto err_requeue_buffers;
-> +	if (ret) {
-> +		/* The firmware has no open stream to stop or close here. */
-> +		ipu6_isys_buffer_list_queue(&bl, IPU6_ISYS_BUFFER_LIST_FL_INCOMING, 0);
-> +		goto err_free_stream_firmware;
-> +	}
->  
->  	if (!csi2->streaming_vc) {
->  		ret = (IS_IPU7(isp) || IS_IPU8(isp)) ?
-> @@ -704,7 +707,6 @@ err_stop_stream_csi2:
->  	else
->  		ipu6_isys_csi2_stream_disable(csi2);
->  
-> -err_requeue_buffers:
->  	ipu6_isys_buffer_list_queue(&bl, IPU6_ISYS_BUFFER_LIST_FL_INCOMING, 0);
->  
->  err_stop_stream_firmware:
-
--- 
 Regards,
 
-Sakari Ailus
+	Hans
