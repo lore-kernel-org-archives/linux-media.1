@@ -1,102 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794301260;
-	b=xPLpTQgoIkkFMTKIWr4S2/16Cy8J9ZfXCEcFjmAXAENbYLkcUMhP2+wBPyGVUq4LftzO
-	 7wugHmyRMKb9rN/QNzeWaHMZniBfdqHkQD+6Fle+UtkdihXbtHSy8/1H3w8b2o9P47+J1
-	 BGIKWYWXQeSP0IQXz/EUM0ZwuvZwP0oDMmNvAseqcifcEYZEWWdpX9vMRw/xSk4019Kd6
-	 VH2IpHy5GJuNLGmX8hOFPbkd3SuWAS4dcolnfRaAutsKFFHUkX68auONr7LigN9aherS4
-	 Tv5NZoj6HCLggvYbk52ny5uS+EUCIgTfJA1JJDO+BsbQnm8VlRq2i1Y7xieZTi1Lnsg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301260;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794301464;
+	b=R+2aQr7xRHvT4SNLsr5Ul9xlqX2tEYoem2JBgVCLW0X9AsBrrG3HkJiKGS6w8CJ/EKPR
+	 tB1gw6C7QCZSUcbn7cJRmONZUmkFEPiwFUSmwsuIPTWK6jhcMSPbHRULYF2KYqac9oHxr
+	 VIXq2WD47iYq9zrPd3mwRQI55blIhqwEao457IEaMvK9e0y2S0q2w1f+Kb6x/oDx8SzGa
+	 +vqVmd2Yk9phrEKQ7MrM6YrkWwT1Yx+gLrkAV7egf4r2mb+oLWdjMFuy+anHAPn9oA/Wu
+	 WcomCFB7rOmOJUKfd2X/r8Cjmn1Yq0yW4Lz4SkrTxWGFu6In5YoaSfiCGhCQR9gxiZg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301464;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=D/l1DG9pW0EG2fGxLRQvmW7PF5RxeWs5LWhd8jRdOqg=;
-	b=e+9HeVlleDQZ+QRP4LvvvtqjQPeekINAgda04Es8oRLagJk40hl1LVx1nkcmWSo8NV7j
-	 Zvxt32Z6zP/1bAMcOOGxn5NWFLFdObhGQjmcdBrVTS8YoMToADVkD/DSwOZQ9BiSns4qw
-	 nE01eDopXGNR/pTIoIbScXI6bgLUlvfrcevd/GNZV158dj8mnaISD8au9qrmlabm8A7QQ
-	 9EAGP9CmAS4id8+JKFXTDSxHY0VNRahcLvSJ/32SDsEaJaoDb+L+3rT38Y2JLjSSIjmuk
-	 CTJ4/VhhbguTzsIBEd2fPklTez7Nn4zW4Kv936c4/Bp7aVRuFx6Wj8EXi5QT/iPG1Lg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=2U8BvVAz9intahmNBcPTvIKc7pOjctV7JcQq6cwhKEU=;
+	b=TQD8BqUQ3R9YFGWfN1LBko8oPAwbP5IU4NZ0g7qil/K2lxn671vMThsUbuzWDvWFlyM5
+	 qgCvBpJCMyqHGZF3hqQz7bUiYAdnmjBolcUEPot8rePFwRLcoGXBqpWoyAX66eiXJq2O8
+	 3H59hdtkZMM4oVWV2u08t4YgxcIb96HG+gGXlTLTLJ5VtxnbG+iMz9NlXyK5YVg9QGofv
+	 xxq5BorBhl9v82OyeLGR0hGzRdQUqKFwf4D/RMGGcBIcRQ6+/G3UMj5sz+qTxZRIGqkkv
+	 mwxDrO8aFpZThdhImeiHM/uVN68DBOaFeJpFiJYIZrsWTGeQR7eNmir0+dNLk2LNJcQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GJvzQyop;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CHN4HdpJ;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E02E606A32A
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 09:01:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E02E606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E9960A2617
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 09:04:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40E9960A2617
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GJvzQyop
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b31ca7e0bcso19015557b3.0
-        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 01:01:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794301259; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BnVCLll1qdQeZWXIB4NkSVGfutVdVAVO9nkE5uGkMbnHyLNINrtkGddL+sje5CjM9i
-         N/NFENKHq5bAckAHwvN9clGKY2Uv3p8U3ETh0xrAan3Yx59U+WNOwHlVyYaBrYGP7A6B
-         uhbzH2sPdWVatTrPDOKxf4goLohwWrpYizDLGeMlYesFC+OWSmNHw61L5WuTht6JflSH
-         TEpj1N0xVSWYARdyZI3M68MF9m6Pc6IyiXRIbqMmhk5jpWcqePjs3iqKDzYqQR2Nta/R
-         z3E+9HdMc/0etHFf+dMF3e5S/wemLYLBVAIc/EAj67rUFcHa1IUv/MdYBsoHhpxW2u10
-         WKZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=D/l1DG9pW0EG2fGxLRQvmW7PF5RxeWs5LWhd8jRdOqg=;
-        fh=EsTV9iOgbXIcf/HZtbMRantZyaFs8iykxu6423qNoLU=;
-        b=B9KmNgo6zEETQk+Q3bB0JqQWlB86aRAnt5L8zxqbQ6UcwdBueRmCu9azhV/iL/0gUK
-         RsDphPolDzavzQpaUWB4AYWeND7r3IPS1Irj4pzYKkfrCoyUIJkhgAJhkjEzNPtzQ7zi
-         oU+9g1WV0ccXnwUOWtAAmdSXfQKczynTprmSuqhMO+Tkhs9Ln/8x/cyz05DAL14Bn2mh
-         1LXc/3lFj65+KzyHUtHTuL+VN98bVb3lAmhxlD+cjow9ASn7oNI/tX001R5MqLqfc/aT
-         lYwsqBi05A4Opcleck5ZojbhfX05zHOBbzuzXxhlqV79LgKyU4taXEt+oa4Y7oyQ66ub
-         jcUg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CHN4HdpJ
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3b09a83d12aso1225681a91.2
+        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 01:04:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794301259; x=1794906059; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=D/l1DG9pW0EG2fGxLRQvmW7PF5RxeWs5LWhd8jRdOqg=;
-        b=GJvzQyoptkDCdPCZ/sPVeyL8ENbjQKHTUh8dYiC5dwW1lpWOq3vZJPAcL0nA3xN0wD
-         HbetLjWQUco9N2S2KtXvPNSBvo8w4PmIWY3YjQBndMuG11972LQegMYFBdC5tba5aZWv
-         3MydGcVu0/PbzwXeuk30zI+dUwGEkHMTKsC+IXh+qMQC+NcFUvW/H8BMEhRViju7F4tE
-         +cyoepPvuIb63LxOMgvZjQa27IapA877VS+A/QC8d40Vz7kFy0IM5g7612xi0QCAiz2I
-         9f1OMoP7yR5r4ubfkuovT5BWdpGJNCIv0HUV9EW2+toxW7VckmVW12cq4wON+pOoCmRh
-         vt1Q==
+        d=gmail.com; s=20260707; t=1794301462; x=1794906262; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2U8BvVAz9intahmNBcPTvIKc7pOjctV7JcQq6cwhKEU=;
+        b=CHN4HdpJjhaw6yzpMGiBtZd8Cy0+I3sGP/qWTxIbR8Fokp5GKuXtar3nTW/rK1SStB
+         CLiQKm5t0b1dfTfrauLTo60yJ8QRnk0lOWJZ9tkP/yFythccsI1AcUH6aTfxAqRhBi14
+         gKSSL/rvAa5bLnmVhUrukJz+d15GIb6iQZfPzJURtDsAklciwRmGGYvXfCdVcaOYmpWN
+         WZelPjBGO26Z7Xdg6j0jlmgY8n4Wum0Irl6YjGVdoRIiPwovhB9FRcrujvvZ8oTkB6Yr
+         xbNDEafkzI8bseF2OvaohEXDfdQy9EixptAiQyEdE5UWQJobyRYYD/vfStClGpJDa8KW
+         v3TA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794301259; x=1794906059;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D/l1DG9pW0EG2fGxLRQvmW7PF5RxeWs5LWhd8jRdOqg=;
-        b=dz2/lwjcTwAnXhk40P2KgMnnsKf2h5vcA7X1DGcrD6wMPool7Uc6Kof+lnhi9ORKmF
-         pbmZw21+UDgBcdy5geKKm1FwCDA5pbRRzgJEIRvFLBJrEnQtm1eX1l88cXM+sGkO0SG3
-         urrT3B0HadHwEQiQ5iWl6NoRt7GGuc7dqzbB1ZYkzdtIEmyauPtGNFqhrVJcSNYIfB0S
-         E2IzTcblFtOKnf+Xij5tCv/hJlPniwppShfN5k0zQX2ZfRXb3AJjWxzdpIlDgKKzXa/A
-         YvF+DIMOp3pFUmRdA6F0pDwPgwYW1NT1H033vY1DjOtqBqfZC2ls6C7Yav6LGpx4D1rM
-         3cJg==
-X-Forwarded-Encrypted: i=1; AL+hErHl0Wf84FyIXeDXerP6T1YEBdj7j3jZup+GlKuzWGNo7AaYd0/TxHT/+Rc/jUPjWQ8N1cQpKuIkopxJ7g==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9DPgEHE6HzQ6CSG8klvSMy4VwdOmhkXVtC+dZGXNrB9Ygy8gi2
-	Gz3mx+8jbhNAwsCeDr8MyX4958Ki45oVy6xszFP5B0YpZbuE0QtaprEzkF2F5kRHoZaA1Vt7Ymp
-	ehMCmrZHZXmksDbEWQW3j9KQEwEUpXQo=
-X-Gm-Gg: AYBFou1oa4joqTnQVehIifpfn70sSyiwzfpQWWd6YldEI4vaeL9GqSNOi9XkfbjGPel
-	y4N9gYwicSuiNoF3+G8l8aaXaqPVe8As1UroiCUlCEpzQsRjQRJ5gq99KWX+ft98Sr11k7hrJT7
-	8JvbXvGsSiP58T1Eb+Jq5TdwV1DTZdnt+nnfKwqe02eP+95ExNrMw7f1JUhd+ZdCPIrziOJE1eK
-	3an+DpreI4Q9h6nmcKudw8cJjZgwlzAVKRvqokNn7ohdrZdp276Xl3ww1zXLBuG/5f9NnPnvDb+
-	D/KMWV7pUrQaTOHjBiolVbDWmQwz4COQfFCRTOZpb6x2lElUVhw6Krx2i28ZV+Bhg85u86cBjx4
-	Lj2WwgUo04eZ3y1Tw4O8//Jjxu4+pHLPK+g5U1BVFKdFL97ZTha1vlYCFKGghrIMyQAJB/UT8dX
-	QMz+fTLOIgjq5o+HhDqtvXdgfXHh+zdXC5RL+EpaHqKro8qwdiRgQok1T638BCc7LU7Qzt4/3t0
-	+CgxKJV9EOVBCF6Mgd6Jgykd5hZXOOu3N65Px67N9UiUZ5jr3wgaT15PPdEsR0=
-X-Received: by 2002:a05:690c:6e83:b0:8af:1843:a9e5 with SMTP id
- 00721157ae682-8b3929e7519mr14686337b3.23.1794301258389; Tue, 10 Nov 2026
- 01:00:58 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794301462; x=1794906262;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2U8BvVAz9intahmNBcPTvIKc7pOjctV7JcQq6cwhKEU=;
+        b=a2jDD0co1qbBqt1mzvf9yREIuybCzxkta3XLXywi8+XSZtas5TE+D/nU8BP1Yxf3lp
+         ySxOVql+yUGLQuMR5QNdLB6STsK0iGQFWMpagsg1Budw5LYylfWPAVVZMxSkaMXwWJfc
+         lA4QoucOAuBKLv1AzNQOhZkQubiE+h2/RK3nwMYBptAvQ7sgrEWoca7DrgpsBxgQMX9a
+         w8b/g/7FK0ht29nN5S0ogz2EpjcLDkqcAoQQWzsPxNdScb05r4zA8mDubetJ4uXt3RUO
+         lKDmIJsVSDA4CvmEfgvtB4Oo06D51ieNCpzpNSi1iEvWQJDX2woHuHlO3WN88ANmW17X
+         ulCQ==
+X-Gm-Message-State: APuU4Z+8oxLieGQJSkREYTQWrTH+87y4yyHyQS0y5fCd9XYrnhgDsg1p
+	KdYFrHzmYJb0gc/VZJ9PMHyvyHoIhnDDhTmuRthtIpYfota6jeM/mbkL
+X-Gm-Gg: AYBFou168QI2qpV64it3eQmG34MhY4zHHoOxppQqT6IDVr94Z3tn+k8TGn9RVmDW/uF
+	Eq6CeDQlOJ0+9KvcAA1m/e3E5FLpiZhLPZSLTkMeGILLx4UYJoILjE0Gy4fY/xT1++6MCq0/Epq
+	I2YJoO6CUbMFWLOFVx0Ds1YOv2J4H7MUFfTUbS1RzwIvOuozbqLwRr/8VAMZ4OuK83i0WN4SrAx
+	/mGgnp9Wgmqbztc/ev0xIif4XrA6aUrS+RotPSV9HLqsKAqjeMsU7qP278LVvI4HFuutKaJhaED
+	S8jrOkR2oChKB2sQDSJxTQtl1YgTnzjaRVbofNeEfYr58Wfk/HIJk3OiE2GeA2nu1WjFFPcHhQk
+	F4o5Cz74B/UN/7U6xgPSunq+9cioT49MBdkw4xVpsS5QltuDHH43gOnQldyQ2MCzqTEVcvKhFFY
+	oH7Lqq2jXCTF+xhkDXODV1dCE2YgPbfj6wIsRwXSFlytybKQv0LuXGZPEgZVHMmRzakZNqjyvTq
+	tyImqlVdfeKtpaWUh7bSfW8ZTByn/UVyjsh4zcPNppH5JaKo1OYubl94kY5Pv1FN8Y4K8/nNvdR
+	8NcfdwqPmajYqKVLKVe/
+X-Received: by 2002:a17:90b:1b03:b0:3ac:97bc:4c7b with SMTP id 98e67ed59e1d1-3b166c8486cmr2157706a91.14.1794301462591;
+        Tue, 10 Nov 2026 01:04:22 -0800 (PST)
+Received: from oslab.. ([101.6.42.129])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1676d83absm3051305a91.7.2026.11.10.01.04.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 01:04:16 -0800 (PST)
+From: Tuo Li <islituo@gmail.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tuo Li <islituo@gmail.com>
+Subject: [PATCH] media: dvb-bt8xx: Fix potential double-free in frontend_init
+Date: Tue, 10 Nov 2026 17:03:43 +0800
+Message-ID: <20261110090343.1245744-1-islituo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -106,51 +93,46 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110050448.69521-1-patelshivani2283@gmail.com>
-In-Reply-To: <20261110050448.69521-1-patelshivani2283@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 10 Nov 2026 11:00:21 +0200
-X-Gm-Features: AclHuK9lhRV4tkWDS8XhwM4LHpotMMW9vXUbmZoMQV9ygME13b4eHzMp8NHQLR4
-Message-ID: <CAHp75Ve3E7qCXOQi_q9SmTkwhfSnPdWZy1cse0G=BFJ0FBoptg@mail.gmail.com>
-Subject: Re: [PATCH] staging: media: atomisp: Fix leading space indentation
-To: Shivani Patel <patelshivani2283@gmail.com>
-Cc: outreachy@lists.linux.dev, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
-	linux-staging@lists.linux.dev, linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 7:05=E2=80=AFAM Shivani Patel
-<patelshivani2283@gmail.com> wrote:
->
-> Replace spaces at the beginning of the line with a tab in
-> atomisp_find_in_fmt_conv_by_atomisp_in_fmt() function parameter list
-> to conform to the Linux kernel coding style.
+The caller in dvb-bt8xx.c (frontend_init) already frees the allocated
+dst_state when dvb_attach(dst_attach, ...) returns NULL:
 
-Nice try! But, sorry, no.
+  if (dvb_attach(dst_attach, state, &card->dvb_adapter) == NULL) { 
+    pr_err("%s: Could not find a Twinhan DST\n", __func__);
+	kfree(state);
+	break;
+  }
 
-...
+Remove the redundant kfree() calls from dst_attach() to avoid
+double-freeing the state on failure paths. This keeps ownership with the
+caller until a successful attachment transfers it to the frontend.
 
->  const struct atomisp_in_fmt_conv *atomisp_find_in_fmt_conv_by_atomisp_in=
-_fmt(
-> -    enum atomisp_input_format atomisp_in_fmt)
-> +       enum atomisp_input_format atomisp_in_fmt)
+Signed-off-by: Tuo Li <islituo@gmail.com>
+---
+ drivers/media/pci/bt8xx/dst.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-The whole format of this prototype is broken (in v4l2 is a strong
-requirement to follow the 80 character per line rule). On top of that
-is it really the only issue of a kind?
+diff --git a/drivers/media/pci/bt8xx/dst.c b/drivers/media/pci/bt8xx/dst.c
+index 110651e47831..5cdf8a77260c 100644
+--- a/drivers/media/pci/bt8xx/dst.c
++++ b/drivers/media/pci/bt8xx/dst.c
+@@ -1694,7 +1694,6 @@ struct dst_state *dst_attach(struct dst_state *state, struct dvb_adapter *dvb_ad
+ {
+ 	/* check if the ASIC is there */
+ 	if (dst_probe(state) < 0) {
+-		kfree(state);
+ 		return NULL;
+ 	}
+ 	/* determine settings based on type */
+@@ -1714,7 +1713,6 @@ struct dst_state *dst_attach(struct dst_state *state, struct dvb_adapter *dvb_ad
+ 		break;
+ 	default:
+ 		pr_err("unknown DST type. please report to the LinuxTV.org DVB mailinglist.\n");
+-		kfree(state);
+ 		return NULL;
+ 	}
+ 	state->frontend.demodulator_priv = state;
+-- 
+2.43.0
 
->  {
-
-...
-
-Also note, this kind of patch for _this_ driver will be ignored, it's
-not a priority for it *at all*. Try something better like [1].
-
-[1]: https://lore.kernel.org/linux-media/20261027230807.2407261-1-vladurare=
-s@gmail.com/
-
---=20
-With Best Regards,
-Andy Shevchenko
