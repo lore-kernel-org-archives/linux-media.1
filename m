@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794295109;
-	b=GvMMddAOtDKl58aQ1uIA/bRShzYmQpiEerH4JKLbobvOXRku4aUZ/xbiE3P7OOPxzVls
-	 t2g6SGFj6KWGKSTnfWkImBJ4NA/EpGyCY49vAaU2RlFg5dM5kfBZe6S2/ZEMn4AzpZvFJ
-	 3APNIb4p721dhi1ZZfvH2HVHuSKG7bnUGJHDHKTMF+/+x6KYGq3+x1r6Sna9zgOHSczkT
-	 v8bkLYR7hdAu2gwPotVZOATz57S1FRz/zZZ3VoYGsh2E/LvcQ5RRiLMqGZs1gmb8H/iFM
-	 /K5PVUrp9eNEIAL7cXbutw00fcvWvnCQ99WIFn6f91EFmBAPAl9K99fDw6dOVH8wknA==
+	b=gimBcg3c4OTYlfroX5QoAYfOXEYy0rvMIvfIx9zXxhlEKSsXHs2u56yKnubOTGY8zNRE
+	 P1n0aWbU4lD4RAjsqr7QOCLOjr/sqnOyTbDKgPUiQ5rM20W/bJsWkwXibCBuF97BaS52D
+	 URH/GlNFzIERTN2tx6/5+y7i8k426qyao7HrE0rSjKrXTBzKwyWEtyYKGYMq+n43zBguJ
+	 uIFf/cNtBomNkYf/yBFdwdInMfre/TxMGTsKmnFWjQiKzDH+SAuBJinf9BrCVPi8d9Smd
+	 kTRGTvYpITIn8CytI43dZhuOb6ZWBqs/VIxlKecs++0Dn+v9+zp1nyqYA9zwVje7Bww==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794295109;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9pL+fygB5ssTmFqgMVv9/XaMYzhrOZx7qK1PSJTEus4=;
-	b=xy2xn8T/4x83041bXnOn2nqtyNWYQiBg25BlweFHbGpoRz/JzAX1Sj4frKR/igd1oa0X
-	 2cEP2nG+f9o0Va4K4/uddv/Je20tXiKpcSfeIZwHww9LoPSsGW7DCBZK2RRMj/GJ8rDM7
-	 sJ0gEXofJSlMhrsmReEDYb8fAm/v8UVyZfB2kFr0yaeXrQcEEFNPU1tCLfR0InSzxJD15
-	 8D4oRR+Tz97vRFYH7ppc19/3GKcjWnUukp9PLFaNCtjI6HRJgdcmdBkQZaKBxIso8F3WF
-	 Nn8XLuwWPsVH1bwGDhNTUOvzwdlGK7y/Ks5Iogpb5iEz6YAdWENwrPK0QyWsP6MFyNw==
+	bh=GSMh+74fPK0ymy278CPAuF9fN6B/X3Bftnl6WSY5S7E=;
+	b=uw/FpPnCeJz/aVkfKHMUukBsz+HU2+AFbY7QS5q+i0RVPDzL4PRy+9d4Yg5nI/EK9Zj6
+	 /Q0j13sKFmD+ZoT1X6T6NvkrThnjxx/pjj1Y2joACY4DxIBfbZhpIAZHE0CsFGIap+X9R
+	 mvQcOZnNUx3JZ1SiA8MbQ30vvuVFtHTucVduLhnKFXKmi3/c7jFuP8Y5p4vfMioVmooAR
+	 KNKiy5INPeznLHw441BFOl7CSYQfOaVduy4qbrIV09DYUjN6HrMfbW+5YbfyQX1ta/UWK
+	 8dQVAXBmJ9Ij8AMIRtkh4wMDUZgMUv3Rr1zmHodpF7ES0b+TlhHzfPmpkQF9bLRsHbQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQfR8rGB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQTNjxpd;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CFC606A333;
-	Tue, 10 Nov 2026 07:18:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA05606A337;
+	Tue, 10 Nov 2026 07:18:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mQfR8rGB
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQTNjxpd
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794295108;
-	b=AJhMD1SfjNsqDoaI5KmPRIoKj/5rxgpZFjv3781z81LCfbNYrpAUgqX14sg25j7ZGAnf
-	 Y3npzcHwAwDP1Q+c5TwJwyHrXvdpzHUzmUjP2RSYKX3MZl3UIGESe2TBnc6NB4FcX1nR6
-	 aPUnogxYSF3tCfJZRBIAkFyt5EyAUUmrO3WfAJsaID4nPrL172xTflafeu0UFh32+5lfV
-	 Mt26FLL+syaKAqqRTiylaPVuofjSpvJjWoPHOf50YiedO6nBH/kGpo2YzG1y+WdOmgfHt
-	 mJkk+NDOFhg8sjNTGl70k1ALrQREAzVzPzFNUtNFe5HIlQ3+h7g5ZzRUKh/gjchTcpQ==
+	t=1794295109;
+	b=g/yoGwLfsWfa3IXeFqiholfUNZKt2EGIt/df8K9QKsFqOiWY7cQHAHXXAePJs5Sg+dRO
+	 So9KP2o/WuWftIa1AjBC9tkCEyK59tEK4iJRZKOztNbzq++ocvxzMirB1qXL1TbOpBkZO
+	 ee+5VbTuaQvikg3NHb2+z8RDWmU1HligOPcI7ghmP9cLG1kmoD1J3L2KVOSOA+35+Dcde
+	 qPkdiMS0ghPUISs6Uu0TM2oHn1a2+Xgt1769NWhsGSJ/I7GDSGo4jUQAsiIFzL6PS3is7
+	 tLUMfC5iXOip2FNJjmyQnPdb0JovGdRKMjyPcsQBI43t5vYThjJiWgFI26y8USgiVWw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794295108;
+	c=relaxed/relaxed; t=1794295109;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9pL+fygB5ssTmFqgMVv9/XaMYzhrOZx7qK1PSJTEus4=;
-	b=Yz7Fn8poFup5+uICH1fHuSMoa+EQv+BL4MMuZRsuETf+P9+Uhe3L1BkLE0CYAqP7WRf5
-	 8YWjvm//erSSY+Mu4jXQon5vCruRKFfuF+DDusERDnUhpkBR5YCjVd9sBag2/s39ZYv30
-	 MEpGgbAEdrq7Lf2cSSJZvnY+Cjmt1GSA8HL37XODFz46ufZwE9qu87HheT2FYTxSkFiSP
-	 IVbhuF1sY9Xp+YdOA9PUx6L+j30wTE+zJf6Yy5n/VgBFuqyAfug1qUMa3BqVk6wxA06/4
-	 s3weFQUUxvPTcdmaeGZ3+PPJGsGAVozGGXWRN2BhC3ZIHaZDbnsRoh1tl9HlWuqF9Qg==
+	bh=GSMh+74fPK0ymy278CPAuF9fN6B/X3Bftnl6WSY5S7E=;
+	b=TJsFEhYexWoHqgBQpFZWqyINRhXoZWWvR+GHwpHBNGXrJkVxjKFXwyYqZwL7AW5q1dZA
+	 ZGuRTJNPHl83eGh8n+zraBG4QpNGQ+HaGyKXVbWkQGad9BwG70vnrDl2kE0bfJxAjVf3g
+	 l7pFAPzvNLSm2bg6vOYziokkbEUrc8i2p8MshmdPiwxbXEQAdNtxH6r+v/gDA2jglmI5r
+	 XYR655oMk7LXdj8cRDnNOwQK1FAg4mh4WlHAwUn0c31V4Sb6m0fmSg61XHI1beE02D2BZ
+	 i3+6Ged/s2G9I22B4kKFy+79bJMxVHcBz3jMa+cI+7gUMhtVZWDIWhvV8wAoe9u668g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 29F851F008A1;
+	by smtp.kernel.org (Postfix) with ESMTPS id 4D86A1F008A4;
 	Tue, 10 Nov 2026 07:18:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794295108;
-	bh=9pL+fygB5ssTmFqgMVv9/XaMYzhrOZx7qK1PSJTEus4=;
+	s=k20260515; t=1794295109;
+	bh=GSMh+74fPK0ymy278CPAuF9fN6B/X3Bftnl6WSY5S7E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=mQfR8rGBeJhOdBjkMY1Cgp5xAaToZg2VgnMAlOks3igTpCR9WzZH9cnAxk472CzUt
-	 w72oTnd53wym4t5Vn9EEA2QpvhPtoyTfZCRuHBPEeNwI+75RDXLfJYGRs2JT8slXtj
-	 LkEN0qWgjlGsrzH7qQ8BaG97YBza1mCUojqkzXWiZ9shtkk4ztD8nH11bQjoDO7XF4
-	 W3xgrLCBEpN7af0nwx1IqsRE5GOtHgEUrJb1RWFQFgMatiYiWN4r085RgJzcD3e3PR
-	 us2vwpdViW4iKwSuBiH/Dk0vdn/3GRGhbuKwtQMZhUGaSOsK2k29USCmTsEl6z8FPb
-	 LmX1LjhPOmoqQ==
+	b=PQTNjxpdmFfyeqRL82uP0aXDLlP010hsPTwQzVvM01tEoRYD86r9NklwFyZpxky+5
+	 qgY0MBCikCRiyObPfSvzEqBHfmwhlvO4K7CA+wuhxYIAW3MDP7CU+Q1DYinGWZQDEt
+	 g93b+t4XIawcotOxUbUhc6VtzK6H+bWuID6Rbu688QR24A+vrkIAdezgebJl39RNhC
+	 yEzk10FGNiIqb6rWpZT4IICJZI4ctMzkmsWHDYP+dB1OfJK62FqWEOoRot742r3CPm
+	 mYmcu/iYvwZM/wPczm2xF4mbEdJN8KPFiQQc6vrMJviZc5IPa7dnzCDNkJyxFSAHzF
+	 SyIZXZiSRNLvA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B38A048998;
+	by lkml.kernel.org (Postfix) with ESMTP id D6B87489A5;
 	Tue, 10 Nov 2026 07:18:27 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:18:27 +0000
-Subject: [PATCH 1/4] media: verisilicon: Support holding the CAPTURE buffer
- for MPEG-2
+Date: Tue, 10 Nov 2026 07:18:29 +0000
+Subject: [PATCH 3/4] media: verisilicon: Don't offer VP8 above 1080p on the
+ Rockchip VDPU2
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-hantro-codec-fixes-v1-1-0fd5372ce831@gmail.com>
+Message-Id: <20261110-hantro-codec-fixes-v1-3-0fd5372ce831@gmail.com>
 References: <20261110-hantro-codec-fixes-v1-0-0fd5372ce831@gmail.com>
 In-Reply-To: <20261110-hantro-codec-fixes-v1-0-0fd5372ce831@gmail.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
@@ -98,14 +98,13 @@ To: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
  Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
  Jeffy Chen <jeffy.chen@rock-chips.com>, Tomasz Figa <tfiga@chromium.org>
 Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- stable@vger.kernel.org
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295107; l=2131;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794295107; l=2123;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=BG5kaLLN/ROlelCT7uSwGI2mCcFqWk5IizY+1FV3tNk=;
- b=wRvr7eOgQpL3ozh78/XKoaKe6Y/TjXxuVvDD8gNMo57boZzHz3d5hcWVnk9p4hP9YMqQ/K+A4
- kzA7BhShQkqD1UPAkGB7aat6wMVEbMmM0FUKsY+KcRSIslWxWPCYBM9
+ bh=EXI8QBEeHs1R1u0NRn+cDDndC1H6YMS5/uVvMAcEFAg=;
+ b=m4jnbHaknfIBjsaMF7gll6ze3KeL+9wDGhUJowJvUWrLufyEswgM3m6nX5sHrSaksG/83qNC2
+ jyJ2Yoqy9NxCbqgeusDMt43iYdOG9tPyDN2VW7BiVS6wMBmkyprlDYJ
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -116,51 +115,56 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-An MPEG-2 frame can be coded as two field pictures, each decoded by its
-own request. Both fields have to land in the same CAPTURE buffer: the
-G1 and VPU2 back-ends already write a bottom field one line into the
-destination buffer and use the current buffer as the reference for the
-second field of a P picture, so the second field must be decoded into
-the buffer that holds the first one.
+The VDPU2 decoder format tables (RK3328, RK3568, RK3588 VPU121) and the
+RK3399 one let the VP8 OUTPUT format go up to 3840x2160, but their only
+CAPTURE format, NV12, stops at 1920x1088, and the CAPTURE size is
+clamped to it. A 4K VP8 stream is therefore accepted on OUTPUT and then
+decoded into a 1920x1088 buffer: on RK3588 GStreamer v4l2slvp8dec runs
+into "gst_video_frame_map_id: assertion 'info->width <= meta->width'
+failed" for every frame of a 3840x2160 stream and none of the frames
+match FFmpeg.
 
-Userspace asks for that with V4L2_BUF_FLAG_M2M_HOLD_CAPTURE_BUF, which
-the driver only allows for H.264. GStreamer's v4l2slmpeg2dec sets it on
-the first field of every field-coded frame, so queueing that request
-fails ("Driver does not support holding capture buffer") and decoding
-stops. On RK3588 none of the field-picture streams of the ISO/IEC
-13818-4 main-profile conformance suite (sony-ct1..4, tcela-8/9/10/16/19,
-hhi_burst_*) decoded.
+Nothing above 1080p can be decoded with these tables, so don't
+advertise it: limit VP8 to the 1920x1088 of the other codecs and of the
+CAPTURE format. Userspace that checks VIDIOC_ENUM_FRAMESIZES, and the
+S_FMT clamping, then know that a 4K VP8 stream needs another decoder.
 
-Allow holding the CAPTURE buffer for MPEG-2 too. Job completion goes
-through v4l2_m2m_buf_done_and_job_finish(), which already keeps a held
-CAPTURE buffer queued until the last field has been decoded.
-
-Fixes: 340ce50f75a6 ("media: hantro: Enable HOLD_CAPTURE_BUF for H.264")
-Cc: stable@vger.kernel.org
+Fixes: 73fb5bfa53e9 ("media: hantro: Support RK3399 VP8 decoding")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/platform/verisilicon/hantro_v4l2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 83af9fa1ce94..822c4b371671 100644
---- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-+++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-@@ -513,13 +513,13 @@ hantro_update_requires_hold_capture_buf(struct hantro_ctx *ctx, u32 fourcc)
- 
- 	switch (fourcc) {
- 	case V4L2_PIX_FMT_JPEG:
--	case V4L2_PIX_FMT_MPEG2_SLICE:
- 	case V4L2_PIX_FMT_VP8_FRAME:
- 	case V4L2_PIX_FMT_HEVC_SLICE:
- 	case V4L2_PIX_FMT_VP9_FRAME:
- 		vq->subsystem_flags &= ~(VB2_V4L2_FL_SUPPORTS_M2M_HOLD_CAPTURE_BUF);
- 		break;
- 	case V4L2_PIX_FMT_H264_SLICE:
-+	case V4L2_PIX_FMT_MPEG2_SLICE:
- 		vq->subsystem_flags |= VB2_V4L2_FL_SUPPORTS_M2M_HOLD_CAPTURE_BUF;
- 		break;
- 	default:
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+index 02673be9878e..2b6242c1fb86 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+@@ -274,10 +274,10 @@ static const struct hantro_fmt rockchip_vdpu2_dec_fmts[] = {
+ 		.max_depth = 2,
+ 		.frmsize = {
+ 			.min_width = FMT_MIN_WIDTH,
+-			.max_width = FMT_UHD_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
+ 			.step_width = MB_DIM,
+ 			.min_height = FMT_MIN_HEIGHT,
+-			.max_height = FMT_UHD_HEIGHT,
++			.max_height = FMT_FHD_HEIGHT,
+ 			.step_height = MB_DIM,
+ 		},
+ 	},
+@@ -315,10 +315,10 @@ static const struct hantro_fmt rk3399_vpu_dec_fmts[] = {
+ 		.max_depth = 2,
+ 		.frmsize = {
+ 			.min_width = FMT_MIN_WIDTH,
+-			.max_width = FMT_UHD_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
+ 			.step_width = MB_DIM,
+ 			.min_height = FMT_MIN_HEIGHT,
+-			.max_height = FMT_UHD_HEIGHT,
++			.max_height = FMT_FHD_HEIGHT,
+ 			.step_height = MB_DIM,
+ 		},
+ 	},
 
 -- 
 2.55.0
