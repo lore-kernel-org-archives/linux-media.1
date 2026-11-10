@@ -1,54 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794289849;
-	b=TrdeEMh174sAoIkUSvJOxe8qxXCOH6eOLyyPGok0z3za2ZBvKg55KZL082h+T76MYker
-	 nwoVdkxmeHTQKtIGNtkhZNv16EBUFU13veFiayigpmjsQz3W9WDnOpEumjP38dEGkxhC8
-	 nVU1YqIDn4kYZZ5HOBkwjR5orT475wFGamJwEGKxnef+V9rwr5GBu0nc5+PD65RNxpZNz
-	 6GcHnAdPV/X53Wh2pShrDEjo+8V/fwd6eES4osBuqOr0hHqYfhANqbTE0IfrHWzB9Ujn5
-	 fmIsPDTT5XMxBJeWKdYrXrRAuoWK1knlLRs1ENtpqbJ4/u4Njjhq5/tNDy7DpTr5piQ==
+	t=1794291636;
+	b=Qv10z9j3SX4E4r/99DPUO5OM0JIxm5VfWNDgr7AqEhUZToxbG1kA6dxT8L2ssz7j/cgH
+	 4NIgZuYMeKdlaIjVDTccWsEqeTEaDI4icb+CbWHrGLqQzJLePw2qGS/r4ChDY5G3DqFh6
+	 6nqHeDIPvjUw0ZCfJnC+EpefSF+RVnAUQ9ggXwPob8+3PUOZZz8dK/MIi2GUdthyNzxLh
+	 zzJ2oOtBjmMUGri04kTQocG5pOBcOP81LjY2tqcTNTJIlqUoxyWvaaICu2H/EBSQ7JYEq
+	 byCbOoPPPxQTH7E+DdUlSqU9ZmDSc1BIS0T6C/T/LrGST8gg2MAxp2PX8lnenN/xgnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794289849;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=BT20worzG0ZlnN862p660bfUbOpsK47mpVvJf+3XDvo=;
-	b=U3dTqJf9RVclLdw6hPwy7a+6QBzKcrvz/dMZVMxmDzkxtyP59kgZe/PRAAbr8jTJ/CLd
-	 vdAtp4LeQhnxu4P7eOTBrIS+5rOmmkp4JKpKR93i1E/wkeR4/JWGGRjHHRYm7FXaw7wub
-	 8IaM9MdeJrqDD35jBPd2Rh/r290209PVOcKYDyoGm4/KNIVd3fjWkMeBZTDfj5HD0WqbU
-	 zMBCkdydNftbfVNCU2g2hfqDOT4NHJ6wfaJigjSGAnSzX6pWsk4+79EhTORNR6ZMOSDa7
-	 3SCQbx8foqx8mOB4EFrMz7B7PqhMxFnIitZPG0biwQejBh9ZODTZjOnLTrdkO0C0PFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794291636;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:X-NTES-SC:Content-Transfer-Encoding:Content-Type:
+	 MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=2UsqJPkBtf1CZBKzCyM30NFYQFuB81XNoTYOQ/You10=;
+	b=MBpVuaEASq0jcMlloLLvRTMMpfK112T7poqDuy7IL6JRj9Yo2myeUTNVYhcFF9kXQdzU
+	 VFZ7yMSc4uok7gj+OEV3na3C1XuEUyj75z4G6RHWx3bYZcvEdTuEcTqEjfXGl2t8FmxtX
+	 jOprR8I0HIs4dOT0/JSIBqvF6EDGs8DbFwGeMDKZVKuTYj1nObNnUUA0UQJXhYYG4d3/J
+	 yKVL1N/eK09fMV88eP+eefYzjc9JZw7veDinbMnF2tUIqdycXtn+/GWAxyuoWvuYjBzqi
+	 +BFWQsyapr+cneXZPte99XR3F+Ho2bYi3TMxBW9CMXUYtkMrPEBDPswczFZ2pXRSdEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jwT3BPG8;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED5D606A321
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 05:50:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ED5D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-5641cd2cc13so1941775b6e.0
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 21:50:48 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794289848; x=1794894648;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BT20worzG0ZlnN862p660bfUbOpsK47mpVvJf+3XDvo=;
-        b=DlRlyQwANL9HG2bh75OOWibWfTS/NVDXO22+V2Jdm0eby3WG7b/oGZPFWLYHgNA0f8
-         M8dCDe43QeO8lpk4QYMOOh0p7jmy3uPUX2M4E5KdGqV1bR7m0PhmGMXtjIyf/klCQ8W/
-         fcymxFuZKDviNwqQIEhYESMakRYqAG0m1CiY9KaILjkpyVo+8zCG/yQIE8A+3zHwM6AV
-         lpG92vVE+anHNITkXYyr6HvrksxiJwofuLATJ+CJKIo3a2WpNnv2g9BtctBm3OocDGp9
-         eHxVjCqiEiKdo3MiC2GMHBc3yvrfFamQuqaCqGmtpYTm8Z7fGEdg/U16HqP4Ln3eGO3h
-         PqeQ==
-X-Forwarded-Encrypted: i=1; AL+hErHg9D6jsC4yllAIDZ6ChtdYq7D5FBRlFyADHp68VeHhvzWxRNUq4ybazSpSnLhmp5YMQsHSJRYlsFwd+w==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/r6DKpHOuL/dejydNrOEFmnKBHQlUD2I0RwVLhLG1gZ1Y3tFQI
-	ewgqawaFXTSYKBEQcQCmt4EWIXA6BxOm2jvkO60jbjcxYOs3B3tewtEB2fRE7HsZcF5QKOE9JI+
-	Hhm7vVpru8gpPHRDgKVfdvCSxz9Qg3h9duSghOx1yAKzpHMqRoDDUEQvsM3s=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF7E606A32E;
+	Tue, 10 Nov 2026 06:20:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DF7E606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jwT3BPG8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=2UsqJPkBtf1CZBKzCyM30NFYQFuB81XNoTYOQ/You10=; b=j
+	wT3BPG8OMo1RBAtivFKSqJDdmV5olcJyVvcRzEvqqgO9R+KZKT0st3xxeU4nLa6r
+	SSA+KUeo5NJ/KPBeFlbfNh2bkqEF9URZK+uVr9199u5HYZyOr67Lk6sq0PADCgJt
+	VPhrpLCNUInuGumpv+V+6OdXfcMe8FBVvN25QQnI1U=
+Date: Tue, 10 Nov 2026 14:20:10 +0800 (CST)
+From: CJ  <firefly0158@163.com>
+To: crope@iki.fi, mchehab@kernel.org
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: WARNING at usb_submit_urb from ce6230_ctrl_msg on v7.3-rc2
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2SBv6Svk4q5iecYukdmEsTju82UcS4ufQl245Xc+0Gpx/uxxgFbWVuH1zqy+aKERKnoRu9TDlC8s9YbKt+JY9vako1AwJOc+cJzsRkbQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,70 +60,71 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c40a:b0:4f7:27ba:9db4 with SMTP id
- 5614622812f47-5683cdd6dc7mr1212802b6e.60.1794289847956; Mon, 09 Nov 2026
- 21:50:47 -0800 (PST)
-Date: Mon, 09 Nov 2026 21:50:47 -0800
-In-Reply-To: <6ac94026.70ed5d86.2ac85.0077.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af2b0b7.4dd4714a.f8d02.0021.GAE@google.com>
-Subject: Re: [syzbot] [media?] memory leak in vidtv_psi_pmt_create_sec_for_each_pat_entry
-From: syzbot <syzbot+3bb39e30be6cca84a865@syzkaller.appspotmail.com>
-To: dwlsalmeida@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, matheus.aalmeida@inf.ufrgs.br, 
-	mchehab@kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <58108d73.4a3d.1a1c41d3487.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:kigvCgDXX_iat_JqjwlrAA--.163W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3hprHWryt5qlqQAA3L
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-syzbot has found a reproducer for the following issue on:
-
-HEAD commit:    b3dfbde62cf1 Merge tag 'linux_kselftest-fixes-7.4-rc3' of ..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=13cfd83d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=4361b1bb937ae1c4
-dashboard link: https://syzkaller.appspot.com/bug?extid=3bb39e30be6cca84a865
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16436f35580000
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+3bb39e30be6cca84a865@syzkaller.appspotmail.com
-
-BUG: memory leak
-unreferenced object 0xffff8881112c8690 (size 8):
-  comm "syz.6.49", pid 6988, jiffies 4294945880
-  hex dump (first 8 bytes):
-    00 00 00 00 00 00 00 00                          ........
-  backtrace (crc 0):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4733 [inline]
-    slab_alloc_node mm/slub.c:5033 [inline]
-    __do_kmalloc_node mm/slub.c:5530 [inline]
-    __kmalloc_noprof+0x3ce/0x510 mm/slub.c:5556
-    _kmalloc_noprof include/linux/slab.h:995 [inline]
-    _kzalloc_noprof include/linux/slab.h:1312 [inline]
-    vidtv_psi_pmt_create_sec_for_each_pat_entry+0x7d/0x1b0 drivers/media/test-drivers/vidtv/vidtv_psi.c:1471
-    vidtv_channel_si_init+0x544/0x770 drivers/media/test-drivers/vidtv/vidtv_channel.c:478
-    vidtv_mux_init+0x115/0x390 drivers/media/test-drivers/vidtv/vidtv_mux.c:525
-    vidtv_start_streaming drivers/media/test-drivers/vidtv/vidtv_bridge.c:198 [inline]
-    vidtv_start_feed+0x1d4/0x260 drivers/media/test-drivers/vidtv/vidtv_bridge.c:243
-    dmx_ts_feed_start_filtering+0x8e/0x130 drivers/media/dvb-core/dvb_demux.c:747
-    dvb_dmxdev_start_feed+0x11c/0x170 drivers/media/dvb-core/dmxdev.c:658
-    dvb_dmxdev_filter_start+0xd8/0x440 drivers/media/dvb-core/dmxdev.c:769
-    dvb_demux_do_ioctl+0x297/0x7d0 drivers/media/dvb-core/dmxdev.c:1072
-    dvb_usercopy+0x116/0x2d0 drivers/media/dvb-core/dvbdev.c:996
-    dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1208
-    vfs_ioctl fs/ioctl.c:51 [inline]
-    __do_sys_ioctl fs/ioctl.c:597 [inline]
-    __se_sys_ioctl fs/ioctl.c:583 [inline]
-    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x540 arch/x86/entry/syscall_64.c:89
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+CkhpLAoKSSBhbSByZXBvcnRpbmcgYSBXQVJOSU5HIGF0IHVzYl9zdWJtaXRfdXJiLCByZWFjaGVk
+IGZyb20gY2U2MjMwX2N0cmxfbXNnLiBJdCBpcyBzdGlsbCByZXByb2R1Y2libGUgb24KTGludXgg
+djcuMy1yYzIgKEhFQUQgZGYyOTA4MDkwY2RhMzY4YjAxZmY0MzcwOWY1MTg5MDA3NmM1NjE1Nykg
+d2l0aCBhIHN5emthbGxlciByZXByb2R1Y2VyLgpzeXpib3Qgb3JpZ2luYWxseSByZXBvcnRlZCAi
+V0FSTklORyBpbiBBRERSX2N0cmxfbXNnL3VzYl9zdWJtaXRfdXJiIiBvbiBsaW51eC02LjEKKGh0
+dHBzOi8vc3l6a2FsbGVyLmFwcHNwb3QuY29tL2J1Zz9leHRpZD0xY2RiNGFhOWJmMTRmOGE5MjMw
+YikuIFRoZSB0YXJnZXQgY29uc29sZSBzaG93cyBhIG1hdGNoaW5nIGZhaWx1cmUgc2lnbmF0dXJl
+LgoKVGhlIHJlcHJvZHVjZXIgb3BlbnMgYW4gZW11bGF0ZWQgQ0U2MjMwIERWQiBVU0IgZGV2aWNl
+IHRocm91Z2ggdGhlIGkyYy1kZXYgaW50ZXJmYWNlIGFuZCBpc3N1ZXMgYW4gSTJDIHRyYW5zZmVy
+LCB3aGljaCB0aGUgZHJpdmVyIGZvcndhcmRzIGFzIGEgY29udHJvbCBtZXNzYWdlIHRvIHRoZSBV
+U0IgZGV2aWNlLgoKVGhlIG9yaWdpbmFsIHN5emJvdCB0aXRsZSB1c2VzIEFERFJfY3RybF9tc2c7
+IHRoZSB0YXJnZXQgc3RhY2sgcmVzb2x2ZXMgdGhpcyBkcml2ZXIgcGF0aCBhcyBjZTYyMzBfY3Ry
+bF9tc2cuCgpPbiB0aGUgdGFyZ2V0LCB0aGUga2VybmVsIHJlcG9ydHM6CiAgV0FSTklORzogZHJp
+dmVycy91c2IvY29yZS91cmIuYzo0MTEgYXQgdXNiX3N1Ym1pdF91cmIrMHgxNGE5LzB4MThlMCwg
+Q1BVIzA6IHN5ei4wLjE3LzEwNjA0CgpUaGUgZGlhZ25vc3RpYyBwYXRoIGlzIHVzYl9jb250cm9s
+X21zZyAtPiBjZTYyMzBfY3RybF9tc2cgLT4gY2U2MjMwX2kyY19tYXN0ZXJfeGZlciAtPiBfX2ky
+Y190cmFuc2Zlci4KSXQgc2hhcmVzIDgga2V5IHN0YWNrIGZyYW1lcyB3aXRoIHRoZSBvcmlnaW5h
+bCBXQVJOSU5HCnJlcG9ydCwgaW5jbHVkaW5nIHVzYl9zdGFydF93YWl0X3VyYiwgdXNiX2NvbnRy
+b2xfbXNnLCBjZTYyMzBfY3RybF9tc2csIGNlNjIzMF9pMmNfbWFzdGVyX3hmZXIuCgpUaGUgd2Fy
+bmluZyBpcyByYWlzZWQgd2hpbGUgdGhlIGNvbnRyb2wgbWVzc2FnZSBpcyBzdWJtaXR0ZWQuIE9u
+ZSBwb3NzaWJsZSBjYXVzZSBpcyBhbiBpbnZhbGlkIFVSQiBvciBwaXBlIHN0YXRlIG9uIHRoaXMg
+ZHJpdmVyIHBhdGguCgpUaGlzIGlzIGEgZm9sbG93LXVwIGZvciBhbiBleGlzdGluZyBzeXpib3Qg
+cmVwb3J0IGFuZCBkZXNjcmliZXMgYW4Kb2JzZXJ2ZWQgZmFpbHVyZSwgbm90IGEgYmlzZWN0ZWQg
+cm9vdCBjYXVzZS4KClJlcHJvZHVjZXI6CiAgc3l6IHJlcHJvZHVjZXI6IAoKc3l6X3VzYl9jb25u
+ZWN0KDB4MCwgMHgyNCwgJigweDdmMDAwMDAwMDAwMCk9e3sweDEyLCAweDEsIDB4MCwgMHg4ZSwg
+MHg4OCwgMHg1LCAweDIwLCAweDgwODYsIDB4OTUwMCwgMHhiNmQ4LCAweDEsIDB4MiwgMHgzLCAw
+eDEsIFt7ezB4OSwgMHgyLCAweDEyLCAweDEsIDB4MCwgMHgwLCAweDAsIDB4MCwgW3t7MHg5LCAw
+eDQsIDB4MSwgMHgwLCAweDAsIDB4MTUsIDB4Y2MsIDB4MWN9fV19fV19fSwgMHgwKQpyMCA9IHN5
+el9vcGVuX2RldiRJMkMoJigweDdmMDAwMDAwMDA0MCksIDB4MCwgMHgyMDAzKQpyMSA9IHN5el9v
+cGVuX2RldiRJMkMoJigweDdmMDAwMDAwMDA0MCksIDB4MSwgMHgyMDAzKQpyMiA9IHN5el9vcGVu
+X2RldiRJMkMoJigweDdmMDAwMDAwMDA0MCksIDB4MiwgMHgyMDAzKQpyMyA9IHN5el9vcGVuX2Rl
+diRJMkMoJigweDdmMDAwMDAwMDA0MCksIDB4MywgMHgyMDAzKQpyNCA9IHN5el9vcGVuX2RldiRJ
+MkMoJigweDdmMDAwMDAwMDA0MCksIDB4NCwgMHgyMDAzKQpyNSA9IHN5el9vcGVuX2RldiRJMkMo
+JigweDdmMDAwMDAwMDA0MCksIDB4NSwgMHgyMDAzKQpyNiA9IHN5el9vcGVuX2RldiRJMkMoJigw
+eDdmMDAwMDAwMDA0MCksIDB4NiwgMHgyMDAzKQpyNyA9IHN5el9vcGVuX2RldiRJMkMoJigweDdm
+MDAwMDAwMDA0MCksIDB4NywgMHgyMDAzKQppb2N0bCRJMkNfUkRXUihyNywgMHg3MDcsICYoMHg3
+ZjAwMDAwMDBhNDApPXsmKDB4N2YwMDAwMDAwMTAwKT1bezB4MWUsIDB4MSwgMHgyLCAmKDB4N2Yw
+MDAwMDAwYTgwKT0iNGRjZSJ9LCB7MHgxMDAwLCAweGEyMDEsIDB4MCwgMHgwfV0sIDB4Mn0pCmlv
+Y3RsJEkyQ19SRFdSKHI2LCAweDcwNywgJigweDdmMDAwMDAwMGE0MCk9eyYoMHg3ZjAwMDAwMDAx
+MDApPVt7MHgxZSwgMHgxLCAweDIsICYoMHg3ZjAwMDAwMDBhODApPSI0ZGNlIn0sIHsweDEwMDAs
+IDB4YTIwMSwgMHgwLCAweDB9XSwgMHgyfSkKaW9jdGwkSTJDX1JEV1IocjUsIDB4NzA3LCAmKDB4
+N2YwMDAwMDAwYTQwKT17JigweDdmMDAwMDAwMDEwMCk9W3sweDFlLCAweDEsIDB4MiwgJigweDdm
+MDAwMDAwMGE4MCk9IjRkY2UifSwgezB4MTAwMCwgMHhhMjAxLCAweDAsIDB4MH1dLCAweDJ9KQpp
+b2N0bCRJMkNfUkRXUihyNCwgMHg3MDcsICYoMHg3ZjAwMDAwMDBhNDApPXsmKDB4N2YwMDAwMDAw
+MTAwKT1bezB4MWUsIDB4MSwgMHgyLCAmKDB4N2YwMDAwMDAwYTgwKT0iNGRjZSJ9LCB7MHgxMDAw
+LCAweGEyMDEsIDB4MCwgMHgwfV0sIDB4Mn0pCmlvY3RsJEkyQ19SRFdSKHIzLCAweDcwNywgJigw
+eDdmMDAwMDAwMGE0MCk9eyYoMHg3ZjAwMDAwMDAxMDApPVt7MHgxZSwgMHgxLCAweDIsICYoMHg3
+ZjAwMDAwMDBhODApPSI0ZGNlIn0sIHsweDEwMDAsIDB4YTIwMSwgMHgwLCAweDB9XSwgMHgyfSkK
+aW9jdGwkSTJDX1JEV1IocjIsIDB4NzA3LCAmKDB4N2YwMDAwMDAwYTQwKT17JigweDdmMDAwMDAw
+MDEwMCk9W3sweDFlLCAweDEsIDB4MiwgJigweDdmMDAwMDAwMGE4MCk9IjRkY2UifSwgezB4MTAw
+MCwgMHhhMjAxLCAweDAsIDB4MH1dLCAweDJ9KQppb2N0bCRJMkNfUkRXUihyMSwgMHg3MDcsICYo
+MHg3ZjAwMDAwMDBhNDApPXsmKDB4N2YwMDAwMDAwMTAwKT1bezB4MWUsIDB4MSwgMHgyLCAmKDB4
+N2YwMDAwMDAwYTgwKT0iNGRjZSJ9LCB7MHgxMDAwLCAweGEyMDEsIDB4MCwgMHgwfV0sIDB4Mn0p
+CmlvY3RsJEkyQ19SRFdSKHIwLCAweDcwNywgJigweDdmMDAwMDAwMGE0MCk9eyYoMHg3ZjAwMDAw
+MDAxMDApPVt7MHgxZSwgMHgxLCAweDIsICYoMHg3ZjAwMDAwMDBhODApPSI0ZGNlIn0sIHsweDEw
+MDAsIDB4YTIwMSwgMHgwLCAweDB9XSwgMHgyfSkKCgpjb25zb2xlIG91dHB1dDogaHR0cHM6Ly9w
+YXN0ZWJpbi5jb20vcmF3L2NydHMwMVF1Cmtlcm5lbCBjb25maWc6IGh0dHBzOi8vc3l6a2FsbGVy
+LmFwcHNwb3QuY29tL3RleHQ/dGFnPUtlcm5lbENvbmZpZyZ4PTdlYjM4YmQ1MDIxZmVjNjEKCktl
+cm5lbDoKICBIRUFEIGNvbW1pdDogZGYyOTA4MDkwY2RhMzY4YjAxZmY0MzcwOWY1MTg5MDA3NmM1
+NjE1NwogIGdpdCB0cmVlOiBsaW51eC1zdGFibGUKICBrZXJuZWwgdmVyc2lvbjogNy4zLjAtcmMy
+CiAgdGVzdGVkIHRhZzogdjcuMy1yYzIKCkxldCBtZSBrbm93IGlmIHlvdSBuZWVkIG1vcmUgZGV0
+YWlscyBvciB0ZXN0aW5nLgoKVGhhbmtzLgoK
