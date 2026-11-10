@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794286167;
-	b=SMud18C/V1BZOtH/ng29Dz/iZFj+nDuxYDwd9aMRGIAsQeMDu9gwWEXBZhPQJoTltynO
-	 7sHMMsUZNtV5PkDwaKkAjJZd+fro/6Cb9Lp5XfwTe38Ofy+RNuygweYmunl3S0DAD3Jux
-	 OsiiHSaF6mCuy2jq9p900egjJYnLKgWjNsBt8+/Ql9Pffx99VB/M2h/DVhb3MIg1hwRXo
-	 7mqFlPXUMXN7qnVazAgvhNzNFMm0yqkuLOCcRpBBBevwtOibulbnN3U9QjZzPOQcg+k8B
-	 KSNM/fEpu6+r2ve1BAh3qWIvuUo1JLNhZXcZ+D5pTiWiRXX69iMooMKFFqXb9uGQwCg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794286167;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794286692;
+	b=gJpWIBf0VQVqsYDd+KILZDK3WFzs9enlpw7XUL5JVdD4qDo6oIKP4Pk9pYeKw5y3Z6gN
+	 hXV6C/jeVCmZyPvEfRnX6KtCJqDp16pCeY7htyjKKCfHtWkR9eLZX8JVyurhHYCwlKt1Z
+	 OjYZDXTBHvbAS5YKPfvog0FXwYFosrPtIEDhKltSsxyZ1r/yWMM1xbWCVrHvXRLLs3Sr6
+	 Iz7zzkNrDIWp/LuWU7JSSoT89zLWf2R3j6rUq1SdHgHh1poDVjRnIZa5pWRPOl7+sYLmq
+	 KkvxYAnaBEKiNnWUENp6npAnCk4SjpvJ+o7CfbqTd8scbWN5pnU73yfTTbjk7yIQfEA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794286692;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=ToRZM5Foy++C1k59kSDpzw5FEF6siS+FDf6LC+WQ3Lg=;
-	b=48L5pffexGGsEfcycWXaTGIvhjJcMxGarDBOsnm8lsgCmRHdbOh8ONb5DEYZMfTQxLGn
-	 1VPZk2O/Yjw/bbQtOFoQpMDqqBo7HAvzt88Y7JQyb8vqpr8NMNfxCOYQr2W64qJXeF0zW
-	 XB4EmA/MqpazwEVVRKFIRJy49kjdVnLrj67G4D4uLURrvGL52zGhI0lG8/WZnykkZhMI0
-	 u5JxfX2l3NPoHbXmA1FTntdF5pAFLVuk7EVq3xfKokOiTcr2UZI+RVM+VIhi6ThIDBTOn
-	 Z7BeDYJtGfYox3u/JMfIGFkAkoRH0v1P7MhHu2v3OQDkcTlNY3Xp+1n3OA9wEmsMPZg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LQH6/FLfD+l3EuP607p4MXIkH0GyDF3Widek8GlB+OA=;
+	b=nzsxx8vLSIkAE6mga8QQQH/n9lZ508bXBfMaVtSyAE5AluxCshTbAWzhYhu6jDdvwwYP
+	 GL1SKyJF9iBeyB0d7SAt/9PUdAeO4IFCaZhtA63kAcNHudhHo3uZAywPtdma8lCI/Ng0N
+	 VMl/s0iwhdXYFvqvIvJCVgVRKu0Q1+4e0pQVIH9yCvvADATuEnnxG0V37htb4c0rOAEOz
+	 QDUhpTKqj7uK9RMn2vLgCQjHYEXxTuDaBUHaAfhVh/WL+YqeOb8k9eNzGfvztO05tXgdo
+	 oIETsTDLm11dYVzPxl2aWEfjvSKr80rHiXMfIlCoYGZQCTRa4ly7F0zA388IDRbi5Xw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kNAj7Hna;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KQqqYSWa;
+	arc=none smtp.remote-ip=209.85.219.50
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53EF606A321
-	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 04:49:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B53EF606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A436606A31C
+	for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 04:58:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A436606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kNAj7Hna
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4d5b2db4bbso277668166b.0
-        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 20:49:26 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794286165; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IuSBIbA0j2HjLq8A9bM1SLTy8X8UVLCPY+xG0fwebNczkf6Gozvs8FgYfM0889pAm6
-         6cwoMpZIT+d6hm3hN8CS2IXnzBHi4IR/2sz1i+lOImzALNH2K6NHxUduw4Kxlh9BLz9C
-         Kt+lK7WHEgvOvP+bhgMour3sVYAHyY1QCrJJpScPnHQgJ3vRhELDTGEcwhVFecSrANsP
-         hrje+vsEhHDhKtXZ3DjN09EG0EDxhVUtGjQ/b31REPsPbZ7Fw+hIW0w2EXOyq+6CnrMO
-         pFw+JR2rptsWgGEsp/btJexq9NMHMPgdou86I7YtR/jK2udMCeAy0AT+VHKxnKsiq4RU
-         hdMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ToRZM5Foy++C1k59kSDpzw5FEF6siS+FDf6LC+WQ3Lg=;
-        fh=EXxRtdpVPbjuXSBOC0Et+kjFzyc9rVVEBIqgj8yPxCw=;
-        b=BZm4TlnFMb/1SxSz0du9psNjpk2RB8U+TOaa+ee8tZ2yix5lpSD1mB9eeJ0ihL7/FN
-         LhZ9OYx487loqqzAjGCvW7UI7VpRItc580HR5xd6L9XMNS85JXixvjDUXpGtT6xXBJAK
-         Q3K6tNjYb4W0oVaink15VCtVXxm8A+EDlxQ9+dxxxuARFiN/eDOGFESVGqt90q3G+EQ4
-         DTlnti4wKqPKnE7id2qC0Q+fc/BxQdYpkae9aNHS8DIc8aRw500xyesbSxeU27pPhH2H
-         hYiJnPH+OUocILyZs6b3qJWRBlOMQXCJC0iCfahcxcYcfuYCwwMG7Te20Al7T7E0M3Zt
-         xXPQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KQqqYSWa
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-91ea0c05c92so16322686d6.0
+        for <linux-media@vger.kernel.org>; Mon, 09 Nov 2026 20:58:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794286165; x=1794890965; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794286691; x=1794891491; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ToRZM5Foy++C1k59kSDpzw5FEF6siS+FDf6LC+WQ3Lg=;
-        b=kNAj7Hnam86gLl8THKLqXdVh0C1qrr1kxLtviI7/vCTsNqfeZxlmCyoWeGx/0zTCpF
-         6umq9a1wq1Bc9+eOQ5j1SlGEAwbWdZ5jhMvn82c1glJoiwGJamNNdkb6wAq7CbKKpcGV
-         BuD6VO6w3Hn6rfI2rNLarxBsFhE41NxYrLT8vRCKREfisA6tclNBTDhgSHAR/3NPezGy
-         uDeMpfa5SOiLB3PPrZIhk0m46d7Ti3WQYLMSJj2a+1QM2CmnMal4shqDBZZyXhIbRK8R
-         oFOhliLrOfisx8JhUDyrIExFXI3ZSsba8nuxYxEilLXt2IqmJ4pJ/XA0dM2my5FRDtNj
-         qmfA==
+        bh=LQH6/FLfD+l3EuP607p4MXIkH0GyDF3Widek8GlB+OA=;
+        b=KQqqYSWanyzanYGMVvJoVq1Q3OSyiciInnp7CmpNy/ELXu01iX1FI4OYQ05vKpykpM
+         fGcaW0bgvO4uXo0J6dnIxdWcxok5LhqgBkaymyXd86g0dKW1lvbG4QDToSVke2u6s5iz
+         1nNu4/LYguDDsUXA6J1wnJnrX5Y7VuKYTPv2GHP7bznh9Zwp1kcGo6UJVJ0CMvI57gSQ
+         79AhOnexbBi6XgyzS5tS+JACZ8rfTkrk2Bswvu8illsbGIztZDmLfYsqe07HT9ZenwjW
+         mtyEpJOHOFNbRVL9ImJCY3eMOFGCAHNvzstmz7ytqElhbL/FMZxvbP2LkpGfA/KzuHTd
+         lDfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794286165; x=1794890965;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ToRZM5Foy++C1k59kSDpzw5FEF6siS+FDf6LC+WQ3Lg=;
-        b=p3KX2inh7Q7RcIgcduaT24XlEmMGMN1iHQrlCZ/+ybE28QcPWnzv17KfjCDKrWVS6Y
-         oM9K4ragLB2hJwDq/KMmpYj7sgNFyjNfmzkIXAzmgYRkdeRkPReqReWunuNBN720djfs
-         1CSywdD3cNMELgkd8m33ZeN3/45gyF3XqHF83+rRcvvvCawSxzjtS86TuTMUVIFJldOh
-         2vREkpaTfmURi1fRS0H1cRoUJKutSDszQh4MNY1rcdNZT4nR5cZraAXm/nCmSpRqCG70
-         5zyUrn3Ig4OFcdyqwmff7A9/bH85Bm7R6+B493GceBJDvd9EsbEosJPoOZxfjLaAUCxH
-         nt+A==
-X-Forwarded-Encrypted: i=1; AL+hErEw9Ql8l4s6hiMSvOCzgpy8Ekw3SAMZ+zMcYQFwCqdDGinrm4fnKIJxKzK6EjTghJK4AVujFMjhhJfYyg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9w4JGum8bmm5+Yd114+X6bkv6XLJLQfnpIwziz3Dzxud+SeoS0
-	Jtb/Gl/ho9isbz7ZnJjd6i1xqFpl91YLo3XNl1Eo2F87Idt+XxLZeE3e+jU0iwRwi8a6mSlmF0f
-	ajJ/A9UJs2JiWEneAp324yq9II57UCg==
-X-Gm-Gg: AYBFou16ywLbT8yoUnWpAUGIW+8AfKDWS+3hG/9EJ3pOSrK4DEro7zmpZ3JnWnUB36s
-	kBvGrcPUy7QanPshUC4sVFsz/v7oFIK7549HcI9KqIOnmLEAmNwDtNRouaXjsMGN9fwShVfv8aa
-	aOdUF0fTBVQkqCPGgHOI3H1cXrXWL8OtxJJtZ+IDs/coEUmYUoxy81Bj4ToI3xx/0rBD+36hWkB
-	Wb67z0P18ebdi80AZhcORSLoU5MIw7sBNVo0WLWzGUHSVkUR2632t2MiSefu5Ll0HHUJMSloJzF
-	PC65OJ3DZGF7rFth4gFvQUy6MRsz5x6mqcXwF7/NDFJOiiV4H5Db1REEs+4K9EG9ODw+PUE+gBT
-	Bl2wTPYy+M4m84nxeepXk+gzcCl96SgYjTd0i9dgX0O4JT0Os6K0tLI5yspKLQxBFBlSGr8h4jo
-	xmAwtXsS6rfEK3tXc9vAkhtK5uYq1yr6cMdqLtqYOK6Nha2lM=
-X-Received: by 2002:a17:906:240f:b0:c41:4512:560d with SMTP id
- a640c23a62f3a-c5049699729mr80819466b.16.1794286164826; Mon, 09 Nov 2026
- 20:49:24 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794286691; x=1794891491;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LQH6/FLfD+l3EuP607p4MXIkH0GyDF3Widek8GlB+OA=;
+        b=JnzR9R5U9VsS5qpveJhhRrSCAQgY3Oyh+wwkfhWPuGKaVkIUW0nl9UjW/lO44/dYls
+         PdOhQ26Y/af4dOdbNFn98cAwQ/ZXLzOiyFuaf0HfHU2v8TkdZbRqwH99DEbiENvspgiG
+         OYixjijzGF5o6JlB5DEuLyKdcbUfLP8xSPHoxRtixFKW17w/Y4tA/L4SwAlO29XZ+nIA
+         wfoDQJdaZonVU8MOL3fjsTLrsFxs9lHhndDCUr30xQcCKXq3yOwD4V+7XXXazJCaYkFR
+         D3DMY1Kl8/MYV3UowyQP9/j0hZLP0M0+k8JPRIRcjFJh+PicqlRSgCXdqGRmyG01NaWP
+         +5Mg==
+X-Forwarded-Encrypted: i=1; AL+hErGxyMFnWNkwv78tKPWZJRIbmw9W6yoor77yfETDdmpJGe5dQzMPpfdV7QLDk7VgxdQpmQrzjzz35tEP1w==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9A5Al/at2/Z8enNZfFE7lnTKcHUYzm+ZL3tF04QTHaWlTQM0a8
+	TYXwJ/SKBN4or4tQ4PtzNoyQfq/Tv0nxGsAMt2VfPif9g25TFas8Jfo=
+X-Gm-Gg: AYBFou0wrCJqt3WRYdUS+BFLY/MCIWLTRupWtvjIRm220uclupmJj7GZVHW34Em+vYi
+	LXduH6Kiy+bq3BCBRHz54jQIeFR9id11hRp3yQaldJEbWSzTsnmOVV8fHTbMXex+oyTDhA9pGfw
+	s3OP5OV0+aYKytfwaSwTHGNdP+puCG0CadMgwAfdtv97lPpCfrk6TdMSWGi9PeDBsdgbWMW9Kh7
+	vBKhTHi8Ln8VKjiEQ1GM7EgkQa++QVViT2Ik36kymPZjPxGLdP9gVCwtpr3KA42/l8OYWVuJYdY
+	ZQVbdyjoZlSyE2YXpcge4NRJNjb8m6smU1jAPgD5uulCouCRN3qPRrvGbWsZOod7lxCevDXU0cI
+	TbSosXgJLVy4lkzUszSBjrbk8dlBMC2YZmU2252utyRsa1fCMUVYK9pdr0cXCTr0kFL8IpUkhxt
+	86mbeQ7HPWrVJc0FlxZoWnRn00+wdYjwAf47pFeL3lv8ZqOtCTRXVIhm/JW2GHPudDtFwa0Kdaa
+	J6DIkxc2nN4FvDF5LDJnA1IH7hgxnrMxsaMrtqXsQXb/3m7x3vY0jrvzZ4OHeeva5h2HDAqKqge
+	yzj9OB7hy6/PJEOWKMCJ29q/GkRkLWPXz8XqbFefRtoMLXytjVuvIiCgRxgebgKFPgvz+W8p9ld
+	xUq12/TJw20gatSrqyfSSE+N5FVTcB/CIqBBoRxGRVV3OakLMtAf5asNkwrj5/Tg1
+X-Received: by 2002:a0c:e018:0:b0:91e:c6ec:1d9f with SMTP id 6a1803df08f44-91eef9a214emr27070326d6.52.1794286691211;
+        Mon, 09 Nov 2026 20:58:11 -0800 (PST)
+Received: from localhost.localdomain ([104.39.152.7])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef04f89c1sm12462836d6.23.2026.11.09.20.58.09
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 09 Nov 2026 20:58:10 -0800 (PST)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Eddie James <eajames@linux.ibm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Jammy Huang <jammy_huang@aspeedtech.com>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	linux-media@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH v2 0/2] media: aspeed: order probe cleanup and last close
+Date: Mon,  9 Nov 2026 23:58:07 -0500
+Message-ID: <20261109235731-aspeed-v2-0-mhun512@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,28 +105,27 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <gm-top10-20261015191529-g65-295aa0ac5211@mhun512.gmail.com> <KL1PR06MB694295F7F33B8FEDA284C65DF1602@KL1PR06MB6942.apcprd06.prod.outlook.com>
-In-Reply-To: <KL1PR06MB694295F7F33B8FEDA284C65DF1602@KL1PR06MB6942.apcprd06.prod.outlook.com>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Mon, 9 Nov 2026 23:49:13 -0500
-X-Gm-Features: AclHuK9dEbOFpKZBzF18DRp2ysCfTdn-dJEdIFaJ5Bm7I0rvJVmVsW64xtISAdQ
-Message-ID: <CAGEsz8F3XkYkLOzrncnLVNHSgfC3tZ_zYdVrTR4xavq+h9anhw@mail.gmail.com>
-Subject: Re: [PATCH] media: aspeed: acquire IRQ after reset and clock resources
-To: Jammy Huang <jammy_huang@aspeedtech.com>
-Cc: "eajames@linux.ibm.com" <eajames@linux.ibm.com>, "mchehab@kernel.org" <mchehab@kernel.org>, 
-	"joel@jms.id.au" <joel@jms.id.au>, 
-	"andrew@codeconstruct.com.au" <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>, 
-	Billy Tsai <billy_tsai@aspeedtech.com>, 
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, 
-	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Jammy,
+This revision requests the IRQ after its dependencies and synchronizes
+IRQ/work before manual probe cleanup. The second patch fixes last-close
+ordering and keeps the engine available until VB2 release completes.
 
-Thanks for the review. I will address your comments and send v2.
+Compile-tested on ARM64 with LLVM, W=1.
+No hardware testing.
 
-Thanks,
-Myeonghun
+Changes in v2:
+- Rebase onto managed reserved-memory initialization.
+- Remove the research sentence and Assisted-by tag.
+- Join the IRQ and delayed work before manual probe-failure cleanup.
+- Keep VB2 release before normal last-close hardware shutdown.
+- Drain the IRQ producer before cancelling resolution work.
+- Balance IRQ disable/enable within stop and check STOPPED before power-on.
+
+Myeonghun Pak (2):
+  media: aspeed: join IRQ and work before probe cleanup
+  media: aspeed: drain IRQ work before stopping the engine
+
+ drivers/media/platform/aspeed/aspeed-video.c | 38 +++++++++++++++++++++++++-------------
+ 1 file changed, 25 insertions(+), 13 deletions(-)
