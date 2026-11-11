@@ -1,58 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434670;
-	b=2RaJlGrt0AIf0osrk6ZfJMoY4+tUUwEjESIFMCTql0yd6Y2rCyEQB8xuUqHUqK5Ea8iD
-	 9RnqyFGfZxFwbIaUBsaluOVZx34q0XX+1nPeZvmrkwOQA+Z1aiSDB3McpwUe3MM9iHd2b
-	 mNMKGEc/JvS/G3T/u5zf8gMugf+03ubz9vZjPENsD/ru5Z9ReXW0KzSGwr0SPN1MBNPlw
-	 grwaYTLS4TA99d1UQwmcF551QpHv8mjQdN/GzemyYimxL+O/k6Z5frDRJdjgNBw/MfzcM
-	 UGIRZyq3Xoz7cViJO8HID72uahlERb2cxq0E+v1qNZOsNOKFyR6om+M1uCguijgxW3A==
+	t=1794436898;
+	b=hF52i5wjXcBo09JVWFfhQtqiDCoFyFIYh69J42MuJR/CLhfO7aYkoxvq20w2VwoYZ7JL
+	 3aU0mfmxwTIaOVS2Ki7AYY7GhqWV0RP3Fuz0dj0cB548MnIR6kVIkf1GA6ydPS9yE4ENE
+	 xDMnxaQ6j+pTr/qvl4DDTQz1J/Mk/603j7hxD5fBEiBnQCAMAhnFx9WEBVJHU4PXorE21
+	 8EebjiSbL066WY+GcfPEdW7CEus2yNU0LCskwuoSSGMTd9Zkabaug3/G7+TQY0CRdxF44
+	 8BbQUXDxeVr1rNZF7PpzMUiWrXnecfhVvxGDwHGio7lmVSOS12+gcGtPrptEIIEWB8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434670;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794436898;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nzxOIbpVWvN1/7w7Gefz50DVN7UAEAU8g5PqRLWlbIs=;
-	b=O8WKob+Zu86YBoSnSNYSTtIPDpVpu/mRUDBlvIVewJBmd2YNGgTW9wabziL/vmBq7YM6
-	 wFLZdSu3ViCz3LXRxCgfdMClMM5NCbdupP30X6OZfbqTJ9Mlk/bVDUjZsRlLwRNEGbiL6
-	 USCOLDApV21Uhv0Q1fgYl8uGsxWb1ROd8V7ZvylEVsbG5mEL981/OgWj65i/a2J1D7CIg
-	 HXgggH3y/EU9c5mgtEnVubQhydP955zvH6jML3lPkcAvYkwvMZj7PjPu8G2qoMitFZlEc
-	 +kk4KZsWShK+9iinLhBFrmyAHlhrjz3mtdQ7L6YsngG+rAOf8q0U4u4PtSNqZwE09pA==
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=artujVBtkITv0xul/f4LcgQN/4n5We9dzsh5W3Leptw=;
+	b=RbbJnpEEENc8N9IYCYDH5ubFc67SbNDnYOEfIPWkXpR1vhusiZpGG/+/o0XtA3dudz1e
+	 Q2JCxG64eiFTuyhlEnHQ6ZqVLvmMeWZOo2m1b4J38alWUOepApnoogiAEqcX/gNQzVlcz
+	 hXu+JQ9vdXfJmEuF/TfGPfs6gh5a846AGKviYZ8+6xe9h+HsiOW+AfZws05HoSv3/TGXc
+	 8mft6dZbys8or2Dt93VlYzQOp1sf8Riliv3mk1zJpalo7F3sao7weJN/Ab7LR8bEv6dWS
+	 vxSIPaZdzZdDAV1CEMge2frl9ODan28mqiNjm4pl4IiVbjpUEf86ZRBLKBYcXj27dRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LU7GxPKI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZELOpHA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DA3606A331;
-	Wed, 11 Nov 2026 22:04:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66808606A33D;
+	Wed, 11 Nov 2026 22:41:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LU7GxPKI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09AC51F00A05;
-	Wed, 11 Nov 2026 22:04:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZELOpHA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6CA1F00A0A;
+	Wed, 11 Nov 2026 22:41:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434670;
-	bh=nzxOIbpVWvN1/7w7Gefz50DVN7UAEAU8g5PqRLWlbIs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LU7GxPKI5n8f1/eFXRMUCp8bBPzHUzSZVdG7KSr//4qrmweTs4YE133NVhBI6TvTh
-	 JdR6QgYr5cp3sJ0Io1vkqPZAvaDvRB/r1Kwp+aquWMHwdeiusSBaFNRuiqW3lwFGg1
-	 EXDK9ejy199Ydh62HTLOj6jlJZpIiM/05MVhUG+NzSJp97/w42z8ADMnerfLiJFmCc
-	 5EVZywoMkbSKVUNxdvM+7fJrAkkKBEkU3iHKezFMGKcGXCZssNkoHPoqxuuRUO4zEP
-	 1aPo3mPJTKC8ETN+9rBJJkYyWsVup+RPAPXOlR+YOb5dNcOgvhQTAt5V2VLfdFeTkQ
-	 IQtDOZ92kD8ww==
-Date: Wed, 11 Nov 2026 23:04:24 +0100
-From: Thorsten Blum <blum@kernel.org>
-To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Cc: nicolas.dufresne@collabora.com, benjamin.gaignard@collabora.com,
-	p.zabel@pengutronix.de, mchehab@kernel.org,
-	hverkuil+cisco@kernel.org, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, kees@kernel.org,
-	justinstitt@google.com, morbo@google.com,
-	david.laight.linux@gmail.com
-Subject: Re: [PATCH v2] media: verisilicon: Replace strlcat() with scnprintf()
-Message-ID: <avTmaEUzcTHR-Q6W@kernel.org>
-References: <20261105084518.386234-1-nikitash.mariiaw@gmail.com>
- <20261111032446.29803-1-nikitash.mariiaw@gmail.com>
+	s=k20260515; t=1794436898;
+	bh=artujVBtkITv0xul/f4LcgQN/4n5We9dzsh5W3Leptw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=BZELOpHA05LqzQ806/IA3hS/mble4JA4SMN5wo/zZjQaqIWC0OCBlMBDK2sQhvV+n
+	 dkA7m+l9XAXrrJ1vyvuvsCgDJ/n1YkeFfGi5ibtx5yBDc6YnZBeNneFpO6Am8qxS2m
+	 UQulPJ79zSsWSZr4aSoYUBmRPIIEF3JPNSnHPhViMlkc4d6j2fkLwElxe1ezZ5JGwy
+	 ku4SNNqQ4WTMY6p5pFj0Wv+mM+gzbo/k3+40qdSCIAMGoySt1wld4Bdz7vIeKjrwhD
+	 1EbT+YjayK34qLqRx9lukCB8yqmedx6P8IsSOoZXBBKuYH/g2B+tmEv2oTzfBfytUd
+	 /bFe8kKnUK0Vg==
+Date: Wed, 11 Nov 2026 16:41:36 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v13 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
+Message-ID: <20261111224136.GA754433@bhelgaas>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,28 +74,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261111032446.29803-1-nikitash.mariiaw@gmail.com>
+In-Reply-To: <20261111121602.GQ8635@unreal>
 
-On Tue, Nov 10, 2026 at 07:24:46PM -0800, Mariia Nikitash wrote:
-> In preparation for removing the deprecated strlcat() API [1], replace the
-> strscpy() and strlcat() calls in hantro_add_func() with a single
-> scnprintf() call.
+On Wed, Nov 11, 2026 at 02:16:02PM +0200, Leon Romanovsky wrote:
+> On Thu, Nov 05, 2026 at 12:04:31PM +0200, Leon Romanovsky wrote:
+> > Punch line for Linus from Jason:
+> > "Enhance detecting if the PCI fabric can support a peer to peer path
+> > by evaluating the full bi-directional fabric path over each of the
+> > three traffic type ACS controls. Expand the number of fabric
+> > configurations where the P2P algorithm makes the correct determination
+> > of support to include non-uniform ACS and situations where translated
+> > takes different routes from untranslated."
 > 
-> This preserves the resulting string, including NUL termination
-> and truncation behavior.
+> Bjorn,
 > 
-> Link: https://github.com/KSPP/linux/issues/370 [1]
-> Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-> ---
-> Changes in v2:
-> - Replace seq_buf with a single scnprintf() call, as suggested
->   by Hans Verkuil.
-> 
->  drivers/media/platform/verisilicon/hantro_drv.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
+> Just a friendly reminder.
 
-Nit: the prefix "media: hantro:" would probably be a better fit.
+Thanks for the reminder.  I put this on pci/p2pdma for build testing
+(no issues expected; I always try to get build testing before merging
+into linux-next).
 
-Otherwise, this looks good to me.
+I'm still struggling to describe this in a way that connects to the
+code changes and is accessible to non-experts, so please correct
+things I get wrong here.
 
-Reviewed-by: Thorsten Blum <blum@kernel.org>
+I had the impression that this series helps VMs by making P2PDMA work
+with passthrough devices in cases where it currently doesn't, but
+maybe that's not the case; I don't see any mention of that in the
+series.
+
+IIUC the P2PDMA core doesn't actually *control* any TLP routing, i.e.,
+it doesn't change any ACS controls or change any TLP attributes that
+affect how TLPs are routed, so to me, these subject lines suggest more
+than is actually happening:
+
+  Route Relaxed Ordering Completions directly
+  Reject Translated Requests blocked by Translation Blocking
+  Route Translated Requests under Direct Translated P2P
+
+It seems like we're just *learning* whether RO Completions will be
+routed directly, whether Translated Requests will be rejected, etc?
+
+I think the core basically looks at the ACS controls on the path
+between two devices and decides whether:
+
+  (a) the devices can do P2P DMA directly (PCI_P2PDMA_MAP_BUS_ADDR),
+
+  (b) they can do P2P DMA but only through host bridges on the
+  allowlist (PCI_P2PDMA_MAP_THRU_HOST_BRIDGE),
+
+  (c) no P2P DMA is possible (PCI_P2PDMA_MAP_NOT_SUPPORTED),
+
+  (d) PCI_P2PDMA_MAP_NONE -- I don't understand this one; the comment
+  says "not a P2PDMA transfer", and pci_p2pdma_state() returns it when
+  the page is not a p2pdma_page, I guess because
+  pci_p2pdma_add_resource() has not set MEMORY_DEVICE_PCI_P2PDMA?
+  Not sure how this is used.
+
+I guess one benefit of this series is that a path where P2P Completion
+Redirect is set used to mean that pci_p2pdma_map_type() would return
+PCI_P2PDMA_MAP_NOT_SUPPORTED (unless the RC was allow-listed), and now
+it might return PCI_P2PDMA_MAP_BUS_ADDR because if P2P Request
+Redirect is clear, Requests can be routed directly?
+
+That sounds great as long as the Request uses Relaxed Ordering, so the
+Completion won't be affected by P2P Completion Redirect.  But devices
+aren't *required* to use RO even if enabled, and I'm doubtful that a
+non-RO Completion redirected to the RC is going to work.  So I don't
+understand how p2pdma.c can guarantee safety.
+
+Translated Requests seems similar -- are we assuming that if ACS
+Direct Translated P2P is set and ATS Enable is set, the device
+*always* generates Translated Requests?
+
+Bjorn
