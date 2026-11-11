@@ -1,137 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794395112;
-	b=QjnlhZqqEsU3Kqv5EWlV3k9hL0TAwmzUJcvgQVULoYyucie1V/I4ZwDcBy/BkZJVZhdw
-	 lF/v79pYvpo7h/FY0x1AEXC2HDnB4lWoehNRwkrYD+ok36KjtlmpGNOMdSGftbbqI9fIn
-	 9q3lPn0HhKlchxDr88t9mEpC4uXuyQH3Qb+/3svMLwGJOBDErHD9ON9rASnt819u9zcZN
-	 YNAVVaJc2Tpr1p8jx8uCe/ZH5y2NGAVclnEVUVQX1eKh6Ow0Lo69MrIJEn/hsTddjrLNR
-	 sTg3aPrp7qyWuqPT0SfzA4laJPRjv6zz2DFmPizqR+HFQa8PZKvxkeAHC8Z9pdUBYjA==
+	t=1794395377;
+	b=yK0efNEM8STY/ZdBGB062qZxxMXAZP6X8l8otsqLFIG2WmYaifxhEh/i2SBSZAeq4fIw
+	 f3lquOSjSyihhiNHOkVk4c7gcKs2gIfx4GY5RZytC0vA5TH5RIg5O0PaRygRhvn5ZUMHA
+	 hNjvn02uuYB69izP4Y6GPydPH/yS0IoBj664MNyelPauiaWD9wjfyKe/xZHpyksadFueb
+	 9MubK5XrXWOPER4xsHF2VzfDHeWwCCK/4Q9JU3h9nWuxivPYoExXd1PWmoS4qXzuglGzA
+	 qICNUJhagwUkDby24hbEhxtTSSv611oFgi+o0BGNfnMPJRikE4mLtvYvhNTKfcABmfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794395112;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=aWDnnNx26bu9eNBEE5EhcsojfHfv5oN9+T/oze9PJL4=;
-	b=i3l/PpQ3+5XApih38mQEgNNoIxUwGiumZfWjer1U/gCnxnDnrCCKgjywEIUyP5Ks18G5
-	 NvrZ7Wwl9yM4U1FXyOceJqAVJG7x5FhH/5ZUE+jlqbbsCEeAJ6Z+uZgC8jOYubBY15rk4
-	 SUFPpw3Q6Wz26xTKjPWq0EZdPGUXM5LX6pSsModnjfxCCHNn9IB+CXi3KawVZQG5wpP2r
-	 EjqOeXInTrI8vWpkltSmQjhVPYYW3barH5oZrjpUdJ9t5cCXnuLLCy0F8mKC3TT0oaGgf
-	 8VsLvdukrVHz4sivxm4oGMdOCKkeyT1g8zGca5hmE1vwV2F6O6qIAbFZNvkf1KsSxUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794395377;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=yn5y2q3JJulnHdFFu2RjD/z39f48yWR7C6Zxb/M775M=;
+	b=mCuoN9CIA9oGqOeFi/ksR5J9W1BT5mmO+FeacYN9bDJP3uUMuHxK4iRsp2HVM7ODgmH1
+	 CzoS0GUFxyfg6R9EEUmRS0neju2O9MSWWQjKNjZ/9bZ1qyX6IHQdfIX3pTT6e6oThuhmy
+	 5q4YfQC640/2b/Ff+T1o8IXaGNPtai8OSNPaY37KlXk1O/GaiTJR5q5U9AvD7Li9j4JlX
+	 YFKau64JMUji3GgZ74iUT/CGZ4tpmLa34h8yJfTcqgakdKQoHkNdWajkm0OuJjwzpcs7L
+	 OVxjBZ5jWVUMM9mUK9ACcft4t0BJ0pVdoU1CRbeuPm2zf+eD49KhW96SduMnOVnsCwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mz7BvnsU;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="EzLuUJ//";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.171
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21FD606A327
-	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 11:05:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F21FD606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mz7BvnsU;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EzLuUJ//
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABAlUR61052608
-	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 11:05:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=aWDnnNx26bu9eNBEE5Ehcsoj
-	fHfv5oN9+T/oze9PJL4=; b=mz7BvnsUk9uvZQBPrlrCP0FY0EpKMK8Fnk/BJHJZ
-	eIoz6x8b3e5HhK20kdOqW2ekkFFf4tIzIIQd5SEedf5uMjSOn1lfN3HMweVk6lH5
-	ntz+LJKj1xA3zC1lWMiPjWdkI7P4ItEVdW191lQ5ipmefuyWEOahTrGjWcSdxLuU
-	6o+wZx4H6jlX5sycKyAHYbwEDsNvpGFbhB0YgljGlpALYPGUt4AeZiDZLjWRE7EO
-	9Vv4M/xETI0XHrHJGE+QWvWV4JiSzyR+bb63NyL/COQ00bTFpK9FUgmvXY0PAZvi
-	blXIaVCaAkAuxykk5ieBxYSJL7zNSqx6hLI4vaa2D1tpzA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdrh28qy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 11:05:10 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3425098ae4bso616408eec.0
-        for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 03:05:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794395110; x=1794999910; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aWDnnNx26bu9eNBEE5EhcsojfHfv5oN9+T/oze9PJL4=;
-        b=EzLuUJ//xrWGfwX+3r8k/nxd7OXTopxuBG/mXXyND/7E3CnLEwXXVJ0042K6vTwmiA
-         cZAi8Y6U7C5eTDfduKkzZaA+IemJrrv58lK9Mh3xtpf1bxYsRJc6gU9EnT/WwjPJn0Wt
-         0pkCX30kVPDexZb1VCpIznA5suqMd6AL9A26ECMm85jHamay/XsOVGDjad3c+F/U0F2l
-         9zm/LWmn1cMEybuA6JWpRP+7oiVlTJbHuAIIn660mkyWMAY4HIJHe9eyh+8ztKDNG+le
-         JYbMnYoGMwuolq75QXCU111y3/yR2b3AmDeyuW5HKEDgI2IwVSWYT9AkL1H4R+KF40AS
-         BZbQ==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18E1606A331
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 11:09:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F18E1606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5eac01ff101so1071214e0c.2
+        for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 03:09:36 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794395110; x=1794999910;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794395376; x=1795000176;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aWDnnNx26bu9eNBEE5EhcsojfHfv5oN9+T/oze9PJL4=;
-        b=1nbei0sJvVXnj8h3kXKx1rxdLvMIWVNzcMSEJDc/3y7PDv//tc5KzrTbhhyDutSpIo
-         eyEjY9AHtBK0JvwymQoArkRJObRzMMhTGCYH3mUFxBS+y/a4ZoS3tX53AlseW00S7T7I
-         BhYv1uj1xRZZtevNxB0VrkZ361qjJaMMZfuRL1yeh72MQtVcnn72+8iRGEQoGTyxUOyC
-         jhwkx+LRuwyQM8k3VsxPX16QuZl7bnkSMc1AQX3VBzyd91hAX1xEjqgjdHfViunPKYFZ
-         9fZhXUf8YC6JEE1NenOUAFnpbbIu0PI1a8slSCcSIM71ldtsT8P+vV4/zkwoxtOzinVE
-         9p1A==
-X-Forwarded-Encrypted: i=1; AL+hErF/NuMG5blKiuqemzmIa0tth2WttV0YCpZx0H6GtH4klrFo1TqHgAZD0g8g7oTfdQsNe0D40RhuT9o0oQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Tn9gZmd6g5m5gTWcdKFjFzfcdqyPsI4+E7M/4WH1mEeigdjyI
-	/HeApZkwTnlWRYUqkHKXXiX9zMD9u0OVwXP0xowoosG9vCgCIjDzbvBRTlnHSug0GUaj+kk3wyS
-	1ft7h22AqTJtzuXuNJb8rugfALqAefo07x6DKy8iNgUs+6g3RpKXNw8Ue6N+hqeBlkA==
-X-Gm-Gg: AYBFou2U8vO26RLsv/OmvJVYe2VSzzkuJppUymHRk/I1RBEm7QfGhncHrCrCNSbseHK
-	djGNX6RZtn6TstQoDhUAgmUyogKff1j7TfydP5IYWWzg8JecIoMLp3mAv4jzZwBXvFqs4n2pEwk
-	Me0HCI3C3/+bLuGucWW7PDNIEx+PBoV1ePTlCJCzRy/Zf9NphKFaWuNAaPgYRzr8ueae5HVJnq8
-	7AYbllyAdHe6o/ky7DRlqiXmRLA8RKa0FMPJa+g8i/JZtEBa1oRDjkKo/57UJQGDFFTqRB1CXRp
-	8SefsKND+TV+RTE6LCVDwx+2SP9ABr7rWGvVA4hXUt0CnyXq+LrphDv1TnrzCZLE6vBDb/RPfTY
-	Mq2F4ZDFdTTYYnlWXeqORTYDjC8bsi5dtgjo9s2Rg3MKMZOfp7++1k+UnnEmRQg5M/Xsp7dgyBV
-	dE0v6SALs=
-X-Received: by 2002:a05:693c:6391:10b0:376:c208:ed7a with SMTP id 5a478bee46e88-376c208ef25mr1678176eec.8.1794395109786;
-        Wed, 11 Nov 2026 03:05:09 -0800 (PST)
-X-Received: by 2002:a05:693c:6391:10b0:376:c208:ed7a with SMTP id 5a478bee46e88-376c208ef25mr1678128eec.8.1794395109019;
-        Wed, 11 Nov 2026 03:05:09 -0800 (PST)
-Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520608b52sm13502136eec.13.2026.11.11.03.05.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 03:05:08 -0800 (PST)
-Date: Wed, 11 Nov 2026 16:34:56 +0530
-From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>,
-        Vasant Hegde <vasant.hegde@amd.com>,
-        Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        David Woodhouse <dwmw2@infradead.org>,
-        Lu Baolu <baolu.lu@linux.intel.com>,
-        Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
-        Eric Auger <eric.auger@redhat.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Joerg Roedel <jroedel@suse.de>,
-        Srinath Mannam <srinath.mannam@broadcom.com>,
-        Oza Pawandeep <quic_poza@quicinc.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev,
-        linux-kernel@vger.kernel.org, virtualization@lists.linux.dev,
-        devicetree@vger.kernel.org, kvm@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Subject: Re: [PATCH v7 0/5] of_iommu: add support for "iommu-ranges"
-Message-ID: <avRL2AeIXEpA8SE/@hu-vkatoch-hyd.qualcomm.com>
-References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
+        bh=yn5y2q3JJulnHdFFu2RjD/z39f48yWR7C6Zxb/M775M=;
+        b=H+wynvP5deDvwgg6zmgBBr+1AxTSEt01OOQAk0OgqvWwMt/hgvaW9pklWSD82B+/HC
+         V0jhBr3K1pIt46QzKv9PNjEZH8QyY6AJgeJElC1E8muafFhXJ3iZageYppkuJKhI3863
+         bKNT1IwFNY1Ohhjd9jj/LKVTNXNCGGumycJNu6XValwk6Gln9sRWwpPsyG5Ft0Irkx2q
+         wW8PH60FoGOo6Euwvs87Dw1nWWZLkG0PGsNoPkuv5vV06G1r9faXXUfzNDCMmy/Q6yvY
+         VL1mrnK0nA4Wh91kGpPc5CnLFtJyQ/qRkND7fH7k2CEJ5JRiNTAnWzyAZU2Vt6R/FBLN
+         9oJw==
+X-Forwarded-Encrypted: i=1; AL+hErFCXJdUZXr4nK4hHuR/VlfCQUhaqmVU21daGDUtS7/lvctVAoAkxsL5hHRQSmnc6nHB91xxc+WeJpmzLw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8HEhN/7PPFoJA301/loptEX9fwodn0jrgyfwFWzSTWgHxqYrf
+	ppIGxs4EhVAtHBu9N1in0zM5J1EwM3xsQBL4ekGQ0NqN38KbuFnssOjIiVC7/dc7mkk=
+X-Gm-Gg: AYBFou0BWVoDCVwiuY1gba0HR86Q7HKpHq+LHW7jkoTTCDeN10i2t1ErYijVmLzOJCt
+	QXptn8jENqGBMt8319xzDq7bS2tcMEt0Zijs2VVRaLjYXorLiXqGdvEGcijmS+nPmPTegUqwdks
+	a9uyARsD6OhsPML1SqDykVUsncDxGlLaA7Fn+7KcYHPIsARD8TKnpjzyWrr06P2AZLqbyNQhlEz
+	IwR+tpiXUHkaVcI0K8Lh9AoMGF9h7s5vRFmAqDh2fiho1IMJ1FDeW5WYF1W269yFIkl48hWj4JC
+	lBzTH7aRNt4DZ1/tHUTBgd7hHDx36yXqk4M8U0VQxD3TdVlQ/y7D/JdXfr1EaBXrTBtdjqTkD+v
+	SHD8zXGqDgml8zS7od3feyr0ZCPKbhbRGHguAuEZ/tx4SWGxgn4juwkldnlgdfBWGxnLl119KMD
+	kSbOA1x0lsJJUWmFGJ0t8gsF89rFfkE3lqT2rixiKzOp+yva1nKS46xKoWqfEno55dQ/yfry0bS
+	dgYBwNQ6PmzHuxJWiv7rIm4iOCG+CcABkUJV5nnzVEJYMkD3dlxQQB2KQuYueFh8/7nxdYt9ATF
+	bYy8pHPk2lNCuiVppdAbb+Pgdn2plwRRq0EL3MXE3y2btjY6e7BvCZhoUsCVRrf328SnMgURiMh
+	dDU+IYSvTC0Bg
+X-Received: by 2002:a05:6102:3f44:b0:7b5:7cd5:2a1b with SMTP id ada2fe7eead31-7d4fb250760mr454754137.10.1794395375796;
+        Wed, 11 Nov 2026 03:09:35 -0800 (PST)
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com. [209.85.222.48])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d302334eb6sm3691523137.3.2026.11.11.03.09.34
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 11 Nov 2026 03:09:35 -0800 (PST)
+Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-98c7798ce74so805473241.1
+        for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 03:09:34 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErE87Puioebr4Pg02Fe1AioypB7GL0iPQ0DK21lH60rvktivBhqZfxa5TjchU1qi4GLZPk9vVksySajrWQ==@vger.kernel.org
+X-Received: by 2002:a05:6102:d8e:b0:7c8:1fd5:82b5 with SMTP id
+ ada2fe7eead31-7d4fb291ba2mr478980137.14.1794395373576; Wed, 11 Nov 2026
+ 03:09:33 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -141,101 +82,89 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA0NCBTYWx0ZWRfX7klKRFU59sci
- 9PJYb5qT4u01dugYBG/aRqSct8hN4qRthqUoqkjNNaRfG2XjH2yTaaxeH/t9rvfxdqxbANe400a
- SYb9JlWUll8z41kNaUDZbCNeZ8LRHGc=
-X-Authority-Analysis: v=2.4 cv=PoQG/AM3 c=1 sm=1 tr=0 ts=6af44be6 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=DzlgiSjgYWYhIfnXaHkA:9
- a=CjuIK1q_8ugA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-GUID: _6TaCR7py5dbLZL6yjMTsqyCed-dI5sW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA0NCBTYWx0ZWRfX6gx94y3zZSFt
- EkzLCkORB1nmaSOAuaLMQ9ruDfZe0m8teIrn2E+NRFStmXSBoQfdzB5p/aJLPOAAmGV2Kholr6U
- YvPVl0ZmfhAYSE3nY89iEiIfYz7fBZrLGKu2DujgsWEOoLB9BfoIbmQ6d/ox1I5Y06d+jk8AqRK
- EA5aJ77BajG7yCUf5HgQYF0h7v/I0jZ06vqksoFecYCXBmP2t0nrSc6DS0Badk1VV640mdaQsef
- cXdfIXAditfu5smuH3gdzIkwmWRGuawZcM5T1SPYn4YgwTmaXF4JQY34h0sEsGjyjeUEYUg5ptR
- ep/rOrTyDL62/I8tQf83ggbZ19l5+ntdWCiReUnZWf+vytRk5pFd88r537LInLghoZ0rhI93SVv
- E4oj9Ef2o4WLUU2PzDnuJiO/Dhpq19oXwfyhJaZZzokSPyVjCkZmDxlDWbT9XxMf3NswqTR2/Fa
- 5WOMqMC1j0an1tRYjLA==
-X-Proofpoint-ORIG-GUID: _6TaCR7py5dbLZL6yjMTsqyCed-dI5sW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 clxscore=1011 priorityscore=1501
- malwarescore=0 bulkscore=0 adultscore=0 impostorscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110044
+References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
+ <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-1-1b2072e8c37e@ideasonboard.com>
+ <20261110-steady-kangaroo-of-mastery-5fcd7f@quoll> <179438844820.272237.18262716067322018404@neptunite.rasen.tech>
+ <e179b228-3f18-4b99-9c54-93699d13e63b@kernel.org>
+In-Reply-To: <e179b228-3f18-4b99-9c54-93699d13e63b@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 11 Nov 2026 12:09:22 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXQOMX2GXnBpH=onofFp1w+TyZPNc3RWjM1pDbpLTG1fA@mail.gmail.com>
+X-Gm-Features: AclHuK-p812fgpXzcAZTo074hP5s29t5onlgPposQZBLZQWezlnyhodp5CVCArI
+Message-ID: <CAMuHMdXQOMX2GXnBpH=onofFp1w+TyZPNc3RWjM1pDbpLTG1fA@mail.gmail.com>
+Subject: Re: [PATCH v4 01/13] dt-bindings: clock: renesas,r8a78000-cpg: Add CPG_SGDn_VIO_DP_{TX,OTHER}
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Paul Elder <paul.elder@ideasonboard.com>, 
+	Paul Elder <paul.elder+renesas@ideasonboard.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 06, 2026 at 10:44:23PM +0530, Vikash Garodia wrote:
-> The series adds support for recently introduced property 
-> "iommu-ranges". It adds the required checks to error out for cases 
-> which are not following the schema definition.
-> 
-> Iommu-ranges was defined in schema with this PR
-> https://github.com/devicetree-org/dt-schema/pull/207
-> 
-> The patch series is being posted as revision v6, since the patches 
-> were initially part of the media series [1]. The patches are moved out 
-> to get review comments from iommu reviewers, which was otherwise looking 
-> as a media series. Happy to move this back to media series if anyone have 
-> any concerns. 
-> [1] 
-> https://lore.kernel.org/linux-media/20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com/
-> 
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> ---
-> Changes in v7:
-> - Move the "iommu-addresses" behaviour change ("reg" required, non-direct
->   mappings rejected) into its own patch before the iommu-ranges patch (Bryan)
-> - Make OF_IOMMU depend on OF_ADDRESS and drop the #if guards (Rob)
-> - Use resource_size_t for the size in vfio_find_dma() (Sashiko)
-> - End the derived trailing reserved region at PHYS_ADDR_MAX - 1 to avoid
->   overflow (Sashiko)
-> - Add a dma-iommu fix to protect the IOVA rbtree anchor on 32-bit with
->   64-bit dma_addr_t (Sashiko)
-> - Use the "iommu/of:" prefix and fix the subject case
-> - Link to v6: https://lore.kernel.org/r/20261103-add_iommu_ranges-v6-0-361f3921a133@oss.qualcomm.com
-> 
-> Changes in v6:
-> - Addressed sashiko comments.
-> - Addressed comment from Bryan.
-> - Link to v5: https://lore.kernel.org/all/20260926-vpu_iommu_iova_handling-v5-4-0322ca5dc10c@oss.qualcomm.com/
-> 
-> ---
-> Vikash Garodia (5):
->       iommu/dma: Keep reserved regions below the IOVA rbtree anchor
->       iommu: Use resource_size_t for reserved region length
->       iommu/of: Make OF_IOMMU depend on OF_ADDRESS
->       iommu/of: Require reg for iommu-addresses
->       iommu/of: Add support for "iommu-ranges" on a device node
-> 
->  drivers/iommu/Kconfig           |   2 +-
->  drivers/iommu/amd/iommu.c       |   2 +-
->  drivers/iommu/dma-iommu.c       |  32 +++++----
->  drivers/iommu/intel/iommu.c     |   2 +-
->  drivers/iommu/iommu.c           |   2 +-
->  drivers/iommu/of_iommu.c        | 147 ++++++++++++++++++++++++++++++++++------
->  drivers/iommu/virtio-iommu.c    |   2 +-
->  drivers/of/address.c            |   2 +-
->  drivers/vfio/vfio_iommu_type1.c |   2 +-
->  include/linux/iommu.h           |   4 +-
->  include/linux/of_address.h      |   2 +-
->  11 files changed, 155 insertions(+), 44 deletions(-)
-> ---
-> base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
-> change-id: 20261103-add_iommu_ranges-549cf3fb0867
-> 
-> Best regards,
-> -- 
-> Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> 
-FYI, we need this series too, for the extended mapping support [1] in
-the fastrpc driver. I'll be posting a new version of that series soon.
-[1] https://lore.kernel.org/all/20261007-extended-mapping-v2-0-5dca3aa2c2d3@oss.qualcomm.com/
+On Wed, 11 Nov 2026 at 10:16, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> On 11/11/2026 10:14, Paul Elder wrote:
+> > Quoting Krzysztof Kozlowski (2026-11-10 18:30:50)
+> >> On Mon, Nov 09, 2026 at 10:34:22PM +0900, Paul Elder wrote:
+> >>> Add the CPG_SGDn_VIO_DP_TX and CPG_SGDn_VIO_DP_OTHER clocks that are
+> >>> used by FCPV, VSP, VCON, and DPTX cores.
+> >>>
+> >>> It should be noted that there is likely a discrepancy regarding the
+> >>> clocks. In practice it ought not to be an issue as all the clocks der=
+ive
+> >>> from the same SGD1_VIO_MAIN clock and none of them are programmable o=
+r
+> >>> gateable.
+> >>>
+> >>> According to the datasheet, the FCPV[BID] and VSPD cores use
+> >>> SGD*_VIO_DP_TX=CF=86 while the VSP[BI] cores use SGD*_VIO_DP_OTHER=CF=
+=86.
+> >>> However, educated guessing suggests that IP cores in the same pipelin=
+e
+> >>> should be using the same clocks:
+> >>> - FCPV[BI] -> VSP[BI]:                  SGD*_VIO_DP_OTHER=CF=86
+> >>> - FCPVD -> VSPD -> VCON -> DPTX:        SGD*_VIO_DP_TX=CF=86
+> >>>
+> >>> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> >>>
+> >>> ---
+> >>> Changes in v4:
+> >>> - Add all the clocks
+> >>> - remove DNI
+> >>
+> >> What is DNI?
+> >
+> > Do not integrate. Most of the patches here were DNI in previous version=
+s
+> > because they depended on a lot of downstream things, but now those depe=
+ndencies
+> > are in the process of upstreaming so these can graduate from DNI status=
+.
+>
+> Upstream clock indices ABI does not depend on downstream at all, so
+> seeing this unmergeable is just confusing.
+
+In case of the clock indices, "work in progress" would be a better
+wording than "downstream": multiple patch series are adding indices
+in parallel, so some of them may need to be renumbered. Just like when
+adding syscalls.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
