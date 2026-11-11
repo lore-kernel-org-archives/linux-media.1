@@ -1,47 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794401046;
-	b=nRCnqHVLFT6Rs8I6R3f1qQlbkGeWweOlGkCalU91gVm/Vylg+qZIN2+HHSfaNLJXnfkv
-	 lwqyeM/NW5MCXlVcbF8Y9FkYRKSCrxUCG1rubPhTrcnIo8Olx6mqOkJj6kzjA8ym0+X9u
-	 JsiKV5yDOa8QAhbUawXx/eKnQ+3Cn6YROkd8HLSTkW7t27YN9SU1Gl5Db5mWGfspBV9n7
-	 LEfMKPpFxaGYPXWTHiaUExW8NG6jGXXIAw/yBiDb/NRN4xjklfRltrjIvcsMu7YY7KmCw
-	 Jy9XRGwthhvlb8SQiMURS5QCQnnAxeLJhF2ys/gUPLo8pwsJU8CvrsMuNkfEAtq9RiQ==
+	t=1794402101;
+	b=kV+kX0jSpcNONVv73xCIFd5tH7DMzRM34rdkx2PlbdpeiqVpbFpsbHaFnTOHKBxun7gs
+	 Ep6mvVL13+lkauMoEycDOihbwR+GRi1EyZ3JaiY/8rTE/x+docwM/PjOathpb441+o1wR
+	 ISBeQUFNApgjYKl82uN8TQ67MqKRdx3pQusdhhH2fKlVj7HyEH2feUxB8YgNaWIs76Vrw
+	 OyOUs/d1huiNgEOPAQ9kJhXTZ2nhD0FFjZo1IlR50g05YYdVoVIw531nYybofcsTCnewN
+	 aXytgb+WcfyvHD0bdNY+JupdcNIQvEWOPt4sTDL5LP13EZcPQQTIdldRPcfqHr6tsAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794401046;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=wBVufWqx+zH+Uabek6EiBTZA75eVbJUE6aSars2bL34=;
-	b=g1RTxBRIAobLmAg0cJ81FRqOph94IFBTrLdx0PpoUXW0GH3JYTE2rwL56qrk0g7RWVtE
-	 ROi/IZvSuHEpY29vqgaQR3EekOlUK66RYxc70yf472mb4ymH7TL420ooj98hfX0sHGGB8
-	 TFz2KMD9Tz+v+HJsRmzDNzmPgm/Q8sH2CfCFwq1usQjvs28rwG0uYRv501iSgBQSZHrMp
-	 GE0h0Nqb26Tdyf6YaCzxSkZsO/ZaA6m7NJGXpNxovQW3qm+1dQVN5gv4aVYPH7tOWXbLC
-	 j9bUHUsgaVaC0tdGXZ20BOw7sEYvOXLrHo0bIIGcDzvBM7yIJXnmNVsWNx1YG2VI+PA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402101;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=fNNA5DINfFRpf2eORoYgUUVlbLJUUgtkmYcnEbAYKiY=;
+	b=5DwtO207oclyl9d6mj1edg/fqGRRq+HRF9y1TMQsDrSp65PDZxTD54svgisa4YWMNO1h
+	 W52ldNzSWxSInHu+ls/B6OAVqGsV0VOGGncOXS0yGNuKkF6D1YRj/A+vAt+oq8XO1csEF
+	 EzJxpkoLjKMKHELGAG7pe75L1wCymi9NeSqek5WJ4RN4brVDOX/JANXJegxbhkU3Xbw1F
+	 uHSxAE4JMH+QcXb04FGUWJoG6b/3v55No6/Q6aJcJUBuIYL/smePj0xpX0Sqxj0bR9LqH
+	 9Ii5nkOx80e0HWka5UfeEnYjn+hgR6WFihxhU2nDitAWz24p9wmoBvI+TnEvQkZEFrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q5K79/ES";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p6q+meWf;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ahN0Ajmk;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A152606A32E;
-	Wed, 11 Nov 2026 12:44:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1195606A32A
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 13:01:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1195606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5K79/ES
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5B201F00A08;
-	Wed, 11 Nov 2026 12:44:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794401046;
-	bh=wBVufWqx+zH+Uabek6EiBTZA75eVbJUE6aSars2bL34=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=Q5K79/ESG/5STADM/C4yNOyYanyQR+iMqif/9JX8s2kGjcWLTcPqJyC/MSpNok2Kq
-	 epm6pHdIZLUjJ+jsZxuuLRPVfmmeonGUaaDJpxqgxmvpLnzn5eCdO6sQv6UwHaHuyD
-	 RUuluQ6RpF+0BNvTIPVg151dShj/Nc4GztlisY4n+aEx2XppIiuFck+HhmDlZBselD
-	 sRWHhVaKADnvGSLzYnl4Tee1c0Cr1r1NGToNaTSlwMpxO5aTyZ85qKgrp4qKEYJoRH
-	 PkmOtLbMjPUYLN8DRPDu3XREjwiA4kRf8CP74P/FCm+mLBXGvkwm1ER1FYEHW9du8C
-	 qUpLmEz993KNg==
-Message-ID: <6ac5aaef-8753-46b4-b934-1a9b6fe1af46@kernel.org>
-Date: Wed, 11 Nov 2026 13:44:02 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p6q+meWf;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ahN0Ajmk
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCZCBM2975432
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 13:01:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=fNNA5DINfFRpf2eORoYgUUVl
+	bLJUUgtkmYcnEbAYKiY=; b=p6q+meWfh8pxTAsOPcNqXBXxXBRbH+GJDC4uiwKA
+	LJ5hYTCU3/k1FKYji7ugZnbHErDA5WuhE5KzDaz8lgoup47Kf0aitPgAEw3rW0lp
+	tMtswTpUYDD8q4tClQtiOBprE7ZUy4pXagV9SgI+lMAfwYQfVHVebO5KPPIcUnid
+	chmnqaobA7mVsL+v/gdx+NJL5U1KFoj9M4mB1lr2ZMcQaWN29IzteadEmIgwVhrK
+	EIpAcU2xW1xN36ygYXdO+5SKN19CrB5t79dsRs5D885Pvk1tYO8MeB2FCyVs7Qv2
+	wejjCK8v+qWke5jhjykBYz7/jQCHfyyuSVzlG19XahwgNg==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv97cbvj9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 13:01:39 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5c83124d530so3684764e0c.2
+        for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 05:01:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794402099; x=1795006899; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fNNA5DINfFRpf2eORoYgUUVlbLJUUgtkmYcnEbAYKiY=;
+        b=ahN0AjmkD63PvVgeHmTW9R+4V623g7CKUjFoxTx/rILg6XoSPLCx7vdHPmEiblcs9+
+         OXFKV7KwAzlj2DLe0CbFaW5Bl+jini2AbY9yNuUlleNQsjl8UoD/rLmNakZWu011wDRz
+         38XM8LokSGsfwigtXiC7FcGwIKOc7I2XZxri8d7jzBWcGK4gC/ypzwPsIgP4XWflydYe
+         RvqfloJW/9ugMzKTVIOYs+R/w5gem1fhgrJt9duQl6Q62scnAmDmH8VUXAEEpO75agNy
+         j8BI4XUxTGkuy4yAazi5PoyFxyec5jlQglS9mkW6IXcVyjrruY5FmAnPRdATuGlT8Bjm
+         HNiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794402099; x=1795006899;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fNNA5DINfFRpf2eORoYgUUVlbLJUUgtkmYcnEbAYKiY=;
+        b=cVai0ONkDvOxuVOx668s3kkaA4Z1RVLHczIM92YrZrSv4a47H4FfmfaFENOPGRaXI7
+         nmRnN7o2jDstfl8AaLPOTbIyr/f0RnBJFGsuD6vKfRj2jxteNmboC+aCLJjiV+3ybvvA
+         J4bZgf5YrUVLeQQKeQEmV7kvDyKKoCLfHnfLjstU4PAUqUDhk//gEPno70l6Mag1g5v3
+         pxyx+7kXr5TGplBwGbTPiyWscJ1nld3hFydVgqfN0jTvH6ZraPA67ePJKVYiAD4M6Xxb
+         Adqgw3yOdfRwQKXU5qhM1VeA1pm6A1gB9hg89CCy6+YFcBhEVxA4BOEIuMDb5rXNxR4v
+         fa3g==
+X-Forwarded-Encrypted: i=1; AL+hErFHRRdYksfYWYq/9Ur5+ngM8BCydhJ4tKolyVOOhjnPfaP6S5E1snFySNm+A1GZB3zY+LRz0pqxSbu4xg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+N463gkYc9WJVBQzLHV/fRW2RLGP50XmlVGWa1kFmwvefc7xRR
+	8KUzls6CQuJdNS6yY8l/9Y3k1qKT2rGQzOugvu/zkC0XK9ml0JXKPaAggQmnsTqNASGY/GNrP2b
+	1Lbn+90Q3MMiexDG6+jr6NmK37sbGfWct6TywrlnEJ0dl3e6QD7fJE3ViBW140SerFQ==
+X-Gm-Gg: AYBFou2bmtZoh5Fv7TEXvb9Mig3BhApyvKaktfA8CAjo4DvX7cZeVDn5v+xuWzGJ/HQ
+	P8zZeOqWEhNgQndFjZMEPaARrhBJ0Iue0HSyM7hYTbIlLfeTZ0eOeA8pLlgtfHB32pOu38Yzq6a
+	mEhYQbKfvMDsNcPZwiCrSd7iElVnuApOhKMc0akPXFHG+NpwsbOJo6IMUn6dgPlhDgWf90acT2E
+	b410/+vomEKf3FMP81fV83vdAUZpbtcgzZRaz+uDJ72C3CZMDlCfyrXr7fCy1P2vZBh0qlKjtxT
+	A9pCkm47w/DKeInId8P/aYYmaHwqxsh6sAkDbNr1XGg60Y/i46XDkNCEvLaJKYUA7CWQDFeRStK
+	NWyaRsriH5NGpl/l5GPvcAAMfr2rTDcJx8sMCFIr9anAGERvoEpv3dAPrrtn64W7rKlQiVqIkA0
+	wHN4J59ROXBJtypZjFLqmXpO0+rsOy30iLizuMgIQFtv9JAHIwjy2zlCI8Om6yZg==
+X-Received: by 2002:a05:6122:d12:b0:5ea:389c:520b with SMTP id 71dfb90a1353d-5ee1c3daf90mr672610e0c.8.1794402098944;
+        Wed, 11 Nov 2026 05:01:38 -0800 (PST)
+X-Received: by 2002:a05:6122:d12:b0:5ea:389c:520b with SMTP id 71dfb90a1353d-5ee1c3daf90mr672510e0c.8.1794402098347;
+        Wed, 11 Nov 2026 05:01:38 -0800 (PST)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c157b7a657sm947505e87.11.2026.11.11.05.01.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 05:01:37 -0800 (PST)
+Date: Wed, 11 Nov 2026 15:01:35 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>,
+        Vasant Hegde <vasant.hegde@amd.com>,
+        Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        David Woodhouse <dwmw2@infradead.org>,
+        Lu Baolu <baolu.lu@linux.intel.com>,
+        Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
+        Eric Auger <eric.auger@redhat.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Joerg Roedel <jroedel@suse.de>,
+        Srinath Mannam <srinath.mannam@broadcom.com>,
+        Oza Pawandeep <quic_poza@quicinc.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev,
+        linux-kernel@vger.kernel.org, virtualization@lists.linux.dev,
+        devicetree@vger.kernel.org, kvm@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: Re: [PATCH v7 0/5] of_iommu: add support for "iommu-ranges"
+Message-ID: <h7j7lyl6d67xfdw3gyabfngpurumbqd6fkcvuhyi4juashcx5r@egybwhfdaonn>
+References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,130 +139,59 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v2] media: cec: meson: ao-cec: enable the controller clock
- at probe
-To: christian.koever-draxl@student.uibk.ac.at, neil.armstrong@linaro.org,
- hverkuil@kernel.org, mchehab@kernel.org, khilman@baylibre.com,
- jbrunet@baylibre.com, martin.blumenstingl@googlemail.com
-Cc: linux-media@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-References: <20261106102105.47244-1-christian.koever-draxl@student.uibk.ac.at>
-Content-Language: en-US, nl
-In-Reply-To: <20261106102105.47244-1-christian.koever-draxl@student.uibk.ac.at>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1MSBTYWx0ZWRfX075CaTEwF3/z
+ xB0oounYgG4ifPKW4byAc1+Ew9Nmrz2NT5lTrWnOtb5dlzwemRBT9oekJvJTRysFTPTyRkZ9/IU
+ dEEdcBMPEvATkkIiO40S72MjhGCuw4MQUF//yTw7ey3El8a3UfjBCMSpfITO9kPtaGCmk/96qSD
+ 8LVFBTKpZg3f3sDteezJtXLP7EpDp3vGY9l8nKowmtWs9yAL1CwtaFv6kXRpfSIrzMgFR+PV9SN
+ ZEjv1SlR5RbEaGSX51l5OWUhwKO4KVcHwJpBrx6i8DFZ4fUYzL3FbVWalFfnH0M//3fafyVGvtv
+ zCUn3CZ0n1oPPd2YoESOKLuHzjcc5lO7RobW3WvnkIV6y+f+pN0Rzp2qZ16CtMXSLOW0UB/DA6z
+ Oi7ikCEZB59KZLyNdZFJLnRa260KeAFMgZGCUNw4Tf0MXBuDEm1EN8wOnBsX2TXoRkSn2P1hb3D
+ icKstlJz2VAMRULi+ew==
+X-Authority-Analysis: v=2.4 cv=cJl1IVeN c=1 sm=1 tr=0 ts=6af46733 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=NEAV23lmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Ycv8Z8E-TvjlFfbjzzEA:9 a=CjuIK1q_8ugA:10
+ a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-GUID: TSI5op09Nby3-pK1FT6Z_502Fc3BkLNW
+X-Proofpoint-ORIG-GUID: TSI5op09Nby3-pK1FT6Z_502Fc3BkLNW
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1MSBTYWx0ZWRfXzAof5rKshoD2
+ mqeP18xJyXrpJpqSiYOUjY98kbZrZKJHCTD+Z8E69VDLA0UqHpQf7AMF8Sjo9aoSiqfEtMqQMO4
+ YNjoD/U0WrM1ukF+n3LEi/5+YoZ3eTk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
+ priorityscore=1501 spamscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110051
 
-Hi Christian,
-
-On 06/11/2026 11:21, christian.koever-draxl@student.uibk.ac.at wrote:
-> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+On Fri, Nov 06, 2026 at 10:44:23PM +0530, Vikash Garodia wrote:
+> The series adds support for recently introduced property 
+> "iommu-ranges". It adds the required checks to error out for cases 
+> which are not following the schema definition.
 > 
-> The CEC core calls .adap_log_addr() before .adap_enable(), so the first
-> register access can happen while the controller is still in power-off
-> mode (CEC_GEN_CNTL clock field 0). The probe only pulses the reset bit,
-> leaves the clock field at zero, and does so only after the adapter has
-> been registered, when the core may already be using it.
+> Iommu-ranges was defined in schema with this PR
+> https://github.com/devicetree-org/dt-schema/pull/207
 > 
-> On S4 an access to the powered-off controller never completes: it
-> stalls the AO bus and hard-hangs the SoC. This triggers on every HDMI
-> unplug, because that invalidates the physical address and makes the
-> core rewrite the logical address.
+> The patch series is being posted as revision v6, since the patches 
+> were initially part of the media series [1]. The patches are moved out 
+> to get review comments from iommu reviewers, which was otherwise looking 
+> as a media series. Happy to move this back to media series if anyone have 
+> any concerns. 
+> [1] 
+> https://lore.kernel.org/linux-media/20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com/
 > 
-> Reset the controller and leave its clock running before the adapter is
-> registered, as .adap_enable() would.
-
-Hmm, I have a few issues with this.
-
-The commit log does not really match what is happening: the problem is
-that the CEC adapter is registered while the controller is still
-powered off. That's clearly not right, since once it is registered, it
-can be used by userspace, so in that respect this patch seems sane.
-
-Regarding the changed code for the RESET pin: Neil, can you review this?
-
-Christian, can you also point out where in the CEC core adap_log_addr is called
-before adap_enable? Because I am not sure that should be done at all, so
-that might be a core framework bug. In any case, that is unrelated to the
-actual patch.
-
-Regards,
-
-	Hans
-
-> 
-> Fixes: 7ec2c0f72cb1 ("media: platform: Add Amlogic Meson AO CEC Controller driver")
-> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 > ---
-> Changes in v2:
-> - Set up the controller before cec_notifier_cec_adap_register() and
->   cec_register_adapter(), not after: once registered, the core may call
->   .adap_log_addr() straight away (reported by the Sashiko AI review).
-> - Link to v1: https://lore.kernel.org/r/20261025192046.208710-1-christian.koever-draxl@student.uibk.ac.at
-> 
-> Tool use (Documentation/process/generated-content.rst):
-> This work was done with the help of an AI coding assistant, Claude
-> (Anthropic), used through Claude Code over many sessions. It did a large
-> part of the hands-on work: it read the vendor kernel and the firmware
-> interfaces, probed registers on the board, drafted the code and the
-> changelogs, and ran the builds, checkpatch, dt_binding_check and the
-> tests on the hardware. I directed the work, reviewed every change and
-> the final patches, and take responsibility for them. There is no single
-> prompt to quote; the sessions were of the form "find out why X fails on
-> this board, fix it, test it on the box".
-> 
-> Tested on an Amediatech X98Q TV box (Amlogic S905W2, S4 family, 2 GiB),
-> vendor U-Boot and BL31/OP-TEE, Linux 7.3 plus this work.
-> 
->  drivers/media/cec/platform/meson/ao-cec.c | 26 +++++++++++++++++++----
->  1 file changed, 22 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/cec/platform/meson/ao-cec.c b/drivers/media/cec/platform/meson/ao-cec.c
-> index 2df0d3743077..4c03c829fe86 100644
-> --- a/drivers/media/cec/platform/meson/ao-cec.c
-> +++ b/drivers/media/cec/platform/meson/ao-cec.c
-> @@ -660,6 +660,28 @@ static int meson_ao_cec_probe(struct platform_device *pdev)
->  
->  	device_reset_optional(&pdev->dev);
->  
-> +	/*
-> +	 * Setup Hardware, before the adapter is registered: from then on the
-> +	 * CEC core may call .adap_log_addr() at any time.
-> +	 *
-> +	 * Leave the controller with its gated clock running. The CEC core
-> +	 * calls .adap_log_addr() before it ever calls .adap_enable(), so the
-> +	 * first register access happens while the block would otherwise still
-> +	 * be in power-off mode (CEC_GEN_CNTL clk field == 0). On Amlogic S4
-> +	 * that access never completes: it stalls the AO bus and hard-hangs the
-> +	 * SoC - every CPU stops, IRQs included - which happens on every HDMI
-> +	 * hot-unplug, because that is what invalidates the CEC physical
-> +	 * address.
-> +	 */
-> +	writel_relaxed(CEC_GEN_CNTL_RESET |
-> +		       FIELD_PREP(CEC_GEN_CNTL_CLK_CTRL_MASK,
-> +				  CEC_GEN_CNTL_CLK_ENABLE),
-> +		       ao_cec->base + CEC_GEN_CNTL_REG);
-> +	fsleep(100);
-> +	writel_relaxed(FIELD_PREP(CEC_GEN_CNTL_CLK_CTRL_MASK,
-> +				  CEC_GEN_CNTL_CLK_ENABLE),
-> +		       ao_cec->base + CEC_GEN_CNTL_REG);
-> +
->  	ao_cec->pdev = pdev;
->  	platform_set_drvdata(pdev, ao_cec);
->  
-> @@ -674,10 +696,6 @@ static int meson_ao_cec_probe(struct platform_device *pdev)
->  	if (ret < 0)
->  		goto out_probe_notify;
->  
-> -	/* Setup Hardware */
-> -	writel_relaxed(CEC_GEN_CNTL_RESET,
-> -		       ao_cec->base + CEC_GEN_CNTL_REG);
-> -
->  	return 0;
->  
->  out_probe_notify:
-> 
-> base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
 
+FWIW these changes are also required for the DCP display controller to
+work on Qualcomm platforms...
+
+-- 
+With best wishes
+Dmitry
