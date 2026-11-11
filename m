@@ -1,45 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384354;
-	b=s6Vjr8ujMiCBRni0+oyCh2lcVO4VXVywbucN0+/nTA/GBjsBOXnSUtOHCYF7vOWJhzRo
-	 AHm8wuyD3JlatulaLGN1c176eWTQhpzDskWixenJyU62vWZEYhAwFkjaQPpoHNhWMksNr
-	 IONA5InrUEVr2cG2em80PldElFUmQMM8/PqhOLSi63fYpKLSlhYHfI16sHoVhwsI4QVz2
-	 8GpGX9WRJiH/NVwIS56NdcNxWDYaEMeAN8wXghC9vNWKzz9WaCGfqaIdGAUglZPnPST4F
-	 hpiiK67DwaZAJyc6jD0EUqtOdh920UAABMeInrwCVxM8PqZZITpZMQvX7qsOZwzS9Ag==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384354;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=jwObVC/mvexbREQ1uAgKavk9FT5aQB2RrfBQjYiY2kU=;
-	b=uunnyj12C+/hBTI1Mu1PNoaWG3T6XJjz2lNnFMinopDBYr6hq/vHSDg9vpBFQ8xrqDUW
-	 al2KIm+dkCrA3ciXBuSRujzmrvtWUB7J2lQKNUpCoBJdYn9yJEzpZwskSAfd1Xar8CURI
-	 M4m1g7ium14pFVjM+93eGMNuMzxMreZ+XuVXNWKRbCqmYeWl64rOSs+sFH8MvYi/NdI4Q
-	 BwtTtvEiXpKW5Nz8szzZl1UHLE19J2BGspjq3eqaoCBjSDKBKfA/g01+WXPqyEO36afX1
-	 xHY/fmK8QtNePN5zc4aXfEu0PxDuCwmPJJ/to64+Q+WF/rkltcuLoOkjHBJaYxhHzEQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fWHvoXGA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.3
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794385132;
+	b=NsSprfphVpuwF5yvvTzrc7ihtkfWM3opzRUEPslDRzkrKPFmSvHeul+vnWsAjDkG5fMa
+	 wh1fhHlnx70GIIdTLG/GJewaoITH3XLLSYmbHv8AZmumvId6rlwo/fVwoDLvHXc9hu30M
+	 RDQlHmBOIrVNBocgzAcXYG/RFvjgaaa7tb+n3qrRSgrDTSCFXvlpruU/+l2RYccugzMYC
+	 esncpAZye5ZI8viWaFjldKDa9oM7TsEKAZDlszWYPv4OAf0DPX6jFBa/o6dH+r1/nbRM/
+	 NVLFWt2slXMc2JfAjQ0F2g1UNrGLU5S5ykTg70VY9NU4ocUeOs4GgZyTC9ASXLs5AAQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385132;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=lrShLJ88cqiFfMjHf5yF10atqk/pMhGbbvLtXygq+N8=;
+	b=Uco5/nP/RNAfB3JYRLlp1OD7hMUNqHeSJnDzbQYeyzL4Pp3H1DUz1j1MB7aMR3D8FzgV
+	 q2ia6F9/LfAAmvGlmG/JbkAYalTR9dGqwnEi9owSmXcoy4HL17pCbLIYxSf4Ua2k9iarJ
+	 DDeFrnmw6BCGHzNQFveWcU/XJLxfFcXBSh0N915/Hpr7HqeNUXzDyAe6lRvzPlLRvCSjk
+	 iXFHIbtHI0Zp7rXlLg5Wy3P+RG83CnRj9/FGnBmwleimaEnMu23MprqUTyF5o3hOdV0yA
+	 jJNs+GexmLwWqm0e8zm4ezDxREgXqOsA3Q5utpKPg+8X4tAm5hA5kLdpiVgxVaYDPGA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=irDrH+iL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.3
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010003.outbound.protection.outlook.com [52.101.201.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BEF606A31C;
-	Wed, 11 Nov 2026 08:05:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83292606A31C;
+	Wed, 11 Nov 2026 08:18:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83292606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fWHvoXGA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 729C01F00A05;
-	Wed, 11 Nov 2026 08:05:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794384354;
-	bh=jwObVC/mvexbREQ1uAgKavk9FT5aQB2RrfBQjYiY2kU=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=fWHvoXGA9uxV8RUS6OuY+mCGi/lkhCTBTYEeU3ghs2/agxnPTiJTyj3Q/PVMYhczJ
-	 kIJWZsrMTFwDZ9VKRRSQjMuGydqU1VMK84FdHjhYHTU/TF0ZHLfdK6EcHdnCFobzMQ
-	 CMa0ZEiNAFqaRUspbSM6LEZneI3sNBxc1e7yqmLaLccdViUokEaMLbk3J0mRyl1a9O
-	 t+inMJn9rrHh3TDyHnICLjiCSGvdQqI7YpC9gIwFddULTBcDxGm1AUrtm8kjWvjca1
-	 ENL5pm8up/Vbw4idTI3CrHWyMalEqq8BFvtSOJN540EIlH63GpkKAdP6/7A7+LshgH
-	 14USs/FZnm4UQ==
-Content-Type: multipart/mixed; boundary="===============8814559659898024532=="
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=irDrH+iL
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ASufgGZPLl1g/rbE/CxqW7swUTep2raswLcEHX5xvq1JOKcNrvKLqfHpkxSbnE/ab9tm/KSo3XUZjj/KL1NYT2qajC07uVSNR/XmMlLITgj/xzlNz9XDuxYzhRVPlMvqMnevR1nAc8dHGae+gz+UcwVsFvLutXXWSyJihed59MeK2Wcak9gPXVZ48KFNtny+Xv3ToXI2nnfndiakx2knnmUGNVsSRGjf920sI0tjokBfveTp1QgU3fhyCman0SelXW0+iHjJ/N0316RXNO1ZO3+PTycD0g9kar74O16FuGkNv7QvWmyGM6BK3Tfm/xjezjvHYoVoJ3moBovfllHDFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lrShLJ88cqiFfMjHf5yF10atqk/pMhGbbvLtXygq+N8=;
+ b=tdFDJDZ5uXTcLu3q/JroZAhFCcX8fIBzVTRwRRbX6zUBqzw/vLoTjVgWqLaZq0CwYTzoDK3VpKla1lKP+Ha1hz83zb+lqSKlO9EB9u8aiCHnShBNKuoCEOHS1wnnILhpc+G+kj51t58/zQeIxQ1h9/wan5LCQ5a9z1NhIdu5oP105Vgalq7pBjjlMVwcQwYagawRUYVdw7LG1L6wYzluR1ooJW9lNDOkQavJd2+B8kP8F5p2qkTlANUMRD2S3I/HvLKsKpTuByndRAsxKHzwuKdx9va3M/P7e6ZotBcYeloIGlQrLwhnkZEiZCialL+RS8p0tCEnrk4ts661Chl90Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lrShLJ88cqiFfMjHf5yF10atqk/pMhGbbvLtXygq+N8=;
+ b=irDrH+iLGXG5RPPMz1yUavBV9mYuKbvIAhmWO2upuvHiKuEZv6wMTvtiX3ygQNRZgC2TbhDAL1d2iE8JoDZFlAw1Jwcwy/kp7Cup/X36xKGTA/cHNy90tC7IwLCc2TuoCHZF/ilcv1MM+4vHRVAo7kUFwK+cfTa/1YGcwuKyMgI=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB9217.namprd12.prod.outlook.com (2603:10b6:610:195::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 08:18:48 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 08:18:48 +0000
+Message-ID: <1e7fe0eb-2b06-4db0-98b1-3535218847b3@amd.com>
+Date: Wed, 11 Nov 2026 09:18:43 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] bpf: make dmabuf iterator stay drained after NULL
+To: Kang Chen <k.chen@smail.nju.edu.cn>,
+ Yonghong Song <yonghong.song@linux.dev>, Alexei Starovoitov
+ <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ "T.J. Mercier" <tjmercier@google.com>
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0180.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b4::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -49,82 +103,149 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <5f4ff580aef8f7a6be0c0f1c320916596da0e7d72e15424c72bf7142fc7654cb@mail.kernel.org>
-In-Reply-To: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
-References: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
-Subject: Re: [PATCH] bpf: make dmabuf iterator stay drained after NULL
-From: bot+bpf-ci@kernel.org
-To: k.chen@smail.nju.edu.cn,yonghong.song@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
-Cc: bpf@vger.kernel.org,linux-kernel@vger.kernel.org,sumit.semwal@linaro.org,christian.koenig@amd.com,phasta@kernel.org,linux-media@vger.kernel.org,dri-devel@lists.freedesktop.org,linaro-mm-sig@lists.linaro.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed, 11 Nov 2026 08:05:53 +0000 (UTC)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB9217:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a99bd62-8c6c-44bb-8baf-08df3fcc6939
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|22082099003|18002099003|10067099003|11063799006|261028144727099003|261009223027099003|261026140227099003|261102123227099003|56012099006|261022105027099003|261021121427099003|261022075727099003|261021123027099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	Y9hFjwbqX1fTJItek3QCl6txaj0c1w1fBXuFTzWCSOa6xHl7lsRzkFeAeBk5S7UXuOqbmIKFstm22SODF5/ZMNsOPrymQLv6EqZvQc66rvaakVzpnZgQnTkrItOfrZ6q6p3ocXjCE/a+aAjJgPyq7MMlughEEhFRQn2L8qOlR+PVhj2CsSglKPzxcuzMq7x+nhWOiYsfzyXAmENpI6S5FK1ZS9CYqrBSzu7XxtpkoLASy1We0NqdYsoB9zXEiaQVSAqe3usYfhiiwHxwa+plWtB+b9g07AdvKSwjLNo3TSfLUzZVtjMG5KkDVT9XO+ApmFnZJ1/7J2SbK6aKJZa6uXIcWwyzrW9Aw8eYTNKz8pSTfSPyCYHEhtv2f84NlYhQi5IFbCQQHaEMzv59IJKdZX8jn7D240T26jdGhlwLZ8eqtaEuL4NOnusfD25PISxx3EMc5FfPnX0w6RZIpEYDnLvykZvc7IdwhA9uPzkum5G/3gHz9S7OGExbBgPjOVwDZDCzTO0XEXMgpmOzSqAryBKNHJsoVB1Giuu6/YU1pMwZ/SpPceGiTCbXx5e0UkFYIoQwUSM/flT/+A4s8v2+BEx5EF45xRnABuP/hbAGaLkD//INSOPTYKrby4/qVbbLaGCnRALmRUq49iyrsk+eJgLzV/k80otS7yGL1O9M/fA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(22082099003)(18002099003)(10067099003)(11063799006)(261028144727099003)(261009223027099003)(261026140227099003)(261102123227099003)(56012099006)(261022105027099003)(261021121427099003)(261022075727099003)(261021123027099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZlhtWXVtVWdCdk5CbUtmWDVydWl4NWorWmYwcmx6eUxHc01ERFVFYmZXWW81?=
+ =?utf-8?B?Uzk0OUZNVUUzTWNkMHZQNk0rMEt4aENKdTU0R0c1UENnYVdrZ0hDVFZqMmlt?=
+ =?utf-8?B?d1orb08xVG1PQklLL25zUU1PRTIxQ1Y3cGtPU1BteDJlVGlQdWs2WE1adk4r?=
+ =?utf-8?B?N2NYNkFFY2R0Vk0xRVBKWkN3WGJFZFU1VDh3WldpZTFIdzRvM1FZYmRwVjI3?=
+ =?utf-8?B?YTZIbENnQUhORGEra0tkQ2pVN2JIYlE1U0plWWZkdUdsbHZad3ZVRVFtOFMy?=
+ =?utf-8?B?RFBiQXk3cVB5QW5lTXRyRzBNL3doQUEzMUxsS2ZhZWJYVHRqSWlUU3doblZJ?=
+ =?utf-8?B?M2JubnIxWmsrZ1VqN1QzUmhvdlFtUCtWeXh3UnFoQ1Fta3ZxRGoxbEFqVHFl?=
+ =?utf-8?B?T1B0ZDN6RndyRDRack54bkZsNUJodjcwY050RGxIUHBZQTdYM005RnphZERT?=
+ =?utf-8?B?bVFqU1FHOEpZdnpwcTMzdG9mRU56MlMrcVFkMEJzV3JXbTBEaDNxVCtHWjdQ?=
+ =?utf-8?B?dDRNZDZsMS9EMGFNa3dHNkdQaEZxM0JzNSt0UEVqUWlIRmJGdytFcWRISHd5?=
+ =?utf-8?B?NWxaTnowOU9LOXVJUUE4RitwRFdOWTZNMG5LK1EycmEwdlJTeU5HM09GdTRV?=
+ =?utf-8?B?b3ZGTnp3d1QwTWFHRkNac2IvOFhyVWh4bExFZEZXckNjOFdqVm9VakRRdjBz?=
+ =?utf-8?B?SG5DRUVpaTRFeFFrY0dHaVpWREszWk9TWUN1TlhBRytFVDdRY2MvdUUrN2xx?=
+ =?utf-8?B?MGZtaXNySXNpNzVvbytNdjRXYjRPOXpqK0ZwR0F4TXpMeXZMZ050bHBHUVM0?=
+ =?utf-8?B?SFdaOFptWThDZHVET1ExYVliVDUxNzJCbENNcGlYcW13TGQ3T1d1Y05SeXB3?=
+ =?utf-8?B?Q25LWDhKK2tEQ3NiU0R0Y2hKV29HZ2VDRmQzeDhNdFJSWGZhZlBVNTVWaHJ5?=
+ =?utf-8?B?MDVMRXpReEMxM2FFVXlsWHZZcC9sNExDaEJad2dxMkhXYkxLeUE0TXdtN21T?=
+ =?utf-8?B?bmNFeUtUOCtPYzhVbHArVi9OUDN5TmZ5SktHZDhyZWkybXVpSmNlMkZmcXRy?=
+ =?utf-8?B?cmZSV1g5Y3F5MUpUVnFvRzZVSk5FZW1icHY1b2pYQmZaYjdXNHhNdnZSVmdx?=
+ =?utf-8?B?QVNLNEtwVzU0YmZpUlhIZXBTZmxsUFp5VnJPM3V1S3BGbE9FZVEyb3NXWHBv?=
+ =?utf-8?B?eFJBakFsK3ZaMk5Pa0phTUZlMExhU0R5UTJHVjIxQUx4TWpOY0JWcE5kUDBG?=
+ =?utf-8?B?YUczRjlhTVBPM1dxUkpCRHFoY2MvWVUwTDhVR2ZlV0JjWHRLNzM5M3pVUlhu?=
+ =?utf-8?B?cHlsSjJST2lKZFVqTkVzdHdBV2MwcUhySHE2SElVQzlMTG4yL3A0L0tRM1dE?=
+ =?utf-8?B?SzRKL1Q5akRMbGlBOEpEN1UzN2tTczgzeVlyZkpVUEt5cnFrQzIyK0l2a3BF?=
+ =?utf-8?B?MWRDa3dSN1VUNmZFRlg3MzB4QTU0TDljTm5aUkU5eVBQWkh5TlhLeGhDYzBM?=
+ =?utf-8?B?QU9DVmc1dWpLSkhPNTRKNzQyZ05Jd1J2emxIdms4UUpyUmUzNnJKcWtjY2Fy?=
+ =?utf-8?B?ZHY0ZWtjWTRleXZKN3JVVWhob2RRaUFkTEE3QWZFY0ltbTdQbkVqK0RIUUdG?=
+ =?utf-8?B?NGVvenQ5VXFhM09yYUwvZjAwcDFuY25UZWRaeWo3TXc0dDNhYjU1OGViZGk5?=
+ =?utf-8?B?RFN6eWVYN3h3bkRITGxKOXFVdnJwa3lZdlVSVXBSdUdCL0lwSzdBL2xvWTJu?=
+ =?utf-8?B?WFN2QlJPeWkxdFVNVzZ2dk9JOGp0M2VpeHgrSEVyMGY3aWpqWWdhYXZscFVF?=
+ =?utf-8?B?bDVsK0t3SElvcHQ5QUovNTB4VVBKUW01eUMzRkVNZTZWRGtobSswTWxiOUhZ?=
+ =?utf-8?B?WklITi9nRlNxbHhkR3ZGbEJKMUZ0OXhmTGdENzA0SDdaNjZwczdCS0gyVmxL?=
+ =?utf-8?B?dlE0bzZ0UTN6TDZCTU9pYmFvMHkxdVRqTVZMNjVvSTZWSGU5eFFNS2M2MVow?=
+ =?utf-8?B?RWxGT04vd3pFd1pSSzRuVnZ0VGVOUXN4aUwxQTNpL29RTHozK3dwUnBEdndJ?=
+ =?utf-8?B?Znd4WDAyVXhOc1BXSjBDanFVaENlSEE4ZFdUOWNwT1JTZjQ0UGt0bVI0a2kv?=
+ =?utf-8?B?ZVJsTitsVjB5TlJmbnppRmVYaUxySmQ1RUkreGVucmc2VWlWOVRkSGppUEdm?=
+ =?utf-8?B?NUdKSkpoZFdlUWdkc3prcGRDekFmR05Ua2FPaXd4WVM2cFRNM3A3cXMwSlBT?=
+ =?utf-8?B?bE5reUtoL25weGRQYmJwMDF4dU5ZMHNRR3ZWYXFNbEI2NENsR2xuWHkyZFIr?=
+ =?utf-8?Q?ytsMznO05HjUMteTtD?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a99bd62-8c6c-44bb-8baf-08df3fcc6939
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2026 08:18:48.2942
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xFqbuovGKa1j/mxgfeQJf4x047zHndh2Sihxhj+KTIWmRip5/c9LzhrFwqjDwyuW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9217
 
---===============8814559659898024532==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Adding T.J. to comment.
 
-> bpf: make dmabuf iterator stay drained after NULL
+Regards,
+Christian.
 
-TL;DR: Nit only: the new comment in bpf_iter_dmabuf_next() describes the
-pre-patch restart behavior, not the code it sits on; the review suggests
-rewording it to explain why the sentinel exists.
-
+On 11/10/26 13:51, Kang Chen wrote:
+> bpf_iter_dmabuf_next() uses kit->dmabuf == NULL to mean "iteration has
+> not started".  dma_buf_iter_next() also returns NULL at the end of the
+> list, so a next() call after exhaustion restarts from the list head.
+> 
+> The verifier relies on the iterator contract that once next() returns
+> NULL it keeps returning NULL: process_iter_next_call() marks the
+> iterator DRAINED and treats the result of later next() calls as the
+> constant zero.  A restarted dmabuf iteration therefore hands the BPF
+> program a kernel pointer while the verifier believes R0 == 0.
+> 
+> Use an invalid pointer value as the drained sentinel so the iterator
+> state keeps its one-pointer ABI, and skip dma_buf_put() for it.
+> 
+> Fixes: 6eab7ac7c5ee ("bpf: Add open coded dmabuf iterator")
+> Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
+> ---
+>  kernel/bpf/dmabuf_iter.c | 23 ++++++++++++++++++++++-
+>  1 file changed, 22 insertions(+), 1 deletion(-)
+> 
 > diff --git a/kernel/bpf/dmabuf_iter.c b/kernel/bpf/dmabuf_iter.c
+> index cd500248abd9..a2b7c38f9ae6 100644
 > --- a/kernel/bpf/dmabuf_iter.c
 > +++ b/kernel/bpf/dmabuf_iter.c
-
-[ ... ]
-
+> @@ -156,6 +156,13 @@ struct bpf_iter_dmabuf_kern {
+>         struct dma_buf *dmabuf;
+>  } __aligned(8);
+> 
+> +/*
+> + * The iterator state is one pointer wide because struct bpf_iter_dmabuf is
+> + * part of the generated vmlinux.h ABI.  Use an invalid pointer value as the
+> + * "drained" sentinel instead of growing the state.
+> + */
+> +#define DMABUF_ITER_DONE       ((struct dma_buf *)1L)
+> +
+>  __bpf_kfunc_start_defs();
+> 
+>  __bpf_kfunc int bpf_iter_dmabuf_new(struct bpf_iter_dmabuf *it)
 > @@ -173,11 +180,25 @@ __bpf_kfunc struct dma_buf *bpf_iter_dmabuf_next(struct bpf_iter_dmabuf *it)
 >  {
->  	struct bpf_iter_dmabuf_kern *kit = (void *)it;
->  
-> +	/*
-> +	 * The verifier assumes that an iterator which returned NULL keeps
-> +	 * returning NULL (see process_iter_next_call()).  Without this check
-> +	 * the NULL left by the last dma_buf_iter_next() would be interpreted
-> +	 * as "not started" and the iteration would restart from the list head.
-> +	 */
-> +	if (kit->dmabuf == DMABUF_ITER_DONE)
-> +		return NULL;
+>         struct bpf_iter_dmabuf_kern *kit = (void *)it;
+> 
+> +       /*
+> +        * The verifier assumes that an iterator which returned NULL keeps
+> +        * returning NULL (see process_iter_next_call()).  Without this check
+> +        * the NULL left by the last dma_buf_iter_next() would be interpreted
+> +        * as "not started" and the iteration would restart from the list head.
+> +        */
+> +       if (kit->dmabuf == DMABUF_ITER_DONE)
+> +               return NULL;
 > +
->  	if (kit->dmabuf)
->  		kit->dmabuf = dma_buf_iter_next(kit->dmabuf);
->  	else
->  		kit->dmabuf = dma_buf_iter_begin();
->  
-> +	if (!kit->dmabuf) {
-> +		kit->dmabuf = DMABUF_ITER_DONE;
-> +		return NULL;
-> +	}
+>         if (kit->dmabuf)
+>                 kit->dmabuf = dma_buf_iter_next(kit->dmabuf);
+>         else
+>                 kit->dmabuf = dma_buf_iter_begin();
+> 
+> +       if (!kit->dmabuf) {
+> +               kit->dmabuf = DMABUF_ITER_DONE;
+> +               return NULL;
+> +       }
 > +
+>         return kit->dmabuf;
+>  }
+> 
+> @@ -185,7 +206,7 @@ __bpf_kfunc void bpf_iter_dmabuf_destroy(struct bpf_iter_dmabuf *it)
+>  {
+>         struct bpf_iter_dmabuf_kern *kit = (void *)it;
+> 
+> -       if (kit->dmabuf)
+> +       if (kit->dmabuf && kit->dmabuf != DMABUF_ITER_DONE)
+>                 dma_buf_put(kit->dmabuf);
+>  }
+> 
+> --
+> 2.34.1
+> 
 
-This isn't a bug, but is the second sentence of the comment above
-describing the pre-patch behavior rather than the code it sits on?
-
-With this patch no NULL is ever left in kit->dmabuf, since the block
-above replaces it with DMABUF_ITER_DONE:
-
-    if (!kit->dmabuf) {
-            kit->dmabuf = DMABUF_ITER_DONE;
-            return NULL;
-    }
-
-If only the "if (kit->dmabuf == DMABUF_ITER_DONE)" check were removed, the
-iteration would not restart from the list head.  The sentinel would take
-the "if (kit->dmabuf)" branch and be passed to
-dma_buf_iter_next((struct dma_buf *)1).
-
-The restart described is the bug being fixed, which is already in the
-changelog.  Could the comment instead say why the sentinel exists, for
-example: once begin()/next() returns NULL, park the iterator at
-DMABUF_ITER_DONE so it is not mistaken for a fresh (NULL) iterator, and
-keep returning NULL as process_iter_next_call() requires?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42982427559
---===============8814559659898024532==--
