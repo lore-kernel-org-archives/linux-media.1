@@ -1,76 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794380178;
-	b=LlO1U4QRf3SoqQffPfqc8jv1XkrppI/qL/IBJdhI+Dx2QNdx9yccFjjENM1SHStTOfYX
-	 RegiUpjASWVsoQIYqAKeJ8hob2SfIwGUmZFCCfH/gzjbtM8iTNbyYWPUUvaoMx+Zbu4zu
-	 ZKNzfF/tCKazNV/kX2NQ1NXEuSvRo6sVECe3LQCkv2rj3NA8Wqz1G841fhRvTBdzUfxwI
-	 wolhEZolrpImdrAvbKFlDeM18c83Z/2B98Qsix/MxWC79zFhHafokSt//KqQ/mQJrNxa0
-	 xcsYz9kg57EdNlR1uLG2sv/MbQ2ZlFDYaYML7pfHtVPxhPR99Gb1TSMh8urVvgVHOrQ==
+	t=1794380950;
+	b=CXi0PrrYhorNEIVZzlPhUliQ54HX4fpp8B71wmt2kwzefj72jl6nSADZnL9tNK8yjCc2
+	 84tG2hTeZPtZP7gWcOmHft812BUWZ+jmplqaEt/ijJxhQvT+5SWs7XaSLzyr0U1bd0j7l
+	 m4J2RNBKGloDB0vxGpgiJLjuC1Iud3PCFj60ZDWxalTnvPa6rnidkSAL6DhZLHpPBLtdu
+	 P7fKG4gzzAuMj53N3C5s6/FHjablzoRze7RX5fdwP4lF5dFBaor8ElvX4bYDwVd91bast
+	 IR41xL0NOt1g/JxGMjch8vCyL+UrN+Hxf5QMdn6lECIR5rSr+2gE1aSaQX38DF663jQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794380178;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=ndjT+OJbnARL4wsiXG3BQZYfC3vWbHmc/dticjn+Ro8=;
-	b=xVUsNk5n0oeNc2y5Cz4X+58aXfNAQgbGNqQZ75gMEV9kcjI0XWGy5bDPg0FQ3//4xfOh
-	 sihihgE0BKWBc4mtmYEOb5A+YOxdH77HcrfjtDXOZk83+X+3reyiO6D8u0MYUIrxGVA+M
-	 BnAyyKJC+bAXjX9RHJDqUCqziajmcJZi6iU9pwZqEjmKXMkAnBppulU1tmQG9K3bWs4bF
-	 tMa+CG9PE0U7noVc/ywXu2WwxbZmWayJOZOwPQQFV8hi0IQVD5ERPHi7B+OfEbALLRqb5
-	 7iLwVK8mUEy4bTHWSphKkVXzlaPSGGaefiyAQu5NDmr8susqr9mq/ELugA2Ulu2TJ/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794380950;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 X-Google-Original-From:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=s/82GkzE7PHKNj6s9ShBADW7lI6WOmMaHbdsdqp4TVY=;
+	b=IEajSvzqLL3bgJrkygjDtYs0susHF37dV1IVpD8pI058jwmrKdPy+OAdLoTohVAAUfML
+	 dPU7TIZlIkZV6popWD/3qfSCDAJNcszv42PcbWf/HsBpdmK7zA/3BR54vjRSJv6rm8XVJ
+	 YcoL6R+tzOxK9Tda31uv5NVObqU5hwBS7FRbwsgVJO+/+GwdHZpWXX6o51Tds+GBuEC9R
+	 n4KkT5AZGvJP9nA0XtjPt2Gr1JqpwV46t32xoBUNiE85sYzHTYN4HZ6q73PeiDonZYthS
+	 FkXdojY0HXc9vFhjc4wZeDJgo3VTXXDe7YeV/rwdty7oi8S/EPQSo1VtZ9hg9Zbqt5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TXmoQXfy;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pmOSOsj7;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CP+PQq2E;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2285606A31C
-	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 06:56:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2285606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EBEA606A320
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 07:09:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EBEA606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TXmoQXfy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794380177; x=1825916177;
-  h=date:from:to:cc:subject:message-id;
-  bh=y1RcGijQ8kL/wo4lssT00tPI2bmUn7o9BDL/w51ka5Q=;
-  b=TXmoQXfy8DKYP5MJ6eNQxCVUlw9wlvgrl6/wR4iJxN09mczkoo6gZAq8
-   34aBnDFk8V0JZaR16wTXnXu/IZ3Ix065tPCk7Kt7+QPu0+A5bKPBKHlKL
-   lDBeqxC7eXe761p+fPswNHXWeDYBevOcGkSrTzg0vBFFwG52uO8lxohlm
-   GXgModB3wzWULxrZyNKTk1s801gAs/ykgRMkTP+ChrtXtZLvnaYsyQ9D4
-   NJPJWF5P6IvQfd9t0KLz99gxmCpArVG+RWN7umjxvfdBLckIqwy8Lbt/R
-   ClP50VKgLVVRcd6v000q4Exq4N7Qq4l/3En3aRa97nSRUBSP/nWPK52Ys
-   g==;
-X-CSE-ConnectionGUID: OVmAD7KvRdmwIB/D5JG/UA==
-X-CSE-MsgGUID: XV6xKcRtTXOvXjsLI7CD+g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3143313"
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="3143313"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 22:56:16 -0800
-X-CSE-ConnectionGUID: H3v+z33ZTrm2JUJBEjqbMw==
-X-CSE-MsgGUID: QcKAXj/uTuWfCCiG8KwG6g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
-   d="scan'208";a="8685119"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa008.fm.intel.com with ESMTP; 10 Nov 2026 22:56:13 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xR2Fe-00000000yIV-3QEC;
-	Wed, 11 Nov 2026 06:56:10 +0000
-Date: Wed, 11 Nov 2026 14:55:20 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org
-Subject: [linuxtv-media-pending:next] BUILD SUCCESS
- bf6c63ecc20a54aaac7a2fcbd6adaf6498388825
-Message-ID: <20261111145520.ZL1PzQGF-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pmOSOsj7;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CP+PQq2E
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5KJuP2350824
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 07:09:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	s/82GkzE7PHKNj6s9ShBADW7lI6WOmMaHbdsdqp4TVY=; b=pmOSOsj7K6IfGedP
+	+V6IGVv+HoLqM/OgRGFYuznEmEb/8HNzn6XegptDT0wJTTrZAQPRiA0B6f7drvLp
+	7De1hWUi8gSJrt7S6FiuK6yy5c7G5E7hv6PKiC/GVde20CKmV1xQryGV+CXN35ff
+	5wUm64cVX/hxSifWV2qs5zpPbVoUEPamf+fnjCjRf5AzellPL9XIGQuXJNHpTGSs
+	mnnbEReH327BT0dddowTjWHGmKmdI+GY17qkGE2m1ySvmzgoGiyb+fwNoMol6rA4
+	h2X22GFldDYbo7PcnezuXxSalvhs0hinQcJ8PWuD8MbKndK0leI36gGnQrVsyTnI
+	ZPVatA==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdnp1b17-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 07:09:08 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso5773850eec.1
+        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 23:09:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794380948; x=1794985748; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s/82GkzE7PHKNj6s9ShBADW7lI6WOmMaHbdsdqp4TVY=;
+        b=CP+PQq2ErHNQxjG9fAb6KITT6WofnjtLjfBVsdnjojYl7qg1AXXU1hmUJZEnmE8qAn
+         RTYTFP02Dd0T+th+ppnC7N4oR+voSzZiY+BZtzCSBu3cRwwUpA77Xa2A3KaUNX7iJCri
+         qQl6dzQeQymMjmsXHSb/LeG9LjB8pIU4g5QdVooYx4NTlUIm/z302bQ8b0vQL5UuOxhb
+         eXQecOEvcNqJi+Xx8qfKtelavm36q5UxNaoQqq2MAlPL+3sNNt18PZedVqV3OBMsEtK8
+         atYlgFq+H6D/AzDU2VXTNc175zt+NDQxFRQ6/pDkrCfctbcMfhqPKZnQjctz89teXMEX
+         JiOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794380948; x=1794985748;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=s/82GkzE7PHKNj6s9ShBADW7lI6WOmMaHbdsdqp4TVY=;
+        b=yOWJGf2GbyvY1Deqg04kOEBgYdqsa4/LPx2kJmwXTcV2s4QS0IiiexTXg7WwbgtxkR
+         RUzUMJuWux85KLGLaBdsl6x7xS8R/Cc5fx/20AT2t0PdI1HwLNZqoY1+QpVtPROeoSV+
+         3Taz7QCTlu072IQE7P0WVO7dAepkQ2o7HXpaObf+7y88+fLJOxnu6XLKGURW3wL9X9DZ
+         SczOUEq+bIVyWGCwhqVuab7Re/jwqAEk1SFvPl87Qv3OMs27doU+L7iAiMj05KXkniC1
+         tdX6iF8Tw19cnqX4LajamN8i1/EyGCJyQYM0E7JsmGz27/MdRaFAP9/zVQbgmYB+K42T
+         GT2Q==
+X-Forwarded-Encrypted: i=1; AL+hErFyOJLW15GPMVPZnNxa6K+0usZwalmrjlVXn7vBfCFTu/pM8nXQ/8TdsSD97vGmkz7Cf0S2/RCkOvI0pg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8hOZZlU1x1Q7oUuo5RIACm3bmyqjRkVR5PO4wUQ6KNXksaJtk9
+	RQgOcEEsK4YEES0GWUjI11F8YwrF394UtXUpze7WBhAVdeBUf+7nWVtCPyTDxmfj6k0QAstTfgy
+	OGdE6sy5nPV3XoeL2VexQjXSLvSDirNFtv20tZMx68sLXuz6BDWF30lva5J5dVCkHwQ==
+X-Gm-Gg: AYBFou2p3+xmm3quDPj18RrcEle7kA5zFianha6+BMTNgKdel/0x6dfHFs4VakEU9Pg
+	toZeJSCN812+1XDXqzo5ebx0Ai0+zFH8OYpdfdA3NYkBj+pHyvLbGDrHvuXxsaHrK+IMK0DTTgZ
+	wlZwJbqh9R890kZrRKXL+DUoT9xCLuaRbwZ5uoEyM3s7TsZUjfRtzZbn40icc/nyvfvIQHXFh66
+	FQMkjCWJZevCO+fudrGcJ1CdVk5dvfE2K6BbvCjYcNnL29+Xnn4gEIyfLwoCWeZvLPG8wLpax+Y
+	rOE1WRBS/n3bZGQEosySViEu3eszazFS38mNFQRhBsZEvPVBFTgmLTxS4Ewq2UEH2K1tUnX4hJ0
+	nRiZz+19my1n7Qn40TzeKPwteRlLpI4KsaNNOE7aK+IuwQwe1iEmSua6fvpDfk0bRP5OIELGR2F
+	K2b3eZuUc=
+X-Received: by 2002:a05:7301:715:b0:36d:2b02:86a6 with SMTP id 5a478bee46e88-37682f9422amr2074372eec.4.1794380947815;
+        Tue, 10 Nov 2026 23:09:07 -0800 (PST)
+X-Received: by 2002:a05:7301:715:b0:36d:2b02:86a6 with SMTP id 5a478bee46e88-37682f9422amr2074340eec.4.1794380946993;
+        Tue, 10 Nov 2026 23:09:06 -0800 (PST)
+Received: from [10.204.79.28] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060dc0csm15082997eec.14.2026.11.10.23.08.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 23:09:06 -0800 (PST)
+From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+X-Google-Original-From: Jayant Shekhar <jshekhar.shekhar@oss.qualcomm.com>
+Message-ID: <0bf2075b-e507-4b81-a563-f7b4e7e2cbc1@oss.qualcomm.com>
+Date: Wed, 11 Nov 2026 12:38:54 +0530
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -79,203 +116,485 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/23] dt-bindings: display: msm: Add Qualcomm DCP
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Jason Wang <jasowangio@gmail.com>,
+        =?UTF-8?Q?Eugenio_P=C3=A9rez?=
+ <eperezma@redhat.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Philipp Stanner <phasta@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Flemin Jose <flemin.jose@oss.qualcomm.com>,
+        Mahadevan P <mahap@oss.qualcomm.com>, virtualization@lists.linux.dev,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
+References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
+ <20261026-jshekhar-dcp-hlos-v2-1-7cf014efdee1@oss.qualcomm.com>
+ <fzchmbho74ii6d2zhzni4qy4g74hiwv4fwf5xudrqdrstt6klm@7wdoo4acr6fm>
+Content-Language: en-US
+In-Reply-To: <fzchmbho74ii6d2zhzni4qy4g74hiwv4fwf5xudrqdrstt6klm@7wdoo4acr6fm>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAyOCBTYWx0ZWRfX2zhl3Bfj4A08
+ U1SacsmGvIa23eKEjmo4orCS5yKVXvcOpSV4Cf9FoVFQqh6Wmrq5FRQh1nm/B7yoztY1o5Y/ha1
+ t8VlQnpZIZjjJbQbOXVcIzTxkVraHs3+I5coCzvOkXPubnodAlzoQq+YeL2lzhAXwY3Jv4jGvKm
+ dwtHubMG0xudFEU2LsFXZ9UfCffnE7cRZtP7a5u7X/2IkEJyKAHhjGb5FAJz5QChnk9TvGmRUen
+ Zfi95BiCKoeRWmLOwEet0pn0nB+RcePhdn3ksL1efFSawwrZu6JgvyIWWfwj/9pJ9hAyEIQZhvx
+ lJPY2grQ1Zpm88wAwaZUjOeTgsnvhkaQxV+lPgOrZcVyaxur1MWIJjn892+QNT+9oFnMwoEMY5q
+ qxyZIjPHt9Q08H4zdpxpNN7G6emi2ZTNhedczJMaB/p0iM9oboCQz2ukzY8YofW14wserNRxLHV
+ G6aPYhh250bAHonNuEg==
+X-Proofpoint-GUID: dfAZmAsORk8xjUhiyCoc_wqMJgWHUkOa
+X-Proofpoint-ORIG-GUID: dfAZmAsORk8xjUhiyCoc_wqMJgWHUkOa
+X-Authority-Analysis: v=2.4 cv=NK1AaE6g c=1 sm=1 tr=0 ts=6af41494 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=qf_9Rdqh597-Gd7SKGkA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAyOCBTYWx0ZWRfXwdcuad6Cxg+T
+ ycCViGzuFM8y/c549n7Dfc3aMNJfXMJzCIqc6ktGIG/ns7wowEfVnlx/ETqNRgVW+1N3f+VQtY/
+ SmKWME6hgZQMDM3zWTljNWF94KgeyQQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0
+ adultscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110028
 
-tree/branch: https://git.linuxtv.org/media-ci/media-pending.git next
-branch HEAD: bf6c63ecc20a54aaac7a2fcbd6adaf6498388825  platform/x86: int3472: Properly map the AVDD GPIO type to a "avdd" regulator
 
-elapsed time: 979m
+On 26-10-2026 15:27, Dmitry Baryshkov wrote:
+> On Mon, Oct 26, 2026 at 11:51:11AM +0530, Jayant Shekhar wrote:
+>> DCP platforms place the display pipeline under firmware control, so Linux
+>> cannot discover display resources through direct register access. The DRM
+>> driver therefore needs device-tree descriptions of the Qualcomm transport
+>> wrapper, display topology, IOMMU contexts, and panel connections.
+>>
+>> Add bindings for the Qualcomm DCP transport wrapper and VirtIO display
+>> subsystem. Document the IPCC power-notify resources, transport and
+>> framebuffer IOMMU contexts, firmware-visible IOVA range, INTF graph, and
+>> DSI panel connections. The wrapper creates a standard VirtIO-MMIO child
+>> after the IPCC power-notify sequence has completed.
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+>> ---
+>>   .../bindings/display/msm/qcom,dcp-dsi.yaml         |  79 ++++++++++++
+>>   .../devicetree/bindings/display/msm/qcom,dcp.yaml  | 123 +++++++++++++++++++
+>>   .../bindings/virtio/qcom,dcp-virtio.yaml           | 132 +++++++++++++++++++++
+>>   3 files changed, 334 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,dcp-dsi.yaml b/Documentation/devicetree/bindings/display/msm/qcom,dcp-dsi.yaml
+>> new file mode 100644
+>> index 000000000000..9a0acaf00bb3
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/msm/qcom,dcp-dsi.yaml
+>> @@ -0,0 +1,79 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/display/msm/qcom,dcp-dsi.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm DCP DSI host
+>> +
+>> +maintainers:
+>> +  - Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+>> +
+>> +description: |
+>> +  A MIPI DSI host exposed by the Qualcomm DCP VirtIO device (see
+>> +  qcom,dcp.yaml). It follows the generic DSI controller binding, with panel
+>> +  devices described as child nodes. The DCP INTF graph endpoint connects
+>> +  directly to the panel; the DSI host node is not a graph endpoint. The host
+>> +  node uses the dsi@N naming convention, and its reg property identifies the
+>> +  DSI host index.
+>> +
+>> +allOf:
+>> +  - $ref: /schemas/display/dsi-controller.yaml#
+> If there are no separate compatibles, can this be folded into the main
+> DCP schema?
+>
 
-configs tested: 183
-configs skipped: 17
+This will be addressed in v3.
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+>> +
+>> +properties:
+>> +  reg:
+>> +    maxItems: 1
+>> +    description: DSI host index matching the DCP output port.
+>> +
+>> +required:
+>> +  - reg
+>> +  - "#address-cells"
+>> +  - "#size-cells"
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/gpio/gpio.h>
+>> +
+>> +    dcp-subsystem {
+>> +        compatible = "virtio,device34";
+>> +        iommus = <&apps_smmu 0x400 0x2>;
+>> +
+>> +        #address-cells = <1>;
+>> +        #size-cells = <0>;
+>> +
+>> +        ports {
+>> +            #address-cells = <1>;
+>> +            #size-cells = <0>;
+>> +
+>> +            port@0 {
+>> +                reg = <0>;
+>> +                dcp_intf0_out: endpoint {
+>> +                    remote-endpoint = <&panel_dcp_in>;
+>> +                };
+>> +            };
+>> +        };
+>> +
+>> +        dsi@0 {
+>> +            reg = <0>;
+>> +            #address-cells = <1>;
+>> +            #size-cells = <0>;
+> Yes, fold it there. It's not a separate device on its own.
+>
+>> +
+>> +            panel@0 {
+>> +                compatible = "novatek,nt37801";
+>> +                reg = <0>;
+>> +
+>> +                vddio-supply = <&vreg_l12b_1p8>;
+>> +                vci-supply = <&vreg_l13b_3p0>;
+>> +                vdd-supply = <&display_panel_vdd>;
+>> +                reset-gpios = <&tlmm 210 GPIO_ACTIVE_LOW>;
+>> +
+>> +                port {
+>> +                    panel_dcp_in: endpoint {
+>> +                        remote-endpoint = <&dcp_intf0_out>;
+>> +                    };
+>> +                };
+>> +            };
+>> +        };
+>> +    };
+>> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,dcp.yaml b/Documentation/devicetree/bindings/display/msm/qcom,dcp.yaml
+>> new file mode 100644
+>> index 000000000000..96f6c2a17e9e
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/msm/qcom,dcp.yaml
+>> @@ -0,0 +1,123 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/display/msm/qcom,dcp.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm Display Co-Processor (DCP)
+>> +
+>> +maintainers:
+>> +  - Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+>> +
+>> +description: |
+>> +  The Display Co-Processor (DCP) is a firmware-owned display subsystem.
+>> +  Linux communicates with DCP over HFI through VirtIO and does not access
+>> +  display hardware registers directly.
+>> +
+>> +  This node describes the externally connected display graph between DCP
+>> +  INTF outputs and attached DSI panels. It is assigned to the VirtIO device
+>> +  by the Qualcomm transport driver and is not independently enumerated.
+>> +  Firmware capabilities and internal resources, including pipes, mixers,
+>> +  CRTCs, and clocks, are discovered at runtime.
+>> +
+>> +allOf:
+>> +  - $ref: /schemas/virtio/virtio-device.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: virtio,device34
+>> +
+>> +  iommus:
+>> +    maxItems: 1
+>> +    description:
+>> +      SMMU context used by DCP firmware to access GEM framebuffers. This
+>> +      is separate from the HFI transport context specified by the
+>> +      iommus property on the parent DCP transport node.
+>> +      The child context is used for framebuffer DMA performed by DCP
+>> +      firmware, while the parent context is used for VirtIO transport and HFI
+>> +      queue buffers. These contexts represent distinct firmware-visible DMA
+>> +      address spaces and must not be used interchangeably.
+>> +
+>> +  "#address-cells":
+>> +    const: 1
+>> +
+>> +  "#size-cells":
+>> +    const: 0
+>> +
+>> +  ports:
+>> +    $ref: /schemas/graph.yaml#/properties/ports
+>> +    description: |
+>> +      DPU INTF output-only ports. The port number matches the firmware INTF
+>> +      index. The corresponding DSI host is the child node whose reg value
+>> +      matches the port number; the graph endpoint itself connects directly to
+>> +      the attached panel. Unused INTF ports are omitted.
+>> +    unevaluatedProperties: false
+>> +    patternProperties:
+>> +      "^port@[0-9a-f]+$":
+>> +        $ref: /schemas/graph.yaml#/$defs/port-base
+>> +        unevaluatedProperties: false
+>> +        properties:
+>> +          endpoint:
+>> +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
+>> +            unevaluatedProperties: false
+>> +            required:
+>> +              - remote-endpoint
+>> +
+>> +patternProperties:
+>> +  "^dsi@[0-9a-f]+$":
+>> +    $ref: qcom,dcp-dsi.yaml#
+> When adding DP support, would you add more devices at the same level? If
+> so, we risk getting a warning about multiple devices using the same
+> address.
+>
 
-tested configs:
-alpha                              allnoconfig    gcc-16.2.0
-alpha                             allyesconfig    gcc-16.2.0
-alpha                                defconfig    gcc-16.2.0
-arc                               allmodconfig    gcc-16.2.0
-arc                                allnoconfig    gcc-16.2.0
-arc                                  defconfig    gcc-16.2.0
-arc                         nsimosci_defconfig    gcc-16.2.0
-arc                   randconfig-1000-20261111    gcc-15.3.0
-arc                   randconfig-1001-20261111    gcc-15.3.0
-arm                                allnoconfig    gcc-16.2.0
-arm                          bcm2835_defconfig    gcc-16.2.0
-arm                                  defconfig    gcc-16.2.0
-arm                       footbridge_defconfig    gcc-16.2.0
-arm                         mvebu_v7_defconfig    gcc-16.2.0
-arm                   randconfig-1000-20261111    gcc-15.3.0
-arm                   randconfig-1001-20261111    gcc-15.3.0
-arm                   randconfig-1002-20261111    gcc-15.3.0
-arm                   randconfig-1003-20261111    gcc-15.3.0
-arm64                              allnoconfig    gcc-16.2.0
-arm64                                defconfig    gcc-16.2.0
-arm64                 randconfig-1000-20261111    gcc-13.5.0
-arm64                 randconfig-1001-20261111    gcc-13.5.0
-arm64                 randconfig-1002-20261111    gcc-13.5.0
-arm64                 randconfig-1003-20261111    gcc-13.5.0
-csky                              allmodconfig    gcc-16.2.0
-csky                               allnoconfig    gcc-16.2.0
-csky                                 defconfig    gcc-16.2.0
-csky                  randconfig-1000-20261111    gcc-13.5.0
-csky                  randconfig-1001-20261111    gcc-13.5.0
-hexagon                           allmodconfig    gcc-16.2.0
-hexagon                            allnoconfig    gcc-16.2.0
-hexagon                              defconfig    gcc-16.2.0
-hexagon               randconfig-1000-20261111    clang-17
-hexagon               randconfig-1001-20261111    clang-17
-i386                              allmodconfig    clang-22
-i386                               allnoconfig    gcc-16.2.0
-i386                              allyesconfig    clang-22
-i386        buildonly-randconfig-1000-20261111    clang-22
-i386        buildonly-randconfig-1001-20261111    clang-22
-i386        buildonly-randconfig-1002-20261111    clang-22
-i386        buildonly-randconfig-1003-20261111    clang-22
-i386        buildonly-randconfig-1004-20261111    clang-22
-i386        buildonly-randconfig-1005-20261111    clang-22
-i386                                 defconfig    gcc-16.2.0
-i386                  randconfig-1000-20261111    gcc-13
-i386                  randconfig-1001-20261111    gcc-13
-i386                  randconfig-1002-20261111    gcc-13
-i386                  randconfig-1003-20261111    gcc-13
-i386                  randconfig-1004-20261111    gcc-13
-i386                  randconfig-1005-20261111    gcc-13
-i386                  randconfig-1006-20261111    gcc-13
-i386                  randconfig-1007-20261111    clang-22
-i386                  randconfig-1008-20261111    clang-22
-i386                  randconfig-1009-20261111    clang-22
-i386                  randconfig-1010-20261111    clang-22
-i386                  randconfig-1011-20261111    clang-22
-i386                  randconfig-1012-20261111    clang-22
-i386                  randconfig-1013-20261111    clang-22
-loongarch                          allnoconfig    gcc-16.2.0
-loongarch                            defconfig    clang-24
-loongarch             randconfig-1000-20261111    clang-17
-loongarch             randconfig-1001-20261111    clang-17
-m68k                              allmodconfig    gcc-16.2.0
-m68k                               allnoconfig    gcc-16.2.0
-m68k                              allyesconfig    gcc-16.2.0
-m68k                          amcore_defconfig    gcc-16.2.0
-m68k                           atari_defconfig    gcc-16.2.0
-m68k                                 defconfig    clang-24
-microblaze                         allnoconfig    gcc-16.2.0
-microblaze                        allyesconfig    gcc-16.2.0
-microblaze                           defconfig    clang-24
-mips                              allmodconfig    gcc-16.2.0
-mips                               allnoconfig    gcc-16.2.0
-mips                              allyesconfig    gcc-16.2.0
-mips                      cu1830-neo_defconfig    gcc-16.2.0
-mips                      decstation_defconfig    gcc-16.2.0
-mips                      loongson2k_defconfig    gcc-16.2.0
-nios2                             allmodconfig    clang-20
-nios2                              allnoconfig    clang-24
-nios2                                defconfig    clang-24
-nios2                 randconfig-1000-20261111    clang-17
-nios2                 randconfig-1001-20261111    clang-17
-openrisc                          alldefconfig    gcc-16.2.0
-openrisc                          allmodconfig    clang-20
-openrisc                           allnoconfig    clang-24
-openrisc                             defconfig    gcc-16.2.0
-parisc                            alldefconfig    gcc-16.2.0
-parisc                            allmodconfig    gcc-16.2.0
-parisc                             allnoconfig    clang-24
-parisc                            allyesconfig    clang-17
-parisc                               defconfig    gcc-16.2.0
-parisc                randconfig-1000-20261111    gcc-15.3.0
-parisc                randconfig-1001-20261111    gcc-15.3.0
-parisc64                          alldefconfig    gcc-16.2.0
-parisc64                             defconfig    clang-24
-powerpc                           allmodconfig    gcc-16.2.0
-powerpc                            allnoconfig    clang-24
-powerpc                        eiger_defconfig    gcc-16.2.0
-powerpc                         icon_defconfig    gcc-16.2.0
-powerpc                   iss476-smp_defconfig    gcc-16.2.0
-powerpc                    microwatt_defconfig    gcc-16.2.0
-powerpc               randconfig-1000-20261111    gcc-15.3.0
-powerpc               randconfig-1001-20261111    gcc-15.3.0
-powerpc                      tqm8555_defconfig    gcc-16.2.0
-powerpc64             randconfig-1000-20261111    gcc-15.3.0
-powerpc64             randconfig-1001-20261111    gcc-15.3.0
-riscv                              allnoconfig    clang-24
-riscv                                defconfig    gcc-16.2.0
-riscv                 randconfig-1000-20261111    clang-17
-riscv                 randconfig-1001-20261111    clang-17
-s390                              allmodconfig    clang-17
-s390                               allnoconfig    clang-24
-s390                              allyesconfig    gcc-16.2.0
-s390                                 defconfig    gcc-16.2.0
-s390                  randconfig-1000-20261111    clang-17
-s390                  randconfig-1001-20261111    clang-17
-sh                                allmodconfig    gcc-16.2.0
-sh                                 allnoconfig    clang-24
-sh                                allyesconfig    clang-17
-sh                                   defconfig    gcc-14
-sh                 ecovec24-romimage_defconfig    gcc-16.2.0
-sh                  kfr2r09-romimage_defconfig    gcc-16.2.0
-sh                    randconfig-1000-20261111    clang-17
-sh                    randconfig-1001-20261111    clang-17
-sh                            se7722_defconfig    gcc-16.2.0
-sh                    secureedge5410_defconfig    gcc-16.2.0
-sparc                              allnoconfig    clang-24
-sparc                                defconfig    gcc-16.2.0
-sparc                 randconfig-1000-20261111    gcc-16.2.0
-sparc                 randconfig-1001-20261111    gcc-16.2.0
-sparc                        sparc32_defconfig    gcc-16.2.0
-sparc64                           allmodconfig    clang-20
-sparc64                              defconfig    gcc-14
-sparc64               randconfig-1000-20261111    gcc-16.2.0
-sparc64               randconfig-1001-20261111    gcc-16.2.0
-um                                allmodconfig    clang-17
-um                                 allnoconfig    clang-24
-um                                allyesconfig    gcc-16.2.0
-um                                   defconfig    gcc-14
-um                              i386_defconfig    gcc-14
-um                    randconfig-1000-20261111    gcc-16.2.0
-um                    randconfig-1001-20261111    gcc-16.2.0
-um                            x86_64_defconfig    gcc-14
-x86_64                            allmodconfig    clang-22
-x86_64                             allnoconfig    clang-24
-x86_64                            allyesconfig    clang-22
-x86_64      buildonly-randconfig-1000-20261111    gcc-14
-x86_64      buildonly-randconfig-1001-20261111    gcc-14
-x86_64      buildonly-randconfig-1002-20261111    gcc-14
-x86_64      buildonly-randconfig-1003-20261111    gcc-14
-x86_64      buildonly-randconfig-1004-20261111    gcc-14
-x86_64      buildonly-randconfig-1005-20261111    gcc-14
-x86_64                               defconfig    gcc-14
-x86_64                                   kexec    clang-22
-x86_64                randconfig-1000-20261111    clang-22
-x86_64                randconfig-1001-20261111    clang-22
-x86_64                randconfig-1002-20261111    clang-22
-x86_64                randconfig-1003-20261111    clang-22
-x86_64                randconfig-1004-20261111    clang-22
-x86_64                randconfig-1005-20261111    clang-22
-x86_64                randconfig-1006-20261111    clang-22
-x86_64                randconfig-1007-20261111    clang-22
-x86_64                randconfig-1008-20261111    clang-22
-x86_64                randconfig-1009-20261111    clang-22
-x86_64                randconfig-1010-20261111    clang-22
-x86_64                randconfig-1011-20261111    clang-22
-x86_64                randconfig-1012-20261111    gcc-14
-x86_64                randconfig-1013-20261111    gcc-14
-x86_64                randconfig-1014-20261111    gcc-14
-x86_64                randconfig-1015-20261111    gcc-14
-x86_64                randconfig-1016-20261111    gcc-14
-x86_64                randconfig-1017-20261111    gcc-14
-x86_64                                rhel-9.4    clang-22
-x86_64                            rhel-9.4-bpf    gcc-14
-x86_64                           rhel-9.4-func    clang-22
-x86_64                     rhel-9.4-kselftests    clang-22
-x86_64                          rhel-9.4-kunit    gcc-14
-x86_64                            rhel-9.4-ltp    gcc-14
-x86_64                           rhel-9.4-rust    clang-22
-xtensa                             allnoconfig    clang-24
-xtensa                            allyesconfig    clang-20
-xtensa                randconfig-1000-20261111    gcc-16.2.0
-xtensa                randconfig-1001-20261111    gcc-16.2.0
+Is it good to model each firmware INTF as a single interface@N node 
+carrying the INTF reg, with the protocol-specific DSI or DP description 
+nested beneath it?
+The driver can then obtain the INTF index from the common parent, 
+avoiding duplicate addresses across protocol types.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+
+>> +required:
+>> +  - compatible
+>> +  - iommus
+>> +  - "#address-cells"
+>> +  - "#size-cells"
+>> +  - ports
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/gpio/gpio.h>
+>> +
+>> +    dcp-subsystem {
+>> +        compatible = "virtio,device34";
+>> +        iommus = <&apps_smmu 0x400 0x2>;
+>> +
+>> +        #address-cells = <1>;
+>> +        #size-cells = <0>;
+>> +
+>> +        ports {
+>> +            #address-cells = <1>;
+>> +            #size-cells = <0>;
+>> +
+>> +            port@0 {
+>> +                reg = <0>;
+>> +                dcp_intf0_out: endpoint {
+>> +                    remote-endpoint = <&panel_dcp_in>;
+>> +                };
+>> +            };
+>> +        };
+>> +
+>> +        dsi@0 {
+>> +            reg = <0>;
+>> +            #address-cells = <1>;
+>> +            #size-cells = <0>;
+>> +
+>> +            panel@0 {
+>> +                compatible = "novatek,nt37801";
+>> +                reg = <0>;
+>> +
+>> +                vddio-supply = <&vreg_l12b_1p8>;
+>> +                vci-supply = <&vreg_l13b_3p0>;
+>> +                vdd-supply = <&display_panel_vdd>;
+>> +                reset-gpios = <&tlmm 210 GPIO_ACTIVE_LOW>;
+>> +
+>> +                port {
+>> +                    panel_dcp_in: endpoint {
+>> +                        remote-endpoint = <&dcp_intf0_out>;
+>> +                    };
+>> +                };
+>> +            };
+>> +        };
+>> +    };
+>> diff --git a/Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yaml b/Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yaml
+>> new file mode 100644
+>> index 000000000000..6020e848ce25
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yaml
+>> @@ -0,0 +1,132 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/virtio/qcom,dcp-virtio.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Qualcomm DCP VirtIO transport
+>> +
+>> +maintainers:
+>> +  - Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+>> +
+>> +description: |
+>> +  Qualcomm DCP VirtIO transport. The IPCC power-notify channel and
+>> +  associated interrupts are required before the transport can access its
+>> +  MMIO registers. This is a Qualcomm-specific transport and must not use the
+>> +  generic virtio-mmio driver. The DCP VirtIO function is described as a child
+>> +  node and is assigned to the registered VirtIO device by this transport.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: qcom,dcp-virtio
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  interrupts-extended:
+>> +    minItems: 2
+>> +    maxItems: 2
+>> +    description: The VirtIO-MMIO and DCP power-notify interrupts, in that order.
+>> +
+>> +  iommus:
+>> +    maxItems: 1
+>> +
+>> +  iommu-ranges:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +    description: |
+>> +      The firmware-visible IOVA range, specified as a four-cell tuple
+>> +      containing a 64-bit IOVA base followed by a 64-bit range size.
+>> +    items:
+>> +      - description: IOVA base, high cell
+>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>> +      - description: IOVA base, low cell
+>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>> +      - description: IOVA range size, high cell
+>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>> +      - description: IOVA range size, low cell
+>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>> +
+>> +  dma-coherent: true
+>> +
+>> +  mboxes:
+>> +    maxItems: 1
+>> +
+>> +  mbox-names:
+>> +    const: dcp-power-tx
+>> +
+>> +  dcp-subsystem:
+> 'dcp' is not a generic name. If you want to list it here, it should be
+> something like 'display-subsystem' or 'display-controller'.
+>
+
+To be addressed in v3.
+
+
+Thanks
+
+Jayant
+
+
+>> +    $ref: ../display/msm/qcom,dcp.yaml#
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - interrupts-extended
+>> +  - iommus
+>> +  - iommu-ranges
+>> +  - dma-coherent
+>> +  - mboxes
+>> +  - mbox-names
+>> +  - dcp-subsystem
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/gpio/gpio.h>
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>> +    #include <dt-bindings/mailbox/qcom-ipcc.h>
+>> +
+>> +    virtio@9be8000 {
+>> +        compatible = "qcom,dcp-virtio";
+>> +        reg = <0x09be8000 0x1000>;
+>> +        interrupts-extended = <&intc GIC_ESPI 956 IRQ_TYPE_LEVEL_HIGH>,
+>> +                              <&ipcc 13 5 IRQ_TYPE_EDGE_RISING>;
+>> +        iommus = <&apps_smmu 0x15a3 0x0>;
+>> +        iommu-ranges = <0x0 0x84000000 0x0 0x04000000>;
+> This doesn't match the address / size cells.
+>
+>> +        dma-coherent;
+>> +        mboxes = <&ipcc 13 5>;
+>> +        mbox-names = "dcp-power-tx";
+>> +
+>> +        dcp-subsystem {
+>> +            compatible = "virtio,device34";
+>> +            iommus = <&apps_smmu 0x400 0x2>;
+>> +
+>> +            #address-cells = <1>;
+>> +            #size-cells = <0>;
+>> +
+>> +            ports {
+>> +                #address-cells = <1>;
+>> +                #size-cells = <0>;
+>> +
+>> +                port@0 {
+>> +                    reg = <0>;
+>> +                    dcp_intf0_out: endpoint {
+>> +                        remote-endpoint = <&panel_dcp_in>;
+>> +                    };
+>> +                };
+>> +            };
+>> +
+>> +            dsi@0 {
+>> +                reg = <0>;
+>> +                #address-cells = <1>;
+>> +                #size-cells = <0>;
+>> +
+>> +                panel@0 {
+>> +                    compatible = "novatek,nt37801";
+>> +                    reg = <0>;
+>> +
+>> +                    vddio-supply = <&vreg_l12b_1p8>;
+>> +                    vci-supply = <&vreg_l13b_3p0>;
+>> +                    vdd-supply = <&display_panel_vdd>;
+>> +                    reset-gpios = <&tlmm 210 GPIO_ACTIVE_LOW>;
+>> +
+>> +                    port {
+>> +                        panel_dcp_in: endpoint {
+>> +                            remote-endpoint = <&dcp_intf0_out>;
+>> +                        };
+>> +                    };
+>> +                };
+>> +            };
+>> +        };
+>> +    };
+>>
+>> -- 
+>> 2.43.0
+>>
