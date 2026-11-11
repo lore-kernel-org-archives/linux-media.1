@@ -1,71 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794360444;
-	b=XJn49SNZauXkQ0XGGX73PCSpOdedDfbHEdm+NxoBx64cMd7KfR+4Dex+wH8AH2pKlFhP
-	 r/ER6c5bZJk/Ynr/j+qhaMsuHM5Pyr9QITZmeeFnsyDeprobkkEbZC+GJtGU7Egk9gpx8
-	 ZRrCC86i3aHAMxVYBMoBWdu0RALbsUBPijXxoGpiO50HMn0UAt7WLOVjP0AmWX7MX9NJd
-	 E9UTNQOViEFBjPnAV7l5OAdAsbL2viJK1agsShOB9OESqZUHQkpcp0NQEqTzJ/jymKQgH
-	 FE0j46JYB6Si3hJ8oPgsO1ZOfPRkQwNpr/C+ekP/Vf1RNrR/2hNDsyYNoz2svpnQ2pw==
+	t=1794363083;
+	b=NqOk2KMXC7YnVI7chfeCTJVLeaWGmrZlsVzUI0wkNfP8YPVvYtzQyCkhP0BRCE77MM19
+	 hXaUIVs7RSFumHxMiLR2EywCtKi9MkghBsHqP34BvpFd6YKnEbiikT0HwT5eYKq6UH/Gl
+	 HWNnm8B8UmyzZl9RecIuNn25wrPW9FYRPfE9iVn4/oSzn5kH6BgqULXiHdRbjWpO3k7ms
+	 Xs9kvnHT0mVGfG16f/gXimLbB2BN/5l+/cw14RQYkjPGCOyrn1IvHP1MkRho9BnsXQFtz
+	 4wcgeX517jUeZ5BXONkz/X8BYEU3EZkc2WjPaElBTm2UzeVUzJZvyU+CYjt07W+Qx9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794360444;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=BLSB0jc+PDfoGDhBATE5rNyu65P6DKBdBa7UuDK+sb4=;
-	b=J1fJ0wYr3OLa+tKlt3VZwa34lJ2zOXyO7sFdEWR/MPZ3JbiRSRipjYkUhEvOM1PNTRJy
-	 IfzSqlm+7B23CwZL4MtaaE6RQk14XoO6sVH5+joh31qQrivh1YQl9IVSOQtCOiHIiTt8T
-	 0vXBU/HJPdQ2gKIajLTHpLbqnQwlc4YmFk09+9r2SqF2+NWZ/K0MIBintZU6CXjW3orcM
-	 hChuUhhmLLsqPTCFV7ad5kB2rDmfc0IvcvfvuPTo+5G0jCGcju9/hZkozcHjb60L3wAAK
-	 5S4ArTu220bw50G3LyDJHpGjY3WO1ZrV6KT5T0OuNTPBaQMWVrTilTV3bMZT7fWtekw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794363083;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=ySVn32+21zYg7Tj5ZrVgbfGHI6nDULtj/EICklOEM+0=;
+	b=SFAKFmzLmSh1OIi0KoslbX2uS2VJryyiRp/hoiEsSxM+mIbWciT+TV290Ht1NlA3A9C+
+	 5vaikac4cMZNqEw7ZKnuW2C8vD4JRah1p/Ml0KKiEkEZKUZvqzsqHrNJIAyDF+CXKeeCN
+	 ED5oPmS6p5VIGEsM8YQ3W8X/xe6eCzReV8bo6p4daAXSBqS+2UTD4ucNXAV80uIe8W2HD
+	 e7pjMWqdDeilNWCh9KKnYCG3x4w7bnMzY/X/GgRicJh3lphKZaTZBpTR/0YgH9+stprta
+	 33jTvGgeVWjI6vsTRR0lTvPiP0BcOwrU9e6TkOqGoivKCpZU7zT6vAY4jajbv/nsXlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=andrewgigena.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RQSeL3GN;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB63D606A325
-	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 01:27:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB63D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=andrewgigena.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36f6295304dso3518255eec.1
-        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 17:27:23 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794360443; x=1794965243;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BLSB0jc+PDfoGDhBATE5rNyu65P6DKBdBa7UuDK+sb4=;
-        b=Wlr3pYN4X+6KWRM84YdpbLwHgPqEd+AUuok2T5F0HLIOiu0AC2sYIQjID+y+E2fz+B
-         onIhLG9YwShoL7jPS4KUVVIU/q8AK6pM7iI6z1Fbx8lmDXets29Pda01dvEfR9ZhCTNC
-         Cp2UAGpfzm3BkQ9AUSDmu7FuqXEXdFOEZmnO+ScsHYS9iE1GZHZSXDct8a3GoziXAaNN
-         odXiPl6nLTDcmc4WDWkunQaFvNW8YnbmOeY/tK03drlk8yY09kfdEYCBuysz6j7gx4AA
-         YI7r2VgTxRLOaVTuzi0uYo5yvEYXUl3F7ikqxa6UumS8kNPa9nX5YoGEqjMPvTaodFtN
-         kMaQ==
-X-Forwarded-Encrypted: i=1; AL+hErGXa9Lv/JSsph3/vfCNj+hZtKeyLAM8fCoCRzhi4XtgedRhO4o3JW5s1GgFn5L2gzz8A2b1fDI1XwmLrQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/oxlN1eK/+0ysXOH2owfOWkt33+bOhppnizR01CjwMwfu8YR11
-	yW3YlxiEIxQdYqOHyCp3hsLLW0gkM1Z7GvjDFCTpFWFy95jdvvsrY3Af
-X-Gm-Gg: AYBFou1VrPsa2oVSnswpWShpYHDRZRNuOASSPqijY/v9p8vBZnwooeekaxSBlThpOpi
-	wyAPHZ1m/B84ced3s02kDVlh33w0t1mib8ghJbPJk4X6C/c4CzalSn6T3IOLzwry4QOTZLmyJsm
-	mDNAMJUr1nL7W9xXUxyjpIEBxfjeIBBzgc+Y0JaAmdXSCl40i0xaT6bd3FOZWLCRRk6HbJpAO9T
-	w0ZLmRd2hFvv0kSMY+t7BhPkfY/vb3MqQwkDmk9qWL7kCR1ESixO0fOwFvo/r3g5LuZX+UxHrUm
-	M2X4vsknau7DYqBMxndGUUeyykQZw41TMIOeZlW32mAPULwQWcT99c3IU5u0rlkeQSenuvO71wa
-	z19ElbUe+gaAD3Z5RYocLBFgJqaPBBp59L2qVfnsfuMdKTV7kHl+Ou3Accv3YrqEGGhefFhtHHH
-	9Baeia4OXHg1RVN0jOIcLSzqY1zA38yUHnXXIpAx6I7feCZxtVW7CXTcjbwESdFjQuwrFL1RlpU
-	rpgNyV6RVVeFU5ziQQW+tg757Y/dPxKh16RET/9LiPPZhiHCw53JGvR82h+Lg9WpFv/yezEGyJh
-	uRa2zzicPP2ZpFxhUAURaND+v2kMbPENc3FIUldedp+GAF76+EhwJUBC4uDVK26zl6z3mCV4
-X-Received: by 2002:a05:693c:8219:b0:36a:1008:5815 with SMTP id 5a478bee46e88-3768385dee6mr1611656eec.5.1794360442766;
-        Tue, 10 Nov 2026 17:27:22 -0800 (PST)
-Received: from ?IPV6:2800:a4:806:ef00:2f77:7097:372d:6d14? ([2800:a4:806:ef00:2f77:7097:372d:6d14])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e7d24sm16548467eec.22.2026.11.10.17.27.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 17:27:22 -0800 (PST)
-Message-ID: <9988b8c2-547e-405a-9c76-a4e6a59c7dbb@andrewgigena.dev>
-Date: Wed, 11 Nov 2026 01:27:15 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6A1606A320;
+	Wed, 11 Nov 2026 02:11:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA6A1606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RQSeL3GN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794363083; x=1825899083;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=YIl9mNbtsYzhplOgGa0cGhEfEaFtNRnooftTOeSQs1A=;
+  b=RQSeL3GNx4WR18CTswrPgiR/5xj04UUzPAc4iPgfFadPPjoVocucnqGy
+   Sqj3UKN21Vi60+PLVaLWlYhdXUVvQW0pwt1LPjuV4TNGoMcxN7KHNTJHP
+   6aFHW2PC1H6+gsmsBpnivzY7uCod/j1W1VN6plb9GbCxCm+Nv6ewt+l/h
+   dqscC8BLWKczrFeJd4x5muQ2u0jHbGxSXGwtCgbk1VZclC0VInDW0lIaC
+   bUeGQPuofmORonULsgzRNOBijc80HJUTfBsIqkqsWO20Ugj+ywOPJvuN/
+   Ste1qalVgAJ+QE+X5nKOgNngLqyYjlRy+ekyXV9FrUVvz7XYFvu/dCBaG
+   g==;
+X-CSE-ConnectionGUID: P0qoq/ZRREu4zEQymqY4WQ==
+X-CSE-MsgGUID: MYw8nHOqRfC6DB32bv5gQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3150135"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="3150135"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 18:11:22 -0800
+X-CSE-ConnectionGUID: KWKSWiA6RYG2k7q5uu9mdQ==
+X-CSE-MsgGUID: WcxeZuelSJ60aUdbvg1pug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8472020"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa002.fm.intel.com with ESMTP; 10 Nov 2026 18:11:17 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQxns-00000000xt8-1mQS;
+	Wed, 11 Nov 2026 02:11:12 +0000
+Date: Wed, 11 Nov 2026 10:10:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: Richard Leitner <richard.leitner@linux.dev>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>,
+	"Paul J. Murphy" <paul.j.murphy@intel.com>,
+	Martina Krasteva <martinax.krasteva@intel.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 3/8] media: i2c: ov9282: fix flash duration to/from
+ microseconds conversion
+Message-ID: <202611110928.rZQK4WSx-lkp@intel.com>
+References: <20261110-ov9282-fixes-v3-3-cb6df80cbc22@linux.dev>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -75,54 +92,36 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/7] media: qcom: camss: Add support for SM8150
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org
-References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
- <20261106-sm8150-v7.4-rc1-camss-v3-5-0103e8a0bbcd@andrewgigena.dev>
- <160aa94c-c726-4cfe-b8cc-b1f974b32f13@linaro.org>
-Content-Language: en-US
-From: Andrew Gigena <mail@andrewgigena.dev>
-In-Reply-To: <160aa94c-c726-4cfe-b8cc-b1f974b32f13@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-ov9282-fixes-v3-3-cb6df80cbc22@linux.dev>
 
-Hi Vladimir,
+Hi Richard,
 
-> Drop csiphy_res_sm8150[], and pull this:
->
-> * https://lore.kernel.org/all/20261026224957.1115370-4-vz@kernel.org/
+kernel test robot noticed the following build errors:
 
-Done in v4: csiphy_res_sm8150[] is gone and sm8150_resources.csiphy_res
-is NULL, so SM8150 goes through the PHY-API path and clocks, regulators,
-registers and interrupts are owned by the dedicated CSI2 PHY driver.
+[auto build test ERROR on 7475ea8b58616b33c04afb976cf0fbaad9dd63fb]
 
-I folded your change into this patch instead of carrying it as a
-separate commit, and credited you with
+url:    https://github.com/intel-lab-lkp/linux/commits/Richard-Leitner/media-i2c-ov9282-handle-error-from-exposure-range-update/20261110-141010
+base:   7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+patch link:    https://lore.kernel.org/r/20261110-ov9282-fixes-v3-3-cb6df80cbc22%40linux.dev
+patch subject: [PATCH v3 3/8] media: i2c: ov9282: fix flash duration to/from microseconds conversion
+config: i386-buildonly-randconfig-1004-20261111 (https://download.01.org/0day-ci/archive/20261111/202611110928.rZQK4WSx-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261111/202611110928.rZQK4WSx-lkp@intel.com/reproduce)
 
-  Co-developed-by: Vladimir Zapolskiy <vz@kernel.org>
-  Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611110928.rZQK4WSx-lkp@intel.com/
 
-ahead of my own Signed-off-by, plus a line in the changelog saying the
-fallback comes from your patch. If you would rather have it as a
-separate commit, or want the attribution worded differently, tell me and
-I will adjust before resending. I am not enterely sure if this is the
-correct way to cherry-pick commits since this is my first kernel contribution.
+All errors (new ones prefixed by >>):
 
+   ld: drivers/media/i2c/ov9282.o: in function `ov9282_set_ctrl':
+>> ov9282.c:(.text+0x9af): undefined reference to `__udivdi3'
+   ld: drivers/media/i2c/ov9282.o: in function `ov9282_try_ctrl':
+   ov9282.c:(.text+0xe20): undefined reference to `__udivdi3'
 
-Best regards,
-Andrew
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
