@@ -1,104 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794364138;
-	b=J9oq2ib+FVl23x/2pSE7Rnl8T2e/ULO2lJ14u2OE7Rpn97zNgWF6W1A/gTT7rxnYjIzo
-	 2mhOWdvPyNw7KoOklCG8vLyu6xqilPauuTD3T3IrElsPGq/wCYLh5zkSUY06MSxLEjSLK
-	 pA61RKG9eWbahrv0fi892XIiPRU905IyNyhoY+af4RUA1u+DZJ+VSVjRWLE2UAOuvOr5w
-	 440BSfnhLyKxpPbzjFGMZp1zKidouYBr41xP1tKmgWPxbRYoNzAEjdb1PspL5YIhaDFw0
-	 HZoYxRyrKI/NXEDJWfrkDFrroKOrJ+6jJaTWIinO5BdnDlKcW/DGWuaHXTmGDqahyhg==
+	t=1794367529;
+	b=W4foR+K8pTADKow2GgW9CyeJQqrM53o0qGYkWPDeHEAVYwaabpPhqEMovu35iHzu2scO
+	 0cjK8izZPwXofRcXGyBNOl00dQuc4xhQBGHQMZ1n0JZic4s8ksrJyXbvJZv2hkktIf6RP
+	 HG2BKwObfuIRFN3USrQHlC0lPw1VBd0RhM7kCeWeYDmBSVB0rm7DXxxcFt65hBC9TQUl4
+	 uDGBEKfdehQxAtMB5ROIVO4SUbZGsNxftOx97+bAN3sK//oCgOjQmlDDA8XQlLmTWCo/e
+	 Ub+yhZYFwA5ioAETZy55o8wnHwoumqSkxxZQV1JWQfmYBERvOPkbGkURxeh8r62bgvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794364138;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=O32a4AiJGMwcCR/+4zjDOYox+W85VRB2HAzvlPxTqmU=;
-	b=Dujaett9InHDrMsz1uIyoDBdqKfMHntmq+Hamd3wTczeEiv4yRwrT08ypxmZcE9Za8G2
-	 0+X6zS3IbniQcSw854pG9mvPJA8GiEsFzqGiUrcbo+buVL8eZgw1ot9phZ9gZvApK36qW
-	 cJcv5ZoCZHuAvh75lhM8zLbkw3SweeibTSRTVBaaSebJBIEC8atYkvjElywkabCE+02AH
-	 FdpGf8+5TgZtqZW4T7hwcpT8kqYcelbjV40gM7r+fpYbkm2dYnXM4v6Co0D/vWjtChk8D
-	 cztV7QqQA0L/i+ECYVqhLAcbRRe1Zj5Xui3BVQbVqeTUWiWche+LIzdH5i8krDK7njg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794367529;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=AomCtOWxOdmlR0sUoqk220RU7FjG0HPHL1G9AKXfbu4=;
+	b=MfrT270lOnl4veo2uNblDHiz08RAN+6icLpeKWnpoUAJWJfzSWNciWPkOYutEVs6qSUT
+	 sNSKWkHUOfxiiLRQYK/ND2xe7OHU0Snm25/pnOL1NCbV3OufPfaZTqoZdhZMttce4qZGp
+	 eeuL5M0DLmJcpqhxn6VQVvdW2RRKNiYCxGXdE322Au1ckRH5DtlnVAn5mf6svsawpVgI6
+	 NR1idSMjudkYFysrTfLZLzlfQJUu90NKv7hssGID7jingmPtyFMAJ878OPnsvU2fU1qWX
+	 Dijo8VfuAluqdqgYSc5UAUtdGaoQjM/3bQ5Lhym3+3UJnOQ1L9TWfh+z5vDwIAQ2Rww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=urm5Wpo6;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fb2KX2wd;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OtZCG2fg;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24ABE606A32A
-	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 02:28:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24ABE606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C784606A327
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 03:25:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C784606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=urm5Wpo6
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8b5efadd183so1279184b3a.1
-        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 18:28:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fb2KX2wd;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OtZCG2fg
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB1tcPg4169159
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 03:25:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	AomCtOWxOdmlR0sUoqk220RU7FjG0HPHL1G9AKXfbu4=; b=fb2KX2wdfJiGUbio
+	yo0qBEH0nfT476LGmDRJqeyj27F88zaeuEPSAD6EICAl73s5DeOo3s5UHciGejLg
+	p3yD6JpZxhTa7M0WWrPWx7ZAOJnznldjCpmo1hjJQ1W5zewJVvGuyXaEgDsi9SFw
+	UPVhOjYbBJuutWRklCfXt+pMJsiGFXkwQaQuE702RFtZrkaSWNFl4szxoq6dfQGu
+	A33evsCYMxR5lTxjRVkASgxaiS/WvblIFxI8B5jujsZ1SsdMY1WwSDQwQkLYmORJ
+	hPDiRuitXJdbNAcK3ruijNkKV7F60gczmbNv2LrN9s4PBZUpe6ZFpF3tJb6RYwV5
+	vwcu8w==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huyw4c3cg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 03:25:27 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-375f0fd31f4so1496162eec.0
+        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 19:25:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794364137; x=1794968937; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O32a4AiJGMwcCR/+4zjDOYox+W85VRB2HAzvlPxTqmU=;
-        b=urm5Wpo6Von7lDwPbrmT6beI/5qJ2yfOmVRcyJ+2i8dsZ6ESf4IddCDDbBL0c8y1tC
-         pPjicmjFC5T5hq2qggvLCEt1UKGW6C0q+T5/MR6tQO/jKK9UJKgutCAjP5P5/d3Vlk0A
-         +yhecjBbh8df0sHq8o+xkbEMKhI320DFBCEEZ/IzxAeAPgc+jhuRjt1P+PElwuRuv/aZ
-         sU0fl+38DOrn/z+fBBHgiIoUvew/KYyAG7TUTV2DbmNJuN5vvOHos3pOdWadbbVaaQ3I
-         XlvAHZaHB7j2yikWdSELncKOxpYw8TOcVLNouBpJ0AKwjnJeeqVjdw+ITxGy3BABkY8q
-         ppUw==
+        d=oss.qualcomm.com; s=google; t=1794367527; x=1794972327; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AomCtOWxOdmlR0sUoqk220RU7FjG0HPHL1G9AKXfbu4=;
+        b=OtZCG2fgn0UcbGMApCWXw0tou4eHe2j6hlP58WEU6Z6wZjWWPnvwyONvVzI6S6yFdb
+         IaHPdVDsPAGb7dU68pZF9PaOW2feDML2JdORWPmVszLzyu4DIzbO01pXxc7IACK0tYVg
+         nP/ZBka405mEoo3xftdNu5Bb0bbvJ/l3z95HwxZTV5D789IlO82/x+aGew5JcbjzUVPC
+         s+neuq9zCHPCGvJSE+Z20tdKVaPMvMCbifPquuLl/6MG+BAzZW/qOtNbHhe7jllL4Cg+
+         J2vkW/XBXFOnon0CTZIifuk2pceP+GHWPUIrzmz7lYyexq+pWiaUP441ourHC35XqpQZ
+         0Img==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794364137; x=1794968937;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794367527; x=1794972327;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O32a4AiJGMwcCR/+4zjDOYox+W85VRB2HAzvlPxTqmU=;
-        b=cDiNmDf1ZkQJEOdkPiM3/1lk2E+QTTMmamMxOe6MgaRyqh4I4cQzYbXEt6QovJogFR
-         iXIEodguA5pdV0E9G1tNNzOX1TjZggtXEkergs1Q9BuxkvYDid0ovYmlGxo8hloKPgcX
-         3kx4MJixscDr1q78ge54vFXRkGHduceynh6czlJnurKVzB2lwnbBQR9n8KM2Cy39x1Y8
-         XdJ4r34LNizpOibDwA4XQ5ooV+13HBbGMZHvWn7h5qRaoWVO4A8z2SyumoeXrlBRYIDt
-         0xdeYRTIddieHA2DWrhewCVZaBOST14yl/GTgKw48CTpDn/e/I6My/ajCEz5ZqAPguk6
-         fpzQ==
-X-Forwarded-Encrypted: i=1; AL+hErFg3IihFghKB+W4Vn6yKS+zM6AmfdiKgkbBngqAHm9cWQSYiPkCyN55FsxDWr/irsh1ZNTGPlKjIjQNuQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+H1WEjcypt2lNxsevX/YBHJoh7ouD/r8NvpGjQfDyUVWRqqEO5
-	/KKaq8ZV7nEy0P7F/p5hMBIVSA0uv68M1o+XnR7xAw7SP8hBYjnIXGw7
-X-Gm-Gg: AYBFou1kQSseZKF7hXkHr5uyQvn7CP+8EzFO4FjEcd1bVmCGQmNHN0ja1vjxAzCs/O9
-	I0hxI8+2S6COqusfpwEK2C4kqCHozhK5nCMQrMTczoTE9kijRPc0Q0VkZ3r2+ENSNfH0T1aScig
-	oF+mZQnpGSIglduJZ97a1AGwEuQVUz3Hlsrk3R5NPh2xau3iTiqkTs3aGR8mYQzWgnvNeR/L/kM
-	9Fz9HvICaoTfZwY4kN1BDk3MhazAH4WlpnNkwo1pZ6IW+xmrAsax8yi/zyVDEXKofjH8fKcYHWd
-	coZEUQM9YaVBB6I9j98Ay9ZOHWNJRBXdpB1BAyNh/nowXKqiVxLoFGdLhm44wh6XwicgTqd9yIy
-	VDWRdnBsLWnBz4li2ct4o2z6lzxgxAF/237WqG3HXrkiVDI/AJiK50TWa/DkyAKu38r1tna4K2e
-	/t4xD2HocW7NwbWaR94QvwikuLI+UYFQ6aPFm22/zOTHPuqh0RYguHQsjxkeGEZ+glUpCBKCMk2
-	h0qTvE50aOFqteJZuLfuo4of3wch43QxnPvDc3oGqAG+cRBRFt/hUQf9a707IP2jvLhI05BeO6b
-	7Ify1jp4VGzEYmpy07u80qLfCY4abvH7B7mKM4x/Vwt8kXYM8m8jeLblP/4M2UQjLXBjTk8Pgr9
-	HXOJZKqd7zSotqDx/b0a8m18LMK3wU9W4uISJwCXM7IjgQceXX9wbHa81sb2PhJErrdve7HTbN/
-	Hgjw==
-X-Received: by 2002:a05:6a21:1391:b0:3e1:9071:acb2 with SMTP id adf61e73a8af0-3f2ff2e0b6cmr821227637.33.1794364137319;
-        Tue, 10 Nov 2026 18:28:57 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa86ce5fsm1603153b3a.21.2026.11.10.18.28.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 18:28:56 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Dong Aisheng <aisheng.dong@nxp.com>,
-	Guoniu Zhou <guoniu.zhou@nxp.com>,
-	Jacopo Mondi <jacopo@jmondi.org>,
-	Stefan Riedmueller <s.riedmueller@phytec.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Christian Hemp <c.hemp@phytec.de>,
-	linux-media@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] media: nxp: imx8-isi: remove kzalloc_objs
-Date: Tue, 10 Nov 2026 18:28:22 -0800
-Message-ID: <20261111022822.67474-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=AomCtOWxOdmlR0sUoqk220RU7FjG0HPHL1G9AKXfbu4=;
+        b=n9y7lVCbQT+x3aofCg7h/pKj1PJgHiIZfnRfNT4QeTnN4Zz6Kf36xWvtKS8oeG2esX
+         OignTB84TcQFVkvasRysL2JtCGP7k1TO/dLVmr9UOJMHcYGoDe5mlTP/eEiV9IMspHh1
+         gKNveo/7OLX6jtpzyihbNExuemA+QaJ0D9xvviv2qvxyvea391FYLo1AtKf68GX+2Ecc
+         IVBX/ALKMPdIxM8WR1xQWricZiJI03e9/W15EP50Pc8sne1pBaTVDD6jyd+Pu98UNq97
+         TJefqXarTDu/ipJJR41TDTXXo+XUjgJqld16eRWllsLTIxcB0n4axb8KpdEPCsgdKBSr
+         bYTg==
+X-Gm-Message-State: APuU4Z+jOW2yicwiApp3wcyb+xr39vU5mpcUxOZC1t6tZ82iL4JqyqNs
+	Y2tnUutYIFxiYSh4ujeAg/S7d/wZcT+SwseWfTNWoAAdlcTqzVxuQVxdKiFBci1u+FcUZQMbUD6
+	Ry955RZhNJmNdU4PmKaiADUvWqFrdkklozJrn74VGl77kYMPcnQXglkoVVPjBf5LjLw==
+X-Gm-Gg: AYBFou1zbq5xFrHCUPj2OHKX1xi0ZmsTax6fjqLy19dw75Tbzqa9pubWNXINDfXL6Mh
+	9Vk3olVz8ac2DtHWqZP3zcg8PKDWRTTKCr4tSz4d3+6skGdMuBjPO5D/YeJQf3EMXZes12d06MT
+	b1y8oHXBV/nU39aOPpeEGiBfLUT9HpL/K93BfWWXqSlZJiQ4cmah2jCdQvPBn/+bqZ9uzOKXRu4
+	qoiuEL/JbCQ3OrUQkac48jYQCM+DKolMeRde0P8F9SP8VdfXy0sTlJG4KpPhDPdhuHTzgz3gmbr
+	Jf/8kAu1SVwNAHhHQ6KeCIka8Oh9+02OZXB5IzONbJH72yLxR2At5wdK/XJh2LfQdXQBOB1Kclz
+	2arJ7qeT3q4dFEuibIMoOxCqvJ9jWWTO5+GayfRFbsezc7arWVJ7tjLbmRji/M3P+Vos+X8rrIl
+	8C04W+
+X-Received: by 2002:a05:7301:77c7:b0:376:ce6a:a499 with SMTP id 5a478bee46e88-376ce6aa7b1mr857778eec.36.1794367526799;
+        Tue, 10 Nov 2026 19:25:26 -0800 (PST)
+X-Received: by 2002:a05:7301:77c7:b0:376:ce6a:a499 with SMTP id 5a478bee46e88-376ce6aa7b1mr857749eec.36.1794367526185;
+        Tue, 10 Nov 2026 19:25:26 -0800 (PST)
+Received: from [10.204.100.41] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfe29fsm12427852eec.21.2026.11.10.19.25.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 19:25:25 -0800 (PST)
+Message-ID: <6eda82b7-c617-fdbb-9fe8-adb0f1206acd@oss.qualcomm.com>
+Date: Wed, 11 Nov 2026 08:55:19 +0530
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -108,77 +114,189 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v2 3/5] media: iris: Fix use-after-free on unbind with
+ open sessions
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Hungyu Lin <dennylin0707@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, sashiko-bot <sashiko-bot@kernel.org>,
+        stable@vger.kernel.org
+References: <20261110-iris-handle-unbind-v2-0-86d5f6f1dea8@oss.qualcomm.com>
+ <20261110-iris-handle-unbind-v2-3-86d5f6f1dea8@oss.qualcomm.com>
+ <ee2aedde-6688-4cfd-9f92-3703b081247d@linaro.org>
+Content-Language: en-US
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <ee2aedde-6688-4cfd-9f92-3703b081247d@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAxMyBTYWx0ZWRfX2tXhUmTf4g05
+ vsZCoEOXt3H3NPYtCjSKSS+hA3zrdZ2SvdYgmp8nOfNbBUeSB3FH6KDZQLfE0vPlL9Sl6uDaQ3Y
+ v1wYMkHfFpiswRVYjVjpmm4GCGc4qdTMzxX6OmjQUYUhYdIHkKe2m1RhHvnc4qXlqySf/A6hvK3
+ T+J22XkdlvZkoBnuU4Gj8BHJIDuy2HkpToMPszPOJzVevIqRIN1SEs8DIm5OVx423cWI6nX6Lzl
+ qQ2Oz4MEowVpE9TJF7Wms705BJiaPs4bcxzvda90AQYEeoJ0TU5sld7dx9C4xOGgYpZCpWGt8YH
+ CIDJF98KgK0tSVxdUJfcizkTOKjhnHUGaUQ2UDY3dDfkDC3Jqrw1Aqx9RuDU65+EQv18TQG+hfw
+ NTbv3t+987oYpx1x+Vq2yHtUYqpTr/Xw3m0IbrY5XU1qDwfoRxe24A3RIiJ3/jfwsKZxt0vYhk4
+ Zh3UN3VEBX/El0LdT/A==
+X-Authority-Analysis: v=2.4 cv=Ee1d0/mC c=1 sm=1 tr=0 ts=6af3e027 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=OCzWoR2KFpuGU18DyrAA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAxMyBTYWx0ZWRfXxLPDYQJmuwEK
+ NdeFD2JzvsitzqoILz95GD42izmW4J9s165cfOBEumBvHFDhu6A7gIZvY+kq4I+SMkGv8GRbVed
+ kb5pJBEZyv+FnhI1lrA4W1ujTTomoCg=
+X-Proofpoint-GUID: knrHWLG53iGcG02Zw3JQhkyATu9QV_me
+X-Proofpoint-ORIG-GUID: knrHWLG53iGcG02Zw3JQhkyATu9QV_me
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_01,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 adultscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110013
 
-Use a flexible array member to combine allocations.
 
-It looks like pipes never gets freed anywhere. Meaning this effectively
-fixes a memory leak.
+On 11/10/2026 8:12 PM, Bryan O'Donoghue wrote:
+> On 10/11/2026 14:09, Vishnu Reddy wrote:
+>> The driver can be unbound through sysfs while a client has a video
+>> session open. The core is devm allocated and freed when remove()
+>> returns, so the open sessions then use freed memory.
+>>
+>> Only the core structure needs to outlive remove(), because it is the
+>> only thing the file operations of an open session still use. Allocate
+>> it with kzalloc and tie it to the reference count of its v4l2_device,
+>> which every registered video device holds. It is freed when the last
+>> file descriptor is closed. The other devm resources (register mapping,
+>> response packet, clocks, power domains, interconnects) are only used by
+>> the power on/off sequence, the clock and bandwidth votes and the
+>> interrupt handler. All of them are released with the unbind, after the
+>> core is shut down.
+>>
+>> To make sure nothing uses them afterwards, set a removing flag at the
+>> start of iris_remove(). It makes core init, new sessions, command
+>> writes and the clock and interconnect votes fail with -ENODEV, so a
+>> client still holding a file descriptor cannot power the hardware on or
+>> vote for resources that are gone. A client waiting for the firmware
+>> only times out and returns an error without touching them. Runtime PM
+>> is also disabled explicitly in iris_remove() instead of with devm,
+>> because its callbacks use the core.
+>>
+>> Fixes: 38506cb7e8d2 ("media: iris: add platform driver for iris video device")
+>> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+>> Closes: https://lore.kernel.org/all/20260926064921.976721F000FF@smtp.kernel.org
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>> ---
+>>   drivers/media/platform/qcom/iris/iris_core.c      | 10 +++++-
+>>   drivers/media/platform/qcom/iris/iris_core.h      |  2 ++
+>>   drivers/media/platform/qcom/iris/iris_hfi_queue.c | 15 +++++++-
+>>   drivers/media/platform/qcom/iris/iris_power.c     | 13 +++++++
+>>   drivers/media/platform/qcom/iris/iris_probe.c     | 44 ++++++++++++++++++-----
+>>   drivers/media/platform/qcom/iris/iris_vidc.c      |  3 ++
+>>   6 files changed, 76 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/qcom/iris/iris_core.c
+>> b/drivers/media/platform/qcom/iris/iris_core.c
+>> index d558475986ff0..bdac6b8c98e44 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_core.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_core.c
+>> @@ -43,7 +43,10 @@ static int iris_wait_for_system_response(struct iris_core
+>> *core)
+>>       ret = wait_for_completion_timeout(&core->core_init_done,
+>>                         msecs_to_jiffies(HW_RESPONSE_TIMEOUT_VALUE));
+>>       if (!ret) {
+>> -        core->state = IRIS_CORE_ERROR;
+>> +        mutex_lock(&core->lock);
+>> +        if (!core->removing)
+>> +            core->state = IRIS_CORE_ERROR;
+>> +        mutex_unlock(&core->lock);
+>>           return -ETIMEDOUT;
+>>       }
+>>   @@ -56,6 +59,11 @@ int iris_core_init(struct iris_core *core)
+>>       int ret;
+>>         mutex_lock(&core->lock);
+>> +    if (core->removing) {
+>> +        ret = -ENODEV;
+>> +        goto exit;
+>> +    }
+>> +
+>>       if (core->state == IRIS_CORE_INIT) {
+>>           ret = 0;
+>>           goto exit;
+>> diff --git a/drivers/media/platform/qcom/iris/iris_core.h
+>> b/drivers/media/platform/qcom/iris/iris_core.h
+>> index 3e4cf652bf39a..379f0666a42cb 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_core.h
+>> +++ b/drivers/media/platform/qcom/iris/iris_core.h
+>> @@ -62,6 +62,7 @@ struct qcom_ubwc_cfg_data;
+>>    * @iris_firmware_desc: a pointer to the firmware-specific descriptive data
+>>    * @ubwc_cfg: UBWC configuration for the platform
+>>    * @state: current state of core
+>> + * @removing: set when driver removal starts, blocks core init and resource
+>> votes
+>>    * @iface_q_table_daddr: device address for interface queue table memory
+>>    * @sfr_daddr: device address for SFR (Sub System Failure Reason) register
+>> memory
+>>    * @iface_q_table_vaddr: virtual address for interface queue table memory
+>> @@ -108,6 +109,7 @@ struct iris_core {
+>>       const struct iris_firmware_desc        *iris_firmware_desc;
+>>       const struct qcom_ubwc_cfg_data        *ubwc_cfg;
+>>       enum iris_core_state            state;
+>> +    bool                    removing;
+>>       dma_addr_t                iface_q_table_daddr;
+>>       dma_addr_t                sfr_daddr;
+>>       void                    *iface_q_table_vaddr;
+>> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_queue.c
+>> b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
+>> index 545bbe75e1740..e0cfa5107d1d9 100644
+>> --- a/drivers/media/platform/qcom/iris/iris_hfi_queue.c
+>> +++ b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
+>> @@ -128,13 +128,26 @@ int iris_hfi_queue_cmd_write_locked(struct iris_core
+>> *core, void *pkt, u32 pkt_s
+>>     int iris_hfi_queue_cmd_write(struct iris_core *core, void *pkt, u32
+>> pkt_size)
+>>   {
+>> -    int ret;
+>> +    int ret = 0;
+>> +
+>> +    mutex_lock(&core->lock);
+>> +    if (core->removing)
+>> +        ret = -ENODEV;
+>> +    mutex_unlock(&core->lock);
+>> +    if (ret)
+>> +        return ret;
+>>         ret = pm_runtime_resume_and_get(core->dev);
+>>       if (ret < 0)
+>>           return ret;
+>>         mutex_lock(&core->lock);
+>> +    if (core->removing) {
+>> +        mutex_unlock(&core->lock);
+>> +        ret = -ENODEV;
+>> +        goto exit;
+>> +    }
+>> +
+>
+> This locking scheme is looks racy, what's the point of this granularity ?
 
-Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v3: use devm_kzalloc_flex
- v2: add fixes tag, fix typo, and move pdata assignment to original
- place.
- drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c | 10 ++++------
- drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h |  3 ++-
- 2 files changed, 6 insertions(+), 7 deletions(-)
+The first check is an early reject when removal is already in progress.
+The second re-validates the state after resume, since iris_remove() can
+start while pm_runtime_resume_and_get() is in progress. Without the second
+check, a command could be issued after teardown has started. Also, core->lock
+cannot be held across the entire function because iris_resume() also acquires
+core->lock.
 
-diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-index 2005584a1215..dcf6c25d7faa 100644
---- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-+++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-@@ -473,24 +473,22 @@ static const struct dev_pm_ops mxc_isi_pm_ops = {
- 
- static int mxc_isi_probe(struct platform_device *pdev)
- {
-+	const struct mxc_isi_plat_data *pdata;
- 	struct device *dev = &pdev->dev;
- 	struct mxc_isi_dev *isi;
- 	unsigned int dma_size;
- 	unsigned int i;
- 	int ret = 0;
- 
--	isi = devm_kzalloc_obj(dev, *isi);
-+	pdata = of_device_get_match_data(dev);
-+	isi = devm_kzalloc_flex(dev, *isi, pipes, pdata->num_channels);
- 	if (!isi)
- 		return -ENOMEM;
- 
- 	isi->dev = dev;
- 	platform_set_drvdata(pdev, isi);
- 
--	isi->pdata = of_device_get_match_data(dev);
--
--	isi->pipes = kzalloc_objs(isi->pipes[0], isi->pdata->num_channels);
--	if (!isi->pipes)
--		return -ENOMEM;
-+	isi->pdata = pdata;
- 
- 	isi->num_clks = devm_clk_bulk_get_all(dev, &isi->clks);
- 	if (isi->num_clks < 0)
-diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-index 58b47335afc7..3165a65391c1 100644
---- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-+++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-@@ -297,7 +297,6 @@ struct mxc_isi_dev {
- 	struct regmap			*gasket;
- 
- 	struct mxc_isi_crossbar		crossbar;
--	struct mxc_isi_pipe		*pipes;
- 	struct mxc_isi_m2m		m2m;
- 
- 	struct media_device		media_dev;
-@@ -305,6 +304,8 @@ struct mxc_isi_dev {
- 	struct v4l2_async_notifier	notifier;
- 
- 	struct dentry			*debugfs_root;
-+
-+	struct mxc_isi_pipe		pipes[];
- };
- 
- extern const struct mxc_gasket_ops mxc_imx8_gasket_ops;
--- 
-2.56.0
-
+>
+> ---
+> bod
