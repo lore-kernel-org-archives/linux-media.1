@@ -1,56 +1,138 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794387019;
-	b=q1qOjHzexdD44yOTyHKE/uI6YlAN8y6x9UnPBCzHqbzNRRe9okJv+BYwID7dZTmlvkJb
-	 Y3ZqDrqctunycSaGcGNX0ZSdLVjFNxsW+3f/a/v8TlipX9w/ZdJQ6t6ylflakbkZYMoQV
-	 xIRs36aLkMK2yMJ97aeipuZYlALUJJewCdnznjaWjgvQJM9wKvJgBValJPbmNmasHibhg
-	 Neh5fjVFbqRxsrZvLpgXMDr7PYyhNqk+PasHHvRGiYtr3NnuRWTm8Kmfzs7N5qbjcjpIn
-	 U9OiqiIoBbtQNH6COqwxq/veFGZkooAotufU2e4mw7A+X1/B9QE7623nHGG0i/B/gnQ==
+	t=1794387228;
+	b=bvqNkidlCKmXBAyGampW222zDoZ6bOxAuIMKkoA8xbEZZYVVP7OjoIdSfKHg8O9zVlxA
+	 Xv0aTZp1i1VmkxPDiB8BUqFhI1u5QDoaA9ljjxn4ifc6EROx99OZClOPoWa+rTpFgBnPq
+	 nsfHnUr0yHiqnUhYqM/MrmuabPj5aHDowsHWYMkTjQ8lr7VXk4VFYZea4gQ9AZ2Xt65U7
+	 gA7+Lu/bA/9sdigUrMFZR8CmWvVIt8owd4/lSUxs8DLjulxCAv/grxaIZo4/MNE/PagX9
+	 i8TQv2aeS48xLvxY/oXeXYnR+KwT2zIvwrPBNP9jTqyuZY5lcpEWvZYhzHrqywGjoaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794387019;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=VIM4XPthKQfQ937Qz6fiR6JtTUPN7bkzBu35LVSkQLo=;
-	b=COcuItfSGfkyUPPn5Nz8TmwSh96Lg+Lq4iFZFZQb6PDs3TMA65vMGR1DsWzP0m0ktZeA
-	 CZkpR0s5fCqkyoG0bWH88FSx4BkcN+iRk4gyXUQDAp30pcvT6V9zIsPraIPUrAy6zwtKp
-	 g9DwNx4XoThG0FsK8JoslwNIx3TSNh8bJChiR309fdAmhAZQZQ9qF8ezYAyNgRlFMmBi7
-	 QU9+ISPBRzyNXEoZBupELhExNHU2sq3IOrTpEaNE4SCgIZw+AOXpna4Q0C4q+bFuv0lwZ
-	 wqhRE6w11/abMPk+sn6VejiXdytDHUAHQPQ+BzzYzEDVJlmMR9hkO4T7Gsxi0J0ljZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794387228;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=VRiZhzrsDkrLspAml0XRBl5rak3lI4bTzhSsupMJ/y8=;
+	b=Spaq2VioqTkTuF5sdkwEGqC/wTdg4fczpQ/Pm6kBtgyVkFOphmb+3eoE1WLjqmYfA8r/
+	 Xgl+Ya1f8dhbGGSMC5oC4SJVnAfJUEDAwlem8BeehTuTv08TcHI5tKroKey/LEspFHjdT
+	 7JEUQmsx7ejgYFqHGlw5yQWuyRwGX9SeQ5BO4GWj/Fv6zTL5T8V92T8xNyUWbwq/5Fdb2
+	 Dc6/vPF7zecd0pZ1NDh7fnZZVnGGxdrLKM+CiKqesiXVZLRKC+uzrxQw+U9CZAXhk09Cu
+	 2YqCWovJFQnOIaUNptsaIEmQsLZwCN4Cb1WG4YDQPe/sjD4D9UJwHYFJcs/HCg5St0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=VdtKTaqP;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=td12n49U;
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9912B606A326
-	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 08:50:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9912B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABC5606A31C;
+	Wed, 11 Nov 2026 08:53:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AABC5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=VdtKTaqP
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3F1868FD;
-	Wed, 11 Nov 2026 09:47:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794386873;
-	bh=L5+8RhC6nnO3xEPkp9tozlc+aosDMyzlxHF9ENYU7RU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VdtKTaqPqXUhVe7qXU0uYo4nEvFYVaJUoAJ8WD3zmrAq+ukjLU67y5aPTci8ho8qI
-	 NAhXDJHQMpj3plWLdzra3Zzkhg4HongFGVvT6Y0vAeLMHKJNUfqbW7ymeOvC0+49AS
-	 /cC7SdPkEF8X/wPKJG4jsHdP31GPzPb0/yq84dnY=
-Date: Wed, 11 Nov 2026 10:50:14 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Paul Elder <paul.elder@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@iki.fi
-Subject: Re: [raw2rgbpnm] [PATCH] Fix sign compare error when checking file
- size
-Message-ID: <20261111085014.GE86558@killaraus.ideasonboard.com>
-References: <20261111012621.1701729-1-paul.elder@ideasonboard.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=td12n49U
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jPckV6nT2zKmwl;
+	Wed, 11 Nov 2026 09:53:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794387219; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VRiZhzrsDkrLspAml0XRBl5rak3lI4bTzhSsupMJ/y8=;
+	b=td12n49UKDo56vCxSTn09U/FbdYGCk/hjrgkPwsYYmfR0Gs5QBppPCBDtVxxLchIEUwdQb
+	qOgaQ7bu4TKe2ydp1VVhzS3MjouOIvhK3svhqAqL4/zeXX6snq3K7vPx9e14jLpaWSPfrN
+	CC8kqaWegcbNN3dhGKGxAUSh8tFn4cT6u0zUeVOhFHv7yRgcI2X3Hx2TJKeot6Qlqt1EwC
+	lXHAwJBaYus+xC2WzZaQgsfOSySsNxfufDkkyksnvgI5eJB6EDfy5i8Q8e6p4IJt1EIvEW
+	KDNGmFpUTrOi351V8lzioglBOuHpSOovM/WIAIwzWjYiS+xktKSPpS25dn1MEg==
+Message-ID: <a2e7519ab463dec876aa806d91961456f31a725a.camel@mailbox.org>
+Subject: Re: [PATCH 0/3] dma-buf: dma-fence: Remove dma_fence_init64()
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Philipp Stanner <phasta@kernel.org>, Min Ma <mamin506@gmail.com>, Lizhi
+ Hou	 <lizhi.hou@amd.com>, Oded Gabbay <ogabbay@kernel.org>, "Rob Herring
+ (Arm)"	 <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Karol
+ Wachowski	 <karol.wachowski@linux.intel.com>, Andrzej Kacprowski	
+ <andrzej.kacprowski@linux.intel.com>, Heiko Stuebner <heiko@sntech.de>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>,  Felix Kuehling <Felix.Kuehling@amd.com>, Alex
+ Deucher <alexander.deucher@amd.com>, David Airlie	 <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Lucas Stach
+ <l.stach@pengutronix.de>, Russell King	 <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,  Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Alessio Belle	
+ <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>,
+  Qiang Yu <yuq825@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov	 <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang	 <jesszhan0024@gmail.com>, Sean
+ Paul <sean@poorly.run>, Marijn Suijten	 <marijn.suijten@somainline.org>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, Boris
+ Brezillon <boris.brezillon@collabora.com>, Steven Price	
+ <steven.price@arm.com>, =?ISO-8859-1?Q?Adri=E1n?= Larumbe	
+ <adrian.larumbe@collabora.com>, Liviu Dudau <liviu.dudau@arm.com>, Dave
+ Airlie	 <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Matthew
+ Brost	 <matthew.brost@intel.com>, Natalie Vock <nat@pixelcluster.dev>, Arun
+ Pravin	 <arunpravin.paneerselvam@amd.com>, Matthew Auld
+ <matthew.auld@intel.com>,  Thomas =?ISO-8859-1?Q?Hellstr=F6m?=	
+ <thomas.hellstrom@linux.intel.com>, Melissa Wen <mwen@igalia.com>, 
+ =?ISO-8859-1?Q?Ma=EDra?= Canal	 <mcanal@igalia.com>, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>,  Raspberry Pi Kernel Maintenance	
+ <kernel-list@raspberrypi.com>, Dmitry Osipenko
+ <dmitry.osipenko@collabora.com>,  Gurchetan Singh
+ <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
+ <zack.rusin@broadcom.com>,  Broadcom internal kernel review list	
+ <bcm-kernel-feedback-list@broadcom.com>, Thierry Reding	
+ <thierry.reding@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Cameron	 <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=	 <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Neill Kapron	 <nkapron@google.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Alice Ryhl
+ <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
+ <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
+ Roy Baron <bjorn3_gh@protonmail.com>,  Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+  Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein
+ <tamird@kernel.org>, Alexandre Courbot	 <acourbot@nvidia.com>, Onur
+ =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,  Sunil Khatri
+ <sunil.khatri@amd.com>, Prike Liang <Prike.Liang@amd.com>, Vitaly Prosyak	
+ <vitaly.prosyak@amd.com>, Jesse Zhang <Jesse.Zhang@amd.com>, Timur
+ =?ISO-8859-1?Q?Krist=F3f?=	 <timur.kristof@gmail.com>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>,  David Rosca <david.rosca@amd.com>, Marco
+ Crivellari <marco.crivellari@suse.com>, Krzysztof Karas	
+ <krzysztof.karas@intel.com>, Andi Shyti <andi.shyti@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, Shixiong Ou
+ <oushixiong@kylinos.cn>, Jouni =?ISO-8859-1?Q?H=F6gander?=	
+ <jouni.hogander@intel.com>, Joel Fernandes <joelagnelf@nvidia.com>, Thadeu
+ Lima de Souza Cascardo	 <cascardo@igalia.com>, Pierre-Eric Pelloux-Prayer	
+ <pierre-eric.pelloux-prayer@amd.com>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Michael Bommarito <michael.bommarito@gmail.com>, Sam Day <me@samcday.com>,
+ Gabriel Prostitis	 <prostitisgabriel@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+	etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+	imagination@lists.freedesktop.org, lima@lists.freedesktop.org, 
+	linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+	nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
+	spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+	linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
+	linux-usb@vger.kernel.org
+Date: Wed, 11 Nov 2026 09:53:25 +0100
+In-Reply-To: <20261105113529.1989375-2-phasta@kernel.org>
+References: <20261105113529.1989375-2-phasta@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -60,68 +142,38 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111012621.1701729-1-paul.elder@ideasonboard.com>
+X-MBO-RS-ID: 63c1ec95d89f50e0830
+X-MBO-RS-META: pdph9mgme6uj6kihqyt55uq9zqcpmeni
 
-On Wed, Nov 11, 2026 at 10:25:25AM +0900, Paul Elder wrote:
-> Fix the sign compare error when checking file size by casting the file
-> size returned by ftell to unsigned int, as it is a signed long being
-> compared against UINT_MAX.
-> 
-> This fixes the following compiler error:
-> 
-> FAILED: [code=1] raw2rgbpnm.p/raw2rgbpnm.c.o
-> /home/autobuild/autobuild/instance-5/output-1/host/bin/arm-buildroot-linux-gnueabi-gcc -Iraw2rgbpnm.p -I. -I.. -I../include -fdiagnostics-color=always -Wall -Winvalid-pch -Wextra -Werror -O3 -Wno-missing-field-initializers -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -Os -g0 -D_FORTIFY_SOURCE=1 -MD -MQ raw2rgbpnm.p/raw2rgbpnm.c.o -MF raw2rgbpnm.p/raw2rgbpnm.c.o.d -o raw2rgbpnm.p/raw2rgbpnm.c.o -c ../raw2rgbpnm.c
-> ../raw2rgbpnm.c: In function 'read_raw_data':
-> ../raw2rgbpnm.c:173:36: error: comparison of integer expressions of different signedness: 'unsigned int' and 'long int' [-Werror=sign-compare]
->   173 |                 if (UINT_MAX / bpp < file_size)
->       |                                    ^
-> ../raw2rgbpnm.c:185:23: error: comparison of integer expressions of different signedness: 'long int' and 'unsigned int' [-Werror=sign-compare]
->   185 |         if (file_size > UINT_MAX)
->       |                       ^
-> 
-> Signed-off-by: Paul Elder <paul.elder@ideasonboard.com>
-> ---
-> I've been getting build failure reports from buildroot for this.
-> https://autobuild.buildroot.org/results/f1f070bc5ac72d8b0f2ed403273635b7459a9ae5/
-> ---
->  raw2rgbpnm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/raw2rgbpnm.c b/raw2rgbpnm.c
-> index 0c71be321746..39b186473624 100644
-> --- a/raw2rgbpnm.c
-> +++ b/raw2rgbpnm.c
-> @@ -170,7 +170,7 @@ static unsigned char *read_raw_data(char *filename, unsigned int *width,
->  	}
->  
->  	if (!*height && line_length) {
-> -		if (UINT_MAX / bpp < file_size)
-> +		if (UINT_MAX / bpp < (unsigned int)file_size)
->  			error("line length too large");
->  		*height = file_size / line_length;
->  		*width = line_length * 8 / bpp;
-> @@ -182,7 +182,7 @@ static unsigned char *read_raw_data(char *filename, unsigned int *width,
->  	if (!line_length || UINT_MAX / line_length < *height ||
->  	    line_length < *width * bpp / 8)
->  		error("stride %u is bad", line_length);
-> -	if (file_size > UINT_MAX)
-> +	if ((unsigned int)file_size > UINT_MAX)
+On Thu, 2026-11-05 at 12:35 +0100, Philipp Stanner wrote:
+> We recently had a discussion about reworking dma_fence init to close a
+> race-window [1].
+>=20
+> The community agreement seems to have been that we can get rid of
+> dma_fence_init64(), so let's do that already. In the meantime we can
+> continue our discussions regarding the race in [1].
+>=20
+> This also touches the Rust dma_fence, which actually should use 64-bit
+> seqnos (was forgotten so far). Rust fence has no users currently, so
+> needs no backporting, so I would like to address that in a distinct
+> patch.
+>=20
+> Tested on Nouveau with and without the SEQNO64 flag. Nouveau also uses
+> the USER flag, so I hope we're fine.
+>=20
+>=20
+> P.
+>=20
+> [1] https://lore.kernel.org/dri-devel/20261029095542.1526750-3-phasta@ker=
+nel.org/
+>=20
+>=20
+> Philipp Stanner (3):
+> =C2=A0 dma-buf: dma-fence: Add flags parameter to dma_fence_init()
+> =C2=A0 dma-buf: Port users of dma_fence_init64()
+> =C2=A0 dma-buf: dma-fence: Remove dma_fence_init64()
 
-A better option in my opinion is to turn file_size into an unsigned
-variable (after checking for errors from ftell()) and drop all the
-casts. There are already casts to unsigned int though, the cold is old,
-and there's little incentive in refactoring it extensively, so I think
-this patch is good enough.
+@Christian, what do you think, shall we go on with this one?
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
->  		error("too large file");
->  	if ((unsigned int)file_size < line_length * *height)
->  		error("out of input data");
-
--- 
-Regards,
-
-Laurent Pinchart
+P.
