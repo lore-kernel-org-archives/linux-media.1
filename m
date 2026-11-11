@@ -1,47 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404953;
-	b=dLo6qtxvfgiq76wamRgcPp4G3/AwX4kOiQ/kBM8N0XJs/thXPn/RWd0lykit9cP0Vql5
-	 250rl2Crpi0A9t3CAFkW9DaJQWhrlfZ73gnR1Emh8KvS8lG1PBlp5zJgwBw7i1WpwgGzp
-	 nKBScaOU4ohMpnUEkgBvykv2Nk3x2PFpWpQWKQZzhclhZdQblolPXBkUW5kkyo+Ebo0IK
-	 EnQLV+aFxXYBzAq2Y8/teKoVOuKzehjRUKz+86Lm69+c1o/PzhJq29zWgsgVlKVMszk3l
-	 UnNuUIjSp0mDU6iEknYWMHGlJOC5rg85S+JXdOknNC/PiKT2lf21obeXvV1/P94f85Q==
+	t=1794405227;
+	b=f6PPZj0FaWKAzz37IZhwCkwhdOxNIRgFh3QsJhGUDnGQsPEKJzQPyLrU4gK61c/OasnR
+	 ubCjgxxZwjzP+GXUNRvLHGVjKX0Jt4UyHtq7eSFNn+F1TsMDmGyug7m6MXC0PSpwJNDib
+	 EDyOhMOdec+S6VoRFuysjdel7hDQdHkHOub+o9v9bhbmbeD8k94/jr27Sq2r1VuLm3cZn
+	 6TxAJ+WMuL3QpDGp2C/yreLF+bGWzlLYoDPrljQ+LPPgXOLJMUOei3UXLKEQAmp5aJ4tJ
+	 Bc9zIK5JAcUrdRWYbCDXggInVRQiVwnVjlfwc4/7of/vi6Djl3/jvt0vvSuWQtSOwlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404953;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405227;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Qdx8SBFr5A9el3l62V1Hnpyo8SLW7HjNDS/vMXmANvM=;
-	b=bmIEsnjelFDDUV6uguEFEXpS6mlWWiE/RCucd+LOlCDk6SDDK6SGRWWVlsjw/fiU8VGS
-	 af8oOjmd2wRcnxj3GjjLWsvoekxXUxtI6f3y3O+1H0bMYxbR4rzUUeosEQ7iTaOdCHh4U
-	 gm9ccQgugypr/ws4UXVaELYJ0gIBxtHRWH/gOJtKroEa7QARvOTazlS0oCNn2EqHZaR0W
-	 SmoWgw5RvFmUqUd9QEzk4CQTmfI0Rdr1Sryo97LI4fhZ13P9gGys1UwJfsNDbOkenKEVh
-	 zYjZkCGoK/e8+bDqVRXVwk068L0APvTd5Y/VqsYRsya9gAxoOuVDPLz/kwK/mItRamQ==
+	bh=iotswADUSSGHEiRZkFhuYUuQsdnE4S9RnJjUi0KsUEY=;
+	b=Ll7RIq6/3giMiOMrAw/lqgoBUZ4SKPoEw8ECHJeqf5LBMslNXg5vdpl6jDNMMSuEXHsh
+	 M6nKTLtyc5Gt6wbsUciAjYRBqXFxGlpeQjpIxMI906PC4AJdurv2WkIIRMEcWOz8JoFG/
+	 0gtbsV/jUIGxOaqFLZ2sq9Ch6T1fnOcXtLxx1fIb6TDW/xOSLV3iad03ibAJOsgyx0/1G
+	 +d/+q7o6MhOdjGbwMNCcNlso7kE8l99FFr18mk9Ji1BD7IAn7fRDMjq/vEH3FUdKN/Qb/
+	 Ej9piqykJRRk4NvwMp2chcGhxxu3PU9LUzxAOLf1tlDGYcyBUbEgy+fkR2Nf1Li+kSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHGSC6rH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=fatecpompeia.edu.br;
+	spf=none smtp.mailfrom=fatecpompeia.edu.br;
+	dkim=pass header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=dQc6Dc1c;
+	arc=none smtp.remote-ip=209.85.217.41
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C69606A326;
-	Wed, 11 Nov 2026 13:49:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496E1606A324
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 13:53:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 496E1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fatecpompeia.edu.br
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fatecpompeia.edu.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHGSC6rH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46C871F00A05;
-	Wed, 11 Nov 2026 13:49:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794404952;
-	bh=Qdx8SBFr5A9el3l62V1Hnpyo8SLW7HjNDS/vMXmANvM=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=kHGSC6rHES3fHGZkuagSOTPK0LWKUZKCjuI+lKf1BasID5OyztlT+Ko/nNpHMz4Sv
-	 vPAcVMYZPLUMmmqJCkf1oJjzzW6wkhqQ8ypErW107oHctP34/qcyCdss4xUTb6qQja
-	 nOqGHv5GsAovhkdPZxCk1ybqg3zw7k8AXnC2viWd6wc+BVvA6sXa4KHjdNry0+KKQ3
-	 M9neRAmq4YT8GzC/oY/GKN2OGEC1piS7TW9gn7ccAXrbMDsGLeqgqOQ4Ui0G7OvsxZ
-	 aUxrSMvyzFwDzfCJUFgYI6yA9/fWRUlZxJVj5/nuV3CRsGjZXBe78pwJwitdKROhku
-	 Fu43Uec9NT9ZA==
-Message-ID: <5b068d22-4f46-4f82-8914-ffed5a0f6f0f@kernel.org>
-Date: Wed, 11 Nov 2026 14:49:08 +0100
+	dkim=pass (2048-bit key) header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=dQc6Dc1c
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-74ab99038afso2483341137.3
+        for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 05:53:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fatecpompeia-edu-br.20260707.gappssmtp.com; s=20260707; t=1794405225; x=1795010025; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iotswADUSSGHEiRZkFhuYUuQsdnE4S9RnJjUi0KsUEY=;
+        b=dQc6Dc1cFeh3lUkUO2AOXY93vRxDH1gCO1sr2nYNEGrmlq42lk9DvEjZTgunacCbN9
+         R9OBXeINCBjqj6PzOxF455p1WhcfMxvU7UcCKP0xVe6L1F5CbEHd1M6nXWvALtYkacTR
+         udtl+zMqaMaTqi6JZXjCqRAViAshVdEZnvj+0vXj8FaxN6Fxjq/DY9vrU/0hx9oxG+KP
+         mhz8b/xqit94XezaLxvZuhwx2BmtZbdoJr4c+bPoXpfkBIFJklN82HSNUzDx0sBy7lvS
+         ES1sMAms0s/oy+n5HwSttmYDwDkTxplIum2uG7S7tlH9RiQe2CpugSPN09uGmP1cYI7l
+         W/4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794405225; x=1795010025;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iotswADUSSGHEiRZkFhuYUuQsdnE4S9RnJjUi0KsUEY=;
+        b=BYGw9BqmUcCjdbcX5uZvAbKH6N9niHnIEGauzb/9KZZacytdHT3XRCtmtcP8zN77Ep
+         MqRZuGMjwjnCF530qdPuFxgYDnXm7egRHcey8HRANRKGvec5SOYs5+QUP2Vql0AW1wp1
+         Cl766B0ZvnnILDc2vpS+BV/v++qJB73HD03Q4azUcYHPeKqeokAR12CXI4BZqwjig3fA
+         PPFlMXIcY0C2t/2c0Z1RkIQbo0z4YaBb0jHw9e5/EYSMuoI1Hnk/9L8hWkHTPjxzrh+T
+         228AJop2Jl9F+Esz2EYqSIqzXdkEUYAO+r2ul0YyYFVJvKfm5iDr8iCRmGAsHp+mEaCF
+         4Tvw==
+X-Forwarded-Encrypted: i=1; AL+hErEmedQkX5I9H4m3CMM2RVoPmm5jXlXwiomO8TX+9Sb7vI3envW/LbgY2xjtVsEvPqWV0aTNQW37bVIVbg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z95hSqbNkIaYdePwEoumrwCh565wSfouL6a0B0CMs7nKJ4mPso5
+	P/qvGxTYF5dyMRNTIdXI9aeZpw+TpMF5JqQ8bOkG+db0tGQ1SwuS51CCwPgcQCPpO3o=
+X-Gm-Gg: AYBFou0gyrZc96LZC8+sehgob8AMHVIdX/HZTvsPb731vHk2Y7pQlSEVOynV9Z3ueKe
+	3/utGj+6eUrtvWM6m1Pw+xnmUL5mBZQIuyWvrxt7m04kvsBCfC0d12u/snqzNG5kmVfOpk4M39s
+	uuTzWFCJT5gGGSBPlu87K9o0j+SfwT76W0puUk3hT5aGt1cBdT32awMFoKEv+znQWBOxFZInWl/
+	Yb7/j+br11keWkzgkJrab9/fJLMCU3FXA8QSxAQSoZ3bwbSX7xAa6Lryn7rZ4pG6RDjfyRAxNkU
+	j+TDXQzFr+Rxq0cp7w7vOyHawu6Qobn7qRl88v9vH5KJe2FFrszv/OFEr1nmLmKDcrD6exi+DIx
+	BtUGtRX5NFz3NM1qWDGaJV/DS8BRX/MIZzOofaYKp//12c9Jfg9owNZ2QJui+dLp45ZU42Uc9pu
+	7syGQhizB/bHU3TRvKM/Wlx2VgufxmHLYjbnPwSkskGWqvZEMs43BIHaS2hUfjQEJNI4uIT+mGV
+	xdu6xcas4mZ5PmYViXu9mF6/Ovf6HYuSVQpIQMrDaCTlohnVXrliYf+tH8cgslF3fU5rdwGGY6M
+	vtWTntY7rDk5CrxcvdS71BnZ5i+5DgIy6vk9sVWSh/Ns2xHUudzkLle6B8zmsCFKbiKapISu9k/
+	Y2eik
+X-Received: by 2002:a67:e106:0:b0:7a8:1837:9eb9 with SMTP id ada2fe7eead31-7d5061cf3a5mr665976137.27.1794405225039;
+        Wed, 11 Nov 2026 05:53:45 -0800 (PST)
+Received: from localhost.localdomain ([104.28.212.25])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d62241eca6sm786932137.11.2026.11.11.05.53.41
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 11 Nov 2026 05:53:44 -0800 (PST)
+From: Allan Siriani <allan@fatecpompeia.edu.br>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Todor Tomov <todor.too@gmail.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] media: qcom: camss: contiguous buffers, RDI and CSID1 streaming fixes
+Date: Wed, 11 Nov 2026 10:53:34 -0300
+Message-Id: <20261111135338.27008-1-allan@fatecpompeia.edu.br>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,56 +103,60 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v2 0/2] media: aspeed: order probe cleanup and last close
-To: Myeonghun Pak <mhun512@gmail.com>, Eddie James <eajames@linux.ibm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Jammy Huang <jammy_huang@aspeedtech.com>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
- <billy_tsai@aspeedtech.com>, linux-media@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- Ijae Kim <ae878000@gmail.com>
-References: <20261109235731-aspeed-v2-0-mhun512@gmail.com>
-Content-Language: en-US, nl
-In-Reply-To: <20261109235731-aspeed-v2-0-mhun512@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Eddie or Jammy,
+Fixes found while bringing up the CAMSS on MSM8226 (Moto G 2013). The
+SoC has an IOMMU in front of the CAMSS, but it is not described in the
+upstream DT, so the CAMSS runs without one there today.
 
-On 10/11/2026 05:58, Myeonghun Pak wrote:
-> This revision requests the IRQ after its dependencies and synchronizes
-> IRQ/work before manual probe cleanup. The second patch fixes last-close
-> ordering and keeps the engine available until VB2 release completes.
-> 
-> Compile-tested on ARM64 with LLVM, W=1.
-> No hardware testing.
+1. Loic's patch: use vb2_dma_contig, the write masters take a single
+   address per plane.
+2. Program the VFE 4.1 write master buffer size in frame based (RDI)
+   mode.
+3. Do not abort stop_streaming on -ENOIOCTLCMD from a subdev without
+   .s_stream().
+4. Do not fail CSID power up when there is no VFE with the same index
+   (CSID1 on MSM8916/MSM8226).
 
-Can you review/test this series?
+Build tested (W=1, LLVM, ARM) on next-20261105, each patch on its own.
+Runtime tested on MSM8226 with the same patches on a 6.16 based kernel.
+Known issue: on the MT9M114 the first frame after STREAMON can still run
+128 bytes past sizeimage; later frames are exact.
 
-I don't feel comfortable merging this without your OK.
+Changes in v3:
+- Patch 2: added Fixes: tag, removed the comments, no clamp on the
+  height (Bryan).
+- Patch 3: removed the comment (Bryan), added Loic's Reviewed-by.
 
-Regards,
+Changes in v2:
+- Patch 1 replaced by Loic's "media: qcom: camss: Use contiguous DMA
+  buffers", with his Signed-off-by fixed and Bryan's Reviewed-by.
+- Reworded the IOMMU statements (Konrad).
+- Patch 3: added Fixes: tag and Bryan's Reviewed-by.
 
-	Hans
+v2: https://lore.kernel.org/all/20261109112611.94010-1-allan@fatecpompeia.edu.br/
+v1: https://lore.kernel.org/all/20261104202313.72494-1-allan@fatecpompeia.edu.br/
 
-> 
-> Changes in v2:
-> - Rebase onto managed reserved-memory initialization.
-> - Remove the research sentence and Assisted-by tag.
-> - Join the IRQ and delayed work before manual probe-failure cleanup.
-> - Keep VB2 release before normal last-close hardware shutdown.
-> - Drain the IRQ producer before cancelling resolution work.
-> - Balance IRQ disable/enable within stop and check STOPPED before power-on.
-> 
-> Myeonghun Pak (2):
->   media: aspeed: join IRQ and work before probe cleanup
->   media: aspeed: drain IRQ work before stopping the engine
-> 
->  drivers/media/platform/aspeed/aspeed-video.c | 38 +++++++++++++++++++++++++-------------
->  1 file changed, 25 insertions(+), 13 deletions(-)
-> 
+Allan Siriani (3):
+  media: qcom: camss: vfe-4-1: program the RDI write master buffer size
+  media: qcom: camss: always stop the pipeline in stop_streaming
+  media: qcom: camss: do not fail CSID power up without a matching VFE
+
+Loic Poulain (1):
+  media: qcom: camss: Use contiguous DMA buffers
+
+ drivers/media/platform/qcom/camss/Kconfig     |  2 +-
+ .../media/platform/qcom/camss/camss-vfe-4-1.c | 23 +++++++++++++++----
+ .../media/platform/qcom/camss/camss-vfe-4-7.c |  3 ++-
+ .../media/platform/qcom/camss/camss-vfe-4-8.c |  3 ++-
+ .../platform/qcom/camss/camss-vfe-gen1.c      |  5 ++--
+ .../platform/qcom/camss/camss-vfe-gen1.h      |  3 ++-
+ .../media/platform/qcom/camss/camss-video.c   | 22 ++++++------------
+ drivers/media/platform/qcom/camss/camss.c     | 17 +++++++-------
+ 8 files changed, 45 insertions(+), 33 deletions(-)
+
+
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+-- 
+2.43.0
 
