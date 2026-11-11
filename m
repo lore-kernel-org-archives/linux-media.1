@@ -1,95 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794358626;
-	b=YZ1kWfDfo3lqnH3Sl2PAhXN1Oh3U0ap7pZaGSstxhMfQDFtO3Dp/3VjsHXAOquWQJ39M
-	 sqmdRaHZ9a0DpSmp1UHOhcZpRqatLX7PEzbFNuQGmXkgZh0LVj9QovAjhkAk5ju2tFw4O
-	 aAv6IlxtlW1V7dTXqliEWMyWrprJixk1whIZHyjpvL+cVsueE3aekk8DWqHgPObSuzCA0
-	 CSR63RL1ZtW3MkZGdofWlZT10fGb9PHZt615aH2AzIOgg6l+zZvkIEd0iKLqNVicTJ+io
-	 6BJLpsVeatEuYLuEcoELqcuWkbwRF2OqP9QWpcLyCk76fs6JQ6QrU4jl5F/hACx5SWQ==
+	t=1794360065;
+	b=Wz5ZWXkypaVh3pOYCGVYRCoHfRrtusduT5otG+q4Pmdi5qSi3Zw40u72oRIIfcV4de/6
+	 jDcS3KfBpgz4B/cPGg3OHBGKZU6vG9mPqILTokCjR8wnSwph5Grh/NG3Jp4cu7+NSz4Jr
+	 utyJikWDmQs7eixMkYg7iV1dchDhCjNdMsWHiFjoiVfoPAmCG97W3D5nhDkLJ7nWmUfai
+	 wkUAq/9vEsbH9k3P7HG9fkoc4n3jSF9mL1m1cK7QnT+OaobosSJsz9Kh1b0B7XiiPOFxz
+	 9GNlWFap4/B28+b8ojUbTMBi2TUhLA8e5CeA248W55xjhvjLpIF1iYXdhqBw0uklc5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794358626;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:Message-ID:From:
-	 To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=yiKuo8XiHGZbGLQTvMzCv4TDV6gtZYRHfBfU4L7mPHQ=;
-	b=AiCTXGw/Z5VQF+n+diw8CT6T50TWg2rZ2N/p5Dm633JBLdcvd6VBrqUW1tbJh6uENAla
-	 ECISrg313EcxOmjWBqhsESQG3CYfQZI/E+VvrGjSJYmwAWujV4CrKLWSWaClWDSkVAyTY
-	 YgTLNReljSlbmLAdHGa3xpic0X1nsYLaNCSEPDfA8GAfbOiJU/xVvjUUmOBsHx3tNAGqe
-	 pMVSvaWLaRCiN83xAaNVxYaWHsPQVOqZLwoUtzVO4DqOhGQt1s/iXzFE3rE0KdAxYUBAL
-	 uZmQf8bLKSYJdIoxQaX5ofxcrB4yXODLTZmVjZhogEudNL9OByuCRNefLXYTJRzNAow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794360065;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=AF3Qo3XVIXk57CdqfqnQW3ff/YbSrfnHQDVjoesFyAQ=;
+	b=BXCBHsPZxgks7Pz/Rq8tHcsdPMZOTkJg44pg85B8Ll5uSWAQL/v69Xxh3NtVYid2eLAx
+	 tglaWX+cNdc30L0YAnOsHddcYk78gtdYWqwL0oF/flev2egj8hbZNcI4V9ZiEfwv+mFYy
+	 rtB5oXGyuWf67VdsYRNed9o9k5i3fhKBko4Cf4P/2uadSwIDha+UxJzXZei6XDnGyeEC0
+	 2S4Jt9PSygM2+5MNV1ULM10ZJr3zsyLKjfbVOAysx4HjdjqlG1Bzjry+AevxH+fAVttxT
+	 zAV26ILlI0hPjsu5UzIj0zPhjxG2syaHO1XqYLVEPy9UBtxc5I/ulEfTKDbFMj4fC5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jogCD7lz;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=pw+2XUw+;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F8D606B4A9
-	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 00:57:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66F8D606B4A9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD342606A332;
+	Wed, 11 Nov 2026 01:21:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD342606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jogCD7lz
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4682977f9aso338990166b.1
-        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 16:57:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794358625; x=1794963425; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yiKuo8XiHGZbGLQTvMzCv4TDV6gtZYRHfBfU4L7mPHQ=;
-        b=jogCD7lzVyUCtowhrydRmQhNcp6cYxHzk/xxgv/qgJiCj3wn22LqZgTBj8psOr7Sb1
-         JpiyTTf0xbKgnyDBoeA78PK4rSkoNoxKr5JFdSpYAuBO4A58oHRGrQgCCqJZpExht+X1
-         iWQAznxYuutbAnIlUh5ubnAjvERSynXfexxijRUXHlZLiGtcBNe6+QSc6dVPhoNyrsJa
-         sCRH6agPK3mLMb4e8ycFxS2MoJ+yHBggfFyC/mrcYsMuiPF3mpArgud6UYlDdhTe9pHp
-         zD9U0peab7oQEaoJeDJ4/1102lI9wclORM+NvTxlIId0Ietd/5vxveP/NPfwMEF3igDf
-         kS/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794358625; x=1794963425;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yiKuo8XiHGZbGLQTvMzCv4TDV6gtZYRHfBfU4L7mPHQ=;
-        b=vBklPUNGrmvmoAVCuVXBd9VJSGmDERs9d+4AAx9SSFCeqEDLFKvVs+oQWh4cw8sf6c
-         PR6StyD6/k8rOnHvvyHAS2JDHoNc48hmMmF14kq+eBpisYdgKCdmtzBhPvYkFT77RFqQ
-         o6rbQTtJmmYUmxkMO00uIIIwub3C2r4z4SIlqzeJqQIevDJ/SB8QFAxQ8+SfKdPz2Ovi
-         XfT1bnXWa6ssdkM1FAwkgE7AdRU1ZBygi11Mg+QyaOm+MMyLfvOo8KUefM2H8fdEeY9K
-         P67fwbrOaOt37Uvdo+F+bQy85+2+PwnbiQoPR0gm9/yprD/xYtsc729UtA2PE3UMELt7
-         3ZTg==
-X-Gm-Message-State: APuU4Z82zdXC7giE2Y2KegJ6QVwidY1zN3b0ROsZsNdq+JRD02W/dAGZ
-	GwLrpfZ9AzRe5TPWg50RZqr4FD/c4kJFgXV9/PdTrSI0qse8VDcwN9MQ
-X-Gm-Gg: AYBFou2t7d+wXZsKpwujDOOKh+U4RPpWAdZZM+4uhX2vRCi0751oUCjhP+hIbnOyqT2
-	f0+meZJ2C/VRx3GAlHvqNLdBfyXBaI573zH2lpHJ6a+HQsgFSjGIatD/kIMaqLzgg7QD2AapI+P
-	wsDvY3LnVjhHLy+j4ZKd/cU9Ca382AGwpT93GxkstifFosgqq4W7xaEdCwfwXvvt0c1trcH2sca
-	mxp0Kkeir5JAiZjm62oWP0Etng0Fycg4MBorIMtrnue2u7jFSUec+ZgJjVjyGHxOHsDkRSFa7Ye
-	naVlP7DGbIkMTo+kRen62s0/mzorK/6M1bfoKA26nbI10kEvqocGDljj7DhDCZ5DRPo9x0tUhgu
-	2LEUGU+QC/HJwwgxJ7QnyBI2DCXBvyaVzT0Z91m69p5vTu7LMG6CTkhOKBMdGGtzGKKHQUSUrOt
-	Gru6gjk4GUADxOLfkckNCX/iJPU9bF79Z/Qdl8vpKHN4sfHLW8FUPX0M/Vgv+l9iZy2rpfw1AQ0
-	CPZ7oWNmywtMjnXpQDxMp6td20lByukAwMnu5JtJ+b3Qxj3BlIg75hT1G05ek3K9/xDGS80acUG
-	255Bq+J4cySa/1VVrVHeIEvuRiwjHdIByNVi0zP8Itcv5wh+
-X-Received: by 2002:a17:907:3d0a:b0:c42:4750:8d33 with SMTP id a640c23a62f3a-c5066b46008mr53840366b.28.1794358624563;
-        Tue, 10 Nov 2026 16:57:04 -0800 (PST)
-Received: from localhost ([188.146.174.10])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a3a6916sm177361266b.7.2026.11.10.16.57.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 16:57:03 -0800 (PST)
-Date: Wed, 11 Nov 2026 00:56:40 +0000
-Message-ID: <179435860052.4109564.9298992817657762327@gmail.com>
-From: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
-To: syzbot+f9f5333782a854509322@syzkaller.appspotmail.com
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzkaller-bugs@googlegroups.com, media-ci@linuxtv.org
-Subject: Re: [PATCH] media: mxl111sf: initialize state->d and fe_lock in probe
-In-Reply-To: <6aeca161.99d0dbd8.3801b.50e8@mx.google.com>
-References: <7cbccdb8-870c-46c4-bc61-2e40d8c4b4db@mail.kernel.org>
- <6aeca161.99d0dbd8.3801b.50e8@mx.google.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=pw+2XUw+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794360062;
+	bh=5ST42t6aMAPhfYqb3SJyx/zrrBb1ZAicX8/Qne1e7Ls=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=pw+2XUw+x1I4zzQA4vsEK6VUySjq0dBoxJWP4zrSPCuU8yDVRwzqaigkIihwz9NDq
+	 L0h1Szyoa23E2/MqZQUtoUY7WGoFHUCB8qdcWIqubpk2HrNJIoD37vUv8DK0hPQc2u
+	 pGJfES6RRvhqkYEPESrXqLEzxFwj69BzjKBQBHmKOMdxw7hVwDBXsNpxdukOJd7Zgp
+	 rsZ9Mb1z/fXDwDw9ND7y0XaR85n24o0Qno3rOeG41NHAGAI8mTbRB8p7/a6XNvCuBp
+	 5eFq7ri5w4Oqj+kzyhsvEhztXr5959kEQara90QTOx6pFUQSzpMikdJAWdE4w4B0fb
+	 EMsEkcV+9Iv6w==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 778A817E0390;
+	Wed, 11 Nov 2026 02:21:01 +0100 (CET)
+Message-ID: <22f2ec2c4994b36850656dfcb4dc5de09a22afa7.camel@collabora.com>
+Subject: Re: [PATCH RFC 00/11] media: h264: Stateless encode core
+ follow-ups: parameter sets, POC type 2, CBR and VBR
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: aiyengar1990@gmail.com, Mauro Carvalho Chehab <mchehab@kernel.org>, Paul
+ Kocialkowski <paulk@sys-base.io>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Hans Verkuil	
+ <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, Michael
+ Tretter	 <m.tretter@pengutronix.de>
+Date: Tue, 10 Nov 2026 20:20:59 -0500
+In-Reply-To: <20261110-h264-encode-fixes-v1-0-7a64486df499@gmail.com>
+References: <20261110-h264-encode-fixes-v1-0-7a64486df499@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-OU5s/4hBNjZQaWHfLytR"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -100,73 +89,165 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git c03c1a14507dfaf8b856c2608f9ac216021fc222
+--=-OU5s/4hBNjZQaWHfLytR
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/media/usb/dvb-usb-v2/mxl111sf.c b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-index 6404eb74d..fc4010b6e 100644
---- a/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-+++ b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-@@ -431,8 +431,6 @@ static int mxl111sf_lgdt3305_frontend_attach(struct dvb_usb_adapter *adap, u8 fe
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -502,8 +500,6 @@ static int mxl111sf_lg2160_frontend_attach(struct dvb_usb_adapter *adap, u8 fe_i
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -587,8 +583,6 @@ static int mxl111sf_lg2161_frontend_attach(struct dvb_usb_adapter *adap, u8 fe_i
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -674,8 +668,6 @@ static int mxl111sf_lg2161_ep6_frontend_attach(struct dvb_usb_adapter *adap, u8
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -749,8 +741,6 @@ static int mxl111sf_attach_demod(struct dvb_usb_adapter *adap, u8 fe_id)
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 1 : 2;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -935,8 +925,6 @@ static int mxl111sf_init(struct dvb_usb_device *d)
- 	if (mxl_fail(ret))
- 		pr_err("failed to get chip info during probe");
- 
--	mutex_init(&state->fe_lock);
--
- 	if (state->chip_rev > MXL111SF_V6)
- 		mxl111sf_config_pin_mux_modes(state, PIN_MUX_TS_SPI_IN_MODE_1);
- 
-@@ -1068,7 +1056,9 @@ static int mxl111sf_probe(struct dvb_usb_device *dev)
- {
- 	struct mxl111sf_state *state = d_to_priv(dev);
- 
-+	state->d = dev;
- 	mutex_init(&state->msg_lock);
-+	mutex_init(&state->fe_lock);
- 	return 0;
- }
- 
+Hi,
+
+Le mardi 10 novembre 2026 =C3=A0 10:05 +0000, Arun Iyengar via B4 Relay a =
+=C3=A9crit=C2=A0:
+> Hi Paul,
+>=20
+> These are changes to the H.264 stateless encode core of your "media: Add
+> V4L2 H.264 stateless encode and VC8000E support" series, v1 (2026-05-22):
+> https://lore.kernel.org/all/20260522101653.2565125-1-paulk@sys-base.io/
+> (https://patchwork.kernel.org/project/linux-media/list/?series=3D1099281)
+>=20
+> They came out of three drivers written on top of the series: a VEPU2
+> backend for the Rockchip RK3588 VPU121 in the Hantro driver and a driver
+> for the Rockchip VEPU580 (both posted as separate RFCs on top of this
+> one), and a cedrus encoder backend for the Allwinner H616 that the
+> Orange Pi Zero 2 project carries (not posted). They apply on media next
+> 6628e7d4c6b2 (v7.4-rc1) with patches 1-7 of your v1 applied first; the
+> prerequisite-patch-id lines below are those seven patches. Patches 2, 4,
+> 5 and 7 of v1 need trivial context fixes on v7.4-rc1 (the HEVC
+> extended SPS RPS control declarations in v4l2-ctrls-core.c, the v4l2-isp
+> line in the v4l2-core Makefile); the code is unchanged.
+>=20
+> As far as I can see on patchwork there is no v2 yet. I'm sending these as
+> an RFC so that they can be folded into it or reworked with it, rather
+> than to be merged on their own.
+>=20
+> Patches 1-3 are fixes:
+> 1. The SPS/PPS change detection in rbsp_update() is inverted: every
+>    picture after the first gets the parameter sets again. Only write
+>    them for the first picture and when they change.
+
+An inline code review is immensely more useful then providing fixup over
+unmerged patches. Please consider doing code reviews if you'd like to help
+accelerate including of such a feature.
+
+Nicolas
+
+> 2. Encoders whose hardware writes the slice header cannot put a
+>    pic_order_cnt_lsb in it: the Hantro H1 and the Rockchip VEPU1/VEPU2
+>    only produce slice headers for pic_order_cnt_type 2. Accept type 2
+>    (selected through state_constrain) and derive the picture order
+>    count from frame_num (H.264 8.2.1.3).
+> 3. The SPS and PPS NAL units are written with nal_ref_idc 0, which
+>    H.264 7.4.1 forbids (FFmpeg's probe gives such a stream a score of 1).
+>    Write them with nal_ref_idc 3.
+>=20
+> Patches 4-11 rework the rate control:
+> 4. Rework the constant bitrate mode after the frame-level rate control
+>    of the Rockchip MPP library: one QP state for the stream, picture
+>    size targets from a GOP plan with the I/P size ratio measured on the
+>    stream, and the size error spread over the next 8 pictures. The v1
+>    mode stays 5-9% below the bitrate and overshoots several times on
+>    the first P picture after each IDR picture (details in the patch).
+> 5. Move that model to a codec-independent helper, v4l2-enc-cbr, so that
+>    an HEVC core can use it (the HEVC encode RFC does).
+> 6-9. Bound the I picture size, halve the QP increase of I pictures,
+>    re-encode pictures far above their size target (for drivers that
+>    can run a picture again; the H.264 core does not offer it yet) and
+>    fix all-intra streams.
+> 10-11. A peak bitrate in the helper and a VBR mode
+>    (V4L2_MPEG_VIDEO_BITRATE_MODE_VBR with V4L2_CID_MPEG_VIDEO_BITRATE_PEA=
+K)
+>    in the H.264 core.
+>=20
+> One more observation, not changed here: state_commit() publishes
+> V4L2_CID_STATELESS_H264_ENCODE_PARAMS before rc_step() sets
+> slice_qp_delta, so the slice_qp_delta read back from the request is the
+> value before rate control. The QP used for the encode is the right one.
+>=20
+> Tested on an Orange Pi 5 (RK3588S) through the VEPU2 (Hantro) and
+> VEPU580 drivers, on a v7.3-based kernel whose v4l2-core encode files are
+> byte-identical to this series. 1080p60, 300 pictures of two clips (Big
+> Buck Bunny and a natural one), every stream decoded with FFmpeg to 300
+> pictures:
+> - CBR at 4 Mbit/s with an IDR period of 120, 8 Mbit/s with 10 and
+>   20 Mbit/s all-intra: bitrate within 2.2% of the target on both
+>   encoders; the largest one second window is at most 1.37 times the
+>   bitrate (a scene change in a P picture of Big Buck Bunny on the
+>   VEPU580), 1.24 on the VEPU2;
+> - VBR with the peak at 1.5 times the bitrate, the same cases and
+>   8 Mbit/s with an IDR period of 120: bitrate within
+>   4.5% of the target, every one second window within the peak (at most
+>   0.94 of it);
+> - the GStreamer v4l2codecs H.264 encoder (local patches) on the VEPU2,
+>   CBR at 2-16 Mbit/s: bitrate within 2.5% of the target;
+> - patch 1: a 60-picture GOP-30 stream carries one SPS and PPS before
+>   each of its two IDR pictures and none before the P pictures.
+> The whole series also passes on an Orange Pi Zero 2 (Allwinner H616)
+> with the cedrus H.264 encoder: CBR and VBR rate control within 5% of the
+> target (measured within 0.1%, every one-second window at most 1.2 times
+> the peak bitrate), all-intra and GOP 10 streams, and every stream
+> decoded bit-exact by the board's hardware decoder against FFmpeg.
+>=20
+> This series was developed with Claude (Anthropic) as a coding assistant:
+> it wrote the code and the commit messages, and I reviewed and tested
+> every change as described above.
+>=20
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+> Arun Iyengar (11):
+>       media: h264: Only write the SPS and PPS of a stateless encode when =
+they change
+>       media: h264: Support picture order count type 2 in stateless encode
+>       media: h264: Write the stateless encode SPS and PPS with nal_ref_id=
+c 3
+>       media: v4l2-h264-enc-rc: Rework the constant bitrate mode
+>       media: v4l2-core: Move the H.264 encode CBR rate control to a helpe=
+r
+>       media: v4l2-core: Bound the I picture size in the encode CBR rate c=
+ontrol
+>       media: v4l2-core: Halve the I picture QP increase of the encode CBR
+>       media: v4l2-core: Re-encode oversized pictures in the encode CBR
+>       media: v4l2-core: Fix all-intra streams in the encode CBR rate cont=
+rol
+>       media: v4l2-core: Add a peak bitrate to the encode rate control
+>       media: h264: Add a VBR mode to the stateless encode rate control
+>=20
+>  drivers/media/v4l2-core/Kconfig              |   5 +
+>  drivers/media/v4l2-core/Makefile             |   1 +
+>  drivers/media/v4l2-core/v4l2-enc-cbr.c       | 593 +++++++++++++++++++++=
+++++++
+>  drivers/media/v4l2-core/v4l2-h264-enc-rbsp.c |   7 +-
+>  drivers/media/v4l2-core/v4l2-h264-enc-rc.c   | 294 +++----------
+>  drivers/media/v4l2-core/v4l2-h264-enc.c      |  65 ++-
+>  include/media/v4l2-enc-cbr.h                 | 103 +++++
+>  include/media/v4l2-h264-enc-rc.h             |   3 +
+>  include/media/v4l2-h264-enc.h                |   3 +
+>  9 files changed, 820 insertions(+), 254 deletions(-)
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261110-h264-encode-fixes-c1c2ff90197f
+> prerequisite-patch-id: fd11f19266754d1bd40bf61dd5d1da74a0dc13c2
+> prerequisite-patch-id: 7c7edc7344998d520efaf7b430c90fd527c704c7
+> prerequisite-patch-id: 4689de770eb1bcdc153d6beda2e392d0ce6f344d
+> prerequisite-patch-id: 0afdcc24892eac773036d05d8f504e5ccb35eb62
+> prerequisite-patch-id: ecc849b3328d4396380f0cfc331536c16d2e0d28
+> prerequisite-patch-id: c62d0fd16706c4328624948805eb2f8d7b223ae0
+> prerequisite-patch-id: e955d15603fd070034960a1362e4867c2f124d69
+>=20
+> Best regards,
+> -- =20
+> Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+
+--=-OU5s/4hBNjZQaWHfLytR
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavPC+wAKCRDZQZRRKWBy
+9EPlAP9XbDtezOoCdo82TJ04+wHJanKNjbpr6sQoZqc5Vj8IWgEA293D6wWYkJ6O
+Xar/qflRNOiurphj+gGbz3RfTGl+fAY=
+=F0OR
+-----END PGP SIGNATURE-----
+
+--=-OU5s/4hBNjZQaWHfLytR--
