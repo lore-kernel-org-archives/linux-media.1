@@ -1,62 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438955;
-	b=JgdlEcLqJo+vhQ+gVX823DyGok5HpjqXnP6POtr3vTvpHDGNlNiLc57Ryxn1acYzlXvf
-	 oL1AqNfMu5t+vI4Uc8Lndfnt3qAFzvl64FGfpTczJ8DzQffOxra7SyobR1H3tdzgXNp5v
-	 wfYVspsUSwV5lMXWOu0bd9G06zzZpn370yTAGAosjhcQ64CMwWUzH5xYFNzSOvJwhqdZK
-	 wEknBHW/0HsoX9IRGmlXTgQJov6hQI8I1yRwvcqxPOvPaYDj3uOGbCMaCOI1UuoKQ8q0j
-	 T+MrcGpGGuRI0SyfhE9PGvToSso+xU+Lx6ybWGlfk5UV5896mZX/kDIhCjjmKsRkMKQ==
+	t=1794439648;
+	b=ZPMr/5meKq4xjP3SEv45p21zU92Dmi8G+QDUIZ7iwn44sl3P5NxZ9VvYJhbCveH221n2
+	 cZR98lAjln1kj11JSED3ZV3zxjveCx4Yz0f5Dxf3G4Uh36Y8OPFD5MSzVPdZdUGeVGC+Q
+	 5KGE7LWtJ5h9SmlISdimqJna0QD/qMmDqSu5v+gYDnuqn9wNVBarZPOxk87GrYNngW3Lb
+	 hw5Db91F8DHe7Z/T4Bj/3ad3YQIphDlghDcL3K+Ev+epFhDXoPwPXKKI3OpASZLtjhIfM
+	 3n6sLdhLKjpURwZUCP39rif898nhpQCEB2lTPsPLNDdBGi7z7O2KsKSFvMVU7KWlYCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438955;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=SwCLDaTF/SZHcXaLHvk//w6qsnUfE/A450nw0/y6Vmg=;
-	b=DSRPoV1bdOcOx3LIBDe85AAvOogy4seg9Ih3Vg28hPA+fc9rIMAPcEaOOufRxtTF1cHz
-	 gjasdc+wTTISdi3q/lWAEorW5hpfoS3H+nN8jXXbOvf2s+EzYzdZxdm61GFGQbpQeKoW2
-	 O7fhnaAm2sfoDP2RBKgtMK78XpeqzBC6Je5/gfDyy9BJbrGOZ3THCHoeUFHgauWyfLaRR
-	 FPHCVFL8SZzTPnHePgQJOudAQiCCc5c+KElVewLYw5u1xGRm/WIm6H+5smc6WQ/WAXllU
-	 DOteZvGHNqATpIp6lKGP9Kdi5JO+yCH5LiKUsfFBz8qBKndFH8KMNcsMsRQG6B67PoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439648;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=l3ncA7LGC0e8S60f6Aii7X3fJT4GkRwmt3Q/dedOq/0=;
+	b=lPfglglnBfvSyiTX3DddGCJ+LapQvifBmgnTWlBugYrSnTYsRatnmBFVzPNBdq30jcA2
+	 ACOhtB8w3X0zV+xcevtMcn8i4u9MtLNoEGIi3e5nDHjaW9TQojqU8cH7vNyqyR/CisNOh
+	 AaGvDZLx1Ak+21TUGnIsRkPxGSYW7BmsTl6k7qJu9hbz+/bB19PU7j3l7cnfb6RuW80OZ
+	 7v8QEIFE032sRAXcYEdL6VwD/8l6t4F2lyW0PYt/tv1A7LKyFiCI9iKwJoNqHddVIH6aJ
+	 C0aLJRLvqEjr9GheC6WNTdcmR+x6SynbwJJKzYbGefn1ATqC5WfzkKbXyG+eZwMBE+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YRreNREZ;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=m3oPiefK;
+	arc=none smtp.remote-ip=209.85.210.69
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA305606A331;
-	Wed, 11 Nov 2026 23:15:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA305606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D893606A337
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 23:27:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D893606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YRreNREZ
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0EEB122B;
-	Thu, 12 Nov 2026 00:13:29 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794438809;
-	bh=aGlUHD0gujoJhXfnK8skBxle8rV39ixzq+kLCVy3sgM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YRreNREZ6iYcL1wj2CZzh0OVHAnqJaAJj760Zo3rcUn8hMU5mKP1gznFZMtYw+lPQ
-	 qPBRdAeFJV4k+qIGrrcidLhGuvPyHInhjCWAwj7OdPri/Q+ZXzr6Tm+VX+ld17dJkM
-	 7wH1odF1AHoeA9X08f473Z3B5S2dro1xeg/JM2YM=
-Date: Thu, 12 Nov 2026 01:15:51 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Frank.Li@oss.nxp.com
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	"open list:XILINX VIDEO IP CORES" <linux-media@vger.kernel.org>,
-	"moderated list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev,
-	vkoul@kernel.org, Frank Li <Frank.Li@nxp.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Subject: Re: [PATCH 1/1] media: xilinx: Use dmaengine_get_copy_align()
- accessor
-Message-ID: <20261111231551.GB449775@killaraus.ideasonboard.com>
-References: <20261111171325.3424645-1-Frank.Li@oss.nxp.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=m3oPiefK
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-85a6d046af0so4540627a34.2
+        for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 15:27:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794439647; x=1795044447; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l3ncA7LGC0e8S60f6Aii7X3fJT4GkRwmt3Q/dedOq/0=;
+        b=m3oPiefKK1pKNC1ByZp+CXLtguk52lx3tFmKkDLzRxnW2ziQO1e7nwERWF0O++DoaM
+         DBil3J92yz5eO8nWIXRIFFQs2SnwU27FC0s0xcywJek3tgeb92DrIYoLHbKkp9/sLqo7
+         W92iZI+qpSCm3StXd5Foqhvo6NMJ//IsqYGlPyGXzBa9EIaLtbCadT6935bd9YxWR4X7
+         YzQxVqH3jCrkZjGe/cm0dpVdShRlJc2McL67UEAYvFd51oJ1Z5PIbINQciNLla9oAebb
+         yh3jgtSDjBYWuDG1/dP0T9eCHun8+1or8gEJHXVs9vC5iqafDiryJd8GmIszleNBR7Qt
+         2LgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794439647; x=1795044447;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l3ncA7LGC0e8S60f6Aii7X3fJT4GkRwmt3Q/dedOq/0=;
+        b=Poig6eLKpyjGxYijVDwbtkALrf233sblSJIVqdckSZPm94eb6MnHVAHOv4xL9pTG68
+         3D8pEPT0L7ZpFlIur+NB98jrf953KQP9mbPNeSak9FeF/c/DkY9S804GDuaAXd0nRnXJ
+         bzgdFgDmGYPo/gWwlE5uFu7ChmKk8rjhJFplScZ0QeH0fdCvXL5NAW5/XvE9xoTKHnCK
+         A6lWEa2k3o0xR5r+lvvA6Bq18b3swsTZJH9AlaaBfrSLxFW4JkyuWSSOzBi12zD9HYkw
+         KSHtwWu2RiZdgXiq4z0708EQM+MM3LBtPfGdFNGzZPovE1WWRhBzUyljy6GiKWlcoIe4
+         k6Qg==
+X-Forwarded-Encrypted: i=1; AL+hErFf2VNs/s7BY7JBmSO/5jhoYrEX+CJ7a71G/MrjZCbWFubYFJ6ZdmdE9W12KrZp+DkJwAHouGLdgvFiWA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+HOuugkmwXBN2SsIOOn2D57TgWdX2H3ffsqJmqW8+lb10HU+GU
+	9brX89uO2zezPJEBjn2OF6g6vDhrECb2Zv3auzqgYh7ZNLzRxdGSaIXOPXyuHFFgKXFw6VdnE51
+	P20hcSzwBIYjweFRjR5cICVjjig==
+X-Received: from ioz8.prod.google.com ([2002:a05:6602:20c8:b0:9c7:7bc8:8c7b])
+ (user=justinstitt job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:2388:b0:517:dd67:aeb7 with SMTP id 5614622812f47-56b97e2b6cbmr3870593b6e.56.1794439646997;
+ Wed, 11 Nov 2026 15:27:26 -0800 (PST)
+Date: Wed, 11 Nov 2026 15:27:25 -0800
+In-Reply-To: <20261105084518.386234-1-nikitash.mariiaw@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -65,49 +77,75 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261111171325.3424645-1-Frank.Li@oss.nxp.com>
+Mime-Version: 1.0
+References: <20261105084518.386234-1-nikitash.mariiaw@gmail.com>
+Message-ID: <avT5yrP3PYemJNCI@google.com>
+Subject: Re: [PATCH] media: verisilicon: Replace strlcat() with seq_buf
+From: Justin Stitt <justinstitt@google.com>
+To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Cc: nicolas.dufresne@collabora.com, benjamin.gaignard@collabora.com, 
+	p.zabel@pengutronix.de, mchehab@kernel.org, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, kees@kernel.org, morbo@google.com
+Content-Type: text/plain; charset="us-ascii"
 
-On Wed, Nov 11, 2026 at 12:13:24PM -0500, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
+Hi,
+
+On Thu, Nov 05, 2026 at 12:45:18AM -0800, Mariia Nikitash wrote:
+> In preparation for removing the deprecated strlcat() API[1], replace
+> the strscpy() and strlcat() calls with seq_buf operations when
+> constructing Hantro video device names.
 > 
-> Replace direct access to dma->dma->device->copy_align with the
-> dmaengine_get_copy_align() accessor function.
+> This preserves the resulting strings, including truncation
+> when the compatible string and suffix exceed the destination
+> buffer's capacity.
 > 
-> Prepare move struct dma_device to private.
-
-I didn't see a rationale in the commit that introduced
-dmaengine_get_copy_align(), and I then saw it here. Without knowing much
-about the greater plan of making dma_device private, this patch looks
-OK.
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-
-Tomi, will you handle this with any other ongoing work on
-media/platform/xilinx/, or should it get merged separately ?
-
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> Link: https://github.com/KSPP/linux/issues/370 [1]
+> Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
 > ---
->  drivers/media/platform/xilinx/xilinx-dma.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/media/platform/verisilicon/hantro_drv.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/media/platform/xilinx/xilinx-dma.c b/drivers/media/platform/xilinx/xilinx-dma.c
-> index ece2116639fc0..e01bb40bc39c7 100644
-> --- a/drivers/media/platform/xilinx/xilinx-dma.c
-> +++ b/drivers/media/platform/xilinx/xilinx-dma.c
-> @@ -710,7 +710,7 @@ int xvip_dma_init(struct xvip_composite_device *xdev, struct xvip_dma *dma,
->  		goto error;
->  	}
+> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+> index 26e5d5547466..2bfcd45cc55e 100644
+> --- a/drivers/media/platform/verisilicon/hantro_drv.c
+> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/platform_device.h>
+>  #include <linux/pm.h>
+>  #include <linux/pm_runtime.h>
+> +#include <linux/seq_buf.h>
+>  #include <linux/slab.h>
+>  #include <linux/videodev2.h>
+>  #include <linux/workqueue.h>
+> @@ -883,6 +884,7 @@ static int hantro_add_func(struct hantro_dev *vpu, unsigned int funcid)
+>  	const struct of_device_id *match;
+>  	struct hantro_func *func;
+>  	struct video_device *vfd;
+> +	struct seq_buf s;
+>  	int ret;
 >  
-> -	dma->align = 1 << dma->dma->device->copy_align;
-> +	dma->align = 1 << dmaengine_get_copy_align(dma->dma);
+>  	match = of_match_node(of_hantro_match, vpu->dev->of_node);
+> @@ -902,9 +904,12 @@ static int hantro_add_func(struct hantro_dev *vpu, unsigned int funcid)
+>  	vfd->vfl_dir = VFL_DIR_M2M;
+>  	vfd->device_caps = V4L2_CAP_STREAMING | V4L2_CAP_VIDEO_M2M_MPLANE;
+>  	vfd->ioctl_ops = &hantro_ioctl_ops;
+> -	strscpy(vfd->name, match->compatible, sizeof(vfd->name));
+> -	strlcat(vfd->name, funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER ?
+> -		"-enc" : "-dec", sizeof(vfd->name));
+> +
+> +	seq_buf_init(&s, vfd->name, sizeof(vfd->name));
+> +	seq_buf_puts(&s, match->compatible);
+> +	seq_buf_puts(&s, funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER ?
+> +			"-enc" : "-dec");
+> +	seq_buf_terminate(&s);
 >  
->  	ret = video_register_device(&dma->video, VFL_TYPE_VIDEO, -1);
->  	if (ret < 0) {
+>  	if (funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER) {
+>  		vpu->encoder = func;
+> -- 
+> 2.43.0
+> 
 
--- 
-Regards,
+Reviewed-by: Justin Stitt <justinstitt@google.com>
 
-Laurent Pinchart
+Justin
