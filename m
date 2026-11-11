@@ -1,64 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794406808;
-	b=iRVAjJUi9H5kQvAtI0gFeuqXBHU+khEgeNNzwwMuir4M0mRCEU7wYewe6QsHEPrsfjG3
-	 WWo0tZy1I3vC8/5yYnan2w0uk6tXp1oKGTquTbm1l9s8LqE3W6IuOiCB8sSpkMMHn2qh9
-	 TAL8F1MY5kct50OYpiT93YeuNpEp5lImiaeVj28b+9qglFBZk/lA4RFlGRfKehKYD5YVX
-	 IG/MIvvHiy/ihJGsgLQHAXqxKd4ncSp76jnIViGu2+EkJroIjkwTvIA4SQNWnWEAJorWh
-	 RFw7lICZsbPiD5QyfYoIMxMgMtZLzojoz5pUWFjfkMgxxqJ8K0DgujzuThS9eEabfjQ==
+	t=1794406922;
+	b=pdl8jt96jJdKIuBOBTV+hjDXV0NjNxDYvNZHxf4drhl9giTZkqS/2/Guj4TGFSfEG/cI
+	 TYmyFMyZ/Zxh2RH3b27E+ANG7a2vwJGUrNmdsVOJTQW/5LNDiiEySOPhE5dDcURT6c2jP
+	 e0ezEkibUGpxSaHh7xMIivq53FljMZcwih253fAFyJNAgDkNJTEd1gSmCyuIpPGzQ6CJg
+	 3w39LxIC45IQUchyxcxB5oKdtjhfVAZ33uJ5HHeTm580jZ9LwKz4miYa9na2hoeJ1aV/C
+	 48tuhdCqAB3Qgwwg4KnzuzXGruBS1NjzLaIMOt8JFNWYzvD2YAp828Cp++9iFIPVVVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794406808;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-ID:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:MIME-Version:X-Debian-User;
-	bh=NEcZbHklN3V9auDkQi4FGiF8iGv0oOjAgVRx5RqMCok=;
-	b=WAjPyArGfUF0xjGRx5lXfc+H9Elgb4kN6tzYOc52gH5h3rorPYgMyeux96WDYZIKva9L
-	 EKvy31yT95D3YOwo5JcOn4ugjGJWK659GGBYNFEzFAPqx7IkBOnCuF0XEq45IVNOZ6DBl
-	 gMQcrHh8sYBHQNm90T7YSz0G0I6Qt3I0EEyTo68PxjtDSFbiwZquX0aFerwbSSvotCqnh
-	 nRTVCOwZb6E+I7TAzGuRiouEyS0dnwCoj75WOdDYx151eBTF7AODbabAZzNVOIpIbZgJ0
-	 g1JjYC7tsJN400lurudQCajcL5beedQ0cw8mcnPQ+jAie6sm9UoH219MX25AYCqhKvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794406922;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=X64+esIJqu6yPctO8xBViHgFfvpIfI1g3WYK021K2Ho=;
+	b=Upp8QBH3t00ttf5ehEgwNIrOpoyUPTmq4PeYv1cqgewVsYvi273+1URKi63ZfR4YEEM0
+	 /6Mtpf+ClrC5RDjStdmC+xHfiBzMVZNmBNcPybnaFL/os/b1k/2t3yKnxrNEoxEORFDi/
+	 4MHFfQtb3BBdu5xvvb08uf4DXH79cUhAb9qr3FvWbmgTwq8z1LPSeoX9VLPzTYfnXZ6jv
+	 XSk7V0/PqLzIaTxlPWaLwXVOadszw9DU3lzhoPdgm1Oj+T8v0LbUhm+p4CNRMrABd8pr1
+	 viwHJ9xDe3HsOKCkoEamq4ypYpyrtvel0kyzOovdZhl4yCvTNaem/cfXlM8W48s65UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=h2J6l1jN;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=HQ0Ux0Fy;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D3F8606A321
-	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 14:20:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D3F8606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51ED5606A326
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 14:22:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51ED5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=h2J6l1jN
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:MIME-Version:Content-Transfer-Encoding
-	:Content-Type:Cc:To:Message-ID:Date:Subject:From:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=NEcZbHklN3V9auDkQi4FGiF8iGv0oOjAgVRx5RqMCok=; b=h2J6l1jNYACji+g656cTwiacLL
-	ekAT11ReKuopD5eDc01FhZ2KkzFI4bJ8AD8koilxQYOO5chtasOcDTP2aPAPBqiCC/JTsKnqZJvf7
-	nPEKvZW4N38+MQFDZIWOf3gaXqB+D+DPGhDj3NsxpljbtAiYNZ1PTWI4vmujrLzetjO9ygNJkyxGr
-	xyT/mMS56c+pz73VoFmpaZYE/JazsGbkqNI5rVjLbSc3BxF8fXn7eDnF82qACyymG78YXzHQo1Zxe
-	8qjgWCHj4E0Nq7T7MuA4d848bf3IuK1DGOAitMAA6e+jgjL0cVSFpA+cpnqXXy8Nk4NaL2TzspBbz
-	3zkAr/Dg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <emfox@debian.org>)
-	id 1xR9BA-00DF9t-2V;
-	Wed, 11 Nov 2026 14:20:01 +0000
-From: Emfox Zhou <emfox@debian.org>
-Subject: ipu6: no frames from a RAW8 stream while i-wake is enabled
-Date: Wed, 11 Nov 2026 22:19:49 +0800
-Message-ID: <179440678990.22608.10861693465599640177@debian.org>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, Antti Laakso <antti.laakso@linux.intel.com>,
- Sarang Sapre <sarang.sapre@intel.com>,
- Divyamani Tripathi <divyamani.tripathi@intel.com>,
- Manik Bajpai <manik.bajpai@intel.com>, Hans de Goede <hansg@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=HQ0Ux0Fy
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7002EBB;
+	Wed, 11 Nov 2026 15:19:36 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794406776;
+	bh=/gCP3Zh6m6WNRuDdrJWa8xduFB83Oq7GWiF7daWtdxI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HQ0Ux0FyyS9FJbOYjyXqx8ILoF4ImntZzfHd0ydA3SkLPJ7hUB57jKcpU9kN2Njz9
+	 yXUfWuYhn/SJaNJXJnggdqnD78FY1U2dqZOzoqkq3p7NeKXyro+luPHZFg7S7gMWex
+	 smyhIgfv2NYiMZw3UDrAGbG+WW9XXQ6Qo1gXSgKU=
+Date: Wed, 11 Nov 2026 16:21:58 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: Re: [RFC] Media Summit 2027: one or two days?
+Message-ID: <20261111142158.GA192350@killaraus.ideasonboard.com>
+References: <adeb9e3e-ba93-420f-a9c6-f56a7d3b6bbf@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -68,122 +60,74 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Debian-User: emfox
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <adeb9e3e-ba93-420f-a9c6-f56a7d3b6bbf@kernel.org>
 
-Hi,
+Hi Hans,
 
-On a Surface Pro 8 (Tiger Lake, IPU6) with the VD55G0 IR sensor on CSI2
-port 5, a RAW8 stream never delivers a frame while i-wake is enabled.
-STREAMON succeeds, no buffer ever completes, and the receiver reports
+On Wed, Nov 11, 2026 at 11:12:00AM +0100, Hans Verkuil wrote:
+> Hi all,
+> 
+> I propose to again co-locate the Media Summit 2027 with Embedded Recipes:
 
-	intel_ipu6_isys.isys intel_ipu6.isys.40: csi2-5 error: Transfer FIFO overflow
+Thank you for taking the lead in organizing the media summit once again.
 
-The same sensor, same link and same line length register, with only the
-mbus code changed from Y8_1X8 to Y10_1X10, delivers every frame.
+> https://embedded-recipes.org/2027/
+> 
+> That conference is on May 27-28 (Thursday and Friday), again in Nice, France, but at a
+> different venue.
+> 
+> I have three questions:
+> 
+> 1) Should we use the same meeting room again in hotel Campanile? I really liked that meeting
+> room, and the price was reasonable. It is a 20 minute bus ride from the new ER venue, so
+> that's not too bad.
 
-What the driver computes (7.4-rc2, line length register forced to 1440 px
-in both runs; the fill column is 200 KiB / rate, the rest is printed by
-the driver):
+It was convenient. The main downside was the very limited interesting
+lunch options around, so we may end up in the same restaurant again.
+It's not a good enough reason to move to a different venue, so no
+objection against the Campanile.
 
-	format      rate  fill     did written      threshold  frames
-	Y8_1X8      140   1462 us  1023 (clamped)   92         0 / 10
-	Y10_1X10    112   1828 us  1023 (clamped)   93         5 / 5
+> 2) Should we do a two day summit? The Media Summit from this year really had too many
+> topics and we had to rush at the end. So either we stick to one day and I have to be
+> more strict with regards to the number of topics, or we expand to two days, but keep it
+> shorter (e.g. start at 10 AM, stop at 17 AM or earlier). Stopping earlier also makes
+> it possible to split off in smaller groups if there are specific issues (not directly
+> part of the Summit) that people want to discuss.
 
-The watermark numbers are not what separates the two cases: the failing
-stream has the smaller fill time and a slightly smaller threshold, and
-both hit the same did clamp.
+This is a more tricky question. Two days is a lot in a crowded week. I
+understand that Embedded Recipes will be part of an "Embedded Week"
+again next year (and this overlaps with the third point below).
 
-Ruled out on this machine:
+We definitely ran out of time last year.  I'd argue it was caused by not
+just the number of topics, but also their nature. There were quite a few
+topics that were of interest to only a very limited number of people in
+the audience. Part of the trouble is that there are a few core people
+who are interested in most topics, so splitting in two groups for half
+of the day would likely not be a great solution either.
 
-- CPU idle latency. Three cores at 100% for the whole capture changes
-  nothing, twice. Same error string as Hans' report of October 2025
-  (<8afc906b-eb00-49aa-9f04-6debe67b148e@kernel.org>), but there the CPU
-  load made it go away.
+I wonder if we should try the LPC style, where sessions focus on
+discussions instead of presentations. Some of the topics this year had a
+long presentation for limited discussions. This would require topic
+leads to submit the presentation ahead of time (with a very strict
+deadline of at least a week before the event) in order for all attendees
+to have a chance to read through presentations.
 
-- Capture node pixel format. GREY and BA81 both fail.
+This wouldn't forbid presentations completely, I think there's still a
+need for them for topics that aim at informing the audience, not
+gathering feedback.
 
-- Line period. Stretching the VD55G0 line length register from 1200 to
-  1440 px moves the RAW8 line period from about 12.1 us to 14.5 us and
-  every frame is still lost. This is not a complete test: bpp covers both
-  the bytes per line and the pixel rate, so RAW10 at the same register
-  setting has an 18.2 us line period and the two were never matched
-  exactly.
+> 3) When do we hold the summit? I.e. for a one-day summit do we pick May 25 or 26? For a
+> two-day summit that would be May 24-25 or 25-26. I suspect there may be workshops on the
+> Wednesday (May 26), so keeping the Wednesday free might be better. Nice is not the worst
+> place to spend a day :-)
 
-With i-wake disabled the RAW8 stream works, which is how I have been
-capturing frames so far.
+Yes, there will most likely be workshops, and we need to avoid
+conflicting with them. I expect we'll organize a libcamera workshop
+again. We need to align the agenda with the Embedded Recipes organizers.
 
-On the host side the only thing that differs is the MIPI data type handed
-to the firmware: ipu6_isys_get_frame_desc() takes it from the mbus code
-through ipu6_isys_mbus_code_to_mipi(), 0x2a for RAW8 and 0x2b for RAW10.
-I could not find any other host-side handling that depends on the bpp.
+-- 
+Regards,
 
-So before writing anything: is a RAW8 stream expected to work with i-wake
-at all, or should the driver simply not enable it for that data type?
-
-The error line above only appears because I read the receiver status once
-when the stream stops. In 7.4-rc2 ipu6_isys_csi2_error() is only called
-on PIN_DATA_READY, which never happens when no frame completes, so a
-stock kernel shows nothing at all. That change is eight lines and is
-appended below.
-
-Reproduction, sensor at 640x600 on port 5, capture node 40:
-
-	media-ctl -d /dev/media0 \
-	  --set-v4l2 '"vd55g0 3-0060":0[fmt:Y8_1X8/640x600]' \
-	  --set-v4l2 '"Intel IPU6 CSI2 5":0[fmt:Y8_1X8/640x600]' \
-	  --set-v4l2 '"Intel IPU6 CSI2 5":1[fmt:Y8_1X8/640x600]' \
-	  --link '"Intel IPU6 CSI2 5":1 -> "Intel IPU6 ISYS Capture 40":0[1]'
-	v4l2-ctl -d /dev/video40 \
-	  --set-fmt-video=width=640,height=600,pixelformat=GREY \
-	  --stream-mmap --stream-count=10 --stream-to=/tmp/f.raw
-
-With Y10_1X10 from the sensor up to the port and pixelformat='Y10 ', the
-same commands deliver ten frames.
-
-Thanks,
-Emfox Zhou
-
-8< ---
-Patch mentioned above, applies to v7.4-rc2:
-
-From: Emfox Zhou <emfox@debian.org>
-Subject: [PATCH] media: ipu6: report CSI2 receiver errors when a stream stops
-
-ipu6_isys_csi2_error() is only called from the PIN_DATA_READY path, so a
-stream that never completes a frame never reads the receiver status and
-reports no error at all.  The only visible symptom is that STREAMON
-succeeds and no buffer ever completes.
-
-Read the accumulated status once when the stream is disabled.  On a
-machine where a stream overflows the receive FIFO this turns a silent
-failure into
-
-	csi2-5 error: Transfer FIFO overflow
-
-No functional change for streams that do complete frames: the status bits
-are write-1-to-clear and are cleared right after being read.
-
-Signed-off-by: Emfox Zhou <emfox@debian.org>
----
- drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-index 152545427..e2b00f889 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-@@ -767,6 +767,14 @@ static int ipu6_isys_csi2_disable_streams(struct v4l2_subdev *sd,
- 
- 	struct ipu6_isys_stream *stream =
- 		ipu6_isys_find_stream_firmware(csi2, vc);
-+
-+	/*
-+	 * Receiver errors are otherwise only reported on PIN_DATA_READY, so a
-+	 * stream that never completes a frame reports nothing at all. Read the
-+	 * accumulated status once on the way out.
-+	 */
-+	ipu6_isys_csi2_error(csi2);
-+
- 	ipu6_isys_stop_stream_firmware(stream);
- 
- 	if (IS_IPU7(isp) || IS_IPU8(isp))
+Laurent Pinchart
