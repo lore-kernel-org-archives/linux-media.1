@@ -1,82 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794414056;
-	b=r3WrA21G22k3sgleRn9sPrsUAPjaquNWcXY7pNmHY/x2BSEhnripTPuPHU66L/+BgeFd
-	 +qhXNaaYj2FND2bliWeNGS9srdKCK9DXTs4/IKdNgiQsJf37wIbZ6QZaV2zIHon6OVMhZ
-	 5PT3GmkS6i/7deIWijgxB2w/iqKBLIVOwqX1DuJfj3njNt+WNAbaEB6mQOz7Piaf4sjD0
-	 JkJe39a7ctwcA6Xxd4FW9YxnxtcH0E92Oz1VO190nHgiT2Yij7u8oNU+kDrFgK2DpgMe9
-	 eegUarI4kKZ8iBPG7iHgCFAM5zv5k5SolZarOpXJl4Ig5/erR8oWakGaDEQcvvxSa9w==
+	t=1794415664;
+	b=jDZAb+K2SE/pKjxqWgU5Jfdlw66t3sCG5v5M2p4Xbm0YS8uzYfi0HQ9PMQRvTEgPnX13
+	 giD2P7Z8WmEc7E0d4DrVgD40H0qHmN10yakML9ZmwzZEaUzUsVsmo5T7m1d+24j4sLL4K
+	 DwT4Hm4GKX5Cj3OvXz+uibsXVz+ikXZft0K2ZhG+X91sbIDjFM1khHvR7sqWi+OI8gIBD
+	 GVr+t+WoWYpnhYlhwB2moM+vvEVbudc/Tg2hjVnBYFjmmwXOKLUl+x68OTpGWWyYSU4mw
+	 21e8kNQcvfpTxZKHR5LTOU4nfQ4XWiId3I9Lmol1HRjja2ATogWBR0baW1TsqMw9QOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794414056;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=8PIwwuvGx4dg2zZ4xlkoKMKwWpwNL9QB1hZ+n9A+Veo=;
-	b=y2jd/QYTuqPX918VEEfbo+jV4jfKrFhKE/rRkJ8DtMJxxqzvGw8JgLr4D/i6knIncnqH
-	 7eot5C7gixNUCyAKNT151VoUTpEy5+9OQ2PZnsc/KfriurwymgxfDC8KlMy/ZTrhj7wcW
-	 kPYl4lkflrED0A42OyEf5fP3MVrU7pA0tn/UJec13srU4qcL6MK+6Aarmal0OO0LrLLRT
-	 ijPln5/w5E6VjHZkjP0uATpToJFUeAYYORL2P8cNr5IffdGfqnpDcZr1iX5AfUnzjPSZR
-	 ieuhprp5/ElYI5+auAXLMGL+ZXudXQg/VWPwG+IN3IyKWAFjdVii+TuKHpb7NaWLVdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415664;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=JEN1we3zUbJ34wQgamBpttlVbDethKWGuPURScqYgfU=;
+	b=ZiC7zJKlsuU9/Q70uhbFKvjIAu5nJgp0haGmMr6jlv34oAr+JuZGVAGHvIQZ+sT7uCDv
+	 EazmcpXD8OaW1+pLDspfz1v96A8Qq/jqBU9eGiJ+WU5G1MVGN79k+h67uZSYjKCVkmAD9
+	 7mLuTMoHqBPe+qmuYJO1OTAWiQoZ29PCq5zc/APN1l0vjR/MFoezQR2RJpIOHVEuX/ExC
+	 cEdz78FP+mvVsuIgI8J6tOWhIDyC/09ILKvkB5E61lb7Uz6K/HTc+sR2EF0GwUM8tlaWF
+	 KKy0VxH9O4QY4uxptic6sPnv24OCYgB/tbDxbGyuEthvEtqJ3w+3/SCnsX1jfXYp5jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RJZqXdAP;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Arhv0r+C;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF5A606A321;
-	Wed, 11 Nov 2026 16:20:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FF5A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77186606A336
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 16:47:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77186606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RJZqXdAP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794414047;
-	bh=3TiRtBRNtkBquPgK528nEXIk+5j999A1W706HVwqbuE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=RJZqXdAPgx+IKfAIxwhExq9C0IJr4FEgCuV7Xh6QpsBCbjCLM7oX8LrOfuTf5H62P
-	 mFnLHFhjbdCO5mp3rBLjMjZZM7rsymGQJKsJbwWuDDC3HBQCUahkuknPVrLuubz6bB
-	 xidLeswWL0LWjJzqh4s3d4MBARPFfGAzjXRCHudkbIpdrR6AMLY4BYKW88ZbzeCfvq
-	 IdkJoLIAW0v/7t6UiPNGvppiGAgxx29Cq/r4dtSMMBDw/DyeHNvKRM+U4eILEJUO+n
-	 vzAnK1B33f4iKRiycqpDNX0LXBm7my/7wXy+VHz9R2mGpdZmughF9mbfps7tPeNt2v
-	 /c/T1W/itz/9A==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D88A517E0840;
-	Wed, 11 Nov 2026 17:20:46 +0100 (CET)
-Message-ID: <749a3f00696551f4738c70aef2241b96e57f221a.camel@collabora.com>
-Subject: Re: [PATCH v1] media: codecs: vp9: Add tile_info control
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Benjamin Gaignard <benjamin.gaignard@collabora.com>, mchehab@kernel.org,
- 	hverkuil+cisco@kernel.org
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel@collabora.com
-Date: Wed, 11 Nov 2026 11:20:45 -0500
-In-Reply-To: <20261110152826.128259-1-benjamin.gaignard@collabora.com>
-References: <20261110152826.128259-1-benjamin.gaignard@collabora.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-hSdHJS2SNWcR/aIdP8CL"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Arhv0r+C
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so238925e9.1
+        for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 08:47:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794415663; x=1795020463; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JEN1we3zUbJ34wQgamBpttlVbDethKWGuPURScqYgfU=;
+        b=Arhv0r+CzJ6kd+TulLavcwx/mGrglYS422JYKTdbpa5un1a18rj23MyxqxLhddkmnB
+         gNcaXJ2IrojyJbxM+OgBPEAeEpsNpzWgOGqEgdEdfbdQsuKembFEQ+6KhZaeIYR30gze
+         IooSZe2fNj/7K3ZNeH8x15dEsu+UQLaI/m1IWuoX86P9po90K2PyeQK2TvubNwe2um3L
+         oa28twmLTolBcK1wc4TjQY120ADR9pALZ4st9GAliG4qO1r6wi1yEW2L29tlSgZjmr2h
+         E0qSshK5f4Tgf9M06nnSpMmyfbMbMx74mcpO6fx0yDufhfISeijTTqV/EjmW0IdaeTyH
+         ahNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794415663; x=1795020463;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JEN1we3zUbJ34wQgamBpttlVbDethKWGuPURScqYgfU=;
+        b=xFO6QjyHO+Svs5sa5wguC4pPoPbfif94IelRJDa1L9Yt8hctRjfK0DoCAWVz0jAkMD
+         c07+kh88S6CXM48om807UyfNZbJ1aP7JHoX+rmAdioxc29p9HF0tpIg6npxwIpWlCQ19
+         WdDpef4iPgUderAZ3ZHxCjbmZSkQIq1JkqCbtcSuSwXz0helRhuTz1w3yCouuGGjIZxs
+         UIN6Yv9Q+aOW7/atq38CJ5YgDd4k7ybDa0LeoYmYArZYJJFT0URIX2EXuuyefFI9OuDA
+         aPkYeDsqx5ZGAdVmdNQd1/ey2orbzhzbI57nWCgUVhTDThLGc5Pp/lc+8iEufj4TRF75
+         Op+w==
+X-Forwarded-Encrypted: i=1; AL+hErGyWD+tl0xuC1FjjS5ncJTh0/wWD7kod5pG2cSvPJ+mQkFZOM2HAZL+VAWGPMBqna6x3IIrZt5Mh7/zHg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+UsNsbqU8m4cElge3pUQRh9zBuP2Z0VaAMrHD814/kLFAMfj7J
+	wuW/t/5UPa4Fw8tjUSytkpAayYbrjsCXAh0VSzNVVc6ju3ZtfOW/y1Wyj27iZ5n3eg==
+X-Gm-Gg: AYBFou2oaRqYGCW/L9wi9Dv08LOYHl9yxFLrCyTx+63bVhPuc5sAS+TIaVT4yQlr6nX
+	XfimCFwtj+MA9gTOJ1bb6+BSSQ4AqgFOz+MvG0Wj083gBOxkvZp6n9jf4pS++N3wfrn60zmo0p6
+	c3v7XeT7jhHXVvda7TAufHx3cjqw5q2unICYG+4n3k9xQSG/hqZaQ5FvAlkOKLrOPqBDx77cRQ9
+	kLStJAPZEJFRRgh2YX9bZUkWVxmSboBIBJkzbUCaVbCSskpTCa97Y/p+t4ENnblNGEbbigFW/3A
+	7eRFwpU9tysIU3mCsdJwmB5owNcKmVZ4JVNnLlq9QOCCL1DIM5xD5JdiEUg/hGMcLYPVtD/1GU4
+	d2xoxjbPlMYVi5Ig4F0ISxFJWMB47IZmBgnf+TobCpWQJkHJ4/xg+5Iy0w8F/HEpuCtlg0IaPXo
+	tz6PgwkGAABBvyFPaCOKrBsPngJ0mZtwJuH7YLtAv+UBncdzUUTUUT1RUY/gSvShxEy7fVq29jH
+	4PJVVXlc8Lb5hly0CcVF24JA//gkqbDtOu3tA24MCW2UwavmTfsSBhwgSrW9DiemtOYHc3/EVEJ
+	jA6ifItNgQcKFa5PFFVayNpl3V6MFth2BjovFCwtT1msJe7Mo7koLd4TN9b9FaRmgg==
+X-Received: by 2002:a05:600c:3f07:b0:4a2:18c4:61a5 with SMTP id 5b1f17b1804b1-4bb4e27994emr1100895e9.6.1794415662004;
+        Wed, 11 Nov 2026 08:47:42 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498365cd06fsm11724877f8f.40.2026.11.11.08.47.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 08:47:41 -0800 (PST)
+Date: Wed, 11 Nov 2026 16:47:38 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Tao Cui <cui.tao@linux.dev>
+Cc: akpm@linux-foundation.org, dgilbert@interlog.com, mkp@kernel.org,
+	loberman@redhat.com, jmeneghi@redhat.com, kraxel@redhat.com,
+	vivek.kasireddy@intel.com, mst@redhat.com, jasowangio@gmail.com,
+	eperezma@redhat.com, stefanha@redhat.com, sgarzare@redhat.com,
+	rostedt@goodmis.org, mhiramat@kernel.org, jgg@ziepe.ca,
+	kevin.tian@intel.com, axboe@kernel.dk, linux-mm@kvack.org,
+	James.Bottomley@hansenpartnership.com, sumit.semwal@linaro.org,
+	christian.koenig@amd.com, phasta@kernel.org, joro@8bytes.org,
+	will@kernel.org, linux-scsi@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+	virtualization@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bobbyeshleman@meta.com,
+	mathieu.desnoyers@efficios.com, robin.murphy@arm.com,
+	mason@kernel.org, aesteve@redhat.com, tjmercier@google.com,
+	harry@kernel.org, vbabka@suse.cz, cuitao@kylinos.cn
+Subject: Re: [PATCH 4/7] tracing: account ring buffer pages and trace_array
+ metadata to memcg
+Message-ID: <avScKhR22kFOQ1z4@google.com>
+References: <20261106131829.3228926-1-cui.tao@linux.dev>
+ <20261106131829.3228926-5-cui.tao@linux.dev>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -86,292 +113,93 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106131829.3228926-5-cui.tao@linux.dev>
 
---=-hSdHJS2SNWcR/aIdP8CL
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-Le mardi 10 novembre 2026 =C3=A0 16:28 +0100, Benjamin Gaignard a =C3=A9cri=
-t=C2=A0:
-> Some hardware accelerators needs to know tiles location and size
-> in the bitstream.
-> Tiles size are coded inside the bitstream so it is up to the
-> userland to provide theses information by calling
-> V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY control.
-
-I'm missing both a driver and userspace implementation to process this one.
-
-cheers,
-Nicolas
-
->=20
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+On Fri, Nov 06, 2026 at 09:18:26PM +0800, Tao Cui wrote:
+> From: Tao Cui <cuitao@kylinos.cn>
+> 
+> Creating an instance immediately allocates two full sets of per-cpu
+> ring buffers, array buffer plus snapshot, about 1.375MB per cpu per set
+> on the default config, plus the trace_array and its name.  None of it
+> is charged: neither trace.c nor ring_buffer.c passes __GFP_ACCOUNT,
+> while user_events in the same directory accounts everything it
+> allocates.
+> 
+> Instance creation is currently gated by tracefs file permissions
+> alone, so a
+> rootful container with the host tracefs bound in can create instances
+> until the host runs out of memory.  Charge the ring buffer pages and
+> the trace_array metadata to the creating cgroup.
+> 
+> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 > ---
->  .../media/v4l/ext-ctrls-codec-stateless.rst   | 42 +++++++++++++++++++
->  .../media/v4l/vidioc-g-ext-ctrls.rst          |  4 ++
->  drivers/media/v4l2-core/v4l2-ctrls-core.c     |  8 ++++
->  drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  5 +++
->  include/media/v4l2-ctrls.h                    |  2 +
->  include/uapi/linux/v4l2-controls.h            | 27 ++++++++++++
->  include/uapi/linux/videodev2.h                |  2 +
->  7 files changed, 90 insertions(+)
->=20
-> diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-codec-statel=
-ess.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.r=
-st
-> index d7a3b8ef03a7..effd3eb47e29 100644
-> --- a/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
-> +++ b/Documentation/userspace-api/media/v4l/ext-ctrls-codec-stateless.rst
-> @@ -2050,6 +2050,48 @@ This structure contains all loop filter related pa=
-rameters. See sections
->        - When set, the bitstream contains additional syntax elements that
->          specify which mode and reference frame deltas are to be updated.
-> =20
-> +``V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY (struct)``
-> +    Specifies VP9 Tile Info entry as describe in section 6.4 "Decode til=
-e syntax"
-> +    of :ref:`vp9`.
-> +    MiRowStart, MiRowEnd, MiColStart and MiColEnd can be retrieved from =
-struct
-> +    v4l2_ctrl_vp9_frame using tile_row and tile_col.
-> +
-> +.. c:type:: v4l2_ctrl_vp9_tile_info_entry
-> +
-> +.. raw:: latex
-> +
-> +    \small
-> +
-> +.. tabularcolumns:: |p{1.2cm}|p{9.2cm}|p{6.9cm}|
-> +
-> +.. cssclass:: longtable
-> +
-> +.. flat-table:: struct v4l2_ctrl_vp9_tile_info_entry
-> +    :header-rows:  0
-> +    :stub-columns: 0
-> +    :widths:       1 1 2
-> +
-> +    * - __u32
-> +      - ``tile_offset``
-> +      - Specifies the offset from the tile data after frame header,
-> +        i.e. where the coded tile data actually starts.
-> +    * - __u32
-> +      - ``tile_size``
-> +      - Specifies the size in bytes of the coded tile.
-> +        Equivalent to "tile_size" in :ref:`vp9`
-> +    * - __u32
-> +      - ``tile_row``
-> +      - Specifies the row of the current tile.
-> +        Equivalent to "tileRow" in :ref:`vp9`
-> +    * - __u32
-> +      - ``tile_col``
-> +      - Specifies the col of the current tile.
-> +        Equivalent to "tileCol" in :ref:`vp9`
-> +
-> +.. raw:: latex
-> +
-> +    \normalsize
-> +
->  .. _v4l2-codec-stateless-hevc:
-> =20
->  ``V4L2_CID_STATELESS_HEVC_SPS (struct)``
-> diff --git a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst=
- b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-> index d78328152b75..836b227c10c9 100644
-> --- a/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-> +++ b/Documentation/userspace-api/media/v4l/vidioc-g-ext-ctrls.rst
-> @@ -258,6 +258,10 @@ still cause this situation.
->        - ``p_vp9_frame``
->        - A pointer to a struct :c:type:`v4l2_ctrl_vp9_frame`. Valid if th=
-is
->          control is of type ``V4L2_CTRL_TYPE_VP9_FRAME``.
-> +    * - struct :c:type:`v4l2_ctrl_vp9_tile_info_entry` *
-> +      - ``p_vp9_tile_info_entry``
-> +      - A pointer to a struct :c:type:`v4l2_ctrl_vp9_tile_info_entry`. V=
-alid if this
-> +        control is of type ``V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY``.
->      * - struct :c:type:`v4l2_ctrl_hdr10_cll_info` *
->        - ``p_hdr10_cll``
->        - A pointer to a struct :c:type:`v4l2_ctrl_hdr10_cll_info`. Valid =
-if this control is
-> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4=
-l2-core/v4l2-ctrls-core.c
-> index 6e751a043a21..a426a716f3d4 100644
-> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> @@ -425,6 +425,9 @@ void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ct=
-rl)
->  =09case V4L2_CTRL_TYPE_VP9_FRAME:
->  =09=09pr_cont("VP9_FRAME");
->  =09=09break;
-> +=09case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
-> +=09=09pr_cont("VP9_TILE_INFO_ENTRY");
-> +=09=09break;
->  =09case V4L2_CTRL_TYPE_HEVC_SPS:
->  =09=09pr_cont("HEVC_SPS");
->  =09=09break;
-> @@ -1415,6 +1418,8 @@ static int std_validate_compound(const struct v4l2_=
-ctrl *ctrl, u32 idx,
-> =20
->  =09case V4L2_CTRL_TYPE_VP9_FRAME:
->  =09=09return validate_vp9_frame(p);
-> +=09case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
-> +=09=09break;
->  =09case V4L2_CTRL_TYPE_AV1_FRAME:
->  =09=09return validate_av1_frame(p);
->  =09case V4L2_CTRL_TYPE_AV1_SEQUENCE:
-> @@ -2135,6 +2140,9 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_=
-ctrl_handler *hdl,
->  =09case V4L2_CTRL_TYPE_VP9_FRAME:
->  =09=09elem_size =3D sizeof(struct v4l2_ctrl_vp9_frame);
->  =09=09break;
-> +=09case V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY:
-> +=09=09elem_size =3D sizeof(struct v4l2_ctrl_vp9_tile_info_entry);
-> +=09=09break;
->  =09case V4L2_CTRL_TYPE_AV1_SEQUENCE:
->  =09=09elem_size =3D sizeof(struct v4l2_ctrl_av1_sequence);
->  =09=09break;
-> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4=
-l2-core/v4l2-ctrls-defs.c
-> index e062f2088490..f7a98925027b 100644
-> --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-> @@ -1228,6 +1228,7 @@ const char *v4l2_ctrl_get_name(u32 id)
->  =09case V4L2_CID_STATELESS_MPEG2_QUANTISATION:=09=09return "MPEG-2 Quant=
-isation Matrices";
->  =09case V4L2_CID_STATELESS_VP9_COMPRESSED_HDR:=09return "VP9 Probabiliti=
-es Updates";
->  =09case V4L2_CID_STATELESS_VP9_FRAME:=09=09=09return "VP9 Frame Decode P=
-arameters";
-> +=09case V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY:=09=09return "VP9 Tile In=
-fo Entry";
->  =09case V4L2_CID_STATELESS_HEVC_SPS:=09=09=09return "HEVC Sequence Param=
-eter Set";
->  =09case V4L2_CID_STATELESS_HEVC_PPS:=09=09=09return "HEVC Picture Parame=
-ter Set";
->  =09case V4L2_CID_STATELESS_HEVC_SLICE_PARAMS:=09=09return "HEVC Slice Pa=
-rameters";
-> @@ -1602,6 +1603,10 @@ void v4l2_ctrl_fill(u32 id, const char **name, enu=
-m v4l2_ctrl_type *type,
->  =09case V4L2_CID_STATELESS_AV1_SEQUENCE:
->  =09=09*type =3D V4L2_CTRL_TYPE_AV1_SEQUENCE;
->  =09=09break;
-> +=09case V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY:
-> +=09=09*type =3D V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY;
-> +=09=09*flags |=3D V4L2_CTRL_FLAG_DYNAMIC_ARRAY;
-> +=09=09break;
->  =09case V4L2_CID_STATELESS_AV1_TILE_GROUP_ENTRY:
->  =09=09*type =3D V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY;
->  =09=09*flags |=3D V4L2_CTRL_FLAG_DYNAMIC_ARRAY;
-> diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
-> index cec9217d97ac..286e72a00a9d 100644
-> --- a/include/media/v4l2-ctrls.h
-> +++ b/include/media/v4l2-ctrls.h
-> @@ -45,6 +45,7 @@ struct video_device;
->   * @p_h264_pred_weights:=09Pointer to a struct v4l2_ctrl_h264_pred_weigh=
-ts.
->   * @p_vp8_frame:=09=09Pointer to a VP8 frame params structure.
->   * @p_vp9_compressed_hdr_probs:=09Pointer to a VP9 frame compressed head=
-er probs structure.
-> + * @p_vp9_tile_info_entry:=09Pointer to a VP9 tile info structure.
->   * @p_vp9_frame:=09=09Pointer to a VP9 frame params structure.
->   * @p_hevc_sps:=09=09=09Pointer to an HEVC sequence parameter set struct=
-ure.
->   * @p_hevc_pps:=09=09=09Pointer to an HEVC picture parameter set structu=
-re.
-> @@ -83,6 +84,7 @@ union v4l2_ctrl_ptr {
->  =09struct v4l2_ctrl_hevc_slice_params *p_hevc_slice_params;
->  =09struct v4l2_ctrl_vp9_compressed_hdr *p_vp9_compressed_hdr_probs;
->  =09struct v4l2_ctrl_vp9_frame *p_vp9_frame;
-> +=09struct v4l2_ctrl_vp9_tile_info_entry *p_vp9_tile_info_entry;
->  =09struct v4l2_ctrl_hdr10_cll_info *p_hdr10_cll;
->  =09struct v4l2_ctrl_hdr10_mastering_display *p_hdr10_mastering;
->  =09struct v4l2_area *p_area;
-> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2=
--controls.h
-> index d17e41d51d2e..8eb8da0073cd 100644
-> --- a/include/uapi/linux/v4l2-controls.h
-> +++ b/include/uapi/linux/v4l2-controls.h
-> @@ -2642,6 +2642,8 @@ struct v4l2_ctrl_hevc_ext_sps_lt_rps {
-> =20
->  /* Stateless VP9 controls */
-> =20
-> +#define V4L2_VP9_MAX_TILE_COUNT=09=09=09512
-> +
->  #define V4L2_VP9_LOOP_FILTER_FLAG_DELTA_ENABLED=090x1
->  #define V4L2_VP9_LOOP_FILTER_FLAG_DELTA_UPDATE=090x2
-> =20
-> @@ -2924,6 +2926,31 @@ struct v4l2_ctrl_vp9_compressed_hdr {
->  =09struct v4l2_vp9_mv_probs mv;
->  };
-> =20
-> +#define V4L2_CID_STATELESS_VP9_TILE_INFO_ENTRY (V4L2_CID_CODEC_STATELESS=
-_BASE + 302)
-> +/**
-> + * struct v4l2_ctrl_vp9_tile_info_entry - VP9 Tile Info entry
-> + *
-> + * Represents a single VP9 tile inside. Note that MiRowStart,
-> + * MiRowEnd, MiColStart and MiColEnd can be retrieved from struct
-> + * v4l2_ctrl_vp9_frame using tile_row and tile_col.
-> + * See section 6.4 "Decode tile syntax" for more details.
-> + *
-> + * @tile_offset: offset from the tile data after frame header,
-> + * i.e. where the coded tile data actually starts.
-> + * @tile_size: specifies the size in bytes of the coded tile. Equivalent=
- to
-> + * "tile_size" in the VP9 Specification.
-> + * @tile_row: specifies the row of the current tile. Equivalent to "tile=
-Row" in
-> + * the VP9 Specification.
-> + * @tile_col: specifies the col of the current tile. Equivalent to "tile=
-Col" in
-> + * the VP9 Specification.
-> + */
-> +struct v4l2_ctrl_vp9_tile_info_entry {
-> +=09__u32 tile_offset;
-> +=09__u32 tile_size;
-> +=09__u32 tile_row;
-> +=09__u32 tile_col;
-> +};
-> +
->  /* Stateless AV1 controls */
-> =20
->  #define V4L2_AV1_TOTAL_REFS_PER_FRAME=098
-> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev=
-2.h
-> index 5373dba640fa..b4338af93a39 100644
-> --- a/include/uapi/linux/videodev2.h
-> +++ b/include/uapi/linux/videodev2.h
-> @@ -1903,6 +1903,7 @@ struct v4l2_ext_control {
->  =09=09struct v4l2_ctrl_mpeg2_quantisation __user *p_mpeg2_quantisation;
->  =09=09struct v4l2_ctrl_vp9_compressed_hdr __user *p_vp9_compressed_hdr_p=
-robs;
->  =09=09struct v4l2_ctrl_vp9_frame __user *p_vp9_frame;
-> +=09=09struct v4l2_ctrl_vp9_tile_info_entry *p_vp9_tile_info_entry;
->  =09=09struct v4l2_ctrl_hevc_sps __user *p_hevc_sps;
->  =09=09struct v4l2_ctrl_hevc_pps __user *p_hevc_pps;
->  =09=09struct v4l2_ctrl_hevc_slice_params __user *p_hevc_slice_params;
-> @@ -1984,6 +1985,7 @@ enum v4l2_ctrl_type {
-> =20
->  =09V4L2_CTRL_TYPE_VP9_COMPRESSED_HDR=09=3D 0x0260,
->  =09V4L2_CTRL_TYPE_VP9_FRAME=09=09=3D 0x0261,
-> +=09V4L2_CTRL_TYPE_VP9_TILE_INFO_ENTRY=09=3D 0x0262,
-> =20
->  =09V4L2_CTRL_TYPE_HEVC_SPS=09=09=09=3D 0x0270,
->  =09V4L2_CTRL_TYPE_HEVC_PPS=09=09=09=3D 0x0271,
+>  kernel/trace/ring_buffer.c | 8 +++++++-
+>  kernel/trace/trace.c       | 6 +++---
+>  2 files changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> index 1fd28a72e6ee..676c059c112c 100644
+> --- a/kernel/trace/ring_buffer.c
+> +++ b/kernel/trace/ring_buffer.c
+> @@ -441,7 +441,13 @@ static struct buffer_data_page *alloc_cpu_data(int cpu, int order)
+>  	 * gracefully without invoking oom-killer and the system is not
+>  	 * destabilized.
+>  	 */
+> -	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO;
+> +	/*
+> +	 * The subbuffers are charged to the memcg of whoever caused the
+> +	 * allocation: the creator of a trace instance, or root at boot for
+> +	 * the global trace.
+> +	 */
+> +	mflags = GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_COMP | __GFP_ZERO |
+> +		  __GFP_ACCOUNT;
+>  
+>  	page = alloc_pages_node(cpu_to_node(cpu), mflags, order);
+>  	if (!page)
 
---=-hSdHJS2SNWcR/aIdP8CL
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Hum, by default tracefs is root only. 
 
------BEGIN PGP SIGNATURE-----
+And even if made accessible to other users: 
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavSV3QAKCRDZQZRRKWBy
-9BQLAP4nzhJAlZarSBn4qmpID+kiWWwNL2ERWPCfa/utbw8f8wEA7IrnWafNIuce
-F1B/H74s0CeC/Bz2MidykQgBa8r/zgc=
-=5rnV
------END PGP SIGNATURE-----
+  1. The life span of a trace instance is not tied to the caller.
+  2. The ring buffer is shared by multiple users.
 
---=-hSdHJS2SNWcR/aIdP8CL--
+Overall I am not convinced charging the creator makes much sense.
+
+Eventually a few allocations for iterators could be GFP_ACCOUNT.
+
+-- 
+Vincent
+
+> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+> index e8c4efa8107b..04b60b9cc4f5 100644
+> --- a/kernel/trace/trace.c
+> +++ b/kernel/trace/trace.c
+> @@ -8693,11 +8693,11 @@ trace_array_create_systems(const char *name, const char *systems,
+>  	int ret;
+>  
+>  	ret = -ENOMEM;
+> -	tr = kzalloc_obj(*tr);
+> +	tr = kzalloc_obj(*tr, GFP_KERNEL_ACCOUNT);
+>  	if (!tr)
+>  		return ERR_PTR(ret);
+>  
+> -	tr->name = kstrdup(name, GFP_KERNEL);
+> +	tr->name = kstrdup(name, GFP_KERNEL_ACCOUNT);
+>  	if (!tr->name)
+>  		goto out_free_tr;
+>  
+> @@ -8708,7 +8708,7 @@ trace_array_create_systems(const char *name, const char *systems,
+>  		goto out_free_tr;
+>  
+>  	if (systems) {
+> -		tr->system_names = kstrdup_const(systems, GFP_KERNEL);
+> +		tr->system_names = kstrdup_const(systems, GFP_KERNEL_ACCOUNT);
+>  		if (!tr->system_names)
+>  			goto out_free_tr;
+>  	}
+> -- 
+> 2.43.0
+> 
