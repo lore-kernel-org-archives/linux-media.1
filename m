@@ -1,86 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794398570;
-	b=zSHPx6fRXLD6IPUgDzL9uVAa1K0ytvoWCImPAubCW6nGixMZvNXygSaunhpYg9IZiBKd
-	 18ZKGPRuDF/bO9025dbq0tMRUI51l8Z8QNIe2d0UsBmbnGwrZoVUzDWwpBHysO1tuO53k
-	 yHdNL8vx1m5S58eQYRLsPnWloJfkSqY7QSNGyp/5xEgWnVpE+HdKtcWaCm5/0hxibKnI4
-	 0EB+f+y5yrFZ7hnS/9lCkZRddtMWpqoH5AL7WMum1PDU+xqe/9NpMQ/WlX3ixkNZrWg7T
-	 5V8h6MGSSARsDRSb2CWHHzO8oTJmt3TkiA/2chiLm1XB33lsSoqeyYEciepx4bWtmyw==
+	t=1794399168;
+	b=vRIQ8NLXatNrduJK7sHKG/VksciBbLdKOXb12hfwP04w04LTeXD+kXWYRu1eoJtFAfHC
+	 73caBROMUvOkl0HJ26/S5gaXp9voSqDE0bnweP2iTyYYKwX/EB63g7PqnN0sBqwuNgXVW
+	 ImSJR1QQrHHMwc0OiqmKVh6uU6iJ0KuRY917g2A3RIYia5ZCyx3Uehq9YDyxTTRtbM4Z6
+	 K2kSTw269zolnB0Nu5/hjD5JOQ0ULxNdJ3+eZkSxfDKoxpcMBHda7faxvuHt1H2BmuR5A
+	 VWPWiz53zaK9M65o6AS3iLHxD6VBOsTRmfBVlBN9f4E9mS8G3Zp1XDJKwnCEKKYZAyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794398570;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Mf3ojcAaOl5Wd2bB/OvSpA9q4iDAVUFZx+UCDfwTy74=;
-	b=WpcDwhfThz84hqULyw8LcUE3NOeYsmbKWdtfOyqVqCkAZUVNjaNoBr19Mbh7e2Gt1EDg
-	 5KbZwMfEBuMXEaV5Q6QlIyomz36f62rYBuz+I5a3oFHLLGoJz70M+8zBYActxwOhZQcrH
-	 /Rcq2dEmHjfSmxMGqfB2KA140BGimyWds9MekQ9h51TYx6pBzIXWUXTnK54C/b09Zpbmw
-	 ntg5I4OemkYoISEgG4aqCcggDs456+gO14GJPy5QECzbmSt4mUpxC0lVHx7uORn7+b9v1
-	 VgmPYrrOYhjeqVS9bQVpu4GL4t5xiqlsbvKZFHoOEqY51udiazOpthD7IzfQ+ycUF4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794399168;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=DndahKbHHVFbP+dR7mo1vACUgPmW4clx8WQ8XgvyXe4=;
+	b=PmaJQFNYaTCiDZ13l2bEffNwV/OG1TQcN+ILjSFBfvOpP4tNeGejWTGCOxUdKVtrhHsF
+	 uSHz371zbV4chKV0lwVIZvSMliqoVQPJE1Bbwv4qI4rBFFd6sSzx5H1aubYjhwrs1tq4H
+	 XKIcrtUb63fZamhjJEh2/Rnf7UNQ+C/ltSG9RSREKZkMR3ZTD3JHBOmDeyWQ8pOHZVrL1
+	 dP1hoXf4U6A+2XXPeNg1NN8xhL4Ldz4wXbm8Kv6L6C8DW++yS512AguEqWroaqcb505fA
+	 a+y5OSMrADmhn3Mr89BkqxYMsXoTZ8Ak9K1mDVbXV4JHB0gUNQ4K80k9CkfRStSo7UA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Je1CYIjf;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CFRhYsNO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7FF606A327
-	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 12:02:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB7FF606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D227D606A31C;
+	Wed, 11 Nov 2026 12:12:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Je1CYIjf
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-49412eb1474so1905119f8f.3
-        for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 04:02:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794398568; x=1795003368; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Mf3ojcAaOl5Wd2bB/OvSpA9q4iDAVUFZx+UCDfwTy74=;
-        b=Je1CYIjfuwflh3C8ZTO7fGiG3VT2JZ4/KZsAnIckMk5yyFTVUjMTyMSMVoowIwUALe
-         rIx+YCcQd5d3c/Oo7ywHWhe+3KSTQ7o6rFpU0FKq7oz4uEO2xHVWkEcknh525ow1mgCu
-         gWFknAYgozrE3xkB1Hf35d8etynb8NZA5amXxyEuDKuHJdX9BiOMQOk4XO6ih4oDz5ll
-         jiNbUTntFWcfE3xAvdYsPO01gTShdzNlx4xruDnGGl89qAWG/eS5QeVSu9Tt1rrguObP
-         WWiW9en2E3WuuFqlZwdLZQMuWBF1+OevnHMcH8EoqrsFJwJLse2YUIb6yJUacp0hHv8D
-         xyBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794398568; x=1795003368;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Mf3ojcAaOl5Wd2bB/OvSpA9q4iDAVUFZx+UCDfwTy74=;
-        b=l3pN7teAMLWhmHIXG6NM74fjOSLiBn/B7zCHveJ4LBjO09pSP1P5Ju7ppTHzjY397e
-         DOSbLMhxrf2lf9syrvZYCKy8+IjIAtQBDTguCeDvzbjeaK2ovXCi8USfZeogbE7TVPa0
-         noNibl9EOJkOBvGb+RNJkSMhRpwhWDclaVZmG6C7ZqX9c3srMDUxiyOVO6zPGUKiElZJ
-         TRF8Xul+WzCK+auBEi86PgLPtM1/dlF+HgfuSbFI2bL+SfFKtDZYyzExBzZmxaNstrIM
-         OotWAIfe/BaN9yV+4e48E4S/hu49BkbptXA6Z474OQcuTMjvCtzGUhHEaVgz4iMqgSG9
-         fCyw==
-X-Forwarded-Encrypted: i=1; AL+hErEeQ+o3RbaFOXhIzpMbclPypDlgEBw8g13txQC3xz9VyHYnpG2fo8WCRCPY4E6ShMESc54c66qK1rIAZQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BAFTM0ti38BOQUFIFxMpg3P67Iavc/LJq8liYlHHkPZA2vEbQ
-	dYaCdfp3Wyk1lo9rpqkK0bPbzo3uubAktExSKUTt7BMngxYh+dYoDYTLZuvLd2VXqyQ=
-X-Gm-Gg: AYBFou3YQjEArYSJssbImlcpIHoEunxXSsnvH0yu/Z2qovkw9dl4plwmOtftmnzFv+D
-	irrJZnT3PTmkh3+rmhHfh8n/yAdpNhrb+ulvgRAZQEecI9WPBdIb59ODp/dxjcOA/gSvv5gquDC
-	4aoQ6XU9IoLUajfJDFcPSLOQn/W4B+1KgyraBFhQMxRnMqaMnivt4iEAvVLv6Gk5hod5eIaaZwM
-	DQmlr+moqMBk6G/NJ0oe7eDkGs9KPj2ByYxmmmlGvuOkOfkjlZI9WTO1bIMTj2xFiIWEL27tp0K
-	6v78/wj+UYU4JYB3+DNGRT+O1wn4TXxFPNYAG1J1xn6mVK3bgGSMyv6bs5U0UwtlX80T1a4yaE+
-	VOcTeH4TKI57wgctYiKz1SwAdd/iq32UZeZSb3sa1cU5TeKeqHdjiNhM/5skVYdgMPnFEda+ooF
-	d8Y/9CQNIPa0o15w/pOkrh+YU5wyYFfyB8tPEPfNNwk+GETjShXE+1W+3xRbyrQ2aqLwASe26CQ
-	EreM9WcFUToCRcidEO7TkagXYA4gDB+2zizul9dsmDv96o1yMp1YCWFe3p0NAb2foMYsueLzPrN
-	ve6Ye7wEfiAO4jkrI8l+AX68GkfL5+GR5RGuXCw3
-X-Received: by 2002:a05:6000:420d:b0:48b:1a0:5630 with SMTP id ffacd0b85a97d-499c86a10f6mr3780756f8f.41.1794398567805;
-        Wed, 11 Nov 2026 04:02:47 -0800 (PST)
-Received: from [192.168.0.167] ([109.76.11.16])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835c377fdsm8869991f8f.21.2026.11.11.04.02.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 11 Nov 2026 04:02:47 -0800 (PST)
-Message-ID: <3713bf13-cec6-4b02-a29b-8f76070f03b3@linaro.org>
-Date: Wed, 11 Nov 2026 12:02:45 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CFRhYsNO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19BFA1F00A06;
+	Wed, 11 Nov 2026 12:12:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794399168;
+	bh=DndahKbHHVFbP+dR7mo1vACUgPmW4clx8WQ8XgvyXe4=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=CFRhYsNOzUMwH4d7PXd+CmRWLW36G8MGdZpsDQBVkpdp3HNoJunwy1m+wDKiGyCOC
+	 vFV7ltzJOjC+t4Uo5vgZs8qPNbxToq7F3eAuKSnBcS4mfLyZCvY/wsI+d0dlwoKvPt
+	 6DsT4OqRjNiVAQGITysmwK0gn94ghxMWYLYd/2qWgwmWWEqHJZl/GLgbiqP4QSL/ep
+	 ZnFOCRKnXZKyOm/MPE2DCv8zwqJI/BLRJ2s5oTPerzRiP9aEAkM6KL77+bzc9Byp+/
+	 o6Cnv9Dtx6rQG6KzUL4mqRtJfa+kWM3X8VRhmCCL4i7mU0nUaa/AmmPtLKHDo2GWB7
+	 mgKOzG3HqL2eA==
+Message-ID: <a554e557-3d10-465e-ad3b-90d8357b60f2@kernel.org>
+Date: Wed, 11 Nov 2026 13:12:44 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,46 +52,122 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 4/5] iommu/of: Require reg for iommu-addresses
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Vasant Hegde <vasant.hegde@amd.com>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
- Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
- Eric Auger <eric.auger@redhat.com>, Joerg Roedel <jroedel@suse.de>,
- Srinath Mannam <srinath.mannam@broadcom.com>,
- Oza Pawandeep <quic_poza@quicinc.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Alex Williamson <alex@shazbot.org>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
- virtualization@lists.linux.dev, devicetree@vger.kernel.org,
- kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
- <20261106-add_iommu_ranges-v7-4-5c0f72083e52@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261106-add_iommu_ranges-v7-4-5c0f72083e52@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH 2/5] media: Documentation: it6625: document the audio
+ controls
+To: Hermes.wu@ite.com.tw, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ linux-api@vger.kernel.org
+References: <20261103-upstream-it6625-alsa-i2s-v1-0-bb91e2879b01@ite.com.tw>
+ <20261103-upstream-it6625-alsa-i2s-v1-2-bb91e2879b01@ite.com.tw>
+Content-Language: en-US, nl
+In-Reply-To: <20261103-upstream-it6625-alsa-i2s-v1-2-bb91e2879b01@ite.com.tw>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06/11/2026 17:14, Vikash Garodia wrote:
-> @@ -257,6 +252,9 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->   				}
->   				type = iommu_resv_region_get_type(dev, &phys, iova, length);
->   
-> +				if (type != IOMMU_RESV_DIRECT)
-> +					continue;
+Hi Hermes,
+
+On 03/11/2026 07:50, Hermes Wu via B4 Relay wrote:
+> From: Hermes Wu <Hermes.wu@ite.com.tw>
+> 
+> The IT6625 driver exposes two read-only driver-specific controls,
+> V4L2_CID_IT6625_AUDIO_SAMPLING_RATE and V4L2_CID_IT6625_AUDIO_PRESENT,
+> which so far are described only in the uAPI header.
+> 
+> Add a page for the driver to the V4L2 driver-specific documentation that
+> describes both controls, and list it in MAINTAINERS.
+> 
+> Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+> ---
+>  Documentation/userspace-api/media/drivers/index.rst  |  1 +
+>  Documentation/userspace-api/media/drivers/it6625.rst | 18 ++++++++++++++++++
+>  MAINTAINERS                                          |  1 +
+>  3 files changed, 20 insertions(+)
+> 
+> diff --git a/Documentation/userspace-api/media/drivers/index.rst b/Documentation/userspace-api/media/drivers/index.rst
+> index 8d2c489b8453e11b8e15ef9d9c1c0312f3da06af..57be8dd5749d7f5aa6e0e21c7e3d89d377a209d0 100644
+> --- a/Documentation/userspace-api/media/drivers/index.rst
+> +++ b/Documentation/userspace-api/media/drivers/index.rst
+> @@ -33,6 +33,7 @@ For more details see the file COPYING in the source distribution of Linux.
+>  	dcmipp
+>  	dw100
+>  	imx-uapi
+> +	it6625
+>  	mali-c55
+>  	max2175
+>  	npcm-video
+> diff --git a/Documentation/userspace-api/media/drivers/it6625.rst b/Documentation/userspace-api/media/drivers/it6625.rst
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..efd970e8124979abffb6f9ba3ea1e1bc193820b3
+> --- /dev/null
+> +++ b/Documentation/userspace-api/media/drivers/it6625.rst
+> @@ -0,0 +1,18 @@
+> +.. SPDX-License-Identifier: GPL-2.0
 > +
+> +ITE IT6625/IT6626 HDMI to MIPI bridge driver
+> +============================================
+> +
+> +The IT6625 driver implements the following driver-specific controls. All of
+> +them are read-only and describe the audio of the HDMI input.
+> +
+> +``V4L2_CID_IT6625_AUDIO_SAMPLING_RATE (integer)``
+> +-------------------------------------------------
+> +    The sampling rate of the HDMI audio stream, in Hz. 0 means that the rate
+> +    is not available: there is no stable input signal or no audio, the bridge
+> +    reported a rate code that the driver does not recognize, or reading the
+> +    audio status failed.
+> +
+> +``V4L2_CID_IT6625_AUDIO_PRESENT (boolean)``
+> +-------------------------------------------
+> +    Whether the bridge currently receives HDMI audio.
 
-This change is not about requiring a reg though, which is why it should 
-be a standalone patch with its own justifications.
+Mention in the documentation that these controls are read-only.
 
-Basically the patch should state why a mismatch is dropped instead of 
-being reserved.
+We need to make standard controls for the audio sampling rate and presence.
+They are also used by the tc358743 driver, and are in fact common for all
+HDMI receiver drivers (I know of a bunch of out-of-tree drivers that use the
+same controls).
 
----
-bod
+So rather than creating driver-specific controls, can you add standard
+controls for this? They belong to the V4L2_CID_DV_CLASS control class.
+
+So the defines become:
+
+V4L2_CID_DV_RX_AUDIO_SAMPLING_RATE and V4L2_CID_DV_RX_AUDIO_PRESENT.
+
+This also means that there is no need for a separate it6625.rst.
+
+The tc358743 driver should be extended to also support the new standard
+controls. So tc358743_s_ctrl_audio_sampling_rate/_present set both the
+custom and the standard control.
+
+Sorry for this, it is a bit more work but it makes userspace easier since
+there is a standard control for this instead of having driver-specific
+controls.
+
+Make sure that the patches adding support to the v4l2 core for these
+two new standard controls are not mixed with the it656 changes. So
+first add it to the core, then use it in this driver.
+
+Regards,
+
+	Hans
+
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 760791e3635f3c306e7fed7240b948d29b45ae66..1d6de374d86d3046d993bf220195b1a75049fa8a 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -13972,6 +13972,7 @@ M:	Hermes Wu <Hermes.Wu@ite.com.tw>
+>  S:	Maintained
+>  T:	git git://linuxtv.org/media.git
+>  F:	Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+> +F:	Documentation/userspace-api/media/drivers/it6625.rst
+>  F:	drivers/media/i2c/it6625.c
+>  F:	include/uapi/linux/it6625.h
+>  
+> 
+
