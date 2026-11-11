@@ -1,47 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794388607;
-	b=k51QhcvgfC/ae9fqYdJBlhckVHLU1dQr/EEU7O3HFllkcz6BVAkS9WKxCY1nHN+fRUux
-	 ltHiOiFN9p04N4ySqoC5oixo77xF8u/uhMBTG3PMIjH0s3WWs2hKi4vVQszljJXq3gpcV
-	 QGnZXTumjLm+Sz4zlvkSdlBdQsawvW2h+lFItNDoOtNJ6c3yPfOngGNubKH2H76yRvqau
-	 KvJZI3eqnGd+PnvMOP+on8YQz3RmN+iqP6l01Kv7HeryJ5afooco4lRXEvQaZr0RraGxA
-	 Qk8DeynDCeQz5rh5XMMaokDvIOJJTd+K/XKDRiKv7D/IgwBoYIComXKoFlKF5SocX7Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794388607;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=SjCTJIdrUaZqb+/BC8WM1DYxfIdbJM1w55fNRx5CsMY=;
-	b=d0n5u5WuB3ZHN3qWhebIfrRKAWdH5mvA4zrA8zABdryUQ83l/DY+ewSLOwsWSoNzirFj
-	 e5XpJJnKMbj/44Uvc/vHY4QkX6RYiIeqxAH0joEGPHjyWuBuEMB3oP0TPa2fAxgTQgehv
-	 zbKZeGnrTZoV+xSvXx3kK0XNIqulxA1a8owX4tYlDnXZ9KoDCRemItoKgh9UhJu3ZHtoa
-	 4Q9+HCI811Mw2vsui0I1R6Veu6obl4d18IL6BVXtiaanNIDtowlhda9+qVtFfmwBmK3DV
-	 ftvX6+X/2uuyXdLF6o4FpM6hRQJAksatmrAerVcBjB+xelnDowLUYAz0jUaIeMaNUXw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jMqMQ/F+";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.185.170.37
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794389003;
+	b=gjOj+IMYcuYpw1pMCDeRRVpx0Wj/fF5Me79/Q1RpQYH42VEMK0Sm+32WCQYdmTmNihD5
+	 B3lfJFR6AaFpD1ZyS4eK0qzbWfAHhQ89iZzjW+j2v3OUw1SBM0uUI953EvLClUTFYusom
+	 vjoXDq1GEps8patpaGF5SYPaKRzKKsc7OrHafulKwu+MWzhtCCjwQi+eJVBLWEbbch5t1
+	 0y/dbKiEmS7/tkq78cpXpLDJJ46Bnq5B4q5cRl+coeGsTyUNQe+kiDcZz6apby9vmZvbu
+	 soUcl9BJsZFhDdiE+9tjWxdSYyuptyzr5Zg1OIRGeik9RrLu7q1orr7CnYRa1Ni0TUg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389003;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=oKq4wmLB7jL1xV/9HC9L3HhymQhzzg0CEQzsMgC5bRI=;
+	b=lDxUo4qDGiyUrlWQO1jzfZXU60xwX8Jby9IwOwVQvkDDuiKWPy0HZqve50NIUnL5g2OO
+	 dSFkXmz76a919P5XNF0GosjfUtPKugueyuUjXD1lPvEg79YzMppge7fDyNQ/Sw5bXH9Wv
+	 l56djgmHSSkY0tRmfLXFcsgoHPxqkz12BuehPysK57KqrWYpK8HC6TMyBPNZxmxeqrhDu
+	 kr1eSz/x1XB9OL212xVCAMHChf48Q04/rOaMSDLLKvChGNL5tSRPjs7MdvtAe96iiGCuV
+	 oKhM80p+Oevnt7QX43tfdtZmMx6R+86eAGbP/2Tua070HsvFWXPhBvnXx7Ejqab6hlw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=iki.fi;
+	spf=pass smtp.mailfrom=iki.fi;
+	dkim=pass header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256 header.s=lahtoruutu header.b="Eer/GrFs";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.185.170.37
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AD2606A31C;
-	Wed, 11 Nov 2026 09:16:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885B0606A321
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 09:23:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 885B0606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jMqMQ/F+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B93FC1F00A05;
-	Wed, 11 Nov 2026 09:16:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794388607;
-	bh=SjCTJIdrUaZqb+/BC8WM1DYxfIdbJM1w55fNRx5CsMY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jMqMQ/F+i7XvEnoLCVxBn4KkTxNZl1zsCZ2ttQh+9adYSA8l3TtjPbMetLKQc/TXw
-	 d6aKHRMry4fM0Myuy8hJL/eFwJlGzwBGa2Z0lwMfz1rPXXI5UJq/oxCcrRiUOyxR7X
-	 4ahEqcQ9UlcZgYJ3tjc0+1cGRgyLPiVb16itAS8flJBx6q9TsoMl6axC6RFyCdodDS
-	 QUAkHTQnBJ7v3H9SYPUQFFPCCD4H+nKLF2hLAAnDmCXXClHiKlzItzq2DKVD0IAsFM
-	 q5nWWSPhET8dfCq3QMD9C0OH4/6RXuzeR054FG1lK3TBiEz46S7HqyNtIwilLN+ndu
-	 BdP6z4lk3iCYA==
-Message-ID: <e179b228-3f18-4b99-9c54-93699d13e63b@kernel.org>
-Date: Wed, 11 Nov 2026 10:16:38 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256 header.s=lahtoruutu header.b=Eer/GrFs
+Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sailus)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4jPdNb1SNHz49Px4;
+	Wed, 11 Nov 2026 11:23:11 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1794388991;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oKq4wmLB7jL1xV/9HC9L3HhymQhzzg0CEQzsMgC5bRI=;
+	b=Eer/GrFsdNpJIRdyJCbG9DvuxhFpLk6UdTqGdkm3AzQBXSvirNDLOID4b4MzO/PaftUdcd
+	g9g1JmSbERhZhBBqCvUIaEJ5v8iSYE9s2gBcysIGuRKNzNCktzzxw7VdrUE7qo77qQooX+
+	2Rr4zNlj+7SVinvec6E8CP+ow5FMLLvIsaGBjcfr3XLqY8bTLrDFtPyPfARQsURUhMaA+Q
+	qDYHskrLIcRTqYGmdvbSIEtxoM33m/uG/0OzhzTsGxB4HolhMeAh4kw4Z3LlZ8R75JXkqf
+	8a/xc18G7e8r/8s6POw7E1OJ9Ja1e5jkCGvFFYSgnISoq52zyJ0BdY3xq5qoJg==
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1794388991;
+	b=Nm9WxeZ078QdsD/mci9BGSJy91Jzu0Pyvf5T7C3Q3STpg5PQp8q6pPoKkU8ffkK1664nJu
+	+kz/pQUieN21e/YwK76Dnk7NWFCUyPc3euQg1FRaKTFk6pO9vBi+9U6fXliJAfKCKrvn2b
+	MNXUdj2G+SusvZ6S9FoxH0Qw5hIDJRzF8/f9Xbi/z8SV2XOApdMyVHMplTMVre0weVs241
+	3JMCpqGQ/aNST4rdSexmw0tQ1Ft+LLFixnOWsqOT8OATZ4PQzTtVgDt6xpzCDXSVoWjS66
+	1UivZmrWqBTXcHwRcQTC+Tl7ZnyPv2vrrCeHa2g7Yo2rr+8Qh/Z4PiVRef5bvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=lahtoruutu; t=1794388991;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oKq4wmLB7jL1xV/9HC9L3HhymQhzzg0CEQzsMgC5bRI=;
+	b=vwBOgzv+1KuXpZIRtI+y+2ISIcDEacnpdHxsJhdl53Aoubj6Ch30jqqq4X1fco+GG+ZVod
+	gmH1kq9kqMhBgDjD6PqRr9/A8i5oCmRhlJ4ZCdEBtZndnlcg06h/5z7AoEaZlzi23zlkJK
+	/IbYOPNy/OoaIsNiHykOq0psy1Jo74tQBg53JhFa8GR98h4w+BFs6c6Kp9+it/ZMRWJdHh
+	BWifwL1RkG+HEuiC2SIE59hTaewHFrIi/7QjNycZ8D7TXxgHhKXjDG+UEVmvkPr0Sy2m+7
+	Ne2L2UF9JGmBlZLEDwDwFeNVvJT0YwcznmItZEQ1SSQnK95hsUeZAX3n8O+FsA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
+Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id A81D3634C4E;
+	Wed, 11 Nov 2026 11:23:10 +0200 (EET)
+Date: Wed, 11 Nov 2026 11:23:10 +0200
+From: Sakari Ailus <sakari.ailus@iki.fi>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Paul Elder <paul.elder@ideasonboard.com>, linux-media@vger.kernel.org
+Subject: Re: [raw2rgbpnm] [PATCH] Fix sign compare error when checking file
+ size
+Message-ID: <avQz_ma4DXEqwaWk@valkosipuli.retiisi.eu>
+References: <20261111012621.1701729-1-paul.elder@ideasonboard.com>
+ <20261111085014.GE86558@killaraus.ideasonboard.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,110 +95,78 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/13] dt-bindings: clock: renesas,r8a78000-cpg: Add
- CPG_SGDn_VIO_DP_{TX,OTHER}
-To: Paul Elder <paul.elder@ideasonboard.com>,
- Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Ulf Hansson <ulfh@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
- <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-1-1b2072e8c37e@ideasonboard.com>
- <20261110-steady-kangaroo-of-mastery-5fcd7f@quoll>
- <179438844820.272237.18262716067322018404@neptunite.rasen.tech>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <179438844820.272237.18262716067322018404@neptunite.rasen.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111085014.GE86558@killaraus.ideasonboard.com>
 
-On 11/11/2026 10:14, Paul Elder wrote:
-> Quoting Krzysztof Kozlowski (2026-11-10 18:30:50)
->> On Mon, Nov 09, 2026 at 10:34:22PM +0900, Paul Elder wrote:
->>> Add the CPG_SGDn_VIO_DP_TX and CPG_SGDn_VIO_DP_OTHER clocks that are
->>> used by FCPV, VSP, VCON, and DPTX cores.
->>>
->>> It should be noted that there is likely a discrepancy regarding the
->>> clocks. In practice it ought not to be an issue as all the clocks derive
->>> from the same SGD1_VIO_MAIN clock and none of them are programmable or
->>> gateable.
->>>
->>> According to the datasheet, the FCPV[BID] and VSPD cores use
->>> SGD*_VIO_DP_TXφ while the VSP[BI] cores use SGD*_VIO_DP_OTHERφ.
->>> However, educated guessing suggests that IP cores in the same pipeline
->>> should be using the same clocks:
->>> - FCPV[BI] -> VSP[BI]:                  SGD*_VIO_DP_OTHERφ
->>> - FCPVD -> VSPD -> VCON -> DPTX:        SGD*_VIO_DP_TXφ
->>>
->>> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
->>>
->>> ---
->>> Changes in v4:
->>> - Add all the clocks
->>> - remove DNI
->>
->> What is DNI?
+Hi Paul, Laurent,
+
+On Wed, Nov 11, 2026 at 10:50:14AM +0200, Laurent Pinchart wrote:
+> On Wed, Nov 11, 2026 at 10:25:25AM +0900, Paul Elder wrote:
+> > Fix the sign compare error when checking file size by casting the file
+> > size returned by ftell to unsigned int, as it is a signed long being
+> > compared against UINT_MAX.
+> > 
+> > This fixes the following compiler error:
+> > 
+> > FAILED: [code=1] raw2rgbpnm.p/raw2rgbpnm.c.o
+> > /home/autobuild/autobuild/instance-5/output-1/host/bin/arm-buildroot-linux-gnueabi-gcc -Iraw2rgbpnm.p -I. -I.. -I../include -fdiagnostics-color=always -Wall -Winvalid-pch -Wextra -Werror -O3 -Wno-missing-field-initializers -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -Os -g0 -D_FORTIFY_SOURCE=1 -MD -MQ raw2rgbpnm.p/raw2rgbpnm.c.o -MF raw2rgbpnm.p/raw2rgbpnm.c.o.d -o raw2rgbpnm.p/raw2rgbpnm.c.o -c ../raw2rgbpnm.c
+> > ../raw2rgbpnm.c: In function 'read_raw_data':
+> > ../raw2rgbpnm.c:173:36: error: comparison of integer expressions of different signedness: 'unsigned int' and 'long int' [-Werror=sign-compare]
+> >   173 |                 if (UINT_MAX / bpp < file_size)
+> >       |                                    ^
+> > ../raw2rgbpnm.c:185:23: error: comparison of integer expressions of different signedness: 'long int' and 'unsigned int' [-Werror=sign-compare]
+> >   185 |         if (file_size > UINT_MAX)
+> >       |                       ^
+> > 
+> > Signed-off-by: Paul Elder <paul.elder@ideasonboard.com>
+> > ---
+> > I've been getting build failure reports from buildroot for this.
+> > https://autobuild.buildroot.org/results/f1f070bc5ac72d8b0f2ed403273635b7459a9ae5/
+> > ---
+> >  raw2rgbpnm.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/raw2rgbpnm.c b/raw2rgbpnm.c
+> > index 0c71be321746..39b186473624 100644
+> > --- a/raw2rgbpnm.c
+> > +++ b/raw2rgbpnm.c
+> > @@ -170,7 +170,7 @@ static unsigned char *read_raw_data(char *filename, unsigned int *width,
+> >  	}
+> >  
+> >  	if (!*height && line_length) {
+> > -		if (UINT_MAX / bpp < file_size)
+> > +		if (UINT_MAX / bpp < (unsigned int)file_size)
+> >  			error("line length too large");
+> >  		*height = file_size / line_length;
+> >  		*width = line_length * 8 / bpp;
+> > @@ -182,7 +182,7 @@ static unsigned char *read_raw_data(char *filename, unsigned int *width,
+> >  	if (!line_length || UINT_MAX / line_length < *height ||
+> >  	    line_length < *width * bpp / 8)
+> >  		error("stride %u is bad", line_length);
+> > -	if (file_size > UINT_MAX)
+> > +	if ((unsigned int)file_size > UINT_MAX)
+
+This will never be true, as an unsigned int won't be larger than UINT_MAX.
+file_size is long so unsigned long would seem reasonable here. Although it
+seems there was no bug here, it's just a compiler warning on what could
+have been a bug...
+
 > 
-> Do not integrate. Most of the patches here were DNI in previous versions
-> because they depended on a lot of downstream things, but now those dependencies
-> are in the process of upstreaming so these can graduate from DNI status.
+> A better option in my opinion is to turn file_size into an unsigned
+> variable (after checking for errors from ftell()) and drop all the
+> casts. There are already casts to unsigned int though, the cold is old,
+> and there's little incentive in refactoring it extensively, so I think
+> this patch is good enough.
+> 
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> 
+> >  		error("too large file");
+> >  	if ((unsigned int)file_size < line_length * *height)
+> >  		error("out of input data");
+> 
 
-Upstream clock indices ABI does not depend on downstream at all, so
-seeing this unmergeable is just confusing.
+-- 
+Regards,
 
-Best regards,
-Krzysztof
+Sakari Ailus
