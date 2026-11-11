@@ -1,113 +1,185 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794381866;
-	b=uFs07cFLABV6NHznQPUTM88tzefWseYoxzR6UGbYBFHQ6+SYJPO3sV2ZD0RpOe36CByA
-	 v3E74q/e4nicIpnQgemZn7vS/YqUsFT4GOtdjAeWO1tPJNCkMKfdKSx3SYp98KMuUyrjr
-	 umgTikQbWOn8bgds/y/1XW0oHVv7AD2ilpOauzUqco3cV/fS51syRo1twq4j8d9dAT2tI
-	 ElBqXmIViE2IRfpsA6Z1L3TvWyDKYFCGGcRuvsvS1eLQRNdAE/4uTdrIaepccI5vDdEXD
-	 /VRIZ+WyszOURlmQ0P3NKFuam6Meo29w5AdDwzILW1OmuC5F612jtvrIhgTtP/4jIJA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794381866;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
-	 X-Google-Original-From:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=4wbtJKn4IxGskmQgOdo6faBAsmhd2cI7qV2Ob/EpzcE=;
-	b=VEMKEBO8eX/P4wDhCNqa4dloqyPrtnWHxx57uI4oBpnr5Cv1gpGtXWxX/TM/V7uV7oAQ
-	 dHIW+Xa6Db40K9ZiGsir4tGdxZo08b5DmT/eOpR1x+gFS2k2M8H9NmFyChbIa7yb9XyCF
-	 Keljc/tWd+S1ZuCYOo4tErT+y6nkjXBn6FnRonyWLi4u+KRfF6m/f4/b8BT46EL7lz0ta
-	 t7u4RAAJ42i1ufwebNs7uXNpzB4eHwoUlIdRyqCTsYQiQwDe9kLgT4WvyJvOLmYmaPmLA
-	 GfvNKdVaYQTTp4xXvRGNcKbTHcVfH6LPyAIywoonfb36cO25J349Kz1VJX9GKgBlHyQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ct+tEHLc;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Gt4Wqq34;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=60.244.123.138
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794383844;
+	b=fSo9DFbic3ajUvPCka4Wd5RymbV9E58UEhz2dpO8cHx8ZPzBSeAAoU5ibg5qoihyXXjg
+	 yREhHhACxVJrku8itzjTeizDtRCgF3fJgV3KZGfIbRBhel5fviQ8yW9Pa12Oto0rqGDF9
+	 j6sXJUVUuvhdWco47blKQK7VMQdmb074PSlTrXj+zyeMr8g5/7Bfo/v7JkOT7TLZEjCq8
+	 g8srXa0kqGsElGHy9lOg8Dvw7/lqM4VcxITrHj+wIYG39rz3mkU++WCCinBj4OmmvZMrE
+	 C0Z0tTnfs3psK7KsWAdDmVhQPz8wuJ9jPzow74DIuXH4036JnyY089fIpPhwKZbMckA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794383844;
+	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
+	 Received:Received:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-dg-rorf:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=5bnH68geGw+HpYNXqD3LucPwyM78Efiakjdu7zkpies=;
+	b=m3OqFUfPERtFLzfRhTRFtYhLkYpgE/F6KQ5zLGKCMq7Rv0gGO5ylOgryLFwTYizOuMsy
+	 aTe1xFsUYMFBPtMbrHE7p+itgHw/gBgpJGUAlqKvTc9JwYFoq4kJKWIUBR2abZCB0BQ1d
+	 rszbxGohMorUvjm0OYa3ZBzkYn1so6Ktw4/psoTWkyuYzeqpegl23fhGGCDaRZxHrz+4t
+	 S1glun9WkgPiL2l7As0tt1kF+tDCcqECPD+LqU9HDy42fybf2faCRU4FtpC63egD8pyY8
+	 YShMqPIj92ttV/nDwfe3Z1maZYHAKeZz5w/SE/VuFYcX/wQIcdDCY1AUO+5f3Lcwcow==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mediatek.com;
+	spf=pass smtp.mailfrom=mediatek.com;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=oxrfJJQN;
+	dkim=pass header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com header.b=VAHAkNbl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=60.244.123.138
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6491860A2604
-	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 07:24:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6491860A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F53606A31C
+	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 07:57:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13F53606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ct+tEHLc;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Gt4Wqq34
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AB5KaBk2021354
-	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 07:24:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4wbtJKn4IxGskmQgOdo6faBAsmhd2cI7qV2Ob/EpzcE=; b=ct+tEHLc1bLztlOA
-	7Nte8SPyllFfvGgbTINjrBO/npdO1dTNxAfSaXVUAMjIVJe/PV6PIfmJDq7KS4Rb
-	GAuU9ZGtwUOc/K18T0g6m70Zt+O6/hi59f2umL3wFZJ1uCdD5v7iJbTHqM1hItNG
-	6vtE9BC7afMP3qMc6Q1QAROO2tykB0b0e0LiWaLY1S7p3spiosyk4bCnh7dqtWay
-	NJ2pD6NA3WhiktTEMxf2nattfyUSWTxLFG0jUIyq/9A9r4RjUSjPU3FD2795BZ0i
-	59krfHwklKMMGuxhjcLZG+JYwBrnTT+F9NzYcXSftughWX7h7eb1nT74lRPLi0Ll
-	lGcShQ==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hv4pvbr4q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 07:24:24 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ae72da2f57so4073824a91.1
-        for <linux-media@vger.kernel.org>; Tue, 10 Nov 2026 23:24:24 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=oxrfJJQN;
+	dkim=pass (1024-bit key, unprotected) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com header.b=VAHAkNbl
+X-UUID: 839e5a26dda511f1b1788b6acf885367-20261111
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From; bh=5bnH68geGw+HpYNXqD3LucPwyM78Efiakjdu7zkpies=;
+	b=oxrfJJQNT8/YeuTSaX/0G9cnRQDt3OE2QOFgJ7nzUv/foR6OTwHXp46eeIOdYDyUJXn0+Q5+q7TBXBi/MemTB6C68mUI4yixDPN6Worbq7E6CGLnUrwChRzfYE1ueVRXh7QtxBnRPW7I2sZu9Dhwfr1VFyuSSpcKCQ3g90yFIuY=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.21,REQID:ae02727b-ea95-4b78-9ed1-9fad667d956d,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:b0318ac,CLOUDID:1cbdb230-f289-4656-bb36-27baf4489f11,B
+	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|136|836|865|888|898,TC
+	:-5,Content:0|15|52|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:
+	nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,AR
+	C:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 839e5a26dda511f1b1788b6acf885367-20261111
+Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw01.mediatek.com
+	(envelope-from <xiandong.wang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1335769870; Wed, 11 Nov 2026 15:57:17 +0800
+Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
+ mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 11 Nov 2026 15:57:15 +0800
+Received: from SI4PR04CU002.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Wed, 11 Nov 2026 15:57:15 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O7a4f/5M6OydB0iHG1guo7ueMFPufX2rQzpsKXNzZqa7zPgPToJTdKHVqhvNW4KQgyWitYnAoWsMGkCSzsWFiD3996/8pgurToshFoAH+6MW94l191K/Kgv0HBqH3968QDfOPAidT8GJ6g4gygN/vH82ezQr4XNXBMJ1AKTWL438VnCQB8BaaTcaj9x1jKcJb+04YNvgQ+Y48y+F0EifYv8grA3O4tc1LWKY315pCVaRqM1nNanzAfotYfmj7UAEAaX9I79bxhu7pKMwgWNocZf+Bc0d1xHfrWBds+P6T4AVgUQFcoqswMe9NWXQESWt/RE2xmd215WcKu7bxJMyfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5bnH68geGw+HpYNXqD3LucPwyM78Efiakjdu7zkpies=;
+ b=yDJZNFEnyREUcvD7hPujIAm8qJxYBFmx+MC+Hq2UE6xQXENPyniQSl12wYTcj1EN321117+3LTl99rDjJMjCbJteQTEIs9PhKTijuGs5EE8HR9fZKAbixX3HtLqUwOwa+YA8nOdwLb5uwGthsy0ZcKPOqQtrlgnNvjyMOwUBjG3ShNAZmsa8KfISiWLTJR9xmQNnahiSSgXxOUeIHEzq1Eaf7Rneb3HpWSIDXykb/aAR52i9ykToqvkEWOo+8cAGbodBaS6u6UQeLBEACB+RHK5skdssjkJboFvT32NBHq97jjtJZ405/B3j40ZaIadG8y8G3IDSfwQbitz2hvcBgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794381863; x=1794986663; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4wbtJKn4IxGskmQgOdo6faBAsmhd2cI7qV2Ob/EpzcE=;
-        b=Gt4Wqq34yaie+bktSr+bMbouekT22cWhBqRM/0nKbukjm8SYDQPhsdl7/OO5NDh0Ik
-         a5OaPzTylO6SqVY0ZZVgkojJZWCKBBMVrGE19Tpcr+MD+kYxfEAU04Yxp7vCgeY3JGIR
-         F8ztflH3TzPyJavo56WpysKsyP5y6BnbQr/DaJIqPmo9FLzxf0OfmSCuq0uicScPE+Hv
-         uIkbyIYdk8fF/bgqZ/gMr6n/AqErEn0pa0kJJLXPXmfERJAv7IRp/RLW2Gwp/SBCi0/I
-         oFOqD7KefFja/kybfzoVKvJI3ULk4BSmD2FmDPk9egk+p3kBT1oAuUjqMTTxlyHGlsrQ
-         P76w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794381863; x=1794986663;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4wbtJKn4IxGskmQgOdo6faBAsmhd2cI7qV2Ob/EpzcE=;
-        b=HAZQNcjqeavcuQi3aYlqqzYkV1Om4aoxxAYD9JQfmJvc4jrN06Z0obimUbW8iJYTsv
-         Cv40kNpPO4ICm7rbI+wnBsGMxWOGxZyX+Vyyp8T2lQD1BWzwsz1c1RqwjfE8loj6Zyh+
-         PXlMyH1Qg3qHAOCw0nHmhi+bMexfW0mnJyrpaQgNWSR3Y47VuX84K7p3MWtGJG4ixGZR
-         GR05hgEV7WBPn70l8TExSNQddmwXPWFnSwR9DfscpM0JcKfGUZFoFh7OkF067eCC7D3R
-         veVQGSAu4248Yn2sqDd5EMRQRaWO9JRclXrM8q+h3OggSa438u7MDy8t9/cw3TIHSKhG
-         FVfQ==
-X-Forwarded-Encrypted: i=1; AL+hErEZSOKUkLBHvFI3RAqEGnh+U+QINfm8H6mDiGdA17RSqd9zgJxONgZVJXWZeCMdc34cEJRFYuBAFh5obg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lkF93mbMdQ81aMOV2w1QQtaZUZLGYHv8mhgL3ztfQvU6lB6RH
-	51olCctWsNil12iErnrvkCwEx6gqv6ojElRWjDwGxY6WgXPI0nIvAvkOVWrdLOHi0sIH7IZMBip
-	GZxNT1JsbloiqdJcpEOOnAQ5H+jvvi/nW5ToFiRCveRZGr8z0pxaMNy4AfbjCEPsP/Q==
-X-Gm-Gg: AYBFou0etZCPl27So+xese9Kw5WN3ondYU9FBlEHasAxrvwL6fium/4yPlTc353d56d
-	JY/p3wAm6qd4oDUAGLLsQXwnQph+YslCCk5jb4laYE5+BQ59sHN6VjoOtufiJeTvw2SFu6JyhtO
-	5C0T/UOsFivytc64XTEZGFkXHyANWSBjSFMfmIf6DVO0nXFpwrQuNL5okmYW7/eG0Wgs9gCo+MB
-	pbu9qsIe05YAbtywLKoX2oNZVq55P+Gm94V/shMOOJtStnSvyxxLEDWUrpIs2F5Tbaqo2ScnsbP
-	Wj7ip1YLAtwgbUxCl4qDxOcT25yAMEb09dFAVWABZWActWX08Trj5a1Cy430G0oX0MpDUyE9Ps0
-	v45U8n40l33zDGPVcrsTV6nvfGyX5NXZtH1aRKo+b8fMI/6ASVZ0HjF5enU+2FUWChG8Ky9iK66
-	9vxq+xUMk=
-X-Received: by 2002:a17:90a:da8b:b0:3b0:9e2c:9b57 with SMTP id 98e67ed59e1d1-3b182df3037mr1802852a91.4.1794381862966;
-        Tue, 10 Nov 2026 23:24:22 -0800 (PST)
-X-Received: by 2002:a17:90a:da8b:b0:3b0:9e2c:9b57 with SMTP id 98e67ed59e1d1-3b182df3037mr1802795a91.4.1794381862393;
-        Tue, 10 Nov 2026 23:24:22 -0800 (PST)
-Received: from [10.204.79.28] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b17dba5ed0sm3269267a91.17.2026.11.10.23.24.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 23:24:21 -0800 (PST)
-From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-X-Google-Original-From: Jayant Shekhar <jshekhar.shekhar@oss.qualcomm.com>
-Message-ID: <9e17c97d-0596-430b-87c7-63099174128d@oss.qualcomm.com>
-Date: Wed, 11 Nov 2026 12:54:09 +0530
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5bnH68geGw+HpYNXqD3LucPwyM78Efiakjdu7zkpies=;
+ b=VAHAkNblbhU7swWjxKFHXyk1aiSd4pW6YkzCwSjz+OdM2ZgiVCrV5j9NGRWjwu3DgTNcDxw07o67CvHvfP72LrRMAj4+dR9oZD/OjamJ33NLBY7NXwT1/vQKGUssVDQqJNKF/iTUcQmA1chtdC3LjAuPtAcPACFwjABLuvoz32A=
+Received: from TY0PR03MB8246.apcprd03.prod.outlook.com (2603:1096:405:11::11)
+ by TYPPR03MB9745.apcprd03.prod.outlook.com (2603:1096:405:398::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Wed, 11 Nov
+ 2026 07:57:13 +0000
+Received: from TY0PR03MB8246.apcprd03.prod.outlook.com
+ ([fe80::76d0:4757:8385:4e08]) by TY0PR03MB8246.apcprd03.prod.outlook.com
+ ([fe80::76d0:4757:8385:4e08%4]) with mapi id 15.21.0615.007; Wed, 11 Nov 2026
+ 07:57:13 +0000
+From: =?utf-8?B?WGlhbmRvbmcgV2FuZyAo546L5YWI5YasKQ==?=
+	<Xiandong.Wang@mediatek.com>
+To: "getfeus@gmail.com" <getfeus@gmail.com>,
+	=?utf-8?B?TWluZ2hzaXUgVHNhaSAo6JSh5piO5L+uKQ==?=
+	<Minghsiu.Tsai@mediatek.com>, =?utf-8?B?SG91bG9uZyBXZWkgKOmtj+WOmum+mSk=?=
+	<houlong.wei@mediatek.com>, =?utf-8?B?QW5kcmV3LUNUIENoZW4gKOmZs+aZuui/qik=?=
+	<Andrew-CT.Chen@mediatek.com>, "mchehab@kernel.org" <mchehab@kernel.org>
+CC: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>
+Subject: =?utf-8?B?5Zue5aSNOiBbUkZDIFBBVENIXSBtZWRpYTogbWVkaWF0ZWs6IG1kcDogS2Vl?=
+ =?utf-8?Q?p_component_suppliers_powered_while_streaming?=
+Thread-Topic: [RFC PATCH] media: mediatek: mdp: Keep component suppliers
+ powered while streaming
+Thread-Index: AQHdcY5DHxjBIKeFnUOcft0i22TG5rcogNTQ
+Date: Wed, 11 Nov 2026 07:57:13 +0000
+Message-ID: <TY0PR03MB82466BF628307B41189CE1F786712@TY0PR03MB8246.apcprd03.prod.outlook.com>
+References: <CA+m4KrCAtrxGcy74ieBOibgsGwWW=+gQzUUJVcdY0H2xcqGMvg@mail.gmail.com>
+In-Reply-To: <CA+m4KrCAtrxGcy74ieBOibgsGwWW=+gQzUUJVcdY0H2xcqGMvg@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-dg-rorf: true
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mediatek.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY0PR03MB8246:EE_|TYPPR03MB9745:EE_
+x-ms-office365-filtering-correlation-id: 6e0fadf6-963b-42b3-94a9-08df3fc965b9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|3023799007|261021121427099003|261026121527099003|261028144727099003|261026140227099003|261102123227099003|261009223027099003|261021135927099003|261022105027099003|261021123027099003|261022075727099003|261022115727099003|10067099003|11063799006|56012099006|38070700021|22082099003|18002099003;
+x-microsoft-antispam-message-info: Scp0Pm5J//VxC0N5lYJi+PeNG9I3Y7anWUM65H/QfgxowP/n69HOQ5as3eyGgphQliWzG8Uhh2UFAhpssOYc9Dmzq1guF9YFEvTf4okSLgjsLra1MPRkk6IXU9F/QFwrx2oHaDJwagQ1NBOA0t01clnneNq/K9MmisDsdgClVq/HCEmvU4zNIsSG8Xarji68lIkOxjoDyXnRfUMCI105JtCTyVMqnuSyte8FYuSGCWPo5/KZ9iLYRy4Vteh2xAoxl5z3k06ZfhLYEsIA6/hvFLEvnUQ5REMPRfPHrF+MNQqknCGdmFQujthGRWHb9noYghi916jfSIeu3ClBilokB6hAfSgNzd3lHn0LuJtJe5oOLCPcJ83mc7ZOwh4wjtETCHl4BZNm76wzUs/OKcin6b/42nRCp/beEQub7gMFfXyjOJmPrsE+G5H+QKZ8nNic0nKXToAvWIvSSEoz3jkJYvKPmgLUG4Q2R73Y+o/rL/9oygD50mNNcerj1GG2AoBAFhyAV7IHvaqUP3EErEs40BmEInZssOi3LHCF4P7YugbjuQLAwvdciDIHujQODLFyMu3j+iV/br0Nyyje6GSrooyGLMqvZalE1kS2KoBaLIjOmGIDM72OpIRVAdRyafp6KoGfyHG/EbFvFcxh20x2x7cYA2XqwbE/zupHw6YIT68IBP3vxm3AiVwZnt78o5Zy+rP+cSER0RrTqDfmrxMT+PW0RqJgRFr4shpfWp0w5ws=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY0PR03MB8246.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(3023799007)(261021121427099003)(261026121527099003)(261028144727099003)(261026140227099003)(261102123227099003)(261009223027099003)(261021135927099003)(261022105027099003)(261021123027099003)(261022075727099003)(261022115727099003)(10067099003)(11063799006)(56012099006)(38070700021)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OGlZSzNxSXFlUTNGOEwrWFg5RTFkWFptQ2l1SHVqY1o2YlVVMXlRSmFBSDE5?=
+ =?utf-8?B?S2w1azFpT2Rvakh1alFyYUljZWp1ZTVubTQ4RFlHTzhBbVAvSGppN2hablh1?=
+ =?utf-8?B?NnFMUkJWMGdwYVMxMGxoNmRTTTBFcW41eDRjQU1tMGlpMC9tUml2cHZjcDVR?=
+ =?utf-8?B?Nk1jdWlFOXhYeUVwZ3dOSkVnekk4WlNFNFE3cElZVWlqdWRtTDVvWFo5eWtV?=
+ =?utf-8?B?Y0xSNzErZ3N4bWtrVk9wVWY0K0pGSWZyZUxIbUo3YjUzWUkvUE93cDRFSE53?=
+ =?utf-8?B?VXd4RFFvQk5iZjdBNmdFdUMvTFMxN3NFcm5kY1hocVlPaVVYcTUxU3ZLVXdK?=
+ =?utf-8?B?TjZ4S21CQ3IrNzd0S0lmRkgxUzkyS3RRUzFxRDM4NmxmZFdhQlR3d0FrZ0ow?=
+ =?utf-8?B?V0srVnlSYzcrV0VDNHI5NVkxLzcvMWd3Y3VBVjZqVHZqVzl0UTlZREc2S1dy?=
+ =?utf-8?B?Ym01OExHZXd1d3owanI3VG5JbW1XbjdYY0RWNGVISUt2TE04cnVtUEJ6MENS?=
+ =?utf-8?B?K0R6Y2tram5PZ2F0c2xyVmlvSXhlV2h2YkJXTWMwTHpETVdPZGNOS2NxdkZ5?=
+ =?utf-8?B?U2tSeFU0QTU3aUFQb3pBMVZzOGYrS1B4Zm1aM3NUYll2RVJtWTlCSDhzZ0l3?=
+ =?utf-8?B?WGVhTnh6QTMwNklhK3V2ZzNYV2tueThHd0tCUHpob0gyNlR3dmtCZmU1TW5u?=
+ =?utf-8?B?WXVIaStnamRrT01YSFdFZmtZQUhuNUpaQ3lTOUNVUkRqTlQ4dFhsUHJLeTc1?=
+ =?utf-8?B?ek1hbjF2OTB0U1NnUFd4aEx4WGJaSy96elJuQ0xSYTMwZ3dyOGRSUXhFK2J5?=
+ =?utf-8?B?YUROM0V4M3kyS1dKMDNnek05S21aMFN4eEsyaEJkOUVNWjFYQ2lScXJFLzVP?=
+ =?utf-8?B?MmNzM0RuQXd2Z3FmY21ES2c4VE1jc1dUdjF1K2RKUUV5cDBrNUNPNkZKd21u?=
+ =?utf-8?B?UGpHY3p1RGs0Mk43dnJocHovSGg5OWFIMEl4WXpCZi92MHZWNlpwa21HbTNC?=
+ =?utf-8?B?dWpyVEZmWUh1YUF2bmZPUkNwd2hWQmhNV25iMUFySHNBNmV3RGZqTHBRbi9y?=
+ =?utf-8?B?L012L1RoSE4rcFpzcTV3OWNuQVZ5RldiaDEwVjgwb0V3TXlWQUZIeVJyWm1L?=
+ =?utf-8?B?VStuZWRleW95RzdvYkh0S2lwK2ZwTFRFcVJSYUd3WmwybWR4TnZzc3R1U00v?=
+ =?utf-8?B?NUlLZW53cFNhUjhYZTk5aGduZ0NFTURmYmVWM1FZTVJ2dE9GMS9ZeW1JT0Vw?=
+ =?utf-8?B?VmM2QzVuMWJzRFQrNzQ4VGVwbXd1L3VyUUNCRzRNbGVHV3dvbVRjeEZMeUFi?=
+ =?utf-8?B?SGFjSE5mZmp6QWRQNTQ4a2k1NFVjdDd2aG9kQzJjL2ZiYmI2T2dxczVYd2o4?=
+ =?utf-8?B?ejM0elBwSnozdzlMYkt4eGtYdGJJZ0l1QlhxOXdZd3EweTZDY2ljd3RPVnJF?=
+ =?utf-8?B?WkVVWFQwU3gxR0xqRlVFTUFEVnpENEhnZnd2RWg1ZUhKNUozM3N0eEtRV3dV?=
+ =?utf-8?B?eFpwMElQbk1tQXFCV3FyQkFCU1NDcm8yVzA3NjYwT3krZkxKTDBiamlzMXQr?=
+ =?utf-8?B?bHJ0OUUxQVZpRHVMczNXbUhta1NCQmE5Z1BCdnVLQ3hSWXBIMW45bGpBUGhY?=
+ =?utf-8?B?eFFkaVNMd1lQZHRzM3VxcXo1SzQxclAxNHVGNGtOTEJRc3VWMmRFeENYQ1lm?=
+ =?utf-8?B?eEZrMHVDUmpFOXBjdUh2ZVJoRWxwc0tRaE53OGl1M3lMSlpPWDJxVXJOK0Va?=
+ =?utf-8?B?V3V4QS9YRkdKejNSNlFwT2Z4Mk9qc3hFMWRkNVR6b3NUSGlQSTdaOHpoVkt1?=
+ =?utf-8?B?ZDRpMlV2OWo5VTZZWTZPWnFXazNsWkptcmYyUlpCYkVvUGxtejhxZmY3OEZq?=
+ =?utf-8?B?eEhRSGJ1Rk1xSXB1alBQMDFieWNxRXMzbW1YY1BtQmFwZDVITk5uUnYya3N1?=
+ =?utf-8?B?MEFlUGRONCtKZXN3TndFc1RvSFB3VTZ0QlZMb2NLd3FhbDM3eWc3cGU2STZx?=
+ =?utf-8?B?NjRObHk5cGdmZGhFOXZ5SFp4TUFPdkhIaVZzRjQrelNxMjREZlUzbTVtSFhB?=
+ =?utf-8?B?dXd4ejF3N2tFR3RLc3NNREVmVlBkNXJiVjdlRkE5RDhqYkllV0FJZEQ0dE9l?=
+ =?utf-8?B?RWJSOHNSVW5hQ0tlT3B2OUwvS3RCZElEbVJwM0ovUGYvNWpqU2tvbE1PRVQ2?=
+ =?utf-8?B?U01RVjNVY3l6TUVQcWlTOFZIVUlpZGY4TGNIdjNlSlJWd1RWS1RSN25HejJI?=
+ =?utf-8?B?dFUxUGFKbUlUWjgzaDFvQnNXV1lIVHcvbWZtU3A1bzBlQmErY1VMYlg1SHp3?=
+ =?utf-8?B?QnVNSE5ncVppMWVEd1JRN1lCOXQ3Y2RyNFNjSTEwUHVTSi9EeVprUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -117,690 +189,306 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 20/23] drm/msm/dcp: Add DCP VirtIO driver
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang <jasowangio@gmail.com>,
-        =?UTF-8?Q?Eugenio_P=C3=A9rez?=
- <eperezma@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Flemin Jose <flemin.jose@oss.qualcomm.com>,
-        Mahadevan P <mahap@oss.qualcomm.com>, virtualization@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
- <20261026-jshekhar-dcp-hlos-v2-20-7cf014efdee1@oss.qualcomm.com>
- <lruitisknk6mnkqxa7dxzib4cw3uh3ts2gypetiek4eu6muebd@rl5oyi4kfali>
-Content-Language: en-US
-In-Reply-To: <lruitisknk6mnkqxa7dxzib4cw3uh3ts2gypetiek4eu6muebd@rl5oyi4kfali>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=XqZvqlF9 c=1 sm=1 tr=0 ts=6af41828 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=j3k-TtDDKKjoNXzRS48A:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: 60BxpaPqoXMjetsOfjZXnYR_COOOY3qb
-X-Proofpoint-GUID: 60BxpaPqoXMjetsOfjZXnYR_COOOY3qb
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDAyOSBTYWx0ZWRfX+m9F0ppXW3rz
- 8OgFACdXFCSVX0CpLiZk+MA2A78qkPnDCDQG7G7kMrhXHJqZ0vNHK7Ya3gTSDghrqtsXrUjLddH
- 97aiZ1aGTnj/8G23bynz1YIXj7KR3C4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDAyOSBTYWx0ZWRfX1E5aeSk5EG5s
- xajWqhOITmhVLv6kYZ57e9iAJYvP+mzvROS2rO+EOW74iKohgv2xpW9J8ARGEHXKTuluf51Gorc
- gaFhFAVmOesRh7kPGiNXTQvSomPBb1jqiYXyuMXxVQ7MPkBrOHQD30KXdeP1cz0llri/mC5Iuri
- SFHyY3Ngjs/oUixLJMZEcpmhwUi1BMUopd2XxaYfjEflwSpU6q7kY6+BsdyW+ADHbkHb1/BCz4l
- wlTusvZ4KhYETk9QACXB+P66xb2FRNkRJWU5F6opzoe3SwXacolRiC/bTsJHpVgr7uBBCnY5i/1
- pVETV3QENxEwmGtcBmSzPSyz0F8ZD5lRYkQpwLU+5j3sSSGv/9/tvlaw4ENNQp0uDBc8n4Wi/LI
- xaCY253LhODSwcu335D9EmRplMRPTwu7J13Dny8wyXMUPIGtjttDSGN0MGXUpoqhta9yL/IkTLV
- Yx94VK4cWRWkC6d28Og==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-11_02,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611110029
+X-Exchange-RoutingPolicyChecked: afCk4HJ/EYNZM8kPv9OTQXr+MLoHfuHOWxjf5ETLbq4yIqj/9xmLNZxbr3mHVkPHPGD+Kpbafeg2cxZqUjS3VqiwMiQBNkrB4OkD58HJYMyFWvmBgjIlkUzrZwmrsavJt24G6jqNQ23DL6j2zKllbhLFIWKo19BgTyGccDjk+Qw8YKct+XkaS9OyXPGpxh1tGaesKe6QONUvF36RBpjzhrEdrA0gmyK8pNOcaSUUGADGmfa40gWjqBhtEK0qapW6YN3fRoab3aj3EhBETtb7DUD4i2RN/Z88CvRKr/bPfrC3P+f49ZhoPDLvu792Rb8i2IWo1a1QtJPDZzBAP+NLNw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY0PR03MB8246.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e0fadf6-963b-42b3-94a9-08df3fc965b9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2026 07:57:13.7080
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dRR90tY339QnA2H2FMEHnSaNHyaBaxMz2IN7iLZdd4V+/A9uYnR6Ctr6d//ruQyjNCQOgNKehiJOJB8T1CVxgBXASKstw9z/6tcz1g3w3LI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYPPR03MB9745
 
-
-On 26-10-2026 15:45, Dmitry Baryshkov wrote:
-> On Mon, Oct 26, 2026 at 11:51:30AM +0530, Jayant Shekhar wrote:
->> Add the DCP function driver that binds the VirtIO device to MSM
->> DRM. Without a function driver, Linux cannot establish HFI queues,
->> discover firmware capabilities, or register the firmware-owned
->> display backend.
->>
->> Set up the DCP DMA and IOMMU identity, initialize VirtIO and HFI
->> transport, register the MSM DRM component, and synchronize suspend,
->> resume, remove, and shutdown with in-flight HFI activity.
->>
->> Assisted-by: LLM
->> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/msm/Makefile         |   2 +
->>   drivers/gpu/drm/msm/dcp/dcp_drv.c    | 191 ++++++++++++++++++++++++++
->>   drivers/gpu/drm/msm/dcp/dcp_drv.h    |  17 +++
->>   drivers/gpu/drm/msm/dcp/dcp_virtio.c | 258 +++++++++++++++++++++++++++++++++++
->>   drivers/gpu/drm/msm/dcp/dcp_virtio.h |   2 +
->>   drivers/gpu/drm/msm/msm_drv.c        |   6 +-
->>   drivers/gpu/drm/msm/msm_drv.h        |   2 +
->>   7 files changed, 475 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
->> index e1a995a8c980..ffdb159dd9ad 100644
->> --- a/drivers/gpu/drm/msm/Makefile
->> +++ b/drivers/gpu/drm/msm/Makefile
->> @@ -85,6 +85,8 @@ msm-display-$(CONFIG_DRM_MSM_DCP) += \
->>   	dcp/dcp_hfi_plane.o \
->>   	dcp/dcp_ipcc.o \
->>   	dcp/dcp_encoder.o \
->> +	dcp/dcp_drv.o \
->> +	dcp/dcp_virtio.o \
->>   	dcp/dcp_virtio_transport.o \
->>   	dcp/hfi/hfi_packer.o \
->>   	dcp/hfi/hfi_unpacker.o \
->> diff --git a/drivers/gpu/drm/msm/dcp/dcp_drv.c b/drivers/gpu/drm/msm/dcp/dcp_drv.c
->> new file mode 100644
->> index 000000000000..8c38de883bf6
->> --- /dev/null
->> +++ b/drivers/gpu/drm/msm/dcp/dcp_drv.c
->> @@ -0,0 +1,191 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + * DCP VirtIO driver.
->> + */
->> +
->> +#include <linux/component.h>
->> +#include <linux/device.h>
->> +#include <linux/dma-mapping.h>
->> +#include <linux/of.h>
->> +#include <linux/of_platform.h>
->> +#include <linux/panic_notifier.h>
->> +#include <linux/pm_runtime.h>
->> +
->> +#define DCP_DPU_AUTOSUSPEND_DELAY_MS	5000
->> +
->> +#include "dcp_drv.h"
->> +#include "dcp_dpu_kms.h"
->> +#include "dcp_hfi.h"
->> +#include "dcp_ipcc.h"
->> +#include "dcp_virtio.h"
->> +#include "msm_drv.h"
->> +#include "msm_kms.h"
->> +
->> +int dcp_subsystem_dev_init(struct dcp_drv *drv)
->> +{
->> +	struct virtio_device *vdev = drv->vdev;
->> +	struct device_node *dcp_subsystem_node;
->> +	struct platform_device *pdev;
->> +	struct device *dev;
->> +	char busid[32];
->> +	bool iommu_mapped;
->> +	int ret;
->> +
->> +	dcp_subsystem_node = of_node_get(vdev->dev.of_node);
->> +	if (!dcp_subsystem_node) {
->> +		dev_err(&vdev->dev, "no DCP subsystem DT node\n");
->> +		return -ENODEV;
->> +	}
->> +
->> +	snprintf(busid, sizeof(busid), "dcp-subsystem.%s", dev_name(vdev->dev.parent));
->> +
->> +	/*
->> +	 * DCP is discovered through VirtIO, but display/HFI buffers must be
->> +	 * mapped through the dcp-subsystem node's DMA/IOMMU identity. Create a
->> +	 * platform device for that DT node so DMA API and msm_kms_init_vm() use
-> Does DMA API require platform_device or would it work with the generic
-> struct device? In the latter case, should the MSM layer be changed to
-> pass struct device instead of struct platform_device?
->
->> +	 * the display function's IOMMU domain.
->> +	 */
->> +	pdev = of_platform_device_create(dcp_subsystem_node, busid, vdev->dev.parent);
->> +	if (!pdev) {
->> +		dev_err(&vdev->dev, "dcp_subsystem_dev creation failed\n");
->> +		of_node_put(dcp_subsystem_node);
->> +		return -ENODEV;
->> +	}
->> +	dev = &pdev->dev;
->> +
->> +	dev->dma_parms = &drv->dcp_subsystem_dma_parms;
->> +	dma_set_max_seg_size(dev, UINT_MAX);
->> +
->> +	ret = of_dma_configure_id(dev, dcp_subsystem_node, true, NULL);
->> +	if (ret) {
->> +		dev_err(dev, "of_dma_configure_id failed: %d\n", ret);
->> +		goto err_destroy;
->> +	}
->> +
->> +	iommu_mapped = device_iommu_mapped(dev);
->> +	if (!iommu_mapped) {
->> +		dev_err(dev, "no IOMMU group attached\n");
->> +		ret = -ENODEV;
->> +		goto err_destroy;
->> +	}
->> +
->> +	dev_dbg(dev, "dcp-subsystem: iommu_mapped=%d iommu_group=%d\n",
->> +		iommu_mapped,
->> +		dev->iommu_group ? iommu_group_id(dev->iommu_group) : -1);
->> +
->> +	pm_runtime_set_active(dev);
->> +	pm_runtime_enable(dev);
->> +	pm_runtime_set_autosuspend_delay(dev, DCP_DPU_AUTOSUSPEND_DELAY_MS);
->> +	pm_runtime_use_autosuspend(dev);
->> +
->> +	drv->dcp_subsystem_dev = pdev;
->> +	drv->dcp_subsystem_node = dcp_subsystem_node;
->> +
->> +	return 0;
->> +
->> +err_destroy:
->> +	of_platform_device_destroy(dev, NULL);
->> +	of_node_put(dcp_subsystem_node);
->> +	return ret;
->> +}
->> +
->> +void dcp_subsystem_dev_deinit(struct dcp_drv *drv)
->> +{
->> +	if (!drv->dcp_subsystem_dev)
->> +		return;
->> +
->> +	pm_runtime_disable(&drv->dcp_subsystem_dev->dev);
->> +	of_platform_device_destroy(&drv->dcp_subsystem_dev->dev, NULL);
->> +	of_node_put(drv->dcp_subsystem_node);
->> +	drv->dcp_subsystem_dev = NULL;
->> +}
->> +
->> +int dcp_pm_prepare(struct device *vdev_dev)
->> +{
->> +	struct dcp_drv *drv = vdev_dev ?
->> +		dev_to_virtio(vdev_dev)->priv : NULL;
->> +
->> +	if (!drv || !drv->dcp_subsystem_dev)
->> +		return 0;
->> +
->> +	return msm_kms_pm_prepare(&drv->dcp_subsystem_dev->dev);
->> +}
->> +
->> +void dcp_pm_complete(struct device *vdev_dev)
->> +{
->> +	struct dcp_drv *drv = vdev_dev ?
->> +		dev_to_virtio(vdev_dev)->priv : NULL;
->> +
->> +	if (!drv || !drv->dcp_subsystem_dev)
->> +		return;
->> +
->> +	msm_kms_pm_complete(&drv->dcp_subsystem_dev->dev);
->> +}
->> +
->> +int dcp_component_register(struct dcp_drv *drv)
->> +{
->> +	struct device *dev = &drv->dcp_subsystem_dev->dev;
->> +	struct component_match *match = NULL;
->> +	int ret;
->> +
->> +	ret = dcp_dpu_kms_init_dsi_bridges(drv->kms, &match);
->> +	if (ret) {
->> +		dev_err(dev, "DSI host initialization failed: %d\n", ret);
->> +		dcp_dpu_kms_cleanup_bridges(drv->kms);
->> +		return ret;
->> +	}
->> +
->> +	/* A GPU is optional for the DCP display-only DRM device. */
->> +	msm_add_gpu_components(dev, &match);
-> Missign error handling.
->
->> +
->> +	ret = component_master_add_with_match(dev, &msm_drm_ops, match);
->> +	if (ret) {
->> +		dev_err(dev, "component_master_add_with_match failed: %d\n",
->> +			ret);
->> +		dcp_dpu_kms_cleanup_bridges(drv->kms);
->> +		return ret;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +void dcp_component_unregister(struct dcp_drv *drv)
->> +{
->> +	struct device *dev = &drv->dcp_subsystem_dev->dev;
->> +
->> +	component_master_del(dev, &msm_drm_ops);
->> +	dcp_dpu_kms_cleanup_bridges(drv->kms);
->> +}
->> +
->> +static int dcp_panic_notifier_cb(struct notifier_block *nb,
->> +				 unsigned long action, void *data)
->> +{
->> +	struct dcp_drv *drv = container_of(nb, struct dcp_drv, panic_notifier);
->> +
->> +	if (drv->hfi)
->> +		atomic_set(&drv->hfi->shutdown_in_progress, 1);
->> +
->> +	return NOTIFY_OK;
->> +}
->> +
->> +void dcp_panic_notifier_register(struct dcp_drv *drv)
->> +{
->> +	drv->panic_notifier.notifier_call = dcp_panic_notifier_cb;
->> +	atomic_notifier_chain_register(&panic_notifier_list, &drv->panic_notifier);
->> +}
->> +
->> +void dcp_panic_notifier_unregister(struct dcp_drv *drv)
->> +{
->> +	atomic_notifier_chain_unregister(&panic_notifier_list, &drv->panic_notifier);
->> +}
->> +
->> +void __init msm_dcp_register(void)
->> +{
->> +	dcp_virtio_register();
->> +}
->> +
->> +void __exit msm_dcp_unregister(void)
->> +{
->> +	dcp_virtio_unregister();
->> +}
->> diff --git a/drivers/gpu/drm/msm/dcp/dcp_drv.h b/drivers/gpu/drm/msm/dcp/dcp_drv.h
->> index 16f87035cb9a..3adc5855a9a2 100644
->> --- a/drivers/gpu/drm/msm/dcp/dcp_drv.h
->> +++ b/drivers/gpu/drm/msm/dcp/dcp_drv.h
->> @@ -14,6 +14,7 @@
->>   #include "dcp_ipcc.h"
->>   
->>   struct dcp_dpu_kms;
->> +struct component_match;
->>   
->>   struct dcp_drv {
->>   	struct virtio_device	*vdev;
->> @@ -24,6 +25,22 @@ struct dcp_drv {
->>   	struct dcp_dpu_kms	*kms;
->>   	struct dcp_caps		 caps;
->>   	struct notifier_block	 panic_notifier;
->> +	struct dcp_ipcc		*ipcc;
->>   };
->>   
->> +int dcp_subsystem_dev_init(struct dcp_drv *drv);
->> +void dcp_subsystem_dev_deinit(struct dcp_drv *drv);
->> +
->> +int dcp_component_register(struct dcp_drv *drv);
->> +void dcp_component_unregister(struct dcp_drv *drv);
->> +
->> +int dcp_pm_prepare(struct device *vdev_dev);
->> +void dcp_pm_complete(struct device *vdev_dev);
->> +
->> +void dcp_panic_notifier_register(struct dcp_drv *drv);
->> +void dcp_panic_notifier_unregister(struct dcp_drv *drv);
->> +
->> +void __init msm_dcp_register(void);
->> +void __exit msm_dcp_unregister(void);
->> +
->>   #endif /* __DCP_DRV_H__ */
->> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio.c b/drivers/gpu/drm/msm/dcp/dcp_virtio.c
->> new file mode 100644
->> index 000000000000..15d5caf02ff5
->> --- /dev/null
->> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio.c
->> @@ -0,0 +1,258 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + * DCP VirtIO device driver.
->> + */
->> +
->> +#include <linux/module.h>
->> +#include <linux/err.h>
->> +#include <linux/pm_runtime.h>
->> +#include <linux/virtio.h>
->> +#include <linux/virtio_config.h>
->> +#include <linux/slab.h>
->> +
->> +#include "dcp_drv.h"
->> +#include "dcp_dpu_kms.h"
->> +#include "dcp_hfi.h"
->> +#include "dcp_ipcc.h"
->> +#include "dcp_virtio.h"
->> +#include "msm_drv.h"
->> +#include "msm_kms.h"
->> +
->> +static void dcp_virtio_hfi_cleanup(struct dcp_drv *drv);
->> +
->> +static const unsigned int dcp_virtio_features[] = {
->> +	VIRTIO_F_VERSION_1,
->> +	VIRTIO_F_NOTIFICATION_DATA,
->> +	VIRTIO_F_RING_RESET,
->> +	VIRTIO_F_ACCESS_PLATFORM,
->> +};
->> +
->> +/*
->> + * The VirtIO core owns transport discovery. This driver owns HFI setup and
->> + * creates the DRM component only after firmware capabilities are available.
->> + */
->> +static int dcp_virtio_probe(struct virtio_device *vdev)
->> +{
->> +	struct dcp_drv *drv;
->> +	struct virtqueue *vqs[DCP_NUM_VQS];
->> +	struct virtqueue_info vqs_info[DCP_NUM_VQS] = {
->> +		[DCP_VQ_CMD]  = { .name = "cmd",  .callback = dcp_hfi_cmd_callback },
->> +		[DCP_VQ_RESP] = { .name = "resp", .callback = dcp_hfi_resp_callback },
->> +	};
->> +	struct dcp_dpu_kms *dcp_kms;
->> +	struct msm_drm_private *priv;
->> +	int ret;
->> +
->> +	dev_dbg(&vdev->dev, "DCP VirtIO probe started\n");
->> +
->> +	drv = devm_kzalloc(&vdev->dev, sizeof(*drv), GFP_KERNEL);
->> +	if (!drv)
->> +		return -ENOMEM;
->> +
->> +	drv->vdev = vdev;
->> +	vdev->priv = drv;
->> +
->> +	if (!virtio_has_feature(vdev, VIRTIO_F_VERSION_1)) {
->> +		dev_err(&vdev->dev, "VIRTIO_F_VERSION_1 not negotiated\n");
->> +		return -ENODEV;
->> +	}
->> +
->> +	drv->ipcc = dcp_virtio_get_ipcc(vdev);
-> Here you are breaking the abstraction boundary. The DCP is a VirtIO
-> device. You should not use IPCC to communicate with it.
->
-
-Will be addressed in v3.
-
-
->> +	/* Access-platform is required for the firmware-visible IOVA mappings. */
->> +	if (!virtio_has_feature(vdev, VIRTIO_F_ACCESS_PLATFORM)) {
->> +		dev_err(&vdev->dev, "VIRTIO_F_ACCESS_PLATFORM not negotiated\n");
->> +		return -ENODEV;
->> +	}
->> +
->> +	ret = dcp_subsystem_dev_init(drv);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = virtio_find_vqs(vdev, DCP_NUM_VQS, vqs, vqs_info, NULL);
->> +	if (ret) {
->> +		dev_err(&vdev->dev, "virtqueue allocation failed: %d\n", ret);
->> +		goto err_fn_dev;
->> +	}
->> +
->> +	ret = dcp_hfi_init(drv, vdev, vqs[DCP_VQ_CMD], vqs[DCP_VQ_RESP],
->> +			   vdev->dev.parent);
->> +	if (ret) {
->> +		dev_err(&vdev->dev, "HFI init failed: %d\n", ret);
->> +		goto err_del_vqs;
->> +	}
->> +
->> +	dcp_ipcc_set_resp_vq(drv->ipcc, vqs[DCP_VQ_RESP]);
->> +
->> +	/*
->> +	 * Keep the device unready until HFI state and virtqueues are initialized.
->> +	 * KMS registration below depends on synchronous firmware initialization.
->> +	 */
->> +	virtio_device_ready(vdev);
->> +	virtqueue_kick(drv->hfi->resp_vq);
->> +
->> +	ret = dcp_hfi_send_device_init(drv->hfi);
->> +	if (ret) {
->> +		dev_err(&vdev->dev, "HFI DEVICE_INIT failed: %d\n", ret);
->> +		goto err_hfi_deinit;
->> +	}
->> +
->> +	ret = dcp_hfi_get_capabilities(drv->hfi, &drv->caps);
->> +	if (ret) {
->> +		dev_err(&vdev->dev, "HFI GET_CAPS failed: %d\n", ret);
->> +		goto err_hfi_deinit;
->> +	}
->> +
->> +	/* Register the display resources before exposing the DRM component. */
->> +	ret = dcp_hfi_send_resource_register(drv->hfi);
->> +	if (ret) {
->> +		dev_err(&vdev->dev, "HFI RESOURCE_REGISTER failed: %d\n", ret);
->> +		goto err_hfi_deinit;
->> +	}
->> +
->> +	dev_dbg(&vdev->dev,
->> +		"DCP caps: %u displays, max %ux%u, %u planes\n",
->> +		drv->caps.num_displays, drv->caps.max_width, drv->caps.max_height,
->> +		drv->caps.max_planes);
->> +
->> +	dcp_kms = devm_kzalloc(&drv->dcp_subsystem_dev->dev, sizeof(*dcp_kms), GFP_KERNEL);
->> +	if (!dcp_kms) {
->> +		ret = -ENOMEM;
->> +		goto err_hfi_deinit;
->> +	}
->> +
->> +	dcp_kms->drv       = drv;
->> +	dcp_kms->pm_dev    = &drv->dcp_subsystem_dev->dev;
->> +	dcp_kms->hfi       = drv->hfi;
->> +	dcp_kms->caps      = &drv->caps;
->> +	dcp_kms->dpus_np   = drv->dcp_subsystem_node;
->> +	dcp_kms->iommu_dev = &drv->dcp_subsystem_dev->dev;
->> +	drv->kms        = dcp_kms;
->> +
->> +	ret = msm_kms_init(&dcp_kms->base, &dcp_dpu_kms_funcs);
->> +	if (ret) {
->> +		dev_err(&vdev->dev, "msm_kms_init failed: %d\n", ret);
->> +		goto err_hfi_deinit;
->> +	}
->> +
->> +	priv = devm_kzalloc(&drv->dcp_subsystem_dev->dev, sizeof(*priv), GFP_KERNEL);
->> +	if (!priv) {
->> +		ret = -ENOMEM;
->> +		goto err_hfi_deinit;
->> +	}
->> +
->> +	priv->kms      = &dcp_kms->base;
->> +	priv->kms_init = dcp_kms_init;
->> +	dev_set_drvdata(&drv->dcp_subsystem_dev->dev, priv);
->> +	dcp_kms->rpm_enabled = true;
->> +
->> +	/* Component binding now sees initialized HFI, capabilities, and IOMMU state. */
->> +	ret = dcp_component_register(drv);
->> +	if (ret) {
->> +		dev_err_probe(&vdev->dev, ret, "component register failed\n");
->> +		goto err_hfi_deinit;
->> +	}
->> +
->> +	dcp_panic_notifier_register(drv);
->> +
->> +	dev_dbg(&vdev->dev, "DCP VirtIO probe complete\n");
->> +	return 0;
->> +
->> +err_hfi_deinit:
->> +	dcp_virtio_hfi_cleanup(drv);
->> +	goto err_fn_dev;
->> +err_del_vqs:
->> +	virtio_reset_device(vdev);
->> +	vdev->config->del_vqs(vdev);
->> +err_fn_dev:
->> +	dcp_subsystem_dev_deinit(drv);
->> +	return ret;
->> +}
->> +
->> +static void dcp_virtio_hfi_cleanup(struct dcp_drv *drv)
->> +{
->> +	struct virtio_device *vdev = drv->vdev;
->> +
->> +	if (!drv->hfi)
->> +		return;
->> +
->> +	dcp_ipcc_set_resp_vq(drv->ipcc, NULL);
->> +
->> +	dcp_hfi_stop(drv->hfi);
->> +	virtio_reset_device(vdev);
->> +	virtio_synchronize_cbs(vdev);
->> +	dcp_hfi_quiesce_queues(drv->hfi);
->> +	vdev->config->del_vqs(vdev);
->> +	dcp_hfi_deinit(drv->hfi);
->> +}
->> +
->> +/* Remove DRM users before tearing down HFI, IPCC, or the VirtIO queues. */
->> +static void dcp_virtio_remove(struct virtio_device *vdev)
->> +{
->> +	struct dcp_drv *drv = vdev->priv;
->> +
->> +	dev_dbg(&vdev->dev, "DCP VirtIO remove\n");
->> +
->> +	dcp_component_unregister(drv);
->> +	dcp_panic_notifier_unregister(drv);
->> +
->> +	dcp_virtio_hfi_cleanup(drv);
->> +
->> +	dcp_subsystem_dev_deinit(drv);
->> +}
->> +
->> +/* KMS shutdown must complete while the firmware transport is available. */
->> +static void dcp_virtio_shutdown(struct virtio_device *vdev)
->> +{
->> +	struct dcp_drv *drv = vdev->priv;
->> +
->> +	pm_runtime_get_sync(&drv->dcp_subsystem_dev->dev);
->> +	msm_kms_shutdown(drv->dcp_subsystem_dev);
->> +	pm_runtime_put_noidle(&drv->dcp_subsystem_dev->dev);
->> +}
->> +
->> +static const struct virtio_device_id dcp_virtio_id_table[] = {
->> +	{ VIRTIO_ID_QPSFI, VIRTIO_VENDOR_ID_DCP_HFI },
-> What exactly does it mean? Are you using Vendor ID (which should be
-> Qualcomm) to distinguish between possible QPSFI devices?
->
->> +	{ 0 },
->> +};
->> +MODULE_DEVICE_TABLE(virtio, dcp_virtio_id_table);
->> +
->> +static const struct dev_pm_ops dcp_virtio_pm_ops = {
->> +	.prepare = dcp_pm_prepare,
->> +	.complete = dcp_pm_complete,
->> +};
->> +
->> +static struct virtio_driver dcp_virtio_driver = {
->> +	.driver = {
->> +		.name  = "qcom-dcp-hfi",
->> +		.owner = THIS_MODULE,
->> +		.pm    = &dcp_virtio_pm_ops,
->> +	},
->> +	.id_table           = dcp_virtio_id_table,
->> +	.feature_table      = dcp_virtio_features,
->> +	.feature_table_size = ARRAY_SIZE(dcp_virtio_features),
->> +	.probe              = dcp_virtio_probe,
->> +	.remove             = dcp_virtio_remove,
->> +	.shutdown           = dcp_virtio_shutdown,
->> +};
->> +
->> +int dcp_virtio_register(void)
->> +{
->> +	int ret;
->> +
->> +	ret = dcp_virtio_transport_register();
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = register_virtio_driver(&dcp_virtio_driver);
->> +	if (ret)
->> +		dcp_virtio_transport_unregister();
->> +
->> +	return ret;
->> +}
->> +
->> +void dcp_virtio_unregister(void)
->> +{
->> +	unregister_virtio_driver(&dcp_virtio_driver);
->> +	dcp_virtio_transport_unregister();
->> +}
->> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio.h b/drivers/gpu/drm/msm/dcp/dcp_virtio.h
->> index a9c3b9aff61d..3ded8293ab18 100644
->> --- a/drivers/gpu/drm/msm/dcp/dcp_virtio.h
->> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio.h
->> @@ -8,9 +8,11 @@
->>   
->>   #include <linux/device.h>
->>   #include <linux/virtio.h>
->> +#include <linux/virtio_ids.h>
->>   
->>   struct dcp_drv;
->>   struct dcp_ipcc;
->> +#define VIRTIO_VENDOR_ID_DCP_HFI		1
-> Squatting the ID?
->
->>   
->>   struct dcp_ipcc *dcp_virtio_get_ipcc(struct virtio_device *vdev);
->>   
->> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
->> index 5e8f3ce26b32..5816c64d7ce7 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.c
->> +++ b/drivers/gpu/drm/msm/msm_drv.c
->> @@ -1093,8 +1093,8 @@ static const struct of_device_id msm_gpu_match[] = {
->>   	{ },
->>   };
->>   
->> -static int add_gpu_components(struct device *dev,
->> -			      struct component_match **matchptr)
->> +int msm_add_gpu_components(struct device *dev,
->> +			   struct component_match **matchptr)
-> Separate commit.
->
->>   
-
-
-Comments to be addressed in v3.
-
-
->> {
->>   	struct device_node *np;
->>   
->> @@ -1153,7 +1153,7 @@ int msm_drv_probe(struct device *master_dev,
->>   	}
->>   
->>   	if (!msm_separate_gpu_kms_components()) {
->> -		ret = add_gpu_components(master_dev, &match);
->> +		ret = msm_add_gpu_components(master_dev, &match);
->>   		if (ret)
->>   			return ret;
->>   	}
->> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
->> index 2840e8a5052d..aa5dfd82ac6f 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.h
->> +++ b/drivers/gpu/drm/msm/msm_drv.h
->> @@ -523,6 +523,8 @@ static inline unsigned long timeout_to_jiffies(const ktime_t *timeout)
->>   /* Driver helpers */
->>   
->>   extern const struct component_master_ops msm_drm_ops;
->> +int msm_add_gpu_components(struct device *dev,
->> +			   struct component_match **matchptr);
->>   
->>   int msm_kms_pm_prepare(struct device *dev);
->>   void msm_kms_pm_complete(struct device *dev);
->>
->> -- 
->> 2.43.0
->>
+RGVhciBnZXRmZXVzOg0KDQpJIHJldmlld2VkIHRoZSBwYXRjaCBhbmQgc3VnZ2VzdCBhZGRpbmcg
+dHdvIGNoZWNrcyBpbiBtdGtfbWRwX3Byb2JlKCk6DQoxLiBDaGVjayBJU19FUlIobWF0Y2gpIGlt
+bWVkaWF0ZWx5IGFmdGVyIGVhY2ggY29tcG9uZW50X21hdGNoX2FkZF9yZWxlYXNlKCkgY2FsbC4g
+VGhpcyBmdW5jdGlvbiByZXR1cm5zIHZvaWQgYW5kIHJlcG9ydHMgYWxsb2NhdGlvbiBmYWlsdXJl
+cyB0aHJvdWdoIHRoZSBtYXRjaCBwb2ludGVyLiBPbiBmYWlsdXJlLCBwcm9wYWdhdGUgUFRSX0VS
+UihtYXRjaCksIHJlbGVhc2UgYm90aCB0aGUgdW5jb25zdW1lZCBPRi1ub2RlIHJlZmVyZW5jZSBh
+bmQgdGhlIGxvb3AgcmVmZXJlbmNlLCB0aGVuIGp1bXAgdG8gdGhlIGV4aXN0aW5nIGVycl9jb21w
+IGNsZWFudXAgbGFiZWwuDQoyLiBDaGVjayBmb3IgYW4gZW1wdHkgbWF0Y2ggbGlzdCBhZnRlciB0
+aGUgc2libGluZy1ub2RlIGxvb3AuIFdoZW4gbWRwLT51c2VfY29tcG9uZW50cyBpcyB0cnVlIGJ1
+dCBubyBtYXRjaGluZyBzaWJsaW5nIGNvbXBvbmVudHMgYXJlIGZvdW5kLCBtYXRjaCByZW1haW5z
+IE5VTEwuIFJldHVybiAtRU5PREVWIHRocm91Z2ggZXJyX2NvbXAgYmVmb3JlIGNhbGxpbmcgY29t
+cG9uZW50X21hc3Rlcl9hZGRfd2l0aF9tYXRjaCgpLCB3aGljaCBleHBlY3RzIGEgdmFsaWQgbWF0
+Y2ggbGlzdC4NCg0KbGlrZSBhcyBiZWxsb3c6DQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL21lZGlh
+L3BsYXRmb3JtL21lZGlhdGVrL21kcC9tdGtfbWRwX2NvcmUuYyBiL2RyaXZlcnMvbWVkaWEvcGxh
+dGZvcm0vbWVkaWF0ZWsvbWRwL210a19tZHBfY29yZS5jDQppbmRleCAzNzJiNDg1ZDFkNGQuLjM4
+NzZiYjdhNjhmMyAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vbWVkaWF0ZWsv
+bWRwL210a19tZHBfY29yZS5jDQorKysgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL21lZGlhdGVr
+L21kcC9tdGtfbWRwX2NvcmUuYw0KQEAgLTIwNCwxMSArMjA0LDI2IEBADQogCQl9DQogDQogCQlt
+dGtfbWRwX3JlZ2lzdGVyX2NvbXBvbmVudChtZHAsIGNvbXApOw0KKwkJaWYgKG1kcC0+dXNlX2Nv
+bXBvbmVudHMgJiYgbm9kZSAhPSBkZXYtPm9mX25vZGUpIHsNCisJCQlzdHJ1Y3QgZGV2aWNlX25v
+ZGUgKm1hdGNoX25vZGUgPSBvZl9ub2RlX2dldChub2RlKTsNCisNCiAJCQljb21wb25lbnRfbWF0
+Y2hfYWRkX3JlbGVhc2UoZGV2LCAmbWF0Y2gsDQogCQkJCQkJICAgIG10a19tZHBfcmVsZWFzZV9j
+b21wb25lbnQsDQogCQkJCQkJICAgIG10a19tZHBfY29tcGFyZV9jb21wb25lbnQsDQotCQkJCQkJ
+ICAgIG9mX25vZGVfZ2V0KG5vZGUpKTsNCisJCQkJCQkgICAgbWF0Y2hfbm9kZSk7DQorCQkJaWYg
+KElTX0VSUihtYXRjaCkpIHsNCisJCQkJcmV0ID0gUFRSX0VSUihtYXRjaCk7DQorCQkJCS8qIFRo
+ZSBmYWlsZWQgZW50cnkgZGlkIG5vdCBjb25zdW1lIHRoaXMgcmVmZXJlbmNlLiAqLw0KKwkJCQlv
+Zl9ub2RlX3B1dChtYXRjaF9ub2RlKTsNCisJCQkJb2Zfbm9kZV9wdXQobm9kZSk7DQorCQkJCWdv
+dG8gZXJyX2NvbXA7DQorCQkJfQ0KKwkJfQ0KKwl9DQorDQorCWlmIChtZHAtPnVzZV9jb21wb25l
+bnRzICYmICFtYXRjaCkgew0KKwkJcmV0ID0gLUVOT0RFVjsNCisJCWdvdG8gZXJyX2NvbXA7DQog
+CX0NCg0KUGxlYXNlIGNoZWNrIGl0IGFuZCB0ZXN0Lg0KDQpCZXN0IHJlZ2FyZHMsDQoNCi0tLS0t
+6YKu5Lu25Y6f5Lu2LS0tLS0NCuWPkeS7tuS6ujogZ2V0ZmV1c0BnbWFpbC5jb20gPGdldGZldXNA
+Z21haWwuY29tPiANCuWPkemAgeaXtumXtDogMjAyNuW5tDEx5pyIMTHml6UgMTE6MzkNCuaUtuS7
+tuS6ujogTWluZ2hzaXUgVHNhaSAo6JSh5piO5L+uKSA8TWluZ2hzaXUuVHNhaUBtZWRpYXRlay5j
+b20+OyBIb3Vsb25nIFdlaSAo6a2P5Y6a6b6ZKSA8aG91bG9uZy53ZWlAbWVkaWF0ZWsuY29tPjsg
+QW5kcmV3LUNUIENoZW4gKOmZs+aZuui/qikgPEFuZHJldy1DVC5DaGVuQG1lZGlhdGVrLmNvbT47
+IG1jaGVoYWJAa2VybmVsLm9yZw0K5oqE6YCBOiBsaW51eC1tZWRpYUB2Z2VyLmtlcm5lbC5vcmc7
+IGxpbnV4LW1lZGlhdGVrQGxpc3RzLmluZnJhZGVhZC5vcmcNCuS4u+mimDogW1JGQyBQQVRDSF0g
+bWVkaWE6IG1lZGlhdGVrOiBtZHA6IEtlZXAgY29tcG9uZW50IHN1cHBsaWVycyBwb3dlcmVkIHdo
+aWxlIHN0cmVhbWluZw0KDQoNCkV4dGVybmFsIGVtYWlsIDogUGxlYXNlIGRvIG5vdCBjbGljayBs
+aW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVudGlsIHlvdSBoYXZlIHZlcmlmaWVkIHRoZSBzZW5k
+ZXIgb3IgdGhlIGNvbnRlbnQuDQoNCg0KSGksDQoNCkZvbGxvd2luZyB1cCBvbiBteSBlYXJsaWVy
+IHJlcG9ydCAoIk1UODE3MyBsZWdhY3kgTURQOiBQUk9DRVNTX0FDSyBzdGF0dXMgMCBidXQgQ0FQ
+VFVSRSByZW1haW5zIHVuY2hhbmdlZCIpLCBJIGR1ZyBpbnRvIHRoZSBydW50aW1lLVBNIGRlcGVu
+ZGVuY2llcyBvbiBhbiBNVDgxNzMgRWxtIENocm9tZWJvb2suDQoNClRoZSBsZWdhY3kgTURQIGRy
+aXZlciBtYW5hZ2VzIHRoZSBjbG9ja3MgZm9yIGl0cyBzaWJsaW5nIGJsb2NrcyBkaXJlY3RseSBm
+cm9tIHRoZSBSRE1BMCBtYXN0ZXIsIGJ1dCBpdCBkb2VzIG5vdCBlc3RhYmxpc2ggcnVudGltZS1Q
+TSBkZXBlbmRlbmNpZXMgZnJvbSB0aGUgbWFzdGVyIHRvIHRob3NlIGRldmljZXMuIEFzIGEgcmVz
+dWx0LCB0aGVpciBzdXBwbGllcnMgYXJlIG5vdCBhbGwga2VwdCBhY3RpdmUgZHVyaW5nIHByb2Nl
+c3NpbmcuIEluIHBhcnRpY3VsYXIsDQpMQVJCNCBzdGF5cyBzdXNwZW5kZWQuDQoNCkluIHRoZSBm
+YWlsaW5nIGNhc2UsIHRoZSBmaXJtd2FyZSByZXBvcnRzIHN1Y2Nlc3MgYW5kIGJvdGggYnVmZmVy
+cyBjb21wbGV0ZSwgeWV0IHRoZSBDQVBUVVJFIHBsYW5lcyByZW1haW4gdW50b3VjaGVkLCBtYXRj
+aGluZyB0aGUgcHJlLXF1ZXVlIGNhbmFyeS4gS2VlcGluZyBMQVJCNCBhY3RpdmUgYmVmb3JlIHRo
+ZSBmaXJzdCBqb2IgY2hhbmdlcyB0aGUgb3V0cHV0IHRvIGEgYnl0ZS1leGFjdCBjb3B5Lg0KDQpU
+aGUgcHJvcG9zZWQgZml4IGJpbmRzIHRoZSBzaWJsaW5nIGJsb2NrcyBhcyBjb21wb25lbnRzIGFu
+ZCBhZGRzIHJ1bnRpbWUtUE0gZGV2aWNlIGxpbmtzIGZyb20gdGhlIG1hc3RlciB0byB0aGVtLiBU
+aGVpciBleGlzdGluZyBJT01NVS9MQVJCIHN1cHBsaWVyIGxpbmtzIHRoZW4gcHJvcGFnYXRlIHRo
+ZSByZXF1aXJlZCBQTSByZWZlcmVuY2VzLg0KRW5naW5lIGNsb2NrIGhhbmRsaW5nIHN0YXlzIGlu
+IHRoZSBtYXN0ZXIsIGFuZCB0aGUgTTJNIGRldmljZSBpcyByZWdpc3RlcmVkIG9ubHkgYWZ0ZXIg
+YWxsIHJlcXVpcmVkIGNvbXBvbmVudHMgaGF2ZSBib3VuZC4gVGhlIGV4aXN0aW5nIGZhbGxiYWNr
+IHBhdGggZm9yIGxlZ2FjeSBjaGlsZC1ub2RlIERUcyBpcyByZXRhaW5lZC4NCg0KSSBhbHNvIHJl
+cHJvZHVjZWQgYW4gSU9NTVUgcmVhZCBmYXVsdCBvbiBMQVJCNCBwb3J0IDQgKE1EUF9SRE1BMSkg
+YWZ0ZXIgY2xvc2luZyBhIGZhaWxlZCBqb2IgYW5kIHVubWFwcGluZyBpdHMgYnVmZmVycy4gVHJh
+Y2luZyBhc3NvY2lhdGVkIHRoZSByZXBvcnRlZCBmYXVsdCBwYWdlIHdpdGggdGhhdCBqb2IncyBp
+bnB1dCBZIGFsbG9jYXRpb24uDQpObyBzZWNvbmQgUFJPQ0VTUyBjb21tYW5kIHdhcyBzdWJtaXR0
+ZWQgYmVmb3JlIHRoZSBmYXVsdCB3YXMgcmVwb3J0ZWQgZHVyaW5nIHRoZSBzdWJzZXF1ZW50IExB
+UkI0IHJlYWN0aXZhdGlvbiBzZXF1ZW5jZS4NCg0KVGhlIHBhdGNoIGZpeGVzIHRoZSBtaXNzaW5n
+IFBNIGRlcGVuZGVuY2llcy4gQWxsIHRlbiBjb252ZXJzaW9uIHRlc3RzIHBhc3NlZCB3aXRoIHBp
+eGVsLWV4YWN0IG91dHB1dCBhbmQgbm8gSU9NTVUgZmF1bHRzLCB3aXRob3V0IG1hbnVhbGx5IGZv
+cmNpbmcgTEFSQjQgb24uDQoNClRlc3RlZCBvbiBFbG0gKG5leHQtMjAyNjExMDUtYmFzZWQga2Vy
+bmVsLCBWUFUgZmlybXdhcmUgdjEuMi4wKToNCg0KLSBTZXZlbiBOVjEyTSA2NDB4MzYwIGNvcHkg
+am9icyBwcm9kdWNlZCBieXRlLWV4YWN0IFkvVVYgb3V0cHV0Lg0KLSBUaHJlZSBzYXZlZCBNVDIx
+QyA2NDB4Mzg0IHRvIFlVVjQyME0gNjQweDM2MCBjb252ZXJzaW9ucyBtYXRjaGVkIHRoZSBzb2Z0
+d2FyZS1kZWNvZGVkIHJlZmVyZW5jZSBhY3Jvc3MgYWxsIHZpc2libGUgWS9VL1Ygc2FtcGxlcy4N
+Ci0gVGVzdGluZyBjb3ZlcmVkIGJvdGggdGVtcG9yYXJ5IG1vZHVsZSBsb2FkaW5nIGFuZCBsb2Fk
+aW5nIHRoZSBjYW5kaWRhdGUgZHVyaW5nIGJvb3QuDQotIExBUkI0IHJlbWFpbmVkIHVuZGVyIHRo
+ZSAiYXV0byIgUE0gcG9saWN5LCBiZWNhbWUgYWN0aXZlIGR1cmluZyBzdHJlYW1pbmcsIGFuZCBz
+dXNwZW5kZWQgYWdhaW4gYWZ0ZXIgc3RyZWFtaW5nIHN0b3BwZWQuDQotIFRocmVlIFNUUkVBTU9O
+LXdpdGhvdXQtYnVmZmVycyBjaGVja3MgcmV0dXJuZWQgdGhlIGV4cGVjdGVkIEVJTlZBTCwgd2l0
+aCBubyBhZGRpdGlvbmFsIFBST0NFU1MgY29tbWFuZHMgb3Igb2JzZXJ2ZWQgUE0gY2xlYW51cCBm
+YWlsdXJlcy4NCi0gVGhlIFBNIGNoYW5nZXMgYXBwbHkgYW5kIGJ1aWxkIGNsZWFubHkgYWdhaW5z
+dCBuZXh0LTIwMjYxMTA1IHdpdGhvdXQgdGhlIGRpYWdub3N0aWMgaW5zdHJ1bWVudGF0aW9uLg0K
+DQpUaGUgZGlmZiBiZWxvdyBpcyBiYXNlZCBvbiBjdXJyZW50IGxpbnV4LW5leHQgKDc5MzgwN2Nh
+MTNiZikuIENvbXBhcmVkIHdpdGggdGhlIHRlc3RlZCBuZXh0LTIwMjYxMTA1IGZpbGVzLCB0aGUg
+b25seSBpbnRlcnZlbmluZyBjaGFuZ2VzIGluIHRoZXNlIGZpbGVzIGFyZSB0d28gZGV2bV9remFs
+bG9jX29iaigpIHN1YnN0aXR1dGlvbnMuIFRob3NlIHVwc3RyZWFtIGNoYW5nZXMgYXJlIHJldGFp
+bmVkOyB0aGUgcHJvcG9zZWQgUE0gY2hhbmdlcyBhcmUgdW5jaGFuZ2VkLg0KDQpTeXN0ZW0gc3Vz
+cGVuZC9yZXN1bWUsIG90aGVyIGJvYXJkcywgbGVnYWN5IGNoaWxkLW5vZGUgRFRzLCBhbmQgcHJv
+YmUvYWxsb2NhdGlvbiBlcnJvci1pbmplY3Rpb24gcGF0aHMgaGF2ZSBub3QgYmVlbiB0ZXN0ZWQu
+DQoNCkRvZXMgdGhpcyBsb29rIGxpa2UgdGhlIHJpZ2h0IHdheSB0byBtb2RlbCB0aGUgcnVudGlt
+ZS1QTSBkZXBlbmRlbmNpZXMgZm9yIHRoZSBsZWdhY3kgTURQIGNvbXBvbmVudHM/IEknZCBlc3Bl
+Y2lhbGx5IGFwcHJlY2lhdGUgZmVlZGJhY2sgb24gdGhlIGRldmljZS1saW5rIGxpZmV0aW1lIGFu
+ZCBjb21wb25lbnQgYmluZC91bmJpbmQgb3JkZXJpbmcuDQoNCkkgaGF2ZSB0aGUgdXNlcnNwYWNl
+IHJlcHJvZHVjZXIsIGRldGVybWluaXN0aWMgdGVzdCBwYXR0ZXJuIGdlbmVyYXRvciwgYW5kIGZ0
+cmFjZSBsb2dzIGF2YWlsYWJsZSBpZiB1c2VmdWwuDQoNClRoYW5rcywNCllvdW5nam9vbiBMZWUN
+Cg0KU2lnbmVkLW9mZi1ieTogWW91bmdqb29uIExlZSA8Z2V0ZmV1c0BnbWFpbC5jb20+DQotLS0N
+CiBkcml2ZXJzL21lZGlhL3BsYXRmb3JtL21lZGlhdGVrL21kcC9NYWtlZmlsZSAgICAgICB8ICAx
+ICsNCiBkcml2ZXJzL21lZGlhL3BsYXRmb3JtL21lZGlhdGVrL21kcC9tdGtfbWRwX2NvbXAuaCB8
+ICAxICsgIGRyaXZlcnMvbWVkaWEvcGxhdGZvcm0vbWVkaWF0ZWsvbWRwL210a19tZHBfY29yZS5j
+IHwgOTEgKysrKysrKysrKysrKysrKysrKy0tLSAgZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9tZWRp
+YXRlay9tZHAvbXRrX21kcF9jb3JlLmggfCAgMiArDQogZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9t
+ZWRpYXRlay9tZHAvbXRrX21kcF9wbS5jICAgfCA4MSArKysrKysrKysrKysrKysrKysrDQogNSBm
+aWxlcyBjaGFuZ2VkLCAxNjUgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pDQoNCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL21lZGlhdGVrL21kcC9NYWtlZmlsZQ0KYi9k
+cml2ZXJzL21lZGlhL3BsYXRmb3JtL21lZGlhdGVrL21kcC9NYWtlZmlsZQ0KaW5kZXggYjdjMTZl
+Yi4uYzNmM2E3NCAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vbWVkaWF0ZWsv
+bWRwL01ha2VmaWxlDQorKysgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL21lZGlhdGVrL21kcC9N
+YWtlZmlsZQ0KQEAgLTEsNSArMSw2IEBADQogIyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BM
+LTIuMA0KIG10ay1tZHAteSArPSBtdGtfbWRwX2NvcmUubw0KK210ay1tZHAteSArPSBtdGtfbWRw
+X3BtLm8NCiBtdGstbWRwLXkgKz0gbXRrX21kcF9jb21wLm8NCiBtdGstbWRwLXkgKz0gbXRrX21k
+cF9tMm0ubw0KIG10ay1tZHAteSArPSBtdGtfbWRwX3JlZ3Mubw0KZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvbWVkaWEvcGxhdGZvcm0vbWVkaWF0ZWsvbWRwL210a19tZHBfY29tcC5oDQpiL2RyaXZlcnMv
+bWVkaWEvcGxhdGZvcm0vbWVkaWF0ZWsvbWRwL210a19tZHBfY29tcC5oDQppbmRleCBhZTQxZGQz
+Li5jOTA5OGQ4IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9tZWRpYXRlay9t
+ZHAvbXRrX21kcF9jb21wLmgNCisrKyBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vbWVkaWF0ZWsv
+bWRwL210a19tZHBfY29tcC5oDQpAQCAtNDIsNSArNDIsNiBAQCB2b2lkIG10a19tZHBfY29tcF9k
+ZWluaXQoc3RydWN0IGRldmljZSAqZGV2LCBzdHJ1Y3QgbXRrX21kcF9jb21wICpjb21wKTsgIHZv
+aWQgbXRrX21kcF9jb21wX2Nsb2NrX29uKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IG10a19t
+ZHBfY29tcCAqY29tcCk7ICB2b2lkIG10a19tZHBfY29tcF9jbG9ja19vZmYoc3RydWN0IGRldmlj
+ZSAqZGV2LCBzdHJ1Y3QgbXRrX21kcF9jb21wICpjb21wKTsNCg0KK2V4dGVybiBzdHJ1Y3QgcGxh
+dGZvcm1fZHJpdmVyIG10a19tZHBfcG1fY29tcG9uZW50X2RyaXZlcjsNCg0KICNlbmRpZiAvKiBf
+X01US19NRFBfQ09NUF9IX18gKi8NCmRpZmYgLS1naXQgYS9kcml2ZXJzL21lZGlhL3BsYXRmb3Jt
+L21lZGlhdGVrL21kcC9tdGtfbWRwX2NvcmUuYw0KYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL21l
+ZGlhdGVrL21kcC9tdGtfbWRwX2NvcmUuYw0KaW5kZXggYzA2NWNkZS4uMjNiY2FhOCAxMDA2NDQN
+Ci0tLSBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vbWVkaWF0ZWsvbWRwL210a19tZHBfY29yZS5j
+DQorKysgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL21lZGlhdGVrL21kcC9tdGtfbWRwX2NvcmUu
+Yw0KQEAgLTYsNiArNiw3IEBADQogICovDQoNCiAjaW5jbHVkZSA8bGludXgvY2xrLmg+DQorI2lu
+Y2x1ZGUgPGxpbnV4L2NvbXBvbmVudC5oPg0KICNpbmNsdWRlIDxsaW51eC9kZXZpY2UuaD4NCiAj
+aW5jbHVkZSA8bGludXgvZXJybm8uaD4NCiAjaW5jbHVkZSA8bGludXgvaW50ZXJydXB0Lmg+DQpA
+QCAtMTAyLDEyICsxMDMsNTAgQEAgdm9pZCBtdGtfbWRwX3VucmVnaXN0ZXJfY29tcG9uZW50KHN0
+cnVjdCBtdGtfbWRwX2RldiAqbWRwLA0KICAgICAgICBsaXN0X2RlbCgmY29tcC0+bm9kZSk7DQog
+fQ0KDQorc3RhdGljIGludCBtdGtfbWRwX2NvbXBhcmVfY29tcG9uZW50KHN0cnVjdCBkZXZpY2Ug
+KmRldiwgdm9pZCAqZGF0YSkgew0KKyAgICAgICByZXR1cm4gZGV2LT5vZl9ub2RlID09IGRhdGE7
+DQorfQ0KKw0KK3N0YXRpYyB2b2lkIG10a19tZHBfcmVsZWFzZV9jb21wb25lbnQoc3RydWN0IGRl
+dmljZSAqZGV2LCB2b2lkICpkYXRhKSB7DQorICAgICAgIG9mX25vZGVfcHV0KGRhdGEpOw0KK30N
+CisNCitzdGF0aWMgaW50IG10a19tZHBfbWFzdGVyX2JpbmQoc3RydWN0IGRldmljZSAqZGV2KSB7
+DQorICAgICAgIHN0cnVjdCBtdGtfbWRwX2RldiAqbWRwID0gZGV2X2dldF9kcnZkYXRhKGRldik7
+DQorICAgICAgIGludCByZXQ7DQorDQorICAgICAgIHJldCA9IGNvbXBvbmVudF9iaW5kX2FsbChk
+ZXYsIG1kcCk7DQorICAgICAgIGlmIChyZXQpDQorICAgICAgICAgICAgICAgcmV0dXJuIHJldDsN
+CisgICAgICAgcmV0ID0gbXRrX21kcF9yZWdpc3Rlcl9tMm1fZGV2aWNlKG1kcCk7DQorICAgICAg
+IGlmIChyZXQpDQorICAgICAgICAgICAgICAgY29tcG9uZW50X3VuYmluZF9hbGwoZGV2LCBtZHAp
+Ow0KKyAgICAgICByZXR1cm4gcmV0Ow0KK30NCisNCitzdGF0aWMgdm9pZCBtdGtfbWRwX21hc3Rl
+cl91bmJpbmQoc3RydWN0IGRldmljZSAqZGV2KSB7DQorICAgICAgIHN0cnVjdCBtdGtfbWRwX2Rl
+diAqbWRwID0gZGV2X2dldF9kcnZkYXRhKGRldik7DQorDQorICAgICAgIG10a19tZHBfdW5yZWdp
+c3Rlcl9tMm1fZGV2aWNlKG1kcCk7DQorICAgICAgIGNvbXBvbmVudF91bmJpbmRfYWxsKGRldiwg
+bWRwKTsNCit9DQorDQorc3RhdGljIGNvbnN0IHN0cnVjdCBjb21wb25lbnRfbWFzdGVyX29wcyBt
+dGtfbWRwX21hc3Rlcl9vcHMgPSB7DQorICAgICAgIC5iaW5kID0gbXRrX21kcF9tYXN0ZXJfYmlu
+ZCwNCisgICAgICAgLnVuYmluZCA9IG10a19tZHBfbWFzdGVyX3VuYmluZCwgfTsNCisNCiBzdGF0
+aWMgaW50IG10a19tZHBfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikgIHsNCiAg
+ICAgICAgc3RydWN0IG10a19tZHBfZGV2ICptZHA7DQogICAgICAgIHN0cnVjdCBkZXZpY2UgKmRl
+diA9ICZwZGV2LT5kZXY7DQogICAgICAgIHN0cnVjdCBkZXZpY2Vfbm9kZSAqbm9kZSwgKnBhcmVu
+dDsNCiAgICAgICAgc3RydWN0IG10a19tZHBfY29tcCAqY29tcCwgKmNvbXBfdGVtcDsNCisgICAg
+ICAgc3RydWN0IGNvbXBvbmVudF9tYXRjaCAqbWF0Y2ggPSBOVUxMOw0KICAgICAgICBpbnQgcmV0
+ID0gMDsNCg0KICAgICAgICBtZHAgPSBkZXZtX2t6YWxsb2Nfb2JqKGRldiwgKm1kcCk7IEBAIC0x
+MzIsNiArMTcxLDggQEAgc3RhdGljIGludCBtdGtfbWRwX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9k
+ZXZpY2UgKnBkZXYpDQogICAgICAgICAgICAgICAgcGFyZW50ID0gZGV2LT5vZl9ub2RlLT5wYXJl
+bnQ7DQogICAgICAgIH0NCg0KKyAgICAgICBtZHAtPnVzZV9jb21wb25lbnRzID0gcGFyZW50ICE9
+IGRldi0+b2Zfbm9kZTsNCisNCiAgICAgICAgLyogSXRlcmF0ZSBvdmVyIHNpYmxpbmcgTURQIGZ1
+bmN0aW9uIGJsb2NrcyAqLw0KICAgICAgICBmb3JfZWFjaF9jaGlsZF9vZl9ub2RlKHBhcmVudCwg
+bm9kZSkgew0KICAgICAgICAgICAgICAgIGNvbnN0IHN0cnVjdCBvZl9kZXZpY2VfaWQgKm9mX2lk
+OyBAQCAtMTYzLDYgKzIwNCwxMSBAQCBzdGF0aWMgaW50IG10a19tZHBfcHJvYmUoc3RydWN0IHBs
+YXRmb3JtX2RldmljZSAqcGRldikNCiAgICAgICAgICAgICAgICB9DQoNCiAgICAgICAgICAgICAg
+ICBtdGtfbWRwX3JlZ2lzdGVyX2NvbXBvbmVudChtZHAsIGNvbXApOw0KKyAgICAgICAgICAgICAg
+IGlmIChtZHAtPnVzZV9jb21wb25lbnRzICYmIG5vZGUgIT0gZGV2LT5vZl9ub2RlKQ0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgY29tcG9uZW50X21hdGNoX2FkZF9yZWxlYXNlKGRldiwgJm1hdGNo
+LA0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG10
+a19tZHBfcmVsZWFzZV9jb21wb25lbnQsDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgbXRrX21kcF9jb21wYXJlX2NvbXBvbmVudCwNCisgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBvZl9ub2RlX2dldChu
+b2RlKSk7DQogICAgICAgIH0NCg0KICAgICAgICBtZHAtPmpvYl93cSA9IGNyZWF0ZV9zaW5nbGV0
+aHJlYWRfd29ya3F1ZXVlKE1US19NRFBfTU9EVUxFX05BTUUpOw0KQEAgLTE4NywxMiArMjMzLDYg
+QEAgc3RhdGljIGludCBtdGtfbWRwX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYp
+DQogICAgICAgICAgICAgICAgZ290byBlcnJfZGV2X3JlZ2lzdGVyOw0KICAgICAgICB9DQoNCi0g
+ICAgICAgcmV0ID0gbXRrX21kcF9yZWdpc3Rlcl9tMm1fZGV2aWNlKG1kcCk7DQotICAgICAgIGlm
+IChyZXQpIHsNCi0gICAgICAgICAgICAgICB2NGwyX2VycigmbWRwLT52NGwyX2RldiwgIkZhaWxl
+ZCB0byBpbml0IG1lbTJtZW0gZGV2aWNlXG4iKTsNCi0gICAgICAgICAgICAgICBnb3RvIGVycl9t
+Mm1fcmVnaXN0ZXI7DQotICAgICAgIH0NCi0NCiAgICAgICAgbWRwLT52cHVfZGV2ID0gdnB1X2dl
+dF9wbGF0X2RldmljZShwZGV2KTsNCiAgICAgICAgaWYgKCFtZHAtPnZwdV9kZXYpIHsNCiAgICAg
+ICAgICAgICAgICBkZXZfZXJyKCZwZGV2LT5kZXYsICJGYWlsZWQgdG8gZ2V0IHZwdSBkZXZpY2Vc
+biIpOyBAQCAtMjE2LDE3ICsyNTYsMjUgQEAgc3RhdGljIGludCBtdGtfbWRwX3Byb2JlKHN0cnVj
+dCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpDQogICAgICAgIH0NCg0KICAgICAgICBwbV9ydW50aW1l
+X2VuYWJsZShkZXYpOw0KKyAgICAgICBpZiAobWRwLT51c2VfY29tcG9uZW50cykNCisgICAgICAg
+ICAgICAgICByZXQgPSBjb21wb25lbnRfbWFzdGVyX2FkZF93aXRoX21hdGNoKGRldiwgJm10a19t
+ZHBfbWFzdGVyX29wcywNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIG1hdGNoKTsNCisgICAgICAgZWxzZQ0KKyAgICAgICAgICAgICAgIHJldCA9
+IG10a19tZHBfcmVnaXN0ZXJfbTJtX2RldmljZShtZHApOw0KKyAgICAgICBpZiAocmV0KQ0KKyAg
+ICAgICAgICAgICAgIGdvdG8gZXJyX3JlZ2lzdGVyX2NvbXBvbmVudHM7DQogICAgICAgIGRldl9k
+YmcoZGV2LCAibWRwLSVkIHJlZ2lzdGVyZWQgc3VjY2Vzc2Z1bGx5XG4iLCBtZHAtPmlkKTsNCg0K
+ICAgICAgICByZXR1cm4gMDsNCg0KK2Vycl9yZWdpc3Rlcl9jb21wb25lbnRzOg0KKyAgICAgICBw
+bV9ydW50aW1lX2Rpc2FibGUoZGV2KTsNCisgICAgICAgdmIyX2RtYV9jb250aWdfY2xlYXJfbWF4
+X3NlZ19zaXplKGRldik7DQorDQogZXJyX3JlZ19oYW5kbGVyOg0KICAgICAgICBwbGF0Zm9ybV9k
+ZXZpY2VfcHV0KG1kcC0+dnB1X2Rldik7DQoNCiBlcnJfdnB1X2dldF9kZXY6DQotICAgICAgIG10
+a19tZHBfdW5yZWdpc3Rlcl9tMm1fZGV2aWNlKG1kcCk7DQotDQotZXJyX20ybV9yZWdpc3RlcjoN
+CiAgICAgICAgdjRsMl9kZXZpY2VfdW5yZWdpc3RlcigmbWRwLT52NGwyX2Rldik7DQoNCiBlcnJf
+ZGV2X3JlZ2lzdGVyOg0KQEAgLTI1MiwxMCArMzAwLDEzIEBAIHN0YXRpYyB2b2lkIG10a19tZHBf
+cmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpDQogICAgICAgIHN0cnVjdCBtdGtf
+bWRwX2RldiAqbWRwID0gcGxhdGZvcm1fZ2V0X2RydmRhdGEocGRldik7DQogICAgICAgIHN0cnVj
+dCBtdGtfbWRwX2NvbXAgKmNvbXAsICpjb21wX3RlbXA7DQoNCisgICAgICAgaWYgKG1kcC0+dXNl
+X2NvbXBvbmVudHMpDQorICAgICAgICAgICAgICAgY29tcG9uZW50X21hc3Rlcl9kZWwoJnBkZXYt
+PmRldiwgJm10a19tZHBfbWFzdGVyX29wcyk7DQorICAgICAgIGVsc2UNCisgICAgICAgICAgICAg
+ICBtdGtfbWRwX3VucmVnaXN0ZXJfbTJtX2RldmljZShtZHApOw0KICAgICAgICBwbV9ydW50aW1l
+X2Rpc2FibGUoJnBkZXYtPmRldik7DQogICAgICAgIHZiMl9kbWFfY29udGlnX2NsZWFyX21heF9z
+ZWdfc2l6ZSgmcGRldi0+ZGV2KTsNCiAgICAgICAgcGxhdGZvcm1fZGV2aWNlX3B1dChtZHAtPnZw
+dV9kZXYpOw0KLSAgICAgICBtdGtfbWRwX3VucmVnaXN0ZXJfbTJtX2RldmljZShtZHApOw0KICAg
+ICAgICB2NGwyX2RldmljZV91bnJlZ2lzdGVyKCZtZHAtPnY0bDJfZGV2KTsNCg0KICAgICAgICBk
+ZXN0cm95X3dvcmtxdWV1ZShtZHAtPndkdF93cSk7DQpAQCAtMzE5LDcgKzM3MCwyNSBAQCBzdGF0
+aWMgc3RydWN0IHBsYXRmb3JtX2RyaXZlciBtdGtfbWRwX2RyaXZlciA9IHsNCiAgICAgICAgfQ0K
+IH07DQoNCi1tb2R1bGVfcGxhdGZvcm1fZHJpdmVyKG10a19tZHBfZHJpdmVyKTsNCitzdGF0aWMg
+c3RydWN0IHBsYXRmb3JtX2RyaXZlciAqIGNvbnN0IG10a19tZHBfZHJpdmVyc1tdID0gew0KKyAg
+ICAgICAmbXRrX21kcF9wbV9jb21wb25lbnRfZHJpdmVyLA0KKyAgICAgICAmbXRrX21kcF9kcml2
+ZXIsDQorfTsNCisNCitzdGF0aWMgaW50IF9faW5pdCBtdGtfbWRwX2luaXQodm9pZCkNCit7DQor
+ICAgICAgIHJldHVybiBwbGF0Zm9ybV9yZWdpc3Rlcl9kcml2ZXJzKG10a19tZHBfZHJpdmVycywN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQVJSQVlfU0laRShtdGtf
+bWRwX2RyaXZlcnMpKTsgfQ0KKw0KK3N0YXRpYyB2b2lkIF9fZXhpdCBtdGtfbWRwX2V4aXQodm9p
+ZCkNCit7DQorICAgICAgIHBsYXRmb3JtX3VucmVnaXN0ZXJfZHJpdmVycyhtdGtfbWRwX2RyaXZl
+cnMsDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBUlJBWV9TSVpFKG10a19t
+ZHBfZHJpdmVycykpOyB9DQorDQorbW9kdWxlX2luaXQobXRrX21kcF9pbml0KTsNCittb2R1bGVf
+ZXhpdChtdGtfbWRwX2V4aXQpOw0KDQogTU9EVUxFX0FVVEhPUigiSG91bG9uZyBXZWkgPGhvdWxv
+bmcud2VpQG1lZGlhdGVrLmNvbT4iKTsgIE1PRFVMRV9ERVNDUklQVElPTigiTWVkaWF0ZWsgaW1h
+Z2UgcHJvY2Vzc29yIGRyaXZlciIpOyBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9y
+bS9tZWRpYXRlay9tZHAvbXRrX21kcF9jb3JlLmgNCmIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9t
+ZWRpYXRlay9tZHAvbXRrX21kcF9jb3JlLmgNCmluZGV4IGE2ZTZkYzMuLmM5MDA0ZTQgMTAwNjQ0
+DQotLS0gYS9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL21lZGlhdGVrL21kcC9tdGtfbWRwX2NvcmUu
+aA0KKysrIGIvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9tZWRpYXRlay9tZHAvbXRrX21kcF9jb3Jl
+LmgNCkBAIC0xMzMsNiArMTMzLDcgQEAgc3RydWN0IG10a19tZHBfdmFyaWFudCB7DQogICogc3Ry
+dWN0IG10a19tZHBfZGV2IC0gYWJzdHJhY3Rpb24gZm9yIGltYWdlIHByb2Nlc3NvciBlbnRpdHkN
+CiAgKiBAbG9jazogICAgICB0aGUgbXV0ZXggcHJvdGVjdGluZyB0aGlzIGRhdGEgc3RydWN0dXJl
+DQogICogQHZwdWxvY2s6ICAgdGhlIG11dGV4IHByb3RlY3RpbmcgdGhlIGNvbW11bmljYXRpb24g
+d2l0aCBWUFUNCisgKiBAdXNlX2NvbXBvbmVudHM6IHVzZSBzaWJsaW5nIGNvbXBvbmVudCBQTSBz
+dXBwbGllciBsaW5rcw0KICAqIEBwZGV2OiAgICAgIHBvaW50ZXIgdG8gdGhlIGltYWdlIHByb2Nl
+c3NvciBwbGF0Zm9ybSBkZXZpY2UNCiAgKiBAdmFyaWFudDogICB0aGUgSVAgdmFyaWFudCBpbmZv
+cm1hdGlvbg0KICAqIEBpZDogICAgICAgICAgICAgICAgaW1hZ2UgcHJvY2Vzc29yIGRldmljZSBp
+bmRleCAoMC4uTVRLX01EUF9NQVhfREVWUykNCkBAIC0xNTIsNiArMTUzLDcgQEAgc3RydWN0IG10
+a19tZHBfZGV2IHsNCiAgICAgICAgc3RydWN0IG11dGV4ICAgICAgICAgICAgICAgICAgICBsb2Nr
+Ow0KICAgICAgICBzdHJ1Y3QgbXV0ZXggICAgICAgICAgICAgICAgICAgIHZwdWxvY2s7DQogICAg
+ICAgIHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgICAgICAgICAgKnBkZXY7DQorICAgICAgIGJvb2wg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgdXNlX2NvbXBvbmVudHM7DQogICAgICAgIHN0cnVj
+dCBtdGtfbWRwX3ZhcmlhbnQgICAgICAgICAgKnZhcmlhbnQ7DQogICAgICAgIHUxNiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgaWQ7DQogICAgICAgIHN0cnVjdCBsaXN0X2hlYWQgICAgICAg
+ICAgICAgICAgY29tcF9saXN0Ow0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0v
+bWVkaWF0ZWsvbWRwL210a19tZHBfcG0uYw0KYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL21lZGlh
+dGVrL21kcC9tdGtfbWRwX3BtLmMNCm5ldyBmaWxlIG1vZGUgMTAwNjQ0DQppbmRleCAwMDAwMDAw
+Li5hOTg0ZjIzDQotLS0gL2Rldi9udWxsDQorKysgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL21l
+ZGlhdGVrL21kcC9tdGtfbWRwX3BtLmMNCkBAIC0wLDAgKzEsODEgQEANCisvLyBTUERYLUxpY2Vu
+c2UtSWRlbnRpZmllcjogR1BMLTIuMC1vbmx5DQorLyogS2VlcCB0aGUgRE1BIGNvbXBvbmVudCBz
+dXBwbGllcnMgcG93ZXJlZCBmb3IgdGhlIG1hc3RlciBydW50aW1lIA0KK2xpZmV0aW1lLiAqLyAj
+aW5jbHVkZSA8bGludXgvY29tcG9uZW50Lmg+ICNpbmNsdWRlIDxsaW51eC9kZXZpY2UuaD4gDQor
+I2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPiAjaW5jbHVkZSA8bGludXgvb2YuaD4gI2luY2x1ZGUg
+DQorPGxpbnV4L3BsYXRmb3JtX2RldmljZS5oPiAjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5o
+PiAjaW5jbHVkZSANCis8bGludXgvc2xhYi5oPg0KKw0KK3N0cnVjdCBtdGtfbWRwX3BtX2NvbXBv
+bmVudCB7DQorICAgICAgIHN0cnVjdCBkZXZpY2VfbGluayAqbGluazsNCit9Ow0KKw0KK3N0YXRp
+YyBpbnQgbXRrX21kcF9wbV9iaW5kKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGRldmljZSAq
+bWFzdGVyLA0Kdm9pZCAqZGF0YSkNCit7DQorICAgICAgIHN0cnVjdCBtdGtfbWRwX3BtX2NvbXBv
+bmVudCAqY29tcCA9IGRldl9nZXRfZHJ2ZGF0YShkZXYpOw0KKw0KKyAgICAgICAvKiBUaGUgY29t
+cG9uZW50IGFscmVhZHkgaGFzIGl0cyBJT01NVS9MQVJCIHJ1bnRpbWUtUE0gc3VwcGxpZXIgbGlu
+ay4gKi8NCisgICAgICAgY29tcC0+bGluayA9IGRldmljZV9saW5rX2FkZChtYXN0ZXIsIGRldiwN
+CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBETF9GTEFHX1BNX1JVTlRJTUUg
+fCBETF9GTEFHX1NUQVRFTEVTUyk7DQorICAgICAgIHJldHVybiBjb21wLT5saW5rID8gMCA6IC1F
+Tk9NRU07IH0NCisNCitzdGF0aWMgdm9pZCBtdGtfbWRwX3BtX3VuYmluZChzdHJ1Y3QgZGV2aWNl
+ICpkZXYsIHN0cnVjdCBkZXZpY2UgKm1hc3RlciwNCisgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHZvaWQgKmRhdGEpIHsNCisgICAgICAgc3RydWN0IG10a19tZHBfcG1fY29tcG9uZW50ICpj
+b21wID0gZGV2X2dldF9kcnZkYXRhKGRldik7DQorDQorICAgICAgIGRldmljZV9saW5rX2RlbChj
+b21wLT5saW5rKTsNCisgICAgICAgY29tcC0+bGluayA9IE5VTEw7DQorfQ0KKw0KK3N0YXRpYyBj
+b25zdCBzdHJ1Y3QgY29tcG9uZW50X29wcyBtdGtfbWRwX3BtX2NvbXBvbmVudF9vcHMgPSB7DQor
+ICAgICAgIC5iaW5kID0gbXRrX21kcF9wbV9iaW5kLA0KKyAgICAgICAudW5iaW5kID0gbXRrX21k
+cF9wbV91bmJpbmQsDQorfTsNCisNCitzdGF0aWMgaW50IG10a19tZHBfcG1fcHJvYmUoc3RydWN0
+IHBsYXRmb3JtX2RldmljZSAqcGRldikgew0KKyAgICAgICBzdHJ1Y3QgZGV2aWNlICpkZXYgPSAm
+cGRldi0+ZGV2Ow0KKyAgICAgICBzdHJ1Y3QgbXRrX21kcF9wbV9jb21wb25lbnQgKmNvbXA7DQor
+ICAgICAgIGludCByZXQ7DQorDQorICAgICAgIC8qIFJETUEwIGlzIHRoZSBtYXN0ZXI7IGl0IG11
+c3Qgbm90IGJlY29tZSBpdHMgb3duIHN1cHBsaWVyLiAqLw0KKyAgICAgICBpZiAob2ZfcHJvcGVy
+dHlfcHJlc2VudChkZXYtPm9mX25vZGUsICJtZWRpYXRlayx2cHUiKSkNCisgICAgICAgICAgICAg
+ICByZXR1cm4gLUVOT0RFVjsNCisgICAgICAgY29tcCA9IGRldm1fa3phbGxvYyhkZXYsIHNpemVv
+ZigqY29tcCksIEdGUF9LRVJORUwpOw0KKyAgICAgICBpZiAoIWNvbXApDQorICAgICAgICAgICAg
+ICAgcmV0dXJuIC1FTk9NRU07DQorICAgICAgIHBsYXRmb3JtX3NldF9kcnZkYXRhKHBkZXYsIGNv
+bXApOw0KKyAgICAgICBwbV9ydW50aW1lX2VuYWJsZShkZXYpOw0KKyAgICAgICByZXQgPSBjb21w
+b25lbnRfYWRkKGRldiwgJm10a19tZHBfcG1fY29tcG9uZW50X29wcyk7DQorICAgICAgIGlmIChy
+ZXQpDQorICAgICAgICAgICAgICAgcG1fcnVudGltZV9kaXNhYmxlKGRldik7DQorICAgICAgIHJl
+dHVybiByZXQ7DQorfQ0KKw0KK3N0YXRpYyB2b2lkIG10a19tZHBfcG1fcmVtb3ZlKHN0cnVjdCBw
+bGF0Zm9ybV9kZXZpY2UgKnBkZXYpIHsNCisgICAgICAgY29tcG9uZW50X2RlbCgmcGRldi0+ZGV2
+LCAmbXRrX21kcF9wbV9jb21wb25lbnRfb3BzKTsNCisgICAgICAgcG1fcnVudGltZV9kaXNhYmxl
+KCZwZGV2LT5kZXYpOw0KK30NCisNCitzdGF0aWMgY29uc3Qgc3RydWN0IG9mX2RldmljZV9pZCBt
+dGtfbWRwX3BtX29mX21hdGNoW10gPSB7DQorICAgICAgIHsgLmNvbXBhdGlibGUgPSAibWVkaWF0
+ZWssbXQ4MTczLW1kcC1yZG1hIiB9LA0KKyAgICAgICB7IC5jb21wYXRpYmxlID0gIm1lZGlhdGVr
+LG10ODE3My1tZHAtcnN6IiB9LA0KKyAgICAgICB7IC5jb21wYXRpYmxlID0gIm1lZGlhdGVrLG10
+ODE3My1tZHAtd2RtYSIgfSwNCisgICAgICAgeyAuY29tcGF0aWJsZSA9ICJtZWRpYXRlayxtdDgx
+NzMtbWRwLXdyb3QiIH0sDQorICAgICAgIHsgfQ0KK307DQorTU9EVUxFX0RFVklDRV9UQUJMRShv
+ZiwgbXRrX21kcF9wbV9vZl9tYXRjaCk7DQorDQorc3RydWN0IHBsYXRmb3JtX2RyaXZlciBtdGtf
+bWRwX3BtX2NvbXBvbmVudF9kcml2ZXIgPSB7DQorICAgICAgIC5wcm9iZSA9IG10a19tZHBfcG1f
+cHJvYmUsDQorICAgICAgIC5yZW1vdmUgPSBtdGtfbWRwX3BtX3JlbW92ZSwNCisgICAgICAgLmRy
+aXZlciA9IHsNCisgICAgICAgICAgICAgICAubmFtZSA9ICJtdGstbWRwLXBtLWNvbXBvbmVudCIs
+DQorICAgICAgICAgICAgICAgLm9mX21hdGNoX3RhYmxlID0gbXRrX21kcF9wbV9vZl9tYXRjaCwN
+CisgICAgICAgfSwNCit9Ow0K
