@@ -1,47 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794481563;
-	b=S/i7jTSaPH3rNr7Ozn5SWpMkl1avk1OVhPOzQ1O8Jl2ccCHj3MKwbkcjSeY7/UfW44Xo
-	 gp3XEeIIPYwoWEvaAeeca+8H9Zxr8PH3cOV4C4WgW0TvDGlBifm3CECtPU8PZX34KE5j/
-	 Tj1wvS+/UNJQxTv0Sj9Yi9LWEKxwgVrWlk9KSxHzdD3t2Kej9R9mwRfraUvBmbxhBbTRh
-	 8XuSAwwttVLsBy0unj7ZuEfllfTaiUOv5B8C5IBz/TrXmqjBCUxQLE3ukhDz11rLGoqa7
-	 PF1eUyxDDrlluT2XOWbJvDAGLN/UP9oeX1lUnYT6hf0ARn06XsYP4PnXJ40rU9F52kQ==
+	t=1794481659;
+	b=DtP2xEqmoA441NXVgcO52sYuJjt/MjwCghhc1SRBuiG5r6Fqd2utwjknlThrJ++zqUK1
+	 DbzRX2H4sDTH+C5AZyPcSZfUs0n6MBKoMw4vCO9flUQzlZjjFDOyb5KKgz+sncAPzzBNM
+	 9XPwM7rIicQIUfIQB/uYScXED21m552UbgSnJLp0IAAsAarWjpMQXnMBmkBrmYIB88pjK
+	 PY5ZP/tj73tfg8XKCaVHsa+R6PcHc1yLeFtzdY02rrB1gfzF6kNGsb+mMIYDdm/QXItHL
+	 nNirIPYp6VtS84ZF+I48cDMXTgEpKAaT9oQkVwkyoH+ErpMFY5U+WzH1IEjTftPBFyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794481563;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=fKrWjpYZqdQRIuPQ0j1cPkoi1b1sm7ely2cunlMR4gQ=;
-	b=b9bROs6CsgQGdx+XOuYTjzzmUtK7gya2Cd1OBeyZae49Eg6Zc9r/FwwqwvvXS/kjsFwQ
-	 pAZ9WdaUKLRqN7vYWfdBdp6YvAJbXimk/dOciMX/sZjGxhQsNMhXXIk1Vk9tuVZFCk+Aa
-	 q130GiXEOObltutqORId5nqNPbOR/AKbi1Zy+E3W205YNllpNQ5/nXczfMTnPvqZDntGa
-	 I4x2uAIINNgbA8e+Y234VI4jTFjecWVKS5+FwVuiRz0nl8ddGYS3USiWPgkUuMpWulYcl
-	 +/07yI4LN9sLyUWGvhcxBy0POnUTZePm0YBs0lxGObXzhN7okFrXcGCdRsnk1dJZQoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794481659;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ws0rJ3BHKcyuqh88iur1fcc/LIJEujkm9TFhfxBE0eo=;
+	b=Wuz55TX1T3LcLvkFXlrdqyHwH36hssLoIZAroHXDbteTXRY3V+8/pIHMQB9GSJri1pao
+	 YniJ/ROfsVhIdn7YW1aOdLres95mFqwQXLF1mnOqOxqkIFnn5mqEc2+2Go8LQjkpdfnb6
+	 JmsTzw32oVIPrxPo+lTiKxiqp3Pwl1s02P40A0yatXAp/f8KyvGw5ryEDwEa7xdM2c7UP
+	 Gfdpo44rLbxFqHo56IqHjFOZEbxeMuDClXXE08myePZGlGoqHKSLC7xncrG92hcIu7J2I
+	 JDYa8KKlrmdl8bQYvAZE0Owq396wsGV01oIGA03oDqIxFPt2vuQkrrpDQekgGG81EiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KaPEPqDO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CSGdUSl5;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA44F606A31C;
-	Thu, 12 Nov 2026 11:06:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8748606A334;
+	Thu, 12 Nov 2026 11:07:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8748606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KaPEPqDO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58DAD1F00A09;
-	Thu, 12 Nov 2026 11:05:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794481562;
-	bh=fKrWjpYZqdQRIuPQ0j1cPkoi1b1sm7ely2cunlMR4gQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KaPEPqDOixAktqc7+kPJeflmA/co+JGai7US59qP8P8BekbbO0ubFyTObSkNJ7Xep
-	 /L+uzpnK/+7ybHODD76TeulYnGFytmk+gLqm+KKPJKFn0eyah951nmtyx5hmvGhvMQ
-	 guN8gzKwCBVTz4aAGu0zk65/lH4ZAwbofBEY1mrOB930BuGkGJLMHxxCilZegxOhML
-	 33ilipQhJqh9YkPYfpqxAvDZgzZSQJdYafwzqTrOHYautS8HkQJ9k5WOGlr+We5Pd9
-	 bcHXGyqM7jz0qrtqzD6ScRjtAM7mRagHd1N134sEyA/VDCm78btTYy5zvuRvZkClvM
-	 UjCKNzyWrOlWQ==
-Message-ID: <e1b93076-f837-401f-895c-bee6bf3c9504@kernel.org>
-Date: Thu, 12 Nov 2026 11:05:57 +0000
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CSGdUSl5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794481658; x=1826017658;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=TBghNC9ZtMX73TtTYTqP2zQ1cZeCo1aSnVvyXG7XBJw=;
+  b=CSGdUSl56hEU/HBuurC/FY2kBGirHZ+B40i4CavB0nyW5vGWzA+7P97W
+   muTpKxCQjCbr+yxtwVUhUpjogQKZ5d4/bB6xW7L18FMWF/cwZMyiz6H5n
+   VGcgeIDUS1ZfXW++BmibcPW4QteQU8lOev3kOluLlYK9PgmbXqhGnf1if
+   6AVQh79shyV9UopJl3o9lcOwPzJVyhX1Jzlg5pur5CnJ4NcbXmwLC3oap
+   Z+LdeRnpO4lfsivlS8vyUMTvauUa/EqC2m/ELjd+guClJ0fcm2j1K29tJ
+   VsQ/5iEVQjs0CNuyo2UCV9hKzDclLOb4SWAiBJUI3AO8iCvTt5i3v5t3g
+   w==;
+X-CSE-ConnectionGUID: 1O7vBXjNSLGVmTJh0T1hJQ==
+X-CSE-MsgGUID: VoFU0s82RaKxhaajwofJAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3347570"
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="3347570"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 03:07:38 -0800
+X-CSE-ConnectionGUID: mkIocnx1QE6BDfGL3qBxPw==
+X-CSE-MsgGUID: aaOGbI5NRW2yONYMZsKaCg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="8962731"
+Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.34])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 03:07:35 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 3802A121B7C;
+	Thu, 12 Nov 2026 13:07:35 +0200 (EET)
+Date: Thu, 12 Nov 2026 13:07:35 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+	Mattijs Korpershoek <mkorpershoek@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
+Message-ID: <avWd9y7c1FVbUB7E@kekkonen.localdomain>
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+ <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
+ <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org>
+ <avMM6a6xcDHT-zCR@houat>
+ <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org>
+ <avMgJ7MFks0sKD7T@houat>
+ <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,88 +94,176 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 4/9] media: uapi: Add CAMSS ISP configuration
- definition
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-hardening@vger.kernel.org,
- Hans de Goede <johannes.goede@oss.qualcomm.com>
-References: <20261106-camss-isp-ope-v14-0-49c426cd2715@oss.qualcomm.com>
- <20261106-camss-isp-ope-v14-4-49c426cd2715@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261106-camss-isp-ope-v14-4-49c426cd2715@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
 
-On 06/11/2026 13:55, Loic Poulain wrote:
-> +struct camss_params_wb_gain {
+Hi Hans, others,
 
-Per our discussion elsewhere documenting here, we've decided that these 
-names should follow the module version i.e. camss_params_wb_gain_1.1.1 - 
-with 1.1.1 as an example.
+On Tue, Nov 10, 2026 at 03:43:59PM +0100, Hans Verkuil wrote:
+> On 10/11/2026 15:17, Maxime Ripard wrote:
+> > On Tue, Nov 10, 2026 at 02:30:51PM +0100, Hans Verkuil wrote:
+> >> On 10/11/2026 13:33, Maxime Ripard wrote:
+> >>> Hi Hans,
+> >>>
+> >>> On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
+> >>>> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
+> >>>>> Hi everyone,
+> >>>>>
+> >>>>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@kernel.org> wrote:
+> >>>>>
+> >>>>>> On media-centric camera pipelines, every entity is known at boot time
+> >>>>>> and described statically (for example via device-tree).
+> >>>>>>
+> >>>>>> The V4L2 framework assumes that every entity of the camera
+> >>>>>> pipeline is always present. This is a reasonable assumption for
+> >>>>>> integrated cameras in laptops or phones. However, in automotive systems,
+> >>>>>> cameras (e.g. rear-view or surround-view) can be damaged or disconnected.
+> >>>>>> When the framework assumes all sensors are present, a single missing
+> >>>>>> camera can prevent the entire pipeline from operating.
+> >>>>>
+> >>>>> This series has been discussed at the Camera & ISP "unconference" in
+> >>>>> Pragues (during Linux Plumbers)
+> >>>>>
+> >>>>> The notes can be found here:
+> >>>>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus.ideasonboard.com/T/#u
+> >>>>
+> >>>> What is missing in this discussion is how userspace can indicate that it
+> >>>> actually can handle partially instantiated pipelines.
+> >>>>
+> >>>> Today if one or more parts do not come up, the devices nodes are also not
+> >>>> created. This is typically exactly what you want.
+> >>>
+> >>> That's very arguable? We have plenty of other examples where we allow to
+> >>> show a software representation of something that isn't available in
+> >>> hardware, starting with virtually any memory buffer allocation, but also
+> >>> disabled CPUs, swapped pages, etc.
+> >>>
+> >>> For things a bit more related to drivers, things like USB root hubs are
+> >>> also pretty analogous. The "root" device will always be created, even if
+> >>> devices connected to it are non-functional, missing or whatever. It's
+> >>> the primary interface that these devices might or might not attach to.
+> >>>
+> >>> So it's a bit hard to understand why the device nodes not showing up is
+> >>> exactly what we always want.
+> >>
+> >> It's simply how V4L2 works today: video devices do not appear until
+> >> all components are instantiated.
 
-For many of these formats the module structure will be used again and 
-again but for some it will not.
+I think I've mentioned this before, but I do it once more: there's no
+concept of creating device nodes at the same time. It may happen roughly
+around the same time, but not atomically. There's always a chance that
+accessing device nodes of a device exposing multiple nodes fails for a
+reason or another. It may also be udev rules used different permissions for
+different set of nodes so the application can only access some of them.
 
-Example:
+> > 
+> > Sure but that's exactly what we're trying to change.
+> > 
+> >> Most video devices consist of multiple devices (bridges, i2c devices,
+> >> etc.) and unless all are found and initialized, you can't capture. So
+> >> bridge drivers postpone creating the video/media devices until
+> >> everything is there.
 
-OPE wb gains are 16 bit but on IFE generally these are 24 bits. The 
-pertinent information is the version of the format structure not the 
-fact that it comes from IFE, OPE or ICP/BPS/IPE.
+That's not the case obviously. If you have, say, three different cameras
+and one of them happens to be missing a driver in Kconfig, there's nothing
+that would technically prevent streaming video from the two others: it's a
+policy.
 
----
-bod
+And supposedly, there could be an application that *needs* all these three
+cameras to function, but does it then matter how that application is going
+to fail, is it because it lacks access to all of the hardware or just one
+piece of it?
+
+I'm in favour for making this reasonably easy for the user space to figure
+out, but we currently have no APIs that cover this (and so could be used by
+existing applications) so it's new behaviour that we're introducing. If we
+can't do better, then I'd introduce a Kconfig option, but I'd select that
+by default. I've seen tonnes of issues because of the current behaviour but
+no evidence creating device nodes proactively could be actually harmful.
+
+So what I'd concentrate on is to provide information to the userspace on
+the device readiness status, so the userspace can figure out all devices in
+a Media device complex have been registered.
+
+Functional safety adds the requirement of detecting failures and how that
+is being done is probably fairly implementation specific. New APIs will
+very probably be needed for that as well (and they indeed should be behind
+a specific Kconfig option).
+
+> >>
+> >> That also means that applications can safely assume that if a video device appears,
+> >> it is functioning.
+> > 
+> > Ish. The only safe assumption you can make about this is that it was
+> > functional at probe time. Anything after that is very much up in the
+> > air. If the device broken after probe for example, or if we have no way
+> > to tell if it's functional to begin with, that assumption is no longer
+> > true. So sure, that's what applications have been doing so far because
+> > there was no better way to do it, but I wouldn't qualify it as a "safe"
+> > assumption.
+> > 
+> >> If we add fault tolerance, and you allow video devices to appear even if they are
+> >> not functioning (or partially functioning), then that contract breaks.
+> >>
+> >>>
+> >>>> But here you allow partial instantiation, and how does userspace
+> >>>> signal that? It must be an 'opt-in' mechanism, but how is that done?
+> >>>> There are no devices yet, so that can't be used, so what alternatives
+> >>>> are there?
+> >>>>
+> >>>> We've been discussion Fault Tolerant V4L2 for many years now, and every time
+> >>>> I raise this issue, but I never received any proposals.
+> >>>>
+> >>>> This must be solved.
+> >>>
+> >>> Is there any way to? You're saying at the same time that we must not
+> >>> create the device, but that an application would need to signal to that
+> >>> device that it can indeed be created. It's a circular dependency that
+> >>> cannot be solved on a per-device basis.
+> >>>
+> >>> During the meeting, we had a discussion that the media device should be
+> >>> created as a "skeleton", and then as other devices probe they would fill
+> >>> in the blanks. How would that not work? Also what is your main concern
+> >>> exactly that makes you ask to not do that in the first place (or make it
+> >>> opt-in)?
+> >>
+> >> Applications today assume that everything works when the device nodes appear.
+> >>
+> >> If you change the behavior, then they just see a skeleton driver and how
+> >> would they know that they need to wait until all components are found and
+> >> it is ready for use? Or what to do if some parts are faulty?
+> > 
+> > I really think that this discussion is not solely about probe. It's
+> > something we discussed during the meeting, but I think we should try to
+> > handle "my device was broken at probe" and "my device became broken
+> > while the system was up" exactly the same way.
+> 
+> If the HW breaks after probe, then you get EIO etc. errors. It's very rare and
+> the only requirement in that case is that you return an error and don't crash
+> the kernel. It's accepted that if the HW breaks, the application breaks as well.
+> And you have to replace your hardware.
+> 
+> It's been working like that for >23 years (that's when I started working with
+> V4L). This also means that for >23 years applications have exactly this expectation
+> of how video devices behave. It's really part of the uAPI even though I don't
+> think it is ever explicitly stated.
+
+Do you mean things like VBI with this? MC was introduced around 15 years
+ago.
+
+> 
+> To be clear: I really want to see Fault Tolerant V4L2 happening. It's clearly
+> very useful for a specific type of use-case.
+> 
+> But first we need a solution for this specific uAPI issue. Note that this is
+> now to opt-in to Fault Tolerance, but in the future we might have other opt-ins
+> as well that modify the behavior.
+
+I'd try to separate the early registration of devices from fault tolerance.
+The former probably is still a hard requirement for latter.
+
+-- 
+Kind regards,
+
+Sakari Ailus
