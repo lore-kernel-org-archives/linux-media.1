@@ -1,100 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794510426;
-	b=h7FIlJ+kY+QweVKEvU2GJfxWtzuC8jEmvzUMBXmfVhQj1C/IJVB17BuLiB45BxeiQZaF
-	 jKy4jcTdtGvGgWtVSxauO/Mn0DOXhAv/GDoLa1NuZELXdJ7IOygdAz65RDYqu7Af1oKxC
-	 EcgsaQ/bgEo+8KC58HNagwRt4NH5lZSpwLAoh38fqAS6Ee7Z6UZd0mgkoAh+CenMfokaN
-	 +4llr/+yiCcYxwz3FVKJtOmDmmTdSUolwC8jLan3C/ZgmeSfqSK0iMpW9ZCceXfF7puRA
-	 2pCkv7D9pVFrdFkR/vwfSus8daB97HVyp8ATxGmIKvWPJLoQGP9vOGHYXnfHxg4XMlg==
+	t=1794511649;
+	b=zsnDQmMPJx0A3dLdAVNzVG6zMsyNBWcQPJYKoRQ9b/liJY6VM9+neV0By8hxogASkNm4
+	 uS0O8i80gVjMbgYOp/MC15vBDLR7gIbHxMOoZb5+Th4V9WKAeWo+wcR6GrDzJ/2mSgIkT
+	 9mMLfd67ABo1bYn8Ulx5OUf7pialAUsFl1GKtiAY5A81ud/V9uPnfgwdKjQ/+P3ap+mzm
+	 3n5DMRR8ofSLwIxQ7CD5c2jLD4AXZ+sVGjzCy7oaleCcqXj6g6n73SxAEeHuCJBXmTmeg
+	 2KWX3PXXsoSnZqdd5oyOiqhU7ozLRlxm5gMk8TqIn8rdE7ptK6rt0qFVBWZ0DEban4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794510426;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794511649;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1O1U6qPhJPf5Ji+Q9AqdK3EWLHHYlrm+QU8LLYnbjMI=;
-	b=xKnK+YTvYzL/AAp1O2cuK95tlQN9TXKediPpEpC9yrvbdrY2S7C80bwu6dkOs7RFsVUu
-	 NpLiDmStbiEkvHEE/acC9sfwGolsDHHOjU+jEFAkOU0yuZeqsveSmbUOmqVTXINsunqbc
-	 gMq1dv9ltKCqt+q82S6ggMEkXBXynFfqSdbam8IXBowHLClrA2nCbIUIeX2ybofr3Tq3h
-	 31dWepKrLgNf+m6gAiEjR+zOAam7AsyAmDsgaxISJjXCMvNPY4+mqYXiSB7BhqCYbyA79
-	 RdSCSpINKJV2rHn2ST7jWpbwEU7hiwToJB95D5ZqIpa7sW7cTkycUgW0O/T/qATIMFA==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=WK76SX0nrcCBNXP9LIGbyNxGyxl1rLl1GLyCozITqPY=;
+	b=E+AEAvnlNBfa6VhSglmoR9d/sfsiNful4v+F7YlAeJcx1/Akzk4Zedrd/mbU+gVqDUOp
+	 z4Pxejbb96UbUkOw912HsX73g9fqUiO3j1nnQ5XJ1ipGgTifWtarsFbOjPsTRHx85dgDm
+	 mn/9mmmlHyatvqA6QBm8x/mpCc5vkaxxzwtOuYmlcqzdh90rtCfv//uRbDCZJH75nDDIJ
+	 w76l8L3gn4I9HskfntpsVTQyfl9W5udVNmutSlRXQAgW+yUOyfarut4tdzxCoS9tNYnjJ
+	 ukqZU9I+LJuGhj4PJ9iTo6nB0lBb8J4GlMT9C6TjBsepnX149dYYQhXHhyNscsMlRUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AL3XOhdQ;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WG5ACeJA;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B11606A327
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 19:07:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59B11606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F23606A31C
+	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 19:27:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4F23606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AL3XOhdQ
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so1309525e9.2
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 11:07:06 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=WG5ACeJA
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so99986c88.0
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 11:27:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794510425; x=1795115225; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1O1U6qPhJPf5Ji+Q9AqdK3EWLHHYlrm+QU8LLYnbjMI=;
-        b=AL3XOhdQcgM07eN1urgtxjJd/5hgP7smoF5mflSEa/geSkQ40Po6j8smLYalL6BC5t
-         kxR9I9ztuXBzZkxfp+tuDnQL7O17TlYtf29l1KyhZqQpNzZTW/o+azm8xXnmmJVFQ2zS
-         +3znKKC/yrSsrB0MO1873LHHCja07smNI+qfZ3c2k7/Kkr75M2gCjiv+Fhbc6nDm9Da3
-         wzfMfZLD3om1yx27F+8HwaUIuuReudmIcqEIvhE5aYlQjoIVvDptYhqy5dB9sDc+UVcC
-         xqwJV55olC3Weu1/uZ6oG+2E1ygTRU8dK0L4iXWQ2rIVKLV4u3O3XxMNeeCR1kEzoFik
-         XbxQ==
+        d=chromium.org; s=google; t=1794511648; x=1795116448; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WK76SX0nrcCBNXP9LIGbyNxGyxl1rLl1GLyCozITqPY=;
+        b=WG5ACeJAfsAqI/SNo4EQzMNroNtqgr9YtZsBgMQPriWcH3f0MVw5r34UoB/ls3CUCi
+         0AINdQ6584CpYLZwc6rxWtc2SykkFLUSRQ8b19368uBwvvXS3rvFLB6wIQXXm0MOuc75
+         RyXvi3kaJ2XdVHBEH3p8FNm6KFDkv60AA6ftw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794510425; x=1795115225;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1O1U6qPhJPf5Ji+Q9AqdK3EWLHHYlrm+QU8LLYnbjMI=;
-        b=o61f76wqQnVLOT060O8zEcVz5ItFkho/XiG3PFwBJ8NkvLdr2aj1hfrR6b/2np12xy
-         K7lgpwusbr/PNmu0LA9oIT/z8PvmlKbLrzMgv8/luHKP7zvl4ODjTNQbzu79CyyHhvON
-         dLHfvhgrSFK4MJoPXwmejOWNQ1OQlQh8cc8xiu8Kbc4WxozKK/IThVGZ9OG8q/eYrJyu
-         2nddxSZ6R9nOmuEMWQl1zVeLYN8d0SnAiYDTp2UECrf3POepTGpmg4w+Mx7ZIoUahV9P
-         ACMdsEmD1FcGZCw3hWqrvDsJRKYPvMYJPOIDBmn2OagiDZO26qJ+UmgdoOCQGAdSH0Nu
-         s5cg==
-X-Forwarded-Encrypted: i=1; AL+hErHs49lv0IyhimURC65wob3IZqfmmczNLq380tYZg+UMay9zxwdvKX64tjf9zebQSR3Gf6icteTzOoslPA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9AdlUhbPomR3/xgjzT2gZhN6n8GkKB06k2YP+6QPSeYAthnxOW
-	MDfipfHXacGW52Y3vXcagcHRx6eO0lFuGYFuocevWf3wup6cRNi61+9T
-X-Gm-Gg: AYBFou14mYgkuDIh9DztT1qKLDO6WB2Msc+tCN6nKLg/IvwbT1wW7LZ5EJ1VWf9VYcc
-	0qJqQuaoYQT4gXAhPdijp4vtXd/unDCV9JYWBV9fSSl4GZm2owo9z2ACb8sHGDCpFlbQDG2CgLz
-	Q6/6yvlJYV8sU51VY0XLZsLtDgcLbJqV+1tOIyCrR7TrCouljsoeHKLYlELmhut5RCzB+3bdkFw
-	2fdyz+okPWk9qHbaqAk9mNdWHP+Kp57b1YHFOpAcnmLmB7I1LQ6H4hWMT6eaM3n1ju9/Z0DWxtD
-	7pt8MwVW5XQgh6k1FaoCNIUM+KDmk8ArJv53KPxyxBgiKbGjVjrV6fbw260zw+1XbhPLVbqlJBD
-	cq0jUr8swhm+1O0boBAEtsd/JV53/5oFuRPtoLXd6IpylzINekdOGBMPgEPktwW8eJOd1GRmqTu
-	ES7X9VjPoPHf//w+3i812hyhH9ksm/iwgzrcEgbWN/tiHtE8RaEvDPe6PQxvY0YebPtINXJLcvV
-	P0/0MBclGddbAE7Uh2qKnmWGPWsq+Haywi3X4tbxkykYvdZdlojjKnhXFBhlFf8szi+wP+0LKFG
-	d6SETRw5g0bafym2OykBgI5T9IshPuBiW32mBxEQ0ap4/EiC0R8H9VWyvs9z+Jf1wQ==
-X-Received: by 2002:a05:600c:4e56:b0:4b3:9540:47a6 with SMTP id 5b1f17b1804b1-4bb55aad2demr2986685e9.28.1794510424573;
-        Thu, 12 Nov 2026 11:07:04 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5ff2cd05sm718945f8f.31.2026.11.12.11.07.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 11:07:04 -0800 (PST)
-Date: Thu, 12 Nov 2026 19:07:02 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Kees Cook <kees@kernel.org>
-Cc: Alejandro Colomar <alx+linux-hardening@kernel.org>, Mariia Nikitash
- <nikitash.mariiaw@gmail.com>, hverkuil@kernel.org, mchehab@kernel.org,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org, justinstitt@google.com, morbo@google.com
-Subject: Re: [PATCH] media: radio: Replace strlcat() with seq_buf in TEA
- drivers
-Message-ID: <20261112190702.480740d2@pumpkin>
-In-Reply-To: <202611120947.AC428BE4B@keescook>
-References: <20261106074639.452630-1-nikitash.mariiaw@gmail.com>
-	<20261108210232.13800dd3@pumpkin>
-	<avDmyLYpWOQ2WB-i@debian>
-	<202611120947.AC428BE4B@keescook>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        d=1e100.net; s=20260707; t=1794511648; x=1795116448;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WK76SX0nrcCBNXP9LIGbyNxGyxl1rLl1GLyCozITqPY=;
+        b=e4csPJTHbIvcBVQSVCiUwTSYcPLzNuQIVdHFhayNfK0NFMrSOLBfCAk/5G8gphnjC6
+         LXWTdJgLniPLosnPWQiSXwG1F/ri871A0z3aehX4fu3WFqRLzTVoS8ezs58hxIe3pRvd
+         CR28J8v3LeTi4z+TLeXwukXV7Wf2mENJwl0r4Ax8RDW638QFJ9rvxYsGwc8L6Ldx2q2b
+         TSLszcqiCNa/6EU678OKY8Rqvhhf82LGvK8/HSSq5EM4pvxiKKZgTjgYZb9BFjGMMyXl
+         E3JBX3mbolziYceokpWfuDPwhTPnen80SQnVzd4fq0w/WvdVBUzFrgQ5JiRr5qtvwas4
+         bZMw==
+X-Gm-Message-State: APuU4Z/ZoTkQeA7U9Z/O77grk1r+up2Lnlzj3MUbSS3cEh3Bm0+bBTLB
+	DX2hn93ksEgImSsfR3EJakUchxVfhGBKMZfourONVPIu805ZXnpzLoHgqf9s2qFfCA==
+X-Gm-Gg: AYBFou1DYUILr+vtOnJskMWxgMH0pWzAu+y/tS1TjjX43JfBtVL2WSSBTps9gi36t4+
+	OtRy7EyTzrQPJzunzDEmXAcMR5BOcguxVUTRRTobMlfE/i9rgHNBnTa3VI2CWnFNyOI2q0UxtCC
+	iTvMx1lxg0dpZLlWL7daYwITf9cNun+Kzab7wzYgb8GFfjZEo6dwzLvjcgEQyC94ml5HUlFRrmL
+	IA2OGO8DA1BOhzxhb2qz3bikTRtLeFY/xm9dy/fu/jQVxoNnRf7uZU4vVDGU9AeU6lRu0DHXSJU
+	xrW3wDaI1rOg7/KTBmtwKIBrUAoT9t5/QLa7VwJWN1EOpZzeS2sDjTLbPXNBkAhSWpaQF0Ur2kX
+	UNrrPMmbOsGctBlwaGZuXLmvMxCjbKN7pzXKPd7OKH5zPlapL9yeX5CDKG4W+00hxOxh4zIzkUI
+	XXTADhMIwQmK5/zT3Z/xU4ShkNwJIHP1d7tR6kYRn1tvpAm5Uh7bKqNcXRemrTlWjdR7k1/+mTC
+	XfTI7AnZpFlrVedGJhomXCF59RfYYwmiWF/jHVHDxOn75zKDOrY9yhEQxYPfdmOZoyNqJH8su2+
+	tHdaS5/vVMysEvJ3gpsvBLfpRTJeFp7P6yax4qFMntAiRKAXPcelAHvVZaC77xTAb+A5rUlCpbU
+	Yz3Dv2jsxk337gWs=
+X-Received: by 2002:a05:7022:3704:b0:189:d6bf:7eaa with SMTP id a92af1059eb24-1b5030d404cmr428948c88.16.1794511647718;
+        Thu, 12 Nov 2026 11:27:27 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:5446:563c:ac92:43a8])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b5031bc518sm886774c88.15.2026.11.12.11.27.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 11:27:27 -0800 (PST)
+From: Brian Norris <briannorris@chromium.org>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	"Bryan O'Donoghue" <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Brian Norris <briannorris@chromium.org>
+Subject: [PATCH] media: venus: Discard pm_runtime_put_autosuspend() return values
+Date: Thu, 12 Nov 2026 11:26:50 -0800
+Message-ID: <20261112112650.1.I574fc3def9965f603755a968ae88309aafdfa285@changeid>
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,114 +95,115 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 12 Nov 2026 09:54:15 -0800
-Kees Cook <kees@kernel.org> wrote:
+Propagating the pm_runtime_put_autosuspend() return value to callers is
+not particularly useful.
 
-> On Sun, Nov 08, 2026 at 10:25:35PM +0100, Alejandro Colomar wrote:
-> > Hi David,
-> >   
-> > > Date: 2026-11-08 21:02:32+0000
-> > > From: David Laight <david.laight.linux@gmail.com>
-> > >  
-> > [...]  
-> > > 
-> > > seq_buf is just OTT.
-> > > Using to replace a single strcat() is just silly.
-> > > There is no point doing these patches until there is a sensible alternative.  
-> > 
-> > Agree.
-> > 
-> > [...]  
-> > > >  	strscpy(v->driver, tea->v4l2_dev->name, sizeof(v->driver));
-> > > > -	strscpy(v->card, tea->card, sizeof(v->card));
-> > > > -	strlcat(v->card, " TEA5777", sizeof(v->card));  
-> > > 
-> > > What is wrong with (and almost OTT):
-> > > #define TEA5777 " TEA5777"
-> > > 	BUILD_BUG_ON(sizeof(TEA5777) <= sizeof(v->card))
-> > > 
-> > > 	len = strscpy(v->card, tea->card, sizeof(v->card) - sizeof(TEA5777) + 1);  
-> > 
-> > I can answer this one: bugs (particularly, off by one) are quite prone
-> > in such code.
-> > 
-> > From the Authors of strlcat(3), you can look at OpenBSD's manual page:
-> > 
-> > 	Since it is known how many characters were copied the first
-> > 	time, things can be sped up a bit by using a copy instead of an
-> > 	append:
-> > 
-> > 		char *dir, *file, pname[PATH_MAX];
-> > 		size_t n;
-> > 
-> > 		...
-> > 
-> > 		n = strlcpy(pname, dir, sizeof(pname));
-> > 		if (n >= sizeof(pname))
-> > 			goto toolong;
-> > 		if (strlcpy(pname + n, file, sizeof(pname) - n) >= sizeof(pname) - n)
-> > 			goto toolong;
-> > 
-> > 	However, one may question the validity of such optimizations, as
-> > 	they defeat the whole purpose of strlcpy() and strlcat().  As a
-> > 	matter of fact, the first version of this manual page got it
-> > 	wrong.
-> >   
-> > > 	if (len < 0)
-> > > 		goto fail;
-> > > 	memcpy(v->card + len, TEA5777, sizeof(TEA5777);
-> > > 
-> > > What might be useful is a helper that would let you write:
-> > > 	len = strscpy(v->card, tea->card);
-> > > 	len = strscpy_at(v->card, len, " TEA5777" [, implied_length]);
-> > > 	if (len < 0)
-> > > 		goto fail;  
-> > 
-> > Indeed, as said in other threads, I have such an API:
-> > 
-> > 	p = v->card;
-> > 	e = ARRAY_END(v->card);
-> > 	p = stpecpy(p, e, tea->card);
-> > 	p = stpecpy(p, e, " TEA5777");
-> > 	if (p == NULL)
-> > 		goto fail;
+Returning an error code from pm_runtime_put_autosuspend() merely means
+that it has not queued up a timer or work item to check whether or not
+the device can be suspended and there are many perfectly valid
+situations in which that can happen, like after writing "on" to the
+device's runtime PM "control" attribute in sysfs for one example.
 
-That one is playing with pointers.
-They do make it harder to do any kind of compile-time (or compler helped)
-sanity checks.
+Accordingly, update the Venus vdec and venc drivers to simply discard
+the return value of pm_runtime_put_autosuspend().
 
-> > Linus didn't like my function name.  We could indeed call it strscpy_at().  
-> 
-> I really just don't want to have bare pointers or lengths being used for
-> any of these manipulations. strlcat needs to go away because it's part
-> of the whole C string API that is confused about array vs pointer and
-> has no sense of handling bounds. Yes, FORTIFY does its best, but between
-> lack of sane bounds and doing a strlen for every action, it has to go.
+This will facilitate a planned change of the
+pm_runtime_put_autosuspend() return type to void in the future, similar
+to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
+type to void").
 
-But both snprintf() and seq_buf are far more expensive than doing the
-strlen().
-There is the separate issue that strlcpy() manages to needlessly inline a
-strnlen() in a lot of the call sites - instead of deferring it to the
-helper function.
+Signed-off-by: Brian Norris <briannorris@chromium.org>
+---
+This patch was originally sent as part of a larger series here:
+https://lore.kernel.org/all/20261006161337.4.I574fc3def9965f603755a968ae88309aafdfa285@changeid/
 
-David
+I expect it should be merged by subsystem maintainers, and we can make
+the return type change later.
 
-> 
-> And I'd like _fewer_ APIs (I realize that didn't happen at all for
-> seq_buf, but that our current best direction). And I especially don't
-> want a "len" getting passed around. It needs bounds to be *in* the data
-> type. And that means either true arrays, or internal bounds tracking
-> (like seq_buf), and it shouldn't have "extra work" associated with it
-> (e.g. stpecpy above still has to find the current end of the C string).
-> C strings were a mistake, but here we are.
-> 
-> So, for "easy" constructions, sprintf-family, and for complex
-> constructions, seq_buf. And probably the large bit of thought at each
-> place where it is possible, is "how should truncation be communicated?"
-> 
-> -Kees
-> 
+ drivers/media/platform/qcom/venus/vdec.c | 10 ++++------
+ drivers/media/platform/qcom/venus/venc.c | 10 ++++------
+ 2 files changed, 8 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/venus/vdec.c b/drivers/media/platform/qcom/venus/vdec.c
+index 6a43ea191da1..35c1b6ec1f9f 100644
+--- a/drivers/media/platform/qcom/venus/vdec.c
++++ b/drivers/media/platform/qcom/venus/vdec.c
+@@ -644,12 +644,12 @@ static int vdec_pm_put(struct venus_inst *inst, bool autosuspend)
+ {
+ 	struct venus_core *core = inst->core;
+ 	struct device *dev = core->dev_dec;
+-	int ret;
++	int ret = 0;
+ 
+ 	mutex_lock(&core->pm_lock);
+ 
+ 	if (autosuspend)
+-		ret = pm_runtime_put_autosuspend(dev);
++		pm_runtime_put_autosuspend(dev);
+ 	else
+ 		ret = pm_runtime_put_sync(dev);
+ 
+@@ -671,7 +671,7 @@ static int vdec_pm_get_put(struct venus_inst *inst)
+ 		if (ret < 0)
+ 			goto error;
+ 
+-		ret = pm_runtime_put_autosuspend(dev);
++		pm_runtime_put_autosuspend(dev);
+ 	}
+ 
+ error:
+@@ -1200,9 +1200,7 @@ static int vdec_start_streaming(struct vb2_queue *q, unsigned int count)
+ 		if (ret)
+ 			goto put_power;
+ 
+-		ret = vdec_pm_put(inst, true);
+-		if (ret)
+-			goto error;
++		vdec_pm_put(inst, true);
+ 
+ 		ret = vdec_start_output(inst);
+ 	}
+diff --git a/drivers/media/platform/qcom/venus/venc.c b/drivers/media/platform/qcom/venus/venc.c
+index 79acf7c1ec9a..3c7c24dd7159 100644
+--- a/drivers/media/platform/qcom/venus/venc.c
++++ b/drivers/media/platform/qcom/venus/venc.c
+@@ -617,12 +617,12 @@ static int venc_pm_put(struct venus_inst *inst, bool autosuspend)
+ {
+ 	struct venus_core *core = inst->core;
+ 	struct device *dev = core->dev_enc;
+-	int ret;
++	int ret = 0;
+ 
+ 	mutex_lock(&core->pm_lock);
+ 
+ 	if (autosuspend)
+-		ret = pm_runtime_put_autosuspend(dev);
++		pm_runtime_put_autosuspend(dev);
+ 	else
+ 		ret = pm_runtime_put_sync(dev);
+ 
+@@ -644,7 +644,7 @@ static int venc_pm_get_put(struct venus_inst *inst)
+ 		if (ret < 0)
+ 			goto error;
+ 
+-		ret = pm_runtime_put_autosuspend(dev);
++		pm_runtime_put_autosuspend(dev);
+ 	}
+ 
+ error:
+@@ -1275,9 +1275,7 @@ static int venc_start_streaming(struct vb2_queue *q, unsigned int count)
+ 	if (ret)
+ 		goto put_power;
+ 
+-	ret = venc_pm_put(inst, true);
+-	if (ret)
+-		goto error;
++	venc_pm_put(inst, true);
+ 
+ 	ret = venc_set_properties(inst);
+ 	if (ret)
+-- 
+2.56.0.611.g1030f0b940-goog
 
