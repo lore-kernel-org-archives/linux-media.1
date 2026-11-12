@@ -1,95 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794502022;
-	b=dtSzyHhhDvj5TMIxKJogcMHDSDwPLqOqXVGazH/umuGcIQJvDYZ4QZaSHIu9q+QMEfOK
-	 93iXXoZ1JPMmrvxPEd0q3kgUYJUuMKnXxNFoV9mpksNDO9wTelUPu9b7YmrZvo90IsJXw
-	 uVBx3sK7JJMalwopY1f0kyvbjdkkfErAp/CqJgz9bolGAVewNLEDpAzfvtNiwm/kN39nG
-	 r4bvjcqzIov0pfdIeakbvrUdHGfuK6HZcDstuS+6rHYu/cINH8qjv+2eHYXssgSlvD+I1
-	 qW2wB0w9vNP4Fk+z6KM5wWGz2SXZxEjnQeyuC+XnsLurIcu5ywx5oLR0De5NcVKqEYA==
+	t=1794502652;
+	b=MH38ZA9dbCo/2S9py+aOHR9wPK/UKHFfmEGV8LoPwCfuDs7PwAmHo5BmL47aPsSCwl+m
+	 sJSYE5A8IxB+GQ+VsKCgIx/6W7jknHn53N5MR5gl09wCntwQcCFDbadM+RXzMg0eBOjjN
+	 yc+3xOioPCori/tKLLiBD0UlAe9TjDYQiJtcLB9inqDd0B/cUw9eHHyxyiHL+zIQUdiFf
+	 xWI12QT0rwxPCL7fTcsjL001LWtrC2mdimg9Ewg9szxQSMnObsFA9KY+Nux4Iq5YWGw2m
+	 OaMvFnXVxdSCsjLcGTDQoAqPhjtk8PkXbB1HB+rlOBzSMUnRziDl/g+MrSZZIk8COkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794502022;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0dKN0COIptcZp6LUQ9g82bvQApFBYtce8GNc+voVkvk=;
-	b=KB14W2VVxKxE8BV4U6AMCFk2grWLk3lyc+SgNJIavUzHdZkZH83ogiBjLYkT5Lp7NcS4
-	 GrkoJ8kmNa2qNNMaDmJVPyq5MQSnaZPfCYT1k4B6VcLXgjjeV8ZYnmZX3BO7VuuNJ07IR
-	 MMohk/c+W1HH/iurOV2f3YzVqil0Lw8n27asQpD9KRd1Yz/lhHSYYcNbNhuWo48w+sYHI
-	 BpokZcJMpwX4w5r//xEm1/b2Gqo6rwYyw8r5Xyh/qIp1jKW1Wa3B0lZQ/UGf3CwkNCfQX
-	 PRdGnTMrx28PezVW1ekS46CPNp0pRzviI40fWl3prfd1No7uJk/hvdUtTg2kOY61WXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794502652;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=9/cjPb17iS/vxrutTkad0O/nl3xuamRudtfiqpQy7hI=;
+	b=os+jcWyIzpc/FoX5LZ/HzOg1h8szUnn0yMg6RJVS974VkQFV2wSM6llWkvjrhjiJyOLS
+	 cMxX0nnE0myEw06woDWnbAtHuh8o46JD0luhkA6PshynEklimxh2Xw1OMwGgLK41VIjMz
+	 tcf3U6jO3ciPj+Xw5RLb7UrTi2a2vI57IMlP2JaQTVHGAWl3YegO3j1tlxwibZ5xjpxx1
+	 WCjpBq4/f79A1GryDfVdy/vUWcMAKwYiCRHRgWqly1cECEeQ4I+bcW0h7SqHAAuLA+p/5
+	 DgPhbaid+kG+g3Aovl6ntMStFk7v413cUTodlxyvjnds2ZYp/+cBImWmcADR4QCQgVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hsqY8lYz;
-	arc=none smtp.remote-ip=74.125.224.138
-Received: from mail-yx2-f10.google.com (mail-yx2-f10.google.com [74.125.224.138])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=hTFTJsP6;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 242ED606A331
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 16:47:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 242ED606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD68606A321;
+	Thu, 12 Nov 2026 16:57:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CD68606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hsqY8lYz
-Received: by mail-yx2-f10.google.com with SMTP id 956f58d0204a3-67bdda532c4so1817981d50.0
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 08:47:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794502021; x=1795106821; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0dKN0COIptcZp6LUQ9g82bvQApFBYtce8GNc+voVkvk=;
-        b=hsqY8lYznBH3gIYkyiZkkuZiQkrM6H1lhVgYqe30w/vDk8HG4Q+uO/FCjldXo52eKb
-         NYEo3VJmpwiPMRUS/8raEeRnOsR/NH8y17D0Tr5wuHXLgICydFxJOWuUlc++/Yns9zWY
-         CefwHHvIre4c3D0g0gmHrctfCZdMaJWXrcB8vOy/34Aa8bUNsA3H6Arjlq6Eu8kDjr0i
-         E/7o8EVMdJVu24a5O0bA4iSWtoKT5z/k0eVs72i7EdEKOJZdVa2WdIlSjPWLxqLe48sg
-         ATkSRvZPhE4KmiM7cArbL3JAYizcFmPw3ww5gsfHzFv8LsNyM/9K4KfVtNgllIBmrs9d
-         PkDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794502021; x=1795106821;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0dKN0COIptcZp6LUQ9g82bvQApFBYtce8GNc+voVkvk=;
-        b=bzfuM30ryjDjhLOPVkhZM0cbcgGks4GfjEko2eMjt8KNIZ5EqPRZtBTnjKWVZ8QrLB
-         DUxpgLJ4Acx5P3JA2O78jsuDdzz2R1oWEMVJ26nAXDjMF5FXw0+vWEk777S/+eeP3VFZ
-         hnss54ZejFu2kC6PbPgq/4Q7w8CAoVpRvY4+0JO867rmyVFMXorTW6h2Y+0Y945DgIAg
-         3dX+Rr8F5MixyR6mnIxuAdrmBtydbtMWng2pK/YErOMesMOrhyH4HR5a/+k90EW3RRZn
-         iurw08al14/7Sn/kk3n9IHWUREKWN4xdzqMZpMu65Cv8TFON2A5yUxUbZDMcyXZn1Y0e
-         xnIw==
-X-Forwarded-Encrypted: i=1; AL+hErHMtHKF6xZWENbKU29w45Ey7wDOYyOHSRhoL98VU7n48eWy+zXTIK/Chc8X4ZcXkQvd9TQl3bDRNZ9tNg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9+Z6ZEolgwBqliEamq2sImF024badjNFiIbmQBhdwYDiot+/Wu
-	RdZZnRv4ar+UJUMyd0BiNDhpObYJKowDsT0PZVO1m/Oqu2dlyUsIfMdz
-X-Gm-Gg: AYBFou3UQwNf8atZ96IzRaNpHJCfBZtT2aXjwVKnxQZsWcey3zwEa+KmdZLS24Gfvac
-	jvcniYFYMx2e+0bXkV7h/tnTqZgtWjFT62XdctiwK6zNwJhQxIfVLv++zj/hwr976dCyMACGEu0
-	33Jo2/EgG7PJQoJVoLJj9lehtq8SjmJaQ0jeIvLYQfCOoAiVBnlI1xrp153knrkLnqMTh+H3jbF
-	Hm0TthNxbSLqaTAOQD7uevYIxByemPFj8yn6m57PSimOyxwPNWoALgmRqUnWQekuSL/1u07Z5SA
-	y3zjrnpxpaGLeoGzUI6rAc8gDB1Gqo42+CNc1AAj8smlrS5sXNLtVlm0Cgw8zZ1Shk7E+Ve6tgn
-	iMbiHAUD8wkPvxxEXw9FZAmq1mV1T4u/mArv83HdfkyDfv1kTOLzUlIrG/RV9gMCvWXdarO1wFU
-	QYWbWhSinJ7sAJvaRGHQcFRScfeCY2KtLKKtAVU7kCQx9rh8MDDxyYTxYxIffk9p9ClLcMl+aWJ
-	8ICZXJglp/sJqPKEGwdk8o+ZXzD4z3r6ckE19QYoNBj05PW7IG0zfidXgJW2fSeDCJr1AYJznlp
-	IJSCyg668QSS4oQvcL3UG7M+2BDGY1HC8Xy1E80+Mw==
-X-Received: by 2002:a05:690e:b87:b0:67d:83c7:ddd2 with SMTP id 956f58d0204a3-67d895e51afmr1023d50.37.1794502020995;
-        Thu, 12 Nov 2026 08:47:00 -0800 (PST)
-Received: from athenadria-developer.attlocal.net ([2600:1700:1350:96b0::42])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c589ea7acsm7787339d50.14.2026.11.12.08.47.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 08:47:00 -0800 (PST)
-From: Hezekiah Mogere Joseph Mayaka <hmjm081106@gmail.com>
-To: Andy Shevchenko <andy@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] staging: media: atomisp: Remove unneeded return statements
-Date: Thu, 12 Nov 2026 10:46:42 -0600
-Message-ID: <20261112164642.38692-1-hmjm081106@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=hTFTJsP6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794502649;
+	bh=EXQNV0uzu+d14uonYm2DSA/v23rPeVgADO5iLS6qa7w=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=hTFTJsP6c3bIKhj5x8jjAyKny9sgXSoqpXMycdTe96Z5pKsdmsO2U5QtDy0Zbhfee
+	 x5DGqLhRCo5xQdq6JwSUKQ+j60WZ0juV3jzCzblv/z5CrBosVQUslGeUPwm6gJ8nKh
+	 nbqemi5RDVZkJV7L18aa+I0WGTLsH6skw4ye9b0SHPUj6jz4gIitznZoK4tAuo1LOu
+	 b82KsSrV8hE3UBJFvdE31n24fmlY3UqmN+63lWdYy6T7n1vKmlqsz8uie3rhsTUE0m
+	 X8nKXVwl1JRkZwRfx6JA4aDwIdgex8eyfEqOFow6KX6NXsxgxIsaeOdVM3nSn6EkOd
+	 oZ5L0j3D7uo3g==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 02CD717E080A;
+	Thu, 12 Nov 2026 17:57:27 +0100 (CET)
+Message-ID: <b2999c2fe5193eac3ebb0796f3de44710e993200.camel@collabora.com>
+Subject: Re: [PATCH v12 0/6] Add Amlogic stateless H.264 video decoder for S4
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: zhentao.guo@amlogic.com, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl	 <martin.blumenstingl@googlemail.com>, Mauro Carvalho
+ Chehab <mchehab@kernel.org>,  Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ 	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, Krzysztof Kozlowski	
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Date: Thu, 12 Nov 2026 11:57:26 -0500
+In-Reply-To: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
+References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-4Pee9qjTAWQLJCV3w4xl"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,693 +91,502 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Remove the bare return statements at the end of void functions
-throughout the driver, along with the blank lines before them. They
-have no effect and checkpatch.pl warns about them:
+--=-4Pee9qjTAWQLJCV3w4xl
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  WARNING: void function return statements are not generally useful
+Hi,
 
-Signed-off-by: Hezekiah Mogere Joseph Mayaka <hmjm081106@gmail.com>
----
-v2:
- - Cover the whole driver instead of only irq.c (Andy Shevchenko)
+Le jeudi 22 octobre 2026 =C3=A0 13:26 +0800, Zhentao Guo via B4 Relay a =C3=
+=A9crit=C2=A0:
+> Introduce initial driver support for Amlogic's new video acceleration
+> hardware architecture, designed for video stream decoding.
+>=20
+> Compared to the current Amlogic video decoder hardware architecture,
+> this new implementation eliminates the Esparser hardware component,
+> enabling direct vb2 buffer input. The driver is designed to support
+> the V4L2 M2M stateless decoder API. The initial phase includes support
+> for H.264 decoding on Amlogic S805X2 platform.
+>=20
+> The driver needs to work alongside with a signed firmware. The loading pr=
+ocess of
+> the signed fw is as follow.
+> Stage1: Decypt and decompose the full firmware package when the driver is=
+ probed.
+>   +---------------------+                        +---------------------+
+>   |  Decoder Driver     |                        |  TEE Shared Memory  |
+>   |  (Kernel Space)     |                        |                     |
+>   |  +---------------+  |                        |  +---------------+  |
+>   |  | video_ucode   |  |                        |  | firmware      |  |
+>   |  |    .bin       |  |  Copy payload to SHM   |  |   payload     |  |
+>   |  | (from fs)     |  | ---------------------> |  | (Secure RAM)  |  |
+>   |  +---------------+  |                        |  +---------------+  |
+>   +---------------------+                        +----------+----------+
+>                                                             |
+>                                                             | PTA Invocat=
+ion
+>                                                             v
+>                                        +-------------------------------+
+>                                        |             BL32              |
+>                                        |  +-------------------------+  |
+>                                        |  | Decrypt Firmware        |  |
+>                                        |  +-----------+-------------+  |
+>                                        |              |                |
+>                                        |              v                |
+>                                        |  +-------------------------+  |
+>                                        |  | Decompose the full      |  |
+> =09=09=09=09       |  | firmware pacakge        |  |
+>                                        |  +-----------+-------------+  |
+>                                        |              |                |
+>                                        |              v                |
+>                                        |  +-------------------------+  |
+>                                        |  | Store decomposed .bin   |  |
+>                                        |  | in Secure Memory        |  |
+>                                        |  +-------------------------+  |
+>                                        +-------------------------------+
+>=20
+> Stage2: When a decode job is scheduled, load decrypted fw via secure moni=
+tor.
+>=20
+>   +---------------------+
+>   |  V4L2 M2M Framework |
+>   |  +---------------+  |
+>   |  |  device_run   |  |
+>   |  +------+--------+  |
+>   +---------+-----------+
+>             |
+>             v
+>   +---------------------+                  +---------------------+
+>   |  Decoder Driver     |                  |  Secure Monitor     |
+>   |  (Kernel Space)     |                  |      (bl32)         |
+>   |  +---------------+  |     SMC Call     |  +---------------+  |
+>   |  | Select Codec  |  | ---------------> |  | Select & Load |  |
+>   |  | Specific FW   |  |                  |  | firmware.bin  |  |
+>   |  +---------------+  |                  |  | to AMRISC     |  |
+>   +---------------------+                  |  +-------+-------+  |
+>                                            +----------+----------+
+>                                                       |
+>                                                       v
+>                                            +---------------------+
+>                                            |     AMRISC Core     |
+>                                            |  +---------------+  |
+>                                            |  | Running fw on |  |
+>                                            |  | AMRISC        |  |
+>                                            |  +---------------+  |
+>                                            +---------------------+
+>=20
+> The driver is capable of:
+> - Supporting stateless H.264 decoding up to a resolution 1920x1088(on the=
+ S805X2 platform).
+> - Supporting I/P/B frame handling.
+> - Supporting vb2 mmap and dma-buf modes.
+> - Supporting frame-based decode mode. (Note that some H.264 bitstreams re=
+quire
+>   DPB reordering to generate reference lists, the stateless decoder drive=
+r
+>   cannot access reordered reference lists in this mode, requiring the dri=
+ver
+>   to perform reference list reordering itself)
+> - Supporting NV12/NV21 output.
+> - Supporting Annex B start codes.
+>=20
+> This driver is tested with Gstreamer.
+> Example:
+> gst-launch-1.0 filesrc location=3D/tmp/video_640x360_mp4_hevc_450kbps_no_=
+b.mp4 !
+> parsebin ! v4l2slh264dec ! filesink location=3D/tmp/output.yuv
+>=20
+> Retry the compliance test based on kernel 7.1.0:
+> v4l2-compliance 1.30.1, 64 bits, 64-bit time_t
+>=20
+> Compliance test for aml-vdec-drv device /dev/video0:
+>=20
+> Driver Info:
+> Driver name : aml-vdec-drv
+> Card type : platform:aml-vdec-drv
+> Bus info : platform:fe320000.video-codec
+> Driver version : 7.1.0
+> Capabilities : 0x84204000
+> Video Memory-to-Memory Multiplanar
+> Streaming
+> Extended Pix Format
+> Device Capabilities
+> Device Caps : 0x04204000
+> Video Memory-to-Memory Multiplanar
+> Streaming
+> Extended Pix Format
+> Detected Stateless Decoder
+> Media Driver Info:
+> Driver name : aml-vdec-drv
+> Model : aml-vdec-drv
+> Serial :
+> Bus info : platform:fe320000.video-codec
+> Media version : 7.1.0
+> Hardware revision: 0x00000000 (0)
+> Driver version : 7.1.0
+> Interface Info:
+> ID : 0x0300000c
+> Type : V4L Video
+> Entity Info:
+> ID : 0x00000001 (1)
+> Name : aml_dev_drv-source
+> Function : V4L2 I/O
+> Pad 0x01000002 : 0: Source
+> Link 0x02000008: to remote pad 0x1000004 of entity 'aml_dev_drv-proc' (Vi=
+deo Decoder): Data, Enabled, Immutable
+>=20
+> Required ioctls:
+> test MC information (see 'Media Driver Info' above): OK
+> test VIDIOC_QUERYCAP: OK
+> test invalid ioctls: OK
+>=20
+> Allow for multiple opens:
+> test second /dev/video0 open: OK
+> test VIDIOC_QUERYCAP: OK
+> test VIDIOC_G/S_PRIORITY: OK
+> test for unlimited opens: OK
+>=20
+> Debug ioctls:
+> test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+> test VIDIOC_LOG_STATUS: OK (Not Supported)
+>=20
+> Input ioctls:
+> test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+> test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+> test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+> test VIDIOC_ENUMAUDIO: OK (Not Supported)
+> test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+> test VIDIOC_G/S_AUDIO: OK (Not Supported)
+> Inputs: 0 Audio Inputs: 0 Tuners: 0
+>=20
+> Output ioctls:
+> test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+> test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+> test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+> test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+> test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+> Outputs: 0 Audio Outputs: 0 Modulators: 0
+>=20
+> Input/Output configuration ioctls:
+> test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+> test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+> test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+> test VIDIOC_G/S_EDID: OK (Not Supported)
+>=20
+> Control ioctls:
+> test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+> test VIDIOC_QUERYCTRL: OK
+> test VIDIOC_G/S_CTRL: OK
+> test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+> test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+> test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+> Standard Controls: 6 Private Controls: 0
+> Standard Compound Controls: 4 Private Compound Controls: 0
+>=20
+> Format ioctls:
+> test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+> test VIDIOC_G/S_PARM: OK (Not Supported)
+> test VIDIOC_G_FBUF: OK (Not Supported)
+> test VIDIOC_G_FMT: OK
+> test VIDIOC_TRY_FMT: OK
+> test VIDIOC_S_FMT: OK
+> test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+> test Cropping: OK (Not Supported)
+> test Composing: OK (Not Supported)
+> test Scaling: OK (Not Supported)
+>=20
+> Codec ioctls:
+> test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+> test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+> test VIDIOC_(TRY_)DECODER_CMD: OK
+>=20
+> Buffer ioctls:
+> test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+> test CREATE_BUFS maximum buffers: OK
+> test VIDIOC_REMOVE_BUFS: OK
+> test VIDIOC_EXPBUF: OK
+> test Requests: OK
+> test blocking wait: OK
+>=20
+> Total for aml-vdec-drv device /dev/video0: 49, Succeeded: 49, Failed: 0, =
+Warnings: 0
+> Fluster test result of JVT-AVC_V1.
+> Result:
+> Ran 77/135 tests successfully
 
-v1: https://lore.kernel.org/r/20261112011025.101375-1-hmjm081106@gmail.com
+After looking in my past data, 90/135 would be expected without deinterlace=
+r. I
+already find bugs in the review, comment on that patches.
 
- .../hive_isp_css_common/host/event_fifo_private.h    |  1 -
- .../pci/hive_isp_css_common/host/fifo_monitor.c      |  5 -----
- .../hive_isp_css_common/host/fifo_monitor_private.h  |  3 ---
- .../atomisp/pci/hive_isp_css_common/host/gp_device.c |  1 -
- .../pci/hive_isp_css_common/host/gp_device_private.h |  1 -
- .../pci/hive_isp_css_common/host/gpio_private.h      |  1 -
- .../pci/hive_isp_css_common/host/input_formatter.c   |  8 --------
- .../host/input_formatter_private.h                   |  1 -
- .../media/atomisp/pci/hive_isp_css_common/host/irq.c | 12 ------------
- .../pci/hive_isp_css_common/host/irq_private.h       |  1 -
- .../media/atomisp/pci/hive_isp_css_common/host/isp.c |  1 -
- .../pci/hive_isp_css_common/host/isp_private.h       |  6 ------
- .../media/atomisp/pci/hive_isp_css_common/host/mmu.c |  2 --
- .../pci/hive_isp_css_common/host/sp_private.h        |  8 --------
- drivers/staging/media/atomisp/pci/hmm/hmm_bo.c       |  2 --
- .../media/atomisp/pci/isp2400_input_system_private.h |  4 ----
- .../media/atomisp/pci/runtime/binary/src/binary.c    |  1 -
- .../media/atomisp/pci/runtime/bufq/src/bufq.c        |  1 -
- .../atomisp/pci/runtime/debug/src/ia_css_debug.c     |  9 ---------
- .../media/atomisp/pci/runtime/frame/src/frame.c      |  4 ----
- .../media/atomisp/pci/runtime/ifmtr/src/ifmtr.c      |  2 --
- .../staging/media/atomisp/pci/runtime/isys/src/rx.c  |  7 -------
- drivers/staging/media/atomisp/pci/sh_css.c           |  4 ----
- 23 files changed, 85 deletions(-)
+>=20
+> - 52 test vectors failed due to interlaced or mbaff clips: The Amlogic st=
+ateless
+>   decoder driver only support bitstreams with frame_mbs_only_flags =3D=3D=
+ 1.
+>   Test Vectors:
+>         cabac_mot_fld0_full
+>         cabac_mot_mbaff0_full
+>         cabac_mot_picaff0_full
+>         CABREF3_Sand_D
+>         CAFI1_SVA_C
+>         CAMA1_Sony_C
 
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/event_fifo_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/event_fifo_private.h
-index e77d7cf61356..f9823b9c2246 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/event_fifo_private.h
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/event_fifo_private.h
-@@ -20,7 +20,6 @@ STORAGE_CLASS_EVENT_C void event_wait_for(const event_ID_t ID)
- 	assert(ID < N_EVENT_ID);
- 	assert(event_source_addr[ID] != ((hrt_address) - 1));
- 	(void)ia_css_device_load_uint32(event_source_addr[ID]);
--	return;
- }
- 
- STORAGE_CLASS_EVENT_C void cnd_event_wait_for(const event_ID_t ID,
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor.c
-index f0de78815456..9aee5ebb2004 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor.c
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor.c
-@@ -492,8 +492,6 @@ void fifo_channel_get_state(
- 		assert(0);
- 		break;
- 	}
--
--	return;
- }
- 
- void fifo_switch_get_state(
-@@ -514,8 +512,6 @@ void fifo_switch_get_state(
- 	state->is_none = (data == HIVE_ISP_CSS_STREAM_SWITCH_NONE);
- 	state->is_sp = (data == HIVE_ISP_CSS_STREAM_SWITCH_SP);
- 	state->is_isp = (data == HIVE_ISP_CSS_STREAM_SWITCH_ISP);
--
--	return;
- }
- 
- void fifo_monitor_get_state(
-@@ -537,7 +533,6 @@ void fifo_monitor_get_state(
- 		fifo_switch_get_state(ID, sw_id,
- 				      &state->fifo_switches[sw_id]);
- 	}
--	return;
- }
- 
- static inline bool fifo_monitor_status_valid(
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor_private.h
-index 53a3fb796aab..123cb89cf3ee 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor_private.h
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/fifo_monitor_private.h
-@@ -31,8 +31,6 @@ STORAGE_CLASS_FIFO_MONITOR_C void fifo_switch_set(
- 	(void)ID;
- 
- 	gp_device_reg_store(GP_DEVICE0_ID, FIFO_SWITCH_ADDR[switch_id], sel);
--
--	return;
- }
- 
- STORAGE_CLASS_FIFO_MONITOR_C hrt_data fifo_switch_get(
-@@ -56,7 +54,6 @@ STORAGE_CLASS_FIFO_MONITOR_C void fifo_monitor_reg_store(
- 	assert(FIFO_MONITOR_BASE[ID] != (hrt_address) - 1);
- 	ia_css_device_store_uint32(FIFO_MONITOR_BASE[ID] + reg * sizeof(hrt_data),
- 				   value);
--	return;
- }
- 
- STORAGE_CLASS_FIFO_MONITOR_C hrt_data fifo_monitor_reg_load(
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device.c
-index b934d20c88ea..35366da05390 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device.c
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device.c
-@@ -96,5 +96,4 @@ void gp_device_get_state(
- 				   _REG_GP_SYNCGEN_FRAME_CNT_ADDR);
- 	state->soft_reset = gp_device_reg_load(ID,
- 					       _REG_GP_SOFT_RESET_ADDR);
--	return;
- }
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device_private.h
-index 71f20992ee98..f43e79a39f4d 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device_private.h
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gp_device_private.h
-@@ -22,7 +22,6 @@ STORAGE_CLASS_GP_DEVICE_C void gp_device_reg_store(
- 	assert(GP_DEVICE_BASE[ID] != (hrt_address) - 1);
- 	assert((reg_addr % sizeof(hrt_data)) == 0);
- 	ia_css_device_store_uint32(GP_DEVICE_BASE[ID] + reg_addr, value);
--	return;
- }
- 
- STORAGE_CLASS_GP_DEVICE_C hrt_data gp_device_reg_load(
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gpio_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gpio_private.h
-index bcf6538ac0dc..27809117dde6 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gpio_private.h
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gpio_private.h
-@@ -18,7 +18,6 @@ static inline void gpio_reg_store(
- 	OP___assert(ID < N_GPIO_ID);
- 	OP___assert(GPIO_BASE[ID] != (hrt_address) - 1);
- 	ia_css_device_store_uint32(GPIO_BASE[ID] + reg * sizeof(hrt_data), value);
--	return;
- }
- 
- static inline hrt_data gpio_reg_load(
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter.c
-index c353461dcdf2..d2ac87fdfb4a 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter.c
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter.c
-@@ -64,8 +64,6 @@ void input_formatter_rst(
- 	 */
- 	if (!HIVE_IF_BIN_COPY[ID])
- 		input_formatter_reg_store(ID, addr, rst);
--
--	return;
- }
- 
- unsigned int input_formatter_get_alignment(
-@@ -87,7 +85,6 @@ void input_formatter_set_fifo_blocking_mode(
- 		input_formatter_reg_store(ID,
- 					  HIVE_IF_BLOCK_FIFO_NO_REQ_ADDRESS, enable);
- 	}
--	return;
- }
- 
- void input_formatter_get_switch_state(
-@@ -120,8 +117,6 @@ void input_formatter_get_switch_state(
- 					   _REG_GP_IFMT_input_switch_fsync_lut);
- 	state->if_input_switch_ch_id_fmt_type = gp_device_reg_load(GP_DEVICE0_ID,
- 						_REG_GP_IFMT_input_switch_ch_id_fmt_type);
--
--	return;
- }
- 
- void input_formatter_get_state(
-@@ -201,8 +196,6 @@ void input_formatter_get_state(
- 				HIVE_IF_FSM_VECTOR_SUPPORT);
- 	state->sensor_data_lost = input_formatter_reg_load(ID,
- 				  HIVE_IF_FIFO_SENSOR_STATUS);
--
--	return;
- }
- 
- void input_formatter_bin_get_state(
-@@ -230,5 +223,4 @@ void input_formatter_bin_get_state(
- 			 HIVE_STR2MEM_DUAL_BYTE_INPUTS_ENABLED_REG_ADDRESS);
- 	state->en_status_update = input_formatter_reg_load(ID,
- 				  HIVE_STR2MEM_EN_STAT_UPDATE_ADDRESS);
--	return;
- }
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter_private.h
-index 6b6ba49656e5..823861f2abe3 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter_private.h
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/input_formatter_private.h
-@@ -22,7 +22,6 @@ STORAGE_CLASS_INPUT_FORMATTER_C void input_formatter_reg_store(
- 	assert(INPUT_FORMATTER_BASE[ID] != (hrt_address)-1);
- 	assert((reg_addr % sizeof(hrt_data)) == 0);
- 	ia_css_device_store_uint32(INPUT_FORMATTER_BASE[ID] + reg_addr, value);
--	return;
- }
- 
- STORAGE_CLASS_INPUT_FORMATTER_C hrt_data input_formatter_reg_load(
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
-index 61dea386361a..6ca8fcd61b36 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq.c
-@@ -60,7 +60,6 @@ void irq_clear_all(
- 
- 	irq_reg_store(ID,
- 		      _HRT_IRQ_CONTROLLER_CLEAR_REG_IDX, mask);
--	return;
- }
- 
- /*
-@@ -104,8 +103,6 @@ void irq_enable_channel(
- 		      _HRT_IRQ_CONTROLLER_MASK_REG_IDX, mask);
- 
- 	irq_wait_for_write_complete(ID);
--
--	return;
- }
- 
- void irq_enable_pulse(
-@@ -120,7 +117,6 @@ void irq_enable_pulse(
- 	/* output is given as edge, not pulse */
- 	irq_reg_store(ID,
- 		      _HRT_IRQ_CONTROLLER_EDGE_NOT_PULSE_REG_IDX, edge_out);
--	return;
- }
- 
- void irq_disable_channel(
-@@ -150,8 +146,6 @@ void irq_disable_channel(
- 		      _HRT_IRQ_CONTROLLER_CLEAR_REG_IDX, me);
- 
- 	irq_wait_for_write_complete(ID);
--
--	return;
- }
- 
- enum hrt_isp_css_irq_status irq_get_channel_id(
-@@ -212,7 +206,6 @@ void irq_raise(
- 			    (unsigned int)addr, 1);
- 	gp_device_reg_store(GP_DEVICE0_ID,
- 			    (unsigned int)addr, 0);
--	return;
- }
- 
- bool any_virq_signal(void)
-@@ -251,7 +244,6 @@ void cnd_virq_enable_channel(
- 			irq_disable_channel(IRQ0_ID, IRQ_NESTING_ID[ID]);
- 		}
- 	}
--	return;
- }
- 
- void virq_clear_all(void)
-@@ -260,8 +252,6 @@ void virq_clear_all(void)
- 
- 	for (irq_id = (irq_ID_t)0; irq_id < N_IRQ_ID; irq_id++)
- 		irq_clear_all(irq_id);
--
--	return;
- }
- 
- enum hrt_isp_css_irq_status
-@@ -302,8 +292,6 @@ void virq_clear_info(struct virq_info *irq_info)
- 
- 	for (ID = (irq_ID_t)0 ; ID < N_IRQ_ID; ID++)
- 		irq_info->irq_status_reg[ID] = 0;
--
--	return;
- }
- 
- enum hrt_isp_css_irq_status virq_get_channel_id(
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq_private.h
-index ae0a8466a70a..5e27f053f00c 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq_private.h
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/irq_private.h
-@@ -21,7 +21,6 @@ STORAGE_CLASS_IRQ_C void irq_reg_store(
- 	assert(ID < N_IRQ_ID);
- 	assert(IRQ_BASE[ID] != (hrt_address) - 1);
- 	ia_css_device_store_uint32(IRQ_BASE[ID] + reg * sizeof(hrt_data), value);
--	return;
- }
- 
- STORAGE_CLASS_IRQ_C hrt_data irq_reg_load(
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp.c
-index 39cccbfa3fca..17a04ac623ff 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp.c
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp.c
-@@ -27,7 +27,6 @@ void cnd_isp_irq_enable(
- 		isp_ctrl_clearbit(ID, ISP_IRQ_READY_REG,
- 				  ISP_IRQ_READY_BIT);
- 	}
--	return;
- }
- 
- /* ISP functions to control the ISP state from the host, even in crun. */
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp_private.h
-index 177770a9bc1d..b699a1c3af0b 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp_private.h
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp_private.h
-@@ -30,7 +30,6 @@ STORAGE_CLASS_ISP_C void isp_ctrl_store(
- #else
- 	hrt_master_port_store_32(ISP_CTRL_BASE[ID] + reg * sizeof(hrt_data), value);
- #endif
--	return;
- }
- 
- STORAGE_CLASS_ISP_C hrt_data isp_ctrl_load(
-@@ -64,7 +63,6 @@ STORAGE_CLASS_ISP_C void isp_ctrl_setbit(
- 	hrt_data	data = isp_ctrl_load(ID, reg);
- 
- 	isp_ctrl_store(ID, reg, (data | (1UL << bit)));
--	return;
- }
- 
- STORAGE_CLASS_ISP_C void isp_ctrl_clearbit(
-@@ -75,7 +73,6 @@ STORAGE_CLASS_ISP_C void isp_ctrl_clearbit(
- 	hrt_data	data = isp_ctrl_load(ID, reg);
- 
- 	isp_ctrl_store(ID, reg, (data & ~(1UL << bit)));
--	return;
- }
- 
- STORAGE_CLASS_ISP_C void isp_dmem_store(
-@@ -91,7 +88,6 @@ STORAGE_CLASS_ISP_C void isp_dmem_store(
- #else
- 	hrt_master_port_store(ISP_DMEM_BASE[ID] + addr, data, size);
- #endif
--	return;
- }
- 
- STORAGE_CLASS_ISP_C void isp_dmem_load(
-@@ -107,7 +103,6 @@ STORAGE_CLASS_ISP_C void isp_dmem_load(
- #else
- 	hrt_master_port_load(ISP_DMEM_BASE[ID] + addr, data, size);
- #endif
--	return;
- }
- 
- STORAGE_CLASS_ISP_C void isp_dmem_store_uint32(
-@@ -123,7 +118,6 @@ STORAGE_CLASS_ISP_C void isp_dmem_store_uint32(
- #else
- 	hrt_master_port_store_32(ISP_DMEM_BASE[ID] + addr, data);
- #endif
--	return;
- }
- 
- STORAGE_CLASS_ISP_C uint32_t isp_dmem_load_uint32(
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/mmu.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/mmu.c
-index 70d118fe1e70..87d89eab7f2c 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/mmu.c
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/mmu.c
-@@ -12,7 +12,6 @@ void mmu_set_page_table_base_index(
-     const hrt_data		base_index)
- {
- 	mmu_reg_store(ID, _HRT_MMU_PAGE_TABLE_BASE_ADDRESS_REG_IDX, base_index);
--	return;
- }
- 
- hrt_data mmu_get_page_table_base_index(
-@@ -25,7 +24,6 @@ void mmu_invalidate_cache(
-     const mmu_ID_t		ID)
- {
- 	mmu_reg_store(ID, _HRT_MMU_INVALIDATE_TLB_REG_IDX, 1);
--	return;
- }
- 
- void mmu_invalidate_cache_all(void)
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/sp_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/sp_private.h
-index c69778411f2f..b03ae6658df3 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/sp_private.h
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/sp_private.h
-@@ -21,7 +21,6 @@ STORAGE_CLASS_SP_C void sp_ctrl_store(
- 	assert(ID < N_SP_ID);
- 	assert(SP_CTRL_BASE[ID] != (hrt_address)-1);
- 	ia_css_device_store_uint32(SP_CTRL_BASE[ID] + reg * sizeof(hrt_data), value);
--	return;
- }
- 
- STORAGE_CLASS_SP_C hrt_data sp_ctrl_load(
-@@ -51,7 +50,6 @@ STORAGE_CLASS_SP_C void sp_ctrl_setbit(
- 	hrt_data	data = sp_ctrl_load(ID, reg);
- 
- 	sp_ctrl_store(ID, reg, (data | (1UL << bit)));
--	return;
- }
- 
- STORAGE_CLASS_SP_C void sp_ctrl_clearbit(
-@@ -62,7 +60,6 @@ STORAGE_CLASS_SP_C void sp_ctrl_clearbit(
- 	hrt_data	data = sp_ctrl_load(ID, reg);
- 
- 	sp_ctrl_store(ID, reg, (data & ~(1UL << bit)));
--	return;
- }
- 
- STORAGE_CLASS_SP_C void sp_dmem_store(
-@@ -74,7 +71,6 @@ STORAGE_CLASS_SP_C void sp_dmem_store(
- 	assert(ID < N_SP_ID);
- 	assert(SP_DMEM_BASE[ID] != (hrt_address)-1);
- 	ia_css_device_store(SP_DMEM_BASE[ID] + addr, data, size);
--	return;
- }
- 
- STORAGE_CLASS_SP_C void sp_dmem_load(
-@@ -86,7 +82,6 @@ STORAGE_CLASS_SP_C void sp_dmem_load(
- 	assert(ID < N_SP_ID);
- 	assert(SP_DMEM_BASE[ID] != (hrt_address)-1);
- 	ia_css_device_load(SP_DMEM_BASE[ID] + addr, data, size);
--	return;
- }
- 
- STORAGE_CLASS_SP_C void sp_dmem_store_uint8(
-@@ -98,7 +93,6 @@ STORAGE_CLASS_SP_C void sp_dmem_store_uint8(
- 	assert(SP_DMEM_BASE[ID] != (hrt_address)-1);
- 	(void)ID;
- 	ia_css_device_store_uint8(SP_DMEM_BASE[SP0_ID] + addr, data);
--	return;
- }
- 
- STORAGE_CLASS_SP_C void sp_dmem_store_uint16(
-@@ -110,7 +104,6 @@ STORAGE_CLASS_SP_C void sp_dmem_store_uint16(
- 	assert(SP_DMEM_BASE[ID] != (hrt_address)-1);
- 	(void)ID;
- 	ia_css_device_store_uint16(SP_DMEM_BASE[SP0_ID] + addr, data);
--	return;
- }
- 
- STORAGE_CLASS_SP_C void sp_dmem_store_uint32(
-@@ -122,7 +115,6 @@ STORAGE_CLASS_SP_C void sp_dmem_store_uint32(
- 	assert(SP_DMEM_BASE[ID] != (hrt_address)-1);
- 	(void)ID;
- 	ia_css_device_store_uint32(SP_DMEM_BASE[SP0_ID] + addr, data);
--	return;
- }
- 
- STORAGE_CLASS_SP_C uint8_t sp_dmem_load_uint8(
-diff --git a/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c b/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
-index 0a8f401a1ca1..4ceb8cb41156 100644
---- a/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
-+++ b/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
-@@ -483,7 +483,6 @@ void hmm_bo_release(struct hmm_buffer_object *bo)
- 	__bo_insert_to_free_rbtree(&bdev->free_rbtree, bo);
- 
- 	mutex_unlock(&bdev->rbtree_mutex);
--	return;
- }
- 
- void hmm_bo_device_exit(struct hmm_bo_device *bdev)
-@@ -957,7 +956,6 @@ void hmm_bo_vunmap(struct hmm_buffer_object *bo)
- 	}
- 
- 	mutex_unlock(&bo->mutex);
--	return;
- }
- 
- void hmm_bo_ref(struct hmm_buffer_object *bo)
-diff --git a/drivers/staging/media/atomisp/pci/isp2400_input_system_private.h b/drivers/staging/media/atomisp/pci/isp2400_input_system_private.h
-index a6762683a0ac..00e6574f186a 100644
---- a/drivers/staging/media/atomisp/pci/isp2400_input_system_private.h
-+++ b/drivers/staging/media/atomisp/pci/isp2400_input_system_private.h
-@@ -22,7 +22,6 @@ STORAGE_CLASS_INPUT_SYSTEM_C void input_system_reg_store(
- 	assert(INPUT_SYSTEM_BASE[ID] != (hrt_address)-1);
- 	ia_css_device_store_uint32(INPUT_SYSTEM_BASE[ID] + reg * sizeof(hrt_data),
- 				   value);
--	return;
- }
- 
- STORAGE_CLASS_INPUT_SYSTEM_C hrt_data input_system_reg_load(
-@@ -43,7 +42,6 @@ STORAGE_CLASS_INPUT_SYSTEM_C void receiver_reg_store(
- 	assert(ID < N_RX_ID);
- 	assert(RX_BASE[ID] != (hrt_address)-1);
- 	ia_css_device_store_uint32(RX_BASE[ID] + reg * sizeof(hrt_data), value);
--	return;
- }
- 
- STORAGE_CLASS_INPUT_SYSTEM_C hrt_data receiver_reg_load(
-@@ -67,7 +65,6 @@ STORAGE_CLASS_INPUT_SYSTEM_C void receiver_port_reg_store(
- 	assert(MIPI_PORT_OFFSET[port_ID] != (hrt_address)-1);
- 	ia_css_device_store_uint32(RX_BASE[ID] + MIPI_PORT_OFFSET[port_ID] + reg *
- 				   sizeof(hrt_data), value);
--	return;
- }
- 
- STORAGE_CLASS_INPUT_SYSTEM_C hrt_data receiver_port_reg_load(
-@@ -95,7 +92,6 @@ STORAGE_CLASS_INPUT_SYSTEM_C void input_system_sub_system_reg_store(
- 	assert(SUB_SYSTEM_OFFSET[sub_ID] != (hrt_address)-1);
- 	ia_css_device_store_uint32(INPUT_SYSTEM_BASE[ID] + SUB_SYSTEM_OFFSET[sub_ID] +
- 				   reg * sizeof(hrt_data), value);
--	return;
- }
- 
- STORAGE_CLASS_INPUT_SYSTEM_C hrt_data input_system_sub_system_reg_load(
-diff --git a/drivers/staging/media/atomisp/pci/runtime/binary/src/binary.c b/drivers/staging/media/atomisp/pci/runtime/binary/src/binary.c
-index e9016d7775dc..8ee20947b20e 100644
---- a/drivers/staging/media/atomisp/pci/runtime/binary/src/binary.c
-+++ b/drivers/staging/media/atomisp/pci/runtime/binary/src/binary.c
-@@ -345,7 +345,6 @@ ia_css_binary_dvs_stat_grid_info(
- {
- 	(void)pipe;
- 	sh_css_binary_common_grid_info(binary, info);
--	return;
- }
- 
- int ia_css_binary_3a_grid_info(const struct ia_css_binary *binary,
-diff --git a/drivers/staging/media/atomisp/pci/runtime/bufq/src/bufq.c b/drivers/staging/media/atomisp/pci/runtime/bufq/src/bufq.c
-index 0f0d16f4ce7c..51f7c9d6f378 100644
---- a/drivers/staging/media/atomisp/pci/runtime/bufq/src/bufq.c
-+++ b/drivers/staging/media/atomisp/pci/runtime/bufq/src/bufq.c
-@@ -176,7 +176,6 @@ static void map_buffer_type_to_queue_id(
- 	}
- 
- 	assert(i != SH_CSS_MAX_NUM_QUEUES);
--	return;
- }
- 
- static void unmap_buffer_type_to_queue_id(
-diff --git a/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c b/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-index 5113aa5973f3..f9be7743d006 100644
---- a/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-+++ b/drivers/staging/media/atomisp/pci/runtime/debug/src/ia_css_debug.c
-@@ -136,7 +136,6 @@ void ia_css_debug_dtrace(unsigned int level, const char *fmt, ...)
- void ia_css_debug_set_dtrace_level(const unsigned int trace_level)
- {
- 	dbg_level = trace_level;
--	return;
- }
- 
- unsigned int ia_css_debug_get_dtrace_level(void)
-@@ -315,7 +314,6 @@ static void debug_print_fifo_channel_state(const fifo_channel_state_t *state,
- 			    state->fifo_valid);
- 	ia_css_debug_dtrace(2, "\t%-32s: %d\n", "sink accept",
- 			    state->sink_accept);
--	return;
- }
- 
- void ia_css_debug_dump_pif_a_isp_fifo_state(void)
-@@ -364,7 +362,6 @@ void ia_css_debug_dump_all_fifo_state(void)
- 	for (i = 0; i < N_FIFO_CHANNEL; i++)
- 		debug_print_fifo_channel_state(&state.fifo_channels[i],
- 					       "squepfstqkt");
--	return;
- }
- 
- static void debug_binary_info_print(const struct ia_css_binary_xinfo *info)
-@@ -386,7 +383,6 @@ static void debug_binary_info_print(const struct ia_css_binary_xinfo *info)
- 	ia_css_debug_dtrace(2, "enable_uds = %d\n", info->sp.enable.uds);
- 	ia_css_debug_dtrace(2, "enable ds = %d\n", info->sp.enable.ds);
- 	ia_css_debug_dtrace(2, "s3atbl_use_dmem = %d\n", info->sp.s3a.s3atbl_use_dmem);
--	return;
- }
- 
- void ia_css_debug_binary_print(const struct ia_css_binary *bi)
-@@ -441,7 +437,6 @@ void ia_css_debug_binary_print(const struct ia_css_binary *bi)
- 			    bi->sctbl_width_per_color);
- 	ia_css_debug_dtrace(2, "s3atbl_width = %d\n", bi->s3atbl_width);
- 	ia_css_debug_dtrace(2, "s3atbl_height = %d\n", bi->s3atbl_height);
--	return;
- }
- 
- void ia_css_debug_frame_print(const struct ia_css_frame *frame,
-@@ -526,7 +521,6 @@ void ia_css_debug_frame_print(const struct ia_css_frame *frame,
- 		ia_css_debug_dtrace(2, "  unknown frame type\n");
- 		break;
- 	}
--	return;
- }
- 
- #if SP_DEBUG != SP_DEBUG_NONE
-@@ -808,8 +802,6 @@ void ia_css_debug_print_sp_debug_state(const struct sh_css_sp_debug_state
- #endif
- 
- #if SP_DEBUG != SP_DEBUG_NONE
--
--	return;
- }
- #endif
- 
-@@ -823,7 +815,6 @@ void ia_css_debug_dump_sp_sw_debug_info(void)
- #endif
- 	ia_css_bufq_dump_queue_info();
- 	ia_css_pipeline_dump_thread_map_info();
--	return;
- }
- 
- /* this function is for debug use, it can make SP go to sleep
-diff --git a/drivers/staging/media/atomisp/pci/runtime/frame/src/frame.c b/drivers/staging/media/atomisp/pci/runtime/frame/src/frame.c
-index 8614efc28b19..ae952df03cc6 100644
---- a/drivers/staging/media/atomisp/pci/runtime/frame/src/frame.c
-+++ b/drivers/staging/media/atomisp/pci/runtime/frame/src/frame.c
-@@ -525,7 +525,6 @@ static void frame_init_nv_planes(struct ia_css_frame *frame,
- 	frame_init_plane(&frame->planes.nv.y, y_width, y_stride, y_height, 0);
- 	frame_init_plane(&frame->planes.nv.uv, uv_width,
- 			 uv_stride, uv_height, y_bytes);
--	return;
- }
- 
- static void frame_init_yuv_planes(struct ia_css_frame *frame,
-@@ -558,7 +557,6 @@ static void frame_init_yuv_planes(struct ia_css_frame *frame,
- 		frame_init_plane(&frame->planes.yuv.v, uv_width, uv_stride,
- 				 uv_height, y_bytes + uv_bytes);
- 	}
--	return;
- }
- 
- static void frame_init_rgb_planes(struct ia_css_frame *frame,
-@@ -575,7 +573,6 @@ static void frame_init_rgb_planes(struct ia_css_frame *frame,
- 			 width, stride, height, 1 * bytes);
- 	frame_init_plane(&frame->planes.planar_rgb.b,
- 			 width, stride, height, 2 * bytes);
--	return;
- }
- 
- static void frame_init_qplane6_planes(struct ia_css_frame *frame)
-@@ -599,7 +596,6 @@ static void frame_init_qplane6_planes(struct ia_css_frame *frame)
- 			 width, stride, height, 4 * bytes);
- 	frame_init_plane(&frame->planes.plane6.b_at_r,
- 			 width, stride, height, 5 * bytes);
--	return;
- }
- 
- static int frame_allocate_buffer_data(struct ia_css_frame *frame)
-diff --git a/drivers/staging/media/atomisp/pci/runtime/ifmtr/src/ifmtr.c b/drivers/staging/media/atomisp/pci/runtime/ifmtr/src/ifmtr.c
-index 50b0b31d734a..9739ab25000c 100644
---- a/drivers/staging/media/atomisp/pci/runtime/ifmtr/src/ifmtr.c
-+++ b/drivers/staging/media/atomisp/pci/runtime/ifmtr/src/ifmtr.c
-@@ -471,8 +471,6 @@ static void ifmtr_set_if_blocking_mode(
- 			input_formatter_set_fifo_blocking_mode(id, block[id]);
- 		}
- 	}
--
--	return;
- }
- 
- static int ifmtr_start_column(
-diff --git a/drivers/staging/media/atomisp/pci/runtime/isys/src/rx.c b/drivers/staging/media/atomisp/pci/runtime/isys/src/rx.c
-index 9cfb8bc97e24..5d90587bac73 100644
---- a/drivers/staging/media/atomisp/pci/runtime/isys/src/rx.c
-+++ b/drivers/staging/media/atomisp/pci/runtime/isys/src/rx.c
-@@ -43,8 +43,6 @@ void ia_css_isys_rx_enable_all_interrupts(enum mipi_port_id port)
- 	 * The CSI is nested into the Iunit IRQ's
- 	 */
- 	ia_css_irq_enable(IA_CSS_IRQ_INFO_CSS_RECEIVER_ERROR, true);
--
--	return;
- }
- 
- /* This function converts between the enum used on the CSS API and the
-@@ -196,8 +194,6 @@ void ia_css_isys_rx_clear_irq_info(enum mipi_port_id port,
- 	receiver_port_reg_store(RX0_ID,
- 				port,
- 				_HRT_CSS_RECEIVER_IRQ_ENABLE_REG_IDX, bits);
--
--	return;
- }
- 
- static int ia_css_isys_2400_set_fmt_type(enum atomisp_input_format input_format,
-@@ -637,8 +633,6 @@ void ia_css_isys_rx_configure(const rx_cfg_t *config,
- 	 *                INPUT_SYSTEM_CSI_RECEIVER_SELECT_BACKENG, 1);
- 	 */
- 	input_system_reg_store(INPUT_SYSTEM0_ID, 0x207, 1);
--
--	return;
- }
- 
- void ia_css_isys_rx_disable(void)
-@@ -650,5 +644,4 @@ void ia_css_isys_rx_disable(void)
- 					_HRT_CSS_RECEIVER_DEVICE_READY_REG_IDX,
- 					false);
- 	}
--	return;
- }
-diff --git a/drivers/staging/media/atomisp/pci/sh_css.c b/drivers/staging/media/atomisp/pci/sh_css.c
-index 4a182dc384ca..5b12ff8ec32d 100644
---- a/drivers/staging/media/atomisp/pci/sh_css.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css.c
-@@ -2928,8 +2928,6 @@ ia_css_get_crop_offsets(
- 	in_frame->crop_info.start_line = row;
- 
- 	IA_CSS_LEAVE_PRIVATE("void start_col: %u start_row: %u", column, row);
--
--	return;
- }
- 
- static int
-@@ -3326,8 +3324,6 @@ static void send_raw_frames(struct ia_css_pipe *pipe)
- 							    pipe->continuous_frames[i], pipe->cont_md_buffers[i]);
- 		}
- 	}
--
--	return;
- }
- 
- static int
--- 
-2.56.0
+I don't know them all, but at least this one, and CVMA1_Sony_D do not conta=
+in
+field coded macroblocks, and should decode fine without the interlaced refe=
+rence
+list. We've seen a lot of artifically limited decoder like yours output 90/=
+135.
 
+>         CAMA1_TOSHIBA_B
+>         cama1_vtc_c
+>         cama2_vtc_b
+>         CAMA3_Sand_E
+>         cama3_vtc_b
+>         CAMACI3_Sony_C
+>         CAMANL1_TOSHIBA_B
+>         CAMANL2_TOSHIBA_B
+>         CAMANL3_Sand_E
+>         CAMASL3_Sony_B
+>         CAMP_MOT_MBAFF_L30
+>         CAMP_MOT_MBAFF_L31
+>         CANLMA2_Sony_C
+>         CANLMA3_Sony_C
+>         CAPA1_TOSHIBA_B
+>         CAPAMA3_Sand_F
+>         cavlc_mot_fld0_full_B
+>         cavlc_mot_mbaff0_full_B
+>         cavlc_mot_picaff0_full_B
+>         CVCANLMA2_Sony_C
+>         CVFI1_Sony_D
+>         CVFI1_SVA_C
+>         CVFI2_Sony_H
+>         CVFI2_SVA_C
+>         CVMA1_Sony_D
+>         CVMA1_TOSHIBA_B
+>         CVMANL1_TOSHIBA_B
+>         CVMANL2_TOSHIBA_B
+>         CVMAPAQP3_Sony_E
+>         CVMAQP2_Sony_G
+>         CVMAQP3_Sony_D
+>         CVMP_MOT_FLD_L30_B
+>         CVNLFI1_Sony_C
+>         CVNLFI2_Sony_H
+>         CVPA1_TOSHIBA_B
+>         FI1_Sony_E
+>         MR6_BT_B
+>         MR7_BT_B
+>         MR8_BT_B
+>         MR9_BT_B
+>         Sharp_MP_Field_1_B
+>         Sharp_MP_Field_2_B
+>         Sharp_MP_Field_3_B
+>         Sharp_MP_PAFF_1r2
+>         Sharp_MP_PAFF_2r
+>         CVMP_MOT_FRM_L31_B
+> - 3 test vectors failed due to unsupported bitstream.
+>   num_slice_group_minus1 greater than zero is not supported by the
+>   hardware.
+>   Test Vectors:
+>         FM1_BT_B
+>         FM1_FT_E
+>         FM2_SVA_C
+> - 2 test vectors failed because SP_SLICE type is not supported by the
+>   hardware.
+>   Test Vectors:
+>         SP1_BT_A
+>         sp2_bt_b
+>=20
+> One remain failure is CVFC1_Sony_C, which contains crop information. The =
+md5sum of every decoded YUV indicates that original output from the decoder=
+ was correct. The YUV was cropped by gstreamer. The correct cropping method=
+ for this bitstream should be to crop 30*2 rows of pixels from both the top=
+ and bottom of the image, and 13*2 columns of pixels from both the left and=
+ right sides.However, gstreamer cropped 13*4 columns of pixels from the rig=
+ht side and 30*4 rows of pixels from the bottom. We are trying to find out =
+the cause of this. Other failuers mentioned in V1 and V2 were resolved.
+>=20
+
+Would be nice to report this bug.
+
+> Changes in v12:
+> - Add additional check to avoid the resolution happened in middle of a bi=
+tstream without streamon/off, due to the non-standard habbit of the userspa=
+ce.
+> - Add a separate initialization claim, init_ctx, to protect the hardware =
+initialization process.
+> - Add rejection to the formats whose type does not match the queue in all=
+ four s_fmt/try_fmt paths.
+> - Link to v11: https://lore.kernel.org/r/20261012-b4-s4-vdec-upstream-v11=
+-0-25939f85ada5@amlogic.com
+>=20
+> Changes in v11:
+> - Check clock/power-on failures before operating the registers. Use pm_ru=
+ntime_resume_and_get() instead of pm_runtime_get_sync() so the usage counte=
+r stays balanced on the error path.
+> - Fix missing validation of untrusted bitstream input in the H.264 decode=
+r.
+> - Fix instance/resource lifetime issues: do not re-init a live decoder in=
+stance when only output or capture queue restarts.
+> - Link to v10: https://lore.kernel.org/r/20260924-b4-s4-vdec-upstream-v10=
+-0-1289303a58a4@amlogic.com
+>=20
+> Changes in v10:
+> - Rename the clock/power/interrupt names in dt-binding and dts to match t=
+he name of decoder sub-core (dos, vdec, hvdec).
+> - Fix the h264 high profile bitstreams decoding error issue.
+> - Use the allocation bitmaps instead of poc !=3D INVALID_POC as the slot =
+occupancy test, since INVALID_POC (0xffffffff) aliases with the valid POC v=
+alue -1.
+> - Link to v9: https://lore.kernel.org/r/20260914-b4-s4-vdec-upstream-v9-0=
+-72fdb0d71b02@amlogic.com
+>=20
+> Changes in v9:
+> - Rename the clock/power/interrupt names in dt-binding and dts. Add the d=
+escriptions to the clock items in dt-binding.
+> - Optimized the handling process for reference frame loss. The address of=
+ a lost reference frame will not be configured to the hardware, to prevent =
+the hardware from accessing an illegal address.
+> - Optimized the error handling paths in the driver based on v8.=20
+> - Link to v8: https://lore.kernel.org/r/20260831-b4-s4-vdec-upstream-v8-0=
+-830195b9bd91@amlogic.com
+>=20
+> Changes in v8:
+> - Rename the clock/power names in dt-binding and dts. Add the description=
+s to the canvas and secure-monitor node in dt-binding.
+> - Improve code accroding to the feedback of sashiko bot, including:
+>     1.Imporve the resource cleanup and error handling paths in the driver=
+.
+>     2.Mitigated race conditions between the decode path, interrupt handle=
+r, and resource teardown.
+>     3.Validate codec-stream parameters passed to the driver to prevent th=
+e potential risk.
+> - Link to v7: https://lore.kernel.org/r/20260812-b4-s4-vdec-upstream-v7-0=
+-3fae085861bd@amlogic.com
+>=20
+> Changes in v7:
+> - Addressed Krzysztof's review comments: fixed DTS coding style, added bo=
+ard info requiring the config to patch 6/6's commit message.
+> - Improvements made per sashiko bot review, including:
+>     1.Fixed memory out-of-bounds access / buffer overflow issues.
+>     2.Fixed concurrency and race conditions related issues.
+>     3.Improved the error handling paths to avoid the risk of resource lea=
+kage.
+>     4.Fixed the improper V4L2 framework usage.
+> - Link to v6: https://lore.kernel.org/r/20260724-b4-s4-vdec-upstream-v6-0=
+-6072a7ee7428@amlogic.com
+>=20
+> Changes in v6:
+> - Rename the HEVC core and the associated power, clock, and interrupt nam=
+es. 'HEVC' was a development codename of the decoder IP which accelerates h=
+265 vp9 av1 decoding, but it coincidentally matches the acronym for High Ef=
+ficiency Video Coding. To avoid naming ambiguity, HEVC core is renamed to H=
+VDEC core(H stands for HEVC).
+> - Get rid of the unused function and interface.
+> - Link to v5: https://lore.kernel.org/r/20260526-b4-s4-vdec-upstream-v5-0=
+-33bc817f93f4@amlogic.com
+>=20
+> Changes in v5:
+> - Rename the compatible and the clock item accroding to Krzysztof's feedb=
+ack.
+> - Use tee & meson_sm helpers to decrypt load the signed decoder firmware.=
+ Add the meson_sm describsion and reference to dt-binding and dts.
+> - Link to v4: https://lore.kernel.org/r/20260213-b4-s4-vdec-upstream-v4-0=
+-c7112d00d662@amlogic.com
+>=20
+> Changes in v4:
+> - Use %pad to print dma_addr_t type instead of using %llx.
+> - Add initial values to some local variables.
+> - Link to v3: https://lore.kernel.org/r/20260121-b4-s4-vdec-upstream-v3-0=
+-4496aec3d79e@amlogic.com
+>=20
+> Changes in v3:
+> - Fixed the DT check error:
+>   arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dtb: video-codec@fe32=
+0000 (amlogic,s4-vcodec-dec): 'amlogic,canvas' does not match any of the re=
+gexes: '^pinctrl-[0-9]+$'=20
+>   from schema $id: http://devicetree.org/schemas/media/amlogic,vcodec-dec=
+.yaml
+> - Added DOS reset lines to dtsi and dt-binding.
+> - Fixed the issue where some B-frames were not decoded correctly(The flus=
+ter failures mentioned in patch V1 and V2 were mostly caused by this).
+> - Fixed the issue where canvas_index leaks occurred during the decoding o=
+f some bitstreams.
+> - Rework the src/dst format storage. Use v4l2_pix_format_mplane to store =
+formats that related to bitstreams into the context. Add the reset format f=
+unction to reset all the formats to default value.=20
+> - Store decoding parameters related to chip platforms, such as maximum wi=
+dth/height and alignment requirement, organized by chip platform.
+> - Link to v2: https://lore.kernel.org/r/20251124-b4-s4-vdec-upstream-v2-0=
+-bdbbce3f11a6@amlogic.com
+>=20
+> Changes in v2:
+> - Fixed incorrect generation of the reference lists for some B-frames.
+> - Rename or get rid of some properties in DTS and dt-binding.
+> - Remove some useless code or helper functions, (eg. clk helper functions=
+, reg I/O macros, and some superfluous print messages) replace these functi=
+ons with existing ones.
+> - Replace all the printk messages with dev_err/dev_info/dev_dbg
+> - Use the helper functions from the existing meson-canvas driver.
+> - Use clk_bulk_data to map clocks from DTS.
+> - Retry the V4L2 Compliance test on 6.18-rc6, fix a newly introduced bug.
+> - Link to v1: https://lore.kernel.org/r/20251027-b4-s4-vdec-upstream-v1-0=
+-620401813b5d@amlogic.com
+>=20
+> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+> ---
+> Zhentao Guo (6):
+>       firmware: meson: sm: video firmware loading via secure monitor
+>       firmware: meson: sm: Add video firmware loading SMC call
+>       media: dt-bindings: Add Amlogic V4L2 video decoder
+>       decoder: Add V4L2 stateless H.264 decoder driver
+>       arm64: dts: amlogic: Add video decoder driver support for S4 SOCs
+>       arm64: defconfig: Enable CONFIG_VIDEO_AMLOGIC_VDEC
+>=20
+>  .../devicetree/bindings/media/amlogic,s4-vdec.yaml |  114 +
+>  MAINTAINERS                                        |    7 +
+>  arch/arm64/boot/dts/amlogic/meson-s4.dtsi          |   33 +
+>  arch/arm64/configs/defconfig                       |    1 +
+>  drivers/firmware/meson/meson_sm.c                  |    1 +
+>  drivers/media/platform/amlogic/Kconfig             |    1 +
+>  drivers/media/platform/amlogic/Makefile            |    1 +
+>  drivers/media/platform/amlogic/vdec/Kconfig        |   18 +
+>  drivers/media/platform/amlogic/vdec/Makefile       |    4 +
+>  drivers/media/platform/amlogic/vdec/TODO           |    7 +
+>  drivers/media/platform/amlogic/vdec/aml_vdec.c     |  846 ++++++++
+>  drivers/media/platform/amlogic/vdec/aml_vdec.h     |   33 +
+>  drivers/media/platform/amlogic/vdec/aml_vdec_drv.c |  260 +++
+>  drivers/media/platform/amlogic/vdec/aml_vdec_drv.h |  168 ++
+>  drivers/media/platform/amlogic/vdec/aml_vdec_hw.c  |  570 +++++
+>  drivers/media/platform/amlogic/vdec/aml_vdec_hw.h  |  161 ++
+>  .../platform/amlogic/vdec/aml_vdec_platform.c      |   81 +
+>  .../platform/amlogic/vdec/aml_vdec_platform.h      |   46 +
+>  .../media/platform/amlogic/vdec/aml_vdec_tee_fw.c  |  249 +++
+>  .../media/platform/amlogic/vdec/aml_vdec_tee_fw.h  |   27 +
+>  drivers/media/platform/amlogic/vdec/h264.c         | 2209 ++++++++++++++=
+++++++
+>  drivers/media/platform/amlogic/vdec/h264.h         |  299 +++
+>  drivers/media/platform/amlogic/vdec/reg_defines.h  |  177 ++
+>  include/linux/firmware/meson/meson_sm.h            |    1 +
+>  24 files changed, 5314 insertions(+)
+> ---
+> base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+> change-id: 20251027-b4-s4-vdec-upstream-0603c1a4c84a
+>=20
+> Best regards,
+
+--=-4Pee9qjTAWQLJCV3w4xl
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavXv9gAKCRDZQZRRKWBy
+9FBYAP9AAl8zBEMYKyc4/kRqSI8cTVQd3t0Sd00auaPRum7QHgEAgyV46zjVdMTO
+hsVePTlAbiqRmYrvbwwIcu9+jr2e6gk=
+=6z1s
+-----END PGP SIGNATURE-----
+
+--=-4Pee9qjTAWQLJCV3w4xl--
