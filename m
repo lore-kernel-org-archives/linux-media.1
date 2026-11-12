@@ -1,101 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794500849;
-	b=J+0ysRlKnTwJqE/JIEMJJSA5gLoE07w1Ttc2DK6FCyvp7IkUmQl20z9xNQkBCi3GLoER
-	 Wko8ZXFg1pgrUzavejAKPThBT+O2bDUXke2ufmi9sKqCk5V4dGm+KrOhbUxwtwQGfwYEh
-	 WyseLynZDvTQdyxP5ci39w6iPRhQM27bxaFYz1jk5PoEWIwV2mRMIvLVVfRQiVkW8hGi1
-	 oS3rX0iSbfoSMo5Lz21XATDl+NreA2PrFFdS+aG2vAIcTXor9DCTQ8q5nrPkUcuSwLDRn
-	 hkJGbzcLU8cFXGNpbJ61OH4ptFqCgnrsU2KsE4kooxP23nYugCyUEzYGPnk4PEEMEVg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794500849;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=4rfQtqmAIAvmt99DAIISM3k+R3AqubbosQEc8qLWnGI=;
-	b=hqFcpTKTYJD0TUkHZtLzDT6dJ7jYl5kY85sXlFXKFsGnSS9UPcW067c6fkCMnsSbtb+O
-	 8R9xu9dyvndK6OY6nd5lT4hYiKSIxo/LoztzQTnfp1nwixaYIcKuQqOYdsmdMICECtqQ7
-	 6H/beuC3kVoBk/7oyxT3a1zyMX+WYpNjz+JeYkXXURqlqgOzeW5QpWsFZqdoJ+oDFo6Ra
-	 o+2Nz1pS9IkgDVA76mfGf1GtwmEYZOix6Ex7oXmYLrQqDKLKiBAsS8iT0tSsVb45Cnx+z
-	 GC5HvpRtzf5If7TVSXT/SuG53Vr1PwaArgrnW1Axv48T8tyCerxX1r/AOoV3gzyH7PA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YcmCDyza;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794501875;
+	b=ejd7AV1SUmjEeE3DzSwVXfDulzm37ZfMnkH9wnTInxFM6ekEmzai6Qc3Agr3JSiDIzgV
+	 fjNKmXojpJVMwWKOBtydptaCl9QJFSG7Ee6xvHD3NYbcWW/vgAk+gT+xSyCESoUFmOdI4
+	 4aRA5eRltd0ck50U2NzU1ER39PQ4FA6G9EzeVFxMgz+3GSZexgb3o6BNAhomcDIEyv1OB
+	 ePknHrAjboasQIAHio9eva/BT8JTzD61gSrUUN9fVSpyKO1y3BtAlPuM53pEoz3HasgZy
+	 0K/NLYaJG8u+8x6oTrT2NKatF8d8ViyoSeEN1mUI6yeCx+/o944c2nEUumtfOMWyNGA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794501875;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=z3ViWfJ9W+khV6jKvNxkFVN2vN2++OeGsa5sOa2jAVQ=;
+	b=2foLb5pilY95CMG/w3CwxwktQtsLtXxd5VoOJ1LhVdgA84SgKAEVS0Wl29tX1fIsjM/v
+	 3GSz6rU85z4G6E7lX5SdeVGb7KrUQ/UVsy0nD6aWXknnAUDbcmbaUaR5q0t38ScRxTy3O
+	 6v5poIaSBYt41F2DESsMjgWzsqwLGXOoFUOlFAWk8Oe6rF896tqTEYpTHUIVUHeIrvcB2
+	 oPi5RxiOsPR3w5Riy3BMAOFF+wBxXmf+VjAQmomDcXM1QPh8DCEzaUY91R9yjAVLiRaBC
+	 FAXxqpYf/gp3ytwZONriiQWaUMjWAsk9v63Yzth6uTaFrP/2FNKg/gE2SEaHGxj5uEQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZSr+Xzy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD62606A327
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 16:27:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FD62606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D43B606A32E;
+	Thu, 12 Nov 2026 16:44:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YcmCDyza
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a206f0b95bso61425e9.0
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 08:27:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794500848; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YjYTND72vD9uFtXx8GHpMlK688DHtb0KX971FpfirUZSzAHf7cCZpE7n4iQPyByoKU
-         oTuddWrMaF6sQILHIfc0k7Ga7DutdkLOZGzOTya/l2ZjsVyIvq7y98OzIamqPPr8CZ8X
-         dEqSbfPJX5UQBEYSegKpgZhQP6784vEbK1+kvOEZwpjcTqhaMf2UcnoDCd9vLLZjbskG
-         RhqSo9Z1LINujbdP2kQzpWvIyOB0VqZ8zvm35Gl6IF5qG6+ERryGGNRu1YfGbJJahjq6
-         YTlD/4dNmvWqWE9aTq9WLarpycYNWk8NAWzDTIxXT44pFyab+Dgt+Ah/1aaLs6ZRsy1y
-         PdjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4rfQtqmAIAvmt99DAIISM3k+R3AqubbosQEc8qLWnGI=;
-        fh=zE8WzuYr+xBmJyqc8MeEw8SIsAcd/oV+K8AIIVBHzsw=;
-        b=H7zS7liXcLmAGp7oPowiiPUgKpR8A+gjscSvlq0dRhgAt9AEvflwy1gQHZrju3ty7u
-         CA6xYg0+Pt17VqvaXFr7KuWYCa+WLPuqNmc+abLs8LuUZOPO1HMv4bdUYnkhnyUpj15q
-         BOBFqBS1a2dCekyZcRNIPdhy+dJX+OS8Tg7Vs3Ubb1UmeywEXaHu0H0IuwncjdLnm4Qv
-         QyOofE7WxKG0Pl6QaZ7MmE9zHD/W4z9P1znuP0sy1TVSy9zyAB4SfSgmq5nlukPfX9Oa
-         4ONPNSWtwWP3n/Qm245L6asr/JO5pF5DiMVOVrVTRwaE6TVNlU/hcyv8YsSF21d+s3zW
-         F3Uw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794500848; x=1795105648; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4rfQtqmAIAvmt99DAIISM3k+R3AqubbosQEc8qLWnGI=;
-        b=YcmCDyzav8Nt9tsG6YB1qdzrsUj2K7xN0qRg6FjWZ85PVWjBDXTysbYRtMopeaGbHw
-         3AD3NY7Klvu3c//cl4xWyT9uv9XZ/YXGR9E9IhVCPadmz4MO66ZCO1opX2iXapP6/oAW
-         rtO+VtvjKI3UtJ9VnqFC+tm2nkYPOWL4ytG4YVF/EbhrczQOQcN6os3wrD4qT8Ih8wns
-         9iFRpW+zxr43BA4tifJ2kpNVhhJvQbYNQfVQQLbcZpDT7Hl0lS70q9bjAg3WzVJsnTRQ
-         f5B7HuJNmAZOpibG3xssCazggPBdHG8B4QJ6mGcJJJb8+oewtXsLgZxQ5gCpnjQ0hotN
-         VoJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794500848; x=1795105648;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4rfQtqmAIAvmt99DAIISM3k+R3AqubbosQEc8qLWnGI=;
-        b=2PpoFkfmUzxkbDvP0x4wtS2s7mzjL40hpxggbHlsezLu98uRycFCF26AA9JNeW/Op5
-         RQl6BSVAc/uxGNViRiJ9edlFsvUKsYJM+MaYy3RRH+9d2Iu2Ac9gKSgHEhK/rdFFOI3s
-         FYem0AW2t7B2N+N30Ai0p0zjnWwFDiyrwasVlDwAbU2G8Xrg5pm1JkRgW849rescuyhB
-         WAWJVPm1dQj4WIAAXG2iuE5F1AurC+KCLGhooMWfb1Qz///C9moCcS1bNbTflRx5Benh
-         HrqZAw3wxWOFTd8y8XsseImn9JgN/K8hr+ktUxDNmu094z83nF4eld0Af1wZ/3m9gGDy
-         90jQ==
-X-Forwarded-Encrypted: i=1; AL+hErFXJJOEzvklGZypyiYiywVMWpIbbof6/nsh3AP5uCG3rLiuK7MJVVmIeNmsGnmuMRhY+g7YEVdSoVsPWA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kO/WLgB6ugPWXZKPTEfpsrpBIWYU1VdF955lvOJMZDK6c6GVk
-	wjSFBJK3/n2JFWbHU22X+6bFCnrzHPuYMw5BAUH2KmWc+4jmZkM0P88dpYycFM4/XP3oWNHtWYr
-	8HTZHmFlPW/mpWnnh6GNJ2NLUkfd4lxuW529mKvcP
-X-Gm-Gg: AYBFou3urlMUdM7Oazyxs6fqR8+gk2yN/3yzo/feZV3nG6lYoNs6VaMSCh30o9p98Ym
-	TaNOYwLQ1EPPbrEKi0DWxi7eNFODqLRZCm5iEydPfuKH5shJNi30jVkcP2Awqntk7eavbuwce30
-	vey/6qwMRvEXVuKM6YdLT10jrgieoshkWcSYZpuhul7qSRTv/DuB66t5S1TpLk2+xW3IY816NNR
-	0CeTuWLVuNQ5eLoImw2PDC84r+v4FeM7rRZ65kQUkWB9ueagL2/bNGifFRkWtIYsbOekrPNe/aE
-	gNI+G6rRpWB7Ew9j/vxty4Wki40KlSdbOxDWzR6tXV+tZWIuVGw+ABqgaUBXw91aI+psE3ihArg
-	Zy2BwtfWPBafmrKUMky7olPtTf8vZRk0b30wUjvKNIPAdUSXu8D/ei5oeFXa+rZYOBOxGkT+8w6
-	nC1ZyHr14mLicxffRwxk97
-X-Received: by 2002:a05:600c:3484:b0:4a1:d7fa:ae36 with SMTP id
- 5b1f17b1804b1-4bb4f596156mr1132755e9.4.1794500847262; Thu, 12 Nov 2026
- 08:27:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZSr+Xzy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154421F000C8;
+	Thu, 12 Nov 2026 16:44:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794501874;
+	bh=z3ViWfJ9W+khV6jKvNxkFVN2vN2++OeGsa5sOa2jAVQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aZSr+XzyEtwhvDw3MrhY+Ck11MPK+xpKHGFqub+SieyaGcwHTo0cxeO/xn1ijmMWQ
+	 4L+2lxL1x1uE51enm/D0/sLf3MTn/SjVKdGKiK4nIF44oczOzjzkv1PMxT+ewuOEB2
+	 QNtHipzl7S59V2X4V4d6tl59HAaY441SCchQ7PivDpXq6ryIB9B+ArXkkFozrlddMy
+	 9Yprwgk2b0yZ/qlbTN2K6j6MAGAB+CdbJA3SAQTSo89sOtVPjnq42NCFdeWV8d0lVh
+	 FSttW9QRRjDH3brY2JnjumOeXYbjgIX4/5q8dbR03/sVcyI5w/1DBLAhOzPfLHr/MS
+	 1y7fNFL1yz6lA==
+Date: Thu, 12 Nov 2026 17:44:31 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Michael Riesch <michael.riesch@collabora.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
+Message-ID: <avXrRoIt0slXyaWs@houat>
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+ <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
+ <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org>
+ <avMM6a6xcDHT-zCR@houat>
+ <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org>
+ <avMgJ7MFks0sKD7T@houat>
+ <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,133 +65,199 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
- <20261111195942.1283060-1-tjmercier@google.com> <70c7192e-b9e7-4b06-9d78-38e9de85f486@amd.com>
-In-Reply-To: <70c7192e-b9e7-4b06-9d78-38e9de85f486@amd.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Thu, 12 Nov 2026 08:27:15 -0800
-X-Gm-Features: AclHuK-uQbQFbW5RNXEONirv5hUwyDZLZazYVkX411MRAANXcv3dooeKp4V1qsc
-Message-ID: <CABdmKX3rqcf-U7W7E+d79dM9H3VnwUjAH3Hv92MczMSmQauC3w@mail.gmail.com>
-Subject: Re: [PATCH bpf] selftests/bpf: Test that a drained dmabuf iterator
- keeps returning NULL
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: k.chen@smail.nju.edu.cn, ast@kernel.org, daniel@iogearbox.net, 
-	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, shuah@kernel.org, 
-	martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
-	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
-	sumit.semwal@linaro.org, phasta@kernel.org, tj@kernel.org, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="phinazzthwazdk47"
+Content-Disposition: inline
+In-Reply-To: <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
+
+
+--phinazzthwazdk47
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
+MIME-Version: 1.0
 
-On Thu, Nov 12, 2026 at 1:35=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 11/11/26 20:59, T.J. Mercier wrote:
-> > The BPF iterator docs in bpf_iterators.rst specify that the next
-> > function of an open-coded iterator should keep returning NULL after it
-> > has been returned once.
-> >
-> > Add a subtest that checks this for the dmabuf iterator. It drains an
-> > iterator, calls bpf_iter_dmabuf_next() once more and checks that the
-> > result is NULL. The dma-bufs the test creates keep the list from being
-> > empty, so an iterator that starts over would return one of them.
-> >
-> > The existing open_coded subtest uses bpf_for_each(), which stops at the
-> > first NULL and never calls next() on a drained iterator.
-> >
-> > Signed-off-by: T.J. Mercier <tjmercier@google.com>
->
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> Let me know if you already have drm-misc commit rights.
->
-> Regards,
-> Christian.
+On Tue, Nov 10, 2026 at 03:43:59PM +0100, Hans Verkuil wrote:
+> On 10/11/2026 15:17, Maxime Ripard wrote:
+> > On Tue, Nov 10, 2026 at 02:30:51PM +0100, Hans Verkuil wrote:
+> >> On 10/11/2026 13:33, Maxime Ripard wrote:
+> >>> Hi Hans,
+> >>>
+> >>> On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
+> >>>> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
+> >>>>> Hi everyone,
+> >>>>>
+> >>>>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@ke=
+rnel.org> wrote:
+> >>>>>
+> >>>>>> On media-centric camera pipelines, every entity is known at boot t=
+ime
+> >>>>>> and described statically (for example via device-tree).
+> >>>>>>
+> >>>>>> The V4L2 framework assumes that every entity of the camera
+> >>>>>> pipeline is always present. This is a reasonable assumption for
+> >>>>>> integrated cameras in laptops or phones. However, in automotive sy=
+stems,
+> >>>>>> cameras (e.g. rear-view or surround-view) can be damaged or discon=
+nected.
+> >>>>>> When the framework assumes all sensors are present, a single missi=
+ng
+> >>>>>> camera can prevent the entire pipeline from operating.
+> >>>>>
+> >>>>> This series has been discussed at the Camera & ISP "unconference" in
+> >>>>> Pragues (during Linux Plumbers)
+> >>>>>
+> >>>>> The notes can be found here:
+> >>>>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killara=
+us.ideasonboard.com/T/#u
+> >>>>
+> >>>> What is missing in this discussion is how userspace can indicate tha=
+t it
+> >>>> actually can handle partially instantiated pipelines.
+> >>>>
+> >>>> Today if one or more parts do not come up, the devices nodes are als=
+o not
+> >>>> created. This is typically exactly what you want.
+> >>>
+> >>> That's very arguable? We have plenty of other examples where we allow=
+ to
+> >>> show a software representation of something that isn't available in
+> >>> hardware, starting with virtually any memory buffer allocation, but a=
+lso
+> >>> disabled CPUs, swapped pages, etc.
+> >>>
+> >>> For things a bit more related to drivers, things like USB root hubs a=
+re
+> >>> also pretty analogous. The "root" device will always be created, even=
+ if
+> >>> devices connected to it are non-functional, missing or whatever. It's
+> >>> the primary interface that these devices might or might not attach to.
+> >>>
+> >>> So it's a bit hard to understand why the device nodes not showing up =
+is
+> >>> exactly what we always want.
+> >>
+> >> It's simply how V4L2 works today: video devices do not appear until
+> >> all components are instantiated.
+> >=20
+> > Sure but that's exactly what we're trying to change.
+> >=20
+> >> Most video devices consist of multiple devices (bridges, i2c devices,
+> >> etc.) and unless all are found and initialized, you can't capture. So
+> >> bridge drivers postpone creating the video/media devices until
+> >> everything is there.
+> >>
+> >> That also means that applications can safely assume that if a video de=
+vice appears,
+> >> it is functioning.
+> >=20
+> > Ish. The only safe assumption you can make about this is that it was
+> > functional at probe time. Anything after that is very much up in the
+> > air. If the device broken after probe for example, or if we have no way
+> > to tell if it's functional to begin with, that assumption is no longer
+> > true. So sure, that's what applications have been doing so far because
+> > there was no better way to do it, but I wouldn't qualify it as a "safe"
+> > assumption.
+> >=20
+> >> If we add fault tolerance, and you allow video devices to appear even =
+if they are
+> >> not functioning (or partially functioning), then that contract breaks.
+> >>
+> >>>
+> >>>> But here you allow partial instantiation, and how does userspace
+> >>>> signal that? It must be an 'opt-in' mechanism, but how is that done?
+> >>>> There are no devices yet, so that can't be used, so what alternatives
+> >>>> are there?
+> >>>>
+> >>>> We've been discussion Fault Tolerant V4L2 for many years now, and ev=
+ery time
+> >>>> I raise this issue, but I never received any proposals.
+> >>>>
+> >>>> This must be solved.
+> >>>
+> >>> Is there any way to? You're saying at the same time that we must not
+> >>> create the device, but that an application would need to signal to th=
+at
+> >>> device that it can indeed be created. It's a circular dependency that
+> >>> cannot be solved on a per-device basis.
+> >>>
+> >>> During the meeting, we had a discussion that the media device should =
+be
+> >>> created as a "skeleton", and then as other devices probe they would f=
+ill
+> >>> in the blanks. How would that not work? Also what is your main concern
+> >>> exactly that makes you ask to not do that in the first place (or make=
+ it
+> >>> opt-in)?
+> >>
+> >> Applications today assume that everything works when the device nodes =
+appear.
+> >>
+> >> If you change the behavior, then they just see a skeleton driver and h=
+ow
+> >> would they know that they need to wait until all components are found =
+and
+> >> it is ready for use? Or what to do if some parts are faulty?
+> >=20
+> > I really think that this discussion is not solely about probe. It's
+> > something we discussed during the meeting, but I think we should try to
+> > handle "my device was broken at probe" and "my device became broken
+> > while the system was up" exactly the same way.
+>=20
+> If the HW breaks after probe, then you get EIO etc. errors. It's very rar=
+e and
+> the only requirement in that case is that you return an error and don't c=
+rash
+> the kernel. It's accepted that if the HW breaks, the application breaks a=
+s well.
+> And you have to replace your hardware.
 
-Thanks! Still waiting but no rush.
+It's very rare, but it's also because v4l2 has largely side-stepped
+entire use-cases. It's incredibly rare for a sensor to stop working but
+not the CPU on a phone. It's very likely to happen on a car. The only
+difference is that v4l2 is marginally used on cars.
 
-> > ---
-> > This depends on Kang Chen's fix and fails without it:
-> > https://lore.kernel.org/bpf/20261110125106.2935677-1-k.chen@smail.nju.e=
-du.cn/
-> > Kang, feel free to carry it as 2/2 in your v2.
-> >
-> >  .../selftests/bpf/prog_tests/dmabuf_iter.c    | 19 +++++++++++++++++++
-> >  .../testing/selftests/bpf/progs/dmabuf_iter.c | 19 +++++++++++++++++++
-> >  2 files changed, 38 insertions(+)
-> >
-> > diff --git a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c b/too=
-ls/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-> > index 1a5dc1adae73..c1f81b5dccdc 100644
-> > --- a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-> > +++ b/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-> > @@ -265,6 +265,23 @@ static void subtest_dmabuf_iter_check_open_coded(s=
-truct dmabuf_iter *skel, int m
-> >       } while (bpf_map_get_next_key(map_fd, key, key));
-> >  }
-> >
-> > +static void subtest_dmabuf_iter_check_next_after_drain(struct dmabuf_i=
-ter *skel)
-> > +{
-> > +     LIBBPF_OPTS(bpf_test_run_opts, topts);
-> > +     int err, fd;
-> > +
-> > +     fd =3D bpf_program__fd(skel->progs.iter_dmabuf_next_after_drain);
-> > +
-> > +     err =3D bpf_prog_test_run_opts(fd, &topts);
-> > +     if (!ASSERT_OK(err, "test_run_opts err"))
-> > +             return;
-> > +     if (!ASSERT_OK(topts.retval, "test_run_opts retval"))
-> > +             return;
-> > +
-> > +     /* The test buffers exist, so a restarted iteration would find on=
-e */
-> > +     ASSERT_EQ(skel->data->next_after_drain, 0, "next_after_drain");
-> > +}
-> > +
-> >  void test_dmabuf_iter(void)
-> >  {
-> >       struct dmabuf_iter *skel =3D NULL;
-> > @@ -315,6 +332,8 @@ void test_dmabuf_iter(void)
-> >       }
-> >       if (test__start_subtest("open_coded"))
-> >               subtest_dmabuf_iter_check_open_coded(skel, map_fd);
-> > +     if (test__start_subtest("next_after_drain"))
-> > +             subtest_dmabuf_iter_check_next_after_drain(skel);
-> >
-> >  destroy:
-> >       destroy_test_buffers();
-> > diff --git a/tools/testing/selftests/bpf/progs/dmabuf_iter.c b/tools/te=
-sting/selftests/bpf/progs/dmabuf_iter.c
-> > index 9cbb7442646e..d5421b75c39c 100644
-> > --- a/tools/testing/selftests/bpf/progs/dmabuf_iter.c
-> > +++ b/tools/testing/selftests/bpf/progs/dmabuf_iter.c
-> > @@ -99,3 +99,22 @@ int iter_dmabuf_for_each(const void *ctx)
-> >
-> >       return 0;
-> >  }
-> > +
-> > +/* Result of a bpf_iter_dmabuf_next() call after the iterator was drai=
-ned */
-> > +__u64 next_after_drain =3D -1;
-> > +
-> > +SEC("syscall")
-> > +int iter_dmabuf_next_after_drain(const void *ctx)
-> > +{
-> > +     struct bpf_iter_dmabuf it;
-> > +
-> > +     bpf_iter_dmabuf_new(&it);
-> > +     while (bpf_iter_dmabuf_next(&it))
-> > +             ;
-> > +
-> > +     /* Store the raw value; the verifier would remove a branch on it =
-*/
-> > +     next_after_drain =3D (__u64)bpf_iter_dmabuf_next(&it);
-> > +     bpf_iter_dmabuf_destroy(&it);
-> > +
-> > +     return 0;
-> > +}
->
+> It's been working like that for >23 years (that's when I started working =
+with
+> V4L). This also means that for >23 years applications have exactly this e=
+xpectation
+> of how video devices behave. It's really part of the uAPI even though I d=
+on't
+> think it is ever explicitly stated.
+>=20
+> To be clear: I really want to see Fault Tolerant V4L2 happening. It's cle=
+arly
+> very useful for a specific type of use-case.
+
+It's not clear what you take out of that discussion though then. If
+you're stating that we shouldn't reevaluate ever the fact that a driver
+should only probe if it's functional at probe, and then report EIO, that
+means we can't handle the "it was broken before boot" and "it became
+broken after boot" after the same way. So do you disagree with that
+design goal and would prefer something else? ..
+
+> But first we need a solution for this specific uAPI issue. Note that this=
+ is
+> now to opt-in to Fault Tolerance, but in the future we might have other o=
+pt-ins
+> as well that modify the behavior.
+
+=2E.. Or are you open to letting device probe even if we don't know
+whether they are functional or not, but only with an opt-in toggle?
+
+Maxime
+
+--phinazzthwazdk47
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCavXs7wAKCRAnX84Zoj2+
+dn4fAYC/JDY8AKZhObf7Q/W8WYJ0pGQR7XXN3SzC8C3F9ASAmRP/hWn7/fA4OyjS
+2icHROQBgKG3AffCWtHNQ601Yqp9DYljm2AnooBU76FpG/JHBRc1O1XMwXpTPdgS
+qfkAl/Wqpw==
+=Kltg
+-----END PGP SIGNATURE-----
+
+--phinazzthwazdk47--
