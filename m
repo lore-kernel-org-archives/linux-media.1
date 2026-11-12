@@ -1,85 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794520026;
-	b=HQjsy45sLzjW2sDnCdSz9sshVWGEf0F2UxMbMqVKznAGpvojAdjefF/8nIaqmV/Hfbpk
-	 Om/8L5UlnCrOxBTYW7XX2j6lXIDmJ6sWvgzbCWUxM9IX8t9LYTUykDHV99agCYBok0FXx
-	 YTk4x4OcpZoTWUAljvKesUYPtEk0kWbzC9qjUa+LUe9kbOd1LhJeA6VtDyp+VBJ/O5W4+
-	 EZv33SfTJshYUBR7VVA+Br7gyybd4vzTboV1qHqjCZqtdy+yMiF0+rqx4StNJAHfmOftA
-	 Sy7Yif55Zxd4WU3mF10zOk0itvN/0f3JvFJ1qPqfXFKgL66aEA5lyststGOO3DWTn6g==
+	t=1794521239;
+	b=ZhKjSdFfzjXHFiR87dHPF1mXTgo3aUX6JdbO/x2hT1CsNmuLdGixx2+7ai/MnRzZdQjj
+	 1We7SJuXpW577vv7dU9f1IxUg0S1sbnfWIHMtDF/pWOOqvF677JAK97uiuHDbufrZ4SnO
+	 RWqpprXPFlzkGh1dZM3VAJlVknAAqJJYvfqt/0C6ZEOLecD9A/GQ1Ud0btsIqB/0zKFD3
+	 5+gCSHep7qbO0JZCmXGmpk2lPyEJsrtQMz+Lxsl0SNe2Vq+Gg2AyQ/IwaIkk+sFzxFbHm
+	 QIMkC9GxOXmO2MeH2AuyMeDjOsLBmE0LUhUR3y6O32wieJ0MW5FlZ721Z2wGkk1Ts6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794520026;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=MRvrBEIopDqvuVb/vZ72s+DUNbn5hAJVvZTwAj02wNI=;
-	b=y3wqg9xy3GhfG28Qpb+oFjZhQulkdy0njRcBwbO2sZDDMwVLDwo7HuectYCmcpzMYOCM
-	 H/o0eoqiuQbCDf4vZkVQsNC7Z8ll4Fo+O2MwDrddkF9q8l33l14cVzFPOEm70V0qxO3eK
-	 fQ99ZVqxxuXarAveyOLmmkT90EgsBB8Zf2A7k8WP5MiqjOtci91ePpv1ourp9n5AFjRhe
-	 1F6Rrh2DD7BL6acjIAy/XbpxBw+CuBTGbMqxHczy2chtEumuJXHR5XPtGPJD1JNVu9LBX
-	 tj4Wo0OR6Y6necu7MoMqyF49//503vLP05FUUgNFdIH5c31OU48lTspYM0ycOCFfNEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794521239;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ReVyqXe2av4g6tLUV9DHWUBpBCC6BZrEGkcX74zqGJI=;
+	b=XToLKekdJN3TJIfzBHedf7TDFs1pX6CEd3q3q/nJT1kaNriT/MPzvFSFm6ZymHu+eBko
+	 dnMLTNBWPNyH59n/LXXzQsIdNyU/EJcyQfSUM2sa5MujAJs/37912U/X38UlNh4jz1yjQ
+	 v0EdhyYsau65iuKhIBuS6UKo/AnXD5DLHpoSjJjA7Otyy7e395GOlv5mztkhQ4ZZOUi7W
+	 gyl6VxrfSXouvVM/WrYcb9o00/U9mXx+SMg0a/KYArnFRKIYaCphGznOpn5VgWNTCshtQ
+	 95lR4gcYOsj38nw4tTIGmDQ60sJDyngCSqNYQ0oWwhokumWN+aBltjOO5gN8NeFVnrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IqQicUBc;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lmb4n366;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9244B606A323
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 21:47:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9244B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2611606A31C;
+	Thu, 12 Nov 2026 22:07:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IqQicUBc
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd8ba7c2694so128368a12.1
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 13:47:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794520026; x=1795124826; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MRvrBEIopDqvuVb/vZ72s+DUNbn5hAJVvZTwAj02wNI=;
-        b=IqQicUBcHFfASsPeC/FaWkK7/Crm2L2UYyn8/PxIFh5d3NQfwGTsj1ea0yYEQ647ZV
-         /ccaegp04k9hdkyY2Ail6N4rBeUM3LACMz8nX+7douczOTVskMzZJ6rF5iaIrVQm2heW
-         JeAJJRZGwbkWIX4oCdCOf9PAKsBXWkvG0Qf/0hEZ5qTZmjRSXZseI6akOjoL+PPSYmfs
-         n/o355gYSqEM305OphinxwQkhxOcncDRdESkE1XHs1UYEEh7UGYPCzuqJ/L28TVUC0U6
-         aJlfLAOYc0LEA5khjKc7nJefwozvr0lPgi0RdEjsCmQOzXego5h4dYanuiOcrof8EvZv
-         aU7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794520026; x=1795124826;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MRvrBEIopDqvuVb/vZ72s+DUNbn5hAJVvZTwAj02wNI=;
-        b=EY+6AWFELDSLxnQP6JRdKRCRB5ZnoCrcf3vnXi9Wdy2RPUVekMh0QpnoOU5hRnZ8Bb
-         baKBDs4Wh1vSOSghLEQQN4hJwYVO/UfGUle0INLxQs51+4BbpX17DAbAbOamiigOW+/D
-         B4BEMBb2ti1y9YsowQO9vCakOY2Tm8gfzv573Yi/tsDshF5bH/5VsRv7JgEId0pR3KPB
-         Xidq3E1x4ZgFfkAM6UpkH8Oho22J1JCpxtm73iUoDSTg+GqUd3duciocCUuFXdIIwueL
-         sqQgXnKG7XSV3M+284DNRIDRvpjr2yW8VEt1vXJcIDNcD2Jiar/r2tjaaJPc2eImzhJl
-         q5KQ==
-X-Forwarded-Encrypted: i=1; AL+hErEGvr8AExYLrpdGU/rK7Y3GbcRoaBhZx7WJwum6T1wLVGvnq/mPPltkYxMz+XdFaVOhDMQQbK+roao2lw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/XvW7dyCNaiMJRLfrSCBBF6XcVaE0S2lbKRCGN0h3ysQAOsdAB
-	7vTX8+fBUM74CaJN4nwYeW9ubYrKHp0MfsHNqf5vCtc6/F8YM8ll7Xly2/cNTGAzsw==
-X-Gm-Gg: AYBFou0X/05ueE5lesmp3tmS+nU7tFQsCVx5Mz+IIRlBqvGLlweRG/FQnfAS0MnmLs2
-	9EqsH9zwimwnUUk1B1KrRlUmX4cv1DV5AvnxT1aeFW6za0T9PLFfjqVT7HueicTP40fObuVI4+C
-	wu75aD36g4VnFhi248L9062US39bhXIWWPQNMhJyOY32QKDG7R+jgJsFdVx9xTdO3YVWZNuIj7H
-	N2TH7EwfqJ+nuqu5bx0P45tslt1y+gS+KtE4gH+rPnFVF1RhWjB1dUtqLgRsn+69BKpO/19k/pr
-	zIJaSr57375UOIRJPQ0xMsVvHp5Pf5zQourJ2ZqcMRqyZCBpWPbiqCQh94PNll5pgNvJF+YyNyp
-	rRPs7Li3lGj0I2Qxr/51bZUfKwod7NzZVkaJXrkay6MTR2Rl7RSY8yJTVfLOjKSV68yDxQ3MYQ/
-	xbZKF4UtdXW9YXFYSp+M2FVYv63kqx0zzxRt1pVgOuNmJBcH86Mll6c1OZ2Ep7GZ5uEpMDZl+VC
-	ZNRGj6x1FlvzRcUrHM2CA1tw4J2/NvBRkLh91oUFWLng4kfvBGdwLa046f478Y+H6+yzncreAia
-	EyuF5QGUKHEbNkCGqDpwBtT3hN/GdQAaw7lLvWRCkd3aGbLU+J9Sk+VJ3ekw9WmppNI/98FZdYO
-	QIMobm6Uqgw==
-X-Received: by 2002:a17:90b:30e:b0:3b0:97b8:d6bc with SMTP id 98e67ed59e1d1-3b1b0a0e889mr278699a91.16.1794520025137;
-        Thu, 12 Nov 2026 13:47:05 -0800 (PST)
-Received: from localhost (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d257a0sm6493095a91.11.2026.11.12.13.47.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 13:47:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lmb4n366
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 584561F000C4;
+	Thu, 12 Nov 2026 22:07:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794521239;
+	bh=ReVyqXe2av4g6tLUV9DHWUBpBCC6BZrEGkcX74zqGJI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Lmb4n366DeTQad5TR+vZZv189w2+Kbw+FFoTqw4gmi63TuCtczBRzlcLJU+qkJzUf
+	 reJwO4Pq+R2qE5IbfO21sPoLc40jim9PgmKNlhik9rKkim50sfb3kIk9tF5kgM9JX7
+	 xrOYGTx9v5Lx7xvw8RqpFivEblMmmOgNhpBpTxgwy+n6kNx95+AZVcPfihH58b/Otj
+	 B/1uSNg1MX8268oJjG+ePnaXOrZLZqtMgXQ0MwOwsmqhePXYDTBk7U43YW1TrKtVuG
+	 GoimiIlzcjrFJ5jjq69yrh96Bi+OCJ49WPtP8lpHBL/rdQNxIWkD4rsAI1Q8/sqlBV
+	 js1ErIeKab7XQ==
+Date: Thu, 12 Nov 2026 23:07:14 +0100
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: David Laight <david.laight.linux@gmail.com>, 
+	Mariia Nikitash <nikitash.mariiaw@gmail.com>, hverkuil@kernel.org, mchehab@kernel.org, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	justinstitt@google.com, morbo@google.com
+Subject: Re: [PATCH] media: radio: Replace strlcat() with seq_buf in TEA
+ drivers
+Message-ID: <avYuEyBCkrNrvvJL@devuan>
+References: <20261106074639.452630-1-nikitash.mariiaw@gmail.com>
+ <20261108210232.13800dd3@pumpkin>
+ <avDmyLYpWOQ2WB-i@debian>
+ <202611120947.AC428BE4B@keescook>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -88,82 +61,302 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="v3qgrxyijyqfgzgl"
+Content-Disposition: inline
+In-Reply-To: <202611120947.AC428BE4B@keescook>
+
+
+--v3qgrxyijyqfgzgl
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 12 Nov 2026 13:47:03 -0800
-Message-Id: <DMTK99TDM9AM.SAM3Z4COP9WS@google.com>
-Cc: <dri-devel@lists.freedesktop.org>, <iommu@lists.linux.dev>,
- <kvm@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <linux-pci@vger.kernel.org>, "Alex
- Williamson" <alex@shazbot.org>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Jason
- Gunthorpe" <jgg@nvidia.com>, "Josh Hilke" <jrhilke@google.com>, "Kevin
- Tian" <kevin.tian@intel.com>, "Leon Romanovsky" <leon@kernel.org>, "Logan
- Gunthorpe" <logang@deltatee.com>, "Matt Evans" <mattev@meta.com>, "Matt
- Evans" <matt@ozlabs.org>, "Mina Almasry" <almasrymina@google.com>,
- "Samiullah Khawaja" <skhawaja@google.com>, "Shuah Khan" <shuah@kernel.org>,
- "Sumit Semwal" <sumit.semwal@linaro.org>, "Vipin Sharma"
- <vipinsh@google.com>
-Subject: Re: [RFC PATCH 0/7] vfio: selftests: Add peer-to-peer DMA selftest
-From: "David Matlack" <dmatlack@google.com>
-To: "Alex Mastro" <amastro@fb.com>, "David Matlack" <dmatlack@google.com>
-X-Mailer: aerc 0.21.0
-References: <20261111192411.4133780-1-dmatlack@google.com>
- <avYjFfqr3T/U7lvn@devgpu015.cco6.facebook.com>
-In-Reply-To: <avYjFfqr3T/U7lvn@devgpu015.cco6.facebook.com>
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: David Laight <david.laight.linux@gmail.com>, 
+	Mariia Nikitash <nikitash.mariiaw@gmail.com>, hverkuil@kernel.org, mchehab@kernel.org, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	justinstitt@google.com, morbo@google.com
+Subject: Re: [PATCH] media: radio: Replace strlcat() with seq_buf in TEA
+ drivers
+Message-ID: <avYuEyBCkrNrvvJL@devuan>
+References: <20261106074639.452630-1-nikitash.mariiaw@gmail.com>
+ <20261108210232.13800dd3@pumpkin>
+ <avDmyLYpWOQ2WB-i@debian>
+ <202611120947.AC428BE4B@keescook>
+MIME-Version: 1.0
+In-Reply-To: <202611120947.AC428BE4B@keescook>
 
-On Thu Nov 12, 2026 at 12:35 PM PST, Alex Mastro wrote:
-> Hey David,
+Hi Kees,
+
+> Date: 2026-11-12 09:54:15-0800
+> From: Kees Cook <kees@kernel.org>
 >
-> On Wed, Nov 11, 2026 at 07:24:04PM +0000, David Matlack wrote:
-> =20
->>     Is requiring userspace to re-issue IOMMU_IOAS_MAP_FILE the expected
->>     uAPI behavior? VFIO_DEVICE_RESET (and runtime PM transitions) on the
->>     target device also bracket the reset with
->>     vfio_pci_dma_buf_move(vdev, true) and vfio_pci_dma_buf_move(vdev,
->>     false), tearing down any active IOMMU_IOAS_MAP_FILE mapping of that
->>     device's BAR even though PCI_COMMAND_MEMORY remains enabled when
->>     VFIO_DEVICE_RESET returns.
->
-> There was some discussion about this in the thread below. My understandin=
-g of
-> Jason's point is that the current behavior, and differences between what
-> revoking and move-capable importers see in regards to vfio-exported dma-b=
-uf is
-> somewhat incidental and not necessarily desirable.
+> On Sun, Nov 08, 2026 at 10:25:35PM +0100, Alejandro Colomar wrote:
+> > Hi David,
+> >=20
+> > > Date: 2026-11-08 21:02:32+0000
+> > > From: David Laight <david.laight.linux@gmail.com>
+> > >
+[...]
+> > > >  	strscpy(v->driver, tea->v4l2_dev->name, sizeof(v->driver));
+> > > > -	strscpy(v->card, tea->card, sizeof(v->card));
+> > > > -	strlcat(v->card, " TEA5777", sizeof(v->card));
+> > >=20
+> > > What is wrong with (and almost OTT):
+> > > #define TEA5777 " TEA5777"
+> > > 	BUILD_BUG_ON(sizeof(TEA5777) <=3D sizeof(v->card))
+> > >=20
+> > > 	len =3D strscpy(v->card, tea->card, sizeof(v->card) - sizeof(TEA5777=
+) + 1);
+> >=20
+> > I can answer this one: bugs (particularly, off by one) are quite prone
+> > in such code.
+> >=20
+> > From the Authors of strlcat(3), you can look at OpenBSD's manual page:
+> >=20
+> > 	Since it is known how many characters were copied the first
+> > 	time, things can be sped up a bit by using a copy instead of an
+> > 	append:
+> >=20
+> > 		char *dir, *file, pname[PATH_MAX];
+> > 		size_t n;
+> >=20
+> > 		...
+> >=20
+> > 		n =3D strlcpy(pname, dir, sizeof(pname));
+> > 		if (n >=3D sizeof(pname))
+> > 			goto toolong;
+> > 		if (strlcpy(pname + n, file, sizeof(pname) - n) >=3D sizeof(pname) - =
+n)
+> > 			goto toolong;
+> >=20
+> > 	However, one may question the validity of such optimizations, as
+> > 	they defeat the whole purpose of strlcpy() and strlcat().  As a
+> > 	matter of fact, the first version of this manual page got it
+> > 	wrong.
+> >=20
+> > > 	if (len < 0)
+> > > 		goto fail;
+> > > 	memcpy(v->card + len, TEA5777, sizeof(TEA5777);
+> > >=20
+> > > What might be useful is a helper that would let you write:
+> > > 	len =3D strscpy(v->card, tea->card);
+> > > 	len =3D strscpy_at(v->card, len, " TEA5777" [, implied_length]);
+> > > 	if (len < 0)
+> > > 		goto fail;
+> >=20
+> > Indeed, as said in other threads, I have such an API:
+> >=20
+> > 	p =3D v->card;
+> > 	e =3D ARRAY_END(v->card);
+> > 	p =3D stpecpy(p, e, tea->card);
+> > 	p =3D stpecpy(p, e, " TEA5777");
+> > 	if (p =3D=3D NULL)
+> > 		goto fail;
+> >=20
+> > Linus didn't like my function name.  We could indeed call it strscpy_at=
+().
+>=20
+> I really just don't want to have bare pointers or lengths being used for
+> any of these manipulations.
 
-Thanks, I will read through that thread. It seemed like a surprising
-uAPI.
 
->
-> https://lore.kernel.org/all/arMBqyI4XNfD+q1W@devgpu015.cco6.facebook.com/
->
->>   - Physical target devices and P2P topology checks: mem_bar_descs[]
->>     currently only matches QEMU's pci-testdev, and
->>     vfio_pci_has_p2p_path() does not yet check PCI topology or ACS to
->>     verify that P2P traffic can flow between two physical endpoints.
->>=20
->>     Suggestions on physical target BARs to add to mem_bar_descs[] and on
->>     checking P2P reachability from userspace are welcome.
->
-> FWIW, you can also exercise the "P2P" path with just a single device if y=
-ou
-> IOMMU map a device's BAR into it's own IOAS, and have the device DMA itse=
-lf. For
-> eventually validating aspects of Live Update, maybe you don't necessarily=
- care
-> if an actual peer device is being DMA'd?
+> strlcat needs to go away because it's part
+> of the whole C string API that is confused about array vs pointer and
+> has no sense of handling bounds. Yes, FORTIFY does its best, but between
+> lack of sane bounds and doing a strlen for every action, it has to go.
 
-The way I designed the P2P selftest support requires 2 things:
+I disagree that the whole C string API is confused.  In the future,
+when array parameters become actual arrays (so you can use _Countof() on
+them), you'll have better language support for that.
 
- (A) initiator: A device that has a VFIO selftests driver.
- (B) target: A device that can provide a memory BAR (vfio_pci_find_mem_bar(=
-)).
+strlcat(3) indeed has some problems, and has to go, but I would like to
+not put the whole C string API in that sack.
 
-So far I haven't found a single device that can do both. But you are
-right that theoretically a single device could satisfy both
-requirements.
+>=20
+> And I'd like _fewer_ APIs
 
-I can relax vfio_pci_has_p2p_path() to allow initiator =3D=3D target.
+That's a mistake, IMO.  The reason why programmers write bugs using the
+string APIs is precisely because they try to use few APIs, and try to
+use them even in places where a more appropriate API would be better.
+
+Take for example strncpy(3).  It has been abused in so many ways, and we
+all know the results of that.  Now look at what you've done in the
+kernel: it's been replaced by around a dozen different APIs.  Quoting
+the documentation:
+
+	The replacements for strncpy() are:
+
+	- strscpy() when the destination must be NUL-terminated.
+	- strscpy_pad() when the destination must be NUL-terminated and
+	  zero-padded (e.g., structs crossing privilege boundaries).
+	- memtostr() for NUL-terminated destinations from non-NUL-terminated
+	  fixed-width sources (with the `__nonstring` attribute on the source).
+	- memtostr_pad() for the same, but with zero-padding.
+	- strtomem() for non-NUL-terminated fixed-width destinations, with
+	  the `__nonstring` attribute on the destination.
+	- strtomem_pad() for non-NUL-terminated destinations that also need
+	  zero-padding.
+	- memcpy_and_pad() for bounded copies from potentially unterminated
+	  sources where the destination size is a runtime value.
+
+And that is the right thing to do.  In parallel, we've developed
+fundamentally the same functions in shadow-utils.  I think that's where
+research converges to: one API for each different use case.  That makes
+the APIs more descriptive of the action they perform, which let's the
+programmer better understand the code.  They're also way more robust, as
+you can add many safety checks in the macros that implement them.
+
+> (I realize that didn't happen at all for
+> seq_buf, but that our current best direction).
+
+I think the problem in seq_buf is not the amount of functions, but
+rather the fact that it tries to support both strings and nonstrings at
+the same time.  That's literally repeating the mistake of strncpy(3)
+with this new type.  You may try to patch it with tape, but it's
+fundamentally flawed, and it will eventually show up (we've already seen
+the bugs in its implementation).
+
+> And I especially don't
+> want a "len" getting passed around.
+
+I partially agree with this.  I don't like passing a length, because
+lengths and sizes are too problematic.  However, I would like you to
+trust me that pointers aren't that bad.  We've been using them in
+shadow-utils extensively, and they're super-comfortable if the functions
+are well designed.
+
+> It needs bounds to be *in* the data
+> type. And that means either true arrays,
+
+Indeed, there's work towards that.  I'll show some preview of what may
+come in future dialects of C.
+
+Now, we can have a stpecpy() function:
+
+	char *
+	stpecpy(char dst[], const char end[0], const char *restrict src)
+	{
+		ssize_t  dlen;
+
+		if (dst =3D=3D NULL)
+			return NULL;
+		dlen =3D strscpy(dst, src, end - dst);
+		if (dlen < 0)
+			return NULL;
+
+		return dst + dlen;
+	}
+
+In GCC, you can improve the prototype:
+
+	char *
+	stpecpy(char dst[], const char end[];
+	    char dst[dst?end-dst:0], const char end[0], const char *restrict src)
+
+With a patch I'm working on for GCC (it might land in GCC 17 if we're
+lucky, but it's more likely to end up in GCC 18), we'll be able to use
+_Countof() on array parameters, so we could use the two-arg version of
+strscpy() for implementing this:
+
+	char *
+	stpecpy(char dst[], const char end[];
+	    char dst[dst?end-dst:0], const char end[0], const char *restrict src)
+	{
+		ssize_t  dlen;
+
+		if (dst =3D=3D NULL)
+			return NULL;
+		dlen =3D strscpy(dst, src);
+		if (dlen < 0)
+			return NULL;
+
+		return dst + dlen;
+	}
+
+And in a few years, we might end up having slices in C, which would
+allow having the same functionality with just 2 arguments:
+
+	char
+	stpecpy(char dst[:], const char *restrict src)[:]
+	{
+		ssize_t  dlen;
+
+		if (dst =3D=3D NULL)
+			return NULL;
+		dlen =3D strscpy(dst, src);
+		if (dlen =3D=3D -1)
+			return NULL;
+
+		return dst + dlen;
+	}
+
+So, there's a bright future for traditional C string APIs.  And it's not
+too far away.
+
+> or internal bounds tracking
+> (like seq_buf),
+
+I believe that's going to bite eventually, and it will also be difficult
+to return to the simplicity of the C string API once we have these few
+features that make it safe.
+
+> and it shouldn't have "extra work" associated with it
+> (e.g. stpecpy above still has to find the current end of the C string).
+
+No!  stpecpy() is really the same as strscpy(9).  It's *not* a cat
+function.  See the implementation(s) above: there's no strlen(3) in it.
+
+The closest relative to it is stpcpy(3) from POSIX, which is really just
+strcpy(3), but returning a pointer that encodes the position.  That was
+designed precisely to solve the performance issues of strcat(3).
+
+> C strings were a mistake, but here we are.
+
+Trust me: it's not.  The problems with C strings are, as you said above,
+the limited support for array parameters in the language.  But it's not
+too difficult to solve that problem.  And once that is solved, magically
+the traditional string APIs become much better than the structure types,
+by being at least as safe, but much simpler.
+
+So, I'd like you to trust me to add stpecpy() --whatever we end up
+calling it--, and perhaps the sprintf() variant of it, and see how it
+really improves the code.  In the coming years, when we solve the issues
+with array parameters in the language, they will become even better.
+
+> So, for "easy" constructions, sprintf-family, and for complex
+> constructions, seq_buf. And probably the large bit of thought at each
+> place where it is possible, is "how should truncation be communicated?"
+>=20
+> -Kees
+
+
+Have a lovely night!
+Alex
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--v3qgrxyijyqfgzgl
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr2OIwACgkQ64mZXMKQ
+wqmEHQ//W1DL7SYtAzAHPc7wioVh7RmVJF/FZORDB+Hdz2e9X/Fz+ViF03FJ1RnP
+ARhTyZgOn/Bsc/btKgfeLwipnzZmWNqj1XitoUdKkXOezHJf9fFGQmVpohwx/eZm
+/o59tzgr2SopEsUwLlma0D48VMbfpag4cL/SR1iHwdOMXK7avkaFRXvOEzFjMBnY
+TARbtXMtATdyCSnSwChtcesWd8AHgu4YBauXpyKFWAV7b7BAH3cng4OFBya53pXn
+bK3GMKAvp57LlrAuNZ6U8rTMnRuB6q9rSGh0w3QEFXEG/NT8SSBoXqZjxGksTM6/
+VPH01UG5sc8fGYz5IKvIa2OWQwJiG+U1vqsesgEY+LH6WsA9HZaqNH/BbDvuRmrr
+qVvuGzVMtpfXze+lBYJr967hsllhxy1tF0tXlal16PAYTf09hcnZmXiLtJEh95G0
+/zmdcFYlO7UsdgZJyIK2E4V9ckIveHfzyp4cqhByininulLeZPIqv/AoDCvGPmYH
+ar+OiJzDlEzsBm30Dd3epiKPyFcPzNOhUSrYb0l06Jn4AdjvryrHayJorzodNktH
+msgUbRP5ZhEbxbDhEKekyOHcQuUHZFhxMhYNlHMofBbsg/WfcOz4jCWtSprnigoL
+UzjYL2Kdr1k5GUdjteMG8q6Nlqnq/FZi4cI51jUcHe+QDQ1X2TM=
+=aDiz
+-----END PGP SIGNATURE-----
+
+--v3qgrxyijyqfgzgl--
