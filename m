@@ -1,98 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794464431;
-	b=OlMAuJOUue05pdB+x7Qnb7ptw3eOHeKRn3lSQh0YF9VeBJV5Xu9RtwxNFowM7HKn/Uay
-	 w/65MH1ZtBmiLKgYirNW8wWn0fsL25+Bk2I2eWWibbjrHFAgDLUY5v4ZATjzPy6pMppd2
-	 npfJ6bfhqTOY+epvsJrHTcifNuiSbeqdCM3/17/nJzggBouLKnnqF8cq8lXK736rMu+cU
-	 gU27ROhqEXwzD1gNPjhnkfNodH+l7c60QFVy52jN6flcQTiGal99bPalVxFiA8QHNvXdM
-	 nyycDo6KVHE8Vdp14Z/dFpYjukY5e4al0PekRoLcfgTmSmuXMvRHNI/TOQVOWZD/PnA==
+	t=1794466582;
+	b=YNIGIMatkYeRgc/7jkKH65rvYJpbe7exvdPuGgFJlQOJEZdgnxWpfQEkBO+NpCU03cbU
+	 MtZi8CYTWA6sbzsV6y2OmDE87I3/CoTEyLePEinhc/Bnv5dxAgb99norJrcG1H2ifq8NC
+	 i/zjK+KgPV8jyjsnAUe6LlBed/Qj20IUNJYx3AvcZycd55Aq+pcGMxP6EacFwceb+G6Z0
+	 UIGLSBi1lU2VgFi6s2WmnvpGgQTvQRUrtDAyUkqSVeBAseIRa9a66jxURWOOUzLVUJ9cH
+	 W8S+d1FeUzHgIViHtvXpEXxoJj2sqTlmdgmULMmCQqWCmFcMUf8eGiSRpU9qmxNxNwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794464431;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794466582;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=6RXE7MpOiitHrkFdvkSuFI10OAvTxEYbjLQMQzqwPMU=;
-	b=fxaiHFq3lnWq87RsejGkQS5/knHFQbjlk96JkCfHnI5Mfhqk307eLskOwpBPienym9Ov
-	 YelCjIM35f4NjVDAyOZkRRU/tacvNzQjJz43fpsoznf4v7rrl46d0ysKNm4MRndpc3qtp
-	 E6xen2sG6yZVyEshbUOvcjANrKYWarOoD9PBK2I28DN0Pg7CfpQc8Jp3POLgR6quBcz/b
-	 37dazQG/PtNqDpK2MlKBkN+EkvD4iXW9TBoCzqbiT60AlcWduzeAWpdNvJI1e4V+Fu7Ou
-	 lH/yWnHRjm9/buSgwoNu/VOxOmn+DsUURr1dxlq3k8hw7hBJT2y8b6SbsA4BX6oZOAg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZG6VhCuHtrCJJzccAUt7IJkMQXU/fhnJBTGZBLb7Mhg=;
+	b=43c8SYpi3+Q/SyY7fTJ4Zr6aqw9TBGcnr4Nx55YRD3zO6RgRMdhjhlhvKDUBXJG9Ov//
+	 4nhcLTQfkzG6DFeEQsoOTEl1suaCwgCUVRxTxcm+Yg6AQbImQ0vUPvpXtj/RnGAUMjrZD
+	 BL5WZMVwd8NOK8Km4JaXTWSqsP5e7KqxBcLVjBshFdIRB9FN06vRAuarvIh6kuuVL71F7
+	 CRNQOdlEcQhWLJ8gjAzuUADUlZlZhCxb9eN72vrMNcXSB6EU6hEejx1bIQC559RH9J85j
+	 BA98wMvfSufGb+2cCMyE/Xa+hQ6B6RBIlXmXX1W6o+9G4A/dVmhofUDTkwyeHWDSIvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tn3YF89A;
-	arc=none smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tfrR1tH4;
+	arc=none smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 198E1606A323
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 06:20:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 198E1606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD49606A89A
+	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 06:56:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFD49606A89A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tn3YF89A
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8bd6ac32564so76854b3a.2
-        for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 22:20:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tfrR1tH4
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-533797e72e8so24856671cf.2
+        for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 22:56:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794464430; x=1795069230; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6RXE7MpOiitHrkFdvkSuFI10OAvTxEYbjLQMQzqwPMU=;
-        b=Tn3YF89A2O78gka8b8IcTXQagBvYm8NStwBvLNhOWWTtaqlnIA7An0Do5Yy2qlzX81
-         DZnJQz2o9zjYh7vhaw2wkiT8vL6lQqEvRxncXuRZbBd8qvq6hAwC+gmv4cCGzCtoaruu
-         ZN2CP780HdJqUInbJ2DDdj7tgj7RY6X/WGa/wFm9S5Cgsm19rU43VhWw6u97u9rq7FIX
-         IZwjVIN4G2CVQidzd1SCvztbMUFot6xndRhjqfpyT+PNr/MkJIe17DGfkoQeOF+RmFBx
-         jlKFW98pgI+NURBPqVQGHDhvKody1G6QIVZypdSbQmSDNmT0P3/FH5rRJYWwsrFoG3S0
-         zbDQ==
+        d=gmail.com; s=20260707; t=1794466581; x=1795071381; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZG6VhCuHtrCJJzccAUt7IJkMQXU/fhnJBTGZBLb7Mhg=;
+        b=tfrR1tH4wMon/iJLwE71zZ5ygcvlIRUqDsKCDxPD8+nXPK+7SbGjbpUgB4ux08bFwR
+         kAedk4D1uytudKaOMM6K9vzrVi6TLbJ5GhyrXQeYI2kr4NcdaR/5c25OG+YH24qo4fUr
+         CJ9dmIBr2gUuhlrPGg/3BUkOwNKoiVO4NHlC+Znl74NmN8uKi88uQ3w8HXwgrGyZD5vD
+         jvIMF6xlzSNGLH8Z8sb8gNdNVzlC3rYRQ6QlbK5iUxajt0f9WYdv2I0zkzNtgxtovI0x
+         4RznnMrCmGIK+8Jx/YEru48Hpp9cV5P+05YC6Pe0Ks3xVgudX2sabAVlzHwPYGEsCv1p
+         MQFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794464430; x=1795069230;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6RXE7MpOiitHrkFdvkSuFI10OAvTxEYbjLQMQzqwPMU=;
-        b=JJQPZQgtoYIOfKntniYx/42W1xvdv7NHQVoCKFoBZ44CzRhjDOKXTRXLTgVQ1gXhBf
-         rHs9A20I+o7iXpxwU1XoI/5NP5qY/Rz4ODxYmYbDzX3Lurt1uBFvgwClCCuEVsmXMlwa
-         duxbtF6mihiTH/OS5ceLZ2J2dL9/lf87GmOvuJ4JZ0k3TQ/PsC4ylpB03mbZQPXtd+C0
-         /iW4m/MF6vgixzbD2eSWsuMNXzsybHoPY5WtPsohpXyedP8FaWzoToE1ExBgJ9iUcIS+
-         uXfcN/rtrkWq67EcBughedWCxGkCe2A2/fbKyuyORLIW00OyvvxUbQYd8zzg4e81wPP/
-         /E/w==
-X-Forwarded-Encrypted: i=1; AL+hErEIcyHyjORr04EAuUphNNWaPTXJy0Ytiy6E8j31cKQ+lpeNtkPN2oxCsnRUKY2ioK9sjRaYerRLynePJA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8kKkgfyW2asFy3H/5oF1Qcpp0PpfnNOLJMLp0p7194diUoObzs
-	ZDYOjgHeBzfS7lltlswAA/BHIy+O6YfCNAiE98ZHbLNh5JwyKp/bQizU
-X-Gm-Gg: AYBFou1fNR5xWDU6xTQPjuQ5ExN/6Vnoj5xF5jfnlab1y3yYpwcPcXQofn0DPa5NEXM
-	goK3oD3C7z0C5jYbdEb+ghKhgOu8OwwGgrRLJhUmUjOhstMbCu/by4nv28CCv5zI/yEhdiOvZ7l
-	cI+JmzSYTXHuJc+hNHj9+tbVO9Dvr3hMI3IB2k1Cfff8nC4YkYzCXIR8cWm78UUjpUTKnZ+NllK
-	DrD7JrdPQ0rwoxibgRyogGHHz+9vvrE5WCOBvL8X2jImXRYlJcO5pTr4bM8Qhnn9LfSSS3JsjkS
-	Q6owi68w/B0qZ3gDMpaD1ZprLLerOmng3/TQJeQyx0brFsREI8Zg9A6vVGl/Jtz0UogcZiqzZNV
-	I8iN+9wxViZRB8744kNndFC46LGP4BY99W61f/8x4KFx1mYEncQVfNZpMT1gHWwBzZ+fNWyiCL7
-	jY3VomXwnSOgxu+d3OEHOx4fQMpawOGBgGGD/LNcS9v7uwKk/9+S6eBoCN/SF2ksvbY3Xqqn9Gs
-	Ex7vKiHKR2hDB4Znqyc/vHMyaZvF0NGzjUBmuSs/OI3fxv2D4TAmiMzVGC9ILGPMjbVL07iDXnp
-	gcjhdYKkrSZvCPM3ZWM+HJe8BIV92N6jzIqkP1+Cy+RshIsmA0f06Uxom2A=
-X-Received: by 2002:a17:902:ef4c:b0:2df:8ab7:fe3a with SMTP id d9443c01a7336-2edd78c45admr80762355ad.4.1794464430262;
-        Wed, 11 Nov 2026 22:20:30 -0800 (PST)
-Received: from FAIZEL-KB ([2001:569:52f5:4b00:3fec:b9ca:ef85:7998])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d7bf55sm28202185ad.30.2026.11.11.22.20.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 22:20:29 -0800 (PST)
-Date: Wed, 11 Nov 2026 23:20:27 -0700
-From: Faizel K B <faizel.kb@gmail.com>
-To: Michael Riesch <michael.riesch@collabora.com>
-Cc: Mehdi Djait <mehdi.djait@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, libcamera-devel@lists.libcamera.org, 
-	Robert Mader <robert.mader@collabora.com>
-Subject: Re: [PATCH 2/2] media: rockchip: rkcif: Honour the requested
- bytesperline on MIPI
-Message-ID: <fxrwhxkzgihpiz52rbeuomtqkzz7izgdfcbux7osamqruc7w7u@qhvh3nkqypro>
-References: <20261105232310.385463-1-faizel.kb@gmail.com>
- <20261105232310.385463-3-faizel.kb@gmail.com>
- <51b09428-9d10-4f36-a811-a681e479e45e@collabora.com>
+        d=1e100.net; s=20260707; t=1794466581; x=1795071381;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZG6VhCuHtrCJJzccAUt7IJkMQXU/fhnJBTGZBLb7Mhg=;
+        b=pckG8dfY72nQslm/gv83LZcoHbadjKlwyR9jlVRFuI/26+RcKJqndfqCl2LtX88E8W
+         qOTPSG9hNwsP0fq8YJ5F5Vu7cv4HtrNNESFgD837U0E2G7/1F9RbdmB0FTCB/tnNzPej
+         ARkT3YLXgE1NVkYBybWJM3bo7y4gIrpKs+R3J0Qou11PU15OpWY27Ckp4ZYjpKaFmzM0
+         vDSt5qig4FZxQy4d9y+miPeVXeJGnHOxwbP+mPk6Xx8NlTB8BbzQFH/2/8l1oNcqQ/gH
+         FuNK8nzBX262WFnBrbLRAQoT2vQ2eCbea+yzBw7Q/ka0jiLdDyrTj4hXWhDbktkd5Wix
+         O0pQ==
+X-Forwarded-Encrypted: i=1; AL+hErG3gpFDGpCb9SfBTJ2fW7iw6+Ej25CJ2LiniCt+WLPlBO96kT0Q96DI7Yp+fHalbulhIiudQWFaezD8Ag==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8F3EwZRIJi0T+MNqRNebDjdiyMmWyOLeNuk81uk17rkbhRzr3C
+	S9bi9kIHMLx75krii4oqTHNuKYiyZDxFsxFbTtcj33BevYaGmmQnI+Y=
+X-Gm-Gg: AYBFou1deQ5l7CX02JzItVHdO+SJMEdPCgG2+o0gXXig1uzXTHnQLh0GkMPg/UjFWG8
+	n8Zo2c/L4szua7K24oOUDHgjWqR8JL0eqmghRaMT4yoN2AxYRrGag1At6AXmolea5qvHTNPW5lR
+	zn1CRsjabkCF+4WY/mDOQgBx2vOValAF2eScJFhwsfVPV28Ac7Ky0NXJJw4y4ZLu6pKbvkK3pfl
+	knnGHUviyO6GwFaXnE3IztQUUXMM191kDYsT2dfQJsQIGXYX2VH/HRcQUnlP6s3HU/dP2Af6eaK
+	SrS/pY0WAI/7OSNJ34UDqq7EyKdebzGRTaGf8K31slGChrX50C2Jwy3N1EV6ZLwJeGBswGNzb/F
+	d7k4JgCt4sYmVM8P+N0acRY9IT7ah0wAn5y+au2JO4B6rF1ORNxI49ptDxoF+yY1PThRtl/8cUE
+	v/fFHsOteARK5U/mwtYfnwTh7i5nIfu5rZmw343ge0tlnzvmosk8CL79mCunnTOaKwu3TloIU6p
+	ONT/5AOE6M0daml/v/lxjdb43K44essXYby3vKpcWVxl9rYZgZGb+PaHpHK2YIWUQpJMGZ9EkEg
+	B8V2DdGmWB9F43qriNQMmun67sENY33i7h2OzxPQYC3+fWTuboXYlbXgHgue5VD8Pbz25xhnWMD
+	pvFBv+mend3nS1jwZxSHNVAE5lphcenFXYaYwr0D1Cfge4eyYolfN6Tk8e9rMtHnAZAl/Xr/9hT
+	ebG7B670AmrdpyAW40qTWUfWTQLXa+Lvxo
+X-Received: by 2002:a05:622a:34b:b0:537:8400:ab71 with SMTP id d75a77b69052e-556c04f78bamr79867681cf.39.1794466580744;
+        Wed, 11 Nov 2026 22:56:20 -0800 (PST)
+Received: from localhost.localdomain (h16.44.55.139.dynamic.ip.windstream.net. [139.55.44.16])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef0318890sm63824076d6.4.2026.11.11.22.56.19
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 11 Nov 2026 22:56:20 -0800 (PST)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Sean Young <sean@mess.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Zhangfei Gao <zhangfei.gao@linaro.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: ir-hix5hd2: Disable the interrupt before freeing the rc device
+Date: Thu, 12 Nov 2026 01:56:18 -0500
+Message-ID: <20261112065618.34238-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -102,70 +100,45 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <51b09428-9d10-4f36-a811-a681e479e45e@collabora.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Michael,
+The devm-managed IRQ remains active while hix5hd2_ir_remove() disables
+the clock and frees the rc device. The receiver may still be running
+after open() or resume(), allowing the handler to access unclocked
+registers or pass a freed rc device to the raw event code.
 
-On Wed, Nov 11, 2026 at 10:46:43AM +0100, Michael Riesch wrote:
->
->Come to think of it, TRM p. 2111 says for e.g. VICAP_MIPI0_VLW_ID0:
->"Virtual line width of even frame for ID0 path(must be aligned to double
->word)." which I would interpret as "it must be a multiple of four
->bytes". What do you think?
->
+Call disable_irq() first to stop and synchronize the handler before
+clock shutdown and rc device teardown. This must also precede
+rc_unregister_device(), whose close callback can disable the clock or
+reset the hardware.
 
-The VICAP register summary defines it.TRM part 1 (V1.0, page 2081)
-"DW - Double WORD (64 bits) access". So 8 bytes.
+Found by a static analysis tool under development.
+Not tested on hardware.
 
->> +static void rkcif_stream_set_bytesperline(struct v4l2_pix_format_mplane *pix,
->> +					  u32 req_bpl)
->> +{
->> +	u32 min_bpl = ALIGN(pix->plane_fmt[0].bytesperline, 8);
->
->Please add support for the bytesperline field in all the plane_fmt
->entries here...
->
->>  	width = clamp_t(u32, pix->width, CIF_MIN_WIDTH, CIF_MAX_WIDTH);
->> +	req_bpl = pix->plane_fmt[0].bytesperline;
->
->... and here.
->
->>  	ret = v4l2_fill_pixfmt_mp(pix, fmt->fourcc, width, height);
->>  	if (ret)
->>  		return ret;
->>
->> +	if (stream->interface->type == RKCIF_IF_MIPI)
->> +		rkcif_stream_set_bytesperline(pix, req_bpl);
->
->Why is this restricted to the MIPI interfaces?
->
+Fixes: a84fcdaa9058 ("[media] rc: Introduce hix5hd2 IR transmitter driver")
+Cc: stable@vger.kernel.org
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
 
-The MIPI formats all have a single plane, and the MIPI path already
-programs the line width from bytesperline. The DVP path uses the width,
-and I can't test it. But I agree it should not depend on the interface.
+ drivers/media/rc/ir-hix5hd2.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-For v2 I would:
+diff --git a/drivers/media/rc/ir-hix5hd2.c b/drivers/media/rc/ir-hix5hd2.c
+index f74deb408218..e6770588399b 100644
+--- a/drivers/media/rc/ir-hix5hd2.c
++++ b/drivers/media/rc/ir-hix5hd2.c
+@@ -344,6 +344,7 @@ static void hix5hd2_ir_remove(struct platform_device *pdev)
+ {
+ 	struct hix5hd2_ir_priv *priv = platform_get_drvdata(pdev);
+ 
++	disable_irq(priv->irq);
+ 	clk_disable_unprepare(priv->clock);
+ 	rc_unregister_device(priv->rdev);
+ 	rc_free_device(priv->rdev);
 
-- take the requested bytesperline of all planes into account, and use
-   the largest for all planes, as the DVP has one line width register
-   for Y and UV
-- compute the sizeimage of each plane from it
-- limit it to the line width field (20 bits MIPI, 15 bits DVP)
-- program RKCIF_DVP_VIR_LINE_WIDTH from bytesperline, with the current
-   value as the minimum
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+-- 
+2.43.0
 
-Does that sound ok?
-
-A question on the DVP: the PX30 TRM (Part 2, 5.3) says raw data is
-stored as 16 bits per pixel, even from an 8-bit source. This matches
-the width * 2 in the driver. But for V4L2_PIX_FMT_S*8 (e.g.
-V4L2_PIX_FMT_SRGGB8) bytesperline is the width, so the buffer is half
-the size the hardware writes. Am I missing something?
-
-I can only test the MIPI path, on RK3588 (Radxa ROCK 5B+). Could you
-test the DVP part on PX30 or RK3568?
-
-Regards,
-Faizel
