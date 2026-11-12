@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794482342;
-	b=yrIWx2zB9T/QIYaTDwAePwKbAHTTiaEzw9hp4x0XS8YmiUfWZufsuxxae21Ha+3hbLEA
-	 tuJZF2FR4EZsR8/FAeotQVsjAJct24iLTOQGn5diMYlQYaHp860DBrxgBtxPRAiJTeZCE
-	 nVxMPgt+Psn/UseDBzM3WEP6pyhWe+RubMnJXyK12PRfEQiMpbbdjJWyNBm87XDW+3eNG
-	 sI6o8Bj+w2LFIPO17Lhl+BvypDGhw5v81+LyUOwVMfDCDVHlFtVu6CmFsf4uZX9SlUO9t
-	 gcSb20D0NlvLIuAAlW/hn+bfcwhjH4YAOrSb6R+0NUo40lCuXtKe0CcIw0UktRxd1nw==
+	t=1794482347;
+	b=Oe7PVvA1gMMSERdYggoAZqH/HD9nu/08/h3tqdvPIMPPLuXLfL0H2pbaorgwKuGGqqeL
+	 /jiaFKUo1WR8sZ4dlimfIMovGa8ibBZ5bxMB3RZ7FUbLB4u6PP/ueKW7b6cuCQlKfFTJH
+	 5mCrL14eg9SceXiiAG6sIDQJxJWtitan/q0OIaHC8EKktYjTR/PkWVQkI2LV/OUsFa7Sj
+	 laVno6A6aN4oHMW44+HNvvydvftgjeMX80ysxweMZwsdqIAI5vp7MVitmAhxBdBmCZNGL
+	 yOCwKt61F5OUS6geD3iubytvSGWXru77y6sPrXQDLxrtnw7ls+pNRhfysw2pzBHAkTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482342;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482347;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=J8kZ5mHWAEF4Q9MNL04JoTrDY4DRK49OnzPJtnM7hFs=;
-	b=QMENXwj37eHkKug8vL29Gf2xPenoJ23450TTx7ZK+cDNCXD51k2UITKAkgO4ZY3+hlHy
-	 nwsJoF1zMF4CYptR84O3eBm6rkXvLw8xw1/LnBIUoPw3Jsh7CvRBAzj3tFFsahhoGwDmq
-	 vfPKjaolI/byquf9w9uyi4+YGq2a9dA6WUYQVxnJ1aCh6iA/4lRW/KAaYx4ER2unn5mWU
-	 QyLJbTLUBz7jSq+eS3fcz677hBJZJOes+zA6yMGZRNd+qxKCGm8r9h2hydt47bLTaFRnp
-	 mtrh0CwhV2SGwbd/7lpfKVKKLbAXyzTpPlS46MakUPx6tzF4Mw5FqDR3yFhjK/6FFCQ==
+	bh=pZt9hvWBdMeEBrkpt//n9ESeZbnkVdCvqzoNQxDnniw=;
+	b=o4G/pPky/7FFi2cvFErNysO8KsFVX3fhwLrgf8DI6fMj7DnaL+xHpcb9PyUomoEmM8f0
+	 j2jEF91GiV5uezmfmJ0yl1DyfDJ3OYD1GyrTy1leXankODP+2yABtJG03gr4pVORIc/uJ
+	 v4B4k6kO2XZakvluLhBnbUG6GWEsIaByGcynOT3PMg7Z/G/+9AGI9dIFkgfOyQwVJfLIi
+	 D+GVQyuQqx8gs/swHs5m+SDoOjXeYohDp6SgGj/cMIXN/P1zmSuYukZqqS73ireIsG717
+	 OTsi3T1pOM/41FWBbrFRdVqC3rNpSFyoYO+y91I1ZcXCDyi91caePj4TlWnXngT/sMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=l9SLFHo4;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=h4G+V6IK;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC21C606A89B;
-	Thu, 12 Nov 2026 11:19:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC21C606A89B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CE8606A331;
+	Thu, 12 Nov 2026 11:19:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3CE8606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=l9SLFHo4
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=h4G+V6IK
 Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c67:cdf:7464:6c04:36e4:ee87])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 32F4333D;
-	Thu, 12 Nov 2026 12:16:36 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 61814802;
+	Thu, 12 Nov 2026 12:16:41 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794482196;
-	bh=9sTnIDhO75CSQfGHhJyHPnsOH/91apCfP7O0Mis4EWc=;
+	s=mail; t=1794482201;
+	bh=VNxGEP2sK9V1GZwt5ANA2WUrpwBvB9qwok8jWl9aNFY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=l9SLFHo4mJzuRhleT/rypJeMDEYzigOpHf0U3/BIsuhsXS+vscV4Z9jBvJ/3EhD7P
-	 rsj87ZSUWrDhqMteLIO9z9VmnUxpSlueZ0BlYW3JqxwLdM/FHsmdqiNPfznFCfRl9W
-	 6zSdB5FIg1N8VyL4t7zO/qyqLfoGGVDYjJdjul/A=
+	b=h4G+V6IK38S2NjnHkY28BssLT+JnZxtGfX6MdDm4zzUUA87WEhnFIdexUd0s+Pt7F
+	 AXUCiGqOZX9JjnkYs9kNqTU+GToIHddPfpWKJCJVU4tXRHhLQ6II4VlhX/YC74sBrc
+	 wxwUXdexf+R7ReZwPfKEBY5dX5PcPGlqICw+DZc0=
 From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Thu, 12 Nov 2026 16:48:04 +0530
-Subject: [PATCH v5 06/11] platform/raspberrypi: vchiq: Register vc-sm-cma
- as a platform driver
+Date: Thu, 12 Nov 2026 16:48:05 +0530
+Subject: [PATCH v5 07/11] platform/raspberrypi: vchiq-mmal: Include missing
+ headers
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-b4-vc-sm-cma-v5-6-d25e3b687e71@ideasonboard.com>
+Message-Id: <20261112-b4-vc-sm-cma-v5-7-d25e3b687e71@ideasonboard.com>
 References: <20261112-b4-vc-sm-cma-v5-0-d25e3b687e71@ideasonboard.com>
 In-Reply-To: <20261112-b4-vc-sm-cma-v5-0-d25e3b687e71@ideasonboard.com>
 To: Stefan Wahren <wahrenst@gmx.net>, 
@@ -73,69 +73,53 @@ Cc: Martin Wetterwald <martin@wetterwald.eu>,
  Kieran Bingham <kieran.bingham@ideasonboard.com>, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  linux-rpi-kernel@lists.infradead.org, linux-media@vger.kernel.org, 
- Jai Luthra <jai.luthra@ideasonboard.com>
+ Jai Luthra <jai.luthra@ideasonboard.com>, 
+ Paul Elder <paul.elder@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1651;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1027;
  i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=jmL2C9ZT4ymW/6uMtp071mlFSwkY2dVi+zbShm6aLoM=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBq9aB53pORKP1sMzNVCp6H1GhsUgh3D1hQlBqjP
- qKguhxtq/mJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCavWgeQAKCRBD3pH5JJpx
- RUhmD/9hfgA5whlF2OZWg58i2YBPVQ8dl0xEGPOxbzMCu5pBTgSzrlp1sw/xReawZqemdOqVJ1U
- qlEfnlRlK1pJtQjj3eJg5IscoVzd671BoAKxocT8GN2pklC9bXFIQ/uMlXOtYOxXirF6RTU9I1Q
- 9zo2mG6JSOwmPeTjKMKeq/9NCnmP/Lnc1CeGj9yUna7cTBaFXnN/cNg9B+duJj4QHw5wTDpePY8
- zjyY4zQ480Q2oqjcH3vjkEa21VLJdR+gaAgx61luFJYl3llaw650pAX8tEaiQg7zBkxBcq1nyaP
- aq0pkpSyMo8kgeOdNsFGYvRBPjBY5PlA1Yyp/Fp0s0cWoFft3E3pk+jP2g2NfTTnlACE7kmuZa4
- qlEseM/65tP07RYVYuNGAvpjYsexh45isWzgO9PNFxF21crub5KYAEfqI9h0oHEb7NVCkMRpxQG
- LckW0L8b2vxO4EWAo/TOClHv4eQ4hyOKFTC59F8rojKFSXbK48Dx6yuqrwtCvo91sS4IhxGB90U
- wYizWwUMQJBUggrUDueIAxg3BI941fO1E8N96+rO3J0t1XOx7euGReKOfQ61Ap27ts82PDrMWxL
- Q/zD93XQX9nWAnK2LhCWtzMc3fN9QobxeoA8E4rv08wwKp7D3afxMTaR8R4VjBWWZE7plNavEun
- hzdq/xTc1a4C4hg==
+ bh=VNxGEP2sK9V1GZwt5ANA2WUrpwBvB9qwok8jWl9aNFY=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBq9aB6Jfv3cNo08PUAnoKItFaP20sQasELEVc1Y
+ w6xhee9maOJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCavWgegAKCRBD3pH5JJpx
+ RTE0D/9kyjOxl/OKFzY8AkVCWbW6N3gSbKrIxZpfRwT8jiK6jby+yVjt3rCMIia94QS3Op3NUUe
+ f+ioMTbUek8a2sc2Vk/S24qLVtb2TxVq7Wd1G+ecHlO5UpTpInofCjT4+4ATCn0RHmaxUl0W/m3
+ ARmIjnbdphFTmR37E2DVDXR3Hhc/bgLVBOKwpPG5CYHXbgiPSPjNKhvIG4eKzlWQX8AYcBBXqn5
+ 3Iar3Bbj4/oQj4Sey5R7icH52LrTKjN9QD+Yx1h5/HgKqie8YBrAO4HGS/ZhKhk33xoAeumRrkW
+ 8EI47Gxa3QotI1F4Dgru60UMwFsobbXWZYkxocQ7kdiDRqN//jUCtelD+fBZssLZmIa9ufnEJkg
+ 8lqUD8aJ8khFStcZtmFrtQC958uWrEQkTiUfqhrXiSM2VMDG203RxuzpY3HjIHeTr5rrgE5o0Ac
+ yVntnKDB0ZMTmxIzuZdtBScsywrR8gG4ZCVsgbK8+3fXxKO0GNrZinkFs+9hBLGAHCWGyeDi02+
+ RIqmojZ+VS5GO+yJKtsDTSzkbzyD1c6yUsVdNkDa/D5uKcFQEgrt/LxO4Fa4jExU1603bUdeq5N
+ cvf5C3al+2o//TyB+j+S9hAfB7OaidDovQKVZ5Ie1YsmzMLiB+BQuHNr155ociw8y+c6yXEUVN2
+ itgp8GXxBx0Z0dg==
 X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
  fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+The structures defined in mmal-common.h use types related to lists and
+videobuf2 framework, but are missing the explicit includes for them.
+Include those.
 
-Register the vc-sm-cma driver as a platform driver under vchiq.
-
-Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
+Tested-by: Paul Elder <paul.elder@ideasonboard.com>
 Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
- drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c | 2 ++
- include/linux/raspberrypi/vchiq_arm.h                    | 1 +
- 2 files changed, 3 insertions(+)
+ drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c b/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
-index d5a25033a261..ec951ab19d67 100644
---- a/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
-+++ b/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
-@@ -1414,6 +1414,7 @@ static int vchiq_probe(struct platform_device *pdev)
- 	vchiq_debugfs_init(&mgmt->state);
+diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h b/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
+index 6c5092a68b99..c9976bdd7490 100644
+--- a/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
++++ b/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
+@@ -16,6 +16,10 @@
+ #ifndef MMAL_COMMON_H
+ #define MMAL_COMMON_H
  
- 	mgmt->audio_dev = vchiq_device_register(&pdev->dev, "bcm2835-audio");
-+	mgmt->vcsm_cma_dev = vchiq_device_register(&pdev->dev, "vcsm-cma");
++#include <linux/list.h>
++#include <linux/types.h>
++#include <media/videobuf2-v4l2.h>
++
+ #define MMAL_FOURCC(a, b, c, d) ((a) | (b << 8) | (c << 16) | (d << 24))
+ #define MMAL_MAGIC MMAL_FOURCC('m', 'm', 'a', 'l')
  
- 	return 0;
- }
-@@ -1422,6 +1423,7 @@ static void vchiq_remove(struct platform_device *pdev)
- {
- 	struct vchiq_drv_mgmt *mgmt = dev_get_drvdata(&pdev->dev);
- 
-+	vchiq_device_unregister(mgmt->vcsm_cma_dev);
- 	vchiq_device_unregister(mgmt->audio_dev);
- 	vchiq_debugfs_deinit();
- 	vchiq_deregister_chrdev();
-diff --git a/include/linux/raspberrypi/vchiq_arm.h b/include/linux/raspberrypi/vchiq_arm.h
-index 541b4efd64d9..d59837eaaa8c 100644
---- a/include/linux/raspberrypi/vchiq_arm.h
-+++ b/include/linux/raspberrypi/vchiq_arm.h
-@@ -62,6 +62,7 @@ struct vchiq_drv_mgmt {
- 	 * the interface.
- 	 */
- 	struct vchiq_device *audio_dev;
-+	struct vchiq_device *vcsm_cma_dev;
- };
- 
- struct user_service {
 
 -- 
 2.56.0
