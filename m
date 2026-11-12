@@ -1,54 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794492375;
-	b=tshubxdZTFujEpq9wsIYlHIkZSGCb46p9XP9gp9M5DfkQ78LHNHu1QWhUrQgguGGmtlO
-	 M80gQPecKuCE8JfeSJh+NxHdsdtsM9kZjFCvIgFqtTMs4miY5JQQhGvD8Q42PkXVxGET+
-	 js2Byl+PuAUoQhLNDMkIfYgKGp+Z/dgK0dldrWmq9oJjOPobnnsYXsQTVCHyl2jdhfyMx
-	 5HnpC1BJNmI/fD98tHKJn2FwtlkmE1htNBAWKhbB6CWgYl+Cc/MnVFq/ipHvJzWATQjGM
-	 OQEoR1yHBnNomaTV0xD5neZufYnTiGGg5GA2m9TtGz7ralot4bVmDgr8eW1nNkQ8sWQ==
+	t=1794492476;
+	b=wl6ZNfbw6ve9MM8s0+z4ZxI3eFGZwGYz14t2h61upFhb0EtWRfjRJqPcq6rV8Nymhu9S
+	 I55He+Njruc5hbyaat0UUmAoSRGaNgHuminDQ+PRnCshFExjGmHWYQe9ZoedDP9MV8MsH
+	 X0hfoqxuzVCpuEeXrf2W5Ux0QbxriWCnsygh/KnlOGbx5gERIeEfTFfMbpXEynOTReQEe
+	 raN3aFvj6RKS20C5erT8GrrzU/SFty2QiIhMK5Xf+q6V+3RMCvfKxpY7FWrejx8oRCU/x
+	 o3fBIAegJAXzF47x8E5kitAC6FFEWfbqVqQYewQwqCFbDI5B2dBBe9VwF1x5QPrDNqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492375;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=ODbPJMdntmTvoi3vjeeM22n7i5ZX+wtJIejtzH1ClhU=;
-	b=Pj22TzTMGJi/QUt4maaSSUqXqKL1BqL9mx1Mp2rInlNkX1A4KP7w3Udb/3Crb10lC7rk
-	 yJyAUCv6Hk/iILVZbXvYek+uspM6Hs/xbbER2xCPdLCKQ/q2KflQoXcfg4wGUobSPqy2a
-	 l0cLlJDJIz4EltQ6zkTOPu+rN85yeODb6kpl2cc0j8sG0ftrcvsWHfCqvToehOdmOuF2n
-	 oqUw+DG+rPE0zN7UvQMEPR1uX+9SYASCUWpCbs/0H3mLTIRLH+vF/zKmmCZx/SDS/7zky
-	 xgVZAPpXpopt2y5D+9Mh2Ck/yLp8MTyi+ecspxdZnbDjic6ynhtDGYPWIhh9RTObNBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492476;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-ID:
+	 In-Reply-To:References:To:Cc:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:X-Debian-User;
+	bh=O1wOFcRJ3hIXdERyUkMm64zL7bpMn661NvAFyLUUNM8=;
+	b=W/5CGuSFdrZMovs6+CHSdukJTyVMt10Ieb0p6QvywGUy98xc64ib7fBMarnFmYG1GKeU
+	 dT3l+gzNScggTeN86/U/i6nshFgUbMiGLqQ2BBZZibMyEWHPn/wM2OV4TaDr55aQ/vyDg
+	 kgmgUzFS/fCOEF9HwmZcdroyAVhfG75GDr2nypAHCRzmC44evudDE+ro/Au06yQY0bNPZ
+	 IEucgXEjezscVNQ2XMiY1bHJ1sMdf8doC4K24xDUiziv/BT0y+obJSeH/NOWZepE7z4rd
+	 S3sR++oFkrl9bGfhCI2haENRbMIl+jjotl8kQtoXECdX+DCdgMcZyb2Tok397m7UeWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 471A6606C721;
-	Thu, 12 Nov 2026 14:06:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 471A6606C721
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=ODbPJMdntm
-	Tvoi3vjeeM22n7i5ZX+wtJIejtzH1ClhU=; b=7UtzpQI3kBVk0BzOG37XBrqKQP
-	DaAzoCJ1qcEAvazm3R1cj0hxy22BTc6xR04uosF13M4DbpWFZm8U9DPXxQCMiYov
-	DV8LB7NeK84ZEDXKcnSfScZew9WPTGl1+xeR+g0huherB+ob2uKk11AhJQYH39/i
-	kwqP9pysmKMXhqyp0=
-Received: from user-virtual-machine.localdomain (unknown [223.160.172.137])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDWHALFx_VqogKHAQ--.34687S2;
-	Thu, 12 Nov 2026 22:05:59 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v2] media: go7007: return queued buffers on start_streaming() failure
-Date: Thu, 12 Nov 2026 22:05:56 +0800
-Message-Id: <20261112140556.5230-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=iyl3uyGf;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00EE4606A8BD;
+	Thu, 12 Nov 2026 14:07:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00EE4606A8BD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=iyl3uyGf
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:MIME-Version:Content-Transfer-Encoding
+	:Content-Type:Cc:To:References:In-Reply-To:Message-ID:Date:Subject:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=O1wOFcRJ3hIXdERyUkMm64zL7bpMn661NvAFyLUUNM8=; b=iyl3uyGfKS3yVx3sdLRDFnhZ0c
+	nQc7Tuo5srLnjH1c1t4KGPUH0QdWh2MuKbz631tmKq5CB8SjzDQ4UdHVob8qB/9u5m5FLNTvjWBj/
+	irl523qKFJ4xvoP9pcv62WMhvDr+P6ny1JEGoHfBKJN7JLCRg/mmNfMvMbemZSHvcbfCFq1gW+gmq
+	qrou/5+kmSvcYtuwQ0ru9aqk3nTC84CldkAGUi4HY0cxC09XoQJyXQPcF6JIyxNRO72+JploGRJ4k
+	1HndD/bgAYbYUZPcp3RUQ5+vwhsdb39n2ySHV7wdD1mySjC+D9pKzB8xxEMS3OokqdQn9SMoUPOuM
+	ZoXSp/TA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <emfox@debian.org>)
+	id 1xRVSs-00E1Y4-0u;
+	Thu, 12 Nov 2026 14:07:46 +0000
+From: Emfox Zhou <emfox@debian.org>
+Subject: Re: [PATCH v2] media: i2c: ov13858: cap analogue gain at 15.5x
+Date: Thu, 12 Nov 2026 22:07:35 +0800
+Message-ID: <179449245510.342962.8870341202699077471@debian.org>
+In-Reply-To: <20261002093507.43584-1-lsa.uz@pm.me>
+References: <20261002093507.43584-1-lsa.uz@pm.me>
+To: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,93 +70,38 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkDWHALFx_VqogKHAQ--.34687S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWw4rAFWxGFykXF4ftFW3Awb_yoW5WF17pF
-	yF9ayayrWDtr18ua17Gw1ag3W5C3Z7A34UCayrWws5ZrsxJFW5u3y0qayqgr1DCa47Zr1j
-	yr98CFW3Ca1jvr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Sb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26F4UJVW0owAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x0
-	82IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGw
-	Av7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48J
-	MxkF7I0En4kS14v26r126r1DMxkIecxEwVAFwVW5XwCF04k20xvY0x0EwIxGrwCFx2IqxV
-	CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
-	6r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
-	WUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG
-	6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr
-	1UYxBIdaVFxhVjvjDU0xZFpf9x07jO189UUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUPD2r0h0bq5wAAsV
+X-Debian-User: emfox
 
-The vb2 framework hands ownership of every queued buffer to the driver
-through the buf_queue() callback before start_streaming() is called.  If
-start_streaming() then returns an error, the driver must return those
-buffers to vb2 with vb2_buffer_done() and VB2_BUF_STATE_QUEUED.
-Otherwise vb2_start_streaming() fires WARN_ON(owned_by_drv_count) and
-forcibly reclaims the buffers.
+Hi Sergey,
 
-go7007_start_streaming() returns -EIO when go7007_start_encoder() fails,
-which happens for example when a USB transfer cannot be submitted because
-the device has been disconnected:
+Tested-by: Emfox Zhou <emfox@debian.org>
 
-    go7007 1-1:1.0: error submitting audio urb 5: -2
-    go7007 1-1:1.0: error starting stream transfer
-    WARNING: drivers/media/common/videobuf2/videobuf2-core.c:1797 at vb2_start_streaming
+Same conclusion here, from a Surface Pro 8 (Tiger Lake, IPU6) on 7.4-rc2 with
+libcamera 0.8 and its software ISP.
 
-but it leaves the already queued buffers on go->vidq_active.  Give them
-back to vb2 with VB2_BUF_STATE_QUEUED before bailing out.
+I did not measure raw Bayer the way you did, so I cannot add points to your
+table, but a manual gain sweep at a fixed exposure shows the same ceiling.
+Requesting 4x, 8x, 16x, 32x and 64x and taking the mean of the centre crop
+after the ISP:
 
-Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
-Changes in v2:
-- Inline the buffer return into go7007_start_streaming() as requested and
-  drop the separate helper.
-- Drop the redundant go->active_buf = NULL: active_buf is still NULL when
-  go7007_start_encoder() fails.
+	4x	35
+	8x	53
+	16x	77
+	32x	77
+	64x	77
 
- drivers/media/usb/go7007/go7007-v4l2.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+Above about 0x7c0 nothing more comes back, which is consistent with your 0x800
+and up entries.
 
-diff --git a/drivers/media/usb/go7007/go7007-v4l2.c b/drivers/media/usb/go7007/go7007-v4l2.c
-index 2087ffcb85a5..030a127cb9ea 100644
---- a/drivers/media/usb/go7007/go7007-v4l2.c
-+++ b/drivers/media/usb/go7007/go7007-v4l2.c
-@@ -409,8 +409,26 @@ static int go7007_start_streaming(struct vb2_queue *q, unsigned int count)
- 	else
- 		ret = 0;
- 	mutex_unlock(&go->hw_lock);
--	if (ret)
-+	if (ret) {
-+		struct go7007_buffer *vb, *tmp;
-+		unsigned long flags;
-+		LIST_HEAD(buffers);
-+
-+		/*
-+		 * The queued buffers were handed over to the driver before
-+		 * start_streaming() was called, so they have to be returned
-+		 * with VB2_BUF_STATE_QUEUED.
-+		 */
-+		spin_lock_irqsave(&go->spinlock, flags);
-+		list_splice_init(&go->vidq_active, &buffers);
-+		spin_unlock_irqrestore(&go->spinlock, flags);
-+
-+		list_for_each_entry_safe(vb, tmp, &buffers, list) {
-+			list_del(&vb->list);
-+			vb2_buffer_done(&vb->vb.vb2_buf, VB2_BUF_STATE_QUEUED);
-+		}
- 		return ret;
-+	}
- 	call_all(&go->v4l2_dev, video, s_stream, 1);
- 	v4l2_ctrl_grab(go->mpeg_video_gop_size, true);
- 	v4l2_ctrl_grab(go->mpeg_video_gop_closure, true);
--- 
-2.34.1
+What I can add is the loop's side of it. With the control left at 0x1fff the
+auto exposure parks at 63.99 and stays there; with v2 applied it settles at
+15.5 instead, and the picture settles to about 101 (8-bit luma) over the tail
+of a twelve frame capture.
 
+One thing I noticed and did not chase: with ANA_GAIN_MIN left at 0 the first
+frames of a stream request gain 0, i.e. 0x0000 in 0x3508. It recovers within
+four frames so I am not asking for a change, but ov13b10 and ov08x40 both use
+0x80 as their minimum, and 0x80 is also this driver's default.
+
+Thanks,
+Emfox
