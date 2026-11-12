@@ -1,110 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794493371;
-	b=a7cCrqOfGEtWT1lP9RbPFTGQyyW7kDvmor5UT11Qv5rl+RJ2RHhXawBs3+ekpy+s+eir
-	 vUVr2oNbr5lqAEkdhZv1ZMDIweYHB5PktPtpDw+st5ST6lJW6zMuXB6bq8QDjQY8S6W2B
-	 ESM5YBA10J1oiMlmt6iKyhL6/vyV19XzlIyRCQRd1qlI8pft02QId2/B4EcqeavddBycf
-	 9n0uHkvImq96VNdI20t44RPzOUU8Fm28DDHsD2LGOic6xncRPMV3FFdlIBCml1hl7yooL
-	 PoRLHLpKwmDyWOKYLbmJDv8k6a5Yo6LnggNMOrAg1xum3GcYQGwPnisei6L2BgVFuUQ==
+	t=1794493896;
+	b=tmtjsJ40XiTBY4sSS8Mj3RofXoou3NvQAFAx6PCRBsnQ4QF3cAiYAvxhIRa58h1llMm4
+	 2tTp0phY/801wiEEqLhEbDOn2I6DGiSjSkae5xT/Ef2BJ1YS4DCBDANQ/4KGLWaX2pAqy
+	 rPrJZe5+CfKyphiu+HYizwDHbqjzjfkjhY8KxQrESgJD4bboxbjj+DOzCXI6IsnZYY0j0
+	 OM6fSve2MPrTTzD+jXEx6mA7/4NE3fGQPKL7qZTtTCzTR6+03F1DUVNe61AQZ/Cl/5Io4
+	 LyPWYXzE8GrMomOSLz/yUTHMJb+qcQbt+0gnYB25hrnx3RkwxhbWNOwoepLttq+1ppw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493371;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=+eMaexRE5YK9LKV2U20lRzNlg/Uqk666DN6/XsuIY9E=;
-	b=Q2f8dT4Iod3pGjhANIP9QOqsvjsIJErGrahcqV2LcEoh/uKVAv0CRGJNG2IdYaEImDRv
-	 0SpJydln4Le28iBOr7BK+TI3n9HkZUKaetosfAhGulTQSHa4yiWbnL3EI4kCrrAJcEVhc
-	 TKq5WG18LcgbtwH4rsHa9lnldLM8WiV31TIdhNpLZGfv6mkLJF0JbfZ6ntXkny+J/m9/k
-	 lyD4KgEyyg+0wcN2fHCve9EDmeFfK4ZdI0HAmNDFBTvko0ce7yFdY3UTVzzkm6tYuSaZi
-	 +SV1gCVOyrGCBpLXUAAL/1omceb0QK5IEVi9ijf5QtMM2g53Lv+e2TmZmUO0xTCNt8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493896;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=6s4531iB0pwwtkJP2bBPZCteIxEY5u4QI+uEjRbvaQM=;
+	b=5RxHGACddyCCaPLGEGTOBd/fflC0JJBDtX6LqxOFlveaRzLTzzxFV1nNm7L+8siQT9K7
+	 auWJxRDWwWB6VZsb03gLrsXIvqdr2TQyseiFdt7anUNvpZANg60/0uegmYTtqksbrO/EC
+	 v2QQlVk+6hHJ8pHKg+dl71ZZPjOxw546cutwZ+EjA8uCi0i20XEk79HYKcAcHHe8sHC0D
+	 YG2c61EpwH58Y+PuCt3NxlZNVostOre0ducNr8s9vW0XnBk8pwFjWGadoixQbVMQ8jBPj
+	 V4yZ3bC534YMjHE+reC3zsbmggjQj4BzbyRl7IZNz7vhtn14h8DsU9byFTSAIxMhj6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QRn4WhY8;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Ii4ssk/m";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=fTfEwMbH;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350C9606A321
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 14:22:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 350C9606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C0E60A5BD1;
+	Thu, 12 Nov 2026 14:31:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91C0E60A5BD1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QRn4WhY8;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ii4ssk/m
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AC9M3L54092373
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 14:22:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+eMaexRE5YK9LKV2U20lRzNlg/Uqk666DN6/XsuIY9E=; b=QRn4WhY8RG9Z8KVP
-	f3dKHXO4obz0OeZ36CntkiZecVhpROOHa15oszqHYOWx2HSCmTzeCeo1DryB7tHh
-	U5RS4LsF8L4jrx7PPUsqmJiAcIqN1py+35b47WlIhjdNCN6U/5W4P6BDls4qnFnP
-	QbUranhaa59lowsrk7XGcwU1wAvzAetzUhYzXnpJERt0HvFh1MVUaC7MidceQFXA
-	DSbVmCkaEE1bbFDiqtn/UeG3rHWE4CPruCNQe053ryQ+egPrPlnnIvpZ3jimM9zw
-	G1AuX3s/11GkkbBzAroRpouZbauyvCTsZla07Dr6aAdLO6EYafbS5Lir9GhSvxrl
-	GBkO1Q==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hw0m8k6w7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 14:22:50 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a065e2933fso5639902b3a.3
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 06:22:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794493370; x=1795098170; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+eMaexRE5YK9LKV2U20lRzNlg/Uqk666DN6/XsuIY9E=;
-        b=Ii4ssk/mhdJWrdV93RTlZvIBWCPjwUnnu1DxEIAL4jSQUiZN0RguCShe1UxWY6eF8r
-         j9h70CZcR31jH/JH3PYeREIf1qPeqPepQsuhT6A3O9wP0IIiTb1DsL/oa65aLA8PzbNi
-         MK+O+qIw8MTMwXrh0Ye2OciaV71iBrdPQFrtM0EcNP4XlxO5tXg/Kl+cDprv2skm4RZJ
-         RA9TsEejSxdWmZqdRWr0nw4OZ9WhFKyPp0Nxp06TaFpInPl2xWIbLTM5w9DluaEUBF6c
-         gWjFi/sPcgNUK4jF91+cxn/Z7ohOxyn4MqKdP5Ux39anXNfRLbQwND2BvGYFZ4uomdoW
-         /Myg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794493370; x=1795098170;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+eMaexRE5YK9LKV2U20lRzNlg/Uqk666DN6/XsuIY9E=;
-        b=RVqvW21b7/8RneqOIMpoQqIyRKrEd+RTcH2IyI7XB8pIXcBEJxlZWcimHKfWpp7BNw
-         6QLG8W8p6+R32NWuYGqRTTZA6vyYU5Ma8GHXwVuB8laLZ0GdtVXGX2n6LuVv0kxPgO6c
-         zxAcHGTD8LicZTLk41fGZdA4HZUrNqnPavtzSrNvcu/NpspNJlataGE0jkiwseGIS2GP
-         ZqDaaL2thrmICrhw9HdGcyDfPTnYwdvTMYlr5BPMoK+qbvJpP2zulrm7ULQNi/xr7wH/
-         HSNgtQbr2G6z9X12P6tIlN6GCjeYWXeilyhaDvN/JE84RrvqZ4W6ElGbrsPwyA3XRdYL
-         DONQ==
-X-Forwarded-Encrypted: i=1; AL+hErGt9czhBw1qznJEDTpRUF2XGAW5oy3lHzA/ZljZc99q3HwguQNSo0/bERX/2FBplA2VIeB9LhQAvpvXxA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8pc8QSA5W58O64Y9TPPvVhTeVu+xe8Yt9k3XQEYKUYPUt59toH
-	d+aQeb1DZtXVBvq5wmnIAFRx3oNZW6h1o5qoexruZza5i/yEXK0WsUbBJOPlgq69S7Wyb0oFNOL
-	t7UCwqpU7xrrMyuUUKt8Q+/sHSrUCCvqyJ7c69KoCCQ7hb4Z4Ns49T9pX/w9GT3OgoA==
-X-Gm-Gg: AYBFou3TlkOxNcox6HvABufREvhBM0QgOvZjENPBjLCMTGzwBANl6Nn3iKX5SHW33G7
-	frQyGclVEKdRsiHMS/UwI0droGCSooGbFHQfbUcWt7z+b0zXF03WGnx6wWAOtf/wc4p6caJoAzR
-	XG/lhSrEE/I/FzsFUtNn3zMw/r2M8OHzh6RAwfL3wOA+OSP0qojoXrhrQ0QxdJSCm9/Dgd1KZ9u
-	QcZaF4G82na1C4jY6ouwO0cT9QKkCjrVG3C888RufgAGiTy+R27VHhZsGRwK8E/TNjut2fznPwC
-	BZuyVJ4EM5gREZl3hCa7tkIkjuZwBOqfqTcyYghro43y8t++FmndHSQWdarna2tAru0+w4Dhp1t
-	bfTRoP7NHLZZmHb3teiD/M7jS/VvX1gmriI+uB7Byg/LCAAcAvkjLbK0f1u1q0Jq9V7g6Hm8FOu
-	2w
-X-Received: by 2002:a05:6a00:400a:b0:89e:6bef:70f9 with SMTP id d2e1a72fcca58-8bc1cd630b4mr6052237b3a.27.1794493369693;
-        Thu, 12 Nov 2026 06:22:49 -0800 (PST)
-X-Received: by 2002:a05:6a00:400a:b0:89e:6bef:70f9 with SMTP id d2e1a72fcca58-8bc1cd630b4mr6052205b3a.27.1794493369238;
-        Thu, 12 Nov 2026 06:22:49 -0800 (PST)
-Received: from [10.206.111.19] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baa7bf82b1sm3659638b3a.8.2026.11.12.06.22.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 06:22:48 -0800 (PST)
-Message-ID: <3cb96b5b-d061-4f0d-919b-09c6f336e453@oss.qualcomm.com>
-Date: Thu, 12 Nov 2026 19:52:42 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=fTfEwMbH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794493893;
+	bh=FYjRkCqyGsRzmWdDWrbZF9LJoHsBc2QeonGafSKs3io=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=fTfEwMbHp4+4B3IGdyreGHL9lOXdgsebWLpWKAiUE742su8X68AaK/BPdQmsnhTkK
+	 DBnXjsxusfs94dmGLvo5Qgdn3k54wbgzeH343gzr4S9msanrDzznWUh2Gy9HIN8XM1
+	 la+aOdBXDCBP8pNLmx1xh6hkFOIo8KTriFHEQjOyuzjcvFq1cxGBA3zl19JjQAYQAW
+	 OdXv3cHUqRrRseYTJxrY/TmusEA5W4LLtCIwB1U4pIwSXNoc2sukEArT1phd0Iz//N
+	 /b+ZSPUqz/wwtrm00eIZuzddIggUTzkvPpXAtTdvSCLal4Dq9aQjzmzIUdcL+8z81o
+	 HXMnY56/VdrKg==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id DBC5817E0564;
+	Thu, 12 Nov 2026 15:31:31 +0100 (CET)
+Message-ID: <f041c5d87698ab3be8283ecc71ead0679327238e.camel@collabora.com>
+Subject: Re: [PATCH v2 3/6] media: verisilicon: Don't offer VP8 above 1080p
+ on the Rockchip VDPU2
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: aiyengar1990@gmail.com, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Sebastian Fricke	
+ <sebastian.fricke@collabora.com>, Hans Verkuil <hverkuil@kernel.org>, Heiko
+ Stuebner <heiko@sntech.de>, Boris Brezillon
+ <boris.brezillon@collabora.com>, Jonas Karlman	 <jonas@kwiboo.se>, Ezequiel
+ Garcia <ezequiel@vanguardiasur.com.ar>, Jeffy Chen	
+ <jeffy.chen@rock-chips.com>, Tomasz Figa <tfiga@chromium.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Date: Thu, 12 Nov 2026 09:31:30 -0500
+In-Reply-To: <20261112-hantro-codec-fixes-v2-3-f44424df585b@gmail.com>
+References: <20261112-hantro-codec-fixes-v2-0-f44424df585b@gmail.com>
+	 <20261112-hantro-codec-fixes-v2-3-f44424df585b@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-UsVvDKz6sEPhCdtGodXv"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -114,120 +94,101 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
- indices for ports
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>
-References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
- <72064a9a-1b2e-4c24-99e2-2cc15a8dd7f1@oss.qualcomm.com>
- <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
- <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
- <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org>
- <539842db-c672-4549-b861-4a6f3be47556@oss.qualcomm.com>
- <d586b7b3-675d-48a8-b0d4-564e571ef69f@kernel.org>
- <CAFEp6-25QrLAF=-KgGJ-rC9pDpGa2YgoQAMKxU-FoByu2CJpMw@mail.gmail.com>
- <1db9bf48-01d8-44fe-8dd2-7a3c84ecc556@kernel.org>
- <CAFEp6-1fSPP41cVFmu8=0z2xibDpHuH5Lxrw7W_rvnt+Fw9EpA@mail.gmail.com>
- <62fba00d-831c-44cc-8d3e-083a95abfbe8@kernel.org>
- <qKk3s6LA2dFNbAVvrsOlf17dn6zizSiyVMf1rJNQOvkvLGxswT_81cDlITq0atMX71Sw0VZu6u9WHK0fS1bzIQ==@protonmail.internalid>
- <CAFEp6-2_opRq3pj6S=2nDFxXBv0waeyGBKSxp3t8OOe6vvKcoQ@mail.gmail.com>
- <3df59469-e665-4901-b4b4-512604194ddd@kernel.org>
- <CAFEp6-0keBgVWbBPCghkxMQAQeLeOHW8By7sQrqhjSGtJaZmEw@mail.gmail.com>
- <5e0f4424-7194-413a-af7c-f6e74d07392b@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <5e0f4424-7194-413a-af7c-f6e74d07392b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDA1NyBTYWx0ZWRfXz26DJcIGO7YT
- 2BPXhQtOXchTdLWjMoHb7tWoHiUMyDAQnaNkPVml8mZTFr0iWUaXT4UxdF1lC8JOSpkHluGTizZ
- uHjeTZk1BP8c3VgTWWQ3k88bHXV7frQ=
-X-Proofpoint-GUID: 7Og7B1wG06aO2upbeYN1djWPlC8bafdQ
-X-Proofpoint-ORIG-GUID: 7Og7B1wG06aO2upbeYN1djWPlC8bafdQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDA1NyBTYWx0ZWRfXw94pD8le4yzl
- q6ojN7jbT8hmJpZxojW9pjW8Y63k81a9CUZS27oIigyndwk0KpV3o6kTbkRnj1fjuNUjgEwZWLt
- +OY0S5XVC6bu03/eOTPMgbsn0xr4lXx0MDZ+V4Yynvxo9T3AukXfrHLpAkQ+jkRBgtRaUeLkPxo
- v1/6TQAivbJG4H+BBSaYD6V3haeJjxjmSUWfsED5YTfi4M72gXHf/qndszCl9Y0QdXBOvkCNdtT
- eKL0cCVckp0YPEVtXpmBWtvbTmeM1jfbDiWayfGoyqOrDDptA27hvPHfYb1invdYH2lSiVs21m/
- yCcYG1r/WQu5H49jokGFyk1ao5Q6KGmvF9bTUfjkUz0z505u1wnVQQehbKt+UR1RwGPsPTMfa/G
- wlnKKKG8k6K4RowFqfQ2JeDqjWapfVpW75V5slkGxA/MRlJGXyOqTTuAFh+NPnOuOmsQtLfLPRu
- 9O40xWhMtC+7wTLa7lg==
-X-Authority-Analysis: v=2.4 cv=Q9dHcI2a c=1 sm=1 tr=0 ts=6af5cbba cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=k8_bfzPL0-wbRAlyoaUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-12_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 impostorscore=0 adultscore=0 bulkscore=0
- suspectscore=0 priorityscore=1501 spamscore=0 clxscore=1015
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611120057
 
+--=-UsVvDKz6sEPhCdtGodXv
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
 
-On 09-11-2026 11:35, Nihal Kumar Gupta wrote:
->> So yes, we could argue that the port ID itself has no inherent
->> meaning, but it acquires meaning through the convention we define,
->> since we still need a way to map DT ports to CAMSS input IDs. What is
->> really changing here is the convention used to describe that mapping.
->> So, for Hamoa, ports { 0, 1, 2, 3 } would map to CAMSS PHY inputs { 0,
->> 1, 2, 4 }, while for Glymur, ports { 0, 1, 2 } would map to CAMSS PHY
->> inputs { 0, 1, 4 }.
->>
-> Thanks Loic, Bryan, Krzysztof and Vladimir for the discussion.
-> 
-> Krzysztof, understood on the DT binding concern. I should have got clear DT
-> maintainer agreement before proposing a binding semantic change, and I will
-> keep that in mind for future changes.
-> 
-> Based on the discussion, I agree that for standalone PHY CAMSS DT input ports
-> should be logical and linear. For Glymur, that means using ports@0-2 { 0, 1, 2 },
-> and keep the mapping to hardware PHY indices { 0, 1, 4 } inside the driver.
-> 
-> Krzysztof, does this direction sound aligned to you? If yes, I will respin
-> accordingly and make sure the commit message documents the logical-port to
-> hardware-PHY mapping clearly.
-> 
+Le jeudi 12 novembre 2026 =C3=A0 08:54 +0000, Arun Iyengar via B4 Relay a =
+=C3=A9crit=C2=A0:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+> The VDPU2 decoder format tables (RK3328, RK3568, RK3588 VPU121) and the
+> RK3399 one let the VP8 OUTPUT format go up to 3840x2160, but their only
+> CAPTURE format, NV12, stops at 1920x1088, and the CAPTURE size is
+> clamped to it. A 4K VP8 stream is therefore accepted on OUTPUT and then
+> decoded into a 1920x1088 buffer: on RK3588 GStreamer v4l2slvp8dec runs
+> into "gst_video_frame_map_id: assertion 'info->width <=3D meta->width'
+> failed" for every frame of a 3840x2160 stream and none of the frames
+> match FFmpeg.
 
-Krzysztof, the Glymur CAMSS binding is already merged, but no upstream
-DTS consumes it yet. The current example uses port@3 for CSIPHY4.
+Just to bring to your attention, the IP does support up to 65Kx65k, but the=
+n you
+can't do referencing (its the WebP mode, key frame only). Hughes Fruchet fr=
+om ST
+started looking into this but his work was not completed. The general idea
+though was to perhaps introduce a V4L2_PIX_FMT_WEBP_VP8 (or VP8_INTRA, nami=
+ng is
+hard) format to signal this to the decoder, and limit to 1080 the FMT_VP8 (=
+what
+you are fixing I suppose).
 
-For the binding, would you prefer keeping the existing "^port@[0-3]$"
-range, or tightening it to "^port@[0-2]$" and using logical ports
-port@0, port@1 and port@2 in the example?
+>=20
+> Nothing above 1080p can be decoded with these tables, so don't
+> advertise it: limit VP8 to the 1920x1088 of the other codecs and of the
+> CAPTURE format. Userspace that checks VIDIOC_ENUM_FRAMESIZES, and the
+> S_FMT clamping, then know that a 4K VP8 stream needs another decoder.
+>=20
+> Fixes: 73fb5bfa53e9 ("media: hantro: Support RK3399 VP8 decoding")
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>  drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drive=
+rs/media/platform/verisilicon/rockchip_vpu_hw.c
+> index 02673be9878e..2b6242c1fb86 100644
+> --- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+> +++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+> @@ -274,10 +274,10 @@ static const struct hantro_fmt rockchip_vdpu2_dec_f=
+mts[] =3D {
+>  =09=09.max_depth =3D 2,
+>  =09=09.frmsize =3D {
+>  =09=09=09.min_width =3D FMT_MIN_WIDTH,
+> -=09=09=09.max_width =3D FMT_UHD_WIDTH,
+> +=09=09=09.max_width =3D FMT_FHD_WIDTH,
+>  =09=09=09.step_width =3D MB_DIM,
+>  =09=09=09.min_height =3D FMT_MIN_HEIGHT,
+> -=09=09=09.max_height =3D FMT_UHD_HEIGHT,
+> +=09=09=09.max_height =3D FMT_FHD_HEIGHT,
+>  =09=09=09.step_height =3D MB_DIM,
+>  =09=09},
+>  =09},
+> @@ -315,10 +315,10 @@ static const struct hantro_fmt rk3399_vpu_dec_fmts[=
+] =3D {
+>  =09=09.max_depth =3D 2,
+>  =09=09.frmsize =3D {
+>  =09=09=09.min_width =3D FMT_MIN_WIDTH,
+> -=09=09=09.max_width =3D FMT_UHD_WIDTH,
+> +=09=09=09.max_width =3D FMT_FHD_WIDTH,
+>  =09=09=09.step_width =3D MB_DIM,
+>  =09=09=09.min_height =3D FMT_MIN_HEIGHT,
+> -=09=09=09.max_height =3D FMT_UHD_HEIGHT,
+> +=09=09=09.max_height =3D FMT_FHD_HEIGHT,
 
-The driver would then handle the mapping from logical port 2 to hardware
-CSIPHY4.
+If you have time, it is also miss-configured on the imx8mm, the combo-core
+(G1/H1 combined, like RK modified version). While the imx8mq has 4k h264, I
+don't know if the VP8 core actually is capable of 4k, so perhaps both soc n=
+eed
+fixing.
 
->> If you look at the mdss_mdp ports in glymur.dtsi, you'll notice that
->> the ports are associated with their corresponding INTF numbers, and
->> interfaces that are not present are simply omitted. As a result, the
->> port numbering contains holes, for example {0, 4, 5, 6}.
->>
->>> Honestly I don’t see much value in continuing to treat port numbers as
->>> hardware mappings in DT now that standalone PHYs have landed.
->> As long as it is clearly documented in the binding, that should be
->> fine. We will need to introduce a mapping table for platforms that do
->> not expose the legacy PHY numbering, or otherwise derive the
->> corresponding information from 'somewhere'.
+>  =09=09=09.step_height =3D MB_DIM,
+>  =09=09},
+>  =09},
 
--- 
-Regards,
-Nihal Kumar Gupta
+--=-UsVvDKz6sEPhCdtGodXv
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavXNwgAKCRDZQZRRKWBy
+9DkyAP0Q5qttBFa47Zyj/PIBd6D//4pj/GszbWh3XhcsCqWbxgD/XOK6P1s53OLa
+N6GX9/CmC99j1N3UZYLbYnUuHv9tlQI=
+=VOqM
+-----END PGP SIGNATURE-----
+
+--=-UsVvDKz6sEPhCdtGodXv--
