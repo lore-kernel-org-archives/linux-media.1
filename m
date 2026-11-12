@@ -1,68 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794512981;
-	b=VGdxzcS9vE/ilk2br3+99kEnkuopZHmeYxtmtkcp5+W3FfKenBVrWT/85Ik43egK8ggi
-	 C7wDmPNvYrULdsfrkPgVTnD8tc26SDVR/F3WjkFSaz67YOQIo/jXfPc27HUgmp1zyHG9e
-	 8jHIO0tGGBcR7900XVSKDLVQMVb/Wcp+Ui57OwICzGvl+vuoNMbumISuWaZGzw5Q8IhFj
-	 uBy8i+49KrHiI9su+tIh61aSyf0T2T6TgYbHWQJH1xnG6IKSHAVxgf7ng5UGXmdPKOtVA
-	 o7oYCx43JaB6CD3pr+EpxGOzx9w1uK+f7les1H5Uql/bb4zqTJZxuGy4YptI7HDWRcw==
+	t=1794513895;
+	b=bpXGQWeih1xTtjYOh8WLT4/vI4kC0CoUpS9MGa4n+a6XEico5UASdJMpmTsZ/F0gPXhr
+	 yXTTkoVOn00HvlEb3oM6PDrAYJrkm22KOBU/ZW4nDJ4sormndtvsYSZHpsYHQN+H+oDoB
+	 gT4tlld3SO2/4QuMYhIOXAS+ft7iVIcs8J07gr2X561SH+2Vc6j5t1F/AUmGVcCzvyLzp
+	 9JBTkI9YzP4b+zoZ1ObysPvvQ1akilQCPBCpaz9uSnWQ9ciogYRuclD5ePvZg8UHbCkG+
+	 Wh9nU6+UmyVMVLf3iC11fWtD+OZADB5WXv2oDdHVJhIFLlDNoNuU5whLiLEH2mBc6gA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794512981;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:Date:
-	 Message-ID:X-MBO-RS-ID:X-MBO-RS-META;
-	bh=KX3SnDwv+3SXiD5wUpDxYo+vmZVlbQqd62th2rXq92k=;
-	b=0msTdIUFM+NiVFbPa8qaUx8+Uj84ZanXzs9e9QO4JPOccuFVvQyAAZOnYa2dBaImI3hp
-	 X1A1ZN0U0pGOao/5WugPGm3jK5m7VMvrEvpuuq7a2A79xHqV7aPbRsR49elaTv0PwJA/N
-	 7+1Ueh8IOM/KGB08aeGqlfkQsCbJLqn4vLFA8b5tiyQz13hXKSx0UWzOBlts3WjGICSkO
-	 9KeMHMdk3H4D3tj44/2KZhWcLs+G7DQabHWB3v0ackZuZXV6crdVIXanCVdi9uUoiueIb
-	 KsEEgZ9BGi6VUKcSYW7W4Zp7TczdCpKtdGH5e7791oQXaskLA6rsva7q5qAEqvV+2Gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794513895;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=WcAHgOOesRnpg5Fo7kmgrPBf3yTrJRhLe8HkoymNW8o=;
+	b=dxU5kNP5kFfdtxZL8LmNrTjpUanyDXsfgfP/xmaTC3EWCecQ3QbOSIqeAfRFNnJoY/jN
+	 cQuBrIaAsnX1YyT+WHysACQlEa4pLOs+EUrcUuzUij+DSvzfGP0WbzhI267YXSeFLAkh4
+	 wFwFmjFa2VJEcr1Qr89oVETccyUYaWxCUWuDGVguk5hyf3ODwb4z08NWP1FU3BD1eEORk
+	 /529mQkHHC5v9uTq4l80i5el0Ewh4tyit5DT9V2XhBDREMrK+Jq7IyJlx5CgoIsMZXVy8
+	 yQaCjVp+1IO36oSjtNHeDdj56TfnfPvDH7/enV8A689hRDQxT/SFdtwKbTnwDh8mXxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=qbmIh2uV;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vggPxoWo;
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5559606A31C;
-	Thu, 12 Nov 2026 19:49:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5559606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9602D606A323
+	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 20:04:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9602D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=qbmIh2uV
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jQWDx0bb0zMlth;
-	Thu, 12 Nov 2026 20:49:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794512977;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KX3SnDwv+3SXiD5wUpDxYo+vmZVlbQqd62th2rXq92k=;
-	b=qbmIh2uVbkH0d6KLD0MKSRcsIXRfuMxpZZC6xMLEUBijnzZDD5htRKlnWfvn4ghx7oxZTX
-	rSaZY5n53PEVlMgayFYxLJ0Dk5sXf0blkQLrElRJ/nrMlthyVRKkP7TWVrJFDaxbK204Pm
-	Ha0fZFic4p7XxctiETJ/nfYQGM9UnSV3PC6iNhTM2uSjAsrUeDJr/+uuxtmsftBM3CneDl
-	zH2ug16YrbtDt/S9SozGRHZB2uJVMjxH8uGtS8Os6fFs492xQFWbPeArwNVz7S5e36+aS3
-	BLtVld6QTjfnwR9gq4a0g2zPxw/TZ5qokjjtGZReBVcLqG8jjPhvY6k4q8sgKg==
-From: Tobias Hahn <tobiashahn@mailbox.org>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 3/4] media: iris: Fix power-off ordering to disable power
- domain after clocks
-In-Reply-To: <20260801075115.0CA6C1F00AC4@smtp.kernel.org>
-References: <20260801075115.0CA6C1F00AC4@smtp.kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vggPxoWo
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso1841025ad.0
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 12:04:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794513894; x=1795118694; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WcAHgOOesRnpg5Fo7kmgrPBf3yTrJRhLe8HkoymNW8o=;
+        b=vggPxoWoiJ/39E89qJZJH9FH/Pf989NSXBHeza98erDwU1o04E6KcfuzghMwxyqzrq
+         8DBZXZvES0wlkSqPXtaZWtHFrYsS7Gm84DIAkiGqHuYJED5N4SS4iOtPr2rDTR8fE/OH
+         SND5G9fli5Z9ZKhR/L5taQWjs6a9O5XLC7S86BCxzz4+Rk7/p7uho1Im3fDnYrDb7rpz
+         6fGQM6eHHQ6gZXSt/92od+AN1MoZ4Xq61XQ/AvsYfoIait3kbgDNKbw2ZOxvdKr9rojj
+         BMS6VQr38yYO58k9M0QK0gXMc0qKx/t/q7HvC5TtiCCNxTiJKzTsmQsNaTGZ0lE6uzm1
+         UhIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794513894; x=1795118694;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WcAHgOOesRnpg5Fo7kmgrPBf3yTrJRhLe8HkoymNW8o=;
+        b=HfRV5V+MXLYGi0mUSr1VYr1MWVBO7Czmxu4jBl/V43ZkqSNC8McORx4wLse6d75OqV
+         gurJAj5xZLBcWcNs8BI381trU93pmyLOStyPcZrzSE46t5q1V/kDbG6gdqCH7xr76QcZ
+         rKc2iTByBXJzTD4u7BEs14cmcC4OfomAS9D4d2YkL9QMYFtwKE9rZ8UCDxxwuM/b4lfa
+         Q1v14OczC0kxB1PGTni2C3roJrr5/2GPmXaFwsxv4uniPxRtjVLLEtFTN0ewR8wjPB9h
+         L0ZPHkotgedMMV8tUnqb8h3VLnDrKybb3yqWw/D5khJBEiR0XRsSaHl0WJ0obJ+D9L+P
+         wddg==
+X-Forwarded-Encrypted: i=1; AL+hErEwiT8DYq5WDVnqUOFJ1poaIBPYHfQNoSS2BuSVVbu2O6BbkFigSqFdZuMU2IW+ZIomk5bTCWrfatnYMQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/a3oW0zt+wzrCZ0G2985QWPoB3PDtrdCs+kaheVX9a1mXQI3rt
+	kyRGYbA8EI4K3SYd29o1+f731mHQMpM+PLb/1gx1y5n3F8BbwENeBk3B
+X-Gm-Gg: AYBFou2Wggo8AUxwYgOPOG894m4LhMongMsab1yhWq6GSDOtaPW+Dqx1QBJrp1cyCuu
+	GCCJgC51lQf6kscjAkMxhqe+FsCsHA/ENX9zVYThJQrgXjoxwbhKyUxQGf496rnS9DKhjdAmlCI
+	U55R0tRg9jI+zud6xnB3J1snQxlWJmZe389PsrGs2KtABRT/CZk4qhZseR40iVLxRGzmE/nB3UL
+	+m0GoU3O60fR/ZmbCfg7kj2DspS84lhLXVx2SuUQLjuvxl8lxKNhn1XTQcsM4vVShStsoH5A+0j
+	hnxAR1pwMLUs6hrsVm02hjtgVFiZgxiXioWBuJO64VQccO3+S5pw1xuxSPGtIFbMCpAGhilzVd/
+	EyyNCcPsR4noqpiRhtyLi6LYbpDr3kK/CGuROsqmGBBNuVCMOKjNGqsB8z5bNZToEjgy8g4OUf8
+	SXqE3KFp/TtZwTsqF9WyC8va3T6jyH72/NfD72uSDbKo8GshGAkYdX5ASc7BAJgjJL55b19gu0H
+	llifBre6rjBklXcBNszt3ROaVI4DoENnVkufCkolEf9bk0mJ1LpL0Dvj0V1KfxHHC6CW+XhNIDA
+	4q4MPu2WuEUSfIh4crHbY5f05JCLwbAA0OGw8jTXmMV4Rp386gKED8Wt/HDP393pIYg5ihQYjqg
+	HBJconkjEt8aOUHI08lZzhCYpmhcl0E01tw==
+X-Received: by 2002:a17:902:fc8d:b0:2e8:79d:15ec with SMTP id d9443c01a7336-2ee0d664b70mr4529905ad.6.1794513893558;
+        Thu, 12 Nov 2026 12:04:53 -0800 (PST)
+Received: from localhost ([153.61.198.249])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f75c980sm536275ad.25.2026.11.12.12.04.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 12:04:53 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 12 Nov 2026 20:04:52 +0000
+Message-Id: <DMTI31CK7EAZ.TT2P5ZN7BIVR@gmail.com>
+Cc: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Sumit Semwal"
+ <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Philipp Stanner" <phasta@kernel.org>,
+ <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linaro-mm-sig@lists.linaro.org>
+Subject: Re: [PATCH] bpf: make dmabuf iterator stay drained after NULL
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Kang Chen" <k.chen@smail.nju.edu.cn>, "Yonghong Song"
+ <yonghong.song@linux.dev>, "Daniel Borkmann" <daniel@iogearbox.net>,
+ "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
+ <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
+In-Reply-To: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
+References: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -72,49 +106,80 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Thu, 12 Nov 2026 20:49:35 +0100
-Message-ID: <179451297509.2464698.8202615290339964735@mailbox.org>
-X-MBO-RS-ID: d2c471e58745a96ae7f
-X-MBO-RS-META: duukm7qparzgikh66b9bktaiqyhx7dxa
 
-Hi,
+On Tue, Nov 10, 2026 at 04:51 AM Kang Chen <k.chen@smail.nju.edu.cn> wrote:
+> +/*
+> + * The iterator state is one pointer wide because struct bpf_iter_dmabuf is
+> + * part of the generated vmlinux.h ABI.  Use an invalid pointer value as the
+> + * "drained" sentinel instead of growing the state.
+> + */
+> +#define DMABUF_ITER_DONE	((struct dma_buf *)1L)
 
-regarding the AB-BA deadlock between disable_irq() and core->lock
-raised in the review above: I hit it on real hardware. Same
-disclosure as in my other iris reports: an AI assistant (Claude)
-matched the trace to the code; the hang itself happened on my
-machine.
++1 to T.J.'s point re: DMABUF_ITER_START.
+bpf_iter_kmem_cache_next() does it that way.
+dma_buf_iter_next() leaves NULL at the end of the list. Let NULL mean
+drained. Then no need for the 2nd store in next() and for the long
+comments.
 
-ThinkPad X13s (SC8280XP, HFI Gen1), kernel 7.3.0-rc4. Running
-"rmmod qcom_iris" after some decoding hung for good:
 
-  INFO: task irq/317-iris:587 blocked for more than 122 seconds.
-   __mutex_lock.constprop.0+0x508/0xac0
-   mutex_lock+0x6c/0x90
-   iris_hfi_isr_handler+0x30/0xc0 [qcom_iris]
-   irq_thread_fn+0x30/0xc0
-   irq_thread+0x19c/0x3c8
-  INFO: task irq/317-iris:587 is blocked on a mutex likely owned by task rmmo=
-d:64864.
-  INFO: task rmmod:64864 blocked for more than 122 seconds.
-   __synchronize_irq+0x9c/0xe0
-   disable_irq+0x4c/0x68
-   iris_vpu_power_off+0x68/0x98 [qcom_iris]
-   iris_core_deinit+0x7c/0x150 [qcom_iris]
-   iris_remove+0x28/0x58 [qcom_iris]
+diff --git a/kernel/bpf/dmabuf_iter.c b/kernel/bpf/dmabuf_iter.c
+index cd50024..1bef87b 100644
+--- a/kernel/bpf/dmabuf_iter.c
++++ b/kernel/bpf/dmabuf_iter.c
+@@ -156,6 +156,8 @@ struct bpf_iter_dmabuf_kern {
+ 	struct dma_buf *dmabuf;
+ } __aligned(8);
 
-It is timing dependent: two later rmmod/insmod cycles went through
-fine. The module was the in-tree iris with my local 10-bit change
-from my earlier report, which does not touch this path; the code is
-the same in current mainline.
++#define DMABUF_ITER_START	((struct dma_buf *)1L)
++
+ __bpf_kfunc_start_defs();
 
-The runtime suspend path looks the same to me: iris_pm_suspend()
-takes core->lock and calls iris_hfi_pm_suspend() ->
-iris_vpu_power_off() -> disable_irq(), so an interrupt arriving
-during autosuspend could hang there as well. I have not observed
-that one.
+ __bpf_kfunc int bpf_iter_dmabuf_new(struct bpf_iter_dmabuf *it)
+@@ -165,7 +167,7 @@ __bpf_kfunc int bpf_iter_dmabuf_new(struct bpf_iter_dmabuf *it)
+ 	BUILD_BUG_ON(sizeof(*kit) > sizeof(*it));
+ 	BUILD_BUG_ON(__alignof__(*kit) != __alignof__(*it));
 
-Full log available if useful.
+-	kit->dmabuf = NULL;
++	kit->dmabuf = DMABUF_ITER_START;
+ 	return 0;
+ }
 
-Thanks,
-Tobias
+@@ -173,10 +175,14 @@ __bpf_kfunc struct dma_buf *bpf_iter_dmabuf_next(struct bpf_iter_dmabuf *it)
+ {
+ 	struct bpf_iter_dmabuf_kern *kit = (void *)it;
+
+-	if (kit->dmabuf)
+-		kit->dmabuf = dma_buf_iter_next(kit->dmabuf);
+-	else
++	/* Once NULL is returned, next() has to keep returning NULL */
++	if (!kit->dmabuf)
++		return NULL;
++
++	if (kit->dmabuf == DMABUF_ITER_START)
+ 		kit->dmabuf = dma_buf_iter_begin();
++	else
++		kit->dmabuf = dma_buf_iter_next(kit->dmabuf);
+
+ 	return kit->dmabuf;
+ }
+@@ -185,7 +191,7 @@ __bpf_kfunc void bpf_iter_dmabuf_destroy(struct bpf_iter_dmabuf *it)
+ {
+ 	struct bpf_iter_dmabuf_kern *kit = (void *)it;
+
+-	if (kit->dmabuf)
++	if (kit->dmabuf && kit->dmabuf != DMABUF_ITER_START)
+ 		dma_buf_put(kit->dmabuf);
+ }
+
+
+Pls take T.J.'s selftest as patch 2 and tag the respin as
+[PATCH bpf v2].
+
+Also you sent fixes for css and scx_dsq.
+bpf_iter_task_vma_next() has the same problem.
+It doesn't hold mmap_lock between the calls since
+commit bee9ef4a40a2 ("bpf: switch task_vma iterator from mmap_lock to per-VMA locks"):
+
+Pls fix it too.
+
+pw-bot: cr
