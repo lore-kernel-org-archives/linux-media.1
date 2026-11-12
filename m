@@ -1,76 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794490686;
-	b=WqEbxorQnRZ8hqW2/k9iht6CO9t4LPj6QbqksVRaLtdhpoRhr/j2ZNlR4mMnInx96DQG
-	 90IdWmBtAuII+JaVlsDL6wieprsYH69Y/5OZqLFl3XrRzinGWrGCDLy1/VKqYS7E1nwdG
-	 PQweLiHJ3I2Xdw8N0aMPfVn0UT6saipqZP7WOZ1b4FaAzc90s/Y2XUhBa81hnIWQisKXC
-	 8g7dnLUYFPkrHaNe9Y4oZoXQ+QJlZpwuAvoXLI233QPaFOMTfDGmvUQOuZ//BtBY+e6OC
-	 FTIadXeKhbG4ieRdOLSCP4g32L4Mzy4HEiI0K1R7GwUkWgis16yIiJ+2448Xit2JZIQ==
+	t=1794490743;
+	b=OYiJKtiN4jgL4L6wXXVrHRRV3Vnr99Ql1fDYf3w85YiqN4UJKfgvGgEocJzAaTD8RvsQ
+	 n6FMNz71iwSg6GM9kbmNDZmQp2GAf8T7MLJwdfBD+FlDdbpwzrP4tvTA7BdvDloar/nKV
+	 aEbjUkr/pNyx8elAOctCTZE7kQHcyBj6PPjQySGYNA6uEhmNy6LRqLpC/KDOon1NgWmyu
+	 /1b8HaGyHxjob8ga45gjjihrZN6N1SqOZ71Ehm3TYZpteE5PuSSdB3bNHkTNYfCBIKoN4
+	 55qczfRdWcTkK2co74JZDkDdT4uT3S64aag98It6m6obcke6jJ4l2+HkwS2mNliYzUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794490686;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=4m5/EFtVtJMcX32G0Py/nICnHfPv/lKNQS3VJ6V35d0=;
-	b=N9m7/fcameGk3B40NWielOS01ASM0F/ALB04jE336Lj+wiMEmweK7vdRcRR0c0RqdW1D
-	 x7Ez0azTlSfdYnzrvGG9ivh1f5U4dFYQpiqqIW3PxbLtvJYVrk8zDCPYlwEX4W6YvpsT9
-	 v7YSjLeXlcjs+xJyof+7cEPJLCa9rs1c1jnI6Ot3YtTz2PV4sM2LsLz6SbT8BIvRuFjwp
-	 /7h0eENnli+V9qz+OQYgo5qdAqnc4MF3kLhcZbqhAQ6Zvs6NMQmR6u7tC9D++YF2HyvAk
-	 B52aSpl9pd//uiL/E4yJ1PwawQKdGw24JUfeRUgXKmHtRbWCjOk7gHBaaKkFnWlpyWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794490743;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=5E96vR2/z7uzLsG+hU8CSVS3ZZYuTwlRc4mXU95aTIo=;
+	b=0F2ksjOuTvTc/35Cy+nkroVQ1yfbDwsHksK3yg0/qgERocNzdx9v7PopFLFxZvA+pdB9
+	 CIw4uJcrcU7K/m5s4ZxUgm0mjlIQR0aBS/09SlzBS7E4JgdVXaL5+wQWc7IXR983Lvc7t
+	 R1G4OLBMsOWjtALEPXiovaTj+OAkHlD3ieVOYA9wR1VJZ2Evf5qyaVtAjwTJlqpRgUx0M
+	 ovbbyE4DfEpwqwT4nBHSLoNimQ6hm18JBL19DU724s7lMfwqw3K5ZW80qkvLsRPH/6Pvc
+	 3lKIWVQkCenfgivHiKm57MfVfiTXzMrr0fTnIKm3KoOuVVUy8VqjkBOyPM6RBLnyLdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGzX0ky6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D728C606A880
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 13:38:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D728C606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c50604721c8so397151466b.3
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 05:38:05 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794490684; x=1795095484;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4m5/EFtVtJMcX32G0Py/nICnHfPv/lKNQS3VJ6V35d0=;
-        b=bwbWG8u24Yto92iv+PQ6zAcEcLieVF+2vsSqBxMVZrozAKnQyF+VG4exgvIyXCmTfZ
-         npW31QF3qpXvhXeEirJrJdMJrguObpv9oOOr8txfwDCfp415f0WYHU04UwhiSH2rlMaY
-         QbFm1zQrHg7ibkgXsL4IlPdc5GkMT2KzGn1HR/GzqGQ2T8oPXIhSTwCre3YRWMH7vfm1
-         rxTI/Bqx1VWWJT5E2NgQ22AJ52Hb8VLjLMfvvoQ/c5vOGlzIVzpeuLRuihMdap99mnwU
-         65Dejj1LB1XM3yiqnXnvk3KnVRF215FJUfhVDGILl9i2JHXeV1uUy30cykZu59azqGNJ
-         fI6w==
-X-Forwarded-Encrypted: i=1; AL+hErGrevJdvZEfgaTxKo294bKz2mn63pjcJDzGKP1bqmtA7wDTyY2rgBEftvRdz36eZ7u7X/4QMfnPlz0isw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Q6lA3XJI0NaiujqverZUSRgRTw4hli7rBUZ3qzq2maM1n7dxk
-	JDRzmcy1Rwi1w+EZgcDgR7Rp9iLLxTl8b0YByFupZAp++IaRe3cjjlXu1dQmTSGxMUI=
-X-Gm-Gg: AYBFou2j+mun/X5OcxoChMPqCHNsefqU5/cHcVEimSwVXzx6Rrt8PFPvmXBtkfCtxW2
-	LOIJR+CvsedshS5ynv9oRvEaQ8HrkEusy0aPyc6hRQswegcFH7lFqAGlmUiboqZ326cPsws9wTJ
-	T3nh+ICGV79GXKcugb/jMVOoQCblF2Mf62F7Cemrk1kTovZ+DssfJDRSdUvszI+COb4sNkeyXCU
-	dTtuwH6RwuJZqgP1dPuTTGghqTNVwxc/8bZ7cxk3s4iRSundqxGw+flRvc8X7q1/92tD9B/ctYh
-	b2FKNTSTGEhMX3UZdYlOYelcl1KYfzuhCMRAHqUyTQxGGpmLxg1c7tRhLZ81jNwd0iPFP7ROPCm
-	YZ0o9m/CjAJevQemSvkGC24XnGLDfGpguQZK8TQb59OSrBi5Pm/mlzc0oos2jxd0sj48s2hylP1
-	hNjDbD/IS4yv2lPZMCZl9qcCSgazeLR393oBQoVkfiKXwNdRF91XSKpSmWuOeF8unuV3OWTmMi4
-	v5JCNO4H6Jbv9yuuqPIIVjyKBwLsyHP0wL5CdjU8FSL7nUN6YKbqA7JfcqpORm2p4/UyV9jFTvA
-	SVLAGtDA85lFqTYaJF2HcOIh431t6gf4weh0L22iCMzfFcUjACmcC3SezpRmmZEfmyA=
-X-Received: by 2002:a17:907:c13:b0:c4d:4be1:4197 with SMTP id a640c23a62f3a-c5066c986f8mr486758766b.41.1794490684133;
-        Thu, 12 Nov 2026 05:38:04 -0800 (PST)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com. [209.85.208.51])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a6335d1sm342388566b.59.2026.11.12.05.38.01
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 05:38:02 -0800 (PST)
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b587538a37so6064545a12.2
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 05:38:01 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErESJqr6MvpxDBqPWgVu33F1a0FoDZrY6F6/qOz9MSnE1uc9HBrg5PzJaONDaPT0SyGORLajgNods4NH9w==@vger.kernel.org
-X-Received: by 2002:a05:6402:1bc1:b0:6b4:5a9c:4e44 with SMTP id
- 4fb4d7f45d1cf-6b77770644dmr2967919a12.37.1794490681628; Thu, 12 Nov 2026
- 05:38:01 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7039A606A31C;
+	Thu, 12 Nov 2026 13:39:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGzX0ky6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43B961F00A05;
+	Thu, 12 Nov 2026 13:39:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794490743;
+	bh=5E96vR2/z7uzLsG+hU8CSVS3ZZYuTwlRc4mXU95aTIo=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=WGzX0ky64L6W96kDXj05vmDzkgcDb9HFsYnaWbcYfroEHci8pPPPkV/mvLJgAY/CN
+	 I8y8nC8e5SyTwNksN5wt+FWOu7ezt0vXp7XgL6vPHxp2le2lAd7r4RJAxW49Iwvtru
+	 wB+lcoqsju4q/DzG68Wpj+e/lWJSZE9pm3cCRFSTDLJF76Zd1/m09QGNKdfkk+pp0N
+	 rLoyhLvjf6xGVGNJDSzb8nW43ISA9+cV4RZGD/A6iMzDWV9Ri4Q/YVNP9p5QdXM8lH
+	 5OTqxnlMbRRhiG9pxmRyU/Ddw/rhIZyceNuYImcSCRwZVocpOrmGZq/w2a26V8uGNu
+	 D6fD3YsL2NBtQ==
+Message-ID: <1b63100c-673f-403c-aa37-4e9088a1a042@kernel.org>
+Date: Thu, 12 Nov 2026 14:39:00 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -80,98 +51,254 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
-In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 12 Nov 2026 14:37:46 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdVeX=6DCLv5GZo1UFU2Nn1Y4zGxCMovxyQGefO+JpuZ8w@mail.gmail.com>
-X-Gm-Features: AclHuK8Bvm66uPuRAPPxi-MPPvPl-KdDJtyohfMgnqBqTlOChWJE1Vd3ab7DaZs
-Message-ID: <CAMuHMdVeX=6DCLv5GZo1UFU2Nn1Y4zGxCMovxyQGefO+JpuZ8w@mail.gmail.com>
-Subject: Re: [PATCH v4 00/13] media: rcar-fcp, vsp1: Enable on R-Car X5H
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-media@vger.kernel.org, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Phong Hoang <phong.hoang.wz@renesas.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] media: cx231xx: fix August VGB100 video and VBI capture
+To: =?UTF-8?B?U2luacWhYSBEb8WhZW4=?= <snsdosen@gmail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261012103657.28574-1-snsdosen@gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <20261012103657.28574-1-snsdosen@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Paul,
+Hi Siniša,
 
-On Mon, 9 Nov 2026 at 14:34, Paul Elder
-<paul.elder+renesas@ideasonboard.com> wrote:
-> This series is based on Geert's
-> "topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v4-rebased" branch [0].
-> A branch including this series is available here [1].
->
-> This series enables the FCPV{B,I,D} and the VSP{B,I,D} blocks on the Renesas
-> R-Car X5H SoC.
->
-> This has been tested on an Ironhide with the vsp-tests test suite [2].
->
-> Full summary:
-> /dev/media0 (VSP2-D (a)): 114 tests: 99 passed, 0 failed, 15 skipped
-> /dev/media1 (VSP2-D (a)): 114 tests: 99 passed, 0 failed, 15 skipped
-> /dev/media10 (VSP2-I): 157 tests: 150 passed, 0 failed, 7 skipped
-> /dev/media11 (VSP2-I): 157 tests: 150 passed, 0 failed, 7 skipped
-> /dev/media12 (VSP2-I): 157 tests: 150 passed, 0 failed, 7 skipped
-> /dev/media13 (VSP2-I): 157 tests: 150 passed, 0 failed, 7 skipped
-> /dev/media14 (VSP2-B): 127 tests: 116 passed, 0 failed, 11 skipped
-> /dev/media15 (VSP2-B): 127 tests: 116 passed, 0 failed, 11 skipped
-> /dev/media16 (VSP2-B): 127 tests: 116 passed, 0 failed, 11 skipped
-> /dev/media17 (VSP2-B): 127 tests: 116 passed, 0 failed, 11 skipped
-> /dev/media18 (VSP2-B): 127 tests: 116 passed, 0 failed, 11 skipped
-> /dev/media2 (VSP2-D (a)): 114 tests: 99 passed, 0 failed, 15 skipped
-> /dev/media3 (VSP2-D (a)): 114 tests: 99 passed, 0 failed, 15 skipped
-> /dev/media4 (VSP2-D (a)): 114 tests: 99 passed, 0 failed, 15 skipped
-> /dev/media5 (VSP2-D (b)): 114 tests: 99 passed, 0 failed, 15 skipped
-> /dev/media6 (VSP2-D (b)): 114 tests: 99 passed, 0 failed, 15 skipped
-> /dev/media7 (VSP2-D (b)): 114 tests: 99 passed, 0 failed, 15 skipped
-> /dev/media8 (VSP2-D (b)): 114 tests: 99 passed, 0 failed, 15 skipped
-> /dev/media9 (VSP2-D (b)): 114 tests: 99 passed, 0 failed, 15 skipped
->
-> The last patch checks the device revision and prints it, which is useful
-> for debugging but is unnecessary processing for driver operation so it
-> is marked as DNI as well.
->
-> In v3, most of the patches have become DNI because they depend on wip
-> cpg and mdlc driver work. The non-DNI patches are targets for immediate
-> upstreaming though.
->
-> In v4, thanks to Geert's new rebased branch, all the clocks and power
-> domains that were in DNI limbo have now graduated from DNI status.
->
-> [0] https://git.kernel.org/pub/scm/linux/kernel/git/geert/renesas-drivers.git/log/?h=topic/rcar-x5h-ironhide-scmi-cpg-mdlc-remapping-v4-rebased
-> [1] https://git.ideasonboard.com/epaul/linux/src/branch/epaul/v7.4-rc1/x5h/vsp/fcp
-> [2] https://git.ideasonboard.com/renesas/vsp-tests/src/branch/epaul/fix
->
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+On 12/10/2026 12:36, Siniša Došen wrote:
+> Devices sold as the August VGB100 exist in at least two hardware
+> revisions, although both use USB ID 1f4d:0102. The Windows driver INF
+> also contains separate entries for two VGB100 revisions. The unit tested
+> here reports bcdDevice 0x4002.
+> 
+> Linux support for this USB ID was originally added for the Geniatech
+> OTG102/EZGrabber2. A later patch fixed S-Video capture on an August
+> VGB100 by correcting the input routing from the VGB100 and OTG102
+> Windows INF files. That profile provides working video on an older
+> VGB100 unit, but it does not initialize the 0x4002 revision correctly.
+> The older unit also showed URB errors and could become unresponsive when
+> capturing raw VBI.
+> 
+> On the 0x4002 revision the generic profile leaves the analog front end
+> with the wrong reference tuning, so the decoder cannot lock reliably to
+> a PAL signal. Once that is corrected, cx25840 reports 720x572 while the
+> bridge delivers complete 720x576 frames, causing applications to reject
+> the captured buffers.
+> 
+> Raw VBI capture also exposes two bugs in the common cx231xx code. The
+> parser stops making progress after discarding a surplus VBI line, which
+> leaves readers waiting indefinitely despite continuing USB traffic. VBI
+> URBs can also remain active while their vb2 buffers are returned during
+> stream shutdown.
+> 
+> This change adds a board profile for bcdDevice 0x4002 while leaving the
+> existing OTG102 profile as the fallback for the older revision. It uses
+> the AFE reference tuning and frame geometry required by the new hardware,
+> corrects the raw VBI parser state, stops URBs before returning buffers,
+> and avoids reinitializing the analog path when userspace reselects the
+> active input.
+> 
+> The result was tested on the 0x4002 VGB100 with 720x576 YUYV video at
+> 25 fps and raw PAL VBI capture at 1440 samples over 36 lines per frame.
 
-Thanks for the update!
+This patch is mixing three things: adding a new board, and fixing two
+vbi bugs.
 
-> Changes in v4:
-> - Change the clocks in the dt nodes to use SGD1 instead of SGD4. (see
->   patch 1 for details)
-> - Removed "clk: renesas: r8a78000: Add clock for FCPV and VSP for SCP FW SDKv4.36"
+Can you split this in three patches? That's much cleaner.
 
-And it still works without providing these clocks because the fcpv
-and vsp2 drivers do not manage clocks, right?
+Also, regarding the addition of cx231xx_uninit_vbi_isoc(): in the corresponding
+stop_streaming in cx231xx-video.c, nothing similar is happening. Instead this
+is done in cx231xx_close. It's not clear to me why cx231xx_uninit_vbi_isoc needs
+to be called in vbi_stop_streaming. When vbi_start_streaming is called, that in
+turn calls cx231xx_init_vbi_isoc which calls cx231xx_uninit_vbi_isoc in the very
+beginning. Which seems reasonable?
 
-Gr{oetje,eeting}s,
+Thank you!
 
-                        Geert
+Regards,
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+	Hans
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> 
+> Signed-off-by: Siniša Došen <snsdosen@gmail.com>
+> ---
+>  drivers/media/usb/cx231xx/cx231xx-avcore.c | 14 +++++++++++++
+>  drivers/media/usb/cx231xx/cx231xx-cards.c  | 24 ++++++++++++++++++++++
+>  drivers/media/usb/cx231xx/cx231xx-vbi.c    | 18 ++++++++++++----
+>  drivers/media/usb/cx231xx/cx231xx-video.c  | 12 +++++++++--
+>  drivers/media/usb/cx231xx/cx231xx.h        |  1 +
+>  5 files changed, 63 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/media/usb/cx231xx/cx231xx-avcore.c b/drivers/media/usb/cx231xx/cx231xx-avcore.c
+> index 0a5c635..fb71e39 100644
+> --- a/drivers/media/usb/cx231xx/cx231xx-avcore.c
+> +++ b/drivers/media/usb/cx231xx/cx231xx-avcore.c
+> @@ -348,6 +348,7 @@ int cx231xx_afe_update_power_control(struct cx231xx *dev,
+>  	case CX231XX_BOARD_HAUPPAUGE_USB2_FM_PAL:
+>  	case CX231XX_BOARD_HAUPPAUGE_USB2_FM_NTSC:
+>  	case CX231XX_BOARD_OTG102:
+> +	case CX231XX_BOARD_AUGUST_VGB100:
+>  		if (avmode == POLARIS_AVMODE_ANALOGT_TV) {
+>  			while (afe_power_status != (FLD_PWRDN_TUNING_BIAS |
+>  						FLD_PWRDN_ENABLE_PLL)) {
+> @@ -932,6 +933,18 @@ int cx231xx_set_decoder_video_input(struct cx231xx *dev,
+>  		status = vid_blk_write_word(dev, OUT_CTRL1, value);
+>  	}
+>  
+> +	/*
+> +	 * The generic setup derives TUNE1 from the reference clock and leaves
+> +	 * 0x42 here.  The VGB100 40.02 analogue front end requires 0xbe;
+> +	 * otherwise its decoder never acquires horizontal sync.
+> +	 */
+> +	if (dev->model == CX231XX_BOARD_AUGUST_VGB100 &&
+> +	    pin_type == CX231XX_VMUX_COMPOSITE1) {
+> +		status = afe_write_byte(dev, SUP_BLK_TUNE1, 0xbe);
+> +		if (status < 0)
+> +			return status;
+> +	}
+> +
+>  	return status;
+>  }
+>  
+> @@ -1729,6 +1742,7 @@ int cx231xx_dif_set_standard(struct cx231xx *dev, u32 standard)
+>  	case CX231XX_BOARD_CNXT_VIDEO_GRABBER:
+>  	case CX231XX_BOARD_HAUPPAUGE_EXETER:
+>  	case CX231XX_BOARD_OTG102:
+> +	case CX231XX_BOARD_AUGUST_VGB100:
+>  		func_mode = 0x03;
+>  		break;
+>  	case CX231XX_BOARD_CNXT_RDE_253S:
+> diff --git a/drivers/media/usb/cx231xx/cx231xx-cards.c b/drivers/media/usb/cx231xx/cx231xx-cards.c
+> index 69b2420..7ce160d 100644
+> --- a/drivers/media/usb/cx231xx/cx231xx-cards.c
+> +++ b/drivers/media/usb/cx231xx/cx231xx-cards.c
+> @@ -685,6 +685,28 @@ struct cx231xx_board cx231xx_boards[] = {
+>  			}
+>  		},
+>  	},
+> +	[CX231XX_BOARD_AUGUST_VGB100] = {
+> +		.name = "August VGB100",
+> +		.tuner_type = TUNER_ABSENT,
+> +		.decoder = CX231XX_AVDECODER,
+> +		.output_mode = OUT_MODE_VIP11,
+> +		.ctl_pin_status_mask = 0xFFFFFFC4,
+> +		.agc_analog_digital_select_gpio = 0x0c,
+> +		.gpio_pin_status_mask = 0x4001000,
+> +		.norm = V4L2_STD_PAL,
+> +		.no_alt_vanc = 1,
+> +		.external_av = 1,
+> +		.input = {{
+> +			.type = CX231XX_VMUX_COMPOSITE1,
+> +			.vmux = CX231XX_VIN_2_1,
+> +			.amux = CX231XX_AMUX_LINE_IN,
+> +		}, {
+> +			.type = CX231XX_VMUX_SVIDEO,
+> +			.vmux = CX231XX_VIN_1_1 |
+> +				(CX231XX_VIN_3_2 << 8),
+> +			.amux = CX231XX_AMUX_LINE_IN,
+> +		} },
+> +	},
+>  	[CX231XX_BOARD_HAUPPAUGE_930C_HD_1113xx] = {
+>  		.name = "Hauppauge WinTV 930C-HD (1113xx) / HVR-900H (111xxx) / PCTV QuatroStick 521e",
+>  		.tuner_type = TUNER_NXP_TDA18271,
+> @@ -1061,6 +1083,8 @@ struct usb_device_id cx231xx_id_table[] = {
+>  	 .driver_info = CX231XX_BOARD_ICONBIT_U100},
+>  	{USB_DEVICE(0x0fd9, 0x0037),
+>  	 .driver_info = CX231XX_BOARD_ELGATO_VIDEO_CAPTURE_V2},
+> +	{USB_DEVICE_VER(0x1f4d, 0x0102, 0x4002, 0x4002),
+> +	 .driver_info = CX231XX_BOARD_AUGUST_VGB100},
+>  	{USB_DEVICE(0x1f4d, 0x0102),
+>  	 .driver_info = CX231XX_BOARD_OTG102},
+>  	{USB_DEVICE(USB_VID_TERRATEC, 0x00a6),
+> diff --git a/drivers/media/usb/cx231xx/cx231xx-vbi.c b/drivers/media/usb/cx231xx/cx231xx-vbi.c
+> index 338e101..63db257 100644
+> --- a/drivers/media/usb/cx231xx/cx231xx-vbi.c
+> +++ b/drivers/media/usb/cx231xx/cx231xx-vbi.c
+> @@ -234,6 +234,8 @@ static void vbi_stop_streaming(struct vb2_queue *vq)
+>  {
+>  	struct cx231xx *dev = vb2_get_drv_priv(vq);
+>  
+> +	/* Stop URB callbacks before returning their destination buffers. */
+> +	cx231xx_uninit_vbi_isoc(dev);
+>  	return_all_buffers(dev, VB2_BUF_STATE_ERROR);
+>  }
+>  
+> @@ -499,8 +501,12 @@ u32 cx231xx_copy_vbi_line(struct cx231xx *dev, struct cx231xx_dmaqueue *dma_q,
+>  		cx231xx_reset_vbi_buffer(dev, dma_q);
+>  	}
+>  
+> -	if (dma_q->current_field != field_number)
+> +	if (dma_q->current_field != field_number) {
+> +		/* Drop any incomplete surplus line from the previous field. */
+>  		dma_q->lines_completed = 0;
+> +		dma_q->bytes_left_in_line = _line_size;
+> +		dma_q->is_partial_line = 0;
+> +	}
+>  
+>  	/* get the buffer pointer */
+>  	buf = dev->vbi_mode.bulk_ctl.buf;
+> @@ -514,9 +520,13 @@ u32 cx231xx_copy_vbi_line(struct cx231xx *dev, struct cx231xx_dmaqueue *dma_q,
+>  
+>  	if (dma_q->lines_completed >= dma_q->lines_per_field) {
+>  		dma_q->bytes_left_in_line -= bytes_to_copy;
+> -		dma_q->is_partial_line =
+> -		    (dma_q->bytes_left_in_line == 0) ? 0 : 1;
+> -		return 0;
+> +		if (dma_q->bytes_left_in_line == 0) {
+> +			dma_q->bytes_left_in_line = _line_size;
+> +			dma_q->is_partial_line = 0;
+> +		} else {
+> +			dma_q->is_partial_line = 1;
+> +		}
+> +		return bytes_to_copy;
+>  	}
+>  
+>  	dma_q->is_partial_line = 1;
+> diff --git a/drivers/media/usb/cx231xx/cx231xx-video.c b/drivers/media/usb/cx231xx/cx231xx-video.c
+> index 70aa99f..4fd31ab 100644
+> --- a/drivers/media/usb/cx231xx/cx231xx-video.c
+> +++ b/drivers/media/usb/cx231xx/cx231xx-video.c
+> @@ -912,6 +912,10 @@ static int vidioc_s_fmt_vid_cap(struct file *file, void *priv,
+>  	call_all(dev, pad, set_fmt, NULL, &format);
+>  	v4l2_fill_pix_format(&f->fmt.pix, &format.format);
+>  
+> +	/* The DMA engine keeps the requested 576-line PAL geometry. */
+> +	if (dev->model == CX231XX_BOARD_AUGUST_VGB100)
+> +		vidioc_g_fmt_vid_cap(file, priv, f);
+> +
+>  	return rc;
+>  }
+>  
+> @@ -1065,13 +1069,17 @@ int cx231xx_s_input(struct file *file, void *priv, unsigned int i)
+>  {
+>  	struct cx231xx *dev = video_drvdata(file);
+>  
+> -	dev->mode_tv = 0;
+> -
+>  	if (i >= MAX_CX231XX_INPUT)
+>  		return -EINVAL;
+>  	if (0 == INPUT(i)->type)
+>  		return -EINVAL;
+>  
+> +	/* Reapplying the vendor profile disturbs an active raw VBI stream. */
+> +	if (dev->model == CX231XX_BOARD_AUGUST_VGB100 &&
+> +	    i == dev->video_input)
+> +		return 0;
+> +
+> +	dev->mode_tv = 0;
+>  	video_mux(dev, i);
+>  
+>  	if (INPUT(i)->type == CX231XX_VMUX_TELEVISION ||
+> diff --git a/drivers/media/usb/cx231xx/cx231xx.h b/drivers/media/usb/cx231xx/cx231xx.h
+> index 19f5036..1cb08ec 100644
+> --- a/drivers/media/usb/cx231xx/cx231xx.h
+> +++ b/drivers/media/usb/cx231xx/cx231xx.h
+> @@ -70,6 +70,7 @@
+>  #define CX231XX_BOARD_THE_IMAGING_SOURCE_DFG_USB2_PRO 25
+>  #define CX231XX_BOARD_HAUPPAUGE_935C 26
+>  #define CX231XX_BOARD_HAUPPAUGE_975 27
+> +#define CX231XX_BOARD_AUGUST_VGB100 28
+>  
+>  /* Limits minimum and default number of buffers */
+>  #define CX231XX_MIN_BUF                 4
+
