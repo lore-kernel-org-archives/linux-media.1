@@ -1,79 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794457128;
-	b=zeQtTCdNg2Bg2fcKdrqV1DyINLTYt7GmdDc4xo0eHd6xxWe+o13WpjeNMrQv7JgwGArO
-	 pZ7QjnvxSDKstVEt0wHmcW+3AAAee/PYf7cOi/Lz+gKOwDiUCct3CCWCH+qFJtEimZX8N
-	 g0NJqLJ5mZUSjjO+7Bp2Gx7IWSMcsU1xQ4g6M1Pz7rW/+qrehqKDox9Zwim89sseXP0vz
-	 Vg7SLyXxHmwST8uxT/jqoPzuDgquJuhYx+3jKhBlFSHlHPbV445XRI16tKsOhZeTGBPau
-	 dXD8P0Y+F5SG9cyaLWWBhNsGCgkhKSFk0W7H9yqifNLZ+uylIgyXaOVOtkhSyRU8zlw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794457128;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jxUJ8z3TMPKH3Cow8UWYF/1eg9MTwLe2qZvbY7WTmaI=;
-	b=oc/zG/VLrg5UtEQQSnl4ygbjuXr91gkO31VdFmOEC92WP0sngCxIAY15Iui1Ux1/QhoM
-	 dvTv9VGfubMGaDDhTezIPcgI9KFZ2TGx5Rm2wtBCwhLJxwKV3vkP3RwJk9fyu/SRuXlGJ
-	 tkIm36A5hcl1AG4KrkJptHicCOdB+uUtIjMhAUTBqqFOLYYqzc60/CZQ/50+ZQqXqAmdL
-	 OyoQwyzKM//kmXJvZFNXU5/Dsehiky5hcqp66rW5deMXZtl8BteMA0dUgmIt/OvLCZzJT
-	 PGVUCbgPtNlwhi65/2jJLbR5fJIvjBXhNfRM/iiF6p/eSduoWn6brTqQwKIsk+zGwTg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5CCOp50;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC57606A32E;
-	Thu, 12 Nov 2026 04:18:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5CCOp50
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794457128;
-	b=0gq/viDJRcEtndXiJ+wJIoschfmgJB5TpWPXVahOSGVGRV8Spl91BrnUrK4VfXI6eIJC
-	 XCtjID73Rp/y329xRzlCo9Qz29WN3PjRnfy+YQXdUwLBMvSOI0AVdmO2f2xrfXTmUxLlj
-	 IbM4gYCUxvBaRLIOK0zylybvh3BpE4nqUZACQG6rV9Hu73wGjPXkzkOEIx7bYN/Hh3JNt
-	 DyJVObxLr73uN0KdxOE4dytMGxDNvpr11PZ1tVGPSGyKEn1IEE/iAKjyQ/4Qpy2XtPgx0
-	 mw0Vq1qLnvFAL0Jt2EAD4ayQah1uooQnCYKBkcUb4F+o6NN+GDYNahQN5/f2uYvdXAA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794457128;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jxUJ8z3TMPKH3Cow8UWYF/1eg9MTwLe2qZvbY7WTmaI=;
-	b=TmlwaqgleRXUUEoiMPFccd3iykamvQjAQRXhG0jdfK7WGs9hF7210pXyNGdfPspEtKA+
-	 jK7jrR0AlS4LQFgOiff375UT+34oa3y8zthoTOc3DgdGNx02rR2fXot17MPEaSruZowN1
-	 C84EovZSJLm+5BtOUqLfrjsNDy3bmbgz4s9jjdenOSjNuu5csKtjh2kjGIEN4QDZdpOgD
-	 sIP89dIjq8kWM8r/KSIEwBh/EWwu/LdSOQfLtFO8D89ttvsDZbLPR6zqv47PdsXs5selH
-	 B/nYfxsscp3VVnIxIBZDs1jZVQuRsr0Oob7LefQKhS4r/ECZ9fqzE4fRiVm9n6yk0ZQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794463000;
+	b=knrO6+mR+Jw6rMRKO0snR0F/SuuphBuXfYZXsZt0Mr9ixs9wGsT1x535cnOG1g0qek/O
+	 NQ/AnYxBJvHCEbXwgOJKvDi/LENxZxAwjI4+WhxF5zab/zUUqt/C4+d8olxh9CaSLRwRX
+	 pkWQzefcoVS24Bk7IAwN638IqajQLjRKQdxaubdNz6E3UXB5nebl9QYPWG2JLxGnii0z7
+	 hnD1tH46YV3w4xp6G5cMG+mDmaz6P3DFsylUCMIdtg1XCk8f32tEsuPSgWmkPdGI+vNzV
+	 0o0SULyoSHNdqJvnH3P1mdszBbLGzsE+RvMCV2d5DN6sfwK0SqqQe6R1SDbsoiWyt0Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794463000;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=uQf/9IZU6uSCTx/IYygHhrSWPp7hzih38smhNOg2mec=;
+	b=RStzAnd/qMLjd0n41edcqJw50svxj0h97e/9YaxW/ep2rmiP1i4cKBSrCqqagTvFx2Dt
+	 8UnmSjiGWZy8cbDKcGmjafH+VvSk45LNR9LDeVRK1oLnnjpT4PRb8xrrEmWHE01kFbhud
+	 vhxb8uhCxwpgW64bpy7u6KPJgcxsL3xcCp2S6B+0yZGdza9fKJde7WN/bhGNeLOTRUtZV
+	 ScvOyr7hXMnhwILivXdJfySPtQS4uFltzBH9i/hYSIQquPqMVAdrP4AdFZ3PQ0pWIX8jR
+	 C0EX8GV+GFW4MtdQi+0AX9Gw6rU9GyQfQJWnN/M/B1tu2l6qP2Q91mqMS6LguXuW6Ng==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6E7521F00A06;
-	Thu, 12 Nov 2026 04:18:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794457128;
-	bh=jxUJ8z3TMPKH3Cow8UWYF/1eg9MTwLe2qZvbY7WTmaI=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=g5CCOp509x8OmQovYGLdwqvT01ZAf1nMRrzEpRFb9TqhVuhFALds7hUrDeTLthllX
-	 Zc16X7UZq36t/pHKJ/Lldma5BStB5t8zOTwDXF6Gp9nXQj7c+iIeNE2BCrWchUgJoB
-	 kKPG4X9qq47njMjOBqEYAkD7PLQAywyZXle+ynSxQk8Zr1v5YKFt+F4+n62q9fMybF
-	 ps87rZ0O6zMaZpbpPd0IVA5dsT7Q7raEQ+sp1KYYXzDdNxfhXMcpYZjR1DgqgGS1i8
-	 03t9P4VfxCRMoUuwvdkNb0oeVD6mjuLEaACeOjIu9oHgWp91LZFjA4+S5QmoJG4hRS
-	 uReTuEBxpvWXw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C593049289;
-	Thu, 12 Nov 2026 04:18:46 +0000 (UTC)
-From: Weidong Wang via B4 Relay <devnull+weidongw.illinois.edu@kernel.org>
-Date: Wed, 11 Nov 2026 22:18:29 -0600
-Subject: [PATCH] media: pulse8-cec: Unregister the adapter if applying the
- config fails
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4D5606A327
+	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 05:56:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F4D5606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4e937c5bd4fso3005721b6e.2
+        for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 21:56:40 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794462999; x=1795067799;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uQf/9IZU6uSCTx/IYygHhrSWPp7hzih38smhNOg2mec=;
+        b=TCNjWfLFF6c0Khpvl3qbkW1MOyzKyl4w78xAnwgDxS/3MDU3gsgwQHxWK7arD3d27+
+         VkIJJPKTFW91Y3XXdE8TOonikKAhBlinpBVxhSAYreKn1d6wxqqkfhjkDL9L+o/4g9kC
+         hPXX53umLjrkiyN0KhUQipTTh/1kfh9T5wQeHMsc2d1mifwY/6B4oOc7sJMAmUiKFCgo
+         cUp7BaIqFrgQA9Om6R4WtUF+Ig+4V+FsCSPPAxvlGa3nmXsNCCQQ2/QnZwXLthIZ0J5u
+         kwkF3Q/DQEfdghyDQemI3v8r9BheqG2MGFlOtloRnKnHh+/QOu9THbVlq4ZU/S3bIcfa
+         oPZQ==
+X-Forwarded-Encrypted: i=1; AL+hErFNFlrOYwB9SOOSTvr2V89iw81G7uoMcgTf/yjWwLzVwge+rym9l3jKvq9yNHD35YKYRWFyj35laiZaaA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Wtx+H1iGN58UjOUslqmy3TzIMseNzZ3ylIRHsJTTEb8+sEcPD
+	ma6xfoTH1y+OzTtTSyA4X3TCvYKNAj9k90a4S6i4zvl0XdGZHlFPWqfau6MpHuVLR8xQsMHIBFb
+	jw5X0CV3u6IYQeZ3t+Vtm4vYAKsTMwoxKMmpYkAS5au1sd55p9eVWHNyN8AI=
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,129 +58,189 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-c4-n014-v1-1-a66fd8e2125c@illinois.edu>
-X-B4-Tracking: v=1; b=H4sIABU+9WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDINBNNtHNMzA00TUwTDFLMUszNTI3t1ACqi4oSk3LrACbFB0L4ReXJmW
- lJpeAtCvV1gIAP9r2qGsAAAA=
-X-Change-ID: 20261111-c4-n014-01d6d6f52778
-To: Hans Verkuil <hverkuil@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Zijie Zhao <zijie4@illinois.edu>, Weidong Wang <weidongw@illinois.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794457126; l=4025;
- i=weidongw@illinois.edu; s=20261108; h=from:subject:message-id;
- bh=XIF8JyNv4pQCSsgeieTZ6qi2XZW+IcjZVp9dPdC0fP0=;
- b=gPs7q29+4FwmadOTE1BAx1Ci2OPqW62WrPl2x0RhJDM6I358tKzpso63OFSxT3dmkQcma4Fg0
- 1FzA+jfnBJvDm77KH+d0PGloGTlS2fNA8Gc/s2UVs1CqIYgc68Y7V85
-X-Developer-Key: i=weidongw@illinois.edu; a=ed25519;
- pk=DR2S1xPEa5sELrWPfOpvUphJQ2VHC+MDc/wJavE/ifg=
-X-Endpoint-Received: by B4 Relay for weidongw@illinois.edu/20261108 with
- auth_id=1449
-X-Original-From: Weidong Wang <weidongw@illinois.edu>
-Reply-To: weidongw@illinois.edu
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:30a6:b0:53e:8376:dfbf with SMTP id
+ 5614622812f47-56b97307e39mr4405554b6e.40.1794462999296; Wed, 11 Nov 2026
+ 21:56:39 -0800 (PST)
+Date: Wed, 11 Nov 2026 21:56:39 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af55517.a0c627da.5d811.0010.GAE@google.com>
+Subject: [syzbot] [greybus?] [usb?] KASAN: slab-out-of-bounds Read in gb_operation_work
+From: syzbot <syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com>
+To: elder@kernel.org, gregkh@linuxfoundation.org, greybus-dev@lists.linaro.org, 
+	johan@kernel.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Weidong Wang <weidongw@illinois.edu>
+Hello,
 
-When persistent_config is set and the adapter is in autonomous mode,
-pulse8_connect() applies the configuration stored in the adapter's
-EEPROM after cec_register_adapter(). If that fails, for example because
-cec_s_log_addrs() rejects the stored CEC version, the error path jumps to
-close_serio, which frees the registered adapter with
-cec_delete_adapter(). The cec device node stays registered, and the next
-open() of /dev/cecN uses the freed adapter.
+syzbot found the following issue on:
 
-Unregister the adapter on that path, as pulse8_disconnect() does.
+HEAD commit:    6628e7d4c6b2 Linux 7.4-rc1
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+console output: https://syzkaller.appspot.com/x/log.txt?x=109ac1a1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=f9bf69220d319004
+dashboard link: https://syzkaller.appspot.com/bug?extid=0b456664585fa81a47f6
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=149ac1a1580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=150c9f8d580000
 
-Found by an AI code review agent (an LLM-based bug-finding tool
-developed by Zijie Zhao and the submitter) and confirmed on an
-unmodified kernel, without error injection, on x86_64 under QEMU with
-KASAN. The adapter was emulated on a pty with the serport line
-discipline, as set up by inputattach --pulse8-cec: firmware version 8,
-autonomous mode, and a stored configuration for a playback device with
-CEC version 1.3a. With persistent_config=1 the probe fails with -EINVAL
-but /dev/cec0 remains, and opening it gives
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/d415be35d54e/disk-6628e7d4.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/69e49385122b/vmlinux-6628e7d4.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/51be81fff25f/bzImage-6628e7d4.xz
 
-  BUG: KASAN: slab-use-after-free in exact_lock+0x66/0x70
-  Read of size 8 at addr ffff88800e03c360 by task poc/72
-   kobj_lookup+0x1d4/0x410
-   chrdev_open+0x2d7/0x5b0
+AI-generated root cause summary:
+In gb_connection_recv() (drivers/greybus/operation.c), the kernel verifies that
+the incoming buffer length is at least sizeof(struct gb_operation_msg_hdr), but
+fails to validate that the message header's claimed size (header.size, parsed as
+msg_size) is also at least sizeof(struct gb_operation_msg_hdr). When msg_size <
+sizeof(struct gb_operation_msg_hdr), gb_operation_create_incoming() subtracts
+the header size from msg_size, causing an unsigned integer underflow when
+calculating request_size. In gb_operation_message_alloc(), the payload size and
+header size wrap back around and kzalloc(msg_size) allocates an undersized
+buffer smaller than the header, leading to out-of-bounds reads when reading
+request_header->operation_id or a ZERO_SIZE_PTR dereference panic when msg_size
+is zero.
 
-with the object allocated by cec_allocate_adapter() and freed by
-pulse8_connect(). The same emulated adapter with a stored CEC version of
-1.4 probes normally.
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=0b456664585fa81a47f6
 
-With this patch the failed probe leaves no /dev/cec0 behind and KASAN
-reports nothing, and the CEC 1.4 adapter still probes and answers
-CEC_ADAP_G_CAPS. The reproducer is available on request.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
 
-The reproducer, fix and changelog were drafted with AI assistance
-(Claude), then reviewed and tested by the submitter.
+greybus 1-svc: unexpected request 0x7f received (state 0)
+==================================================================
+BUG: KASAN: slab-out-of-bounds in gb_operation_response_alloc drivers/greybus/operation.c:490 [inline]
+BUG: KASAN: slab-out-of-bounds in gb_operation_response_send drivers/greybus/operation.c:832 [inline]
+BUG: KASAN: slab-out-of-bounds in gb_operation_request_handle drivers/greybus/operation.c:252 [inline]
+BUG: KASAN: slab-out-of-bounds in gb_operation_work+0x8be/0x990 drivers/greybus/operation.c:280
+Read of size 2 at addr ffff888105f0a642 by task kworker/u8:2/38
 
-Fixes: e28a6c8b3fcc ("[media] pulse8-cec: sync configuration with adapter")
-Cc: stable@vger.kernel.org
-Cc: Zijie Zhao <zijie4@illinois.edu>
-Signed-off-by: Weidong Wang <weidongw@illinois.edu>
+CPU: 1 UID: 0 PID: 38 Comm: kworker/u8:2 Not tainted syzkaller #0 PREEMPT(lazy) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
+Workqueue: greybus1:0 gb_operation_work
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ gb_operation_response_alloc drivers/greybus/operation.c:490 [inline]
+ gb_operation_response_send drivers/greybus/operation.c:832 [inline]
+ gb_operation_request_handle drivers/greybus/operation.c:252 [inline]
+ gb_operation_work+0x8be/0x990 drivers/greybus/operation.c:280
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+ process_scheduled_works kernel/workqueue.c:3578 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x69f/0xc90 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Allocated by task 28:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+ __kasan_kmalloc+0x8f/0xa0 mm/kasan/common.c:426
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5531 [inline]
+ __kmalloc_noprof+0x315/0x7e0 mm/slub.c:5556
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ gb_operation_message_alloc+0x9b/0x2c0 drivers/greybus/operation.c:380
+ gb_operation_create_common+0x9f/0x710 drivers/greybus/operation.c:532
+ gb_operation_create_incoming drivers/greybus/operation.c:644 [inline]
+ gb_connection_recv_request drivers/greybus/operation.c:926 [inline]
+ gb_connection_recv+0x1dc/0x1050 drivers/greybus/operation.c:1063
+ greybus_data_rcvd+0x244/0x600 drivers/greybus/connection.c:89
+ cport_in_callback+0x1fb/0x280 drivers/greybus/es2.c:840
+ __usb_hcd_giveback_urb+0x38e/0x610 drivers/usb/core/hcd.c:1657
+ usb_hcd_giveback_urb+0x3ca/0x4a0 drivers/usb/core/hcd.c:1741
+ dummy_timer+0xdb5/0x3840 drivers/usb/gadget/udc/dummy_hcd.c:2051
+ __run_hrtimer kernel/time/hrtimer.c:2079 [inline]
+ __hrtimer_run_queues+0x448/0x9a0 kernel/time/hrtimer.c:2136
+ hrtimer_run_softirq+0x1ca/0x360 kernel/time/hrtimer.c:2153
+ handle_softirqs+0x209/0xa00 kernel/softirq.c:669
+ __do_softirq kernel/softirq.c:703 [inline]
+ invoke_softirq kernel/softirq.c:542 [inline]
+ __irq_exit_rcu+0x17a/0x220 kernel/softirq.c:786
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:809
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0x8f/0xb0 arch/x86/kernel/apic/apic.c:1062
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+
+The buggy address belongs to the object at ffff888105f0a640
+ which belongs to the cache kmalloc-8 of size 8
+The buggy address is located 2 bytes inside of
+ allocated 3-byte region [ffff888105f0a640, ffff888105f0a643)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x105f0a
+flags: 0x200000000000000(node=0|zone=2)
+page_type: f5(slab)
+raw: 0200000000000000 ffff888100041500 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000800080 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c00(GFP_NOIO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 6490716744
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1856
+ prep_new_page mm/page_alloc.c:1864 [inline]
+ get_page_from_freelist+0xf4b/0x3440 mm/page_alloc.c:3935
+ __alloc_frozen_pages_noprof+0x299/0x2d50 mm/page_alloc.c:5444
+ alloc_slab_page mm/slub.c:3384 [inline]
+ allocate_slab mm/slub.c:3499 [inline]
+ new_slab+0xb1/0x6d0 mm/slub.c:3550
+ refill_objects+0xe3/0x410 mm/slub.c:7539
+ refill_sheaf mm/slub.c:2917 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4811
+ alloc_from_pcs mm/slub.c:4887 [inline]
+ slab_alloc_node mm/slub.c:5021 [inline]
+ __do_kmalloc_node mm/slub.c:5530 [inline]
+ __kmalloc_node_noprof+0x634/0x820 mm/slub.c:5543
+ _kmalloc_array_node_noprof include/linux/slab.h:1297 [inline]
+ __blk_mq_realloc_hw_ctxs+0x579/0x820 block/blk-mq.c:4588
+ blk_mq_realloc_hw_ctxs block/blk-mq.c:4652 [inline]
+ blk_mq_init_allocated_queue+0x36c/0x1500 block/blk-mq.c:4694
+ blk_mq_alloc_queue+0x1bd/0x290 block/blk-mq.c:4464
+ scsi_alloc_sdev+0x972/0xe90 drivers/scsi/scsi_scan.c:339
+ scsi_probe_and_add_lun+0x523/0x720 drivers/scsi/scsi_scan.c:1227
+ __scsi_scan_target+0x188/0x420 drivers/scsi/scsi_scan.c:1803
+ scsi_scan_channel drivers/scsi/scsi_scan.c:1893 [inline]
+ scsi_scan_channel+0x142/0x1e0 drivers/scsi/scsi_scan.c:1868
+ scsi_scan_host_selected+0x2b3/0x380 drivers/scsi/scsi_scan.c:1922
+ do_scsi_scan_host+0x1f4/0x270 drivers/scsi/scsi_scan.c:2055
+page_owner free stack trace missing
+
+Memory state around the buggy address:
+ ffff888105f0a500: 06 fc fc fc 00 fc fc fc 00 fc fc fc 00 fc fc fc
+ ffff888105f0a580: fa fc fc fc 06 fc fc fc 06 fc fc fc 06 fc fc fc
+>ffff888105f0a600: 06 fc fc fc 00 fc fc fc 03 fc fc fc fa fc fc fc
+                                           ^
+ ffff888105f0a680: fa fc fc fc 00 fc fc fc fa fc fc fc 00 fc fc fc
+ ffff888105f0a700: fa fc fc fc 05 fc fc fc 05 fc fc fc 05 fc fc fc
+==================================================================
+
+
 ---
-Tested on v7.4-rc1 (05441d697f7f), x86_64, KASAN, QEMU/KVM, with the
-adapter emulated on a pty (serport ldisc, as inputattach --pulse8-cec
-sets up), firmware v8, autonomous mode, persistent_config=1:
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-               stored CEC version 1.3a         stored CEC version 1.4
-                                               (control)
-  unpatched    probe fails, /dev/cec0 stays;   probes, G_CAPS works
-               open: KASAN slab-use-after-free
-  patched      probe fails, no /dev/cec0,      probes, G_CAPS works
-               no report
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-No KASAN/UBSAN reports on the patched kernel; checkpatch clean. The
-code is unchanged in mainline and linux-next (next-20261111).
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-The reproducer is not attached (AI-found issue, see security-bugs.rst)
-and can be shared on request.
----
- drivers/media/cec/usb/pulse8/pulse8-cec.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-diff --git a/drivers/media/cec/usb/pulse8/pulse8-cec.c b/drivers/media/cec/usb/pulse8/pulse8-cec.c
-index fa5df1062..374a8fd25 100644
---- a/drivers/media/cec/usb/pulse8/pulse8-cec.c
-+++ b/drivers/media/cec/usb/pulse8/pulse8-cec.c
-@@ -888,7 +888,7 @@ static int pulse8_connect(struct serio *serio, struct serio_driver *drv)
- 	if (persistent_config && pulse8->autonomous) {
- 		err = pulse8_apply_persistent_config(pulse8, &log_addrs, pa);
- 		if (err)
--			goto close_serio;
-+			goto unregister_adap;
- 		pulse8->restoring_config = true;
- 	}
- 
-@@ -896,6 +896,16 @@ static int pulse8_connect(struct serio *serio, struct serio_driver *drv)
- 
- 	return 0;
- 
-+unregister_adap:
-+	/* the adapter is registered: tear down as pulse8_disconnect() does */
-+	mutex_lock(&pulse8->lock);
-+	pulse8->serio = NULL;
-+	mutex_unlock(&pulse8->lock);
-+	cec_unregister_adapter(pulse8->adap);
-+	serio_set_drvdata(serio, NULL);
-+	serio_close(serio);
-+	return err;
-+
- close_serio:
- 	pulse8->serio = NULL;
- 	serio_set_drvdata(serio, NULL);
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
----
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261111-c4-n014-01d6d6f52778
-
-Best regards,
---  
-Weidong Wang <weidongw@illinois.edu>
-
-
+If you want to undo deduplication, reply with:
+#syz undup
