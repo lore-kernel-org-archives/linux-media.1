@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794476155;
-	b=KF13UUgDOxbzndlQJdbl52vVTePTqaeEEzbPrcg/Yum+eRKCGy80N8XQThWugtIBVu4a
-	 mTahWp5lxKdGSYm5Q0XqqjQboF6oPsf8KbdBgA6wEcU4Zhh00BnG3VpRwu0BX90K16/UB
-	 1SmCJ8IxdgndTVBbja52YC4MyEMc1rAfy8FSaVI9sE3lSqWWqaZT+yo9qmf1qp19uOoON
-	 Tb/BTxTU0oKYm8AWReOfPkfPY94W1ZHYhcQDWuR7taeIsnfQuIxilPoqBpmhDBJoAyDvX
-	 KuKSHsD+hZskDemani4XQpGVZwKZaYDULIKN5nhAe5uEgS9VTtxNEbL26L68rPTiGyg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794476155;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=jX79YH8ZMFTcmxiD9fK2n3rXH2eSz5N1lvew7717HVo=;
-	b=W/NZmQdM3gUjkRBMblgN6aHwFyotLnWbHGE7idGS3rt1Vf54w45UBP5wm8s5Gmx51eC8
-	 aDu5yW+dg0P/cACAYsftarZbAmJTxeLRkO2f9Gc867nz0Ovyzdpk7Bta1dyPzkPeTkQvT
-	 APiXEB87dqQrEgWlPbJKUIAPpNAJr9j0UnxmG3JWtcN2e8vZja1IwIb/yzbUwXg5h6Vbx
-	 7A4x0oznqtq2vLaBEnexwcA+JcGKJYQ0XlQv372S38zAhIrEcdariji5zmt4QazPRDRma
-	 X++SXE2Rg4q9GVBeT0Qud9llFa3paD75v0RTNfwaaZHOqW1bZjy8/8LNQhFgOyXRrsg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2uWE8zM4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.50
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012050.outbound.protection.outlook.com [40.93.195.50])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794476467;
+	b=S9OSUsKutzBSaDc1BKGwnnqTw9VfT1d+BYNf9o79fvAGPPiTVC0L9GvsqJgYDu55Nq6A
+	 EzZNyaYOKwybPSqJ0JeEdILWneH9qNdV6WYbvH73EUvkxliHuJ4Z96yjVek8VTW4PvKG5
+	 8wWfPJejFY5yikM5fZOlcd/nHCdUCkMwfxy6ltQdP61BlNeMtdbi3Gtnl4Bwt0Rn7kEe1
+	 TLRTzYsAJStrdQ3k6fOeawCsnqpeBN5C/FZQdXF+ejmeA1ip2/5P/BFV5IM63FgKZoGa3
+	 HpjGOIqRNBR7CV5dy9zgNFCvfrbrEpF2MNR6p35ptQpaGh107+MTNaWlNOVuDfOp+Fg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794476467;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=c0DtF6b319KPvSfLGEX0iB6g2wpcniCU/mIrlo6hIlM=;
+	b=y0L9weofz0R7pTEdrGLLmpgBm2wKDJapv+hZW/SEkVZnH1sPMN1yn8TNniXXxWQ09E1Z
+	 J3PuUiSl2bFkmY6U2eahfPFtepCNdgJaf41n0djZbvE+wvtshqvd2NH78EnSoo3rjecRR
+	 186Pc1uBnxHXrxgcZtj5x5bywDijcrA9jWRvuh6lgtxRvhpK6vRP063g1RxckFXWAFbBu
+	 9Pxe57TmnwFsrjynA+O6pNgIFmEjQ78yTCqupBcZPDAnCfNory5q4ba629F9OOtbqjxyd
+	 zQR76x6Dc7+gwaWMrq8BuTQjMQIf12+9fQzRNc6RpFh/tVC48xobTgvy6Bed/FWUpzQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ffTxoRwt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D135606A323;
-	Thu, 12 Nov 2026 09:35:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D135606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF187606A32D;
+	Thu, 12 Nov 2026 09:41:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2uWE8zM4
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UtApe24p04kPirLr96sc0jrhqF461gj5xqAmMhAsh2v3RMDAB7l2vb568KUTGHItpqqlcoW03a6J5zM289vnfOxuv9hX82hnHuWlCUI23IV9x2RAFUW8mLcCXR4V+Y6RHGUXl177QtiEQURJ+nn/pkwP8+APuwJN7qDTLFSyrK68WYgJlrdId8Q+dszVhTq9Y13GTkJQe2fh7lC3bCHwYtQ22xzm4OPgYGH+/SwarnduT7YcDHesj+iDxuaKhpTA8P9Qa5KXVW8GgOm66OhvvNPTWAnFEWdZWqwWJmCPjnPz2YVxUz+nxordRNjiV6sm5xlnUANI8fO4WntkcAAqaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jX79YH8ZMFTcmxiD9fK2n3rXH2eSz5N1lvew7717HVo=;
- b=BggisyA8sCZMK3ABYWAu47RPVaufWt59EflM6qs3AiucFboQVDfKnvRwst3IGRuq8E7zTVvHdj12sYtXAozJAQ8ZzgdmwUoWNa4QgXN5oUlewuFu80TnrTumW+5JJSEXc7loORm/9kTeZRu77ylVxogu8DUcr//iJ/cncqqtunIfIlUkYRaw0krckWR9yxL4BxTKDZ3ZvHUMAJXsRNK65xKzpJb8APJwjYxYiVOBmT+TYNusvgesgT8nQjfrELIZM9qtyVEVslRPnVf5/sCeJAsQJB7UPZSvtLdpshdlK3knvH77zdrNUMh4aBwy6gdKn8shAEucMHb+CY1+fW9oxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jX79YH8ZMFTcmxiD9fK2n3rXH2eSz5N1lvew7717HVo=;
- b=2uWE8zM4kSVXCLJmPDygXC2mpaGic1wGxD48nuQ1Q5xsAg8LSBUclM24d2MEmTqcvwOdQtCKgv2A1o4qD8UgFQeihrMyP8ijXs5VeOcPL6QD1mtgRdX33Mw2V2WHW9+hXAYPIzacLuq1VPSIFg5dGys60nC2zWv3+CY03A6f+Ys=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN2PR12MB4423.namprd12.prod.outlook.com (2603:10b6:208:24f::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Thu, 12 Nov
- 2026 09:35:52 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.007; Thu, 12 Nov 2026
- 09:35:52 +0000
-Message-ID: <70c7192e-b9e7-4b06-9d78-38e9de85f486@amd.com>
-Date: Thu, 12 Nov 2026 10:35:45 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf] selftests/bpf: Test that a drained dmabuf iterator
- keeps returning NULL
-To: "T.J. Mercier" <tjmercier@google.com>, k.chen@smail.nju.edu.cn,
- ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
- memxor@gmail.com, shuah@kernel.org
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- sumit.semwal@linaro.org, phasta@kernel.org, tj@kernel.org,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org
-References: <20261110125106.2935677-1-k.chen@smail.nju.edu.cn>
- <20261111195942.1283060-1-tjmercier@google.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261111195942.1283060-1-tjmercier@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0207.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e5::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ffTxoRwt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72351F00A05;
+	Thu, 12 Nov 2026 09:41:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794476466;
+	bh=c0DtF6b319KPvSfLGEX0iB6g2wpcniCU/mIrlo6hIlM=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=ffTxoRwt2fePk6IBmUa0bCIgE2+hyzsUAOwA8z0obCYUSXGGlYfv6qSN7xWp/w1nb
+	 itU/wzjPtTz18FuvP7L9UUo7b6n10CLjpxhDzpiAwWx5qoapZgOP2JLA9ZURmxinjA
+	 zZ+nyL99xlherg4G4iK0MdbpRoRyN71A3Up9WU4epwpPgTSBAQZ6IxitG/a6zCAQb+
+	 ki4hUDOLguNfGv1eGPFmdiGg5TbAopSnd3Em/L9nohi35GOl9gehZwu5d4wXpJYXVN
+	 vCvO+3VfkZa0REDdLamISLtiysY4XNci8XwYk4W0u5fuH5+xTgXIDADHHQflI0hP+5
+	 A3DiZf2Mk8ZfA==
+Message-ID: <0756184b-50c6-477f-8a50-cd1a495f1d70@kernel.org>
+Date: Thu, 12 Nov 2026 10:41:03 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,163 +51,134 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN2PR12MB4423:EE_
-X-MS-Office365-Filtering-Correlation-Id: b15e7eb1-d7df-41db-b549-08df40a05789
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|22082099003|18002099003|6133799003|261009223027099003|56012099006|4143699003|11063799006|261028144727099003|261021121427099003|261102123227099003|261026140227099003|261026121527099003|261022105027099003|261022075727099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	sQ3+rfV++2qPefenNJslLJ5OPD9o5Kpy2Qj9nAks2Tg8xB4tN/HGjFwiUghUulgYIWgKwjRcwdt3SHSHLl7FOzn3HvPEbRneP4QPxNypd2YIugfqIClt8+TZgZxf0bLvlp3uuLeYf0bfBi3/9k6qT0pXBwcVap/i4MnhioZBk8MvYwlGH2325Wdl5Srn/3DAgoisp1NJq6Zrb9JBpCyWHtZYWSC/VMnh98XApYedb73RfCKWGew/PeCIKscMM6F6h/gVVlC9MLqa6m8fyLZ6RfPVVC5hJQSX6rqLSTrqd4j+xNtq3QuuV1dGBxIB9ZtkRYfMQFezDp+mSV+g69RlmGKQVpIBRA3WrpODK+pfOW7noMnNs9OKK7wbLjT3PVZN429UQncoeAWspCCHzlXxN/xn7uGJFQ0shGhTbSIujjTSfdLjLdeNx+2nrrOcLQcJuSc6MBEBsxQm4/+JZwXQyDLvPkCaWbDZ6He0D38VtZOiswDSGkptqGnD1VJjjFtrQaQ2GDkkkKRl+HEef2yLMJ1xNfKjGcnKWs0IdaLjMzCf++VVFZNOjTgnqzwje8R5Tuqj0WUm9o/S3dxrWrcdgh53BQHRVQzgFiHmVrQKRm6eBRFeLBiadJX7VwvCtFB/
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(22082099003)(18002099003)(6133799003)(261009223027099003)(56012099006)(4143699003)(11063799006)(261028144727099003)(261021121427099003)(261102123227099003)(261026140227099003)(261026121527099003)(261022105027099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NDJLRFdPc1N5a29Qb1ZFdk1Fd0dNNXVFVDFkQmVmQ3ltd2lrdmhsSEV3MHhS?=
- =?utf-8?B?a2NNR3R1Q1dpQWdGQlRQb3cxRVAxZ1dyZEFGWGQyOXViNGZxclVKa2pjT21L?=
- =?utf-8?B?UWxOQkdzVkZqaWp0eVRwdHhyRXRTWitaL1V3SFpzTytwMjJOS2x6ZHk4cTdu?=
- =?utf-8?B?RmNkeTl2dnNjREVFV0t1NUsvWlRBZHlHRUdwWVVnQTQzR3ArMWdwQXNpSmRJ?=
- =?utf-8?B?NmRiNDRCVGt3LytlM09lWUhpTXhTdUw2eDFNL09PY2IwWTFBN1c2ZFdIRURk?=
- =?utf-8?B?Slh6Rmpxem92N0x3TmlOdC9jNFlsbFpjRWIyd0hkcVJlUG1xNE8yMXlWbGMv?=
- =?utf-8?B?Z0MzeTF0dlRYQWxDSTg3N2xRR0JDRDRDdHY2ajZiT0dNT25neDZzS2JSM2xx?=
- =?utf-8?B?a1A0azMxYmhXOVZnZGxRQzdzYVFKL0Z4UXp1R3BLeHl1d0JUSmorUjN2ZmFp?=
- =?utf-8?B?Y3M2dnIxbktFekNMcVdOK3NuWThHcm5jNE1WSjZGRlJDTG5zWUhNM2l3MDJj?=
- =?utf-8?B?SHEwNWhjYVBUZENTRUN2ck1RTTlHc25PcmU1aDVVZXczTmk2Zlg3eGxEanZU?=
- =?utf-8?B?RHFnZk5nS3p3b3hhOFlQdU9jNS9aTXJIOTFqWTJRS0N2NEVVR2c3aDRSck9h?=
- =?utf-8?B?SGptWUVUWGJEVjR6REZHTGRNbnloM2RCNGlTSERyUlhPWlVwVW4rV1RCb1Jk?=
- =?utf-8?B?b0NSZGk1NmFFcm9mSGtMK0dHcG5tUmI4SEpPaXhIN0dxN0JLUHErSjU1QTh3?=
- =?utf-8?B?ejZ6alJUZlEzT3UyWlpyTUpKd1N1UzRTQVVsWjFoMSt3TVIxZHVYT1N4QU9h?=
- =?utf-8?B?a3RlbHB1NGdsMnUwcDVvVnFUR3d3a0FwaitXckw2c1VmNUxISFdqN20vQU1o?=
- =?utf-8?B?YVZaTmRiQjczem9KSDQ2VmRaZE9wL004TjVsV1ozQlNiZDZJS2w0RzltTUpx?=
- =?utf-8?B?aHRFMTcxMHYyejdTM3ppcHJKOERycVl2ZWI4WFB0SXExam0wQWFJVHlkSnJk?=
- =?utf-8?B?MXJqbE5GUXFDRm9La3FDZW1CODlRK2l0TlhJOWFtWnRXYUdHMkMxbjZUVU9G?=
- =?utf-8?B?QmdXdXhRK2VmbkpPNWJITlVLRGN1TXlVVHhYelZxd1BtS3Z4RDNiUmNPenh6?=
- =?utf-8?B?WWVCdys1UUlDQ1Y4dHNRVnBNYWxZMldXMkxvRy90TllsUG8yclpyaW40WDZE?=
- =?utf-8?B?SXpoNitYMzF4MmlEL3lDaU9qNEVldFpRbEhob01WRENhcFYyTldmUyttSlQv?=
- =?utf-8?B?NStoaXFmK3Nua1haVUNzc2VlTW9zN0h6TnJMVm5Zb1hSWm96K0NvWmpxZ3Zu?=
- =?utf-8?B?OXV5QVBwNG1KVkZ4NHdBSndKRGZONzFiWmJmUGc2WlBvMVhJYkZidWd2alJJ?=
- =?utf-8?B?QVgvUndidlF4OEw1SUp0QytCSm5mNFpYdFNEcUZSc2NFTVN0eTNWR3pSa0th?=
- =?utf-8?B?d2EyeGxJeW9XMGlIdTFxSW50YmpjeXVHVUpVKzRhUTY1Wk1PNFRsVVp3b3g5?=
- =?utf-8?B?SDZocTlxUmlQVVpjSmRTS0dGWGo5dnR2NE5rOUM3akhlOThORCtBakN3Q0pm?=
- =?utf-8?B?eW1ISjVFSWdpNlU3WnQ5eHFURDQ0UnVqd3VHQVhaU3NDekVBL2VxZldtWGRJ?=
- =?utf-8?B?M0ZiN2dVUjVTMHF2WWlESndVVW91SitUbkJHZDNhenVheU9ka1diVGVjVnlm?=
- =?utf-8?B?NXhIeXdCQzRnTzNTbFUzem5NTEhLQmxrUWpTSWY1OXU5VC9ueEUza01rZktK?=
- =?utf-8?B?OWUzUFJmNE1QdWVMZnhZTTJlUFpFVGxtT2kzOWxReEljbnpwNm5oMmZvTExP?=
- =?utf-8?B?Qi9uOW9WNm1NWFdGVE9IODZGbDdrQTE3NEhieTJ5by94bzNuOWxhRWxrL3VG?=
- =?utf-8?B?VjlaV1ZMNVh1UENxK29xMTNzTEd3dmovOUd5elVPNHlpRk9ZWGExTUFuOUFN?=
- =?utf-8?B?U3JDeUhWL0RSay9lcGhDMUR5Ylh5TXdCRnJwMTdJYUIvYkN4eXlpUXhwTHN4?=
- =?utf-8?B?QjVhS3VPdjR0T014S21yejdERWxZYlNGamtaSWdjek0rWFJHQy9scHRsZEQz?=
- =?utf-8?B?ZmxZWlE0WVJ3enZnZk1SS0ZQRWpUTndmcGltNGZNUnhTZXE4dUsyL081bVUr?=
- =?utf-8?B?amJHM3d2VlVCSnBON0hqS0xNUXpNTGdXVWFXQ3JNeWVvczBSSjZPY3IrcnZo?=
- =?utf-8?B?TnIzQ2J4RVdkVzJWWU9CU2tGQ2RyamFuaFZ5KzJLeUNXbVk3NjZWVXhyemY0?=
- =?utf-8?B?Vlh6Nm9yUlZrMzZhcGxJVnBKMWhDWGdyMXc4RmdESThSZjRzcWd1cDcwSlhs?=
- =?utf-8?Q?ZUdCTxLw8DwgAUuRrx?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b15e7eb1-d7df-41db-b549-08df40a05789
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 09:35:51.9086
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: imH/VpW02MPFZxyK5aU8ni/o9A+5VlmfGwd5A4Gy4aJQ3r3IW2Okx8fI5Mb/t8h/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4423
+User-Agent: Mozilla Thunderbird
+From: hverkuil+cisco@kernel.org
+Subject: Re: [PATCH] media: v4l2-mem2mem: wait for the job-finish scheduling
+ tail
+To: Yaohan Li <shunsheng1218@gmail.com>, mchehab@kernel.org
+Cc: Frank.Li@nxp.com, ming.qian@oss.nxp.com, nicolas.dufresne@collabora.com,
+ dmantipov@yandex.ru, 121811682@qq.com, ezequiel@vanguardiasur.com.ar,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <179378462223.70003.3811321311940400468@gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <179378462223.70003.3811321311940400468@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 11/11/26 20:59, T.J. Mercier wrote:
-> The BPF iterator docs in bpf_iterators.rst specify that the next
-> function of an open-coded iterator should keep returning NULL after it
-> has been returned once.
+On 04/11/2026 10:30, Yaohan Li wrote:
+> The job-finish path clears TRANS_RUNNING and TRANS_QUEUED before its
+> follow-up scheduling tail has finished using the mem2mem context.
+> If release races with that tail, v4l2_m2m_cancel_job() can observe no
+> running or queued job and allow the context to be freed while the tail
+> still accesses it.
 > 
-> Add a subtest that checks this for the dmabuf iterator. It drains an
-> iterator, calls bpf_iter_dmabuf_next() once more and checks that the
-> result is NULL. The dma-bufs the test creates keep the list from being
-> empty, so an iterator that starts over would return one of them.
+> Track the scheduling tail with a completion and wait for it in the
+> cancellation path. Start the completion in the done state so contexts
+> that never ran a job do not wait indefinitely, reinitialize it when a
+> scheduling tail begins, and complete it after the tail finishes.
 > 
-> The existing open_coded subtest uses bpf_for_each(), which stops at the
-> first NULL and never calls next() on a drained iterator.
+> The original race was reproduced as a KASAN use-after-free in the
+> common mem2mem code using the in-tree vicodec test driver and targeted
+> timing injection.
 > 
-> Signed-off-by: T.J. Mercier <tjmercier@google.com>
+> Fixes: cbd9463da1b12 ("media: v4l2-mem2mem: Avoid calling .device_run in v4l2_m2m_job_finish")
+> Assisted-by: ZCode:GLM-4
 
-Acked-by: Christian König <christian.koenig@amd.com>
+Clearly AI prose. I can't make head nor tail (pun intended) of it.
 
-Let me know if you already have drm-misc commit rights.
+What was the vicodec race? How was it patched?
+
+Please rewrite the commit log and comments in words that a human would use.
 
 Regards,
-Christian.
 
+	Hans
+
+> Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
 > ---
-> This depends on Kang Chen's fix and fails without it:
-> https://lore.kernel.org/bpf/20261110125106.2935677-1-k.chen@smail.nju.edu.cn/
-> Kang, feel free to carry it as 2/2 in your v2.
+>  drivers/media/v4l2-core/v4l2-mem2mem.c | 27 ++++++++++++++++++++++++++
+>  include/media/v4l2-mem2mem.h           |  3 ++-
+>  2 files changed, 29 insertions(+), 1 deletion(-)
 > 
->  .../selftests/bpf/prog_tests/dmabuf_iter.c    | 19 +++++++++++++++++++
->  .../testing/selftests/bpf/progs/dmabuf_iter.c | 19 +++++++++++++++++++
->  2 files changed, 38 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c b/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-> index 1a5dc1adae73..c1f81b5dccdc 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-> @@ -265,6 +265,23 @@ static void subtest_dmabuf_iter_check_open_coded(struct dmabuf_iter *skel, int m
->  	} while (bpf_map_get_next_key(map_fd, key, key));
->  }
->  
-> +static void subtest_dmabuf_iter_check_next_after_drain(struct dmabuf_iter *skel)
-> +{
-> +	LIBBPF_OPTS(bpf_test_run_opts, topts);
-> +	int err, fd;
-> +
-> +	fd = bpf_program__fd(skel->progs.iter_dmabuf_next_after_drain);
-> +
-> +	err = bpf_prog_test_run_opts(fd, &topts);
-> +	if (!ASSERT_OK(err, "test_run_opts err"))
-> +		return;
-> +	if (!ASSERT_OK(topts.retval, "test_run_opts retval"))
-> +		return;
-> +
-> +	/* The test buffers exist, so a restarted iteration would find one */
-> +	ASSERT_EQ(skel->data->next_after_drain, 0, "next_after_drain");
-> +}
-> +
->  void test_dmabuf_iter(void)
->  {
->  	struct dmabuf_iter *skel = NULL;
-> @@ -315,6 +332,8 @@ void test_dmabuf_iter(void)
+> diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
+> index a65cbb124cfe0..7637a876bb8c3 100644
+> --- a/drivers/media/v4l2-core/v4l2-mem2mem.c
+> +++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+> @@ -439,6 +439,13 @@ static void v4l2_m2m_cancel_job(struct v4l2_m2m_ctx *m2m_ctx)
+>  		/* Do nothing, was not on queue/running */
+>  		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
 >  	}
->  	if (test__start_subtest("open_coded"))
->  		subtest_dmabuf_iter_check_open_coded(skel, map_fd);
-> +	if (test__start_subtest("next_after_drain"))
-> +		subtest_dmabuf_iter_check_next_after_drain(skel);
->  
->  destroy:
->  	destroy_test_buffers();
-> diff --git a/tools/testing/selftests/bpf/progs/dmabuf_iter.c b/tools/testing/selftests/bpf/progs/dmabuf_iter.c
-> index 9cbb7442646e..d5421b75c39c 100644
-> --- a/tools/testing/selftests/bpf/progs/dmabuf_iter.c
-> +++ b/tools/testing/selftests/bpf/progs/dmabuf_iter.c
-> @@ -99,3 +99,22 @@ int iter_dmabuf_for_each(const void *ctx)
->  
->  	return 0;
+> +
+> +	/*
+> +	 * A job-finish tail may still walk this instance after
+> +	 * TRANS_RUNNING was cleared; wait for it to finish so the caller
+> +	 * can safely release the instance.
+> +	 */
+> +	wait_for_completion(&m2m_ctx->scheduling_done);
 >  }
+>  
+>  /*
+> @@ -460,6 +467,14 @@ static void v4l2_m2m_schedule_next_job(struct v4l2_m2m_dev *m2m_dev,
+>  	 * but the job must be run in non-atomic context.
+>  	 */
+>  	schedule_work(&m2m_dev->job_work);
 > +
-> +/* Result of a bpf_iter_dmabuf_next() call after the iterator was drained */
-> +__u64 next_after_drain = -1;
-> +
-> +SEC("syscall")
-> +int iter_dmabuf_next_after_drain(const void *ctx)
-> +{
-> +	struct bpf_iter_dmabuf it;
-> +
-> +	bpf_iter_dmabuf_new(&it);
-> +	while (bpf_iter_dmabuf_next(&it))
-> +		;
-> +
-> +	/* Store the raw value; the verifier would remove a branch on it */
-> +	next_after_drain = (__u64)bpf_iter_dmabuf_next(&it);
-> +	bpf_iter_dmabuf_destroy(&it);
-> +
-> +	return 0;
-> +}
+> +	/*
+> +	 * Signal that the scheduling tail is done. complete_all is
+> +	 * atomic: once called, all current and future waiters are
+> +	 * released, with no lock-free condition window as with
+> +	 * wait_event() + a flag bit.
+> +	 */
+> +	complete_all(&m2m_ctx->scheduling_done);
+>  }
+>  
+>  /*
+> @@ -476,7 +491,14 @@ static bool _v4l2_m2m_job_finish(struct v4l2_m2m_dev *m2m_dev,
+>  
+>  	list_del(&m2m_dev->curr_ctx->queue);
+>  	m2m_dev->curr_ctx->job_flags &= ~(TRANS_QUEUED | TRANS_RUNNING);
+> +	/*
+> +	 * The follow-up scheduling of the same instance still walks it
+> +	 * after the lock is dropped; re-arm the completion so that
+> +	 * v4l2_m2m_cancel_job() waits for the tail to finish before
+> +	 * releasing the instance.
+> +	 */
+>  	wake_up(&m2m_dev->curr_ctx->finished);
+> +	reinit_completion(&m2m_dev->curr_ctx->scheduling_done);
+>  	m2m_dev->curr_ctx = NULL;
+>  	return true;
+>  }
+> @@ -1245,6 +1267,11 @@ struct v4l2_m2m_ctx *v4l2_m2m_ctx_init(struct v4l2_m2m_dev *m2m_dev,
+>  	m2m_ctx->priv = drv_priv;
+>  	m2m_ctx->m2m_dev = m2m_dev;
+>  	init_waitqueue_head(&m2m_ctx->finished);
+> +	init_completion(&m2m_ctx->scheduling_done);
+> +	/* Start as done: a context that never runs a job must not block
+> +	 * in v4l2_m2m_cancel_job(). reinit_completion() below re-arms it
+> +	 * each time a scheduling tail actually starts. */
+> +	complete_all(&m2m_ctx->scheduling_done);
+>  
+>  	out_q_ctx = &m2m_ctx->out_q_ctx;
+>  	cap_q_ctx = &m2m_ctx->cap_q_ctx;
+> diff --git a/include/media/v4l2-mem2mem.h b/include/media/v4l2-mem2mem.h
+> index 31de25d792b98..89c8f10de67c7 100644
+> --- a/include/media/v4l2-mem2mem.h
+> +++ b/include/media/v4l2-mem2mem.h
+> @@ -95,7 +95,7 @@ struct v4l2_m2m_queue_ctx {
+>   * @out_q_ctx: Output (input from memory) queue context
+>   * @queue: List of memory to memory contexts
+>   * @job_flags: Job queue flags, used internally by v4l2-mem2mem.c:
+> - *		%TRANS_QUEUED, %TRANS_RUNNING and %TRANS_ABORT.
+> + *		%TRANS_QUEUED, %TRANS_RUNNING, %TRANS_ABORT and %TRANS_SCHEDULING.
+>   * @finished: Wait queue used to signalize when a job queue finished.
+>   * @priv: Instance private data
+>   *
+> @@ -125,6 +125,7 @@ struct v4l2_m2m_ctx {
+>  	struct list_head		queue;
+>  	unsigned long			job_flags;
+>  	wait_queue_head_t		finished;
+> +	struct completion		scheduling_done;
+>  
+>  	void				*priv;
+>  };
 
