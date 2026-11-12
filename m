@@ -1,47 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794491423;
-	b=cOx7zPc7Tx91pY2YRCtZJumD6xxJGm5MEK+BEAIszCxhqG3414sMBXPj1xaXffP0tIhm
-	 VgAdL/Kydf4Prx9XBduYhoN6WNV5XaFY27TWLKvy2dTcwW4ygMgRFD6nKy7oSq6aIVbbj
-	 5x+XYSC9s8cJbQ465dObveVxSVewtezL4clFxH647/ES7xobypz4zAnN0cjHOjuphuj5Y
-	 7VAv+GNBT58Z6+OcwrOk9GCkrw+0PVMJudpMdmxRHQx7OzvxjPyTt1FbATDs4zcQ57geQ
-	 D9Hsw9+1+rbqVY6GT07ZuvAA8NUg52sjSeqob8IY0bUi2BNnFHOsgXdYp6yVrrWTIXg==
+	t=1794491954;
+	b=Du1PPEqjGPqYMY+YOtECJPChqYps4M3sWOriPPUxqT5f32EYWpM0/LQKK0QPg2/LwSmJ
+	 n8kxpA54ATraDukKiumOGVhw57ZatBaIq0KWkbjtqNGnpDB9PZfXeW2DMmF3N61HH0J0v
+	 4fp8aOOKgAImWyPTDc0NlSbo/2PHW71Zty1Cmo6TFRBIe47N06ZhS8KLrQxInKCsSXNPN
+	 hvh/siRE2gx+/63vrIKGsiG4Fb5mLjPcNuDQxBZhd3rf8BkjfY0YvbkIn8begsNWNyP2F
+	 qrv0uyQxGk4iP9GXtVNa+S2wXUBMmLYxvSb94huYfyjE33j8t4fn3CKhOEHPEkGnBHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794491423;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=AZ/2DY2hA/HMWVbI0xtLxP0KJxLR1RirVD6s8sQ4jc8=;
-	b=eF+ODzBraY483LsZ8UCBTiT3kBCWCYGnzyYLUTGXEUrzaf6DN8tNw2tlyemoTVEVZpCT
-	 AGwGiUsvfQbWgpTzMS5BEf3zZkqpezI3boHWC/ENCdN4olh/BRIg3J9+oozSpbvsntUsH
-	 hVq8FpTwrQ56HCUcw4zNEBkOp7CRhHmwQy28FqI0z0BLN3Rjd0UB+8gdh9SSVrYOvTWU8
-	 /xZn+2/uI2qJ8bP3m++FZ7cKwPxvZo/YbbVY5fhIH6/nOunpCtjMYyiPwMsVW7TD+p9Z8
-	 ARscYfoh+BkV+Dx30SaEh+ffLWEFJdh6GDB2Qg71pz4rb53ytokFQOkjmAJOEPcpStw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794491954;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
+	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=C3Pum34PmCwY1bw4qi8a/x5ZBUCPkicMr/MwqlimKu4=;
+	b=r6GIOSdPdj85muJC70rN3qRQheNY4ySMwroeqrF6574obOlL4uoDRK+Ot4UBgcl+GKhz
+	 mXi3K4y3h2p0FIEdnIYgJ5LaAGbnKXOiJRf9NWA2v1fc5L/aZFPrq7j8IUZaCTts6VPUX
+	 seFFKzeX5k3bfJrV/DRD8UhvNqaCvKZwHRzdJn+3eCwTt+K34JnPgR/aTZQo6tpj/b1uH
+	 Gw8KUHUwpANbVOXT+O6TlK1+fxgJqD2xnvdxMTH9JtsHERzlnPGOVUWBYsu2Qvyn1iUVa
+	 C3ayb7bwMI99or8fKDqCWlsbfglBSg6bMUNVEWPYJ2itJbvs87pNnFp/yFfC7K5LUww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GHHaMRdW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=fZc2HTMN;
+	arc=none smtp.remote-ip=101.71.155.101
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3559606A321;
-	Thu, 12 Nov 2026 13:50:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C609B606A323;
+	Thu, 12 Nov 2026 13:59:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C609B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GHHaMRdW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 521AD1F00A05;
-	Thu, 12 Nov 2026 13:50:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794491422;
-	bh=AZ/2DY2hA/HMWVbI0xtLxP0KJxLR1RirVD6s8sQ4jc8=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=GHHaMRdWdMUou3wbRT4ViUZUPJdwSfIjp87zf5WT8JaWwQVM2QF1iYTQeGhIH+pKY
-	 3l4Qy27BMbJnjepWhImrQAtQyLvYpr3DWiX3f7UHk3K2Z3s6Sdb+bouJ18mr4b622K
-	 PL6CszetbzHDSoclmLLOOYU0QL/WLBKK0KZlWC9heFlj4pJ8v53p0JNUWoEjNCngBE
-	 Nwz8sYXrH94ePw3YfUqC/7EczMqsbplVR4PXMQyXz5G+S4qIg/HbGNbURd1j6OO9zo
-	 PgLQvctzrQbkX9jamKkFVSGLd9+xFXAv7mmWquVaJUh1QXYxCymCuwyA6d86REuWez
-	 gZH7Yip7Aa0Jw==
-Message-ID: <de8171d4-b355-4fc1-8472-8682a897d928@kernel.org>
-Date: Thu, 12 Nov 2026 14:50:19 +0100
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=fZc2HTMN
+Received: from lgs.. (unknown [101.76.249.61])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 547738922;
+	Thu, 12 Nov 2026 21:59:02 +0800 (GMT+08:00)
+From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: tw686x: Fix potential use-after-free on video registration failure
+Date: Thu, 12 Nov 2026 21:59:01 +0800
+Message-ID: <20261112-88a3a7ff32-media-tw686x@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,110 +54,44 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH] media: go7007: return queued buffers on start_streaming()
- failure
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
- Hans Verkuil <hverkuil@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>,
- Cheng Wen <wencheng@xidian.edu.cn>
-References: <20261016102213.42771-1-25031212351@stu.xidian.edu.cn>
-Content-Language: en-US, nl
-In-Reply-To: <20261016102213.42771-1-25031212351@stu.xidian.edu.cn>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1d00e062b03a1kunm16083b5829e4
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHUtJVh1LQ0gdTE9MHRofTlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
+	NMVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=fZc2HTMN0iz4eValiAmaC/vonsH8P/Xngbae3nKQPMau0Atvgn2Y0cxA2qexlLmzTkJ3nKBJ+47GD66mYKkJkM/8q+UNNOhelniNYHZ0lGBywXedrhCECE6Zrsz4Hp4w5ccLB8iYbWHnBL3K4Z7BPJowPFt4vpqDi35+5tR6cd8=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
+	bh=C3Pum34PmCwY1bw4qi8a/x5ZBUCPkicMr/MwqlimKu4=;
+	h=date:mime-version:subject:message-id:from;
 
-On 16/10/2026 12:22, YuanZhe Liu wrote:
-> The vb2 framework hands ownership of every queued buffer to the driver
-> through the buf_queue() callback before start_streaming() is called.  If
-> start_streaming() then returns an error, the driver must return those
-> buffers to vb2 with vb2_buffer_done() and VB2_BUF_STATE_QUEUED.
-> Otherwise vb2_start_streaming() fires WARN_ON(owned_by_drv_count) and
-> forcibly reclaims the buffers.
-> 
-> go7007_start_streaming() returns -EIO when go7007_start_encoder() fails,
-> which happens for example when a USB transfer cannot be submitted because
-> the device has been disconnected:
-> 
->     go7007 1-1:1.0: error submitting audio urb 5: -2
->     go7007 1-1:1.0: error starting stream transfer
->     WARNING: drivers/media/common/videobuf2/videobuf2-core.c:1797 at vb2_start_streaming
-> 
-> but it leaves the already queued buffers on go->vidq_active.  Give them
-> back to vb2 with VB2_BUF_STATE_QUEUED before bailing out, clearing
-> go->active_buf as well.
-> 
-> Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-> ---
->  drivers/media/usb/go7007/go7007-v4l2.c | 29 +++++++++++++++++++++++++-
->  1 file changed, 28 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/usb/go7007/go7007-v4l2.c b/drivers/media/usb/go7007/go7007-v4l2.c
-> index 2087ffcb85a5..e0b646e8dad1 100644
-> --- a/drivers/media/usb/go7007/go7007-v4l2.c
-> +++ b/drivers/media/usb/go7007/go7007-v4l2.c
-> @@ -394,6 +394,31 @@ static void go7007_buf_finish(struct vb2_buffer *vb)
->  	vbuf->field = V4L2_FIELD_NONE;
->  }
->  
-> +/*
-> + * Return all buffers that have been queued to the driver back to vb2.
-> + *
-> + * The vb2 framework hands ownership of every queued buffer to the driver
-> + * before calling start_streaming().  If start_streaming() fails, those
-> + * buffers must be returned with VB2_BUF_STATE_QUEUED, otherwise
-> + * vb2_start_streaming() triggers WARN_ON(owned_by_drv_count).
-> + */
-> +static void go7007_return_queued_buffers(struct go7007 *go)
-> +{
-> +	struct go7007_buffer *vb, *tmp;
-> +	unsigned long flags;
-> +	LIST_HEAD(buffers);
-> +
-> +	spin_lock_irqsave(&go->spinlock, flags);
-> +	list_splice_init(&go->vidq_active, &buffers);
-> +	go->active_buf = NULL;
-> +	spin_unlock_irqrestore(&go->spinlock, flags);
+Failed video registration releases vdev but leaves it in vc->device.
+The common cleanup then passes the freed object to
+video_unregister_device().
 
-This part should not be needed: if go7007_start_encoder() fails, then active_buf is
-still NULL.
+Clear the channel slot after releasing the unregistered device.
 
-> +
-> +	list_for_each_entry_safe(vb, tmp, &buffers, list) {
-> +		list_del(&vb->list);
-> +		vb2_buffer_done(&vb->vb.vb2_buf, VB2_BUF_STATE_QUEUED);
-> +	}
-> +}
-> +
->  static int go7007_start_streaming(struct vb2_queue *q, unsigned int count)
->  {
->  	struct go7007 *go = vb2_get_drv_priv(q);
-> @@ -409,8 +434,10 @@ static int go7007_start_streaming(struct vb2_queue *q, unsigned int count)
->  	else
->  		ret = 0;
->  	mutex_unlock(&go->hw_lock);
-> -	if (ret)
-> +	if (ret) {
-> +		go7007_return_queued_buffers(go);
+This issue was found by our static analysis tool under development.
 
-I would just move the code from go7007_return_queued_buffers to here.
+Fixes: e0b212ec9d81 ("media: tw686x: Fix memory leak in tw686x_video_init")
+Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+---
+ drivers/media/pci/tw686x/tw686x-video.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Regards,
+diff --git a/drivers/media/pci/tw686x/tw686x-video.c b/drivers/media/pci/tw686x/tw686x-video.c
+index 785dd797d921..3ffbf462d353 100644
+--- a/drivers/media/pci/tw686x/tw686x-video.c
++++ b/drivers/media/pci/tw686x/tw686x-video.c
+@@ -1281,6 +1281,7 @@ int tw686x_video_init(struct tw686x_dev *dev)
+ 		err = video_register_device(vdev, VFL_TYPE_VIDEO, -1);
+ 		if (err < 0) {
+ 			video_device_release(vdev);
++			vc->device = NULL;
+ 			goto error;
+ 		}
+ 		vc->num = vdev->num;
 
-	Hans
-
->  		return ret;
-> +	}
->  	call_all(&go->v4l2_dev, video, s_stream, 1);
->  	v4l2_ctrl_grab(go->mpeg_video_gop_size, true);
->  	v4l2_ctrl_grab(go->mpeg_video_gop_closure, true);
-
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
