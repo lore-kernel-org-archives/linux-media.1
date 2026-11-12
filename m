@@ -1,94 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794473856;
-	b=bKUxcnSpF5wR/kExi66gmd21xoCeu3Z+4SSDdAiLxI2/JHbsd/RwyGTk1rbc0fFx0o0N
-	 R0ndb7nmnVeojieHYfZeYGKwLKZP01/K3TUe+LEICQTrsB6z8/60a76j10QkP49SnMn1i
-	 Me25oWdxCJwhvgyPHK8xzJMwadJQPQwc+Qlvl4DHcxnaSxUq1XhBgipZheRcAVQXjJB1y
-	 LtPbMFOz4LpGDJ1KQ8ogiefFKhLpBVASGsnt5uLX6eAnnczH407M7m2UZlxWVUr3BdRRQ
-	 AJpyIEaA4n2hdkGM+7DKMPaa7LPH4jwxHrJ4OrFiF1OZ12QA2LXXBb2GdS/JoGEvSBQ==
+	t=1794474780;
+	b=fPICMcKokCn0eIRdfTxfxro6vZDUmmT3OV0GjWlVvEev7uT/u7XBQU+w2Lcqy69wY5PB
+	 NhkST0CerEjyUc62HqJ0VdjuKJ3D9UvLqIvBeg45gbZ+4dK4PmIyNYz76u1jEY1w5cdlh
+	 dG/WYXse5uEgNoZJ9AUPioDptfE3RML9oUx+69FG/H0+zmgEYs7OL/rK36KElh243Rt4l
+	 M8N+3E5poxTM9s6BuLC83ANepjGKFGqKkfna9mTJYYP6tFKHG5HBAlyl2LKxim4Sfp86N
+	 q+IiSRmDXW3n1caGGgwWQiV6IVobzk5A/R1JY2BECad86qpk27ZffRdB79h3ndzPDkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473856;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=caTSnsBrTqe94LDzn8TNXzbenXC+l/bvRrYsgGczlAE=;
-	b=yMxAeJ3gQbjZAttEY/OvEkiJAVIMAHMz3MQ3pR7Aka15MIjokunQFJdS61EaIcg1+DNG
-	 d7AEnsguOEeZSKum2wcuBmsgaTWbEM3J/rMRDyjsuBcyjXdeqj0Tv5YrtBl86hvzTzjZi
-	 yr+hRnyQHdBP6Hzd1tE3TKArE6v4CzVxMimGFIZB/pH+YMMi2e6QoY2CagQpwQnMyKWR2
-	 LScMA+ObcVpQa7adI3oZGAlcyXIatWUFpefN3vTfh0hULJND/2YXhqWzTHGGPsJCDdWYy
-	 x2YdWY2i/0NTnsThrFIC+DquvHU0y8eY1zbe44cQQMZDhc4pfF47E19wgBewRt1kn4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794474780;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=DYuNa/LHxO0TX6Glay1qpIEMz5l2cwp9PI6fevLRYNY=;
+	b=O4VDOVbZ01DTvMXyPIJctp7gdrlm7ntNWqLqDkpIVrARL8lZdnL67/zc4P1kRa9wEik9
+	 0pPDj/+zv3lcEFOT6DJ8PuhUu8gxwhGSPdVV2+Q6Vmu5QeAfnWbu0o30RncNowjwAuI7F
+	 BOM1zVpwQuXGbTAG7cQtcwbRXH7SJNopFk28OAXIfcSTXtZQWTZB7KFJwIkfuJoFfqUND
+	 KqEoSTq//IF3zRhNOCJ8sXt0uxJvM6dlCinlZzjksbtkOWFz6bxlDMXcU9QEAPtBH+mMX
+	 CgxPqW7r52Jcn3dxJel6MZmn+AU4P05V7eA9hxIztEDr/YZBH43nVLHZD/heVz+X6Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0qx1+s8q;
-	arc=none smtp.remote-ip=74.125.229.9
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Qezyq1if;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D740606A323
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 08:57:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D740606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9688606A31C;
+	Thu, 12 Nov 2026 09:12:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9688606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0qx1+s8q
-Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-35eaf84cc66so3736887eec.0
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 00:57:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794473855; x=1795078655; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=caTSnsBrTqe94LDzn8TNXzbenXC+l/bvRrYsgGczlAE=;
-        b=0qx1+s8qLZWIWAWbqA070ck8AaIJ0zFwuvyDK0RU+jNnluK9wao8FyEcxplBm4q8PI
-         WzPQ8MboInroksTMHTkz7DR66jv0KxL68L3I7aIlSY3fdpxbj11WDo0HpQiSKyn2MoEj
-         uZygIuy+9KUYik3lLYuU6WTm1S1mhYVhtIuyD9MDB0Q/ETtEG70I0/a8M8LLSX3mMrTN
-         ANX8s5iCX4TNxb66fLLy08VVB05mRTbc2vnmP48TmnMGwrJI/bR/6FdLPnSeYDwhUUTY
-         uYvVUu7arduWHpqzbBrVQWF4d4P5b+qKK25WOp5MInzX67GDtUjn8X3AUzCswmsD7/pU
-         NAMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794473855; x=1795078655;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=caTSnsBrTqe94LDzn8TNXzbenXC+l/bvRrYsgGczlAE=;
-        b=CRn7xVSVEDA/g13AZPUJLctbBYYWzfZIJ016Zha3j5xBTETEWpPwyWEEh8T/2wyBcd
-         BRx3tPge39lQXPHC84TDbKPS2r7VybliAFZKIl4NWw07yb8T5P/hJMCcRWhpebXNCVtz
-         E/Q1/xcEch9sbSe6HgLPGcNCi2AcHYfwX5YPgX9Pew/ggWCN/l4d2apMli04bOyn/aTk
-         2YWg/mDdikyFxVmt29FMLYbhMgU6pJRFL+xjhwBGkFoIb0CIYv+dcpv5mRojjx4Ahfdr
-         j2bZRWk9qQW0/6FHp3RA9qYiJ8oTch+gHW6tK9XlhYxvhHhzZ+hoo/jaqRaPRxyhM59s
-         C5ow==
-X-Forwarded-Encrypted: i=1; AL+hErFzvGP3RO7mC69HpqpnLrL+YEJHK7o00tJg5UDdwZFnEJUgxHjjLLGR3s1PBQTvpn8Kw2P860mXWOnzRw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+9M1QVW1T8xprunb+vgF1vVKC0jQ/CV2GwhnugmIhF0Aw/vSqK
-	yK3xJKz3GZFYl8avWHv9Vq2HAVhISBtE/ltfSOu2c9jwzV5/iAji7+lg
-X-Gm-Gg: AYBFou12+CfXnCZtcs25j5o/6FSNM2UlxF/INng1scXhiRaAACLww0mM3Xm1xUuDNt1
-	ISYbnp16slAA36Yp5iW/L5AZBTk95oR4MxjqkD3vJPtGJzX+6RUHKX3CnIedwXvRU49DYS+1J/q
-	UIdslUuEAbs48DJldCMeQBUH3N/wqiEf6UkXoED7MNNs2hRCIbWM0d4+v7y5Jqef2eS0KdPoTki
-	svx6YvOYcTXPD5YlPWxc2iJoWMzQ18WaCTpbANUnPv/bS8upv8BTCwijCg0/CrBgMhJgAilx8QR
-	eaPrkW+Czax9YUaeGQfXNWJNXCSFFsa2UfsPYoT7B29FrvmofU+OH9rI7ikIqOUVxlfnekaD3+G
-	hpwae6ucZItjiYVvtGt7In3QA4t20Zpe8SugkDk+9CKS/fCHlC8T21PYxSDurhCros2j9a8PojS
-	uFJfxGKj5DCzph7lG1H1dNJByyexobU0ZRMYzJcM0sJc8sUW6p0jlPepk4DbOXo4aGVA+OMWd3J
-	PkVovzf2cdKJcsvRkux2N9aSej7yxFOUi0IvT1L98M+Yp23Brfyvri8O1pS4c46mb3QmfOreb7V
-	X0drgHRHot9geGEY7Hyi+pQ9DA51THHIUU4XhXrAxFXibYY=
-X-Received: by 2002:a05:7300:561c:b0:36e:2626:4ace with SMTP id 5a478bee46e88-3768366a866mr5645746eec.5.1794473855002;
-        Thu, 12 Nov 2026 00:57:35 -0800 (PST)
-Received: from world ([2409:8a28:ae4:7f20:114b:916a:a0f2:66e5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751dae6377sm22163168eec.3.2026.11.12.00.57.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 00:57:34 -0800 (PST)
-From: Zixin Wang <w1355457260@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Biren Pandya <birenpandya@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zixin Wang <w1355457260@gmail.com>
-Subject: [PATCH] media: i2c: cx25840: guard media_entity_cleanup() calls
-Date: Thu, 12 Nov 2026 16:52:51 +0800
-Message-ID: <20261112085251.734109-1-w1355457260@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Qezyq1if
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794474780; x=1826010780;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=d6+TcS4KnD9yXbX+YxzG4orja4iS4l0lR0A+jt6enXg=;
+  b=Qezyq1ifXnhmcNlULeRyJ4hqpC1T/Nd4oz5lkUZ2mTFGTXTwdc+BCUcg
+   ka2a+qH66Y/tZX4H0GFCgwzbinhzs26ftAUVomx7GK14Md4Yu1bROZ7Vz
+   mJ95LPNo447BUE6l2d8Q4hzvMlJ5Pxe4jG+pAcaON6z9fHj77UaC6AXbd
+   mVWua2uYjzTZArJc3xArHOMJ/F9D3FHg516dDnU6+W1plqlv/2zTyUCTN
+   WbHDQIpGuTQPp7NbH0urVPW/5iyEjYGZLYC8bjOH6x6GZQxZIuzhIGEAm
+   RWmf9Lss4OyIBQ5yM+5X3QHGyMIgRovkoY7g4otkN0e00+Ci55CAmpl5s
+   w==;
+X-CSE-ConnectionGUID: Ebpvi2ujTJC2yd3ruFBYTQ==
+X-CSE-MsgGUID: 3gpvI2BOSXqR3qVkSm5/Vg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11963"; a="3136068"
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="3136068"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 01:13:00 -0800
+X-CSE-ConnectionGUID: xtfLNdbrSCu9QHNRLZDNDg==
+X-CSE-MsgGUID: cgRuozDRQ0C7ZX9cw9Tlhw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,209,1787036400"; 
+   d="scan'208";a="10381648"
+Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.34])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 01:12:57 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 5DC54121B7E;
+	Thu, 12 Nov 2026 11:12:58 +0200 (EET)
+Date: Thu, 12 Nov 2026 11:12:58 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Zixin Wang <w1355457260@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Biren Pandya <birenpandya@gmail.com>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: cx25840: guard media_entity_cleanup() calls
+Message-ID: <avWDGi-IPsVEdyby@kekkonen.localdomain>
+References: <20261112085251.734109-1-w1355457260@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -98,56 +84,70 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112085251.734109-1-w1355457260@gmail.com>
 
-sd->entity only exists when CONFIG_MEDIA_CONTROLLER is enabled, but the
-two media_entity_cleanup() calls added by commit 634be628b5cc
-("media: i2c: cx25840-core: Add missing media_entity_cleanup()") are
-unconditional.  Building with CONFIG_MEDIA_CONTROLLER=n therefore fails:
+Hi Zixin,
 
-  drivers/media/i2c/cx25840/cx25840-core.c:3964:41: error:
-  'struct v4l2_subdev' has no member named 'entity'
+On Thu, Nov 12, 2026 at 04:52:51PM +0800, Zixin Wang wrote:
+> sd->entity only exists when CONFIG_MEDIA_CONTROLLER is enabled, but the
+> two media_entity_cleanup() calls added by commit 634be628b5cc
+> ("media: i2c: cx25840-core: Add missing media_entity_cleanup()") are
+> unconditional.  Building with CONFIG_MEDIA_CONTROLLER=n therefore fails:
+> 
+>   drivers/media/i2c/cx25840/cx25840-core.c:3964:41: error:
+>   'struct v4l2_subdev' has no member named 'entity'
 
-Guard both calls with #if defined(CONFIG_MEDIA_CONTROLLER), matching the
-existing media entity setup in cx25840_probe().
+How about instead turning media_entity_cleanup() into a macro that does
+nothing with the arguments if MC is disabled?
 
-The failure was reproduced with CONFIG_MEDIA_CONTROLLER=n.  After the
-change the driver builds with both CONFIG_MEDIA_CONTROLLER=n and =y.
+> 
+> Guard both calls with #if defined(CONFIG_MEDIA_CONTROLLER), matching the
+> existing media entity setup in cx25840_probe().
+> 
+> The failure was reproduced with CONFIG_MEDIA_CONTROLLER=n.  After the
+> change the driver builds with both CONFIG_MEDIA_CONTROLLER=n and =y.
+> 
+> AI assistance: the fix and this changelog were drafted with the Qoder
+> coding assistant; the sender reviewed the change and ran the builds.
 
-AI assistance: the fix and this changelog were drafted with the Qoder
-coding assistant; the sender reviewed the change and ran the builds.
+This goes below the '---' line.
 
-Fixes: 634be628b5cc ("media: i2c: cx25840-core: Add missing media_entity_cleanup()")
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=222245
-Signed-off-by: Zixin Wang <w1355457260@gmail.com>
----
- drivers/media/i2c/cx25840/cx25840-core.c | 4 ++++
- 1 file changed, 4 insertions(+)
+> 
+> Fixes: 634be628b5cc ("media: i2c: cx25840-core: Add missing media_entity_cleanup()")
+> Link: https://bugzilla.kernel.org/show_bug.cgi?id=222245
+> Signed-off-by: Zixin Wang <w1355457260@gmail.com>
+> ---
+>  drivers/media/i2c/cx25840/cx25840-core.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/media/i2c/cx25840/cx25840-core.c b/drivers/media/i2c/cx25840/cx25840-core.c
+> index 7066b2252afd..91794ec59e2d 100644
+> --- a/drivers/media/i2c/cx25840/cx25840-core.c
+> +++ b/drivers/media/i2c/cx25840/cx25840-core.c
+> @@ -3961,7 +3961,9 @@ static int cx25840_probe(struct i2c_client *client)
+>  		int err = state->hdl.error;
+>  
+>  		v4l2_ctrl_handler_free(&state->hdl);
+> +#if defined(CONFIG_MEDIA_CONTROLLER)
+>  		media_entity_cleanup(&sd->entity);
+> +#endif
+>  		return err;
+>  	}
+>  	if (!is_cx2583x(state))
+> @@ -3986,7 +3988,9 @@ static void cx25840_remove(struct i2c_client *client)
+>  	cx25840_ir_remove(sd);
+>  	v4l2_device_unregister_subdev(sd);
+>  	v4l2_ctrl_handler_free(&state->hdl);
+> +#if defined(CONFIG_MEDIA_CONTROLLER)
+>  	media_entity_cleanup(&sd->entity);
+> +#endif
+>  }
+>  
+>  static const struct i2c_device_id cx25840_id[] = {
 
-diff --git a/drivers/media/i2c/cx25840/cx25840-core.c b/drivers/media/i2c/cx25840/cx25840-core.c
-index 7066b2252afd..91794ec59e2d 100644
---- a/drivers/media/i2c/cx25840/cx25840-core.c
-+++ b/drivers/media/i2c/cx25840/cx25840-core.c
-@@ -3961,7 +3961,9 @@ static int cx25840_probe(struct i2c_client *client)
- 		int err = state->hdl.error;
- 
- 		v4l2_ctrl_handler_free(&state->hdl);
-+#if defined(CONFIG_MEDIA_CONTROLLER)
- 		media_entity_cleanup(&sd->entity);
-+#endif
- 		return err;
- 	}
- 	if (!is_cx2583x(state))
-@@ -3986,7 +3988,9 @@ static void cx25840_remove(struct i2c_client *client)
- 	cx25840_ir_remove(sd);
- 	v4l2_device_unregister_subdev(sd);
- 	v4l2_ctrl_handler_free(&state->hdl);
-+#if defined(CONFIG_MEDIA_CONTROLLER)
- 	media_entity_cleanup(&sd->entity);
-+#endif
- }
- 
- static const struct i2c_device_id cx25840_id[] = {
 -- 
-2.56.1
+Regards,
 
+Sakari Ailus
