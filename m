@@ -1,66 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794447780;
-	b=ea/FVXE3v/CS5+x73u6lA5naKt+B8iC/i5wC/X7lMvdPESuUmQdVhHV0sHF1jvVwpy1i
-	 ktTqBrcyrdxQUXNutYVpea5yBIZT+dkwU5ojLdfu8IeQrTUJLJ1lxsJYnKQypFmkExEhy
-	 C+MmdPVKRUYfuAgdO/dQ7q5lXTzdvBVuDP3xZ+IUXAfmwIvmyzzYTJN+A+CehwbBsXO67
-	 xNl7F2wFpsdNOlP1ItN02rHzsI+FCDmwYUmXf7/UfBIsVS4nnyDqYUHB0DjAUuNuiWajO
-	 a/6tqDnniJoz7dSy+npxFgAAAUHcagMUrCBYrgGdd7kET/MBIN6M5Mwt5lmObJSb86A==
+	t=1794447893;
+	b=hSiUkENUAEx2ZfLEKKbW6RSubr5FMiWWPsbdf35mgboSJzCKA0AJhku+rqT7b+MII6Fl
+	 Neho2ojIWENy/H4LJan4p9vy10spNgmB2k+QFb21338sA3JS07iVFBV2cdRttGYjHx6/B
+	 FZJUj1Yi2OMe6TqMm2H2l1t0h7ff1FLD7sUAP9BCMLbLfX01kxoMXTRRges2DFr98b4EM
+	 rAcp38nfto/dE3yN4BIS/aWzQiHTNjNoAkJq4TAs3yPtSm+jfvgWs2rSsJgBIfe6KhoS+
+	 pEr/aw/VY8gG2Jlje5hlfbM5JCBEHrhhnbeWsQB+GWsD66LFQ+CdHMf96yQ/eDZqqRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794447780;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=RydkAwhCHaAKlfAub9w35tVkjVw3id/z9+LZoN9cN3s=;
-	b=KCRCg3ZaXwl0CrMfFdsye9MdWw9bEvV9ZiNo3aKvnVB2LHRIW49bvI9UbCNj6eOAQys/
-	 64oDsYCPmyrrBVm71BWnHtwKhLpcUXOPuFTtdIb+eKgi/bWvXp/a2OnRY1fHTpSU4PPMy
-	 FYZdTWkctoYxBnQjrcx/8pw9EbEOzmEGw+xV30aQywmWH+x0bybwVr8kSG81uwcNNkwgG
-	 aCVg43OMaCBSVuK2R5TQrp8w+vRWnILCT4ZvSrf6/x1ZCRKmAeIstZE3jfHh4ja2Vj+my
-	 Ly26Ibw4Poaiq8taptzQVqvzsPyvOrYcjTI67fjUiJFYtXZDv5GThhKjyY81r4Zs8+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447893;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-ID:
+	 In-Reply-To:References:To:Cc:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:X-Debian-User;
+	bh=xwNnK2LWoXJDwo6LhXEG3qjbIAa1l7hUKLSn5yhHD6g=;
+	b=rsXeRTxCo0dD2JXLs+YkZl57jwgkMTOL4d1/nMOq6h5M85M7PtmFv3fiexfzEPqSyOds
+	 fyoFtyAmJPjXiqy2RpzzUtv7ZpUSmfvOVzBPyaB8K07HwFKAPSyq5bmhgp2AE2PdBLf7i
+	 eFzeb9GPbU5OqsVOUXNQ+kbI9Bokn9sj6GSiU8V9phOdab/8mcDJR2OtHFc00apyfsEyj
+	 0dCScTAJ33QEDmVH/UsZgCiys/qsuI888iuMem+veucvDRVDW+zpmSfBuVEFfQaAhn4W9
+	 tOsKBeDixw+TsxSIPTZHG1tIKtu8HxZBgQOuWAXy8Zehu3m4VhxMLIaAgsGiWBA4yGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=qyp+1ySN;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=ucTn74JG;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D18606A324;
-	Thu, 12 Nov 2026 01:43:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46D18606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8DB606A31C
+	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 01:44:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C8DB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=qyp+1ySN
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CCD5E33D;
-	Thu, 12 Nov 2026 02:40:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794447635;
-	bh=mbqc4reuJ5uBUi3+eZMvhNNKUYHa01GKz4Io2SYawNA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qyp+1ySNielkdl0+WhADvwJC2XanDvORnzB3mO35LsdWGnWfo8J/2OEdTcOqSBYcu
-	 D/WsJgfwElxahNpwMU1hHy25tzzEwM7EOgi1eKF0VoE7u0Bv65N+C+DBwaYKq0s1fj
-	 1QcAyKfs/dcLEttWGWavP7I52moXsHbWCpoMn8Aw=
-Date: Thu, 12 Nov 2026 03:42:57 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	linux-media@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 03/11] media: imx8-isi: Support mbus_code filtering in
- format enumeration
-Message-ID: <20261112014257.GB449716@killaraus.ideasonboard.com>
-References: <20260929-isi_imx952-v4-0-e69f89c7c651@oss.nxp.com>
- <20260929-isi_imx952-v4-3-e69f89c7c651@oss.nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=ucTn74JG
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:MIME-Version:Content-Transfer-Encoding
+	:Content-Type:Cc:To:References:In-Reply-To:Message-ID:Date:Subject:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=xwNnK2LWoXJDwo6LhXEG3qjbIAa1l7hUKLSn5yhHD6g=; b=ucTn74JGbC9MtX5Sip25Y3LBKb
+	g1gLtmmryx219HzCA5j39HEG1Bsw+nGzwiP1QlonFIw3Pis5/r/NGP8hA3DpcuTZT/owF7ulraof2
+	0r4nPt2vz3B08iLuiZfjh9g8uaBjSh794nwr8xC0Toz8tV7KnMPZHt+rmoKQDkQx7hE9eyaerQzKU
+	yR8EaFJLHOil1CHtjI1wzkCozGmF9fn8GlZQBRyz7WBdMyOeJcLbUc5VhHZ6og81c2GPPXvt/xQYB
+	x9wwFEBlHaRFCL9gbucuGrK2YNgJ0vpVvww5CVrdmudzrHNwhrSR0WH6Id/D1ZvMPOwpbK4OcwOk8
+	sKHL0RAQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <emfox@debian.org>)
+	id 1xRJrr-00DcBC-0D;
+	Thu, 12 Nov 2026 01:44:47 +0000
+From: Emfox Zhou <emfox@debian.org>
+Subject:
+ [PATCH v2] media: ipu-bridge: Mark the Surface Pro 8 sensors as upside down
+Date: Thu, 12 Nov 2026 09:44:43 +0800
+Message-ID: <179444788333.52615.13387476304977602101@debian.org>
+In-Reply-To: <179441296841.24445.13457212017391431902@debian.org>
+References: <179441296841.24445.13457212017391431902@debian.org>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Dan Scally <dan.scally@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, Hans de Goede <hansg@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -70,85 +70,55 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260929-isi_imx952-v4-3-e69f89c7c651@oss.nxp.com>
+X-Debian-User: emfox
 
-On Tue, Sep 29, 2026 at 04:52:24PM +0800, Guoniu Zhou wrote:
-> Extend mxc_isi_format_enum() to accept a v4l2_fmtdesc pointer instead
-> of a plain index, so it can filter formats by mbus_code when set. This
-> is used by the capture path to enumerate only formats compatible with
-> the connected subdev output.
+Both camera sensors of the Surface Pro 8 are mounted upside down, but the
+machine does not report that: neither the SSDB nor the _PLD carries a
+rotation, so both are advertised with a rotation of 0 and every
+application receives an image rotated by 180 degrees.
 
-It's not in this patch, mxc_isi_format_enum() is used for M2M only. It
-will only be used in the capture path in patch 04/11.
+The front sensor has the ACPI HID INT33BE, not OVTI5693 as on the Surface
+Pro 9, and the rear one is OVTID858. Add one entry for each, the same way
+the two Surface Pro 9 sensors are already handled.
 
-> 
-> For the M2M device, the V4L2 framework clears mbus_code to 0 for
-> devices without V4L2_CAP_IO_MC (v4l2-ioctl.c), so this change has no
-> effect on M2M format enumeration.
-> 
-> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-> ---
-> Changes in v4:
-> - New patch
-> ---
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h  | 2 +-
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c   | 2 +-
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c | 6 +++++-
->  3 files changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> index 58b47335afc7..a30633a7e2e9 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> @@ -322,7 +322,7 @@ mxc_isi_bus_format_by_index(unsigned int index, unsigned int pad);
->  const struct mxc_isi_format_info *
->  mxc_isi_format_by_fourcc(u32 fourcc, enum mxc_isi_video_type type);
->  const struct mxc_isi_format_info *
-> -mxc_isi_format_enum(unsigned int index, enum mxc_isi_video_type type);
-> +mxc_isi_format_enum(const struct v4l2_fmtdesc *f, enum mxc_isi_video_type type);
->  const struct mxc_isi_format_info *
->  mxc_isi_format_try(struct mxc_isi_pipe *pipe, struct v4l2_pix_format_mplane *pix,
->  		   enum mxc_isi_video_type type);
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c
-> index b729eecad0fe..1178947bb548 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-m2m.c
-> @@ -492,7 +492,7 @@ static int mxc_isi_m2m_enum_fmt_vid(struct file *file, void *fh,
->  		MXC_ISI_VIDEO_M2M_OUT : MXC_ISI_VIDEO_M2M_CAP;
->  	const struct mxc_isi_format_info *info;
->  
-> -	info = mxc_isi_format_enum(f->index, type);
-> +	info = mxc_isi_format_enum(f, type);
->  	if (!info)
->  		return -EINVAL;
->  
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-> index f45c2aae59ce..0d87a1082727 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-video.c
-> @@ -482,13 +482,17 @@ mxc_isi_format_by_fourcc(u32 fourcc, enum mxc_isi_video_type type)
->  }
->  
->  const struct mxc_isi_format_info *
-> -mxc_isi_format_enum(unsigned int index, enum mxc_isi_video_type type)
-> +mxc_isi_format_enum(const struct v4l2_fmtdesc *f, enum mxc_isi_video_type type)
->  {
-> +	unsigned int index = f->index;
->  	unsigned int i;
->  
->  	for (i = 0; i < ARRAY_SIZE(mxc_isi_formats); i++) {
->  		const struct mxc_isi_format_info *fmt = &mxc_isi_formats[i];
->  
-> +		if (f->mbus_code && fmt->mbus_code != f->mbus_code)
-> +			continue;
-> +
->  		if (!(fmt->type & type))
->  			continue;
->  
+On the machine both read-only camera_sensor_rotation controls now report
+180, and libcamera turns the reported rotation into a transform for the
+default image orientation, so captures that used to come out rotated by
+180 degrees are now upright. Checked with a 2592x1944 capture from the
+front sensor and a 1056x784 one from the rear.
 
--- 
-Regards,
+v2: cover the rear sensor too. v1 only added the front one, which was the
+    only sensor that could stream at the time.
 
-Laurent Pinchart
+Signed-off-by: Emfox Zhou <emfox@debian.org>
+---
+ drivers/media/pci/intel/ipu-bridge.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 78ff2560a..220f450e9 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -280,6 +280,22 @@ static const struct dmi_system_id upside_down_sensor_dmi_ids[] = {
+ 		},
+ 		.driver_data = "OVTID858",
+ 	},
++	{
++		/* Microsoft Surface Pro 8, front sensor */
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Surface Pro 8"),
++		},
++		.driver_data = "INT33BE",
++	},
++	{
++		/* Microsoft Surface Pro 8, rear sensor */
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Surface Pro 8"),
++		},
++		.driver_data = "OVTID858",
++	},
+ 	{} /* Terminating entry */
+ };
+ 
