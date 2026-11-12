@@ -1,76 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794495167;
-	b=JkpVHp+vIU2WXc45EJGp71TUa4DN2ioiUbwrRWs+euFK4FGvA5MVyJiptbDmZ2u1YFXw
-	 96v8GwFkEUAOrpTFilVCs0jYXPUBPbUEtUGVdCkOBLY+Xo53/IHpn9bCxoRvFJLRkMXCG
-	 fK790jWgU9OpXa0bZOcer61UKJrQPW+U5f90JL5SWskJJUB+itS8qGoFv+6VQx3YWYwTh
-	 Zr+7tXd/tbvislWbs1eEyzgbKZGLWWCzrBYa2KDWXhADeof/AilCIRcdGvT8RLB/zFJ8W
-	 fUu9D/DIZxUHgdb3v67Shuesl6EA65nX9GqRcW+bhh7QVJueyM4DXE6y2lgIPscaqjA==
+	t=1794495446;
+	b=CyHqtC1py5dsR7r5mCx6HLYw1ZYsqjW8j1Re8zRB+bTUW0FdFlUGXZL4JuVAAFk1n71E
+	 tTvOgqwZ+go95CKJjtzislVlp72GG7uQ5p7HQIPHakmLgppzFd2B588yiiNAcH5k+vlqb
+	 80kVmRmhXR0NqcvuplsxWoTqM27jFTvrnxtgRcb0EN2a3WVW0j3x7EEjTL2X54rnaKIEA
+	 jQYDChIGRCS5Hy0OU1jgfwM/oR1eFy9+HvT52DJJwyZXPEw0lvGm866BRPfsD2liwHy6Z
+	 zxjYurcp6ki0ucK52XmSpiRi1bO7galHBOwv9XqIJ7t3waPAqUjCsNKl4Cydr1p/p3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794495167;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794495446;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
 	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type;
-	bh=DeS1JutKTfuhS5q6pNbvmoX+jSrEwDPcQETf0SHwj/c=;
-	b=LIMQtgfHon1BdxovJrd7tc+I1GdYofodMqIqFYYIpP4eb/6bGss7ugdHOfAm5w5CGfH0
-	 laTGuNbDp3tXu2x/AXVr450fbbWO0OpD0X7wHO++5VUtVdYvAuGgrZ91HAaSx8KMpGAAP
-	 u9dnaN7wumZaBDJ1pUhHI9xf2ZldkeNWrqMEI9oD9UsCI1AT8IA2csZ5D++KTDRIYp7il
-	 AWixX8mHS5xoZktwr+fwVCO56I4ERzT96RTdW6XDPgs2oAOupvnx2gbox3w6HAk33HIBe
-	 5RbeG/hYbZRXrQV5SlemZBvz5q6LYbE0bnztaTFjlVBedv3jJOZ3z9chzBWqLjBtidQ==
+	bh=mS1ut25pAkhX06KpI5+b6SzLMFwF8RaPMcofkkPb8+I=;
+	b=4WEQ3HALMP5Gi+aJ0F5Stefz+6Q7NTKvaaRuSvgk+EqK4zic7loa7dvGnKlz+cbUrVIS
+	 YaDzPpPIy0mPPM+Pa7Hl+QsPBamBIF0zMZ891Cxds4DVNdwlPzobSYNaavyfXyo4N9YT1
+	 87cFGc5U6o9OJ6qx8OFF6LDhg5RxH8DKPjuEtmpiyf7H0tvdAIlHYtcfdQW54WGaemBKU
+	 rpvZDCbjIAWaWf9dw7dqZzh8coVax5mCIFdBdDIxYB5m4oBpxVcxwT79HAy8Ha5eCtura
+	 IC6z1bkNhWPkWYhVb+1yani9zxUg3/IsXRcIbYtR1IbyaSDvmYpUqfANFbVTFyiBxIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=linux-m68k.org;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.161.54
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
+	arc=none smtp.remote-ip=209.85.217.42
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B07C60A2618
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 14:52:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B07C60A2618
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD43606A321
+	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 14:57:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CD43606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-70b875f6f1fso3563990eaf.2
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 06:52:47 -0800 (PST)
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7a6e560f580so3197114137.1
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 06:57:26 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794495166; x=1795099966;
+        d=1e100.net; s=20260707; t=1794495445; x=1795100245;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=DeS1JutKTfuhS5q6pNbvmoX+jSrEwDPcQETf0SHwj/c=;
-        b=RFhMuvF5aMyXjgCU0Go3CjqoWHA5i0gGXwZ0JxPKHgOZqiaVxrX+J0AbHSjw3PkQAG
-         ADwSck9t+WKkW+ZeyJIPxmCn4EQWsvBwmgnQRLXcrM8+5BUn8LIOC7J34cPfmH3lf9J2
-         DqwlmhwLesl/kOlie4/GN8dUIt6AXpZUT2fEGG0IJAFDzhGGfkVamXsqhuQmrE2WnrEw
-         ZXtpmBDn7M6volaaB9sjRwApolMaHmIHNE+jUxt6OmDvCdzihlL+tP9yD/0Idna/88uz
-         eE1/smdEEcx4CJIxoy474lTzehqOrU2vUen8MAibFl8zw61v7Sg1WbGtuwgURliJnq25
-         H2ZA==
-X-Forwarded-Encrypted: i=1; AL+hErHGD7m1FQseXZzCkX3qKNRNZCljO+zFJ6v4YbKxCYclS1XknzlgrDN1qyhV6EIrleIULxaD4CX1dEcECw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/xeqp3ztV7IV8LqXz5wVB69nZUthJOKechdDxW55p6VR4aChC
-	V/+8h8qFRAW4oFgHZwSWo2LRVT4TvpRK8Wt9cT4DsLmeDxqH9IpTZFWmVB9jyawH0o8=
-X-Gm-Gg: AYBFou3BIiO5CM7WD2WBTJkoQ71+D266jLMb2cWCbdLLhr1+ROyTVtZC+rf0l525Mgq
-	rw5b+PeguiG5QJxIRnfT7u9U4rRX692dBaR/tB43MNsV1OUiau9aK7dlIyqZY4+Yp6WZdiFwXtv
-	Ia5g9X5MQi2aENrb8uYURJTCBnbrOVtZHz5AYHUeOVBgJeE352I0IcjxCPR0pqJ65kfPKn5VM0A
-	lZ+219N4LMnV7D+OiTQjTM0aID+R36zE+VC6DHOlvQr7UOG0XDcExzxM0FlgO3eWeWAw5G5JDTT
-	rjfJNxI6lcY2fIKKm7uqdh+VtdN4Xj0G08LhNeOAuwmOtIM1Wd+B2FyD9t8AcveThJhSqCGEx8e
-	ksLIq4D3EIN45gqLpBinuKiJVa1kT3L7KlKnzBSm0L4XaSox3uzS2eTyrzekMzV1RPEyzI5lSIw
-	UgI+v/5Bh4bq7ZBCEe2qj7rnkhaXe7xSg2oHNs+mGECEj5XMEwT43OC8TbeZzgJkhjmIwXnCM7M
-	cUVbgkyiTrhjoxqxL6O2+/AwrE9cKsG9LY0IlnDPd2zg7YeE+j3WtKs4p23boDhHPCv5ABUFNyd
-	vbntEl8gtpmYe26gmmMi0rd7PiYYO6emxOSSicDV0pQIr0DqCNp2OX7/evIQAYRBLmo=
-X-Received: by 2002:a05:6820:858a:20b0:716:d242:5c09 with SMTP id 006d021491bc7-719179c09demr2466846eaf.82.1794495166278;
-        Thu, 12 Nov 2026 06:52:46 -0800 (PST)
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com. [209.85.160.51])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-86286c313d7sm93309a34.15.2026.11.12.06.52.45
+        bh=mS1ut25pAkhX06KpI5+b6SzLMFwF8RaPMcofkkPb8+I=;
+        b=f0/YnYcogkxdB3HezCje/yjCQWp8W92B06D6ZXgPRHh3vGHBoY4Ium56Jz0z1rSV1s
+         EFsMgGoqVXdcAMgP+VALmJ/uH6fi9lE/OU9TEfk94CIO20+w5GxFaPiFNAMuwoLZbRZv
+         d2ninwRDWY4E4M/lRRvsI4ynvcvqYsewgJ4Sp+Mmyp0nnON2AbK/kt3REIM8HsHGVIQQ
+         qD/L5YANrJCigE4Y742+Y0xwr0uY5J6pXbG7U3NMjRSFBI/9fwX1LqoFt2VYD+WLh8/X
+         kZTsPKYKdQMdFxnMeHPQgBMSoS17UibT0egTvfV8MqD/Eq13s4BiM9pCxxzjPqQwNTj/
+         fTqQ==
+X-Forwarded-Encrypted: i=1; AL+hErH0+WNSdhrMshDWvxGrBhG97cQZKN4BnZqAy6T4JGAcOFzzFM16XrXuqqBhu5fo962qdCTXLyh5xXlqqg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/jcrPhH5eMwfdHx482vT1eBbPvg64XgaF+wxe6FTEfVC2V7Kup
+	zigmslg5s/kge5iC2De+R0lMOQM4GMLkP7y4FdXKmMwOSCHGIg+5SbAYie8cvAxZHKk=
+X-Gm-Gg: AYBFou0lh/tkpaKcnjtJonteH8aluncsrbEvB1PSQ0TzB07uQ0DQyVUAUdhvyx5HrIg
+	RTiWYVSC4B92yP4uP4S6a9HNPC6M6IRIYVgg5KTSmbACC7AMrLuSo2laKcGZOFee5Q7It1or4Is
+	bw25Oh69gLgO9UO4BmnyAeh/YuqWr5pWWCAfxeuBw6vDUq/5GlOCd1oHzVhQW108PoJGvDmlwGp
+	nLNBVtr8t3U/F0qzhwaBI4el6e4VrObjFIYwwGcQ4o2n3wDKalwEVSC3x/jBGRiRn7MpFRIalJI
+	9AtxcXL5VPU8oZZaFCKL+MjXC6dJWFQcD/CFwK7xk3pPUJnD7m/Si0+TEqYOHTeHoqwO/r6BZh4
+	/DsRew6qGVh6/NHUAqN7L0DrCHupINATRuoBtQbsGJp/HHi/LgnyxHPLBApcv6kjzc3NtSaSiwS
+	V+dDABSmFO90z81CtVb+j0OJK4iqf8fPaYdejG+DnARP/GkBfm6aR0CwzDQV8FEMFWrMYEco1xQ
+	sVPN/ensAGey9CIsK2PdhmnkuftFodRoSpwBctXmpVHSQlFGP4tdCIcKwWQ6ZdncGEh+ZILVgRF
+	QAQQqtEDsefHvBKKo+2eeIYUFdNjj44L3Uwk6oQuMePRbw+Jwn73zeJTwVpgh6dE2pU=
+X-Received: by 2002:a05:6102:4455:b0:7a6:85d6:84c3 with SMTP id ada2fe7eead31-7d4edd0a855mr1925939137.3.1794495445228;
+        Thu, 12 Nov 2026 06:57:25 -0800 (PST)
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com. [209.85.217.51])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c200004e7sm5966168241.3.2026.11.12.06.57.24
         for <linux-media@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 06:52:46 -0800 (PST)
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-48eee44b908so2420949fac.1
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 06:52:45 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGrfEPFbTYWQbA5riLpJ4qek9gyExcQNeN0Mo9okxVz6B2TJzgcB06rHywxQgjmOJ20MhgA0AILpvJQ8Q==@vger.kernel.org
-X-Received: by 2002:a05:6122:398e:b0:5ce:d56f:efac with SMTP id
- 71dfb90a1353d-5ee1c4995fdmr2096272e0c.21.1794494805148; Thu, 12 Nov 2026
- 06:46:45 -0800 (PST)
+        Thu, 12 Nov 2026 06:57:25 -0800 (PST)
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7a6e560f580so3197101137.1
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 06:57:24 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGgQbK6Ioe4yiHqV2ZXOzOEqps32TwJyypmgxhQQ54EneOV2qDGT7mdq5dJgOGbuNtIikg95/KlqJWAlw==@vger.kernel.org
+X-Received: by 2002:a05:6102:f10:b0:7c3:9982:67d7 with SMTP id
+ ada2fe7eead31-7d50609c9damr2546296137.16.1794495444511; Thu, 12 Nov 2026
+ 06:57:24 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -81,14 +81,14 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
- <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-3-1b2072e8c37e@ideasonboard.com>
-In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-3-1b2072e8c37e@ideasonboard.com>
+ <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-5-1b2072e8c37e@ideasonboard.com>
+In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-5-1b2072e8c37e@ideasonboard.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 12 Nov 2026 15:46:34 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdVKr2fGN3k0LYHhoFp3Rp7_=KfTB6tQkGYDof0Em0HVtA@mail.gmail.com>
-X-Gm-Features: AclHuK-vYdrIZUHe9zqdC5qY90reiPN1Oa4nwuum4GsEnnZB7I1s1LzmhCydy1o
-Message-ID: <CAMuHMdVKr2fGN3k0LYHhoFp3Rp7_=KfTB6tQkGYDof0Em0HVtA@mail.gmail.com>
-Subject: Re: [PATCH v4 03/13] arm64: renesas: r8a78000: Add FCPV[BI] nodes
+Date: Thu, 12 Nov 2026 15:57:11 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdUUvhf=zEmd2tfodo7zf1hh9n8m88Okk7KZpq0n=mDR2A@mail.gmail.com>
+X-Gm-Features: AclHuK_otbzgK2u3WYfd1DmRW9SD98NHgBcVxYwHNEPtms-IkWdgisCPqESp0Ec
+Message-ID: <CAMuHMdUUvhf=zEmd2tfodo7zf1hh9n8m88Okk7KZpq0n=mDR2A@mail.gmail.com>
+Subject: Re: [PATCH v4 05/13] arm64: renesas: r8a78000: Add FCPVD and VSPD nodes
 To: Paul Elder <paul.elder+renesas@ideasonboard.com>
 Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
 	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
@@ -107,35 +107,77 @@ Hi Paul,
 
 On Mon, 9 Nov 2026 at 14:35, Paul Elder
 <paul.elder+renesas@ideasonboard.com> wrote:
-> Add DT nodes for the FCPVB and FCPVI IP cores in the R-Car X5H SoC.
+> Add DT nodes for the FCPVD and VSPD IP cores in the R-Car X5H SoC.
 >
 > Use the SGD1 clock as it is likely to be the clock used for data flow.
 >
-> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 > Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
 > Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Tested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
 Thanks for your patch!
 
 > --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
 > +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
-> @@ -1574,6 +1574,78 @@ mdlc_aon: system-controller@c1338000 {
+> @@ -1574,6 +1574,196 @@ mdlc_aon: system-controller@c1338000 {
 >                         bootph-all;
 >                 };
 >
-> +               fcpvi0: fcp@c5030000 {
+> +               fcpvd0: fcp@c5010000 {
 
 Please preserve sort order:
   1. Sort by unit address,
   2. Keep similar nodes together.
 
-> +               fcpvb0: fcp@c5038000 {
+[...]
 
-Do you want to sort the FCPs within the FCP group by unit address,
+> +               fcpvd9: fcp@c5019000 {
+
+> +               vspd0: vsp@c4800000 {
+
+Do you want to sort the VSPs within the VSP group by unit address,
 or by label?
 
-For the contents of the nodes:
+By unit address:
+
+    "vspd0: vsp@c4800000"
+    "vspb0: vsp@c50c0000"
+
+Note that adding the vspd* in a later patch than the vspb*
+means the latter need to be moved in front of the fcp* :-(
+
+By label:
+
+    "vspb0: vsp@c50c0000"
+    "vspd0: vsp@c4800000"
+
+> +               vspd1: vsp@c4808000 {
+
+> +               vspd2: vsp@c4810000 {
+
+> +               vspd3: vsp@c4818000 {
+
+> +               vspd4: vsp@c4820000 {
+
+> +               vspdb0: vsp@c4828000 {
+
+> +               vspdb1: vsp@c4830000 {
+
+> +               vspdb2: vsp@c4838000 {
+
+> +               vspdb3: vsp@c4840000 {
+
+> +               vspdb4: vsp@c4848000 {
+
+>                 fcpvi0: fcp@c5030000 {
+
+Shouldn't we keep al FCP nodes together?
+Same for the VSP nodes.
+
+>                         compatible = "renesas,fcpv";
+>                         reg = <0 0xc5030000 0 0x1000>;
+
+For the contents of the nodes (except for the renesas,fcp properties,
+as I couldn't find the VSP<->FCP links in the documentation):
 Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
 Gr{oetje,eeting}s,
