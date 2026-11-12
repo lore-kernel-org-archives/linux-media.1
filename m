@@ -1,90 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794493896;
-	b=tmtjsJ40XiTBY4sSS8Mj3RofXoou3NvQAFAx6PCRBsnQ4QF3cAiYAvxhIRa58h1llMm4
-	 2tTp0phY/801wiEEqLhEbDOn2I6DGiSjSkae5xT/Ef2BJ1YS4DCBDANQ/4KGLWaX2pAqy
-	 rPrJZe5+CfKyphiu+HYizwDHbqjzjfkjhY8KxQrESgJD4bboxbjj+DOzCXI6IsnZYY0j0
-	 OM6fSve2MPrTTzD+jXEx6mA7/4NE3fGQPKL7qZTtTCzTR6+03F1DUVNe61AQZ/Cl/5Io4
-	 LyPWYXzE8GrMomOSLz/yUTHMJb+qcQbt+0gnYB25hrnx3RkwxhbWNOwoepLttq+1ppw==
+	t=1794494246;
+	b=JWV492kKg4INTjmWCWW1J+CcQSp/iaUVUiDgZQp/buw/Qae44qe97ZfzXEp48eJZ6s56
+	 6bG8Iqc0pLT6BvqtsZ15ZnwiGHAKTgIhwLDmzgwR2alN1tL5nYv0Vp1gZG1Uk5u+l6U/z
+	 BmtdFab2e9kqvt6d2098vQdx+Od5NeubCq4k/a1WkgOiJugYSTVtKO/fupmKG0m/1g8A4
+	 23Lk76S0UX6mkoadWbP012dA8VzdmvcMX6Y7zJoyHtiE6ps8pL4mcgO31DmqiIYLUZXl0
+	 AzDNKH4weSXjzWoeiCCOtpZmeqL7iemKlvu6S804x9FZ1kl1PE8OGWsKi06RQF3iVGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493896;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=6s4531iB0pwwtkJP2bBPZCteIxEY5u4QI+uEjRbvaQM=;
-	b=5RxHGACddyCCaPLGEGTOBd/fflC0JJBDtX6LqxOFlveaRzLTzzxFV1nNm7L+8siQT9K7
-	 auWJxRDWwWB6VZsb03gLrsXIvqdr2TQyseiFdt7anUNvpZANg60/0uegmYTtqksbrO/EC
-	 v2QQlVk+6hHJ8pHKg+dl71ZZPjOxw546cutwZ+EjA8uCi0i20XEk79HYKcAcHHe8sHC0D
-	 YG2c61EpwH58Y+PuCt3NxlZNVostOre0ducNr8s9vW0XnBk8pwFjWGadoixQbVMQ8jBPj
-	 V4yZ3bC534YMjHE+reC3zsbmggjQj4BzbyRl7IZNz7vhtn14h8DsU9byFTSAIxMhj6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794494246;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=z2wEI5VEe25LD61er33lq8AWRCY5Xe94AmrzUGTJZcI=;
+	b=AcV4enM6u7UhPptKpKD/+NFSDhrZljza+wN9jgeEnlwu4OZoYHf4ld4NXNZHkqBbOwDF
+	 j/wgEKHp5cYbAocKputdpLjAh6CEyQk/9I6WWutOrgnDz5Xw3/EQaxeb2bIZaR3MAsQ+f
+	 t1YoYREC/+czAxyTaMAmFKa5S8ONwqAX4xevSyXl3+nyS4OT9Gq8Qq/x8o5s/KvQ2zWxX
+	 +r6FZ97TZ+3zPAah2o+D8XTpm7eUnp6qBAEhGWKspZCvMexo1g/KVau1kjEsObqxVtBLF
+	 85tWCQ3WFeKuve2UMdPDXn7yx2ufRxXo0fq2YVAEYk+Kc+r9fO/+pUoTP6L3W3F3kxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=fTfEwMbH;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYMbnKSu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C0E60A5BD1;
-	Thu, 12 Nov 2026 14:31:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91C0E60A5BD1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8A8606A31C;
+	Thu, 12 Nov 2026 14:37:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=fTfEwMbH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794493893;
-	bh=FYjRkCqyGsRzmWdDWrbZF9LJoHsBc2QeonGafSKs3io=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=fTfEwMbHp4+4B3IGdyreGHL9lOXdgsebWLpWKAiUE742su8X68AaK/BPdQmsnhTkK
-	 DBnXjsxusfs94dmGLvo5Qgdn3k54wbgzeH343gzr4S9msanrDzznWUh2Gy9HIN8XM1
-	 la+aOdBXDCBP8pNLmx1xh6hkFOIo8KTriFHEQjOyuzjcvFq1cxGBA3zl19JjQAYQAW
-	 OdXv3cHUqRrRseYTJxrY/TmusEA5W4LLtCIwB1U4pIwSXNoc2sukEArT1phd0Iz//N
-	 /b+ZSPUqz/wwtrm00eIZuzddIggUTzkvPpXAtTdvSCLal4Dq9aQjzmzIUdcL+8z81o
-	 HXMnY56/VdrKg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id DBC5817E0564;
-	Thu, 12 Nov 2026 15:31:31 +0100 (CET)
-Message-ID: <f041c5d87698ab3be8283ecc71ead0679327238e.camel@collabora.com>
-Subject: Re: [PATCH v2 3/6] media: verisilicon: Don't offer VP8 above 1080p
- on the Rockchip VDPU2
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: aiyengar1990@gmail.com, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Sebastian Fricke	
- <sebastian.fricke@collabora.com>, Hans Verkuil <hverkuil@kernel.org>, Heiko
- Stuebner <heiko@sntech.de>, Boris Brezillon
- <boris.brezillon@collabora.com>, Jonas Karlman	 <jonas@kwiboo.se>, Ezequiel
- Garcia <ezequiel@vanguardiasur.com.ar>, Jeffy Chen	
- <jeffy.chen@rock-chips.com>, Tomasz Figa <tfiga@chromium.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Date: Thu, 12 Nov 2026 09:31:30 -0500
-In-Reply-To: <20261112-hantro-codec-fixes-v2-3-f44424df585b@gmail.com>
-References: <20261112-hantro-codec-fixes-v2-0-f44424df585b@gmail.com>
-	 <20261112-hantro-codec-fixes-v2-3-f44424df585b@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-UsVvDKz6sEPhCdtGodXv"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYMbnKSu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 362801F00A07;
+	Thu, 12 Nov 2026 14:37:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794494246;
+	bh=z2wEI5VEe25LD61er33lq8AWRCY5Xe94AmrzUGTJZcI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SYMbnKSuEfDMxKBAUwscloPGrwixWMu0n2RND2uSvO86HoO/Mv1cEzOR1ANj49F6c
+	 jEZhCLcPrSExqFYx+aIa75j7uiJCwZmqfZj65RefavpeaEO8zGtudj+f2xOuzwDZ0l
+	 EqVWxWM41w6Il6bZwZL3hHP9AUyAQAYbWyPWdOhRE5uPkWSNK7E0Krrt7g2e1xJD5f
+	 TmM6IwjkLx+UQl/NsmE9gYZkI1cktRgZMQolMcfsoauPPj63YSp1JKchfDMQ/+33jf
+	 U65VEw/dvDA9OyhcNbewdpimey0vzO84+xil/PxP6x9TliZzjShL85SRgNKioLKWGv
+	 rK7QSouHDIVmg==
+Message-ID: <e533b135-7874-4441-a42c-d1f310043073@kernel.org>
+Date: Thu, 12 Nov 2026 15:37:19 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -94,101 +51,123 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
---=-UsVvDKz6sEPhCdtGodXv
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-Le jeudi 12 novembre 2026 =C3=A0 08:54 +0000, Arun Iyengar via B4 Relay a =
-=C3=A9crit=C2=A0:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->=20
-> The VDPU2 decoder format tables (RK3328, RK3568, RK3588 VPU121) and the
-> RK3399 one let the VP8 OUTPUT format go up to 3840x2160, but their only
-> CAPTURE format, NV12, stops at 1920x1088, and the CAPTURE size is
-> clamped to it. A 4K VP8 stream is therefore accepted on OUTPUT and then
-> decoded into a 1920x1088 buffer: on RK3588 GStreamer v4l2slvp8dec runs
-> into "gst_video_frame_map_id: assertion 'info->width <=3D meta->width'
-> failed" for every frame of a 3840x2160 stream and none of the frames
-> match FFmpeg.
-
-Just to bring to your attention, the IP does support up to 65Kx65k, but the=
-n you
-can't do referencing (its the WebP mode, key frame only). Hughes Fruchet fr=
-om ST
-started looking into this but his work was not completed. The general idea
-though was to perhaps introduce a V4L2_PIX_FMT_WEBP_VP8 (or VP8_INTRA, nami=
-ng is
-hard) format to signal this to the decoder, and limit to 1080 the FMT_VP8 (=
-what
-you are fixing I suppose).
-
->=20
-> Nothing above 1080p can be decoded with these tables, so don't
-> advertise it: limit VP8 to the 1920x1088 of the other codecs and of the
-> CAPTURE format. Userspace that checks VIDIOC_ENUM_FRAMESIZES, and the
-> S_FMT clamping, then know that a 4K VP8 stream needs another decoder.
->=20
-> Fixes: 73fb5bfa53e9 ("media: hantro: Support RK3399 VP8 decoding")
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->  drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drive=
-rs/media/platform/verisilicon/rockchip_vpu_hw.c
-> index 02673be9878e..2b6242c1fb86 100644
-> --- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-> +++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-> @@ -274,10 +274,10 @@ static const struct hantro_fmt rockchip_vdpu2_dec_f=
-mts[] =3D {
->  =09=09.max_depth =3D 2,
->  =09=09.frmsize =3D {
->  =09=09=09.min_width =3D FMT_MIN_WIDTH,
-> -=09=09=09.max_width =3D FMT_UHD_WIDTH,
-> +=09=09=09.max_width =3D FMT_FHD_WIDTH,
->  =09=09=09.step_width =3D MB_DIM,
->  =09=09=09.min_height =3D FMT_MIN_HEIGHT,
-> -=09=09=09.max_height =3D FMT_UHD_HEIGHT,
-> +=09=09=09.max_height =3D FMT_FHD_HEIGHT,
->  =09=09=09.step_height =3D MB_DIM,
->  =09=09},
->  =09},
-> @@ -315,10 +315,10 @@ static const struct hantro_fmt rk3399_vpu_dec_fmts[=
-] =3D {
->  =09=09.max_depth =3D 2,
->  =09=09.frmsize =3D {
->  =09=09=09.min_width =3D FMT_MIN_WIDTH,
-> -=09=09=09.max_width =3D FMT_UHD_WIDTH,
-> +=09=09=09.max_width =3D FMT_FHD_WIDTH,
->  =09=09=09.step_width =3D MB_DIM,
->  =09=09=09.min_height =3D FMT_MIN_HEIGHT,
-> -=09=09=09.max_height =3D FMT_UHD_HEIGHT,
-> +=09=09=09.max_height =3D FMT_FHD_HEIGHT,
-
-If you have time, it is also miss-configured on the imx8mm, the combo-core
-(G1/H1 combined, like RK modified version). While the imx8mq has 4k h264, I
-don't know if the VP8 core actually is capable of 4k, so perhaps both soc n=
-eed
-fixing.
-
->  =09=09=09.step_height =3D MB_DIM,
->  =09=09},
->  =09},
-
---=-UsVvDKz6sEPhCdtGodXv
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
+ indices for ports
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
+ <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
+ <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
+ <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org>
+ <539842db-c672-4549-b861-4a6f3be47556@oss.qualcomm.com>
+ <d586b7b3-675d-48a8-b0d4-564e571ef69f@kernel.org>
+ <CAFEp6-25QrLAF=-KgGJ-rC9pDpGa2YgoQAMKxU-FoByu2CJpMw@mail.gmail.com>
+ <1db9bf48-01d8-44fe-8dd2-7a3c84ecc556@kernel.org>
+ <CAFEp6-1fSPP41cVFmu8=0z2xibDpHuH5Lxrw7W_rvnt+Fw9EpA@mail.gmail.com>
+ <62fba00d-831c-44cc-8d3e-083a95abfbe8@kernel.org>
+ <qKk3s6LA2dFNbAVvrsOlf17dn6zizSiyVMf1rJNQOvkvLGxswT_81cDlITq0atMX71Sw0VZu6u9WHK0fS1bzIQ==@protonmail.internalid>
+ <CAFEp6-2_opRq3pj6S=2nDFxXBv0waeyGBKSxp3t8OOe6vvKcoQ@mail.gmail.com>
+ <3df59469-e665-4901-b4b4-512604194ddd@kernel.org>
+ <CAFEp6-0keBgVWbBPCghkxMQAQeLeOHW8By7sQrqhjSGtJaZmEw@mail.gmail.com>
+ <5e0f4424-7194-413a-af7c-f6e74d07392b@oss.qualcomm.com>
+ <3cb96b5b-d061-4f0d-919b-09c6f336e453@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <3cb96b5b-d061-4f0d-919b-09c6f336e453@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
+On 12/11/2026 15:22, Nihal Kumar Gupta wrote:
+> 
+> 
+> On 09-11-2026 11:35, Nihal Kumar Gupta wrote:
+>>> So yes, we could argue that the port ID itself has no inherent
+>>> meaning, but it acquires meaning through the convention we define,
+>>> since we still need a way to map DT ports to CAMSS input IDs. What is
+>>> really changing here is the convention used to describe that mapping.
+>>> So, for Hamoa, ports { 0, 1, 2, 3 } would map to CAMSS PHY inputs { 0,
+>>> 1, 2, 4 }, while for Glymur, ports { 0, 1, 2 } would map to CAMSS PHY
+>>> inputs { 0, 1, 4 }.
+>>>
+>> Thanks Loic, Bryan, Krzysztof and Vladimir for the discussion.
+>>
+>> Krzysztof, understood on the DT binding concern. I should have got clear DT
+>> maintainer agreement before proposing a binding semantic change, and I will
+>> keep that in mind for future changes.
+>>
+>> Based on the discussion, I agree that for standalone PHY CAMSS DT input ports
+>> should be logical and linear. For Glymur, that means using ports@0-2 { 0, 1, 2 },
+>> and keep the mapping to hardware PHY indices { 0, 1, 4 } inside the driver.
+>>
+>> Krzysztof, does this direction sound aligned to you? If yes, I will respin
+>> accordingly and make sure the commit message documents the logical-port to
+>> hardware-PHY mapping clearly.
+>>
+> 
+> Krzysztof, the Glymur CAMSS binding is already merged, but no upstream
+> DTS consumes it yet. The current example uses port@3 for CSIPHY4.
+> 
+> For the binding, would you prefer keeping the existing "^port@[0-3]$"
+> range, or tightening it to "^port@[0-2]$" and using logical ports
+> port@0, port@1 and port@2 in the example?
+> 
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavXNwgAKCRDZQZRRKWBy
-9DkyAP0Q5qttBFa47Zyj/PIBd6D//4pj/GszbWh3XhcsCqWbxgD/XOK6P1s53OLa
-N6GX9/CmC99j1N3UZYLbYnUuHv9tlQI=
-=VOqM
------END PGP SIGNATURE-----
+Just explain in commit msg there is no port@3, because there are only
+three phys.
 
---=-UsVvDKz6sEPhCdtGodXv--
+Best regards,
+Krzysztof
