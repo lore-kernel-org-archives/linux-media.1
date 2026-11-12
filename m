@@ -1,84 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794473001;
-	b=q1V/FUHov5hj+Bf8TPlFxsK3Ix6yA/UlIHNVrivMe/AArq+WsQ47jm0olgp5hne5laxr
-	 q8UAL+CUnLP/DgmSB+/R1FD+PBBefnfWqtx6nwHS6VN3vgaiYjIIzafsRG6Q8LCgp4biw
-	 mDqmiujLNr+14fQ5BN1DDt6oKPXPT9TzGpYaSgcubNqxvweQ9WbfmcuLvBB7vl35V+/78
-	 OIvoG6Hf1o4LKpQ2k3C95hFKIa1RMTzKLTCCA1ZP81xF4OitbmeRNzDwLJ5+xF/xtwOxN
-	 UP/MJc8J5oVGwsYhdjUywSDBpONAZ9LNZY1mGjo8RlfyunWFZh2tMax9vieU5H5Pw3Q==
+	t=1794473077;
+	b=1PTUrm7+Srr2v0j3mxDETGhB2bD8Pp5kXpdvGiHnN8bJ2hoFKcgzwE2+k0eKwbJKzWvE
+	 dblA9UTbPhPNyIr0ieeHLgbPYtSCDWZjUPJpb58UNsxa6CNYnQA60QLhAyucoqY/f63EA
+	 ejT6gNTSx2KCk1lg00zVY4k2lwt8GqBleewUMwOC7JoySXQZWwy/2xAhrsrRVVuZ9tJ+0
+	 rzn++GKw8rU3J57p48Lm3H+L3qbmTN3lwzirQYAiBDm/q3Son9zEytQHV0aTZWS1EUyPh
+	 BgVZmmk4H6z0Txd58gDmwIeecUUmoXm/DQxE2KvkqLLhB4ucxvZw0slzCOwQpdUz3wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473001;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Ccrg0Ah5/raiZe23O01HRQmfIbLS9+N0hKSJNBgmJXY=;
-	b=JpTY5TND/cJUuTiplraXayhmNVTdQrBRa4DE6d+isx7hEAxzZndMMJ+s9zreb/anralA
-	 4cjxjlKnoxZmDybQBE3VDk5404DD7tYTeesbB5qtndg1nnPd7wXhGa6VIk1V6kqZx/llO
-	 /i8I459JH4dyM54J5/V6EzniiX1M82VIk6+dQ4/Riyrc06Ni/YNKjhOne7QM5m5S/CMnM
-	 /YHENxf6IRAOxg+gu2UTnpfcZgLo4ZfH1Soc1rfUMfxj0YIUi5MeobcfCbL8M+nJTKgzb
-	 9/x0sB3tGkeBVHQBnbg44Z6V9kX6UhLvIWwpkdzvp9qgFMN2OEdrooWJgETe91IVyCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473077;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=pRDfDi9w39w7WSWPejzMl2NAPLZdQXQs1cadPzSxwYI=;
+	b=l5YBP62qb3I/migxCddsvdETrMBcW0uUA9d2ZKYyoW1bfLztrLbySeJqALcboZ7Hxf3N
+	 VpG6WrcBfKmkTtl94q5lK1Ux/4INTAr+TpQOQcnmI3mrDZARScdLg4c/ZljgSbr5WQk7D
+	 S/1/ZFSL4+vPaCKKB+mUINjg4cTYhSUGFBHCfy7RbkETcyYRIA+MBKuRscFyOTMXO0+x6
+	 JRNx8e7kTtYFKHPrL9BfNBKFmtPd/Eeb1oj3NTxZ47UIgo/VZSzUdZvz0G1vegFim1nJj
+	 qnd06LPyk4NpemcH5Fm8Adicf4m0nK5cF6046dcFi5JZd644zal6GNYHSgfXDQuLLWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=pereq.eu;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Z/V9S+UT";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408E3606B246
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 08:43:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 408E3606B246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=pereq.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso38165175e9.1
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 00:43:21 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794473000; x=1795077800;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ccrg0Ah5/raiZe23O01HRQmfIbLS9+N0hKSJNBgmJXY=;
-        b=Smd19JmQUgaQUuqO65VFNUYGIA7LlTG+O9OrUmXbC51tzj0rweCT9FF7bn8ZPfJK4j
-         dVBrit6nClWbnAQV478HBoGcTOFe1HXx4ZZg8i/WIWdxiR6XbTndxx3FhffmiwvPcSn4
-         XOKuCOoE17b7+KqwUGGWq+mKFbel9KKYsrXsF+ksKr3AvTbtaYsWk7I/iSrKwgmn89tn
-         elT4HzkaxfCd37LnN/AD/Jvvgnrt+0N4Sf15dYoWRMTGpKIXw13HJiP4/53YLpHAxciH
-         WA6in8RBPzvqH7e/KUi4kGdqB8OfU1iInvNRSXqqfKz1peLb632vWFaDswK9dEqm7GPk
-         2PXw==
-X-Forwarded-Encrypted: i=1; AL+hErHiWKcH4NtGqf3zZRtidBBkSfFh3GIz/texj3AZX/I4kG0bM5WO7tbxV1iZPZ1hVPGuQAAuhW6VxySHkw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9AjOnvTRaUoha3lxqu7cVKs043bWpww9PmoWFkdLH2Z9bdPKI+
-	FX7y0r1p5zWYeoY8RAXAOMjfb8ZjDJvGczMvn3VG/Xbnd1fbJiYNxFdG
-X-Gm-Gg: AYBFou0ljDiif6SW421k1Acb7zDwVJ/HXHWVGDzX4JzViuQz6v3SXJHJbPQ9ge/BXbi
-	eSo1iMWQlUSDuTe6Ckn7bBANB+b6APQrzItwSMWNqdSFuXOfmXqOGFlgTYYD2v02fdVvQzDoVJ/
-	+Gp3x86kLv+8G29ixd4jRtb4toSJpZhF3eW5U5HPET0u7YYAUw24MHj96lAfZ9pmXNZLHzoUe5n
-	JmKQcmEk5h1HXOAZbCl/tcIbzErKdPQMaefYSNd8913pbQUjAg39Lz3QFBTlx8AFuyIsG2HVXUJ
-	J3Uiq1yuL3A3GWtNPafGipf6wFhBHiu9XSEhC9xHmF3sA4yHKQqo80SQVxkRHS3onwPa4VD7hXg
-	H0yJkpxbxr9nxmNnIHX+dq/kNvxTe1C4QA88W9SXU5MelH285N4V1Rf07jCryW1KzB2UYV9FCPG
-	7oAwI5TZEJD6TfAUXuUjGZkOnil8DYQ0v5DojNKbXGHRO2q8F5sIEk42kAHjf+92E85XLUjtibc
-	CxCvfoqUDCoUwNxWo8tcG1MI2Pa/1tqyo7k+fpZ/WQOhsXlO1hFO9B9HexYUT0/T9dbUdsUEasQ
-	NdBEOJi+QahXn38ThsvlOo2bI2cJtz4HBY6j6kq2nyEeYn3VgbOwKGvpCNhofEwP+C7Jm7he+pJ
-	VeSPrfRNSQv/JjpTG0/S36R+yiD7/YgOY2f4lMtv21VC900OUm7B3UcW6AyL4pXDBdIJJmoBuut
-	qnF3FLjg==
-X-Received: by 2002:a05:600c:470d:b0:4b1:4017:c4f4 with SMTP id 5b1f17b1804b1-4ba093805b3mr88234605e9.20.1794472999607;
-        Thu, 12 Nov 2026 00:43:19 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e258e8dsm82532545e9.4.2026.11.12.00.43.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 00:43:18 -0800 (PST)
-Date: Thu, 12 Nov 2026 11:43:15 +0300
-From: Dan Carpenter <dan@pereq.eu>
-To: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-Cc: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com, elder@kernel.org,
-	gregkh@linuxfoundation.org, greybus-dev@lists.linaro.org,
-	johan@kernel.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Subject: Re: [PATCH] greybus: verify the received message size covers the
- message header
-Message-ID: <avV8I97uZJgX8Osk@stanley.mountain>
-References: <6af55517.a0c627da.5d811.0010.GAE@google.com>
- <20261112082230.33584-1-shishunbo@cmss.chinamobile.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C311A606A333;
+	Thu, 12 Nov 2026 08:44:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z/V9S+UT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01A2A1F00A05;
+	Thu, 12 Nov 2026 08:44:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794473077;
+	bh=pRDfDi9w39w7WSWPejzMl2NAPLZdQXQs1cadPzSxwYI=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=Z/V9S+UT7lp7DTr98K42zRejsPHSjIVa+ZIiJ68eEfBxctSBgUeQLFlSwg5iuMvxb
+	 Anin6on1+Uy8m2C2cuz3m3HDCD8l+R6ev9JSBwDnuD3LR+LQ09tRtCHynCZ13ND6LY
+	 FAISHSg09Sn3XY9udYfCscgyz70RsL0OmgSA2fjkEjNTHzqilGPzUnqNZUsdqYBRAF
+	 PD++jq8yqqwnI8emJYpepQVNNLTNV4iNbelgxkFLwhJjawcsE+msP0oVGJ1Rg4vNoP
+	 uYVCKx4ti3j15BM1IWR/KwF9hql5kfwDqMF+U3OeEO1CrR/Birzeb3ZTZUJWb6DlZy
+	 02gSjGnU5C4sA==
+Message-ID: <a19fa548-32a2-49a1-86ce-c93fcab7f729@kernel.org>
+Date: Thu, 12 Nov 2026 09:44:33 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -88,79 +51,174 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112082230.33584-1-shishunbo@cmss.chinamobile.com>
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v3] media: dvb-core: skip disable_source handler for a
+ released entity
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>, Bin Yu <byu@xidian.edu.cn>,
+ Cheng Wen <wencheng@xidian.edu.cn>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261102131907.8922-1-25031212351@stu.xidian.edu.cn>
+ <20261102143415.26942-1-25031212351@stu.xidian.edu.cn>
+Content-Language: en-US, nl
+In-Reply-To: <20261102143415.26942-1-25031212351@stu.xidian.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 12, 2026 at 08:22:29AM +0000, Shunbo Shi wrote:
-> In gb_connection_recv(), the size of the received data is checked
-> against sizeof(struct gb_operation_msg_hdr) and against the message
-> size encoded in the header (msg_size), but msg_size itself is never
-> checked against the header size.
+On 02/11/2026 15:34, YuanZhe Liu wrote:
+> dvb_remove_device() frees the media entity of a dvb_device through
+> dvb_media_device_free() and sets dvbdev->entity to NULL.  The media
+> device of the adapter can still be registered at that point: au0828,
+> for example, only clears mdev->disable_source in au0828_usb_release(),
+> which runs after au0828_dvb_unregister() has unregistered the frontend
+> device.
 > 
-> If a peer sends a message whose header claims a size smaller than
-> the header itself (e.g. header.size == 3), the two existing checks
-> both pass (size >= sizeof(header) and size >= msg_size), and the
-> message is dispatched with the undersized msg_size.
+> A file descriptor that survives the disconnect then reaches
+> dvb_frontend_release() with dvbdev->entity already NULL and calls
 > 
-> In gb_operation_create_incoming(), this leads to an unsigned
-> integer underflow in:
+> 	fe->dvb->mdev->disable_source(dvbdev->entity);
 > 
-> 	request_size = size - sizeof(struct gb_operation_msg_hdr);
+> au0828_disable_source() dereferences that argument unconditionally:
 > 
-> The underflowed request_size then wraps back around in
-> gb_operation_message_alloc():
+> 	struct media_device *mdev = entity->graph_obj.mdev;
 > 
-> 	message_size = payload_size + sizeof(*header);
+> which faults:
 > 
-> causing kzalloc() to allocate a buffer that is too small to hold
-> the message header.  When the response is later prepared in
-> gb_operation_response_alloc(), reading
-> request_header->operation_id reads past the end of the undersized
-> allocation, triggering a KASAN slab-out-of-bounds report.  When
-> header.size is zero, kzalloc(0) returns ZERO_SIZE_PTR and the
-> same read dereferences an invalid address.
+> 	general protection fault: 0000 [#1] SMP KASAN
+> 	KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+> 	RIP: au0828_disable_source+0x27/0xb70 au0828-core.c:445
+> 	Call Trace:
+> 	 dvb_frontend_release+0x2eb/0x500 dvb_frontend.c:2946
 > 
-> Verify msg_size >= sizeof(header) in gb_connection_recv() so that
-> the "Caller has made sure we at least have a message header"
-> assumption in gb_operation_create_incoming() actually holds.
+> The error path of __dvb_frontend_open() has the same call.
 > 
-> Fixes: d90c25b0a279 ("greybus: let operation layer examine incoming data")
-> Reported-by: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
-> Closes: https://syzbot.org/bug?extid=0b456664585fa81a47f6
-> Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+> Skip the handler when dvbdev->entity is gone.  For that check to be
+> sufficient, clear dvbdev->entity in dvb_media_device_free() before the
+> entity is unregistered and freed: both frontend paths read the pointer
+> while holding mdev->graph_mutex, and media_device_unregister_entity()
+> takes the same lock, so a reader either still sees a registered entity,
+> for which unregister waits, or sees NULL.  Clearing the pointer after
+> the unregister would leave a window in which the entity is read after
+> it was already freed.
+> 
+> Read the pointer only once, into a local variable, while the lock is
+> held.  dvb_media_device_free() stores NULL before taking graph_mutex,
+> so re-reading the field to pass it as the argument could still observe
+> NULL and hand it to the handler.  That store is not serialised with the
+> locked readers either, so publish the pointer with WRITE_ONCE() and
+> read it with READ_ONCE().
+> 
+> Stopping the pipeline the handler started is not done here.  Only the
+> driver knows how to release the link it owns, and dvb_media_device_free()
+> runs for every dvb_device, including the demux, dvr and ca entities that
+> never own a media link; calling the handler for those would deactivate a
+> link owned by another entity.  The au0828 driver stops the pipeline and
+> clears its saved link in au0828_usb_disconnect(), before the frontend
+> entity is unregistered, in a separate patch.
+> 
+> Fixes: 68ff5767ddc4 ("[media] media: dvb-frontend invoke enable/disable_source handlers")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 > ---
->  drivers/greybus/operation.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+> Changes in v3:
+> - Publish dvbdev->entity with WRITE_ONCE() and read it with READ_ONCE()
+>   at both frontend call sites, so the clear in dvb_media_device_free()
+>   is not a plain data race with the readers that hold graph_mutex.
+> - State why the active pipeline is torn down by the driver rather than
+>   in dvb-core.  The matching au0828 change is attached to this mail.
 > 
-> diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
-> index 7e12ffb2dd60..da53c0e026f0 100644
-> --- a/drivers/greybus/operation.c
-> +++ b/drivers/greybus/operation.c
-> @@ -1047,6 +1047,13 @@ void gb_connection_recv(struct gb_connection *connection,
->  	/* Use memcpy as data may be unaligned */
->  	memcpy(&header, data, sizeof(header));
->  	msg_size = le16_to_cpu(header.size);
-> +	if (msg_size < sizeof(header)) {
-> +		dev_err_ratelimited(dev,
-> +				    "%s: invalid message header size (%zu < %zu)\n",
-> +				    connection->name, msg_size,
-> +				    sizeof(header));
-> +		return;
-> +	}
->  	if (size < msg_size) {
-
-Combine the conditions:
-
-	if (msg_size < sizeof(header) || msg_size > size) {
-
-regards,
-dan carpenter
-
->  		dev_err_ratelimited(dev,
->  				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
-> -- 
-> 2.53.0
+> Link: https://lore.kernel.org/r/20261102142508.24277-1-25031212351@stu.xidian.edu.cn
 > 
+> Changes in v2:
+> - Read dvbdev->entity once into a local variable under graph_mutex at both
+>   call sites.  dvb_media_device_free() clears the pointer without holding
+>   that lock, so re-reading the field for the call argument could still pass
+>   NULL to the handler.
+> ---
+>  drivers/media/dvb-core/dvb_frontend.c | 14 ++++++++++----
+>  drivers/media/dvb-core/dvbdev.c       | 16 +++++++++++++---
+>  2 files changed, 23 insertions(+), 7 deletions(-)
 > 
-> 
+> diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+> index 0286da57f382..bcee88e16576 100644
+> --- a/drivers/media/dvb-core/dvb_frontend.c
+> +++ b/drivers/media/dvb-core/dvb_frontend.c
+> @@ -2826,9 +2826,12 @@ static int __dvb_frontend_open(struct inode *inode, struct file *file)
+>  #ifdef CONFIG_MEDIA_CONTROLLER_DVB
+>  	mutex_lock(&fe->dvb->mdev_lock);
+>  	if (fe->dvb->mdev) {
+> +		struct media_entity *entity;
+> +
+>  		mutex_lock(&fe->dvb->mdev->graph_mutex);
+> -		if (fe->dvb->mdev->disable_source)
+> -			fe->dvb->mdev->disable_source(dvbdev->entity);
+> +		entity = READ_ONCE(dvbdev->entity);
+> +		if (entity && fe->dvb->mdev->disable_source)
+> +			fe->dvb->mdev->disable_source(entity);
+>  		mutex_unlock(&fe->dvb->mdev->graph_mutex);
+>  	}
+>  	mutex_unlock(&fe->dvb->mdev_lock);
+> @@ -2941,9 +2944,12 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
+>  #ifdef CONFIG_MEDIA_CONTROLLER_DVB
+>  		mutex_lock(&fe->dvb->mdev_lock);
+>  		if (fe->dvb->mdev) {
+> +			struct media_entity *entity;
+> +
+>  			mutex_lock(&fe->dvb->mdev->graph_mutex);
+> -			if (fe->dvb->mdev->disable_source)
+> -				fe->dvb->mdev->disable_source(dvbdev->entity);
+> +			entity = READ_ONCE(dvbdev->entity);
+> +			if (entity && fe->dvb->mdev->disable_source)
+> +				fe->dvb->mdev->disable_source(entity);
+>  			mutex_unlock(&fe->dvb->mdev->graph_mutex);
+>  		}
+>  		mutex_unlock(&fe->dvb->mdev_lock);
+> diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+> index d753d329502a..bb6369c3abde 100644
+> --- a/drivers/media/dvb-core/dvbdev.c
+> +++ b/drivers/media/dvb-core/dvbdev.c
+> @@ -208,10 +208,20 @@ static void dvb_media_device_free(struct dvb_device *dvbdev)
+>  {
+>  #if defined(CONFIG_MEDIA_CONTROLLER_DVB)
+>  	if (dvbdev->entity) {
+> -		media_device_unregister_entity(dvbdev->entity);
+> -		kfree(dvbdev->entity);
+> +		struct media_entity *entity = dvbdev->entity;
+> +
+> +		/*
+> +		 * Clear the pointer before the entity is unregistered and
+> +		 * freed.  The frontend release and open paths read it under
+> +		 * mdev->graph_mutex and pass it to the disable_source
+> +		 * handler, so a stale entity must not stay reachable.  Publish
+> +		 * it with WRITE_ONCE() because the store is not serialised by
+> +		 * that lock.
+> +		 */
+> +		WRITE_ONCE(dvbdev->entity, NULL);
+
+I think this can be simplified: just take call mutex_lock(&fe->dvb->mdev->graph_mutex),
+then set dvbdev->entity to NULL and unlock.
+
+In __dvb_frontend_open and dvb_frontend_release you can just check if dvbdev->entity is
+non-NULL before calling disable_source.
+
+You basically say that in the comment you added: the store is not serialized by
+the lock, so just add that lock here.
+
+Regards,
+
+	Hans
+
+> +		media_device_unregister_entity(entity);
+> +		kfree(entity);
+>  		kfree(dvbdev->pads);
+> -		dvbdev->entity = NULL;
+>  		dvbdev->pads = NULL;
+>  	}
+>  
+
