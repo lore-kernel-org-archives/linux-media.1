@@ -1,76 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794496163;
-	b=GOymrdQuPnnuF7FMzPslYXvpg+36mANPlO0h7/2TQ73tp/Ako6V6IBlmk9Ug+/Q38Sgh
-	 BTFiPf6tIMt+lLfAJJHYhvgayedJzxXmaG7rkzvnSYPgwd5JtuX1iA+uBkCcOJXb6JzSM
-	 xSihqdx8YjxVLIdB8UPX9hDOiKuhXfgWH9IDWWU+DZ4bJH2OQqnwLeDovoL9l9SNK8xEV
-	 Y8n05WgQbBUmJ+f7EmyFeXCGEXYTC0hfRb+UY29or/MOBewTuuDlQk1cylw2AO78yx6Rz
-	 wFhGyb8qrOlLBsHlol7FeGMLK6ZaS3QrBObuFjSTiT0deTZk4qhMyL85vDUwYXf8O3A==
+	t=1794499639;
+	b=rteWjFRlRxakIRwn2Jf00eWOsEMmng48oXTViGi0wpnW7fXwy0pHL37nXoC3gjyHj5AK
+	 Lgy4HTExHUOnh+zCcYi1GeA8+TeKvJWGiLT+E1oZOIf72Q3f3LtNdVG71rw9GS+CiILi9
+	 Agj73pWc2gynIVc15QynkiwhcPAJs3LS2ckfu/qGbWPHUYl8rf8WFGWskN3YNmD83ntvo
+	 YEZ7xSQ6cLmegZF6xj94xHKL/T2mmfikQ96KnwrZ9AAvFswEWokKVrenPE7gE2w9V67h4
+	 GHSm1AekuKtbcZ+mWCklKz1gVo+2eVQTt1tnQiIIqOvCvZ9OVgmHhYyzRc5dPLqJWuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794496163;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=f2HclZgC7BHSQ1+tdHxuenXtHwqaRuALZpayUv998n0=;
-	b=IDckCLY9MLwam1psIucA6fxFKXEfx6CAeYL7YVvF7In1QqXuKzKIUgsCWrmf5WPsbyBJ
-	 EL+ZAAJolN0wIIuPpFzaafNOYRyunCf5JhJ+3LbftHmhiF40rADspdz3omhHjBYtT1noM
-	 sM5SrBcEeZI6KVfpVZEnZn5JnT+xLFGpmagWQbPmYgZy4TCYiBfe3f5Aa6T63cc0p8PNQ
-	 rSXc5ZgltGVz0tOXuJvEd75W6W/IIX2xHppNhgndk9PuLfhrxEtqbLIqi2krRJw4w9Ck+
-	 STw9qWhH9wMDNROB/eWTdTsKfmW/WpgmIeSqDvGqp1pAepGl0uVVmdGstPgDYrTGo0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794499639;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=fgUM8MAZVjSSP/5FbR2dN87DFZ3isTqJIYoNVzvAakQ=;
+	b=JrmrzpgDKXqFyZmeU6v6UupczKk7F5CQ+adTsiNGw/pJQGlKycyIHdVwZYRPNnCB8nZU
+	 qtXjmZFsgBfTqPqHF0A5xZTwT540Jw5xxoXGN8DiwA/epyGX3neaaG6VpILb1JFXmEDOv
+	 VqWwd+fe613R/IApmU/HGXqY+dxa6guoaR7cVghGqytYewLz4lJCW1Jd6Xi94yMIwf5Bx
+	 ixyOWRwYBQlOi0wkD6XDW9jJbpd6R5gBPQBvprbvCEtjwh+2yW1ZKaKNsFabYkLnarXRP
+	 bSpIDTcuCP/csCHoKTHNSSujPSi4CipnRawHjAiQRvX/DuWji6BETMZDnh0v/10I2Lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.217.54
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Q+ZQXiJS;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E92606A336
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 15:09:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7E92606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-745497ac8fcso1553094137.0
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 07:09:22 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC2C5606A31C
+	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 16:07:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC2C5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Q+ZQXiJS
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso39433585e9.3
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 08:07:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794499637; x=1795104437; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fgUM8MAZVjSSP/5FbR2dN87DFZ3isTqJIYoNVzvAakQ=;
+        b=Q+ZQXiJSyaFHb/Y92Sbg1ArTq0TqM9KcYwqq8FZQFw4cft8bqDNuMXGT4hHzwvBhcH
+         6upw3p2z9QZPi13jswzdkt6cHrQa4ybrhoCm50YaOm1qL/aQz2os6mS6qGEb/TkUgWtF
+         LNecou4CA0Ud4YMd/IfJNUm+Un7pqCmq15EV2YtC7bdCC0sD9sjiElxNA7F5bLg0hL42
+         y+H0SI/JfP53+pMYWFC/OkF29pUrajt1DFk7cCF+ZRb9lbxXFxVbWFmpkTmDtFfjeOrM
+         4oThjIybeHsUMGCJqziWck2x5p0ZgjkdbfxuOkZ5RXG7CrMUIxkJHFGQMn1edigqNsm6
+         C8xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794496162; x=1795100962;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=f2HclZgC7BHSQ1+tdHxuenXtHwqaRuALZpayUv998n0=;
-        b=wcHhVP6dEyYTE5WWm/MJxqSVGQhNGyvmfM5PlJ6kYJ/P2kAtHFq6As/wQmOHhSyZPS
-         35FAhrKIL2+irGR1mv6IIE/oYKZNCbbqa2CPnMyGxMHQU90oUjoJMLGE4Rnj1fRcAot2
-         Cn/H77V4l1RFWOenz9vk3H3cjyw4X85N3gHCh6NwN44bZhXLj2ZUdBaVlj4xh5FIf+N/
-         bejqLJADU00D3hXtTrDNwHkD7oK4N6aTVEjOezMJ5mSL+GJqj0V+53+6XH5sengu/ahx
-         DHbxgg9nQNk7SKWE5LdeqVKhOxhjmYfx7JC7XLFyy+eo3M1RFAdriY6RR9SldcF83rJC
-         RbSg==
-X-Forwarded-Encrypted: i=1; AL+hErGISztw7kgcwKSvqg4cIDP+WPVXuGGx4MjwrSynYCa2MhRWCFCrWwJiwZPt2RvAirEoJxz9MQAwJkCAlg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BtoG2/7aMu0BkzPZGnvs6r1dTgBZ0IiRdYjgoq4fR2mu6GEid
-	Pf0/254Ei3WRk+yfwwXfxNYmhKiCcdTTKsc+SSP3IiKu7ovGXeg7zkOQBIyg75FDDHA=
-X-Gm-Gg: AYBFou2C23xHHRxBiUQKX1WZ5kIm6v0ebA2B1KiWCAmVcRIafl0iqgY/ib+GqZgKk9d
-	v3tA+i/0YIn5WdSdC2HNPn6xetbUGCI/GV5d129RSwjDZLgKTP4lIbZVYD3JLeh/DA5e97KKimD
-	tiSOmv0VShCjTGwiPRymI02tcsJm2jdyeKKJPI4aa71xVCK3HnoI9l6V/GB8YK8tT5mjjHvoSpv
-	URJwSvsQgVGc91JOoz9JHCaMQffa4cEyNMGjTcW+p0e29yXmZRAOYvqs24oFi4nA3kRCPcJFpIF
-	a2rx3+aBgoyxNdzuhbpZlWthJh2fuBxtRkw+XjR3Xrj/s9Mz2W7v+hrv3Hie8ld8V9w9edp1CXI
-	7ft78PFUblGs2x+t5spaWBcAiuRoIdLSZquj+zi3xE3W1oLxR0/+uF9MPlFw42dwQogZGCny4Ii
-	RO3A3h9PjIlUjsUnDl0e2tpoK6uTHCp2xQU2e3g2q0rG2g9VP8aupvrfYKELYeLUl6tIWLUgCHy
-	bUxgq7WPqs92QpG+tc/RoD3xWHl4eNZ7hkHCVtiIsTWKDPHowigR9t3FCkchytGx0jNsd4eMUhz
-	Yfgd9IAHwshNZBz3lwnQyH9fsrKI6XVroNvAmwYE6HEwKl1Nrl9eA7opFAM9Nq8OEjjjGL4t
-X-Received: by 2002:a05:6102:3ec3:b0:7d2:7be1:272b with SMTP id ada2fe7eead31-7d50615b505mr2266972137.28.1794496161748;
-        Thu, 12 Nov 2026 07:09:21 -0800 (PST)
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com. [209.85.221.177])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d62241eca6sm2999222137.11.2026.11.12.07.09.18
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 07:09:20 -0800 (PST)
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5ed2f163a2fso1333334e0c.1
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 07:09:18 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHEN5UtXMIqxvI/QkbZAFUExLFcx26uMEVFBTgkFeMx1M5kv1p/fV+y+c/OSKFb54V+p4+LWwtKox8cqw==@vger.kernel.org
-X-Received: by 2002:a05:6122:54b:b0:5ea:b294:f0ab with SMTP id
- 71dfb90a1353d-5ee1c298abdmr2507584e0c.2.1794496158519; Thu, 12 Nov 2026
- 07:09:18 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794499637; x=1795104437;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fgUM8MAZVjSSP/5FbR2dN87DFZ3isTqJIYoNVzvAakQ=;
+        b=ZDsn1pW5DOfzqOhZk2do96ZD69AK6iwmE4UJ1OrEBlg8mZKyrvDxcU7uXbNODQDOo9
+         tz56CiTCsaXVrxQ9MM6klMv7XOGWB9sloaKSY6eT0Z9FDiAfoE60lCZdmVw3lHnv/FwD
+         ET8LN9cFrwveTZ7Gb/S6mD/Uves1EqmsXtEcxBJAy/9bf10Swv4O36dZ7wgFIb9IwCuE
+         ZBJRIXth0fJNg10iPP6yxVzYyrZcerJT+hN/Vm7GX1T2t4DMs4IpcBliR7weJ081lfWw
+         JHMYRXZmdg/mPDdLZ9vtx6xRA8kbyR/yxx+5EanfZ0qgzpBKFWJFhW6OPTDcOid3nxuM
+         Rtdw==
+X-Gm-Message-State: APuU4Z8APVHTpnhceuceexiH/ErcfSoYvzLfLjNSubCkciZmltL8SiKk
+	7wskoc3bWvWwFaA4mJDfg7VkVY4W+uDzNCABMlnljcUrf92kfbLtxvekDRl58neMF44xctmE/7N
+	qxEWqlMs=
+X-Gm-Gg: AYBFou1RRDNT3Y7E6Ma2Ru/GjaAxMzBMpV6mxQ65iJWeePBDjrttc/v21v7saNNs+/q
+	Iaze0hg7B6obGoMyh1mcZyuupUX9TVxIqYwJFBb/MViGn9UVT3Aa1qJijf7PoecztyxfcYLWTUY
+	4hZT7f3/MQsK41A1OiHUBLoEb/TX27EpJC+haz+R325WVRiz0azkOW9QisKaQKdX3nzb1urwaub
+	iZbVDlSyoaRJT+6frYAlb0DDXcjE+wSUd1a5yShCHWAAHun3Sn5IgHY0qtturagGHmVaxaR9mO+
+	Cb3H3ZJDeW+onjzl02aCzWkZ2EiFEnNm1BfNIZqg1WfQFQ91GxK8vsN8SPNyfItt4GZSNmTS6En
+	Czw/qPfMubGv3l7BUujHVijBADuK3I1028Zebsh6di7qG/ab8viuQpQU0E9YsoHhYx1iFMGnqJo
+	O1nDHiXwtIFStcwNNZjR5c9Ok2Of/5G7hH7BSv18G8GSBIiNm2PUfTQLajIc2+NEfiPAUAByBMS
+	rM2UqKYcrrQNtwLxObi2RRdzpQ7etaG0nhS7SGHMACWZhC7GNYREtOAdGD2XIs47jeT7XwyA9w0
+	7CKH6mBKKbjO1+ozwhCS4x7PMhRPRioHTbRvqW+adnqUIbryje7VW9SkgZ9Vq3cI/64OlMT4Knk
+	v0X4EqYvj3DkqgQSx
+X-Received: by 2002:a05:600c:1c01:b0:4b0:bc65:b9b5 with SMTP id 5b1f17b1804b1-4ba09395574mr135241465e9.35.1794499637326;
+        Thu, 12 Nov 2026 08:07:17 -0800 (PST)
+Received: from localhost (p200300f65f19a9043dac1f1ce30146b0.dip0.t-ipconnect.de. [2003:f6:5f19:a904:3dac:1f1c:e301:46b0])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb4e26c2casm71865705e9.12.2026.11.12.08.07.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 08:07:13 -0800 (PST)
+Date: Thu, 12 Nov 2026 17:07:07 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+To: linux-media@vger.kernel.org
+Cc: Linux Media CI <media-ci@linuxtv.org>
+Subject: Re: media: firewire: Drop <linux/mod_devicetable.h> from firedtv.h
+Message-ID: <avXi_DvNc-58btfA@monoceros>
+References: <20261112101815.2772413-2-u.kleine-koenig@baylibre.com>
+ <6af5a328.9e649e5a.f3855.8f9a@mx.google.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -80,98 +97,80 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
- <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-11-1b2072e8c37e@ideasonboard.com>
-In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-11-1b2072e8c37e@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 12 Nov 2026 16:09:05 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUBEjh6YSazKAyBv8xAq1+oFG-dfEf=O58otP1wB9gRvA@mail.gmail.com>
-X-Gm-Features: AclHuK9Zmur2PVIdNvv46swJ-VbufJjxD1dvyJf5R-d3EopJYyWzLSJYUjPuDQE
-Message-ID: <CAMuHMdUBEjh6YSazKAyBv8xAq1+oFG-dfEf=O58otP1wB9gRvA@mail.gmail.com>
-Subject: Re: [PATCH v4 11/13] dt-bindings: Increase Renesas X5H MDLC PD
- specifier bit width
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-media@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kovx73mxaklmirun"
+Content-Disposition: inline
+In-Reply-To: <6af5a328.9e649e5a.f3855.8f9a@mx.google.com>
 
-Hi Paul,
 
-On Mon, 9 Nov 2026 at 14:35, Paul Elder
-<paul.elder+renesas@ideasonboard.com> wrote:
-> In the Renesas R-Car X5H, the module controller's power domain specifier
-> cell's bit width has been increased. Update the bindings documentation
-> to reflect this.
->
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+--kovx73mxaklmirun
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: media: firewire: Drop <linux/mod_devicetable.h> from firedtv.h
+MIME-Version: 1.0
 
-Thanks for your patch!
+Hello,
 
-> I'm guessing that the maximum number is now 512 but I can't find
-> definite proof of this.
+On Thu, Nov 12, 2026 at 03:29:44AM -0800, Patchwork Integration wrote:
+> Dear Uwe Kleine-K=F6nig (The Capable Hub):
+>=20
+> Thanks for your patches! Unfortunately the Media CI robot detected some
+> issues:
+>=20
+> # Test media-patchstyle:test-valid-ancestor
+> ERROR: This code is not based on any of the branches: next fixes
+>        from https://gitlab.freedesktop.org/linux-media/media-committers.g=
+it.
+>        The output of media-ci will not be reliable, and the code will not
+>        land upstream as-is. Please rebase your code.
 
-As the Module System Reset Registers are at offset 0x900 + l * 4,
-and the Module System Reset Status Registers at offset 0x960 + l * 4,
-there is room for 24 registers holding bitfields for 16 modules each,
-thus maximum 384 modules.
+Well the base I chose is next-20261111, but drivers/media/firewire
+didn't see any changes in there since v7.2-rc2, and also
 
-> --- a/Documentation/devicetree/bindings/power/renesas,r8a78000-mdlc.yaml
-> +++ b/Documentation/devicetree/bindings/power/renesas,r8a78000-mdlc.yaml
-> @@ -12,7 +12,8 @@ maintainers:
->  description:
->    Each instance of the R-Car X5H Module Controller (MODULE CONTROL) provides
->    Power Gating for up to 64 Power Domains, and Module Standby and Reset for up
-> -  to 256 modules in the Power Domain of each Module hierarchy.
-> +  to 256 modules in the Power Domain of each Module hierarchy. Recent hardware
-> +  versions have increased the number of supported modules.
+	https://gitlab.freedesktop.org/linux-media/media-committers.git next
 
-Just change 256 to 384?
+doesn't have any changes to that directory, so it should apply there
+just fine.
 
->
->  properties:
->    compatible:
-> @@ -32,14 +33,14 @@ properties:
->          are always on, and for which there are no MPDG bits to control them.
->
->        - The second power domain specifier cell is the module standby part, and
-> -        must be the module number (0x00-0xff), composed of the Module System
-> +        must be the module number (0x00-0x1ff), composed of the Module System
+> # Test checkpatch:./0001-media-firewire-Drop-linux-mod_devicetable.h-from=
+-fir.patch checkpatch
+> WARNING: Prefer a maximum 75 chars per line (possible unwrapped commit de=
+scription?)
+> #24:=20
+> $ git grep -oE "\<(acpi_device_id|amba_id|ap_device_id|apr_device_id|auxi=
+liary_device_id|bcma_device_id|ccw_device_id|cdx_device_id|coreboot_device_=
+id|css_device_id|dfl_device_id|dmi_(device|system)_id|eisa_device_id|fsl_mc=
+_device_id|hda_device_id|hid_device_id|hv_vmbus_device_id|i2c_device_id|i3c=
+_device_id|ieee1394_device_id|input_device_id|ipack_device_id|isapnp_device=
+_id|ishtp_device_id|mcb_device_id|mdio_device_id|mei_cl_device_id|mhi_devic=
+e_id|mips_cdmm_device_id|of_device_id|parisc_device_id|pci_device_id|pci_ep=
+f_device_id|pcmcia_device_id|platform_device_id|pnp_(card_)?device_id|rio_d=
+evice_id|rpmsg_device_id|sdio_device_id|sdw_device_id|serio_device_id|slim_=
+device_id|spi_device_id|spmi_device_id|ssam_device_id|ssb_device_id|tb_serv=
+ice_id|tee_client_device_id|typec_device_id|ulpi_device_id|usb_device_id|vc=
+hiq_device_id|vio_device_id|virtio_device_id|wmi_device_id|x86_(cpu|device)=
+_id|zorro_device_id|cpu_feature)\>" drivers/media/firewire/firedtv.h driver=
+s/media/firewire/firedtv-{avc,ci,dvb,fe,fw,rc}.c | sort -u
 
-0x17f
+I'd expect that there is an exception for commands like that?
 
->          Reset (MSRES) register index in the high nibble, and the Module Reset
->          Destination bitfield index in the low nibble.
->      const: 2
->
->    '#reset-cells':
->      description:
-> -      The single reset specifier cell must be the module number (0x00-0xff),
-> +      The single reset specifier cell must be the module number (0x00-0x1ff),
+Best regards
+Uwe
 
-0x17f
+--kovx73mxaklmirun
+Content-Type: application/pgp-signature; name="signature.asc"
 
->        and thus identical to the second power domain specifier cell.
->      const: 1
+-----BEGIN PGP SIGNATURE-----
 
-Gr{oetje,eeting}s,
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr15B8ACgkQj4D7WH0S
+/k7F4QgAtIE1tV8QrrydoNPpD5ekXljw8NFtWLURW8F7WEXpxqMpbtvuKrqSSd9s
+8ezzPaHZqfnuZdlJTVNrxzkAmkhbCHLx1lsipblRBu5+/bEl/JpsnT8iuvhmwEMo
+zXvuvT28ywv8ItV1YiZlacDyhAfv+9NsPYVeF9Ey9piT55OyFDTwBQGZ00PfHzks
+vNPPy8RHZXzDA5ccaIqNr8WSKVTU93Da5EUk9g/kOQgMbFmCirHLkRyrKbS2t7E1
+LMKsU5Lbkn9flGbu9dVPq6eyRQCSZJytFzfqjMMwQp419Js0QycxySmk9desEhiH
+6gdVJB/gdUZpP9BxF05IP1TXJp3myw==
+=hpfD
+-----END PGP SIGNATURE-----
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--kovx73mxaklmirun--
