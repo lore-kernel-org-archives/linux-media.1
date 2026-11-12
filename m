@@ -1,94 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794478706;
-	b=U1UXUZ2PKrIcKW/2oSFE35YC/ZIfVuWkhIiQmEktH/2J8hs7+9IetSc3R4zbXr9B7mML
-	 mCjER3VvX4SbHEiukBzYckjEPxmM0xeK3LMMsoXTUsaV1DsDVbhtkpLyNiaD7pyZPFhCw
-	 D1ZatTbspqAiQyuM26cPYNegAEtKt2wljWCnnCq4IFjl67wAm8nrXSLJwymUGu7TZFEpT
-	 9tHpOazpsKOKcfF513fWju3IZyE38BgbJaunH6ncynvvL1IE/eNFCQdHwojPDeH8IaMe0
-	 DYl6jaQOAASU14R9XRM0d87lg/czftBTjpCJhUE016c67Q0zUUJjVqz83oglKbsvl4w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794478706;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=pDRUb4e0HFI/8KX/ujmfHEnemDtdXuv4ZVAssKD7jk8=;
-	b=fvHcEwjLqP8V/LlGb4MpbgRTm8ir+a8n765OaCOocACMcnTTxaIV/9Gk6CgRfWUOxf6z
-	 koAX8HiuahCU7OtMmj221kU5dS2mDCs4B8xflQb5eYG8/KnRzNULsaNHSbwDbyfDskkfN
-	 aY3Rwl4I8AENvCMtNOgqqb544ytWEylvfYHX3MIkCGd073vMEC7FSlZe5lQ/f6EaWlszj
-	 5TImRSIIQafpZuwfzg4CosK5v/1YDDsbSefvTWD7gosltTtfajMX2rRLDGPMje/CVhhx1
-	 aHQIqwxNLpChzgFVKrwvSsYdlZXQiwXeEbjDjK2htXrf/OrkiopG/0xuiHb7T5DW+sQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=gV4ysUBR;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794478752;
+	b=1e1KSB9wXkvWzAirLy+YArgbppOMJxL07XptRJisgI5T7C9/9LIH4VWjf6ZGwcpsfO/7
+	 K3MDGbsgzxxUZ90e5MRoaEC9hhe28TW6dcVYvBAXTb69rH52gvNkTyMnBmkaKCYa4FNGW
+	 ByTuVA5180kdKneU/NLaPbhlTH4sGOQ27jpFZMhFJLpdGwLx/zi69eK0GX74CTub8HfYY
+	 F5FeJFRDuac0ti+ymJDO1KTme0rO30QFGyXtkeRaIA3Q4mkXWb0mx7J1k7VhVV5RYYqL1
+	 C3ec09nO3tMdnSqCtXYT24wp3EYQVpcoJX3NWBT2THOl9qTyESzewvNc8PlrnrI2jlQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794478752;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=4VYAg36bzRQtNXdY1YRHBQr5BBzsOdbEIoK2oKxUoYs=;
+	b=lH+xHunFXdazjY6f2wdBsZ0miWwNgcZ+klZPxE8WXDJn99wJAa+ixvRZKr6weOK86DkA
+	 xn4Gp+7XVFNgF2RcGKMPqNLupbF7eOvEDLuWg0gA0r3F8/ldfDe5YgcrPSiAQ9t4dD9xu
+	 DlGZx28c+kKyct8xLJGtEpvWk05LRvOG5VGx14iWh/Z7mHOJle5q8PNbGlu9cBxfdt4e0
+	 Ht7LVnGPHOP0sQtbz3CGesWeY0g7RINk2IHgL2KygKXz9U48I+jV2KNjBfE0nrLAQPgen
+	 mzkZ7tb5YO0c1Wh3nUsTfsIBoZr4SdL6tN+OOB6ug06q4CULua1bL59szt+yPEh6png==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=O2obj9vK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445A2606A321
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 10:18:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 445A2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C802606A327;
+	Thu, 12 Nov 2026 10:19:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C802606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=gV4ysUBR
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso42946435e9.1
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 02:18:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794478704; x=1795083504; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pDRUb4e0HFI/8KX/ujmfHEnemDtdXuv4ZVAssKD7jk8=;
-        b=gV4ysUBRVbQZKHjoc/YPy2id5EpTXD6c6VN1CyfZWgJ2IhCvL7HHO849btJl+kf1pG
-         eM2k8KkuCuSRyKE2m+2vvcgQu9MtfcoC1kb4mfsDVKtAkqpe69SdicxmYIWHEAVt+NjH
-         KmIA20n4LqrykNwOGSahOltANZsZVdIMU0ycK81MGUNtO0XOPOOKyERaxdu1xXQPxYEh
-         euX17hNLHyBQFbcTeeoKgwigg//4cwJIHY4JH805lNA9y8Wr2lUvgusMGOv+MENT4Sw3
-         S5rl1w9VoM6uQ+Cz2OP/77rEeqF1N8CNuJvK1dhnu3M963h3eVPGGmIuvQxuAtivzeHU
-         ZJyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794478704; x=1795083504;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pDRUb4e0HFI/8KX/ujmfHEnemDtdXuv4ZVAssKD7jk8=;
-        b=qEy6HanGgGght9WU8SfT43xMGzs5AD8e1hUZ49SHchaxY+6yuh2xWk9zU3WkZnaseF
-         p8kPmDAbvdJRIQIetsrHESSUkaCoJOk/X2lvYaNno2UuUnjWIj08YawrjPqHVtlqopGg
-         9Suw5VhK41Cp91wAlsVC+NmAljRXvA9ugyQFeWHEsoipt/u82qJdSIuUQ9j/8yiNKr5W
-         qmKGhZWBZDuW1X6K430ZH1f+CCEdQvJ8k+2nTvnV5b55G4L3lD79mk1RjVlh/onuw00R
-         LO5ti1QPR/ZRVcplFZ1dbD6siqQFTcTqS32lnrr0AMwKiRnk6Zp8mMrB3NT1vymuJCrf
-         woog==
-X-Forwarded-Encrypted: i=1; AL+hErGInUHoivwbpIZU6lq0GgDoxKmTIQA6Tinrm28iotg832o/gjw+9ekYxOCgQtD8W4+C6uunTlZYYcP4SQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z89UQ+RjprNJsj+O3Em9szJS8V18/QYU2IAd9XCnjw+irlVbSnI
-	yiCwLUwKFsIzYMKq8OlHIMjlBL3J3li51uY6otwLjZM3KZCCggSTqafqQCAeRPNH5oE=
-X-Gm-Gg: AYBFou0X+cUFNYIJIjBbufTPx9yE3W3uuoODPyVJr1Q+Vr88HicWhNxXN2C3aJ1/Lvl
-	OKE0yZrEp2VwiCjNSsUD9UxvVBRxpFBNZGko1OeRW48sMT8YCDkU01FJzpfKKL0sTVcw5CAvuU8
-	8pUSmPoKKbyFyopCB4swn/u+zK603/1kGAh2yP8ikuUrcsF0fR407X2AeJERjrMpxGHQU/TScbG
-	qLR+EdBEuamqgb+0loh2lfenwUv9bE98aWcTNMNugILebUjLEaOQWLb0xst8NfkaPRnuiih+Dw8
-	EzrmU9LJhyuezT/GjEeeMU5SJBB1OftLvlaWl65CeX2gzWIdJCfglQMZCfxGn6Pv2lvpVcX13sA
-	FktFoJR2jQE+wTm5kgiwM4W5uaveCExlsAqcsxmV6dkW1/y/syov4IyqsG4b/FTd6bCyM5f8ODP
-	IDOD0mCmBZENEL01+6CXsSuovKUiMWiK4QWptlUlfbzVD09s8rpijiff4qhD4hzF2PvwVESgoPc
-	O1EXgtVM+zFlOhWwJgMMcgwePtCphyekr7XIiooNS3D6Rt/UjWRHDAA657+DuEeJiJ6DlTxBD4h
-	XtuxB1asF645OK5+SLYwToSqY8T2N5zQZBAQf4W+BjnO8YvXFcA9Ll9vezL4utI0ixlHRKDx4TQ
-	w0DqNUwp7JAMfndf9qH97nYUuv4w0TWRavE2mkg==
-X-Received: by 2002:a05:600c:3f16:b0:4b6:bb67:bb9 with SMTP id 5b1f17b1804b1-4ba093c8e2fmr85769335e9.29.1794478703668;
-        Thu, 12 Nov 2026 02:18:23 -0800 (PST)
-Received: from localhost (p200300f65f19a904528996c8ea0fadad.dip0.t-ipconnect.de. [2003:f6:5f19:a904:5289:96c8:ea0f:adad])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4ba0953d26asm71053955e9.4.2026.11.12.02.18.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 02:18:23 -0800 (PST)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Stefan Richter <stefanr@s5r6.in-berlin.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>,
-	linux-media@vger.kernel.org,
-	linux1394-devel@lists.sourceforge.net
-Subject: [PATCH] media: firewire: Drop <linux/mod_devicetable.h> from firedtv.h
-Date: Thu, 12 Nov 2026 11:18:15 +0100
-Message-ID: <20261112101815.2772413-2-u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.56.0.rc1
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=O2obj9vK
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id AB9A52004B4;
+	Thu, 12 Nov 2026 11:19:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794478748;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4VYAg36bzRQtNXdY1YRHBQr5BBzsOdbEIoK2oKxUoYs=;
+	b=O2obj9vKiy8RAL651Nw17SsNvscVe5NWLWrqBbtOf9f80E051DzurxZ5OQYThZs3dXJ2k4
+	/ebUywrJhNmQfBlHi+sb3M05tnDQhOhljmDvzHvo1WO6hdc1U7OVG2Gk/v5TRevHcdH0LK
+	nJI/UveHe++PxIq4gA6ZNuW7bRITk5ZHKI0oJd3q0px1QQ4TxHrUVt0R+HY+nz+Hqxx917
+	LA0cD7I2mO3svbqPN0u4p/A9zs1QzmBvfucPyq14aUkjq4aisup+MfhHNmMg+4pxP49474
+	J3HyUe9VApmCLPvRzpoB28CB27qwsfeZqjLvZzIC3t1dEF6Xo9jnIW2m89W2Yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794478748;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4VYAg36bzRQtNXdY1YRHBQr5BBzsOdbEIoK2oKxUoYs=;
+	b=I8gkf2050xIArn/XEyvo/83XwaJRBj6azNQtTxCIY/yHi1zw5BMzwmu2qnZZy1X7mQ5VGh
+	V1P0QqzSsNmUbXj9tlqnz8IZQPft8lZorV1UfB97uNQsZ93nEnFjvx4mP51dkut4P0X3xT
+	Ol74lUP3wYXUYjIVHAvPEhgubRqHz1eaycsHlgqIfIopSZDDM224iHY0mCcRIq9Msn49gP
+	4cLLl2D5M7jyh2RScnIqkV4BXnZEPcIbQiyH2DI9r3tdYqd3hIfso3AN/o1yc1DyW0mu/b
+	NX82H8D0tkR16DHyUOyXubWYHS1PWtZJI+kSBhng9Fcr0ytHIAFwRff9Ht+3Ng==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794478748; a=rsa-sha256;
+	cv=none;
+	b=W+c+029ZeAryrNgfB9iWvxS2lleQ2C711z4nB4g3GeDXtMKxKc7ELfNYPFWYjZupXyKggP
+	tl6Nz/nc7FLu+lPISIGmTRveYzBb1eOkXI9C/x+2ygShAMTY9TXnTxMTB70MkC490pRe4j
+	ALNoS9ncXsgUd3XvPtsR4rZqPnyiC59vBeWrpYLZDlNgUxS9KPzx2jN+Hs7A8TMNSYJz35
+	GEmyDVJzc53dZGlSWpw/XdhKEwcnySj/IHE6FsbBlrE8roZADzuLSigBOxOxEoGppeY3Ru
+	la9EADd/9144U70sk+XDQX1hvWa2270oiXD99nIr35CCDerYr4IukA9uHM0VzA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <c97eef1ba88daf83d231d2ecc78b47fcf524385c.camel@pengutronix.de>
+Subject: Re: [PATCH v2 2/6] media: verisilicon: Don't hold the VPU in reset
+ after remove
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: aiyengar1990@gmail.com, Nicolas Dufresne
+ <nicolas.dufresne@collabora.com>,  Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Rob Herring	 <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, Nicolas Frattaroli	 <frattaroli.nicolas@gmail.com>,
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>,  Ezequiel Garcia
+ <ezequiel@vanguardiasur.com.ar>, Hans Verkuil <hverkuil@kernel.org>, Jernej
+ Skrabec	 <jernej.skrabec@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>,
+ Tharit Tangkijwanichakul <tharitt97@gmail.com>, stable@vger.kernel.org
+Date: Thu, 12 Nov 2026 11:19:08 +0100
+In-Reply-To: <20261112-hantro-robust-v2-2-18561fd48838@gmail.com>
+References: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
+	 <20261112-hantro-robust-v2-2-18561fd48838@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -98,74 +104,25 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2582; i=u.kleine-koenig@baylibre.com; h=from:subject; bh=UOhtWXNPyBaqoCv81IWoCC1O0d6StE1JJ156ffpDZQg=; b=kA0DAAoBj4D7WH0S/k4ByyZiAGr1kmehS3iyD16Jh3RzUOGjkPEi/f3Nk5pX2jNRQvEa1PomR YkBMwQAAQoAHRYhBD+BrGk6eh5Zia3+04+A+1h9Ev5OBQJq9ZJnAAoJEI+A+1h9Ev5OEmwH/2RF Ns5NTiCY3th/E0TzqBa2kOObABRTNMqbR94zztsMKFcIjhkLsmuKWrRKw8wWjanHAae/S6PRvQj cWkrOIJxoqTI06ildY0s5f3u+waAiBQVKjC9odEJb9SKyu8imeELV324rHRfrvj+gRvlXwl5bie mfZl9AZ0EnboqRuTc8eGMEpNrzu6OmXSU4hGtWiWatbNLPUBu9ARo11vJ2JEhv2dO7ZRvz5TVSL cqyQoCFPgGBRMCDWGRAA/t+Wa1Zuj/T0MwpeAsDgFSI2nblPsoTRut2hcd/nrlPdpbduzDuGJBG RXhuyPj3vDwsauNd9hKg/ySs01USfjsMMuvZQAI=
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: quoted-printable
 
-This header has 6 consumers:
+On Do, 2026-11-12 at 08:30 +0000, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+> On the RK3588, the resets of the AV1 decoder include the AXI and APB
+> bus interface resets (SRST_A_AV1_BIU, SRST_P_AV1_BIU), which also cover
+> the Verisilicon IOMMU of the decoder. When the driver is unbound, the
+> driver core runtime resumes the device and, through the runtime PM
+> device link, its IOMMU. hantro_remove() then asserts the resets, and
+> when the IOMMU autosuspends 100 ms later, vsi_iommu_suspend() writes to
+> its registers while they are held in reset, which raises an SError and
+> panics the system:
 
-	x$ git grep firedtv.h
-	drivers/media/firewire/firedtv-avc.c:#include "firedtv.h"
-	drivers/media/firewire/firedtv-ci.c:#include "firedtv.h"
-	drivers/media/firewire/firedtv-dvb.c:#include "firedtv.h"
-	drivers/media/firewire/firedtv-fe.c:#include "firedtv.h"
-	drivers/media/firewire/firedtv-fw.c:#include "firedtv.h"
-	drivers/media/firewire/firedtv-rc.c:#include "firedtv.h"
+If vsi-iommu accesses require these bus interface resets to be
+deasserted at certain points, why doesn't it request its own reset
+controls?
 
-In these 6 files and the header itself only a single device_id struct is
-used:
+Depending on implicit assumptions like another driver not asserting its
+exclusively controlled resets seems fragile.
 
-	$ git grep -oE "\<(acpi_device_id|amba_id|ap_device_id|apr_device_id|auxil=
-iary_device_id|bcma_device_id|ccw_device_id|cdx_device_id|coreboot_device_i=
-d|css_device_id|dfl_device_id|dmi_(device|system)_id|eisa_device_id|fsl_mc_=
-device_id|hda_device_id|hid_device_id|hv_vmbus_device_id|i2c_device_id|i3c_=
-device_id|ieee1394_device_id|input_device_id|ipack_device_id|isapnp_device_=
-id|ishtp_device_id|mcb_device_id|mdio_device_id|mei_cl_device_id|mhi_device=
-_id|mips_cdmm_device_id|of_device_id|parisc_device_id|pci_device_id|pci_epf=
-_device_id|pcmcia_device_id|platform_device_id|pnp_(card_)?device_id|rio_de=
-vice_id|rpmsg_device_id|sdio_device_id|sdw_device_id|serio_device_id|slim_d=
-evice_id|spi_device_id|spmi_device_id|ssam_device_id|ssb_device_id|tb_servi=
-ce_id|tee_client_device_id|typec_device_id|ulpi_device_id|usb_device_id|vch=
-iq_device_id|vio_device_id|virtio_device_id|wmi_device_id|x86_(cpu|device)_=
-id|zorro_device_id|cpu_feature)\>" drivers/media/firewire/firedtv.h drivers=
-/media/firewire/firedtv-{avc,ci,dvb,fe,fw,rc}.c | sort -u
-	drivers/media/firewire/firedtv-fw.c:ieee1394_device_id
-
-struct ieee1394_device_id is provided by <linux/firewire.h> which is
-included by firedtv-fw.c.
-
-So <linux/mod_devicetable.h> can be dropped from firedtv.h.
-
-Signed-off-by: Uwe Kleine-K=C3=B6nig (The Capable Hub) <u.kleine-koenig@bay=
-libre.com>
----
-Hello,
-
-this is part of the quest to get rid of <linux/mod_devicetable.h> which
-introduces a big bunch of useless dependencies.
-
-Best regards
-Uwe
-
- drivers/media/firewire/firedtv.h | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/media/firewire/firedtv.h b/drivers/media/firewire/fire=
-dtv.h
-index 190bb1a57079..428f9403fd2a 100644
---- a/drivers/media/firewire/firedtv.h
-+++ b/drivers/media/firewire/firedtv.h
-@@ -13,7 +13,6 @@
- #include <linux/dvb/dmx.h>
- #include <linux/dvb/frontend.h>
- #include <linux/list.h>
--#include <linux/mod_devicetable.h>
- #include <linux/mutex.h>
- #include <linux/spinlock_types.h>
- #include <linux/types.h>
-
-base-commit: aaa2f954c21b205a0bcd0961e5b2be4e82e58455
---=20
-2.56.0.rc1
-
+regards
+Philipp
