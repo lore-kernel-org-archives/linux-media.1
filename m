@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794472286;
-	b=3tpOm7w3zFdeZhmB2W5IAxj0IT4wwI0EpTM2Wxx5Wgv2oOvgppmCDcTsuM1C68ks+klv
-	 D0ANYbM3mbuAJcCNKu6txfVACpCFXDNYVJNzIWkyKxJDz/C/EF2mgon+Jswnk20MoWvjW
-	 TcBSaVFSHh7A9rFSTaVzzHDe4JE6yddT4glLRFHHdks4JWcwCHAOy/a7BrEQ+bwHnuV6j
-	 o9I6DHTnuOOMgiE/bcpjLQlfng62m3LHRhHDwlTJ2gtW6kZA7SZDFHdTWpl3UZwWiWAlr
-	 AwHL5Z8y6rBHTn8TnXmeXv7VPPSYLiKtbMNj6OTrwdn3ZZXXQg/poo5wIV6D9H9Achw==
+	b=a1qfTltp5cN4hkfZlcs+xjfBdM9WWeUGYxv9PX29fLoTRi5/qgjbh2yQY9qjsIaWOgS/
+	 fag+KCwrmQEW3S/Xy7XAvtAvnm4yqNU6wPeloiE0cnPdwmC7iBUHRpAH6WBQ88qXgSdCr
+	 LrIUb+0W2xdOEtFSrs0yPC8rb7zlg9YP76M3NvDb86Q8F6i4+OcOY7a+mVjbRjTRRVc2u
+	 FmmdrIk0TQ+k0bSAoffWItHeRn4pR9dLfY+jkyyorfXYkd6sCNaq2/UxZF0GBl4Fo/pc/
+	 914hbOzCU2peXXuXCYOyHDwTRkN09IFCnERmnqUXpjdRv+unQ8MNUDIXoDUaLqqYTVA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794472286;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=neMlK9Z6eTz+hf+fCLBkmd2cOyVT/RilZmzIenNn1Bs=;
-	b=25/vduCX1xAoysGLtDLgCGkQwmf2uqfVeVwzEBeMC3lTPLbm8vMvrrUrp7sunfWsR0Pf
-	 j1z7IWQrIoa6oL9BvTeO1E9vkqYbhq26r7J/l1iFZcyNBJu0xfYDmEyaUT2q33w7/0nKv
-	 NO+dWmZcODKmuyLMzm1ahiPkVTj8ToAv87bCP+uM08BIMx2komXibwRI4ZzA0Ubcb1yfJ
-	 bmQhS2/SuiG0O3hfkLVuP6DDUNi3qBAcQ481+Ua/WsOGx1byyrr010M62uC8Y+Xzx3KxA
-	 kLEB4MHqoQXdlE/JSHdv4GxQatMHCF6MmUp5U/7eMy+RjxGa1DWIx7C0bHBPJOmfnng==
+	bh=T8BMjQzOIvYi6coC6cfEQ/w65JHYug0nfsYJkwPuKxI=;
+	b=CwZ8JB8GUBA9GRaY4eTq26H3pfmOFV+JDG4BDJQX6pV07mm1mz6X1RiMTp1BVvrGvem7
+	 zrqMCpWCajzwsZPCM0TpK6VZE5Pbo6Yb2NqjWy5Y4f3uwftNSII6mSf/yBNX/MScxda1Z
+	 gTey2cddhjk0BHA++PQLJAb5u6T1nCxaQ7mlW6Wb5PdV+pj5ny43t4t+3gJx63d6TWCys
+	 OiLf54siZ2Ne7yuQcY9j+hHRagGJezV51uZqkzy4aOvRwAgDWOhhWGflq1KO51CAqbQBH
+	 OQ7Fz6qpOZ2RSQYZED7OwSfDseyu35i5N3ERmjEPdL88N56Q/VS8Ilt+S21KuaENzgw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5hWd56C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKkoO7el;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECF060A382D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2E860A3836;
 	Thu, 12 Nov 2026 08:31:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5hWd56C
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKkoO7el
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794472286;
-	b=kkfRLrGjBAKaS/RAszN6zCUciGzFp4xmVGeXPFN+isz7jMEN9cEv+ySwKdg+ULxDyoSZ
-	 2He9j7MloD4PGkcJopXFUZonaF4Rhi8KAYAjgA3iGwfyEjlLsMx22lq/fir8Tl0gletgn
-	 qV6hKthhGJtYsIgC5hZsg4TkwjzUL4ypLFpk6pf68FnpxnYmDOwrfr2/TGuCTNfsAtivG
-	 CjQYc4W488mmIn1qHEOwmu+cS3Wth5s8xoDGb3PJv2lmmHEuzMR+JNUYwKE9oywu52SzW
-	 b7WGrpmW6MJ6lVdTXDRP5SwxzxTH6qXKgJQVsU/7xyDWsf67R/WFtj38l/emAGkIQww==
+	b=sykIP7xz/xF4w91CA3j7wofCv9cPGilY3JxYY79C6vZNI7mYkh+u5TDHY4qIMrJhLwfz
+	 YGyG2TR6EhIFmBLpzXOsscwyGUE1z3RKJknmkfhUD/emEqD0psCxt6g+kD3BC50WlLjbY
+	 E242StBUfzvzHsmwjdZPzueL7b2oXpVbuvTMMC91UXePg3OX6RyxcNPucB+0f/zPegg9c
+	 Hsix7Xh62gogfB5f/VI5kAqfhYAIB9MvmAfyjdLpNb1HfRWquz+j/b7dVnQ0ivn2dPEfM
+	 bwsGlmGHlnJvq+0YQUjwWNNGaVfBZC/mDGKCy/NTd9nJTn5DpMlDj8u1TwpJc72ozcQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794472286;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=neMlK9Z6eTz+hf+fCLBkmd2cOyVT/RilZmzIenNn1Bs=;
-	b=pGaAyZcTcxwwx9OOH843GQkNka8Y1F6JJO6mk2LkUHrR/EzR10MqPd2ICrFhmrGMMl4B
-	 JNU1rgU62WF+Rh8vTdV4yxllwSsnnInInfODGcw+hEwhrHPgDV3dBnqddDteSlS2TsXb1
-	 olHNlPJ5cdFZYuQCWrp/RTiveChveHbVPEkZIeVgbh+N+w3tGzqt0/tlCK1j1ATq+2a45
-	 SU0KSlG/96gTyk8dLqGj5vFKVuNS2KDDBxtoJZuBKDEuM2vpcrF5DhPMLjcVQbWcBsb/P
-	 jxW52nsc6v73hjlaV4Yc264PZ0IxZpxaN/EdXIQA0HsdjcYiKKiGhcrA6oL2F6totKA==
+	bh=T8BMjQzOIvYi6coC6cfEQ/w65JHYug0nfsYJkwPuKxI=;
+	b=xVbxy98W1K035EfCJ79qa1AY1N5kIcCbWGYiooHUQ/q44kS69UE/VEKfAch8+Jy+aL49
+	 kg6T8bqH1wd2UKwB15Fd3IrAJ/Rd9tqq51m7HbCy0XwujrvrDFMhzTOHP7UHfPhma00gn
+	 NrpemFZ335pzIOOzEigVqV4nazTvWG6QBF/7PeR5FHjVXDtwi1TUiM+/5utCn0V3zm1/I
+	 XkooTBp4r1lKWaofRXq7ceDyMJfATuz/SsbGzhSGM0RkIgGhjS0uH4nhqdx1ZkXSdf9/i
+	 1XtorptmPudhuJ3xCMQFIVjcy8vMb5C6bEWfwJEYljNU1VuQOfqzL83OOQ1itFcMkrg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 50B1F1F00A0A;
+	by smtp.kernel.org (Postfix) with ESMTPS id 5F1F01F00A0C;
 	Thu, 12 Nov 2026 08:31:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794472286;
-	bh=neMlK9Z6eTz+hf+fCLBkmd2cOyVT/RilZmzIenNn1Bs=;
+	bh=T8BMjQzOIvYi6coC6cfEQ/w65JHYug0nfsYJkwPuKxI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=F5hWd56C/v8+kpeD0Zxj+5cO9bdCor1RP+WBWNhotztzXhaQn4sPN2VpWhOUJAAdi
-	 eMtONbYKR41dgbgbRAxYBqvO0hivxJLMY+DixDxKl/WfmJGRalPkMaGNEwZB4ZfeoE
-	 tFvvpKGUpVmznF488O6HJ8kuHjkP65uwqshzZ3NdZjGlhpGuUdp6+LG6O3KgZLXQhz
-	 IuL9jtl17OrBFZGloXv0I4UcD4kQXXKOCVsVGcK7GPSavYOScq5KEHmsvHxoCiF/7h
-	 6TrEUhfREXS310/uI2HhtzwlNeNaxiFMtSMSPAby3fCYgL1ceudmNBVLMSVgy++gbm
-	 VARW3gx9UjXYw==
+	b=HKkoO7elsB94ZGQCYRjco3GYvB1q65UQs/Rl1ywIB9mVO4XFejFJPYhp3qjJ1uB1l
+	 YRFAch1cH31SrWK/kuYsZ2Ti7LguoAEmW8bR6PrddBYZGIazXw+KIoHiLTeKLrmgHW
+	 y0ln7TwgIWL/1oL22f00NVAyYiy6PyaoYYigtGEJg7G6z7xzwxeLxAHJ0W52xvm8xh
+	 V15U2J2ddU2mQwE6WimnmCNwuKKF0C3dMz0yYlrYlzmBUFVN0qkic6um7QCSxg0mcL
+	 lHx2BL1Nkbk/xEfUHGUVz8SXBIE2mUBHtmguRIpWaB7JkVh486Bl2In0MBPn2IfMce
+	 2KX08+9sHde3A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CAB384939E;
+	by lkml.kernel.org (Postfix) with ESMTP id F0BFA493A6;
 	Thu, 12 Nov 2026 08:31:23 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:31:27 +0000
-Subject: [PATCH v2 5/7] media: verisilicon: Report fixed JPEG colorimetry
- on the encoder
+Date: Thu, 12 Nov 2026 08:31:29 +0000
+Subject: [PATCH v2 7/7] media: verisilicon: rockchip: Limit the JPEG
+ encoder to 8176x8176
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-hantro-jpeg-enc-fixes-v2-5-de03e643c75d@gmail.com>
+Message-Id: <20261112-hantro-jpeg-enc-fixes-v2-7-de03e643c75d@gmail.com>
 References: <20261112-hantro-jpeg-enc-fixes-v2-0-de03e643c75d@gmail.com>
 In-Reply-To: <20261112-hantro-jpeg-enc-fixes-v2-0-de03e643c75d@gmail.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
@@ -101,11 +101,11 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Sergei Khomenkov <shomenkow@gmail.com>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472282; l=2111;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794472283; l=2124;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=dW1xQ1Zr6XL+3vHUKMQ8oWmlRSpRnhxHyYsz+ElKKng=;
- b=ARLde18cUknam43N+kKWwE7VQ17UocMjTtpTYTF6LGnt4ktlauTG6kkqbeIs3zv3yylRfn2lk
- dQYOGgCYwMzDoXqPGcFqiC3w3ng1+1Mvm9LsaE1TbtfvkR6jmh//+ib
+ bh=YcQepcs/kiqGO0VYJKSScKTM3/q57290AfxfFBFuGJE=;
+ b=4+pgFAUagU+KX+Vx6sSRS8NEXGm0nyaHI5g/Q8ItH258bV5gY+qzCZoiXColwnKG9bJZ5b+Fj
+ WOVflPpuviJBdv73Rij/K3V/U/S4YTCb9BoIHvdyNlyiUjwPjUye+YA
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -116,54 +116,58 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The driver reports V4L2_COLORSPACE_JPEG with default encoding,
-quantization and transfer function on both queues, and lets the
-application set any colorimetry, which is then copied to the other
-queue. For the JPEG encoder this is wrong on the raw side:
-V4L2_COLORSPACE_JPEG is only a shorthand for the colorimetry of the
-JPEG data, and the raw frames should describe the actual samples. It
-also makes v4l2-compliance fail on the encoder:
+The Rockchip JPEG encoders advertise frame sizes up to 8192x8192, but
+both register layouts take the picture size in 9-bit macroblock counts:
 
-  fail: v4l2-test-formats.cpp(892): fmt_raw.g_colorspace() != V4L2_COLORSPACE_SRGB
-  test VIDIOC_S_FMT: FAIL
+ - VEPU2 (RK3399, RK3568, PX30, RK3588 VEPU121): enc_width is bits 16:8
+   and enc_height bits 28:20 of the encoder start register.
+   rockchip_vpu2_jpeg_enc_run() masks the counts with 0x1ff, so an 8192
+   pixel (512 macroblock) dimension is programmed as 0 macroblocks.
+   Setting the bit above each field on an RK3588 VEPU121 did not give a
+   512 macroblock picture either, so the fields really are 9 bits wide.
+ - H1 (RK3066, RK3288): the height count starts at bit 10 and the width
+   count at bit 19, so a 512 macroblock height runs into the width field.
 
-The colorimetry of JPEG is fixed and the hardware doesn't convert the
-samples. When the coded format is JPEG, report sRGB primaries and
-transfer function with full range BT.601 Y'CbCr on both queues, as the
-mtk-jpeg and imx-jpeg drivers do, and ignore what the application asks
-for. Other coded formats keep propagating the colorimetry set by
-the application, which they signal in the bitstream.
+Limit the shared format table to 511 macroblocks, 8176 pixels, so
+userspace gets the largest size the hardware can encode instead of a
+corrupt or timed out frame.
 
-Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/platform/verisilicon/hantro_v4l2.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index e9d91504fab2..11bce0cdf4b3 100644
---- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-+++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-@@ -407,6 +407,19 @@ static int hantro_try_fmt(const struct hantro_ctx *ctx,
- 			*sizeimage = max_size;
- 	}
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+index 02673be9878e..f8079f96c398 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+@@ -20,6 +20,13 @@
  
-+	if (ctx->is_encoder && vpu_fmt->codec_mode == HANTRO_MODE_JPEG_ENC) {
-+		/*
-+		 * The colorimetry of JPEG is fixed: full range BT.601
-+		 * Y'CbCr with sRGB primaries and transfer function. The
-+		 * hardware doesn't convert the samples, so the raw frames
-+		 * must use it too.
-+		 */
-+		pix_mp->colorspace = V4L2_COLORSPACE_SRGB;
-+		pix_mp->ycbcr_enc = V4L2_YCBCR_ENC_601;
-+		pix_mp->xfer_func = V4L2_XFER_FUNC_SRGB;
-+		pix_mp->quantization = V4L2_QUANTIZATION_FULL_RANGE;
-+	}
+ #define ROCKCHIP_VPU981_MIN_SIZE 64
+ 
++/*
++ * The H1 and VEPU2 JPEG encoders take the picture size in macroblocks in
++ * 9-bit register fields, so 511 macroblocks (8176 pixels) is the largest
++ * width and height they can encode.
++ */
++#define ROCKCHIP_VPU_JPEG_ENC_MAX_SIZE (511 * MB_DIM)
 +
- 	return 0;
- }
- 
+ /*
+  * Supported formats.
+  */
+@@ -52,10 +59,10 @@ static const struct hantro_fmt rockchip_vpu_enc_fmts[] = {
+ 		.header_size = JPEG_HEADER_SIZE,
+ 		.frmsize = {
+ 			.min_width = 96,
+-			.max_width = 8192,
++			.max_width = ROCKCHIP_VPU_JPEG_ENC_MAX_SIZE,
+ 			.step_width = MB_DIM,
+ 			.min_height = 32,
+-			.max_height = 8192,
++			.max_height = ROCKCHIP_VPU_JPEG_ENC_MAX_SIZE,
+ 			.step_height = MB_DIM,
+ 		},
+ 	},
 
 -- 
 2.55.0
