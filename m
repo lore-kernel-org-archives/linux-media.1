@@ -1,99 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794453383;
-	b=26LNvT9/xkazh72KK93iwK1UJV58gl7LC7wuw9LiJ2M8WycfD9jTMuuPOsLMkApHPRGt
-	 ucJXGMBLeHrn4Qm80NYQjwiApkoeq0Dtz//631aEokgZnmC06qnEX+QR1czUubMx9IkX8
-	 OOBl9OWROPi6oJHgNQfBxgut+IyKzCuK7mI5JhhjncxruW+UGpxuQJ2NmylBWkpu776o9
-	 zrhMV3vkoB/EQrHgLu9nIysUb/xylCn5Zc/LkCgFVbH/P4lwb9KgNFB3clUL+bPkcvYBR
-	 e765OoTz7jjFt6XD+c6cQw95WlVjc2uC0uuM0uN1ls8zotbMlt5SZXiruk8nMJAlsFg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794453383;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=B1+ma03bcpp5acNonkpy2s1c2LTj/v5z83tVJvaJ6z4=;
-	b=qaDVKUFd0G5n03jFyuOcmSz3ew0VqKXiDIXjs8WG+C8aM5ViZU37EvHz1DPLBN0SHmdw
-	 YQ8mj0nibopG0vDazCrGx9jpjEVdDqq3q6mW2cDxVemkyK1fVI64oRfQCDfWBERyFOuSF
-	 I7jS2w/+0cLfdZrO0nI9i180bhbiFmFvHTQ7usqLcKIM40vopeq44UF81/WNcJ3+WbBB+
-	 CQEPIj8rd8E0L5nFcJt62kiZOsjjcitSFdkaqd8QhL+KlYeW1J21OqokGv+Zx/a3kTeK1
-	 HMqdZnRuvUleioabIbj3YurKv75/rUq/3JrRW1xciiw5W66ViUc+uqy6i+cjcEBgJkA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pzQ8Uuex;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794457128;
+	b=zeQtTCdNg2Bg2fcKdrqV1DyINLTYt7GmdDc4xo0eHd6xxWe+o13WpjeNMrQv7JgwGArO
+	 pZ7QjnvxSDKstVEt0wHmcW+3AAAee/PYf7cOi/Lz+gKOwDiUCct3CCWCH+qFJtEimZX8N
+	 g0NJqLJ5mZUSjjO+7Bp2Gx7IWSMcsU1xQ4g6M1Pz7rW/+qrehqKDox9Zwim89sseXP0vz
+	 Vg7SLyXxHmwST8uxT/jqoPzuDgquJuhYx+3jKhBlFSHlHPbV445XRI16tKsOhZeTGBPau
+	 dXD8P0Y+F5SG9cyaLWWBhNsGCgkhKSFk0W7H9yqifNLZ+uylIgyXaOVOtkhSyRU8zlw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794457128;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jxUJ8z3TMPKH3Cow8UWYF/1eg9MTwLe2qZvbY7WTmaI=;
+	b=oc/zG/VLrg5UtEQQSnl4ygbjuXr91gkO31VdFmOEC92WP0sngCxIAY15Iui1Ux1/QhoM
+	 dvTv9VGfubMGaDDhTezIPcgI9KFZ2TGx5Rm2wtBCwhLJxwKV3vkP3RwJk9fyu/SRuXlGJ
+	 tkIm36A5hcl1AG4KrkJptHicCOdB+uUtIjMhAUTBqqFOLYYqzc60/CZQ/50+ZQqXqAmdL
+	 OyoQwyzKM//kmXJvZFNXU5/Dsehiky5hcqp66rW5deMXZtl8BteMA0dUgmIt/OvLCZzJT
+	 PGVUCbgPtNlwhi65/2jJLbR5fJIvjBXhNfRM/iiF6p/eSduoWn6brTqQwKIsk+zGwTg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5CCOp50;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC57606A32E;
+	Thu, 12 Nov 2026 04:18:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5CCOp50
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794457128;
+	b=0gq/viDJRcEtndXiJ+wJIoschfmgJB5TpWPXVahOSGVGRV8Spl91BrnUrK4VfXI6eIJC
+	 XCtjID73Rp/y329xRzlCo9Qz29WN3PjRnfy+YQXdUwLBMvSOI0AVdmO2f2xrfXTmUxLlj
+	 IbM4gYCUxvBaRLIOK0zylybvh3BpE4nqUZACQG6rV9Hu73wGjPXkzkOEIx7bYN/Hh3JNt
+	 DyJVObxLr73uN0KdxOE4dytMGxDNvpr11PZ1tVGPSGyKEn1IEE/iAKjyQ/4Qpy2XtPgx0
+	 mw0Vq1qLnvFAL0Jt2EAD4ayQah1uooQnCYKBkcUb4F+o6NN+GDYNahQN5/f2uYvdXAA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794457128;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jxUJ8z3TMPKH3Cow8UWYF/1eg9MTwLe2qZvbY7WTmaI=;
+	b=TmlwaqgleRXUUEoiMPFccd3iykamvQjAQRXhG0jdfK7WGs9hF7210pXyNGdfPspEtKA+
+	 jK7jrR0AlS4LQFgOiff375UT+34oa3y8zthoTOc3DgdGNx02rR2fXot17MPEaSruZowN1
+	 C84EovZSJLm+5BtOUqLfrjsNDy3bmbgz4s9jjdenOSjNuu5csKtjh2kjGIEN4QDZdpOgD
+	 sIP89dIjq8kWM8r/KSIEwBh/EWwu/LdSOQfLtFO8D89ttvsDZbLPR6zqv47PdsXs5selH
+	 B/nYfxsscp3VVnIxIBZDs1jZVQuRsr0Oob7LefQKhS4r/ECZ9fqzE4fRiVm9n6yk0ZQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB07606A32D
-	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 03:16:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FB07606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pzQ8Uuex
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-491f34b4e0fso1668863f8f.2
-        for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 19:16:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794453382; x=1795058182; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=B1+ma03bcpp5acNonkpy2s1c2LTj/v5z83tVJvaJ6z4=;
-        b=pzQ8Uuexjt1M5LTPHmPjA/0AkTNNox0xoewfbs0mmNXc2ebwhaseX7U2bMdJ/b/nwr
-         PZaUwldH/h8WVsErNvfL1vx4tSc69uuqLHbiJRM6ZljGwd4Er1H9s25geQRt/b+P9lCq
-         AecblAHgho2WS8Vk6Hu/PI5d7yp7SnNwpaK15iCSveNyPC3dR4eSDSnSsUvSjoklOkLp
-         VyALg+f4s9J8ViIF/3TmxYnR8H0xT9la+53qwdS1xsdG1uCnOkuXR0//RyvrV4zOwsFO
-         VB1Od+Ej8HO54DGOv3T1LkhZjRRVvz0NZxav85z59DLvd2vZhnFE91VtaBaeyjJI2ajT
-         Gh5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794453382; x=1795058182;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B1+ma03bcpp5acNonkpy2s1c2LTj/v5z83tVJvaJ6z4=;
-        b=SGVzLN0mxwIKfzuteKPbKiebGG+JdoivnKVMJWb2facFj3K92c9AuRMCiiXaKzc50e
-         slcFjaP2Fbztwe3eAMVLAIYAHxqMrRWtPMBsNfxyrCZQ/rmGjS8PPcIKdLplMxAAk9rZ
-         mIYXHdUzJLiL7TESEVQQ3R6qd+PkXSI5u415D2sGq4/0JU5ipJ3uYa5Pp3rxo56RLtmZ
-         5ddErws+alzDxMEltmhCrNE5/LnRsb4VbLaa9SsFeeet3XRa/kv2bpxRYP8thCDyFXt2
-         dl+Y1KPkIR7+13hyNZQO30ed5Smf1ZLCmW8/RwwUIfNY0BtphIUKh4QIjA340tinAONH
-         04iA==
-X-Forwarded-Encrypted: i=1; AL+hErHsiQaayfNgTsGx2DAhzvAoXCNGmXph12BWNt4ZcijiWN0b9gJNX9QkV4A5Sj0sgYQMGix0wtgD90A6Qg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z99OqoC/BfySzdXD4hx7Bbn3WPhawS8lH3p4XRf8OkI9aJeFEaH
-	Blxk/NRrij5gsi74tjaDN3urI9FmAqfcMe+K6rNYetBcMlWkjXY4RAWd
-X-Gm-Gg: AYBFou2sNgpmBLElmLDLptZJpFFaRAIrgVrqIm7lnzx17OFHDXZ2sRdO+XTC97+LR7l
-	ozWM5RzDE+orMH8iXlL+f0W91L3suu5ihudd4hgbQclgOs/M23fyhBPRWrsx8nsoFYO+VKXeoTI
-	GDLALlCDuYZSgayGjDlEA+T3DPjdy7fdhu0jmEgdreszE0+xXM7w8BlGrHYNG0NLOVXy1GApzNC
-	8uW3Dteqz3Q/YkfBAIfK986KYyeEzuKxRWQBx4ZiLLzP6NrvrYNm2mxHHFAbWlvtAPk9DEv5WhG
-	q8zHaJrSzi9Kx7tjcE5E48+ln7P53AaRdsQ0O68ARuwa1N+O3wi+CT7/t0e2Uo5Q8BNBWMdJWxB
-	zqiut7jCiPGBYWDOVjN4rFcSi+K0TpQOVMKxV8XPGkDIcQJWMI42I43KFvJsu0qt/2dZRsO+smX
-	lQTvBgIN1rfnOERP8I3niSpJKvfVihnruU0GyMEbhJtTL339hv9tOVfNgAgOyJh79+guEE/+oNN
-	TVpsEckcsK7CdrLepLAYu/iyVtWmOwlrjcHodqXgolAciITLWqNN+WMuau7gNCBuWvWX+3MavAp
-	aSNFebQzLzpuFqMOqkN2bfAmHV22lEULYeUlXGsh/wKBXmRObmxx9divW30dS1+VCA9sAZVduXv
-	SGguVkjd/nVb8O+eBJF08l20In52lclPPu1KfSJB7zhmLfEvLFwwxzo2HtBiOvqvmpHj+EPrjCX
-	3RffS0i78KjjU9TTXfSuCxfPsuvlwUNg==
-X-Received: by 2002:a05:6000:401e:b0:495:5c83:51bc with SMTP id ffacd0b85a97d-499c3b9ff3emr7370230f8f.5.1794453381449;
-        Wed, 11 Nov 2026 19:16:21 -0800 (PST)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a181-4b01-25fa-1a8a-4f45-ba49.310.pool.telefonica.de. [2a02:3100:a181:4b01:25fa:1a8a:4f45:ba49])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363dffa1sm13523836f8f.39.2026.11.11.19.16.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 19:16:20 -0800 (PST)
-Date: Thu, 12 Nov 2026 04:16:19 +0100
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Tomasz Figa <tfiga@chromium.org>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Hans de Goede <hansg@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Nicolas Dufresne <nicolas@ndufresne.ca>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] media: synchronize CPU access to imported DMA-BUFs
-Message-ID: <avUvHGb4talXW7qS@gmail.com>
-References: <20261107104703.44111-1-kmehltretter@gmail.com>
- <20261107105946.GA96745@killaraus.ideasonboard.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 6E7521F00A06;
+	Thu, 12 Nov 2026 04:18:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794457128;
+	bh=jxUJ8z3TMPKH3Cow8UWYF/1eg9MTwLe2qZvbY7WTmaI=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=g5CCOp509x8OmQovYGLdwqvT01ZAf1nMRrzEpRFb9TqhVuhFALds7hUrDeTLthllX
+	 Zc16X7UZq36t/pHKJ/Lldma5BStB5t8zOTwDXF6Gp9nXQj7c+iIeNE2BCrWchUgJoB
+	 kKPG4X9qq47njMjOBqEYAkD7PLQAywyZXle+ynSxQk8Zr1v5YKFt+F4+n62q9fMybF
+	 ps87rZ0O6zMaZpbpPd0IVA5dsT7Q7raEQ+sp1KYYXzDdNxfhXMcpYZjR1DgqgGS1i8
+	 03t9P4VfxCRMoUuwvdkNb0oeVD6mjuLEaACeOjIu9oHgWp91LZFjA4+S5QmoJG4hRS
+	 uReTuEBxpvWXw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C593049289;
+	Thu, 12 Nov 2026 04:18:46 +0000 (UTC)
+From: Weidong Wang via B4 Relay <devnull+weidongw.illinois.edu@kernel.org>
+Date: Wed, 11 Nov 2026 22:18:29 -0600
+Subject: [PATCH] media: pulse8-cec: Unregister the adapter if applying the
+ config fails
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,48 +83,129 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107105946.GA96745@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-c4-n014-v1-1-a66fd8e2125c@illinois.edu>
+X-B4-Tracking: v=1; b=H4sIABU+9WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDINBNNtHNMzA00TUwTDFLMUszNTI3t1ACqi4oSk3LrACbFB0L4ReXJmW
+ lJpeAtCvV1gIAP9r2qGsAAAA=
+X-Change-ID: 20261111-c4-n014-01d6d6f52778
+To: Hans Verkuil <hverkuil@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Zijie Zhao <zijie4@illinois.edu>, Weidong Wang <weidongw@illinois.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794457126; l=4025;
+ i=weidongw@illinois.edu; s=20261108; h=from:subject:message-id;
+ bh=XIF8JyNv4pQCSsgeieTZ6qi2XZW+IcjZVp9dPdC0fP0=;
+ b=gPs7q29+4FwmadOTE1BAx1Ci2OPqW62WrPl2x0RhJDM6I358tKzpso63OFSxT3dmkQcma4Fg0
+ 1FzA+jfnBJvDm77KH+d0PGloGTlS2fNA8Gc/s2UVs1CqIYgc68Y7V85
+X-Developer-Key: i=weidongw@illinois.edu; a=ed25519;
+ pk=DR2S1xPEa5sELrWPfOpvUphJQ2VHC+MDc/wJavE/ifg=
+X-Endpoint-Received: by B4 Relay for weidongw@illinois.edu/20261108 with
+ auth_id=1449
+X-Original-From: Weidong Wang <weidongw@illinois.edu>
+Reply-To: weidongw@illinois.edu
+Content-Transfer-Encoding: 7bit
 
-On Sat, Nov 07, 2026 at 12:59:46PM +0100, Laurent Pinchart wrote:
-> Hi Karl,
-> 
-> We discussed in v1 how this is not the right approach. Why are you
-> posting a v2 without addressing that ? You need to go back to the design
-> table.
-> 
+From: Weidong Wang <weidongw@illinois.edu>
 
-v1 ended with two conflicting positions on non-coherent DMA-BUFs:
+When persistent_config is set and the adapter is in autonomous mode,
+pulse8_connect() applies the configuration stored in the adapter's
+EEPROM after cec_register_adapter(). If that fails, for example because
+cec_s_log_addrs() rejects the stored CEC version, the error path jumps to
+close_serio, which frees the registered adapter with
+cec_delete_adapter(). The cec device node stays registered, and the next
+open() of /dev/cecN uses the freed adapter.
 
-- Laurent [1] and Nicolas [2]: end_cpu_access(WRITE) only marks the CPU
-  cache dirty, and non-coherent DMA importers clean before starting DMA.
-  Persistent DRM/KMS imports then need a sync call on each submission.
-- Christian [3]: devices must access DMA-BUFs coherently with the CPU,
-  using begin/end_cpu_access() around CPU accesses. Importing a buffer
-  with dirty CPU caches onto a non-coherent device is intentionally
-  unsupported. Today cma_heap and system_heap sync all mapped
-  attachments inside begin/end_cpu_access().
+Unregister the adapter on that path, as pulse8_disconnect() does.
 
-On my Pi 500+ with a USB UVC camera (640x480 YUYV) and V3D on CMA
-DMA-BUFs:
+Found by an AI code review agent (an LLM-based bug-finding tool
+developed by Zijie Zhao and the submitter) and confirmed on an
+unmodified kernel, without error injection, on x86_64 under QEMU with
+KASAN. The adapter was emulated on a pty with the serport line
+discipline, as set up by inputattach --pulse8-cec: firmware version 8,
+autonomous mode, and a stored configuration for a playback device with
+CEC version 1.3a. With persistent_config=1 the probe fails with -EINVAL
+but /dev/cec0 remains, and opening it gives
 
-- Without vb2 CPU sync, V3D reads stale data on 8/8 zero-copy frames.
-- With vb2 begin/end_cpu_access() on cma_heap, zero-copy V3D is clean
-  (0/8 stale). CPU capture takes 91 us/frame without a V3D import, and
-  144 us/frame when an idle V3D PRIME import is attached.
-- With a test heap that tracks CPU cache state and syncs imported BOs
-  at V3D job submission, zero-copy V3D stays clean (0/8 stale) and the
-  idle-V3D CPU read drops back to 89 us/frame.
+  BUG: KASAN: slab-use-after-free in exact_lock+0x66/0x70
+  Read of size 8 at addr ffff88800e03c360 by task poc/72
+   kobj_lookup+0x1d4/0x410
+   chrdev_open+0x2d7/0x5b0
 
-Question to all: should I look at opt-in cache-state tracking in
-dma-buf (with a sync call before DMA submission), or keep
-begin/end_cpu_access() as is and handle CPU consumers via V4L2 cache
-hints?
+with the object allocated by cec_allocate_adapter() and freed by
+pulse8_connect(). The same emulated adapter with a stored CEC version of
+1.4 probes normally.
 
-[1] https://lore.kernel.org/r/20261021175900.GG15441@killaraus.ideasonboard.com/
-[2] https://lore.kernel.org/r/7e4c7707880e9092180d28484ecf674be29b40a0.camel@ndufresne.ca/
-[3] https://lore.kernel.org/r/1e798600-5a76-412a-959c-94313629baf4@amd.com/
+With this patch the failed probe leaves no /dev/cec0 behind and KASAN
+reports nothing, and the CEC 1.4 adapter still probes and answers
+CEC_ADAP_G_CAPS. The reproducer is available on request.
 
-Thanks,
-Karl
+The reproducer, fix and changelog were drafted with AI assistance
+(Claude), then reviewed and tested by the submitter.
+
+Fixes: e28a6c8b3fcc ("[media] pulse8-cec: sync configuration with adapter")
+Cc: stable@vger.kernel.org
+Cc: Zijie Zhao <zijie4@illinois.edu>
+Signed-off-by: Weidong Wang <weidongw@illinois.edu>
+---
+Tested on v7.4-rc1 (05441d697f7f), x86_64, KASAN, QEMU/KVM, with the
+adapter emulated on a pty (serport ldisc, as inputattach --pulse8-cec
+sets up), firmware v8, autonomous mode, persistent_config=1:
+
+               stored CEC version 1.3a         stored CEC version 1.4
+                                               (control)
+  unpatched    probe fails, /dev/cec0 stays;   probes, G_CAPS works
+               open: KASAN slab-use-after-free
+  patched      probe fails, no /dev/cec0,      probes, G_CAPS works
+               no report
+
+No KASAN/UBSAN reports on the patched kernel; checkpatch clean. The
+code is unchanged in mainline and linux-next (next-20261111).
+
+The reproducer is not attached (AI-found issue, see security-bugs.rst)
+and can be shared on request.
+---
+ drivers/media/cec/usb/pulse8/pulse8-cec.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/cec/usb/pulse8/pulse8-cec.c b/drivers/media/cec/usb/pulse8/pulse8-cec.c
+index fa5df1062..374a8fd25 100644
+--- a/drivers/media/cec/usb/pulse8/pulse8-cec.c
++++ b/drivers/media/cec/usb/pulse8/pulse8-cec.c
+@@ -888,7 +888,7 @@ static int pulse8_connect(struct serio *serio, struct serio_driver *drv)
+ 	if (persistent_config && pulse8->autonomous) {
+ 		err = pulse8_apply_persistent_config(pulse8, &log_addrs, pa);
+ 		if (err)
+-			goto close_serio;
++			goto unregister_adap;
+ 		pulse8->restoring_config = true;
+ 	}
+ 
+@@ -896,6 +896,16 @@ static int pulse8_connect(struct serio *serio, struct serio_driver *drv)
+ 
+ 	return 0;
+ 
++unregister_adap:
++	/* the adapter is registered: tear down as pulse8_disconnect() does */
++	mutex_lock(&pulse8->lock);
++	pulse8->serio = NULL;
++	mutex_unlock(&pulse8->lock);
++	cec_unregister_adapter(pulse8->adap);
++	serio_set_drvdata(serio, NULL);
++	serio_close(serio);
++	return err;
++
+ close_serio:
+ 	pulse8->serio = NULL;
+ 	serio_set_drvdata(serio, NULL);
+
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261111-c4-n014-01d6d6f52778
+
+Best regards,
+--  
+Weidong Wang <weidongw@illinois.edu>
+
+
