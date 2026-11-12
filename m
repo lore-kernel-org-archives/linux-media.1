@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794482332;
-	b=WT1imX0hCsGqm7Ve8Igmp0RmT2j7t7ZhgqdEABaKzxja+b5qF+lthApEfwXYEG4euAZG
-	 1NQgay6gqVs0grS+8SprOK+NIOlGYXE1LYYzOa54g/xF2G0iH7v6Oy4amGOOCh9lEco73
-	 hFkQ2qDZ8ZhjvHEdcd75LIhL5UllAD9xZ0K5i+Lw92AItL+oxXCe9rfTIeO2vQ5gStthQ
-	 2sWD9fCW9hetf4gXXRRQn9PTNCGumL5RqA2RcgWTMFUaYSy7yVEpLwCkjArjR59/8S1ZS
-	 EQtHbmuDy9cQaHkjzaynE0Sw9OHt9HH+Cd5TQ1iYrhW0R6H01Tk9rYSaDs7jLxSLHTA==
+	t=1794482337;
+	b=F6d/0DQ+PxA50BPPpf6tcTFTiNeJ6aYHgl/zSSQYXLJNrhVzys+9jovpNdU3I0yv8xWT
+	 O3qFiI01NCKZiCklH/1qPsK8ovgzY2xMvdmNjgZk8izDTdYE7zd1mxH0Vqr/xfk051dvT
+	 7YhhpnAJ+dO+m+/5jAsmZb+GwN72STVYHymKd2KcBERYtfP854SoxT4Gu8Z17CB43Empt
+	 cEDW1Xa7ewhe/koAN4F+aF90AZ4JiDyF4FV5w1Ak8J5uggoMb3OGi3mHJAj+iABHCKxzR
+	 sh/YMl5PEkdJAj2gCALZMd+Wm6yUlqoCO6dGgne20tlibVAzheMLqGnvdq/7TWy5m+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794482332;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794482337;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=3JJAMGMGP7NgDBACbKcQDASj1tP1A61c76ckOCHRHZs=;
-	b=h6MrERPJLGn7q7rN/vOHQpjHuyvGJ/RTYVJMJd91zcEBD5OFgR+C5OzBttelj9zWjLgw
-	 qh/6e7gmLutX5vLCt3V89KTWfpA8lTL0+d7qPuJZzmFeYIxr3MTdKBjKWQtgPXC3vYwmJ
-	 MeP6fJUym8W/Zk3VPt2AypIhxQMr42R3fTv+8jI5AAnZfC1Dm7dv+NADQI4G3twonyz7W
-	 Fso7kh7d5UeuTXRU6q8PhNq81KvLmxawRcAa35PuMf9/BS1LdDQz+f/e4sa3co3nhZvtx
-	 0mx/cZnRGPXVoZnxuf8auyDLlFsZH7pYjLG4heAF3qAtJ2Br2/pBr5vK2ggI+FXXttQ==
+	bh=8PaTPRfY18/VrkHR3rlFWu2zaXTlaADkuWpNQpBjuZ0=;
+	b=ltMnPoe3u8e9cCxC8seHlikLN4z2LIObKlNbbSLF/MjXUWfoZapj2MN53z9eqYUrJhsG
+	 UNTzLGOYcGTQmFH51r6kIw19PKVodWDBi2q5HN7Ky4gJbfZpiUzq9S3cNgANMWyRnxTY+
+	 qpXEml4HdmyZUr3cv1DKtZh2kFdgbDQiG0hxZUMtV9IGfUlBsmY2SJLM7wAfqm4ATd3ud
+	 JJwp7AF99xwvkPYzI96jrNv/6VYOpxWJU95SzJNkowaNi0XpTx3HZvh72pC6vcFTYU5t4
+	 Xp8qyJY5ckunvZdN9lfHkyWMenC45M20ycz5HbFis0M7wj3Ba6sDtmIye6xhicAUesA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=SZif495P;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=lK2AqCxG;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24421606A335;
-	Thu, 12 Nov 2026 11:18:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24421606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59DC606A335;
+	Thu, 12 Nov 2026 11:18:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C59DC606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=SZif495P
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=lK2AqCxG
 Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c67:cdf:7464:6c04:36e4:ee87])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A47F7D77;
-	Thu, 12 Nov 2026 12:16:26 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6515633D;
+	Thu, 12 Nov 2026 12:16:31 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794482187;
-	bh=TyDbHaXpCds7m61Yb/A/eMD//m4V9Jy5aZjZ7+7bvkg=;
+	s=mail; t=1794482191;
+	bh=CNvO+8+4X3vZ3+dwSeXTIkMpEyJGlbKDDed/6QEVRzM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=SZif495PWLMCdEaqWSHSNsBhjYSwMlF+/fSJr7kJLqvPt5kUtdhNeVbY9bgK7r1Bb
-	 7MfiXJi6dxQUiaoiGRoV6II5biN5VC6+Exvo6mwIFGWbsvBTPaRz8P7Nsc9D08YO1e
-	 WzRPPBtieQdXihJlSG1d85gpTF75z6cJVAeT6y/k=
+	b=lK2AqCxGcEH+5Jdz2JbN0TXkWgBngR4tYVohgWpSfOgBLYxPZK9lvziwAkiPS3MRj
+	 Fv1mPBQYsAGLRQWzz0+492lrtF55yC3XguZGgJ9ENNG0wO/2FpM0N0zPu6C1XWrIwj
+	 E77V4EoG0FQ18OQipIMEXvS09N8qqfui4KDnxdVM=
 From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Thu, 12 Nov 2026 16:48:02 +0530
-Subject: [PATCH v5 04/11] platform/raspberrypi: vchiq-mmal: Use vc-sm-cma
- to support zero copy
+Date: Thu, 12 Nov 2026 16:48:03 +0530
+Subject: [PATCH v5 05/11] platform/raspberrypi: vchiq-mmal: Support sending
+ data to MMAL ports
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261112-b4-vc-sm-cma-v5-4-d25e3b687e71@ideasonboard.com>
+Message-Id: <20261112-b4-vc-sm-cma-v5-5-d25e3b687e71@ideasonboard.com>
 References: <20261112-b4-vc-sm-cma-v5-0-d25e3b687e71@ideasonboard.com>
 In-Reply-To: <20261112-b4-vc-sm-cma-v5-0-d25e3b687e71@ideasonboard.com>
 To: Stefan Wahren <wahrenst@gmx.net>, 
@@ -75,193 +75,65 @@ Cc: Martin Wetterwald <martin@wetterwald.eu>,
  linux-rpi-kernel@lists.infradead.org, linux-media@vger.kernel.org, 
  Jai Luthra <jai.luthra@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6383;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1944;
  i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=X3IKA2/rQKOtJr5VuvmG+h8Kz3d+8KXQEN1UDsivbJc=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBq9aB31JR1kP976HuaEAYafSP3YRITls7BTbt9Q
- AhM7bryhX2JAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCavWgdwAKCRBD3pH5JJpx
- RbAJD/4vEV0SHXfQTUzGDvd5CZieGRvTzlY4mCC0owdncg5iEIeltKvj8NRINx4cHqpPPtOk6Jw
- 5k8M8mIgbA7FiHQ06xOjJkDbAohBXaiYsOdIDZ26BF0Ud/Qhu1b1PGgG8DnykOClRh1x1fIEZG4
- WiHOxt2k5wCGgTdR4FnkSYcbIjm8QCmONJ1UDjx66I/HUOgR8t18L6V2h6wFtvKqMfnzAw4zmyf
- UruzIevht56cFAqlrgenjeyCbsPAk5KCLl77GVDAqLJyMkTWjQpjnfurI6bf9YllHShhynM29FH
- PfOGGkeEXcAEhWnMZSureXO5APgVw8s4e//aDzDIaT5Xi3ttgv/esVReLsh45nITK51k1L2t72g
- PUf1szeA+RnRBbiqjUhbx7Y8AiGeTb5t2aUy5hZnPJFtb83XdraOsE1ByG6oL0KuCavJ0btTUEt
- EnukuXiSGrXgml/6HTNnJaKYeH6XdpKVsGN/EPsJP28pA7cghy43N2+6nXo+VcGxBvU4Be2gxyL
- 7DoqjxdKQl1I8oJaxxhnX/5K9EKlqwk8sjF9GawaU1jFoqLAB3h6llsQueSlLPPZ6BWo9TGxtHx
- LFGlYIAXx5jF0uO6ZvDM22GURzJitHcfhJAlboKvlCUQqSP9tfMWC7raAns7h61oA3yfVnak25I
- h9jEsybM3vya+pg==
+ bh=obSwlVdM608icuVl5+YqF7zv8oNbUjjskp6328gSnko=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBq9aB4KjXm53vEFC2Ox3e3/JGfP9x38YpKfj6Dq
+ ASo4JfalJWJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCavWgeAAKCRBD3pH5JJpx
+ RfcaD/9D9sW9bBcqrq4VykqwwaVwsfV+vxb5Qgfl8sE7TBPcjSInosaBsOCwwOenJCbknfAeEkB
+ lOP+8sjtBXJf0LDaIc0ZVs2+g2mN7V59I2BiwHmZREUqQsorM8tBIfg3soiz/+S6toh9B3s68Q6
+ rCvD0lC04RZdBsbiFVz2/Ezr/fioD7YwqhpB1e5zmqD7goOJvYwU1Mi2GYTbNAsfR9Y7tqMefNa
+ oiQxi9rL6ao9btaA9yCDMoNh4Bk2WLSVmXwm7YrJNS6GeepS+xSYyClXD3LWE7HLJzwLJf3g3Ak
+ 5hRyR78sF7CrNH37BS36BlX014xPod6wEPmLG3CGMH2jEUy0/d4uqhP8UUzkvC/3zZFT7SxfUhH
+ VknI/8dYCnlPzlyTdiVJU+ce6M3BNWdRZMtHUhS7xs1n1yvzXweG7D4lI5BPzV9/NR+5HJyBqUy
+ GrGGSbZnt0iu8PRgfCv7cwcN3KJqJINlNr4bpDCWgODct33Gn5bCMFlC3ee15Z2hFDhZMkSYloO
+ Se1dlXPVjkbTWqMUJofyEhsuQRqIkhyUSF4YjxSULBiNhFAksDmsSeToQuC5nP0OgZo4W89YQ0Z
+ 6X+Mh6/3TRH7ymEI63YYyjWZE+cwNE1bQjWBHJIKgLD2n+oLBZwBMp+eAiTKT7rzkB1T2GU8BpY
+ iMFuEzlrq8DzjLg==
 X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
  fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-With the vc-sm-cma driver we can support zero copy of buffers between
-the kernel and VPU. Add this support to mmal-vchiq.
+Add the ability to send data to ports. This only supports
+zero copy mode as the required bulk transfer setup calls
+are not done.
 
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
- drivers/platform/raspberrypi/vchiq-mmal/Kconfig    |  3 +-
- .../platform/raspberrypi/vchiq-mmal/mmal-common.h  |  4 ++
- .../platform/raspberrypi/vchiq-mmal/mmal-vchiq.c   | 65 ++++++++++++++++++++--
- .../platform/raspberrypi/vchiq-mmal/mmal-vchiq.h   |  1 +
- 4 files changed, 68 insertions(+), 5 deletions(-)
+ drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/platform/raspberrypi/vchiq-mmal/Kconfig b/drivers/platform/raspberrypi/vchiq-mmal/Kconfig
-index c99525a0bb45..8a798dae408c 100644
---- a/drivers/platform/raspberrypi/vchiq-mmal/Kconfig
-+++ b/drivers/platform/raspberrypi/vchiq-mmal/Kconfig
-@@ -1,6 +1,7 @@
- config BCM2835_VCHIQ_MMAL
- 	tristate "BCM2835 MMAL VCHIQ service"
--	depends on BCM2835_VCHIQ
-+	select BCM2835_VCHIQ if HAS_DMA
-+	select BCM_VC_SM_CMA
- 	help
- 	  Enables the MMAL API over VCHIQ interface as used for the
- 	  majority of the multimedia services on VideoCore.
-diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h b/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
-index b33129403a30..6c5092a68b99 100644
---- a/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
-+++ b/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
-@@ -50,6 +50,10 @@ struct mmal_buffer {
- 
- 	struct mmal_msg_context *msg_context;
- 
-+	struct dma_buf *dma_buf;/* Exported dmabuf fd from videobuf2 */
-+	void *vcsm_handle;	/* VCSM handle having imported the dmabuf */
-+	u32 vc_handle;		/* VC handle to that dmabuf */
-+
- 	unsigned long length;
- 	u32 mmal_flags;
- 	s64 dts;
 diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c b/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
-index 918c30d84ba0..2909def73f3d 100644
+index 2909def73f3d..5091bcaddd11 100644
 --- a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
 +++ b/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
-@@ -23,12 +23,13 @@
- #include <linux/slab.h>
- #include <linux/completion.h>
- #include <linux/raspberrypi/vchiq.h>
-+#include <linux/raspberrypi/vchiq_arm.h>
-+#include <linux/raspberrypi/vc_sm_knl.h>
- #include <linux/vmalloc.h>
- #include <media/videobuf2-vmalloc.h>
+@@ -430,11 +430,19 @@ buffer_from_host(struct vchiq_mmal_instance *instance,
+ 			(u32)(unsigned long)buf->buffer;
  
--#include <linux/raspberrypi/vchiq_arm.h>
--
- #include "mmal-common.h"
-+#include "mmal-parameters.h"
- #include "mmal-vchiq.h"
- #include "mmal-msg.h"
- 
-@@ -422,8 +423,12 @@ buffer_from_host(struct vchiq_mmal_instance *instance,
- 
- 	/* buffer header */
- 	m.u.buffer_from_host.buffer_header.cmd = 0;
--	m.u.buffer_from_host.buffer_header.data =
--		(u32)(unsigned long)buf->buffer;
-+	if (port->zero_copy)
-+		m.u.buffer_from_host.buffer_header.data = buf->vc_handle;
-+	else
-+		m.u.buffer_from_host.buffer_header.data =
-+			(u32)(unsigned long)buf->buffer;
-+
  	m.u.buffer_from_host.buffer_header.alloc_size = buf->buffer_size;
- 	m.u.buffer_from_host.buffer_header.length = 0;	/* nothing used yet */
- 	m.u.buffer_from_host.buffer_header.offset = 0;	/* no offset */
-@@ -484,6 +489,20 @@ static void buffer_to_host_cb(struct vchiq_mmal_instance *instance,
- 
- 		msg_context->u.bulk.status = msg->h.status;
- 
-+	} else if (msg->u.buffer_from_host.is_zero_copy) {
-+		/*
-+		 * Zero copy buffer, so nothing to do.
-+		 * Copy buffer info and make callback.
-+		 */
-+		msg_context->u.bulk.buffer_used =
-+				msg->u.buffer_from_host.buffer_header.length;
-+		msg_context->u.bulk.mmal_flags =
-+				msg->u.buffer_from_host.buffer_header.flags;
-+		msg_context->u.bulk.dts =
-+				msg->u.buffer_from_host.buffer_header.dts;
-+		msg_context->u.bulk.pts =
-+				msg->u.buffer_from_host.buffer_header.pts;
-+
- 	} else if (msg->u.buffer_from_host.buffer_header.length == 0) {
- 		/* empty buffer */
- 		if (msg->u.buffer_from_host.buffer_header.flags &
-@@ -1431,6 +1450,9 @@ int vchiq_mmal_port_parameter_set(struct vchiq_mmal_instance *instance,
- 
- 	mutex_unlock(&instance->vchiq_mutex);
- 
-+	if (parameter == MMAL_PARAMETER_ZERO_COPY && !ret)
-+		port->zero_copy = !!(*(bool *)value);
-+
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(vchiq_mmal_port_parameter_set);
-@@ -1599,6 +1621,31 @@ int vchiq_mmal_submit_buffer(struct vchiq_mmal_instance *instance,
- 	unsigned long flags = 0;
- 	int ret;
- 
-+	/*
-+	 * We really want to do this in mmal_vchi_buffer_init but can't as
-+	 * videobuf2 won't let us have the dmabuf there.
-+	 */
-+	if (port->zero_copy && buffer->dma_buf && !buffer->vcsm_handle) {
-+		pr_debug("%s: import dmabuf %p\n", __func__, buffer->dma_buf);
-+		ret = vc_sm_cma_import_dmabuf(buffer->dma_buf,
-+					      &buffer->vcsm_handle);
-+		if (ret) {
-+			pr_err("%s: vc_sm_import_dmabuf_fd failed, ret %d\n",
-+			       __func__, ret);
-+			return ret;
-+		}
-+
-+		buffer->vc_handle = vc_sm_cma_get_vc_handle(buffer->vcsm_handle);
-+		if (!buffer->vc_handle) {
-+			pr_err("%s: vc_sm_int_handle failed %d\n",
-+			       __func__, ret);
-+			vc_sm_cma_free(buffer->vcsm_handle);
-+			return ret;
-+		}
-+		pr_debug("%s: import dmabuf %p - got vc handle %08X\n",
-+			 __func__, buffer->dma_buf, buffer->vc_handle);
+-	m.u.buffer_from_host.buffer_header.length = 0;	/* nothing used yet */
+-	m.u.buffer_from_host.buffer_header.offset = 0;	/* no offset */
+-	m.u.buffer_from_host.buffer_header.flags = 0;	/* no flags */
+-	m.u.buffer_from_host.buffer_header.pts = MMAL_TIME_UNKNOWN;
+-	m.u.buffer_from_host.buffer_header.dts = MMAL_TIME_UNKNOWN;
++	if (port->type == MMAL_PORT_TYPE_OUTPUT) {
++		m.u.buffer_from_host.buffer_header.length = 0;
++		m.u.buffer_from_host.buffer_header.offset = 0;
++		m.u.buffer_from_host.buffer_header.flags = 0;
++		m.u.buffer_from_host.buffer_header.pts = MMAL_TIME_UNKNOWN;
++		m.u.buffer_from_host.buffer_header.dts = MMAL_TIME_UNKNOWN;
++	} else {
++		m.u.buffer_from_host.buffer_header.length = buf->length;
++		m.u.buffer_from_host.buffer_header.offset = 0;
++		m.u.buffer_from_host.buffer_header.flags = buf->mmal_flags;
++		m.u.buffer_from_host.buffer_header.pts = buf->pts;
++		m.u.buffer_from_host.buffer_header.dts = buf->dts;
 +	}
-+
- 	ret = buffer_from_host(instance, port, buffer);
- 	if (ret == -EINVAL) {
- 		/* Port is disabled. Queue for when it is enabled. */
-@@ -1632,6 +1679,16 @@ int mmal_vchi_buffer_cleanup(struct mmal_buffer *buf)
- 		release_msg_context(msg_context);
- 	buf->msg_context = NULL;
  
-+	if (buf->vcsm_handle) {
-+		int ret;
-+
-+		pr_debug("%s: vc_sm_cma_free on handle %p\n", __func__,
-+			 buf->vcsm_handle);
-+		ret = vc_sm_cma_free(buf->vcsm_handle);
-+		if (ret)
-+			pr_err("%s: vcsm_free failed, ret %d\n", __func__, ret);
-+		buf->vcsm_handle = 0;
-+	}
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(mmal_vchi_buffer_cleanup);
-diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.h b/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.h
-index 8c3959f6f97f..9d31816f5be5 100644
---- a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.h
-+++ b/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.h
-@@ -49,6 +49,7 @@ typedef void (*vchiq_mmal_buffer_cb)(struct vchiq_mmal_instance  *instance,
- 
- struct vchiq_mmal_port {
- 	bool enabled;
-+	u32 zero_copy:1;
- 	u32 handle;
- 	u32 type; /* port type, cached to use on port info set */
- 	u32 index; /* port index, cached to use on port info set */
+ 	/* clear buffer type specific data */
+ 	memset(&m.u.buffer_from_host.buffer_header_type_specific, 0,
 
 -- 
 2.56.0
