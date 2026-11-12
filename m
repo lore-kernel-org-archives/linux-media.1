@@ -1,67 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794446174;
-	b=34yNw27v5FxJPFdGMQymOICew9+svBNc2aSobpcl90+jaKo51AGR1Ih+E6HK3g4QdeQc
-	 ISik+GLa/hloT3fMvQWWI+6+a+H0FTaCpzblNxZ4gk1wudBiekPDl6HyK2Zx3fLH10fVH
-	 5hiHmsQ4sjl8XV+kcHuHY/EFockz9G7Dpv7Dzcj/2g0FwRrITRUNCp7j5qm2azURRxpe8
-	 ZCncA05jIfkaEClECze1vsYDpKFTuFU8hpFrb3V5RTliReMoQoYlUFL7TU9prxAuxSLSM
-	 AUggy9GASUVqAWkjs1MO6VDBbZZ4aNfoRSL3g1QRNViR5e4Up0DUQV7scyoUY+MSDug==
+	t=1794447474;
+	b=3p0EdMwS9xqWriPByJ+o8rl2C1Kdo7DoJTI+n83UuyNZukiH5hiR5m3G4eqG4cxPv5KK
+	 bRYj+r3jyoYmmWZu7jJK+0JaiVme3m+Fqd7KJFOuQp/7+cCmbyxFI5Ou28C3VPwha+AtY
+	 wuL7P9HN3Yudy1QPtZVuJQW3sjfF2kmtbb1c6LTyW6qzEW4eDiV1vzmXr4SdzsVXNy/En
+	 U+2KaHRmiJQcqb0tWSoZ4lNkctUZbxnVPn8EVinp8lFJ1F1+xnCdB7gNheQJocnJRK81B
+	 8XDRoteZWOI7FXUpc4gcCHydiXYAUMnZ469MQUXpsGoKSNSZ33i5JEJfTUeNkf27/AA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794446174;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-ID:
-	 In-Reply-To:References:To:Cc:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:X-Debian-User;
-	bh=A27strc+vx+SreuAtd9NNyIFIWfOeuK3jQu+JcHdaQ0=;
-	b=YxxPqhs8L/PuMPxhc97w9y6DVK6FKB1k11rZukE4psQC5rR2cI3k5TcqAJLpbTJA2Im2
-	 zBzyfhvCfHTbW1oagwUCgnTjMDK7oxq9DQIL7dbhvhSgYS91BnYg8waOkAe7XYD+XYPmM
-	 PZsZxaFQTnqRXTnH4PCo9Oqv8K9lUoQl49xACb/dt9pnxTnY4F1RStvoMDTKMtujgEKMo
-	 BQbPesEVlE9XNS60r+YNpE/pRaEOrC517MrlMTguOdoDCA7gFVaZCMpSR5orJvBfuiHxH
-	 k/0hcoi9LuRv7nK1ii0aDg4wzPw8iGtirrpUcUOApYhf6M9kFvUQD0/irdMJ/dRd9PA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794447474;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=8vBZUF5hn+hX56ST3pucRyV0dagx5wgip9bLjW8uoRY=;
+	b=vq0M55xq+h8cZOOUvRrgIgfg8RfcUyAZbI8rrw5t9jyvcBoMyEl1Ms71b/yJ3LvHWkzt
+	 1ODIyfSenqiiRSldOqEbcKtn/RsKqrojupFzOTDdYYj+XbjFiRB5FGFzkkSIsktg8il80
+	 /lWeytKFWeAT4WqaeBrLU5AYiXCIazteNiMPaFmZAs4xmKLg1z6JA1Q5tvdBVUVvaO2Mv
+	 6VMsR/KsAM3c5dtCKZ6yG3rDv0+qugV16vJ8/2nmoELE7Up0ehCImATE5fV31bnyCfWug
+	 myNf8StnWRZBxCvD+Nv4/ijfKGp8FrTW8U8KnuwAc/vkE81/PtGiGMybgQE+HD2aTVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=ViQd1kjj;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=shGXhYfO;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2D8606A321;
-	Thu, 12 Nov 2026 01:16:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B2D8606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15B8606A326;
+	Thu, 12 Nov 2026 01:37:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B15B8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=ViQd1kjj
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:MIME-Version:Content-Transfer-Encoding
-	:Content-Type:Cc:To:References:In-Reply-To:Message-ID:Date:Subject:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=A27strc+vx+SreuAtd9NNyIFIWfOeuK3jQu+JcHdaQ0=; b=ViQd1kjjsk22qRNBh6y83V5kGs
-	wz6z3H+kQksXLgzYUDkq6AwaNrJZ+LjkaT9M4Ez6BMmPyvvoUUxLujTZQlzEi+EdT4zyP/KmefiAZ
-	XFlUSww25kJuasLgEPLcjrA4FMa+Yi+5Iwlb5182jD5BJ7+291q0+Xw+YgW2429dNRyzCGuoAZrmh
-	QpTHxHqez7Ch9WdfERPiATM1QESN9pmYb6jkUnvSIGmXk+mMIfxgYhE2nKWJY9WQgtkPj06uxLDVL
-	I3N40043783AW+LWUQ9cE5Ddxhu8lmnYY+h1bbI1C1scuiNoGxhB7OEQJU3GWCP3cBTO+2LTZ8glo
-	+AD6L+1g==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <emfox@debian.org>)
-	id 1xRJQ4-00Db8z-25;
-	Thu, 12 Nov 2026 01:16:05 +0000
-From: Emfox Zhou <emfox@debian.org>
-Subject: Re: [PATCH v4] media: i2c: ov13858: add regulator, clock and reset
- GPIO handling
-Date: Thu, 12 Nov 2026 09:15:57 +0800
-Message-ID: <179444615762.26688.7521541692261098193@debian.org>
-In-Reply-To: <20261016210246.58562-1-lsa.uz@pm.me>
-References: <20261016210246.58562-1-lsa.uz@pm.me>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>,
- linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=shGXhYfO
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BAD7F33D;
+	Thu, 12 Nov 2026 02:35:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794447322;
+	bh=JRkDYlrl3ziGUdvobqOMclP0M0whEvcZbmSFJ8MdrLo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=shGXhYfO3xMKtpLDBPTgAFQAp/5BFgsCm5liYTAT/MIGmDy2UgX59upIIhiQRQyuy
+	 k0xJ6TVQlixcI8HyCsT/wRjeGkyAdm0TqBV17DkuuQJoaTQvSAaEa0Bh828+L9VmhI
+	 hbsw5ke+4QDvfdmFJC4sRY3liVntzS25cM7PQ0sM=
+Date: Thu, 12 Nov 2026 03:37:44 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	linux-media@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 02/11] media: imx8-isi: Extend output format mask to 7
+ bits
+Message-ID: <20261112013744.GA449716@killaraus.ideasonboard.com>
+References: <20260929-isi_imx952-v4-0-e69f89c7c651@oss.nxp.com>
+ <20260929-isi_imx952-v4-2-e69f89c7c651@oss.nxp.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -71,48 +70,54 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Debian-User: emfox
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260929-isi_imx952-v4-2-e69f89c7c651@oss.nxp.com>
 
-Hi Sergey,
+Hi Zhou,
 
-Tested-by: Emfox Zhou <emfox@debian.org>
+On Tue, Sep 29, 2026 at 04:52:23PM +0800, Guoniu Zhou wrote:
+> The ISI output format field width differs across SoC generations:
+> i.MX8 series (MN/MP/QM/QXP) use a 6-bit field (bits 29:24), while
+> from i.MX8ULP onwards (including i.MX91/93/95/952) the field is
+> extended to 7 bits (bits 30:24) to support RAW32 and RAW14 formats.
+> 
+> Extend CHNL_IMG_CTRL_FORMAT_MASK to 7 bits unconditionally since
+> bit 30 is unused on older platforms.
+> 
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+> ---
+> Changes in v3:
+> - Use unconditional 7-bit mask instead of per-platform approach (Laurent)
+> - Drop Reviewed-by from Frank Li due to significant change
+> 
+> Changes in v2:
+> - Add Reviewed-by tag from Frank Li
+> ---
+>  drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> index e795f4daf3ff..c704be882705 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h
+> @@ -39,7 +39,7 @@
+>  /* Channel Image Control Register */
+>  #define CHNL_IMG_CTRL						0x0004
+>  #define CHNL_IMG_CTRL_FORMAT(n)					((n) << 24)
+> -#define CHNL_IMG_CTRL_FORMAT_MASK				GENMASK(29, 24)
+> +#define CHNL_IMG_CTRL_FORMAT_MASK				GENMASK(30, 24)
 
-Surface Pro 8, Tiger Lake, IPU6 8086:9a19, OV13858 at OVTID858:00
-(\_SB.PC00.I2C3.CAMR). Kernel v7.4-rc2 with this patch applied and
-nothing else changed from mainline.
+I've double-checked that bit 30 is reserved on all SoC versions that use
+a 6-bit format.
 
-Without it:
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-  ov13858 i2c-OVTID858:00: failed to find sensor: -5
-  ov13858 i2c-OVTID858:00: probe with driver ov13858 failed with error -5
+>  #define CHNL_IMG_CTRL_FORMAT_RGBA8888				0x00
+>  #define CHNL_IMG_CTRL_FORMAT_ABGR8888				0x01
+>  #define CHNL_IMG_CTRL_FORMAT_ARGB8888				0x02
 
-With it the driver binds and libcamera finds the camera:
+-- 
+Regards,
 
-  ov13858  24576  1
-  v4l-subdev10: ov13858 3-0010
-
-  $ cam -l
-  3: Internal back camera (\_SB_.PC00.I2C3.CAMR)
-
-I captured 1056x784 SGRBG10 through the ISYS capture node and the frame
-has a picture in it, not a black or noisy buffer. Colour is off, which
-is the missing ov13858.yaml rather than this patch.
-
-One detail that might be worth a line in the commit message: this
-machine only has two rails. The log says
-
-  ov13858 i2c-OVTID858:00: supply dovdd not found, using dummy regulator
-
-because INT3472:01 registers avdd and dvdd and there is no dovdd here.
-The driver works fine on the dummy, so there is nothing to fix, but a
-tester on another machine could read that line as a misconfiguration.
-
-Unrelated to this patch: the rear sensor here is mounted upside down and
-its SSDB reports rotation 0, so frames come out rotated 180 degrees. That
-is the same situation the Pro 9 is already listed for in
-upside_down_sensor_dmi_ids. Adding a DMI entry for the Pro 8 there makes
-the frame come out upright, so I will send that separately; it does not
-affect this patch.
-
-Thanks,
-Emfox
+Laurent Pinchart
