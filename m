@@ -1,54 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794492864;
-	b=U1/HtHS3mYCrhvT/oQkAJRKqaXZ9LnMxsSW8DWC+/lIQADPOJLC7/5hPeWJkYpEQjCPk
-	 ewuLhpZ0CzcKTmbmZ7K7Tuzch+6iuWflVxYDRfjNfcUETHsfjXPJ1uC+FZPn9A1mFW8qu
-	 XiyqwuwamKNK0emVjfaDXz6vHIphgeZK41gFgNuqOzm8HJRr34B9HyunkFwt1XRuj+uBb
-	 VFWWW+wIPiSUjwBrTO6snLOCucu5iYxziS3LbdfiM1fk9JEGhNFyjsxIOIL94mxDb5r02
-	 3e/Ra2P2NpTwRsUD0GZawbHvv2N6xPO3ofz+qlVU38v/0JHS5Zdly2vxDUyTHnCo7kQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794492864;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=b/4UOiXvF4Fr1l92XLmjcr1eg7nNlBSU5NS1Fo/IyFE=;
-	b=jEB2N0FbrehnvVqUPlLWwL2YeXhofrvALCuofJrmYTVLhKAfqbNzHZvqO6d56D/fl2p+
-	 x7d0W9/MWHLzn11QYPSNq/2DHApT2RyDu0dzNlsUpsrp4OrBQet459Z5d/rfI/hF2u5AJ
-	 qx/yXnSQ3tUQ7GjGMxzWFqe9QUQZjCGlNaSydD+tMnY/N4NXqfI9/8nFdMKgDmfgPHeKn
-	 sxcanTHhVNKYqsXSToHvqa4/mMJC4zp7wcQQ/zdVaRRYqZMcy7Z3GVY23uHxky9atRfHF
-	 leAfdRK2Nk755wxl9T9PyBpjno4Eqv/UFgfzDQ/giheynN6WCa0aAqNC84msA7daM7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NAA3skTk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794492905;
+	b=sKbOh4xsmdhePvGvsHEW/lKY8TCngjreiQwGTs5Jds/0KwXsPZxNkWDxEoZdJxmhtIp2
+	 WXKM6b/hpWhOOpwEUKknyRgfNIwCjBXagmUftXIqArg+HF+FEgZg5tyGhtGXrglj9yeot
+	 WAb0/Qk2pQgiJ8ndMo8oNDKcxWd5Lwc71hJjgSNjiq+MrfKaoByOnSMevQKGMl1xcLj9e
+	 16ox4plTHpA0r5SZBO8exe39sQPyhn/0u2vXnxjfZrr6LiboBmx7dIombSytUJmcLWqSw
+	 p49hXafGxdzAeW+73P+qbEbkBT3Vbe9n0I0WW1xTxK8E8G//03NaDj3i6HfzxYtEdig==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794492905;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=p9x4nyKp58U6HRLjvUMttJNHFZj1/ft861x7cFqIKgw=;
+	b=fpTAjU9qtum+UwoZJujh11J3Swriar9EFqfKGI+MMm8SMbMnV2+zSEjEXOWpfrjI5Rr6
+	 XWaGhXdvPjnXBeuyDr4bUQ7E0XBF6AdyA9kKAk3q5eWxqXvDIPx6zNr1ssjT6WOT0RKAV
+	 tt+keDG/QzsBXoGTb2E5azO5SVQst760JF5+TLHm9PAwspsBEHS2JSrnZyJ0cum44MlSN
+	 08NkkmjeSTOjqUwJzsHkeJb9BzhG+O90TS3qTyQUTtrysiWyAgZFR3AgeM8986zaR9dxZ
+	 faDM93c22Y1Z6WBoDEI4AoW1NsFr45rcvKqrX6yda2REnYo4gfsS+ktgb5fspaqHnmw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.222.46
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92E9606A31C;
-	Thu, 12 Nov 2026 14:14:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D92E9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NAA3skTk
-ARC-Seal: i=1; a=rsa-sha256; t=1794492841; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=LuyQY12bW/Z83IwfAOxYJxZ41E4wry34UxveT0D7p1+KeG7vuh/g3/Z4PL/QiweY1cAObHPOqdNN/ST9ovLVoulqLB6bQcsSTjpu6+AM2Ic610a4k2B4uTEqtRfchqN3tPwu9RVXJDXtLkU6M0IGvzogik9csYMt7ietj2/S8js=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794492841; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=b/4UOiXvF4Fr1l92XLmjcr1eg7nNlBSU5NS1Fo/IyFE=; 
-	b=Jh3Jwp/xcKr3QKgJDQDf4E73hZu+wtI6ebEk8TbtrWlJP3CZ3MCU6v+pPsoAksowh2AxTMeOVC88QvUJRBWyiUjmn39z10Wfj6SFAwyNTbQsd4y688beAE9MMxDrreNbjzLFt1UAHYle0tb/I2Nc2jHyyiRzD5tU14dDYcElZ2U=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
-	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=NAA3skTkaOCGS4WxaR16OMOYO4CU8JVVcpLMtoI7vIovt4Dfwq56POyv8ssffi5G2sLrZk5OMqH5Z9I5dqeVZXLfMkODQj1dVWmhQg9vXsc96zy1cvmu6WHRHj/Gvwhr50LP6e9o0juz27pfKKS/2LPFjTjLzkGAov5QTWIWmCM=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=b/4UOiXvF4Fr1l92XLmjcr1eg7nNlBSU5NS1Fo/IyFE=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794492839836438.0202804362593;
-	Thu, 12 Nov 2026 06:13:59 -0800 (PST)
-Message-ID: <f212840b-92fd-4d97-a6a7-2768a55483f7@collabora.com>
-Date: Thu, 12 Nov 2026 15:13:54 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9885606A887
+	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 14:15:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9885606A887
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-99a5710ec0dso703966241.1
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 06:15:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794492904; x=1795097704;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=p9x4nyKp58U6HRLjvUMttJNHFZj1/ft861x7cFqIKgw=;
+        b=Datgl1XlWEh7VcDGPgg8GCb8GvddLHkLa0Xbi3f/PoqGr+bAOZ2cmVOKR3B4RUDdq/
+         YosBro7do5N0a0LRR91VfKXjbVWqNRvaOFssW8UuXp6cKQJg23CuBniZdK5yLl8YIuG8
+         Ml9WbTTuNgfzPe7kkD/fFj7h4Gw1PmpakZOAv7//ZI+5P5bs1CFeMfK3VIS7IuZUfgV5
+         bkW3xLdCnpr2gNc9OgMsHXET413ZMHRJCv1HRoXwP/OCWKHxx5rST5BCa6JQOU1W6m6O
+         Q416PKd5Y/9HQJsL25pa2eyyz0/eMy1/h1zlaFPCmbMy1dpSjCeCTUaZBVaYhvxKrtBR
+         Kxhw==
+X-Forwarded-Encrypted: i=1; AL+hErEpeuzvYkuPE2337QgB/fxjLtgXLpcKw0YnaBRR8wvhKRgTVe+MWtL8N4pWP+IFfww6ROEuisSwLIoAqw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z95hT1uPcx8nB0l4ycYBF5ukShQA8zTN/isx2ixbXlEDpbNG6nP
+	pQFFN3cI6EhL2noemiyeImddOXQa+d1JApg4W9e6ZPt2VpJB32DMiHMArnfCoNUVUrg=
+X-Gm-Gg: AYBFou2WL13JwqJkxbBF6F9Kto74cxYfbTm+ANk5t8EkxkQ58Nf8jN5t53k9vyVMnkp
+	nVamkPJrNwqdI7i04wv/m3GPf4yMItao/M4mFirDFMs1n/jY5vp2n+1BT0Na9tTwbnSWpjAmcUM
+	DCR2jY6tOuolkPVYJCYkhufpVD4AHjJVd/M4l/xMnDmuBl0DwSIOrMpUyDZdYLc04x7Y2yQTdew
+	oTJSpUigddLE8xcnjcWZm5/Rqfv2DwX8N8srn+vvdk+KgK6SGfhLuj6NBAOKqIoZd2n6mH0SIpN
+	gqRD3ciUj13hTrRvM67bajusZ7MkdVz46/XXqOayWBCHFF5NVHfoYlstu39KQWi7i1pCKpvarf4
+	mUZrSI+1wNdQsXe0ITClb6YAMJFfbfpMBsGsurcngbpkU730YJ4kVC1Nyr+UnZgpSq0aKTjJh3y
+	2HT6OIohXoJDH7BEXZTxt6y5HrngzeQXJMp4tFNa0hzqEZtFgy/3PhqcR6HykAWifyH/C4K05Fc
+	myW32YL8Lkm207BT6ILLy1PdE46KbcQ0A7m+qHitTHvEwsVE/FK95rpYT/yyY2fxBilMvNeXSd6
+	X0nrXyoyxE9w3fBFNncREGZl0dxU+YsDncvXU3if16PJ98wfc1GuZ4vHyK0vyYCTrwI=
+X-Received: by 2002:a05:6102:3ec3:b0:7d2:7be1:272b with SMTP id ada2fe7eead31-7d50615b505mr2145326137.28.1794492903782;
+        Thu, 12 Nov 2026 06:15:03 -0800 (PST)
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com. [209.85.222.51])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d30209ff97sm6253727137.0.2026.11.12.06.15.00
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 06:15:01 -0800 (PST)
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-9907a58f14dso1033613241.2
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 06:15:00 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErF1CFqJkwO7jIGG6iVDKld3nuXZWzYvoQthIw4fM+mKA0FDKXQkO7rpZ5GtothYfz5TyYfN9q/HwOmWCg==@vger.kernel.org
+X-Received: by 2002:a05:6102:5798:b0:7c3:881f:b620 with SMTP id
+ ada2fe7eead31-7d5060e293emr2040092137.21.1794492899954; Thu, 12 Nov 2026
+ 06:14:59 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,59 +80,46 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] media: verisilicon: Don't hold the VPU in reset
- after remove
-To: Philipp Zabel <p.zabel@pengutronix.de>, aiyengar1990@gmail.com,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Hans Verkuil <hverkuil@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>,
- Tharit Tangkijwanichakul <tharitt97@gmail.com>, stable@vger.kernel.org
-References: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
- <20261112-hantro-robust-v2-2-18561fd48838@gmail.com>
- <c97eef1ba88daf83d231d2ecc78b47fcf524385c.camel@pengutronix.de>
-Content-Language: en-US
-From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-In-Reply-To: <c97eef1ba88daf83d231d2ecc78b47fcf524385c.camel@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
+ <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-2-1b2072e8c37e@ideasonboard.com>
+In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-2-1b2072e8c37e@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 12 Nov 2026 15:14:48 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVBBySyLE=5gG5HvQV95811asBZ7LKwsQXAVPdUPjjTTw@mail.gmail.com>
+X-Gm-Features: AclHuK_i81THT_hnDNfFBzoyAYqo67SKua85inNQRuBh9I9Xk4b1lG_6SVOc53s
+Message-ID: <CAMuHMdVBBySyLE=5gG5HvQV95811asBZ7LKwsQXAVPdUPjjTTw@mail.gmail.com>
+Subject: Re: [PATCH v4 02/13] pmdomain: renesas: r8a78000: Add SCMI maps for VIO
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-media@vger.kernel.org, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
 
-
-Le 12/11/2026 à 11:19, Philipp Zabel a écrit :
-> On Do, 2026-11-12 at 08:30 +0000, Arun Iyengar via B4 Relay wrote:
->> From: Arun Iyengar <aiyengar1990@gmail.com>
->>
->> On the RK3588, the resets of the AV1 decoder include the AXI and APB
->> bus interface resets (SRST_A_AV1_BIU, SRST_P_AV1_BIU), which also cover
->> the Verisilicon IOMMU of the decoder. When the driver is unbound, the
->> driver core runtime resumes the device and, through the runtime PM
->> device link, its IOMMU. hantro_remove() then asserts the resets, and
->> when the IOMMU autosuspends 100 ms later, vsi_iommu_suspend() writes to
->> its registers while they are held in reset, which raises an SError and
->> panics the system:
-> If vsi-iommu accesses require these bus interface resets to be
-> deasserted at certain points, why doesn't it request its own reset
-> controls?
+On Mon, 9 Nov 2026 at 14:34, Paul Elder
+<paul.elder+renesas@ideasonboard.com> wrote:
+> Add SCMI maps for the VIO domain to map the VSP and FCPV power domains
+> and module controls.
 >
-> Depending on implicit assumptions like another driver not asserting its
-> exclusively controlled resets seems fragile.
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-There is a side note on IOMMU doc saying that once the IOMMU has been
-enabled it can't be disabled for security reasons.
-That means that writing 0 on VSI_MMU_AHB_CONTROL_BASE register in vsi_iommu_disable()
-could raise an SError so I would suggest to remove this line from IOMMU driver.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Regards,
-Benjamin
+Gr{oetje,eeting}s,
 
->
-> regards
-> Philipp
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
