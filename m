@@ -1,79 +1,141 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794473701;
-	b=oXMKg8TcD7zB+r+UjzoFhRlVmY1oPN8lYNtjwUfLS0kAUngbwRXPNqduqdjK3f+1opKN
-	 +8x/dJJ8Yn94vTG+qC5qy0Fkq9o6F0DT+ZyWs3HWaUTiQJMZ9a1ZE3dwqbxBMNQoO089e
-	 KIWZlsTum7V97vygskuuD0lr/SUfjS7H47baSzO6c3J0uUawEnOHgu9k+ohdh/t33wTD7
-	 i74CSL+QZFVXgTHsbFZcNrl5beI7q6MSQTDbApuJHebNAjlOukz6GsXxfVosKOftE2orh
-	 NHpoTOz8G3mjLNpnoGEVxxWzSsRPTeldifL4L+xyOz1zMuCRXwIESLOZJtc7rUb5C+Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794473701;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1y1/WcfP5SBksAqFnL1f1IVrkMBg2fcta5eEl97OK2c=;
-	b=sr72RudkwJigt3q9RgyVXughr0+k76lEnP/leSefMpZo1hvQgEyfTJUFxG+BOjouxIA7
-	 sUDOJDESjI7eDH3QVkQBGRKwAXcOQNu1Nh3vS++TsCko6LrsTujEtsxuWkqweY9S7938r
-	 s4zPYTkjG7fteMWpQ0dIl0Fp0ac6t/ko1iqzMRu3rtaXQtgPyhC3kXg9hBHlkncCGNnXz
-	 yCSrkQGZXqI9N9Hj4a/rUpzTtwsECBjpbTfVtjEcpmUEcYp6iA3TJfNEm599KU567zStJ
-	 C/Rhb/ULagMN/cwHrpvnNQsHk1MHFvi3GHpoexXOlMWH8Ro/RReJxqPtlTf6zFOxczg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K1rv9F9K;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B599C606A33B;
-	Thu, 12 Nov 2026 08:55:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K1rv9F9K
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794473701;
-	b=TqyAT0bSVJnET1zYAHkuOJVFNFN34xd8/fEhByJtafQVJGM3s74MJGCOuFSPBaw9W3jv
-	 7q3B/l0VORvyMOC1GCUppEKXEeW7EjTsJgkrjHtnOIa6nyZ5h4m6NZNiIukV+ShrtvTtt
-	 uD7P4Y5/qYVzgLWI6zpmhLn6pgAM66E26a8yQKkn7Qb20ld31etW1EwH+9cgSugJn4wXT
-	 kA+uPsJ8T7vCW3McLFQfn02NY7JpP4NrPdQzcOOKvDkmNjO+Rw3z9kF7R+71QlC1kwnJF
-	 eJvLBUCA+YBVdolHxW0+c4eWBi5dJPB1UePmlHju5BtvciavMGyRMqCO1WgA/XAnEGg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794473701;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1y1/WcfP5SBksAqFnL1f1IVrkMBg2fcta5eEl97OK2c=;
-	b=g6IBjbj21IflpgxWX63sPjurfhv8Vp3urdjk1ODIpCSzlcL9FTwGa5psTA5DpjTR9QCc
-	 Vz9CG9B8C+N2NDT3y0+vGowGpJZqLRgC/zWiXh5Tgux2M1d+WiDBHdpqit+MiESfVYntp
-	 mPrD21hXZEA2GuPVrKjEl7BfUm+B4qxWqEOTEabRB9sYglAklq1p3sM9tv88aEpKRZw99
-	 kkqVO2rNGy6Pp4Kby1lU8ORQ4fdZ/cU+Orc/gKruSuKuE1SkAPJflRMoR49OG7r7MKXmD
-	 ra1i6d0APcd3YIn4CsapWUsBGxpcohsy5a6ODKypui0uGSDoHTnddE3s3TICuJ+Ua0A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794473840;
+	b=PhqS3HvHIVvwDFyNWbXRbXGUG1Xh201yyXGggFJoVUMhoRr8V23wJfxg1dfkv+hU9ta/
+	 NgT/xqADZrh9djBRO1M4sbymtceZMG0l+Ug32WO8ooij7JfDKb2i00PoXLmJCmQv8MZlX
+	 GNlW3eMO2eoHH6ZMLG+tHzP42n8JH5As229XyS+sH4cF0TfMtZ1Mg+mgJQAMWxBzF8Rlt
+	 nVCPuwY5UJGjINQErKJvv9YGZTXBlccPnIC3i8a5eCuW0SRRPnIyb6tDmYw2/HGnmFIQV
+	 hyablyAIwBjRj4c69B0cKBUDpubIb6ScH201k0yu23eZHbthneFHL9NpkO+j3zYWMxA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794473840;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=+IM6c9SQzhSiNLCPJKNescY2jVpZ6DadiC6JkBUJ1jI=;
+	b=sPLmi6CIo6BP/a/TRheOPM3pMiERbGxd0Zev1+z640xjeV/8J0ycRDiICbNnJaoSKj64
+	 NlC1yV5s+mehSt51ic0QIW/DFuxCvlVxV/lLaMebY3AmkQQAvdrofWqX9xVCvAJq8eFJ+
+	 +ZZFLkJvSVX06DjkqtOm/AwkfcFQtDOUqA5qGJgt1G3M651VYu0b9TOmLCll4k9W8ZEFr
+	 1EvVqs8sb5MGAemya5WUd7cKzS0iT3884Ixn8Os0BlH2+5TgDC+UMljtkiLhb7CWpwwY+
+	 QPW+AY673BwkVpe9Wyg1k7nigYBb//S4qlSMy0ZkAelPUszFbcwGuf1EjbzvWG9k9+w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C+q8E5O4;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mv8232rI;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4E1241F00A06;
-	Thu, 12 Nov 2026 08:55:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794473701;
-	bh=1y1/WcfP5SBksAqFnL1f1IVrkMBg2fcta5eEl97OK2c=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=K1rv9F9KZJAwt+2baEnPdiImF9nV87UMfoQIu1JmHPMi1hRnPw+gazWy9rpr4cBhw
-	 tdzmQ12NIQOJpfApSc9NUlNgoAngFGDi0qO5SoTUD231lo51G5JjdOPBk0hb72Q/yb
-	 EmIwSfOKbiTG/2MroHZXL7vcBrbeEIoqOruOTGA3i87mv3qUfOgAdY7+doINDVAoKx
-	 RnJSd7TBUkClPgf17DoBr52+V8zlms8FeUIMpha0tI2WfhhKh9uFjTiW+6qXYEV3EO
-	 fFg0gEsrevqgspOh1rXrqNIib5nFikq2QbSoLR8wHSXhzJ7WCnCRGDOnOeJwban/KN
-	 IXV2o82N3oqjw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D6A6B493D5;
-	Thu, 12 Nov 2026 08:54:59 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 12 Nov 2026 08:55:00 +0000
-Subject: [PATCH] media: verisilicon: Check the CAPTURE buffer size when a
- decode job starts
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D37606A8A5
+	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 08:57:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86D37606A8A5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C+q8E5O4;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mv8232rI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794473838;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+IM6c9SQzhSiNLCPJKNescY2jVpZ6DadiC6JkBUJ1jI=;
+	b=C+q8E5O4lQJFv4qkiux7KyKKUTozpyGAehRl10GDR8JLSmRBVEmVmnowmsx29TwyDyZWDN
+	fziidfkQ3GXxXGBRFmKwTfwwlAeCJfChorWeTjOu3YqUprll5VSjK3TpNmBOdBfLy7KOmV
+	Q+ZE5KptEiNYmquB/U8cm8jowqoqCLo=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-582-CYbFFUHNNaa4e2t3H_aPLg-1; Thu, 12 Nov 2026 03:57:17 -0500
+X-MC-Unique: CYbFFUHNNaa4e2t3H_aPLg-1
+X-Mimecast-MFC-AGG-ID: CYbFFUHNNaa4e2t3H_aPLg_1794473836
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a359b714f8so31050565e9.2
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 00:57:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794473836; x=1795078636; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+IM6c9SQzhSiNLCPJKNescY2jVpZ6DadiC6JkBUJ1jI=;
+        b=mv8232rIvwU2dAjk3wXAnXSS+uMGbkacq/op+xonRYuC6k/ZhbIk0tV5bEN5ivZ2mU
+         xOrAP6wkhfvzc0qX7/Lp4uxWi7lv4e7IPbMJbXra5AryJBFmyHbpgNzrsIbxgLQcj/av
+         8rZNiGz98kAn7W7U3jWE4ThS8GKIEG5rkBxmGz54oLr0AAKaHJH5HIoaA3rZNi32CbC6
+         DJYA6W2e0xSo4mpsMevtlFHrQHDgDtXDH6tTtnNJAsay1kADJYQrwRo18YtgIIkvDnkF
+         Pfi4r00oyz6fHyeAKOwZCWWViXWJMUT1nSBTbSO7spzan8Itr3UqToxaA8AfADolObHv
+         Qt+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794473836; x=1795078636;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+IM6c9SQzhSiNLCPJKNescY2jVpZ6DadiC6JkBUJ1jI=;
+        b=ZhmC72gcz7UaAxin0q94vdDgUINFp6nt3uWM0j7JHsQHcIy6mpgVsuvHZ2ZwgDHb7f
+         ui4SFY+w8R9LNB73KVyemxKogabtZGJyuKumFaxc6+XgH+VHDwmAVEeyxkgKlB97iUMW
+         kEW3pO4o7WHwfdOc9Ce8fPUgmhe3DId+P2yYrzXJnIYDIf2sZ7Wdb0frRqvomrADO/wI
+         STEb0O6YgoFT9QNaNL0Dh14+gsyhkswMO2ikmG0h7IOr9wpUTwMK7gxnUKYzn5diBOXV
+         jaqje0lgIkYRhpfsx98UA9Cqqd6DPRhOxUFIQtvxRlS/kZEzH4RJuAiN/kb3/rBWh0jt
+         rFMw==
+X-Forwarded-Encrypted: i=1; AL+hErE+rgJwGxuStKtEoacqN9My7JysM7QGSbq0I8WhWcLOnPF35E4oshD57pZFOavBsOVhrGZmsdLnvNQVkw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z96KHXb5j502KuSBNIWWkq2v5TFmeRMWWef9jKNtbOYJF0r0QH4
+	eVaJUd6s+oxsxT5/BTTih9Rhw1ewI9FW++OWnlepCLrL6iRdQQwzeHK+3YgcMXgSMV0Zc7OYc/8
+	/BJM+YuLrsIkEFvjmf8MqjoaqIogcf3w0oeprbOq7JRmGHPUvzIj/W5ZMpdYXi1x6
+X-Gm-Gg: AYBFou0cmHJ/JaProbsLjRhGaDDlaIhSNyVXaadpod280ixS8Wrze0bzqrpGn8ckiMI
+	rzQtKAaQssepYjmwqM2lszcySHieJWc6caNEPdP9YWwatj0JUPo1Rtq79vDkodem6iJ4wLIkVeQ
+	sMz7NwG4ntfFDBHh1YXVGx75f8rkJ3Hz1TG+I51BAyeIxKWNe80HeA+C4h3a+fIyJQQRx6f1LRW
+	AIXB0rIx5f/xKSrPkKsIwCgOz7q6wzC9yLibfO1aBLF7b1ilvGiS44rUE9taQhkROnAKgWWoBfj
+	zn59uHLov1aOwoGIbpmlY4Ca5XycoOwdrVanSbJiZwiHNf4HdpPSJlD/9e03cGmhHGsltF/jeo1
+	jUyAVe4yYWMUfnJvHc6xOBEL4NQg8x2TWMUotLnHV0Z8=
+X-Received: by 2002:a05:600c:1c0d:b0:4a2:1e1:d55 with SMTP id 5b1f17b1804b1-4ba093a3cf9mr102100605e9.28.1794473835922;
+        Thu, 12 Nov 2026 00:57:15 -0800 (PST)
+X-Received: by 2002:a05:600c:1c0d:b0:4a2:1e1:d55 with SMTP id 5b1f17b1804b1-4ba093a3cf9mr102100215e9.28.1794473835545;
+        Thu, 12 Nov 2026 00:57:15 -0800 (PST)
+Received: from localhost ([139.47.30.142])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e251686sm54810695e9.3.2026.11.12.00.57.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 00:57:15 -0800 (PST)
+Date: Thu, 12 Nov 2026 09:57:14 +0100
+From: Albert Esteve <aesteve@redhat.com>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+	Ondrej =?utf-8?B?TW9zbsOhxI1law==?= <omosnacek@gmail.com>,
+	Jens Wiklander <jenswi@kernel.org>,
+	Sumit Garg <sumit.garg@kernel.org>, cgroups@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org,
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, op-tee@lists.trustedfirmware.org
+Subject: Re: [Linaro-mm-sig] [PATCH v4 1/8] memcg: Add MEMCG_DMABUF
+ accounting infrastructure
+Message-ID: <avV_asMMt16Q5S7S@aesteve-thinkpadp1gen8.rmtes.csb>
+References: <20261104-v2_20230123_tjmercier_google_com-v4-0-1819a017000b@redhat.com>
+ <20261104-v2_20230123_tjmercier_google_com-v4-1-1819a017000b@redhat.com>
+ <96d6a6e828310738c0cb4550752a0b5808a81ef9.camel@linux.intel.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,169 +145,322 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261112-hantro-dec-size-check-v1-1-e5f1180b625f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqCQBCF4VeRuW6gHWoVXyW60PGok6CxYxGJ7
- 95Wl9+B82/kSAanutgo4Wluy5wRDgXp2MwD2LpskqPEEIJwHte0cAdltzdYR+jEfdWcWqlKied
- I+XtP6O31616uf/ujvUHXb4z2/QPmcRH5eQAAAA==
-X-Change-ID: 20261112-hantro-dec-size-check-f8a4b2872656
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794473699; l=5619;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=92PcgP27BM8JLOKwI+obstcAlHRvFAhAEyuDObXEIr8=;
- b=Ori6G9ZMLO2rfDUSBzAxBcY6QDgGGECnTRbCEIWdaZwdTgLlRxvwwCNM/c8P7/n3Ij3rXCnSF
- I1+5LCf6vERBaWRlQkyEWFebgvqQxnSpRimp6vkm5EIHvAsDUK9ZowW
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <96d6a6e828310738c0cb4550752a0b5808a81ef9.camel@linux.intel.com>
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+On Thu, Nov 12, 2026 at 08:26:35AM +0100, Thomas Hellström wrote:
+> On Wed, 2026-11-04 at 12:09 +0100, Albert Esteve wrote:
+> > From: "T.J. Mercier" <tjmercier@google.com>
+> > 
+> > Introduce a MEMCG_DMABUF stat counter and helpers for charging,
+> > cancelling, and uncharging dma-buf memory against a memory cgroup.
+> > 
+> > The charge is tracked on struct dma_buf via a new memcg pointer.
+> > The memcg reference is stored into (or cleared from) dmabuf->memcg
+> > by the helpers, removing the need for callers to manage those
+> > details. The release path in dma_buf_release() is reduced to a
+> > single mem_cgroup_uncharge_dmabuf() call.
+> > 
+> > Rather than charging at the page level via __GFP_ACCOUNT, which
+> > would require exporters to expose their backing pages for
+> > cross-cgroup transfer via new dma_buf_ops, charges are tracked
+> > externally on struct dma_buf through a single accounting path.
+> > 
+> > The next patch wires up the charging policy in the dma-heap ioctl.
+> > 
+> > Signed-off-by: T.J. Mercier <tjmercier@google.com>
+> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> > ---
+> >  Documentation/admin-guide/cgroup-v2.rst |  4 ++
+> >  drivers/dma-buf/dma-buf.c               |  3 ++
+> >  include/linux/dma-buf.h                 |  4 ++
+> >  include/linux/memcontrol.h              | 27 +++++++++++++
+> >  mm/memcontrol.c                         | 70
+> > +++++++++++++++++++++++++++++++++
+> >  5 files changed, 108 insertions(+)
+> > 
+> > diff --git a/Documentation/admin-guide/cgroup-v2.rst
+> > b/Documentation/admin-guide/cgroup-v2.rst
+> > index 86a2a0099178..a3265a4a953e 100644
+> > --- a/Documentation/admin-guide/cgroup-v2.rst
+> > +++ b/Documentation/admin-guide/cgroup-v2.rst
+> > @@ -1662,6 +1662,10 @@ The following nested keys are defined.
+> >  		Amount of memory used for storing in-kernel data
+> >  		structures.
+> >  
+> > +	  dmabuf (npn)
+> > +		Amount of memory used for exported DMA buffers
+> > allocated by the cgroup.
+> > +		Stays with the allocating cgroup regardless of how
+> > the buffer is shared.
+> > +
+> >  	  workingset_refault_anon
+> >  		Number of refaults of previously evicted anonymous
+> > pages.
+> >  
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index 4c9add51f9ef..1c6b9cee7ac2 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -14,6 +14,7 @@
+> >  #include <linux/fs.h>
+> >  #include <linux/slab.h>
+> >  #include <linux/dma-buf.h>
+> > +#include <linux/memcontrol.h>
+> >  #include <linux/dma-fence.h>
+> >  #include <linux/dma-fence-unwrap.h>
+> >  #include <linux/anon_inodes.h>
+> > @@ -182,6 +183,8 @@ static void dma_buf_release(struct dentry
+> > *dentry)
+> >  
+> >  	dmabuf->ops->release(dmabuf);
+> >  
+> > +	mem_cgroup_uncharge_dmabuf(dmabuf);
+> > +
+> >  	if (dmabuf->resv == (struct dma_resv *)&dmabuf[1])
+> >  		dma_resv_fini(dmabuf->resv);
+> >  
+> > diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> > index d15b2b31d3c9..23ec0ff23fba 100644
+> > --- a/include/linux/dma-buf.h
+> > +++ b/include/linux/dma-buf.h
+> > @@ -27,6 +27,7 @@
+> >  struct device;
+> >  struct dma_buf;
+> >  struct dma_buf_attachment;
+> > +struct mem_cgroup;
+> >  
+> >  /**
+> >   * struct dma_buf_ops - operations possible on struct dma_buf
+> > @@ -429,6 +430,9 @@ struct dma_buf {
+> >  
+> >  		__poll_t active;
+> >  	} cb_in, cb_out;
+> > +
+> > +	/** @memcg: the cgroup to which this buffer is currently
+> > attributed */
+> > +	struct mem_cgroup *memcg;
+> >  };
+> >  
+> >  /**
+> > diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> > index 7d1c0ce189a8..4d1e82cf0833 100644
+> > --- a/include/linux/memcontrol.h
+> > +++ b/include/linux/memcontrol.h
+> > @@ -10,6 +10,9 @@
+> >  
+> >  #ifndef _LINUX_MEMCONTROL_H
+> >  #define _LINUX_MEMCONTROL_H
+> > +
+> > +struct dma_buf;
+> > +
+> >  #include <linux/cgroup.h>
+> >  #include <linux/vm_event_item.h>
+> >  #include <linux/hardirq.h>
+> > @@ -40,6 +43,7 @@ enum memcg_stat_item {
+> >  	MEMCG_ZSWAP_B,
+> >  	MEMCG_ZSWAPPED,
+> >  	MEMCG_ZSWAP_INCOMP,
+> > +	MEMCG_DMABUF,
+> >  	MEMCG_NR_STAT,
+> >  };
+> >  
+> > @@ -667,6 +671,9 @@ int mem_cgroup_charge_hugetlb(struct folio*
+> > folio, gfp_t gfp);
+> >  int mem_cgroup_swapin_charge_folio(struct folio *folio, unsigned
+> > short id,
+> >  				   struct mm_struct *mm, gfp_t gfp);
+> >  
+> > +bool mem_cgroup_reserve_dmabuf(struct mem_cgroup *memcg, gfp_t gfp,
+> > +			       unsigned int nr_pages);
+> > +
+> >  void __mem_cgroup_uncharge(struct folio *folio);
+> >  
+> >  /**
+> > @@ -682,6 +689,10 @@ static inline void mem_cgroup_uncharge(struct
+> > folio *folio)
+> >  	__mem_cgroup_uncharge(folio);
+> >  }
+> >  
+> > +void mem_cgroup_cancel_dmabuf(struct mem_cgroup *memcg, unsigned int
+> > nr_pages);
+> > +
+> > +void mem_cgroup_uncharge_dmabuf(struct dma_buf *dmabuf);
+> > +
+> >  void __mem_cgroup_uncharge_folios(struct folio_batch *folios);
+> >  static inline void mem_cgroup_uncharge_folios(struct folio_batch
+> > *folios)
+> >  {
+> > @@ -1167,10 +1178,26 @@ static inline int
+> > mem_cgroup_swapin_charge_folio(struct folio *folio,
+> >  	return 0;
+> >  }
+> >  
+> > +static inline bool mem_cgroup_reserve_dmabuf(struct mem_cgroup
+> > *memcg,
+> > +					     gfp_t gfp,
+> > +					     unsigned int nr_pages)
+> > +{
+> > +	return true;
+> > +}
+> > +
+> > +static inline void mem_cgroup_cancel_dmabuf(struct mem_cgroup
+> > *memcg,
+> > +					    unsigned int nr_pages)
+> > +{
+> > +}
+> > +
+> >  static inline void mem_cgroup_uncharge(struct folio *folio)
+> >  {
+> >  }
+> >  
+> > +static inline void mem_cgroup_uncharge_dmabuf(struct dma_buf
+> > *dmabuf)
+> > +{
+> > +}
+> > +
+> >  static inline void mem_cgroup_uncharge_folios(struct folio_batch
+> > *folios)
+> >  {
+> >  }
+> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> > index 856a7d07586c..e53dd7eebc3b 100644
+> > --- a/mm/memcontrol.c
+> > +++ b/mm/memcontrol.c
+> > @@ -69,6 +69,7 @@
+> >  #include <net/ip.h>
+> >  #include "slab.h"
+> >  #include "memcontrol-v1.h"
+> > +#include <linux/dma-buf.h>
+> >  
+> >  #include <linux/uaccess.h>
+> >  
+> > @@ -442,6 +443,7 @@ static const unsigned int memcg_stat_items[] = {
+> >  	MEMCG_ZSWAP_B,
+> >  	MEMCG_ZSWAPPED,
+> >  	MEMCG_ZSWAP_INCOMP,
+> > +	MEMCG_DMABUF,
+> >  };
+> >  
+> >  #define NR_MEMCG_NODE_STAT_ITEMS ARRAY_SIZE(memcg_node_stat_items)
+> > @@ -1625,6 +1627,7 @@ static const struct memory_stat memory_stats[]
+> > = {
+> >  #ifdef CONFIG_HUGETLB_PAGE
+> >  	{
+> > "hugetlb",			NR_HUGETLB			},
+> >  #endif
+> > +	{
+> > "dmabuf",			MEMCG_DMABUF			},
+> >  
+> >  	/* The memory events */
+> >  	{
+> > "workingset_refault_anon",	WORKINGSET_REFAULT_ANON		},
+> > @@ -5658,6 +5661,73 @@ void mem_cgroup_flush_workqueue(void)
+> >  	flush_workqueue(memcg_wq);
+> >  }
+> >  
+> > +/**
+> > + * mem_cgroup_reserve_dmabuf - charge a memcg for a dma-buf
+> > allocation
+> > + * @memcg: memcg to charge (may be %NULL)
+> > + * @gfp_mask: reclaim mode
+> > + * @nr_pages: number of pages to charge
+> > + *
+> > + * Charges @nr_pages against @memcg. Call this before allocating
+> > pages so
+> > + * the cgroup limit is enforced up front. On success the caller must
+> > + * finalize the charge with the MEMCG_DMABUF stat update, or call
+> > + * mem_cgroup_cancel_dmabuf() to undo it.
+> > + *
+> > + * Returns %true on success, %false if the charge would exceed the
+> > limit.
+> > + */
+> > +bool mem_cgroup_reserve_dmabuf(struct mem_cgroup *memcg, gfp_t
+> > gfp_mask,
+> > +			       unsigned int nr_pages)
+> > +{
+> > +	if (!memcg || mem_cgroup_disabled())
+> > +		return true;
+> > +
+> > +	if (try_charge(memcg, gfp_mask, nr_pages))
+> > +		return false;
+> > +
+> > +	return true;
+> > +}
+> > +EXPORT_SYMBOL_GPL(mem_cgroup_reserve_dmabuf);
+> > +
+> > +/**
+> > + * mem_cgroup_cancel_dmabuf - undo a dma-buf charge
+> > + * @memcg: memcg to uncharge (may be %NULL)
+> > + * @nr_pages: same value passed to mem_cgroup_reserve_dmabuf()
+> > + *
+> > + * Returns @nr_pages of charge to @memcg. Use when the allocation
+> > fails
+> > + * after mem_cgroup_reserve_dmabuf().
+> > + */
+> > +void mem_cgroup_cancel_dmabuf(struct mem_cgroup *memcg, unsigned int
+> > nr_pages)
+> > +{
+> > +	if (!memcg)
+> > +		return;
+> > +
+> > +	if (!mem_cgroup_is_root(memcg))
+> > +		refill_stock(memcg, nr_pages);
+> > +}
+> > +EXPORT_SYMBOL_GPL(mem_cgroup_cancel_dmabuf);
+> > +
+> > +/**
+> > + * mem_cgroup_uncharge_dmabuf - uncharge a dma-buf from its memcg
+> > + * @dmabuf: buffer to uncharge
+> > + *
+> > + * Reverses a finalized dma-buf charge. Drops the memcg
+> > + * reference stored in @dmabuf->memcg and clears the pointer.
+> > + * Safe to call when @dmabuf->memcg is %NULL.
+> > + */
+> > +void mem_cgroup_uncharge_dmabuf(struct dma_buf *dmabuf)
+> > +{
+> > +	unsigned int nr_pages;
+> > +	struct mem_cgroup *memcg = dmabuf->memcg;
+> > +
+> > +	if (!memcg)
+> > +		return;
+> > +
+> > +	nr_pages = PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
+> > +	mod_memcg_state(memcg, MEMCG_DMABUF, -nr_pages);
+> > +	mem_cgroup_cancel_dmabuf(memcg, nr_pages);
+> > +	mem_cgroup_put(memcg);
+> > +	dmabuf->memcg = NULL;
+> > +}
+> 
+> Instead of keeping a reference on the memcg for the buffer's whole
+> lifetime, shouldn't an obj_cgroup be used, which is reparented when the
+> memcg goes offline?
 
-The CAPTURE buffers of a decoder are checked against the CAPTURE format
-when they are queued, in hantro_buf_prepare(). Since commit bbd267daf4fc
-("media: verisilicon: vp9: Allow to change resolution while streaming")
-the format can change while buffers are allocated and queued: S_FMT on
-the OUTPUT queue resets the CAPTURE format to the new size, and the
-HEVC, VP9 and AV1 controls reset it when the bit depth changes (AV1 also
-when film grain turns the post-processor on), the latter when the
-controls of the request are applied for the job.
+Good point. I did not think of it, but after a brief check I think it'd
+be the right object to use. I'll switch for the next version.
 
-A CAPTURE buffer that was queued before such a change can be smaller
-than the new format needs, and the decoder, or the post-processor, is
-started on it with the new size all the same.
+> Like in Dave's series here:
+> 
+> https://lore.kernel.org/all/20260706052330.1110909-1-airlied@gmail.com/
 
-Check the buffer of the job against the CAPTURE format again when the
-job starts, and return the buffers of the job with an error if it is too
-small. The controls of the request have to be applied before that, so
-apply them in device_run() instead of hantro_start_prepare_run(), which
-every codec calls before it reads a control.
+Thanks for the link! I'll use it as reference. I should mention it in the
+cover letter too probably, as that series is related (should be safe as
+far as it does not opt-in for dma-buf-level charging).
 
-Fixes: bbd267daf4fc ("media: verisilicon: vp9: Allow to change resolution while streaming")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-This check is for all the Hantro decoders. The AV1 decoder, which is
-programmed with the frame size of its controls rather than the size of
-the formats, also gets a check of the frame against the CAPTURE format
-in patch 6 of the series "media: verisilicon: Fix MPEG-2 field pictures,
-4K VP8 and the AV1 tile buffers" v2, sent shortly before this patch. The
-two patches do not depend on each other.
+BR,
+Albert
 
-Tested on an Orange Pi 5 (RK3588S), on a 7.3-based tree with the patch
-ported to its device_run(), which other pending series have changed. A
-CAPTURE buffer is queued for a 640x368 OUTPUT format, the OUTPUT format
-is then set to 1920x1088 while streaming and a request is queued: for
-H.264, VP8 and MPEG-2 on the VPU121 and for AV1 on the VPU981 the
-request completes with both buffers flagged V4L2_BUF_FLAG_ERROR, and so
-does an AV1 request whose sequence control switches an 8-bit context to
-10 bits. The fluster H.264 (JVT-AVC_V1, JVT-FR-EXT) and VP8 runs on the
-VPU121 give the same per-test results as an earlier run on the same
-board, and so do four fluster AV1 runs on the VPU981 (203/242). In a
-fifth AV1 run av1-1-b8-06-mfmv also failed, with one decoder timeout and
-no reject; it passed in the other four runs.
-
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit message, and I reviewed it and tested
-it as described above.
----
- drivers/media/platform/verisilicon/hantro_drv.c    | 37 ++++++++++++++++++----
- .../platform/verisilicon/hantro_g1_mpeg2_dec.c     |  1 -
- 2 files changed, 31 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index 26e5d5547466..c496df1d5652 100644
---- a/drivers/media/platform/verisilicon/hantro_drv.c
-+++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -130,12 +130,6 @@ void hantro_watchdog(struct work_struct *work)
- 
- void hantro_start_prepare_run(struct hantro_ctx *ctx)
- {
--	struct vb2_v4l2_buffer *src_buf;
--
--	src_buf = hantro_get_src_buf(ctx);
--	v4l2_ctrl_request_setup(src_buf->vb2_buf.req_obj.req,
--				&ctx->ctrl_handler);
--
- 	if (!ctx->is_encoder && !ctx->dev->variant->late_postproc) {
- 		if (hantro_needs_postproc(ctx, ctx->vpu_dst_fmt))
- 			hantro_postproc_enable(ctx);
-@@ -164,6 +158,24 @@ void hantro_end_prepare_run(struct hantro_ctx *ctx)
- 			      msecs_to_jiffies(2000));
- }
- 
-+/*
-+ * The CAPTURE buffers of a decoder are checked against the CAPTURE format when
-+ * they are queued, but the format can change while they are queued.
-+ */
-+static bool hantro_dec_dst_buf_fits(struct hantro_ctx *ctx,
-+				    struct vb2_v4l2_buffer *dst)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ctx->dst_fmt.num_planes; i++) {
-+		if (vb2_plane_size(&dst->vb2_buf, i) <
-+		    ctx->dst_fmt.plane_fmt[i].sizeimage)
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
- static void device_run(void *priv)
- {
- 	struct hantro_ctx *ctx = priv;
-@@ -182,6 +194,19 @@ static void device_run(void *priv)
- 
- 	v4l2_m2m_buf_copy_metadata(src, dst);
- 
-+	/*
-+	 * Apply the controls of the request first: they can change the bit
-+	 * depth, and with it the CAPTURE format.
-+	 */
-+	v4l2_ctrl_request_setup(src->vb2_buf.req_obj.req, &ctx->ctrl_handler);
-+
-+	if (!ctx->is_encoder && !hantro_dec_dst_buf_fits(ctx, dst)) {
-+		v4l2_ctrl_request_complete(src->vb2_buf.req_obj.req,
-+					   &ctx->ctrl_handler);
-+		hantro_job_finish(ctx, VB2_BUF_STATE_ERROR);
-+		return;
-+	}
-+
- 	ret = ctx->codec_ops->run(ctx);
- 	if (ret)
- 		hantro_job_finish(ctx, VB2_BUF_STATE_ERROR);
-diff --git a/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c b/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
-index 6a942f4b8a2d..1cc74f52daa9 100644
---- a/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
-+++ b/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
-@@ -156,7 +156,6 @@ int hantro_g1_mpeg2_dec_run(struct hantro_ctx *ctx)
- 	src_buf = hantro_get_src_buf(ctx);
- 	dst_buf = hantro_get_dst_buf(ctx);
- 
--	/* Apply request controls if any */
- 	hantro_start_prepare_run(ctx);
- 
- 	seq = hantro_get_ctrl(ctx,
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261112-hantro-dec-size-check-f8a4b2872656
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
+> 
+> Thanks,
+> Thomas
+> 
+> 
+> 
+> 
+> > +
+> >  static int __init cgroup_memory(char *s)
+> >  {
+> >  	char *token;
 
