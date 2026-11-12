@@ -1,74 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.72.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439648;
-	b=ZPMr/5meKq4xjP3SEv45p21zU92Dmi8G+QDUIZ7iwn44sl3P5NxZ9VvYJhbCveH221n2
-	 cZR98lAjln1kj11JSED3ZV3zxjveCx4Yz0f5Dxf3G4Uh36Y8OPFD5MSzVPdZdUGeVGC+Q
-	 5KGE7LWtJ5h9SmlISdimqJna0QD/qMmDqSu5v+gYDnuqn9wNVBarZPOxk87GrYNngW3Lb
-	 hw5Db91F8DHe7Z/T4Bj/3ad3YQIphDlghDcL3K+Ev+epFhDXoPwPXKKI3OpASZLtjhIfM
-	 3n6sLdhLKjpURwZUCP39rif898nhpQCEB2lTPsPLNDdBGi7z7O2KsKSFvMVU7KWlYCQ==
+	t=1794444434;
+	b=nPbc5TXHYA/nxV7hzVSchjVXRtt4a4nUwGkL8xX+p9l8Sm0smvwfYtch8Rc4vK0nEcDW
+	 faIsFi4UTT0ULrFCV4RrMARPJb+ZiXuJOvZGemtmv09kGJFmvzamluAOiCzh5rMjvPjcE
+	 EUxB7a1BPnA6hkNebUHjexsYLkvq7WjLBTym2z9ntvumb5OieSSQrXR+cAqtG1QeYRyMi
+	 Ir7syZ9pmqzFrylXAu+2cAnHSN6S7L1pvAJPkYwjUWs6VMzBOHhTmf1NxMhjh5Mgh8/p3
+	 Io181t3vYNLX9gR3EZYqAuMkKeQYEXHvU5RF3PFzg4GAbVcssDK+kAWc6lT8T/HXvnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439648;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=l3ncA7LGC0e8S60f6Aii7X3fJT4GkRwmt3Q/dedOq/0=;
-	b=lPfglglnBfvSyiTX3DddGCJ+LapQvifBmgnTWlBugYrSnTYsRatnmBFVzPNBdq30jcA2
-	 ACOhtB8w3X0zV+xcevtMcn8i4u9MtLNoEGIi3e5nDHjaW9TQojqU8cH7vNyqyR/CisNOh
-	 AaGvDZLx1Ak+21TUGnIsRkPxGSYW7BmsTl6k7qJu9hbz+/bB19PU7j3l7cnfb6RuW80OZ
-	 7v8QEIFE032sRAXcYEdL6VwD/8l6t4F2lyW0PYt/tv1A7LKyFiCI9iKwJoNqHddVIH6aJ
-	 C0aLJRLvqEjr9GheC6WNTdcmR+x6SynbwJJKzYbGefn1ATqC5WfzkKbXyG+eZwMBE+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794444434;
+	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Info-Out:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-JNJ;
+	bh=XbrOo4huBxc2L0xUVgvUtiLAkLCu0nqc4PmTkdL7jno=;
+	b=sdXleWoWoOnCwctBkDwlEsSNcZWPqVnT64N4LL6vGXQ7DEZyIypyFUM51Q+JPzmHGf+x
+	 4hLXun+1ro2NTuJ89Vfn5zCvQSifyTUuxdCQjS8vc24OhkBNLxWovyigysCxkkG4Ew7SO
+	 tw1cR7n2DOSHPSN+uCpzMm63/yBxTZL1h5qwcLoN+hJ+jZBVimlacfPEEGBQEEQxK4c6S
+	 55xJQiAtk9qf+/z1C4n4Wk3RbGHBdbde88CLDy7eRzwM3ZT8/hk4zHZ3s/J+KeR5KC8AS
+	 eCbvAKS2f68tpQk4dQVGWF0RK82Rcb90YddXuRk0dqoGujbEzXRlslTQ3KO/A4qqtVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=m3oPiefK;
-	arc=none smtp.remote-ip=209.85.210.69
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=I9c7LqFG;
+	arc=none smtp.remote-ip=57.103.72.115
+Received: from outbound.ms.icloud.com (ms-2005l-snip4-2.eps.apple.com [57.103.72.115])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D893606A337
-	for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 23:27:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D893606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07985606A331
+	for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 00:47:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07985606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=m3oPiefK
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-85a6d046af0so4540627a34.2
-        for <linux-media@vger.kernel.org>; Wed, 11 Nov 2026 15:27:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794439647; x=1795044447; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l3ncA7LGC0e8S60f6Aii7X3fJT4GkRwmt3Q/dedOq/0=;
-        b=m3oPiefKK1pKNC1ByZp+CXLtguk52lx3tFmKkDLzRxnW2ziQO1e7nwERWF0O++DoaM
-         DBil3J92yz5eO8nWIXRIFFQs2SnwU27FC0s0xcywJek3tgeb92DrIYoLHbKkp9/sLqo7
-         W92iZI+qpSCm3StXd5Foqhvo6NMJ//IsqYGlPyGXzBa9EIaLtbCadT6935bd9YxWR4X7
-         YzQxVqH3jCrkZjGe/cm0dpVdShRlJc2McL67UEAYvFd51oJ1Z5PIbINQciNLla9oAebb
-         yh3jgtSDjBYWuDG1/dP0T9eCHun8+1or8gEJHXVs9vC5iqafDiryJd8GmIszleNBR7Qt
-         2LgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794439647; x=1795044447;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l3ncA7LGC0e8S60f6Aii7X3fJT4GkRwmt3Q/dedOq/0=;
-        b=Poig6eLKpyjGxYijVDwbtkALrf233sblSJIVqdckSZPm94eb6MnHVAHOv4xL9pTG68
-         3D8pEPT0L7ZpFlIur+NB98jrf953KQP9mbPNeSak9FeF/c/DkY9S804GDuaAXd0nRnXJ
-         bzgdFgDmGYPo/gWwlE5uFu7ChmKk8rjhJFplScZ0QeH0fdCvXL5NAW5/XvE9xoTKHnCK
-         A6lWEa2k3o0xR5r+lvvA6Bq18b3swsTZJH9AlaaBfrSLxFW4JkyuWSSOzBi12zD9HYkw
-         KSHtwWu2RiZdgXiq4z0708EQM+MM3LBtPfGdFNGzZPovE1WWRhBzUyljy6GiKWlcoIe4
-         k6Qg==
-X-Forwarded-Encrypted: i=1; AL+hErFf2VNs/s7BY7JBmSO/5jhoYrEX+CJ7a71G/MrjZCbWFubYFJ6ZdmdE9W12KrZp+DkJwAHouGLdgvFiWA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HOuugkmwXBN2SsIOOn2D57TgWdX2H3ffsqJmqW8+lb10HU+GU
-	9brX89uO2zezPJEBjn2OF6g6vDhrECb2Zv3auzqgYh7ZNLzRxdGSaIXOPXyuHFFgKXFw6VdnE51
-	P20hcSzwBIYjweFRjR5cICVjjig==
-X-Received: from ioz8.prod.google.com ([2002:a05:6602:20c8:b0:9c7:7bc8:8c7b])
- (user=justinstitt job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:2388:b0:517:dd67:aeb7 with SMTP id 5614622812f47-56b97e2b6cbmr3870593b6e.56.1794439646997;
- Wed, 11 Nov 2026 15:27:26 -0800 (PST)
-Date: Wed, 11 Nov 2026 15:27:25 -0800
-In-Reply-To: <20261105084518.386234-1-nikitash.mariiaw@gmail.com>
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=I9c7LqFG
+Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-3a-20-percent-0 (Postfix) with ESMTPS id 45AE318004BA;
+	Thu, 12 Nov 2026 00:47:08 +0000 (UTC)
+X-ICL-RepId: 01a1cd39-0380-728f-a833-7c436969ede5
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1794444432; x=1825980432; bh=XbrOo4huBxc2L0xUVgvUtiLAkLCu0nqc4PmTkdL7jno=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=I9c7LqFGQPC4hc1j883OqiSDgYE7IJNWYG15Bc+xeEZF72THLRHv00wP+6LxBfI9KWN21zFfzG0oLxaHDd3wgrLKz2im4/qheCerstXsDeehhxVS7zsbRRS1bLc/yCG+6JTC4lZ1bArcQ/bl5ILTAVcp3JYYaGyJzPTJUltvDX6TDUBoXnZCJhzQEi4CJBdSjlpjCNEVTThvPMYLjJff54cC/9W2gQSJIfU1+n/I0u17qGYe90tBGFJnk7JLz+iRTv0gWXBmF0hzgn7cLa+YGxeh/9MMyqWFv9dGiYVA4v3WvqoVDBoKqo41aMfvubIn06iB3imnSPWlfLmeQiv3rw==
+Received: from bigre.tail98293.ts.net (unknown [17.156.208.39])
+	by p00-icloudmta-asmtp-us-west-3a-20-percent-0 (Postfix) with ESMTPSA id B663D1800357;
+	Thu, 12 Nov 2026 00:47:05 +0000 (UTC)
+From: Vincent Cloutier <vincent.cloutier@icloud.com>
+To: linux-media@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Purism Kernel Team <kernel@puri.sm>,
+	Vincent Cloutier <vincent@cloutier.co>
+Subject: [PATCH v2 0/3] media: i2c: Add Samsung S5K3L6 and Librem 5 rear camera
+Date: Wed, 11 Nov 2026 19:46:33 -0500
+Message-ID: <20261112004636.739749-1-vincent.cloutier@icloud.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -77,75 +73,126 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261105084518.386234-1-nikitash.mariiaw@gmail.com>
-Message-ID: <avT5yrP3PYemJNCI@google.com>
-Subject: Re: [PATCH] media: verisilicon: Replace strlcat() with seq_buf
-From: Justin Stitt <justinstitt@google.com>
-To: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-Cc: nicolas.dufresne@collabora.com, benjamin.gaignard@collabora.com, 
-	p.zabel@pengutronix.de, mchehab@kernel.org, linux-media@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, kees@kernel.org, morbo@google.com
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEyMDAwMiBTYWx0ZWRfX2LD5oNNx4wel
+ DQBrYC1DtHdZp5j25LvjfxeG06Q1ThoXhcMNCUPbLa5EqtTkU5RMZw7LO/M82MPUYSDDwr9xgUC
+ RJlNv8zeqkssQbXqnl6TOWz4PmqIxmsRQAepITjy8l48yMbRymjXtFfhTbXNUUUkI549oT9wbLq
+ OM1VBHbXXa/TyL0mnOrvlRUU2mRBfgl2LfeC4h/1NQl5+swtyWoCfudqAaRwpLQungzxHiaIPAh
+ 3wvF4sh3kFpvcV28f6FiBp8zBVgy01iNbZy7UQK75/9mL6ApyRX3EqT0Zuy9IADPqPsopYUJv3G
+ N68wvqXXPkoB8T7D5OwtKYWsXy5cFexfBP74F9lkbu0tHMDzQHSayfCcBt/nSw=
+X-Authority-Info-Out: v=2.4 cv=DPIacCNb c=1 sm=1 tr=0 ts=6af50c8e
+ cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
+ a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10
+ a=5j__JWfIoqoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=kibvr5HLtuNvmma_iept:22
+ a=NVRLzpS9o0UsCidzZbzm:22 a=VwQbUJbxAAAA:8 a=v3ZZPjhaAAAA:8
+ a=Td3DOQvXE0cbqhFbeG0A:9
+X-Proofpoint-GUID: V9lDdZNu0kPE1xwmJrEcl88tXz0EzloH
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEyMDAwMiBTYWx0ZWRfX4vmFs7WVeV90
+ vMc9I214PFlmf3KTuvFncIjsyckYeNM2yYiN7QQzD1UXjwOGh8Bm4YFHVVdJTFd9fsqNbWr89bw
+ K7mpD4HYai8gpT7MwESvq/b2msuwVAs=
+X-Proofpoint-ORIG-GUID: V9lDdZNu0kPE1xwmJrEcl88tXz0EzloH
+X-JNJ: AAAAAAABUoX1BC//txojkthr/46AsiV8JAB8JP4pp5G3al/KmSo03UqV0f+q+ZixGTTInc
+ OXBe1pDxfgVBnkehI6/ZL2LmjxoLtVAUduJxqWJwDeuoTin7/eQI/qWPjwAaAv2r5RofP7
+ Ktq59XbM8eKa1haKofGs+UJ/IG3dlsxyISf1NndcA/khSd3JBi5qfULkB4wc2DnRF49zdZ
+ RT3iZKOYiBpT+nI2+Lo/Ugewm7RtBWvIVYfgSLUl9SsDZ3imnLuz/eCY4CMVDZ3hKkQ+9h
+ qR3hML4T/pkW7C91cAm5O0dMWJx9CU5O998qsjZ0hOTSiaQ+SEi3P61GPSt7CmyQyatWVM
+ Sc+5+a7lnjo07yE2oZThOmCM35+1mNKovOP9q7kMCzc1ov7VNq3vhuN7IBZ8+IX1w1Ncbo
+ qke6XQV6AHg3nI16r3ScNythuknBATDcU3XIMTivVmOl1z61MIY9aHXElU6CgHickCsYXg
+ th6EzV2D45huPByTXQg3dnH2kDnnM3rLYCwYF095Ngzqv/t3jrbrdniM/c9POKWwKbh1u4
+ FefBF1LTKCOFDi2zgZTQQJijD1d4wbMUGfzBAtHo7WG1Lek8XIupJnvElZ9iO0RifIW+5I
+ aR2VecAirYihU+YrFY+mAFJy9/Ryh6yAAsEOLJkRs/R5zMa2UAX12trF9+k8ywVBuuwfm4
+ nWhF1aaIeyQqr3ZkvZi2miXwtjwYLpnxRz/5V9mjFNChXYDSneKlmn4n21SzPOr05k8pXz
+ Drbrvl7nZjPx5wpyyPbEetmWVnV8fvIyxx3vIt6+sgo4fIfIDXQ+Z6O2QVoyODKJLvTFl9
+ ispM4TYPEmmWhIk4A51jnrHr6+zuqn0mksqKSUyOsVh94gZTs0kdLy8/mv6Y+Fl6CiEJjJ
+ 19WORXSJg/jW+jv2+3PDt0Iu1ihFghRYwe7NkUSa1ghm9yRuEV2fodxdZcKatJvzHB62X2
+ D7lITo/cm02I2SX+cVfN7xN7XvQMo/+kDym37EcdGZsItZPvmhAn2l5dMkYH/mPFiRYN/w
+ jaOPU6DWNiEaIfKKppmxDYlwJ2AMAMQ60nL737ix0rpBiX/XFpY4eyL5EhLZNwxOcU+xop
+ 1aWu3DFmye3wrhcawsn0pPdaB0T1HKUeyFWITCa7yCXtvxhw95Kubh5xkh+qqX772WM/3U
+ DaCZxVcuhyKBy9xJzvtPOktLWA/j7pctbOEJ7UKzAMozkRgXNYY0tNjOW+4oUMAAT+aYd0
+ expJsC55tGd6Z+nmi8olVkHS4uJP0vkKGIHJ4xbeTBi8it+jvkFOrNv7hnVvWWOZK5hJ05
+ jxi2gKRHXrL34AvCvc5oOtuEB6MP+mP2Le4t5cWr7EwHM7LCRDJ1Bt9KOXVkwMo4A4pV0h
+ AJ+3euuf69QEux6jOasawjuYF19U6HbSGulvbSP9qBRKl3H5Ohgg/J0=
 
-Hi,
+From: Vincent Cloutier <vincent@cloutier.co>
 
-On Thu, Nov 05, 2026 at 12:45:18AM -0800, Mariia Nikitash wrote:
-> In preparation for removing the deprecated strlcat() API[1], replace
-> the strscpy() and strlcat() calls with seq_buf operations when
-> constructing Hantro video device names.
-> 
-> This preserves the resulting strings, including truncation
-> when the compatible string and suffix exceed the destination
-> buffer's capacity.
-> 
-> Link: https://github.com/KSPP/linux/issues/370 [1]
-> Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
-> ---
->  drivers/media/platform/verisilicon/hantro_drv.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-> index 26e5d5547466..2bfcd45cc55e 100644
-> --- a/drivers/media/platform/verisilicon/hantro_drv.c
-> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
-> @@ -17,6 +17,7 @@
->  #include <linux/platform_device.h>
->  #include <linux/pm.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/seq_buf.h>
->  #include <linux/slab.h>
->  #include <linux/videodev2.h>
->  #include <linux/workqueue.h>
-> @@ -883,6 +884,7 @@ static int hantro_add_func(struct hantro_dev *vpu, unsigned int funcid)
->  	const struct of_device_id *match;
->  	struct hantro_func *func;
->  	struct video_device *vfd;
-> +	struct seq_buf s;
->  	int ret;
->  
->  	match = of_match_node(of_hantro_match, vpu->dev->of_node);
-> @@ -902,9 +904,12 @@ static int hantro_add_func(struct hantro_dev *vpu, unsigned int funcid)
->  	vfd->vfl_dir = VFL_DIR_M2M;
->  	vfd->device_caps = V4L2_CAP_STREAMING | V4L2_CAP_VIDEO_M2M_MPLANE;
->  	vfd->ioctl_ops = &hantro_ioctl_ops;
-> -	strscpy(vfd->name, match->compatible, sizeof(vfd->name));
-> -	strlcat(vfd->name, funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER ?
-> -		"-enc" : "-dec", sizeof(vfd->name));
-> +
-> +	seq_buf_init(&s, vfd->name, sizeof(vfd->name));
-> +	seq_buf_puts(&s, match->compatible);
-> +	seq_buf_puts(&s, funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER ?
-> +			"-enc" : "-dec");
-> +	seq_buf_terminate(&s);
->  
->  	if (funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER) {
->  		vpu->encoder = func;
-> -- 
-> 2.43.0
-> 
+Add initial support for the Samsung S5K3L6 raw Bayer image sensor and
+describe the Purism Librem 5 rear camera and second CSI-2 capture path.
 
-Reviewed-by: Justin Stitt <justinstitt@google.com>
+The driver targets the validated Librem 5 configuration: a 25 MHz input
+clock, two CSI-2 lanes, and RAW8/RAW10 SGRBG modes at 1052x780, 2104x1560
+and 4208x3120. It uses CCI regmap, runtime PM, endpoint validation and the
+subdev stream API, with exposure, gain, blanking, link-frequency,
+pixel-rate, test-pattern and firmware orientation controls.
 
-Justin
+The sensor driver is a rewrite of the Librem 5 downstream implementation,
+not a direct forwarding of its bring-up history. Thanks to Martin
+Kepplinger, Dorota Czaplejewicz and Sebastian Krzyszkowiak for the original
+driver, mode tables, controls, power sequencing and tuning.
+
+The Purism kernel team is Cc'd for review. Would you be willing to join as
+maintainers of the S5K3L6 binding and driver? For now, only I am listed;
+I will add you if you agree.
+
+Focus-actuator and flash integration are deferred; this series adds the
+sensor capture path only.
+
+Changes since the RFC:
+- Drop the media-driver reset workaround, as suggested by Philipp Zabel.
+  The base already includes 71827776667f ("reset: imx7: Correct polarity
+  of MIPI CSI resets on i.MX8MQ"), so no reset prerequisite is needed.
+- Refresh onto media-committers.git next, fetched November 8, 2026, at
+  v7.4-rc1 (6628e7d4c6b2).
+- Remove redundant minItems/maxItems from the binding's fixed
+  link-frequency item list, as required by current dtschema. The three
+  frequencies and two-lane configuration are unchanged.
+- Adapt set_fmt and get_selection to the V4L2 client-info API. The mode
+  tables, requested-link-rate/line-length writes and PLL sequencing are
+  unchanged from the actual mailed RFC driver.
+- Reject active-format changes during streaming, retaining TRY negotiation.
+- Recover failed stream stops with hardware reset before releasing the PM
+  reference, and reset after failed starts. Reinitialize on an immediate
+  restart and cache controls while reset is held. Require reset-gpios for
+  this recovery path; the Librem 5 already supplies it.
+- Clamp the exposure default when reducing its range, require a port
+  endpoint, add MAINTAINERS coverage and document the register provenance
+  and deliberate extra reset pulse.
+- Support control setup and streaming with CONFIG_PM disabled.
+- Propagate exposure-update errors before reducing frame length. Restore
+  exposure-range metadata on VBLANK failure, and roll back mode-dependent
+  controls and mode selection on a failed active-format change.
+
+Previous version:
+https://lore.kernel.org/all/20260626000715.1111803-1-vincent.cloutier@icloud.com/
+Reset review:
+https://lore.kernel.org/all/d80cecc3f317e4493207ea3c347dd144390d299f.camel@pengutronix.de/
+
+Tested on Librem 5r4 on November 12 (UTC) with the v7.4-rc1 carry using the
+sensor source from this series. All six size/bit-depth combinations pass
+captures and sustained streaming, as do all 30 directed mode transitions,
+controls, test patterns and runtime PM. Reducing VBLANK clamps exposure and
+updates its range without interrupting capture. Active-format changes during
+capture return EBUSY; TRY succeeds without changing active state. There are
+no EOF timeouts. This is carry-based coverage, not a clean submission-base
+boot. Error paths and PM-disabled setup have host-side coverage; no physical
+I2C fault injection or new system-suspend cycle was performed.
+
+Vincent Cloutier (3):
+  dt-bindings: media: i2c: Add Samsung S5K3L6 image sensor
+  media: i2c: Add Samsung S5K3L6 image sensor driver
+  arm64: dts: imx8mq-librem5: Add rear camera
+
+ .../bindings/media/i2c/samsung,s5k3l6.yaml         |  118 +++
+ MAINTAINERS                                        |    7 +
+ arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi  |   51 +
+ drivers/media/i2c/Kconfig                          |   10 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/s5k3l6.c                         | 1192 ++++++++++++++++++++
+ 6 files changed, 1379 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k3l6.yaml
+ create mode 100644 drivers/media/i2c/s5k3l6.c
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.0
