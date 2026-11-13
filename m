@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794604254;
-	b=0XfsFfruX9xyF261zTRC8AgMI7YXckTzIgRO+X2OGEps72JHNUKrT6JDVOm3A4JD6hc/
-	 Gr5aGgd08+AxsZBA98eVm/c2sOpK8m8GiauKhrokQ/VrPU/zZfGnfntxWA7B+syKIuPZo
-	 bMgqFpZJzmr7jkWKkW7h0ab1zGyZkuiofIR02WYTn1alCrQK6tPlkS68O2opE34irPmER
-	 jIodOpt8XstaGPdjuTndxvy2B9YH20xvZcUJZgT8JkqBxldzbd53FjK8y0alBEhtTr/9F
-	 Ip5p9M1sdh65yCe/+bdu75ErAlHiqRGlvKT4Qm0VRG3nW+s+br6FGGJDRegA6F8tpqw==
+	t=1794606893;
+	b=OrEWXOp6zoUteYnPoF4gm8Iqn94TzLjq1SKqlK+XJzrq3Uh4WecBT1M1FXtF7YMk7+sg
+	 Mw4X76oV5EHaz1ORswN1Eii4VuqPjLFiQwkIbUW3E/C8NhI6ISCOt4NGRn2jmSY8qsIlo
+	 M8ka/S1E+t2xogFfH8cTrgnaXIoHBF655dTi/qVuN2Z82+pb6N+LYSFIL7OKdETHB47MZ
+	 adAF+lpZLqbnx6NsR5SYuU6yOTL4oh2iq7XkFTXQKUoM6QECp4LhtrIy28blqrNu3fo+I
+	 cT+dbrZkU3M8jRig2SqVD1RRwsKFX4axXuMzedKm3z321GkM4AnYJ+NNoI5o33PVyVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794604254;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GN0ortW4nQvstQDFiIJ5PqM8QgjEi3y1N04o3CsU+ao=;
-	b=POfrX2bRr8HDPwViu0TNf/YgMyCiYWMoVWloIg2HqdPTpIVnrzyDG+wzEB03kYd5Nt7Y
-	 CpfGqyJkFiHYD8LtQCMK91ikyiPIlre6EpD56vMg6VN6exPuVBhYUFx6D0iqGTixVMzo6
-	 gVdusQ5MxPbmbPcOZs5RyJOVRzE6XjPjyRZBxEA2z7L3kFT0y61q5J5en0E3i1a46K681
-	 h+fkJphkrxgRUN3e0RmJ4gPfXTDYUUzAtQ8xZsz9SeNFjNHB2qOziGQ6hgbzU1Tn4JYZA
-	 n/4xDeZTyThAk9MQMgbDsuNlJcOmiT4mvepD982DW6Y4db6dgb8c4LZMmMaSzqE9JMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606893;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=YxYvxkiTr3I4fwI/607mbu2WA82tAeXABlzoiYL5+2M=;
+	b=lc5XWAesgG5au7ZE2NWt54cmm8v7uIibwh71SOCzNGJdAtm/0nTaF600RjcC723ZckBK
+	 fEvvym7loZN/cftf/8gPjeCH8iRyDEHs5Fd53Sx3aPmJdbs1p9MQxz4nQHsXy/d2V5cy3
+	 4bDyLLJw40dgfAHCvwOrAsvirvCzqbUVoAojkVJvoCygCs2YACPN6ZakYhOZvG3CP6SIe
+	 S7xoawj9zI8sGLjGbdBp7cgfL2OCTPEw0DKtQyhaKLM9TIn2YNkiDY3M+1GpS6bt3Y/ZP
+	 UhfyodFdI5WmfpSwqrU8IhQm8aCfelRAO3MPPUWcl672v9/rwMZ9R10wVYtWM+TNYpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=74.125.224.42
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KIw4RN+w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DD1606A335
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 21:10:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49DD1606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-67c0ffaae1dso2631454d50.1
-        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 13:10:54 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794604253; x=1795209053;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GN0ortW4nQvstQDFiIJ5PqM8QgjEi3y1N04o3CsU+ao=;
-        b=1E9rXQnSrVCSQ7XVLSs8QpZpHHkrHmrqSzcqKXPfTjNeSPDSH4zoqD2g6DYKVYR4gi
-         /9zaI1us3Yi4ezwp7/EvgLCcT8SVqHTH78Jlir+W0R1M/HGlOlxPxwngkEvs3hPA4ruL
-         bKR5Kjwp0gxqGhp2xzLP1fg4H/XEPfrubPE2NYuAHDgCO4YM1OLaxNknXX2cq0Vgqm3v
-         0l0SN++p/1q5PTQFgjJMpSjdvajY+KH5cOPYHzj22ClQhyrg2csbMzIvCrmDJoyAGyS9
-         GqHInsJpXAC0s86Rd4FKJzyngB0CpWrXatcDhbb/OfDt/r45NhAkhIRz8KyVFqvD0pYO
-         Gwpw==
-X-Forwarded-Encrypted: i=1; AL+hErECosCFM+xO2SXupCt40FUFTwDFER97sBIFfP9HbfK/hS/OHcjf8k8PCpLu+cngdSWRC9T624rNqFAnPA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tPlmOBrTpULLP8v2BCZzOQWsjb3rFY0eKQQgrRBZcDRcCMJjo
-	QgZTk55BTTvOTij9Hfz6hz3zxrxRN9DlwKJ2isSuo5p15tMxykZnPH2W
-X-Gm-Gg: AYBFou26SDnkCfSYlSpTV93UWcSY4fYQQJaL21jVCWspGZBCbf3Gpu02nILFXnj7C4w
-	T7Zb3msogmaGPwLfKTetjET2GsNs7Yi7k0O8/rzMZfDzbXtKp49rHjIER+ca51z5qv72YTggb3l
-	OFTEtd4fVLJx1SylQzpVAOF+GA8H53LWSXOXnJNoif4HLDlWnNyxmh83o63fOB9bW2iGwoIV7cp
-	4jHyP5WMHT+31GNJrNduhbxqLkBFI2rILzKfx4pimKlDsvt96rLmQwZoIDpqSju44ltcTZCvKLJ
-	svVGK7EHMtPY0GnIBn6lK/8WXExe5gufM850Usdt18ALnYN5kEBtKodRrSFUQHa9d/UwSIVdbOA
-	cnEMTm6xgDADq7rThufcCsR5TaZQR9KyxtnTqEThGtcVRSKqLZEDPu/s6yUzsTpGyNlxp1uwnHA
-	gyy6HAU3nlsS53plg2ykEQqJofYg8sr4edI2vCZF73Y3KDS/0zm07CHFEMJyq9cha5wGGOH4a22
-	mcyjKeRbYTMx1d/R5XrkzJYBgJKNfKph152TQfV6UckfWeEVoUF4yn2Ov85oRTbphZKkEarHqgU
-	RpGhG+ONcMohChbOYDbV5n4J3g0DNY4g6BXAXvdIJaHwzZT05U/JaaJWnEH7pI3GePxyientzjy
-	OBwDnpp/zwhv+fCS3t8M1idJcGUVjqyVkbSwcVyYzbmUs3tVO1+dm
-X-Received: by 2002:a05:690e:190d:b0:67b:fc94:86d4 with SMTP id 956f58d0204a3-67c78c3c92emr4305281d50.8.1794604253368;
-        Fri, 13 Nov 2026 13:10:53 -0800 (PST)
-Received: from localhost.localdomain ([71.68.170.161])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a64b04bsm3050965d50.23.2026.11.13.13.10.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 13 Nov 2026 13:10:52 -0800 (PST)
-From: Joseph Telaak <joseph@telaak.dev>
-To: dri-devel@lists.freedesktop.org
-Cc: patrik.r.jakobsson@gmail.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	alessio.belle@imgtec.com,
-	luigi.santivetti@imgtec.com,
-	christian.koenig@amd.com,
-	thomas.hellstrom@linux.intel.com,
-	imagination@lists.freedesktop.org,
-	frank.binns@imgtec.com,
-	operatingsystemsdepression@gmail.com,
-	matthew.brost@intel.com,
-	dakr@kernel.org,
-	phasta@kernel.org,
-	sumit.semwal@linaro.org,
-	linux-media@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	u.kleine-koenig@baylibre.com
-Subject: Re: [PATCH RFC 00/13] drm/powervr_sgx: Add a DRM driver for PowerVR SGX5xx GPUs
-Date: Fri, 13 Nov 2026 16:10:51 -0500
-Message-ID: <20261113211051.88798-1-joseph@telaak.dev>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
-References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94051606A333;
+	Fri, 13 Nov 2026 21:54:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KIw4RN+w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C996B1F000C4;
+	Fri, 13 Nov 2026 21:54:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794606893;
+	bh=YxYvxkiTr3I4fwI/607mbu2WA82tAeXABlzoiYL5+2M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KIw4RN+w49C6lIdh2OA9wim+vaxIboICMvGfKhMz3Fbixhzp9ZQgQ33Li1sLiJt/j
+	 L6G84IrPlusWhqk4Z1pkyfm+Msji6bcw7r3zUW/Qbv5Fjnsf5+k2qtqDA008O0sBYG
+	 yFqVz3UeDBHdT7yl7h8rbNbERlf81oKYklGGgOAyXPs+8JnuQ4zh86uNOoAS5wL5fs
+	 d3O/RBaKn29it/6x/AAu1Ca7miaSMEXNRLku/CBUp0VU4BG5+GXlQ+yWOhaOPbEofy
+	 tWzDV9jd/EqpIxGCh59rYUkd0dvTCRej4QyaQ8EvXwNQOaeU6irlhseg0Sb4QxKgTn
+	 FSVGK5Fl0XLbA==
+Message-ID: <79141341-b259-433a-9656-286f5b2fb62f@kernel.org>
+Date: Fri, 13 Nov 2026 13:54:48 -0800
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,10 +51,64 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/9] wifi: ath12k: migrate firmware loading to
+ qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Alex Elder <elder@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jeff Johnson <jjohnson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org
+References: <20261113185009.157893-1-mukesh.ojha@oss.qualcomm.com>
+ <20261113185009.157893-8-mukesh.ojha@oss.qualcomm.com>
+From: Jeff Johnson <jjohnson@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20261113185009.157893-8-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The Mesa side of this was declined, so I'm withdrawing this series.
-The driver will stay out of tree. Thanks to everyone who took the time
-to review it.
+On 11/13/2026 10:50 AM, Mukesh Ojha wrote:
+> ath12k_ahb_power_up() calls qcom_mdt_load(), which bundles metadata
+> initialization, memory setup, and segment loading into a single API that
+> does not expose a PAS context. Later it calls qcom_pas_auth_and_reset() for
+> TrustZone authentication, which is the intended behaviour. However, a new
+> qcom_mdt_pas_load() has recently been introduced that works with a PAS
+> context and can handle everything qcom_mdt_load() provides, along with
+> additional functionality such as shmbridge creation and retrieving memory
+> from the shmbridge buffer when the same remote processor needs to run while
+> Linux runs at EL2.
+> 
+> Replace qcom_mdt_load() with qcom_pas_context_init() +
+> qcom_mdt_pas_load() and replace qcom_pas_auth_and_reset() with
+> qcom_pas_prepare_and_auth_reset(), using a stack-allocated struct
+> qcom_pas_context in ath12k_ahb_power_up(). The non-scm_auth path
+> retains qcom_mdt_load_no_init() with the caller-provided mem_region.
+> 
+> Apply the same pattern to ath12k_ahb_load_auth_shared_fw() for
+> consistency.
+> 
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-Joseph
+Acked-by: Jeff Johnson <jjohnson@kernel.org>
+
