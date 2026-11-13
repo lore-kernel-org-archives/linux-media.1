@@ -1,102 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794557690;
-	b=mmRF9BlHBA0Yi8aUuN2fh0kowcVJREv2vUSA1QRkVjG3+V7K4nx9AQuqs9acqY0ZctIz
-	 dJBi89SXiv/0qnvWqGwb56UAyQuNcApeWL3uTrID78Tt57HbjWHozQ/OVVPVXY9kHe5Hw
-	 INOO05kkRMcPxo+366ko8xBIV2eCaswsdU4ie192hkfDhJoEPKVfvEsYQ/dWOvOdj7ESR
-	 CSrlIUU/fDg823Mr4P6GyeLLt9jHt0vyCd8cZ4wWmSzHxH4YYoyuuaY0y4rxYVmaVFsj6
-	 coxM5L/MxrKHck3zVnLl8In7Bdj3EHHjSkQeVEfmDk5fKLEr7UtJQfOFzZoI1drIQ5w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794557690;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=AiCNNSwI5Nypfmnib/f95ZI3hAxnRLqbOlfAgs6jJ/4=;
-	b=iMAc48TZzX8LpO/CsWcMroubiWUiOECOnZExWIKo98pSqPOFRENBmVQL+ZLIYIFDwvlU
-	 niX7fZyj4gUumyLRz4EWgQF8ulKiGVDkZLKteLHvMUPcaqCwh5ArI9xd9nThWZndF/8+J
-	 8CfqwIgJBtmxzBk00kL2NYgfVxWF9Xew3ckas2GtzWGjCAqWjCxEc8CLOPaIlfUnvV7ha
-	 Hyn+MC/InXIBYMIYE6BQ8eOLwh56b5n00DyG6lc/8h7TvrQJQuF2sVLAjZkM1c0w/oH1x
-	 uf/hemZk5oDwJcz55a6Ku9SdXQGCykLXIk0qsYiULzld5nLraxFc5FyI9dM/NSxVbCg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uh90lnyN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794558046;
+	b=KXrD0+Ul+YxTVoBd/8uw7GeIAboW4PA6OEzHcRQju6+zF6cBEUPBkQu/ac9h94oAAx0k
+	 1Za6kHNeXPmndnA2sLou3K28CRCNIx8MhTaFjAjqjgm1U3ybL/KmW2ifsCextHfV7Ia7h
+	 DnzMknQqTssa5Wd+Y7UaQmd18fJklhub96Ksji1AXsSzRXlCxFUbMtieRaUtIuBOFJrRS
+	 3vxGSw4YBlFcb+fC4VsgwLpwu/IABTL2CSydWYWo2f8cV7RL8sMSbZ+guPhU0A3/LV08L
+	 O9aJI4U64ll8aJDCTKtC9qmGxtDPc4Z/ZRhRthqP2EsqeTfTJxV9yi1LmDVLEwDNuDg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558046;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=8+HhukhZuFpUmESx9rrAxlUZVKyiO21AXgcFpUXvUvs=;
+	b=d5bRRtIXY4KJmII0VWzX/EFc45ZiwjTrTLGWGEOO9/2Ze/4ZuTadNRvalWFPT211Gmht
+	 OiqJzl/6KEpGV+0k75OZ1uLKLiZlETO3ijpJeC1jUcCqDbL0IHh4YE6neJ9yllrP5j+LR
+	 v2t9V2CJj9kH6nUkx+3lbbL3g2nZ42BtYnooWD5u23DGi1/GD5qq/c3bj9THLaoC1bFbn
+	 03SNR7pESbKMzkW4v2kucB8t6JOPs1ikbj90kxH7QwNqCwpRep8EYTzcYk8Nj15IEzJU2
+	 zu//E78Q8bYODtFj6xsR2u4PJQNFFcQgKjHWK/D2WpV61hMYLamaflJ7ePaXLBZY8QQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZdXx7Gw8;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XviP7BGW;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6790606A327
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 08:14:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6790606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9884B606A339
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 08:20:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9884B606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uh90lnyN
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b360828905so7266047b3.2
-        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 00:14:49 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794557689; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mpGPiaEwDjJUaRLDoO1UxfgOCxeeGPyOfFoKlvtmQMjUHK9M51d9w1GnnyLUcFsRpv
-         tT0AN/KFMUPZQTmSl1TGlM1Tq3oHx48jLo/2UcZAYT/NqsR7RBV1u2Hsahpbi7t4YQMe
-         Qc7StiLxaaN/nCkoVHj/Zf3TadhTJdFilSmbpyG/6B2/yKieGRfna/HnG7kkub9Lsnnt
-         F0WW7Wb4AY2hob+DDzc0xoxGBLsbdsW18WKlLoJiOTDAlYwvxifOuT7oUB/hqCq6uhbN
-         xg4EjDVj2H2tSPOSZ9nuOllrCWshyLqweCGPyZQiVp19M0EOxh9K0aBtlHNiAYRMU88w
-         Zlow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=AiCNNSwI5Nypfmnib/f95ZI3hAxnRLqbOlfAgs6jJ/4=;
-        fh=orRXMOfvekLTwMtU8oRzShTM99Y5O7g2u9WtsKrawrE=;
-        b=lqYcyTvidF0kyD2MyhcPZ0vHTgU1mN8iFmRn4D2lOrS+9dra1M7Y/tEiz1lROF1XhM
-         y5ZI9dA+O8eRLzHUaFoDj4muBtwui+yoY4ksL4LQVieV6jvlAMgqKnBY5p/sMwh3ASp1
-         LClRXI+Z8I2gJ5VEfCyPd0xE0dee24JkkuEM1Rxa6akpkyZmgaFSeKyh0l9rovgmkUFi
-         kaoNZukkbACvOCBXs/CvyDD/93fx2cZNwThOiJbfHDCRhV8lMb0sUb/vvBBfc1cCGctn
-         MyVF0xSDSr8l5S4ZSDVNTvzJB00bFkoHiaD4/sM8DCvVfPHFxouISI1oaF+Y6Y3VPXfs
-         PadQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZdXx7Gw8;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XviP7BGW
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD57Efm3283675
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 08:20:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=8+HhukhZuFpUmESx9rrAxl
+	UZVKyiO21AXgcFpUXvUvs=; b=ZdXx7Gw877oUzcqjI/khCD4wl/8tumGoJRseaD
+	dp31C2d2ZuAlsev+5Bcx7FPzZgzlQJGV1W4pSgfBSp1G6tOkuNVzG//4PHRObgKu
+	y0YqF+ohHJASIbRtbV9cgR865nMJ1RJtY4QkEdvk9WCj6UFMIa/2k/Q1UwQOXb/H
+	ZvOJIVeuKbX4i3vo2UzZOa+hljTci6ZUd3BVTEXYVrU4HEcK2zAxR4HxzK27hXLE
+	0nRkgDEeTdJzAiazoKxrZjHuMhzSga/f0KRkfzYjgPFNK5KPseJCduuB8yAcDjWG
+	1EwIdDfcprBsyxhohO5dF/2SfP6V1v0+8a6nghMIUh9DtZ+Q==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwv37gnrc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 08:20:44 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso1130729eec.1
+        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 00:20:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794557689; x=1795162489; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AiCNNSwI5Nypfmnib/f95ZI3hAxnRLqbOlfAgs6jJ/4=;
-        b=uh90lnyNNe2LomdS17bHJkvNG2Ku6NncGYaZLF3kHYinZQqPwqSNvG1OwZBXfA8Sya
-         2Jul9kazkfrylBNQpcLzj0muX50PgNj4NkweAR6JUPUg89zg/AR17OE+IlEHY00vgSf2
-         ekcf/sket8aNcY3bw6fDhJQPA6NWb7QcP45IbzG44z6R7pFaDQzsAr1o+cNrAVpL8d5L
-         M16NWo8waq47Fs1rSLR8v75XzEmdfo2S1cMmd1FL8JSxlAl4HwlnuqfN10K2IRG94GY2
-         U7XMV1kJ+lVgQtKAHmEeywrsCa+q3At/VdjOEwRHFMldnDgEZnoC11HUXt7PkT6OE3ra
-         g8Gg==
+        d=oss.qualcomm.com; s=google; t=1794558043; x=1795162843; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8+HhukhZuFpUmESx9rrAxlUZVKyiO21AXgcFpUXvUvs=;
+        b=XviP7BGW9macQtt8bKsVdFJZWd3zkZrRCnMigzK1JPzSuzGEKTh4TkGYGfjOkY/nkW
+         LMaqVziN5Q73g095hK8NYt0jH1hI947ky1DeWht7fuNkvZ96gvHjUmmIQkEMn7n4xSkp
+         bbDtjNuH9N6hotZFHQnCmkCXSEkh6yiXLjdGYL0VuKi/bv9cnnJhP1dA6xe8R1uPS+EQ
+         ndk4/nZCznv+b1t9AxWcPn+f6CUHDipEzFx6vONt2Cr3vd6JGORD3/6faA4Ugjx/FOG2
+         xOQ4jW5rZj0WEe1zMDp175YDrleZrF83y2R6zT9CMst3MJpxJxbDOlw6G84bT35pwL99
+         w/4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794557689; x=1795162489;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AiCNNSwI5Nypfmnib/f95ZI3hAxnRLqbOlfAgs6jJ/4=;
-        b=igrLdZ20M4FQ8XiKy1B/CX7YDU8vZbwvAiEEQGJ4UbSJAqsk39OFEKpe/R2x3zolhA
-         TP6jC2VQl5WlpZJAuajZgY21Bx+AhqJVsLSPCrLt4o6Awr0bn4CaTjigwHjxYkuYpBik
-         mojTG36LLi/AyvhB9cHnnlsCLsXdD1URQLLE2HkYw8PsUFvBE09fPAt0W+bNCqgpmviS
-         CvbhpA3Yh38QB46irMXYj9jIAMXNNqoGlzgRUx/o3RRG7LtVq1CA8oEhqlvKLSblzoxc
-         9NTYYAsTFqJ0w6n9hC1v5CkvODjyV4g4Ru/gjAooZredRhlgirp058fgNDTbZj+mq5MR
-         OqOw==
-X-Forwarded-Encrypted: i=1; AL+hErFLrh9B0Cm4aOXNb50Yc+mZohOnzUnYBxxyyvr2kJF6BtvK//v8FW5Me/+54DyGvG1yElBB4nNX9Amu7w==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xxf4E8XrDtxLdGYRRkP9w+pp38sQipk2BnQHM/fEF9V6GmCQc
-	fgUPAryvM/rUOXbqbIrO1WTO9Kx5Q1IyDUt8+wnud6m7M/w6D5Yv4rDnWY/0AERKVzkd8F/5m7j
-	d9lKa4ttSOPGC6SlVLks7HiO7G4kR+QnQ7vhtpVQ=
-X-Gm-Gg: AYBFou2DgTUSCAsF7LmgcIHmifwIx0PGXlpZZfLa4s7TKhAJIkols3qfd11V/q1y/Xp
-	sEoklR8osR9pvW5nDwpOuLVgNZXXTPqb9BMhSc4apNM51HyUbl4Jl+gCvfg6y27M3max5D2lL68
-	sM8/F+KDBKEZbBnpYirDHsRBeP/DHaGN4uqveFXUWt6hY7PR0yKM3j471s/qwlyFDftN4VPcyC3
-	P+xQ7aGbU2V06U8LR08JIs9bhJRFkkVhdB0O35LLfdzvLEAvIn21UkTMO93gks/WSgqTd/Ogb2u
-	ULEszp2wU1pHm1ZEkdahSvKrUyiFZmADyYP19V5mnv1oL2OlLX5M7r+272dzEEvOIGdQIKfEBVF
-	QST6mbvqWl/rwVJVWBUA4mDOKGPxqcMkw+Yvr678w8qtFGsAgBF9qv7ma79/0zvZeynpUKY+gvs
-	DTAsfelPfQWTTAfcOSbDlktMJi0cFi6BY4U1iR9qBwkl2KBTcO0w1pqYprJJDiOURPLITzi9QGj
-	ckVakqFvxdtRzr27AdgE9SZH7zoAadxtS1wp6o5L5p0G+jKy2JZilMsGi1HvQ==
-X-Received: by 2002:a05:690c:3181:b0:8b3:4b5d:b27e with SMTP id
- 00721157ae682-8b4aa305e99mr10167187b3.97.1794557688698; Fri, 13 Nov 2026
- 00:14:48 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794558043; x=1795162843;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8+HhukhZuFpUmESx9rrAxlUZVKyiO21AXgcFpUXvUvs=;
+        b=mybvDZmRS3cspNG4mvHsnBV9FEKNINaRFIncNk/zhb/T66etGjlvQ2/PgZqptmvs+a
+         i4IHLhjDQSlBSEnGlWMgwLic+wjNJR5ATNIuCHe/q4ARr6Kc8fbH8qrO68f/zshu5WcA
+         LAPYzqPJwK/X1BKOQzZZAn1mq24URUtoUYTFwH8DMP7KEuz3VsPC4B+4bgRG/kTic4fD
+         j3UkX7LPIaT6cRZhF1egb6UJwP4G/y0HOxfU9GB+MyBnQrVS3tOF5cdQITMrSEPv6wc9
+         fvLarUTGVRU6dILo/VRFu7AWTNcVHR2/xs47VBJhFv5V/aLTvNs/X+2hYJr6ub3pGmKE
+         /BQQ==
+X-Forwarded-Encrypted: i=1; AL+hErGr6RrgFeoHmyr8v8RgiuRhmDIoF8pHJORtfRRgCEFATPxaQKFqEJuXH1uejzNS9+jGFQy1byvZ9m722g==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/o14pkAvdzQmnFciBXO9nSLnbLYO+VN69G3Cy20a4gjZVq/Xh
+	V9RII2I7vYwRrqIdH5BPzQQOC49fj2oa/njNgXeoXPbFhXpZs7D9h2scpAyMGFORb9nqvchxzP5
+	S4wyMkIBisBb1ZDq+gjknW9BSvT0VI0NYZc6aGa2FieHIwrAsCFDE8hsjBXZ6srTxLw==
+X-Gm-Gg: AYBFou3jPgKToRdKavEA8I3+zBr62hbgtSeNdrdrGxx9adcsN1srxdvLmBKhCSnny5m
+	yVz0Xg/GfjBRZ12XN8spnuP3DJ8Leuh8pKf3Orf9bBcSAM120On8pGRg+vLsdPiCwMOTq+k3/GX
+	HndHBVEczGln5HZgLCfsGUx4Cjm5jAtBS/QYXpZdV4OK9fg0cZWFtgQuBMUnrv60AyUVfeoOYLd
+	obr91NNFwgTV6DwSyz8ys1pzfIoDSm9p4CFSPTdSyqnzKNi5UTKTJIDHv1WZL/0kPFrVJDzlfr6
+	bSKVNksJn4u4zvaWRWdWjhmTkX9qtMD15hliPqI8s38pnM/wzVlwOmG3qyFtJhpii7GVyPhfkRl
+	u+GHVzIV1H4qHJTUsnDLpmj65237b19e4TtmYrAtB9GjjqMgP6YbnXv1yhmesYc8dDa5yxR0gs/
+	AR+o3k
+X-Received: by 2002:a05:7300:5994:b0:37a:1be1:e70a with SMTP id 5a478bee46e88-37a1be1e7ecmr176096eec.29.1794558043277;
+        Fri, 13 Nov 2026 00:20:43 -0800 (PST)
+X-Received: by 2002:a05:7300:5994:b0:37a:1be1:e70a with SMTP id 5a478bee46e88-37a1be1e7ecmr176086eec.29.1794558042788;
+        Fri, 13 Nov 2026 00:20:42 -0800 (PST)
+Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955822d58sm4971713eec.10.2026.11.13.00.20.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 00:20:42 -0800 (PST)
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] media: qcom: camss: Fix Glymur CSIPHY topology
+Date: Fri, 13 Nov 2026 13:50:21 +0530
+Message-Id: <20261113-glymur_camss-v2-0-b1b76509c744@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -106,101 +115,94 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-atomisp-pmc-clk-rate-v1-1-d6b3ef392ccf@gmail.com>
-In-Reply-To: <20261112-atomisp-pmc-clk-rate-v1-1-d6b3ef392ccf@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 13 Nov 2026 10:14:12 +0200
-X-Gm-Features: AclHuK9qbW-wyynTctV_3zFfoGINtBxA66oHn6uimxFXxSc9GV_qnhsXF2XNvyk
-Message-ID: <CAHp75VfHn8op1UqAwn7Rs6SxnkseK0i3GxipFpdAnjL1mJGAdQ@mail.gmail.com>
-Subject: Re: [PATCH] media: atomisp: csi2-bridge: Only change the PMC clock
- rate when needed
-To: mlevif@gmail.com
-Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEXI9moC/22OywqDMBBFf0Vm3YiJ1teq/1GkxDw00JiaUamI/
+ 96o224GzjD3zN0AlTcKoY428GoxaNwQgN0iED0fOkWMDAwsYTmlCSPde7WzfwluEQkVukx1xrO
+ s0BAiH6+0+Z66Z3OxV+McrNO1hJajIsJZa6Y6yuW9ZLIoNZcVHPe9wcn59Wyz0DPw//FCSUK0a
+ HNaaVGktHo4xHic+ftwx2FAs+/7Dy6mUtffAAAA
+X-Change-ID: 20261102-glymur_camss-1cf83f4a447f
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794558038; l=1301;
+ i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
+ bh=ZIVdnv/pVYDJ6VtZ6cVcvJh54NuXewcKEXwu1xtFH1Q=;
+ b=ezUhCnPza1MWnKyzNnbcZxiMALh33SYPFT4aqKXPshbyjjRg7x3Nwlbcpd0iqNPft+UqOp1Qu
+ 2ckjaTSNqZSC32kw7mcM1REEM1GIN3Bi489FpmLStDFe8xQYpoJR9BY
+X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
+ pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAzMyBTYWx0ZWRfX2/SPcV7I6eam
+ jcjFrET6WV02/NBzC2N/6kR/zsWWDN+Bs5lDWisOnbg3Zhj5kzhgrhSLHjnZnLcKr1Ym9dgWU8P
+ GW0PJbPzLwvxOU5fejGmGJnFr7mSePc=
+X-Proofpoint-ORIG-GUID: JjTilmwNmjfrEPBwHZWLjwimpjpUDUrt
+X-Proofpoint-GUID: JjTilmwNmjfrEPBwHZWLjwimpjpUDUrt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAzMyBTYWx0ZWRfX7meNuahESlhF
+ zkAqP2XqTRtFMlLhBV4SJ6i/uoY2KVNfEQ2gnVNE54F/tCtZ3Ajbc6faZdwk+6gc78dwi4e3pe5
+ AFIyqQE05ZKq3G1eqyJbnfBDSgg2g9WudarVV38fF5ZHRs8EEAjlb2QsL9hasQ13wkgrDeckc0e
+ IDUjfNCBkPiacmVwFC2Y4MaDHeLUsAKIh5dWQEwhnb+40YnC/WgEY1IJ4LtR73GVCbamRWzbEQZ
+ m/DF+koKEn/+e6/xamipkvjsdLsAFwnzn/zIDm76ZinyVQV5pBJAoKnjzZE6x+axAf0OyhNLUh2
+ eekENXfk2+YwzjlOM9oevq2otLYiJt273V8JHlwsIk+6UyzXrU9fhhYNCEgmWjbEoBcf9eGsdC2
+ nIiDAc07mAzbzkd/DggAPjfiUrLCl445vJiRe5DYYJ6/OOQegMaNHqNyozzscO+eWIqOASjQ0Xw
+ FOWQorX/SNthApVDU7Q==
+X-Authority-Analysis: v=2.4 cv=ZeeIpcVA c=1 sm=1 tr=0 ts=6af6c85c cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ffzozp4-zBr36aKF_PUA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-13_02,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
+ phishscore=0 impostorscore=0 bulkscore=0 suspectscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611130033
 
-On Thu, Nov 12, 2026 at 5:39=E2=80=AFPM Manuel Levi via B4 Relay
-<devnull+mlevif.gmail.com@kernel.org> wrote:
+Glymur reuses the X1E80100 CAMSS block resources, but has only three
+CSI2 PHYs instead of four.
 
-> atomisp_csi2_set_pmc_clk_freq() enables and then disables the sensor's
-> PMC platform clock before setting its rate to 19.2 MHz, which leaves the
-> clock forced off in hardware.
->
-> The sensor's clock is also controlled by ACPI: the CLKn power resource
+Update the binding to describe three logical CAMSS input ports, and add
+Glymur-specific CSIPHY resources for the PHYs present on Glymur while
+continuing to reuse the common X1E80100 CAMSS resources.
 
-Would be nice to add a Link tag below to the ACPI tables
+The Glymur DTS is still under review, so this updates the schema and
+example before the old port@3 example is used.
 
-  Link: $ACPI_TABLES [1]
+Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+---
+Changes in v2:
+- Rebase on next-20261112
+- Use logical CAMSS ports 0-2 in the Glymur binding example - Krzysztof
+- Add Glymur-specific CSIPHY resources for the three available PHYs.
+- Link to v1: https://lore.kernel.org/r/20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com
 
- and refer to it like "...by ACPI [1]: ..." in the above text.
+---
+Nihal Kumar Gupta (2):
+      dt-bindings: media: qcom,glymur-camss: Drop port@3
+      media: qcom: camss: Add Glymur-specific resources
 
-> in the sensor's _PR0 writes the same PMC clock control field that
-> clk-pmc-atom writes (1 =3D force on, 2 =3D force off), and the two do not
-> coordinate. If the sensor is in D0 while the bridge runs, the clock is
-> switched off under it and the sensor stops responding on I2C.
->
-> This happens when the sensor driver probes at the same time as the
-> bridge: the i2c core powers the sensor to D0 for every probe attempt,
-> including those that end in -EPROBE_DEFER while waiting for the bridge's
-> fwnode graph. On a Lenovo Miix 320-10ICR (Cherry Trail) the ov2680 probe
-> then fails to read the chip ID in about 1 out of 10 boots:
->
->   ov2680 i2c-OVTI2680:00: Error reading reg 0x300a: -121
->   ov2680 i2c-OVTI2680:00: failed to read chip id
->
-> The sensor never binds, so atomisp registers no camera at all.
->
-> This can be reproduced on demand: with the ov2680 runtime-resumed
-> (CLK2 on, chip ID reads fine), running the same clk_prepare_enable(),
-> clk_disable_unprepare(), clk_set_rate() sequence on pmc_plt_clk_2 from
-> a test module makes the sensor NAK (-EREMOTEIO) until its power
-> resources are cycled.
->
-> The enable/disable sequence is only needed to change the rate, which can
-> default to 25 MHz on Bay Trail. On Cherry Trail the clocks already run at
-> 19.2 MHz. Skip the sequence when the clock already has the right rate,
-> so that the bridge leaves the clock state to ACPI.
->
-> Tested on a Lenovo Miix 320-10ICR with the atomisp driver from Debian's
-> 6.12.116 kernel (this function is unchanged in mainline): with this
-> patch pmc_plt_clk_2 and pmc_plt_clk_4 are no longer switched off during
-> bridge init (checked with clk trace events), and both sensors were
-> registered on all 10 test boots.
+ .../bindings/media/qcom,glymur-camss.yaml          |  6 ++--
+ drivers/media/platform/qcom/camss/camss.c          | 42 +++++++++++++++++++++-
+ 2 files changed, 44 insertions(+), 4 deletions(-)
+---
+base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
+change-id: 20261102-glymur_camss-1cf83f4a447f
 
-> Fixes: 0af9078315c1 ("media: atomisp: csi2-bridge: Set PMC clk-rate for s=
-ensors to 19.2 MHz")
-> Signed-off-by: Manuel Levi <mlevif@gmail.com>
+Best regards,
+-- 
+Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
 
-We might need to have Cc: stable@ as well.
-
-...
-
-> +       /*
-> +        * Only touch the clock when its rate needs changing (on BYT it m=
-ay
-> +        * default to 25 MHz). The enable + disable below leaves the cloc=
-k
-> +        * forced off, while ACPI controls the same clock through the CLK=
-n
-> +        * power resource in the sensor's _PR0. If the sensor is powered =
-up at
-> +        * this point, e.g. by a concurrent probe of its driver, it would=
- lose
-> +        * its clock and stop responding.
-> +        */
-> +       if (clk_get_rate(clk) =3D=3D PMC_CLK_RATE_19_2MHZ) {
-> +               clk_put(clk);
-> +               return 0;
-> +       }
-
-Hmm... Wouldn't it be possible to actually avoid any clock rate
-settings if we have respective _PRx() methods in ACPI for the sensor?
-Hans, can you check your DSDT collection for this? I mean the presence
-of _PRx() methods and if they switch any clocks on or off.
-
---=20
-With Best Regards,
-Andy Shevchenko
