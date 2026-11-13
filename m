@@ -1,76 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794542232;
-	b=zKz3rKu1+A/weLsSSBmJWrqZr3PNL4kDvIXYowP6PPGacb9K1FxtTKJZyIspu5ocm4PZ
-	 1vTFnWcdqm3QpRFSlZLRNdEwUCI2lGLStkup3w0l2AeYNzU9mKxvS6oWDm6jfMOuBBZ3v
-	 PzJ8eDgwvrR9wTG28PrYUtM0x4CD5MjwxvjP3B2cMChXRqjy0w4T5Ivo8Ui7oPBQRgY71
-	 s3x0tX94o3+FVTGx61T++YjS/DF2wUqgRQtl/YvzZGLmF0Lze52xX4CvzD0jaCAzBbmuQ
-	 HhxZ6pxLWOwNY/qEbXYBp1hwt06QokIMmGRW3SbkulfodXG7t38PkXaAHbeYEPWFgrw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794542232;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=hAiDmJ443y2iUubPvVfTIYqLx/39zAUaPPDN0i4fC9k=;
-	b=tKK7ZOYJs2mNiKXtcVITe18yNM/m5G+PbillGcDUUkLlbc6RwTmAGMmIQJZUUJN39A6u
-	 xOCTLC6LYnCV6ENxX3wRXVgHCf7ktkTdN3Lw8z1J3DdAIkuCXbsiQLJ3/eaGQqhDqz/ul
-	 59IVZSLnWpyqk/4ORjkzCD3SR3DHVvLRU3lL2SaFu6yDiZK4Vhdar/dk4iN8hnCQ1c0DX
-	 bf/QDj+t/0mJAZ8KiUov/W5Jt9o2VUIzMMkTTBU1SafrvDT85ETLjCFABCyrDLMbpi4tm
-	 XBrqUXMHp/h7wBimjm1r7OOqZZe8wwrMcvx5mvtoa2uylBoFhHCg+hQWQVI7ucj6RfA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=smail.nju.edu.cn;
-	spf=pass smtp.mailfrom=smail.nju.edu.cn;
-	dkim=pass header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b="a/lP3ijM";
-	arc=none smtp.remote-ip=54.243.244.52
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794543673;
+	b=ynRD21yRMLXfUrHMUA3vP3u7obhFtY46+esLGU4KRVfcru//EcRM2PajRgx5P3xUMGLZ
+	 ahrnaZD6Cx4CTw0IOjxGXTYb40rnVYEB+HYpX830e2oZxIVePg1YDrpMlDTYN6ojlxNvu
+	 LPit7vFcA/fxJx9b7UM3H0wwoHUvwZefa/PMbTkJYxoQr/cTRB27x6rPtfM5+og+hA22D
+	 vdG/pIQSUaaACPtGAg7ipIM/E+jbwrME2WOWYEKHbLltDH1KJjFRNyGnweDtq2f2P35O8
+	 Hd6MuXDj3xtGI9eTOCRZtq9f7LIW0oLtUtLu5BUDNp1TuICJPMgLH1Ey4mPeNoCYZ8w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794543673;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:In-Reply-To:
+	 References:MIME-Version:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=BdNFe7I+aOZIYc5jfAvJU39qKEvdsp2/ywq7TpQP4oM=;
+	b=IvngWsxv/RZ0wC8GudDZX7BprO+CyzXE8xAwDH87bJPZ0ktRsMwXteMzs/0IPmExMrio
+	 jojuWwb/cd0wx07IxKrqlyjKc3PyQtaIw0DSJMmSHKKumHrPTtWWvHVa0XA3kTjqWXeEL
+	 dql3kwnk35LETkbRhB5OByDgootPzdu8qhrqg62lWFvizhiZrka5ViPziSRp48w7H2V2/
+	 1bj+f8HUvA5mLjvfx5AaxW1E94aY7PIzK4PttTG/OrFIUhFyta3W0/3CYb4qh3pg5XL7f
+	 Q3LDKN1N41wQe9ooyz9xuhdYSQODIN8n/F7T9JuyTII1tnIM0mZlRr8R0APNL4tRorQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OcOP6SPw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96E4606A323;
-	Fri, 13 Nov 2026 03:57:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D96E4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11134606A32A
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 04:21:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11134606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.a=rsa-sha256 header.s=iohv2404 header.b=a/lP3ijM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1794542203;
-	bh=hAiDmJ443y2iUubPvVfTIYqLx/39zAUaPPDN0i4fC9k=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=a/lP3ijMWgkal7l2BohGnJ3ekLRbNt2EIQwU0MMYuojPJut0mJiAtCJEKZ8bPOOp8
-	 Q65mU/q2aRmCXvjd1HhXJSjqq+Ev5eaM9PLisTcRqU8mE8IGmhPKYVIqaRBHcoCe5E
-	 ULFiG4SqYWE+T1GlChcXTER0AtEDdOLjksSwWYzc=
-X-QQ-mid: zesmtpip2t1794542202tdf7edc25
-X-QQ-Originating-IP: pjvt4R46xHwoXR/6JTLGH/XItwH2cP13Q18VXRvb/gk=
-Received: from workstation-Precision-7920-Towe ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 13 Nov 2026 11:56:40 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10146906103779689649
-From: Kang Chen <k.chen@smail.nju.edu.cn>
-To: Yonghong Song <yonghong.song@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tjmercier@google.com,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org
-Subject: [PATCH bpf v3 1/2] bpf: make dmabuf iterator stay drained after NULL
-Date: Fri, 13 Nov 2026 11:56:39 +0800
-Message-Id: <20261113035640.948458-1-k.chen@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261113024447.922683-1-k.chen@smail.nju.edu.cn>
-References: <20261113024447.922683-1-k.chen@smail.nju.edu.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OcOP6SPw
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-53669f7b518so8978831cf.2
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 20:21:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794543672; cv=none;
+        d=google.com; s=arc-20260327;
+        b=D5suOQoGfx/M81JxK3i6r1j5nB2yuYXNXflkW70BtrcNJDM0DNC+oSEn1Yi3Ac/MxM
+         5tMF78L0DZBZNHT5Zl12itzkCoxCjHnYepn2b0DX86mBo5CuUFiVbiOr5npxG4RxqmNL
+         vgaO6jMSwJaGokhwKe3f6Ou3Nk32NTJd6tHDKWL/e76oWhYZLgfQK0IDGXy84Fe+Xm98
+         HVWX+iQNf8QpqWOP7NZ2JzMNLmLWJjWhLzclekT1iV8dtJr5wsLwxJtxBNdIQpwIMyc+
+         JmIqAdJfdCdQrzyODxOIhVhzT8+kw2aWnnT4xtC84WFSQrJa8RyI9khPvjXLmCiUhllx
+         5ySA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=BdNFe7I+aOZIYc5jfAvJU39qKEvdsp2/ywq7TpQP4oM=;
+        fh=20iamfr+CJqOVtwquDzdOUBf52nGXLlCaWKQRl9w0hI=;
+        b=N1mmFzehgvtjVsyrrpE+wJRIQKJTI1PMPwPYt1yAKi7HbQyEQ3TuPfkbFU7ziykidf
+         HzlkRbrYZBlCAiYx4vGoONIHOWIEqZLMce/QtTd91qfnC62qaSpzKWMQe+M1nh5d6tvi
+         cyl0WgFNoh//t3nAGLX7G43kWccoWiXd7Sq84By7Zrsu/PmXsucUimskpfntXaPtWX1R
+         KVjkxu1Z3G62W8g9khV2Zj81MZJptsNeQapXRDu5AGDjT2G7SMBKSWXjgtvA7gB58l+l
+         9Ct8tGzSZa2exgtNxQIV89ucbNxbagYImCNgL1gRc2Y/2nw0xCovCCq2kB2OvT6kfkQo
+         R64g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794543672; x=1795148472; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BdNFe7I+aOZIYc5jfAvJU39qKEvdsp2/ywq7TpQP4oM=;
+        b=OcOP6SPwfGVjfk2vk7Kf3JWIasna8TKF5+LlJEBONoNmpJXqQrJvILfKRrsFawcrdm
+         IvE9pAsj3dXuzzQ8AE5TbZS/R9QMlZRAPMD1CtMapbUPY0IftEKFV1+Y28xZFSgLaRWX
+         DoLvd+aqdCs/sNUNZcbl1Nvy1ciTiuidyK41HlSjCLeAwMlnRbmXNNKXaTF4yq3v+TeN
+         X2V+M+PTuv5Jw6FN99QfkFGxCM+o4A4fTueWz1k4063wiX0wlMi1KxJmbJBBpt4Juumt
+         3bfKWTDBuCLriIUR3uG0JBbQ/rvmRNAp7QeFQKNKf2huongfnqyhbgrNA5gmr8rnLxfS
+         65dQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794543672; x=1795148472;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BdNFe7I+aOZIYc5jfAvJU39qKEvdsp2/ywq7TpQP4oM=;
+        b=HWElF/W2ZAYglfPuUa6ETGjUfqEEB5IazqPWvLnuHPQ58+XktfmL+uQlEmX+fo1TB6
+         G0Jwp7+K8PWLIkA9z9U8T7R+YjnDvL4hyAknqwRJY34lY6s/dCquO0mbLLZ2QQanl2Lx
+         +XQKjLJMCQhATbGvNXdvcHTitbfVedRkZcF7d+mnlVaLDhbNuwyuLKA2ibkiDaLoQvbN
+         Vvw7ocDP4dEiZXwJV5z1CynLd9VsLGpGh4wY6R41myJ96FEamZ3HQTybIFthN4R0+I/Y
+         IXvXXs9FAp+K5Nibh1PCup/Vjq0myyovTeh8EbmsOAaOcgoFf779NfMMYTd7QPe/Mt82
+         G3oA==
+X-Gm-Message-State: APuU4Z8arL+2DZp6uD4AFVTP6bId71E280q1kFl6V8H8JAt0FekTXE5e
+	yTVDiUTRP21X3C6UBtCFca7mBQ5nMfAQKM0zpt4X23J4BazuPy/BJmke6HkieUWglbEzSAko/XH
+	eT64dNrKm0ltsinB+bHzOup3GvRXAQLY=
+X-Gm-Gg: AYBFou3srfCH+BAfL73q9LS4faDmRaHV+yIi7N5AVbuk0oNDqlkVnSa978zZj9licQ7
+	eM0lPgkF1444gn+l4XORZvB5bqMQ299EgITU2n26DZiSTbAuh4/seBX7JsLgOh1cor7iSAZcSLs
+	wQYBC42gLGhGz+lZg36+VZR5lp0RuG6bxdbkD+IOQ2Qly1lnbY492cHG/Ng51m3ITQ0GUkSFHd9
+	zMKZycRzWP95xPfSlsL4IYdq0WAxIBlnFw6PIgoNwqPlyS52cK+8PHB2nNmiKepO6ZJq2lQpIOa
+	OrB4xBi5UwuFCmMAK4xQRgwd2/LXuK4RH3XyGMULNB/OJUramrfjGsC3pe5zNhMPJrfgeQfNZ/r
+	Dd+bhEH9ZFvuhS1gz/277QeWetB3sJFt/ZjHdChrJe1+rYuzQ5Ns49f6+hLFEXQboaK6tIrJyHM
+	ZIiy7e7WnM2Mf+tGs1hH6/gF6bdiG8siUuMqWn
+X-Received: by 2002:a05:622a:a58a:b0:536:35e1:b5 with SMTP id
+ d75a77b69052e-55ac3363fccmr24163281cf.1.1794543671941; Thu, 12 Nov 2026
+ 20:21:11 -0800 (PST)
+Received: from 138594053405 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 12 Nov 2026 23:21:10 -0500
+From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+In-Reply-To: 20261113011234.45270-1-diegomancera.dev@gmail.com
+References: 20261113011234.45270-1-diegomancera.dev@gmail.com
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -80,103 +108,65 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: NJL+bfc5gN/m02E90MnK47QbFF60SCYpAJ5U7s7yWnsxMo6cOPzxj4Rl
-	JnnMHwikp0+0OGowLd72xT2TVnHkGIevqJl8l6QAGK0NlynjESd+RHEN3CSp7LaV8qmb5Vb
-	uDeMfC91Sy3bxzbHkzYZ2H0MQ7HHcce9sP6PMVxEf+u6FIHIjQvEYSn3dR9t5TZQ+xD0DDS
-	muzT8p8MXEDlEyvVRk7cCNRc7u7Wem/tGBCYDo1vJ/n4C23Xh9oIl2j59Ntpj5yjFkBGVzP
-	PF08Ino0S1D0MG1sy2XF1WFTUBAk9p+LW0i3ri+Tb8eEFDbzHtJ2I9iWRtBi2TRxKS4UOPX
-	BVnEif33WTfWCPiMhB4Mcx1ESEO6upgtAs6LjSl30YH9q35xOCbdWQsCVNiywYsElIU0qlm
-	U3ZFXSm1d3NiAMwIKa5fOB7HJEeEVmfTiSmVYuV6jx3T8ntCkvW1Mj3lZYOLhl+uREUSkxX
-	Ow3h7Xsv6d+ieoPLfE1UP4P9Aw6nUQvzHle0Jhy+ZFbL3cWrxZkydX33gWiMVAHnEnBmhmF
-	uwkmdirJ1/Q4Nk29nBh5ko49GtFtOBNEtzAPf75ncx/+fGsy2FDQlKbGPzZtY/kE7+4WOBW
-	CwMWlA0YgfkBSR66OGEHsTak7K/3tjDtJNVgvt9biCDxh7gT16PbmJAnZ6TxZauqdyHLX+j
-	ZWVZ4DZc3jkG4Xi0O6JSz8TFppfDbrIv3BmA37kY/+oZ+ohTA/8dS/yGEn0Hm6HF4fHnvrj
-	NrDPsYaqq9vKR3GBWtY85LltTv3BKvmK1++aPy/6yIwvMhS4kA6DAGZfYX6sZ8bONnMXISB
-	lnbk1yNgYnWO6hgOJlBa1pPI4gBFf1YRgJkVxEKpeDtRnEkWI+Sttcf7tRX9aQ8dp8zlZKT
-	+DpnmEUZoB20psGI9T6oYh5dmRIeSi2wm2BjvmJYnDp3U9E5lcEFGC4NztBjYm/U098h4f3
-	vcYmb+dnm7OaMQrp+Th0WFpHCV1U/T6d1BP7FZ46u7SbwEnqXcLzCfw1AbLgwM4EvY+DHhW
-	mGvUxNXRGxyZp6Z4gkYnf48WBztbIo3AX/M3CxBM+VNE6qUL+ArwnXYsWFk7snJDAbyJP7E
-	7R/Va0s4ks8JBV3Xr0t6w0=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+Date: Thu, 12 Nov 2026 23:21:10 -0500
+X-Gm-Features: AclHuK8Vg0T6W_EJcB7LJOxNFCo5T5bVUA5gjr-c9q7orQ4IGb3OUxb4r-MnfVs
+Message-ID: <CALruWrWRWRU84AkDocSnNMSRp+WQD5ic9G_3peE50BvQR5iGBg@mail.gmail.com>
+Subject: [PATCH v2] media: em28xx: clear dev->v4l2 when v4l2 init fails
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com, 
+	diegomancera.dev@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-bpf_iter_dmabuf_next() uses kit->dmabuf == NULL to mean "iteration has
-not started".  dma_buf_iter_next() also returns NULL at the end of the
-list, so a next() call after exhaustion restarts from the list head.
+In em28xx_v4l2_init(), if an error occurs after video_register_device()
+succeeds, the unregister_dev error path unregisters the video devices and
+drops the initial v4l2_dev reference, but leaves dev->v4l2 set.
 
-The verifier relies on the iterator contract that once next() returns
-NULL it keeps returning NULL: process_iter_next_call() marks the
-iterator DRAINED and treats the result of later next() calls as the
-constant zero.  A restarted dmabuf iteration therefore hands the BPF
-program a kernel pointer while the verifier believes R0 == 0.
+An em28xx_v4l2_open() call already in progress (such as from v4l_id)
+that blocked on dev->lock while em28xx_v4l2_init() held it will then
+find dev->v4l2 still non-NULL and succeed on an unregistered node
+instead of returning -ENODEV. When the device is later disconnected,
+em28xx_v4l2_fini() also sees dev->v4l2 is still set and calls
+v4l2_device_put() a second time, dropping the refcount to zero and
+freeing v4l2 while v4l_id still holds it, causing a slab-use-after-free
+in v4l2_open().
 
-NULL now means drained.  Initialize the state to DMABUF_ITER_START and
-translate it to dma_buf_iter_begin() on the first next().  The iterator
-state is BPF-visible ABI (one pointer wide), so use an invalid pointer
-sentinel instead of growing it.
+Fix this by clearing dev->v4l2 under dev->lock in the unregister_dev
+error path of em28xx_v4l2_init().
 
-Fixes: 6eab7ac7c5ee ("bpf: Add open coded dmabuf iterator")
-Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
+Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1a7507a194fff09e5c44
+Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
 ---
-v3:
-- No change from v2; reposted with the updated 2/2 attribution.
+Changes in v2:
+- Drop the non-standard 'Assisted-by: Gemini' trailer that failed checkpatch.
 
- kernel/bpf/dmabuf_iter.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+Note: compile-tested drivers/media/usb/em28xx/em28xx_video.o with
+allmodconfig (no warnings); not runtime-tested locally against the
+syzbot reproducer.
 
-diff --git a/kernel/bpf/dmabuf_iter.c b/kernel/bpf/dmabuf_iter.c
-index cd500248abd9..390f6d730a67 100644
---- a/kernel/bpf/dmabuf_iter.c
-+++ b/kernel/bpf/dmabuf_iter.c
-@@ -156,6 +156,9 @@ struct bpf_iter_dmabuf_kern {
- 	struct dma_buf *dmabuf;
- } __aligned(8);
- 
-+/* NULL means drained; START means "not started yet". */
-+#define DMABUF_ITER_START	((struct dma_buf *)1L)
-+
- __bpf_kfunc_start_defs();
- 
- __bpf_kfunc int bpf_iter_dmabuf_new(struct bpf_iter_dmabuf *it)
-@@ -165,7 +168,7 @@ __bpf_kfunc int bpf_iter_dmabuf_new(struct bpf_iter_dmabuf *it)
- 	BUILD_BUG_ON(sizeof(*kit) > sizeof(*it));
- 	BUILD_BUG_ON(__alignof__(*kit) != __alignof__(*it));
- 
--	kit->dmabuf = NULL;
-+	kit->dmabuf = DMABUF_ITER_START;
- 	return 0;
- }
- 
-@@ -173,10 +176,14 @@ __bpf_kfunc struct dma_buf *bpf_iter_dmabuf_next(struct bpf_iter_dmabuf *it)
- {
- 	struct bpf_iter_dmabuf_kern *kit = (void *)it;
- 
--	if (kit->dmabuf)
--		kit->dmabuf = dma_buf_iter_next(kit->dmabuf);
--	else
-+	/* Once NULL is returned, next() has to keep returning NULL. */
-+	if (!kit->dmabuf)
-+		return NULL;
-+
-+	if (kit->dmabuf == DMABUF_ITER_START)
- 		kit->dmabuf = dma_buf_iter_begin();
-+	else
-+		kit->dmabuf = dma_buf_iter_next(kit->dmabuf);
- 
- 	return kit->dmabuf;
- }
-@@ -185,7 +192,7 @@ __bpf_kfunc void bpf_iter_dmabuf_destroy(struct bpf_iter_dmabuf *it)
- {
- 	struct bpf_iter_dmabuf_kern *kit = (void *)it;
- 
--	if (kit->dmabuf)
-+	if (kit->dmabuf && kit->dmabuf != DMABUF_ITER_START)
- 		dma_buf_put(kit->dmabuf);
- }
- 
+ drivers/media/usb/em28xx/em28xx-video.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c
+b/drivers/media/usb/em28xx/em28xx-video.c
+index 84424284d486..f78325a41124 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -3129,6 +3129,12 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 		vb2_video_unregister_device(&v4l2->vdev);
+ 	}
+
++	/*
++	 * Clear dev->v4l2 to prevent an in-progress em28xx_v4l2_open() from
++	 * succeeding on an unregistered node (returning -ENODEV instead) and
++	 * to prevent em28xx_v4l2_fini() from tearing down the instance again.
++	 */
++	dev->v4l2 = NULL;
+ 	mutex_unlock(&dev->lock);
+
+ 	/*
 -- 
-2.34.1
-
+2.56.1
