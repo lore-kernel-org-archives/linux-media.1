@@ -1,85 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.185.170.37
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794558466;
-	b=CyLhQyXmY7EpTKPM0ayJxR2PPvzpv+LMEMKuNjMdaqSBKQQMy/mwLoSA6ZRucDpMAOBr
-	 UE6Yxk0EDJHihCUnnXi4rzL0CGG2vSVzHEuEQwzZnEBDKIIJQPMn2eXUKdZEQKVW2Se7S
-	 HNrhdXkmueK43n+gEhKG0FpylBiywjX19mtnNX/UTKiJ7s4ggdbDLhMs83UXAaaE5/220
-	 cNshY9Dza46rTk4XtiT2n0s3TqnKIFA5mw6vqiUekoLCg4LQn9VkA5esxs+hPS3tm9obb
-	 BBJaE5Wje51zNf76Rw8pnDDYI9Sg6dvGk4BcmLJXHb/hkL6IkssbB9DsGAjWJVwzz2w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558466;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=KwXBgdSX1S6u4/zNJcPi3rUW8TKrnqfVUYwdT81GQ1Y=;
-	b=ual4ArjQ/rbu6QSwIFFBFsrRuVZtfRko/iuJ8elH0HHYuF2vu1XAp95QqVtS11Cz9YMg
-	 RMb4MJYdGYn2JY7RBycM8topV5N9l4AdofqHD8aVWcDkxaJY6j+FXBjz6NjkWJqa6gIcA
-	 UL+65W2Rj33W5mZ7fFpklTfwgr1WaJKoCJfj2ypVRYaMnt17IvcouBn85+YgiT6V5T8GX
-	 rqIQAYhy2RoQO515IiiDj77UuLpZozqX5uWKTM5+E6JYqnBTahs/sOtLRvVsHGBsSkaev
-	 1e1RyyqiFgTQfl3m2dUtRgPHvMoiX2S33Iipik5/fjuGQF4kRteFuntOStrUsc04ttw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=iki.fi;
-	spf=pass smtp.mailfrom=iki.fi;
-	dkim=pass header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256 header.s=lahtoruutu header.b=jW1RovZI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.185.170.37
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794558498;
+	b=Vbr7zLHnGOEmlTWzqG2WWxs2AsWMvmcUubBgvANCcR/wDUaoJ/QbK0OQpB3yo7R1Hcbv
+	 oPcon8M30xCALjg/m+81558D/jcWllhpyC350EL0nqX2fAAv7mJzDvMsGV4G6fXwWUUpW
+	 GE5XKG/aRlD52kQsei7IF8qQ5AncouY7+lfrVFijR/pLqwxxYkRMQR76cdieZa8Mlkn1G
+	 6dGvJ07g7NiStrN+ASecfxtXjDzcv/Dr3J9HOFEfHTd5mNR9sLlqrVnf5ZX47HNXmvxin
+	 N8pXoq6m2iB1HCSErRHWl+y5slSXX/4wyv7JM1P0oF9kjUdQf3oEC2kk8KPl4a/9QXQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558498;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=emeR0HMDJ7PN43Qf1dnhb+lV3w2T1zMRCtFRSSk5h7s=;
+	b=1HRhjcuKGVJtDRE8+3DuNSINXnFp8ddBvpzY5XRMhohYI4QM7yeambblX0H1IVeiIgYe
+	 QIFBzCwLZDw0Ykv+nrZuzCsczK1ThnKSVpFcqvBAxQSOChQQ/QjiHP4LP4yzS9ixO2sVM
+	 UKLFg8lOpwlt3ExRRTNEopBzpygO+/jq5YRwX3/r/o7QLS1RACQ6pCPhAOqXlyNvnyIAV
+	 3ayHuNgSOW8n2Hg2spo0HJwOVJXul+HbBc64IP1JFp2yd2Mxu1cn5xEGu1PEEQ2agRlcN
+	 Q4+7R/PaGT80DrznO2Jnp/zLMJjjBO7rAq3bFUQbxfJZCxd81ayjHl5eHtth0XiBkiA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eCC7Ll5o;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86013606A338
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 08:27:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86013606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4992B606B62F
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 08:28:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256 header.s=lahtoruutu header.b=jW1RovZI
-Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sailus)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4jQr3Z27f0z49Px4;
-	Fri, 13 Nov 2026 10:27:38 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1794558458;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=KwXBgdSX1S6u4/zNJcPi3rUW8TKrnqfVUYwdT81GQ1Y=;
-	b=jW1RovZILWG92st2KJPG4lezA07YfcUOn5OrVtO2BR5l3vo0+zhfcaSgmoHHuQyLwY+8GW
-	rG+GKEe9NQZHW91iti2HdDHcdACTBFu1JywgpIaU+5d6wPIHZB6aJEWBw8s/fy9Zq9aVNg
-	oJSFl3P1QAPZxuUZpD5eKhkO9RxUp2Y5PD4yoxH8olqZ6ZoKFxZQVN1t0JR9LEBv5RccoK
-	3WFP4P3onx8nQjIadvw1WK8l2spBxBf9cY8fzH7DjJIXiYVN6hKC/BAA+xZMCEBDiRqIvs
-	bUjJykMY5HOA5lYyWIHy236H8TycgcPLYgiaGocIirOMD7ltGN78mmt81jW5Yw==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1794558458;
-	b=sCT9c+pc32SmmIzLFS9rvtY/eigxgQnU3NMg//wB2Q4Ur1kf/g2FvUKPEaCjZI+qdetiMC
-	5yJicwM1ExYpwyuhI7pjuTMuN6tFdXy1T7bCDQjCZD7VmC3oLgY/KwWsHb6SyHOFEyQH1H
-	+hvma7a0OV74RAQ8S6u2vOuYBLonZ3q8nUv7UOPk0j3+Oihpaz+TPkCc3NQpqWZbbbDV6O
-	LU9Kw/NHl6xnxjbsCXtSeyvsn224rq+mIuZvMUVGMaMD+2ooKz1/pZ5Vctf3PDFPqQ/ngM
-	iY5WafX1V7GLYLpEM4V7Oj77gXvQir6j6XLS/a8WUrWon4JLnkL9mQ0DdE2R7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1794558458;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=KwXBgdSX1S6u4/zNJcPi3rUW8TKrnqfVUYwdT81GQ1Y=;
-	b=ciDgrXnlvGjWIhKCeAbVlmbhicwCnB/E60sd6fO7ubsjdJpQhtn99mmEEUVWabsJJD+OBV
-	ZtH+hrCtm0GmzDq/ZmRT8sYI7DBSkY4XZh9WsOohWHNwtq2npdq07ctdjta/sdLBanybuy
-	aMoeaEM10jZTyG4yFNh+9btE9QfmnJJd+Umwe/vtfZ5Oj83m5oeg8ApsVDQ4sKeChcGOd8
-	utTzSVR4nL8/XhNdimqs9IxPsATqmY6zJLzu990Mj4pooejjDfceEmRION7LiKWU/TxEke
-	atJ0Ej/kgmU1wg1XTHGPmDgzUnxwWOdB8Z14u/RMsrQzlBk/nBKXojcoJUvkFw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
-Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id C3960634C51;
-	Fri, 13 Nov 2026 10:27:37 +0200 (EET)
-Date: Fri, 13 Nov 2026 10:27:37 +0200
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: linux-media@vger.kernel.org
-Cc: hans@jjverkuil.nl
-Subject: [GIT FIXES FOR 7.4] AMD ISP4 fixes
-Message-ID: <avbJ-TiORMc_xUbt@valkosipuli.retiisi.eu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eCC7Ll5o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50D7F1F000C4;
+	Fri, 13 Nov 2026 08:28:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794558497;
+	bh=emeR0HMDJ7PN43Qf1dnhb+lV3w2T1zMRCtFRSSk5h7s=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=eCC7Ll5o8ONly8tmmDjSM1G7J8F9FXZe/IgHuLsDZqnQaEI5UOqXdo2I0+pQuOKLK
+	 fkyzvl0bP5QKN6loWolTCt1GoYLHCloC/n4nIB5XNiG4kJzMrQP9z7U4tl9zo8Zj8v
+	 HY0px9o0oMzG8jtN2ZZzbtVl9TYxIS4svwuW2A7BeWyXFse7+8dJv4EP27ya3n7OjT
+	 SUEMdjupgUlMUULAXet0o5JYS6TCn9ty31SpIHlF6gUoZh/wLWbsZlAv92LF5uSEDr
+	 vYucNREVZlrZ3VVkYfPxHG9uezt482JdREbS3H08ccKVtqsJQ/7e5qNUSZscApilGb
+	 ttq0XA3rp8Lsg==
+Message-ID: <fc58f61b-b4e6-4b4d-af6b-d29790109eb0@kernel.org>
+Date: Fri, 13 Nov 2026 09:28:15 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,41 +51,81 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] media: gspca: fix stack overrun in build_isoc_ep_tb()
+To: pwngets <2605452642@qq.com>, hverkuil@kernel.org
+Cc: linux-media@vger.kernel.org
+References: <tencent_EAFEF76E0657C04EE304E09B471BF8AA0908@qq.com>
+Content-Language: en-US, nl
+In-Reply-To: <tencent_EAFEF76E0657C04EE304E09B471BF8AA0908@qq.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Hans, Mauro,
+On 28/09/2026 13:07, pwngets wrote:
+> build_isoc_ep_tb() fills the ep_tb[] table that gspca_init_transfer()
+> declares as "struct ep_tb_s ep_tb[MAX_ALT]".  The bandwidth sentinel is
+> stored at the top of the loop, i.e. before the "found" test that decides
+> whether the pass produced a usable entry:
+> 
+> 	for (;;) {
+> 		ep_tb->bandwidth = 2000 * 2000 * 120;
+> 		found = 0;
+> 		for (j = 0; j < nbalt; j++) {
+> 			...
+> 		}
+> 		if (!found)
+> 			break;
+> 		last_bw = ep_tb->bandwidth;
+> 		i++;
+> 		ep_tb++;
+> 	}
+> 
+> Every pass that does not break raises last_bw, and the candidates are
+> the bandwidths of the nbalt altsettings, so at most MAX_ALT passes fill
+> an entry.  The pass that ends the loop has already written
+> ep_tb[MAX_ALT].bandwidth by then -- one element past the end of the
+> array.
+> 
+> A device that presents MAX_ALT (16) alternate settings carrying
+> isochronous IN endpoints with pairwise distinct, increasing bandwidths
+> reaches that pass with nbalt == MAX_ALT.  On x86-64 the store is 4
+> bytes at ep_tb + 132, which is the upper half of the stack canary, so
+> kernels built with CONFIG_STACKPROTECTOR_STRONG (the default on the
+> major distributions) panic in __stack_chk_fail() when
+> gspca_init_transfer() returns.
+> 
+> Only the device descriptors are needed: the store happens while
+> VIDIOC_STREAMON is being handled, before any isochronous transfer takes
+> place.
+> 
+> Give the table room for the terminating entry as well.
+> 
+> Assisted-by: Claude Code
 
-Please pull.
+No Signed-off-by and incomprehensible AI prose.
 
+Rejected.
 
-The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4:
+Regards,
 
-  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
+	Hans
 
-are available in the Git repository at:
+> ---
+>  drivers/media/usb/gspca/gspca.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
+> index 594d73e..64bb818 100644
+> --- a/drivers/media/usb/gspca/gspca.c
+> +++ b/drivers/media/usb/gspca/gspca.c
+> @@ -753,7 +753,7 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
+>  	struct usb_interface *intf;
+>  	struct usb_host_endpoint *ep;
+>  	struct urb *urb;
+> -	struct ep_tb_s ep_tb[MAX_ALT];
+> +	struct ep_tb_s ep_tb[MAX_ALT + 1];
+>  	int n, ret, xfer, alt, alt_idx;
+>  
+>  	/* reset the streaming variables */
 
-  https://gitlab.freedesktop.org/linux-media/users/sailus.git tags/fixes-7.4-signed-2.1
-
-for you to fetch changes up to 9cb3ec8be3c1a321d4f454bee4d9165347243d0c:
-
-  media: amd: isp4: return capture buffers with V4L2_FIELD_NONE (2026-11-13 10:26:39 +0200)
-
-----------------------------------------------------------------
-AMD ISP4 fixes
-- AMD ISP4 functional and UAPI fixes
-
-----------------------------------------------------------------
-Caspar Adriani (1):
-      media: amd: isp4: fix self-deadlock in isp4sd_start_stream() error path
-
-Seifelden Abdelmonem (2):
-      media: amd: isp4: hold buf_list_lock while sending buffers at stream start
-      media: amd: isp4: return capture buffers with V4L2_FIELD_NONE
-
- drivers/media/platform/amd/isp4/isp4_subdev.c | 15 +++++++++++----
- drivers/media/platform/amd/isp4/isp4_video.c  | 10 ++++++----
- 2 files changed, 17 insertions(+), 8 deletions(-)
-
--- 
-Sakari Ailus
