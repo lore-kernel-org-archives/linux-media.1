@@ -1,116 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794586741;
-	b=vJp0Z6nUff/Dqetze6fo4bpxSxIdXWG9xOa/9UHRp+td0OOO7n43gcB8Hsfwd9k+cfxu
-	 x/JKulRPzlnAmXjwHYokpejaxOXojl9z7fkBC8rBL3zbchIM1TySKq4nDwPHIEM9a5t1p
-	 /cm9RhYWiy1F/SnDIydn7egp+3iLpMWrkCtkHbpuAFGHo6HBsvhDvJQ00zAKg0OoMCQYk
-	 Q7tuknOZpQgWIT/MVi2Pxz2i61gtu1WuyEZL34dQaXJs7QfzQ2EhsTZC0Wqa+UX1JrKFO
-	 3lMr0zQEyoQ2y/q1s1sh3WWMClH6cKVdz500KpbSCo1nPnvZiBQTdVxC5g8Docb/HxQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794586741;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=mQWld2rf0aUSCLxpuKReQRUF3uIzkNsM8ey4gCHu/88=;
-	b=KbBjHFGAiARmN3L1bJrZ9Ij/qTSCtOpMYDfhjn26nJre0Y2oMFgQwsh5ioI8y4yZEML0
-	 SyRBKE2SPHUSR2ihoX3kLQtnTlCHwuVqI3jSz7B8FyDFUCJU6utaRSFwNn60EP59SE0pm
-	 9GIiFZjaXAP4h5INw8/22tmJsDicCRMRZaUoC9mMJ/fQckhUqTnVwiDVb7QWpWjQ9o1o8
-	 eoRoij92TA05quSA18RWJoOBoud3Rs4iUePCaoMzFXFXAAisddTNEVBeVXlUxS7nTn8yS
-	 YWFYdtkgSg00jJvOHuAuTpUh93ZykCMVj20Rskv9I2yFw5jX4Hmf3qjh8iVLXaodJtQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zBoKHbol;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794588034;
+	b=O1D6ZvVCuaCRaHWL4EnykuNSdl/fgCCWMYvv6aq8nWpUuEcr8NMa4UC7M8YkvPVIbat0
+	 c+vcim9AVAPrh/fH0GhkBKsNjN8T8+N9i0ycLxFzoMCmbz5sBoUuRM8KfDyElD3PuaSDh
+	 M57IZShL/Sx8HWTFnoTXGdC6cgkdzH94kXjvSSZ6UOvQi7/6H9Eqb3GzuL0mxpn4aimMw
+	 EOgdy+l5EugBClMGTHW8BGHaKcImeMLXaowKElWG96Z3Os9n/ejAShEPg+x3Mnn9jLfGF
+	 Y1ioltktu9g9kgtg0RweP7R9PWx3wsO728RBe/eDeh5z78hUT3dWxhx7MbTY6OTJNfQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588034;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Yz/8g0n4NRMp1v0RG/mbf9AW0/DPBjADn4ea0vIBins=;
+	b=lIuUAxVaNukwfL7qfh3JoLQmJTgnjJNuAB96gNCEYo1m4Vnc13FabHScPm7WYT9l8le5
+	 Tf4QKHPh5XxSlKjd+08xTbbVeQ3PjQYARVdIxjExRXsDShMormaLT4ySQNvSHGNAcvkoS
+	 Bka6Uwo3PLqmlyyJgCvCcxSCKbEOnSYWZQsDa6o86a2UQRZCUKZSy3MLcKuvTw++zXldn
+	 cclAVbYZgY3njcS4PcpZ4xGBLhgZmG+3Qn80955TlUwwphyhaL3ggduErKxfPsgNkv5b6
+	 /2ZpFwkeCYmT1pqFZBMHJM+K3CcH766TMuI6Qjie6FydJhvlbXmh7N4kSn37uIwNSEQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="U/AySg0i";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22DD560A6F62;
+	Fri, 13 Nov 2026 16:40:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U/AySg0i
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794588033;
+	b=e4krojrIfADKXhPKH5Dp/MMFgG3OB7ha+VrO/gbewD0C39mHMPTksFwLgv4zTmpbPOMm
+	 oasc7664Ccq9p7cRv8ziIx8U0TJD+WsRm2jCyGYFX15QP81qnHNP2j01O8k05KRsN2h5H
+	 INwQX4b6OHB2bGqW1gKMsmDMJUACg50LYaP0pJtu9VjbcS/ToQ2/CRqfRp/Kf3I56v1yu
+	 KEuVZbMWYq1iTkTzIc4d13s/9ifsbtJrZcemCuPoteoGwohqcjPHO+T9D5RfcDTcW4+1k
+	 Q4vi/0dZNb/M5wZHKKlphQR1/eUFfN5AKhZVS/abre6lkWg9CEMPYCqDW6AK0jzDtnQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794588033;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Yz/8g0n4NRMp1v0RG/mbf9AW0/DPBjADn4ea0vIBins=;
+	b=sKEq3nzpQ9r3nPZ26bvrGefLTc+YwLWJSMfBm2VgNlQTJWLJ6lANOzFvXAiS/mjQ1o3S
+	 c7F2mZpB3N21Th0AYOuUSgrghwoyeUFYiC75PQT4hLRXJCrQcNGBk3C1NJTCNgzw+NRer
+	 yBYhoxLJPLLQfM4JjD6wKu0UgbNRmkOnBg1y0DampSTMaQopKFpH+6E/eiQTqnjlVX5YT
+	 QP+uA4H+GZG5UXC3UZ2JveXunjLLPZazyNa1DTRSz1gAJJK6Esd2LfqVnpkGNyRvyPHY0
+	 93Ej4futhPVG/gGV4EdMY5PxtTMYO4hn5GJUy4ajRVyEuqflDoJHK3EjpjhkgQjaDOQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99B0760A5BE7
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 16:19:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99B0760A5BE7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zBoKHbol
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c468bd799ecso222214466b.1
-        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 08:19:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794586739; x=1795191539; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mQWld2rf0aUSCLxpuKReQRUF3uIzkNsM8ey4gCHu/88=;
-        b=zBoKHbol8hBa0KV2wud8WvoWYPMHijCP/AHfQ0kMIp/6nPm9ZaoEu2nKj95ohh3y3f
-         0BYTtjsu2BUiYwW6SfUG6OIZskQRV2qU5Sk95UAT0pbqgd4Lrp26EzInaCiUioNkUf3/
-         h+iDrnMt1l3lqRjsvei3eOHp4NIpRha13RsA28lWMePHnmFRqiTyoNtz5ZiSaVXNOYjX
-         IDgi7UnJgGeMGlP0uUBbibrMI57N7dejvOcEN/WNNEaYuWZqag0H9AddQrF+iZk2zkSo
-         4W9pu+W3+a2f16KDUBXQ2Ma5P2jC5w7NdtoTqp3ey+qq6U5d9pVlQV2ZYjHYwgOxAoOD
-         DwBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794586739; x=1795191539;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mQWld2rf0aUSCLxpuKReQRUF3uIzkNsM8ey4gCHu/88=;
-        b=piU2gmkH5DZ+S+F9akoHpwCi4KowqNDpJIuUPqGCfJMm/97NCp2QyTasvhujOw/1lR
-         atlcDh5+hUt1mQ9ZaX8Kun/+U6HVmaVwlcHaD/OwjHVFUkGVNGnppZAXHNjvX2lvyTY+
-         LFrVW0GKzm01XT+1lyV7UUfPkDdE5WZwNADBmoR0J1ergxZ2OhT3+HWr8ud5F2zfB4q3
-         p+pbhmDXdqGIq8l6q0TIl+g6tbY5QbXbcUu/mT0DPOdbNBlQlLmLiiYC/ifWMYEfawTp
-         fg3IXH+ybBY3nvMu2CLSsG7aF1CsgA9fbAXypTNpDYTVGPetjVFsCh4N+W2+tXAmdjIX
-         rA9Q==
-X-Gm-Message-State: APuU4Z/qD8v2PVK6bRJvfx0vxw9gmJnML733ydVN+Yw12I5yA6pzd5qt
-	/Yht3yDs9fsvl3lGyjS7e3w2KNualLErchLZ7hXEJtOdoUt5EAKZMxdL
-X-Gm-Gg: AYBFou3zE/3Z8xS2KKQ+Zdd5frybaIKQNkXiaNEp/xRqk70Jm60Fk0XHFKHa7yxG7hY
-	nMd8yu6eI/nV0pgnOCJO4bUMyI0fzEu8xrEPV4eVxU4xW56+yhh4+gzKvgT5gh3+AMQJYP7U6Nu
-	SoM7Uies1BG/A5rlhIDM5t8Tmj251bVKBt6vuVp2tE9IX6sEv78aXBxV3C5Fv/JsfhcFlxTltH3
-	kQ5BBaIKJWkAFjWT51VWPRN77HOaQ4+FfBaU4Pfh5Zy8wUYQcHgMQXW3w2Ul2051w3f+vM3p54p
-	7phGkEH2CSpZ9kSIJcpdbKeLC+yH0RhZp4i1gRCUnAhid5YXJNSS2reyE57in6k92CL5czM0p2J
-	GW0utrDbYhuO48xv2OZhFLx9POuNxyDjOAROm2oLdiEXbuK5Gfk5kt82eTG3v+7BkrVOf0oE2Z+
-	4gZgurkQqkev4AADHPb1ROTOAr6AZJlJIjrrvCfw6U0SMyYW6qq7lJOYzqlehgB1n9nR39d1APT
-	1MCc76wZR9jy6KC38qckTHBMVBqJ5axRkJW3rFh/2tJLwLUrKpAtOO4Iy+C0exzZ0eOROXu9blq
-	SZZ9F5JFCSZdo+3MnCb+O1R8wKyrduQQuS+k2GpWf5P3DrPaSgSgMEJPFq1I3a3OikcVwgPZFBG
-	vkZ80mJgIyA==
-X-Received: by 2002:a17:907:9304:b0:c46:9ee4:8f0 with SMTP id a640c23a62f3a-c50963d470fmr299547666b.10.1794586738923;
-        Fri, 13 Nov 2026 08:18:58 -0800 (PST)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b24b88sm122297266b.16.2026.11.13.08.18.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 08:18:58 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Cong Nguyen <congnt264@gmail.com>,
-	Faisal Mukhtar <mukhtarfaisal03@gmail.com>,
-	Dan Carpenter <error27@gmail.com>,
-	Hungyu Lin <dennylin0707@gmail.com>,
-	Hao-Qun Huang <alvinhuang0603@gmail.com>,
-	Yury Norov <ynorov@nvidia.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: linux-media@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Subject: [PATCH v1 10/10] ARM: tegra: Add CSI node for Tegra114
-Date: Fri, 13 Nov 2026 18:18:19 +0200
-Message-ID: <20261113161819.36847-11-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113161819.36847-1-clamor95@gmail.com>
-References: <20261113161819.36847-1-clamor95@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 2D89A1F000C5;
+	Fri, 13 Nov 2026 16:40:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794588033;
+	bh=Yz/8g0n4NRMp1v0RG/mbf9AW0/DPBjADn4ea0vIBins=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=U/AySg0iu0kEu2OduIZVmFTEmM/NqFdg+EqvUudwgH87BXKMhMuueVRzKx/z7WBdD
+	 Wmp/FGgSmXDYfBj4t4YBV7ZOWmCjIhCeyflvYGYVIqdJqHpBzp11Uh9ndFF0UkUjlj
+	 IYRiQfJMQ4l3IUlLPez76bR4UvBI8mNCMsc2e5rcOCpO9MS0YLqPSvPg8f2Doz/Phk
+	 L3vgtOKEkByuNkbjCgLADygZ3liQBmqIb9NRatp7FMbPRuRzVVmh8cIj3QUEXXeJp+
+	 k1ftiZ3OkoLGUU5A8btdopZrGRIkoeQWB2KnwyYHrBZTOeMoUMFTEMqFmsfUdtFHNS
+	 T5KRnC/KIbt1A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B3967499D8;
+	Fri, 13 Nov 2026 16:40:32 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Fri, 13 Nov 2026 16:40:32 +0000
+Subject: [PATCH v3 01/12] dt-bindings: media: rockchip,rk3568-vepu: Add the
+ reset lines
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -120,67 +83,83 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261113-hantro-robust-v3-1-82383c722ad2@gmail.com>
+References: <20261113-hantro-robust-v3-0-82383c722ad2@gmail.com>
+In-Reply-To: <20261113-hantro-robust-v3-0-82383c722ad2@gmail.com>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>
+Cc: linux-media@vger.kernel.org, iommu@lists.linux.dev, 
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Sergei Khomenkov <shomenkow@gmail.com>, 
+ Tharit Tangkijwanichakul <tharitt97@gmail.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Arun Iyengar <aiyengar1990@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794588031; l=1209;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=MRydKxLJI0KA7GKlYnR04VTSaxTd+BLkO918wvLJV3w=;
+ b=K8uB0c2XX7c4uheBnmnxsvmBT8na1dLiaxSRrgYZIJRv/zoj3/EzCXkIBHOM+LliMraOSG6G/
+ 0nFRXNg4AqPDR6pJOzw0CCwcXGiBnhEysj4HUWFoPe4mTog3Xj2/sxD
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Add CSI node to Tegra114 device tree.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+The VEPU121 encoder cores of the RK3588 each have their own AXI and AHB
+reset lines in the CRU (SRST_A_JPEG_ENCODERx and SRST_H_JPEG_ENCODERx).
+They are needed to recover a core that is stuck on the bus, which its
+registers can't stop.
+
+Describe them as optional, so that existing device trees stay valid.
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- arch/arm/boot/dts/nvidia/tegra114.dtsi | 34 +++++++++++++++++++++++++-
- 1 file changed, 33 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/media/rockchip,rk3568-vepu.yaml        | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/arch/arm/boot/dts/nvidia/tegra114.dtsi b/arch/arm/boot/dts/nvidia/tegra114.dtsi
-index f2766c11ee6c3..61120658f0687 100644
---- a/arch/arm/boot/dts/nvidia/tegra114.dtsi
-+++ b/arch/arm/boot/dts/nvidia/tegra114.dtsi
-@@ -53,7 +53,7 @@ host1x@50000000 {
+diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-vepu.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-vepu.yaml
+index d246f5d38427..e9fda4373f0f 100644
+--- a/Documentation/devicetree/bindings/media/rockchip,rk3568-vepu.yaml
++++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-vepu.yaml
+@@ -32,6 +32,16 @@ properties:
+       - const: aclk
+       - const: hclk
  
- 		vi@54080000 {
- 			compatible = "nvidia,tegra114-vi";
--			reg = <0x54080000 0x00040000>;
-+			reg = <0x54080000 0x00000800>;
- 			interrupts = <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&tegra_car TEGRA114_CLK_VI>;
- 			resets = <&tegra_car 20>;
-@@ -64,6 +64,38 @@ vi@54080000 {
- 			iommus = <&mc TEGRA_SWGROUP_VI>;
++  resets:
++    items:
++      - description: AXI reset line
++      - description: AHB reset line
++
++  reset-names:
++    items:
++      - const: axi
++      - const: ahb
++
+   power-domains:
+     maxItems: 1
  
- 			status = "disabled";
-+
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			ranges = <0x0 0x54080000 0x4000>;
-+
-+			csi@800 {
-+				compatible = "nvidia,tegra114-csi";
-+				reg = <0x800 0x200>;
-+				clocks = <&tegra_car TEGRA114_CLK_CSI>,
-+					 <&tegra_car TEGRA114_CLK_CSIA_PAD>,
-+					 <&tegra_car TEGRA114_CLK_CSIB_PAD>,
-+					 <&tegra_car TEGRA114_CLK_CILAB>,
-+					 <&tegra_car TEGRA114_CLK_CILCD>,
-+					 <&tegra_car TEGRA114_CLK_CILE>;
-+				clock-names = "csi", "csia-pad", "csib-pad",
-+					      "cilab", "cilcd", "cile";
-+				power-domains = <&pd_venc>;
-+
-+				assigned-clocks = <&tegra_car TEGRA114_CLK_CILAB>,
-+						  <&tegra_car TEGRA114_CLK_CILCD>,
-+						  <&tegra_car TEGRA114_CLK_CILE>;
-+				assigned-clock-parents = <&tegra_car TEGRA114_CLK_PLL_P>,
-+							 <&tegra_car TEGRA114_CLK_PLL_P>,
-+							 <&tegra_car TEGRA114_CLK_PLL_P>;
-+				assigned-clock-rates = <102000000>, <102000000>, <102000000>;
-+
-+				status = "disabled";
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
- 		};
- 
- 		epp@540c0000 {
+
 -- 
-2.53.0
+2.55.0
+
 
