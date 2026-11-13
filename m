@@ -1,62 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590552;
-	b=CWOy+6TaBBt947HLtQnAOBTvSbfgnIL/URvErpasXZ4+v6VXhjww7+9DkAaWBapgDay3
-	 J9SY4D9ck2/9SIj2V/TOK5s3bkkRLxtWe8/UUCS4cJtAy2fW1OT2cqUTPeQ3xMD6hSv1c
-	 5xAWy9I/HKKDHTvgnO57CmXAX46L6g/3Humps8rpHEqJxABgtKGqGB2VvuvhuU307SeSG
-	 nBzsSRCSJI5zgYqYu378Jjtc9qQGIH5a+STthiaUkQGOhxqa7tprQwB6JvTMK6o6Z5IYv
-	 8bnPrHPBvSpGNyCDqdVaM+JXadsaLKwL22o9zVxKpBr+oxiq5nY0JJTCXcdm33u+c6Q==
+	t=1794590949;
+	b=SwK/ZV/yrrYhiPMVdkdRWJGwN0Av36R35tfGmuH7w8h+lI9n3JPqXo4G4syj0Fhcel7n
+	 5M3F9MobmeXQooW/Nnju6LII+fKpHt29/xiC7YFpTZO8fHx/BSUDx0+pMuwhg0r0mgg9+
+	 Eb51vyKR1BnLQMxk7YaN4jLLL7Ps5bvhs523NG0fpAnGwNebgJdy0Vi43/6ndpuWkW8v0
+	 fGye+JA9ujrpMJMoV1zY1eRZD+RtTnvx9cGc33dUGETvOZmxWtxzA7jsM3PyX+wRmnEhE
+	 PomCLEouYOPKfSsEPLhfjOugNUWU8UZHRx1gwKWXj8eXpVnIetLHxjOTLq3WyjsAxlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590552;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=dDMss3ueW6yc78YuqfPM9RAHjFwq9YdM/j8Vh3bi9MY=;
-	b=oau4hfs+XN2hjucKx+C6uCffKVZjYi/JlU+k/NQknrCza5cfcvghjRK8uwtwZD8DwhZV
-	 LdWQTQbEZXwkbVZ0pCnH2DrRB4Xgc+gF11r/GmSvQIEmS9PndoLnCkYu9cewTRf2ALZ9E
-	 xQhhqJbEijJUOGoCNmAe0fw3y0nuZFVCKwNCm/zWZCAxWfBXif8ySE02QnttzSAN3YMi/
-	 VeIS6s/bw8VcaQhYNGuzB/hV5sZs9KtgpEgsFKq/uzY1NIpw7u7cDSdUoRoMNahr+53iW
-	 AWNqRAVKQVm4dFHnTbX5wCZ3qdaGruGWbKKCEKNHNG2+HUUmgshSJOBHYJc4DxrksuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590949;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=vBhwvnJwnGkD1bnGzWjsQ07Q3jEMP9wwPRehR7yowkU=;
+	b=FkomHtjsSksT3BSy//JgOb0YXMwkjHU3pz3jsQysH6tFqSs/q+rFfKEtE58Iw0WdIHon
+	 udB/Ti4/Zyr5vR2FgZ9kriHFxirnaxU3wKQm2essm0BrE3ZQ0zyUM8toNoEoWi22Ma85J
+	 l22ZV8+VJ/eWnarQFM1Kdj7smK8IKDIET777wlfroB91Ugbwb7PSiFkh220j5Vj2UjC1y
+	 LbOuPa2StCvMb3b192FBGIfrGMx6/TqZwvUMtsc3fyJNId06QlTZj+7oYULOQxKukaAJj
+	 pL/hf3KMEnME2GYPlotixe9S0D/dqHuEkqOUIriLN1yNrbO6PigWdyQveeLrx3ggrmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NcvJID4t;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="AejoD/JD";
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BBC606B37D;
-	Fri, 13 Nov 2026 17:22:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CABB606B45C;
+	Fri, 13 Nov 2026 17:29:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CABB606B45C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NcvJID4t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D90AC1F000CA;
-	Fri, 13 Nov 2026 17:22:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794590552;
-	bh=dDMss3ueW6yc78YuqfPM9RAHjFwq9YdM/j8Vh3bi9MY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NcvJID4tSOQy6NvUve7O7S7G1nCHhTMB/miv3Lffgoh2TR3Drb6yBF8Ug0CJl3j+k
-	 M7rthj+MkVyVjY3//FVDitca/0/2zXKMB3DZzmDtFfoMeLdM33sHyyH2HVvM68ifr7
-	 u/hMIBSsj9bUvQ4mxblBRA8yqmtAssN6z1a3Mhzc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	linux-media@vger.kernel.org,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Tarang Raval <tarang.raval@siliconsignals.io>,
-	Kate Hsuan <hpa@redhat.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 489/686] platform: int3472: discrete: Support multiple HIDs per GPIO map entry
-Date: Fri, 13 Nov 2026 10:50:22 -0500
-Message-ID: <20261113153837.515572708@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
-References: <20261113153820.902362109@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AejoD/JD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794590946;
+	bh=vBhwvnJwnGkD1bnGzWjsQ07Q3jEMP9wwPRehR7yowkU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=AejoD/JDjkToIWQiFRpmdMjB5o5Ebnp4DTGINsotDpycE2//JGqe68DRdgkmUOFvT
+	 HaEx1jaGfhcD4LWL7zJDHE40LqDKXD5nusxhqINjW9b1KWPzLf/U+m7yC38cnIcNjp
+	 L+IDGtMOKf0Yb1mY3g8SCzdbTliiRMz/B4binh4sWmYBp2oHFiNcXkmqq/dcPgPjtz
+	 3+S91Mq8JKXEqYTCiaOnULObQ/dLWTHZdrHKI64Qv4zhar8O9FyNczcE4k82NlKtop
+	 yLC5Fggr21g1QSNN/46q7Au6xg+DZevA5WYuBhcpSUd54h9hy2Z5zMVuSnA3nvKig/
+	 ker449JmvX29g==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 75E9717E0818;
+	Fri, 13 Nov 2026 18:29:03 +0100 (CET)
+Message-ID: <7691572c6787c3808296094fb97212979c3fb3b9.camel@collabora.com>
+Subject: Re: [PATCH v3 02/12] media: verisilicon: Check the match data in
+ hantro_probe()
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: aiyengar1990@gmail.com, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring	 <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Nicolas Frattaroli
+	 <frattaroli.nicolas@gmail.com>, Andrzej Pietrasiewicz
+ <andrzej.p@collabora.com>,  Ezequiel Garcia
+ <ezequiel@vanguardiasur.com.ar>, Hans Verkuil <hverkuil@kernel.org>, Jernej
+ Skrabec	 <jernej.skrabec@gmail.com>, "Joerg Roedel (AMD)"
+ <joro@8bytes.org>, Will Deacon	 <will@kernel.org>, Robin Murphy
+ <robin.murphy@arm.com>
+Cc: linux-media@vger.kernel.org, iommu@lists.linux.dev, 
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Sergei
+ Khomenkov <shomenkow@gmail.com>, Tharit Tangkijwanichakul
+ <tharitt97@gmail.com>, Sascha Hauer	 <s.hauer@pengutronix.de>
+Date: Fri, 13 Nov 2026 12:29:01 -0500
+In-Reply-To: <20261113-hantro-robust-v3-2-82383c722ad2@gmail.com>
+References: <20261113-hantro-robust-v3-0-82383c722ad2@gmail.com>
+	 <20261113-hantro-robust-v3-2-82383c722ad2@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-Pk9ID3Lh5PcmffxfFbdz"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -66,150 +100,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+--=-Pk9ID3Lh5PcmffxfFbdz
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-------------------
+Le vendredi 13 novembre 2026 =C3=A0 16:40 +0000, Arun Iyengar via B4 Relay =
+a =C3=A9crit=C2=A0:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+> A device bound through driver_override may have no OF match, and
+> hantro_probe() then dereferences a NULL match. Use
+> device_get_match_data() and fail with -ENODEV without match data.
+>=20
+> Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 
-From: Tarang Raval <tarang.raval@siliconsignals.io>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-[ Upstream commit edd0dd59aca038b7f32cf893170928d4a3b2297e ]
+--=-Pk9ID3Lh5PcmffxfFbdz
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-Each int3472_gpio_map entry currently maps exactly one ACPI HID to a
-GPIO quirk. As more sensors needing the same quirk are identified, this
-means adding a full duplicate table entry per HID, differing only in
-the HID string, which does not scale.
+-----BEGIN PGP SIGNATURE-----
 
-Change int3472_gpio_map::hid to a NULL-terminated hids array so a
-single entry can match any number of ACPI HIDs, letting new HIDs be
-added to the relevant array instead of duplicating quirk entries.
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavdI3QAKCRDZQZRRKWBy
+9L/GAQDFEJMjaukjIL6hsPbVKhY3JdjK2trma5iMW2z5o4dWmQEA0jyOVzJ7q5zj
+M7YvozDsuHiLH1Y/S548p4WbG4GM4QQ=
+=YkKR
+-----END PGP SIGNATURE-----
 
-Cc: linux-media@vger.kernel.org
-Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
-Tested-by: Kate Hsuan <hpa@redhat.com>
-Reviewed-by: Kate Hsuan <hpa@redhat.com>
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-
-Keep the consolidated vana mapping for SONY471A and TBE20A0, which
-were not previously listed, so the subsequent handshake-delay fix applies
-unchanged. Perform the HID scan in the existing GPIO mapping routine
-instead of introducing a separate matching helper.
-
-Stable-dep-of: 844982d3b993 ("platform/x86: int3472: Increase handshake GPIO delay to 200 ms")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/platform/x86/intel/int3472/discrete.c | 45 ++++++++++++++++---
- 1 file changed, 39 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
-index 96c33ba80002f..a4c24f1cd0a4d 100644
---- a/drivers/platform/x86/intel/int3472/discrete.c
-+++ b/drivers/platform/x86/intel/int3472/discrete.c
-@@ -123,10 +123,31 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int3472_discrete_device *int3472,
- 	return desc;
- }
- 
-+/*
-+ * Other vana-supply users (e.g. ST, Toshiba, Sony sensors) can be added to
-+ * this array instead of adding new quirk table entries.
-+ */
-+static const char * const power_enable_hids_vana[] = {
-+	"SONY471A", /* imx471 on Lenovo X9-14 and X9-15 */
-+	"TBE20A0", /* imx471 on Lenovo X1 Carbon G14 */
-+	NULL
-+};
-+
-+static const char * const power_enable_hids_vdd[] = {
-+	"INT33F0", /* mt9m114 */
-+	NULL
-+};
-+
-+static const char * const power_enable_hids_enable[] = {
-+	"INT347E", /* ov7251 */
-+	NULL
-+};
-+
- /**
-  * struct int3472_gpio_map - Map GPIOs to whatever is expected by the
-  * sensor driver (as in DT bindings)
-- * @hid: The ACPI HID of the device without the instance number e.g. INT347E
-+ * @hids: NULL-terminated array of ACPI HIDs of the devices without the
-+ * instance number e.g. INT347E
-  * @type_from: The GPIO type from ACPI ?SDT
-  * @type_to: The assigned GPIO type, typically same as @type_from
-  * @enable_time_us: Enable time in usec for GPIOs mapped to regulators
-@@ -135,7 +156,7 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int3472_discrete_device *int3472,
-  * GPIO_ACTIVE_HIGH otherwise
-  */
- struct int3472_gpio_map {
--	const char *hid;
-+	const char * const *hids;
- 	u8 type_from;
- 	u8 type_to;
- 	bool polarity_low;
-@@ -145,25 +166,32 @@ struct int3472_gpio_map {
- 
- static const struct int3472_gpio_map int3472_gpio_map[] = {
- 	{	/* mt9m114 designs declare a powerdown pin which controls the regulators */
--		.hid = "INT33F0",
-+		.hids = power_enable_hids_vdd,
- 		.type_from = INT3472_GPIO_TYPE_POWERDOWN,
- 		.type_to = INT3472_GPIO_TYPE_POWER_ENABLE,
- 		.con_id = "vdd",
- 		.enable_time_us = GPIO_REGULATOR_ENABLE_TIME,
- 	},
- 	{	/* ov7251 driver / DT-bindings expect "enable" as con_id for reset */
--		.hid = "INT347E",
-+		.hids = power_enable_hids_enable,
- 		.type_from = INT3472_GPIO_TYPE_RESET,
- 		.type_to = INT3472_GPIO_TYPE_RESET,
- 		.con_id = "enable",
- 	},
- 	{	/* ov08x40's handshake pin needs a 45 ms delay on some HP laptops */
--		.hid = "OVTI08F4",
-+		.hids = (const char * const[]) { "OVTI08F4", NULL },
- 		.type_from = INT3472_GPIO_TYPE_HANDSHAKE,
- 		.type_to = INT3472_GPIO_TYPE_HANDSHAKE,
- 		.con_id = "dvdd",
- 		.enable_time_us = 45 * USEC_PER_MSEC,
- 	},
-+	{	/* Sensors which expect "vana" as con_id for power enable */
-+		.hids = power_enable_hids_vana,
-+		.type_from = INT3472_GPIO_TYPE_POWER_ENABLE,
-+		.type_to = INT3472_GPIO_TYPE_POWER_ENABLE,
-+		.con_id = "vana",
-+		.enable_time_us = GPIO_REGULATOR_ENABLE_TIME,
-+	},
- };
- 
- static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3472, u8 *type,
-@@ -171,6 +199,7 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
- 					    unsigned int *enable_time_us)
- {
- 	struct acpi_device *adev = int3472->sensor;
-+	const char * const *hids;
- 	unsigned int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(int3472_gpio_map); i++) {
-@@ -182,7 +211,11 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
- 		if (*type != int3472_gpio_map[i].type_from)
- 			continue;
- 
--		if (!acpi_dev_hid_uid_match(adev, int3472_gpio_map[i].hid, NULL))
-+		for (hids = int3472_gpio_map[i].hids; *hids; hids++) {
-+			if (acpi_dev_hid_uid_match(adev, *hids, NULL))
-+				break;
-+		}
-+		if (!*hids)
- 			continue;
- 
- 		dev_dbg(int3472->dev, "mapping type 0x%02x pin to 0x%02x %s\n",
--- 
-2.53.0
-
-
-
+--=-Pk9ID3Lh5PcmffxfFbdz--
