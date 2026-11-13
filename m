@@ -1,106 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794551022;
-	b=1n3DFJrmcZYnKTj8v5iKBWGikokhUUyFB4UuQMYrOcWddTfL0nHqo2ySDujzrrxX5hhz
-	 KpIFoUCreLJYCVfyFiV/Q2WOOrnqFnSGnMuWZIWjI9jGKYHnWbSivHXQ6cDJpeySWx9hf
-	 Uwu2+h8HZzN64mfu7kNWRSAWdaXHsTvi6hVDdjQzzXxlm6IJHiLtWx0IA+8VtRSRt1xi0
-	 6BkU20Ubt4E/ROPPmJnmTW3BQzdGsWyNINfAL+BKunYk8TTSDg7/W5227UAvsAzaV8MuI
-	 Jn3qQ87Pg0MbHBLkQuj4NN+ZT3yWmbCegO0jsiv8No98QSbcF1iHnbOHUYOw0z4Y2Yg==
+	t=1794552369;
+	b=rjZInWq7cCUAUyGSjcTolPR4OhKkO4jE/VllWdbMV9WbQ3XjlDkI+7GHJn47lN7lIEKp
+	 jqXefR9aYvv+MRHwJQBgz0yjF/UMWEyO6RbQOWCw8HgAyj4NJbdDXrfUtgOKV7iHuUdiW
+	 AgKznP03xuP+Dwaw9edVnKOR+GCnqjsh5fWPf79AK7Qb0iB/Q3WF1Ec9+dxRXUf/oS7rd
+	 wrSbudOyQi4IPECGraaY/YOnKAFbIjplJ1VTcI2ARzQ7XzyS3b54obY3HobBJAmNtbnGm
+	 jJvnFB89z3iSqP+L2LhgBBcXC+C0in6zpkjS/iV22TTlitXSZ7skPcthK0OYSVYmfIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794551022;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794552369;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=scTX0bumEv05AQNebNSsHg/mOW7TqFZSq25FZEyaOcI=;
-	b=suoxfz6GWYUgi223hGbFThUye8xK920uIik4tk23VK1S8w6Ov7UaS43mYP2rtDDKjIQA
-	 mdtFOzDoKT+NN/r2cnClHxn5zxMWclmDkkh8a2B6IsBTMFhno9cEPL3BWsVrl8jeXKBvW
-	 tqoR4pMeTq+4GHmp7Cwcl4vv9ktM1uzV//SXBm0pmQSej4BD2pWq304cXUgXp8wYpGwVK
-	 mifD7ifnTWpa2ev3aD2OMd8pIoygpDRm+wAjOVerIyz0BbDuNksaG1NABa43YiaW3Fw4f
-	 CsITkskT+wZIyVUnxn0qQx9SQPcTcdQhfgNYyIMCz7qleJIrygBA+9xDfeYQyCafZzw==
+	 Message-ID:Date:MIME-Version:User-Agent:To:Cc:References:Subject:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=sUqaXX36ZDw1piKG6jmL/DoL8tq5IBd3zye0Czs+X+c=;
+	b=mLAs6yU+bx0mxmPf4AsntOnMmPEGtI2DeV8otasDtkuG4CY54+xX6lrZMOII5RVriM2m
+	 H0p4l1XML1SEULEMXWFAgWwNoXEUCzv5+Q2feZgmFnsEbCkE9sgoNyG6sApdu+vi9K12R
+	 1SNfqPlOkitOSXmnKv2lXQWisApqWJqUukVvBnO+0Fdzyqr35JpQplcpQz/7gsuoAtUhV
+	 XbTh/OyyKH1/bN64TIOWsXmShx5eszxLM16wxYUL2F+q5THICqCGChaD6Xp6PECZd6Mtr
+	 AV0gdjGAOdmU9/efmg141IxHJIu4GRgJPJDU8hPTzGrOcQdLo++7erzrhKksP5b7fmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=FPkWGBpk;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RFvfG1Ob;
+	arc=none smtp.remote-ip=74.125.231.133
+Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83ECA606A327
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 06:23:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83ECA606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350FA606A321
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 06:46:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 350FA606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=FPkWGBpk
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso2749695e9.1
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 22:23:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RFvfG1Ob
+Received: by mail-oo2-f5.google.com with SMTP id 006d021491bc7-703478630a2so272601eaf.1
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 22:46:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794551020; x=1795155820; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=scTX0bumEv05AQNebNSsHg/mOW7TqFZSq25FZEyaOcI=;
-        b=FPkWGBpk/+uXvN7d8744zAwrLdMCouM1Hpl9aCBeyVo4Fs/0Pj1xsLJvubN9r3GJXc
-         1gxiErW2ve2M3VfoTM3SoKFurchZBNdkD3dgwNrN3+8YrjE0FP+fjOZM7GlZ1bUqg/6k
-         ioT+xge4GPeCMFg55Dg/XJVBqL4M2zBNdc6n1XO8p5HtIy1hp+PjvgeNjv69HGQjkkbJ
-         /mHRayRZBQyoMk30pBOOm5OzWKwG0HoJNS20TBTz8P7M28axuxf96ZcFMxgCU2ljVX34
-         L9xI/Ibuz4YIq8MYIJU7S57SIWQ6m18ACVwlUNoGUjKSRTxEKMtSz2feydcXhA+GIH6C
-         3/QA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794551020; x=1795155820;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794552368; x=1795157168; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:subject:references:cc:to:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=scTX0bumEv05AQNebNSsHg/mOW7TqFZSq25FZEyaOcI=;
-        b=XcXl9rDE9VSwx26ywK4a92QbjlpWKyNdaTDuzTf9fUuoUEqqh0qmpoxWxFtOAQ3Gc9
-         /TVgLKF0RTSv0n1aa3itK165TsvwVcgPug/qwrK70U52bDSuvFwzriRCfnDh9EnrZgVV
-         A/wAeaJNyKSO9zHbjpJUdXtiF9t3Mb64v03NBdj09+CPjH3FoTxXYogaiJVC12AxpZ6F
-         4V3vN8uO4m60z+A5VC3Zf7RJ6XJivIJUZjNDaKeV4vVZdT5C1AuMOfIHv+MGG8hwS9tr
-         JL0s22Ns2iM/1lO3Qzk7enTrOaOPJ841lYTJPjXzFxfORJ7PN6qasHveHYYgR/1wTsCq
-         V4ZA==
-X-Forwarded-Encrypted: i=1; AL+hErFnhAHDjBI443aOmzCaiuUFJ1HAnriS5YGzxdEdwKtvQAcD5mrTjqK4fYArPVhUs/PwZinXYhtM63jKQw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/PMA5h/5Y+slpSmE4TdCz4hcCEf06PP5iPuuUOcdzBGjB/07qu
-	RU+BjQSVhwCA8lXI5A8uo8xtUZUFRC3zpCXObjWSuXMay5aVXnYMLd5JDQYqyuBu8ZM=
-X-Gm-Gg: AYBFou0+yKYSFu5qt/DByT1/fCHDVNnOXoZyx0BYq9F/il0pA2vDewGRmiHEkncqLiH
-	PNUHMdrq2+FPGzjjdg3STR4+T/YOTmlukcK+3Nc4fwiOkUBrg40eb7+tfOccp2lAGA1GgcFwbns
-	J7bydt9w9ZTNiiGtfa8ZdZ4kKSiZed9Ab/QKgLS0uLjqjNu1xOJe6MqHP1CC7/dX3f/+e4ARB9M
-	ivPid01+GRSdvKSWrZO0h25ViPz5akETKKr5xSrKWhItlOAl0BansRKoYyc9ehV1cn395TSrcr+
-	DWpKYeo2Ts9iJOOPQYBKA+HaN/TQtPue5sCnd/98hbFJUc3tiCcjslj6gvUXfdNPIJbxLWnI+SN
-	Zf79CLar8lb0WFzGI82srgLRa+kryseAUweI4RlM+NTZ3fp40FhFBtIECMaj0KZGSBNy9SLsTB5
-	FrV4qhZZ9PZY3WQPhpB1mxjsHVkgv0izauW6Gk8rv6lAvDUdSMab6e7Nr5hosu4uZnJp5f3SZKY
-	tIt5GJL3yA4oEPiw2RmxB/z4bQPE8Kbs6w15M2cO7gD8IqhPI1ozt/fr5VdLs5mHumAuEsnEs3x
-	PkpeUGU8q+F3/UwkonR/uNIEu0vtQ8VeCUwsBaZYkG/MrdrAxRrOW78Ulec2ODGBkxPOmynq1/n
-	u5ynh0/LL4A9KPYWhtLo=
-X-Received: by 2002:a05:600c:1daa:b0:4ba:2bfc:c8ab with SMTP id 5b1f17b1804b1-4bb55a4801bmr29639465e9.15.1794551019876;
-        Thu, 12 Nov 2026 22:23:39 -0800 (PST)
-Received: from localhost (ip-091-089-005-024.um28.pools.vodafone-ip.de. [91.89.5.24])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb56f8d054sm16744035e9.3.2026.11.12.22.23.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 22:23:37 -0800 (PST)
-Date: Fri, 13 Nov 2026 07:23:36 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Joseph Telaak <joseph@telaak.dev>
-Cc: dri-devel@lists.freedesktop.org, 
-	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>, 
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, imagination@lists.freedesktop.org, 
-	Frank Binns <frank.binns@imgtec.com>, Gabriel Gama <operatingsystemsdepression@gmail.com>, 
-	Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Philipp Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
-	linux-media@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 12/13] drm/powervr_sgx: Add the DRM driver, power
- management and debugging
-Message-ID: <avajebb1alBnAm8U@monoceros>
-References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
- <20261112-powervr-sgx-v1-12-c69b84bac011@telaak.dev>
+        bh=sUqaXX36ZDw1piKG6jmL/DoL8tq5IBd3zye0Czs+X+c=;
+        b=RFvfG1ObzGHbopX1ZuaAB4wEEaXW57YBO5XsksmDUD4avVD7sFneacr10wa+KmUK4L
+         7gwfhBViUj1ePZhkKncqn1AUId3ruZdAWlFWYHNMZ1AbSNxXbH4JytWgLWJ54ENRTtej
+         7Y24KoLKuhiC3/jaWuG/+GB246T0bG0DtF++k/7N33jX5L7QZDKHHlRH6Dl940G0vKJ7
+         VRCaoSx1rm6vwmTTqkquW0WTTZqoWmaJzdHynv1AwRXyg95/4T2WMLtS7RuUbCTFAaI8
+         3/lcyoR6RA0Q8nIgsYaD9WHmRMr3zUm9XX34yL/+wFIWzO1e6aYZfedSkowwrSYI+4eC
+         VO6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794552368; x=1795157168;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:subject:references:cc:to:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sUqaXX36ZDw1piKG6jmL/DoL8tq5IBd3zye0Czs+X+c=;
+        b=y2Jhz0E1Gk9NQyT5uCb+Zfh32vgxHykwcBncxaSEA1cLJlihUbOhNh2T4uWsnl34tb
+         4nQVYeQed2fxoFl4xoEXMKG30iUl4iHkpKMmL/JxEYQMMVI1VA1OK8wwwqElFecg5NUc
+         4zvxmjCP41r9vKmTU/6tgphuseVpAADbfvoEoEWkADrvhfMtacncYKCa/WZiczYvZt6J
+         3mhE/rdOcNpIn/qWxM3kKjaa6K5LJkw3+D+s87XCZVcugB4c3xM6hxiNLwGoiI/we89O
+         z0WejK98mQ57wCjphiVkpdDACjY19Gxc6bx1oAhEo+SkD6tlmHJGFEcNM0pDb9MXedIU
+         yErA==
+X-Forwarded-Encrypted: i=1; AL+hErEQgOGTBOHzl49QDUjwgUxBJ6e0+HyA4YCb13GrlOHLtugDRtznBuw1JVx6LhwLU48ZB0NNdqymmF4lzA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/D+tZq1HxBFmYb61WBE79pDkoBxbL3IE5jxTJhlWB2gCIvAPm6
+	D7wzzscaImaGwwhrL+54hy7tMbLPpEhVgKo3SRDndp/MSbJZVD6oesMQ
+X-Gm-Gg: AYBFou2Q/UjfvdWz9vdSJ9J+7DzLRvTGQ1E73lkKixcgzTMY1Any887f8bQ6fZpq76h
+	bUt1rX/iF+Xcq6xK8zxOcxg9COCJT0dKWgpRsLtgxHLTEZVfNRDaNSGoOpevoxGa3qpd+p6DBLv
+	no3iwN7S/tWqKUJYMgK3Judvr3zQYZACFpSsCKxWu39pjwrKw05NiYFE/wQFBt0dzwmKiPfPIYC
+	SmINVavf3amOzw6X8e/I1Xt0ZqpP6MGAjzPUV8aDoRQIhRlwNT2J1xY58tw2kNOpoZHaagIm9be
+	WIwCkuFpBq/hvaTfqZ2OMARB3vgYxNldGL3JgI0jVYJXUYONM6YPvfN285k6+6IMpHGqkdlo7jd
+	Ckbexo8A/LJLBRGucRodM4ioZs5mj/wC31aBv9bGq3zeUWLnN69wm6Wp8y1q3yBOrjHacMqROqO
+	/8Ln55hHiyW9dQyJ1OMIA/1IGdqFqDGHC4mg7t/MmfYp/tXjVAKtDBudgKPx4+GXHXMVe1alsk1
+	+HpW6e9eugJzSwNmukwSYroZ9nbKeGNKc9q/BoSoe3D4NRy3N0LnXWs4252uf3lbpge7w23BUFq
+	tffTSO19cb3fa87A+hS90UzqA77OZBcudKoY74a2OH4flQ==
+X-Received: by 2002:a05:6820:55c4:10b0:715:10ef:578b with SMTP id 006d021491bc7-71ab5051781mr614940eaf.62.1794552368056;
+        Thu, 12 Nov 2026 22:46:08 -0800 (PST)
+Received: from ?IPV6:2600:8804:5716:d800::f01a? ([2600:8804:5716:d800::f01a])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4afe228982bsm906195fac.10.2026.11.12.22.46.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 22:46:06 -0800 (PST)
+Message-ID: <9accec98-c16e-4815-a479-b84fc39e4580@gmail.com>
+Date: Fri, 13 Nov 2026 00:46:04 -0600
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -110,83 +92,37 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="q3fovxmny7pd3sxx"
-Content-Disposition: inline
-In-Reply-To: <20261112-powervr-sgx-v1-12-c69b84bac011@telaak.dev>
+User-Agent: Mozilla Thunderbird
+To: devnull+getfeus.gmail.com@kernel.org
+Cc: Xiandong.Wang@mediatek.com, andrew-ct.chen@mediatek.com,
+ getfeus@gmail.com, houlong.wei@mediatek.com, linux-media@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, mchehab@kernel.org,
+ minghsiu.tsai@mediatek.com
+References: <20261111-rfc-v2-generated-v3-1-e49697d20806@gmail.com>
+Subject: Re: [PATCH RFC v3] media: mediatek: mdp: Keep component suppliers
+ powered while streaming
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <20261111-rfc-v2-generated-v3-1-e49697d20806@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+Hi Youngjoon,
 
---q3fovxmny7pd3sxx
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC 12/13] drm/powervr_sgx: Add the DRM driver, power
- management and debugging
-MIME-Version: 1.0
+I hit the same thing on another MT8173 device, an Amazon Fire HD 10 
+(2017) tablet (board DTS still under review), on v7.4-rc2 with VPU 
+firmware 1.2.0, every job took about 1.9 s, the firmware reported 
+success and the CAPTURE planes stayed zero, for MT21 input and for plain 
+NV12 -> YV12. LARB4 was off during the job.
 
-On Thu, Nov 12, 2026 at 05:59:02PM -0500, Joseph Telaak wrote:
-> +static const struct pci_device_id pvrsgx_pci_ids[] =3D {
-> +	{ PCI_VDEVICE(INTEL, 0x089b), 545 },	/* CE5300 family: SGX545 */
+With v3 applied (one context fixup for devm_kzalloc_obj() on rc2), all 
+seven sibling blocks bind, and MT21 -> NV12M at 1280x736 from the 
+decoder matches a software decode byte for byte for H.264 Baseline, Main 
+and High, VP8 and VP9 (30 frames each). LARB4 suspends again after 
+streaming, there were no IOMMU faults, and a system suspend/resume with 
+the driver loaded left conversion byte-exact afterwards.
 
-Please make this
+Tested-by: Ryan Brue <ryanbrue.dev@gmail.com>
 
-	{ PCI_VDEVICE(INTEL, 0x089b), .driver_data =3D 545 },	/* CE5300 family: SG=
-X545 */
-
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(pci, pvrsgx_pci_ids);
-> [...]
-> diff --git a/drivers/gpu/drm/powervr_sgx/pvrsgx_of.c b/drivers/gpu/drm/po=
-wervr_sgx/pvrsgx_of.c
-> new file mode 100644
-> index 000000000..e347a3699
-> --- /dev/null
-> +++ b/drivers/gpu/drm/powervr_sgx/pvrsgx_of.c
-> @@ -0,0 +1,119 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/* Copyright =A9 2026 Joseph Telaak */
-> +
-> +/*
-> + * An SGX on a device tree SoC (Documentation/devicetree/bindings/gpu/
-> + * img,powervr-sgx.yaml). On TI parts the GPU node has no clocks or power
-> + * domain of its own: its ti-sysc parent module enables both, and applie=
-s the
-> + * SGX interrupt quirk, when the GPU device is runtime-resumed. Every re=
-gister
-> + * access happens with the parent held awake.
-> + */
-> +
-> +#include <linux/dma-mapping.h>
-> +#include <linux/io.h>
-> +#include <linux/mod_devicetable.h>
-
-Don't include <linux/mod_devicetable.h>. of_device_id is already
-provided by <linux/of.h> and also by <linux/platform_device.h> without
-the useless dependencies that <linux/mod_devicetable.h> introduces.
-
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/property.h>
-
-Best regards
-Uwe
-
---q3fovxmny7pd3sxx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr2rOQACgkQj4D7WH0S
-/k653gf/auhko2qaNS4BWJKPTZ0U6dpwzMZplMcZygr/SRNkqB4rtNEr7cniJb/w
-6HZVwgsx6EXyuiQ3Fznzch9R+5VAoHbqY1QrjaycWAttOem37Sm+3FGHqoG0zW8R
-XSea37dwrl441qCF8WonzOU9YK8dbo2CV5Bi6SGvtf/fnaj1F3smvAws5CmtB5yq
-KEPdVWFNnVGqV95nEDkgb09I3EgkCZRkYmBn3bEN+VrJRvYJOfNdGX8AkBDjog3e
-D6eh7mRm1yDdkHd8zrpKf9tAAaS784qhDz6YzqobHn/DSybseU7VEV+6gsajSEWE
-tJ7bUnZyLTpFf7SLsE8ghAOQ8KSLmQ==
-=uMBo
------END PGP SIGNATURE-----
-
---q3fovxmny7pd3sxx--
+Best Regards,
+Ryan Brue
