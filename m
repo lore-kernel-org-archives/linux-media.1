@@ -1,47 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794533601;
-	b=rX8WPFBnLwh6r3jeZ/ES8q1LUDeOuHMtATAR50FhTNoEmE0n3qIZeIVuElTtbnzUeXpy
-	 OOjZU0ZsTR/QJRT+BqtE0/eCOj6f0PEKGSD8KJigeluMKPicjXWe2dSsg12MS/oHJZwU3
-	 0T57h4EQTaP7zgxolSxYPI4kaLBcmEyVwsvQpYclsihp/y8PskRtbWcPkftW/mNtVJQ90
-	 ip37WtVbdDxxmORLwG9D3PMbJTOxW7EdSR6qxMrVsqG0UTCs5M/ZN5KwBaOUT4bc5zG9Q
-	 gJILv5GlfJDz9v22S1Vf/jZVbz7roDz9ePiNqCwSdD2GFlR7CKK/CBBeOepTlXjUtgw==
+	t=1794534610;
+	b=MqUujUIOdxI6+uWFPGa1BqSk71FdzYwhMhFQAGu51tyPvqUKQHd9RDdY22+n6BdJYX8Y
+	 8PrD20AZtVgrVBJItA4F53xlYoxeWgCAtIPAknAwRvn+BXjUGLb6HzoSKSK48dXWbT36B
+	 TTOLfqPN6M58U51nGL8XNGRs8ZgV1g6V1gKkmfzopLUd9BxGgKvQHvVaDhF4WernmWDyH
+	 +M5fm4jdDSLPE14VqSsrmvRz1XQrLGjLRx6X0TcrfRTftYyEws3+hyHqVvvK6umGWebnW
+	 nmuWWB7JBN9uK/88GrImIYo0apwvnnCDtzOr0yCooqNlBZJuY0Wmti7lIoYj7tZB5iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794533601;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=NiFkBtdlf69jAlk3vtnsU3JfD+qZUSIIy9+AOL4jaRM=;
-	b=0JQkC6yFvtd5nbi0BhTMb7XzoRL5FZoLmKKADImGU9oVZwTlo8KoMEsbzdjK1N9iQ3CX
-	 A+DsZP6snXjEZbBXKl7jc+VL8+geP99O3VJP1k++IYbpgaE1jZvhQz4nqNE0QIrNe91PI
-	 ui4FjEgCM/PSM8fFSLWC+SJ7D4r46+/lff41RsUyFiqQJ1te9+AnzGe0p3gTwaGdTby1z
-	 Mmi+3sG5fmMH69McpinenDlHeq/MYTYC+iPa9fuae5V1z5IcZBmCrBfzPLmQAOPFUoqA7
-	 bDaT4Bma2B4apJomGEF6ezEHmlbpfVrud+sjm5R0AfusYLXsiTYv8vamRZ8HnEFnTQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794534610;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=QzinTeqzEqx9VDWaxVqJ4vfjVAjHu7CF3CCxvyfyEck=;
+	b=NZTjxSnYmkyo1fR9omsOHCDIdsFlr62FiI0CicC8Uxix2oppzBuQJDfx+80DKbwhGJiA
+	 3fDWFegosDUNtRC4D5Ye1p9WpOEdz5cYjuORTJcbQvZ7omq0ENr2S/GGd3xlCofsIJO10
+	 a3GIrQAEYR3OnHLp8bPPmMdDSJsd1uEgXe6TMv1fuMblnqPHZAExnVm+L1thlIxcy8647
+	 KvUFcp4QGUXVK6J7MZ08pksmhNVhisHLmf+kgvVqx7IpuZdW1fH4r6rM62lN8MiBPdYN7
+	 vsg3gaKgkFhn7YRr+PwdpZdogEJq0E7+N0sEGw7GmBoD0+DRYyqh0TpbIPdJEl4fKPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AoO6wBop;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=nilk.net;
+	spf=none smtp.mailfrom=nilk.net;
+	dkim=pass header.d=nilk.net header.i=@nilk.net header.a=rsa-sha256 header.s=nilk header.b=tWp0rI71;
+	arc=none smtp.remote-ip=74.125.231.135
+Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60B8606A31C;
-	Fri, 13 Nov 2026 01:33:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B76606A323
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 01:50:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9B76606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=nilk.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AoO6wBop
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 291EE1F000C4;
-	Fri, 13 Nov 2026 01:33:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794533601;
-	bh=NiFkBtdlf69jAlk3vtnsU3JfD+qZUSIIy9+AOL4jaRM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AoO6wBop+R1gHyC/pR2/jxKK87XCtn4sUAsc6Dt/0gcDiSlcIKFagNKPlgxXICj4c
-	 nZpgND/pRq0m9poYXVs+B88/okopMD8/ZcVEveWW5CV9IrURqFl2htcrYDKDY5gKnf
-	 8yJj+KrKBwWQAeySkf5HlR5v4gOrnTuy3713Vj8ZFlhAr/aPKBJtDBMguskbC1ZnkS
-	 lO9ctZHaJzTZS1c49Eu6uzWI0mucIVHmn2lCPdxPDpf4aegj8SAucCpAEGCvjv3kjo
-	 o006mXTvFhHhJUXMTDmm3uEL9/Kz6SJ81d/LamEs7FCdNKQVXQ6kgi/UfKUQKjWsXN
-	 8K2Ej1uIOcLuw==
-Message-ID: <713418c4-e84f-441f-a5cd-438ee7572300@kernel.org>
-Date: Fri, 13 Nov 2026 01:33:16 +0000
+	dkim=pass (1024-bit key) header.d=nilk.net header.i=@nilk.net header.a=rsa-sha256 header.s=nilk header.b=tWp0rI71
+Received: by mail-oo2-f7.google.com with SMTP id 46e09a7af769-8615bd716c4so221245a34.1
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 17:50:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nilk.net; s=nilk; t=1794534609; x=1795139409; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QzinTeqzEqx9VDWaxVqJ4vfjVAjHu7CF3CCxvyfyEck=;
+        b=tWp0rI719UU142KQhb1yPGUl22F17Sh1JUxpA4NsFc6kEp0tYVQHnx5pXkb/LVfX1f
+         apiUvZt7erHl1d1SZQPcXchXhdJwr031RgMcmeLjD2AqxA/cjX+tXAMgMye2C4J01kmW
+         4VCNg4tNBzaeV2/xYB+XAyTMxKM8cJPuALGzU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794534609; x=1795139409;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QzinTeqzEqx9VDWaxVqJ4vfjVAjHu7CF3CCxvyfyEck=;
+        b=Kyv3yjGduiK1waoUVd54d3kUmJrL6a3d8HQIm1Wx6KvMot9TW8CEQ5u8SifnIpmy0m
+         qrLcABe/49Dt6sM0771SkyQKmdI6NJgZPZ4hkE/c28Ng5QmfoG60d2RNmzpXpOzaxCn8
+         z/een4XgcqXxNIlrPlkImy2hMeduWuK9CWB0tCagAelarYeqDHjmqtAGacLW4MgduKYR
+         TXmX8YcioDulIEXAqVE3dWVd2Aj4QkMXfkENgAAJ3riRxakgw7tGK3qxg52yMOzc+5RE
+         JwS9WXjYRhroBFG6lixaWpPlYK6wtiNHPrrOMJBZXum2moqO+WCthioIvyTlYcEQBgca
+         QnwA==
+X-Forwarded-Encrypted: i=1; AL+hErGWiwB9y0Iz+2gGcr1Ipkb9xzSMjOlwtqTVQilD0kNK/g/oaJFCFV111qrBQqGpvjQSmOu+M2Ch68nZhA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+fNi5WJBv6Fp/H8bSfhXYfi7qvUvVZQRSbEKIGYnTWCJ0fQioj
+	rgfFCytF0FWBajU79BiXz2inPA44p24PWcT+c/hCpoOcRHL9oR2KvrfXb5sGh89k7It43wLupKU
+	+XY6gDE3Dr50=
+X-Gm-Gg: AYBFou3ripYC6hQMCxZBUiInBrLM+vFEiMCY6RwTPy65In9W3l3q4MafRkR/xq6HwmF
+	bOdxkbi3mtDz3tWpw5ph/VHO7RJloGah8WLqli70n7/a/AK2DroURx/EUEzUH3XUxCnbRte10EI
+	r+DOEHRf1MUuRJOnMKUjDhrgPbuH3MNIfajRLvwJOPjq9bZlSTPQQeO5EGyod+XU/b3LbZwhjNA
+	4jD+SIAROyhBAjpbQqeDzEjkL9RSNC16voWkdD+EBSsKHNwLS1JZyZIjUaQbXLwbtUM3jOqmDbr
+	Iyp0wMEGWAvUCvtmivEOsgYIGZ8xtdkLtfq6OXWjKJp2FP1yet1IEqbobvpIWor42vdRW3W6S6W
+	zoPYFUQv8d2Uprd1u8VwCvLUJQLtr1Be3AvRxvrPtpmKp83B+7BK245awq8n//n80tdZ223Q8+b
+	Knd6oCjC3XWF4Mz77v2fe3DEV7nmxErAmF+EISL5UPl+fUDXjd8h5FDToOPHIjr/qCifdLPVhG/
+	Z7sp3vJez5dFTe9XHm3aIJbaY2ZxW5mh54Fwo5fd30dUALHtyIh1KURqxuu0XiLT2a7sMFvgqtV
+	FWxrA3ATobAeY5pPSTXh3wNrTDp/+8FSh/EzjoxYNLutG1gEOGglK+HY4wHWADmVk0YvUe/u4KH
+	Rr3d3jjUd+LIJfWvYAEXv/+3Fg+wboTV6K/kEolAznqiDHZ2g0XaVZEqJ2cHVze2lTEfcNturYw
+	Gh46NvlDiIH2ZPMXFERQqTIvI47mzO9ea/p6zHTdZtpXTSTo31zul9JXPG8QdNr/C67fvkCIspj
+	7pjp/+T
+X-Received: by 2002:a05:6808:23d3:b0:4f1:a873:6efc with SMTP id 5614622812f47-56e65a25c0dmr969736b6e.64.1794534608616;
+        Thu, 12 Nov 2026 17:50:08 -0800 (PST)
+Received: from [192.168.0.45] ([187.14.251.153])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e7044690dsm811902b6e.9.2026.11.12.17.50.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 17:50:06 -0800 (PST)
+Message-ID: <3e1c4b83-9eeb-4425-8231-216bf6c96038@nilk.net>
+Date: Thu, 12 Nov 2026 18:50:04 -0700
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,103 +94,42 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] media: qcom: iris: Fix IRQ disable depth imbalance
- on watchdog interrupt
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
+Subject: Re: [PATCH] media: ipu6: Keep psys out of direct-complete on system
+ suspend
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Antti Laakso <antti.laakso@linux.intel.com>,
+ "Sapre, Sarang" <sarang.sapre@intel.com>,
+ Divyamani Tripathi <divyamani.tripathi@intel.com>,
+ Manik Bajpai <manik.bajpai@intel.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Hungyu Lin <dennylin0707@gmail.com>,
- Stefan Schmidt <stefan.schmidt@linaro.org>,
- Hans Verkuil <hverkuil@kernel.org>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Danilo Krummrich <dakr@kernel.org>, linux-media@vger.kernel.org,
+ linux-pm@vger.kernel.org, driver-core@lists.linux.dev,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261111-fix-disable-irq-safely-v2-0-8e13f68c2ef9@oss.qualcomm.com>
- <oczdbf5-XlKLK_XWRsYOoZxRTcl-VoOjdI2mGoUNY0r9wGgG2fWWgq2eXT3xLL_DL-m9xepMPjfinxdwASiagA==@protonmail.internalid>
- <20261111-fix-disable-irq-safely-v2-3-8e13f68c2ef9@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261111-fix-disable-irq-safely-v2-3-8e13f68c2ef9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+References: <20261017-psys-ipu6-v1-1-56e333f6ed04@nilk.net>
+Content-Language: en-US
+From: Chris Simpson <chris@nilk.net>
+In-Reply-To: <20261017-psys-ipu6-v1-1-56e333f6ed04@nilk.net>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/11/2026 09:05, Vishnu Reddy wrote:
-> iris_hfi_isr() disables the IRQ for every interrupt and the threaded
-> handler enables it again
+On Sat, Oct 17, 2026 at 04:13:38PM -0600, Chris Simpson wrote:
+> Since commit a1fa010b3c9f ("driver core: auxiliary bus: Drop
+> auxiliary_dev_pm_ops"), the auxiliary bus has no dev_pm_ops. The psys
+> auxiliary device has no driver in mainline, and its PM domain,
+> ipu6_bus_pm_domain, has only runtime PM callbacks. So
+> device_pm_check_callbacks() now sets power.no_pm_callbacks for psys,
+> and device_prepare() puts it in direct-complete.
 
-This reads like a statement of a bug to me.
+[...]
 
-> except for a watchdog interrupt, which is left
-> masked until the firmware is reset. 
+Hi Sakari,
 
-Which then gets worse.
+Gentle ping on this one. It fixes a regression since v7.1, still
+applies cleanly to v7.4-rc2 and to media-committers next, and the code
+it touches is unchanged in both. Please let me know if you'd like any
+changes or a resend.
 
-iris_vpu_power_off() decides whether
-> to add its own disable from core->intr_status, but that is only updated
-> by the threaded handler. If a watchdog interrupt is still pending when
-> power-off checks it, power-off adds a disable and the handler then skips
-> its enable, leaving the depth one higher than the single enable_irq() in
-> iris_vpu_power_on() can undo. The IRQ then stays disabled after the
-> reset and the firmware can no longer be reached.
-
-Why don't we just do the _simple_ thing and enable the watchdog @ 
-power-on and disable it @ power-off ? Let's at least investigate that.
-
-If its infeasible or too reductive consider: passing IRQF_ONESHOT to 
-devm_request_threaded_irq() then the kernel will automagically mask the 
-ISR for you and will re-enable once your threaded handler has run.
-
-We can then remove the watchdog interrupt as an exceptional (no pun) 
-case from the IRQ.
-
-Either way this flag mechanism smacks of spaghetti code and needs a rethink.
-
----
-bod
+Thanks,
+Chris
