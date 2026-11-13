@@ -1,104 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794601991;
-	b=QDEJQFfXBF6gaWekcZGclaCn81tahxpEuzXPMsSW8fD3fr5/UQlI/9gTBY5H4AeFb+Y4
-	 ptf6CJGZ5u0+glURK+Zhn5PY114RMwrIFi/Jtz6QHOOPKuxLeSt4iFtvjQRa05JwksMRc
-	 5i5Bk3qeIIzChCwrBqZ6v4PhIOv+U++I9B2ktDegliJX2vqkXHYDqM8JkImCIwc5+pHam
-	 JJVaMyXNRcV165t4MQ1HsgSwNXmjlYx39hLiVgDMKcpMNltv8x7SDV5ZIb1D8xLdQhm49
-	 CXuJG7AAhJkAqQ3tEc+TDhNBVckC5IvLHp0W6OIjL7TBR2XHcZT3A8lt8TYopLntN7g==
+	t=1794604254;
+	b=0XfsFfruX9xyF261zTRC8AgMI7YXckTzIgRO+X2OGEps72JHNUKrT6JDVOm3A4JD6hc/
+	 Gr5aGgd08+AxsZBA98eVm/c2sOpK8m8GiauKhrokQ/VrPU/zZfGnfntxWA7B+syKIuPZo
+	 bMgqFpZJzmr7jkWKkW7h0ab1zGyZkuiofIR02WYTn1alCrQK6tPlkS68O2opE34irPmER
+	 jIodOpt8XstaGPdjuTndxvy2B9YH20xvZcUJZgT8JkqBxldzbd53FjK8y0alBEhtTr/9F
+	 Ip5p9M1sdh65yCe/+bdu75ErAlHiqRGlvKT4Qm0VRG3nW+s+br6FGGJDRegA6F8tpqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794601991;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794604254;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=9nMyN0VEnSPNDMOw40qCksgSnlqSB2G4sRnpFPXnQgk=;
-	b=YpKgitPQTNNbI1bj2+MiCJgUOJuJ2JA40T9gAoOQM+/SwzvPg6GKvBMC7r44RuPX50TQ
-	 0TJ5VRPnUI0bToWCDFyPsY9PRE+taHqN/MbVhRd6qrVW7aYy2yDknV/DegIeGVCuOmxWl
-	 wdjUQ4QmRC1izBACg7HI1Cg5+nAPPgwAz7Z5+5jfi2i22YwqtVbs+7M+gFS5Hfx+alRXJ
-	 E2ueLe5mfgPvSrQk5pi6gqqJUEAe05eJGRFLwD6t6XKgArPKr+b8JVXrvqnW8paCacTIa
-	 sIMScBjxeZH7IjLR1zr/oZrFAr6qU3my8dhBohP10BWgTx9CEYrxwXb9pYROhcoBdXg==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=GN0ortW4nQvstQDFiIJ5PqM8QgjEi3y1N04o3CsU+ao=;
+	b=POfrX2bRr8HDPwViu0TNf/YgMyCiYWMoVWloIg2HqdPTpIVnrzyDG+wzEB03kYd5Nt7Y
+	 CpfGqyJkFiHYD8LtQCMK91ikyiPIlre6EpD56vMg6VN6exPuVBhYUFx6D0iqGTixVMzo6
+	 gVdusQ5MxPbmbPcOZs5RyJOVRzE6XjPjyRZBxEA2z7L3kFT0y61q5J5en0E3i1a46K681
+	 h+fkJphkrxgRUN3e0RmJ4gPfXTDYUUzAtQ8xZsz9SeNFjNHB2qOziGQ6hgbzU1Tn4JYZA
+	 n/4xDeZTyThAk9MQMgbDsuNlJcOmiT4mvepD982DW6Y4db6dgb8c4LZMmMaSzqE9JMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=none header.from=telaak.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZLp7NZCm;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	arc=none smtp.remote-ip=74.125.224.42
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69269606A339
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 20:33:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69269606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DD1606A335
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 21:10:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49DD1606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZLp7NZCm
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ad47c246f8so187981a91.0
-        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 12:33:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794601990; x=1795206790; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9nMyN0VEnSPNDMOw40qCksgSnlqSB2G4sRnpFPXnQgk=;
-        b=ZLp7NZCmQWAAnZ02+wYgFgtbHoC30BCdKnKTCxTln8KLpmiuRrFaIwdwJYQqRVA7g4
-         3cT3k7GD/iqJcSTBNWoEZwtTAoHK3HMcq8gcZgA/8eemkhVFrf80PhgUm4gLWvpYA6S4
-         oaAQj+fTjki9zESLABnYD15O/9hOmzp6KvYeEMjVNy9QiAqZfcYHfbTd6mUj7PnYHinq
-         Oa4m9icOmpJ9ZnAvvgLh3jj1bShZ2E1R0M4jEqBLK5gHb60u7YPmoCRaxKsaspFN5wSE
-         c/j/3fPOsOh1OavfHx1WW1EBmwMagB7r15vwyz09Eb75/4Mi6DyXjdfvsMVr9CgseSOL
-         FTsw==
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-67c0ffaae1dso2631454d50.1
+        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 13:10:54 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794601990; x=1795206790;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9nMyN0VEnSPNDMOw40qCksgSnlqSB2G4sRnpFPXnQgk=;
-        b=05JVplN6WYunBRICMujLPm5BIHPrLJ3qQgQscyI33706k6a8sxTRtgPkfBnh1eJ20L
-         h6BQTH3NJaFEgdz45k63jrrcoLaab+gNajDqoPryi4oZb+LFU3ks1gPZPjjSvA53zPLN
-         5uj9lZ4wF4tzABKiNBZjGPxGtNKisxaj1cRtnizPxZyZaS3LD1mBKb2gN60k9VXhfYdJ
-         pHSvOk/QWtYZX+gC9DLD+sKo41TRKj3edS8ativ0SsBCMEqwElKNux74Hz2PB7O1nwKk
-         N1UIpNvqNMdEDXmtRcCmwDKpsPKcnOVdU6sqHccjNZien+TMawrT6XHULgrGsFloMvp3
-         YOtg==
-X-Gm-Message-State: APuU4Z9JVoU5alThyz8O0rHvIld+7G19TVa3R+JcFStK7Eizt7hj7WFB
-	Lhx6/c85co1rr05nPWE8yfA23xwTjBcxUAwEpAqh+P1xLB1q0Mz0f/Mb
-X-Gm-Gg: AYBFou379B4SJy/A+gKcK5IweCS9/jNxOoifjjkaCYASmuZPbe05RzkeCCM61Tqdjha
-	nRK2hx2JYUFK7PotH7qK0LTqObrMPdDeYqgl/5R2lWgnq8V09Kw/xU0ol4096gwA39SLyU2m6Sp
-	bk4m3W8t7qGQjhTW0G6Vcddqzg9J/a41n9WG50wN1UjiYhGa7+/lqdEqD6ogls6x8eFWgNEWrGk
-	98+/z2PustqgdpwDG+iIxNaEbaBpOyRGR09XFy3afjmoRaPjK8PUAyyL4WzIXunwtnkj6mmCE8N
-	wUMjG/YBGzuPDIqnQajy0BK6+Ug4OY0uh4vhdH+G5j+8xPfOHoA4ZvKC/Y7i4/EuCxdTc7Em5Fa
-	MOLfS3s0kRJN91zbm+WDKHZlqYEP6ewFWEYsnxZc6bZ8sUpEDglCtK5n9Mim8sZ72eVdofgCMMn
-	u6h5bXSJcYT5SBU2FLrrdZGs/7Hjf/lzuiZWkTUVMekBFmHh/Sn6Hfq36Bhqk1LSibPoTpymVaA
-	BgSimD1NiYD/YKjL0k/XMfM5cSMJkw+cmlaJ38i4tL4DRPpR4k/XT8S8u7OcVMOgtBtlFhW7RMn
-	WbT8r69txj8Dh3R/0Cz8BVuk8HjKEnrp/15riMKKkzSUDcT0EBeFuPiH/exgq8yVNy5RFuGpwgO
-	t4sKePRlvZ7yWoMhiLhU/dSDqbUg=
-X-Received: by 2002:a17:90b:4d05:b0:3a0:c1b1:45fb with SMTP id 98e67ed59e1d1-3b1b05aabb5mr4604273a91.0.1794601989766;
-        Fri, 13 Nov 2026 12:33:09 -0800 (PST)
-Received: from claudebox.iyengar.cloud ([50.39.139.68])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d0f6e0sm11168256a91.9.2026.11.13.12.33.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 12:33:09 -0800 (PST)
-From: Arun Iyengar <aiyengar1990@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>,
- Detlev Casanova <detlev.casanova@collabora.com>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Paul Kocialkowski <paulk@sys-base.io>,
- Sven =?utf-8?q?P=C3=BCschel?= <s.pueschel@pengutronix.de>,
- Hans Verkuil <hverkuil@kernel.org>, Jiaxing Hu <gahing@gahingwoo.com>,
- Daniel Almeida <daniel.almeida@collabora.com>
-Subject: Re: [PATCH RFC 00/12] media: rockchip: Add a VEPU580 stateless
- H.264/HEVC encoder driver for the RK3588
-In-Reply-To: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
-References: <20261110-rkvenc-v1-0-ea8b47122d8c@gmail.com>
-Date: Fri, 13 Nov 2026 20:33:08 -0000
-Message-ID: <179460198852.187691.10732168634380090377@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20260707; t=1794604253; x=1795209053;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GN0ortW4nQvstQDFiIJ5PqM8QgjEi3y1N04o3CsU+ao=;
+        b=1E9rXQnSrVCSQ7XVLSs8QpZpHHkrHmrqSzcqKXPfTjNeSPDSH4zoqD2g6DYKVYR4gi
+         /9zaI1us3Yi4ezwp7/EvgLCcT8SVqHTH78Jlir+W0R1M/HGlOlxPxwngkEvs3hPA4ruL
+         bKR5Kjwp0gxqGhp2xzLP1fg4H/XEPfrubPE2NYuAHDgCO4YM1OLaxNknXX2cq0Vgqm3v
+         0l0SN++p/1q5PTQFgjJMpSjdvajY+KH5cOPYHzj22ClQhyrg2csbMzIvCrmDJoyAGyS9
+         GqHInsJpXAC0s86Rd4FKJzyngB0CpWrXatcDhbb/OfDt/r45NhAkhIRz8KyVFqvD0pYO
+         Gwpw==
+X-Forwarded-Encrypted: i=1; AL+hErECosCFM+xO2SXupCt40FUFTwDFER97sBIFfP9HbfK/hS/OHcjf8k8PCpLu+cngdSWRC9T624rNqFAnPA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8tPlmOBrTpULLP8v2BCZzOQWsjb3rFY0eKQQgrRBZcDRcCMJjo
+	QgZTk55BTTvOTij9Hfz6hz3zxrxRN9DlwKJ2isSuo5p15tMxykZnPH2W
+X-Gm-Gg: AYBFou26SDnkCfSYlSpTV93UWcSY4fYQQJaL21jVCWspGZBCbf3Gpu02nILFXnj7C4w
+	T7Zb3msogmaGPwLfKTetjET2GsNs7Yi7k0O8/rzMZfDzbXtKp49rHjIER+ca51z5qv72YTggb3l
+	OFTEtd4fVLJx1SylQzpVAOF+GA8H53LWSXOXnJNoif4HLDlWnNyxmh83o63fOB9bW2iGwoIV7cp
+	4jHyP5WMHT+31GNJrNduhbxqLkBFI2rILzKfx4pimKlDsvt96rLmQwZoIDpqSju44ltcTZCvKLJ
+	svVGK7EHMtPY0GnIBn6lK/8WXExe5gufM850Usdt18ALnYN5kEBtKodRrSFUQHa9d/UwSIVdbOA
+	cnEMTm6xgDADq7rThufcCsR5TaZQR9KyxtnTqEThGtcVRSKqLZEDPu/s6yUzsTpGyNlxp1uwnHA
+	gyy6HAU3nlsS53plg2ykEQqJofYg8sr4edI2vCZF73Y3KDS/0zm07CHFEMJyq9cha5wGGOH4a22
+	mcyjKeRbYTMx1d/R5XrkzJYBgJKNfKph152TQfV6UckfWeEVoUF4yn2Ov85oRTbphZKkEarHqgU
+	RpGhG+ONcMohChbOYDbV5n4J3g0DNY4g6BXAXvdIJaHwzZT05U/JaaJWnEH7pI3GePxyientzjy
+	OBwDnpp/zwhv+fCS3t8M1idJcGUVjqyVkbSwcVyYzbmUs3tVO1+dm
+X-Received: by 2002:a05:690e:190d:b0:67b:fc94:86d4 with SMTP id 956f58d0204a3-67c78c3c92emr4305281d50.8.1794604253368;
+        Fri, 13 Nov 2026 13:10:53 -0800 (PST)
+Received: from localhost.localdomain ([71.68.170.161])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a64b04bsm3050965d50.23.2026.11.13.13.10.52
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 13 Nov 2026 13:10:52 -0800 (PST)
+From: Joseph Telaak <joseph@telaak.dev>
+To: dri-devel@lists.freedesktop.org
+Cc: patrik.r.jakobsson@gmail.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	alessio.belle@imgtec.com,
+	luigi.santivetti@imgtec.com,
+	christian.koenig@amd.com,
+	thomas.hellstrom@linux.intel.com,
+	imagination@lists.freedesktop.org,
+	frank.binns@imgtec.com,
+	operatingsystemsdepression@gmail.com,
+	matthew.brost@intel.com,
+	dakr@kernel.org,
+	phasta@kernel.org,
+	sumit.semwal@linaro.org,
+	linux-media@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	u.kleine-koenig@baylibre.com
+Subject: Re: [PATCH RFC 00/13] drm/powervr_sgx: Add a DRM driver for PowerVR SGX5xx GPUs
+Date: Fri, 13 Nov 2026 16:10:51 -0500
+Message-ID: <20261113211051.88798-1-joseph@telaak.dev>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
+References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -108,24 +105,10 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-I'm withdrawing this RFC; please don't review it. It depends on my
-H.264 follow-ups RFC, which I have dropped. The cover also should have
-said that Detlev is already writing a driver for this block, as Nicolas
-explained in the VEPU510 thread it links; I don't want to push a second
-uAPI for the same hardware.
+The Mesa side of this was declined, so I'm withdrawing this series.
+The driver will stay out of tree. Thanks to everyone who took the time
+to review it.
 
-Detlev, three things from the bring-up on an Orange Pi 5, in case they
-save you time:
-
-- HEVC wider than 4096 came out corrupted with the external line buffer
-  (H.264 is fine with it, tested to 16384x2048). Tile columns of at most
-  4096, one hardware pass each, as MPP does, work (tested to 16384x2048
-  and 8192x4320).
-- MPP's "TU depth 1" is max_transform_hierarchy_depth_inter/intra = 0
-  in the SPS. With 1, decoders misparse the residual.
-- Two streams, one per core, with both cores in one IOMMU domain and no
-  dual-core handshake, ran at about twice the single-stream rate with
-  the same output as single-stream runs.
-
-Arun
+Joseph
