@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.50
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794588037;
-	b=LxXDDaWDtzHE3Zbhjd/wFTBe8esJBfFteLkEKgKYtzF+69klYHtNjvrlc4+UFhwxXKc2
-	 9LudTHCIYjxmDL+jdyx3c2N/Ydy0gnerGiXJlkQhr8v0zSMFM7W0oV+HOaAQw8f2VBK5S
-	 TjDItflSRB7GsuRYDmixG0NF+n/0XLO41qtlCAmbWkrDRP3QiDXjrIlf8wXf4FWHAqkpI
-	 mDy7nKDh/u5iQsMAK9DWGM2MchyDX2QCScPKp2gk0JxKmccq+21gik/cHBF0o1REIQ1Pr
-	 7oD1P8pQLmKpyqA+nwA0btHq3zphfVVRf39JFemSoOm/cTjPRpZ2exhI7JMg3O2GQCA==
+	t=1794589200;
+	b=MfCSTnGkxFQhDl7FAvIRkB6V1EnCokqkybq2bT+IAvVhxKerL0aTsNyAqFhVbQggB05f
+	 IpApjNi3JTzdGdmHaXFOnM5phWy9paGwq6fSY6wbWtONZ7KOsdv14Dw58djW7uXL97ANe
+	 Y2KJTEjYdd3iXlxw+JIbu8w/wIeuE5iq+lLjfepc1awMSLy3qC15bQ3IXTp89QLBzbUB5
+	 oVagIZi85x1jIC+AZ+jh/nLVZLMSrchez06wYt3OT4dxS9UvtE5fTnNq606CZvk+5BgA5
+	 Sq3rSN6R70HwkEd4QdzCmdSTxX/wBYasntuUtr9wNVrZG+hJZLMJYJ/BvQGjk+AmRRw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588037;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7JtHxEZ3zVjqG6N0awE0RxJCNgcaXPj43VY7SRoAxhM=;
-	b=BCAlCNTSO8VbPQZxQBDuHuXHH0xCbgmH+tWg2lh6mthsN8rVShjylCMEjTJxK9tv3e+c
-	 4g3gORuUHzFoeLyDMZiT1dYGrC2VFElhRTaSP3eGN9wKKdaKKmAJ2MpSGaMYaYJDJJN08
-	 5DLf5t8AwVprI/jLrEliCgVxYQr5f+uf5AF2O5n9H6vhoDj+ItsA7xRgN+djADw1f+yJD
-	 RZ2oCy2FKUvyyppBQ+wvlfmR6wdMwT1PtXr4cmCKvZHdB9/UGBBkf4LmkjzTB/gHHqjcm
-	 kvv14oY7lKmyaOpAXqhOmz9muPvRj1gP4VvrjEz237uiiwhw4UAkikFADtbTcTcbotA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589200;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ht73lIdKfLXzYIM4DvC0DDEzfXuL/I3GCKbyKODV+Yg=;
+	b=uhiwrMVBLzBM48OGe6uaUyXyuXcoR63U3KRD06ryDRKkDnlduN5VZQ23NykdnLlzTnP6
+	 4r2lge9XIEMNg+B/5Yo5q4MKq0fWnFQBuzKOMAj072ySM6vEUA/0kzMVMeBVimyudG4hT
+	 ZX9z3ZFPLsUOt+EhhlaZueqarIiaCM1d9sAxtPc9SPOP7QcP5RvYhjLj7uGELMhoig0bq
+	 EWiDs50eP1n61Tl3XpNYMiECRTpwae69cCQSVdmKVOj0Q6UNjybVjeEQo5MqZ0SoH4aTV
+	 OTgnETA7GEqfsJmF54TEUc6t/8rCXg73VSujgqLhG+jcxBbKeGmy4/oCeL7e52PzBCA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y6Nq7pdR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8893F606EBC1;
-	Fri, 13 Nov 2026 16:40:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y6Nq7pdR
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794588037;
-	b=HR/YlWplZQVgt7hrmAQ/Vi0pNCOOAs2bxGG6s+wzsCWbVHk9csvcevXRCJiI80XB2tsK
-	 N/G26M/D0wY9A5QIAzgnIsCuN2OfMz8FfiqucDwHqXx4hxQu5ycP1KPk5wFnPHWrsUTm8
-	 xfM2hJZRCMa0GJBV+Mx7iqt35c5G5PMQp/ZW7T1QOq1b2zC4EnQKrAojHmE+QoQlJW9/d
-	 U2tibTqJcEX57k6B0Uku2VhZ/PChv+N9+/gGRgTcQsbvxecyuYE4NOay8AmzM/qGaERJV
-	 r+rDmJPjV+Q1v+fhiltvU6YOAo2dUUFmgScna4n8kTX7zNjFMmp+8PgeGSG119d/1/A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794588037;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7JtHxEZ3zVjqG6N0awE0RxJCNgcaXPj43VY7SRoAxhM=;
-	b=rrz2HWremDyk2hEiJ8D9kBbgD18fhl+FZTsk4g/TLdkZ+vF1BWMEFcdTccVvjscvaTo9
-	 6rOGcU0T0lD6GHXbQVXjYgC1JIimUBEAWuN4ONDwhGDLvgKIezTIAcAEIlHnU9iMRAskn
-	 l3Ospx8pgQtXZgva+RGx1A5OmT899H3sZrP3oTsUufh+FJoZYR03G3c0c644vy+17FEq/
-	 ih6dcU/tsD2/hmTqa90MCdunoI427lVvdgQSD7ThIlGE2Kt0XG8sMOtnXm6FuUbqf0ZoB
-	 2fVFc4XQWd3S1GQkdWl28KZHyDC7gYxUwzABVtE95bdKDvfZ0fnk4V4fmk1SxnuXPag==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FYLt4ttP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0CB8F1F000D4;
-	Fri, 13 Nov 2026 16:40:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794588037;
-	bh=7JtHxEZ3zVjqG6N0awE0RxJCNgcaXPj43VY7SRoAxhM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Y6Nq7pdRNwJ9vQfF+l25eyAz+QexccSqDbp+OVkC70Q/Eha2qOEc56Y4hX1u4+5kf
-	 TU1mXHcMrms615PIcRZ5Z9NoB5r0/kB3SaImOxhXu4/YA/Oz+8g4vjK3F3Yhu5aOVy
-	 jODtN4HlxhzS1inlr+e/S0S7rLJDTI/1iKW0xrC8uoid1bVJ6xYmqaYbr1eHt492f1
-	 2LzrQqoEithLYTlygDr4HHbqRBNLY8wkN2mr2UUBrWP/jopcWYhJ4PmNyEmw5ojANf
-	 XmD6sTvYniTR2wLpfTWJ/Hx84qsEm2k0ah+Z4eP6IJ2unKjD3p4RiewNu+n0ywd3SY
-	 tJ5g+OPg5cdKg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6C2B9499F3;
-	Fri, 13 Nov 2026 16:40:33 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 16:40:39 +0000
-Subject: [PATCH v3 08/12] media: verisilicon: Acquire the reset lines only
- while using them
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B285606A8BF
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 17:00:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B285606A8BF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FYLt4ttP
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4b76c15ae36so88895e9.1
+        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 09:00:00 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794589199; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jDeUglwtHaZuLem1AKG9Hk5P8zsTQ/zUTULRAvWqLshHKGO0vHJ8+vk6rcjYFPeQhG
+         pB37MJicU5FEpuNEL/QVQpTVwX2EN4mIr8PtEGk/zKpal91U5lOXDUXA7h5sb6QBqHg+
+         qRd9yzeErdyawSDlGYn0pVyAOsIGnt1VEps5/sJknBcpmFHZD0z2LUM8LnGA4M52CsG/
+         TtVLmD0C2PTeAhOjgbCr0dCK6EXwZDky5692OlKPEmmrP7kQlWF3RTWyBCJ966jhPa92
+         nW6L/jePdZlgRyFdSa3fDVXxvd/Lj1A/9zMHFzoz5n54dO0wDUvLJNyucfXZqfjvlikw
+         Hwag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ht73lIdKfLXzYIM4DvC0DDEzfXuL/I3GCKbyKODV+Yg=;
+        fh=En3WpGHMfu97s99YStq02L44VwCpFpnHWqxJxF3iORQ=;
+        b=O8r7DsoZxiTAZZVGYqRICvVbVHZRUv+dGFXJtelex9vMFpfTTO173/0oOlQCHPglDm
+         w1ws9hOnXFNwblRMKAOE27wUHerQXRsO+6gT2RU7jQAGlzVr/wj/O55fOr8Dobi6SliL
+         JLLbRPd7q3TKu2cMmo9+5GjaOxAWvHW2+e7j8Y3ldPeBhuoIInaFSRzCpzbCciZO+lZ5
+         GD4+aU/zBh0vGvymPzRnj6ycbUMbCjISRl/My1B+57OQ8gMALuy7KO8TBDb6loOvg2M7
+         kOQfvZRNPe5UAlyPmd6eMF5Gdbt5skV+kUMwK3rl5u0ulMNaIkwqg1qoVK6C1552U9pG
+         ZaSQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794589199; x=1795193999; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ht73lIdKfLXzYIM4DvC0DDEzfXuL/I3GCKbyKODV+Yg=;
+        b=FYLt4ttP5B2WVHQ6vCHPoKjcfSzLRA8ecYOiE3nk+gqHrDdCArmGFAfCyVT148EhQI
+         skjMiEVfofxcg4nfQkdnRH/JuUm1GJzsPQ/7iVvkcS2U47+eiAF3fvSKLoC8XiZ6PpiN
+         EsMq7P3BZPSdCP0gqXHlU+VY/K/cxaFCtA4aX2ZxI0lafAlFqO8dD4gj55d6W39NjDYV
+         WLD5DXNDPLF0iPlngPDHrtgxmh9UxHCbX83YetyGUfWLNJhWfuAEtUAvsAxTrtXta/+h
+         hzPHbYgbYCWnpaB1yL01GqPyf2qozPZTXq0xoJVXcTqEgA/Me6HcfB5kVIOOIIoj1a4y
+         kdDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794589199; x=1795193999;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ht73lIdKfLXzYIM4DvC0DDEzfXuL/I3GCKbyKODV+Yg=;
+        b=mHBPnqKWIns6edDTlB71pvElZJrVFLuvdea73WkTbNDI41oIMgeSLkwMwphRJFgBOi
+         JBsfmP1Tb5YtdYDvnQJshv3aMY/5ZsXwlKivdyFIK/Vbrmi2VHKQmJYWh7ysWcVe1KmT
+         4mPIb2ibLoZcMo3DdVFR6hSKGzV61zR6lNNxh5Qyd/FZJBOap+zFkxjfl8tKn9rLfaAK
+         YPqpJRIf4MtXVf0xyOQqq1sSyhtPF41/aaZco3++BJrQxY9/pCTkTkzxDnMl6hYIrd0Z
+         UBPid5LSw+zm/fz5jn4X8Fm5Z3Z2BP8EXYux9HdER5dd41O0HmdPkjgsgNHSK+89pVFQ
+         Qp+g==
+X-Forwarded-Encrypted: i=1; AL+hErHx7tn9mKmWbxJDbeFs7eQSLGBhVO97Q+/1VQjpw85CS2ohT+Tm9YGrrFRmqtL+ygeyNAwWqrEiRPCHgw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8KnUbCrXUxg005r9UBxiUJd2bDpWGU6byAJYUNm7eBM1f3C/e3
+	I5/hbygHL5jMEz1+DwXukLzSs7a2hW8IohnaLqKUCPseHVKDD4paHDaJFpNPhp6CIAvunV27cfx
+	ScdRmYD5yk7Jp6ax71GWsMc45vQHpoasH6EHKst0H
+X-Gm-Gg: AYBFou2m8+ZLega2NmT26Dlvk77i12e4IZ+uiwEy+340WeI7ui1XqAmMmEu1dmTaqrC
+	YiqBtctl/HLtP8bRoiSlAyk8sIZ/fgwtqIw4uWv6ff5CR0laEl+TIqccpwUO0RIl4wvNiOzqBxm
+	ox+e9AV02UlIV2RvBgsJzXI0T5psDVMOYNDXZZbGiDWwZTb1N31Hlhh2wkfhkj9gMsWjopMBV1g
+	PQ8Y6tSeFrCaFVU21kRLICAdFAWNIB3OMgxBKHdft0m51vs/9LDnL1lnde3ZxV5iIglo1IMEPxP
+	/0SSjJnZIQs+ckXwOLrTH5VqsRQJlHPkhSopLtTikc2tLz/3x3GsKpo4iR+JLjF3PxAe9ctzfsE
+	gPdxj7UT1S2HSMn8MUm7PZPNSS8Tko7FekJRT5i7Bfr95DyePeg3SK4fx/IgmyNQLQEf3SbMVWU
+	99yKWC7ex4HskYwAbBp7tIEdo=
+X-Received: by 2002:a05:600c:ac1:b0:4b8:b175:c5a3 with SMTP id
+ 5b1f17b1804b1-4bb56e4edcbmr658015e9.9.1794589198370; Fri, 13 Nov 2026
+ 08:59:58 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,158 +105,108 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-hantro-robust-v3-8-82383c722ad2@gmail.com>
-References: <20261113-hantro-robust-v3-0-82383c722ad2@gmail.com>
-In-Reply-To: <20261113-hantro-robust-v3-0-82383c722ad2@gmail.com>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>
-Cc: linux-media@vger.kernel.org, iommu@lists.linux.dev, 
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Sergei Khomenkov <shomenkow@gmail.com>, 
- Tharit Tangkijwanichakul <tharitt97@gmail.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794588032; l=4115;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=DgHWOwtiMWRIc2UDuvJ7/ad5T9I1cEKGr7IVqd0TNqU=;
- b=Pz0rWgvs751W58G0yVV7YcqRJj4gbON0x2nffi0LB0drWSdsB2a4Eaucp1Zi0ySLkNlU48he/
- TL15X6x6kzMDLjiwM/Li+rp9w3k/8gxRMmY291rAq4GKtO259+bob4w
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <20261113024447.922683-1-k.chen@smail.nju.edu.cn> <20261113035640.948458-1-k.chen@smail.nju.edu.cn>
+In-Reply-To: <20261113035640.948458-1-k.chen@smail.nju.edu.cn>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Fri, 13 Nov 2026 08:59:42 -0800
+X-Gm-Features: AclHuK-LFbMT3CtNvV1OqgqhSoIHpLJtutAfAmKAD9TN_Xuh-nAE2mDUwuHSl-g
+Message-ID: <CABdmKX39KyeRFLwiJKpt0ZVjWkNcL62ajYNUjHfN4VXAqbHJrQ@mail.gmail.com>
+Subject: Re: [PATCH bpf v3 1/2] bpf: make dmabuf iterator stay drained after NULL
+To: Kang Chen <k.chen@smail.nju.edu.cn>
+Cc: Yonghong Song <yonghong.song@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Philipp Stanner <phasta@kernel.org>, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+On Thu, Nov 12, 2026 at 7:57=E2=80=AFPM Kang Chen <k.chen@smail.nju.edu.cn>=
+ wrote:
+>
+> bpf_iter_dmabuf_next() uses kit->dmabuf =3D=3D NULL to mean "iteration ha=
+s
+> not started".  dma_buf_iter_next() also returns NULL at the end of the
+> list, so a next() call after exhaustion restarts from the list head.
+>
+> The verifier relies on the iterator contract that once next() returns
+> NULL it keeps returning NULL: process_iter_next_call() marks the
+> iterator DRAINED and treats the result of later next() calls as the
+> constant zero.  A restarted dmabuf iteration therefore hands the BPF
+> program a kernel pointer while the verifier believes R0 =3D=3D 0.
+>
+> NULL now means drained.  Initialize the state to DMABUF_ITER_START and
+> translate it to dma_buf_iter_begin() on the first next().  The iterator
+> state is BPF-visible ABI (one pointer wide), so use an invalid pointer
+> sentinel instead of growing it.
+>
+> Fixes: 6eab7ac7c5ee ("bpf: Add open coded dmabuf iterator")
+> Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
 
-The RK3588 AV1 IOMMU has no reset lines of its own: it shares the four
-AV1 resets with the decoder. Get them as released exclusive controls and
-acquire them only around their use, so that the IOMMU driver can
-deassert them too.
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
 
-Suggested-by: Philipp Zabel <p.zabel@pengutronix.de>
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- drivers/media/platform/verisilicon/hantro_drv.c       | 10 ++++++++--
- drivers/media/platform/verisilicon/rockchip_vpu_hw.c  | 12 ++++++++++--
- drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c |  4 ++++
- drivers/media/platform/verisilicon/sunxi_vpu_hw.c     |  4 ++++
- 4 files changed, 26 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index 9bb4d1582622..823be057e167 100644
---- a/drivers/media/platform/verisilicon/hantro_drv.c
-+++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -1188,7 +1188,9 @@ static int hantro_probe(struct platform_device *pdev)
- 			return PTR_ERR(vpu->clocks[0].clk);
- 	}
- 
--	vpu->resets = devm_reset_control_array_get_optional_exclusive(&pdev->dev);
-+	/* Released: the IOMMU of a core can share its reset lines. */
-+	vpu->resets = devm_reset_control_array_get(&pdev->dev,
-+						   RESET_CONTROL_OPTIONAL_EXCLUSIVE_RELEASED);
- 	if (IS_ERR(vpu->resets))
- 		return PTR_ERR(vpu->resets);
- 
-@@ -1267,7 +1269,11 @@ static int hantro_probe(struct platform_device *pdev)
- 	pm_runtime_use_autosuspend(vpu->dev);
- 	pm_runtime_enable(vpu->dev);
- 
--	ret = reset_control_deassert(vpu->resets);
-+	ret = reset_control_acquire(vpu->resets);
-+	if (!ret) {
-+		ret = reset_control_deassert(vpu->resets);
-+		reset_control_release(vpu->resets);
-+	}
- 	if (ret) {
- 		dev_err(&pdev->dev, "Failed to deassert resets\n");
- 		goto err_pm_disable;
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-index 113b6977031d..f1188a6435b1 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-@@ -481,10 +481,16 @@ static void rockchip_vpu_enc_hw_reset(struct hantro_dev *vpu)
- 	if (!vpu->resets)
- 		return;
- 
-+	ret = reset_control_acquire(vpu->resets);
-+	if (ret) {
-+		dev_warn(vpu->dev, "Failed to acquire resets: %d\n", ret);
-+		return;
-+	}
-+
- 	ret = reset_control_assert(vpu->resets);
- 	if (ret) {
- 		dev_warn(vpu->dev, "Failed to assert resets: %d\n", ret);
--		return;
-+		goto release;
- 	}
- 
- 	udelay(5);
-@@ -492,10 +498,12 @@ static void rockchip_vpu_enc_hw_reset(struct hantro_dev *vpu)
- 	ret = reset_control_deassert(vpu->resets);
- 	if (ret) {
- 		dev_err(vpu->dev, "Failed to deassert resets: %d\n", ret);
--		return;
-+		goto release;
- 	}
- 
- 	hantro_iommu_restore(vpu);
-+release:
-+	reset_control_release(vpu->resets);
- }
- 
- static void rockchip_vpu1_enc_reset(struct hantro_ctx *ctx)
-diff --git a/drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c b/drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c
-index 833821120b20..a16c43bdeb24 100644
---- a/drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c
-+++ b/drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c
-@@ -115,7 +115,11 @@ static void stm32mp25_venc_reset(struct hantro_ctx *ctx)
- {
- 	struct hantro_dev *vpu = ctx->dev;
- 
-+	if (reset_control_acquire(vpu->resets))
-+		return;
-+
- 	reset_control_reset(vpu->resets);
-+	reset_control_release(vpu->resets);
- }
- 
- /*
-diff --git a/drivers/media/platform/verisilicon/sunxi_vpu_hw.c b/drivers/media/platform/verisilicon/sunxi_vpu_hw.c
-index 02ce8b064a8f..f15ead62dc96 100644
---- a/drivers/media/platform/verisilicon/sunxi_vpu_hw.c
-+++ b/drivers/media/platform/verisilicon/sunxi_vpu_hw.c
-@@ -91,7 +91,11 @@ static void sunxi_vpu_reset(struct hantro_ctx *ctx)
- {
- 	struct hantro_dev *vpu = ctx->dev;
- 
-+	if (reset_control_acquire(vpu->resets))
-+		return;
-+
- 	reset_control_reset(vpu->resets);
-+	reset_control_release(vpu->resets);
- }
- 
- static const struct hantro_codec_ops sunxi_vpu_codec_ops[] = {
-
--- 
-2.55.0
-
-
+> ---
+> v3:
+> - No change from v2; reposted with the updated 2/2 attribution.
+>
+>  kernel/bpf/dmabuf_iter.c | 17 ++++++++++++-----
+>  1 file changed, 12 insertions(+), 5 deletions(-)
+>
+> diff --git a/kernel/bpf/dmabuf_iter.c b/kernel/bpf/dmabuf_iter.c
+> index cd500248abd9..390f6d730a67 100644
+> --- a/kernel/bpf/dmabuf_iter.c
+> +++ b/kernel/bpf/dmabuf_iter.c
+> @@ -156,6 +156,9 @@ struct bpf_iter_dmabuf_kern {
+>         struct dma_buf *dmabuf;
+>  } __aligned(8);
+>
+> +/* NULL means drained; START means "not started yet". */
+> +#define DMABUF_ITER_START      ((struct dma_buf *)1L)
+> +
+>  __bpf_kfunc_start_defs();
+>
+>  __bpf_kfunc int bpf_iter_dmabuf_new(struct bpf_iter_dmabuf *it)
+> @@ -165,7 +168,7 @@ __bpf_kfunc int bpf_iter_dmabuf_new(struct bpf_iter_d=
+mabuf *it)
+>         BUILD_BUG_ON(sizeof(*kit) > sizeof(*it));
+>         BUILD_BUG_ON(__alignof__(*kit) !=3D __alignof__(*it));
+>
+> -       kit->dmabuf =3D NULL;
+> +       kit->dmabuf =3D DMABUF_ITER_START;
+>         return 0;
+>  }
+>
+> @@ -173,10 +176,14 @@ __bpf_kfunc struct dma_buf *bpf_iter_dmabuf_next(st=
+ruct bpf_iter_dmabuf *it)
+>  {
+>         struct bpf_iter_dmabuf_kern *kit =3D (void *)it;
+>
+> -       if (kit->dmabuf)
+> -               kit->dmabuf =3D dma_buf_iter_next(kit->dmabuf);
+> -       else
+> +       /* Once NULL is returned, next() has to keep returning NULL. */
+> +       if (!kit->dmabuf)
+> +               return NULL;
+> +
+> +       if (kit->dmabuf =3D=3D DMABUF_ITER_START)
+>                 kit->dmabuf =3D dma_buf_iter_begin();
+> +       else
+> +               kit->dmabuf =3D dma_buf_iter_next(kit->dmabuf);
+>
+>         return kit->dmabuf;
+>  }
+> @@ -185,7 +192,7 @@ __bpf_kfunc void bpf_iter_dmabuf_destroy(struct bpf_i=
+ter_dmabuf *it)
+>  {
+>         struct bpf_iter_dmabuf_kern *kit =3D (void *)it;
+>
+> -       if (kit->dmabuf)
+> +       if (kit->dmabuf && kit->dmabuf !=3D DMABUF_ITER_START)
+>                 dma_buf_put(kit->dmabuf);
+>  }
+>
+> --
+> 2.34.1
+>
