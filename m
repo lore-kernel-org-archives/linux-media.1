@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794537720;
-	b=C6MZiLGKKI7pflauABTrTWCWzP+BOw4ivlVnFzrjHX8Zy8N4MuPkfn0xrCQ0A8XAGSkN
-	 ggVMSqwlWmXVuh6ZuM76j+W4lnb6PNC6VtclTSwFJPB+36hNy+5r7a+yIhFJ01XITL/bN
-	 XqUXS5dIrXsNd5oxauqM2DkWDlb2saJf+3nr6T9Daho32hyhx8CBxO1weQ58dxiLUUX0g
-	 mV+qtaCp02as/Fmx5Iiqsm5G2Ehn83kS7OfoKSEzpjHsxlHzZZ8MnE83xBvrgpaGfaHcn
-	 9YLLyWjIH0JQAjBd1X+N2r4uq34J54PlAROrLKqa8wE/dACcyOGOSMzcPj3d+JkCgmQ==
+	t=1794537725;
+	b=YibItM3On1Rkn44fGsm8c2EjHguuVrYSpUlLpP56GmWyBU2kl58wBOCIHga0uPhv+tu/
+	 Gsnw4ujOmESeXQd2GOkdHPkaaB0QxR8LtaVjHg9pnOEFEY1M8nguY2oI1F/IRUFvgJPFu
+	 XNjmDLzxo1E3At1RPX4Uq4SQyy+lwabCU7lpO1KtBFDxp6/+cbyx13E5TsmrW3M78MVSi
+	 fTPE7V6aSzem8yINUXiBrFy+pnVysFR1Z9BCn6TgoxZz6JEMMkYNGb8zFJSptqBqS156j
+	 ifuenCRbLyHUuJnCOkkOfvGLniMcingZE8SNtXeIYm7q9e09V8FFMZONHeJLeZX+a+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794537720;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794537725;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=yAUXFKohauE6hnB578A4JCF9Ebcxz1XNhHn9TQjh2qA=;
-	b=YXT0dlAXbJ34/Lou1PV1Q42S9aJllhp6WvhNZD4Zuib/V9msOdjJ4sSQW5dD8H0Cgayb
-	 D5rxkwW5LchUIJRA0osz1yZ+KSFMP4DaW33JGn8tMIY1WERAJwA5EOx+604gZ6nwcsxvL
-	 Zefza40AA9F7B6g5SrO0YEGWYTluOJMT2op8Xp406xY2RwFpbg3vBduW4H4c8KXwEbnIF
-	 jokE7VdrgCyUkbZWB588cPmr9qUs3VKvTMNIpqkpQGoKcMZ3cYB940G+OssVsFTkc7Fwl
-	 rP7BEcV305iqoxppdix2ATCxKX6onS/ixcrDxX0Isxkdxvp4mhxjtwpVULHp9fqqZKw==
+	bh=chrUwurn9yshXTjogf6DMteu0AabVynmDRhmlPZAR9M=;
+	b=z9fiazXLs/N7KY8Sm4rE3Mu+0dA0hPqi+b3LgNDzGbryeJPQv/xUbclS6mgy4WkWqyRr
+	 9hAhhodYxpZFZt7jBuP/630oQs0/HwgewqWzZQOZjlIv5TZy6sDrLjKYwWkwY5mwbn7kl
+	 7AQunTAxKpJRri2Tip4UGiASmP+5v+L+r+/+YOvfz/ua/g9MlJ/vAMl51VH3SOhyQSPBX
+	 /8KxjpUVDHaVvTXH4SKetirQFKlCIIMOILyBwD8GdllcRCAAAZURCGTy1ujRWPlanyg5y
+	 kpCSrVlEZH2kRCWLMUvxGGjNHwLiyvl+G6bEzip6eOTDz3H9DCpWJTsUXewi4rEOryA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E1+VYuMI;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B6j6CVbW;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEAC60A3830
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 02:41:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EEAC60A3830
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 879A2606A8BD
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 02:42:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 879A2606A8BD
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E1+VYuMI
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36ca32a0faeso52668eec.1
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 18:41:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B6j6CVbW
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3719e3cb82bso65108eec.3
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 18:42:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794537719; x=1795142519; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794537725; x=1795142525; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yAUXFKohauE6hnB578A4JCF9Ebcxz1XNhHn9TQjh2qA=;
-        b=E1+VYuMIOjzY2IcU0xW4Yl33bV2t4Dsr4rxtvbv3MWQ1SwXi2eAYCP0VNFLSz9CXi3
-         wYNKO/Lq1PgCiB6PXAS0lNRPKjBzV67JyPD0eljN+xpfjxRme7ikyKx97NSrvjs8u8Sv
-         5C0P/DUO6I3HESE3yFT6SR23rDtQu+v5dY+UBsRkTq6gWryTDdVdHv+Itz48KF3ihWs1
-         a1fSeFZYQwucWjLJP5Ei/0BXOOiGrlOJsz1sxkTXomgGpyfWYpx3f+x68E1vT1U+bx5G
-         ku9lKxveSGcfY+s/QkQ+ic5Fx4s07lfwokWANpRvznh+U9FGxto7NTLgbmhfmSDvxf1O
-         7icw==
+        bh=chrUwurn9yshXTjogf6DMteu0AabVynmDRhmlPZAR9M=;
+        b=B6j6CVbW4fwNB533cmsXg754gzDcvAlvMQx1BI1FN8LEwWD7xjOXrYIeUCCOdmEkQT
+         zpxQM55zl1PL1RzJ2sCnjJMXVjVOVTSZbdgqX6bN1gTr49wkXmxUVY2lXhsqRxuHVQHu
+         GwoBET9oHdFnwGd+I/NkOfnIetDVyt5qT4+wDCT11yAR0YUSj9Vr7zkLEFZ2PFrHwo1/
+         WFD53SIRS5hwhPkKoJZb1BWtbHBOBzeXWri4vsvdvDasb+QulV3bTg8RSTHtLDe25lyi
+         wUmWqkMr0jtkhN7m7G+CNBuTUSad6xLX21G+0UIv+Zxy+jOX5mEdwJeIGkKd4hQ5U4jv
+         Jz+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794537719; x=1795142519;
+        d=1e100.net; s=20260707; t=1794537725; x=1795142525;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yAUXFKohauE6hnB578A4JCF9Ebcxz1XNhHn9TQjh2qA=;
-        b=Cm4EhdO/JryT7A9CI1mx/Rble96+HKri/8Irpa9c5D9fC4V0AkJLktIli/sNLrykdP
-         CqUfITNP/pjB73s9rQK9IT13sY0UH5Z+OPP72ROOIGUJ9lUo3bQ54Ci4Yr26n/tyCXeG
-         5Q4Xrkp91X6yeRt8VKAHHF4ExJVaRrJB5A94kSKlCZuL5MJzzWpLCuc0J/oEXPt1xph1
-         x4AyZBGnLubmOheQtYSvQXhXTo8QHEzUMQPIwWx7MP62Otk6K7l5TERTZoYO/7Eylnju
-         6/iNan5+mh+bhPdTLtfIfs/A7PtqHvTjaL9CtrPO5F1D4UBhYR9yuoINSynmUBEfJ0zb
-         6APQ==
-X-Gm-Message-State: APuU4Z8nUm1+NnG92Bv3uJp7PmQKnEq2W2HIZRXhQbOuUjTwlsYqTMVR
-	66Lq1glw3btkmC9PQtvlE/quNxdN/sKwZoUcm5JMm04IGp7Ui1WNRcunTum4WzeYr1/UVHOm
-X-Gm-Gg: AYBFou1ehROCmta457YHqhPJEMiTIqpEApAw84s10tw0uz8GJjqjhvlKYGwt8NEDVUv
-	BUo43PF5bJKyc6JvYZZAd921flDV4q9Qjd97oPYyPJM9ruKpf5B4biP3p1GYSVdypU6tOSWltDw
-	XR+ISOPC0wCsD6xAbouiAD8JqAD4VeYUhoarkHnUqmRj3ZHXV58TEFyWwk9JrZFk2JflcumBQg/
-	h1+VVR1Cs+GmIPYsGCbioEL04IT+NVqyRLg0h+wWaOHfd3+csvcK4/0B8WAdJ7rTex3dRxheQnc
-	yhynFPDA5tFzgjIxwLebDijmG1AW2Dow5Kcf+AdNiyvaL4nbZ6lDS+Ofx1R1fJ4lU5qVkxi4Sgs
-	Kz4vpuijfvxlVWXi+Ib4U9jzGIcSJyM220/x+VavfHkiiwDIFUoPcp0xNfizasfRBygw3k2kINb
-	LTGm9yyrobjl57D3xk9c+L7t6TSHJYnPNJX0Sl2AaPYnqLbZabvY2VIShbr2QG9gYH9c3YNti5m
-	cYqdpqGmfy71i8LwZcmxMfL/72oNg6Vjlvfa2ncaFBY76U+MA3tFrN4MRDbkCIhnNjDipnWU7TM
-	gzuQXNK/pca7EjCiYjTcMegTZyjI9rlrGnbHzwEkY9NS3hknSoC4rndtj1A6Az6EaQAvxhf2LUK
-	YO+R132wcbUczHv8nTfIqGeTqWg/0/cCIx0HFbjRX/hg0u8c5Z+dBhTmzWSwWZ68qvYW5nPchEs
-	KKdFQHXG9OupAWBsUDtlHadnu8QSt55SM=
-X-Received: by 2002:a05:693c:83cf:20b0:376:6ba5:6090 with SMTP id 5a478bee46e88-37964e03109mr1825536eec.1.1794537719100;
-        Thu, 12 Nov 2026 18:41:59 -0800 (PST)
+        bh=chrUwurn9yshXTjogf6DMteu0AabVynmDRhmlPZAR9M=;
+        b=ULEmUEGKev5tWjbVLQKrlURJQKGFDRLELaxbwJC8ym0IFlH0Fe2eACABWvc+vVo97i
+         JT19/nQsI0PKcyHznsJMQxr2lwcSW3RAQzSu46ogyxuv5NZNNDUGAFpvAu3LQIRRYwUX
+         IEwH1K2qEVGnOvpDBWPeBUsIHw/SjU1KDaEO1vIuJ1d/tY0BjeKbO2GQGDixiVb4MoXR
+         /Ql8ddv3gJGHoeQsP59fwcDPul0McIwtecDvdqKoZMBGzD6JrcFo8Y9N7OxOzW03Am57
+         QsyIDolqDjbZ0eLOgGGvoDOgQcynAek+u2VDINQhUTi8V1QUPn1Upaiq5NdCJysMp2Ou
+         NEAA==
+X-Gm-Message-State: APuU4Z+eF4Sf+9SRBecFIrlQHT/F8BYS85MSXUq5u/fiHDgB2gau7JES
+	PAwWjjVTRaiColXyJlbPUMwwZNz04jSCy68y2vmOdwRiksSFmvGLVN5GnrPLIcaqjHndbau5
+X-Gm-Gg: AYBFou3lL50j3MELnKupm86FZ0P23vBaAjISbhKLJ0wknfD1nxgjvB0Ppz4Zyklfr0Z
+	OXnLJrLU2HOCD/8bJZoeG9oBCxcLUt4f7TmcdYENsDMGwJXucxipnKhnXsqexWlEqvRyMmtNNnM
+	RodSfX6DGpow+O4XJ/mfmCBOo0vlVnsyhpf0iTd8CHsDbSOQLBXZWcKYWgOOHgk+B7F+aYcTM4h
+	cWb/9SZpGpUGoGfU3/Ub4rBiUzF7SDSqDPOqWUgAaXrep9dMFckaKDhGdlp1d2WjRUdsEsfcvTn
+	XcPL6TUUQQ3T3R6vkwbXa8XK1SMCcGLt83OZbGrXZRkVGK+3I+4aJPimtLbnTgo9sgntQVA7YOs
+	MzVJWd5lX6kuqxgGBhCAvDmwTsx6cnjnos3niHnuPaTjyaAKp9maxnt6ureQk05Gd7auMM2Okxz
+	NyDy3ZTxo/HTb9GgPM0FWS8PJBotwKgcs5Nn7LmrwW+w1F925EUPDL3bd0EAsqiXzqE9K6/rxEh
+	mSEhmBSPssvIFQIkFUrbVlZxgh3RegsusZTbe0rhGUiycIHhy28nhbbEZEW6Jb1Dk9rndbKzNdG
+	PzG0So2GxZ1I93uA608D40/tEu95c4T4UfkxbT9c3ipcyf9nFF9usZCzJCtFk8e2nycSRmefdLv
+	IpklCZITrbVfs9jH783BcB0yscv+D9mxz/b/c1iPQWB5UcBA+Qjbht+5WN30ZULBhR4XdmTMx1u
+	Ey09e9D5M0Mg==
+X-Received: by 2002:a05:7300:c00e:20b0:35e:d21c:f33e with SMTP id 5a478bee46e88-379651ecb3emr1702393eec.1.1794537724468;
+        Thu, 12 Nov 2026 18:42:04 -0800 (PST)
 Received: from esteban.tail1178e6.ts.net ([240b:c020:623:52c6::44d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm2334704eec.22.2026.11.12.18.41.52
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm2334704eec.22.2026.11.12.18.41.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 18:41:58 -0800 (PST)
+        Thu, 12 Nov 2026 18:42:04 -0800 (PST)
 From: Antoine Pichot <antoine.pichot@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: sakari.ailus@linux.intel.com,
@@ -90,9 +90,9 @@ Cc: sakari.ailus@linux.intel.com,
 	dmanresa@gmail.com,
 	dave.stevenson@raspberrypi.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 7/9] media: i2c: ov7251: Move the common registers into the global init table
-Date: Fri, 13 Nov 2026 11:40:57 +0900
-Message-ID: <20261113024059.1087031-8-antoine.pichot@gmail.com>
+Subject: [PATCH v3 8/9] media: i2c: ov7251: Add strobe output enable control
+Date: Fri, 13 Nov 2026 11:40:58 +0900
+Message-ID: <20261113024059.1087031-9-antoine.pichot@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261113024059.1087031-1-antoine.pichot@gmail.com>
 References: <20261113024059.1087031-1-antoine.pichot@gmail.com>
@@ -107,347 +107,199 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+The OV7251 has a STROBE output that pulses during the exposure of
+selected frames, meant to drive an illuminator. On the Microsoft
+Surface Book 2 the front OV7251 is an infrared camera (Windows Hello)
+and its 850 nm emitter is wired to that pin: ACPI describes no separate
+LED, GPIO line or regulator for it. The global init table leaves the
+pad disabled, so the camera only sees an unlit scene.
 
-The three mode tables write the same 117 registers. Only the six clock
-control registers 0x3016 to 0x301c differ between the 30 fps table and
-the 60 and 90 fps ones, and the frame length (0x380e and 0x380f), which
-the V4L2_CID_VBLANK handler writes anyway.
+Add a V4L2_CID_FLASH_STROBE_OE control, off by default. When enabled
+it sets the STROBE pad output enable (SC_REG5 bit 3), strobes
+alternate frames (frame pattern 0xaa instead of the default 0xa5, which
+lights four frames in eight) and sets the pulse length (strobe frame
+span, in lines) to the exposure time, clamped between 52 lines and 45%
+of the frame length, never more than 776 lines. When disabled it
+restores the defaults of the global init table. The span follows
+exposure and vertical blanking changes while the strobe is enabled.
 
-Move the common registers into ov7251_global_init_setting, written after
-the software reset by ov7251_set_power_on(), and drop the frame length
-from the mode tables, which keep the clock control registers only.
+The limits come from the Windows driver, which clamps the span to 52
+to 776 lines: 776 lines is 45% of the 1724-line frame of the 30 fps
+mode. Expressing the upper limit as a duty cycle keeps the emitter
+within that envelope (eye safety) at 60 and 90 fps too, where a fixed
+776 lines would let the pulse cover up to 96% of the frame (552 of 572
+lines). Keeping the 776-line limit as well bounds the pulse when
+vertical blanking stretches the frame, up to 65535 lines.
 
-The common registers are thus written once per power-on instead of at
-every stream start. The sensor keeps its register values in software
-standby (datasheet table 2-8), so a stream restarted, or switched to
-another mode, before the runtime PM autosuspend powers the sensor down
-gets the same settings as a stream started from power-on.
+Alternate frames is what the Windows driver uses for face recognition
+on this hardware: its 30 and 60 fps modes write 0xaa, and a register
+dump taken during a Windows Hello sign-in on a Surface Book 2 shows the
+same. Face recognition uses the dark frames too: subtracting a dark
+frame from the lit frame next to it removes the ambient light. Lighting
+every frame (0xff, which two of the Windows driver's other modes use)
+would lose that reference and double the average emitter power. User
+space tells lit frames from dark ones by their brightness; V4L2 has no
+per-frame illumination flag yet.
 
-One value on the bus changes: 0x3820 (TIMING_FORMAT1). The mode tables
-wrote 0x40 (bit 6, vflip_blc) at stream start, but the vertical flip
-control, applied after the table, rewrote the register from the value
-probe had read right after the reset, 0x00, so the sensor streamed with
-bit 6 clear. Probe now reads 0x40 from the init table and the control
-keeps bit 6 set, as the mode tables have always asked for.
+The control is written only while the sensor is powered, and from
+__v4l2_ctrl_handler_setup() at stream start, after the mode table.
+Setting it while the sensor is idle does not power it up, and the
+emitter goes off with the sensor when streaming stops.
 
-Tested on a Surface Book 2 (19.2 MHz clock, 319.2 MHz link): the clock,
-timing, PLL, flip and strobe registers read back while streaming at
-30, 60 and 90 fps are identical to those of the driver before this
-change, except 0x3820, which reads 0x40 instead of 0x00 as described
-above; stream restarts and mode switches on a sensor kept in software
-standby give valid frames from the first one, at the expected rates.
+On a Surface Book 2 at analogue gain 128 the mean pixel value of the
+infrared image of a room is 19 unlit; with the strobe enabled the lit
+frames read 496 at exposure 504 (span 504) and 587 at exposure 1704
+(span 776), the dark frames in between 18 to 20. The span read back
+while streaming is 258 at 90 fps, 45% of the 572-line frame.
 
-Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-[antoine.pichot@gmail.com: subject and commit message, 0x3820 note]
 Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
 ---
- drivers/media/i2c/ov7251.c | 258 ++-----------------------------------
- 1 file changed, 9 insertions(+), 249 deletions(-)
+ drivers/media/i2c/ov7251.c | 76 +++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 74 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
-index 834420f2f843..2abf1b112351 100644
+index 2abf1b112351..7c1213d13ef4 100644
 --- a/drivers/media/i2c/ov7251.c
 +++ b/drivers/media/i2c/ov7251.c
-@@ -238,19 +238,10 @@ static const struct ov7251_pll_cfgs *ov7251_pll_cfgs[] = {
- static const struct reg_value ov7251_global_init_setting[] = {
- 	{ 0x0103, 0x01 },
- 	{ 0x303b, 0x02 },
--};
--
--static const struct reg_value ov7251_setting_vga_30fps[] = {
- 	{ 0x3005, 0x00 },
- 	{ 0x3012, 0xc0 },
- 	{ 0x3013, 0xd2 },
- 	{ 0x3014, 0x04 },
--	{ 0x3016, 0xf0 },
--	{ 0x3017, 0xf0 },
--	{ 0x3018, 0xf0 },
--	{ 0x301a, 0xf0 },
--	{ 0x301b, 0xf0 },
--	{ 0x301c, 0xf0 },
- 	{ 0x3023, 0x05 },
- 	{ 0x3037, 0xf0 },
- 	{ 0x3106, 0xda },
-@@ -298,8 +289,6 @@ static const struct reg_value ov7251_setting_vga_30fps[] = {
- 	{ 0x380b, 0xe0 }, /* height low */
- 	{ 0x380c, 0x03 }, /* total horiz timing high */
- 	{ 0x380d, 0xa0 }, /* total horiz timing low */
--	{ 0x380e, 0x06 }, /* total vertical timing high */
--	{ 0x380f, 0xbc }, /* total vertical timing low */
- 	{ 0x3810, 0x00 },
- 	{ 0x3811, 0x04 },
- 	{ 0x3812, 0x00 },
-@@ -368,260 +357,31 @@ static const struct reg_value ov7251_setting_vga_30fps[] = {
- 	{ 0x5001, 0x80 },
- };
+@@ -18,6 +18,7 @@
+ #include <linux/regulator/consumer.h>
+ #include <linux/slab.h>
+ #include <linux/types.h>
++#include <linux/unaligned.h>
+ #include <linux/units.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-fwnode.h>
+@@ -56,6 +57,16 @@
+ #define OV7251_PLL2_DIVIDER_REG		0x309d
+ #define OV7251_PLL2_SYS_DIV_REG		0x309a
+ #define OV7251_PLL2_ADC_DIV_REG		0x309b
++#define OV7251_SC_REG5			0x3005
++#define OV7251_SC_REG5_STROBE_OE	BIT(3)
++#define OV7251_STROBE_FRAME_PATTERN	0x3b81
++#define OV7251_STROBE_FRAME_PATTERN_ALT	0xaa	/* alternate frames */
++#define OV7251_STROBE_FRAME_PATTERN_DEF	0xa5
++#define OV7251_STROBE_FRAME_SPAN	0x3b8c
++#define OV7251_STROBE_FRAME_SPAN_DEF	0x1a
++#define OV7251_STROBE_SPAN_MIN		52
++#define OV7251_STROBE_SPAN_MAX		776
++#define OV7251_STROBE_MAX_DUTY_PERCENT	45
  
-+static const struct reg_value ov7251_setting_vga_30fps[] = {
-+	{ 0x3016, 0xf0 },
-+	{ 0x3017, 0xf0 },
-+	{ 0x3018, 0xf0 },
-+	{ 0x301a, 0xf0 },
-+	{ 0x301b, 0xf0 },
-+	{ 0x301c, 0xf0 },
-+};
+ #define OV7251_NATIVE_WIDTH		656
+ #define OV7251_NATIVE_HEIGHT		496
+@@ -149,6 +160,7 @@ struct ov7251 {
+ 	struct v4l2_ctrl *gain;
+ 	struct v4l2_ctrl *hblank;
+ 	struct v4l2_ctrl *vblank;
++	struct v4l2_ctrl *strobe;
+ 
+ 	/* Cached register values */
+ 	u8 aec_pk_manual;
+@@ -512,7 +524,7 @@ static int ov7251_write_reg(struct ov7251 *ov7251, u16 reg, u8 val)
+ static int ov7251_write_seq_regs(struct ov7251 *ov7251, u16 reg, u8 *val,
+ 				 u8 num)
+ {
+-	u8 regbuf[5];
++	u8 regbuf[6];
+ 	u8 nregbuf = sizeof(reg) + num * sizeof(*val);
+ 	int ret = 0;
+ 
+@@ -764,6 +776,55 @@ static int ov7251_set_test_pattern(struct ov7251 *ov7251, s32 value)
+ 	return ret;
+ }
+ 
++static int ov7251_set_strobe_span(struct ov7251 *ov7251)
++{
++	int span = OV7251_STROBE_FRAME_SPAN_DEF;
++	int vts, max_span;
++	u8 val[4];
 +
- static const struct reg_value ov7251_setting_vga_60fps[] = {
--	{ 0x3005, 0x00 },
--	{ 0x3012, 0xc0 },
--	{ 0x3013, 0xd2 },
--	{ 0x3014, 0x04 },
- 	{ 0x3016, 0x10 },
- 	{ 0x3017, 0x00 },
- 	{ 0x3018, 0x00 },
- 	{ 0x301a, 0x00 },
- 	{ 0x301b, 0x00 },
- 	{ 0x301c, 0x00 },
--	{ 0x3023, 0x05 },
--	{ 0x3037, 0xf0 },
--	{ 0x3106, 0xda },
--	{ 0x3503, 0x07 },
--	{ 0x3509, 0x10 },
--	{ 0x3600, 0x1c },
--	{ 0x3602, 0x62 },
--	{ 0x3620, 0xb7 },
--	{ 0x3622, 0x04 },
--	{ 0x3626, 0x21 },
--	{ 0x3627, 0x30 },
--	{ 0x3630, 0x44 },
--	{ 0x3631, 0x35 },
--	{ 0x3634, 0x60 },
--	{ 0x3636, 0x00 },
--	{ 0x3662, 0x01 },
--	{ 0x3663, 0x70 },
--	{ 0x3664, 0x50 },
--	{ 0x3666, 0x0a },
--	{ 0x3669, 0x1a },
--	{ 0x366a, 0x00 },
--	{ 0x366b, 0x50 },
--	{ 0x3673, 0x01 },
--	{ 0x3674, 0xff },
--	{ 0x3675, 0x03 },
--	{ 0x3705, 0xc1 },
--	{ 0x3709, 0x40 },
--	{ 0x373c, 0x08 },
--	{ 0x3742, 0x00 },
--	{ 0x3757, 0xb3 },
--	{ 0x3788, 0x00 },
--	{ 0x37a8, 0x01 },
--	{ 0x37a9, 0xc0 },
--	{ 0x3800, 0x00 },
--	{ 0x3801, 0x04 },
--	{ 0x3802, 0x00 },
--	{ 0x3803, 0x04 },
--	{ 0x3804, 0x02 },
--	{ 0x3805, 0x8b },
--	{ 0x3806, 0x01 },
--	{ 0x3807, 0xeb },
--	{ 0x3808, 0x02 }, /* width high */
--	{ 0x3809, 0x80 }, /* width low */
--	{ 0x380a, 0x01 }, /* height high */
--	{ 0x380b, 0xe0 }, /* height low */
--	{ 0x380c, 0x03 }, /* total horiz timing high */
--	{ 0x380d, 0xa0 }, /* total horiz timing low */
--	{ 0x380e, 0x03 }, /* total vertical timing high */
--	{ 0x380f, 0x5c }, /* total vertical timing low */
--	{ 0x3810, 0x00 },
--	{ 0x3811, 0x04 },
--	{ 0x3812, 0x00 },
--	{ 0x3813, 0x05 },
--	{ 0x3814, 0x11 },
--	{ 0x3815, 0x11 },
--	{ 0x3820, 0x40 },
--	{ 0x3821, 0x00 },
--	{ 0x382f, 0x0e },
--	{ 0x3832, 0x00 },
--	{ 0x3833, 0x05 },
--	{ 0x3834, 0x00 },
--	{ 0x3835, 0x0c },
--	{ 0x3837, 0x00 },
--	{ 0x3b80, 0x00 },
--	{ 0x3b81, 0xa5 },
--	{ 0x3b82, 0x10 },
--	{ 0x3b83, 0x00 },
--	{ 0x3b84, 0x08 },
--	{ 0x3b85, 0x00 },
--	{ 0x3b86, 0x01 },
--	{ 0x3b87, 0x00 },
--	{ 0x3b88, 0x00 },
--	{ 0x3b89, 0x00 },
--	{ 0x3b8a, 0x00 },
--	{ 0x3b8b, 0x05 },
--	{ 0x3b8c, 0x00 },
--	{ 0x3b8d, 0x00 },
--	{ 0x3b8e, 0x00 },
--	{ 0x3b8f, 0x1a },
--	{ 0x3b94, 0x05 },
--	{ 0x3b95, 0xf2 },
--	{ 0x3b96, 0x40 },
--	{ 0x3c00, 0x89 },
--	{ 0x3c01, 0x63 },
--	{ 0x3c02, 0x01 },
--	{ 0x3c03, 0x00 },
--	{ 0x3c04, 0x00 },
--	{ 0x3c05, 0x03 },
--	{ 0x3c06, 0x00 },
--	{ 0x3c07, 0x06 },
--	{ 0x3c0c, 0x01 },
--	{ 0x3c0d, 0xd0 },
--	{ 0x3c0e, 0x02 },
--	{ 0x3c0f, 0x0a },
--	{ 0x4001, 0x42 },
--	{ 0x4004, 0x04 },
--	{ 0x4005, 0x00 },
--	{ 0x404e, 0x01 },
--	{ 0x4300, 0xff },
--	{ 0x4301, 0x00 },
--	{ 0x4315, 0x00 },
--	{ 0x4501, 0x48 },
--	{ 0x4600, 0x00 },
--	{ 0x4601, 0x4e },
--	{ 0x4801, 0x0f },
--	{ 0x4806, 0x0f },
--	{ 0x4819, 0xaa },
--	{ 0x4823, 0x3e },
--	{ 0x4837, 0x19 },
--	{ 0x4a0d, 0x00 },
--	{ 0x4a47, 0x7f },
--	{ 0x4a49, 0xf0 },
--	{ 0x4a4b, 0x30 },
--	{ 0x5000, 0x85 },
--	{ 0x5001, 0x80 },
- };
++	/*
++	 * The pulse starts with the integration: make it cover the exposure,
++	 * from 52 lines up to 776 lines and never more than 45% of the frame.
++	 * The vendor driver caps it at 776 lines, 45% of the 1724 lines 30 fps
++	 * frame; the duty cycle limit keeps the emitter within that envelope
++	 * at higher frame rates, the absolute one with long vertical blanking.
++	 */
++	if (ov7251->strobe->val) {
++		vts = ov7251->current_mode->height + ov7251->vblank->val;
++		max_span = DIV_ROUND_UP(vts * OV7251_STROBE_MAX_DUTY_PERCENT,
++					PERCENT);
++		span = min(clamp(ov7251->exposure->val, OV7251_STROBE_SPAN_MIN,
++				 OV7251_STROBE_SPAN_MAX), max_span);
++	}
++
++	put_unaligned_be32(span, val);
++
++	return ov7251_write_seq_regs(ov7251, OV7251_STROBE_FRAME_SPAN, val,
++				     sizeof(val));
++}
++
++static int ov7251_set_strobe(struct ov7251 *ov7251, s32 value)
++{
++	int ret;
++
++	/*
++	 * The other SC_REG5 bits enable other pads, which the mode tables
++	 * have always left disabled (0x00).
++	 */
++	ret = ov7251_write_reg(ov7251, OV7251_SC_REG5,
++			       value ? OV7251_SC_REG5_STROBE_OE : 0);
++	if (ret)
++		return ret;
++
++	ret = ov7251_write_reg(ov7251, OV7251_STROBE_FRAME_PATTERN,
++			       value ? OV7251_STROBE_FRAME_PATTERN_ALT :
++				       OV7251_STROBE_FRAME_PATTERN_DEF);
++	if (ret)
++		return ret;
++
++	return ov7251_set_strobe_span(ov7251);
++}
++
+ static const char * const ov7251_test_pattern_menu[] = {
+ 	"Disabled",
+ 	"Vertical Pattern Bars",
+@@ -805,6 +866,8 @@ static int ov7251_s_ctrl(struct v4l2_ctrl *ctrl)
+ 	switch (ctrl->id) {
+ 	case V4L2_CID_EXPOSURE:
+ 		ret = ov7251_set_exposure(ov7251, ctrl->val);
++		if (!ret && ov7251->strobe->val)
++			ret = ov7251_set_strobe_span(ov7251);
+ 		break;
+ 	case V4L2_CID_GAIN:
+ 		ret = ov7251_set_gain(ov7251, ctrl->val);
+@@ -820,6 +883,11 @@ static int ov7251_s_ctrl(struct v4l2_ctrl *ctrl)
+ 		break;
+ 	case V4L2_CID_VBLANK:
+ 		ret = ov7251_vts_configure(ov7251, ctrl->val);
++		if (!ret && ov7251->strobe->val)
++			ret = ov7251_set_strobe_span(ov7251);
++		break;
++	case V4L2_CID_FLASH_STROBE_OE:
++		ret = ov7251_set_strobe(ov7251, ctrl->val);
+ 		break;
+ 	default:
+ 		ret = -EINVAL;
+@@ -1282,7 +1350,7 @@ static int ov7251_init_ctrls(struct ov7251 *ov7251)
+ 	if (ret)
+ 		return ret;
  
- static const struct reg_value ov7251_setting_vga_90fps[] = {
--	{ 0x3005, 0x00 },
--	{ 0x3012, 0xc0 },
--	{ 0x3013, 0xd2 },
--	{ 0x3014, 0x04 },
- 	{ 0x3016, 0x10 },
- 	{ 0x3017, 0x00 },
- 	{ 0x3018, 0x00 },
- 	{ 0x301a, 0x00 },
- 	{ 0x301b, 0x00 },
- 	{ 0x301c, 0x00 },
--	{ 0x3023, 0x05 },
--	{ 0x3037, 0xf0 },
--	{ 0x3106, 0xda },
--	{ 0x3503, 0x07 },
--	{ 0x3509, 0x10 },
--	{ 0x3600, 0x1c },
--	{ 0x3602, 0x62 },
--	{ 0x3620, 0xb7 },
--	{ 0x3622, 0x04 },
--	{ 0x3626, 0x21 },
--	{ 0x3627, 0x30 },
--	{ 0x3630, 0x44 },
--	{ 0x3631, 0x35 },
--	{ 0x3634, 0x60 },
--	{ 0x3636, 0x00 },
--	{ 0x3662, 0x01 },
--	{ 0x3663, 0x70 },
--	{ 0x3664, 0x50 },
--	{ 0x3666, 0x0a },
--	{ 0x3669, 0x1a },
--	{ 0x366a, 0x00 },
--	{ 0x366b, 0x50 },
--	{ 0x3673, 0x01 },
--	{ 0x3674, 0xff },
--	{ 0x3675, 0x03 },
--	{ 0x3705, 0xc1 },
--	{ 0x3709, 0x40 },
--	{ 0x373c, 0x08 },
--	{ 0x3742, 0x00 },
--	{ 0x3757, 0xb3 },
--	{ 0x3788, 0x00 },
--	{ 0x37a8, 0x01 },
--	{ 0x37a9, 0xc0 },
--	{ 0x3800, 0x00 },
--	{ 0x3801, 0x04 },
--	{ 0x3802, 0x00 },
--	{ 0x3803, 0x04 },
--	{ 0x3804, 0x02 },
--	{ 0x3805, 0x8b },
--	{ 0x3806, 0x01 },
--	{ 0x3807, 0xeb },
--	{ 0x3808, 0x02 }, /* width high */
--	{ 0x3809, 0x80 }, /* width low */
--	{ 0x380a, 0x01 }, /* height high */
--	{ 0x380b, 0xe0 }, /* height low */
--	{ 0x380c, 0x03 }, /* total horiz timing high */
--	{ 0x380d, 0xa0 }, /* total horiz timing low */
--	{ 0x380e, 0x02 }, /* total vertical timing high */
--	{ 0x380f, 0x3c }, /* total vertical timing low */
--	{ 0x3810, 0x00 },
--	{ 0x3811, 0x04 },
--	{ 0x3812, 0x00 },
--	{ 0x3813, 0x05 },
--	{ 0x3814, 0x11 },
--	{ 0x3815, 0x11 },
--	{ 0x3820, 0x40 },
--	{ 0x3821, 0x00 },
--	{ 0x382f, 0x0e },
--	{ 0x3832, 0x00 },
--	{ 0x3833, 0x05 },
--	{ 0x3834, 0x00 },
--	{ 0x3835, 0x0c },
--	{ 0x3837, 0x00 },
--	{ 0x3b80, 0x00 },
--	{ 0x3b81, 0xa5 },
--	{ 0x3b82, 0x10 },
--	{ 0x3b83, 0x00 },
--	{ 0x3b84, 0x08 },
--	{ 0x3b85, 0x00 },
--	{ 0x3b86, 0x01 },
--	{ 0x3b87, 0x00 },
--	{ 0x3b88, 0x00 },
--	{ 0x3b89, 0x00 },
--	{ 0x3b8a, 0x00 },
--	{ 0x3b8b, 0x05 },
--	{ 0x3b8c, 0x00 },
--	{ 0x3b8d, 0x00 },
--	{ 0x3b8e, 0x00 },
--	{ 0x3b8f, 0x1a },
--	{ 0x3b94, 0x05 },
--	{ 0x3b95, 0xf2 },
--	{ 0x3b96, 0x40 },
--	{ 0x3c00, 0x89 },
--	{ 0x3c01, 0x63 },
--	{ 0x3c02, 0x01 },
--	{ 0x3c03, 0x00 },
--	{ 0x3c04, 0x00 },
--	{ 0x3c05, 0x03 },
--	{ 0x3c06, 0x00 },
--	{ 0x3c07, 0x06 },
--	{ 0x3c0c, 0x01 },
--	{ 0x3c0d, 0xd0 },
--	{ 0x3c0e, 0x02 },
--	{ 0x3c0f, 0x0a },
--	{ 0x4001, 0x42 },
--	{ 0x4004, 0x04 },
--	{ 0x4005, 0x00 },
--	{ 0x404e, 0x01 },
--	{ 0x4300, 0xff },
--	{ 0x4301, 0x00 },
--	{ 0x4315, 0x00 },
--	{ 0x4501, 0x48 },
--	{ 0x4600, 0x00 },
--	{ 0x4601, 0x4e },
--	{ 0x4801, 0x0f },
--	{ 0x4806, 0x0f },
--	{ 0x4819, 0xaa },
--	{ 0x4823, 0x3e },
--	{ 0x4837, 0x19 },
--	{ 0x4a0d, 0x00 },
--	{ 0x4a47, 0x7f },
--	{ 0x4a49, 0xf0 },
--	{ 0x4a4b, 0x30 },
--	{ 0x5000, 0x85 },
--	{ 0x5001, 0x80 },
- };
+-	v4l2_ctrl_handler_init(&ov7251->ctrls, 11);
++	v4l2_ctrl_handler_init(&ov7251->ctrls, 12);
  
- static const unsigned long supported_xclk_rates[] = {
+ 	v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
+ 			  V4L2_CID_HFLIP, 0, 1, 1, 0);
+@@ -1330,6 +1398,10 @@ static int ov7251_init_ctrls(struct ov7251 *ov7251)
+ 					   OV7251_TIMING_MIN_VTS, vblank_max, 1,
+ 					   vblank_def);
+ 
++	ov7251->strobe = v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
++					   V4L2_CID_FLASH_STROBE_OE,
++					   0, 1, 1, 0);
++
+ 	v4l2_ctrl_new_fwnode_properties(&ov7251->ctrls, &ov7251_ctrl_ops,
+ 					&props);
+ 
 -- 
 2.56.0
 
