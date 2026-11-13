@@ -1,89 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794572598;
-	b=I14FwKZZNg0SWlFjatFVZFew/I4zbGLCF+pScaxriOY1S70bgfMZPS9vhM9ZpJnbbtzQ
-	 v1s8juDJ2uxOiVUXS2hX1d1wp+sXvaTXoPa5fRlBKsAnC4DxM6cNnRGYWK/vIkhm90rx/
-	 2pp2I0Gyse+EYDTd64fKqLIrKxnUSIVrGa+xR2Z2R++jBJx6rb00SDlXzicXNteE1uxXa
-	 0HTKf6VtnM7nZdQ7V6CTiDNCxoJH9eDfKaATmX0JjzBaRm+tmuwfTDM/+qZh00oCJieI0
-	 q6NVMvYGvtAw6BTn9a8m5F7/a6vOR8pWtjWUnaIEunzc6cjECsoSnCWYNjy9Drd8w+A==
+	t=1794573488;
+	b=ZDwcjTzRYZgcASE0xi1tkRQzkjlLfEu1NOM0JeEx7aXhPCu2DwQbFZqi679GOKkh5wI4
+	 8QVHfvMb8lwMwBb56QNeK4Nyo3c8k37owW2+5THO1F07TC5Q6JcAQFX66McgXsKbNJJOp
+	 u4uu//aeukPrtop5GooTGnw4wb/Vu+ZB8dwmhnH/Has+4SW9tHNXhZwW5eRJUiSpJiphA
+	 6Ct1r6CgYCVKGxFf8zdp3GDaFu2cKqWL2ImpTNU/NMNhpJW10hgaWBwR6XcaOfdslxFpa
+	 O4aPMBhU8g+rIhQl22FzF4xtJ07ZZoIpLzzC43cVR4WnLMdM3Q9I1RCYUxk5ru1BfVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794572598;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=zlDmTV1GyS6XuBCY2hY++G3SnplVZgYyAQRPIUWV5B0=;
-	b=AYikeIO5vV5fDFjr+OeNbsPQ8bNifsYjdIEgG+ol3azLzbhF7jLZReKkVC0HJDUZjLyW
-	 Kt7zH3fXB6x9gVrQo49hpQChZWEzEXZ6eYumkXiT/2Bhb/MY88oeyiC7wZ3yKi4VlGfCr
-	 KRCA1ssx9gdUwCQUWJ6mrZkyDZDGS8FSFZp8TxGr4xvQVH7X2Hlf4cm6gcb1NKMjLYI5P
-	 cb8jRAYnofO+dm0O8KXYiTtiT3twnZfEzDvqg9NkRj87NtdmVffHMsN3zmQmyAeC0QNGC
-	 6zAQFM2wM7IVwCfeZQxk4NlTO03j8DiHDl28DE4dhK6pHUq6IW5cm2mWYK+3OBI++Nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794573488;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=op12/FNxtzMjYZ2XBGncVTvz9Ic13GaEAyhOHqfepzY=;
+	b=YibfTOrylarJQVv3XBaA0O2Os5kOtktRUDzC5LV5U3tui7+U6H1SR1ppGcJhe3VocSLS
+	 AVS3l9k1yoIKNy7k/m2jBvUy5lAruMmureRE5XgRDc0pYed28zByGKGfgcjNg0Ue6yYC4
+	 Kq3M+5LvJ3QO+cj7wyRkKOPRclkGyT6N2vNkNlStrIFQw5jJfPgk8XYeiYzBwbWqMiW9W
+	 20NtSt0XOg915dNESiYiCpvvNP2fjD5Bq7bqGTLQai+v7PE2YrrGmqL2t30ZaSAOWz19/
+	 fJquYouunYfdBaeGlFqx6J25rODD0c8tnmbyryCzmReIxakMcbR2SKCs5oKHykd66Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S1KrE5AB;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UrIXAiul;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55144606A33D
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 12:23:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55144606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E27606A323;
+	Fri, 13 Nov 2026 12:38:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S1KrE5AB
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c40e30c26a4so210858966b.0
-        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 04:23:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794572597; x=1795177397; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zlDmTV1GyS6XuBCY2hY++G3SnplVZgYyAQRPIUWV5B0=;
-        b=S1KrE5ABtnYaepR+FK1FFhl7eOTHfgezF48bLy8QKtPcPYFsnBGVD9wlPzV+sqnRSv
-         5IYADCj4BGpeYO+rPwgkIeydufu4K1Xu54deyrBcHabL1YY/VNvnWsyN2VIzq6/aOvNN
-         kN9RcCmiHIZQiyMTPxpvuK2ATRx9uCGD26ENwlQ5u1CdVuzIlG320xsurSG+Ou/XbXxk
-         KAf4jjO0CEcP9TPYIBXHQ/Bw299p0qBCgcunkhanpFQarVArKI29EoZuAg8H17N1M1YZ
-         Bbw0S477+HJNz0UKYFllU1SUkf0p+XL8MCx7QUg/5JJ9bJ7NsQWXrI2Da+hNxjJkXVVN
-         d2HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794572597; x=1795177397;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zlDmTV1GyS6XuBCY2hY++G3SnplVZgYyAQRPIUWV5B0=;
-        b=frpmAgoM1h/r/PRBIi0U55fwce8pRFdyBABLaWof3AXYbmjzi5eFSsjxSe1/Snt91Z
-         oTPlqEv8gkNIgV8uxO7ev6z9FJg843HnaRZgAtmVZVHCb9eomShKyZvQRU3qXOd6HYwe
-         MOzrBmls5cOC9XIJgTpJGQRWVo4X5RbNEA+kBcsKvoEpLTYyMcsZOz/oDSniUtXo7KRU
-         9Xm1bCwRxBQQj6jJIH2nspih9MnB3PxWbWJY1b7tZomNk0hrXXT0w9IMASHTR3I2m/ie
-         bHO8D6pe8n7cPrSPYYMY1WT0Fhl6kTv1+l3dfdui0w+jp9Wgdyg7Vdav5SNR6eOtgPuf
-         fGrA==
-X-Gm-Message-State: APuU4Z9Syp1tAKOACnVQhexO8UFGmbgHMl5+Hn/UWizpJswsGDCKu0Mc
-	eYUslPbCZkJmt0s/nuGE+QJlQOmaJshxa+lK0Zv/ixp9IPGCutK6+TKQjLUZAeAr9gg=
-X-Gm-Gg: AYBFou0Zb8ELmyvmnQGaku8SqkdqCaz0I61/oKZLFa8L1LYV74dtEE6bf4T/1p2H71Q
-	+Q4RiJ+dDWY3Vg4TAk+ELgsKDzrqnCGQldAm++eJa2mRT1+RHKHB53a7sVvLmKhoYsmUpOnhN8N
-	wBiIZnGfhvOGL56x9u2HSyLKOWWF3td0YAiBDp7QCxEAeUwSGao4FvCUNvgcD18azVKny9NTEr/
-	EoDS6zWzXvmxllctWyRRd57ZhNm0x8w598L+RgjyP+5qNRcwFwu9nnv/qA8Y9kqKpskRFDiHOkL
-	NjjnhXyxlPdNPQK7DVy2uOLonbzZFqVPOH1VvYywQG6f61YjSXDWpKaUwX3PgBI2rP6tcIt4LYy
-	xkc3i3QAXUFTzQHYlURqDAVOa7lHdfc/rO43mWgGU7iNHxpdI8BPbwsMvl+7rjLH6/z+khANxNe
-	hsXN2mA5r8zM2swb/8SB8yaL1ARg/+gdwLukm9wHfZmCFeWVVYfAEFvhYBc/a8GXWgvJMbWqepu
-	7ht1L9lX4x/y4vW0/HEjvgp715fCFr74aFlJvVCMW5QYjqBZS+WvzzUyqq7R41Wcfh54BNRYUGR
-	0iASTFE8bWOzBfqi28YhOxCa7mGFyyJoj+ZJ+16CKwKyKt27bcCm6CD3s1Vc/D4CZ1NvXQ==
-X-Received: by 2002:a17:907:3f8d:b0:c46:8b87:c212 with SMTP id a640c23a62f3a-c50963bba0cmr238279566b.20.1794572596311;
-        Fri, 13 Nov 2026 04:23:16 -0800 (PST)
-Received: from localhost ([188.146.170.61])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b780d6sm85244266b.67.2026.11.13.04.23.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 04:23:15 -0800 (PST)
-Date: Fri, 13 Nov 2026 13:23:14 +0100
-From: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
-To: linux-media@vger.kernel.org, mchehab@kernel.org, mkrufky@linuxtv.org, 
-	mkrufky@kernellabs.com
-Cc: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	stable@vger.kernel.org, media-ci@linuxtv.org, patchwork@media-ci.org
-Subject: [PATCH v2] media: mxl111sf: initialize state->d and fe_lock in probe
-Message-ID: <ng3o2if45f7ooswkxqvgh2rmq6vwptmtpfcuwty5wfsmngs2ld@urxpogq5omhe>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UrIXAiul
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C9E51F000C4;
+	Fri, 13 Nov 2026 12:37:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794573487;
+	bh=op12/FNxtzMjYZ2XBGncVTvz9Ic13GaEAyhOHqfepzY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UrIXAiulAlh5l+emGRr+Is0DKNy2jfg0CJE+DKG6TiQXuGZ1I7ifl8A6H+qc63vZ2
+	 0aSj05WBsvSj5DU/m6qFKN+gRAMcfKcRS8fTUAK+GOiix2CsAVAPpQpT8yeQSRNZ9Z
+	 GfruoQ7sNuyQXwRlsZKwr5FDWzsgvJZEKYT8H42PwBRXc3zoRfz4F+xSwqgGyqsf+P
+	 43NuCkB6cA869Pc5YiorgyCWZTwMqOpvJKX1T5FvfgMjGqFxuitoPTzwmlvIAMi+tx
+	 h//F4rvvN1bv+gJoajyYnBaXPr4jflUzTRDol4+uB/MmbyTRgCJ0p9hNAYAX8/HMOb
+	 Ff6+xcLaMy9Wg==
+Message-ID: <834ac9d1-92b9-4813-ba63-73bc2f6de4ca@kernel.org>
+Date: Fri, 13 Nov 2026 13:37:56 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,153 +51,100 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/5] iommu/of: Make OF_IOMMU depend on OF_ADDRESS
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Vasant Hegde <vasant.hegde@amd.com>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
+ Eric Auger <eric.auger@redhat.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Joerg Roedel
+ <jroedel@suse.de>, Srinath Mannam <srinath.mannam@broadcom.com>,
+ Oza Pawandeep <quic_poza@quicinc.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Alex Williamson <alex@shazbot.org>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+ virtualization@lists.linux.dev, devicetree@vger.kernel.org,
+ kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
+ <20261106-add_iommu_ranges-v7-3-5c0f72083e52@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261106-add_iommu_ranges-v7-3-5c0f72083e52@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-During device initialization in dvb_usbv2_probe(), the dvb-usb-v2 core
-allocates the dvb_usb_device structure and its private state (struct
-mxl111sf_state) via kzalloc(), then invokes dvb_usbv2_init(). Within
-dvb_usbv2_init(), dvb_usbv2_i2c_init() registers the I2C adapter with
-i2c_add_adapter(), which immediately exposes the I2C adapter to
-userspace via the /dev/i2c-X character device.
-
-However, state->d was only assigned later during frontend attachment
-inside dvb_usbv2_adapter_frontend_init() via
-d->props->frontend_attach(). If userspace performs an I2C transaction
-before frontend_attach() completes, mxl111sf_i2c_xfer() delegates to
-mxl111sf_ctrl_msg(), which reads state->d and passes it to
-dvb_usbv2_generic_write() or dvb_usbv2_generic_rw(). Since state->d is
-still NULL, dereferencing &d->usb_mutex inside dvb_usbv2_generic_write()
-triggers a null-pointer dereference crash. Although the crash report was
-captured in compat mode with PTI, the failure is illustrated by the
-following x64/NOPTI trace:
-
-Oops: general protection fault, probably for non-canonical address
-0xdffffc0000000018: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x00000000000000c0-0x00000000000000c7]
-RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
-RIP: 0010:__mutex_lock+0x149/0x1550 kernel/locking/mutex.c:821
-Call Trace:
- <TASK>
- dvb_usbv2_generic_write+0x26/0x60
- drivers/media/usb/dvb-usb-v2/dvb_usb_urb.c:77
- mxl111sf_ctrl_msg+0x160/0x2f0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:73
- mxl111sf_write_reg+0xa9/0x1b0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:123
- mxl111sf_i2c_start drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:130
- [inline]
- mxl111sf_i2c_sw_xfer_msg drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:-1
- [inline]
- mxl111sf_i2c_xfer+0x463/0x5060
- drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:813
- __i2c_transfer+0x7bf/0x1fe0 drivers/i2c/i2c-core-base.c:-1
- i2c_transfer+0x1cb/0x2d0 drivers/i2c/i2c-core-base.c:2350
- i2cdev_ioctl_rdwr+0x460/0x740 drivers/i2c/i2c-dev.c:306
- i2cdev_ioctl+0x6a5/0x880 drivers/i2c/i2c-dev.c:467
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
- </TASK>
-
-Additionally, state->fe_lock was initialized in mxl111sf_init() (called
-via d->props->init()), which runs after frontend attachment, leaving the
-mutex uninitialized during frontend registration. Although the reported
-I2C fault does not demonstrate a frontend lock race, fe_lock should also
-be initialized before frontend registration.
-
-Fix this by setting state->d = dev and initializing state->fe_lock in
-mxl111sf_probe(), which runs before dvb_usbv2_init() registers the I2C
-adapter or attaches frontends. Furthermore, remove the redundant
-mutex_init(&state->fe_lock) from mxl111sf_init() and the redundant
-assignments of state->d in the frontend attach functions.
-
-Fixes: 4c66c9205c07 ("[media] dvb-usb: add ATSC support for the Hauppauge WinTV-Aero-M")
-Cc: stable@vger.kernel.org
-Assisted-by: Gemini:gemini-3.8-flash syzbot <syzbot@kernel.org>
-Reported-by: syzbot+f9f5333782a854509322@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f9f5333782a854509322
-Link: https://syzkaller.appspot.com/ai_job?id=c5284b5c-3f14-4e95-a4b7-6ee38f0d2e1f
-Signed-off-by: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
-
----
-Changes since v1 (10 Nov [PATCH]):
-- Add stable Cc to the commit trailers and mail recipients.
-- Add the syzbot mailbox to Assisted-by after Media CI could not
-  parse the original value as an email address.
-- Rewrap the commit description. The code diff is unchanged.
-
-The earlier RFC v3 carried the same code diff.
-
-diff --git a/drivers/media/usb/dvb-usb-v2/mxl111sf.c b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-index 6404eb74d..fc4010b6e 100644
---- a/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-+++ b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-@@ -431,8 +431,6 @@ static int mxl111sf_lgdt3305_frontend_attach(struct dvb_usb_adapter *adap, u8 fe
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -502,8 +500,6 @@ static int mxl111sf_lg2160_frontend_attach(struct dvb_usb_adapter *adap, u8 fe_i
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -587,8 +583,6 @@ static int mxl111sf_lg2161_frontend_attach(struct dvb_usb_adapter *adap, u8 fe_i
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -674,8 +668,6 @@ static int mxl111sf_lg2161_ep6_frontend_attach(struct dvb_usb_adapter *adap, u8
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -749,8 +741,6 @@ static int mxl111sf_attach_demod(struct dvb_usb_adapter *adap, u8 fe_id)
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 1 : 2;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -935,8 +925,6 @@ static int mxl111sf_init(struct dvb_usb_device *d)
- 	if (mxl_fail(ret))
- 		pr_err("failed to get chip info during probe");
- 
--	mutex_init(&state->fe_lock);
--
- 	if (state->chip_rev > MXL111SF_V6)
- 		mxl111sf_config_pin_mux_modes(state, PIN_MUX_TS_SPI_IN_MODE_1);
- 
-@@ -1068,7 +1056,9 @@ static int mxl111sf_probe(struct dvb_usb_device *dev)
- {
- 	struct mxl111sf_state *state = d_to_priv(dev);
- 
-+	state->d = dev;
- 	mutex_init(&state->msg_lock);
-+	mutex_init(&state->fe_lock);
- 	return 0;
- }
- 
+On 06/11/2026 18:14, Vikash Garodia wrote:
+> The OF_IOMMU code relies on OF address parsing helpers, but the
+> dependency on OF_ADDRESS is not expressed in Kconfig. As a result,
+> of_iommu.c contains CONFIG_OF_ADDRESS guards and a __maybe_unused
+> annotation to handle configurations where OF_ADDRESS is disabled.
+> 
+> Make OF_IOMMU depend on OF_ADDRESS and remove the now unnecessary
+> preprocessor guards and __maybe_unused annotation.
+> 
+> The only architecture supporting OF without OF_ADDRESS is SPARC, which
+> does not use OF_IOMMU, so no functional change is intended.
+> 
+> Suggested-by: Rob Herring <robh@kernel.org>
+> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> ---
+>  drivers/iommu/Kconfig    | 2 +-
+>  drivers/iommu/of_iommu.c | 4 +---
+>  2 files changed, 2 insertions(+), 4 deletions(-)
 
 
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+
+Best regards,
+Krzysztof
