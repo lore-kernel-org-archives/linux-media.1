@@ -1,47 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794558498;
-	b=Vbr7zLHnGOEmlTWzqG2WWxs2AsWMvmcUubBgvANCcR/wDUaoJ/QbK0OQpB3yo7R1Hcbv
-	 oPcon8M30xCALjg/m+81558D/jcWllhpyC350EL0nqX2fAAv7mJzDvMsGV4G6fXwWUUpW
-	 GE5XKG/aRlD52kQsei7IF8qQ5AncouY7+lfrVFijR/pLqwxxYkRMQR76cdieZa8Mlkn1G
-	 6dGvJ07g7NiStrN+ASecfxtXjDzcv/Dr3J9HOFEfHTd5mNR9sLlqrVnf5ZX47HNXmvxin
-	 N8pXoq6m2iB1HCSErRHWl+y5slSXX/4wyv7JM1P0oF9kjUdQf3oEC2kk8KPl4a/9QXQ==
+	t=1794559016;
+	b=ClMl8Va8MTMK2KMn+E8YN8eeef3fAHkJl/QvmNsRiar5fwvEJ8Z6yipG92eLWPq1yo3h
+	 i5X5gSYoRvNBBUl81kHbdmeu5/HujfYOWI0ms0TBACEzuWYU5rS+DnwKtGwUidvtSnjZ6
+	 KTP6G3myQFfksmWbLrIg44ZHMZuy1ecwzp1XgP0GB2LTl2/QT/tf2O/gj6ekcKs2ZnKQb
+	 /xvFMQlE6ZSC+VBfg9eZSRpU9nlYD33T0DhMDJTEf+oVBK722USNI5OzpQ99V8Apq/Nmv
+	 EI/hfiaWifozzunM09GEg0giIZAXfa17WxM8Kd6fy1mYaaUHbty39O59htgPKzei8Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558498;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=emeR0HMDJ7PN43Qf1dnhb+lV3w2T1zMRCtFRSSk5h7s=;
-	b=1HRhjcuKGVJtDRE8+3DuNSINXnFp8ddBvpzY5XRMhohYI4QM7yeambblX0H1IVeiIgYe
-	 QIFBzCwLZDw0Ykv+nrZuzCsczK1ThnKSVpFcqvBAxQSOChQQ/QjiHP4LP4yzS9ixO2sVM
-	 UKLFg8lOpwlt3ExRRTNEopBzpygO+/jq5YRwX3/r/o7QLS1RACQ6pCPhAOqXlyNvnyIAV
-	 3ayHuNgSOW8n2Hg2spo0HJwOVJXul+HbBc64IP1JFp2yd2Mxu1cn5xEGu1PEEQ2agRlcN
-	 Q4+7R/PaGT80DrznO2Jnp/zLMJjjBO7rAq3bFUQbxfJZCxd81ayjHl5eHtth0XiBkiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559016;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=WcbMZkXCoDF1VinxpXAJnqvIlxoOmrzgyATGNwq43+A=;
+	b=UzShy4nC8vTExP8jEyNFeY+PW0vTmrqDTVsi1yMiamY1NuNl4WS+XGiSNiMSa0F3Kpes
+	 fbyqkKBlNtTJWHkr3B6iAKxFxGK7/a8HFMg8FGMFuuc95cqzw4ij4zHTGEs8yveY7DVw5
+	 UqB04vxxfwKln7jL44PjVaEGHFvB3AuQoyYO1c+KBKH5q6PXIixZZmRdvHpuzbR3lAeBE
+	 NyqkoivdAE79IkO+2v59scbUfBndbKK8DtpC4MLZAQTKkSD1s3pD7e793m3NIHBUAnMQo
+	 8rzJQJjSBA2YXXcUtYcv9sbbY991I7sdZtu3f7oLXWWxXLdLRODVwTorw9iraBtDcJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eCC7Ll5o;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PBzV4Wsp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4992B606B62F
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 08:28:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81D4606A31C;
+	Fri, 13 Nov 2026 08:36:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eCC7Ll5o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50D7F1F000C4;
-	Fri, 13 Nov 2026 08:28:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PBzV4Wsp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D5641F000C4;
+	Fri, 13 Nov 2026 08:36:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794558497;
-	bh=emeR0HMDJ7PN43Qf1dnhb+lV3w2T1zMRCtFRSSk5h7s=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=eCC7Ll5o8ONly8tmmDjSM1G7J8F9FXZe/IgHuLsDZqnQaEI5UOqXdo2I0+pQuOKLK
-	 fkyzvl0bP5QKN6loWolTCt1GoYLHCloC/n4nIB5XNiG4kJzMrQP9z7U4tl9zo8Zj8v
-	 HY0px9o0oMzG8jtN2ZZzbtVl9TYxIS4svwuW2A7BeWyXFse7+8dJv4EP27ya3n7OjT
-	 SUEMdjupgUlMUULAXet0o5JYS6TCn9ty31SpIHlF6gUoZh/wLWbsZlAv92LF5uSEDr
-	 vYucNREVZlrZ3VVkYfPxHG9uezt482JdREbS3H08ccKVtqsJQ/7e5qNUSZscApilGb
-	 ttq0XA3rp8Lsg==
-Message-ID: <fc58f61b-b4e6-4b4d-af6b-d29790109eb0@kernel.org>
-Date: Fri, 13 Nov 2026 09:28:15 +0100
+	s=k20260515; t=1794559015;
+	bh=WcbMZkXCoDF1VinxpXAJnqvIlxoOmrzgyATGNwq43+A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PBzV4WsppZXw4ka2DOy1kwykexWL4bAIMtz3UGqpszC8BjXZOqibQVEak+Kq8c2AD
+	 E9MoBORWZjLCTHwkZw2yNrZpnDZYomFvPvujDxPrnlTKZhareQb8KW03DjiHggPsVD
+	 tKHuFgUA1YCBXSlUCpujHQPA63MU1r4pjl7ydLipOTatGwpsKnG2FqYBuSZz0w9Qcy
+	 8VYFjAuReeAASmkWQEv7vtyws10AHAFWupq+Efm/0Pcw3uODhzFFTmxZQW9IbZ64c9
+	 Buwdmzq1v2xC4k+hKLTIiIQ1FoKFwnZTNDkNRnOtkRClPBEcafGl1qVLk+RzZWSyaX
+	 PHmF4rAz+hHjQ==
+Date: Fri, 13 Nov 2026 09:36:49 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Arun Iyengar <aiyengar1990@gmail.com>
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
+	Andrzej Pietrasiewicz <andrzej.p@collabora.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+	Hans Verkuil <hverkuil@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Sergei Khomenkov <shomenkow@gmail.com>, Tharit Tangkijwanichakul <tharitt97@gmail.com>
+Subject: Re: [PATCH v2 1/6] dt-bindings: media: rockchip,rk3568-vepu: Add the
+ reset lines
+Message-ID: <20261113-eminent-vociferous-walrus-2d63df@quoll>
+References: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
+ <20261112-hantro-robust-v2-1-18561fd48838@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,81 +66,25 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH] media: gspca: fix stack overrun in build_isoc_ep_tb()
-To: pwngets <2605452642@qq.com>, hverkuil@kernel.org
-Cc: linux-media@vger.kernel.org
-References: <tencent_EAFEF76E0657C04EE304E09B471BF8AA0908@qq.com>
-Content-Language: en-US, nl
-In-Reply-To: <tencent_EAFEF76E0657C04EE304E09B471BF8AA0908@qq.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261112-hantro-robust-v2-1-18561fd48838@gmail.com>
 
-On 28/09/2026 13:07, pwngets wrote:
-> build_isoc_ep_tb() fills the ep_tb[] table that gspca_init_transfer()
-> declares as "struct ep_tb_s ep_tb[MAX_ALT]".  The bandwidth sentinel is
-> stored at the top of the loop, i.e. before the "found" test that decides
-> whether the pass produced a usable entry:
+On Thu, Nov 12, 2026 at 08:30:47AM +0000, Arun Iyengar wrote:
+> The VEPU121 encoder cores of the RK3588 each have their own AXI and AHB
+> reset lines in the CRU (SRST_A_JPEG_ENCODERx and SRST_H_JPEG_ENCODERx).
+> They are needed to recover a core that is stuck on the bus, which its
+> registers can't stop.
 > 
-> 	for (;;) {
-> 		ep_tb->bandwidth = 2000 * 2000 * 120;
-> 		found = 0;
-> 		for (j = 0; j < nbalt; j++) {
-> 			...
-> 		}
-> 		if (!found)
-> 			break;
-> 		last_bw = ep_tb->bandwidth;
-> 		i++;
-> 		ep_tb++;
-> 	}
+> Describe them as optional, so that existing device trees stay valid.
 > 
-> Every pass that does not break raises last_bw, and the candidates are
-> the bandwidths of the nbalt altsettings, so at most MAX_ALT passes fill
-> an entry.  The pass that ends the loop has already written
-> ep_tb[MAX_ALT].bandwidth by then -- one element past the end of the
-> array.
-> 
-> A device that presents MAX_ALT (16) alternate settings carrying
-> isochronous IN endpoints with pairwise distinct, increasing bandwidths
-> reaches that pass with nbalt == MAX_ALT.  On x86-64 the store is 4
-> bytes at ep_tb + 132, which is the upper half of the stack canary, so
-> kernels built with CONFIG_STACKPROTECTOR_STRONG (the default on the
-> major distributions) panic in __stack_chk_fail() when
-> gspca_init_transfer() returns.
-> 
-> Only the device descriptors are needed: the store happens while
-> VIDIOC_STREAMON is being handled, before any isochronous transfer takes
-> place.
-> 
-> Give the table room for the terminating entry as well.
-> 
-> Assisted-by: Claude Code
-
-No Signed-off-by and incomprehensible AI prose.
-
-Rejected.
-
-Regards,
-
-	Hans
-
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 > ---
->  drivers/media/usb/gspca/gspca.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
-> index 594d73e..64bb818 100644
-> --- a/drivers/media/usb/gspca/gspca.c
-> +++ b/drivers/media/usb/gspca/gspca.c
-> @@ -753,7 +753,7 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
->  	struct usb_interface *intf;
->  	struct usb_host_endpoint *ep;
->  	struct urb *urb;
-> -	struct ep_tb_s ep_tb[MAX_ALT];
-> +	struct ep_tb_s ep_tb[MAX_ALT + 1];
->  	int n, ret, xfer, alt, alt_idx;
->  
->  	/* reset the streaming variables */
+>  .../devicetree/bindings/media/rockchip,rk3568-vepu.yaml        | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
