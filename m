@@ -1,88 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794553383;
-	b=MY5JQ5sZ3yqRDNOvI+RzblpQDooUSgP+QH3H3grv6tOc3GjVnG2rYuqYuIHlf/v3Hq9p
-	 GfFDyTt1I4Xz8oX5MV9U3ksuq10Kh5/2gbII+kLODUzcl2JDzlShvqcENiopGEEV6eMC9
-	 xMPl4brXxP1HdMdpzZxP8pcCGvYpeModB89QsCefJZNaYatu9w92k+RFqFgHYyjhYkgau
-	 NFiOZ4TBaBofH7///qjq/Ojam6HJCdM6CGRfSb0z/DFLieMh03wfNq9WSC7UjnLd3wh4v
-	 5YxxCQyaN6dqoeeud+Mkml3GRm8zHhqD7HvTh/NFT0Go2B1SHeLZzsIMoCocJ0M4NJw==
+	t=1794553607;
+	b=OVa1ZVsuDWZ/zijk19TKVsYZDZ3yCBKsEWHcsaHpYMDUrNsK0CNH2HHBYft+ye3+eG3G
+	 qPX7HHJIj7ZTA3u7jjTiCJJGVNOsOs16cC/8EwLGHAApI8Nx9RfhZXQW9n6spKVFf5va9
+	 bPg4yGvT8dPR/DiyF84ZKe0bSkzxVH/ykAGRiS0O6UjZwCl+HMtBC1KesfA79sAZM4kUK
+	 Kn7uUE5BNWc6QKmqcMq0jjdfWdjH4sl/OC1ovue74eTtx40VsbNhplDXSbmrqKxui+/nK
+	 QtILDlaunM+y7aAvQgLriv84RqHq9guUjQ2ZAithWnAjy+xLdDKgUJZwIygQlXkKpLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794553383;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8lKZhgPqGIDS3tA84DXa+DV9jh51BEaNRmgTxoQ2hEE=;
-	b=BCayytpXqkqdROrYI/ffBCNVb8AubfXipKGflAxtJdVUo6scM+SDvrSs2ptwraLPqaJx
-	 1jnd8a+heWeD2vV0DIpTZszI6B6ESBEYjjUtr1iWTrLkAFvaO7RaEGyAZ37b+FVyu3tzA
-	 JnFWsQRH/lg3CKpw4ymQnifU1d4viw/DHeJgYNkYEJG8ltwAFpkEbtjcQUDAXeVOpqexO
-	 r6qUKo8J1x/SUCuvyzM7bosCA5te0bl4cmMhpdrhsuW8bgZrUbHPyYgKS8iwDEZfhSUiY
-	 ys4bPgkgiFqbsgRVg9YTOcO4C+NtlG08vFEsfiJzYhsADcbsXoi9vCDLoE7eYaxj8Ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794553607;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=tz/3kHKfP5O1F2qPHz5sww7BaOT1KLvA0dXNCk/OZIk=;
+	b=xTdQzCY+Ik7wZhMu39Ju4NR782RN1aznndBtKh2ePQ3H9Cy1EHehkGkV1J8L+H0ZFOfU
+	 bw+JiojDlaX2zn/xCp3HJwo++WkGBMkM/13eP/Y8m4wB0LVKdz8Fdvy027Wc3+//1d0dE
+	 nhlx2t1KkrtMop2Ll4NElBU4K+REPqONcmtzy3/nKo0oESzEQyDyskZP9T9et74j0azgd
+	 fnqQcgktr7etmmVfuvQNwRDV9iWTyEtAR5tWnp8PfI13L716beR1lXXMqswyCnsmezQL8
+	 mn1PxjPLzn14MKoSgxYjjOaIEPycCffi5WrdcHbjdJi+jzjaEzMgeEueUqaLIsnMj/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=AnUG9xVT;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HCTOAUYa;
+	arc=none smtp.remote-ip=95.215.58.144
+Received: from mta1.migadu.com (out-144.mta1.migadu.com [95.215.58.144])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E029606A31C
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 07:03:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E029606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3170D606A335
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 07:06:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3170D606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=AnUG9xVT
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49d05d51553so2514575e9.2
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 23:03:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794553381; x=1795158181; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8lKZhgPqGIDS3tA84DXa+DV9jh51BEaNRmgTxoQ2hEE=;
-        b=AnUG9xVTLdG2KCI3LTlfqZ+EW0SHNF99nSSjPoEu/sbiQEVi8DDr8uDF6zuVL8LKEA
-         a1DRif7EJExOV0daUciEEPgknP12dTcHPBYHwatKcOjUIm0BjagdkdO9hGkhK/7kDWRk
-         /dA3EzD2qs78u5QpShlHqnHCCNIck+YhC+Z80=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794553381; x=1795158181;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8lKZhgPqGIDS3tA84DXa+DV9jh51BEaNRmgTxoQ2hEE=;
-        b=V/dyAaxRILRToCRRIE/jpOCubGYGSovy5A3RdKHkIRI61YDu8roARGDrMwJF50D48V
-         UxQ1VKh3HEHa6NjJ7EWXGGzzwSARRBNgjO2ntUpFw0bf/6UbxHRAvZdvNq+3je2VsI+O
-         sVYJaJJSGmpP4lCyGn102SiCNXfwHyJa9N2ktWM3Srg39+PccKkVKAOxcjEIW9IlN7Za
-         jWXK40OwnRMHhkRHMNIs9qnwaoZCz54O9nRMi0UaDbQWG6nsdR1F1ez4/TBiBt19AdNV
-         gQbIx+ApG4tWA9xJGtMxF3lQBY5XKnWzVOcXjEgvNVtKLSrfvbmwzfHBxrRM/JZVLu2z
-         cDNw==
-X-Gm-Message-State: APuU4Z+DGYXPl6SlfE+eOJx8TzmoIJlm7PqTWEv8BQ6O8BqOBPTpBY1B
-	zrom1/k2jjQe/43BtQGWvHDP4KaJpYQTSEE1U5e/5dkyvENX+TqzLxx3I4nNCnw+xo2HsAEiVV7
-	CTTkwBg==
-X-Gm-Gg: AYBFou14f1tJv4zyzpYar/kpefwu4ol7j5Vvnoz1x1YATJlySF4kaQDwNFcJHBguYDd
-	02ugNyMzgxcVBfXhHMKvce8GNsCFSAAW993kATWm4G//hfw2Y4hISRqsrk+cFnce346VqezFq0C
-	WkJM4NQZJGbWv+uSvJ8sYMCyKopMmLmwJNkOUaas4uL2c/PJ02vyrsoXrhuqoSbeKEwpl3dsiMU
-	hXIo4yy1yUIWbWT1HhAIsalcYa3xiArvXWqJxMrtj8wo5CiB4tttJOVy7PUZebMBbDmnK+e1cyX
-	ZeU60bRX0MP0W5q2nBdad1aDZ/3NeousZoYl8mnN9ap1cp/NFB2cnGuuhDurEw2DVYlY7uZQjwS
-	2yRYMxGBu+QM4BwGcr83aZCGxGU/CEFDGThWNME8bZD7AJgygpjoaiEIcJ/ZAHzWlF/ml142U65
-	zF1NzExoIZGwVp+JCFhRNN+V6HQ3zEIk6rWc9NzhOxv4XBSZ2JZ4hf4xsFSejRSYCbgaTSgw0GB
-	0ASO3mGr4imnlY/FM4rh3K55ldlO+/PwW5uMixJm0IhIPPQsnoYluctzS9Sz0sYddZCegbxFh7N
-	RTQ09iq+5MXXy8v2fXM+oJJF+4TdYqbuS7UPnGdvpw+5krvqd00X2ZLZURVOSh9N
-X-Received: by 2002:a05:600c:840e:b0:4a5:a5ca:de1d with SMTP id 5b1f17b1804b1-4bb55a92bd1mr35063555e9.30.1794553380852;
-        Thu, 12 Nov 2026 23:03:00 -0800 (PST)
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com. [209.85.208.50])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55af2a9bsm41027315e9.14.2026.11.12.23.02.59
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 23:03:00 -0800 (PST)
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b71ee00f0dso5635a12.1
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 23:02:59 -0800 (PST)
-X-Received: by 2002:aa7:c704:0:b0:6b3:f12d:7405 with SMTP id
- 4fb4d7f45d1cf-6b7c82e1e32mr41179a12.14.1794553379045; Thu, 12 Nov 2026
- 23:02:59 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HCTOAUYa
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ERnLBl8wC0u2PnoqT3bHbS7adfW2xOd+NgxfHeJjTDM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794553605; v=1; x=1795158405;
+ b=HCTOAUYaFgw7pCqA4CZGypARO6Cef0gopMDQw7f6zI2rbiMuJl8KzhnkRlN0iwFGKh7n+YMh
+ gge6Au3wmDjj1hQpAyFgYcykBgleRShCzVf2vlcrK6iyhYtm8lcHnemvKUZZsebFB9ivJLTQnOp
+ MRCIeO5ZTYWLXWEeDd/W4vFs=
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 089f84f20e46ec29;
+	Fri, 13 Nov 2026 07:06:44 +0000
+X-Mizu-Trace-ID: 089f84f20e46ec29
+X-Migadu-Flow: FLOW_OUT
+From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
+To: Christoph Hellwig <hch@lst.de>,
+	Anuj Gupta <anuj1072538@gmail.com>,
+	Nitesh Shetty <nj.shetty@samsung.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	christian.koenig@amd.com,
+	Philipp Stanner <phasta@kernel.org>,
+	Dan Williams <djbw@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	tytso@mit.edu,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	asml.silence@gmail.com,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	nvdimm@lists.linux.dev,
+	linux-ext4@vger.kernel.org,
+	linux-xfs@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	Li Wang <liwang@kylinos.cn>,
+	Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+Subject: [RFC PATCH v2 0/8] ext4: Add dma-buf read/write support
+Date: Fri, 13 Nov 2026 15:06:13 +0800
+Message-ID: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -92,64 +94,121 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105070828.1992653-1-tfiga@chromium.org> <028d9a3b-8de0-4a98-b3d1-07d83143361a@kernel.org>
-In-Reply-To: <028d9a3b-8de0-4a98-b3d1-07d83143361a@kernel.org>
-From: Tomasz Figa <tfiga@chromium.org>
-Date: Fri, 13 Nov 2026 16:02:41 +0900
-X-Gmail-Original-Message-ID: <CAAFQd5D4c0aBrubQFdL0Q_WsY0rnK-5kGSngQRNwh5QTEwnT_Q@mail.gmail.com>
-X-Gm-Features: AclHuK_f2bS4LODsYEBXcxmWe1_Ak54T63B6HHOldzdYHUE2j129hx3qcA3QKcA
-Message-ID: <CAAFQd5D4c0aBrubQFdL0Q_WsY0rnK-5kGSngQRNwh5QTEwnT_Q@mail.gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: Remove Tomasz from VIDEOBUF-2
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 9:21=E2=80=AFPM Hans Verkuil <hverkuil+cisco@kernel=
-.org> wrote:
->
-> Hi Tomasz,
->
-> On 05/11/2026 08:08, Tomasz Figa wrote:
-> > I've been working on other parts of the kernel for quite some time and
-> > haven't had enough time to follow the development of the Media
-> > Subsystem, including the videobuf2 framework.
-> >
-> > Please accept my apologies and let me step away from the maintainer
-> > role, so that someone with more time available for it can take care.
->
-> Thank you so much for all your efforts w.r.t. the vb2 framework. You made
-> major contributions to it, and you'll be missed.
+From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
 
-Thank you and everyone in the Media community as well. Hope I'll be
-back some day. :)
+This series adds dma-buf read/write support for ext4. The dma-buf direct
+I/O infrastructure allows dma-buf to be handed to file I/O as an iov_iter,
+but currently it only supports raw block devices. To better serve the
+GPU-NVMe direct access through normal filesystems, prior work for XFS has
+been discussed at [1]. We are also interested in this field and working on
+it [2].
 
-Best,
-Tomasz
+The series is based on v7.4-rc2 (7475ea8b5861), which already contains
+the common dma-buf direct I/O infrastructure, so it no longer depends on a
+separate base tree.
+Patches 1-2 carry the block and iomap prerequisites from Nitesh Shetty and
+Anuj Gupta:
+- bdev_init_dma_buf_io_ctx in patch 1 was moved to block/bdev.c as
+suggested by Christoph.
+- iomap_file_init_dma_buf_io_ctx from that series is not carried. ext4
+calls bdev_init_dma_buf_io_ctx directly, and the capability check is
+handled by FMODE_CAN_DMABUF_IO.
 
->
-> Best regards,
->
->         Hans
->
-> >
-> > Signed-off-by: Tomasz Figa <tfiga@chromium.org>
-> > ---
-> >  MAINTAINERS | 1 -
-> >  1 file changed, 1 deletion(-)
-> >
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 93abbb315065..af302622c849 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -29512,7 +29512,6 @@ S:    Maintained
-> >  F:   drivers/media/platform/video-mux.c
-> >
-> >  VIDEOBUF2 FRAMEWORK
-> > -M:   Tomasz Figa <tfiga@chromium.org>
-> >  M:   Marek Szyprowski <m.szyprowski@samsung.com>
-> >  L:   linux-media@vger.kernel.org
-> >  S:   Maintained
->
+The design is:
+- FMODE_CAN_DMABUF_IO marks files that can be the target of dma-buf I/O;
+  a filesystem sets it at open time for inodes whose data can be reached
+  without the page cache.
+- dma_buf_io_ctx_create() refuses files that lack the flag and checks the
+  current f_flags for O_DIRECT at registration.
+- As F_SETFL can clear O_DIRECT afterwards, the paths that would fall back
+  to buffered or copied I/O still need per-I/O checks in the callers.
+- DAX is rechecked per I/O because it can be enabled after open.
+- iomap must not ask for a buffered fallback on behalf of a dma-buf
+  iterator: -ENOTBLK would be refused by the callers and would turn a
+  failure into a successful transfer of zero bytes.
+
+Patch 3 keeps the buffered fallback out of dma-buf I/O, patches 4-7 add
+the refusals on the common paths and the capability flag, and patch 8
+enables ext4.
+
+Known limitation: 
+1. A dma-buf read that reaches a hole or an unwritten
+extent fails as a whole, even when an earlier mapped extent was already
+transferred into the buffer, so the caller does not learn how much of the
+dma-buf was filled.  Reporting the prefix instead would return a short
+read, which callers cannot tell apart from the end of the file, and both
+the buffered and the direct path normally hide holes by zero-filling.
+Probing the mapping before submitting anything would fix it, but that
+belongs to the common iomap series.
+
+2. A refused dma-buf I/O reaches the caller as -EOPNOTSUPP through
+iomap_dio_set_error(), which also emits an fserror notification even
+though no I/O was submitted.  The report could be limited to requests
+that did submit a bio, since iomap_dio_bio_iter() accounts dio->size at
+submission time, but that changes what fserror users see for every iomap
+filesystem, so this version leaves it as it is and asks the fserror
+maintainers.
+
+Testing:
+- io_uring dma-buf suite (udmabuf + REGISTER_BUFFERS_UPDATE + READ_FIXED /
+  WRITE_FIXED) against ext4 on a PCIe NVMe namespace, all passed.
+- xfstests -g quick on ext4 devices: 689 tests ran, 11 reported  failures,
+  all of them environment related, no failure is attributable to this 
+  series.
+
+[1] https://lore.kernel.org/linux-xfs/20261016091919.971295-1-anuj1072538@gmail.com/
+[2] https://lore.kernel.org/all/20260908131545.105987-1-liwang@kylinos.cn/
+
+Changelog:
+==========
+RFC v2:
+- Rebased onto v7.4-rc2 and dropped the dependency on a separate base
+  tree; the block and iomap prerequisites are patches 1-2.
+- Added patch 3, which reports why a dma-buf direct I/O could not be done
+  instead of asking for a buffered fallback that the callers refuse.
+- Split the block changes: patch 4 only factors the integrity check
+  into a helper, and patch 5 refuses a dma-buf bio in the inline
+  encryption fallback, which is where the data pages are walked
+  instead of in blk_mq_submit_bio(). (Christoph)
+- Dropped the mm/filemap and iomap_file_buffered_write() guards; the
+  refusals now happen in the callers that would fall back to buffered
+  or copied I/O. (Christoph)
+- Added the FMODE_CAN_DMABUF_IO flag and use it to check whether a bdev or
+  a filesystem can do dma-buf I/O. (Christoph)
+
+RFC v1:
+- https://lore.kernel.org/all/20261105065847.196540-1-mengmeng.zhao@linux.dev/
+
+Mengmeng Zhao (6):
+  iomap: don't ask for a buffered fallback for dma-buf iterators
+  blk-mq: factor out a dma-buf bio refusal helper
+  blk-crypto: refuse dma-buf bios in the fallback path
+  fs: add FMODE_CAN_DMABUF_IO and require it for dma-buf I/O contexts
+  dax: refuse dma-buf iterators in dax_iomap_rw()
+  ext4: support dma-buf registered buffers for direct I/O
+
+Nitesh Shetty (2):
+  block: factor out bdev_init_dma_buf_io_ctx()
+  iomap: add dma-buf direct I/O guards
+
+ .../filesystems/iomap/operations.rst          |  3 ++
+ block/bdev.c                                  | 14 ++++++
+ block/blk-crypto.c                            |  8 ++++
+ block/blk-mq.c                                | 24 ++++++----
+ block/fops.c                                  | 12 +----
+ drivers/dma-buf/dma-buf-io.c                  | 13 ++++--
+ fs/dax.c                                      |  4 ++
+ fs/ext4/ext4.h                                | 11 +++++
+ fs/ext4/file.c                                | 44 +++++++++++++++++--
+ fs/iomap/direct-io.c                          | 41 +++++++++++++++--
+ include/linux/blkdev.h                        |  8 ++++
+ include/linux/fs.h                            |  8 +++-
+ 12 files changed, 159 insertions(+), 31 deletions(-)
+
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.43.0
+
