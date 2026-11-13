@@ -1,82 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794537675;
-	b=AwL5boLkTYzjGKaEeupkPSJYdv1hUQ2QV+4s6YWFaHNW8VXt4jr47rHbUO8CFfbOn6T+
-	 fQBwYyh6RfxxKc3r3Z2xKBo04zJSjNP7Uy5ZBlyJhMOj6aa/8FbPXbQpaGoGkWULBT8Ub
-	 ug6L+eqSfc9Ms/c4xseUbmW/me5fyR0Sr+4me+5VQe2do2fI67EOEECcBhaGs/5VnB86f
-	 qKwfqyaCn6nL+V+7AX/coQDAFi40ftAHDH0IWRLuu+4g/fuxG8y89uBJqQgbru5tP34RD
-	 L2oRIiBFsP+Pd+8+gMLIOXTWKB3xCA2lhoKRLJzXgTCgCTlIYb+8JCPfx0c3oUvLB0g==
+	t=1794537680;
+	b=zDKEPAWc6ZMLfk3qAqno+r7Zus210W4WxmVlE3SbveN/SXtCw2BfcOZqlGs0GJGSIWFW
+	 b44+5did3XQdfN2loeVRKBZYYKSMo2606rpfu+PIqI4z5ts6aeaEoyyiwJZOmGrNUCZpS
+	 WU5oO3B3EAyzUEFiap9EhkoTGxfUc1CbldlEvpmyLrUEBljUD7tkL6gxMIOrZlKACO/oQ
+	 eGHBkGK0vQp7O94X+HoEC9zCfizYcF+ZH6HOZk31mmk9s/aKosAnDQ8dni3daGNPrtxFB
+	 RlKX0sfdsJ8MUgZzcXH+CfFMaqa5J2zwd3uOYMd0sSjPOkPrOliSyZ64N0B2ryYczCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794537675;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794537680;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=5WoaMAiIqjCuHp5AZk2CyAFMuNVa43CH+JwXBHXHvPo=;
-	b=qF1ZOsQLZNuoMYm/cQEC0TW6jZ3wxkLIxQOiRVVfiVIpW2NUbkF78Y4HPV3nvZ2C8A3B
-	 yfm9BV2Z6o9HStYFOM3/WzAStxO0wQteHLDP89pDjIDhO/DWbVBj8O78FEFH1BMvKWRmN
-	 d7l8hdBzbQk8fZykPK8jkfuCw3i505n1KI8FlAY7NPdNEoqf3qL04AnYTvw6rGh1FkpYW
-	 BCohXpOkOqJI7vpXH6XXlBCw5Os7PdlAl1kTVbJzRSPlx+UEb6hdrsOIFYMeHqazAd+sI
-	 jisPkWwiNLAGm5NzRihZ7N3/1Xng2v+Zmydhd7ByQQRoecw/h6je+5eAdbmdyVdILLw==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4tT5hFpzZAr8Rid5tP1O0Sqf7A6ODSsu5SatFU1cn9o=;
+	b=GY5xeaTQPo6ZUsoW6fYna8GRUmW/4HZhxaSz4J2OTy/7dk+HI2roVaN/KvT/e+dJphNC
+	 DLV2EDrhH188VvrSYGAAAzX5Yaxca2gwaou10AAI6WwqZrNeRYeQc4zWeUufBavf/9Chl
+	 /BO0gbOZmjNEJbrInz7v6KhoaI8cos2ksHf0ffVXAcpoKRYZBtYj+X/+/kw7DTtKpN76l
+	 XySfW8E4U2WnItR1prIuJ6/yCSRjk1gRXix2jEITNxRztLiMJ1kBMmZpfl16f5JYcwp++
+	 LX92IMCqeFnsbqf5mTDN44ugMORvjsecpOhJmbYLz3JKrwEPznbbY2aSua9LPTypysA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qwB8kA6q;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EeUaleQE;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AED1606A31C
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 02:41:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AED1606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5675D606A89A
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 02:41:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5675D606A89A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qwB8kA6q
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36e90071735so82275eec.0
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 18:41:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EeUaleQE
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-33c10faf6easo68446eec.0
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 18:41:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794537674; x=1795142474; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5WoaMAiIqjCuHp5AZk2CyAFMuNVa43CH+JwXBHXHvPo=;
-        b=qwB8kA6q8z7rcUbIKKtXMHF6+vWlpiwXJCdxbKJokEDvGjcR//ZWDd+7LG8TIZ910Q
-         l1ABmvtr6N7HYTxxMfqnrzL6hcK/SIkZ5rbaXz0d6BoKa+EcfnP/wZbMbSge7HIxsZDu
-         fHcYH08FiYKnZiE3ZDib+xPt1OKuqzlhL0RHh9NPIC4EipnEVBtNvYy8Jg20Fxv6/vqY
-         /ShhFjVhgobZPjnNnzTgfXMu/k6oL8A0u0MwajoiWaP/HYC3U5pE7rbFvRLNE76ou4ff
-         /Y11EfLIcUpfQOPz8M3bXww9oJaSc0VuBd+T7eBjvWKyszF618E2lE3yjjz0nJY7jkA6
-         gkUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794537674; x=1795142474;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794537679; x=1795142479; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5WoaMAiIqjCuHp5AZk2CyAFMuNVa43CH+JwXBHXHvPo=;
-        b=eNjSBm0tDctQCAjNEwNcxjdMqcEd0GDw43aBExRL18lBtT67OEDnVnvwiC4JUVmsNe
-         n50wtANCSJUHIQoN9N20o5fYrWzTyn1Aj1/vcg9aKvXZvbxCEBhg1vRhQ5eekdY8zVmM
-         oHlci7B1S5QXAySqEp6lNX5+SAVeim455mG5fwTOqcckSBRZZAu1KVO92cIbVCVhxGZ4
-         xr2ZgjJeVaz2ldOyzCDFgKU0+aSmVtVaJ/Mcb4FqXm2cFqfqY9A8EsBSa2aOjeZUYDEX
-         xhbH+UZjWQ8uhj1LrmLehTQNlg0d5bJQCUTnSIlv+H9D6N8TqB03CT2qxCpdRAUaR7Ib
-         F8vA==
-X-Gm-Message-State: APuU4Z8TYkrQxPqLKjnvnVSC6skLdJXE+GmuoYZnt73GDBYnLnf2xfK6
-	Lmw2e7NA8bzPKgQv2nvFci3EyoWk6L+LgYWXpZEFcRA5QtpddldjqojSOlz24wds9YfnQL/z
-X-Gm-Gg: AYBFou17d25D4KJVqiKYqbg8XsAEIySkN0mmA+R87EZfIAA+hARTXNCIDHnDb0/grHa
-	G9ogAFbOBKOBAGVTadIiT1lzhqjFqFNboI6CRcYReH7z81NjmMJpayFPCOdaYbInPXfO71ev6Uu
-	DyNuQrBsK2TGYgzDW9NPsHcsaZRtGZNfCA1y37mgr2XRNFj0flqHe21WgGIdS4OyGKmR6gUw0Sh
-	/mcaItiGZQ7aOyrMO5C964P7wtMf5C6wkAKARxeAU6nkZtvZvqsOQdxj5xNgAA1ePWUiXM+hVoc
-	vWDD/GU4gXEru0+JWzWAq8L7QFwkPt5U7im0+eE1e/GUF1fP4zj9x2zs+kyetBJ7XlS1qjjDVN/
-	X4Gnak/lifscdQXrHyFBLGbfJhMXPg0sywpBpI81Lupy6sckGLEuuKLrjsFpkwgFZrGY72larBt
-	vRRPG4UVSfN21wQwAYDwjtINeuRhAfYplWlcgrpeXNhSI2ROj5GtWmx3WnprpQykXsEJSLnAq1i
-	HF0lmhs6D8B9qzBacXS48Je8DBZCrwovNXN4oYZrsaG52tbgpnLFvoMOFh2bBL7Qo7rplr0cyXJ
-	vYgp0jn0Jj6ci2M6EFkfc7JKN99EY1R9ZSGtd6WDTSZGPV/B/iypgJnRQOFRsMvsYqRiGa7zH5v
-	GvT9XYv2kKQHhQeZlGyTCudZXKgKVkN5h99SdXUXI8/r4RerF4VG3kyZ9sXDdueQtaym+WyOdHE
-	LspINgqaSU5g==
-X-Received: by 2002:a05:693c:880d:20b0:35f:ea17:d171 with SMTP id 5a478bee46e88-379658c7afcmr1472277eec.2.1794537673416;
-        Thu, 12 Nov 2026 18:41:13 -0800 (PST)
+        bh=4tT5hFpzZAr8Rid5tP1O0Sqf7A6ODSsu5SatFU1cn9o=;
+        b=EeUaleQEga7fpxbRgo28RXvo5vCKpzkxGoUsRH2DYUHMnsNYm7LaPG8m/oax6Di4ds
+         RaArJAMT6xGYP6qran537lNL7jTjpXuEZOXRnBMzu+f9LBGVX12PSQZ0y2cG9hSpbUKX
+         kpJT/FGZYt8tTahCaIBmLGqqKDznPoHVAB9Hi7MHW449A5sCsfYhp8Aaf9MO9RUgFQ8C
+         uJiXC0EZDteyQ7W+PkKpr3HHguEfY+rTvIio5Gcf+lSGS35rqYoh8Ns5hS9MXJW543z4
+         1I3F0rx7MmsayYhN1XicEC3dWJR+rzPwVcJ86VwVVlTZXCz0vXnTsgYY4V7BjBYvRdLL
+         L7rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794537679; x=1795142479;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4tT5hFpzZAr8Rid5tP1O0Sqf7A6ODSsu5SatFU1cn9o=;
+        b=gNOkdXE5MIA4MtT6hmGvCANEAYnTnrXbGhYQ1+oOHepSDpW7qdWOznKu9ToPVeRXj8
+         LeZ71/LMBCHDJR73yq87pTNfToZmKQSYdxfx5PCujDA8hThHqK3iePKVOVNXEWlzr4pv
+         b78KR48wvyqrCkYWsjAACpuVkHJ3YNf+vuimBg+di2fz682qAVH1Xt6X4ockc4yKR0zA
+         80dZJXXYjk2ihLSiJKAhN24c+dyX7Zof3EmdXBsGTlEicnEQbaq7sxePTYhPDdqGAzAG
+         CQSmPyYBgEZm76n0PqXM/mH7SsKxpU7BA5fojQ5dEmrY3LKthhhY7t+dgjxCjCqKVwD/
+         E67Q==
+X-Gm-Message-State: APuU4Z/fsdqMW+HemS6Fk+T/+8y9t+8ElgdepVQ2ftQcSPXUJDO7hzF6
+	EQn4fe4PpHZxPpaFjZS+XndCg5u4yqSc0vehbrhr08X1enOrA5/Jo1RFA1/D5PJBL6Q3IGaJ
+X-Gm-Gg: AYBFou1ekNc23VagMtPUX6TOtbo1fLXgMe/Dn1LfIAZw/eirACM26Gx1sSRhwsqtwSL
+	WH8d2QTMaM71CG8fCv8j5SwUVjjhKpMOi/zmhKQC0tKQ5xTmXz/hFVdhy6/00sN7XTqdkhRR5fi
+	S0QDpNQYtcPlW/FXLca5FcKiV7rUjSi1wHDFIrfK7RGYwVewPbaigQDIbHJV39neEBzB++PfcNL
+	q9qd15pamysvGyrYX86qTf9GplcKOTW5nrUxyPjUeByp4R8jbkZDZTrX6+PBbe9xaHPqgUhHyse
+	kMeg7A02hxUcw/ClJguGQZ57oV9xCUvF8JDWuDBdgq5tXjCWO8KRHKgQlxdbjOyAtwOJwqfeJT+
+	4Sp9+TknYqq28cON/qgCnlxfxRZYlS/TCgyaHPqj4rCjGeptRKylz4+ri4ZcLSnbd0c854SmlT8
+	KiSH9CRzYHYfKhljILNN9jZuy7IrbR6AbbLpw3EXau9v+CWeL6BckFrPRgE8o7qWerm0I36KFWh
+	BPAMfYmRnvre6N2Y+A0HrAxvrLPi8LQbMMphVtcRT9qlT2FaK6Yg63cwyGLPO3wHBbPXZBUS6lb
+	qo1hySex72a7lgjJ4ZUcg7/upEWz41qUrytN1LZgXFzSPgbS+y8a/E3J1Zt6zsfDJLiR/Wy6vVy
+	yajHWef42ShUQn89zOeVYKkCzU5Ys1upKnoKYd3k+zutnUvEbA3gWolEQmFU5/r/h3HFE5sIFSr
+	i86DtSE9cgBA==
+X-Received: by 2002:a05:693c:881c:10b0:36d:5fbc:8c8d with SMTP id 5a478bee46e88-379655d503emr1470847eec.2.1794537679252;
+        Thu, 12 Nov 2026 18:41:19 -0800 (PST)
 Received: from esteban.tail1178e6.ts.net ([240b:c020:623:52c6::44d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm2334704eec.22.2026.11.12.18.41.08
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm2334704eec.22.2026.11.12.18.41.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 18:41:12 -0800 (PST)
+        Thu, 12 Nov 2026 18:41:18 -0800 (PST)
 From: Antoine Pichot <antoine.pichot@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: sakari.ailus@linux.intel.com,
@@ -87,11 +89,14 @@ Cc: sakari.ailus@linux.intel.com,
 	djrscally@gmail.com,
 	dmanresa@gmail.com,
 	dave.stevenson@raspberrypi.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/9] media: i2c: ov7251: fixes and infrared strobe for Surface Book 2
-Date: Fri, 13 Nov 2026 11:40:50 +0900
-Message-ID: <20261113024059.1087031-1-antoine.pichot@gmail.com>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/9] media: i2c: ov7251: Use in-range PLL1 dividers for the 319.2 MHz link
+Date: Fri, 13 Nov 2026 11:40:51 +0900
+Message-ID: <20261113024059.1087031-2-antoine.pichot@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261113024059.1087031-1-antoine.pichot@gmail.com>
+References: <20261113024059.1087031-1-antoine.pichot@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,217 +108,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Microsoft Surface Book 2 has an OV7251 infrared camera (used by
-Windows Hello) next to its front camera, both on the Intel IPU3 camera
-interface. Its 850 nm emitter is wired to the sensor's STROBE output
-pin: the ACPI tables describe no LED, GPIO line or regulator for it.
-With the mainline driver the camera streams, but always unlit.
+The 19.2 MHz PLL1 table for the 319.2 MHz link frequency puts a
+pre-divider of 1 before the multiplier of 133 and a divider of 4 after
+it, so the PLL1 multiplier output (the VCO) runs at 19.2 x 133 =
+2553.6 MHz before being divided down to 638.4 MHz. The OV7750/OV7251
+datasheet (rev 2.12, table 2-11) limits it to 300 to 800 MHz.
 
-Patches 1 to 4 fix bugs found while testing on this machine and on a
-Surface Pro 7+, 5 and 6 rework the driver's state handling and add the
-placement controls:
+Use pre-divider 4 (register 0x30B4 = 0x04) and divider 1 (0x30B1 =
+0x01). The multiplier output is then 4.8 x 133 = 638.4 MHz, inside the
+range, and the MIPI clock stays 638.4 Mbps, so the link frequency does
+not change. The Windows driver programs these values for the Surface
+Book 2's Windows Hello mode.
 
-- 1: the 19.2 MHz PLL table for the 319.2 MHz link multiplies the
-  clock before dividing it, which runs the PLL's voltage-controlled
-  oscillator (VCO) at 2553.6 MHz against the 300 to 800 MHz the
-  datasheet allows. The Surface Pro 7+ gets CSI-2 errors or stalls in
-  most runs at that setting; the Book 2 copes. Dividing first keeps
-  the link rate and brings the VCO to 638.4 MHz (Fixes, Cc stable). It
-  precedes patch 2, which is what makes the driver select this table.
-- 2: the link frequency index is taken from the firmware list instead
-  of the driver's table, so the sensor runs at 240 MHz while
-  ipu-bridge asks for 319.2 MHz (Fixes, Cc stable).
-- 3: V4L2_CID_PIXEL_RATE reports the CSI-2 bus rate instead of the
-  pixel array clock, which is 48 MHz at both link frequencies (Fixes,
-  Cc stable).
-- 4: the 60 and 90 fps frame intervals are accepted but the sensor
-  keeps streaming at 30 fps, the vertical blanking control not being
-  updated (Fixes, Cc stable).
-- 5: conversion to the sub-device active state, as Sakari asked on
-  v1 [7]. The core then handles control events and v4l2-compliance
-  passes on the sensor.
-- 6: orientation and rotation controls from firmware.
+On ACPI systems this table has been unreachable since it was added,
+because ov7251_check_hwcfg() selects the wrong index. The next patch
+fixes the index, so the two must go in together. With the index fix
+alone, D. Manresa's Surface Pro 7+ (IPU6) had CSI-2 errors in 7 of 10
+150-frame runs, 3 of them stalls; with this change 0 of 13. A Surface
+Book 2 (IPU3) streams clean with either table. Dave Stevenson measured
+on a 24 MHz Raspberry Pi board that the out-of-range tables miss their
+nominal frequency and proposed the same values [1]. The 24 MHz tables
+have problems of their own and are left to a separate change.
 
-Patch 4 only fixes the current behaviour of set_frame_interval, which
-Dave Stevenson noted on v1 does not belong in a raw sensor driver that
-also exposes the vertical blanking control. Patches 5 to 9 apply on
-top of 1 to 4.
+Fixes: ed9566ce1946 ("media: i2c: Add support for new frequencies to ov7251")
+Cc: stable@vger.kernel.org
+Reported-by: D. Manresa <dmanresa@gmail.com>
+Closes: https://lore.kernel.org/linux-media/6ae0e944.b6db0abd.16b13d.d261@mx.google.com/
+Link: https://lore.kernel.org/linux-media/CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com/ [1]
+Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
+---
+ drivers/media/i2c/ov7251.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Patches 7 and 8 add the emitter.
-
-Patch 7 is Dave Stevenson's, taken from his ov7251 branch with his
-agreement. The three mode tables wrote the same 117 registers; the patch
-moves them into the global init table, written once after the power-on
-reset, and leaves each mode table with the six clock control registers
-(0x3016 to 0x301c). The frame length, the only other value that differed
-between the tables, is dropped from them since the vertical blanking
-control writes it. Two side effects show on the bus: a stream restarted
-before the runtime autosuspend powers the sensor down no longer rewrites
-the common registers, which the sensor keeps in software standby, and
-register 0x3820 holds 0x40 while streaming, the value the mode tables
-had always asked for, instead of 0x00; the picture is unchanged. The
-datasheet names the bits of the clock control registers as per-block
-clock gates and resets and does not say what a cleared bit does. The
-30 fps table holds the reset values but for one reset bit, the 60 and
-90 fps tables what the machine's Windows driver writes in all four of
-its modes. On the Book 2 the sensor streams the same with either set at
-all three rates (rate, black level, test pattern, no CSI-2 errors).
-Clearing the gates, in [4] and then one at a time, changed only two
-blocks the driver does not use (OTP load, group hold) and the timing
-control gate, which stops the frames when cleared. Power was not
-measured. Whether one set moves to the init table, as [4] proposed, is
-left to a follow-up; the rest of Dave's branch (CCI register helpers
-among them) waits for this series to land, as agreed on the v2 thread.
-
-Patch 8 adds a V4L2_CID_FLASH_STROBE_OE control that enables the
-STROBE pin, pulses it on alternate frames and makes the pulse follow
-the exposure, from 52 lines up to 45% of the frame, capped at 776
-lines. This matches the Windows driver of this machine (Intel
-ov7251.sys 30.18305.6.5127, read with a decompiler): all four of its
-streaming modes enable the STROBE pin and clamp the pulse to the
-exposure within 52 to 776 lines; the two Windows Hello uses light
-alternate frames (0xaa), the other two every frame (0xff). A register
-dump from a Surface Book 2 during a Windows Hello sign-in [1] matches
-the 30 fps alternate mode. With every frame lit and filmed by a phone
-at locked exposure, each pulse is 1.1x (default exposure) to 1.2x
-(776-line pulse) as bright as during a Windows Hello sign-in on the
-same unit; with alternate frames the average emission is within the
-same ratio of Windows'.
-
-Two design choices differ from ov9282, the other sensor with this
-control. ov9282 exposes the pulse length as V4L2_CID_FLASH_DURATION;
-here the pulse follows the exposure within the envelope the Windows
-driver applies at every frame rate, so user space cannot drive the
-emitter beyond it, and a duration control can be added later. ov9282
-pulses every frame; here the pattern is fixed to alternate frames
-because the dark frames are the ambient-light reference that face
-recognition subtracts from the lit ones (V4L2 has no per-frame
-illumination flag, so user space tells them apart by brightness). A
-control to light every frame, asked about on v2 [5] without an answer,
-can be added later without changing this one.
-
-A linux-surface pull request for the Surface Pro 7+ [2] turns the
-emitter on whenever the sensor streams, with a module parameter to
-disable it. This series leaves the choice to user space: the control
-is off by default, and the emitter is off whenever the sensor is not
-streaming.
-
-Patch 9 makes ipu-bridge report a rotation of 90 degrees for the
-infrared sensor, whose frames show an upright scene turned 90 degrees
-clockwise while the firmware says 0. It adds a DMI quirk table next to
-the existing one for upside-down sensors, with entries for the Surface
-Book 2 and the Surface Pro 7+, the two machines checked. The entries
-match on the SKU because Microsoft reuses the product name across
-sizes and the 15 inch Book 2 was not checked. A user-space project
-rotates the Surface Book 3's infrared frames by 90 degrees too [3].
-
-Patch 8 needs V4L2_CID_FLASH_STROBE_OE, added in v7.0 by commit
-5be4154f6255 ("media: v4l: ctrls: add a control for enabling strobe
-output"), and is not meant for stable. Only patches 1 to 4 apply to
-older trees on their own.
-
-[1] https://github.com/linux-surface/linux-surface/issues/739
-[2] https://github.com/linux-surface/linux-surface/pull/2252
-[3] https://github.com/linux-surface/linux-surface/pull/2289
-[4] https://lore.kernel.org/linux-media/20261030142628.2235190-1-antoine.pichot@gmail.com/
-[5] https://lore.kernel.org/linux-media/20261030121235.2163478-1-antoine.pichot@gmail.com/
-
-Changes since v2 [6]:
-- Patch 1: Reported-by and Closes tags for D. Manresa's report, and
-  Dave Stevenson's measurement cited as [1] in the text (Andy
-  Shevchenko). The sentence on the 24 MHz tables was wrong, Dave has
-  tested them: they are left to a separate change (Dave Stevenson).
-- Patch 3: the pixel clock is defined as 48 * HZ_PER_MHZ, and Dave's
-  report carries Reported-by and Closes tags (Andy Shevchenko).
-- Patch 5: code unchanged; Suggested-by and Link added for Sakari's v1
-  request. V4L2 has no guard class for the state lock, so the explicit
-  lock and unlock pair stays, as imx290, imx415, ov2740 and ov8858 do in
-  s_stream (Andy Shevchenko, answered on the thread). The move to
-  enable_streams and disable_streams, which removes the pair, is left to
-  a follow-up to keep this series to the fixes and the camera.
-- Patch 7: replaced by Dave Stevenson's patch described above, which
-  answers his question on v1 about where the strobe registers belong;
-  v2's patch moved only the strobe registers out of the mode tables.
-  D. Manresa's Tested-by from v2's patch 7 is not carried over, the
-  patch being a different one.
-- Patch 8: follows the init table of patch 7, which now holds the
-  strobe defaults it restores; the commit message now also says that
-  the dark frames are the ambient-light reference face recognition
-  subtracts.
-- Patch 9: D. Manresa's report cited as [1] in the text (Andy
-  Shevchenko).
-- Rebased on the current media-committers next.
-
-[6] https://lore.kernel.org/linux-media/20261028112154.855185-1-antoine.pichot@gmail.com/
-[7] https://lore.kernel.org/linux-media/20261026111032.88355-1-antoine.pichot@gmail.com/
-
-Tested on a Surface Book 2 (i7-8650U) with the series built out of
-tree against linux-surface 7.2.12 and 7.2.15 (test suite and logs:
-https://github.com/antoine79/surface-ir-camera). The rebase changed
-no code: ov7251.c on the base commit is byte-identical to the driver
-tested, and both files build on the base with W=1 without warnings.
-
-- link frequency 319200000, pixel rate 48000000, 30.0 fps measured;
-  PLL registers read back as programmed while streaming
-- 3 x 155 frames at 30 fps and 3 x 155 at 90 fps on the 319.2 MHz
-  link: 0 dropped buffers, 0 CSI-2 error lines
-- v4l2-compliance 1.32.0 -u on the sensor: 0 failures
-- --set-subdev-fps 60 / 90: 60.16 / 90.44 fps measured; mode switches
-  from 30 to 90, to 60 and back to 30 fps on a powered sensor give a
-  correct first frame every time
-- the clock, timing, PLL, flip and strobe registers read back while
-  streaming at 30, 60 and 90 fps are those of v2, apart from 0x3820
-- orientation front, rotation 90 with patch 9 (on 7.2.12; the 7.2.15
-  runs kept the stock ipu-bridge); the colour sensors still report 180
-- dark frames and the sensor test pattern unchanged
-- strobe span read back while streaming: 504 lines at exposure 504 and
-  776 at exposure 1704 (30 fps), 258 at exposure 552 (90 fps); it
-  follows exposure changes mid-stream
-- mean pixel value of an indoor infrared frame at analogue gain 128
-  (12 Nov run; patch 8's message quotes the 25 Oct run): 18 to 19 unlit;
-  with the strobe enabled the lit frames read 517 at exposure 504 and
-  681 at 1704, the dark frames in between 18 to 21
-- Howdy face login recognises the enrolled face through a v4l2loopback
-  bridge that passes the lit frames
-- strobe off and sensor suspended within 2 s of the stream stopping
-
-D. Manresa's Tested-by tags on patches 4 and 6 date from v1; the changes
-those patches make are the same since. The Surface Pro 7+ ran v1 and the
-divider fix of patch 1 as a test patch (13 clean 150-frame runs of 13),
-not v2 or v3. The remaining v4l2-compliance failures are in the
-ipu3-cio2 capture driver (buffer creation and mapping checks) and
-unchanged by this series.
-
-I developed this series with an AI coding assistant (Claude) over
-interactive sessions: it drafted the code, the commit messages, the
-test scripts and this letter from my notes, measurements and register
-dumps. The design choices (alternate frames, the pulse limits, the
-exact SKU match), the reading of the Windows driver and the
-measurements above are mine, and I reviewed and tested every patch on
-the hardware before signing it off.
-
-Antoine Pichot (8):
-  media: i2c: ov7251: Use in-range PLL1 dividers for the 319.2 MHz link
-  media: i2c: ov7251: Fix link frequency index
-  media: i2c: ov7251: Report the pixel array rate for both link
-    frequencies
-  media: i2c: ov7251: Reset vblank when the frame interval changes
-  media: i2c: ov7251: Use sub-device active state
-  media: i2c: ov7251: Add orientation and rotation controls
-  media: i2c: ov7251: Add strobe output enable control
-  media: ipu-bridge: Add a rotation quirk for the Surface Book 2 and Pro
-    7+
-
-Dave Stevenson (1):
-  media: i2c: ov7251: Move the common registers into the global init
-    table
-
- drivers/media/i2c/ov7251.c           | 531 ++++++++-------------------
- drivers/media/pci/intel/ipu-bridge.c |  31 ++
- 2 files changed, 191 insertions(+), 371 deletions(-)
-
-
-base-commit: 3fc9303dba01676c2090768126e5327e341b7761
+diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
+index fce6344b5120..f429de5f1f7c 100644
+--- a/drivers/media/i2c/ov7251.c
++++ b/drivers/media/i2c/ov7251.c
+@@ -174,9 +174,9 @@ static const struct ov7251_pll1_cfg ov7251_pll1_cfg_19_2_mhz_240_mhz = {
+ };
+ 
+ static const struct ov7251_pll1_cfg ov7251_pll1_cfg_19_2_mhz_319_2_mhz = {
+-	.pre_div = 0x01,
++	.pre_div = 0x04,
+ 	.mult = 0x85,
+-	.div = 0x04,
++	.div = 0x01,
+ 	.pix_div = 0x0a,
+ 	.mipi_div = 0x05,
+ };
 -- 
 2.56.0
 
