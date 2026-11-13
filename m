@@ -1,94 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794536368;
-	b=L0+LikDNI7mqXjbCvw5W5yn+3Q0Wv2T17bCnkiKkQqGTRG03pYpl4qIx44IhmBvO+Xs/
-	 p19FbYR4mZ9PGQ+IFrenlryEpqLBMVzHql4jJ9hUIhiqOb/aycPm1/WoXo4IRvcFll7F3
-	 nEsuE3Jx4WcmvB3dim6Ks66MzN+7jjORtB9vrZfQ/TMiYb4M1QhtPqALOFVAr2fubuQ+D
-	 v/ItXzrtw57fIl36OHB3cqUhV2VIYA79cfTJgFfdvJuqYj3ic3iO/y+i+5RkSqDoIYFjx
-	 C6ctjOL+T9wxJ7jjYmz13I5bX1Kun21EFdUEJpCPsWx5Bk/ggpnnCpe4hjw0NBSSabw==
+	t=1794536466;
+	b=2r5odQTHVryxLxO1EAo4TOlJ/ZDVPdbAu0BRKi/ryJjh1V0vLFI7vBM2fnre2LcVl/PD
+	 KmWqGJ/5kp2IiLuFYPqSHKOGRfb7FpSTn989R/CupbtNo+UagB+22lE0TaDe9Tr58ongc
+	 r++UitA19M2MinCLFIkYgRxWnT47fKlQhdH1MxblyqO+oJ/icSGTYRB9waQpt8oMwrDEN
+	 z0WyKoaaMMbNqY9nnxyF5/WjICyxGVFSWjQcbpNx4jkLFRhIPmAJjsvtx4sHqe9iCc01u
+	 yq2XgFtgCYTEaZfUVvxI85pDo9e8RIJ+TdorHrGOLTJQlAjrcmossDu7/zwdUbMg2yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794536368;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794536466;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=5JVpliFF/zW0d5ciE3yPTBWFRjXmBG6cV2z1o1LVjBc=;
-	b=nrFVXdkVqCStneo1CcOQI+ct7cCaBHf8Zx53lgVvyBNvkLBcuWvkVqT5qZDhNji0meYy
-	 QFeCX3OBwcNksDJqAwqTxS913y+Joc36WfnPzoT4CUqJ7L5TlgMooqScn+Aa7nNU5+b/t
-	 xJ/Xdq5GIH8cg3p72Ui8f7yLeUdASBK9FwGsKyfCu5cXgOTsAfsBVhvdAnPjaWN3/5m7D
-	 VhMqHk1Cwx98eXEokQ65MOI2lxTs8VNXspnuQ5RHCbgCX6hw/+FkPd3d2eIEmM4+35DFA
-	 v90GElSmGBZUp736OhtPEu5wA86vYjUn9m/SMFOp2jQ5xAoaxrZMO7TkX0U+ExLgO1w==
+	bh=Uei3X7eaYXoUGpiETn67YwHGgpXCnW4kjNL27gbEkSI=;
+	b=sJv9P764YWXetL+Oxf9zypN3QFYb5H6cIJ+sEWobGz8iYrks35tqAAkDvi/zFx4FLgCC
+	 GUoqcPbyfzOVZNl9f5i/3uHAbBHni5oCD4An5GECIbS1JZrAHrU6zhUBlQ0AqqPdVihj7
+	 cWtzxy5BUC8F8BUHubI1Hh78Y1LdrAcvypEbg+8A8UmyJVJQcYazdToy4w7eIrBCFC05u
+	 b1M2bBOBLToYAwc98e2fsJpowb5NKkxEFcU+FI3ACiM5gng/v1wDxEYGYkEhV3+VvDIuG
+	 GaZWnUHeVvsbY7MsL8BLs6RG8y21DxoKZmH/zXE+gx04PHZWsgFoosLlEjvX8fUZ7gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=none header.from=telaak.dev;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pmxg1TNT;
-	arc=none smtp.remote-ip=74.125.227.138
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	arc=none smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC779606A321
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 02:19:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC779606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 900C9606A31C
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 02:21:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 900C9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pmxg1TNT
-Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2e96be2196bso1842445ad.1
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 18:19:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794536367; x=1795141167; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5JVpliFF/zW0d5ciE3yPTBWFRjXmBG6cV2z1o1LVjBc=;
-        b=pmxg1TNTKgX1wUemc9tbaD27EonEgHNpKfEsDQ5SaB41fOZywvGTQtP74jfqCviQfr
-         Mvv0XuNXAGBjTwTliCmhiNunqtPG5mH00rafcGKX6Erb6676bic3G6K8pc9CqwK897+X
-         96UAIKY/qdBdU71mTacTx39q0lEaQpgRAOHVylk5CglQ5rqF1j6xT8zl59XPIF6aFmKr
-         q/Tq3B0O1dpvSI9d6C+mCoHQPpSNDI/0Z6HV/zsZ4z10GATb+6eIKpx+0fkKpzUxpXN+
-         M3aQPsxbUiVqxxQao4KS0gzjmijot2xvp9vry198v+BnZ4ag4taHG9YWgD/55Knp8l7e
-         cCtg==
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b30ff12f84so3787517b3.2
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 18:21:05 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794536367; x=1795141167;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5JVpliFF/zW0d5ciE3yPTBWFRjXmBG6cV2z1o1LVjBc=;
-        b=mhPJ6gNpO/QKWy6DcISB7B2R6gsSc05+HxeOcS8uYQtmLDJMU5sEIDcMsrvW8gHcve
-         Si7KWEMrVBfY+MFiWcN8ZRjd+79VzdFHPJJxXkfNKfi6zxWycml/R27Jp2lgVb9fcDyY
-         qV5iQuUscV+xilM0aTvJ8g605J/KI+48tg1txn1JNcpT1vNlVMHUs94k10MUWFhKquMX
-         ttLMMKGHoEM+VQnkLmdmdN0o6ALQMDsGWuzw7SC6Odn+6QUSp9K83z1m046zK+iPDpKZ
-         lGUIQr8MS4WLmv6NSEMjPNx2o/pnifvtLYQ3brB4CGjUn0QXnMoz9+koXdHl87IzNMzM
-         wzhA==
-X-Forwarded-Encrypted: i=1; AL+hErFxX+8iFJu5EtVX9Pp2C+tTirDWEEZz9IDqDDdqI4Iv+b3ngQmSOZDtfw7ZGpUhJKr2k2DnthB3SXlWfw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z83h8QynBZdKzXgryFcnLKJJyup4TaX10XHdlYDw/ixhxkzM/bb
-	hn5Ify7y/I4Baq9VNPbawf9jGNiZ0rAMaU+LzOonUjahwTFmonCN4ik8
-X-Gm-Gg: AYBFou3upZeKU1EeJuJyODXOAPkLAjaGYPvSpKUxsJLG3APEmkw5hzAiifZ0fKuy1ro
-	PUUoC5LL1PVPSEM8VGXXYvLuOjbQ1tKVo8bFfSBOGh3JlzVFJ0qbMYYUzW5EA1ZNa3yKTCNeE1G
-	zUN3zV3ItAruYtPKCjPEsTSwr628Myd/wEqywMy+Thl/m2ze7XKd4vkcNnLMqnYeuRlMlRfIKS3
-	bVw0BEi/Gtz4igCRae8o5nvD26fOpUqMfZeCmAg/oMG+iE8tuZ3bH8jBC6NVbU+Y4Re1ibZC6th
-	KqJ8EeEKfFeV6DWqsz6+yj/0PBGzAfMNVU/Lxq5kdaXveh9k1thre9PetGu+EonylxgBT0g6RkM
-	FJuEFLxM9kHZv8fECGHkbYLuwY1wMK0WPDy/DH1fRKBKKPE3T74EZviE29hk3cfeZQk7/99a6MJ
-	1ufJKhyS04Q9C1AQQbVv3xcPhzGgMH++ndk53Iw2Wt3QraX95PW/WRMqEpbU5Syi+DwdlMy7wgH
-	ydFNVUtL9W7UNoT/EIwKlL7Li1dmZIpZeJyA4YMCHwT32nslZYgHEW0xk8je4ue8G8NjyG+0ZKy
-	g/hPQQIPgocRO5theyi7rbe8fg==
-X-Received: by 2002:a17:902:f70b:b0:2ed:537d:f00 with SMTP id d9443c01a7336-2ee0dc95988mr9962055ad.56.1794536366822;
-        Thu, 12 Nov 2026 18:19:26 -0800 (PST)
-Received: from world ([2409:8a28:ae4:7f20:114b:916a:a0f2:66e5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f9f0408sm2895255ad.65.2026.11.12.18.19.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 18:19:25 -0800 (PST)
-From: Zixin Wang <w1355457260@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Biren Pandya <birenpandya@gmail.com>,
+        d=1e100.net; s=20260707; t=1794536464; x=1795141264;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Uei3X7eaYXoUGpiETn67YwHGgpXCnW4kjNL27gbEkSI=;
+        b=DHVaZ+JRPe8F5Gyj8xvV6SZD6puULpFBE0l8b8dv3Zx6/JDCaMTXwxZrLJ3er/PZYq
+         IqiSTeAL+xTxUHH8mvD/ELt/JNiMh1rinwYQsmSRJrGN9xqD2iJorTOTMtZNcXysi2GH
+         hu19ehHIt7bCIKIIvCne4ziEtFE/ivYf3lXkjUORPkxz3WnLpQxPU6bkWSVcUpHl/wRE
+         UPGLsuUATON8lFClwFLHuY8F1ae2Zanunv150a7WwMCOOS+o7Ip2Wmigx+h0kfnjeDQQ
+         LLmZLG2unTmQk8AxPPcBVBDEejvXnJFhNCpevDqL7PUhc7uhkIAdWt3sebUMOFlzXEtY
+         VVkg==
+X-Forwarded-Encrypted: i=1; AL+hErGy16PdSqzKIzn517FDhullTzZNiEYKy0BkrIyvST6QLAAtu1h3h9piXX6KyoeP5Qt7BoxoscTkg2V8qA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9j82apavEogTEtCahoSyLr5wpvXVHEhHkDY2Pb76V3+uNwaueo
+	QOjqsxTOSD53I9cHh1TS2ONMQ3c0ya5wKOys+B6g1BdGdCa8XeWccO47
+X-Gm-Gg: AYBFou2RLEzy+NiI4LckZQX9obbV5mOckOmN9/hzCj2sekozRhHHgLFZIcyoZffO/SF
+	5ksBJjrSmh9djHPF9Fjc6H2Ho9xdlU+58SpqkN8B3blSUJ3i88NP0XtoPjG/HwtImspdqBtajMv
+	DBRzGMt8cDcZNOKPST61PwvJbHBF0jHypj/MFDdIod31KfIyUptQPk+OH8VglQm3JC0cLjGzSAj
+	6Sgs8IaoZLRjVlAdeVsCx2N1BHbn220cmCbch9SPemgokxdmdXfhALZdOqA324jptp20ONQ42CW
+	6wc9hIsXPk5oiqVIrikKe35Xq85xHK3oC6YmvVVIUj2QSmAF2I46hsx3QAVde5N7IMI1Dzy/ITF
+	VaZYy5zNRkx3ucgI3jAtdRSLnljwT0W5aKyVB/t5WijUiTJAzxbMpQ9X2EjCBbG7zau2CrQgQ7d
+	ZVumgSkC1zbIfAaLP+wFv7SVROIuNb/je4J7Jepj8Mas9+8xGOsZYRfo2xCau//ctk9f85/VJps
+	qQhE7NHJHQlhhpKGyHQsjQ3ag+O5ZzMyppwlLapH85VoUIoC2Kg15RfcUESugKLNRlVjGX7VJ4G
+	wxQHqE2iiIWi3wVGfR4V5gceOw3IbMckrML4N4+dBJ65vZxZxRt/lMl3GXswS4WUC8rF9fzIgLj
+	nMUi+GBZHD7Eip3VOU0BNBWlKQ8Jq9WJP
+X-Received: by 2002:a05:690e:168d:b0:67b:ffed:e1c9 with SMTP id 956f58d0204a3-67d896a37b2mr912238d50.37.1794536464486;
+        Thu, 12 Nov 2026 18:21:04 -0800 (PST)
+Received: from localhost.localdomain ([71.68.170.161])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a4339c3sm890660d50.3.2026.11.12.18.21.02
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 12 Nov 2026 18:21:04 -0800 (PST)
+From: Joseph Telaak <joseph@telaak.dev>
+To: operatingsystemsdepression@gmail.com
+Cc: dri-devel@lists.freedesktop.org,
+	patrik.r.jakobsson@gmail.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	alessio.belle@imgtec.com,
+	luigi.santivetti@imgtec.com,
+	christian.koenig@amd.com,
+	thomas.hellstrom@linux.intel.com,
+	imagination@lists.freedesktop.org,
+	frank.binns@imgtec.com,
+	matthew.brost@intel.com,
+	dakr@kernel.org,
+	phasta@kernel.org,
+	sumit.semwal@linaro.org,
 	linux-media@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Zixin Wang <w1355457260@gmail.com>
-Subject: [PATCH v2] media: media-entity: make media_entity_cleanup() a no-op macro without MC
-Date: Fri, 13 Nov 2026 10:18:45 +0800
-Message-ID: <20261113021845.1697485-1-w1355457260@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	Joseph Telaak <joseph@telaak.dev>
+Subject: Re: [PATCH RFC 02/13] drm/gma500: Publish the Cedarview SGX as an auxiliary device
+Date: Thu, 12 Nov 2026 21:20:41 -0500
+Message-ID: <20261113022041.74295-1-joseph@telaak.dev>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <CAFGNeagBWpdG7a9A-c6WRiPsd4oPXcWai9o=xnkZDyY+axcniw@mail.gmail.com>
+References: <CAFGNeagBWpdG7a9A-c6WRiPsd4oPXcWai9o=xnkZDyY+axcniw@mail.gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -100,57 +107,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Without CONFIG_MEDIA_CONTROLLER, struct v4l2_subdev has no entity member.
-Calls such as media_entity_cleanup(&sd->entity) therefore fail to
-compile even though the function does nothing:
+On Thu, Nov 12, 2026 at 11:08 PM Gabriel Gama wrote:
+> Hi Joseph, I noticed that gma_sgx_set_irq_handler() updates sgx_data
+> before publishing the new handler pointer.
+> During unregister, could an in-flight IRQ still be using the previous
+> handler while sgx_data is being changed?
+> Would it make sense to clear the handler first, call
+> synchronize_irq(), and only then clear sgx_data?
 
-  drivers/media/i2c/cx25840/cx25840-core.c:3964:41: error:
-  'struct v4l2_subdev' has no member named 'entity'
+Yes, good catch. On unregister the data was cleared before the handler,
+so a handler already running on another CPU could see NULL. For v2 it
+does what you describe: the handler is cleared first, then
+synchronize_irq(), and only then sgx_data. On register, sgx_data is set
+before the handler is published, with a release/acquire pair against
+the IRQ handler.
 
-Turn media_entity_cleanup() into a macro that discards its argument when
-CONFIG_MEDIA_CONTROLLER is disabled.  This fixes the cx25840 build and
-any other caller passing a member that only exists with the media
-controller API enabled.
+> Otherwise, the auxiliary-device approach looks interesting, especially
+> for keeping the display and render responsibilities separate
 
-Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Fixes: 634be628b5cc ("media: i2c: cx25840-core: Add missing media_entity_cleanup()")
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=222245
-Signed-off-by: Zixin Wang <w1355457260@gmail.com>
----
+Thanks, that was the main reason for it: gma500 keeps the display, and
+the GPU driver doesn't need to know anything about it. The same SGX
+cores sit next to quite different display hardware (gma500 on
+Cedarview, simpledrm on the CE5300, omapdrm on OMAP3), so keeping the
+render driver independent of the display side lets one driver cover
+all of them.
 
-Notes:
-    Hi Sakari, thanks for the review and the suggestion.
-    
-    v2:
-    - Make media_entity_cleanup() a no-op macro without
-      CONFIG_MEDIA_CONTROLLER instead of guarding each caller (suggested by
-      Sakari).
-    
-    AI assistance: the change and this changelog were drafted with the Qoder
-    coding assistant; the sender reviewed it and ran the builds with
-    CONFIG_MEDIA_CONTROLLER=n and =y.
-
- include/media/media-entity.h | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/include/media/media-entity.h b/include/media/media-entity.h
-index fa393e840669..400e08598dd6 100644
---- a/include/media/media-entity.h
-+++ b/include/media/media-entity.h
-@@ -729,9 +729,13 @@ int media_entity_pads_init(struct media_entity *entity, u16 num_pads,
-  * zeroed but that has not been initialized with media_entity_pads_init() is
-  * valid and is a no-op.
-  */
-+#ifdef CONFIG_MEDIA_CONTROLLER
- static inline void media_entity_cleanup(struct media_entity *entity)
- {
- }
-+#else
-+#define media_entity_cleanup(...)	do { } while (0)
-+#endif
- 
- /**
-  * media_get_pad_index() - retrieves a pad index from an entity
--- 
-2.56.1
-
+Joseph
