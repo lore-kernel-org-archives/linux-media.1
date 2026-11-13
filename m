@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794586738;
-	b=lV4oj6n/f1zaOn6QkmWlylufYh1jdpKrq8phGHqPImMo8ro/blrpqq8oVizo6V+pOp1N
-	 obLjDhMUsKV2S0e1zOFIGIVhXYQfwf9nPWF58VLJvhLyqCSfqTJXTId53E5ep1VgPixTP
-	 DjnuHSUeRrZuzOn0+8spcfKljJadAH6shjJk/u6WKCdDYNV0tRCcwEzVfbQXidsWWx/9T
-	 eRW8rJsOUVnb83ihwStl3hDXtHdWu8RYgurHelSuFHqESL2rxWk8IJ8L4BNQ0zBpnw7o2
-	 R1PEdIKZ5cp9XbsgIweNwVesWJc2lPPmwmKyeCKX0LFK6vNuBechX4bSW1atAWgZS4A==
+	t=1794586739;
+	b=tWQ278Ewj41ucKXQ85aekf5YmDiLilM/PbVZWF6oEm0jpzArDMgVWVr5yy0uILsuzVDD
+	 5kiWVmH0x+CklllOxaFpUi1ZN3hp5qJG6Ub7hjC/Op15Q49CrVB57kIcEw2vkDkd1141Y
+	 zrqvrimD7Z/tkSzFA9pYU3g9K/Qzd0gZ3Yp4vX6dTnHhkqF6vxagR8KR6NshhCt1Ex0/a
+	 KaxrTXEhbQjZnooEKRz4Z4ZZDoID0fsbEa7yvzAXJdulPByPGoaekKaX4rD4cq7VB3Ylj
+	 4TJXuLSmPGzU9WQ9u8hy+0wc3JPn3g0JA6tXD10pjTrfk4C2t5rmZAB938XcTxR2rZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794586738;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794586739;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Hswu/8zR7bhRbfqGAjoZk+uLKvEBL7DKTwwlfCAGB9Q=;
-	b=Z/iIA8Ueld4F/evIGA11q3on8kLBuWHqR+fVrTS2s365JueuOCwd3/VUrM0HdjewBMsL
-	 gP7dBStIvX7aecoWY6pXn86VL55Z6onc04m5jQiNgkzxPNymOg1OAlfPdC/5+N66f3W88
-	 fJlLHdZ3BtzM9vrJLjMyyZdzJikTNeUz7m8lSleeZdw4ggugRXN9G/MRYQngPfJ5XY87/
-	 CtQA9OveyJT4pvXcyNQlopVOsT3/gbaeoy1/k35sG0pHtKTlf8dnXNjNotqKga0BAVrfl
-	 +WBAda45Gjilm2sIB1FBffyk+yGBp5HR6QUGvMjWSJg6hprLFAGi9jpCWqpeSHgiYHA==
+	bh=HMJ+dwPb/3PV0iTHWqAgN85Hf/aWfKjSW+f/zVf9g0U=;
+	b=yowbkuWy7Y/E+D5kP8+qxuqk3E25pcTEW/CoidnRbFJaPlQHLmrZPUR6av0upYyRkbhB
+	 3zFTR92UrzYPdEib8Ph2LHU3YqighuHVxehOfhs3jUAjIqLFKE0UgBCZcAq6xDQA6Vy1T
+	 e0c4qc+Hmr6fRB5fJ43EcPIETUk6e6s4+ndGC2uAX4C0smEzt13vCrGsEroACtPyk4MyD
+	 UQXUN/osq5XhKwzPtK3SlKZ5Vd0Y4K3hLV1W4cOmriLyOHE57ghCodPmIyVxPzggvPdyD
+	 4QPN7EOqKJ8ujKEKE02b5ipVlm3l+XmTLVpzSGQBGT0864dLZOiLfxy1C5m/v5J2IlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ETyUOPD1;
-	arc=none smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="h/xZduVu";
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EBD60A2639
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 16:18:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42EBD60A2639
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD12D60A3830
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 16:18:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD12D60A3830
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ETyUOPD1
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c506a231b88so205633066b.3
-        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 08:18:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h/xZduVu
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c40f29667e6so273690266b.0
+        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 08:18:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794586736; x=1795191536; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794586737; x=1795191537; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Hswu/8zR7bhRbfqGAjoZk+uLKvEBL7DKTwwlfCAGB9Q=;
-        b=ETyUOPD12VTiYDzHiw9qU/ivcbGXOkDrf1bAnc9NjK4sd0XdWNk9CkeSFewmZNQfml
-         oLwp3IbkcyYZty8RZENmI7+9sbWT5/mPjU1cuQNrjX5OZfeI6nlmpbCSZCs7B8iCDh07
-         L8Y+s3Lk8nUCpVqnO/idSGZ0p1+uBUphsqWyJ4egrIQ+cc+TjQwzNir3/R4yDE+oyI8V
-         MAyjjcIWgGlNCkxJ7pKg9jpKTnwb0wukHjqmqFwzOI5sHvTz0lsGO1ed2fJQJhA9+WSV
-         sJhMYhHqlbkQAI1ViQICTHlZMxUM7uT7XAQowaw+TuXAybVX/nEz0+fZy5Yp6SDb0wYJ
-         1OVA==
+        bh=HMJ+dwPb/3PV0iTHWqAgN85Hf/aWfKjSW+f/zVf9g0U=;
+        b=h/xZduVukTCl98vPuaD9tn7ALCK/+1HewUEzyNcbAZYa8oxWIHIV7r+j1AzG8JkuLH
+         28XeWnnMevEHeKDQ6if9gLfnPgBAOLIU67vCQFebQIKpLAZu4B73xIYiKzNL2z/fIgY0
+         yh8YQNaq4KfViS8dBltd+isLo9z/hrM9j2BBzBTh138rsni8UF1HYUOIKwEEHxfAl6NN
+         sX3tfC9HW06LxyY6oQqc/7jzKHlbOjQLsPYrwUyhgUO0/buG3XT81pNAo+F9ZWqV9Qhk
+         ObmZ+/Y7fFhaeI44Isf4MVJVnjLgQUyDpZiDYXU+eevVWUqan2FhVEtfgYVlQVXTUB2U
+         hTew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794586736; x=1795191536;
+        d=1e100.net; s=20260707; t=1794586737; x=1795191537;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hswu/8zR7bhRbfqGAjoZk+uLKvEBL7DKTwwlfCAGB9Q=;
-        b=iI2osSM6G5+tgOhWWSIF5YtKi6TuIbDl80B1G1AWmml9bOWhawSRAwiUUWdI64ntqu
-         KWrj0FDDh21ocoAGLNtewV7XQifzXio3MjWWHDw6xCui7UPyJ6h/gbq47/dIUDLID5mB
-         kWkeeiXVHXnjL4TePLTH84c1Q0/xRBIFf1+pGoWMNFACubPnnHfXPtzq8O/lHW4OjmVm
-         q68G9/QlOdqq/Nk0Ii20v2KjuJBNLEjx+o0KV1gM4y5J8ULVYQGMuReFvpDWyhXmHhoj
-         ErT712pC+bQ5vuht4lmCl+khdcMX+sF3qk4IP2YAaMt0ewnnW9B1zyRXTTgWeDbaTsWj
-         me/w==
-X-Gm-Message-State: APuU4Z8aizyDtmFOi5V23vrANvMHG2LuqU74Br+e4KHlfrPoJ32RHfLL
-	sFqubw9WxJQKsPlmolDYpkzbq3k9xNfvcLXI2NW9yECv87RrHzQCq2T4
-X-Gm-Gg: AYBFou18wt1/0n2geFFLRPAtMFTlpXtCryayM/wP6qBhs4Jbe5zO39YP28HmHKe6VPk
-	sD4nqo6gZm/5xxDjrFIkJ2pSPPCK4Rr4eupetMcePrO2TD0Gxv8SZAwALk0/G8H+Z7Us+Ij7vnS
-	XFodmtlFi/tq7bHmVdUZVGOa6QFkLeHT3Lvrk+Nirc/SUouyUpwHP55P9CkZuWs+7Bnwx8dshRJ
-	7dI05CTIhGjXtatik9l2RT8LnBcCbM/qK28Xu+mDQPteggk6mJ0zjGFQEf6rxcY4Rd7raIG1YA5
-	iPyf3RQar0bpxaXfjv5uhXm7oXqaJcN3IBWXNujyooih4Dgnmv3/Vw/XgJZ8GBPoQlYI2hHgYce
-	QgdCq8XxCRNe12kOjhoynDLW2/dBsx2jeBge/3Bb8U0a1QDOh2QUgDg0dc5Es0mVdWJDVl3Jjx7
-	0Qqu1wq+keqg6i3lpY+2N813S3GXc3yYVXOvFo2O+EObvGc9uTNzWlozUWHWv2cU/KbGdPDIXCr
-	L2vKhuJm1qJPYfJU3zXwWg3L87uq7EB7HT3jEIPUH/7LOsGseq7/0e3kMBsm1Br9Sb1tj79v7gW
-	Lw9RPD+uxbSP4irfls3bNxA9rJm0PlQjrpbw4+LJ6rEnOVhNkRq6kaW38XsWnJ9o+p3GTMAwjjQ
-	WbKZCOzdDwg==
-X-Received: by 2002:a17:907:3f20:b0:c49:df95:f0dc with SMTP id a640c23a62f3a-c509641085bmr283939866b.19.1794586735569;
-        Fri, 13 Nov 2026 08:18:55 -0800 (PST)
+        bh=HMJ+dwPb/3PV0iTHWqAgN85Hf/aWfKjSW+f/zVf9g0U=;
+        b=tkJbzxvdQbn1vLMoboRiHrSUOSJ5b3nvp3mqIbLmJOxrLBz+RujyHdmAlt/E8AKTqP
+         H5VL29ReMitXqWK6u/2V+Ur2vEFUU4VZQJN1ABmuOmKbDIAHJgU145TCw+dXpAy2a8TG
+         PznWZ2vf8FHXkCLw5ekLbbHUKrlDu//lQJiKDH3iox2NXZouf8wYF3DQlW1oRCp0rM0+
+         n6E5GGt3b7VdEs4B2g5RVmwf905d9jXx49OeNpjDRdyE5rNUU5t8RMshmUXxxDLF2K9P
+         I1dAYIoU0pQV8lq/g6QE6tFlKdz9yE3rzQYq8gn+gzwDZ82Nzfsy0Nljhf88YRx6HOAK
+         1/sQ==
+X-Gm-Message-State: APuU4Z+rk3kO/Q/Xe1PS/GlA+ZUB/iOX9gwxylmv6ZeBonv3ZFHZSfyb
+	BQSvMvxLNI3jzPYr/LZ1lm37E0Uy+y/l4IqqmbzKIWUHPPD/aMxNRvQu
+X-Gm-Gg: AYBFou1bSZwXAaykVZcT7M+pYVmgvzkIO/MHpx77QtpD6NOc6VjxfCOxJ6Por0evfV1
+	bMToUXVRMlT4VneA6gtUllmfQG/583J1rHqb4HgpCnHEAunDkyoGUDuBiDTn3tcyv441aHk6Qdk
+	Sq6VbdmPlpsYzlVGtdEFI9YRuQfwhrafXUVuTb6IKDfzxB1Ys0q4tGDJfTzNwEuZQ8mH0p/2JCT
+	acJztSNAIbr0qXU+A83exr3AmgDhgIZhahzYNWUtsYe0MYjUyFpvKxAqsecwYN8PZMs65neGrP8
+	BskhMD6ZTYGogXdWKlxCDjjI21DKbatZ2BpUmUYsIE+liBbif2nMJYtQO7I9s8bHRA4eBVvO794
+	9HxIh1S78z9MADewiTc/8uaSwySgMsyJl+FfxxkPS9HjFIB21JVk4TDV07ClIZBbg2Nv8LyjAbD
+	/dg03zZhHMXG0edn7jyw2lwUEoQz0r+vgpGGVpaFWFx+J51VLCkO72zKg2ZbbFTcwcH76DvjByd
+	MaHlES3hC2ciL2ckjNgfEzoFUc+5zOclkFjbJ8Yr6YUTXLdwzQHLq3HxjHOLNc0tIExSLCdU7DZ
+	zY7PbXs7wMPaSUR8zIbiHCFz1Ujg56+byy8kR5IJsLNZPVbG3OdXktNYIPV9fXpV2Oi2t/9zzKG
+	y3cwzcOVnCpNDsj8Isy9u8Ab7EPwO0QE=
+X-Received: by 2002:a17:907:3f20:b0:c46:c3ad:e1ca with SMTP id a640c23a62f3a-c5096396effmr277155866b.9.1794586737209;
+        Fri, 13 Nov 2026 08:18:57 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b24b88sm122297266b.16.2026.11.13.08.18.53
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b24b88sm122297266b.16.2026.11.13.08.18.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 08:18:55 -0800 (PST)
+        Fri, 13 Nov 2026 08:18:56 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Thierry Reding <thierry.reding@kernel.org>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -105,9 +105,9 @@ Cc: linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-staging@lists.linux.dev
-Subject: [PATCH v1 08/10] media: tegra-video: Add CSI support for Tegra114
-Date: Fri, 13 Nov 2026 18:18:17 +0200
-Message-ID: <20261113161819.36847-9-clamor95@gmail.com>
+Subject: [PATCH v1 09/10] ARM: tegra: Remove fallback compatible from Tegra30 VI node
+Date: Fri, 13 Nov 2026 18:18:18 +0200
+Message-ID: <20261113161819.36847-10-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261113161819.36847-1-clamor95@gmail.com>
 References: <20261113161819.36847-1-clamor95@gmail.com>
@@ -122,383 +122,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The VI implementation used in previous generations is fully compatible
-with Tegra114 and remains hardware revision 1, making this a relatively
-small patch. Tegra114 supports a higher maximum VI clock frequency of
-408 MHz, meaning the Tegra30 compatible cannot be used as a fallback.
-
-The CSI block in Tegra114 is more advanced than the one in Tegra30. It
-has three additional lane clocks, both CSI A and B ports have two CIL
-pads per port, and the MIPI calibration logic has been moved into a
-dedicated block. The Tegra114 CSI also supports an additional CSI-C
-output, but since there are no known hardware configurations using it,
-it is omitted due to a lack of test hardware.
+Tegra30 now has its own specific compatible string for the VI. Remove the
+Tegra20 fallback, as it may interfere with the correct configuration of
+the device.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../platform/nvidia/tegra-video/Makefile      |   1 +
- .../media/platform/nvidia/tegra-video/csi.c   |   3 +
- .../media/platform/nvidia/tegra-video/csi.h   |   6 +
- .../platform/nvidia/tegra-video/tegra20.c     | 149 ++++++++++++++++--
- .../platform/nvidia/tegra-video/tegra210.c    |   1 +
- .../media/platform/nvidia/tegra-video/vi.c    |   3 +
- .../media/platform/nvidia/tegra-video/vi.h    |   3 +
- .../media/platform/nvidia/tegra-video/video.c |   4 +
- 8 files changed, 156 insertions(+), 14 deletions(-)
+ arch/arm/boot/dts/nvidia/tegra30.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/nvidia/tegra-video/Makefile b/drivers/media/platform/nvidia/tegra-video/Makefile
-index 96380b5dbd8bb..787496ad2f442 100644
---- a/drivers/media/platform/nvidia/tegra-video/Makefile
-+++ b/drivers/media/platform/nvidia/tegra-video/Makefile
-@@ -7,5 +7,6 @@ tegra-video-objs := \
+diff --git a/arch/arm/boot/dts/nvidia/tegra30.dtsi b/arch/arm/boot/dts/nvidia/tegra30.dtsi
+index 1e51da329f310..e1f66240ae552 100644
+--- a/arch/arm/boot/dts/nvidia/tegra30.dtsi
++++ b/arch/arm/boot/dts/nvidia/tegra30.dtsi
+@@ -150,7 +150,7 @@ mpe@54040000 {
+ 		};
  
- tegra-video-$(CONFIG_ARCH_TEGRA_2x_SOC)  += tegra20.o
- tegra-video-$(CONFIG_ARCH_TEGRA_3x_SOC)  += tegra20.o
-+tegra-video-$(CONFIG_ARCH_TEGRA_114_SOC) += tegra20.o
- tegra-video-$(CONFIG_ARCH_TEGRA_210_SOC) += tegra210.o
- obj-$(CONFIG_VIDEO_TEGRA) += tegra-video.o
-diff --git a/drivers/media/platform/nvidia/tegra-video/csi.c b/drivers/media/platform/nvidia/tegra-video/csi.c
-index 5a5fca378ae64..126dc65731aad 100644
---- a/drivers/media/platform/nvidia/tegra-video/csi.c
-+++ b/drivers/media/platform/nvidia/tegra-video/csi.c
-@@ -877,6 +877,9 @@ static const struct of_device_id tegra_csi_of_id_table[] = {
- #if defined(CONFIG_ARCH_TEGRA_3x_SOC)
- 	{ .compatible = "nvidia,tegra30-csi", .data = &tegra30_csi_soc },
- #endif
-+#if defined(CONFIG_ARCH_TEGRA_114_SOC)
-+	{ .compatible = "nvidia,tegra114-csi", .data = &tegra114_csi_soc },
-+#endif
- #if defined(CONFIG_ARCH_TEGRA_210_SOC)
- 	{ .compatible = "nvidia,tegra210-csi", .data = &tegra210_csi_soc },
- #endif
-diff --git a/drivers/media/platform/nvidia/tegra-video/csi.h b/drivers/media/platform/nvidia/tegra-video/csi.h
-index f0277cb424469..ec669f4a9997e 100644
---- a/drivers/media/platform/nvidia/tegra-video/csi.h
-+++ b/drivers/media/platform/nvidia/tegra-video/csi.h
-@@ -121,6 +121,8 @@ struct tegra_csi_ops {
-  * @num_clks: total clocks count
-  * @tpg_frmrate_table: csi tpg frame rate table with blanking intervals
-  * @tpg_frmrate_table_size: size of frame rate table
-+ * @has_paired_cil: indicates that cil pads are paired per port, this is
-+ *		    specific for Tegra114 where each port has 2 cil pads
-  */
- struct tegra_csi_soc {
- 	const struct tegra_csi_ops *ops;
-@@ -130,6 +132,7 @@ struct tegra_csi_soc {
- 	unsigned int num_clks;
- 	const struct tpg_framerate *tpg_frmrate_table;
- 	unsigned int tpg_frmrate_table_size;
-+	bool has_paired_cil;
- };
- 
- #if defined(CONFIG_ARCH_TEGRA_2x_SOC)
-@@ -138,6 +141,9 @@ extern const struct tegra_csi_soc tegra20_csi_soc;
- #if defined(CONFIG_ARCH_TEGRA_3x_SOC)
- extern const struct tegra_csi_soc tegra30_csi_soc;
- #endif
-+#if defined(CONFIG_ARCH_TEGRA_114_SOC)
-+extern const struct tegra_csi_soc tegra114_csi_soc;
-+#endif
- #if defined(CONFIG_ARCH_TEGRA_210_SOC)
- extern const struct tegra_csi_soc tegra210_csi_soc;
- #endif
-diff --git a/drivers/media/platform/nvidia/tegra-video/tegra20.c b/drivers/media/platform/nvidia/tegra-video/tegra20.c
-index f27ecb1ba29a7..41dd5c2d098ce 100644
---- a/drivers/media/platform/nvidia/tegra-video/tegra20.c
-+++ b/drivers/media/platform/nvidia/tegra-video/tegra20.c
-@@ -217,8 +217,21 @@ enum tegra_vi_out {
- #define       CSI_B_PHY_CIL_ENABLE			(0x1 << 16)
- #define       CSI_B_PHY_CIL_DISABLE			(0x2 << 16)
- #define       CSI_B_PHY_CIL_ENABLE_MASK			(0x3 << 16)
-+#define       CSI_C_PHY_CIL_NOP				(0x0 << 20)
-+#define       CSI_C_PHY_CIL_ENABLE			(0x1 << 20)
-+#define       CSI_C_PHY_CIL_DISABLE			(0x2 << 20)
-+#define       CSI_C_PHY_CIL_ENABLE_MASK			(0x3 << 20)
-+#define       CSI_D_PHY_CIL_NOP				(0x0 << 24)
-+#define       CSI_D_PHY_CIL_ENABLE			(0x1 << 24)
-+#define       CSI_D_PHY_CIL_DISABLE			(0x2 << 24)
-+#define       CSI_D_PHY_CIL_ENABLE_MASK			(0x3 << 24)
-+#define       CSI_E_PHY_CIL_NOP				(0x0 << 28)
-+#define       CSI_E_PHY_CIL_ENABLE			(0x1 << 28)
-+#define       CSI_E_PHY_CIL_DISABLE			(0x2 << 28)
-+#define       CSI_E_PHY_CIL_ENABLE_MASK			(0x3 << 28)
- #define TEGRA_CSI_PHY_CIL_CONTROL0(n)			(0x006c + (n) * 4)
- #define       CSI_CONTINUOUS_CLOCK_MODE_ENABLE		BIT(5)
-+#define       CSI_DEFAULT_CLOCK_SETTLE_TIME		0x5
- #define TEGRA_CSI_CSI_PIXEL_PARSER_STATUS		0x0078
- #define TEGRA_CSI_CSI_CIL_STATUS			0x007c
- #define       CSI_MIPI_AUTO_CAL_DONE			BIT(15)
-@@ -262,6 +275,19 @@ enum tegra_vi_out {
- #define       CSI_PAD_TERM_REF(n)			(((n) & 0x7) << 0)
- #define TEGRA_CSI_CSI_CILA_STATUS			0x00d8
- #define TEGRA_CSI_CSI_CILB_STATUS			0x00dc
-+#define TEGRA_CSI_CSI_CILC_STATUS			0x00e4
-+#define TEGRA_CSI_CSI_CILD_STATUS			0x00e8
-+#define TEGRA_CSI_PHY_CILC_CONTROL0			0x00f8
-+#define TEGRA_CSI_PHY_CILD_CONTROL0			0x00fc
-+#define TEGRA_CSI_PHY_CILE_CONTROL0			0x010c
-+#define TEGRA_CSI_CSI_CIL_STATUS_2			0x0110
-+#define TEGRA_CSI_CSI_CIL_INTERRUPT_MASK_2		0x0114
-+#define TEGRA_CSI_CILC_PAD_CONFIG0			0x0128
-+#define TEGRA_CSI_CILC_PAD_CONFIG1			0x012c
-+#define TEGRA_CSI_CILD_PAD_CONFIG0			0x0130
-+#define TEGRA_CSI_CILD_PAD_CONFIG1			0x0134
-+#define TEGRA_CSI_CILE_PAD_CONFIG0			0x0138
-+#define TEGRA_CSI_CILE_PAD_CONFIG1			0x013c
- 
- /* --------------------------------------------------------------------------
-  * Read and Write helpers
-@@ -876,6 +902,17 @@ const struct tegra_vi_soc tegra30_vi_soc = {
- 	.has_h_v_flip = true,
- };
- 
-+const struct tegra_vi_soc tegra114_vi_soc = {
-+	.video_formats = tegra20_video_formats,
-+	.nformats = ARRAY_SIZE(tegra20_video_formats),
-+	.default_video_format = &tegra20_video_formats[0],
-+	.ops = &tegra30_vi_ops,
-+	.hw_revision = 1,
-+	.vi_max_channels = 2,
-+	.vi_max_clk_hz = 408000000,
-+	.has_h_v_flip = true,
-+};
-+
- /* --------------------------------------------------------------------------
-  * MIPI Calibration
-  */
-@@ -1003,6 +1040,8 @@ static const struct tegra_mipi_ops tegra20_mipi_ops = {
-  */
- static void tegra20_csi_capture_clean(struct tegra_csi_channel *csi_chan)
- {
-+	struct tegra_csi *csi = csi_chan->csi;
-+
- 	tegra20_csi_write(csi_chan, TEGRA_CSI_VI_INPUT_STREAM_CONTROL, 0);
- 	tegra20_csi_write(csi_chan, TEGRA_CSI_HOST_INPUT_STREAM_CONTROL, 0);
- 
-@@ -1018,6 +1057,11 @@ static void tegra20_csi_capture_clean(struct tegra_csi_channel *csi_chan)
- 	tegra20_csi_write(csi_chan, TEGRA_CSI_CIL_MIPI_CAL_STATUS, 0);
- 	tegra20_csi_write(csi_chan, TEGRA_CSI_CLKEN_OVERRIDE, 0);
- 
-+	if (csi->soc->has_paired_cil) {
-+		tegra20_csi_write(csi_chan, TEGRA_CSI_CSI_CIL_STATUS_2, 0);
-+		tegra20_csi_write(csi_chan, TEGRA_CSI_CSI_CIL_INTERRUPT_MASK_2, 0);
-+	}
-+
- 	tegra20_csi_write(csi_chan, TEGRA_CSI_DEBUG_CONTROL,
- 			  CSI_DEBUG_CONTROL_CLR_DBG_CNT_0 |
- 			  CSI_DEBUG_CONTROL_CLR_DBG_CNT_1 |
-@@ -1028,6 +1072,7 @@ static int tegra20_csi_port_start_streaming(struct tegra_csi_channel *csi_chan,
- 					    u8 portno)
- {
- 	struct tegra_vi_channel *vi_chan = v4l2_get_subdev_hostdata(&csi_chan->subdev);
-+	struct tegra_csi *csi = csi_chan->csi;
- 	int width  = vi_chan->format.width;
- 	int height = vi_chan->format.height;
- 	u32 data_type = vi_chan->fmtinfo->img_dt;
-@@ -1061,9 +1106,30 @@ static int tegra20_csi_port_start_streaming(struct tegra_csi_channel *csi_chan,
- 	tegra20_csi_write(csi_chan, TEGRA_CSI_PIXEL_STREAM_GAP(port), 0);
- 	tegra20_csi_write(csi_chan, TEGRA_CSI_PIXEL_STREAM_PP_COMMAND(port), 0);
- 	tegra20_csi_write(csi_chan, TEGRA_CSI_PIXEL_STREAM_EXPECTED_FRAME(port), 0);
--	tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CIL_CONTROL0(port), 0);
--	tegra20_csi_write(csi_chan, TEGRA_CSI_CIL_PAD_CONFIG0(port), 0);
--	tegra20_csi_write(csi_chan, TEGRA_CSI_CIL_PAD_CONFIG1(port), 0);
-+
-+	if (csi->soc->has_paired_cil) {
-+		if (port == PORT_A) {
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CIL_CONTROL0(port), 0);
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_CIL_PAD_CONFIG0(port), 0);
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_CIL_PAD_CONFIG1(port), 0);
-+
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CIL_CONTROL0(port + 1), 0);
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_CIL_PAD_CONFIG0(port + 1), 0);
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_CIL_PAD_CONFIG1(port + 1), 0);
-+		} else {
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CILC_CONTROL0, 0);
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_CILC_PAD_CONFIG0, 0);
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_CILC_PAD_CONFIG1, 0);
-+
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CILD_CONTROL0, 0);
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_CILD_PAD_CONFIG0, 0);
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_CILD_PAD_CONFIG1, 0);
-+		}
-+	} else {
-+		tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CIL_CONTROL0(port), 0);
-+		tegra20_csi_write(csi_chan, TEGRA_CSI_CIL_PAD_CONFIG0(port), 0);
-+		tegra20_csi_write(csi_chan, TEGRA_CSI_CIL_PAD_CONFIG1(port), 0);
-+	}
- 
- 	tegra20_vi_write(vi_chan, TEGRA_VI_VI_CORE_CONTROL, BIT(25 + port)); /* CSI_PP_YUV422 */
- 
-@@ -1097,9 +1163,18 @@ static int tegra20_csi_port_start_streaming(struct tegra_csi_channel *csi_chan,
- 			  CSI_SKIP_PACKET_THRESHOLD(0x3f) |
- 			  (csi_chan->numlanes - 1));
- 
--	tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CIL_CONTROL0(port),
--			  CSI_CONTINUOUS_CLOCK_MODE_ENABLE |
--			  0x5); /* Clock settle time */
-+	value = CSI_CONTINUOUS_CLOCK_MODE_ENABLE | CSI_DEFAULT_CLOCK_SETTLE_TIME;
-+	if (csi->soc->has_paired_cil) {
-+		if (port == PORT_A) {
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CIL_CONTROL0(port), value);
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CIL_CONTROL0(port + 1), value);
-+		} else {
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CILC_CONTROL0, value);
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CILD_CONTROL0, value);
-+		}
-+	} else {
-+		tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CIL_CONTROL0(port), value);
-+	}
- 
- 	tegra20_vi_write(vi_chan, TEGRA_VI_CONT_SYNCPT_CSI_PP_FRAME_START(port),
- 			 VI_CONT_SYNCPT_OUT_CONTINUOUS_SYNCPT |
-@@ -1111,8 +1186,18 @@ static int tegra20_csi_port_start_streaming(struct tegra_csi_channel *csi_chan,
- 			 host1x_syncpt_id(vi_chan->mw_ack_sp[0])
- 			 << VI_CONT_SYNCPT_OUT_SYNCPT_IDX_SFT);
- 
--	value = (port == PORT_A) ? CSI_A_PHY_CIL_ENABLE | CSI_B_PHY_CIL_DISABLE :
--		CSI_B_PHY_CIL_ENABLE | CSI_A_PHY_CIL_DISABLE;
-+	if (csi->soc->has_paired_cil) {
-+		if (port == PORT_A)
-+			value = CSI_A_PHY_CIL_ENABLE | CSI_B_PHY_CIL_ENABLE |
-+				CSI_C_PHY_CIL_DISABLE | CSI_D_PHY_CIL_DISABLE;
-+		else
-+			value = CSI_A_PHY_CIL_DISABLE | CSI_B_PHY_CIL_DISABLE |
-+				CSI_C_PHY_CIL_ENABLE | CSI_D_PHY_CIL_ENABLE;
-+	} else {
-+		value = (port == PORT_A) ? CSI_A_PHY_CIL_ENABLE | CSI_B_PHY_CIL_DISABLE :
-+			CSI_B_PHY_CIL_ENABLE | CSI_A_PHY_CIL_DISABLE;
-+	}
-+
- 	tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CIL_COMMAND, value);
- 
- 	tegra20_csi_write(csi_chan, TEGRA_CSI_PIXEL_STREAM_PP_COMMAND(port),
-@@ -1141,17 +1226,34 @@ static void tegra20_csi_port_stop_streaming(struct tegra_csi_channel *csi_chan,
- 	dev_dbg(csi->dev, "TEGRA_CSI_CSI_CIL_STATUS 0x%08x\n", value);
- 	tegra20_csi_write(csi_chan, TEGRA_CSI_CSI_CIL_STATUS, value);
- 
-+	if (csi->soc->has_paired_cil) {
-+		value = tegra20_csi_read(csi_chan, TEGRA_CSI_CSI_CIL_STATUS_2);
-+		dev_dbg(csi->dev, "TEGRA_CSI_CSI_CIL_STATUS_2 0x%08x\n", value);
-+		tegra20_csi_write(csi_chan, TEGRA_CSI_CSI_CIL_STATUS_2, value);
-+	}
-+
- 	tegra20_csi_write(csi_chan, TEGRA_CSI_PIXEL_STREAM_PP_COMMAND(port),
- 			  CSI_PP_START_MARKER_FRAME_MAX(0xf) |
- 			  CSI_PP_DISABLE);
- 
--	if (csi_chan->numlanes == 4) {
--		tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CIL_COMMAND,
--				  CSI_A_PHY_CIL_DISABLE | CSI_B_PHY_CIL_DISABLE);
--	} else {
--		value = (port == PORT_A) ? CSI_A_PHY_CIL_DISABLE | CSI_B_PHY_CIL_NOP :
--			CSI_B_PHY_CIL_DISABLE | CSI_A_PHY_CIL_NOP;
-+	if (csi->soc->has_paired_cil) {
-+		if (port == PORT_A)
-+			value = CSI_A_PHY_CIL_DISABLE | CSI_B_PHY_CIL_DISABLE |
-+				CSI_C_PHY_CIL_NOP | CSI_D_PHY_CIL_NOP;
-+		else
-+			value = CSI_A_PHY_CIL_NOP | CSI_B_PHY_CIL_NOP |
-+				CSI_C_PHY_CIL_DISABLE | CSI_D_PHY_CIL_DISABLE;
-+
- 		tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CIL_COMMAND, value);
-+	} else {
-+		if (csi_chan->numlanes == 4) {
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CIL_COMMAND,
-+					  CSI_A_PHY_CIL_DISABLE | CSI_B_PHY_CIL_DISABLE);
-+		} else {
-+			value = (port == PORT_A) ? CSI_A_PHY_CIL_DISABLE | CSI_B_PHY_CIL_NOP :
-+				CSI_B_PHY_CIL_DISABLE | CSI_A_PHY_CIL_NOP;
-+			tegra20_csi_write(csi_chan, TEGRA_CSI_PHY_CIL_COMMAND, value);
-+		}
- 	}
- }
- 
-@@ -1199,6 +1301,7 @@ const struct tegra_csi_soc tegra20_csi_soc = {
- 	.csi_max_channels = 2, /* CSI-A and CSI-B */
- 	.clk_names = tegra20_csi_clks,
- 	.num_clks = ARRAY_SIZE(tegra20_csi_clks),
-+	.has_paired_cil = false,
- };
- 
- static const char * const tegra30_csi_clks[] = {
-@@ -1213,6 +1316,24 @@ const struct tegra_csi_soc tegra30_csi_soc = {
- 	.csi_max_channels = 2, /* CSI-A and CSI-B */
- 	.clk_names = tegra30_csi_clks,
- 	.num_clks = ARRAY_SIZE(tegra30_csi_clks),
-+	.has_paired_cil = false,
-+};
-+
-+static const char * const tegra114_csi_clks[] = {
-+	"csi",
-+	"csia-pad",
-+	"csib-pad",
-+	"cilab",
-+	"cilcd",
-+	"cile",
-+};
-+
-+const struct tegra_csi_soc tegra114_csi_soc = {
-+	.ops = &tegra20_csi_ops,
-+	.csi_max_channels = 2, /* CSI-A and CSI-B */
-+	.clk_names = tegra114_csi_clks,
-+	.num_clks = ARRAY_SIZE(tegra114_csi_clks),
-+	.has_paired_cil = true,
- };
- 
- /* --------------------------------------------------------------------------
-diff --git a/drivers/media/platform/nvidia/tegra-video/tegra210.c b/drivers/media/platform/nvidia/tegra-video/tegra210.c
-index a6606768fa036..bedba5cafc897 100644
---- a/drivers/media/platform/nvidia/tegra-video/tegra210.c
-+++ b/drivers/media/platform/nvidia/tegra-video/tegra210.c
-@@ -1217,4 +1217,5 @@ const struct tegra_csi_soc tegra210_csi_soc = {
- 	.num_clks = ARRAY_SIZE(tegra210_csi_cil_clks),
- 	.tpg_frmrate_table = tegra210_tpg_frmrate_table,
- 	.tpg_frmrate_table_size = ARRAY_SIZE(tegra210_tpg_frmrate_table),
-+	.has_paired_cil = false,
- };
-diff --git a/drivers/media/platform/nvidia/tegra-video/vi.c b/drivers/media/platform/nvidia/tegra-video/vi.c
-index 0228a11013b05..3f02405da7386 100644
---- a/drivers/media/platform/nvidia/tegra-video/vi.c
-+++ b/drivers/media/platform/nvidia/tegra-video/vi.c
-@@ -1968,6 +1968,9 @@ static const struct of_device_id tegra_vi_of_id_table[] = {
- #if defined(CONFIG_ARCH_TEGRA_3x_SOC)
- 	{ .compatible = "nvidia,tegra30-vi",  .data = &tegra30_vi_soc },
- #endif
-+#if defined(CONFIG_ARCH_TEGRA_114_SOC)
-+	{ .compatible = "nvidia,tegra114-vi", .data = &tegra114_vi_soc },
-+#endif
- #if defined(CONFIG_ARCH_TEGRA_210_SOC)
- 	{ .compatible = "nvidia,tegra210-vi", .data = &tegra210_vi_soc },
- #endif
-diff --git a/drivers/media/platform/nvidia/tegra-video/vi.h b/drivers/media/platform/nvidia/tegra-video/vi.h
-index ff5c9deed4c88..71b21434cf1ff 100644
---- a/drivers/media/platform/nvidia/tegra-video/vi.h
-+++ b/drivers/media/platform/nvidia/tegra-video/vi.h
-@@ -298,6 +298,9 @@ extern const struct tegra_vi_soc tegra20_vi_soc;
- #if defined(CONFIG_ARCH_TEGRA_3x_SOC)
- extern const struct tegra_vi_soc tegra30_vi_soc;
- #endif
-+#if defined(CONFIG_ARCH_TEGRA_114_SOC)
-+extern const struct tegra_vi_soc tegra114_vi_soc;
-+#endif
- #if defined(CONFIG_ARCH_TEGRA_210_SOC)
- extern const struct tegra_vi_soc tegra210_vi_soc;
- #endif
-diff --git a/drivers/media/platform/nvidia/tegra-video/video.c b/drivers/media/platform/nvidia/tegra-video/video.c
-index d483fb709d127..55c17e7c930a2 100644
---- a/drivers/media/platform/nvidia/tegra-video/video.c
-+++ b/drivers/media/platform/nvidia/tegra-video/video.c
-@@ -132,6 +132,10 @@ static const struct of_device_id host1x_video_subdevs[] = {
- 	{ .compatible = "nvidia,tegra30-csi", },
- 	{ .compatible = "nvidia,tegra30-vi", },
- #endif
-+#if defined(CONFIG_ARCH_TEGRA_114_SOC)
-+	{ .compatible = "nvidia,tegra114-csi", },
-+	{ .compatible = "nvidia,tegra114-vi", },
-+#endif
- #if defined(CONFIG_ARCH_TEGRA_210_SOC)
- 	{ .compatible = "nvidia,tegra210-csi", },
- 	{ .compatible = "nvidia,tegra210-vi", },
+ 		vi@54080000 {
+-			compatible = "nvidia,tegra30-vi", "nvidia,tegra20-vi";
++			compatible = "nvidia,tegra30-vi";
+ 			reg = <0x54080000 0x00000800>;
+ 			interrupts = <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>;
+ 			clocks = <&tegra_car TEGRA30_CLK_VI>;
 -- 
 2.53.0
 
