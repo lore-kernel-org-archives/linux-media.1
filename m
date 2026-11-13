@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794537693;
-	b=2zrJbw7+Hy5hkIqpwQmesSIJqV1ok6LW8fe2I5Cddr6OMuV3VzVY/J0yc2UR3YoNCSuu
-	 sk+pdVCQcjmurw38FC0CeicQc7q1kEJltOVEvp1cx9qD0N4jbGCmzSOlQBfpAJKLdCr9P
-	 uQcmBvNtN4kXlDFkoWq8rysywRKOT1fjscVoNfpiEJRcgs6GqBdtzGlZmholl65Krpnq5
-	 4sy2LXuJasl3DWNqRYLT9M1vzhS4UysATalCDIB6gLL4p/1S3vn5Ki14Q1DkSsglwGL3a
-	 5jCLLDJVp2UEGzheysbDWmkwf6se55NVSabpOKlaOa7smdYtMFpvg3A2KV8Dg16U3pQ==
+	t=1794537699;
+	b=rYmIcGhoL1Kz5kOizz+bqZsSx5Vy+9XIErwCa0vflwwSjxUy2Kr8tlMpo6wiXMHKGeWd
+	 MAM4uvbHxOmEts5aX4LBo6qjd+EGgERVdpghUvULebcQrgNGDc11ASalWlqjY0wMj2Y1Q
+	 A2oMnc3S1ZtZP7fEhXIkfB3Zek5I0tXe8MQP/Ivh7+QApj8ruph5gjRI313rUmYnN06zW
+	 1X/OfxGAPENnMTzIDccgc/n0xn9wQmUQ1WuIOw3EBBd9XVz9Zs2PCLIt58uJRZqR7uqLQ
+	 gY3bxiVI3YOQLBr8UzUu0oSiTy9HAy9LyRdOa9D8GAkJzdUuwWcXApQcfUAfJFec+3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794537693;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794537699;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=l+YEUGKtpd7aHWVPQy+x7Xh8BfSvHo7P8pWOf0o5lWw=;
-	b=nyA8V32sAXnbLuyWJk4SFI6y+jbI8DD+neLiIc9FnVQ3luZ8WX8T1qReV2iICIZhcpSQ
-	 yx8uordIf0q6A3XhLCVQvNeI+WJFl0zycpCfwmSrH7LXKbNukR30SRHS7b61txpG8AcCW
-	 lAt2ibxCh28G38/0XrpONSr1k9cevENbNGUWVLmVw0mqPFG85c7ZymI1JgbYH/x8UtcAN
-	 VOAtjrAHmOYs8CQYBQx9EIzWDTGLKR6g4mqX7nctmO0vprngkxxX/xMMrnWEk6h/Ma/jd
-	 w0NugrMG6NEjN47urfJKp6ol5IWTJODDgFPW+J/5752mlULOBRKw+Q3cABeT1Ot1SPA==
+	bh=HXPaDe1GyDmDZyt1zBepWwW/7I0nMtcyrpGqoJCQR3A=;
+	b=te90LxaBlx5BCnewW0FewOPNaeEod2J6098DV0nc48upwDLlFkueZQRK8lLdrEbO3W/4
+	 IOF/+SHFGxi6oF8RF6c50mIXzTQUpNIEVpPlJxyYn1ly//DBC+kmx3nWd7i2IfTTlXI3M
+	 OHOSjNIAh32+TjVRvsXt2wl/w+QeNIBYcDff9LgKSemKRl8tWy1O9DWoRHT0IgxkkzCdD
+	 R/u77NxGmILyHpyicLmtqDkoBcb+1/RHaixCAbwKODCQHmL38uysBFe0cERPnm9UoLQ5u
+	 KWtiB0o8gbEmNStho17ach0z197H/Kd3gHPGM11eU85yrc5xGHD3cg63bjKda1S92Qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Ot/FDGmY";
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FTgvzN7O;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47DD760A2611
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 02:41:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47DD760A2611
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADEB606A321
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 02:41:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ADEB606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ot/FDGmY
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-372cba0ecf9so55914eec.2
-        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 18:41:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FTgvzN7O
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-372cba0ecf9so55918eec.2
+        for <linux-media@vger.kernel.org>; Thu, 12 Nov 2026 18:41:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794537692; x=1795142492; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794537698; x=1795142498; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=l+YEUGKtpd7aHWVPQy+x7Xh8BfSvHo7P8pWOf0o5lWw=;
-        b=Ot/FDGmYOX3fJkau+xRq/sVfSJlsKjLN+XTlP+8V0r6RREnevhSGv+69XCKO0JIEQe
-         J9S8Mng770C21K/lp9YDxrEja7pw27r6aIonCdZOkiyFCHaTCwfZiDnHhd4gpWpNt1pk
-         n0VJMq2nEWhS0QDmYEFrxyAIfj5dri47oszjn5WYhes2A+JcaA0VQxTUH6Jeh1WLJNUk
-         DwH5RsuBAWJXC4q6avEYmf2aSWZBpts7f9DnpIouNYPJcRNnvEJD+F9J8jCzbv1PqJ5e
-         ORk8llgBZ5GINCgd2mOic0Y9wG8QrvcyLN4uIFj6uAtXb8MTTIvmG1mGY7HBm+SUxCxO
-         i8AQ==
+        bh=HXPaDe1GyDmDZyt1zBepWwW/7I0nMtcyrpGqoJCQR3A=;
+        b=FTgvzN7OSkT3vZRg+VtPKcEXeRf/ywtn/+H4mOytppQa/L54w5w5VcB/9lNqJ0+Wfq
+         zZ3nty79bXjcflr+/qAawOp8qmGYeBj72os/92CXs1q36AAfOZbq5eq/1D+8kZkTBnMx
+         l8dSUvtunlcXTbpjDY9UpOz02+D2JRFRTjUE7DDi6uaGIKlXeTo1iVeLLYqvKUQ5t/BB
+         KTokuP4G8cqX6VNxrGSe9/z9IIeA3NXOo7BSQgMenv+uPlclYfoL0J3igB6mbTPnLSOe
+         vlzmGoJZAl2udrhl11n9GxPyFlJrobRZQRLyZul5GYpqFuuWxGI++I1RaYkWFXeLjrl9
+         QYgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794537692; x=1795142492;
+        d=1e100.net; s=20260707; t=1794537698; x=1795142498;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l+YEUGKtpd7aHWVPQy+x7Xh8BfSvHo7P8pWOf0o5lWw=;
-        b=2KyIN2dodFyCerE7pX8anbEGMzgGBCKfT4sjrUpEJHqvqYSEbOResbXLVsqWjPB7UG
-         WtdbKHhyrKObwqHzq86awhccotDzdr0XNy5efWt7M9EJXERcijSCeStgURHs7ft27nwv
-         GSRQVoMKctmtlQPgKVQjMBcw+sLiAldlGJCjbI0xnV9X8vqKJp8QFjRf1ltJvK25iC/Q
-         ZS01tkXpeQ5Wjd+W2+YdS6ABQ1epR8dW7ms717Xsu+dI7mS1bCzdLEE59ckqcSBYU5TC
-         yvJwPkuMcGHxLsa91s/I7ymeA1qjytfZQ9dzLDBIFBZWKGcRLeeVohuiPKYG9nfik7V3
-         iMpw==
-X-Gm-Message-State: APuU4Z+fCOxdgw8/WB/UWBgqt/sALjq2VOB5siaxuyboh2U5WNM9nKCk
-	dgPyBtdGgFR4Jg8PN8zAOFMlYaA4koOTNPe+mC954vEp+SLJIWVJjfi3k4cR+V268EQAvxtV
-X-Gm-Gg: AYBFou0Ej1GgG/nlLC8QXfYCOBbqIjJB/lgDZ7cWfA/cjAV24vO2ieyGoksuvAxG5tI
-	Pg9C1Z+Yu0ANUyNguDwzUYcUCQ3D4sAzWM4KYTBNskUhuZ8aTs5S0EF/HhFXLwdBdaiRCbX0gzG
-	sejMiFwJCrtEzj+M9yGHid3J+03HXNC3pgYkS1IwIE3/bbzF1N4n0+QzTW49KnrCVLsZcCZgE2G
-	6d0q/jMAX1WvGJloHz1t8W45LwmdN4piLTj2DL0f7kButjWFzsAFhvoJpPbyKMluWMUnre9fORl
-	5PfBI/KvuwydYEjn9H1suemBN0YHjTujs2a5vePyNR2IqelhKZYxcAHvnk6FabuSq7Nr86qgO5K
-	sFegME8YnbuezlrVOy9ss7m/vji6CuUbH6KHHQ2dDikw4NIS029R3j+8e4ti9AizTbEfeZR1bdj
-	Y3oDJ//z8QqOA35q/d+sa9cYwcnsQjDfj/a87H3cw4vtxSi+oklOUe0SQXUhG0O7pyos6ZTlYho
-	WvgzYRaZj0LWXMv7cuCeyE46bpJapG8zgY7FuUUlb3Gdr3oivl1kKjwTB5R0OV9ccRb1n3rSiG2
-	qXd9A4DH45CH0GC1aVO8HIqUaO8jfuELWd0gJMfp/VeuzfQve5iZPUFpD+LIpKtKmFXpcW8+aaE
-	cFAs2wCWP6afeL4Jy3msFK1yNbfQQ2pHp4N2W/uhcRZYEyJi1l2imNIWxDHFLnGV3dniRQkbdjt
-	aLBtKX/Ab9Xw==
-X-Received: by 2002:a05:7300:7481:b0:36d:cd5d:d809 with SMTP id 5a478bee46e88-37964ff2d6emr1982567eec.1.1794537692295;
-        Thu, 12 Nov 2026 18:41:32 -0800 (PST)
+        bh=HXPaDe1GyDmDZyt1zBepWwW/7I0nMtcyrpGqoJCQR3A=;
+        b=01cQd3plLrImnbumtv8sp/vY37UmV8jGiAzdmVbhWEfuU/TJLQNASxGAlUzHDCO7sv
+         D7ZH94iSK/aA+jVQSK1FNXO0ku9QUQMkuwEw3o4PLkPMhIVc0+nljUF6I4qNpJlpJfQj
+         ajorUj9QhhrMSFQJUaWzr8oj4VhckxfIBwDCHTYXILu4SZlBUdYFVXGfiEMySzIla4y5
+         3xkb0SRv4JWVrr++aN/pwQlDIjCXSCbeLoLwD6d5ia6WL4kc/Mw7j2eYxfJC2TvORtv1
+         3m23XnlTBFF10DcEOfsn9Ky8DjpI30wwckXXQV0DSP+KB6BvwSGtoqzOvYoH6v30KdQv
+         la8w==
+X-Gm-Message-State: APuU4Z9STKEnKTAdH1drLJgxaBeaX+SejePl366LYLGX2hlIQVgJNrWr
+	SX93ThZHq7NEekAMGawTtK0AEhDarevKRcnZC2nTe/G3HwoE7A9ZBiu/lP1dE4X/mmLESEJu
+X-Gm-Gg: AYBFou0XahuizaPaufxIcX0bszSV2Sz9PgXtUdiR7TKB/p266jKIjoa4NtFBUDcVlic
+	EyV+wI8S2eaOdk7JdCCLKyFgZlkvkWjKF2Iu0w581n2SyWV8hIIdWj6ru1rjrr4fxv6jsqXrp03
+	+ct7GeeeStd3ApoqcP2GaQDLxz+U0MdHI8VHbm8x1+/ZCXt22uE4rUtISjPn5KMbYZ2kLA6QTAt
+	+idSPBlf0wagditZsltEW1MJoEiJTApA92qyRTVBvnlIhdY9nioCHY9jr4bk2g7lK4bIH+ZL6ln
+	+ICrT5h3jH5LFZfkvYYEGLdjdCoCE8KWwBs0b1qr25uK76TgxBqrpbAB01yERqOMint8GvY+e6F
+	nWNxjFvI8WTGIjQtWNTq25FgaoyY7ADw3f13tOh7wv+Xb6RU9Du47UbVea5QUnzkEk20+sPZa2z
+	bBawyWtieOV1in3QK6NGnZoUjnCzepq+x9hJ6lfEQ8qsUVBqvVLFY0mx73dPsfir7lHAjBXg43E
+	i5YlOhj8M7iRxZPmjGpFBg+f642EoeLPf16kLu/KSc/i9s6FaVlqF2n5djikpCO9U9vc5HtGcYs
+	522dF6mx8F4gq+INZxzZQmsmv7WSMmTQM+fmCiFep2wKpc8dFm+gFgeGLMV3eAPBsbxVB1itwL2
+	23F+UMBTWkHASwQJxN3Krh28xlwXk1KXFxhiU4trRuzn7j9pxW6yTQJRKNOvLwa8FrOsIeOXXcM
+	MChVMCl214yA==
+X-Received: by 2002:a05:693c:8204:b0:372:c0ee:875b with SMTP id 5a478bee46e88-3796057b529mr1567197eec.0.1794537698330;
+        Thu, 12 Nov 2026 18:41:38 -0800 (PST)
 Received: from esteban.tail1178e6.ts.net ([240b:c020:623:52c6::44d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm2334704eec.22.2026.11.12.18.41.26
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm2334704eec.22.2026.11.12.18.41.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 18:41:31 -0800 (PST)
+        Thu, 12 Nov 2026 18:41:37 -0800 (PST)
 From: Antoine Pichot <antoine.pichot@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: sakari.ailus@linux.intel.com,
@@ -91,9 +91,9 @@ Cc: sakari.ailus@linux.intel.com,
 	dave.stevenson@raspberrypi.com,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v3 3/9] media: i2c: ov7251: Report the pixel array rate for both link frequencies
-Date: Fri, 13 Nov 2026 11:40:53 +0900
-Message-ID: <20261113024059.1087031-4-antoine.pichot@gmail.com>
+Subject: [PATCH v3 4/9] media: i2c: ov7251: Reset vblank when the frame interval changes
+Date: Fri, 13 Nov 2026 11:40:54 +0900
+Message-ID: <20261113024059.1087031-5-antoine.pichot@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261113024059.1087031-1-antoine.pichot@gmail.com>
 References: <20261113024059.1087031-1-antoine.pichot@gmail.com>
@@ -108,88 +108,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pixel_rates[] gives V4L2_CID_PIXEL_RATE 48 MHz for the 240 MHz link and
-63.84 MHz for the 319.2 MHz link, which is the CSI-2 bus rate of each
-link (one lane, 10 bits per pixel). The control is the pixel array rate,
-and Documentation/driver-api/media/tx-rx.rst says the bus rate "is not
-the same thing as the pixel rate on the camera sensor's pixel array
-which is indicated by the V4L2_CID_PIXEL_RATE control".
+Setting a 60 or 90 fps frame interval is accepted and read back, but
+the sensor keeps streaming at 30 fps.
 
-The pixel array runs from PLL2's 48 MHz system clock at both link
-frequencies: the PLL2 registers are the same in both tables, and the
-measured frame rate is 48000000 / (928 x VTS) with either link. On a
-Surface Book 2 at 319.2 MHz, VTS 1724 gives 30.0 fps; 63.84 MHz would
-give 39.9 fps. A Surface Pro 7+ measures 30.01, 60.16 and 90.45 fps at
-VTS 1724, 860 and 572, the same 48 MHz. Dave Stevenson reported the
-same on a Raspberry Pi with a 24 MHz clock, where libcamera asked for
-100 fps and got 75, the ratio of the two rates.
+The three modes differ only in their frame length (VTS: 1724, 860 and
+572 lines), which each mode's register table writes to 0x380e/0x380f.
+Since the V4L2_CID_VBLANK control was added, s_stream() applies the
+controls with __v4l2_ctrl_handler_setup() after the mode table, so the
+VBLANK control rewrites VTS. ov7251_set_frame_interval() switches
+current_mode but never updates the VBLANK control, which keeps the 30
+fps value (1244, VTS 1724) and overrides the 60 or 90 fps VTS at every
+stream start.
 
-Report 48 MHz for both link frequencies and drop the table.
+ov7251_set_format() has the same issue in the other direction: it
+updates the VBLANK range and default for the new mode, but
+__v4l2_ctrl_modify_range() keeps the current value when it is still
+in range, so after a 60 fps frame interval a format change would go
+back to the 30 fps mode with a 60 fps VTS.
 
-Fixes: ed9566ce1946 ("media: i2c: Add support for new frequencies to ov7251")
+Update the VBLANK range and default in ov7251_set_frame_interval() too,
+and set VBLANK to the mode's default in both places, as is already
+done for exposure and gain. The VBLANK handler then also restores the
+exposure range for the new frame length.
+
+Tested on a Microsoft Surface Book 2 (IPU3 CIO2): after
+v4l2-ctl --set-subdev-fps pad=0,fps=60 (90), v4l2-ctl measures 60.15
+(90.45) fps instead of 30.01, with vblank 380 (92).
+
+Fixes: 1b598f413c7a ("media: i2c: Add vblank control to ov7251 driver")
 Cc: stable@vger.kernel.org
-Reported-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Closes: https://lore.kernel.org/linux-media/CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com/
 Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
+Tested-by: D. Manresa <dmanresa@gmail.com> # Surface Pro 7+, IPU6 (8086:9a19)
 ---
- drivers/media/i2c/ov7251.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+ drivers/media/i2c/ov7251.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
 diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
-index 1f30a01c85b3..65f3fc2d5889 100644
+index 65f3fc2d5889..81520833120a 100644
 --- a/drivers/media/i2c/ov7251.c
 +++ b/drivers/media/i2c/ov7251.c
-@@ -18,10 +18,14 @@
- #include <linux/regulator/consumer.h>
- #include <linux/slab.h>
- #include <linux/types.h>
-+#include <linux/units.h>
- #include <media/v4l2-ctrls.h>
- #include <media/v4l2-fwnode.h>
- #include <media/v4l2-subdev.h>
+@@ -1260,6 +1260,10 @@ static int ov7251_set_format(struct v4l2_subdev *sd,
+ 		if (ret < 0)
+ 			goto exit;
  
-+/* PLL2 sys_clk: the pixel array clock at both link frequencies */
-+#define OV7251_PIXEL_CLOCK_HZ	(48 * HZ_PER_MHZ)
++		ret = __v4l2_ctrl_s_ctrl(ov7251->vblank, vblank_def);
++		if (ret < 0)
++			goto exit;
 +
- #define OV7251_SC_MODE_SELECT		0x0100
- #define OV7251_SC_MODE_SELECT_SW_STANDBY	0x0
- #define OV7251_SC_MODE_SELECT_STREAMING		0x1
-@@ -633,11 +637,6 @@ static const s64 link_freq[] = {
- 	[OV7251_LINK_FREQ_319_2_MHZ] = 319200000,
- };
+ 		ov7251->current_mode = new_mode;
+ 	}
  
--static const s64 pixel_rates[] = {
--	[OV7251_LINK_FREQ_240_MHZ] = 48000000,
--	[OV7251_LINK_FREQ_319_2_MHZ] = 63840000,
--};
--
- static const struct ov7251_mode_info ov7251_mode_info_data[] = {
- 	{
- 		.width = 640,
-@@ -1567,7 +1566,6 @@ static int ov7251_detect_chip(struct ov7251 *ov7251)
- static int ov7251_init_ctrls(struct ov7251 *ov7251)
+@@ -1413,6 +1417,7 @@ static int ov7251_set_frame_interval(struct v4l2_subdev *subdev,
  {
- 	int vblank_max, vblank_def;
--	s64 pixel_rate;
- 	int hblank;
+ 	struct ov7251 *ov7251 = to_ov7251(subdev);
+ 	const struct ov7251_mode_info *new_mode;
++	int vblank_def;
+ 	int ret = 0;
  
- 	v4l2_ctrl_handler_init(&ov7251->ctrls, 7);
-@@ -1586,12 +1584,12 @@ static int ov7251_init_ctrls(struct ov7251 *ov7251)
- 				     ARRAY_SIZE(ov7251_test_pattern_menu) - 1,
- 				     0, 0, ov7251_test_pattern_menu);
+ 	/*
+@@ -1441,6 +1446,19 @@ static int ov7251_set_frame_interval(struct v4l2_subdev *subdev,
+ 		if (ret < 0)
+ 			goto exit;
  
--	pixel_rate = pixel_rates[ov7251->link_freq_idx];
- 	ov7251->pixel_clock = v4l2_ctrl_new_std(&ov7251->ctrls,
- 						&ov7251_ctrl_ops,
- 						V4L2_CID_PIXEL_RATE,
--						pixel_rate, INT_MAX,
--						pixel_rate, pixel_rate);
-+						OV7251_PIXEL_CLOCK_HZ, INT_MAX,
-+						OV7251_PIXEL_CLOCK_HZ,
-+						OV7251_PIXEL_CLOCK_HZ);
- 	ov7251->link_freq = v4l2_ctrl_new_int_menu(&ov7251->ctrls,
- 						   &ov7251_ctrl_ops,
- 						   V4L2_CID_LINK_FREQ,
++		vblank_def = new_mode->vts - new_mode->height;
++		ret = __v4l2_ctrl_modify_range(ov7251->vblank,
++					       OV7251_TIMING_MIN_VTS,
++					       OV7251_TIMING_MAX_VTS -
++					       new_mode->height,
++					       1, vblank_def);
++		if (ret < 0)
++			goto exit;
++
++		ret = __v4l2_ctrl_s_ctrl(ov7251->vblank, vblank_def);
++		if (ret < 0)
++			goto exit;
++
+ 		ov7251->current_mode = new_mode;
+ 	}
+ 
 -- 
 2.56.0
 
