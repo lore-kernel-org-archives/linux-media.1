@@ -1,73 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577556;
-	b=i7Q+Ufw1koCdh9iIgsRTghC1NcGxrCKYi0Zlh9O+XyNrlfaPKccDKOLowaStOyl6OOf7
-	 1aUGaOwjChnMK2JdZQxSujLXJMomu6mnetYiUiMoA+idRwAdln8aeQqrAu3Im10XfVtSR
-	 IriafvAoHs65j4A+PbXA4MQQgbQCIaEDBBKuu3yQ2K0Pis01jfZAaA+sVw2kVgFu3pYWc
-	 u91I/SD/6Sae/9byKKNB8GOVCdEDfbjPuv96ZIz7ddeT1C+Obe0E3w5XIvYeSKd3QBdks
-	 Kc0ZQoylkXJqjTSGij8UblaCuay82BdlE+RzSz9zirumHQgxo15hs52CQsUnhI8fbsg==
+	t=1794579125;
+	b=5byrYo73SHMgTDTZaWgPHrPoSg/KlbWfgoAONPk3kG92uaFvtU9P+AsomJCeQqrgyNgd
+	 PPLPEft60JMV6Df5kfiQiBvfQISta8o0bWeFpn+6x3cDzezeWnVk5MRdvJ2TCZ6w1tUHP
+	 pxcqQ0cczCiJlnfgYiQpMuHSwtsGXPSE6AzMTa+uYjR0ZxOsWfSKgT3MGVeHGQGBcDeGL
+	 Q2WegVgNY4SjeY6snw5bD08A/un4yArTxRdnw1Pwr+oCzLP8nVNu1Fivx/nKh7vubv1E9
+	 6igCiykOSZgHOYDD/b61+ImzofiPB7XL+A8MDYtkC4pgo0mnrZNHUm3iDypt36u59xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577556;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=OvqHYn6eA8PtE24P7V+m3zkPkqDeUlBhbG2I0ibGcWA=;
-	b=leu/gzggHNsmgHgLEOo4b8VIJ+7U4c69RjqJljN5NWawgWAy8TC5TaZe+8XAPN9AJOEI
-	 Qn1fEIX+kK4mzedWbiC5h4Ufi2Tswg+IpucU5krC3HkPCKj19nxreCOcBs4JSQ96kf/7F
-	 JVUxilEUwnovwWAyQpmx5usi3J40DQt8p7WMHD4rO9ZwQwh4geai59FfJImGUVAQIJUoA
-	 7MmAHWwAOwHhkKqykNQXIlVRPriWySY8DU8z8KVAVB5owdcZfrqpFHduzNmoaVIOqvB4l
-	 R7Fi/hlAvSY9MxQ6ETg6B4MpBdRaxBHmpUJEAIgufcx9qst9uvermqAeImXWOYMg0ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794579125;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
+	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=dVtOGBWY0z48eT8PeVEuETWNQvW5nxZDzUphyHgbGEg=;
+	b=W8rhYI/qqtPK9Hyk5rKK1C/sqBPAcqN891d5Y5c9uRY08PipogouTh8A4jPLQDAVtBkW
+	 AWJtKn4lYAbnc4tuCiqhD4Q2lof7ThmajrvCW97CXWLWlsPo3057jVllKkbCX+addsN7Q
+	 Ey2D2Y3Ab8VqZK/6yQu1qWMISwZZalqECBm6connmXNHwtVmrAGhoqrGaSu47IxI3z7MN
+	 tuECOl1IXGg7jVMu1CAtQeTZdKylFDhan/OOjfVwdKjgKrxbb1sj/eGahFRK/VdaBFJtJ
+	 6l2GSS8sea9ALegxb8uqyWY53tkNlI9HC+X3P0D3KAueh3w0iPGwmLYVq2mZV2VIZug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RAVE2pBZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=gFWSxx3y;
+	arc=none smtp.remote-ip=45.254.49.197
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1457E606A327;
-	Fri, 13 Nov 2026 13:45:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F50606A327;
+	Fri, 13 Nov 2026 14:12:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69F50606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RAVE2pBZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFF1B1F000C4;
-	Fri, 13 Nov 2026 13:45:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794577555;
-	bh=OvqHYn6eA8PtE24P7V+m3zkPkqDeUlBhbG2I0ibGcWA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=RAVE2pBZRhxZT+r0zmPwbt0hUj2UbsD2d2pFMJVpezo9arETI2uh8ItFsqfgJJdX+
-	 y/yK0oDsIryzfvNUevGwvAaLHhd75u7Dj4lTMi/tIT7Sn/jaTwUnpRRyC/k5plbaRj
-	 +hyvQNaaN7h6XYqdRI+IEWdXTFvwlKM4y4Sdc9VAhPzl7+I0aTqIjvkUDPxub2zpZk
-	 +kz+Iib3q9eTMwrA+In/HPAsFI7K7HapmorR3hR/ynOmGovwEmJDzieYyQh2Ioq16l
-	 pdklyvOZnip8A6wwTm0AkdwxMezVwBUsCjimnD7P7joYqL2g5/v6c1fv+BrExcCjsb
-	 dMGEoboU13aLQ==
-From: Vinod Koul <vkoul@kernel.org>
-To: Bryan O'Donoghue <bod@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com, 
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>, Vladimir Zapolskiy <vz@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Atiya Kailany <atiya.kailany@oss.qualcomm.com>, 
- Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261112-kaanapali-camss-v25-0-1d709f57f370@oss.qualcomm.com>
-References: <20261112-kaanapali-camss-v25-0-1d709f57f370@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v25 00/15] media: qcom: camss: Add Kaanapali
- support
-Message-Id: <179457754639.652128.11064545317839632813.b4-ty@kernel.org>
-Date: Fri, 13 Nov 2026 19:15:46 +0530
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=gFWSxx3y
+Received: from lgs.. (unknown [101.76.249.61])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 549b5a7d2;
+	Fri, 13 Nov 2026 22:11:58 +0800 (GMT+08:00)
+From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: cx231xx: Fix potential frontend leak on registration failure
+Date: Fri, 13 Nov 2026 22:11:58 +0800
+Message-ID: <20261113-4e14e563a1-media-cx231xx@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -77,38 +53,46 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1d5403b5103a1kunm6c54e3f4485cd
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHk1DVk8fTh8dGE0ZT09LQlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
+	NMVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=gFWSxx3yQND1lTqdquLQAqPAmR+MN8Ch15UdPLp97/lhRxw34FsMFgCdD/m7Ky7qbEjIVSWqe04XexNvLUueWVZ8RdlKKB0Ff79io/lgczYmZv58EN85DAtmqv4dErCO3ShYKu51WNHJdno7j7epDxba/cGuXbZ9x9yT9Xm9Ybo=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
+	bh=dVtOGBWY0z48eT8PeVEuETWNQvW5nxZDzUphyHgbGEg=;
+	h=date:mime-version:subject:message-id:from;
 
+If registering the second frontend fails, fail_frontend1 detaches both
+frontends without unregistering the already registered first frontend.
 
-On Thu, 12 Nov 2026 21:33:32 -0800, Hangxiang Ma wrote:
-> Add support for the RDI only CAMSS camera driver on Kaanapali. Enabling
-> RDI path involves adding the support for a set of CSIPHY, CSID and TFE
-> modules, with each TFE having multiple RDI ports. This hardware
-> architecture requires 'qdss_debug_xo' clock for CAMNOC to be functional.
-> 
-> Kaanapali camera subsystem provides:
-> - 6 x CSIPHY (CSI Physical Layer)
-> - 3 x TPG (Test Pattern Generator)
-> - 3 x CSID (CSI Decoder)
-> - 2 x CSID Lite
-> - 3 x VFE (Video Front End), 5 RDI per VFE
-> - 2 x VFE Lite, 4 RDI per VFE Lite
-> 
-> [...]
+Move the label before its unregister call so the registration is
+unwound before the frontend is detached.
 
-Applied, thanks!
+This issue was found by our static analysis tool under development.
 
-[01/15] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Kaanapali CSI2 PHY
-        commit: 846aacbf8322a2e395dcadbfb866ba500bb4358c
-[02/15] phy: qcom-mipi-csi2: Parametrise the common status register offset
-        commit: 478577f3db4a929c5a68a79828cb607feb6acfd6
-[03/15] phy: qcom-mipi-csi2: Add Kaanapali support
-        commit: 00926bc50707312038be9a2c8035198f6a868260
+Fixes: bdaacc32e9b2 ("media: cx231xx: Add second frontend option")
+Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+---
+ drivers/media/usb/cx231xx/cx231xx-dvb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards,
--- 
-~Vinod
+diff --git a/drivers/media/usb/cx231xx/cx231xx-dvb.c b/drivers/media/usb/cx231xx/cx231xx-dvb.c
+index 472a4405a105..4dffadd31bb5 100644
+--- a/drivers/media/usb/cx231xx/cx231xx-dvb.c
++++ b/drivers/media/usb/cx231xx/cx231xx-dvb.c
+@@ -577,8 +577,8 @@ static int register_dvb(struct cx231xx_dvb *dvb,
+ fail_dmx:
+ 	if (dvb->frontend[1])
+ 		dvb_unregister_frontend(dvb->frontend[1]);
+-	dvb_unregister_frontend(dvb->frontend[0]);
+ fail_frontend1:
++	dvb_unregister_frontend(dvb->frontend[0]);
+ 	if (dvb->frontend[1])
+ 		dvb_frontend_detach(dvb->frontend[1]);
+ fail_frontend0:
 
-
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
