@@ -1,96 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=134.95.86.58
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581775;
-	b=KVjLs4oYyfH9Bj6PaZ774saQXzdKJW0dlRU/9uWAbi/64tcaGms9tlzy1mOC0GwHipOS
-	 8Q41UcC8cAY2HAOZMzxnbK3BGLmbJB906UvXkreMNqU+5ntM73K5FkFDijmGBLW924W5f
-	 RuKpeTMjjt5ok7bNJOHWYZ85HNyP8W7c5gp605XRGoyw1uHVy+LAZB0OMVacodnjbyglL
-	 m0t5cIi9fyd3FsSg1ZFktsC8UAzsjUBHW7OyTcJLM1oOE1LFjsp8cDqXHn3VIoaW42JKZ
-	 8HMyD3mwWsisloKOdJvFzm6uZFHd6zdaRXbVlDpdpbLR/30vem/OEl2UN6dv8XJS19A==
+	t=1794582281;
+	b=WqOT8DFSDEp0Sy09DyS7bboZyQsVrV6GpbHs16TWdFIt0aweYXl39j4iKFEQ2nU0JjyN
+	 7WTtFmeHjpYvKutq2HTqUbCgjPK38858TqDnR2cZeV8hSzVqZ3vctmAOYKSAR58U50md8
+	 gs0zB++PFe+KlSvhbj7I28alZklnwLCrusVHeexte5ez4XIl7oBwwiCmah7z4CIrFVONe
+	 mWH25SYTX/dnHXboKZJF7ENG0cGjcyA6TQ6Q2zSP0XnEuTm4e7IjILkK3pXFgo19urdDP
+	 9pDpJ2OIiZ1CU/80gf27VlzergpBMgy86s9n0uA6VH48SIueLku8HSKz3c+un8NM9Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581775;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HTKei3hMm8BrgIn9MBb98/wkj/SGe/y2Ur5xLD1rNKQ=;
-	b=Li9Vrrmouehu8kgLHlK6Z3ZJgUKW0pRui6V424btdGcdTlR6wxTn747SIiTBAFBoSmcq
-	 FfHsTML0Tnb5tGHreHjoZgHITQZyXIqnJr8UpongNpTypTKoGIlREa4+hcHn1UWjBixWv
-	 C8ZYPNfC89YdhqsYJcvo2ezuPb1g4O2ctENSKo4c6aLfN98jvsV7jQUJuMYxN/pPbH/su
-	 vCVGYzpsoSdCE2MD0ociYlWcdsrVHJ8gV2CJBECsYpnCp21wXbO6KmpXkjsO+I+voPc6x
-	 M4uM1yiud1pmZWcA6ah7d2wSlvEcG+s3+4QyvHrL6+Jj8HuF3RvnGz90uE8wgA80+Bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582281;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IPAS-Result:IronPort-Data:IronPort-HdrOrdr:X-Talos-CUID:
+	 X-Talos-MUID:X-IronPort-Anti-Spam-Filtered:X-IronPort-AV:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:To:Cc:
+	 References:Subject:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=I48ZfHOS9BJP4vzduWQIG8oFmvz0f4zxKM14ZpffZKo=;
+	b=NIM5gYs1dmFmpFIPk+5bmB9r2p9SJbkAzsdffF5K44eGC0ik3V/KJgqLwXjIDfN5v0lo
+	 RBDc9TYo3PqWj8hnzO/ZZqLyw2q5/7f3V0SRzeAXO39iXKm8e1cZSFwQe1t/1Elf/odux
+	 g85Hqk4nXTY75PTzhIkR8lehKosmzfhRZHdz8XzsTwqHLfmHRuRTbei17Hk+nXVEnLwpG
+	 cYxSPOJHQEZ+kWQOivqdps6xYJ5DvLd89nvcQsR2x/LStiXfc7ND2VYfZc8Xf49dpjnTn
+	 VYC5uSMfFyGRRp6NDtZp91itSY6/WMHMN3trLwyz0o+/rHy0lGRCd9ggY9TTJFJ5mOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c1m7vzUQ;
-	arc=none smtp.remote-ip=209.85.161.49
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uni-koeln.de;
+	spf=pass smtp.mailfrom=uni-koeln.de;
+	dkim=pass header.d=uni-koeln.de header.i=@uni-koeln.de header.a=rsa-sha256 header.s=2023 header.b=izfbBsLy;
+	arc=none smtp.remote-ip=134.95.86.58
+Received: from mail-out-v1.uni-koeln.de (mail-out-v1.uni-koeln.de [134.95.86.58])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFBE9606A330
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 14:56:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFBE9606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 305CF606A884;
+	Fri, 13 Nov 2026 15:04:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 305CF606A884
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uni-koeln.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uni-koeln.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c1m7vzUQ
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-70bf1671c21so1464733eaf.1
-        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 06:56:14 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=uni-koeln.de header.i=@uni-koeln.de header.a=rsa-sha256 header.s=2023 header.b=izfbBsLy
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794581774; x=1795186574; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HTKei3hMm8BrgIn9MBb98/wkj/SGe/y2Ur5xLD1rNKQ=;
-        b=c1m7vzUQ962ZBdEwr/0zeh0jHX6t+DLgPr5rDyNH7TyCI4WMFpUjc6STRXXFXdk0bf
-         IcMsmCrRV9e+6+6yPgA9cuQM28MDbKvOzqvNz9NM8DBA0x5scmFTU/+L4/fIl30GlAKA
-         U+p6CBUDtvGn3GE1ISHUaMGj65YHgVKG4sh71Uxpp9O0+EyxDDNdosZqbTNOAwclNNVM
-         u6JXNviREgWf4Ija6P0zPhN8og8TTVDA1+C84ZWqus9/8BNCWguCUr0efo7yJdmXfMt/
-         4Jz3p0g0jrS/YX7IKFRU8B4WWEfwakl7qd/lSD6491uV3rZL9a4cyvqKJsy25KwMvGft
-         7MCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794581774; x=1795186574;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HTKei3hMm8BrgIn9MBb98/wkj/SGe/y2Ur5xLD1rNKQ=;
-        b=twFuwOIhO1LCE3M746aU49E9oVAkKYlKfXD5lJKNbvtL28Z4YiHww7Gb0IS/lbZ6B9
-         bPdPjCDNyivyuOhRMZzHjCazj1Xee8NrisAvYaZNMLbDy+l4sUZOoqB28CM2LYgZjT8Q
-         W9nFcZs+WTNv90h1qqlHllvGTAULvlarlkmVo6PG6+/FWRxcBGTvuLG6nZaIea1yDtL6
-         aJyAOCHhSxHfW6m9shxy1mD/GN9Ixy74mb/J5jmhP6pO3IxjXWwohqyDIN1Q0lq/5bhm
-         lmBjJGMtVEZ+1FxUWah7bNkpsdkeB5YcaxskmTQV3le2K6bD4f/f5FbNhvwutVC7KyiW
-         u2OQ==
-X-Gm-Message-State: APuU4Z+Gwd/qJEfwlpEPgZn+4X4rDGa7XEXSLrq8ef6yes+bVDTxDzIV
-	DCFgO9t1TXlh5laqOJLs06gbp6ELbxwgU6E1zZK3N0z1BzBmpM5XW8tJ92aDwfiI
-X-Gm-Gg: AYBFou2+kgYszbNsx20fK21BBo+oX2a5+wIb0tUAm1Ahl+XhZtY/5Pl9nVgffa3hJ6/
-	TrKpOfHv6buoNtiG2a24wGeWleqmIP60msJhoRzfKNNxXrCHFGxRbaNYsA8Lb31tNbKIuPaKMrA
-	31FL5EKqKqs+BQk5e6cBNBGXnxKQvDtaUrHhXoPumxgDdkvPUute1n9uYE+OA+vdcvM8XK3ZBOr
-	sZXGdYHIx0Rw+9d4MmVk+lWjNXuCaskNJGM5DenDhpoffrKLR/1VaS649s6FfBqXG3lOYQLh+CE
-	xU1sDa/OPllWkujqMJwkUvdku7kZOP+JxGeLyH7a/oZVWXrugAID9CvBXa0MshLKDiW97F/K+2g
-	CmJ9dUgX5gyp4pckHOYeN88zMf2AxShXHlcH/YVc3dKTtRS5yjMTz1pE6TvnCteST2nf+ACNydk
-	jtetd0Cf9A6vz4Y2vXJt97f9MtTRsh8pCfSB/RmkegUX5efyzu8a8aUA2jX8ziEEOsh97TL5BEW
-	fXjJFkd2GuSKXdIoOijLI+C8S2MyCetDhPgRlQlxQqZ0n4L+qPs9gToBUJ57cfAej8XSEiKm+i4
-	wSAfhOb2Rm5BIROCOINf/vTL0Sl7NPJdckgw9TvhZP+XKVcgAwALX3i53BsNLS0X5K2zybz1peC
-	o6qH8IIEQq42BojgUMomy
-X-Received: by 2002:a05:6820:f024:b0:716:d5d7:60f3 with SMTP id 006d021491bc7-71ab4cd9493mr1547569eaf.9.1794581773792;
-        Fri, 13 Nov 2026 06:56:13 -0800 (PST)
-Received: from cachyos-x8664 ([177.245.232.83])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-86288133265sm2844298a34.14.2026.11.13.06.56.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 06:56:13 -0800 (PST)
-From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com,
-	diegomancera.dev@gmail.com
-Subject: [PATCH v3] media: em28xx: clear dev->v4l2 when v4l2 init fails
-Date: Fri, 13 Nov 2026 08:53:59 -0600
-Message-ID: <20261113145359.65440-1-diegomancera.dev@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <CALruWrWRWRU84AkDocSnNMSRp+WQD5ic9G_3peE50BvQR5iGBg@mail.gmail.com>
-References: <CALruWrWRWRU84AkDocSnNMSRp+WQD5ic9G_3peE50BvQR5iGBg@mail.gmail.com>
+  d=uni-koeln.de; i=@uni-koeln.de; q=dns/txt; s=2023;
+  t=1794582280; x=1826118280;
+  h=message-id:date:mime-version:to:cc:references:subject:
+   from:in-reply-to:content-transfer-encoding;
+  bh=I48ZfHOS9BJP4vzduWQIG8oFmvz0f4zxKM14ZpffZKo=;
+  b=izfbBsLyGi3v3ep01VcbrhMo17U/HY9cJt9kQfmqGER4zXMDQaPzvTOI
+   1LnI1jRP8d9EJfl92f/2eq8grJ/ThVhrMAWrZ8TL9fr5W2kqMYbl+pztC
+   bkgcOLYTk2V2oRKUQUjDUdVWRRWk0gf+0k1IWvb6Po14n4ivg90vvmceH
+   enozl8fHsBIdxYvMuhDijbVxfRHZesqXNmjvt4Brv+FOXeRHUOdP+RsoE
+   fRj2UOCRBqEnry4tyJyTL0uJ8gkOURn9OKGY6V/qVpSw0wzq3qZXYwl6z
+   RWpQUgte6Xb4ZN0Bv7YdKZeAJKjvGNTUiBxEJ2CS+Wrc1W/6eoO7MaocI
+   w==;
+X-CSE-ConnectionGUID: 76Eze8kmThO6vYap5AEjDg==
+X-CSE-MsgGUID: w+BTNXzmQq2NB5jilYqvTg==
+X-IPAS-Result: =?us-ascii?q?A+B/BQDcJfdq/wCiACoSAIIYWh4BAQsSDIIFC4oPkCoBA?=
+ =?us-ascii?q?QEBAQEGgT6LeJQrDwEPAQFRBAEBhQUCjh8oNwYOAQIEAwIDAQEBAQEBAQEBA?=
+ =?us-ascii?q?QEBCgEBBgEBAQEBAQYFgSGGCVOQEwIBAyMPAQVBEAsaAiYCAlYbAQGCfoJ1u?=
+ =?us-ascii?q?zqBMoEB3kmBdBWBCi6IYgGFeAEbhGKBP4EQgRUnC4JJMT6FEIMPgmoEgiKBD?=
+ =?us-ascii?q?IJchTqILIc1Unh4LAFVExcLBwWBJUMDgQYjSwUtHYEjIR0XER5YGwYFEiAqQ?=
+ =?us-ascii?q?ENbgRKBBV2BKyhdAQIfRi0VgXUCglGBIwJbAgFJQQ4HRVMJJUMSRyQiCBIJA?=
+ =?us-ascii?q?RMaLAqBGjU8CSYEOxUMWwwLGgUaRwgCCwIMdCgREBMdHiQvBRomPhsKgQ4Fb?=
+ =?us-ascii?q?T03CgsZBD2WfIECGxyCf1cBkguDNZBIn1wGgjqBaqFjBkKXVBCRaIEmmQikJ?=
+ =?us-ascii?q?IR1AgoHGYF+gX9xgW2BSlIZD44uFtIbgTUBAQcCBw4DC4FokX4BAQ?=
+IronPort-Data: A9a23:wA5msakvQo5BwXPSiptHnqjo5gyiJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJJUTqBafreYGakfd11O9m/80hTvZ7Xz9BqQVM+rntmQ1tH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48z8hk/nOGeqkYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArlV
+ ena+qUzA3f7nWQrWo4ow/jb8k025a2p4GpwUmEWPJingneOzxH5M7pHTU2BByOQapVZGOe8W
+ 9HCwNmRlkvF/w0gA8+Sib3ydEsHWNb6ZWBiXVIPBsBOKjAbzsAD+v5T2Mg0MC+7uB3V9zxF8
+ +ihgLTrIesf0gwgr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCAWluVbD09NqbDkkRq
+ 9EKJWAOayyDoLyo8bujF8BBhOgseZyD0IM34hmMzBnCCOo+BJfeX+DQ5YAexi0iwN1IHLPdY
+ Mcdb3xjYXwsYTUVMw9PWptkxL/63iumKW8K8QvFzUY0yzG7IAhZ1bXsK9fTc4aiWMNU20Wfq
+ 2bAuWj0av0fHIfGkmLdqyn87gPJtTy4cr40JK+9z+cwpnfOxG0XOQQIaVTu9JFVjWb7AbqzM
+ Xc85iEupLQ77kCDQdz0Xhn+q3mB1jYVXdZKEvx88wGA1KHU7gCaAUAFSCJMbJots8pebTAoz
+ ESCltftFBRgtbSUTTSW8bL8hTO7PzMaBWwPfykJSU0C+daLiIA3lhWJTN95Dq+zg9vdHTD23
+ iDMrS4iirFVhskOv4259FvAmzXqo5/PQg8d5wnaV3mi6Al+bZSpIYev7DDz6ftNBIWUVF+Mu
+ D4Dgcf2xOQPC4yd0S+AWuMAGJm36Pufdj7Rm1hiG98m7TvF03qie51ApTRzKEZgGtgLdCWvY
+ 0LJvw5VophJMxOCaKR3boK4AewpwLLmGNCjUerbBvJIY5NxcwuO5wl0YlKQ0mXkkUxql6wjU
+ b+Ddc+wA3EADOFr1juoSv1Ywe917j4xyHmVRp3hyRmjl72Eaxa9Ur4GOUGPKOk46L6fiAHU9
+ ctPccqM1xhbFub5Z0H/78gNLEwNM2QTCpX/qsgRfemGSjeKA0k6DuPJhLQ8Z8l/n/sTjP3au
+ Gy7Wwpbz1f7gzvLJG1md0xeVV8mZr4nxVpTAMDmFQ/AN6QLCWp30JoiSg==
+IronPort-HdrOrdr: A9a23:zStah68/zp80i+IneDluk+DjI+orL9Y04lQ7vn2ZLiYlFfBw9v
+ re+MjzuiWVtN98Yh0dcLO7WZVoI0msl6KdiLN5VdzOYOCMghrKEGgN1+TfKnHbdRHWx6p06Z
+ pAN5JfMbTLZ2ST/K3BkWyF+7pM+qjgzJyV
+X-Talos-CUID: 9a23:78YEI29PgCkukAgjdteVvxFKN9IoIn7Y8Hf3fVGJAH40YZCXZVDFrQ==
+X-Talos-MUID: 9a23:KfXyQAoAZiKVwPc7XH4ezy4hHvtO07arMVlXt79buciABDVuBzjI2Q==
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="6.27,211,1787004000"; 
+   d="scan'208";a="31300138"
+Received: from smtp-out-rh7.rrz.uni-koeln.de ([IPv6:2a00:a200:0:12::118])
+  by mail-out-v1.uni-koeln.de with ESMTP/TLS/ECDHE-ECDSA-AES256-GCM-SHA384; 13 Nov 2026 16:04:31 +0100
+Received: from smtp-auth-rh8.rrz.uni-koeln.de (smtp-auth-rh8.rrz.uni-koeln.de [IPv6:2a00:a200:0:10::196])
+	by smtp-out.rrz.uni-koeln.de (8.14.7/8.14.7) with ESMTP id 6ADF4TjZ040570;
+	Fri, 13 Nov 2026 16:04:29 +0100
+Received: from [IPV6:2a00:6020:4cbb:ef00:67c9:8c15:7e4f:3b9d] ([IPv6:2a00:6020:4cbb:ef00:67c9:8c15:7e4f:3b9d])
+	(authenticated as user meisena2 using CRAM-MD5 bits=0)
+	by smtp-auth.uni-koeln.de (8.15.2/8.15.2) with ESMTPSA id 6ADF4SdN1399821
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 13 Nov 2026 16:04:29 +0100
+Message-ID: <be6f70a3-5792-4a4b-9f03-591869fb9786@uni-koeln.de>
+Date: Fri, 13 Nov 2026 16:04:28 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -100,62 +105,57 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: tchatard@gmail.com
+Cc: andriy.shevchenko@intel.com, djrscally@gmail.com, hansg@kernel.org,
+        ilpo.jarvinen@linux.intel.com, jacopo.mondi@ideasonboard.com,
+        lee@kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, mchehab@kernel.org,
+        nicholas@rothemail.net, platform-driver-x86@vger.kernel.org,
+        sakari.ailus@linux.intel.com, v.vitovt@gmail.com
+References: <20260827201611.99825-1-tchatard@gmail.com>
+Subject: Re: [PATCH v9 0/6] Enable cameras on Dell Latitude 5285 2-in-1
+Content-Language: de-DE
+From: Matthias Eisenacher <meisena2@uni-koeln.de>
+In-Reply-To: <20260827201611.99825-1-tchatard@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.3
 
-In em28xx_v4l2_init(), if an error occurs after video_register_device()
-succeeds, the unregister_dev error path unregisters the video devices and
-drops the initial v4l2_dev reference, but leaves dev->v4l2 set.
+Hi Thierry,
 
-An em28xx_v4l2_open() call already in progress (such as from v4l_id)
-that blocked on dev->lock while em28xx_v4l2_init() held it will then
-find dev->v4l2 still non-NULL and succeed on an unregistered node
-instead of returning -ENODEV. When the device is later disconnected,
-em28xx_v4l2_fini() also sees dev->v4l2 is still set and calls
-v4l2_device_put() a second time, dropping the refcount to zero and
-freeing v4l2 while v4l_id still holds it, causing a slab-use-after-free
-in v4l2_open().
+Thanks for this work. A short report from a Dell Latitude 5290 2-in-1
+(same platform as the 5285), in case it helps to extend this series
+to the 5290.
 
-Fix this by clearing dev->v4l2 under dev->lock in the unregister_dev
-error path of em28xx_v4l2_init().
+I did not apply this series. Instead I tested the minimal changes
+needed for the front camera on the 5290:
 
-Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-Cc: stable@vger.kernel.org
-Reported-by: syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1a7507a194fff09e5c44
-Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
----
-Changes in v3:
-- Resend: v2 reached lore with the "diff --git" header line split in
-  two, so the Media CI robot could not apply it. No code changes.
+- Linux Mint 22 (Ubuntu 24.04 base), kernel 7.0.0-43-generic (HWE)
+- Added a DMI entry for "Latitude 5290 2-in-1" to
+   int3472_tps68470_board_data_table, reusing
+   dell_7212_tps68470_board_data
+- Booted with acpi_enforce_resources=lax as a stand-in for your
+   intel-lpss quirk. Without it I get the same I2C4 conflict as on
+   the 5285:
 
-Changes in v2:
-- Drop the non-standard 'Assisted-by: Gemini' trailer that failed
-  checkpatch.
+   ACPI Warning: SystemMemory range 0x00000000FE028000-0x00000000FE0281FF
+   conflicts with OpRegion 0x00000000FE028000-0x00000000FE028207
+   (\_SB.PCI0.GEXP.BAR0)
+   intel-lpss INT3446:00: probe with driver intel-lpss failed with error -16
 
-Note: compile-tested drivers/media/usb/em28xx/em28xx-video.o with
-allmodconfig (no warnings); not runtime-tested locally against the
-syzbot reproducer.
+With both changes the front camera (OV5670/INT3479) works: cam -l
+lists "Internal front camera (\_SB_.PCI0.LNK0)", and I get video via
+libcamerasrc/GStreamer and in Zoom (via libcamerify). The rear camera
+was not tested.
 
- drivers/media/usb/em28xx/em28xx-video.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+DMI: sys_vendor "Dell Inc.", product_name "Latitude 5290 2-in-1",
+board 09WJPW.
 
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index 84424284d486..f78325a41124 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -3129,6 +3129,12 @@ static int em28xx_v4l2_init(struct em28xx *dev)
- 		vb2_video_unregister_device(&v4l2->vdev);
- 	}
- 
-+	/*
-+	 * Clear dev->v4l2 to prevent an in-progress em28xx_v4l2_open() from
-+	 * succeeding on an unregistered node (returning -ENODEV instead) and
-+	 * to prevent em28xx_v4l2_fini() from tearing down the instance again.
-+	 */
-+	dev->v4l2 = NULL;
- 	mutex_unlock(&dev->lock);
- 
- 	/*
--- 
-2.56.1
+So the 5290 seems to need the same intel-lpss quirk plus board data.
+Vitalii's tree has 5290 board data; would it make sense to add the
+5290 DMI matches to this series or to a follow-up? I'm happy to test
+patches on the 5290.
 
+Thanks,
+Matthias
