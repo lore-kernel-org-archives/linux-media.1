@@ -1,114 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794599978;
-	b=d2Itf8TQ5sumwI5FmF5bAVAeN1/OTkfPw0Wg+du0tFQh1bqp1idqTDtP3eA5yqnudb/r
-	 pha62Sx5iMMWqC9FoLW8dPkf73iYjDRncxkm/nslIzVOeiWq8ccibxsqZL0hehD/l/79/
-	 WvlqM0cRUKZ2sQayNkip61+Pu1dohKYc7/YDHtps15bYLJllghg6oKp8+8zI3IgN7Wf15
-	 B96crjZHgIaUFAsxW8H2v3QwZTDSlEY/y/irdziGI+iczf6I5dJYOsSEa11rQnNaDqObr
-	 Z7az6sSOuSiu2qaERPFic7FxhnylJChd02zxdXm0eLPwZIJZ8NHWDiOU929GJo87AhA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794599978;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.178
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794601327;
+	b=lKBD4nQPgu+DNCHrF6CVlpTrh9D6XoG596AAcPdcmOGKywqf7CRvDQZOSiCDsHj7+hdy
+	 jykLTrd+rdtbetp0i5NnT01hbZDhGcZs9t3RxFvrauEYlQ26D7v7pE/0as7jVDBEKccG0
+	 SB/r+EMibczuXHU3nLI2Hhuw1yIpk5REYgSjATkZ6k6W2feLuxoaiF8JdWgNOg/SthCfl
+	 0Azjva6ko8yZztpH+dFak6xOoqftdyZ5Hdweh4IrTdDByRF1Snvf20WeBiqjhUfuIxHcL
+	 f+LQe8PFKs41QBaIyPckrQAAUZRSdlsasg6H37Qn3hiEd0erZKjfvuvJVbkqND2NmJw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794601327;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZZ2nZZ3s6y7qol6GLZvqI4xyT/lOQ3RMsv1KGP5S3jA=;
-	b=Ho6Uj6G+kQrkoGysGmglvNw7VXmqzLJGQI03jEYO5FsNqrGNtDvivIM8OatNBMiDN5mI
-	 9K1MkI73+zxxi4DlGQ0cc1Wct6OoLBb6fWx/tQLnNnEGM9JoJnKcTnfu6NXCU3ycnZoHC
-	 t6AWS7JKzSuIie22vSASNFOYwtG/j5kbdf1GqNYsBaKeBnfJ+/pBUgZ4hN02Szb5Oi2O7
-	 zMXRTzX9VtM8UWNf5ZqpX5j5kkKFZyKB2g9vnXYGUyX9+IH/o76RDZ3Kzin7oyN8d+bhQ
-	 Uj/qPfsKbgkd5oTba2Mop1tZAvNIJ5mLx1bTe/rCPcQ99guANJSMd+K7k06OLGxExiw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=Po3n9AZ5;
-	arc=none smtp.remote-ip=209.85.219.48
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=xtumAuvNbWuwUXK0cxJRs7l5/r2sAahJH/6uzW92HAc=;
+	b=l5DjhLNSu2eqDZJdNqmeHoI2iJjPOHdQguieM8Rm/Fp7dFeqs5RU6KCxtCZ6oPSVOIit
+	 wqLGjK88yZBig7NF/Wz+gAYHrPkzMqNciGK03jSwdBLITLTtrzvLZCMR7/c9N2RfCiLOM
+	 Hx5FJJ9jJduHs8lAMCeIEZwICFJGfo95bE56uAFUqP340AKN5nG6K/uJCpRFCN1arP4Vp
+	 NnacQrJ3HI0WEzBCJMExJvY7UAagFVdPPHL1SU0NdWLe0LhJrIA6mOSHKM2tNeVgwtTMP
+	 VXokdsvHKwevw4tjTM6G/e8poA5QUUU48nDQ0Ic4D0O0VnssgUYU0DrZJPuXwSdQRLw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="eliaN/OP";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.178
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0904D606B54D
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 19:59:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0904D606B54D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5EF5606A338
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 20:22:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5EF5606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=Po3n9AZ5
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91ccfb88e4dso31394006d6.0
-        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 11:59:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eliaN/OP
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3adf04a55f5so2033341fa.0
+        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 12:22:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794601325; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kfx9S5MMY+bn9XIMVvvmrpLL9DIGMCr7naesuN9Dnf7HiUt7CbRpmZk3ponvBz/Rk6
+         pOptIhVgySP6koobAg/sl0czkgynPR7pbG1t7MutrPWa5P3qAOvYhiaKp9xcz1zBZHzf
+         tQLm0GdE2bErHv1UEe9sjvJmO8rCDFaBSiIadwGhiGFycMeI+a1Q3ZzJ33qG3z129w7/
+         KBvFkrWFGlixzS4RevSDD7RYiZCZqGSa7BkTb6ehWb1OpLf1ot99vORnofWGvtEvKuy+
+         ELf1Hszve1oAcJHQKN1DPI7dH4qgQsyUB9UbDnKHquwjMnUzy0Q9JDFduIgarYbMB3is
+         iJVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=xtumAuvNbWuwUXK0cxJRs7l5/r2sAahJH/6uzW92HAc=;
+        fh=F4j70GqyGC8Mb77/b/VyYjRxc4+upiRuITMOrv3rEjg=;
+        b=PbDyJLnCZY+ksEIjyHO03ImTxx9GL2Rj5b/cUh6zHl0J4p8/E/IaWUhe6MSks/S7MU
+         7QSk584kmfvahtGFJubrLqHKE65/GCGYdn1lbOMT9IHth4ztI0k4lVZtHJf4YxKyxc0s
+         qF2IsuXYlwD6bcOHIn9MuTNhjp0mIk7tTNIun+PgxzQE9/2ZcQT+R/YKK46LYocJOD7z
+         WXzZV2N4BWDuO3RFYwxqYYxT48GwdemBWTBfT27WgoccYliw8DUXVppu7m9yLmhspken
+         7pU0Crdgvn7tuSpON4u/dH+aLCd+K8JcYq8974GPhcA4IOMRygl7KKRJT52OhhJGLNR5
+         06+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1794599977; x=1795204777; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZZ2nZZ3s6y7qol6GLZvqI4xyT/lOQ3RMsv1KGP5S3jA=;
-        b=Po3n9AZ5ukCVtyxupRbbfrpLGYxngRljlMmr6URQx5mXBtNOQmayJr515hpgVNj4sx
-         SfBF8u0oI8BRgh0FyosgUvP4tKwELgo4ewaKIi5JN8mRtCuCRmvkGWXjuAw/02iadmRA
-         uDnxdZ7AXUvdkY1hWsdsHvfshz1nH6EsEpR5OkjhwJvolkOQui9lyzTw24vhAEBxWDRt
-         KI1J+fFxELXn2bRApiz8FOoEpAjp37dDgQtZRNcDqm1xmiXUP7jrvFn6TT9BHVcob1x2
-         umNuZjQRMa9C79LylxXf/Ma826OY9RYwk2x+s7ONJ5FVSABT6CpUk/vzeFrO9xuYf9Ln
-         k9cQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794599977; x=1795204777;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794601325; x=1795206125; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZZ2nZZ3s6y7qol6GLZvqI4xyT/lOQ3RMsv1KGP5S3jA=;
-        b=2PK+Uq4OOvGniGTNk7AtWPzqb5RWSldgW5Yx27wxEWkfxaDU/w25dLQRp6xdGBjDmA
-         jh6INVab807Z5BbTqnR5wvzjO0BgRf6N2zz5zGefmno+WAPQUWFq87mOxNPCQUHQY+LX
-         f15jzkjYyXqvSY9p7j7PVyoKR2Yk2b7XK91OTnK8Mu/z9h4A/Rere2rdnX/UuOglZCl+
-         N+WIcDR0PdAjKAI9bTZUTwMaGMblgOFR8v2/bnl9dmaLpCoUq31Qu4hqYsY7Zvk3eCtg
-         ijMCBIBAKDKwjEt14yN3b3gCVhN3I4RSdq+Sp7Gu5UeGYle340SP/kKl9Eg2CyeAkwJ2
-         qytw==
-X-Forwarded-Encrypted: i=1; AL+hErG/Ks6VhKWSibB7I+u4zpwfKXj2iBuFEBQPecFg5hQIKcPPZWUIYw7wACpdrxqhHim9Iovy3WjvafsW2g==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9s48mkFelpxTlAm/xBPXBArT3shHgR0mbNPo4kx7aNSud/ivQv
-	9UhibMmzqrhLgQ43+jEJNyxobB2XJHYRBmpNR7XEBuPaSmh1+ll/H7FDRnOdO0+MZIk=
-X-Gm-Gg: AYBFou0cnEvHgQ75fgKXmw/+3P1x+05rmdmg7zF8Onf/dv4w6mNd+a6ADEP21Rzs0Nx
-	QaydweUB+NRoLsFvGy1N4mQB4VG575Ldhg4UD2OmJOzlUIg2C8p36nyklIMjuY7xfKcahfjAdg8
-	n6Bwp/1hfKtOYuJTlhf6nMq31huPbZifoVJ7SVhYfZZFe8AH70RL6RRESGSIkGxIXDCsToeoPZg
-	FWvTYNtg1Z06QJPIDzhFN/M0SkS4gwusoGnnPrBQRDZ3fui+TPaXk41oDCDFg6J04Lh6dSE+kvh
-	9WhOl8LKbNS7gEnubGk3+W7aXN67cSFsI1I0blPxcFFQ+vlGx84McBRKuvJ84NVppnoS8X+HA6d
-	BZy9TodE1EtQNBlkXlIr4qZP2kdxP60R99nZPZ/poyorMLcjzgj3TJObzK3z7cELEPAkMgj1lTI
-	xGsRKr1zFzbU5sEXxgOfQqlT81RiscbDYqZdHuVg/j9/npKPUHSBfy94+UCB3MpwWKRnqBH8EL1
-	e71csCbIQp4j3V+sjxa6oWbD17dFuyyY4vBTiS3FbMHg9J+SlXr7RGKlgkXpRo/IaHoe0jUGgvC
-	SWWCkg==
-X-Received: by 2002:a05:6214:451e:b0:91e:8d6d:21c8 with SMTP id 6a1803df08f44-91f2423e922mr59090456d6.54.1794599976764;
-        Fri, 13 Nov 2026 11:59:36 -0800 (PST)
-Received: from ziepe.ca ([142.166.156.71])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23db49c5sm27322246d6.41.2026.11.13.11.59.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 11:59:35 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xRxQs-00000001ekG-3813;
-	Fri, 13 Nov 2026 15:59:34 -0400
-Date: Fri, 13 Nov 2026 15:59:34 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v13 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
-Message-ID: <20261113195934.GD2532299@ziepe.ca>
-References: <20261111121602.GQ8635@unreal>
- <20261111224136.GA754433@bhelgaas>
- <20261112092326.GU8635@unreal>
+        bh=xtumAuvNbWuwUXK0cxJRs7l5/r2sAahJH/6uzW92HAc=;
+        b=eliaN/OPLV5MQHHag51KNNYs9r1vwyaqcfJdkPEf/RxGAIxD8jHs7xlRZ8nZvj2xWc
+         X+oTBEK8j+nPB2xjkjIpsQ7e0ql3O3uCheaVkZPsuT4Qzr72cKyMRk4ekxeEakNcVIvP
+         56DIHjQtA9jeGJWIsKAS3TnLjuqKom/OdQMD7XwpY9FyxmdSx2XmODmyJuy3cb7/Ya6L
+         dbVdWc+5/H8udaY3R3ewLTMY8GnySiNfHfJbMNidIhZc02OSafSuUgEkBEX6Cq+i3uzP
+         3wacvfEu4+WIm11XYq/xPB2//IpU5VJJCpJTwyik5YREF01ZKwV9uFMwMbtJgb7HtEXK
+         padg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794601325; x=1795206125;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xtumAuvNbWuwUXK0cxJRs7l5/r2sAahJH/6uzW92HAc=;
+        b=ORySBH02i53GWZKWSpfy04SgTortgdi2vVPnUhG6jBX9GlAU1ZtimlplCH7iP6f+wj
+         Ic5KQgSVJn1S5WVSP6+Qk0Ot3R1rn+F1FxFwow76Hs1YJcsa1cJW56Uc9+GNWDzmE5bn
+         ZAeyfy0GEAMwsJkjSlYKLa30gQnOmEg7yUaj/7GbM1rAOK1KAHgozMWAjslweas8Ac4g
+         QaSbHEMT44l400m3e01m3luP0rAD0dUSp/zmFHPXRKl/oHPu6EwfshL1kM7LIBUFlXWk
+         UHYjxe3L5B2F7KwpDfrrJZM7Y0G2oSiIjbaW/YVcny9S0ncOpKEhP8qrlBRR6ZmKtOOj
+         FM1w==
+X-Forwarded-Encrypted: i=1; AL+hErEP1SJCubmLkLEol3z/6XrQvw3FlEH0PfFjmATIe9TSRiz7rzYA30fAOyIPmXZ2oSHW1ocS96LT38NhrA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8kYe9I5sXRi/EXoDfcN8wApk5RcY/4jlOlmM32UJPNBpsxtE7Z
+	TTP21T4XZGOLatSndiVxqAt+fVAT2KALAN/KDcuUmVJqV+Xzn8GgH8gH/VSpAi1zyZoxIxGRQHY
+	aet9dQgvM1M0l2mGO12gOprXELVgsbFY=
+X-Gm-Gg: AYBFou28xrSt8S4pGNOCwkxTCdvbN/vjwF7+CTXVUyo/7GPMDMYKV2fmXufRXWHcscc
+	gC42pFUfNlqqDJUKBuGfFbLmo/o3VBiPRO/OWk8PIl7esRR4aMcKBcXHgP1vlspdhiMaqe50F3F
+	AhYm1qp3uAtoEu3bgGECbmBMvRKEFbazSnhaqQQZXetQo6QJcrOfYliRUcpUwXh2Ey+Llv2EW2n
+	clrGZtYW06SI5jkhQS19JNcj3EjV5ljROw09b8nmvskmPyZ3ASKFfJZ9kovNnPaRhxEJns7+w6U
+	oWLGcvopOo18MNviyAouul17ACpPCj9LvOl6y74VPTPin6TWYFK05RkOJwDgUat1XwnJWqTsfXx
+	uv9t6cKEiDlAn+sR6hexvZIO9xS3WhGjVOQAquREq49nq4ISnb6X7RVsqSgZeSikKzlzpsCPCzD
+	ePCnytQUGQ7MldkDei
+X-Received: by 2002:a05:6512:1322:b0:5c1:57b9:90b2 with SMTP id
+ 2adb3069b0e04-5c170746a13mr1720283e87.1.1794601324638; Fri, 13 Nov 2026
+ 12:22:04 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -118,53 +104,43 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112092326.GU8635@unreal>
+References: <20261112-hantro-robust-v2-0-18561fd48838@gmail.com>
+ <20261112-hantro-robust-v2-2-18561fd48838@gmail.com> <c97eef1ba88daf83d231d2ecc78b47fcf524385c.camel@pengutronix.de>
+ <f212840b-92fd-4d97-a6a7-2768a55483f7@collabora.com> <CAEy9hNU2ox76TFKtdisqUHDxZ=3gPVBDBcjz_W8RtCpCpK5d7g@mail.gmail.com>
+ <b3fa092ec9390cf5bfe2f4338af68327be70e6e1.camel@pengutronix.de>
+In-Reply-To: <b3fa092ec9390cf5bfe2f4338af68327be70e6e1.camel@pengutronix.de>
+From: Arun Iyengar <aiyengar1990@gmail.com>
+Date: Fri, 13 Nov 2026 12:21:52 -0800
+X-Gm-Features: AclHuK_r_rPrVJRj0pkug0EuQb97pNCsN4qnHk9bddNHOrBile8NMgFa-B299mE
+Message-ID: <CAEy9hNXNaAdcL4NMmNf7sETknV+jQBp-inqFd-qAPut041GjJw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/6] media: verisilicon: Don't hold the VPU in reset
+ after remove
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
+	Andrzej Pietrasiewicz <andrzej.p@collabora.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+	Hans Verkuil <hverkuil@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>, 
+	Tharit Tangkijwanichakul <tharitt97@gmail.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Nov 12, 2026 at 11:23:26AM +0200, Leon Romanovsky wrote:
+> Would that more correctly describe the hardware though?
 
-> > I guess one benefit of this series is that a path where P2P Completion
-> > Redirect is set used to mean that pci_p2pdma_map_type() would return
-> > PCI_P2PDMA_MAP_NOT_SUPPORTED (unless the RC was allow-listed), and now
-> > it might return PCI_P2PDMA_MAP_BUS_ADDR because if P2P Request
-> > Redirect is clear, Requests can be routed directly?
-> 
-> I'm not sure the first part (return PCI_P2PDMA_MAP_NOT_SUPPORTED) is correct,
-> since callers have so far ensured that P2P is supported before calling this
-> function. The second part is correct.
-> 
-> > 
-> > That sounds great as long as the Request uses Relaxed Ordering, so the
-> > Completion won't be affected by P2P Completion Redirect.  But devices
-> > aren't *required* to use RO even if enabled, and I'm doubtful that a
-> > non-RO Completion redirected to the RC is going to work.  So I don't
-> > understand how p2pdma.c can guarantee safety.
-> > 
-> > Translated Requests seems similar -- are we assuming that if ACS
-> > Direct Translated P2P is set and ATS Enable is set, the device
-> > *always* generates Translated Requests?
-> 
-> PCI spec allows "A Function is permitted to intermix translated
-> and untranslated requests" and p2p doesn't decide anything except
-> if routing is possible or not.
+Yes. The IOMMU is inside the AV1 block and the TRM has no reset for it,
+only these four. v3 adds them to the vsi-iommu binding and node.
 
-Both of these are basically the question we left open in the
-discussion with Christian.
+> So this likely would require exclusive reset controls with
+> acquire/release.
 
-To use this new TLP specific API correctly the initiator needs to tell
-the API what kinds of TLPs it intends to generate, and ask if that set
-is OK.
+v3 does that: both drivers get them as released exclusive controls.
+vsi-iommu acquires them to deassert on probe, hantro for its probe
+deassert and for the timeout pulse of the encoder cores. Remove still
+leaves them deasserted.
 
-So you need to say 'I will use translated, I will use RO, I will use
-untranslated' because each of them can have different routing.
+v3: https://lore.kernel.org/r/20261113-hantro-robust-v3-0-82383c722ad2@gmail.com
 
-NOT_SUPPORTED has to be returned if the modes the driver asks for
-don't have identical routing.
-
-I forget how this ended up when that got deferred, but that missing
-driver input is an important part of the puzzle.
-
-eg mlx5 knows exactly which of the three TLPs it is going to generate.
-
-Jason
+Arun
