@@ -1,110 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794593873;
-	b=NVpGMbRzWNdbErEeXgKRgCtOBuPkX27gm3XY+5BMD3DsMdnJmuFqyTH620WTckNAl2SD
-	 c5huMMc6N4As5/sU0toJxEwr44b5Gpg5a9rnzHR9DBWmRRW5+re0m60CBam4DeEqDTfRL
-	 3tDSz91AjFSVXrKUSGmgXmDxOCNRhwvAlMLHSgBJihG1zELMzUzEwr+NQtC+wWYcTxPPu
-	 dy/HbDpUx/X8Brp3YscY8G7DZs3O+pQO9v2HJVckL7+W2fEAgxTeBdmte6/sKG+pVKp8w
-	 teNrxJ+0sQUIYIzlephbVbpqxSc1YzPACS+dzCw+HZfWbJNBWvtZ2e2wtMV/ZrONK4g==
+	t=1794593950;
+	b=ddIdLz01Yx/zifEo/ihYLxx07Vq76E+mqReeiGwW9vMSgKR486CGbcma2GXTu1kMDgTs
+	 VG3WChQ6ZMHnFT6irn6VhrPrR3N2hrCjrwZakHFffy2IVMa6J74sEnMyjWI1eQ9iFaOoM
+	 GbEttHGSmSLwEPmGygEUZPGousi3rQvnG7ITlpM62Egwfd2uvNm/57SyrymeD1sioeRMF
+	 E6oYffbsqPudVVAuz34WvHRh2M+AlTPLRdWz0d3ev5QtyeiDUgPa4lXcKuh+TlvZkVvUL
+	 IdPtuaUGDlGLm15gRxnppJOGMZ2ZNgEXqXZjTO9+oH14+H0CHsbOCB6eCVStwe5cGfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794593873;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=DIWUBaGuWsD0xZ7Hp4rCkINn5dbjhOkM4Za7aeiZ0A8=;
-	b=3wfwiLRp54ndXuSSorL838WW3QG1h8GdlZyN6iFUYc0wBRsjdhAZBXyq1Bam0KWZRZxz
-	 b6+u6gZSDDEqnCU3xk7+vsXRfr63I1aIZjPWkfG82/d8qiR4mXyfLHGYj+2HKzkTcDsee
-	 tBMaFrv20leq6sJlQ2tIrYvqlBrjks86TegI2msoCTPAgVmNO8kqc1xK3wqTreWk21pqK
-	 1YO/GLAXTJ/k6Ilb78oyxlI3K4dFplTxihZGqhthIDd9bBMgq35zvYJp3VllsA5AHz49u
-	 Rt95NAe226/nqRMHQ/FoBsyxd4YhWudqme2jhidLX4MmkFnMy3jt5SNj1f03uEdIPGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794593950;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=/VIh85zZMfzSY6G83+v5V/TjnRLbNiLly0GYfH3nJNs=;
+	b=KMVzozvja2CBHYntkrvHw4J6Hb2OraeWPEomxKqu7DmqGX9O4LJGP1Y0Afr4UK8WGfrl
+	 d4YU88a5TOB6NmRJIQGrRObe+KDSSlbOoVEBKuB7dDNLQsUmOa8+tvGwAL+p/pQSOFaiB
+	 LqlaN43aBX19UALv1sMnLMAhA52XWLEo8BUXH0E0I3OsWoS7mejuDiBZ2eMSqKxBwEBnx
+	 qKG+782705lNaqI1sWB3pJzkVIC9V/1YTjARSiTKL0V/DP5TYykQObOKyQjDl6Tg3YbvF
+	 OWtTX3WvFdl3NRZ4Sbsz5WKJk9owQS4tfEuen3ZoavesfZnQi2DajW4/J94ZUj4Ea1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ep12povA;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Qj0UwVkW;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzC7cE78;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F35606A88C
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 18:17:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7F35606A88C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF63606A6CA
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 18:19:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ep12povA;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Qj0UwVkW
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFRBRY1190072
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 18:17:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DIWUBaGuWsD0xZ7Hp4rCkINn5dbjhOkM4Za7aeiZ0A8=; b=Ep12povAjm11dMKE
-	yQPIbH475q3SYP43UmPt7XA+VfVQbMbgxRugtn+ESp2KmiCvTd2lAm/AlY4ymJfv
-	6Jwhn+B5w5R/PPWzbIXMD782ZZ7C1w4YqbvC36u/NvXhBRaFcizAQqLJkA1L963Z
-	scOjJlUCw70Hh7jiXBrMcIvlykWoMTNzPZtvF+l2yBMKmRLSScRFbw0JclZgI7hd
-	fc77H4okzV7k/lpiNMzvTVU3nqOJ9/lUwpYTNBfz/kCwj3c3L/EDcnLlD9GRDLUm
-	Vb1X2qu1yFPYuN9VbaffVxL1AMMDLLykNA8De0g2OOAo1+n2gBs5TugY7ugSugqe
-	K+piRw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwqufkke7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 18:17:51 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36f02966da8so127472eec.0
-        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 10:17:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794593871; x=1795198671; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DIWUBaGuWsD0xZ7Hp4rCkINn5dbjhOkM4Za7aeiZ0A8=;
-        b=Qj0UwVkW/J4uXHaK89gPSJpVTia8nzJfw2bJPKEQWGzthinVL8yukpubyVI9ZuoiR6
-         F8otjOmQj0HfKPrAdit0ziL1O+Osv+8jzcw7XznnIv03K0vplRTKfRqq3ul/VhyFSVJe
-         wLt9J1Pyf6JSloV3A0HmuRMny/TeRiQNmkbnKuqGlsD+S48mhTlQOKDdiPAAjrgmIOm6
-         Rl4DhV58p1UOehqG4+ugVfsj3j77g4XtXXh4M6oXIvmwyqMXLMnXtAmZJt+nfcg+zjPR
-         88cIV5czkdaSCN0pANiCYVMOpeLz/1niFjb2eD9F+8d3QX5vSjGUS9NwI2nLcmqIjC1h
-         p+rQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794593871; x=1795198671;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DIWUBaGuWsD0xZ7Hp4rCkINn5dbjhOkM4Za7aeiZ0A8=;
-        b=rcm0QFL8cKJe6cgC7cHPbI8WjruSDKuN+jRgWWDKYCGATqeu5m88QC8Ydi8NI9iKoz
-         NeaHa3djnuAkKd1GTsbpiEGUtau8CR3kBimWymu5G3hoITms1EiQ8mvLmsLzOx70WPFR
-         Vpu6smjhOKsUBJ8inshTesFBvC3jY/+/H6Kk2fVkvTM/vCQ642gJiFdicgR1yUKdI42O
-         DCL1xO3PZWWZCPCHrhZpxzI5fdat8YwdKKTvuiIUme++qhCaQCu1vwxEpLXao5c/muxl
-         vTgT4dckAc7xeSmRYuQHSsZUkDK7UG4PGLpnN/ApxQ1e5eKkB3M5tRMMqqqHczULzbM3
-         k+Ww==
-X-Gm-Message-State: APuU4Z8G6dBDYcPjLAY32d219u5/1EmC2haGDiWxdR9M20nh+dRQsGSJ
-	+ccgXKNt8qCL/EDL/RF3aD5L+mYTHzMvFa6IXV/GPgP/Bh6zDfkGaliAq6edCI4xhDVY+HT7CXG
-	0JjZ7/5yPgl0LW06YqpvJBbLUP3WqrbJka5JoJ1apXReL/uoXt60ktID61vsL+PDLlw==
-X-Gm-Gg: AYBFou1SUgE9OIYb5Y/J5o12kbZ655ZzI1WkmRg0j6p52EXxbY0lvg3O8dy4dX7byCO
-	q+RAN4g4vIj5DI/AvaUOcy/SGfGyiC8Xes2Nn0zK2gJHWRJIrVn9e13Breg1L37QHBdjPAw0Q20
-	/A5FSGioLvtGmyWNXMGZn4C5R1IOs85F1HguuzJIo+pn+pSeCAWKTSRsDzNS0YI4I4cxhPKramf
-	pD6kXvzBc2+/I5PIb4pIkIheJ1QWMTq46hpQJ1m5DCPIAbiTEeyZw1x0HW9dkQO8YftbUEgKSIK
-	9wwifvGPWrqUPbXb/PEIwhVzSpRqmYGFLxOmp7TVm6QfQZGE/YhkG6+NvTECC6AjlFfJ8wJsR+G
-	QuzwZkg6om+f+k35FIwItOVEj7y0zZ/LxPWT+6LUBMOdJUP7HQhRsL/fpGyhAVJ8eK6WQycZ4Fa
-	NA59C7C+v27TU=
-X-Received: by 2002:a05:7022:158e:b0:183:d275:cf76 with SMTP id a92af1059eb24-1b5030dcb27mr5315139c88.2.1794593871201;
-        Fri, 13 Nov 2026 10:17:51 -0800 (PST)
-X-Received: by 2002:a05:7022:158e:b0:183:d275:cf76 with SMTP id a92af1059eb24-1b5030dcb27mr5315118c88.2.1794593870614;
-        Fri, 13 Nov 2026 10:17:50 -0800 (PST)
-Received: from [192.168.1.210] ([76.33.11.15])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031bc518sm8443143c88.15.2026.11.13.10.17.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 10:17:50 -0800 (PST)
-Message-ID: <49eed8d1-0f3d-454b-b06a-b9a7a1c49ac0@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 10:17:26 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzC7cE78
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC3A91F000C4
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 18:19:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794593950;
+	bh=/VIh85zZMfzSY6G83+v5V/TjnRLbNiLly0GYfH3nJNs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TzC7cE78kKFl2rFE1ESKez8K3/v6Pqk/6PLrXGyiq2H8nW8RaKll1mNR/hvrBhoAX
+	 9WUKboDxL2p3Jax+koelb066IybY3DAyK95vGOnYrQLEWCd8zr9JB2nkLXwMD48oro
+	 eBlcvuFHizULDj5hONrf7IDExHONWpvIf77MgXaUD3OXBqfZQ67bfgb2xPq1SoAoJK
+	 T3NkAz2AcSCaHe3eo20kPD9U/cE84jkgmN3fcFTb3UIgs2jbLigXSsu2MG4WlwRKQd
+	 lN4tR2+CCuZNMvYNucVewMR1jQy7sxt8uriatRDaKQNHlu1Xb8w/7Uzi3R4wDwiNfg
+	 QeLT7VoO7hmng==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5c102ad8420so1682375e87.1
+        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 10:19:09 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFqKC6VN+ZpSI2ngX7BtJN42hG9JpI9dthyhPgkHWSnQUxF84stl6BqNty9Bkoe8VS6s3as39G8oz/tUA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PhmBdgdu2D2uqpfjGcVOrnzZxkyB7UyzirdCuzh6TTyNwAbyL
+	dV3yZh44roaVqPJiHoiWfVd5ju4xDxL7jY2Oi5PVbK9nV6JXpxSvCBjuHbRmz3UEwmWoRHONhz2
+	2WW+bj31LNtzMhlliw//d77u/uqjdbGk=
+X-Received: by 2002:a05:6512:1310:b0:5bf:cf80:dfd8 with SMTP id
+ 2adb3069b0e04-5c170a0bb47mr1769832e87.23.1794593948320; Fri, 13 Nov 2026
+ 10:19:08 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -114,103 +59,98 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: iris: Fix out-of-bounds read in timestamp metadata
- fallback
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261017-fix-oob-tss-v1-1-fb86f4cabf65@oss.qualcomm.com>
-Content-Language: en-US
-From: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
-In-Reply-To: <20261017-fix-oob-tss-v1-1-fb86f4cabf65@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: uNHZIqbouyCZ3qzCyLi969VVHuXNKKUo
-X-Proofpoint-ORIG-GUID: uNHZIqbouyCZ3qzCyLi969VVHuXNKKUo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3MiBTYWx0ZWRfX+eqVPTKZIfG0
- A2CONwMBkAlWIGSXKJqT6de6Awn4S+vMzCaFfNMVoaECVl4ye00ztRwsU5Pl1s1/kyoCbm64Mhw
- /SLXEZjlJ4xHvmCG4I/U8Pih55C53OYOUirVKl4E/cEF93ziUVQvPuya9hFbERgiqaMa4/27Wwf
- QQrodV/bsQh7UabrrTOITPhVkm+0LNTomMB0eKa3KjfJShmThEbWWtLntiHErD55QBEh2rH/dp8
- v/wiYE4DLN7O7JtXSGVhEPXT3iOXKJLSDnGZsL1DA5mWPCQFDaP+Jhtv1ZkbBDWpVPxPikf1o6h
- s6op5appRFHYCUVJk0Y/OVAnVBMPByJ6zk9gmlQXEJIemTz5JJziUisLYSkG0dzi7VQl3aBo7zu
- jUgPXR0hupFxqQ2Xed2DN5U8uaSUvzhMlgZLXm8GkRC6V9YBwT2xB73VqdtjeS25+7oswg6jBpK
- 3jTzSUlQWiDmS/knHeg==
-X-Authority-Analysis: v=2.4 cv=XZocX455 c=1 sm=1 tr=0 ts=6af7544f cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=yYUYPLL3N79xqptAUcuwSw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=gQ9FY97bq1JvQ168ofUA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3MiBTYWx0ZWRfX0zHX6zZxjkHK
- YVYHXJYvtpCca5jVi7MATsqCyS0G7ilIXeLq66hB5e0nRUM45PP1OmUGqTsdjEX6Phh/sKd8AlM
- vV6dExXb8HA3hxSZx9wVSlBWVVj25v0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 malwarescore=0 priorityscore=1501 spamscore=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130072
+References: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
+In-Reply-To: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 13 Nov 2026 19:18:55 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jyuMjh4En_r2TYui+sNbGveJ0Rz1Da39LEK9e-HxHgGA@mail.gmail.com>
+X-Gm-Features: AclHuK9_YtJ6aWlSAf9yM8R-lWnFcHYi_anHWoQsLhZYkqzdVHJqxA51shEqA-Y
+Message-ID: <CAJZ5v0jyuMjh4En_r2TYui+sNbGveJ0Rz1Da39LEK9e-HxHgGA@mail.gmail.com>
+Subject: Re: [PATCH 1/1] PM: runtime: change stub pm_runtime_get_if_active()
+ return 1 when !CONFIG_PM
+To: Frank.Li@oss.nxp.com
+Cc: Frank Li <Frank.Li@nxp.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>, 
+	Karol Wachowski <karol.wachowski@linux.intel.com>, Oded Gabbay <ogabbay@kernel.org>, 
+	Jani Nikula <jani.nikula@linux.intel.com>, 
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	Tvrtko Ursulin <tursulin@ursulin.net>, Matthew Brost <matthew.brost@intel.com>, 
+	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Alex Elder <elder@kernel.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
+	Rob Clark <robin.clark@oss.qualcomm.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Guan-Yu Lin <guanyulin@google.com>, Mathias Nyman <mathias.nyman@linux.intel.com>, 
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+	intel-xe@lists.freedesktop.org, linux-hwmon@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+	linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
+	linux-staging@lists.linux.dev, netdev@vger.kernel.org, imx@lists.linux.dev, 
+	Rob Herring <robh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Oct 29, 2026 at 5:31=E2=80=AFPM <Frank.Li@oss.nxp.com> wrote:
+>
+> From: Frank Li <Frank.Li@nxp.com>
+>
+> When CONFIG_PM is not enabled, all devices runtime PM state should be
+> treated as active.
+>
+> __pm_runtime_resume() returns 1 (called by pm_runtime_get()).
+> pm_runtime_get_if_active() is the try-and-get version of pm_runtime_get()=
+.
+> stub pm_runtime_active() also returns true. So pm_runtime_get_if_active()
+> should return the same value as the stub pm_runtime_get(), which is 1.
+>
+> Analysis of all callers and their behavior with old (-EINVAL) vs new (1):
+>
+> Pattern A: if (!pm_runtime_get_if_active(dev)) -- no impact
+>   Both -EINVAL and 1 are non-zero, so !ret is false in both cases.
+>   Callers: drivers/accel/ethosu/ethosu_perfmon.c,
+>            drivers/gpu/drm/msm/adreno/a6xx_gmu.c,
+>            drivers/gpu/drm/msm/msm_perfcntr.c,
+>            drivers/gpu/drm/v3d/v3d_mmu.c,
+>            drivers/gpu/drm/v3d/v3d_perfmon.c (x4),
+>            drivers/media/i2c/gc08a3.c gc05a2.c og0ve1b.c ov6211.c,
+>            drivers/media/i2c/ccs/ccs-core.c s5kjn1.c lm3560.c (x2),
+>            drivers/media/i2c/s5k3m5.c thp7312.c imx283.c ov64a40.c,
+>            drivers/media/pci/intel/ipu6/ipu6-buttress.c,
+>            sound/hda/core/device.c
+>
+> Pattern B: if (!ret) after get -- no impact
+>   Both -EINVAL and 1 are non-zero, !ret is false in both cases.
+>   drivers/gpu/drm/amd/pm/amdgpu_pm.c (comment says "allow access"
+>     in kernels without CONFIG_PM), drivers/pci/pci.c
+>
+> Pattern C: ret > 0 / ret <=3D 0 / ret !=3D 1 checks -- FIXED
+>   drivers/usb/core/offload.c: checks (!=3D 1), old -EINVAL caused
+>     -EBUSY even with !CONFIG_PM. Fixed: now returns 1, proceeds.
+>   drivers/accel/ivpu/ivpu_job.c: drm_WARN_ON(<=3D 0), old -EINVAL
+>     spuriously triggered WARN. Fixed: 1 > 0, no warn.
+>   drivers/gpu/drm/i915/intel_runtime_pm.c: checks (<=3D 0), old
+>     -EINVAL triggered error path. Fixed: 1 > 0, correct path.
+>   drivers/accel/ivpu/ivpu_sysfs.c: (> 0), old skipped freq read.
+>     Fixed: proceeds correctly without CONFIG_PM.
+>   drivers/gpu/drm/xe/xe_pm.c: wraps (> 0), all xe callers
+>     (xe_bo.c, xe_shrinker.c, xe_vsec.c, xe_ggtt.c, xe_guc_ct.c,
+>     xe_pxp.c) now correctly treat !CONFIG_PM as active.
+>   drivers/net/ipa/ipa_smp2p.c: power_on =3D (> 0), now correctly true.
+>   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c: (> 0), now correctly
+>     executes stall register update.
+>   drivers/staging/media/ipu7/ipu7-buttress.c: active (<=3D 0) early
+>     return now skipped, correctly proceeds.
+>
+> Pattern D: explicit -EINVAL check
+>   drivers/hwmon/prom21-xhci.c: checks (> 0) then (=3D=3D -EINVAL).
+>     Old: took -EINVAL fallback. New: takes (> 0) fast path.
+>     Both succeed when CONFIG_PM is disabled; functionally equivalent.
+>   drivers/hwmon/eic7700-pvt.c: call is guarded by IS_ENABLED(CONFIG_PM),
+>     stub is never reached. No impact.
+>
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-On 10/16/2026 8:25 PM, Vishnu Reddy wrote:
-> inst->tss[] has VIDEO_MAX_FRAME (32) entries, so valid indexes are 0
-> through 31. iris_set_ts_metadata() writes at metadata_idx and then
-> increments it. After the 32nd input buffer, metadata_idx is 32 until
-> the next input buffer is queued.
->
-> If iris_get_ts_metadata() finds no matching timestamp in that window,
-> its fallback reads inst->tss[32], one entry past the end of the array.
-> UBSAN (Undefined Behavior Sanity Checker) reports this as an
-> array-index-out-of-bounds error.
->
-> Use the last written entry, metadata_idx - 1, in the fallback instead.
-> Fall back to slot 0 if nothing has been written yet. Even if stream off
-> and stream on happen multiple times on the same session, the fallback
-> always uses the latest metadata received.
->
-> Fixes: 17f2a485ca67 ("media: iris: implement vb2 ops for buf_queue and firmware response")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/iris/iris_buffer.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
-> index eb8de60c1177f..31cba99a665c1 100644
-> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
-> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
-> @@ -865,9 +865,11 @@ static void iris_get_ts_metadata(struct iris_inst *inst, u64 timestamp_ns,
->   		return;
->   	}
->   
-> +	i = inst->metadata_idx ? inst->metadata_idx - 1 : 0;
-> +
->   	vbuf->flags &= ~mask;
-> -	vbuf->flags |= inst->tss[inst->metadata_idx].flags;
-> -	vbuf->timecode = inst->tss[inst->metadata_idx].tc;
-> +	vbuf->flags |= inst->tss[i].flags;
-> +	vbuf->timecode = inst->tss[i].tc;
->   }
->   
->   int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf)
->
-> ---
-> base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
-> change-id: 20261013-fix-oob-tss-7d317d612cf0
->
-> Best regards,
-> --
-> Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-
-Tested-by: Deepa Madivalara <deepa.madivalara@oss.qualcomm.com>
-
+People sent feedback, so I'm wondering if there's going to be a v2 or
+does someone else need to take care of this going forward?
