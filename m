@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794588036;
-	b=QytNYx7Rcu2JH8E3K6u/gZp0q+GF3+urzTXoDIPWCq9F9dukRoYIgOu8kQxM/eLh3TSD
-	 wXfRocEEjV+m28G7AdcfaTqtdmzRlWnC/ZPXDdv5TOOKx5OB/gXe3YUmrvxVi8Ch95IFA
-	 78RdoErORdVxmnqL7862jzauzj3yP34BsA+37zKOV0bnfuJ9pwpbySYS/bHofJky4GrGY
-	 37fCR0mDI6RSbLcgUmTdLkDNiV4Vm6EresdtyAMvsj8uuJ3s1DvEipE5o7Ossz1iOinbd
-	 CQv4sAli7M7XxCpWdQZceoP0QUcSv6gbnIdgda2VrgVyTd15Vi6A1CSitIRqW+gBjLw==
+	t=1794588038;
+	b=jXRAj92oS+cjAA87oeve75E4dge7XERnPESRUyuOYZv8OHzobUNUYZiWBs2F5Psbb7Od
+	 fw3LsLgrOGLz/iWGRIBjAizpkIpEK9Q2N5yHH0TrFdGoZ1ej4vHzXzu3/9JCqbBWtZvsx
+	 /Blm3pzCCavkfMqX0rhGXEgExhrnRdg+j52Nq/mZLYkWuHWKXM8IYmlSUKKIfUCihzrHQ
+	 X6lDQHlHSAKwcFvBilkiyXqELFJfpGB+UDCOHRhiXGcSLiqK6l4eLZvH8QinrISO/rOCv
+	 HM9RkWWZY8rCJl/70qYXkV+JqTMIsK4VGOtzPYbAmjvAr9QLrOgzGn4Y3I7SNyzKmdQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588036;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588038;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DxUKnJSoxh5R0Lqzvv32zTimhe+hLNG3ZBbQWBwfczg=;
-	b=P2mIH5soM+BJuj8JGY/jKghqDNfS0DJ9nr3Jd6uwrBaXO+8ItD54J4opoMFtbcKKREAx
-	 JYOd+U5nryQd/4wvCXIKDPaKdEkE/JPzA0oIjJ8kmLFW+t8zqRPo27sZpR9v4Fx0uIpyP
-	 XoRAMu5IFp8SbE237wfnm3GVffJrG9cybB6BaKiI5AQY1uJoUEwnIBFfUDywr2viH8xXe
-	 O2rHUuDGkO6MHbo55exC9m+YnapibG0Q8Dp+rsN84P0LA0aLfh5liQTE9ulLRUdC8CBQA
-	 SsiAJCg2kqv06LaM245zIXkIzXJqs3AVDQ4HBWc9B6tf4/REQgyF5dAivr4Ncb+t+fw==
+	bh=ftkGVaWmlEcBnSmz/bQQARpxpmtHnb04sqbnV5md88k=;
+	b=iAytAj0TGKOpbiLlG56F/1gWkCniWR3raYYRsE8so0QZC9QFjEdMTujRNPHiFaqtwsGO
+	 o51l74dfAchshyS1w8M0VGO3uyAIq1ONcPzYbELi2R9H7o5gQerzvVRSt/rCy3mdtb7+6
+	 pOfFJ3f34ZeNFU0YqOL4H6evQy5lMyyQzLwtwTywKlYtEP/rACwMpsq3VQf4642XGY0Ax
+	 KGPKmAw+gbWUkuZkmVXM0n2tPICR6sp8e/vyEoCrwGFPqXU5nGZncIK6HwJBEKRcd2eTh
+	 lc+3Th6s7pTIcdxxYM1o0RTLDdEq4S3mRNqjfzvamCbN0WTmzV6QfIp76Xiq6ksYqGQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RIjsIC+X;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FaAh4chl;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EECE606E230;
-	Fri, 13 Nov 2026 16:40:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02BFA606EBD5;
+	Fri, 13 Nov 2026 16:40:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RIjsIC+X
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FaAh4chl
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794588036;
-	b=ej0bCZZMx3s/eMYrZoC6WZAsB0HI3mHxiGSUXjPaJ9qHk20EEYKVv21YzdS3MdX5kdG+
-	 AcrtucW5u8uVWmrNXLyrXNHl19Rplr55m3uJv0Mb6wdGr/becxAmgYRFEQvzN8pM2EvRh
-	 u8lAbhpv1rg6m56hn0h2PQ3XPK/NHcduqJ8WNeRfBpiCr45MdQtYjYgyvrmdSZI813oqM
-	 1BaxMpSkSCxQ0WBkDsbH+u0ZwbjCRkPTfW5t/uWib/D2fjOTVyE/uOhkNgI0sR9yeftLM
-	 iO4iIOHAVoNu0PclaYm8RsbUTu6FSnvWwF6JD0b+GjF2qJjIQsSH85ZK1VjTH4hr3Cg==
+	t=1794588037;
+	b=jYQ+qyfYzydhddR+2VlsA2+x8jk2mX05EQCZZHvxM/vqEss335rq9wtH7MYilyEY/qF0
+	 p7j0g2vEh7IFAiMFTsYRaOjiC9pmyZj843WzFt2tx71gBseoY6c2mPJHHJKg3vrkxdqoc
+	 MRR1w5rOCifdJSGd8pRq+EZSEcqCp1K7jRH9LSWky0WFYCmdWJeSTJryZoP+bKgjTeb6X
+	 znKWZeT9KuSlwSIu5ld+CN0Ib4Co4BQZon0gmhLOAtrkcAksJ0yVPRmCM6GYqABdfpA3U
+	 mdkKA27SgRJofJGBdnAIHDyY43CrCV8RO9n6KvcabX7orTZO/VTbreCiYJD2OkK0k3A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794588036;
+	c=relaxed/relaxed; t=1794588037;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DxUKnJSoxh5R0Lqzvv32zTimhe+hLNG3ZBbQWBwfczg=;
-	b=gnWHT76Hgk6oYb62v/M7DR5gpkpHyUX0C+8ccvxtqKi1dogrhcndZ2QWoGib+fMOxUf4
-	 jE0uZ+Zqp/G3MsGjzfd2DQPrrkUqs6X5X0otYCVoLHCB6b7HOIFA2PqYdB10D22sCuLwM
-	 xN866L2GgEvyvLja5H4PrzmGPTUJU2vfgjy8upCQKu4rTIoqJYMyTjcTDLBCLLf3g0+nK
-	 nugiWGR1W8pbGRRKOzDZKO/abqo5nlMQZO5HdXgGZTx0rnnirrdrJqPe5ZkhFFt4MQPhN
-	 9lUN/2R7N/tOIZxuayQmJDPRMA7nFWIS17Cykm2IIr7FuJGipcK96vL9ePCSFCeXU2A==
+	bh=ftkGVaWmlEcBnSmz/bQQARpxpmtHnb04sqbnV5md88k=;
+	b=koxsb38HhK07p+cg9DYxk8zWWZLhvQLlVKX4zpGbvD15PXwhg0c1QO41i7Is8x8MU19U
+	 e/FdirlPxRZQkh7/z29kP4pnk5Exl2BbyBtPOGg/cYAUau1r7jbLtccUfN/SpuI/rz43+
+	 sYsWv1bNrKcp+KpjxfU88flsIH6b8Gyp6fBDvYrXm0MK2NZriHQ5c8foN/lsOJwiDtccK
+	 s165E+hG+JSukME8tTHh+xj+EqHri0U9AJ9oV3NLoeOnug3o5apZTz1XVF1rp1OizksTj
+	 aXbBlaMBJT6YfQ0fHsxoQVgMd/NeWOOi9BNAggocFGadqD7laRXQkehrIVgw6jutCnQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5E73D1F000C8;
-	Fri, 13 Nov 2026 16:40:33 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 124031F0092F;
+	Fri, 13 Nov 2026 16:40:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794588036;
-	bh=DxUKnJSoxh5R0Lqzvv32zTimhe+hLNG3ZBbQWBwfczg=;
+	s=k20260515; t=1794588037;
+	bh=ftkGVaWmlEcBnSmz/bQQARpxpmtHnb04sqbnV5md88k=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=RIjsIC+XXwPwlP6sgBYp7s2rBD4I2LpgvZ7dzXI08xo/X5RsdFFOxeHkYVSVVJmSU
-	 SJ9SrdnKP2N7LXuHmGCpvX5xgvHSijbFRwjPtKRzzSpKDz6wv6+BkGNAvbz/4CQ35X
-	 Rk9JP0J/k7MX2K2x8POQzF/IedLy0nf+mPivdTwyN2HsenmBe+2/L9uvk8FV48pxCn
-	 zdQQDkL9GR4YPUmbIP6+tsf5x8FsZnH9C8n42aORoCdnz7t6PsTSkPVjXbez7ncuXq
-	 G5wBPm9Mn87HsYf/YHxPNq9buLoHKVW8K26PKsmCnEHojspUEqeccQGaHaJuSvjk78
-	 LROtvxFmcpDjA==
+	b=FaAh4chl/Yil0oZC/EyZYFF45BoK7wbj8rYXoVVSOQsksOy9+Z4iuZp2i2jPy53+X
+	 fr4F7IPuo3rrMRgTyecyN8ttAp+ZmljX6ghER6avcgi56iP3zhhhKGbzP+r+s/z6KG
+	 vk2SgIEEE5EXvxB+Rh3KUgwpKh4qz+n0zylyE1gcbQZau/dtaJfcYPpihCjtQgBlXU
+	 pAPzpQMbQUIIMZtkT0aKvXcM8uPZccNR1V6ezt165w8BSGnqWCHiMLb4FaJhL/D6X+
+	 A2mERFdOhMQERa/kCaRCVKhZbXocP/44tPZKxzsHY3KHeKiQPWu5Zppw91UA1WtlY6
+	 O4K8NM+QDaeNw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E44FD499DF;
-	Fri, 13 Nov 2026 16:40:32 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id C800749A03;
+	Fri, 13 Nov 2026 16:40:33 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 16:40:34 +0000
-Subject: [PATCH v3 03/12] media: verisilicon: Complete the request when the
- VPU can't resume
+Date: Fri, 13 Nov 2026 16:40:43 +0000
+Subject: [PATCH v3 12/12] arm64: dts: rockchip: Add the reset lines of the
+ RK3588 AV1 IOMMU
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-hantro-robust-v3-3-82383c722ad2@gmail.com>
+Message-Id: <20261113-hantro-robust-v3-12-82383c722ad2@gmail.com>
 References: <20261113-hantro-robust-v3-0-82383c722ad2@gmail.com>
 In-Reply-To: <20261113-hantro-robust-v3-0-82383c722ad2@gmail.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
@@ -108,11 +108,11 @@ Cc: linux-media@vger.kernel.org, iommu@lists.linux.dev,
  Sascha Hauer <s.hauer@pengutronix.de>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794588032; l=1356;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794588032; l=991;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=dcuFbBUH76d1uZ1BUVv0QU7AVt7L3akWWbZ+Mrdvg+I=;
- b=YS62kIkVRY6LHDmN/vH4lFvz33jKVGNFKm/SlC2vyNIpKbNOEVMlQ4zjchnMUSOlOD9PgdR/D
- nojFp3hpkZwCWE0o5NH26npE1Kg342s81Ds9ADxyFjTFwHYy7gEZsbN
+ bh=N909YZvJDjc6Eq9/44zn9avdFUylGlgxFkCrBk5+cUM=;
+ b=BQaN2uqxim4dpFhP/YfDh38Y5VbQnw/qqCKpdYq505D02a2a7pNhN8nd1rWuZzk6Z/6s7djyT
+ 2zG3b+iEGYwDzl3rfH1HhcujKURdiCZ04KKgu5HoqY+GBRm4100xBmA
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -123,45 +123,30 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-If pm_runtime_resume_and_get() fails, device_run() returns the buffers
-without completing the controls of the request, and the request stays
-queued forever. Complete them on that path.
+The AV1 IOMMU shares the four AV1 resets with the decoder. Describe
+them, so that its driver deasserts them before using its registers.
 
-Fixes: 7d47b45dc590 ("media: rockchip/vpu: Support the Request API")
+This needs the decoder to get them as released controls ("media:
+verisilicon: Acquire the reset lines only while using them").
+
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/platform/verisilicon/hantro_drv.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index e86eb943d16a..42822b2b376c 100644
---- a/drivers/media/platform/verisilicon/hantro_drv.c
-+++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -176,16 +176,20 @@ static void device_run(void *priv)
- 	dst = hantro_get_dst_buf(ctx);
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 227465d446a2..96898fefe840 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1491,6 +1491,8 @@ av1d_mmu: iommu@fdca0000 {
+ 		clock-names = "core", "iface";
+ 		#iommu-cells = <0>;
+ 		power-domains = <&power RK3588_PD_AV1>;
++		resets = <&cru SRST_A_AV1>, <&cru SRST_A_AV1_BIU>,
++			 <&cru SRST_P_AV1>, <&cru SRST_P_AV1_BIU>;
+ 	};
  
- 	ret = pm_runtime_resume_and_get(vpu->dev);
--	if (ret < 0) {
--		hantro_job_finish_no_pm(ctx, VB2_BUF_STATE_ERROR);
--		return;
--	}
-+	if (ret < 0)
-+		goto err_cancel_job;
- 
- 	v4l2_m2m_buf_copy_metadata(src, dst);
- 
- 	ret = ctx->codec_ops->run(ctx);
- 	if (ret)
- 		hantro_job_finish(ctx, VB2_BUF_STATE_ERROR);
-+
-+	return;
-+
-+err_cancel_job:
-+	v4l2_ctrl_request_complete(src->vb2_buf.req_obj.req, &ctx->ctrl_handler);
-+	hantro_job_finish_no_pm(ctx, VB2_BUF_STATE_ERROR);
- }
- 
- static const struct v4l2_m2m_ops vpu_m2m_ops = {
+ 	vicap: video-capture@fdce0000 {
 
 -- 
 2.55.0
