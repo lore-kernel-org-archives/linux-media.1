@@ -1,85 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794596640;
-	b=hQyqQttQV10UQcuvrsxkm0BQ3V+Dc/DUKBbo/ZwT3cvqAlEFrdh8iVXxoPVOfSrbaxaZ
-	 /a2YM1dTKDoyHC2GAeS4vz0DvPwMYhD8f2iYmMgOvc1uo/5J4zhuhzjfu4FRDm2QweEXy
-	 /qzDxdI9BKcQsB5WAhssqJO71pJVAAqWJzjpvNdvKATGaif406SDedS239rMPP2uDwigZ
-	 W+9ovY+tiI0Z1d4EVtnve0AC6GgLFt9WnyorGBv/Jlnr/v7rcDwdFjHxryHSyywbZKyOM
-	 oajvxcCJ5R3dY7Kpw8EweMsfcgFaYqBNWuag9jk8YOUBbucy5YRCkFhn/KMvXyxHXnQ==
+	t=1794599978;
+	b=d2Itf8TQ5sumwI5FmF5bAVAeN1/OTkfPw0Wg+du0tFQh1bqp1idqTDtP3eA5yqnudb/r
+	 pha62Sx5iMMWqC9FoLW8dPkf73iYjDRncxkm/nslIzVOeiWq8ccibxsqZL0hehD/l/79/
+	 WvlqM0cRUKZ2sQayNkip61+Pu1dohKYc7/YDHtps15bYLJllghg6oKp8+8zI3IgN7Wf15
+	 B96crjZHgIaUFAsxW8H2v3QwZTDSlEY/y/irdziGI+iczf6I5dJYOsSEa11rQnNaDqObr
+	 Z7az6sSOuSiu2qaERPFic7FxhnylJChd02zxdXm0eLPwZIJZ8NHWDiOU929GJo87AhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794596640;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794599978;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=5v4390+5+0gQiMHK1KicuB/Gp64Vkth2gdQzKankJ34=;
-	b=SIcnGiQL0TgEl4khwILmhn43UKcymGLOvb0SnS7q8Cha0uOAA9+hBr9AooOh8akeb/J6
-	 8HTRLRFOG211WNVeqlR03IVW0GnuCWSJzUPmOb+UKKmeiyVrHvpPhH3+n3n6w60czAdVR
-	 2nkblOMwNGujm8JjeNY6KewBmetjg7WylinWdXGKWKN+fSeuoclfVn8UTksIpyODDqsDO
-	 bGlRXT8N6zi9ljgMseyqRNnjWHepwBeG/L9+MmGhuPLnUiGXG3f6nkLEV6ylpBMc/jk5w
-	 GI0q3dT7ZDIUscy3u5aGuLQoUSyilNV4SoEapEYN6vGRFISB9vXv43f2W/yubwRfqHA==
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZZ2nZZ3s6y7qol6GLZvqI4xyT/lOQ3RMsv1KGP5S3jA=;
+	b=Ho6Uj6G+kQrkoGysGmglvNw7VXmqzLJGQI03jEYO5FsNqrGNtDvivIM8OatNBMiDN5mI
+	 9K1MkI73+zxxi4DlGQ0cc1Wct6OoLBb6fWx/tQLnNnEGM9JoJnKcTnfu6NXCU3ycnZoHC
+	 t6AWS7JKzSuIie22vSASNFOYwtG/j5kbdf1GqNYsBaKeBnfJ+/pBUgZ4hN02Szb5Oi2O7
+	 zMXRTzX9VtM8UWNf5ZqpX5j5kkKFZyKB2g9vnXYGUyX9+IH/o76RDZ3Kzin7oyN8d+bhQ
+	 Uj/qPfsKbgkd5oTba2Mop1tZAvNIJ5mLx1bTe/rCPcQ99guANJSMd+K7k06OLGxExiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ieee.org;
-	spf=pass smtp.mailfrom=ieee.org;
-	dkim=pass header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=OBl7H+i6;
-	arc=none smtp.remote-ip=209.85.219.45
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=Po3n9AZ5;
+	arc=none smtp.remote-ip=209.85.219.48
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EAE0606A33D
-	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 19:04:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EAE0606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0904D606B54D
+	for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 19:59:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0904D606B54D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=OBl7H+i6
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91e8a05ec5aso27611176d6.1
-        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 11:04:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=Po3n9AZ5
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91ccfb88e4dso31394006d6.0
+        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 11:59:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1794596639; x=1795201439; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5v4390+5+0gQiMHK1KicuB/Gp64Vkth2gdQzKankJ34=;
-        b=OBl7H+i6ZwCYqyZENMFkOks9QMvP3Q1O5CrDefd7QEnoWxR7Gzg2PWplPwjprGwO9m
-         ONLcl2A+SicRV5yCDWOMiHwCcJzaUmNARnD8racf2rem5cydfXkKMyTLGas/HjHQXhp0
-         TTMH+rLW9ObkrPLd+QQ+P9H/NwQsFwau/hQwA=
+        d=ziepe.ca; s=google; t=1794599977; x=1795204777; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZZ2nZZ3s6y7qol6GLZvqI4xyT/lOQ3RMsv1KGP5S3jA=;
+        b=Po3n9AZ5ukCVtyxupRbbfrpLGYxngRljlMmr6URQx5mXBtNOQmayJr515hpgVNj4sx
+         SfBF8u0oI8BRgh0FyosgUvP4tKwELgo4ewaKIi5JN8mRtCuCRmvkGWXjuAw/02iadmRA
+         uDnxdZ7AXUvdkY1hWsdsHvfshz1nH6EsEpR5OkjhwJvolkOQui9lyzTw24vhAEBxWDRt
+         KI1J+fFxELXn2bRApiz8FOoEpAjp37dDgQtZRNcDqm1xmiXUP7jrvFn6TT9BHVcob1x2
+         umNuZjQRMa9C79LylxXf/Ma826OY9RYwk2x+s7ONJ5FVSABT6CpUk/vzeFrO9xuYf9Ln
+         k9cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794596639; x=1795201439;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5v4390+5+0gQiMHK1KicuB/Gp64Vkth2gdQzKankJ34=;
-        b=DkAk0JX7v1FFYjFph6ILTEeQjd/nGrflGX4STpcPT2IUOd6ygJ2T9ajLBdAqB4KQv6
-         wB59+x8YLtT0+7hKjDUuCCv1YUkbwgVWS3669rtgVD1hL0cagP/DWXPshnHDjWwmtF4O
-         QEabng8W3Pkn4YksmTRZfMWrhuPIFhM0pUQjxBQamOHkin9+sHA4myz+EMcomWwyS7Ir
-         JkmkMiN0xb6F+08T8CEzQw6KbxpZRMPpnQ/3RU6AWvz7c8qKpTrRWCktZ3fR5kolYs7w
-         VgFK7xVMd26rsIa2W01dUtSXu2+DEvUZXYk2zcG1y3TbHgVnYigEg4mDMBZZ/jUuKyUO
-         JjhQ==
-X-Forwarded-Encrypted: i=1; AL+hErGDuiWfECerpKJkvqrznBD5R+Dz9pIxPeE7zSiOX7NLkE0nNUAtpYDiv78h3ZHrYCcKZaOU4eDd3I+4qQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fg9z3mnemrI1uQc1zVnN/0OX/zIIq4i3zSL7W5h3NspYeu+Ld
-	6BCnfytM74mr8tD2MYycX58nlyqHnGRBCCBNmkzETQ1yxpvH67LvQI+eayVlGaBj7g==
-X-Gm-Gg: AYBFou3lRo/lj1ChHWKnUStoFMgr3+NOI4R+J+P0HdwsJ+E7kk3IYfxwon4jJLl1NhS
-	enNmecCV/8SlRO4paPiRPe4KJKsIuJZHMenQaYa+PFuMzLzcI+7uxxmdkoTT35IYMGUgjmLJlbx
-	6+Q7FJs59pmlMfWexohrQr4w6kR4MX5Miw0/mO9gj93pws3+6+Us7vhi0Vmzoq1redEqLq4rqhs
-	bixPb++udOqcl6il3nTztCCkK/rOh5POcKHexcOtYkiy58DZkK2EaTuYGIDar+HbmY71cnohBpy
-	iHigacM7sNMU47w8dCSMWiLzUJp3M5w62XxbHowzlNtv9cfAnDr9/teUzyMDuG+cehYaIhp5hRc
-	LDeXc2mXTIk1z7/2kE+8qB/5uwgXjmZADIPVyHDSF9F7e/EqXOY8ljLJFrgMO6o3550xI2VmuK2
-	zySHKAt1V778omMBVYnTq2Rz5XnPonj6x5hNrKMuZ1KepsbxNJime/DdixTDnBSAqs8gHSNtX6z
-	GkrRywJWoCSRfoMRamlyJvpQuaKEHqmERTTYwiFWWxT2PPY8O3LTnsAKvrANUcLcPZGQ8X8lpRJ
-	iK1DgVAEGT9XmTZsDSwHWnJT
-X-Received: by 2002:a05:6214:4409:b0:91c:74ce:a452 with SMTP id 6a1803df08f44-91f241ddd3fmr55479136d6.46.1794596639018;
-        Fri, 13 Nov 2026 11:03:59 -0800 (PST)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.googlemail.com with ESMTPSA id 6a1803df08f44-91f23d780e8sm27000686d6.27.2026.11.13.11.03.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 11:03:56 -0800 (PST)
-Message-ID: <1b84bbe8-28b6-4a74-af0c-5b9cfdd8b394@ieee.org>
-Date: Fri, 13 Nov 2026 13:03:53 -0600
+        d=1e100.net; s=20260707; t=1794599977; x=1795204777;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZZ2nZZ3s6y7qol6GLZvqI4xyT/lOQ3RMsv1KGP5S3jA=;
+        b=2PK+Uq4OOvGniGTNk7AtWPzqb5RWSldgW5Yx27wxEWkfxaDU/w25dLQRp6xdGBjDmA
+         jh6INVab807Z5BbTqnR5wvzjO0BgRf6N2zz5zGefmno+WAPQUWFq87mOxNPCQUHQY+LX
+         f15jzkjYyXqvSY9p7j7PVyoKR2Yk2b7XK91OTnK8Mu/z9h4A/Rere2rdnX/UuOglZCl+
+         N+WIcDR0PdAjKAI9bTZUTwMaGMblgOFR8v2/bnl9dmaLpCoUq31Qu4hqYsY7Zvk3eCtg
+         ijMCBIBAKDKwjEt14yN3b3gCVhN3I4RSdq+Sp7Gu5UeGYle340SP/kKl9Eg2CyeAkwJ2
+         qytw==
+X-Forwarded-Encrypted: i=1; AL+hErG/Ks6VhKWSibB7I+u4zpwfKXj2iBuFEBQPecFg5hQIKcPPZWUIYw7wACpdrxqhHim9Iovy3WjvafsW2g==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9s48mkFelpxTlAm/xBPXBArT3shHgR0mbNPo4kx7aNSud/ivQv
+	9UhibMmzqrhLgQ43+jEJNyxobB2XJHYRBmpNR7XEBuPaSmh1+ll/H7FDRnOdO0+MZIk=
+X-Gm-Gg: AYBFou0cnEvHgQ75fgKXmw/+3P1x+05rmdmg7zF8Onf/dv4w6mNd+a6ADEP21Rzs0Nx
+	QaydweUB+NRoLsFvGy1N4mQB4VG575Ldhg4UD2OmJOzlUIg2C8p36nyklIMjuY7xfKcahfjAdg8
+	n6Bwp/1hfKtOYuJTlhf6nMq31huPbZifoVJ7SVhYfZZFe8AH70RL6RRESGSIkGxIXDCsToeoPZg
+	FWvTYNtg1Z06QJPIDzhFN/M0SkS4gwusoGnnPrBQRDZ3fui+TPaXk41oDCDFg6J04Lh6dSE+kvh
+	9WhOl8LKbNS7gEnubGk3+W7aXN67cSFsI1I0blPxcFFQ+vlGx84McBRKuvJ84NVppnoS8X+HA6d
+	BZy9TodE1EtQNBlkXlIr4qZP2kdxP60R99nZPZ/poyorMLcjzgj3TJObzK3z7cELEPAkMgj1lTI
+	xGsRKr1zFzbU5sEXxgOfQqlT81RiscbDYqZdHuVg/j9/npKPUHSBfy94+UCB3MpwWKRnqBH8EL1
+	e71csCbIQp4j3V+sjxa6oWbD17dFuyyY4vBTiS3FbMHg9J+SlXr7RGKlgkXpRo/IaHoe0jUGgvC
+	SWWCkg==
+X-Received: by 2002:a05:6214:451e:b0:91e:8d6d:21c8 with SMTP id 6a1803df08f44-91f2423e922mr59090456d6.54.1794599976764;
+        Fri, 13 Nov 2026 11:59:36 -0800 (PST)
+Received: from ziepe.ca ([142.166.156.71])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23db49c5sm27322246d6.41.2026.11.13.11.59.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 11:59:35 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xRxQs-00000001ekG-3813;
+	Fri, 13 Nov 2026 15:59:34 -0400
+Date: Fri, 13 Nov 2026 15:59:34 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v13 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
+Message-ID: <20261113195934.GD2532299@ziepe.ca>
+References: <20261111121602.GQ8635@unreal>
+ <20261111224136.GA754433@bhelgaas>
+ <20261112092326.GU8635@unreal>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,120 +118,53 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/9] net: ipa: migrate firmware loading to
- qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
- Sumit Garg <sumit.garg@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Alex Elder <elder@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jeff Johnson <jjohnson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, Alex Elder <elder@riscstar.com>
-References: <20261113185009.157893-1-mukesh.ojha@oss.qualcomm.com>
- <20261113185009.157893-7-mukesh.ojha@oss.qualcomm.com>
-Content-Language: en-US
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <20261113185009.157893-7-mukesh.ojha@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112092326.GU8635@unreal>
 
-On 11/13/26 12:50 PM, Mukesh Ojha wrote:
-> ipa_firmware_load() calls qcom_mdt_load(), which bundles metadata
-> initialization, memory setup, and segment loading into a single API that
-> does not expose a PAS context. Later it calls qcom_pas_auth_and_reset() for
-> TrustZone authentication, which is the intended behaviour. However, a new
-> qcom_mdt_pas_load() has recently been introduced that works with a PAS
-> context and can handle everything qcom_mdt_load() provides, along with
-> additional functionality such as shmbridge creation and retrieving memory
-> from the shmbridge buffer when the same remote processor needs to run while
-> Linux runs at EL2.
+On Thu, Nov 12, 2026 at 11:23:26AM +0200, Leon Romanovsky wrote:
+
+> > I guess one benefit of this series is that a path where P2P Completion
+> > Redirect is set used to mean that pci_p2pdma_map_type() would return
+> > PCI_P2PDMA_MAP_NOT_SUPPORTED (unless the RC was allow-listed), and now
+> > it might return PCI_P2PDMA_MAP_BUS_ADDR because if P2P Request
+> > Redirect is clear, Requests can be routed directly?
 > 
-> Replace the open-coded memremap()/qcom_mdt_load()/memunmap() sequence with
-> qcom_pas_context_init() and qcom_mdt_pas_load() and
-> qcom_pas_auth_and_reset() with qcom_pas_prepare_and_auth_reset().
+> I'm not sure the first part (return PCI_P2PDMA_MAP_NOT_SUPPORTED) is correct,
+> since callers have so far ensured that P2P is supported before calling this
+> function. The second part is correct.
 > 
-> Acked-by: Alex Elder <elder@riscstar.com>
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-
-I haven't reviewed the rest of what the PAS library does but
-I trust it does the same thing as this did before.  So thanks
-again for implementing the non-devm interface.  This looks
-good to me.  My ack is already present, but I'll reiterate:
-
-Acked-by: Alex Elder <elder@riscstar.com>
-
-> ---
->   drivers/net/ipa/ipa_main.c | 23 ++++++++---------------
->   1 file changed, 8 insertions(+), 15 deletions(-)
+> > 
+> > That sounds great as long as the Request uses Relaxed Ordering, so the
+> > Completion won't be affected by P2P Completion Redirect.  But devices
+> > aren't *required* to use RO even if enabled, and I'm doubtful that a
+> > non-RO Completion redirected to the RC is going to work.  So I don't
+> > understand how p2pdma.c can guarantee safety.
+> > 
+> > Translated Requests seems similar -- are we assuming that if ACS
+> > Direct Translated P2P is set and ATS Enable is set, the device
+> > *always* generates Translated Requests?
 > 
-> diff --git a/drivers/net/ipa/ipa_main.c b/drivers/net/ipa/ipa_main.c
-> index 14ac2d2faf7c..0a37741c2285 100644
-> --- a/drivers/net/ipa/ipa_main.c
-> +++ b/drivers/net/ipa/ipa_main.c
-> @@ -585,12 +585,11 @@ static void ipa_deconfig(struct ipa *ipa)
->   
->   static int ipa_firmware_load(struct device *dev)
->   {
-> +	struct qcom_pas_context ctx;
->   	const struct firmware *fw;
->   	struct resource res;
->   	phys_addr_t phys;
->   	const char *path;
-> -	ssize_t size;
-> -	void *virt;
->   	int ret;
->   
->   	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
-> @@ -615,24 +614,18 @@ static int ipa_firmware_load(struct device *dev)
->   	}
->   
->   	phys = res.start;
-> -	size = (size_t)resource_size(&res);
-> -	virt = memremap(phys, size, MEMREMAP_WC);
-> -	if (!virt) {
-> -		dev_err(dev, "unable to remap firmware memory\n");
-> -		ret = -ENOMEM;
-> -		goto out_release_firmware;
-> -	}
-> +	qcom_pas_context_init(&ctx, dev, IPA_PAS_ID, phys, resource_size(&res));
->   
-> -	ret = qcom_mdt_load(dev, fw, path, IPA_PAS_ID, virt, phys, size, NULL);
-> +	ret = qcom_mdt_pas_load(&ctx, fw, path, NULL);
->   	if (ret) {
->   		dev_err(dev, "error %d loading \"%s\"\n", ret, path);
-> -	} else {
-> -		ret = qcom_pas_auth_and_reset(IPA_PAS_ID);
-> -		if (ret)
-> -			dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
-> +		goto out_release_firmware;
->   	}
->   
-> -	memunmap(virt);
-> +	ret = qcom_pas_prepare_and_auth_reset(&ctx);
-> +	if (ret)
-> +		dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
-> +
->   out_release_firmware:
->   	release_firmware(fw);
->   
+> PCI spec allows "A Function is permitted to intermix translated
+> and untranslated requests" and p2p doesn't decide anything except
+> if routing is possible or not.
 
+Both of these are basically the question we left open in the
+discussion with Christian.
+
+To use this new TLP specific API correctly the initiator needs to tell
+the API what kinds of TLPs it intends to generate, and ask if that set
+is OK.
+
+So you need to say 'I will use translated, I will use RO, I will use
+untranslated' because each of them can have different routing.
+
+NOT_SUPPORTED has to be returned if the modes the driver asks for
+don't have identical routing.
+
+I forget how this ended up when that got deferred, but that missing
+driver input is an important part of the puzzle.
+
+eg mlx5 knows exactly which of the three TLPs it is going to generate.
+
+Jason
