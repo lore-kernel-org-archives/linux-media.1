@@ -1,60 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794664802;
-	b=OkF7wqUXcbHIo8Hm8xSyPUrjzn9F7J1nCl+zroQTnD153HsiDcFCqqiDwOpE6QlHvS61
-	 vzaMeHNN+hJXTrKskNwGzR1cJM1mTb1P5sT/1k35tFbuWce9ytCJpA2tT3vYSg6hYfRyt
-	 IIzEhgmoDtU7FqFdKE6o2XfvhMownpUZPwf67z5x8dt3moaFY3BeJB5r2OgEHs0nFbf1w
-	 nUsIbkkm/+6Ttu6jrUcQMEEZDjZVC0GPo5/XCF2FnnkJTifXxEz1elzv69bB5wDH7tNtQ
-	 NBVQe3LZAtfgV9ABudIOplcY97EsKqxOOyFvPxZnZUwDCgjQTzYAntmuuEnkqMAZZzQ==
+	t=1794665480;
+	b=uT9T9SqIxlSOuy7OpgoUife3XFleG5xrk3SnYjDUf6VkzDeJAdCq4HvHQ+osK8W2WdD+
+	 +LBRQ4cD57Vf2SeN45OLV6F86RmpjGz/3cCo8IYBV3tudjTZrYTQHtIMEKSXaAmFs5okw
+	 brVwR8b7dPsXqBTcUOIq0sJrOI/uEoTqc4p0HKL9hX6tWvfu/ssLmQJevIROHQ4FQ+q8+
+	 htFb05fpBHY9/0TGvJOhZvgEPpZOKj7pF8jCzJTdJbr4NkTE0l1KtgazT7zc364pcda/n
+	 L4IwA0vWBF9QleXjNpNznH9Qk7P0dC2S8cR7hh0/VaHMzVwiV6CKbb3fATDkzisWwhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794664802;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 Feedback-ID:X-Infomaniak-Routing;
-	bh=EDBgPC6ITb9J3xFq1ovAYMVyfTW39nSEsNOx9gLCCDg=;
-	b=XpQdCWDfgptsEedguN/wY4Tq2nRmGi+C47oTZMvjHEz4Kd1A0/4nglw1DpZjA8bDUlk8
-	 fphL5JKep7arHpivlDLJAAk0NXm75juz+hikoEaXHw7irW9xsQwgWB2XvM9rwcW491X03
-	 cubpQhesYokl9zhjDh7WzQ1t+781DnmUgg380NlhlwEn+fO/yxcanPeFobGKi1yIYpilT
-	 H0qUaWRaG/TlrHOgCD4ZfhHNKaKxQgf+ASw0jVHD214/zoQJUAjHhJ7e/WA9SNppfg5dd
-	 +9HQMqR2mehDD4vT0rxhzMKBKpWQTsbzvMYBStXkyzVqMicqB1vGgFx2b8tK16hhNqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665480;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=X1aNKxDcC9Su/sKRcb+fwZwTfaJYdtOu8vWxOSG4H9Q=;
+	b=QDX3qKn4vDZxvSZDIlT5qTeZMYxpDDPTZf4q2iMWZtQtrkVt2/ZJvQmhJukV6OFzzY25
+	 uEH+s4zRbAua0fIiwZpywQLehXeRI+CMlOHFSEliYGc8MvOt/M3uF0dUgPuIRVI7IKeo/
+	 INpIW9jeoGeNo5vC0WObJPtkx6CYfTYWxaK8br+QNnVqHhzbNonrgCP1jL+MGbdEQrKM3
+	 anlfPz6ox8uE4OlbNvRf00W4ZxEw5Ad4NEsKpXu7uFgYdjsCzixnVdc+sLgGimk25Jii7
+	 suWvJD/MVRMfNsN1Sqb9017Am+Z91syYM4CcJtQFsAdix0rpXmGKb5oyRhbUmvczs0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ik.me;
-	spf=pass smtp.mailfrom=ik.me;
-	dkim=pass header.d=ik.me header.i=@ik.me header.a=rsa-sha256 header.s=20200325 header.b="fH5rKRN/";
-	arc=none smtp.remote-ip=83.166.143.172
-Received: from smtp-8fac.mail.infomaniak.ch (smtp-8fac.mail.infomaniak.ch [83.166.143.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VIuTSlCz;
+	arc=none smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27AB606A329
-	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 13:59:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C27AB606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ik.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ik.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF60A606A32E
+	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 14:11:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF60A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ik.me header.i=@ik.me header.a=rsa-sha256 header.s=20200325 header.b=fH5rKRN/
-Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jRbNS2jcLzSdc;
-	Sat, 14 Nov 2026 14:59:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ik.me; s=20200325;
-	t=1794664792; bh=EDBgPC6ITb9J3xFq1ovAYMVyfTW39nSEsNOx9gLCCDg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=fH5rKRN/77oBAsGNmm8YIFASYv4WCFB2Ik9PzuMiJ42TV+UCKcCcqlESQj8mkUd79
-	 f0Z0vtSzklOH6OD7uEtGBgE6QP+z3rwxQKZxxOBIgYeMwoTSzHwfjEk6r8+6dblaIU
-	 di9xpnCod+YuFBdPCfGEPNfxbDTWlnDFbCcJJMro=
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jRbNR2pNCzSZ3;
-	Sat, 14 Nov 2026 14:59:51 +0100 (CET)
-From: Selim Awn <selimawn@ik.me>
-To: yunfei.dong@mediatek.com, tiffany.lin@mediatek.com,
- andrew-ct.chen@mediatek.com
-Cc: angelogioacchino.delregno@collabora.com, matthias.bgg@gmail.com,
- linux-mediatek@lists.infradead.org, linux-media@vger.kernel.org
-Subject: MT8189 SCP firmware: single-core HEVC INIT clears 256 KiB past
- h265_dec_srv_param and crashes the SCP
-Date: Sat, 14 Nov 2026 14:59:51 +0100
-Message-ID: <179466479105.70915.3582435008101380821@ik.me>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VIuTSlCz
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8b5c3288e6cso817051b3a.3
+        for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 06:11:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794665479; x=1795270279; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X1aNKxDcC9Su/sKRcb+fwZwTfaJYdtOu8vWxOSG4H9Q=;
+        b=VIuTSlCzI5+jZy6lhUJ3NdFy8QfvKvOumfxqXf/KsHSm7q7qnrtm0TQKMxcAu58t9e
+         lgjYrX7X+fgOz0yW7XFscKcImqrdxA74UWS9CrBbqZFuQT5Xjd5qBFmUFrQGTROrNBmo
+         j3HbrMQ9X6q0EiaKeeaJowpKByG3xCk7OAAinrnWahFvw3jTJfK6+Arw7kgFbveE7bcn
+         cWEdrRwRmJsazex6ce+lvFzkV6lLEguXk6GoJ8/v93AWykNVZdy1xFS6PSwqBHVADnKn
+         cowtQuqrBknj2KZWxJU5/xk+xdXxpzhtDkAlhXlKc/iEhax4HpKwerl5PO0Bnrx0eFp0
+         sXeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794665479; x=1795270279;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X1aNKxDcC9Su/sKRcb+fwZwTfaJYdtOu8vWxOSG4H9Q=;
+        b=1VerTAoiHlR5l+WbDpoNccfNmVhxg8QPVWPPHvpT/uF/2yRsqLDV8BKVyEuT14M3y4
+         hKvfda4t3rgE+7lCiHq+pggLw4UJ/Nu39MBMdk5IsWBGvt007KcNGoZWP0EfEAkDW6Xd
+         OSwLofZeoAougDOPvC0Co6Cy1uVWLY8MO2IcTrytRoop0zI9kn5EH9XIro10iGpaVVlC
+         bVCTUSHIHxwOQzuNTv6lrdlOjiR2oDO3QGbvOV8lppAmJqZls3zQImV7YN9JsVe4X+u5
+         ANRTZrAYLwUASBp9Vf8/IXVHy6bPoKW6x4Z+WvYCNLbt+vMvu/Je3hXknIzrYM1+Ht8/
+         mi5Q==
+X-Forwarded-Encrypted: i=1; AL+hErE3F5NcmV90imSBXwe8W9qxiftetlyiAP5meKxL13l208IDrt8B8aHSYiya0uYkPCofjg12iuA5CpHb9w==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+sHvwbqHAQUdBwAZHVg1bqEMvbxCcD5Lmcu48taG1O2q6oDGHM
+	cUvPy3/gioTCMwbNI0SFcxmxP41oiTrc0wigxncrULK8WFYpoBWknp63
+X-Gm-Gg: AYBFou1+Pi31ce9xYnfbeGzDrOWNAgU+BLp9iiOgIlYCq5AgRbWgXUWmoFKSPuFbvnM
+	vGebBo8LE02wEidCHuko/tAcVpDSvDEFl0pVM+PyDeJBl/j+5Omb7O6eIgPoKQFa9PZIvgJlc68
+	kVEJW1G8jBaPXMwvK5GowdX+q79sZiD6GGLaNpZVR6wKBo1MDDlXedeOL8qUV6vp955iHefATL4
+	IXqWxPsrdGHBi8Zl2EF/PaydLt3qIrTT9dPgvtOwSNNjuRsdJJcmqXmLJ5Zjoi+z4my/XLDlWOx
+	SzmTI7iWOAq9h6zJrHbk280oHkYO76BSm+svxRxZHC4vGLwrGsjJ9aktFmBY4lWYEaJNGZ2Rvlp
+	hrJ1Dzffbd0kt7VBrvG86HVGlWRU+yJIltSPDzmYPlFwdVx2+7sA+0Qu4aqwJ1diXJ9VJxAngFE
+	fDHdvlMB6VIEDWwG233kFt5DcruBWLDj/E1IcVklnpBdMhCv7/Z+U7kQsjP6fvIJL+PBlBYSku2
+	M9LDWLj5io7cSDmnZYFYfrajXREQJhDPmu2/Ov1n138dG01pOFWlvifcPwrW5qEsl95XoMssq/W
+	Yw1XIoy3VZikqwqZLgYAZa2r0pcfWQtZfhjxoSiKTmHL3QU4ZcO9QrxSBDTUUB0pzOQ=
+X-Received: by 2002:a05:6a21:118e:b0:3eb:b103:6ec0 with SMTP id adf61e73a8af0-3f7a72ba2e9mr5274932637.14.1794665479089;
+        Sat, 14 Nov 2026 06:11:19 -0800 (PST)
+Received: from [192.168.35.40] ([218.50.238.131])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18b4e68sm2442814a12.25.2026.11.14.06.11.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 14 Nov 2026 06:11:17 -0800 (PST)
+Message-ID: <2d8dbfaf-46d3-4d05-b052-5e8a8670931e@gmail.com>
+Date: Sat, 14 Nov 2026 23:11:05 +0900
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,75 +91,100 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Feedback-ID: :b7a7c7c8b482037:ham:b366ec3b20c1372
-X-Infomaniak-Routing: alpha
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/9] devfreq: Use trace_call__##name() at guarded
+ tracepoint call sites
+Content-Language: ko
+To: Steven Rostedt <rostedt@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Vineeth Pillai <vineeth@bitbyteword.org>,
+ Peter Zijlstra <peterz@infradead.org>, Aaron Conole <aconole@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Alexei Starovoitov
+ <ast@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>,
+ Borislav Petkov <bp@alien8.de>, Chanwoo Choi <cw00.choi@samsung.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Danilo Krummrich <dakr@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, David Airlie <airlied@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eelco Chaudron
+ <echaudro@redhat.com>, Eric Dumazet <edumazet@kernel.org>,
+ Frederic Weisbecker <frederic@kernel.org>, Ilya Maximets
+ <i.maximets@ovn.org>, Ingo Molnar <mingo@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, Jiri Pirko <jiri@resnulli.us>,
+ John Fastabend <john.fastabend@gmail.com>, Jon Maloy <jmaloy@redhat.com>,
+ Koby Elbaz <koby.elbaz@intel.com>,
+ Konstantin Sinyuk <konstantin.sinyuk@intel.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Oded Gabbay <ogabbay@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Philipp Stanner <phasta@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Gleixner <tglx@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ tipc-discussion@lists.sourceforge.net,
+ Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
+ Xin Long <lucien.xin@gmail.com>, x86@kernel.org,
+ amd-gfx@lists.freedesktop.org, bpf@vger.kernel.org, dev@openvswitch.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-sctp@vger.kernel.org, netdev@vger.kernel.org
+References: <20261027153658.703730257@kernel.org>
+ <20261027154413.039021489@kernel.org>
+From: Choi Chanwoo <cwchoi00@gmail.com>
+In-Reply-To: <20261027154413.039021489@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi,
 
-On MT8189 (ASUS Chromebook "Tarkin"), opening a stateless HEVC decoder
-crashes the SCP every time. I believe this is a bug in the SCP
-firmware.
 
-Setup:
-- Kernel: chromeos-6.6 based, 6.6.147, mtk-vcodec-dec stateless,
-mtk_vdec_single_core_pdata (MTK_VDEC_PURE_SINGLE_CORE)
-- Firmware: linux-firmware mediatek/mt8189/scp.img, "9a0dfa3 Aug 4
-2025", sha256
-7b1d56bfe34db620be411e72a56b5bdc981e88fce5664b73a5d270ae9d821f23
-- The ChromeOS SCP image "e3c0782 Jan 30 2026" has the same code and
-constants, so it should be affected too (checked by disassembly only)
+On 10/28/2026 12:37 AM, Steven Rostedt wrote:
+> From: Vineeth Pillai <vineeth@bitbyteword.org>
+> 
+> Replace trace_foo() with the new trace_call__foo() at sites already
+> guarded by trace_foo_enabled(), avoiding a redundant
+> static_branch_unlikely() re-evaluation inside the tracepoint.
+> trace_call__foo() calls the tracepoint callbacks directly without
+> utilizing the static branch again.
+> 
+> Original v2 series:
+> https://lore.kernel.org/linux-trace-kernel/20260323160052.17528-1-vineeth@bitbyteword.org/
+> 
+> Parts of the original v2 series have already been merged in mainline.
+> This patch is being reposted as a follow-up cleanup for the remaining
+> unmerged pieces.
+> 
+> Link: https://patch.msgid.link/20260515135920.2238808-1-vineeth@bitbyteword.org
+> Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+> Suggested-by: Peter Zijlstra <peterz@infradead.org>
+> Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
+> Assisted-by: Claude:claude-sonnet-4-6
+> Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+> ---
+>  drivers/devfreq/devfreq.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
+> index 82dd9a43dc62..9f71d9dc4a70 100644
+> --- a/drivers/devfreq/devfreq.c
+> +++ b/drivers/devfreq/devfreq.c
+> @@ -370,7 +370,7 @@ static int devfreq_set_target(struct devfreq *devfreq, unsigned long new_freq,
+>  	 * change order of between devfreq device and passive devfreq device.
+>  	 */
+>  	if (trace_devfreq_frequency_enabled() && new_freq != cur_freq)
+> -		trace_devfreq_frequency(devfreq, new_freq, cur_freq);
+> +		trace_call__devfreq_frequency(devfreq, new_freq, cur_freq);
+>  
+>  	freqs.new = new_freq;
+>  	devfreq_notify_transition(devfreq, &freqs, DEVFREQ_POSTCHANGE);
 
-Symptom: the AP_IPIMSG_DEC_INIT (0xA000) for 'S265' on IPI 14 is never
-acked. "SCP watchdog timeout! 0x0" fires within milliseconds, then
-"scp ipi 14 ack time out" appears and remoteproc reloads scp.img.
-
-Cause, from the firmware's symbols/DWARF (vdec_h265_sig_srv.c,
-vdec_com_h265.c, vdec_h265_psr.c):
-- h265_dec_srv_param is at 0x73d6b8, size 0x221398, ending at
-0x95ea50.
-- INIT places the instance at offset 0xfc30 (0x74d2e8).
-h265_init_instance_ctx() puts three areas after it, back to back: the
-instance (0x2558), buf1 at 0x74f840 (0x20f210, ending exactly at
-0x95ea50) and buf2 at 0x95ea80.
-- vdec_h265_init_rom() then does memset(buf2, 0, 0x3fff0), up to
-0x99ea70. This clears hw_param, hal_param, default_frame_context_bin,
-dcq/acq_lookup, h264_dec_param, h264_comhal_bsops, venc_vsi,
-venc_drv_inst, venc_h264_func, the venc RC/reference tables, and then
-runs past __dram_end (0x98b000).
-- In short, the object is 0x40000 bytes too small for its own layout.
-
-How I verified it (read-only on the firmware side):
-1. Set remoteproc recovery to disabled.
-2. Sent one HEVC INIT.
-3. After the crash, read the SCP DRAM (phys 0x50000000 =3D SCP 0x700000)
-through /dev/mem.
-4. Set recovery back to enabled.
-Result: the buf2 pointer was 0x95ea80, and default_frame_context_bin,
-dcq_lookup, h264_comhal_bsops and venc_h264_func were all zero (they
-were non-zero before).
-
-To reproduce: on an unpatched kernel, open an HEVC_SLICE context on
-the decoder node, e.g. ffmpeg -hwaccel vaapi with libva-v4l2_request
-on any HEVC clip.
-
-Kernel side: vdec_hevc_req_multi_if only implements LAT + core, and
-its decode() rejects MTK_VDEC_PURE_SINGLE_CORE, in chromeos-6.6 and in
-mainline. The format is still offered because the firmware sets
-MTK_VDEC_FORMAT_HEVC_FRAME (dec_capability 0xc1520). Locally I now
-skip HEVC_SLICE on pure single core and return -EOPNOTSUPP in
-vdec_hevc_slice_init() before any IPI is sent. I can post that if it
-is useful.
-
-Questions:
-1. Can you confirm the overrun and fix the firmware (grow
-h265_dec_srv_param or move buf2)?
-2. Is single-core HEVC (vdec_h265_sig_srv) meant to be supported on
-MT8189? If so, is a kernel single-core backend planned, or what
-VSI/IPI flow should it follow? If not, should the firmware stop
-setting the HEVC capability bit?
-3. Can you confirm that the MT8189 SCP firmware has no AV1 decoder?
-vdec_msg_handler only dispatches VP9F/S265/S264, and the AV1
-capability bit (0x800) is not set.
+Applied it.
 
 Thanks,
-Selim
+Chanwoo Choi
