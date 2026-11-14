@@ -1,149 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.39
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794681620;
-	b=Af15deEYxWSw/BCZV27vYisGmw4BPo7cx21Df66WiJle1UP9eEvwVzLtp+qrAfbK1V/G
-	 3d809LDBlKVBA1wBwmy5TvBaIBLgV1V4ebPrNOHuNQEWzHvAdJ2ML3TdeZRfgVEYnQKzh
-	 Pktd7nb2lmAECA6UgAVLaoSGe97sf44J51Ty/uwbFb+G3sCQiQ+eSkVrh2aO+gLyLB1YB
-	 n2nFqBOu2ByErJ/bytc+1CqKmywsntD+TlXT0zSBBpWbiiI7PSBLDK4QfJ4NYE5pyLr0f
-	 ateHqQDfbgt6p3sEuQdpLZleLYuTWbCWF4aQhUiJv5wgLHgvS+JEdFtXbbEajZZr+Mg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794681620;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Rgs10JO4E5WBMJdiO5CaCTuXqY2ghBF/h2jRTGKS5zw=;
-	b=cabnjxiYw2JNjOM6yPCE37f/LzdA2otjbaf62rVnfPSKMbB33gEuPfmwwkG5tXm/x9KE
-	 Dz/xeIZvg2B/goC5ISmAi30bLkcg/SnN/6crbBzM9KexntZ0+pP01Rty8fjMrxMA6R9ro
-	 460s5XeAwZrjL0sMqQtrSkcoOtXcLYkZUH7nnAMVicOTnoM5uW9m5IpF5H6sN4w5tyixF
-	 NfisgR/auETKHjVFZDCZYd28nPKojN+IO1G+c0sdIQOV7pqKwiUJno9fG96PYQA0/51IT
-	 DUEdA7P8//PpQdUmstWgr77RaQkZEQ1LoaeQoX2uT5jEYgc48IoyHu7qqoiGqNLl0iQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leica-geosystems.com;
-	spf=fail smtp.mailfrom=leica-geosystems.com;
-	dkim=pass header.d=leica-geosystems.com header.i=@leica-geosystems.com header.a=rsa-sha256 header.s=selector1 header.b=Szke8n2d;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.39
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011039.outbound.protection.outlook.com [40.107.130.39])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.154
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794686135;
+	b=fowVAsdWKTKBsE/jteT9/Wrmxe/FTFtuGI1MXBoksYnlIuX9th4wUm2r5k4zacBim4oT
+	 YMVSoTQfcFGAXGniDezdcrK3OURy3fPFyUaJwQDn8lgiVV8dOMZIFGgma+P5+HtPchui/
+	 RUf/FogOAy7+v4RScQ/ja926+527QW/MO8qT/eh3xoTSUCw7KCBupLvvMgJSDO3u0BkNr
+	 0nSJUsl+E+JdP6RW4BpH/7YJI6sDfMdthm5YJMAonZp33WEHUNvoPEqQCvxs0sBqMZKOC
+	 a///AFTqvlHXckq5vwdKA99YTIhb0KALO69JuOtNkGJFQ9dY2cqKjV1IsZ75WS6ID3g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794686135;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=CGHfzK9DVdW1OuywE7fKmBb196O0xyRdQNcmj/l+ASQ=;
+	b=4IZpcgCE4H9pv7u1xX9gEs/o4x393l+sYesWhgsR4mTpMcdXPXyPunVAmxdncqIZ6SHV
+	 lNxBjNQIBbuLOqgzy/ymXJDvRubVMs9BR3o/p3KU3y4ZDrVTlpcToVEUbDKIoJMsPbK9J
+	 8MiSWayZ5xUeqVKw4CoHqaxpYWwCFK6y9Kes8hwXRv6D0L4lNpH+FoiiuJ8+/dcSOy8H0
+	 7+ef5CK2/Df3qzh3xxtBpR5JATCVq/mzh/nogIiJKeZMGA3qWiql/9SVqD4wvgT7Mf+c9
+	 7IGDfDhFmfUYoWSfAL3PgVLf0G9Jk7svMJeHaGwVDKrjVxRXMV1Q7XuH/FzXnKUnxYg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ragnatech.se;
+	spf=pass smtp.mailfrom=ragnatech.se;
+	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b="r8HVI0/6";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=583FW7p2;
+	arc=none smtp.remote-ip=103.168.172.154
+Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1EA5606A32D;
-	Sat, 14 Nov 2026 18:40:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1EA5606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=leica-geosystems.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=leica-geosystems.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D988A606A323
+	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 19:55:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D988A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=leica-geosystems.com header.i=@leica-geosystems.com header.a=rsa-sha256 header.s=selector1 header.b=Szke8n2d
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GdJvSwZ2nh/4Xe+sJx4OiRErBCk9jubN4nRaMlce6014x2dsLcThFL0ejGcIAvygRY92ikJEXxd77K+mcopDbi7OXfbdElSwlPgM0kfC+oumV3V6YwniGLQ+SgdImF3UCNWngNHcxzz9Ey1igBTgPXLyxPpl5eNkLUJKJetmKx+5tGLarZIzH27KeOPBB41/1cayZ6tkD1yyRrNM9nv96uJdCthuNW+ICNOE+AbQX/rUa0ddxgJQsmqORG0xa3AQY27vIkGkYA8zhJeT025hhrWL9nwdFeD5au9plMH+HhMuMDtWOFU5B4bUVV8Q1ksqgQ+uaKVK/KTip89sKmRoEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rgs10JO4E5WBMJdiO5CaCTuXqY2ghBF/h2jRTGKS5zw=;
- b=OpYmVIEhnvKKPAjtmvGqkROPIoeCpwzOc5B/r1soyp2AOuo7rW1G5qJY7MMZFi6rWLy4TpM2KxswW7m3I4hVdKc4voYdnIrN2+4hOJwlgtSJziz+wZJ+STxuC9QTe8iS3lvfpMgq/8rysGIw/M+Dys7Z4TOaL7wFYjDlaWj7GYBnoRGyTONVx6eNbF509hPqZvKyyfI7MUt9m22Ui27OqVmebhyP+i4BNM43YHhNu2Xl5cnJ1wCMDZxpP9MbV/0i1MfuN3ywNaSRIMCUoJDy6DG9hwTZ2B2FuITb6YJfU72v/JrTZShjOxBrRdqmUPuYYR9+xZmA+EKqGxaUMhrG2w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=leica-geosystems.com; dmarc=pass action=none
- header.from=leica-geosystems.com; dkim=pass header.d=leica-geosystems.com;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=leica-geosystems.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rgs10JO4E5WBMJdiO5CaCTuXqY2ghBF/h2jRTGKS5zw=;
- b=Szke8n2dKo6jFLPZZlUzYdUWEGk6DMYsF41U+vupJGzAqKL9IZPVaqnxb8cpMXdREsRABRAEyyr6j0isqBsvdO6My4abgXTB4IlOrH8DLg2sdH+MFo702u9x6RekSzn/1NxwBk9prpJ0kuDFDCR61DbgJPLUFGe8YmBgg/x/VoA=
-Received: from GV2PR06MB946935.eurprd06.prod.outlook.com
- (2603:10a6:150:385::6) by DB9PR06MB11223.eurprd06.prod.outlook.com
- (2603:10a6:10:609::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Sat, 14 Nov
- 2026 18:40:15 +0000
-Received: from GV2PR06MB946935.eurprd06.prod.outlook.com
- ([fe80::6c6:1b3e:8a37:ea25]) by GV2PR06MB946935.eurprd06.prod.outlook.com
- ([fe80::6c6:1b3e:8a37:ea25%7]) with mapi id 15.21.0615.009; Sat, 14 Nov 2026
- 18:40:15 +0000
-From: BRETSCHNEIDER Max <max.bretschneider@leica-geosystems.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-CC: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] media: i2c: ov08d10: add get_selection support
-Thread-Topic: [PATCH] media: i2c: ov08d10: add get_selection support
-Thread-Index: AQHdWbp97kJFwSosak2iR6ujkOIPEbb5rewAgBH8Ve6AIm4oNA==
-Date: Sat, 14 Nov 2026 18:40:15 +0000
-Message-ID:
- <GV2PR06MB9469356C7B3523BDEAFE11E453D37E2@GV2PR06MB946935.eurprd06.prod.outlook.com>
-References:
- <20261011-ov08d10-get-selection-v1-1-5debe6436765@leica-geosystems.com>
- <asywCh3X0yJVcxRd@kekkonen.localdomain>
- <GV1PR06MB83698BCD22508BA5DF19A0A1D3642@GV1PR06MB8369.eurprd06.prod.outlook.com>
-In-Reply-To:
- <GV1PR06MB83698BCD22508BA5DF19A0A1D3642@GV1PR06MB8369.eurprd06.prod.outlook.com>
-Accept-Language: en-CH, en-US
-Content-Language: aa
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=leica-geosystems.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR06MB946935:EE_|DB9PR06MB11223:EE_
-x-ms-office365-filtering-correlation-id: a75c81e6-e382-4521-ee76-08df427eb962
-x-ld-processed: 1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|38070700021|10067099003|11063799006|4143699003|261021121427099003|261022105027099003|261026140227099003|56012099006|261102123227099003|261028144727099003|18002099003|22082099003|6133799003;
-x-microsoft-antispam-message-info:
- XqSg0J3N2FmnvS8AsqmeSQ7b8JIHWnnmFT7sAz8pVgIyCGF3whbrhi0QLQJOUQiwIZKKCXCISJyHkQ+8SuyhhhwoERX0ynmDAt/ZllYMnJe55keFNBEulEvql3IcUhxzFAJBpmcTWgVmKPUSEU5znrzASR9ytQjpE4tPA8lWxBANYPgJ+Bv3CD1jhhVtW2mL61MuHs3FCntxBs8I7wpgdVJtGYgwv7/AIPL32TvN/92S3sQQRq0I0qkX7xZl2fEfGczf01NhszLaZOtYJ7mraTYPkwUDXa3gFqky/LPDoDGBOw0Tv/2JlpQP8AmwTuZI7V/LkFvZi7ul1tk3HypkhYL7vL1dk9hDbtK11Yz4+7kYWgWNSA87mMzG2uFoBgUiKIlxH1bo1uCr+VZ2Szd2nuCx2gKkwA+SSvcegqPczcGjj0ynZZPTwKMhUmF5DfYO1ihrtDoruMS+honJhgleJtbCQBMkPB2d2dTY+zUnT3Xcw1C3J1QL2ym5iZxxm0c5uEC5ktvOKm+H6gOdOxWuKoxUWzABfHVMcOvE8E+Jr3ku2dWOxfDlPzNjAVSLRQVHbouvt95BgzGIiR3SFM7h7yGgGhGTX2hlNZs7DH3DMGo+vtTaeUTJp2NW6dtq9iD819dSeWlTjPabbeHy7HV6FCG3jn/LS//nCBrantjzjPeaHrutc5Y2GHserjyIRrADh42s6z2dyugyA/8+wSspIfz6tkKiVUA0wOJvhYRaGpo=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR06MB946935.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(38070700021)(10067099003)(11063799006)(4143699003)(261021121427099003)(261022105027099003)(261026140227099003)(56012099006)(261102123227099003)(261028144727099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?f6Hk7MTurVHxEOe/PCsieZ3KjAXUOvb6bZoN9KA0mbAyeo5eGWRTym9f4Fth?=
- =?us-ascii?Q?miKz0kRhDSh9FIf50w/ZtSL1ZcbApauD8cCePzJ8mU6/tVYn5AlBpNgmXOnx?=
- =?us-ascii?Q?SvUu2SlxTy/j984In1fQgtkw+MOB4tNsqgy+HfV4dLonLfI61NZ8LeN6JQLi?=
- =?us-ascii?Q?g612QHkvvWAb5rXI1ADvUlhGxA9kkUV/dB7vpZbao2OVyVEHbvjo39eDZht6?=
- =?us-ascii?Q?DjCztEJzv6PL7or9xqH9n5T72TpB6ttDooGZcfy9sYngbnVxxb//PykfA0Hk?=
- =?us-ascii?Q?cvYvVjcMJsBSX7bVNa53x+3E5X0l77vwAFn8Buoed6DH4MvTLDQIjtH5N2qP?=
- =?us-ascii?Q?A0MS15cE0f/XkuGG0MSpsYoQtvWqMp6irICP1mj+wnuRUIVvNp10YRTunkNv?=
- =?us-ascii?Q?o9VjtLTqrbAEua519orxUmnw0UMHqSNjdv4C+omuerQUW4LWccYZJkULfsmL?=
- =?us-ascii?Q?XHd+0I8bYJEYfWNG6q30Ra8E7iy4XZjPX9B8R4HFzxX3u5Lf2xksScInBZEH?=
- =?us-ascii?Q?3s0bh/yjWPeZ+6bRSIyuxE/B/g+Uq2tBBXFv/X/+hq6mtBs+IcnXCQddeISJ?=
- =?us-ascii?Q?qehR8ZwuGB7iMqFlf2ni6ukn7XklaaOT2Hubt/zS80AIsa5mCSmZmCd7w58w?=
- =?us-ascii?Q?w69J6a4IMMH+1jwIY6V87/gu+rPb7J2Lvi0vFJXcDEOTEknCnY07fIcM+Dnx?=
- =?us-ascii?Q?8N/J4cMuzMlZae9uvRZQH7MSHRYnvGCgLOqjV2MrmIW0HPagrXOOi3+wjmwC?=
- =?us-ascii?Q?uMCPWeEpLZwBp9IoIhUi4DCImU+4G79t0rjyXHH3UOw4cM1JYPvLD7eUypYl?=
- =?us-ascii?Q?ua3xJbUomJxJ9lv5vZUQIVBeeeVNpQK23dTH7oRiqWT7YBCOjdd72peryHT4?=
- =?us-ascii?Q?QbVM1wNIcS/gfxpf30IANK3PbxdyCi8XKhDoH6pnDQj7RMjAp86Yb106jwQy?=
- =?us-ascii?Q?SetLz/SYnvMy2xDt76dyvVdPKzyPVT4Shu7WPxG8EvLo+BB6FR9sjCEdfUUV?=
- =?us-ascii?Q?vSCzGJ15Brc5/q+o1PX6wt/jsN1A+kx1oKYCktuTnytEjnvKSGM35Xh6L4N1?=
- =?us-ascii?Q?IrIP5PDDLf5PZmNeWkthFK5jV51CNHm+1hjDHvBvn0s034Hkl48/caqAqLhh?=
- =?us-ascii?Q?Vle7h0X23HubuXvDyEX1iQ0sUVKYBzlHd4Otv4w5kOMKxU/UDVse1MVl3E9u?=
- =?us-ascii?Q?u0QmqTAsinj7kCPp3gGF8ULq9HaCzdyOUJcqFRXXhda7gh+Dg2SwWvvx/XTP?=
- =?us-ascii?Q?L3vM60bvq1e+VuCyDh+rxg4NFZX2c2mJ07/MU/OueMmmWg2oHLZNQMO9WmeG?=
- =?us-ascii?Q?UkjJ/cCebUapAh9ffi8O+e6Gd2ZDS0KuZdzWXvcNDjRxtcuHyak3UxEQ75a/?=
- =?us-ascii?Q?56yIS9Ixw+hS3iQKjkxC8Mm3EuazbNCZqviH2v0isYattq+LjFkTUR+P4xzT?=
- =?us-ascii?Q?N3wryUrqjalwjSEMEBTUcYdq3dLi3u5wWkgEYXtdKsB2lT2UvQ+xgg3BhOsF?=
- =?us-ascii?Q?EKdFnEsrRer5H7TRSQvBg5Buk5NUX56dzPZB4bWUVpFrnxIJanxuHixNihgL?=
- =?us-ascii?Q?faB5XM7SZSGDf/gX590BQLQyXdsFk1AvI2MZHE8Bo0iepatZSArFep3Sr17y?=
- =?us-ascii?Q?T7oIBJZFfstcjaAB8AGV61TrjsUBSZSIK/Nw+o5/QL6J2TisZDPijdjsRwFS?=
- =?us-ascii?Q?UKiHPO+MIxmQFw8Z08RVozS3HMIPTOBVgMgVSJV/htoPCm3GATMSX8tpjH/t?=
- =?us-ascii?Q?qDQXNk9M/w1nD5rvhdjxCM1yLNZZQKo=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=r8HVI0/6;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=583FW7p2
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 744E31400043
+	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 14:55:32 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Sat, 14 Nov 2026 14:55:32 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm2; t=1794686132; x=1794772532; bh=CG
+	HfzK9DVdW1OuywE7fKmBb196O0xyRdQNcmj/l+ASQ=; b=r8HVI0/6XIWHVyVoii
+	hSK/ccUovz1cUNotPbHAx4jtpE7v/5mY5PlBrLaKCWa3RQHl2nTz8oJeoKcWn+/g
+	ezOEeN5d5i5A0cgKJFkL7xRUvA1vWxcsPNY4N7UFkeeq2h9K5XcZ0wRHp383cuAC
+	lwzTbPp+QxiTZeh4HV01xxK8ryUB+xCSpLbgwD2L2dk2pkkdff9rwsHNA2OEgeG+
+	QW5mTPet7yFTOOe/S1y9gdCIJHm3yvOAeCdH9ruG7EAe6OmUuh1WMY33GdiNrHU1
+	wi505AcrHhnj/ud5rnLuWjFtPxRdNES7FxRwitmY98qIvesgnO/NPe+EXVLIamPW
+	ZR3A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1794686132; x=1794772532; bh=CGHfzK9DVdW1OuywE7fKmBb196O0
+	xyRdQNcmj/l+ASQ=; b=583FW7p232koGj3tkWVN46aJBsh1Huv17bRD8LdwfB8T
+	cAZrrNTO2n00fAoRR85Op+AhuADNW5kvL6jQgmT1wXpZ/mQ4LKzKAUVtPUrWTI0r
+	Uu8eT3ciXHY0MGRbtcrTOJYP/1aQpCRtFdT08t6+ozzay8Y7LPvVWFHdjEk5bR+r
+	N9Tb4y0iJkG2rUiwx/aq2rBaNw+ytgiL24Gbx2rztkYfaB1h7BwXsa+oNYfq67MW
+	QWX9wtPBjLiZUtcEE0aQDwiqsvHba9BNCbCYsLm4TIm4vHXf5efHeCtOUmYhmtl4
+	XQddI6hSKoOPL4bXzhKcgMEvmbXa8TpYQH/tcdySdg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=ragnatech.se a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794686132; d=ragnatech.se;
+	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
+	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+	s=fm2:rsa-sha256:Hn6bvNs4haGB8f3ilACclwB04XrqScF9+H3BJu503seiQNd
+	G848ERqCCoF7uaMnHqBym7B4+ZoFxcWfGBuyBSHc1GTtAKGwK+km31o5r3xtSI8w
+	2QKreLZVcbC5gkegaJ+QEfe17D411JBRovOdp4WsBhwBbnGYdfg2vh9RV9IU3aV6
+	QhfhKlAvy0VSDlhpfMqOQ8gVHRzZR8vYUOKcNEHQMDFhUTOGQz1gRVmiQ7YLzf9J
+	iEKSMQLsNXonADKFK+cU8x1Ejp11bO8QcnZlyV+GbqXN8mGCqDBaxPkC4uSYttd2
+	24SzMgVvtLKp1cz0lS1Ywyb54++0Mv9nutiON7A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=10;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:oLcULGJ/G4VKqC5FTZToWUdzDBfzA2orfj2qWlLA9pA=:W8z+AbJUry3Qqffh80Ky4DrBQXEzHzJTdTRfDg63nHk=;
+X-ME-Sender: <xms:tLz4ajOoqT-N3RIKiJ4TQaV4rs_Ew_pw03y2fL7hPNV4ZVlksdkpRA>
+    <xme:tLz4aqq7CN80RbsPQ5q5ABbVzhInJdVVjymt7iq9t3SI9vHjy39Q-JLsTcLOV3BtQ
+    1ZZUpnduNVaV7wQM3e-Tq1IIPuduOVavZQyCxLMhioTPHT0eL3YQGpF>
+X-ME-Received: <xmr:tLz4amKG-LWgP5_63i3NR9LjQ8Kg6xLDqFfwMj1h0DZ-oE2YDg_dVpddheeHAJkFusu5sNbIzv2KEKJeBVfIfD8w9Z8P4V4>
+X-ME-Proxy-Cause: dmFkZTEvP+5YKsP5V5F1HdOHyOu2XSfVTF/x1WnEj3ce3BdxRBNf6kEWLfq8F2DoL9jYax
+    jrpexpkHDzZeeg34mQyx3w8dCdP4c9qQeblL8gi9pyCWbDhYmDuva5F82Z5iTj/Ou58ksF
+    QMPeXxa/OgMnkuheF58ntV2bizU61EDL3LLnv49yZzV4AfGkquSriuCI4WgfjHpBRc9uIU
+    /vuHcADuIxOmI1xLnXuyD4tvWqlGGlTC7d8p433IHTUpsm1EYM6tKsTg/YX9N34lZ0DT35
+    NXB+hcHR+9vk1uGlEVBSHQbant1uvnRyUqflcixQnX8iljPpJvof8yXIB8hH2UyU3sGrTu
+    pCq2I0b7ia0wkAInGz01msI4CZ0KZTYTtzPenjmvi+D4lpmDNLEvvzCt8zMQaURWFMe3ll
+    oeVzWnxDndWYw61F47Oell5rjaRTWW9MSR3RrmcrdsSApLYtE1rSfH16DULqmb35eNhmzA
+    iQqve4dugEz+JIOmVbsaZZXUKUtVujzNHENDaq2hFC8DLhx44VA8ArWPUGr7O25aO0qBEE
+    Dn9VXOB+2zjYhieiT7SMkuZtlwxgDuJsqmylhTPFRxoql8nAy5FEbOGyPOWaOIGSG+Thzz
+    gnaY4TMNDBZOIqtPjPBguOa7eNwGkYxSm8UTiiukNkX8cdG+8q8w+ndyBJRA
+X-ME-Proxy: <xmx:tLz4ah03qz9d75LLYv3ZzRBUbAy44qFYd05-vtcXyzPqApv2cq1s9w>
+    <xmx:tLz4avXSnatu0X9et9HRE94g-2hsE-ariFNgvJRam8eE6eKTEmUpCg>
+    <xmx:tLz4asw3F_7q1VRWZubT0VzT94yiXoloVrd0_3WS891AVCvh_yXe0Q>
+    <xmx:tLz4auyRfoNZElVgwqYQIV6exx6E4Qw6N-dzkWdXh-OKJIVrI3v74A>
+    <xmx:tLz4ako_T7AY_GdQ-rPdT4GEYd2dKizuplIRhXoDilCnpJZCduWBhcC4>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 14 Nov 2026 14:55:31 -0500 (EST)
+From: =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+Subject: [PATCH v2 0/4] media: rcar-isp: Add NV12M support and fix stride
+Date: Sat, 14 Nov 2026 20:55:15 +0100
+Message-Id: <20261114-v4l2-add-nv12-v2-0-a3f5ecfd48d6@ragnatech.se>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -153,33 +119,115 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: leica-geosystems.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR06MB946935.eurprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a75c81e6-e382-4521-ee76-08df427eb962
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Nov 2026 18:40:15.2708
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: sTSA+rqIkq4bef8eaPwi9aK6AGthg1jmGdqzbV42VUhdciHSXAC81y4ZuGZhG4Jw8q5UIpKWToEsOA3FMqguFYMFuF6WS7ULuAyGUX3YrnRegl84fopgX5nk6zXnnGTO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR06MB11223
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12NwQ6CMBAFf4Xs2TVtKbV48j8Mh0IXWmOKabHRE
+ P5dwHjxOMm8eTMkip4SnIsZImWf/BhWEIcCOmfCQOjtyiCYUJzxCrO8CzTWYshcYF1W2vai7ZW
+ sYd08IvX+tfeuzZfTs71RN22RzXA+TWN874eZb96vXf+1M0eG0mh5KpVmZasu0QzBTNS5YyJol
+ mX5AGJ38eq/AAAA
+X-Change-ID: 20261015-v4l2-add-nv12-9358df2bf649
+To: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>, 
+ Jai Luthra <jai.luthra+renesas@ideasonboard.com>, 
+ =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ =?utf-8?q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>, 
+ Yusuke Goda <yusuke.goda.sx@renesas.com>, 
+ Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, 
+ =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3203;
+ i=niklas.soderlund+renesas@ragnatech.se; h=from:subject:message-id;
+ bh=W8z+AbJUry3Qqffh80Ky4DrBQXEzHzJTdTRfDg63nHk=;
+ b=owEBbQKS/ZANAwAKAQm0/3kE+U0kAcsmYgBq+LypTWTGPayXMwQBoSKwTKL535qDut+sCf1Hv
+ cqCso21Q1OJAjMEAAEKAB0WIQRwy9J0OLNPX3a0+3gJtP95BPlNJAUCavi8qQAKCRAJtP95BPlN
+ JBAkEACA06labhwFxJNn7kC041LvI3EhLOKfhksg+hlqVLpWaOEhle5NLsVJpoR2eIFCMaAMWIF
+ lVpAM1uzLAgiVcOLeaDyAE04Bo9pjMqXW00Y5EIsZxBjaFX8WyVKBMZfyE9bQTMGMS9BvTQLJAH
+ 3UH4PGUIvFAukYoquYvPy/ivZR6pS5E9uw901YkulfZ+ejLlX07QAQEoYOWjkJRV67/Dkq0CgSj
+ 8tjmwvJEa5EDRTqgsGpjdK881CxHc7t0hC3EblAXMzUnD1Se7oSq75b0WVESNLCaxetr/6Vc61X
+ S8YVA9HQXtCZbrym3FVOJiKnL6BgTnskU1JrsQFuuDX0l+2r2TRpbc7V9ux/ZhHea0WqGCRS/+6
+ tX4Mgvd4xnTdteR6vABC8BGL3ERbcQJ2qoqaLmGuTS2BoBXMcDs3ZRcD1gCoTiW849G+57oVihr
+ M5shPutdbh7X0j3GP3dmLib3rE7KSjyiH+fWi03OvoKTmgWBnQ6d5AIpUwER+r/rnv0ThdxOMk0
+ dBOU/6NcNOArMQK23/ujDQsB/hHXuv5Lvf36zNd02WGSC8dxgr78QHfA7E+4SrgjUjm/NDq4AV2
+ 4CfEtudOvq/DHn/zC3wSqqQDtsSbcgoP3GQuYBUmKZwpfBAlHg7A+SRLzldrDXHjVW+trHRYFfN
+ njKvPNkD3elXtNA==
+X-Developer-Key: i=niklas.soderlund+renesas@ragnatech.se; a=openpgp;
+ fpr=9976695FE98693307BF360A2F1591ABD9588DA5F
 
-Hi Sakari,=0A=
-=0A=
-> Can you test on a newer kernel? That being said, there are unlikely to be=
-=0A=
-> issues without that, but it's better to be sure.=0A=
-=0A=
-I have now tested this on media/next (7.4.0-rc1, bf6c63ecc, from 13.11.2026=
-) =0A=
-on the same hardware. The series applies cleanly, and get_selection, the =
-=0A=
-per-mode crop, the flip-dependent media bus code and v4l2-compliance all =
-=0A=
-behave the same as on 6.16.12. v4l2-compliance reports 52/52 on the sensor =
-=0A=
-subdev with no failures, and dmesg is clean.=0A=
-=0A=
-Thanks,=0A=
-Max=
+Hello,
+
+The main part of this series aims to add NV12M output format support and 
+there is a small drive-by fix to honor the image stride from input 
+images in patch 1/4.
+
+Patch 2/4 address a confusion around how much data was needed to flush 
+out all pixels to the output buffer. Later versions of the datasheet 
+makes it use clear and how it relates to image strides. This is needed 
+for NV12M support as we need to tightly control it to generate valid 
+NV12M frames.
+
+Patch 3/4 is a quality of life fix where the current driver looks at the 
+pixelformat to figure out how many planes are used. As it only supports 
+RGB (1 plane) and NV16M (2 plane) this worked, but before adding NV12M 
+(2 plane) look at the correct field so we don't have to maintain a list 
+of pixelformats that have two planes ourself.
+
+Finally patch 4/4 adds NV12M support. Enabling support for it is 
+straightforward but one snag around how the DMA-engine works.
+
+When the DMA-engine is configured to only output CbCr data from odd or
+even lines it still outputs blanks pixels to the buffer for the line
+where no data is taken.
+
+To work around this and still produce valid NV12 frames the device needs
+to be configured so all blank pixels written to the buffer are part of
+the line padding. In addition to also keeping the same number of padding
+bytes as the Y plane.
+
+The DMA-engine is able to do this as we can set different strides for
+the two planes and haw two DMA-engine lines (one with data + some
+padding and one with only padding) make up a single correctly formatted
+NV12 CbCr line.
+
+For readers comparing the DMA configuration with the datasheet this
+driver takes the CbCr data from even lines, compared to odd lines in the
+datasheet example. The reason for this is that if odd lines are used the
+first even line adds half a NV12 line of padding at the start of the
+CbCr plane. To counter this the CbCr plane would need a padding line at
+the start of the plane which is not supported, or we would need to set
+the plane start address half a line before the buffer actually starts
+and potentially corrupt memory as we write blank bytes outside our
+buffer.
+
+Tested on V4H SparrowHawk without any regressions and the output frames 
+looks good.
+
+Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+---
+Changes in v2:
+- See each patch.
+- Link to v1: https://patch.msgid.link/20261019-v4l2-add-nv12-v1-0-4a84736803b6@ragnatech.se
+
+---
+Niklas Söderlund (3):
+      media: rcar-isp: ispcore: Update image data flush settings
+      media: rcar-isp: ispcore: Look at number of planes when programming
+      media: rcar-isp: ispcore: Add NV12M support
+
+Yuya Hamamachi (1):
+      media: rcar-isp: ispcore: Honour requested bytesperline on RAW input
+
+ drivers/media/platform/renesas/rcar-isp/core-io.c | 82 +++++++++++++++++++++--
+ drivers/media/platform/renesas/rcar-isp/core.c    | 45 ++++++++++++-
+ 2 files changed, 117 insertions(+), 10 deletions(-)
+---
+base-commit: bf6c63ecc20a54aaac7a2fcbd6adaf6498388825
+change-id: 20261015-v4l2-add-nv12-9358df2bf649
+
+Best regards,
+--  
+Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+
