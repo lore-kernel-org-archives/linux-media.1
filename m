@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794626998;
-	b=lj2J6DAHLNpDm0K1zlIkoAGDMFKL+fynjMA7/BZo7iBc8Qpri5bs8JAUGIUA7jJwwpjk
-	 WRUdshdIDBoOXXo3awfLV4fTh6zWhDPo+OrpjA/OBXMBTDkGfRiRAJBFPjNuDqwyIdJLI
-	 z9IFgn+P0l5edB3VnZ6CMnJTXevppIUXfmDo7EUeBThlM1lywI4102CMgVZn8mldBTpS2
-	 FRALzTze9pvkZRRf2xchXqjgxbEfOSvIfxgsW3PLO4r70kH5eZ/esRlUh3X3dl6XJUn77
-	 g0hVFhIP5JqGd4WFnueCl0tiZjSImVIz63rl3nHEowhvIjtzXzEVTfz1OYe0FYSO5VQ==
+	t=1794627007;
+	b=miIpvoEjgNSgvYR9bva1gR7SRa1Ofz6XYS+Z5WPhxPfFZ7wgJ7S7EbqgyCCLV2QYLdiJ
+	 lBeUzJLpbreVQ/xriZzuougbSkasggdfGLeeMVMAOqOzrd0HJn/7+/IZUetx9bonVr0iX
+	 TUBryvhZ9haQAYI8Nr4cZevNMTP7KigUp2D4fmgjtM5KA4S4AFDn2ctYyL5bnMc+hsC6E
+	 5JY/eB95tK2wi6zBI4yQ3eodBCgF8QUImzsHg56sihzKZCFJPjc/nGA3xe4PtEEmXNKQx
+	 wAgD+4FBLvyeZBPpGlt4M/BHzpf7fGeHGx95sPq4rq1Zww/runjLfLU73nWuvvDtS6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794626998;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794627007;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
@@ -15,88 +15,88 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
 	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
 	 X-DetectorID-Processed;
-	bh=yDc8YbhTZN4Lkq1WU0z5LX1Q8KhtfkMstUTQ2p2A56Y=;
-	b=WzdnpMXxiRrhX6oxyz8N5AXXGKoUTM/zpaGebnq30FXMNtZIwu2U0b1+KBsc5xHYRD2G
-	 CqJGbdbicqyLDDjWRMXnWbqko/dAKJwwrF92k7eUbdIJ2qvYHHWBTBXW+Gdzm6Ky74Lc2
-	 We+87uVVUbXEBkNeJ8ahi4mpkzMKIes6SUDcskvvNPB8w+b0/u6Z5PaMqPPvAMjlkNa91
-	 qIT3bXSb3I34xHeDwinMdiAC4H70mwo4qowqEugDoEtcCzZ2W7B6fKmGD4+RW41Gsp3rb
-	 iLCP8mjHECZUjTFeLNjkpdAHo0ycSoAm1cwwSM5tON9WzHC2gbjOM832K0g5eCbDlAw==
+	bh=5jsTRYk7KQN7825qF1InYK8P4ki41DeOjAFowmky3OA=;
+	b=YLtHV0c5RzYHoxWQKP3ugCo4wMQIco3Mvabve1auNwaBHQWbM8cqmXyF8upB8VPdC39f
+	 hKVUuZyU+n/8spRHYCE3WZxDcPEqUBtkQBgCMOrHxcv5b22oJA30a3VfUfI22jzIa6+Xe
+	 IfaDtyR0ImG07H+p1Fiw+iGszlbx9w4ITSMd9CGDPVpIPgTQeYHyjHsi4hz3oNFoK/bX4
+	 64HzVGvzDWxPI6ferX07VmTO25F1w6G/tGAuuO1sje7EfXr6ZdsBzIRWksrp7ufZVjygS
+	 g0NqI1WosG9DEq+BdogbWQUPFm2t6x2BcJf5D5H7fUCtdhol8vkxvuYAGbHOtjzdWaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Yca2aPjf;
-	arc=none smtp.remote-ip=209.85.216.100
-Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="GSi9Wg/e";
+	arc=none smtp.remote-ip=209.85.210.225
+Received: from mail-pf1-f225.google.com (mail-pf1-f225.google.com [209.85.210.225])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05662606A88E
-	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 03:29:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05662606A88E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66217606A330
+	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 03:30:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66217606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Yca2aPjf
-Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-3b0b3438540so1693956a91.0
-        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 19:29:56 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=GSi9Wg/e
+Received: by mail-pf1-f225.google.com with SMTP id d2e1a72fcca58-8b32bc605d9so717313b3a.2
+        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 19:30:04 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794626996; x=1795231796;
+        d=1e100.net; s=20260707; t=1794627004; x=1795231804;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=yDc8YbhTZN4Lkq1WU0z5LX1Q8KhtfkMstUTQ2p2A56Y=;
-        b=NIEc3qENtaBOP6P5bhKsENpmX9SYmWIyM3VkDfSAmJ/D1EM1lCmRciaCgLfa3urIVS
-         YmfqVon6hI9o49ir9IN1wWxzFzuuzGmPKxEMCN2G3Vymbg8WBLy3y/se0IIb+Eb50HKN
-         OXgkWu3td73qQ1MJeT2YwJpPmzdWNxGPK8kFRMLxE1gxpoQhpeVlYQdPG0bycqANsF3G
-         uo+G7P3lufW3A9dGOUhitrRPKi5uBDs2stGYxYwOTWBdIxbxQei9hWhA09GCojuNAYmh
-         m4ZRr/JohJYaYrnGRJAgLVUbR4PJTZGvmpN+kFk9auoYYloPfdOsuqFlktS4CSdFzFaf
-         BKPA==
-X-Forwarded-Encrypted: i=1; AL+hErFJ3b1auR1Is9CyK/JjNXB+d7ksoR7DNjY1Ia1yzNMm5a2SJDLm9wIBz3PmGW5y+MZP7bBpiYmMf9d07A==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0vZ735PfzCZWu19yYHkHnAlrIGm3cARIpTwPOk8EXODF7Q0Z1
-	juN1Cbt3++3p6Ga4qoLJXpKgJrBBZ9Rxfy5TMjmH3DR46TpCal0WKPLDF7TburAMvEUoKScikmr
-	fdt5ribDRjYBv6ypXj03lS33z11iEAHLVcWYabjM+/C+tUiylaHShpUoRsgn0AgVkT1I1Cvh8DT
-	AvKt+H1IHcSy92M0iTwV/X4YTVkxiS3QktGchykHdj3rysw8cK1tyIyaJuyXZQ8QGwxbvmGZ/n1
-	rAru1vuCuU59vbUMLxQDUw=
-X-Gm-Gg: AYBFou1mvlCvRk7Lavyaz19NV5vz56/Y3n3hdJM5wCKa6Jbu9tGB0osg0j/QAuEbJcl
-	/mOvbWjqj++YAF6PzVyypKhVAY7wlhc9MrAfcT9l1LBAfhd0MhyH3G5XZjv37bbMymFw0RQSbr/
-	/rVJt7wT590bgkDpZqF2uJZC/KjjDUoPpJ5uvYaG3f2KTDWQO1M82RO4tKgrLT4HggYSGghfo2K
-	Zk3NJvIaaPpR6PBdKZR8owAYPUItMiw0Bmy80osVDwpn9eqW4VXSmcHxAgAOJZobjRtWQ/1Mg3b
-	vLC18SevaaTGTdjGAN2g8jUZwgdAK7ZdIxUA2iliiCs79dBz54kdHKcWikQ7JS1T4YNEarRA41v
-	HSjKMY8S7Iq3uKG2Xmt88UuVu+NAgbc5BTVxZsMuRpH+f57vcbush3SVxoEIiv2Bi061ke1Nhv2
-	6C0q0tvD9SPIZEQA4FVF8U8l3GcgubeTWqdrZoQav5
-X-Received: by 2002:a17:90a:e7c9:b0:3b0:ce1d:3398 with SMTP id 98e67ed59e1d1-3b1b09f3b5bmr4565843a91.18.1794626996070;
-        Fri, 13 Nov 2026 19:29:56 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1b1ed0b73sm3135003a91.0.2026.11.13.19.29.55
+        bh=5jsTRYk7KQN7825qF1InYK8P4ki41DeOjAFowmky3OA=;
+        b=u4BU6q95kFtIgW9a8AQnZ8z3kohUTJB3ZOYUrsfVTpji6+Ly8J7Qi4/Ud86ESG2SF7
+         fD1NUGSh2eQu/a9lTdVt0LgShQy5A2/Kgknv+4PSJjXYXps42Tcxq02QSQSOhdQuOWgH
+         NVHpnirBhQGBUA9YepSrMP+6fqUDmDkD2+hrT5vn/0/9Xe0zYwC9v31CXUFa1nExxQZk
+         xwFoNKKt0tO+hnkpg4uzIGY7eRN9NqxyOmnQ4SZ3DQoTW7/f+1TPn4jH4ZUTGhWHsiTD
+         yBoHlpEZpwaYaodpTX2sDn2ZyT1JZN2Bismp23wIROSavPZtINzrkab3eO2W3RJuEyaR
+         PD7Q==
+X-Forwarded-Encrypted: i=1; AL+hErG+9er72l/fs1gb/iu5G4ce+vjt/roy7EbjQyJ9aphI7DRNJj0OrxG1QW0ghtswuF6/Ojs9ePcLgVra6Q==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+SfbnXZOU6GLSuJj0pDA5AwfOt5BN9q+zc6e05tTFu8eXXFq4E
+	xPwdrvKfiVqm7/n1fSMCYE7kUpWQqkt7Z+Tj20XMKM4ea0f4toOfAY8hBpyhvDHZbf/XeCdCLt0
+	771qEEVOUtiSFzLUG6i2HbMoKCDBEXmT7a2ys5oEI4RxPC+bcPoKOpNfJSmCSV5AyLffcbEH+MD
+	fPal0jFnUOg6oC/s/DrFBh+c4JsAfVq9q0HgOGL0blGZXd8aEAStWOqnbK1mS9Q0/69SWpa+J7/
+	kqRoQD+BHlSCet/XRUR5ig=
+X-Gm-Gg: AYBFou2/HLlGgBU+mucdXY+qTiAW4aC8zGCiLwqJr7UEZk/5mm6JuKx3GH9WRsMEESR
+	ZdFdGFZMLUUnTznIzGzw+S3MwKvw20uqfjA5cHpfbocinRfjQCVGuSMOONiZgqQX/6vzdk6apwN
+	WN8dCs90hg1UzqU01mgC+wxBn51WIdvkIfAqJlRraDOg5Uofwc6UFKrPGCpgfB6UdCt5Gy2+mZ1
+	+JAhZC1P41J1lJDVPFLl8gidhS3ArmOfFshFt/WISeT4gEEbcKucUDBM07WMHG9kJzSAQt0g2mC
+	e+M04QiA5120EvEY3G6qezdc4f6BD1RgCihgQmK5qv/7UluG92dyFcwQ8S4VemsdcP+zdILCy0p
+	rdAOep2X1bAEuz+uHTQJGh+yNXyjjatlAQT46qvHNh/snA+5OIQa0gYHv16BPbU/dacsD4lk1j0
+	2SZG+2Im0nbn23BHoxSgXaaKyCgWogGhwxKnUmhsVxjjY=
+X-Received: by 2002:a17:90b:39ab:b0:3ab:33b6:2c27 with SMTP id 98e67ed59e1d1-3b1b0a0e894mr4442251a91.23.1794627003594;
+        Fri, 13 Nov 2026 19:30:03 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-121.dlp.protect.broadcom.com. [144.49.247.121])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1b1ed0b73sm3135168a91.0.2026.11.13.19.30.03
         for <linux-media@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 13 Nov 2026 19:29:56 -0800 (PST)
+        Fri, 13 Nov 2026 19:30:03 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36efb506f29so2320593eec.1
-        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 19:29:54 -0800 (PST)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-37549877380so2073411eec.0
+        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 19:30:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794626994; x=1795231794; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1794627002; x=1795231802; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yDc8YbhTZN4Lkq1WU0z5LX1Q8KhtfkMstUTQ2p2A56Y=;
-        b=Yca2aPjfk/ar034vorcRiuX4Vses2RVzsd9MStmYGj1f3Lw0vl/9aAnzySZgW8699A
-         S4nPidNpz6uzz28bEZpszlRt8kVxQwhi+lnzVa6dlEyPng1mDfziK8r4+1UIbfxObD/a
-         Lev2Dyw94NqzvllDcicApQQpDJdJip6/4qeA0=
-X-Forwarded-Encrypted: i=1; AL+hErFLCeumU/PE09gBGaLyqH/NthDNkRjdZoGT2N1g/FXfs2fCVNHDUCCJcJHZ26QxfzTXQ4TYM+eInpP5xA==@vger.kernel.org
-X-Received: by 2002:a05:7301:c02:b0:36a:50f4:ed0d with SMTP id 5a478bee46e88-37966766d98mr3676489eec.25.1794626994165;
-        Fri, 13 Nov 2026 19:29:54 -0800 (PST)
-X-Received: by 2002:a05:7301:c02:b0:36a:50f4:ed0d with SMTP id 5a478bee46e88-37966766d98mr3676459eec.25.1794626993492;
-        Fri, 13 Nov 2026 19:29:53 -0800 (PST)
+        bh=5jsTRYk7KQN7825qF1InYK8P4ki41DeOjAFowmky3OA=;
+        b=GSi9Wg/eaDTK7GTCf0xSDp4AGKt0+cDoP5VCEpOe1UrbVnJ9BvJhgjlDUCBbVS9rre
+         McQtSQ7Dol5I591z9goDc7TyztA158qkEKFGuILHVzaibwG1ecgyW1iq1ePdV205sRTg
+         wR8t6XHWvj2hpz5CpuHThRKfU6z1D/xdc/vG4=
+X-Forwarded-Encrypted: i=1; AL+hErGIVUYOy2Efu1ngv8OhfYGxDaBhUzhT1imtPhpxBZaarpqsFm77ikoClKGEoBZ8PVAPq5dkYFVB5A5tbQ==@vger.kernel.org
+X-Received: by 2002:a05:693c:26c6:b0:36a:1cbc:1093 with SMTP id 5a478bee46e88-379684b548bmr3674705eec.30.1794627001857;
+        Fri, 13 Nov 2026 19:30:01 -0800 (PST)
+X-Received: by 2002:a05:693c:26c6:b0:36a:1cbc:1093 with SMTP id 5a478bee46e88-379684b548bmr3674674eec.30.1794627001180;
+        Fri, 13 Nov 2026 19:30:01 -0800 (PST)
 Received: from [192.168.10.3] (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955f02ff0sm11295736eec.16.2026.11.13.19.29.52
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955f02ff0sm11295736eec.16.2026.11.13.19.29.58
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 19:29:52 -0800 (PST)
-Message-ID: <beae6d07-e25d-45ba-bcf0-39422feb3295@broadcom.com>
-Date: Fri, 13 Nov 2026 19:29:49 -0800
+        Fri, 13 Nov 2026 19:30:00 -0800 (PST)
+Message-ID: <68e0e1d1-37e4-44c5-9830-dcfcbacde762@broadcom.com>
+Date: Fri, 13 Nov 2026 19:29:58 -0800
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -107,8 +107,8 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/11] platform/raspberrypi: vchiq-mmal: Use vc-sm-cma
- to support zero copy
+Subject: Re: [PATCH v5 05/11] platform/raspberrypi: vchiq-mmal: Support
+ sending data to MMAL ports
 To: Jai Luthra <jai.luthra@ideasonboard.com>, Stefan Wahren
  <wahrenst@gmx.net>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
  Phil Elwell <phil@raspberrypi.com>,
@@ -121,7 +121,7 @@ Cc: Martin Wetterwald <martin@wetterwald.eu>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-rpi-kernel@lists.infradead.org, linux-media@vger.kernel.org
 References: <20261112-b4-vc-sm-cma-v5-0-d25e3b687e71@ideasonboard.com>
- <20261112-b4-vc-sm-cma-v5-4-d25e3b687e71@ideasonboard.com>
+ <20261112-b4-vc-sm-cma-v5-5-d25e3b687e71@ideasonboard.com>
 Content-Language: en-US
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
@@ -156,7 +156,7 @@ Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
  7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
  95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261112-b4-vc-sm-cma-v5-4-d25e3b687e71@ideasonboard.com>
+In-Reply-To: <20261112-b4-vc-sm-cma-v5-5-d25e3b687e71@ideasonboard.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
@@ -166,8 +166,9 @@ X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 On 11/12/2026 3:18 AM, Jai Luthra wrote:
 > From: Dave Stevenson <dave.stevenson@raspberrypi.com>
 > 
-> With the vc-sm-cma driver we can support zero copy of buffers between
-> the kernel and VPU. Add this support to mmal-vchiq.
+> Add the ability to send data to ports. This only supports
+> zero copy mode as the required bulk transfer setup calls
+> are not done.
 > 
 > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
