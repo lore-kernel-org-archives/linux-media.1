@@ -1,47 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=93.185.108.244
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794648166;
-	b=YYbKXWWh3lXRGH2PWIenAQ0IOShb0KZJtEPLR189NVaWP/CsteUQxkOcy9Lz6aCQXRsy
-	 Q4+//zCu3PtM7kbtmtWzoAt+/iDGZa0MpWb+o4dHD3zlPyDuiu0We1qenrT09QStOpseL
-	 Ttezd0qZTtrEaa8h03pUW8FKR7erDOWp3+PhBFePynALHa+44u4AwbZRgpXHV12Xs4ZRQ
-	 6QJLBT/HuhP4H9/m5GTT0fp8OeOwM4p1UxalfauoQIjImq4H4d95JSo1MwpWbc2f6bel4
-	 zEOPN4FSOoK3a0dJUv4kf5gqng2xkuNlYrIEPS16oAy41YTt7ZD1a8cXJHqk3WyHs0w==
+	t=1794649774;
+	b=QHpMIYy9nc80i4U2VSJS5qgzi5eWhqUXawbap0EPWEtZHC8fcDCTbHXpc+33cxiL5A5p
+	 hWsoC8aasEIGN38eDTQ5W4GRkzLyu8S8mOzgkFYhfZPVTfxllbV52/TcbprC8xsusgV4y
+	 XWbKN5MrtdNj8J3FPG8fowyczSg9ewqflK/2aneaVBv8tmhgiLUH/KtPzRHdELaj2mFqk
+	 KUAveqUT1K8WOdKqwKoSXTQoQCTHA6OU5xtYErp1DjDzWZ0bk7LDkcuDdftFnnMKGiDcj
+	 oEYSsTfjd9S5S1zd0ChtdgOvjEWvE8xoGptDzlTKMuFIkOWLu5/Z0mauIj3WpEd1ibw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794648166;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=mhgwU6KGKAB5eJqw93LjEwh3/oUgQTitmGjKntJY39E=;
-	b=QRVPTsuyXHCX1Gq8hcQCYjSjtTU+FAmtjWOtltoTYOjzihq01UEzyXen4ANjMIRXwytY
-	 7bcaVwj+4CxU8+VknJKmp4Wc72wh1mg4Znr6oRIUkSIVB4Z72bkcYgoS5HlOs/nN7BPl7
-	 Kg00iD8qiJhnJsKaoazy90SEMT8m0YUnoAeMws2GZytqPa+srVcMbvxOopmYKLil4M7hh
-	 c4VbBFV1CKvpHb8z/xudQoQLDQck4pSfx1VeaaRUHC3CDNhNTIKm9llm9RPeXCNsAiyFT
-	 zivDJROul7Fl+Fgsov+oKLit3f7YfM9/7PQJ21/EOxjw/Ye2el6JiUowr5Fujh1CdCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794649774;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=6cMIZCL6HzXSweix3po3JyC6KVNiZfxbg4RWm8m485o=;
+	b=D2OeeBALOz+Ni2LkqqNvV811NpwFcHg3CThxeC6I+Ua26Ls74H7iqWY07Maf7iBZIdMI
+	 I7fyxu3z0c9LjNf19QYaBY27h9FZtNvM+vAZVH4u1R2OJ7Db6cZjrAZZnW9xAP3U1Nvs6
+	 XLV/DdrM7qu2DFRssu7FqP8WrLnWAyMgAGIUaD7aPuyS0ImCNu9ZOrPnpMD+0GmA+v6Cn
+	 5C51ox+GRRtANsl+gTjhJRDtrVPdgq/pEigumTZfbSJksMtbS+b9otbPLlfa+UgC20Qsc
+	 Q0nBcJMemSjFfxigI/28GpS7CT5OusHPLin5DWcLNFy1edBl9Fcdj5md5Z1mwPfqREg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nrG/RqjO";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=puresig.cz;
+	spf=pass smtp.mailfrom=puresig.cz;
+	arc=none smtp.remote-ip=93.185.108.244
+Received: from mail.serverx.eu (mail.serverx.eu [93.185.108.244])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C144606A323;
-	Sat, 14 Nov 2026 09:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nrG/RqjO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 810A21F000C6;
-	Sat, 14 Nov 2026 09:22:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794648166;
-	bh=mhgwU6KGKAB5eJqw93LjEwh3/oUgQTitmGjKntJY39E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nrG/RqjOyQmTzJYpZalADLBfqXqb2WpNDIuol9x2PUbhMEEzW93rCWEWy9Tz18bMs
-	 dluvdPkteg6mM8d3Iu4xxC8E6Jjej3549TPwBgaiL7KsbJ0nfM1fIRYjVYJBT2xTFX
-	 x5CmB0ABhFoR6KOAYWW31YzGnbpthzcQTEysqwXqFo2NKllYQJGpi+LAEu1QzF3KKs
-	 eXv0KgnX/ruftIwLmpTdwDjCN7QfImzUmZ4QTHdhcrnliWHz7f3FY/BqlAJPV3ORUg
-	 fePOu2zvsOsg4DHYz9lSzMF6LTVna0ycXrcVSuD+uOX7MV2+UclKKVf3EiRbVclRzk
-	 PsKnQAreUSTaw==
-Message-ID: <ceb7b479-080f-4210-a1f2-be3e273779e5@kernel.org>
-Date: Sat, 14 Nov 2026 10:22:36 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD7E606A323;
+	Sat, 14 Nov 2026 09:49:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CD7E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puresig.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=puresig.cz
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D6EF214924;
+	Sat, 14 Nov 2026 10:49:25 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=puresig.cz; s=dkim;
+	t=1794649768; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=6cMIZCL6HzXSweix3po3JyC6KVNiZfxbg4RWm8m485o=;
+	b=GSbEaquVC3aJqsg4LFeeZ5sDxn04I2yM8yh9QmdUg5l4EMXDJnOUD+dfrtvKNuhHvNCLCH
+	C43KwX2wrjnrErJRoYW0TzYl2c1nVD2zJU7rzmWWnck/3umFBVeSiDq/rrWrivgxi/w9Wo
+	fk48DsK7w/NmQ2GIthF9y1tOaaTDQAX0qOC5+HQq+DjTk0d+6ah2+imtZ2hTEC7LKB9ggt
+	oLyczpui5mOzU0O+/P1R4UpK9smnaswwwhgGZqlyWta2Laj5EXCasiy1oxIRxIstKr4hhu
+	qXI08RZh/OmVupIHVBxfXmDT7QqKmoCBFBUBBdrwg73jgLLsOok5r/7/pY7hDw==
+From: Lukas Splavec <lukas.splavec@puresig.cz>
+To: detlev.casanova@collabora.com,
+	ezequiel@vanguardiasur.com.ar,
+	mchehab@kernel.org
+Cc: heiko@sntech.de,
+	linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Lukas Splavec <lukas.splavec@puresig.cz>
+Subject: [PATCH] media: rkvdec: Use dma_map_resource() to map RCB SRAM buffers
+Date: Sat, 14 Nov 2026 09:49:16 +0000
+Message-ID: <20261114094916.28744-1-lukas.splavec@puresig.cz>
+X-Mailer: git-send-email 2.51.2
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,91 +63,127 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 09/10] ARM: tegra: Remove fallback compatible from
- Tegra30 VI node
-To: Svyatoslav Ryhel <clamor95@gmail.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Cong Nguyen <congnt264@gmail.com>, Faisal Mukhtar
- <mukhtarfaisal03@gmail.com>, Dan Carpenter <error27@gmail.com>,
- Hungyu Lin <dennylin0707@gmail.com>, Hao-Qun Huang
- <alvinhuang0603@gmail.com>, Yury Norov <ynorov@nvidia.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: linux-media@vger.kernel.org, linux-tegra@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-References: <20261113161819.36847-1-clamor95@gmail.com>
- <20261113161819.36847-10-clamor95@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261113161819.36847-10-clamor95@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 13/11/2026 17:18, Svyatoslav Ryhel wrote:
-> Tegra30 now has its own specific compatible string for the VI. Remove the
-> Tegra20 fallback, as it may interfere with the correct configuration of
-> the device.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+rkvdec_allocate_rcb() uses the CPU virtual address of the SRAM buffer
+as the decoder's IOVA and writes it into the IOMMU page table directly
+with iommu_map(), bypassing the DMA API. Only the low 32 bits of that
+address are used, which falls inside the IOVA range managed by the
+allocator. The IOVA allocator does not know about this range and
+considers it free. Under load it hands out the same IOVA to another
+buffer, e.g. a capture buffer, whose mapping then fails:
 
+  [   66.930512] iova: 0x0000000082100000 already mapped to 0x00000000ff001000 cannot remap to phys: 0x0000000168231000 prot: 0x3
+  [   66.930674] rkvdec fdc38100.video-codec: dma alloc of size 16588800 failed
 
-DTS cannot be combined in this patchset and must be split. Don't mix
-patches from independent subsystems when you send something explicitly
-targeting only one subsystem (staging, USB).
-See also: Documentation/devicetree/bindings/submitting-patches.rst
+and decoding cannot start.
 
-Best regards,
-Krzysztof
+Map the SRAM buffer with dma_map_resource() instead, so the IOVA is
+allocated by the IOVA allocator and the mapping is created by the DMA
+API, and release it with dma_unmap_resource(). Without an IOMMU,
+dma_map_resource() returns the physical address, so the separate
+no-IOMMU path is no longer needed.
+
+Fixes: e5640dbb991c ("media: rkvdec: Add RCB and SRAM support")
+Signed-off-by: Lukas Splavec <lukas.splavec@puresig.cz>
+---
+Tested on a Giada D77 (RK3588) with GStreamer 1.28 (v4l2slh264dec/
+v4l2slh265dec, H.264 and HEVC up to 4K) using a rolling load of 4
+pipelines where each new set starts before the previous one is stopped:
+
+  kernel                 rounds   already mapped   dma alloc failed   faults
+  v7.1                   150/150  163              93                 0
+  v7.1 + this patch      150/150  0                0                  0
+  v7.1-rc1 + rkvdec
+   multicore v2 + fix    150/150  7                7                  0
+  ... + this patch       150/150  0                0                  0
+
+dma:dma_map_phys tracing confirms the RCB buffers stay in SRAM
+(phys 0xff00xxxx) with IOVAs handed out by dma-iommu; on the
+single-core path every map is matched by an unmap (767/767 over 60
+rounds). With the IOMMU disabled in DT, dma_map_resource() returns the
+SRAM physical address and decoding works. Also tested: SIGKILL
+teardown, 6/8/12 concurrent streams, forced dma_map_resource()
+failures (RAM fallback), WebKit page reloads with a corrupted stream
+(IOMMU restore path), and a 600-round soak on the multicore series.
+
+Tested on v7.1; applies cleanly to media-committers next.
+
+ .../platform/rockchip/rkvdec/rkvdec-rcb.c     | 30 ++++++++-----------
+ 1 file changed, 12 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-rcb.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-rcb.c
+index fdcf1f1773..3492b78cc6 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec-rcb.c
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-rcb.c
+@@ -9,7 +9,7 @@
+ #include "rkvdec.h"
+ #include "rkvdec-rcb.h"
+ 
+-#include <linux/iommu.h>
++#include <linux/dma-mapping.h>
+ #include <linux/genalloc.h>
+ #include <linux/sizes.h>
+ #include <linux/types.h>
+@@ -44,7 +44,6 @@ void rkvdec_free_rcb(struct rkvdec_ctx *ctx)
+ {
+ 	struct rkvdec_dev *dev = ctx->dev;
+ 	struct rkvdec_rcb_config *cfg = ctx->rcb_config;
+-	unsigned long virt_addr;
+ 	int i;
+ 
+ 	if (!cfg)
+@@ -58,11 +57,10 @@ void rkvdec_free_rcb(struct rkvdec_ctx *ctx)
+ 
+ 		switch (cfg->rcb_bufs[i].type) {
+ 		case RKVDEC_ALLOC_SRAM:
+-			virt_addr = (unsigned long)cfg->rcb_bufs[i].cpu;
+-
+-			if (dev->iommu_domain)
+-				iommu_unmap(dev->iommu_domain, virt_addr, rcb_size);
+-			gen_pool_free(dev->sram_pool, virt_addr, rcb_size);
++			dma_unmap_resource(dev->dev, cfg->rcb_bufs[i].dma, rcb_size,
++					   DMA_BIDIRECTIONAL, 0);
++			gen_pool_free(dev->sram_pool,
++				      (unsigned long)cfg->rcb_bufs[i].cpu, rcb_size);
+ 			break;
+ 		case RKVDEC_ALLOC_DMA:
+ 			dma_free_coherent(dev->dev,
+@@ -125,14 +123,14 @@ int rkvdec_allocate_rcb(struct rkvdec_ctx *ctx,
+ 							SZ_4K);
+ 		}
+ 
+-		/* If an IOMMU is used, map the SRAM address through it */
+-		if (cpu && rkvdec->iommu_domain) {
+-			unsigned long virt_addr = (unsigned long)cpu;
++		/* Map the SRAM through the DMA API so the IOVA is properly allocated */
++		if (cpu) {
+ 			phys_addr_t phys_addr = dma;
++			dma_addr_t iova;
+ 
+-			ret = iommu_map(rkvdec->iommu_domain, virt_addr, phys_addr,
+-					rcb_size, IOMMU_READ | IOMMU_WRITE, 0);
+-			if (ret) {
++			iova = dma_map_resource(ctx->dev->dev, phys_addr, rcb_size,
++						DMA_BIDIRECTIONAL, 0);
++			if (dma_mapping_error(ctx->dev->dev, iova)) {
+ 				gen_pool_free(ctx->dev->sram_pool,
+ 					      (unsigned long)cpu,
+ 					      rcb_size);
+@@ -140,11 +138,7 @@ int rkvdec_allocate_rcb(struct rkvdec_ctx *ctx,
+ 				goto ram_fallback;
+ 			}
+ 
+-			/*
+-			 * The registers will be configured with the virtual
+-			 * address so that it goes through the IOMMU
+-			 */
+-			dma = virt_addr;
++			dma = iova;
+ 		}
+ 
+ ram_fallback:
+-- 
+2.51.2
+
