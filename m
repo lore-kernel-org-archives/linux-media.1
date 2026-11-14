@@ -1,101 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.224.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794662681;
-	b=AFrNFxyd3WvXWY/kmHOWshhSW4r/AwmOXrSGS7u+WCQIeLhIFzjP2IsR+r9zZaZIkW0g
-	 bUPjZI2GRbY1Zbbi7yG/hbGXrQssv2PXtOmVxDMxtCj3LDspXmIMZo5wKPWQLdEgUPinJ
-	 IJMvalDesCQu98/aa0MQBx8yuE7Qm8+dJo/0zYxcT0puakunqCrAENru58dtoBFeMk2Jc
-	 nDHbgLalUF5W7IlroxqdGQGGBo6SxexqTWWxaNy17VFHSRlOYfvK2xp7ylSiFS50bbAx2
-	 3+kvBgGC3nv/ec2ZY8CoyOzys5vxXM077ojITeBxarB50vHqnEj7I5yCX838aDPuU8w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794662681;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=WLe7v6XZja1RIFGbZJNa5YyEJADDimNLeCELW2k4fmw=;
-	b=EhkLxQdztXL+r+VXdI5KQr4OtxL+E4LYRiap+mKDibd1lbQJrxJC4vBLcln4YW2Wb3Sv
-	 20euh8jrEz6NtwSSglqQv3dZQ6xl+ywT9bslIeKgT2E8L5GLUu9qV/gHQMTwOaraHmo2O
-	 Ct4eDkgynjoImE2YycxvYqKhD/s0Zfaxflf/R7F9P1wasv1qHsc3wAFYlfQkP/JcUEGcp
-	 5Mfcbo5soej3KxUzKCfdFKgF8yuXXA9a5gO6bPRK403Zt+CHdu9GgTvtWVRwiL45EyXnU
-	 QMT1+PncWywoDpaRg94jwQBueRhxleYqtYiDAz9bhTeVQnMLVAVH5hH50MckLwrmtHw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jphein.com;
-	spf=pass smtp.mailfrom=jphein.com;
-	dkim=pass header.d=jphein.com header.i=@jphein.com header.a=rsa-sha256 header.s=google header.b=v4RiwmpG;
-	arc=fail smtp.remote-ip=74.125.224.54
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794664802;
+	b=OkF7wqUXcbHIo8Hm8xSyPUrjzn9F7J1nCl+zroQTnD153HsiDcFCqqiDwOpE6QlHvS61
+	 vzaMeHNN+hJXTrKskNwGzR1cJM1mTb1P5sT/1k35tFbuWce9ytCJpA2tT3vYSg6hYfRyt
+	 IIzEhgmoDtU7FqFdKE6o2XfvhMownpUZPwf67z5x8dt3moaFY3BeJB5r2OgEHs0nFbf1w
+	 nUsIbkkm/+6Ttu6jrUcQMEEZDjZVC0GPo5/XCF2FnnkJTifXxEz1elzv69bB5wDH7tNtQ
+	 NBVQe3LZAtfgV9ABudIOplcY97EsKqxOOyFvPxZnZUwDCgjQTzYAntmuuEnkqMAZZzQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794664802;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 Feedback-ID:X-Infomaniak-Routing;
+	bh=EDBgPC6ITb9J3xFq1ovAYMVyfTW39nSEsNOx9gLCCDg=;
+	b=XpQdCWDfgptsEedguN/wY4Tq2nRmGi+C47oTZMvjHEz4Kd1A0/4nglw1DpZjA8bDUlk8
+	 fphL5JKep7arHpivlDLJAAk0NXm75juz+hikoEaXHw7irW9xsQwgWB2XvM9rwcW491X03
+	 cubpQhesYokl9zhjDh7WzQ1t+781DnmUgg380NlhlwEn+fO/yxcanPeFobGKi1yIYpilT
+	 H0qUaWRaG/TlrHOgCD4ZfhHNKaKxQgf+ASw0jVHD214/zoQJUAjHhJ7e/WA9SNppfg5dd
+	 +9HQMqR2mehDD4vT0rxhzMKBKpWQTsbzvMYBStXkyzVqMicqB1vGgFx2b8tK16hhNqw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ik.me;
+	spf=pass smtp.mailfrom=ik.me;
+	dkim=pass header.d=ik.me header.i=@ik.me header.a=rsa-sha256 header.s=20200325 header.b="fH5rKRN/";
+	arc=none smtp.remote-ip=83.166.143.172
+Received: from smtp-8fac.mail.infomaniak.ch (smtp-8fac.mail.infomaniak.ch [83.166.143.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31BEC606A33E
-	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 13:24:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31BEC606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=jphein.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jphein.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27AB606A329
+	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 13:59:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C27AB606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ik.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ik.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jphein.com header.i=@jphein.com header.a=rsa-sha256 header.s=google header.b=v4RiwmpG
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-67da62357acso137343d50.0
-        for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 05:24:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794662680; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FbjIYL7nvLRVQIRSjemN7T7efovhORD26/d8tv8gDmZABMLIuSloePjCvM4on1BD0i
-         GL+cJT/CHHDsG6qLynX0J0M8FfBO9iZFj1I11cuKwRt2QEfungIs3giOQdXPOVK7kxLJ
-         RTTBJn048ybSVs7OEPO9SyGdvW1xzo9WVdNQgFDuo64Ai8KPv0cnoxbxh55pb80mP/ZE
-         yNEPPxCAalhn+tntmSRtA51yOdDa7JUijWGOJ9Fe3WZCYqMYGJ5OcUIsGUSWUhkvz9n+
-         +/Jp1D55dmDo3vIgFMu5fmKNh4gQntsYouyibpPoP1rWLHO9E9bnrlPXCCPF0rFNX4r8
-         JSfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=WLe7v6XZja1RIFGbZJNa5YyEJADDimNLeCELW2k4fmw=;
-        fh=VBmlpSlkSorVgOSXPAv76dA6ng3eqQMmKaNOkdRX16M=;
-        b=Msk0DSEkwytxRgIXWbzMb9UjlthxD3FU+ejwE0w1MHQjyqNfmnI9z/NhRpwzMgZPO5
-         YTAJcZJcM9274BnwtQS293fVbCTWEx3ohNUbdUpjW1HibtShbbTyyT66Iogf4rTl4j5t
-         tM3EUWCJVjPXtkF3aVEuuVgyoH5zAstCkwv+ahemfoufTOodm6qsuESfnAqpdNIE2jCr
-         jM6Awv8X+XyJdTOKdGhRb4fr+Crh1uJSM3OalIaaKO8r3kUvik20l6yo1QM9OteErbCe
-         EtdrCTQoMwB+Ng+MYyXypXz21/AgQ4EHdjIobAhLZM7qOmYcstMckqSaTmQvAI5K8dTP
-         7Y9Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jphein.com; s=google; t=1794662680; x=1795267480; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WLe7v6XZja1RIFGbZJNa5YyEJADDimNLeCELW2k4fmw=;
-        b=v4RiwmpGAgGaxDeI+koomOaV2NvKwnf+jQZeO0AM7sHZTKmOrhpP5koLY0KRR3zOX2
-         ZxuKvT5+yukW5vAQxAdJpOJf7PTHSWYrdjNn/gRABKy5z9QLXae2TESMOxMM/b4P7pTa
-         pHCu4Vx80w3ddVg3Ez6CdCgYuRBsQ1ABXMv6C+GtiwuXGcArbiDki68gkW3ZocMSJVpT
-         DJ1lRTs7DJgM133zkRqLwfiH2EmEi6S29wdUlRM91NAbH5KFo0x6xJIqg8K+kqsvUsJ1
-         QT3TfHeQagyheOSvN+YU0NKFHqPSW+YRLiXLnd49c2niOE7lixmxI9pUNLbv7zljKFaT
-         geqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794662680; x=1795267480;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WLe7v6XZja1RIFGbZJNa5YyEJADDimNLeCELW2k4fmw=;
-        b=0lU0DRgxpQILN6nWK/G/1gYUqMO/VFtfpxDhahVQYghoKT370NloX6zhvtA1hvR1Xo
-         sY2s2afx4ABzQ4EDEub9Vdgw7P9gbZyJ6vQXA31UQ2oNg+HfhtfCV4KoNDD5et4no8Pe
-         V4ZZFu9n9o3I9j3l0XIylWlCvOYUSAAyplVzWhh9SfeKYXbdoJ44rfHKt5X6ILJhh68g
-         B/5MtrzJKig+EMN+pHcRoBFVAkZilXr2IFHQyCO18cnD1O4fJtIQiu4ttNan+pLBNETu
-         f8Q2GowiHrmDx6KdwpbFAYKNS1NyD6BSn5Wtp3FpiZaETAfu1d+4X/5VcobTDLs5b+26
-         l/1Q==
-X-Forwarded-Encrypted: i=1; AL+hErFszh8po+yxIXt0R3zPNVOH1Uk+MLbQeBnfOEW2wfIEMFBMm/SBVt1zZZKzRgbWAaARSc9VJM70bub0Qg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+A+eU4ag9aNgGFuuwSCGMngK+p5L+EuVUINWbl4ZEg6V6+3SsS
-	7ZMeYhn8+sSVnVahKEkrXJP5ECtJlpPZcdaRAkZAMmLwaS8+P/pVbuiK2DlA7GHOGmxTRvpJuLh
-	kCKuD9RpeKpp/RgvDDVxDLCjoSPaE96H24/4zDd7x
-X-Gm-Gg: AYBFou0+IYOQqVg2ldjBv7PJm7h16cTsbwuuOCPw+XsBjnX1VUz/VHRUp3yoQ51kQR8
-	quBS2KdN8avixwMcnc6K/kZW1jhlfxBDj/ul4/1/be6SW0nNHCiaC6zZYuUVP4BeujZBa2vFZOE
-	a8tCEjDtr/txKU5jPDkbZ30gY46GYVZ0ZP5pdKML6Auqqza3CqhIQkxga37nxJs/feFTZoKcWkc
-	arSOdMQnX0EWLDAlZHT8ZAd1S7Lt/hjJsIUP7RxngHy/413YYajRqHhu3jtOOQ9l0S8dkaif65F
-	To2gGUhRHOdnQUO3O2+DAJo6PXUUp47Cq1RAtOvVoalnPBC3PwmjeCdom5lZO1MhEk/VBAiEE1S
-	p2oxJtSa6h6OBG/VRoAGAWcIsucKxdrtjokAn8lbCinPOrhNhv0ZI9WfLVQltWCMvVgR1HgxPwg
-	7go4d0cNbsAdkQGDldNFyaeKKn12A8C+pxWHa0nYBNqrESGZqPyNYEsRTumJF0AOk4yrB5PP7q0
-	OlGMgA/8bxmUu/+KcSvype7ekpvVfaKEjJu9EZNMzpQh5av4Cnoak4lVQ==
-X-Received: by 2002:a05:690e:21c3:b0:67b:e603:55d with SMTP id
- 956f58d0204a3-67d89776a8cmr2571802d50.105.1794662680101; Sat, 14 Nov 2026
- 05:24:40 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=ik.me header.i=@ik.me header.a=rsa-sha256 header.s=20200325 header.b=fH5rKRN/
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jRbNS2jcLzSdc;
+	Sat, 14 Nov 2026 14:59:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ik.me; s=20200325;
+	t=1794664792; bh=EDBgPC6ITb9J3xFq1ovAYMVyfTW39nSEsNOx9gLCCDg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=fH5rKRN/77oBAsGNmm8YIFASYv4WCFB2Ik9PzuMiJ42TV+UCKcCcqlESQj8mkUd79
+	 f0Z0vtSzklOH6OD7uEtGBgE6QP+z3rwxQKZxxOBIgYeMwoTSzHwfjEk6r8+6dblaIU
+	 di9xpnCod+YuFBdPCfGEPNfxbDTWlnDFbCcJJMro=
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jRbNR2pNCzSZ3;
+	Sat, 14 Nov 2026 14:59:51 +0100 (CET)
+From: Selim Awn <selimawn@ik.me>
+To: yunfei.dong@mediatek.com, tiffany.lin@mediatek.com,
+ andrew-ct.chen@mediatek.com
+Cc: angelogioacchino.delregno@collabora.com, matthias.bgg@gmail.com,
+ linux-mediatek@lists.infradead.org, linux-media@vger.kernel.org
+Subject: MT8189 SCP firmware: single-core HEVC INIT clears 256 KiB past
+ h265_dec_srv_param and crashes the SCP
+Date: Sat, 14 Nov 2026 14:59:51 +0100
+Message-ID: <179466479105.70915.3582435008101380821@ik.me>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,82 +64,75 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260331003806.212565-1-jp@jphein.com> <20260427083553.36ff4731.michal.pecio@gmail.com>
- <20260826134501.1726230-1-jp@jphein.com>
-In-Reply-To: <20260826134501.1726230-1-jp@jphein.com>
-From: Jeffrey Hein <jp@jphein.com>
-Date: Sat, 14 Nov 2026 05:24:29 -0800
-X-Gm-Features: AclHuK86g1Y20tWGjPrsr-EGZ1lGzYtRDw7NYfMWWwCGCBO9N72I6wF1yiK0mF0
-Message-ID: <CAD5VvzC3ySh=fgdPsuftQt_C3kf8Ww5TYGbWTmx5E4S3FmaSbg@mail.gmail.com>
-Subject: Re: [PATCH v5 2/3] media: uvcvideo: add UVC_QUIRK_CTRL_THROTTLE for
- fragile firmware
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Mathias Nyman <mathias.nyman@linux.intel.com>, Ricardo Ribalda <ribalda@chromium.org>, 
-	Alan Stern <stern@rowland.harvard.edu>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org, 
-	linux-usb@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Feedback-ID: :b7a7c7c8b482037:ham:b366ec3b20c1372
+X-Infomaniak-Routing: alpha
 
-Hi Michal, all,
+Hi,
 
-A retraction of one claim in my 08-26 mail, a status, and a proposal for
-the series, so the thread does not carry a wrong report.
+On MT8189 (ASUS Chromebook "Tarkin"), opening a stateless HEVC decoder
+crashes the SCP every time. I believe this is a bug in the SCP
+firmware.
 
---- 1. Retracting "NO_LPM quirk not applied on 7.x" -- it was my own
-parameter ---
+Setup:
+- Kernel: chromeos-6.6 based, 6.6.147, mtk-vcodec-dec stateless,
+mtk_vdec_single_core_pdata (MTK_VDEC_PURE_SINGLE_CORE)
+- Firmware: linux-firmware mediatek/mt8189/scp.img, "9a0dfa3 Aug 4
+2025", sha256
+7b1d56bfe34db620be411e72a56b5bdc981e88fce5664b73a5d270ae9d821f23
+- The ChromeOS SCP image "e3c0782 Jan 30 2026" has the same code and
+constants, so it should be affected too (checked by disassembly only)
 
-There is no usb-core regression. I had booted with usbcore.quirks=1532:0e05:k
-since 6.17, when the entry was not in-tree. usb_detect_quirks() XORs the
-dynamic list against the static table, and kernel-parameters.txt says so
-("each letter will change the built-in quirk; setting it if it is clear and
-clearing it if it is set"). On 7.0, where patch 1 is built in, the same
-parameter clears it: 0x400 ^ 0x400 = 0, and the device shows quirks = 0x10
-(the RESET bit my udev rule sets) with U1 enabled -- exactly what I
-reported as a regression. A second Kiyo Pro on a second machine (7.0.0-38,
-no parameter) reads quirks = 0x400 and has no usb3_hardware_lpm_* attributes
-at all. Dropping the parameter fixes it. Sorry for the noise; there will be
-no bisect and no separate linux-usb report.
+Symptom: the AP_IPIMSG_DEC_INIT (0xA000) for 'S265' on IPI 14 is never
+acked. "SCP watchdog timeout! 0x0" fires within milliseconds, then
+"scp ipi 14 ack time out" appears and remoteproc reloads scp.img.
 
-Small correction to the same paragraph: I wrote "no 0x100". USB_QUIRK_NO_LPM
-is BIT(10) = 0x400; 0x100 is DEVICE_QUALIFIER. The conclusion stood, the bit
-was wrong.
+Cause, from the firmware's symbols/DWARF (vdec_h265_sig_srv.c,
+vdec_com_h265.c, vdec_h265_psr.c):
+- h265_dec_srv_param is at 0x73d6b8, size 0x221398, ending at
+0x95ea50.
+- INIT places the instance at offset 0xfc30 (0x74d2e8).
+h265_init_instance_ctx() puts three areas after it, back to back: the
+instance (0x2558), buf1 at 0x74f840 (0x20f210, ending exactly at
+0x95ea50) and buf2 at 0x95ea80.
+- vdec_h265_init_rom() then does memset(buf2, 0, 0x3fff0), up to
+0x99ea70. This clears hw_param, hal_param, default_frame_context_bin,
+dcq/acq_lookup, h264_dec_param, h264_comhal_bsops, venc_vsi,
+venc_drv_inst, venc_h264_func, the venc RC/reference tables, and then
+runs past __dram_end (0x98b000).
+- In short, the object is 0x40000 bytes too small for its own layout.
 
-Consequence for my data: from the 26.04 upgrade (Aug) until now, every 7.x
-data point I sent had U1 active at the usb-core level, with the driver-level
-usb_disable_lpm() stopgap covering from probe onward from 08-25.
+How I verified it (read-only on the firmware side):
+1. Set remoteproc recovery to disabled.
+2. Sent one HEVC INIT.
+3. After the crash, read the SCP DRAM (phys 0x50000000 =3D SCP 0x700000)
+through /dev/mem.
+4. Set recovery back to enabled.
+Result: the buf2 pointer was 0x95ea80, and default_frame_context_bin,
+dcq_lookup, h264_comhal_bsops and venc_h264_func were all zero (they
+were non-zero before).
 
---- 2. Status since 08-26 ---
+To reproduce: on an unpatched kernel, open an HEVC_SLICE context on
+the decoder node, e.g. ffmpeg -hwaccel vaapi with libva-v4l2_request
+on any HEVC clip.
 
-- With LPM off at the driver level (08-25 on) and, since 10-31, refused at
-  the hub-port level too (usb3_lpm_permit = 0 on every port), the host still
-  died: five HC deaths on 2026-09-24 alone, same two-phase signature
-  (SET_INTERFACE hang -> COMMIT hang -> evaluate-context timeout -> command
-  ring abort fails -> HC died). So LPM changes the frequency, not the
-  mechanism; the lock is in the device's reconfiguration path.
-- What has kept calls working in practice is never stopping the stream: an
-  always-on OBS instance holds the camera open and applications read a
-  v4l2loopback virtual camera, so stream stop/reconfigure never reaches the
-  firmware. One stall under that setup was absorbed by a hub VBUS cycle with
-  no visible interruption.
-- The two cameras now sit on two hosts (Intel Cannon Lake 00:14.0 on the
-  desktop; a Titan Ridge Thunderbolt xHCI on a laptop) with the same stack
-  on both, so a remaining desktop-only failure isolates the host.
+Kernel side: vdec_hevc_req_multi_if only implements LAT + core, and
+its decode() rejects MTK_VDEC_PURE_SINGLE_CORE, in chromeos-6.6 and in
+mainline. The format is still offered because the firmware sets
+MTK_VDEC_FORMAT_HEVC_FRAME (dec_capability 0xc1520). Locally I now
+skip HEVC_SLICE on pure single core and return -EOPNOTSUPP in
+vdec_hevc_slice_init() before any IPI is sent. I can post that if it
+is useful.
 
---- 3. The series ---
+Questions:
+1. Can you confirm the overrun and fix the firmware (grow
+h265_dec_srv_param or move buf2)?
+2. Is single-core HEVC (vdec_h265_sig_srv) meant to be supported on
+MT8189? If so, is a kernel single-core backend planned, or what
+VSI/IPI flow should it follow? If not, should the firmware stop
+setting the HEVC capability bit?
+3. Can you confirm that the MT8189 SCP firmware has no AV1 decoder?
+vdec_msg_handler only dispatches VP9F/S265/S264, and the AV1
+capability bit (0x800) is not set.
 
-Given the above I do not think CTRL_THROTTLE (v8 2/3) is the right layer and
-I would rather withdraw it than leave it pending: the failure is
-sequence-dependent, not rate-dependent, and a control-path throttle cannot
-address a hung COMMIT. Unless you or Laurent see value in the device-table
-entry on its own (DISABLE_AUTOSUSPEND | NO_RESET_RESUME), please consider
-v8 2/3 withdrawn.
-
-Still open from my side: the A/B on your xhci-test patch. Is there a 7.x
-rebase, or should I run the 6.17 pair with the version skew? Either way I
-can now run it on two controllers.
-
-Captures, tooling and the self-check that would have caught the parameter:
-https://github.com/jphein/kiyo-xhci-fix
-
-JP
+Thanks,
+Selim
