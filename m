@@ -1,111 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794625769;
-	b=qhLKdduAKnWYFBIr3nROwnhBhJL7mGwJbB/qpLXOk9Nj3QoZpotJ6sLOEGp9Mv07WfhN
-	 XcA40ss6jtU/oot22dCf2WTK+waFI2ZxnfDL6LSMti3bpWjWxn7aFryx7yqoeBoFSTk6L
-	 rdalE1cUkJMdnM+gtkje9jaqni2Wd5SL7y1FBmRyb8iQ+NHKpfmtJckCtrih7bzncBPfA
-	 CHMVWUyuQ2mzPQBwJXoDnDD2ZOiF0DpOLCxr8RGWRBe+dDcSr89orAW52K4aflCrc/XRt
-	 MU+9C6sOaOAjXu2tgxyF4r2v6ZVgdKjcMtPyGr5B//v36HChVB+3z/lNZVKR1K3IpNQ==
+	t=1794626759;
+	b=I0lscLrp68Mxj2fGY5Yp/191ly/aSkVMG33xWARPba6jZv0nh0atz21p9rDCQAHcohZ2
+	 sGNv/a8J8RuRSTj2etqZNZT6UDrNjdARbDdQ7NnJ5IkyEa/WeMg8Ky0Ky+9KiEsUudTwy
+	 zYnMYP9GfU43MGck9Z82OLdwlE5frR5e3gjs0+CYY2JSoPL31Qi/r9vs1RkplR45H/xcb
+	 q5+idEqi3zu7IRfOd+TG1nare9JmBjQtxsAjT0CaxQObcaTynS8hkAXJ90uRJolCGA8ap
+	 a/1X3vHXI33mhPoXBAbZ4bRjXff38mQV/c/pqijVa8b42Y/kGAWZI5r+l5m/zxh+IXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794625769;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=ovOu2UP++2nSHdhlpPmqnhrYxMyicygp65UamHq1Lco=;
-	b=qGS/DPinxCNbSqYUbeGlAi6kr0e4O2YSXsKkZ1oAVFESgoN1DMou8cppObW634/mDX7X
-	 O2yMK0Y4DIZZ40bQDO9HoPuqwk8zs6NfBFFPzKIQyObG80a0cWVjcLiAlJFFMk5Oxo4GG
-	 oryCfugGY/NCE65vjQl6sJdMgWTTW3bA0RtMjqPWjGiHEqz4B6WaDSLCE3XinixvDg9A9
-	 59zUI8tKiJtnbcwfQw4H2cGqQxwDGzyYA0xYpgvLBeCknNZsMf31xLoPhoc8Ka33SzemB
-	 iaJyFqp0jshnc0jAeG3hlZSVUpTzYdQiv3YqqMNyUCtO247hyzVMLZNX3tWzZF/VqNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794626759;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=BFJw/xnt2UTIRXJ0b6cAPbUEvo6Sxa3vSGm5EiU5G8w=;
+	b=tTrE1TnkgOsyhdsh80S2pH0VEClzupadAUpe7ilLQ3vLmVdB+8n7FK/n5irMEHMZTV9E
+	 nOWd9mG2ClQTThs6oBmd7hmbLHlJKvo3XXUSN+mS2KxGlJovSW3NBVAYyr1pSXyc94HaD
+	 r0xwA12POt/F762yYJskNXaLi/epxykD1HdUNJwRgNxw33+ZpDjiGNmkh5T0pGw79nO21
+	 kqXj9P9m4jAcQql2d19M5O2Qo/1BPSVBiVygX62Ss+mkgY4zqlBwSDZvt8PhItR6HCbpy
+	 bpD6CXJrVYTy5HbleTSoqbZ4jW1lkjjKIxaw+6T8ke48UZoU1PrRwfdMYjquOxeKung==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Gpgx/5de";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CsP0Bvga;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ILSCDYAI;
+	arc=none smtp.remote-ip=209.85.216.97
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2E1606A335
-	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 03:09:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A2E1606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26140606A323
+	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 03:25:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26140606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Gpgx/5de;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CsP0Bvga
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AE1xuE8728050
-	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 03:09:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ovOu2UP++2nSHdhlpPmqnhrYxMyicygp65UamHq1Lco=; b=Gpgx/5deT6sc66H2
-	g5aVCbVEaLOcFWgFsHQP6RBShReg4tDo+pUI+au8P8p/9imWP8WufBCOitCEUKZZ
-	tpu1FkGLCPzX0UCIckCRBZLIUXWGD90M3e4BEeC8UbA9RyRgL0ZKm7uqf2YCYjS1
-	c4Bw9w66VDUXNUV5ft75GYrXSCilS0aAzdIvH8hX2feBmtOiAP6qU6CkT5UQ3Unr
-	oiFMt82fX/4jhFTjoqviOLLOvFHoi9gr80ZjCRzDLQjo05TT6LnPUk4qoEpIG24K
-	YZSIPZtumqZ9277CAX7eAWRFpGOpLrFgJlvjgEgXAFeCnsSolhwNlSdv8gK1uUys
-	iDBk9g==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxd0nrcbq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 03:09:27 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36db182e57dso157893eec.2
-        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 19:09:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794625766; x=1795230566; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ovOu2UP++2nSHdhlpPmqnhrYxMyicygp65UamHq1Lco=;
-        b=CsP0BvgayrarpvEUZ5wUeO4F5hq+YlSDQZKCEAqCwCrAhcXRLkHfzUxzCRc+o3HB8R
-         M531rbtK7wnuENryh5aTapEnFKhGGVkC1bkTT43XGUB7kTE3vCSjw/KODOF65dmN773Q
-         T8WQgDBrj7518CotiORFAixsY9yMpEZ0NHqEp1xZj5xcGA1oovrrFY7T7d/PkMXJ5+3X
-         j0ySZOyKZQbzmzdJrmaKbGYVhhUValdPezv4VjoZnVrdHN8zIZl+epPSgzlctozdFiT4
-         5st3yzeomYmuV7mZhFGyIjY6qtI9YZuspnCmczK8gT8zOmiz1Qf+PjTKSLQ1cgcemxEM
-         5/GQ==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ILSCDYAI
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3b0a519049aso2283053a91.1
+        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 19:25:58 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794625766; x=1795230566;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794626758; x=1795231558;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ovOu2UP++2nSHdhlpPmqnhrYxMyicygp65UamHq1Lco=;
-        b=HAUZPLToa6ZLTAbMPakJdme0gw4R0y1AxTNarDCijTeawUuxJvjInFfa8NRVZ4/brF
-         jvVLpaHa6fqZy9Qs+/wJNtbV2sri398WfUCLcrdj7skJiANFviyZwOpQ1r8eRlgC1HRW
-         ivQ6Utdx/t2mDxO0h5cmI/SuuajxOqJ/al5fX/Aa9vQQNiEc4YntLpwgl6GzGliSwznY
-         hUDqJlJ5YTNmrRADSYNOB6cSQWbjYXdLYKil98WzHLsDC/e/MFGXWBYaK56eeWLLtdQ2
-         dIXWYC7Rivi6/xVDUYfRpn3d76dj6b3HyW65KaSbKEDevTlHVVsqwW4jiCAI1evhbjkO
-         g+Dg==
-X-Gm-Message-State: APuU4Z9aitQlRRNyEB6qVPq/UjGDjtxzkR58oQu/yxZhWkiifqcul2pN
-	pNU7BHnbGJG0I29DOojAvpCQdxSwqnyea8lhivd/nnW4xVeXJnu+/KmupsrxKXpIDAuJFll0Xe/
-	UBkdSvpEVWlSurZlQVronCrhAHlBSFtCZaIq6RIA6SrFwkXdTLmagZ/0k6hQOZaFvww==
-X-Gm-Gg: AYBFou1TNoLG4z3U5vWrUgZgxekSgoDMiRFmR3xPF+hNH2pxgATIBLjoqhY/6QnOTUN
-	uzUNmqjPZMXteUN4Xv1hxTDy2tYsXBG1r15eB9qh42naK3Zdzy33R2FqbLu4mOcVybwfJfbQ+in
-	/zfeepqUHzsc87sZ6IZ7pJQrh5F7mP/JQfKQsqn+1Nk6L9b4ByBQ3Nezf5aBvfr1lRvB5jGY+iZ
-	t5WzsCu0GYUzPM2zeIkrJEG+LO/nk4a9Bde1volduO/lv18D0aOPNu6cmzL2Xc+AAydjxkJbPEQ
-	yDevn7oyonqY3+BpB0zxohhSlOctpb+rLdLyQsmSbty6KnxUGV+TVEL6TSXAVM7QhmNM5R7B9R9
-	njFGUbAdhAjijRo7qS8BtI93zowsZYfoXtlU/wdu+bpf3snGbpSyPT3JrMLdhcs71wJtaM4V9aD
-	XeVkCt5MuNzxiobuVySwWZH42On9vMb9pP
-X-Received: by 2002:a05:693c:881a:20b0:36e:66d8:1424 with SMTP id 5a478bee46e88-3796047ff23mr5891080eec.0.1794625766266;
-        Fri, 13 Nov 2026 19:09:26 -0800 (PST)
-X-Received: by 2002:a05:693c:881a:20b0:36e:66d8:1424 with SMTP id 5a478bee46e88-3796047ff23mr5891024eec.0.1794625765633;
-        Fri, 13 Nov 2026 19:09:25 -0800 (PST)
-Received: from gu-dmadival-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955f02ff0sm11158803eec.16.2026.11.13.19.09.25
+        bh=BFJw/xnt2UTIRXJ0b6cAPbUEvo6Sxa3vSGm5EiU5G8w=;
+        b=gRwhgqgcb/qt9xeOFTaTyArQI2vAO+iWShSOVfD6FOifNurZF3AzZAgU/1Tsi3W+KJ
+         fXlHzH3TSomDOA7VXaTlmzSZZWRVhpEo7BjZ+FUWVww7Edi0KqBf8yGhZSgAcz2BFKwI
+         1dB45226nOiTGxHD58C4pSnFjYfFlHkYhSaDekpq/3e0WHfLHjOUrARJFiKNk+h0VHm8
+         bb6MwGpqLxgBB6HauIKgOxZwia75C+rgsy7iKhUmFuQSpNv87C+Z5Qs+rGMvJFHLwCov
+         qYD7x9gE0ojk9xAWe+v6O9ZMZcjaDYD3k0DdpW3cWq54xGHZBCUcRC1CPej3zz8F7zKA
+         VYqA==
+X-Forwarded-Encrypted: i=1; AL+hErGtJvvVDz3rfWnCRdSX0MbkTPX7eNN7SIcQpSi5p1OxKolLZbPd6nQqgfV16o7aJMYMNkfNR1DHxW9o1Q==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+21YfOFX9I9ubSTvVbcekXtaTHajnVK9nyT9XWLQKTRWJQqXAg
+	QrlQPXZIKDooH9e+r15Ikm5qoAO5E/ZQ9vl/cCMA0KNfv66axuIvFoiCdyDSkJpXUQRPByX5/MQ
+	F1MtcfvcBBkcPB8iSyiRIKC6C43orfmQjR3VXR2q2zGyRBUS4s0/7z7DJCMl7UIuBcSrUxfdji2
+	JjcthMmFNePAeXFEenHzVyz7WqewLv82u95U+vM0JTjEdb73guk4qE6dRIFqOSxVAg2/sOZyyhQ
+	dF5yJ01HBLwlS/6xMCho3k=
+X-Gm-Gg: AYBFou2wWdijKfkd+JeErcJMENHafLX0MyoSvHyAB+mRbFnec9ZThXnS+ZCYkl4Ppsr
+	7NbEO3OXXp5s/kEmc5vAs4ZshdmDfF9evZMBDUDcTEZ2Io1Yb5zbtcgxWzED9HT51PtIHeuI4pQ
+	OOPkL5j40558A7AqGEgY7ongRPvpxXoJkGgJdhpcVprWQ65MG7eqBWi1US4XRj6sC4deU3Id8Mh
+	Cy28uvaCWL+bvzr5CwEaAV4TsAnMxN+tG/H38+K4BkKTX9txE1t8Ge/Ozfle/9h8m6cM/Db0eq0
+	AtRCXpAAUfEtxX1D3+Z+2qqyBh2PFx2jdJmb3FL7au4D9rorb5Fynso0hHDOsx4AsV0k3WlAU4q
+	tJv+Jt/bkIR6iPkZ77itvbt3TKP4bc0a794kqlloJpoYF+3+q2tPZ9eUq5Mj3NwFh7F1KDiU6yB
+	KUqQunfTBw2dVNYAW41Zbata2xzC6kZIjHe4N/lSCA
+X-Received: by 2002:a17:90b:3909:b0:3ad:adfe:5854 with SMTP id 98e67ed59e1d1-3b1b0cac9b1mr3970513a91.40.1794626758478;
+        Fri, 13 Nov 2026 19:25:58 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-17.dlp.protect.broadcom.com. [144.49.247.17])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1c4bcf708sm871544a91.3.2026.11.13.19.25.56
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 13 Nov 2026 19:25:58 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36d1353fdcdso7001843eec.0
+        for <linux-media@vger.kernel.org>; Fri, 13 Nov 2026 19:25:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794626755; x=1795231555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BFJw/xnt2UTIRXJ0b6cAPbUEvo6Sxa3vSGm5EiU5G8w=;
+        b=ILSCDYAI0D7c7PrrUSpkWaR62tqFOIQW+e5Zzk8wL4foD7ST4HnJ1Jp86AqvHpVaVi
+         jg8o/SwCPe+4B3U0WDT7ZS0/k261w9oXFTdllRcXgyQJDe/O3jwf6yG5LO3mWnT++MBf
+         gZUJbL8xiLsTnEFVF5golJhAtMaD78SUolqmo=
+X-Forwarded-Encrypted: i=1; AL+hErFib8jsodkH09f+XQVALZQqT3Ql1tYAbwcd5eWrEdQOGhc6YN3ai3QSW/Xld2qtLSE7lrCBZuQJX7n63A==@vger.kernel.org
+X-Received: by 2002:a05:7301:d819:b0:370:a11f:dcb7 with SMTP id 5a478bee46e88-379681c73a9mr4249929eec.41.1794626755311;
+        Fri, 13 Nov 2026 19:25:55 -0800 (PST)
+X-Received: by 2002:a05:7301:d819:b0:370:a11f:dcb7 with SMTP id 5a478bee46e88-379681c73a9mr4249896eec.41.1794626754618;
+        Fri, 13 Nov 2026 19:25:54 -0800 (PST)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378d73dsm12221650eec.2.2026.11.13.19.25.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 19:09:25 -0800 (PST)
-From: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 19:09:22 -0800
-Subject: [PATCH 1/3] dt-bindings: media: qcom,mahua-iris: Add Mahua video
- codec
+        Fri, 13 Nov 2026 19:25:54 -0800 (PST)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: bcm-kernel-feedback-list@broadcom.com,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Phil Elwell <phil@raspberrypi.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Martin Wetterwald <martin@wetterwald.eu>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH v5 06/11] platform/raspberrypi: vchiq: Register vc-sm-cma as a platform driver
+Date: Fri, 13 Nov 2026 19:25:52 -0800
+Message-ID: <20261114032552.873583-1-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112-b4-vc-sm-cma-v5-6-d25e3b687e71@ideasonboard.com>
+References: <20261112-b4-vc-sm-cma-v5-0-d25e3b687e71@ideasonboard.com> <20261112-b4-vc-sm-cma-v5-6-d25e3b687e71@ideasonboard.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,322 +125,20 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-mahua_iris_enable-v1-1-b7107e1cbcaa@oss.qualcomm.com>
-References: <20261113-mahua_iris_enable-v1-0-b7107e1cbcaa@oss.qualcomm.com>
-In-Reply-To: <20261113-mahua_iris_enable-v1-0-b7107e1cbcaa@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794625764; l=7265;
- i=deepa.madivalara@oss.qualcomm.com; s=20250814; h=from:subject:message-id;
- bh=ghTHXTCvd7eOk6uSjXl1tAvTuMYTkm8SazpMstLCBLo=;
- b=57XtPUPg+8LSdf9vmav4lku38gwgL24/w45tpdryzJQPlMvVCMjnV7JGInf8+TVuk6X3Lp55j
- KSYQCDzXuV2BIbej0CTAVlwn2Ajzxyf276N81PJfoGj8f8ERfrdxzPA
-X-Developer-Key: i=deepa.madivalara@oss.qualcomm.com; a=ed25519;
- pk=MOEXgyokievn+bgpHdS6Ixh/KQYyS90z2mqIbQ822FQ=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE0MDAxMiBTYWx0ZWRfX+HbON6Dx+J3t
- S9mUk5NdWGZaDyU2taJVSU6XgSG1Pwrge2IFp1r/H8wMrJYeA3qwXzUv1u44mmbKcCIrhUeyrgk
- HmBRFAngn/gunIJRqX25Ix20h1mThX8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE0MDAxMiBTYWx0ZWRfX87H0kbDz7a1s
- eJCL0vOXbh2IXI1y8z/GQ1ii9s5le9I/gTTaBUIwZ64EbCyTRzDY0MrtA5afZ6695B0J+zhvS4d
- N0jSO8xJBYbMXAanG3QN941/qGAUfU62Kvh5gWfujktT6BHTBJaSdgBKtxVIWlZNGE1rOAeRqi7
- EOUltmE28T29/OH7SuqjWDP+6tV9eVuaBUD97H0sU8N1U7TX508mge8zC8mbuU8X5J7dBZNtk2O
- tzqVgrls9ILR8MxuGr+e2MZ4BxDodXfIx5qimDmxseCSO50kYu1cQhDtMECXia4RJLf+HcQffQv
- YYUIjGdP91f9EQ14rB083/1cSg8JPuSfToQd4m1jvIdAmWuz4hiIwdIDQAjas2GVwuNFYDzGtdO
- c37zd17weIxtNrhPtLoIQIFXOuaTVk7gUXYjTLIKSzuLw8GpBt5Lf6kE2ZOcsL0D+x2psqt4gr4
- izJv2/wbtidvR0kRnmQ==
-X-Authority-Analysis: v=2.4 cv=Zo54uN7G c=1 sm=1 tr=0 ts=6af7d0e7 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=wyAc8u2O2XHP32wH8dUA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-ORIG-GUID: Xfa_iqINKY2G6swa82gXhFTFNcBMBoV2
-X-Proofpoint-GUID: Xfa_iqINKY2G6swa82gXhFTFNcBMBoV2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-14_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 spamscore=0 impostorscore=0
- suspectscore=0 phishscore=0 adultscore=0 malwarescore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611140012
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Add a devicetree binding for the Iris3.9 video encoder and decoder block
-found on the Qualcomm Mahua SoC. This is a single core derivative,
-leveraging most of Glymur data with the clks, resets present only
-for vcodec0 core.
+From: Florian Fainelli <f.fainelli@gmail.com>
 
-Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
----
- .../devicetree/bindings/media/qcom,mahua-iris.yaml | 243 +++++++++++++++++++++
- 1 file changed, 243 insertions(+)
+On Thu, 12 Nov 2026 16:48:04 +0530, Jai Luthra <jai.luthra@ideasonboard.com> wrote:
+> From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> 
+> Register the vc-sm-cma driver as a platform driver under vchiq.
+> 
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> ---
 
-diff --git a/Documentation/devicetree/bindings/media/qcom,mahua-iris.yaml b/Documentation/devicetree/bindings/media/qcom,mahua-iris.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..cbae6bddf7fd4b67330ce47033874f3d349e5a3d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/qcom,mahua-iris.yaml
-@@ -0,0 +1,243 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/qcom,mahua-iris.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm Mahua SoC Iris video encoder and decoder
-+
-+maintainers:
-+  - Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-+
-+description:
-+  The Iris video processing unit on Qualcomm Mahua SoC is a video encode and
-+  decode accelerator.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - const: qcom,mahua-iris
-+          - const: qcom,glymur-iris
-+      - const: qcom,mahua-iris
-+
-+  clocks:
-+    maxItems: 6
-+
-+  clock-names:
-+    items:
-+      - const: core_iface
-+      - const: core
-+      - const: vcodec0_core
-+      - const: vcodec0_iface
-+      - const: core_freerun
-+      - const: vcodec0_core_freerun
-+
-+  dma-coherent: true
-+
-+  interconnects:
-+    maxItems: 2
-+
-+  interconnect-names:
-+    items:
-+      - const: cpu-cfg
-+      - const: video-mem
-+
-+  '#address-cells':
-+    const: 2
-+
-+  '#size-cells':
-+    const: 2
-+
-+  non-pixel:
-+    type: object
-+    description:
-+      Context bank for VPU non-pixel buffers, including compressed and internal buffers.
-+    properties:
-+      iommus:
-+        maxItems: 3
-+      memory-region:
-+        maxItems: 1
-+    required:
-+      - iommus
-+      - memory-region
-+    additionalProperties: false
-+
-+  pixel:
-+    type: object
-+    description:
-+      Context bank for VPU pixel buffers containing uncompressed video data.
-+    properties:
-+      iommus:
-+        maxItems: 1
-+    required:
-+      - iommus
-+    additionalProperties: false
-+
-+  video-firmware:
-+    type: object
-+    description:
-+      Context bank for the VPU firmware processing domain.
-+    properties:
-+      iommus:
-+        maxItems: 1
-+    required:
-+      - iommus
-+    additionalProperties: false
-+
-+  operating-points-v2: true
-+  opp-table:
-+    type: object
-+
-+  power-domains:
-+    maxItems: 5
-+
-+  power-domain-names:
-+    items:
-+      - const: venus
-+      - const: vcodec0
-+      - const: mxc
-+      - const: mmcx
-+
-+  resets:
-+    maxItems: 4
-+
-+  reset-names:
-+    items:
-+      - const: core_bus
-+      - const: vcodec0_bus
-+      - const: core
-+      - const: vcodec0_core
-+
-+required:
-+  - clocks
-+  - clock-names
-+  - compatible
-+  - dma-coherent
-+  - interconnects
-+  - interconnect-names
-+  - non-pixel
-+  - pixel
-+  - power-domains
-+  - power-domain-names
-+  - resets
-+  - reset-names
-+
-+allOf:
-+  - $ref: qcom,venus-common.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/qcom,rpmhpd.h>
-+
-+    video-codec@aa00000 {
-+        compatible = "qcom,mahua-iris";
-+        reg = <0x0aa00000 0xf0000>;
-+
-+        clocks = <&gcc_video_axi0c_clk>,
-+                 <&videocc_mvs0c_clk>,
-+                 <&videocc_mvs0_clk>,
-+                 <&gcc_video_axi0_clk>,
-+                 <&videocc_mvs0c_freerun_clk>,
-+                 <&videocc_mvs0_freerun_clk>,
-+
-+        clock-names = "core_iface",
-+                      "core",
-+                      "vcodec0_core",
-+                      "vcodec0_iface",
-+                      "core_freerun",
-+                      "vcodec0_core_freerun",
-+
-+        dma-coherent;
-+
-+        interconnects = <&hsc_noc_master_appss_proc &config_noc_slave_venus_cfg>,
-+                        <&mmss_noc_master_video &mc_virt_slave_ebi1>;
-+        interconnect-names = "cpu-cfg",
-+                             "video-mem";
-+
-+        interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
-+
-+        memory-region = <&video_mem>;
-+
-+        operating-points-v2 = <&iris_opp_table>;
-+
-+        power-domains = <&videocc_mvs0c_gdsc>,
-+                        <&videocc_mvs0_gdsc>,
-+                        <&rpmhpd RPMHPD_MXC>,
-+                        <&rpmhpd RPMHPD_MMCX>,
-+
-+        power-domain-names = "venus",
-+                             "vcodec0",
-+                             "mxc",
-+                             "mmcx";
-+
-+        resets = <&gcc_video_axi0c_clk_ares>,
-+                 <&gcc_video_axi0_clk_ares>,
-+                 <&videocc_mvs0c_freerun_clk_ares>,
-+                 <&videocc_mvs0_freerun_clk_ares>;
-+        reset-names = "core_bus",
-+                      "vcodec0_bus",
-+                      "core",
-+                      "vcodec0_core";
-+
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        non-pixel {
-+            iommus = <&apps_smmu 0x1940 0x0000>,
-+                     <&apps_smmu 0x1944 0x0000>,
-+                     <&apps_smmu 0x19e0 0x0000>;
-+            memory-region = <&iris_resv>;
-+        };
-+
-+        pixel {
-+            iommus = <&apps_smmu 0x1943 0x0000>;
-+        };
-+
-+        firmware {
-+            iommus = <&apps_smmu 0x19e2 0x0000>;
-+        };
-+
-+        iris_opp_table: opp-table {
-+            compatible = "operating-points-v2";
-+
-+            opp-240000000 {
-+                opp-hz = /bits/ 64 <240000000 360000000>;
-+                required-opps = <&rpmhpd_opp_svs>,
-+                                <&rpmhpd_opp_low_svs>;
-+            };
-+
-+            opp-338000000 {
-+                opp-hz = /bits/ 64 <338000000 507000000>;
-+                required-opps = <&rpmhpd_opp_svs>,
-+                                <&rpmhpd_opp_svs>;
-+            };
-+
-+            opp-366000000 {
-+                opp-hz = /bits/ 64 <366000000 549000000>;
-+                required-opps = <&rpmhpd_opp_svs_l1>,
-+                                <&rpmhpd_opp_svs_l1>;
-+            };
-+
-+            opp-444000000 {
-+                opp-hz = /bits/ 64 <444000000 666000000>;
-+                required-opps = <&rpmhpd_opp_svs_l1>,
-+                                <&rpmhpd_opp_nom>;
-+            };
-+
-+            opp-533333334 {
-+                opp-hz = /bits/ 64 <533333334 800000000>;
-+                required-opps = <&rpmhpd_opp_svs_l1>,
-+                                <&rpmhpd_opp_turbo>;
-+            };
-+
-+            opp-655000000 {
-+                opp-hz = /bits/ 64 <655000000 982000000>;
-+                required-opps = <&rpmhpd_opp_nom>,
-+                                <&rpmhpd_opp_turbo_l1>;
-+            };
-+        };
-+    };
-
--- 
-2.34.1
-
+Applied to https://github.com/Broadcom/stblinux/commits/drivers/next, thanks!
+--
+Florian
