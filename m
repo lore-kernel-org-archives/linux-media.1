@@ -1,116 +1,115 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794686140;
-	b=yT+UBfWDBwIRxpb0oE0oY86SM6AnWbhlEgIQK1F0VdF+eHLL1fP41CQ98x8kbMnrt48C
-	 2auWsonZuSC4yDuh3fCKQro9floufUPbMMzTTHEnBEAb4XPRR57K4JlPHWCBPvaXUo/ev
-	 wYMEs40rQtTHjyVQbCuQ8XNv7UVtpV5Mj4ObjHWKI25ARdkdXIAI2uSXEZA8K8wyKdlNb
-	 Mvj5/5oNjE29C8Ai3e2TsUY21p9Pm33fuHznBbZATGTj5mNg0ShiQv3iKJN0KCGbTv7VF
-	 G58AsvZA5alQGzVX8abD3eyoZenBCTNVJY2SurT82oak7hRYX2Jzhc+tzFLssVi2rPw==
+	t=1794686142;
+	b=pWMWXSm/NnBkOMuQJtEIKaTkGn6H9I7IXOt98WNAsQP7EbvrDfUiLQEhjHYUHWHFfzYC
+	 BVcXV9lzoVnGPF3Ac4VlWWCFKLa2UyH0KVfGeYJ53FkHHoCUFk/1Tox+uI+7cWssPGq6j
+	 eHxKUcSJ3YISNxymalFgoL/vBVnnh1uxaWZUFthqaGewiJspDK5Yxeozzo+vQh1p0IDRo
+	 DL0T8yjo9Ot72olMtl6l47Y+ICF2RmGgUGq0wgLeEHblG9RKP+s3wdKqC9yYzAGI4F9gO
+	 soQQzQcnseBM0vvW2omIBBr4O3FYT7X6xHkvDSwnKmcbic9p6k0wzG2ivx1iYdhfZZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794686140;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794686142;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
 	 Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=iaqGcKaTw5TXT0yCWV56x+z3Ed02VPPNFpP2p8sMn/Q=;
-	b=soKXVj0sZBM8qn8qOmeKYy5XEgttJUbPtRvYwOAKFevWa/dTTl/72MR8XQQG8210bHOH
-	 JSvOMw9hTKT8fJXThTHjHf68jOpRuHPaGzy8Grdp64vHNe6nG23mOR2MNKm5xqUpqqhh0
-	 ryBHz/jr9x5H/JqD4jo7QPhduBRkapv4aQ964zlwQ1mngwRS4svzYEFxwfzdfna+8VdnU
-	 x+HaQG29kX3IYp0ubkSzjPPAobO0yPWpgntYPAL3N992fu6fqrP6Eyls7IFS4V1a0ZnZN
-	 An6lfL9VkodHB5bua99lLdYDTRoDWaw+cJqdWxzXBOjQxU/Ksa8GQ1GnthHm1VfAwRg==
+	bh=0H8KRf2G1g9JLqHt8dAdhZnK30bPIxtEpediEO7EvrM=;
+	b=SZ8lEJr0bVYFfdpgEJzneh+8C0Ajzh9ZODLoYAEWWsDDrct1rj4RyM/+CKGlKgcolvNR
+	 Ub0BNLaSb1E5vkK9OPaelM6210N/DJjNcMzkAW1N0ZBWjNmfjtefvteB4qbWHWWzZPWt5
+	 16TQH8ilz0I0ebJZIHUUgVyf8zMbAXsso/uv3Bx61TTdeAEYzMPyRh2jRtk4Weylo1iE6
+	 Faxx3to5OLq+/kXtcmqu3j4i1TXg/XmiuZ5w7KtG6RZiNZMhA2Ilp4hlZVLLhubP83662
+	 Uit3Lr3p245AB8i3t5sKKC+XT1cPYfLPVbED3bfFeq0hIHdviaBRveAjg7XCJR/t54g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ragnatech.se;
 	spf=pass smtp.mailfrom=ragnatech.se;
-	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=tiyNv7Jt;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=sVdiP+XP;
+	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=Pk4mo6+A;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=mcv1UNDM;
 	arc=none smtp.remote-ip=103.168.172.151
 Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E252A606A8A8
-	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 19:55:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E252A606A8A8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6DDD60A260C
+	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 19:55:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6DDD60A260C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=tiyNv7Jt;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=sVdiP+XP
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfout.phl.internal (Postfix) with ESMTP id 3C535EC00F3
-	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 14:55:39 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-07.internal (MEProxy); Sat, 14 Nov 2026 14:55:39 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=Pk4mo6+A;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=mcv1UNDM
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id 4B32EEC010F
+	for <linux-media@vger.kernel.org>; Sat, 14 Nov 2026 14:55:41 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Sat, 14 Nov 2026 14:55:41 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
 	cc:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794686139;
-	 x=1794772539; bh=iaqGcKaTw5TXT0yCWV56x+z3Ed02VPPNFpP2p8sMn/Q=; b=
-	tiyNv7Jt4Dh8YHCCFQOyJa4+eOoEulUtn9jh5eBG2TXKQYreOpuZmJoIylj+7ISP
-	abHgxEAHvoSMPALkagnc5vbLuje+y+yy3NVNXFKyHFu04eI5oB/n1tWAASnVJPbo
-	z9dRBgKJfgN0RJXOxoChrR8NNydvUjNAxA0a2UBPxwH4S4HA8zwdT9dcbWOQjzQ7
-	WDlb8r4qeqg9i4PNTu3m/1ftif+mNJcFjgqjP2CdT+L9rkYgGLGiq7bS/kR5bmbs
-	d9aIS5X65+zLuk/4ZALksSwhoJiYqdlVEyMRxf++FSJL+TO6yuMBnExybE+3bhPk
-	TNMfY6Ud83PI/sDYtxs/XA==
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794686141;
+	 x=1794772541; bh=0H8KRf2G1g9JLqHt8dAdhZnK30bPIxtEpediEO7EvrM=; b=
+	Pk4mo6+AHkkbIIqgHr9H/XX0WzprPa4qglHTx3VHGfCBTSZqYMzd956kLoqo5qSi
+	iXEj3buBUp30jlgnocL6A5webP4VcOcksVjX1GhFenWEY7UzZY3xsUd6Hhi49G8i
+	kShLJbGnsraLzbXo7FLvjlwNS2VorngsWvYv3nWnp2DBKfDivdSeXOTs3DYhSBHV
+	MlH/CGSOWSzaxTRRnm9yqlB3SwHthHPJclJMQ1wstwABkgwZnYgk+D6jNn2McXUw
+	NXs82LMMnvFva6XKGc+XLT4owhKaUTL3Oqw1XEYARURvjMiiKV9pOEkD2PhcoFAN
+	Q1p1UX4gw8NsmgWzcJ4M+w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794686139; x=
-	1794772539; bh=iaqGcKaTw5TXT0yCWV56x+z3Ed02VPPNFpP2p8sMn/Q=; b=s
-	VdiP+XPUsVG2A00US9Tg1dp4rrfXzqUbANFp4slEl9a8z3eGYBwczpU0UD8EI1sg
-	0GIyaLYpSqThTxQl2DorMZMsUafLzR/FRsHCuaj0AHAGl0nSnlLZSoQ9YZz+DGfj
-	4MLwoZ9qtBDv5AMO7VLg1SVmB5CL4WZaK8P9sp3PzqAIAhLJOufIpEWTdwRjnk+M
-	e+l20eB4Rsv32AdiyVzgFDk0AZHnDJXVoL1GEbwb0LOnm4pnnYT02MahXdALrLfx
-	qo3Sv8UWP29HSA5fMeQ1l4qL79BzBt4J5qHNUKmn0qu3pxJPb6udXJqz5wp82oPl
-	cAJqhDDwTreR1dXO7JYRw==
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794686141; x=
+	1794772541; bh=0H8KRf2G1g9JLqHt8dAdhZnK30bPIxtEpediEO7EvrM=; b=m
+	cv1UNDMGYeSl67v+64WkeJJ8EBvjIE705fFB0fBHwYyYBKfqLAVdRqY8lIAo+dlh
+	goL3A60d6A08QOtSllFhtvmnEg1Y2cK4Kuuk0rwdzijqWxPvQcgL0fbR0DOkzI83
+	I8lKhccSm0ObEXcdQ/hjXUhNzI7cyY0ff10GyeAYsK6Vnd/kcyIjKdUl4zEOgRsV
+	8AlPRKhpMyvSzAsr8pO854umZwvcasDURbmhL3z6E0xiKKcmDt+5j/w/G9T1IeMK
+	/oM9cbLL2IX/VcLNHnWFUs2dM7NmCVY0s48b+acBx0t+xxebQvFJnvqaBaC82Nl+
+	NoSRQaaBHvLo7zXBWUSpA==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794686139; d=ragnatech.se;
+DKIM2-Signature: i=1; m=1; t=1794686141; d=ragnatech.se;
 	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
 	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
-	s=fm2:rsa-sha256:MAMNg87HWxybU48c3fNghQt2osSZpN33efbn780ypbklKUs
-	UtfUS56eEfk5tmkb5/oFqjD5VKYPJvc+ci/EjMBNxBSMMbZYuwO9WfF6AX97s7p8
-	4km7UvMF4wgF/W1R1ue1zx18Y+BL8bnTgX9+5OHvW54vuNzilwVXwGaqhsFAbn3r
-	XwshGO+thEJm2dkaKrRf6t1g4hJpX3g954gHXbjQPF/Sbsz+A6JcvRIdsreZW2i+
-	TGiBIglVJVYQbeiTK2hOsndVFaq8yV6QpnDF47HT5yu3qAixjbdAVvl/Mj2jGvmt
-	+aTWbbYePUei6Reuic+9c8EkjJlvCbsQFyYhmYg==;
+	s=fm2:rsa-sha256:TmqAzcZ8uVjoUVcgtav7INc1y1oEgGsGv4uw/dheRx+FdVO
+	rNWftkr7Rb3dwZMcLCcktHHuCB/6RjdxHBSglAHRqKJ7HyRM8agqNzXdPPfGbLFY
+	TizCdx8tPc5h2D62sjCRGOKJ3GZoInANb/ZeI2UqnVL24YGE5VCA8lMUCZ8AC2MC
+	KzwDsmW4VYPuqKLLx50Fm0rbN7S+zZCMycAnQBr+vL3FfoqyZ6taEe8J28gFYgLl
+	iwmM7OKdrs89tUH+zNItAUuRyyANPNzr0JMX7QJ2QO1IHolcizi835ihaP6WoOgt
+	h7jHyVHeIVRbcC2GU4Tdh4kZLr5+E7kV2WIKHbw==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=mi-m=1; hc=12;
 	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
 	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:jAw4eGCiowZ/AWdWFjxFJOT4MgJH+y8cXlID72HvhqU=:m2zOi/rnz6OCVlX66HJiMB8cxo5ldbo3J1tIw8pQ2CQ=;
-X-ME-Sender: <xms:urz4ah-PLMox1tbBAVMdC-pZBIEOzyL9msxVohqf8pRV6YaYTy1SPA>
-    <xme:urz4ajOtEGqMMB-s4zRp1x_TNZPuDjqBgb0s4j0m23jDWD84Se4mn3WgbU8LjzWVD
-    _8p_jvN02b_qU5HxKx2u48JuQk4UPl4X1D7jpzofzetcWm18m7cvA>
-X-ME-Received: <xmr:urz4ahqEf6fgAraBl2ThvYMaEODuvTzC4_4dCh6I8wp5LzIQfmmJ0Pa2BY6qJuk6k4VesKRfZFFm0GpBxJPufDiqHNWE76E>
-X-ME-Proxy-Cause: dmFkZTEmPVUMPzW/uVzvu9DgDp3nMJm61oFIDaC3QPBTICH5cN89yMpUl1KStN1ZjXFY3b
-    Q2f1Uao/0Tu4woRnv05g2Zw725oyY1evcbi/fXJRPSHudv2BWLJayfP76gcySWs1MdJbDa
-    nw1+g8tP01WTLuevWC8sxiVhzaqTAne+YGNsrWKxD5nO01v21Yq9+t2O3Ju/VRoR1KdXYA
-    U+pSLj3qv5ZtCuWmo1OMXOPF1jpXZf4cZV0HWVzYz174rrwu1OZoPP7BFmXwIkZcam7yRj
-    Trwfkt7fWGKlwNIgBXWBVTugFcu+gBLt7ByUQJeonsTQQVAJoRwXtoNqfNN8I+gErAoVYb
-    4L2PUTNGa/+7ijoqZXpVyG1fKiO6WoaQOzIEMVZZIvVbnlzAcQ+M2eGdcG0j84NwvlIWWM
-    pIHyGWF9gGzQULBgYK0KQH8vI9PZzPz8LBK/vpLXKsFx9A5Hj5gSVbtW0hsiDIwupzMHsH
-    o61Gm3999Yn2pNZOfx4uezh42uwhwDVVeMUKIlZbJkYzVz+Oqq6xNc/rfgszUbvKcbRusd
-    YyjniFv7Rh1combr9qyMI5ExYcTbyg0x6w0T9ioNta3OuB2p22nGzmMSXCVwFDMA9Xqkxj
-    PSmXrJY4Lcoxwcb7LRd8sfQ4BJRyCW2mGJgc5hCkOViXHD1iYDZ2O1fbARdg
-X-ME-Proxy: <xmx:urz4aq7oaf0h86qvdweNWsjAdXGrDfRrASnX7AGhQM1UGfrqhECppA>
-    <xmx:urz4apGtDKIDw5kOd9kEZQ0ib-EFDkDYtvSSSGlcaV7qO_YEQd5E1w>
-    <xmx:urz4as20bELf2qY4A8ss1uhff8O9__8xGZzvyysc1i2zu--R_muc8Q>
-    <xmx:urz4ampo0wOmxX0xp8bYmd_uPdqxNmXtRN_SJpRcux8_XOpWMIydOA>
-    <xmx:u7z4atoUK390DXWKJpiEUTj99pS4sR2_OjoM-HonVow8glxkvd6GPrjn>
+Message-Instance: m=1; h=sha256:yjGo2zAiiKr4pBIUf4LW1KUeuaRUSwoCpMz9zWxvhWQ=:sVDx1e8+HoVhWQLIpwsc2Say5y0O/5MuGniHRR821bg=;
+X-ME-Sender: <xms:vbz4aqI4sQXhp0brStQjlUXXgY2G_LIggPuLcqFHCmZg7MrNgjyU_w>
+    <xme:vbz4au30WGRCMc9kcZClvOy0RuPhAQVm1W-7AD9ZBVK-gnr740utBuBpqd8UAkK6l
+    o33TCECU1R2q3mrurU9_fy6zgjvk8QyzB9Lr4qzgQB3KLjkLN9ZZgixxA>
+X-ME-Received: <xmr:vbz4aukZV3BF3TUcYYAZzdReR6wpsBSXqDeTCBRPIDJy-9UMoOQu5siNka4QhS-N7GuhSA6StKu8glVf8eTedevHr-6Oyds>
+X-ME-Proxy-Cause: dmFkZTEfcippBG/v6bQO3P6y4QGADFamSyzZtbQMlJTx5yCYRelA1MauDCb2Ukp/l5QFE/
+    E5N89alzkzlsjcNDfFy9rQXOERZsNFghLkWyVLL6U1wn28NmMpDqHp87qhAJpMRCBSpO+2
+    yNEB4C8YrNOMYQ1MUj9+03cGl9aZrHDD1Hrgq+31wRdq6Sls6foeyu6NORV96z1DhaBYhV
+    N2cYLPXsj+2W+HufRD3ZkUgr+V704uOshUyC2GwFIwndKbazYJiIkjaTdoCGXt8FounUDR
+    L1o5V4nQOYVo76ZhPFMuKfhfc9ihZYOcbbYvjTqQD7e3/cjy+XVcjB9dlRdmWhzhfj3EOv
+    GNAE8mX3xbmaGeZGh+HYcgrfZjK61w7SDNbpYwseGtpDxdRHmYbJc5gyqclygwuF9xrOrd
+    OsvOIumAX12G70NsH22TmyM9a+pqLsW2knQkigv5C6L/VEY6bNhT21e+TiGx3s5DcGcmwm
+    m21djAIomInpNAgLkr623MELz8nETjWnJ7sCupcf2T72UZikeOj5Pgek7l2Cqq9WqDa1RC
+    yMypmNqPMzr1Ki7lQKUzpv+/vhJPITrehZevdpTUss4q/aNgyx33ItENjd78z6J6Zn0d3s
+    PkEanUIOrE4rPbvRihABDtRqED66+RwqTsZZD8Sm6Y81UhCmxpcLR9ncc30A
+X-ME-Proxy: <xmx:vbz4aphR76QsTMmZKHpvJENb4pEt1g8XG1VxOYR51Jbd1a2gFGoX1Q>
+    <xmx:vbz4alSbywwemmMsnCz4x2QDsgvwCBDp_wGpcfhOU1QbVtq7OT71Iw>
+    <xmx:vbz4aj_iLpo53mCrMnNbN_QRE5PGev40orTopmONYc39Mlt9Rpnl4g>
+    <xmx:vbz4auN2uRjrXABa2iSKBBKSxcrCjLVzs6xbZovaG_pMDUlDAJYU5w>
+    <xmx:vbz4ah27FlM8Oohwh4jQSPSMws5WDyHrnJQBiQdQ7h4hujQBIfl1Jjou>
 Feedback-ID: i80c9496c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 14 Nov 2026 14:55:38 -0500 (EST)
+ 14 Nov 2026 14:55:40 -0500 (EST)
 From: =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Date: Sat, 14 Nov 2026 20:55:18 +0100
-Subject: [PATCH v2 3/4] media: rcar-isp: ispcore: Look at number of planes
- when programming
+Date: Sat, 14 Nov 2026 20:55:19 +0100
+Subject: [PATCH v2 4/4] media: rcar-isp: ispcore: Add NV12M support
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -122,7 +121,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261114-v4l2-add-nv12-v2-3-a3f5ecfd48d6@ragnatech.se>
+Message-Id: <20261114-v4l2-add-nv12-v2-4-a3f5ecfd48d6@ragnatech.se>
 References: <20261114-v4l2-add-nv12-v2-0-a3f5ecfd48d6@ragnatech.se>
 In-Reply-To: <20261114-v4l2-add-nv12-v2-0-a3f5ecfd48d6@ragnatech.se>
 To: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>, 
@@ -138,51 +137,182 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, 
  =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1159;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6681;
  i=niklas.soderlund+renesas@ragnatech.se; h=from:subject:message-id;
- bh=m2zOi/rnz6OCVlX66HJiMB8cxo5ldbo3J1tIw8pQ2CQ=;
- b=owEBbQKS/ZANAwAKAQm0/3kE+U0kAcsmYgBq+LyxcZjf236PLp9yRWVlkxUKGJYTYbJ0IvREG
- SDZ/AY8i3KJAjMEAAEKAB0WIQRwy9J0OLNPX3a0+3gJtP95BPlNJAUCavi8sQAKCRAJtP95BPlN
- JMk+D/9zeFyRABPswpBCSnlRGX1CrCQDDaVo7RQMNQhVxn0PBfLxPatVTolsPcdUMbX7s4lBmBV
- uFsCUYtWO2dvmaR+1rwrP3UnuxslvtlkqVcDicjNxujf3KgyveMBm2JflP5Nn0JNr2q5HpbJggU
- 4ym+RPwJacDSRkG17FSjJfVSnBbHGSL7Kos/VbbbgIcEXvbe3w82fWXQe8UGJ68eheTdHEHyEpJ
- isXbHlI7Ks797076BpSa3ZcwGt2qSyiSRzjrXrxYp1fGRcmJSVmotjp6uXTNgjZ05iYMSwayrY0
- U+JBbKpRPRkM6LJeG7K4UbqrQ4YZa74pBYyGWzHCyqTIT8DNDamUuoiZWWbr4wyxocKcVykj7mg
- oiI358ez6qozi4xppfoa/8Cnte+Xk6QDhfwdSEYRHGWAqg6lg8d1xLUuePzMm/7QUqwXyQnfI+0
- WJ7oRLglWfGuaEUqEUhZzANigHA5hvWwBXGc9ifqUp0z8b5l7k+mm2zCxFOMCslxApyM+RzQV6F
- e6uSI7YHRpezfIc0AsdP/W+ekyWK3GLK+aWxgI51ksFHzE1z2FDv1NclVPr7WYbLUzXk5UMfqiG
- wVTd/hff7Sq3jWItDWwrElTErvryEtTvBHzedSQvYoYcBgAWbub9dMgn7rPn+qYuCGIhVsCXer8
- Rwqs1wElejXCA+A==
+ bh=sVDx1e8+HoVhWQLIpwsc2Say5y0O/5MuGniHRR821bg=;
+ b=owEBbQKS/ZANAwAKAQm0/3kE+U0kAcsmYgBq+Lyxg/tjaPiTOROAmYJc/cmxB09ostxIh/IDx
+ 8MXevaLH92JAjMEAAEKAB0WIQRwy9J0OLNPX3a0+3gJtP95BPlNJAUCavi8sQAKCRAJtP95BPlN
+ JI+OD/9xphmIDAAWFUyFAGNdS2UcwVKvXDnrrwcHgm/GHs1de1rHCc41wR0NDHGn02XNQ/LvkPb
+ HNMOt+hLkXTc/fCWjZu/vhBOvdUkxzBWfmGLsfrwbYbxqryMB9sqvzgpg0/HBz1mSopQpS8cNpS
+ 4zvgcXQ353fhZyeJ1BKUk2PCCDyhYNVLBOSWgD1x9wAqZmXdg84aaxq7o5hKvE59edlTYPBU+vk
+ f2ZoGvAuJwabflWD9zh26FO6UjEPPp5tQHjP73QNHig0KHZOeQXzzXhlReVhjsxVcv2HiZrb2xc
+ GqkNIL0qI2Uzrz33M2OgP/gstOhADUOjFtAKv+lo/NhXJwR50BtHYYlMFoZy5CJk9+z83PASB+/
+ bPp5wzWOE1NSA4jHjkdbJk+FiKuJrJtDiHoz2JKPuiLi635vnPTQLraiKLb5fpeX4sLAcpgl0hH
+ 5GXO7ooj/uStVuSnj9XzVowCjh4gap6i2EkvfLWOUa4ZHi0prVPGdT9icCYiKbi1MtMzB2CQgqF
+ 8FdDpa5AhDZBV5G2Fw8MiYC7HXdWT1En9rMyaEq62TDQGi0J4uxDopvJkK46jDc3rHOmko7ME6P
+ /hJKxNLJn2x886neJmFdqhXP0rUpHIjOhOyoqHAjXxbDvJrPL19mq3HpKt0gvAxng+fmgYMnUhI
+ 2wtfHpB1VCA1WtQ==
 X-Developer-Key: i=niklas.soderlund+renesas@ragnatech.se; a=openpgp;
  fpr=9976695FE98693307BF360A2F1591ABD9588DA5F
 
-Instead of expanding a list of formats that uses two planes look at the
-format information directly.
+It is possible to support NV12M output by only outputting the CbCr plane
+from even or odd lines. Enabling support for it is straightforward but
+one snag around how the DMA-engine works.
+
+When the DMA-engine is configured to only output CbCr data from odd or
+even lines it still outputs blanks pixels to the buffer for the line
+where no data is taken.
+
+To work around this and still produce valid NV12 frames the device needs
+to be configured so all blank pixels written to the buffer are part of
+the line padding. In addition to also keeping the same number of padding
+bytes as the Y plane.
+
+The DMA-engine is able to do this as we can set different strides for
+the two planes and haw two DMA-engine lines (one with data + some
+padding and one with only padding) make up a single correctly formatted
+NV12 CbCr line.
+
+For readers comparing the DMA configuration with the datasheet this
+driver takes the CbCr data from even lines, compared to odd lines in the
+datasheet example. The reason for this is that if odd lines are used the
+first even line adds half a NV12 line of padding at the start of the
+CbCr plane. To counter this the CbCr plane would need a padding line at
+the start of the plane which is not supported, or we would need to set
+the plane start address half a line before the buffer actually starts
+and potentially corrupt memory as we write blank bytes outside our
+buffer.
 
 Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-Reviewed-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
 ---
-* Changes since v1
-- Use '< 2' instead of '!= 2' to be more future proof if we ever add 3
-  planes support.
----
- drivers/media/platform/renesas/rcar-isp/core.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/media/platform/renesas/rcar-isp/core-io.c | 39 +++++++++++++++++++++-
+ drivers/media/platform/renesas/rcar-isp/core.c    | 40 +++++++++++++++++++++++
+ 2 files changed, 78 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
+index 1c63194f6455..d3b302c5b66e 100644
+--- a/drivers/media/platform/renesas/rcar-isp/core-io.c
++++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
+@@ -768,6 +768,39 @@ static void risp_io_capture_try_format(struct rcar_isp_core_io *io,
+ 	pix->xfer_func = V4L2_XFER_FUNC_SRGB;
+ 
+ 	switch (pix->pixelformat) {
++	case V4L2_PIX_FMT_NV12M:
++		pix->quantization = V4L2_QUANTIZATION_LIM_RANGE;
++		pix->num_planes = 2;
++		/*
++		 * The DMA-engine still outputs pixels for the height lines of
++		 * the CrCb plane. To produce a NV12 frame we must ensure all
++		 * these blank pixels are in the padding area of the frame.
++		 *
++		 * To do this the stride of the CrCb plane need to be half that
++		 * of the Y plane. The first "DMA-engine line" will write the
++		 * CrCb data + some blank padding, while the second "DMA-engine
++		 * line" will only write blank padding bytes. Two "DMA-engine
++		 * lines" will then create one correct NV12 line in the CrCb
++		 * plane.
++		 *
++		 * All frame data also needs to fits in the first half of the
++		 * line. The strict DMA flush settings used already ensures
++		 * this is always the case.
++		 *
++		 * Finally the NV12 stride of the Y and CrCb plane must be the
++		 * same and the R-Car ISP needs the hardware stride to be 256
++		 * byte aligned. By align the Y plane lines to 512 bytes the
++		 * CrCb planes hardware stride is always aligned with 256 when
++		 * cut in half.
++		 */
++		pix->plane_fmt[0].bytesperline =
++			ALIGN(risp_io_capture_bytesperline(pix->width, 1), 512);
++		pix->plane_fmt[0].sizeimage = pix->plane_fmt[0].bytesperline * pix->height;
++		/* Both planes must have the same length. */
++		pix->plane_fmt[1].bytesperline = pix->plane_fmt[0].bytesperline;
++		/* The CrCb plane is half height of the Y plane. */
++		pix->plane_fmt[1].sizeimage = pix->plane_fmt[1].bytesperline * pix->height / 2;
++		break;
+ 	case V4L2_PIX_FMT_NV16M:
+ 		pix->quantization = V4L2_QUANTIZATION_LIM_RANGE;
+ 		pix->num_planes = 2;
+@@ -794,9 +827,12 @@ static int risp_io_capture_enum_fmt(struct file *file, void *priv,
+ 
+ 	switch (f->index) {
+ 	case 0:
+-		f->pixelformat = V4L2_PIX_FMT_NV16M;
++		f->pixelformat = V4L2_PIX_FMT_NV12M;
+ 		break;
+ 	case 1:
++		f->pixelformat = V4L2_PIX_FMT_NV16M;
++		break;
++	case 2:
+ 		f->pixelformat = V4L2_PIX_FMT_XBGR32;
+ 		break;
+ 	default:
+@@ -854,6 +890,7 @@ static int risp_io_capture_enum_framesizes(struct file *file, void *fh,
+ 		return -EINVAL;
+ 
+ 	switch (fsize->pixel_format) {
++	case V4L2_PIX_FMT_NV12M:
+ 	case V4L2_PIX_FMT_NV16M:
+ 	case V4L2_PIX_FMT_XBGR32:
+ 		break;
 diff --git a/drivers/media/platform/renesas/rcar-isp/core.c b/drivers/media/platform/renesas/rcar-isp/core.c
-index 8908496c734e..5cd21134a2d7 100644
+index 5cd21134a2d7..76be90e78420 100644
 --- a/drivers/media/platform/renesas/rcar-isp/core.c
 +++ b/drivers/media/platform/renesas/rcar-isp/core.c
-@@ -126,8 +126,7 @@ static void risp_core_job_run_output(struct rcar_isp_core *core,
- 		mem = vb2_dma_contig_plane_dma_addr(&buf->vb.vb2_buf, 0);
- 		risp_core_write(core, reg, mem);
- 
--		/* Only NV16 uses 2 planes. */
--		if (fmt->fmt.pix_mp.pixelformat != V4L2_PIX_FMT_NV16M)
-+		if (fmt->fmt.pix_mp.num_planes < 2)
- 			continue;
- 
- 		reg = ISPCORE_DMA_IMAGE_FRAME_BASE_ADDRESS_COMP1(0, frame);
+@@ -341,6 +341,45 @@ static int risp_core_config_output(struct rcar_isp_core *core,
+ 	/* For all frame capture slots. */
+ 	for (unsigned int frame = 0; frame < 4; frame++) {
+ 		switch (pix->pixelformat) {
++		case V4L2_PIX_FMT_NV12M:
++			risp_core_write(core,
++					ISPCORE_DMA_IMAGE_FRAME_MODE(index, frame),
++					1);
++			risp_core_write(core,
++					ISPCORE_DMA_IMAGE_FRAME_PIXEL_POSITION(index, frame),
++					0 << 24 | 0 << 16 | 4 << 8 | 16 << 0);
++			risp_core_write(core,
++					ISPCORE_DMA_IMAGE_FRAME_PIXEL_BITWIDTH_MINUS1(index, frame),
++					0 << 24 | 0 << 16 | 7 << 8 | 7 << 0);
++			/*
++			 * Pick CrCb data from even lines.
++			 *
++			 * The datasheet suggest taking the odd lines but that
++			 * would require padding at the start of the buffer to
++			 * create valid NV12 frame, or start writing outside the
++			 * buffer potentially corrupting memory.
++			 */
++			risp_core_write(core,
++					ISPCORE_DMA_IMAGE_FRAME_PIXEL_BPP(index, frame),
++					0 << 28 | 0 << 24 |
++					0 << 20 | 0 << 16 |
++					1 << 12 | 0 << 8 |
++					3 << 4  | 0 << 0);
++
++			risp_core_write(core,
++					ISPCORE_DMA_IMAGE_FRAME_STRIDE_COMP0(index, frame),
++					pix->plane_fmt[0].bytesperline);
++			/*
++			 * Stride of CrCb plane needs be cut in half as the
++			 * DMA-engine writes blank pixels for the lines not
++			 * processed.
++			 *
++			 * See risp_io_capture_try_format() for details.
++			 */
++			risp_core_write(core,
++					ISPCORE_DMA_IMAGE_FRAME_STRIDE_COMP1(index, frame),
++					pix->plane_fmt[1].bytesperline / 2);
++			break;
+ 		case V4L2_PIX_FMT_NV16M:
+ 			risp_core_write(core,
+ 					ISPCORE_DMA_IMAGE_FRAME_MODE(index, frame),
+@@ -436,6 +475,7 @@ static u32 risp_core_pix2bus(const struct rcar_isp_core_io *io)
+ 		return MEDIA_BUS_FMT_SRGGB12_1X12;
+ 	case V4L2_PIX_FMT_XBGR32:
+ 		return MEDIA_BUS_FMT_RGB888_1X24;
++	case V4L2_PIX_FMT_NV12M:
+ 	case V4L2_PIX_FMT_NV16M:
+ 		return MEDIA_BUS_FMT_YUYV12_1X24;
+ 	default:
 
 -- 
 2.55.0
