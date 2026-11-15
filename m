@@ -1,99 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794729702;
-	b=T1Ss1d/HJoOV/M+H3dE24YSSNu0pjUsk+4Af4C+U7Z4TPi0Dt38dqVwvmkBDL4njMx6S
-	 0lMBZEh3XYH8xE+Uoxj5qDC6d5yp76QdT6CHb4UQeB21R9IWukdXDgXPO/+54AqHFr3Qf
-	 8TMS5DZQ1/lH9XF1LvqH+okooJS49UImpYzZBvZdzyqzVElRHi5/Hvc5nuuBGaReLIkhU
-	 cPfQNy7g7x3UdVmBnzImIoRwJS+0IMshBZJ0h2iU+iRXnyG92/AxO/JwkAEDNuKa+JUZx
-	 siTcCXJjrVgEoevMK/INSturxy7kiRHgP4MBVV/0D0i59HFM7yr2pqch0MACiiiHyzw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794729702;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=80dMFC0Ro/jAPdAujll83Boy4CMrv8kmaX2kTiPJvwU=;
-	b=FOqb7myWIzB/eOv/8H9k0G0OMZHOK3IVrwdEOGVndUSj5C1OXnQmL250aWiGTnhPmrOS
-	 GeduyzNMoxb65XuhDvZEW4nvQaTKmCh5xZdVARe422j1I3QK56PzdXYP0axA3W5jQ+vSv
-	 kbWc/rVxamewvGy8vSE/gap7Tu1oqwYuwX6AHW4eIXlmqbg/Er5t7u9Y9CxG1j4pcPfyo
-	 PizMorglQI91GqrQBnQr6mVd7uIVOtAyJIVXArLiePUJjkjZn76SmN1uGdwWODX6cbdVB
-	 /yXUERs/aYCNv7xioiJuPWCYoFIXBG++wdzY1F7Ar7m4Z0dNKdpTyyW2RJKn0MyDiHA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Si/Mdjj7";
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794730889;
+	b=KcZX6cj5FT27DYB7yxKLdpJBFWrVgrepMsHY0tawliQhCb019hh6mKMm4PVzxgmz0X4s
+	 wKTiwp9hVdZ/j7/4AN0qEN6vP+hCd6B+pXNC127W9ssh59uMYPYLZ8HoCjUmBhMZOKb7x
+	 tTrpkBbqCkGi+B+IltJAI1Xzc3gw2yOGthAS6Z5zvcwtuLRRafl/LkB5OdJvw/wW3nSdL
+	 fASy7KWR6JZl8ORvuzqe+9xaZDwUfFACbLXdtdPrvVVSnXLbImUPex70JZWt6gkuPVvr1
+	 nfp3XbdPCxSurmxbNmwuZj8tyHqKBIgEAMyXihDQgsXmazcLc3ON384l1Coqye67ucA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794730889;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=xvJHN8PTWcCjuzksBv84XcItk7liGN0IwqC0kFvZgKY=;
+	b=tEIQIvf95A9PnPFSegkdAlWXlTKvHJHUakG+JvryAFLKE1ZvyF3ccrPfVHDgPnCVBEyP
+	 iog6XXN7igSOlA1BN9Jws1rfWLcDEa7eNfEp3VY16GbeiHxCDze62BXdVUaUo0jaDbF0W
+	 //ZAMVHd/tn91X9WDuxyKgonaYXvio16VwY3/wllKveAoJFo6gDjlBhZ5bfCT9V5geaSU
+	 IxNO8W6G7XHJebdcWZoVAf4Ju8Ds7bf/nfFZ94NovTQgbf5k6vneZnyLTcn4PAaFkPeDy
+	 P8GnEPStqlVV5GFwCI87nUy49aMx6HRSBgt16cbvJwD2LZRSdEpz38fD8KfOZ7nNicA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQa4+kUx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0FC606A323;
+	Sun, 15 Nov 2026 08:21:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQa4+kUx
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794730889;
+	b=uIHTxWgxHeav0Yah/4gpId49IAp5ODUymgmPHXQE5K0anOjcH6ONa6Wd2bA5erPAVKLT
+	 wO6CyjB8o9k/m/8ZcyN4zTRWMfKQKj7hrrCu6ZebHIpMP24j4i7+JeGjWm/M7rXwfSQ7L
+	 2RsZS1lA9ZTLVLXt2THibsuzFqeacSOoE0UG2jGP3IiPeYa6OEwvz3Ivwftv2vGIitRoK
+	 uVwJn1LNzKxITF2m+Kn3CkorSGQJtmYutkCpHWj84rk+9iqF3CvO71FVlayZ8WXBXyvoW
+	 /YWtD9nUjLC2z3r9Vw2hDdNyEyPWGtk/wTJSWKm/6L6TfujPYB8u5BzeytlCzHCF84g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794730889;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=xvJHN8PTWcCjuzksBv84XcItk7liGN0IwqC0kFvZgKY=;
+	b=Tx+TI57z0cW7qt3QAPtdWY5bgjD7wMextmhgcf3uuOVpnr+5WUlheQ2ITnpXL1xC7car
+	 fb1gC62NhFE+QjVfwwBk7htrEh+quFoyEzgk7+BydCB8yVdOH3sqb5Bp8EYopffEzF7qB
+	 48iXEyuF1943RyJM0ToYZVRyKwRZXw5LujJhHXIrxiEbPC8a6j605SYdhxPrB+h7oMHGn
+	 noYTcWC3WEW9Mkfqn0xU99kVAeApq/wOGrxmR/XNl1IFNqqabtMg5Y2d50JZPhxgbYRwg
+	 yT1joulCfeRkdDLIQ6H2SLynqNsJQuAI3TXXV0aZnIwlPlRYT6iSsy+sdNOu9tZRXpg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B7E606A31D
-	for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 08:01:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9B7E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Si/Mdjj7
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ad0c2e71ebso348287a91.2
-        for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 00:01:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794729701; x=1795334501; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=80dMFC0Ro/jAPdAujll83Boy4CMrv8kmaX2kTiPJvwU=;
-        b=Si/Mdjj768sD2q668cuh3FitL/nAinn/bgSvLZLfFWYX0LpPiohHIGDiNgK5SUCv2s
-         xeLw5794RXcgnMHhCp9xDvPmq/vLHuAQCIQfBAqiBZpAxJ62UaDA+KFyusJFpRvunoJq
-         wsbQCfUKfi1MzsodkZ9wo/XTgxpCFuVehXzLJcv5Agxn4tbDelLymObZhXcrNdgOsKEU
-         LPMC+IkNMD3ZPE1XWM72/Lg1eMbC1nAfx9VdZ81b7fRMYNYu1J9lTGnC8vRjQzRCnjd1
-         LG6cfL95IKft22mmJBQLcDHyAFVRkVTHLbxeaqPNBX0xLpo+yln+zqYLjyWF5axUa047
-         RGRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794729701; x=1795334501;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=80dMFC0Ro/jAPdAujll83Boy4CMrv8kmaX2kTiPJvwU=;
-        b=WVDb4E5TdffNyZQQTqjGFh+TzhwCLRhES3IkbMJ6NbE2r8QmOmOKPDiOAfqa9yOGOY
-         cJMFFIqtTp5cTSmqqQb12XsX4xaAfmg0/br8wQ4Qur6/iVG5ArW6ScZMMWC9kwLjUIMl
-         2PjEP/UamkgUQD2N4Yv8rWXff1xDqR892Kfp6Who9dDSy+jAQltvoqeEdvlJMWwahkwS
-         ImqEfD1jHExB2CDDtmOMZW3dZbm2Lp5HfKsfYWXhsJg742wEMchYinDrPh1WGJ3LH5j7
-         Ns1P3BOrLLZ1WSLBdciLaddfvScl4XfD8Om+Go4Z09PxTsl5ZO2H6g5Qg6FyheT97H3b
-         +dkA==
-X-Forwarded-Encrypted: i=1; AL+hErFOY1fl7sPLxD8eZa92ALsckoorvZmVQz/kA1uFAnLFas/gLbygdsD7SJCFIxU0FBjHIDB2elQ5aHO24A==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/eKSxJxoOj+CBJRebZyRl5gu124yLH5zNfcwtHm4w30sK4jEGW
-	PO4fyb/2jdSRQDsMTzKC+JUC64WJt5n/Y+CpkMY2RfYOPFhnT8rZ7+d+
-X-Gm-Gg: AYBFou31n7p1P3o9rYx4VUZamzEzAJ42HaM380A+uikusOF0KMFWI+cg7sbVQqGsqAs
-	rxutCzOAeey597ZW53xkq1gd6VkU7qI6BhfnyEhv0O/6e+vMY/XuUChVFNx/ImypDiclIU+Pg6h
-	zJTmbvAFArRMVYUW6kDa3tPKMijx9EBuGWTiGvcGGWD7TXkDdqF80KWhK+wYeKLBYiqoFF0SBd+
-	2wQhwYnocpaCGQc3EFqB3u87+BO7cLEWacB/Vy8kvCkFHY0Ksnjy3Fo0prbqN2iMs/bIKJ0Xjo3
-	N2KwjQtvGhKTh6518X5kRQWtMU5WeD0vGKpWiKnajnS7oJp4RqTkCCykaSoUoD1JpTZ7pgSHZ0m
-	9FOirDclmN/8KH7r8mLC8T2m/tW6MXNqs29WzzS/CUSQMw+W8qN7ePNDD9JKUYz6h6OsxkPbEbe
-	JNHyXUTRvI7QaZi8MKtKmSXbiEQfiQLzmsdNyS4fg7k+8gcjV1SLXaV4SrOpngVXacRd8U24HWe
-	j9GECy5U5ScfZjrpZuJg00PfkI+ms9ByErGsNfGS66v/Ou+hvbE88/D/ch5rmXdtMjl4S9xLyD1
-	7lC6Sgxavl7xZ6NO+rOgmrYfxkvV6PQKuo2aRUEd/CL6Tr9G0edjyCTjc/Mw9udt0wsIpDMJRpM
-	ABUybZ6o=
-X-Received: by 2002:a17:90a:e7c2:b0:3ac:73c7:9c07 with SMTP id 98e67ed59e1d1-3b1b0608b39mr11786795a91.0.1794729701017;
-        Sun, 15 Nov 2026 00:01:41 -0800 (PST)
-Received: from claudebox.iyengar.cloud ([50.39.139.68])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3a21769sm6224118a91.4.2026.11.15.00.01.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 00:01:40 -0800 (PST)
-From: Arun Iyengar <aiyengar1990@gmail.com>
-To: Lukas Splavec <lukas.splavec@puresig.cz>
-Cc: detlev.casanova@collabora.com, ezequiel@vanguardiasur.com.ar,
- mchehab@kernel.org, heiko@sntech.de, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH] media: rkvdec: Use dma_map_resource() to map RCB SRAM buffers
-In-Reply-To: <20261114094916.28744-1-lukas.splavec@puresig.cz>
-References: <20261114094916.28744-1-lukas.splavec@puresig.cz>
-Date: Sun, 15 Nov 2026 08:01:39 -0000
-Message-ID: <179472969996.3843098.1159119154248532841@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	by smtp.kernel.org (Postfix) with ESMTPS id C15851F000C5;
+	Sun, 15 Nov 2026 08:21:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794730889;
+	bh=xvJHN8PTWcCjuzksBv84XcItk7liGN0IwqC0kFvZgKY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=EQa4+kUxwoSm9bMxJWdOF2lrV3sywmd78fJbBbFuqIFqg7TXwDKWdmPNstZb2kKoD
+	 nekLO+7ZKZjzuzLL2G5jCZVLXzaHJEHCX1iQr2JalLZlTnr7cidKwhwBt5aXkfm3Fl
+	 n376W0CXfOTPkrSkamWmTCoq1KgkljBxs/rGBPJ/NqiAUHUZQUJ2+aliOv3Z7Qvbqs
+	 /vi+TeiMyq3Ni6NqliLMvlKnIs8dKSTGHntVUTuotKEqAlNOwgsbqh8O6ErVardLrd
+	 dnu8cla1wrg2RGo3UbtT1DGOBWP4oThavLPBC2PhpfRNUF8WLn4jNOXT1FkC7vA4hM
+	 Kv1V51l9eUaLw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4C40949F69;
+	Sun, 15 Nov 2026 08:21:28 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Sun, 15 Nov 2026 08:21:28 +0000
+Subject: [PATCH 1/2] media: rkvdec: Stop the VDPU381 core on timeout
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,9 +82,228 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261115-rkvdec-wdt-stop-v1-1-59e687c6cc63@gmail.com>
+References: <20261115-rkvdec-wdt-stop-v1-0-59e687c6cc63@gmail.com>
+In-Reply-To: <20261115-rkvdec-wdt-stop-v1-0-59e687c6cc63@gmail.com>
+To: Detlev Casanova <detlev.casanova@collabora.com>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Alex Kazinsky <a.kazinsky@ideco.ru>, stable@vger.kernel.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794730887; l=6869;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=L/ZVI8Exe59G7uEuqh1qHfrONjucBNmbBZOMQ/y3hf8=;
+ b=HW1zDX/AQ/P2BPCCM5lbu9Oq0SQoERVPUY7+uECcih2+7wLgaVBIDWQcI9C4newUPBc91Mh9S
+ LBnSiGvM4DjBO/s6XKM1s72rRVd96U45suz86+hul4DXcIEguGLSs5X
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Tested on an Orange Pi 5 (RK3588S), rkvdec from media next with this
-patch, KASAN and lockdep on: all RCBs in SRAM now use IOVAs, no IOMMU
-fault or splat, fluster HEVC and H.264 results unchanged.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Tested-by: Arun Iyengar <aiyengar1990@gmail.com>
+On a timeout, rkvdec_watchdog_func() writes RKVDEC_IRQ_DIS to
+RKVDEC_REG_INTERRUPT, an RK3399 register. On VDPU381 that offset is
+another register, so the core keeps running after the job completes
+and its IOMMU and power domain are suspended. On RK3588:
+
+  Kernel panic - not syncing: stack-protector: Kernel stack is corrupted in: cpu_suspend+0x380/0x3d0
+
+Add a ->stop() variant op, called with the IRQ disabled. VDPU381 soft
+resets the core as the Rockchip BSP does, with the reset lines as a
+fallback, and reprograms the IOMMU, which the reset leaves in bypass.
+VDPU383 is fixed separately.
+
+Fixes: e5aa698ea659 ("media: rkvdec: Add H264 support for the VDPU381 variant")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ .../platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h |  4 ++
+ drivers/media/platform/rockchip/rkvdec/rkvdec.c    | 64 +++++++++++++++++++++-
+ drivers/media/platform/rockchip/rkvdec/rkvdec.h    |  3 +
+ 3 files changed, 70 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h
+index 6da36031df2d..57ab23d76d73 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h
+@@ -34,6 +34,7 @@
+ 
+ #define VDPU381_REG_IMPORTANT_EN	0x02c
+ #define VDPU381_DEC_IRQ_DISABLE	BIT(4)
++#define VDPU381_SOFT_RESET_EN		BIT(20)
+ 
+ #define VDPU381_REG_STA_INT		0x380
+ #define VDPU381_STA_INT_DEC_RDY_STA	BIT(2)
+@@ -41,6 +42,9 @@
+ #define VDPU381_STA_INT_TIMEOUT		BIT(5)
+ #define VDPU381_STA_INT_SOFTRESET_RDY	BIT(9)
+ 
++#define VDPU381_REG_DEBUG_INT		0x440
++#define VDPU381_DEBUG_INT_BUS_IDLE	BIT(0)
++
+ /* base: OFFSET_COMMON_REGS */
+ struct rkvdec_vdpu381_regs_common {
+ 	struct {
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+index 4e3a706f74f6..a8fdad2850fb 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+@@ -14,12 +14,14 @@
+ #include <linux/genalloc.h>
+ #include <linux/interrupt.h>
+ #include <linux/iommu.h>
++#include <linux/iopoll.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_device.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm.h>
+ #include <linux/pm_runtime.h>
++#include <linux/reset.h>
+ #include <linux/slab.h>
+ #include <linux/videodev2.h>
+ #include <linux/workqueue.h>
+@@ -1592,6 +1594,56 @@ static void vdpu383_flatten_matrices(u8 *output, const u8 *input, int matrices,
+ 	}
+ }
+ 
++static int rkvdec_pulse_resets(struct rkvdec_dev *rkvdec)
++{
++	int ret;
++
++	if (!rkvdec->resets)
++		return -ENODEV;
++
++	ret = reset_control_assert(rkvdec->resets);
++	if (ret)
++		return ret;
++	udelay(5);
++	return reset_control_deassert(rkvdec->resets);
++}
++
++static void rk3399_stop(struct rkvdec_dev *rkvdec)
++{
++	writel(RKVDEC_IRQ_DIS, rkvdec->regs + RKVDEC_REG_INTERRUPT);
++}
++
++static void vdpu381_stop(struct rkvdec_dev *rkvdec)
++{
++	void __iomem *regs = rkvdec->regs;
++	u32 status;
++	int ret;
++
++	/* Soft reset needs an idle bus: let a busy core finish first. */
++	readl_poll_timeout(regs + VDPU381_REG_STA_INT, status, status,
++			   100, 100 * USEC_PER_MSEC);
++
++	writel(VDPU381_DEC_IRQ_DISABLE | VDPU381_SOFT_RESET_EN,
++	       regs + VDPU381_REG_IMPORTANT_EN);
++	ret = readl_poll_timeout_atomic(regs + VDPU381_REG_STA_INT, status,
++					status & VDPU381_STA_INT_SOFTRESET_RDY,
++					1, 100);
++	writel(0, regs + VDPU381_REG_STA_INT);
++	if (!ret)
++		ret = readl_poll_timeout(regs + VDPU381_REG_DEBUG_INT, status,
++					 status & VDPU381_DEBUG_INT_BUS_IDLE, 1, 1000);
++
++	if (ret) {
++		dev_warn(rkvdec->dev, "soft reset failed\n");
++		if (rkvdec_pulse_resets(rkvdec)) {
++			dev_err(rkvdec->dev, "cannot reset the core\n");
++			return;
++		}
++	}
++
++	rkvdec_iommu_restore(rkvdec);
++}
++
+ static void rkvdec_watchdog_func(struct work_struct *work)
+ {
+ 	struct rkvdec_dev *rkvdec;
+@@ -1602,7 +1654,9 @@ static void rkvdec_watchdog_func(struct work_struct *work)
+ 	ctx = v4l2_m2m_get_curr_priv(rkvdec->m2m_dev);
+ 	if (ctx) {
+ 		dev_err(rkvdec->dev, "Frame processing timed out!\n");
+-		writel(RKVDEC_IRQ_DIS, rkvdec->regs + RKVDEC_REG_INTERRUPT);
++		disable_irq(rkvdec->irq);
++		rkvdec->variant->ops->stop(rkvdec);
++		enable_irq(rkvdec->irq);
+ 		rkvdec_job_finish(rkvdec, VB2_BUF_STATE_ERROR);
+ 	}
+ }
+@@ -1652,6 +1706,7 @@ static int rkvdec_disable_multicore(struct rkvdec_dev *rkvdec)
+ 
+ static const struct rkvdec_variant_ops rk3399_variant_ops = {
+ 	.irq_handler = rk3399_irq_handler,
++	.stop = rk3399_stop,
+ 	.colmv_size = rkvdec_colmv_size,
+ 	.flatten_matrices = transpose_and_flatten_matrices,
+ };
+@@ -1696,6 +1751,7 @@ static const struct rcb_size_info vdpu381_rcb_sizes[] = {
+ 
+ static const struct rkvdec_variant_ops vdpu381_variant_ops = {
+ 	.irq_handler = vdpu381_irq_handler,
++	.stop = vdpu381_stop,
+ 	.colmv_size = rkvdec_colmv_size,
+ 	.flatten_matrices = transpose_and_flatten_matrices,
+ };
+@@ -1723,6 +1779,7 @@ static const struct rcb_size_info vdpu383_rcb_sizes[] = {
+ 
+ static const struct rkvdec_variant_ops vdpu383_variant_ops = {
+ 	.irq_handler = vdpu383_irq_handler,
++	.stop = rk3399_stop,
+ 	.colmv_size = vdpu383_colmv_size,
+ 	.flatten_matrices = vdpu383_flatten_matrices,
+ };
+@@ -1813,9 +1870,14 @@ static int rkvdec_probe(struct platform_device *pdev)
+ 
+ 	vb2_dma_contig_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
+ 
++	rkvdec->resets = devm_reset_control_array_get_optional_exclusive(&pdev->dev);
++	if (IS_ERR(rkvdec->resets))
++		return PTR_ERR(rkvdec->resets);
++
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0)
+ 		return irq;
++	rkvdec->irq = irq;
+ 
+ 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
+ 					rkvdec_irq_handler, IRQF_ONESHOT,
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.h b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
+index 894c18eeb795..d9acf85e5acc 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec.h
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
+@@ -74,6 +74,7 @@ vb2_to_rkvdec_decoded_buf(struct vb2_buffer *buf)
+ 
+ struct rkvdec_variant_ops {
+ 	irqreturn_t (*irq_handler)(struct rkvdec_dev *rkvdec);
++	void (*stop)(struct rkvdec_dev *rkvdec);
+ 	u32 (*colmv_size)(u16 width, u16 height);
+ 	void (*flatten_matrices)(u8 *output, const u8 *input, int matrices, int row_length);
+ };
+@@ -139,6 +140,8 @@ struct rkvdec_dev {
+ 	void __iomem *link;
+ 	struct mutex vdev_lock; /* serializes ioctls */
+ 	struct delayed_work watchdog_work;
++	struct reset_control *resets;
++	int irq;
+ 	struct gen_pool *sram_pool;
+ 	struct iommu_domain *iommu_domain;
+ 	struct iommu_domain *empty_domain;
+
+-- 
+2.55.0
+
+
