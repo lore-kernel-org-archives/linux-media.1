@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794749880;
-	b=X0sfjq70Ix7rdCCbzG08ZVvF/Yrfymft5/3atgA4Colq1NKuKZXUAM9D/zDjIRC5hNEQ
-	 yEuS++Br+V6SYOgcXQdUEl8zrjind0prv8Rkys2W+/UTx3dK74IwX3nc59qfWcqnD/kWt
-	 PlH4HSWqI4NjieGZ5QVZO64xbp9w+qzonDJh84/jcTrnxPN/sN+3Egg9EtoZu2ZS2ZDGZ
-	 LQSaGZb+e/bOGNFqQAhnjVi0aU8JWkzBhsu+ZhkVEytFChI25YptZw/MARJRGpWrZhuw1
-	 GodgL7c0rYn44c8Rre+SmfYiWsdoEzrUPG//0LfeBi1BvN0aQbMK0rD+qjKbvFCJ7rg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794749880;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794765259;
+	b=hICTtJWLWojQyhR80hfmmn4CEKaFBVAgBExq99N73CSqPriSDXil8yjGvXR8RZ94ClfI
+	 jrwQ2oQHxFWhlyxpDwVVJQnHdbkaHaxi0DvkzIJ1eP9PGL77OqDQPE7alcG2smbderw6T
+	 iBjiwCFGl/eYP6D8ZHgZFJXtrPKtILVbwBJZqa7pSvbjcDn15yR8TnPWiy9cwE6I0qfeG
+	 BanazAfhJ9aoe704mX1Hr3uM2e49uMx8M61fM5YWh6NIuhOwg1eXiOZzGuOzOtnvWEq2E
+	 FaL9T46EttCWiruIol6oFJVlFUdhTDKnTlhzw7lFBvrnpyrDSSO3/LsCFDKJPEyRfPg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794765259;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=I90gEB0wXViVEQKBJGc0k65wJxE2LARqA1Y1G7+3VwI=;
-	b=hNmTkuvb21YTUYuTa1kQ9vkcSFJCOyVY/ttgQFGXxr7Whk6O2xxc446sHt405QY/PMf7
-	 MwcBkRQyL6dGXNANvj4BUZUvnaZN/30pfVJ4A295R0FDENvmJkUvD01zVSZoxPnbFXHcn
-	 OVvT2Wan6S8OV//cWT6uP/Yr7htx5diETbVDGG2+c63Jijs05ONY34U+xaxkYOPf54EuC
-	 wq1mY0OmNM76ev+aVHIqcHAVefnaJkMnNsZQQIxsK0gKSyVGlO2VY8q9HwYI97CfIE/id
-	 sR1BUMVcNHM1snuVb4BAiLgDJDu9ewnRoMNCaj+gVXrj4sEo9J1R3KbcExOosp8k7nA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=WH50qcru4lH7jJgNPK5UULmwPcjOUvxOy1ArP0lmGDk=;
+	b=hqqOzwLw7vmWw5HkjK1xQqr4DhxNofYl0QsFI4aZyrrv/CoEJm7u+xqfl4xqtnbgasVQ
+	 AfCEvndVesmdh+7hFGww7CfCwB3r0su0egr3PJv8L+nNfvDKuf2YnuzdTdrZQ3CncVadc
+	 Em9wAdNBI6399Et3W4c3bRX1+zIujiAf2toe9p4QIHxVrU1CLeCAM9zHVnmcF1YYqKban
+	 zfCvhkV4Nn/8nORdM+4qVD8JcBZ6B+VPkKHJft5EUXRBaah6Rdgaw5AZ6sIJbub97IiAF
+	 eHRZ64xl7BDPAqoOwsKI2NNZYApqKIJp4aGgsuvgypq5hhsPWEB95664LDc1Oh2vBkA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j5u+8Tgm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.45
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YbA7zYvq;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0810606A31D
-	for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 13:37:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0810606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C900C606A31A
+	for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 17:54:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C900C606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j5u+8Tgm
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-67db3a48dc6so231157d50.3
-        for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 05:37:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794749879; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DKC2GgCALktoEtePzRtLXhmxUPqqT9JCmvlNTmHSbu7PM9AcK8IBZhsumiP7oyNaBB
-         XuPlJOQqQaq1ntUmyffzf4o90Y+BOAAa0EVmhx3IEV448sNeR9Rn2b+fXUo8XScTBM9t
-         Y2Lr2Gn9ElHYoE8GM6VWF/gDzKtVgHI98iiwQyURutywY7LlcStDB3v6RHqjOjVIskP+
-         Zj2aiJab019d+3LxileuQwlJfkjyYoTMEBstJwbdefrDbmoLmEIVxtf/jd7h60JXp1KP
-         R58MtNqDORMeSMKgRdRyHXdp4K57yHqe29VSdIoFB8CBe8wOGWkhYwMqbb4PMZOh/iMy
-         2vHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=I90gEB0wXViVEQKBJGc0k65wJxE2LARqA1Y1G7+3VwI=;
-        fh=RfGEOwDVmLcrl+UIMOuP9Z6jT0y33U6aIKlxgQGIiAI=;
-        b=eyRxP40PfqZW6ztZFwUQ9VcfzZtRbBjOmDv7gfu/p38bWuRZEBpsctOxsOn4yQy7OL
-         sf6To4uKEkU5gRQx1UTWQyGtX+xhX1lrug1lE9ujYzzEJKkVQ4KUAk1UzLPZEpQSaTd5
-         P52iHKdMH9bwzb2t6qzToFArOBdz6G/GAAihKT19x0b4bBfRW4eOsQfouT1Zzt5x8bDG
-         wqtKI2rn5Fx6dLi1qY44n4hpUjP/Xs6T45cMLOS32lxkeMYLYuc9hv1uLn7P+aH3KmPe
-         +qMeOc5iG6+q+EwvG4L7EF+4ZjNYlFKGEnVmQrtFpjWxR7Ppy0pKa3jQtRF7ur9/MHoV
-         EF9g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YbA7zYvq
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-49412eb1474so1251458f8f.3
+        for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 09:54:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794749879; x=1795354679; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=I90gEB0wXViVEQKBJGc0k65wJxE2LARqA1Y1G7+3VwI=;
-        b=j5u+8TgmwHXiKKpsbR7Szs8SaLfIfbPRiyJwZ9+fEjUNNPJnUNa3XTCzXk/DYH0khU
-         MLrDmKFRDHsbW4ecqBlbueP9cdY0r7aeF9Izq4t/GRv2HaU+xmYVWTvm28qdLEUHKfgd
-         UBBrE1o96MbOr+O5Iu/aTPO/eYHtuDDQ4nE9i3WFmBa4irbluZP24pQe8ShbtgoUBlCF
-         lP/Fl6ltI8SvqfqC4KsJdfI/dj2TZ/0mBFdB2E4u/oJtZeljqE5e8D1vBQKXw+Bpms1g
-         ZxvEL66v49EBTCXJR72ww1e/xcxIaXRxmQzHfwKMLUGoHwPjN5CejaUXjB0Ez3yMRvlP
-         5msQ==
+        d=gmail.com; s=20260707; t=1794765257; x=1795370057; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WH50qcru4lH7jJgNPK5UULmwPcjOUvxOy1ArP0lmGDk=;
+        b=YbA7zYvq686UdE0NPHvgJcA+JgUYh9MyUp0CrhM6dgQ+w86n+navpOZ8DpLzZHfTYv
+         occXG0IHbca6gOxdisdSbqHCdZO16U2QcH8BA+O7ioQqXRFk/a/MHE1AbJNL6xJ8+miJ
+         wfNy0bdbOqo12l7YCERwWREgMW+evwNI5wuOGpggIhFh/jl0OCBlHvg79mNbrIMJIIn0
+         m7sFswf30FJbNnMBiFralB4hpjeYeQGiUHXyyL7Jzq5l5jPDrbzIrYqEXcK4Oy0rjqet
+         vBPChryx55V728F6mMHrnp6s6WrNAn1ehHnLGcZyZBmjCzIYFcgbwF6Rh6WjM38a6h/p
+         5H0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794749879; x=1795354679;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I90gEB0wXViVEQKBJGc0k65wJxE2LARqA1Y1G7+3VwI=;
-        b=T9bsZ4dltmQkZDt5wABxOkKeCGE+d8IDCLK6LlgC09HDZQX9i3KfkJp/ZSuKV3aQW2
-         ScdbHBvERtZr9ZaMTL7xK6u0eMRjwCmI4Z/7yGvJFP6pKBI2n3ieo+NNetXb6DrW67Gz
-         HeShVBz11qLZYizsT3HkGeuM7uZ3zNFVV4FUXRvOgRnQQZZ6nOhBsvQxUjxtwdMcPsLq
-         hzhNNOq2S7OA9mWArD54NPAT1e7RSlKbLXhJA5kE1gNxfWU23h7tdkTzmX1B34YPhevC
-         e89+KHjHJOVzJCRqLrR09h0qw8Biu+CHE/5r+FAkthUtDYYkk/pwJ/Ia9j/cI2qPXmiG
-         3OSA==
-X-Gm-Message-State: APuU4Z/LPG9jH5R01tVwrH2ez239BIc0q8WvEH4tgYnxY6L5Ffp0G/qH
-	OsgfoOC08s53O82yuTE2+TsHMRiIJQRfdyP7rkSJNKrBwWW0WQP4LstTcvsMO+HSEmmWdhpsJNx
-	ssQG9GdarvTX5ZgHQVUgxB5vArSOe1bA=
-X-Gm-Gg: AYBFou2bQCmWVMoc8dJYC76hYVjbjqJcqK8DApf3imLy0pC5YzLTKcQKh9Dg1vwE26X
-	kOk8sOLHe2f306fkFTYNpxVEf3cvYEyRUmwd3E3YkwsFdGHxHbYMNZf+x5SVtM94+wSje56uOr/
-	e+omuUFYaJIm1ByKxFJlz/IFkQazL2W0bCG8Q0L20W5iB7b4qJ2bNYTEYWOf5UV7ynv/xaonq0l
-	Lms4HNxogUaBKZ6kv23MBBL1wh8ZCFNqTQ5GVzzaFeMOZq+SY2yHNjENwXN4a7KsMZ9fJVtAPUn
-	e/Dg94LxxPlm/BfcApfN04pjOMIERbZQCJXwIXpW+BmHqf+bw5Ny4izAUp+GlAijR+7SJgTOXE4
-	sjHNO+IX9/5mFxnLCgcO+lysqjLF1z0+dHmia9g4r4kZD/PEwjCg68cMzhQIvTtOE/SjvtMFk5a
-	kjI29Cht2DvPn0gjnDv+Sy9SrUSpzAvWqAKFq2eKg5ZuxfciJjNRC7TNn7gvqBa0njh46M7lY/D
-	Pt5oYllJiQj
-X-Received: by 2002:a05:690e:190c:b0:67c:3a93:638b with SMTP id
- 956f58d0204a3-67d893e2324mr4461724d50.12.1794749878698; Sun, 15 Nov 2026
- 05:37:58 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794765257; x=1795370057;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WH50qcru4lH7jJgNPK5UULmwPcjOUvxOy1ArP0lmGDk=;
+        b=HZZVxX08qwlZUqqAcspRbEWvEhQi2dK44YyOx384pF1foDX7p4O5PjhzmbPiKQnt8v
+         4H8sfJ/m4VTzxFt0mOdmbgT5uX98euCq/wUTlZo4Mp6Ao+UeFD7fc41j4sqpK42JV6Xd
+         JP1pDODCKkAn5i+DCVTXWGttvCukMrKNT/jTYNRPj0GzOL+s/gGnrAfTnOZnclu+QvxL
+         d65obPZnHFzUrbsp4ya8LoJvmvGrLxj4iek2Cyv3FIUw7mtwFNnAL7l3HAcsoc+2wC8E
+         pRTgqGwtIprnSBt8WrmYM+GNHdQIKwf8qHS0FWrGR0CCcz4v6Rf4o+b7VneXpUOYZo6e
+         K7CQ==
+X-Gm-Message-State: APuU4Z9vzWy+TdNBrWhf+VYvgI57WfVrrPdEz3ZueoZ/d5RK9ZYS25DI
+	GsQ2NhgqU67LTAPgQSNjh9+Rrn/jilByAIch3obcTcOYcpti7mFAP6Sk
+X-Gm-Gg: AYBFou2LlqVsdwz5GRKLpaKqh3JjHjbi2u/2S44NIW4/2uSI3NF38tTj5E0RXs0Rbti
+	uOjEk71F1Ym4wuqN/0tE446UbPelSXkHcLbn3DZtNgBQOT8czU/fkk7snTAzQOCPEcVa8VV5VON
+	oyMJ4HpEUp2XVm/DcgGkcZcwy+Proof/n5xbrhy6MFP0ihTn6PknhYBIf13SehB4KrLOHSrCf/D
+	6l82jbKdXcLzDxJlFZUPCjxS/Hx87LkL+Ykhfeox49mQKSgvHIvA3IHaipMM8tUJFw6y9pqv/YW
+	X1sy09qiwUCCu2+KWy89oKeUN8z1zEhTyB/0zBvHmJbqSJQS8B63nnzYlypgnq/tOms1dbeJ0S7
+	M0k/awIbeRoQ7r2AuXS8OLxCgYGBZo5CNC79r5rbgdrafZ3zUZfJy7J98WNwZIDMS3RnzaDQGQr
+	rZ9hyxETFukggGVXD8YaoK6a6jw1nCOl+dyky6YxnFQlUVkiPw+dErBLLL6jjRaZldJczFxUG70
+	9VudTIDec9RFQchKw0IPDGDYQImZw8KYUqQm0CCd16JiZhHTq9tc8FBEnuaB9JBGUMqvFAhj8pz
+	kOF4THunNXtCLCq+fqwmVLcDbRaSqtnR0b0i2TOawCppdHs=
+X-Received: by 2002:a5d:5f91:0:b0:493:d5f0:4e4c with SMTP id ffacd0b85a97d-49c723fc45emr17990491f8f.23.1794765256948;
+        Sun, 15 Nov 2026 09:54:16 -0800 (PST)
+Received: from firas-surface.home ([2a06:c701:9f9f:6800:4b81:a189:67c3:a27d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49d7150529dsm12313385f8f.51.2026.11.15.09.54.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 09:54:16 -0800 (PST)
+From: Firas Sharary <firassharary3@gmail.com>
+To: Antoine Pichot <antoine.pichot@gmail.com>
+Cc: linux-media@vger.kernel.org,
+	sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	hansg@kernel.org,
+	andriy.shevchenko@linux.intel.com,
+	dan.scally@ideasonboard.com,
+	djrscally@gmail.com,
+	dmanresa@gmail.com,
+	dave.stevenson@raspberrypi.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/9] media: i2c: ov7251: fixes and infrared strobe for Surface Book 2
+Date: Sun, 15 Nov 2026 19:53:01 +0200
+Message-ID: <20261115175301.8516-1-firassharary3@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261113024059.1087031-1-antoine.pichot@gmail.com>
+References: <20261113024059.1087031-1-antoine.pichot@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,67 +104,40 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102141439.13505-1-kartikey406@gmail.com> <20261102141439.13505-2-kartikey406@gmail.com>
-In-Reply-To: <20261102141439.13505-2-kartikey406@gmail.com>
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Sun, 15 Nov 2026 19:07:46 +0530
-X-Gm-Features: AclHuK9aacDMZDOlVUzvL63WXYgaGKeLzw5nDq0_SsaPm0rMWGu8Dy2tKKW2KeE
-Message-ID: <CADhLXY4DPmT8Q7Pw8b22gqwMha+RPdy-Gt17aqoeOc8OrxeVcA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] media: em28xx: clear dev->v4l2 on v4l2 init failure
-To: mchehab@kernel.org, sakari.ailus@linux.intel.com, 
-	laurent.pinchart@ideasonboard.com, hverkuil@kernel.org
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+54648a6c1187a7ef46a6@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 2, 2026 at 7:45=E2=80=AFPM Deepanshu Kartikey <kartikey406@gmai=
-l.com> wrote:
->
-> If em28xx_v4l2_init() fails after registering the video devices (for
-> example in v4l2_mc_create_media_graph()), the unregister_dev error path
-> drops the initial v4l2_device reference but leaves dev->v4l2 set.
->
-> If userspace still holds an open file handle to a video node, the
-> structure stays alive. On USB disconnect, em28xx_v4l2_fini() sees the
-> non-NULL dev->v4l2 and drops the initial reference a second time. The
-> refcount underflows, em28xx_free_v4l2() frees struct em28xx_v4l2, and
-> the later close() makes v4l2_device_release() touch a media entity in
-> freed memory:
->
->   BUG: KASAN: slab-use-after-free in dev_dbg_obj+0x630/0x830
->   Read of size 4 at addr ffff888023601bd0 by task v4l_id/6384
->
-> Clear dev->v4l2 in the error path after dropping the initial reference,
-> so that em28xx_v4l2_fini() returns early and does not put it again.
->
-> Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-> Reported-by: syzbot+54648a6c1187a7ef46a6@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D54648a6c1187a7ef46a6
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> ---
->  drivers/media/usb/em28xx/em28xx-video.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/=
-em28xx/em28xx-video.c
-> index 84424284d486..ec4ed2b0e5fd 100644
-> --- a/drivers/media/usb/em28xx/em28xx-video.c
-> +++ b/drivers/media/usb/em28xx/em28xx-video.c
-> @@ -3137,6 +3137,7 @@ static int em28xx_v4l2_init(struct em28xx *dev)
->          * v4l2_device refcount to zero.
->          */
->         v4l2_device_put(&v4l2->v4l2_dev);
-> +       dev->v4l2 =3D NULL;
->         return ret;
->  }
->
-> --
-> 2.43.0
->
+Hi Antoine,
 
-Gentle Reminder, Please let me know the status of this patch.
+I tested this series on a Microsoft Surface Pro 7+ (IPU6 Tiger Lake,
+8086:9a19, sensor INT347E, SKU Surface_Pro_7+_1960).
 
-Thanks
+Setup: all nine patches on top of linux-surface 7.3.4. Patches 1 to 4
+applied as they are. For 5 to 9 the only change was the pad operation
+signature, since v7.3 does not pass the client info argument yet. The
+tree also has "platform/x86: int3472: map the ov7251 power enable GPIO
+to "vdda"", without which the sensor does not probe on this machine,
+and linux-surface's V4L2_CID_ANALOGUE_GAIN rename.
 
-Deepanshu
+Results:
+
+- The sensor probes and streams 640x480 Y10 at 30 fps on the 319.2 MHz
+  link.
+- Raw capture from the ISYS node, ten start/stop cycles of 15 to 20
+  frames: every frame arrived, none was pinned at full scale, and the
+  receiver logged no CSI-2 error in those runs. I had not run the old
+  PLL setting on this machine, so I cannot compare patch 1 with the
+  behaviour before it.
+- With V4L2_CID_FLASH_STROBE_OE off, every frame sits at the black level
+  (mean 16 to 17 of 1023). With it on, frames alternate between that and
+  a lit frame (mean roughly 240 to 340 at the default exposure of 504
+  and gain 16, with a face about half a metre away). The emitter is off
+  whenever the sensor is not streaming.
+- Patch 9: the rotation control reads 90, and the frames are upright
+  after turning them 90 degrees counter-clockwise.
+
+Face authentication with Howdy works on the lit frames.
+
+Tested-by: Firas Sharary <firassharary3@gmail.com> # Surface Pro 7+
+
+Thanks,
+Firas
