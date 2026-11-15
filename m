@@ -1,96 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794782733;
-	b=hP5YBEsbQBTAc+Mo3P+rj8WSrb8CSd33lyuCBnlvcdRi0enapwd5vOi62XN74JoIlJ3z
-	 NvjY+Um+L8mgTe+xkuPftJRfEu9RkXiQRh8yHhPHf5H/HDFlmAJOS3Sa5w2sSOAcZ4mdv
-	 JZqQWzyX6qinClb20QkX0HENSXHj7B7GCUmRDfQV9ReDjxA3iklAa6RnjyVML5aNYOI5r
-	 fASmYu0Ez2b+W68dHrTiCmJok8NAaUfzojSXrLh0AZufKWqcFwNqkiw7Knf9ksp3N3P7R
-	 frhqh66r/7h6dD0qNcKQYGwXjJluodO0OVzrB48+k87yqUU9rmEhzvDcKSOVwdfbuaQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794782733;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GOr05e4sBQgtPWColaaByvA3KE3CX0khn1f+6+vSgZ4=;
-	b=Djp/LKxp8IcPLplpUgvaOi+VDHCWFJibxmd4ffvwjYL8Zibsc12pJRlBRtoIK65BX/9y
-	 7aDnJGfY84XAkzZivmu0WdLZG1nxw8Az56Nuf380FNd8ExR6npJoDY4xwl2BMrzf/bCiv
-	 Rgawl0TAC6afN/P4JFBgsDlaeAPQd0g9pJlqvyP9HW1mlbkwh6wF0ri0Z0gkIiE4I4w1A
-	 /KGHpbECm4SX4rlTmbYs2d5AlU6NIcPr6YXbtcbxYryjadxa9obSa8+Yz94TDr6nwZPd4
-	 cNLc5s6R6ZInj0/hVL93s45yHY5SZoYSFMB10MpEbziPtD8zarYzDT7EacmPCueizOA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=AatWGr14;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794784792;
+	b=luP8zJOJigGdZUkxuRweZZJWDCwdXdT4rsqShO6jDQkagQsZrgAVjGyN0WjgBpbrpbuj
+	 MSDudYsOtwCc7ymFcuL84q6WVJheSlHp+8/OriUtCp99GZdVk7x9gGp3plkqyk6QQLjKV
+	 aPcMik+prOUuxguaMpprG5bvDKCiay60rFW9hDsDsGwbSQwUEX8cEqv2B/LrL9SqAkQ7z
+	 lVggEZfmPHmDZ4N/sm+CGJ41R6YgltSgLoCUMhueQIzOBr0GSFEY24az+y/whz2YmC9EU
+	 LkOJXVYgmO0o+idmJTcH9UefeAcyOYrvOOdZLiwIbxUjLUwIrLVqaiIziVlOfuZAsAA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794784792;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=CQDshkWrg2xvNz/o9nwO/xdioRBlLozjNnhWFG+VzNk=;
+	b=pmJIeiNwHmlIOWAoboPaKGsbKAGbTk7NJridMvGYFkloQYTYjYjhKn9HKipsm4pdP+0Y
+	 3HNEfGYYRayafVD1b/ILsRJ6G+NwoXhlX6AGZ1V4FRcelV9z3Xkooszwm2EaauJKluKYC
+	 xtGmn/UApStVOEC83kNKj39lOqZcbSE1pA+zlaDL3KyhY1TBbJtAZ1pSP9UZ+CkHoldPk
+	 VPybVoJ2ASusfg7Hy4YtrTRhFBYXbAGGdSaj8dFheEZxrAKiguXBx9No+LBxBCZTNm/2D
+	 /woH7sT1GY6lkzvRYJQPokJ21YoUyPgcAAvA1iA9BOaPWlKpfMvSKJya68gYqvodavw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iJZ083kd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.42
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010042.outbound.protection.outlook.com [52.101.201.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94C3606A31F
-	for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 22:45:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E94C3606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1CF606A329;
+	Sun, 15 Nov 2026 23:19:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B1CF606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=AatWGr14
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so32040775e9.2
-        for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 14:45:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794782731; x=1795387531; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GOr05e4sBQgtPWColaaByvA3KE3CX0khn1f+6+vSgZ4=;
-        b=AatWGr14KzZxwc2Z0l4MTY5LVwBIFm7TniTPp9oDrlmZmcasvjHGzXaxxX+5IF0CIv
-         MRe/plwx5R4zIQKLFXLOcxDmWfFy9xVERl/TyGv7ie8CuOk0NjQ+5ggsW6xcUtlzYgpH
-         ZvPkid8BDnHSJEYaB23vIiIgLQTz93ppSIORNSBDQxtzOMSUa4AExaNwAsXlW0i+FXTb
-         N/rhn1fZLTUbH+qzhRnkso7hg6Qgexz4QXZnpHmKj4UFghVQjqKdPcr8vKSAhs2BlcVY
-         2P1+EiMnSCezLhIt5+tPeFS4iS1j9n7qG9TMzmGBuiGCU/q03qFoCR4HWBc0FYk8ET63
-         6CJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794782731; x=1795387531;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GOr05e4sBQgtPWColaaByvA3KE3CX0khn1f+6+vSgZ4=;
-        b=OKMY5W8Qblqat4BuJp8LNnMWqPmGbfUc2ydEfJTYxqos0W3XG6L5pxvIKLajjJrOTi
-         9CrzOQURIHDe2lmoTE/XsEJebbXt6Q2e6Kwkg4buFd5Q7HxEz4MvwFXWOC9dE1wfh8Ze
-         ysYL6n9TeNZkRk5M0+EozAu2RFQlrykzE4aDcMI9GZfekdVeBlA3EajULeQ4Cu0N5Zr9
-         3AYCidIyhveMm5/Q+wrwoLJrRad1TmSc+eTFmHhTwtR0WRGZXHjQCMH1d2sxj0JkEEYf
-         PaEgIf29CEVdRvJvSXnrqGMXkCghEr+CrvQ+muLAXKUVfoBaXyIJHcxhZWetch7eKNkS
-         Fi8g==
-X-Forwarded-Encrypted: i=1; AL+hErGTgFU0/PVYx6IXSuwGFBni3LbEZDcKXXl/v4GWhbvNeK7bdlbkhr2JB0C6NrNmlD3qjKmcWyXfWQ35fg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9hdvSpl0BXSE+hhu/nxG4xVTap7vJfk4dJhLRCttgp9qcdT3eI
-	Jr5G8449MH2gwhzcXviLnuaJMmnsUtmAR4TjrhKf+OXI+KbT4h+Jvx2S
-X-Gm-Gg: AYBFou0pmZa1yEJ8whCZzpzqcMYYRR4LkDFJzv9TlUaUdq7UobQUdtpqpQNPJ3EQ4cS
-	EPaO2Rz9neXnuwSclRrZAYSEDM01EvDNAzsauOuQAmgCM0ZTncPz05Ges3ZQkeY95HesBwq8UHh
-	00YuCP57DLhQ1bOPMb4jGYC7LM/ebP8YvA5vpvoNd59jnhUtsjSPajlrZZS+DnOquWKe6Cc3IlO
-	e9JdacvBM7mvYr52pLL2v91XA3NZyOpJxPaeELWkl/XTY8EGZnx8OCjZoZrByJBKAx1869CzmY+
-	hwE7uYKU8TMJMLuUKOoBn6LJaMkcv+xfB8SfjVPeY+f15nxwIRT7CNdwhjGZIa7hCPwSzv9gf1p
-	IsIqo7A5srVISWR1NK5wSsmdsmP2Z21KD522qufR70fwdhPpdC5AadiceVVc5xAO14/eotCVWS+
-	u2mi2l92EceJ27O5kG9yrzIyK4tctYlvtMJ4EkQ1K7t2M3ceZRVsiIj+LXoQCiY6gGleSNgZUAD
-	d7TqkwTgP4fHI8F/uih4wFbczgZAht/vADPPbRKn1r0XVBir0HSFMkeroKwPmJLrzjms9JdHXW4
-	x+rUsIFKw72NfSIWdMadmrgrZjlyxcpKkCnt8WL2o3e5Cf30mrj7tIVaFWaJ2pqMKgqLa8e/UJp
-	zd/1+UOoYFStzXprEBUntastejf5zoxmGdhuq+znsYs/NOVKt4jjbeHyLtkTqcqlVqyfRS84Fjk
-	mc3w==
-X-Received: by 2002:a05:600c:3b9d:b0:4bb:5dbf:af06 with SMTP id 5b1f17b1804b1-4bb5dbfb103mr167096955e9.9.1794782731226;
-        Sun, 15 Nov 2026 14:45:31 -0800 (PST)
-Received: from blackbox (dynamic-2a02-3100-9c24-a600-021b-21ff-fe38-46c2.310.pool.telefonica.de. [2a02:3100:9c24:a600:21b:21ff:fe38:46c2])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-49c5f1c0e0dsm17912227f8f.15.2026.11.15.14.45.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 14:45:30 -0800 (PST)
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-To: mchehab@kernel.org,
-	linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	hverkuil+cisco@kernel.org,
-	birenpandya@gmail.com,
-	linux-kernel@vger.kernel.org,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Subject: [PATCH] media: i2c: saa7115: only select SECAM for SECAM-only standard sets
-Date: Sun, 15 Nov 2026 23:45:23 +0100
-Message-ID: <20261115224523.820853-1-martin.blumenstingl@googlemail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iJZ083kd
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=duOmq+LlxK3TsfSnL6dSXdMU297qCynlYz/tJp8hyDUPZopXQ3s7jrpMehozjaiiYDxdsvhG6WAKXppxzowYZgZ8yHIGw/Biys8RDGFKwDIdvG7chsGdQXnxO/ct5RxQgwL0W96xJ/q34OVXkWfet4OJqvT9ESy5CWKqZ3N6PZqMsXRhHjpLh9GuHPU0JYJU3FeFkpKvTvGNC8IoV8VFKyMTvCrEzyX7YrnYzKMcoBSNQ/4xHVaj5ctu6H5SBgmrkleI8Dfp9AFwX50adVMIx8FtnsRj4arpzkrNcd8oQDTC+wnwFBxqsb/wSINRAddoxe7lo19QkOIEioLyu2Zb2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CQDshkWrg2xvNz/o9nwO/xdioRBlLozjNnhWFG+VzNk=;
+ b=Ngc5uROCvndur3MGkIFfo2Pas5gllgczZ342/tUqMORXI3vGAeHaInkIDl6o7C20LYFmAeYjDeCzcnOlTIYFAvTSXlBWjGk/vrC/zYPmZOBuE5tLStQ39YRiC0M1bM1e3m5ZlgHysEpJOWekLcP6eHaBlHVl/XDgU2hlwaOjTlqnsZS17uXqxYYahYpnT1w6KRmUb84WNVfUQq8F4jtLP5WAtvQFyPplN9HRhFKdbaYgoHqLVQAZMsbL+8u5Um0G5ct6jp87fU16E/hJBWZZIeIrw2T0ZeoyZuDQLyTVNWfwTX5awsp7KX/01h3UutA+uq5ycdWIUzBohWLlj4gd4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CQDshkWrg2xvNz/o9nwO/xdioRBlLozjNnhWFG+VzNk=;
+ b=iJZ083kdPg3DmuOocSvrM7LKl0tX1zLjWkQ6IL4ztMliEcLTeZTsPpMfKBCNu7mi1wdajQ8F5Hspku/a4nZ5NpzwwzUvvwvzsQwZt0nf0l0E9uij6cKSZeIK5YKLCGOf4PuDo6vhSRFb7CQv/E1P36wQRk5r9cwoCWIfPw8fMI1UVF+Vomwo5l4cQokd9uK5FX+8dt/UFylYXHmxZWsM7fSBulZ03mC6V8b4YrBDed0XVU6aGdZoZhPavJyuutj7EmGv1072xJneLiUHTt+zJ8CYPfsiI/a37UZOdIv4Ze6QZLKA/vcq1Hn7WY+LIjIqaCfju7SdmsBaQcHhrtjy8w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by IA1PR12MB8358.namprd12.prod.outlook.com
+ (2603:10b6:208:3fa::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Sun, 15 Nov
+ 2026 23:19:48 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0615.013; Sun, 15 Nov 2026
+ 23:19:48 +0000
+Date: Sun, 15 Nov 2026 19:19:46 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: David Matlack <dmatlack@google.com>
+Cc: Alex Mastro <amastro@fb.com>, dri-devel@lists.freedesktop.org,
+	iommu@lists.linux.dev, kvm@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-pci@vger.kernel.org, Alex Williamson <alex@shazbot.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Josh Hilke <jrhilke@google.com>, Kevin Tian <kevin.tian@intel.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Logan Gunthorpe <logang@deltatee.com>, Matt Evans <mattev@meta.com>,
+	Matt Evans <matt@ozlabs.org>, Mina Almasry <almasrymina@google.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Vipin Sharma <vipinsh@google.com>
+Subject: Re: [RFC PATCH 0/7] vfio: selftests: Add peer-to-peer DMA selftest
+Message-ID: <20261115231946.GB1239159@nvidia.com>
+References: <20261111192411.4133780-1-dmatlack@google.com>
+ <avYjFfqr3T/U7lvn@devgpu015.cco6.facebook.com>
+ <DMTK99TDM9AM.SAM3Z4COP9WS@google.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DMTK99TDM9AM.SAM3Z4COP9WS@google.com>
+X-ClientProxiedBy: BLAPR03CA0018.namprd03.prod.outlook.com
+ (2603:10b6:208:32b::23) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -100,86 +110,81 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|IA1PR12MB8358:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4eddf9d5-5adb-4301-bf32-08df436ef103
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|10067099003|4143699003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261021121427099003|261102123227099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	JhoFb36PtIVj6z9C5Z9MR2yO0VVQY4W8/nlnRoG3Hd6/YO4TthKII04UMCIhST/o6PhO6gh3qpj51r8hSFQNp/GcQNsCDSEzv1FoTenTq5GkYrK9m207tBqYZMqWouRzUiyQMzvW/FYtB+8fppaYsR0Lxde2bWHxy4m0v3wti0WTaqz0hXZAsJYmynQMGkEQwa5KH/w2c0p9EC2yQFjoviW8cJzyIq7KhAKfrFBJ/X7ANdeev7BKttLunVFkXEuLZNTtN1pCSmw72iKd2eIJ1FLLoVW26Tiwk9sQSwOnLiHYqP8DwIuPHPd9ZalineUvRZDVCNqxsMm9sY6gzHW+pS3Q1w2xAUO4IPTjHs0cWyaO9bMY0DVPoOTpM0/xInn/GlRgnHYHmlJ0PgR9a8NDBsiFZfbUhTVxZm73FtX09J+36HFccEmOYTdtED0oBThGncojGRponkI20gxkU6M/R8zKD6G1bXQsBxnaSxcNBVQB9o459uducknCD5pKt6Zb/nxmtpiUYk/nljWu+P4Pt4yHXj43zey4qZzFbYHp7TYFgs77RMH+KHO4aM/JVkLKqH19EcRQDOGKg/4BjrRiaNIFZvAog3cPtSVH5jc64z3WQjmmfoCPGdU7cOTltxJDpkn4/6ucPvUAlDIh9SMVxndq3b/y7lIYW/6DJuT7QJo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261102123227099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?jqEiX6U4/Xm4mu1KaGqLjqmancI01nlcuh7jGbAmM7zJzQpz56eFzE/CwL+/?=
+ =?us-ascii?Q?LXZvEl9xpN7wTRMAbxfzOwC5LoRT6lvLhujDCxev3CIOFFYnFMW5kahDgr7n?=
+ =?us-ascii?Q?gUpO6VrWnpyMzES2PjN3cqREqB9721J+g697M/bmU4cil0C5AQbBU4qvz4xh?=
+ =?us-ascii?Q?wRR2cAGNjzr1SXfFMh/ud3LPKasmIXzA2TzfZm8Z6CW7iKe871iCEM1aLxEL?=
+ =?us-ascii?Q?rmxIyTKRK4gvKa6XBhZigxjnP4GCrsiWv1FAKclQ8yr52FS5ByZvm7o2sxeh?=
+ =?us-ascii?Q?FJeOaEv57JhuR47oRa3iQpqJbt9TEPu2jD3jpwgEvtwfvL8QVUDmPbWRB7/Y?=
+ =?us-ascii?Q?LPTr+fr0X/pj9u7U7sca1uZHMqmS4W/8KUgaYhXsM56rhSTm5TtgnuH+zDH4?=
+ =?us-ascii?Q?XKyO9sbTqra+pC+re3zNPY/+nbu/iC9xwN2gc+xo2IcOS8s+u4XfuEB2UCww?=
+ =?us-ascii?Q?EMFUAOnTVynPTra2YizigW3t3SfWyi+idbDIZpP7bkyKsDQMJKqIC7OfABAy?=
+ =?us-ascii?Q?DaxkulFNa4bln11coaPHHjQmzCx/gA8z9eRxpJLqdath0YgQK9iZtcHWwVAv?=
+ =?us-ascii?Q?Ef1dfQRDGdwhsRVfIM4eoiNbT87B9Gsaq5j2kxxtw5OPa8eqenYM7HUqGBuh?=
+ =?us-ascii?Q?nZ3c/7kWMgZinKTBqwP4S2nAFhxOyPHpCtVcarmKyfzZb6rhkLjUVyJ2TPjM?=
+ =?us-ascii?Q?zoSw2Yk+Zi7PTXVlGhaCb8XsCPo6bPxQKJQjTrPxfJ5szSQq61Zug3PabaVc?=
+ =?us-ascii?Q?57MQ+EFcded415dFCGi8BD8F9RSljng2RO//3X7FhpTNevp5NGzS0lZj0v4+?=
+ =?us-ascii?Q?HksCl4McfHlCszIova1zrFP3wGzD03h/FChYRUhlWF+Nohj43hz/hhL29gSY?=
+ =?us-ascii?Q?dwV/Sd0tt7zU/IwOCOqhZYovwemyFxFr4kaqePHyXCt8pW0hLtcmL3LmyaxN?=
+ =?us-ascii?Q?muAWrCUEnQNCfVnvThx3ULfFpWU97z7G2VNYnDL1DKRTgZFtec8XMGootZaf?=
+ =?us-ascii?Q?/i/Re4muqiECYD3lBVKKrUnHzdXQblHNs43hB210+3TpLpp/jjxbZuXekB5Z?=
+ =?us-ascii?Q?x2pF3epAVZ2kwORSkg2l9mGg9FkP3JiiFQRMazZWU+Bpkt1NIoIL9HTna02l?=
+ =?us-ascii?Q?9rSnJBoJIV2Et0I4kuSGffDPXfAwNUt9Ie2vrPICW9Kt/6ea9XDV5prrLm/W?=
+ =?us-ascii?Q?OiW58OP+df8PmNZFV7XItDbeYs7AS/zZdOeCckRyzXjxyZRy516JvT9YZJqY?=
+ =?us-ascii?Q?WzysKlM0UJyp6RLNUFy6YRXBa6J4sz3V5bXBwRxvkXA34uRDDQ7JdMjKtPns?=
+ =?us-ascii?Q?N+cnQTY0zO+654ib8VFXvzOn7C9MbVXFcStjVA0Toqt1gV3FxQDcNdaQel2s?=
+ =?us-ascii?Q?PvibBwtkeCyJZmCN1qRB+PxK2Hq1meWpTQtrpFuFiITeXPlaZyWpGPq62m1y?=
+ =?us-ascii?Q?dXO3jmDpbrBjK1T7PXlbk3MAUmwZL88Vk+pzqcvJH+w7IGKnMRwZ8gbnyQyY?=
+ =?us-ascii?Q?IMnOqWleeompnUWMw+NAI7eRfbgrmL2vgGX9YQIDEOymfWqPd6ETyghYzN+O?=
+ =?us-ascii?Q?M5xGogtkhXBj0RAheE3C80btPJ3iGOkdlBxviIglOY27p1CmPMGAQUJ8eZer?=
+ =?us-ascii?Q?U3JvLVf1UwMsoTl7TMWo0DjBmB6CLLSNp8BhdJ0ti56XhlAeDTnCIDkYv3IA?=
+ =?us-ascii?Q?CaFhJrbwft8dSk8G/eJmx/uBJKDRJ4iG7qjP86nL1U8ZQRTH?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4eddf9d5-5adb-4301-bf32-08df436ef103
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 23:19:47.9915
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KsF86QSTiQr8xbwXdlEQZqAN7rPK08z2vrxIZK8Sl0lSReqlU1KMnqRx64EIksMu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8358
 
-For the SAA7111(A), SAA7113 and GM7113C the chroma standard (CSTD bits
-of register 0x0e) is selected in saa711x_set_v4lstd(). Since commit
-a9aaec4e83e6 ("V4L/DVB (5408): Fix SECAM handling on saa7115") SECAM
-is chosen as soon as the requested set contains any SECAM standard,
-even if the set also contains PAL or NTSC standards.
+On Thu, Nov 12, 2026 at 01:47:03PM -0800, David Matlack wrote:
+> On Thu Nov 12, 2026 at 12:35 PM PST, Alex Mastro wrote:
+> > Hey David,
+> >
+> > On Wed, Nov 11, 2026 at 07:24:04PM +0000, David Matlack wrote:
+> >  
+> >>     Is requiring userspace to re-issue IOMMU_IOAS_MAP_FILE the expected
+> >>     uAPI behavior?
 
-Such mixed sets are passed to the driver in normal use: for these chips
-saa711x_querystd() can only determine the number of lines, so on a
-625-line signal VIDIOC_QUERYSTD returns all of V4L2_STD_625_50 (PAL,
-PAL-N, PAL-Nc and SECAM). An application which sets the detected
-standard (v4l2-ctl does this before streaming) then gets SECAM decoding
-of a PAL signal. On an SAA7113 this results in a picture without
-colour (U and V are a constant 128) and RDCAP in status byte 2 is
-cleared, so saa711x_g_input_status() reports V4L2_IN_ST_NO_SIGNAL even
-though the decoder is locked to the signal.
+Yes. Even if we wanted to the locking is doesn't allow trying to do it
+automatically.
 
-The intention of the original change was most likely that a single
-SECAM variant (for example V4L2_STD_SECAM_L) selects SECAM as well, not
-only the whole V4L2_STD_SECAM group. Keep that, but only select SECAM
-when the set consists of SECAM standards only. For 625-line sets this
-is the same condition the saa7127 driver uses for its SECAM
-configuration, and for the sets applications pass in practice
-(VIDIOC_QUERYSTD results, V4L2_STD_ALL or single standards) it gives
-the same result as other decoder drivers such as tvp5150 and adv7180,
-which test for SECAM only after PAL and NTSC.
+> The way I designed the P2P selftest support requires 2 things:
+> 
+>  (A) initiator: A device that has a VFIO selftests driver.
+>  (B) target: A device that can provide a memory BAR (vfio_pci_find_mem_bar()).
+> 
+> So far I haven't found a single device that can do both. But you are
+> right that theoretically a single device could satisfy both
+> requirements.
 
-Mixed sets now keep CSTD = 000 (PAL BGDHI for 50 Hz, NTSC M for 60 Hz),
-which matches the behaviour before that commit. This also stops the
-driver from programming CSTD = 101 for 60 Hz when a set such as
-V4L2_STD_ALL is requested, which is reserved on the SAA7113 and selects
-PAL 4.43 on the SAA7111A.
+mlx5 can do both
 
-While here, document CSTD = 101 in the table above the code and add a
-comment that CSTD = 000 is used when none of the cases match. CSTD = 101
-is listed in table 42 ("Chrominance control subaddress 0Eh") of the
-SAA7113H data sheet (Rev. 02, 9 May 2005) and in table 26 ("Chrominance
-control SA0E") of the SAA7111A data sheet (1998 May 15).
-
-Link: https://www.mouser.lt/datasheet/2/302/SAA7113H_2-87651.pdf
-Link: https://www.eecg.toronto.edu/~tm4/SAA7111A_4.pdf
-Fixes: a9aaec4e83e6 ("V4L/DVB (5408): Fix SECAM handling on saa7115")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
----
- drivers/media/i2c/saa7115.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/i2c/saa7115.c b/drivers/media/i2c/saa7115.c
-index f4015f11367b..a33487d37d08 100644
---- a/drivers/media/i2c/saa7115.c
-+++ b/drivers/media/i2c/saa7115.c
-@@ -1007,11 +1007,16 @@ static void saa711x_set_v4lstd(struct v4l2_subdev *sd, v4l2_std_id std)
- 	010 Combination-PAL N (3.58MHz) NTSC 4.43 (60 Hz)
- 	011 NTSC N (3.58MHz)            PAL M (3.58MHz)
- 	100 reserved                    NTSC-Japan (3.58MHz)
-+	101 SECAM (50 Hz)               reserved (SAA7111A: PAL 4.43)
- 	*/
- 	if (state->ident <= SAA7113 ||
- 	    state->ident == GM7113C) {
- 		u8 reg = saa711x_read(sd, R_0E_CHROMA_CNTL_1) & 0x8f;
- 
-+		/*
-+		 * CSTD is cleared above, so it is 000 (PAL BGDHI for 50 Hz,
-+		 * NTSC M for 60 Hz) unless one of the cases below matches.
-+		 */
- 		if (std == V4L2_STD_PAL_M) {
- 			reg |= 0x30;
- 		} else if (std == V4L2_STD_PAL_Nc) {
-@@ -1020,7 +1025,8 @@ static void saa711x_set_v4lstd(struct v4l2_subdev *sd, v4l2_std_id std)
- 			reg |= 0x10;
- 		} else if (std == V4L2_STD_NTSC_M_JP) {
- 			reg |= 0x40;
--		} else if (std & V4L2_STD_SECAM) {
-+		} else if ((std & V4L2_STD_SECAM) &&
-+			   !(std & ~V4L2_STD_SECAM)) {
- 			reg |= 0x50;
- 		}
- 		saa711x_write(sd, R_0E_CHROMA_CNTL_1, reg);
--- 
-2.56.1
-
+Jason
