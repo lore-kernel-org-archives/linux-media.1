@@ -1,115 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794769873;
-	b=zElwaJfIxKhRmfHFWCNbXsyZ5FrNQZj2gW66h3BaJn9eN1XvvHIt29KTNltbDjHfnPZx
-	 VV6/aQxOUDAGTGtGxHMcBN6Nrwk9xT73kJ8la4LNiafTS4+XA5cMwDMAmC6qnfbVfrYKN
-	 SSUGcUUl2SMYmtoWSZLEF/K15IU0DtvjqM6PaM6Swrxoi65ADdxDWdAtF3FfqrXRxJM99
-	 i6HWm/bBgTqmqL6iNuqHVAjLAWGvaEwWtZWgxe2uh7yiRA3eHOlt2MlEbRU47tWqvVyII
-	 kP5M31ez24NJFsTCViAfy423MAhqXeP20O33CWMuHEM1j3IqwoBEJ7aag2FMdWq0xlg==
+	t=1794781114;
+	b=rPjeUdFJsUnb9+m4jpKa72ar/JIY1lylJUGb/PbJqCFaPzYhJNbJR3GtH9ZOX4vVTtOc
+	 WShzVPtISre6sap9LErarBR3mF41Si4gfg5sMKHx5m7oDzE1ITP2SU4IJ/Y2dphGvJGHF
+	 JphOOeoOqtmBn8Yg/5Nyn1QD0rdXKMnPOkC1kNyc2/wRbYkbdqKG74dGPdb0Toe6mR48N
+	 iI4tcG67O5B91MPd7tA3AevwOAHZKYvTzFoh/Qn6660+vJM+6WjEIlvOkpnDq4WzSQQeY
+	 YLxr4KuK56QKXSNtyi2K2iu6LjIdrV7VcysZZEURqhtxXCfiGD9wtwuiBqSgaoGr5SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794769873;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=5GP+PbvAFVygSAU+MQtL0z8V4aG/dqls/7JH5deqeOk=;
-	b=FhpPaASwUYi768yuctxEF6ybQcfYu2u/YgfENhDfDIt2/5Wpk6pDGz7veggTCWOEP4KH
-	 m46nPxmlZ8ZHhnjwN4W51XoNAcXoDFnJyw9BO+vtYNuTpVKx9Nzc1UHjnFSdBouVOTJqX
-	 QdkZLs9DsI3ysuj70zedb+rUQ0h4GvTUYHoHzME2qXBV5rk8iDezyEN+aFuzZW3BxTmni
-	 1OxLfF8eC0IJfnIj70co3XdfmjBiSLWQxmZacjKeDylkjpojhw1o0CTxQF+aUf1agdkHn
-	 lE4BtjZU7SHDs3rWw4uglAfLIbNYzus+vU16q5FpLqfX2u3Xlnjlw+oa3s8PGn5PkDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794781114;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=MpshBwpP8nrcyZIgCaEpwnlsFopChh0GnbxP5EKQpwM=;
+	b=GTAgAdt1io5ntyD2wFpfC+7Dt4YLbcHHLwFoSl6tk6ql4hr5wEpeDbmtsgS2aJfGFXEE
+	 Z6GvJsP39wHUSMhzf6MmVMLDl3F2KVBvgMfZ0bK1y4ODtk8v3QI1Tlx7SMFoxPgjhmgar
+	 yVgQQ4ef55fBl1RPpEXA36nZ1HrWpOFiQbhuN4n4gBbZ7O2pd6NCag0Bf4WVaPjX4O56V
+	 c33XcHe15dq1emhMqq6iW7WipMMcx0hRx52O+5sFkheRlGrWYhZ8jJvi2JGtIwaAPSnl/
+	 5gFj/4xJnJw50pqrUCLP3DzRDWfSGSowuJQJrFp8zYzx+KspB/dxVUGuq45UoxA/VgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ragnatech.se;
-	spf=pass smtp.mailfrom=ragnatech.se;
-	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=T2A43G9D;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ecmJreG9;
-	arc=none smtp.remote-ip=103.168.172.147
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hl12hccU;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD50606A331
-	for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 19:11:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAD50606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80766606A329
+	for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 22:18:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80766606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=T2A43G9D;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ecmJreG9
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.phl.internal (Postfix) with ESMTP id EFF68EC006F
-	for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 14:11:10 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Sun, 15 Nov 2026 14:11:10 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794769870;
-	 x=1794856270; bh=5GP+PbvAFVygSAU+MQtL0z8V4aG/dqls/7JH5deqeOk=; b=
-	T2A43G9DeK5Cko+dcfZvOMqlGS0yGepocMDC5h5rHmV0CkpMAlXDnQCcs5eLzhHm
-	/x8bEvpPYpdt5Ja44eZidZkU2pn3QVCvyQgNpppykPvSe7TSHPaOu+w23kvqZGhV
-	26MAjjlxrO3Dv7DS9YzPr9s6iKp8mmKgxUCr6aW5+bSlhZ9dx4Mua38DKm+5pOhR
-	hZtrezSl0pr3WsMrNYTbkLNY3MN28XPkYNP4u5g+AvcDSZZQU4znzE5a3lj68eA6
-	NELv1Ov89BmzFzBasR43J9ych0wyQ08oPP4SoU/qT1GFFVEdWgi5XKA4pVcoehHr
-	EAfse1Io18H2qwvsTsPh1w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794769870; x=
-	1794856270; bh=5GP+PbvAFVygSAU+MQtL0z8V4aG/dqls/7JH5deqeOk=; b=e
-	cmJreG99MgaoUuviWdQAQ9JfnwaSdQjdX5CGLjvRyrx1VCclegF6LvkHjtjAsqVF
-	TT8qM7f11lQipslRLainFSejHtsMsW12PUKEKYT/ktD0se/XLpgVaTc3Ua7qjqRi
-	kYyeWIt12hXsLiunpZd7rL32Jc8Eg0EGQLJ5fJpQ6KdcfFmdenHs2WF102uV69ha
-	Ac9iQKWtAUVbT8Yy4GTdm3/Aaxkm1/3rgWBp5fq+wkUeJGCH91QJ7wG3nYfFxk94
-	O+fUdIrh4fQnp4FkPjwZ+NBbF4/a5EiwmKS6BlsiNb69XgPsBCmUX+ZTveW4bguL
-	DySBm/4m6ooKxn1ltUqFA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794769870; d=ragnatech.se;
-	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
-	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
-	s=fm2:rsa-sha256:FYIeJUHYDSehSCrgBCvqD2dP7xL+lG468guT354hmCoAvva
-	WlUNCtnfRl5pOXIv51vJofD3Jn0yffWbSZg/G7hv3DASP7ariqyoyLBEsx9Hdq5b
-	vDR00cykmQiQSEzRCrHhMvX6JXUECRQvkDoqrSBKYpArzOJXgUmi0QRBbgOLQBVI
-	QolDszVTIFgoQpP4m/cZuw3QPfQC3R0VEn3UIJ1SNuTofCA3RfR5S5POIsq7AJGu
-	FVWS4GtQjonwYdcn/pfX0UvnqfEDjEdpb0MvOmqqkP17XGxVYpAlipzKr0cnQAtM
-	KMpFRERZMBBSynrD7C9o4jjMR8MheG8MDk/fE0g==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:VlLbl8gRgpQnopaAeZBi1C99XwZ+IroUVgfIawO0nTQ=:AhlxX2Qt62LWbeYweWRRPbqE6uCvhyNS3iDjyjdwetk=;
-X-ME-Sender: <xms:zgP6ajA-PpNgpyEVbnjuJZYyV2U_NlGnlwS54rxZzvcboN02doUapg>
-    <xme:zgP6ake5zyD4ApC2oTFmxgu6EatbORCETr_5wFuOzxSPaTfVnn8WGQmh5nmC2Y8eC
-    kEvgC1sg8r_KlBkvmJ4_t_3twZ3g-S-QXx-Li_GvEHjOxcVGaHteNNMng>
-X-ME-Received: <xmr:zgP6atkjZAbzvzc_6Dw-2sk7FrDawlEDX4d32IZYJkoEpdrcC48y3kpwth-JRTOEgtIev9SAYc99VPpZp2HVrw4Wxyv0nC8>
-X-ME-Proxy-Cause: dmFkZTE3dz+IGFmByUhOePs0BnrbAsypzERZLdGwpx+lyTLlONScXIceJOyoOyNvs30n9t
-    1bLlpuDPbvEThD43Z4wRJPhUCIZSLX57MdYaBSSVoyCEjJUtUR50OHFSOKEtODLLcaDish
-    3tKC37idnlZZNvA9bjjVJTfmsJsO8QWxL/q8K4EyKBUCIxYOmTvWpingbIlbKdOQevPJZx
-    Cii1MR72087BvEj2g+PnQs7T80DyKu+t32tmPgnCeOOT3QsIUUwSPwaMHjd7653acNeZjj
-    d6uVRLEFE0DZ7RXYbHyTMas4gAxNInQJAswfMVDc9No+i3THLF9B8o6TxTpSq7YNzTPYje
-    RMgkBG1xjA08NZQ6PuZSttbcsSZ5IgmSOahWWyggPelxFMBUlVUa8215WGw6jcWa3KtjyG
-    8DUZ86DzGbOLWi9xYJCtQ35Ui9rln1M1yLQI0CAFid1CgtBzuugna+6z32+DF1AfX+jN+w
-    GZps1Zjb7Uv0wKk0u/94vfZiwQ5ZA/kn5NSCsb6M2GWngRhLAR5BcXequvgGXxrMhfaLz9
-    qhI8EJG91vNUXgXYh7F/wQFB5I5kzfUZv+UthRE4EQa+hsXLVjSQL11K+PEITvwGBOypDT
-    dkB0RcfJq5sGHMLhwKUR6rOYAdJxZsq3r0LPjn3FPA3gFF9yZB0OaPPbKPdw
-X-ME-Proxy: <xmx:zgP6arE9sukytRBJaIOX5vx0bUr42unaBTaw1_4fszEMQ5sB-apTEw>
-    <xmx:zgP6al4mwezLDXSFp-7gUR6vTy1ysJV-hXE5mFGhyYTFxTrjaoBI7Q>
-    <xmx:zgP6ajk4DcjreuxDO3b7BMSIekmfnNVCU96hZHlTG6q35JpriaAlkA>
-    <xmx:zgP6aqr6ZJgxpe57fg6p8pFR4MvDrdb00CC_VYcJBbd8hzbmFlG-BA>
-    <xmx:zgP6anGGzSZfOkGL-nOjiO7GMhjvf8KpE2ttzpWTpXCrH49gh1_28qkR>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 15 Nov 2026 14:11:10 -0500 (EST)
-From: =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Date: Sun, 15 Nov 2026 20:10:07 +0100
-Subject: [PATCH v2 3/3] media: uapi: videodev2: Add 28-bit Bayer formats
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hl12hccU
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36ca32a0faeso293814eec.1
+        for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 14:18:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794781112; x=1795385912; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MpshBwpP8nrcyZIgCaEpwnlsFopChh0GnbxP5EKQpwM=;
+        b=hl12hccUVxYDW0zF3xMwx12XdbjOy1q+DGTYEWZSnlgIWtx+BujqEXwWaVXtzPlegq
+         bBhJ4ocHjqdY3Ke1M7V2xqG8xCocseWx1EiWPoJ7sx83k/LSezEAltYKQ2leyxJYC/U7
+         8jgtz7kNV564uccTFQ3bZAJX8EEpj8bfIGtd0Y3b1gENQeeVYnb+a/E5ZlsYd/4adn/5
+         zajP+pg/4c0hSzmG0evdfN+0Dgj4U9iDdjJv3BmY9uBBPnkI2JpbHEq2NqtSOWhdJhmd
+         o+fpnFU9sJ7PJn9kP6s2y/ChrCbF9BWlRCaArArgdZfY/PR0zy63hhmxZcks7dunZGaJ
+         ybJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794781112; x=1795385912;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MpshBwpP8nrcyZIgCaEpwnlsFopChh0GnbxP5EKQpwM=;
+        b=oSxQdlBXB37jsI1MC71YUuGIe2Subt9uTZy72a6NXKI+eSsYF1KfGuSwaQctENKjqL
+         Ky9ZhTiNQ6Ow3K4HKBCGIIvjn9E3OMoETXSInVG0qU88CWsRDbxZgWkWgSj01onFCsDg
+         FQCv5Q3bnWVAY0q2LGdmN3ahc8Q86JcXhboyRA1cmaHvp+ZHF2hZjUqanZGAU+ZFAKln
+         3Mthm40tunBHRtupY1DuSgRBMdWbMOxsC0vHUVc0OOa0oz0Hzz+bZCgv8Kw/+KdPtGQ7
+         krCp+kH6Hig4Y1g5hcm//pCGu9MC8KA5TyPgBjrBINVJJbMNT97aum/Xp0vU+EG/4avx
+         5y6w==
+X-Gm-Message-State: APuU4Z9trCbmpH/70Nac9tL99SuKxXb0NNyXxwMeZa2u5IfPoBl6eiWQ
+	L+961m89YIx2RCn/e/BD2QInkw7BAHmylNByrPGsy+uaW0MX8OaGXANf
+X-Gm-Gg: AYBFou3NLFgpzN3yRPnoEU7MWqbHJ+KrUbjfMSHwooA8VWEoi0B9zPRvnyWgyODWq6K
+	WcUx3dvODCKmT92rStul9JXYreFhgNuv7aih+bK8YNRDxeqcnVeJNpAJZhSSxEdiQ0UiSfNprrT
+	Imq7vFV+hr/f81j8OOZcEulSTEYGi8nPBO6XjLgXxmWluaAwRoZZdYr2lFuhZu1572/3X3f0RqE
+	9/9pvMHekgmYGmOoG0K/WD1G9jh7klpQDErapu/hK6sgCfxkqV/lfDBx8tqU81F00V84cMEiHRz
+	k3M1vKiNAIkm57WVTPcKxmvnXN07lCPAwxc8B7Q8dZF53ZLZ0polOYb+RH+CTkm0H2IanycT8aV
+	WH/nguzHXxGKUNYDVfb49sSkL4dz4/WHqOHT+jN+t5xSnHHdP2fJDQGGLloCDzvb+fWZS/WW+gt
+	Fil4CyD2X4tBk0WOVeSZtEhGYfGO9/eGKXssvs3/dC+0fgwwcsgmO81tm2n5kcjjNd3wzHin3ZQ
+	boTePMOaaD59mpbZ5Aom754IhIo71/X6GLHxiGqn6W2l3lxMWWegL7zqV6tK4z3V+97+SNK9zPL
+	UD9/6Lz52z4/vwKiMt/JT/gsMrTA5qr28KTzYgSdDX4EOP3RfL1WndsweLOjryaifo5MrP4I8K+
+	kc4OcA6I6BShQYKXdRuPAHaSmcnCMWyBopgoPl9wOnjg8EnUCfTna6tPgvgd+4CzyyPBE8btqBI
+	gTGV/G8DbUbzVjDmzuUL2EbnSRri505OrX
+X-Received: by 2002:a05:7301:a0a:b0:36c:a1bc:6114 with SMTP id 5a478bee46e88-3796038259fmr12826511eec.0.1794781112527;
+        Sun, 15 Nov 2026 14:18:32 -0800 (PST)
+Received: from esteban.tail1178e6.ts.net ([240b:c020:610:7dd7::e91])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3797f98b9b2sm26765616eec.6.2026.11.15.14.18.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 14:18:32 -0800 (PST)
+From: Antoine Pichot <antoine.pichot@gmail.com>
+To: firassharary3@gmail.com
+Cc: linux-media@vger.kernel.org,
+	sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	hansg@kernel.org,
+	andriy.shevchenko@linux.intel.com,
+	dan.scally@ideasonboard.com,
+	djrscally@gmail.com,
+	dmanresa@gmail.com,
+	dave.stevenson@raspberrypi.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/9] media: i2c: ov7251: fixes and infrared strobe for Surface Book 2
+Date: Mon, 16 Nov 2026 07:18:21 +0900
+Message-ID: <20261115221821.2928690-1-antoine.pichot@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261115175301.8516-1-firassharary3@gmail.com>
+References: <20261113024059.1087031-1-antoine.pichot@gmail.com> <20261115175301.8516-1-firassharary3@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -119,211 +106,14 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261115-v4l2-add-raw-pix-v2-3-f66dd83e5f85@ragnatech.se>
-References: <20261115-v4l2-add-raw-pix-v2-0-f66dd83e5f85@ragnatech.se>
-In-Reply-To: <20261115-v4l2-add-raw-pix-v2-0-f66dd83e5f85@ragnatech.se>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, 
- =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7384;
- i=niklas.soderlund+renesas@ragnatech.se; h=from:subject:message-id;
- bh=AhlxX2Qt62LWbeYweWRRPbqE6uCvhyNS3iDjyjdwetk=;
- b=owEBbQKS/ZANAwAKAQm0/3kE+U0kAcsmYgBq+gPE8+n3clIfZBgpU8qpgves17VVj/L++Gw+3
- 7KXl4K/TJiJAjMEAAEKAB0WIQRwy9J0OLNPX3a0+3gJtP95BPlNJAUCavoDxAAKCRAJtP95BPlN
- JIHcD/oCmgPEKjt2qwY5aL0timOH51EBEvaLY7d/k4mBXz7L6ZdJlTicBin+e4GVdpXCvPkiREU
- ih/onUUluQ7R6XasOGSBC+Nh2nBufdFmKpUj3/E+2OWn7SpGbGf+DEW9m7nRIFnDwCIBgV4iO52
- IhoOkPAzpWqlEsznbR5hpKWBhR/Rlatxu0U58S24Usj5Iq59FPk1mjtzQAyaXaxY5mV4wrUbYit
- 85R06SW4ToIBasqaZ88ZX6yjrhFPt6ugfPyGFRrigUgx7xVk6ci+fUVq/NfwG8SGxJ+7t2SeZhQ
- aIyMh2VfmqMMTSAruBlw2SLignS52H7L8dzHbWxCBsg89kqWrqM5wc5uCLr7MlBLCc7una8nQgd
- qPaTnKooHm+X54C02f2TIELytN53LDHfqtwLLoL6ZYtNTYc+I74C4ZO3CVVFq+xHiVR8c9nyUX6
- CTFxhoJjz4f+w9CykP+Qgkv/b874OU4j4NF2gPOZhWQuc1DHJIUwMwDpOyno93ERpTka27rOHay
- jxdYLviuLmMYUi8g/S4xybkzD5VfbCJISNNCvxtSoDoPRNjSL3Ms+pwuxrtJZID/HP6+giYueZU
- sgcHxwWt3KmoNoXQiXfPxVGIVDPIHj1KIz6v/Cs/+G1t0d94B5fj4i1iXVuPEUtxauXusitxt7u
- TrHVrCa+O1mU2Ww==
-X-Developer-Key: i=niklas.soderlund+renesas@ragnatech.se; a=openpgp;
- fpr=9976695FE98693307BF360A2F1591ABD9588DA5F
 
-Add 28-bit Bayer formats and documentation.
+Hi Firas,
 
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
----
-* Changes since v1
-- Use same table format example as for other Bayer formats.
-- Add format to v4l2_format_info()
----
- .../userspace-api/media/v4l/pixfmt-bayer.rst       |   1 +
- .../userspace-api/media/v4l/pixfmt-srggb28.rst     | 103 +++++++++++++++++++++
- drivers/media/v4l2-core/v4l2-common.c              |   1 +
- drivers/media/v4l2-core/v4l2-ioctl.c               |   4 +
- include/uapi/linux/videodev2.h                     |   4 +
- 5 files changed, 113 insertions(+)
+On Sat, Nov 15, 2026 at 05:53:01PM +0000, Firas Sharary wrote:
+> Tested-by: Firas Sharary <firassharary3@gmail.com> # Surface Pro 7+
 
-diff --git a/Documentation/userspace-api/media/v4l/pixfmt-bayer.rst b/Documentation/userspace-api/media/v4l/pixfmt-bayer.rst
-index 9d76def66648..ca915889199e 100644
---- a/Documentation/userspace-api/media/v4l/pixfmt-bayer.rst
-+++ b/Documentation/userspace-api/media/v4l/pixfmt-bayer.rst
-@@ -35,3 +35,4 @@ orders. See also `the Wikipedia article on Bayer filter
-     pixfmt-srggb16
-     pixfmt-srggb20
-     pixfmt-srggb24
-+    pixfmt-srggb28
-diff --git a/Documentation/userspace-api/media/v4l/pixfmt-srggb28.rst b/Documentation/userspace-api/media/v4l/pixfmt-srggb28.rst
-new file mode 100644
-index 000000000000..6eb53dce8b2a
---- /dev/null
-+++ b/Documentation/userspace-api/media/v4l/pixfmt-srggb28.rst
-@@ -0,0 +1,103 @@
-+.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
-+.. c:namespace:: V4L
-+
-+.. _V4L2-PIX-FMT-SRGGB28:
-+.. _v4l2-pix-fmt-sbggr28:
-+.. _v4l2-pix-fmt-sgbrg28:
-+.. _v4l2-pix-fmt-sgrbg28:
-+
-+***************************************************************************************************************************
-+V4L2_PIX_FMT_SBGGR28 ('BG28'), V4L2_PIX_FMT_SGBRG28 ('GB28'), V4L2_PIX_FMT_SGRBG28 ('GR28'), V4L2_PIX_FMT_SRGGB28 ('RG28'),
-+***************************************************************************************************************************
-+
-+
-+====================
-+28-bit Bayer formats
-+====================
-+
-+
-+Description
-+===========
-+
-+These four pixel formats are raw sRGB / Bayer formats with 28 bits per
-+sample. Each sample is stored in a 32-bit word. Each n-pixel row contains
-+n/2 green samples and n/2 blue or red samples, with alternating red and blue
-+rows. Bytes are stored in memory in little endian order. They are
-+conventionally described as GRGR... BGBG..., RGRG... GBGB..., etc. Below is
-+an example of a small V4L2_PIX_FMT_SBGGR28 image:
-+
-+**Byte Order.**
-+Each cell is one byte.
-+
-+.. flat-table::
-+    :header-rows:  0
-+    :stub-columns: 0
-+
-+    * - start + 0:
-+      - B\ :sub:`00`
-+      - B\ :sub:`00`
-+      - B\ :sub:`00`
-+      - B\ :sub:`00`
-+      - G\ :sub:`01`
-+      - G\ :sub:`01`
-+      - G\ :sub:`01`
-+      - G\ :sub:`01`
-+      - B\ :sub:`02`
-+      - B\ :sub:`02`
-+      - B\ :sub:`02`
-+      - B\ :sub:`02`
-+      - G\ :sub:`03`
-+      - G\ :sub:`03`
-+      - G\ :sub:`03`
-+      - G\ :sub:`03`
-+    * - start + 16:
-+      - G\ :sub:`10`
-+      - G\ :sub:`10`
-+      - G\ :sub:`10`
-+      - G\ :sub:`10`
-+      - R\ :sub:`11`
-+      - R\ :sub:`11`
-+      - R\ :sub:`11`
-+      - R\ :sub:`11`
-+      - G\ :sub:`12`
-+      - G\ :sub:`12`
-+      - G\ :sub:`12`
-+      - G\ :sub:`12`
-+      - R\ :sub:`13`
-+      - R\ :sub:`13`
-+      - R\ :sub:`13`
-+      - R\ :sub:`13`
-+    * - start + 32:
-+      - B\ :sub:`20`
-+      - B\ :sub:`20`
-+      - B\ :sub:`20`
-+      - B\ :sub:`20`
-+      - G\ :sub:`21`
-+      - G\ :sub:`21`
-+      - G\ :sub:`21`
-+      - G\ :sub:`21`
-+      - B\ :sub:`22`
-+      - B\ :sub:`22`
-+      - B\ :sub:`22`
-+      - B\ :sub:`22`
-+      - G\ :sub:`23`
-+      - G\ :sub:`23`
-+      - G\ :sub:`23`
-+      - G\ :sub:`23`
-+    * - start + 48:
-+      - G\ :sub:`30`
-+      - G\ :sub:`30`
-+      - G\ :sub:`30`
-+      - G\ :sub:`30`
-+      - R\ :sub:`31`
-+      - R\ :sub:`31`
-+      - R\ :sub:`31`
-+      - R\ :sub:`31`
-+      - G\ :sub:`32`
-+      - G\ :sub:`32`
-+      - G\ :sub:`32`
-+      - G\ :sub:`32`
-+      - R\ :sub:`33`
-+      - R\ :sub:`33`
-+      - R\ :sub:`33`
-+      - R\ :sub:`33`
-diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
-index e6a37b3ec3d7..3ba2dc477322 100644
---- a/drivers/media/v4l2-core/v4l2-common.c
-+++ b/drivers/media/v4l2-core/v4l2-common.c
-@@ -404,6 +404,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
- 		{ .format = V4L2_PIX_FMT_SRGGB16,	.pixel_enc = V4L2_PIXEL_ENC_BAYER, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
- 		{ .format = V4L2_PIX_FMT_SRGGB20,	.pixel_enc = V4L2_PIXEL_ENC_BAYER, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
- 		{ .format = V4L2_PIX_FMT_SRGGB24,	.pixel_enc = V4L2_PIXEL_ENC_BAYER, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_SRGGB28,	.pixel_enc = V4L2_PIXEL_ENC_BAYER, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
- 
- 		/* Renesas Camera Data Receiver Unit formats, bayer order agnostic */
- 		{ .format = V4L2_PIX_FMT_RAW_CRU10,	.pixel_enc = V4L2_PIXEL_ENC_BAYER, .mem_planes = 1, .comp_planes = 1, .bpp = { 8, 0, 0, 0 }, .bpp_div = { 6, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-index cf2831cbdbc8..e14542ad3228 100644
---- a/drivers/media/v4l2-core/v4l2-ioctl.c
-+++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-@@ -1442,6 +1442,10 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
- 	case V4L2_PIX_FMT_SGBRG24:	descr = "24-bit Bayer GBGB/RGRG"; break;
- 	case V4L2_PIX_FMT_SGRBG24:	descr = "24-bit Bayer GRGR/BGBG"; break;
- 	case V4L2_PIX_FMT_SRGGB24:	descr = "24-bit Bayer RGRG/GBGB"; break;
-+	case V4L2_PIX_FMT_SBGGR28:	descr = "28-bit Bayer BGBG/GRGR"; break;
-+	case V4L2_PIX_FMT_SGBRG28:	descr = "28-bit Bayer GBGB/RGRG"; break;
-+	case V4L2_PIX_FMT_SGRBG28:	descr = "28-bit Bayer GRGR/BGBG"; break;
-+	case V4L2_PIX_FMT_SRGGB28:	descr = "28-bit Bayer RGRG/GBGB"; break;
- 	case V4L2_PIX_FMT_RAW_CRU20:	descr = "14-bit Raw CRU Packed"; break;
- 	case V4L2_PIX_FMT_SN9C20X_I420:	descr = "GSPCA SN9C20X I420"; break;
- 	case V4L2_PIX_FMT_SPCA501:	descr = "GSPCA SPCA501"; break;
-diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-index 027c7c7a352c..0611ba1e5fd9 100644
---- a/include/uapi/linux/videodev2.h
-+++ b/include/uapi/linux/videodev2.h
-@@ -752,6 +752,10 @@ struct v4l2_pix_format {
- #define V4L2_PIX_FMT_SGBRG24 v4l2_fourcc('G', 'B', '2', '4') /* 24  GBGB.. RGRG.. */
- #define V4L2_PIX_FMT_SGRBG24 v4l2_fourcc('G', 'R', '2', '4') /* 24  GRGR.. BGBG.. */
- #define V4L2_PIX_FMT_SRGGB24 v4l2_fourcc('R', 'G', '2', '4') /* 24  RGRG.. GBGB.. */
-+#define V4L2_PIX_FMT_SBGGR28 v4l2_fourcc('B', 'G', '2', '8') /* 28  BGBG.. GRGR.. */
-+#define V4L2_PIX_FMT_SGBRG28 v4l2_fourcc('G', 'B', '2', '8') /* 28  GBGB.. RGRG.. */
-+#define V4L2_PIX_FMT_SGRBG28 v4l2_fourcc('G', 'R', '2', '8') /* 28  GRGR.. BGBG.. */
-+#define V4L2_PIX_FMT_SRGGB28 v4l2_fourcc('R', 'G', '2', '8') /* 28  RGRG.. GBGB.. */
- 
- /* HSV formats */
- #define V4L2_PIX_FMT_HSV24 v4l2_fourcc('H', 'S', 'V', '3')
+Thanks for the test, I'm glad it works as expected.
 
--- 
-2.56.1
-
+Thanks,
+Antoine
