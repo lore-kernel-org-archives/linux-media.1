@@ -1,86 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794744973;
-	b=DlnUxqluihwJq+rcvurAAE0YdplY9X4WyIBnMgjfo3s6krJKVDTxIX0kW8gCuYZp11LO
-	 q/ATO9Wjd8IOdCe2gS8v+6LCbH27FKpWU6GWwmQ8EjT0tijNzfrht4amsuLoBaa/n8xDM
-	 LDbm7rxVpDQ9/YQigssN2NzRT4dLw26OH2oT63k5R9/ZlSb1B5UnghFXcC7v1AbDSZqmn
-	 oyG19DYlEPdlpmRt07TnbQyibSye4EumSCECBjdfgBlNI8RqpDS74/5yfuQ288xzu86+3
-	 NLI8mujXZibBj2VZM8qU5xT0P2BA0KMuqapdJskFSzRSl05f01ZaSkhn+hxyId+F17w==
+	t=1794745044;
+	b=Xz7m2mqmVmRj7/tK0jFMEuL7deb8xq/OfaPOghPPu/vnBxzEBRMMcWvXDWrXga58ZrqA
+	 UOYjptoPaxMG8FPpgn/zaoKbTlQaDRylaAX7iR1hokfhgmA31s4rt2z208w3NKsWUV4xR
+	 MtkQ93FFK+Ax0G7ACv2E4EkYcSdDBEKt9ibDn/f3YJE8MH5k4UvhCgEf2DM7qQQ1IXupQ
+	 zaeWW2qOBL+9SrQFQ0GpAYAWCIoJJlEcl/f7EX93nGlw/DJFvZOfyonVC5Ck++0OJFRyg
+	 9ebTtNWBtvekwh6Au+K0v40Y402qF2/T3fywvowKNpPLV4o+yYTohU627K/c5XG95Ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794744973;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Cze6EXMazudJouVIRWBezoVb+gMXv48f+e410Dy7G9s=;
-	b=Z+uEU7uphSeJ+vLlHsuYc8Bx8iChxw1pT0pfaIGAFP9VwWAEAWB55yspAgB6a4rETgeU
-	 2FQfrduL9bGxMtytLLpATpOF4MDWFfMSNBMVTTy/EVPRV2W+EW2aE0ZLEmZtYjNHwziJ1
-	 hEHl3s5p1h4fkRgPAjCa55J8RCjvZlJUAySW/Wm2Z7/vNuZNf/ft+iLn0wIUZeUcU7uQK
-	 SahG4XKWSKAq6q2YvZFrSZQtLy4FkN1xCOzH70Abn4c6Kfpfn7NaDgyn/jxYXEoAvKBhX
-	 riyXALhsZjTmm4qdKMTfwdvRCMyrfTKOZbb51e7MEK1NjFSfaPg4aO2M4HB+3RSDPWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794745044;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HSieq9Kr+Lv0bYY/t7jT+oYMzlrXjrzzugbFbs8ONwc=;
+	b=xUi0fwpRChW2k3bbIgtJHZ76n28d2qQReTIzy2xVAoWTnsDIeeYNP3KFEJH/5bMnE3Cm
+	 KUbOylVuTmTlmAsTcb+sgD3IKWFP+iBKv2wkqsXc5O4p9K1riZnmINsdttXuiDPaLBab4
+	 pou3P2u9j8/Wwr+HUPtUiU9oJawKMwn35EHKQChA25pKCYFDxX0nnuL5heytb96U4t0sf
+	 WOSExKuI/0+6tox0BaTMqTuVUd9V8WS/3yu+Cn72Qc/VZu2tTfI95ZVfYC+ZJxYLyw1zL
+	 jiTa7ItLTeXfag9/oDETmuTdAdYt6ZEi8OBrAt4KKXDVz+qw1AfJ5d57MS5Yakw3w0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=UMWGuZNB;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=qHosZlD3;
+	arc=none smtp.remote-ip=79.135.106.121
+Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4E6606A31E
-	for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 12:16:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F4E6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A17606A31D
+	for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 12:17:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99A17606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=UMWGuZNB
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so28199455e9.2
-        for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 04:16:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794744971; x=1795349771; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Cze6EXMazudJouVIRWBezoVb+gMXv48f+e410Dy7G9s=;
-        b=UMWGuZNBsMnss2pwsw8rRFNOryhk6F4P5MsSQtbTOUSYf7p8ABU3vk4PaN1KFgXJ4m
-         sLw57i7wKveAJsqJXa81ii4bayts99u5hg3J+aNyMOI795yl24cB+IpfYz5/HXSDqzz5
-         8J81IXNBLkrq8pNuLrlDSWMlsmGEW+JxD6BDFcXHLBQjB+J9eOnH/escoFzz40YDBxpa
-         l4K4aqxKU+xhxj/c2gSNDaf+IV7G2FNCNjefQ2qzQHvzhnP9uPM67bTReYKQRNnzW10P
-         /U8EwovAUK3sCoJtrorcb/qNryT5hTEQM7Pctt8EMwGpw2KT7wD4z3gD8bIyUjh/OWZF
-         nvvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794744971; x=1795349771;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Cze6EXMazudJouVIRWBezoVb+gMXv48f+e410Dy7G9s=;
-        b=ibA7UovkVN+kiPf/kCS+sfCQ6KpStbAQsYrrzwjFENI94+nE1PoMCseaev3pd2k4HX
-         xq5mj6w9A+2zHP/sB7aN5mGEXiKT3gZoBktYJEmWntXULwxXM4mKrVliX7GBqUDz0mkk
-         Lpk9U0GB/xeCmHQdh6Hz0WCAm/rXkC2FnokAn+7Va6uSc7XD1tVk08zkq4uHCVonp+J8
-         C9xZHg4Rt8QsJekCG7ePza0hs37wmB7b7E8wTN6b4+hXLvyua76ou+i+n+5vkzwogVQz
-         GJTVNoq5kheDcyxHg1JvbEj/QOg2ldjOmX/cFFEdlBnh8uqNNaUqrmpUT5bNyyXSARIQ
-         JOFg==
-X-Forwarded-Encrypted: i=1; AL+hErFeY6JhzkOkIDtpcde/AGjqOHQW66lu4snrLYZwqwTZgWwiTvNHLGYPDYvP3F+wXAq1UfTBbPiZrxlwRw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9X1OXgCjTdoYW23SsRcO9UmGvyEeseC+ahsxdB0doPafRu9j4t
-	gcug5Rb/wkaPhJtMopkWJfK/fuGAkBgN+sqi6wKFuYpwF8UUcp59xQ7YpHC4wKs1uRA=
-X-Gm-Gg: AYBFou3Vl0ZGjU8JnM6d/Vdv0zAsGETVgc+8Ewr71OSE+DVMvzfVs8WxMcXEnhwDWW8
-	RcRKhBS92JSTAL8P0F1xrTcBBlPlHD8Ddw/qNrjuFeOE+m4DJGfq273t3pxQf5d1iuyQO3mE4+g
-	pgl59xYDRgWw4n9LHC2LOTycvdlUQZFyQuyDvpARzQZzDmFpVUL8fcxnVsufWjGI4Uzy0Nq1iMP
-	cNq41AYms+curK3Ei2RiU2S1ftv+qBdjHdFGrQWgigLkDZIr2SbRD35WaOquJCd3mE+whq2CqjY
-	fhM9nydpMrnfbFfUGlNrAMRm8G5nF+ONlrC1+R5+nA7De9/uMc8MT+09OlbtfxD4RoHaN7W0d0M
-	UFGzFbdlI7ZacNhy8fJ7n47i3L+pVXmQmi1/SNoUkcCbOBcu7LbuSu7ifMUr14m6gKEFKqpNa29
-	RAPWMKDn6+GJcy/zkl5acFAdcbQOhzt5CpqBJ/J4lS+DzzO9Mx/X1EJl4A3pJyC8BSgqGJnZPiX
-	peMRNWFJNrTVVoCvV6X3FjNbAey7o3HszE3grjN8W/hzFIjcgwwV8z6fJm6fpBOa3ub5+s/iAs2
-	Jpr2REL5IuRZcmlIN39DNdstS9Va7YWJSFbUSgC4r6w=
-X-Received: by 2002:a05:600c:8b0a:b0:4a1:da58:1ee with SMTP id 5b1f17b1804b1-4bb55a95dbamr161321305e9.31.1794744970969;
-        Sun, 15 Nov 2026 04:16:10 -0800 (PST)
-Received: from [192.168.0.167] ([78.152.238.245])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb65ce005bsm126726035e9.14.2026.11.15.04.16.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 15 Nov 2026 04:16:10 -0800 (PST)
-Message-ID: <ea2dea8f-e696-4e86-be9f-248cb6ec86b9@linaro.org>
-Date: Sun, 15 Nov 2026 12:16:06 +0000
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=qHosZlD3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794745041; x=1795004241;
+	bh=HSieq9Kr+Lv0bYY/t7jT+oYMzlrXjrzzugbFbs8ONwc=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=qHosZlD3yVZ9fwvUmnc4hfYPPKknoMo9NJSXNny3jkXABONJ40LSeOYArWVnNLGvC
+	 ZxmOIOj+tCr9T232p+NDo9yqKtymaCu4h0r/c6E5PtO/4U2oD58oVfB5MpriZtw90o
+	 8tFaNRmgewnUHj9qlxoSX7qL8cvhX8XNUjmsQ/QI6boI+7psrxFazOnq+dHK2IlNRd
+	 gMQ57C/5yNsHs8IvmCJuO/SSah2Xi/H9be4BlDcpVoMMv7+bvSeBqSPWi2XQ0D9rPm
+	 9+zH/0RkU9or7bRIFv8kbyrnUKvhn9/4KU604S7VH4Z7qlm8w7t0cnTlGNnTIPVxBF
+	 JOP+xT4vz+gyQ==
+Date: Sun, 15 Nov 2026 12:17:18 +0000
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>
+From: Sinan Turunc <enscrpt@pm.me>
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] media: uvcvideo: Reject metadata packets shorter than their header
+Message-ID: <20261115121701.189-1-enscrpt@pm.me>
+Feedback-ID: 48393780:user:proton
+X-Pm-Message-ID: ae5b306e35375055db343d5fb860a0a83e2cc56b
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,50 +61,55 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 10/23] media: qcom: camss: csid: Add support for CSID
- 980
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Frank Li <Frank.Li@nxp.com>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-References: <20261114-add-support-for-camss-on-sm8750-v7-0-8ff2a11835f6@oss.qualcomm.com>
- <20261114-add-support-for-camss-on-sm8750-v7-10-8ff2a11835f6@oss.qualcomm.com>
- <130fecb6-5372-44d9-8261-c3ac88248631@linaro.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <130fecb6-5372-44d9-8261-c3ac88248631@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 15/11/2026 12:14, Bryan O'Donoghue wrote:
-> On 14/11/2026 11:29, Wenmeng Liu wrote:
->> +            for (k = 0; k < CAMSS_INIT_BUF_COUNT; k++) {
->> +                __csid_addr_update(csid, i);
->> +                __csid_reg_update(csid, i);
->> +            }
-> 
-> Why does this run twice for the same index ?
-> 
-> ---
-> bod
+uvc_video_decode_meta() derives the length of a UVC payload header
+from the PTS and SCR flag bits in the packet, not from the packet
+length, and with V4L2_META_FMT_UVC it copies that many bytes with
+memcpy(meta->buf, &mem[2], length - 2). Nothing compares the derived
+length with the packet length, so a packet shorter than the header it
+claims is read past its end, and the bytes beyond it - whatever the
+URB buffer held there before - are copied into the metadata buffer
+that userspace reads.
 
-"run CAMSS_INIT_BUF_COUNT" for the same index ?
+An emulated UVC camera that sends an 8-byte isochronous packet with a
+3-byte header and both the PTS and SCR bits set made the copy take 10
+bytes from mem[2]: the last four came from past the packet, and in one
+run those four were the tail of the previous packet still in the URB
+buffer (03 0c, a UVC header) rather than zeros. With this patch the
+same device delivers no metadata blocks at all, and the video stream
+is unchanged: 25905 buffers, 5958150 bytes over a 30-second window.
 
-You don't increment a buffer index. How can this be logical ?
+The check is placed after the derived length is final and before the
+format override, and treats such a packet the way the function already
+treats a 2-byte one: it returns.
 
+Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sinan Turunc <enscrpt@pm.me>
 ---
-bod
+ drivers/media/usb/uvc/uvc_video.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_=
+video.c
+index fc3536a4399..25c3b8dc891 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1487,6 +1487,10 @@ static void uvc_video_decode_meta(struct uvc_streami=
+ng *stream,
+ =09if (has_scr)
+ =09=09len_std +=3D 6;
+=20
++=09/* A packet shorter than the header it declares is malformed. */
++=09if (length < len_std)
++=09=09return;
++
+ =09if (stream->meta.format =3D=3D V4L2_META_FMT_UVC)
+ =09=09length =3D len_std;
+=20
+--=20
+2.56.0
+
+
