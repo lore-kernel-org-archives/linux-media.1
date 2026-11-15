@@ -1,91 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794765268;
-	b=k5g2eG0HWtBjhcif60lK6lDrSpkD9tDoYx5l7KCUDgt5eOtEJePxghqk1BaLImIAwtcD
-	 483IoD4fRG/Yd8RWCq68WaapQlsNNmLFGX+XWPrHZVLqTgUEWWPxplDQUNE8ffJD0eNjV
-	 pbhZGQa7PR3Lt173zzhAmrxBYH3VvBB/RQU3u6qxqOVjcaniMEl6aapJRHrmdYPq8/Tso
-	 jribXwA7Of1jP2nKKje/0gg6ZnZ6vt1u5zktFYRcIP2cwuuxIQHEVKHwEuI5atVxdzwrQ
-	 JXXuzMut8z7qUpQ8KzebHmBE94zzViI+cDUNd76N7NgqQEguOCllkhNX+32rQpzxUtw==
+	t=1794769866;
+	b=Avrw2TbGsT9kyAi6nxo/oWAxq7JFoSv1W5dom8H2DQ5ILDS1+BFLIb9v9LDaEOqFTyTd
+	 TCmaUpsouRU6QmO6L8gI+L0YuarT8+TxK1hvtI70EmLZdG7LSESn4sE5rM8EwIoAYZpK3
+	 7TiN70R7FznDQ9RfxLahzk+ArQIdhjXhRWfSYz5LSuoQmKnXf+xaWMsqj0/Ukt4rbhApC
+	 tgwzNsZfioPbVQhdh5MnUlb2H9IOOu0TNkAgSCrEjLFPT9HMGtgYkkFrr6LWeewzYx/lx
+	 ZOeaJ1SXhA3BIjYA6sL8EQga9OQPoylSeYn1f/IkyaCftkL6r236A74qMbA1Av1wVfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794765268;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=+9jMIl0zBBhkMlLpSXNkEk0kdLakvxrKv5a1mqHMyfE=;
-	b=oBNJBySpLuCdXxJbss/0fzveZVEgHyjGkuhnJU1MDFQO5fWdqzzdl4iGkUKK8v0ZHD06
-	 Fl9E4B7KDc78fTVhjOu3kkeZoUoCkoxFd2LaJqDJZUdWOkrADOAd1jAnFC7D1y491eR/5
-	 nzeXQLg1PnJhWdKNzrVAu3c9gIzqx08CL6CgVFDhslG6ACImt1bTGOLRdLP7jJ0zmfA1t
-	 3o2Wdxnq71QzuuFn7MP4v5m1zq4lRiMs1yNmqzkK8W4jvFJ+bX3SQ2QuyGXPgU/br/nNt
-	 ldTyH8tBG+Y8OFH2nH0IYvAGe9uSOSMRlqGZtHIYO0EG0kUB2F9Q6AMnxKq3QFsi9ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794769866;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=v/7htNV0I5fN/nH96MjeLovPELil50iZdMFXQcwDKmY=;
+	b=ZI8AaqDNPatuqG/F+2P6iZSAG0kSbMaGDkAhGgHBA85B/L37aPEuVL/37jouoAVxAgoZ
+	 T2B5jY691/XofbiPXInGLIa5ZZxwvanwOrfMe9YhpLDDDroWR45kzZC6HgOXHbjcDVagb
+	 PPocyJf5eM77/AbTj0WqTOciUQQG8ksNAl5tIsEZVdlfvdxHGKJQQxqxnyPJZLBGH7ZF5
+	 m/MJRzHKRWPPa3JcUcA+XH4G3czCA+rmDEyolM71fINi7vRpRjV4WxYM/LyapzUaDJ1Nz
+	 +VgYHy01tOZGF2Pcv0q6ZYI8POm/tLyUyTRAI3FbynLDpju5wjHRonEGz5ePd/fNACA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=weOqlXAm;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ragnatech.se;
+	spf=pass smtp.mailfrom=ragnatech.se;
+	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b="mownB/mY";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=052Np7yq;
+	arc=none smtp.remote-ip=103.168.172.157
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB73B606A31A
-	for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 17:54:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB73B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BCF606A31A
+	for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 19:11:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60BCF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=weOqlXAm
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4922dbcee23so1217646f8f.0
-        for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 09:54:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794765266; x=1795370066; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+9jMIl0zBBhkMlLpSXNkEk0kdLakvxrKv5a1mqHMyfE=;
-        b=weOqlXAmKu/o1UvX7BJcnWl2RTSmx4C0EragHBVoDXEmUejMNRuqIvzV633FQXGia8
-         2x6LYYrb2qvLkw9j8R37s5RrxmQ5qoGPGgrQIg2doJ5PjVqY3Z1wGGEuE3W8hVxb/NZ0
-         TyrvGxE5fWtuzN1TqX2c3ftQhZA5J/ILjx6sdYIl4WfrJdqfm3QV9UuF3cabO5x56PRT
-         bQ7wiWXrQMumN6nFZRubv0Th0rgB8HWW4MIEqMPBxG9PmA9hY6Mgi6k0/HZ/2WdM9cfI
-         De07y3SqnS4RikxH8hbHOQ9BygLfkx0vlju7YGHCqG/22Pi8c2CEE6E/0utBdPHZmRSJ
-         +sLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794765266; x=1795370066;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+9jMIl0zBBhkMlLpSXNkEk0kdLakvxrKv5a1mqHMyfE=;
-        b=qD6rYqeoPnYKtbWUbi/HGSC2ZDr0oh7TqDb7+V2P6mRb1Y22uWKPlb6e9DEWYI/CRz
-         ZiJteFTZdWL4EgEQYzDVdkmwTcNkfodpWa8E/CAWl+RGQIAgha95dyDxoVdN0yXnCK8G
-         72Wewm+WQ4u8Mam4v5LA9NB3hCfrLAOZYC4/A/CyHgrfM2NjcvS+915Tz1KroOqOOeLN
-         4QPVdxGlVOez2bYespQldbdoLlu2BXMp+vPvOPPIOhivG8m5UQtjziOxoVe24zUKw1vG
-         2nMmXeebgGDLUE94Bm/yNCRcSvuVZya0gJQWWsze3PSuFi/cUbOqw+lkhu+hGI050mwW
-         bP5Q==
-X-Forwarded-Encrypted: i=1; AL+hErGBlBNUCplEhSb3gzBWsQTJsxeCXO3HN20xfiTcY6zwy0V+Tx83ORx537W1jMVGOXd6NWWcMXLnixt3eg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8aUwzQc+V6e06yOhCjC+3ZWL7d1B+JQZxADD4dAYWJ5CekJgXt
-	wcg+l9rRT5n3xaj6FsyC7vR2Ib/5eoEm4U1TzlP5mDLK72/0qwzYbzZ4
-X-Gm-Gg: AYBFou19nKIiJDaJcB2KgUk3cgi807QUtDaWoFzRs2ZQz0EPQspX9RhwIkHhGC0Ob6W
-	pdhl1a0BDpyXpaFVSCj7CUqXTnNmskYyCtSXGFLNOLAu058uYr0nnzGzFdgOWBMXJLhwNRUMjzH
-	88/pO1kqnETXm/rcO31Zy7y1kwpSL6zy4GVYpUJCvI/ByI9R0BKWZpPv/EhtelDkc3Pl+VJC4i5
-	v+AwthLcHjO6kWkM7019qp6iz45g7rfAl8uLPxPiEW8ydoAwODPVmsxNbslG7j+6n5zce55Ek7P
-	LielyMAyEccQtvBOcHgpBjvMfBdpNq0Rfmc8uc1ifdEHoAd820beePMPXupk35hM5TcVCeGLmUR
-	gJvaVa6H/42C5atYeG1VVd2JXFt7JQqb9bemjXpgFL4BMXZVrOOuOOe4+Wd1fDgkDuc/KtputIi
-	cdwM8CZRn2Hk1pSYTM7CAhBMPd/XTB2yoUHmtBFeGrdyUqKzCVBTKWmpNomRRoK+E/r5W/bl3Z2
-	aBChEGdUR7X+CGR0BCyqLZLskl2drQP4+y7/XUPfu4M63mLk9T96qLXJw8o6F5vG49LZw7ziHLW
-	T/nt07PCaBK035c9TqaHKmQEX4xK8YEc/VuzHP5ZER3VFgc=
-X-Received: by 2002:a05:6000:40db:b0:48c:6fa4:fc89 with SMTP id ffacd0b85a97d-49c71e3e248mr19746405f8f.12.1794765266275;
-        Sun, 15 Nov 2026 09:54:26 -0800 (PST)
-Received: from firas-surface.home ([2a06:c701:9f9f:6800:4b81:a189:67c3:a27d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223b21sm19488794f8f.2.2026.11.15.09.54.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 09:54:25 -0800 (PST)
-From: Firas Sharary <firassharary3@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org
-Cc: hansg@kernel.org,
-	libcamera-devel@lists.libcamera.org
-Subject: media: ipu6: packed raw capture never completes a frame on Tiger Lake (Surface Pro 7+)
-Date: Sun, 15 Nov 2026 19:54:22 +0200
-Message-ID: <20261115175422.8662-1-firassharary3@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=mownB/mY;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=052Np7yq
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 6E7C11400034
+	for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 14:11:04 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Sun, 15 Nov 2026 14:11:04 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm2; t=1794769864; x=1794856264; bh=v/
+	7htNV0I5fN/nH96MjeLovPELil50iZdMFXQcwDKmY=; b=mownB/mYA5f4cfhDG4
+	BB3xVfhe9jwT7WB/MrBqAo9u6WBIU4pUPMrxkIu4U/sOpKZRI+J8Ua8sZbGCELrY
+	kK8yWHt5bw/gjRTutQpfUm2LrrLWyB88qMJhwhHooldgUzY/LUWYpFL3GYyicyWa
+	G/CnyhGMH/+qEzi0wNKhLqyWNlVsBD/e6hLm/+ATHGiSYk6TQft9ufz7OFGH3JH/
+	p7Q7XFDRoOG9vk2119t+JC+kXOq8LkjjRrGgwUj9/hn+bZEIQWEBeQwMmhxPrXlP
+	/OPTChWv1R/uwL56DrBV12vXPymBsIMkcf3MtxBsbY+9l9/mVg/NuhohlXTO1psS
+	TDGg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1794769864; x=1794856264; bh=v/7htNV0I5fN/nH96MjeLovPELil
+	50iZdMFXQcwDKmY=; b=052Np7yqCtO1TT8dTRQgSgPqX631NqdLCerLl/ko+g4F
+	T7IQ2ifNPanlbEuAbSHzGlGj2HC/S0FteghLYXoBz/f1dfd8HLudCNeWGR49Rk/F
+	vDIKaalGTqjLMrTVH0XkL2D8XGDW2wGvbwG/2GixZtFZTdJdDRbCZNMenbKfSvbD
+	tZBDHLWvnHDJ+eukKUtR9iFO13y/H7KAjz4L8dlQCjDZSI8y1FTOqBR0KZdWsxnL
+	nHNdcG6rDbBqAxV2vlWqQaIs78TQPuqWC/4rWn9iZDiaN7ANGVxofalil22by6p4
+	LRcUk32gKNNcFMcqe2zoeJHNcR1MA6dEm4z6NZzBoQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=ragnatech.se a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794769864; d=ragnatech.se;
+	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
+	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+	s=fm2:rsa-sha256:UAcKMwc+JpMnDE3z2eFtBUo19ikq1oFbzKcs9sfpH2yLzAV
+	ZoIzGQP3jKgB7ZlifOTXtGZYmRDU6KCC36ZeOX/vtx4NwZzC2fQ572ymZmTd6m2f
+	kULAz6x9m1/YzXcEwf37aAUcqazJEp6eirKvz2l3wkeN+NipTdc2o6uC8lbQSCiZ
+	FqX8c5PgmYH5YlXfHYStKsa6F68+1KaFoZgifujZqB1PdnxdBZ/dIZUOV/nOKZ1C
+	eg2eJObsbKFwa2rvv9BzXA/2pRDyPQuPlgVaZxu4JMSE2eKqYDNhjc3ZSY7HXJch
+	d0R3AhEDjr6SK20Ay1DRVg6nafFsM+uR9hcrQug==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=10;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:KClCmEXHoXKbAxauuXMfRQfpgRLPuowDM6dMo576bEM=:wcfYjWs6dFdcNf6FhI2Fmoi6dQUWF8Uu8boy79ySc00=;
+X-ME-Sender: <xms:yAP6amUKjmQhf0WCE3ZfbAZqz5GMwLah-U5jPm7GU4FdYAFA3F39KA>
+    <xme:yAP6athJHSj8WFQ955cYMiO1SZ1co20FdfBzqLRogl0rff9UzgRz6AFMnrj__Q8vC
+    OmUMNphcMvZFIreYYRl6wBA0jDXDZX5xh7xgWEg5KrJqTh8bhOyEQK98w>
+X-ME-Received: <xmr:yAP6apb3-NWpy6WOE8Hk0zJYXkm_KLJTBcuM14txB4zAYc42soEFwLY6sBwn9-sjoAF-cVOY6_wlnDV2c0A3m6fFnkxgGwU>
+X-ME-Proxy-Cause: dmFkZTF7CT48AofC5Fqn3oPULi6etSTNJTTDlUTIjIcc5gam3EKX/VBy1O9NF4zFRKwX3z
+    ufBuDABUJG2lxtlE7ggzN4R6tEuj/igzlCwHcxhvxdbETHeRqEv0xg1KY9rmhyPnwVojY1
+    vfnUdQri/pLXt8PG6OEiB8JD9xILP+nnqQVgn6N43EYxUrUX3xc+gq4ML+5Gk40ZcmeZsR
+    b3uiB4thbyRoWWBFuFTu0XN/9uyQe+pRNLelD4RMMxA6/Ut1zlmqCr0qd5Z1tZxRMNSdHA
+    SpBaAqBVC+k7UMnwsBVD7ZfGw2z0twxxDRYIHT3ShYb1JROM85h/1YxAmKUba2le45yBaK
+    WAh9ROEVIXU0jQoWwkbi2O+0PYP+kBEdrDI4m/IAQU7Qd3z+ERwz5RBOvuxYyVn7GlaE/K
+    JK1GAmVVIXePdHt9MF8TxJ4dommP52EZffC5Biau3rKDQd1szyLDK0+TL4Y0Up9KVIAQRQ
+    xJUBjWflzxx9/qRVe/Mgn96T3XyN3eRq/wFgMi5S37gIs0HMumHk1Mg6X0clRVdN5M2pyx
+    JmxDduseTQ84JwpiLgjXJlZF5BIrcOBn99OAenBXeXXBldlQqUY5Dq/B2YI2auU1FTUnaq
+    x0Sv/SoHUvrBQx4v1X5rkDPB9bmsHLw07IU6DZvlkPak7b2rvpTfRoTEbxJg
+X-ME-Proxy: <xmx:yAP6aioziBp4LC2kFzdviiFHellIlDkaVCu4VcLxWyCQ8QSMq5wBbw>
+    <xmx:yAP6auNg8StwTL-EUhPoNLkwDAVhinqRGZCgv5iyppySFL8uIJkprw>
+    <xmx:yAP6atqgxUxeWm3JZdOcyWoxaa3MNVVpCdaiNwhwRcW_AMIWD5tO-A>
+    <xmx:yAP6ajctVttizHSSJVKEuWM8jlaIO6I2U4dp0QibdUvIAWZdpjGrMQ>
+    <xmx:yAP6alYWal-MqcmG1TezR8vrzEhlqPSqS_J4SitJDeXCK4SGpuB7vhjP>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 15 Nov 2026 14:11:03 -0500 (EST)
+From: =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+Subject: [PATCH v2 0/3] media: uapi: videodev2: Add 20-, 24- and 28-bit
+ bayer pixel formats
+Date: Sun, 15 Nov 2026 20:10:04 +0100
+Message-Id: <20261115-v4l2-add-raw-pix-v2-0-f66dd83e5f85@ragnatech.se>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -95,73 +120,74 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNQQ6CMBBFr0Jm7ZhpA6a68h6ERWlHGGOAtFgxh
+ LsL6M7lS95/f4bIQTjCJZshcJIofbeCPmTgWts1jOJXBk36RGcymPKHRus9BvvCQSYsyFmljHb
+ Oa1hnQ+CbTHuyrL4cn/Wd3bh1NqOVOPbhvX8mtXm/vKL/fFJIaMgaNkVR56q+Btt0dmTXHiNDt
+ SzLB71q5WfFAAAA
+X-Change-ID: 20260908-v4l2-add-raw-pix-50ca1182ccd2
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, 
+ =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1587;
+ i=niklas.soderlund+renesas@ragnatech.se; h=from:subject:message-id;
+ bh=wcfYjWs6dFdcNf6FhI2Fmoi6dQUWF8Uu8boy79ySc00=;
+ b=owEBbQKS/ZANAwAKAQm0/3kE+U0kAcsmYgBq+gO7IUfu9aQyAsQH19/FBHZjwUcBWQQrbzVcX
+ ySxuUy82MaJAjMEAAEKAB0WIQRwy9J0OLNPX3a0+3gJtP95BPlNJAUCavoDuwAKCRAJtP95BPlN
+ JO39D/9VD0iqn1oQFtpLVX7VBON0DFY2uqUgVVtRo9S+dkO+IHihN9jExvvGOCbz9AKzldNLla0
+ F+x4tszRKr9+0VSUQHK3JjFWyPsF4Pzq18+SlEvxIgKXV/hAdFfMw4ZjjIRiMrkEQIfpUEci639
+ t2gnoE6HgpN+c2drnXmqotr+RpvOdW9HvDfAt4SrrMYKYDVR0dUKkakkSzw6ZEQWSWYYeMfOP1W
+ db4DldC5TXJlwapq5/K4S2AdWgj98EzqTglMwYcgjwJv/k3KscmABbY9OjLomnOIijZCa7wPaiR
+ e3E0jCjDZL74XnVb+ZUvh+CJ/b16fQ/C1iTsJRvHz/aoIsKriLCNj0a5usxYUPcszFbkTfmSJZR
+ ApfKAA0rnB6WOjYIcu+YJNIjW3FcFvC2AJVAmXoRFOyQvPX0TQ2n/bh2QraxFSFY7DWWOxm9DeR
+ V+W7g2W+EYcOIq3GaPYlfPYk7VuhRSvYxijq8oYqg3/UfLtEqay9IoEsdNsRWuZC9G1BlVd2yy5
+ r25HtKgrAvzyltHWpVIdq0hKvEyjv/4mIfFDZ3oKGqmcEoGiROlpejnGsj4Vui0H/nV8e3jFjLH
+ D+U8cou6tf0ejxvR1TOyMtNeUoCoTcW0D2ZuzVUDCGd1yG+JJwDu7Nzl8NceQ7/xTqeXyUQtrxZ
+ qQr9qEEhk8G865g==
+X-Developer-Key: i=niklas.soderlund+renesas@ragnatech.se; a=openpgp;
+ fpr=9976695FE98693307BF360A2F1591ABD9588DA5F
 
-Hi,
+Hello,
 
-On a Microsoft Surface Pro 7+ the IPU6 ISYS capture nodes stream fine in
-the unpacked 10-bit formats but never deliver a buffer in the CSI-2
-packed ones. libcamera 0.8.0 prefers the packed format when both are
-offered, so with it none of the cameras gives a picture on this machine.
+This series adds the pixel formats and documentation for the 20-, 24- 
+and 28-bit Bayer formats. This is done in preparation of work on the 
+Renesas R-Car video capture pipeline which will support these pixel
+formats in multiple drivers. For this reason it is posted as a separate
+series before the driver work.
 
-Hardware and software:
+Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+---
+Changes in v2:
+- See individual patches.
+- Link to v1: https://patch.msgid.link/20260910-v4l2-add-raw-pix-v1-0-80a8e855b41b@ragnatech.se
 
-- IPU6 Tiger Lake, 8086:9a19 ("IPU6-v0[9a19] hardware version 1")
-- sensors: ov5693 (INT33BE, 2 lanes), ov8865 (INT347A, 4 lanes),
-  ov7251 (INT347E, 1 lane)
-- kernel: linux-surface 7.3.4, that is v7.3.4 plus the linux-surface
-  patches. On top of that I run the ov5693 clock-lane gate series from
-  v7.4-rc1, int3472 patches for the ov8865 POWER1 rail and the INT347E
-  "vdda" supply, and the ov7251 v3 series from the list. intel-ipu6 and intel-ipu6-isys are built from
-  the unmodified v7.3.4 sources.
-- firmware: intel/ipu/ipu6_fw.bin from linux-firmware (471040 bytes,
-  Debian firmware-intel-misc 20250410-2)
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-What I see, capturing with v4l2-ctl straight from the ISYS node:
+---
+Niklas Söderlund (3):
+      media: uapi: videodev2: Add 20-bit Bayer formats
+      media: uapi: videodev2: Add 24-bit Bayer formats
+      media: uapi: videodev2: Add 28-bit Bayer formats
 
-  sensor  size        BG10 / Y10 (unpacked)   pBAA / Y10P (packed)
-  ov5693  2592x1944   20 of 20 frames         no buffer is ever returned
-  ov5693  1296x972    20 of 20 frames         no buffer is ever returned
-  ov8865  3264x2448   20 of 20 frames         no buffer is ever returned
-  ov8865  1632x1224   20 of 20 frames         no buffer is ever returned
-  ov7251  640x480     20 of 20 frames         no buffer is ever returned
+ .../userspace-api/media/v4l/pixfmt-bayer.rst       |   3 +
+ .../userspace-api/media/v4l/pixfmt-srggb20.rst     | 103 +++++++++++++++++++++
+ .../userspace-api/media/v4l/pixfmt-srggb24.rst     | 103 +++++++++++++++++++++
+ .../userspace-api/media/v4l/pixfmt-srggb28.rst     | 103 +++++++++++++++++++++
+ drivers/media/v4l2-core/v4l2-common.c              |   3 +
+ drivers/media/v4l2-core/v4l2-ioctl.c               |  12 +++
+ include/uapi/linux/videodev2.h                     |  12 +++
+ 7 files changed, 339 insertions(+)
+---
+base-commit: bf6c63ecc20a54aaac7a2fcbd6adaf6498388825
+change-id: 20260908-v4l2-add-raw-pix-50ca1182ccd2
 
-In the packed case VIDIOC_STREAMON succeeds and the first VIDIOC_DQBUF
-blocks until the capture is interrupted. The kernel log shows the same
-short burst at stream start that the unpacked runs sometimes show, and
-nothing after it:
+Best regards,
+--  
+Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
-  intel_ipu6_isys.isys intel_ipu6.isys.40: csi2-4 error: Transfer FIFO overflow
-  intel_ipu6_isys.isys intel_ipu6.isys.40: csi2-4 error: Inter-frame short packet discarded
-  intel_ipu6_isys.isys intel_ipu6.isys.40: csi2-4 error: Inter-frame long packet discarded
-
-After stopping the hung capture, unpacked capture works again without a
-reboot.
-
-To reproduce (front camera; the others behave the same):
-
-  media-ctl -d /dev/media0 -l '"Intel IPU6 CSI2 4":1 -> "Intel IPU6 ISYS Capture 32":0 [1]'
-  media-ctl -d /dev/media0 -V '"ov5693 2-0036":0 [fmt:SBGGR10_1X10/2592x1944]'
-  media-ctl -d /dev/media0 -V '"Intel IPU6 CSI2 4":0 [fmt:SBGGR10_1X10/2592x1944]'
-  media-ctl -d /dev/media0 -V '"Intel IPU6 CSI2 4":1 [fmt:SBGGR10_1X10/2592x1944]'
-
-  # works
-  v4l2-ctl -d /dev/video32 --set-fmt-video=width=2592,height=1944,pixelformat=BG10 \
-           --stream-mmap=4 --stream-count=20 --stream-to=/tmp/bg10.raw
-  # hangs
-  v4l2-ctl -d /dev/video32 --set-fmt-video=width=2592,height=1944,pixelformat=pBAA \
-           --stream-mmap=4 --stream-count=20 --stream-to=/tmp/pbaa.raw
-
-For libcamera: since the simple pipeline handler started preferring the
-packed Bayer format, libcamera 0.8.0 on this machine only gets failed
-buffers (bytesused 0) and no image. Making it pick the unpacked format
-again gives a normal picture from all cameras. I mention it here because
-the comment in simple.cpp says the preference also works around
-corrupted frames on other IPU6 machines, so it probably cannot simply be
-turned around.
-
-I have not found the cause in the driver. I am happy to test patches or
-collect more information from this machine.
-
-Thanks,
-Firas
