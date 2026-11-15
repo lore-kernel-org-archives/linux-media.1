@@ -1,102 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794731194;
-	b=FtQxogPe41UUfX5KKUZItVHBgKacjPQ4JjbcknUMj4Jgn+ntAWdI39i4iS/McQorwEdE
-	 tx2jCUq2TcD64UtAAWuOr3WdwSS+4FkV4Pl4erggRFugXMHymXUVgqr7zbI57vYKntrr/
-	 bW8sa14wods9Oy3y6wEAt4QjsyXlFr/QuUevktsXp9zFkM+K8rvoaLnIXHTgqa5KIIxy1
-	 cJL+QbWurNYVyYBKva3YahapOivRdIdOjbjBS6u0aoj/+T9jtRiaxC5G0Kt7LqBJLXEmj
-	 2R7LDm6RJmskckH3l8MVIfflfTE3ACRhkhZeg9NS4nviMzUrHvKTXDXRa58yHuzQKzg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794731194;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=AEWA9iOD08SFA/zlaE7wGAZjLwI2QLYLqoPd1RCuPRs=;
-	b=huAYCVNr3U1egfd7HyQNDxWGXPLAdY+75eINIh77aWFxaCvqXU78E11TV8dpPfM9oe1+
-	 obQMVlQh6xqcArmYPmb6siXJYQkBgGfg+/74cLbQ7KUXyffw4I81oWE7zXyScR+nAn83j
-	 YCyxVsxhiqivTwGqi2FUzuXBOrKQuaIAflUdtnDmi91mYdPTwfApYXiUoD6yT3RYd/UcD
-	 w2Mv4UrvJEM37jWIFz8/ABbpcTihVqhk/BRQHY1SRXGjcVHAtTe1u5gL2YyxrG0PkYl6T
-	 XhGvXDV+pIgMUrD73a7iFdhkLQlkKSh6Yc8Ybk2autrdMdCuEjtcxZKFl+i+mtsjjqg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="tbmZxUl/";
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794731988;
+	b=h/0j+v5ULDWTenaV47piUfMvrc9UoZ0HmJqat7HkTek9AOl2ihz8jyZR+CspoSWWYRkd
+	 ahOoV4OvSEL3H5lS03u17fFE1CqbltGVrtBzr9DFanRXRlFYw8ZSUkh5aw+aDEvZGeNA+
+	 zw5ixON7+5VP9AiNNkoxpjGtBVRJzbcjpxQyrYiON4XiMHkAxbL/o7gys+g56NzdX4K6C
+	 907cfA0hSuXUuYuRC900xnOCuU6/Z5a2/+qZiz+R7eCfsFUElV3RQjZKNeC14lfOhI70K
+	 5H5W03y0GhAKhesXufyQZNWdnYG3AzK+jlT6ze/8NLl8a+GAUrkNNUul56cjdXTDywg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794731988;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=Ws4/1OWekV2GIMndfcjnMtK+0NiaXYDp8JwTOAVBfcc=;
+	b=fbZ+SqVX1u6yZsWOK/YvTjCAqeSS+VOluYLGj80HgIq1t7YVu3YE7T/3+EKrJyIA3zGD
+	 WH3v7gCRt3uzZ6eHSXlZGE+8Z3A3VSYB9wnXZOlJ41JX7W+nFZeT96wLMs1e/hop4t3RA
+	 wsZjIfkxmNvDWKTx3W6hHpQySQGn5QFI083zce9V3aVIyljtoRPXSw20EG79DaFpY3mZ0
+	 glLfYIaIUKdMpWfSjSjaWWgw9++o6YL2WAPIk1c85NFuvHKc4JLe0nKM8gphZqGMRElXp
+	 4pGlrQPXhou3BOeJ4K9x/9iYHty7M9Zb7c74MNAHZqY9cKlxld2QWxnPbVtbe0TeRaA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ktmLE8v6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A76606A31D;
+	Sun, 15 Nov 2026 08:39:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ktmLE8v6
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794731987;
+	b=hgeT4rSJrfvcuuBDLhOdIafhnNnt8VqRzOnOadG4eBPvFdSi8g7fX9C5LYxdL9qe2VK5
+	 Bie3HhP9E8Jqdw7R24zkDHgr8ID1uuB2b1HhFvUB+KyopgOVwhrx41GNsOLQnwfEyEdaH
+	 73BelQgGsI5AMmqVPK5dJv9XDU6627fBBAwoJW/KvgCDGm3QYbgua9vUm0M7EWnAKlCO2
+	 vXDo+yizpv/zQ4UoSaJ/SlY8jCRatDlhDnw92gYPOXTsqfIJaIyvu9pwKyeT6sdwe4D5/
+	 xmQNj+U9NmP/DQzU+hgoRIbZ/OVDspyxmJp6OJkFjeRsuCTKTW/coy4bujN3HqL/ESQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794731987;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=Ws4/1OWekV2GIMndfcjnMtK+0NiaXYDp8JwTOAVBfcc=;
+	b=anR3PReuSgfqF1ZMkSb8uvMlY4X0jNvam6WvJ/a0cLRby9kUR6m5AV4qVpgEpPj5Lv68
+	 3Iohsq0rHNHSNPGTn4p7bB5dQuZPWjyoqlp2eRZVmJAssmJeUVFJ5X3ZDIhroro//540z
+	 jG+chJAEHvYqY13HjmatV3iCV1SqoPjRVJzog/QTkGTE79X+4VrOon7VBF6JA624sN1A4
+	 VjHNu0KPjcCtIo0RpMR9Ax1SPKYxoU87YaVJVCQkmoxBA1TkS4OSAsyRCnitDrQ26/qkI
+	 G7LFXwx13RfT1wV5fE9ojUHLdpgrlMu+AKNaWdoIjRp1k21yFhMly/FU2i4HWgOqI+g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0FA606A31E
-	for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 08:26:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F0FA606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tbmZxUl/
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b0d09fc934so311934a91.3
-        for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 00:26:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794731194; x=1795335994; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AEWA9iOD08SFA/zlaE7wGAZjLwI2QLYLqoPd1RCuPRs=;
-        b=tbmZxUl/qesdX5+Syl6V7aTnMIAu2eBkAVoROlQBr8b5UmewMMSHNpwUV9XlVDvJ+b
-         g+ppXiGL+7qosPUNsyJ/TE4nDKtdK0v5hM8fkk425cEFVFF6648Exbb5xS6NgkcgHBa3
-         P9clhMz2FmXEYJpFe2asRWs6JlSXYT7tuumGMQnWnqpF+s7u8NpJQlo0gxCp0D6hbsar
-         +bjG3AHdNFvwcxC4ZHNE7m5IiC9REkzUdnz42HaKEkJvM5clJAgBDuh+WlLKlU1AwPVr
-         RcFX2iBSak1NAAIrH+7fZ5C+MD0wlnMuopRADpYvditm0jx7ZrV/ZjXoe9hG/LB7fpRA
-         JYJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794731194; x=1795335994;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AEWA9iOD08SFA/zlaE7wGAZjLwI2QLYLqoPd1RCuPRs=;
-        b=BT3WisCVNnwxX61jkKLZ1fB7Tsvjd2KT4dD5ESkx+0fN8FzPyuV9W3AW8JvGPHUCh9
-         Xe34DhVuqoZVeEbksEcy/FvwF13eKBnkpoYE1WPdqtAx2jCB19BKkdXypTtia2r+CVY9
-         Ga2edn/s1RcNDy4VqZF65reUT2wLkk9Vi74MKa+l/70YiVwWLN4YwLaey8qRDZfkB63G
-         FJYz3rAh0H0ldmePsxfGg++4cYo4PPdZlD14l+23DOOkPgoW+LVSUmfXEkPqrVfNZ9tg
-         yqVPTXz3PhxXBma+p/RdoogDfEQwOsQflABBD3xG8lBQ6KXhRkC2eaqmX5Ji5Nwi85RJ
-         rgSQ==
-X-Forwarded-Encrypted: i=1; AL+hErFVZFcHhBqxZRB2UIQhKnOWjx9sqZVZvr33sg3I50tcdgJierD411NWeBDlSXVUMH++H5XqT+AV5dluPA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/GcG49HJhcc/gUGTt97ZOAoa7wGdLt86RSFXqSxbICcVq4wfHp
-	wcvreaqZ1k3njIYK4nFKqm+sWclZubmC/QYmKTzu/i5nCsuwT7nplrcm
-X-Gm-Gg: AYBFou190BBtla1Yo576wzMCdprXvthhiTVk2nUIIOmppEX9cA07wMwmft4EgiB4lUB
-	5jdIrM1df43VqU/6ToWSJzdBrfiXYoEciUk35drjP+tJG2iqUP9DJLFW/XTFYvHiJWdGxaCqEIG
-	r/i9R+1R6z1lqvd/kEDChiQq/ZWJepnifHS3bMyUA5gFhTyutWho7+HuQfTbnnKy1zoJJn+1msd
-	d9TVZE+moClIwLLTjtGyPtI8USSpSan+Nm40WIwEEnpW2A20jduNL0Mi8ev8qCuQwfNmNdmV8zU
-	7NjvXkWu8WBfud7J+Nvqy6TU5SVCBe8KGid4tn+RsxcVudl9lBvkBg65MdcuMLa602XOLAXVQcC
-	5r5xGcvfSPXNI2AgNHxTk+wiaayFDvn/Ct/C0/v0QfgrlJS3a044bwwO9EeA/VPPl9K2KxPRO0z
-	t1zHCkKGDqrd6m5VnzH/g5iDfYttgtmE8rjAbZQvS9l6NfTg+L7ta8gQygEPmoqM10UrEIZJjPL
-	QnSVCVz2/DulNk0BSAIT82NMeQiJAQUakprYgPfYC0Ml1ZDrq5s6z9xmAFssIIQeI/xJ4LaTRvs
-	03j+az05MZg//2JQIL2NTWWvPHhsqxLJ69ShYMohp4GRM9CIrWpxkgPs79OIS7oT10pFBNQEBAA
-	c/98aMw==
-X-Received: by 2002:a17:90b:568b:b0:3a6:e61f:749d with SMTP id 98e67ed59e1d1-3b1b0815b27mr11488600a91.1.1794731193623;
-        Sun, 15 Nov 2026 00:26:33 -0800 (PST)
-Received: from claudebox.iyengar.cloud ([50.39.139.68])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aec622b6sm12961779a91.11.2026.11.15.00.26.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 00:26:33 -0800 (PST)
-From: Arun Iyengar <aiyengar1990@gmail.com>
-To: Alex Kazinsky <a.kazinsky@ideco.ru>
-Cc: Detlev Casanova <detlev.casanova@collabora.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org
-Subject:
- Re: [PATCH v3] media: rkvdec: Handle interrupts without a current context
-In-Reply-To: <20261113102456.4155237-1-a.kazinsky@ideco.ru>
-References: <20261113102456.4155237-1-a.kazinsky@ideco.ru>
-Date: Sun, 15 Nov 2026 08:26:32 -0000
-Message-ID: <179473119253.4041300.13173694154528880101@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.kernel.org (Postfix) with ESMTPS id 011241F000C4;
+	Sun, 15 Nov 2026 08:39:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794731987;
+	bh=Ws4/1OWekV2GIMndfcjnMtK+0NiaXYDp8JwTOAVBfcc=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=ktmLE8v6EPy3nnzVEgF205RPmo+vRcXS3TffguDg9PMtecfb8CGavNUsex/ur5ojo
+	 uOLonktkHCLViz4RORQhf6p5G6/yKAsnVSOgPDZAQezUQdNEwM1+/eCEtshAmJfjld
+	 e04P69Mlk6qSs4aQTy0JIXqFV0A3/tXNPzdxryo8fCRyxPGVBHT2yTQegrSFYZCaus
+	 M1JAF7lMvOQNWCaa5cfEr6FPUiTu56rgqbAy3LD4IolJiYDarReTsIRaN0My9QyFF2
+	 E7BhjHMi8sviSdybNi6QWyegGk/SyBl3B87I0J9YQyzGojcK9vkcWr0036+ghFcqL8
+	 qPx7cm8ETjJ5A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5141549FEF;
+	Sun, 15 Nov 2026 08:39:46 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Subject: [PATCH v2 0/4] media: verisilicon: Keep the CAPTURE format in line
+ with the decoder
+Date: Sun, 15 Nov 2026 08:39:45 +0000
+Message-Id: <20261115-hantro-fixes-v2-0-bfecfb07a3e7@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -106,14 +84,74 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNQQ6CMBBFr0Jm7Zi2IhJX3sOwaMsIY4SSFomG9
+ O62GBcu35//36wQyDMFOBcreFo4sBsTqF0BttdjR8htYlBCVVLKA6Zw9g5v/KKAWlsSZXtUVW0
+ gTSZP2yEtrs2Xw9Pcyc7ZkRs9h9n59/Zvkbn3U5f/6kWiQG3MqVZVWQtJl27Q/NhbN0ATY/wAr
+ ST8D7oAAAA=
+X-Change-ID: 20261113-hantro-fixes-aace04d5268b
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794731985; l=1704;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=ieijxoJ+Z395DXW1QlEoaITK3L8xF7mWwBby8wJ+DGk=;
+ b=/uVlZ6ozpByZ8clNwP0NjCB4JDtnqv9NzXnKK2vpfHhw2ZdhGxVR0IoF5sT99Iw0cgW+z9uWP
+ bIah0ICOwAMCLAlDAPAGWgscLLinzYElFp68cno5uNHbTyMNHyC1wx7
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 
-Tested on an Orange Pi 5 (RK3588S, VDPU381): 7.3-based kernel with media
-next's rkvdec, this patch and my watchdog fix [1], KASAN on, 4K HEVC and
-H.264 decode with the watchdog cut to a few ms: 5955 timeouts, no NULL
-dereference or KASAN report. I did not check that a timeout actually
-raced the IRQ handler.
+Fixes for cases where the decoder writes past the CAPTURE format or an
+auxiliary buffer, found by Sashiko on hantro-dec-size-check v1 [1].
 
-Tested-by: Arun Iyengar <aiyengar1990@gmail.com>
+Tested on an Orange Pi 5 (RK3588S) with AV1: the CAPTURE format is right
+after film grain is turned off and for 10-bit streams; VP8 and AV1
+fluster show no new failures. The overrun in patch 1 was not reproduced.
+HEVC and VP9 are untested (the RK3588 has no G2 core).
 
-[1] https://lore.kernel.org/r/20261115-rkvdec-wdt-stop-v1-0-59e687c6cc63@gmai=
-l.com
+Developed with Claude (Anthropic), which wrote the code and the commit
+messages. I reviewed every change.
+
+[1] https://lore.kernel.org/r/20261112-hantro-dec-size-check-v1-1-e5f1180b625f@gmail.com
+
+---
+Changes in v2:
+- 3/4: also replace a native format when post-processing; second Fixes tag (Sashiko)
+- 4/4: check the control returned by v4l2_ctrl_new_custom() (Sashiko)
+- Shorter commit messages, fewer code comments
+- Link to v1: https://patch.msgid.link/20261114-hantro-fixes-v1-0-abb78264801e@gmail.com
+
+---
+Arun Iyengar (4):
+      media: verisilicon: Size the VP8 segment map for the largest frame
+      media: verisilicon: Set need_postproc before resetting the CAPTURE format
+      media: verisilicon: Keep the CAPTURE format at the stream's bit depth
+      media: verisilicon: Set the bit depth again when its control is rewritten
+
+ drivers/media/platform/verisilicon/hantro_drv.c  | 12 ++++++++++--
+ drivers/media/platform/verisilicon/hantro_v4l2.c | 20 +++++++++++++++++---
+ drivers/media/platform/verisilicon/hantro_vp8.c  |  4 ++--
+ 3 files changed, 29 insertions(+), 7 deletions(-)
+---
+base-commit: ad6549a46748d00818483b535e5cd2a704685c98
+change-id: 20261113-hantro-fixes-aace04d5268b
+
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
+
+
