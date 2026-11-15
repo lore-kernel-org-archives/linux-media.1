@@ -1,79 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794733145;
-	b=PmTmT8qNRSJ2aZuTofBZyH/XHw8p9ikDxUpPAHWZRI5hKJBnBRyswMBMPS80uxJqwmkB
-	 9GW3vA+24VS3FAUYQiU1dTobDkrqLWbW+qzRGRUy0a+89S19Rtbj12TombimsjTxV4n7F
-	 hDYUKi2Yy0N+Av7+O0CE87CQLDi+BICm2R7y/Rd6TM0PCskfSOWd1Mxrk7UUKp6n1UJzu
-	 vVtevDaRlSME6NEWZLOwIt1Bh78tBxp+Ic2JVBgv4jXZ7zqD0VYLSe6LvyU9oAaNsuAk9
-	 JpBU0PBtFFQMNe8YTQ1UfwRNwJD+o7ouxVr7ISX30TjI9Xlm5YRTOsKOTJeMqrLqU5w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794733145;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qDP4N5+jJcRg7Y6okxsTnefvSa683G32wQT+RQCKUfI=;
-	b=FyviPilL7P4yrwdscsosLDhx3kS5Cqj+EGBa45K8paXDXZfEyRL9NpsU0BT3Ph/3pf3c
-	 Yh81t4OnvS7vSKzf9a+1RJKBwwpSqOGp4u/xvTwi55RkDX2dNc2jBrI7ZlEviSExi2UYZ
-	 6yr9faSmw3PEVMkSfDp0x6BEAFWKMxYdMsd7FdO0YfxXz3U7zRI3OkESrP2EkQ/kQ5vp/
-	 RhduD03og75//HeNtj98Ank8X1p1DYKLqB3lQwA0F1qN5U93RDoWCjK8AfxpSJb8l1YXw
-	 FWTm93NPH6dKFv4Kcfw8qfxE/AaQyjNcH3xfZB+dZL6Vl1CSPw2Qtk0yl1k6YHAJ1Wg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bnNzd/sX";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDD3606A31D;
-	Sun, 15 Nov 2026 08:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnNzd/sX
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794733145;
-	b=3VCcJPh7sC3qOSHJKnhhIQP3488ZooJiKXJsTvq6arCxfQv9SvGIW64ca46kkULl4zV5
-	 dTMrpMpDmD+QzEnTO8KU4WcsoKnBhqB62dPik6fMCFmBVch9kRMuTbJ3Uk8Ig0cH8LJjr
-	 gwlkSZ1xknW1ogUZN8hXTRf6RUJ3Rrl9W8J8anKnRLVPbWNeSJ9QeyM4wVhWGNmr9K0wt
-	 tubITSZE8W+2BV7/K2HhasMEaTgszx9YnBbCC7L6/5c95yhWU4w07eB0+uk0h4mxpsqtu
-	 QbvcM6QcEytwD72IY7owHB72sFrfEWi0iOwl1fK8zUSEr6wW0AgzPRZWbZLJhs88L7w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794733145;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qDP4N5+jJcRg7Y6okxsTnefvSa683G32wQT+RQCKUfI=;
-	b=kjkAsNjw6kyIzC63goa3HXohc0xOQF0U9p6Pz5Jyx8l9TKw8C4vaz2R331jxJ2CTcw3T
-	 W7JDql3W2/4Jhm9bX+pRauc8TYrzMdaFtfpwQltVIJUZBNaNQfHeb35MdHFhP6KLNZdFh
-	 21Ra0Z1qwEx9J/0KB+fc3uv0kgq9vUSC0F1r93K1JeJqZLPmTFEeW6DqILy5nBAONKBr+
-	 tb6Hzqozfmliv5xTZk/hbiG+zN5vYfG142Q4PhGpLXQU/8lGgcqAo6DPfEvWLsRtKrC9N
-	 Qpxz2LOc/368Mj6tQOFuym3f2JWzueDB3BHl8HKticn5eK7KhFBNpVvutKtNwUVfEZA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794738811;
+	b=ETELB/p1fdWtjX35nE1kBHl+0r3pI9DU+LKiT7J1YjvWSK7VPGuadsNWhKPAhtGpLsch
+	 33uu5MV7TccEnCGHQKoNbyn/RgNjNvwCuV7qsom0b4UfNxjCJWVSfOtI5ECXpoBla3btC
+	 qMFWKbV7DctmzhSyxOGnSzELxRPatYUNaL7dnD+yO9VtPwz7Vg5u4anFs3CxbggbBTf7j
+	 wS0KAkn8N30Umi0wo6Qt1qIUVwJwZ6r7p5oiMpx8CHdZpSPyhlZWWVOpZJ8HY15SJqhrT
+	 M+K72uybMSxa0eZPEH13d1ZeXNhPl0UkjxQqXZqzJuU/E5vdpF7H5fINfCwWzfIXCHA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794738811;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:References:In-Reply-To:User-Agent:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=fpzarE1cU1bUvbd55+S/yK+OtqBME8Oy9wYyX5L/AKo=;
+	b=YNOlF8VhHu4OfR8GtDjuYkXxyJhJHgUD5U+ZPNczh7FM6OJIi52icR/A4xbPB4Hx7Iux
+	 INXoHwky8EG4lvP3UPTim5El17NRk2t7muUWaZL/B5IjtQydm87+SySbznouMOcPZn+3l
+	 G9nzIA68pUB1tU2Ex8iydmTXN9k11OGSO5U6noSk9JPOxzwy/jIy15Gkwcl9O2pyyh7Wu
+	 5KGQfOmndP8fuhHjaO+oAzSBb1zP00m00SpMTsBe6j+9Pm7iIZ4UfyRtAepDjAWhC1fqS
+	 vgjvnlHl7FuQIizRhjZIGD10XyF9T5y0oumkC2wZ/l7Hiz8TMQ8NCVgjtiat93khSCQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=kynesim.co.uk;
+	spf=pass smtp.mailfrom=kynesim.co.uk;
+	dkim=pass header.d=kynesim.co.uk header.i=@kynesim.co.uk header.a=rsa-sha256 header.s=google header.b=s4BD+3zr;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5DBC61F000C7;
-	Sun, 15 Nov 2026 08:59:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794733145;
-	bh=qDP4N5+jJcRg7Y6okxsTnefvSa683G32wQT+RQCKUfI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=bnNzd/sXXPmZiuZJrsHt+ORFsP3a28E/vdosEXAB49sTdYrp+h5Jdu7kuA9pmwx/x
-	 0Sq8yy0xRVscOf9vNTfi2TklVDUKf1O55bFW1qDo31iGcI2Li1jOgZvSm5v0WrM6zd
-	 S3HD2lmbcM2UpDtURGh7ycIDn9PQ0HIbcNqpmBTiP9SXUddF3ivSaHkahhLjQ6zjvH
-	 eVBCXxl6hZZmA72EDcCGXyeBVKyzjhdufMY41JTei9QaYpOtpKRAyLme0dGK0DgryC
-	 m9KKS8XFGIRVMMYCAQNslV1inMnvTOhkZ7COpaOakLGYXqJwfrdH4Ye5/w8YTgcTzc
-	 gPKZ5uQi76VEw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DB74C4A023;
-	Sun, 15 Nov 2026 08:59:03 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Sun, 15 Nov 2026 08:59:05 +0000
-Subject: [PATCH 2/2] media: verisilicon: av1: Read the segmentation map at
- the reference's offset
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212B7606A31A
+	for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 10:33:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 212B7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kynesim.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kynesim.co.uk
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.a=rsa-sha256 header.s=google header.b=s4BD+3zr
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so13997255e9.2
+        for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 02:33:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kynesim.co.uk; s=google; t=1794738809; x=1795343609; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:user-agent
+         :in-reply-to:references:message-id:date:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=fpzarE1cU1bUvbd55+S/yK+OtqBME8Oy9wYyX5L/AKo=;
+        b=s4BD+3zr0ZB73gYFUyoN8Fc3af5PkYuljzcdrdH8vmmpvaj9uc3xE1DRDDx6A7lAxH
+         u5kq20OiQ2qIEicNj9JhCNc3xHmUfiBXZLX2jQYOXRx3wzMXCSqqTBnbXMBquuhXaKpb
+         GO8ZateL3QSehf6VbdV1Ti269qi6D28Tjy+X4IaIt07smuEPL+AShl0CTXW91bwzOx0t
+         lxgZ/sUMGOZyscGbQg6XwYxQSFmlOf43LLXXZRCHeBtOJOsKHoFMlbtD/LRZxKh9XoU9
+         2FwqZRMjgzonDvHdx1NFQ9fwT1LyCegf881QqQ52yolEJPIj6WF3uoqVYdz/0IGqiZvK
+         ePNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794738809; x=1795343609;
+        h=content-transfer-encoding:content-type:mime-version:user-agent
+         :in-reply-to:references:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fpzarE1cU1bUvbd55+S/yK+OtqBME8Oy9wYyX5L/AKo=;
+        b=18VFqUVi4Y6Rfr6fVYSQ83XxwLmHWvjXWBhOiFqxV49MWHdryYZqm8ahbG1wTsq6q9
+         u9x00Q7EgmW8F1gR7iIpyFKkEICbPC6q4Qag5p9D3DbNHfNe/dGpawRUK1yIHXW5wWiJ
+         NWB2sPInukhoK93Vbq+coQ1UMKYH4Z7OCbX5xCk3RUVX+RCtdziykrbvH8+zO3nCOKtz
+         JfCnddvzsIjXlscYbpPjhTLAQ4OvScHlri5r0FfxEiZPxsmr8YzNElRLm7EXZW68H821
+         4gxL9AmMpta/2nEqrbtEmk8719qtF7skADPox4aEXo4wDL9GYWjR1gI/aidcXPcbmVBs
+         VTCQ==
+X-Forwarded-Encrypted: i=1; AL+hErFVlmsT46oV4rugp2Fg0q7JyGvLC+VwK5qxkNQVb/sclP7xydoc+/bQVTNI/ME+pPNuMIYS7XRXY+nS+w==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Z9byDajCx35QtJCOStRn1SVHVkW5VEgyO9YDJiuYbx0KgN3Oo
+	Oab9g2HUgtH/TwPOD9FdM3hXFQKQ3E3QtLuDl5/4wcJ610qf3yI2pw9SNv9MEw5yjp8=
+X-Gm-Gg: AYBFou0d95yGRNTODQ1Mk/KWER9+TqX43kA0bJI15+43B3mcB3Wf/2kcB1/O/FQCCLM
+	lZh0WIyUOd11J4UCj7Qqc4qtr5e2zrRCmvXxIYg0UVXzPUyQ0h7enr4fxzAS8QCxX/ZVJlUVZ5D
+	1YuQT16s0KtXYni8fu9sehjGtyUwuO1jsXSH8ezUHhioC6RrPG+ekuwxwUBhQ432qsmp8EiCN5J
+	+Bve3Enj/LojrFqoJG3FLhC/RS8btmxqLxxwml5peGEgIh4BETLn5UGmUeK67c/xq/xSMFKUQrC
+	vGR+7Ovogg890cxIh8rxscBufLqu0HmeIwkF+8VONfeFtqTv9O/mpbOQO9Iwjgq0LZROH2YHewm
+	8BQphMb8HS2T3Z4IiEV9Nkh3HmIgIZX2WMuhNttVLrabuvp9aUtgKEwMjI5S1SPJW0wQARmR083
+	Kqcbv5gg2x2iSMTaAAskSz8tWRJAjHAhe9zs/d9oleBueGHADiLQxQlEFJAmtDpXcAcBOKAA7wG
+	XOxvQ2iyzhs5cGWW8V2I09Zdb+OQmlaFUk79pdp8ZPYLCUtXBvojIo35PmfDFojLgQE5jzauC45
+	JAz1cbpl+WEhYCWgz02HUWLfFnuagbQUq7QTF38CEac3epvLl73FnR3OCdlny1tO98Y/e2qUfxL
+	RJIyzyuj6gpjkj0Q+4iUX2AWugDeJ5iW97PpTKUX3fSwZLeubsjPeimCe
+X-Received: by 2002:a05:600c:83ca:b0:4bb:53e4:a7cc with SMTP id 5b1f17b1804b1-4bb55a74c2emr158139325e9.30.1794738808932;
+        Sun, 15 Nov 2026 02:33:28 -0800 (PST)
+Received: from CTHALPA.outer.uphall.net (cpc92886-cmbg20-2-0-cust122.5-4.cable.virginm.net. [82.20.18.123])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c603f4d29sm15656885f8f.35.2026.11.15.02.33.28
+        (version=TLS1 cipher=ECDHE-ECDSA-AES128-SHA bits=128/128);
+        Sun, 15 Nov 2026 02:33:28 -0800 (PST)
+From: John Cox <jc@kynesim.co.uk>
+To: Andy <logic1208@gmail.com>
+Cc: dave.stevenson@raspberrypi.com, john.cox@raspberrypi.com, kernel-list@raspberrypi.com, linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, nicolas.dufresne@collabora.com, mcanal@igalia.com
+Subject: Re: [PATCH v6 5/6] media: platform: Add Raspberry Pi HEVC decoder driver
+Date: Sun, 15 Nov 2026 10:33:28 +0000
+Message-ID: <vc2jflhb1t7vgp018bisojip40bq0i9hn0@4ax.com>
+References: <CAParQ-2bewNmh3BP49fyFr0A51W7obkCjgHuLeZ=mGYjL2D9+w@mail.gmail.com>
+In-Reply-To: <CAParQ-2bewNmh3BP49fyFr0A51W7obkCjgHuLeZ=mGYjL2D9+w@mail.gmail.com>
+User-Agent: ForteAgent/8.00.32.1272
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,76 +98,56 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-b4-vpu981-av1-refs-v1-2-c65769715db9@gmail.com>
-References: <20261115-b4-vpu981-av1-refs-v1-0-c65769715db9@gmail.com>
-In-Reply-To: <20261115-b4-vpu981-av1-refs-v1-0-c65769715db9@gmail.com>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- stable@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794733143; l=2088;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=0GThhk2z/cRQbgXeldqMBs3lGFcw7t5kkHOX/IFY9c4=;
- b=o3Cf4VWabdI+ePII3AjfgP52dIS0jsu4DNRqWTn/g2TqG+UlYC8uLuWyOC/OOPpWjZvQis/fo
- uxdVrh9Py6TAnNb9XgZFsUNMdVEna1ZFJOoNvCMQp9GVaAwjVg16/vs
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+Hi Andre
 
-The segmentation map of the primary reference is read at the motion
-vector offset of the current CAPTURE format. After a switch to a larger
-format, that is past the end of a reference held in a smaller buffer.
+>Hi Dave, hi John,
+>
+>(Sorry for not threading this properly, my mail client cannot set
+>In-Reply-To. This refers to [PATCH v6 5/6], posted 2026-03-04:
+>https://www.google.com/url?q=3Dhttps://lore.kernel.org/linux-media/20260=
+304-media-rpi-hevc-dec-v6-0-93868ae6dff8@raspberrypi.com/&source=3Dgmail&=
+ust=3D1794798867626000&sa=3DE
+>)
+>
+>I believe there is a regression in v6 in dec_env_init() in
+>hevc_d_h265.c:
+>
+>ctx->dec_pool =3D kmalloc_objs(*ctx->dec_pool, HEVC_D_DEC_ENV_COUNT,
+>GFP_KERNEL);
+>
+>The decode environments are not zeroed any more. hevc_d_h265_setup()
+>sets de->frame_aux, but de->col_aux only when the picture has a
+>collocated reference. For the first pictures of a context (an IDR has
+>none) col_aux therefore holds stale slab contents. phase2_claimed()
+>dereferences de->col_aux->col.addr and dec_env_delete() drops a
+>reference through it, which oopses in the decoder interrupt handler
+>(phase2_claimed+0x18c, "Fatal exception in interrupt").
+>
+>The downstream tree has always zeroed this allocation (kzalloc in
+>rpi-6.12.y, kcalloc in rpi-6.18.y), so this looks like a slip when
+>converting to the new allocation helpers in v5 ("Switched to
+>kzalloc_obj/kzalloc_objs as checkpatch now checks that").
+>
+>Suggested fix:
+>
+>- ctx->dec_pool =3D kmalloc_objs(*ctx->dec_pool, HEVC_D_DEC_ENV_COUNT,
+>+ ctx->dec_pool =3D kzalloc_objs(*ctx->dec_pool, HEVC_D_DEC_ENV_COUNT,
+>GFP_KERNEL);
+>
+>Tested on a Raspberry Pi 4 (BCM2711) with Linux 6.18.63 plus the v6
+>series (with a small backport to build on 6.18), decoding 1080p25 and
+>1080p60 Main and Main10 HEVC streams: before the change an oops in
+>about every second run (found via netconsole), after the change more
+>than 20 consecutive runs without errors.
 
-Use the reference's own offset, and skip the map of a reference of
-another size (the spec then uses segment 0, load_previous_segment_ids()
-in section 6.8.2).
+You are almost certainly correct. Thanks for the patch.
 
-Fixes: 727a400686a2 ("media: verisilicon: Add Rockchip AV1 decoder")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+John Cox
 
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-index 59f2adf74850..f23af435f961 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-@@ -899,15 +899,17 @@ static void rockchip_vpu981_av1_dec_set_segmentation(struct hantro_ctx *ctx)
- 	if (!!(seg->flags & V4L2_AV1_SEGMENTATION_FLAG_ENABLED) &&
- 	    frame->primary_ref_frame < V4L2_AV1_REFS_PER_FRAME) {
- 		int idx = rockchip_vpu981_get_frame_index(ctx, frame->primary_ref_frame);
-+		int mi_cols = DIV_ROUND_UP(frame->frame_width_minus_1 + 1, 8);
-+		int mi_rows = DIV_ROUND_UP(frame->frame_height_minus_1 + 1, 8);
- 
--		if (idx >= 0) {
-+		if (idx >= 0 && av1_dec->frame_refs[idx].mi_cols == mi_cols &&
-+		    av1_dec->frame_refs[idx].mi_rows == mi_rows) {
- 			dma_addr_t luma_addr, mv_addr = 0;
- 			struct hantro_decoded_buffer *seg;
--			size_t mv_offset = rockchip_vpu981_av1_dec_chroma_size(ctx);
- 
- 			seg = vb2_to_hantro_decoded_buf(rockchip_vpu981_av1_dec_ref_buf(ctx, idx));
- 			luma_addr = hantro_get_dec_buf_addr(ctx, &seg->base.vb.vb2_buf);
--			mv_addr = luma_addr + mv_offset;
-+			mv_addr = luma_addr + seg->av1.mv_offset;
- 
- 			hantro_write_addr(vpu, AV1_SEGMENTATION, mv_addr);
- 			hantro_reg_write(vpu, &av1_use_temporal3_mvs, 1);
-
--- 
-2.55.0
-
-
+>Signed-off-by: Andr=C3=A9 Fritz <logic1208@gmail.com>
+>
+>Thanks for the driver,
+>Andr=C3=A9 Fritz
