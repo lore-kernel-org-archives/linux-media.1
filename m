@@ -1,97 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794829408;
-	b=AuGg+0J8KQivuz+W7ltGP2vG16okmF2CG7OKLwGdKZ4yD5CZamqwcShxG0HpWPLl+dCn
-	 klf8Z86frBTimI2AsYiRHsYo4+BfShWuo6YMTVXX7vPbJueswb4SrUbjTfeOvQ/51UmUX
-	 vqCi/B8malJmSuACUoi+8eYvzrKfv4GctA6JWszWZqF4Kty8KuwasmQcosByHYMrSs5s9
-	 UAjVQTKjl6yScSyja1hqnkuRYhodLaVdbfv7B+hZIJCkTdkqvzbTySKuQ8PSQnn8VKMTQ
-	 rG21gznuugf2t9mJqBt3goy4lpu4oS4AJb0DzTQyxASeMDDN2vWCnTbRvhvunGk2PJw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794829408;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KTQjOLscv7pBRUr3IFndTok2cp32yKjgkssaNhdisLI=;
-	b=CyYqhlgKDAZv/+m5mrJ2ieIxDmzjbMh+GGGWOEdaU9IiFLC5CqeIx8Uy9e+YJCiXkhPq
-	 0d85o/ZjgcLNCc6YAVTPTRFEWkk95DvjUxxB5Qn4cOsitRZuh7J6gaB02nlSVKx+e8u0v
-	 9EpA2qtaClaOw3aXes8fMtjeQwOC/ua5meewRiX+INN48LwOuLaIP2MOigqQOFwMsjd+9
-	 Wjhue8hSIx7oV0MmSIsOXNK5gu7/grUE+aToKmLox1x8Vu3F1c6FPM+d77RrMQ3UCIryC
-	 QT0bSR500h90LljahRr85FkH6DbtMO9hcMCeacSfutEBFrFM4kNuuv57WA2TM5Vbc6Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sg23jUiE;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794829949;
+	b=kVMDH03cY6ntRPhxJ6HqZSKYb0ew9TXvexlsGL3EFKxVW6Ng8hBupxoTWNRLPPtnjCo6
+	 zLH7VnJjv/jQ6ksUsUzHrXNhs/r9Cj/9KtxAKkbzl96iS76TOqwlwP9iZj8GuH6u9Sztw
+	 7H3M5AYbFl2ofNbVP2Bx5Da8r8D41xNGC70jeGpEB3BRNCE4tL9V+q52U4SXM1gsFJU9M
+	 keCusNlV9Hh+gUbaZpbVXallG1VbF+civNTmRyBexRY23p3yDradOdcoaup/p+pJf8Xax
+	 AeGROlOA9qcouXS8QkDl+qoV9sMZABNkUZcxMJbmBIMV43iv30gVeDOaEFSeuvMc0yw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794829949;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=w26fEEm5ybG+G7gyNNOpBbzc8hwwqjZd0VP12Wt699s=;
+	b=iCtHsitsJAnwpi1F4DPRszW9HgkiqUCgmKq92zcxd/ReBYYts3fu7NwrBw4mu83m2A5V
+	 HM/wctCnFLqwv0OV+maDtqOdaFGfY/R3tq/0dfTELzaGDDPlG+mUgzY3sVQV1fgyeii7P
+	 rFpFzPd4PVloIiHTiLe3JgAYInCEejiYWBP8yfNeYpq569EennkTa6GmehQg3aaTh185r
+	 Fd2q1hfb9QJdf/WCwAbKcV5kpwMjRCf4/7CUf4fyTnR2Rfaw3lCFh3V9K0re4tUuq5flE
+	 IYQjbkOJ9U3Y0Qc210CnsMkPkepIOG+sf7o/bm5J1/lGoONy2c9hHWws42WbNWgNpvw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=N4qcmHqo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC1A606A323
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 11:43:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DC1A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574B8606A31C;
+	Mon, 16 Nov 2026 11:52:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 574B8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sg23jUiE
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3b0ae87069dso1903660a91.2
-        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 03:43:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794829408; x=1795434208; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KTQjOLscv7pBRUr3IFndTok2cp32yKjgkssaNhdisLI=;
-        b=Sg23jUiEtSUhNxETJE0Xvi1ElvGviFGzaUVdNxH50arx87z28doyXl7c88creDnFoI
-         RehL4ICNvs2NxeSLF9mjDOJlC+anDPzczR4hWhFa70j/XfGpd4vyMaD4532rrj1IRZE6
-         iyRwD+xFh17fD7ZDjuX5zrhB7Ptqmgbovqrcbup1K9FLRMSXkQ/oamJEQWc/jN0PAuar
-         yAoyLI4b2zFDBDqhauhw1xmkQ/SV1BhGeVDFqOjQWllik1EvfAwlg+2wXc7nxUY5vpCw
-         vDSvcfxPPp5nev4F800QhzTJqzgGZbISfGafkKZubaZ4zoIAaZ/TfjS92foHKkcCqt/4
-         nvgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794829408; x=1795434208;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KTQjOLscv7pBRUr3IFndTok2cp32yKjgkssaNhdisLI=;
-        b=ZeOuUo7c9yS+NBkyOZ7NlPs+rTVgqwGsRZiFOo0jt9D/hRyW/mqh5Vu5OyzaN5D0xm
-         OQ2GYTAJyhD4PYsXiRwmuu1YNjGPRPYNE3EI06qfhOEIrCVd7FZK0JhOFo3kPAnpsu8W
-         mPsIrcgALm1RzFqpFDo6TwRDD0fdVeRt7WIZu9epNZiRN8GRcgNVrGC3bEX1VWWWmWhD
-         c8NhIfMNr2v0MmnFILKC1yM4/b7hoYc8wOpOV23N9OIrSZZ0eJEzba07GULgW+Fo9pPZ
-         So7SrrOUoYxqz/eZTYzX2wEvrM9goq6jWuL1i4SFf0qV7qzGKN4KZt9qSRpP7fWKBcoe
-         c2Mg==
-X-Forwarded-Encrypted: i=1; AL+hErFmqFAQh+1SiSCUuhdX/J9IG7++W2clxDGMcdyZJTqjNgMhVSvePLXY8xzh1x9FdYHb9nggvTmsP0q4ag==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9GOcPtzGmqkFeORN1pF7W+I4PmgIItyi6eJO6nFt8EvXxBeO1w
-	fcdrXzSsdiELiUXp8gZo2Sb9RyYArT1GYFIjf8WsVLW8ImL9ns7iQvGF
-X-Gm-Gg: AZFdTZfDgZ8MYQ3L0jHQMYO7LBeXNOO+EIL+UhS9lvfscRER/XzsYkdGtvxRXwXm+1G
-	ep5zU74pMjxM4/w8PTTfoyYdd/MaUYp2ex78HPeWD0TUtxr9PfYEYIL1UVLdMzPtkZg55LO4qE6
-	QFfVZCM1TnqbFFsl48nx1erR307/cFduD6QGJFqp9JCSfpGHP12uvp7xnpiV1Hy3uTreeNpAJo+
-	RVWP48utMqNImeo6ZOFZ76nZGpGjXr4zZRPdZM/9JL2QSy/L6TVhuPAznlPxW8tJt7YQD19RpOq
-	W1RFLpM0mqjSRcuf3wbSIv0ah2VpVLLMcNU6q7/TOsdre/kFiVsdNe9m2gnYks7Hx9iWjDt2EPJ
-	oV22MYv6sPEzMEvXai4nPPNdp4GwsghfAfYYWKoF6LCIxyXcw8e4BHu+fS7wbxrX/CPHeElbsTa
-	WGvIePUvO2cnUcBjw22PvNapZwtfRDadKA9jAIs5AnuPE69suEEORjBrqPeUlUQOfs+8W9Lrpq3
-	WxFiQCf1GqArF+lUqMaWDIHb2irwWIzIM2PvY8kfEvuzrZg20QEaspwBvTjCJ2KPjqiOa3Z2npB
-	ez3tu4xRiPnOdlEwlLkN/S/wb0z/30IVZORU2WDVkXozZ1DYvNMuA8a+DF+Z4ZHKAH0Y8/2RAw=
-	=
-X-Received: by 2002:a17:90b:49:b0:3ac:bfa7:b079 with SMTP id 98e67ed59e1d1-3b1b081bbd8mr9740865a91.7.1794829407614;
-        Mon, 16 Nov 2026 03:43:27 -0800 (PST)
-Received: from X.tail7c3ebe.ts.net ([103.190.41.115])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1baaafdadsm14089519a91.13.2026.11.16.03.43.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 03:43:27 -0800 (PST)
-From: Avishek Chaulagain <chaulagainavishek14@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Avishek Chaulagain <chaulagainavishek14@gmail.com>
-Subject: [PATCH 0/3] media: atomisp: remove unused functions
-Date: Mon, 16 Nov 2026 11:42:42 +0000
-Message-ID: <20261116114250.6587-1-chaulagainavishek14@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=N4qcmHqo
+ARC-Seal: i=1; a=rsa-sha256; t=1794829917; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=irrbfyXogddlylcQkZlr6cFYcsiEft7lACg+oXK/70XkypgFcOjhmlPA7bq12bE16XzEfAWJYo4r3oWZcjOf3EUX46INf7/iqVbcT/NRcuNT9mFS7dg9/l2KKYIYPTF8fJlCSwLunT45fEXl/zkUcBQNFCd+V4pflORA2ag13Lk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794829917; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=w26fEEm5ybG+G7gyNNOpBbzc8hwwqjZd0VP12Wt699s=; 
+	b=D6oNnhh/8JLSRSl95JJcti5S9vsohH8/64oARoV8f0hCc7bQfImSA93NBfkpdwFosA9+xFE864riOu+NhuPED6i9DB1j6vHnT2txkXGIvpK+V9VAYv5NUNVf937QzPzylg+y6IoVhuWf4Nbs0gqve8aq48i8uH8WNoom1ikvaPI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=N4qcmHqo84guRQyqnmSu5MjnWgmGqqRgJx9a78v6H+YMDg0X2DOyl/HIZmAgFDsvibkEl5CTzA8eowA/zTt1HiGiSi0ht5rNR3SauwE+SxlW6i2xeongA00WAH966tOIosLWnLvvNIaFko5hsiXgrA4AvfVKhjx3Q9zdpAKkMP0=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=w26fEEm5ybG+G7gyNNOpBbzc8hwwqjZd0VP12Wt699s=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794829915540706.1524411200606;
+	Mon, 16 Nov 2026 03:51:55 -0800 (PST)
+Message-ID: <8c3805ca-0be7-4634-8904-30a9c36d8962@collabora.com>
+Date: Mon, 16 Nov 2026 12:51:45 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -101,27 +58,106 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] media: rockchip: rkcif: Honour the requested
+ bytesperline on MIPI
+To: Faizel K B <faizel.kb@gmail.com>
+Cc: Mehdi Djait <mehdi.djait@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, libcamera-devel@lists.libcamera.org,
+ Robert Mader <robert.mader@collabora.com>
+References: <20261105232310.385463-1-faizel.kb@gmail.com>
+ <20261105232310.385463-3-faizel.kb@gmail.com>
+ <51b09428-9d10-4f36-a811-a681e479e45e@collabora.com>
+ <fxrwhxkzgihpiz52rbeuomtqkzz7izgdfcbux7osamqruc7w7u@qhvh3nkqypro>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <fxrwhxkzgihpiz52rbeuomtqkzz7izgdfcbux7osamqruc7w7u@qhvh3nkqypro>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-These three functions have no callers anywhere in the tree. Remove
-them along with their declarations.
+Hi Faizel,
 
-Found via a tree-wide search for functions whose name appears only in
-their definition and prototype, and compile-tested under allmodconfig.
+On 11/12/26 07:20, Faizel K B wrote:
+> Hi Michael,
+> 
+> On Wed, Nov 11, 2026 at 10:46:43AM +0100, Michael Riesch wrote:
+>>
+>> Come to think of it, TRM p. 2111 says for e.g. VICAP_MIPI0_VLW_ID0:
+>> "Virtual line width of even frame for ID0 path(must be aligned to double
+>> word)." which I would interpret as "it must be a multiple of four
+>> bytes". What do you think?
+>>
+> 
+> The VICAP register summary defines it.TRM part 1 (V1.0, page 2081)
+> "DW - Double WORD (64 bits) access". So 8 bytes.
 
-Avishek Chaulagain (3):
-  media: atomisp: Remove unused any_virq_signal()
-  media: atomisp: Remove unused get_sp_code_addr()
-  media: atomisp: Remove unused hmm_flush()
+Ack.
 
- drivers/staging/media/atomisp/include/hmm/hmm.h           | 1 -
- .../media/atomisp/pci/hive_isp_css_common/host/irq.c      | 8 --------
- .../atomisp/pci/hive_isp_css_include/host/irq_public.h    | 1 -
- drivers/staging/media/atomisp/pci/hmm/hmm.c               | 5 -----
- .../atomisp/pci/runtime/spctrl/interface/ia_css_spctrl.h  | 1 -
- .../staging/media/atomisp/pci/runtime/spctrl/src/spctrl.c | 5 -----
- 6 files changed, 21 deletions(-)
+>>> +static void rkcif_stream_set_bytesperline(struct
+>>> v4l2_pix_format_mplane *pix,
+>>> +                      u32 req_bpl)
+>>> +{
+>>> +    u32 min_bpl = ALIGN(pix->plane_fmt[0].bytesperline, 8);
+>>
+>> Please add support for the bytesperline field in all the plane_fmt
+>> entries here...
+>>
+>>>      width = clamp_t(u32, pix->width, CIF_MIN_WIDTH, CIF_MAX_WIDTH);
+>>> +    req_bpl = pix->plane_fmt[0].bytesperline;
+>>
+>> ... and here.
+>>
+>>>      ret = v4l2_fill_pixfmt_mp(pix, fmt->fourcc, width, height);
+>>>      if (ret)
+>>>          return ret;
+>>>
+>>> +    if (stream->interface->type == RKCIF_IF_MIPI)
+>>> +        rkcif_stream_set_bytesperline(pix, req_bpl);
+>>
+>> Why is this restricted to the MIPI interfaces?
+>>
+> 
+> The MIPI formats all have a single plane, and the MIPI path already
+> programs the line width from bytesperline. The DVP path uses the width,
+> and I can't test it. But I agree it should not depend on the interface.
+> 
+> For v2 I would:
+> 
+> - take the requested bytesperline of all planes into account, and use
+>   the largest for all planes, as the DVP has one line width register
+>   for Y and UV
+> - compute the sizeimage of each plane from it
+> - limit it to the line width field (20 bits MIPI, 15 bits DVP)
+> - program RKCIF_DVP_VIR_LINE_WIDTH from bytesperline, with the current
+>   value as the minimum
+> 
+> Does that sound ok?
 
--- 
-2.43.0
+That does sound reasonable, yes.
+
+> A question on the DVP: the PX30 TRM (Part 2, 5.3) says raw data is
+> stored as 16 bits per pixel, even from an 8-bit source. This matches
+> the width * 2 in the driver. But for V4L2_PIX_FMT_S*8 (e.g.
+> V4L2_PIX_FMT_SRGGB8) bytesperline is the width, so the buffer is half
+> the size the hardware writes. Am I missing something?
+
+I don't have any PX30 board, and actually it is the first time I hear
+about that. Maybe Mehdi can chime in?
+
+> I can only test the MIPI path, on RK3588 (Radxa ROCK 5B+). Could you
+> test the DVP part on PX30 or RK3568?
+
+Currently, I don't have any active DVP setup, but when you send the
+updated patches I'll ask around.
+
+Thanks and best regards,
+Michael
+
+> 
+> Regards,
+> Faizel
 
