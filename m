@@ -1,54 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.185.170.37
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794836074;
-	b=u4smWwnMTnC4k4Q93ByW+wKdXwZ3jOrpzRuR51egWDnWmo8allDUBhJqo0YCvoPrtQH9
-	 9jTaqYU3Luub1ZB2UsaDYg7IAz8ph0mmdr58VDlv3jvEHt29chfLmeCfznkZiHcjvMkGW
-	 KzweBkBMkCRZflBv34aOmwppTb85ZRpsdpUF6s6fYvwMtn5T58YQ4vKZG3xG58Nscgyfu
-	 T2iLi9TSkw5B6xAph4liuq6C7qQkhNIAZbgTYcvSDh6DXUUMeHDcov0wB4xJnqvTWIwf+
-	 e0JXDQkYG/OVXgSt+Kl8EPJGKmVa7d15dfez8KRzoHzf+39WLE7eKjPA2OlDUENfOUw==
+	t=1794836588;
+	b=hq9frPJuGG4ymMXhwxvmLXryRF8MvybZtznuahhibMWEQag2fESJVPiKoS2eSVEVz69t
+	 WBHSdoDr70T0GHWYcCB6+DFOKhV+T8XpnYw0BalSvGS4PyUc0Hramn6wwj5YI9WDsgLU5
+	 1WfpdaXUkRAogNeJrlfq0KjPp7pkzukKaAA6aZVjMoFLIP0ObJV1F75y9DEcZG2r3PfYp
+	 IH/BnHUlMLVufBM8SsZqBqPl8s1/JCTMmU2w7fgFOpzhpK/8hp+lJqkp3S5HM60bP4S6D
+	 hQz4klE9P4ifbLUeTgm43XqDADLYA6iBYxShh8Bj2hMmhgrOLqhJYj5DCEv17BAtevA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794836074;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pnpjgIWR9Kzvr5X+kxruY9yqkdqMpWEnrWmoJLwYxGo=;
-	b=b5U+wTFxy18ry4zzHALXqAXjmuh50JzFt9vqFryRJcaNz1kTKIud5abJWGm38vauCoJ1
-	 eSzbpvRGDbUUT378Ybyxt1EO+CSefkRi08IdMAfbYzefs91m+EdmagkyPgB/XOTkO4azH
-	 aGPvasqd/sOHldtNYLNhzhZMFb52ZITbOMX+t9GjwhiRtyQSURf0AOwl+Y95p0bfn3tXP
-	 M+U5bAnmfQ0l2/T61uRY4Aq9kr23dFnqH82c3uWHnCC1i1P8Ik5F3xIeXUxiJwcXTyavb
-	 Jgz9/e8oYbwo6/JonpQmcijUXw1PgYGC1o0qC4EW6fKLDNy+CTtVlTW0xx9/WH//l4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794836588;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=MpkOdvTRQHpgwMin1v0BhW0RLCGyTdsVaJofSPgtE3Q=;
+	b=LDKnubUY22GzGVGkp7QydOf4M3BO0VMaKphb0IEPfUUso3shXhQAgylcCc2WiUeVAGQ7
+	 m8YagPK90m/+nuMehRaGmCisk0tFlWqj6+nSbggTZ5EuLOgL4xrgYb0uNI1WBwdi2WOaB
+	 kAKghGOZTPnQXqxmbaMytQOj7J3w5GldFSQO+M9VwUGMVP9wGVihQTwi2vTDhoZvNG1Zk
+	 Eh6p01YJULqzyDlGhC1rtlr87q5eZqxUB039O6WD+rm9KDCxaZOwNIBBJVSAO/8vpI/Up
+	 5PSle/Von5Zkrnxoqv7Apr/7thSBHMzT8zuRYwRFQ8/Cmvnc+C5sF/HvMdOEThODliw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Me47TFcj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	dmarc=pass header.from=iki.fi;
+	spf=pass smtp.mailfrom=iki.fi;
+	dkim=pass header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256 header.s=lahtoruutu header.b=JPczHudD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.185.170.37
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E719606A323;
-	Mon, 16 Nov 2026 13:34:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E719606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC751606A31C;
+	Mon, 16 Nov 2026 13:43:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC751606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Me47TFcj
-ARC-Seal: i=1; a=rsa-sha256; t=1794836037; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=d3j+yPZ4onKWVxs1PwxAuhQJ9J8IPVo6lteazaE3ITf9ICe4m2P/lj9AAsTsjvxCo9yeGmgm0HtNEEa+NSB76OPm2OxdiajTrU88txRtblT1Ns9lzQbItElAJpmHyMeC3Q2DzgleXqULnI7M9YTihEhVYrpz94+mjHlsNHkxnLc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794836037; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=pnpjgIWR9Kzvr5X+kxruY9yqkdqMpWEnrWmoJLwYxGo=; 
-	b=MJW5E2qU6odBTLkvnimqteGDB9AEYenNz3LWuCpY6vXbXnngVP6eXSglrjs47Ydv/1mEP3mcoANxWAMZfWmBDIkGsEZoSDZzepBi71BOOzupunrVjcL6ZKsCrsqcrC+OKKCOwAHDNSTbnMAJiyY35Lh3+D46voTgjFjfJGFw+tc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
-	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=Me47TFcjWortYpfusKEk0lTpTDbH1tgy5TKXgkrytHQ8c3RDYB9mKu+a9Y4e8fzghRPpWl71ZptA9keBnSIiDbVnUBS5A9QzqXA7MEwa9BredMMiCUdc/xW/vjHsbXXkMIad8RsNjnHGyXMGj20Sa/kSYiUXxyH56iXRM6UaHcE=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=pnpjgIWR9Kzvr5X+kxruY9yqkdqMpWEnrWmoJLwYxGo=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794836034427407.9411939374023;
-	Mon, 16 Nov 2026 05:33:54 -0800 (PST)
-Message-ID: <ac588bfc-94f3-4ad7-9808-92ea0db1d017@collabora.com>
-Date: Mon, 16 Nov 2026 14:33:47 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256 header.s=lahtoruutu header.b=JPczHudD
+Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sailus)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4jSpvw55QSz49Q3W;
+	Mon, 16 Nov 2026 15:42:52 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1794836574;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MpkOdvTRQHpgwMin1v0BhW0RLCGyTdsVaJofSPgtE3Q=;
+	b=JPczHudDt/l7vkfvIPMbTKzO5+yQnFcmR+c22Dhw9M8CDufLMcY3mcfRMCe8kUDYPrtB8t
+	KrEkEuQdyWAjk5FQrUFH7R13UmYmNkXtYR7pFXpvNJkn5765gx+4FqYUhYqaxp6fgG3ant
+	+9aHJGPe0SQr+WqXHQWqho7NF+xPM29GmohK8OC8fg7KwsWC0ajxvXGKYYBzm3NAG5M3b+
+	VubYPEuI6TD1aZ/PS4M5PLQluAWT+uuImHjedfUKzaoDlOJM4GZgbdef0poaVVfCM1XPHF
+	4aV8MnoxMJwlnv/lLWRaddprvM1pwm3PHTffNi0JxdGfs8yOXufBfphVu5NXHw==
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1794836574;
+	b=EEOdLsLr/nNsSqKua/PRjy9V6dS5W3vgI5xgy2RpB6NpqGczzdBboJw0+7KeF3T1GCaJXZ
+	mIVtwvyU+yxs/jIUY4aBfqWCd+EDeTcEQcEhbTKNCxpHQ5/b4C0g1WNk+eRrKHL4HI9tws
+	T8/yP9b/4BrgruGlYy0oKHYq10oFbzJdWAJNk06zbcko2KqTgB4Nm1gcT8ion6TtltI+jY
+	tm8XMJ6fMaFEau3CSZBj4Wu31Lw7HmPBJFeGCv973eBlGFHXtA+iAaKCJKHCrQvZHnU6Y+
+	pMb730MeXht5+VVAaiHeLxhJEbTQdAINlMyQ6nzurUWSLm7ekm+0yQiAnkLY6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=lahtoruutu; t=1794836574;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MpkOdvTRQHpgwMin1v0BhW0RLCGyTdsVaJofSPgtE3Q=;
+	b=cA1/4KiSrPXzIPHiL7PNa3Q7/aRPFFpAA8OzPaRTcIli+f4SUzPnpOICBkGdXlH1XEdDNY
+	Y20X6Y1lhvTM2Rrgv8txJNUjItB1jl6HnGL8aHZlAJC+MtH5MxOdOtrozW2PgdfWAia+zR
+	jR2doJ7aiZsjbxZt1LI07laMuhveidGybbeAxRTmU1E68esccQ/Abb2Wf7zKAvYH0KZN8f
+	JNwRUsxkKEGbhpK8PAOBa8fI+2lMmjhphSW6fu6mXOOttMbyW+IkT4ru5aZvx1eTY+2EhT
+	p32Dd5Ta0VW7JaN5XVdnxPpcp+xhpMtmNPo4WWPJz125tdXL/qLsC0kle/gmXg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
+Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id 3382D634C4E;
+	Mon, 16 Nov 2026 15:42:52 +0200 (EET)
+Date: Mon, 16 Nov 2026 15:42:52 +0200
+From: Sakari Ailus <sakari.ailus@iki.fi>
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Tomasz Figa <tfiga@chromium.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Paul Elder <paul.elder@ideasonboard.com>,
+	Hans Verkuil <hans@jjverkuil.nl>, linux-media@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 4/5] media: platform: broadcom: Add bcm2835-isp driver
+Message-ID: <avsIXOBDRYvwINiI@valkosipuli.retiisi.eu>
+References: <20261112-b4-vchiq-isp-v6-0-711b48378367@ideasonboard.com>
+ <20261112-b4-vchiq-isp-v6-4-711b48378367@ideasonboard.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,2852 +108,1411 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] media: verisilicon: Create AV1 helper library
-To: nicolas.dufresne@collabora.com, p.zabel@pengutronix.de,
- mchehab@kernel.org, heiko@sntech.de
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- kernel@collabora.com
-References: <20260910092021.139970-1-benjamin.gaignard@collabora.com>
-Content-Language: en-US
-From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-In-Reply-To: <20260910092021.139970-1-benjamin.gaignard@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261112-b4-vchiq-isp-v6-4-711b48378367@ideasonboard.com>
 
+Hi Jai, Naush,
 
-Le 10/09/2026 Ã  11:20, Benjamin Gaignard a Ã©critÂ :
-> Regroup all none hardware related AV1 functions into a helper library.
-> The goal is to avoid code duplication for future AV1 codecs.
->
-> Tested on rock 5b board Fluster score remains the same 204/241.
->
-> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+On Thu, Nov 12, 2026 at 04:56:32PM +0530, Jai Luthra wrote:
+> diff --git a/drivers/media/platform/broadcom/bcm2835-isp/bcm2835-isp-fmts.h b/drivers/media/platform/broadcom/bcm2835-isp/bcm2835-isp-fmts.h
+> new file mode 100644
+> index 000000000000..6f3333d33c4f
+> --- /dev/null
+> +++ b/drivers/media/platform/broadcom/bcm2835-isp/bcm2835-isp-fmts.h
+> @@ -0,0 +1,558 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Broadcom BCM2835 ISP driver
+> + *
+> + * Copyright © 2019-2026 Raspberry Pi (Trading) Ltd.
+> + *
+> + * Author: Naushir Patuck (naush@raspberrypi.com)
+> + *
+> + */
+> +
+> +#ifndef BCM2835_ISP_FMTS
+> +#define BCM2835_ISP_FMTS
+> +
+> +#include <linux/videodev2.h>
+> +#include <linux/raspberrypi/mmal-encodings.h>
+> +
+> +struct bcm2835_isp_fmt {
+> +	u32 fourcc;
+> +	int depth;
+> +	int bytesperline_align;
+> +	u32 mmal_fmt;
+> +	int size_multiplier_x2;
+> +	u32 colorspace_mask;
+> +	enum v4l2_colorspace colorspace_default;
+> +	unsigned int step_size;
+> +};
+> +
+> +#define V4L2_COLORSPACE_MASK(colorspace) BIT(colorspace)
 
-Gentle ping on this patch.
+The V4L2 prefix shouldn't be used for declaring macros in drivers. Please
+use a driver specific prefix instead.
 
+> +
+> +#define V4L2_COLORSPACE_MASK_JPEG V4L2_COLORSPACE_MASK(V4L2_COLORSPACE_JPEG)
+> +#define V4L2_COLORSPACE_MASK_SMPTE170M V4L2_COLORSPACE_MASK(V4L2_COLORSPACE_SMPTE170M)
+> +#define V4L2_COLORSPACE_MASK_REC709 V4L2_COLORSPACE_MASK(V4L2_COLORSPACE_REC709)
+> +#define V4L2_COLORSPACE_MASK_SRGB V4L2_COLORSPACE_MASK(V4L2_COLORSPACE_SRGB)
+> +#define V4L2_COLORSPACE_MASK_RAW V4L2_COLORSPACE_MASK(V4L2_COLORSPACE_RAW)
+> +
+> +/*
+> + * All three colour spaces JPEG, SMPTE170M and REC709 are fundamentally sRGB
+> + * underneath (as near as makes no difference to us), just with different YCbCr
+> + * encodings. Therefore the ISP can generate sRGB on its main output and any of
+> + * the others on its low resolution output. Applications should, when using both
+> + * outputs, program the colour spaces on them to be the same, matching whatever
+> + * is requested for the low resolution output, even if the main output is
+> + * producing an RGB format. In turn this requires us to allow all these colour
+> + * spaces for every YUV/RGB output format.
+> + */
+> +#define V4L2_COLORSPACE_MASK_ALL_SRGB (V4L2_COLORSPACE_MASK_JPEG |	\
+> +				       V4L2_COLORSPACE_MASK_SRGB |	\
+> +				       V4L2_COLORSPACE_MASK_SMPTE170M |	\
+> +				       V4L2_COLORSPACE_MASK_REC709)
+
+...
+
+> diff --git a/drivers/media/platform/broadcom/bcm2835-isp/bcm2835-isp-params.c b/drivers/media/platform/broadcom/bcm2835-isp/bcm2835-isp-params.c
+> new file mode 100644
+> index 000000000000..21206eff3cc5
+> --- /dev/null
+> +++ b/drivers/media/platform/broadcom/bcm2835-isp/bcm2835-isp-params.c
+
+...
+
+> +struct bcm2835_isp_params *
+> +bcm2835_isp_params_register(struct v4l2_device *v4l2_dev, struct device *dev,
+> +			    struct vchiq_mmal_instance *mmal_instance,
+> +			    struct vchiq_mmal_port *port, int video_nr)
+> +{
+> +	struct mmal_parameter_isp_parameters mmal_param = { 0 };
+> +	struct bcm2835_isp_params *params;
+> +	struct video_device *vdev;
+> +	struct vb2_queue *q;
+> +	int ret;
+> +
+> +	params = devm_kzalloc(dev, sizeof(*params), GFP_KERNEL);
+> +	if (!params)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	params->dev = dev;
+> +	params->v4l2_dev = v4l2_dev;
+> +	params->mmal_instance = mmal_instance;
+> +	params->port = port;
+> +
+> +	/* Test if the firmware supports a combined parameter buffer */
+> +	ret = vchiq_mmal_port_parameter_set(params->mmal_instance,
+> +					    params->port,
+> +					    MMAL_PARAMETER_ISP_SETTINGS,
+> +					    &mmal_param, sizeof(mmal_param));
+> +	if (ret) {
+> +		dev_err(dev, "Please update to the latest firmware\n"
+> +			"\tMMAL_PARAMETER_ISP_SETTINGS failed with err %d\n",
+> +			ret);
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+> +	mutex_init(&params->lock);
+> +
+> +	/* Initialize vb2 queue */
+> +	q = &params->queue;
+> +	q->type = V4L2_BUF_TYPE_META_OUTPUT;
+> +	q->io_modes = VB2_MMAP | VB2_DMABUF;
+> +	q->drv_priv = params;
+> +	q->ops = &bcm2835_isp_params_vb2_ops;
+> +	q->mem_ops = &vb2_dma_contig_memops;
+> +	q->buf_struct_size = sizeof(struct bcm2835_isp_params_buffer);
+> +	q->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
+> +	q->dev = dev;
+> +	q->lock = &params->lock;
+> +
+> +	ret = vb2_queue_init(q);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to init params vb2 queue\n");
+> +		mutex_destroy(&params->lock);
+> +		return ERR_PTR(ret);
+> +	}
+> +
+> +	/* Initialize video device */
+> +	vdev = &params->vdev;
+> +	vdev->device_caps = V4L2_CAP_META_OUTPUT | V4L2_CAP_STREAMING;
+> +	vdev->fops = &bcm2835_isp_params_fops;
+> +	vdev->ioctl_ops = &bcm2835_isp_params_ioctl_ops;
+> +	vdev->minor = -1;
+> +	vdev->release = video_device_release_empty;
+> +	vdev->queue = q;
+> +	vdev->lock = &params->lock;
+> +	vdev->v4l2_dev = v4l2_dev;
+> +	vdev->vfl_dir = VFL_DIR_TX;
+> +	snprintf(vdev->name, sizeof(vdev->name), "%s", BCM2835_ISP_PARAMS_NAME);
+> +
+> +	params->pad.flags = MEDIA_PAD_FL_SOURCE;
+> +	ret = media_entity_pads_init(&vdev->entity, 1, &params->pad);
+> +	if (ret) {
+> +		vb2_queue_release(q);
+> +		mutex_destroy(&params->lock);
+> +		return ERR_PTR(ret);
+> +	}
+> +
+> +	video_set_drvdata(vdev, params);
+> +
+> +	ret = video_register_device(vdev, VFL_TYPE_VIDEO, video_nr);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to register params device node\n");
+> +		media_entity_cleanup(&vdev->entity);
+> +		vb2_queue_release(q);
+> +		mutex_destroy(&params->lock);
+> +		return ERR_PTR(ret);
+> +	}
+> +
+> +	v4l2_info(v4l2_dev, "Params device node registered as /dev/video%d\n",
+
+v4l2_dbg() would seem more appropriate.
+
+> +		  vdev->num);
+> +
+> +	return params;
+> +}
+> +
+> +void bcm2835_isp_params_unregister(struct bcm2835_isp_params *params)
+> +{
+> +	if (!video_is_registered(&params->vdev))
+> +		return;
+> +
+> +	v4l2_info(params->v4l2_dev, "Unregistering params device node\n");
+
+Ditto.
+
+> +
+> +	vb2_video_unregister_device(&params->vdev);
+> +	media_entity_cleanup(&params->vdev.entity);
+> +	mutex_destroy(&params->lock);
+> +}
+
+...
+
+> diff --git a/drivers/media/platform/broadcom/bcm2835-isp/bcm2835-v4l2-isp.c b/drivers/media/platform/broadcom/bcm2835-isp/bcm2835-v4l2-isp.c
+> new file mode 100644
+> index 000000000000..729ab05d8154
+> --- /dev/null
+> +++ b/drivers/media/platform/broadcom/bcm2835-isp/bcm2835-v4l2-isp.c
+> +static const struct bcm2835_isp_fmt *get_fmt(u32 mmal_fmt)
+> +{
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(supported_formats); i++) {
+
+i can be declared here.
+
+> +		if (supported_formats[i].mmal_fmt == mmal_fmt)
+> +			return &supported_formats[i];
+> +	}
+> +	return NULL;
+> +}
+> +
+> +static const
+> +struct bcm2835_isp_fmt *find_format_by_fourcc(unsigned int fourcc,
+> +					      struct bcm2835_isp_node *node)
+> +{
+> +	const struct bcm2835_isp_fmt *fmt;
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < node->num_supported_fmts; i++) {
+
+Ditto. Same elsewhere, too.
+
+> +		fmt = node->supported_fmts[i];
+> +		if (fmt->fourcc == fourcc)
+> +			return fmt;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +static const
+> +struct bcm2835_isp_fmt *find_format(struct v4l2_format *f,
+> +				    struct bcm2835_isp_node *node)
+> +{
+> +	return find_format_by_fourcc(node_is_stats(node) ?
+> +				     f->fmt.meta.dataformat :
+> +				     f->fmt.pix.pixelformat,
+> +				     node);
+> +}
+> +
+> +/* vb2_to_mmal_buffer() - converts vb2 buffer header to MMAL
+> + *
+> + * Copies all the required fields from a VB2 buffer to the MMAL buffer header,
+> + * ready for sending to the VPU.
+> + */
+> +static void vb2_to_mmal_buffer(struct mmal_buffer *buf,
+> +			       struct vb2_v4l2_buffer *vb2)
+> +{
+> +	u64 pts;
+> +
+> +	buf->mmal_flags = 0;
+> +	if (vb2->flags & V4L2_BUF_FLAG_KEYFRAME)
+> +		buf->mmal_flags |= MMAL_BUFFER_HEADER_FLAG_KEYFRAME;
+> +
+> +	/* Data must be framed correctly as one frame per buffer. */
+> +	buf->mmal_flags |= MMAL_BUFFER_HEADER_FLAG_FRAME_END;
+> +
+> +	buf->length = vb2->vb2_buf.planes[0].bytesused;
+> +	/*
+> +	 * Minor ambiguity in the V4L2 spec as to whether passing in a 0 length
+> +	 * buffer, or one with V4L2_BUF_FLAG_LAST set denotes end of stream.
+> +	 * Handle either.
+> +	 */
+> +	if (!buf->length || (vb2->flags & V4L2_BUF_FLAG_LAST))
+> +		buf->mmal_flags |= MMAL_BUFFER_HEADER_FLAG_EOS;
+> +
+> +	/* vb2 timestamps in nsecs, mmal in usecs */
+> +	pts = vb2->vb2_buf.timestamp;
+> +	do_div(pts, 1000);
+
+How about div_u64()?
+
+> +	buf->pts = pts;
+> +	buf->dts = MMAL_TIME_UNKNOWN;
+> +}
+> +
+> +static void mmal_buffer_cb(struct vchiq_mmal_instance *instance,
+> +			   struct vchiq_mmal_port *port, int status,
+> +			   struct mmal_buffer *mmal_buf)
+> +{
+> +	struct bcm2835_isp_buffer *q_buf;
+> +	struct bcm2835_isp_node *node = port->cb_ctx;
+> +	struct bcm2835_isp_dev *dev = node_get_dev(node);
+> +	struct vb2_v4l2_buffer *vb2;
+> +
+> +	q_buf = container_of(mmal_buf, struct bcm2835_isp_buffer, mmal);
+> +	vb2 = &q_buf->vb;
+> +	v4l2_dbg(2, debug, &dev->v4l2_dev,
+> +		 "%s: port:%s[%d], status:%d, buf:%p, dmabuf:%p, length:%lu, flags %u, pts %lld\n",
+> +		 __func__, node_is_output(node) ? "input" : "output", node->id,
+> +		 status, mmal_buf, mmal_buf->dma_buf, mmal_buf->length,
+> +		 mmal_buf->mmal_flags, mmal_buf->pts);
+> +
+> +	if (status) {
+> +		/* error in transfer */
+> +		if (vb2) {
+> +			/* there was a buffer with the error so return it */
+> +			vb2_buffer_done(&vb2->vb2_buf, VB2_BUF_STATE_ERROR);
+> +		}
+> +		return;
+> +	}
+> +
+> +	/* vb2 timestamps in nsecs, mmal in usecs */
+> +	vb2->vb2_buf.timestamp = mmal_buf->pts * 1000;
+> +	vb2->sequence = node->sequence++;
+> +	vb2_set_plane_payload(&vb2->vb2_buf, 0, mmal_buf->length);
+> +	vb2_buffer_done(&vb2->vb2_buf, VB2_BUF_STATE_DONE);
+> +
+> +	if (!port->enabled)
+> +		complete(&dev->frame_cmplt);
+> +}
+> +
+> +struct colorspace_translation {
+> +	enum v4l2_colorspace v4l2_value;
+> +	u32 mmal_value;
+> +};
+> +
+> +static u32 translate_color_space(enum v4l2_colorspace color_space)
+> +{
+> +	static const struct colorspace_translation translations[] = {
+> +		{ V4L2_COLORSPACE_DEFAULT, MMAL_COLOR_SPACE_UNKNOWN },
+> +		{ V4L2_COLORSPACE_SMPTE170M, MMAL_COLOR_SPACE_ITUR_BT601 },
+> +		{ V4L2_COLORSPACE_SMPTE240M, MMAL_COLOR_SPACE_SMPTE240M },
+> +		{ V4L2_COLORSPACE_REC709, MMAL_COLOR_SPACE_ITUR_BT709 },
+> +		/* V4L2_COLORSPACE_BT878 unavailable */
+> +		{ V4L2_COLORSPACE_470_SYSTEM_M, MMAL_COLOR_SPACE_BT470_2_M },
+> +		{ V4L2_COLORSPACE_470_SYSTEM_BG, MMAL_COLOR_SPACE_BT470_2_BG },
+> +		{ V4L2_COLORSPACE_JPEG, MMAL_COLOR_SPACE_JPEG_JFIF },
+> +		/*
+> +		 * We don't have an encoding for SRGB as such, but VideoCore
+> +		 * will do the right thing if it gets "unknown".
+> +		 */
+> +		{ V4L2_COLORSPACE_SRGB, MMAL_COLOR_SPACE_UNKNOWN },
+> +		/* V4L2_COLORSPACE_OPRGB unavailable */
+> +		/* V4L2_COLORSPACE_BT2020 unavailable */
+> +		/* V4L2_COLORSPACE_RAW unavailable */
+> +		/* V4L2_COLORSPACE_DCI_P3 unavailable */
+> +	};
+> +
+
+Extra newline.
+
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(translations); i++) {
+> +		if (color_space == translations[i].v4l2_value)
+> +			return translations[i].mmal_value;
+> +	}
+> +
+> +	return MMAL_COLOR_SPACE_UNKNOWN;
+> +}
+> +
+> +static void setup_mmal_port_format(struct bcm2835_isp_node *node,
+> +				   struct vchiq_mmal_port *port)
+> +{
+> +	struct bcm2835_isp_q_data *q_data = &node->q_data;
+> +
+> +	port->format.encoding = q_data->fmt->mmal_fmt;
+> +	/* Raw image format - set width/height */
+> +	port->es.video.width = (q_data->bytesperline << 3) / q_data->fmt->depth;
+> +	port->es.video.height = q_data->height;
+> +	port->es.video.crop.width = q_data->width;
+> +	port->es.video.crop.height = q_data->height;
+> +	port->es.video.crop.x = 0;
+> +	port->es.video.crop.y = 0;
+> +	port->es.video.color_space = translate_color_space(q_data->colorspace);
+> +};
+> +
+> +static int setup_mmal_port(struct bcm2835_isp_node *node)
+> +{
+> +	struct bcm2835_isp_dev *dev = node_get_dev(node);
+> +	unsigned int enable = 1;
+> +	int ret;
+> +
+> +	v4l2_dbg(2, debug, &dev->v4l2_dev, "%s: setup %s[%d]\n", __func__,
+> +		 node->name, node->id);
+> +
+> +	vchiq_mmal_port_parameter_set(dev->mmal_instance, node->port,
+> +				      MMAL_PARAMETER_ZERO_COPY, &enable,
+> +				      sizeof(enable));
+> +	setup_mmal_port_format(node, node->port);
+> +	ret = vchiq_mmal_port_set_format(dev->mmal_instance, node->port);
+> +	if (ret < 0) {
+> +		v4l2_dbg(1, debug, &dev->v4l2_dev,
+> +			 "%s: vchiq_mmal_port_set_format failed\n",
+> +			 __func__);
+> +		return ret;
+> +	}
+> +
+> +	if (node->q_data.sizeimage < node->port->minimum_buffer.size) {
+> +		v4l2_err(&dev->v4l2_dev,
+> +			 "buffer size mismatch sizeimage %u < min size %u\n",
+> +			 node->q_data.sizeimage,
+> +			 node->port->minimum_buffer.size);
+
+Is this a driver bug or a user error? In the latter case this should be
+v4l2_dbg().
+
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int bcm2835_isp_mmal_buf_cleanup(struct mmal_buffer *mmal_buf)
+> +{
+> +	mmal_vchi_buffer_cleanup(mmal_buf);
+> +
+> +	if (mmal_buf->dma_buf) {
+> +		dma_buf_put(mmal_buf->dma_buf);
+> +		mmal_buf->dma_buf = NULL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int bcm2835_isp_node_queue_setup(struct vb2_queue *q,
+> +					unsigned int *nbuffers,
+> +					unsigned int *nplanes,
+> +					unsigned int sizes[],
+> +					struct device *alloc_devs[])
+> +{
+> +	struct bcm2835_isp_node *node = vb2_get_drv_priv(q);
+> +	unsigned int size;
+> +
+> +	if (setup_mmal_port(node))
+> +		return -EINVAL;
+> +
+> +	size = node->q_data.sizeimage;
+> +	if (size == 0) {
+> +		v4l2_info(&node_get_dev(node)->v4l2_dev,
+> +			  "%s: Image size unset in queue_setup for node %s[%d]\n",
+> +			  __func__, node->name, node->id);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (*nplanes)
+> +		return sizes[0] < size ? -EINVAL : 0;
+> +
+> +	*nplanes = 1;
+> +	sizes[0] = size;
+> +
+> +	node->port->current_buffer.size = size;
+> +
+> +	if (*nbuffers < node->port->minimum_buffer.num)
+> +		*nbuffers = node->port->minimum_buffer.num;
+> +
+> +	node->port->current_buffer.num = *nbuffers;
+> +
+> +	v4l2_dbg(2, debug, &node_get_dev(node)->v4l2_dev,
+> +		 "%s: Image size %u, nbuffers %u for node %s[%d]\n",
+> +		 __func__, sizes[0], *nbuffers, node->name, node->id);
+> +	return 0;
+> +}
+> +
+> +static int bcm2835_isp_buf_init(struct vb2_buffer *vb)
+> +{
+> +	struct bcm2835_isp_node *node = vb2_get_drv_priv(vb->vb2_queue);
+> +	struct bcm2835_isp_dev *dev = node_get_dev(node);
+> +	struct bcm2835_isp_buffer *buf =
+> +		to_bcm2835_isp_buffer(to_vb2_v4l2_buffer(vb));
+> +
+> +	v4l2_dbg(3, debug, &dev->v4l2_dev, "%s: vb %p\n", __func__, vb);
+> +
+> +	buf->mmal.buffer = vb2_plane_vaddr(&buf->vb.vb2_buf, 0);
+> +	buf->mmal.buffer_size = vb2_plane_size(&buf->vb.vb2_buf, 0);
+> +	mmal_vchi_buffer_init(dev->mmal_instance, &buf->mmal);
+> +	return 0;
+> +}
+> +
+> +static int bcm2835_isp_buf_prepare(struct vb2_buffer *vb)
+> +{
+> +	struct bcm2835_isp_node *node = vb2_get_drv_priv(vb->vb2_queue);
+> +	struct bcm2835_isp_dev *dev = node_get_dev(node);
+> +	struct vb2_v4l2_buffer *vb2 = to_vb2_v4l2_buffer(vb);
+> +	struct bcm2835_isp_buffer *buf = to_bcm2835_isp_buffer(vb2);
+> +	struct dma_buf *dma_buf;
+> +	int ret = 0;
+> +
+> +	v4l2_dbg(3, debug, &dev->v4l2_dev, "%s: type: %d ptr %p\n",
+> +		 __func__, vb->vb2_queue->type, vb);
+
+Is this still appropriate after development time?
+
+> +
+> +	if (V4L2_TYPE_IS_OUTPUT(vb->vb2_queue->type)) {
+> +		if (vb2->field == V4L2_FIELD_ANY)
+> +			vb2->field = V4L2_FIELD_NONE;
+> +		if (vb2->field != V4L2_FIELD_NONE) {
+> +			v4l2_err(&dev->v4l2_dev,
+> +				 "%s field isn't supported\n", __func__);
+
+This looks like v4l2_dbg().
+
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	if (vb2_plane_size(vb, 0) < node->q_data.sizeimage) {
+> +		v4l2_err(&dev->v4l2_dev,
+> +			 "%s data will not fit into plane (%lu < %u)\n",
+> +			 __func__, vb2_plane_size(vb, 0),
+> +			 node->q_data.sizeimage);
+
+Ditto. There are probably similar cases elsewhere, too.
+
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (!V4L2_TYPE_IS_OUTPUT(vb->vb2_queue->type))
+> +		vb2_set_plane_payload(vb, 0, node->q_data.sizeimage);
+> +
+> +	switch (vb->memory) {
+> +	case VB2_MEMORY_DMABUF:
+> +		dma_buf = dma_buf_get(vb->planes[0].m.fd);
+> +
+> +		if (dma_buf != buf->mmal.dma_buf) {
+> +			/*
+> +			 * dmabuf either hasn't already been mapped, or it has
+> +			 * changed.
+> +			 */
+> +			if (buf->mmal.dma_buf) {
+> +				v4l2_err(&dev->v4l2_dev,
+> +					 "%s Buffer changed - why did the core not call cleanup?\n",
+> +					 __func__);
+> +				bcm2835_isp_mmal_buf_cleanup(&buf->mmal);
+> +			}
+> +
+> +			buf->mmal.dma_buf = dma_buf;
+> +		} else {
+> +			/*
+> +			 * Already have a reference to the buffer, so release it
+> +			 * here.
+> +			 */
+> +			dma_buf_put(dma_buf);
+> +		}
+> +		break;
+> +	case VB2_MEMORY_MMAP:
+> +		/*
+> +		 * We want to do this at init, but vb2_core_expbuf checks that
+> +		 * the index < q->num_buffers, and q->num_buffers only gets
+> +		 * updated once all the buffers are allocated.
+> +		 */
+> +		if (!buf->mmal.dma_buf) {
+> +			buf->mmal.dma_buf =
+> +				vb2_core_expbuf_dmabuf(vb->vb2_queue, vb, 0,
+> +						       O_CLOEXEC);
+> +			v4l2_dbg(3, debug, &dev->v4l2_dev,
+> +				 "%s: exporting ptr %p to dmabuf %p\n",
+> +				 __func__, vb, buf->mmal.dma_buf);
+> +
+> +			if (IS_ERR(buf->mmal.dma_buf)) {
+> +				ret = PTR_ERR(buf->mmal.dma_buf);
+> +				v4l2_err(&dev->v4l2_dev,
+> +					 "%s: Failed to expbuf idx %d, ret %d\n",
+> +					 __func__, vb->index, ret);
+> +				buf->mmal.dma_buf = NULL;
+> +			}
+> +		}
+> +		break;
+> +	default:
+> +		ret = -EINVAL;
+> +		break;
+> +	}
+> +
+> +	return ret;
+> +}
+
+...
+
+> +static int bcm2835_isp_enum_framesizes(struct file *file, void *priv,
+> +				       struct v4l2_frmsizeenum *fsize)
+> +{
+> +	struct bcm2835_isp_node *node = video_drvdata(file);
+> +	struct bcm2835_isp_dev *dev = node_get_dev(node);
+> +	const struct bcm2835_isp_fmt *fmt;
+> +
+> +	if (node_is_stats(node) || fsize->index)
+> +		return -EINVAL;
+> +
+> +	fmt = find_format_by_fourcc(fsize->pixel_format, node);
+> +	if (!fmt) {
+> +		v4l2_err(&dev->v4l2_dev, "Invalid pixel code: %x\n",
+> +			 fsize->pixel_format);
+
+Indeed.
+
+> +		return -EINVAL;
+> +	}
+> +
+> +	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
+> +	fsize->stepwise.min_width = MIN_DIM;
+> +	fsize->stepwise.max_width = MAX_DIM;
+> +	fsize->stepwise.step_width = fmt->step_size;
+> +
+> +	fsize->stepwise.min_height = MIN_DIM;
+> +	fsize->stepwise.max_height = MAX_DIM;
+> +	fsize->stepwise.step_height = fmt->step_size;
+> +
+> +	return 0;
+> +}
+
+...
+
+> +/*
+> + * Register a device node /dev/video<N> to go along with one of the ISP's input
+> + * or output nodes.
+> + */
+> +static int bcm2835_isp_register_node(struct bcm2835_isp_dev *dev,
+> +				     unsigned int instance,
+> +				     struct bcm2835_isp_node *node, int index)
+> +{
+> +	struct video_device *vfd;
+> +	struct vb2_queue *queue;
+> +	bool is_rgb;
+> +	int ret;
+> +
+> +	mutex_init(&node->lock);
+> +	mutex_init(&node->queue_lock);
+> +
+> +	node->dev = dev;
+> +	vfd = &node->vfd;
+> +	queue = &node->queue;
+> +	queue->type = index_to_queue_type(index);
+> +	/*
+> +	 * Setup the node type-specific params.
+> +	 */
+> +	switch (queue->type) {
+> +	case V4L2_BUF_TYPE_VIDEO_OUTPUT:
+> +		vfd->device_caps = V4L2_CAP_VIDEO_OUTPUT | V4L2_CAP_STREAMING;
+> +		node->id = index;
+> +		node->vfl_dir = VFL_DIR_TX;
+> +		node->name = "output";
+> +		if (node->id >= ARRAY_SIZE(dev->component->input))
+> +			return -EINVAL;
+> +		node->port = &dev->component->input[node->id];
+> +		break;
+> +	case V4L2_BUF_TYPE_VIDEO_CAPTURE:
+> +		vfd->device_caps = V4L2_CAP_VIDEO_CAPTURE | V4L2_CAP_STREAMING;
+> +		/* First Capture node starts at id 0, etc. */
+> +		node->id = index - BCM2835_ISP_NUM_OUTPUTS;
+> +		node->vfl_dir = VFL_DIR_RX;
+> +		node->name = "capture";
+> +		if (node->id >= ARRAY_SIZE(dev->component->output))
+> +			return -EINVAL;
+> +		node->port = &dev->component->output[node->id];
+> +		break;
+> +	case V4L2_BUF_TYPE_META_CAPTURE:
+> +		vfd->device_caps = V4L2_CAP_META_CAPTURE | V4L2_CAP_STREAMING;
+> +		node->id = index - BCM2835_ISP_NUM_OUTPUTS;
+> +		node->vfl_dir = VFL_DIR_RX;
+> +		node->name = "stats";
+> +		if (node->id >= ARRAY_SIZE(dev->component->output))
+> +			return -EINVAL;
+> +		node->port = &dev->component->output[node->id];
+> +		break;
+> +	}
+> +
+> +	ret = bcm2835_isp_get_supported_fmts(node);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Initialise the video node. */
+> +	vfd->vfl_type	= VFL_TYPE_VIDEO;
+> +	vfd->fops	= &bcm2835_isp_fops;
+> +	vfd->ioctl_ops	= &bcm2835_isp_node_ioctl_ops;
+> +	vfd->minor	= -1;
+> +	vfd->release	= video_device_release_empty;
+> +	vfd->queue	= &node->queue;
+> +	vfd->lock	= &node->lock;
+> +	vfd->v4l2_dev	= &dev->v4l2_dev;
+> +	vfd->vfl_dir	= node->vfl_dir;
+> +
+> +	node->q_data.fmt = get_default_format(node);
+> +	node->q_data.width = DEFAULT_DIM;
+> +	node->q_data.height = DEFAULT_DIM;
+> +	node->q_data.bytesperline =
+> +		get_bytesperline(DEFAULT_DIM, node->q_data.fmt);
+> +	node->q_data.sizeimage = node_is_stats(node) ?
+> +				 node->port->recommended_buffer.size :
+> +				 get_sizeimage(node->q_data.bytesperline,
+> +					       node->q_data.width,
+> +					       node->q_data.height,
+> +					       node->q_data.fmt);
+> +	node->q_data.colorspace = node->q_data.fmt->colorspace_default;
+> +	node->q_data.ycbcr_enc =
+> +		V4L2_MAP_YCBCR_ENC_DEFAULT(node->q_data.colorspace);
+> +	node->q_data.xfer_func =
+> +		V4L2_MAP_XFER_FUNC_DEFAULT(node->q_data.colorspace);
+> +	is_rgb = node->q_data.colorspace == V4L2_COLORSPACE_SRGB ||
+> +		node->q_data.colorspace == V4L2_COLORSPACE_RAW;
+> +	node->q_data.quantization = V4L2_MAP_QUANTIZATION_DEFAULT(is_rgb,
+> +								  node->q_data.colorspace,
+> +								  node->q_data.ycbcr_enc);
+> +
+> +	queue->io_modes = VB2_MMAP | VB2_DMABUF;
+> +	queue->drv_priv = node;
+> +	queue->ops = &bcm2835_isp_node_queue_ops;
+> +	queue->mem_ops = &vb2_dma_contig_memops;
+> +	queue->buf_struct_size = sizeof(struct bcm2835_isp_buffer);
+> +	queue->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
+> +	queue->dev = dev->dev;
+> +	queue->lock = &node->queue_lock;
+> +
+> +	ret = vb2_queue_init(queue);
+> +	if (ret < 0) {
+> +		v4l2_info(&dev->v4l2_dev, "vb2_queue_init failed\n");
+
+v4l2_err(). Please check the printk level of the rest, too.
+
+> +		return ret;
+> +	}
+> +
+> +	/* Define the device names */
+> +	snprintf(vfd->name, sizeof(node->vfd.name), "%s-%s%d", BCM2835_ISP_NAME,
+> +		 node->name, node->id);
+> +
+> +	node->pad.flags = node_is_output(node) ? MEDIA_PAD_FL_SOURCE : MEDIA_PAD_FL_SINK;
+> +	ret = media_entity_pads_init(&node->vfd.entity, 1, &node->pad);
+> +	if (ret)
+> +		goto queue_cleanup;
+> +
+> +	ret = video_register_device(vfd, VFL_TYPE_VIDEO, video_nr[instance]);
+> +	if (ret) {
+> +		v4l2_err(&dev->v4l2_dev,
+> +			 "Failed to register video %s[%d] device node\n",
+> +			 node->name, node->id);
+> +		goto queue_cleanup;
+> +	}
+> +
+> +	node->registered = true;
+> +	video_set_drvdata(vfd, node);
+> +
+> +	v4l2_info(&dev->v4l2_dev,
+> +		  "Device node %s[%d] registered as /dev/video%d\n",
+> +		  node->name, node->id, vfd->num);
+> +
+> +	return 0;
+> +
+> +queue_cleanup:
+> +	vb2_queue_release(&node->queue);
+> +	return ret;
+> +}
+
+...
+
+> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
+> index 17ba1ae70735..1449de2b64b5 100644
+> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
+> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
+> @@ -1490,6 +1490,8 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
+>  	case V4L2_META_FMT_GENERIC_CSI2_16:	descr = "8-bit Generic Meta, 16b CSI-2"; break;
+>  	case V4L2_META_FMT_GENERIC_CSI2_20:	descr = "8-bit Generic Meta, 20b CSI-2"; break;
+>  	case V4L2_META_FMT_GENERIC_CSI2_24:	descr = "8-bit Generic Meta, 24b CSI-2"; break;
+> +	case V4L2_META_FMT_BCM2835_ISP_STATS: descr = "BCM2835 ISP Image Statistics"; break;
+> +	case V4L2_META_FMT_BCM2835_ISP_PARAMS: descr = "BCM2835 ISP Config Parameters"; break;
+
+What's the status of the documentation for these? Do we have something
+beyond the headers?
+
+>  
+>  	default:
+>  		/* Compressed formats */
+> diff --git a/include/linux/raspberrypi/mmal-parameters.h b/include/linux/raspberrypi/mmal-parameters.h
+> index 6ae5a7a1932c..f0e2ec025b70 100644
+> --- a/include/linux/raspberrypi/mmal-parameters.h
+> +++ b/include/linux/raspberrypi/mmal-parameters.h
+> @@ -23,6 +23,8 @@
+>  #define MMAL_PARAMETERS_H
+>  
+>  #include <linux/math.h>
+> +#include <linux/stddef.h>
+> +#include <uapi/linux/bcm2835-isp.h>
+>  
+>  /** Common parameter ID group, used with many types of component. */
+>  #define MMAL_PARAMETER_GROUP_COMMON		(0 << 16)
+> @@ -279,8 +281,14 @@ enum mmal_parameter_camera_type {
+>  	MMAL_PARAMETER_DPC,
+>  		/**< Tales a @ref MMAP_PARAMETER_GAMMA_T */
+>  	MMAL_PARAMETER_GAMMA,
+> +
+> +	/* 0x60 */
+>  		/**< Takes a @ref MMAL_PARAMETER_CDN_T */
+>  	MMAL_PARAMETER_CDN,
+> +		/**< Takes a @ref MMAL_PARAMETER_BOOLEAN_T */
+> +	MMAL_PARAMETER_JPEG_IJG_SCALING,
+> +		/**< Takes a @ref MMAL_PARAMETER_ISP_SETTINGS_T */
+> +	MMAL_PARAMETER_ISP_SETTINGS,
+>  };
+>  
+>  enum mmal_parameter_camera_config_timestamp_mode {
+> @@ -819,20 +827,143 @@ enum mmal_parameter_ls_gain_format_type {
+>  	MMAL_PARAMETER_LS_GAIN_FORMAT_TYPE_DUMMY  = 0x7FFFFFFF
+>  };
+>  
+> -struct mmal_parameter_lens_shading_v2 {
+> -	u32 enabled;
+> -	u32 grid_cell_size;
+> -	u32 grid_width;
+> -	u32 grid_stride;
+> -	u32 grid_height;
+> -	u32 mem_handle_table;
+> -	u32 ref_transform;
+> -	u32 corner_sampled;
+> -	enum mmal_parameter_ls_gain_format_type gain_format;
+> -};
+> -
+>  struct mmal_parameter_crop {
+>  	struct vchiq_mmal_rect rect;
+>  };
+>  
+> +struct mmal_parameter_isp_parameters {
+> +	struct {
+> +		/* Black level */
+> +		u32 update;
+> +
+> +		struct_group(payload,
+> +			u32 enable;
+> +			u16 black_level_r;
+> +			u16 black_level_g;
+> +			u16 black_level_b;
+> +			u8 padding[2];
+> +		);
+> +	} black_level;
+> +
+> +	struct {
+> +		/* GEQ */
+> +		u32 update;
+> +
+> +		struct_group(payload,
+> +			u32 enable;
+> +			u32 offset;
+> +			struct bcm2835_isp_rational slope;
+> +			u8 padding[4];
+> +		);
+> +	} green_eq;
+> +
+> +	struct {
+> +		/* Gamma */
+> +		u32 update;
+> +
+> +		struct_group(payload,
+> +			u32 enable;
+> +			u16 X[BCM2835_NUM_GAMMA_PTS];
+> +			u16 Y[BCM2835_NUM_GAMMA_PTS];
+> +		);
+> +	} gamma;
+> +
+> +	struct {
+> +		/* Denoise */
+> +		u32 update;
+> +
+> +		struct_group(payload,
+> +			u32 enable;
+> +			u32 constant;
+> +			struct bcm2835_isp_rational slope;
+> +			struct bcm2835_isp_rational strength;
+> +			u8 padding[4];
+> +		);
+> +	} denoise;
+> +
+> +	struct {
+> +		/* Sharpen */
+> +		u32 update;
+> +
+> +		struct_group(payload,
+> +			u32 enable;
+> +			struct bcm2835_isp_rational threshold;
+> +			struct bcm2835_isp_rational strength;
+> +			struct bcm2835_isp_rational limit;
+> +		);
+> +	} sharpen;
+> +
+> +	struct {
+> +		/* Defective Pixel Correction */
+> +		u32 update;
+> +
+> +		struct_group(payload,
+> +			u32 enable;
+> +			u32 strength;
+> +			u8 padding[4];
+> +		);
+> +	} dpc;
+> +
+> +	struct {
+> +		/* Colour denoise */
+> +		u32 update;
+> +
+> +		struct_group(payload,
+> +			u32 enable;
+> +			u32 mode;
+> +			u8 padding[4];
+> +		);
+> +	} colour_denoise;
+> +
+> +	struct {
+> +		/* CCM */
+> +		u32 update;
+> +
+> +		struct_group(payload,
+> +			u32 enable;
+> +			struct bcm2835_isp_ccm ccm;
+> +			u8 padding[4];
+> +		);
+> +	} ccm;
+> +
+> +	struct {
+> +		/* Lens shading */
+> +		u32 update;
+> +
+> +		struct_group(payload,
+> +			u32 enabled;
+> +			u32 grid_cell_size;
+> +			u32 grid_width;
+> +			u32 grid_stride;
+> +			u32 grid_height;
+> +			u32 mem_handle_table;
+> +			u32 ref_transform;
+> +			u32 corner_sampled;
+> +			enum mmal_parameter_ls_gain_format_type gain_format;
+> +			u8 padding[4];
+> +		);
+> +	} lens_shading;
+> +
+> +	struct {
+> +		/* AWB Gains */
+> +		u32 update;
+> +
+> +		struct_group(payload,
+> +			struct bcm2835_isp_rational r_gain;
+> +			struct bcm2835_isp_rational b_gain;
+> +			u8 padding[4];
+> +		);
+> +	} awb_gains;
+> +
+> +	struct {
+> +		/* Digital Gain */
+> +		u32 update;
+> +
+> +		struct_group(payload,
+> +			struct bcm2835_isp_rational value;
+> +			u8 padding[4];
+> +		);
+> +	} digital_gain;
+> +};
+> +
+>  #endif
+> diff --git a/include/uapi/linux/bcm2835-isp.h b/include/uapi/linux/bcm2835-isp.h
+> new file mode 100644
+> index 000000000000..d15a4ed18404
+> --- /dev/null
+> +++ b/include/uapi/linux/bcm2835-isp.h
+> @@ -0,0 +1,530 @@
+> +/* SPDX-License-Identifier: ((GPL-2.0+ WITH Linux-syscall-note) OR BSD-3-Clause) */
+> +/*
+> + * bcm2835-isp.h
+> + *
+> + * BCM2835 ISP driver - user space header file.
+> + *
+> + * Copyright © 2019-2026 Raspberry Pi (Trading) Ltd.
+> + *
+> + * Author: Naushir Patuck (naush@raspberrypi.com)
+> + *
+> + */
+> +
+> +#ifndef __BCM2835_ISP_H_
+> +#define __BCM2835_ISP_H_
+> +
+> +#include <linux/media/v4l2-isp.h>
+> +
+> +/*
+> + * All structs below are directly mapped from struct
+> + * mmal_parameter_isp_parameters in include/linux/raspberrypi/mmal-parameters.h
+> + * for convenience.
+> + */
+> +
+> +/**
+> + * struct bcm2835_isp_rational - Rational value type.
+> + *
+> + * @num:	Numerator.
+> + * @den:	Denominator.
+> + */
+> +struct bcm2835_isp_rational {
+> +	__s32 num;
+> +	__u32 den;
+> +};
+> +
+> +/**
+> + * struct bcm2835_isp_ccm - Colour correction matrix.
+> + *
+> + * @ccm:	3x3 correction matrix coefficients.
+> + * @offsets:	1x3 correction offsets.
+> + */
+> +struct bcm2835_isp_ccm {
+> +	struct bcm2835_isp_rational ccm[3][3];
+> +	__s32 offsets[3];
+> +};
+> +
+> +/**
+> + * struct bcm2835_isp_custom_ccm - Custom CCM configuration.
+> + *
+> + * @enabled:	Enable custom CCM.
+> + * @ccm:	Custom CCM coefficients and offsets.
+> + */
+> +struct bcm2835_isp_custom_ccm {
+> +	__u32 enabled;
+> +	struct bcm2835_isp_ccm ccm;
+> +};
+> +
+> +/**
+> + * enum bcm2835_isp_gain_format - format of the gains in the lens shading
+> + *				  tables.
+> + *
+> + * @GAIN_FORMAT_U0P8_1:		Gains are u0.8 format, starting at 1.0
+> + * @GAIN_FORMAT_U1P7_0:		Gains are u1.7 format, starting at 0.0
+> + * @GAIN_FORMAT_U1P7_1:		Gains are u1.7 format, starting at 1.0
+> + * @GAIN_FORMAT_U2P6_0:		Gains are u2.6 format, starting at 0.0
+> + * @GAIN_FORMAT_U2P6_1:		Gains are u2.6 format, starting at 1.0
+> + * @GAIN_FORMAT_U3P5_0:		Gains are u3.5 format, starting at 0.0
+> + * @GAIN_FORMAT_U3P5_1:		Gains are u3.5 format, starting at 1.0
+> + * @GAIN_FORMAT_U4P10:		Gains are u4.10 format, starting at 0.0
+> + */
+> +enum bcm2835_isp_gain_format {
+> +	GAIN_FORMAT_U0P8_1 = 0,
+> +	GAIN_FORMAT_U1P7_0 = 1,
+> +	GAIN_FORMAT_U1P7_1 = 2,
+> +	GAIN_FORMAT_U2P6_0 = 3,
+> +	GAIN_FORMAT_U2P6_1 = 4,
+> +	GAIN_FORMAT_U3P5_0 = 5,
+> +	GAIN_FORMAT_U3P5_1 = 6,
+> +	GAIN_FORMAT_U4P10  = 7,
+> +};
+> +
+> +/**
+> + * struct bcm2835_isp_lens_shading - Lens shading tables.
+> + *
+> + * @enabled:		Enable lens shading.
+> + * @grid_cell_size:	Size of grid cells in samples (16, 32, 64, 128 or 256).
+> + * @grid_width:		Width of lens shading tables in grid cells.
+> + * @grid_stride:	Row to row distance (in grid cells) between grid cells
+> + *			in the same horizontal location.
+> + * @grid_height:	Height of lens shading tables in grid cells.
+> + * @dmabuf:		dmabuf file handle containing the table.
+> + * @ref_transform:	Reference transform - unsupported, please pass zero.
+> + * @corner_sampled:	Whether the gains are sampled at the corner points
+> + *			of the grid cells or in the cell centres.
+> + * @gain_format:	Format of the gains (see enum &bcm2835_isp_gain_format).
+> + */
+> +struct bcm2835_isp_lens_shading {
+> +	__u32 enabled;
+> +	__u32 grid_cell_size;
+> +	__u32 grid_width;
+> +	__u32 grid_stride;
+> +	__u32 grid_height;
+> +	__s32 dmabuf;
+> +	__u32 ref_transform;
+> +	__u32 corner_sampled;
+> +	__u32 gain_format;
+> +};
+> +
+> +/**
+> + * struct bcm2835_isp_black_level - Sensor black level configuration.
+> + *
+> + * @enabled:		Enable black level.
+> + * @black_level_r:	Black level for red channel.
+> + * @black_level_g:	Black level for green channels.
+> + * @black_level_b:	Black level for blue channel.
+> + * @padding:		Unused padding.
+> + */
+> +struct bcm2835_isp_black_level {
+> +	__u32 enabled;
+> +	__u16 black_level_r;
+> +	__u16 black_level_g;
+> +	__u16 black_level_b;
+> +	__u8 padding[2]; /* Unused */
+> +};
+> +
+> +/**
+> + * struct bcm2835_isp_geq - Green equalisation parameters.
+> + *
+> + * @enabled:	Enable green equalisation.
+> + * @offset:	Fixed offset of the green equalisation threshold.
+> + * @slope:	Slope of the green equalisation threshold.
+> + */
+> +struct bcm2835_isp_geq {
+> +	__u32 enabled;
+> +	__u32 offset;
+> +	struct bcm2835_isp_rational slope;
+> +};
+> +
+> +#define BCM2835_NUM_GAMMA_PTS 33
+> +
+> +/**
+> + * struct bcm2835_isp_gamma - Gamma parameters.
+> + *
+> + * @enabled:	Enable gamma adjustment.
+> + * @x:		X values of the points defining the gamma curve.
+> + *		Values should be scaled to 16 bits.
+> + * @y:		Y values of the points defining the gamma curve.
+> + *		Values should be scaled to 16 bits.
+> + */
+> +struct bcm2835_isp_gamma {
+> +	__u32 enabled;
+> +	__u16 x[BCM2835_NUM_GAMMA_PTS];
+> +	__u16 y[BCM2835_NUM_GAMMA_PTS];
+> +};
+> +
+> +/**
+> + * enum bcm2835_isp_cdn_mode - Mode of operation for colour denoise.
+> + *
+> + * @CDN_MODE_FAST:		Fast (but lower quality) colour denoise
+> + *				algorithm, typically used for video recording.
+> + * @CDN_MODE_HIGH_QUALITY:	High quality (but slower) colour denoise
+> + *				algorithm, typically used for stills capture.
+> + */
+> +enum bcm2835_isp_cdn_mode {
+> +	CDN_MODE_FAST = 0,
+> +	CDN_MODE_HIGH_QUALITY = 1,
+> +};
+> +
+> +/**
+> + * struct bcm2835_isp_cdn - Colour denoise parameters.
+> + *
+> + * @enabled:	Enable colour denoise.
+> + * @mode:	Colour denoise operating mode (see enum &bcm2835_isp_cdn_mode)
+> + */
+> +struct bcm2835_isp_cdn {
+> +	__u32 enabled;
+> +	__u32 mode;
+> +};
+> +
+> +/**
+> + * struct bcm2835_isp_denoise - Denoise parameters.
+> + *
+> + * @enabled:	Enable denoise.
+> + * @constant:	Fixed offset of the noise threshold.
+> + * @slope:	Slope of the noise threshold.
+> + * @strength:	Denoise strength between 0.0 (off) and 1.0 (maximum).
+> + */
+> +struct bcm2835_isp_denoise {
+> +	__u32 enabled;
+> +	__u32 constant;
+> +	struct bcm2835_isp_rational slope;
+> +	struct bcm2835_isp_rational strength;
+> +};
+> +
+> +/**
+> + * struct bcm2835_isp_sharpen - Sharpen parameters.
+> + *
+> + * @enabled:	Enable sharpening.
+> + * @threshold:	Threshold at which to start sharpening pixels.
+> + * @strength:	Strength with which pixel sharpening increases.
+> + * @limit:	Limit to the amount of sharpening applied.
+> + */
+> +struct bcm2835_isp_sharpen {
+> +	__u32 enabled;
+> +	struct bcm2835_isp_rational threshold;
+> +	struct bcm2835_isp_rational strength;
+> +	struct bcm2835_isp_rational limit;
+> +};
+> +
+> +/**
+> + * enum bcm2835_isp_dpc_mode - defective pixel correction (DPC) strength.
+> + *
+> + * @DPC_MODE_OFF:		No DPC.
+> + * @DPC_MODE_NORMAL:		Normal DPC.
+> + * @DPC_MODE_STRONG:		Strong DPC.
+> + */
+> +enum bcm2835_isp_dpc_mode {
+> +	DPC_MODE_OFF = 0,
+> +	DPC_MODE_NORMAL = 1,
+> +	DPC_MODE_STRONG = 2,
+> +};
+> +
+> +/**
+> + * struct bcm2835_isp_dpc - Defective pixel correction (DPC) parameters.
+> + *
+> + * @enabled:	Enable DPC.
+> + * @strength:	DPC strength (see enum &bcm2835_isp_dpc_mode).
+> + */
+> +struct bcm2835_isp_dpc {
+> +	__u32 enabled;
+> +	__u32 strength;
+> +};
+> +
+> +/**
+> + * struct bcm2835_isp_awb_gains - AWB gains configuration.
+> + *
+> + * @r_gain:	Red channel AWB gain.
+> + * @b_gain:	Blue channel AWB gain.
+> + */
+> +struct bcm2835_isp_awb_gains {
+> +	struct bcm2835_isp_rational r_gain;
+> +	struct bcm2835_isp_rational b_gain;
+> +};
+> +
+> +/**
+> + * struct bcm2835_isp_digital_gain - Digital gain configuration.
+> + *
+> + * @gain:	Digital gain value.
+> + */
+> +struct bcm2835_isp_digital_gain {
+> +	struct bcm2835_isp_rational gain;
+> +};
+> +
+> +/*
+> + * BCM2835 ISP extensible parameters buffer definitions.
+> + *
+> + * The extensible parameters mechanism allows userspace to submit ISP
+> + * configuration parameters as a buffer containing a series of tagged
+> + * blocks rather than individual V4L2 controls. This enables atomic
+> + * application of multiple parameters in a single operation.
+> + */
+> +
+> +/**
+> + * enum bcm2835_isp_param_buffer_version - BCM2835 ISP parameters buffer version
+> + *
+> + * @BCM2835_ISP_PARAM_BUFFER_V1: First version of parameters buffer format
+> + */
+> +enum bcm2835_isp_param_buffer_version {
+> +	BCM2835_ISP_PARAM_BUFFER_V1 = V4L2_ISP_PARAMS_VERSION_V1,
+> +};
+> +
+> +/**
+> + * enum bcm2835_isp_param_block_type - BCM2835 ISP parameter block types
+> + *
+> + * This enumeration defines the types of parameters blocks that can be
+> + * included in the extensible parameters buffer. Each block type corresponds
+> + * to a specific ISP processing block configuration.
+> + *
+> + * @BCM2835_ISP_PARAM_BLOCK_BLACK_LEVEL: Black level configuration
+> + * @BCM2835_ISP_PARAM_BLOCK_GEQ: Green equalisation configuration
+> + * @BCM2835_ISP_PARAM_BLOCK_GAMMA: Gamma curve configuration
+> + * @BCM2835_ISP_PARAM_BLOCK_DENOISE: Denoise configuration
+> + * @BCM2835_ISP_PARAM_BLOCK_SHARPEN: Sharpening configuration
+> + * @BCM2835_ISP_PARAM_BLOCK_DPC: Defective pixel correction configuration
+> + * @BCM2835_ISP_PARAM_BLOCK_CDN: Colour denoise configuration
+> + * @BCM2835_ISP_PARAM_BLOCK_CC_MATRIX: Colour correction matrix configuration
+> + * @BCM2835_ISP_PARAM_BLOCK_LENS_SHADING: Lens shading table configuration
+> + * @BCM2835_ISP_PARAM_BLOCK_AWB_GAINS: AWB gains configuration
+> + * @BCM2835_ISP_PARAM_BLOCK_DIGITAL_GAIN: Digital gain configuration
+> + */
+> +enum bcm2835_isp_param_block_type {
+> +	BCM2835_ISP_PARAM_BLOCK_BLACK_LEVEL,
+> +	BCM2835_ISP_PARAM_BLOCK_GEQ,
+> +	BCM2835_ISP_PARAM_BLOCK_GAMMA,
+> +	BCM2835_ISP_PARAM_BLOCK_DENOISE,
+> +	BCM2835_ISP_PARAM_BLOCK_SHARPEN,
+> +	BCM2835_ISP_PARAM_BLOCK_DPC,
+> +	BCM2835_ISP_PARAM_BLOCK_CDN,
+> +	BCM2835_ISP_PARAM_BLOCK_CC_MATRIX,
+> +	BCM2835_ISP_PARAM_BLOCK_LENS_SHADING,
+> +	BCM2835_ISP_PARAM_BLOCK_AWB_GAINS,
+> +	BCM2835_ISP_PARAM_BLOCK_DIGITAL_GAIN,
+> +};
+> +
+> +/**
+> + * struct bcm2835_isp_params_black_level - Black level parameters block
+> + *
+> + * @header: Block header (type = BCM2835_ISP_PARAM_BLOCK_BLACK_LEVEL)
+> + * @black_level: Black level configuration
+> + */
+> +struct bcm2835_isp_params_black_level {
+> +	struct v4l2_isp_params_block_header header;
+> +	struct bcm2835_isp_black_level black_level;
+> +} __attribute__((aligned(8)));
+> +
+> +/**
+> + * struct bcm2835_isp_params_geq - Green equalisation parameters block
+> + *
+> + * @header: Block header (type = BCM2835_ISP_PARAM_BLOCK_GEQ)
+> + * @geq: Green equalisation configuration
+> + */
+> +struct bcm2835_isp_params_geq {
+> +	struct v4l2_isp_params_block_header header;
+> +	struct bcm2835_isp_geq geq;
+> +} __attribute__((aligned(8)));
+> +
+> +/**
+> + * struct bcm2835_isp_params_gamma - Gamma parameters block
+> + *
+> + * @header: Block header (type = BCM2835_ISP_PARAM_BLOCK_GAMMA)
+> + * @gamma: Gamma curve configuration
+> + */
+> +struct bcm2835_isp_params_gamma {
+> +	struct v4l2_isp_params_block_header header;
+> +	struct bcm2835_isp_gamma gamma;
+> +} __attribute__((aligned(8)));
+> +
+> +/**
+> + * struct bcm2835_isp_params_denoise - Denoise parameters block
+> + *
+> + * @header: Block header (type = BCM2835_ISP_PARAM_BLOCK_DENOISE)
+> + * @denoise: Denoise configuration
+> + */
+> +struct bcm2835_isp_params_denoise {
+> +	struct v4l2_isp_params_block_header header;
+> +	struct bcm2835_isp_denoise denoise;
+> +} __attribute__((aligned(8)));
+> +
+> +/**
+> + * struct bcm2835_isp_params_sharpen - Sharpen parameters block
+> + *
+> + * @header: Block header (type = BCM2835_ISP_PARAM_BLOCK_SHARPEN)
+> + * @sharpen: Sharpening configuration
+> + */
+> +struct bcm2835_isp_params_sharpen {
+> +	struct v4l2_isp_params_block_header header;
+> +	struct bcm2835_isp_sharpen sharpen;
+> +} __attribute__((aligned(8)));
+> +
+> +/**
+> + * struct bcm2835_isp_params_dpc - Defective pixel correction parameters block
+> + *
+> + * @header: Block header (type = BCM2835_ISP_PARAM_BLOCK_DPC)
+> + * @dpc: DPC configuration
+> + */
+> +struct bcm2835_isp_params_dpc {
+> +	struct v4l2_isp_params_block_header header;
+> +	struct bcm2835_isp_dpc dpc;
+> +} __attribute__((aligned(8)));
+> +
+> +/**
+> + * struct bcm2835_isp_params_cdn - Colour denoise parameters block
+> + *
+> + * @header: Block header (type = BCM2835_ISP_PARAM_BLOCK_CDN)
+> + * @cdn: Colour denoise configuration
+> + */
+> +struct bcm2835_isp_params_cdn {
+> +	struct v4l2_isp_params_block_header header;
+> +	struct bcm2835_isp_cdn cdn;
+> +} __attribute__((aligned(8)));
+> +
+> +/**
+> + * struct bcm2835_isp_params_cc_matrix - Colour correction matrix parameters block
+> + *
+> + * @header: Block header (type = BCM2835_ISP_PARAM_BLOCK_CC_MATRIX)
+> + * @ccm: Colour correction matrix configuration
+> + */
+> +struct bcm2835_isp_params_cc_matrix {
+> +	struct v4l2_isp_params_block_header header;
+> +	struct bcm2835_isp_custom_ccm ccm;
+> +} __attribute__((aligned(8)));
+> +
+> +/**
+> + * struct bcm2835_isp_params_lens_shading - Lens shading parameters block
+> + *
+> + * @header: Block header (type = BCM2835_ISP_PARAM_BLOCK_LENS_SHADING)
+> + * @ls: Lens shading configuration (includes dmabuf fd for table data)
+> + */
+> +struct bcm2835_isp_params_lens_shading {
+> +	struct v4l2_isp_params_block_header header;
+> +	struct bcm2835_isp_lens_shading ls;
+> +} __attribute__((aligned(8)));
+> +
+> +/**
+> + * struct bcm2835_isp_params_awb_gains - AWB gains parameters block
+> + *
+> + * @header: Block header (type = BCM2835_ISP_PARAM_BLOCK_AWB_GAINS)
+> + * @awb_gains: AWB gains configuration
+> + */
+> +struct bcm2835_isp_params_awb_gains {
+> +	struct v4l2_isp_params_block_header header;
+> +	struct bcm2835_isp_awb_gains awb_gains;
+> +} __attribute__((aligned(8)));
+> +
+> +/**
+> + * struct bcm2835_isp_params_digital_gain - Digital gain parameters block
+> + *
+> + * @header: Block header (type = BCM2835_ISP_PARAM_BLOCK_DIGITAL_GAIN)
+> + * @digital_gain: Digital gain configuration
+> + */
+> +struct bcm2835_isp_params_digital_gain {
+> +	struct v4l2_isp_params_block_header header;
+> +	struct bcm2835_isp_digital_gain digital_gain;
+> +} __attribute__((aligned(8)));
+> +
+> +/**
+> + * define BCM2835_ISP_PARAMS_MAX_SIZE - Maximum size of all ISP parameters
+
+How about adding a build-time check to the driver the size remains
+unchanged? There are quite a few different fields there.
+
+I might do the same for the statistics.
+
+This can be all fixed on top though and doesn't affect the UAPI.
+
+> + *
+> + * This defines the maximum size needed to accommodate all possible parameter
+> + * blocks in a single buffer. Drivers use this to allocate appropriately
+> + * sized buffers.
+> + */
+> +#define BCM2835_ISP_PARAMS_MAX_SIZE					\
+> +	(sizeof(struct bcm2835_isp_params_black_level) +		\
+> +	 sizeof(struct bcm2835_isp_params_geq) +			\
+> +	 sizeof(struct bcm2835_isp_params_gamma) +			\
+> +	 sizeof(struct bcm2835_isp_params_denoise) +			\
+> +	 sizeof(struct bcm2835_isp_params_sharpen) +			\
+> +	 sizeof(struct bcm2835_isp_params_dpc) +			\
+> +	 sizeof(struct bcm2835_isp_params_cdn) +			\
+> +	 sizeof(struct bcm2835_isp_params_cc_matrix) +			\
+> +	 sizeof(struct bcm2835_isp_params_lens_shading) +		\
+> +	 sizeof(struct bcm2835_isp_params_awb_gains) +			\
+> +	 sizeof(struct bcm2835_isp_params_digital_gain))
+> +
+> 
+
+-- 
 Regards,
 
-Benjamin
-
-> ---
-> change in v6:
-> - include b84f6533a8ed ("media: verisilicon: rockchip: guard VPU981 AV1 divisor and tile buffer")
->    and 367db8b23c26 ("media: verisilicon: rockchip: reject AV1 frames exceeding the tile capacity")
->    fixes into the patch to not losing these improvements.
->
->   drivers/media/platform/verisilicon/Makefile   |    7 +-
->   .../media/platform/verisilicon/hantro_av1.c   |  816 +++++++++++++
->   .../media/platform/verisilicon/hantro_av1.h   |   64 +
->   ...entropymode.c => hantro_av1_entropymode.c} |   18 +-
->   ...entropymode.h => hantro_av1_entropymode.h} |   18 +-
->   ...av1_filmgrain.c => hantro_av1_filmgrain.c} |  125 +-
->   .../verisilicon/hantro_av1_filmgrain.h        |   48 +
->   .../media/platform/verisilicon/hantro_hw.h    |    7 +-
->   .../verisilicon/rockchip_av1_filmgrain.h      |   36 -
->   .../verisilicon/rockchip_vpu981_hw_av1_dec.c  | 1039 ++---------------
->   .../platform/verisilicon/rockchip_vpu_hw.c    |    7 +-
->   11 files changed, 1140 insertions(+), 1045 deletions(-)
->   create mode 100644 drivers/media/platform/verisilicon/hantro_av1.c
->   create mode 100644 drivers/media/platform/verisilicon/hantro_av1.h
->   rename drivers/media/platform/verisilicon/{rockchip_av1_entropymode.c => hantro_av1_entropymode.c} (99%)
->   rename drivers/media/platform/verisilicon/{rockchip_av1_entropymode.h => hantro_av1_entropymode.h} (95%)
->   rename drivers/media/platform/verisilicon/{rockchip_av1_filmgrain.c => hantro_av1_filmgrain.c} (85%)
->   create mode 100644 drivers/media/platform/verisilicon/hantro_av1_filmgrain.h
->   delete mode 100644 drivers/media/platform/verisilicon/rockchip_av1_filmgrain.h
->
-> diff --git a/drivers/media/platform/verisilicon/Makefile b/drivers/media/platform/verisilicon/Makefile
-> index f6f019d04ff0..a1dd6c2d29be 100644
-> --- a/drivers/media/platform/verisilicon/Makefile
-> +++ b/drivers/media/platform/verisilicon/Makefile
-> @@ -19,7 +19,10 @@ hantro-vpu-y += \
->   		hantro_hevc.o \
->   		hantro_mpeg2.o \
->   		hantro_vp8.o \
-> -		hantro_vp9.o
-> +		hantro_vp9.o \
-> +		hantro_av1.o \
-> +		hantro_av1_filmgrain.o \
-> +		hantro_av1_entropymode.o
->   
->   hantro-vpu-$(CONFIG_VIDEO_HANTRO_IMX8M) += \
->   		imx8m_vpu_hw.o
-> @@ -33,8 +36,6 @@ hantro-vpu-$(CONFIG_VIDEO_HANTRO_ROCKCHIP) += \
->   		rockchip_vpu2_hw_mpeg2_dec.o \
->   		rockchip_vpu2_hw_vp8_dec.o \
->   		rockchip_vpu981_hw_av1_dec.o \
-> -		rockchip_av1_filmgrain.o \
-> -		rockchip_av1_entropymode.o \
->   		rockchip_vpu_hw.o
->   
->   hantro-vpu-$(CONFIG_VIDEO_HANTRO_SUNXI) += \
-> diff --git a/drivers/media/platform/verisilicon/hantro_av1.c b/drivers/media/platform/verisilicon/hantro_av1.c
-> new file mode 100644
-> index 000000000000..2cde32f0e935
-> --- /dev/null
-> +++ b/drivers/media/platform/verisilicon/hantro_av1.c
-> @@ -0,0 +1,816 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) 2026, Collabora
-> + *
-> + * Author: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-> + */
-> +
-> +#include <linux/types.h>
-> +#include <media/v4l2-h264.h>
-> +#include <media/v4l2-mem2mem.h>
-> +
-> +#include "hantro.h"
-> +#include "hantro_av1.h"
-> +#include "hantro_hw.h"
-> +
-> +#define GM_GLOBAL_MODELS_PER_FRAME	7
-> +#define GLOBAL_MODEL_TOTAL_SIZE	(6 * 4 + 4 * 2)
-> +#define GLOBAL_MODEL_SIZE	ALIGN(GM_GLOBAL_MODELS_PER_FRAME * GLOBAL_MODEL_TOTAL_SIZE, 2048)
-> +#define AV1_MAX_TILES		128
-> +#define AV1_TILE_INFO_SIZE	(AV1_MAX_TILES * 16)
-> +#define AV1_TILE_SIZE		ALIGN(32 * 128, 4096)
-> +
-> +#define SUPERRES_SCALE_BITS 3
-> +
-> +#define DIV_LUT_PREC_BITS 14
-> +#define DIV_LUT_BITS 8
-> +#define DIV_LUT_NUM BIT(DIV_LUT_BITS)
-> +#define WARP_PARAM_REDUCE_BITS 6
-> +#define WARPEDMODEL_PREC_BITS 16
-> +
-> +#define AV1_DIV_ROUND_UP_POW2(value, n)			\
-> +({							\
-> +	typeof(n) _n  = n;				\
-> +	typeof(value) _value = value;			\
-> +	(_value + (BIT(_n) >> 1)) >> _n;		\
-> +})
-> +
-> +#define AV1_DIV_ROUND_UP_POW2_SIGNED(value, n)				\
-> +({									\
-> +	typeof(n) _n_  = n;						\
-> +	typeof(value) _value_ = value;					\
-> +	(((_value_) < 0) ? -AV1_DIV_ROUND_UP_POW2(-(_value_), (_n_))	\
-> +		: AV1_DIV_ROUND_UP_POW2((_value_), (_n_)));		\
-> +})
-> +
-> +static const short div_lut[DIV_LUT_NUM + 1] = {
-> +	16384, 16320, 16257, 16194, 16132, 16070, 16009, 15948, 15888, 15828, 15768,
-> +	15709, 15650, 15592, 15534, 15477, 15420, 15364, 15308, 15252, 15197, 15142,
-> +	15087, 15033, 14980, 14926, 14873, 14821, 14769, 14717, 14665, 14614, 14564,
-> +	14513, 14463, 14413, 14364, 14315, 14266, 14218, 14170, 14122, 14075, 14028,
-> +	13981, 13935, 13888, 13843, 13797, 13752, 13707, 13662, 13618, 13574, 13530,
-> +	13487, 13443, 13400, 13358, 13315, 13273, 13231, 13190, 13148, 13107, 13066,
-> +	13026, 12985, 12945, 12906, 12866, 12827, 12788, 12749, 12710, 12672, 12633,
-> +	12596, 12558, 12520, 12483, 12446, 12409, 12373, 12336, 12300, 12264, 12228,
-> +	12193, 12157, 12122, 12087, 12053, 12018, 11984, 11950, 11916, 11882, 11848,
-> +	11815, 11782, 11749, 11716, 11683, 11651, 11619, 11586, 11555, 11523, 11491,
-> +	11460, 11429, 11398, 11367, 11336, 11305, 11275, 11245, 11215, 11185, 11155,
-> +	11125, 11096, 11067, 11038, 11009, 10980, 10951, 10923, 10894, 10866, 10838,
-> +	10810, 10782, 10755, 10727, 10700, 10673, 10645, 10618, 10592, 10565, 10538,
-> +	10512, 10486, 10460, 10434, 10408, 10382, 10356, 10331, 10305, 10280, 10255,
-> +	10230, 10205, 10180, 10156, 10131, 10107, 10082, 10058, 10034, 10010, 9986,
-> +	9963,  9939,  9916,  9892,  9869,  9846,  9823,  9800,  9777,  9754,  9732,
-> +	9709,  9687,  9664,  9642,  9620,  9598,  9576,  9554,  9533,  9511,  9489,
-> +	9468,  9447,  9425,  9404,  9383,  9362,  9341,  9321,  9300,  9279,  9259,
-> +	9239,  9218,  9198,  9178,  9158,  9138,  9118,  9098,  9079,  9059,  9039,
-> +	9020,  9001,  8981,  8962,  8943,  8924,  8905,  8886,  8867,  8849,  8830,
-> +	8812,  8793,  8775,  8756,  8738,  8720,  8702,  8684,  8666,  8648,  8630,
-> +	8613,  8595,  8577,  8560,  8542,  8525,  8508,  8490,  8473,  8456,  8439,
-> +	8422,  8405,  8389,  8372,  8355,  8339,  8322,  8306,  8289,  8273,  8257,
-> +	8240,  8224,  8208,  8192,
-> +};
-> +
-> +enum hantro_av1_tx_mode {
-> +	HANTRO_AV1_TX_MODE_ONLY_4X4	= 0,
-> +	HANTRO_AV1_TX_MODE_8X8		= 1,
-> +	HANTRO_AV1_TX_MODE_16x16	= 2,
-> +	HANTRO_AV1_TX_MODE_32x32	= 3,
-> +	HANTRO_AV1_TX_MODE_SELECT	= 4,
-> +};
-> +
-> +enum hantro_av1_inter_prediction_filter_type {
-> +	HANTRO_AV1_EIGHT_TAP_SMOOTH	= 0,
-> +	HANTRO_AV1_EIGHT_TAP		= 1,
-> +	HANTRO_AV1_EIGHT_TAP_SHARP	= 2,
-> +	HANTRO_AV1_BILINEAR		= 3,
-> +	HANTRO_AV1_SWITCHABLE		= 4,
-> +};
-> +
-> +int hantro_av1_get_hardware_tx_mode(enum v4l2_av1_tx_mode tx_mode)
-> +{
-> +	switch (tx_mode) {
-> +	case V4L2_AV1_TX_MODE_ONLY_4X4:
-> +		return HANTRO_AV1_TX_MODE_ONLY_4X4;
-> +	case V4L2_AV1_TX_MODE_LARGEST:
-> +		return HANTRO_AV1_TX_MODE_32x32;
-> +	case V4L2_AV1_TX_MODE_SELECT:
-> +		return HANTRO_AV1_TX_MODE_SELECT;
-> +	}
-> +
-> +	return HANTRO_AV1_TX_MODE_32x32;
-> +}
-> +
-> +int hantro_av1_get_hardware_mcomp_filt_type(int interpolation_filter)
-> +{
-> +	switch (interpolation_filter) {
-> +	case V4L2_AV1_INTERPOLATION_FILTER_EIGHTTAP:
-> +		return HANTRO_AV1_EIGHT_TAP;
-> +	case V4L2_AV1_INTERPOLATION_FILTER_EIGHTTAP_SMOOTH:
-> +		return HANTRO_AV1_EIGHT_TAP_SMOOTH;
-> +	case V4L2_AV1_INTERPOLATION_FILTER_EIGHTTAP_SHARP:
-> +		return HANTRO_AV1_EIGHT_TAP_SHARP;
-> +	case V4L2_AV1_INTERPOLATION_FILTER_BILINEAR:
-> +		return HANTRO_AV1_BILINEAR;
-> +	case V4L2_AV1_INTERPOLATION_FILTER_SWITCHABLE:
-> +		return HANTRO_AV1_SWITCHABLE;
-> +	}
-> +
-> +	return HANTRO_AV1_EIGHT_TAP_SMOOTH;
-> +}
-> +
-> +int hantro_av1_get_frame_index(struct hantro_ctx *ctx, int ref)
-> +{
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> +	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
-> +	u64 timestamp;
-> +	int i, idx;
-> +
-> +	if (ref < 0 || ref >= V4L2_AV1_REFS_PER_FRAME)
-> +		return AV1_INVALID_IDX;
-> +
-> +	idx = frame->ref_frame_idx[ref];
-> +
-> +	if (idx >= V4L2_AV1_TOTAL_REFS_PER_FRAME || idx < 0)
-> +		return AV1_INVALID_IDX;
-> +
-> +	timestamp = frame->reference_frame_ts[idx];
-> +	for (i = 0; i < AV1_MAX_FRAME_BUF_COUNT; i++) {
-> +		if (!av1_dec->frame_refs[i].used)
-> +			continue;
-> +		if (av1_dec->frame_refs[i].timestamp == timestamp)
-> +			return i;
-> +	}
-> +
-> +	return AV1_INVALID_IDX;
-> +}
-> +
-> +int hantro_av1_get_order_hint(struct hantro_ctx *ctx, int ref)
-> +{
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +	int idx = hantro_av1_get_frame_index(ctx, ref);
-> +
-> +	if (idx != AV1_INVALID_IDX)
-> +		return av1_dec->frame_refs[idx].order_hint;
-> +
-> +	return 0;
-> +}
-> +
-> +int hantro_av1_frame_ref(struct hantro_ctx *ctx, u64 timestamp)
-> +{
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> +	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
-> +	int i;
-> +
-> +	for (i = 0; i < AV1_MAX_FRAME_BUF_COUNT; i++) {
-> +		int j;
-> +
-> +		if (av1_dec->frame_refs[i].used)
-> +			continue;
-> +
-> +		av1_dec->frame_refs[i].width = frame->frame_width_minus_1 + 1;
-> +		av1_dec->frame_refs[i].height = frame->frame_height_minus_1 + 1;
-> +		av1_dec->frame_refs[i].mi_cols = DIV_ROUND_UP(frame->frame_width_minus_1 + 1, 8);
-> +		av1_dec->frame_refs[i].mi_rows = DIV_ROUND_UP(frame->frame_height_minus_1 + 1, 8);
-> +		av1_dec->frame_refs[i].timestamp = timestamp;
-> +		av1_dec->frame_refs[i].frame_type = frame->frame_type;
-> +		av1_dec->frame_refs[i].order_hint = frame->order_hint;
-> +		av1_dec->frame_refs[i].vb2_ref = hantro_get_dst_buf(ctx);
-> +
-> +		for (j = 0; j < V4L2_AV1_TOTAL_REFS_PER_FRAME; j++)
-> +			av1_dec->frame_refs[i].order_hints[j] = frame->order_hints[j];
-> +		av1_dec->frame_refs[i].used = true;
-> +		av1_dec->current_frame_index = i;
-> +
-> +		return i;
-> +	}
-> +
-> +	return AV1_INVALID_IDX;
-> +}
-> +
-> +static void hantro_av1_frame_unref(struct hantro_ctx *ctx, int idx)
-> +{
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +
-> +	if (idx >= 0)
-> +		av1_dec->frame_refs[idx].used = false;
-> +}
-> +
-> +void hantro_av1_clean_refs(struct hantro_ctx *ctx)
-> +{
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> +
-> +	int ref, idx;
-> +
-> +	for (idx = 0; idx < AV1_MAX_FRAME_BUF_COUNT; idx++) {
-> +		u64 timestamp = av1_dec->frame_refs[idx].timestamp;
-> +		bool used = false;
-> +
-> +		if (!av1_dec->frame_refs[idx].used)
-> +			continue;
-> +
-> +		for (ref = 0; ref < V4L2_AV1_TOTAL_REFS_PER_FRAME; ref++) {
-> +			if (ctrls->frame->reference_frame_ts[ref] == timestamp)
-> +				used = true;
-> +		}
-> +
-> +		if (!used)
-> +			hantro_av1_frame_unref(ctx, idx);
-> +	}
-> +}
-> +
-> +size_t hantro_av1_luma_size(struct hantro_ctx *ctx)
-> +{
-> +	return ctx->ref_fmt.plane_fmt[0].bytesperline * ctx->ref_fmt.height;
-> +}
-> +
-> +size_t hantro_av1_chroma_size(struct hantro_ctx *ctx)
-> +{
-> +	size_t cr_offset = hantro_av1_luma_size(ctx);
-> +
-> +	return ALIGN((cr_offset * 3) / 2, 64);
-> +}
-> +
-> +static void hantro_av1_tiles_free(struct hantro_ctx *ctx)
-> +{
-> +	struct hantro_dev *vpu = ctx->dev;
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +
-> +	if (av1_dec->db_data_col.cpu)
-> +		dma_free_coherent(vpu->dev, av1_dec->db_data_col.size,
-> +				  av1_dec->db_data_col.cpu,
-> +				  av1_dec->db_data_col.dma);
-> +	av1_dec->db_data_col.cpu = NULL;
-> +
-> +	if (av1_dec->db_ctrl_col.cpu)
-> +		dma_free_coherent(vpu->dev, av1_dec->db_ctrl_col.size,
-> +				  av1_dec->db_ctrl_col.cpu,
-> +				  av1_dec->db_ctrl_col.dma);
-> +	av1_dec->db_ctrl_col.cpu = NULL;
-> +
-> +	if (av1_dec->cdef_col.cpu)
-> +		dma_free_coherent(vpu->dev, av1_dec->cdef_col.size,
-> +				  av1_dec->cdef_col.cpu, av1_dec->cdef_col.dma);
-> +	av1_dec->cdef_col.cpu = NULL;
-> +
-> +	if (av1_dec->sr_col.cpu)
-> +		dma_free_coherent(vpu->dev, av1_dec->sr_col.size,
-> +				  av1_dec->sr_col.cpu, av1_dec->sr_col.dma);
-> +	av1_dec->sr_col.cpu = NULL;
-> +
-> +	if (av1_dec->lr_col.cpu)
-> +		dma_free_coherent(vpu->dev, av1_dec->lr_col.size,
-> +				  av1_dec->lr_col.cpu, av1_dec->lr_col.dma);
-> +	av1_dec->lr_col.cpu = NULL;
-> +}
-> +
-> +static int hantro_av1_tiles_reallocate(struct hantro_ctx *ctx)
-> +{
-> +	struct hantro_dev *vpu = ctx->dev;
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> +	const struct v4l2_av1_tile_info *tile_info = &ctrls->frame->tile_info;
-> +	unsigned int num_tile_cols = tile_info->tile_cols;
-> +	unsigned int height = ALIGN(ctrls->frame->frame_height_minus_1 + 1, 64);
-> +	unsigned int height_in_sb = height / 64;
-> +	unsigned int stripe_num = ((height + 8) + 63) / 64;
-> +	size_t size;
-> +
-> +	if (av1_dec->db_data_col.size >=
-> +	    ALIGN(height * 12 * ctx->bit_depth / 8, 128) * num_tile_cols)
-> +		return 0;
-> +
-> +	hantro_av1_tiles_free(ctx);
-> +
-> +	size = ALIGN(height * 12 * ctx->bit_depth / 8, 128) * num_tile_cols;
-> +	av1_dec->db_data_col.cpu = dma_alloc_coherent(vpu->dev, size,
-> +						      &av1_dec->db_data_col.dma,
-> +						      GFP_KERNEL);
-> +	if (!av1_dec->db_data_col.cpu)
-> +		goto buffer_allocation_error;
-> +	av1_dec->db_data_col.size = size;
-> +
-> +	size = ALIGN(height * 2 * 16 / 4, 128) * num_tile_cols;
-> +	av1_dec->db_ctrl_col.cpu = dma_alloc_coherent(vpu->dev, size,
-> +						      &av1_dec->db_ctrl_col.dma,
-> +						      GFP_KERNEL);
-> +	if (!av1_dec->db_ctrl_col.cpu)
-> +		goto buffer_allocation_error;
-> +	av1_dec->db_ctrl_col.size = size;
-> +
-> +	size = ALIGN(height_in_sb * 44 * ctx->bit_depth * 16 / 8, 128) * num_tile_cols;
-> +	av1_dec->cdef_col.cpu = dma_alloc_coherent(vpu->dev, size,
-> +						   &av1_dec->cdef_col.dma,
-> +						   GFP_KERNEL);
-> +	if (!av1_dec->cdef_col.cpu)
-> +		goto buffer_allocation_error;
-> +	av1_dec->cdef_col.size = size;
-> +
-> +	size = ALIGN(height_in_sb * (3040 + 1280), 128) * num_tile_cols;
-> +	av1_dec->sr_col.cpu = dma_alloc_coherent(vpu->dev, size,
-> +						 &av1_dec->sr_col.dma,
-> +						 GFP_KERNEL);
-> +	if (!av1_dec->sr_col.cpu)
-> +		goto buffer_allocation_error;
-> +	av1_dec->sr_col.size = size;
-> +
-> +	size = ALIGN(stripe_num * 1536 * ctx->bit_depth / 8, 128) * num_tile_cols;
-> +	av1_dec->lr_col.cpu = dma_alloc_coherent(vpu->dev, size,
-> +						 &av1_dec->lr_col.dma,
-> +						 GFP_KERNEL);
-> +	if (!av1_dec->lr_col.cpu)
-> +		goto buffer_allocation_error;
-> +	av1_dec->lr_col.size = size;
-> +
-> +	av1_dec->num_tile_cols_allocated = num_tile_cols;
-> +	return 0;
-> +
-> +buffer_allocation_error:
-> +	hantro_av1_tiles_free(ctx);
-> +	return -ENOMEM;
-> +}
-> +
-> +void hantro_av1_exit(struct hantro_ctx *ctx)
-> +{
-> +	struct hantro_dev *vpu = ctx->dev;
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +
-> +	if (av1_dec->global_model.cpu)
-> +		dma_free_coherent(vpu->dev, av1_dec->global_model.size,
-> +				  av1_dec->global_model.cpu,
-> +				  av1_dec->global_model.dma);
-> +	av1_dec->global_model.cpu = NULL;
-> +
-> +	if (av1_dec->tile_info.cpu)
-> +		dma_free_coherent(vpu->dev, av1_dec->tile_info.size,
-> +				  av1_dec->tile_info.cpu,
-> +				  av1_dec->tile_info.dma);
-> +	av1_dec->tile_info.cpu = NULL;
-> +
-> +	if (av1_dec->film_grain.cpu)
-> +		dma_free_coherent(vpu->dev, av1_dec->film_grain.size,
-> +				  av1_dec->film_grain.cpu,
-> +				  av1_dec->film_grain.dma);
-> +	av1_dec->film_grain.cpu = NULL;
-> +
-> +	if (av1_dec->prob_tbl.cpu)
-> +		dma_free_coherent(vpu->dev, av1_dec->prob_tbl.size,
-> +				  av1_dec->prob_tbl.cpu, av1_dec->prob_tbl.dma);
-> +	av1_dec->prob_tbl.cpu = NULL;
-> +
-> +	if (av1_dec->prob_tbl_out.cpu)
-> +		dma_free_coherent(vpu->dev, av1_dec->prob_tbl_out.size,
-> +				  av1_dec->prob_tbl_out.cpu,
-> +				  av1_dec->prob_tbl_out.dma);
-> +	av1_dec->prob_tbl_out.cpu = NULL;
-> +
-> +	if (av1_dec->tile_buf.cpu)
-> +		dma_free_coherent(vpu->dev, av1_dec->tile_buf.size,
-> +				  av1_dec->tile_buf.cpu, av1_dec->tile_buf.dma);
-> +	av1_dec->tile_buf.cpu = NULL;
-> +
-> +	hantro_av1_tiles_free(ctx);
-> +}
-> +
-> +int hantro_av1_init(struct hantro_ctx *ctx)
-> +{
-> +	struct hantro_dev *vpu = ctx->dev;
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +
-> +	memset(av1_dec, 0, sizeof(*av1_dec));
-> +
-> +	av1_dec->global_model.cpu = dma_alloc_coherent(vpu->dev, GLOBAL_MODEL_SIZE,
-> +						       &av1_dec->global_model.dma,
-> +						       GFP_KERNEL);
-> +	if (!av1_dec->global_model.cpu)
-> +		return -ENOMEM;
-> +	av1_dec->global_model.size = GLOBAL_MODEL_SIZE;
-> +
-> +	av1_dec->tile_info.cpu = dma_alloc_coherent(vpu->dev, AV1_TILE_INFO_SIZE,
-> +						    &av1_dec->tile_info.dma,
-> +						    GFP_KERNEL);
-> +	if (!av1_dec->tile_info.cpu)
-> +		return -ENOMEM;
-> +	av1_dec->tile_info.size = AV1_TILE_INFO_SIZE;
-> +
-> +	av1_dec->film_grain.cpu = dma_alloc_coherent(vpu->dev,
-> +						     ALIGN(sizeof(struct hantro_av1_film_grain),
-> +							   2048),
-> +						     &av1_dec->film_grain.dma,
-> +						     GFP_KERNEL);
-> +	if (!av1_dec->film_grain.cpu)
-> +		return -ENOMEM;
-> +	av1_dec->film_grain.size = ALIGN(sizeof(struct hantro_av1_film_grain), 2048);
-> +
-> +	av1_dec->prob_tbl.cpu = dma_alloc_coherent(vpu->dev,
-> +						   ALIGN(sizeof(struct av1cdfs), 2048),
-> +						   &av1_dec->prob_tbl.dma,
-> +						   GFP_KERNEL);
-> +	if (!av1_dec->prob_tbl.cpu)
-> +		return -ENOMEM;
-> +	av1_dec->prob_tbl.size = ALIGN(sizeof(struct av1cdfs), 2048);
-> +
-> +	av1_dec->prob_tbl_out.cpu = dma_alloc_coherent(vpu->dev,
-> +						       ALIGN(sizeof(struct av1cdfs), 2048),
-> +						       &av1_dec->prob_tbl_out.dma,
-> +						       GFP_KERNEL);
-> +	if (!av1_dec->prob_tbl_out.cpu)
-> +		return -ENOMEM;
-> +	av1_dec->prob_tbl_out.size = ALIGN(sizeof(struct av1cdfs), 2048);
-> +	av1_dec->cdfs = &av1_dec->default_cdfs;
-> +	av1_dec->cdfs_ndvc = &av1_dec->default_cdfs_ndvc;
-> +
-> +	hantro_av1_set_default_cdfs(av1_dec->cdfs, av1_dec->cdfs_ndvc);
-> +
-> +	av1_dec->tile_buf.cpu = dma_alloc_coherent(vpu->dev,
-> +						   AV1_TILE_SIZE,
-> +						   &av1_dec->tile_buf.dma,
-> +						   GFP_KERNEL);
-> +	if (!av1_dec->tile_buf.cpu)
-> +		return -ENOMEM;
-> +	av1_dec->tile_buf.size = AV1_TILE_SIZE;
-> +
-> +	return 0;
-> +}
-> +
-> +int hantro_av1_prepare_run(struct hantro_ctx *ctx)
-> +{
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> +	const struct v4l2_av1_tile_info *tile_info;
-> +	struct v4l2_ctrl *tge;
-> +	u32 num_tiles;
-> +
-> +	ctrls->sequence = hantro_get_ctrl(ctx, V4L2_CID_STATELESS_AV1_SEQUENCE);
-> +	if (WARN_ON(!ctrls->sequence))
-> +		return -EINVAL;
-> +
-> +	tge = v4l2_ctrl_find(&ctx->ctrl_handler,
-> +			     V4L2_CID_STATELESS_AV1_TILE_GROUP_ENTRY);
-> +	if (WARN_ON(!tge))
-> +		return -EINVAL;
-> +	ctrls->tile_group_entry = tge->p_cur.p;
-> +
-> +	ctrls->frame = hantro_get_ctrl(ctx, V4L2_CID_STATELESS_AV1_FRAME);
-> +	if (WARN_ON(!ctrls->frame))
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * hantro_av1_set_tile_info() indexes the tile group
-> +	 * entry array by tile1 * tile_cols + tile0, so it reads up to
-> +	 * tile_cols * tile_rows entries, and lays out one descriptor per tile
-> +	 * in the AV1_MAX_TILES tile_info buffer while programming the real
-> +	 * tile geometry into the hardware. Reject a frame that claims more
-> +	 * tiles than userspace submitted, or more than the hardware tile
-> +	 * buffer holds, so the read stays in bounds and the programmed
-> +	 * geometry matches the descriptors written.
-> +	 */
-> +	tile_info = &ctrls->frame->tile_info;
-> +	num_tiles = (u32)tile_info->tile_cols * tile_info->tile_rows;
-> +	if (num_tiles > tge->elems || num_tiles > AV1_MAX_TILES)
-> +		return -EINVAL;
-> +
-> +	ctrls->film_grain =
-> +	    hantro_get_ctrl(ctx, V4L2_CID_STATELESS_AV1_FILM_GRAIN);
-> +
-> +	return hantro_av1_tiles_reallocate(ctx);
-> +}
-> +
-> +static int hantro_av1_get_msb(u32 n)
-> +{
-> +	if (n == 0)
-> +		return 0;
-> +	return 31 ^ __builtin_clz(n);
-> +}
-> +
-> +static short hantro_av1_resolve_divisor_32(u32 d, short *shift)
-> +{
-> +	int f;
-> +	u64 e;
-> +
-> +	*shift = hantro_av1_get_msb(d);
-> +	/* e is obtained from D after resetting the most significant 1 bit. */
-> +	e = d - ((u32)1 << *shift);
-> +	/* Get the most significant DIV_LUT_BITS (8) bits of e into f */
-> +	if (*shift > DIV_LUT_BITS)
-> +		f = AV1_DIV_ROUND_UP_POW2(e, *shift - DIV_LUT_BITS);
-> +	else
-> +		f = e << (DIV_LUT_BITS - *shift);
-> +	if (f > DIV_LUT_NUM)
-> +		return -1;
-> +	*shift += DIV_LUT_PREC_BITS;
-> +	/* Use f as lookup into the precomputed table of multipliers */
-> +	return div_lut[f];
-> +}
-> +
-> +static void hantro_av1_get_shear_params(const u32 *params, s64 *alpha,
-> +					s64 *beta, s64 *gamma, s64 *delta)
-> +{
-> +	const int *mat = params;
-> +	short shift;
-> +	short y;
-> +	long long gv, dv;
-> +
-> +	if (mat[2] <= 0)
-> +		return;
-> +
-> +	*alpha = clamp_val(mat[2] - (1 << WARPEDMODEL_PREC_BITS), S16_MIN, S16_MAX);
-> +	*beta = clamp_val(mat[3], S16_MIN, S16_MAX);
-> +
-> +	y = hantro_av1_resolve_divisor_32(abs(mat[2]), &shift) * (mat[2] < 0 ? -1 : 1);
-> +
-> +	gv = ((long long)mat[4] * (1 << WARPEDMODEL_PREC_BITS)) * y;
-> +
-> +	*gamma = clamp_val((int)AV1_DIV_ROUND_UP_POW2_SIGNED(gv, shift), S16_MIN, S16_MAX);
-> +
-> +	dv = ((long long)mat[3] * mat[4]) * y;
-> +	*delta = clamp_val(mat[5] -
-> +		(int)AV1_DIV_ROUND_UP_POW2_SIGNED(dv, shift) - (1 << WARPEDMODEL_PREC_BITS),
-> +		S16_MIN, S16_MAX);
-> +
-> +	*alpha = AV1_DIV_ROUND_UP_POW2_SIGNED(*alpha, WARP_PARAM_REDUCE_BITS)
-> +		 * (1 << WARP_PARAM_REDUCE_BITS);
-> +	*beta = AV1_DIV_ROUND_UP_POW2_SIGNED(*beta, WARP_PARAM_REDUCE_BITS)
-> +		* (1 << WARP_PARAM_REDUCE_BITS);
-> +	*gamma = AV1_DIV_ROUND_UP_POW2_SIGNED(*gamma, WARP_PARAM_REDUCE_BITS)
-> +		 * (1 << WARP_PARAM_REDUCE_BITS);
-> +	*delta = AV1_DIV_ROUND_UP_POW2_SIGNED(*delta, WARP_PARAM_REDUCE_BITS)
-> +		* (1 << WARP_PARAM_REDUCE_BITS);
-> +}
-> +
-> +void hantro_av1_set_global_model(struct hantro_ctx *ctx)
-> +{
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> +	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
-> +	const struct v4l2_av1_global_motion *gm = &frame->global_motion;
-> +	u8 *dst = av1_dec->global_model.cpu;
-> +	int ref_frame, i;
-> +
-> +	memset(dst, 0, GLOBAL_MODEL_SIZE);
-> +	for (ref_frame = 0; ref_frame < V4L2_AV1_REFS_PER_FRAME; ++ref_frame) {
-> +		s64 alpha = 0, beta = 0, gamma = 0, delta = 0;
-> +
-> +		for (i = 0; i < 6; ++i) {
-> +			if (i == 2)
-> +				*(s32 *)dst =
-> +					gm->params[V4L2_AV1_REF_LAST_FRAME + ref_frame][3];
-> +			else if (i == 3)
-> +				*(s32 *)dst =
-> +					gm->params[V4L2_AV1_REF_LAST_FRAME + ref_frame][2];
-> +			else
-> +				*(s32 *)dst =
-> +					gm->params[V4L2_AV1_REF_LAST_FRAME + ref_frame][i];
-> +			dst += 4;
-> +		}
-> +
-> +		if (gm->type[V4L2_AV1_REF_LAST_FRAME + ref_frame] <= V4L2_AV1_WARP_MODEL_AFFINE)
-> +			hantro_av1_get_shear_params(&gm->params[V4L2_AV1_REF_LAST_FRAME + ref_frame][0],
-> +						    &alpha, &beta, &gamma, &delta);
-> +
-> +		*(s16 *)dst = alpha;
-> +		dst += 2;
-> +		*(s16 *)dst = beta;
-> +		dst += 2;
-> +		*(s16 *)dst = gamma;
-> +		dst += 2;
-> +		*(s16 *)dst = delta;
-> +		dst += 2;
-> +	}
-> +}
-> +
-> +int hantro_av1_tile_log2(int target)
-> +{
-> +	int k;
-> +
-> +	/*
-> +	 * returns the smallest value for k such that 1 << k is greater
-> +	 * than or equal to target
-> +	 */
-> +	for (k = 0; (1 << k) < target; k++)
-> +		;
-> +
-> +	return k;
-> +}
-> +
-> +int hantro_av1_get_dist(struct hantro_ctx *ctx, int a, int b)
-> +{
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> +	int bits = ctrls->sequence->order_hint_bits - 1;
-> +	int diff, m;
-> +
-> +	if (!ctrls->sequence->order_hint_bits)
-> +		return 0;
-> +
-> +	diff = a - b;
-> +	m = 1 << bits;
-> +	diff = (diff & (m - 1)) - (diff & m);
-> +
-> +	return diff;
-> +}
-> +
-> +void hantro_av1_set_frame_sign_bias(struct hantro_ctx *ctx)
-> +{
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> +	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
-> +	const struct v4l2_ctrl_av1_sequence *sequence = ctrls->sequence;
-> +	int i;
-> +
-> +	if (!sequence->order_hint_bits || IS_INTRA(frame->frame_type)) {
-> +		for (i = 0; i < V4L2_AV1_TOTAL_REFS_PER_FRAME; i++)
-> +			av1_dec->ref_frame_sign_bias[i] = 0;
-> +
-> +		return;
-> +	}
-> +	// Identify the nearest forward and backward references.
-> +	for (i = 0; i < V4L2_AV1_TOTAL_REFS_PER_FRAME - 1; i++) {
-> +		if (hantro_av1_get_frame_index(ctx, i) >= 0) {
-> +			int rel_off =
-> +			    hantro_av1_get_dist(ctx,
-> +						hantro_av1_get_order_hint(ctx, i),
-> +						frame->order_hint);
-> +			av1_dec->ref_frame_sign_bias[i + 1] = (rel_off <= 0) ? 0 : 1;
-> +		}
-> +	}
-> +}
-> +
-> +void hantro_av1_init_scaling_function(const u8 *values, const u8 *scaling,
-> +				      u8 num_points, u8 *scaling_lut)
-> +{
-> +	int i, point;
-> +
-> +	if (num_points == 0) {
-> +		memset(scaling_lut, 0, 256);
-> +		return;
-> +	}
-> +
-> +	for (point = 0; point < num_points - 1; point++) {
-> +		int x;
-> +		s32 delta_y = scaling[point + 1] - scaling[point];
-> +		s32 delta_x = values[point + 1] - values[point];
-> +		s64 delta =
-> +		    delta_x ? delta_y * ((65536 + (delta_x >> 1)) /
-> +					 delta_x) : 0;
-> +
-> +		for (x = 0; x < delta_x; x++) {
-> +			scaling_lut[values[point] + x] =
-> +			    scaling[point] +
-> +			    (s32)((x * delta + 32768) >> 16);
-> +		}
-> +	}
-> +
-> +	for (i = values[num_points - 1]; i < 256; i++)
-> +		scaling_lut[i] = scaling[num_points - 1];
-> +}
-> +
-> +void hantro_av1_set_tile_info(struct hantro_ctx *ctx)
-> +{
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> +	const struct v4l2_av1_tile_info *tile_info = &ctrls->frame->tile_info;
-> +	const struct v4l2_ctrl_av1_tile_group_entry *group_entry =
-> +	    ctrls->tile_group_entry;
-> +	u8 *dst = av1_dec->tile_info.cpu;
-> +	u8 *dst_end = dst + av1_dec->tile_info.size;
-> +	int tile0, tile1;
-> +
-> +	memset(dst, 0, av1_dec->tile_info.size);
-> +
-> +	for (tile0 = 0; tile0 < tile_info->tile_cols; tile0++) {
-> +		for (tile1 = 0; tile1 < tile_info->tile_rows; tile1++) {
-> +			int tile_id = tile1 * tile_info->tile_cols + tile0;
-> +			u32 start, end;
-> +			u32 y0 =
-> +			    tile_info->height_in_sbs_minus_1[tile1] + 1;
-> +			u32 x0 = tile_info->width_in_sbs_minus_1[tile0] + 1;
-> +
-> +			/* Stop once the tile_info descriptor buffer is full. */
-> +			if (dst + 16 > dst_end)
-> +				break;
-> +
-> +			/* tile size in SB units (width,height) */
-> +			*dst++ = x0;
-> +			*dst++ = 0;
-> +			*dst++ = 0;
-> +			*dst++ = 0;
-> +			*dst++ = y0;
-> +			*dst++ = 0;
-> +			*dst++ = 0;
-> +			*dst++ = 0;
-> +
-> +			/* tile start position */
-> +			start = group_entry[tile_id].tile_offset - group_entry[0].tile_offset;
-> +			*dst++ = start & 255;
-> +			*dst++ = (start >> 8) & 255;
-> +			*dst++ = (start >> 16) & 255;
-> +			*dst++ = (start >> 24) & 255;
-> +
-> +			/* number of bytes in tile data */
-> +			end = start + group_entry[tile_id].tile_size;
-> +			*dst++ = end & 255;
-> +			*dst++ = (end >> 8) & 255;
-> +			*dst++ = (end >> 16) & 255;
-> +			*dst++ = (end >> 24) & 255;
-> +		}
-> +		if (dst + 16 > dst_end)
-> +			break;
-> +	}
-> +}
-> +
-> +bool hantro_av1_is_lossless(struct hantro_ctx *ctx)
-> +{
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> +	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
-> +	const struct v4l2_av1_segmentation *segmentation = &frame->segmentation;
-> +	const struct v4l2_av1_quantization *quantization = &frame->quantization;
-> +	int i;
-> +
-> +	for (i = 0; i < V4L2_AV1_MAX_SEGMENTS; i++) {
-> +		int qindex = quantization->base_q_idx;
-> +
-> +		if (segmentation->feature_enabled[i] &
-> +		    V4L2_AV1_SEGMENT_FEATURE_ENABLED(V4L2_AV1_SEG_LVL_ALT_Q)) {
-> +			qindex += segmentation->feature_data[i][V4L2_AV1_SEG_LVL_ALT_Q];
-> +		}
-> +		qindex = clamp(qindex, 0, 255);
-> +
-> +		if (qindex ||
-> +		    quantization->delta_q_y_dc ||
-> +		    quantization->delta_q_u_dc ||
-> +		    quantization->delta_q_u_ac ||
-> +		    quantization->delta_q_v_dc ||
-> +		    quantization->delta_q_v_ac)
-> +			return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +
-> +void hantro_av1_update_prob(struct hantro_ctx *ctx)
-> +{
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> +	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
-> +	bool frame_is_intra = IS_INTRA(frame->frame_type);
-> +	struct av1cdfs *out_cdfs = (struct av1cdfs *)av1_dec->prob_tbl_out.cpu;
-> +	int i;
-> +
-> +	if (frame->flags & V4L2_AV1_FRAME_FLAG_DISABLE_FRAME_END_UPDATE_CDF)
-> +		return;
-> +
-> +	for (i = 0; i < NUM_REF_FRAMES; i++) {
-> +		if (frame->refresh_frame_flags & BIT(i)) {
-> +			struct mvcdfs stored_mv_cdf;
-> +
-> +			hantro_av1_get_cdfs(ctx, i);
-> +			stored_mv_cdf = av1_dec->cdfs->mv_cdf;
-> +			*av1_dec->cdfs = *out_cdfs;
-> +			if (frame_is_intra) {
-> +				av1_dec->cdfs->mv_cdf = stored_mv_cdf;
-> +				*av1_dec->cdfs_ndvc = out_cdfs->mv_cdf;
-> +			}
-> +			hantro_av1_store_cdfs(ctx, frame->refresh_frame_flags);
-> +			break;
-> +		}
-> +	}
-> +}
-> +
-> +void hantro_av1_set_prob(struct hantro_ctx *ctx)
-> +{
-> +	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> +	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> +	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
-> +	const struct v4l2_av1_quantization *quantization = &frame->quantization;
-> +	bool error_resilient_mode =
-> +	    !!(frame->flags & V4L2_AV1_FRAME_FLAG_ERROR_RESILIENT_MODE);
-> +	bool frame_is_intra = IS_INTRA(frame->frame_type);
-> +
-> +	if (error_resilient_mode || frame_is_intra ||
-> +	    frame->primary_ref_frame == AV1_PRIMARY_REF_NONE) {
-> +		av1_dec->cdfs = &av1_dec->default_cdfs;
-> +		av1_dec->cdfs_ndvc = &av1_dec->default_cdfs_ndvc;
-> +		hantro_av1_default_coeff_probs(quantization->base_q_idx,
-> +					       av1_dec->cdfs);
-> +	} else {
-> +		if (frame->primary_ref_frame < 0 ||
-> +		    frame->primary_ref_frame >= V4L2_AV1_REFS_PER_FRAME)
-> +			return;
-> +
-> +		hantro_av1_get_cdfs(ctx, frame->ref_frame_idx[frame->primary_ref_frame]);
-> +	}
-> +	hantro_av1_store_cdfs(ctx, frame->refresh_frame_flags);
-> +
-> +	memcpy(av1_dec->prob_tbl.cpu, av1_dec->cdfs, sizeof(struct av1cdfs));
-> +
-> +	if (frame_is_intra) {
-> +		int mv_offset = offsetof(struct av1cdfs, mv_cdf);
-> +		/* Overwrite MV context area with intrabc MV context */
-> +		memcpy(av1_dec->prob_tbl.cpu + mv_offset, av1_dec->cdfs_ndvc,
-> +		       sizeof(struct mvcdfs));
-> +	}
-> +}
-> diff --git a/drivers/media/platform/verisilicon/hantro_av1.h b/drivers/media/platform/verisilicon/hantro_av1.h
-> new file mode 100644
-> index 000000000000..d91c814eefcb
-> --- /dev/null
-> +++ b/drivers/media/platform/verisilicon/hantro_av1.h
-> @@ -0,0 +1,64 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#ifndef _HANTRO_AV1_H_
-> +#define _HANTRO_AV1_H_
-> +
-> +#define AV1_PRIMARY_REF_NONE	7
-> +#define AV1_REF_SCALE_SHIFT	14
-> +#define MAX_FRAME_DISTANCE	31
-> +#define AV1DEC_MAX_PIC_BUFFERS	24
-> +
-> +#define SCALE_NUMERATOR 8
-> +#define SUPERRES_SCALE_DENOMINATOR_MIN (SCALE_NUMERATOR + 1)
-> +
-> +#define RS_SCALE_SUBPEL_BITS 14
-> +#define RS_SCALE_SUBPEL_MASK ((1 << RS_SCALE_SUBPEL_BITS) - 1)
-> +#define RS_SUBPEL_BITS 6
-> +#define RS_SUBPEL_MASK ((1 << RS_SUBPEL_BITS) - 1)
-> +#define RS_SCALE_EXTRA_BITS (RS_SCALE_SUBPEL_BITS - RS_SUBPEL_BITS)
-> +#define RS_SCALE_EXTRA_OFF (1 << (RS_SCALE_EXTRA_BITS - 1))
-> +
-> +/*
-> + * These 3 values aren't defined enum v4l2_av1_segment_feature because
-> + * they are not part of the specification
-> + */
-> +#define V4L2_AV1_SEG_LVL_ALT_LF_Y_H	2
-> +#define V4L2_AV1_SEG_LVL_ALT_LF_U	3
-> +#define V4L2_AV1_SEG_LVL_ALT_LF_V	4
-> +
-> +#define IS_INTRA(type) ((type == V4L2_AV1_KEY_FRAME) || (type == V4L2_AV1_INTRA_ONLY_FRAME))
-> +
-> +#define LST_BUF_IDX (V4L2_AV1_REF_LAST_FRAME - V4L2_AV1_REF_LAST_FRAME)
-> +#define LST2_BUF_IDX (V4L2_AV1_REF_LAST2_FRAME - V4L2_AV1_REF_LAST_FRAME)
-> +#define LST3_BUF_IDX (V4L2_AV1_REF_LAST3_FRAME - V4L2_AV1_REF_LAST_FRAME)
-> +#define GLD_BUF_IDX (V4L2_AV1_REF_GOLDEN_FRAME - V4L2_AV1_REF_LAST_FRAME)
-> +#define BWD_BUF_IDX (V4L2_AV1_REF_BWDREF_FRAME - V4L2_AV1_REF_LAST_FRAME)
-> +#define ALT2_BUF_IDX (V4L2_AV1_REF_ALTREF2_FRAME - V4L2_AV1_REF_LAST_FRAME)
-> +#define ALT_BUF_IDX (V4L2_AV1_REF_ALTREF_FRAME - V4L2_AV1_REF_LAST_FRAME)
-> +
-> +#define AV1_INVALID_IDX		-1
-> +
-> +int hantro_av1_get_frame_index(struct hantro_ctx *ctx, int ref);
-> +int hantro_av1_get_order_hint(struct hantro_ctx *ctx, int ref);
-> +int hantro_av1_frame_ref(struct hantro_ctx *ctx, u64 timestamp);
-> +void hantro_av1_clean_refs(struct hantro_ctx *ctx);
-> +size_t hantro_av1_luma_size(struct hantro_ctx *ctx);
-> +size_t hantro_av1_chroma_size(struct hantro_ctx *ctx);
-> +void hantro_av1_exit(struct hantro_ctx *ctx);
-> +int hantro_av1_init(struct hantro_ctx *ctx);
-> +int hantro_av1_prepare_run(struct hantro_ctx *ctx);
-> +void hantro_av1_set_global_model(struct hantro_ctx *ctx);
-> +int hantro_av1_tile_log2(int target);
-> +int hantro_av1_get_dist(struct hantro_ctx *ctx, int a, int b);
-> +void hantro_av1_set_frame_sign_bias(struct hantro_ctx *ctx);
-> +void hantro_av1_init_scaling_function(const u8 *values, const u8 *scaling,
-> +				      u8 num_points, u8 *scaling_lut);
-> +void hantro_av1_set_tile_info(struct hantro_ctx *ctx);
-> +bool hantro_av1_is_lossless(struct hantro_ctx *ctx);
-> +void hantro_av1_update_prob(struct hantro_ctx *ctx);
-> +void hantro_av1_set_prob(struct hantro_ctx *ctx);
-> +
-> +int hantro_av1_get_hardware_mcomp_filt_type(int interpolation_filter);
-> +int hantro_av1_get_hardware_tx_mode(enum v4l2_av1_tx_mode tx_mode);
-> +
-> +#endif
-> diff --git a/drivers/media/platform/verisilicon/rockchip_av1_entropymode.c b/drivers/media/platform/verisilicon/hantro_av1_entropymode.c
-> similarity index 99%
-> rename from drivers/media/platform/verisilicon/rockchip_av1_entropymode.c
-> rename to drivers/media/platform/verisilicon/hantro_av1_entropymode.c
-> index b1ae72ad675e..4f7bfec73668 100644
-> --- a/drivers/media/platform/verisilicon/rockchip_av1_entropymode.c
-> +++ b/drivers/media/platform/verisilicon/hantro_av1_entropymode.c
-> @@ -11,7 +11,7 @@
->    */
->   
->   #include "hantro.h"
-> -#include "rockchip_av1_entropymode.h"
-> +#include "hantro_av1_entropymode.h"
->   
->   #define AOM_ICDF ICDF
->   #define AOM_CDF2(a0) AOM_ICDF(a0)
-> @@ -4195,7 +4195,7 @@ static const u16 default_bits_cdf[][10] = {
->   	}
->   };
->   
-> -static int rockchip_av1_get_q_ctx(int q)
-> +static int hantro_av1_get_q_ctx(int q)
->   {
->   	if (q <= 20)
->   		return 0;
-> @@ -4206,10 +4206,10 @@ static int rockchip_av1_get_q_ctx(int q)
->   	return 3;
->   }
->   
-> -void rockchip_av1_default_coeff_probs(u32 base_qindex, void *ptr)
-> +void hantro_av1_default_coeff_probs(u32 base_qindex, void *ptr)
->   {
->   	struct av1cdfs *cdfs = (struct av1cdfs *)ptr;
-> -	const int index = rockchip_av1_get_q_ctx(base_qindex);
-> +	const int index = hantro_av1_get_q_ctx(base_qindex);
->   
->   	memcpy(cdfs->txb_skip_cdf, av1_default_txb_skip_cdfs[index],
->   	       sizeof(av1_default_txb_skip_cdfs[0]));
-> @@ -4240,8 +4240,8 @@ void rockchip_av1_default_coeff_probs(u32 base_qindex, void *ptr)
->   	       sizeof(av1_default_eob_multi1024_cdfs[0]));
->   }
->   
-> -void rockchip_av1_set_default_cdfs(struct av1cdfs *cdfs,
-> -				   struct mvcdfs *cdfs_ndvc)
-> +void hantro_av1_set_default_cdfs(struct av1cdfs *cdfs,
-> +				 struct mvcdfs *cdfs_ndvc)
->   {
->   	memcpy(cdfs->partition_cdf, default_partition_cdf,
->   	       sizeof(cdfs->partition_cdf));
-> @@ -4398,7 +4398,7 @@ void rockchip_av1_set_default_cdfs(struct av1cdfs *cdfs,
->   	       sizeof(cdfs->compound_idx_cdf));
->   }
->   
-> -void rockchip_av1_get_cdfs(struct hantro_ctx *ctx, u32 ref_idx)
-> +void hantro_av1_get_cdfs(struct hantro_ctx *ctx, u32 ref_idx)
->   {
->   	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
->   
-> @@ -4406,8 +4406,8 @@ void rockchip_av1_get_cdfs(struct hantro_ctx *ctx, u32 ref_idx)
->   	av1_dec->cdfs_ndvc = &av1_dec->cdfs_last_ndvc[ref_idx];
->   }
->   
-> -void rockchip_av1_store_cdfs(struct hantro_ctx *ctx,
-> -			     u32 refresh_frame_flags)
-> +void hantro_av1_store_cdfs(struct hantro_ctx *ctx,
-> +			   u32 refresh_frame_flags)
->   {
->   	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
->   	int i;
-> diff --git a/drivers/media/platform/verisilicon/rockchip_av1_entropymode.h b/drivers/media/platform/verisilicon/hantro_av1_entropymode.h
-> similarity index 95%
-> rename from drivers/media/platform/verisilicon/rockchip_av1_entropymode.h
-> rename to drivers/media/platform/verisilicon/hantro_av1_entropymode.h
-> index bbf8424c7d2c..abbc660ecce3 100644
-> --- a/drivers/media/platform/verisilicon/rockchip_av1_entropymode.h
-> +++ b/drivers/media/platform/verisilicon/hantro_av1_entropymode.h
-> @@ -1,7 +1,7 @@
->   /* SPDX-License-Identifier: GPL-2.0-only */
->   
-> -#ifndef _ROCKCHIP_AV1_ENTROPYMODE_H_
-> -#define _ROCKCHIP_AV1_ENTROPYMODE_H_
-> +#ifndef _HANTRO_AV1_ENTROPYMODE_H_
-> +#define _HANTRO_AV1_ENTROPYMODE_H_
->   
->   #include <linux/types.h>
->   
-> @@ -262,11 +262,11 @@ struct av1cdfs {
->   	u16 dummy3[16];
->   };
->   
-> -void rockchip_av1_store_cdfs(struct hantro_ctx *ctx,
-> -			     u32 refresh_frame_flags);
-> -void rockchip_av1_get_cdfs(struct hantro_ctx *ctx, u32 ref_idx);
-> -void rockchip_av1_set_default_cdfs(struct av1cdfs *cdfs,
-> -				   struct mvcdfs *cdfs_ndvc);
-> -void rockchip_av1_default_coeff_probs(u32 base_qindex, void *ptr);
-> +void hantro_av1_store_cdfs(struct hantro_ctx *ctx,
-> +			   u32 refresh_frame_flags);
-> +void hantro_av1_get_cdfs(struct hantro_ctx *ctx, u32 ref_idx);
-> +void hantro_av1_set_default_cdfs(struct av1cdfs *cdfs,
-> +				 struct mvcdfs *cdfs_ndvc);
-> +void hantro_av1_default_coeff_probs(u32 base_qindex, void *ptr);
->   
-> -#endif /* _ROCKCHIP_AV1_ENTROPYMODE_H_ */
-> +#endif /* _HANTRO_AV1_ENTROPYMODE_H_ */
-> diff --git a/drivers/media/platform/verisilicon/rockchip_av1_filmgrain.c b/drivers/media/platform/verisilicon/hantro_av1_filmgrain.c
-> similarity index 85%
-> rename from drivers/media/platform/verisilicon/rockchip_av1_filmgrain.c
-> rename to drivers/media/platform/verisilicon/hantro_av1_filmgrain.c
-> index f64dea797eff..a1fc40e0218a 100644
-> --- a/drivers/media/platform/verisilicon/rockchip_av1_filmgrain.c
-> +++ b/drivers/media/platform/verisilicon/hantro_av1_filmgrain.c
-> @@ -1,6 +1,6 @@
->   // SPDX-License-Identifier: GPL-2.0-only OR Apache-2.0
->   
-> -#include "rockchip_av1_filmgrain.h"
-> +#include "hantro_av1_filmgrain.h"
->   
->   static const s32 gaussian_sequence[2048] = {
->   	56, 568, -180, 172, 124, -84, 172, -64, -900, 24, 820,
-> @@ -204,8 +204,8 @@ static inline s32 round_power_of_two(const s32 val, s32 n)
->   	return (val + a) >> n;
->   }
->   
-> -static void rockchip_av1_init_random_generator(u8 luma_num, u16 seed,
-> -					       u16 *random_register)
-> +static void hantro_av1_init_random_generator(u8 luma_num, u16 seed,
-> +					     u16 *random_register)
->   {
->   	u16 random_reg = seed;
->   
-> @@ -214,7 +214,7 @@ static void rockchip_av1_init_random_generator(u8 luma_num, u16 seed,
->   	*random_register = random_reg;
->   }
->   
-> -static inline void rockchip_av1_update_random_register(u16 *random_register)
-> +static inline void hantro_av1_update_random_register(u16 *random_register)
->   {
->   	u16 bit;
->   	u16 random_reg = *random_register;
-> @@ -224,21 +224,20 @@ static inline void rockchip_av1_update_random_register(u16 *random_register)
->   	*random_register = (random_reg >> 1) | (bit << 15);
->   }
->   
-> -static inline s32 rockchip_av1_get_random_number(u16 random_register)
-> +static inline s32 hantro_av1_get_random_number(u16 random_register)
->   {
->   	return (random_register >> 5) & ((1 << 11) - 1);
->   }
->   
-> -void rockchip_av1_generate_luma_grain_block(s32 (*luma_grain_block)[73][82],
-> -					    s32 bitdepth,
-> -					    u8 num_y_points,
-> -					    s32 grain_scale_shift,
-> -					    s32 ar_coeff_lag,
-> -					    s32 (*ar_coeffs_y)[24],
-> -					    s32 ar_coeff_shift,
-> -					    s32 grain_min,
-> -					    s32 grain_max,
-> -					    u16 random_seed)
-> +void hantro_av1_generate_luma_grain_block(struct hantro_av1_coeffs_grain_block *coeffs,
-> +					  s32 bitdepth,
-> +					  u8 num_y_points,
-> +					  s32 grain_scale_shift,
-> +					  s32 ar_coeff_lag,
-> +					  s32 ar_coeff_shift,
-> +					  s32 grain_min,
-> +					  s32 grain_max,
-> +					  u16 random_seed)
->   {
->   	s32 gauss_sec_shift = 12 - bitdepth + grain_scale_shift;
->   	u16 grain_random_register = random_seed;
-> @@ -247,15 +246,15 @@ void rockchip_av1_generate_luma_grain_block(s32 (*luma_grain_block)[73][82],
->   	for (i = 0; i < 73; i++) {
->   		for (j = 0; j < 82; j++) {
->   			if (num_y_points > 0) {
-> -				rockchip_av1_update_random_register
-> +				hantro_av1_update_random_register
->   				    (&grain_random_register);
-> -				(*luma_grain_block)[i][j] =
-> +				coeffs->luma_grain_block[i][j] =
->   				    round_power_of_two(gaussian_sequence
-> -					     [rockchip_av1_get_random_number
-> +					     [hantro_av1_get_random_number
->   					      (grain_random_register)],
->   					     gauss_sec_shift);
->   			} else {
-> -				(*luma_grain_block)[i][j] = 0;
-> +				coeffs->luma_grain_block[i][j] = 0;
->   			}
->   		}
->   	}
-> @@ -272,72 +271,68 @@ void rockchip_av1_generate_luma_grain_block(s32 (*luma_grain_block)[73][82],
->   				     deltacol <= ar_coeff_lag; deltacol++) {
->   					if (deltarow == 0 && deltacol == 0)
->   						break;
-> -					wsum = wsum + (*ar_coeffs_y)[pos] *
-> -					    (*luma_grain_block)[i + deltarow][j + deltacol];
-> +					wsum = wsum + coeffs->ar_coeffs_y[pos] *
-> +					    coeffs->luma_grain_block[i + deltarow][j + deltacol];
->   					++pos;
->   				}
->   			}
-> -			(*luma_grain_block)[i][j] =
-> -				clamp((*luma_grain_block)[i][j] +
-> +			coeffs->luma_grain_block[i][j] =
-> +				clamp(coeffs->luma_grain_block[i][j] +
->   				      round_power_of_two(wsum, ar_coeff_shift),
->   				      grain_min, grain_max);
->   		}
->   }
->   
->   // Calculate chroma grain noise once per frame
-> -void rockchip_av1_generate_chroma_grain_block(s32 (*luma_grain_block)[73][82],
-> -					      s32 (*cb_grain_block)[38][44],
-> -					      s32 (*cr_grain_block)[38][44],
-> -					      s32 bitdepth,
-> -					      u8 num_y_points,
-> -					      u8 num_cb_points,
-> -					      u8 num_cr_points,
-> -					      s32 grain_scale_shift,
-> -					      s32 ar_coeff_lag,
-> -					      s32 (*ar_coeffs_cb)[25],
-> -					      s32 (*ar_coeffs_cr)[25],
-> -					      s32 ar_coeff_shift,
-> -					      s32 grain_min,
-> -					      s32 grain_max,
-> -					      u8 chroma_scaling_from_luma,
-> -					      u16 random_seed)
-> +void hantro_av1_generate_chroma_grain_block(struct hantro_av1_coeffs_grain_block *coeffs,
-> +					    s32 bitdepth,
-> +					    u8 num_y_points,
-> +					    u8 num_cb_points,
-> +					    u8 num_cr_points,
-> +					    s32 grain_scale_shift,
-> +					    s32 ar_coeff_lag,
-> +					    s32 ar_coeff_shift,
-> +					    s32 grain_min,
-> +					    s32 grain_max,
-> +					    u8 chroma_scaling_from_luma,
-> +					    u16 random_seed)
->   {
->   	s32 gauss_sec_shift = 12 - bitdepth + grain_scale_shift;
->   	u16 grain_random_register = 0;
->   	s32 i, j;
->   
-> -	rockchip_av1_init_random_generator(7, random_seed,
-> -					   &grain_random_register);
-> +	hantro_av1_init_random_generator(7, random_seed,
-> +					 &grain_random_register);
->   	for (i = 0; i < 38; i++) {
->   		for (j = 0; j < 44; j++) {
->   			if (num_cb_points || chroma_scaling_from_luma) {
-> -				rockchip_av1_update_random_register
-> +				hantro_av1_update_random_register
->   				    (&grain_random_register);
-> -				(*cb_grain_block)[i][j] =
-> +				coeffs->cb_grain_block[i][j] =
->   				    round_power_of_two(gaussian_sequence
-> -					     [rockchip_av1_get_random_number
-> +					     [hantro_av1_get_random_number
->   					      (grain_random_register)],
->   					     gauss_sec_shift);
->   			} else {
-> -				(*cb_grain_block)[i][j] = 0;
-> +				coeffs->cb_grain_block[i][j] = 0;
->   			}
->   		}
->   	}
->   
-> -	rockchip_av1_init_random_generator(11, random_seed,
-> -					   &grain_random_register);
-> +	hantro_av1_init_random_generator(11, random_seed,
-> +					 &grain_random_register);
->   	for (i = 0; i < 38; i++) {
->   		for (j = 0; j < 44; j++) {
->   			if (num_cr_points || chroma_scaling_from_luma) {
-> -				rockchip_av1_update_random_register
-> +				hantro_av1_update_random_register
->   				    (&grain_random_register);
-> -				(*cr_grain_block)[i][j] =
-> +				coeffs->cr_grain_block[i][j] =
->   				    round_power_of_two(gaussian_sequence
-> -					     [rockchip_av1_get_random_number
-> +					     [hantro_av1_get_random_number
->   					      (grain_random_register)],
->   					     gauss_sec_shift);
->   			} else {
-> -				(*cr_grain_block)[i][j] = 0;
-> +				coeffs->cr_grain_block[i][j] = 0;
->   			}
->   		}
->   	}
-> @@ -355,12 +350,12 @@ void rockchip_av1_generate_chroma_grain_block(s32 (*luma_grain_block)[73][82],
->   				     deltacol <= ar_coeff_lag; deltacol++) {
->   					if (deltarow == 0 && deltacol == 0)
->   						break;
-> -					wsum_cb = wsum_cb + (*ar_coeffs_cb)[pos] *
-> -					    (*cb_grain_block)[i + deltarow][j + deltacol];
-> +					wsum_cb = wsum_cb + coeffs->ar_coeffs_cb[pos] *
-> +					    coeffs->cb_grain_block[i + deltarow][j + deltacol];
->   					wsum_cr =
->   					    wsum_cr +
-> -					    (*ar_coeffs_cr)[pos] *
-> -					    (*cr_grain_block)[i + deltarow][j + deltacol];
-> +					    coeffs->ar_coeffs_cr[pos] *
-> +					    coeffs->cr_grain_block[i + deltarow][j + deltacol];
->   					++pos;
->   				}
->   			}
-> @@ -371,28 +366,28 @@ void rockchip_av1_generate_chroma_grain_block(s32 (*luma_grain_block)[73][82],
->   				s32 luma_coord_x = (j << 1) - 3;
->   
->   				av_luma +=
-> -				    (*luma_grain_block)[luma_coord_y][luma_coord_x];
-> +				    coeffs->luma_grain_block[luma_coord_y][luma_coord_x];
->   				av_luma +=
-> -				    (*luma_grain_block)[luma_coord_y][luma_coord_x + 1];
-> +				    coeffs->luma_grain_block[luma_coord_y][luma_coord_x + 1];
->   				av_luma +=
-> -				    (*luma_grain_block)[luma_coord_y + 1][luma_coord_x];
-> +				    coeffs->luma_grain_block[luma_coord_y + 1][luma_coord_x];
->   				av_luma +=
-> -				    (*luma_grain_block)[(luma_coord_y + 1)][luma_coord_x + 1];
-> +				    coeffs->luma_grain_block[(luma_coord_y + 1)][luma_coord_x + 1];
->   				av_luma = round_power_of_two(av_luma, 2);
->   
-> -				wsum_cb = wsum_cb + (*ar_coeffs_cb)[pos] * av_luma;
-> -				wsum_cr = wsum_cr + (*ar_coeffs_cr)[pos] * av_luma;
-> +				wsum_cb = wsum_cb + coeffs->ar_coeffs_cb[pos] * av_luma;
-> +				wsum_cr = wsum_cr + coeffs->ar_coeffs_cr[pos] * av_luma;
->   			}
->   
->   			if (num_cb_points || chroma_scaling_from_luma) {
-> -				(*cb_grain_block)[i][j] =
-> -				    clamp((*cb_grain_block)[i][j] +
-> +				coeffs->cb_grain_block[i][j] =
-> +				    clamp(coeffs->cb_grain_block[i][j] +
->   					  round_power_of_two(wsum_cb, ar_coeff_shift),
->   					  grain_min, grain_max);
->   			}
->   			if (num_cr_points || chroma_scaling_from_luma) {
-> -				(*cr_grain_block)[i][j] =
-> -				    clamp((*cr_grain_block)[i][j] +
-> +				coeffs->cr_grain_block[i][j] =
-> +				    clamp(coeffs->cr_grain_block[i][j] +
->   					  round_power_of_two(wsum_cr, ar_coeff_shift),
->   					  grain_min, grain_max);
->   			}
-> diff --git a/drivers/media/platform/verisilicon/hantro_av1_filmgrain.h b/drivers/media/platform/verisilicon/hantro_av1_filmgrain.h
-> new file mode 100644
-> index 000000000000..d80be7c011a0
-> --- /dev/null
-> +++ b/drivers/media/platform/verisilicon/hantro_av1_filmgrain.h
-> @@ -0,0 +1,48 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#ifndef _HANTRO_AV1_FILMGRAIN_H_
-> +#define _HANTRO_AV1_FILMGRAIN_H_
-> +
-> +#include <linux/types.h>
-> +
-> +struct hantro_av1_film_grain {
-> +	u8 scaling_lut_y[256];
-> +	u8 scaling_lut_cb[256];
-> +	u8 scaling_lut_cr[256];
-> +	s16 cropped_luma_grain_block[4096];
-> +	s16 cropped_chroma_grain_block[1024 * 2];
-> +};
-> +
-> +struct hantro_av1_coeffs_grain_block {
-> +	s32 ar_coeffs_y[24];
-> +	s32 ar_coeffs_cb[25];
-> +	s32 ar_coeffs_cr[25];
-> +	s32 luma_grain_block[73][82];
-> +	s32 cb_grain_block[38][44];
-> +	s32 cr_grain_block[38][44];
-> +};
-> +
-> +void hantro_av1_generate_luma_grain_block(struct hantro_av1_coeffs_grain_block *coeffs,
-> +					  s32 bitdepth,
-> +					  u8 num_y_points,
-> +					  s32 grain_scale_shift,
-> +					  s32 ar_coeff_lag,
-> +					  s32 ar_coeff_shift,
-> +					  s32 grain_min,
-> +					  s32 grain_max,
-> +					  u16 random_seed);
-> +
-> +void hantro_av1_generate_chroma_grain_block(struct hantro_av1_coeffs_grain_block *coeffs,
-> +					    s32 bitdepth,
-> +					    u8 num_y_points,
-> +					    u8 num_cb_points,
-> +					    u8 num_cr_points,
-> +					    s32 grain_scale_shift,
-> +					    s32 ar_coeff_lag,
-> +					    s32 ar_coeff_shift,
-> +					    s32 grain_min,
-> +					    s32 grain_max,
-> +					    u8 chroma_scaling_from_luma,
-> +					    u16 random_seed);
-> +
-> +#endif
-> diff --git a/drivers/media/platform/verisilicon/hantro_hw.h b/drivers/media/platform/verisilicon/hantro_hw.h
-> index 13e573f1f19d..f1fd98abeb2d 100644
-> --- a/drivers/media/platform/verisilicon/hantro_hw.h
-> +++ b/drivers/media/platform/verisilicon/hantro_hw.h
-> @@ -15,8 +15,8 @@
->   #include <media/v4l2-vp9.h>
->   #include <media/videobuf2-core.h>
->   
-> -#include "rockchip_av1_entropymode.h"
-> -#include "rockchip_av1_filmgrain.h"
-> +#include "hantro_av1_entropymode.h"
-> +#include "hantro_av1_filmgrain.h"
->   
->   #define DEC_8190_ALIGN_MASK	0x07U
->   
-> @@ -458,10 +458,7 @@ void hantro_hevc_ref_init(struct hantro_ctx *ctx);
->   dma_addr_t hantro_hevc_get_ref_buf(struct hantro_ctx *ctx, s32 poc);
->   int hantro_hevc_add_ref_buf(struct hantro_ctx *ctx, int poc, dma_addr_t addr);
->   
-> -int rockchip_vpu981_av1_dec_init(struct hantro_ctx *ctx);
-> -void rockchip_vpu981_av1_dec_exit(struct hantro_ctx *ctx);
->   int rockchip_vpu981_av1_dec_run(struct hantro_ctx *ctx);
-> -void rockchip_vpu981_av1_dec_done(struct hantro_ctx *ctx);
->   
->   static inline unsigned short hantro_vp9_num_sbs(unsigned short dimension)
->   {
-> diff --git a/drivers/media/platform/verisilicon/rockchip_av1_filmgrain.h b/drivers/media/platform/verisilicon/rockchip_av1_filmgrain.h
-> deleted file mode 100644
-> index 31a8b7920c31..000000000000
-> --- a/drivers/media/platform/verisilicon/rockchip_av1_filmgrain.h
-> +++ /dev/null
-> @@ -1,36 +0,0 @@
-> -/* SPDX-License-Identifier: GPL-2.0-only */
-> -
-> -#ifndef _ROCKCHIP_AV1_FILMGRAIN_H_
-> -#define _ROCKCHIP_AV1_FILMGRAIN_H_
-> -
-> -#include <linux/types.h>
-> -
-> -void rockchip_av1_generate_luma_grain_block(s32 (*luma_grain_block)[73][82],
-> -					    s32 bitdepth,
-> -					    u8 num_y_points,
-> -					    s32 grain_scale_shift,
-> -					    s32 ar_coeff_lag,
-> -					    s32 (*ar_coeffs_y)[24],
-> -					    s32 ar_coeff_shift,
-> -					    s32 grain_min,
-> -					    s32 grain_max,
-> -					    u16 random_seed);
-> -
-> -void rockchip_av1_generate_chroma_grain_block(s32 (*luma_grain_block)[73][82],
-> -					      s32 (*cb_grain_block)[38][44],
-> -					      s32 (*cr_grain_block)[38][44],
-> -					      s32 bitdepth,
-> -					      u8 num_y_points,
-> -					      u8 num_cb_points,
-> -					      u8 num_cr_points,
-> -					      s32 grain_scale_shift,
-> -					      s32 ar_coeff_lag,
-> -					      s32 (*ar_coeffs_cb)[25],
-> -					      s32 (*ar_coeffs_cr)[25],
-> -					      s32 ar_coeff_shift,
-> -					      s32 grain_min,
-> -					      s32 grain_max,
-> -					      u8 chroma_scaling_from_luma,
-> -					      u16 random_seed);
-> -
-> -#endif
-> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-> index 00aa566a4ccd..41833b1b09fd 100644
-> --- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-> +++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-> @@ -7,603 +7,30 @@
->   
->   #include <media/v4l2-mem2mem.h>
->   #include "hantro.h"
-> +#include "hantro_av1.h"
->   #include "hantro_v4l2.h"
->   #include "rockchip_vpu981_regs.h"
->   
->   #define AV1_DEC_MODE		17
-> -#define GM_GLOBAL_MODELS_PER_FRAME	7
-> -#define GLOBAL_MODEL_TOTAL_SIZE	(6 * 4 + 4 * 2)
-> -#define GLOBAL_MODEL_SIZE	ALIGN(GM_GLOBAL_MODELS_PER_FRAME * GLOBAL_MODEL_TOTAL_SIZE, 2048)
-> -#define AV1_MAX_TILES		128
-> -#define AV1_TILE_INFO_SIZE	(AV1_MAX_TILES * 16)
-> -#define AV1DEC_MAX_PIC_BUFFERS	24
-> -#define AV1_REF_SCALE_SHIFT	14
-> -#define AV1_INVALID_IDX		-1
-> -#define MAX_FRAME_DISTANCE	31
-> -#define AV1_PRIMARY_REF_NONE	7
-> -#define AV1_TILE_SIZE		ALIGN(32 * 128, 4096)
-> -/*
-> - * These 3 values aren't defined enum v4l2_av1_segment_feature because
-> - * they are not part of the specification
-> - */
-> -#define V4L2_AV1_SEG_LVL_ALT_LF_Y_H	2
-> -#define V4L2_AV1_SEG_LVL_ALT_LF_U	3
-> -#define V4L2_AV1_SEG_LVL_ALT_LF_V	4
-> -
-> -#define SUPERRES_SCALE_BITS 3
-> -#define SCALE_NUMERATOR 8
-> -#define SUPERRES_SCALE_DENOMINATOR_MIN (SCALE_NUMERATOR + 1)
-> -
-> -#define RS_SUBPEL_BITS 6
-> -#define RS_SUBPEL_MASK ((1 << RS_SUBPEL_BITS) - 1)
-> -#define RS_SCALE_SUBPEL_BITS 14
-> -#define RS_SCALE_SUBPEL_MASK ((1 << RS_SCALE_SUBPEL_BITS) - 1)
-> -#define RS_SCALE_EXTRA_BITS (RS_SCALE_SUBPEL_BITS - RS_SUBPEL_BITS)
-> -#define RS_SCALE_EXTRA_OFF (1 << (RS_SCALE_EXTRA_BITS - 1))
-> -
-> -#define IS_INTRA(type) ((type == V4L2_AV1_KEY_FRAME) || (type == V4L2_AV1_INTRA_ONLY_FRAME))
-> -
-> -#define LST_BUF_IDX (V4L2_AV1_REF_LAST_FRAME - V4L2_AV1_REF_LAST_FRAME)
-> -#define LST2_BUF_IDX (V4L2_AV1_REF_LAST2_FRAME - V4L2_AV1_REF_LAST_FRAME)
-> -#define LST3_BUF_IDX (V4L2_AV1_REF_LAST3_FRAME - V4L2_AV1_REF_LAST_FRAME)
-> -#define GLD_BUF_IDX (V4L2_AV1_REF_GOLDEN_FRAME - V4L2_AV1_REF_LAST_FRAME)
-> -#define BWD_BUF_IDX (V4L2_AV1_REF_BWDREF_FRAME - V4L2_AV1_REF_LAST_FRAME)
-> -#define ALT2_BUF_IDX (V4L2_AV1_REF_ALTREF2_FRAME - V4L2_AV1_REF_LAST_FRAME)
-> -#define ALT_BUF_IDX (V4L2_AV1_REF_ALTREF_FRAME - V4L2_AV1_REF_LAST_FRAME)
-> -
-> -#define DIV_LUT_PREC_BITS 14
-> -#define DIV_LUT_BITS 8
-> -#define DIV_LUT_NUM BIT(DIV_LUT_BITS)
-> -#define WARP_PARAM_REDUCE_BITS 6
-> -#define WARPEDMODEL_PREC_BITS 16
-> -
-> -#define AV1_DIV_ROUND_UP_POW2(value, n)			\
-> -({							\
-> -	typeof(n) _n  = n;				\
-> -	typeof(value) _value = value;			\
-> -	(_value + (BIT(_n) >> 1)) >> _n;		\
-> -})
-> -
-> -#define AV1_DIV_ROUND_UP_POW2_SIGNED(value, n)				\
-> -({									\
-> -	typeof(n) _n_  = n;						\
-> -	typeof(value) _value_ = value;					\
-> -	(((_value_) < 0) ? -AV1_DIV_ROUND_UP_POW2(-(_value_), (_n_))	\
-> -		: AV1_DIV_ROUND_UP_POW2((_value_), (_n_)));		\
-> -})
-> -
-> -enum rockchip_av1_tx_mode {
-> -	ROCKCHIP_AV1_TX_MODE_ONLY_4X4	= 0,
-> -	ROCKCHIP_AV1_TX_MODE_8X8	= 1,
-> -	ROCKCHIP_AV1_TX_MODE_16x16	= 2,
-> -	ROCKCHIP_AV1_TX_MODE_32x32	= 3,
-> -	ROCKCHIP_AV1_TX_MODE_SELECT	= 4,
-> -};
-> -
-> -struct rockchip_av1_film_grain {
-> -	u8 scaling_lut_y[256];
-> -	u8 scaling_lut_cb[256];
-> -	u8 scaling_lut_cr[256];
-> -	s16 cropped_luma_grain_block[4096];
-> -	s16 cropped_chroma_grain_block[1024 * 2];
-> -};
-> -
-> -static const short div_lut[DIV_LUT_NUM + 1] = {
-> -	16384, 16320, 16257, 16194, 16132, 16070, 16009, 15948, 15888, 15828, 15768,
-> -	15709, 15650, 15592, 15534, 15477, 15420, 15364, 15308, 15252, 15197, 15142,
-> -	15087, 15033, 14980, 14926, 14873, 14821, 14769, 14717, 14665, 14614, 14564,
-> -	14513, 14463, 14413, 14364, 14315, 14266, 14218, 14170, 14122, 14075, 14028,
-> -	13981, 13935, 13888, 13843, 13797, 13752, 13707, 13662, 13618, 13574, 13530,
-> -	13487, 13443, 13400, 13358, 13315, 13273, 13231, 13190, 13148, 13107, 13066,
-> -	13026, 12985, 12945, 12906, 12866, 12827, 12788, 12749, 12710, 12672, 12633,
-> -	12596, 12558, 12520, 12483, 12446, 12409, 12373, 12336, 12300, 12264, 12228,
-> -	12193, 12157, 12122, 12087, 12053, 12018, 11984, 11950, 11916, 11882, 11848,
-> -	11815, 11782, 11749, 11716, 11683, 11651, 11619, 11586, 11555, 11523, 11491,
-> -	11460, 11429, 11398, 11367, 11336, 11305, 11275, 11245, 11215, 11185, 11155,
-> -	11125, 11096, 11067, 11038, 11009, 10980, 10951, 10923, 10894, 10866, 10838,
-> -	10810, 10782, 10755, 10727, 10700, 10673, 10645, 10618, 10592, 10565, 10538,
-> -	10512, 10486, 10460, 10434, 10408, 10382, 10356, 10331, 10305, 10280, 10255,
-> -	10230, 10205, 10180, 10156, 10131, 10107, 10082, 10058, 10034, 10010, 9986,
-> -	9963,  9939,  9916,  9892,  9869,  9846,  9823,  9800,  9777,  9754,  9732,
-> -	9709,  9687,  9664,  9642,  9620,  9598,  9576,  9554,  9533,  9511,  9489,
-> -	9468,  9447,  9425,  9404,  9383,  9362,  9341,  9321,  9300,  9279,  9259,
-> -	9239,  9218,  9198,  9178,  9158,  9138,  9118,  9098,  9079,  9059,  9039,
-> -	9020,  9001,  8981,  8962,  8943,  8924,  8905,  8886,  8867,  8849,  8830,
-> -	8812,  8793,  8775,  8756,  8738,  8720,  8702,  8684,  8666,  8648,  8630,
-> -	8613,  8595,  8577,  8560,  8542,  8525,  8508,  8490,  8473,  8456,  8439,
-> -	8422,  8405,  8389,  8372,  8355,  8339,  8322,  8306,  8289,  8273,  8257,
-> -	8240,  8224,  8208,  8192,
-> -};
-> -
-> -static int rockchip_vpu981_get_frame_index(struct hantro_ctx *ctx, int ref)
-> -{
-> -	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> -	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
-> -	u64 timestamp;
-> -	int i, idx = frame->ref_frame_idx[ref];
-> -
-> -	if (idx >= V4L2_AV1_TOTAL_REFS_PER_FRAME || idx < 0)
-> -		return AV1_INVALID_IDX;
-> -
-> -	timestamp = frame->reference_frame_ts[idx];
-> -	for (i = 0; i < AV1_MAX_FRAME_BUF_COUNT; i++) {
-> -		if (!av1_dec->frame_refs[i].used)
-> -			continue;
-> -		if (av1_dec->frame_refs[i].timestamp == timestamp)
-> -			return i;
-> -	}
-> -
-> -	return AV1_INVALID_IDX;
-> -}
-> -
-> -static int rockchip_vpu981_get_order_hint(struct hantro_ctx *ctx, int ref)
-> -{
-> -	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -	int idx = rockchip_vpu981_get_frame_index(ctx, ref);
-> -
-> -	if (idx != AV1_INVALID_IDX)
-> -		return av1_dec->frame_refs[idx].order_hint;
-> -
-> -	return 0;
-> -}
-> -
-> -static int rockchip_vpu981_av1_dec_frame_ref(struct hantro_ctx *ctx,
-> -					     u64 timestamp)
-> -{
-> -	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> -	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
-> -	int i;
-> -
-> -	for (i = 0; i < AV1_MAX_FRAME_BUF_COUNT; i++) {
-> -		int j;
-> -
-> -		if (av1_dec->frame_refs[i].used)
-> -			continue;
-> -
-> -		av1_dec->frame_refs[i].width = frame->frame_width_minus_1 + 1;
-> -		av1_dec->frame_refs[i].height = frame->frame_height_minus_1 + 1;
-> -		av1_dec->frame_refs[i].mi_cols = DIV_ROUND_UP(frame->frame_width_minus_1 + 1, 8);
-> -		av1_dec->frame_refs[i].mi_rows = DIV_ROUND_UP(frame->frame_height_minus_1 + 1, 8);
-> -		av1_dec->frame_refs[i].timestamp = timestamp;
-> -		av1_dec->frame_refs[i].frame_type = frame->frame_type;
-> -		av1_dec->frame_refs[i].order_hint = frame->order_hint;
-> -		av1_dec->frame_refs[i].vb2_ref = hantro_get_dst_buf(ctx);
-> -
-> -		for (j = 0; j < V4L2_AV1_TOTAL_REFS_PER_FRAME; j++)
-> -			av1_dec->frame_refs[i].order_hints[j] = frame->order_hints[j];
-> -		av1_dec->frame_refs[i].used = true;
-> -		av1_dec->current_frame_index = i;
-> -
-> -		return i;
-> -	}
-> -
-> -	return AV1_INVALID_IDX;
-> -}
-> -
-> -static void rockchip_vpu981_av1_dec_frame_unref(struct hantro_ctx *ctx, int idx)
-> -{
-> -	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -
-> -	if (idx >= 0)
-> -		av1_dec->frame_refs[idx].used = false;
-> -}
-> -
-> -static void rockchip_vpu981_av1_dec_clean_refs(struct hantro_ctx *ctx)
-> -{
-> -	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> -
-> -	int ref, idx;
-> -
-> -	for (idx = 0; idx < AV1_MAX_FRAME_BUF_COUNT; idx++) {
-> -		u64 timestamp = av1_dec->frame_refs[idx].timestamp;
-> -		bool used = false;
-> -
-> -		if (!av1_dec->frame_refs[idx].used)
-> -			continue;
-> -
-> -		for (ref = 0; ref < V4L2_AV1_TOTAL_REFS_PER_FRAME; ref++) {
-> -			if (ctrls->frame->reference_frame_ts[ref] == timestamp)
-> -				used = true;
-> -		}
-> -
-> -		if (!used)
-> -			rockchip_vpu981_av1_dec_frame_unref(ctx, idx);
-> -	}
-> -}
-> -
-> -static size_t rockchip_vpu981_av1_dec_luma_size(struct hantro_ctx *ctx)
-> -{
-> -	return ctx->dst_fmt.width * ctx->dst_fmt.height * ctx->bit_depth / 8;
-> -}
-> -
-> -static size_t rockchip_vpu981_av1_dec_chroma_size(struct hantro_ctx *ctx)
-> -{
-> -	size_t cr_offset = rockchip_vpu981_av1_dec_luma_size(ctx);
-> -
-> -	return ALIGN((cr_offset * 3) / 2, 64);
-> -}
-> -
-> -static void rockchip_vpu981_av1_dec_tiles_free(struct hantro_ctx *ctx)
-> -{
-> -	struct hantro_dev *vpu = ctx->dev;
-> -	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -
-> -	if (av1_dec->db_data_col.cpu)
-> -		dma_free_coherent(vpu->dev, av1_dec->db_data_col.size,
-> -				  av1_dec->db_data_col.cpu,
-> -				  av1_dec->db_data_col.dma);
-> -	av1_dec->db_data_col.cpu = NULL;
-> -
-> -	if (av1_dec->db_ctrl_col.cpu)
-> -		dma_free_coherent(vpu->dev, av1_dec->db_ctrl_col.size,
-> -				  av1_dec->db_ctrl_col.cpu,
-> -				  av1_dec->db_ctrl_col.dma);
-> -	av1_dec->db_ctrl_col.cpu = NULL;
-> -
-> -	if (av1_dec->cdef_col.cpu)
-> -		dma_free_coherent(vpu->dev, av1_dec->cdef_col.size,
-> -				  av1_dec->cdef_col.cpu, av1_dec->cdef_col.dma);
-> -	av1_dec->cdef_col.cpu = NULL;
-> -
-> -	if (av1_dec->sr_col.cpu)
-> -		dma_free_coherent(vpu->dev, av1_dec->sr_col.size,
-> -				  av1_dec->sr_col.cpu, av1_dec->sr_col.dma);
-> -	av1_dec->sr_col.cpu = NULL;
-> -
-> -	if (av1_dec->lr_col.cpu)
-> -		dma_free_coherent(vpu->dev, av1_dec->lr_col.size,
-> -				  av1_dec->lr_col.cpu, av1_dec->lr_col.dma);
-> -	av1_dec->lr_col.cpu = NULL;
-> -}
-> -
-> -static int rockchip_vpu981_av1_dec_tiles_reallocate(struct hantro_ctx *ctx)
-> -{
-> -	struct hantro_dev *vpu = ctx->dev;
-> -	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> -	const struct v4l2_av1_tile_info *tile_info = &ctrls->frame->tile_info;
-> -	unsigned int num_tile_cols = tile_info->tile_cols;
-> -	unsigned int height = ALIGN(ctrls->frame->frame_height_minus_1 + 1, 64);
-> -	unsigned int height_in_sb = height / 64;
-> -	unsigned int stripe_num = ((height + 8) + 63) / 64;
-> -	size_t size;
-> -
-> -	if (av1_dec->db_data_col.size >=
-> -	    ALIGN(height * 12 * ctx->bit_depth / 8, 128) * num_tile_cols)
-> -		return 0;
-> -
-> -	rockchip_vpu981_av1_dec_tiles_free(ctx);
-> -
-> -	size = ALIGN(height * 12 * ctx->bit_depth / 8, 128) * num_tile_cols;
-> -	av1_dec->db_data_col.cpu = dma_alloc_coherent(vpu->dev, size,
-> -						      &av1_dec->db_data_col.dma,
-> -						      GFP_KERNEL);
-> -	if (!av1_dec->db_data_col.cpu)
-> -		goto buffer_allocation_error;
-> -	av1_dec->db_data_col.size = size;
-> -
-> -	size = ALIGN(height * 2 * 16 / 4, 128) * num_tile_cols;
-> -	av1_dec->db_ctrl_col.cpu = dma_alloc_coherent(vpu->dev, size,
-> -						      &av1_dec->db_ctrl_col.dma,
-> -						      GFP_KERNEL);
-> -	if (!av1_dec->db_ctrl_col.cpu)
-> -		goto buffer_allocation_error;
-> -	av1_dec->db_ctrl_col.size = size;
-> -
-> -	size = ALIGN(height_in_sb * 44 * ctx->bit_depth * 16 / 8, 128) * num_tile_cols;
-> -	av1_dec->cdef_col.cpu = dma_alloc_coherent(vpu->dev, size,
-> -						   &av1_dec->cdef_col.dma,
-> -						   GFP_KERNEL);
-> -	if (!av1_dec->cdef_col.cpu)
-> -		goto buffer_allocation_error;
-> -	av1_dec->cdef_col.size = size;
-> -
-> -	size = ALIGN(height_in_sb * (3040 + 1280), 128) * num_tile_cols;
-> -	av1_dec->sr_col.cpu = dma_alloc_coherent(vpu->dev, size,
-> -						 &av1_dec->sr_col.dma,
-> -						 GFP_KERNEL);
-> -	if (!av1_dec->sr_col.cpu)
-> -		goto buffer_allocation_error;
-> -	av1_dec->sr_col.size = size;
-> -
-> -	size = ALIGN(stripe_num * 1536 * ctx->bit_depth / 8, 128) * num_tile_cols;
-> -	av1_dec->lr_col.cpu = dma_alloc_coherent(vpu->dev, size,
-> -						 &av1_dec->lr_col.dma,
-> -						 GFP_KERNEL);
-> -	if (!av1_dec->lr_col.cpu)
-> -		goto buffer_allocation_error;
-> -	av1_dec->lr_col.size = size;
-> -
-> -	av1_dec->num_tile_cols_allocated = num_tile_cols;
-> -	return 0;
-> -
-> -buffer_allocation_error:
-> -	rockchip_vpu981_av1_dec_tiles_free(ctx);
-> -	return -ENOMEM;
-> -}
-> -
-> -void rockchip_vpu981_av1_dec_exit(struct hantro_ctx *ctx)
-> -{
-> -	struct hantro_dev *vpu = ctx->dev;
-> -	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -
-> -	if (av1_dec->global_model.cpu)
-> -		dma_free_coherent(vpu->dev, av1_dec->global_model.size,
-> -				  av1_dec->global_model.cpu,
-> -				  av1_dec->global_model.dma);
-> -	av1_dec->global_model.cpu = NULL;
-> -
-> -	if (av1_dec->tile_info.cpu)
-> -		dma_free_coherent(vpu->dev, av1_dec->tile_info.size,
-> -				  av1_dec->tile_info.cpu,
-> -				  av1_dec->tile_info.dma);
-> -	av1_dec->tile_info.cpu = NULL;
-> -
-> -	if (av1_dec->film_grain.cpu)
-> -		dma_free_coherent(vpu->dev, av1_dec->film_grain.size,
-> -				  av1_dec->film_grain.cpu,
-> -				  av1_dec->film_grain.dma);
-> -	av1_dec->film_grain.cpu = NULL;
-> -
-> -	if (av1_dec->prob_tbl.cpu)
-> -		dma_free_coherent(vpu->dev, av1_dec->prob_tbl.size,
-> -				  av1_dec->prob_tbl.cpu, av1_dec->prob_tbl.dma);
-> -	av1_dec->prob_tbl.cpu = NULL;
-> -
-> -	if (av1_dec->prob_tbl_out.cpu)
-> -		dma_free_coherent(vpu->dev, av1_dec->prob_tbl_out.size,
-> -				  av1_dec->prob_tbl_out.cpu,
-> -				  av1_dec->prob_tbl_out.dma);
-> -	av1_dec->prob_tbl_out.cpu = NULL;
-> -
-> -	if (av1_dec->tile_buf.cpu)
-> -		dma_free_coherent(vpu->dev, av1_dec->tile_buf.size,
-> -				  av1_dec->tile_buf.cpu, av1_dec->tile_buf.dma);
-> -	av1_dec->tile_buf.cpu = NULL;
-> -
-> -	rockchip_vpu981_av1_dec_tiles_free(ctx);
-> -}
-> -
-> -int rockchip_vpu981_av1_dec_init(struct hantro_ctx *ctx)
-> -{
-> -	struct hantro_dev *vpu = ctx->dev;
-> -	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -
-> -	memset(av1_dec, 0, sizeof(*av1_dec));
-> -
-> -	av1_dec->global_model.cpu = dma_alloc_coherent(vpu->dev, GLOBAL_MODEL_SIZE,
-> -						       &av1_dec->global_model.dma,
-> -						       GFP_KERNEL);
-> -	if (!av1_dec->global_model.cpu)
-> -		return -ENOMEM;
-> -	av1_dec->global_model.size = GLOBAL_MODEL_SIZE;
-> -
-> -	av1_dec->tile_info.cpu = dma_alloc_coherent(vpu->dev, AV1_TILE_INFO_SIZE,
-> -						    &av1_dec->tile_info.dma,
-> -						    GFP_KERNEL);
-> -	if (!av1_dec->tile_info.cpu)
-> -		return -ENOMEM;
-> -	av1_dec->tile_info.size = AV1_TILE_INFO_SIZE;
-> -
-> -	av1_dec->film_grain.cpu = dma_alloc_coherent(vpu->dev,
-> -						     ALIGN(sizeof(struct rockchip_av1_film_grain), 2048),
-> -						     &av1_dec->film_grain.dma,
-> -						     GFP_KERNEL);
-> -	if (!av1_dec->film_grain.cpu)
-> -		return -ENOMEM;
-> -	av1_dec->film_grain.size = ALIGN(sizeof(struct rockchip_av1_film_grain), 2048);
-> -
-> -	av1_dec->prob_tbl.cpu = dma_alloc_coherent(vpu->dev,
-> -						   ALIGN(sizeof(struct av1cdfs), 2048),
-> -						   &av1_dec->prob_tbl.dma,
-> -						   GFP_KERNEL);
-> -	if (!av1_dec->prob_tbl.cpu)
-> -		return -ENOMEM;
-> -	av1_dec->prob_tbl.size = ALIGN(sizeof(struct av1cdfs), 2048);
-> -
-> -	av1_dec->prob_tbl_out.cpu = dma_alloc_coherent(vpu->dev,
-> -						       ALIGN(sizeof(struct av1cdfs), 2048),
-> -						       &av1_dec->prob_tbl_out.dma,
-> -						       GFP_KERNEL);
-> -	if (!av1_dec->prob_tbl_out.cpu)
-> -		return -ENOMEM;
-> -	av1_dec->prob_tbl_out.size = ALIGN(sizeof(struct av1cdfs), 2048);
-> -	av1_dec->cdfs = &av1_dec->default_cdfs;
-> -	av1_dec->cdfs_ndvc = &av1_dec->default_cdfs_ndvc;
-> -
-> -	rockchip_av1_set_default_cdfs(av1_dec->cdfs, av1_dec->cdfs_ndvc);
-> -
-> -	av1_dec->tile_buf.cpu = dma_alloc_coherent(vpu->dev,
-> -						   AV1_TILE_SIZE,
-> -						   &av1_dec->tile_buf.dma,
-> -						   GFP_KERNEL);
-> -	if (!av1_dec->tile_buf.cpu)
-> -		return -ENOMEM;
-> -	av1_dec->tile_buf.size = AV1_TILE_SIZE;
-> -
-> -	return 0;
-> -}
-> -
-> -static int rockchip_vpu981_av1_dec_prepare_run(struct hantro_ctx *ctx)
-> -{
-> -	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> -	const struct v4l2_av1_tile_info *tile_info;
-> -	struct v4l2_ctrl *tge;
-> -	u32 num_tiles;
-> -
-> -	ctrls->sequence = hantro_get_ctrl(ctx, V4L2_CID_STATELESS_AV1_SEQUENCE);
-> -	if (WARN_ON(!ctrls->sequence))
-> -		return -EINVAL;
-> -
-> -	tge = v4l2_ctrl_find(&ctx->ctrl_handler,
-> -			     V4L2_CID_STATELESS_AV1_TILE_GROUP_ENTRY);
-> -	if (WARN_ON(!tge))
-> -		return -EINVAL;
-> -	ctrls->tile_group_entry = tge->p_cur.p;
-> -
-> -	ctrls->frame = hantro_get_ctrl(ctx, V4L2_CID_STATELESS_AV1_FRAME);
-> -	if (WARN_ON(!ctrls->frame))
-> -		return -EINVAL;
-> -
-> -	/*
-> -	 * rockchip_vpu981_av1_dec_set_tile_info() indexes the tile group
-> -	 * entry array by tile1 * tile_cols + tile0, so it reads up to
-> -	 * tile_cols * tile_rows entries, and lays out one descriptor per tile
-> -	 * in the AV1_MAX_TILES tile_info buffer while programming the real
-> -	 * tile geometry into the hardware. Reject a frame that claims more
-> -	 * tiles than userspace submitted, or more than the hardware tile
-> -	 * buffer holds, so the read stays in bounds and the programmed
-> -	 * geometry matches the descriptors written.
-> -	 */
-> -	tile_info = &ctrls->frame->tile_info;
-> -	num_tiles = (u32)tile_info->tile_cols * tile_info->tile_rows;
-> -	if (num_tiles > tge->elems || num_tiles > AV1_MAX_TILES)
-> -		return -EINVAL;
-> -
-> -	ctrls->film_grain =
-> -	    hantro_get_ctrl(ctx, V4L2_CID_STATELESS_AV1_FILM_GRAIN);
-> -
-> -	return rockchip_vpu981_av1_dec_tiles_reallocate(ctx);
-> -}
-> -
-> -static inline int rockchip_vpu981_av1_dec_get_msb(u32 n)
-> -{
-> -	if (n == 0)
-> -		return 0;
-> -	return 31 ^ __builtin_clz(n);
-> -}
-> -
-> -static short rockchip_vpu981_av1_dec_resolve_divisor_32(u32 d, short *shift)
-> -{
-> -	int f;
-> -	u64 e;
-> -
-> -	*shift = rockchip_vpu981_av1_dec_get_msb(d);
-> -	/* e is obtained from D after resetting the most significant 1 bit. */
-> -	e = d - ((u32)1 << *shift);
-> -	/* Get the most significant DIV_LUT_BITS (8) bits of e into f */
-> -	if (*shift > DIV_LUT_BITS)
-> -		f = AV1_DIV_ROUND_UP_POW2(e, *shift - DIV_LUT_BITS);
-> -	else
-> -		f = e << (DIV_LUT_BITS - *shift);
-> -	if (f > DIV_LUT_NUM)
-> -		return -1;
-> -	*shift += DIV_LUT_PREC_BITS;
-> -	/* Use f as lookup into the precomputed table of multipliers */
-> -	return div_lut[f];
-> -}
-> -
-> -static void
-> -rockchip_vpu981_av1_dec_get_shear_params(const u32 *params, s64 *alpha,
-> -					 s64 *beta, s64 *gamma, s64 *delta)
-> -{
-> -	const int *mat = params;
-> -	short shift;
-> -	short y;
-> -	long long gv, dv;
-> -
-> -	if (mat[2] <= 0)
-> -		return;
-> -
-> -	*alpha = clamp_val(mat[2] - (1 << WARPEDMODEL_PREC_BITS), S16_MIN, S16_MAX);
-> -	*beta = clamp_val(mat[3], S16_MIN, S16_MAX);
-> -
-> -	y = rockchip_vpu981_av1_dec_resolve_divisor_32(abs(mat[2]), &shift) * (mat[2] < 0 ? -1 : 1);
-> -
-> -	gv = ((long long)mat[4] * (1 << WARPEDMODEL_PREC_BITS)) * y;
-> -
-> -	*gamma = clamp_val((int)AV1_DIV_ROUND_UP_POW2_SIGNED(gv, shift), S16_MIN, S16_MAX);
-> -
-> -	dv = ((long long)mat[3] * mat[4]) * y;
-> -	*delta = clamp_val(mat[5] -
-> -		(int)AV1_DIV_ROUND_UP_POW2_SIGNED(dv, shift) - (1 << WARPEDMODEL_PREC_BITS),
-> -		S16_MIN, S16_MAX);
-> -
-> -	*alpha = AV1_DIV_ROUND_UP_POW2_SIGNED(*alpha, WARP_PARAM_REDUCE_BITS)
-> -		 * (1 << WARP_PARAM_REDUCE_BITS);
-> -	*beta = AV1_DIV_ROUND_UP_POW2_SIGNED(*beta, WARP_PARAM_REDUCE_BITS)
-> -		* (1 << WARP_PARAM_REDUCE_BITS);
-> -	*gamma = AV1_DIV_ROUND_UP_POW2_SIGNED(*gamma, WARP_PARAM_REDUCE_BITS)
-> -		 * (1 << WARP_PARAM_REDUCE_BITS);
-> -	*delta = AV1_DIV_ROUND_UP_POW2_SIGNED(*delta, WARP_PARAM_REDUCE_BITS)
-> -		* (1 << WARP_PARAM_REDUCE_BITS);
-> -}
->   
->   static void rockchip_vpu981_av1_dec_set_global_model(struct hantro_ctx *ctx)
->   {
->   	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> -	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
-> -	const struct v4l2_av1_global_motion *gm = &frame->global_motion;
-> -	u8 *dst = av1_dec->global_model.cpu;
->   	struct hantro_dev *vpu = ctx->dev;
-> -	int ref_frame, i;
-> -
-> -	memset(dst, 0, GLOBAL_MODEL_SIZE);
-> -	for (ref_frame = 0; ref_frame < V4L2_AV1_REFS_PER_FRAME; ++ref_frame) {
-> -		s64 alpha = 0, beta = 0, gamma = 0, delta = 0;
-> -
-> -		for (i = 0; i < 6; ++i) {
-> -			if (i == 2)
-> -				*(s32 *)dst =
-> -					gm->params[V4L2_AV1_REF_LAST_FRAME + ref_frame][3];
-> -			else if (i == 3)
-> -				*(s32 *)dst =
-> -					gm->params[V4L2_AV1_REF_LAST_FRAME + ref_frame][2];
-> -			else
-> -				*(s32 *)dst =
-> -					gm->params[V4L2_AV1_REF_LAST_FRAME + ref_frame][i];
-> -			dst += 4;
-> -		}
-> -
-> -		if (gm->type[V4L2_AV1_REF_LAST_FRAME + ref_frame] <= V4L2_AV1_WARP_MODEL_AFFINE)
-> -			rockchip_vpu981_av1_dec_get_shear_params(&gm->params[V4L2_AV1_REF_LAST_FRAME + ref_frame][0],
-> -								 &alpha, &beta, &gamma, &delta);
-> -
-> -		*(s16 *)dst = alpha;
-> -		dst += 2;
-> -		*(s16 *)dst = beta;
-> -		dst += 2;
-> -		*(s16 *)dst = gamma;
-> -		dst += 2;
-> -		*(s16 *)dst = delta;
-> -		dst += 2;
-> -	}
->   
-> +	hantro_av1_set_global_model(ctx);
->   	hantro_write_addr(vpu, AV1_GLOBAL_MODEL, av1_dec->global_model.dma);
->   }
->   
-> -static int rockchip_vpu981_av1_tile_log2(int target)
-> -{
-> -	int k;
-> -
-> -	/*
-> -	 * returns the smallest value for k such that 1 << k is greater
-> -	 * than or equal to target
-> -	 */
-> -	for (k = 0; (1 << k) < target; k++);
-> -
-> -	return k;
-> -}
-> -
->   static void rockchip_vpu981_av1_dec_set_tile_info(struct hantro_ctx *ctx)
->   {
->   	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
->   	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
->   	const struct v4l2_av1_tile_info *tile_info = &ctrls->frame->tile_info;
-> -	const struct v4l2_ctrl_av1_tile_group_entry *group_entry =
-> -	    ctrls->tile_group_entry;
->   	int context_update_y = 0;
->   	int context_update_x = 0;
->   	int context_update_tile_id = 0;
-> -	u8 *dst = av1_dec->tile_info.cpu;
-> -	u8 *dst_end = dst + av1_dec->tile_info.size;
->   	struct hantro_dev *vpu = ctx->dev;
-> -	int tile0, tile1;
->   
->   	/*
->   	 * tile_cols and tile_rows are bounded by the V4L2 control validation
-> @@ -621,48 +48,7 @@ static void rockchip_vpu981_av1_dec_set_tile_info(struct hantro_ctx *ctx)
->   		    context_update_x * tile_info->tile_rows + context_update_y;
->   	}
->   
-> -	memset(dst, 0, av1_dec->tile_info.size);
-> -
-> -	for (tile0 = 0; tile0 < tile_info->tile_cols; tile0++) {
-> -		for (tile1 = 0; tile1 < tile_info->tile_rows; tile1++) {
-> -			int tile_id = tile1 * tile_info->tile_cols + tile0;
-> -			u32 start, end;
-> -			u32 y0 =
-> -			    tile_info->height_in_sbs_minus_1[tile1] + 1;
-> -			u32 x0 = tile_info->width_in_sbs_minus_1[tile0] + 1;
-> -
-> -			/* Stop once the tile_info descriptor buffer is full. */
-> -			if (dst + 16 > dst_end)
-> -				break;
-> -
-> -			/* tile size in SB units (width,height) */
-> -			*dst++ = x0;
-> -			*dst++ = 0;
-> -			*dst++ = 0;
-> -			*dst++ = 0;
-> -			*dst++ = y0;
-> -			*dst++ = 0;
-> -			*dst++ = 0;
-> -			*dst++ = 0;
-> -
-> -			/* tile start position */
-> -			start = group_entry[tile_id].tile_offset - group_entry[0].tile_offset;
-> -			*dst++ = start & 255;
-> -			*dst++ = (start >> 8) & 255;
-> -			*dst++ = (start >> 16) & 255;
-> -			*dst++ = (start >> 24) & 255;
-> -
-> -			/* number of bytes in tile data */
-> -			end = start + group_entry[tile_id].tile_size;
-> -			*dst++ = end & 255;
-> -			*dst++ = (end >> 8) & 255;
-> -			*dst++ = (end >> 16) & 255;
-> -			*dst++ = (end >> 24) & 255;
-> -		}
-> -		if (dst + 16 > dst_end)
-> -			break;
-> -	}
-> -
-> +	hantro_av1_set_tile_info(ctx);
->   	hantro_reg_write(vpu, &av1_multicore_expect_context_update, !!(context_update_x == 0));
->   	hantro_reg_write(vpu, &av1_tile_enable,
->   			 !!((tile_info->tile_cols > 1) || (tile_info->tile_rows > 1)));
-> @@ -670,8 +56,8 @@ static void rockchip_vpu981_av1_dec_set_tile_info(struct hantro_ctx *ctx)
->   	hantro_reg_write(vpu, &av1_num_tile_rows_8k, tile_info->tile_rows);
->   	hantro_reg_write(vpu, &av1_context_update_tile_id, context_update_tile_id);
->   	hantro_reg_write(vpu, &av1_tile_transpose, 1);
-> -	if (rockchip_vpu981_av1_tile_log2(tile_info->tile_cols) ||
-> -	    rockchip_vpu981_av1_tile_log2(tile_info->tile_rows))
-> +	if (hantro_av1_tile_log2(tile_info->tile_cols) ||
-> +	    hantro_av1_tile_log2(tile_info->tile_rows))
->   		hantro_reg_write(vpu, &av1_dec_tile_size_mag, tile_info->tile_size_bytes - 1);
->   	else
->   		hantro_reg_write(vpu, &av1_dec_tile_size_mag, 3);
-> @@ -679,50 +65,6 @@ static void rockchip_vpu981_av1_dec_set_tile_info(struct hantro_ctx *ctx)
->   	hantro_write_addr(vpu, AV1_TILE_BASE, av1_dec->tile_info.dma);
->   }
->   
-> -static int rockchip_vpu981_av1_dec_get_dist(struct hantro_ctx *ctx,
-> -					    int a, int b)
-> -{
-> -	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> -	int bits = ctrls->sequence->order_hint_bits - 1;
-> -	int diff, m;
-> -
-> -	if (!ctrls->sequence->order_hint_bits)
-> -		return 0;
-> -
-> -	diff = a - b;
-> -	m = 1 << bits;
-> -	diff = (diff & (m - 1)) - (diff & m);
-> -
-> -	return diff;
-> -}
-> -
-> -static void rockchip_vpu981_av1_dec_set_frame_sign_bias(struct hantro_ctx *ctx)
-> -{
-> -	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> -	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
-> -	const struct v4l2_ctrl_av1_sequence *sequence = ctrls->sequence;
-> -	int i;
-> -
-> -	if (!sequence->order_hint_bits || IS_INTRA(frame->frame_type)) {
-> -		for (i = 0; i < V4L2_AV1_TOTAL_REFS_PER_FRAME; i++)
-> -			av1_dec->ref_frame_sign_bias[i] = 0;
-> -
-> -		return;
-> -	}
-> -	// Identify the nearest forward and backward references.
-> -	for (i = 0; i < V4L2_AV1_TOTAL_REFS_PER_FRAME - 1; i++) {
-> -		if (rockchip_vpu981_get_frame_index(ctx, i) >= 0) {
-> -			int rel_off =
-> -			    rockchip_vpu981_av1_dec_get_dist(ctx,
-> -							     rockchip_vpu981_get_order_hint(ctx, i),
-> -							     frame->order_hint);
-> -			av1_dec->ref_frame_sign_bias[i + 1] = (rel_off <= 0) ? 0 : 1;
-> -		}
-> -	}
-> -}
-> -
->   static bool
->   rockchip_vpu981_av1_dec_set_ref(struct hantro_ctx *ctx, int ref, int idx,
->   				int width, int height)
-> @@ -845,12 +187,12 @@ static void rockchip_vpu981_av1_dec_set_segmentation(struct hantro_ctx *ctx)
->   
->   	if (!!(seg->flags & V4L2_AV1_SEGMENTATION_FLAG_ENABLED) &&
->   	    frame->primary_ref_frame < V4L2_AV1_REFS_PER_FRAME) {
-> -		int idx = rockchip_vpu981_get_frame_index(ctx, frame->primary_ref_frame);
-> +		int idx = hantro_av1_get_frame_index(ctx, frame->primary_ref_frame);
->   
-> -		if (idx >= 0) {
-> +		if (idx != AV1_INVALID_IDX) {
->   			dma_addr_t luma_addr, mv_addr = 0;
->   			struct hantro_decoded_buffer *seg;
-> -			size_t mv_offset = rockchip_vpu981_av1_dec_chroma_size(ctx);
-> +			size_t mv_offset = hantro_av1_chroma_size(ctx);
->   
->   			seg = vb2_to_hantro_decoded_buf(&av1_dec->frame_refs[idx].vb2_ref->vb2_buf);
->   			luma_addr = hantro_get_dec_buf_addr(ctx, &seg->base.vb.vb2_buf);
-> @@ -1080,35 +422,6 @@ static void rockchip_vpu981_av1_dec_set_segmentation(struct hantro_ctx *ctx)
->   			 segval[7][V4L2_AV1_SEG_LVL_REF_GLOBALMV]);
->   }
->   
-> -static bool rockchip_vpu981_av1_dec_is_lossless(struct hantro_ctx *ctx)
-> -{
-> -	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> -	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
-> -	const struct v4l2_av1_segmentation *segmentation = &frame->segmentation;
-> -	const struct v4l2_av1_quantization *quantization = &frame->quantization;
-> -	int i;
-> -
-> -	for (i = 0; i < V4L2_AV1_MAX_SEGMENTS; i++) {
-> -		int qindex = quantization->base_q_idx;
-> -
-> -		if (segmentation->feature_enabled[i] &
-> -		    V4L2_AV1_SEGMENT_FEATURE_ENABLED(V4L2_AV1_SEG_LVL_ALT_Q)) {
-> -			qindex += segmentation->feature_data[i][V4L2_AV1_SEG_LVL_ALT_Q];
-> -		}
-> -		qindex = clamp(qindex, 0, 255);
-> -
-> -		if (qindex ||
-> -		    quantization->delta_q_y_dc ||
-> -		    quantization->delta_q_u_dc ||
-> -		    quantization->delta_q_u_ac ||
-> -		    quantization->delta_q_v_dc ||
-> -		    quantization->delta_q_v_ac)
-> -			return false;
-> -	}
-> -	return true;
-> -}
-> -
->   static void rockchip_vpu981_av1_dec_set_loopfilter(struct hantro_ctx *ctx)
->   {
->   	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> @@ -1128,7 +441,7 @@ static void rockchip_vpu981_av1_dec_set_loopfilter(struct hantro_ctx *ctx)
->   	hantro_reg_write(vpu, &av1_filt_level3, loop_filter->level[3]);
->   
->   	if (loop_filter->flags & V4L2_AV1_LOOP_FILTER_FLAG_DELTA_ENABLED &&
-> -	    !rockchip_vpu981_av1_dec_is_lossless(ctx) &&
-> +	    !hantro_av1_is_lossless(ctx) &&
->   	    !(frame->flags & V4L2_AV1_FRAME_FLAG_ALLOW_INTRABC)) {
->   		hantro_reg_write(vpu, &av1_filt_ref_adj_0,
->   				 loop_filter->ref_deltas[0]);
-> @@ -1167,121 +480,27 @@ static void rockchip_vpu981_av1_dec_set_loopfilter(struct hantro_ctx *ctx)
->   	hantro_write_addr(vpu, AV1_DB_CTRL_COL, av1_dec->db_ctrl_col.dma);
->   }
->   
-> -static void rockchip_vpu981_av1_dec_update_prob(struct hantro_ctx *ctx)
-> -{
-> -	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> -	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
-> -	bool frame_is_intra = IS_INTRA(frame->frame_type);
-> -	struct av1cdfs *out_cdfs = (struct av1cdfs *)av1_dec->prob_tbl_out.cpu;
-> -	int i;
-> -
-> -	if (frame->flags & V4L2_AV1_FRAME_FLAG_DISABLE_FRAME_END_UPDATE_CDF)
-> -		return;
-> -
-> -	for (i = 0; i < NUM_REF_FRAMES; i++) {
-> -		if (frame->refresh_frame_flags & BIT(i)) {
-> -			struct mvcdfs stored_mv_cdf;
-> -
-> -			rockchip_av1_get_cdfs(ctx, i);
-> -			stored_mv_cdf = av1_dec->cdfs->mv_cdf;
-> -			*av1_dec->cdfs = *out_cdfs;
-> -			if (frame_is_intra) {
-> -				av1_dec->cdfs->mv_cdf = stored_mv_cdf;
-> -				*av1_dec->cdfs_ndvc = out_cdfs->mv_cdf;
-> -			}
-> -			rockchip_av1_store_cdfs(ctx,
-> -						frame->refresh_frame_flags);
-> -			break;
-> -		}
-> -	}
-> -}
-> -
-> -void rockchip_vpu981_av1_dec_done(struct hantro_ctx *ctx)
-> -{
-> -	rockchip_vpu981_av1_dec_update_prob(ctx);
-> -}
-> -
->   static void rockchip_vpu981_av1_dec_set_prob(struct hantro_ctx *ctx)
->   {
->   	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> -	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
-> -	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
-> -	const struct v4l2_av1_quantization *quantization = &frame->quantization;
->   	struct hantro_dev *vpu = ctx->dev;
-> -	bool error_resilient_mode =
-> -	    !!(frame->flags & V4L2_AV1_FRAME_FLAG_ERROR_RESILIENT_MODE);
-> -	bool frame_is_intra = IS_INTRA(frame->frame_type);
-> -
-> -	if (error_resilient_mode || frame_is_intra ||
-> -	    frame->primary_ref_frame == AV1_PRIMARY_REF_NONE) {
-> -		av1_dec->cdfs = &av1_dec->default_cdfs;
-> -		av1_dec->cdfs_ndvc = &av1_dec->default_cdfs_ndvc;
-> -		rockchip_av1_default_coeff_probs(quantization->base_q_idx,
-> -						 av1_dec->cdfs);
-> -	} else {
-> -		rockchip_av1_get_cdfs(ctx, frame->ref_frame_idx[frame->primary_ref_frame]);
-> -	}
-> -	rockchip_av1_store_cdfs(ctx, frame->refresh_frame_flags);
-> -
-> -	memcpy(av1_dec->prob_tbl.cpu, av1_dec->cdfs, sizeof(struct av1cdfs));
-> -
-> -	if (frame_is_intra) {
-> -		int mv_offset = offsetof(struct av1cdfs, mv_cdf);
-> -		/* Overwrite MV context area with intrabc MV context */
-> -		memcpy(av1_dec->prob_tbl.cpu + mv_offset, av1_dec->cdfs_ndvc,
-> -		       sizeof(struct mvcdfs));
-> -	}
->   
-> +	hantro_av1_set_prob(ctx);
->   	hantro_write_addr(vpu, AV1_PROP_TABLE_OUT, av1_dec->prob_tbl_out.dma);
->   	hantro_write_addr(vpu, AV1_PROP_TABLE, av1_dec->prob_tbl.dma);
->   }
->   
-> -static void
-> -rockchip_vpu981_av1_dec_init_scaling_function(const u8 *values, const u8 *scaling,
-> -					      u8 num_points, u8 *scaling_lut)
-> -{
-> -	int i, point;
-> -
-> -	if (num_points == 0) {
-> -		memset(scaling_lut, 0, 256);
-> -		return;
-> -	}
-> -
-> -	for (point = 0; point < num_points - 1; point++) {
-> -		int x;
-> -		s32 delta_y = scaling[point + 1] - scaling[point];
-> -		s32 delta_x = values[point + 1] - values[point];
-> -		s64 delta =
-> -		    delta_x ? delta_y * ((65536 + (delta_x >> 1)) /
-> -					 delta_x) : 0;
-> -
-> -		for (x = 0; x < delta_x; x++) {
-> -			scaling_lut[values[point] + x] =
-> -			    scaling[point] +
-> -			    (s32)((x * delta + 32768) >> 16);
-> -		}
-> -	}
-> -
-> -	for (i = values[num_points - 1]; i < 256; i++)
-> -		scaling_lut[i] = scaling[num_points - 1];
-> -}
->   
->   static void rockchip_vpu981_av1_dec_set_fgs(struct hantro_ctx *ctx)
->   {
->   	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
->   	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
->   	const struct v4l2_ctrl_av1_film_grain *film_grain = ctrls->film_grain;
-> -	struct rockchip_av1_film_grain *fgmem = av1_dec->film_grain.cpu;
-> +	struct hantro_av1_film_grain *fgmem = av1_dec->film_grain.cpu;
->   	struct hantro_dev *vpu = ctx->dev;
->   	bool scaling_from_luma =
->   		!!(film_grain->flags & V4L2_AV1_FILM_GRAIN_FLAG_CHROMA_SCALING_FROM_LUMA);
-> -	s32 (*ar_coeffs_y)[24];
-> -	s32 (*ar_coeffs_cb)[25];
-> -	s32 (*ar_coeffs_cr)[25];
-> -	s32 (*luma_grain_block)[73][82];
-> -	s32 (*cb_grain_block)[38][44];
-> -	s32 (*cr_grain_block)[38][44];
-> +	struct hantro_av1_coeffs_grain_block *coeffs;
->   	s32 ar_coeff_lag, ar_coeff_shift;
->   	s32 grain_scale_shift, bitdepth;
->   	s32 grain_center, grain_min, grain_max;
-> @@ -1308,18 +527,9 @@ static void rockchip_vpu981_av1_dec_set_fgs(struct hantro_ctx *ctx)
->   		return;
->   	}
->   
-> -	ar_coeffs_y = kzalloc(sizeof(int32_t) * 24, GFP_KERNEL);
-> -	ar_coeffs_cb = kzalloc(sizeof(int32_t) * 25, GFP_KERNEL);
-> -	ar_coeffs_cr = kzalloc(sizeof(int32_t) * 25, GFP_KERNEL);
-> -	luma_grain_block = kzalloc(sizeof(int32_t) * 73 * 82, GFP_KERNEL);
-> -	cb_grain_block = kzalloc(sizeof(int32_t) * 38 * 44, GFP_KERNEL);
-> -	cr_grain_block = kzalloc(sizeof(int32_t) * 38 * 44, GFP_KERNEL);
-> -
-> -	if (!ar_coeffs_y || !ar_coeffs_cb || !ar_coeffs_cr ||
-> -	    !luma_grain_block || !cb_grain_block || !cr_grain_block) {
-> -		pr_warn("Fail allocating memory for film grain parameters\n");
-> -		goto alloc_fail;
-> -	}
-> +	coeffs = kzalloc(sizeof(*coeffs), GFP_KERNEL);
-> +	if (!coeffs)
-> +		return;
->   
->   	hantro_reg_write(vpu, &av1_apply_grain, 1);
->   
-> @@ -1355,10 +565,10 @@ static void rockchip_vpu981_av1_dec_set_fgs(struct hantro_ctx *ctx)
->   	hantro_reg_write(vpu, &av1_chroma_scaling_from_luma, scaling_from_luma);
->   	hantro_reg_write(vpu, &av1_random_seed, film_grain->grain_seed);
->   
-> -	rockchip_vpu981_av1_dec_init_scaling_function(film_grain->point_y_value,
-> -						      film_grain->point_y_scaling,
-> -						      film_grain->num_y_points,
-> -						      fgmem->scaling_lut_y);
-> +	hantro_av1_init_scaling_function(film_grain->point_y_value,
-> +					 film_grain->point_y_scaling,
-> +					 film_grain->num_y_points,
-> +					 fgmem->scaling_lut_y);
->   
->   	if (film_grain->flags &
->   	    V4L2_AV1_FILM_GRAIN_FLAG_CHROMA_SCALING_FROM_LUMA) {
-> @@ -1367,19 +577,19 @@ static void rockchip_vpu981_av1_dec_set_fgs(struct hantro_ctx *ctx)
->   		memcpy(fgmem->scaling_lut_cr, fgmem->scaling_lut_y,
->   		       sizeof(*fgmem->scaling_lut_y) * 256);
->   	} else {
-> -		rockchip_vpu981_av1_dec_init_scaling_function
-> +		hantro_av1_init_scaling_function
->   		    (film_grain->point_cb_value, film_grain->point_cb_scaling,
->   		     film_grain->num_cb_points, fgmem->scaling_lut_cb);
-> -		rockchip_vpu981_av1_dec_init_scaling_function
-> +		hantro_av1_init_scaling_function
->   		    (film_grain->point_cr_value, film_grain->point_cr_scaling,
->   		     film_grain->num_cr_points, fgmem->scaling_lut_cr);
->   	}
->   
->   	for (i = 0; i < V4L2_AV1_AR_COEFFS_SIZE; i++) {
->   		if (i < 24)
-> -			(*ar_coeffs_y)[i] = film_grain->ar_coeffs_y_plus_128[i] - 128;
-> -		(*ar_coeffs_cb)[i] = film_grain->ar_coeffs_cb_plus_128[i] - 128;
-> -		(*ar_coeffs_cr)[i] = film_grain->ar_coeffs_cr_plus_128[i] - 128;
-> +			coeffs->ar_coeffs_y[i] = film_grain->ar_coeffs_y_plus_128[i] - 128;
-> +		coeffs->ar_coeffs_cb[i] = film_grain->ar_coeffs_cb_plus_128[i] - 128;
-> +		coeffs->ar_coeffs_cr[i] = film_grain->ar_coeffs_cr_plus_128[i] - 128;
->   	}
->   
->   	ar_coeff_lag = film_grain->ar_coeff_lag;
-> @@ -1390,46 +600,38 @@ static void rockchip_vpu981_av1_dec_set_fgs(struct hantro_ctx *ctx)
->   	grain_min = 0 - grain_center;
->   	grain_max = (256 << (bitdepth - 8)) - 1 - grain_center;
->   
-> -	rockchip_av1_generate_luma_grain_block(luma_grain_block, bitdepth,
-> -					       film_grain->num_y_points, grain_scale_shift,
-> -					       ar_coeff_lag, ar_coeffs_y, ar_coeff_shift,
-> -					       grain_min, grain_max, film_grain->grain_seed);
-> -
-> -	rockchip_av1_generate_chroma_grain_block(luma_grain_block, cb_grain_block,
-> -						 cr_grain_block, bitdepth,
-> -						 film_grain->num_y_points,
-> -						 film_grain->num_cb_points,
-> -						 film_grain->num_cr_points,
-> -						 grain_scale_shift, ar_coeff_lag, ar_coeffs_cb,
-> -						 ar_coeffs_cr, ar_coeff_shift, grain_min,
-> -						 grain_max,
-> -						 scaling_from_luma,
-> -						 film_grain->grain_seed);
-> +	hantro_av1_generate_luma_grain_block(coeffs, bitdepth,
-> +					     film_grain->num_y_points, grain_scale_shift,
-> +					     ar_coeff_lag, ar_coeff_shift,
-> +					     grain_min, grain_max, film_grain->grain_seed);
-> +
-> +	hantro_av1_generate_chroma_grain_block(coeffs, bitdepth,
-> +					       film_grain->num_y_points,
-> +					       film_grain->num_cb_points,
-> +					       film_grain->num_cr_points,
-> +					       grain_scale_shift, ar_coeff_lag,
-> +					       ar_coeff_shift, grain_min,
-> +					       grain_max,
-> +					       scaling_from_luma,
-> +					       film_grain->grain_seed);
->   
->   	for (i = 0; i < 64; i++) {
->   		for (j = 0; j < 64; j++)
->   			fgmem->cropped_luma_grain_block[i * 64 + j] =
-> -				(*luma_grain_block)[i + 9][j + 9];
-> +				coeffs->luma_grain_block[i + 9][j + 9];
->   	}
->   
->   	for (i = 0; i < 32; i++) {
->   		for (j = 0; j < 32; j++) {
->   			fgmem->cropped_chroma_grain_block[i * 64 + 2 * j] =
-> -				(*cb_grain_block)[i + 6][j + 6];
-> +				coeffs->cb_grain_block[i + 6][j + 6];
->   			fgmem->cropped_chroma_grain_block[i * 64 + 2 * j + 1] =
-> -				(*cr_grain_block)[i + 6][j + 6];
-> +				coeffs->cr_grain_block[i + 6][j + 6];
->   		}
->   	}
->   
-> +	kfree(coeffs);
->   	hantro_write_addr(vpu, AV1_FILM_GRAIN, av1_dec->film_grain.dma);
-> -
-> -alloc_fail:
-> -	kfree(ar_coeffs_y);
-> -	kfree(ar_coeffs_cb);
-> -	kfree(ar_coeffs_cr);
-> -	kfree(luma_grain_block);
-> -	kfree(cb_grain_block);
-> -	kfree(cr_grain_block);
->   }
->   
->   static void rockchip_vpu981_av1_dec_set_cdef(struct hantro_ctx *ctx)
-> @@ -1656,13 +858,13 @@ static void rockchip_vpu981_av1_dec_set_other_frames(struct hantro_ctx *ctx)
->   	int ref_ind = 0;
->   	int rf, idx;
->   
-> -	alt_frame_offset = rockchip_vpu981_get_order_hint(ctx, ALT_BUF_IDX);
-> -	gld_frame_offset = rockchip_vpu981_get_order_hint(ctx, GLD_BUF_IDX);
-> -	bwd_frame_offset = rockchip_vpu981_get_order_hint(ctx, BWD_BUF_IDX);
-> -	alt2_frame_offset = rockchip_vpu981_get_order_hint(ctx, ALT2_BUF_IDX);
-> +	alt_frame_offset = hantro_av1_get_order_hint(ctx, ALT_BUF_IDX);
-> +	gld_frame_offset = hantro_av1_get_order_hint(ctx, GLD_BUF_IDX);
-> +	bwd_frame_offset = hantro_av1_get_order_hint(ctx, BWD_BUF_IDX);
-> +	alt2_frame_offset = hantro_av1_get_order_hint(ctx, ALT2_BUF_IDX);
->   
-> -	idx = rockchip_vpu981_get_frame_index(ctx, LST_BUF_IDX);
-> -	if (idx >= 0) {
-> +	idx = hantro_av1_get_frame_index(ctx, LST_BUF_IDX);
-> +	if (idx != AV1_INVALID_IDX) {
->   		int alt_frame_offset_in_lst =
->   			av1_dec->frame_refs[idx].order_hints[V4L2_AV1_REF_ALTREF_FRAME];
->   		bool is_lst_overlay =
-> @@ -1683,8 +885,9 @@ static void rockchip_vpu981_av1_dec_set_other_frames(struct hantro_ctx *ctx)
->   		ref_stamp--;
->   	}
->   
-> -	idx = rockchip_vpu981_get_frame_index(ctx, BWD_BUF_IDX);
-> -	if (rockchip_vpu981_av1_dec_get_dist(ctx, bwd_frame_offset, cur_frame_offset) > 0) {
-> +	idx = hantro_av1_get_frame_index(ctx, BWD_BUF_IDX);
-> +	if (idx != AV1_INVALID_IDX &&
-> +	    hantro_av1_get_dist(ctx, bwd_frame_offset, cur_frame_offset) > 0) {
->   		int bwd_mi_cols = av1_dec->frame_refs[idx].mi_cols;
->   		int bwd_mi_rows = av1_dec->frame_refs[idx].mi_rows;
->   		bool bwd_intra_only =
-> @@ -1698,8 +901,9 @@ static void rockchip_vpu981_av1_dec_set_other_frames(struct hantro_ctx *ctx)
->   		}
->   	}
->   
-> -	idx = rockchip_vpu981_get_frame_index(ctx, ALT2_BUF_IDX);
-> -	if (rockchip_vpu981_av1_dec_get_dist(ctx, alt2_frame_offset, cur_frame_offset) > 0) {
-> +	idx = hantro_av1_get_frame_index(ctx, ALT2_BUF_IDX);
-> +	if (idx != AV1_INVALID_IDX &&
-> +	    hantro_av1_get_dist(ctx, alt2_frame_offset, cur_frame_offset) > 0) {
->   		int alt2_mi_cols = av1_dec->frame_refs[idx].mi_cols;
->   		int alt2_mi_rows = av1_dec->frame_refs[idx].mi_rows;
->   		bool alt2_intra_only =
-> @@ -1713,8 +917,9 @@ static void rockchip_vpu981_av1_dec_set_other_frames(struct hantro_ctx *ctx)
->   		}
->   	}
->   
-> -	idx = rockchip_vpu981_get_frame_index(ctx, ALT_BUF_IDX);
-> -	if (rockchip_vpu981_av1_dec_get_dist(ctx, alt_frame_offset, cur_frame_offset) > 0 &&
-> +	idx = hantro_av1_get_frame_index(ctx, ALT_BUF_IDX);
-> +	if (idx != AV1_INVALID_IDX &&
-> +	    hantro_av1_get_dist(ctx, alt_frame_offset, cur_frame_offset) > 0 &&
->   	    ref_stamp >= 0) {
->   		int alt_mi_cols = av1_dec->frame_refs[idx].mi_cols;
->   		int alt_mi_rows = av1_dec->frame_refs[idx].mi_rows;
-> @@ -1729,8 +934,8 @@ static void rockchip_vpu981_av1_dec_set_other_frames(struct hantro_ctx *ctx)
->   		}
->   	}
->   
-> -	idx = rockchip_vpu981_get_frame_index(ctx, LST2_BUF_IDX);
-> -	if (idx >= 0 && ref_stamp >= 0) {
-> +	idx = hantro_av1_get_frame_index(ctx, LST2_BUF_IDX);
-> +	if (idx != AV1_INVALID_IDX && ref_stamp >= 0) {
->   		int lst2_mi_cols = av1_dec->frame_refs[idx].mi_cols;
->   		int lst2_mi_rows = av1_dec->frame_refs[idx].mi_rows;
->   		bool lst2_intra_only =
-> @@ -1745,14 +950,14 @@ static void rockchip_vpu981_av1_dec_set_other_frames(struct hantro_ctx *ctx)
->   	}
->   
->   	for (rf = 0; rf < V4L2_AV1_TOTAL_REFS_PER_FRAME - 1; ++rf) {
-> -		idx = rockchip_vpu981_get_frame_index(ctx, rf);
-> -		if (idx >= 0) {
-> -			int rf_order_hint = rockchip_vpu981_get_order_hint(ctx, rf);
-> +		idx = hantro_av1_get_frame_index(ctx, rf);
-> +		if (idx != AV1_INVALID_IDX) {
-> +			int rf_order_hint = hantro_av1_get_order_hint(ctx, rf);
->   
->   			cur_offset[rf] =
-> -			    rockchip_vpu981_av1_dec_get_dist(ctx, cur_frame_offset, rf_order_hint);
-> +			    hantro_av1_get_dist(ctx, cur_frame_offset, rf_order_hint);
->   			cur_roffset[rf] =
-> -			    rockchip_vpu981_av1_dec_get_dist(ctx, rf_order_hint, cur_frame_offset);
-> +			    hantro_av1_get_dist(ctx, rf_order_hint, cur_frame_offset);
->   		} else {
->   			cur_offset[rf] = 0;
->   			cur_roffset[rf] = 0;
-> @@ -1775,35 +980,41 @@ static void rockchip_vpu981_av1_dec_set_other_frames(struct hantro_ctx *ctx)
->   	if (use_ref_frame_mvs && ref_ind > 0 &&
->   	    cur_offset[mf_types[0] - V4L2_AV1_REF_LAST_FRAME] <= MAX_FRAME_DISTANCE &&
->   	    cur_offset[mf_types[0] - V4L2_AV1_REF_LAST_FRAME] >= -MAX_FRAME_DISTANCE) {
-> -		int rf = rockchip_vpu981_get_order_hint(ctx, refs_selected[0]);
-> -		int idx = rockchip_vpu981_get_frame_index(ctx, refs_selected[0]);
-> -		u32 *oh = av1_dec->frame_refs[idx].order_hints;
-> +		int rf = hantro_av1_get_order_hint(ctx, refs_selected[0]);
-> +		int idx = hantro_av1_get_frame_index(ctx, refs_selected[0]);
-> +		u32 *oh;
->   		int val;
->   
-> +		if (idx == AV1_INVALID_IDX)
-> +			goto second_ref;
-> +
-> +		oh = av1_dec->frame_refs[idx].order_hints;
-> +
->   		hantro_reg_write(vpu, &av1_use_temporal0_mvs, 1);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf1_last_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST2_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST2_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf1_last2_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST3_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST3_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf1_last3_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_GOLDEN_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_GOLDEN_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf1_golden_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_BWDREF_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_BWDREF_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf1_bwdref_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_ALTREF2_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_ALTREF2_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf1_altref2_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_ALTREF_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_ALTREF_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf1_altref_offset, val);
->   	}
->   
-> +second_ref:
->   	hantro_reg_write(vpu, &av1_mf2_last_offset, 0);
->   	hantro_reg_write(vpu, &av1_mf2_last2_offset, 0);
->   	hantro_reg_write(vpu, &av1_mf2_last3_offset, 0);
-> @@ -1815,35 +1026,41 @@ static void rockchip_vpu981_av1_dec_set_other_frames(struct hantro_ctx *ctx)
->   	if (use_ref_frame_mvs && ref_ind > 1 &&
->   	    cur_offset[mf_types[1] - V4L2_AV1_REF_LAST_FRAME] <= MAX_FRAME_DISTANCE &&
->   	    cur_offset[mf_types[1] - V4L2_AV1_REF_LAST_FRAME] >= -MAX_FRAME_DISTANCE) {
-> -		int rf = rockchip_vpu981_get_order_hint(ctx, refs_selected[1]);
-> -		int idx = rockchip_vpu981_get_frame_index(ctx, refs_selected[1]);
-> -		u32 *oh = av1_dec->frame_refs[idx].order_hints;
-> +		int rf = hantro_av1_get_order_hint(ctx, refs_selected[1]);
-> +		int idx = hantro_av1_get_frame_index(ctx, refs_selected[1]);
-> +		u32 *oh;
->   		int val;
->   
-> +		if (idx == AV1_INVALID_IDX)
-> +			goto third_ref;
-> +
-> +		oh = av1_dec->frame_refs[idx].order_hints;
-> +
->   		hantro_reg_write(vpu, &av1_use_temporal1_mvs, 1);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf2_last_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST2_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST2_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf2_last2_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST3_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST3_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf2_last3_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_GOLDEN_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_GOLDEN_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf2_golden_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_BWDREF_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_BWDREF_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf2_bwdref_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_ALTREF2_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_ALTREF2_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf2_altref2_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_ALTREF_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_ALTREF_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf2_altref_offset, val);
->   	}
->   
-> +third_ref:
->   	hantro_reg_write(vpu, &av1_mf3_last_offset, 0);
->   	hantro_reg_write(vpu, &av1_mf3_last2_offset, 0);
->   	hantro_reg_write(vpu, &av1_mf3_last3_offset, 0);
-> @@ -1855,35 +1072,41 @@ static void rockchip_vpu981_av1_dec_set_other_frames(struct hantro_ctx *ctx)
->   	if (use_ref_frame_mvs && ref_ind > 2 &&
->   	    cur_offset[mf_types[2] - V4L2_AV1_REF_LAST_FRAME] <= MAX_FRAME_DISTANCE &&
->   	    cur_offset[mf_types[2] - V4L2_AV1_REF_LAST_FRAME] >= -MAX_FRAME_DISTANCE) {
-> -		int rf = rockchip_vpu981_get_order_hint(ctx, refs_selected[2]);
-> -		int idx = rockchip_vpu981_get_frame_index(ctx, refs_selected[2]);
-> -		u32 *oh = av1_dec->frame_refs[idx].order_hints;
-> +		int rf = hantro_av1_get_order_hint(ctx, refs_selected[2]);
-> +		int idx = hantro_av1_get_frame_index(ctx, refs_selected[2]);
-> +		u32 *oh;
->   		int val;
->   
-> +		if (idx == AV1_INVALID_IDX)
-> +			goto offsets;
-> +
-> +		oh = av1_dec->frame_refs[idx].order_hints;
-> +
->   		hantro_reg_write(vpu, &av1_use_temporal2_mvs, 1);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf3_last_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST2_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST2_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf3_last2_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST3_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_LAST3_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf3_last3_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_GOLDEN_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_GOLDEN_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf3_golden_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_BWDREF_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_BWDREF_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf3_bwdref_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_ALTREF2_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_ALTREF2_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf3_altref2_offset, val);
->   
-> -		val = rockchip_vpu981_av1_dec_get_dist(ctx, rf, oh[V4L2_AV1_REF_ALTREF_FRAME]);
-> +		val = hantro_av1_get_dist(ctx, rf, oh[V4L2_AV1_REF_ALTREF_FRAME]);
->   		hantro_reg_write(vpu, &av1_mf3_altref_offset, val);
->   	}
->   
-> +offsets:
->   	hantro_reg_write(vpu, &av1_cur_last_offset, cur_offset[0]);
->   	hantro_reg_write(vpu, &av1_cur_last2_offset, cur_offset[1]);
->   	hantro_reg_write(vpu, &av1_cur_last3_offset, cur_offset[2]);
-> @@ -1922,9 +1145,9 @@ static void rockchip_vpu981_av1_dec_set_reference_frames(struct hantro_ctx *ctx)
->   
->   	if (!allow_intrabc) {
->   		for (i = 0; i < V4L2_AV1_REFS_PER_FRAME; i++) {
-> -			int idx = rockchip_vpu981_get_frame_index(ctx, i);
-> +			int idx = hantro_av1_get_frame_index(ctx, i);
->   
-> -			if (idx >= 0)
-> +			if (idx != AV1_INVALID_IDX)
->   				ref_count[idx]++;
->   		}
->   
-> @@ -1937,7 +1160,7 @@ static void rockchip_vpu981_av1_dec_set_reference_frames(struct hantro_ctx *ctx)
->   	}
->   	hantro_reg_write(vpu, &av1_ref_frames, ref_frames);
->   
-> -	rockchip_vpu981_av1_dec_set_frame_sign_bias(ctx);
-> +	hantro_av1_set_frame_sign_bias(ctx);
->   
->   	for (i = V4L2_AV1_REF_LAST_FRAME; i < V4L2_AV1_TOTAL_REFS_PER_FRAME; i++) {
->   		u32 ref = i - 1;
-> @@ -1949,8 +1172,8 @@ static void rockchip_vpu981_av1_dec_set_reference_frames(struct hantro_ctx *ctx)
->   			width = frame->frame_width_minus_1 + 1;
->   			height = frame->frame_height_minus_1 + 1;
->   		} else {
-> -			if (rockchip_vpu981_get_frame_index(ctx, ref) > 0)
-> -				idx = rockchip_vpu981_get_frame_index(ctx, ref);
-> +			if (hantro_av1_get_frame_index(ctx, ref) != AV1_INVALID_IDX)
-> +				idx = hantro_av1_get_frame_index(ctx, ref);
->   			width = av1_dec->frame_refs[idx].width;
->   			height = av1_dec->frame_refs[idx].height;
->   		}
-> @@ -1982,20 +1205,6 @@ static void rockchip_vpu981_av1_dec_set_reference_frames(struct hantro_ctx *ctx)
->   	rockchip_vpu981_av1_dec_set_other_frames(ctx);
->   }
->   
-> -static int rockchip_vpu981_av1_get_hardware_tx_mode(enum v4l2_av1_tx_mode tx_mode)
-> -{
-> -	switch (tx_mode) {
-> -	case V4L2_AV1_TX_MODE_ONLY_4X4:
-> -		return ROCKCHIP_AV1_TX_MODE_ONLY_4X4;
-> -	case V4L2_AV1_TX_MODE_LARGEST:
-> -		return ROCKCHIP_AV1_TX_MODE_32x32;
-> -	case V4L2_AV1_TX_MODE_SELECT:
-> -		return ROCKCHIP_AV1_TX_MODE_SELECT;
-> -	}
-> -
-> -	return ROCKCHIP_AV1_TX_MODE_32x32;
-> -}
-> -
->   static void rockchip_vpu981_av1_dec_set_parameters(struct hantro_ctx *ctx)
->   {
->   	struct hantro_dev *vpu = ctx->dev;
-> @@ -2068,7 +1277,7 @@ static void rockchip_vpu981_av1_dec_set_parameters(struct hantro_ctx *ctx)
->   	hantro_reg_write(vpu, &av1_comp_pred_mode,
->   			 (ctrls->frame->flags & V4L2_AV1_FRAME_FLAG_REFERENCE_SELECT) ? 2 : 0);
->   
-> -	tx_mode = rockchip_vpu981_av1_get_hardware_tx_mode(ctrls->frame->tx_mode);
-> +	tx_mode = hantro_av1_get_hardware_tx_mode(ctrls->frame->tx_mode);
->   	hantro_reg_write(vpu, &av1_transform_mode, tx_mode);
->   	hantro_reg_write(vpu, &av1_max_cb_size,
->   			 (ctrls->sequence->flags
-> @@ -2100,7 +1309,7 @@ static void rockchip_vpu981_av1_dec_set_parameters(struct hantro_ctx *ctx)
->   		hantro_reg_write(vpu, &av1_qmlevel_v, 0xff);
->   	}
->   
-> -	hantro_reg_write(vpu, &av1_lossless_e, rockchip_vpu981_av1_dec_is_lossless(ctx));
-> +	hantro_reg_write(vpu, &av1_lossless_e, hantro_av1_is_lossless(ctx));
->   	hantro_reg_write(vpu, &av1_quant_delta_v_dc, ctrls->frame->quantization.delta_q_v_dc);
->   	hantro_reg_write(vpu, &av1_quant_delta_v_ac, ctrls->frame->quantization.delta_q_v_ac);
->   
-> @@ -2148,8 +1357,8 @@ rockchip_vpu981_av1_dec_set_output_buffer(struct hantro_ctx *ctx)
->   	struct hantro_decoded_buffer *dst;
->   	struct vb2_v4l2_buffer *vb2_dst;
->   	dma_addr_t luma_addr, chroma_addr, mv_addr = 0;
-> -	size_t cr_offset = rockchip_vpu981_av1_dec_luma_size(ctx);
-> -	size_t mv_offset = rockchip_vpu981_av1_dec_chroma_size(ctx);
-> +	size_t cr_offset = hantro_av1_luma_size(ctx);
-> +	size_t mv_offset = hantro_av1_chroma_size(ctx);
->   
->   	vb2_dst = av1_dec->frame_refs[av1_dec->current_frame_index].vb2_ref;
->   	dst = vb2_to_hantro_decoded_buf(&vb2_dst->vb2_buf);
-> @@ -2173,7 +1382,7 @@ int rockchip_vpu981_av1_dec_run(struct hantro_ctx *ctx)
->   
->   	hantro_start_prepare_run(ctx);
->   
-> -	ret = rockchip_vpu981_av1_dec_prepare_run(ctx);
-> +	ret = hantro_av1_prepare_run(ctx);
->   	if (ret)
->   		goto prepare_error;
->   
-> @@ -2183,8 +1392,8 @@ int rockchip_vpu981_av1_dec_run(struct hantro_ctx *ctx)
->   		goto prepare_error;
->   	}
->   
-> -	rockchip_vpu981_av1_dec_clean_refs(ctx);
-> -	rockchip_vpu981_av1_dec_frame_ref(ctx, vb2_src->vb2_buf.timestamp);
-> +	hantro_av1_clean_refs(ctx);
-> +	hantro_av1_frame_ref(ctx, vb2_src->vb2_buf.timestamp);
->   
->   	rockchip_vpu981_av1_dec_set_parameters(ctx);
->   	rockchip_vpu981_av1_dec_set_global_model(ctx);
-> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-> index 02673be9878e..f50a3e38097e 100644
-> --- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-> +++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-> @@ -9,6 +9,7 @@
->   #include <linux/clk.h>
->   
->   #include "hantro.h"
-> +#include "hantro_av1.h"
->   #include "hantro_jpeg.h"
->   #include "hantro_g1_regs.h"
->   #include "hantro_h1_regs.h"
-> @@ -608,9 +609,9 @@ static const struct hantro_codec_ops rk3568_vepu_codec_ops[] = {
->   static const struct hantro_codec_ops rk3588_vpu981_codec_ops[] = {
->   	[HANTRO_MODE_AV1_DEC] = {
->   		.run = rockchip_vpu981_av1_dec_run,
-> -		.init = rockchip_vpu981_av1_dec_init,
-> -		.exit = rockchip_vpu981_av1_dec_exit,
-> -		.done = rockchip_vpu981_av1_dec_done,
-> +		.init = hantro_av1_init,
-> +		.exit = hantro_av1_exit,
-> +		.done = hantro_av1_update_prob,
->   	},
->   };
->   /*
+Sakari Ailus
