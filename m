@@ -1,78 +1,96 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794841616;
-	b=11DkMdHWWF5+TGoGvfqPKHhpWxv8UqovPR1iC6OyE6eh5XbiO+LPMy8mimkwLRyLmoYE
-	 nrtVnjupun3WYI+yotYJy1odY4Jje9p8Lpwgjh3AISkmOLzeK78eA6D3Xryd5DIARgRLu
-	 MLo3dCBeZe2FdUsPhY7CUdYnQ+IVAFg268wm7pyTamb0kcX6U99b2mKLG+UbRbYmCCDF6
-	 90C0IZ44ChMUCbEE1bwzfy+gumkNwyyZFe/G5xfL0tSgNYqX4v5/SSHdTj+bs+h68zqiE
-	 MXrlumAMcdalnYeIV6OapZ69O0Zv3UptN69D/dHOkBt8xiguRPwxmLUF7mYDY2C3+AQ==
+	t=1794841836;
+	b=gJcAVD0ET2zd4YTdwS0ev0RCw0yqyrB1Cr1/dOIdckg7Yx3iiURmaLBAguVz7F4IBSfv
+	 /LIrHi1Q4pdbJDSlNqyDQRoZFI8fAloEspIdkjKYSkA5yu+qG0ymP+o+MdlMXO2JBKfef
+	 bCgGg385MKvdAcwp7671DpndWjvc6X4SeRw1CJajWzt+k54E3uAw6/nXAzmaiWBytll1/
+	 JQehNVfIV9uS5kdnRlMgTU6ddMgTpfzYQ5zm7Wa4oYn98Vus+B6+FkIaII25zA+53l8ZB
+	 YDenSz5z0W2KRP8/dgSL0PZTaPk3tjse2P/vgGIDp4wJqXjz1vqTCkTl1+aUsTzSTMA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794841616;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=T1UsFtKq8NK+F2gPpj4Li9wd2ti1JativxkcIukMKKc=;
-	b=T/MmokKxhzZblZcaa+XchzpUJdqeXFinc7TRnePXWxqXI+0JojSzeepcQPAkiv6Oq/Xu
-	 bt342FSxxx/wSV59r0lzmRr9NFikwNLId4Hr5SnuEC4pMV5h7+fMQgJTVFfOJ46oKP7a3
-	 Ul5DhEy70n6Kln+1eD3nsBQKl+17FFSdw0GNOakD5b+ODZx9jX1/SgTsVZM47dnpwoJdm
-	 Ffj5kFV5wVwwJuh/S10fll4+LF3ZCjEcU2viezcP86V1BWoN5B6XFa6Foyhcf0Wjkht/v
-	 U8lhGee7CQWXMloZtgSjgEg5S/fj5jWfKwP9JFjtDTuQmSaXs4ONciydaS1QxF4FUJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794841836;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:Subject:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Lkf3suh1JASFBRSRTOSUlKBZiwkP7oME3ElDlkGHcBM=;
+	b=bTITISOeYUyGVihwFt+Jrtcdxa0JII2AQ+fsHekjmBbtIDqbjrom8RbXvJQfBIGU2zOI
+	 bcpnsxtigw531Oh+Qztr8sjyBHKyzfmcG2JwepXRe0oOGHsxodsVmFTBVnW9mzG8gqp6V
+	 We+sKQKASi1nP6t3aG4NgxMkFeDolaGbw+1RWNSDjkQziKpCRJjP9U1+Dn1zZ8QD0c1/a
+	 3pa0f/c+0eT4itO0YM/QuvkOYl0qsHxOdTLrEPjJwF5DXk27pxAaf6pZigo2Qsfk0Xui7
+	 PY7UtwvdiVxpWAQlu3QrosoDUfT13q3gaKNIYcRnxy/cpI7HBo8YbIkz87qnh91ooTw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=QmlsSaG5;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=AkhsafWW;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197DD606A32F;
-	Mon, 16 Nov 2026 15:06:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 197DD606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54759606A331;
+	Mon, 16 Nov 2026 15:10:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54759606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=QmlsSaG5
-Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5d79:c700:9ebf:dff:fe00:fdb5])
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=AkhsafWW
+Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5d79:c700:9ebf:dff:fe00:fdb5])
 	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D9ACA205A20;
-	Mon, 16 Nov 2026 16:06:48 +0100 (CET)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 587B62058D6;
+	Mon, 16 Nov 2026 16:10:29 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794841608;
+	s=20260414; t=1794841829;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=T1UsFtKq8NK+F2gPpj4Li9wd2ti1JativxkcIukMKKc=;
-	b=QmlsSaG5ynYAJx0UP+YLAFN0EUIcDEZDTZzBksyOqw47j1n+NvJPLYoaiBlny8lQH20c6h
-	3CEJD8emvI8coq77VnBPqKlqV+OIbIFdz4yoyMCNeqBUyPZxJYVTxogo7NFNWGVH1xloEe
-	8c/saAFrRg9+aqY1DEsEghb9YbGzFmuN2TIKJIFfGV3RJarCwIADI+ux66rekl0KjbeTsp
-	x7lT9ubcuzfES83kVANoD8dbMg3ZK8OGjho4BnmXKIxsCMqcPq5aH2aNTqVFeWbtQXevZZ
-	DVfIWaWnaiQell9sQi6CDts6MQTiDpAkE8f+cv8av48nucqnN6i+rmv5vbrErQ==
+	 to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Lkf3suh1JASFBRSRTOSUlKBZiwkP7oME3ElDlkGHcBM=;
+	b=AkhsafWWX1Qe9DGyBsGNgOKu0EKo/B+dKqnYoXyIMJSQhfrcgvDiHKsOXvWFMDR0g3WvPa
+	AMyl/e8WD7hHl214nN366txUVoNEl73z+WI7sYbMTQf0DTA785kkXQrpt0DCDU8aPJiY0V
+	hORa6KaLvSL7xTI2TVvMmaPDM133lCgDMF9Vy5fg8mcQIyajBM8f/sGRmcSTB0q3kfA8X+
+	K+/2L5nsLAzXCVPoZL2zmBfWB2M0IGCRGUpTWQ0aJ+EtC5JecMmIYgpU1XRtJavCFcKOpn
+	c4Ol83fFehRFEualYE8aKGSgkrxtgkdKvzOGSj+7dTuJMQNB6xbk77LVDKQEnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794841608;
+	s=20260414; t=1794841829;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=T1UsFtKq8NK+F2gPpj4Li9wd2ti1JativxkcIukMKKc=;
-	b=doqzRaBfDk1i57VmCmT9ogef8+tUqvmoUauuEQI6cpYxjQMm3tgOjAx+XfOuWXND24yLci
-	sEW+lH8aT5kH0jxT1AAikYv+znIo7970a81UbPenDdFurI3gVAgvzQ5euDWRABKxMSAB5B
-	ms/edFTnX/WvCACz4S5egoDIAHfBT1ntiRbLRCex/d5rzwiEqpjd3eExWr7zM0QoZv/T10
-	cBeVkehzPSY84DxMi/ejyKVOc+lJPIB8L68DnjW0WhAyHLEGkKdzkQB6jX0gkodDpFdBW5
-	sjZEkfUXnUKUpib1nb4mMN4BPZU+6YhBNr1d/iJsevrEbN7mqA3Tnw+lhEXJEQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794841608; a=rsa-sha256;
+	 to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Lkf3suh1JASFBRSRTOSUlKBZiwkP7oME3ElDlkGHcBM=;
+	b=SBcQdXwN+rPjwsF6ULrmdYUqU6z5gYME5JZsWsrW21P34zAhgruDurVi58QiuO7wP3riI7
+	YvBEyFYxIBczcA9f2y4TNp/fMjr4i5QHrgRrGHK8+rRn7tGv6NullkvsDP7Yn3m9HJ53xt
+	tdAVFLPfFLUsDubGaE0WtUsRIlwx1dy/M7UZlVhrRDZw9KJTZMq9c8YQUdN+LC34m2cCTQ
+	WojlMt6Hs9fqAsbs7HFmw2eEcZNUZ1Rvs3otCNH7DqPgJlwTDCgDJm/aIaOoa0BErYCTrE
+	udCFetBwiEjxKK0WdrKpO1CSnRrSVvYr0XU+pYoXBGNPDpttqWHSyf7SHsLAWQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794841829; a=rsa-sha256;
 	cv=none;
-	b=YDKwT2KcAbwwJem4JMz0FLBPm1rB3yH8eIr1OmE51O0lTBYof/FR6WPVBoejf3Qx3Oor6J
-	BPlKIFqQtnzrT5HtA4SwjFw9pHUcgc4PtQimq9dAXWsEgZo6QHOJb/ZSuqErZ3sbbaJC/D
-	8mXprYuGBTScxCi9ql1+4c9Et/txRSDLjYMJjlh1PcYZOZPPdC5MjYBkWaEZUFAsz0qgy6
-	t/XoBfAsU8wahpYN1Fvdx5dFSy9SP9AkWoIXOQIAaks+fd4pbu2esYA4hZJ08uoX0BBZ5z
-	ukze8UAqSvR5zIoMetvQr/KkvLORzfwzhS1wBTCAu5UM/6YGl+O+mSWwAhTUVw==
+	b=eUUz1nN7/hw1E5Sxn7sW/zQB93v2TSJbe6ctil0rdYIXctiP9b0Ug+40tmrZmhMIZ5EBfe
+	HTODOkjB7gdc0BTAKXf99TvoHXAIiYnPKfmqTpui7dz9TbvvZlJFodMXswLLN1KrVXPmNh
+	8ztsLvi0/Ebfi2nNG9zH1q1ZxRBww+teL5U3OhgnxuaVVF1Ch5+C/+WwgfsXamN1W+NNuu
+	lzU7XE84qb7TTC0wzMhgPF+/uhJ7+J3NC/f5NS3BhxLAqvxHni4wWluKyC7WzDPQZ4vo9v
+	V7MxBLVSzVDtcXLpyasutKMrhMNmT+s0t/M11IITwuCdlURU1nnU87kpozYgTw==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Mon, 16 Nov 2026 16:06:42 +0100
-Subject: [PATCH] media: synopsys: hdmirx: move the reset bulk data out of
- the driver data
+Message-ID: <1fd9f5b2-6a4d-4335-940b-44ac7a65cac9@pengutronix.de>
+From: "Sascha Hauer" <s.hauer@pengutronix.de>
+Subject: Re: [PATCH v3 01/10] media: synopsys: hdmirx: free the driver data
+ when the last user is gone
+To: "Hans Verkuil" <hverkuil+cisco@kernel.org>
+Cc: "Dmitry Osipenko" <dmitry.osipenko@collabora.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Mauro
+ Carvalho Chehab" <mchehab@kernel.org>, "Hans Verkuil" <hverkuil@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Dingxian Wen" <shawn.wen@rock-chips.com>, "Shreeya
+ Patel" <shreeya.patel@collabora.com>, "Gerald Loacker" <gerald.loacker@wolfvision.net>, "Lucas
+ Sinn" <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, kernel@collabora.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <717863c4-4654-493d-821e-a7bdda0a3453@kernel.org>
+References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+ <20261005-hdmirx-media-v3-1-71a11a2e3e76@pengutronix.de>
+ <647b6128-2bd1-40cb-86bb-d36e84378d93@collabora.com>
+ <5b3592b1-74b4-43e6-96e8-a600b6fa991c@pengutronix.de>
+ <17cb2a11-9c9d-43c9-889e-8581522c7a74@collabora.com>
+ <717863c4-4654-493d-821e-a7bdda0a3453@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 16 Nov 2026 15:10:28 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -81,94 +99,62 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-hdmirx-resets-uaf-v1-1-1903146a3118@pengutronix.de>
-X-B4-Tracking: v=1; b=H4sIAAEc+2oC/x3MTQ5AQAxA4atI15rohBGuIhaYogs/aRGJuLuJ5
- bd47wFjFTaokweULzHZ1ghKExjmbp0YJUSDy5wnIo9zWERvVDY+DM9uxODLylFGVZH3ELtdeZT
- 7fzbt+34L/OahYwAAAA==
-X-Change-ID: 20261116-hdmirx-resets-uaf-d6792101954b
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, kernel@collabora.com, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794841608; l=2962;
- i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=8OvIriJY+xaEJsg+OIxVr3VqHqkZqrLen/qgRskmuS0=;
- b=DarysF3AcdzMfMP72QUydhstkpIEWzGnV42s5EoX4zEO1RAfufLarACCepZiW8v+ZuPe9Pj/k
- GBLnQWAmy6sAb6Yy3Kru3dVKYsmOVgAI1QiBpi1wx3S2E9fkvknnK7Z
-X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
- pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-devm_reset_control_bulk_get_exclusive() keeps a pointer to the bulk data
-it is handed and releases the controls through it when devres is torn
-down. Since the driver data is freed from the v4l2_device release
-callback, remove() and the probe error paths may free it before that
-happens: on every unbind without an open file descriptor, and on every
-probe that fails after hdmirx_parse_dt(), in practice a deferral.
-devm_reset_control_bulk_release() then reads the controls from freed
-memory. KASAN reports the use-after-free, the controls stay claimed, and
-the deferred probe fails for good with -EBUSY on the exclusive get.
+Hi Hans,
 
-Give the array an allocation of its own with devm_kcalloc(), so it lives
-exactly as long as devres needs it.
+On 2026-11-13 09:44, Hans Verkuil wrote:
+> >> This is a long standing problem. See [1] for example for an attempt to
+> >> fix it in the core. It seems consencsus at that time was that it must =
+be
+> >> fixed in the drivers which is what this patch does for the hdmirx.
+> >>
+> >> [1] https://lore.kernel.org/all/20240610100530.1107771-1-sakari.ailus@=
+linux.intel.com/
+> >>
+> >>>
+> >>> What is the user-visible or sanitizer-visible problem? How to reprodu=
+ce it?
+> >>
+> >> It can be reproduced with Kasan on affected drivers, below on the hdmi=
+rx
+> >> driver, but it should be reproducible like this on hantro and others as
+> >> well.
+> >> ...
+> > Thanks, the patches are good to me (tested on 5b with no problems found=
+)=20
+> > apart from this one that feels like it's not a proper solution.
+> >=20
+> > Will be good to have input from the v4l core maintainers, or have this=
+=20
+> > fix made separately from the series to not hold rest of the patches.
+> >=20
+>=20
+> There are two possible options a driver can use: if the driver has just a=
+ single
+> video device that it registers, then it can use the release callback of t=
+he
+> video_device to do the cleanup. If there are multiple video_device struct=
+s, then
+> the release callback of v4l2_device can be used.
+>=20
+> Using the release callback of v4l2_device is the more generic option, so =
+this
+> is fine.
+>=20
+> Many older v4l2 drivers do this wrong, mostly due to a poor understanding=
+ of
+> how this worked among media developers at the time.
+>=20
+> In any case, I'll take this patch. It's good.
 
-Fixes: 03ec4aa9817b ("media: synopsys: hdmirx: free the driver data when the last user is gone")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
-Hans, this fixes the patch you applied from v3 of the hdmirx bridge
-series. Sashiko pointed out the use-after-free on v3, and the fix was
-meant to go into v4 of that patch. If you can still replace 03ec4aa9817b
-in your tree, please squash this into it; otherwise it applies on top.
+I just realized this patches a Use after free. I just sent a patch
+fixing it to the list.
 
-The remaining patches of the series will follow as v4, rebased onto this
-and with the v4l2-compliance output you asked for.
+Sascha
 
-The fix was developed with the help of an AI coding assistant (Claude),
-which also drafted this message.
----
- drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-index a241761b1bcd9..8a5304603c00d 100644
---- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-+++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-@@ -144,7 +144,8 @@ struct snps_hdmirx_dev {
- 	struct mutex phy_rw_lock; /* to protect phy r/w configuration */
- 	struct mutex stream_lock; /* to lock video stream capture */
- 	struct mutex work_lock; /* to lock the critical section of hotplug event */
--	struct reset_control_bulk_data resets[HDMIRX_NUM_RST];
-+	/* devres may release these after the driver data is freed */
-+	struct reset_control_bulk_data *resets;
- 	struct clk_bulk_data *clks;
- 	struct regmap *grf;
- 	struct regmap *vo1_grf;
-@@ -2296,6 +2297,12 @@ static int hdmirx_parse_dt(struct snps_hdmirx_dev *hdmirx_dev)
- 		}
- 	}
- 
-+	hdmirx_dev->resets = devm_kcalloc(dev, HDMIRX_NUM_RST,
-+					  sizeof(*hdmirx_dev->resets),
-+					  GFP_KERNEL);
-+	if (!hdmirx_dev->resets)
-+		return -ENOMEM;
-+
- 	hdmirx_dev->resets[HDMIRX_RST_A].id = "axi";
- 	hdmirx_dev->resets[HDMIRX_RST_P].id = "apb";
- 	hdmirx_dev->resets[HDMIRX_RST_REF].id = "ref";
-
----
-base-commit: 48fe5a7834cc10081887d7bcd9ff0a4cadc3fa8c
-change-id: 20261116-hdmirx-resets-uaf-d6792101954b
-
-Best regards,
--- 
-Sascha Hauer <s.hauer@pengutronix.de>
+--=20
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 
