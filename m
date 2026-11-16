@@ -1,67 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853985;
-	b=DEmKzuhjSdWnvvH4joE4XBvLH7g9FU124gAMJcoPGk/61EDp6O62LoUaggdOYGHUvtO3
-	 8xnrx4W9jRbmY9bjUFySxdW5lTGXoE4tgNLGmbZgps8Z3nQ6mUCd+uwEfoayr5zGoUEL4
-	 nU1lYgiSxvvS2aTJzhbEny2OZZjkTuU6UyXcj0rRrVrMMs0RFi9viqhaRnlQ6fFufCCxt
-	 vMBj676xWlLN8w3IfiOei9IoA9B4mUeTQ0vWAFFFDPIf5jH0PrfHtkwW8F84n6ZzYZqDK
-	 iFR5BNoN3tUV4XG/yFhFjftlAGS2FYwzBcLBAJ077BQsM/bFAUd3VVrAU7IuZpW64dg==
+	t=1794854502;
+	b=iApxJb+HY49Dfz7qbedRK7BhCdBMiNJJTE14denv42+WtWIHZSbn7aHDarVB+EtK+jr3
+	 qWdO2TLvoEiT7Jz8qlpbZsQ2mCmf8idzmtN+2uF8nVc+0eiN9yzR2r3CVkJuYLZVsz0Re
+	 xfRyewHieuMcVE45SmgZWb+Jdar5MHB9Ve3HolOTU8dP3Ui5GVmXXUsa4mCYEoOzb+1fu
+	 1OPeIrdggg0kpl3KIKF44sHGpIQEcGV1ZeEeq2x25v/3UtzPPElKeeCyCO9grTOCBgymf
+	 CkH6HkHtgFpf5MLXEZplOF3/0mdK38UMCc7J9rcT9n8usJn9UPv6Qn+pOEDq6AiJSmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853985;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=pLbSnLN6/1576pxJwaqXyR5opWYY3qz9oGloy9SS1q0=;
-	b=N4uA1IUIUm0cOYxoNq0UIbA8CnNYNk3wCfADjfLyCALJTBAxTmU4NnoWhSAnHCU//8S4
-	 Mf+HlAlTgWE916Ds6WS0vH38LXz9u6X/Eg2iVSTEKqksmyQmlh46NB25LCOTiX8YuuTXW
-	 gONCCI85O1JZ+uj4HQ62nPTMAGueDiGszEL+ecRgVwBjpl+M9IZEtQUGhrOmSMtA0jd2P
-	 WMI7COR9LAFtqCr3AV0D9tA3ZhqmaGftFC5NsRXnlC/bJU+4pu2ZyvV/L6S/Fbr+gdvxd
-	 OtmsJsynCg3JShm7nwJLq2BEstNhHtIYvTTlf+OOVb2jisoff5Sm5QZDjd/xCm0asdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794854502;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=8Tq7njCcXOYIy4o4/OBFLNM5MG4m0/CbYzKoNH87dnw=;
+	b=sasdl9xDV5sW3VO4B0ZzPQbhZ4SJgejwXFY0d3PZ2CDdwaWN1b83Mlu7qPj9MZyuxSfW
+	 TXib8C4c1IvTDFglLiWRoM9KDGELPaAeJL2C4AEZsZzZdOGpCcif+EeSkbWMmv4wSZ8l4
+	 Ci1Pz76xrtTIiQYe9mZpRuz/PsV/di28VIlIAEify9GsVqkcXQcEkUC1r7OLZ8vHmeacF
+	 ZBP15uV4AN0OE7aIDYcCMLHdCzFjKU8+tNOfRjl48BgjG2duZ45hI5z0Ie8QkmRKAFCDr
+	 DIU3I4/BhDnLyQymHsNlHHLUL2vuTq0ZSluVDMqA6WB9KR0jdrABoHEQ7dkMIYKMnwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=W5OzgRlU;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=O9yVefhZ;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A982606A31C;
-	Mon, 16 Nov 2026 18:33:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A982606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94584606A322
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 18:41:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94584606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=W5OzgRlU
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=pLbSnLN6/1576pxJwaqXyR5opWYY3qz9oGloy9SS1q0=; b=W5OzgRlUb1W/Hy9/J3QxAUN0Ix
-	FTvWd6w8rA4xJKPDV7q7tiHeFGhHmexLSo+OyjFj+fh7gaCCXiuokLsz2R9isWIjyZZ4y67Pr04Og
-	6B9jZi5gQ2KtsPdY9Vs4WFs1bKrkf7/kASFGwwxDSYlmewoFW3DE+IqoHoPRvee6SZtpfIlgwuo2B
-	Ie39YEw5gIBSjAvy7MJChKRJGId29KvnUavjpV3rl+rjHB6J8rSjb7SuZfj6FywiUYPzGHDIiucyI
-	ixzkPp1rhsFMu1IVDCUxpW1fxBcZPe1X4u172PyuYoc5CqoOguLD9naFLThZ3cBaW+vA9IzgqlLvU
-	+mYDz+Jg==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Arun Iyengar <aiyengar1990@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Hans Verkuil <hverkuil@kernel.org>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Alex Bee <knaerzche@gmail.com>
-Subject:
- Re: [PATCH v2 3/3] arm64: dts: rockchip: Add IEP2 deinterlacer to RK3588
-Date: Mon, 16 Nov 2026 19:32:49 +0100
-Message-ID: <yRxnTArhQFiS4u_tncJj-g@sntech.de>
-In-Reply-To: <20261116-luminous-heavenly-guan-b20f2e@quoll>
-References:
- <20261115-iep2-v2-0-3d8798cd9a55@gmail.com>
- <20261115-iep2-v2-3-3d8798cd9a55@gmail.com>
- <20261116-luminous-heavenly-guan-b20f2e@quoll>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=O9yVefhZ
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261116184138euoutp01b8a7fafe9a43729c58a895103bb70be5~omqgn-tSz2567125671euoutp01r
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 18:41:38 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261116184138euoutp01b8a7fafe9a43729c58a895103bb70be5~omqgn-tSz2567125671euoutp01r
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1794854498;
+	bh=8Tq7njCcXOYIy4o4/OBFLNM5MG4m0/CbYzKoNH87dnw=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=O9yVefhZftyE05qVBfPITaWZHL/YiIZ1XPbWtLcqWiRfO6eq4YQNXTzFPoIMoupuH
+	 rqDo7HTdHgtCRrKMolYP0MmkOjSkpQzvMgo/ZAG9+rOH+hpMqJDy3Q91hdZRuDeppx
+	 Pq3T+nYmMDUbRO1mu56KOfyJBNvZEp2YbGDH15Kc=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261116184137eucas1p29562c752d4c67581cb6e47e86f36c844~omqgEMg-_2938829388eucas1p20;
+	Mon, 16 Nov 2026 18:41:37 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261116184137eusmtip1d921ccf16694521ce4ced30071c5eb2f~omqfulzit0625106251eusmtip1E;
+	Mon, 16 Nov 2026 18:41:37 +0000 (GMT)
+Message-ID: <daf356f6-0c3c-45a3-934a-78c1ed193d8c@samsung.com>
+Date: Mon, 16 Nov 2026 19:41:37 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -71,53 +64,273 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] media: videobuf2: mark pinned pages dirty when
+ unpinning them
+To: Tal Zussman <tz2294@columbia.edu>, Tomasz Figa <tfiga@chromium.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
+	<hverkuil@kernel.org>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20261031-vb2-unpin-dirty-v1-1-701a22f124a5@columbia.edu>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261116184137eucas1p29562c752d4c67581cb6e47e86f36c844
+X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261031164430eucas1p111cf227e6a9eed66a0e09af1afd879a0
+X-EPHeader: CA
+X-CMS-RootMailID: 20261031164430eucas1p111cf227e6a9eed66a0e09af1afd879a0
+References: <CGME20261031164430eucas1p111cf227e6a9eed66a0e09af1afd879a0@eucas1p1.samsung.com>
+	<20261031-vb2-unpin-dirty-v1-1-701a22f124a5@columbia.edu>
 
-Am Montag, 16. November 2026, 13:35:28 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Krzysztof Kozlowski:
-> On Sun, Nov 15, 2026 at 08:47:44AM +0000, Arun Iyengar wrote:
-> > Add the IEP2 deinterlacer and its IOMMU to the RK3588 base dtsi. Both
-> > share GIC SPI 117 and sit in the VDPU power domain.
-> >=20
-> > Addresses, clocks, resets and the interrupt are taken from the Rockchip
-> > BSP rk3588s.dtsi (develop-6.1).
-> >=20
-> > Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> > ---
-> >  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 22 +++++++++++++++++++=
-+++
-> >  1 file changed, 22 insertions(+)
-> >=20
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64=
-/boot/dts/rockchip/rk3588-base.dtsi
-> > index aa69fd3793fd..5297519bd251 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> > @@ -1397,6 +1397,28 @@ vepu121_3_mmu: iommu@fdbac800 {
-> >  		#iommu-cells =3D <0>;
-> >  	};
-> > =20
-> > +	iep: deinterlace@fdbb0000 {
->=20
-> Why all these are outside soc node? That's more of a question to
-> existing code...
+On 31.10.2026 17:44, Tal Zussman wrote:
+> The three USERPTR release paths each loop over the pinned pages with
+> set_page_dirty_lock() before vb2_destroy_framevec() unpins them. Use
+> unpin_user_pages_dirty_lock() instead by passing a dirty argument to
+> put_vaddr_frames(). unpin_user_pages_dirty_lock() works a folio at a
+> time, so a pinned THP is marked dirty once rather than once per page.
+>
+> This removes the last callers of set_page_dirty_lock() in videobuf2.
+>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-Many years back, during the RK3288 addition I got the comment from the
-arm-soc maintainer to drop the soc node [0]:
-
-"[...] this isn't how we tend to do it any more (unless all devices
-are physically on a bus, but then it should probably be named something else
-than 'soc')."
-
-So since then we didn't have soc nodes. Except in time for the RK3576, the
-tune has changed, so socs from then on have a soc node again ;-) .
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
 
 
-Heiko
-
-
-[0] https://lists.infradead.org/pipermail/linux-arm-kernel/2014-July/272779=
-=2Ehtml
-
+> ---
+>  drivers/media/common/videobuf2/frame_vector.c         | 11 ++++++-----
+>  drivers/media/common/videobuf2/videobuf2-dma-contig.c | 15 +++------------
+>  drivers/media/common/videobuf2/videobuf2-dma-sg.c     | 10 +++-------
+>  drivers/media/common/videobuf2/videobuf2-memops.c     | 10 ++++++----
+>  drivers/media/common/videobuf2/videobuf2-vmalloc.c    | 14 +++-----------
+>  include/media/frame_vector.h                          |  2 +-
+>  include/media/videobuf2-memops.h                      |  2 +-
+>  7 files changed, 23 insertions(+), 41 deletions(-)
+>
+> diff --git a/drivers/media/common/videobuf2/frame_vector.c b/drivers/media/common/videobuf2/frame_vector.c
+> index 41f289c75cbb..d4da45cc5624 100644
+> --- a/drivers/media/common/videobuf2/frame_vector.c
+> +++ b/drivers/media/common/videobuf2/frame_vector.c
+> @@ -72,12 +72,13 @@ EXPORT_SYMBOL(get_vaddr_frames);
+>   * put_vaddr_frames() - drop references to pages if get_vaddr_frames() acquired
+>   *			them
+>   * @vec:	frame vector to put
+> + * @dirty:	whether to mark the pages dirty first
+>   *
+> - * Drop references to pages if get_vaddr_frames() acquired them. We also
+> - * invalidate the frame vector so that it is prepared for the next call into
+> - * get_vaddr_frames().
+> + * Drop references to pages if get_vaddr_frames() acquired them, marking them
+> + * dirty first if @dirty is set. We also invalidate the frame vector so that it
+> + * is prepared for the next call into get_vaddr_frames().
+>   */
+> -void put_vaddr_frames(struct frame_vector *vec)
+> +void put_vaddr_frames(struct frame_vector *vec, bool dirty)
+>  {
+>  	struct page **pages;
+>  
+> @@ -92,7 +93,7 @@ void put_vaddr_frames(struct frame_vector *vec)
+>  	if (WARN_ON(IS_ERR(pages)))
+>  		goto out;
+>  
+> -	unpin_user_pages(pages, vec->nr_frames);
+> +	unpin_user_pages_dirty_lock(pages, vec->nr_frames, dirty);
+>  	vec->got_ref = false;
+>  out:
+>  	vec->nr_frames = 0;
+> diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+> index 9ce6284cd5f2..94e00e6bc0fb 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+> @@ -533,8 +533,6 @@ static void vb2_dc_put_userptr(void *buf_priv)
+>  {
+>  	struct vb2_dc_buf *buf = buf_priv;
+>  	struct sg_table *sgt = buf->dma_sgt;
+> -	int i;
+> -	struct page **pages;
+>  
+>  	if (sgt) {
+>  		/*
+> @@ -543,21 +541,14 @@ static void vb2_dc_put_userptr(void *buf_priv)
+>  		 */
+>  		dma_unmap_sgtable(buf->dev, sgt, buf->dma_dir,
+>  				  DMA_ATTR_SKIP_CPU_SYNC);
+> -		if (buf->dma_dir == DMA_FROM_DEVICE ||
+> -				buf->dma_dir == DMA_BIDIRECTIONAL) {
+> -			pages = frame_vector_pages(buf->vec);
+> -			/* sgt should exist only if vector contains pages... */
+> -			if (!WARN_ON_ONCE(IS_ERR(pages)))
+> -				for (i = 0; i < frame_vector_count(buf->vec); i++)
+> -					set_page_dirty_lock(pages[i]);
+> -		}
+>  		sg_free_table(sgt);
+>  		kfree(sgt);
+>  	} else {
+>  		dma_unmap_resource(buf->dev, buf->dma_addr, buf->size,
+>  				   buf->dma_dir, 0);
+>  	}
+> -	vb2_destroy_framevec(buf->vec);
+> +	vb2_destroy_framevec(buf->vec, buf->dma_dir == DMA_FROM_DEVICE ||
+> +			     buf->dma_dir == DMA_BIDIRECTIONAL);
+>  	kfree(buf);
+>  }
+>  
+> @@ -676,7 +667,7 @@ static void *vb2_dc_get_userptr(struct vb2_buffer *vb, struct device *dev,
+>  	kfree(sgt);
+>  
+>  fail_pfnvec:
+> -	vb2_destroy_framevec(vec);
+> +	vb2_destroy_framevec(vec, false);
+>  
+>  fail_buf:
+>  	kfree(buf);
+> diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+> index b1d0695cda26..c80d3232436d 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+> @@ -271,7 +271,7 @@ static void *vb2_dma_sg_get_userptr(struct vb2_buffer *vb, struct device *dev,
+>  userptr_fail_map:
+>  	sg_free_table(&buf->sg_table);
+>  userptr_fail_sgtable:
+> -	vb2_destroy_framevec(vec);
+> +	vb2_destroy_framevec(vec, false);
+>  userptr_fail_pfnvec:
+>  	kfree(buf);
+>  	return ERR_PTR(-ENOMEM);
+> @@ -285,7 +285,6 @@ static void vb2_dma_sg_put_userptr(void *buf_priv)
+>  {
+>  	struct vb2_dma_sg_buf *buf = buf_priv;
+>  	struct sg_table *sgt = &buf->sg_table;
+> -	int i = buf->num_pages;
+>  
+>  	dprintk(1, "%s: Releasing userspace buffer of %d pages\n",
+>  	       __func__, buf->num_pages);
+> @@ -293,11 +292,8 @@ static void vb2_dma_sg_put_userptr(void *buf_priv)
+>  	if (buf->vaddr)
+>  		vm_unmap_ram(buf->vaddr, buf->num_pages);
+>  	sg_free_table(buf->dma_sgt);
+> -	if (buf->dma_dir == DMA_FROM_DEVICE ||
+> -	    buf->dma_dir == DMA_BIDIRECTIONAL)
+> -		while (--i >= 0)
+> -			set_page_dirty_lock(buf->pages[i]);
+> -	vb2_destroy_framevec(buf->vec);
+> +	vb2_destroy_framevec(buf->vec, buf->dma_dir == DMA_FROM_DEVICE ||
+> +			     buf->dma_dir == DMA_BIDIRECTIONAL);
+>  	kfree(buf);
+>  }
+>  
+> diff --git a/drivers/media/common/videobuf2/videobuf2-memops.c b/drivers/media/common/videobuf2/videobuf2-memops.c
+> index f9a4ec44422e..605e24aa710b 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-memops.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-memops.c
+> @@ -59,7 +59,7 @@ struct frame_vector *vb2_create_framevec(unsigned long start,
+>  	}
+>  	return vec;
+>  out_release:
+> -	put_vaddr_frames(vec);
+> +	put_vaddr_frames(vec, false);
+>  out_destroy:
+>  	frame_vector_destroy(vec);
+>  	return ERR_PTR(ret);
+> @@ -69,13 +69,15 @@ EXPORT_SYMBOL(vb2_create_framevec);
+>  /**
+>   * vb2_destroy_framevec() - release vector of mapped pfns
+>   * @vec:	vector of pfns / pages to release
+> + * @dirty:	whether to mark the pages dirty first
+>   *
+>   * This releases references to all pages in the vector @vec (if corresponding
+> - * pfns are backed by pages) and frees the passed vector.
+> + * pfns are backed by pages), marking them dirty first if @dirty is set, and
+> + * frees the passed vector.
+>   */
+> -void vb2_destroy_framevec(struct frame_vector *vec)
+> +void vb2_destroy_framevec(struct frame_vector *vec, bool dirty)
+>  {
+> -	put_vaddr_frames(vec);
+> +	put_vaddr_frames(vec, dirty);
+>  	frame_vector_destroy(vec);
+>  }
+>  EXPORT_SYMBOL(vb2_destroy_framevec);
+> diff --git a/drivers/media/common/videobuf2/videobuf2-vmalloc.c b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+> index 63f023696f3e..bf6273f3bc86 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+> @@ -116,7 +116,7 @@ static void *vb2_vmalloc_get_userptr(struct vb2_buffer *vb, struct device *dev,
+>  	return buf;
+>  
+>  fail_map:
+> -	vb2_destroy_framevec(vec);
+> +	vb2_destroy_framevec(vec, false);
+>  fail_pfnvec_create:
+>  	kfree(buf);
+>  
+> @@ -127,25 +127,17 @@ static void vb2_vmalloc_put_userptr(void *buf_priv)
+>  {
+>  	struct vb2_vmalloc_buf *buf = buf_priv;
+>  	unsigned long vaddr = (unsigned long)buf->vaddr & PAGE_MASK;
+> -	unsigned int i;
+> -	struct page **pages;
+>  	unsigned int n_pages;
+>  
+>  	if (!buf->vec->is_pfns) {
+>  		n_pages = frame_vector_count(buf->vec);
+>  		if (vaddr)
+>  			vm_unmap_ram((void *)vaddr, n_pages);
+> -		if (buf->dma_dir == DMA_FROM_DEVICE ||
+> -		    buf->dma_dir == DMA_BIDIRECTIONAL) {
+> -			pages = frame_vector_pages(buf->vec);
+> -			if (!WARN_ON_ONCE(IS_ERR(pages)))
+> -				for (i = 0; i < n_pages; i++)
+> -					set_page_dirty_lock(pages[i]);
+> -		}
+>  	} else {
+>  		iounmap((__force void __iomem *)buf->vaddr);
+>  	}
+> -	vb2_destroy_framevec(buf->vec);
+> +	vb2_destroy_framevec(buf->vec, buf->dma_dir == DMA_FROM_DEVICE ||
+> +			     buf->dma_dir == DMA_BIDIRECTIONAL);
+>  	kfree(buf);
+>  }
+>  
+> diff --git a/include/media/frame_vector.h b/include/media/frame_vector.h
+> index 541c71a2c7be..daf40b9b3d3d 100644
+> --- a/include/media/frame_vector.h
+> +++ b/include/media/frame_vector.h
+> @@ -17,7 +17,7 @@ struct frame_vector *frame_vector_create(unsigned int nr_frames);
+>  void frame_vector_destroy(struct frame_vector *vec);
+>  int get_vaddr_frames(unsigned long start, unsigned int nr_pfns,
+>  		     bool write, struct frame_vector *vec);
+> -void put_vaddr_frames(struct frame_vector *vec);
+> +void put_vaddr_frames(struct frame_vector *vec, bool dirty);
+>  int frame_vector_to_pages(struct frame_vector *vec);
+>  void frame_vector_to_pfns(struct frame_vector *vec);
+>  
+> diff --git a/include/media/videobuf2-memops.h b/include/media/videobuf2-memops.h
+> index 4b5b84f93538..8a66ec46bc71 100644
+> --- a/include/media/videobuf2-memops.h
+> +++ b/include/media/videobuf2-memops.h
+> @@ -36,6 +36,6 @@ extern const struct vm_operations_struct vb2_common_vm_ops;
+>  struct frame_vector *vb2_create_framevec(unsigned long start,
+>  					 unsigned long length,
+>  					 bool write);
+> -void vb2_destroy_framevec(struct frame_vector *vec);
+> +void vb2_destroy_framevec(struct frame_vector *vec, bool dirty);
+>  
+>  #endif
+>
+> ---
+> base-commit: 27285b099fbc5cb2ae3aef20f3bbd7b3c88b3005
+> change-id: 20261015-vb2-unpin-dirty-912660272e32
+>
+> Best regards,
+> --  
+> Tal Zussman <tz2294@columbia.edu>
+>
+>
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
