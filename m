@@ -1,68 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.244.123.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794792861;
-	b=XIyYRkFVx9SE8fLJZ+jN6iplrxoUDhQRclFwLyf6MSmDeVnoKSTNgTU33GJstaH4n4YF
-	 yrVzkN7+c6popi4F3U8YXmTnrBBn2fIak+ZAGrzDnJX+gXnlfwFqo98jcUTgdDXvV5a7C
-	 Uyie5UnVGe7DML3AkXTlLrETRrdxW8U+0LWFBnKxv+Bin8czCC8xcU8E5/gdYZEk1B4P4
-	 CVqNE4Q/gTNJR1Q1UCAEf1pMZyOp0UMuaYLyROwd5rYnB1hfutIiLCI0twjxElVvpKJV7
-	 jV4dsp6G6v/RzXDhbN1/Syq/DI0McQjwiEg30yW2N+jVHa9sVVOAs41IRtz5bhclgSw==
+	b=d+kmwwlJia5qfTYRLQ2ywIE4SvcT4meM338aEf7QkWjseiY1MXfCVu0Wfo7KAabYoDdE
+	 TdCUVjoWmfQi+MK+o9Gz6zTvW1HxrvLiu5QCf9Quid+a2QwIx5pT/gqmxW6t/XLJEthQw
+	 EszrSos3m3O1xeQt41ug3r28a7NpJNc5OCRlHJkoA/vKvNh3Pkt3YcwHKAm3/mNZPrvXc
+	 SNtdIq9cyNuEcYU8URPyO83l0Eu6SkNUrfHPWw5dX+3fRn3LRNJwiOiOSBH4Q1E7Qus/z
+	 9nrFy3+8aOq4kLlEIC706XOY7X6ezojRJl2XwZW0IcEsVTmetxfTJ7jfciY5mTyWXSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794792861;
 	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
 	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
 	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-MTK;
-	bh=4fRaR5zXu4xmsB2lVnrcu7uZxOyalGiTrTyt3eC1AGI=;
-	b=e0RiyMxwt4ogPVXp/v1VqWQ8Mb5AnDLHxkApdBIN3/fsR5rjQ9WFwgILWdJUg/rSZ9gs
-	 nj6wowOyuf1mr2b6XZ2YHJXnZHzLEtBn+HPoxL50snFZaYgRvOrgPTlept0yu7JSNi54U
-	 OVqAhqHDVYQErfUCGMeXfInAb9aRdcmd5xEKMr90YooW6igZ4d62xXFVGRQQ1RYR69mcB
-	 4GpUCp2jiK0EeK3OjmsOECtGLg0MV5iBu7Yeojleyk/jVbGWMP9ICnIVZNATyqA/2SiP8
-	 eQ1ritcDEnHM7Z5pQRCEzm0kxwXgmempnzkRaJhiiOCY0oklos0di8jvnh42/JcHQxg==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-MTK;
+	bh=Y55TdASnBoGfrDCMy+34oiKBw+p2hSLsA4K7WEYUknE=;
+	b=U7AnElxU6xv229cv8euq1Mimv2yadd0JOMu+U+7LBHH61ZoulZ5ds0/bNzosLbDJWcr9
+	 +T1/qPmOf35seeify0s6HFCO8hiGuXxeltZccp1tBPJq/dmq7fScfNHncKr6koDVjxKDy
+	 QTq4N6LO3X8rarVAxTOv81OclLND8UjP/fPkepqkk7vosdBQC3ddcYH8k0YQjTeYsiFnc
+	 jfieviHgqGMjIhgAoUokV9e7ULWZnZvr2GWi5gSeEWr7HOXnX4jgIUeTZbIXgGYLWgvLl
+	 ohSbA9IDYNNqQSB39nogcyddtLlyM2K1ejt1SrXJRhd6H19KwcConbpM5xUM1deXknQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mediatek.com;
 	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b="L0h+/Xy8";
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Z2yYJ5xi;
+	arc=none smtp.remote-ip=60.244.123.138
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7156606A321;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC089606A31F;
 	Mon, 16 Nov 2026 01:34:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7156606A321
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC089606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=L0h+/Xy8
-X-UUID: d36d6be4e15d11f18dc8c9802ae25ab1-20261116
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Z2yYJ5xi
+X-UUID: d19eebf8e15d11f1b1788b6acf885367-20261116
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=4fRaR5zXu4xmsB2lVnrcu7uZxOyalGiTrTyt3eC1AGI=;
-	b=L0h+/Xy80/P2/G1QG9NVDIWaw85pcBDldjX++qx4RNw+2LbKTlMNherGz/KjVkRRDUfC0+4yr00A+wt+facB7+V0ziilafdGbhH1TtMces2Z/KGkz7nnoff0jWN/F+vyDfh90Se4I58phoW7XOPtdcIy4vKIv9nU5EYYeu1pM/k=;
+	h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=Y55TdASnBoGfrDCMy+34oiKBw+p2hSLsA4K7WEYUknE=;
+	b=Z2yYJ5xiOOnIzziEmgvqMmemohbecnCE5mUdJqPmmaQipukV6vvsG6lfEDjFps6TUd56PW8O1bLjr5KJ+RS9XwnzCKVxXPf0JsIZoPQHoaPTZRP9sZYpTGtf3KZptjFwdZzLT+r6kU8cpRplT7jQ54fQK3P9JQPk72RXYezE394=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:65e90d34-a82d-4a6d-a017-0c2df0cb6b50,IP:0,U
+X-CID-O-INFO: VERSION:1.3.21,REQID:1a1c45c7-eb11-4af7-a132-9fef6136230f,IP:0,U
 	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
 	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:fb05cb8d-b3e7-4795-ae33-b1b4d51e21d7,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-META: VersionHash:b0318ac,CLOUDID:eddb5666-4b51-4c95-bb1b-80ac6aad9c96,B
+	ulkID:nil,BulkQuantity:0,SF:102|136|836|865|888|898,TC:-5,Content:0|15|52|
+	99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
+	I:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: d36d6be4e15d11f18dc8c9802ae25ab1-20261116
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw02.mediatek.com
+X-UUID: d19eebf8e15d11f1b1788b6acf885367-20261116
+Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw01.mediatek.com
 	(envelope-from <kyrie.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 332798407; Mon, 16 Nov 2026 09:34:12 +0800
+	with ESMTP id 613890696; Mon, 16 Nov 2026 09:34:09 +0800
 Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- MTKMBS09N2.mediatek.inc (172.21.101.94) with Microsoft SMTP Server
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 16 Nov 2026 09:34:10 +0800
+ 15.2.2562.29; Mon, 16 Nov 2026 09:34:07 +0800
 Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
  mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Mon, 16 Nov 2026 09:34:09 +0800
+ 15.2.2562.29 via Frontend Transport; Mon, 16 Nov 2026 09:34:05 +0800
 From: Kyrie Wu <kyrie.wu@mediatek.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
@@ -74,12 +73,10 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
 	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
 CC: Kyrie Wu <kyrie.wu@mediatek.com>
-Subject: [PATCH v19 02/13] media: mediatek: jpeg: fix jpeg buffer payload size setting
-Date: Mon, 16 Nov 2026 09:33:27 +0800
-Message-ID: <20261116013402.1273016-3-kyrie.wu@mediatek.com>
+Subject: [PATCH v19 00/13] media: mediatek: jpeg: add MT8196 JPEG support
+Date: Mon, 16 Nov 2026 09:33:25 +0800
+Message-ID: <20261116013402.1273016-1-kyrie.wu@mediatek.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116013402.1273016-1-kyrie.wu@mediatek.com>
-References: <20261116013402.1273016-1-kyrie.wu@mediatek.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,64 +86,157 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-MTK: N
 
-For multi-core jpegdec, if one core gets resolution change event,
-the payload size, representing the size of Y/C data, needs to change.
-But others are decoding at the same time and it can not be changed
-immediately, which results in the payload size not matching the real
-buffer length.
-The payload size must be less than the real buffer length to avoid
-warning logs.
+From: Kyrie Wu (吴晗) <kyrie.wu@mediatek.com>
 
-Fixes: 0fa49df4222f ("media: mtk-jpegdec: support jpegdec multi-hardware")
-Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+This series have the follow changing:
+Firstly fix some bugs, including resolution change handleing, stop
+streaming sw flow, fix buffer layout and clock setting to support multi-hw
+jpeg working and others.
+Secondly add mt8196 jpegdec and jpegenc compatible to support MT8196
+kernel driver.
+Lastly, Add smmu setting to support smmu and iommu at the same time.
+
+Historical testing reported for v18 (not rerun for this revision):
+This series has been tested with MT8196 tast test.
+Encoding and decoding worked for this chip.
+
+Patches 1 fix jpeg hw count setting to support different chips.
+Patches 2 fix jpeg buffer payload setting to handle buffer
+size bug while resolution changed.
+Patches 3 fix jpeg dst buffer layout.
+Patches 4 fix multi-core stop streaming flow
+Patches 5 fix multi-core clk suspend/resume setting
+Patches 6 fix buffer state update timing
+Patches 7 fix decoding resolution change operation
+Patches 8 fix remove buffer operation
+Patch 9 adds the shared MT8196 JPEG SMMU configuration syscon binding.
+Patches 10-11 add complete decoder and encoder bindings for MT8196.
+Patch 12 adds the driver compatible strings for MT8196.
+Patch 13 adds jpeg smmu sid setting.
 ---
- .../platform/mediatek/jpeg/mtk_jpeg_core.c    | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+Changes compared with v18:
+--Rebased on mainline 23c62304dde29abe92013d85910d03a77dada35d.
+--Initialize hw_rdy before populating children to preserve probe counts.
+--Drain ready queues before waiting for in-flight buffers at STREAMOFF.
+--Reject component suspend with -EBUSY while hardware is active; restore
+  M2M scheduling on failure and use pm_ptr() for component PM operations.
+--Publish decoder completion metadata before arming the timeout.
+--Keep queue-format updates under CAPTURE STREAMOFF locking and check
+  SOURCE_CHANGE state before comparing resolutions.
+--Unlink prepared buffers before arming timeout or starting hardware.
+--Introduce the shared SMMU schema before complete MT8196 decoder and
+  encoder bindings, including their required smmu-config phandles.
+--Clarify MT8196 SMMU stream IDs in encoder iommus descriptions and use
+  the soc binding prefix for the shared SMMU schema patch.
+--Complete SMMU initialization before allocating a child index and
+  publishing child pointers, preserving parent state on probe failure.
+--Update changed descriptions and remove the agreed Reviewed-by tags
+  on patches requiring renewed review.
 
-diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-index c477f1a4d..d1ee90bfa 100644
---- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-+++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-@@ -702,6 +702,7 @@ static int mtk_jpeg_buf_prepare(struct vb2_buffer *vb)
- 	struct mtk_jpeg_ctx *ctx = vb2_get_drv_priv(vb->vb2_queue);
- 	struct mtk_jpeg_q_data *q_data = NULL;
- 	struct v4l2_plane_pix_format plane_fmt = {};
-+	size_t max_size;
- 	int i;
- 
- 	q_data = mtk_jpeg_get_q_data(ctx, vb->vb2_queue->type);
-@@ -710,12 +711,20 @@ static int mtk_jpeg_buf_prepare(struct vb2_buffer *vb)
- 
- 	for (i = 0; i < q_data->fmt->colplanes; i++) {
- 		plane_fmt = q_data->pix_mp.plane_fmt[i];
-+		max_size = plane_fmt.sizeimage;
-+
- 		if (ctx->enable_exif &&
--		    q_data->fmt->fourcc == V4L2_PIX_FMT_JPEG)
--			vb2_set_plane_payload(vb, i, plane_fmt.sizeimage +
--					      MTK_JPEG_MAX_EXIF_SIZE);
--		else
--			vb2_set_plane_payload(vb, i,  plane_fmt.sizeimage);
-+			q_data->fmt->fourcc == V4L2_PIX_FMT_JPEG) {
-+			max_size += MTK_JPEG_MAX_EXIF_SIZE;
-+
-+			vb2_set_plane_payload(vb, i,
-+					      MIN(vb->planes[i].length,
-+						  max_size));
-+		} else {
-+			vb2_set_plane_payload(vb, i,
-+					      MIN(plane_fmt.sizeimage,
-+						  vb->planes[i].length));
-+		}
- 	}
- 
- 	return 0;
+Changes compared with v17:
+--Keep suspend/resume callbacks and clock ownership on multi-hw component
+  devices. Leave single-hw callbacks on the master, and wait for the active
+  job before disabling component clocks.
+--Add a standalone DT binding patch for mediatek,smmu-config and the
+  dedicated MT8196 JPEG SMMU configuration syscon at 0x38d0000.
+
+Changes compared with v16:
+--Rebased on top of the latest media tree
+
+Changes compared with v15:
+--Set max_hw_count from the DT child count and update hw_rdy from child hardware probes in patch 1.
+--Fix patch 2 commit message wording per review.
+--Rework patch 6 commit message per review.
+--Remove redundant devm_clk_bulk_get() calls in patch 5 per review comments.
+--Use %pe to print smmu_regmap error pointer in patch 12 to fix media-ci/static warnings.
+
+Changes compared with v14:
+--Rebased on top of the latest media tree
+
+Changes compared with v13:
+--Rebased on top of the latest media tree
+
+Changes compared with v12:
+--Rebased on top of the latest media tree
+--fix kernel rebot build warnings in patch 5
+
+Changes compared with v11:
+--Rebased on top of the latest media tree
+--Some modifications for patch v11's review comments.
+--add reviewer to commit messages
+
+Changes compared with v10:
+--Rebased on top of the latest media tree
+--add reviewer to commit messages
+
+Changes compared with v9:
+--Rebased on top of the latest media tree
+
+Changes compared with v8:
+--Rebased on top of the latest media tree
+
+Changes compared with v7:
+--Rebased on top of the latest media tree
+
+Changes compared with v6:
+--Rebased on top of the latest media tree
+
+Changes compared with v5:
+--reorder the patches set.
+--fix commit message of patch 1-8.
+
+Changes compared with v4:
+--fix kernel robot build errors for patch 4.
+--add reviewer for patch 1 and patch 2.
+
+Changes compared with v3:
+--change patch subject of jpeg encoder and decoder compatible.
+
+Changes compared with v2:
+--refactor smmu sid setting function interface
+--Some modifications for patch v2's review comments.
+
+Changes compared with v1:
+--refine jpeg dt-bindings for MT8196
+--optimize software code to manage jpeg HW count
+--refactor smmu sid setting function interface
+--Some modifications for patch v1's review comments.
+
+Kyrie Wu (13):
+  media: mediatek: jpeg: fix jpeg cores' amounts setting
+  media: mediatek: jpeg: fix jpeg buffer payload size setting
+  media: mediatek: jpeg: fix buffer structure size and layout
+  media: mediatek: jpeg: Fix buffer completion on multi-core streaming
+    stop
+  media: mediatek: jpeg: Fix multi-core clk suspend and resume setting
+  media: mediatek: jpeg: fix buffer state update timing
+  media: mediatek: jpeg: fix resolution change event handling in decoder
+  media: mediatek: jpeg: fix remove buffer removal timing for multi-core
+  dt-bindings: soc: mediatek: Add MT8196 JPEG SMMU
+  media: dt-bindings: mediatek,jpeg: Add mediatek, mt8196-jpgdec
+    compatible
+  media: dt-bindings: mediatek,jpeg: Add mediatek, mt8196-jpgenc
+    compatible
+  media: mediatek: jpeg: add jpeg compatible
+  media: mediatek: jpeg: add jpeg smmu sid setting
+
+ .../media/mediatek,mt8195-jpegdec.yaml        |  24 ++-
+ .../media/mediatek,mt8195-jpegenc.yaml        |  39 ++++-
+ .../mediatek/mediatek,mt8196-jpeg-smmu.yaml   |  41 +++++
+ MAINTAINERS                                   |   2 +
+ .../platform/mediatek/jpeg/mtk_jpeg_core.c    | 161 +++++++++++++-----
+ .../platform/mediatek/jpeg/mtk_jpeg_core.h    |  19 ++-
+ .../platform/mediatek/jpeg/mtk_jpeg_dec_hw.c  |  96 ++++++++++-
+ .../platform/mediatek/jpeg/mtk_jpeg_enc_hw.c  |  94 +++++++++-
+ 8 files changed, 410 insertions(+), 66 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,mt8196-jpeg-smmu.yaml
+
+
+base-commit: 23c62304dde29abe92013d85910d03a77dada35d
 -- 
 2.51.0.windows.2
 
