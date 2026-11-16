@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794823984;
-	b=eggZp4OltJwsFiEJF9qrp4MuCrPLAVhmnQwtQpTpfUQD2BG7lr/3WttJ0uUTs1nCGAv7
-	 7Z/QQuh1uy01/Vk/pPVPOxFXf4JZc8tSuLG8bNzXo04Sq7weQbKJw6QqFyqnm+CDd7fYH
-	 RLTkn3mi/iZNbaThBkTBonNIPHuFTjrhwKEXsk+RKncWUwLNHErTV9eu6Ofoj7jbEtYhs
-	 OHB+Xvq9ua1ImIEPrLCVR57pUDiVH+0pPI6QIciYoKtdOwNwfjdcZkST5CtB7cV6Kgvik
-	 z25/a76otiUkILi+PdPNeQZL0BjOrKJoAno3Wjy69vlwiZeY9rTXcaH0D/PiCqpyD7Q==
+	t=1794824004;
+	b=oC9S9MH5Gih/BSBQxHbW1U7znkxoH+I14Ii58CNvDMmLDILgpTkSuFC7HXEMm+uWIOH+
+	 uCKx6bpvy2nOBRQdEvgepRJEvjeMH+kFaWmNtZ8Am1QtlOIpLdYPDaC8MtCVWYms+f7rd
+	 CELTk4FPvxNrcX4wlmc9eznlfBxWi5+VllIYg85JydGdYH6wZAnosu/3dT6im8PmbTJ42
+	 zfS3Nj4yBCZxsgrdBljxWC8ZGesfo54kD2VSMoidmIOeMuKnmRfAwLUHh/vnLdUvnuuMH
+	 IdH5ECom1f2Rn9MgCZ8kSTo2m3R4MGh22aXeomO6Uejsrz2S+4YCugIEtOsKzW2/qyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823984;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824004;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=YSdYiyUlnvFWz8iXQcw0X7fJk/Cp2zi+hAjZsocDatk=;
-	b=yIc9BcldMZ0i4Atmmz3PeNQGKf3aMAUc+2RP0pHOEbyoOXWoJ3mpGQ97bS8qU+86ERTA
-	 MXHurjy3MLoD2LyqVdgGfGLD6KhsJVpfczXod398oBBVxYJE+jZn/I/wU0pMtfddajvYv
-	 Hj0+ehCpTwPgC+XfYiHvSskNPPSCq84BmmPNkTVKU+Dkcjlg5kZSQseAUh9/cWQqCTjwJ
-	 hNbCY1dXV7bpYRbmY1VJIjkyPb/erYSuaCZefR+sClTwC+8dUs9a3Z/6CuaL8ZuTgoTyV
-	 GbrbTfToZllRCtujPr+vHL45aLOdTxfmsQPKwmr3bwh62SVTEbQxGHaBMUkGPQrYJwA==
+	bh=SJqlZUMi4mTvpiqmlF5foK7DBZyPnlP1pzywr9ZuMTU=;
+	b=WcQ1VdAjX0nK6QV2tl1Kx3cxwnd2VjgTWl8DB5BUb0xMdhnR6ynZ5Z6QWBP/Nt/JV2Td
+	 gGpLSp5eZhJQtP0rMvnsrTMIxFzIGipYCJiwt5+e4aC34gvlz8IFeZUsTRoFi22K567FB
+	 EdIIbnkvYKHei5FHShEV1DTzcp0836qt+w15KLFjFtMhEPPGWlznRW1ZJPGpc+GPjKkTa
+	 jckKCMtMAiywpG+M3/7+SVx+28u4stppvuUuJy/xKhUfp12kndduEvlCB3vNSF1ce3LI7
+	 51rKmE6EfOuCl5pxu7TqBUynQPI2LOuxbR48+SPn0tQXcLhBSszYiveNckFxupwqj/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmQNe7Yp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bP/Oyt3X";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8390C606A330
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 10:13:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208F8606A32F
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 10:13:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmQNe7Yp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F6E61F00934
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 10:13:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bP/Oyt3X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB6741F000CC
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 10:13:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794823984;
-	bh=YSdYiyUlnvFWz8iXQcw0X7fJk/Cp2zi+hAjZsocDatk=;
+	s=k20260515; t=1794824003;
+	bh=SJqlZUMi4mTvpiqmlF5foK7DBZyPnlP1pzywr9ZuMTU=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=FmQNe7YpB8jS2dI5tt39gzE4HeTglXC+cKcAuS9svkqaCpPF4CDFtDgedFu/RtbRS
-	 BlrA3WsB9d0H+euYkbeCgjqB4qE9WIV6+uiHQP/eIxs70yiYltbni9/QMspsqylrC0
-	 Tm33I0T5N6gigsm3TAP3ILpjhdX5UaNbEMdlGtRldTdCxGyS1dsEA2H80pApzAhbKu
-	 GvKam8xPbMWialCAgmqUZlKELBmsa3WvzVmm9J8eOrR7XXDXzfe4nw6tjwRxD6i215
-	 46bZha0sYMm13aN3Gd/BSuW2Y/rR2BjWe3JmBhONwy3IZAOXJ6s9T4kUaJyIEDN1MJ
-	 yBa8JIcUKPySA==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5c151178f0cso3098252e87.0
-        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 02:13:04 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErE1twbc5hfDr04FseTdvxznCVi5LbolVXKW2EuZT+UuLf44X3DhJr2mWdRnxjgnlec4RHc9sURoL2O78g==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/f14o91+dbHZwNPUNUepmtWRV2jYb+QlPuQVe8QsUP5XjuErl5
-	d5V/lI0YLCaRM+SZDPC04KiU5tRU+73LnbhSVRICHlxwBGvDAwBosOoesYVROTcyKoRrxxEHxNY
-	ig+asq3mauIVLk4aA6Pe2ZG1mmFJo99E=
-X-Received: by 2002:a05:6512:3182:b0:5c1:5bcc:bf0e with SMTP id
- 2adb3069b0e04-5c170b1c308mr3696720e87.14.1794823983027; Mon, 16 Nov 2026
- 02:13:03 -0800 (PST)
+	b=bP/Oyt3XHLVeklt0TtxLW/1T/CtdWqVfDIheAJGtIOgCNZ4Z5E0SDM3J5HSkkfptU
+	 8zRsUnYLmIWqS50luVwgx0o4A8g1wlzGbTFqbpr/nDFnnR9Mf/dIKW4YE6QWQqxV5b
+	 JbptnxtmhvXGZUstSGXghGREaNJzWEiYslR03RU3wr8uBZLnE6vagiR74o5KCG/Jel
+	 0/cI8X8ivU7o0zbpOSDZsQJTgIm3k1GrJ1fLLHtLuXb2NKEzuxbxXfin6I2zLb0M6u
+	 RT5LlkGL2K/fxojnLV93WBvBZmlwQc4hPfYx18kqXw4b+hYAccqmliO2AZy8aOa8HF
+	 UKuWoIxXIP0IA==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5c14470729eso2711212e87.2
+        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 02:13:23 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErH2RqwUA0iv2Y3jv0lBV0sw6s/s79dn11SZBmrOXtYvDdox2R4+FUVkwnVq/7NoIvla0JH9S2v3jQiyYA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9660YbenXAq9JvGhk7HGyX8AK/vZ0VmXJsQi5PWxj9uidiMSPs
+	wDS5YKq5eRZ2LsdJ+P2OTI2e5MS5KggFnRLIQYGwJoe/ZUP4BbjxJNdztJ98/ce0fG0QrzrWVKi
+	6naXKzjAT5s4EUCBtbrE9758SjjHhkc0=
+X-Received: by 2002:a05:6512:b1b:b0:5bf:b7d2:c7d3 with SMTP id
+ 2adb3069b0e04-5c170b51016mr2856791e87.39.1794824002564; Mon, 16 Nov 2026
+ 02:13:22 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,14 +59,14 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116014823.3132576-1-jic23@kernel.org> <20261116014823.3132576-19-jic23@kernel.org>
-In-Reply-To: <20261116014823.3132576-19-jic23@kernel.org>
+References: <20261116014823.3132576-1-jic23@kernel.org> <20261116014823.3132576-15-jic23@kernel.org>
+In-Reply-To: <20261116014823.3132576-15-jic23@kernel.org>
 From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 16 Nov 2026 11:12:50 +0100
-X-Gmail-Original-Message-ID: <CAD++jLnKz41LeMGJjGtsuzB69TfZQhDy0grFKxd3vPh-tsz3Aw@mail.gmail.com>
-X-Gm-Features: Aa3M54qobcsJYrMCzCZfCjAScyuFW8KV_4L3-AZSbH3okAaKcNbd9qDJaNqjzTY
-Message-ID: <CAD++jLnKz41LeMGJjGtsuzB69TfZQhDy0grFKxd3vPh-tsz3Aw@mail.gmail.com>
-Subject: Re: [PATCH 18/35] iio: accel: bma180: use default_trigger
+Date: Mon, 16 Nov 2026 11:13:09 +0100
+X-Gmail-Original-Message-ID: <CAD++jLnowMOL8ocZwYJe+ZhVFWFA0RGHVcx7AQJRYz5okdpjJQ@mail.gmail.com>
+X-Gm-Features: Aa3M54olxlOrJTw4ezYb1O0T-yaijVkbM6ru0n9yjK_DqXWDbLCO-yBDZivhOMg
+Message-ID: <CAD++jLnowMOL8ocZwYJe+ZhVFWFA0RGHVcx7AQJRYz5okdpjJQ@mail.gmail.com>
+Subject: Re: [PATCH 14/35] iio: accel: bma400: use default_trigger
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, 
 	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
@@ -98,11 +98,10 @@ On Mon, Nov 16, 2026 at 2:50=E2=80=AFAM Jonathan Cameron <jic23@kernel.org>=
 > Set indio_dev->default_trigger rather than taking a reference to the
 > trigger in probe(). The IIO core now takes the reference during
 > iio_device_register(), so it is not leaked if probe() fails after
-> the trigger is set up. As well as closing that leak, this also makes
-> the ordering a lot less fragile.
+> the trigger is set up. Whilst this closes a potential leak, it
+> also makes the ordering going forwards a lot less fragile.
 >
-> Fixes: 0668a4e4d297 ("iio: accel: bma180: Fix indio_dev->trig assignment"=
-)
+> Fixes: ffe0ab6a9698 ("iio: accel: bma400: Add triggered buffer support")
 > Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
 Reviewed-by: Linus Walleij <linusw@kernel.org>
