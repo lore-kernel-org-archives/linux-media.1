@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822432;
-	b=n90cDIqS2J+1eXFot/YC4VqUqUobESzWZ0RXi/YIr7xkcmFgrsI4V2bGpL42oNcP3NtS
-	 ne+fbiJI48xQJpQrtPjqDrKLpupXdsDy9i281p4AlAM5FqZ/VG0jjjazKY05PiNsnlI6L
-	 2OBHWqkM/o9oPjbeF8ZlWIALJ0sFUEC0Fp0MX1RFNIzuoWjVYZ83vomxkTDgQ48AnkUtr
-	 sULL6zJxaXbDL+/xm3+mwCFoWJxXx3SDJfs1iQy8RxjWXwYCBKFPbPeSoC1Fk+3NxIbG5
-	 w4MhrpoYmGchEqkLqVhVprCaXdYKez8aJEJWAZpcf04Avlj+0P6oRyI+TV/ccBQEkHw==
+	t=1794823216;
+	b=3exI03UQDoGpYaohqlrd1d+k3+rCim8KZWkO44czRj7cIc762vWZVYzwWj/QAOc44hix
+	 kuxvS5h2oeQVCv4nXmC8U9QaDG2wYQUwwiFAc9s0nDnQ3GmQZgZqIvWZsn49jhNo8JT6b
+	 g9S7iOZA2nDVhiLefjUjiG/Hwy1DsbU3mgd7IxloCHmqBWPEjxwaYVsEWvMAUhuQm6Azq
+	 PSGtTGe5pjTbUfaqDkGJX6SkwOJxV/flsVckRB99ZXssYI94lSWqSbaCvsm3aJNsZ2v+U
+	 J/r8ZCkmZR5YgvfkqmY4buH/e6gDkbJVisYmxQrxH7O5h5qrEKRZRBu0ZcJ94f+V2DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822432;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=2hCw0HfXzgsJrvrdvNR1avGGnl1bLaFhXU7I6fhVLlk=;
-	b=ycLRAD72rpWWMaUv4/xxRdjXG8l60smNhVat2/p0U/BkO8y91ueQHEtpfOG+O7Tnh6oa
-	 6tZ06Q3f0uhIMvyvHewNCQF1W+iU4FAXGr+g+RSgSGqNRhvSLNaovobTKhfec+mevRsSt
-	 0aUuxBxfBEdmDua8kY1C5IlcuglTjfmCYbK6D5D1sfcl9uL02ugItpnU+qKRJCpm6X5UB
-	 kp6R22EAz89n+pEwgjUijR3BHMxXY921HaAgRmN+ONM/28kllKnCrEP7cKkmT369Gpw8s
-	 ht3lVTRDIP9x/AGNWCZ9vKyeUDcKpMPuXy8xlGQH8+a0QRwvhqyNvFdHe76LT16NBZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823216;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mS0n0VCms4eHAxEd2Xq6Bm0DUZuN+p1NF5Q118cCuJU=;
+	b=RhS98eycWVY1x5aH4DGv3XmFvvF76t+M4oiLQW0f5NDKACnYgE39FlVps1PjURd9jRTz
+	 HyGn/iE16Gg7Tu2UYbiN4ZO8jPSv4fu4prQ/0vznoBu51xy5XFjt4kLsPqrP3Lf4do5cR
+	 Z4Y/Rn6YjOZFoF06SMse5tfMw4recEPYzFI4uCsEs3fQskGzMAEWPoiXd2Nvrb43euSG2
+	 RQHqC8WhNZGtCVBQVBFAUahhqba3hx5CSaP9ujtfw2rs1OZzWJhuId2aQlfvkTw+VW2xV
+	 clSbpwc1YtDLgG0a0KO9JcNvrfuGXBR/noT+yMi4ntZ7Ih8vatMgGFXA1e6mT8I8X2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KEgnCGgu;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=vEimE56H;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF95606A32F;
-	Mon, 16 Nov 2026 09:47:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DF95606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E89E606A333
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 10:00:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E89E606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KEgnCGgu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794822432; x=1826358432;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yBaVqlPLhm2b7IcfoxaduU8wWVJRVxWQ5qIOXtjzCrI=;
-  b=KEgnCGguwXBPHwqHkxkv5SpZkuOPY0Jg8lr9b7w9c/srd4oPUQHNhL31
-   oEtBv+HWPE7gc78ZKnOxW8OkduQunhDzSbeuP2Jzro2lSsMYwCztK1QS/
-   jnpEkJUtOxSFDKkrS5/UcoTGl5O+FvJwZJ0zvQ+MP2bjO2i6T2RhvsdzL
-   yPqWe9CsDHwBjku0SEP2L5FjFuVFjTT88aDCO3rI8kttii5Njxe3/wtd5
-   1AVyoz2KGbS3LzqGmT5sohP/NFS7d/4RvuIbgRIq8FT2y6vgNVFFcz62k
-   wL6Y6CiMqklDrHxCFk9/vIep+0iwdTsaRn8Ww9FDR7+3g7mz27MWOT7tm
-   g==;
-X-CSE-ConnectionGUID: 5aOODXrTSx+A5nZXJnGD8g==
-X-CSE-MsgGUID: AMwZhRBoT12xrhi5J1HxEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3446317"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3446317"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:47:11 -0800
-X-CSE-ConnectionGUID: DBQfNFA6RzegQclU0c3CWg==
-X-CSE-MsgGUID: wQg5UuoQT3WnBG5++TtTVQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="11288697"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.87])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:47:08 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id B419E121B5D;
-	Mon, 16 Nov 2026 11:47:12 +0200 (EET)
-Date: Mon, 16 Nov 2026 11:47:12 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: "D. Manresa" <dmanresa@gmail.com>
-Cc: Jakob Berg Jespersen <dev@berg.pm>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	=?iso-8859-1?Q?K=E9vin_L'h=F4pital?= <kevin.lhopital@bootlin.com>,
-	Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] media: i2c: ov5693: fix horizontal flip polarity
- and Bayer phase
-Message-ID: <avrRIDjxtSPAU33o@kekkonen.localdomain>
-References: <20260729-sp7plus-ov-flips-v2-0-91884b81a8f5@berg.pm>
- <20260729-sp7plus-ov-flips-v2-2-91884b81a8f5@berg.pm>
- <20260828231805.29790-1-dmanresa@gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=vEimE56H
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb666304fdso10186135e9.0
+        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 02:00:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794823214; x=1795428014; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mS0n0VCms4eHAxEd2Xq6Bm0DUZuN+p1NF5Q118cCuJU=;
+        b=vEimE56H43Jg55t7HgEB/LzIS/rLakfMKe/pp0cuoCTuDwuPtYYUg4Mtvvh6nja5Fy
+         TkNa3lt5+UyT643R4VzR2wBPKBUelTxRkfcWMtdAl8SGUujuqWVA6tHq0H39p98mM51x
+         FEOtn3lBVqR+0qtSKDsSc8OGeXZE00fbpoGSJ9KD/Dxw7kCipkV3xlPSUNMOWPqEHJId
+         ugUxulcTrtVMfugXrNv3CTh8rSqPfOpaCezGWvAur02ITF6g6iNaNPvDfx1y7ca4sTtW
+         KgM8D4NdMsSdEhb95kYQ1VJX8VqLDJupoCQxikYEENQNeQ6qyeLb38svOTc9IwAV6IdP
+         Rzug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794823214; x=1795428014;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mS0n0VCms4eHAxEd2Xq6Bm0DUZuN+p1NF5Q118cCuJU=;
+        b=kJLJMAdD9hDU9MrMv1Ilau0e9TRaXwd+oGvO2oVwlqjzIJs4jKa2+4Fj3rctgD77jg
+         AOMQD2tKE24aW3Gm1iZ0H/xrERsIuswmvq6JvQ+ysRB5rG6YBtr5haUfMVGtveIlL7we
+         cL4JguP0z6JAwwyDanXZP1XhMQN3i2sfkHjRqq1Yk+vv9FGDDGx3qF/vbt4daO+kWciZ
+         hUQRqqTLxO7wtQQhuLNIMm5BnihztgSpdzrNfjp/QnICWG1/iwvHiROfq+5DitzPaha0
+         qWKqS9CbIM0LwhJnZ9mgIXmRk4LsHi15vBG65Y8wkTjx/nZ/n74VyZTHmWCfgJx6j3yO
+         v+yA==
+X-Forwarded-Encrypted: i=1; AL+hErERsrj8vFoGDMYhQ44Yr1fR3mcV3/hAFw32ha/jlp6esC8lwGAmj3u59s7cPgleI40NAzFuEi010e+qEg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/VxdDdHWm5FlYFy6Fv42tF246IJPyHgGFKh/Ia3s26GAbANa+C
+	BwAev3AoOPd2Cm3O8mKtjmwj0gZYgo9ua17FIJXExRLofo+m4HONTocNGbJTIw4dLkA=
+X-Gm-Gg: AYBFou3wkcNYAEhgOlXBs7bocjTPldNYbKZamScyGX7T+Ea4NqI6l6sDc++2vKb0e/t
+	0Qcx2ULIkcgAX9gVhUlzqJhhvQekPqYsAG+A6cL2ZVw6UVpKzoNqMUaRXaP2QTyyaR7uKj1o0qS
+	o4wmCFvMfWG5+RU3A05WEcj4cQDzvAM4QO3DpD3v8di53YEUFd/Ynb8UkuoWzJeh+Vxr8qgqIYJ
+	GnfrkXoCiP2rP6m/YDH8h5qjFwfuneLkh4MR4nFb2FevFocmrDIsClrQoUSSrKoqKNjUTyVJwFv
+	bDnN1WUPAuFqCcHHVEJsMd9hjPukcO41xWduNX01SApEqPR3pkJCf03M3VTOnD38OvuLfEsrk8y
+	IZW/rwMEfv+Wzmjky6mqxhS8PZGFBW1uRRqK4JiMknSCcEgh/LRDYIwbQ+JhTApm9eMxHsVQZZR
+	r96/Frbe0CZI+OGKLsJhy1iGwjCPMbeS/e6MQdeKSsn9k/5AD8n2p0ZQ6ODYDk3kklAUfBrTUaT
+	p6V6M8tKdKWGmOVlFRvyjZHV90utSJwEFXC9VQFd2riHNl5DsocQBcOk7zmaLE5DIeKWLPKLVdQ
+	P2qcciNvemhZZdapa3zX+wV5auAiVFBjce+8cbCn95Sk6PRL5/VXqFG13TJI+ES0JDLH8Xw9mzy
+	3OKFm0rqv
+X-Received: by 2002:a05:600c:3b16:b0:4a2:1960:6fa with SMTP id 5b1f17b1804b1-4bb55a6116bmr218070545e9.4.1794823213643;
+        Mon, 16 Nov 2026 02:00:13 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:575d:8fcf:e30d:5aed? ([2a01:e0a:106d:1080:575d:8fcf:e30d:5aed])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e28c882sm375110715e9.6.2026.11.16.02.00.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 02:00:13 -0800 (PST)
+Message-ID: <c458eba8-553e-4c5d-a280-918bec25b041@linaro.org>
+Date: Mon, 16 Nov 2026 11:00:12 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,24 +93,79 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828231805.29790-1-dmanresa@gmail.com>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v12 1/6] firmware: meson: sm: video firmware loading via
+ secure monitor
+To: zhentao.guo@amlogic.com, Nicolas Dufresne
+ <nicolas.dufresne@collabora.com>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
+ <20261022-b4-s4-vdec-upstream-v12-1-616240978792@amlogic.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261022-b4-s4-vdec-upstream-v12-1-616240978792@amlogic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Jakob,
+On 10/22/26 07:26, Zhentao Guo via B4 Relay wrote:
+> From: Zhentao Guo <zhentao.guo@amlogic.com>
+> 
+> Add SM_LOAD_VIDEO_FW to the secure monitor command enum
+> to allow decoder drivers to load firmware through the meson_sm
+> interface.
+> 
+> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+> ---
+>   include/linux/firmware/meson/meson_sm.h | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firmware/meson/meson_sm.h
+> index 3ebc2bd9a976..3b90b49d0552 100644
+> --- a/include/linux/firmware/meson/meson_sm.h
+> +++ b/include/linux/firmware/meson/meson_sm.h
+> @@ -15,6 +15,7 @@ enum {
+>   	SM_THERMAL_CALIB_READ,
+>   	SM_A1_PWRC_SET,
+>   	SM_A1_PWRC_GET,
+> +	SM_LOAD_VIDEO_FW,
+>   };
+>   
+>   struct meson_sm_firmware;
+> 
 
-On Sat, Aug 29, 2026 at 01:18:05AM +0200, D. Manresa wrote:
-> On Wed, 29 Jul 2026, Jakob Berg Jespersen wrote:
-> > The sensor's native readout is horizontally mirrored and the FORMAT2
-> > FLIP_HORZ bits (reg 0x3821) un-mirror it; the init table sets them by
-> > default (0x3821 = 0x1e). The driver sets those bits for V4L2_CID_HFLIP=1,
-> > so the control is inverted: HFLIP=1 yields the un-mirrored image and
-> > HFLIP=0 the mirrored one. Invert the polarity so HFLIP=0 yields the
-> > unflipped image.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Can you send v2? After the V4L2 CCI conversion the patch no longer applies.
-
--- 
-Regards,
-
-Sakari Ailus
+Thanks,
+Neil
