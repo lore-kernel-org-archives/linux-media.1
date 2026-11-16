@@ -1,71 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819574;
-	b=y1W78t3Bdo191HXHjA0Tv0uXJt/riAnLkCIMNxHZRVCtg24L6EypfTVjxUmWAksVIkjI
-	 8cgGrbs5jnLtfw5P6uiATUn1vV1eKaIM6CrIMD3pz36TtuVW7gZ4FB3umBDl8AnV0Re5z
-	 pVG2sZNbj93H8AL1X4p1A6qULgBwq+i+qoUW4DMjjajJNccPkYAgtJTYs3zIWUWJf5swo
-	 6EYrVbiEzNXFGQ9UPeEn2SQ8uqmTll6Y/dbZWjAGpuVZksvLJkXQHNFUOiSiXcfvp2bMp
-	 JNvC+M7MlYbAtKIzQZ3ZhYr0adBkZQHdZKoaJmgfg1fdRiHd4pdygeG3cThaH2LN2Cw==
+	t=1794819747;
+	b=deC0qYejDn5+IcSGI+5EIIXjIZtuLkziaRAKO1OskjZQ8k1bMgY1fwVB6NkDlh+Wkrfm
+	 RqtoPbyWWr51PN2Cl7ObxLYhPE1glDqxr+lgKcmQhhzSTRH068NDl4h1Wv0lI7LTd7n+H
+	 J8Im7awbncIP7aFYhexzcpVO2z6PMtqduWZLS8EXFFWxfchAz0ZGJKA8bZgrEiZfpQVmb
+	 ObA41GMoT8WyUr7oNUP6ldvQmBCOEuvHfBZObLne5VIUAiGH/JIuEEMzR1NG6MQInfACq
+	 dxV+gtScHR2LPTWG4wsD9ssj6QzLLWru+15unwazL+cfML8z2W25nk1z26ALg4Ezvpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819574;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=TuAKrzSPoSNlrTFipnvv/aRbBCYjDWWseC2n8/QHZEA=;
-	b=JhZqdQHcl4DudCKTz9IKOwu58hdz5CT44DA+mpm0Ddj57jejV0sXuN2RkKkKgLcPZTO8
-	 vUgLpKPtgj3vdQ/kBVzyh1wAIj5oQRHf5HR0Y+5FYtV0PAflQudW+KmWlqGr9wm9bCCpS
-	 mpY1cf1GZyPltfNqXmsI8A9jTJ3eGNMa0iu4b831jjsnhR5++tD5mdDcwpPa2YrMPQJGi
-	 wkPHKT8SOILESf1lFBadjqYVH2UTPZK2PJXD6UK0Hjv2H8GOq5/7laajA9GwV5qq4Hi2V
-	 sHm69P/BppWNsaYUC9FF8gSpajuPb1CDamtlnvOxgUZDjzR2okEcohrVMkk2g2Y0VgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819747;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=yHnVScOHuhZN1AjvBYgj0ZqzQ8oQAYw2e+C+Vx91DKo=;
+	b=MGFAdtvT26Ym7+vpsejmLb1HOhkoQaOEivlwScCNbPsSvhHl2pQZY2/MhTzjGvW7AhbY
+	 FnJOa1fZosW69kzitzQT4L7Vie+QoTofga1OLi8bgu47uQ/Cb5Bv+b9MTv+w+gEPY3B8K
+	 UjjvLNppOMCNOs2KHXoy7U2ej2z7hhX/Nfo4DYK/m9dpSTYL0AAGCe3n4VNYBsAxLE9Nj
+	 NlNmaCjGpNwmJkcZUcWy+BpRHvnwr+3Dr240gw4ZkpErXzfgkd1qbS91711ifGSzllntu
+	 0jzmoLS3ET19g2uU9T+WX1GqBp+FcAh/1UgxaK2Dq0EOXKDOIWOKtAx1UC+gXoTpPmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=PAPPHrZx;
-	arc=none smtp.remote-ip=18.194.254.142
-Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FYhUn2GN;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05FE606A89D;
-	Mon, 16 Nov 2026 08:59:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C05FE606A89D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43717606A31C
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 09:02:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43717606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=PAPPHrZx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794819494;
-	bh=TuAKrzSPoSNlrTFipnvv/aRbBCYjDWWseC2n8/QHZEA=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=PAPPHrZxj3CFZ8G9WW3Rw/lFao7MSmCKqwaHL9Q0O1Bi3dsUqqJQWB7CpcMyzss89
-	 BRmpBJPoxP3vkin588vEjnk0llV9Wh4eUPPtYGO+P58FcDKhFPkfNzpGdzNW8SgikA
-	 COCEIWx5PK6a61NHvXoscNo1ALTQb/ARlSZmKSVM=
-X-QQ-mid: esmtpsz21t1794819476t3ef1bb7e
-X-QQ-Originating-IP: 12GrB/oDQs91PU3TksRCuKpU/lLXJOa7V+w289pH7NI=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 16 Nov 2026 16:57:54 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 8451285217138424674
-EX-QQ-RecipientCnt: 11
-From: raoxu <raoxu@uniontech.com>
-To: mchehab@kernel.org
-Cc: luiz.von.dentz@intel.com,
-	pengpeng@iscas.ac.cn,
-	hverkuil+cisco@kernel.org,
-	pmenzel@molgen.mpg.de,
-	brgl@kernel.org,
-	lgs201920130244@gmail.com,
-	raoxu@uniontech.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] media: usbtv: Return zero on successful control transfers
-Date: Mon, 16 Nov 2026 16:57:52 +0800
-Message-ID: <4A73B66B67CF6E2E+20261116085752.2108903-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FYhUn2GN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794819747; x=1826355747;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=DhLkCFPj1bj71kroFdaMylmIwbQUEsYUD/B11XGgDOA=;
+  b=FYhUn2GNxVHlqU9GRmIzCBeDTVBG7xx+2LCkK8MdFRQ8dUUEen7TNYxk
+   D+1nPkrchMo3+sHtGEg1mfKCA6z+/wRtHf6DQDxhSgXPLJKSoNvUmzmGq
+   V7GSen7sucdtu/WtRDSnteOLW7nXEbQYkCORoGKchEJQfbrpqbvcK0dyb
+   OuK440sbNCKdSIrS+aXpkqgHstKjDR+HxSA/GrlcuupkKsKKObNCH3Tnc
+   BrTLZLYqhEnq7iGh/oAyggO63Em9SLgdYzSzO0g+JWbN2WTH9z5IJpVY1
+   qRPSYTTzMMabjPuU0ocKIIxAm5KESEKhVLSpIETFEHKDchayX247WiQA4
+   A==;
+X-CSE-ConnectionGUID: 9GuG+7y9Tz6K2tFGQL07Ww==
+X-CSE-MsgGUID: FMXFPfQQS5KdDeH7bc5bgA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3580641"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3580641"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:02:27 -0800
+X-CSE-ConnectionGUID: hXbqzJSKSA+P4bZ9bv+B8Q==
+X-CSE-MsgGUID: 902v5n5FQZKfYRcIfHADSQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9327058"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.87])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:02:26 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 32959121B5D;
+	Mon, 16 Nov 2026 11:02:29 +0200 (EET)
+Date: Mon, 16 Nov 2026 11:02:29 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Antti Laakso <antti.laakso@linux.intel.com>
+Cc: linux-media@vger.kernel.org, lsa.uz@pm.me, sarang.sapre@intel.com,
+	divyamani.tripathi@intel.com, manik.bajpai@intel.com
+Subject: Re: [PATCH] media: ipu6: Enable snooping on ipu7 isys buffers
+Message-ID: <avrGpX80leiMM90R@kekkonen.localdomain>
+References: <20261116085650.991445-1-antti.laakso@linux.intel.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -75,93 +82,44 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: Nr5N425iK0yrHVWnJdGlE+UDSFxClMUk4UF/yL1YTmOxt7NN8984qY0k
-	7v+pFm1qz87Olr6EQPvZI6tWvOrFMc0NYy2C0H10V5RbO8TVtSMvPCLxyP2zPZdnEMmOhDv
-	zI3xAtJdu4JRKV0bvXYuj9bCZXNuGmhYg6Z8ioUILMsFUIGLLqsnhSOy/reeQ09l00UQLTe
-	VaRhR7bHWdGpLZtGKsQzDXEOXu32SHOLEmN4jeQ4s53LUi23ut9HMDOo2S5g1kB0r93WmgB
-	3POKfnPPaFiZrREYKUNzZz1Ie+h//3vsADjM/ir+CYYY+S+nNTcaDbIVqr8AdmxGxRsQR74
-	eW3cro2jk0Iunxc1+yKX44f1ZkhL3GlPE8r8BWle81mAhadoSgPQK2P58369HHYaUbjvuVZ
-	lQp0pdD2yR/sTeg1vSkdjFMXElyzbEvRTCy+hpzvCIYDADMjRHsFMJJkLcpd6nwBtLXNbMD
-	nN3j7UNPkc6gSeY1TaRKjyVMj8wHgBU8McnJgcVnTHS1f2WV7VtjZgC2qNsQwNwGLr/3esz
-	+B/+IgMNC7peqUxR6d0fupI6JYd2O5hNRxJDAA4loOcygvCIuAHap5tQt71Qsp4l6Cxu37e
-	dYCsxTnJhVrBjTt3hOAXXEqUUW4ozPVmU/wTP8ImQH2vPAOKDN8aQ3UgtBbWrgMuDHFL+ND
-	MNLNvXUr7lM/OfDXLuEYk0gJ7ZwWe/RXG5erVlmyMwsL914CALbZhluu2nmgr04Z4mR8m5Y
-	gcKyku706+y0kveewgDMKTHV122ybrEds0XvK0QSBShAv+VwqZpKnn+gsWxim8unfFjIWkg
-	KTxHC3cB7qb/MskBom0ZVEsBICJ2Wqr5TbQBG7EjcZpDJkt/qEf/f2VWv7DNE8xZE2bpbpc
-	8qulb2Yz3U3EItSxczDlpyHYtU9cC3YKOI3x1bTxNpl9zaPpfoEDgq7tOVtk3kJb+edDkkz
-	yVMAJHDOCR/X2QYzVWskpW1AUS7PJH0Z3vxy2DG32IQ4dpbGbxFKl1WgFIl4APRRezRrZa/
-	zp4o8wuMEUgRezprb/XBL8Nxe9oaKVCuwJzWg52Mob8doLuCav
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116085650.991445-1-antti.laakso@linux.intel.com>
 
-From: Xu Rao <raoxu@uniontech.com>
+Hi Antti,
 
-usbtv_s_ctrl() returns the byte count from usb_control_msg() after a
-successful control write. The supported controls transfer two or three
-bytes, so the callback returns a positive value instead of the zero
-expected by the V4L2 control core.
+Thanks for the patch.
 
-As a result, try_or_set_cluster() exits without committing the new
-control value to its cached current value. VIDIOC_S_CTRL can therefore
-program the hardware while a subsequent VIDIOC_G_CTRL still reports
-the previous value.
+On Mon, Nov 16, 2026 at 10:56:50AM +0200, Antti Laakso wrote:
+> The capture buffers are not cache coherent by default, and CPU may
+> read stale cache lines. Make buffers cache coherent by enabling snooping.
+> 
+> Reported-by: Sergey Lebedev <lsa.uz@pm.me>
+> Closes: https://lore.kernel.org/linux-media/20261007183311.24637-1-lsa.uz@pm.me/
+> Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 
-The positive return also causes v4l2_ctrl_handler_setup() to stop
-after the first control, leaving the remaining controls unapplied
-when video capture starts.
+Can you provide the Fixes: tag?
 
-The regression was introduced by commit 62de7d99dcfe ("[media] usbtv:
-don't do DMA on stack"), which moved the USB transfer buffer from the
-stack to dynamically allocated memory but inadvertently changed the
-success return from zero to the transferred byte count.
+I think this should go to v7.4.
 
-Reproduced against the running V4L2 control framework using temporary
-video nodes with copies of the usbtv control callback and simulated
-successful USB transfers. The results were:
+> ---
+>  drivers/media/pci/intel/ipu6/ipu7-fw-isys.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
+> index b1211e24562d..dd7b3ba3b468 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
+> @@ -214,6 +214,7 @@ static int ipu7_isys_fw_pin_cfg(struct ipu6_isys_video *av,
+>  	output_pin->link.pbk_slot_id = IPU7_MSG_LINK_PBK_SLOT_ID_DONT_CARE;
+>  	output_pin->link.dest = 0; /* IPU_INSYS_OUTPUT_LINK_DEST_MEM */
+>  	output_pin->link.use_sw_managed = 1;
+> +	output_pin->link.is_snoop = 1;
+>  	output_pin->crop.line_top = 0;
+>  	output_pin->crop.line_bottom = 0;
+>  	output_pin->dpcm.enable = 0;
 
-  brightness (448 -> 449):
-    original: S_CTRL returned 3, G_CTRL returned 448
-    fixed:    S_CTRL returned 0, G_CTRL returned 449
-
-  saturation (512 -> 513):
-    original: S_CTRL returned 2, G_CTRL returned 512
-    fixed:    S_CTRL returned 0, G_CTRL returned 513
-
-  v4l2_ctrl_handler_setup():
-    original: 1 of 5 control callbacks executed
-    fixed:    all 5 control callbacks executed
-
-Simulated -EPIPE and -ETIMEDOUT errors continued to propagate without
-updating the cached values. The test exercised the real V4L2 control
-framework, but USB transfers were simulated; no physical USBTV007
-device was available.
-
-Return zero for nonnegative USB transfer results while preserving
-negative errors and the existing buffer cleanup.
-
-Fixes: 62de7d99dcfe ("[media] usbtv: don't do DMA on stack")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/media/usb/usbtv/usbtv-video.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
-index 2a91af8d1e30..92c745d61367 100644
---- a/drivers/media/usb/usbtv/usbtv-video.c
-+++ b/drivers/media/usb/usbtv/usbtv-video.c
-@@ -865,7 +865,7 @@ static int usbtv_s_ctrl(struct v4l2_ctrl *ctrl)
- 		dev_warn(usbtv->dev, "Failed to submit a control request.\n");
- 
- 	kfree(data);
--	return ret;
-+	return ret < 0 ? ret : 0;
- }
- 
- static const struct v4l2_ctrl_ops usbtv_ctrl_ops = {
 -- 
-2.50.1
+Regards,
 
+Sakari Ailus
