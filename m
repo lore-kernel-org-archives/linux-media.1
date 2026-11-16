@@ -1,74 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794837047;
-	b=pfC0WsQhsTE2Mgd1ihXb3MhJ2CwgteOu0DYQCpRd5NKSCZt82pDgy2kX69K2zx0xoEZm
-	 arqiDhJZ8/Cscb/JwgPr2J16PgJnJz53H30lF2uLziWYz/BgCAVF5PSaPrb8ak3qOJN3E
-	 RXPA9RiP8dKT9F4WQUodW9B1ZYXN6hvrczGX4rGV3tytenZNWyk61gjBQg1H7Rbiey9BS
-	 Oc9JtQ3SLkUygRCp97jjUR6TX+OxMxMbUlRVDIq4N0e4GqZlDGynvNGzmt0JVTl1fTLKl
-	 cWfTXz0/XhbewKNGZWa92qJt0nIwDONwb1y1uVC/tVrhZNngF0fAuQn92ROkO3N6TuA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837047;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received;
-	bh=AnHw7XXRUHp9Mp0ZPEBPnMwy+2oxoVKw7fR1LwyvpIo=;
-	b=GWFP1dUuyF8Dv1jdq6ITG+Aezx6qNl4GAF9t1M5KsjPLjLaGxAH5Fp5XfP3+yZyweMgv
-	 CXG1o7jr2lxfM1Hzw6vQWYNh2qdIWdCUNBgfdvSR7UvC01vQkYMIwAZEl0ZZLZCs/TH5y
-	 5s23NnJTvMtJk/5FN+o/1JVztYD5wNex6/nLhxTNibgKLwDAApjeC5mKU4Pqj7UA2Kt94
-	 /xNQVo4sf6vk8zeGcUopK3GGRhWcNfOxFMtd3Vqc+VmyN8aQqaKhhDHXxL54imMhdQu28
-	 R8BPo3q7hfU9qxuFNKSJfYaycn62KemKigG6bX67LQtLlM7q3fj0VWtbgWOd/0IPFdw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=OXzhkJ21;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794837327;
+	b=XLih2XfVto/wZWczU9gRL3rjK+/SFxfFaak3RVOsbJcnwn4TI2tK+cRyxqoaJhrWf8X4
+	 u/Jv7s7KJrwrHWPJyGJc6xh5EpP2SqjQj63jx8LbxoobNkdesdNPu5X89uo9rPACZ4Hzd
+	 7V08GHhgIAWX8sxIoNfCIuZW4QQXv2ALHazZaG6w6RSsqgz79k1dTlUCC+F73oRpHjWhs
+	 gLhdCyK6e1UxGNeGET99zU1k0DDttj429Dfn0dmgP0tyxqpQha1IKPTb0Hy4ryuu3IdcK
+	 j+aTNFv0EGZKDr72xZblb06BIb7xdqu+51P6rVgcDnt206MEBHRaJbPnNSEtBD/Z5Cw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837327;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=ghluR7i9/C+zU+eHJHeCwRmCECyLWGQeA4SlOQA11Y0=;
+	b=HCM7TZJhmU6OzVV3F+Q71NKyAsCWT8JOd7Dtcy/8Sl31du1v1Ko1ydgcfbPSR+OcHRi1
+	 2P4GyuBCB8WCoFoDfrQZ3h4Bkp1OVwn08QxJFEpbLUgi8FDUYxDtD5YtiBMFuShF5sr9X
+	 RWOb1GDlGySbMiBtcXA2IJ6aTu28dPkhZnzwJ2uU7afn34BtnP8TREDnbTwDOJNjzj926
+	 koSFuhow1Ja/lU3fz+jWF+LVUihZ4IwgypCjUG8LCBqJuRe8H5QqOwegJciNlv8Xb01Ht
+	 gtDG/asxwdM1qARgLf5rZyUeJUhWHv33O9mb2ikWcawMIs5Sp7c9/xG2yQ6NvnEMjqQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=a3DKxnkR;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F9760A3819;
-	Mon, 16 Nov 2026 13:50:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9130606A884;
+	Mon, 16 Nov 2026 13:55:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9130606A884
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=OXzhkJ21
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794837047;
-	b=D+rtPd3Aue+tqmoBmMjTuBPQBho8Z8I1UKRf66DhkDbftBFiT4IFnCsFrq8g6xNxmZsi
-	 xBfIw74QthvzUiVYmJ26luXhk041CBZOwWdtoYNxf+ayAFqFv2Yewju+JtEksT1+RfdMK
-	 +HrHApIoPcSkxCVmUBbcnjk4CFsgp2PMB5/UQsBuibRVqvHMEkO/zllMPZY1WAqA5RRjZ
-	 8LIVUxWDvbsjAPh0CkmKzqK8XQtt7l0nwVOXpXgk565Ku+txuPFQcuQO4+IY+wo0PAI5C
-	 7O2Ut8li35ztJ4zpdjwypWI7LORqwBxO5iCn6S0S1nyJgE0CwBvy3qmqXhfRRfm7CeQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794837047;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received;
-	bh=AnHw7XXRUHp9Mp0ZPEBPnMwy+2oxoVKw7fR1LwyvpIo=;
-	b=Fv9HWNjLHRXdrOMCVcf8CGO/J/DMFveBIoILWLg8/BBhgx1D/QaAb+au1pN/SFgB1Drc
-	 5Crlap4wwogS1tIma1aqvfnNI7OHinF2NowezPrB4KEUUegVJMobJqpQBV6xD0C7wbdBr
-	 mDgofjFodWczmH/0tc3SMATLlBdpm6dr290YxcjugFMwb+2/vJr4XcTMezssl3TJszn0p
-	 nj2jYoyiuGsqNEHJJ9VFEhDcoLj/BLmsaFjHPGajfUTQautlkekcdmc8EMLgZCWgLATVz
-	 fK9PbzoozsBGMkFp5v3nnhu2bORRhv/0acpsbY6NdUNh3sUqC/C2W90F83V/Fn8LMOA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=a3DKxnkR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794837325;
+	bh=ghluR7i9/C+zU+eHJHeCwRmCECyLWGQeA4SlOQA11Y0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=a3DKxnkR1Q1qj6KV+pK7Us06htu6gNTdaWGefd4zD4iuCbRz1xop20knDeuTKh8Bz
+	 /31o5d74BX+bOJxahE4DQ3QxK3SzDWZ6T51RkPWMMufcL20rB4kIvkRO65+xb3zT1X
+	 Jsm7BVhzvGVrKI09ra5UpY8pK2I1eUI8+94r6uoZUCW5zqEmm8uD67xUurhn0qxVvx
+	 IywvAr7ntsvj4rG006U4uf5ga5ozbt3HueinT+dg9oNtFRgcTn3daxAprpZCqVJ+O5
+	 ULgejIxh1cK/iDOgufczfTafzXv5t8TzmA7PYtixaK1S2wktoKSCk+VgCv7hN1eboZ
+	 XeRDO/mOl861w==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange secp256r1)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 550641F000C9;
-	Mon, 16 Nov 2026 13:50:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=korg;
-	t=1794837047; bh=AnHw7XXRUHp9Mp0ZPEBPnMwy+2oxoVKw7fR1LwyvpIo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=OXzhkJ21h3GAJscp8lFQszj+Ft//QWB0vW2QS2N1FLLML+AAAfTZE6XWfA8k/Hyf8
-	 ygi+3FC2ra/2cGAqy1igFhRMyjFXKaM5Ifu9NWIvfJcn72whsXPiGrF7X+grVN2OFB
-	 C5c0STEmXpYVz3ZCMi9WplYJVsIJl56brxkd8nqo=
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D18674A497;
-	Mon, 16 Nov 2026 13:50:43 +0000 (UTC)
-From: Richard Leitner <richard.leitner@linux.dev>
-Date: Mon, 16 Nov 2026 14:50:23 +0100
-Subject: [PATCH v4 2/8] media: i2c: ov9282: fix pixel rate and line time
- calculation
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 403E317E0060;
+	Mon, 16 Nov 2026 14:55:23 +0100 (CET)
+Message-ID: <4a641af1f6cb3cf632cd5cacd33f1e8cc98f98ed.camel@collabora.com>
+Subject: Re: [PATCH v12 0/6] Add Amlogic stateless H.264 video decoder for S4
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Zhentao Guo <zhentao.guo@amlogic.com>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome
+ Brunet	 <jbrunet@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>,  Mauro Carvalho Chehab	
+ <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ 	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, Krzysztof Kozlowski	
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Date: Mon, 16 Nov 2026 08:55:22 -0500
+In-Reply-To: <b4ad7333-28f8-43bb-84a6-5b53ab884a06@amlogic.com>
+References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
+	 <b2999c2fe5193eac3ebb0796f3de44710e993200.camel@collabora.com>
+	 <b4ad7333-28f8-43bb-84a6-5b53ab884a06@amlogic.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-RSQOZvFxXRVtAXxCbLtR"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -78,148 +94,58 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261116-ov9282-fixes-v4-2-f78e5d415c6f@linux.dev>
-References: <20261116-ov9282-fixes-v4-0-f78e5d415c6f@linux.dev>
-In-Reply-To: <20261116-ov9282-fixes-v4-0-f78e5d415c6f@linux.dev>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
- "Paul J. Murphy" <paul.j.murphy@intel.com>, 
- Martina Krasteva <martinax.krasteva@intel.com>, 
- Richard Leitner <richard.leitner@linux.dev>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Jacopo Mondi <jacopo@jmondi.org>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794837042; l=4128;
- i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=vEUkcmhrgbccMnrDYbK6Bg1byQZHGlfGlZNdCKAMiuU=;
- b=vGyppGJ3kA1UIUPhz5jsBOPT/R/tYjLegkuOjWITqiQW39aQvGFDNnhHhJtzxG1C6wqHNfjzc
- bXza5MNjxXVCFNsRl7LyhXa2S4nL9s2roKS/sUPRqK7L/CBQKxlwgxO
-X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
- pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
-X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
- with auth_id=350
 
-The OV9282_PIXEL_RATE_8BIT is calculated incorrectly from the
-OV9282_LINK_FREQ. The hardware scales the pixel rate by changing the
-multiplier from 0x50 (for 10 bit) to 0x60 (for 8 bit). Resulting in a
-x1.2 factor.
+--=-RSQOZvFxXRVtAXxCbLtR
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The current OV9282_PIXEL_RATE_8BIT calculation scales from /10
-(for 10 bit) to /8 (for 8 bit). This results in a x1.25 factor.
+Hi Zhentao,
 
-As all the inputs to the pixel rate calculation are constant in this
-driver also define the OV9282_PIXEL_RATE_{8,10}BIT as constants.
-Additionally introduce a new function to calculate the current
-line time in nanoseconds and use it in ov9282_exposure_to_us().
+Le lundi 16 novembre 2026 =C3=A0 15:48 +0800, Zhentao Guo a =C3=A9crit=C2=
+=A0:
+> > I don't know them all, but at least this one, and CVMA1_Sony_D do not c=
+ontain
+> > field coded macroblocks, and should decode fine without the interlaced =
+reference
+> > list. We've seen a lot of artifically limited decoder like yours output=
+ 90/135.
+>=20
+> I checked the CVMA1_Sony_D=C2=A0with my bitstream analyzer, I found, for=
+=20
+> example, in frame 0, MB 320x192 is coded into field top, MB 640x176 is=
+=20
+> coded into=C2=A0field bottom, anda few more field-coded macroblocks in fr=
+ame=20
+> 0 or other frames.
+>=20
+> That said, the interlaced feature is already done. My latest self-test=
+=20
+> results with Fluster are:
+>=20
+> JVT-AVC_V1 Ran 130/135 tests successfully in 101.885 secs (ran with -j3)
+>=20
+> Do you suggest me to add the interlaced support in the next version?I'd=
+=20
+> really appreciate your suggestions.
 
-Kudos to Dave Stevenson for pointing me into the right direction!
+Yes, please. The is no profile to separate that feature, so I think its bes=
+t to
+just include it now, have H.264 complete and then we can truly focus on the
+other codecs in follow-up.
 
-Link: https://lore.kernel.org/linux-media/CAPY8ntBaSHjztuSLTOtv9KYvEbmcbinSMJ78ZDg+0sZg-1fz3Q@mail.gmail.com/
-Fixes: df60764ea5210 ("media: i2c: ov9282: dynamic flash_duration maximum")
-Fixes: 43ac0cac18f41 ("media: i2c: ov9282: Add support for 8bit readout")
-Cc: stable@vger.kernel.org
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
----
- drivers/media/i2c/ov9282.c | 50 +++++++++++++++++++++++++++++++++-------------
- 1 file changed, 36 insertions(+), 14 deletions(-)
+Nicolas
 
-diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index 546b43c209097..d60396e46ab0f 100644
---- a/drivers/media/i2c/ov9282.c
-+++ b/drivers/media/i2c/ov9282.c
-@@ -10,10 +10,12 @@
- #include <linux/delay.h>
- #include <linux/i2c.h>
- #include <linux/math.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/time64.h>
- 
- #include <media/v4l2-cci.h>
- #include <media/v4l2-ctrls.h>
-@@ -111,11 +113,14 @@
- #define OV9282_LINK_FREQ	400000000
- #define OV9282_NUM_DATA_LANES	2
- 
--/* Pixel rate */
--#define OV9282_PIXEL_RATE_10BIT		(OV9282_LINK_FREQ * 2 * \
--					 OV9282_NUM_DATA_LANES / 10)
--#define OV9282_PIXEL_RATE_8BIT		(OV9282_LINK_FREQ * 2 * \
--					 OV9282_NUM_DATA_LANES / 8)
-+/*
-+ * Pixel rate: Derived from the PLL2 clock tree.
-+ * For 10 bit it's exactly the same as the sample PLL configuration.
-+ * For 8 bit the PLL2 multiplier (REG_PLL_CTRL_0D) is changed 0x50 -> 0x60,
-+ * which results in x1.2 and therefore 160 MHz x 1.2 = 192 MHz.
-+ */
-+#define OV9282_PIXEL_RATE_10BIT	160000000
-+#define OV9282_PIXEL_RATE_8BIT	192000000
- 
- /*
-  * OV9282 native and active pixel array size.
-@@ -472,6 +477,32 @@ static inline struct ov9282 *to_ov9282(struct v4l2_subdev *subdev)
- 	return container_of(subdev, struct ov9282, sd);
- }
- 
-+/**
-+ * ov9282_line_time_ns() - Calculate duration of one sensor line.
-+ * @ov9282: pointer to ov9282 device
-+ *
-+ * Return: line time in nanoseconds.
-+ */
-+static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
-+{
-+	u64 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
-+
-+	return div_u64(hts * NSEC_PER_SEC, *ov9282->pixel_rate->p_cur.p_s64);
-+}
-+
-+/**
-+ * ov9282_exposure_to_us() - Convert an exposure register value to microseconds
-+ * @ov9282: pointer to ov9282 device
-+ * @exposure: exposure register value to convert
-+ *
-+ * Return: microsecond representation of the given exposure register value.
-+ */
-+static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
-+{
-+	return div_u64((u64)exposure * ov9282_line_time_ns(ov9282),
-+		       NSEC_PER_USEC);
-+}
-+
- /**
-  * ov9282_update_controls() - Update control ranges based on streaming mode
-  * @ov9282: pointer to ov9282 device
-@@ -510,15 +541,6 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
- 					mode->vblank_max, 1, mode->vblank);
- }
- 
--static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
--{
--	/* calculate exposure time in µs */
--	u32 frame_width = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
--	u32 trow_us = frame_width / (ov9282->pixel_rate->val / 1000000UL);
--
--	return exposure * trow_us;
--}
--
- /**
-  * ov9282_update_exp_gain() - Set updated exposure and gain
-  * @ov9282: pointer to ov9282 device
+--=-RSQOZvFxXRVtAXxCbLtR
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
--- 
-2.53.0
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavsLSgAKCRDZQZRRKWBy
+9NpVAQDKUmYBU389SJKLAsDu2/9y6RqTXzUAfKwQef9tAxWnOgEAhu33expVz0Cd
+3Cl50rQ00mB3q8fG7v9GCSSrssj/gwg=
+=YrdE
+-----END PGP SIGNATURE-----
 
+--=-RSQOZvFxXRVtAXxCbLtR--
