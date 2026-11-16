@@ -1,113 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794861221;
-	b=tmKfE0eNhLU/BCM9kJSVxfzpi2zi2z58rBNfhccHOZ5dyjen73LBiWeIOrIRw+6rWBXX
-	 FJ1H8bLh0ms1TvFpLeTj3sE8NJB4fFD5gQNmRF8lH/NAr7+BjtgCiACbl2TrpU/RxgpHW
-	 9dnVcM+QYEWaE0gNBr3Oug297rKY1OhizI3kKQKqE/72ZCmB0K1W0ZDdVD0NCKihXDnKn
-	 vrxkGD0Z0R/go7qVwI+g573TyPLVssiXu/wTqt6j0kwOF+K2+0etY64AXSWaCvMcmFkU2
-	 8OMDr2YNibBVGHTyHlminTZZv3cIHyZfcVZIA8dIYxD2S0Diyxg/NKt8ei/KkCv84Bg==
+	t=1794862227;
+	b=ngmDRV75WgP7pWgzB30rH3POxAjDr/8NCa77DQt4hkr59xrLJR9oQqBAyfuNOkyiO+Ap
+	 USbX0yXZE/lNbn3yHsHHnPx9hGzyyA4vDsQVP0+l+Z0AWndd1YSNs+UUQ1LQEwy/500+y
+	 LhhPNWGVrl8UQaCVat3uh+Rzt7ncGULr2Xk8EispGcdZdbZMXZ2pfWrLLt9RLuZd3z/dc
+	 dncgIT+5zXi4O0UW8SkSslxro4cozpmZAEI357JRc74MD828bcwOG5I7xkVMHxorTngJu
+	 RK5SREkvZa6ujPJ87Oi4w+cCDaTmY8xqszQJOsUzQqyR2muz5PYlhDOE1EYPrSK+q2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794861221;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862227;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=FRUBObM4vFL1TGf3o6s1ZDBsKZdTJ/3jimI0MzXw8Fk=;
-	b=0XwEbwV77oK+402PF0XjVPYKasPlCPK2UuDLLmCSgWnUfNLSJ3ibdTBhBBktXwKe3w7U
-	 pPMVDEfkNwXHv/dz1Rcjsu2ic8Z+UCZWd8zsHnJpk0mrWxMaCVHlRF+akqE6Xy9NAHOey
-	 J/AvIQOe/hT/n8mRF4sLUknRo4dnIoppepxMxrFcBiWM+HLbjOy7SFmlGON0luTl0OuHU
-	 FH2HtMBhz/u1CxvssHOp5RuiuYo4WXopa9NWN/WmVAvzsj5WQSb03uOpMDLYUhvbIhzRu
-	 Z1Pj9/MSUG64So53aNwFDzsiHG6M6IpjtUAv6wpVhhraOmcWCBXTSy10V5E75Su+eUg==
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=itpoRBF/1k6lXJt+7gBQZf0XsZd0eRgpwFhim4ck9gw=;
+	b=zSAUfEZtA6ZSfqb6OXWn6dMaGiVeGiq6HLJshShZ0G8+jR6EzYwUuoLqc1JAROHGddmv
+	 dXhThgHgjOmTK3G1DuajKQfSAjkQUh3d+spAqqptpvHnm8vavLcPfwHPKm8hLy0u9iSJx
+	 vCABGcBSVEZWokxKNl14xZEjhmkqoxRB4LhC+1D0zyjCfH/wD9XpVwHQ+ihSmfxJlXtqw
+	 y2MjEwWP5zCPokwPSSSrVNhs1U5Kil0jflA0bhfMY9AJf9sUXKbFjT/qEfDl8o2oZXbKD
+	 8DS3adLTLPK44qHc6VEYwa9Qs2flxjImb1NgGMZvlu4IitHp+DDiRP5LV3h66Mef0+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=W8qlgedU;
-	arc=none smtp.remote-ip=209.85.222.172
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Dwg3aB5j;
+	arc=none smtp.remote-ip=209.85.210.172
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276C8606A33B
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 20:33:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 276C8606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D34606A323
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 20:50:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50D34606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=W8qlgedU
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93f3c616c84so367357085a.1
-        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 12:33:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Dwg3aB5j
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8b6b22be970so1420420b3a.1
+        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 12:50:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1794861219; x=1795466019; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FRUBObM4vFL1TGf3o6s1ZDBsKZdTJ/3jimI0MzXw8Fk=;
-        b=W8qlgedUXT2a/t6lhLP87IFTcy14JLKYa/mLodRolDlr9xZZQGxtW5Noy7E031dblU
-         MZyTiD0CS6csrzNdM/y/kT9cZThOJzBfJnBjyuudT36134JK9rL5Y+cJlR9PkLw6In16
-         I1GQFmpXC+GQjLACTJo0WVW99izKDBVRyEpioO38WVT6BB7yoB56iiO/mZo9HLJwUqYy
-         WRepiT2m5sdFzS0WIaIky8pQ9PM9gsPwA3F1oZ8AlieRWNRm9qrQr3NdwmjMdkz0t3US
-         NP5znb8aU6kvol1hpUX4T2gg8E0YcF+imIMZKWdgwp2eC1/JJZ5bvYf6eHZddNlll3GG
-         nyWA==
+        d=google.com; s=20260707; t=1794862226; x=1795467026; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=itpoRBF/1k6lXJt+7gBQZf0XsZd0eRgpwFhim4ck9gw=;
+        b=Dwg3aB5j/PWPJaLku3L1tUZkBCUnHRSbqBmF3A4BQGz08Tq28ncBeYQbG/So5ZsN+h
+         NojTXp3MVD/ZSvcPTtCd3tmxdm9+qM5KoPTSkI+CLdlA+txelMPpn8SZybXuEjrLBIaV
+         YowodJucWxxle8t1RD08hQ061mcCTFHAAfcigRC9haQR8iCHdz2xN+lplQeaY4S1h8P2
+         rfyRhY/H0SQx7FRPTAB/RKZgvSK1AUAlv4LwLdvUsGDJp95HEf/Kqijr56sClMPAuG4N
+         jqnkIcUVMlGE6mtQ8PhlTITjVU0VqdOlyT+0EtqE4DK5p65P3wpVCNkS6l7wiGteLlYw
+         f3aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794861219; x=1795466019;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794862226; x=1795467026;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FRUBObM4vFL1TGf3o6s1ZDBsKZdTJ/3jimI0MzXw8Fk=;
-        b=eXbuSqBdfeLkcu9Uj6sO9GkmYO2ctsCS0XVouIqCQT8ReUeFWIv0ilOkUd+9e58fNq
-         gnJd2L2YU6G3H7cju1m2pO+ZdNILpl0mJNIAEfZ1eeys9n/tIZinCOPy4b/eKQunIR+l
-         RbCR5J4aPnCsrJs5XtlO0x/mm85DPzDEa+GdsdIAQ28Bgxclrllhbj8kC68SAQa05q3n
-         unDJxnpGGVFthwzoH/XiV6/cP6KNbSieZfQAz5jvT9D8hBcbcrYarSTu3subqSdDpsjp
-         K0O3IbqW5zv4/8mbTVsqqTYIjgTkt7Udm+QgZRELswpPd7Kepp9hjGKYuzN2K4eFuPrN
-         jWHA==
-X-Forwarded-Encrypted: i=1; AL+hErGz1z8EJmzEAthVRi27RLuKFl9VGKHBRgHYA0XOQ5/R5PRBH2UgpRv2lzfmGohAoEpObyt9bjpMhoaO1g==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8UheQMUSUa8Ts6ynW3Y5UnGcbT5SNEC+pDYpXGni/q9C4Asdht
-	TQPCO7MRYfDb+MVTtXobSXfKjST60klHA81iPz/nQ8dxBKkCXJapqRO5meR9ozgcdCM=
-X-Gm-Gg: AYBFou0dZDPI8ZZISOllG5k8izFFCVXOQxJR+tMK2mCLFl7LyUOTXwYXtU7ufIMhNzq
-	VAA4/keJTpb86o1n+0ueIXnJg7BnGW3e5Al+uaVgVOYOq3/V73MxL4nOkZxBi3rTIoWYCX2V8py
-	D3GwMANOh+c2W6fMRJiJsHb1UPsKrxTOzstHfogsHklsL4CRuCKLo6orctiQDuZitk1t5JV6RSN
-	mvd0BYpqS0WBcT2j9kfOCdnmp9OzCmRsgUhV5/Ajf90hpELD/H1MwhOu42pRubu2wlkN23Yfopi
-	0NAdSJDYlM5gWSLfjP+6+JCOsB81dEjB+SloMBMzKXbWaqmBLLwM4h4s9t838mcs6xSr24raVW8
-	sHd/mpLd10JrjuoA9aB4Qqdk98/ZmcGTlXfNGNwtXq7qTr7eUnQR+/rZiBoq4iDzlK7GToeKwDK
-	p9kswnnHTpPzuyzFCNV6xeIMrsW5IV7RoikskP25B7itew5WF3WbeQOo6O5fQ5JIxhnJE1iBmJY
-	qasPC7pkmVM9vrMQpmK8NYMwgrmSi1AIFcvB2tHhrwW7G7m9QASZmdRsQuiZqX1QfZVhgW5jybO
-	ls1q4Q==
-X-Received: by 2002:a05:620a:46a6:b0:949:733e:ddd8 with SMTP id af79cd13be357-949733ee766mr1034555085a.54.1794861219140;
-        Mon, 16 Nov 2026 12:33:39 -0800 (PST)
-Received: from ziepe.ca ([142.166.156.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c804f9esm930800685a.11.2026.11.16.12.33.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 12:33:38 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xT3OT-0000000ARJs-2rZa;
-	Mon, 16 Nov 2026 16:33:37 -0400
-Date: Mon, 16 Nov 2026 16:33:37 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Tao Cui <cui.tao@linux.dev>
-Cc: akpm@linux-foundation.org, dgilbert@interlog.com, mkp@kernel.org,
-	loberman@redhat.com, jmeneghi@redhat.com, kraxel@redhat.com,
-	vivek.kasireddy@intel.com, mst@redhat.com, jasowangio@gmail.com,
-	eperezma@redhat.com, stefanha@redhat.com, sgarzare@redhat.com,
-	rostedt@goodmis.org, vdonnefort@google.com, mhiramat@kernel.org,
-	kevin.tian@intel.com, axboe@kernel.dk, linux-mm@kvack.org,
-	James.Bottomley@hansenpartnership.com, sumit.semwal@linaro.org,
-	christian.koenig@amd.com, phasta@kernel.org, joro@8bytes.org,
-	will@kernel.org, linux-scsi@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
-	virtualization@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org, bobbyeshleman@meta.com,
-	mathieu.desnoyers@efficios.com, robin.murphy@arm.com,
-	mason@kernel.org, aesteve@redhat.com, tjmercier@google.com,
-	harry@kernel.org, vbabka@suse.cz, cuitao@kylinos.cn
-Subject: Re: [PATCH 5/7] iommufd: account the hw_queue page array to memcg
-Message-ID: <20261116203337.GA2481588@ziepe.ca>
-References: <20261106131829.3228926-1-cui.tao@linux.dev>
- <20261106131829.3228926-6-cui.tao@linux.dev>
- <20261116195213.GF2452510@ziepe.ca>
+        bh=itpoRBF/1k6lXJt+7gBQZf0XsZd0eRgpwFhim4ck9gw=;
+        b=yqIH5IFPdHTOwPyAefQ0CAbnoEeCNiF4TCL3L1Zsft9+EgioPaGGm/L5uNA7ne223I
+         uJIsl9jTtfIXUksAkl6tJVaZZytsVCRIOmKykS3+B+8SAZR+GSZyXfTj21TLJ+vTesNU
+         DqcQPAhZ4phPON85mzTzhzxts9ffI496WFPRu92EcyK7iSNc1uVFtOSvbYjB4mzQ4pcr
+         zL2KPQrsdmS4/wwiC4PGNvy9oYxGueGHEvfvWkgRL4PrUS9MYyqDjRxPzcLHcQbgTTYN
+         pD3t2F4TA8cy6h51V31tJC2FFX/Yb/Vr/xcD1XeRe61JeMmZH5U7/dec0nMgwLc8OUsi
+         gjVA==
+X-Forwarded-Encrypted: i=1; AL+hErG6J7xwCf3051ZfI9VwIl25VvTFxjz/l2+kK7RYVxX8vsoZ48ylbFc7XXsAU9elcO3iyOFj2PFUro+p0w==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9808Q2UVAN0RCi2ZBhBPNXJDmarEPFG7EA9QlJd3HZYkz1Kx/G
+	Myf2+4wmMRV7WQT54uC+ua7um1N6A6ZBMol9UPT793hzl9ySZ6/NOdrYhu6yPuGnSQ==
+X-Gm-Gg: AYBFou3CLsVeYeB94XT1el7EAxslFzZvFaM/Dg7+uCeHh2YrJOZGRzWW7h+5tn0wI9Q
+	SMu1mmxbgj9o3SXPbxNd6Es/DQVLY+xj4V9xq1PnVqoLzJFD1M6xblWbDI9RpOhA47y9d9wN7r1
+	kG0p3iPfeMJbTUZSwKf3AYsIMDAyWGrNza36atS3vzbvjmFlXjrsuf4pxSYkqx//AH5eFRlwFwe
+	e4tjFmFPjPOz11LeZKEzCfm7+zf2DfmLiz9YqQGIizLx+3Q1UQ6XWI1iOdWZeWv42F4v/5kLmuP
+	Hi70CzYGUUxbMIVRyeqXBfmpOhkIGAXUu76cQcCxm2ju7NZQK/sZ8CnwFjvEzIQr9TgbA2p1Hmr
+	uycIBKUxwJGeGwvLu+QOAVVAxQaUeiCAGeFgGusQI5LlxDTkLVWwgSIVGu3el50FuKDvTQxXYwU
+	Z2DutoCLabL57Dyy6ZomkLOZUOcViENzcG1Q4UcWQO8JqGC62b8yzs8+DTPjHEBngXA28grRgfn
+	3i16Wl+Fu/HGsMK207JGb2pjPSNHry+F04ARHh89WvTVPDMqazQx2TsEuqu/2Joz+jAhCwslLiL
+	27ebmLCL3739behItFY2+N3vFcVZ9z8JZwclvw6vx71dTyzfi71fE6CPvnnED+Hi
+X-Received: by 2002:a05:6a20:ef03:b0:3e2:4350:1528 with SMTP id adf61e73a8af0-3f7a51ba2ffmr9092719637.7.1794862225898;
+        Mon, 16 Nov 2026 12:50:25 -0800 (PST)
+Received: from localhost (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18c847asm4527944a12.28.2026.11.16.12.50.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 12:50:25 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -116,34 +87,92 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116195213.GF2452510@ziepe.ca>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 16 Nov 2026 12:50:24 -0800
+Message-Id: <DMWXK2VTL3XP.MWW7ZG7Z6HUF@google.com>
+Cc: "Jason Gunthorpe" <jgg@nvidia.com>, "Alex Mastro" <amastro@fb.com>,
+ <dri-devel@lists.freedesktop.org>, <iommu@lists.linux.dev>,
+ <kvm@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
+ <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <linux-pci@vger.kernel.org>, "Alex
+ Williamson" <alex@shazbot.org>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Josh Hilke"
+ <jrhilke@google.com>, "Kevin Tian" <kevin.tian@intel.com>, "Leon
+ Romanovsky" <leon@kernel.org>, "Logan Gunthorpe" <logang@deltatee.com>,
+ "Matt Evans" <mattev@meta.com>, "Matt Evans" <matt@ozlabs.org>, "Mina
+ Almasry" <almasrymina@google.com>, "Shuah Khan" <shuah@kernel.org>, "Sumit
+ Semwal" <sumit.semwal@linaro.org>, "Vipin Sharma" <vipinsh@google.com>
+Subject: Re: [RFC PATCH 0/7] vfio: selftests: Add peer-to-peer DMA selftest
+From: "David Matlack" <dmatlack@google.com>
+To: "Samiullah Khawaja" <skhawaja@google.com>, "David Matlack"
+ <dmatlack@google.com>
+X-Mailer: aerc 0.21.0
+References: <20261111192411.4133780-1-dmatlack@google.com>
+ <avYjFfqr3T/U7lvn@devgpu015.cco6.facebook.com>
+ <DMTK99TDM9AM.SAM3Z4COP9WS@google.com>
+ <20261115231946.GB1239159@nvidia.com>
+ <CALzav=efnA_ABCZVicX0QeTmHknaEbMeWOy8cS+zHYVhm5z+iw@mail.gmail.com>
+ <avtI--OIZu5E5sma@google.com>
+In-Reply-To: <avtI--OIZu5E5sma@google.com>
 
-On Mon, Nov 16, 2026 at 03:52:13PM -0400, Jason Gunthorpe wrote:
-> On Fri, Nov 06, 2026 at 09:18:27PM +0800, Tao Cui wrote:
-> > From: Tao Cui <cuitao@kylinos.cn>
-> > 
-> > IOMMUFD_CMD_HW_QUEUE_ALLOC pins up to max_npages pages just to check
-> > that a user supplied queue region is physically contiguous, and the
-> > page array for that check is plain GFP_KERNEL.  The size comes from
-> > cmd->length, a u64 that is only overflow checked, and the array is
-> > freed again as soon as the contiguity check fails, so the allocation
-> > can be repeated concurrently: a 1GB region costs about 2MB of
-> > uncharged memory per attempt.
-> > 
-> > Every other iommufd allocation that scales with user input is already
-> > charged, and the pinned pages charge the mapper at map time.  Charge
-> > this array like the rest.
-> > 
-> > Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> > ---
-> >  drivers/iommu/iommufd/viommu.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+On Mon Nov 16, 2026 at 10:24 AM PST, Samiullah Khawaja wrote:
+> On Mon, Nov 16, 2026 at 10:02:56AM -0800, David Matlack wrote:
+>>Looks like GPUs and NVMe can do both as well.
+>
+> AFAIU the memory BARs for GPUs would need initialization. The internal
+> VRAM needs to be exposed (mapped) to the BARs.
+>
+> Do you think we should have a P2P device "setup" step that can be
+> implemented for various types of devices?
 
-I'll just apply it, thanks
+Yes, I think we need something like that.
 
-Jason
+I've been prototyping a new optional op in struct vfio_pci_driver_ops:
+
+  /*
+   * Set up a range of device memory, accessible through a BAR,
+   * that other devices can target with P2P DMA and that the CPU
+   * can access through mem_bar->vaddr.
+   */
+  int (*mem_bar_setup)(struct vfio_pci_device *device, u64 min_size,
+                       struct vfio_pci_mem_bar *mem_bar);
+
+vfio_pci_find_mem_bar() falls back to calling it when the device does
+not match any entry in mem_bar_descs[], sanity checks the returned
+range, and then runs the existing memory verification on it.
+mem_bar_descs[] stays around for devices like pci-testdev that need no
+setup.
+
+For NVIDIA GPUs, I had an LLM work on it and the setup was simpler than
+I expected, at least on Blackwell. BAR1 comes out of reset in physical
+mode, where BAR1 offset N maps directly to VRAM physical address N
+without going through the GPU MMU. The LLM confirmed this on by writing
+VRAM through BAR1 and reading it back through the BAR0 PRAMIN window
+(and vice versa) at offsets from 256MiB up to 178GiB.
+
+The nv_falcon implementation only has to:
+
+  - Wait for FSP to finish booting, which takes a few seconds after the
+    reset VFIO does when the device is opened.
+  - Make sure BAR1 is in physical mode.
+  - Return the range of BAR1 that maps VRAM (the size comes from
+    NV_USABLE_FB_SIZE_IN_MB), staying clear of firmware reservations at
+    either end.
+
+With that the P2P test passes with a ConnectX-7 (mlx5 driver) as the
+initiator and B200 VRAM as the target.
+
+A couple of open questions:
+
+ 1. The prototype allows .mem_bar_setup() to be called before .init().
+    That is enough for GPUs, but as Jason described, mlx5 device memory
+    has to be allocated from firmware, which needs the command interface
+    and therefore init(). Supporting mlx5 as a target would mean running
+    .mem_bar_setup() after .init().
+
+ 2. nv_falcon does not support Falcon DMA on Blackwell yet, so a B200
+    can only be a target for now. That requires a driver to be able to
+    probe a device that cannot do memcpy. I am not sure I want to go
+    down that road.
