@@ -1,106 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794839469;
-	b=wVYvfbcbtuo9DxWholo7pwl1Gpjybr5kgDl3Ug+4uj0GVA55DnLFAzwhCiIdYPhmAk+H
-	 SW00FrmKO7Y6AISMbLDJGZkjLPuUCOjCEN5gku4o295y1qyApPKRq2j6ZrWxMl66eB6V/
-	 W/JcRQ1Gung0WEYmhrjDrGE9ZHFxUEAgPXVXTK40DFnyx9U6XTdTqbOGA6c65KbCWYW0D
-	 zRFlyqbIe1dtxzYk30F6ftPtcMY+Izth/5twKg2sNHCnV5z1GO+SjwVDr7LMWUdiDMSVu
-	 ry9eVULkUfWzJ0cgHDQseugMi2N+7gk++VBIEYuXcm2PqHxbxNGsdOcWyQ4JPLIPOng==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839469;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:In-Reply-To:
-	 References:MIME-Version:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=kIdEF1Z3yDMJ2Z2N07TC997u86nRKx5F3ZLJFgHcL5g=;
-	b=z0DHZYkkwl/3iX6GJixQzIl5+0w6cVQhIsNS3vOBFOepT3/YRk9A4jsxw7xVPYTIuFqt
-	 RmB02aKcw9AaQN9JelCn7wNQaiFQvoYViukPwQOl3Kfok+W6wp+Z0brhsx6f8UEC9h0Uy
-	 64a2CbX2nj9+V5al6ZmOtEx19hW+eGspHHoZH8Dy3ELhQq5vpFkQfqqOrnysinwAIUJ/v
-	 +Z4cdJ/iZMcBNdwpbhaJiK/My6N2is51IQQA7qjOEYoBOeYTA4K0aM0v8u3OP+sa/0IuV
-	 onRSvbzM7FnXj3xBCeGU24FrErmuDs4INxaRPQx+ZEg6dN4/PQmvKOhVG27NXtDt6kA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hqtleekH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794839479;
+	b=A66Km1VbwyvZjYOS+UADGZWaIGTTNhIrvBccOV87apIxFPsScrtgbPEP7JXsPbUG9f41
+	 9GxqultE7tGQWvgsFI4BWE3TOrb8kJyIV5JrymNQ+tRjZYyDPyIoFj96zdw+K8xsJbAE2
+	 DJ1zgVvXIkKo7oLjMjL1FwiV+J9msnvZOeeJrWnRcA8lRqgX4V29ee5DR2/fYZyqXhVHb
+	 H4qlvZy0qnskLBuJlh9lwah+jnoqokNZrzb1ed7+qc/A4QFTx7B2AJzqqPyDbukkHsuj9
+	 k+edKnj+MZjtfupoE55VsLgI/+q7eYLMAh6X/pESqhDjQ7Sgl08DchGHbM1fgeKEafw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839479;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=XJlLoU6E+9fOO/EOjyE+4yhFdqoHhddsHt6doKlqKsM=;
+	b=hOcqrkuO3g9WZS0n39jeT1oDSqX/Tcj2L9ZLHmuSU9SRJBe4R3lsuiBi8IRBoGowAlb2
+	 dL+zEopRuhqsJmcGceE86vaVSVTdRhZ1Fc9KysfJJOaW4h7Z2UPFOmzHRYk3CWLVMOG1u
+	 /R9b/pApaK/e/Kr8d031HId/2VragcTgQOnDMFy1uKp5WCMz9b53qFXlrb2lDV/isq298
+	 R2rQSs3dY69FovxCYE32cK/eTB0X3lUyLLGFZqV41yhRXl0vBGG2ov3U5VF5wNO+SOdsi
+	 lQZmWxGoj8bFrfxyFmSKjRWXkQ0g3Vc5V9Zm/sj8sMJ+5ieej2WNVD0yS/m1t+N4AuQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E33JlIVN;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DFB606A339
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 14:31:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61DFB606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C74606A323;
+	Mon, 16 Nov 2026 14:31:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12C74606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hqtleekH
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-55d2dcbb905so16635241cf.3
-        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 06:31:07 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794839466; cv=none;
-        d=google.com; s=arc-20260327;
-        b=V1yNKGWuLRRbMpVzppvWrblM+kyX1A8XRAoX04SlZB2ZNjir3fCq3UUrrSpwiNtNqg
-         fXqqTSbtwb3qMpN36iKjISckJjMFeVgiLvDryYpGMcW0WgS/jS9nOorABIN7fUsOiC0d
-         gXoIvJwxrFsELpebQ2rkQIdP26ih39nMVjxjnjxnRder2nRNpTPmvYawftFYzo1cPVNb
-         ePhuIcCWOtQWtLCMnA9cYjBqT1UpgyykppqqG1QIpbstzx518Pn/MjqXmZGX+DO1SThj
-         g6EooXjKPFiS/Ik20B4B/aVUrcf76yEobh3J3ul5c8i2eZrtHSQaHsWFxLFleAAfW4t4
-         TwIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date
-         :mime-version:references:in-reply-to:from:dkim-signature;
-        bh=kIdEF1Z3yDMJ2Z2N07TC997u86nRKx5F3ZLJFgHcL5g=;
-        fh=rqudOY/0eHtwJ+Xj3UtULvamlj2Ie8jvEZPi5sAxI6Q=;
-        b=Ewr0ToTGLyGlrDLSkXLSEeirAU+4nIWFp9DjVRRx7qyDDQllEAuVrwfir4SgZy7xnw
-         ZyxMRAOPC0ExCSD+ugWA9UacGihUFwEvT5whB3b7SjCpxqhoG9oCzsKOZGxE7fW/JBLp
-         j+7MY0i6eA+BWCmTC4ENBrUIsfkEAyFqhhxyLo8FP7/zjD5/nfetfxGa2+j44oY9bivv
-         VLKiKSAnNMvpM8HkFl2iU63nXrikoFAuF7Yir4Fnx8Y9MKoihHjZctb4KR5bGeQsL+PX
-         rstOj/+Vve6+sdVnxhw2rXoVyGSrPxKEyfkb04ZEkiht0cKCMJYhDp4tyVP4WLABW9jw
-         J5rw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794839466; x=1795444266; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:mime-version:references:in-reply-to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kIdEF1Z3yDMJ2Z2N07TC997u86nRKx5F3ZLJFgHcL5g=;
-        b=hqtleekHZB7IzIe3uFH5SCWu6iTM75sqGs/ghw8YQYkIdk+T7vjVWyA6AO700qdR4Q
-         vbJCZb0Y1JyMNrjpjks7ISuAILP1akb19NG1w/zoOS+BJ7ne0rDgeOEZAmH5rKWZ5f44
-         RvWJjPfT45l5siVFj13G+ajf1z6A76L3ABfVQ8cxEocMif4i8ocbTvdliyOwWARzVOM2
-         1PaEvp5Q3boj498dDJUv4JM5gZ3ylytJ/O++J4+DPrHAfiRvoHRiEKp0Ja+WQHtpLuSp
-         O+RZ+lqvbwjBOzEG0ctjc/wBOWzTbnzv8BC1jI/Xqv6agdcfo2IlMyV788HbK9SZLjHS
-         3wAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794839466; x=1795444266;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:mime-version:references:in-reply-to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kIdEF1Z3yDMJ2Z2N07TC997u86nRKx5F3ZLJFgHcL5g=;
-        b=L4mWG4DEEoZ8TaUno6rzY19FT/bjvlRu7oC4cBTwia/NttF0WXaMJ8+0O5UQaJgjPW
-         R9VUu64mvMizMkQyEDhEA5tGK52ixJhdqO7tig/wfkitfp9HbZjBZAkRYkAnmEAf0NC9
-         EdNYY2bIq2GhoMdl7+y81mO0954j1gqcKfR3cDodYbweGNqhq7COY3YE8C01Guv8vP11
-         +xPGuc5nfpkVmsCG8Mtu1McRnhmIQKX6T9rS+/OW9+0X1tiaUpkPvP+KBJq72nDANFTx
-         KX0J1hNoWFKAuOmEq3Xa4C8E6iM7MFu7NDOdF18505YnFVu9W/jEHkpmDVg+i5Zj87Jv
-         kcug==
-X-Gm-Message-State: APuU4Z+bFamp82uMhUWE6/gpyUtd/13hA73UWEuTkR0BCjFPTrv0razn
-	iw5PgkFQZKRhp2ptTbLj5erlv7uXCqKtH6hmY8gOcKMA+56sS2730HsFBeDyccLlgajsNPMJIrO
-	Qf4rNh1jCwCpOFSDYXzqd8oqlXgNUlOs=
-X-Gm-Gg: AYBFou0exph3fM+u+eVb2rz4fhNojnaX3ji0LYxfhCsTSaeQRuENk90iXhC8KDh+zpq
-	+K4bLR22fbaxWBGd1izEO2s1yM1+EG5DAiMIwRbrJDeblnyfudyOo3u8ScEx7ZZNmlci+LE8RqN
-	KFwMJoZNp5PyycMW0iUhunNAlySssZ/NScAFVgZEA1dOC1xEz9BniJp9jkA8buO2VnwCS+o1FIX
-	D7CaQ8C4Ihclh3jibrtTYXGQIzDI0Gqm04wWRlXAn/zH/jQGr65E4RkRxPhsBjjaW98M5LVI+eX
-	+4jT0cdrhnOI6OOy3O6gFyKwD/4w4ZK3YGtJ3jynYAsoiusnKQZms/E/7wKT+Otxp1bv6k3YxRt
-	1xdEvtx/2fx9SL/jBzyYR6m9FztSaa3QDM4/RgKSnlUSkCRXLwIJ0xrrOruYPfYGNZYNCUh7tz4
-	ChwSOZositlLWpCBcqeHIwTN1NEfD90b28Mik7NUOipQ5Vn0e4MV70PAegsw==
-X-Received: by 2002:a05:622a:228e:b0:536:54a4:da1b with SMTP id
- d75a77b69052e-55ac818006amr178170141cf.19.1794839466213; Mon, 16 Nov 2026
- 06:31:06 -0800 (PST)
-Received: from 138594053405 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 16 Nov 2026 14:31:04 +0000
-From: diegomancera.dev@gmail.com
-In-Reply-To: <20261113145359.65440-1-diegomancera.dev@gmail.com>
-References: <CALruWrWRWRU84AkDocSnNMSRp+WQD5ic9G_3peE50BvQR5iGBg@mail.gmail.com>
- <20261113145359.65440-1-diegomancera.dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=E33JlIVN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794839479; x=1826375479;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RluHToA0n2Uv7zh1LziASXx+m8ZDEfvA6K1KXGytIBg=;
+  b=E33JlIVNMADpwn3y6d/bK0M5fle4RMsDmh4sM3tKx1u9vrXQwvEaP3Ov
+   oAFQGTQlYVrxkQS/2ZLt7DGfnHe5Cu2cniowsagAScbADz4AxjFr/3gT+
+   c2Y3ZDNt2hOKn1VqzpJX2wmwvTok+dd5b3DiuEOZ/KTlqilahxkCDLgrX
+   3CZt/skPHZYr6ygbBXLi/jkS27YJkDyrpEEJv5W0Lyr+gADq7Zpw+1rPg
+   PaTztswhqKLqn1eDQMsoFBeahe57N137hEXFuAlmjL/tf/u2R1lHtS0ag
+   zOevtkLqRfo8CB+TZojBXscMArae3EXlCeQBthYoIiAg1EmJsANFzbvl4
+   w==;
+X-CSE-ConnectionGUID: IFZKNHQHTcWwDJnxKvCO2w==
+X-CSE-MsgGUID: lX95pa1cSweYzXLBvPxZ8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3567372"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3567372"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 06:30:29 -0800
+X-CSE-ConnectionGUID: 4QPSCljFSiuoYlVqF3lnTg==
+X-CSE-MsgGUID: 2EA/vbiESXyLWrSqaU8bJQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9725435"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.245.190])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 06:30:27 -0800
+Date: Mon, 16 Nov 2026 15:30:19 +0100
+From: Mehdi Djait <mehdi.djait@linux.intel.com>
+To: Michael Riesch <michael.riesch@collabora.com>
+Cc: linux-media@vger.kernel.org, paul.elder@ideasonboard.com, 
+	daniel@makrotopia.org, linux-rockchip@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] media: rockchip: rkcif: Don't reset the hardware
+ in runtime suspend
+Message-ID: <avsBed-E2RPJnZ6k@mdjait-mobl>
+References: <20261112183208.2688580-1-mehdi.djait@linux.intel.com>
+ <20261112183208.2688580-2-mehdi.djait@linux.intel.com>
+ <df61d7d2-7ad8-4b68-b3a0-7a03513ab5b7@collabora.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -110,84 +81,42 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 16 Nov 2026 14:31:04 +0000
-X-Gm-Features: AclHuK9UAbcFYKKYqEt49oleQtJDZRVSxmL5ntIV7z29bwWa8fht8qqVtkVB_Pg
-Message-ID: <CALruWrXhXjiw2eVL+YzDXr-mLHT4y0b799PEMH9GZ-pmSHofKA@mail.gmail.com>
-Subject: Re: [PATCH v3] media: em28xx: clear dev->v4l2 when v4l2 init fails
-To: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>, mchehab@kernel.org
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <df61d7d2-7ad8-4b68-b3a0-7a03513ab5b7@collabora.com>
 
-Hi Mauro and Sakari,
+Hi Michael,
 
-I noticed my patch [v3] "media: em28xx: clear dev->v4l2 when v4l2 init
-fails" was marked "Not Applicable" in Patchwork, but I could not find
-any comment explaining why. The Media CI checks all passed and the
-syzbot report is still open, so I wanted to ask: is there a problem
-with this approach, or would you prefer a different fix? I am happy to
-rework it if needed.
+On Mon, Nov 16, 2026 at 11:58:35AM +0100, Michael Riesch wrote:
+> Hi Mehdi,
+> 
+> On 11/12/26 19:32, Mehdi Djait wrote:
+> > The reset in the runtime suspend also resets the VICAP IOMMU.
+> > 
+> > When the IOMMU driver accesses the IOMMU registers inside the delay window
+> > between the assert and deassert, e.g. in rk_iommu_zap_lines() to shootdown
+> > IOTLB entries, the system hangs.
+> > 
+> > Drop the reset and the now unused reset control.
+> 
+> I agree that the current situation is nothing more than a crude hack
+> that happened to work in most cases. But I doubt simply removing the
+> reset is the correct solution. Recently, I saw some downstream patch
+> that makes the reset a shared one, which seems like the right thing to
+> do here. What would you think about that?
 
-Thanks,
-Diego Fernando Mancera G=C3=B3mez
+Do you have a link for these patches ?
 
-On Fri, 13 Nov 2026 08:53:59 -0600, Diego Fernando Mancera Gomez
-<diegomancera.dev@gmail.com> wrote:
-> In em28xx_v4l2_init(), if an error occurs after video_register_device()
-> succeeds, the unregister_dev error path unregisters the video devices and
-> drops the initial v4l2_dev reference, but leaves dev->v4l2 set.
->
-> An em28xx_v4l2_open() call already in progress (such as from v4l_id)
-> that blocked on dev->lock while em28xx_v4l2_init() held it will then
-> find dev->v4l2 still non-NULL and succeed on an unregistered node
-> instead of returning -ENODEV. When the device is later disconnected,
-> em28xx_v4l2_fini() also sees dev->v4l2 is still set and calls
-> v4l2_device_put() a second time, dropping the refcount to zero and
-> freeing v4l2 while v4l_id still holds it, causing a slab-use-after-free
-> in v4l2_open().
->
-> Fix this by clearing dev->v4l2 under dev->lock in the unregister_dev
-> error path of em28xx_v4l2_init().
->
-> Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-> Cc: stable@vger.kernel.org
-> Reported-by: syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D1a7507a194fff09e5c44
-> Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
-> ---
-> Changes in v3:
-> - Resend: v2 reached lore with the "diff --git" header line split in
->   two, so the Media CI robot could not apply it. No code changes.
->
-> Changes in v2:
-> - Drop the non-standard 'Assisted-by: Gemini' trailer that failed
->   checkpatch.
->
-> Note: compile-tested drivers/media/usb/em28xx/em28xx-video.o with
-> allmodconfig (no warnings); not runtime-tested locally against the
-> syzbot reproducer.
->
->  drivers/media/usb/em28xx/em28xx-video.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/=
-em28xx/em28xx-video.c
-> index 84424284d486..f78325a41124 100644
-> --- a/drivers/media/usb/em28xx/em28xx-video.c
-> +++ b/drivers/media/usb/em28xx/em28xx-video.c
-> @@ -3129,6 +3129,12 @@ static int em28xx_v4l2_init(struct em28xx *dev)
->  		vb2_video_unregister_device(&v4l2->vdev);
->  	}
->
-> +	/*
-> +	 * Clear dev->v4l2 to prevent an in-progress em28xx_v4l2_open() from
-> +	 * succeeding on an unregistered node (returning -ENODEV instead) and
-> +	 * to prevent em28xx_v4l2_fini() from tearing down the instance again.
-> +	 */
-> +	dev->v4l2 =3D NULL;
->  	mutex_unlock(&dev->lock);
->
->  	/*
-> --
-> 2.56.1
->
+I also agree that this patch will not be the solution that will go in
+but the situation needs to change.
+
+The VICAP_GLB_CTRL register does expose this:
+reset the VICAP(except MMU/AXI MASTER/REG FILE)
+
+The Rockchip-bsp kernel exports the disable and enable functions of the
+iommu driver and calls them in the rkcif driver, see:
+https://github.com/rockchip-linux/kernel/blob/develop-6.1/drivers/media/platform/rockchip/cif/capture.c#L7269
+
+--
+Kind regards
+Mehdi Djait
