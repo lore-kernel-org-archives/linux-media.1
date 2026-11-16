@@ -1,112 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837544;
-	b=DYrV88Wcc1cRazCbxgi/2Ta+qC3e1bllu9g3fwfJ/W43Zvd1cQkWz96Rj9Ui37b/gfa5
-	 heOzuUUSwwRWrfC8vC2ZhOOm9hdg+ES1s4pA4IOe6REa7HdCaT0SKHZgv8h6+/R41KErk
-	 pVA4rj3a7FMHhme0DbXtMCKlwmXvoaBWxvOnXVYZZK37H0vpjLSvtXdQhoa55eNPJsWaE
-	 KQDQ6hLF8IwXSUzj6faQ4CRbiCUxHoKGPDDk/7dQvM+bnEE45+GIo0U978ZsXZQoXw3nx
-	 7y5MQVfHAkvLi+6liXaGP7c8nEDMAuGIqdWYepSqEFZJNlqi/jAL6VHnyPUpdK74E+A==
+	t=1794837678;
+	b=sbWRTnK04RMb0KtODseqZ3gol918YLKf1kpcusztY7RK4S5iPH4FATTAqR+yb5CnHMHm
+	 TQpkTOh2ImUl003wcLtQK3FX9p+vnfxu9zgVeG1XsYKkbMr5/eVxJyVVgNQFfMvf1cqZh
+	 WD2jjDxKQF+ZIc6gLww++BZVWybbovN/2mS3mrHLWPWMXn6RNsVZ+ey6bYTHGawemZbnp
+	 vDxG/LrNuWjPsToY0NPMA+IQWtDCY+UM8r1hXeMH4eCVej4KowhIwz5fF2LAWYeGuRQXx
+	 tpd9nESpL1KewDJ5GF+WctZBZT50wRRpIxyll8TlyaadFYYtw3di/8kvIm16YZh7sKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837544;
-	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=lgfzmSZN2nQ6JXjZlO2C+3pfQzKvR/nXPua0MzMaI+M=;
-	b=EyhArcCoSyylTECJm+amX6HOL3eiTThG4WJKY2+MyV3c+YKgwLstyabWkp4vVmfc06B7
-	 aB0cZ2O+5Qtmn38hIRE4nndzPgPZ+vWGKw9F/vk+qukfj5jbQHFLLojruXoj7BcEHUVa1
-	 kHnUiS4WzxRUC863fhUN/Ii+tLzDlGouDRh+wAL/b+YtyATC7snp5Ri+QmnBmYkKG0bki
-	 h/DR8Ahc6KoPJxxyP2xpCuDA0GgXFkzc9ySu0gIYjfL79OHphO0gzqPun1yWreOWbBTGz
-	 a8MKPWI/OkDHgNQizyVLq7BlnM6XVqbl3R1b4wJ/bLQOHReRBg+UH/DKHOa+T+FOGKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837678;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=g+FMrZ2Yss7ffWu91xmKsLSGEfD2dTYbKly2DTAxGi0=;
+	b=e+wXMKa80oa5AIidEnyRbLZB94oWX5Kd1PUghBViplA2pq5S4gp1Jusa0fyPpmwyiMw+
+	 uTAVJlFrFnZP/DdKRcM+sNhNo9DA4Ik2yNIYb4u60lMRtarhM36BE/sAIicXJYn0PVUu9
+	 6lezR4WMdi7GYfIzfu77TCEQqZJmmvIikMz3TY5JS+UnW2WgDRvzplyxtG/uPgaXsiy2I
+	 UkvUQpzrcci95lZTA82m4WYxxDq/s4LORnbcGQM/zoEjb7Ui01tOWUH5EpV4+KziiF2ma
+	 b5KEoSNq1l3uvgWXWZrgI8FzjJs9GHvgB5GtLA3vGVrFyixAOE/4ZJuuVxf9h+ubZCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aWr6K2YH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=OczjDRTI;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1DB606A339;
-	Mon, 16 Nov 2026 13:59:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A62A606A88E;
+	Mon, 16 Nov 2026 14:01:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A62A606A88E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aWr6K2YH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15DFD1F000C9;
-	Mon, 16 Nov 2026 13:58:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837543;
-	bh=lgfzmSZN2nQ6JXjZlO2C+3pfQzKvR/nXPua0MzMaI+M=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=aWr6K2YHdoXcwe5G15aCFhZ9sJlbcxn9bWbL4b781difDMlYQzJSng+FnIzKjYXQa
-	 kP8L94t8V3QaOcUvH9XQps+7mTljEEvhwDEaEIbQk2lBBXHEAmFq74yJz2F1y0izik
-	 u7hYsvyWRMV4KIAfnowrzgMKyriFTaH/dDaSLnzEhkJbQkgp0wnSWqvw+bp3KeFxIV
-	 je+SE20GH3FBOaebGv8YoBP7i7rGDsnBvJef2R5uPw9+ffHl9acZ1qRXRLVUeW23aX
-	 32ckSphdHr/1uOXnvGZxo3CxKWliFJWYH+GIZ+IN7iN5aUgy2a+eAqRSZm6JJpymr1
-	 5Op7/OQosYq4w==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: linux-coco@lists.linux.dev,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Joerg Roedel <joro@8bytes.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Radu Rendec <radu@rendec.net>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
-	linaro-mm-sig@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-media@vger.kernel.org, linux-mm@kvack.org,
-	kvmarm@lists.linux.dev, patches@lists.linux.dev,
-	Vincent Donnefort <vdonnefort@google.com>
-Subject: Re: [PATCH v10 02/13] mm: Zero memory during shared memory transitions
-In-Reply-To: <CA+EHjTw7QzzkQYKV3jyvW5mqZQMenTfm=kus9i87tYqACDOv0Q@mail.gmail.com>
-References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
- <20261116091137.94252-3-aneesh.kumar@kernel.org>
- <CA+EHjTw7QzzkQYKV3jyvW5mqZQMenTfm=kus9i87tYqACDOv0Q@mail.gmail.com>
-Date: Mon, 16 Nov 2026 19:28:42 +0530
-Message-ID: <yq5ah5hgyj1p.fsf@kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=OczjDRTI
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 97A4F4BB;
+	Mon, 16 Nov 2026 14:58:48 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794837528;
+	bh=g9a5Nf9FQfAlb9mT2jHLg92T6EhG5dLjGgnKQk03YQk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OczjDRTIfk58NLlH97R5+6Bqea4nnFHly7hcMPqeXdP8KLqwTQlZgtmCINzNt0klF
+	 RLC1NJt2OmQ60UzZR4I45tatdkbsz7/+SUl99g26wYqlBImFy0ZuV+FFHVWsS2UBJK
+	 t4jBfxsbSQ1xENLMDGsbrO6vlS7Buia6zeLCEfag=
+Date: Mon, 16 Nov 2026 16:01:14 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 3/3] media: uvcvideo: Fix unaligned and OOB access
+Message-ID: <20261116140114.GC1714298@killaraus.ideasonboard.com>
+References: <20261116-uvc-shortmeta-v1-0-487cfe42fa89@chromium.org>
+ <20261116-uvc-shortmeta-v1-3-487cfe42fa89@chromium.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -116,48 +64,268 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261116-uvc-shortmeta-v1-3-487cfe42fa89@chromium.org>
 
-Fuad Tabba <fuad.tabba@linux.dev> writes:
+On Mon, Nov 16, 2026 at 11:56:39AM +0000, Ricardo Ribalda wrote:
+> meta->buf and scr point to packed metadata and USB packet memory that do
+> not need to be aligned to anything. Also, scr + 4 is a 16-bit field, so
+> reading it as a u32 reads 2 bytes out of bounds.
+> 
+> We use *_unaligned() in the rest of uvc_video_decode_meta(), but not in
+> the debug print.
+> 
+> Fix this.
+> 
+> Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> ---
+>  drivers/media/usb/uvc/uvc_video.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> index e9be0a627033..3e3296ec5c65 100644
+> --- a/drivers/media/usb/uvc/uvc_video.c
+> +++ b/drivers/media/usb/uvc/uvc_video.c
+> @@ -1532,9 +1532,9 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+>  		"%s(): t-sys %lluns, SOF %u, len %u, flags 0x%x, PTS %u, STC %u frame SOF %u\n",
+>  		__func__, ktime_to_ns(time), meta->sof, meta->length,
+>  		meta->flags,
+> -		has_pts ? *(u32 *)meta->buf : 0,
+> -		has_scr ? *(u32 *)scr : 0,
+> -		has_scr ? *(u32 *)(scr + 4) & 0x7ff : 0);
+> +		has_pts ? get_unaligned_le32(meta->buf) : 0,
+> +		has_scr ? get_unaligned_le32(scr) : 0,
+> +		has_scr ? get_unaligned_le16(scr + 4) & 0x7ff : 0);
 
-> Hi Aneesh,
->
-> On Mon, 16 Nov 2026 at 09:12, Aneesh Kumar K.V (Arm)
-> <aneesh.kumar@kernel.org> wrote:
-> [...]
->> Keep allocations on platforms without memory encryption on the ordinary page
->> allocator path so the original GFP constraints, including __GFP_ZERO, remain
->> intact. Remove post-transition memset() calls that are now redundant and
->> explicitly clear allocations on paths where no transition occurs.
->>
->> This intentionally makes every private-to-shared transition destructive;
->> callers can no longer use set_memory_decrypted() to preserve existing contents.
->
-> pKVM shares memory in place, and a guest has to be able to share
-> memory it has already set up, as Vincent pointed out [1]. That was one
-> of the primary reasons for in-place conversion in guest_memfd.
->
-> Cheers,
-> /fuad
->
-> [1] https://lore.kernel.org/all/avro44jUWOARFzul@google.com/
+I wonder if things would look cleaner if we introduced a struct uvc_scr
+instead of fiddling with manual access to buffer offsets. What do you
+think N It would look like this:
+
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index ce99795cfea4..30c6516f0340 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -943,8 +943,7 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
+ 	unsigned int header_size;
+ 	bool has_pts = false;
+ 	bool has_scr = false;
+-	u16 scr_sof;
+-	u32 scr_stc;
++	struct uvc_scr scr;
+ 	u32 pts;
+
+ 	if (stream->stats.stream.nb_frames == 0 &&
+@@ -981,8 +980,8 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
+ 		pts = get_unaligned_le32(&data[2]);
+
+ 	if (has_scr) {
+-		scr_stc = get_unaligned_le32(&data[header_size - 6]);
+-		scr_sof = get_unaligned_le16(&data[header_size - 2]);
++		scr.stc = get_unaligned_le32(&data[header_size - 6]);
++		scr.sof = get_unaligned_le16(&data[header_size - 2]);
+ 	}
+
+ 	/* Is PTS constant through the whole frame ? */
+@@ -1012,7 +1011,7 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
+
+ 	/* Do the SCR.STC and SCR.SOF fields vary through the frame ? */
+ 	if (has_scr && stream->stats.frame.nb_scr) {
+-		if (stream->stats.frame.scr_stc != scr_stc)
++		if (stream->stats.frame.scr.stc != scr.stc)
+ 			stream->stats.frame.nb_scr_diffs++;
+ 	}
+
+@@ -1021,17 +1020,16 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
+ 		if (stream->stats.stream.nb_frames > 0 ||
+ 		    stream->stats.frame.nb_scr > 0)
+ 			stream->stats.stream.scr_sof_count +=
+-				(scr_sof - stream->stats.stream.scr_sof) % 2048;
+-		stream->stats.stream.scr_sof = scr_sof;
++				(scr.sof - stream->stats.stream.scr_sof) % 2048;
++		stream->stats.stream.scr_sof = scr.sof;
+
+ 		stream->stats.frame.nb_scr++;
+-		stream->stats.frame.scr_stc = scr_stc;
+-		stream->stats.frame.scr_sof = scr_sof;
++		stream->stats.frame.scr = scr;
+
+-		if (scr_sof < stream->stats.stream.min_sof)
+-			stream->stats.stream.min_sof = scr_sof;
+-		if (scr_sof > stream->stats.stream.max_sof)
+-			stream->stats.stream.max_sof = scr_sof;
++		if (scr.sof < stream->stats.stream.min_sof)
++			stream->stats.stream.min_sof = scr.sof;
++		if (scr.sof > stream->stats.stream.max_sof)
++			stream->stats.stream.max_sof = scr.sof;
+ 	}
+
+ 	/* Record the first non-empty packet number. */
+@@ -1062,7 +1060,7 @@ static void uvc_video_stats_update(struct uvc_streaming *stream)
+ 		frame->has_early_pts ? "" : "!",
+ 		frame->has_initial_pts ? "" : "!",
+ 		frame->nb_scr_diffs, frame->nb_scr,
+-		frame->pts, frame->scr_stc, frame->scr_sof);
++		frame->pts, frame->scr.stc, frame->scr.sof);
+
+ 	stream->stats.stream.nb_frames++;
+ 	stream->stats.stream.nb_packets += stream->stats.frame.nb_packets;
+@@ -1468,8 +1466,9 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+ 	bool has_pts, has_scr;
+ 	unsigned long flags;
+ 	unsigned int sof;
++	struct uvc_scr scr;
+ 	ktime_t time;
+-	const u8 *scr;
++	const u8 *scr_data;
+
+ 	if (length <= 2 || !meta_buf || meta_buf->state != UVC_BUF_STATE_ACTIVE)
+ 		return;
+@@ -1479,9 +1478,9 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+
+ 	if (has_pts) {
+ 		len_std += 4;
+-		scr = mem + 6;
++		scr_data = mem + 6;
+ 	} else {
+-		scr = mem + 2;
++		scr_data = mem + 2;
+ 	}
+
+ 	if (has_scr)
+@@ -1490,8 +1489,13 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+ 	if (stream->meta.format == V4L2_META_FMT_UVC)
+ 		length = len_std;
+
++	if (has_scr) {
++		scr.stc = get_unaligned_le32(scr_data);
++		scr.sof = get_unaligned_le16(scr_data + 4);
++	}
++
+ 	if (length == len_std && (!has_scr ||
+-				  !memcmp(scr, stream->clock.last_scr, 6)))
++				  !memcmp(&scr, &stream->clock.last_scr, sizeof(scr))))
+ 		return;
+
+ 	if (meta_buf->length - meta_buf->bytesused <
+@@ -1509,7 +1513,7 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+ 	put_unaligned(sof, &meta->sof);
+
+ 	if (has_scr)
+-		memcpy(stream->clock.last_scr, scr, 6);
++		stream->clock.last_scr = scr;
+
+ 	meta->length = mem[0];
+ 	meta->flags  = mem[1];
+@@ -1521,8 +1525,8 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+ 		__func__, ktime_to_ns(time), meta->sof, meta->length,
+ 		meta->flags,
+ 		has_pts ? *(u32 *)meta->buf : 0,
+-		has_scr ? *(u32 *)scr : 0,
+-		has_scr ? *(u32 *)(scr + 4) & 0x7ff : 0);
++		has_scr ? scr.stc : 0,
++		has_scr ? scr.sof & 0x7ff : 0);
+ }
+
+ /* ------------------------------------------------------------------------
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+index af8cef94ffff..a3e1c0fb129f 100644
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -302,6 +302,11 @@ struct uvc_streaming_header {
+ 	u8 bTriggerUsage;
+ };
+
++struct uvc_scr {
++	u32 stc;
++	u16 sof;
++} __packed;
++
+ enum uvc_buffer_state {
+ 	UVC_BUF_STATE_IDLE	= 0,
+ 	UVC_BUF_STATE_QUEUED	= 1,
+@@ -383,8 +388,7 @@ struct uvc_stats_frame {
+
+ 	unsigned int nb_scr;		/* Number of packets with a SCR timestamp */
+ 	unsigned int nb_scr_diffs;	/* Number of SCR.STC differences inside a frame */
+-	u16 scr_sof;			/* SCR.SOF of the last packet */
+-	u32 scr_stc;			/* SCR.STC of the last packet */
++	struct uvc_scr scr;		/* SCR of the last packet */
+ };
+
+ struct uvc_stats_stream {
+@@ -525,7 +529,7 @@ struct uvc_streaming {
+ 		u16 last_sof_raw;
+ 		u16 sof_offset;
+
+-		u8 last_scr[6];
++		struct uvc_scr last_scr;
+
+ 		spinlock_t lock;
+ 	} clock;
 
 
-Thanks for catching this. We discussed it before, but I reached the
-opposite conclusion:
+Actually, thinking more about this, I think we can also simplify
+uvc_video_decode_meta() to only compare SCR.STC:
 
-https://lore.kernel.org/all/yq5a5wzw2ree.fsf@kernel.org
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index 30c6516f0340..7513083fadad 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1454,8 +1454,8 @@ static int uvc_video_encode_data(struct uvc_streaming *stream,
+  *
+  * Ideally we want to capture all payload headers for each frame. However, their
+  * number is unknown and unbound. We thus drop headers that contain no vendor
+- * data and that either contain no SCR value or an SCR value identical to the
+- * previous header.
++ * data and that either contain no SCR value or an SCR.STC value identical to
++ * the previous header.
+  */
+ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+ 				  struct uvc_buffer *meta_buf,
+@@ -1494,8 +1494,7 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+ 		scr.sof = get_unaligned_le16(scr_data + 4);
+ 	}
+ 
+-	if (length == len_std && (!has_scr ||
+-				  !memcmp(&scr, &stream->clock.last_scr, sizeof(scr))))
++	if (length == len_std && (!has_scr || scr.stc == stream->clock.last_stc))
+ 		return;
+ 
+ 	if (meta_buf->length - meta_buf->bytesused <
+@@ -1513,7 +1512,7 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+ 	put_unaligned(sof, &meta->sof);
+ 
+ 	if (has_scr)
+-		stream->clock.last_scr = scr;
++		stream->clock.last_stc = scr.stc;
+ 
+ 	meta->length = mem[0];
+ 	meta->flags  = mem[1];
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+index a3e1c0fb129f..b2d39c742e34 100644
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -529,7 +529,7 @@ struct uvc_streaming {
+ 		u16 last_sof_raw;
+ 		u16 sof_offset;
+ 
+-		struct uvc_scr last_scr;
++		u32 last_stc;
+ 
+ 		spinlock_t lock;
+ 	} clock;
 
-My mistake. How do you suggest we handle this? We want to avoid zeroing
-pages multiple times with different CoCo configurations. For example, to
-allocate a zeroed page, we currently do:
 
-alloc_pages(__GFP_ZERO)
-set_memory_decrypted()
-memset(0, PAGE_SIZE)
+I can send patches with proper commit messages.
 
-Should we do something like 
+>  }
+>  
+>  /* ------------------------------------------------------------------------
 
-https://lore.kernel.org/all/yq5aa4p82sqt.fsf@kernel.org/
+-- 
+Regards,
 
--anees
+Laurent Pinchart
