@@ -1,86 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794850052;
-	b=pZmO3Ni+fCkcVo2TF5YXg4LBtoEOq2OiyMdBmAnDt8IX8996tG9I/PlAc6c8VjTJgb/U
-	 UcHOuM4k/nkRsLcv+7hblUmr56AsFMw3RxAOp1v3iQYcr5JVetJoShLvkvQ2qadubdTis
-	 NXpKxXH+tBYNNJp2dkCu1nET+NozwfQiMAO+vkGrRY70iNjlsTqzsWmFOsPSyvVo5p7ol
-	 g3veANmm+n4m36bhcnVMmTEeu9UqDPcsRBtXufstrDBZr+WUZJDEdz63DQGbJODao51XK
-	 OCMUcwVck7hs/w048kXvCR/Y9g+VDZa5b5cz/GjhH3p46lZsvI58vB/+1xcK2KF3Qfw==
+	t=1794850318;
+	b=jgzRFuiFfL0xno1KAYOcBab4zVceJYGhOCZgTd+KZ6UMVH+8iNcwdhUNns3Wg2OB1FtO
+	 vFJVjS2IwkD+iIfd8Va+Ketyuv3W+tsmHL+hbkU61KpmyRp/UdslCTzx8sEOidIjttJ8Y
+	 o8ezByfb2JCI/tnt1R52rmQhoufhfsjqmSVDmR4rjWgrMgd7qr70UsUDVtkd42nD/Lem5
+	 c3z2ZkSVdWJChb3Vy1HlvUcwyn2Y5XDfg+od300/FtFAufR7mA2gKVjIev7i2ViJ4xtA4
+	 T/R7Tu+AN0JoJMPN4YSOyT8Kev/arnwuHAyfS6e+pw2FcJ7uCmyCqAQYR+9dGDldV0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794850052;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hc1gc7HOIqIM+JBzSQHINvh1wfRLFiIM2EAGfL43Ihw=;
-	b=pjmUtxMHr2c0ELnnDaXmfRxFRJVPEA9V0hUJdcgh+I6oxLrVECuJXcEepmbpCcYkv0Rc
-	 giE9Quh9uZbkZWPFLI0rQwo7h0Fe0T1HFn/9I1Ph+JxKrSoLLTDFReZcq4xyAh/LfrW1a
-	 8nW1gSMameyw8ERc9xVY2RQ4/a57LgtXWhR925b1D+z3z9OpNaqqFw3aYDfhYynixgmEK
-	 IdD6eMPQa7WreLoyCQPvNxuzmohX2bl/yBF7BB76LPMgY6wvH/X1n+2elDCJmzmcUxiuh
-	 WsmQPGgcnla96NpEIsvDaTCHFHgZq/20VIHfFbqj0L5VNsnP3IdmTD7kaEb7tCoCaNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794850318;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BtzJTBkGllC2z/+DmnD2D5jXx4V+JoeyDI7VKbMd1ao=;
+	b=1WvuQljvU1Dwfq3EERLJeVOaMvTkhNTs1yvh3/GWeMZRahpN1Me6L+1YqXSsAV76wc50
+	 kY68eNeFV4Nj9MSADXjfmPaKy9242he7oI7WxJ8EB+E5ZKRPyRZI95G3oq/iAkVGxyaUO
+	 FvrJiON8kVmAWtzudQH/iCJbC9MkhvqAH2qYdApUbhJcYe8tQhH6tg5dvoWKH5HiYXZtr
+	 fDUqu/3M/Sh2FHblN9EfC/5727koIGE8qcZrsKC0WbVT3Q9qzVN9KiFsNUta9NxLPwTda
+	 7BbVfx/SSMJrCs0+ZfpAfTdwgh6dHk0IP4jHuW5/6VyZRrbAS7YHKIp2CXxU4Y4TDaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="s/MzaZPG";
-	arc=none smtp.remote-ip=91.218.175.10
-Received: from mta0.migadu.com (out-10.mta0.migadu.com [91.218.175.10])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zmChHf+g;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01CEB606A322
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 17:27:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01CEB606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59BC606A882
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 17:31:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E59BC606A882
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=s/MzaZPG
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OmufBn96Dn9LWg6ZXLW+oHRP5eoxknXfkSDt0Qar1Ws=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794850050; v=1; x=1795454850;
- b=s/MzaZPGQZm1lK3rAUv3THi2waMa/UbCgshiR6i7NNA8EMHKXNYt2+JQXvIxP/6NxDu6B11x
- pBapEy6GhhFq4tNyg5qJISaBCH0YPc/NFUzXyvxJmfxHKL8NGNE1nDq03+4g1tbAW5AoJ0DE4vk
- f+itrRsKYsOKza9zKncpp+V4=
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4af74e0f8b6e9662;
-	Mon, 16 Nov 2026 17:27:29 +0000
-X-Mizu-Trace-ID: 4af74e0f8b6e9662
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 16 Nov 2026 19:27:26 +0200
-From: Petre Rodan <petre.rodan@linux.dev>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
-	Nuno S?? <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zmChHf+g
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48fd2e38825so2404615f8f.2
+        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 09:31:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794850316; x=1795455116; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BtzJTBkGllC2z/+DmnD2D5jXx4V+JoeyDI7VKbMd1ao=;
+        b=zmChHf+gtSp2/7m/ODDyhctUUA8ZgKoQFFaIvWMXbupLeLZ2UMG+2F/8CAgvTdjtus
+         /f7ztL3vpk5I3etcc6eUxWXyk/xqDcCRcGgvzeuyZj1cGOyNVtZ/S8E6AcIwoS+bisDn
+         eYQjR0JU5ikThjQBQSfMFLd/tFpBaJOykUQvO30d4bT/rjTuRuDoMp3DO1pfHb2o9RH5
+         JMmI17tNfoEv95axZMjloVNszj7NDaa7pLlnIxIbSwAkUP+RzXwUxJ1F4fncbJA03r/E
+         Rapn9SFf7mnN50x5zfcd/ZriUVTXcZOs/7tT4K/A3+Oa1LFHEC+ukrYF2u+Y11hXnJBc
+         MUew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794850316; x=1795455116;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BtzJTBkGllC2z/+DmnD2D5jXx4V+JoeyDI7VKbMd1ao=;
+        b=cxheQqxUt33pdYahQaOiqmR70AW/55FiZYWTz+gbQ8XlnYB/xicCINO8HT7WbbNyH8
+         ycxRs16hRdgNa+vS2mDghVBts4kK/Ywex1A6st9mfiofpi+rUiO7MaHh69t75708ddq5
+         3o0tbIKKG3/nEMVFOfxB99ipTvkWFulxpmHCb/EeTALKzm/t3QCV1D9ybU6vd19OfBEu
+         kVMb5weruyBBMDnTm3FM6WayIyA4GjtKgjjPuihBMgEn8vWNTcDAYWp5D7wKzJN0SUpe
+         fboQY+383SleuC1u1LLZXqiMxsXUMCqgsCMygc6/ln8Ilk49Vn1yCJPmyreI2nntJWRa
+         Epkg==
+X-Forwarded-Encrypted: i=1; AL+hErF1u5yV/qg8xaUoEDIHBw9i4FjrOiLX/GEpAA0IcE1+HVxzcImtMNBse8OAkdHajplj7ExcbRyNNW7MoA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wtlxy8jVCMVhm6oCPFXs5hTdYNr1DdAHetllpasE/LZ23FeHq
+	bn+1W9dqrIlgchtv885IM+WLDlVcIhXBzTMq8tbylPl/Yc4pmBJZgt32
+X-Gm-Gg: AZFdTZfDmgrl9nVw5XduJ4BIiRnhPoT+2ylW+BPdN4PALLzHfW4tsN/mx4s9bpbazS+
+	BuU58xNbctB1xFzPcgVhoidWE9A/X7hQGpxLy2VgYx5vksnHmOP0RbMHTdjya7MSeio2MYsAD87
+	Ke6xp+T2mBrwLcTEpVo4zcLRrIfR/iF+Ou8ULBEDE4onBqOTwswLrOp1l5gjjxsP9t5lgVorrMP
+	7uxID34DjigNkf4/rYZsTWKgKmJyAQ3VaJ1jeFigDdPUVE+1hmUh52aYIppSUuuIYdMV72/ubmX
+	OgwG/ZQXudMx+wseVAuHS8P51WzQKM0WqK6KAYTCzlLPuXEDMudggFTpyYe5dgWJ7cU63lSTWya
+	um9sCu2aZ/iiUBg80ThLi4uRA8EA/yrbq7No++OmEPR16doS39XOnAVJtD1cg84XTck1mHC+tVO
+	IHX7oSOB3L5GUah1zw+lzm/bAZ4ix1V3b+8lctpF3Si9dMIgd0zetILntHt+I8SmU9xAbCwaEZq
+	BxHhSw3fATgm9imIArcNvoROVIlKZsWVRQ5lV8JnjKoFSoWZ/E8nJh9E2Wl6ouaTnRshnlfG+ky
+	bxOYy+mhD0oiYiqQAOCGFNg4iLPplb+eSGnFymQQ/x+u7A==
+X-Received: by 2002:a05:6000:1884:b0:498:42e3:3f6f with SMTP id ffacd0b85a97d-49c6d63fa5amr26505111f8f.5.1794850316246;
+        Mon, 16 Nov 2026 09:31:56 -0800 (PST)
+Received: from Kyiv.home.arpa ([2a0e:1d47:4093:b600:498f:88ac:2ca1:60d5])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c7da37b19sm24022722f8f.5.2026.11.16.09.31.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 09:31:55 -0800 (PST)
+From: Volodymyr Chapman <volodymyrchapman@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Martin Tuma <martin.tuma@digiteqautomotive.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, Gustavo Silva <gustavograzs@gmail.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Ramona Alexandra Nechita <ramona.nechita@analog.com>,
-	Tomislav Denis <tomislav.denis@avl.com>,
-	Jorge Marques <jorge.marques@analog.com>,
-	Dan Robertson <dan@dlrobertson.com>,
-	Jianping Shen <Jianping.Shen@de.bosch.com>,
-	Gwendal Grignou <gwendal@chromium.org>,
-	Maxwell Doose <maxwell@maxwelld.cc>,
-	Tomasz Duszynski <tduszyns@gmail.com>,
-	Esben Haabendal <esben@geanix.com>,
-	Narcisa Ana Maria Vasile <narcisaanamaria12@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Vasileios Amoiridis <vassilisamir@gmail.com>,
-	Abhash Jha <abhashkumarjha123@gmail.com>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Nishant Malpani <nish.malpani25@gmail.com>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH 13/35] iio: accel: bma220: use default_trigger
-Message-ID: <avs8_igmLZIDOrSB@sunspire.home.arpa>
-References: <20261116014823.3132576-1-jic23@kernel.org>
- <20261116014823.3132576-14-jic23@kernel.org>
+	Volodymyr Chapman <volodymyrchapman@gmail.com>
+Subject: [PATCH] media: atomisp: ov2722: Report SGRBG10 consistently as media bus code
+Date: Mon, 16 Nov 2026 17:31:42 +0000
+Message-ID: <20261116173143.13584-1-volodymyrchapman@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,80 +100,89 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MIKLrGqWG9rPqcvA"
-Content-Disposition: inline
-In-Reply-To: <20261116014823.3132576-14-jic23@kernel.org>
+Content-Transfer-Encoding: 8bit
 
+ov2722_set_fmt() returns MEDIA_BUS_FMT_SGRBG10_1X10, while
+ov2722_get_fmt(), ov2722_enum_mbus_code() and the format initialised in
+ov2722_probe() all use MEDIA_BUS_FMT_SBGGR10_1X10.
 
---MIKLrGqWG9rPqcvA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+atomisp propagates the code returned by set_fmt() to the sink pad of the
+CSI-2 receiver, but link validation compares that pad against the
+sensor's get_fmt(). Since link validation runs on every stream start,
+the mismatch makes streaming fail unconditionally:
 
+  atomisp-isp2 0000:00:03.0: Error starting mc pipeline: -32
 
-Hello Jonathan,
+and VIDIOC_STREAMON returns -EPIPE.
 
-On Mon, Nov 16, 2026 at 01:48:01AM +0000, Jonathan Cameron wrote:
-> From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->=20
-> Set indio_dev->default_trigger rather than taking a reference to the
-> trigger in probe(). The IIO core now takes the reference during
-> iio_device_register(), so it is not leaked if probe() fails after
-> the trigger is set up.  Whilst this patch closes the specific
-> bug, it also makes the ordering less fragile going forwards.
->=20
-> Fixes: b7e17ca10793 ("iio: accel: bma220: add interrupt trigger")
-> Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> ---
->  drivers/iio/accel/bma220_core.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/iio/accel/bma220_core.c b/drivers/iio/accel/bma220_c=
-ore.c
-> index b83abfdd84fd..23eff578158c 100644
-> --- a/drivers/iio/accel/bma220_core.c
-> +++ b/drivers/iio/accel/bma220_core.c
-> @@ -539,7 +539,7 @@ int bma220_common_probe(struct device *dev, struct re=
-gmap *regmap, int irq)
->  		if (ret)
->  			return dev_err_probe(dev, ret,
->  					     "iio trigger register fail\n");
-> -		indio_dev->trig =3D iio_trigger_get(data->trig);
-> +		indio_dev->default_trigger =3D data->trig;
->  		ret =3D devm_request_threaded_irq(dev, irq, NULL,
->  						&bma220_irq_handler, IRQF_ONESHOT,
->  						indio_dev->name, indio_dev);
-> --=20
-> 2.56.1
->=20
+The sensor registers atomisp_bayer_order_grbg as its platform data, and
+because the platform data sets an input format, atomisp configures the
+ISP's Bayer order from mipi_info->raw_bayer_order rather than from the
+media bus code. Changing the platform data to BGGR as an experiment
+produced a nearly colourless image, while GRBG produces correct colours,
+so GRBG is the order the sensor actually outputs with this driver's
+register settings. Use MEDIA_BUS_FMT_SGRBG10_1X10 everywhere.
 
-passes all my unit tests on both i2c and spi sensors, thanks for the patch.
+The Bayer order does not depend on the platform: the driver passes
+atomisp_bayer_order_grbg to gmin_camera_platform_data() itself, and the
+board specific data which atomisp reads from EFI variables, its DMI tables
+or ACPI only sets the CSI port, lane count and clock. All three sensor
+modes program the same mirror and flip settings (0x3820 = 0x80,
+0x3821 = 0x06), an even horizontal crop start and the same vertical crop
+start, so they all output GRBG.
 
-Tested-by: Petre Rodan <petre.rodan@subdimension.ro>
+Tested on a Lenovo ThinkPad 10 (20C3, Atom Z3795, BIOS GWET50WW 1.50)
+with the ISP configured as PCI device 00:03.0, using this driver built
+out of tree against a 7.2.15 kernel. Before the change VIDIOC_STREAMON
+fails with -EPIPE; after it, 1616x1076 YUYV frames are captured with
+correct colours, and YUV420 frames in all three modes (1916x1076,
+1616x1076 and 1436x1076) have correct colours too. v4l2-compliance on
+/dev/video0 goes from 8 to 7 failures (the streaming test now passes);
+the results for the ov2722 subdev are unchanged.
 
-best regards,
-peter
+The problem was found, and this patch and changelog drafted, with the
+help of an AI coding assistant (Claude); the testing above was done on
+the hardware by the submitter.
 
---MIKLrGqWG9rPqcvA
-Content-Type: application/pgp-signature; name=signature.asc
+Fixes: 1c3432df2339 ("media: atomisp: Call media_pipeline_alloc_start() in stream start")
+Signed-off-by: Volodymyr Chapman <volodymyrchapman@gmail.com>
+---
+ drivers/staging/media/atomisp/i2c/atomisp-ov2722.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
+index 2a8c3ee77..4d0ab2555 100644
+--- a/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
++++ b/drivers/staging/media/atomisp/i2c/atomisp-ov2722.c
+@@ -711,7 +711,7 @@ static int ov2722_get_fmt(struct v4l2_subdev *sd,
+ 
+ 	fmt->width = dev->res->width;
+ 	fmt->height = dev->res->height;
+-	fmt->code = MEDIA_BUS_FMT_SBGGR10_1X10;
++	fmt->code = MEDIA_BUS_FMT_SGRBG10_1X10;
+ 
+ 	return 0;
+ }
+@@ -851,7 +851,7 @@ static int ov2722_enum_mbus_code(struct v4l2_subdev *sd,
+ 	if (code->index >= MAX_FMTS)
+ 		return -EINVAL;
+ 
+-	code->code = MEDIA_BUS_FMT_SBGGR10_1X10;
++	code->code = MEDIA_BUS_FMT_SGRBG10_1X10;
+ 	return 0;
+ }
+ 
+@@ -976,7 +976,7 @@ static int ov2722_probe(struct i2c_client *client)
+ 
+ 	dev->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+ 	dev->pad.flags = MEDIA_PAD_FL_SOURCE;
+-	dev->format.code = MEDIA_BUS_FMT_SBGGR10_1X10;
++	dev->format.code = MEDIA_BUS_FMT_SGRBG10_1X10;
+ 	dev->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
+ 
+ 	ret = media_entity_pads_init(&dev->sd.entity, 1, &dev->pad);
 
-iQJPBAABCgA5FiEEGiKYHD4NvFCkTqJ3dCsnp2M6SWMFAmr7PPYbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEHQrJ6djOklji5YP+QHUxpXdzG1eYrKB2YUX
-E0O6akGJOqrCAUIqGaon6KVeus9BF7kYhvIJ+jvn6iUvHikWVKXDyLliDJMaRCI1
-74f3WSZRZhbb5sFt05SswrKQfX2PRMDlYCdLyCLpbqH5jpiVABqud9QHJgccvRm9
-iFd/CW2lHOXwfspSpHwTQSOB+20NHSShlM9eg3hOE8sWsRc2BkoByzTzMxoFKH5T
-0X1MajFEBP5sBtL4w4zAYb0Dyrl2Q9HSBka7cBTZ2OstbfJ+CjLMXm1fIFRQQcNA
-FJwEOqNQczBpp+jM82BBoaqMIwbukTxkI2LQxCNq0DBD9wI9e01HROCcGirOaJxQ
-QWYElzcGF0dyT/XLtpm9k9uMPJUPXxySF+ZbB0+nukO0lJTM4y6FXG1g6t7XHxhw
-8ROiDcHDUUvdJN3cPm1pg8vDGPAh8N8+HJKsF2G30wbxofJVQLCAqCh+TT5rwDZF
-wR3TtvQFlwMFGQd1PrjlDpbV9rCYh6dOS/X204PktA1Gjal8k8DuI3S0H3bRr0oY
-1BTK9qhSIrLXUcTHnv/eEX/Qb80VKupi7Ev17rGDKIklJWeMt4O6XWxmZG7o8IwD
-eqzoWxzqaFtVFcfMiyI5bZRCHEB8bzQo4pskn8p5GxBRMzpsvE5raz6+ty2BTB1h
-kSE1Vs7t9sBYbKyegK8KDHIK
-=Wi6k
------END PGP SIGNATURE-----
+base-commit: 3fc9303dba01676c2090768126e5327e341b7761
+-- 
+2.43.0
 
---MIKLrGqWG9rPqcvA--
