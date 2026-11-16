@@ -1,101 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794848926;
-	b=45jlkUITJW66zzRAkZyGk55V0xXRRN6rdBUr86uAMzPFHyr04QYFSc/gLfjhvksZfIJw
-	 4AedPhnEpiDqAVJJGFOHIsVPAe3vPmIOWpHsvT2sP1vWg8M/qsu/U7bWw960Qc6HGJruT
-	 ZPtMJjQrVt8BC5HRslIYoZMCLBsSygnDH7H5mO7dnsEpt+6b7xaL3EfDTaaQfhqNe+CBL
-	 s/ab7I43JoYF3TwjwMOAcWADwP6qGqHJalYD+MSo8XQrm5M+JgFTa/hIRyHXE9KfyGUAk
-	 REeXec1TjEI+af2Lz4crOdKI44FeCAtqx61iNbJo6rlA8MjOAF8F5XWoje91VFdkUjg==
+	t=1794850052;
+	b=pZmO3Ni+fCkcVo2TF5YXg4LBtoEOq2OiyMdBmAnDt8IX8996tG9I/PlAc6c8VjTJgb/U
+	 UcHOuM4k/nkRsLcv+7hblUmr56AsFMw3RxAOp1v3iQYcr5JVetJoShLvkvQ2qadubdTis
+	 NXpKxXH+tBYNNJp2dkCu1nET+NozwfQiMAO+vkGrRY70iNjlsTqzsWmFOsPSyvVo5p7ol
+	 g3veANmm+n4m36bhcnVMmTEeu9UqDPcsRBtXufstrDBZr+WUZJDEdz63DQGbJODao51XK
+	 OCMUcwVck7hs/w048kXvCR/Y9g+VDZa5b5cz/GjhH3p46lZsvI58vB/+1xcK2KF3Qfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794848926;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=CDIoL1Mdtc5iZZQDcJSLwb4fY5hsODpxKgBTEdTd3vY=;
-	b=0h9UND2K7bTc2n11P4JONeq55kGwg47Pw2hGO7FVEam3GBpRt0EaOOhXqWqwfS8J2OCI
-	 tpB9YAvmOgn7flidhhY8DTUwZouJlLXJTvV4NvvEek/QcsGSTH46mt215F8BK8UICxBqk
-	 RVpvV84w6MAcCRHkRWj0fPT8owVEzZQuEpPYF/QFtAV/9VMNN+WwuH1c3RFAp96rQaA1q
-	 bJyh1RGOCUQiJRwVNvC49c7fSgMJ/kyOgYCnObqmzw1ShmCHtgdwpdGVVCTpnSB4zblBk
-	 qU9q0YqErq+XKfTQpbYcR3rWn4tTu5G4qFz2LDptf3R99GkK68uy1Lhp8/UAm5KadGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794850052;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hc1gc7HOIqIM+JBzSQHINvh1wfRLFiIM2EAGfL43Ihw=;
+	b=pjmUtxMHr2c0ELnnDaXmfRxFRJVPEA9V0hUJdcgh+I6oxLrVECuJXcEepmbpCcYkv0Rc
+	 giE9Quh9uZbkZWPFLI0rQwo7h0Fe0T1HFn/9I1Ph+JxKrSoLLTDFReZcq4xyAh/LfrW1a
+	 8nW1gSMameyw8ERc9xVY2RQ4/a57LgtXWhR925b1D+z3z9OpNaqqFw3aYDfhYynixgmEK
+	 IdD6eMPQa7WreLoyCQPvNxuzmohX2bl/yBF7BB76LPMgY6wvH/X1n+2elDCJmzmcUxiuh
+	 WsmQPGgcnla96NpEIsvDaTCHFHgZq/20VIHfFbqj0L5VNsnP3IdmTD7kaEb7tCoCaNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tjc0ItRs;
-	arc=none smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="s/MzaZPG";
+	arc=none smtp.remote-ip=91.218.175.10
+Received: from mta0.migadu.com (out-10.mta0.migadu.com [91.218.175.10])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C95606A331
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 17:08:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98C95606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01CEB606A322
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 17:27:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01CEB606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tjc0ItRs
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc758830601so3494466a12.2
-        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 09:08:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794848925; x=1795453725; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CDIoL1Mdtc5iZZQDcJSLwb4fY5hsODpxKgBTEdTd3vY=;
-        b=Tjc0ItRsiNh1Ydt0eH21UKlLI5UTGiv3uUB5nJmX9NZGSnd0wwtR4q4QBCUY0H1JIo
-         9dZf5fh8Zj62SEOjq80jNWWUr+zaN9XedMQ/8UO7vDiyXdTm5sch3gI+BGiSB0hnuOEp
-         Be3ZbKtXmpCVvSSOPKrdlXXZSUgyIMnFtTIbhk0X2IL2PAX0ZgZSxhsh2msvjdPaHksO
-         4wxZfMpR+vDTyVwb33P/nfLJ3m1h0yCr8lTC5lKRqlyFw7K8X7dsBAHFO+00rJo9KZWE
-         repFeAcED5nKlxa7zpK8NnjuuG7PitB4FHB2whfJuUe/ny2jRnVJrkfiPrXJnUhCIjNH
-         FHIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794848925; x=1795453725;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CDIoL1Mdtc5iZZQDcJSLwb4fY5hsODpxKgBTEdTd3vY=;
-        b=0cb5Q555fcdcNF0FfVhUmD9NjsS6oZ4Glgmf8F1YPKzi4zkw9HpLmleQeBiAX78STD
-         owLBekX2zuKnI+qszLxhHRcaiJbRfNzSBibZmKMhEgJnq7ms/25SJThsJ4YO6Y1C61Jn
-         aXwuRIIjYM9qqFxuqitxsvKKteLWvRZPB9RxxywUXU2+NWP5P7RJVnxHuSJayUApR3/t
-         nS+b+kYh56Vi+ThmqSJTP+z+/W+DltPnpCvv0cBXdG37ueyfCZ5kwcLM1dgIbaKCv76/
-         /u//gow1ccxXW+ElNpioaFScLkM9TJJPSN7pqNy/tJaAYJTrwdA8YGwQhPowVjmFBLHr
-         CRbw==
-X-Forwarded-Encrypted: i=1; AL+hErEa1b2PFjIrwoHbNE9fRsTbWxjxPjxiH9j+b/zsYL+uFDLCiT2/2/BZgYYfmfuyMA/DMR8bqJzOcwwIdQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8u1YBlyO8HCiGcnD+jIeZEy3/FCLuQGITKGPlvcUQvEL8lc2cq
-	v+2/9YW4k9jCTTbb9vC9gyX+l7eequcvrlEyNrh29v3M+JfkVIzKWcaqeZWj4m09
-X-Gm-Gg: AZFdTZeUQY2YMdzLLJaYf8XluZqqqGZTakDzQXLfJZOWOF8UeSTYFNlPl+CJG4pqhTS
-	4uSB9ngWbMZjXXqxRzvKornoWntes0jHN+SWe4yAtGLLxk3glltvJlCsmsUoMApRrlUD4s351ex
-	40Sp34dgxgfN6XpdegEIcBMkqK6VSSdzydb8Jut0s/QOixr5rA32WY6o0QucHxEa7MFhiqUZ3oT
-	slmJEXVo6SX5CA+mAq5DkV/NH5Dyw45ANSjgvF2NAOclyP50N0sT8PXiF/opuxucGYos5dLwl+M
-	GF/d+BRjlWqfRguJJbOJZGRPMn4XK+khDjgtJOlzakoPeo/fXUWH4mjSqMHTaAfqP+7Ezkz6Tuv
-	oSMIxvAz5HKTkai1B2U4Ct0O+KU6CtgvdLSSTmBMLiMD2IXVWOUkaxH4k12Qmm6YEMsfkXIeza7
-	m3USELn3RllVHupjDSWLHsinccGiIrcEgvLjNG7NuwK+mfj3kXUuTIQ75PNLHXVmGuRwufllUh6
-	ggQDPnhDD2mJ2yutf7cyZ1/++DPouhBelOYtqF0ZdwJwkiVfTB5hrQwLGRSgTV8JTKnS4wg/Klr
-	lw6GdXvJtLj/Ef09elo0JgUU6WjAY9297tXRzu3pv3j7a3B8Qb5HPC+8/Fy7D30PEYe0RByAng=
-	=
-X-Received: by 2002:a17:90b:3146:b0:3b0:9a13:c5d5 with SMTP id 98e67ed59e1d1-3b1b0b57dd8mr10208977a91.16.1794848924812;
-        Mon, 16 Nov 2026 09:08:44 -0800 (PST)
-Received: from X.tail7c3ebe.ts.net ([103.190.41.115])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abbad610sm150901a91.2.2026.11.16.09.08.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:08:43 -0800 (PST)
-From: Avishek Chaulagain <chaulagainavishek14@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Dan Carpenter <error27@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=s/MzaZPG
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OmufBn96Dn9LWg6ZXLW+oHRP5eoxknXfkSDt0Qar1Ws=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794850050; v=1; x=1795454850;
+ b=s/MzaZPGQZm1lK3rAUv3THi2waMa/UbCgshiR6i7NNA8EMHKXNYt2+JQXvIxP/6NxDu6B11x
+ pBapEy6GhhFq4tNyg5qJISaBCH0YPc/NFUzXyvxJmfxHKL8NGNE1nDq03+4g1tbAW5AoJ0DE4vk
+ f+itrRsKYsOKza9zKncpp+V4=
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4af74e0f8b6e9662;
+	Mon, 16 Nov 2026 17:27:29 +0000
+X-Mizu-Trace-ID: 4af74e0f8b6e9662
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 16 Nov 2026 19:27:26 +0200
+From: Petre Rodan <petre.rodan@linux.dev>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
+	Nuno S?? <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	Avishek Chaulagain <chaulagainavishek14@gmail.com>
-Subject: [PATCH v2 3/3] media: atomisp: Remove unused hmm_flush()
-Date: Mon, 16 Nov 2026 17:08:13 +0000
-Message-ID: <9afbe32e2a98cc194d84f26e6fcfe452e2b09e5e.1794845230.git.chaulagainavishek14@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794845230.git.chaulagainavishek14@gmail.com>
-References: <cover.1794845230.git.chaulagainavishek14@gmail.com>
+	Martin Tuma <martin.tuma@digiteqautomotive.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, Gustavo Silva <gustavograzs@gmail.com>,
+	Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Ramona Alexandra Nechita <ramona.nechita@analog.com>,
+	Tomislav Denis <tomislav.denis@avl.com>,
+	Jorge Marques <jorge.marques@analog.com>,
+	Dan Robertson <dan@dlrobertson.com>,
+	Jianping Shen <Jianping.Shen@de.bosch.com>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Maxwell Doose <maxwell@maxwelld.cc>,
+	Tomasz Duszynski <tduszyns@gmail.com>,
+	Esben Haabendal <esben@geanix.com>,
+	Narcisa Ana Maria Vasile <narcisaanamaria12@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Vasileios Amoiridis <vassilisamir@gmail.com>,
+	Abhash Jha <abhashkumarjha123@gmail.com>,
+	Puranjay Mohan <puranjay@kernel.org>,
+	Nishant Malpani <nish.malpani25@gmail.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: Re: [PATCH 13/35] iio: accel: bma220: use default_trigger
+Message-ID: <avs8_igmLZIDOrSB@sunspire.home.arpa>
+References: <20261116014823.3132576-1-jic23@kernel.org>
+ <20261116014823.3132576-14-jic23@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,46 +90,80 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MIKLrGqWG9rPqcvA"
+Content-Disposition: inline
+In-Reply-To: <20261116014823.3132576-14-jic23@kernel.org>
 
-hmm_flush() has no callers anywhere in the tree. Remove the
-unused function and its declaration.
 
-Signed-off-by: Avishek Chaulagain <chaulagainavishek14@gmail.com>
----
- drivers/staging/media/atomisp/include/hmm/hmm.h | 1 -
- drivers/staging/media/atomisp/pci/hmm/hmm.c     | 6 ------
- 2 files changed, 7 deletions(-)
+--MIKLrGqWG9rPqcvA
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/staging/media/atomisp/include/hmm/hmm.h b/drivers/staging/media/atomisp/include/hmm/hmm.h
-index a7aef27f5..545bb52c5 100644
---- a/drivers/staging/media/atomisp/include/hmm/hmm.h
-+++ b/drivers/staging/media/atomisp/include/hmm/hmm.h
-@@ -32,7 +32,6 @@ void hmm_free(ia_css_ptr ptr);
- int hmm_load(ia_css_ptr virt, void *data, unsigned int bytes);
- int hmm_store(ia_css_ptr virt, const void *data, unsigned int bytes);
- int hmm_set(ia_css_ptr virt, int c, unsigned int bytes);
--int hmm_flush(ia_css_ptr virt, unsigned int bytes);
- 
- /*
-  * get kernel memory physical address from ISP virtual address.
-diff --git a/drivers/staging/media/atomisp/pci/hmm/hmm.c b/drivers/staging/media/atomisp/pci/hmm/hmm.c
-index f998b57f9..5dff2edb5 100644
---- a/drivers/staging/media/atomisp/pci/hmm/hmm.c
-+++ b/drivers/staging/media/atomisp/pci/hmm/hmm.c
-@@ -262,12 +262,6 @@ int hmm_load(ia_css_ptr virt, void *data, unsigned int bytes)
- 	return load_and_flush(virt, data, bytes);
- }
- 
--/* Flush hmm data from the data cache */
--int hmm_flush(ia_css_ptr virt, unsigned int bytes)
--{
--	return load_and_flush(virt, NULL, bytes);
--}
--
- /* Write function in ISP memory management */
- int hmm_store(ia_css_ptr virt, const void *data, unsigned int bytes)
- {
--- 
-2.43.0
 
+Hello Jonathan,
+
+On Mon, Nov 16, 2026 at 01:48:01AM +0000, Jonathan Cameron wrote:
+> From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+>=20
+> Set indio_dev->default_trigger rather than taking a reference to the
+> trigger in probe(). The IIO core now takes the reference during
+> iio_device_register(), so it is not leaked if probe() fails after
+> the trigger is set up.  Whilst this patch closes the specific
+> bug, it also makes the ordering less fragile going forwards.
+>=20
+> Fixes: b7e17ca10793 ("iio: accel: bma220: add interrupt trigger")
+> Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> ---
+>  drivers/iio/accel/bma220_core.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/iio/accel/bma220_core.c b/drivers/iio/accel/bma220_c=
+ore.c
+> index b83abfdd84fd..23eff578158c 100644
+> --- a/drivers/iio/accel/bma220_core.c
+> +++ b/drivers/iio/accel/bma220_core.c
+> @@ -539,7 +539,7 @@ int bma220_common_probe(struct device *dev, struct re=
+gmap *regmap, int irq)
+>  		if (ret)
+>  			return dev_err_probe(dev, ret,
+>  					     "iio trigger register fail\n");
+> -		indio_dev->trig =3D iio_trigger_get(data->trig);
+> +		indio_dev->default_trigger =3D data->trig;
+>  		ret =3D devm_request_threaded_irq(dev, irq, NULL,
+>  						&bma220_irq_handler, IRQF_ONESHOT,
+>  						indio_dev->name, indio_dev);
+> --=20
+> 2.56.1
+>=20
+
+passes all my unit tests on both i2c and spi sensors, thanks for the patch.
+
+Tested-by: Petre Rodan <petre.rodan@subdimension.ro>
+
+best regards,
+peter
+
+--MIKLrGqWG9rPqcvA
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCgA5FiEEGiKYHD4NvFCkTqJ3dCsnp2M6SWMFAmr7PPYbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEHQrJ6djOklji5YP+QHUxpXdzG1eYrKB2YUX
+E0O6akGJOqrCAUIqGaon6KVeus9BF7kYhvIJ+jvn6iUvHikWVKXDyLliDJMaRCI1
+74f3WSZRZhbb5sFt05SswrKQfX2PRMDlYCdLyCLpbqH5jpiVABqud9QHJgccvRm9
+iFd/CW2lHOXwfspSpHwTQSOB+20NHSShlM9eg3hOE8sWsRc2BkoByzTzMxoFKH5T
+0X1MajFEBP5sBtL4w4zAYb0Dyrl2Q9HSBka7cBTZ2OstbfJ+CjLMXm1fIFRQQcNA
+FJwEOqNQczBpp+jM82BBoaqMIwbukTxkI2LQxCNq0DBD9wI9e01HROCcGirOaJxQ
+QWYElzcGF0dyT/XLtpm9k9uMPJUPXxySF+ZbB0+nukO0lJTM4y6FXG1g6t7XHxhw
+8ROiDcHDUUvdJN3cPm1pg8vDGPAh8N8+HJKsF2G30wbxofJVQLCAqCh+TT5rwDZF
+wR3TtvQFlwMFGQd1PrjlDpbV9rCYh6dOS/X204PktA1Gjal8k8DuI3S0H3bRr0oY
+1BTK9qhSIrLXUcTHnv/eEX/Qb80VKupi7Ev17rGDKIklJWeMt4O6XWxmZG7o8IwD
+eqzoWxzqaFtVFcfMiyI5bZRCHEB8bzQo4pskn8p5GxBRMzpsvE5raz6+ty2BTB1h
+kSE1Vs7t9sBYbKyegK8KDHIK
+=Wi6k
+-----END PGP SIGNATURE-----
+
+--MIKLrGqWG9rPqcvA--
