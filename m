@@ -1,113 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820553;
-	b=m1bZH0UUq28ECxAmgtmCZbhTcdqkZMK+O+InQVidXH67O4vksf9ajeFVYGZk4oEmSecP
-	 WPOOjduynQj0Tmd1Roxv9WQzOZu+/lITac0bwttdVbpHS69g3SvuRIp0GeEaw/zH6uDCy
-	 Ut0yvdBsEcucp7GazdK+yLGWNM2tMWnn5iSdK8yjn6rHDY6Ndxw1mk7P9A0Rh5FlZ+e54
-	 b6/7vEdjRAF7Hk9EJXssckM4A/B1LxMq+6kOFD6iqYz6zMPGt1hQPNxzoysaNKqk1J/8H
-	 2S9S81fwdmB0Xknz85GG1Lt59bwkISHZlkrFMQkUaWKIoNYKTgUNtpZIr6+a2QBxOMg==
+	t=1794821878;
+	b=UaFrbNqRbqQ+CJ1hhjSxx/ew220n9MR9PnhxlMzFXWC6RkO2zULSL3r4WsvAZj4NoLHg
+	 y7pSlHvRfpY04OqMP12RtJJt+kYHYNEgobMQyWeQp01Nj81VTVMjjOID/kxpvTKdXMAlu
+	 d83K0Nq/ej+1SNhcTbQLKzVN3xvgH1IkeAoOCRsxmmgpytk7kOmYBQeCQv26pGd+yJcgO
+	 KtIe/vdBNHDERxfGigypeOvyV+D6ptFJrrUPxmtTipif7b2h7mHBgBdxmFAifKTzjsxvr
+	 OL9nVKlyZ+Qjpm2PT5zbZOTAhwNzW0dvsTaO5pgZrSMyaegdZld2stM+W55dqbSpirA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820553;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vl/C5jn+1tPTrCTsFhPelusdvJCp3xW8fwCUnP8k0/4=;
-	b=X2wPRakWaqyi5WtzKPe3RM2diQp/7aa56n3JGGmdx8WzNIWnihrUEvRfTgkaTURhSd2+
-	 wWFKaG7+9AKku+fjBlE52+RUDa7nUjwAt8zK8wC027/fWd8VhVFtmmzZj/xigghCxd4oP
-	 cUsNM968c7jVGM6sSxPwIhnAJSMA1MJ9D/m5dhf7AUuoC/0XUCFp22suTQoqxQPnA3lU6
-	 NzsBL66uU397nyRn5TdNMSqd69hISw1AtVw2WGwDWZcP64gQVNJTlGfy5XGefCkjykdaw
-	 CF1gwtTJB/dMBkSXsj7eX4Nh9XFpE3Bv/ZNjaku8xyOLUfGgmhSXGwwePxa5cALQuQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821878;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=poN85rMe5QId4iMdcTQDfelt0obOkpK/+0hyaRvyRto=;
+	b=ZkVQHtEhTxsrf85DgN0mJfArrKdGCEw3aeupvR0SQgJPgF5Sx9tkqm/f/DYV4rimEcGX
+	 sngIx/oabPmMyjgL9jWCSHogHtaqrHynsBRZ0x0nDAcsVpefG0hNNylEKrUCwxx1RMlir
+	 KgekVd4X/b4qvLdvuOD332KaYgWzTdfIbDqpAaMIf8lAUniGjI9UwyzCDD9PV/7Y6OZWC
+	 83kI2adueih6bksVduc1rFTSuAwuAZuvagVyH5SdHL+t3NSAWPFdQpWbBC2z9MsXZz/KP
+	 txPvNhRI0707EwLu53sPJzWiaIgmujykQQPoYADRvVkGn4LJNB9n5SGaGY8xIGHEovQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cHKJSbPk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bcXXJX7X;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98453606A323;
-	Mon, 16 Nov 2026 09:15:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E61606A332;
+	Mon, 16 Nov 2026 09:37:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0E61606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cHKJSbPk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23C371F000C4;
-	Mon, 16 Nov 2026 09:15:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794820553;
-	bh=vl/C5jn+1tPTrCTsFhPelusdvJCp3xW8fwCUnP8k0/4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cHKJSbPkOmS/vgJzoXZ32XAOeuVSd+4AR7wQLkrcipLJYDsoZKVmhqWehLYzXMbaw
-	 R3B/AWlh1S33BLxY0EBupbn4erb2GjPok1Jk/A55GVWK5wNLgVoyr2G0xYzkPsQqrS
-	 gEcKCWeL+Dx8daRQR7LlmEGmvbevX+pW1mWsLtDL+aO8GHfANkZfhz3lX/pcDnwZbc
-	 UHkMOWPm7+qImQLYnPoIXD7VjI+BnQheFEUtLhUtYGPZ9yo3CCvw5jJbAJwFim9sxs
-	 Sn+0K23n/zloQoNpUknUCmfvqa20zhvkh18bHTM68vSbFX62rWnlkpstGAqA6zLKhe
-	 SJxi6oLHRkgQw==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Joerg Roedel <joro@8bytes.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Radu Rendec <radu@rendec.net>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	dri-devel@lists.freedesktop.org,
-	iommu@lists.linux.dev,
-	linaro-mm-sig@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-media@vger.kernel.org,
-	linux-mm@kvack.org,
-	kvmarm@lists.linux.dev,
-	patches@lists.linux.dev
-Subject: [PATCH v10 13/13] mm: Assert CoCo shared allocations may sleep
-Date: Mon, 16 Nov 2026 14:41:36 +0530
-Message-ID: <20261116091137.94252-14-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116091137.94252-1-aneesh.kumar@kernel.org>
-References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bcXXJX7X
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794821878; x=1826357878;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=l7k1anJIvefmLqrhsIOUwvRFYKe0gu0pxDR2v70O7cQ=;
+  b=bcXXJX7Xt9kTF/WrIylI046koXRjWbqEQTJn/2li8IQNzWhEFvdBMXcj
+   xBv6t1xSG7olqp2iBgZwh8ExVOLkYm4ckx7d2Ow2Dl0gKQQdQTo9SuCls
+   CSlKoOGMRj2Gs/UQ7hre2bROa1/7GYWwqUU4hDXRBJiLv4SvgtbYtHW8o
+   QrVz2dbHPsMBMFL9BemdO/MU7PAqFbj9Bt8EhRlTeJxQtkbO7BPISTmJX
+   vNB3XFPG6R2bPZHxa7bIEJVeZPzVD8PbVbQg2Jb0hEQY2An8x1PdLvxYp
+   vvMINSDOtbi2gP7ftfQEcJGsIQVhFZqK07JJwiY3FXRwV7edLoAdkWGZQ
+   g==;
+X-CSE-ConnectionGUID: xi5qtQ2vRXuFqSgPLxm6qg==
+X-CSE-MsgGUID: V3vSlVxyTd20pNi/q/EySA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3588862"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3588862"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:37:57 -0800
+X-CSE-ConnectionGUID: 3lJaHCfBTMGuwWe4rRCjhw==
+X-CSE-MsgGUID: Sy2sEo+0RRCKyEIAbghp+Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9663769"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.87])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:37:55 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 83E4C121B5D;
+	Mon, 16 Nov 2026 11:37:59 +0200 (EET)
+Date: Mon, 16 Nov 2026 11:37:59 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: BRETSCHNEIDER Max <max.bretschneider@leica-geosystems.com>
+Cc: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] media: i2c: ov08d10: add get_selection support
+Message-ID: <avrO9yQ0-xu91gAO@kekkonen.localdomain>
+References: <20261011-ov08d10-get-selection-v1-1-5debe6436765@leica-geosystems.com>
+ <asywCh3X0yJVcxRd@kekkonen.localdomain>
+ <GV1PR06MB83698BCD22508BA5DF19A0A1D3642@GV1PR06MB8369.eurprd06.prod.outlook.com>
+ <GV2PR06MB9469356C7B3523BDEAFE11E453D37E2@GV2PR06MB946935.eurprd06.prod.outlook.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -117,40 +87,28 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <GV2PR06MB9469356C7B3523BDEAFE11E453D37E2@GV2PR06MB946935.eurprd06.prod.outlook.com>
 
-On platforms with memory encryption, alloc_cc_shared_pages_node()
-transitions the allocated memory to the shared state.
-set_memory_decrypted() may sleep, so the transition must run from a
-sleepable context.
+Hi Max,
 
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
----
- mm/cc_shared.c | 3 +++
- 1 file changed, 3 insertions(+)
+On Sat, Nov 14, 2026 at 06:40:15PM +0000, BRETSCHNEIDER Max wrote:
+> Hi Sakari,
+> 
+> > Can you test on a newer kernel? That being said, there are unlikely to be
+> > issues without that, but it's better to be sure.
+> 
+> I have now tested this on media/next (7.4.0-rc1, bf6c63ecc, from 13.11.2026) 
+> on the same hardware. The series applies cleanly, and get_selection, the 
+> per-mode crop, the flip-dependent media bus code and v4l2-compliance all 
+> behave the same as on 6.16.12. v4l2-compliance reports 52/52 on the sensor 
+> subdev with no failures, and dmesg is clean.
 
-diff --git a/mm/cc_shared.c b/mm/cc_shared.c
-index c9b4e3dfe06a..b30b8e78da32 100644
---- a/mm/cc_shared.c
-+++ b/mm/cc_shared.c
-@@ -8,6 +8,7 @@
- #include <linux/errno.h>
- #include <linux/export.h>
- #include <linux/gfp.h>
-+#include <linux/kernel.h>
- #include <linux/log2.h>
- #include <linux/mm.h>
- #include <linux/mem_encrypt.h>
-@@ -106,6 +107,8 @@ static int __alloc_cc_shared_pages_node(int nid, gfp_t gfp,
- 	unsigned int order;
- 	int ret;
- 
-+	might_sleep();
-+
- 	ret = cc_shared_calc_layout(requested, &layout);
- 	if (ret)
- 		return ret;
+Thanks for testing. I've picked the patches to my tree and I'll push them
+to Media CI for merging soonish.
+
 -- 
-2.43.0
+Regards,
 
+Sakari Ailus
