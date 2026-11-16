@@ -1,89 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.135
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794806850;
-	b=bC5bSNZXv0/4jnpFzeSgBNhV6eyGg4vXaWFrmJuPliphkY+mJj5bLmi3ZSwt+xbJMqx9
-	 SEqff10u786cFImO+KIaJ/jyVUuNC7CYoQhac8TL6XhhHhg8p1OzumW8lG24C6zfV+feI
-	 m+BCG8wC2hoYBfV0o+aD/CWkGLw/OdBeVl95/PX2TTJHqJK6lWo+WBOzQPfNpfgjFtmkB
-	 YNBi5iAvZ/mXVoSvwY2DkPfnz3vXgF1E4wqk9OFqHMGKYBkSK7YrSc4aMVPFqTdPWmBEj
-	 fTeL9hDle0XQ7wGFb2BEwI8ztAT9uXRay8dBIvBYAmXYwHcdtWpwUHWXiYefHZPtb0w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794806850;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=zvERbDGiSiR6GByxVkFLzYXaCstRo5terpd4p4QbZQI=;
-	b=49JMvSwX1LC8SlR9Fp+LomuItklYAGycos/buBUUkMzDsjqsXZLad5ur2mcL6O+bmnkU
-	 0zelVHd1tjJ2gWSAulGkVXfuxdk0eXVIHkMcvtugAgTN3ob7JiSl2RCshJ0U8B1OaNVsu
-	 jEoSn+LkNWIk0yInFIQu1NQysjkLOZFqg0xvBiPQggEo6DBT7vhDhX1vWUG/PVqhQN9in
-	 PHWVHxJ//GLAqWdFA3niN0lWs1YFvDpyZXTD06PAS4c0lvoaQN9Zlj5kVn6/x4+p7QNjH
-	 jIavuY3uYF6sbhzResvXngx+S892K9Bc1wc28HtbnQ6dc1+BhdQxskfxgAUISJhU6IA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HQlblhL5;
-	arc=none smtp.remote-ip=74.125.224.135
-Received: from mail-yx2-f7.google.com (mail-yx2-f7.google.com [74.125.224.135])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.225.113
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794807863;
+	b=l/NIV1HElXPq04d910KlRVU5dkuM5JEfY5fcd4cukC8J5PTrCMit98Zg+ACltsKIH3vc
+	 LI6VRKSewd5KX+09VRWVj+VEyUGccCvttokQPHG1BzqeHA/b+OXsXfUZRHvfDqJzGQZRf
+	 ch3s3VTsyF26siymJfYQKL06AKySSlKFIp00QtPdDBDuFQ0UgWoGg/FrtNzCCRWxfZFDl
+	 c9Oe+HNNwdylSwvhklPfGniBmYgVGu7UFl1MxJrkv7TIu551CvLAdoHUtfSoyTdn2jK/c
+	 RZt7PenPSpepXFy0s22ELlpcW7v8AEXhYiOToVM2XJbEZLIYHa9G1XdG4dZXomM/lrA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794807863;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=xWwmGBOulBbVkI1Kq6aUfYZnLDTLhgraqzeXEWun9Lg=;
+	b=AyKHj4eZ91NBj66iXAwZ2FN63abYRlzce508l++kLrGUOGUHPhj64avG2mzn9vY6gSOc
+	 QFpv+1xhltCJ0cKIGBbf7I2S7LKs/jWhVq9Dko2EreMe2ahYBAqHMS+E5KCPvbQiK7054
+	 Ykq8jWMn3reO1iyvKwPGHpSiDGwGU9bSvqGBH+eSnISQrMrej6xUQwP6JwciyfMNJ3S+s
+	 sR3MzyRa5IVNVkM6thq1/3Mkxregq/oynNac3wTpM3BinWXBYJ6l405aUfPRsDZzgpvqq
+	 j8B7fe0ZnC25W1HMagz3w1gSdWdz74y75v5tx941/eE83xWrNzUiyW0f7JiDoxkvxaA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=ebytelogic.com;
+	spf=pass smtp.mailfrom=ebytelogic.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.225.113
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020113.outbound.protection.outlook.com [52.101.225.113])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A845C606A31C
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 05:27:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A845C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HQlblhL5
-Received: by mail-yx2-f7.google.com with SMTP id 956f58d0204a3-67a1a96329cso1183469d50.1
-        for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 21:27:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794806848; x=1795411648; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zvERbDGiSiR6GByxVkFLzYXaCstRo5terpd4p4QbZQI=;
-        b=HQlblhL58lr/wiCr7vhfgv7eIS3XoJ6kk0WGDhuddytLJDyh1Ecpqb4G+ubAY1OB0A
-         WH+iVuB0t7dWz2rVvg/cyUPHftHtvouRKoy94sekmC1Tepp3NRICTLn+V8O9X2qi7I2n
-         E88czHyIIiPxww6eYgfOaC80LvqngT1HOoopSSa3pgAUM7JDK0Z+eyCLSnLvDIBFxPCD
-         aqiqs9VUpmPu4Dp0UPyDhV+5Pz2AUXfc+qiC/VqS5IT0QWveD3EMVasMDUVZKoOQE5ms
-         wQOvGnG+HE/jL3JFuCw8D5pV+My/7zKq9Le83qsq5Z+GSqQ3sjjNcpLH1FNrTeoujH/v
-         wG/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794806848; x=1795411648;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zvERbDGiSiR6GByxVkFLzYXaCstRo5terpd4p4QbZQI=;
-        b=MJ9q7E9dkod1FqT0saq5hv1u5anKA9O0yj9olqq3QnOUpJZAAZt++NdpSQkI7ZDQO8
-         9SQo7eEGwK0nx1NKz0yKsKFc7uqXIR9PjnpNTS/ZhE/nMpAzGMpM4aSUD1huBh+OB7JX
-         6tW3/RyP0pYFm2HA6uOcg9H/CWizN800J9JRd4WMuL4prdvg8Noo0tRzVv73LvwKlCzZ
-         5SfYH299DhEAHbszSwEHXH2eXdtqXcVKCUeBnJU44qwnCgZS+tGUD6xUEPsCDcnvGmaa
-         bwjVKzFIy840Lr5S43eOfaAadU/61VwL8YRxjP50RZhLzX7zwU0TqLu5wgV7tVe4HtNG
-         fgtw==
-X-Gm-Message-State: APuU4Z+a+fo7v+fUQRj/aAbcmsm3wAAfOJbjw3wHNTJ5UefHBzlFGGhM
-	Q9HjUCJsDdGLyMe0zeZN7LlsrKKuprnLl6hy05Un3CU6W5Ykh5zmTT9rIzdk6tBo
-X-Gm-Gg: AZFdTZeot2otVffCiicaDZ63bVIxMHS0yJJ8b85quzclx8netBjMjMFI3016gJoXlYu
-	YbbjuyfS9pDS8S021cZQzRobTt5iwRFdur4LAxfhdB7RmglqWZH048jvkLhQ1VUq2cmc7bt/Pmj
-	w29q7MgtXyqs/bO9nLqWvogsEItui1reuzN/FptAPSYPMYsyBtzXMaqXuSXuaUuCke7olQn06e+
-	PV4ZExUem33FsSvYzrmrA7fuO/Gskggvbh/1E/KL45uHHL4yrsweRm9Stfo5ltyZLOgeohYvpjp
-	IrkVgHxB2ruvaz30wZrI06B1cNPnL6SAlYZDqv7s9MxneRwzdK+9JNhUvq9F8LJxOtc/XFsmNnS
-	jluMfJTiF/p7IrovHLgZ5DmflB0+9uEqBlxn7fxnIiO+ReAOWBITGsQ117eel6n+mNEnGwoTMC7
-	WWpnGhI90hhyDH7f2O986DlDmnznS030Gr5L3hxZYsCj9ef5klycMnE1LeKLW3r5azYNtfUMJ6g
-	c2SU8FCAslIaU4ILRfNEJWUzr0eKpc7BH33sPDOw4ii/kQbdguaLiEaVur4ZZPiGXWjSpfrKJhB
-	bZw7Hi+R+5lczivbX00bvwtRU3Ev5y/rKdN85bNSPKOu3o3wU249OtaZ9aV2r03ziEVNp9BJpz0
-	ADzp7+dyw
-X-Received: by 2002:a05:690c:446:b0:8b3:5b88:a21d with SMTP id 00721157ae682-8b4aa2f5f21mr51183477b3.58.1794806848550;
-        Sun, 15 Nov 2026 21:27:28 -0800 (PST)
-Received: from Xinshengs-MBP.attlocal.net ([2600:1702:7d20:7d20:28d5:8044:61b9:9cf6])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa9fae24sm78414917b3.41.2026.11.15.21.27.28
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 15 Nov 2026 21:27:28 -0800 (PST)
-From: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	mchehab@kernel.org
-Subject: [PATCH media v2] media: cx231xx: cancel module loading work on probe failure
-Date: Mon, 16 Nov 2026 00:27:21 -0500
-Message-ID: <20261116052721.14467-1-xinsheng.zhu.ny@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8A4606A332;
+	Mon, 16 Nov 2026 05:44:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF8A4606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=P8iFI8yAVH2kQGCBSa5MkbyDkZi6LiOo8WgHFdJ1MNu4W4+3QfAh5e8WrW8eT5amxivnD1WhRP18KRUv+OWQh5YL3jckMHdzWAr6/Y3IGFRA7ginHC6ToLlGz6uGbUBbwrp3qOVQ/TwCvPiEw+fZa4li5lS1rdFnUp4c85VzDubevOETorg4x10rA7GUrdTxmtvlyzITQGPKTVdRpnEE2jZBvgm7d3DI9JyTmL6Uo3IRzSHDOJkTdDQxzzHZim5eYvQigp3aHlhPJlJMrcgVzqpiD2itm7DTCzW+Y0v+TFchqlX6iUYsPaQNod1qTm2GiSGD0u81LLTSTb4mNgg3Ng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xWwmGBOulBbVkI1Kq6aUfYZnLDTLhgraqzeXEWun9Lg=;
+ b=MRsn/CZqohQdsQG2oVv6JfkvWQ6F4ihOXsUECf6C3lhqDRZy+myxoZT6o/wPVU5QfkCSXX8qQBk+BC+B37nE9Ss1Kvt1pNtdA/GEVZN7idtJlmaj2Cjt3Rnw6Kd8zTOb7u9MrhYa4SlOW510KkxYb+0Z4C5bxnaW2U72PtiF9JAJBTi0pijTw61TWL2GvAy6w/xSZISoXBnmtpDOmwRD1o/J0Ks1O9cDAWjCS2QoKq1FAL20pE0gBt7y/oSx69LSvuq0bFVIxG0w9f+rjxppXMba2447rUR88XcNSqFzWUfUYmRIJ5u0OH9gegQTIcIph7XROYKSos8+PQsxzw0dzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
+ header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=ebytelogic.com;
+Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
+ by PNYP287MB4388.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:2a8::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 05:44:18 +0000
+Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ ([fe80::4cf2:bb74:999f:d6b8]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ ([fe80::4cf2:bb74:999f:d6b8%8]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 05:44:18 +0000
+From: Hitesh Patel <hitesh@ebytelogic.com>
+To: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+Cc: Hitesh Patel <hitesh@ebytelogic.com>,
+	linux-media@vger.kernel.org,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	ravi@ebytelogic.com
+Subject: Re: [PATCH v6 0/4] media: qcom: camss: rebase fixes and SC7280 enablement for the streams API
+Date: Mon, 16 Nov 2026 11:14:01 +0530
+Message-ID: <20261116054402.234004-1-hitesh@ebytelogic.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261021134959.2599575-1-hitesh@ebytelogic.com>
+References: <20261021134959.2599575-1-hitesh@ebytelogic.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: OS3P286CA0057.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:200::14) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c04:1::97)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,73 +94,115 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PNYP287MB4388:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3adfb309-efda-4532-b920-08df43a4a7dc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|10070799003|1800799024|52116014|376014|10067099003|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261021121427099003|261102123227099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	L/1ehwXgmf3U5/WgJOXm9YB5AGkkeWtMyaSOhXuuLy6YeDsCY3W4rlTdraJox3Erdl2zL8+qwVfbWNTi0fMYeYU+FpY13zkkClppw/VrEcOw7R2V4+/DgaBxqQUznjaqoSNwyYrsJofAw7lUjb75vOdpkynUb0oVp0z9Bi1Qbovllru+V8iGReO8G6Sw2esAhw/AhGJ7AjxHIFqy+vSiQvrlTNrgyQzd8LvImk15QC70jfjwXo3HXZ1ouXa2ZgEveFhvq67Wqr9U40syK4W2vUgp4dEUyAjIrs26Hma41+KOP1lHfp8Zq1iFh6aBtpF12I5RG0XCNcQQjBcW3N9LhUyew22IlaJuhmv3bKl8h0bBwI1fd6svHsLMeDHJXjQTS0CkeuoFqqdv31AxL1AfiRI53uzR9CARkQdjjbyrXx1A8DbN+q1uC4+s+Uxd16fFzX33zsiPtpP0jf+1EXpYOcL+ikzTfHsxP3ifmwZWmf8EPj1AaE1FeSnGIqAEEp/5HgT8K5mvZwtjawYEyT7Jc6CkmW+z+hfLgCW3BH09dkxYy9/qbXKbs4o7gSrJ/TTMXFMuBsjtM/rEYa/iJdhCes+uqXEvQPu+ucZtzQu/4kEyktZJ79v0uYswymP/LJr8
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(10070799003)(1800799024)(52116014)(376014)(10067099003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261102123227099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?BCPfpGYBx8SR70sAKkvU0OQExjUy3wwmVP0LmGmv7Es5vCWtkAkEvx0ELb+r?=
+ =?us-ascii?Q?uT1FJkAtB/nia3JkGmA49OfXov/PGZoZyzb+Quy9TLx3cFZVBbesmzWgJvyP?=
+ =?us-ascii?Q?3nBuAmJQeiUR/7zoW5rHRYflrLn0KmWNvjRWyDjU8+rmC8jBKtYwqTW6CkCQ?=
+ =?us-ascii?Q?gtC4Gyj7cDVTcJWofnAUZz6lyxYqJspt8LD7cC681IIUlPH/Zcigl4rsGYF4?=
+ =?us-ascii?Q?Yu+fWBVkMNYXf7T3vgLeQY8qBVQqonY2NOwRCgXziuEtlsMHHHBmThAU9ghw?=
+ =?us-ascii?Q?i92sOa1oL+WdxzoOqO2BB5Soe/ch2/OLFSalFHBwQT6XAAM2pC9UXFP3rSqP?=
+ =?us-ascii?Q?YK7cwW5SFDTaAkk8qqdP1tssOXeKJ9CoCd8T2pdgnwWzeLM8b/PTLVY5DuCZ?=
+ =?us-ascii?Q?+uJyAH+Z9cCXWvlyOl7hY4hCstYCvShqxWhGY3UO/PQHF6zPbgF8a8F3EF5c?=
+ =?us-ascii?Q?CLF/HyEHjjHJdnYBgZg37rvFEiDYXdNTGC/waCSYjujSUJ+56qZ3kAeJtye2?=
+ =?us-ascii?Q?268QZxglXbSBrSYZYe08oNkQAPAJroVxvGjeRJDQ3TVLUip6T40r4dt7BRZA?=
+ =?us-ascii?Q?D4UOV67lFtxn1uwwZ+U1J2LFwmcHgdrxk1hCBcjJpe98KOaDvmcY+9d+HNfN?=
+ =?us-ascii?Q?81GfG8sETc4Uq8ptLN07Wj0oJaJF1ERsLJsqtV4NoxnTBLJA34HTOytjRWXh?=
+ =?us-ascii?Q?De6vnWW4pKTjhmuwyxwIHAoA6P2OMV+7EPIdtr4A8a/slExlk4RL5ipQwff7?=
+ =?us-ascii?Q?UE4iFPxvkE0ijZhYMIi/LVe+vk+/6gRLy86F94W91xk+jwzc0BqR4tpvAMEj?=
+ =?us-ascii?Q?WlSpo4pI76Ih5WW+D4ptp6Ux4ey7Eie38mEEF/h8UBzdllsgQkZYP1JOZv5n?=
+ =?us-ascii?Q?59wCiLDIxaEBW+/Pnted6nCHaaU413I0YFNoDrVV91BBXQ9lJLiSKlUdiXbu?=
+ =?us-ascii?Q?bJWkzUM0CT95OLiwZjqDua1npB+o031B9YCJJGbsxlxRsSSmmS1pFvvgmO3l?=
+ =?us-ascii?Q?r/WRgBGtsDwL3RG1gziJ+lXFmWc9U7Tn55NT+f9fM0tNxvowaD57L3y87Gky?=
+ =?us-ascii?Q?KHgd1CZUESk10HQnhxbmQM2IyUa5Q5PtagxdywdZLdAQuqNhM9HmWUnU24Wh?=
+ =?us-ascii?Q?YSLCXfgQ/SukezfLfuhfuLlAX5bwVRptNmzyJkzbIYXllfeAmPXdJJkXcZ03?=
+ =?us-ascii?Q?dnNxOV475qc7Ev+0hVyzvId3CfnsjlKZs40lV5OV+wZjuhCCZYgwgF2bpqLc?=
+ =?us-ascii?Q?BfNbCtjRupLCi7m1s+AWx+YJWVyX/amzbFQTG0dI6jNTj8aTK7RATYeLtndB?=
+ =?us-ascii?Q?xTV+GghGK3PkgO1PrMP19km7RShNMFz+f67rUb7vNVOfn8dHma1VEN2cm9h6?=
+ =?us-ascii?Q?vcUV349Iy8KwmgRoGs0BG/gjah27qQQsASC90JX3KRBJvpxm/ATy6xj/GgdH?=
+ =?us-ascii?Q?ce8jqYeG4G23GqXa7A/DPoY8h56FZVO05QNH9Q4u71USn5ge5OzrW7ohFf8R?=
+ =?us-ascii?Q?/UJrkxz2TbTG1xcp2jeUIbexK/um6aw9SKPxZTdWEqKUxMzGyPD7svpeXuUu?=
+ =?us-ascii?Q?atB6rLRJNhs065M/7Vfi0r7AnPoA+qdu2hhO3DugXfZ5XgjUnaGkQct8WcWb?=
+ =?us-ascii?Q?SUjTVfadC7JYUN3vainmcY2NGgTWwqAeXYyTqdfKtNF+JwOi6Sh84/sgsMZW?=
+ =?us-ascii?Q?/XnKRkW7C1MpZHZKjF8WaK1Ptr2EGt8A/fKHjwDsSRZWbK4khawu313Gd4dL?=
+ =?us-ascii?Q?64HCp/gXS1urGovCYtNDqRR2ANQ93RCiaTBRX1iDPdII1+ozbRk7u2+VthV2?=
+X-MS-Exchange-AntiSpam-MessageData-1: R/R/oQsaU/1pkQ==
+X-OriginatorOrg: ebytelogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3adfb309-efda-4532-b920-08df43a4a7dc
+X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 05:44:18.4278
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y2aM43yL9Ya/YpknKmZSOO4MgnyTdu1KMql4aHfpA9Y/K38Iciu5Zi+D8KpndPB5QuIEAtSQn4pH6a4nDNfuiA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNYP287MB4388
 
-cx231xx_usb_probe() schedules asynchronous module loading before
-creating and registering the media controller graph. If either
-operation fails, the probe error path releases device resources
-without canceling the pending work.
+Hi Gjorgji,
 
-The work callback accesses the device structure to determine which
-modules to load. Since the device structure is devm-allocated,
-a failed probe may free it while the work is still pending or
-running, potentially leading to a use-after-free.
+Just back from the Diwali break and catching up on everything that
+went quiet while I was away, so apologies for the gap on this one.
 
-Cancel the module loading work synchronously before releasing
-device resources on probe failure. This ensures that the work
-cannot access the device structure after it has been freed.
+Back in October you said you would try to include these four patches in
+your next series:
 
-Fixes: ab232e46bf01 ("[media] cx231xx: enforce check for graph creation")
-Signed-off-by: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
----
-Changes in v2:
-- Add a Fixes tag.
-- Reuse the existing err_video_alt cleanup path instead of
-  duplicating resource teardown.
- 
- v1: https://lore.kernel.org/linux-media/20261116035159.40755-1-xinsheng.zhu.ny@gmail.com/
- 
- drivers/media/usb/cx231xx/cx231xx-cards.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+  > Thanks i will try to include your changes in my next series,
+  > it will need verification from your side as well.
 
-diff --git a/drivers/media/usb/cx231xx/cx231xx-cards.c b/drivers/media/usb/cx231xx/cx231xx-cards.c
-index b0941cd2a2d8..e24c2999687e 100644
---- a/drivers/media/usb/cx231xx/cx231xx-cards.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-cards.c
-@@ -1533,12 +1533,18 @@ static void request_modules(struct cx231xx *dev)
- 	schedule_work(&dev->request_module_wk);
- }
- 
-+static void cancel_request_modules(struct cx231xx *dev)
-+{
-+	cancel_work_sync(&dev->request_module_wk);
-+}
-+
- static void flush_request_modules(struct cx231xx *dev)
- {
- 	flush_work(&dev->request_module_wk);
- }
- #else
- #define request_modules(dev)
-+#define cancel_request_modules(dev)
- #define flush_request_modules(dev)
- #endif /* CONFIG_MODULES */
- 
-@@ -1900,8 +1906,10 @@ static int cx231xx_usb_probe(struct usb_interface *interface,
- 	if (!retval)
- 		retval = media_device_register(dev->media_dev);
- #endif
--	if (retval < 0)
--		cx231xx_release_resources(dev);
-+	if (retval < 0) {
-+		cancel_request_modules(dev);
-+		goto err_video_alt;
-+	}
- 	return retval;
- 
- err_video_alt:
+Is a v2 of
 
-base-commit: 48fe5a7834cc10081887d7bcd9ff0a4cadc3fa8c
--- 
-2.54.0 (Apple Git-157)
+  [PATCH 0/8] media: qcom: camss: add V4L2 subdev streams API support
+  https://lore.kernel.org/r/20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com
 
+still on your list? No pressure either way - I am asking because I have
+been assuming these four would reach the tree through it, and that has
+left them sitting where nobody can build them.
+
+The practical problem is that my series cannot be applied by anyone but
+me. The CI gets six of your eight patches from the list by
+patch-id and then stops, because my copy of
+
+  [PATCH 1/8] media: qcom: camss: Add streams API support for CSIPHY
+  [PATCH 2/8] media: qcom: camss: Add streams API hw_ops to CSID interface
+
+carries the CSIPHY rebase we discussed, so its patch-id no longer
+matches what was posted and prerequisite-patch-id cannot find it. The
+result is an apply failure in camss-csiphy.c that looks like my bug but
+is really just a missing dependency.
+
+Three ways out, whichever suits you:
+
+1. You post v2 with these folded in. Still my preference - it is your
+   series, and I will test and send Tested-by as before.
+
+2. If you would rather not carry it, I can post the whole thing as one
+   series, your eight patches with your authorship and Signed-off-by
+   intact plus my four, so that it is self-contained and the CI can
+   build it. I would not do that without your agreement.
+
+3. I post my four alone against media-committers next with the CSIPHY
+   amendment included explicitly. That unblocks the CI but leaves 1/8
+   amended in my series rather than fixed in yours, which seems wrong.
+
+For what it is worth I have your eight rebased onto media-committers
+next and they apply cleanly there, so whichever route you pick the
+rebase work is already done and I am happy to hand it over.
+
+One thing worth watching: camss has had a lot of traffic in the last few
+weeks, including Vladimir's CSIPHY device-name change, so the longer
+this sits the more rebasing it will need.
+
+Thanks,
+Hitesh
