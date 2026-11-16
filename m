@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794793849;
-	b=waE5cJCc50pXJGAw6FPkqvwGvxZgQvrAB+uXTaxz6Y5xRJRVSVBP0DuWVpFDtjL6Exoi
-	 5IJpAjsnVucrewvfhYAJAoRdqhblZOKejD0B3HtZqpSCyUIxqoWilw5Wf0hCreWGtIWHp
-	 i/nHiOkiFVbOtt9CnuPoND9lhQrZ3uR05CQd8RMi5Ps6GNoH1+8WZsSuoFyKldnYXOKFT
-	 vwDUgfRpdduGxkbp+xeC0nZ76tgEpc7oP8QMXMf/afqPabdpwGwjwmoA+dDkYhL3sUA9N
-	 z5TeyQ1qfCrRx4561MKPnwXgbOeHPI90Ye45i0nL6oQuSPPBjkt4wFqfpMeQJgW1wcw==
+	t=1794793850;
+	b=sCteQM2tW20lMLdPZmchG+TVPR7MZCVpgTZ2ccuBbKq/UjtClDQVysFqxiats9gozVdB
+	 DO2AIVncPvONo8T36ziry7zMHfrK5o2URPVr+jJ16yB6oFDY9vX97mW5KgbrJdgG1m1yE
+	 68ME33FxjRRuqeHOyp+psJDTPBHvX2w+DaG1+Bk2i3i44UAis0gaarKOJOv27obCEGEXG
+	 1wdzWPfNZOpXVkj1fF841jB5Uhy71+dTsh+zoTOkiOE5aOWwtMYzAhly8LLMMBrkAHPf8
+	 0YpAvdeRL9veJE67oYiqjF8nTRyrHr9hLrS2GZi577DIot6/QbiOn6Nsqiz9/TDNK2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794793849;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794793850;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=EDthb/j3v6LTX3qxnfQi48xFcZR5CX0H+dpvplf1gDg=;
-	b=08XiCQe8j2PkMrsFWCj5tJtb9Na+t8DE7St9qNBE8dctOXjcLl4Yx3Of72P7ypw+l8e6
-	 4LTZGkP8mN3+gag8NrxEn+4r33tGUKSTCwqI/jGldmw5Zxd9jpzRj/HWyCKe+NbdH6cL+
-	 icjnEgyTbqXyhllg5F7AHFoFT/UPQ977uqHvCNIJLxM358DPBEM5lNdAkTFT5LCC+Z5Mk
-	 FAkx5SfVySEgYxiwHYkXRcWJpkrT3Xmwm31TAsOCH6HX5mG+EzP3KRFQqiLMp/TK4Yofz
-	 DNT7QgeTPWS1nxvpLNr3l6RdNp0z8gpvDytRb0aUg0hS8PFlgaxShekw6BEXvhsPcbQ==
+	bh=jFwk4Zemtrm4ht3jnJ6TydPD7rUeTLMMaLKzdtozJkI=;
+	b=aDz1PHbRoRgGh2sG8LLa/G0r7FK4CLK3Cbj4Mu++iXtdeJUfC11mFO2+Dpw2sLm92Llp
+	 0cxCsJHtyJu7ywya0mEq0B6Kv0hQpblVQs6oGG/LFS6PDNcJutBngECxABnkb6OTZNwX2
+	 QuwHy0r73yv+7ypZnhqMw/EZWAinSI2+SF0wwG+0Af3tLHOvlIdTeJTaEq5zAMvkr4YAY
+	 jtxjVHk7Qnxeqi2SUlSZM4kzX+0hCm4IWelyBy/UuBxs8dIzdM5fFTwjiCuZRNfvBp1f7
+	 s4Z5FdTA5naRxYqjafchOnj7+kthBarwzLi57nzUD5KQ4PCElHNI5dfHRghy6hEcU4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X1U++bNd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T03CegPC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904E7606A338;
-	Mon, 16 Nov 2026 01:50:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803F1606A89A;
+	Mon, 16 Nov 2026 01:50:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X1U++bNd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D042B1F000CF;
-	Mon, 16 Nov 2026 01:50:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T03CegPC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E5131F000C9;
+	Mon, 16 Nov 2026 01:50:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794793849;
-	bh=EDthb/j3v6LTX3qxnfQi48xFcZR5CX0H+dpvplf1gDg=;
+	s=k20260515; t=1794793850;
+	bh=jFwk4Zemtrm4ht3jnJ6TydPD7rUeTLMMaLKzdtozJkI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X1U++bNdAv3Oji935yE958c034sL8DS4WJupSBvZaVpyqJrBMZ0pP2taBsNZ3mIGR
-	 TjETI9UeH1pitlRlngX+iMHcgxvPft8a3Ic8FIxFZyM16xf0MVsXTN9Vaz3fvwZ8Bs
-	 4/gGNN4bwJi8Waij4vS52z8AFzNRBUyD3KcRq0pzaeeprwdGIvQ64t/wqD4macdF9e
-	 gEomSSHLrvyQzga/UnmVKoKQp8Q2hoYTTaCQ3fv5lkFDQpbEWb8OkYqxb/h+/LLxII
-	 fNgY0Fx+0S7kU0uqtQn8v0OzbhumYaKHpCAHsyItp3oLsmzenyrbfhy2HmqtaYfRv6
-	 8KD1Iy/2+ep9Q==
+	b=T03CegPCwiJYMH5rnwgyAQ3l2rOxgKrkB7cLQlbNbUUo9mdpkJCSdMphpcKw8jpcG
+	 R+in2e4otv/A9TKH45G6ZS8JACgKQq1q4U4QGAYBiQEYGSKuXcRb61hQuHio59gcm3
+	 ASiPSw1GymkqTOqLtCL0/++ObAQQnIjuQ6ETWauXLnrXQQl/JOfzZgOzP4bzMdjsk5
+	 /N1zqBIzPeXJ9tPxJ9f5JSxth4oudPgxlhE4pcdwzJ4bpK7R0ad/EVPIweTYSfVwtM
+	 fgy5hgmpPTNeqbOAiH9sVB1J5maSjbyaR/5oj6okyTz4JOCfXLaEK+dD0scS4KOlP9
+	 Vc2WQUZbwBJHg==
 From: Jonathan Cameron <jic23@kernel.org>
 To: linux-iio@vger.kernel.org,
 	David Lechner <dlechner@baylibre.com>,
@@ -72,9 +72,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oleksij Rempel <o.rempel@pengutronix.de>,
 	Linus Walleij <linusw@kernel.org>,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 23/35] iio: common: st_sensors: use default_trigger
-Date: Mon, 16 Nov 2026 01:48:11 +0000
-Message-ID: <20261116014823.3132576-24-jic23@kernel.org>
+Subject: [PATCH 24/35] iio: common: hid-sensors: use default_trigger
+Date: Mon, 16 Nov 2026 01:48:12 +0000
+Message-ID: <20261116014823.3132576-25-jic23@kernel.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261116014823.3132576-1-jic23@kernel.org>
 References: <20261116014823.3132576-1-jic23@kernel.org>
@@ -92,36 +92,43 @@ Content-Transfer-Encoding: 8bit
 From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
 Set indio_dev->default_trigger rather than taking a reference to the
-trigger in st_sensors_allocate_trigger(). The IIO core now takes the
+trigger in hid_sensor_setup_trigger(). The IIO core now takes the
 reference during iio_device_register(), so it is not leaked if probe()
 fails after the trigger is set up.
 
-All users (st_accel, st_gyro, st_magn and st_pressure) allocate the
-triggered buffer and trigger before calling devm_iio_device_register()
-and do not access indio_dev->trig before that point. The interrupt
-handlers are passed the trigger directly.
+Set it only once nothing else in hid_sensor_setup_trigger() can fail,
+so the error path does not leave it pointing at the freed trigger.
 
-The ordering is such in here that their is no leak today, but in general
-this change will make things less fragile going forwards.
+All users call devm_hid_sensor_setup_trigger() before
+devm_iio_device_register() and do not access indio_dev->trig.
+
+The ordering in this driver ensures there is no leak today but
+this patch will make that ordering much less fragile going forwards.
 
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/common/st_sensors/st_sensors_trigger.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iio/common/hid-sensors/hid-sensor-trigger.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/common/st_sensors/st_sensors_trigger.c b/drivers/iio/common/st_sensors/st_sensors_trigger.c
-index 7b3e9732cc3e..c450b1e2812d 100644
---- a/drivers/iio/common/st_sensors/st_sensors_trigger.c
-+++ b/drivers/iio/common/st_sensors/st_sensors_trigger.c
-@@ -219,7 +219,7 @@ int st_sensors_allocate_trigger(struct iio_dev *indio_dev,
- 		dev_err(parent, "failed to register iio trigger.\n");
- 		return err;
+diff --git a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+index df6c07d6a6b7..44fb4bd1d316 100644
+--- a/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
++++ b/drivers/iio/common/hid-sensors/hid-sensor-trigger.c
+@@ -278,12 +278,13 @@ int hid_sensor_setup_trigger(struct iio_dev *indio_dev, const char *name,
+ 		goto error_free_trig;
  	}
--	indio_dev->trig = iio_trigger_get(sdata->trig);
-+	indio_dev->default_trigger = sdata->trig;
+ 	attrb->trigger = trig;
+-	indio_dev->trig = iio_trigger_get(trig);
  
- 	return 0;
- }
+ 	ret = pm_runtime_set_active(&indio_dev->dev);
+ 	if (ret)
+ 		goto error_unreg_trigger;
+ 
++	indio_dev->default_trigger = trig;
++
+ 	iio_device_set_drvdata(indio_dev, attrb);
+ 
+ 	INIT_WORK(&attrb->work, hid_sensor_set_power_work);
 -- 
 2.56.1
 
