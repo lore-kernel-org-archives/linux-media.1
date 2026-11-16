@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851901;
-	b=qtesJ/hmQun74MnS46f89KnW5IjGbloyt9vl6sheK3ymKqRCXuX6kmj2xbLZL+OGFe4z
-	 Rd/CTPPw0YsDS9B8fVVj2dWEujLlwd2+t6ggjz/Xrp4RTZyZo74bWpUe6zd41EP4g4kUU
-	 ux4cK+dyF0vULAETMfNgiT/XpW7KAzyXWzXfUNz4FiC1z1LNGlbAWn6HzrMS4uhWMyxJe
-	 1suauf6O8jDxIp6fTOUrXx+UzN2C9Rx+z2Ly+7TMIaIdpUnpv5+k7bk0gRdAb7mdRJIu/
-	 irgx2BRSPPxBy7oHOohfPqcqQ3tDRI4g2hhfJWBJil9Jey8z1qxKK6B66thNLVQdJMg==
+	t=1794851926;
+	b=3rCWfRcHVJmrdxUmK54/2anwE0ionJK4ZuipDyeiRDHEyswk1zNQUPZGtaDJEP5aywwP
+	 MRkwK2HWkwgmtHb+1/Lu45OTcNKeJ+I5Bz2NQuY+fdYfYU9mfUaQeviftuJMbA+Z+Q0T1
+	 veq0JKomDO6fySFq2sHVsNMzP4sf9Q84dR0DeBZ9R135BWymF7rbz86rlY0HSHkWa+l55
+	 f8qF3D9jgyXv1cF2qOlyyQGhxvM7j8peCnHYOJz4iMLMGl3VdWYLOr58Qwp/DLoQv9yJ4
+	 6zbHfpRhTr52xjemU8GFR4Vphd5TvpDcNNdelz6LGnYSFo5CBh0Fog2Ng2NmBg34KFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851901;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851926;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=h6XJvo2X2g2Z+K/pencoU7yNqa5NvpNeSb8E6WHAlWc=;
-	b=ynlOVqlOrUIrfLRdtIT04iek3Hd4PWKY471w6O7eKNpHy0xCc2Rum+DP+yJVyIm/Z4Hz
-	 dQ1ZtZuoJJJL/OczLsQJ8m6i482V2xV1inphNaNh6pbASJuEt1jyoJ2mGxGF3jo251kzp
-	 vXTOUnAA0Z4+Z280OGi5gMUWa3SJzxtrMVb2bSWyDntxw+z/EEFo0Sx0P7Hh87m15o6Yf
-	 vO0Uik/tOJcUqQzLDC9eg4RtYKYqsc+Vtywxi68jX2ROcsdHVB+dycmV3FxEUMmYiZP8s
-	 /5lZDEOCYwW83eDsaHUPATd77S81DRLJmsyYTeNbmbAlgwxo0RSNECp63ew+ZmuAMoA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=g6TQmkuyMCXzib2c99Z9MWfPdjMzOohKSTeFZiXInjw=;
+	b=Hu6YTjr4ywdod/WOsxzgLNQhHC95zacGovhp1mVSDPc6m1e3S4ozsZiMi0gg81h2YsjD
+	 +naEgUrWETFDA4DSUzuHn4ywQv2QSzT4WSehq2ETzSbAPdZ16niuHQAIf10LSZU8hHTGG
+	 NSIghLvOPKF1nC0rT25/CTd8j5OGYl67R88fxP38+ANv6PJ/MvudgGsye5/g4+64GJWqg
+	 tUo/bQoeJkwpPk4tMW5tAKq9D2ACRcRXdtEBZKkgPqnQCGmMy1h/B+vlgY2Uim5ftYkly
+	 5tSMj0AmWs61IWczlEZrajSATAhLSAllmJYM94YvqGfTfCAwh665ckU0nROjJxru5vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hvH8r4c6;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DCpb4BZa;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D14E606A884
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 17:58:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D14E606A884
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CA9606A88E
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 17:58:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6CA9606A88E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hvH8r4c6
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-491971ac844so3284128f8f.2
-        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 09:58:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DCpb4BZa
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-490d59c3edaso69381f8f.1
+        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 09:58:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794851897; x=1795456697; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h6XJvo2X2g2Z+K/pencoU7yNqa5NvpNeSb8E6WHAlWc=;
-        b=hvH8r4c6NMHxVz1ieBiNUUrP4OYAIvuG2ggpimF4zv3FD10FOzaH8VZaV23E3K5UHP
-         cQdj4jk8oaGOLzdWUgtPxoa2wZ+7+/7dOrLjZQ7lNHA/lhwolBgOAR9lK49EY2RhYJfL
-         ek62qLdqb++2HCO/q/8HcX9scgUF0eJ8L9GSICb+UmTJOUCsX3kLoygqZ0vOKFUMT/Lp
-         jp/PTtqm90eQIiwSeYoOXNmrrAK86CZlvHMNEuGnw4ZD18/ssQDXKq4axT9EJ0ebfBiA
-         MpIEcDmRTZw42xQRbS/cSHLY4rVhwZGQa6sE9iro3SaxP7vKXoZ1ymQe58GazwRF15bZ
-         bL6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794851897; x=1795456697;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794851923; x=1795456723; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=h6XJvo2X2g2Z+K/pencoU7yNqa5NvpNeSb8E6WHAlWc=;
-        b=p+llpNTDl1G9v9xT6rVFXuNDOIyy3x5ubU5roUnSFD1gp0/uzHjWiP/tS6GeR4TMG+
-         J66R0iii5vgMycjVHgaGcfD9aFCC2U8u/xxA8r09qWLSI199kNRja6S1LOpFlF9DY3du
-         v1PiDuqPmnCmbwwrrhdIaPzYqNv44I5JYYfA3xet18NeVV+/nC73ErdPX7D2C+doy86r
-         6HqdoJsgPnbnzYMPfUhoJpzbQIir0yDSL1vZGei+VaDhyW2w30ZzMSychF4/58s0FIPs
-         YIQVaD4A45gVoSqtpWI7hSnHlXN3bJO/ohePJcur/N2+9X07omMkCI26i5Wfk4P770Ol
-         76Uw==
-X-Forwarded-Encrypted: i=1; AL+hErFT88G1SQ17rLayc1aeXoxbJ+4Qvi123nUdy7QvHgRHpV1rzK5FUTsYinY1ZL2vJ4bUuS8lSkqVXr5CTg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/SX4KcmEQg3aSGEwa+mX0Y177U5nmStvtN7S36mXKkPooDyVI3
-	QnDYE0XINWNPPTtPbCpbbahXfPghQR5Ia5mh2oqrR4pnZ/juU9i8nVnhKfxXtQLfUFl3fstN
-X-Gm-Gg: AZFdTZegCInaswF8W+TkoWdpeJcVR+tuJES+ojbW7/5/R+XJmCe45ApZa3J+Eu3kH3k
-	4x1kIhGTat0c1oQXLanLUKYOMz31vizj3sLNQ6JSIuSSraP6y1dqwjIAh/FQeqDyyXa3mu0JpqN
-	YsNjjBbLNNEmkhtvwscbpLMIdOsw6MP8syYdtDJkOALBdY1srNz5dIAoWCoqSA9OvdImvON5KtJ
-	vyncntjYRyWeBJzxDc7DkgZqj4MH7YwSR/P/2N1x33HgLWSZpExfxrnvxyAAlzRPIn/qsv+uSyG
-	03d2E+O6zqg7GVNIjEra8rDTXt5UtbFWdg7sV+9+nevvbiaQQ4ssDz7xjO/acaAnrRt7r8dIigH
-	YJQLtzgoXrLCsKT/yTsa4wMVs8Ggk0Hwv7VEWsfZrAW6RG3dc4ujaOOg7B0Bj9urAjkWF8A91dS
-	ZKxWan1KGEfppDcsbflfGZrYGmiMy3EKZb87TEZ5iNtC63nru5KZ1eAskWpj8BZ3utcXl6411Bj
-	im3oXli/PydL6Y90rbFuJtsn2u/qxazB64kekeFPrEH8HFI8p5nDpYEaAbKVNye5d6xyr6cCg5w
-	l3wsjbIeDdmauwCxFcwy3mPRHuZYGJmpNOC3iVR+DyiU2g==
-X-Received: by 2002:a05:6000:4541:b0:48f:bb86:cc03 with SMTP id ffacd0b85a97d-49c70ed7ff4mr17130136f8f.11.1794851896560;
-        Mon, 16 Nov 2026 09:58:16 -0800 (PST)
+        bh=g6TQmkuyMCXzib2c99Z9MWfPdjMzOohKSTeFZiXInjw=;
+        b=DCpb4BZa/voEzzZmHniSsTUU+Ycm8NQQ+HfPkgCO1F+GuXvZLp8y1d+9vlOc9Te+Pd
+         9frQ3hOecIr1z/cHJsd1peJA+Ehp8+wMn3K5dDTnU4PUDPsnizoCXph2Tqte3qLR6oKp
+         RyGvrwWdhOF2mYptdNRePnVltnpCvxe0/nllIkI3SbptJus0Qamns+TG7aZj6IJcmLwU
+         6l8qH69ZLrsV0x2+Uc3c++6qxvL3J26yu/hwiPy/r/UQlXS7NqAAGtwYVNVCkQSgAkg9
+         5hL2CRVlWQAMnoYTdw36mJjyzYLzJJOHmVPMWFOXAbFsKWs+Cv5QE2L0m0a5KH6Pdry9
+         W5xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794851923; x=1795456723;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g6TQmkuyMCXzib2c99Z9MWfPdjMzOohKSTeFZiXInjw=;
+        b=lmCQKH4ywrq5+2gQIZvFPjFsWqnApq0uQSVMQw9PjvqgQveH3nI6gvYnacmeLa2dN+
+         0fGTz9tjFzI2I8FSsU9BV+HyvKy7Oem0ZtTS3cQGCHwsoeeRyZ595O4YEPIWWb1Ccwhw
+         s5pwRrMWB0I+QTX3SwoRTD8jE3DIMTMzQXI6UXVs81//0/HJRA/5/oZfTEc3sF3r02+l
+         mNMlJx+uvDfyXB3e/k4AoTUgE3Le1lbMPy00su0hBAhd4NFX+j87Hbbz2+U0H9YXNbJA
+         oUsc1ObmKRxPmGB0uuSnv+z72GuOAC/EbknKLQoZAggoIPzYwsoTjP68cwEI+h4hWCyL
+         vTKw==
+X-Forwarded-Encrypted: i=1; AL+hErEi8KGW5Bxl2FviTWOy/2n2IyKp63zR3JEtoFAYCzBYAOfhJmO959+jaQ7ldaAfZtoTytz3YvxpH7J9Sg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9GMxvNpmdxrK3mTJMCXUDu7X3H84of58xBkiLPl8qqHng2udIy
+	5vcGXAQeNqsuzZqghzpYZv5XfNjLUcfEFMR5ILlbPSBsq891bW9xUtAj
+X-Gm-Gg: AZFdTZdX3mkNyn+snGfrgg7S+0VVJ3L1zeDpsctdfnf6oXkoIMSjbgArBM97TbH2EQa
+	0q7G3Boz5b9OB8C9niLy19MrbpYFwDlSqHp2evAjjAc7v/5t+ujpHmDSFhuqkNxzsRHfudXwXZl
+	bF0q1HwAKhC3iWYm1i08q6to7ZOIbqD6yuxIKyB9hGU7+vonzJ+qG7efoFLlsbHIF/OkINZpEDB
+	4QCGaJ3is37mmJ3cJZAwp5WqKXUxq2Mfm9mZGD8BKBboRT4S6Sx5zr0Mg6LmMMtVYV4IUVMFrKh
+	GO/3M9qthRWE58Y004+O7SH7W+EzUkpeOZOJS1s2bQFUriV7uCH0NNrNxc+NPY+ZCLjfU37Ifjj
+	XSVQQFCG/k9qzYpOWGuabUp6RdZiU6XpRL/djcCHoYi7a6IyxYV4av58Eg1oUD01noqxj/7LETF
+	cHwDs5PTosnsaI48Z0iF+aSl0SbuGTlCaCf7u5mrjMxxQcOKbugeShqSRQyRp/wwQ2geUUGpA2l
+	xyhbJubSYQ+mcFMiN2SK3UXS3+7OTdzSREZPQ6pah5onPv1wtwIGch1QNXBVVxZF6LErqPOCbNd
+	ZpuQ5nS2fs8AOFw28035RpXxyxe45WMCs79hKSSySgdIzQ==
+X-Received: by 2002:adf:e18a:0:b0:491:d721:548f with SMTP id ffacd0b85a97d-4a3735b4463mr501445f8f.12.1794851923193;
+        Mon, 16 Nov 2026 09:58:43 -0800 (PST)
 Received: from Kyiv.home.arpa ([2a0e:1d47:4093:b600:498f:88ac:2ca1:60d5])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d22394esm24171374f8f.3.2026.11.16.09.58.14
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d22394esm24171374f8f.3.2026.11.16.09.58.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:58:16 -0800 (PST)
+        Mon, 16 Nov 2026 09:58:42 -0800 (PST)
 From: Volodymyr Chapman <volodymyrchapman@gmail.com>
 To: Hans de Goede <hansg@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -87,10 +88,12 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Volodymyr Chapman <volodymyrchapman@gmail.com>
-Subject: [PATCH 0/2] media: atomisp: Fix PipeWire/Firefox streaming for sensors without crop or frame interval support
-Date: Mon, 16 Nov 2026 17:57:48 +0000
-Message-ID: <20261116175750.21905-1-volodymyrchapman@gmail.com>
+Subject: [PATCH 2/2] media: atomisp: Report frame interval for sensors without enum_frame_interval
+Date: Mon, 16 Nov 2026 17:57:50 +0000
+Message-ID: <20261116175750.21905-3-volodymyrchapman@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261116175750.21905-1-volodymyrchapman@gmail.com>
+References: <20261116175750.21905-1-volodymyrchapman@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -102,44 +105,125 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With PipeWire as the camera path, Firefox could not stream from the two
-cameras of a Lenovo ThinkPad 10 (20C3) on atomisp:
+atomisp_enum_frameintervals() passes VIDIOC_ENUM_FRAMEINTERVALS on to the
+sensor's enum_frame_interval pad op. Most sensor drivers used with atomisp
+do not implement it, e.g. the OV2722 driver only implements
+get_frame_interval and raw sensor drivers such as the IMX175 driver set
+their frame rate with the pixel rate and blanking controls instead. For
+these sensors VIDIOC_ENUM_FRAMEINTERVALS fails, so userspace does not know
+the frame rate.
 
-- Patch 1: for sensors without crop support, VIDIOC_ENUM_FRAMESIZES lists
-  sizes which the preview pipeline cannot output, so format negotiation
-  fails when userspace picks the largest one (IMX175 3264x2448).
-- Patch 2: VIDIOC_ENUM_FRAMEINTERVALS fails for sensors without
-  enum_frame_interval, so PipeWire advertises a 1-120 fps range, which
-  Firefox turns into 1 fps. atomisp now reports the sensor's current
-  frame interval from get_frame_interval or the pixel rate and blanking
-  controls.
+PipeWire's V4L2 source then advertises a framerate range of 1/1 to 120/1.
+Firefox (libwebrtc) takes the minimum of such a range as the camera's
+maximum framerate and drops all but 1 frame per second, while the sensor
+runs at 30 fps.
 
-Patch 2 has no Fixes tag: ENUM_FRAMEINTERVALS never worked for these
-sensors, so this is more an improvement than a regression fix.
+When the sensor has no enum_frame_interval, report one discrete frame
+interval: the sensor's get_frame_interval if it has that, or else the one
+following from its V4L2_CID_PIXEL_RATE, V4L2_CID_HBLANK and V4L2_CID_VBLANK
+controls and active format, rounded to a whole number of frames per
+second. This is the interval of the sensor's current mode, which is
+reported for every frame size; for the OV2722 and IMX175 all modes run at
+30 fps.
 
-Tested on the ThinkPad 10 with the OV2722 front sensor and the IMX175 rear
-sensor (the IMX175 driver is pending in a separate series [1]), with both
-patches built out of tree against a 7.2.15 kernel: Firefox 160 streams from
-both sensors at about 30 fps through PipeWire. Build-tested on media.git
-next.
+Tested on a Lenovo ThinkPad 10 (20C3, Atom Z3795) with this file built out
+of tree against a 7.2.15 kernel: ENUM_FRAMEINTERVALS reports 30 fps for
+both the OV2722 front sensor (from get_frame_interval) and the IMX175 rear
+sensor (256 MHz / (3430 * 2500)), and webcamtests.com in Firefox 160 shows
+about 30 fps for both instead of 1 fps. This was build-tested on top of
+media.git next.
 
-[1] https://lore.kernel.org/linux-media/20261116175151.20150-1-volodymyrchapman@gmail.com/
-
-The problems were investigated and the patches drafted with the help of an
+The problem was investigated and this patch drafted with the help of an
 AI coding assistant (Claude); the testing was done on the hardware by the
 submitter.
 
-Volodymyr Chapman (2):
-  media: atomisp: Don't enumerate frame sizes the preview pipe can't
-    output
-  media: atomisp: Report frame interval for sensors without
-    enum_frame_interval
+Signed-off-by: Volodymyr Chapman <volodymyrchapman@gmail.com>
+---
+ .../staging/media/atomisp/pci/atomisp_ioctl.c | 64 +++++++++++++++++++
+ 1 file changed, 64 insertions(+)
 
- .../staging/media/atomisp/pci/atomisp_ioctl.c | 86 ++++++++++++++++++-
- 1 file changed, 83 insertions(+), 3 deletions(-)
-
-
-base-commit: 3fc9303dba01676c2090768126e5327e341b7761
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_ioctl.c b/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
+index 046a95857..c83834405 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_ioctl.c
+@@ -576,6 +576,65 @@ static int atomisp_enum_framesizes(struct file *file, void *priv,
+ 	return 0;
+ }
+ 
++/*
++ * For sensors without enum_frame_interval, get the frame interval of the
++ * sensor's current mode: from get_frame_interval, or else from the pixel rate
++ * and blanking controls which raw sensor drivers use to set the frame rate.
++ */
++static int atomisp_sensor_frame_interval(struct atomisp_input_subdev *input,
++					 struct v4l2_fract *interval)
++{
++	struct v4l2_subdev_frame_interval fi = {
++		.which = V4L2_SUBDEV_FORMAT_ACTIVE,
++	};
++	struct v4l2_subdev_format fmt = {
++		.which = V4L2_SUBDEV_FORMAT_ACTIVE,
++	};
++	struct v4l2_ctrl *pixel_rate, *hblank, *vblank;
++	struct v4l2_subdev_state *act_sd_state;
++	u64 frame_size, fps;
++	int ret;
++
++	act_sd_state = v4l2_subdev_lock_and_get_active_state(input->sensor);
++	ret = v4l2_subdev_call(input->sensor, pad, get_frame_interval,
++			       act_sd_state, &fi);
++	if (ret != -ENOIOCTLCMD) {
++		if (act_sd_state)
++			v4l2_subdev_unlock_state(act_sd_state);
++		if (ret)
++			return ret;
++		if (!fi.interval.numerator || !fi.interval.denominator)
++			return -EINVAL;
++		*interval = fi.interval;
++		return 0;
++	}
++
++	ret = v4l2_subdev_call(input->sensor, pad, get_fmt, act_sd_state, &fmt);
++	if (act_sd_state)
++		v4l2_subdev_unlock_state(act_sd_state);
++	if (ret)
++		return ret;
++
++	pixel_rate = v4l2_ctrl_find(input->sensor->ctrl_handler,
++				    V4L2_CID_PIXEL_RATE);
++	hblank = v4l2_ctrl_find(input->sensor->ctrl_handler, V4L2_CID_HBLANK);
++	vblank = v4l2_ctrl_find(input->sensor->ctrl_handler, V4L2_CID_VBLANK);
++	if (!pixel_rate || !hblank || !vblank)
++		return -EINVAL;
++
++	frame_size = (u64)(fmt.format.width + v4l2_ctrl_g_ctrl(hblank)) *
++		     (fmt.format.height + v4l2_ctrl_g_ctrl(vblank));
++	fps = div64_u64(v4l2_ctrl_g_ctrl_int64(pixel_rate) + frame_size / 2,
++			frame_size);
++	if (!fps)
++		return -EINVAL;
++
++	interval->numerator = 1;
++	interval->denominator = fps;
++
++	return 0;
++}
++
+ static int atomisp_enum_frameintervals(struct file *file, void *priv,
+ 				       struct v4l2_frmivalenum *fival)
+ {
+@@ -601,6 +660,11 @@ static int atomisp_enum_frameintervals(struct file *file, void *priv,
+ 			       act_sd_state, &fie);
+ 	if (act_sd_state)
+ 		v4l2_subdev_unlock_state(act_sd_state);
++	if (ret == -ENOIOCTLCMD) {
++		if (fival->index)
++			return -EINVAL;
++		ret = atomisp_sensor_frame_interval(input, &fie.interval);
++	}
+ 	if (ret)
+ 		return ret;
+ 
 -- 
 2.43.0
 
