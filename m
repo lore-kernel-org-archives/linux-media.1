@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851539;
-	b=azLJMszBzIaAei9n7412EbuRrj9q5lWSAz+4Z1uPbHbvfW1j1rFT4fPXP51Zzm1FgYM2
-	 CgqqxuE+EcaoosGy5aVwrKXfqNFJgedwA5OAV/0scSpGjVp806l1cr6gN4MM6x11VWcMn
-	 FzteZLUebA4D8hpT8poz5NJP9SPW8zwoQGUTeKnoiE4VNkDGCtLSPioip5Vqegm2Zh99D
-	 jpNJbze/TQvRvyBRAyQCw6nil0Mp9UNOlj6eXmqxfrqUazZJDE+/R5c3Zf5Gu8v4Ih9US
-	 NjysfIBBx0n5e3jQoSJL8SNDg6boIeb7iYWgaVetYCpJmU99yqJ0X86bpGDUT0FXArQ==
+	t=1794851541;
+	b=YGzd818G1ARxwVnpWTq6S+E3qZ69mVGLYot06Tv30hgf2NiYqqGZj6Rgi8171yU/bsK+
+	 x7WFFEjPXpqDHQ4vw7jAtW83tEqmACa1GEzcKTVIMrtDu6iHRUui0IwM6meYJ0dJj5RvZ
+	 uvKN1GepZSYjikXN+NSxUXwwIMhaZFPeKwDi9YSaK+ufr9IzTpXfE6umFgAeLajXgvVL4
+	 h2TAqlW3OvAdJczKud49rCI+4hfGc4WTQVifGrW991z/tuXb6L+XQqvU7aknWeSPb+o7t
+	 qshNXkYpUxioSbOpip/fEoQ7KHxkwB9jH0HrSGtp/d+VN05fE0SZOK/nsw+a/TltGxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851539;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851541;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=Mybi2FfPRDyfDeC5velKUxV2mvI+QkF0VK4ji6bNsAQ=;
-	b=P4wLB3Fyo80RwJYvcSgjw+r80VX+P4PEnWzJWuR0oZslBT6dN9VcQCDVJUbQzqpLgmVB
-	 YaWmli7wnYz6ttyEaeK6Fuba0bYe5651sbHQU7Vc5pGo+GcAgMOVKPYG+iRi5un0aNytN
-	 /N3Hrw29tkfPkrMJ5SDhkqRMu4OpTLW3+mttfntrO4llWeHISXdLjIiYRl8easrjid5jX
-	 9/jm+bvo+lCQAHkXAyNMW7WI0FC5Fqlib7c/D+RbJ4GY1jN/7hgYsrpEZsCCKFDQg9nhL
-	 xZHjvkk3zHIk4bz0U5cZqVRbojSXEjVtLee6xOHputhuWFsnena2lnoz9DWB6266FUQ==
+	bh=wJ8TnT2XfhDoFSzBoirS9TeHlGIUWbru6eIu+8n9Klw=;
+	b=Yrl4hsCNg3LoJ3JxwxJOBrUGyLNVCNMACugD61WIpYOU5Y6N/7oVtl9dySQlyIoDlob6
+	 BrmFnaw0OHw+qwn8j+nBvj+TK+4TFsAS4AlSdY7lZQaQVgFxKYJP6dtbbxx7ERisUkeXK
+	 ty0c39/IZmHyxIwrQJ2i+FlWtHP2fWHckpl7PvU9E15Cv+8BJCeQKJhIffXjvVlr4TVbN
+	 96QydRS7HwgpeA0KanR2QZ87NQ82X72I9VxlEn6ad6uyztxr1dna74AWHe97UbbQtVj68
+	 K/N0ukNWpFSnspuV3wFL1oCx7yevrf4H8ghkfLQfX9BhskRJALF0B1kCPprXJbct8Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Cw2Q5Gvc;
-	arc=none smtp.remote-ip=209.85.167.54
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=RDOf8EIy;
+	arc=none smtp.remote-ip=209.85.167.46
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F42F606A88B
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 17:52:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F42F606A88B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBFB606A32F
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 17:52:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EBFB606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Cw2Q5Gvc
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5c10dc41270so3988767e87.2
-        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 09:52:17 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=RDOf8EIy
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bfa7c09c9eso3061555e87.2
+        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 09:52:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794851536; x=1795456336; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1794851537; x=1795456337; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Mybi2FfPRDyfDeC5velKUxV2mvI+QkF0VK4ji6bNsAQ=;
-        b=Cw2Q5GvcXZUXyFxbX6kvaiwwK598oEfKRBEXZdMVZC0iMeCjklHqbLQPD3+pMYTQS6
-         Hh2Ggh7R5gORayLRumN3cY7exJhza/VEiwSlhV94RgzqRibrpAgxYNXigvif9NOrqJih
-         AVNFxlvvgqv3wzcmG7RHAmKjPgMzR58vwx60E=
+        bh=wJ8TnT2XfhDoFSzBoirS9TeHlGIUWbru6eIu+8n9Klw=;
+        b=RDOf8EIyDdPhIhwkU2Y+kks81uAo3qI0dVnrzE44118r05BQIWANGKQxYwZzuOX3vD
+         zwNEJmtE63iju1pVjGWF1qU7xBKYcDB/bbsbsjpJ+8qc/knq6XU0HAUSZUmLJe0wm7w/
+         g3OIplPwGclz2FdxlBa+hCMd3/BvncIvoq0zY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794851536; x=1795456336;
+        d=1e100.net; s=20260707; t=1794851537; x=1795456337;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Mybi2FfPRDyfDeC5velKUxV2mvI+QkF0VK4ji6bNsAQ=;
-        b=n3n3tuteI5EBl2RCByOET1PA1kHXWgotPVvQujHH/icMD8ctX/Yc/T/DLmeaqa2YRt
-         v7k1tW6iEDLug387nbJ4JqzXCtck4wUMdSm9TTSnv3yqLA9vyhmLUm2DhhJUXOjUMoZ1
-         q0vtxOBLYdQ98j1qTt1nkU9c3C6nU1CYe6xcr24XHz1p9Y/nXO6lMxZ+Y1fimdVP0NoK
-         mFInzdEfxAoTYcFR7TLuZL9vhb2H+dyNKHVOxUr/7Wq6etPXpdL20bNzAXUOvTVLAEwA
-         a4110IVEB2Hoxgu117ix4/Ska+SXIGB/hLesCFbBRT6irKoOiRVD3gM0YZ0LG4dLOHEY
-         QNeg==
-X-Gm-Message-State: APuU4Z9PWERJQg3XBOrzb7THrIYdqKIwnbkuju0YEnaUt7rlMqYOtVEb
-	XsHvJafKZ9VwI8hcxg+jfBR56j+9drklOemuW2/gssmsD6VEsPl36pyFlcTEB4b4rw==
-X-Gm-Gg: AYBFou3iZbazG814IxcQdK8zVSO1kgNmFMiIC+jhW2Gq9wZ2l9nUV36JHHlVLlM6HA4
-	YnqXuhIiog/2R+JK7O+/7IefH+6ehMmMf9h6xazp16NXXUvD3ehri2i2pJOMKfQb+avNEsicLBu
-	iV63K6y/BAARxqVDHjRVOVRKZh0h+sz9a8ArbU/R0sYMZdUh1BcOoRYRJenmdL6UQhXLir4C/T9
-	mFI9hCl5sb+1rbcBny5ub1UEvSwbqnVxdptxHdyq1PWoRZu4Wn/zy7LSEBwpViu4w2oIEINHudm
-	PJW0mdEIThGm3anbMZt7+S3qtpncQiUsMgpiEEZt2BFfTBrSulorFbwQBaZFJquTTb5slShFVIT
-	/vf5lIWJnxewyxn3seC92SagAeieFwwtZeGoMdAsYFaqKUdcf5iEtLXbx38kQ8jvsgrTFdEj79F
-	t9WqESW28J2V5DRA6oKRqeL2iEqhhcvHVsvJkxxenJlBwU+YGJm0qQfe9JJByQx7+WFzZ1DpM38
-	WNBd2K41Qqkg1TxszcZJNhjUqIW6bOniOXrwnNy8zbo6DwRimqSEvbgXz53UZtgnvjUZ0pRatIZ
-	Jl6CianWigjY/5gAthdeNbkh5aYTHOAP+tWhw+90cvKGt9Z66iYIvnj3KZBGWGJla+M4m7HBk+s
-	GS6om86jfgw==
-X-Received: by 2002:a05:6512:3345:b0:5bf:b603:365d with SMTP id 2adb3069b0e04-5c1709d6b21mr4184157e87.10.1794851535707;
-        Mon, 16 Nov 2026 09:52:15 -0800 (PST)
+        bh=wJ8TnT2XfhDoFSzBoirS9TeHlGIUWbru6eIu+8n9Klw=;
+        b=vBj7pHEz42R3CjbyTMH3R5/r0RGgb+6OgKtwN0iaETkEKWpIc8+xqO7b/OLbOSUFQI
+         m2GfK/ZxDwOL8Rv+086UDn/zxaZiGM3jFGIuYVPZJpTr8W1x3bODqlMm6doPjZlP0ylZ
+         Dlwt79xFiPiUSfxFNpHJoJvlARNH65olaLPedGlYESZzGURqmZ3CeGDPNV9I6Pcm/7kO
+         47dI+UMShzBCQEJBYm3soR13Y23aIRozQOhW/GpK3757iJeuqjIs1zwOn3/qhX02D4L5
+         4r1RY0hXJyS/zwTAHfwReCY3ot8+ZEJ+5LlDpzs0GL7vcV3/GzNc7w7ExXnVYlFWxlfc
+         dFUw==
+X-Gm-Message-State: APuU4Z9TlvRrPQNSS8RUEPiaMzWQ7eQW6A240dqdRITlsvxvAGFiTLqa
+	ZngwfJmrKvQT4n5Yh/JOc9iWetRGV8rG05jZzZMNqWedCNeCjhA42GkZ3mD2AV+gew==
+X-Gm-Gg: AYBFou17+bcUfTS48P/LZszXLgML4YBQ5kW9zsu3civl8Ug+vLrbtJA3JXrQcNlm8gv
+	6eLPG+UyjL7XuZinnqr3YOnovcM/FzDcgBHdIRCJ9cI7qlBUcFYkq58Ty0+IgletdB4bYUbO5bf
+	eVZ6RHAzkolwplQRWVVC/Z/7nDjg0itY40B2F79M55e8oZY8yXFm4GfXWOENT7BP2Cyax7xMo4d
+	9ojCQaS/cBM/5IHtOMaSsKdv7tXk4wiDUFa4io11+MmQ7vHzNq739Pm78R/lC84LTTfbst4d4B3
+	KmKUaZmTbulrTKv02XhQCLixFYXY0FN/FCFP7CUPWr5Da+wXHp3kRe7N3EtkgsiLAuacSEm8SHP
+	5Tcmox2VpmC7nj3vW/9xnaW1MrsPlReX616sfmAO5QwoZI28MvEDet2VBhXQvqGOaIyY585ecjJ
+	3ME41unqHpJqX7zUkwMAHJuG7t0FyfFHXS8cDlr4lR0HImqS/vmM9Eh0HubCChgcAdazoA/ArqG
+	hPz+JV4xdIcUQ2dpPtxtJmsCYhn7fPx5x1tOQZbwrIr4+dOQkph81FAzCoSlMUSB93batr9yhw/
+	9jjuDB1Ne44JH/AkpzHMHZEsidi18MIkEVwYc6j0BjNVNz4RJdekVfDMEVTtA8sJBkBxAyWFGCB
+	o3+onHr8gRg==
+X-Received: by 2002:a05:6512:31c3:b0:5c1:4f6f:564c with SMTP id 2adb3069b0e04-5c1709c5b64mr4239145e87.39.1794851536662;
+        Mon, 16 Nov 2026 09:52:16 -0800 (PST)
 Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
         by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171333630sm3391252e87.19.2026.11.16.09.52.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 16 Nov 2026 09:52:15 -0800 (PST)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 16 Nov 2026 17:52:09 +0000
-Subject: [PATCH v2 2/6] media: uvcvideo: Fix unaligned and OOB access in
- uvc_video_decode_meta()
+Date: Mon, 16 Nov 2026 17:52:10 +0000
+Subject: [PATCH v2 3/6] media: uvcvideo: Use bHeaderLength for payload size
+ in stats
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,7 +91,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-uvc-shortmeta-v2-2-62d4a8176fb8@chromium.org>
+Message-Id: <20261116-uvc-shortmeta-v2-3-62d4a8176fb8@chromium.org>
 References: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
 In-Reply-To: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
@@ -101,41 +101,55 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Ricardo Ribalda <ribalda@chromium.org>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
 
-meta->buf and scr point to packed metadata and USB packet memory that do
-not need to be aligned to anything, and store little-endian values.
+uvc_video_stats_decode() does not take into consideration extended
+header data (e.g. MSXU metadata) when it calculates the payload size or
+decides if a UVC packet contains payload data or not.
 
-Also, scr + 4 is a 16-bit field, so reading it as a u32 could
-potentially read 2 bytes beyond the packet.
+Use the correct size (data[0]) instead of the minimum header size.
 
-Last but not least, the old code printed wrong values on big-endian
-arches.
-
-Fix this.
-
-Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
+Fixes: 7bc5edb00bbd ("[media] uvcvideo: Extract video stream statistics")
+Fixes: 25738cbd72db ("[media] uvcvideo: Extract timestamp-related statistics")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/media/usb/uvc/uvc_video.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/media/usb/uvc/uvc_video.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index e801874e272e..8bae91af03ba 100644
+index 8bae91af03ba..ac8e0c3a0c71 100644
 --- a/drivers/media/usb/uvc/uvc_video.c
 +++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -1542,9 +1542,9 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
- 		"%s(): t-sys %lluns, SOF %u, len %u, flags 0x%x, PTS %u, STC %u frame SOF %u\n",
- 		__func__, ktime_to_ns(time), meta->sof, meta->length,
- 		meta->flags,
--		has_pts ? *(u32 *)meta->buf : 0,
--		has_scr ? *(u32 *)scr : 0,
--		has_scr ? *(u32 *)(scr + 4) & 0x7ff : 0);
-+		has_pts ? get_unaligned_le32(meta->buf) : 0,
-+		has_scr ? get_unaligned_le32(scr) : 0,
-+		has_scr ? get_unaligned_le16(scr + 4) & 0x7ff : 0);
- }
+@@ -1016,9 +1016,9 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
+ 	 * their first empty packet ?
+ 	 */
+ 	if (stream->stats.frame.size == 0) {
+-		if (len > header_size)
++		if (len > data[0])
+ 			stream->stats.frame.has_initial_pts = has_pts;
+-		if (len == header_size && has_pts)
++		if (len == data[0] && has_pts)
+ 			stream->stats.frame.has_early_pts = true;
+ 	}
  
- /* ------------------------------------------------------------------------
+@@ -1047,15 +1047,15 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
+ 	}
+ 
+ 	/* Record the first non-empty packet number. */
+-	if (stream->stats.frame.size == 0 && len > header_size)
++	if (stream->stats.frame.size == 0 && len > data[0])
+ 		stream->stats.frame.first_data = stream->stats.frame.nb_packets;
+ 
+ 	/* Update the frame size. */
+-	stream->stats.frame.size += len - header_size;
++	stream->stats.frame.size += len - data[0];
+ 
+ 	/* Update the packets counters. */
+ 	stream->stats.frame.nb_packets++;
+-	if (len <= header_size)
++	if (len <= data[0])
+ 		stream->stats.frame.nb_empty++;
+ 
+ 	if (data[1] & UVC_STREAM_ERR)
 
 -- 
 2.56.0.679.gc527c65306-goog
