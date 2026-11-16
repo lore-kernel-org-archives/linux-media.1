@@ -1,95 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794844336;
-	b=hAlX8ZexkL701fd0zbJOElrEDoV2bl/nkay/G2UxggQb6bhj6BXtmXOjxToZEPxgF1ij
-	 B9RR3IGyKyME5cUM9Jsvtu/ZphenxSVjx9U1gskHqhIzEgi2bOGvVAe0+PzLt9vNjju9p
-	 WyIohJFe45LEXfLZi+LMX07mSYd2N8lyxboRDLYnMZsQER5HcGYDGuG/rQ1Ip740pR8jh
-	 VdUK7L041YnCgVZTcW22/0reLrJu3iCEJAizu3KNFGZpOH2YV1G7+FPpvMycUGO8VBlmZ
-	 dL/7tYd8RaQWVeZbY2jWxjlMKoehZYOFoNLybgC8dVptdy0uyWrHG5dj7q/ED5NZtUA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794844336;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=tc6KfHj5fySnLDo/yssasn7KXGGvXcSn8JCgqMRWVxQ=;
-	b=M/iaVomGYpVSksW1KdJggGVP9jcu05FHF5h4deKEQ+fN0q3dOyqoGDCMYXE+3DuGU8MP
-	 lX5p3SGlYyqLFpFDdEm2DyZ+Ahju/dZbI1EYYKvBG7aHgrAwPMn8sJfUuSaYAePo6pvQx
-	 /uougziPd8hA2kWyih4ttV32snqF+KfM4jWYpXbLuTz/gcEgAkgfytiSfmnM6rHX4b81D
-	 ZtrhgJifiTcNU0Eepe0AqIh2QHZ9FpX9ACxqv4ToED270PROhCVaaBiBW41pgad5iwwL8
-	 vuydK0N+TXr4V4zuf5F6GWNeUQ7yvwvp1c9mRZxfG0GvsI3hla4prXIEazb2oGlFnew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=NusKEKiY;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794845043;
+	b=3myU18S2kvUqQyPDh3fqotPFW2JuLtHGyFZ2wTTJIX19otGFqUN4NF1S+6/eDMmHvUYy
+	 im47A5TkoQEer2NuRJu95lFWg2cq4F1T9BlMnFcldxaP+ZBRA03U8x0072kwYq469XVUr
+	 EiZctalpNHUjSPOJOln/b4zfl2Q669uWTKn+xxAoakWyrFKpHDi3pOwn8uNmICDLUb226
+	 OyZqkvE7H4a2amJ6wQXTNGSUZ38WBPLwPjmKJhJUJlAVTnMHKP05X6nalenbDv6SEQePj
+	 ZEzr+rzP9JvZlj0DPXnqdjeDhjEg+TY5rj8THQFXRcdwlmCcqvEwBcyK6MC7fqpHUIQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845043;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=XdLTo00ez0liJLVKJU/6DnV1F3D6qgRKsXkabMyfkAg=;
+	b=tbXtI33Z59TK7Zh1Z27/NCkwkOe9tezNss+aymTR61U7VqAsRb6pkS9UvYGIJP/CUWtw
+	 EhgEk44XfHtRQDcPjJYnvh37zUwfSh8Wz6RRNYcutX64frxAFN1EVPQAHyHE3Ea/SwWwG
+	 qkuaVAybpNcAeYNlq/DKlO9SNeWR8DnHzIfgE3ZgQNijT6atVB0sM0DT102m16b6GufGe
+	 kTAn1uOCeKUmhe41TubBjXFMvIYNOTmASiNbbWC6WZHJ1LoADknvrJOEiWU2Xou8JDE/q
+	 sFfIWIK1cDgr/oXq0HvY0whF25o31R/gXs1h3zyHVpLOEjBSsl7SX7xf2tSgzqe0+kQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhw7l3k8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D21F606A331;
-	Mon, 16 Nov 2026 15:52:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D21F606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCB5606A32A;
+	Mon, 16 Nov 2026 16:04:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=NusKEKiY
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id ED0204BB;
-	Mon, 16 Nov 2026 16:49:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794844186;
-	bh=dmodi+YIJbHNHccq3QM7tWgiNzPRHtMFkx//VJBaXh4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NusKEKiY4bzAOfEoYrIhBXyGlIkZI3PnloPf2BxBVRwuEIJvmtu+vw7O/jc41VQuU
-	 J3Ty1U67T4ibE4hILXY3O/CpMrCBJQpictxpRHUyim+WJ3gBdqwhQf8GriCHlXRv3w
-	 cuUezGZlAQGClI/3BR6NS7TrNFoxwJ2vIQYfr6tw=
-Date: Mon, 16 Nov 2026 17:52:11 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
-	linux-pm@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
-	Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
-	Alessio Belle <alessio.belle@imgtec.com>,
-	Luigi Santivetti <luigi.santivetti@imgtec.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Robin Murphy <robin.murphy@arm.com>, Yong Wu <yong.wu@mediatek.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dafna Hirschfeld <dafna@fastmail.com>,
-	Michael Tretter <m.tretter@pengutronix.de>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Will Deacon <will@kernel.org>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	dri-devel@lists.freedesktop.org, imagination@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
-	iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, linux-sound@vger.kernel.org,
-	sound-open-firmware@alsa-project.org, imx@lists.linux.dev
-Subject: Re: [PATCH v2 2/2] PM: runtime: fix stub pm_runtime_get_if_in_use()
- for !CONFIG_PM
-Message-ID: <20261116155211.GB1763340@killaraus.ideasonboard.com>
-References: <20261116152513.2676573-1-Frank.Li@oss.nxp.com>
- <20261116152513.2676573-2-Frank.Li@oss.nxp.com>
- <20261116153139.GB1763944@killaraus.ideasonboard.com>
- <avskkbztzVF_SRo6@SMW015318>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhw7l3k8
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794845043;
+	b=0N4/O+ta4hXLike/FhjqnJe7fdnpz079P8X28R1zV1Y740HW2npG5iM17gYcruTF22+M
+	 V22hlyBZR/iKyZp9WMmlcuBRu6dEbp0nWaHANnKJo4M87WdHqcVo5CtHawiN8V38QmCvW
+	 3sz3nmcHLwiDb03Etiiqp1plyIjH+vFHobbeHJyULyZo4iSeSz/BabSdbg003I/7t6Ojp
+	 h6PmWYEqpaiM7NUFuJL8gtNQD7NawKRmeNIHg+JMzKRVtbDjq4sGcBB8VOf+15qzzL6Mh
+	 1F+1Y6b3wx6uKNOaDqwyqLwWKrB45CfZ+WkjD2lB2EcKBAphkJQG/TfRZT1K2c2hlJw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794845043;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=XdLTo00ez0liJLVKJU/6DnV1F3D6qgRKsXkabMyfkAg=;
+	b=WCTUKG2H3aw+0sK7yhih4o9IuAi+VcivqIcFrj6dq73U9clPfKcuEnBBVpLZbwuH0gA1
+	 iMpye0yrrdiRsbgA8GcWYMwh3hFB6+XwqGzQdsRHr/ypKyi21CKqEcBcBVnP2G+CGdqxe
+	 +sRj0amfgGXCGlgV9ehwO50IFQs8cTujsOHPZOp8DaJ46d6AP9GVuWPQ39/0j8i2R7pIH
+	 P/Xb9HvE02HTEJMzoLWLFrn7FIGHh+SyyiUX0ehPSsKHZF5f70lWbnP9DIcGQQfFlH1w4
+	 sxviFm2jtmpv6XVSGrUk7bX+g6WMDZzV/aLuSM/ub1Ru37umA6EeXCXTA0GW6avDpAg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 951121F000C9;
+	Mon, 16 Nov 2026 16:04:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794845043;
+	bh=XdLTo00ez0liJLVKJU/6DnV1F3D6qgRKsXkabMyfkAg=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=mhw7l3k86gD0pHuvdUI5dDYpfSbqxHx9Gm6NRDILgt5RTsjxX6QM2UbQTFvSNSRBW
+	 CwVgCTSmf3bkJLx8YYwM6t0mMbPOdtrsWzpRRsZFR0cpO4DZBjba0kvsgQHMeItmZt
+	 2U8xPFMIbkxYeT8EScgfXZWZtS62PWsbOXclqFUBSxGe/5O9iyUi8O8imC0M3njXd6
+	 4pxQDBupBdUbUqBOS/du4NS4lq6+4g+BxWClxIbgmzceuKi/XGSldFSGgPitGrDCio
+	 BL74nL1HvcWBzZu0DJqZieGD0krRXZUoMfY0XwyPeQSroSX2lkAWxocicO762eoLhi
+	 R37jQ2zqNWdOA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id EBAB14A508;
+	Mon, 16 Nov 2026 16:04:01 +0000 (UTC)
+From: Babis Danias via B4 Relay <devnull+b.danias.tutamail.com@kernel.org>
+Subject: [PATCH v2 0/2] media: i2c: ov8856: Power management fixes
+Date: Mon, 16 Nov 2026 18:03:58 +0200
+Message-Id: <20261116-ov8856-pm-fixes-v2-0-7e41763164f2@tutamail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,166 +83,149 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <avskkbztzVF_SRo6@SMW015318>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNwQ6CMBBEf4Xs2TVtgVo5+R+GQy2LbCKUtNhoC
+ P9uJfHk8c3kzawQKTBFaIoVAiWO7KcM6lCAG+x0J+QuMyihtJSiRJ+MqTXOI/b8ooiWKttXxhm
+ lOsjWHGgvsnRtMw8cFx/e+0GS3/S3Vf1tJYkC5bk2t1MpHGl9WZ6LHS0/js6P0G7b9gHJ5JPts
+ QAAAA==
+X-Change-ID: 20261103-ov8856-pm-fixes-ae4af48c822d
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Tomasz Figa <tfiga@chromium.org>, 
+ Hidenori Kobayashi <hidenorik@chromium.org>, Ben Kao <ben.kao@intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Serin Yeh <serin.yeh@intel.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Robert Foss <rfoss@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ Bryan O'Donoghue <bod@kernel.org>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Charles Drolet <linux@cdrolet.dev>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Babis Danias <b.danias@tutamail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794845041; l=5322;
+ i=b.danias@tutamail.com; s=20261103; h=from:subject:message-id;
+ bh=+mhMmb0y6u8eXbRcxOqaHSRMAfskWw4SpmD9aXVBVUw=;
+ b=C8N2YRx0yY8QPmkcjwb12630HYHdCXzZaMFP/R+WK0V0q2zZk/xmynmLt0CQb6Tk3jmqDzWLh
+ z+P7ePDRtkQAbN9wHMZFWQgA45pxgiOLRRSRZvsiS6QEyh5w8RERjAC
+X-Developer-Key: i=b.danias@tutamail.com; a=ed25519;
+ pk=6DWeigdk0D3JwBjwvmxo9RW8cG8S1Eku42cb9PP+ghk=
+X-Endpoint-Received: by B4 Relay for b.danias@tutamail.com/20261103 with
+ auth_id=1406
+X-Original-From: Babis Danias <b.danias@tutamail.com>
+Reply-To: b.danias@tutamail.com
 
-On Mon, Nov 16, 2026 at 09:43:13AM -0600, Frank Li wrote:
-> On Mon, Nov 16, 2026 at 05:31:39PM +0200, Laurent Pinchart wrote:
-> > On Mon, Nov 16, 2026 at 10:25:11AM -0500, Frank.Li@oss.nxp.com wrote:
-> > > From: Frank Li <Frank.Li@nxp.com>
-> > >
-> > > The stub for pm_runtime_get_if_in_use() under !CONFIG_PM currently
-> > > returns -EINVAL.  The real implementation returns:
-> > >   1  - device is active and its usage counter is non-zero (bumped)
-> > >   0  - device is not in use or not active (counter not bumped)
-> > >  -EINVAL - runtime PM disabled for this device
-> > >
-> > > When CONFIG_PM is not set every device is permanently "active" and
-> > > always considered "in use", so the stub must return 1, mirroring
-> > > __pm_runtime_resume() which already returns 1 in the same build.
-> > >
-> > > Returning -EINVAL breaks callers that test the return value with
-> > > comparisons other than "!= 0 / == 0":
-> > >
-> > > drivers/gpu/drm/i915/intel_runtime_pm.c:
-> > >   if (intel_runtime_pm_get_if_in_use(rpm))
-> > >   which wraps to: ret = pm_runtime_get_if_in_use(); return ret > 0;
-> > >   With -EINVAL the wrapper returns false, causing an incorrect error
-> > >   path in the GT fence revocation code.
-> > >
-> > > drivers/gpu/drm/xe/xe_pm.c:
-> > >   if (pm_runtime_get_if_in_use(xe->drm.dev) > 0)
-> > >   With -EINVAL the condition is false; xe_pm_runtime_get_if_in_use()
-> > >   returns false, so callers believe the device is not usable.
-> > >
-> > > drivers/gpu/drm/gma500/power.c:
-> > >   return pm_runtime_get_if_in_use(dev) == 1;
-> > >   -EINVAL != 1, so the helper always returns false when !CONFIG_PM.
-> > >
-> > > drivers/gpu/drm/imagination/pvr_power.c:
-> > >   if (pm_runtime_get_if_in_use(...) <= 0)
-> > >   -EINVAL <= 0 is true, so the driver always takes the "requeue" error
-> > >   path instead of proceeding with the active device.
-> > >
-> > > sound/soc/sof/debug.c:
-> > >   if (pm_runtime_get_if_in_use(sdev->dev) == 1)
-> > >   -EINVAL != 1, so d3_prevented is never set, corrupting exception
-> > >   debug accounting.
-> > >
-> > > drivers/iommu/mtk_iommu.c:
-> > >   if (pm_runtime_get_if_in_use(dom->plat_dev->dev) <= 0)
-> > >   -EINVAL <= 0 skips the TLB flush, leaving stale IOMMU mappings.
-> > >
-> > > drivers/iommu/rockchip-iommu.c:
-> > >   Three call sites use WARN_ON_ONCE(err < 0) or similar patterns.
-> > >   -EINVAL < 0 triggers a spurious WARNING on every call.
-> > >
-> > > drivers/media/i2c/isl7998x.c:
-> > >   if (pm_runtime_get_if_in_use(dev) <= 0)  (two call sites)
-> > >   -EINVAL <= 0 causes the driver to always skip register programming
-> > >   when !CONFIG_PM.
-> > >
-> > > drivers/media/platform/rockchip/rkisp1/rkisp1-debug.c:
-> > >   if (pm_runtime_get_if_in_use(dev) <= 0)  (two call sites)
-> > >   -EINVAL <= 0 prevents any debug statistics from being collected.
-> > >
-> > > Fixes: 9d58aa46291d ("drm/i915: Fix the GT fence revocation runtime PM logic")
-> > > Fixes: cbb6a7413b17 ("drm/xe: Introduce xe_pm_runtime_get_noresume for inner callers")
-> > > Fixes: 672c473576ca ("drm/gma500: Rewrite power management code")
-> > > Fixes: 727538a4bbff ("drm/imagination: Implement power management")
-> > > Fixes: b30289e7fa92 ("ASoC: SOF: Fix runtime pm usage counter balance after fw exception")
-> > > Fixes: c0b57581b73b ("iommu/mediatek: Add power-domain operation")
-> > > Fixes: 0f181d3cf7d9 ("iommu/rockchip: Add runtime PM support")
-> > > Fixes: 51ef2be546e2 ("media: i2c: isl7998x: Add driver for Intersil ISL7998x")
-> > > Fixes: cbb819c363c5 ("media: rkisp1: debug: Collect input status by sampling ISP_FLAGS_SHD")
-> >
-> > I don't think this one is right. The rkisp1 driver only runs on ARCH_MXC
-> > and ARCH_ROCKCHIP, which select CONFIG_PM. The same may be true for some
-> > of the other fixes tags.
-> 
-> But code itself should be wrong even though these platform force enable
-> CONFIG_PM.
+Since commit 609a71568664 ("media: i2c: ov8856 : remove ACPI node
+bypass mechanism") in v7.4-rc1, ov8856 also controls the sensor's power
+on ACPI systems. Bringing up the rear camera of a Dell Latitude 7320
+Detachable (OV8856 and a DW9714 VCM, behind a TPS68470 PMIC) on top of
+that showed two runtime PM bugs in the driver, fixed here:
 
-How does it make the code wrong in the rkisp1 driver ? There's nothing
-to fix there, because there's no bug.
+1. remove() powers the sensor off even when runtime PM already has,
+   giving unbalanced regulator and clock disables. This also affects
+   devicetree systems, since 2022.
 
-I'm not saying this patch is wrong (I'll let the runtime PM folks
-provide expert feedback), but I think some of the Fixes: tags are not
-correct.
+2. probe() registers the sub-device before enabling runtime PM, so
+   ipu-bridge can't runtime-resume the sensor to instantiate its VCM
+   (-EACCES).
 
-> > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > > ---
-> > > Change in v2
-> > > - new patches.
-> > >
-> > > Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-> > > Cc: linux-pm@vger.kernel.org
-> > > Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> > > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> > > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > > Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-> > > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > > Cc: Maxime Ripard <mripard@kernel.org>
-> > > Cc: "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>
-> > > Cc: Simona Vetter <simona@ffwll.ch>
-> > > Cc: David Airlie <airlied@gmail.com>
-> > > Cc: Matthew Brost <matthew.brost@intel.com>
-> > > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > > Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-> > > Cc: Alessio Belle <alessio.belle@imgtec.com>
-> > > Cc: Luigi Santivetti <luigi.santivetti@imgtec.com>
-> > > Cc: Liam Girdwood <lgirdwood@gmail.com>
-> > > Cc: Mark Brown <broonie@kernel.org>
-> > > Cc: Jaroslav Kysela <perex@perex.cz>
-> > > Cc: Takashi Iwai <tiwai@suse.com>
-> > > Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
-> > > Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-> > > Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> > > Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> > > Cc: Robin Murphy <robin.murphy@arm.com>
-> > > Cc: Yong Wu <yong.wu@mediatek.com>
-> > > Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> > > Cc: Matthias Brugger <matthias.bgg@gmail.com>
-> > > Cc: Heiko Stuebner <heiko@sntech.de>
-> > > Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> > > Cc: Dafna Hirschfeld <dafna@fastmail.com>
-> > > Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > > Cc: Michael Tretter <m.tretter@pengutronix.de>
-> > > Cc: Daniel Baluta <daniel.baluta@nxp.com>
-> > > Cc: Will Deacon <will@kernel.org>
-> > > Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-> > > Cc: dri-devel@lists.freedesktop.org
-> > > Cc: imagination@lists.freedesktop.org
-> > > Cc: intel-gfx@lists.freedesktop.org
-> > > Cc: intel-xe@lists.freedesktop.org
-> > > Cc: iommu@lists.linux.dev
-> > > Cc: linux-arm-kernel@lists.infradead.org
-> > > Cc: linux-mediatek@lists.infradead.org
-> > > Cc: linux-media@vger.kernel.org
-> > > Cc: linux-rockchip@lists.infradead.org
-> > > Cc: linux-sound@vger.kernel.org
-> > > Cc: sound-open-firmware@alsa-project.org
-> > > Cc: imx@lists.linux.dev
-> > > ---
-> > >  include/linux/pm_runtime.h | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
-> > > index de9e7518ecef2..1d983fe55a16a 100644
-> > > --- a/include/linux/pm_runtime.h
-> > > +++ b/include/linux/pm_runtime.h
-> > > @@ -276,7 +276,7 @@ static inline int pm_schedule_suspend(struct device *dev, unsigned int delay)
-> > >  }
-> > >  static inline int pm_runtime_get_if_in_use(struct device *dev)
-> > >  {
-> > > -	return -EINVAL;
-> > > +	return 1;
-> > >  }
-> > >  static inline int pm_runtime_get_if_active(struct device *dev)
-> > >  {
+Both bugs are older than 609a71568664, so both patches carry Cc: stable.
 
+v1 had a third patch, which powered the sensor off during system
+suspend. It is dropped after Laurent's review. The problem it was aimed
+at is still there: with the dw9714 driver bound, the sensor stays
+powered through s2idle. Charles Drolet is looking at that from the
+dw9714 side.
+
+Testing
+
+Tested on a Dell Latitude 7320 Detachable (BIOS 1.39.0), with ov8856
+and the TPS68470 board data built out of tree, on two kernels:
+
+- Fedora rawhide 7.4.0-0.rc2.261111g067c5c24cef2 (mainline at
+  067c5c24cef2), with ov8856.c from v7.4-rc1 plus these patches. In
+  mainline the file has changed since v7.4-rc1 only by one
+  devm_kzalloc_obj() conversion.
+- Fedora 7.2.15 with 609a71568664 backported.
+
+The board needs TPS68470 board data that isn't upstream yet: the front
+camera entry from Sahan Nissanka's series for the Dell 7320 Detachable,
+plus the rear sensor's supplies, reset GPIO and VCM supply. Charles
+Drolet is working on board data for the rear camera.
+
+With that, on both kernels:
+
+- three rounds of unbinding and rebinding the sensor give no warnings
+  (before: the warnings quoted in patch 1, on every unbind). On the
+  7.4-rc2 kernel, the regulator trace of the whole test shows as many
+  disables as enables;
+- the VCM is instantiated when the sensor binds, the dw9714 driver
+  binds, and focus can be set through V4L2 (before: the -EACCES error
+  quoted in patch 2, on every bind);
+- the sensor is runtime-suspended after probe and after each rebind;
+- streaming with libcamera's cam works at 1640x1232.
+
+The logs quoted in the patches come from the 7.2.15 kernel.
+checkpatch.pl --strict is clean, and each patch builds without warnings
+with W=1. I haven't run sparse or smatch.
+
+Two things this series does not change:
+
+- After the sensor is unbound by hand, the dw9714 driver is unbound as
+  well, and it stays unbound when the sensor is bound again, until it
+  is bound by hand. v1 behaved the same.
+- The probe error paths end in an unconditional ov8856_power_off(). If
+  probe starts with the sensor not in D0 and then fails, that disables
+  regulators and a clock that were never enabled. This is older than
+  this series, and Charles Drolet has a change that makes that
+  power-off conditional. A related case comes with patch 2, where no
+  usage count is held across registration any more: if
+  v4l2_async_register_subdev_sensor() fails after the bridge's bound
+  callback has run, the VCM work may already have resumed the sensor
+  and let it suspend again, and the error path then powers it off once
+  more. I haven't seen either happen and can't test them on my unit, so
+  I left them alone. I'm happy to add a check there if you want one in
+  this series.
+
+AI assistance
+
+I'm not a kernel developer, and I'm out of my depth here. I worked on
+this with an AI assistant, Claude, as in v1. For v2 it explained the
+review comments, proposed the changes and the tests, read the logs I
+sent back, and drafted the commit messages and this letter. I typed the
+code changes myself and ran every test on my own tablet. After that
+I've checked everything as well as I can: each claim here against the
+code, the commit history and my own test logs. I can't promise I caught
+it all. Hope this doesn't cost you more time than it saves.
+
+---
+Changes in v2:
+- Dropped the patch that powered the sensor off during system suspend
+  (v1 3/3), after Laurent's review.
+- Patch 1: mark the device suspended only if it wasn't suspended
+  already, inside the same check as the power-off (Sakari).
+- Patch 1: the Fixes: tag now names 08304923d317, where runtime suspend
+  began to power the sensor off. v1 named 0c2c7a1e0d69, which was wrong:
+  the driver had no runtime PM callbacks then.
+- Patch 2: don't hold a usage count across registration; call
+  pm_runtime_idle() after registering the sub-device (Sakari).
+- Dropped Charles Drolet's Tested-by on patch 2, since the code changed.
+- Retested on 7.2.15 and on a 7.4-rc2 snapshot.
+- Link to v1: https://lore.kernel.org/r/20261104-ov8856-pm-fixes-v1-0-1958b730ce66@tutamail.com
+
+---
+Babis Danias (2):
+      media: i2c: ov8856: Don't power off a suspended sensor in remove()
+      media: i2c: ov8856: Enable runtime PM before registering the sub-device
+
+ drivers/media/i2c/ov8856.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261103-ov8856-pm-fixes-ae4af48c822d
+
+Best regards,
 -- 
-Regards,
+Babis Danias <b.danias@tutamail.com>
 
-Laurent Pinchart
+
