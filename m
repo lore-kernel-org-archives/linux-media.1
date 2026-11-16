@@ -1,83 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794793856;
-	b=hcFZj7q8nFNB6tbOxaGeRgvIxKBqArdHSDjTkg/LYi/1C7CMr+7m4IkDz2MaPK+2l5wI
-	 Z9svY4bg3FeFh8epXO+htQedau/yaJTOvX6pxS189yIAZXmQm1XJf0iaSZ8CaYh4weMxq
-	 iXxoEUKTwgNbguSrIw9y471Y+jSN9n/E3PUtd3RCuHhjtMxWH1df7ydoFSc7wsRHeB/Bn
-	 SKhzuOnpoQ7L+WLFyYH7OqnBWVj/j5Mq6qsWpCNq6kdjkXvGhypr+rMuPR0Y4w5Fz/3kj
-	 cJ03pOUiXTgOaKFr8NU/ryivx0Oec23xXnERcA6qX9/+t2Fs4Z5djy8ncUAKbVlLedA==
+	t=1794795219;
+	b=vypacod4ZlbRWNaEeAlbA+4GDuLpHd1uutgzMP/ZBd0wKdDPN45hR5zPL8gi7IUM+Z1W
+	 nggzSJUxCEA1IFiD3yLrdenGRepSKRDLBSuSFjIUMPfx8adCS1m5VQAs3eRtcRWDCvvov
+	 FgzZ+NGms2z6LsVWdEiUpSGntXA78kcWBHOBOAlD9m9ZXWyboNomLFqqt1JGgDbnCZNwd
+	 5Ey0HTHqq2VF4KJe8yT4x3D6AItlOuprVg1BgUWge1o02fucW5uaSiuJ0jECJJaDMttmk
+	 oNy6D9MSdGZMqcg2kbqm2NZ6sp6x/yEuHhZYyjE1TO5o35PeufVVo3fL9gCzfYF9iqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794793856;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=NA2WPbMsSF9Vb+39rUVltD8lcd6ZGsqb59wquimKCTs=;
-	b=Eq0w0QoD28ZwwT96K+EG0x831I1j4bLfQKC+h4pHQ95OboLc3mcGUYWfVI+J81QaqWR9
-	 g0F+hth1olVmfRcyQCw2/u0ZRHiMO2GrmRHHFTjRQ6+OntCywnSFc7kEH/n5GlZE7c5rU
-	 vO2J4cWmksavZ9xlVRGXQSnKxDUE3gNbyf7QAWLvx6JWfKnfiSOCNjq5lfvW/aPpvvkhC
-	 Ghanca3AthSGpoESFzJ40Cm5kFAu1BZvT2atUAg6g9oMZszGekmK9EZ/LAjJMaLnf9ngJ
-	 7M05jDfMMRcheg6tOO9npxqlvaMcgQiMT/8IG4JWDrNcDIkXCAysYN+6A54Wf+wrWew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794795219;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:To:Cc:Subject:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=uom7B3dmljcE5dgbhBFq073CCfa8xqWgFEsm90SeRkQ=;
+	b=eDMM63QRzU5r5VSdWa5DAvzu4m54hrD7nAQVm6K/h9BsK2e5wcGkPlhENyiFiE65VKbv
+	 R59IQc46+HyRCBJO0HZZVE/Ehkl8HXnBhQu/0vkmn8CBvnps8f0xJevOBlaRzmhKf9ajI
+	 gQDgp2LwT4AgwmilHytc7gHQi/8g/oTvzEAHQVlzF2t7dmINICiTDRlm0VaXyjxh7bzO3
+	 TL/XXq74OBbeIPgmmeqfA6fPArz0AaPae79Twt8AWE92Zw9Gzs7Bd4T9nCJo9ykLwcjpC
+	 qcPRDkRlM1Ohy9wFwQrpyeSGUbr7rjov/ja9U/bEOjdat1xu6hUB88slKJRgDMvSXNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iz7IJO2o;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=FyqVxPRZ;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796A360A5BE7;
-	Mon, 16 Nov 2026 01:50:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3467A606A337;
+	Mon, 16 Nov 2026 02:13:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3467A606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iz7IJO2o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B82B1F0182E;
-	Mon, 16 Nov 2026 01:50:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794793856;
-	bh=NA2WPbMsSF9Vb+39rUVltD8lcd6ZGsqb59wquimKCTs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Iz7IJO2otNJuBqCEMv2yby2O1jHUFDTiSN8T2le+TyXiSuuiIrbR7w7LMjg0wu90I
-	 0BFCHPTHwGGtPqMj5maGH5AAw/Eya6SsIhnU8bXVFFP6HEFdVSAjpfUsvsO5mbbqoI
-	 U4oh2TkngsEfhFyZP4hVqxEb1JzZRdaZHTMy046ZlVT92tTqlUN6kUuQkxz/MXZAsv
-	 RLYjP+uxqD4Q8CpLULM3zW8oj2xXCjUPaGWkMIBYIUMHdGZ8FymI1QJHH3EF92oOmR
-	 PRQjxHFEUl3qaiPAsEBr5XTN9nTVHYcGSEr6p+tTavqr+7bzrxW/Elb9ykW8+TPJWf
-	 XkRQ95ONuaK2w==
-From: Jonathan Cameron <jic23@kernel.org>
-To: linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Martin Tuma <martin.tuma@digiteqautomotive.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	Gustavo Silva <gustavograzs@gmail.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Ramona Alexandra Nechita <ramona.nechita@analog.com>,
-	Tomislav Denis <tomislav.denis@avl.com>,
-	Jorge Marques <jorge.marques@analog.com>,
-	Petre Rodan <petre.rodan@subdimension.ro>,
-	Dan Robertson <dan@dlrobertson.com>,
-	Jianping Shen <Jianping.Shen@de.bosch.com>,
-	Gwendal Grignou <gwendal@chromium.org>,
-	Maxwell Doose <maxwell@maxwelld.cc>,
-	Tomasz Duszynski <tduszyns@gmail.com>,
-	Esben Haabendal <esben@geanix.com>,
-	Narcisa Ana Maria Vasile <narcisaanamaria12@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Vasileios Amoiridis <vassilisamir@gmail.com>,
-	Abhash Jha <abhashkumarjha123@gmail.com>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Nishant Malpani <nish.malpani25@gmail.com>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 32/35] iio: light: si1145: use default_trigger
-Date: Mon, 16 Nov 2026 01:48:20 +0000
-Message-ID: <20261116014823.3132576-33-jic23@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261116014823.3132576-1-jic23@kernel.org>
-References: <20261116014823.3132576-1-jic23@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=FyqVxPRZ
+Received: from killaraus.ideasonboard.com (81-175-209-152.bb.dnainternet.fi [81.175.209.152])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7DD9C63C;
+	Mon, 16 Nov 2026 03:11:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794795063;
+	bh=0BXRXg7UODOKuM2rD1/JbijBaD+p9Q3+Qq2kMPYggPA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=FyqVxPRZn4cQ1oVgqaY2W4ZgnziY/cr7vY6VVQTkfYYUgC6KIJzz4jYdrkGvfeH5J
+	 cvsjxy8QIzQ+KqvgYGCazQ7BEo7J6FVgJkaah6TYC5hEiVLC91ZYJUVqK+z8kY8Fla
+	 0hydk5iyUkuj4cOEWWTc+Tb2e7mOyO96RXSjBXyo=
+Message-ID: <89b15b01cfebb86185ec643ec6ce5427@killaraus.ideasonboard.com>
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Sinan Turunc <enscrpt@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Reject metadata packets shorter than
+ their header
+Date: Mon, 16 Nov 2026 04:13:25 +0200
+In-Reply-To: <20261115121701.189-1-enscrpt@pm.me>
+References:  <20261115121701.189-1-enscrpt@pm.me>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -87,55 +65,82 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Hello,
 
-Set indio_dev->default_trigger rather than taking a reference to the
-trigger in probe(). The IIO core now takes the reference during
-iio_device_register(), so it is not leaked if probe() fails after
-the trigger is set up. Note this driver doesn't have this leak.
-This avoids fragile registration ordering constraints and enables
-additional refactors on top.
+This is an automated reply.
 
-The copy of the trigger pointer in data->trig is only used during
-probe(), so drop it.
+You have sent a patch or bug report that appears to have been generated
+by an LLM. The commit message, code and/or problem description show
+little to no real understanding of the issue and changes being proposed.
 
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
----
- drivers/iio/light/si1145.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+Such patches or reports require a large amount of work to handle. They
+rely on maintainers to propose - and often even implement - a proper
+design. The probability that the author will learn from the experience
+to improve their future contributions is close to zero.
 
-diff --git a/drivers/iio/light/si1145.c b/drivers/iio/light/si1145.c
-index bb7c99041819..b160dd5dba86 100644
---- a/drivers/iio/light/si1145.c
-+++ b/drivers/iio/light/si1145.c
-@@ -166,7 +166,6 @@ struct si1145_part_info {
-  * @scan_mask:	Saved scan mask to avoid duplicate set_chlist
-  * @autonomous: If automatic measurements are active (for buffer support)
-  * @part_info:	Part information
-- * @trig:	Pointer to iio trigger
-  * @meas_rate:	Value of MEAS_RATE register. Only set in HW in auto mode
-  * @buffer:	Used to pack data read from sensor.
-  */
-@@ -178,7 +177,6 @@ struct si1145_data {
- 	const struct si1145_part_info *part_info;
- 	unsigned long scan_mask;
- 	bool autonomous;
--	struct iio_trigger *trig;
- 	int meas_rate;
- 	/*
- 	 * Ensure timestamp will be naturally aligned if present.
-@@ -1258,8 +1256,7 @@ static int si1145_probe_trigger(struct iio_dev *indio_dev)
- 	if (ret)
- 		return ret;
- 
--	data->trig = trig;
--	indio_dev->trig = iio_trigger_get(data->trig);
-+	indio_dev->default_trigger = trig;
- 
- 	return 0;
- }
--- 
-2.56.1
+As a result, to make good use of maintainer time and keep the kernel
+development process sustainable, your contribution has been rejected.
 
+If you believe the change you proposed is important, take time to study
+the problem, learn, and develop a solution without AI assistance.
+Answering this e-mail or generating a new version of a patch by feeding
+this reply to an LLM will only result in your e-mails being ignored.
+
+Please note that if your patch attempted to address an important
+problem, maintainers or other contributors can submit and merge a
+similar or entirely different fix without crediting you.
+
+Your contributions to the Linux kernel will be welcome if you genuinely
+desire to invest your time and learn.
+
+Thank you,
+
+Laurent's mail bot
+
+On Sun, 15 Nov 2026 12:17:18 +0000, Sinan Turunc <enscrpt@pm.me> wrote:
+> uvc_video_decode_meta() derives the length of a UVC payload header
+> from the PTS and SCR flag bits in the packet, not from the packet
+> length, and with V4L2_META_FMT_UVC it copies that many bytes with
+> memcpy(meta->buf, &mem[2], length - 2). Nothing compares the derived
+> length with the packet length, so a packet shorter than the header it
+> claims is read past its end, and the bytes beyond it - whatever the
+> URB buffer held there before - are copied into the metadata buffer
+> that userspace reads.
+>=20
+> An emulated UVC camera that sends an 8-byte isochronous packet with a
+> 3-byte header and both the PTS and SCR bits set made the copy take 10
+> bytes from mem[2]: the last four came from past the packet, and in one
+> run those four were the tail of the previous packet still in the URB
+> buffer (03 0c, a UVC header) rather than zeros. With this patch the
+> same device delivers no metadata blocks at all, and the video stream
+> is unchanged: 25905 buffers, 5958150 bytes over a 30-second window.
+>=20
+> The check is placed after the derived length is final and before the
+> format override, and treats such a packet the way the function already
+> treats a 2-byte one: it returns.
+>=20
+> Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sinan Turunc <enscrpt@pm.me>
+> ---
+>  drivers/media/usb/uvc/uvc_video.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_=
+video.c
+> index fc3536a4399..25c3b8dc891 100644
+> --- a/drivers/media/usb/uvc/uvc_video.c
+> +++ b/drivers/media/usb/uvc/uvc_video.c
+> @@ -1487,6 +1487,10 @@ static void uvc_video_decode_meta(struct uvc_streami=
+ng *stream,
+>  	if (has_scr)
+>  		len_std +=3D 6;
+> =20
+> +	/* A packet shorter than the header it declares is malformed. */
+> +	if (length < len_std)
+> +		return;
+> +
+>  	if (stream->meta.format =3D=3D V4L2_META_FMT_UVC)
+>  		length =3D len_std;
+> =20
