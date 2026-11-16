@@ -1,47 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794831793;
-	b=vYZ/gyua5sfPpfFo6zDA70v2cJFR0GTe2pkJsGAX/RB3sbIBz+i0dKJ3zXkr3sn334py
-	 y9m/UEEYsc92mSnZFphBuyBECZX1PDhzt57Rhm2vNstSOoZuAEeNhMavpZiuop30onV4M
-	 Ix8q6MHPa7ZTgqyEICM0R0v1wuF/nS0v5cGwCGaHIh0UyfbjXVO0FKypZ1MmLVVyt7WKk
-	 c50kEAL8q6GYkU5fxQM5KsM3Wu217S6CW0m5T0S3rQPYdB0xgqZnMCZr/YgGbZ4EwL+PK
-	 MXaNV0UHhn1K3T307DuKMqkNi6GifJIjiRASCt/dpL3CNhmZMa8Ed8e0YVJfJ1Q3MHw==
+	t=1794832021;
+	b=g/rpX0zd9sudGizVPnZ1Xnrr78fbiUAq+24sCeH+I0N4vkGX3k6Ui1DOs5J0JcF8hHix
+	 JtHE64cFJOmJwdqtLAttz5ZniNx9uI1J4AL6Qpca0qYduzCEdmnmq6dwnkbrwkrRNhM8r
+	 cJpEQ7Z1yNTH7R6MUxCZ+TlKPSSG4WpUMmK1mWN+rNaLxo3bxW14s+YIx5kbol3IVkPx0
+	 UR7fiNwel11H08MdKmD6LWzS5+iSy/1ZbDt5aoGUgo77bZQs/OnDn8nLfnfN+8eiOkX9n
+	 nnne7xx0c9b7AVuR+soY8b79yGZt9qaRBd7f5zml4CZps1SAs7WC2xBAMuQC+peZfnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794831793;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=XjOLJYPpE+zg9FjXzUFe2yCJSZC0NZwI9t12nm1h74I=;
-	b=Fc1/S7ttvzXTdICwGbl1gmF7bnCI4KscfSyrY6jKgLa1oQLn5AOFZThqmE5dMkH1akid
-	 9immRB/ZLBD6dcHbGFUCOeY4gItLTonbGFSrcAizFYc60YLlJ+soguHNT14MbCS5U3x4t
-	 /9qPxX/HWE7SpsU8vvh0X+iDo1/ntpyMqHJKxyNfa6yHg5vADYI/09nCLeQqopZKp+nji
-	 eP+gc7a+BLiOYT9kfLuNu5Xp3qteOWypcAqM8m42mrIYxUHMfSOkmR5wn3wPVCqpJTxEe
-	 5oG7ZyV/ePVEi1ItsvokB+wE7tGX2EoOoA9P76PuTnbUvXFMaAroGhSFmIyI0DCp5zA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832021;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=LztVH/Br0K4gtRrkNgsVN8G2Ix17Zkmh6T5nMPGmD4I=;
+	b=rB+FAyl4/Jz15S+XncWWpAaScCwihnY20NQj1oQNy4Ynxwdc/GTV3ukmLdzeIPXkOV57
+	 CazfzZuJ6fa7FTDpsr/jTbKT7sN5sKFifJ41wEtl4O2X/NSfoOASMNL3kDtAy6+1kAdDC
+	 Qyb/7PBkrPSP0nmvg1ZCOcyHZynB8+gZnSwPh3FCFil47Emcy7SJdG2k+zFuexdFmTnGa
+	 EgQSrPwhHTxhrNQT9dfkZ9qcCNTIGUX6ZQST7ZEM/FkSdcem4RhiTcHm6pJ5fSXd5eoFZ
+	 8BcWUqilpyKhX7AEhNZgpY3LnSchkRjmQJwbftHCHSAtws+cextPrCt82CPcGusPFZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LP/pjdCR";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X2TwkGhS;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0923B606A31C;
-	Mon, 16 Nov 2026 12:23:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2997B606A31C;
+	Mon, 16 Nov 2026 12:26:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2997B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LP/pjdCR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15C7C1F000C4;
-	Mon, 16 Nov 2026 12:23:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794831792;
-	bh=XjOLJYPpE+zg9FjXzUFe2yCJSZC0NZwI9t12nm1h74I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LP/pjdCRgI6C+8s2UrzRyQ5Q29IzwW9MxwKstBP4e8qfrA3Nzq1GuvCfRvb38dUa2
-	 eFmZ4IlxChZ1GKQrTNEHZjvoYDHaVu/JM7LHOK1uVlpsrSJAB6sWE1d6fR3EPp5NhT
-	 aWU3iKGJkBHHoBIXbxX0dK8+SOQmFTczD16RfhqPUTSCgc3jmiE0friRxYitjkrpKQ
-	 dxsJAxDZGGzhTX9It0LHJsJKt36V7sjrSAlrVlppb1LY+sZaNulhTBUX3ulosrp+WW
-	 cfwCKeSO5C7/8FFHXWxoedaKfkUK60KKyhfOQHGiA6585z/ur8ZIpOfxIInnqfz2KC
-	 Oxst89YpKT4cg==
-Message-ID: <8e8300f1-d837-495b-b947-a3b52f44b4d6@kernel.org>
-Date: Mon, 16 Nov 2026 13:22:58 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X2TwkGhS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794832020; x=1826368020;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cFOAVePZVgxrC8JkOnzlLlxAgWuxq2P3Pj4zDMgFhLs=;
+  b=X2TwkGhS/Q6d99fUCmP8WdNH+YSFnJuZ6JTGWQz+dqz6fw5WXhDIT9S5
+   KhQ1UJhQbJ8pvtVkwYwqSGu//YOphSKI7kXHuFbfIPgMXgdaAUYyUwvvL
+   gjPWSKT/oMbbTxNLBqX7j+OZHd6DvAVhalptld9k72d1q9uOEhJt6u+tn
+   eRauWhRbVd++HOIlLRAXivLAnmnH0jspJyXN/LO6Ui43nquKeVhlkGZ85
+   8FC+1c1iOQ1crF12pFvdw2G6ApaCDtaxF4lRwd68mHXIZisvLPNq1s2Dl
+   KF3mEcaX8CoaFdBhDt8CXMX8w07flMYzTxCne6eEdgYEYK/ssxki+l4YN
+   Q==;
+X-CSE-ConnectionGUID: NaABzIO2T+KZrfeQoi4fCg==
+X-CSE-MsgGUID: 3weAZLfjSQeBxj+XISluOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3444669"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3444669"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 04:26:59 -0800
+X-CSE-ConnectionGUID: PpbZemL8SG2DHsPDCH0gZQ==
+X-CSE-MsgGUID: j+5TbJsdQlSLfmB3YkmOPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9535089"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.87])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 04:26:57 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 3BB55121B5D;
+	Mon, 16 Nov 2026 14:27:00 +0200 (EET)
+Date: Mon, 16 Nov 2026 14:27:00 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>,
+	"Paul J. Murphy" <paul.j.murphy@intel.com>,
+	Martina Krasteva <martinax.krasteva@intel.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/8] media: i2c: ov9282: fix strobe timing and control
+ handling
+Message-ID: <avr2lDQxiFnv2Gq8@kekkonen.localdomain>
+References: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,92 +92,44 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: media: qcom,glymur-camss: Drop port@3
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261113-glymur_camss-v2-0-b1b76509c744@oss.qualcomm.com>
- <20261113-glymur_camss-v2-1-b1b76509c744@oss.qualcomm.com>
- <20261116-vegan-amphibian-muskox-3c8a55@quoll>
- <de0bd55f-9b80-414f-adb6-eece067d92ff@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <de0bd55f-9b80-414f-adb6-eece067d92ff@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
 
-On 16/11/2026 13:18, Nihal Kumar Gupta wrote:
+Hi Richard,
+
+On Tue, Nov 10, 2026 at 02:10:09PM +0100, Richard Leitner wrote:
+> This series fixes a set of related issues in the OV9282 strobe timing
+> and control handling code.
 > 
+> The driver updated exposure- and flash duration-related control ranges
+> in several places, but some of those updates used an incorrect timebase
+> or were triggered too late, which could leave the controls clamped
+> against stale values.
 > 
-> On 16-11-2026 17:39, Krzysztof Kozlowski wrote:
->>> Glymur has only three CSI2 PHYs, so there is no port@3 in the CAMSS
->>> binding.
->> ... so this was never working? Or was working but you change something?
+> The series:
+> - checks the return value of the exposure range update
+> - drops the redundant vblank field
+> - converts probe error messages to dev_err_probe()
+> - fixes the 8-bit pixel rate (192 MHz instead of 200 MHz) and the
+>   corresponding line time calculation
+> - treats the strobe frame span as a line count and converts the flash
+>   duration accordingly
+> - fixes the flash duration range (min/max/default) and refreshes it on
+>   HBLANK changes, independent of the sensor power state
+> - refreshes the exposure and flash duration ranges on mode changes
+> - reprograms the strobe span when HBLANK changes
 > 
-> It was not used in-tree yet. 
-
-That's different question. You added ABI and that ABI could have been
-used. Was the ABI ever correct in the first place?
-
-
-> The existing example was wrong; this patch
-> fixes it before adding the Glymur DTS.
+> This series was tested with an ov9282 sensor on a vision components camera
+> module attached to an i.MX8MP mainboard in a defined (dark) environment
+> with a custom made LED flash pcb.
 > 
-> Glymur has three CSI2 PHY connections, so the logical CAMSS input ports
-> are 0, 1 and 2.
+> Any feedback is warmly welcome.
 
+Can you fix the issues 0-day bot found? I think the patches seem fine
+otherwise.
 
-Best regards,
-Krzysztof
+-- 
+Regards,
+
+Sakari Ailus
