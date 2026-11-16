@@ -1,58 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794823588;
-	b=WWB7dJr7D2WdaoBb/DQsuAHTbyMAJdrC5yZR03RUUzc2JUzfqsgYNDcdbEnXjAPIxlTq
-	 PHeh8DSvLcAUgZ6y4wZSgGCrtVHcppjBC4gZeg7NvtgU8OaaTkByuGSJmR/vvIaTE1xbY
-	 4SHKq3CEoDXqNF8GDL8uSzSpCOXaqWGxSsCwk1sMZmxW4m7xwoxaTyjxn+FnJwmXgBhUE
-	 nkdUgnzay7D7TSeLkPW58KjaQ4ReEPwvv9N3xyR+Qu59u7Ag+bGhNLpJXmznE6pK6Cgza
-	 lm1sIzA4nbSdefRCRE/kotzW7LQ0AxDMUfYH/25sGCc+57cuL402S7RVFml0dWry2Jg==
+	t=1794823787;
+	b=LMcegTgkGBh2Pk3C9pCNB8S9XJpSlrOAAi9sF9l+SDiOpTBOHOHFnrngBtmpPVgLu4R6
+	 8n8iy0Z/jC+18VuJFd9ANaeE4M/rNspmwUaRCqJ9BfG1xNBMTkCKcNYiEWS+ymu5qImsk
+	 IF/HjG4DGN7XgFLjrKN1YTuWYrT9j/W5dRHbI/DeluwxRRmFO3nfN9xhCw8dEGuCP4lQY
+	 DSWoWIf7wRV+8Q8YAGMoB3YrNrofOTg4ipIXndMECffXCPuOO/kptsiwgpDVIj2zxOVdq
+	 iafGoC/f4PyjYiPHOXwqIXZ44Rc0bOdrw7gHjxZI5iSkRiqry2HalNRV3FYuQT6yXlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823588;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=FQv63oMeyb6aVpvob51R58sok6IpONoz09tUDuPeRsM=;
-	b=qn5vDD99oWZVRqS4QL5gKMDoV3nZg1Y5cZjdS4JYI4SNkrvrwzaGPLhaneQb4bg3zRkl
-	 bgWjDr0gL8ZAhaUM4LI0k0hhmSoUqoZFUFyh+5sVMxjNlB5oRZ7pvnRiqImIAirXncO4r
-	 Pysw01z+CuCnvVCh2YLJQKb2N7YZ/xbC8z2QxE0L+Eq3DCn+6HtIxytX9X3tTlEnXHuxh
-	 AhSPJ/HLGTuGbkG2aP45n0JEGE6p9Sd6lgm0uXIpEtCg+7H6Bbd7KlOYFgQ57eNsYX2Bb
-	 VoJSOWWYrAMvsOQEzfXjKZYtuiHym6d+NvwvVZvF8Nv3LwSI/PcPKMDqVK2jQEbD16Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823787;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=koCbOd0tdqhrnAzypAwoIYt0Xseq42FLcbswCn/kURA=;
+	b=xwpOUH/YjxJefCgIFi7JMCOI9VK7TemZkwYq/579sbi7AV5QrQ3Ygtq7lvJr7xn72Bdc
+	 F292qyx/lsYJt3zKYuLve5zE8t34Fap46xhTkMT9mngdsouAOseCpNxbeNo+f1AjjQKrK
+	 E8ZfptHReb0/dMXdbQmJEeslr+BsSo3uwaTRMHDsBSLkYaLe41En2GeR9BARCUHUCfgzl
+	 bxG57XL0hqMJjrvoxlp+dOkuwVDFSllPr8F+9S5AhoD+9RO+VjlGZrvyHFdKwnAwwDPoW
+	 1cB7xAE9Xcqf+OV/AwBNSFHSXSZN1lNSQigWj1j3S3ZP8OIa9BRs6DNkIlr6BpCmvqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=LfstUijx;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE02606A323;
-	Mon, 16 Nov 2026 10:06:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FE02606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HEymC+HY;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 56BD2606A323
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 10:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56BD2606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=LfstUijx
-Received: from ideasonboard.com (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 21571175;
-	Mon, 16 Nov 2026 11:03:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794823438;
-	bh=bxrtpDD8N3Q+zYNaMdZ/96pUZk6vlLNdrXEK33HVwmc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LfstUijxd4wy6BMUa9Q06ZS9D2WTcEtxEsxnEs5vG/IhB6+2z/enmzQMqXBnde18U
-	 CDj7U8eNLBKQO0yItRhqeBC3YI+P7nUCSv1QcqtZx8KmFKeBx8z0C/qMd7yM/Uq8Dn
-	 7CO37gpfOlDY5CLpIhVj81BhCdXeKnPPHFBBdN4c=
-Date: Mon, 16 Nov 2026 11:06:22 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] media: uapi: videodev2: Add 20-bit Bayer formats
-Message-ID: <avrSQkNcHFVO7t42@zed>
-References: <20261115-v4l2-add-raw-pix-v2-0-f66dd83e5f85@ragnatech.se>
- <20261115-v4l2-add-raw-pix-v2-1-f66dd83e5f85@ragnatech.se>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HEymC+HY
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A03211713;
+	Mon, 16 Nov 2026 02:09:43 -0800 (PST)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 726053F632;
+	Mon, 16 Nov 2026 02:09:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794823786; bh=2ad7YSntj3N8mQFw+MdlSPpSYmiwoq+kfn6LiXSNNQs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=HEymC+HY2cjrTWlk5Rrica1pXk+RwFDrHn67MHbsdlytf78F9T92did0jsY25RToE
+	 sSptL9z9vRblTwNCeZdQbDIdCAcbDlQ2zYp18Tdyi36jH6aNLiGqDcEjfxLEaws769
+	 jKj/QuiKH6fEL8kQv4xYSwiCkECe+c4s3EoSb1ZQ=
+Message-ID: <0524abf4-2306-4046-aade-c23aa7d1e0e6@arm.com>
+Date: Mon, 16 Nov 2026 10:09:35 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -62,227 +53,85 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261115-v4l2-add-raw-pix-v2-1-f66dd83e5f85@ragnatech.se>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 00/13] coco: guest: Add a shared-granule allocator for
+ host-shared memory
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ linux-coco@lists.linux.dev
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
+ Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
+ Will Deacon <will@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+ "T.J. Mercier" <tjmercier@google.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>, Ritesh Harjani
+ <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
+ Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
+ <rick.p.edgecombe@intel.com>, "K . Y . Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+ linaro-mm-sig@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-mm@kvack.org, kvmarm@lists.linux.dev,
+ patches@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>,
+ Michael Roth <michael.roth@amd.com>, pankaj.gupta@amd.com
+References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20261116091137.94252-1-aneesh.kumar@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Niklas,
-   thanks for the update
+Cc Michael Roth, Alexey, Pankaj Gupta
 
-On Sun, Nov 15, 2026 at 08:10:05PM +0100, Niklas Söderlund wrote:
-> Add 20-bit Bayer formats and documentation.
->
-> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> ---
-> * Changes since v1
-> - Use same table format example as for other Bayer formats.
-> - Add format to v4l2_format_info()
-> ---
->  .../userspace-api/media/v4l/pixfmt-bayer.rst       |   1 +
->  .../userspace-api/media/v4l/pixfmt-srggb20.rst     | 103 +++++++++++++++++++++
->  drivers/media/v4l2-core/v4l2-common.c              |   1 +
->  drivers/media/v4l2-core/v4l2-ioctl.c               |   4 +
->  include/uapi/linux/videodev2.h                     |   4 +
->  5 files changed, 113 insertions(+)
->
-> diff --git a/Documentation/userspace-api/media/v4l/pixfmt-bayer.rst b/Documentation/userspace-api/media/v4l/pixfmt-bayer.rst
-> index 8b4e413177f5..b93e66d6a27e 100644
-> --- a/Documentation/userspace-api/media/v4l/pixfmt-bayer.rst
-> +++ b/Documentation/userspace-api/media/v4l/pixfmt-bayer.rst
-> @@ -33,3 +33,4 @@ orders. See also `the Wikipedia article on Bayer filter
->      pixfmt-srggb14
->      pixfmt-srggb14p
->      pixfmt-srggb16
-> +    pixfmt-srggb20
-> diff --git a/Documentation/userspace-api/media/v4l/pixfmt-srggb20.rst b/Documentation/userspace-api/media/v4l/pixfmt-srggb20.rst
-> new file mode 100644
-> index 000000000000..915700a5af93
-> --- /dev/null
-> +++ b/Documentation/userspace-api/media/v4l/pixfmt-srggb20.rst
-> @@ -0,0 +1,103 @@
-> +.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
-> +.. c:namespace:: V4L
-> +
-> +.. _V4L2-PIX-FMT-SRGGB20:
-> +.. _v4l2-pix-fmt-sbggr20:
-> +.. _v4l2-pix-fmt-sgbrg20:
-> +.. _v4l2-pix-fmt-sgrbg20:
-> +
-> +***************************************************************************************************************************
-> +V4L2_PIX_FMT_SBGGR20 ('BG20'), V4L2_PIX_FMT_SGBRG20 ('GB20'), V4L2_PIX_FMT_SGRBG20 ('GR20'), V4L2_PIX_FMT_SRGGB20 ('RG20'),
-> +***************************************************************************************************************************
-> +
-> +
-> +====================
-> +20-bit Bayer formats
-> +====================
-> +
-> +
-> +Description
-> +===========
-> +
-> +These four pixel formats are raw sRGB / Bayer formats with 20 bits per
-> +sample. Each sample is stored in a 32-bit word. Each n-pixel row contains
+On 16/11/2026 09:11, Aneesh Kumar K.V (Arm) wrote:
+> 
+> This series tightens the alignment requirements for buffers that are shared
+> between confidential-computing guests and the host, and adds a common
+> allocator for host-shared memory.
+> 
+> When a guest runs with private memory, buffers shared with the hypervisor
+> are not only accessed by the guest. They are also accessed by the host
+> kernel, and the host may manage the corresponding shared/private state at a
+> granularity larger than the guest page size.
+> 
+> Architectures such as Arm can detect incorrect accesses to Realm physical
+> address space PFNs through GPC faults. However, relying on that as the only
+> line of defence is fragile and can still lead to kernel crashes. The risk
+> is especially visible for shared buffers that are later mmapped into
+> userspace, such as guest_memfd or dma-buf backed allocations. Once
+> userspace can access the mapping, the kernel cannot guarantee that
+> applications will only touch the intended 4K region rather than the whole
+> host page mapped into their address space. Those userspace addresses may
+> also be passed back into the kernel and accessed through the linear map,
+> resulting in a GPC fault.
 
-I see the description of the other formats mentioning where the
-padding bits are located inside the word. In example (from
-pixfmt-srggb12)
+IIUC, AMD SEV-SNP also has a similar requirement for other reasons, to
+align the "shared" allocations within a guest (2MB ?, as mentioned by
+David Kaplan at the LPC).
 
-Each colour component is stored in a 16-bit word, with 4 unused
-high bits filled with zeros.
+Michael, Alexey,
 
-Should we specify the same?
+Please could you share your thoughts on this series ?
 
-These four pixel formats are raw sRGB / Bayer formats with 20 bits per
-sample. Each sample is stored in a 32-bit word witht the 12 unused high
-bits filled with zeros. Each n-pixel row contains
-
-And now
-
-> +n/2 green samples and n/2 blue or red samples, with alternating red and blue
-> +rows. Bytes are stored in memory in little endian order. They are
-> +conventionally described as GRGR... BGBG..., RGRG... GBGB..., etc. Below is
-> +an example of a small V4L2_PIX_FMT_SBGGR20 image:
-> +
-> +**Byte Order.**
-> +Each cell is one byte.
-
-Here as well:
-
-**Byte Order.**
-Each cell is one byte, the 12 most significant bits in the high bytes are
-0.
-
-And now I wonder, could a 20 bits format be stored in a 24 bits word ?
-I'm not sure if that's a use case, but I guess we'll need new
-pixelcodes for that.
-
-> +
-> +.. flat-table::
-> +    :header-rows:  0
-> +    :stub-columns: 0
-> +
-> +    * - start + 0:
-> +      - B\ :sub:`00`
-> +      - B\ :sub:`00`
-> +      - B\ :sub:`00`
-> +      - B\ :sub:`00`
-> +      - G\ :sub:`01`
-> +      - G\ :sub:`01`
-> +      - G\ :sub:`01`
-> +      - G\ :sub:`01`
-> +      - B\ :sub:`02`
-> +      - B\ :sub:`02`
-> +      - B\ :sub:`02`
-> +      - B\ :sub:`02`
-> +      - G\ :sub:`03`
-> +      - G\ :sub:`03`
-> +      - G\ :sub:`03`
-> +      - G\ :sub:`03`
-> +    * - start + 16:
-> +      - G\ :sub:`10`
-> +      - G\ :sub:`10`
-> +      - G\ :sub:`10`
-> +      - G\ :sub:`10`
-> +      - R\ :sub:`11`
-> +      - R\ :sub:`11`
-> +      - R\ :sub:`11`
-> +      - R\ :sub:`11`
-> +      - G\ :sub:`12`
-> +      - G\ :sub:`12`
-> +      - G\ :sub:`12`
-> +      - G\ :sub:`12`
-> +      - R\ :sub:`13`
-> +      - R\ :sub:`13`
-> +      - R\ :sub:`13`
-> +      - R\ :sub:`13`
-> +    * - start + 32:
-> +      - B\ :sub:`20`
-> +      - B\ :sub:`20`
-> +      - B\ :sub:`20`
-> +      - B\ :sub:`20`
-> +      - G\ :sub:`21`
-> +      - G\ :sub:`21`
-> +      - G\ :sub:`21`
-> +      - G\ :sub:`21`
-> +      - B\ :sub:`22`
-> +      - B\ :sub:`22`
-> +      - B\ :sub:`22`
-> +      - B\ :sub:`22`
-> +      - G\ :sub:`23`
-> +      - G\ :sub:`23`
-> +      - G\ :sub:`23`
-> +      - G\ :sub:`23`
-> +    * - start + 48:
-> +      - G\ :sub:`30`
-> +      - G\ :sub:`30`
-> +      - G\ :sub:`30`
-> +      - G\ :sub:`30`
-> +      - R\ :sub:`31`
-> +      - R\ :sub:`31`
-> +      - R\ :sub:`31`
-> +      - R\ :sub:`31`
-> +      - G\ :sub:`32`
-> +      - G\ :sub:`32`
-> +      - G\ :sub:`32`
-> +      - G\ :sub:`32`
-> +      - R\ :sub:`33`
-> +      - R\ :sub:`33`
-> +      - R\ :sub:`33`
-> +      - R\ :sub:`33`
-> diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
-> index 11ab684024c5..009721cd2527 100644
-> --- a/drivers/media/v4l2-core/v4l2-common.c
-> +++ b/drivers/media/v4l2-core/v4l2-common.c
-> @@ -402,6 +402,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
->  		{ .format = V4L2_PIX_FMT_SGBRG16,	.pixel_enc = V4L2_PIXEL_ENC_BAYER, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
->  		{ .format = V4L2_PIX_FMT_SGRBG16,	.pixel_enc = V4L2_PIXEL_ENC_BAYER, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
->  		{ .format = V4L2_PIX_FMT_SRGGB16,	.pixel_enc = V4L2_PIXEL_ENC_BAYER, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-> +		{ .format = V4L2_PIX_FMT_SRGGB20,	.pixel_enc = V4L2_PIXEL_ENC_BAYER, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-
-What about the other permutations ?
-
-The same comments apply to the other patches in the series.
-
-Thanks
-   j
-
->
->  		/* Renesas Camera Data Receiver Unit formats, bayer order agnostic */
->  		{ .format = V4L2_PIX_FMT_RAW_CRU10,	.pixel_enc = V4L2_PIXEL_ENC_BAYER, .mem_planes = 1, .comp_planes = 1, .bpp = { 8, 0, 0, 0 }, .bpp_div = { 6, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-> index 17ba1ae70735..14cb94591ea8 100644
-> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
-> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-> @@ -1434,6 +1434,10 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
->  	case V4L2_PIX_FMT_SGBRG16:	descr = "16-bit Bayer GBGB/RGRG"; break;
->  	case V4L2_PIX_FMT_SGRBG16:	descr = "16-bit Bayer GRGR/BGBG"; break;
->  	case V4L2_PIX_FMT_SRGGB16:	descr = "16-bit Bayer RGRG/GBGB"; break;
-> +	case V4L2_PIX_FMT_SBGGR20:	descr = "20-bit Bayer BGBG/GRGR"; break;
-> +	case V4L2_PIX_FMT_SGBRG20:	descr = "20-bit Bayer GBGB/RGRG"; break;
-> +	case V4L2_PIX_FMT_SGRBG20:	descr = "20-bit Bayer GRGR/BGBG"; break;
-> +	case V4L2_PIX_FMT_SRGGB20:	descr = "20-bit Bayer RGRG/GBGB"; break;
->  	case V4L2_PIX_FMT_RAW_CRU20:	descr = "14-bit Raw CRU Packed"; break;
->  	case V4L2_PIX_FMT_SN9C20X_I420:	descr = "GSPCA SN9C20X I420"; break;
->  	case V4L2_PIX_FMT_SPCA501:	descr = "GSPCA SPCA501"; break;
-> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-> index 5373dba640fa..85a32dee4e21 100644
-> --- a/include/uapi/linux/videodev2.h
-> +++ b/include/uapi/linux/videodev2.h
-> @@ -744,6 +744,10 @@ struct v4l2_pix_format {
->  #define V4L2_PIX_FMT_SGBRG16 v4l2_fourcc('G', 'B', '1', '6') /* 16  GBGB.. RGRG.. */
->  #define V4L2_PIX_FMT_SGRBG16 v4l2_fourcc('G', 'R', '1', '6') /* 16  GRGR.. BGBG.. */
->  #define V4L2_PIX_FMT_SRGGB16 v4l2_fourcc('R', 'G', '1', '6') /* 16  RGRG.. GBGB.. */
-> +#define V4L2_PIX_FMT_SBGGR20 v4l2_fourcc('B', 'G', '2', '0') /* 20  BGBG.. GRGR.. */
-> +#define V4L2_PIX_FMT_SGBRG20 v4l2_fourcc('G', 'B', '2', '0') /* 20  GBGB.. RGRG.. */
-> +#define V4L2_PIX_FMT_SGRBG20 v4l2_fourcc('G', 'R', '2', '0') /* 20  GRGR.. BGBG.. */
-> +#define V4L2_PIX_FMT_SRGGB20 v4l2_fourcc('R', 'G', '2', '0') /* 20  RGRG.. GBGB.. */
->
->  /* HSV formats */
->  #define V4L2_PIX_FMT_HSV24 v4l2_fourcc('H', 'S', 'V', '3')
->
-> --
-> 2.56.1
->
->
+Suzuki
