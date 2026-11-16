@@ -1,89 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839245;
-	b=HX0cReruYK7ZYj1IRnqeE/eHauKe41EUhmDGoI5sLMOsn4p04a/Rl5fAiXGlhyUpW3pY
-	 sf2odsz626DL6pdF0BdpAWmIXnno0KH8LOhLj2eAf6gMWLd3rNvMuWBD6rqhGf7ReAoAE
-	 JBXhM9cI8WMLkIp/VhpYN5qLUn6cBRCqA2hy6IsRGPdZtmbn1cCCfLrfDO9HB68OOsQmq
-	 aZofCwWvr8gbBdKax1dPxkLcwBoNTaPdAh1E6zMU4VwVYb4LqUom8g23WBeO+NA0sZdlB
-	 iwVyMe+2lf6n9ucpxaHr2tSXwtR/cExqfPaA/DyDLGEh+mluQ2Yj6fFOv9qXsWgUJPQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839245;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794839469;
+	b=wVYvfbcbtuo9DxWholo7pwl1Gpjybr5kgDl3Ug+4uj0GVA55DnLFAzwhCiIdYPhmAk+H
+	 SW00FrmKO7Y6AISMbLDJGZkjLPuUCOjCEN5gku4o295y1qyApPKRq2j6ZrWxMl66eB6V/
+	 W/JcRQ1Gung0WEYmhrjDrGE9ZHFxUEAgPXVXTK40DFnyx9U6XTdTqbOGA6c65KbCWYW0D
+	 zRFlyqbIe1dtxzYk30F6ftPtcMY+Izth/5twKg2sNHCnV5z1GO+SjwVDr7LMWUdiDMSVu
+	 ry9eVULkUfWzJ0cgHDQseugMi2N+7gk++VBIEYuXcm2PqHxbxNGsdOcWyQ4JPLIPOng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839469;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=yZqYyYz6dpLdL8GHBDQVwB9zUDWf7FNjz92hLeD5y5Q=;
-	b=2tcFwLqfr76epcRRaHdXSEEpTSajC3DoFnGQmCK3SUBzSrCBDkewcdzAChCEi4kARGU3
-	 V5E+YpwHFFLFXYgw3FZrWwEkYL5gNCdgQIhFhIai2ycqRlbsxETdFfKvVHAjFjmOPB4A7
-	 LXY4J2L2K5lzylXJeSk96sWbk9GFNMaoAoFVUjObT/2iDw5CE35n7NxMHuyFOREefDxMd
-	 trTNxcBo/wZdVD2dnsL6fOr2Ak9w0blOD7ELiBE/9r8v88SPeOuP4l1XROkrnFQmwj+Cv
-	 zaXy2KG/e6rPqAZKGE3LI9odp0YxnI5mcXMnhLxkqm/WDf9M64lXGWFm1Wcs/IS3AgA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=T50zmCMu;
-	arc=none smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:In-Reply-To:
+	 References:MIME-Version:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=kIdEF1Z3yDMJ2Z2N07TC997u86nRKx5F3ZLJFgHcL5g=;
+	b=z0DHZYkkwl/3iX6GJixQzIl5+0w6cVQhIsNS3vOBFOepT3/YRk9A4jsxw7xVPYTIuFqt
+	 RmB02aKcw9AaQN9JelCn7wNQaiFQvoYViukPwQOl3Kfok+W6wp+Z0brhsx6f8UEC9h0Uy
+	 64a2CbX2nj9+V5al6ZmOtEx19hW+eGspHHoZH8Dy3ELhQq5vpFkQfqqOrnysinwAIUJ/v
+	 +Z4cdJ/iZMcBNdwpbhaJiK/My6N2is51IQQA7qjOEYoBOeYTA4K0aM0v8u3OP+sa/0IuV
+	 onRSvbzM7FnXj3xBCeGU24FrErmuDs4INxaRPQx+ZEg6dN4/PQmvKOhVG27NXtDt6kA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hqtleekH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2163B606A32A
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 14:27:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2163B606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DFB606A339
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 14:31:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61DFB606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=T50zmCMu
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdba1bbde0bso1196526a12.2
-        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 06:27:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hqtleekH
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-55d2dcbb905so16635241cf.3
+        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 06:31:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794839466; cv=none;
+        d=google.com; s=arc-20260327;
+        b=V1yNKGWuLRRbMpVzppvWrblM+kyX1A8XRAoX04SlZB2ZNjir3fCq3UUrrSpwiNtNqg
+         fXqqTSbtwb3qMpN36iKjISckJjMFeVgiLvDryYpGMcW0WgS/jS9nOorABIN7fUsOiC0d
+         gXoIvJwxrFsELpebQ2rkQIdP26ih39nMVjxjnjxnRder2nRNpTPmvYawftFYzo1cPVNb
+         ePhuIcCWOtQWtLCMnA9cYjBqT1UpgyykppqqG1QIpbstzx518Pn/MjqXmZGX+DO1SThj
+         g6EooXjKPFiS/Ik20B4B/aVUrcf76yEobh3J3ul5c8i2eZrtHSQaHsWFxLFleAAfW4t4
+         TwIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date
+         :mime-version:references:in-reply-to:from:dkim-signature;
+        bh=kIdEF1Z3yDMJ2Z2N07TC997u86nRKx5F3ZLJFgHcL5g=;
+        fh=rqudOY/0eHtwJ+Xj3UtULvamlj2Ie8jvEZPi5sAxI6Q=;
+        b=Ewr0ToTGLyGlrDLSkXLSEeirAU+4nIWFp9DjVRRx7qyDDQllEAuVrwfir4SgZy7xnw
+         ZyxMRAOPC0ExCSD+ugWA9UacGihUFwEvT5whB3b7SjCpxqhoG9oCzsKOZGxE7fW/JBLp
+         j+7MY0i6eA+BWCmTC4ENBrUIsfkEAyFqhhxyLo8FP7/zjD5/nfetfxGa2+j44oY9bivv
+         VLKiKSAnNMvpM8HkFl2iU63nXrikoFAuF7Yir4Fnx8Y9MKoihHjZctb4KR5bGeQsL+PX
+         rstOj/+Vve6+sdVnxhw2rXoVyGSrPxKEyfkb04ZEkiht0cKCMJYhDp4tyVP4WLABW9jw
+         J5rw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794839243; x=1795444043; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yZqYyYz6dpLdL8GHBDQVwB9zUDWf7FNjz92hLeD5y5Q=;
-        b=T50zmCMutFQMf12qCJ9uwW4p4HoqLyAg9G0VLLlY1VlWSlAQ7o3XoEosx/OmNOPYRz
-         iaBbkJwXIvfIhUfmnmqFuuLLloBcgk7G+eiUc9bRXRnhcHb5BrKeH/IqYh/tz0DbNa1Z
-         2DmcpMMQ4p+6r3+aHH0dmuG+Yhms33ilXG6dI=
+        d=gmail.com; s=20260707; t=1794839466; x=1795444266; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:mime-version:references:in-reply-to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kIdEF1Z3yDMJ2Z2N07TC997u86nRKx5F3ZLJFgHcL5g=;
+        b=hqtleekHZB7IzIe3uFH5SCWu6iTM75sqGs/ghw8YQYkIdk+T7vjVWyA6AO700qdR4Q
+         vbJCZb0Y1JyMNrjpjks7ISuAILP1akb19NG1w/zoOS+BJ7ne0rDgeOEZAmH5rKWZ5f44
+         RvWJjPfT45l5siVFj13G+ajf1z6A76L3ABfVQ8cxEocMif4i8ocbTvdliyOwWARzVOM2
+         1PaEvp5Q3boj498dDJUv4JM5gZ3ylytJ/O++J4+DPrHAfiRvoHRiEKp0Ja+WQHtpLuSp
+         O+RZ+lqvbwjBOzEG0ctjc/wBOWzTbnzv8BC1jI/Xqv6agdcfo2IlMyV788HbK9SZLjHS
+         3wAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794839243; x=1795444043;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yZqYyYz6dpLdL8GHBDQVwB9zUDWf7FNjz92hLeD5y5Q=;
-        b=Z9KstzaWhqmoiV9g9lEBwCe4pItqHA24K1N+qq6Ntkk++j1vbGwK0zm5kBfl7G7M5/
-         QUzr1I6G3LLW9eeNz8Xk7Me1lOHcg2H1U99KMZkjlli9SuY159CYQRCAvW31o7w4PZ27
-         vwCE84w8AfYfuoVgnfaXcHt0b0TtgbcaQg9OHNdKCKvfs/OI/uRAi8OalbMZUDyjFMZV
-         eR8fa0fF7DF0D7Ow8decOFq1ZleSgnMFrEFv0YigRfHwlF+OdXPnD4Mw96QLNMYie98O
-         lMvbZ7rqXvYC82SLmWtE5jaDS/1yKGK829OcNOu5rHPirs0JSXJV3ZhekCm9/ETMWmEC
-         VCFA==
-X-Forwarded-Encrypted: i=1; AL+hErHgfckYU0WAkDZP3zZhSeIu2voTrlxCdivolGHFYB+cYx0x0I95jaZOOpDirrBEVnF0t2DZ2dfjoOVlzQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9KZq6dFIxSvGrq8G6w/lkKezaUdim5EeUGGFaK9CnuEt2BjVRt
-	tvmlFKEm3DFdpaKJsMWTiRLdFDOnYsKI0BPvB3tP841gW5lXUrelQg+Niu1Y2ZPozIzEM3HWryT
-	z9SCey6Dy
-X-Gm-Gg: AZFdTZc0kN9Xilpe4Q2nFJ8WLEa7sTe2E6GtsQV+L4gyxCCSge/UC5BlQPRy8VYCP9P
-	SVMfI0hqR0S4xCoJa/e5B7KLSz7lIFYutJk7bcJzCfb7CGA20uKaFt29DQgSZpMZ7U2Y6XYB55q
-	pNKA2gfpgn4Z2B6QcLu1an3WA45624AOjNyillTsg7IWf7+W2yFQFyyPlG2f956XUXQ4Z4HwFcD
-	+oqyWyLoDft6A1N6v9BgAXV2454AooLKsw0G/7z75FkZQPiRIByJJL+7qEZgEoHadD4vTnBsvgM
-	7ZAENcQGhGOPq3H+1Y0Z4lquJQk58XJ+7yc1J8EkzSXNJnHOd7sVDn+hlorloaD035C7qaFT5Mn
-	JXYvGhHVET4CGYXxe8YWUPZlXda24Qs67k1yi95Da6Ft5Uu9gEogIJWijQzY5BOroLJJQMGKkPi
-	jPWT+akDWLfr96w4/lbQarnZvGCKnYMTxGqzLyiM4klJN2PnyJwNLHWRt50cXrsFwQuJJjhxUem
-	sjhkYJ4jez5cf9mg1+2kU4ZfGWmPYb9rS+UHlcSGqkLnhCGKD0dJYCKkDryI8lajyhNo4buWSyN
-	/NXQT6D4a69EWdrNAhydNykJ57UFZ2ahzuLis12acuvCfal5jLl9D0rl3i/LMNbAOQ==
-X-Received: by 2002:a17:90b:384f:b0:3b0:9e2f:cfc7 with SMTP id 98e67ed59e1d1-3b1b0b649d8mr9212536a91.44.1794839243320;
-        Mon, 16 Nov 2026 06:27:23 -0800 (PST)
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com. [74.125.82.54])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aeb179fasm17366998a91.4.2026.11.16.06.27.22
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 06:27:23 -0800 (PST)
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15ea896ddc8so5246352c88.0
-        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 06:27:22 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErF5eJWZHF4RfzyxyF6i8C0DB60JubWDlLF374n2Qu8e1aHYOYU8w5ubDEwJ82HEd96GzURn80d++wttfw==@vger.kernel.org
-X-Received: by 2002:a05:701a:844a:20b0:1b5:1a41:f3b6 with SMTP id
- a92af1059eb24-1b51a41f403mr6681578c88.4.1794839241010; Mon, 16 Nov 2026
- 06:27:21 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794839466; x=1795444266;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:mime-version:references:in-reply-to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kIdEF1Z3yDMJ2Z2N07TC997u86nRKx5F3ZLJFgHcL5g=;
+        b=L4mWG4DEEoZ8TaUno6rzY19FT/bjvlRu7oC4cBTwia/NttF0WXaMJ8+0O5UQaJgjPW
+         R9VUu64mvMizMkQyEDhEA5tGK52ixJhdqO7tig/wfkitfp9HbZjBZAkRYkAnmEAf0NC9
+         EdNYY2bIq2GhoMdl7+y81mO0954j1gqcKfR3cDodYbweGNqhq7COY3YE8C01Guv8vP11
+         +xPGuc5nfpkVmsCG8Mtu1McRnhmIQKX6T9rS+/OW9+0X1tiaUpkPvP+KBJq72nDANFTx
+         KX0J1hNoWFKAuOmEq3Xa4C8E6iM7MFu7NDOdF18505YnFVu9W/jEHkpmDVg+i5Zj87Jv
+         kcug==
+X-Gm-Message-State: APuU4Z+bFamp82uMhUWE6/gpyUtd/13hA73UWEuTkR0BCjFPTrv0razn
+	iw5PgkFQZKRhp2ptTbLj5erlv7uXCqKtH6hmY8gOcKMA+56sS2730HsFBeDyccLlgajsNPMJIrO
+	Qf4rNh1jCwCpOFSDYXzqd8oqlXgNUlOs=
+X-Gm-Gg: AYBFou0exph3fM+u+eVb2rz4fhNojnaX3ji0LYxfhCsTSaeQRuENk90iXhC8KDh+zpq
+	+K4bLR22fbaxWBGd1izEO2s1yM1+EG5DAiMIwRbrJDeblnyfudyOo3u8ScEx7ZZNmlci+LE8RqN
+	KFwMJoZNp5PyycMW0iUhunNAlySssZ/NScAFVgZEA1dOC1xEz9BniJp9jkA8buO2VnwCS+o1FIX
+	D7CaQ8C4Ihclh3jibrtTYXGQIzDI0Gqm04wWRlXAn/zH/jQGr65E4RkRxPhsBjjaW98M5LVI+eX
+	+4jT0cdrhnOI6OOy3O6gFyKwD/4w4ZK3YGtJ3jynYAsoiusnKQZms/E/7wKT+Otxp1bv6k3YxRt
+	1xdEvtx/2fx9SL/jBzyYR6m9FztSaa3QDM4/RgKSnlUSkCRXLwIJ0xrrOruYPfYGNZYNCUh7tz4
+	ChwSOZositlLWpCBcqeHIwTN1NEfD90b28Mik7NUOipQ5Vn0e4MV70PAegsw==
+X-Received: by 2002:a05:622a:228e:b0:536:54a4:da1b with SMTP id
+ d75a77b69052e-55ac818006amr178170141cf.19.1794839466213; Mon, 16 Nov 2026
+ 06:31:06 -0800 (PST)
+Received: from 138594053405 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 16 Nov 2026 14:31:04 +0000
+From: diegomancera.dev@gmail.com
+In-Reply-To: <20261113145359.65440-1-diegomancera.dev@gmail.com>
+References: <CALruWrWRWRU84AkDocSnNMSRp+WQD5ic9G_3peE50BvQR5iGBg@mail.gmail.com>
+ <20261113145359.65440-1-diegomancera.dev@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,83 +110,84 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116-uvc-shortmeta-v1-0-487cfe42fa89@chromium.org>
- <20261116-uvc-shortmeta-v1-3-487cfe42fa89@chromium.org> <20261116140114.GC1714298@killaraus.ideasonboard.com>
-In-Reply-To: <20261116140114.GC1714298@killaraus.ideasonboard.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 16 Nov 2026 15:27:06 +0100
-X-Gmail-Original-Message-ID: <CANiDSCvitQJU+RTO0MLJgJLPK3BZVPHPcrtU_7iJygGRxKpCgA@mail.gmail.com>
-X-Gm-Features: AclHuK9EY-9Q3Zcf3NUEcs1Z5UODzPpXwEEXxHoNI2jIHFloOBFHm9IQER-8PH4
-Message-ID: <CANiDSCvitQJU+RTO0MLJgJLPK3BZVPHPcrtU_7iJygGRxKpCgA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] media: uvcvideo: Fix unaligned and OOB access
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 16 Nov 2026 14:31:04 +0000
+X-Gm-Features: AclHuK9UAbcFYKKYqEt49oleQtJDZRVSxmL5ntIV7z29bwWa8fht8qqVtkVB_Pg
+Message-ID: <CALruWrXhXjiw2eVL+YzDXr-mLHT4y0b799PEMH9GZ-pmSHofKA@mail.gmail.com>
+Subject: Re: [PATCH v3] media: em28xx: clear dev->v4l2 when v4l2 init fails
+To: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>, mchehab@kernel.org
+Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Laurent
+Hi Mauro and Sakari,
 
+I noticed my patch [v3] "media: em28xx: clear dev->v4l2 when v4l2 init
+fails" was marked "Not Applicable" in Patchwork, but I could not find
+any comment explaining why. The Media CI checks all passed and the
+syzbot report is still open, so I wanted to ask: is there a problem
+with this approach, or would you prefer a different fix? I am happy to
+rework it if needed.
 
-On Mon, 16 Nov 2026 at 15:01, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
+Thanks,
+Diego Fernando Mancera G=C3=B3mez
+
+On Fri, 13 Nov 2026 08:53:59 -0600, Diego Fernando Mancera Gomez
+<diegomancera.dev@gmail.com> wrote:
+> In em28xx_v4l2_init(), if an error occurs after video_register_device()
+> succeeds, the unregister_dev error path unregisters the video devices and
+> drops the initial v4l2_dev reference, but leaves dev->v4l2 set.
 >
-> On Mon, Nov 16, 2026 at 11:56:39AM +0000, Ricardo Ribalda wrote:
-> > meta->buf and scr point to packed metadata and USB packet memory that do
-> > not need to be aligned to anything. Also, scr + 4 is a 16-bit field, so
-> > reading it as a u32 reads 2 bytes out of bounds.
-> >
-> > We use *_unaligned() in the rest of uvc_video_decode_meta(), but not in
-> > the debug print.
-> >
-> > Fix this.
-> >
-> > Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> > ---
-> >  drivers/media/usb/uvc/uvc_video.c | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> > index e9be0a627033..3e3296ec5c65 100644
-> > --- a/drivers/media/usb/uvc/uvc_video.c
-> > +++ b/drivers/media/usb/uvc/uvc_video.c
-> > @@ -1532,9 +1532,9 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
-> >               "%s(): t-sys %lluns, SOF %u, len %u, flags 0x%x, PTS %u, STC %u frame SOF %u\n",
-> >               __func__, ktime_to_ns(time), meta->sof, meta->length,
-> >               meta->flags,
-> > -             has_pts ? *(u32 *)meta->buf : 0,
-> > -             has_scr ? *(u32 *)scr : 0,
-> > -             has_scr ? *(u32 *)(scr + 4) & 0x7ff : 0);
-> > +             has_pts ? get_unaligned_le32(meta->buf) : 0,
-> > +             has_scr ? get_unaligned_le32(scr) : 0,
-> > +             has_scr ? get_unaligned_le16(scr + 4) & 0x7ff : 0);
+> An em28xx_v4l2_open() call already in progress (such as from v4l_id)
+> that blocked on dev->lock while em28xx_v4l2_init() held it will then
+> find dev->v4l2 still non-NULL and succeed on an unregistered node
+> instead of returning -ENODEV. When the device is later disconnected,
+> em28xx_v4l2_fini() also sees dev->v4l2 is still set and calls
+> v4l2_device_put() a second time, dropping the refcount to zero and
+> freeing v4l2 while v4l_id still holds it, causing a slab-use-after-free
+> in v4l2_open().
 >
-> I wonder if things would look cleaner if we introduced a struct uvc_scr
-> instead of fiddling with manual access to buffer offsets. What do you
-> think N It would look like this:
-
-I do not see a big point in introducing the struct: we still do the
-manual offset math and get_unaligned_le*() in the callers (and meta->buf
-is still unaligned), and marking an in-memory struct __packed just
-makes slower for no reason. I think it would make more sense to have a
-helper like uvc_video_parse_stc_sof_pts(*data, *stc, *sof, *pts) that
-processes the header for clock, stats, and meta.
-
-Comparing only SCR.STC in uvc_video_decode_meta() does look nicer
-though.
-
-Let me give it a try, and if I think that it looks nicer I will send a
-v3 with it; otherwise I will send a version of your proposal with my own
-added personal and funny bugs.
-
+> Fix this by clearing dev->v4l2 under dev->lock in the unregister_dev
+> error path of em28xx_v4l2_init().
+>
+> Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
+> Cc: stable@vger.kernel.org
+> Reported-by: syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D1a7507a194fff09e5c44
+> Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+> ---
+> Changes in v3:
+> - Resend: v2 reached lore with the "diff --git" header line split in
+>   two, so the Media CI robot could not apply it. No code changes.
+>
+> Changes in v2:
+> - Drop the non-standard 'Assisted-by: Gemini' trailer that failed
+>   checkpatch.
+>
+> Note: compile-tested drivers/media/usb/em28xx/em28xx-video.o with
+> allmodconfig (no warnings); not runtime-tested locally against the
+> syzbot reproducer.
+>
+>  drivers/media/usb/em28xx/em28xx-video.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/=
+em28xx/em28xx-video.c
+> index 84424284d486..f78325a41124 100644
+> --- a/drivers/media/usb/em28xx/em28xx-video.c
+> +++ b/drivers/media/usb/em28xx/em28xx-video.c
+> @@ -3129,6 +3129,12 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+>  		vb2_video_unregister_device(&v4l2->vdev);
+>  	}
+>
+> +	/*
+> +	 * Clear dev->v4l2 to prevent an in-progress em28xx_v4l2_open() from
+> +	 * succeeding on an unregistered node (returning -ENODEV instead) and
+> +	 * to prevent em28xx_v4l2_fini() from tearing down the instance again.
+> +	 */
+> +	dev->v4l2 =3D NULL;
+>  	mutex_unlock(&dev->lock);
+>
+>  	/*
 > --
-> Regards,
+> 2.56.1
 >
-> Laurent Pinchart
-
-
-
--- 
-Ricardo Ribalda
