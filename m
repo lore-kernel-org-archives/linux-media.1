@@ -1,23 +1,22 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.225.113
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.129
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794807863;
-	b=l/NIV1HElXPq04d910KlRVU5dkuM5JEfY5fcd4cukC8J5PTrCMit98Zg+ACltsKIH3vc
-	 LI6VRKSewd5KX+09VRWVj+VEyUGccCvttokQPHG1BzqeHA/b+OXsXfUZRHvfDqJzGQZRf
-	 ch3s3VTsyF26siymJfYQKL06AKySSlKFIp00QtPdDBDuFQ0UgWoGg/FrtNzCCRWxfZFDl
-	 c9Oe+HNNwdylSwvhklPfGniBmYgVGu7UFl1MxJrkv7TIu551CvLAdoHUtfSoyTdn2jK/c
-	 RZt7PenPSpepXFy0s22ELlpcW7v8AEXhYiOToVM2XJbEZLIYHa9G1XdG4dZXomM/lrA==
+	t=1794810022;
+	b=x+hlR+vGbCI4XC2+KPWOY9Swo8sljHInlSforBm9f1anfw+qqDIXJPIGOPjjJ9hv5dZN
+	 hKznU82uhIHSj4SUuEGM6DQU/gT/1LKz70yevIgxUpY3k/rxZ/D/Pb8kDJHZt1nwfXeQC
+	 DHVKn7K9UPGwus9yuZFYP48o9QWeZfTu/R+j/zYv9BdyTav6b36heft8XTFdvKWTIXs8F
+	 IsBWG3Lw4BQ6Jk9s/A5EIY8cZbMMysE+19Ic8NeSp5cyGBGwL843IywF0JHtAMiWYf4pu
+	 W1BlsNZ/yS/4Ya6XuAgXQ4IN9G/bOd4H65EcvimEagFNtICsuWIJvKltQMUvFoAilTQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794807863;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
-	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794810022;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
@@ -25,66 +24,77 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=xWwmGBOulBbVkI1Kq6aUfYZnLDTLhgraqzeXEWun9Lg=;
-	b=AyKHj4eZ91NBj66iXAwZ2FN63abYRlzce508l++kLrGUOGUHPhj64avG2mzn9vY6gSOc
-	 QFpv+1xhltCJ0cKIGBbf7I2S7LKs/jWhVq9Dko2EreMe2ahYBAqHMS+E5KCPvbQiK7054
-	 Ykq8jWMn3reO1iyvKwPGHpSiDGwGU9bSvqGBH+eSnISQrMrej6xUQwP6JwciyfMNJ3S+s
-	 sR3MzyRa5IVNVkM6thq1/3Mkxregq/oynNac3wTpM3BinWXBYJ6l405aUfPRsDZzgpvqq
-	 j8B7fe0ZnC25W1HMagz3w1gSdWdz74y75v5tx941/eE83xWrNzUiyW0f7JiDoxkvxaA==
+	bh=SvmmvB0pBmnVgS4Zrtkcz2J9hW+b0uIVSeXmMcY2wN8=;
+	b=Cw9Dmz7KfaZRDjvMd1GhA6OZuArjb1YnziacU72bYz2Ud5KJMDxDg4H0dtxa70u/PbK5
+	 MoKprY1czimO3ZMd18v0KO2xmdZ3sotkDmk+AkNZpD5K8RV7Fv5nBbd3zuQLPXX6hp6RK
+	 PTAuaaIXVeXMPSG9/6UlR0h60H/j8rPaN9/gKHAY9hM2C2mKbm5pYaSAQ8Z2TsuKS2nQF
+	 b0udlIXLKhRUjuctaKA+bFOCLduRPcblauiAMoZdtRB2AWA+Bun7WUUhQthVIu3tbw4RE
+	 cbOq6oOfq4NqAplA25C+RLCZ/LI9zJOV41IXPVFV6X+YIarHLWN+bMM3WoIByf536wQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ebytelogic.com;
-	spf=pass smtp.mailfrom=ebytelogic.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.225.113
-Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020113.outbound.protection.outlook.com [52.101.225.113])
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b="KeiB/C9D";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.129
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023129.outbound.protection.outlook.com [52.101.127.129])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8A4606A332;
-	Mon, 16 Nov 2026 05:44:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF8A4606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C82606A31C;
+	Mon, 16 Nov 2026 06:20:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4C82606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=KeiB/C9D
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P8iFI8yAVH2kQGCBSa5MkbyDkZi6LiOo8WgHFdJ1MNu4W4+3QfAh5e8WrW8eT5amxivnD1WhRP18KRUv+OWQh5YL3jckMHdzWAr6/Y3IGFRA7ginHC6ToLlGz6uGbUBbwrp3qOVQ/TwCvPiEw+fZa4li5lS1rdFnUp4c85VzDubevOETorg4x10rA7GUrdTxmtvlyzITQGPKTVdRpnEE2jZBvgm7d3DI9JyTmL6Uo3IRzSHDOJkTdDQxzzHZim5eYvQigp3aHlhPJlJMrcgVzqpiD2itm7DTCzW+Y0v+TFchqlX6iUYsPaQNod1qTm2GiSGD0u81LLTSTb4mNgg3Ng==
+ b=VmYcgVwzgrE8qDgdVV4adnTB4G0+iv+Nr9QzYgYxjs6MnRPLJH99hmMMmOJm2Lfkpfo+iWNNyNRtVwMXLCtvBJwTVfVynepKxPkGEuyd/q+SwbqQGvAug42zM+K26E+81VYZR9lN+2vH1QB3KDJqJNHufCE5zMMjuGNMCHRYHGCvF0GJigPdUgEl3Kf5It3nbQwCR6aYwZlekViTuBIWX44+zWVsO+sQvu1XY08K+5xHgHSwPZNETxSsnFj51vLzAWi8CLYD3xFUlibUfm0XHNoTUTKNPfp4AKZMF+d46gnmqPr6VsSuIg01U8YTc4tX5PcW5iPTG6pornNZtL3bqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xWwmGBOulBbVkI1Kq6aUfYZnLDTLhgraqzeXEWun9Lg=;
- b=MRsn/CZqohQdsQG2oVv6JfkvWQ6F4ihOXsUECf6C3lhqDRZy+myxoZT6o/wPVU5QfkCSXX8qQBk+BC+B37nE9Ss1Kvt1pNtdA/GEVZN7idtJlmaj2Cjt3Rnw6Kd8zTOb7u9MrhYa4SlOW510KkxYb+0Z4C5bxnaW2U72PtiF9JAJBTi0pijTw61TWL2GvAy6w/xSZISoXBnmtpDOmwRD1o/J0Ks1O9cDAWjCS2QoKq1FAL20pE0gBt7y/oSx69LSvuq0bFVIxG0w9f+rjxppXMba2447rUR88XcNSqFzWUfUYmRIJ5u0OH9gegQTIcIph7XROYKSos8+PQsxzw0dzw==
+ bh=SvmmvB0pBmnVgS4Zrtkcz2J9hW+b0uIVSeXmMcY2wN8=;
+ b=WA0z0Ol5jOJE5awsi3K1BCQ1HxpRcVtacKtr5SsCZLEN2cenkgHnpCzhQoIUuBTdtY5Zl7GHBL8q4XJUCuPYzrlpO1P7YwHq61wEHphutgtT2GLVMATMMkOAWbzhQ0pCHUN/j9pYCMyl6nTL1/OEccQqgP3KCgWmo3VL1bRZ9L96Xgok0s1f7DYIXcX6TsZ8W5rySvwpEJhZfml7Q9RZCnRfMURLKv3gpSbIUa5u8jcnIN+eTBfahLVCm4HUT1XqkUMtizB6rt/te4p0aDB3TPus2OF+fNpKrlummhx1mlWh+ERJRRwzoLxbTxtM3D61XW949OuA8j1VtM7BbM2yTg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
- header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SvmmvB0pBmnVgS4Zrtkcz2J9hW+b0uIVSeXmMcY2wN8=;
+ b=KeiB/C9DLJzkL+VMtM7svzgxnhATjMfQrAL7annAGAuuotYsIZRJItyVy8Hq8LjNc4tyEpluyN6ZHaMUenPD691RXMRzjgSSHOGs5+Z0pll5uc+DaNtDkd3fSr+AHYli15YsH/1dCl1yw9qhAPUue8ad47xs/XwQTjgicLEC2WjRIO36MtrnwTxrxvuTgqbHWp6AHfqGc8ugSZGbGMwUJr8UBjfbJ0EzqobEyo4Fee8TLaxwKMOMX48kwuv1ERP+6EJP/2TSEbSXQ3H0h6tvJrT7Cev0mWfQcAxIRdrFlhE61QKyS9f05mWctvLacud8JXB/OATkgjLnGdT86dqV2A==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ebytelogic.com;
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
- by PNYP287MB4388.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:2a8::18) with
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
+ by SEYPR03MB7507.apcprd03.prod.outlook.com (2603:1096:101:143::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 05:44:18 +0000
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::4cf2:bb74:999f:d6b8]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::4cf2:bb74:999f:d6b8%8]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 05:44:18 +0000
-From: Hitesh Patel <hitesh@ebytelogic.com>
-To: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-Cc: Hitesh Patel <hitesh@ebytelogic.com>,
-	linux-media@vger.kernel.org,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	ravi@ebytelogic.com
-Subject: Re: [PATCH v6 0/4] media: qcom: camss: rebase fixes and SC7280 enablement for the streams API
-Date: Mon, 16 Nov 2026 11:14:01 +0530
-Message-ID: <20261116054402.234004-1-hitesh@ebytelogic.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261021134959.2599575-1-hitesh@ebytelogic.com>
-References: <20261021134959.2599575-1-hitesh@ebytelogic.com>
+ 2026 06:20:15 +0000
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 06:20:15 +0000
+Message-ID: <f6972e64-741f-46a1-b990-4d7362466bf0@amlogic.com>
+Date: Mon, 16 Nov 2026 14:20:13 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 1/6] firmware: meson: sm: video firmware loading via
+ secure monitor
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
+ <20261022-b4-s4-vdec-upstream-v12-1-616240978792@amlogic.com>
+From: Zhentao Guo <zhentao.guo@amlogic.com>
+In-Reply-To: <20261022-b4-s4-vdec-upstream-v12-1-616240978792@amlogic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: OS3P286CA0057.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:200::14) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c04:1::97)
+X-ClientProxiedBy: SI2PR02CA0023.apcprd02.prod.outlook.com
+ (2603:1096:4:195::11) To KL1PR03MB5521.apcprd03.prod.outlook.com
+ (2603:1096:820:51::12)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -95,114 +105,114 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PNYP287MB4388:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3adfb309-efda-4532-b920-08df43a4a7dc
+X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|SEYPR03MB7507:EE_
+X-MS-Office365-Filtering-Correlation-Id: 935637be-7d4a-4c08-c0b5-08df43a9ad80
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|10070799003|1800799024|52116014|376014|10067099003|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261021121427099003|261102123227099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|10067099003|4143699003|11063799006|56012099006|261026140227099003|261028144727099003|261021135927099003|261022105027099003|261022075727099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	L/1ehwXgmf3U5/WgJOXm9YB5AGkkeWtMyaSOhXuuLy6YeDsCY3W4rlTdraJox3Erdl2zL8+qwVfbWNTi0fMYeYU+FpY13zkkClppw/VrEcOw7R2V4+/DgaBxqQUznjaqoSNwyYrsJofAw7lUjb75vOdpkynUb0oVp0z9Bi1Qbovllru+V8iGReO8G6Sw2esAhw/AhGJ7AjxHIFqy+vSiQvrlTNrgyQzd8LvImk15QC70jfjwXo3HXZ1ouXa2ZgEveFhvq67Wqr9U40syK4W2vUgp4dEUyAjIrs26Hma41+KOP1lHfp8Zq1iFh6aBtpF12I5RG0XCNcQQjBcW3N9LhUyew22IlaJuhmv3bKl8h0bBwI1fd6svHsLMeDHJXjQTS0CkeuoFqqdv31AxL1AfiRI53uzR9CARkQdjjbyrXx1A8DbN+q1uC4+s+Uxd16fFzX33zsiPtpP0jf+1EXpYOcL+ikzTfHsxP3ifmwZWmf8EPj1AaE1FeSnGIqAEEp/5HgT8K5mvZwtjawYEyT7Jc6CkmW+z+hfLgCW3BH09dkxYy9/qbXKbs4o7gSrJ/TTMXFMuBsjtM/rEYa/iJdhCes+uqXEvQPu+ucZtzQu/4kEyktZJ79v0uYswymP/LJr8
+	dAb6uWbsrh9jSVmkd0xWu2fB4+evWZOTCO5/YQyKzj2uGXtjNx+QFeB4gWKDWeX7vblORfjt+yxVjaaHE3rA5OSgO3PHjrL4zy+AHMrDPYV36jVp0CmyVQzNgCqcxYAZHQhFMc3fJLwtWqzPcI75XjnMaBdQOTCdewp/m0G9m+UqNDer+p5mWLSYSpkOUWSgPBfL0lZuZADrX6nCfHYOVRPWVPbix2q7s0yJJMJhgytkRqsGGstjL+r6Azq4qgKWM9rFb9V8v4QBKd5ecBsnJvIAxICg6fgzoDI50u4ymjBN8Mr5rqETFi8r7Tog7PN1nNjRb2grWBBXnnNyGJmQsWz0/JlEl4ioL2F0gc8wUuiqwTcOM6RvmiEO8NZZg2zovcv04vF2CiOXLbtt3HthW6UYx7+6AHR9efYzsc0RbkLBLBPXM7qB7oOQcWp34iBj1frCzjAHGZ1Pxvm1rNg13K7yvy+e24UpOZE48wk9H4+7PFU0r31hNWP1kkCGHWgQ4xgbprs6LSZUvYSyO5AAz4UQQCKiRdtluoalG76CHmT+Yrx2H9cT3GFfIgLZJ9piuIh2IM7QcSSPGLbnp45m3wRdEPPWzHg79S0ipD1JTn17SuhtjOg+YJkKqeER3qgbhOuRrckvbEBrEgbw0VHqsLBAiy8ZhECZIkr1d8t0aMA=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(10070799003)(1800799024)(52116014)(376014)(10067099003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261102123227099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(261026140227099003)(261028144727099003)(261021135927099003)(261022105027099003)(261022075727099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?BCPfpGYBx8SR70sAKkvU0OQExjUy3wwmVP0LmGmv7Es5vCWtkAkEvx0ELb+r?=
- =?us-ascii?Q?uT1FJkAtB/nia3JkGmA49OfXov/PGZoZyzb+Quy9TLx3cFZVBbesmzWgJvyP?=
- =?us-ascii?Q?3nBuAmJQeiUR/7zoW5rHRYflrLn0KmWNvjRWyDjU8+rmC8jBKtYwqTW6CkCQ?=
- =?us-ascii?Q?gtC4Gyj7cDVTcJWofnAUZz6lyxYqJspt8LD7cC681IIUlPH/Zcigl4rsGYF4?=
- =?us-ascii?Q?Yu+fWBVkMNYXf7T3vgLeQY8qBVQqonY2NOwRCgXziuEtlsMHHHBmThAU9ghw?=
- =?us-ascii?Q?i92sOa1oL+WdxzoOqO2BB5Soe/ch2/OLFSalFHBwQT6XAAM2pC9UXFP3rSqP?=
- =?us-ascii?Q?YK7cwW5SFDTaAkk8qqdP1tssOXeKJ9CoCd8T2pdgnwWzeLM8b/PTLVY5DuCZ?=
- =?us-ascii?Q?+uJyAH+Z9cCXWvlyOl7hY4hCstYCvShqxWhGY3UO/PQHF6zPbgF8a8F3EF5c?=
- =?us-ascii?Q?CLF/HyEHjjHJdnYBgZg37rvFEiDYXdNTGC/waCSYjujSUJ+56qZ3kAeJtye2?=
- =?us-ascii?Q?268QZxglXbSBrSYZYe08oNkQAPAJroVxvGjeRJDQ3TVLUip6T40r4dt7BRZA?=
- =?us-ascii?Q?D4UOV67lFtxn1uwwZ+U1J2LFwmcHgdrxk1hCBcjJpe98KOaDvmcY+9d+HNfN?=
- =?us-ascii?Q?81GfG8sETc4Uq8ptLN07Wj0oJaJF1ERsLJsqtV4NoxnTBLJA34HTOytjRWXh?=
- =?us-ascii?Q?De6vnWW4pKTjhmuwyxwIHAoA6P2OMV+7EPIdtr4A8a/slExlk4RL5ipQwff7?=
- =?us-ascii?Q?UE4iFPxvkE0ijZhYMIi/LVe+vk+/6gRLy86F94W91xk+jwzc0BqR4tpvAMEj?=
- =?us-ascii?Q?WlSpo4pI76Ih5WW+D4ptp6Ux4ey7Eie38mEEF/h8UBzdllsgQkZYP1JOZv5n?=
- =?us-ascii?Q?59wCiLDIxaEBW+/Pnted6nCHaaU413I0YFNoDrVV91BBXQ9lJLiSKlUdiXbu?=
- =?us-ascii?Q?bJWkzUM0CT95OLiwZjqDua1npB+o031B9YCJJGbsxlxRsSSmmS1pFvvgmO3l?=
- =?us-ascii?Q?r/WRgBGtsDwL3RG1gziJ+lXFmWc9U7Tn55NT+f9fM0tNxvowaD57L3y87Gky?=
- =?us-ascii?Q?KHgd1CZUESk10HQnhxbmQM2IyUa5Q5PtagxdywdZLdAQuqNhM9HmWUnU24Wh?=
- =?us-ascii?Q?YSLCXfgQ/SukezfLfuhfuLlAX5bwVRptNmzyJkzbIYXllfeAmPXdJJkXcZ03?=
- =?us-ascii?Q?dnNxOV475qc7Ev+0hVyzvId3CfnsjlKZs40lV5OV+wZjuhCCZYgwgF2bpqLc?=
- =?us-ascii?Q?BfNbCtjRupLCi7m1s+AWx+YJWVyX/amzbFQTG0dI6jNTj8aTK7RATYeLtndB?=
- =?us-ascii?Q?xTV+GghGK3PkgO1PrMP19km7RShNMFz+f67rUb7vNVOfn8dHma1VEN2cm9h6?=
- =?us-ascii?Q?vcUV349Iy8KwmgRoGs0BG/gjah27qQQsASC90JX3KRBJvpxm/ATy6xj/GgdH?=
- =?us-ascii?Q?ce8jqYeG4G23GqXa7A/DPoY8h56FZVO05QNH9Q4u71USn5ge5OzrW7ohFf8R?=
- =?us-ascii?Q?/UJrkxz2TbTG1xcp2jeUIbexK/um6aw9SKPxZTdWEqKUxMzGyPD7svpeXuUu?=
- =?us-ascii?Q?atB6rLRJNhs065M/7Vfi0r7AnPoA+qdu2hhO3DugXfZ5XgjUnaGkQct8WcWb?=
- =?us-ascii?Q?SUjTVfadC7JYUN3vainmcY2NGgTWwqAeXYyTqdfKtNF+JwOi6Sh84/sgsMZW?=
- =?us-ascii?Q?/XnKRkW7C1MpZHZKjF8WaK1Ptr2EGt8A/fKHjwDsSRZWbK4khawu313Gd4dL?=
- =?us-ascii?Q?64HCp/gXS1urGovCYtNDqRR2ANQ93RCiaTBRX1iDPdII1+ozbRk7u2+VthV2?=
-X-MS-Exchange-AntiSpam-MessageData-1: R/R/oQsaU/1pkQ==
-X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3adfb309-efda-4532-b920-08df43a4a7dc
-X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+	=?utf-8?B?by9KUVFkU1A1TXh1cGJRUlBxZ3JGR2VtOEN0alR6dUMzaGt5NlBjaUw1bndF?=
+ =?utf-8?B?eGQ5SFZvTkgrMFVWLzlndmZORTFSNEpwWlFFaTFLS1NjUFRKRlhWUnlJaVRl?=
+ =?utf-8?B?cFpiemlCL1dpTnRNN1BmeWVmMGZVQU1yQTVMcy9qeGVUc3JiRENlR3p0ZmFv?=
+ =?utf-8?B?WVlrSlJxNkZ1Sy9KS0htSUg2dlA3ZjNwMW9KVmxhanV0Vy8zYjUxZllydE9D?=
+ =?utf-8?B?VXY5WTE1bW9jMWZjZnpqcjdvSmZXamR4bWpTVWVqMlhrTE9mOUdJZzdlWCtx?=
+ =?utf-8?B?QlhhWXV5SjVZUXFLU1RIS0Rod1BtZmkxTi9peEIrS2NWZUQ5aUowTEZubEZu?=
+ =?utf-8?B?dFZqTkZSc0VINHJDcjlGTnFDV041alJiRHBSSnBwVk1vTnFyOUdYOHJQaDRT?=
+ =?utf-8?B?THM1WkxXekpHSWR6eUY5YkVGaml3TUJ5ZmJneDI5a3VpZkRCR2ZKR0x2c0R2?=
+ =?utf-8?B?eGY5NHZtRnZsUjZaZnJZZEcwaG9BMHY0RGd6cVpOTFhxNWkxWEc0N04yYnVR?=
+ =?utf-8?B?ZXdKUUJyN3dwc3crOTBua2pIV29uNTJXckRxc29jZUZTampvMGdDNS9LS1Qw?=
+ =?utf-8?B?UXJPR2tMdXlpQnR2YXJZbzRmVlVseW5vRkY4c0x1MGhHbTVOZnZzVTE2aUlO?=
+ =?utf-8?B?ODQrK0pXTjN3MGpXL2xrTHJKb1JGbVBDdUhuZTlDY29VMVhldGs1VDFFbTBZ?=
+ =?utf-8?B?UEpoWVl6TlV1dG5DY2diQUdQVnU4Q0o2RkZSTWgyZFp0WEszKzlpT0wvMDZh?=
+ =?utf-8?B?T0NUSU54dTRubjNreXpzMy9BSURtRll6RjlvcHc3UmVRby81UHl3Mkw0cXJ2?=
+ =?utf-8?B?aTF1MmppcU1iNE9TRmpJTXRBb2pHNTEvYlp0TytRaFpTQVVXMUU3d1B5Tksw?=
+ =?utf-8?B?TUo3alp1ckl2di9tNW5kOWpPL1FwSVhxMWxncG1wV1lWeGx1U1l4THlDWHNa?=
+ =?utf-8?B?NWFYcUlEWWZYQjM0cHdrWFJOSVhJQmtxTkkrRmhvVDdUVzkvUWJoZ3FtNlIr?=
+ =?utf-8?B?bnowTkt6QlI3c1lxRVY2NDREa2EwMDhMY0h4Wi8ra1kycExaZldUUUJiNG43?=
+ =?utf-8?B?Um94M2ptaUk4T3Q4RW4ySytTNUVrcWVnbGJqcm83ZkFZWHROT0d6WStDMEU1?=
+ =?utf-8?B?WFpiYlNKRjZkaTZqbS9vUW9hbkJVUG1pZ3I5MGpvbFFSL2VrR3QwWllXV3hM?=
+ =?utf-8?B?WUFlL05pQnBPbFplaUFQWHJWUEd4MmZ0ZVR3cjNrTFZHOGsyeWc1Z0srdWJO?=
+ =?utf-8?B?eCtXTFV0c3BOTmtOTE1FSlg3RDU1TkpNa2ZxNFBKL2ovOTd0alh3SGVGbERp?=
+ =?utf-8?B?OXlFc2owUjNMUEtGSkpNbzBwaStKNG5KVitRUDlueVJ3dXAwUTN5bHNzS0VT?=
+ =?utf-8?B?a2pxNTFBdmVHalFmRXBiWElNSVJYamIzWUVqa0N4Z05zZ1A5RHNrbk9sUHNs?=
+ =?utf-8?B?OWlIakQ2QUJQOFB4QjFOQmptYUczdVhveEtlOWszUUtmUkp6TFdYMFd0VGpz?=
+ =?utf-8?B?d0I1Z2RCQzZoRDJDKzNvbGlGdS9hUHAyY0ZVUktsMExIbVhpdzF0S2tuQWlr?=
+ =?utf-8?B?QUtUMENVTGdhTkJ2S0V0L0FRYTRISFdsS2FuemNXVkN4Vmo4Tit6RTB3cUcx?=
+ =?utf-8?B?SXNQTDd6VG9oVnVZdWxHSmVwZmFRM1dXNzR3aFRIcHAweHIwaWJsVWM0QU9u?=
+ =?utf-8?B?L2FvaXUreGNCaXRaVWRZYnJOalNlTWJsbmRlRDBucFhsMkREQ1ROM0NjbGRP?=
+ =?utf-8?B?THdtMEFOVDBsMjl6bUhTL3RmVWlrVmlMQkRqdUtqaTVKOC9YS01taDQ2Zlhx?=
+ =?utf-8?B?cmJwZWIvMVdDVDJJdFlZMndBZ0xncVVlK292eTl0UFFZOGFjUHNyZllsaE5h?=
+ =?utf-8?B?NFlmUjZ4YVBoVnlkTXEwTUR1U2NBcnZINzdvNmsyTEJldU5aTk4rNWhYdXNL?=
+ =?utf-8?B?U2FIc3I1K0wwWHQ2U3lqSTZ2MTViSlFjWFN4cUs0RUtXM2Q5WGJzWXB1MGRR?=
+ =?utf-8?B?eFRpVW5VSS9uZnZlbjc0cTh0c29jdkwxNXVGdEVNNTZjZzhpbkIzdld5YWN2?=
+ =?utf-8?B?S0JxSWFJVm9iUlM5Wmx5NjRpeUQwc2NOTERPTmdQNklZdm02TXEzcjJkUHdh?=
+ =?utf-8?B?REpUd2tPOHQyMXcwYzdRT1RzVTlKZ2MyV1E1blFSUlRIcjZjMlNBVUlUNDZ3?=
+ =?utf-8?B?aGtCak5MUzVRWERYdnhibXdSNXJrdWVBNnRLNCtSalVYSXFPRzNZNmRYQ3Iy?=
+ =?utf-8?B?eVYrS3Z5aW9JOTN2dVdNVzgwbjNxTDh4eTg2Z2NvMzVGRDI4L0FBai91aHhs?=
+ =?utf-8?B?TFVZS2hvMExLbExrZjJWZ0ZnSE5DNkdGK1RnYTJkbnFWUEgzZXVadz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 935637be-7d4a-4c08-c0b5-08df43a9ad80
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 05:44:18.4278
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 06:20:15.1333
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y2aM43yL9Ya/YpknKmZSOO4MgnyTdu1KMql4aHfpA9Y/K38Iciu5Zi+D8KpndPB5QuIEAtSQn4pH6a4nDNfuiA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNYP287MB4388
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2vyjR1GQTBgVn5RjfV+mJLzE3Z3stIhOYCySCgKqcmXNApKI8CJJ/RPVzsxz7Zrfrw7CtztUSxB98ji+cEQHtA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB7507
 
-Hi Gjorgji,
+Hi Neil,
 
-Just back from the Diwali break and catching up on everything that
-went quiet while I was away, so apologies for the gap on this one.
+Patches [1/6] and [2/6] of this series add a new SMC command in
+meson/firmware, which required by the S4 stateless video decoder
+to load the firware via SMC.
 
-Back in October you said you would try to include these four patches in
-your next series:
+During the review of this series, the media maintainer, Nicolas,
+requested that these two patches be merged first, so that the
+remaining media patches can proceed on top of them. He is fine
+with either approach, merging them along with this series, or
+splitting them out into a separate patchset.
 
-  > Thanks i will try to include your changes in my next series,
-  > it will need verification from your side as well.
+So if these two patches look fine to you, an Acked-by would let
+them go through the media tree ahead of the rest. Or we would
+also be happy to split them out and send a separate series if
+you think it would be better. Any suggestion or review feedback
+would be much appreciated.
 
-Is a v2 of
+Best regards,
 
-  [PATCH 0/8] media: qcom: camss: add V4L2 subdev streams API support
-  https://lore.kernel.org/r/20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com
+Zhentao
 
-still on your list? No pressure either way - I am asking because I have
-been assuming these four would reach the tree through it, and that has
-left them sitting where nobody can build them.
-
-The practical problem is that my series cannot be applied by anyone but
-me. The CI gets six of your eight patches from the list by
-patch-id and then stops, because my copy of
-
-  [PATCH 1/8] media: qcom: camss: Add streams API support for CSIPHY
-  [PATCH 2/8] media: qcom: camss: Add streams API hw_ops to CSID interface
-
-carries the CSIPHY rebase we discussed, so its patch-id no longer
-matches what was posted and prerequisite-patch-id cannot find it. The
-result is an apply failure in camss-csiphy.c that looks like my bug but
-is really just a missing dependency.
-
-Three ways out, whichever suits you:
-
-1. You post v2 with these folded in. Still my preference - it is your
-   series, and I will test and send Tested-by as before.
-
-2. If you would rather not carry it, I can post the whole thing as one
-   series, your eight patches with your authorship and Signed-off-by
-   intact plus my four, so that it is self-contained and the CI can
-   build it. I would not do that without your agreement.
-
-3. I post my four alone against media-committers next with the CSIPHY
-   amendment included explicitly. That unblocks the CI but leaves 1/8
-   amended in my series rather than fixed in yours, which seems wrong.
-
-For what it is worth I have your eight rebased onto media-committers
-next and they apply cleanly there, so whichever route you pick the
-rebase work is already done and I am happy to hand it over.
-
-One thing worth watching: camss has had a lot of traffic in the last few
-weeks, including Vladimir's CSIPHY device-name change, so the longer
-this sits the more rebasing it will need.
-
-Thanks,
-Hitesh
+> From: Zhentao Guo <zhentao.guo@amlogic.com>
+>
+> Add SM_LOAD_VIDEO_FW to the secure monitor command enum
+> to allow decoder drivers to load firmware through the meson_sm
+> interface.
+>
+> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+> ---
+>   include/linux/firmware/meson/meson_sm.h | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firmware/meson/meson_sm.h
+> index 3ebc2bd9a976..3b90b49d0552 100644
+> --- a/include/linux/firmware/meson/meson_sm.h
+> +++ b/include/linux/firmware/meson/meson_sm.h
+> @@ -15,6 +15,7 @@ enum {
+>          SM_THERMAL_CALIB_READ,
+>          SM_A1_PWRC_SET,
+>          SM_A1_PWRC_GET,
+> +       SM_LOAD_VIDEO_FW,
+>   };
+>
+>   struct meson_sm_firmware;
+>
+> --
+> 2.42.0
