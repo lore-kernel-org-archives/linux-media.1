@@ -1,76 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794866422;
-	b=DB2v2zmL6JayBqi5BfctArtR8JY1ZwlMBBovDW8UxZEdVw700kSX+UvMGSseN8pmw3MM
-	 YNLNyM3oy6+ISu9/kQRa4Id7qF14KMp+mMOvJfbMEK/PINMPluLZevSp4GzOs1sNwcmHp
-	 O0RWLCn7LRh9cS/ZKwYU3Yel2h9tQmO2PTthRjdUXtQmACWszUDRuWh4z5XDrSN3jFDsX
-	 zKmCrPEpzw216s2WU4oqewJmymF1DIvZ5l8QxkVp5JorYV87H4053xEqO4nFsSHaWrvKw
-	 1JKSTqHw1++YQZ7PWLqbiljyqZYfgmoO3ElpiBRx8zyrHdk5+32+i5/uwlOpM0vZqhg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794866422;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=aUXpI/E3Sluit3VzwgRd9OPYUnzmKE2fCDEd+ELmo2U=;
-	b=MVkFhQDC9rSk0mskIQrsQUaXXLyWfdxfTwT7XtHSF2M4dWwxTYttqZPSF2ZL2O93FiL4
-	 /deJL0UBaj0DTdYOkKESKRzo44YcqZvSP8ahDgCF35XPUe7qopRSLwbix9xrX7ZU/T+AE
-	 Bfz9WBxahHs44pbk8MXbJEhRnaml2RqTULv92+1Eq+4yiA/pG1QA0HznhbgJjeI71pCko
-	 IG5578JwMIyy2HunG23IJTxrMJtGuBseyMSgg1ZKEvqS6RPZ0xPY7wzViR9MJUcjYs3EM
-	 9TGS8jQsxMbr/7NFl3pVHtc2AAe79CRYDfeQPMn81/BUJqxkJQ/r9UxHhwUe+cqvo8w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WzZSUl3f;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794870559;
+	b=nBDibyYcoMxjuAQaKeDjT71a87awci7gziyZggNTkuazICpz0HUH/eYe/k9skTIn6yUe
+	 4ELue9Nrg9uQ+XNqRbDEluShoEXeWvbc0YgsD+iZ/WmOleD8ztpR++xX0xlwyGBOTqs4h
+	 mPwgf++x+8saIiCjPJCfxLusGA13FjLVro/DWe0W7t642VY+jDYZ0DrDUJlnFD++c6cnF
+	 2lJU3qnXJB/1u/JMl+31t7D96Absvs0yEq4RPTi7YWx3R2mUiy3MZaXTLigHBFVNtgNah
+	 MYrwk3GJi2JVFn328vZPpzrcelk/Vst6s6mFnuwR6FIUfVr1a0ypl8Q2rPf2+92ckaA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794870559;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=iBDnXG+nA4RFaLKF/XaZ7XmFYtNCdCKBdGCwJE/xM6g=;
+	b=39ZJqpEjz75HoVLL5Sh8yuoUCm12DepMeO0rFTj67b2pKdK4Le6DgFERADSntyDjpAH9
+	 NZAIZm6kCJVqNwOXAierAQRKorIzvrPID4dRSDCpKwlquUt3Jd4YIe7WNLrf85CW0DQJu
+	 mkxwutJ/cMGIggTqA3zyYSRbmtMQysiBxBfeEhFkA+Cur3JKDEndUpP5k8FMJvSKiB1Fu
+	 aZX90RNlc4Mx3N3EZdKdYRajLWPcV41z5Y22uyK4HJmwYHnsRJpCoH/TUxsHkZWYuY7ES
+	 SlXgtGkFuZDdm1rPftU1uEnd/+DlpegT6l55Qco1P4ZoX2XglYWYqh9egKON1iCA7bQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WnTtWtIu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.176
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E955606A8A7
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 22:00:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E955606A8A7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC58606A338
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 23:09:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FC58606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WzZSUl3f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794866420; x=1826402420;
-  h=date:from:to:cc:subject:message-id;
-  bh=6E3w941yi2V6yn94NnptJsU4mMHkp9kgENknzKY/C+A=;
-  b=WzZSUl3fyR4UArfH7mKQNWTzqeaI4fC5SV44fJmrB3Jo3yt6UZ7d4nXW
-   VLUwM1XD7lqvunhy72QhSlZbWh87ZD39001rdmq/UPLK9GE2nVsxMXGtk
-   rCL98fFDBegZV/T2WG1vIc0kc/HYT2qw/UILa8d/AVGArC8HrtIMZUA+F
-   kqhRAwb1F5kX5ofBVwWMY7yINLBg9lOXohJeBLB0Z5gh7zgIgkcTwnF+e
-   u7DIokCH/QcrTmK+gv4tlj3Sd+wkZfH+eEP7UImPOtoBQehqCP96D4ZoI
-   vS+5u/+Ap6CpoXab7FdMEhlcGhgaE9L1UzzApPJXrtn7HsOe+I2ZilHqk
-   Q==;
-X-CSE-ConnectionGUID: 5Lp5jHuiSzmF9vFa73625w==
-X-CSE-MsgGUID: 3pzNQni2R0KzKt8oN8IBKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3635577"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3635577"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 14:00:20 -0800
-X-CSE-ConnectionGUID: VDoiAt+YQTuqaYCi89ZQqQ==
-X-CSE-MsgGUID: 4lVrSeJSRpu81a2IA8EDPw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="11447926"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa011.fm.intel.com with ESMTP; 16 Nov 2026 14:00:18 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xT4kJ-000000019VK-2bqg;
-	Mon, 16 Nov 2026 22:00:15 +0000
-Date: Tue, 17 Nov 2026 05:59:20 +0800
-From: kernel test robot <lkp@intel.com>
-To: Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org
-Subject: [linuxtv-media-pending:master] BUILD SUCCESS
- 3fc9303dba01676c2090768126e5327e341b7761
-Message-ID: <20261117055920.92bv9u8k-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WnTtWtIu
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b4d07494b0so4729437b3.0
+        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 15:09:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794870557; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Y9Y6vGo2YCm/Z5cc6o4khn0ertRVHarNPcYiGVOthV/w4qcXGfR+pXMCID9ze3sTm4
+         2dDEgaj9GxElfLCNu8j0LyzkLoLovTLPnhK83w9QpfseHbte12RVI/2iTa9BXGBonfHh
+         0LvScXz0O0TK4KYAjH4QFyo1hEWu5yEoHlyxwp0LpFRCxPz3sxtWAdkwMWk95P3lwcbs
+         hzXr5OSQdGdW+12ehsE38UZWZoHNnzgysCx7eTVBHSxMJ0/TMObgBUQolpLW82u6GbgY
+         DHuS8PSj7cTGhZ+bkkhwBcptNpqBjQxRBFxM/TVZw6uNy9/QaVvZeb7NNyePyg5hB5cD
+         BfHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=iBDnXG+nA4RFaLKF/XaZ7XmFYtNCdCKBdGCwJE/xM6g=;
+        fh=67lMe5VqZQ0TjYW1u0hFvcUXfMu/yRJ2rQmoXYshJOk=;
+        b=gK18uY1dPypUcwtNsiDNPvp2d0PSLRSzhK8d7x6HXujNCDbCyxrFM3xhQI5PZk8zpm
+         SK2UDw1uT1CP4dYThJsdebJaT/D6m4ScHJvQKANHkzp8WkWbQeqiTKIQwMvVdF1jSSPr
+         ca5RrdDAfiAVIJ9glMcUdyzUUoUY/ttDU+K/EAGLqiQRzkaZC8RId4xpCjXweBGm3FCB
+         8lY/bmI0081w5tpuDQbBDqNwjGBEst+YtCQB7lEI/vsk1BQNnZr0VBhjmByCpo6o03+X
+         qoPn6hsyRlpr3kSpQVnDbMzhnFhWgGdlbP1IvPB3OusrA+SqLWhI3+OFR1xSLo/F131g
+         GzKw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794870557; x=1795475357; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iBDnXG+nA4RFaLKF/XaZ7XmFYtNCdCKBdGCwJE/xM6g=;
+        b=WnTtWtIu+NCcFlKMRhNmo0hKPpMOSFhf1nJ9xQNi8BhtcD4k8YSCvotv7UfM+pvvCH
+         o3C7Pz+aKWWhLBOswcNIlU+MXqg2pYaK8i7a5Hxj018p0krN9hejakIrh4qfFhYaGl98
+         POm2Bpxzz03FKbe6dDGx0R2YUK5Cm5l5Rpt5JS4wSZKDdIz4LUojoA8BvewT2ARnmfER
+         KkedgycmwzIwZE1OEL825xO6BYe7ePrkUDxuiC8P71D98FGxC+qircwPFRHRoyp+2bNf
+         n8+OC0ViSRMwCN+n1FYoDDWlgRufElpxkdR2sMRGjKaTGUGan0Y3IpeJD6NamU/4sJdy
+         wVVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794870557; x=1795475357;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iBDnXG+nA4RFaLKF/XaZ7XmFYtNCdCKBdGCwJE/xM6g=;
+        b=zC79jagvqOWlVbH6qyQnTz+y7N6MDYtjl5aIBPqQ2EpVEbKPQHtrGIeHgmBL3jaFHU
+         NifD1qiK2Ld6Qna+xJW3izpe9tOC/qE9xzs1DXWUJ2hC6JdsA6FWTyPN9cfX45BQM1KV
+         c+IPJLyvvjnS734fMo0nNJ1TQla2ypB2Kt57IgmjO70ADr2j5jORVUWsJ5lLBgMJRjDo
+         nMA9h440s+XRZpv/ltVEaIbfO4Rv9c3BcwO6gGvqbnKYxIRFiXc7BKCrw/YMUR5SIaHp
+         NSxtPCIh6IjIHGKZuzCp9uZUOxVPpbJkOkb2OmFRYtBz00t4NGooNVgDp+1d/UA/jCFg
+         fBZg==
+X-Forwarded-Encrypted: i=1; AL+hErG0OULPLBdfrqdBj+NfaO14Ij4931SCD36v6tMmj0bWtnTSAHMcYpanv1OJCPkcyPfSIVsBT99ETl4Rkg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/5p0XOkAmiLdqDCh9pVgLm5pU4W6WMzaNX54QCRpqfwrcbtC/O
+	CztPhkRIA4YEU/6NeF/QEfTgq94NrH5cfbC+G4Jgg835HqRcyB16FWqC1C1j0VZpdzVlnr7hbYI
+	RZhHx413bDL1c39KxexhE9QW6SkWMiQc=
+X-Gm-Gg: AZFdTZdRlNCxoj11W90roEAuZ7TOD6/i6wSYhqFQfvXzMSsy0fVr6RLEQLYqxCDf8xm
+	GQ4KW4TLGEi2KrSGEn13pa6a9XcHOXcRiOr+CRUqxib1wQcL2wwMD4x3BbZingx0ejLpSVOo80i
+	x+9qs+ycGUaHzuAiOYKNFYivBiDT98gnjxo3sLk6oyDb5ln2FTr4qxJoGa6lAaQMbNgEEv/YfFR
+	/RWKxg9p3GOIh5IUCgaf+YA8k7d3wU6m6hfs2Hvmq7l8XxrwCPHfAoMxsyrjKAkYswhG6NXxGci
+	WVthws8u/X02nPwPVzy/gnIxcQbt58KmzE9ubzGcAQNaAo2SVSAjNH2GTrq9Yp2N0CLZccS5efB
+	Er9/LmkDWG4sXuFG9bmPFvAxvUWmU5D3KaI2zx7HotyW/TXbwhRXAY7MpRNtUsIFUARiJwcQ=
+X-Received: by 2002:a05:690c:88:b0:8b4:c69d:17e3 with SMTP id
+ 00721157ae682-8b4ee2a0d05mr5958567b3.32.1794870557228; Mon, 16 Nov 2026
+ 15:09:17 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -79,404 +103,1132 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261116175151.20150-1-volodymyrchapman@gmail.com>
+ <20261116175151.20150-2-volodymyrchapman@gmail.com> <CAPY8ntApAUvZ5z9OkMPQfvhZJHcX6V6giY3V3N-Q0gVt0YPt7w@mail.gmail.com>
+In-Reply-To: <CAPY8ntApAUvZ5z9OkMPQfvhZJHcX6V6giY3V3N-Q0gVt0YPt7w@mail.gmail.com>
+From: Volodymyr Chapman <volodymyrchapman@gmail.com>
+Date: Mon, 16 Nov 2026 23:09:04 +0000
+X-Gm-Features: Aa3M54q1Y9Sp7fLkWObHhG5HOfYhkhm2TFO5M8s6TQLYxtrKpTSoW9J4-o5WCgg
+Message-ID: <CAN1s30oyqjxR-xGDOW32xLsFTmOa+jGTkff0v_5GBGO_HzssRw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] media: i2c: Add Sony IMX175 sensor driver
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, 
+	Hans de Goede <hansg@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org, 
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-tree/branch: https://git.linuxtv.org/media-ci/media-pending.git master
-branch HEAD: 3fc9303dba01676c2090768126e5327e341b7761  media: au0828: reject too-short isochronous packets in au0828_isoc_copy
+Hi Dave,
 
-elapsed time: 1491m
+Thanks for taking a look.
 
-configs tested: 384
-configs skipped: 2
+> No Copyright from you? Or are you representing Intel here, in which
+> case the end date should be 2026.
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+I'm not representing Intel; that line credits the register settings
+taken from the removed atomisp imx driver. I'll add my own copyright
+line in v2, and MODULE_AUTHOR.
 
-tested configs:
-alpha                     allnoconfig    gcc-16.2.0
-alpha                    allyesconfig    gcc-16.2.0
-alpha                       defconfig    gcc-16.2.0
-alpha        randconfig-2000-20261112    gcc-10.5.0
-alpha        randconfig-2000-20261112    gcc-13.5.0
-alpha        randconfig-2000-20261115    gcc-14.4.0
-alpha        randconfig-2001-20261112    gcc-10.5.0
-alpha        randconfig-2001-20261112    gcc-8.5.0
-alpha        randconfig-2001-20261115    gcc-16.2.0
-alpha        randconfig-2200-20261112    gcc-15.3.0 smatch
-alpha        randconfig-2200-20261115    gcc-8.5.0  smatch
-alpha       randconfig-r2107-20261115    gcc-12.5.0 cocci
-alpha       randconfig-r2109-20261115    gcc-8.5.0  cocci
-alpha       randconfig-r2302-20261112    gcc-15.3.0 sparse
-alpha       randconfig-r2303-20261115    gcc-14.4.0 sparse
-alpha       randconfig-r2307-20261112    gcc-13.5.0 sparse
-arc                       allnoconfig    gcc-16.2.0
-arc                      allyesconfig    clang-24
-arc                         defconfig    gcc-16.2.0
-arc          randconfig-2000-20261112    gcc-8.5.0
-arc          randconfig-2000-20261115    gcc-8.5.0
-arc          randconfig-2001-20261112    gcc-8.5.0
-arc          randconfig-2001-20261115    gcc-16.2.0
-arc          randconfig-2002-20261112    gcc-8.5.0
-arc          randconfig-2002-20261115    gcc-14.4.0
-arc          randconfig-2003-20261112    gcc-8.5.0
-arc          randconfig-2003-20261115    gcc-16.2.0
-arc          randconfig-2004-20261112    gcc-8.5.0
-arc          randconfig-2004-20261115    gcc-8.5.0
-arc          randconfig-2005-20261112    gcc-8.5.0
-arc          randconfig-2005-20261115    gcc-8.5.0
-arc          randconfig-2200-20261112    gcc-8.5.0  smatch
-arc          randconfig-2200-20261115    gcc-16.2.0 smatch
-arc         randconfig-r2102-20261115    gcc-8.5.0  cocci
-arc         randconfig-r2106-20261112    gcc-14.4.0 cocci
-arc         randconfig-r2301-20261115    gcc-9.5.0  sparse
-arc         randconfig-r2308-20261115    gcc-11.5.0 sparse
-arm                       allnoconfig    gcc-16.2.0
-arm             am200epdkit_defconfig    gcc-16.2.0
-arm                         defconfig    gcc-16.2.0
-arm          randconfig-2000-20261112    gcc-11.5.0
-arm          randconfig-2000-20261115    clang-24
-arm          randconfig-2001-20261112    gcc-11.5.0
-arm          randconfig-2001-20261115    gcc-10.5.0
-arm          randconfig-2002-20261112    gcc-11.5.0
-arm          randconfig-2002-20261115    gcc-8.5.0
-arm          randconfig-2200-20261112    gcc-10.5.0 smatch
-arm          randconfig-2200-20261115    clang-17   smatch
-arm         randconfig-r2106-20261115    gcc-8.5.0  cocci
-arm         randconfig-r2304-20261115    gcc-8.5.0  sparse
-arm         randconfig-r2305-20261115    clang-24   sparse
-arm         randconfig-r2307-20261115    clang-21   sparse
-arm         randconfig-r2308-20261112    gcc-13.5.0 sparse
-arm         randconfig-r2309-20261115    gcc-10.5.0 sparse
-arm         randconfig-r2310-20261112    gcc-13.5.0 sparse
-arm                   spitz_defconfig    gcc-16.2.0
-arm64                    allmodconfig    clang-24
-arm64                     allnoconfig    gcc-16.2.0
-arm64                       defconfig    gcc-16.2.0
-arm64        randconfig-2000-20261112    gcc-11.5.0
-arm64        randconfig-2000-20261115    gcc-13.5.0
-arm64        randconfig-2001-20261112    gcc-11.5.0
-arm64        randconfig-2001-20261115    clang-22
-arm64        randconfig-2002-20261112    gcc-11.5.0
-arm64        randconfig-2002-20261115    gcc-8.5.0
-arm64        randconfig-2200-20261112    clang-24   smatch
-arm64        randconfig-2200-20261115    gcc-15.3.0 smatch
-arm64       randconfig-r2107-20261115    clang-24   cocci
-arm64       randconfig-r2111-20261115    clang-18   cocci
-arm64       randconfig-r2302-20261115    gcc-8.5.0  sparse
-arm64       randconfig-r2310-20261115    clang-24   sparse
-csky                     alldefconfig    gcc-16.2.0
-csky                     allmodconfig    gcc-16.2.0
-csky                      allnoconfig    gcc-16.2.0
-csky                        defconfig    gcc-16.2.0
-csky         randconfig-2000-20261112    gcc-16.2.0
-csky         randconfig-2000-20261115    gcc-14.4.0
-csky         randconfig-2001-20261112    gcc-16.2.0
-csky         randconfig-2001-20261115    gcc-12.5.0
-csky         randconfig-2200-20261112    gcc-11.5.0 smatch
-csky         randconfig-2200-20261115    gcc-12.5.0 smatch
-hexagon                  allmodconfig    gcc-16.2.0
-hexagon                   allnoconfig    gcc-16.2.0
-hexagon                     defconfig    gcc-16.2.0
-hexagon      randconfig-1000-20261116    clang-17
-hexagon      randconfig-1001-20261116    clang-17
-hexagon      randconfig-2000-20261112    gcc-16.2.0
-hexagon      randconfig-2000-20261115    clang-24
-hexagon      randconfig-2001-20261112    gcc-16.2.0
-hexagon      randconfig-2001-20261115    clang-24
-hexagon      randconfig-2200-20261115    clang-24   smatch
-hexagon     randconfig-r2110-20261115    clang-24   cocci
-hexagon     randconfig-r2303-20261115    clang-21   sparse
-i386                     allmodconfig    clang-22
-i386                      allnoconfig    gcc-16.2.0
-i386                     allyesconfig    clang-22
-i386                        defconfig    gcc-16.2.0
-i386         randconfig-1000-20261116    gcc-14
-i386         randconfig-1001-20261116    gcc-14
-i386         randconfig-1002-20261116    gcc-14
-i386         randconfig-1003-20261116    gcc-14
-i386         randconfig-1004-20261116    gcc-14
-i386         randconfig-1005-20261116    gcc-14
-i386         randconfig-1006-20261116    gcc-14
-i386         randconfig-2000-20261112    gcc-14
-i386         randconfig-2000-20261115    gcc-14
-i386         randconfig-2001-20261112    gcc-14
-i386         randconfig-2001-20261115    gcc-14
-i386         randconfig-2002-20261112    gcc-14
-i386         randconfig-2002-20261115    gcc-12
-i386         randconfig-2003-20261112    gcc-14
-i386         randconfig-2003-20261115    clang-22
-i386         randconfig-2004-20261112    gcc-14
-i386         randconfig-2004-20261115    gcc-14
-i386         randconfig-2005-20261112    gcc-14
-i386         randconfig-2005-20261115    gcc-12
-i386         randconfig-2100-20261115    clang-22   cocci
-i386         randconfig-2101-20261115    clang-22   cocci
-i386         randconfig-2102-20261115    clang-22   cocci
-i386         randconfig-2103-20261115    gcc-14     cocci
-i386         randconfig-2104-20261115    gcc-14     cocci
-i386         randconfig-2105-20261115    gcc-14     cocci
-i386         randconfig-2200-20261112    gcc-14     smatch
-i386         randconfig-2200-20261115    gcc-14     smatch
-i386         randconfig-2300-20261112    clang-22   sparse
-i386         randconfig-2300-20261115    clang-22   sparse
-i386         randconfig-2301-20261112    clang-22   sparse
-i386         randconfig-2301-20261115    gcc-14     sparse
-i386         randconfig-2302-20261112    clang-22   sparse
-i386         randconfig-2302-20261115    clang-22   sparse
-i386        randconfig-r2105-20261115    clang-22   cocci
-i386        randconfig-r2110-20261112    gcc-14     cocci
-i386        randconfig-r2111-20261112    clang-22   cocci
-loongarch                allmodconfig    clang-24
-loongarch                 allnoconfig    gcc-16.2.0
-loongarch    randconfig-1000-20261116    clang-17
-loongarch    randconfig-1001-20261116    clang-17
-loongarch    randconfig-2000-20261115    gcc-16.2.0
-loongarch    randconfig-2001-20261115    clang-20
-loongarch    randconfig-2200-20261115    gcc-16.2.0 smatch
-loongarch   randconfig-r2110-20261115    clang-18   cocci
-loongarch   randconfig-r2306-20261112    gcc-13.5.0 sparse
-m68k                     allmodconfig    gcc-16.2.0
-m68k                      allnoconfig    gcc-16.2.0
-m68k         randconfig-2000-20261112    gcc-10.5.0
-m68k         randconfig-2000-20261112    gcc-16.2.0
-m68k         randconfig-2000-20261115    gcc-15.3.0
-m68k         randconfig-2001-20261112    gcc-10.5.0
-m68k         randconfig-2001-20261115    gcc-8.5.0
-m68k         randconfig-2200-20261112    gcc-14.4.0 smatch
-m68k         randconfig-2200-20261115    gcc-8.5.0  smatch
-m68k        randconfig-r2108-20261115    gcc-10.5.0 cocci
-m68k        randconfig-r2308-20261115    gcc-8.5.0  sparse
-m68k        randconfig-r2310-20261115    gcc-15.3.0 sparse
-microblaze                allnoconfig    gcc-16.2.0
-microblaze               allyesconfig    gcc-16.2.0
-microblaze              mmu_defconfig    gcc-16.2.0
-microblaze   randconfig-2000-20261112    gcc-10.5.0
-microblaze   randconfig-2000-20261112    gcc-9.5.0
-microblaze   randconfig-2000-20261115    gcc-10.5.0
-microblaze   randconfig-2001-20261112    gcc-10.5.0
-microblaze   randconfig-2001-20261112    gcc-8.5.0
-microblaze   randconfig-2001-20261115    gcc-16.2.0
-microblaze   randconfig-2200-20261115    gcc-12.5.0 smatch
-microblaze  randconfig-r2304-20261115    gcc-8.5.0  sparse
-mips                     allmodconfig    gcc-16.2.0
-mips                      allnoconfig    gcc-16.2.0
-mips                     allyesconfig    gcc-16.2.0
-mips         randconfig-2000-20261115    clang-17
-mips         randconfig-2001-20261115    clang-20
-mips         randconfig-2002-20261115    clang-24
-mips         randconfig-2200-20261112    gcc-13.5.0 smatch
-mips         randconfig-2200-20261115    clang-24   smatch
-mips        randconfig-r2109-20261112    gcc-12.5.0 cocci
-mips        randconfig-r2111-20261115    gcc-8.5.0  cocci
-mips               rbtx49xx_defconfig    gcc-16.2.0
-nios2                    allmodconfig    clang-20
-nios2                     allnoconfig    clang-24
-nios2        randconfig-1000-20261116    clang-17
-nios2        randconfig-1001-20261116    clang-17
-nios2        randconfig-2000-20261115    gcc-8.5.0
-nios2        randconfig-2001-20261115    gcc-8.5.0
-nios2        randconfig-2200-20261112    gcc-11.5.0 smatch
-nios2        randconfig-2200-20261115    gcc-11.5.0 smatch
-nios2       randconfig-r2304-20261112    gcc-15.3.0 sparse
-nios2       randconfig-r2305-20261112    gcc-15.3.0 sparse
-openrisc                 allmodconfig    clang-20
-openrisc                  allnoconfig    clang-24
-openrisc                    defconfig    gcc-16.2.0
-openrisc     randconfig-2000-20261115    gcc-10.5.0
-openrisc     randconfig-2001-20261115    gcc-12.5.0
-openrisc     randconfig-2002-20261115    gcc-10.5.0
-openrisc     randconfig-2200-20261115    gcc-12.5.0 smatch
-openrisc    randconfig-r2100-20261115    gcc-9.5.0  cocci
-parisc                   allmodconfig    gcc-16.2.0
-parisc                    allnoconfig    clang-24
-parisc                   allyesconfig    clang-17
-parisc                      defconfig    gcc-16.2.0
-parisc       randconfig-2000-20261115    gcc-8.5.0
-parisc       randconfig-2001-20261115    gcc-14.4.0
-parisc       randconfig-2200-20261112    gcc-8.5.0  smatch
-parisc       randconfig-2200-20261115    gcc-10.5.0 smatch
-parisc      randconfig-r2104-20261115    gcc-11.5.0 cocci
-parisc      randconfig-r2300-20261115    gcc-9.5.0  sparse
-powerpc             akebono_defconfig    gcc-16.2.0
-powerpc                  allmodconfig    gcc-16.2.0
-powerpc                   allnoconfig    clang-24
-powerpc              arches_defconfig    gcc-16.2.0
-powerpc             powernv_defconfig    gcc-16.2.0
-powerpc      randconfig-2000-20261115    gcc-15.3.0
-powerpc      randconfig-2001-20261115    gcc-9.5.0
-powerpc      randconfig-2002-20261115    clang-24
-powerpc      randconfig-2200-20261115    clang-17   smatch
-powerpc     randconfig-r2105-20261115    gcc-8.5.0  cocci
-powerpc     randconfig-r2108-20261112    gcc-14.4.0 cocci
-powerpc     randconfig-r2306-20261115    clang-17   sparse
-powerpc64    randconfig-2000-20261115    gcc-13.5.0
-powerpc64    randconfig-2001-20261115    gcc-8.5.0
-powerpc64    randconfig-2002-20261115    gcc-8.5.0
-powerpc64    randconfig-2200-20261112    gcc-16.2.0 smatch
-powerpc64    randconfig-2200-20261115    clang-24   smatch
-powerpc64   randconfig-r2100-20261115    clang-24   cocci
-powerpc64   randconfig-r2101-20261115    gcc-13.5.0 cocci
-riscv                    allmodconfig    clang-24
-riscv                     allnoconfig    clang-24
-riscv                       defconfig    gcc-16.2.0
-riscv        randconfig-2000-20261115    clang-20
-riscv        randconfig-2001-20261115    gcc-8.5.0
-riscv        randconfig-2002-20261115    gcc-11.5.0
-riscv        randconfig-2003-20261115    gcc-8.5.0
-riscv        randconfig-2004-20261115    gcc-15.3.0
-riscv        randconfig-2005-20261115    gcc-9.5.0
-riscv        randconfig-2200-20261112    clang-24   smatch
-riscv        randconfig-2200-20261115    clang-24   smatch
-riscv       randconfig-r2309-20261115    clang-24   sparse
-s390                     allmodconfig    clang-17
-s390                      allnoconfig    clang-24
-s390                     allyesconfig    gcc-16.2.0
-s390                        defconfig    gcc-16.2.0
-s390         randconfig-2000-20261112    clang-24
-s390         randconfig-2000-20261115    gcc-11.5.0
-s390         randconfig-2001-20261112    clang-24
-s390         randconfig-2001-20261115    clang-17
-s390         randconfig-2002-20261112    clang-24
-s390         randconfig-2002-20261115    clang-24
-s390         randconfig-2003-20261112    clang-24
-s390         randconfig-2003-20261115    clang-24
-s390         randconfig-2004-20261112    clang-24
-s390         randconfig-2004-20261115    gcc-8.5.0
-s390         randconfig-2005-20261112    clang-24
-s390         randconfig-2005-20261115    gcc-13.5.0
-s390         randconfig-2200-20261115    clang-24   smatch
-s390        randconfig-r2107-20261112    clang-24   cocci
-s390        randconfig-r2109-20261115    gcc-9.5.0  cocci
-sh                       allmodconfig    gcc-16.2.0
-sh                        allnoconfig    clang-24
-sh                       allyesconfig    clang-17
-sh           randconfig-2000-20261112    gcc-16.2.0
-sh           randconfig-2000-20261115    gcc-10.5.0
-sh           randconfig-2001-20261112    gcc-16.2.0
-sh           randconfig-2001-20261115    gcc-12.5.0
-sh           randconfig-2002-20261112    gcc-16.2.0
-sh           randconfig-2002-20261115    gcc-10.5.0
-sh           randconfig-2003-20261112    gcc-16.2.0
-sh           randconfig-2003-20261115    gcc-16.2.0
-sh           randconfig-2004-20261112    gcc-16.2.0
-sh           randconfig-2004-20261115    gcc-10.5.0
-sh           randconfig-2005-20261112    gcc-16.2.0
-sh           randconfig-2005-20261115    gcc-12.5.0
-sh           randconfig-2200-20261112    gcc-16.2.0 smatch
-sh           randconfig-2200-20261115    gcc-16.2.0 smatch
-sh          randconfig-r2108-20261115    gcc-10.5.0 cocci
-sh          randconfig-r2300-20261112    gcc-15.3.0 sparse
-sh          randconfig-r2301-20261115    gcc-16.2.0 sparse
-sparc                     allnoconfig    clang-24
-sparc                       defconfig    gcc-16.2.0
-sparc        randconfig-2000-20261112    clang-24
-sparc        randconfig-2000-20261115    gcc-8.5.0
-sparc        randconfig-2001-20261112    clang-24
-sparc        randconfig-2001-20261115    gcc-8.5.0
-sparc        randconfig-2200-20261112    gcc-11.5.0 smatch
-sparc        randconfig-2200-20261115    gcc-16.2.0 smatch
-sparc       randconfig-r2101-20261115    gcc-16.2.0 cocci
-sparc       randconfig-r2102-20261115    gcc-14.4.0 cocci
-sparc       randconfig-r2104-20261115    gcc-14.4.0 cocci
-sparc       randconfig-r2303-20261112    gcc-15.3.0 sparse
-sparc       randconfig-r2306-20261115    gcc-16.2.0 sparse
-sparc       randconfig-r2307-20261115    gcc-16.2.0 sparse
-sparc       randconfig-r2311-20261115    gcc-13.5.0 sparse
-sparc64                  allmodconfig    clang-20
-sparc64      randconfig-2000-20261112    clang-24
-sparc64      randconfig-2000-20261115    gcc-15.3.0
-sparc64      randconfig-2001-20261112    clang-24
-sparc64      randconfig-2001-20261115    gcc-9.5.0
-sparc64      randconfig-2200-20261115    gcc-13.5.0 smatch
-um                       allmodconfig    clang-17
-um                        allnoconfig    clang-24
-um                       allyesconfig    gcc-16.2.0
-um           randconfig-2000-20261112    clang-24
-um           randconfig-2000-20261115    gcc-14
-um           randconfig-2001-20261112    clang-24
-um           randconfig-2001-20261115    clang-24
-um           randconfig-2200-20261112    clang-20   smatch
-um           randconfig-2200-20261115    clang-24   smatch
-um          randconfig-r2103-20261115    gcc-14     cocci
-um          randconfig-r2302-20261115    gcc-14     sparse
-um          randconfig-r2309-20261112    gcc-13.5.0 sparse
-um          randconfig-r2311-20261112    gcc-13.5.0 sparse
-um          randconfig-r2311-20261115    gcc-14     sparse
-x86_64                   allmodconfig    clang-22
-x86_64                    allnoconfig    clang-24
-x86_64                   allyesconfig    clang-22
-x86_64                          kexec    clang-22
-x86_64       randconfig-1000-20261116    gcc-14
-x86_64       randconfig-1001-20261116    gcc-14
-x86_64       randconfig-1002-20261116    gcc-14
-x86_64       randconfig-1003-20261116    gcc-14
-x86_64       randconfig-1004-20261116    gcc-14
-x86_64       randconfig-1005-20261116    gcc-14
-x86_64       randconfig-1006-20261116    clang-22
-x86_64       randconfig-1007-20261116    clang-22
-x86_64       randconfig-1008-20261116    clang-22
-x86_64       randconfig-1009-20261116    clang-22
-x86_64       randconfig-1010-20261116    clang-22
-x86_64       randconfig-1011-20261116    clang-22
-x86_64       randconfig-1012-20261116    clang-22
-x86_64       randconfig-1013-20261116    clang-22
-x86_64       randconfig-1014-20261116    clang-22
-x86_64       randconfig-1015-20261116    clang-22
-x86_64       randconfig-1016-20261116    clang-22
-x86_64       randconfig-1017-20261116    clang-22
-x86_64       randconfig-2000-20261112    gcc-14
-x86_64       randconfig-2000-20261115    gcc-14
-x86_64       randconfig-2001-20261112    gcc-14
-x86_64       randconfig-2001-20261115    gcc-14
-x86_64       randconfig-2002-20261112    gcc-14
-x86_64       randconfig-2002-20261115    gcc-14
-x86_64       randconfig-2003-20261112    gcc-14
-x86_64       randconfig-2003-20261115    clang-22
-x86_64       randconfig-2004-20261112    gcc-14
-x86_64       randconfig-2004-20261115    clang-22
-x86_64       randconfig-2005-20261112    gcc-14
-x86_64       randconfig-2005-20261115    gcc-14
-x86_64       randconfig-2100-20261112    clang-22   cocci
-x86_64       randconfig-2100-20261115    clang-22   cocci
-x86_64       randconfig-2101-20261112    clang-22   cocci
-x86_64       randconfig-2101-20261115    clang-22   cocci
-x86_64       randconfig-2102-20261112    clang-22   cocci
-x86_64       randconfig-2102-20261115    gcc-14     cocci
-x86_64       randconfig-2103-20261112    clang-22   cocci
-x86_64       randconfig-2103-20261115    clang-22   cocci
-x86_64       randconfig-2104-20261112    clang-22   cocci
-x86_64       randconfig-2104-20261115    gcc-14     cocci
-x86_64       randconfig-2105-20261112    clang-22   cocci
-x86_64       randconfig-2105-20261115    gcc-14     cocci
-x86_64       randconfig-2200-20261115    clang-22   smatch
-x86_64       randconfig-2300-20261112    clang-22   sparse
-x86_64       randconfig-2300-20261115    gcc-14     sparse
-x86_64       randconfig-2301-20261112    clang-22   sparse
-x86_64       randconfig-2301-20261115    clang-22   sparse
-x86_64       randconfig-2302-20261112    clang-22   sparse
-x86_64       randconfig-2302-20261115    clang-22   sparse
-x86_64      randconfig-r2305-20261115    gcc-14     sparse
-x86_64                       rhel-9.4    clang-22
-x86_64                   rhel-9.4-bpf    clang-22
-x86_64                   rhel-9.4-bpf    gcc-14
-x86_64                  rhel-9.4-func    clang-22
-x86_64            rhel-9.4-kselftests    clang-22
-x86_64                 rhel-9.4-kunit    clang-22
-x86_64                 rhel-9.4-kunit    gcc-14
-x86_64                   rhel-9.4-ltp    clang-22
-x86_64                   rhel-9.4-ltp    gcc-14
-x86_64                  rhel-9.4-rust    clang-22
-x86_64                  rhel-9.4-rust    clang-22
-xtensa                    allnoconfig    clang-24
-xtensa                   allyesconfig    clang-20
-xtensa       randconfig-2000-20261112    gcc-16.2.0
-xtensa       randconfig-2000-20261115    gcc-8.5.0
-xtensa       randconfig-2001-20261112    gcc-16.2.0
-xtensa       randconfig-2001-20261115    gcc-10.5.0
-xtensa       randconfig-2200-20261115    gcc-14.4.0 smatch
-xtensa      randconfig-r2103-20261115    gcc-8.5.0  cocci
-xtensa      randconfig-r2300-20261115    gcc-15.3.0 sparse
-xtensa      randconfig-r2301-20261112    gcc-15.3.0 sparse
+> Most of these registers are following the standard CCS register
+> definitions (see drivers/media/i2c/ccs/ccs-regs.h). Can you use the
+> standard defines rather than adding your own?
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Will do, as imx576 does, keeping driver defines only for the Sony
+specific registers such as the binning mode register at 0x0390.
+
+> This is probably another case where adding the binning mode will have
+> to wait until the Common Raw Sensor Model patches are merged, and then
+> binning (and cropping?) be implemented using that.
+
+The binned 1640x1232 mode is the important one on this platform: the
+atomisp preview pipeline is limited to 1920 pixels wide, so it is the
+only mode that can stream there; the full 3280x2464 mode only works
+for still captures. Would it be acceptable to keep the binned mode as a
+fixed mode for now and move to the Common Raw Sensor Model once it is
+merged? Sakari, what would you prefer?
+
+> Is there a path where this is called before imx175->hflip has been
+> initiialised? I couldn't see one by inspection.
+
+No, the controls are created before v4l2_subdev_init_finalize(), so
+I'll drop the NULL checks.
+
+> I'd suggest you adopt the minimum as the default value, rather than
+> trying to retain the default from when the control was initialised.
+
+The default is clamped with min(default_value, max), so I don't think
+the call can fail, but I agree that carrying the old default around is
+fragile. I'll change it as you suggest in v2.
+
+> Use v4l2_ctrl_cluster for these so that updating both only results in
+> one call through set_ctrl. See imx290 for an example.
+
+Will do.
+
+> If the control is read-only, then pass NULL instead of
+> &imx175_ctrl_ops as the control ops.
+
+Will do, for all of the read-only controls.
+
+> The minimum VBLANK period being the same as the exposure margin feels
+> a little strange.
+
+Agreed, there is no good reason for it. I'll read the sensor's
+min_frame_blanking_lines limit register and use that instead.
+
+> The reset and imx175_init_regs could be sent from imx175_power_on. If
+> combined with pm_runtime_autosuspend, then switching mode becomes just
+> a handful of register writes.
+
+Will do, both.
+
+> MODULE_AUTHOR?
+
+Will add.
+
+I'll wait a little for any further comments before sending v2.
+
+Thanks,
+Volodymyr
+
+On Mon, Nov 16, 2026 at 7:25=E2=80=AFPM Dave Stevenson
+<dave.stevenson@raspberrypi.com> wrote:
+>
+> Hi Volodymyr
+>
+> A couple of things jumped out from a very quick read through.
+>
+> On Mon, 16 Nov 2026 at 17:52, Volodymyr Chapman
+> <volodymyrchapman@gmail.com> wrote:
+> >
+> > Add a V4L2 sub-device driver for the Sony IMX175, an 8 Mpixel raw Bayer
+> > image sensor with a 4-lane MIPI CSI-2 interface. It is used for example
+> > as the rear camera of the Lenovo ThinkPad 10 (20C1/20C3), where ACPI
+> > describes it as INTCF1A.
+> >
+> > The driver supports a 3280x2464 mode and a 2x2 binned 1640x1232 mode,
+> > both at about 30 fps, with a 19.2 MHz external clock and a 320 MHz link
+> > frequency on 4 data lanes (RAW10). It implements exposure, analogue and
+> > digital gain, vertical blanking, horizontal and vertical flip (which
+> > change the Bayer order), the SMIA test patterns and runtime PM.
+> >
+> > The register settings are derived from the IMX175 support in Intel's
+> > atomisp imx driver (drivers/staging/media/atomisp/i2c/imx/imx175.h),
+> > which was added in commit a49d25364dfb ("staging/atomisp: Add support f=
+or
+> > the Intel IPU v2") and removed in commit 3a81c7660f80 ("media: staging:
+> > atomisp: Remove IMX sensor support").
+> >
+> > The voice coil motor and the LM3554 flash on the ThinkPad 10 camera
+> > module are not supported.
+> >
+> > Tested on a Lenovo ThinkPad 10 (20C3, Atom Z3795) with atomisp, on a
+> > media.git next kernel with the other two patches of this series:
+> > - the binned mode streams; the colour bar test pattern comes out in the
+> >   correct colour order, and real scenes have plausible colours;
+> > - v4l2-compliance 1.32.0 on the sensor sub-device: 46 tests, 0 failures=
+,
+> >   0 warnings;
+> > - horizontal and vertical flip mirror the image with correct colours
+> >   through atomisp, and VIDIOC_SUBDEV_G_FMT reports the same Bayer order
+> >   as VIDIOC_SUBDEV_ENUM_MBUS_CODE for all four flip combinations (the
+> >   test pattern itself is not affected by the flips);
+> > - the 3280x2464 mode was tested as a single still capture, as atomisp
+> >   limits continuous capture to 1920 pixels wide.
+> >
+> > This driver was written with the help of an AI coding assistant (Claude=
+),
+> > based on the register tables mentioned above and on existing sensor
+> > drivers; it was tested on the hardware by the submitter.
+> >
+> > Signed-off-by: Volodymyr Chapman <volodymyrchapman@gmail.com>
+> > ---
+> >  MAINTAINERS                |   7 +
+> >  drivers/media/i2c/Kconfig  |  10 +
+> >  drivers/media/i2c/Makefile |   1 +
+> >  drivers/media/i2c/imx175.c | 797 +++++++++++++++++++++++++++++++++++++
+> >  4 files changed, 815 insertions(+)
+> >  create mode 100644 drivers/media/i2c/imx175.c
+> >
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index af302622c..286926a01 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -26061,6 +26061,13 @@ S:     Maintained
+> >  F:     drivers/ssb/
+> >  F:     include/linux/ssb/
+> >
+> > +SONY IMX175 SENSOR DRIVER
+> > +M:     Volodymyr Chapman <volodymyrchapman@gmail.com>
+> > +L:     linux-media@vger.kernel.org
+> > +S:     Maintained
+> > +T:     git git://linuxtv.org/media.git
+> > +F:     drivers/media/i2c/imx175.c
+> > +
+> >  SONY IMX208 SENSOR DRIVER
+> >  M:     Sakari Ailus <sakari.ailus@linux.intel.com>
+> >  L:     linux-media@vger.kernel.org
+> > diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+> > index 11c302525..8047a12e2 100644
+> > --- a/drivers/media/i2c/Kconfig
+> > +++ b/drivers/media/i2c/Kconfig
+> > @@ -158,6 +158,16 @@ config VIDEO_IMX111
+> >           To compile this driver as a module, choose M here: the
+> >           module will be called imx111.
+> >
+> > +config VIDEO_IMX175
+> > +       tristate "Sony IMX175 sensor support"
+> > +       select V4L2_CCI_I2C
+> > +       help
+> > +         This is a Video4Linux2 sensor driver for the Sony
+> > +         IMX175 camera.
+> > +
+> > +         To compile this driver as a module, choose M here: the
+> > +         module will be called imx175.
+> > +
+> >  config VIDEO_IMX208
+> >         tristate "Sony IMX208 sensor support"
+> >         help
+> > diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+> > index 59e31af45..af107440c 100644
+> > --- a/drivers/media/i2c/Makefile
+> > +++ b/drivers/media/i2c/Makefile
+> > @@ -48,6 +48,7 @@ obj-$(CONFIG_VIDEO_HI847) +=3D hi847.o
+> >  obj-$(CONFIG_VIDEO_HM1246) +=3D hm1246.o
+> >  obj-$(CONFIG_VIDEO_I2C) +=3D video-i2c.o
+> >  obj-$(CONFIG_VIDEO_IMX111) +=3D imx111.o
+> > +obj-$(CONFIG_VIDEO_IMX175) +=3D imx175.o
+> >  obj-$(CONFIG_VIDEO_IMX208) +=3D imx208.o
+> >  obj-$(CONFIG_VIDEO_IMX214) +=3D imx214.o
+> >  obj-$(CONFIG_VIDEO_IMX219) +=3D imx219.o
+> > diff --git a/drivers/media/i2c/imx175.c b/drivers/media/i2c/imx175.c
+> > new file mode 100644
+> > index 000000000..b0b80ddeb
+> > --- /dev/null
+> > +++ b/drivers/media/i2c/imx175.c
+> > @@ -0,0 +1,797 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Sony IMX175 8MP raw image sensor driver
+> > + *
+> > + * Register settings derived from the Intel atomisp imx driver
+> > + * (drivers/staging/media/atomisp/i2c/imx/imx175.h in Linux v4.14),
+> > + * Copyright (c) 2010-2014 Intel Corporation.
+>
+> No Copyright from you? Or are you representing Intel here, in which
+> case the end date should be 2026.
+>
+> > + */
+> > +
+> > +#include <linux/clk.h>
+> > +#include <linux/delay.h>
+> > +#include <linux/gpio/consumer.h>
+> > +#include <linux/i2c.h>
+> > +#include <linux/mod_devicetable.h>
+> > +#include <linux/module.h>
+> > +#include <linux/pm_runtime.h>
+> > +#include <linux/regulator/consumer.h>
+> > +#include <linux/units.h>
+> > +
+> > +#include <media/v4l2-cci.h>
+> > +#include <media/v4l2-common.h>
+> > +#include <media/v4l2-ctrls.h>
+> > +#include <media/v4l2-device.h>
+> > +#include <media/v4l2-fwnode.h>
+> > +#include <media/v4l2-subdev.h>
+> > +
+> > +#define IMX175_REG_MODEL_ID            CCI_REG16(0x0000)
+>
+> Most of these registers are following the standard CCS register
+> definitions (see drivers/media/i2c/ccs/ccs-regs.h). Can you use the
+> standard defines rather than adding your own?
+>
+> > +#define IMX175_MODEL_ID                        0x0175
+> > +#define IMX175_REG_MODE_SELECT         CCI_REG8(0x0100)
+> > +#define IMX175_MODE_STANDBY            0x00
+> > +#define IMX175_MODE_STREAMING          0x01
+> > +#define IMX175_REG_ORIENTATION         CCI_REG8(0x0101)
+> > +#define IMX175_HFLIP                   BIT(0)
+> > +#define IMX175_VFLIP                   BIT(1)
+> > +#define IMX175_REG_SW_RESET            CCI_REG8(0x0103)
+> > +#define IMX175_REG_GROUP_HOLD          CCI_REG8(0x0104)
+> > +#define IMX175_REG_EXPOSURE            CCI_REG16(0x0202)
+> > +#define IMX175_EXPOSURE_MIN            1
+> > +#define IMX175_EXPOSURE_MARGIN         4
+> > +#define IMX175_REG_ANALOG_GAIN         CCI_REG8(0x0205)
+> > +#define IMX175_ANA_GAIN_MIN            0
+> > +#define IMX175_ANA_GAIN_MAX            224     /* 256 / (256 - 224) =
+=3D 8x */
+> > +#define IMX175_ANA_GAIN_DEFAULT                0
+> > +#define IMX175_REG_DGAIN_GR            CCI_REG16(0x020e)
+> > +#define IMX175_REG_DGAIN_R             CCI_REG16(0x0210)
+> > +#define IMX175_REG_DGAIN_B             CCI_REG16(0x0212)
+> > +#define IMX175_REG_DGAIN_GB            CCI_REG16(0x0214)
+> > +#define IMX175_DGAIN_MIN               0x0100
+> > +#define IMX175_DGAIN_MAX               0x0fff
+> > +#define IMX175_DGAIN_DEFAULT           0x0100
+> > +#define IMX175_REG_FRAME_LENGTH                CCI_REG16(0x0340)
+> > +#define IMX175_FLL_MAX                 0xffff
+> > +#define IMX175_REG_LINE_LENGTH         CCI_REG16(0x0342)
+> > +#define IMX175_REG_X_OUTPUT_SIZE       CCI_REG16(0x034c)
+> > +#define IMX175_REG_Y_OUTPUT_SIZE       CCI_REG16(0x034e)
+> > +#define IMX175_REG_BINNING_MODE                CCI_REG8(0x0390)
+> > +#define IMX175_REG_TEST_PATTERN                CCI_REG16(0x0600)
+> > +
+> > +#define IMX175_XCLK_FREQ               (19200 * HZ_PER_KHZ)
+> > +#define IMX175_LINK_FREQ               (320 * HZ_PER_MHZ)
+> > +#define IMX175_DATA_LANES              4
+> > +#define IMX175_BPP                     10
+> > +/* pixel rate =3D link freq * 2 (DDR) * lanes / bpp */
+> > +#define IMX175_PIXEL_RATE              (IMX175_LINK_FREQ * 2 * IMX175_=
+DATA_LANES / IMX175_BPP)
+> > +
+> > +#define IMX175_NATIVE_WIDTH            3280
+> > +#define IMX175_NATIVE_HEIGHT           2464
+> > +#define IMX175_LLP                     3430
+> > +#define IMX175_FLL_DEFAULT             2500
+> > +
+> > +static const char * const imx175_supply_names[] =3D {
+> > +       "avdd",         /* Analog power */
+> > +       "dovdd",        /* Digital I/O power */
+> > +       "dvdd",         /* Digital core power */
+> > +};
+> > +
+> > +struct imx175_mode {
+> > +       u32 width;
+> > +       u32 height;
+> > +       bool binning;
+> > +       u32 fll_default;
+> > +};
+> > +
+> > +static const struct imx175_mode imx175_modes[] =3D {
+> > +       {
+> > +               .width =3D 3280,
+> > +               .height =3D 2464,
+> > +               .binning =3D false,
+> > +               .fll_default =3D IMX175_FLL_DEFAULT,
+> > +       },
+> > +       {
+> > +               .width =3D 1640,
+> > +               .height =3D 1232,
+> > +               .binning =3D true,
+> > +               .fll_default =3D IMX175_FLL_DEFAULT,
+> > +       },
+>
+> This is probably another case where adding the binning mode will have
+> to wait until the Common Raw Sensor Model patches are merged, and then
+> binning (and cropping?) be implemented using that.
+>
+> > +};
+> > +
+> > +/* Static settings, applied after a software reset */
+> > +static const struct cci_reg_sequence imx175_init_regs[] =3D {
+> > +       /* misc control */
+> > +       { CCI_REG8(0x3020), 0x10 },
+> > +       { CCI_REG8(0x302d), 0x02 },
+> > +       { CCI_REG8(0x302f), 0x80 },
+> > +       { CCI_REG8(0x3032), 0xa3 },
+> > +       { CCI_REG8(0x3033), 0x20 },
+> > +       { CCI_REG8(0x3034), 0x24 },
+> > +       { CCI_REG8(0x3041), 0x15 },
+> > +       { CCI_REG8(0x3042), 0x87 },
+> > +       { CCI_REG8(0x3050), 0x35 },
+> > +       { CCI_REG8(0x3056), 0x57 },
+> > +       { CCI_REG8(0x305d), 0x41 },
+> > +       { CCI_REG8(0x3097), 0x69 },
+> > +       { CCI_REG8(0x3109), 0x41 },
+> > +       { CCI_REG8(0x3148), 0x3f },
+> > +       { CCI_REG8(0x330f), 0x07 },
+> > +       /* CSI-2 and INCK */
+> > +       { CCI_REG8(0x3364), 0x00 },
+> > +       { CCI_REG8(0x3368), 0x13 },
+> > +       { CCI_REG8(0x3369), 0x33 },
+> > +       /* ZNR */
+> > +       { CCI_REG8(0x4100), 0x0e },
+> > +       { CCI_REG8(0x4104), 0x32 },
+> > +       { CCI_REG8(0x4105), 0x32 },
+> > +       { CCI_REG8(0x4108), 0x01 },
+> > +       { CCI_REG8(0x4109), 0x7c },
+> > +       { CCI_REG8(0x410a), 0x00 },
+> > +       { CCI_REG8(0x410b), 0x00 },
+> > +       /*
+> > +        * PLL for a 19.2 MHz INCK: pre_pll_clk_div 9, pll multiplier 3=
+00,
+> > +        * vt_pix_clk_div 5, vt_sys_clk_div 1, op_pix_clk_div 5,
+> > +        * op_sys_clk_div 1 -> 640 Mbps/lane, 4 lanes.
+> > +        */
+> > +       { CCI_REG8(0x0301), 0x05 },
+> > +       { CCI_REG8(0x0303), 0x01 },
+> > +       { CCI_REG8(0x0305), 0x09 },
+> > +       { CCI_REG8(0x0309), 0x05 },
+> > +       { CCI_REG8(0x030b), 0x01 },
+> > +       { CCI_REG16(0x030c), 0x012c },
+> > +       { CCI_REG8(0x030e), 0x01 },
+> > +       { CCI_REG16(0x0342), IMX175_LLP },
+> > +       /* analog crop: full 3280x2464 array */
+> > +       { CCI_REG16(0x0344), 0 },
+> > +       { CCI_REG16(0x0346), 0 },
+> > +       { CCI_REG16(0x0348), IMX175_NATIVE_WIDTH - 1 },
+> > +       { CCI_REG16(0x034a), IMX175_NATIVE_HEIGHT - 1 },
+> > +       /* no scaling */
+> > +       { CCI_REG8(0x0401), 0x00 },
+> > +       { CCI_REG8(0x0405), 0x10 },
+> > +       /* timer */
+> > +       { CCI_REG8(0x3344), 0x57 },
+> > +       { CCI_REG8(0x3345), 0x1f },
+> > +       /* timing */
+> > +       { CCI_REG8(0x3370), 0x77 },
+> > +       { CCI_REG8(0x3371), 0x2f },
+> > +       { CCI_REG8(0x3372), 0x4f },
+> > +       { CCI_REG8(0x3373), 0x2f },
+> > +       { CCI_REG8(0x3374), 0x2f },
+> > +       { CCI_REG8(0x3375), 0x37 },
+> > +       { CCI_REG8(0x3376), 0x9f },
+> > +       { CCI_REG8(0x3377), 0x37 },
+> > +       { CCI_REG8(0x33c8), 0x01 },
+> > +       { CCI_REG16(0x33d4), IMX175_NATIVE_WIDTH },
+> > +       { CCI_REG16(0x33d6), IMX175_NATIVE_HEIGHT },
+> > +       { CCI_REG8(0x41c0), 0x01 },
+> > +};
+> > +
+> > +static const s64 imx175_link_freqs[] =3D {
+> > +       IMX175_LINK_FREQ,
+> > +};
+> > +
+> > +static const char * const imx175_test_pattern_menu[] =3D {
+> > +       "Disabled",
+> > +       "Solid Colour",
+> > +       "Colour Bars",
+> > +       "Fade to Grey Colour Bars",
+> > +       "PN9",
+> > +};
+> > +
+> > +/* RGGB is the native order; flips shift the pattern */
+> > +static const u32 imx175_mbus_codes[] =3D {
+> > +       MEDIA_BUS_FMT_SRGGB10_1X10,     /* no flip */
+> > +       MEDIA_BUS_FMT_SGRBG10_1X10,     /* hflip */
+> > +       MEDIA_BUS_FMT_SGBRG10_1X10,     /* vflip */
+> > +       MEDIA_BUS_FMT_SBGGR10_1X10,     /* hflip + vflip */
+> > +};
+> > +
+> > +struct imx175 {
+> > +       struct device *dev;
+> > +       struct regmap *regmap;
+> > +       struct clk *xclk;
+> > +       struct gpio_desc *reset;
+> > +       struct regulator_bulk_data supplies[ARRAY_SIZE(imx175_supply_na=
+mes)];
+> > +
+> > +       struct v4l2_subdev sd;
+> > +       struct media_pad pad;
+> > +
+> > +       struct v4l2_ctrl_handler ctrls;
+> > +       struct v4l2_ctrl *link_freq;
+> > +       struct v4l2_ctrl *pixel_rate;
+> > +       struct v4l2_ctrl *exposure;
+> > +       struct v4l2_ctrl *vblank;
+> > +       struct v4l2_ctrl *hblank;
+> > +       struct v4l2_ctrl *hflip;
+> > +       struct v4l2_ctrl *vflip;
+> > +
+> > +       const struct imx175_mode *mode;
+> > +};
+> > +
+> > +static inline struct imx175 *to_imx175(struct v4l2_subdev *sd)
+> > +{
+> > +       return container_of(sd, struct imx175, sd);
+> > +}
+> > +
+> > +static u32 imx175_mbus_code(struct imx175 *imx175)
+> > +{
+> > +       unsigned int idx =3D 0;
+> > +
+> > +       if (imx175->hflip && imx175->hflip->val)
+>
+> Is there a path where this is called before imx175->hflip has been
+> initiialised? I couldn't see one by inspection.
+>
+> > +               idx |=3D 1;
+> > +       if (imx175->vflip && imx175->vflip->val)
+> > +               idx |=3D 2;
+> > +
+> > +       return imx175_mbus_codes[idx];
+> > +}
+> > +
+> > +static void imx175_update_pad_format(struct imx175 *imx175,
+> > +                                    const struct imx175_mode *mode,
+> > +                                    struct v4l2_mbus_framefmt *fmt)
+> > +{
+> > +       fmt->width =3D mode->width;
+> > +       fmt->height =3D mode->height;
+> > +       fmt->code =3D imx175_mbus_code(imx175);
+> > +       fmt->field =3D V4L2_FIELD_NONE;
+> > +       fmt->colorspace =3D V4L2_COLORSPACE_RAW;
+> > +       fmt->ycbcr_enc =3D V4L2_YCBCR_ENC_DEFAULT;
+> > +       fmt->quantization =3D V4L2_QUANTIZATION_FULL_RANGE;
+> > +       fmt->xfer_func =3D V4L2_XFER_FUNC_NONE;
+> > +}
+> > +
+> > +static int imx175_set_ctrl(struct v4l2_ctrl *ctrl)
+> > +{
+> > +       struct imx175 *imx175 =3D container_of(ctrl->handler, struct im=
+x175, ctrls);
+> > +       int ret =3D 0;
+> > +
+> > +       if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
+> > +               s64 max =3D imx175->mode->height + ctrl->val - IMX175_E=
+XPOSURE_MARGIN;
+> > +
+> > +               ret =3D __v4l2_ctrl_modify_range(imx175->exposure,
+> > +                                              imx175->exposure->minimu=
+m, max,
+> > +                                              imx175->exposure->step,
+> > +                                              min(imx175->exposure->de=
+fault_value, max));
+>
+> I'd suggest you adopt the minimum as the default value, rather than
+> trying to retain the default from when the control was initialised.
+> Currently you default to the full 3280x2464 mode, and set the default
+> exposure to be "mode->fll_default - IMX175_EXPOSURE_MARGIN". Switch to
+> the binned mode and reduce the VBLANK, and you'll be in a situation
+> where the default value won't be in the valid range, and this call
+> will fail.
+>
+> > +               if (ret)
+> > +                       return ret;
+> > +       }
+> > +
+> > +       /* Flips change the Bayer order, keep the active format in sync=
+ */
+> > +       if (ctrl->id =3D=3D V4L2_CID_HFLIP || ctrl->id =3D=3D V4L2_CID_=
+VFLIP) {
+> > +               struct v4l2_subdev_state *state =3D
+> > +                       v4l2_subdev_get_locked_active_state(&imx175->sd=
+);
+> > +
+> > +               v4l2_subdev_state_get_format(state, 0)->code =3D
+> > +                       imx175_mbus_code(imx175);
+> > +       }
+> > +
+> > +       if (!pm_runtime_get_if_in_use(imx175->dev))
+> > +               return 0;
+> > +
+> > +       switch (ctrl->id) {
+> > +       case V4L2_CID_EXPOSURE:
+> > +               cci_write(imx175->regmap, IMX175_REG_EXPOSURE, ctrl->va=
+l, &ret);
+> > +               break;
+> > +       case V4L2_CID_ANALOGUE_GAIN:
+> > +               cci_write(imx175->regmap, IMX175_REG_ANALOG_GAIN, ctrl-=
+>val, &ret);
+> > +               break;
+> > +       case V4L2_CID_DIGITAL_GAIN:
+> > +               cci_write(imx175->regmap, IMX175_REG_DGAIN_GR, ctrl->va=
+l, &ret);
+> > +               cci_write(imx175->regmap, IMX175_REG_DGAIN_R, ctrl->val=
+, &ret);
+> > +               cci_write(imx175->regmap, IMX175_REG_DGAIN_B, ctrl->val=
+, &ret);
+> > +               cci_write(imx175->regmap, IMX175_REG_DGAIN_GB, ctrl->va=
+l, &ret);
+> > +               break;
+> > +       case V4L2_CID_VBLANK:
+> > +               cci_write(imx175->regmap, IMX175_REG_FRAME_LENGTH,
+> > +                         imx175->mode->height + ctrl->val, &ret);
+> > +               break;
+> > +       case V4L2_CID_HFLIP:
+> > +       case V4L2_CID_VFLIP:
+>
+> Use v4l2_ctrl_cluster for these so that updating both only results in
+> one call through set_ctrl. See imx290 for an example.
+>
+> > +               cci_write(imx175->regmap, IMX175_REG_ORIENTATION,
+> > +                         (imx175->hflip->val ? IMX175_HFLIP : 0) |
+> > +                         (imx175->vflip->val ? IMX175_VFLIP : 0), &ret=
+);
+> > +               break;
+> > +       case V4L2_CID_TEST_PATTERN:
+> > +               cci_write(imx175->regmap, IMX175_REG_TEST_PATTERN, ctrl=
+->val, &ret);
+> > +               break;
+> > +       default:
+> > +               ret =3D -EINVAL;
+> > +               break;
+> > +       }
+> > +
+> > +       pm_runtime_put(imx175->dev);
+> > +       return ret;
+> > +}
+> > +
+> > +static const struct v4l2_ctrl_ops imx175_ctrl_ops =3D {
+> > +       .s_ctrl =3D imx175_set_ctrl,
+> > +};
+> > +
+> > +static int imx175_init_controls(struct imx175 *imx175)
+> > +{
+> > +       const struct imx175_mode *mode =3D &imx175_modes[0];
+> > +       struct v4l2_ctrl_handler *hdl =3D &imx175->ctrls;
+> > +       struct v4l2_fwnode_device_properties props;
+> > +       s64 vblank_def, hblank, exposure_max;
+> > +       int ret;
+> > +
+> > +       ret =3D v4l2_fwnode_device_parse(imx175->dev, &props);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       v4l2_ctrl_handler_init(hdl, 12);
+> > +
+> > +       imx175->link_freq =3D v4l2_ctrl_new_int_menu(hdl, &imx175_ctrl_=
+ops,
+> > +                                                  V4L2_CID_LINK_FREQ,
+> > +                                                  ARRAY_SIZE(imx175_li=
+nk_freqs) - 1,
+> > +                                                  0, imx175_link_freqs=
+);
+> > +       if (imx175->link_freq)
+> > +               imx175->link_freq->flags |=3D V4L2_CTRL_FLAG_READ_ONLY;
+>
+> If the control is read-only, then pass NULL instead of
+> &imx175_ctrl_ops as the control ops. Otherwise there are some paths
+> where set_ctrl can be called and it'll hit your "default: ret =3D
+> -EINVAL" case.
+> Ditto for the other read only controls below.
+>
+> > +
+> > +       imx175->pixel_rate =3D v4l2_ctrl_new_std(hdl, &imx175_ctrl_ops,
+> > +                                              V4L2_CID_PIXEL_RATE,
+> > +                                              IMX175_PIXEL_RATE, IMX17=
+5_PIXEL_RATE,
+> > +                                              1, IMX175_PIXEL_RATE);
+> > +
+> > +       vblank_def =3D mode->fll_default - mode->height;
+> > +       imx175->vblank =3D v4l2_ctrl_new_std(hdl, &imx175_ctrl_ops, V4L=
+2_CID_VBLANK,
+> > +                                          IMX175_EXPOSURE_MARGIN,
+>
+> The minimum VBLANK period being the same as the exposure margin feels
+> a little strange. It may be the case, but the two are usually
+> disassociated.
+>
+> > +                                          IMX175_FLL_MAX - mode->heigh=
+t, 1,
+> > +                                          vblank_def);
+> > +
+> > +       hblank =3D IMX175_LLP - mode->width;
+> > +       imx175->hblank =3D v4l2_ctrl_new_std(hdl, &imx175_ctrl_ops, V4L=
+2_CID_HBLANK,
+> > +                                          hblank, hblank, 1, hblank);
+> > +       if (imx175->hblank)
+> > +               imx175->hblank->flags |=3D V4L2_CTRL_FLAG_READ_ONLY;
+> > +
+> > +       exposure_max =3D mode->fll_default - IMX175_EXPOSURE_MARGIN;
+> > +       imx175->exposure =3D v4l2_ctrl_new_std(hdl, &imx175_ctrl_ops,
+> > +                                            V4L2_CID_EXPOSURE,
+> > +                                            IMX175_EXPOSURE_MIN, expos=
+ure_max, 1,
+> > +                                            exposure_max);
+> > +
+> > +       v4l2_ctrl_new_std(hdl, &imx175_ctrl_ops, V4L2_CID_ANALOGUE_GAIN=
+,
+> > +                         IMX175_ANA_GAIN_MIN, IMX175_ANA_GAIN_MAX, 1,
+> > +                         IMX175_ANA_GAIN_DEFAULT);
+> > +
+> > +       v4l2_ctrl_new_std(hdl, &imx175_ctrl_ops, V4L2_CID_DIGITAL_GAIN,
+> > +                         IMX175_DGAIN_MIN, IMX175_DGAIN_MAX, 1,
+> > +                         IMX175_DGAIN_DEFAULT);
+> > +
+> > +       imx175->hflip =3D v4l2_ctrl_new_std(hdl, &imx175_ctrl_ops, V4L2=
+_CID_HFLIP,
+> > +                                         0, 1, 1, 0);
+> > +       if (imx175->hflip)
+> > +               imx175->hflip->flags |=3D V4L2_CTRL_FLAG_MODIFY_LAYOUT;
+> > +
+> > +       imx175->vflip =3D v4l2_ctrl_new_std(hdl, &imx175_ctrl_ops, V4L2=
+_CID_VFLIP,
+> > +                                         0, 1, 1, 0);
+> > +       if (imx175->vflip)
+> > +               imx175->vflip->flags |=3D V4L2_CTRL_FLAG_MODIFY_LAYOUT;
+> > +
+> > +       v4l2_ctrl_new_std_menu_items(hdl, &imx175_ctrl_ops, V4L2_CID_TE=
+ST_PATTERN,
+> > +                                    ARRAY_SIZE(imx175_test_pattern_men=
+u) - 1,
+> > +                                    0, 0, imx175_test_pattern_menu);
+> > +
+> > +       v4l2_ctrl_new_fwnode_properties(hdl, &imx175_ctrl_ops, &props);
+> > +
+> > +       if (hdl->error) {
+> > +               ret =3D hdl->error;
+> > +               v4l2_ctrl_handler_free(hdl);
+> > +               return ret;
+> > +       }
+> > +
+> > +       imx175->sd.ctrl_handler =3D hdl;
+> > +       return 0;
+> > +}
+> > +
+> > +static int imx175_enable_streams(struct v4l2_subdev *sd,
+> > +                                struct v4l2_subdev_state *state, u32 p=
+ad,
+> > +                                u64 streams_mask)
+> > +{
+> > +       struct imx175 *imx175 =3D to_imx175(sd);
+> > +       const struct imx175_mode *mode =3D imx175->mode;
+> > +       int ret;
+> > +
+> > +       ret =3D pm_runtime_resume_and_get(imx175->dev);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       ret =3D cci_write(imx175->regmap, IMX175_REG_SW_RESET, 0x01, NU=
+LL);
+> > +       if (ret)
+> > +               goto err_put;
+> > +       usleep_range(5000, 6000);
+> > +
+> > +       ret =3D cci_multi_reg_write(imx175->regmap, imx175_init_regs,
+> > +                                 ARRAY_SIZE(imx175_init_regs), NULL);
+>
+> The reset and imx175_init_regs could be sent from imx175_power_on. If
+> combined with pm_runtime_autosuspend, then switching mode becomes just
+> a handful of register writes.
+>
+> > +       cci_write(imx175->regmap, IMX175_REG_X_OUTPUT_SIZE, mode->width=
+, &ret);
+> > +       cci_write(imx175->regmap, IMX175_REG_Y_OUTPUT_SIZE, mode->heigh=
+t, &ret);
+> > +       cci_write(imx175->regmap, IMX175_REG_BINNING_MODE, mode->binnin=
+g ? 1 : 0,
+> > +                 &ret);
+> > +       if (ret)
+> > +               goto err_put;
+> > +
+> > +       ret =3D __v4l2_ctrl_handler_setup(imx175->sd.ctrl_handler);
+> > +       if (ret)
+> > +               goto err_put;
+> > +
+> > +       ret =3D cci_write(imx175->regmap, IMX175_REG_MODE_SELECT,
+> > +                       IMX175_MODE_STREAMING, NULL);
+> > +       if (ret)
+> > +               goto err_put;
+> > +
+> > +       /* Flips change the Bayer order; don't allow them while streami=
+ng */
+> > +       __v4l2_ctrl_grab(imx175->hflip, true);
+> > +       __v4l2_ctrl_grab(imx175->vflip, true);
+> > +       return 0;
+> > +
+> > +err_put:
+> > +       pm_runtime_put(imx175->dev);
+> > +       return ret;
+> > +}
+> > +
+> > +static int imx175_disable_streams(struct v4l2_subdev *sd,
+> > +                                 struct v4l2_subdev_state *state, u32 =
+pad,
+> > +                                 u64 streams_mask)
+> > +{
+> > +       struct imx175 *imx175 =3D to_imx175(sd);
+> > +       int ret;
+> > +
+> > +       ret =3D cci_write(imx175->regmap, IMX175_REG_MODE_SELECT,
+> > +                       IMX175_MODE_STANDBY, NULL);
+> > +
+> > +       __v4l2_ctrl_grab(imx175->hflip, false);
+> > +       __v4l2_ctrl_grab(imx175->vflip, false);
+> > +
+> > +       pm_runtime_put(imx175->dev);
+> > +       return ret;
+> > +}
+> > +
+> > +static int imx175_set_format(struct v4l2_subdev *sd,
+> > +                            const struct v4l2_subdev_client_info *ci,
+> > +                            struct v4l2_subdev_state *state,
+> > +                            struct v4l2_subdev_format *fmt)
+> > +{
+> > +       struct imx175 *imx175 =3D to_imx175(sd);
+> > +       const struct imx175_mode *mode;
+> > +       struct v4l2_mbus_framefmt *format;
+> > +       int ret;
+> > +
+> > +       mode =3D v4l2_find_nearest_size(imx175_modes, ARRAY_SIZE(imx175=
+_modes),
+> > +                                     width, height,
+> > +                                     fmt->format.width, fmt->format.he=
+ight);
+> > +
+> > +       imx175_update_pad_format(imx175, mode, &fmt->format);
+> > +       format =3D v4l2_subdev_state_get_format(state, 0);
+> > +       *format =3D fmt->format;
+> > +
+> > +       if (fmt->which =3D=3D V4L2_SUBDEV_FORMAT_TRY)
+> > +               return 0;
+> > +
+> > +       imx175->mode =3D mode;
+> > +
+> > +       ret =3D __v4l2_ctrl_modify_range(imx175->vblank, IMX175_EXPOSUR=
+E_MARGIN,
+> > +                                      IMX175_FLL_MAX - mode->height, 1=
+,
+> > +                                      mode->fll_default - mode->height=
+);
+> > +       if (ret)
+> > +               return ret;
+> > +       ret =3D __v4l2_ctrl_s_ctrl(imx175->vblank, mode->fll_default - =
+mode->height);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       return __v4l2_ctrl_modify_range(imx175->hblank,
+> > +                                        IMX175_LLP - mode->width,
+> > +                                        IMX175_LLP - mode->width, 1,
+> > +                                        IMX175_LLP - mode->width);
+> > +}
+> > +
+> > +static int imx175_enum_mbus_code(struct v4l2_subdev *sd,
+> > +                                struct v4l2_subdev_state *state,
+> > +                                struct v4l2_subdev_mbus_code_enum *cod=
+e)
+> > +{
+> > +       if (code->index > 0)
+> > +               return -EINVAL;
+> > +
+> > +       code->code =3D imx175_mbus_code(to_imx175(sd));
+> > +       return 0;
+> > +}
+> > +
+> > +static int imx175_enum_frame_size(struct v4l2_subdev *sd,
+> > +                                 struct v4l2_subdev_state *state,
+> > +                                 struct v4l2_subdev_frame_size_enum *f=
+se)
+> > +{
+> > +       if (fse->index >=3D ARRAY_SIZE(imx175_modes))
+> > +               return -EINVAL;
+> > +
+> > +       if (fse->code !=3D imx175_mbus_code(to_imx175(sd)))
+> > +               return -EINVAL;
+> > +
+> > +       fse->min_width =3D imx175_modes[fse->index].width;
+> > +       fse->max_width =3D fse->min_width;
+> > +       fse->min_height =3D imx175_modes[fse->index].height;
+> > +       fse->max_height =3D fse->min_height;
+> > +       return 0;
+> > +}
+> > +
+> > +static int imx175_get_selection(struct v4l2_subdev *sd,
+> > +                               const struct v4l2_subdev_client_info *c=
+i,
+> > +                               struct v4l2_subdev_state *state,
+> > +                               struct v4l2_subdev_selection *sel)
+> > +{
+> > +       switch (sel->target) {
+> > +       case V4L2_SEL_TGT_CROP:
+> > +       case V4L2_SEL_TGT_CROP_DEFAULT:
+> > +       case V4L2_SEL_TGT_CROP_BOUNDS:
+> > +       case V4L2_SEL_TGT_NATIVE_SIZE:
+> > +               sel->r.left =3D 0;
+> > +               sel->r.top =3D 0;
+> > +               sel->r.width =3D IMX175_NATIVE_WIDTH;
+> > +               sel->r.height =3D IMX175_NATIVE_HEIGHT;
+> > +               return 0;
+> > +       }
+> > +
+> > +       return -EINVAL;
+> > +}
+> > +
+> > +static int imx175_init_state(struct v4l2_subdev *sd,
+> > +                            struct v4l2_subdev_state *state)
+> > +{
+> > +       struct v4l2_subdev_format fmt =3D {
+> > +               .which =3D V4L2_SUBDEV_FORMAT_TRY,
+> > +               .pad =3D 0,
+> > +               .format =3D {
+> > +                       .width =3D imx175_modes[0].width,
+> > +                       .height =3D imx175_modes[0].height,
+> > +               },
+> > +       };
+> > +
+> > +       return imx175_set_format(sd, NULL, state, &fmt);
+> > +}
+> > +
+> > +static const struct v4l2_subdev_video_ops imx175_video_ops =3D {
+> > +       .s_stream =3D v4l2_subdev_s_stream_helper,
+> > +};
+> > +
+> > +static const struct v4l2_subdev_pad_ops imx175_pad_ops =3D {
+> > +       .enum_mbus_code =3D imx175_enum_mbus_code,
+> > +       .enum_frame_size =3D imx175_enum_frame_size,
+> > +       .get_fmt =3D v4l2_subdev_get_fmt,
+> > +       .set_fmt =3D imx175_set_format,
+> > +       .get_selection =3D imx175_get_selection,
+> > +       .enable_streams =3D imx175_enable_streams,
+> > +       .disable_streams =3D imx175_disable_streams,
+> > +};
+> > +
+> > +static const struct v4l2_subdev_ops imx175_subdev_ops =3D {
+> > +       .video =3D &imx175_video_ops,
+> > +       .pad =3D &imx175_pad_ops,
+> > +};
+> > +
+> > +static const struct v4l2_subdev_internal_ops imx175_internal_ops =3D {
+> > +       .init_state =3D imx175_init_state,
+> > +};
+> > +
+> > +static int imx175_power_on(struct device *dev)
+> > +{
+> > +       struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
+> > +       struct imx175 *imx175 =3D to_imx175(sd);
+> > +       int ret;
+> > +
+> > +       ret =3D regulator_bulk_enable(ARRAY_SIZE(imx175->supplies),
+> > +                                   imx175->supplies);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       ret =3D clk_prepare_enable(imx175->xclk);
+> > +       if (ret) {
+> > +               regulator_bulk_disable(ARRAY_SIZE(imx175->supplies),
+> > +                                      imx175->supplies);
+> > +               return ret;
+> > +       }
+> > +
+> > +       usleep_range(1000, 2000);
+> > +       gpiod_set_value_cansleep(imx175->reset, 0);
+> > +       /* Wait for the sensor to come out of reset before using I2C */
+> > +       usleep_range(10000, 12000);
+> > +
+> > +       return 0;
+> > +}
+> > +
+> > +static int imx175_power_off(struct device *dev)
+> > +{
+> > +       struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
+> > +       struct imx175 *imx175 =3D to_imx175(sd);
+> > +
+> > +       gpiod_set_value_cansleep(imx175->reset, 1);
+> > +       clk_disable_unprepare(imx175->xclk);
+> > +       regulator_bulk_disable(ARRAY_SIZE(imx175->supplies), imx175->su=
+pplies);
+> > +
+> > +       return 0;
+> > +}
+> > +
+> > +static int imx175_identify(struct imx175 *imx175)
+> > +{
+> > +       u64 id;
+> > +       int ret;
+> > +
+> > +       ret =3D cci_read(imx175->regmap, IMX175_REG_MODEL_ID, &id, NULL=
+);
+> > +       if (ret)
+> > +               return dev_err_probe(imx175->dev, ret, "failed to read =
+model id\n");
+> > +
+> > +       if (id !=3D IMX175_MODEL_ID)
+> > +               return dev_err_probe(imx175->dev, -ENODEV,
+> > +                                    "unexpected model id 0x%04llx\n", =
+id);
+> > +
+> > +       return 0;
+> > +}
+> > +
+> > +static int imx175_check_hwcfg(struct imx175 *imx175)
+> > +{
+> > +       struct v4l2_fwnode_endpoint bus_cfg =3D {
+> > +               .bus_type =3D V4L2_MBUS_CSI2_DPHY,
+> > +       };
+> > +       struct fwnode_handle *ep;
+> > +       unsigned long link_freq_bitmap;
+> > +       int ret;
+> > +
+> > +       /* The endpoint is created by ipu-bridge on ACPI systems */
+> > +       ep =3D fwnode_graph_get_endpoint_by_id(dev_fwnode(imx175->dev),=
+ 0, 0, 0);
+> > +       if (!ep)
+> > +               return dev_err_probe(imx175->dev, -EPROBE_DEFER,
+> > +                                    "waiting for fwnode graph endpoint=
+\n");
+> > +
+> > +       ret =3D v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
+> > +       fwnode_handle_put(ep);
+> > +       if (ret)
+> > +               return dev_err_probe(imx175->dev, ret, "parsing endpoin=
+t\n");
+> > +
+> > +       if (bus_cfg.bus.mipi_csi2.num_data_lanes !=3D IMX175_DATA_LANES=
+) {
+> > +               ret =3D dev_err_probe(imx175->dev, -EINVAL,
+> > +                                   "%u data lanes not supported\n",
+> > +                                   bus_cfg.bus.mipi_csi2.num_data_lane=
+s);
+> > +               goto out;
+> > +       }
+> > +
+> > +       ret =3D v4l2_link_freq_to_bitmap(imx175->dev, bus_cfg.link_freq=
+uencies,
+> > +                                      bus_cfg.nr_of_link_frequencies,
+> > +                                      imx175_link_freqs,
+> > +                                      ARRAY_SIZE(imx175_link_freqs),
+> > +                                      &link_freq_bitmap);
+> > +out:
+> > +       v4l2_fwnode_endpoint_free(&bus_cfg);
+> > +       return ret;
+> > +}
+> > +
+> > +static int imx175_probe(struct i2c_client *client)
+> > +{
+> > +       struct device *dev =3D &client->dev;
+> > +       struct imx175 *imx175;
+> > +       unsigned long rate;
+> > +       unsigned int i;
+> > +       int ret;
+> > +
+> > +       imx175 =3D devm_kzalloc(dev, sizeof(*imx175), GFP_KERNEL);
+> > +       if (!imx175)
+> > +               return -ENOMEM;
+> > +
+> > +       imx175->dev =3D dev;
+> > +       imx175->mode =3D &imx175_modes[0];
+> > +
+> > +       ret =3D imx175_check_hwcfg(imx175);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       imx175->regmap =3D devm_cci_regmap_init_i2c(client, 16);
+> > +       if (IS_ERR(imx175->regmap))
+> > +               return PTR_ERR(imx175->regmap);
+> > +
+> > +       imx175->xclk =3D devm_v4l2_sensor_clk_get(dev, NULL);
+> > +       if (IS_ERR(imx175->xclk))
+> > +               return dev_err_probe(dev, PTR_ERR(imx175->xclk),
+> > +                                    "failed to get xclk\n");
+> > +
+> > +       rate =3D clk_get_rate(imx175->xclk);
+> > +       if (rate !=3D IMX175_XCLK_FREQ)
+> > +               return dev_err_probe(dev, -EINVAL,
+> > +                                    "unsupported xclk rate %lu Hz\n", =
+rate);
+> > +
+> > +       imx175->reset =3D devm_gpiod_get_optional(dev, "reset", GPIOD_O=
+UT_HIGH);
+> > +       if (IS_ERR(imx175->reset))
+> > +               return dev_err_probe(dev, PTR_ERR(imx175->reset),
+> > +                                    "failed to get reset gpio\n");
+> > +
+> > +       for (i =3D 0; i < ARRAY_SIZE(imx175_supply_names); i++)
+> > +               imx175->supplies[i].supply =3D imx175_supply_names[i];
+> > +
+> > +       ret =3D devm_regulator_bulk_get(dev, ARRAY_SIZE(imx175->supplie=
+s),
+> > +                                     imx175->supplies);
+> > +       if (ret)
+> > +               return dev_err_probe(dev, ret, "failed to get regulator=
+s\n");
+> > +
+> > +       v4l2_i2c_subdev_init(&imx175->sd, client, &imx175_subdev_ops);
+> > +       imx175->sd.internal_ops =3D &imx175_internal_ops;
+> > +
+> > +       ret =3D imx175_power_on(dev);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       ret =3D imx175_identify(imx175);
+> > +       if (ret)
+> > +               goto err_power_off;
+> > +
+> > +       ret =3D imx175_init_controls(imx175);
+> > +       if (ret)
+> > +               goto err_power_off;
+> > +
+> > +       imx175->sd.flags |=3D V4L2_SUBDEV_FL_HAS_DEVNODE;
+> > +       imx175->sd.entity.function =3D MEDIA_ENT_F_CAM_SENSOR;
+> > +       imx175->pad.flags =3D MEDIA_PAD_FL_SOURCE;
+> > +
+> > +       ret =3D media_entity_pads_init(&imx175->sd.entity, 1, &imx175->=
+pad);
+> > +       if (ret)
+> > +               goto err_free_ctrls;
+> > +
+> > +       imx175->sd.state_lock =3D imx175->ctrls.lock;
+> > +       ret =3D v4l2_subdev_init_finalize(&imx175->sd);
+> > +       if (ret)
+> > +               goto err_entity_cleanup;
+> > +
+> > +       pm_runtime_set_active(dev);
+> > +       pm_runtime_enable(dev);
+>
+> Use pm_runtime_autosuspend? It saves a little bit of time when
+> switching modes on the sensor.
+>
+> > +
+> > +       ret =3D v4l2_async_register_subdev_sensor(&imx175->sd);
+> > +       if (ret)
+> > +               goto err_pm;
+> > +
+> > +       pm_runtime_idle(dev);
+> > +       return 0;
+> > +
+> > +err_pm:
+> > +       pm_runtime_disable(dev);
+> > +       pm_runtime_set_suspended(dev);
+> > +       v4l2_subdev_cleanup(&imx175->sd);
+> > +err_entity_cleanup:
+> > +       media_entity_cleanup(&imx175->sd.entity);
+> > +err_free_ctrls:
+> > +       v4l2_ctrl_handler_free(&imx175->ctrls);
+> > +err_power_off:
+> > +       imx175_power_off(dev);
+> > +       return ret;
+> > +}
+> > +
+> > +static void imx175_remove(struct i2c_client *client)
+> > +{
+> > +       struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
+> > +       struct imx175 *imx175 =3D to_imx175(sd);
+> > +
+> > +       v4l2_async_unregister_subdev(sd);
+> > +       v4l2_subdev_cleanup(sd);
+> > +       media_entity_cleanup(&sd->entity);
+> > +       v4l2_ctrl_handler_free(&imx175->ctrls);
+> > +
+> > +       pm_runtime_disable(&client->dev);
+> > +       if (!pm_runtime_status_suspended(&client->dev))
+> > +               imx175_power_off(&client->dev);
+> > +       pm_runtime_set_suspended(&client->dev);
+> > +}
+> > +
+> > +static DEFINE_RUNTIME_DEV_PM_OPS(imx175_pm_ops, imx175_power_off,
+> > +                                imx175_power_on, NULL);
+> > +
+> > +static const struct acpi_device_id imx175_acpi_ids[] =3D {
+> > +       { "INTCF1A" },
+> > +       { }
+> > +};
+> > +MODULE_DEVICE_TABLE(acpi, imx175_acpi_ids);
+> > +
+> > +static struct i2c_driver imx175_i2c_driver =3D {
+> > +       .driver =3D {
+> > +               .name =3D "imx175",
+> > +               .acpi_match_table =3D imx175_acpi_ids,
+> > +               .pm =3D pm_ptr(&imx175_pm_ops),
+> > +       },
+> > +       .probe =3D imx175_probe,
+> > +       .remove =3D imx175_remove,
+> > +};
+> > +module_i2c_driver(imx175_i2c_driver);
+> > +
+> > +MODULE_DESCRIPTION("Sony IMX175 sensor driver");
+> > +MODULE_LICENSE("GPL");
+>
+> MODULE_AUTHOR?
+>
+> Hope that's helpful.
+>   Dave
+>
+> > --
+> > 2.43.0
+> >
+> >
