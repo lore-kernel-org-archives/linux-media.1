@@ -1,58 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794824502;
-	b=OgjjQh0IR8cloe1EAF0EsidCIB+hmhranKZVL7sRveGCRlmx6gW+NB2h0idHAXb2HQyv
-	 zCZoun8sAqXeJhGY73UL5Ej7Jq+gfqwhF2TJLD8I7VSqrNu3G/4t+8ZKjhnTlgLFngZt7
-	 NfkULO9kcDCwlfOkC6QsWF6Z8uMtN93qi/FiJXcmivAuTnvKSMj4ZWuXYrBnKMGMKvR5m
-	 0jS6qSL2E9e5kGhkIHN97hA0roepHUrgiqWtovs3oIZ56t375pOyBRgGB8kHJ5RvCtz0u
-	 nfUd4HT/qTW3oyYCrA5YO8zN36Tc05EoZflB6GEfzwgOhpqEZvwSDgHd8qAT0AKzA+A==
+	t=1794826308;
+	b=gWQfDnrK1/0L9BgVtRPMmlBmMHYejTPXXZjSZM/wW7yMwaoorlKHWNXxSwhqzN6B1wnp
+	 QKrB8nXeTBHDUKQdkQ1/SUwfYXS8IdXJl7ObhWmRlULir9oj3a3CfbM5iD7zJsLQYoLLA
+	 eLPjfRP76DvcCOa31N6BWNK7NnK6eUrD/kHo5bMARV9GH8nfefQe87ZdcFbCAZ184wpqU
+	 mP4lC6/S+S4fpd1NnDmTv0DYR4kp2HiGMEZSY85aoYFvc97NSu2LkKYPBKI0gCfLruZCq
+	 AoTFgnxw2wkOMNxtvtvgn7pQR0lPijTjdDWkO922xRKnLgJr7Z4dsiKdqm2w22T6xsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824502;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=DqQSlp0OxWt+yQpbkHF9ExhxGvHfj4LoD8pce6Yk+4o=;
-	b=vMJAfCQoB8/mKeXPj/4Kiat6J+6zkajNhZvV8GF5BHl9WuASgCW0Alz8n3k0u7UyCpXl
-	 390/RbBT51wKQL4BY6Fq7gzLSnq6SxV4frN1OXriaHxeBnw6CGJ/D1y+HhfdAh0zfADQP
-	 ++G4Maen2o/hEyCsbizBAR51vP8sAfguKqZdmcxyKwmtW8aqI6gQ8+B7sxiN8cIzJwxat
-	 YqIoY2oiFwwoAqUpDgpergNfldQyZ7WoL0B3eNdjF6U5l2jy++fII3ctnayGCKEirK/SO
-	 bM/Dc1x/ZmQ7MU6RznbvOgbYyv0O3g274qgxdKbWKRUmSfV+1gBzyePeHkR491Xympg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826308;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=rny6q4V2AlEW+9be9hzTdzBqG+gm95vTnvqQb/sLFhY=;
+	b=5b5esu/0xqorC65i+yXG3cQxkhl5GUzHawAjm1LPdaiHvhOr1/n4J+maYcTTBat4hm4b
+	 pnoWr+MF9cyL2KcHyZKqZehPRJIhpOKpmtg82rqxDV38GwuyAdlH5OhOMh5N7uTfLZNbc
+	 /MApL1XFrM2M016XOTLkRxbWBb1pScOq72WSNUY143ooLxt/SCUwR31pwlZ/wq7Wf/bUz
+	 A47ERk4YVFT2pHcHixNUiId53VUU3meDXhTslRZ1ZSlymc4wo9GncT7D7OEV7BkQi8Kq9
+	 G1bPvSwv59o3biQkxo+bMoM2aVZ3J4JgIIWkUrBAwnVbGhf+GpBBs+mOVDEekrbouUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Ni1HVMUU;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KKO0GtmL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9657606A31C;
-	Mon, 16 Nov 2026 10:21:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9657606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AFC606A323;
+	Mon, 16 Nov 2026 10:51:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Ni1HVMUU
-Received: from ideasonboard.com (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BE67E175;
-	Mon, 16 Nov 2026 11:19:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794824352;
-	bh=0CTu0igy6jwM2YeMevJJWXBYcaZouwm/r7K0xQiOwtU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ni1HVMUU87uDO+8PTASqpTnv9j6FrUOeo4T91vXyxiyhPm9jGwgpLpK7hMKMofTpi
-	 v26NCxnE+O1ZCetsDFoyZP7j3EfmjVEEbPaMp3wWz3YXkLYIZr9mpBO5hbZ5ENCyrh
-	 bOd9b2cbry8DHBp26m2ByY2oEhYrCT9TyVLFgM7s=
-Date: Mon, 16 Nov 2026 11:21:36 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: rcar-vin: Return unused buffers correctly
-Message-ID: <avrXFz3LNGShIT1K@zed>
-References: <20260828-vin-fix-vb2-v1-1-97eb1f4f75c9@ragnatech.se>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KKO0GtmL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FA0D1F000C5;
+	Mon, 16 Nov 2026 10:51:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794826308;
+	bh=rny6q4V2AlEW+9be9hzTdzBqG+gm95vTnvqQb/sLFhY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KKO0GtmLmo3FANikUbE0i8Y6q8f05SERDvSmxDTTrvZcguvwuOPJiERRLiY3km+p9
+	 zo6CwRf5CpRVfMsRxBO5VC7BJ8aswdfaLrTnWNGso8MYwfkMSlZlr/JCwl7Yb0DKYI
+	 eBWEl8S+pydXFjwbZYHaKbLWD1FXtNqR/hU+W0ogRIXX/8Ttqui5864q8rXI5QbV1c
+	 R6fnfNJlYbpdNAOv54aoayBIVtR/wby4m5kxP9JLbu1/7ECYHfn8X6ZW0o2rJV/Mfu
+	 EVIiWUPpZlAFacz9vc7Vc16Rny5Ozfd3TgFqBoUQmnJ8ExsrAtD4LpzCw5QASx/URm
+	 B8JnGpBuX+mvA==
+Date: Mon, 16 Nov 2026 11:51:32 +0100
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, linux-coco@lists.linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+	linaro-mm-sig@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+	linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
+Subject: Re: [PATCH v9 14/14] irqchip/gic-v3-its: Preallocate VPE L1 tables
+Message-ID: <avrgNBXDFMGL6dqO@red-moon>
+References: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
+ <20261104164555.3555725-15-aneesh.kumar@kernel.org>
+ <86zevn1c9a.wl-maz@kernel.org>
+ <yq5ah5huoteu.fsf@kernel.org>
+ <87ld6x8zb7.wl-maz@kernel.org>
+ <yq5apkw5xpnz.fsf@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -62,75 +106,77 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260828-vin-fix-vb2-v1-1-97eb1f4f75c9@ragnatech.se>
+In-Reply-To: <yq5apkw5xpnz.fsf@kernel.org>
 
-Hi Niklas
+On Mon, Nov 16, 2026 at 11:51:04AM +0530, Aneesh Kumar K.V wrote:
+> Marc Zyngier <maz@kernel.org> writes:
+> 
+> > On Fri, 06 Nov 2026 15:45:29 +0000,
+> > Aneesh Kumar K.V <aneesh.kumar@kernel.org> wrote:
+> >> 
+> >> Marc Zyngier <maz@kernel.org> writes:
+> >> 
+> >> > On Wed, 04 Nov 2026 16:45:55 +0000,
+> >> > "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> wrote:
+> >> >> 
+> >> >> VPE L1 tables are allocated from the CPU-starting callback, where sleeping is
+> >> >> not allowed.  Remove the page allocation from this atomic path.
+> >> >> 
+> >> >> Use a blocking allocation for the boot CPU and record the resulting table
+> >> >> order.  Allocate a page of that order from the sleepable CPU hotplug prepare
+> >> >> stage for each secondary CPU.  Consume the preallocated page only when the CPU
+> >> >> cannot inherit an existing redistributor or ITS table.
+> >> >> 
+> >> >> Reclaim unused preallocations after the CPU reaches the online state, and from
+> >> >> the prepare-state teardown when CPU bring-up aborts.
+> >> >
+> >> > No. The way to do it is to move the ITS probing out of the
+> >> > non-sleepable CPU hotplug path.
+> >> >
+> >> > I proposed a potential hack at [1] (which I find far more palatable
+> >> > than this proposal), but the real fix is to probe the ITSs as
+> >> > devices.
+> >> >
+> >> 
+> >> Could you share a bit more detail on what you have in mind?
+> >> 
+> >> Are you suggesting that we create a platform device for each ITS and
+> >> initialize it through the driver's probe callback, while the rest of the
+> >> GIC initialization stays in the existing early boot path?
+> >> 
+> >> Would that mean the main GIC is operational during early boot, while
+> >> ITS-dependent features, such as MSI delivery and direct injection, become
+> >> available after the ITS devices probe?
+> >> 
+> >> Is that the split you have in mind?
+> >
+> > Yes. Then once this is done, all the tables become normal DMA
+> > allocations, for which there should already be adequate support.
+> >
+> 
+> Thanks for confirming. Can we handle the ITS platform-device conversion
+> and the switch to DMA allocations in a separate series?
+> 
+> The existing VPE L1 allocation path calls set_memory_decrypted() from
+> the non-sleepable CPU-starting callback, even though
+> set_memory_decrypted() can sleep. This issue predates the shared-granule
+> allocator changes.
 
-On Fri, Aug 28, 2026 at 12:37:44PM +0200, Niklas Söderlund wrote:
-> Unused VB2 buffers should be returned with state DONE not ERROR when
-> stopping.
+If I may ask, why does the existing code ends up calling set_memory_decrypt(),
+or reworded, why does the VPE L1 allocation path goes through the ITS specific
+allocation function rather than using alloc_pages() (as it was before
+b08e2f42e86b5) ?
 
-Indeed
+Why did b08e2f42e86b5 patched allocate_vpe_l1_table() allocation and moved
+it to using its_alloc_pages() ?
 
-I think this is worth a fixes tag
+Thanks,
+Lorenzo
 
-I'll add, if you agree:
-
-Fixes: 63a71dd813e2 ("media: rcar-vin: Break out hardware start and stop to new methods")
-Cc: stable@vger.kernel.org
-
-Not 100% sure what commit to use in the Fixes tag as unused buffers
-were returned in ERROR state before that commit, possibily from the
-very first commit that introduced the driver
-
->
-> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> ---
->  drivers/media/platform/renesas/rcar-vin/rcar-dma.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
-> index 73cda0e2d45a..f3003dd61890 100644
-> --- a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
-> +++ b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
-> @@ -1449,7 +1449,7 @@ static void rvin_stop_streaming_vq(struct vb2_queue *vq)
->  	dma_free_coherent(vin->dev, vin->format.sizeimage, vin->scratch,
->  			  vin->scratch_phys);
->
-> -	return_unused_buffers(vin, VB2_BUF_STATE_ERROR);
-> +	return_unused_buffers(vin, VB2_BUF_STATE_DONE);
-
-Does the same apply to buffers queued to the hardware and not
-processed released in rvin_stop_streaming() ?
-
-	/* Return unprocessed buffers from hardware. */
-	for (unsigned int i = 0; i < HW_BUFFER_NUM; i++) {
-		if (vin->buf_hw[i].buffer)
-			vb2_buffer_done(&vin->buf_hw[i].buffer->vb2_buf,
-					VB2_BUF_STATE_ERROR);
-	}
-
-(nit: there is a stray empty line after this loop, if this hunk needs
-to be patches as well, it might be a good occasion to remove it as
-well)
-
-Thanks
-   j
-
-
->  }
->
->  static const struct vb2_ops rvin_qops = {
->
-> ---
-> base-commit: 4900cad020c0580dfb1be27776ff10a4ef110cfa
-> change-id: 20260828-vin-fix-vb2-28e1bb24a618
->
-> Best regards,
-> --
-> Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
->
->
+> 
+> Since fixing this properly needs a broader ITS rework, can we handle
+> that separately and drop the preallocation patch from this series?
+> 
+> -aneesh
