@@ -1,147 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837786;
-	b=LeVDRylQYe4mncniUqYJ/0cSdBl+61s9ZuGku0JulujF4CVEfTN5zME2TKm6s9XxMWON
-	 niQngCXSrR2rE4ANXmhBQDVPrb1nRhsZfk2f305jP2La1aos85vYO9dXh35y7lpjr9Am7
-	 R9qB6+iwibsrOI6LMkS1/oNsw2/kwHOWTiHEXXij1DOUQX5BcM7abZ468ngC0hgXeq27w
-	 sJSfCQ4UUnUW5e4j/wxjBnSkDJ273oUVUzJ1+r6FUpcFKTw27eta0WLh6+qcOyuPL3gAv
-	 31kNUaViJOxKYZTV43Vxb2sDKxqTSlcEM5+VNzRp0c/Se2R38yt43oAehEMCYOC8O3g==
+	t=1794837982;
+	b=j7S8JKiCzPYv0PVvdxLWlfdZvXWEppFErIW9WXjvqLq5ZCDbF1v00uj8VSBYo0hw+DE9
+	 20jJHhFy8aU/a6dWBeGRWNBy2FNnfkgJeqXibSjXQBruMGrIRD58VUcMSxlA58D6K0pVd
+	 /yhn28p34rdWRiFg7wWIjgrkjXaCfqgQQm4Jx7EahFNh0afzQ1rDk+vOxcAzV2GTjvNsS
+	 6mPoaY5dsgqb0EJjHuRaHgUsOUw5YQPQ+bDsExspmjje732I+B1jv1tgZPIFIPaCvi4+t
+	 /uyIb8ELgvsA9vlFhd8q+wFEvFihYRcogctXoNuIBrFSE313Rs++RWK/WAsxC1rwtmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837786;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=8htNjDuwhthg5uXuXp42Sb+r8eU4x+ykq7/WcmWSjZg=;
-	b=JHpU7OUvixYj9XNOoYZKzZubePu3XDN2Ps6y6T7HjVJEES+dhBEQZ6rNxFU1TdAhsIRs
-	 yXvIXyGkrKXv47gw04A37tadFmvNEqZTP3RK6Nbszl3LXXQuvOLvq9hy2PVfEUnU9aYT4
-	 21/UPO8wNJWJCkufaL/K+2SjuC7HgMNTAbQV6OpjGu3ux7fhJPJu0FADT4saOJ7ojwxzh
-	 x+HXf+lqsNZhgKNlSw073dXZm8HmpFfXW3897Zb67DsnX0iYyW7TGrc7Kn+X4W6bvnu57
-	 ZITcwAlRv4nC3ew3glt7LcskPXo4C8IMySuI0pUcfsDYGftJgqaMTlYVjHDIeVKkWDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837982;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=Op53iop0x9KGQn5UzK0UMZyNCNF/PCnLenmV1gMq4is=;
+	b=UZ023FVzP+CGjqINshFPkXcsmj2g5o9dtuDy5VGZA57Vlt8ul/zB1IPDoGg4mBvBgNd7
+	 nW3gwIXATAxxGFt8yISh9bygjQS3a5ohEQd2w4CMKAU9MVhdB0gevFibG/1mLWcbVcDQM
+	 6I2zjp3U+wQ+RMKDgtSHq2H8jSW4UUzmFFamYWZJncMHpWaTMNGUVg/NADI3Sa7Usq6QS
+	 Mharenyl8FZPpCDfKbNLK881/By/E8OUJi64J/6aEYQajeO3GNBnNowWtgk1UfPeRa+rh
+	 Wc10vhA+C0amSid8uQyLZO2yS/t0KWWQYr1jYj/hEikVqrwI9kWzi/x6oZq+mlXHSMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=SG17XEez;
-	arc=none smtp.remote-ip=74.125.224.51
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=jWcMc7Ou;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D883606A881
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 14:03:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D883606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53094606A33A;
+	Mon, 16 Nov 2026 14:06:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53094606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=SG17XEez
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67990a45e02so3580263d50.3
-        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 06:03:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1794837784; x=1795442584; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8htNjDuwhthg5uXuXp42Sb+r8eU4x+ykq7/WcmWSjZg=;
-        b=SG17XEez5mwjnqi0HbKubbaOfKmbQZY5U4lKa5mROrWt9YtqApdrH4jXpkDm0Pc5M/
-         DGnTVldDp4wPhR4hOabFA09ppmuG1TUA/ZPXjIHhXlD9D9twB0onvGMF+5aPNXdX2m1w
-         4TWgsS4kB/zVAoZR9X4qv0E8yAO3ECjuKafGWv2xC9FIsV8gyKopXDGnMQuOxeksqu3v
-         xPHs4UvRXietpgIwk+OuhmTppUdCrr9b6Svc05RV8YZGp3d19h/SjeDZ3EWLonhVtbKu
-         wrOEMafxS/knLA2DRYdzdatk4yvDz7/fZ6lXMuPh7u1eC2h5L+ukqvIkVZlIvZKJsSGA
-         HorQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794837784; x=1795442584;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8htNjDuwhthg5uXuXp42Sb+r8eU4x+ykq7/WcmWSjZg=;
-        b=Ub+1DsT4y4DbwvQAvj0NrjrkrIOLGtel3vYpNSmLvsDCRoRVXz/fBX1otEHl9Je9IY
-         VcbZ0ETUArCcdyfc6YSHxPmwFJKFrXHChcV1v4HNLURHRoPhKVkBXL04Ej+ib9/4CZvv
-         bPvH6EO+6wArzt/gf04StAIKkggsKxIdczKX2wWeVbrbuIjj0CduoqsWppqR3Ya4jyN9
-         MF7ZzbNMQy376ZRzsSuhPARYVcNVKQjc/EkOZHaSLl3e7xRL6w2pPqdP0g4ne3zrGPFJ
-         DN5uNRMANV1jyaADZsZhTR6UZiSOO8RRU22I0wmSRXc5Fyw8GYiKGRvcF5iWX3tdQZCP
-         ST8A==
-X-Forwarded-Encrypted: i=1; AL+hErEbnTA321ybh7VETNQTC4w+ZhTUcPjPewRxg2yv3AOSfpbX7Txowmih5mJJ3xpaf8ko4O8pjlorV9gAIg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hbZS0LxLgjfsmQKe8f1xRXdQ9vlSJls/5XQc/gr/n0qyjyKn1
-	OkQjKQ3L4u1de3/Tzy29OuUJEzMaRDSpM0gjJXVmvl1zKYoRf2KrIGNgOwn4nMjjTq1cyT895I6
-	8YMY1
-X-Gm-Gg: AZFdTZfWrF8wRPA+Z/cIT1j268Z0VPKBrqsGNbra4VecO5/By/T9x+jzfq6BgtOk8nt
-	uugrxzxzNHHZKMUhdV9ShIGc9uw+8jVs0+wxV6RA6HXe85EtAnLJGo/f2d+ECUjvxglfGCLjter
-	VqfD0IKIAff1Vgz0PoCO+3cViqrpkxOCXtbvG0bjiyL+tv5gvmqTJlXSlo38JSpjGKzaiuRxzol
-	Wkqn06hIfEU7J4kXUvawTqfGUXpCYpu1VmsVvrfOTH5L0MUa1hzhwZ2haGZp+AdSbrpJ9r3kPuv
-	qqFabwc0DFaUxbIYN5u+xBuSSE/fRBJMRoN4e6XNEnyJuXyIbkiZVDf32hlFzNVn/ejFXAiZrvt
-	RESqPLYJqDU4i5gkFzyfpxg74X7QOrxjuFLWMJzhQc1qCXIxmxaf1JzkvGoRghzmlnPlIZ6gLj4
-	mmkRwNSGXCPhRRD5ONhwQvNQEdIGQ3YdEMTy0NNzOBH+qxpkNJRJqJAAxdwH2Fgoh34BNMFsJv+
-	CCat4der0NcUU7jgssAcuWAy11MYMbaiz8Vazeh+kUf62xWLusTFzSHVoKHYnHXlqQVBxzj/Tha
-	FxuCV72THfw2nwd8xYZiYoJJWDE=
-X-Received: by 2002:a53:ccc7:0:b0:67b:f935:8639 with SMTP id 956f58d0204a3-67d89787ecdmr4996887d50.63.1794837784278;
-        Mon, 16 Nov 2026 06:03:04 -0800 (PST)
-Received: from ziepe.ca ([142.166.156.71])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c8b889csm858426085a.32.2026.11.16.06.02.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 06:03:00 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xSxIR-00000009Q2N-0sq0;
-	Mon, 16 Nov 2026 10:02:59 -0400
-Date: Mon, 16 Nov 2026 10:02:59 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>, linux-coco@lists.linux.dev,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
-	linaro-mm-sig@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
-	linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev,
-	Vincent Donnefort <vdonnefort@google.com>
-Subject: Re: [PATCH v10 02/13] mm: Zero memory during shared memory
- transitions
-Message-ID: <20261116140259.GL2532299@ziepe.ca>
-References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
- <20261116091137.94252-3-aneesh.kumar@kernel.org>
- <CA+EHjTw7QzzkQYKV3jyvW5mqZQMenTfm=kus9i87tYqACDOv0Q@mail.gmail.com>
- <yq5ah5hgyj1p.fsf@kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=jWcMc7Ou
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D629BB5;
+	Mon, 16 Nov 2026 15:03:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794837834;
+	bh=4Tfr5brx3F//9PX7y4euUCW/dOuZHuLk5sZJ/u+ToEc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jWcMc7OugNny4HwAmWTkTh4VKN6rbQec6QNb6n0bglGKqS9XNs/gvQ9hwVPiH18jT
+	 exgKMfgI6MWpvd2BFSNSQ+chGy6VVumzj4fHy+2vWTWd1hh+pnkztqPaPfxG86vHWL
+	 OKZyQV2JFDSg64TxPdMlZ6KCX9L5PC0BcAsINOvA=
+Date: Mon, 16 Nov 2026 16:06:19 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Sinan Turunc <enscrpt@pm.me>, stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] media: uvcvideo: Reject short metadata
+Message-ID: <20261116140619.GD1714298@killaraus.ideasonboard.com>
+References: <20261116-uvc-shortmeta-v1-0-487cfe42fa89@chromium.org>
+ <20261116-uvc-shortmeta-v1-1-487cfe42fa89@chromium.org>
+ <20261116130839.GA1714298@killaraus.ideasonboard.com>
+ <CANiDSCsuPhCyeFWSBPWauECVHQ5A0ySMSqvC7UB6W9ZR4_+iAA@mail.gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -151,55 +66,92 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <yq5ah5hgyj1p.fsf@kernel.org>
+In-Reply-To: <CANiDSCsuPhCyeFWSBPWauECVHQ5A0ySMSqvC7UB6W9ZR4_+iAA@mail.gmail.com>
 
-On Mon, Nov 16, 2026 at 07:28:42PM +0530, Aneesh Kumar K.V wrote:
-> Fuad Tabba <fuad.tabba@linux.dev> writes:
-> 
-> > Hi Aneesh,
+On Mon, Nov 16, 2026 at 02:23:34PM +0100, Ricardo Ribalda wrote:
+> On Mon, 16 Nov 2026 at 14:08, Laurent Pinchart wrote:
+> > On Mon, Nov 16, 2026 at 11:56:37AM +0000, Ricardo Ribalda wrote:
+> > > The UVC header has two bits saying whether the packet contains the
+> > > optional PTS or SCR fields.
+> > >
+> > > If the header says that those fields are there, but the header is not
+> > > big enough to hold them, there is something wrong going on and we could
+> > > read out of bounds.
 > >
-> > On Mon, 16 Nov 2026 at 09:12, Aneesh Kumar K.V (Arm)
-> > <aneesh.kumar@kernel.org> wrote:
-> > [...]
-> >> Keep allocations on platforms without memory encryption on the ordinary page
-> >> allocator path so the original GFP constraints, including __GFP_ZERO, remain
-> >> intact. Remove post-transition memset() calls that are now redundant and
-> >> explicitly clear allocations on paths where no transition occurs.
-> >>
-> >> This intentionally makes every private-to-shared transition destructive;
-> >> callers can no longer use set_memory_decrypted() to preserve existing contents.
-> >
-> > pKVM shares memory in place, and a guest has to be able to share
-> > memory it has already set up, as Vincent pointed out [1]. That was one
-> > of the primary reasons for in-place conversion in guest_memfd.
-> >
-> > Cheers,
-> > /fuad
-> >
-> > [1] https://lore.kernel.org/all/avro44jUWOARFzul@google.com/
+> > There are multiple checks scattered through the code for this already,
+> > some of them causing the whole data packet to be dropped, others just
+> > short-circuiting operations such as clock and stats updates. Did you ned
+> > see those ? It's getting too messy.
 > 
+> Yes I saw them :P.
 > 
-> Thanks for catching this. We discussed it before, but I reached the
-> opposite conclusion:
+> I can move the tests to uvc_video_decode_start(). The question is what
+> we should do for non compliant cameras.
 > 
-> https://lore.kernel.org/all/yq5a5wzw2ree.fsf@kernel.org
-> 
-> My mistake. How do you suggest we handle this? We want to avoid zeroing
-> pages multiple times with different CoCo configurations. For example, to
-> allocate a zeroed page, we currently do:
-> 
-> alloc_pages(__GFP_ZERO)
-> set_memory_decrypted()
-> memset(0, PAGE_SIZE)
+> I would love to just drop the packet altogether (with a non compliance
+> warning), and if someone complains... we can add a quirk or some
+> heuristics.
 
-Just like you are wrapping set_memory_decrypted() in an allocator API
-the user that wants to have the no-change sharing needs its own
-special API too.
+It's always the same issue with UVC, right ?
 
-Then you can bury a special implementation for pkvm there.
+There are only two options: dropping the packet, or working around the
+problem. The first option risks breaking some cameras. I would hope the
+probability would be very close to zero, but I really have no idea.
 
-Where is this special user in the kernel anyhow?
+If we work around the problem, I would centralize the logic that
+computes the standard header size, extracts the PTS and SCR, and
+validates the buffer size to a separate function. The checks will still
+be run multiple times, but the logic will be centralized.
 
-Jason
+> Will send a v2
+> 
+> > > Mark the metadata as invalid and move on.
+> > >
+> > > Reported-by: Sinan Turunc <enscrpt@pm.me>
+> > > Closes: https://lore.kernel.org/linux-media/20261115121701.189-1-enscrpt@pm.me/
+> > > Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > > ---
+> > >  drivers/media/usb/uvc/uvc_video.c | 8 ++++++++
+> > >  drivers/media/usb/uvc/uvcvideo.h  | 1 +
+> > >  2 files changed, 9 insertions(+)
+> > >
+> > > diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> > > index a92a986ab714..9cc5d83acbc2 100644
+> > > --- a/drivers/media/usb/uvc/uvc_video.c
+> > > +++ b/drivers/media/usb/uvc/uvc_video.c
+> > > @@ -1487,6 +1487,14 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+> > >       if (has_scr)
+> > >               len_std += 6;
+> > >
+> > > +     if (length < len_std) {
+> > > +             uvc_warn_once(stream->dev, UVC_WARN_META_SHORT,
+> > > +                           "UVC non compliance: payload header length %u is shorter than expected %zu (flags 0x%02x).\n",
+> > > +                           length, len_std, mem[1]);
+> > > +             meta_buf->error = 1;
+> > > +             return;
+> > > +     }
+> > > +
+> > >       if (stream->meta.format == V4L2_META_FMT_UVC)
+> > >               length = len_std;
+> > >
+> > > diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+> > > index af8cef94ffff..59e23e55bc2e 100644
+> > > --- a/drivers/media/usb/uvc/uvcvideo.h
+> > > +++ b/drivers/media/usb/uvc/uvcvideo.h
+> > > @@ -661,6 +661,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
+> > >  #define UVC_WARN_PROBE_DEF   1
+> > >  #define UVC_WARN_XU_GET_RES  2
+> > >  #define UVC_WARN_QUERY_CTRL  3
+> > > +#define UVC_WARN_META_SHORT  4
+> > >
+> > >  extern unsigned int uvc_clock_param;
+> > >  extern unsigned int uvc_no_drop_param;
+
+-- 
+Regards,
+
+Laurent Pinchart
