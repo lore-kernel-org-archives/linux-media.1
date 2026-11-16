@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794801124;
-	b=IUL9L96+3YRq4Qs4ymJg0j91X5nUoDbQd3bPOnCNTSh4xCF0Madgk+eWkl5h8gxecmwy
-	 moBeRNZMhuV80KtyUFLv7pwknbMgLbqKPgnckVt7iMI3gYJGQf4477unfSoDVAAxib8/5
-	 +H2cgFl0V8cHo5klhSaNS1+R/Y1zKpJ+znRPQQVKciT1AcqRtjvFpD1x3NURa9YQwRzB9
-	 5jPc2DePscxJ3C8xL6PtevCJ3cTGaYBbBNdO/RvHP13xsPOxGfdc8gbEkUAFbbJc3xnZA
-	 6sDM2lBcbeP8lpjXs4nQ6S1qsCW+HyRLc75HFNRcrh92LBFCoFSPBBsAz+knENRBk9A==
+	t=1794806850;
+	b=bC5bSNZXv0/4jnpFzeSgBNhV6eyGg4vXaWFrmJuPliphkY+mJj5bLmi3ZSwt+xbJMqx9
+	 SEqff10u786cFImO+KIaJ/jyVUuNC7CYoQhac8TL6XhhHhg8p1OzumW8lG24C6zfV+feI
+	 m+BCG8wC2hoYBfV0o+aD/CWkGLw/OdBeVl95/PX2TTJHqJK6lWo+WBOzQPfNpfgjFtmkB
+	 YNBi5iAvZ/mXVoSvwY2DkPfnz3vXgF1E4wqk9OFqHMGKYBkSK7YrSc4aMVPFqTdPWmBEj
+	 fTeL9hDle0XQ7wGFb2BEwI8ztAT9uXRay8dBIvBYAmXYwHcdtWpwUHWXiYefHZPtb0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794801124;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794806850;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=+QBSw5JnyJShenoN9aDMwG/bIDS9Kt5c5A1/4QeDMdE=;
-	b=oKULXUVSqOx/kolX+JY/YFDGCfrqOB/pKQZ1K75m/izyviN1scjzsFx0XfaCga8xaTG5
-	 rrqrvPVf7PbUGbss4lc6+CtXuAujOCrywXNWKdwUrZfElnPdSvVSA2wYbCbweJxMf1Mdr
-	 8JVNahoHJN7W1il6j+S7E4gIVOIXUozFO/hGY/iXwl/A7/1wGhKtuFPdSGde549l+3svj
-	 rOtiwTACwjraqxlaXBu8ZsYATo1ySQ4w9dPcHCwbR82pHAWyBzTQ94jfcff9UeZbk3Yh3
-	 fKkmyP1XYyEJEAfoBUKTAIsllc4Y14kJLhNjNe/GB9qfpG7apSi6ZH39hCbIygcSZVQ==
+	bh=zvERbDGiSiR6GByxVkFLzYXaCstRo5terpd4p4QbZQI=;
+	b=49JMvSwX1LC8SlR9Fp+LomuItklYAGycos/buBUUkMzDsjqsXZLad5ur2mcL6O+bmnkU
+	 0zelVHd1tjJ2gWSAulGkVXfuxdk0eXVIHkMcvtugAgTN3ob7JiSl2RCshJ0U8B1OaNVsu
+	 jEoSn+LkNWIk0yInFIQu1NQysjkLOZFqg0xvBiPQggEo6DBT7vhDhX1vWUG/PVqhQN9in
+	 PHWVHxJ//GLAqWdFA3niN0lWs1YFvDpyZXTD06PAS4c0lvoaQN9Zlj5kVn6/x4+p7QNjH
+	 jIavuY3uYF6sbhzResvXngx+S892K9Bc1wc28HtbnQ6dc1+BhdQxskfxgAUISJhU6IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kk5A3Esl;
-	arc=none smtp.remote-ip=74.125.224.132
-Received: from mail-yx2-f4.google.com (mail-yx2-f4.google.com [74.125.224.132])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HQlblhL5;
+	arc=none smtp.remote-ip=74.125.224.135
+Received: from mail-yx2-f7.google.com (mail-yx2-f7.google.com [74.125.224.135])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD00606A338
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 03:52:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFD00606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A845C606A31C
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 05:27:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A845C606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kk5A3Esl
-Received: by mail-yx2-f4.google.com with SMTP id 956f58d0204a3-679a0b1c35eso1315624d50.0
-        for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 19:52:03 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HQlblhL5
+Received: by mail-yx2-f7.google.com with SMTP id 956f58d0204a3-67a1a96329cso1183469d50.1
+        for <linux-media@vger.kernel.org>; Sun, 15 Nov 2026 21:27:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794801123; x=1795405923; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794806848; x=1795411648; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+QBSw5JnyJShenoN9aDMwG/bIDS9Kt5c5A1/4QeDMdE=;
-        b=Kk5A3EslIZIsan5XDl5LrGYxTb+D0+qGctUFhB47CTj+Zq033gaoHbtlo/Pj/j/VwU
-         YOPPw6RirpzIsC3V0ievIURAb4C96VmzUn7HCE5acJHMXcbH+Tt9dxDoz5CIvNxhp46n
-         qzrDSWzXGif0x60u5kKq2Xc69jznxh3W9hpp+2SCly+TETiLUyUqaSyaLCOwM1U7rbWm
-         0QkjcLvraYu6zo4SLzXrTIW5uo1o939yEvgfLd0hx24EcRVujMBwcMhwXUdNdNZpLK8i
-         PUOGAqebit5skzQVINph9poUVY3YRDlWW9DbpTszyEcSvu1FaTBSG3gg3OU1weqibgJt
-         8nKw==
+        bh=zvERbDGiSiR6GByxVkFLzYXaCstRo5terpd4p4QbZQI=;
+        b=HQlblhL58lr/wiCr7vhfgv7eIS3XoJ6kk0WGDhuddytLJDyh1Ecpqb4G+ubAY1OB0A
+         WH+iVuB0t7dWz2rVvg/cyUPHftHtvouRKoy94sekmC1Tepp3NRICTLn+V8O9X2qi7I2n
+         E88czHyIIiPxww6eYgfOaC80LvqngT1HOoopSSa3pgAUM7JDK0Z+eyCLSnLvDIBFxPCD
+         aqiqs9VUpmPu4Dp0UPyDhV+5Pz2AUXfc+qiC/VqS5IT0QWveD3EMVasMDUVZKoOQE5ms
+         wQOvGnG+HE/jL3JFuCw8D5pV+My/7zKq9Le83qsq5Z+GSqQ3sjjNcpLH1FNrTeoujH/v
+         wG/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794801123; x=1795405923;
+        d=1e100.net; s=20260707; t=1794806848; x=1795411648;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+QBSw5JnyJShenoN9aDMwG/bIDS9Kt5c5A1/4QeDMdE=;
-        b=jcxcpMlinU8Wx+5ud4ebCoQaPNrN+8WariMxwyg1AP100HTd3zCNvKHyJGOSJs662X
-         Md5aB4nub7Rz8wOC4VNQqNMwh5XqPVnHIZmTmbre08Ck8wwM4JXMaTzaAincqojnDG6z
-         K9CsCt6SzAdVx2IwDDjyD++psW93En082VYEWW7oDMvc3uQMfKgt9r54l+7eG6x8yzST
-         uo+mkVH5fDtYVGIN3Dw9Vy7wgsc35cZTwy1TiwrXjTUFnSbjMWpJlIhYNLPK4xhoh1lC
-         HUVJ1xaEpk8gjZEFJ8cGJrZ6TWM1hMF85yv/H1mEEODnW3lNou/Az0k0zimOyYxI1jzi
-         oE+Q==
-X-Gm-Message-State: APuU4Z+xZ4jCU907n6aIp0APujxGU3H8ggpJzW+BxqFOd9uPA+SqZmhl
-	qTdWK3jT5jx91ytt3wd4lLuG4AJx/2i7g5LUKfEVZ3NuHo/9gclEU8qsF6t79Zoj
-X-Gm-Gg: AZFdTZd8Nq9VmFS8wzzd8K5oDPfY2WREoPGvyXPrPQbwH74wZtuQryAZw1/P4+AOgr6
-	BeQu3shKhwAWPeG538W5R/0o5tfg0hivBEkYzwqbQ1udhEFHRE8VLVulI/LWcqppjK3R80FskBu
-	O9gR/AsWvfOV1Ork6AoHgXcQDDZpuCyZ3ZHtpgeuXRORvmcpGpMgbKQj1/y5FuYpD7yIhtCrlkG
-	HzrtKNgssVMOeOWGtKu7JzRpGm0MFCZb8xuk1MKSgyDb6Cd+VG7tpKz++TidYAFrahuvN6OwUGN
-	pfXpa+XDfKAmH8p917oqY7GJsYb/uxOOOQKinZsQqytaTNpwZBoEN439EJ/INUJVze89Okz/Vky
-	/6yxRigWO1xnniajcqdJOlSNudh15TbL5PZbjWZjVlYJYvRxT5paQau/joevbDPu5lgE7ZvSf/q
-	14vtmvEFiMb77VwqcMGFpxk5UDf57RzD9hFI+XMrQefJvYmPjAjtY8JNhTEi+73p92w9zoZmGUW
-	S2RyrF/nUNX4b94oYsMGyGYrFUqoZs+OaHabuz9LvipRvo34M3LW9sEWpdCQW6ggosxsKKtWvpP
-	Lc3J6AprZWMTR9xjKcU2UnYn1nTiMVgharZi8Y6goboA66IUzvNrKFKElsdaMT+CQgESXQ7RiGr
-	vyw5YyVA=
-X-Received: by 2002:a05:690c:6602:b0:8b3:b358:f9fb with SMTP id 00721157ae682-8b4aa26fd0fmr50589857b3.25.1794801122737;
-        Sun, 15 Nov 2026 19:52:02 -0800 (PST)
+        bh=zvERbDGiSiR6GByxVkFLzYXaCstRo5terpd4p4QbZQI=;
+        b=MJ9q7E9dkod1FqT0saq5hv1u5anKA9O0yj9olqq3QnOUpJZAAZt++NdpSQkI7ZDQO8
+         9SQo7eEGwK0nx1NKz0yKsKFc7uqXIR9PjnpNTS/ZhE/nMpAzGMpM4aSUD1huBh+OB7JX
+         6tW3/RyP0pYFm2HA6uOcg9H/CWizN800J9JRd4WMuL4prdvg8Noo0tRzVv73LvwKlCzZ
+         5SfYH299DhEAHbszSwEHXH2eXdtqXcVKCUeBnJU44qwnCgZS+tGUD6xUEPsCDcnvGmaa
+         bwjVKzFIy840Lr5S43eOfaAadU/61VwL8YRxjP50RZhLzX7zwU0TqLu5wgV7tVe4HtNG
+         fgtw==
+X-Gm-Message-State: APuU4Z+a+fo7v+fUQRj/aAbcmsm3wAAfOJbjw3wHNTJ5UefHBzlFGGhM
+	Q9HjUCJsDdGLyMe0zeZN7LlsrKKuprnLl6hy05Un3CU6W5Ykh5zmTT9rIzdk6tBo
+X-Gm-Gg: AZFdTZeot2otVffCiicaDZ63bVIxMHS0yJJ8b85quzclx8netBjMjMFI3016gJoXlYu
+	YbbjuyfS9pDS8S021cZQzRobTt5iwRFdur4LAxfhdB7RmglqWZH048jvkLhQ1VUq2cmc7bt/Pmj
+	w29q7MgtXyqs/bO9nLqWvogsEItui1reuzN/FptAPSYPMYsyBtzXMaqXuSXuaUuCke7olQn06e+
+	PV4ZExUem33FsSvYzrmrA7fuO/Gskggvbh/1E/KL45uHHL4yrsweRm9Stfo5ltyZLOgeohYvpjp
+	IrkVgHxB2ruvaz30wZrI06B1cNPnL6SAlYZDqv7s9MxneRwzdK+9JNhUvq9F8LJxOtc/XFsmNnS
+	jluMfJTiF/p7IrovHLgZ5DmflB0+9uEqBlxn7fxnIiO+ReAOWBITGsQ117eel6n+mNEnGwoTMC7
+	WWpnGhI90hhyDH7f2O986DlDmnznS030Gr5L3hxZYsCj9ef5klycMnE1LeKLW3r5azYNtfUMJ6g
+	c2SU8FCAslIaU4ILRfNEJWUzr0eKpc7BH33sPDOw4ii/kQbdguaLiEaVur4ZZPiGXWjSpfrKJhB
+	bZw7Hi+R+5lczivbX00bvwtRU3Ev5y/rKdN85bNSPKOu3o3wU249OtaZ9aV2r03ziEVNp9BJpz0
+	ADzp7+dyw
+X-Received: by 2002:a05:690c:446:b0:8b3:5b88:a21d with SMTP id 00721157ae682-8b4aa2f5f21mr51183477b3.58.1794806848550;
+        Sun, 15 Nov 2026 21:27:28 -0800 (PST)
 Received: from Xinshengs-MBP.attlocal.net ([2600:1702:7d20:7d20:28d5:8044:61b9:9cf6])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa9549fasm77253657b3.21.2026.11.15.19.52.02
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa9fae24sm78414917b3.41.2026.11.15.21.27.28
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 15 Nov 2026 19:52:02 -0800 (PST)
+        Sun, 15 Nov 2026 21:27:28 -0800 (PST)
 From: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	mchehab@kernel.org
-Subject: [PATCH media] media: cx231xx: cancel module loading work on probe failure
-Date: Sun, 15 Nov 2026 22:51:59 -0500
-Message-ID: <20261116035159.40755-1-xinsheng.zhu.ny@gmail.com>
+Subject: [PATCH media v2] media: cx231xx: cancel module loading work on probe failure
+Date: Mon, 16 Nov 2026 00:27:21 -0500
+Message-ID: <20261116052721.14467-1-xinsheng.zhu.ny@gmail.com>
 X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -109,13 +109,21 @@ Cancel the module loading work synchronously before releasing
 device resources on probe failure. This ensures that the work
 cannot access the device structure after it has been freed.
 
+Fixes: ab232e46bf01 ("[media] cx231xx: enforce check for graph creation")
 Signed-off-by: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
 ---
- drivers/media/usb/cx231xx/cx231xx-cards.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+Changes in v2:
+- Add a Fixes tag.
+- Reuse the existing err_video_alt cleanup path instead of
+  duplicating resource teardown.
+ 
+ v1: https://lore.kernel.org/linux-media/20261116035159.40755-1-xinsheng.zhu.ny@gmail.com/
+ 
+ drivers/media/usb/cx231xx/cx231xx-cards.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/usb/cx231xx/cx231xx-cards.c b/drivers/media/usb/cx231xx/cx231xx-cards.c
-index b0941cd2a2d8..f8ed894ac0ed 100644
+index b0941cd2a2d8..e24c2999687e 100644
 --- a/drivers/media/usb/cx231xx/cx231xx-cards.c
 +++ b/drivers/media/usb/cx231xx/cx231xx-cards.c
 @@ -1533,12 +1533,18 @@ static void request_modules(struct cx231xx *dev)
@@ -137,16 +145,15 @@ index b0941cd2a2d8..f8ed894ac0ed 100644
  #define flush_request_modules(dev)
  #endif /* CONFIG_MODULES */
  
-@@ -1900,8 +1906,12 @@ static int cx231xx_usb_probe(struct usb_interface *interface,
+@@ -1900,8 +1906,10 @@ static int cx231xx_usb_probe(struct usb_interface *interface,
  	if (!retval)
  		retval = media_device_register(dev->media_dev);
  #endif
 -	if (retval < 0)
+-		cx231xx_release_resources(dev);
 +	if (retval < 0) {
 +		cancel_request_modules(dev);
-+		cx231xx_close_extension(dev);
- 		cx231xx_release_resources(dev);
-+		usb_set_intfdata(interface, NULL);
++		goto err_video_alt;
 +	}
  	return retval;
  
