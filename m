@@ -1,54 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794829949;
-	b=kVMDH03cY6ntRPhxJ6HqZSKYb0ew9TXvexlsGL3EFKxVW6Ng8hBupxoTWNRLPPtnjCo6
-	 zLH7VnJjv/jQ6ksUsUzHrXNhs/r9Cj/9KtxAKkbzl96iS76TOqwlwP9iZj8GuH6u9Sztw
-	 7H3M5AYbFl2ofNbVP2Bx5Da8r8D41xNGC70jeGpEB3BRNCE4tL9V+q52U4SXM1gsFJU9M
-	 keCusNlV9Hh+gUbaZpbVXallG1VbF+civNTmRyBexRY23p3yDradOdcoaup/p+pJf8Xax
-	 AeGROlOA9qcouXS8QkDl+qoV9sMZABNkUZcxMJbmBIMV43iv30gVeDOaEFSeuvMc0yw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794829949;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=w26fEEm5ybG+G7gyNNOpBbzc8hwwqjZd0VP12Wt699s=;
-	b=iCtHsitsJAnwpi1F4DPRszW9HgkiqUCgmKq92zcxd/ReBYYts3fu7NwrBw4mu83m2A5V
-	 HM/wctCnFLqwv0OV+maDtqOdaFGfY/R3tq/0dfTELzaGDDPlG+mUgzY3sVQV1fgyeii7P
-	 rFpFzPd4PVloIiHTiLe3JgAYInCEejiYWBP8yfNeYpq569EennkTa6GmehQg3aaTh185r
-	 Fd2q1hfb9QJdf/WCwAbKcV5kpwMjRCf4/7CUf4fyTnR2Rfaw3lCFh3V9K0re4tUuq5flE
-	 IYQjbkOJ9U3Y0Qc210CnsMkPkepIOG+sf7o/bm5J1/lGoONy2c9hHWws42WbNWgNpvw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=N4qcmHqo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794830203;
+	b=NN0axkLiSdUgBz2AUK20xnai49kJ1x35RMxBv83I3R2GGUzv1FjLEMB/IHc+bIaK82uJ
+	 aRdkh6FlNwTuw6Q7h7b0aEgDbcCzuaII+BtnVGnLM/TKFemo9dctxxlJl+EmUMPXJXG5h
+	 Rj/FboQnk2kaxTsoqpQVYJ96yacJyapMaN50JgEu/2PAi39BtE49SytBYgKb4/MOCgnq4
+	 w5ZhdXZL3Tr3PVnDE4wJrIF0nzQVNYjEpJN01lG/vUxEHYkb+kiceVV0zCizZGSbCYYA2
+	 hiivU9chXV89mHiZ7qUH7aFDTRizW2TRpFgLgna53qjmyAgG1nTDdADHcrSbJUpsOxw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830203;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=75BqASa3pQSiCLazbg9HUnip9NSP2k2e52gEQNem2NY=;
+	b=SGtBvWG1FeFOnrbPcntCZ0Ev3zLSwrBj/9IjUAkmwOztCapwbelk5KTHEbK+3YjOkaWs
+	 t/xt/3eEHySIODiy+CXFKgn+zW67TyGgvU7WA2J0+1z7VTvfjOfM6nzHKNChjHqvvThIV
+	 B4Sp/grMxPJv/BuKDutNYAmq3Je232d8HLkGyJLsCqIXtIGWuxR+DdDEij3e0ojgkHZSr
+	 uZ0hNNTllrouN0PsMdQgsvnTJXi6sPhB+ahCi6giX61QjItQSsJegCUiF+Bnj8n4nQS20
+	 j7UFc0910GIDLZQXdaurRUZntAeCmaB3Qrq/s0Qqh+u0kVqeoH5YjV7dXbABiJGbJIA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=R7eMeQvc;
+	arc=none smtp.remote-ip=209.85.208.177
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574B8606A31C;
-	Mon, 16 Nov 2026 11:52:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 574B8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAC6606A331
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 11:56:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFAC6606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=N4qcmHqo
-ARC-Seal: i=1; a=rsa-sha256; t=1794829917; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=irrbfyXogddlylcQkZlr6cFYcsiEft7lACg+oXK/70XkypgFcOjhmlPA7bq12bE16XzEfAWJYo4r3oWZcjOf3EUX46INf7/iqVbcT/NRcuNT9mFS7dg9/l2KKYIYPTF8fJlCSwLunT45fEXl/zkUcBQNFCd+V4pflORA2ag13Lk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794829917; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=w26fEEm5ybG+G7gyNNOpBbzc8hwwqjZd0VP12Wt699s=; 
-	b=D6oNnhh/8JLSRSl95JJcti5S9vsohH8/64oARoV8f0hCc7bQfImSA93NBfkpdwFosA9+xFE864riOu+NhuPED6i9DB1j6vHnT2txkXGIvpK+V9VAYv5NUNVf937QzPzylg+y6IoVhuWf4Nbs0gqve8aq48i8uH8WNoom1ikvaPI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=N4qcmHqo84guRQyqnmSu5MjnWgmGqqRgJx9a78v6H+YMDg0X2DOyl/HIZmAgFDsvibkEl5CTzA8eowA/zTt1HiGiSi0ht5rNR3SauwE+SxlW6i2xeongA00WAH966tOIosLWnLvvNIaFko5hsiXgrA4AvfVKhjx3Q9zdpAKkMP0=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=w26fEEm5ybG+G7gyNNOpBbzc8hwwqjZd0VP12Wt699s=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794829915540706.1524411200606;
-	Mon, 16 Nov 2026 03:51:55 -0800 (PST)
-Message-ID: <8c3805ca-0be7-4634-8904-30a9c36d8962@collabora.com>
-Date: Mon, 16 Nov 2026 12:51:45 +0100
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=R7eMeQvc
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ae25c9f857so36936111fa.1
+        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 03:56:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794830201; x=1795435001; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=75BqASa3pQSiCLazbg9HUnip9NSP2k2e52gEQNem2NY=;
+        b=R7eMeQvcKmV+YQ0RO1A52l9WKu6AgEr6CjleT4AbxpCF087ib+8qBbk7ylI3LyhvGW
+         nl9mwEBSL5R3YwT8HcD8fSldh9XD0xvhB1oGKgsDUm3nfxN2sXcfT0rJRpvYfdS+rI0B
+         ano23tip8N3VL1zCVMp+MZ4hN0+YQDLDOcFQ8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794830201; x=1795435001;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=75BqASa3pQSiCLazbg9HUnip9NSP2k2e52gEQNem2NY=;
+        b=zT2eEkVq1ThMpC1irTXVqO7EATmlPt417lgd+hPdBwJTLeVu7HdmAjHSajxSYCbpxI
+         +iFHTrwmcF1mSqGEu2lARh9mbyEPcJD+aV6Zs+87vfU2ewYWfW9xXI1+lkgVqGhy89ax
+         Pd38blfYqzvRCRD3pQtXbSsq3ZP6+7zLU6osJKU9ly3c2Nd3OBCZDBWl3r35YttElPBB
+         jZKNX14jCrxI2xhffPmPJkBu/RKtMHd89cumHVksOOlz2WkTQybnRNNX0zjxp/XTrB2Q
+         58RtHj+7xV+X93A4GOyzGCuwywQ8ZnRvCeS2FL7xikRQfJ0hoYyCJeKIbjLOERda8dTq
+         TSPA==
+X-Gm-Message-State: APuU4Z8Me8wC3fE0b0qkf81Whz8WBiRp60kCBD9qpZEdqsmJIfVpsLun
+	Bi5B2VufuVkUY83xFiOjJxVbaZ19ZjXYyWw3UFKIkJUg/nbAOGUfqaFnjfcTyJVafw==
+X-Gm-Gg: AYBFou3Kso7X4pz0bwYDXfAUab+PcHfWI/QyyGSyD3zhPpiACVSqgSHJ560GkhymU2i
+	PerICEQsqJzAA50szhVsAVCR5jlxNzZ2d+nx0dUH9UHXnru6NLFqJjdBa8Pnr3o5kWWu+FfBzJF
+	GPBVOI26ALXCDgPB4H6g1UpduoplSpFJ5r/Q042zyuxpLIsGL7BnA2SX0sr3+NJzaNzixLbcJs0
+	vZOMqn0xJ0agV/cMByRjuQA11dgPiZpt35Bmk8XIazcvfJpaA0SpVF4DnmaDKAAZsfVi22X2/q+
+	YV0SZYv71tyfnq88OD9tQtHx4jKeUSdHzwTFJ0actRDiA88YxsgpJqPycWcyPdPOm5fcp7KID5I
+	n/fqrjJrGgSNQ+SwlFrnI+dQOD4avJUYLLgc3OgFxUBiv/R+NrGvZy/gw0x9SqA4BlZB+kDsAwF
+	Hh9JVBLEG7VfCHzyFcJD/qaMrcZlWg6CUZEiHWnmmRZlekzzTd505ju2gxqF3cRmHGuVZnDvJCg
+	7UM0ft56rcEFO3burFkD8xd7fHpEEJaPnGnLtkSNPthGA24TkFaGUAXrh4JWw4XKLkRk6OIrFzJ
+	uv42FkqE9WbA2Dn92wPZsSRSBLEmZ2fLVtSKPgU2Hu9WDn8GT2yx6EDFyElDdFiCUVmCqjKKLaE
+	Ukuc4KkCb9g==
+X-Received: by 2002:a2e:8a88:0:b0:3aa:fd7d:6164 with SMTP id 38308e7fff4ca-3ae2b68121fmr25930611fa.25.1794830201228;
+        Mon, 16 Nov 2026 03:56:41 -0800 (PST)
+Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1712dad7dsm3183754e87.9.2026.11.16.03.56.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 03:56:40 -0800 (PST)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Subject: [PATCH 0/3] media: uvcvideo: Improve checks for medatata size
+Date: Mon, 16 Nov 2026 11:56:36 +0000
+Message-Id: <20261116-uvc-shortmeta-v1-0-487cfe42fa89@chromium.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,106 +88,45 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] media: rockchip: rkcif: Honour the requested
- bytesperline on MIPI
-To: Faizel K B <faizel.kb@gmail.com>
-Cc: Mehdi Djait <mehdi.djait@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner
- <heiko@sntech.de>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, libcamera-devel@lists.libcamera.org,
- Robert Mader <robert.mader@collabora.com>
-References: <20261105232310.385463-1-faizel.kb@gmail.com>
- <20261105232310.385463-3-faizel.kb@gmail.com>
- <51b09428-9d10-4f36-a811-a681e479e45e@collabora.com>
- <fxrwhxkzgihpiz52rbeuomtqkzz7izgdfcbux7osamqruc7w7u@qhvh3nkqypro>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <fxrwhxkzgihpiz52rbeuomtqkzz7izgdfcbux7osamqruc7w7u@qhvh3nkqypro>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHTv+moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQ0Mz3dKyZN3ijPyiktzUkkRdc9Pk5CQzcwPzFMsUJaCegqLUtMwKsHn
+ RsbW1ALgAAO5fAAAA
+X-Change-ID: 20261116-uvc-shortmeta-75ccb6707d9d
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ricardo Ribalda <ribalda@chromium.org>, Sinan Turunc <enscrpt@pm.me>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-Hi Faizel,
+In some parts of the code we have not been very strict when checking the
+payload header size; fix this.
 
-On 11/12/26 07:20, Faizel K B wrote:
-> Hi Michael,
-> 
-> On Wed, Nov 11, 2026 at 10:46:43AM +0100, Michael Riesch wrote:
->>
->> Come to think of it, TRM p. 2111 says for e.g. VICAP_MIPI0_VLW_ID0:
->> "Virtual line width of even frame for ID0 path(must be aligned to double
->> word)." which I would interpret as "it must be a multiple of four
->> bytes". What do you think?
->>
-> 
-> The VICAP register summary defines it.TRM part 1 (V1.0, page 2081)
-> "DW - Double WORD (64 bits) access". So 8 bytes.
+While doing that, I also spotted an unaligned and OOB access in a debug
+message, so I added a fix for it to this series.
 
-Ack.
+This work was triggered by:
+https://lore.kernel.org/linux-media/20261115121701.189-1-enscrpt@pm.me
 
->>> +static void rkcif_stream_set_bytesperline(struct
->>> v4l2_pix_format_mplane *pix,
->>> +                      u32 req_bpl)
->>> +{
->>> +    u32 min_bpl = ALIGN(pix->plane_fmt[0].bytesperline, 8);
->>
->> Please add support for the bytesperline field in all the plane_fmt
->> entries here...
->>
->>>      width = clamp_t(u32, pix->width, CIF_MIN_WIDTH, CIF_MAX_WIDTH);
->>> +    req_bpl = pix->plane_fmt[0].bytesperline;
->>
->> ... and here.
->>
->>>      ret = v4l2_fill_pixfmt_mp(pix, fmt->fourcc, width, height);
->>>      if (ret)
->>>          return ret;
->>>
->>> +    if (stream->interface->type == RKCIF_IF_MIPI)
->>> +        rkcif_stream_set_bytesperline(pix, req_bpl);
->>
->> Why is this restricted to the MIPI interfaces?
->>
-> 
-> The MIPI formats all have a single plane, and the MIPI path already
-> programs the line width from bytesperline. The DVP path uses the width,
-> and I can't test it. But I agree it should not depend on the interface.
-> 
-> For v2 I would:
-> 
-> - take the requested bytesperline of all planes into account, and use
->   the largest for all planes, as the DVP has one line width register
->   for Y and UV
-> - compute the sizeimage of each plane from it
-> - limit it to the line width field (20 bits MIPI, 15 bits DVP)
-> - program RKCIF_DVP_VIR_LINE_WIDTH from bytesperline, with the current
->   value as the minimum
-> 
-> Does that sound ok?
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+Ricardo Ribalda (3):
+      media: uvcvideo: Reject short metadata
+      media: uvcvideo: Check header length in uvc_video_clock_decode()
+      media: uvcvideo: Fix unaligned and OOB access
 
-That does sound reasonable, yes.
+ drivers/media/usb/uvc/uvc_video.c | 20 ++++++++++++++++----
+ drivers/media/usb/uvc/uvcvideo.h  |  1 +
+ 2 files changed, 17 insertions(+), 4 deletions(-)
+---
+base-commit: 48fe5a7834cc10081887d7bcd9ff0a4cadc3fa8c
+change-id: 20261116-uvc-shortmeta-75ccb6707d9d
 
-> A question on the DVP: the PX30 TRM (Part 2, 5.3) says raw data is
-> stored as 16 bits per pixel, even from an 8-bit source. This matches
-> the width * 2 in the driver. But for V4L2_PIX_FMT_S*8 (e.g.
-> V4L2_PIX_FMT_SRGGB8) bytesperline is the width, so the buffer is half
-> the size the hardware writes. Am I missing something?
-
-I don't have any PX30 board, and actually it is the first time I hear
-about that. Maybe Mehdi can chime in?
-
-> I can only test the MIPI path, on RK3588 (Radxa ROCK 5B+). Could you
-> test the DVP part on PX30 or RK3568?
-
-Currently, I don't have any active DVP setup, but when you send the
-updated patches I'll ask around.
-
-Thanks and best regards,
-Michael
-
-> 
-> Regards,
-> Faizel
+Best regards,
+-- 
+Ricardo Ribalda <ribalda@chromium.org>
 
