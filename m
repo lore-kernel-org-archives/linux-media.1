@@ -1,145 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794835376;
-	b=ytjuNsUFAYUk0l1JFYb5a5A6G0WQDWQwqjy/fA2AQPOAj9fzF+kxN9xyKXbdnzPW5rJD
-	 bS9xZ6oDaiG49Yzwn4Ae/iYraMJB6O3Dm+qrHOWd15FHod3HEBSjqOypcb2L5y2NGmB9J
-	 3CTGnqhfgAsBAOZwyI6KBMREAQ1F7+V8CYYHHh1cKbtn6ARHQNdZXAEwRyVYSiOSN/CJh
-	 fx0zZy0JjMRDNDAy0xGXUTM6u7lp/I6PNtYZeCzmhD5JEuph7eUPIr5wRm1OPe2C//muz
-	 a3EBviJi80uQ8v5gvEyf771xeIWRoandjbOYL2sdJtQBKXeyraVey1mYpT2CDk5ZI8Q==
+	t=1794835432;
+	b=lJ7LQ5vAYRcmQPExBe/20KlNjnmxyPOSi85crXsUb6AcrpMCuRK4GrWvNNI3ve/MxCZg
+	 0TBh/2EUON3kCiA6CXj9h9HPlyhyulpBfDYdgNUZ92OkajzHKEyClr6LZt9AfQ6h1yDrk
+	 1tqbe6cPpVx2qUxe8mtTX6kNroBkWKYAPNjQFp7HQpAHktrHVA7rGfitRBlTjbXFmV+Mf
+	 KHu8IRr0ajWSdKRPQHKH+NioJE2KuK1mc0jAlbC6C9rb+w3adVSW/FYSuSzd5SaTP9Xp1
+	 vqfVJ1SNogCh4L4TjQ5RImwhIzAVkMgWDgUZyL/yuBx24ocl+J3FV6b8kiJE1PkXUuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794835376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794835432;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Ip0og70Tt8f+28eOZ5F6oTc6DjrtMrQ1wymW+Uokrdw=;
-	b=jv1xvA/jQdU493vFs3bHFcXyBTiPP0XvbxTPFsdloQPdQPpr79NLH3Pisr96DifJQmL7
-	 Jx+NTDnRfiinSRhjdhiXS9HdiZxzZgNDp4b9AC4+3HtDjeJqGATW7K1Y57nkiaxrOyHgZ
-	 40Y8SHv5djQG0kpTT4urqvo3YXzv4+8MEfVfwlBzrqNlNpesa7NXS2T4LFERC+D3HqeBU
-	 ryjVRDPT5Zwh7coEWngov5XRz3kBl13Ia7C3g9MoCb1vWiHyehJNDB6xnokqSl1+VjDLV
-	 rtuy7ycP0IsE56Ign7a7uIYnRkpIFsSK5HrBAOiI/C/CVN666Sn8sSbFSB5tMfk4V3Q==
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=fD5u8EDjljGCE0xDZ4fbiW3sWVh8TOsEBt4cumx8/T0=;
+	b=MYm0AW+5u+ySDkRPuKie+PShCC4bfM2cBFov9H1B5WgvcCgdwO5XjIEOdieK+v16iLzt
+	 NsBRD7NwScT03qVvwwBB8A/nXF1i0WO6P9BOiOyodO0pKQnd7HNj3y067rDp3tcgOCFZj
+	 yh70W9IGChzxuO5I3FUkyOrWvuU6EF1dNtnTxOKKJ0P1laCBgZqOUD77bldyA5/oVfMgf
+	 5ACsk+2Yk4xHQdj/7qN89IzHJYWcGLJwiqFTQF80mD5oI635pFEXYhZCInDu3pjUf49Ac
+	 9n5kQWmlSbLPCB3vG3NJIuH6yBqxqNxCnumzngSQuLkzkfZE2IQ8f+UrCFNSfdP/ZSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=YncDRgrI;
-	arc=none smtp.remote-ip=209.85.219.53
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XT+RFfUf;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E734606A32C
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 13:22:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E734606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C84606A323
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 13:23:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27C84606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=YncDRgrI
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-91ecbdf5343so56910276d6.0
-        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 05:22:56 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XT+RFfUf
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8b2f59de176so3867612b3a.2
+        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 05:23:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1794835375; x=1795440175; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ip0og70Tt8f+28eOZ5F6oTc6DjrtMrQ1wymW+Uokrdw=;
-        b=YncDRgrIS4sDvp/lXZEV+1uTnJ5sm909nERAkFgNzixv9GWUpigEGN2kHVFp91srki
-         rnN1ZUqF6tJwwfnK+BEDJcYZ/Yj6gv6f3OSmTp9cJbjw/7dL7E2pChys2gzZwldkD6QV
-         Y/fcw57iYoax8wV0TfHemCWb0Wgp4bijyRm8nqi8rqJi2ZY0ncSGM2iyphdw6Cd6wb6Q
-         joNPcvAcfGo0IUnV2wGw0SUHy7ABOkU5MlGheUl2DUDQb6KcoPiwTjlAgB7HQq28FJ4D
-         qgEQNeV2fxv6eWM+/xQbgRFHgJpyzrReqrr1wDVLVRlBAz+HjrITbebvHMtuhj5pEpjk
-         OlVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794835375; x=1795440175;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=chromium.org; s=google; t=1794835431; x=1795440231; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ip0og70Tt8f+28eOZ5F6oTc6DjrtMrQ1wymW+Uokrdw=;
-        b=mdIjDuULSYnr2zM+nUvK1sbZx3DG90Rf0UIEIQn5tO8u6wBWlkC51amkG5vvluLEcw
-         s4snLspqUc2YAY6rF+b+7P+/EAagBzJsgIScNvvGNUI52CKW1tAQHOV+i7h8y/I46374
-         XyzP1H4e14fV44OBBZmmMtMTpEB2dviS4xUvDTZIaqhHukw06xxFfa1EGHy/lDw3nd6k
-         WuckVykox17xlkcJ5FiM2J8o7eRQh6eFIfh2ShIKEbhdBCrqfQgxDs6TEGCaGHIwAB6q
-         RZRPZbOk6isB9XGIxXYLXnKPpjNXMjJNX08szm/SQ/hP8CqLoFq/l0C779RwRku+RXur
-         j0Vw==
-X-Forwarded-Encrypted: i=1; AL+hErGsTKB8LtUrPwDzcKBPgIdOsKwxkzVryeWTrS+oHyaE2EjRbZBvX+JzKp0DVVicdPxjDadmF/lVy18Cwg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8KkJOM2DT7QNE3d1VJqbW57DgATmsn1Aqc3NMmHr5zi16SY+ne
-	JVFSF2ehNKGnUQZQ+A7ib0W+b2mx+1vXj+EiSUgQ6WKLEc48o3Yl/4QoU12xCQ8D4K0=
-X-Gm-Gg: AYBFou3QTuki9iNuYrCVInrcQy8X0xXePnrsmyT45pGgIWCM/Fd+NkfD2G+SmgPQBtT
-	ApzFGYdUcUr+yxTL4oRoDTsYIfZfEQ+UvYFNNm/DCFl3W/H1Z5t8BkAbKCnA5S/qblDh5jXnX6Y
-	HgcG8nBveG4qDQEERGtacHX7CL1cK6h8FaJhZqiIWn/i8N44kSm9yx5KhcGFlAw4/F7o6pWOd7r
-	DBwldbpsKlkJZTv9PKl8TYgNi72qk6zf3Tq0ZVEisTL01BrnDMDPGpgJK+WBRxl38WT8K8PVVXp
-	aur21x7YPHiFR/nOsTvaAF6jbMc3nnf/Qw0dnMcjLIWkF5nHNJ1/ayjEAmzW9OpSQjL+oduyly9
-	ndjEAw0kVqIWiVrwWCVfjp9NF9UNKeC1L2JIg7mqSj02tMLlx/k6LaIqUt8D4F4OmlW+RtkV5St
-	W8yb+X84QFOX2rlb0u3Ix1qwCnzpbLmtyMnZ6wX+Oif1aShNtAOk6rlrDBxPlSjgNBJda1KQI+o
-	Bz3FSUG0BO5OIdgdeuY2WyqoVkeFMF9mbcNmizum6IJG+dbyBUrSr07F+ipUXVQgQVux2+188N8
-	12B9sQ==
-X-Received: by 2002:a05:622a:e190:20b0:55b:9d8d:f29e with SMTP id d75a77b69052e-55b9d8df528mr93734571cf.9.1794835373441;
-        Mon, 16 Nov 2026 05:22:53 -0800 (PST)
-Received: from ziepe.ca ([142.166.156.71])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad0f07afesm80824241cf.16.2026.11.16.05.22.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 05:22:52 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xSwfb-00000009Kvw-33KL;
-	Mon, 16 Nov 2026 09:22:51 -0400
-Date: Mon, 16 Nov 2026 09:22:51 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	linux-coco@lists.linux.dev,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
-	linaro-mm-sig@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
-	linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Michael Roth <michael.roth@amd.com>, pankaj.gupta@amd.com
-Subject: Re: [PATCH v10 00/13] coco: guest: Add a shared-granule allocator
- for host-shared memory
-Message-ID: <20261116132251.GJ2532299@ziepe.ca>
-References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
- <0524abf4-2306-4046-aade-c23aa7d1e0e6@arm.com>
+        bh=fD5u8EDjljGCE0xDZ4fbiW3sWVh8TOsEBt4cumx8/T0=;
+        b=XT+RFfUfprv27LWd5bMdJlkR5mDDJLua3R67x8JDpXNDTPB12x0S/PLhevtlJR92rB
+         fJiHrcxc+XmXYOko9f17f0xJylL1yN67m/OrY1tsbt2mc+bFsME+zVTfgeChqFAbpv7H
+         yOC5Z1/8c9Bq6zZRY6JIi981H34TqvQL24Nrw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794835431; x=1795440231;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fD5u8EDjljGCE0xDZ4fbiW3sWVh8TOsEBt4cumx8/T0=;
+        b=WxgUAl/rIxHNIqpPF1x3cvn5TvvV0QGvAsTN1GDjxt8kfroCld+YWUc3SsLOPVrLTw
+         ar5/wqCaX9PAcCZCTwy4EvnQNESBW/G6laEP6b1PeeZKrsMPD2DPQTExNIohXghDNCBg
+         Wqee2BJYsD9BWw0brHh1I02ZENHLi1FSXyxbDYfXJCqdVrFLY6WkV6++czrZsP1HdUqU
+         lc8vE5ENYu0k5EatNoXK5egOd8OLL6JwJ7OFrX3QU8h89ETLmQAnlRcKoq58FbnN0WhZ
+         4lbqNRp80NGvNIu1Z2m1uWsxId0HcKcv0OY2B+e+k8wUsM5tZt5XvWuyvuS6HA28U7G/
+         yXxQ==
+X-Forwarded-Encrypted: i=1; AL+hErH97Eye0u/x7Hw8pBasTQvQnGVKofTVEuI93JAvcR1jMx1Na7d0geaGZgxfQbFytt31SB1CbVsM9vLBWg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PTj7ccXsdkgKg0co6XhlK5tsToMC61KNZzdIUIQIW3VmngHZD
+	hMJsph+Zg3dE9XV7kO6I7OMYOPODj1QE9PW5Oxkqc4xLMZ0KSNdrc26124NGq3t4kd4qMygWDdL
+	CahshHKir
+X-Gm-Gg: AYBFou155jcrMzWLTAVWl0B/R0GrsdZCq9X1O71zgq6xNQfJeBq2EB0cDbF8zccWMWI
+	+oWqFGR59zHDIhvxD9o44a5pBf6qNrpZYVOyb+RCRowOOAb5tNAYihrEsEwDlMvlrZrqnH/Vbzh
+	o3whz+Hc7GSsv859zM2pzJeEgwqNxwyCyHISyP49zt300wI72Ki8SzEr+lSM+0Z5ln5S/Ux80T4
+	nyP36uyZq6QQDaR8oqw3gTTp5ecbgyhVNV7J6h7G6NopZL5+v7Y1o0y5/lHY/uD+LHwl0ppAn30
+	9aAPom1QZuEdnAUz4zmkCSdHE/w3ofHu4ooykLxloCCGvu4s5gvkQ/9/fNnkfH3zqSLkb/ROo/E
+	GFHhoZamcH2AQfrg8jE9BZBRjDez7tZUSFTOU/V5XahjYlgc6/8c0O5wry57z8hI3+bV87pGAUK
+	OclXZMYP9aaNv1H2YmBddCeH06FrPIc8g3OXAjQHjCZhq6nfdou2PGOWZv0MW8n+fRVXtSt1tqq
+	6JdpjfmzmvIycoJvOmynkpeg9wRH0OHxmltBw1cqSi7QlCnK6sZiOwNcClxwmxNv8oX1DjyJrwt
+	cEb4o0/p09bYKBwWhHQqArsUpVbqdpYQWM0hEolmdx8RijiGhyllpAVVkMY81x9jqQ==
+X-Received: by 2002:a05:6a00:14cf:b0:89d:e6e2:b2a6 with SMTP id d2e1a72fcca58-8beb714f786mr10042282b3a.45.1794835431369;
+        Mon, 16 Nov 2026 05:23:51 -0800 (PST)
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com. [74.125.82.49])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed1a6dbb1sm3829261b3a.23.2026.11.16.05.23.50
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 05:23:51 -0800 (PST)
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b50a4bd2f3so3710277c88.1
+        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 05:23:50 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGSTl4uVyHc9g72jFkTSw+DyDoSuWczuqC5gDJqOrSgOwvKxAXzmB/WC3dAP+ur/mV7ib6Ydc/NSqRgaA==@vger.kernel.org
+X-Received: by 2002:a05:701a:cc91:10b0:1b5:2dce:1b6d with SMTP id
+ a92af1059eb24-1b52dce1c17mr3055768c88.17.1794835429211; Mon, 16 Nov 2026
+ 05:23:49 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -149,44 +93,103 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0524abf4-2306-4046-aade-c23aa7d1e0e6@arm.com>
+References: <20261116-uvc-shortmeta-v1-0-487cfe42fa89@chromium.org>
+ <20261116-uvc-shortmeta-v1-1-487cfe42fa89@chromium.org> <20261116130839.GA1714298@killaraus.ideasonboard.com>
+In-Reply-To: <20261116130839.GA1714298@killaraus.ideasonboard.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 16 Nov 2026 14:23:34 +0100
+X-Gmail-Original-Message-ID: <CANiDSCsuPhCyeFWSBPWauECVHQ5A0ySMSqvC7UB6W9ZR4_+iAA@mail.gmail.com>
+X-Gm-Features: AclHuK_Zhc9uC1guqtPyu4702nINbtLFRGaSTrUWoBHn2UUyYnjYXDCq7yKTSpg
+Message-ID: <CANiDSCsuPhCyeFWSBPWauECVHQ5A0ySMSqvC7UB6W9ZR4_+iAA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] media: uvcvideo: Reject short metadata
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Sinan Turunc <enscrpt@pm.me>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Nov 16, 2026 at 10:09:35AM +0000, Suzuki K Poulose wrote:
-> Cc Michael Roth, Alexey, Pankaj Gupta
-> 
-> On 16/11/2026 09:11, Aneesh Kumar K.V (Arm) wrote:
-> > 
-> > This series tightens the alignment requirements for buffers that are shared
-> > between confidential-computing guests and the host, and adds a common
-> > allocator for host-shared memory.
-> > 
-> > When a guest runs with private memory, buffers shared with the hypervisor
-> > are not only accessed by the guest. They are also accessed by the host
-> > kernel, and the host may manage the corresponding shared/private state at a
-> > granularity larger than the guest page size.
-> > 
-> > Architectures such as Arm can detect incorrect accesses to Realm physical
-> > address space PFNs through GPC faults. However, relying on that as the only
-> > line of defence is fragile and can still lead to kernel crashes. The risk
-> > is especially visible for shared buffers that are later mmapped into
-> > userspace, such as guest_memfd or dma-buf backed allocations. Once
-> > userspace can access the mapping, the kernel cannot guarantee that
-> > applications will only touch the intended 4K region rather than the whole
-> > host page mapped into their address space. Those userspace addresses may
-> > also be passed back into the kernel and accessed through the linear map,
-> > resulting in a GPC fault.
-> 
-> IIUC, AMD SEV-SNP also has a similar requirement for other reasons, to
-> align the "shared" allocations within a guest (2MB ?, as mentioned by
-> David Kaplan at the LPC).
-> 
-> Michael, Alexey,
-> 
-> Please could you share your thoughts on this series ?
+Hi Laurent
 
-Yes, I think we concluded at LPC that AMD should use this series with
-a 2MB setting rather than try to do their HW assisted smash/unsmash
 
-Jason
+On Mon, 16 Nov 2026 at 14:08, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> On Mon, Nov 16, 2026 at 11:56:37AM +0000, Ricardo Ribalda wrote:
+> > The UVC header has two bits saying whether the packet contains the
+> > optional PTS or SCR fields.
+> >
+> > If the header says that those fields are there, but the header is not
+> > big enough to hold them, there is something wrong going on and we could
+> > read out of bounds.
+>
+> There are multiple checks scattered through the code for this already,
+> some of them causing the whole data packet to be dropped, others just
+> short-circuiting operations such as clock and stats updates. Did you ned
+> see those ? It's getting too messy.
+
+Yes I saw them :P.
+
+I can move the tests to uvc_video_decode_start(). The question is what
+we should do for non compliant cameras.
+
+I would love to just drop the packet altogether (with a non compliance
+warning), and if someone complains... we can add a quirk or some
+heuristics.
+
+Will send a v2
+
+
+>
+> > Mark the metadata as invalid and move on.
+> >
+> > Reported-by: Sinan Turunc <enscrpt@pm.me>
+> > Closes: https://lore.kernel.org/linux-media/20261115121701.189-1-enscrpt@pm.me/
+> > Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > ---
+> >  drivers/media/usb/uvc/uvc_video.c | 8 ++++++++
+> >  drivers/media/usb/uvc/uvcvideo.h  | 1 +
+> >  2 files changed, 9 insertions(+)
+> >
+> > diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> > index a92a986ab714..9cc5d83acbc2 100644
+> > --- a/drivers/media/usb/uvc/uvc_video.c
+> > +++ b/drivers/media/usb/uvc/uvc_video.c
+> > @@ -1487,6 +1487,14 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
+> >       if (has_scr)
+> >               len_std += 6;
+> >
+> > +     if (length < len_std) {
+> > +             uvc_warn_once(stream->dev, UVC_WARN_META_SHORT,
+> > +                           "UVC non compliance: payload header length %u is shorter than expected %zu (flags 0x%02x).\n",
+> > +                           length, len_std, mem[1]);
+> > +             meta_buf->error = 1;
+> > +             return;
+> > +     }
+> > +
+> >       if (stream->meta.format == V4L2_META_FMT_UVC)
+> >               length = len_std;
+> >
+> > diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+> > index af8cef94ffff..59e23e55bc2e 100644
+> > --- a/drivers/media/usb/uvc/uvcvideo.h
+> > +++ b/drivers/media/usb/uvc/uvcvideo.h
+> > @@ -661,6 +661,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
+> >  #define UVC_WARN_PROBE_DEF   1
+> >  #define UVC_WARN_XU_GET_RES  2
+> >  #define UVC_WARN_QUERY_CTRL  3
+> > +#define UVC_WARN_META_SHORT  4
+> >
+> >  extern unsigned int uvc_clock_param;
+> >  extern unsigned int uvc_no_drop_param;
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
+
+
+
+-- 
+Ricardo Ribalda
