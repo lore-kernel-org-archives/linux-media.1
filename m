@@ -1,85 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851548;
-	b=Gq/+kEF3xH3ABc8JZRGPrHMiRnOEix/KdqJhRishkUE9mc6ojsMr0qaBVxoPY13P7Sl8
-	 tIXWGv9qOBEsGTpCzD4TQi6sohxvREiUZqJYYEJGrnRzaY1VBLiAeLTQKj13uu0fdRqnS
-	 0xonpqAAKPeE/p/FxDXTi/UzWf0T1s9kDNvkgFjIJoRy2Pgf9yHPj7XeauCOkgqRhMQAT
-	 NwLLMEDx5Goa+7wF3xLjile6MVhYChn6McXyFesZe8+jja5eJYDcn2LoiqK5Iii/5Zwxo
-	 j/xk4Ntk8Sca0kLlCVV8RQA38plWjyY354qU2j/DS0d5E8yO01bIXj2pHElfJY1ofAg==
+	t=1794851541;
+	b=Rew1NN9GQiNGIfiS7siPnrgwaW3LQdC5DI4rdO66hIDof05D0RAQxXvcBXIHq92v3LmC
+	 ld84FWkz72VYU0DvyNcIKa8KZ7UFA7tKHmnegqMUM74W/j1cOhgXWBszhdABGMahOVHQa
+	 AEh9uFvKSw5WoHdDiuoYvi6aERpcfCebMkMmSxoelNqHIsY2L1XWdDgbx4Fbk4qqyCChn
+	 aOGAR6wSJH3L9R3/RiHqJwSnJ65PQppNi9gjA65j5ZlkuSCAk9yLOTxQkTaWcUGJz9GRA
+	 K1TUdaK1TbR+uxO2jn9CiZwRAf7t0fQcKYz/XEMCNSJ3OOxyIS7OQfsAYKvH+thbXiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851548;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851541;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=PaRGNEmt//619pxBJGscfP/f4jqd7bM7FVqtMrYw3Os=;
-	b=S9GGGMLvHHqo2GfWENb9dN0KWodOcsX9au4m7OAZNXOTUzzfO1sxtV9DGCrkQ9MChbt+
-	 nZBbKhJ8XJjDrPvJTVq+lG05HzHmk8kyDQXW83uBXzZmY30crD8H6qVZYQtcbx5qxe4rm
-	 XDCOtOdJW/bGaTvwg2NAoqJ3pkHVtH0DgHjLchMabimb0Eapyt5u6qq+UsOsoJ+d9rFJT
-	 tDsmwH+kgZW3CpXnhRGGZMpK2d+H9AasAm3OMbzsyoAQZ14JOUKxZgbGnwHwaPcnkCf7/
-	 xKV3fSxrNy4IplbH6Ok0Oz3PQK66hjvAE4d4HrrZxfBj6aGaWSyLngFQwWWq4t4eLng==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=qY3Sg/JCmnJPeKpitC3p5SFp98fK3Xr+Qc3dOamC6F4=;
+	b=KDGDqH9q6pbGz1rY8As3b5FJ1QxJLWawqtPvJpiEydUlU/BEYf5G1d4Ncj/ZPpyW1YCs
+	 RMzhoUR5J+ZcCi/MBexNo3UMUwsf4kQOfgSjY6uNFO44Z9uVo2U04ZpY+JuDbzJG4O9G/
+	 rx7r9RET3Ri70SlCyALAJnBBhQNrpb48uOqS0a00tScAa3SCyKjxmuBZ9Q6dYlNYBbC/3
+	 92b12P3judRvSNEWtOMyAoGhktTop1aD985ovd8FUdTrhNnDpxLM99PXwlOQVEcolppoq
+	 VV+nVib00y2TTiALFrQfrBIjN/k7LLfFSZWzsOzVkov/GacwXFKZnFRBFP04tBDTp0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=OgXgFlvK;
-	arc=none smtp.remote-ip=209.85.167.54
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="C/3qvP62";
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C31606A887
-	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 17:52:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41C31606A887
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98074606A88E
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 17:52:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98074606A88E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=OgXgFlvK
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5c1465bbbdaso3374113e87.3
-        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 09:52:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=C/3qvP62
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb6ba3b244so13871935e9.3
+        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 09:52:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794851537; x=1795456337; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794851534; x=1795456334; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PaRGNEmt//619pxBJGscfP/f4jqd7bM7FVqtMrYw3Os=;
-        b=OgXgFlvKOEMs11VxHFKS8Q6Bon5uLbybbWRwurbnp+6hzPkrhnaGWaK79w2aRejWfn
-         8xLBNdIDikUgAX9OBqwHKTO7y2KdSXBL+pTJlVK12EAsDfbcbBJ/LWeMwqavDitaiLkk
-         uZWWgXcm5+S1EAhIcz33oAgCVpXaSLVXq2a/Q=
+        bh=qY3Sg/JCmnJPeKpitC3p5SFp98fK3Xr+Qc3dOamC6F4=;
+        b=C/3qvP62ZW3XwZhzlMvPSTq73p2kBWmBNzJvw4KxhVyG7smi3XI5JasK+bjtYj5v1k
+         FnobMzeQHR5zJsncPlX+JcwGXg7tC5Cgc/U6XNKcQ8t/rsFlIMHbhfAyQLBZ6Wqob3Dd
+         w1ekyIe3VaUQ6cV6yDpxU8Dnb8TtSJQdnVveHFR2PPeQ+6UENTrN0IxBAYRKMUJcC6sk
+         gzgvzcAUtXhC/YOsf0k2f1gz1tF0h5/7J7KOu53XQCJMfPiOlvkgCObS2zohWNztxiPn
+         yHw9mT1Y387wM5Lz1HGQ49YTVLN1f/8unWfxMmNhLLQB8ZjK5rH4mCYxVhJOOyuYfBdv
+         uc3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794851537; x=1795456337;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PaRGNEmt//619pxBJGscfP/f4jqd7bM7FVqtMrYw3Os=;
-        b=mV0G8yq/gRL1HUkgww5Otn53r+vkrE/PhsM4HR3NZ9d+toJVIb6DHEjsk77Dg9YdJt
-         AvTKjezts6HAykFD60MHzkeQXJCRYh1XLiPZ2x4rKdSTU8+xh3kZar0UOd1ne7QeVP2t
-         W6eTSi0Rt5rDnvmD1w8MR4DSGxyBbrlccTE/FfpvIdBqvZmr5O451eAHbcFItzqsOp3b
-         iWqOA2hzrzM6lNcocrSCbPdKmAjqkSYrdL6BBs7yrjQUw9naqT7j4onkGxkog8RSX7TK
-         VwU1siXfZMc4nRaAb38S5a9WsXDh+KFjXKd72wB9Q69dW9MqoDwP6i2GKOcZCNneKEvN
-         69yg==
-X-Gm-Message-State: APuU4Z+LQV6yGc/wn8TpXRSe2P9BVAagsiyA6Bb8XZAPsaIZVtV7fSS1
-	XGB7vpgUgV7elcjxc6GbLiwQqkW6MpBfOKWjKdsw06eKTURd2/kYiPf8sEkOwzxTfg==
-X-Gm-Gg: AYBFou3OdppiTwRqgbRbebrk4UUpd2VXvS1TUoDA8npALwf6w3S+ZFAX9RpheIQGCYs
-	L9J45ArDrXzx+I4HVsiKbu4zph07Uhe3b9uNxyTR+aQ1NJEvZ/YlNFxfy5YCP7skuEtMMx6fqaj
-	/NNaRuTBg49xb6T7uDCjXQDTNHcbKI+FJo7VbgX8sv7GyDDW2EiS9uP3tD9O94juiDhDd7MaJHB
-	7WC3sjHcvFgGYDA+p/kcyK9lFYhSvKGDrQtNi3hMOL0fF9/WwLyCk0rxl2zo2FHj/+9lbcAck6X
-	K73k5wWvMxljD0A0mzh5rod3wnbmAIlbSEBduK6iqgpY3WACfx5HI031rn/54vXKpBG6eUWCfti
-	nYsIDM32DTyhA0D66YOW1kdFsifMaxQYv0LeDhfMj+c4yWcSzHT+FC/vSyCV6QgBIgZRdDeo+K4
-	msLXYkRSR4FpYOz6rG2dvcqgeSVRlh8DB2JUWltGxYtTNrRfcKfiIqnBC0SxE2PaZdbqcc0NfIC
-	fkqOeIesTcqEPuLJg7QoeIi2q6amYiQ41s6VpuWbcQS49C90ZRHMgR3L6WeMLJ5AgJ2Rn1I8M+r
-	qRtNSC1Blgv19fD1iaAfaYLpjwn6jU0t+lN6bYLXo9FP//QzcMbtekp44oicUMyQu+rTes6Bp7f
-	P4C8/V2MCWpI=
-X-Received: by 2002:a05:6512:138d:b0:5bf:ce20:57e8 with SMTP id 2adb3069b0e04-5c1709c19c4mr4170869e87.40.1794851537494;
-        Mon, 16 Nov 2026 09:52:17 -0800 (PST)
-Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171333630sm3391252e87.19.2026.11.16.09.52.16
+        d=1e100.net; s=20260707; t=1794851534; x=1795456334;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qY3Sg/JCmnJPeKpitC3p5SFp98fK3Xr+Qc3dOamC6F4=;
+        b=O/wORnPCvZZ9Y6nzw65DuGuBHKEXGA6lmYnN6cRSM+yb8ZggwvwAxLKkVvDK8cYi0S
+         bwdsiaOx/lPmcY2c3Amik+sycR6JDmaOlzFVewm4YfX/Kc4trGFQfEWIf+HarbY11wmH
+         4lLdSkmUVm7FDwoVZOn5YY+DCgA+YZfVNm0Qy3bqk7bxnWubxnkMixdtu+7MtA9e5+sa
+         0lp9NwlmqTVluvHZNLiysx/hH5RQqTuuo3CVmApMJHAEfo+D5ze3RazIIdNNhAwei6J/
+         nLb2ZBYzrrdftLYgqE0dxPV+Ae4Ztx74rl1Z3x0HsogiWmX4cHFDVjolf8+wkqR2t83L
+         basQ==
+X-Forwarded-Encrypted: i=1; AL+hErErvGCVp4/Gbe39W0MtuHAnN581Ops9g4gJZQKvUWsAiktW1FzMRehUNMG+Xw1K9oXD3LduSZTj6K9kbA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+9zfRP9zmnp48hzTh8e6xHbXC/B2wbriErH1q/7W0m2JcPuYPY
+	GFDsh6cUWscJDH+WhlQSZTw58TtL5daflNm9s4A5aFAxNgAkiokKxHjQ
+X-Gm-Gg: AYBFou232DtiIINiPy/5k5Nye2pZ506iRKZu+8tRcR62TtV6/gDIL0GC4WUeVTbXU30
+	0XHQ6Uy71GBGE1hnd3NNQNKPK+Voy0ndo8ajcMczjZwCQmfJHqf26H+8TjGtFlqttXmgbZ0UNp1
+	hMpXaGXxIzxVN3/ci72dsiyYiqnWAnb8e1A0tvQxs9nlGsrls9ZTGPOVryAM16owX9Ewc7KOY/g
+	s3Y5sleJWQd6I7C85FcRzqON7NVr0GwpordeRHWmM4Gz07XiVL9njkjH8y3cPA5Znw+nqvGeVp6
+	J+GX7Dn8NJCPhdX9WI1tjwAkk8p1xe1RzygRJxs4fe1QKqB3dFpG41YqNlxIm1z3HHKuqJ06nCm
+	b179x4xCalVjqNAS+rtdb1PaieuNlcEWnJbiFVEK5nyr/XwocReJ7fGF0xy/jtqxV3sVyZ0bmJh
+	4ZCi3I+6CBJ1BQIq0L9W1noYH0rq29wNq05U8zpIWRFuiLEtdNRB511mx1PRaYVL51c/kh8JUIR
+	UQ6cAqDpYErAPxxxB26qNxD4fry0Inm/tBW2o7CO7bn8/Izba5lFwzlIsdA/sR/RQ68C2+jOgse
+	XGWKjtGTF6ghVbat4HeyolgPsFT2oFo2Mkaob6AsmUbSLg==
+X-Received: by 2002:a05:600c:b86:b0:4a1:811c:8078 with SMTP id 5b1f17b1804b1-4bb55a67c61mr252740735e9.26.1794851534022;
+        Mon, 16 Nov 2026 09:52:14 -0800 (PST)
+Received: from Kyiv.home.arpa ([2a0e:1d47:4093:b600:498f:88ac:2ca1:60d5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb78430752sm4546075e9.12.2026.11.16.09.52.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:52:16 -0800 (PST)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 16 Nov 2026 17:52:11 +0000
-Subject: [PATCH v2 4/6] media: uvcvideo: Use bHeaderLength to detect empty
- packets in clock decode
+        Mon, 16 Nov 2026 09:52:13 -0800 (PST)
+From: Volodymyr Chapman <volodymyrchapman@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Volodymyr Chapman <volodymyrchapman@gmail.com>
+Subject: [PATCH 2/3] media: ipu-bridge: Add Sony IMX175 (INTCF1A)
+Date: Mon, 16 Nov 2026 17:51:50 +0000
+Message-ID: <20261116175151.20150-3-volodymyrchapman@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261116175151.20150-1-volodymyrchapman@gmail.com>
+References: <20261116175151.20150-1-volodymyrchapman@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,44 +104,39 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-uvc-shortmeta-v2-4-62d4a8176fb8@chromium.org>
-References: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
-In-Reply-To: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ricardo Ribalda <ribalda@chromium.org>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
-Use the full header size (data[0]) instead of the minimum header size to
-decide if a packet contains payload data or not.
+Add the ACPI HID which the Lenovo ThinkPad 10 (20C1/20C3) uses for its
+Sony IMX175 rear camera, with the 320 MHz link frequency supported by the
+imx175 driver, so that ipu-bridge creates the fwnode graph for it. On
+this Bay Trail machine ipu-bridge is used through the atomisp
+csi2-bridge.
 
-This fixes the heuristic on affected devices if they also include
-extended header data such as MSXU metadata.
+Tested on a Lenovo ThinkPad 10 (20C3) together with the rest of this
+series: the IMX175 is found ("Found supported sensor INTCF1A:00") and
+streams through atomisp.
 
-Fixes: 5cd7c25f6f05 ("media: uvcvideo: Ignore empty TS packets")
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+This patch was drafted with the help of an AI coding assistant (Claude)
+and tested on the hardware by the submitter.
+
+Signed-off-by: Volodymyr Chapman <volodymyrchapman@gmail.com>
 ---
- drivers/media/usb/uvc/uvc_video.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/pci/intel/ipu-bridge.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index ac8e0c3a0c71..a822b8234789 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -641,7 +641,7 @@ uvc_video_clock_decode(struct uvc_streaming *stream, struct uvc_buffer *buf,
- 	 * clock sample from many and the clock recovery algorithm wouldn't
- 	 * suffer from this condition.
- 	 */
--	if (buf && buf->bytesused == 0 && len == header_size &&
-+	if (buf && buf->bytesused == 0 && len == data[0] &&
- 	    sample.dev_stc == 0 && sample.dev_sof == 0)
- 		return;
- 
-
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 5e419c7b9..880b06d71 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -94,6 +94,8 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
+ 	IPU_SENSOR_CONFIG("INT3537", 1, 437000000),
+ 	/* Lontium lt6911uxe */
+ 	IPU_SENSOR_CONFIG("INTC10C5", 0),
++	/* Sony IMX175 */
++	IPU_SENSOR_CONFIG("INTCF1A", 1, 320000000),
+ 	/* Omnivision OV01A10 / OV01A1B / OV01A1S */
+ 	IPU_SENSOR_CONFIG("OVTI01A0", 1, 400000000),
+ 	IPU_SENSOR_CONFIG("OVTI01AB", 1, 400000000),
 -- 
-2.56.0.679.gc527c65306-goog
+2.43.0
 
