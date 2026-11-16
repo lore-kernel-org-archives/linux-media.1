@@ -1,79 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794846364;
-	b=OZyfQJ5r7lXsvP67clxYQpjOvm7s5xaiDdPgwKGM38vzqtj8+dKjnKDARo4bkCHw19Cf
-	 nI4+B3Lm2RNVIfysHEjbgKArmx1oYtxlwIqa93U7KwcWpRKl7M5XwbNcWqFRp2ePrTMdi
-	 fZjGyv+zDDRKcODuHXoDWZ6Tctx5SSDQ9HXsWUoMt9sm1NzYZ/LQa11ZoDBU0K0AyTUPR
-	 XZkkMVdvGpxsCWGUl69bJOnMUSZKDthdb+um3p/OYMvTnDXIxFYqHGVSYFQI1OZj+RNOK
-	 hlh7L4358IiG/zpvC+aZ7qCG9rCTC+wNCrJG6AAziQBQmDlAIWJnEQPJIeGz5ppJX0A==
+	t=1794846529;
+	b=wqb4W6wlgtTz4adCbhd9NKNZKyRavj6xidLYEGkhDs9394XUMjoAxpEORjV6DV9Br+z4
+	 YpBG8hNt1fI11d+R+x5ZDn+7b+5ygFlw2FPRtx+Y3N9WkX04cMp6zhU2VI+M87E2KDP9N
+	 p50vy3fM+JP+OLMccQmX6Jm1lwmsnmkuMFmCcUJMa2CaYPhJ+Tkr6HncklQo42n5nlNqI
+	 jktvPUkaCrfsjlGXIpO8ATJhbOtqOOy70V7A7pDAnCb/thEDpKbkdr/IwsxhQ/NRVNi+L
+	 hUufiIPgff9wW7aCLe7DokVwqI5hV4aH0JgHzGjdzrJOVwONNVu1z8ZuCbrXmJsRQaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794846364;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=gRpvS0aFH/hkqbf+HmxoBDmX4y1Qy+G8n/ahrpnwi8c=;
-	b=YuYh6gRzeG84gMNH+l5QKtw4xIieHw+9UeME9GqOrt9kR1DjalcS0zrhrF6goitROBAN
-	 Lkwm+fBGYPCPL5Z5b5o1XcjAFR8ayu5y0ZYLiEIfI0t1aS7KYQDkU1xfrreAI5YOdFUGu
-	 M/YE9SM5d0De5l0qIpDRn21hLjIqZCvY1+nGDTieCe7KwUIqaGmSUB4PC5OX5I7aaE+28
-	 swVBUYX6aYvz8pd1GBGccV6X5r8XrJL92w+9b3dRO9GqB/LtykNFrPTMeKwojQDVJcjQn
-	 vtVooIRRanoYfKCylnOfNtaBIpAmd0c3xhpU+yCaPH7nlrNIbOG06FNsTdz1mWZ6OUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794846529;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=eqhrbr8iKieSrVR0UuN7fPro2ug2CEul2vf55oUadPY=;
+	b=tHTsuId+8YC0IX4Er9iXPwUyxxWj93NKjfnQEzqYm53ptm8UVoFAD/L+XSKwiM+EF2U9
+	 YTfHnHHlOmnzupYrIva7huVHtHmpC5Kuie2/tzfhkA2euY58POAhScrbOlgI7KZ9X0uad
+	 nzwYn2pWmt1R/R5wyvffY8Sp9D1XVIA/0kAtfPYeuaL4Cn7941MX6dA9FD45AeAAIK0Mt
+	 iVQ9Wvyufr9OBfyRkmdjZtx5o+EZYOjkqenGDM3LFGh3OuRcKyaL6t7Xd4B7/srRQ2z8h
+	 dzQXedwzovzTzfwlC0NaxA3KAOEeA1F1G3XO5e6CQxPn+CqSyrOy3nKBYHTlBN7GqTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fDhmh7NK;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="ucu/USF5";
+	arc=none smtp.remote-ip=95.215.58.118
+Received: from mta1.migadu.com (out-118.mta1.migadu.com [95.215.58.118])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E276D606A323;
-	Mon, 16 Nov 2026 16:26:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E276D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F250606A883
+	for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 16:28:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F250606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fDhmh7NK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794846363; x=1826382363;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=besSWkv2lgjjgJhS0YJxeUkJug4DOd6erC79ptELE0k=;
-  b=fDhmh7NKnIxUcbpUOMthKtfQdpY5BWv7X5GnuZgT1BUWnfKFY013AgmI
-   5E/FxlCSZ4osMh0Nm6eyOjU4A0Y254jiI77UphQp4FlF2XSIF0Gt4r5jC
-   hBZ9H51oaptXERWKxnlgV//NQgMp4SNVDhWXjknX/TvdtK7OG22DsUTAS
-   aCKmHPnjNosBvcoWo5O5nX0K09PLpcZf68Ed+WvIBOr6iv6WodBRQ2dag
-   7sVd1l8qKoAR+6vbF/SgXVDX7JUWBNkT2PPWq6Gg5a1bNt15J+rmXt8VI
-   yIDY/LwLQMF2NLsL4CzOVw2eiC4xYSkyn3BDqgfnc1Ak9lz2FLapMIQF2
-   g==;
-X-CSE-ConnectionGUID: cvWIDb8MRXSVSmtCC0T26A==
-X-CSE-MsgGUID: QcUijvklSP6rX2BRvyAFCg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3577881"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3577881"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 08:26:02 -0800
-X-CSE-ConnectionGUID: SDP/YCk5SwGJiowYb7qt6w==
-X-CSE-MsgGUID: k+Hn71nVQtGxQ9G/P02lqQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9575553"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.245.207])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 08:26:00 -0800
-Date: Mon, 16 Nov 2026 17:25:52 +0100
-From: Mehdi Djait <mehdi.djait@linux.intel.com>
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: Michael Riesch <michael.riesch@collabora.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/6] media: rockchip: rkcif: fix the MIPI stop path
- locking
-Message-ID: <avstwwwxx0KrGe23@mdjait-mobl>
-References: <cover.1793702189.git.daniel@makrotopia.org>
- <744eeec346f96d580a9215c657951f5a737e734e.1793702189.git.daniel@makrotopia.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ucu/USF5
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eqhrbr8iKieSrVR0UuN7fPro2ug2CEul2vf55oUadPY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794846526; v=1; x=1795451326;
+ b=ucu/USF5L6j3xx8be3/FBm299AV+a47dsd2tH64gH3jq95m+jjGg9LGcprLI3q9oULItOeUt
+ Qc39SLVTcnghWOkNSUl1uK3rrukH4CmW9GJc+FCrCro7iw4B6m6d8S+12zKFL1B779157/6jKvP
+ 9pjfCsJg5MA9gmWzf/d3q6RY=
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0358fb73c5d122f4;
+	Mon, 16 Nov 2026 16:28:46 +0000
+X-Mizu-Trace-ID: 0358fb73c5d122f4
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5c00d7ac49dso9770e87.1
+        for <linux-media@vger.kernel.org>; Mon, 16 Nov 2026 08:28:42 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErF4mbTOfdWWHmaxxWXBS5jy9D3xRadimcdWZlTt7QotOdaQPuFuhIFjgokegErzNE+9igbhE7+bEvaAEw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8LwjxkkWW1puHg8hC7BprFA7b5Bp9QMbUv70dlmQdOKTWh5NL2
+	esQcIdPDYpUoqh4Uf0TSCoprb7sR9f4zeVoBoQolTtXFunD8z5U4QBj9d6GdHJU4NqT9GrkGblH
+	1+5gJMFvwrrN4Y+62qbXZJgPmygQvOtqwjEh6xdgh
+X-Received: by 2002:a05:6512:1290:b0:5c1:5209:5a44 with SMTP id
+ 2adb3069b0e04-5c17d8cd72fmr248826e87.4.1794846521147; Mon, 16 Nov 2026
+ 08:28:41 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,178 +66,116 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <744eeec346f96d580a9215c657951f5a737e734e.1793702189.git.daniel@makrotopia.org>
+References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
+ <20261116091137.94252-3-aneesh.kumar@kernel.org> <CA+EHjTw7QzzkQYKV3jyvW5mqZQMenTfm=kus9i87tYqACDOv0Q@mail.gmail.com>
+ <yq5ah5hgyj1p.fsf@kernel.org> <20261116140259.GL2532299@ziepe.ca>
+In-Reply-To: <20261116140259.GL2532299@ziepe.ca>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Mon, 16 Nov 2026 16:28:04 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTywWTaKLtM6OPF_0ETv29-m8JsHdvF3BeW9Xa=h713eEg@mail.gmail.com>
+X-Gm-Features: AclHuK8v9DG_RUNyj3rKA0Y0tmAlsYWqFzMKzPZz5wl1VueI09Ml-h3rn0SbMmg
+Message-ID: <CA+EHjTywWTaKLtM6OPF_0ETv29-m8JsHdvF3BeW9Xa=h713eEg@mail.gmail.com>
+Subject: Re: [PATCH v10 02/13] mm: Zero memory during shared memory transitions
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, linux-coco@lists.linux.dev, 
+	Andrew Morton <akpm@linux-foundation.org>, Baoquan He <baoquan.he@linux.dev>, 
+	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, 
+	Steven Price <steven.price@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>, 
+	"T.J. Mercier" <tjmercier@google.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+	Christophe Leroy <chleroy@kernel.org>, Ritesh Harjani <ritesh.list@gmail.com>, 
+	Shrikanth Hegde <sshegde@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, "K . Y . Srinivasan" <kys@microsoft.com>, 
+	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, dri-devel@lists.freedesktop.org, 
+	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org, 
+	linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev, 
+	Vincent Donnefort <vdonnefort@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello Daniel,
+Hi Jason, Aneesh,
 
-Thank you for the patch!
+On Mon, 16 Nov 2026 14:02:59 +0000, Jason Gunthorpe <jgg@ziepe.ca> wrote:
+[...]
+> Just like you are wrapping set_memory_decrypted() in an allocator API
+> the user that wants to have the no-change sharing needs its own
+> special API too.
 
-On Tue, Nov 03, 2026 at 10:45:29AM +0000, Daniel Golle wrote:
-> rkcif_mipi_stop_streaming() takes the subdev state mutex, and the
-> interrupt handler calls it at the frame end that completes a stop. A
-> mutex taken in hard interrupt context sleeps when it is contended, and
-> CONFIG_DEBUG_ATOMIC_SLEEP reports the call on every stream stop. The
-> state itself is not read on either path; the lock serialises the
-> read-modify-write of the interrupt enable and status registers, which
-> the streams of a MIPI block share.
-> 
-> Guard those registers with a spinlock per interface, taken with
-> interrupts disabled, so that the handler and the process context paths
-> exclude each other, and leave the subdev state alone.
-> 
-> Fixes: 1f2353f5a1af ("media: rockchip: rkcif: add support for rk3568 vicap mipi capture")
-> Assisted-by: LLM
-> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
-> ---
->  .../rockchip/rkcif/rkcif-capture-mipi.c       | 24 +++++++------------
->  .../platform/rockchip/rkcif/rkcif-common.h    |  3 +++
->  2 files changed, 12 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-> index 686b995525b9b..53cfd37bf02bd 100644
-> --- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-> @@ -721,17 +721,14 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
->  	struct rkcif_interface *interface = stream->interface;
->  	const struct rkcif_output_fmt *active_out_fmt;
->  	const struct rkcif_mipi_match_data *match_data;
-> -	struct v4l2_subdev_state *state;
->  	u32 ctrl0 = 0, ctrl1 = 0, int_temp = 0, int_mask = 0, vlw = 0;
-> +	unsigned long flags;
->  	u16 height, width;
-> -	int ret = -EINVAL;
-> -
-> -	state = v4l2_subdev_lock_and_get_active_state(&interface->sd);
->  
->  	active_out_fmt = rkcif_stream_find_output_fmt(stream, false,
->  						      stream->pix.pixelformat);
->  	if (!active_out_fmt)
-> -		goto out;
-> +		return -EINVAL;
->  
->  	height = stream->pix.height;
->  	width = stream->pix.width;
-> @@ -746,6 +743,7 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
->  	int_mask |= RKCIF_MIPI_INT_FRAME0_END(stream->id);
->  	int_mask |= RKCIF_MIPI_INT_FRAME1_END(stream->id);
->  
-> +	spin_lock_irqsave(&interface->irq_lock, flags);
->  	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTEN);
->  	int_temp |= int_mask;
->  	rkcif_mipi_write(interface, RKCIF_MIPI_INTEN, int_temp);
-> @@ -753,6 +751,7 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
->  	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTSTAT);
->  	int_temp &= ~int_mask;
->  	rkcif_mipi_write(interface, RKCIF_MIPI_INTSTAT, int_temp);
-> +	spin_unlock_irqrestore(&interface->irq_lock, flags);
->  
->  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_FRAME0_VLW_Y, vlw);
->  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_FRAME1_VLW_Y, vlw);
-> @@ -769,26 +768,21 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
->  	 */
->  	rkcif_mipi_write(interface, RKCIF_MIPI_CTRL, RK3588_MIPI_CTRL_CAP_EN);
->  
-> -	ret = 0;
-> -
-> -out:
-> -	v4l2_subdev_unlock_state(state);
-> -	return ret;
-> +	return 0;
->  }
->  
->  static void rkcif_mipi_stop_streaming(struct rkcif_stream *stream)
->  {
->  	struct rkcif_interface *interface = stream->interface;
-> -	struct v4l2_subdev_state *state;
->  	u32 int_temp = 0, int_mask = 0;
-> -
-> -	state = v4l2_subdev_lock_and_get_active_state(&interface->sd);
-> +	unsigned long flags;
->  
->  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL0, 0);
->  
->  	int_mask |= RKCIF_MIPI_INT_FRAME0_END(stream->id);
->  	int_mask |= RKCIF_MIPI_INT_FRAME1_END(stream->id);
->  
-> +	spin_lock_irqsave(&interface->irq_lock, flags);
->  	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTEN);
->  	int_temp &= ~int_mask;
->  	rkcif_mipi_write(interface, RKCIF_MIPI_INTEN, int_temp);
-> @@ -796,10 +790,9 @@ static void rkcif_mipi_stop_streaming(struct rkcif_stream *stream)
->  	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTSTAT);
->  	int_temp &= ~int_mask;
->  	rkcif_mipi_write(interface, RKCIF_MIPI_INTSTAT, int_temp);
-> +	spin_unlock_irqrestore(&interface->irq_lock, flags);
->  
->  	stream->stopping = false;
-> -
-> -	v4l2_subdev_unlock_state(state);
->  }
->  
->  static void rkcif_mipi_set_crop(struct rkcif_stream *stream, u16 left, u16 top)
-> @@ -881,6 +874,7 @@ int rkcif_mipi_register(struct rkcif_device *rkcif)
->  		interface->in_fmts_num = ARRAY_SIZE(mipi_in_fmts);
->  		interface->set_crop = rkcif_mipi_set_crop;
->  		interface->streams_num = 0;
-> +		spin_lock_init(&interface->irq_lock);
->  		ret = rkcif_interface_register(rkcif, interface);
->  		if (ret)
->  			continue;
-> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-common.h b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-> index 4d9211ba9bda8..16a5ecb25c2fb 100644
-> --- a/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-> @@ -198,6 +198,9 @@ struct rkcif_interface {
->  		struct rkcif_dvp dvp;
->  	};
->  
-> +	/* interrupt enable and status are shared by the streams of a block */
-> +	spinlock_t irq_lock;
-> +
->  	void (*set_crop)(struct rkcif_stream *stream, u16 left, u16 top);
->  };
+That works. A separate API can cover no-change sharing when a user
+needs it, so I'm fine with set_memory_decrypted() zeroing.
 
-Could you please add this to this patch to fix the timeout issue when
-stopping the stream: I sent a patch series to fix some issues on the
-rkcif driver.
+Aneesh, the pKVM hunk does need cache maintenance after the memset(),
+which I have in the Cc: stable patch I posted earlier today [1].
 
-I fixed also the stop stream timeout issue and then I saw
-that it is quite similar to your patch.
+Cheers,
+/fuad
 
-You can give this a test and tell me how it goes:
+[1] https://lore.kernel.org/all/20261116110549.1863653-1-fuad.tabba@linux.dev/
 
-$ git diff
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-stream.c b/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
-index 66726f654674..c72e22e0d726 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
-@@ -308,10 +308,6 @@ static void rkcif_stream_stop_streaming(struct vb2_queue *queue)
-        u64 mask;
-        int ret;
- 
--       mask = BIT_ULL(stream->id);
--       v4l2_subdev_disable_streams(&stream->interface->sd, RKCIF_IF_PAD_SRC,
--                                   mask);
--
-        stream->stopping = true;
-        ret = wait_event_timeout(stream->wq_stopped, !stream->stopping,
-                                 msecs_to_jiffies(1000));
-@@ -319,6 +315,10 @@ static void rkcif_stream_stop_streaming(struct vb2_queue *queue)
-        if (!ret && stream->stop_streaming)
-                stream->stop_streaming(stream);
- 
-+       mask = BIT_ULL(stream->id);
-+       v4l2_subdev_disable_streams(&stream->interface->sd, RKCIF_IF_PAD_SRC,
-+                                   mask);
-+
-        pm_runtime_put(rkcif->dev);
- 
-        rkcif_stream_return_all_buffers(stream, VB2_BUF_STATE_ERROR);
-
---
-Kind Regards
-Mehdi Djait
-
-
+On Mon, 16 Nov 2026 at 14:03, Jason Gunthorpe <jgg@ziepe.ca> wrote:
+>
+> On Mon, Nov 16, 2026 at 07:28:42PM +0530, Aneesh Kumar K.V wrote:
+> > Fuad Tabba <fuad.tabba@linux.dev> writes:
+> >
+> > > Hi Aneesh,
+> > >
+> > > On Mon, 16 Nov 2026 at 09:12, Aneesh Kumar K.V (Arm)
+> > > <aneesh.kumar@kernel.org> wrote:
+> > > [...]
+> > >> Keep allocations on platforms without memory encryption on the ordinary page
+> > >> allocator path so the original GFP constraints, including __GFP_ZERO, remain
+> > >> intact. Remove post-transition memset() calls that are now redundant and
+> > >> explicitly clear allocations on paths where no transition occurs.
+> > >>
+> > >> This intentionally makes every private-to-shared transition destructive;
+> > >> callers can no longer use set_memory_decrypted() to preserve existing contents.
+> > >
+> > > pKVM shares memory in place, and a guest has to be able to share
+> > > memory it has already set up, as Vincent pointed out [1]. That was one
+> > > of the primary reasons for in-place conversion in guest_memfd.
+> > >
+> > > Cheers,
+> > > /fuad
+> > >
+> > > [1] https://lore.kernel.org/all/avro44jUWOARFzul@google.com/
+> >
+> >
+> > Thanks for catching this. We discussed it before, but I reached the
+> > opposite conclusion:
+> >
+> > https://lore.kernel.org/all/yq5a5wzw2ree.fsf@kernel.org
+> >
+> > My mistake. How do you suggest we handle this? We want to avoid zeroing
+> > pages multiple times with different CoCo configurations. For example, to
+> > allocate a zeroed page, we currently do:
+> >
+> > alloc_pages(__GFP_ZERO)
+> > set_memory_decrypted()
+> > memset(0, PAGE_SIZE)
+>
+> Just like you are wrapping set_memory_decrypted() in an allocator API
+> the user that wants to have the no-change sharing needs its own
+> special API too.
+>
+> Then you can bury a special implementation for pkvm there.
+>
+> Where is this special user in the kernel anyhow?
+>
+> Jason
+>
