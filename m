@@ -1,82 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912865;
-	b=PBm31ydVL+4vw6+yNVa9tSOSoa8/WWl/0hRQBARI6b7GM3ZyNHiyETtDxwc9afggZkXN
-	 PhiAnSrrRSoqRZ2a4dqx5l9zBuU92m7VR3Dt1KGapVv08z3+jRDmNiC/MwxOf4+xU0ta1
-	 Uei1WvclkaWDGwFSP4RytLvYxlOcfOnymZNVdtcuSKE8uYKq4WjINuY2cGzzGnjMdt4XW
-	 CajanKJM8MEaEYvwcB7hStE3jjKicJfliwWWdwu/FxmV4yATcx80nXOKNGjxEWeYvmW3t
-	 uBvyslH+vVevg5KqGbDa+EgqJdcELqgRVQmc3c9BbnXLwqqK71GI4eIVDePIOixmDEA==
+	t=1794913029;
+	b=Gxpn9KHRGZ42aR0woB30rtvXbFb22/4gkKMybRE0Xel4ZtDpARVPXktQHA7HqcXtJE/I
+	 P4vrMY7/lwOG5ChN1qo8daWFy3uL+M5MV8EakecFFcLeA7ng6ng1LyPftCfGr7NvNaEx3
+	 RdaimogPMs7WHDPZsFzHtqAIJaWH6HaKOIcmKeKe7weOYf+N+RyF01LLcYzhFxaFLbmky
+	 Sfq8//MDLM0Rr98TvHtmDuhScZFC4y0I1SLmOtf7p08Uu0d4CReW69kqJ+Q4sBWzO+/n+
+	 9DYWNrbIihpZ+sPKQSBIHVokdPzHARKWZjEXdqUzkdRV5yG70dgRG+1owpHFnTMqw0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912865;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=jAWEsctWy9OQpEjem1+XN21g7NWWHbm0GcJRZLH8b4Q=;
-	b=E4JOWgNFTjED4vG1CMDfslwMM2pUfYxZ4g+xwiXMFhjbHIDNVuOjYgnCd8HWEWd3/KKz
-	 yI1O9jQC9giMXEOtXZe1wz3NJkNV3vo6VUMRBOgcf9SmX4dFygcnGs8S5ladMqP0+gp/S
-	 rG/2fEtDiRE9lxONy/4jUCiuUFa3RdX04ElU6oaqQvtTQzuaz75egnStgJYVvtHnEyqpT
-	 1AnBEnGuEnKCwSxKIEtAOqh+9C6Zp+5vFrA3ia2FJ1U6eShZqe4KaFnth9MPVprwLvaEq
-	 Ql0LCF7a2pV1dzhAiOTtgYoBI88o4FYPgaVZgMJIhaPBA3z6RlDZQgOsAQaaJC2VVRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913029;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=4sJ9s7f5Q/rrBh/jiPDE7QHkaIG//0YC7UHsi9Lv2Nc=;
+	b=ZIQSYvW/P8sujE2sWDpBApVIobcBEjp7p3ywS6yCWCfcM6q0vUDIECH9Ge3Ao0evGues
+	 1Ec85GuhF55HnLWU5hb1UybyXnFb9fQYPIS0fGLC57vcHVm2dFeGdovYrIWWwOvX1dTh2
+	 /g0ROIaDzrAn/+RdWBaEoMXE8eCmsQYnNxV82In/XaBLNQnsi6Hh2VXrNcXinMrSsc9Ij
+	 HxTGJZBcfHrOG4nhpaT7n6pD4U7eQ1VAuCdEDzvppp5zeHjvcoSkINOvDpOPsyEc8TVbJ
+	 ApEGnHREXgEElYYMG1lV162zwsIUd7O+wALnhK6mSN6z3kEDkp2dzhYK6X6JoovuEbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=IHsf19vV;
-	arc=none smtp.remote-ip=80.241.56.161
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=z9hYBlgC;
+	arc=none smtp.remote-ip=61.135.153.166
+Received: from smtp153-166.sina.com.cn (smtp153-166.sina.com.cn [61.135.153.166])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F5A606A31C;
-	Tue, 17 Nov 2026 10:54:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9F5A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18F9606A31C
+	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 10:57:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E18F9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=IHsf19vV
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jTM6v51ZFzKn83;
-	Tue, 17 Nov 2026 11:54:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794912855; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jAWEsctWy9OQpEjem1+XN21g7NWWHbm0GcJRZLH8b4Q=;
-	b=IHsf19vVA+64iwhz2z3appSHfEG3PeqVweLbhPmuQeWF05sVXfG7RXhEkhsGcOkEaVY8gk
-	4hq3tFoGpjGKY4YIQcztVAZcWxcl7/VnJzJ6Vlp7wK/c4DWp60ka4paPimUe9ADkg5jaxu
-	OTPRfodsYI3fLMYTkwGy57CTFB4fyUJ+uwm4kZN1S3o1RR2DaID+QH9NgTwAbdxdAtScb8
-	Q4TxVMYGRoxtjfdSelh5ltFF8yZjtqX5bo95dQfOQH4NdnE29ekyOfAeAIerThu3l/YO9x
-	bTtC+Odrx8/SeHfIulhU5bNMG5cbQsHDjp1aj5R2W9gSem6XMDp/9PBTAygC0A==
-Message-ID: <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
-Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
-	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Danilo Krummrich
-	 <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda	
- <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Daniel
- Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 17 Nov 2026 11:54:12 +0100
-In-Reply-To: <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
-References: <20261112101015.528127-2-phasta@kernel.org>
-	 <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
-	 <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
-	 <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=z9hYBlgC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1794913025;
+	bh=4sJ9s7f5Q/rrBh/jiPDE7QHkaIG//0YC7UHsi9Lv2Nc=;
+	h=From:Subject:Date:Message-ID;
+	b=z9hYBlgCBL94vVCQ6O8L1yIqHK3g63KGgYLoCOXyO24Xqq0rCRMRYUKEJKxXbu4ms
+	 lSEn+9OOCEaKzcH0K8UPNpZPRKbTs/p8uRpAccX31PEEGphYPR17GfgKN2BE37Wrwl
+	 JX9yi4qChEZ5jwL8YUin4iUmMcRkEdvfuzwIk8og=
+X-SMAIL-HELO: lxu-pcd
+Received: from unknown (HELO lxu-pcd)([111.198.225.163])
+	by sina.com (10.54.253.33) with ESMTP
+	id 6AFC32F500007964; Tue, 17 Nov 2026 18:56:55 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 9807086685066
+X-SMAIL-UIID: 712B557F85C64A6293B1F3E6B407B349-20261117-185655-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+436c71c257f18c488712@syzkaller.appspotmail.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: [PATCH] media: dvb: reject dmxdev ioctl until adapter frontend init done
+Date: Tue, 17 Nov 2026 18:56:53 +0800
+Message-ID: <20261117105653.61358-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <6afbf0cd.27ea6653.1a0e84.0004.GAE@google.com>
+References: <6afbf0cd.27ea6653.1a0e84.0004.GAE@google.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -86,47 +71,71 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: 3fc69f010e82e9128db
-X-MBO-RS-META: 1jz3zz7cp1nntsqnyo4n5fdt6zbaxuir
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-11-17 at 10:51 +0100, Christian K=C3=B6nig wrote:
-> On 11/17/26 09:24, Philipp Stanner wrote:
-> > struct DriverFoo {
-> > 	f: DriverFence<()>,
-> > }
-> >=20
-> > impl Drop for Driver Foo {
-> > 	pub fn drop(&mut self) {
-> > 		// Signals fence implicitly & automatically.
-> > 		self.f.signal(ECANCELED);
-> > 	}
-> > }
->=20
-> Yeah, exactly that is still a bad idea :) See the HW eventually
-> doesn't necessarily stop doing DMA if you unload the driver.
+There is a race for usbv2 adapter dvb init and dmxdev ioctl:
 
-I know.
+   CPU1					CPU2
+   ====					====
+dvb_usbv2_probe()->
+ dvb_usbv2_init()->
+  dvb_usbv2_adapter_init()->
+   dvb_usbv2_adapter_dvb_init()->
+    dvb_dmxdev_init()
+     dmxdev is ready			dvb_demux_ioctl()->
+					 dvb_demux_do_ioctl()->
+					  ...
+					   dvb_usb_start_feed()
+					     In the current context, active_fe
+					     is 0 and adapter->fe[0] is NULL
+					     because frontend hasn't inited,
+					     this potentially hitting [1]
+   dvb_usbv2_adapter_frontend_init()
 
-> So just signaling all fences with ECANCELED is not enough.
+Move active_fe init to dvb_usbv2_adapter_init() before dmxdev init, this would
+reject dmxdev ioctl.
 
+[1]
+KASAN: null-ptr-deref in range [0x0000000000000308-0x000000000000030f]
+RIP: 0010:ec168_streaming_ctrl+0x73/0x210 drivers/media/usb/dvb-usb-v2/ec168.c:312
+Call Trace:
+ dvb_usb_start_feed+0xa03/0xef0 drivers/media/usb/dvb-usb-v2/dvb_usb_core.c:308
+ dmx_ts_feed_start_filtering+0xf6/0x220 drivers/media/dvb-core/dvb_demux.c:747
+ dvb_dmxdev_start_feed+0x273/0x3f0 drivers/media/dvb-core/dmxdev.c:658
+ dvb_dmxdev_filter_start+0x1b6/0xdd0 drivers/media/dvb-core/dmxdev.c:769
+ dvb_dmxdev_pes_filter_set drivers/media/dvb-core/dmxdev.c:985 [inline]
+ dvb_demux_do_ioctl+0xe64/0x1200 drivers/media/dvb-core/dmxdev.c:1099
+ dvb_usercopy+0x167/0x340 drivers/media/dvb-core/dvbdev.c:996
+ dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1208
 
-Yes. What I was trying to tell you as that you have no way to enforce
-this in Rust or C.
+Fixes: e48b2a68617c ("[media] dvb_usb_v2: frontend switching changes")
+Reported-by: syzbot+436c71c257f18c488712@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=436c71c257f18c488712
+Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+---
+ drivers/media/usb/dvb-usb-v2/dvb_usb_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-dma_fence_signal(f);
-free_driver_resources();
-// Driver forgets to stop the hardware. Memory corruption occurs.
+diff --git a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
+index bd86d250433d..c764f288065a 100644
+--- a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
++++ b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
+@@ -637,7 +637,6 @@ static int dvb_usbv2_adapter_frontend_init(struct dvb_usb_adapter *adap)
+ 	dev_dbg(&d->udev->dev, "%s: adap=%d\n", __func__, adap->id);
+ 
+ 	memset(adap->fe, 0, sizeof(adap->fe));
+-	adap->active_fe = -1;
+ 
+ 	if (d->props->frontend_attach) {
+ 		ret = d->props->frontend_attach(adap);
+@@ -760,6 +759,7 @@ static int dvb_usbv2_adapter_init(struct dvb_usb_device *d)
+ 		adap = &d->adapter[i];
+ 		adap->id = i;
+ 		adap->props = &d->props->adapter[i];
++		adap->active_fe = -1;
+ 
+ 		/* speed - when running at FULL speed we need a HW PID filter */
+ 		if (d->udev->speed == USB_SPEED_FULL &&
+-- 
+2.43.0
 
-You see? Neither your BUG_ON() or WARN_ON() saves you if the driver
-does it like that, no matter the programming language. You cannot
-prevent it.
-
-The only one who understands how the hardware works is the driver. The
-only one who can stop it is the driver.
-
-In Rust, the place where a driver drops its JobQueue is the same place
-where it has to halt its GPU ring correctly. Enforcing this cannot be
-done by dma_fence code.
-
-
-P.
