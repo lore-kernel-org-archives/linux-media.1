@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794923764;
-	b=NowgX4uwZnAsv5aXr18fAcbOCv0nYbbYgYnH2N5askMUwfnRoa5Gvi9cvxpNKe5uPzOq
-	 5qD4cCs+1fqjY0EPkY8iIuZHQ2Y8NiNENYM2uqLavKlFxEwnFEBAe0z9IsWOhCkgbzgyV
-	 f9ijm1IUdg/lMzqhQte9j8+LtgyOMMFWmUr8Ysdqp7c0PPhG9rpXCmdcrUSByLFkZEtGF
-	 9idMMjZAMfDdoX+Wepi0ZnPjHIOM4dRFUq3EBCMkA6lpo1OzBG1BZZOdG4SjoyrgqbwpJ
-	 cP9LD1WQLMTt9zJufaHUlhebz4/yGa+ofpJ4SQevsuEvCukDLOCAbVX5hKSu/3/PrQw==
+	t=1794924413;
+	b=zcBdd2cOd9UTh7gYAhlr8FQJ+vVPa1wyrM5stOvwKJSqTiTNRHxcHUbWu7Z1cMD7kob1
+	 K2RMitB+8pskxaqrp8HOXAim2wZdoE+lG6LfYUQVkKSkI+riWDiT5xgksEfn61BkrwaqH
+	 UkcVhkJ5y9S0LCYpqCwH1LUqJOS3S+T2y6I2lr/bpSuH3BZNfV5W0dioIysUASbVlED0R
+	 5TltRJSSf33f7FIdwujzEm9/tfEDq19D7vWX7pOdgOUfazjIbpaHZURlsk8Ofrs+USEz/
+	 UyjgKOu8+TEDs9KspT1cCPjzrUYNk5TJMQnP6FaMKuQdKKaJj49CXWMLCKeUtPiGrpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794923764;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=7Q2L8jjilb/GpNsWuFpT/b1KRGx6wj/KhSu95qexhro=;
-	b=os34c7pcWChhq3fJBvHMZTRUPXt3DoEAyMEvZvH+Dw9f0+ReA3vQANGrbmrZ15JrcYUf
-	 3WSfIO/N/fNF5OUdN46PfWkJgLrfkh+lYagiHFE42rs1WT8sw870takVzpyWcc3ScxmfA
-	 fe63RWPa80EIq/XHx53myX/u5CfzVr+o/3YXUcnVeyliNZm+JLL1+vVXtwrBtRnN3qamt
-	 pdHsR7jewQ3VtR1X5fyR9SPjoYQA6u1UaUx/euogq2KcCr3RXBJtHzxhvZHzvJCZ2GYCl
-	 09HP5g8MtNRC9mCORFxlfdojlwdlqierT7Gmx8owrphHIkdz9iHCU8Fk7Uggc3PANIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924413;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
+	 In-Reply-To;
+	bh=ns0XAWcR6vSuKym0Hs01xZbTwbw63jJg9r2AMFjb7Cw=;
+	b=IRyZN7wq9jr0sGmmNvGaCKYfdLtVhvke4mZEOOg4MyyNq79OKQGyfoxz/IsrHY59gkhq
+	 J7cKk3l8i8XVN6Ed85uaLQjMXICRNK6vqKiy6YaTC7YRhqxFf4wWUh51IZDmg5E+2EtR4
+	 uxZvZN8xbG7dqwlmJYCKa4oroZWeXW+qByeh8MfzSvT5rXFLrXWnLtVx6KtN8TRnkR/sS
+	 sV/gh0Rgmgx2noSdKVwUKnwEwcGhqgZlEKZhzrvoYhl+DQMtf4bVrqp4T6JFBtab7pUHs
+	 PaOpXXW6jjt0WJxH6OivP7F74EUafaD7c7dBbbjkpFerQM4oa3N9PdXSD/BSRcAIC+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U36rQmZv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fjUyc13v;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44913606A329;
-	Tue, 17 Nov 2026 13:56:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B29B606A323;
+	Tue, 17 Nov 2026 14:06:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U36rQmZv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C57851F000C5;
-	Tue, 17 Nov 2026 13:56:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fjUyc13v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC7F41F000C5;
+	Tue, 17 Nov 2026 14:06:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794923764;
-	bh=7Q2L8jjilb/GpNsWuFpT/b1KRGx6wj/KhSu95qexhro=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=U36rQmZvQJZraztVobO19/Jn/B5zdB3FWdeiAGrQTzC0vhfUeKlOTYp2pysaKxXSF
-	 2+k1M0IPXaBzLMjvaMtx6SYCB8C/w+IGAd/WtDwqtptCUg7z98iJbZBeM/gBB9Pq2C
-	 j3Gig/HFuBJOrqYhKgCJEEcpwNTO37qC7PTbRgqVrsMlMnuybXFZPpvbMUGdbFqwcr
-	 pqoFleR1tSqpz9FPo4OmrCBddyxkA6mL1RPeVxL9lhQEMSwOjCQoY8xhp4sbF1ahwl
-	 IvdKyz8lfSIv69vd9eEfZQWV1L+5me6a/N/KtGh0GEqDUTfAKg7EU7JNEaXU3m5MUe
-	 tgqws+2enkaQw==
+	s=k20260515; t=1794924413;
+	bh=ns0XAWcR6vSuKym0Hs01xZbTwbw63jJg9r2AMFjb7Cw=;
+	h=Date:Cc:To:From:Subject:References:In-Reply-To;
+	b=fjUyc13vnFbVpz4NMzIZg5RrMb+xNBv9KzK0pDNPSS+YMxxRFiAjzXos4A2Em8Cfn
+	 iWKgZHCxvUlB64mRGhTFIl64tRm9FoXFWAAOvn6xrr2QgRoBZy/9Kw1s71JiKeUX6f
+	 Ur32BhNHpuNgmKtzc/EA1JcLHacHMSPXxsnRa6Gw3Ez1W6vG+ds5BBJA8M1UZVGslo
+	 rfoy8hvcBsOoU6Asqae+ak9Hp4Y9nrqBZQIiixUTfZT45hDDLuSS3Hu1HUiPQUrd1z
+	 d4VmJaEqqX1m3yRPAiYfwqVJHqw0dsDk2Hg0qT4cABWwQNZckZ3yRSDIrlhFZ5kF5J
+	 4DLM0ECaKdaVA==
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -48,58 +48,44 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 1/3] media: iris: Skip redundant decoder input config
- params
-From: bod@kernel.org
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Vedang Nagar <quic_vnagar@quicinc.com>, Hans Verkuil <hverkuil@kernel.org>, 
- Stefan Schmidt <stefan.schmidt@linaro.org>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, 
- Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>, 
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- stable@vger.kernel.org
-In-Reply-To: <20261031-fix_dec_seek-v1-1-cfedf0c267ee@oss.qualcomm.com>
-References: <20261031-fix_dec_seek-v1-0-cfedf0c267ee@oss.qualcomm.com>
- <20261031-fix_dec_seek-v1-1-cfedf0c267ee@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 13:55:58 +0000
-Message-Id: <179492375803.2846709.17266637550647614190.b4-reply@b4>
-X-Mailer: b4 0.17-dev-e3fc9
-X-Developer-Signature: v=1; a=openpgp-sha256; l=658; i=bod@kernel.org;
- h=from:subject:message-id; bh=7Q2L8jjilb/GpNsWuFpT/b1KRGx6wj/KhSu95qexhro=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/FzuQUtuXyJFgJTPQ9BF7I2rHvKqSuO+HB0zL
- Jm8xkCmnTCJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCavxc7gAKCRAicTuzoY3I
- OkhyD/9CbN6TAojopt3QE48PMtLqCQ+tGlmI+b5oXoFbPhVxnUDxh428z+aeWwN4bZuqK7dVd+k
- NtsVDCCJxzlwZG+ogMBqS/zJLg39HdCqnTcBCl/5yEVMMTKG1nsMthpVJ8s5xC0ScGn4UPQbvaD
- J5k2pR+uin62Rq+oMOP+iUy1zTygWaA6QWcIsCzsDDH+gcLrhggPwsgsJnx59mVa7p0dQmw7YXN
- 7ZR839kWBocHpKg47NMzXr7UIRZgj0YtLopm1uHnE0DGPbhjXBHBJ+fnoNWkmWh6/Ko2sKzBn4t
- R1X8glIwP5na9A93tTFMyo7WhedflVGLAz2an8mSgj97HfiB7AdBB29eS/2jBsD06nNdPlkvmle
- SYuDQ6BzxSgNfOqOKgp4AP1NZrG+GK6yf7hLdEIc/thrgCbs1TkhEerN6puj6HzDB0z6dsFAB00
- O8w65xz8H4Mp6DLoq9hZ5K32a7D7PDe0Jzf3rMrYj75yBf9lm+chkYvtILXe+MzayXZ5c9T4iZ8
- /wGChVvbx25e9HMV7fBtnjq4YmmV3Jim+KYTFKIe4D7pFdZAApGMChYfDOTRpmmZ/StVRUN+zbC
- 8nxnaz8qO9eme3+fpzagYhY0u58TNHxUUC2MRLrlJNnDaNqDoWyRgx6bkF1uNTLsA5c08PsuST8
- eYc84NMs9gaUulg==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 17 Nov 2026 15:06:48 +0100
+Message-Id: <DMXJLLR5G071.39YELPNJSLNZ3@kernel.org>
+Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
+References: <20261112101015.528127-2-phasta@kernel.org>
+ <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
+ <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
+ <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
+In-Reply-To: <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
 
-On 2026-10-31 01:49 +0530, Vishnu Reddy wrote:
-> The decoder input configuration parameters are sent to the firmware every
-> time the output plane is streamed on. This includes streamon after a seek.
-> Resending these parameters generates a port settings change (PSC) event
-> even when the input configuration has not changed. The client then
-> receives a redundant resolution change notification on every seek. A seek
-> hang was observed when redundant PSC events were generated for the same
-> configuration.
+On Tue Nov 17, 2026 at 10:51 AM CET, Christian K=C3=B6nig wrote:
+> See the HW eventually doesn't necessarily stop doing DMA if you unload th=
+e driver.
 
-Its not clear reading the git log here where that hang occurs. Userspace,
-kernel, firmware ? I think you should specify that.
----
-bod
+No, if you can't stop the underlying device you must not unload the driver =
+and
+leak resources. Device resources (such as DMA mappings) are not safe agains=
+t
+this and it can cause UB in many layers of kernel, e.g. IOMMU.
 
+> I even know about one case where a driver fully intentionally leaks memor=
+y on
+> unload because the devs couldn't figure out which FW keeps writing into a
+> buffer.
+
+Again, please don't finish unloading then; everything else will cause UB.
