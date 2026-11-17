@@ -1,89 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794905938;
-	b=m5BYk6QDWHUsanlVxmXuquGXFuCLSheit+FJY1pbdYTqpe3m8ISFtBtRjU/3PoAv0Nxj
-	 Jd0Go2aTsCs/e62XPhwGHsTL/SHg6UNRuC9/Fx/c9STX6k+33dCzbz/FC69QrLdMJh+hO
-	 i+Ky7NZqk7jPeWo2uUGobvhww78exvI4Vh9ZNxu28QQx2C5FQ8vJEK3upNVWlr4rKhYv/
-	 IHUo8HG/bfAg4mAfVCfWEAHXaInObkNZiCH45NRTn1JHRThxROECieKvpEMCsPzOGVj95
-	 nvXqpT2cS8y85S1tOKQ9vaJm85cGeqzrlfEunmxQI8xz4F5pBjqJZkH/DmCvHTLor4w==
+	t=1794906139;
+	b=cAZfYrj0Gvz5+60ay9bAF+RP7I6MQnyIRMOFzY8nYDGSUlsafZDJscnzbnsegE647z1U
+	 goBIUGLbKSO73P68ViyktSJFwLSibX3e4FtdsVrTHqDdcPwrazP5ZkqUn0Qg/KXSRg+l/
+	 NYBWcIW9Ww2bRdPZFjwEFgPt5ak8PBmAZZVdQ5LVv4b38oIfkYZ+74d2Fv4MJ8DHBozsv
+	 UvyWfXAxzVclzWe2nKCNaARVuBUHCIhd7NBYlrFskHAIzNTIDHSQJUgVjhYRqWRnqCQoB
+	 5lQZNZ5YIyju+p1WA79G98myy5SoX5NLxNKb7hfowEZbQUY1raJC+K9KVvw1sdkg0Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794905938;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-MTK;
-	bh=xq0pQEEgy5ghOEfn5TkppoZ1H8yF9gGw1x6rHra5UdM=;
-	b=HCpjgGgfkK82FziV3RKwyhO98bvJ36kDcBA/MGTEjqexZWH7ACaHd2Za2vfYHuC4bQdm
-	 hctLcLGFcK+EqdQ85G44JOBg8a+KLOpeQHFJOCpWM9F/TEHAMZNjNrY/epJzBGRmJf9ek
-	 z5b7MqsW3F4BmZIlhAdpGymQM7URr3EKWPddvzpa2TTYx6Emsm4Qci6mu8cvuOxZ15T/w
-	 5+4Na7TzTiJXM5jTKTgVc+QbAOIkjSvHcjwGis9HaHkA24NIg7Rb9RTiFqr9SgqdEsxG2
-	 4WwlnqJx38k72gQxghQ4rN/4JxDZcpAvm/6Lebt/AXs9YBjln8rLPwiyPjkzgjuUaPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906139;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Oc7JaEjK7wSuv1BcORZ/w1L9V0je8YNCe6SbYieskA0=;
+	b=M3yQws3LGj1d0ARoklp9y8qwDna/dzl/Tzu2W3e+H7I8jqDfbTCV1NJCSaTUSfpmjW+A
+	 f8L8OEvgmYrxJnsoSTGCspfIdZB4YgxPZC9rSzY4NQImP8Y5MLHfICnTGnFb+lSC6q1+Z
+	 4+v1WHVv4PD5/9Uw2ek4uO0SqT3Ac3C/X9PVb30BkWOuY3OiPq707hqUsxTDdtfsR0gZ3
+	 sRf4axWOD+UZD4S5OfvESgazoI/WBoBbfxcLbwKUAw8+bF87GT5bkGDt53OWLfsfOsiEY
+	 9W+w2Ssb+ya6976YRD6MYVKyZ2h+S6WNId3rt2YiubX/PGbTdeTLgeuMTatksgQsvXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b="IO/KLvXI";
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J3d5D6n6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E8A606A8A1;
-	Tue, 17 Nov 2026 08:58:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56E8A606A8A1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B17B606A329;
+	Tue, 17 Nov 2026 09:02:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=IO/KLvXI
-X-UUID: 1c97fdeae26511f18dc8c9802ae25ab1-20261117
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=xq0pQEEgy5ghOEfn5TkppoZ1H8yF9gGw1x6rHra5UdM=;
-	b=IO/KLvXIBWdY18W4lUCQHA+1hqSrg30J5JxQhFtBiMewNTRUQqFt1/gbTxOTYeRXUFIFSpG2DtnJ90onvG3dBvkhKA/ruifi+q0VLPBkc8L6XtJ6civsIOubio3+HHwv2CU6qyZ5Cv5ONqLsDGDOpOjY6mqqvY+S8udZf6NSZp8=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:92adbe55-e611-40df-8eef-982b5192ef60,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:b0318ac,CLOUDID:b3aef730-f289-4656-bb36-27baf4489f11,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 1c97fdeae26511f18dc8c9802ae25ab1-20261117
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw02.mediatek.com
-	(envelope-from <kyrie.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 530317788; Tue, 17 Nov 2026 16:58:52 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 17 Nov 2026 16:58:51 +0800
-Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
- mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Tue, 17 Nov 2026 16:58:49 +0800
-From: Kyrie Wu <kyrie.wu@mediatek.com>
-To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
-	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
- Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Kyrie Wu <kyrie.wu@mediatek.com>,
-	Hans Verkuil <hverkuil@xs4all.nl>, Nicolas Dufresne
-	<nicolas.dufresne@collabora.com>, Nathan Hebert <nhebert@chromium.org>, Arnd
- Bergmann <arnd@arndb.de>, Irui Wang <irui.wang@mediatek.com>, George Sun
-	<george.sun@mediatek.com>, <linux-media@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
-CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
-	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>
-Subject: [PATCH v12 10/10] media: mediatek: encoder: Add MT8189 encoder compatible data
-Date: Tue, 17 Nov 2026 16:58:33 +0800
-Message-ID: <20261117085834.1464723-11-kyrie.wu@mediatek.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117085834.1464723-1-kyrie.wu@mediatek.com>
-References: <20261117085834.1464723-1-kyrie.wu@mediatek.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J3d5D6n6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C10D1F000C4;
+	Tue, 17 Nov 2026 09:02:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794906138;
+	bh=Oc7JaEjK7wSuv1BcORZ/w1L9V0je8YNCe6SbYieskA0=;
+	h=From:To:Cc:Subject:Date;
+	b=J3d5D6n6QVbrWgy7xyIl+z6FZghP6lKKgRSkK+w7+ZqUYCDnYlpEp7G3lSlP+TE8Q
+	 NmYk9iGSBX7AV1dF+gospoTwm6GS+1OQfjebtA3LQl8XY6Qvs10sHrLGTCzEjIt8EM
+	 9VD/SAORPr7yoW8RRm/CwErAWBrWnKFdtkKzeSL9NS4k/Rz+NqZz2S7zMOYACCdfhv
+	 u0gHk86ion/xeM91zVqs5Mdx0XLNBgHrmRWiOmoKLQxaaTlVTEJfIAjRikeHZ7+p/6
+	 Sdd3q9RMOlI1z87BuESCTPo7u9JG3XvFOFFKDgDcmnsqNSilCmCXEktxQpXWmoEml0
+	 K/UgtZiSTvmZg==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Chris Wilson <chris@chris-wilson.co.uk>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] dma-buf/dma-fence: Prevent misordering for error checks
+Date: Tue, 17 Nov 2026 10:01:45 +0100
+Message-ID: <20261117090144.581909-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -94,52 +67,66 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
 
-add MT8189 compatible data to initialize platform data for encoder.
+Many users of dma_fence do things like:
 
-Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+// Thread A
+dma_fence_set_error(f, -EINVAL);
+dma_fence_signal(f); // <- Takes lock, which orders against the above.
+
+// Thread B
+if (dma_fence_is_signaled(f)) // <- Does test_bit(), no ordering.
+	pr_info("err: %i\n", f->error); // <- Can be loaded first.
+
+There is no memory ordering between reading of the signaled-bit and
+reading of the error code. This can result in outdated, wrong error
+codes being evaluated by the user.
+
+Though dma_fence_get_status() does take the fence lock, it is equally
+broken because the misordering can simply happen within the critical
+section.
+
+It's not entirely clear since when this bug exists, but at least since
+dma_fence_get_status() was added, which is why its birth commit is
+marked as the Fixes commit here.
+
+Ensure ordering for everyone evaluating the error code centrally by
+using test_bit_acquire() in dma_fence_test_signaled_flag().
+
+Cc: stable@vger.kernel.org
+Fixes: d6c99f4bf093 ("dma-fence: Wrap querying the fence->status")
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- .../vcodec/encoder/mtk_vcodec_enc_drv.c         | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+Changes since the RFC:
+  - Order with test_bit_acquire(). (Gary)
+  - ^ also makes it easy to backport this for now.
+  - Try to document roughly what is even going on.
+---
+ include/linux/dma-fence.h | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-index 8106a63f8..05795e77d 100644
---- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-@@ -483,6 +483,22 @@ static const struct mtk_vcodec_enc_pdata mt8196_pdata = {
- 	.ipi_id = VCP_IPI_ENCODER,
- };
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..a8d23fed70b9 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -496,7 +496,16 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
+ static inline bool
+ dma_fence_test_signaled_flag(struct dma_fence *fence)
+ {
+-	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
++	// Best-effort ordering of the locklessly evaluated signaled-bit,
++	// especially so that reads of fence->error are not misordered.
++	//
++	// The release counterpart is typically ensured like this:
++	//   a) Error codes must only be set before a fence signals and
++	//   b) The fence's spinlock's barriers effective in dma_fence_signal()
++	//      ensure ordering.
++	//   c) For users of dma_fence_signal_locked(), the barrier implied in
++	//      test_and_set_bit() should do the trick.
++	return test_bit_acquire(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+ }
  
-+static const struct mtk_vcodec_enc_pdata mt8189_pdata = {
-+	.venc_model_num = 8189,
-+	.capture_formats = mtk_video_formats_capture_h264,
-+	.num_capture_formats = ARRAY_SIZE(mtk_video_formats_capture_h264),
-+	.output_formats = mtk_video_formats_output,
-+	.num_output_formats = ARRAY_SIZE(mtk_video_formats_output),
-+	.min_bitrate = 64,
-+	.max_bitrate = 100000000,
-+	.core_id = VENC_SYS,
-+	.uses_common_fw_iface = true,
-+	.set_dma_bit_mask = true,
-+	.fw_type = SCP,
-+	.fw_init = mtk_vcodec_fw_scp_init,
-+	.ipi_id = SCP_IPI_VENC_H264,
-+};
-+
- static const struct of_device_id mtk_vcodec_enc_match[] = {
- 	{.compatible = "mediatek,mt8173-vcodec-enc",
- 			.data = &mt8173_avc_pdata},
-@@ -493,6 +509,7 @@ static const struct of_device_id mtk_vcodec_enc_match[] = {
- 	{.compatible = "mediatek,mt8192-vcodec-enc", .data = &mt8192_pdata},
- 	{.compatible = "mediatek,mt8195-vcodec-enc", .data = &mt8195_pdata},
- 	{.compatible = "mediatek,mt8196-vcodec-enc", .data = &mt8196_pdata},
-+	{.compatible = "mediatek,mt8189-vcodec-enc", .data = &mt8189_pdata},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, mtk_vcodec_enc_match);
+ /**
 -- 
-2.51.0.windows.2
+2.56.0
 
