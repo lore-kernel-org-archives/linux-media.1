@@ -1,87 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794956092;
-	b=i0g2PW0qQ65peAUlCQy5W1TwKxLllYCLLokyvfJbIx3kJeyVbi629/Wvf1DWkZe6UAo/
-	 MN3IojagCit0xpSNOxBWkpOI/bjH75KFd7Wvs5+REm1uIfPC2yDQI48oW6cTs4jg6rlwh
-	 XSb1bKJHoMU2lLIMPtBkEuq5HBG9Zi4HzQH1ky+B/xNAJ5zBmGUVEDk4oyEtZiFIf5wOb
-	 rLqA72u92W1lz42Xuhiul6aYTBFdirfhFFJnHIYU4zs0CmZ76UlNaIF2KhWxrrGE6410w
-	 CSf25yZ3yoQN+BCclMRCZhhh6+KCJg7UCEGZpcRoF/zlf7Qz15/I5HoS4zaeAWbFcuA==
+	t=1794958400;
+	b=eai/aoADAdGV27N1QE8ZiziG7kYh8Sn+UP7mFo2j5on0Ho5VsL9dj0IMg9mhvFaKgmTn
+	 DgWBRkRDjG1t2jx0apl88bYXFl/V+20s+TeWrecj29hR2bO5wJkEaDsfrYHovrEtK/Y2o
+	 DHowVDcBUBPDeuJ7ELt51hczT7kVnz3IZSJ92M/7x0KAWdewmbN1aVlcDV8Ld490XEkmR
+	 7pztNV7lwoG6W0KCNmo1MVewfFzsnEjOM/mYxnNtQOs9P+SxWklmDsku22Agy2imH9oHP
+	 cqizlIWpf0UFwtk449K07bokRvcXeAZWni//OSNHlDCMsE00dp1gIC+qOKT7Kd3Ap/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794956092;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:From:To:Cc:Subject:References:In-Reply-To;
-	bh=x7mnzARqVOnOj+KyQYPdVsGKtz9mrESSr8dwZPCPrb4=;
-	b=C4fNt+3Oe7xugJJWogg7OfTNB98ZfmJ6hA5fNwryI97pzc2cvxAcDChQHDhW2BRKqt29
-	 lvuGtTlPFiY5p8a7WF1vPPaNjB+tv+LNJZwAOTVkFLXSF1pzmB0UGjRkf0FWdTTkh8OvM
-	 YK8XD3o2fv6bQA6I+sVNQWVUOJsVH2k9jozYANlq+KtGuUJyR9mbNTPGSUvdMOgbCGPT3
-	 AtUrAEB1c3b7oQ4ZoB8ae+fhcYBZHvW8+1cOepIttKLxWaC+doCyqFAbjJk5f0WbxBxx9
-	 eiN8bpG9foxHQ8qgLF1RfUGFZXaq+QVoyW/aVNd1hFmDJUtcQm83NIjCCYKbFvAkanw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794958400;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=VVypS2BH7BTIDP8XvJg3P0/Wb4ccvreAy4viuz45dWY=;
+	b=NMuum0U77ap4cHo1khaSjdw7iNldAntA2+8p+hq84g/+D3DTE5Acm/dVS+tV5UiG1fgT
+	 EtI5NgAU/QW6qACitInCWWwTdM9uyCAyUWrvnEuJ0y6W+4brg9DGR5FuHY1Zk3LR857rL
+	 Yaf4CdlhPHel1C790xj3jD1s9UpvIVOxlaZpvD0pVNDulMzl2ncvi+1wSWR5aWYkVIlmH
+	 66bsunXV18klGEn4gtQNkwv2W97ODWgfd5+LC4pfZesDPc6rEIzZipZw1pRBw2vKcAGHt
+	 u/9xGHKFwPHJxRE9qxrKiOJao6FkpDL5tXo/cDmLkaVPCjrgd7ypHsGjlF/J/wz39VA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paul-moore.com;
-	spf=pass smtp.mailfrom=paul-moore.com;
-	dkim=pass header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=UtNCGZpE;
-	arc=none smtp.remote-ip=209.85.160.169
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=shazbot.org;
+	spf=pass smtp.mailfrom=shazbot.org;
+	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b="O/nAIQ7K";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=wsdD1Jy0;
+	arc=none smtp.remote-ip=103.168.172.145
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A9FB606A889
-	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 22:54:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A9FB606A889
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED85606A33A
+	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 23:33:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AED85606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=UtNCGZpE
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-55d3563e50eso4401421cf.0
-        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 14:54:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1794956091; x=1795560891; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
-         :content-type:mime-version:message-id:date:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x7mnzARqVOnOj+KyQYPdVsGKtz9mrESSr8dwZPCPrb4=;
-        b=UtNCGZpERg95VgV31TLB6SKqg3O5IY7S5liFSjgST8jxLuBTyzR7elX/LO4B+17kMt
-         emUhFzAJ523PtXBWTKI4rJMkk8L8iAvXpxzY9TD8MMNsDMv1FPwo0jiVBLw0TxZJzSRm
-         M5cRQRyRj7aHzh2YUb3Vb/bnEnakXFrgtav82xnixUcrNWbKQWH1k3udT/v1VIasKqLO
-         uTKsS5k+9nPtBkkZasSNBsAuQHTcOe42csFt9XQI85jVgcm952Uo/h8/s94MGZwEY4QT
-         dXQU1KnqOHAYC64PjxxQG6jfuYnQpsTsPvjaGwD16PnS2iNvHPZBi8Zn6I1XhQdylkcD
-         T2kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794956091; x=1795560891;
-        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
-         :content-type:mime-version:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x7mnzARqVOnOj+KyQYPdVsGKtz9mrESSr8dwZPCPrb4=;
-        b=xO4QTJ/6/1JM+0VySY1xX9Pzvmv8C8IGvNMzMDdsWop34n1Qbitcj5hsgfvmJNSIob
-         zpceXAixhAnuE407qSxNmRQ/CGwRbIiCMytW+22Wpv5FbgIpKrJpoSTEAcRwrriiO21l
-         sRP2Gnq52vDOYcfuizIQteaaMCTCRqjyrg2hDM3/hAHnZ+EiiKHXt1T6n1Ms/AG5SlRr
-         euo7h89KETBh6gG6Z573EfsWrF63osChZ8uV9MDZFjo493l2AzugxUumCYPuCX9NjHDH
-         kQmeiwxrle2QEHDGNASZb/BREfub4lvUZjWfM3FrXBDeJ/sIQerORChWVIcooVU0gf9Y
-         KyUQ==
-X-Forwarded-Encrypted: i=1; AL+hErHdTJC2wFD6GJojg2Oi8csjqwqzi0f/OggCTljfgwvxk1VGXAp5x3wu8I67SyMJjabZFYVsbjtkItCkdA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/1HCn5dZna/awXepOYh4Y3eXWloCdJkegEAXicvUYkbeCfb4BZ
-	L/Qw80SZOIO6LqxR1TLAUkdX5oEmYtJ+/B+DHD22KbPtD1vJkm+ht8z9r1myHfJUsA==
-X-Gm-Gg: AYBFou3Il8C1ghbnnLtpAjRIx18X4JJz1V0rrCSSN01oE8lmob6HRjrsVLkxsEDjiUP
-	H0zkJzW8R9bYPnfAc9y4bc3LVSOyj+lGfgaqy/+AwnX+yfzKB62qYMDQ1H0LeUZ3jvHkRXIWB/I
-	2Run9pOyTbwop6Qf+EkK0G35L+0c9KcNijmmHothN1uqe82v4YpZiRhNTuC2d96Foo2aXab0fG1
-	0eKkgyLsGnprW0g3WSTskEXuRLxSRcM9/pSVHrW0ZeeWAhzy6dyxrN3vVs7aDbrh/bws6BAa+xf
-	5YM2SIBe3pM6uuDw2Jv0Ad5hIBnf720QVL0UXgghwqwcTVWqpa5boggJjaMWeGDP0fBndUWqH9p
-	4ZsXV0gtLFjpy6bDE2ALByaMWaa2tYZDhj5t5fD5vOG7g+MbSuv5jDpktLgtym97prHecXTnIg6
-	xYp6igqyyje6BSf79A/kGEXlJq/uhCJKhdjBQUxH1xfA8hLq5LfgmRfcc8Hq8dRTQ3T2w1e2nxQ
-	srPAtmsZZDMEwADQAuaXjyiBVZjWik9z+Q7xGOplZLGmDXGq4BG4CTGtjq46i53y3WqhNfFH4jz
-	hnUZbwv93yax0T2bL0Phz1o0Yzej9+A9YsDXiwlqkxNove01fdbXNKY2LDDLIKKOFsKpCMNI8ca
-	OA/qaogxflpe7JUzzs3xYOhO7CZBCUBbQdlOG8GY3wzlxWGnCN/k=
-X-Received: by 2002:a05:622a:1647:b0:535:92a6:22db with SMTP id d75a77b69052e-55d5a36e150mr14373911cf.1.1794956090990;
-        Tue, 17 Nov 2026 14:54:50 -0800 (PST)
-Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d58fea01dsm7818061cf.8.2026.11.17.14.54.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 14:54:49 -0800 (PST)
-Date: Tue, 17 Nov 2026 17:54:48 -0500
-Message-ID: <44c0c45c0e2f47ed77bc45be47ebb3fb@paul-moore.com>
+	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=O/nAIQ7K;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=wsdD1Jy0
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id C9D09EC08B4
+	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 18:33:17 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Tue, 17 Nov 2026 18:33:17 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794958397;
+	 x=1795044797; bh=VVypS2BH7BTIDP8XvJg3P0/Wb4ccvreAy4viuz45dWY=; b=
+	O/nAIQ7KIz9miCX8OUQv0exfIWDQo6GU4ZnGJjkSH5NHfhU0Vu2iqezwq1Tw5iwO
+	qgbLYGQ6OGMLLJgVYcoB0mG/GpNpaNRR31l/vgRmIXqEU4zrDeqdbs5KOlMYdfKW
+	OpLa/KYF8nhviereQVFZE0gdQ3s73d4iCq14zGRS5Qplir7FovxBb9D3CBNa6aRf
+	gCGrQJ88auWUxJ+H8Wv9vS+890bwngIH1beLu5uKJMERw4v/aji3xpXCiGLmQqB5
+	kEMzDNecRk1OeZZfQTF7zmHr6LuiP5zi2i+iaO7acETL4+H2omj4ugIc+QPaJZtI
+	BvBIfYwC7asH/6k94hTtqg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794958397; x=
+	1795044797; bh=VVypS2BH7BTIDP8XvJg3P0/Wb4ccvreAy4viuz45dWY=; b=w
+	sdD1Jy039J3NtkZibDurMKuGngpWJ1hYQY5vV4YjfjIBNTbCLguD9broxlEUZbaR
+	2izOMSi5IBzFXBPmHso1PSpjYvmH6+K7XexGqiHCxojQhmvNgvQG/fVewthpBS8S
+	wkT1nVPWdmVmxjxaS3tMppAfdGggY0fdKwAVo56D+JPge6u/nNTfnxRnWlzihOs5
+	cfA6U0TuFIgsnEgx1RjMzuiz+CQX/mV0QsRhr+J1rjLPnJhze2f/vCEPc8cXKQHx
+	+HMD3KuoN9iMTv5Bm2S7vSd7c6PlHL7qWJK4TySMLftqE/F0nM8H+pO8lmQVj781
+	aDIJMYARTQP8WabajZDwA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=shazbot.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794958397; d=shazbot.org;
+	mf=PGFsZXhAc2hhemJvdC5vcmc+;
+	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+	s=fm2:rsa-sha256:NhEL4F5hlElskv14Hn8ab2DBqyJ5H8Q7lbsXoogdOWiFC6Q
+	fVbQIxtA3NTcMrmovtVuEdm5gNeTg1hCgITd5PGwVJOBLOY5/K6Rian6SI1yoqB+
+	NZR7Nn4qhw2T/X3wxltxt3YLbYucOMuAXFJkG5eZ7jcZljYaQo1vyMTZxmZ6NOkD
+	xYrNbGZwHLcnWMv93lyyhNBEG2VHXZVmCO9vMnZIgFnL29p8D/q/RZqYhn3mdm4k
+	BV2uCia52x43lYttDhkEzybxQT4ie+Ys77+txfVjaeTEmN6kiIxQgSdGP94816cM
+	6NIkRs7AtDp4xAOioDP1u57DZ2WANzae7N6tc6g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:27q+KKo7XnsStduA99iu8sekMRO96NPbttKWHrolhyQ=:G/nOOdXrvsS0XmMnQ6K7L6R8U7MrOUPnWlNPXGT9/WE=;
+X-ME-Sender: <xms:POT8aoQqA35B6qL_87dZHdopUrCwbFiYGMLmDlRhohAM_6jXOpohXg>
+    <xme:POT8ana5BD-CqIq4YCJ_VxbZH0f_RrLxPI5pYLproLh_6aS1a4uDFrGJ6LNxMEG1u
+    W72883v_U5jPM3AwBCkWTov6M-3pGhlcherrFijxKBC_PhF1FSHeprY>
+X-ME-Received: <xmr:POT8ap7gLMc5gBNgElZtmUlkErVQgRxoljrCdyGXwofOstBdGxe-RJmjuxDbMw>
+X-ME-Proxy-Cause: dmFkZTEkeKvcm2WWrV2Nam7Bf9ttXaRNcoFtwJYSfKOnyZQAU7CIanTw/rB2zVFRxoJI7h
+    IeudW+EeYwM49qZ6JZju/1GP0nP1Yv+kKkk/D4K930wUxQFcV0XlueXiz+7hjD5kmfaxRz
+    bBO3bIRzJoak1QL4Cfa4ASNcv2DAa/M8Z/hOx/jaweCnB2/0DIYpjZW1n8hrKjwCE7vNrU
+    P6wpF2p6xUeHF/dxlX9rqKdWZnj4adKNhvBP0hSS6o2uLn/cbVB7VrGdYl3wKD8Sodunof
+    tZdMmG/A6owkaSnJITXQLPNles7P2CY/46fhuo0jkSJ251dn9SMZ/Ol2LQy+TNqCcgU7Vm
+    lm1NNi1iesVxRVZxXbmKOE3n/CdMBi183kA973NWbfyZ0pnChEb3ChV7mp4YXeuqfpwxY4
+    Jqltnk4FZ6BiJAdvWafESXPMn9a7Fx26bsfnNsNFwkTO7zelG2w0PlXuQ5fzdgBMbt/sl9
+    fjaZOJinNB0XupczM3md3crznTNbVq0htZl8rExZOtos0XXkNm88ky94vlSQyxt3jRm5HS
+    2j2MH+LtkUeyPFu5ZHApXldAXs0ySexEJVl76LobcwpHdyBpfE+Ra/iVY9x6zdHO5XG1WO
+    Dky123hcOfWBFLokWvfQgqvXTUAkUdbwwKwhHUBC3Ajc2gyrbR5AkJZ2iKxQ
+X-ME-Proxy: <xmx:POT8aic-o_s9k0Y30RnqhRd18SaRIZ9tHLj3dSsdN4TuAEF6_5-QnA>
+    <xmx:POT8agcdR7quKdAGTgD1yur1yrBabZ_ij82eVJH_AtuIrQUVbEGU9w>
+    <xmx:POT8anGZIAvYlwHPBLRFCh1vJiRMyOgyn0nbg8n2MW3f1X754NtGDg>
+    <xmx:POT8avHrFNE4YwcuGc2gLce7BCcooJkx91dGrWJL_egKNT5HJLLXIg>
+    <xmx:PeT8aoxvctf3KU46eZg9ZJgxx_Q0Im4OHEmS79puSaSmXa8HwuH-7O-U>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 17 Nov 2026 18:33:14 -0500 (EST)
+Date: Tue, 17 Nov 2026 15:33:12 -0800
+From: Alex Williamson <alex@shazbot.org>
+To: Matt Evans <matt@ozlabs.org>
+Cc: Alex Mastro <amastro@fb.com>, Leon Romanovsky <leon@kernel.org>, Jason
+ Gunthorpe <jgg@nvidia.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Kevin Tian <kevin.tian@intel.com>, Pranjal
+ Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, Alistair
+ Popple <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org, alex@shazbot.org
+Subject: Re: [PATCH v8 8/9] vfio/pci: Support mmap() of a VFIO DMABUF
+Message-ID: <20261117153312.781fd839@shazbot.org>
+In-Reply-To: <df301c78-2745-4c64-a331-c830efb74660@ozlabs.org>
+References: <20261006193643.76330-1-matt@ozlabs.org>
+	<20261006193643.76330-9-matt@ozlabs.org>
+	<20261013171347.54e856c7@shazbot.org>
+	<0bd00c26-4f53-4387-86be-99f0c37fa47c@ozlabs.org>
+	<df301c78-2745-4c64-a331-c830efb74660@ozlabs.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,111 +137,150 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 
-Content-Type: text/plain; charset=UTF-8 
-Content-Transfer-Encoding: 8bit 
-X-Mailer: pstg-pwork:20261117_1552/pstg-lib:20261117_1552/pstg-pwork:20261117_1552
-From: Paul Moore <paul@paul-moore.com>
-To: Albert Esteve <aesteve@redhat.com>, Tejun Heo <tj@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, 
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
-	John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
-	Christian Brauner <brauner@kernel.org>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
-	Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	=?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
-	Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
-	Philipp Stanner <phasta@kernel.org>
-Cc: airlied@gmail.com, cgroups@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org, linux-security-module@vger.kernel.org, selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, op-tee@lists.trustedfirmware.org, Albert Esteve <aesteve@redhat.com>, echanude@redhat.com, mripard@kernel.org
-Subject: Re: [PATCH v5 4/8] lsm: Add memcg_charge_task LSM hook
-References: <20261117-v2_20230123_tjmercier_google_com-v5-4-1ce975f2a9ad@redhat.com>
-In-Reply-To: <20261117-v2_20230123_tjmercier_google_com-v5-4-1ce975f2a9ad@redhat.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Nov 17, 2026 Albert Esteve <aesteve@redhat.com> wrote:
-> 
-> Both DMA_HEAP_IOCTL_ALLOC and the new DMA_BUF_IOCTL_XFER_CHARGE ioctl
-> accept a charge_fd field that, when set, causes the allocation to be
-> charged to an arbitrary process's cgroup rather than the caller's.
-> 
-> Charging is currently limited to the caller's own memcg subtree unless
-> the caller holds CAP_SYS_RESOURCE. But the capability is all-or-nothing.
-> A process holding it, along with a dma-heap device node or a dma-buf
-> fd can charge unlimited memory to any other process's cgroup, potentially
-> exhausting that cgroup's limit and triggering OOM kills independent of
-> the victim's own activity or privileges.
-> 
-> Add security_memcg_charge_task(), called in get_obj_cgroup_from_fd()
-> when charge_fd refers to another process. The hook receives
-> the credentials of the allocating process (from) and the credentials
-> of the process whose cgroup will be charged (to), giving security
-> modules a controlled enforcement point for cross-cgroup objcg
-> attribution policy.
-> 
-> When CONFIG_SECURITY is not set the hook compiles to an inline
-> returning 0, adding no overhead to the fast path.
-> 
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> ---
->  include/linux/lsm_hook_defs.h |  1 +
->  include/linux/security.h      |  7 +++++++
->  mm/memcontrol.c               | 11 +++++++++++
->  security/security.c           | 15 +++++++++++++++
->  4 files changed, 34 insertions(+)
+On Wed, 11 Nov 2026 10:48:47 +0000
+Matt Evans <matt@ozlabs.org> wrote:
 
-...
+> Hi Alex,
+>=20
+> On 14/10/2026 21:38, Matt Evans wrote:
+> > Hi Alexes,
+> >=20
+> > On 14/10/2026 00:13, Alex Williamson wrote: =20
+> >> On Tue,=C2=A0 6 Oct 2026 20:36:36 +0100
+> >> Matt Evans <matt@ozlabs.org> wrote:
+> >> =20
+> >>> A VFIO DMABUF can export a subset of a BAR to userspace by fd; add
+> >>> support for mmap() of this fd.=C2=A0 This provides another route for a
+> >>> process to map BARs, in which the process can only map a specific
+> >>> subset of a BAR represented by the exported DMABUF.
+> >>>
+> >>> mmap() support enables userspace drivers to safely delegate BAR
+> >>> sub-ranges to other processes by sharing a DMABUF fd, without having
+> >>> to share the (omnipotent) VFIO device fd with them.
+> >>>
+> >>> Since the main VFIO BAR mmap() is now DMABUF-aware, the new mmap()=20
+> >>> reuses
+> >>> the existing vm_ops.
+> >>>
+> >>> The lifecycle of an exported DMABUF remains decoupled from that of the
+> >>> device fd it came from, i.e. the device fd could be closed with DMABUF
+> >>> VMAs present, meaning a fault on a VMA could happen concurrently with
+> >>> vfio_pci_dma_buf_cleanup().
+> >>>
+> >>> To deal with this scenario, the fault handler now temporarily takes a
+> >>> VFIO device registration to ensure the vdev remains valid, and then
+> >>> vdev locks can be taken. =20
+> >>
+> >> This sounds like potentially measurable overhead if something is
+> >> slamming the fault handler where huge-fault is not supported or active.
+> >> Have you considered a fast path for the internal dmabuf where the
+> >> lifecycle is constrained? =20
+> > [snip]
+> >=20
+> > Hmm.=C2=A0 I'll hack up a test to try to measure the relative overhead =
+of VMA=20
+> > faults before/after (modulo access to meaningful HW). =20
+>=20
+> Alex Mastro and I have put together some tests, and measured this=20
+> overhead on the v8 series.
+>=20
+> https://github.com/evansm7/vfio-playground/tree/master/vfio-barmap-perf
+>=20
+> Alex also generated a similar test with a slightly different method:
+>   https://github.com/opsound/vfio-tools/blob/main/vfio_bar_bench.c
+>=20
+>=20
+> Test method:
+>=20
+> Time accesses to a VFIO mmap'd BAR immediately after the mmap, to=20
+> measure the 'cold' initial fault time.  Re-time a second pass for which=20
+> the pagetable should now be populated, and subtract.  This should=20
+> isolate the cost of the fault (uarch exception, generic pagefault=20
+> plumbing, VFIO fault handler) from common costs (the MMIO access itself,=
+=20
+> TLB misses, the loop iterating across the BAR).  Maximise the number of=20
+> faults by disabling hugepages (per concern above).
+>=20
+> This is done both for a single-threaded case which just iterates across=20
+> a new BAR mapping, and a multi-threaded contended case.  Rather than=20
+> just pthreads, this test fork()s to try to avoid seeing contention on=20
+> per-mm locks (e.g. mmap_lock) and to focus on the VMA/VFIO locking.
+>=20
+> The default test mmaps before forking, meaning there's one shared=20
+> mapping/DMABUF accessed from both processes.  The fault handler should=20
+> then contend on dmabuf->resv, vdev->memory_lock, and vdev->dmabuf_lock.
+>=20
+> For comparison/curiosity, the --mt-map-late option mmaps _after_=20
+> forking; this leads to a mapping/DMABUF in each process so I expect no=20
+> contention on dmabuf->resv (but still on memory_lock/dmabuf_lock).
+>=20
+> Alex's test instead runs threads in-process, and goes further with=20
+> supporting a larger number of threads (though with the caveat that they=20
+> may also be fighting over intra-process mm locks).  It also supports a=20
+> mode where threads can access per-thread VMAs (which is comparable to=20
+> the 'mt-map-late' option of my test).  Both are interesting approaches IM=
+O.
+>=20
+>=20
+> Findings:
+>=20
+> On the dusty AMD Ryzen 3950X under my desk (targeting a 256MB BAR) I=20
+> found the following averaged over 200 runs:
+>=20
+>   - A single-threaded/uncontended fault became 5.8% slower
+>   - A two-process contended case became 8.7% slower
+>    - 0.5% of this is the "early mmap" dmabuf->resv contention, i.e. using
+>      mt-map-late (a mapping in each process) reduces by 0.5%.
+>=20
+> Alex's runs on fancier EPYC 9334 machines show a similar (slightly=20
+> lower) overhead in the 1-2 case, and go on to show fairly high overhead=20
+> when many threads are involved (baseline times in ns, relative series v8=
+=20
+> behaviour in percentage change):
+>=20
+>    Threads    One shared mapping   Mapping per thread
+>               7.3     v8            7.3     v8
+>    --------------------------------------------
+>       1       761   +4.5%           777   +2.7%
+>       2       869   +6.6%           840   +5.6%
+>       8      1465    +78%          1363    +47%
+>      16      4152    +97%          4258    +19%
+>      32      9927    +92%         10158    +12%
+>=20
+>=20
+> Now.  The absolute timings of these sub-microsecond faults indicate a=20
+> realistic application won't see a human-visible change.  Small BARs=20
+> mapped with 4k pages are still fast to map;  it is reasonable to ask=20
+> that applications map huge (GBs/TBs) BARs using huge (MB/GB) pages!  Of=20
+> course, this is just a one-time cost of warming up the VMA, not ongoing.
+>=20
+>=20
+> Alex, my preference is not to complicate the fault handler with a fast=20
+> path just yet.  It's easy to think of a contrived scenario where this=20
+> matters but in middle-of-the-road application behaviour it would be=20
+> surprising if this was noticeable.  What are your thoughts?
+>=20
+> (In the previous mail I suggested keying off priv->vfile (or a flag=20
+> thereof), and it seems ~straightforward to skip the extra=20
+> synchronisation.  If you feel strongly that the fault handler doesn't=20
+> have enough if() statements yet and needs more paths then we could bring=
+=20
+> this into v9, but would prefer to follow up later. :)  A fastpath diff=20
+> appears small but the reasoning overhead is bigger.)
 
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 03cd90d5e623..2e6fcbe14d43 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -60,6 +60,7 @@
->  #include <linux/lockdep.h>
->  #include <linux/resume_user_mode.h>
->  #include <linux/psi.h>
-> +#include <linux/security.h>
->  #include <linux/seq_buf.h>
->  #include <linux/sched/isolation.h>
->  #include <linux/kmemleak.h>
-> @@ -3198,10 +3199,12 @@ static bool mem_cgroup_may_charge(struct mem_cgroup *memcg)
->  struct obj_cgroup *get_obj_cgroup_from_fd(int fd)
->  {
->  	struct cgroup_subsys_state *css;
-> +	const struct cred *tcred;
->  	struct obj_cgroup *objcg;
->  	struct mem_cgroup *memcg;
->  	struct task_struct *task;
->  	unsigned int pidfd_flags;
-> +	int ret;
->  
->  	if (mem_cgroup_disabled())
->  		return ERR_PTR(-EOPNOTSUPP);
-> @@ -3226,6 +3229,14 @@ struct obj_cgroup *get_obj_cgroup_from_fd(int fd)
->  		if (IS_ERR(task))
->  			return ERR_CAST(task);
->  
-> +		tcred = get_task_cred(task);
-> +		ret = security_memcg_charge_task(current_cred(), tcred);
+I tend to agree.  IIUC, in the worst case concurrency (that we likely
+don't experience), if we assume huge pages, we're looking at low
+single digit millisecond total overhead to fault in an entire BAR
+(~256 max faults).  Further, if our configuration doesn't force type1 to
+fault in the entire BAR for DMA mapping, that overhead is amortized
+across every user/guest access.
 
-Do you ever envision this "from" cred being something other than
-current_cred()?  If the answer is "no", we might want to consider changing
-the LSM hook slightly to help prevent misuse in the future:
+So yes, it's probably not worth having two different locking semantics,
+but we should note that as an intentional decision in the commit log,
+potentially even as a comment in the fault handler.  Thanks,
 
-  int security_current_memcg_charge_task(const struct cred *tcred);
-
-> +		put_cred(tcred);
-> +		if (ret) {
-> +			put_task_struct(task);
-> +			return ERR_PTR(ret);
-> +		}
-> +
->  		rcu_read_lock();
->  		css = task_css(task, memory_cgrp_id);
->  		put_task_struct(task);
-
---
-paul-moore.com
+Alex
