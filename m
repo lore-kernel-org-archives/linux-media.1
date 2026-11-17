@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794923411;
-	b=MXpZcdZ4hyXXF3LbRgZbU7q+QKBh0wqZrdA0A3IgJh/raBCjSulzDI5vIXHKerg0h4+U
-	 Hh5sUFQiXEP4QvE7O2dLV3hNiHItLPhJ+o9Tw6rCoS5MavogRyc3m6g/+LuqNsZJzCcI7
-	 qIEjIbqpg8lHnMPs4HghHg0oj3rSuJzRxLm8EOaRakyolouRJNvy2Ecif/Kng02j0TBnR
-	 N+pCCgCUo/Q3LMZTAtUAlROcgJez4nBKB9Y+vyDDb/a76vtDknSFATTGJ51Z3blfawmDk
-	 xQm9Wf/w5ks3YmifFTHou+J8gA3/23uboxhIWPgUDyEkR8BasaZaob0egVc/tsnzXIA==
+	t=1794923764;
+	b=NowgX4uwZnAsv5aXr18fAcbOCv0nYbbYgYnH2N5askMUwfnRoa5Gvi9cvxpNKe5uPzOq
+	 5qD4cCs+1fqjY0EPkY8iIuZHQ2Y8NiNENYM2uqLavKlFxEwnFEBAe0z9IsWOhCkgbzgyV
+	 f9ijm1IUdg/lMzqhQte9j8+LtgyOMMFWmUr8Ysdqp7c0PPhG9rpXCmdcrUSByLFkZEtGF
+	 9idMMjZAMfDdoX+Wepi0ZnPjHIOM4dRFUq3EBCMkA6lpo1OzBG1BZZOdG4SjoyrgqbwpJ
+	 cP9LD1WQLMTt9zJufaHUlhebz4/yGa+ofpJ4SQevsuEvCukDLOCAbVX5hKSu/3/PrQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794923411;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
-	 In-Reply-To;
-	bh=1o4o8OU/LTUKe0c4Pab57k6q3vQbpxxV5mCVPeRuL3o=;
-	b=17c4Dr0xCVoC0AkH05BLirbBGGbC7EkX3+8yTt6Ge3MTp2WJGmzEmHGbwi7N1P5y5tUA
-	 9JlFb5IxFNRKb9GBL6kPvDTuD++GY15jyg+uBL5Y9Tsef8TzrPKzULTZ662zCP6/juP6e
-	 0ktlWAFByEPCu/a/k7ClZ4lppQApE6gDzokk/Wi3XbTaymxDEp0YivJTpY8AW0l2jirUh
-	 flv6dY3Sg+jRKYDWr0FzFPHD67f7SbafncNl7OvLQvzNo7Gy7opeJXLy5EsQo6g2lXNbS
-	 roYyzpuwpgEKQS/CpAxUuH9/Q5HPNTLVX4Ejbjt4ygtfoLcBFeFhrSQ4gSOQufuSwEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794923764;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=7Q2L8jjilb/GpNsWuFpT/b1KRGx6wj/KhSu95qexhro=;
+	b=os34c7pcWChhq3fJBvHMZTRUPXt3DoEAyMEvZvH+Dw9f0+ReA3vQANGrbmrZ15JrcYUf
+	 3WSfIO/N/fNF5OUdN46PfWkJgLrfkh+lYagiHFE42rs1WT8sw870takVzpyWcc3ScxmfA
+	 fe63RWPa80EIq/XHx53myX/u5CfzVr+o/3YXUcnVeyliNZm+JLL1+vVXtwrBtRnN3qamt
+	 pdHsR7jewQ3VtR1X5fyR9SPjoYQA6u1UaUx/euogq2KcCr3RXBJtHzxhvZHzvJCZ2GYCl
+	 09HP5g8MtNRC9mCORFxlfdojlwdlqierT7Gmx8owrphHIkdz9iHCU8Fk7Uggc3PANIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mwj+1W86;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U36rQmZv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16AB0606A323;
-	Tue, 17 Nov 2026 13:50:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44913606A329;
+	Tue, 17 Nov 2026 13:56:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mwj+1W86
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 711D01F000CA;
-	Tue, 17 Nov 2026 13:50:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U36rQmZv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C57851F000C5;
+	Tue, 17 Nov 2026 13:56:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794923410;
-	bh=1o4o8OU/LTUKe0c4Pab57k6q3vQbpxxV5mCVPeRuL3o=;
-	h=Date:Cc:To:From:Subject:References:In-Reply-To;
-	b=Mwj+1W86/Y/8v2cZtnYY838nYHLxs7WiSVqv6DjPWOE1U6N0KqyaklL1htWHwywyM
-	 PZcfIRPuvPLY7+G+fxikiJAKqliw18DXBdIYcweVwkE0Y05KCwnKqUBtWjnsG0Sdk6
-	 DXAGcG5mlbwK6JGHoWVR8y4ELSRQwIJkNDLxk8BpzjVh9YC74Z7x3llK9tV694CwMw
-	 xXLUdjoQyBmqxtSBbGeOm+jZD1NQI2vOrr0DSBy+cVCNCnbOXoZJsngbITcbYWKP41
-	 s0dEbuoU4VpRXfs7JGgyAc2e6aIxckWRpElB3t4Y1ZmWShAs4c+yq8ZL4V93tjKubX
-	 z2A71PEF4BpfA==
+	s=k20260515; t=1794923764;
+	bh=7Q2L8jjilb/GpNsWuFpT/b1KRGx6wj/KhSu95qexhro=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=U36rQmZvQJZraztVobO19/Jn/B5zdB3FWdeiAGrQTzC0vhfUeKlOTYp2pysaKxXSF
+	 2+k1M0IPXaBzLMjvaMtx6SYCB8C/w+IGAd/WtDwqtptCUg7z98iJbZBeM/gBB9Pq2C
+	 j3Gig/HFuBJOrqYhKgCJEEcpwNTO37qC7PTbRgqVrsMlMnuybXFZPpvbMUGdbFqwcr
+	 pqoFleR1tSqpz9FPo4OmrCBddyxkA6mL1RPeVxL9lhQEMSwOjCQoY8xhp4sbF1ahwl
+	 IvdKyz8lfSIv69vd9eEfZQWV1L+5me6a/N/KtGh0GEqDUTfAKg7EU7JNEaXU3m5MUe
+	 tgqws+2enkaQw==
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -48,88 +48,58 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Nov 2026 14:50:06 +0100
-Message-Id: <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
-Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
-References: <20261112101015.528127-2-phasta@kernel.org>
- <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
- <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
- <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
- <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
- <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
-In-Reply-To: <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/3] media: iris: Skip redundant decoder input config
+ params
+From: bod@kernel.org
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Vedang Nagar <quic_vnagar@quicinc.com>, Hans Verkuil <hverkuil@kernel.org>, 
+ Stefan Schmidt <stefan.schmidt@linaro.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, 
+ Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>, 
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ stable@vger.kernel.org
+In-Reply-To: <20261031-fix_dec_seek-v1-1-cfedf0c267ee@oss.qualcomm.com>
+References: <20261031-fix_dec_seek-v1-0-cfedf0c267ee@oss.qualcomm.com>
+ <20261031-fix_dec_seek-v1-1-cfedf0c267ee@oss.qualcomm.com>
+Date: Tue, 17 Nov 2026 13:55:58 +0000
+Message-Id: <179492375803.2846709.17266637550647614190.b4-reply@b4>
+X-Mailer: b4 0.17-dev-e3fc9
+X-Developer-Signature: v=1; a=openpgp-sha256; l=658; i=bod@kernel.org;
+ h=from:subject:message-id; bh=7Q2L8jjilb/GpNsWuFpT/b1KRGx6wj/KhSu95qexhro=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/FzuQUtuXyJFgJTPQ9BF7I2rHvKqSuO+HB0zL
+ Jm8xkCmnTCJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCavxc7gAKCRAicTuzoY3I
+ OkhyD/9CbN6TAojopt3QE48PMtLqCQ+tGlmI+b5oXoFbPhVxnUDxh428z+aeWwN4bZuqK7dVd+k
+ NtsVDCCJxzlwZG+ogMBqS/zJLg39HdCqnTcBCl/5yEVMMTKG1nsMthpVJ8s5xC0ScGn4UPQbvaD
+ J5k2pR+uin62Rq+oMOP+iUy1zTygWaA6QWcIsCzsDDH+gcLrhggPwsgsJnx59mVa7p0dQmw7YXN
+ 7ZR839kWBocHpKg47NMzXr7UIRZgj0YtLopm1uHnE0DGPbhjXBHBJ+fnoNWkmWh6/Ko2sKzBn4t
+ R1X8glIwP5na9A93tTFMyo7WhedflVGLAz2an8mSgj97HfiB7AdBB29eS/2jBsD06nNdPlkvmle
+ SYuDQ6BzxSgNfOqOKgp4AP1NZrG+GK6yf7hLdEIc/thrgCbs1TkhEerN6puj6HzDB0z6dsFAB00
+ O8w65xz8H4Mp6DLoq9hZ5K32a7D7PDe0Jzf3rMrYj75yBf9lm+chkYvtILXe+MzayXZ5c9T4iZ8
+ /wGChVvbx25e9HMV7fBtnjq4YmmV3Jim+KYTFKIe4D7pFdZAApGMChYfDOTRpmmZ/StVRUN+zbC
+ 8nxnaz8qO9eme3+fpzagYhY0u58TNHxUUC2MRLrlJNnDaNqDoWyRgx6bkF1uNTLsA5c08PsuST8
+ eYc84NMs9gaUulg==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On Tue Nov 17, 2026 at 2:40 PM CET, Christian K=C3=B6nig wrote:
-> On 11/17/26 11:54, Philipp Stanner wrote:
->> On Tue, 2026-11-17 at 10:51 +0100, Christian K=C3=B6nig wrote:
->>> On 11/17/26 09:24, Philipp Stanner wrote:
->>>> struct DriverFoo {
->>>> 	f: DriverFence<()>,
->>>> }
->>>>
->>>> impl Drop for Driver Foo {
->>>> 	pub fn drop(&mut self) {
->>>> 		// Signals fence implicitly & automatically.
->>>> 		self.f.signal(ECANCELED);
->>>> 	}
->>>> }
->>>
->>> Yeah, exactly that is still a bad idea :) See the HW eventually
->>> doesn't necessarily stop doing DMA if you unload the driver.
->>=20
->> I know.
->>=20
->>> So just signaling all fences with ECANCELED is not enough.
->>=20
->>=20
->> Yes. What I was trying to tell you as that you have no way to enforce
->> this in Rust or C.
->>=20
->> dma_fence_signal(f);
->> free_driver_resources();
->> // Driver forgets to stop the hardware. Memory corruption occurs.
->>=20
->> You see? Neither your BUG_ON() or WARN_ON() saves you if the driver
->> does it like that, no matter the programming language. You cannot
->> prevent it.
->>=20
->> The only one who understands how the hardware works is the driver. The
->> only one who can stop it is the driver.
->>=20
->> In Rust, the place where a driver drops its JobQueue is the same place
->> where it has to halt its GPU ring correctly. Enforcing this cannot be
->> done by dma_fence code.
->
-> I completely agree that we can't fix things from the dma_fence code, but =
-it is our obligation to tell the user that something very very bad happened=
-.
+On 2026-10-31 01:49 +0530, Vishnu Reddy wrote:
+> The decoder input configuration parameters are sent to the firmware every
+> time the output plane is streamed on. This includes streamon after a seek.
+> Resending these parameters generates a port settings change (PSC) event
+> even when the input configuration has not changed. The client then
+> receives a redundant resolution change notification on every seek. A seek
+> hang was observed when redundant PSC events were generated for the same
+> configuration.
 
-That's the point, we can't infer that "something very bad happened" from
-dma::DriverFence being dropped unsignaled.
+Its not clear reading the git log here where that hang occurs. Userspace,
+kernel, firmware ? I think you should specify that.
+---
+bod
 
-In Rust we use the RAII pattern, and drivers structurally embed a
-dma::DriverFence within the struct that represents the corresponding hardwa=
-re /
-firmware queue (e.g. through Jobqueue).
-
-Consequently, if dma::DriverFence drops unsignaled it means that the destru=
-ctor
-of the structure that embeds it (which does the required HW teardown) did r=
-un
-already.
