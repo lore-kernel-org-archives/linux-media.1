@@ -1,79 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.60.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794906733;
-	b=r/6UEYz7FtRPHI+Ih9qF0T4smPXXlNaeBtfhs92kyiCX6749Db2P2r9yivKCUi7DbMhH
-	 ySqjECbOVrP0ZdQQQAZD2tEkQavkSguLB9SY5/kawDUACw7+kSefUue0uGWq0Xkcyc2PF
-	 syWp5g+UYXRq7awtwwTo1iXsGUya50Jd07aMlvyNVsWawx4enml9GqeF8JnR6MYTzzsSs
-	 x9UKGyodg0kVrlZOL5fXK65qFE+bmdyyg+wSprAFfSEFXlDaUy8mZJ50ExZOVIJGQBx7M
-	 spNtbXAf23thzyhJetoLP6Gcsk3FIhnSHmONHs+sTAkh71lxzu0gZ2KTNQxx6YAJbnw==
+	t=1794908248;
+	b=yXOG2jfeCFISEXO+bxDitpIb0jVHJhcHVBPgT8+a2a8Xj3qQd31N5h3nEHZVJvwdWXAp
+	 zE42aKBfCm/OAwFxLZxmbQvII9Va2M7ge8POP3E1ozH4TNPdmWZThM4nNY3BM36as6ETu
+	 FLA2n7JEwX7ckVg4fHznBfezZl77gvlfWSQCbZkIhbfOoTSCWl5faPaeFojlH/LOPcoWe
+	 C1A7JTgvFl6srP6lLpsem1QfZjW/K4MXH6Ack7mGBQxPjJSuiSO2FxKVaM5aFe1iAN5ec
+	 XzCra+ia7hKYhb8NDBD9KHRA1W36FV8QJfDKYt+dJefoXnOsWO8fTJcIULW748z1w2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906733;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=sARh2vxI77mefNWtiaNXngUxhjlF/CvgAiwrCgNCyNw=;
-	b=MUrZHxASPqXUxKT9d4IW6HJNupwWYiq84HLAJ4hsCXf8n5vJ4XSFX4wWdbgKrDygE/yo
-	 htLGZXZzGNuytNncxobZtqmhVGfGyFWHAXnKu7gcrOdQLUbGh6NBuBQpmFgl0veJPAFxB
-	 K9anXOHV30h/WhmfeGqm302yz9VXuAvCoBJ4GFmobQKD6fneLGycBIiHR/+tk1gsetssX
-	 6OsdrY/A0hK/SZpCwrbbtZmrp20cXx4Or5COFf4DxSRm78VrxOTFeT23dJHFzm6QWJf65
-	 Qufg83LMtk3JIiHvFAPiFn47IotZrsjw2NKu+xZ8b7ZpMPNnPqvI6syCGoihWg9fC0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908248;
+	h=DMARC-Filter:Received:Received:X-Yandex-Fwd:DKIM-Signature:From:To:
+	 Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RsDhCr97ThAIRYXygbiYae1JTvR6S8nztU2Qoell0DA=;
+	b=rkl4SCGvQFCBidnSDO1hwDVy6VLz5n3iHuM8ZMUt433CE7oiDG4ebg9pk8JiJYLwCdD/
+	 xcXpW8CMAx34LNbONcRthLj/HUx2AVJVrkDhyw5quYeC2Hw9PqiF94JB8p1sluPCJyrmZ
+	 dEMdzGl/yhJAXwLoLBDW6gKPJtR7pEy59J+sR+KBMvUtu1xGYXXepj/nkhV7evO7xMJNd
+	 ZsUx2qUA5vQSxyKWBiApEC0Uinn3vpkC5I6rWfvuV38yXqm3BgSonJ1PNpOvAyrdd5LVy
+	 1sqSK9uwCN/1q4XN16MwjkRCvX7O7pgGl+GqkU3Ag1BBGRIjL7o6Ay6NacWDUVI3pxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cq+DUecl;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=yandex.ru;
+	spf=pass smtp.mailfrom=yandex.ru;
+	dkim=pass header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=MGAER6O2;
+	arc=none smtp.remote-ip=51.250.60.163
+Received: from forward103d.mail.yandex.net (forward103d.mail.yandex.net [51.250.60.163])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CAA606A323;
-	Tue, 17 Nov 2026 09:12:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1CAA606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71AE5606A31C
+	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 09:37:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71AE5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cq+DUecl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794906732; x=1826442732;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xK75Rwny+8YxOayz9J2hx5xcwDjlispCGjCFjO57dxk=;
-  b=cq+DUeclDtbQy2BLhgfjWrKqizJnQdVAe2QzzjNkTnFJEEYIl5awSrox
-   B1QM9dcnr+F7AC0vvu9/1e47IWqMuYGJPwisbpmEW3Gxze0WwfstvR0hi
-   VfH0ZLlKaaYqC6egwntZCf8ADTtDXAy+ZHTiceRbwKotuJJE4TMjJUSyK
-   6J8bK10r0IiT+7kJaGr7+NkCow2LVYzaL3Ep2QrL976cD29zRshbfVbi0
-   pv+qLEHvgCeGVjSs7C8bTHmxVDVYeMSZU2AZQFbam7HcrDVAxLbv/cCh8
-   IHS47nV7oFBA0jVeBRpfr73rleW3u6/wgkI2tKY3JAcXKQeVb4F5oclB8
-   A==;
-X-CSE-ConnectionGUID: etngGhuOTly5gS5Gmke63g==
-X-CSE-MsgGUID: TBx4nDeyQNS9YUQboTmpJg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3751070"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3751070"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:12:12 -0800
-X-CSE-ConnectionGUID: DNi+Nw6MR7eQl3esGPmN3w==
-X-CSE-MsgGUID: EJ/9j85CRZm/6qg/Vl7mbA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="9784071"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.254])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:12:10 -0800
-Date: Tue, 17 Nov 2026 11:12:07 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Avishek Chaulagain <chaulagainavishek14@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Dan Carpenter <error27@gmail.com>, linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] media: atomisp: remove unused functions
-Message-ID: <avwaZ4cK8-sgJSMG@ashevche-desk.local>
-References: <cover.1794845230.git.chaulagainavishek14@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=MGAER6O2
+Received: from mail-nwsmtp-smtp-production-main-78 (mail-nwsmtp-smtp-production-main-78.yp-c.yandex.net)
+	by forward103d.mail.yandex.net (postfix) with ESMTPS id 41C7DC009E;
+	Tue, 17 Nov 2026 12:37:17 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-78 with ESMTPSA id FbVjGoVd28c0-nvgQgwxf;
+	Tue, 17 Nov 2026 12:37:16 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1794908236; bh=RsDhCr97ThAIRYXygbiYae1JTvR6S8nztU2Qoell0DA=;
+	h=Message-ID:Date:Cc:Subject:To:From;
+	b=MGAER6O2AUQKEnOfDZiy3lwou5pa6ncj3UMqcoq6CW/KF2hajqMDAW8gjeAN2r4y1
+	 MqzX2oxTKP9qJeFJJ/Pz2tkX9QYR6Y4JgQQ5UReVw3Rvc4YvFaSHUc79VG5+gbrhZw
+	 LWH+1SRP5+PNat/Pd8qELQMaMvGZnLCfh09sdaCA=
+Authentication-Results: mail-nwsmtp-smtp-production-main-78; dkim=pass header.i=@yandex.ru
+From: Dmitry Antipov <dmantipov@yandex.ru>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Dmitry Antipov <dmantipov@yandex.ru>,
+	syzbot+ffac2da5e6f8ad2671b2@syzkaller.appspotmail.com
+Subject: [PATCH RESEND] media: dvb-usb-v2: fix race between device probe and demux filter setup
+Date: Tue, 17 Nov 2026 12:36:54 +0300
+Message-ID: <20261117093654.156482-1-dmantipov@yandex.ru>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,25 +66,49 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1794845230.git.chaulagainavishek14@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 05:08:10PM +0000, Avishek Chaulagain wrote:
-> These three functions have no callers anywhere in the tree. Remove
-> each unused function along with its declaration and the now-stale
-> leading comment that described it.
-> 
-> Found via a tree-wide search for functions whose name appears only in
-> their definition and prototype, and compile-tested under allmodconfig.
+Syzbot has reported crash caused by the following userspace program:
 
-FWIW,
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Thread 1                               Thread 2
 
+fd = open("/dev/raw_gadget", ...);     fd = open("/dev/dvb/adapterX/demuxY");
+ioctl(fd, USB_RAW_IOCTL_EP0_WRITE,     ioctl(fd, DMX_SET_RES_FILTER, ...);
+      [fake descriptor of Hauppauge
+       126xxx ATSC+ device]);
+
+That is, dvb_usb_start_feed() may be called before dvb_usbv2_adapter_init()
+has completed frontend initialization with dvb_usbv2_adapter_frontend_init().
+Fix this by setting active frontend index to -1 early, this making sure
+that such a preliminary attempt to start the feed just returns -EINVAL.
+
+Reported-by: syzbot+ffac2da5e6f8ad2671b2@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ffac2da5e6f8ad2671b2
+Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
+---
+ drivers/media/usb/dvb-usb-v2/dvb_usb_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
+index bd86d250433d..37353bd40a10 100644
+--- a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
++++ b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
+@@ -637,7 +637,6 @@ static int dvb_usbv2_adapter_frontend_init(struct dvb_usb_adapter *adap)
+ 	dev_dbg(&d->udev->dev, "%s: adap=%d\n", __func__, adap->id);
+ 
+ 	memset(adap->fe, 0, sizeof(adap->fe));
+-	adap->active_fe = -1;
+ 
+ 	if (d->props->frontend_attach) {
+ 		ret = d->props->frontend_attach(adap);
+@@ -759,6 +758,7 @@ static int dvb_usbv2_adapter_init(struct dvb_usb_device *d)
+ 	for (i = 0; i < adapter_count; i++) {
+ 		adap = &d->adapter[i];
+ 		adap->id = i;
++		adap->active_fe = -1;
+ 		adap->props = &d->props->adapter[i];
+ 
+ 		/* speed - when running at FULL speed we need a HW PID filter */
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.1
 
