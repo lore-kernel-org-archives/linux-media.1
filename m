@@ -1,80 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794903870;
-	b=DbDUdRYISvZWr8aJkPe/MUV97JDrcDzM9+X6dAL2r1LWh3v+tw7HWgafFrIDCITrqWw1
-	 J7mUPadB39CqFXSpTRM9IWxeEtMiCkuR3PKMd7CDc08MskbOEYDdLtFpdijbE+sZSMZef
-	 M5ckwcml/NqsW2rQFwclU/vCsTGLqyRLzljIf874GtAr8o5k3ydu0hWIfhGD54PuNprwI
-	 ro+/A/BMCN5+QIhciaL5wzax57kIG8UxN9QNRrXoWuw3k5d4WJPijnxkIFgKwlXhSxHWe
-	 NDz2MRfn3JkUHRMCZk9ZoYleWcJ0kiRuwglRWAieg2bG/JTjHLhyPjFx/ecnITJH1Fg==
+	t=1794903943;
+	b=AbetzXgp9saUvR5epSwL+867dxBqbAR2u4tg2aNVT9wT/NGQjt3hqxQS+hBqcbuD7p2E
+	 Y0crkbROLFYBOvftcnRdqocY8iGdwTiTgYAPOhF4+DAgYDLKeF0Ob83NHoK3MYzDizjXZ
+	 rd5iO1wQjWm4dADZYt5H6FhmFuERX7Gi+2PBO2auoVxY9HVgDROU27FSXVqrRssA7xUOG
+	 ouMsGT//lAgDOSGeNRT0bMrR3CUve3G46V7jx+GhHwahOur3LJdrxt4CLICb6HPJ3T+C4
+	 iD1eReCGn+Oru4ZHQOlehs+0my8rxG9DDrVZXI+we/6StzUbo7Ayl3ha3rStiK0IsFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794903870;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=/6sFeeE2v8KqdFq9cTEUeg70JLLH5Ub+A5TKvYvbkqk=;
-	b=5ZCn6Cm3OJHIjH3dHH499Q14S3+kbs1dCE2Fyd0wR6mAMeHBWDfaQsjSv86CoZMWatHT
-	 T5++l3ijcdLLzpn9AhKvd+51gkYKjyoy+aJex82KUqCtY21pRd1XK/ePtOqRWGRo0kgV9
-	 nW7nyNopsXVJM+Ok4RGGSbTJrgDMB7nVuy0QVYL33TlEOZOFO/iVtQGq/4TyvnN1Jc9MX
-	 x3Bb/T012L888aPQfVrR8tgwD9371jtCYDzzO65Utbu25sJjmZD5K4I3IIXV+qb0oAjN8
-	 V18m3t0E5Ij/JRAjvC5/Aib7fNXevHAjaqxniav6NEUAWYYGazMS75KWIviYiNJ5QOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794903943;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+hujyyJhAtV9+j0TPvcHHV2OIVquZfJfleCKzkG+n+Y=;
+	b=ufM7L9ychmJhvbJ3ZrzUQnjuc9rzb7ML4h6X74TZNu8CJh0qTgrp42tEL2K1DNDOlbwB
+	 YXi9sBUDbnKwE7Cw0o7BGs+Qpq2E9yGuQywkOmTkyiI2Gr3OITu7eeStGK+03BJOj/5KY
+	 A8ZVw6ih1ryT5N9q7FA21A3J6D30+6uZsA5fMvA2GWI0exIV18AYmttH42+I5xEFTnShe
+	 Zhlke9XBPLoTEM+RG8MIBdQLjBIHNtyztA+6cltLSlgsplQp878yRXXpexqZOc/stpeg9
+	 e2qrH3uzY1Uwrbflr7Q/y3EJq8WQtUsEkd2EMTZ2ROhPm40oGBeLpO4TE05QjhpMBTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=viAmOPoL;
-	arc=none smtp.remote-ip=80.241.56.151
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ph5A7mc/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A15606A8B9;
-	Tue, 17 Nov 2026 08:24:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1A15606A8B9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3543606A880;
+	Tue, 17 Nov 2026 08:25:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=viAmOPoL
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jTHnw6RQrz8vZ0;
-	Tue, 17 Nov 2026 09:24:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794903860; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/6sFeeE2v8KqdFq9cTEUeg70JLLH5Ub+A5TKvYvbkqk=;
-	b=viAmOPoLWB08TuLkaRTRWKL6GyzdUBMkIZGZKpWCg514qs4PCgGVwTqmLELQKYiqolqJux
-	1syhU90LBtUOMuJxDDFMfpT9/yn1kSRfPGz4KASVfgnpO/llrM4bxjafkYy6LYmIpjpS5r
-	3F1jOHaiCRP4Sx/43hXl3wXSL67x0OFlZPtybtdcMzIsqKyPQyvW8/IbiWC1F6rLKgZVDA
-	/agbHLLcXTcRopPmiQ7E0m8FhcG3p76i5l4q1Wj6ha5k5FOMd4Q/f/3RD89CZm30Fzq4wA
-	Q4bhBTPzdMQxkvH4pUi80XrjBBqedsIlNteTrQK1Odt1ZSxdQJXeYsKrZk2s9g==
-Message-ID: <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
-Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
- Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Danilo
- Krummrich	 <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Miguel
- Ojeda	 <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Daniel
- Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 17 Nov 2026 09:24:15 +0100
-In-Reply-To: <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
-References: <20261112101015.528127-2-phasta@kernel.org>
-	 <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ph5A7mc/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5E651F000C5;
+	Tue, 17 Nov 2026 08:25:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794903942;
+	bh=+hujyyJhAtV9+j0TPvcHHV2OIVquZfJfleCKzkG+n+Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ph5A7mc/DTICXLffxM//Teh42HusVR1+ZEw2K90Oe2JJ35j0et/QAQtx13zhz5FXR
+	 jPn1TDkoxtDQat2UPHH1gn+PPTHKJAHcf04I/1TEYl68JGR3s5yoobb6KIsFknIotA
+	 YOKjf+wA8CGQlFWMcGp5biKG1WUBFsTpnP5v4vUUhhPJrwJ4n0TEaeGdLMYMMw88tP
+	 BSy2ccJivwOBwyZgEdF3nkH70HpiU/JCVtlQkwMt7wNdYIyQsBAmBw1hAC9cx5IFL8
+	 KhFsu+574EiUUQyiro0r+xrcgKopOYBdfMq+JZWJDBH511MRixEF9aGjmB+liMljx3
+	 8f6kJdO/+VsvQ==
+Message-ID: <eaabb4ff-c748-4123-93b8-f49684600c71@kernel.org>
+Date: Tue, 17 Nov 2026 09:25:36 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,53 +51,118 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: 46dd5544d1dd3ff66d6
-X-MBO-RS-META: 7sk9otwyp8ik8zrdho6idfnnx6ekyr8w
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] arm64: dts: rockchip: Add IEP2 deinterlacer to
+ RK3588
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Arun Iyengar <aiyengar1990@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Alex Bee <knaerzche@gmail.com>
+References: <20261115-iep2-v2-0-3d8798cd9a55@gmail.com>
+ <20261115-iep2-v2-3-3d8798cd9a55@gmail.com>
+ <20261116-luminous-heavenly-guan-b20f2e@quoll>
+ <yRxnTArhQFiS4u_tncJj-g@sntech.de>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <yRxnTArhQFiS4u_tncJj-g@sntech.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-11-12 at 11:29 +0100, Christian K=C3=B6nig wrote:
-> On 11/12/26 11:10, Philipp Stanner wrote:
-> > DriverFence::drop() contains a pr_warn!() for when the fence drops
-> > unsignaled. This warning gets into the way of canonical teardown in
-> > Rust: when you drop a lock, it unlocks itself, when you drop a KBox, it
-> > frees itself etc. Congruently, users should be able to tear down fences
-> > they don't care about anymore with ECANCELED, which is already the
-> > default error code.
->=20
-> Well a dma_fence should never automatically signal when the last
-> reference drops.
->=20
-> Leaving it unsignaled is the most defensive path we can go. That can
-> lead to deadlocks but it can at least not lead to memory corruption.
+On 16/11/2026 19:32, Heiko Stübner wrote:
+> Am Montag, 16. November 2026, 13:35:28 Mitteleuropäische Normalzeit schrieb Krzysztof Kozlowski:
+>> On Sun, Nov 15, 2026 at 08:47:44AM +0000, Arun Iyengar wrote:
+>>> Add the IEP2 deinterlacer and its IOMMU to the RK3588 base dtsi. Both
+>>> share GIC SPI 117 and sit in the VDPU power domain.
+>>>
+>>> Addresses, clocks, resets and the interrupt are taken from the Rockchip
+>>> BSP rk3588s.dtsi (develop-6.1).
+>>>
+>>> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+>>> ---
+>>>  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 22 ++++++++++++++++++++++
+>>>  1 file changed, 22 insertions(+)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+>>> index aa69fd3793fd..5297519bd251 100644
+>>> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+>>> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+>>> @@ -1397,6 +1397,28 @@ vepu121_3_mmu: iommu@fdbac800 {
+>>>  		#iommu-cells = <0>;
+>>>  	};
+>>>  
+>>> +	iep: deinterlace@fdbb0000 {
+>>
+>> Why all these are outside soc node? That's more of a question to
+>> existing code...
+> 
+> Many years back, during the RK3288 addition I got the comment from the
+> arm-soc maintainer to drop the soc node [0]:
+> 
+> "[...] this isn't how we tend to do it any more (unless all devices
+> are physically on a bus, but then it should probably be named something else
+> than 'soc')."
+> 
+> So since then we didn't have soc nodes. Except in time for the RK3576, the
+> tune has changed, so socs from then on have a soc node again ;-) .
+> 
 
-True, you choose between the Unholy Trinity of DRM: deadlocks, UAF and
-memory corruption :]
+I think the comment was misplaced and misunderstood. Indeed non-MMIO
+nodes were not supposed to be in soc. But the MMIO node are under
+MMIO-bus, which usually we call soc.
 
-In this particular case, however, Rust does not allow for preventing
-the user from signaling "forgotten" fences anyways, no matter how we
-write the fence core:
+It's documented also writing-bindings, since 2019, though :)
 
-struct DriverFoo {
-	f: DriverFence<()>,
-}
+Well, not a blocker for this patch and I leave it to you what to do with
+existing and new DTSI.
 
-impl Drop for Driver Foo {
-	pub fn drop(&mut self) {
-		// Signals fence implicitly & automatically.
-		self.f.signal(ECANCELED);
-	}
-}
-
-
-So we decided to die this death because this way we get rid of the two
-of the three problems that *can* be solved in the API.
-
-
-But it will please you to hear that all users of drm::JobQueue do not
-have access to fences directly anyways, they can only signal them
-through JobQueue. Thus, they can also not forget them (signaled or
-unsignaled), because they would have to forget / leak the entire
-JobQueue as a whole, so effectively forgetting also their GPU ring. If
-that would happen, the driver would be broken beyond repair anyways.
-
-Regards
-P.
+Best regards,
+Krzysztof
