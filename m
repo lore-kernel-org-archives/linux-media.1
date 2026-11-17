@@ -1,47 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912314;
-	b=JToX3LP0E4WK+2nlUTn/82cn+uhFZMqozsk3akmsBN0i6Zf9CW6mq66V/oNwUhGyhTtI
-	 C+DJFukOvL76Aiv3eOfxmX54IZkBb4FdgRV4OKF84XX7uOae9R2IWCTM54H5qh6iyh4/S
-	 2W29LSfX7iTiFP3ZUZuXqfpZkyZiQLDjZNq5YUhRo1Dms5ZzkZTGEFhMil+XrbRCxZn6j
-	 k8Q4WqKQsqAu2KZpr3/eYuDjRBIkFLUo9HvrNnSUFGj/Xy3kFd7C9GL/3OVK2klDkH/o6
-	 UU3RMd5uWLkIyPpYOdCshj0amj2qEV1qxhmG1GGvvvPG+7NI+W1eF4wGha/2ckYKvHg==
+	t=1794912423;
+	b=pbYQVDk99BpwAfD7Qpdc2A7tIMXD8uCZYnqTPUFVPJovAwG2b3ndcIyaLYOesSDnwj4m
+	 pvkJ0RHPb1ZbqZzWD9dyl8kvwAVEpRrZahNAUZZZQhhgLSGfT5SuCecueLiwruP9QsA86
+	 NsH/txLWrxbXxJAXRkuldYMluoQVCvJGMVIIQJuQta2C5eXXD/+vKNkBs2Buv/VyoU4Lq
+	 gdS2wAOZ1kZ7Or+RMFBzSl5yuksJPcA2LUcY4qTWB3lRQl1RpHm67ilSO9ilnavYWIFiW
+	 Md3bLsNahyNgXKUWxLwQRYxYpTGko72mpxbTuoRyJGG+OpvACX0NF75IL7WmQRcqfVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912314;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uzUIZzED4hR+jEu4P1YFmt2PNtdzFcv6S+BMZtUimCE=;
-	b=nGxzXIfwb3jwZ9ZB+75FXeRfQUVCfHULpRUt49+phfuWxmA+P8YlH6IQeX/x3h504BU7
-	 5X3gsDEK/+uHwcmEwhR8m69svHRq+MuRTsdZm84v/JP9NR+GwPGXIz+M6SZCvwbDqjjXB
-	 yFEhai4+kCJROoOJvpgB/6LJ7B2+/eObM7SP+Cfm5RU8UTM3PeXUFrbNVfi4Yqx85vY+p
-	 dL+zUyKJJMuocjcStbBM9CEUBuX0l12f1F4bnyPN3fFHGBrEzkJzdI2pTC8oogbT0owMm
-	 MbqocpMCDnjastqOhykYxTIGsB4F62G7XChIqdzcSmccyKz6HRe6c5v/U6LUGd9Pt3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912423;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=uYL+xaY4hV/1UMxJp2d9t91I9IYKL5/jAE9Bd3NZqbU=;
+	b=YEE88xMJo72C3gEXBEIezbW/EmiBK4cGhx693R+p6WkrY4hrF7qE3tkVlyzn8xamOfrl
+	 dkSdcYtjatWP5/GhpBZRtzYFIsCGAlo+rScmhrqdVpN92Z7STiCJA3hcrmW08loXBLVCB
+	 yevGTIbBXfOjRu4NnDY3/TjaTYpsN0fJFeiFXlDICqI41d7mL976p1JXNcVom5y+9sLMI
+	 XV7IIn+jqXBHAGRt8HnhB5+JqnkGkxdnhB6tGIk85WAnLPeLwB75GTlvKXECnbDhxmliV
+	 av6CTyQPDY9XvTBFJrCusjLq92WxB5OPxGuuYUFQ4jpZ2W4hc69xJ2A+PeqZxfbaApw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbK9k3Xt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Vo5et05o;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Hf1SpDpy;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC50606A31C;
-	Tue, 17 Nov 2026 10:45:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211B8606A329
+	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 10:47:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 211B8606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbK9k3Xt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC08A1F000C4;
-	Tue, 17 Nov 2026 10:45:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794912314;
-	bh=uzUIZzED4hR+jEu4P1YFmt2PNtdzFcv6S+BMZtUimCE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BbK9k3XtiYbyGbOENblk4eRB3A3Wnatb6CAyt9R6+CKJTVqaSPb6nr14LhWNHXOQb
-	 QIxBMfI/mizZidFesOp08klrKMiUPxFefcnKSbSuCJwuHL9602AuNMi9cdZzNlOBpE
-	 bQgptu0h6SXocozA3f1sKX3/ydxOJ+mfH30DWMiKEEWm69OawaogojYBNtRysvK7zE
-	 ggge73YY2fveokb4H4kH7eYi6z6zyOZct95UH8MH9RAgHUAIXVazQA0h6V4kc3FX9O
-	 TpV7BIGwm6I0Ly+dKMk2mEr711zqvGrVmaLCIjlsnwHLgWwv/gCmJgZU0sb9qatfvT
-	 rZZv0cvJTiQIg==
-Message-ID: <5de47ef8-58b6-40b7-9c62-f4c306cceb40@kernel.org>
-Date: Tue, 17 Nov 2026 11:45:07 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Vo5et05o;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Hf1SpDpy
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH8drtK2934266
+	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 10:47:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=uYL+xaY4hV/1UMxJp2d9t9
+	1I9IYKL5/jAE9Bd3NZqbU=; b=Vo5et05owaX8ecTItyigeSXs+aB8jlAu7PgVvi
+	vo8xEy12C+cQDNP1OHQJm5+nQEBiwZUSiYvCXohuSLld5/0/HiXHrWdrDEAjlKmP
+	4uIVbXAnP5GZjhHIK+itCYbCJzlx+QNWMxyMnTRMeyQZ0kR4Q9jBWv0z4xaxUGAo
+	7g/TU8nm9r8Kjx9TE5WnIt8Oort49Hg3J7CkkVdO1LhJuHRfZUTqcIcqAhchD06/
+	39GFDogk4L73CFdJxkJKCd4UalK41yJ391/bSyBlmmWPQKp2udrfGy36w0td4VI8
+	gCu5GX+3nmafT4KeJV7CsgS3z1ZdmBrJmXIhVWHMItPB/MPg==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j09m0appb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 10:47:02 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-920f8fe046aso19012766d6.1
+        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 02:47:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794912421; x=1795517221; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uYL+xaY4hV/1UMxJp2d9t91I9IYKL5/jAE9Bd3NZqbU=;
+        b=Hf1SpDpy90yyI0M2DfNEunruOcKwnyb86mV+6VXil9rzsTn6N7ruCbaDo2DMUEArR2
+         yJXhprW/R6PQnlNvTYEx7BhDML7SCDIlFwj5RNQ0jLVW7JFWaz+t3i5bwU2Wrvc3/KD3
+         NCLKH/rdgwpA9EQIhbwztO/BNx09THdfurHCtSircXh8ZoxFg7qCJgAVwHp51h/f4uQQ
+         eMcVMPcrVlb+ZLM4bt3SWsoVF4tCQnuU29pxbXJJj2YMnl/GrG0/n3dR6X+YyINv/ZD+
+         w7+gVRn3k8QyMMPGkHHV3dPfSjbD1leC6IiaHBZcpPZTiU/gS+jbXXldhnTJ0gcktwq+
+         gaGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794912421; x=1795517221;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uYL+xaY4hV/1UMxJp2d9t91I9IYKL5/jAE9Bd3NZqbU=;
+        b=wAH93/AClcCW3HAaam7bSSxjdrxFgvY0vI9DABy2qCKVMwQ1IRrPVpt8Cve76AjWSk
+         XDch38A9Uj4RcGm5gTr+7dWu/4c1WV7fh2ZcvLQdP/Y6StIVuSPNUy0ToGSNEok7xW12
+         x6Rs3VMn+uEYha8z2as7X10KHlP0cWRUuV4pI20LJ1GZbDrqvNqP4h7ZrzZTisFQf5A9
+         BXxUSCTxzTBayXkk/oWQJXrUPZ7npJ47z7gU+A0rWM7J7/+8FTvRgRn8Ug/raxFzWBXu
+         XJWczPVfmRuFGjr0if6M1FaG6obt2knUHQSaoUDv7KDMJnZJeOEUrpmzCS9o/Xvr+pN4
+         yM2Q==
+X-Forwarded-Encrypted: i=1; AL+hErFcHtl1mz8RC46E2H5fEdj4YLMby9QXHQTPWo+FvzHgR8rbjYhFYhGFtbfYLLzOpg4qZ/IyzggDGwYJoQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+FCBmnF/puNIuTjohtDzHoJ/H2PvlRIaRjEHNP4aD6yS0DHIZT
+	zGiJE0gIKYiWYwRm26eXcwtfT2wUwK9LSYu1NLDX6AORo+V4HTBZiBZ2VwHm8Cco+CsDx0CqH3h
+	3c86IsmbF8oLgBLsaqnpW3Bd37FcjfbqXUK7xSeeDCjfnAgOESwzrl6o9ixRLdi5lrQ==
+X-Gm-Gg: AYBFou2jFFSEjsHN9bfl35KwGRKK8cv94LTmZe6JFL11gg4axMuUXal/XZRnuTrD6sZ
+	7ae8ZbNXpOsQ0tNv6I3Avj0TpxvsRq4uiQuz/TRKv1s5w+EMjdX3udGCcavWcuYotkCvPKjNmcU
+	dh16YMPE1+7hVOrbjav4YwjxoZP1eADC53jWBD11r6Q9AM9ptVyiyRWpuhS5P7WjlBEF2OEo1Bz
+	hvoKCrZtFz/Hu5gZKty/A1TGgmi9RliIbM8fD4Oyigoc0JebuXvcrewnUI1SOW3FMOZC0NJDDkE
+	OLpBwlN2DChCLrU0mAULmuEUtrr9wrVV7gtat5qQNxf7q/GewosYHf65b1mVQZw3IUJkA2a/kk0
+	N1xqImjCREH6pvovw0dilF+rzPvGl3+/8qtLltZwtspMWN1U9NQ7u2g7q1X1JQASDFrTu582rtX
+	O9g2lDHwZ+dw0WSe0nmM09DYxJtsV0QWl7o3f01yB3bPdB/QlxWVrHJWR+0wr1mKJU+9VsVYXtp
+	b63ZXt7Y2sBAPxi7xe8VtQVinE=
+X-Received: by 2002:a05:620a:8908:b0:93f:47fa:b722 with SMTP id af79cd13be357-9494bb858b5mr1943343785a.13.1794912421013;
+        Tue, 17 Nov 2026 02:47:01 -0800 (PST)
+X-Received: by 2002:a05:620a:8908:b0:93f:47fa:b722 with SMTP id af79cd13be357-9494bb858b5mr1943340485a.13.1794912420486;
+        Tue, 17 Nov 2026 02:47:00 -0800 (PST)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([195.50.164.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb70105a98sm119178335e9.5.2026.11.17.02.46.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 02:46:59 -0800 (PST)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: [PATCH v2 0/3] media: qcom: iris: venc: fix encoder crop handling
+Date: Tue, 17 Nov 2026 11:46:52 +0100
+Message-Id: <20261117-iris-fixes-v2-0-0b21201ab137@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,118 +115,98 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: media: qcom,mahua-iris: Add Mahua video
- codec
-To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261113-mahua_iris_enable-v1-0-b7107e1cbcaa@oss.qualcomm.com>
- <20261113-mahua_iris_enable-v1-1-b7107e1cbcaa@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261113-mahua_iris_enable-v1-1-b7107e1cbcaa@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJ0w/GoC/22MTQ6CMBCFr0JmbUk7BBRX3sOwqLWVSYRiRxsN6
+ d0dWbt5yff+VmCfyDMcqxWSz8QUZwHcVeBGO9+8oqswoMbOGIOKErEK9PainWl0QO1s6EEGS/J
+ bIP3zIDwSP2P6bN/Z/Ny/N9korRAv+7Z3jcNDe4rM9eNl7y5OUy0CQynlC3FktO6rAAAA
+X-Change-ID: 20261112-iris-fixes-f6130f20caf9
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Wangao Wang <wangao.wang@oss.qualcomm.com>,
+        Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0MiBTYWx0ZWRfX2Zps2ePh5Hgo
+ 2Dkkid9WjtItrqayNIq5/bM3NOLLPOxApO5bBpfMzoABoiP41xNfcAF8UnZuQR+WrBZe1mh+v9m
+ Bdu0/07e9BuwhfWuRAooWR8JLupoLdQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0MiBTYWx0ZWRfX9dcrTjFbqXCD
+ cAjV1ZDdS82mMo+JKYreBkdWBTeUYhK+QQk10WcnXiLJ8EugQLM/rAFe+aYAH0waPcdHYDIoqjD
+ xJLwNkHrJz4xzSLJYvwCz9IUEJOZy0M28nd0HFN/XodtdZ+okYMLgkvA5yt4NUpuRc5TQiHZ+a/
+ 2CDQvlHE5roxp2OrCqNJbAlpq94kVqoKyXbQld+dHxhmtK1bSYDXPOIX4vvHMQu+Yi3tIZuBqdU
+ X0i9FoDZ2F2ep1p2dU7qo1CakDcZaQ0J76aF3T4bjxRp1+MeTdsfVqjpTSoCfDEY5yDZjqj0lpe
+ 4B/4zHzYj7b+8tfSwm/+AEArrC3rCOgvj+r0jFuw2KP1kd9PI1DjI0/IYBVW1To9qEHEFgSnxn4
+ HUIY8afcHlLJ2Jr7QMDIollyBP77CFWp4NDdJYu4LGYYXgP1TEFeb/IfHb3cOmrJE73k/8NFCoZ
+ moHQ9a2zNIW3AC46F7g==
+X-Proofpoint-GUID: E8PnjLsRsqLhfjcML0y55VYZ8Ao-0MEF
+X-Proofpoint-ORIG-GUID: E8PnjLsRsqLhfjcML0y55VYZ8Ao-0MEF
+X-Authority-Analysis: v=2.4 cv=F7rC5ahN c=1 sm=1 tr=0 ts=6afc30a6 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=nME5e6IxvZJL9Xz_aiAA:9 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 clxscore=1015
+ suspectscore=0 bulkscore=0 malwarescore=0 spamscore=0 phishscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611170042
 
-On 14/11/2026 04:09, Deepa Guthyappa Madivalara wrote:
-> Add a devicetree binding for the Iris3.9 video encoder and decoder block
-> found on the Qualcomm Mahua SoC. This is a single core derivative,
-> leveraging most of Glymur data with the clks, resets present only
-> for vcodec0 core.
-> 
-> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/media/qcom,mahua-iris.yaml | 243 +++++++++++++++++++++
->  1 file changed, 243 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,mahua-iris.yaml b/Documentation/devicetree/bindings/media/qcom,mahua-iris.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..cbae6bddf7fd4b67330ce47033874f3d349e5a3d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,mahua-iris.yaml
-> @@ -0,0 +1,243 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/qcom,mahua-iris.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Mahua SoC Iris video encoder and decoder
-> +
-> +maintainers:
-> +  - Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> +
-> +description:
-> +  The Iris video processing unit on Qualcomm Mahua SoC is a video encode and
-> +  decode accelerator.
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - items:
-> +          - const: qcom,mahua-iris
-> +          - const: qcom,glymur-iris
-> +      - const: qcom,mahua-iris
-> +
+The encoder keeps the source resolution in two places. inst->fmt_src holds
+the padded buffer geometry reported to userspace, with width aligned to 128
+and height to 32. enc_raw_width and enc_raw_height hold the visible
+resolution sent to the firmware.
 
-I don't understand what you want to express at all. See DTS101 slides, I
-gave the talk in Qualcomm office this year even.
+inst->crop and inst->enc_scale_* belong to the second space, because
+iris_hfi_gen2_set_crop_offsets() computes the offsets as enc_raw_* minus
+crop. Each patch fixes a place where the padded size was used instead.
 
-Anyway, glymur is undocumented. There is nothing about dependencies in
-top of the cover letter (sorry, not going to scroll further - you ALWAYS
-put the most important information first), but anyway then it means this
-is untestable or unreviewable.
+Patch 1 seeds inst->crop from the visible size. Before, a plain 1280x720
+session ended up with crop.height 736 and a bottom offset of 0xfffffff0.
+
+Patch 2 compares the requested coded size against the visible resolution,
+so a plain 1280x720 session is no longer taken for a 736 -> 720 downscale.
+fmt_dst now also carries the codec alignment on every path, so the CAPTURE
+queue keeps reporting the coded size.
+
+Patch 3 bounds the S_SELECTION rectangle by the visible size, so userspace
+can no longer select a crop larger than the frame it submits and silently
+get an empty bitstream.
+
+Tested on QCS8300 with v4l2-ctl and ffmpeg.
+
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+---
+Changes in v2:
+- Split the crop fix and the scaling fix into two separate patches, as
+  suggested by Bryan.
+- Trim the commit message of the crop patch, the HFI offset computation is
+  enough to explain the bug.
+- Link to v1: https://lore.kernel.org/r/20261112-iris-fixes-v1-0-22b759c3c285@oss.qualcomm.com
+
+---
+Loic Poulain (3):
+      media: qcom: iris: venc: keep the crop rectangle in visible resolution space
+      media: qcom: iris: venc: detect scaling against the visible resolution
+      media: qcom: iris: venc: reject encoder crop rectangles larger than the source
+
+ drivers/media/platform/qcom/iris/iris_venc.c | 24 ++++++++++++++----------
+ drivers/media/platform/qcom/iris/iris_vidc.c |  4 ++--
+ 2 files changed, 16 insertions(+), 12 deletions(-)
+---
+base-commit: e726cf08ee6ba7e8b852c77760f12c59f90f1338
+change-id: 20261112-iris-fixes-f6130f20caf9
 
 Best regards,
-Krzysztof
+-- 
+Loic Poulain <loic.poulain@oss.qualcomm.com>
+
