@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794948595;
-	b=QRWGMFTwicvZLqqxVTmpbLRfBmsa5DhPC9bDPsYGPpbfIipwXsTwPxJoZ+eXVEnkNA9u
-	 deyJgc1feeQGSu2mZ3unX7MG8mGxYSiVSlo03j40/x30rA9YNvIPbCpe3oglDDH83Ip32
-	 g8/IW5Njvdx3rUMGb6yZpzqzi7/t7zS785ZaLNBRotrL+zjaBD1L8tk0XRQjzbrDYM4AX
-	 o5GvXXQTw6xv9vaJ5a6QwhXTyI7WVwNBYnUixUA/lU19ReVu8ShhCtIoJIHHSPHhSFUzl
-	 n7ERHb1jAjAEu8xs4qw+SR1Pj7CoW8Hy4DgtvXS94XxRKRXAL2JUDl03Rbd8LqLtrDg==
+	t=1794948596;
+	b=G/KRl9QdT0sRqXFS4xGb/HDYiB84LQukhdYejPrvu/R2Prsm6up5Ee6pgnRCmyAnCRCf
+	 9k2Gjwnlo0cLJ5zy+kzo+IFdvD8/cbVVIUVzSU7O28WkB59B8dRbcoeYctjx2uUR7bLQF
+	 sFvK/9UpDezBu1pcxAVyQ+ncZa+Idy7cj+YOSQYuGeJFSOGJMDloPeNMSf8KhG2LKEkhr
+	 8dMeOG1mIE9XRhfRco33HjJloCjmArdB5Uv3Ic5IWgoeEUZ7aT8LXlQGHLmTUaUxlCbGN
+	 dNbMCwMBrI7t6nHxG/PDy8WPmH06Pdpy7CHhBV7rhuWvTzZ2KiI2VVkPQWzQB5vmLAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794948595;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794948596;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=NsdvpJVQ4ynQwMkb58aAP0PxU967lp2zLrg3y5n21PI=;
-	b=UwNw4Qjpn/oqI4MoKk3p6ssSGwGL/oT1dmMBtuIJQzJ6le3JaZy7qpOrx3jMdKxtjZs+
-	 FdtR1CFPzhm8xvrsAouRgdprZOEoar1lUo/W4/+gXPb8L7cqyvzONyWHnRIq39Cj/jG29
-	 kzEc321ym/gGQtTqeq7FTTPcD+6afUQpPlPhjnBT4zjIu6v8mPLh4RrEiPq3xAMvoN9wP
-	 knbTotHLicCANMqxnAAO5nZwoLh/PKaUPlxMpjgXdLqo18cjNqLzO6DUNbQvnRKbifVxk
-	 qKhcr9xVILCqCRgkb5q9HbhJbFU3u9W0Z9/SIvMNoR14WHF26HyItD7P5pV9DOti7iw==
+	bh=hEM7O+SfQ/P5il8iwTrMriaGVNGLOg5byRDEqHK9yNo=;
+	b=goSO4Tppoyhvd5oYmbb9gBSfT3vjzFmZ3BlmluKkM9r1wNqQd4eLa4iZm6U7xp4lk1L6
+	 9GkytQGSh1Iv6e7jQbkizVHVZ+qsxHztseigPsjnRNpcCs9r7qoWWkIphA/ID+YVMHJWJ
+	 PXYySid6EVwR8tACIx+Koc2CO89wXBpXLCVU3912eFsuCltRcnXrNYwUkiNnIxK94liuD
+	 8FhnMSBdY/LP2MgICbjJKjoV1DGq0PlEYhfugcIdp5YrbJEl3kzovhYFKvk6ch2GR8MUY
+	 oouVVMEuqZgFBuJLSzWG3g3W9J7APmSPbdpHBp6BXpxyaeTKOcwzFmnSLG40H5U3UOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p6w9kSFA;
-	arc=none smtp.remote-ip=74.125.229.6
-Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lLNQ5nfb;
+	arc=none smtp.remote-ip=74.125.229.135
+Received: from mail-dl2-f7.google.com (mail-dl2-f7.google.com [74.125.229.135])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D3F606A33F
-	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 20:49:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8D3F606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910FA606A89D
+	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 20:49:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 910FA606A89D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p6w9kSFA
-Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-35adc681e1aso288076eec.0
-        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 12:49:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lLNQ5nfb
+Received: by mail-dl2-f7.google.com with SMTP id a92af1059eb24-13985f8229aso152185c88.1
+        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 12:49:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794948594; x=1795553394; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794948595; x=1795553395; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NsdvpJVQ4ynQwMkb58aAP0PxU967lp2zLrg3y5n21PI=;
-        b=p6w9kSFAa3KeB1tx66Z35R6AkVkJ5TAt2zalrQE5hGVByehQEiaD7lmGJqJKqMpIEW
-         xdDcURvY4k9dM4CyO4Hx77BTY73icie5zXztp1wJB0HhbGZi8Ey1PcGTh3vsEtr1FF0M
-         dt9qDU5WmCGpmFvsvPXhzHpP2c7CKTmwSm82gDwJSvIOHMKFoCRY2/IKpbekyvuTkhGo
-         gnqKH5jTvGJ0CPnzyk5CG8yfo8kzmlsqueHeCVsvZhRMSWD7ZSqueo7TLynvch4Iywa6
-         6dyBMy2cUJDuMmzYbbk+RoamJSCmAJldvwY7CPHldR2H5pqbZqxNEMLBE+OXFkq8yuwn
-         4FAg==
+        bh=hEM7O+SfQ/P5il8iwTrMriaGVNGLOg5byRDEqHK9yNo=;
+        b=lLNQ5nfbKi8F59LyfWYawqhvhrT2KprwXCQRkhMPXDLJdENW/tW7ZQjjPSDpSx06hw
+         8QpJnHYOngvA5o3KG5KlQjgG7pdVtWanlvysavS6SdD3FpGCkg0aDZvPKXXKMFU1pERD
+         cX/IfWPbFmxt7IL7GGNmVyY2sl4+8ok8syOrNTZyY92iJpPqLfU9nYgDOQAC45arAbdX
+         OiXBsQ22BUqrgo/q5kockOLIWa8XjE9WUgMACGDvIZDaplH7SbMqhHH5nDRBiW+/fp8O
+         4wzuGJDIPeo6AykG0NWXNGe9eZdDX29QEuZkPCHoel5XTLml4RgIiY2OCjDNPHtpbUVJ
+         2Oog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794948594; x=1795553394;
+        d=1e100.net; s=20260707; t=1794948595; x=1795553395;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NsdvpJVQ4ynQwMkb58aAP0PxU967lp2zLrg3y5n21PI=;
-        b=nlAFD5jiWTwTyulDgqybMANJUP5J9fHGyDJJOe8kQFUMmMbmPedIcahbkAC4WwVFgZ
-         c78WPFyp6hVQfhulkew4lesjiEXTMo801YLv9CtT+Ft2a1BhfxGI83raGyHQcxpiHpu8
-         3LTDgDoTzBl4z4PJIAN8fZGn4fv2jId27fsXg/pDJvHkZbwuBP8204qKBpywtkWrrPlN
-         ZT2myzNFSXFJlnN95y5sWdv4jW7qlTJ1+BZiYg3sTpqgC5bnuXgf3hm7te0gMsoaL8HI
-         Bz4w4/jTBsChH9li15gDS7uJqkX0oZgHzPzn5/okHnJYupi5K1Y2Wjvbd9z0IuPzSE/a
-         hwMQ==
-X-Forwarded-Encrypted: i=1; AL+hErEMNIpZoFH77r25zYG9RO3qomZUQlOucrKOgKTD6MMdrex7MrNtH+w+SEpezwBi78inzmyfKEXkoRulww==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sU/7hFnQAOd7lfRmxhDhVs7Yi0HfpZqQ4i7kndK36PCaTyjfQ
-	EJ/bnH3XjNr9H+llo4HBmXWwy3etGvKDMnjDOtvtyqEmCTfHGWOjlzeuFrlXBhfBOaFvTg==
-X-Gm-Gg: AYBFou0HlhRgz/v9jm8elhyd2Ni7Ncxink1lBNlBi6e1eO81D7jI80/nnnHyntkREGU
-	qx65MJnhYnK3YFMZwYVwXXPKRaO03+b8yLUkHg/8ZyVJGyRi8cuvvoLeF0vQ2d71cN66SycyWkH
-	yoY8ndwqrag7mTBxA+cU0HawvQyVJPQQCYJ2o9pFYiP/Z7AllqQLSpCgXAZEvOvuwaZOofnJwil
-	dO1qCZ/YYrFLPvL0PBRaOsqFF5393q5P+W/fa/6VPgCtLlyb6uR92BoB/ExKvXbjxkKXKuHOBQj
-	bZsqff4aNC6TV/ojTREU/3sUM568BvKqV/PCCDd2ijYvEn7x3VySyeu6pfg1ty+aJfdcLqNBnEP
-	6pyb+BccuYrdyYvn4sCwll6VX3l28B9UAVUdYGNZ4qmXdQbRlvxg+Yk30DG6NjksOKMaU7h3z65
-	lpyxHpJErpwZtulZK4d6FV9H8TNw0/p5JBSYe+u7viIR/G4skTOJ4YgV6dJpWaqZMFKnZpZf74x
-	RTRiKTqUlMgOA+a+4vj4tGiDUo8HpUR29a1mmRIdZKry8QwUNnnNLBH35r9Z3MMGQ3hdfpNryVv
-	Sv5EbDJVN0XubKT7ojSagcbER9TF1UcVs1hERosk0M4dnCldZcrfZVusWUxlDKGjkESfsv1Ekds
-	IQyKKRImHvdZdhjBTkYyXZ/4+uN0ASKzdmwCwIw==
-X-Received: by 2002:a05:701b:4291:10b0:1a1:47b2:5512 with SMTP id a92af1059eb24-1b543d0cefcmr702286c88.26.1794948593763;
-        Tue, 17 Nov 2026 12:49:53 -0800 (PST)
+        bh=hEM7O+SfQ/P5il8iwTrMriaGVNGLOg5byRDEqHK9yNo=;
+        b=Ru72TQ5yS6dljUMLZ6dC8vaLVYgxSWYMWSpCJ64tFigjPZVQb3mXKxQahlMW07HK4l
+         GdsPMfGh/txMjDg8PxhoN6UhkgkYW+aoaDyPhBZQDRFqHvzSgtf1vi2yJnkmlAfKblcM
+         8cultqHteSyeVGfItUUMWbKJvTxxK4bCkUL1SXwGWZJorrPUXLIU3F40lixKOValqp5R
+         Zx2Pm2k/fRDLIN4G2N91P+GIM5QVXxsuzwdLlm6Z+IUvgQW7/qOCEDviZOSvpInNfhIt
+         eJFWxP7MZ/Gsku+tiKtD/VaLpuZtWDRdeeODLSbyScU8M5eVzOsmfTo0hAb98wOMeS/y
+         X83A==
+X-Forwarded-Encrypted: i=1; AL+hErGto2ChQS1SJ/U2ZeUX1Yq+K2e9piX1fzY+9DSvOSwFIbxQ0+OGlmJO/UFcHUTQPlaML/qiB5mU7zMHMw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Bpys5CrCOEz6YVT2DPTpEVfKwg+HMKjF/jwOCSgU3bFW4531k
+	tIyMHwokMUMqVqa401aJIjrfYUHtv709oqI4SWz3yBOtAEnS6Jf6CFFz
+X-Gm-Gg: AYBFou09jhH/3JoHOaP4wNkHQ2xRSM9Q0tiPDgsq5+voBxQx4Jzv8a6kzMtqQmUznAt
+	kJtwCRrPfvXC2oCKXc8MR9ykQq5ct/CR4CI13dib7J1Ftws/Im69sL5Y+FaY25Onf7UywRZuw4Q
+	8LVivxcwHd1doZTCFx0lKKPW8YbLVUimV6/Y7d8MzSwQ4foliUhXe/4ypHuqKRsdCYYv6A6Saqn
+	wnpoinYi9bMhw14KaBpZm4nCjZdcauLGieCCQqsXJ0Oxe+8UL1Y25s1ttlAdieIxGLESFaJhPOb
+	pVGosuAx+x9Z7wUSAHabDa2vQpdGq5FkU0gEmwzMl4F4q+rJwDombXTDZi4mjO2at+oNvjYpy06
+	PRVnMmO8NbhDSsb0C8Iad5uwfQTyOFrWSOOvC88ODDdaxAmyJotoBZrrU/5dCHJDzIonA0/NdGR
+	1v892kdALDpwG1C4yv7i6pGPct4Ci/wIHwpZ+pjGeeJCRf7iemD6Z+O0Aca6asopw4W+7SYLUTM
+	T/PsATznVvrljtVUIXSI8RL8wwm6jpTSzWqtxSTjSf6kQ4VHYpghiJAZiQ5qea/28N+dCwooyvW
+	zC/WaRxEjwgJCbOPNXl20TNyJBeoLePiA0aFEv07K795y+SrWhfjchVcS3zsihkWe1iRxRLNFLB
+	yEX/HU2/XqLNhvo1MWqXjjClI7fLGgEkTPktc93A9fTE9+z5XI2H7ltCoua4=
+X-Received: by 2002:a05:701b:424d:20b0:199:7dff:f9cc with SMTP id a92af1059eb24-1b543c4406fmr654577c88.42.1794948594727;
+        Tue, 17 Nov 2026 12:49:54 -0800 (PST)
 Received: from localhost.localdomain ([98.148.34.5])
         by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5447dc5e9sm989029c88.11.2026.11.17.12.49.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 12:49:53 -0800 (PST)
+        Tue, 17 Nov 2026 12:49:54 -0800 (PST)
 From: Hungyu Lin <dennylin0707@gmail.com>
 To: vikash.garodia@oss.qualcomm.com,
 	dikshita.agarwal@oss.qualcomm.com
@@ -91,9 +91,9 @@ Cc: abhinav.kumar@linux.dev,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	dennylin0707@gmail.com
-Subject: [PATCH 1/2] media: iris: check the packet size after reading from shared memory
-Date: Tue, 17 Nov 2026 20:49:44 +0000
-Message-ID: <20261117204946.21359-2-dennylin0707@gmail.com>
+Subject: [PATCH 2/2] media: iris: fix out-of-bounds read in gen1 sequence change event
+Date: Tue, 17 Nov 2026 20:49:45 +0000
+Message-ID: <20261117204946.21359-3-dennylin0707@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261117204946.21359-1-dennylin0707@gmail.com>
 References: <20261117204946.21359-1-dennylin0707@gmail.com>
@@ -108,39 +108,164 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-iris_hfi_queue_read() takes the size of a packet from the first word of
-the packet in the shared queue and then copies that many bytes, including
-that word, out of the queue. The firmware can change the word in between,
-so the size field of the copy can be larger than what was copied. The
-gen1 response handlers use that field as the length of the packet, for
-example to walk the buffer requirements in
-iris_hfi_gen1_session_property_info().
+iris_hfi_gen1_read_changed_params() walks the properties of a
+HFI_EVENT_SESSION_SEQUENCE_CHANGED event. The number of properties comes
+from the firmware in event_data2 and the payload is never checked against
+the size of the packet. A count that is larger than what the packet holds
+makes the loop read past the end of the packet and, if it is large enough,
+past the end of the response buffer. The values that are read end up in
+the formats and in the crop rectangle that user space can query.
 
-venus got the same check in commit 49befc830daa ("media: venus: Add a
-check for packet size after reading from shared memory"). Compare the
-size field of the copy with the size that was used for the copy and fail
-the read if they differ.
+The same code in venus was fixed by commit 06d6770ff0d8 ("media: venus:
+Fix OOB read due to missing payload bound check"). Do the same here: keep
+track of the bytes that are left in the packet and put the instance into
+the error state when a property does not fit.
 
-Fixes: fb583a214337 ("media: iris: introduce host firmware interface with necessary hooks")
+Fixes: 84e17adae3e3 ("media: iris: add support for dynamic resolution change")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- drivers/media/platform/qcom/iris/iris_hfi_queue.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../qcom/iris/iris_hfi_gen1_response.c        | 73 ++++++++++++++-----
+ 1 file changed, 54 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_queue.c b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-index bf6db23b53e2..5d3315f71623 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-@@ -95,6 +95,8 @@ static int iris_hfi_queue_read(struct iris_iface_q_info *qinfo, void *packet)
- 			       qinfo->kernel_vaddr, residue);
- 			new_read_idx = residue;
+diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+index ffa98139f0eb..a5b43a408e55 100644
+--- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
++++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
+@@ -34,72 +34,102 @@ static void iris_hfi_gen1_read_changed_params(struct iris_inst *inst,
+ 	struct hfi_framesize *frame_sz;
+ 	struct vb2_queue *dst_q;
+ 	struct v4l2_ctrl *ctrl;
+-	u32 full_range, ptype;
++	u32 full_range, ptype, rem_bytes;
++	u32 size_read = 0;
++
++	rem_bytes = pkt->shdr.hdr.size - sizeof(*pkt);
+ 
+ 	do {
++		if (rem_bytes < sizeof(u32))
++			goto error;
+ 		ptype = *((u32 *)data_ptr);
++
++		data_ptr += sizeof(u32);
++		rem_bytes -= sizeof(u32);
++
+ 		switch (ptype) {
+ 		case HFI_PROPERTY_PARAM_FRAME_SIZE:
+-			data_ptr += sizeof(u32);
++			if (rem_bytes < sizeof(struct hfi_framesize))
++				goto error;
++
+ 			frame_sz = (struct hfi_framesize *)data_ptr;
+ 			event.width = frame_sz->width;
+ 			event.height = frame_sz->height;
+-			data_ptr += sizeof(*frame_sz);
++			size_read = sizeof(struct hfi_framesize);
+ 			break;
+ 		case HFI_PROPERTY_PARAM_PROFILE_LEVEL_CURRENT:
+-			data_ptr += sizeof(u32);
++			if (rem_bytes < sizeof(struct hfi_profile_level))
++				goto error;
++
+ 			profile_level = (struct hfi_profile_level *)data_ptr;
+ 			event.profile = profile_level->profile;
+ 			event.level = profile_level->level;
+-			data_ptr += sizeof(*profile_level);
++			size_read = sizeof(struct hfi_profile_level);
+ 			break;
+ 		case HFI_PROPERTY_PARAM_VDEC_PIXEL_BITDEPTH:
+-			data_ptr += sizeof(u32);
++			if (rem_bytes < sizeof(struct hfi_bit_depth))
++				goto error;
++
+ 			pixel_depth = (struct hfi_bit_depth *)data_ptr;
+ 			event.bit_depth = pixel_depth->bit_depth;
+-			data_ptr += sizeof(*pixel_depth);
++			size_read = sizeof(struct hfi_bit_depth);
+ 			break;
+ 		case HFI_PROPERTY_PARAM_VDEC_PIC_STRUCT:
+-			data_ptr += sizeof(u32);
++			if (rem_bytes < sizeof(struct hfi_pic_struct))
++				goto error;
++
+ 			pic_struct = (struct hfi_pic_struct *)data_ptr;
+ 			event.pic_struct = pic_struct->progressive_only;
+-			data_ptr += sizeof(*pic_struct);
++			size_read = sizeof(struct hfi_pic_struct);
+ 			break;
+ 		case HFI_PROPERTY_PARAM_VDEC_COLOUR_SPACE:
+-			data_ptr += sizeof(u32);
++			if (rem_bytes < sizeof(struct hfi_colour_space))
++				goto error;
++
+ 			colour_info = (struct hfi_colour_space *)data_ptr;
+ 			event.colour_space = colour_info->colour_space;
+-			data_ptr += sizeof(*colour_info);
++			size_read = sizeof(struct hfi_colour_space);
+ 			break;
+ 		case HFI_PROPERTY_CONFIG_VDEC_ENTROPY:
+-			data_ptr += sizeof(u32);
++			if (rem_bytes < sizeof(u32))
++				goto error;
++
+ 			event.entropy_mode = *(u32 *)data_ptr;
+-			data_ptr += sizeof(u32);
++			size_read = sizeof(u32);
+ 			break;
+ 		case HFI_PROPERTY_CONFIG_BUFFER_REQUIREMENTS:
+-			data_ptr += sizeof(u32);
++			if (rem_bytes < sizeof(struct hfi_buffer_requirements))
++				goto error;
++
+ 			bufreq = (struct hfi_buffer_requirements *)data_ptr;
+ 			event.buf_count = bufreq->count_min;
+-			data_ptr += sizeof(*bufreq);
++			size_read = sizeof(struct hfi_buffer_requirements);
+ 			break;
+ 		case HFI_INDEX_EXTRADATA_INPUT_CROP:
+-			data_ptr += sizeof(u32);
++			if (rem_bytes < sizeof(struct hfi_extradata_input_crop))
++				goto error;
++
+ 			crop = (struct hfi_extradata_input_crop *)data_ptr;
+ 			event.input_crop.left = crop->left;
+ 			event.input_crop.top = crop->top;
+ 			event.input_crop.width = crop->width;
+ 			event.input_crop.height = crop->height;
+-			data_ptr += sizeof(*crop);
++			size_read = sizeof(struct hfi_extradata_input_crop);
+ 			break;
+ 		case HFI_PROPERTY_PARAM_VDEC_DPB_COUNTS:
+-			data_ptr += sizeof(u32);
++			if (rem_bytes < sizeof(struct hfi_dpb_counts))
++				goto error;
++
+ 			iris_vpu_dpb_count = (struct hfi_dpb_counts *)data_ptr;
+ 			event.buf_count = iris_vpu_dpb_count->fw_min_count;
+-			data_ptr += sizeof(*iris_vpu_dpb_count);
++			size_read = sizeof(struct hfi_dpb_counts);
+ 			break;
+ 		default:
++			size_read = 0;
+ 			break;
  		}
-+		if (*(u32 *)packet != packet_size)
-+			return -EINVAL;
- 	} else {
- 		new_read_idx = write_idx;
- 		ret = -EBADMSG;
++		data_ptr += size_read;
++		rem_bytes -= size_read;
+ 		num_properties_changed--;
+ 	} while (num_properties_changed > 0);
+ 
+@@ -170,6 +200,11 @@ static void iris_hfi_gen1_read_changed_params(struct iris_inst *inst,
+ 			event.bit_depth, event.pic_struct);
+ 		iris_inst_change_state(inst, IRIS_INST_ERROR);
+ 	}
++
++	return;
++
++error:
++	iris_inst_change_state(inst, IRIS_INST_ERROR);
+ }
+ 
+ static void iris_hfi_gen1_event_seq_changed(struct iris_inst *inst,
 -- 
 2.43.0
 
