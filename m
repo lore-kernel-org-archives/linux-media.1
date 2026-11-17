@@ -1,90 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919338;
-	b=0r8nn7t9b8IWw98xo1TdKncE5mtkEHSv2YZ2+76SZGRRUGMmF/V1JpxBb07Svy5m9Dws
-	 oLAIYUdblL1g5hWvzR6kTZbsGfM9b0e/exQCJNUel7DXqL+ksqjwIKNEbKAYoYNRBT3i8
-	 eUUOsqXwzgKFhkP0esfbV/8BuoPaqix6gj5m926IMLY6stsO0w2OAYXM9MUEyvW/5v65X
-	 iJAwSNuy9PWQcaiy21kZg70o1xlbRGxeou31knEB6kD4gfb/sTIiNvt0cOpUQBN7vLtGt
-	 o+nAuzsTu0iQo7LIwGk4soUmO5emk3KZqRvyJjPWcdVLGkgTEb4aJOCnTheA1YyNi7Q==
+	t=1794919339;
+	b=t5/3iCD9PweZpSSWGRYmEBYSni1ubJzHNleNdK5yud4b3yIh/rsvQ5EkR0f0T1DmVXkh
+	 2WjziO8zmc7eeKHD2bfI/keH1NSmPw6bg2lrJDjj3G25pzKXE0ixetv/6APfjRp3jRHpk
+	 o+kDej3WjkBCevqsWs7j2XhBT8CAS8fg3goztgrUNWrtb2doN91jzJGBWZKEPgeAFiqM0
+	 T6IamQIk0R2UOOAXsHOdv86YcP5ewJJQ/nbkDT6He+gWkH51/y1v772I1CgDEcXyvShcx
+	 6ATbKBNJRyTyCX6br2eZrbnszbY4gMn4OoVd+QDGxHD4ntZrnhYkwhl/XU+dO6F/xiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919338;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=+WEBtr/8JSNohNzv89EN8vX89/+poqMMTCUuO0C1p1k=;
-	b=ewtKZh7GSK90eqMqj1DlCK9iYLHFZX9ECEK8yjFGn/fcE8q8wpJl6rMiHk0QLVFhg7Sh
-	 lG+1ZZ6Ohw/uSDmEw8uEFpsolVvlzmcBYHljgOEcizn5v7/RMVzxB2rWaLMAckASYQYCR
-	 NidW+Eom7i6q/BOZ82KuSD4v/79mYjW3lwva5HfPE7A4qE1UedD0tbs2FqXhIQBFbQRir
-	 Nfp06on9YPqWiC8hP7LAaKDsbU7ugOkoGFhYiznqtLwNvR7/HT5QKIrETH1R7nNllHvq2
-	 Y0H9MypcRLL4EsXNkZOTN6fNd4SZWj3XjUyppWAaq63hJhpbE/RvbS6OkdqlmkYEuAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919339;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=ebk/52wLUJEtZVNkqmzXk+Eiklh6s8RMno0Eu2ztla8=;
+	b=qPUgmTidNqbTcRqMe1jXBktCdmb+9/M04WZ8jPmQQuade/G/o5RuR7Dkfo+dGRuoSYVJ
+	 tP6QZwmsmuj2UmhhiFpOK/rZRXX3/cCoVZsRBSoafPF7VQ/0rjvVKJhzdtPZBMifIsjC2
+	 u0Qy8o2A0K76blqL6EMV4Rj3brTX2XHB6nBzsxPJTtg7+ZUWRG9wfJ0IcpE2H7FQ8Eqed
+	 V0MeVwVcn6Wa7hjVWdPJR3yJp4JK1Qtx2fSsx6nMPSPwDc/ebKq+SYdQYaMps8S/wQwpF
+	 Mfn3+Li2KY5x0zUswTqHk6qvL2p0vAaTYCdMi0Xnj5psbjyuPpS9bb5EO+p9spr/54g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=GjfsafhR;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dZP0NnBv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7C0606A336
-	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 12:42:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E7C0606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64754606A88F;
+	Tue, 17 Nov 2026 12:42:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=GjfsafhR
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ae1b34e0d2so478817a91.1
-        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 04:42:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794919337; x=1795524137; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+WEBtr/8JSNohNzv89EN8vX89/+poqMMTCUuO0C1p1k=;
-        b=GjfsafhReVYoQG+yWCB8umQ8x42WVGvtYvNtS3rFyyguS5QHq6woiRSS11fH+xaGtV
-         aqt66cXXDkZiD/2UTdu8rg7nlItoU4vlQT1tjT34gTYnU/AvooHZCaCjbFtcgxBn4cCu
-         Zxm9eD69qk+zA60q8Rp3tDCjPPcjjhdJEKe+Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794919337; x=1795524137;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+WEBtr/8JSNohNzv89EN8vX89/+poqMMTCUuO0C1p1k=;
-        b=kY4SXyFakQLzgfG9/UNbjXGLDkbDtuONlnnOi0rcjBHPAanLYcTpH2UZz922Co7z2Y
-         Cr4tF26bIaTsY+UVHEy4NIemjCAQ6Y7qQd3Mhehh3m732nZ7RcXHX2LzZS4AyTTgbW0X
-         ny90jUnugI0ScEFGvUoDl1zAHjshgMGdsqVxI4I0lIewsGDo5j0p0unQMAQetGJ4Szx0
-         QX8bY+VteT+HxAG0OTBD5l/C6L8Dturgr7YrJVdxAyROLzQ8UmG3b8+oZ227JmSrRTjI
-         gLbtu3iOcamvD77xroRE2Zu5rUWAnaU6QORGkFexLbTesv2SAHBBaBM0gT+NCsFqJBax
-         g5tg==
-X-Forwarded-Encrypted: i=1; AL+hErHF9K05A+m+BHcSUiIyC1u44crtLqrg3yikrcY/0eCzFUlJErUcX8877p1fxlcR9riinE3ZaV0D4GTlKQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/wbDOVTPrXtSYotKvUoeO95+qZo4zJM4sAJNUbHXDRv3nV1BhO
-	L8Zd8G+/hjtz11k+tHHMmlGr0vQGKhm38TGRkMmjht0Y6Yl66Fz96Q5entykwSJRWEOIxKH8THk
-	ELBbdWIqE
-X-Gm-Gg: AZFdTZfpmXnJ8xCE/Nil8EYJ+WrGHlKjCXZW8gEBS04bbf+04U9bvf7JdeIZHZaRN71
-	fwAa2338y4be/wfnCkGytSl2D+O+HETvCSFrhf3YbEJVgJ6Ure8AXg6tIz5/ASlIHBh4I0hcoHQ
-	GlRMbVU2dOjJy4xX2cYh/mUuR7BI8IZS9Qf/bRw6q997o2Vw+P3LD2jNb1CpmVN1xSKD4+oNIDV
-	O2KoTz5Rja8j/K6IHfjyzbjWyLCmH/NARWRMEHulfUNHgGxsBuNX/cJj84iL+UXmvlRp/Onxd16
-	eDgcvw3SMDAds/m/p902pLNQ89Renv517xFUJpj518jsQBaYCQ1LToFdx5FQKo3srVUyZLM3lq8
-	dU0t1x+IFUuETVSG9WjF0OlZTXZ9H0Rrj9UocWLawlRNwGgApoedL2d6mCM38I9Usz33Z8ATNcU
-	k5UUr5Wg9JqAbGtNiqw8iLGT0jTRyIgK0H08WXa5PtHTjvnYAbDlZFxxBVlG9MCX4i01D8IaeHu
-	F4Q9h+l6dkGw7LhkMFjvmTgMCmg8hzefWxQwFhe3ScpJmtsuhc4qeh7c/f6isXIHh7aF4yfi+v8
-	Hof+20ZMPOOIrD3f4eT5mlES0iEF2nlQBS4iyp5YNShOpsSbZgtIKXdUvtH0JsnMoGXnk9xmSsM
-	nH8nps/zhzFM=
-X-Received: by 2002:a17:90b:48cd:b0:3a0:e568:ed63 with SMTP id 98e67ed59e1d1-3b3abaf90ffmr1407492a91.8.1794919336958;
-        Tue, 17 Nov 2026 04:42:16 -0800 (PST)
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com. [74.125.82.42])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abd068e2sm4131642a91.6.2026.11.17.04.42.15
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 04:42:16 -0800 (PST)
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1438d9363fbso614431c88.0
-        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 04:42:15 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGr5o5wnFlDQZyDkcZmkjFAoNeiFvZDQMmD8X/b9Tj5TUgOTSpfc3JkOeD6dAa3zX4N3A95cDkYwo6HJQ==@vger.kernel.org
-X-Received: by 2002:a05:701b:4208:10b0:1b3:b3d5:566f with SMTP id
- a92af1059eb24-1b53a3d6f36mr2169749c88.11.1794919334620; Tue, 17 Nov 2026
- 04:42:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dZP0NnBv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 404AE1F000C4;
+	Tue, 17 Nov 2026 12:42:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794919339;
+	bh=ebk/52wLUJEtZVNkqmzXk+Eiklh6s8RMno0Eu2ztla8=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=dZP0NnBvc9k1cmJQ59R0I4aYvRzjnc3lL2dW6uByA05zPYAqzrTuVYg5lQuAWr57D
+	 Cbap/3BosZbA93DyWOXuioDlNuUV3g0wvXXqZVlKOfy0qHbPwGP/0reUNzq1U34ZRU
+	 A8AO6YpvGWdyq8zmqbetT/xxxnPwCvWH37TsHwEQU6hk4je2et8O1LRfs6LxaDVLW4
+	 ZtCUy2H4eev40nIsxJsRfBISu/yEqGePwX5Sg3Vi+fJUwHsIemIHp4ze7OGP3etgmY
+	 nLYYe/8/jLs5IMYPCfeXmI5XryBUNHgMy76UpFZA7h6OHZE7dsWLKLwjX0AVPR1xYl
+	 I7vXc9MeovKTA==
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -94,65 +49,134 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <avxKOmxCBLF+7qdT@jpc00229873>
-In-Reply-To: <avxKOmxCBLF+7qdT@jpc00229873>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Tue, 17 Nov 2026 13:42:00 +0100
-X-Gmail-Original-Message-ID: <CANiDSCuX1+ehTGN=HNuLL9YBTt8tUw6fJ2D1JqfePQGaz+QOzA@mail.gmail.com>
-X-Gm-Features: AclHuK-EAX41DbKYbj2e_sh3aVA0w84vlTt-MWboq9nmaiJAZIgb1T5nlgGrxS0
-Message-ID: <CANiDSCuX1+ehTGN=HNuLL9YBTt8tUw6fJ2D1JqfePQGaz+QOzA@mail.gmail.com>
-Subject: Re: [REGRESSION] 5.15.y, 5.10.y: media: uvcvideo: please backport 5b9c75c794ce
-To: Naoki Matsumoto <naoki.matt.matsumoto@sony.com>
-Cc: stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, regressions@lists.linux.dev, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, chenchangcheng <chenchangcheng@kylinos.cn>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans Verkuil <hverkuil@xs4all.nl>, 
-	Sasha Levin <sashal@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] media: iris: Unload the firmware before hibernation
+From: bod@kernel.org
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261026-b4-media-iris-unload-firmware-hibernation-v1-1-c1af57ac16b1@oss.qualcomm.com>
+References: <20261026-b4-media-iris-unload-firmware-hibernation-v1-1-c1af57ac16b1@oss.qualcomm.com>
+Date: Tue, 17 Nov 2026 12:42:14 +0000
+Message-Id: <179491933438.2846709.5025592842946674041.b4-reply@b4>
+X-Mailer: b4 0.17-dev-e3fc9
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3425; i=bod@kernel.org;
+ h=from:subject:message-id; bh=Bqg+x2pkPaRXP1baOBhPEzj+591i8jMh0pwRPliYxzY=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/EumHSj5jiT0Z/uLcjdRm7K/Ut5pdp12veJG8
+ AXtAY1ZTtWJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCavxLpgAKCRAicTuzoY3I
+ OrpBEACVtZ5kWhNMhtVFIzBNKPJBkLnSyXn2h/cRADp9Gprusft27XzJKAPle0X9I6bJSDcxGub
+ HrsuelVWaX572ESwTBnuxPUQF/8lwoDHweMxaBltco+jEm1FRTlOzXhRYLGMMZIeflr+ozyCE1U
+ ztEr5Se50VBCba7E9tWg619a1/mjkn2S8B3M1z6gZLj9fL9jbAF7EgZy+s38BontpDB0zFoWIWt
+ PgQZeC10GtyPfbKthNLtPu2iumVJNiDgsj5Z2xA77zczPZVytRL6WNSq9nzfzYUa2BqAJb1WzFN
+ QlaWcjBmNE5JZ/rycd0y849VEO2fjrzvJPjd+fwjk2Is887e4hO1vBuh7klU/HrnFDlbZ3CFAkt
+ dkSqH5PM0TeocNFLzPUSQeFcAR+Q6leqWLhdxKyhNFXov0MoIhY/b5zXvBdCtDEYLpwAO5qkn2D
+ n1f9q1DnuiquVyfuqvApqN4TbBFlyErCOESpt/d///b6il2DRMs8gaxONxn/mVRajxxj+kEPaon
+ 7eGJx+8F/Qjx3ZWF/oN36KZXjnhtc6pSwBlt6ChyJraJ75zJcM8phvFjBnysEPfYnYAIfnwYsF5
+ cC78JKnp6cRlJtaBdB4ezV6klM+XlouHdPzs4YJjdBVrZCgdlfTe547bl3xweXBaG+QEGWw9+uu
+ ha9NvePjO7N18qQ==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Hi Naoki
-
-On Tue, 17 Nov 2026 at 13:36, Naoki Matsumoto
-<naoki.matt.matsumoto@sony.com> wrote:
->
-> Hi
->
-> I use a UVC device of USB3 at v5.15.y. I found the frame rate down with
-> the below message after updating stable version.
->
->     uvcvideo 2-3:1.3: UVC non compliance: the max payload
->     transmission size (1729) exceeds the size of the ep max packet (1024).
->     Using the max size.
->
-> This message is from by eb6059474e70 ("media: uvcvideo: Fix bandwidth issue for Alcor camera").
->
->     5.15.190: eb6059474e70
->     5.10.241: 3eaf16ff8165
->
-> kernel-5.15 supports usb3 of course. This problem is stream->maxpsize is
-> not support usb3. Since this function parses it directly, USB 3 support seems
-> to have been overlooked. I found the patch at v5.19
->
-> Please apply 5b9c75c794ce ("media: uvcvideo: Undup use
-> uvc_endpoint_max_bpi() code") to 5.15.y and 5.10.y.
->
-> I confirmed that it cherry-picks cleanly and fixes the problem on 5.15.
-
-Thanks a lot for your email. I believe I already asked stable to
-cherry-pick this
-https://lore.kernel.org/stable/20260323-uvc-backport-bpi-v1-1-5b62c6798ccf@chromium.org/
-
-
-Sasha, Greg, could you check what happened?
-
-Thanks!
->
-> #regzbot introduced: eb6059474e70
->
-> Thank you,
-> Naoki Matsumoto
->
+On 2026-10-26 15:39 +0200, Abel Vesa wrote:
+> A hibernation image is restored after a power cycle, by a kernel that
+> may have loaded the firmware itself. Neither the firmware, which lives
+> in memory the image does not hold, nor its authentication by the
+> TrustZone survive that, so resuming the core from the restored kernel
+> fails:
+> 
+>   qcom-iris aa00000.video-codec: failed to resume
+> 
+> Make sure the image does not hold an initialized core. Unload the
+> firmware before the image is created, and before the kernel that loads
+> the image jumps into it, so that the next session loads it again. Keep
+> the system error handler disabled meanwhile, so that it cannot load the
+> firmware again behind our back.
+> 
+> Refuse to hibernate while the device is open, as its sessions cannot
+> survive this. Failing them the way a system error does would let
+> hibernation go on, but would break every open file handle on each
+> hibernation, without userspace having a chance to tear the session
+> down cleanly.
+> 
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
+> Prepared with help from an LLM-based assistant.
+> ---
+>  drivers/media/platform/qcom/iris/iris_probe.c | 44 +++++++++++++++++++++++++--
+>  1 file changed, 42 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
+> index 41dec90f3e2b..ea77c573b333 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
+> @@ -411,9 +411,49 @@ static int __maybe_unused iris_pm_resume(struct device *dev)
+>  	return ret;
+>  }
+>  
+> +/*
+> + * Neither the firmware nor its TrustZone authentication survive hibernation,
+> + * so do not let the image hold an initialized core.
+> + */
 
 
--- 
-Ricardo Ribalda
+> +static int iris_pm_freeze(struct device *dev)
+> +{
+> +	struct iris_core *core = dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	scoped_guard(mutex, &core->lock) {
+> +		if (!list_empty(&core->instances)) {
+> +			dev_err(dev, "cannot hibernate while the device is open\n");
+> +			return -EBUSY;
+> +		}
+> +	}
+> +
+> +	/* Keep a system error from loading the firmware again */
+> +	disable_delayed_work_sync(&core->sys_error_handler);
+> +	iris_core_deinit(core);
+
+I think the logic here is generally good. One thing though - we appear to
+have cancel_delayed_work_sync() + iris_core_deinit() in iris_remove() and
+now here disable_delayed_work_sync() + iris_core_deinit().
+
+I think the iris_remove() should be disable_delayed_work_sync() it seems to
+be the same error as this:
+
+https://lore.kernel.org/linux-media/20261023223635.3c895c4752c4-3-mhun512@gmail.com
+
+So perhaps a patch before this patch which Fixes: the
+cancel_delayed_work_sync() in iris_remove() and then you can use a helper
+function 
+
+abels_super_cool_teardown() {
+
+- disable_delayed_work_sync();
+- iris_core_deinit();
+
+}
+
+in both iris_remove() and iris_pm_freeze()
+
+> +
+> +	ret = pm_runtime_force_suspend(dev);
+> +	if (ret)
+> +		enable_delayed_work(&core->sys_error_handler);
+> +
+> +	return ret;
+> +}
+> +
+> +static int iris_pm_thaw(struct device *dev)
+> +{
+> +	struct iris_core *core = dev_get_drvdata(dev);
+> +
+> +	enable_delayed_work(&core->sys_error_handler);
+
+I was going to ask about when the firmware gets loaded but its done in
+iris_open() so I think this is fine.
+---
+bod
+
