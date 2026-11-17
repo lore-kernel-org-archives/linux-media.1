@@ -1,97 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920725;
-	b=WIoqSNN8fGdLZKzV+Ij73bbiFGF0TsYDD8k6XPq7qBt2s418SCmmPm87re4hYmbDePlo
-	 uK3iAuGwQYQL7gQTDDyanoD89WPIli3WzGpXht6QO9sKgJh7Z+bAp1UNdu4nNqU0ObXhH
-	 J2nkOvIqRTWyfkH27LziqjrQIdwnk0kQ36Aox9tUXkXbA8ktCNItdyLEYnFw3oByxbnkK
-	 3Ew5M1UPzOoeKLlEOlEiESSsYs5IgqATq/jlWVrHB4jZFUhSsJTWBD1OOJ5T9JwYDX+EX
-	 Li1ofRMf85wtjRZsy0r5lW6nZlWQB7pIKnGuCg3iXcmzy33trxCvhrra5XiKtMSi69g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920725;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=idu1RW3ysteFFCmLuOlQ/aqPD4nZPXDeX2QMvTFnWME=;
-	b=VUoLA75/hE8dMaf3XvZPtLg1f3IcYl/xxC7dX/IiwZDM0fEzB4R+NuOfrGEiPO+vjoXk
-	 oiol56Fcuu4PY3qJW76ftrJ7eEDDzmtOUUt/Nqf0kI5HdUaV78HiHx3OYVJLBxjGydDq+
-	 bXMGHRjxW6v2SrkrNzjl7Uh2Eu/DcLRlf451457UhD2evqmyjjnCqxakBfsj0eGrHlXde
-	 b5DRZEwN2Kl9yXoTxZ6y1rFhhgnGQD30KxX7XJtoLZwJRN6HAW/ln68TrcWPcFlZTml1I
-	 1aaEC+fdYRtBUc8KjhK631qyBP8CgCBvm5nn9kGxo0yLuN3i88Vm6+iv7Ksz2z7sdBw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ixg2FElQ;
-	arc=none smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.34
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794922868;
+	b=0CPACAicxLxYUbCIfdkGXdTHz/5tMu9K9ULoVqHCF0UliTZw1CxcVGYq8PrPTCmPmifW
+	 cD9xiJkqmSVDUoYzQuELoaUR3jdMclPjZ8giqpH5tBqc5IowtVr5p7+q2X2yX2S7Vu6YL
+	 1tAWtw4MpKFnwzSC51qEABMvAfUUzZ9ISF1KxNhAF61nOKZH97+ODKeX6fNjg4e7hyAHf
+	 Csi1XksaihKtbGxbj5dRM3loQ8aBGGkdMpE9hT1NiEOwo+SnQ2Q051F6vpx7EWTVvDrJE
+	 ofTF390NdSwJxFuS3bmR7HE7MmSKYYfIXbmPAWBmvodWZF7ZZxHn29wVlOaZwkJqmuw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922868;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=034xZ/R3Rbx6TAQYtSn2V1M4t7pkq7VAG2DeR9T79A8=;
+	b=lEBKFIMurUgxDcp4mxd4QJm+SaAOETTTjVtfnL7Tq7nAdAX0i3eQzs5unKV6E/oQh/N4
+	 53V+CQPDeYB/dleKD90Rs7MbkskjITsB3n5dlaZTTLm2tdWQJL/wLaOhu0Wmfd+rwsBnn
+	 TrdvBem6iuHbtS2mq1vueiYQ9Y53LNE/8vv/RubSyWpleQ8SZlk4GKSKdDDxrqsZIMfng
+	 +B5W6JS61TcEm8TMvPPxrYw/BS0Gh2K7In+j9vbSlXrAmfvoVsTg6nxkoWia2uCoVFbkF
+	 Jv202WnltwzevRK2YvYlWSVLwyrOJGaaajLmALiWGNcaHkunpvW75Q/O+92t0fUT6Iw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qyVMq5QR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.34
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011034.outbound.protection.outlook.com [40.107.208.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47A2606A331
-	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 13:05:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A47A2606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF82606A31C;
+	Tue, 17 Nov 2026 13:41:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACF82606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ixg2FElQ
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b86bbce3d1so838096a12.0
-        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 05:05:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794920723; x=1795525523; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=idu1RW3ysteFFCmLuOlQ/aqPD4nZPXDeX2QMvTFnWME=;
-        b=Ixg2FElQ4K8R/ky9HTvGAJuCEGYJVX7TUpi5oiqcBsN7Ib3dSQlPZFiqoWifByTrV0
-         PCB1fdjPoxuSx7k6xU5Xs7JACbWaTU6J65zOLIeWvkRrpgrHEvmv8OR7AC8g6GgagGzZ
-         rlAv40uJp38V1S4cuqLdlXuoeTFIFYLtiU93vLGg5jwPGFQSoUNOE+kPZLUGKa6lapxR
-         oWokp/R1jGHIF5AJUY9RcuVHCm56TbQriYCRtLKpzW4hOx9oMb5aeeUk60mxs07G+NOb
-         re6d/LK/Y6xYh1CxsjDHWxaD3+MG0VabzTA0xd6exotZwAYLSIFMC7ih7BLLdb3e/uK2
-         Z68g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794920723; x=1795525523;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=idu1RW3ysteFFCmLuOlQ/aqPD4nZPXDeX2QMvTFnWME=;
-        b=iuKwTfZYRa5ZshaEGzNgakdz6Mju3PwdO1qat2gm/BHPFAxR4z7nc/4PI6SHQTK0le
-         tRLMRUymu50h5H7QmLWi9n/mvixGn2jXJhbOf60N3JlrQi8hDqu3DgYClSMTyNMCA6+0
-         moNqydILU+ORCWo/oEqWK64jKAZBDKLEmA2YXrkzIBm00UlNvxbTfc4EY9kzLrcXAiM+
-         uMuYp+ZfeC7s14L7RdOzAi1U1gorZ8v/Z9xWacVqEiQLEaYnTJS8b2xn3H0VEonhxgFw
-         +jEQeH5jUtADmGiNf2IVgoEInq2bkYEkcS1XlJbE8zFo+eJlqK1cAhv1qmcFlIs6OmZ6
-         FTPw==
-X-Forwarded-Encrypted: i=1; AL+hErEToW65s1Ji9ydCAJs2++p78HSjuzngZApcBIZwdQXDGDhVI9s/dp+Fgq82cCrVfeJAFrf4zNuejJIaDg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9QPqFixVTrNksAwPq0DlzjcJq4tBmE0q787ppn53ix079vfErv
-	uyWZS7TjVsSeBxtAFhUxNcnIsTDRfxHcy+FqYAnGuw/hL3WkzFfgPrcH
-X-Gm-Gg: AYBFou3x6Heoqx+qCK9KeLxXeK+h7b/sH9UUcS4oNylfDqVINXa5I40AAoMZW3HDEtI
-	1wEuznYkI3LHjIIWkpybT1DJI/Y/3ECVnFBiWfkT4+FN6t1wiQruawfBFUoXx/Swv41HSDH4hsD
-	LUClYOcLHgd3DRb1D4AWMxG8YN4+uwHxcBK65mf9/fU3cQUe5E023gehN8DiUXCiERnlBxPC/c8
-	icwgdtKEx76EQCNUaZf98t+qROA3QP+rx9ssgF8HrUBmvgjOXUUM7ljYUCdbYUQDBSZVf5kKfXA
-	qo18r/c8nDH2kyUIjOX2f6rXC3p2IwzckGGtyu/55nBUsbPZ7mGs8FeBFuYzpASASlyEijEdKdF
-	EUkaiZl5BpsR16SUp9h7ENDsG6j6fYsWGb3lRWzdTk7+d/dKDsHiuD/LYPtzgzuW59lgb8wus7z
-	6ZoL7ytQ6VtXxthtGhwKtEFg9J0msg6UwW8HAv7zPR/GxvLKl+wpDicOAuDAi/PmTYGwi6txEPU
-	NHr77R1iEFbe1gF2vZDzSyRcHATHHvVemSRGaT32o5zzAfjDI95EErtbdqTMWEDRLSCIH7mqCjl
-	VGb1QIjDZRGWanOGQ6lTxsvFt191ElX6OfcH1jK2R48rFlRkqwxVqxW8a074xPEFdNrULb4YN+n
-	I1ShLChXDZSI4JzhPmlub86DNQ6+2oAPP1fqrATTd3k6pDIKheXxADfrqGUEHNNt5lTA=
-X-Received: by 2002:a05:6402:912:b0:6b5:9849:e328 with SMTP id 4fb4d7f45d1cf-6b7c0d12623mr10169278a12.39.1794920722795;
-        Tue, 17 Nov 2026 05:05:22 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b8786f205fsm343922a12.22.2026.11.17.05.05.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 05:05:22 -0800 (PST)
-Date: Tue, 17 Nov 2026 16:05:18 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Avishek Chaulagain <chaulagainavishek14@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] media: atomisp: remove unused functions
-Message-ID: <avxRDgUd-uygzKot@stanley.mountain>
-References: <cover.1794845230.git.chaulagainavishek14@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qyVMq5QR
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ErmldmCBZ0BgFQJsqbYs/FGKBHDxQAK5oC21xqQ9PADFQLAmAgKVqRqpitLWcnKXZ2JBoGSmZ+nNF2aT9xhqOamxXp3tlIFEyU56OFwsN0k9gRBPRNZynXwsOpfz6AMHWwPRM5bZq0sICcwL2SQE4uKW2LnBCOTdqafp42uM9HU/miAnQ3Fb5RGeOHTtNBqciQU/fjQA12/vzVA4qHloEVY+5s9s/jWKhNbmefuxCrgl0VKKRjBb/PdBRwOaBHAx4X59/NB2Oi4f0g4L+P1/u57M/PT6uLwIFs/yhZm4+sgnwpC8FSN1f3KKg/YRP0xg9Spq6EEDh5MWvYvs21MJpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=034xZ/R3Rbx6TAQYtSn2V1M4t7pkq7VAG2DeR9T79A8=;
+ b=qJYRYSzWgeEiAcqIdNpvb+i69bo/HAWTX9U4l6L06X7loTNVUA/L/pXWnGzENxGNA8qY8tcmtl/Fz1IQZb9PXUhU5ap1pOXr+lDhnAENs6j4guFbfADl6YLJzGie7elJoOXJ37cU7DHgMk3sgKk1vZUBxoaqd3VIB56s3zFdUe04agsM4OS8UUHlzcxqhdJLqpG+gGh+K/OtPFb37lwqNvUh0KNMe2Ylc1kW8c5a0SJM4CHVQC22zK6z2oiLXxnR14nnPx7P3Zb6b6EIiVmweN45bLm3zdH+ko1J04TZRGVA9fEDza45s7QE/owqdU1KmiRqSvOlrkl+c4iQyYy9wQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=034xZ/R3Rbx6TAQYtSn2V1M4t7pkq7VAG2DeR9T79A8=;
+ b=qyVMq5QRh69SIKNQYKAnYo9cHabuDoFVkfWnbP3ToRfxeF7px931Kk1xyBvN51z7xWbyYSx60ZehVtKOLpdob9kCJWbDaOOqP4G8TQpJWU4yw1PBXuRl4PrTfufmNzCMYPs3L8ysaQwpUcVXuwbrU4VamcipIpoBeMLwNM71+4E=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS6PR12MB317717.namprd12.prod.outlook.com (2603:10b6:8:414::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 13:41:05 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 13:41:04 +0000
+Message-ID: <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
+Date: Tue, 17 Nov 2026 14:40:55 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
+To: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261112101015.528127-2-phasta@kernel.org>
+ <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
+ <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
+ <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
+ <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0185.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ab::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -101,14 +108,118 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1794845230.git.chaulagainavishek14@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS6PR12MB317717:EE_
+X-MS-Office365-Filtering-Correlation-Id: ffafbc56-686e-4c52-f273-08df44b06d0e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|18002099003|22082099003|921020|11063799006|4143699003|56012099006|261102123227099003|261026121527099003|261021121427099003|261021135927099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	ZoSbGaTVmKFEGYYqNCWH9Y1IY3qnZJQ1uPwQkeRjFv5UeKQRIEG521WaKfhdnU4PuwdsZ6en2fnr+8nEf2Br4VqUMz8fOSd+e8SaJOXVpfhe7NlCbqCMWzAafhIlORUTNzL4Nqo3RRQw7AOL6LqT4QOlaAvteE4KRBhhcR24Bzs3LF4OeSbLKY/hbQlpgMfYwChG0TuV1iNGJhm/SmQWiWjTO5UCmITFDsEp0H29JtTrw+s7728Sf4PrbnwtZcaxU3jlHsBgFTU8KMEKln1d6+YNnfAjbTltl5chKEe67SYETkbWqfWwq8U9OoUQfakHgzyJqDtSF8OPdECtnkNWK/c9dmpnzwAHN5rAHyiUwCSkV7xif+thdYMr2PT1AUMOrv1MVC6qsenFc/vraIY6KtfFakrBglVtjtbT8msyJWjiapKHNDjr/x+cBbBjBxL8bJMMPcv3r3KGIpYwxu9ftfGxHpHq39vEs89QFz/PFTVPOaZLfnaHj6TPopKDOhjs5wHdNGHB1q5ftRKOoIrtuLGMLDNNEn6ThRBuO9gyR2C29Rakr2qbzW0bcPaRcI/Xv3tvMe0tuV/7fZVKHq2hvyFlFbv+oqycKfnBkAlQlOFiov8rOibfOYLhEyXxHYS0pwsu1AH1nJaPuHHF0mqP4mk69o5XsTyPC4JZFhS7jv5mHdNCEzyuJlnS7M6tZpGg31oAysl0hWcEFkSvsnt3bQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(18002099003)(22082099003)(921020)(11063799006)(4143699003)(56012099006)(261102123227099003)(261026121527099003)(261021121427099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VmhyUlpydXFIODA1Nm9ETVdxaUlkYnYvK1B0R3RaNXh5amhqY2RYbEIxYkEy?=
+ =?utf-8?B?Z250cVRpR3Z5QmJpbGxXL25zQmVVR05zM3VLUlFZUWx0a3dQejFhaEpiOFY0?=
+ =?utf-8?B?T0NJRTc4SkR3Szc5THgyS1JoWXRRTWJTK0prR1Jna0tvN2tKeEZydUhkN1pi?=
+ =?utf-8?B?RkJseXU5MXpOQzQyNklQZytoSXYwa1pzR3NNOEVFQVBIWlRYY0diVXJDRDRl?=
+ =?utf-8?B?VWQvK0kxK1NZdnJwdGZ5S01MelZKWk5SSzNKdm0wUFhoSnZGWHVybWd6eHdm?=
+ =?utf-8?B?eThMOUtYUGttdWpvWjhIQ3NyMVI3VjJOMCt4UjlXQzVKUkU2T1QycjRlZWhl?=
+ =?utf-8?B?VFB2dW5pNWZxK1VFazVWQUtjZXBqNHA0b2M5UEwyYVY5U1Z2d01QRzkrbmlC?=
+ =?utf-8?B?cktaSXNucnNiVTFQNEROSklBc0l5bHRxdkt5enJxaW1HNkMxTEg2Mk9SWEMv?=
+ =?utf-8?B?Ulo5N3pCaFJteXBXSTNkbGQxVjZHbHkxYzZkeGF2azVGMVVva2MxUGNmSkxI?=
+ =?utf-8?B?SE81alEzRG9lSTlkZjhmc1c1NHVONlVGdWRNVVlkeVJTRUlGN2M0dUFybVR3?=
+ =?utf-8?B?ajAvdVZKdXNCYkNLR0cwN0VNZFAvMEdIQ2IxOTZwOW9BYmR1M3RaZm1SNnlz?=
+ =?utf-8?B?SUdvK2FmdFlHV3JZSUhTTFNadHBLblBLUXYxZ2tGVVpCcy8vNGg2Z3l2QlZI?=
+ =?utf-8?B?VHJiQjgzSDN3TnVoc3d5K1dSVW9DRWcxRUViQklSaHdZMU9zSVdwaHBPK2Qz?=
+ =?utf-8?B?UWw2N21qVjJSVkJ6ZTdkZWM4OFVIRnI3dmgrb1J4NW5SQVB6NmRJZ2xTVFdX?=
+ =?utf-8?B?WGRQRmFkQnVBdW40SUZJRDVYYW03dkRDcXplaTQvdXBkRnAvd3g5KzVXdDNE?=
+ =?utf-8?B?ZlZNOXZPVHE5b2d3T29tQmtnZmFKYlhkTjU3WG83ZlR5d2EwaDBWRE5jYWdE?=
+ =?utf-8?B?WmVtUXV1ZTVzY3BidXhMQVhFSTdpSUxoaHIrazgrS0VHWG9TWUFrTXFJZGlK?=
+ =?utf-8?B?djNiUmtlZHk2czY0TmZzMENQWXlLTVJLWW00SWYwTzFlVllZLzRwM0Mrd2pv?=
+ =?utf-8?B?N2NkdWNlQmZXS3M0eVB3dGpkTW9LNGtiSitNUE82VGxjY29wNTlFUjNJLy9m?=
+ =?utf-8?B?MVB2N3RraWYvL0kxREJ2OHdNMFhydzFqTGtHUFVQMzZKbmo5ejhQai9Gd0FN?=
+ =?utf-8?B?TU5reVE5Mnp6UFdtejlCamgxYVg5TkhsNElNdTQrWDN3VUYwRlU3ZGs5cHhL?=
+ =?utf-8?B?Unk0L3AyazJtaEhxMEoxUWxqVHFxSldlWEcxQWY1TnZRbEJ3U1V1V3BJZFBX?=
+ =?utf-8?B?Sy9tWjd5S1RxUmVjZ2VmOTVMTG9kUXQ4RFlBOXU5ajRRTXUyUmxjSmxlZSt2?=
+ =?utf-8?B?WjJET21Pc3NRSWU5eFRIL0tHREZUMERwNEl3azZSbmQyQ00yZURHUXJpZGRL?=
+ =?utf-8?B?ZE54UEJTOVV4VlZjbEU3WmJjbFlVSWx2ZzdWdWlSanVxVUxUWi9rbE1SVDVC?=
+ =?utf-8?B?eFBSN1gzZVZnMVBxaEgzVW9DNE4ydDZFRnJoZStneERZb25CRWc2N1NpWDNt?=
+ =?utf-8?B?czhCaTJpZTJUaW1Pc1dzWStlVjlSNnhzQ0tkYmZJb0E5QVlQYnNNdVl5RHQv?=
+ =?utf-8?B?c3dMaFBFZUFYQ0ZXS0VuRkFKVGF4NHRHdUZGcFlsTHdIRUFKUUY2S2VnUEQ2?=
+ =?utf-8?B?WUVTM1FxdTRUS2dMWmFpeGNVRnl2TVFBd05vcUNQZ3NiTjc2bkphYUd3TUx1?=
+ =?utf-8?B?cHA2TUd4ZEV3ZFlpZ2prVTB5ZEJPU3ByNU5oY2pSemt3d1ptZWxCTDlXME5Q?=
+ =?utf-8?B?SkVZK042NHVMdXJkUjVIRDRicHl0R1BrYXZWYkJzcHFQckNDaVhQcEluNGJn?=
+ =?utf-8?B?QWhQQ01SUUdxSDlya2hlUnQrN2lJWW5WeTk0ZDJIUHcxZ2FyQWtvZTBWOGZ5?=
+ =?utf-8?B?UnkrYXJheHZlNzFTN3NVcGNFdVVBRDV1VzJhbkxreUE0S2MyY1BHMnZvcjZr?=
+ =?utf-8?B?OW4yTEhSVUtIWXkwZFlyZGlCV1lYejYwRENFdHRXVkVwbUZsT2M5dHhZL2dx?=
+ =?utf-8?B?TkNtYzR0dmJtZjl1R0dTZXdSOUpBdjl4ZHo2KzVBSVVUTUZBYUVDbnFIZm1N?=
+ =?utf-8?B?MG4vaWt0Y0d5dFo5L05xQ3F4Um9BRStiVU5hMnpZeUxhNFhvQkZxMHNKc2hx?=
+ =?utf-8?B?RFRDb0t1UkRYRGVhVS81UnFqT3hEYjZGUkhTYVlHd1gzMmFiV3NmSG1MZnN3?=
+ =?utf-8?B?dStvNGJZbkVKNXFBTk1BN1BqeHBzSk1tQ2RYa3ZRVmlnc3IxdDJZT1ZXbjgr?=
+ =?utf-8?Q?/NlBj9vqeDfBMTL3H1?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ffafbc56-686e-4c52-f273-08df44b06d0e
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 13:41:04.7177
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8WKbs4wJUmXvH9X7PyiL278kF6/Xjps/RZJufE56wJPUnVxXbdfQe1QBqthmdrAH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB317717
 
-Thanks!
+On 11/17/26 11:54, Philipp Stanner wrote:
+> On Tue, 2026-11-17 at 10:51 +0100, Christian König wrote:
+>> On 11/17/26 09:24, Philipp Stanner wrote:
+>>> struct DriverFoo {
+>>> 	f: DriverFence<()>,
+>>> }
+>>>
+>>> impl Drop for Driver Foo {
+>>> 	pub fn drop(&mut self) {
+>>> 		// Signals fence implicitly & automatically.
+>>> 		self.f.signal(ECANCELED);
+>>> 	}
+>>> }
+>>
+>> Yeah, exactly that is still a bad idea :) See the HW eventually
+>> doesn't necessarily stop doing DMA if you unload the driver.
+> 
+> I know.
+> 
+>> So just signaling all fences with ECANCELED is not enough.
+> 
+> 
+> Yes. What I was trying to tell you as that you have no way to enforce
+> this in Rust or C.
+> 
+> dma_fence_signal(f);
+> free_driver_resources();
+> // Driver forgets to stop the hardware. Memory corruption occurs.
+> 
+> You see? Neither your BUG_ON() or WARN_ON() saves you if the driver
+> does it like that, no matter the programming language. You cannot
+> prevent it.
+> 
+> The only one who understands how the hardware works is the driver. The
+> only one who can stop it is the driver.
+> 
+> In Rust, the place where a driver drops its JobQueue is the same place
+> where it has to halt its GPU ring correctly. Enforcing this cannot be
+> done by dma_fence code.
 
-Reviewed-by: Dan Carpenter <error27@gmail.com>
+I completely agree that we can't fix things from the dma_fence code, but it is our obligation to tell the user that something very very bad happened.
 
-regards,
-dan carpenter
+I mean that is what WARN_ON(), BUG_ON() and panic() are essentially good for, they never fix anything but just point out that the system should probably be rebooted and driver developers informed.
+
+Regards,
+Christian.
+
+> 
+> 
+> P.
 
