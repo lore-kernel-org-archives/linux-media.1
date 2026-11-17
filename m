@@ -1,62 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.60.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908248;
-	b=yXOG2jfeCFISEXO+bxDitpIb0jVHJhcHVBPgT8+a2a8Xj3qQd31N5h3nEHZVJvwdWXAp
-	 zE42aKBfCm/OAwFxLZxmbQvII9Va2M7ge8POP3E1ozH4TNPdmWZThM4nNY3BM36as6ETu
-	 FLA2n7JEwX7ckVg4fHznBfezZl77gvlfWSQCbZkIhbfOoTSCWl5faPaeFojlH/LOPcoWe
-	 C1A7JTgvFl6srP6lLpsem1QfZjW/K4MXH6Ack7mGBQxPjJSuiSO2FxKVaM5aFe1iAN5ec
-	 XzCra+ia7hKYhb8NDBD9KHRA1W36FV8QJfDKYt+dJefoXnOsWO8fTJcIULW748z1w2Q==
+	t=1794908549;
+	b=yIeW2nxvfYTEzEIQs18AFOjNlZmujLvpsy/JzeeC36a/uONWnexlYuanilsZrHYHlzyX
+	 fjL1klv07F+PNvRx5AiCu/6+BMOup/zG7HZju/k1J+Uljecdjx2/B6rYW2GOdXVQgIQRw
+	 srjRg1f3m38x+nQ+rUz9M5WY8Hg15UkI+DtKXEPICjABkRVGLX97qxAl5AApn/p/lAkGv
+	 2J3apWbgGfmUyqajUrxgy1yqrfHhbN40rTYkTCGV1kcNKxAVFNjlNi7LIsbgRke6MmntM
+	 2YovcmK6MiKbXV7uE8wzQCUqf20QQQdM9yj2TzBMMixMMYuzSdrB/f67dnY+ZreoB1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908248;
-	h=DMARC-Filter:Received:Received:X-Yandex-Fwd:DKIM-Signature:From:To:
-	 Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=RsDhCr97ThAIRYXygbiYae1JTvR6S8nztU2Qoell0DA=;
-	b=rkl4SCGvQFCBidnSDO1hwDVy6VLz5n3iHuM8ZMUt433CE7oiDG4ebg9pk8JiJYLwCdD/
-	 xcXpW8CMAx34LNbONcRthLj/HUx2AVJVrkDhyw5quYeC2Hw9PqiF94JB8p1sluPCJyrmZ
-	 dEMdzGl/yhJAXwLoLBDW6gKPJtR7pEy59J+sR+KBMvUtu1xGYXXepj/nkhV7evO7xMJNd
-	 ZsUx2qUA5vQSxyKWBiApEC0Uinn3vpkC5I6rWfvuV38yXqm3BgSonJ1PNpOvAyrdd5LVy
-	 1sqSK9uwCN/1q4XN16MwjkRCvX7O7pgGl+GqkU3Ag1BBGRIjL7o6Ay6NacWDUVI3pxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908549;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/QfK8etD8mkzYZgvReTst2doUFcuKQeVbkwT3LaG6Tg=;
+	b=zU9/oGEADVXbnTWlxq1ECtRKBBMwyP0IFiUHZpiAvE1U1FXeViBequbGsIMWpBTMP2zn
+	 s3AHOC3LGYQXF5syYspgJ+BtKjjwQa+RADXoiw0DDNiSLxFU8kMtGm46jqSmYE9RzgUeC
+	 GKYu6lClbV5ItJStK2ZRRjxjdc5tXranuy9KnpZNhvxtFV7O+Ng76Nj5FO3HBEGofDfOm
+	 xKzAfbo0YlVhCrnNDK5ODctfY3HxxABeh8Qg6SiMeNK5U0S6qVPqTqHOKTieRPPKRwIvp
+	 TgUrpk1210uKHANKu3lK/uVi5TCU33dqQp4MneAc0aUCHXCUMVpu7M6V+Upi8BSybdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yandex.ru;
-	spf=pass smtp.mailfrom=yandex.ru;
-	dkim=pass header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=MGAER6O2;
-	arc=none smtp.remote-ip=51.250.60.163
-Received: from forward103d.mail.yandex.net (forward103d.mail.yandex.net [51.250.60.163])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=TIUPSmb4;
+	arc=none smtp.remote-ip=109.224.244.121
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71AE5606A31C
-	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 09:37:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71AE5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0A3606A31C
+	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 09:42:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C0A3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=MGAER6O2
-Received: from mail-nwsmtp-smtp-production-main-78 (mail-nwsmtp-smtp-production-main-78.yp-c.yandex.net)
-	by forward103d.mail.yandex.net (postfix) with ESMTPS id 41C7DC009E;
-	Tue, 17 Nov 2026 12:37:17 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-78 with ESMTPSA id FbVjGoVd28c0-nvgQgwxf;
-	Tue, 17 Nov 2026 12:37:16 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1794908236; bh=RsDhCr97ThAIRYXygbiYae1JTvR6S8nztU2Qoell0DA=;
-	h=Message-ID:Date:Cc:Subject:To:From;
-	b=MGAER6O2AUQKEnOfDZiy3lwou5pa6ncj3UMqcoq6CW/KF2hajqMDAW8gjeAN2r4y1
-	 MqzX2oxTKP9qJeFJJ/Pz2tkX9QYR6Y4JgQQ5UReVw3Rvc4YvFaSHUc79VG5+gbrhZw
-	 LWH+1SRP5+PNat/Pd8qELQMaMvGZnLCfh09sdaCA=
-Authentication-Results: mail-nwsmtp-smtp-production-main-78; dkim=pass header.i=@yandex.ru
-From: Dmitry Antipov <dmantipov@yandex.ru>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Dmitry Antipov <dmantipov@yandex.ru>,
-	syzbot+ffac2da5e6f8ad2671b2@syzkaller.appspotmail.com
-Subject: [PATCH RESEND] media: dvb-usb-v2: fix race between device probe and demux filter setup
-Date: Tue, 17 Nov 2026 12:36:54 +0300
-Message-ID: <20261117093654.156482-1-dmantipov@yandex.ru>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=TIUPSmb4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794908547; x=1795167747;
+	bh=/QfK8etD8mkzYZgvReTst2doUFcuKQeVbkwT3LaG6Tg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=TIUPSmb4KO4MeYW4DpN7jjSZeo7unSIv2qjqMLrVXFIAtiX9MJ5e8dG7u9T7KUB+k
+	 Ef43alqhd0UrIiR8RmTbzp4xOtYrzsqbN1l03y9kwu/1gGpggGYoB5tHlgqeLP6rUM
+	 BZCDztEhDi0Ulu9LopDJGcKi9C2O32rxyA3OO6kjdingnsgtE6g8Bsdvg2P8IqnQSK
+	 nTIWVGEoBi5oT7e16uBADcFPvu57xonpbR2hUWzJ6E6HwGZ/dVdXjM71rVZyQ5xNbJ
+	 y5ULvnvCRHCdhUQ//wx2Ft5+CoQ+aSk/TefrZMDOibnNUZ4V2EEFoOLbt4JcAJ93YA
+	 uhgaZuEtX0QQw==
+Date: Tue, 17 Nov 2026 09:42:22 +0000
+To: Hao Yao <hao.yao@intel.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Fernando Rimoli <fernandorimoli11@gmail.com>, Hans de Goede <hansg@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] platform/x86: int3472: Use actual clock frequency for DSM method
+Message-ID: <20261117094217.83041-1-lsa.uz@pm.me>
+In-Reply-To: <20261026111012.33347-1-fernandorimoli11@gmail.com>
+References: <20251208035122.2147678-1-hao.yao@intel.com> <20261025155048.42957-1-fernandorimoli11@gmail.com> <20261025162614.95385-1-lsa.uz@pm.me> <20261026111012.33347-1-fernandorimoli11@gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 0c4c5f6e791ac21873776b3bd8a084c554e9d09b
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -66,49 +64,28 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Syzbot has reported crash caused by the following userspace program:
+Hi Hao,
 
-Thread 1                               Thread 2
+Following up on my offer of 16 October: unless you would rather send it
+yourself, I will send v3 after 24 November, based on media-committers
+next, with you as the author.
 
-fd = open("/dev/raw_gadget", ...);     fd = open("/dev/dvb/adapterX/demuxY");
-ioctl(fd, USB_RAW_IOCTL_EP0_WRITE,     ioctl(fd, DMX_SET_RES_FILTER, ...);
-      [fake descriptor of Hauppauge
-       126xxx ATSC+ device]);
+Fernando's results change it a little. The value for 24 MHz depends on
+the generation, and coreboot's camera_clock_ctl.asl shows the same split:
 
-That is, dvb_usb_start_feed() may be called before dvb_usbv2_adapter_init()
-has completed frontend initialization with dvb_usbv2_adapter_frontend_init().
-Fix this by setting active frontend index to -1 early, this making sure
-that such a preliminary attempt to start the feed just returns -EINVAL.
+  Tiger Lake, Jasper Lake, Alder Lake   one bit, 0 =3D 24 MHz, 1 =3D 19.2 M=
+Hz
+  Meteor Lake, Panther Lake, Nova Lake  two bits, 3 =3D 24 MHz
 
-Reported-by: syzbot+ffac2da5e6f8ad2671b2@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ffac2da5e6f8ad2671b2
-Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
----
- drivers/media/usb/dvb-usb-v2/dvb_usb_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The Surface Pro 11 (Lunar Lake) has the second layout, the Surface Pro 9
+(Alder Lake) the first. On the first, 3 also sets the enable bit again
+when the clock is turned off. So v3 would pick the 24 MHz value by CPU
+generation and keep 1 for 19.2 MHz, which is right on both. It would
+also have the Fixes tag and your note on 0 and 2 that Ilpo asked for. If
+Intel's _DSM documentation says otherwise, I will follow it.
 
-diff --git a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
-index bd86d250433d..37353bd40a10 100644
---- a/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
-+++ b/drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
-@@ -637,7 +637,6 @@ static int dvb_usbv2_adapter_frontend_init(struct dvb_usb_adapter *adap)
- 	dev_dbg(&d->udev->dev, "%s: adap=%d\n", __func__, adap->id);
- 
- 	memset(adap->fe, 0, sizeof(adap->fe));
--	adap->active_fe = -1;
- 
- 	if (d->props->frontend_attach) {
- 		ret = d->props->frontend_attach(adap);
-@@ -759,6 +758,7 @@ static int dvb_usbv2_adapter_init(struct dvb_usb_device *d)
- 	for (i = 0; i < adapter_count; i++) {
- 		adap = &d->adapter[i];
- 		adap->id = i;
-+		adap->active_fe = -1;
- 		adap->props = &d->props->adapter[i];
- 
- 		/* speed - when running at FULL speed we need a HW PID filter */
--- 
-2.56.1
+Sergey
 
