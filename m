@@ -1,62 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794906139;
-	b=cAZfYrj0Gvz5+60ay9bAF+RP7I6MQnyIRMOFzY8nYDGSUlsafZDJscnzbnsegE647z1U
-	 goBIUGLbKSO73P68ViyktSJFwLSibX3e4FtdsVrTHqDdcPwrazP5ZkqUn0Qg/KXSRg+l/
-	 NYBWcIW9Ww2bRdPZFjwEFgPt5ak8PBmAZZVdQ5LVv4b38oIfkYZ+74d2Fv4MJ8DHBozsv
-	 UvyWfXAxzVclzWe2nKCNaARVuBUHCIhd7NBYlrFskHAIzNTIDHSQJUgVjhYRqWRnqCQoB
-	 5lQZNZ5YIyju+p1WA79G98myy5SoX5NLxNKb7hfowEZbQUY1raJC+K9KVvw1sdkg0Gg==
+	t=1794906588;
+	b=jr2Tb946+wLvdXH4teRVYP27SokwThYRdU1OlyYewatBEOHGbPF5AKAw3zfGrpEae42v
+	 L62mQtTfe35d9I1y7vfzJXsmQmq9bpxaiEgwktSSIg7PMlVHleW0czcWcGt73i0JO1ukv
+	 mkW4tiYZGOM+v5IiATn73uxwX4QPZeP+W17LsSkSGFGgIIke5clUZk9T0VeUzZdni8uLP
+	 WCdKBm1sN8V1fRQJ62miS1cb7FiDPBK0AHvCh/tmQurdlsYDvGrbak3GFfALx5fLoYiLn
+	 sMGM6jMI6wSSrq4Ygmj3x0+9KgtWiBiVknKPed8P735Q/4gumMCH0Xix2e+OuPq40/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906139;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Oc7JaEjK7wSuv1BcORZ/w1L9V0je8YNCe6SbYieskA0=;
-	b=M3yQws3LGj1d0ARoklp9y8qwDna/dzl/Tzu2W3e+H7I8jqDfbTCV1NJCSaTUSfpmjW+A
-	 f8L8OEvgmYrxJnsoSTGCspfIdZB4YgxPZC9rSzY4NQImP8Y5MLHfICnTGnFb+lSC6q1+Z
-	 4+v1WHVv4PD5/9Uw2ek4uO0SqT3Ac3C/X9PVb30BkWOuY3OiPq707hqUsxTDdtfsR0gZ3
-	 sRf4axWOD+UZD4S5OfvESgazoI/WBoBbfxcLbwKUAw8+bF87GT5bkGDt53OWLfsfOsiEY
-	 9W+w2Ssb+ya6976YRD6MYVKyZ2h+S6WNId3rt2YiubX/PGbTdeTLgeuMTatksgQsvXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906588;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=sIMzr7tCCswzGqhee5Qd9BWq1x2xlpXll4Iq2ZTzjHQ=;
+	b=tCcUsThXDGe7RjWATnpzdzh/p6Sc73IqlFqbvZDpRvdcSzCBURla0XRR50QX6SHHxOvO
+	 CozbRfKoOCxJWr3s6SHTcAsYlkYdwtwzgu+XqEg+BJ0Ad/MPHXtsExAHtM0KfzqOLgTaU
+	 5TUPWQVnFSprq5LWtaECvWpbkcnhAjACPg93tvqX2wtuIzBVCUQE4dyCZsCejOwKj+P4w
+	 yFARC/S/LmKVEwhotGtSXQOJ4KYipUl5F9WKWRvOU1LCpdhnRzHhqh1ZCHe23L4KUpf3o
+	 pGNZ5J31Yhz576PzrWeGiJZmnLvAYzS1R8fwWZzCwA39oM4oD4eSZLi0tQKtBNVe4GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J3d5D6n6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iBI+fODT;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B17B606A329;
-	Tue, 17 Nov 2026 09:02:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98114606A336;
+	Tue, 17 Nov 2026 09:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98114606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J3d5D6n6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C10D1F000C4;
-	Tue, 17 Nov 2026 09:02:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794906138;
-	bh=Oc7JaEjK7wSuv1BcORZ/w1L9V0je8YNCe6SbYieskA0=;
-	h=From:To:Cc:Subject:Date;
-	b=J3d5D6n6QVbrWgy7xyIl+z6FZghP6lKKgRSkK+w7+ZqUYCDnYlpEp7G3lSlP+TE8Q
-	 NmYk9iGSBX7AV1dF+gospoTwm6GS+1OQfjebtA3LQl8XY6Qvs10sHrLGTCzEjIt8EM
-	 9VD/SAORPr7yoW8RRm/CwErAWBrWnKFdtkKzeSL9NS4k/Rz+NqZz2S7zMOYACCdfhv
-	 u0gHk86ion/xeM91zVqs5Mdx0XLNBgHrmRWiOmoKLQxaaTlVTEJfIAjRikeHZ7+p/6
-	 Sdd3q9RMOlI1z87BuESCTPo7u9JG3XvFOFFKDgDcmnsqNSilCmCXEktxQpXWmoEml0
-	 K/UgtZiSTvmZg==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Simona Vetter <simona.vetter@ffwll.ch>,
-	Chris Wilson <chris@chris-wilson.co.uk>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] dma-buf/dma-fence: Prevent misordering for error checks
-Date: Tue, 17 Nov 2026 10:01:45 +0100
-Message-ID: <20261117090144.581909-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iBI+fODT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794906588; x=1826442588;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PPKhAbu/xd5BU4QocBM56BpTBxKFlcrRJZeYTqJNWMI=;
+  b=iBI+fODTLSLfpfTX9KzskzY4b/o1FP5jE0LF14rwFLh+ZbEpGdXlGiYd
+   Nf1c/vwN4OoeXZ72uUi+YxndD7uaJcu/rqbB0Z5PeHcBNnvKU+tRemjyv
+   cQR8/0p9E7oCQo9s5fLl6oJrnO9xPJj79y0v8T+/5x5aBVj6sM3eSF7YF
+   pWEPBZHsRZvDtNvEvse3/urK9GHmVaelFYUnr57Ieo0o0I6pXP0k6/25M
+   CumprIPNk0LW2chxIpibrjal11dn60ymSR4toKm1Wl0l1pfJ+HghbOXBb
+   y7HDJawuCnfxYoKxOfQXkbXSyakG8FvBxyduxgs6tzl3bFkaBmBEeeAOV
+   w==;
+X-CSE-ConnectionGUID: myyKszQISMeH4b08ick4bA==
+X-CSE-MsgGUID: 5FdJzY/YSQCalaH3lLPmSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3685819"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3685819"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:09:47 -0800
+X-CSE-ConnectionGUID: kNqUTxWMTuy7VFcZ4JmM/w==
+X-CSE-MsgGUID: yJ7sZknoTJyvRC7xH0tvOg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="10191074"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.244.52])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:09:45 -0800
+Date: Tue, 17 Nov 2026 10:09:38 +0100
+From: Mehdi Djait <mehdi.djait@linux.intel.com>
+To: Michael Riesch <michael.riesch@collabora.com>
+Cc: linux-media@vger.kernel.org, paul.elder@ideasonboard.com, 
+	daniel@makrotopia.org, linux-rockchip@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] media: rockchip: rkcif: Don't reset the hardware
+ in runtime suspend
+Message-ID: <avwZpcF8fti2vVI9@mdjait-mobl>
+References: <20261112183208.2688580-1-mehdi.djait@linux.intel.com>
+ <20261112183208.2688580-2-mehdi.djait@linux.intel.com>
+ <df61d7d2-7ad8-4b68-b3a0-7a03513ab5b7@collabora.com>
+ <avsBed-E2RPJnZ6k@mdjait-mobl>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -66,67 +82,47 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avsBed-E2RPJnZ6k@mdjait-mobl>
 
-Many users of dma_fence do things like:
+On Mon, Nov 16, 2026 at 03:30:33PM +0100, Mehdi Djait wrote:
+> Hi Michael,
+> 
+> On Mon, Nov 16, 2026 at 11:58:35AM +0100, Michael Riesch wrote:
+> > Hi Mehdi,
+> > 
+> > On 11/12/26 19:32, Mehdi Djait wrote:
+> > > The reset in the runtime suspend also resets the VICAP IOMMU.
+> > > 
+> > > When the IOMMU driver accesses the IOMMU registers inside the delay window
+> > > between the assert and deassert, e.g. in rk_iommu_zap_lines() to shootdown
+> > > IOTLB entries, the system hangs.
+> > > 
+> > > Drop the reset and the now unused reset control.
+> > 
+> > I agree that the current situation is nothing more than a crude hack
+> > that happened to work in most cases. But I doubt simply removing the
+> > reset is the correct solution. Recently, I saw some downstream patch
+> > that makes the reset a shared one, which seems like the right thing to
+> > do here. What would you think about that?
+> 
+> Do you have a link for these patches ?
+> 
+> I also agree that this patch will not be the solution that will go in
+> but the situation needs to change.
+> 
+> The VICAP_GLB_CTRL register does expose this:
+> reset the VICAP(except MMU/AXI MASTER/REG FILE)
+> 
+> The Rockchip-bsp kernel exports the disable and enable functions of the
+> iommu driver and calls them in the rkcif driver, see:
+> https://github.com/rockchip-linux/kernel/blob/develop-6.1/drivers/media/platform/rockchip/cif/capture.c#L7269
+> 
 
-// Thread A
-dma_fence_set_error(f, -EINVAL);
-dma_fence_signal(f); // <- Takes lock, which orders against the above.
+I mean, I of course don't think this is a solution to be considered, but
+this is what I found for now..
 
-// Thread B
-if (dma_fence_is_signaled(f)) // <- Does test_bit(), no ordering.
-	pr_info("err: %i\n", f->error); // <- Can be loaded first.
-
-There is no memory ordering between reading of the signaled-bit and
-reading of the error code. This can result in outdated, wrong error
-codes being evaluated by the user.
-
-Though dma_fence_get_status() does take the fence lock, it is equally
-broken because the misordering can simply happen within the critical
-section.
-
-It's not entirely clear since when this bug exists, but at least since
-dma_fence_get_status() was added, which is why its birth commit is
-marked as the Fixes commit here.
-
-Ensure ordering for everyone evaluating the error code centrally by
-using test_bit_acquire() in dma_fence_test_signaled_flag().
-
-Cc: stable@vger.kernel.org
-Fixes: d6c99f4bf093 ("dma-fence: Wrap querying the fence->status")
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
-Changes since the RFC:
-  - Order with test_bit_acquire(). (Gary)
-  - ^ also makes it easy to backport this for now.
-  - Try to document roughly what is even going on.
----
- include/linux/dma-fence.h | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index dd07d128adc3..a8d23fed70b9 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -496,7 +496,16 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
- static inline bool
- dma_fence_test_signaled_flag(struct dma_fence *fence)
- {
--	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
-+	// Best-effort ordering of the locklessly evaluated signaled-bit,
-+	// especially so that reads of fence->error are not misordered.
-+	//
-+	// The release counterpart is typically ensured like this:
-+	//   a) Error codes must only be set before a fence signals and
-+	//   b) The fence's spinlock's barriers effective in dma_fence_signal()
-+	//      ensure ordering.
-+	//   c) For users of dma_fence_signal_locked(), the barrier implied in
-+	//      test_and_set_bit() should do the trick.
-+	return test_bit_acquire(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
- }
- 
- /**
--- 
-2.56.0
-
+--
+Kind regards
+Mehdi Djait
