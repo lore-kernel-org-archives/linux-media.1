@@ -1,85 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.125.139.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918371;
-	b=TwBDh8mwAocPESONRAvLQQThW0qyWCi2tBJoMpJWP6QspBqe9+oVkBTVLW7dFi+I4PfV
-	 UX19eSb1pNGqas1+qHurzlIW+8g++FHUvIeN6yF19rkPuBwqx/E5DBWQw6IRY+iQL/miv
-	 yA6QfsZIvKEF3eiOy9GuvH+Bh61PTOtNV0iiTOspfXgs+eI+dJMuiiEkKMdeprbGYTPkY
-	 sGzIaPDUXhm6o10ZMTfpC8NcwEAfHsPPXKcnaxg98BouHDKnSabyNL88AlsEfRdkv2RRf
-	 vCzg7Bi6RMX5DiiOFx0SIiFGk73VODPAArYS612FnDIhxXZM2hwXoKPmvHIlmvx6zYg==
+	t=1794918993;
+	b=tmy4EvurqyAC+ygm84tb5qY4FlKx5exQzIGQ4bX2fYELqPE1caZIh0tcEqzPILtjBEFn
+	 pKO8PFweKeA96K6lXFoam24YE2UTw+LRYrFbxFAbvRNMycdOm3iUwvHZea8g2qDXeSOlX
+	 B5TZGxZh52NJNdrwAVCuQ1XK3k3gDCB1U+nHQgu43lVpg/dfXAIp70SNKUYIv38Z4T4FN
+	 VpALbqXhjBUJt9sP3vcSBxjWk74JLAfl0qV/333r2Kxjy3JK3OZiLPiYIikHNsd4m7yEn
+	 8ZsgvM0mkoztsS2dCRwJep6mkDdMi8OWBHhgZaKi0eG1hOaOnvr8S+10cEQ3PUzn+8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918371;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Content-Language:To:Cc:From:Subject:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=KMI1L7ZFWPAFw8IW/VtytLfu4XaI4UCuNHMGrlaZyxA=;
-	b=IGG4CJnxTz/9x5TFOaD+foLy43hJbxY5FTxYQu9ge9QRuj+bWztMlQH1STQSmvPkq4yK
-	 gxFAhg2+qb6pnJW5ODiSrrzDKO2UIWg8J0rAbMOGtNyEAp/tKy8N6h3t5f7PzZu82QoqM
-	 gsmvuI5mZnBUA819CgdyAU7pH9MO2Jfdy5nME88HMDZJb3028G8dqK50Bb45NYc3vnIZk
-	 1fx3l64KEly0H3192jCGTBVVvjBUpQ8btlb9kw05N7hAdwmduvI75ECwxH/CBNAMgGLR/
-	 B35govRwtsrrY9Qbqgo/6PDeYmPwvcFqtYZauIvAUCuGri+mOX5X02atMO5Rn1pzk0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794918993;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 Received:X-CSE-ConnectionGUID:X-CSE-MsgGUID:X-IronPort-AV:Received:
+	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition;
+	bh=YCCwTw1b8nC/676mldMf21YbE+d2YXPgrhLxfHmgduQ=;
+	b=cozqWdW1pdpNX1G1XAxDH97myVp8KUaNCUEfboP7aONsnjGt59YL8AUcv5dT2blFG5j9
+	 KGgweR32u7QmcyZ8SDHqKRvANPhyhS0mP7wjBNSwPQmrMRB0HoNueg0TrZpEcF36UadSG
+	 ZFnyuNphhQX1FzSFZNmGa6AkdGcge26Y1X3DCwsc+3Cp8C/xl02Uh3EQgSmI8hQlZ7PPW
+	 dFboixZihM00KH8QPCbCmGGmrHqGfFZPkjeQJjIUZLycv5g0vFZBfvEZ58M5ZlN+SGvaK
+	 grdfkLF8QYKJ6kwj2a8FoMdBqIbG3i1UqFAc59XRfDsZfA+Dcabm5o50Ek5tvmxpMpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="M/r6CiaC";
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=sony.com;
+	spf=fail smtp.mailfrom=sony.com;
+	dkim=pass header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=s1jp header.b=h3qUNoQC;
+	arc=none smtp.remote-ip=211.125.139.72
+Received: from jpms-ob02-os7.noc.sony.co.jp (jpms-ob02-os7.noc.sony.co.jp [211.125.139.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6AF606A31C
-	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 12:26:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B6AF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D64B606A33A;
+	Tue, 17 Nov 2026 12:36:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D64B606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=sony.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=M/r6CiaC
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e09aa5264so2224589f8f.2
-        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 04:26:10 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=s1jp header.b=h3qUNoQC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794918369; x=1795523169; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KMI1L7ZFWPAFw8IW/VtytLfu4XaI4UCuNHMGrlaZyxA=;
-        b=M/r6CiaC4cKU1nipkCJmBuj36hgbHeVqyQPVK+fsHBcT288jKhfMBnuq90a4eScPlI
-         U2T5Ni0ZSKakIzOMJ/w0girz+EYR8IX8zhqEHn7o4MA0zVMnbM/oNSBDo3jaNwDn+/a8
-         VsSrsdA1hwFKFpDWU72Bay/0JFUQGFVEkFteQT/DDEVy8A43G2q5e1s1G9WgGsfLSGeK
-         ewc2vbuDhmPsSE80ZKERmCwwsJcTaNUnCUfioN5bfnxd3ecXL280CDF7Jcu1csEDy1Sh
-         klXPALmKhoyndGmK+rE3Nf9DwQM8oJJriDBaTwi+LQJawgtN+ru/DgGRepUmOmWSieta
-         VTZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794918369; x=1795523169;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KMI1L7ZFWPAFw8IW/VtytLfu4XaI4UCuNHMGrlaZyxA=;
-        b=Qm6rz+FrfatgMfksZ/2AqXFjA4SDW4ZCHfoPV3rUtrTMBIFvO8XprkDh1kPN2akjGj
-         Rtrxz0B8kx+/X5Eq2T5R7sUfK3UjfV03M7vSY0ISxxKy4sp3tQZrYuRbtNtjC+DXyOpw
-         KtPz2cLjOd3WX7ZIFtJum86ltGezF7a3UGryYZMGZHAqLG6ubIE/tigRptJQL1PWSBWh
-         REDnpIcRLJtE1b2Zyy7TKQcw8xcQfebk4BpfCnJhfyCGuyWNVCxjLEupsE1oe0Rli/s+
-         1jSp3TvEcnH8PHftqS8EIU1UAT/h5cjBZt6nY6T5AzZc767U3Iw6BXSU8aTriBhOs+9f
-         jjVA==
-X-Gm-Message-State: APuU4Z+AQ+Fa9AwaIGYr+p3CQMCA0HB9uGAjknTSYWNCFPtksvQeIxwD
-	ksiUse+eeT8LZ09HHijWF3sHwcvntRWVtedXElHUg2hWgvUFTzV6R3tBks1hcys4Zn0=
-X-Gm-Gg: AZFdTZfdv5kjVQ1XB4Roup7hQK72C+5d8UA1hex0QqkoEugBrUPKqLlDUB1m9Xlrj0e
-	8QIVjhrcy2Ksj8tzd3xmGlR1AjU3/OQ9fvchRnwY+QV7Uk6x300XqXrLXk49pxtmOpoRX+m6UM5
-	ccSxTvSdF5Fp+eWIkpOXYO3dGqFbXTPXvWT7uhf2LKkTJMGQKzv1SwqSI6Icg/hWcBSy6XEeZ5h
-	d5nVCsa1O0oy7q1UoFb98tjNpJPIxpwdhps+JpZp5xs+B1rQjIBuTswkifCRjzfJ8PzqkkmtdeH
-	H1UQxaV582AAdZCFLmVcAx2VxVE7n75fIFHu6LqcOdTKNxNQa72y/4px2FokNE5Hx8yVSIXWXdz
-	BrtmDy0zZCMYphuIJXCEdTK7Oe6lSscNKkTfdfIRH2M6wkxSU+7kPmjF8OcH8a9t7KF2bczNW7T
-	uO6Kj/VTqd5Pv9Ayz7KgWQWkIJrGqmgxBdQezSlRVvFZ85aHpUCOQqSk9bprBHv0PfGWM7VI8aP
-	uougLP/VWYV/o8tsxmkeSOFO2qrS4W7KWOc9pPd/OZmo4RgfApF3Pw9YN4A0EFgSVuREgctAUZJ
-	MciQRkdB+8rGoEp8h/HCdjmDWqk2ImBbcBMemgwluh+1AoXg6lgPuWp22+qLqN258tfujQ==
-X-Received: by 2002:a05:6000:3112:b0:4a5:a777:b5df with SMTP id ffacd0b85a97d-4a5a777b6femr215065f8f.0.1794918368661;
-        Tue, 17 Nov 2026 04:26:08 -0800 (PST)
-Received: from ?IPV6:2001:a61:13c9:3501:298:837a:bfe8:6c62? ([2001:a61:13c9:3501:298:837a:bfe8:6c62])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c7390fe82sm29315977f8f.17.2026.11.17.04.26.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 04:26:08 -0800 (PST)
-Message-ID: <b3dfdcf3-2212-4151-98cf-a3d96f494f50@suse.com>
-Date: Tue, 17 Nov 2026 13:26:07 +0100
+  d=sony.com; s=s1jp; t=1794918988; x=1826454988;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=YCCwTw1b8nC/676mldMf21YbE+d2YXPgrhLxfHmgduQ=;
+  b=h3qUNoQC2k/Ugu6nTx6uMRmUlB9VRSnRo26jvezJ9ljrdScbouKa7Mlo
+   Kdsdfo+qzHfVrGwFoLYHMQd7PFvF7Yk1F7gTCpr+jV4FeF2aKsquqVsR/
+   DQN/bGVff3KypnNk8EL3T+hG3bSZzk7d+u0Hdq3yHNhssHTQLrwlLWdAa
+   zwgiavZBpmpu2cBl0YGss7gkWDbQ6ULKl3BzBbe62nrQAiVBgHTwhrKnU
+   fxNF+J6OV72XHmwlsjFSuxzW3PPbR1I6Eb7Li4qhxNSy3Tk+/N7bJmQye
+   wKfOw4PFi8wSkTQMrxDgf7iEAcXajOUlEVMaZVwPMUbR/8X9mUoEosEHu
+   w==;
+X-CSE-ConnectionGUID: NzDsvF0pTD+V0+fCneLbPQ==
+X-CSE-MsgGUID: YEQsx7mPTEqfWnEV8HRiSA==
+Received: from unknown (HELO jpmta-ob02-os7.noc.sony.co.jp) ([IPv6:2001:cf8:acf:1104::7])
+  by jpms-ob02-os7.noc.sony.co.jp with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 17 Nov 2026 21:36:20 +0900
+X-CSE-ConnectionGUID: JZ/D7hrhQVaD8UBQVwoXlw==
+X-CSE-MsgGUID: bMIQcZ8yTwmfVY+55+JU9w==
+X-IronPort-AV: E=Sophos;i="6.27,166,1786978800"; 
+   d="scan'208";a="71116498"
+Received: from unknown (HELO jpc00229873) ([IPv6:2001:cf8:1:519:0:dddd:790b:411f])
+  by jpmta-ob02-os7.noc.sony.co.jp with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 17 Nov 2026 21:36:20 +0900
+Date: Tue, 17 Nov 2026 21:36:10 +0900
+From: Naoki Matsumoto <naoki.matt.matsumoto@sony.com>
+To: stable@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	regressions@lists.linux.dev,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	chenchangcheng <chenchangcheng@kylinos.cn>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans Verkuil <hverkuil@xs4all.nl>, Sasha Levin <sashal@kernel.org>
+Subject: [REGRESSION] 5.15.y, 5.10.y: media: uvcvideo: please backport
+ 5b9c75c794ce
+Message-ID: <avxKOmxCBLF+7qdT@jpc00229873>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,26 +76,33 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: bingbu.cao@intel.com
-Cc: linux-media@vger.kernel.org, Takashi Iwai <tiwai@suse.de>
-From: Oliver Neukum <oneukum@suse.com>
-Subject: question on 1faf84ff1c0 ("media: ipu6: optimize the IPU6 MMU
- unmapping flow") handling mmu_info->dummy_l2_pteval
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi,
+Hi
 
-before that commit the whole function was aborted, if dummy_l2_pteval
-was encountered. The updated version skips a step in the loop,
-that is it increments l1_idx but not iova. Why is this safe?
+I use a UVC device of USB3 at v5.15.y. I found the frame rate down with
+the below message after updating stable version.
 
-The old behavior was more drastic, but it looks saner.
+    uvcvideo 2-3:1.3: UVC non compliance: the max payload
+    transmission size (1729) exceeds the size of the ep max packet (1024).
+    Using the max size.
 
-	Regards
-		Oliver
+This message is from by eb6059474e70 ("media: uvcvideo: Fix bandwidth issue for Alcor camera").
 
+    5.15.190: eb6059474e70
+    5.10.241: 3eaf16ff8165
 
+kernel-5.15 supports usb3 of course. This problem is stream->maxpsize is
+not support usb3. Since this function parses it directly, USB 3 support seems 
+to have been overlooked. I found the patch at v5.19
 
+Please apply 5b9c75c794ce ("media: uvcvideo: Undup use
+uvc_endpoint_max_bpi() code") to 5.15.y and 5.10.y.
+
+I confirmed that it cherry-picks cleanly and fixes the problem on 5.15.
+
+#regzbot introduced: eb6059474e70
+
+Thank you,
+Naoki Matsumoto
