@@ -1,111 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932694;
-	b=T51f44C4CVoP1MhnKX9orgofjk5dvv5ZFnKtsMlh+oPX4t9sAbhGTEBeIOIEwt4EY4tV
-	 I7/1wraMO5zfBP8mU61m41+gEzgwBDfmfcHCWgeI92+4Re36ps7EJuozddQuBUpPr1j8e
-	 U97AXGXQI0L3WrLlQqdKW3euCS4kMNdVx4SMTlWywoO5HZfVdcMEL4kNleZG09hwryIl/
-	 9WRWFNk0CL8EJQulxOhcfPKRBp7aXCExfs/zn3xoxsx7HLojL0q2kXk6qJO3RxEAwR2LK
-	 uxryOwm6oFO2GCqJNtfIxtOe7Y48axPQOzjoy2W+vU+AnZIjwsSFOgzsPi87Liwua0A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932694;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:Content-Language:To:Cc:
-	 References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=T3Mhl0Vqz4AuhABF36OZze4u1FZDWFRX6ORovKiY0zQ=;
-	b=ZBo1puw3XeIZWfU0qzs2GJad5Dyb39PgyazY4Dl912t+n1uh2WWaUyDEV56fR0tmQESi
-	 CR8FZoi+gTa53W6NnD/xs9MW36i+Ud6uaDFja7xIfkwFHNtPYlZBwQOy0wdtONRWj1FCf
-	 KrVvk2iO2YDEnSmHyI5Ojud25Km2urbSiYUgqswPdRUEXz8IsypFpRMzofjvcxk8FMMUl
-	 O0FHed6+fAhs8z2uzixWB/8o9tqUDSaM4QE+RVc1/dUVgAtARMEQs7JTxKUsKnUDLg+RL
-	 wsLRBm97ufumfFYtGIPHYoBslofjyG9bAlYn8frK9WdAqRp+lDo3APTx5f/KK4DyGuA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TOQ8+lCU;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=druVJ1EU;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.75
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794932786;
+	b=ZJUVZsnN7cbwD6JX8n/45LqHWKjvTuOkRY21i19hnhi/OyRAko5+Gkh4j0A4GXsCKpVB
+	 GLZRXyUYgvB/oqWDSoE5LTFMtl+Ww7fS15+r01CXYPKIuhFM74xug0PjMqNTg5NYvlzWq
+	 9UgP6QsUYZVxO/Xk7Hf+fvuK/sa+TRo2vNcIY2YFYykoK/xjGiHpw7uCE/ZzMM4ltJRhP
+	 mNNVKttC6tNQdeANVEi1ykiOhP30g3VF5azj73gg/6h4n4QPp8XZKEJd4/SAytiCn+CYF
+	 U+HdzhXHrQEXLJw1looXlbQ3OSevTwkykUVZa+9+fu5Ej+m6zpXv1zlxMa2Q0NLyHOA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932786;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=He+RfVvtuPkPAmzokhQfTgSCsVYhrP6LK9Eft+B2spU=;
+	b=Hcp+RRZ1y5B+y3EQ2rCXHFgKYmIATPI+D0qX+Nd6alBdUPoXBswKgWjfx8PEcrAbDJe2
+	 mNYlnjaq9TWKgmVsfxwCmBQsit7RHAIViz5wsB6Cxi527hjT+c41GTrqFGOcDNEYGtAhc
+	 uEiFQfzoN7a84EAey0o9v5jr+K1oo6Mv8ZRC58anIfUFJzubLJ38Sy5M1PKflWzjycg0u
+	 eL6XyMY81r+HHAAzkmpvTHLn/xMlw+gD5B06eFZVBGVIxBDXCd6O0um9ze8XbIsFtADt/
+	 EHtaUYJmA6cFZVbys+z42SCz2NIe9h0xvkfA+uO0354grmHEeuKuW+srpM9B8GZCvpA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=garyguo.net;
+	spf=pass smtp.mailfrom=garyguo.net;
+	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=e1rc8NgC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.75
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022075.outbound.protection.outlook.com [52.101.96.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84569606A32A
-	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 16:24:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84569606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6CC606A32A;
+	Tue, 17 Nov 2026 16:26:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F6CC606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TOQ8+lCU;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=druVJ1EU
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHFSaSK2555437
-	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 16:24:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	T3Mhl0Vqz4AuhABF36OZze4u1FZDWFRX6ORovKiY0zQ=; b=TOQ8+lCUML5ZO5h5
-	H/qF60e2dPbCcKHoYulEN4H55jM5yHe+56cu9z5mHWHJvDpenV3Nx8kiTSJ6jQHp
-	bhh7xA0QexaksUp3Rqqb1lIlzXljRLnYmuNw7tWpcyiizbcPqOpo2hqTwloA5g6s
-	IaovTRep/vtw6UMFwr6B2eV+EAwdQm6qYPEAvPTlxQHd1lzS1wzhOfJGBzi8jOAE
-	rPdLUBbDbWn9VxP2HR6YRcotGmxxAwj7RiauSqrxOxD/Vqk7a9jikwbX8PWixTMc
-	cqAGMcFJYiWnFHqMIe6wY6jJAjQr1q2n9s9/tDRnM9QAfNxNVyXdUyiCFV2xKFtj
-	DC+G2A==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0c7h4707-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 16:24:52 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36f26e6abe9so63287eec.0
-        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 08:24:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794932691; x=1795537491; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T3Mhl0Vqz4AuhABF36OZze4u1FZDWFRX6ORovKiY0zQ=;
-        b=druVJ1EUXl11VU1FgJPsRuECfDj1i5wVqQsWA3hOmhx1rkPDOoiuhSpvy/64BoqTyu
-         A+JJNrM15WxCYs0zBYnNbrL2yI2a9WC/GItF2lhKhpUI1Qy0a7tAl47wE+jS8shdV77G
-         FT7oEGtejWvfHgo9G2lbR8y2Yl40FhbuQ1d7zej50s1jSoALxbclnEf6KKDMvhnHEzdn
-         BhUzSYfJyPlDDL4jf7u+6BiyHVaSe4NNcASD96LCCB8pnunxRrtRinkbdpg4u2DqVOAE
-         SnxXliS/w2o7T+vyhbx8OF0RxMyJpqZFU/KMzqWzSyHRb/zrqwapd0Gyyhr0xZtJOyi/
-         /udA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794932691; x=1795537491;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=T3Mhl0Vqz4AuhABF36OZze4u1FZDWFRX6ORovKiY0zQ=;
-        b=x1MsGC+gYsGsBc9EXmsO2ZPQWwm+MgUAtxOKFfMij++QyeOsFVjBw7HkiVXTDZ/jWj
-         ALfx56/L6RYD/25EsTH+ONzfdIJo0oMHoA7i8+woViUbIEvIMXcAqBKaByo/1aNTlSX9
-         AQQSOUPnmYsRcLxT0zCPmaZC53c3qgppLoqMGcbF9yV5+TU12UUwQrR7nO8SeF85rWCI
-         EitRDRE0fz42LZ9a6K16DZZ3lEb+/ciLxRLbBfmoHickurN/5F/r7UsHrKbDsxQOSK5L
-         cMRbpuUtiuP/lKOfIZe00QMPH2IcDaozawOLlpf6P97/u36LmUbhpoK/VlVgl8MN/5cY
-         CtEQ==
-X-Forwarded-Encrypted: i=1; AL+hErFvkVtXY/O5EVTMr9E8ZMn5UIHE8mQp18YzrdxTjjrYDC2xxPVNEODCu1Mk8l5web32rkt6A422RFzFkg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+cEQxk+59EHGbt3xB4DkuoYnUP6eocRuEeaKcyi+3EM1hs+BLY
-	EOJXxUPhGXIwyZUdjGEy/L5+mZxDC0hz/U+yjqy8OrhhkgGyGEjI1dJnJsiyTq/Z1G4k7O85RGX
-	CiiXaAzLgrrlSTqPoBMT47Xs/hGKzs2V6NC1kynzqmWxoZn31aLAxzr7ytif8BY6wYA==
-X-Gm-Gg: AZFdTZfMH03eWp+qoIHxXDKeBbtQTVF3p+WNw1QDF9iD1Drkk2Yg5fiU0R3ti+kQM+M
-	jrkPoSVPRuYNVyXGrQp20DBi31gAQ68LTkFNillZrXu4GPazp6LImoov6M4G7iSpNRicL3/sm1b
-	4aoG7PgfbtU/vptz0gsGC2f+QOusPykBV58vKmJD8SYUAElrP1yI0uSvzv9VzCmLSPWI9ro6F2H
-	c84wBMADKI1Ox6PcxmqNtjP/ICD5J34flXkJqZxNEqobnqVIP7LTZqimCsUUj2/fQcnBj83Xdgd
-	wWfR02/5enrNFO2bF8PVqjeOaw98cnOEDw6NdeYxLIglmJvvFVH0M76att44GkxLkHOo7b6MHJL
-	CQZHWxHSJIYP6ow2D6zrBTlDJzBvHHAIROycL0h89hMCchyYk1YMUll+BNK4XvL+33/k2pdsyAS
-	H3jw==
-X-Received: by 2002:a05:7301:d189:b0:376:2ddd:2ab1 with SMTP id 5a478bee46e88-37963660405mr14266845eec.4.1794932690928;
-        Tue, 17 Nov 2026 08:24:50 -0800 (PST)
-X-Received: by 2002:a05:7301:d189:b0:376:2ddd:2ab1 with SMTP id 5a478bee46e88-37963660405mr14266785eec.4.1794932690165;
-        Tue, 17 Nov 2026 08:24:50 -0800 (PST)
-Received: from [192.168.0.6] ([183.83.140.41])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d269asm48642584eec.23.2026.11.17.08.24.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 17 Nov 2026 08:24:49 -0800 (PST)
-Message-ID: <ce05d74a-58d1-f605-44c1-ceb9b9d8b9d4@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 21:54:39 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=e1rc8NgC
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TQBdqCi8qA57TQY+OUvBwfR8W29oEqvALuUl9bUodt6BZ8tn++i5FqI5Y5P9XHoddEjCOQyiHrHl59Bdnr5imw8aIK22oUwKeqWmh+29I9xFHaHmwmZWMf441UkKIxcHiviIuoycKrptHeSxPWg+ZM/r6gb+jwFWTmo+xKLS+egL4EvHfADFCW7EXqseBkGh4qbDt+0LLBDya4UEHGkqa0eLGEKXkXmeLcQ6fxWnzdwaj2xEOfIYTMixNtXvuaw3lfFfeUfbeGu3Z7osxym110KPe6dtKTpBr/WSkP/dkucF7uyH5hSWWaAh2mJAf1Fy9KHeRdGyyCqoY4zXbK+2XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=He+RfVvtuPkPAmzokhQfTgSCsVYhrP6LK9Eft+B2spU=;
+ b=n4cQQs247BixQVUbM6/mkDsCb8xFvCL5mNtgpYrVGOWvcgqDHRYhg3aCmfjqikNaC26lCeJNS75d5NpQXRGUGNwrquq1t8JRA/PE5Ngv+TjcRW2A4FueqOK94fU2zHH8VOJcwP6DhfLIHTjKNRyH6Gll7WpxOrqf/qFFGOqS6//8/ty1IpR41gSRWAhfYZWIxSyp/MdJxdjh7njwNuaky6//R76MRSChM5LpkgyHdXDL8218e3Phlj7FEj+OgmPL/1x0AYKtqBP65keklYRh4wD2GRJaP/D3TEFzRVYJeorsxrpi5qCZykb9Scs8QXojqRDyyjiWDsbpthUEzSGwjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=He+RfVvtuPkPAmzokhQfTgSCsVYhrP6LK9Eft+B2spU=;
+ b=e1rc8NgCB74pA6Ui85gqJ1931VemqqqpyzFERWwu80fsJvmlKpqM1MjX6WhOpzHLCDrvC45Ma3hv0i4QFSO7ieRY8+prNpcpbHPxtYEgQBp65pwAYz+FCC9wR3JzsaQeNmUnIAm+zLaRAWPjIMUt0ltEb77S2p7VQpNp/XnAodg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
+ by LOAP265MB9014.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:499::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 16:26:21 +0000
+Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 16:26:21 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 17 Nov 2026 16:26:20 +0000
+Message-Id: <DMXMKFY5NA4J.1SPC0XEZZUR0O@garyguo.net>
+Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
+From: "Gary Guo" <gary@garyguo.net>
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Danilo
+ Krummrich" <dakr@kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20261112101015.528127-2-phasta@kernel.org>
+ <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
+ <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
+ <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
+ <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
+ <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
+ <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
+ <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
+In-Reply-To: <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
+X-ClientProxiedBy: LO4P123CA0595.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:295::12) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:400:1cb::9)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,168 +113,163 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v7 4/5] iommu/of: Require reg for iommu-addresses
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>,
-        Vasant Hegde <vasant.hegde@amd.com>,
-        Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        David Woodhouse <dwmw2@infradead.org>,
-        Lu Baolu <baolu.lu@linux.intel.com>,
-        Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
-        Eric Auger <eric.auger@redhat.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Joerg Roedel
- <jroedel@suse.de>,
-        Srinath Mannam <srinath.mannam@broadcom.com>,
-        Oza Pawandeep <quic_poza@quicinc.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Alex Williamson <alex@shazbot.org>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-        virtualization@lists.linux.dev, devicetree@vger.kernel.org,
-        kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-media@vger.kernel.org
-References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
- <20261106-add_iommu_ranges-v7-4-5c0f72083e52@oss.qualcomm.com>
- <3e4b6491-2b58-4b9c-90ad-0912f47cb217@kernel.org>
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <3e4b6491-2b58-4b9c-90ad-0912f47cb217@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: aGWV7h2KuNjSkj-U-f004K1idtta8qas
-X-Proofpoint-ORIG-GUID: aGWV7h2KuNjSkj-U-f004K1idtta8qas
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA2NSBTYWx0ZWRfXw4EPvyosYfWj
- M4q4+aEBCqTxZgCP/DNqOYz4SeF7CGMGdsOL4lOV58AsCEWKwH7bF/rUR2SnZOyYDFnZNQA0GcK
- triPI2LhgsHTPL+g4TlNluxbVOqwR9oGgqgSKjgD7s4gtqzg8sI9cVxyLPtIfFw1JMhAQbm8nQu
- c/KP08IGCOIplkARKuis8uxcZ9bBW64wUhH6SUthQegMUGnCDjDLyHtR/8CH+DBPIF5wH030yE6
- rdHyDafPAbmTHBQZrQ4dPQCK2jiddihnfeH4RtLMedzIm5lNj1cIofUUPnfYGtngG5fnmTY77NW
- ct7k4tXY3MeRmLdSng0rV0tZiIxZ0xRMLsvZ5Wo4XGDLbhXWivDQ0mJqGH17YfcdxnLXolP1nJQ
- Ih2I3K2vQj7JeyR4fus7lktcKFtDGZqmJB7rcxtNmqjYAWa7knglIhz1c4WTgb45MWoR1EzjVfo
- pLZa3r/1o1cNomtRWgA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA2NSBTYWx0ZWRfX0EWQ9Jw7zS6k
- 4z0Vl7oV6vnj8DVXeHMefh5K5IhLTlpQhDKXJ2R7XSh0qSnQrEpiT4gxrr5INlC1avEuJvwDfcc
- JRCHmZU07azNVggpzNxda6FmS2n/QGA=
-X-Authority-Analysis: v=2.4 cv=bobZl0ai c=1 sm=1 tr=0 ts=6afc7fd4 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=jbSCbZcLpKDW+DqD08IedQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=xx2vz8YcUDPT77_BzWYA:9
- a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_03,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0
- priorityscore=1501 phishscore=0 clxscore=1015 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170065
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LOAP265MB9014:EE_
+X-MS-Office365-Filtering-Correlation-Id: 22f6cbf8-3723-4fa1-e8e6-08df44c783f9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|18002099003|22082099003|56012099006|10067099003|4143699003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|261022115727099003|261021121427099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	+xS/RiSp6DgwPtYXqIdTdD7vJs2nZM+R30xCz8z6n61U3xlwKWe7q2h7Klr1jdhcVsgmd7WzYJjwhTxJ8kZ4S8ithzYni2izFNASZmuV34oQEpY4o24hec/GtaaXfexjn0vHxhugqYhE0LHPz7DYfZs0gKCQKZ+R/Mvz3955oyxw/1F5x7qQdYz66qv8cvRkh2WrHo/bHMpDU+oWJ/HgRIy78sPQjRaSz0nOqzPrPYELmdWUoEJHzUdHg1Os6zbyKgKFBTtyzaWpPtAxPGFsF30yu6fTdLBwhSbJhQyiyM6FVx7TiAblciC/IuCsqFKv9M0YPCuoZZU9Fsf+y3XtsfDUXzenJ8F9ujkRXvz0RnHMVlQ0MbJQCZJ+0j5BcUm7bjk4Pl7kuzCfp8Af4i4aF418hlPu52Fezf1tll2ZQ3i6T8MT8Tw6W3o21r5TIqxVVs/dz6LrNsPUtoP9/19o5mDat+Pm1atZ0pN8kmugaB00g9Ae12M4nEXeVBcDUYG8S8Fd4lOBN45/KTrhJAwXET3I8zrqC6g78iMMR6rjc/jkHXnxOkCdv0DLleTtiZ3LGNG9G+OQYa+ghvgg7+zgSFWRP4vRua4nn5bIbOC4MJfx369ejTz909A8tbDMGJq7Ifcdwp75MeBcAUvDbG8h5SBVe7ziJLPpjdA8C84obRw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(18002099003)(22082099003)(56012099006)(10067099003)(4143699003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(261022115727099003)(261021121427099003)(261022105027099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZWtBcnBGTjQyOTBOdXZXbU9PNkpQdmRXdzRCNTAwWDZyY3ZFQ2toT3hRdlJ3?=
+ =?utf-8?B?ZUZKK3l5N1dZd2lFQkVsWjRnbkRtTXpCSGFTRFBXa3dINlJmSXk0MkVtdCtw?=
+ =?utf-8?B?L09uc21zNmRKYmVhenpLSHFPM1I4QnRHZ3Rva2JRWTByb3lyVEJTaUZKU2FX?=
+ =?utf-8?B?VkNhZEZrRWZ1WHg5R01BVEhxR2JLYVY0NnROUS9VWm9OeGpYZ2g3M2F5Sklx?=
+ =?utf-8?B?L2hZTWtiZHRKbFlYZE1uYTF5L0ZKYWxabXhnOXBhOEEwNUVFaDcyaHA3ZnRY?=
+ =?utf-8?B?K2QyV0R6K3R0RFJFcmVJNktpTEhiS2RlQlRpa0lqOUNjMWduZ25jcHZWRlpp?=
+ =?utf-8?B?VnhQMUpTc3NneXZKWUlJZE12SmkraEQvVUxMenYyN1BCUDVFcnlsQUZCRjli?=
+ =?utf-8?B?bFdZMURMdGFPbml3ZTZGOWFubVc0Wk8rN292K2JocWo3WTRJYW5zdVQ4eGFi?=
+ =?utf-8?B?aG16SWw1Uytuc25PWVYrZ1VOMVE3NDAxdlg3bTlvbVlycTFZOEwvKzFNMjlM?=
+ =?utf-8?B?OEl5NVpURTlyTXg5WDZRTEVaZlh0ZDI3NmIzbVUyNFd1T0tXTnYyQjVnc1VP?=
+ =?utf-8?B?MkQ1SUwrdDBhN01Gd1Y5Z252NEtTZUN4cGJWb0FHZ3J4ZEZ0bCtQcDErZG9U?=
+ =?utf-8?B?a1V3MmxBb201b0ZVNTY5Q1piUWFLT3E2RWpobWJJSTVhT3I3VUZUNUhCTmFW?=
+ =?utf-8?B?ekFudnluTmVyRUF4WW5LTzIzY0dnOWlMN1NzK1o3V2xZcHJ1NnYxR1pJdVUy?=
+ =?utf-8?B?QWRmdmh2YlIrNlUzMHJIMUJYVHhtNVZuUUIwUjN2SUJaanR6MGx2WFZWVm4w?=
+ =?utf-8?B?Z1Q4UEsya1NlQUNWNXlMc2tUUFRkdlcvR0ZGQlJxVkJ0MVdyeGI3LzVHNHZ5?=
+ =?utf-8?B?VlQ0allzbGlSN3pEbUg1eUYyMUd0TFFVcVpaK2p2QWpXQk5WSUlQNEtIRlBt?=
+ =?utf-8?B?c2xrektZbWZxMEZSbFNqOVFURGphWS9VaXNYT3dIMXRoNlhLQ3dWRmp1SStv?=
+ =?utf-8?B?c24xVlVCdGlJNjJxYkNhSkh5a0I0d1dsWWxySGVRU3U1V3ljcm9pS094VEV6?=
+ =?utf-8?B?ZVBUMm8ycGFFT29lOTQrV0pxNHkwcnpscHJBTU1xRmZlaTZwMHI5czc5ak9C?=
+ =?utf-8?B?WmkzN2JYckNuak5VYnNYOCt0a2RIYzNlRS9QcnloVU5GQWNjbEFmclV6Zy9t?=
+ =?utf-8?B?cWlSZmlnd01GenpCeDRzRHBPV3JlVzBrY2hRck1hNjU5U25qQnhvWE5teU1I?=
+ =?utf-8?B?SzljaDNJOUhQK1RMMHJwZk81b1ViUWVwOVY1M3o2L1FRUmhzbFY0RWhLaHo0?=
+ =?utf-8?B?ZDNaNFlxcE0wbFphR2tjSnZvQXBvckMrY0xIb2M2WkdZZmtoS2tjNmNQZEx0?=
+ =?utf-8?B?Q1djemJZbnRJMlVCb1FvNTNabG4wM2Z5akF4dEVTNWprSVJvcFlYK2FVbkx6?=
+ =?utf-8?B?ZE8rVlFtTzJVVm9abGk0UE1HVFJpRDNIc3lnODNTU3BhODcyMk1MdWlvNDFG?=
+ =?utf-8?B?dSt3TVJvbGFOVWhLYWZ4L3R5dERvZ3hQeVZKL0Via0RrSXJWeHF5TENES2lu?=
+ =?utf-8?B?azRpeUFpU1NrbVVOV3hmL0NENkt4bWtRNE5KVE9CMEc1N0RXL1FrM1EyZS8y?=
+ =?utf-8?B?bXRFYW9NOUhCcFBsaDB6YkltOXFyV2sxSFlxem5BMlVMSy95TFlEWkNmM1R6?=
+ =?utf-8?B?eitEcHNNaGx4SUNZcEpuVmhKYnU3RExaZjN3aWljRDBjSlRuWVExVHg1Tmhr?=
+ =?utf-8?B?emhMVEZ3dmJqUWJ3TmZ3cEFLYVVBY2hhb2JuR2ZxNUVSU290ck0rSHJVdmdm?=
+ =?utf-8?B?dlJqbXRtQU1VZXcrNkdkQ0RDMzNzKzFDczJyckJEZi9kRmZ6R0ZvV053citI?=
+ =?utf-8?B?a3NoaENxcDE3UVRNdURNRkN2bDdyeXk5cGVZczV1djREU0JLQmttUmI5RTZZ?=
+ =?utf-8?B?L3lGaU8reHlySHRjdTZIc0JlejRka2FtVGNpZjREVm9PZU1SLysrZzlzUUZx?=
+ =?utf-8?B?ZEE2UjBGNlFkK3F2ZkUrQ09QWFJ5RDBoV3I3anVpUENnYlVyR3Zya1JjNExj?=
+ =?utf-8?B?WTNLcGNFdUZaM3dYejBybkZSd0Nwb1YwL2I0NGlWbzdrK09CaXdUSTBzV3o3?=
+ =?utf-8?B?emhtTlFnKzRZdmVoSG1xdlhvUlZoaHJ5SkVhSFdvN2VjOGRGLzZ5eVJxMHRw?=
+ =?utf-8?B?TlYyaUc5aVNGZXF6V3o3VnM2Vi9Ia0RoREhNRTJja0VFU25IQmdRenpIcjZp?=
+ =?utf-8?B?R2t6RDhRV1ZGOW9PQ0daRHZ1ME02bm9wcUxqV1ZoVm9ITU1MdXF6RFlJd1Rt?=
+ =?utf-8?Q?3YrahLYLYxEM10Udpv?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22f6cbf8-3723-4fa1-e8e6-08df44c783f9
+X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 16:26:21.5236
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: C6oRp+eDpM74IElgAwi60XnU+m9skngN6juuZWNdJcgRD1u4HYZuV+S/ACTMQapfqSLdAf53XKHdyzo9cr98Sw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOAP265MB9014
 
-Hi Krzysztof,
+On Tue Nov 17, 2026 at 2:50 PM GMT, Christian K=C3=B6nig wrote:
+> On 11/17/26 14:50, Danilo Krummrich wrote:
+>> On Tue Nov 17, 2026 at 2:40 PM CET, Christian K=C3=B6nig wrote:
+>>> On 11/17/26 11:54, Philipp Stanner wrote:
+>>>> On Tue, 2026-11-17 at 10:51 +0100, Christian K=C3=B6nig wrote:
+>>>>> On 11/17/26 09:24, Philipp Stanner wrote:
+>>>>>> struct DriverFoo {
+>>>>>> 	f: DriverFence<()>,
+>>>>>> }
+>>>>>>
+>>>>>> impl Drop for Driver Foo {
+>>>>>> 	pub fn drop(&mut self) {
+>>>>>> 		// Signals fence implicitly & automatically.
+>>>>>> 		self.f.signal(ECANCELED);
+>>>>>> 	}
+>>>>>> }
+>>>>>
+>>>>> Yeah, exactly that is still a bad idea :) See the HW eventually
+>>>>> doesn't necessarily stop doing DMA if you unload the driver.
+>>>>
+>>>> I know.
+>>>>
+>>>>> So just signaling all fences with ECANCELED is not enough.
+>>>>
+>>>>
+>>>> Yes. What I was trying to tell you as that you have no way to enforce
+>>>> this in Rust or C.
+>>>>
+>>>> dma_fence_signal(f);
+>>>> free_driver_resources();
+>>>> // Driver forgets to stop the hardware. Memory corruption occurs.
+>>>>
+>>>> You see? Neither your BUG_ON() or WARN_ON() saves you if the driver
+>>>> does it like that, no matter the programming language. You cannot
+>>>> prevent it.
+>>>>
+>>>> The only one who understands how the hardware works is the driver. The
+>>>> only one who can stop it is the driver.
+>>>>
+>>>> In Rust, the place where a driver drops its JobQueue is the same place
+>>>> where it has to halt its GPU ring correctly. Enforcing this cannot be
+>>>> done by dma_fence code.
+>>>
+>>> I completely agree that we can't fix things from the dma_fence code, bu=
+t it is our obligation to tell the user that something very very bad happen=
+ed.
+>>=20
+>> That's the point, we can't infer that "something very bad happened" from
+>> dma::DriverFence being dropped unsignaled.
+>>=20
+>> In Rust we use the RAII pattern, and drivers structurally embed a
+>> dma::DriverFence within the struct that represents the corresponding har=
+dware /
+>> firmware queue (e.g. through Jobqueue).
+>>=20
+>> Consequently, if dma::DriverFence drops unsignaled it means that the des=
+tructor
+>> of the structure that embeds it (which does the required HW teardown) di=
+d run
+>> already.
+>
+> Oh WOW! The signaling state of the fence should *NEVER* be bound to some =
+object lifetime.
+>
+> That sounds like an extremely bad practice to me. Just imagine anybody
+> grabbing an extra reference to the HW state object to inspect it for debu=
+gging
+> and the fence not signaling because of this.
 
-Thanks for review.
+We do not allow "grab a reference" to prevent HW state from going away in R=
+ust.
+All device resources are tied to the lifetime of bus device being bound. Wh=
+en
+device is unbound (device going away, sysfs unbind, parent unbind, or whate=
+ver),
+device private data goes it with it and all device resources must cease to =
+be
+alive before then.
 
-On 11/13/2026 6:41 PM, Krzysztof Kozlowski wrote:
-> On 06/11/2026 18:14, Vikash Garodia wrote:
->> The "iommu-addresses" property describes an identity 1:1 mapping between
->> an IOVA range and the physical memory specified by "reg" in the same
->> reserved-memory node. Without "reg", there is no physical memory to map.
-> This looks like ABI break.
+If driver's fence callbacks can access HW state, it must also be teared dow=
+n at
+at that point and cannot live past that.
 
-The original discussion was to avoid keeping iommu-addresses in the
-reserved-memory, if not backed by reg. In such cases, it is more meaningful
-to move that entry to corresponding device node.
-Given this direction, the schema was defined accordingly and the code is now
-updated to match the dt-schema. At least on Linux, I do not see any client
-using iommu-addresses without reg.
+Best,
+Gary
 
 >
->> The DT schema now requires "reg" whenever "iommu-addresses" is present.
->> Align the kernel implementation with this requirement.
->> https://github.com/devicetree-org/dt-schema/pull/207
->>
->> An identity mapping requires matching IOVA and "reg" ranges. Reject
->> mismatched ranges and report an error.
->>
->> Suggested-by: Rob Herring <robh@kernel.org>
->> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
->> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
->> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
->> ---
->>  drivers/iommu/of_iommu.c | 32 +++++++++++++++-----------------
->>  1 file changed, 15 insertions(+), 17 deletions(-)
->>
->> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
->> index 6675fc900e6c2d55b34c61dc9effaeb48e24f18f..00b02c19f27e195fc36c4bc1d91253255147c9ab 100644
->> --- a/drivers/iommu/of_iommu.c
->> +++ b/drivers/iommu/of_iommu.c
->> @@ -174,19 +174,12 @@ iommu_resv_region_get_type(struct device *dev,
->>  {
->>  	phys_addr_t end = start + length - 1;
->>  
->> -	/*
->> -	 * IOMMU regions without an associated physical region cannot be
->> -	 * mapped and are simply reservations.
->> -	 */
->> -	if (phys->start >= phys->end)
->> -		return IOMMU_RESV_RESERVED;
->> -
->>  	/* may be IOMMU_RESV_DIRECT_RELAXABLE for certain cases */
->>  	if (start == phys->start && end == phys->end)
->>  		return IOMMU_RESV_DIRECT;
->>  
->> -	dev_warn(dev, "treating non-direct mapping [%pr] -> [%pap-%pap] as reservation\n", phys,
->> -		 &start, &end);
->> +	dev_err(dev, "non-direct mapping [%pr] -> [%pap-%pap] is not supported\n", phys,
->> +		&start, &end);
->>  	return IOMMU_RESV_RESERVED;
->>  }
->>  
->> @@ -211,12 +204,14 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->>  		struct resource phys;
->>  		int size;
->>  
->> -		memset(&phys, 0, sizeof(phys));
->> +		maps = of_get_property(it.node, "iommu-addresses", &size);
->> +		if (!maps)
->> +			continue;
->>  
->>  		/*
->> -		 * The "reg" property is optional and can be omitted by reserved-memory regions
->> -		 * that represent reservations in the IOVA space, which are regions that should
->> -		 * not be mapped.
->> +		 * "iommu-addresses" must be used in combination with a "reg" that provides
->> +		 * the physical address and size of this memory region, for an identity 1:1
->> +		 * IOVA mapping to that physical memory.
->>  		 */
->>  		if (of_property_present(it.node, "reg")) {
->>  			err = of_address_to_resource(it.node, 0, &phys);
->> @@ -225,11 +220,11 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->>  					it.node, err);
->>  				continue;
->>  			}
->> -		}
->> -
->> -		maps = of_get_property(it.node, "iommu-addresses", &size);
->> -		if (!maps)
-> I miss the point why you are moving this part. Irrespective to actual
-> ABI break, why do you nee to check for iommu-addresses before?
-
-It is more optimal to check for iommu-addresses and then read the reg. On the
-contrary, earlier reg is read irrespective of iommu-addresses is present or
-not. So in a way reading iommu-addresses first would ensure that reg is read
-only if iommu-addresses is present.
-
-Regards,
-Vishnu Reddy
-
+> Signaling a DMA-buf should always be an explicit operation drivers do bec=
+ause
+> of some HW event and not something which happens as a side effect cleanup
+> because your object runs out of scope.
 >
->
-> Best regards,
-> Krzysztof
+> Regards,
+> Christian.
+
+
