@@ -1,54 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794930647;
-	b=CKQtilVOVSoOe2H92xFLdsEY79B3q52X/6hFm7gk6CLuGI/VsQwBpxEqJvSkv3XS8mxP
-	 k3ka5BOm9p2j5tSMtZPoZwEX0ivNNPptCaOBzM64viKYEo0titDn29X9kq5ahBzCkj0nJ
-	 X79D5XLshuKYQiOSc9nXb2L84ZFghY92ZEdh7m3lzC9jAD7fo6Of/x7KksYhAXR0sG9jo
-	 Mhb852yvubu13K/fFoC0wo/yu/TodUJUgOu0j5Aq+iJeLReBwGoPFVpKdQQn1nUwUDrJG
-	 dU42xtmLPqavkK8pOIn5DbInLOHkSWtmz4v2mNMqwDJzAVjzIy9PyOFf2Azbi2vHB9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930647;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=G1LL/x7N77Eu1XLmVkvU8EZYqDRVKlBzvqhN4r+M2Js=;
-	b=MwyBotSh8lbtIzML994Qfna8OOclXGI8TdCNTNn6ZDdlTaBlmv+rA8w3rECWe/rSD4aP
-	 raoz9FNxoTXF0VAUSpzGGSnkol95p4/wcGRDVosZlo9Y29s1CKLXnXEx5Q0lHTH9TysjY
-	 h9hySPa72vXoZK6pqZFMiS9P2T7SjGDOEkzlt6GCVxwF7YvogzYVk4GwIfddt3cux6aBq
-	 NmiXFFtTynlHr5z0Wm8JysaXkZ9HGd0ylijJwb0liGfd8xHnurItdQKCFpBXym8CWVbjO
-	 gyTbkIN7Q7pU0/hQhppjNzacfEodHntjC6evU8LfSt3LL4ok88KlblOWT8VlbARa23A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hfz1DwFR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.70
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794930873;
+	b=tbotgZP9T2ezFrzilTMAoCpMPkLaX95uE7WXqo1XeAB8OFAarQEGfAYdCHK7ViSAW9/H
+	 ds6VxC7co54DqBRHT1HGSVSoQpz88gVAGZL07bXd7qlgLaw59SUHgyfe68k0/gS3XGk2U
+	 km22OYQZavK9akDSucY7pJOlYqbaIu6J0gjVRwKvtuuxsBTJlJ23K/KKgzxorWbHOSmBU
+	 TfOCXNNKyCCtT3/YPKU2cmBWoJVYkAkie3BodOsjc89oRH2mdTcD3sAWiPKf6iM/JwI7A
+	 m68F6bG54ZRfSB+5OdMUILWmIQ3vtqwxiPzqoQSq6y4hIKM8XTI8MNieFpq+ltUwvhQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930873;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=+exUxtgPdVBwoKR5r/DiwCvHxmnKqLuiNXXsjqjObOo=;
+	b=uiut+gRrDO4wfiHkMgfN1YcUJraR2osjensGP0cuvh8SK/8paUUYYbVnNydJvmcHAQze
+	 VdFwglOGwpHzCoiIkKfPH8XgnpQzXzsHzj+EN8oRz5nLBogciQ9FW7SzsSIbuiifU9rW1
+	 pgl1073AaKbjgC3jye0tUFBgQCLu8s8QF87wrVGdTWgOLVJUcd48n3fhzR71ZDpRQKzrV
+	 YATlMAH/4GiNoNucrgHoy4T1NzxsHYJTukIPW4t0mjxtdrYURjxRBslZI5lF2gI1OjEFD
+	 QVHVCj/5o8OLosTDfM7nQjyYBT8j68cI5vRYpRDezwBcP+9PQae6xyk6nWoShvaygVw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--eagleshaw.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Kw232SXE;
+	arc=none smtp.remote-ip=209.85.219.70
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43BC606A8BB;
-	Tue, 17 Nov 2026 15:50:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E43BC606A8BB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9D4606A32C
+	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 15:54:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E9D4606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--eagleshaw.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hfz1DwFR
-ARC-Seal: i=1; a=rsa-sha256; t=1794930629; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=M+ZrGkTyiA8mwALNyDzkzYpqOuc0nk8rmPgHMbEodQl2vZLceLmuJhx0znthV3bbNnTHSd2FH5+eNy1ekBAVnajB/5F6/fyw7NVxVymy2+4CKSaVehsf+ryAUiQpqQ0SGD3MpNK2a8vPiigIhAWyMpm/Ssr5mbHQgutT53IyyL4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794930629; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=G1LL/x7N77Eu1XLmVkvU8EZYqDRVKlBzvqhN4r+M2Js=; 
-	b=iZK1oKOEBlWQDlGQ6qNLIdCkTCV7v2bHmLs9GWvOgrqVeJaqJ75+EcQZlO5lpJEeyveuGOUD/mYRtdjljISHPweKHwES8MS11buv1sN7I2iZIA9HwycDLm/lirZRJVPrXiA5AL/p2uvOKKGJemENT36JrKYgfEGaEgWgmcNU7IY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
-	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=hfz1DwFRq3HWKRf2nl7c818zlf3EcVL9zW5dXCaoQaXM+BjqHTCDnFcCOUMBcNxWuKkCs0ROA04nWwMXZYrP5YR6H6aUFyOAWD/9IqiyBFUPEpMVOi61iBD8lzOIxfFySCJC+RBAkqxIgEp15kncqGhzWb0CAS4QvYJIEko786o=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=G1LL/x7N77Eu1XLmVkvU8EZYqDRVKlBzvqhN4r+M2Js=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794930627710904.9822389417972;
-	Tue, 17 Nov 2026 07:50:27 -0800 (PST)
-Message-ID: <93161ff8-dd0d-4253-aa80-174a33de30dc@collabora.com>
-Date: Tue, 17 Nov 2026 16:50:24 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Kw232SXE
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91f2b496430so111043836d6.3
+        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 07:54:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794930872; x=1795535672; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+exUxtgPdVBwoKR5r/DiwCvHxmnKqLuiNXXsjqjObOo=;
+        b=Kw232SXEqQB/sRXu4G798/Ok4AHHylVlXdQ8W3R7eXXCzcexSel+ae5s/iW+fOcpYU
+         Ncgi9Pw0b4rtqhulcadpOfz3RT0ECGQfW7lfE1RJiQ3w9ujU9y+0KdoHOOfLKI9ecR7o
+         yCwzZsOGpG04AX7/HSOZYeVT8HUD7aI/Xm6jhak/He6AwIMR2qZcYup6xBbTevEFmCxo
+         YOYZvgcFbu7JXUdM483nOp9FBGnIjuJrf8EyRTE5Vqr/B2g9Q63z6GG7rZQQ3ALmO0Ga
+         koa9EKamvpTef7pKzb3bVc1PHOgsyh0EGGAl2HLKZZ9gTNrTqTWKYqTfpV4AcQBwO0If
+         U/Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794930872; x=1795535672;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+exUxtgPdVBwoKR5r/DiwCvHxmnKqLuiNXXsjqjObOo=;
+        b=xD4rBccCP91FkD4Z+3s2RHQ3/DhCBry0oqa60FOFFMSCXDul70ypi4CcE22ac56u8t
+         isgZvq7oPbg0xoU70xvfMz1RfQqoK6LPcf7kgahnV9RM9oeR9JeFHBR1GzoQDeMMIx7d
+         MbhmTFaRF57lB6Fcsa+VQY2zx7s0vgkFN8qwP4EQv7EYejUc16AdxXH975QCqSoSwZDA
+         PYDZ+aLHclxgN7emgNeKcoz858Hs4n9srAQ+/szeS++koEy5qZgq8KnykZB9ZkKH/woj
+         FBaU3JMFKO9MYmMBvf2fj/pI30CKtHNRkhIGFpXwzw33rh3jwBd64TjU/4CLLfUaDk1o
+         PsMg==
+X-Forwarded-Encrypted: i=1; AL+hErHtIrILTcrcrP8nAlHh/bRTkojaFEekJ4ioPbx42NayHue4E1JO9PI1nAGc9Kc7RNF45tsRH6swRYeI5w==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/4cGIN5nbEBORV3WMk3s6s+sgW6V0AUOUnqCnfBSvwuDJVyJ8s
+	7wXyVLWNEdMHyBjlG4vIO6csxovouSeAV6l6SSljb1jKYkIhiOVOYAafSVu9Z0iPU1fXEYjuzlN
+	m9Mp96Df966itlq2CRA==
+X-Received: from qvbpe4.prod.google.com ([2002:a05:6214:4944:b0:91f:2759:c36b])
+ (user=eagleshaw job=prod-delivery.src-stubby-dispatcher) by
+ 2002:ad4:5cec:0:b0:91f:2abb:a791 with SMTP id 6a1803df08f44-91f2abbad25mr212446406d6.20.1794930871987;
+ Tue, 17 Nov 2026 07:54:31 -0800 (PST)
+Date: Tue, 17 Nov 2026 15:54:31 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -57,70 +75,99 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] media: verisilicon: av1: Read the segmentation map at
- the reference's offset
-To: aiyengar1990@gmail.com, Nicolas Dufresne
- <nicolas.dufresne@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner
- <heiko@sntech.de>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- stable@vger.kernel.org
-References: <20261115-b4-vpu981-av1-refs-v1-0-c65769715db9@gmail.com>
- <20261115-b4-vpu981-av1-refs-v1-2-c65769715db9@gmail.com>
-Content-Language: en-US
-From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-In-Reply-To: <20261115-b4-vpu981-av1-refs-v1-2-c65769715db9@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
+Message-ID: <20261117155431.1654298-1-eagleshaw@google.com>
+Subject: [PATCH] dma-buf: heaps: system: zero pages after set_memory_decrypted()
+From: Ying Xiao <eagleshaw@google.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>, "T . J . Mercier" <tjmercier@google.com>, 
+	Jiri Pirko <jiri@nvidia.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	John Stultz <jstultz@google.com>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>, 
+	Jacob Moroni <jmoroni@google.com>, Xuehao Hu <xuehaohu@google.com>, 
+	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	Ying Xiao <eagleshaw@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
+system_heap_allocate() allocates pages via order_flags[] with __GFP_ZERO
+while the direct map still has the memory encryption bit set. For the
+system_cc_shared heap, set_memory_decrypted() subsequently clears the
+encryption bit without re-zeroing, leaving ciphertext in DRAM on
+confidential computing (CoCo) guests instead of plaintext zeros.
 
-Le 15/11/2026 à 09:59, Arun Iyengar via B4 Relay a écrit :
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->
-> The segmentation map of the primary reference is read at the motion
-> vector offset of the current CAPTURE format. After a switch to a larger
-> format, that is past the end of a reference held in a smaller buffer.
->
-> Use the reference's own offset, and skip the map of a reference of
-> another size (the spec then uses segment 0, load_previous_segment_ids()
-> in section 6.8.2).
->
-> Fixes: 727a400686a2 ("media: verisilicon: Add Rockchip AV1 decoder")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Skip __GFP_ZERO during alloc_pages() for cc_shared allocations, and zero
+the pages once in system_heap_set_page_decrypted() after
+set_memory_decrypted() succeeds.
 
-Reviewed-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Fixes: 78b30c50a7ac ("dma-buf: heaps: system: add system_cc_shared heap for explicitly shared memory")
+Reviewed-by: Jacob Moroni <jmoroni@google.com>
+Signed-off-by: Ying Xiao <eagleshaw@google.com>
+---
+ drivers/dma-buf/heaps/system_heap.c | 24 ++++++++++++++++++++----
+ 1 file changed, 20 insertions(+), 4 deletions(-)
 
-> ---
->   drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c | 8 +++++---
->   1 file changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-> index 59f2adf74850..f23af435f961 100644
-> --- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-> +++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-> @@ -899,15 +899,17 @@ static void rockchip_vpu981_av1_dec_set_segmentation(struct hantro_ctx *ctx)
->   	if (!!(seg->flags & V4L2_AV1_SEGMENTATION_FLAG_ENABLED) &&
->   	    frame->primary_ref_frame < V4L2_AV1_REFS_PER_FRAME) {
->   		int idx = rockchip_vpu981_get_frame_index(ctx, frame->primary_ref_frame);
-> +		int mi_cols = DIV_ROUND_UP(frame->frame_width_minus_1 + 1, 8);
-> +		int mi_rows = DIV_ROUND_UP(frame->frame_height_minus_1 + 1, 8);
->   
-> -		if (idx >= 0) {
-> +		if (idx >= 0 && av1_dec->frame_refs[idx].mi_cols == mi_cols &&
-> +		    av1_dec->frame_refs[idx].mi_rows == mi_rows) {
->   			dma_addr_t luma_addr, mv_addr = 0;
->   			struct hantro_decoded_buffer *seg;
-> -			size_t mv_offset = rockchip_vpu981_av1_dec_chroma_size(ctx);
->   
->   			seg = vb2_to_hantro_decoded_buf(rockchip_vpu981_av1_dec_ref_buf(ctx, idx));
->   			luma_addr = hantro_get_dec_buf_addr(ctx, &seg->base.vb.vb2_buf);
-> -			mv_addr = luma_addr + mv_offset;
-> +			mv_addr = luma_addr + seg->av1.mv_offset;
->   
->   			hantro_write_addr(vpu, AV1_SEGMENTATION, mv_addr);
->   			hantro_reg_write(vpu, &av1_use_temporal3_mvs, 1);
->
+diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
+index c8959eadc71d..5f98d0df11e7 100644
+--- a/drivers/dma-buf/heaps/system_heap.c
++++ b/drivers/dma-buf/heaps/system_heap.c
+@@ -72,11 +72,19 @@ static int system_heap_set_page_decrypted(struct page *page)
+ 	int ret;
+ 
+ 	ret = set_memory_decrypted(addr, nr_pages);
+-	if (ret)
++	if (ret) {
+ 		pr_warn_ratelimited("dma-buf system heap: failed to decrypt page at %p\n",
+ 				    page_address(page));
++		return ret;
++	}
+ 
+-	return ret;
++	/*
++	 * Clearing the encryption bit does not clear DRAM, leaving ciphertext
++	 * from when the page was encrypted. Zero it now that it is decrypted.
++	 */
++	memset((void *)addr, 0, (size_t)nr_pages << PAGE_SHIFT);
++
++	return 0;
+ }
+ 
+ static int system_heap_set_page_encrypted(struct page *page)
+@@ -376,7 +384,8 @@ static const struct dma_buf_ops system_heap_buf_ops = {
+ };
+ 
+ static struct page *alloc_largest_available(unsigned long size,
+-					    unsigned int max_order)
++					    unsigned int max_order,
++					    bool cc_shared)
+ {
+ 	struct page *page;
+ 	int i;
+@@ -388,6 +397,12 @@ static struct page *alloc_largest_available(unsigned long size,
+ 		if (max_order < orders[i])
+ 			continue;
+ 		flags = order_flags[i];
++		/*
++		 * Zeroing while encrypted is wasted since decryption leaves
++		 * ciphertext; system_heap_set_page_decrypted() zeroes instead.
++		 */
++		if (cc_shared)
++			flags &= ~__GFP_ZERO;
+ 		if (mem_accounting)
+ 			flags |= __GFP_ACCOUNT;
+ 		page = alloc_pages(flags, orders[i]);
+@@ -438,7 +453,8 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+ 			goto free_buffer;
+ 		}
+ 
+-		page = alloc_largest_available(size_remaining, max_order);
++		page = alloc_largest_available(size_remaining, max_order,
++					       cc_shared_buffer(buffer));
+ 		if (!page)
+ 			goto free_buffer;
+ 
+-- 
+2.56.0.679.gc527c65306-goog
+
