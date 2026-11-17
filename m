@@ -1,85 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794953704;
-	b=Q4nu9QP7htUROkuaXBUlXPwBjFFqckb0APiX+im+Ja0U2AD9zPo1wrXVq0HEV1z/5oTe
-	 U7d8Hp7TZflxl2Jzucev8zWFC7jMDa/G64rie0xFlFokbQgig3ZSt5BA5CtstrQGtC4l2
-	 eigOL1ctWqGZnqwqXFz6PwAg8oXe2iM41httQOb0iEIBt2SE8y/OPeje15y+9txoldwgN
-	 0tniC+vaPUlH12JXYCd5ouq+vlaSjGyhJoxttBQaFDUKR7JSmQlmEQBnxEJjMug2oBnak
-	 tLEDurS4b2ErZpE37vt6P81a+XQdH4e5SNr9na39oyf0ALtsBCZgsCOZeCUDl+09WYA==
+	t=1794956091;
+	b=4bD/oq4bmDmeWhZ0/2nePTgZBdch/zciLHK1BLi8cnOhaxacGnVzBT4O2UKCCAvqCa8j
+	 T4OU0DEiziYxewfWxMhpaJ3Iid4ET3WC0/qtK1UeuMeJM4L9Ppj5Ubm3MZbu5pmAndnDa
+	 5jMJxXa07GR1LqXpGDRxFInVAxZjT5RyOs4SBg0L5yAyp1rb2WwyQdqhwGZ3QpS9BbTVu
+	 eVPwE2wtG0pSpZKy8EZKkmuo1smoCJqcDejxGOCS73YU0QZzQ4SKwUhv0gJDTLtIchV9U
+	 WlZU1nSyrcnJlnlH9tvXIExmCFTWWgzUNdzbrioBzBkDwTvPY00Xb8dibHgniHRNDFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794953704;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=0ZGenTYhhhmk9ojD2HrCoiIy9IDBRXToYlx91iW/n0c=;
-	b=na8BPoK12kETPOV2Gil/Iscjn+vzWggvonHO43Y+y1hLPKGBtmT54AEaLliSPiPyx4j0
-	 bUQPBt2yMwBr0ttFBWKnbc3jzPfyHG6LN5BYRAWRA8DBcUs2d0c7bUzFQJF0F9dSs+qO+
-	 NZ/mtb6a5I5qZzLLqlcJmPYhTKp26r+1rPS7RVXkLoF5WM35kIIXINbxuXQ3O29ylaWBV
-	 apey41rEvK+tTFJco4OkCphUMFxBC2a+dGlPwK4iEPvNFE98zBpKbIHL1oC8y4yN30sjz
-	 PaUaQ5oui1Fr23B3/XnRh8AKgmnwXSG3J8LQf7JEkNW5H4mSF7YzP7SV8l/ZV70TqWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794956091;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:From:To:Cc:Subject:References:In-Reply-To;
+	bh=k7/QLUvYDzH8xZxy3OOm+8SYpFBmpzd+eC/ISXSLxiA=;
+	b=05IBiJ5DG7KvmrodT8n43b08GmM/AAUmeN15frv5DuiVDhfjyL7fHw1q3GGpEqA8BWJ7
+	 Bug51HYVHYpUndh6dgFV1gkRwRCPAPUrxxn0TyImP1a+SNbPo9ZJTTcub/ZDnypSG3fO3
+	 nvZgWZc1Hbi93g/Hb1PXlzgLzqDyFCXtWyHDcqEOmVV2y4+KovHnzdLf4TY/zwIsMYZsf
+	 S7tcHtbOG7QZXdcFJwE9KhWGPGk7M94EHqv3lGbJwSy6BqKFUm+lQkGq/LwxloTLkbe9b
+	 Dg0CuRsKEMc3AK8comKnd3y+/aQkaWh/R5GBT5Mi7YKw9BHHOJcjs3oLmy48dNKqFAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Fqbr4M5D;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=paul-moore.com;
+	spf=pass smtp.mailfrom=paul-moore.com;
+	dkim=pass header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=DIOqvTtw;
+	arc=none smtp.remote-ip=209.85.219.50
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53010606A330;
-	Tue, 17 Nov 2026 22:15:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53010606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C81606A331
+	for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 22:54:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24C81606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Fqbr4M5D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794953701;
-	bh=Jp6lTkAnzzbNf+/NdEgoToYgR1t2Gdsu0x5UIbUA/nE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=Fqbr4M5DcLUN5+ufNdjiUZjOBhaCCSlEQZ+Yf1cO8RIaW7C2nJPIRh4JFBfd+gAAw
-	 dtUFSkJizDUyevdQ4gcppeM1HxCO/3WqUrLHt2hqAQTP1ia6KzleUf4qfOYaVs68Ll
-	 d33ffm9Cyn098dBSEcH9xP9+lHt6CEwe1i0ksISb4XDPTB3GDUBipskl9nu8a+pguE
-	 TMc2+5k52qz+cxDOXwV+dKVAH1ClvuQfGfEsogQMVWYbP7KB/S5yJtqhp0mz6spqmu
-	 xJp2sq6x5VpGJtRy7UxD856oN3OeQAQrYB1Turb3zZzrfifuhp4s71sfXlcEPrBi51
-	 duA6lrsvg9edA==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5F32717E0406;
-	Tue, 17 Nov 2026 23:15:00 +0100 (CET)
-Message-ID: <4e5f5669174657fdf3ae3298cc4eaecb5176bd30.camel@collabora.com>
-Subject: Re: [PATCH v3 0/5] media: Add fdinfo support for v4l2 drivers
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Detlev Casanova <detlev.casanova@collabora.com>, Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Ezequiel Garcia
- <ezequiel@vanguardiasur.com.ar>, Heiko Stuebner	 <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, kernel@collabora.com, 
-	linux-arm-kernel@lists.infradead.org, Christopher Healy <healych@amazon.com>
-Date: Tue, 17 Nov 2026 17:14:59 -0500
-In-Reply-To: <20260706-v4l2-add-fdinfo-v3-0-d556568cf38e@collabora.com>
-References: <20260706-v4l2-add-fdinfo-v3-0-d556568cf38e@collabora.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-SbHR3Iz8Jecq/hEvoD/N"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=DIOqvTtw
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-91f1e3dd08cso977236d6.3
+        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 14:54:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1794956089; x=1795560889; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k7/QLUvYDzH8xZxy3OOm+8SYpFBmpzd+eC/ISXSLxiA=;
+        b=DIOqvTtwgZ5ItvYEoe2KZqcsY3ZGLQ+HaihmoLRuvlSTEm54jSBGFp7446G3/I8rQV
+         jdaaePJOPptbJB/iycrO1+C9CK7f1Lzi0/ZtjLgb3g74xLYezSMe33/lJcnXDXHCH2QR
+         nPspoy5WRs3Kr/RdCST5lRUxeJijzn91kv7ip8tpuZvGiqXVwaGEyqsdCZ4UzGopcOig
+         odhAaVLPfkteT28BObGagg1mfMyZi1OKOhsJXcZRCsolfwMYJPBhlTEF26Wy/fGeH2g/
+         6GB9fJ+t+azZKqhhqQ/sH3UiAz8tKQMSv7Y+PqcaopnbJ1qBu03DBRydnqkMiL70S4pM
+         2u+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794956089; x=1795560889;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k7/QLUvYDzH8xZxy3OOm+8SYpFBmpzd+eC/ISXSLxiA=;
+        b=Ws3CN17BBCm1RttLLTcI5eNRACzv76J8QpKRc8+UQlr4nhzcrOu3XML+b3u/hwBUdp
+         dPN2XxEJZ6VGIP1xxNlCpEP3HO+yACVafsK6dpEHBOk07uDKaRY2xwre3oqLapG/Os7L
+         cyQaYygLxC1tLh+qVp7pJN3xXsQxlur7+x5djXYSv45Q660A4E9174xRyvO5v52l0Jod
+         Hs9bVs3oi4uIna8cWjqeKQmTkD5ee5hezaGn9hVBkWYD/3XnU8s7rcayL6BQpkXzU68X
+         07d+Fi9VEg4RV/8DQsLBJ4ZhK02K27rjOu9wbWtLUEysruEyiWpPB0MwxLaj71sda+th
+         0+pw==
+X-Forwarded-Encrypted: i=1; AL+hErHEw9VAqjkh1NrpXHzJnYjpiQLzEYi6IyWO9xCD4kDSaRBxi6N6tRuwvASDVnTJ3AThn03aWBUAi9qEXQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FgLYUvoXDuDoUED8HfrjT3mYdxdLonIlgBgfYlyouulCXUBOY
+	ViJmR+TKhCJoBFu3EQsBXdHNFYdBuZAaQQqZ/WyDhWOvvM5JPH8ZI3za7+C4Pu5pBQ==
+X-Gm-Gg: AZFdTZcyOAdAYrKYFtPm/KfJpC4OfvUr6xGAMzXlfm3i/thNvQWutXV8mm/rcKlpKxr
+	lNIoyfZpHET48YQQaCZtnNzoc475aaITRIgeJYcchHNYFeV5KcDIxo0Fp8sKq0g7w+2MmhbwzKw
+	s/yWYVJ2jMQZqAiOo4iI3mjHnKRQ5FBFp9nkuOSFJYFIc+jTIYZB91/ueQXBb9R4fCbyuqanhuI
+	x8hlejCm0Vv1xO8abL4DPyKCIYlkb+l4zRA1N7Jjz3Ko16cUcX/uaklJKnVOsovOZTM+kCBUA/X
+	p1pg7gdIPJndkpZ7JK1QiiIAJ4YdkPA2W3VXi/G1x7iLz3NKwjnmVFobhX3ZKzGyNeupSmz6WVe
+	ckHZQMGEf7M1cQ8lGsd3xyFeH/tMFnBhfjawNb9bnLuwiirrYqGxezyWS9dj0NUXcjrNmXTeeNe
+	BP7Ot6J/OYmAU/4bw4F/H8QFgccEuafOykoiQaT+G7eqitdD1sFP3p12/JElsxSbziuwAmE0i5p
+	/omTmbkkpBCaLPaio47qEOoxJBnUUmm4CrLAw2e8m/KnAF67iXvM5Rw6KEvDr/YrvXQrsuzcEoB
+	BC5ZCwQ8Rv9PS5YeZGUNVKmEv6GcsUmIK+1j+YgBqce5SABpKe5M1vm+2HTKg4ZWFbu6FJVHII6
+	JrlOJJl1zYbYdEN5o8H7HKvRaeB2rpw==
+X-Received: by 2002:a05:6214:4981:b0:921:9ed:ee6 with SMTP id 6a1803df08f44-92114dd0d06mr10225486d6.20.1794956088668;
+        Tue, 17 Nov 2026 14:54:48 -0800 (PST)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-92114d53b7fsm5495766d6.26.2026.11.17.14.54.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 14:54:48 -0800 (PST)
+Date: Tue, 17 Nov 2026 17:54:47 -0500
+Message-ID: <4356992ac4fb7876fb5759189ba4b492@paul-moore.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -88,133 +90,145 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+MIME-Version: 1.0 
+Content-Type: text/plain; charset=UTF-8 
+Content-Transfer-Encoding: 8bit 
+X-Mailer: pstg-pwork:20261117_1552/pstg-lib:20261117_1552/pstg-pwork:20261117_1552
+From: Paul Moore <paul@paul-moore.com>
+To: Albert Esteve <aesteve@redhat.com>, Tejun Heo <tj@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
+	Christian Brauner <brauner@kernel.org>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
+	Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	=?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
+	Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
+	Philipp Stanner <phasta@kernel.org>
+Cc: airlied@gmail.com, cgroups@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org, linux-security-module@vger.kernel.org, selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, op-tee@lists.trustedfirmware.org, Albert Esteve <aesteve@redhat.com>, echanude@redhat.com, mripard@kernel.org
+Subject: Re: [PATCH v5 0/8] memcg: dma-buf cgroup accounting and charge
+ transfer
+References: <20261117-v2_20230123_tjmercier_google_com-v5-0-1ce975f2a9ad@redhat.com>
+In-Reply-To: <20261117-v2_20230123_tjmercier_google_com-v5-0-1ce975f2a9ad@redhat.com>
 
---=-SbHR3Iz8Jecq/hEvoD/N
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Nov 17, 2026 Albert Esteve <aesteve@redhat.com> wrote:
+> 
+> Shared-memory allocator services (e.g., Android's gralloc)
+> allocate dma-bufs on behalf of client processes in different
+> cgroups. Today those allocations are charged to the allocator's
+> own cgroup, leaving client cgroups with no visibility into their
+> actual memory consumption and defeating resource limits.
+> 
+> This series adds memory cgroup accounting for dma-buf allocations,
+> building on T.J. Mercier's earlier series [1] and incorporating
+> feedback from previous versions and LPC discussions [2].
+> 
+> Patch 1 introduces the MEMCG_DMABUF stat and the
+> obj_cgroup_reserve_dmabuf()/obj_cgroup_cancel_dmabuf() and
+> mem_cgroup_commit_dmabuf()/mem_cgroup_uncharge_dmabuf() helpers
+> in mm/memcontrol.c
+> 
+> Patch 2 wires up the charging policy: dma_buf_export() stores
+> exp_info.objcg and updates the stat, a new charge_fd field in
+> DMA_HEAP_IOCTL_ALLOC accepts a pidfd or cgroupfd to identify
+> the target cgroup, and __GFP_ACCOUNT is removed from system-heap
+> allocations to avoid double counting.
+> 
+> Patch 3 adds DMA_BUF_IOCTL_XFER_CHARGE, a general ioctl on any
+> dma-buf fd to transfer charges post-allocation. This covers the
+> double-hop allocator case (SurfaceFlinger -> gralloc -> kernel)
+> and works for buffers from any exporter that opts in. Charging
+> is gated by dmabuf->objcg being set at export time, ensuring that
+> transfer is only applied for buffers backed by system memory where
+> size reflects actual bytes. If the receiving cgroup lacks capacity
+> for the charge, the ioctl returns -ENOMEM and the original charge
+> is preserved.
+> 
+> Patches 4-7 add access control for cross-cgroup charging. Letting
+> userspace decide who to charge needs to be a privileged operation
+> because it has material impact on OOM decision and resource limits.
+> Charging outside the caller's own memcg subtree requires
+> CAP_SYS_RESOURCE. On top of that, LSM hooks gate the two charge_fd
+> flavours: security_memcg_charge_task() gates the pidfd path (target
+> identified by task credentials) and security_memcg_charge_cgroup()
+> gates the cgroupfd path (target identified by cgroup directory label),
+> with SELinux implementations using process2:charge_to and
+> cgroup:charge_to permissions.
 
-Le lundi 06 juillet 2026 =C3=A0 09:42 -0400, Detlev Casanova a =C3=A9crit=
-=C2=A0:
-> fdinfo is useful to poll information from the driver.
-> Unlike the ftrace interface, it lets userspace tools get a snapshot of
-> the state of the driver at their own pace, instead of getting events for
-> each driver status change.
->=20
-> This works better to get information like HW usage time or clock
-> frequencies, as well as memory usage.
-> This patch set focuses on mem2mem drivers that are per-frame based and
-> an implementation is proposed for the Verisilicon Hantro and Rockchip
-> rkvdec drivers, limited to main clock frequency and HW usage time, as
-> well as HW cycles counting in Hantro.
->=20
-> Even though it is not used yet, per core fields are appended with=20
-> `-<core_id>` to support multi-core drivers.
->=20
-> To ease support in drivers, a v4l2_metrics struct is added.
-> It stores metrics information and provides helper functions to write
-> the fdinfo file in a standard way.
->=20
-> An example of usage of this from userspace is implemented in v4l2top:
->=20
-> https://github.com/cazou/v4l2top (Check the upstream branch)
->=20
-> checkpatch.pl warning: The 2 arguments in the show_fdinfo callback
-> definition are kept unnamed to match with the rest of the struct
-> definition.
+I'm probably misunderstanding the description here, but in both cases
+(the pidfd or cgroupfd case), ultimately the cgroup is charged, yes?  In
+the cgroupfd case it is more direct, but in the pidfd case it is still
+the cgroup associated with the process identified by pidfd, yes?
 
-Please rebase and address the CI issues please. Would be nice to have other
-people comment.
+If that's the case - and it very well may not be (!) - it probably makes
+more sense to combine the two SELinux access controls into one.  Yes, the
+LSM hooks and callbacks would likely need to be different due to the
+mechanics of it, but the permission check "cgroup/charge" could be the
+same.
 
-https://gitlab.freedesktop.org/linux-media/users/patchwork/-/pipelines/1700=
-504/
+> Patch 8 adds selftests. The tests and vmtest script were mostly
+> written by an LLM, closely following the style of the surrounding
+> tests and the virtme-ng setup. All code has been reviewed and tested.
 
-Nicolas
+I think we need to have selinux-testsuite tests to go along with
+this, especially as this would be the first patchset to add cgroup
+controls.  Historically I've pushed back on piecemeal cgroup additions,
+pushing for some basic design of how to manage access controls for
+resource management first, but since evidently no one wants to do that,
+we really do need tests.
 
->=20
-> Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
-> ---
-> Changes in v3:
-> - Rename the fdinfo key prefix from "media-" to "v4l2-", and "stats" to
->   "metrics"
-> - Restructure the documentation to have mandatory and optional keys
-> - Add core ID to fields
-> - Add HW cycles count support
-> - Add ABI documentation
-> - Link to v2: https://patch.msgid.link/20260617-v4l2-add-fdinfo-v2-0-d298=
-e98ce06a@collabora.com
->=20
-> Changes in v2:
-> - Simplify key/value pairs by removing repeated <eng> suffix
-> - Add media type support
-> - Add v4l2_stats helpers
-> - Add support in rkvdec too
-> - Link to v1: https://patch.msgid.link/20260612-v4l2-add-fdinfo-v1-0-7232=
-11abc861@collabora.com
->=20
-> To: Mauro Carvalho Chehab <mchehab@kernel.org>
-> To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-> To: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-> To: Philipp Zabel <p.zabel@pengutronix.de>
-> To: Detlev Casanova <detlev.casanova@collabora.com>
-> To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
-> To: Heiko Stuebner <heiko@sntech.de>
-> Cc: kernel@collabora.com
-> Cc: linux-media@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-rockchip@lists.infradead.org
-> Cc: linux-arm-kernel@lists.infradead.org
->=20
-> ---
-> Christopher Healy (2):
->       docs: media: add documentation for V4L2 driver usage metrics
->       media: hantro: Add per-context fdinfo usage metrics
->=20
-> Detlev Casanova (3):
->       media: v4l2: Add callback for show_fdinfo
->       media: v4l2-core: Add v4l2-metrics interface
->       media: rkvdec: Add per-context fdinfo usage metrics
->=20
->  Documentation/ABI/testing/procfs-fdinfo-v4l2       | 129 +++++++++++++++=
-++++
->  .../userspace-api/media/drivers/index.rst          |   1 +
->  .../media/drivers/v4l2-usage-metrics.rst           | 137 +++++++++++++++=
-++++++
->  drivers/media/platform/rockchip/rkvdec/rkvdec.c    |  19 +++
->  drivers/media/platform/rockchip/rkvdec/rkvdec.h    |   1 +
->  drivers/media/platform/verisilicon/hantro.h        |   3 +
->  drivers/media/platform/verisilicon/hantro_drv.c    |  19 +++
->  drivers/media/platform/verisilicon/hantro_hw.h     |   1 +
->  .../platform/verisilicon/rockchip_vpu981_regs.h    |   1 +
->  .../media/platform/verisilicon/rockchip_vpu_hw.c   |   6 +
->  drivers/media/v4l2-core/Makefile                   |   2 +-
->  drivers/media/v4l2-core/v4l2-dev.c                 |  12 ++
->  drivers/media/v4l2-core/v4l2-fh.c                  |   3 +
->  drivers/media/v4l2-core/v4l2-metrics.c             |  78 ++++++++++++
->  include/media/v4l2-dev.h                           |   1 +
->  include/media/v4l2-fh.h                            |   2 +
->  include/media/v4l2-metrics.h                       |  47 +++++++
->  17 files changed, 461 insertions(+), 1 deletion(-)
-> ---
-> base-commit: 3c587e0b08bd3c4853a22792b9166b7457870165
-> change-id: 20260610-v4l2-add-fdinfo-a790fceab329
->=20
-> Best regards,
-> -- =20
-> Detlev Casanova <detlev.casanova@collabora.com>
->=20
+https://github.com/SELinuxProject/selinux-testsuite
 
---=-SbHR3Iz8Jecq/hEvoD/N
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+> Known limitations:
+> 
+> - Single-owner model: a dma-buf carries one memcg charge regardless
+>   of how many processes share it.
 
------BEGIN PGP SIGNATURE-----
+Once again, I'm sure I'm misunderstanding things, but are you saying
+that multiple cgroups can end up sharing the same dma-buf despite
+only one of the cgroups taking the accounting hit?
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavzR4wAKCRDZQZRRKWBy
-9C/0AP9RF0H01sdRh/eJRCsUAy8Q/aqr1DKXqin2GOcLmr/uzAEA9ouvtdSlhzQq
-TSAuxOdPvh6OjRqo481dsz54XVxmIQc=
-=aX0G
------END PGP SIGNATURE-----
+Hopefully the charged cgroup is deterministic?
 
---=-SbHR3Iz8Jecq/hEvoD/N--
+> - Only memcg accounting. CMA heaps would additionally need dmem
+>   controller integration.
+
+Do you have a rough idea of how that would work?  I ask only because I'm
+interested in seeing if that would require an additional LSM hook or if
+there is some way we could leverage the same hook(s) used here.
+
+> - If a transfer of an uncharged buffer fails, the buffer remains
+>   charged to the original cgroup. The allocator (userspace) is
+>   expected to handle this (retry, free, ...).
+> - The LSM hooks are intentionally narrow. Broader cgroup access controls
+>   (e.g. for the memfd/kexec handover case [2]) could be a separate effort
+>   reusing the same pattern.
+> - Only system heap sets exp_info.objcg today. Other exporters
+>   (DRM, V4L2, etc.) can opt in by setting it, but are not
+>   covered by this series.
+> - Related to the above: lazy backing-store allocation is not supported.
+>   This can be extended later, e.g., by adding a flag on the dma-buf
+>   struct for explicitly marking when memory is committed.
+
+Similar to the CMA case, any rough ideas on what this would look like?
+
+> Note on TTM/GPU accounting [3]: that effort charges system memory
+> allocated for GPU buffers per page, with its own stats (gpu_active
+> and gpu_reclaim). This series charges at the dma-buf level, for
+> memory with no memory.stat category of its own; exporters whose
+> memory is already charged by their allocator must not opt in, so
+> the two do not overlap.
+> 
+> [1] https://lore.kernel.org/cgroups/20230109213809.418135-1-tjmercier@google.com/
+> [2] https://lpc.events/event/20/contributions/2416/
+> [3] https://lore.kernel.org/all/20260706052330.1110909-1-airlied@gmail.com/
+> 
+> Signed-off-by: Albert Esteve <aesteve@redhat.com>
+
+--
+paul-moore.com
