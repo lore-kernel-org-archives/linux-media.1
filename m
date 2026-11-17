@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794911973;
-	b=DPcjy9Mv5i7uM5vt/sE8yFlbYjT8I6FvB6nWlEL+ZV/YxzGnacvAeD9O6naKDT/yx26H
-	 psoNLAYGBoWlMEMVE1xjy7DWGdwVmnGQ4rm6hq1iTNvaIQRxtUeAkSj0T9PV/jiL6nKT0
-	 brpIdrEhHWCtDvkVrKJpzxiXLNsEHxuhXIpkN2O4+YXVAet9bxtargslE9nTMH+jYoi0q
-	 x3zpUT6apd/D8LiyDRXk1YH3yfc8K+j6BonXNsHlKHD88hWpRns90L+NTtm7W/B7dyiAl
-	 dTQ4WWokPM7mnY8+B1Ectty+v+/9dx/gkdkgO3WUHF/gP39mz+rJwWSfSpsDXfEXHkQ==
+	t=1794912101;
+	b=omci/7X8pkB5MGSRk2K2fTL0rnPtWbh2oz8JC4qM2Kq3eokaTrFO2xR/3hoSz4O9wQVw
+	 Xgh8HgFn7WRvjxRFbDaEivs2l5hDt/HmsnW6BjSZ92QLslIre3zuC9lsGngayVabUl4kY
+	 w+NHZEsXBSMJBvOfvJKwOcfCfxekAFrT+JfUhZrCny8mWTJAY2gOb+CxnMtTS4dIMz9L0
+	 QpoHNZtyNSyYKZave4Zf//so1kOp5PmhNSJAJfWbNjhwmMBcqM89eufkNJTc53Ieh2Lvw
+	 G5dCQm/Zymc+CApC1Txetz7VHm9cP9PHldNWcdxNQ77rBeu2iJE2fcQ8l0W2yoex2VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794911973;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912101;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=+3mz14LdP/GmljS47PsmULrQXRIcDRlqv4Fk0dMXzAU=;
-	b=3faBEfEQz8XcA8+dOQPBHLqDn39eEwGAhvXa+VATS32hqqcmE48VX7iiYhhhEHjw8AnP
-	 9R6xAAj/gjfh+RA9lp4KhuXfONh0fCB7lL5K5IWtg741vagmLFPGTThtHMdOb5X9W7Fgv
-	 tWQlOsHIX3hEs/jPUQeCC8BffehJIQx9XMQP902ibfqemHKNKYlnyOWpnU/c85oPsK+oV
-	 mkEIuAOnUgxguR9u1j+0By/Wetb8m2Wm2lPKk1iW0FBDGLXSfjXXGpK422cfLcdxqUvY7
-	 3EmRDXQWYGyulOV1HOPGETruD5uXcEYBKlW77mkCRoW22FMrClSf70o04Bp31sVwZkg==
+	bh=fDDgnSW1FcakdvTmyMuFJCORZ23T3YvRFBXyHKMQyeA=;
+	b=00at5eASmXAyZ8qV2CUCoAXQ+RkY7ZiK8BZsPlMOkdqsUZ5hBHNr+aA1h67PqcsAA76C
+	 CzNrF86aaFYWH3d9Azz1c5mWDdPX+V3o6lIXVTmhfR9wi7TrmpXKODu9AsRFJ0LI09qNN
+	 PuKgwpDFRP7wDunbnmOsuuZ5Un5dNlSSB8BH7g5F1H4dECP1Eze6ffWWsFvL64pcUl8Bq
+	 37GVwYTqzY7TswvPeZLBxzLxHK07+VDC0RiKB076D32WgCyajTjUoiRJYOKd32TWLb560
+	 T0nhO6HbmjKtYfHTNCfR4z0q+8JLw89Pjc7yTGWnkcPRm0qMPfi8EiurIzaep1wcs7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fIxVNfYh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nCyD7lXg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4904606A31C;
-	Tue, 17 Nov 2026 10:39:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62725606A31C;
+	Tue, 17 Nov 2026 10:41:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fIxVNfYh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AF131F000C4;
-	Tue, 17 Nov 2026 10:39:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nCyD7lXg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03B5C1F000C5;
+	Tue, 17 Nov 2026 10:41:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794911972;
-	bh=+3mz14LdP/GmljS47PsmULrQXRIcDRlqv4Fk0dMXzAU=;
+	s=k20260515; t=1794912101;
+	bh=fDDgnSW1FcakdvTmyMuFJCORZ23T3YvRFBXyHKMQyeA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fIxVNfYhHH/ftrbTIjt7LhR3hWGpA1zU5Qqcxw5drogD0K6yXISPHyHTJwtNGFai1
-	 jwG3W4xU1fBCIkje+G3zsLcIwi+FjWL/vOeaqHfuYNm9RJUZar7654suMZ/sECJxsP
-	 /NARvYsNr/6lbzOaFma4ZsoMV49isI62gxsfy5rXIS1Vr8riIlkFb74rEQAtjY7xd4
-	 6tZ6mXPlKR/UG/1XCRDseDoFytWzSl1WxrNtAPDHSodyKUsbHC8X/TBhKrFnaD/uAI
-	 0Cz7XtmlZC7GoScEHXpo8dzEGDlSJ2IY7dLe0rqw75VfuDvB881n0/lEBVIYzU8+fE
-	 TvTIcUePS0Lcg==
-Message-ID: <e0b8401a-c57d-4be8-99d7-2762c363f349@kernel.org>
-Date: Tue, 17 Nov 2026 11:39:26 +0100
+	b=nCyD7lXgC/DCJDc2yB2ZR8HBmxOHQQU3PYHkGaveFzSQLILG86ZUcPLN6dCgUmNRx
+	 P04gXDM80Oi546sXdlOBmDwEUbzYAChYcI0YAfxXxUVNbmayCNxv/oA+MKnumrF7Lr
+	 APTD99RWqHRUDXvqH97AzUqkkRauuvCMaASGGr5mAQx50FFK+8b/5ofg71ZesQWtOg
+	 0OElvLE06kqFfZlVLavRI1InK3Azm6LUhJa/MFNBrsrxgWiuej/J8FFq5QY3iCrJLF
+	 +ZI0CpQwcY36TE9KvCnpBCNPKpRIyq0cM5u4NzC+QwpLpgXN3Q2zNPz+LIlaDdVUPM
+	 11hkdPbCY3zXg==
+Message-ID: <3fc512e9-c437-494f-b852-204d0d57e005@kernel.org>
+Date: Tue, 17 Nov 2026 11:41:35 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,7 +52,8 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: mahua: add iris video codec node
+Subject: Re: [PATCH 3/3] media: iris: add mahua platform data and enable
+ qcom,mahua-iris
 To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
  Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
  Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
@@ -64,7 +65,7 @@ To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20261113-mahua_iris_enable-v1-0-b7107e1cbcaa@oss.qualcomm.com>
- <20261113-mahua_iris_enable-v1-2-b7107e1cbcaa@oss.qualcomm.com>
+ <20261113-mahua_iris_enable-v1-3-b7107e1cbcaa@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -110,36 +111,56 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261113-mahua_iris_enable-v1-2-b7107e1cbcaa@oss.qualcomm.com>
+In-Reply-To: <20261113-mahua_iris_enable-v1-3-b7107e1cbcaa@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 14/11/2026 04:09, Deepa Guthyappa Madivalara wrote:
-> Add the iris video codec device node for the mahua SoC, overrriding the
-> fields clocks, power-domains, resets and opp-table reflecting single core.
+> Add qcom,mahua-iris compatible to initialize the hardware
+> and necessary Mahua platform data describing the needed clock
+> resets and powerdomain tables only for one core, vcodec0.
+> Most of the data is leveraged from Glymur as they are the same
+> Iris variant. Firmware, vpu ops, buffer sizes are the same as for
+> Glymur.
 > 
 > Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
 > ---
->  arch/arm64/boot/dts/qcom/mahua.dtsi | 66 +++++++++++++++++++++++++++++++++++++
-
-Odd order of patches. Driver's cannot depend on DTS. Please see
-submitting patches in DT and maintainer soc profile.
-
->  1 file changed, 66 insertions(+)
+>  drivers/media/platform/qcom/iris/Makefile          |  1 +
+>  .../platform/qcom/iris/iris_platform_common.h      |  1 +
+>  .../media/platform/qcom/iris/iris_platform_mahua.c | 44 ++++++++++++++++++++++
+>  .../media/platform/qcom/iris/iris_platform_mahua.h | 14 +++++++
+>  .../media/platform/qcom/iris/iris_platform_vpu3x.c | 34 +++++++++++++++++
+>  drivers/media/platform/qcom/iris/iris_probe.c      |  4 ++
+>  drivers/media/platform/qcom/iris/iris_vpu3x.c      | 10 +++++
+>  7 files changed, 108 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/mahua.dtsi b/arch/arm64/boot/dts/qcom/mahua.dtsi
-> index a59c5ed7b48e776841db58e124c4d66225faccf8..1d01655e7623d13c43063b74d2ab086d2308e3ea 100644
-> --- a/arch/arm64/boot/dts/qcom/mahua.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/mahua.dtsi
-> @@ -400,3 +400,69 @@ &tsens5 {
->  	#qcom,sensors = <15>;
->  };
+> diff --git a/drivers/media/platform/qcom/iris/Makefile b/drivers/media/platform/qcom/iris/Makefile
+> index 48570da56aa052577e05ead12bd26df090d97454..6c187d25980eabcd1c789b132e2f0bffa62fc805 100644
+> --- a/drivers/media/platform/qcom/iris/Makefile
+> +++ b/drivers/media/platform/qcom/iris/Makefile
+> @@ -13,6 +13,7 @@ qcom-iris-objs += iris_buffer.o \
+>               iris_hfi_gen2_response.o \
+>               iris_hfi_queue.o \
+>               iris_platform_glymur.o \
+> +             iris_platform_mahua.o \
+>               iris_platform_vpu2.o \
+>               iris_platform_vpu3x.o \
+>               iris_power.o \
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> index 1024a2fd75a3ae2b7e194e583b91ec5f16e2773a..817b8a9e2712e7f1e335dbb8600dc033670c5cfa 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> @@ -58,6 +58,7 @@ extern const struct iris_firmware_data iris_hfi_gen1_data;
+>  extern const struct iris_firmware_data iris_hfi_gen2_data;
+>  extern const struct iris_firmware_data iris_hfi_milos_data;
 >  
-> +&iris {
+> +extern const struct iris_platform_data mahua_data;
+>  extern const struct iris_platform_data glymur_data;
+>  extern const struct iris_platform_data milos_data;
 
-It's not difficult to see how entries are added there.
+That's random placement, no?
 
-And dt-check-style also would tell you.
+>  extern const struct iris_platform_data qcs8300_data;
 
 
 Best regards,
