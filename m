@@ -1,113 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795008552;
-	b=whJP9am7RRTM578GrtK8rAbAEFbjG9x4ZTdNKldwEx+Dot3dG6wGAz3uNAPTcxyjCs/I
-	 9+hzHwD7YUK7jj8L31j2uFOOZdu8Aa8eBZeWwtwc2WpkYa4TC3W9wfeuu7Qjz3464qTco
-	 frdpKVP5o3x9WrGxi/dsWjfFSQwoCe4smLD0LaxJbPXdmR5Mu6oddmFmMvq4gA/O/1lqs
-	 b7E9dyHmtq6gAtZNKoxG02yGgpISB1QwlVsSMfWTIRHgM5n1uNEvIYrEGkimLx32N/8cU
-	 1vJjlp2vbeGFofk12j3hOWT6zxKeGi7E9B8v3yE5eTBLtT1dCLk3xL0WKkZP6r6R9gA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795008552;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=B6gVT3JhW9x4QeVqWg8xFc4E4Ihujjmg255OwaI7gS8=;
-	b=KIkmaZseeE4GdLU509i2UsjJ+wfBpE3x9gfeEf6a6C4BBd84cgRFKkkyBl+iQQihd3hK
-	 mywZYAWiC6Kf26A9dU1xKRNfJoQ33DB3PT3UaGPq9t+fEemekyESgKQgk7afnwaEKNhUB
-	 Kb85BTDEB2RaZJxsw9ZZHWPa5/E/DsBZdn+MhO9lQVnjicrPqzJhh9nicE2l97hDsnowQ
-	 XRBsN9ddJIF7Y8P1NzYfLRg95oiWU7W24okLRIKMcg3E/bdEqgTaeD8A6jv8bI9z4CeKg
-	 HfGXrgGa5KgsLnrHyBEAGM4+E2xY2c8h4zhm7G6EOSONn88nkzGJ5WxD90AX7s1aymg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RfluxsSn;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795009124;
+	b=ZN6c31o6w0Pk3dbfdrpzAhZID3vqLRgUxsihzIIgwm3CdDw2VSYGY4voKWCNZXHTvH1V
+	 4GuiamGwop+fgxMuvR71KkeoFqrOlGcrYHdm2Es4yxx6k+8umWl8EolLHCGfYbW+zUFl1
+	 X24yTh1Q4k2t7SlPZJAdyJg3ygBZ/NpV1vuHE3coLkmDxDLK7pTvnCMZXT6YATipQdwIe
+	 iKBRFk+MuWJk9c9kng4bprK0kE2gfPD2n7Bziw/HM/VJNNuBLx7ovUiNchpbVXf+ASczm
+	 p5Q1X7PCQE2TS8jrQNxWgZVVRVTyNu1aroKtTYf5PuFlXjAqcaPsYgI4aOdu41lbMEw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795009124;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=h50xYCZDbBstrT/18dKKndyJ3XtJH6sY5/J/QnXGpDQ=;
+	b=0Ee8pIDR1YqVmjBkLrsz7nPyrOQPR+/57agUdC8HXsveioI1GpczqHeMGjigBsKxbbrR
+	 EP721KaefRHPs7fj33l6z1kR4q7mmfx7DE3+dOVN43kaOmsQIv6kouFiBGgYBah1OBaot
+	 +6jmz9JeVuHY1IWiCB2BT622qqwd3xZqtanF5J0vq6kv5fZjAVDaXv8gSx/HD5up4OyNr
+	 HwdaodVyZ1jGy9g7y7w67cWGENomWkQrHErZbAexL8+1Dw9F1PjnuU0gH5Qp2tUGJaoRq
+	 eJ+QeB46ZEVxrkhYWnJv5lucbmDD67jNCVKWHaXSTHTL4FA/wJfc50y5ja81x+qohFQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fe12Lp1Z;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="m1U/f12J";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3F260A2610
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:29:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E3F260A2610
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51F360A2603
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:38:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D51F360A2603
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RfluxsSn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795008552; x=1826544552;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=G1BIKmVo53L48hejmHJ8p1DgS19ilfn6+38Gao2oP+s=;
-  b=RfluxsSnavCxHytBkx9U8pttmgaAso2C2egKmIpCP4W5EtGH5L9uZF8n
-   vtG7504kj9DA5ZqOFh2050juRiwiH0hMe22Uy8twwHYgmqB8Xp6jG2gzc
-   g4P+dTSoB11nCfqMwrpt0B33KzSTr+aDJi4HCFqXJQdqLwViKHeFvzWNU
-   c2Rb7FofqsIg3CjblTV+Dt1B5b/Z4fxOfLASWZorgpt3bpVxaEgfEpxw3
-   11TCg4Jo/wfhbL9nbc3dtR+VBio6n4JCBeir8/u6w+KQpLj/PMOWQlq88
-   u9m4Pb9uoFxwLj1bi8tgn9e7iLhp3SwrX5PhNdTqhJuQxe0FZfwDUEqUo
-   A==;
-X-CSE-ConnectionGUID: FZteRsmQS8KS/7W9WBlDMw==
-X-CSE-MsgGUID: m8+fRLRiRGuvBqiDVXZgyw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3809075"
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3809075"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:29:05 -0800
-X-CSE-ConnectionGUID: F3tdGecBRA69fUaYPrgejQ==
-X-CSE-MsgGUID: eUJtV/UVRNSJ2W1Cs+x9qA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="10376809"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:58 -0800
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id C08AA123139;
-	Wed, 18 Nov 2026 15:28:31 +0200 (EET)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xTfi0-00000000tcf-1hj6;
-	Wed, 18 Nov 2026 15:28:20 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: linux-media@vger.kernel.org
-Cc: hans@jjverkuil.nl,
-	laurent.pinchart@ideasonboard.com,
-	Prabhakar <prabhakar.csengg@gmail.com>,
-	Kate Hsuan <hpa@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Julien Massot <julien.massot@collabora.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	=?UTF-8?q?Andr=C3=A9=20Apitzsch?= <git@apitzsch.eu>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Ricardo Ribalda Delgado <ribalda@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	David Plowman <david.plowman@raspberrypi.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Rishikesh Donadkar <r-donadkar@ti.com>,
-	Mattijs Korpershoek <mkorpershoek@kernel.org>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	"Bajpai, Manik" <manik.bajpai@intel.com>,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH v13 47/73] media: ccs: Add support for embedded data stream
-Date: Wed, 18 Nov 2026 15:27:53 +0200
-Message-ID: <20261118132819.213473-48-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
-References: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fe12Lp1Z;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=m1U/f12J
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795009122;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=h50xYCZDbBstrT/18dKKndyJ3XtJH6sY5/J/QnXGpDQ=;
+	b=fe12Lp1Zrc3jZjKIO/xQJhFxwIRVd/dPqKU5wEIms0tzzRBR8II5lPrHI28IhHdKFK2DU8
+	98he96vFnC9Y39yJxeyEhFMnh9ta9GBDAnaJi0ci9FiYJ7s9hYxsXE0FybpETdd3R54uDT
+	8JuqUvCNuZf+kVRCHqOTf45HmsJgP38=
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
+ [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-631-XEqT2ze2Nkep6UKfmzdUmw-1; Wed, 18 Nov 2026 08:38:41 -0500
+X-MC-Unique: XEqT2ze2Nkep6UKfmzdUmw-1
+X-Mimecast-MFC-AGG-ID: XEqT2ze2Nkep6UKfmzdUmw_1795009121
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8b4d09fefd7so8992487b3.1
+        for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 05:38:41 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795009121; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MIG+vtzguLVdoL+n788oA1v2kBFLSWbxJ+K2YMk9rTsPEpacCCZKuh5OZLxA3wQpIA
+         wnUvXYhs+YnjH8AXqnz8wa1Ab3DXAeg6Fdr3iqzapq56JrztgkLPuy1BvKRUQbe+7qG8
+         oelQHpX5gxgUCaMsTeVcqwvc6Bq9zw8Sq8olnLvUhEK2gVUtSRiQrTju9n+M8Tmuki9N
+         CxRz12P804yiUqCDiZ3cCzNhh6kMW8yTmNJpVvPKHZmqcrA+/gR/X9BON2r897Bwf1Pf
+         Gmal+zKnhYwPZI+iNGm4hmuE+9vhTVM27c22BZJ0FDS2i73osdjxnMCy/Y7CWp1wbP0e
+         4AaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=h50xYCZDbBstrT/18dKKndyJ3XtJH6sY5/J/QnXGpDQ=;
+        fh=rM5uMMLKDj7d1U4nVpeh5F3FxfshRry3XW1wdxAdWGM=;
+        b=pWNTziF3tTs6QTWGmdcEiiOMe/19UfajqimBuzvBX3vS7EKgM0/j9I4JTvDQx+/SRH
+         544X+D3PQ54YztBujjL1YKS3Nxf9vT8ki9gYDTBm3lKXcAUvz4sJSnhnPwlhVlVKJdVV
+         Rt6f67S1j8I8T35tWyDh7z0FdmCDpmlXI3WTD3swERqeDXUcQVj5VLaG7qdtjHXlAPFt
+         XTgij5eRQdJHPG+380NwpG7Z/xcbW8yt7uPlFGyRtDzM9Smg6iDtWWmfzCK9N0OTOT1X
+         43i21PHqsiaPCKRBuk/QuV48jDH8OvwigTiA4fCuGa+3qsf095nDDiDrGFSIELQ4mFiF
+         51iw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1795009121; x=1795613921; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=h50xYCZDbBstrT/18dKKndyJ3XtJH6sY5/J/QnXGpDQ=;
+        b=m1U/f12J+ShUTGTGggJRi8KWH5geQbIoUtFMFOrndyGwP0Lkjvyue4j595npuKQp7v
+         UynlTtWXc/N0WgxJO1Eh9B0rgmNUcUCd/fe2y2aqqhwEQc5sz7XB3d3BF8blaFQQsm6l
+         BIFKk/wJx3tUMG+ZzqdOa04aWuQnHC9c3eHjYq77Zs5R6PpyZS6fg5pUCCDzRlxbuqeL
+         6TWfG8AGCYSHLpH+pLf9WpAQ9HEa4rOwR2cAEOBu/tri1gSzxl1aXRj3xSBR9pXZKIMm
+         9sqYw0Eu6CMouTg16/H3YR/idZKQXNHpJbp9J077XuX6pp7ekW4DOfM8so6CkAaAAyiW
+         esFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795009121; x=1795613921;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h50xYCZDbBstrT/18dKKndyJ3XtJH6sY5/J/QnXGpDQ=;
+        b=CypWaNlIry3oCSIP/+zZMkO1/1c8ADQ5WtBQKSSFZlVQpi2/oZ/EImJV0xcRfgfC01
+         PoR61O2BMFMYYgz0nt3HfxcuOIpdL/ZlB7Y8wxeja0toLQXllUn/RagZ8w7nBp0kcFRI
+         agQ2f/PAyE/7vM5K8dPsNGf9uQobNcUXvsgd5uz26gp8+M/frIGSzJQ4GyOfti+507jg
+         7tdPP70unQ4k/AdfOa9g9w1Jyq0BI4tK4Ta4nypzed3FoY3L+3bRrVtzjPSrvj2Etboy
+         8EAMr9g9y9HEeRUYe3htPv8pAxEBy02jJn6/URyC3uttpZc9aIBppZ7YgCUTJn94SDgd
+         5wjw==
+X-Forwarded-Encrypted: i=1; AL+hErGCTw9it+SO3D2dBg1ANVEa8Cey3R9s781nxYZYfGVeQ7oq22h+O0UQ1uFpnODyBRIyH6F67uRI+IGB2A==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9bMXmg7hymkgbmrZ7MemjFaWqBAMtsTLzo2Bl8wYO7Y11cYfUx
+	JS9HHIPJOP0wx7PW23A3YBMNqTFO38/mf339McoerjZASUncg8sjxCwZwxDN61zMnaCy/uYrWn7
+	X0luXtl9kmKcPteXO1HQsR63ftL7uHIWxurIu8GZ0X3J6KUKamBv1fmJ8e1LXLRODDhcxA2ohG/
+	dU6emLNe4m4Gn4LDmhNKsMRm46ehYhDbNksBf0/cE=
+X-Gm-Gg: AZFdTZd1HQ+yTYs6fxU7SXIxbnzZm9+v6YVea2PBekw+RR9X7vYfPFloZD5/a/D2RxE
+	VoBliBk4O6UAFQI9UcIIT64XPO8eg+5IxapsRathTtqI3N0bJDL2nb1hTS3ROaMqjxxXZwRzOBN
+	41oXiNzT/f1e2ZgUPeV0wvn/ZgJiKHZ6F/DgYxYFJo6DxH5ystjo8qngUh
+X-Received: by 2002:a05:690c:368a:b0:873:5bb2:6bfd with SMTP id 00721157ae682-8b4fed83351mr10018037b3.39.1795009120696;
+        Wed, 18 Nov 2026 05:38:40 -0800 (PST)
+X-Received: by 2002:a05:690c:368a:b0:873:5bb2:6bfd with SMTP id
+ 00721157ae682-8b4fed83351mr10017817b3.39.1795009119849; Wed, 18 Nov 2026
+ 05:38:39 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -117,554 +124,240 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261117-v2_20230123_tjmercier_google_com-v5-0-1ce975f2a9ad@redhat.com>
+ <4356992ac4fb7876fb5759189ba4b492@paul-moore.com>
+In-Reply-To: <4356992ac4fb7876fb5759189ba4b492@paul-moore.com>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Wed, 18 Nov 2026 14:38:28 +0100
+X-Gm-Features: Aa3M54php6hihR6Ihi3l34Ri9nQdKaLYB3Ss2kJeRmi5f3v9ab0vBjDa0q2nnvI
+Message-ID: <CADSE00JyTwrbNh4r8PZWLqOHWpepyHkaL+9fkc+AbVRmCc-f-g@mail.gmail.com>
+Subject: Re: [PATCH v5 0/8] memcg: dma-buf cgroup accounting and charge transfer
+To: Paul Moore <paul@paul-moore.com>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
+	Christian Brauner <brauner@kernel.org>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
+	Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	=?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
+	Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
+	Philipp Stanner <phasta@kernel.org>, airlied@gmail.com, cgroups@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, op-tee@lists.trustedfirmware.org, 
+	echanude@redhat.com, mripard@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add support for embedded data stream, in UAPI and frame descriptor.
+On Tue, Nov 17, 2026 at 11:54=E2=80=AFPM Paul Moore <paul@paul-moore.com> w=
+rote:
+>
+> On Nov 17, 2026 Albert Esteve <aesteve@redhat.com> wrote:
+> >
+> > Shared-memory allocator services (e.g., Android's gralloc)
+> > allocate dma-bufs on behalf of client processes in different
+> > cgroups. Today those allocations are charged to the allocator's
+> > own cgroup, leaving client cgroups with no visibility into their
+> > actual memory consumption and defeating resource limits.
+> >
+> > This series adds memory cgroup accounting for dma-buf allocations,
+> > building on T.J. Mercier's earlier series [1] and incorporating
+> > feedback from previous versions and LPC discussions [2].
+> >
+> > Patch 1 introduces the MEMCG_DMABUF stat and the
+> > obj_cgroup_reserve_dmabuf()/obj_cgroup_cancel_dmabuf() and
+> > mem_cgroup_commit_dmabuf()/mem_cgroup_uncharge_dmabuf() helpers
+> > in mm/memcontrol.c
+> >
+> > Patch 2 wires up the charging policy: dma_buf_export() stores
+> > exp_info.objcg and updates the stat, a new charge_fd field in
+> > DMA_HEAP_IOCTL_ALLOC accepts a pidfd or cgroupfd to identify
+> > the target cgroup, and __GFP_ACCOUNT is removed from system-heap
+> > allocations to avoid double counting.
+> >
+> > Patch 3 adds DMA_BUF_IOCTL_XFER_CHARGE, a general ioctl on any
+> > dma-buf fd to transfer charges post-allocation. This covers the
+> > double-hop allocator case (SurfaceFlinger -> gralloc -> kernel)
+> > and works for buffers from any exporter that opts in. Charging
+> > is gated by dmabuf->objcg being set at export time, ensuring that
+> > transfer is only applied for buffers backed by system memory where
+> > size reflects actual bytes. If the receiving cgroup lacks capacity
+> > for the charge, the ioctl returns -ENOMEM and the original charge
+> > is preserved.
+> >
+> > Patches 4-7 add access control for cross-cgroup charging. Letting
+> > userspace decide who to charge needs to be a privileged operation
+> > because it has material impact on OOM decision and resource limits.
+> > Charging outside the caller's own memcg subtree requires
+> > CAP_SYS_RESOURCE. On top of that, LSM hooks gate the two charge_fd
+> > flavours: security_memcg_charge_task() gates the pidfd path (target
+> > identified by task credentials) and security_memcg_charge_cgroup()
+> > gates the cgroupfd path (target identified by cgroup directory label),
+> > with SELinux implementations using process2:charge_to and
+> > cgroup:charge_to permissions.
+>
+> I'm probably misunderstanding the description here, but in both cases
+> (the pidfd or cgroupfd case), ultimately the cgroup is charged, yes?  In
+> the cgroupfd case it is more direct, but in the pidfd case it is still
+> the cgroup associated with the process identified by pidfd, yes?
 
-This patch adds also a new embedded data pad (2) to the source sub-device.
+Your understanding is correct here.
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- drivers/media/i2c/ccs/ccs-core.c | 342 +++++++++++++++++++++++++++++--
- drivers/media/i2c/ccs/ccs.h      |  15 +-
- 2 files changed, 338 insertions(+), 19 deletions(-)
+>
+> If that's the case - and it very well may not be (!) - it probably makes
+> more sense to combine the two SELinux access controls into one.  Yes, the
+> LSM hooks and callbacks would likely need to be different due to the
+> mechanics of it, but the permission check "cgroup/charge" could be the
+> same.
 
-diff --git a/drivers/media/i2c/ccs/ccs-core.c b/drivers/media/i2c/ccs/ccs-core.c
-index 40866215f3e1..e8706267b6e8 100644
---- a/drivers/media/i2c/ccs/ccs-core.c
-+++ b/drivers/media/i2c/ccs/ccs-core.c
-@@ -899,7 +899,7 @@ static int ccs_init_controls(struct ccs_sensor *sensor)
- 	struct v4l2_fwnode_device_properties props;
- 	int rval;
- 
--	rval = v4l2_ctrl_handler_init(&sensor->pixel_array->ctrl_handler, 21);
-+	rval = v4l2_ctrl_handler_init(&sensor->pixel_array->ctrl_handler, 22);
- 	if (rval)
- 		return rval;
- 
-@@ -1105,6 +1105,12 @@ static int ccs_init_controls(struct ccs_sensor *sensor)
- 			  V4L2_CFA_PATTERN_FLIP_BOTH, 1,
- 			  V4L2_CFA_PATTERN_FLIP_BOTH);
- 
-+	v4l2_ctrl_new_std(&sensor->pixel_array->ctrl_handler, NULL,
-+			  V4L2_CID_METADATA_LAYOUT,
-+			  V4L2_METADATA_LAYOUT_CCS,
-+			  V4L2_METADATA_LAYOUT_CCS, 1,
-+			  V4L2_METADATA_LAYOUT_CCS);
-+
- 	rval = v4l2_ctrl_handler_init(&sensor->src->ctrl_handler, 0);
- 	if (rval)
- 		return rval;
-@@ -1871,6 +1877,57 @@ static int ccs_pm_get_init(struct ccs_sensor *sensor)
- 	return rval;
- }
- 
-+#define CCS_EMBEDDED_CODE_DEPTH(depth, half_depth)			\
-+	depth,								\
-+	CCS_EMB_DATA_CAPABILITY_TWO_BYTES_PER_RAW##depth,		\
-+	CCS_EMB_DATA_CAPABILITY_NO_ONE_BYTE_PER_RAW##depth,		\
-+	CCS_EMB_DATA_CTRL_RAW##half_depth##_PACKING_FOR_RAW##depth,	\
-+	MEDIA_BUS_FMT_META_##half_depth,				\
-+	MEDIA_BUS_FMT_META_##depth,					\
-+
-+static const struct ccs_embedded_code {
-+	u8 depth;
-+	u8 cap_two_bytes_per_sample;
-+	u8 cap_no_legacy;
-+	u8 ctrl;
-+	u32 code_two_bytes;
-+	u32 code_legacy;
-+} ccs_embedded_codes[] = {
-+	{ CCS_EMBEDDED_CODE_DEPTH(16, 8) },
-+	{ CCS_EMBEDDED_CODE_DEPTH(20, 10) },
-+	{ CCS_EMBEDDED_CODE_DEPTH(24, 12) },
-+};
-+
-+static const struct ccs_embedded_code *ccs_embedded_code(unsigned int bpp)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ccs_embedded_codes); i++)
-+		if (ccs_embedded_codes[i].depth == bpp)
-+			return ccs_embedded_codes + i;
-+
-+	WARN_ON(1);
-+
-+	return ccs_embedded_codes;
-+}
-+
-+static u32
-+ccs_default_embedded_code(struct ccs_sensor *sensor,
-+			  const struct ccs_embedded_code *embedded_code)
-+{
-+	if (CCS_LIM(sensor, EMB_DATA_CAPABILITY) &
-+	    BIT(embedded_code->cap_two_bytes_per_sample))
-+		return embedded_code->code_two_bytes;
-+
-+	if (!(CCS_LIM(sensor, EMB_DATA_CAPABILITY) &
-+	      BIT(embedded_code->cap_no_legacy)))
-+		return embedded_code->code_legacy;
-+
-+	WARN_ON(1);
-+
-+	return embedded_code->code_legacy;
-+}
-+
- static int ccs_enable_streams(struct v4l2_subdev *subdev,
- 			      struct v4l2_subdev_state *state, u32 pad,
- 			      u64 streams_mask)
-@@ -2003,6 +2060,22 @@ static int ccs_enable_streams(struct v4l2_subdev *subdev,
- 	if (rval < 0)
- 		goto err_pm_put;
- 
-+	/* Configure embedded data */
-+	if (sensor->csi_format->compressed >= 16) {
-+		const struct ccs_embedded_code *embedded_code =
-+			ccs_embedded_code(sensor->csi_format->compressed);
-+		const struct v4l2_mbus_framefmt *meta_out_fmt =
-+			v4l2_subdev_state_get_format(src_state, CCS_PAD_SRC,
-+						     CCS_STREAM_META);
-+
-+		rval = ccs_write(sensor, EMB_DATA_CTRL,
-+				 meta_out_fmt->code ==
-+				 embedded_code->code_legacy ?
-+				 0 : embedded_code->ctrl);
-+		if (rval < 0)
-+			goto err_pm_put;
-+	}
-+
- 	if (CCS_LIM(sensor, FLASH_MODE_CAPABILITY) &
- 	    (CCS_FLASH_MODE_CAPABILITY_SINGLE_STROBE |
- 	     SMIAPP_FLASH_MODE_CAPABILITY_MULTIPLE_STROBE) &&
-@@ -2133,6 +2206,61 @@ static int ccs_enum_mbus_code(struct v4l2_subdev *subdev,
- 	dev_err(&client->dev, "subdev %s, pad %u, index %u\n",
- 		subdev->name, code->pad, code->index);
- 
-+	if (subdev == &sensor->src->sd) {
-+		if (code->pad == CCS_PAD_META ||
-+		    code->stream == CCS_STREAM_META) {
-+			struct v4l2_mbus_framefmt *pix_fmt =
-+				v4l2_subdev_state_get_format(sd_state,
-+							     CCS_PAD_SRC,
-+							     CCS_STREAM_PIXEL);
-+			const struct ccs_csi_data_format *csi_format =
-+				ccs_validate_csi_data_format(sensor,
-+							     pix_fmt->code);
-+			unsigned int i = 0;
-+			u32 codes[2];
-+
-+			switch (csi_format->compressed) {
-+			case 8:
-+				codes[i++] = MEDIA_BUS_FMT_META_8;
-+				break;
-+			case 10:
-+				codes[i++] = MEDIA_BUS_FMT_META_10;
-+				break;
-+			case 12:
-+				codes[i++] = MEDIA_BUS_FMT_META_12;
-+				break;
-+			case 14:
-+				codes[i++] = MEDIA_BUS_FMT_META_14;
-+				break;
-+			case 16:
-+			case 20:
-+			case 24: {
-+				const struct ccs_embedded_code *embedded_code =
-+					ccs_embedded_code(csi_format->compressed);
-+
-+				if (CCS_LIM(sensor, EMB_DATA_CAPABILITY) &
-+				    BIT(embedded_code->cap_two_bytes_per_sample))
-+					codes[i++] =
-+						embedded_code->code_two_bytes;
-+
-+				if (!(CCS_LIM(sensor, EMB_DATA_CAPABILITY) &
-+				      BIT(embedded_code->cap_no_legacy)))
-+					codes[i++] = embedded_code->code_legacy;
-+				break;
-+			}
-+			default:
-+				WARN_ON(1);
-+			}
-+
-+			if (WARN_ON(i > ARRAY_SIZE(codes)) || code->index >= i)
-+				return -EINVAL;
-+
-+			code->code = codes[code->index];
-+
-+			return 0;
-+		}
-+	}
-+
- 	if (subdev != &sensor->src->sd || code->pad != CCS_PAD_SRC) {
- 		if (code->index)
- 			return -EINVAL;
-@@ -2171,8 +2299,11 @@ static int ccs_get_format(struct v4l2_subdev *subdev,
- 			  struct v4l2_subdev_state *sd_state,
- 			  struct v4l2_subdev_format *fmt)
- {
--	fmt->format = *v4l2_subdev_state_get_format(sd_state, fmt->pad);
--	fmt->format.code = ccs_get_mbus_code(subdev, fmt->pad);
-+	fmt->format = *v4l2_subdev_state_get_format(sd_state, fmt->pad,
-+						    fmt->stream);
-+
-+	if (fmt->pad != CCS_PAD_META && fmt->stream != CCS_STREAM_META)
-+		fmt->format.code = ccs_get_mbus_code(subdev, fmt->pad);
- 
- 	return 0;
- }
-@@ -2262,6 +2393,86 @@ static int ccs_set_format_source(struct v4l2_subdev *subdev,
- 	return ccs_pll_update(sensor);
- }
- 
-+static inline unsigned int ccs_embedded_data_lines(struct ccs_sensor *sensor)
-+{
-+	return sensor->embedded_end - sensor->embedded_start;
-+}
-+
-+static int ccs_set_format_meta(struct v4l2_subdev *subdev,
-+			       struct v4l2_subdev_state *sd_state,
-+			       struct v4l2_mbus_framefmt *fmt)
-+{
-+	struct ccs_sensor *sensor = to_ccs_sensor(subdev);
-+	const struct ccs_csi_data_format *csi_format;
-+	struct v4l2_mbus_framefmt *pix_fmt;
-+	struct v4l2_mbus_framefmt *meta_fmt;
-+	struct v4l2_mbus_framefmt *meta_out_fmt;
-+	u32 code;
-+
-+	pix_fmt = v4l2_subdev_state_get_format(sd_state, CCS_PAD_SRC,
-+					       CCS_STREAM_PIXEL);
-+	meta_fmt = v4l2_subdev_state_get_format(sd_state, CCS_PAD_META, 0);
-+	meta_out_fmt = v4l2_subdev_state_get_format(sd_state, CCS_PAD_SRC,
-+						    CCS_STREAM_META);
-+
-+	code = fmt ? fmt->code : 0;
-+
-+	meta_fmt->width = pix_fmt->width;
-+	meta_fmt->height = ccs_embedded_data_lines(sensor);
-+
-+	csi_format = ccs_validate_csi_data_format(sensor, pix_fmt->code);
-+
-+	switch (csi_format->compressed) {
-+	case 8:
-+		meta_fmt->code = MEDIA_BUS_FMT_META_8;
-+		break;
-+	case 10:
-+		meta_fmt->code = MEDIA_BUS_FMT_META_10;
-+		break;
-+	case 12:
-+		meta_fmt->code = MEDIA_BUS_FMT_META_12;
-+		break;
-+	case 14:
-+		meta_fmt->code = MEDIA_BUS_FMT_META_14;
-+		break;
-+	case 16:
-+	case 20:
-+	case 24: {
-+		const struct ccs_embedded_code *embedded_code;
-+
-+		embedded_code = ccs_embedded_code(csi_format->compressed);
-+		meta_fmt->code =
-+			ccs_default_embedded_code(sensor, embedded_code);
-+
-+		if (!(CCS_LIM(sensor, EMB_DATA_CAPABILITY) &
-+		      BIT(embedded_code->cap_no_legacy)) &&
-+		    code == embedded_code->code_legacy)
-+			meta_fmt->code = embedded_code->code_legacy;
-+
-+		if (CCS_LIM(sensor, EMB_DATA_CAPABILITY) &
-+		    BIT(embedded_code->cap_two_bytes_per_sample) &&
-+		    code == embedded_code->code_two_bytes) {
-+			meta_fmt->code = embedded_code->code_two_bytes;
-+			meta_fmt->width <<= 1;
-+		}
-+
-+		break;
-+	}
-+	default:
-+		WARN_ON(1);
-+		return 0;
-+	}
-+
-+	meta_out_fmt->width = meta_fmt->width;
-+	meta_out_fmt->height = meta_fmt->height;
-+	meta_out_fmt->code = meta_fmt->code;
-+
-+	if (fmt)
-+		*fmt = *meta_out_fmt;
-+
-+	return 0;
-+}
-+
- static int ccs_set_format(struct v4l2_subdev *subdev,
- 			  const struct v4l2_subdev_client_info *ci,
- 			  struct v4l2_subdev_state *sd_state,
-@@ -2271,10 +2482,21 @@ static int ccs_set_format(struct v4l2_subdev *subdev,
- 	struct ccs_subdev *ssd = to_ccs_subdev(subdev);
- 	struct v4l2_rect *crop;
- 
-+	if (ssd == sensor->src && fmt->pad == CCS_PAD_META)
-+		return ccs_get_format(subdev, sd_state, fmt);
-+
-+	if (ssd == sensor->src && fmt->stream == CCS_STREAM_META) {
-+		ccs_set_format_meta(subdev, sd_state, &fmt->format);
-+
-+		return 0;
-+	}
-+
- 	if (fmt->pad == ssd->source_pad) {
- 		int rval;
- 
- 		rval = ccs_set_format_source(subdev, ci, sd_state, fmt);
-+		if (ccs_embedded_data_lines(sensor) && ssd == sensor->src)
-+			ccs_set_format_meta(subdev, sd_state, NULL);
- 
- 		return rval;
- 	}
-@@ -2526,6 +2748,12 @@ static int ccs_sel_supported(struct v4l2_subdev *subdev,
- 	struct ccs_sensor *sensor = to_ccs_sensor(subdev);
- 	struct ccs_subdev *ssd = to_ccs_subdev(subdev);
- 
-+	if (sel->stream != CCS_STREAM_PIXEL)
-+		return -EINVAL;
-+
-+	if (sel->pad == CCS_PAD_META)
-+		return -EINVAL;
-+
- 	/* We only implement crop in three places. */
- 	switch (sel->target) {
- 	case V4L2_SEL_TGT_CROP:
-@@ -2575,7 +2803,8 @@ static int ccs_set_crop(struct v4l2_subdev *subdev,
- 
- 	if (sel->pad == ssd->sink_pad) {
- 		struct v4l2_mbus_framefmt *mfmt =
--			v4l2_subdev_state_get_format(sd_state, sel->pad);
-+			v4l2_subdev_state_get_format(sd_state, sel->pad,
-+						     CCS_STREAM_PIXEL);
- 
- 		src_size.width = mfmt->width;
- 		src_size.height = mfmt->height;
-@@ -2637,7 +2866,9 @@ static int ccs_get_selection(struct v4l2_subdev *subdev,
- 		} else if (sel->pad == ssd->sink_pad) {
- 			struct v4l2_mbus_framefmt *sink_fmt =
- 				v4l2_subdev_state_get_format(sd_state,
--							     ssd->sink_pad);
-+							     ssd->sink_pad,
-+							     CCS_STREAM_PIXEL);
-+
- 			sel->r.top = sel->r.left = 0;
- 			sel->r.width = sink_fmt->width;
- 			sel->r.height = sink_fmt->height;
-@@ -2723,6 +2954,18 @@ static int ccs_get_frame_desc(struct v4l2_subdev *subdev, unsigned int pad,
- 	entry++;
- 	desc->num_entries++;
- 
-+	if (ccs_embedded_data_lines(sensor)) {
-+		struct v4l2_mbus_framefmt *meta_out_fmt =
-+			v4l2_subdev_state_get_format(sd_state, CCS_PAD_SRC,
-+						     CCS_STREAM_META);
-+
-+		entry->pixelcode = meta_out_fmt->code;
-+		entry->stream = CCS_STREAM_META;
-+		entry->bus.csi2.dt = MIPI_CSI2_DT_EMBEDDED_8B;
-+		entry++;
-+		desc->num_entries++;
-+	}
-+
- 	v4l2_subdev_unlock_state(sd_state);
- 
- 	return 0;
-@@ -3063,7 +3306,8 @@ static int ccs_init_subdev(struct ccs_sensor *sensor,
- 	ssd->sensor = sensor;
- 
- 	ssd->npads = num_pads;
--	ssd->source_pad = num_pads - 1;
-+	ssd->source_pad =
-+		ssd == sensor->pixel_array ? CCS_PA_PAD_SRC : CCS_PAD_SRC;
- 
- 	v4l2_i2c_subdev_set_name(&ssd->sd, client, sensor->minfo.name, name);
- 
-@@ -3077,6 +3321,10 @@ static int ccs_init_subdev(struct ccs_sensor *sensor,
- 		ssd->sd.owner = THIS_MODULE;
- 		ssd->sd.dev = &client->dev;
- 		v4l2_set_subdevdata(&ssd->sd, client);
-+	} else {
-+		ssd->sd.flags |= V4L2_SUBDEV_FL_STREAMS;
-+		ssd->pads[CCS_PAD_META].flags =
-+			MEDIA_PAD_FL_SINK | MEDIA_PAD_FL_INTERNAL;
- 	}
- 
- 	rval = media_entity_pads_init(&ssd->sd.entity, ssd->npads, ssd->pads);
-@@ -3102,9 +3350,9 @@ static int ccs_init_state(struct v4l2_subdev *sd,
- 	unsigned int pad = ssd == sensor->pixel_array ?
- 		CCS_PA_PAD_SRC : CCS_PAD_SINK;
- 	struct v4l2_mbus_framefmt *fmt =
--		v4l2_subdev_state_get_format(sd_state, pad);
-+		v4l2_subdev_state_get_format(sd_state, pad, CCS_STREAM_PIXEL);
- 	struct v4l2_rect *crop =
--		v4l2_subdev_state_get_crop(sd_state, pad);
-+		v4l2_subdev_state_get_crop(sd_state, pad, CCS_STREAM_PIXEL);
- 
- 	ccs_get_native_size(ssd, crop);
- 
-@@ -3116,7 +3364,8 @@ static int ccs_init_state(struct v4l2_subdev *sd,
- 	if (ssd == sensor->pixel_array)
- 		return 0;
- 
--	fmt = v4l2_subdev_state_get_format(sd_state, CCS_PAD_SRC);
-+	fmt = v4l2_subdev_state_get_format(sd_state, CCS_PAD_SRC,
-+					   CCS_STREAM_PIXEL);
- 	fmt->code = ssd == sensor->src ?
- 		sensor->csi_format->code : sensor->internal_csi_format->code;
- 	fmt->field = V4L2_FIELD_NONE;
-@@ -3126,6 +3375,47 @@ static int ccs_init_state(struct v4l2_subdev *sd,
- 	return 0;
- }
- 
-+static int ccs_src_init_state(struct v4l2_subdev *sd,
-+			      struct v4l2_subdev_state *sd_state)
-+{
-+	struct v4l2_subdev_route routes[] = {
-+		{
-+			.sink_pad = CCS_PAD_SINK,
-+			.source_pad = CCS_PAD_SRC,
-+			.source_stream = CCS_STREAM_PIXEL,
-+			.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE,
-+		}, {
-+			.sink_pad = CCS_PAD_META,
-+			.source_pad = CCS_PAD_SRC,
-+			.source_stream = CCS_STREAM_META,
-+			.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE,
-+		}
-+	};
-+	struct v4l2_subdev_krouting routing = {
-+		.routes = routes,
-+		.num_routes = 1,
-+	};
-+	struct ccs_subdev *ssd = to_ccs_subdev(sd);
-+	struct ccs_sensor *sensor = ssd->sensor;
-+	int rval;
-+
-+	if (ccs_embedded_data_lines(sensor))
-+		routing.num_routes++;
-+
-+	rval = v4l2_subdev_set_routing(sd, sd_state, &routing);
-+	if (rval)
-+		return rval;
-+
-+	rval = ccs_init_state(sd, sd_state);
-+	if (rval)
-+		return rval;
-+
-+	if (ccs_embedded_data_lines(sensor))
-+		ccs_set_format_meta(sd, sd_state, NULL);
-+
-+	return 0;
-+}
-+
- static const struct v4l2_subdev_video_ops ccs_video_ops = {
- 	.s_stream = v4l2_subdev_s_stream_helper,
- 	.pre_streamon = ccs_pre_streamon,
-@@ -3138,6 +3428,14 @@ static const struct v4l2_subdev_pad_ops ccs_pad_ops = {
- 	.set_fmt = ccs_set_format,
- 	.get_selection = ccs_get_selection,
- 	.set_selection = ccs_set_selection,
-+};
-+
-+static const struct v4l2_subdev_pad_ops ccs_src_pad_ops = {
-+	.enum_mbus_code = ccs_enum_mbus_code,
-+	.get_fmt = ccs_get_format,
-+	.set_fmt = ccs_set_format,
-+	.get_selection = ccs_get_selection,
-+	.set_selection = ccs_set_selection,
- 	.enable_streams = ccs_enable_streams,
- 	.disable_streams = ccs_disable_streams,
- 	.get_frame_desc = ccs_get_frame_desc,
-@@ -3154,6 +3452,12 @@ static const struct v4l2_subdev_ops ccs_ops = {
- 	.sensor = &ccs_sensor_ops,
- };
- 
-+static const struct v4l2_subdev_ops ccs_src_ops = {
-+	.video = &ccs_video_ops,
-+	.pad = &ccs_src_pad_ops,
-+	.sensor = &ccs_sensor_ops,
-+};
-+
- static const struct media_entity_operations ccs_entity_ops = {
- 	.link_validate = v4l2_subdev_link_validate,
- };
-@@ -3162,8 +3466,8 @@ static const struct v4l2_subdev_internal_ops ccs_internal_ops = {
- 	.init_state = ccs_init_state,
- };
- 
--static const struct v4l2_subdev_internal_ops ccs_internal_src_ops = {
--	.init_state = ccs_init_state,
-+static const struct v4l2_subdev_internal_ops ccs_src_internal_ops = {
-+	.init_state = ccs_src_init_state,
- 	.registered = ccs_registered,
- 	.unregistered = ccs_unregistered,
- };
-@@ -3305,8 +3609,8 @@ static int ccs_probe(struct i2c_client *client)
- 
- 	sensor->src = &sensor->ssds[sensor->ssds_used];
- 
--	v4l2_i2c_subdev_init(&sensor->src->sd, client, &ccs_ops);
--	sensor->src->sd.internal_ops = &ccs_internal_src_ops;
-+	v4l2_i2c_subdev_init(&sensor->src->sd, client, &ccs_src_ops);
-+	sensor->src->sd.internal_ops = &ccs_src_internal_ops;
- 
- 	sensor->regulators = devm_kcalloc(&client->dev,
- 					  ARRAY_SIZE(ccs_regulators),
-@@ -3573,12 +3877,20 @@ static int ccs_probe(struct i2c_client *client)
- 		goto out_cleanup;
- 	}
- 
--	rval = ccs_init_subdev(sensor, sensor->scaler, " scaler", 2,
-+	rval = ccs_init_subdev(sensor, sensor->scaler, " scaler",
-+			       sensor->ssds_used != CCS_SUBDEVS ?
-+			       CCS_PADS_NOMETA :
-+			       ccs_embedded_data_lines(sensor) ?
-+			       CCS_PADS : CCS_PADS_NOMETA,
- 			       MEDIA_ENT_F_PROC_VIDEO_SCALER,
- 			       "ccs scaler mutex", &scaler_lock_key);
- 	if (rval)
- 		goto out_cleanup;
--	rval = ccs_init_subdev(sensor, sensor->binner, " binner", 2,
-+	rval = ccs_init_subdev(sensor, sensor->binner, " binner",
-+			       sensor->ssds_used == CCS_SUBDEVS ?
-+			       CCS_PADS_NOMETA :
-+			       ccs_embedded_data_lines(sensor) ?
-+			       CCS_PADS : CCS_PADS_NOMETA,
- 			       MEDIA_ENT_F_PROC_VIDEO_SCALER,
- 			       "ccs binner mutex", &binner_lock_key);
- 	if (rval)
-diff --git a/drivers/media/i2c/ccs/ccs.h b/drivers/media/i2c/ccs/ccs.h
-index df044dbde23f..122287ab5399 100644
---- a/drivers/media/i2c/ccs/ccs.h
-+++ b/drivers/media/i2c/ccs/ccs.h
-@@ -176,11 +176,18 @@ struct ccs_csi_data_format {
- #define CCS_SUBDEVS			3
- 
- #define CCS_PA_PAD_SRC			0
--#define CCS_PAD_SINK			0
--#define CCS_PAD_SRC			1
--#define CCS_PADS			2
-+enum {
-+	CCS_PAD_SINK,
-+	CCS_PAD_SRC,
-+	CCS_PAD_META,
-+	CCS_PADS_NOMETA = CCS_PAD_META,
-+	CCS_PADS,
-+};
- 
--#define CCS_STREAM_PIXEL		0
-+enum {
-+	CCS_STREAM_PIXEL,
-+	CCS_STREAM_META,
-+};
- 
- struct ccs_binning_subtype {
- 	u8 horizontal:4;
--- 
-2.47.3
+Combining SELinux access controls makes sense to me. I kept them split
+because I wanted to preserve granularity between the two flavours, and
+process2 seemed like a natural fit for the pidfd path, but I guess it
+can still be achieved with a single permission through the target
+types.
+
+I'll rework for v6. So, in the pidfd case the check target would
+remain the process's domain:
+
+   allow allocator_t client_t:cgroup charge_to;
+
+where allocator_t is the domain requesting the charge (i.e., the
+central allocator), and client_t is the domain of the process the
+pidfd refers to. The groupfd path would check the cgroup directory
+label like so:
+
+  allow allocator_t cgroup_t:cgroup charge_to;
+
+Would that be ok?
+
+>
+> > Patch 8 adds selftests. The tests and vmtest script were mostly
+> > written by an LLM, closely following the style of the surrounding
+> > tests and the virtme-ng setup. All code has been reviewed and tested.
+>
+> I think we need to have selinux-testsuite tests to go along with
+> this, especially as this would be the first patchset to add cgroup
+> controls.  Historically I've pushed back on piecemeal cgroup additions,
+> pushing for some basic design of how to manage access controls for
+> resource management first, but since evidently no one wants to do that,
+> we really do need tests.
+>
+> https://github.com/SELinuxProject/selinux-testsuite
+
+Agreed! I was already playing with it between the last version and
+this one. I have some tests drafted, more or less. I was unfamiliar
+with the testsuite, so instead of offloading the work to an LLM, I
+tried to follow along and proceeded too slowly.
+
+I will link a PR when sending the next version.
+
+>
+> > Known limitations:
+> >
+> > - Single-owner model: a dma-buf carries one memcg charge regardless
+> >   of how many processes share it.
+>
+> Once again, I'm sure I'm misunderstanding things, but are you saying
+> that multiple cgroups can end up sharing the same dma-buf despite
+> only one of the cgroups taking the accounting hit?
+
+Yes, you are correct. A dma-buf (its fd) can be shared by multiple
+processes from multiple cgroups, but only one holds the charge. With
+this series it can be transferred, but never shared.
+
+Sharing could be a follow-up series. Perhaps splitting the charge
+equally? But sharing is a big problem on its own, so I preferred to
+keep it out of this series.
+
+>
+> Hopefully the charged cgroup is deterministic?
+
+Yes, the charged cgroup is deterministic: it is set at allocation, and
+only moves via an explicit ioctl.
+
+>
+> > - Only memcg accounting. CMA heaps would additionally need dmem
+> >   controller integration.
+>
+> Do you have a rough idea of how that would work?  I ask only because I'm
+> interested in seeing if that would require an additional LSM hook or if
+> there is some way we could leverage the same hook(s) used here.
+
+Rough idea, yes. Today, no dma-buf allocation charges dmem at all, and
+of course no target charging either. The first goal for CMA is simply
+getting those heaps accounted. In that regard, Eric Chanudet has a
+series making CMA allocations memcg-accountable with per-area counter
+[1], and is working on extending that approach to dmem. It's a bit on
+hold waiting for the feedback on this series.
+
+But afaik the cross-cgroup charging and central allocator problem is
+mainly a system-memory one. Whether dmem ever needs the same
+cross-cgroup attribution (e.g., DRM central allocator wanting to
+charge clients' dmem budgets) is not clear to me.
+
+Nonetheless, if it does, the internals should be mostly the same;
+everything, including the permission checks is controller-agnostic.
+Only the controller performing the charge changes. I expect no
+additional hook is required.
+
+[1] https://lore.kernel.org/all/20260821-cma-memcg-regions-v1-0-d21b165b844=
+0@redhat.com/
+
+>
+> > - If a transfer of an uncharged buffer fails, the buffer remains
+> >   charged to the original cgroup. The allocator (userspace) is
+> >   expected to handle this (retry, free, ...).
+> > - The LSM hooks are intentionally narrow. Broader cgroup access control=
+s
+> >   (e.g. for the memfd/kexec handover case [2]) could be a separate effo=
+rt
+> >   reusing the same pattern.
+> > - Only system heap sets exp_info.objcg today. Other exporters
+> >   (DRM, V4L2, etc.) can opt in by setting it, but are not
+> >   covered by this series.
+> > - Related to the above: lazy backing-store allocation is not supported.
+> >   This can be extended later, e.g., by adding a flag on the dma-buf
+> >   struct for explicitly marking when memory is committed.
+>
+> Similar to the CMA case, any rough ideas on what this would look like?
+
+Yes, again I have a rough idea. We already separate reserve and commit
+operations, so the idea is to delay when a charge is committed. For
+that we can use a flag in the dma-buf struct to mark when the memory
+is committed. The limit is still enforced up front (so a lazy exporter
+cannot overcommit), and the stat reflects the actual allocation.
+
+The permission model is also unchanged for this case. The flag only
+affects when the stat will reflect the charge.
+
+Thanks!
+Albert.
+
+>
+> > Note on TTM/GPU accounting [3]: that effort charges system memory
+> > allocated for GPU buffers per page, with its own stats (gpu_active
+> > and gpu_reclaim). This series charges at the dma-buf level, for
+> > memory with no memory.stat category of its own; exporters whose
+> > memory is already charged by their allocator must not opt in, so
+> > the two do not overlap.
+> >
+> > [1] https://lore.kernel.org/cgroups/20230109213809.418135-1-tjmercier@g=
+oogle.com/
+> > [2] https://lpc.events/event/20/contributions/2416/
+> > [3] https://lore.kernel.org/all/20260706052330.1110909-1-airlied@gmail.=
+com/
+> >
+> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+>
+> --
+> paul-moore.com
+>
 
