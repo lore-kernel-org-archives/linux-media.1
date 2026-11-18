@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795005865;
-	b=PjqkP99xE4ORkSm5g6AGz1EQamKjxGqmir0z+1qocuaZJ3W3AzD0XWGRiKQXu7a0vSiS
-	 8Ui94LjughFgQSY2OWqqrgFUiVOkeXYP2O2vHJPeejkc/lcLP25rXSE8kUS6DlIGpXvsu
-	 mpAfqyFqmUXTAeJp+qGhWY90Q4bdnClwKGf4mE6LtWfRf6OfRPYs27NuzRwJ0dyDHyhKO
-	 y7E0zXkE9L9DZS8htED9zGoU+3DY5DW56IiyahtjuUUTzbwyqNRu02N2FQsoAUCoz3QzN
-	 trd4nlNdIVpl/6Q+cO1ppMT30VuMXRaeo+CnsoHut0A9+VkP4EUHxRp1GnwS5qoo1GQ==
+	t=1795005860;
+	b=X3jkP8f0js3/0iYc1Itpx1FDTenz/IuGcHvRZ7d2TLtOan4fV3g2vL2vi4yKvEJOsLtE
+	 ie6DSE3EsUpqSNZgcqkX64Me4BIGzG21D1wm70aX5jSc1qstAvOC1PhXAAqzfjYYRnxL/
+	 lz9Qoppjt5EeEqECUaPsnM6xICEUU8Tx4ANHk9V8c1KG7q8eJkFEO9YDGVdiVY45bS9kx
+	 nDu6SriwKpIZEEsAwNMwYYuuQQdJkdCEJvO/dJzrXEkDd3zUELXX9z3GWv7cJZuZiXs7X
+	 kl4dqeEPcQs6Uf3Ki2tKj1M3k/955xBUSdRJeF4NI+HD4BQ30rCozEQR2zMAkjz95qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795005865;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795005860;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=HEo2F4rQrY5vyKqj97pjba/EVSA2WxWYX/zbXM7siS0=;
-	b=y7jNLsgavFlUbraRynuxX4PWESGsB9yyUDmYbzZ+X4kTcGJzWXl1p9CfdGNUXXYsOLnh
-	 d6+elN/w0G/brCm1nvIWJMAqA975Vi7snTWIonaIJm6pUz6XhqtV3Eq238Grf1yKn5wAh
-	 Oqzm4MVOg/y2GCPYwge+oaXpt7JKuiiq9EimZtwStGqCcw5XhudMA74Ei70JRvRBAop1B
-	 UGihq+0IOGSUxz6EX7aITxFE20NYA3/zv48q8yUQzVfqkgqLOgmTwuyqNL2wO7HJt3rRJ
-	 KaVAJnhO/H0nLe+x0kOz8A2CAZTMT3L4ZcMyG33zUvIbBU/avMa8UMd790T73Q37jtg==
+	bh=qpk9XEKvThcdJFjlz5LJdwaViNuq34svrbiJiMCaHM8=;
+	b=SXb6FrsjNcxzJKoXJM6y318nhlFO2SvA1gKPgTeIr0/ibiWyWzzzx66f6Hhw/AAzV4gc
+	 y8inOd6PAps2vTp1NzTrZz9Jzf+pftOEQTFbkHxF5JW8tWUECALyC/p/HWmEGRVb+QgrM
+	 PneBdSZHvDG+BYAgzmC4+6iNpGhU21tQYHE+oQQewh+CdVLLyLtad/Op/trBEOm+8Bja6
+	 lHEIDFQf+YUSu77KBAUazkuBM17W6aSM6l+m2s5VfpjzeBvAmXnr8T9L9YnHlR7TgDkhK
+	 EiPdczwMbRm/iVTXaUWo820CYOqfDOiHnWdBwn62TgaHde8or0BPsQtjLaaDFkaujfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y792a5Ex;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XhQ0yZfa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AD1606A32C;
-	Wed, 18 Nov 2026 12:44:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 773FD60A260A;
+	Wed, 18 Nov 2026 12:44:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y792a5Ex
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28EC41F000C4;
-	Wed, 18 Nov 2026 12:44:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XhQ0yZfa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CB421F000C5;
+	Wed, 18 Nov 2026 12:44:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795005864;
-	bh=HEo2F4rQrY5vyKqj97pjba/EVSA2WxWYX/zbXM7siS0=;
+	s=k20260515; t=1795005860;
+	bh=qpk9XEKvThcdJFjlz5LJdwaViNuq34svrbiJiMCaHM8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Y792a5ExuYJ69sIOWNbt/vuelw94n7zzG/dVdUNHB8S8xpAUR1m4cCUmbQ/sqeZeJ
-	 E9GBLDwLlN9FyUO+u2uzvW3XQNPbWGTOOQj9UE6sZhdfd8MGtNTxWALtW17kVraiCV
-	 /+B13e7sSFFstdQtrFGpPRHE3q/RdH/2iLdFuLO5WH/0Sj/z1fIc5lSWOVl7Qte1FW
-	 ktNmSfnPGgCfKUIxqrh4YtHXnHXdbj4djdqhCPLJeKUmd24JUP0IWm/UmqPqxa4PP6
-	 //e4v8eSohNSjrgsoTH52r0PfgwfHn8CZ/OH52mWOY1DziW/XoRLquP1EnTRmcA9P5
-	 N1q/WTGG8KmaA==
+	b=XhQ0yZfayEkTaaREtrrwfOhDzFl4Q2dtDAWZkQ1Kg7saH3O933WJF1v6mhf44FGQW
+	 +y79KLdfH7VSLaigXRF1kfedTuUCnifTJ/lh/+RLh25wfRW2xeQlfry8UF8DZi9yjx
+	 WUrfeI8AHbWl9BQe2IqO8gQB+xq4F8tuuS3Bwy45nvWmBAdGgdFux8wOIaq0+pIcM3
+	 01ZhfkYxFO5MHBWAZ6CTumrN4Fq1RoOroJESWJS2lXu4uYV0LnxjxluLhF5Z5KzuXJ
+	 MG0v/3aOJKJq6PhcQEUsxow0s7P+OcrrXSphgaA0xwsy64Gi0oz3kPpsqkm/jRMk6e
+	 /TxsnLshkOA8g==
 From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-Date: Wed, 18 Nov 2026 13:43:55 +0100
-Subject: [PATCH RFC v2 11/16] media: mc: Add .detect() to
- media_entity_operations
+Date: Wed, 18 Nov 2026 13:43:53 +0100
+Subject: [PATCH RFC v2 09/16] Documentation: media: Add Media controller
+ event documentation
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-v4l2-sensor-detect-v2-11-1bb1a445b556@kernel.org>
+Message-Id: <20261118-v4l2-sensor-detect-v2-9-1bb1a445b556@kernel.org>
 References: <20261118-v4l2-sensor-detect-v2-0-1bb1a445b556@kernel.org>
 In-Reply-To: <20261118-v4l2-sensor-detect-v2-0-1bb1a445b556@kernel.org>
 To: Hans Verkuil <hverkuil+cisco@kernel.org>, 
@@ -73,178 +73,293 @@ Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>,
  Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5593;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8696;
  i=mkorpershoek@kernel.org; h=from:subject:message-id;
- bh=xwKbn8gMkHOe6IjrJpgwlptayNA14+/ESA7JRGHNCZU=;
- b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBq/Z2MxwHwBLWyyy31uegpQwwUnSv5bN4iQGjFf
- 4XrKQxIbwWJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCav2djAAKCRAZDR20Zk4Z
- NabPCACZuOez5kfsqWyEhYxNESXY+QZbYDwodhTN+UCVmTlwGMQx1BSF+nC5R0U9M7hSWwnEFXu
- 1pS+cQIN+8TMXvS/z1fc/kDNsxlXf+BydHyrzJ0j2FL1edyYLAcCpVkIjlixGPfMvGKnOd7tRfw
- sLCNzZ4cvJl/1uogveaPY3xWK0jQOmW7H81C+sHR7NGef4bwmwdIi9JE1Cjo68M8GXURaOVPZ4o
- NZ+dztoaf6Ww7QnW6EWzOjy00zkqjtZVur7l3FvMltMKcDG+ZSD5JDrO9+gcwPN9pID0kqC4cNt
- RgFHGZ9HmGlmnX5qL2JoakfmzmhZwkARCYy20RutdBcdEehy
+ bh=iMwjFIn5BNb1TUM8DMHBaUPcXBV1TZU5XSRmhTpL5Ds=;
+ b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBq/Z2LJg6tfB+S2JCW9A6QyThinnlVoRxi6Oht8
+ +Jqjc/6q3WJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCav2diwAKCRAZDR20Zk4Z
+ NYwLB/9SgAyTu/4OOfU9ymrRJCbvlw4shRmus0qIms5wLWsy9IYQTRgxKkojmUpOX/H/d+9FfiN
+ EzmnvVEKl2y1GCiDkTfV3x15NOghPvnaEriF7WNKNysMmfyrJlj5Dhgvk5saDJg8nTIw2MVEd3J
+ 4wnE0b1Per0eeyINDMcmqqqKLNZCXHJTn7wcHTebj4FXcacPpMzaJNYKiOz3WLdR6rfYAoyCH2t
+ EVvWZSS2t6LmJNMhczcGHTE2zJ+BwRDz2q6tVlfi8fVtF/JZoSdHAEjPRakBHJ4VK0xhGQphOvI
+ qpqQPvjENz1q0JJh+L+Bvw6OhFaX0e0VJW4WU5EeQITskyqi
 X-Developer-Key: i=mkorpershoek@kernel.org; a=openpgp;
  fpr=8234A35B45C0D26B31C1A2DA570338B018144F28
 
-When mc.fault_tolerance = true, media drivers can probe without the
-underlying hardware being physically connected.
-In that case, The media controller core needs to be able to retrieve
-the driver state in order to update the topology.
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-Add a new, optional, media_entity_operation named .detect().
+Add documentation for the Media controller event IOCTLs as well as an
+event, MEDIA_EVENT_ENTITY_REGISTRATION.
 
-To support fault tolerance, drivers must be modified and do the
-following when media_fault_tolerance_enabled() = true:
-
-* Probe must succeed even when the underlying hardware is not present
-* Probe must set initial entity connections status if disconnected
-* The .detect() operation must be implemented
-* .enable_streams() must query hardware for presence and must fail when
-  it's not detected. Can be done using the media_entity_detect_or_fail()
-  helper.
-
-Note: this is based on the .detect() helpers from DRM connectors.
-
-Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/mc/mc-device.c | 11 +++++++++++
- drivers/media/mc/mc-entity.c | 22 ++++++++++++++++++++++
- include/media/media-device.h | 10 ++++++++++
- include/media/media-entity.h | 24 ++++++++++++++++++++++++
- 4 files changed, 67 insertions(+)
+ .../userspace-api/media/mediactl/media-funcs.rst   |   2 +
+ .../media/mediactl/media-ioc-dqevent.rst           | 125 +++++++++++++++++++++
+ .../media/mediactl/media-ioc-subscribe-event.rst   | 112 ++++++++++++++++++
+ 3 files changed, 239 insertions(+)
 
-diff --git a/drivers/media/mc/mc-device.c b/drivers/media/mc/mc-device.c
-index 71cdf079c8a8..9151a47887a7 100644
---- a/drivers/media/mc/mc-device.c
-+++ b/drivers/media/mc/mc-device.c
-@@ -14,6 +14,7 @@
- #include <linux/idr.h>
- #include <linux/ioctl.h>
- #include <linux/media.h>
-+#include <linux/module.h>
- #include <linux/slab.h>
- #include <linux/types.h>
- #include <linux/pci.h>
-@@ -27,6 +28,16 @@
- #include <media/media-fh.h>
- #include <media/media-request.h>
- 
-+static bool fault_tolerance;
-+module_param(fault_tolerance, bool, 0444);
-+MODULE_PARM_DESC(fault_tolerance, "Enable fault-tolerant support");
+diff --git a/Documentation/userspace-api/media/mediactl/media-funcs.rst b/Documentation/userspace-api/media/mediactl/media-funcs.rst
+index e896296812c1..a9ce38b7144f 100644
+--- a/Documentation/userspace-api/media/mediactl/media-funcs.rst
++++ b/Documentation/userspace-api/media/mediactl/media-funcs.rst
+@@ -19,6 +19,8 @@ Function Reference
+     media-ioc-enum-links
+     media-ioc-setup-link
+     media-ioc-request-alloc
++    media-ioc-subscribe-event
++    media-ioc-dqevent
+     request-func-close
+     request-func-ioctl
+     request-func-poll
+diff --git a/Documentation/userspace-api/media/mediactl/media-ioc-dqevent.rst b/Documentation/userspace-api/media/mediactl/media-ioc-dqevent.rst
+new file mode 100644
+index 000000000000..f7a2cd2675f5
+--- /dev/null
++++ b/Documentation/userspace-api/media/mediactl/media-ioc-dqevent.rst
+@@ -0,0 +1,125 @@
++.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
++.. c:namespace:: MC
 +
-+bool media_fault_tolerance_enabled(void)
-+{
-+	return fault_tolerance;
-+}
-+EXPORT_SYMBOL_GPL(media_fault_tolerance_enabled);
++.. _media_ioc_dqevent:
 +
- #ifdef CONFIG_MEDIA_CONTROLLER
- 
- /*
-diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
-index c152d3a61d51..2b5fc5d1b0a4 100644
---- a/drivers/media/mc/mc-entity.c
-+++ b/drivers/media/mc/mc-entity.c
-@@ -1559,6 +1559,28 @@ void media_entity_set_status(struct media_entity *entity, u32 status)
- }
- EXPORT_SYMBOL_GPL(media_entity_set_status);
- 
-+int media_entity_detect_or_fail(struct media_entity *entity)
-+{
-+	int ret;
++***********************
++ioctl MEDIA_IOC_DQEVENT
++***********************
 +
-+	if (!media_fault_tolerance_enabled())
-+		return 0;
++Name
++====
 +
-+	ret = media_entity_call(entity, detect);
-+	if (ret == -ENOIOCTLCMD)
-+		return 0;
-+	if (ret < 0)
-+		return ret;
++MEDIA_IOC_DQEVENT - Dequeue a Media controller event
 +
-+	media_entity_set_status(entity, ret);
 +
-+	if (ret == MEDIA_ENT_STATUS_DISCONNECTED)
-+		return -ENOLINK;
++Synopsis
++========
 +
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(media_entity_detect_or_fail);
++.. c:function:: int ioctl( int fd, MEDIA_IOC_DQEVENT, struct media_event *argp )
++    :name: MEDIA_IOC_DQEVENT
 +
- struct media_pipeline *media_pad_pipeline(struct media_pad *pad)
- {
- 	return pad->pipe;
-diff --git a/include/media/media-device.h b/include/media/media-device.h
-index 3ef277309d59..9a0f38914354 100644
---- a/include/media/media-device.h
-+++ b/include/media/media-device.h
-@@ -204,6 +204,16 @@ struct media_device {
- /* We don't need to include usb.h here */
- struct usb_device;
- 
-+/**
-+ * media_fault_tolerance_enabled - Check if media fault tolerance is enabled
-+ *
-+ * Returns true when the mc.fault_tolerance module parameter is set.
-+ * Drivers should call this to decide whether to enable fault-tolerant
-+ * behavior (e.g. probing without the underlying hardware being
-+ * physically connected).
-+ */
-+bool media_fault_tolerance_enabled(void);
 +
- #ifdef CONFIG_MEDIA_CONTROLLER
- 
- /* Supported link_notify @notification values. */
-diff --git a/include/media/media-entity.h b/include/media/media-entity.h
-index 1ec62793fc76..4d66f9823c9d 100644
---- a/include/media/media-entity.h
-+++ b/include/media/media-entity.h
-@@ -269,6 +269,12 @@ struct media_pad {
-  *			media_entity_has_pad_interdep().
-  *			Optional: If the operation isn't implemented all pads
-  *			will be considered as interdependent.
-+ * @detect:		Query whether the entity's hardware is physically
-+ *			connected and reachable. Must not modify entity state.
-+ *			Returns a %MEDIA_ENT_STATUS_* value on success, or
-+ *			a negative error code on failure.
-+ *			Optional: If the operation isn't implemented the
-+ *			entity will be considered as connected
-  *
-  * .. note::
-  *
-@@ -284,6 +290,7 @@ struct media_entity_operations {
- 	int (*link_validate)(struct media_link *link);
- 	bool (*has_pad_interdep)(struct media_entity *entity, unsigned int pad0,
- 				 unsigned int pad1);
-+	int (*detect)(struct media_entity *entity);
- };
- 
- /**
-@@ -1042,6 +1049,23 @@ void __media_entity_set_status(struct media_entity *entity, u32 status);
-  */
- void media_entity_set_status(struct media_entity *entity, u32 status);
- 
-+/**
-+ * media_entity_detect_or_fail - Detect entity hardware and fail if disconnected
-+ * @entity: The entity
-+ *
-+ * Call the entity's &media_entity_operations.detect() operation to probe
-+ * the hardware. If the entity is disconnected, the entity status is updated
-+ * and a %MEDIA_EVENT_ENTITY_STATUS_CHANGE event is queued.
-+ *
-+ * Intended to be called by drivers at the beginning of their
-+ * &v4l2_subdev_pad_ops.enable_streams() callback
-+ *
-+ * Return: 0 if the entity is connected or does not implement .detect(),
-+ * -ENOLINK if the entity is disconnected, or a negative error code on
-+ * failure.
-+ */
-+int media_entity_detect_or_fail(struct media_entity *entity);
++Arguments
++=========
 +
- /**
-  * media_entity_pipeline - Get the media pipeline an entity is part of
-  * @entity: The entity
++``fd``
++    File descriptor returned by :ref:`open() <media-func-open>`.
++
++``argp``
++    Pointer to struct :c:type:`media_event`.
++
++
++Description
++===========
++
++The MEDIA_IOC_DQEVENT IOCTL may be used to dequeue Media controller events from
++the file handle. The :ref:`MEDIA_IOC_SUBSCRIBE_EVENT` IOCTL can be used to
++subscribe the events.
++
++.. tabularcolumns:: |p{4.6cm}|p{4.4cm}|p{8.7cm}|
++
++.. c:type:: media_event
++
++.. flat-table:: struct media_event
++    :header-rows:  0
++    :stub-columns: 0
++    :widths:       1 1 2 2
++
++    * - __u32
++      - ``type``
++      -
++      - Type of the event, see :ref:`media-event-type`.
++    * - union
++      - ``u``
++      -
++      -
++    * -
++      - struct :c:type:`media_event_entity_reg`
++      -	``entity_reg``
++      - Event data for event ``MEDIA_EVENT_ENTITY_REGISTRATION``.
++    * -
++      - __u8
++      - ``data``\ [64]
++      - Event data. Defined by the event type. The union should be used to
++	define easily accessible type for events.
++    * - __u32
++      - ``reserved``\ [8]
++      -
++      - Reserved for future extensions. Drivers and applications must set
++	the array to zero.
++    * - __u32
++      - ``pending``
++      -
++      - The number of pending events excluding this one.
++    * - __u32
++      - ``sequence``
++      -
++      - Event sequence number. The sequence number is incremented for
++	every subscribed event that takes place. If sequence numbers are
++	not contiguous it means that events have been lost.
++    * - __u64
++      - ``timestamp``
++      -
++      -	Event timestamp. The timestamp has been taken from the
++	``CLOCK_MONOTONIC`` clock.
++    * - __u32
++      - ``id``
++      -
++      - The ID associated with the event source. If the event does not
++	have an associated ID (this depends on the event type), then this
++	is 0.
++
++.. tabularcolumns:: |p{6.6cm}|p{2.2cm}|p{8.7cm}|
++
++.. cssclass:: longtable
++
++.. _media-event-type:
++
++.. flat-table:: Media Event Types
++    :header-rows:  0
++    :stub-columns: 0
++    :widths:       3 1 4
++
++    * - ``MEDIA_EVENT_ALL``
++      - 0
++      - All events. MEDIA_EVENT_ALL is valid only for
++	MEDIA_IOC_UNSUBSCRIBE_EVENT for unsubscribing all events at once.
++    * - ``MEDIA_EVENT_ENTITY_REGISTRATION``
++      - 1
++      - Triggered when a media entity is registered to a Media controller
++        device. The pending field designates the number of entities that are
++	known to be still missing. This number may be less than the total
++	number of all missing entities. However if this number is zero, then
++	all entities have been registered to the media device.
++
++Return Value
++============
++
++On success 0 is returned, on error -1 and the ``errno`` variable is set
++appropriately. The generic error codes are described at the
++:ref:`Generic Error Codes <gen-errors>` chapter.
++
++ENOENT
++    The event queue is empty and the file descriptor is in non-blocking
++    mode.
+diff --git a/Documentation/userspace-api/media/mediactl/media-ioc-subscribe-event.rst b/Documentation/userspace-api/media/mediactl/media-ioc-subscribe-event.rst
+new file mode 100644
+index 000000000000..61e537b6ba6d
+--- /dev/null
++++ b/Documentation/userspace-api/media/mediactl/media-ioc-subscribe-event.rst
+@@ -0,0 +1,112 @@
++.. SPDX-License-Identifier: GFDL-1.1-no-invariants-or-later
++.. c:namespace:: MC
++
++.. _media_ioc_subscribe_event:
++
++************************************************************
++ioctl MEDIA_IOC_SUBSCRIBE_EVENT, MEDIA_IOC_UNSUBSCRIBE_EVENT
++************************************************************
++
++Name
++====
++
++MEDIA_IOC_SUBSCRIBE_EVENT - MEDIA_IOC_UNSUBSCRIBE_EVENT - Subscribe or unsubscribe a Media controller event
++
++
++Synopsis
++========
++
++.. c:function:: int ioctl( int fd, MEDIA_IOC_SUBSCRIBE_EVENT, struct media_event_subscription *argp )
++    :name: MEDIA_IOC_SUBSCRIBE_EVENT
++
++.. c:function:: int ioctl( int fd, MEDIA_IOC_UNSUBSCRIBE_EVENT, struct media_event_subscription *argp )
++    :name: MEDIA_IOC_UNSUBSCRIBE_EVENT
++
++
++Arguments
++=========
++
++``fd``
++    File descriptor returned by :ref:`open() <media-func-open>`.
++
++``argp``
++    Pointer to struct :c:type:`media_event_subscription`.
++
++
++Description
++===========
++
++The MEDIA_IOC_SUBSCRIBE_EVENT IOCTL may be used to subscribe Media controller
++events to the file handle. The events are identified by their type and id, and
++the user may set the flags field to specify properties of the subscription. The
++subscriptions are specific to a file handle.
++
++The caller is responsible for setting the value of all fields in the argument
++struct by either initialising the fields of the entire struct to a known value
++or by setting the memory of the entire struct to zero and then filling the
++desired fields.
++
++The events may be dequeued using the :ref:`MEDIA_IOC_DQEVENT` IOCTL.
++
++The MEDIA_IOC_UNSUBSCRIBE_EVENT IOCTL is used to unsubscribe a subscribed
++event. A special value of ''MEDIA_EVENT_ALL'' may be used to unsubscribe all
++events on a file handle.
++
++.. tabularcolumns:: |p{4.6cm}|p{4.4cm}|p{8.7cm}|
++
++.. c:type:: media_event_subscription
++
++.. flat-table:: struct media_event_subscription
++    :header-rows:  0
++    :stub-columns: 0
++    :widths:       1 1 2
++
++    * - __u32
++      - ``type``
++      - Type of the event, see :ref:`media-event-type`.
++
++	.. note::
++
++	   ``MEDIA_EVENT_ALL`` can be used with
++	   :ref:`MEDIA_IOC_UNSUBSCRIBE_EVENT <MEDIA_SUBSCRIBE_EVENT>` for
++	   unsubscribing all events at once.
++    * - __u32
++      - ``id``
++      - ID of the event source. If there is no ID associated with the
++	event source, then set this to 0. Whether or not an event needs an
++	ID depends on the event type.
++    * - __u32
++      - ``flags``
++      - Event flags, see :ref:`media-event-flags`.
++    * - __u32
++      - ``reserved``\ [5]
++      - Reserved for future extensions. Drivers and applications must set
++	the array to zero.
++
++.. tabularcolumns:: |p{6.8cm}|p{2.2cm}|p{8.5cm}|
++
++.. _media-event-flags:
++
++.. flat-table:: Media event Flags
++    :header-rows:  0
++    :stub-columns: 0
++    :widths:       3 1 4
++
++    * - ``MEDIA_EVENT_SUB_FL_SEND_INITIAL``
++      - 0x0001
++      - When this event is subscribed an initial event will be sent
++	containing the current status. This only makes sense for events
++	that are triggered by a status change such as ``V4L2_EVENT_CTRL``.
++	Other events will ignore this flag.
++
++
++Return Value
++============
++
++On success 0 is returned, on error -1 and the ``errno`` variable is set
++appropriately. The generic error codes are described at the
++:ref:`Generic Error Codes <gen-errors>` chapter.
++
++EINVAL
++    The struct :c:type:`media_event_subscription` specifies an event that may not
++    generated by the given Media device.
 
 -- 
 2.56.0
