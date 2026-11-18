@@ -1,72 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795008533;
-	b=K9Emr7csI2HGk0X3JEHFKF4F2azZmzTTPICpxhuhUHybGUgPaaoZogmmq4wgBwWMKKLn
-	 cMmDccckZ3rf+3M2K2+5xBUAvMGcxkj4CLLpN6Vpc8iv4tDxl7cCeKcjakbSSZOq2ZjgJ
-	 lKFl6deLnhMPCyTHpAv6quLLPcOFZbQGt5qN+y0D1R6Qbw1ShjKxw+M+gRm6sR3FVJoR+
-	 ITLk41tggu722HXHAyxiIUKCw2TFGlawaApXB3MKyaki4LtPQqS+iws/XCvUK9qYfc5Fj
-	 RG35NZ1HdXerUi5LEh90FnIMwpqX7mUU3tPEeYzVLkkRdw7qtaKuF5pAQhoDkVWvPSw==
+	t=1795008534;
+	b=iuVY1c+En/cIv/70Ltr6VJ/fkRvJAp7KcPtxzchPvoACj+cINiJWbcWijqWInVOkfSRx
+	 y3cy7s+iIkUBeWesibPpbYp2fXGE5kQVw+AsfxPaZo8gjF7xX/HS0s0KNuv5pbV6HMszy
+	 02KkDMM6W1pPCsOCFUz5REaYuNdsuKAsvK+HG2Pq3MclY2VD/Hf3Tn0RsxXUAFCmomgo9
+	 mw+Hj6wfc+sT6T1pLHkTrygQho78Wv727Q3fSUDaf44fXNkNRdAqxtEcotBlFT8ag4s0r
+	 liEAtVG49OH+Rz3taVkZ9krinuz/hdJm/v6Cx3ImimBs+QvLgYnHzHqFMEzfvBV+Ndw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795008533;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795008534;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
 	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=+JS5NfiZzDD7y8/f6PFoZ7uT1cp0SObc0Ans0fYkiFg=;
-	b=cfNipBWk3wECDjto+J1wSn5JkMiuxU/VbQv/IuX/H6mVAb0chiPv4H5WxG48R59K6lE3
-	 1727fFsnAMufewz+L7hReNP4SRdsYfR/23XC2j5AkyMHK3fBZYqUwnm/XdGkUQMaMNLlK
-	 2cib77dVMfuY3FR9sf0XYelx9Car0PjOlssHgMedqarWdH2MYzAPYP3qbEWSoSx/R5Xx4
-	 aRIhVgCiy9EBixVHEZnEBou4+DZ+DcDSLO9fC+b82FSdXN77IufnHpQba3y8ayU1GYgbO
-	 a+sbmCzPLhgsAmQ9hsbsrjDWyhJ89kqK3oRbR7WjGzYHzGHjohjdFbElJTYwKt2EbMA==
+	bh=HwJlaetbEQQNRmjjXQ4QWwMaCuLLObW9mH5aejm22OE=;
+	b=fwazBPiVHcYZ11XfpdTtxouPPVep4QnYFCd5R0ySrkCoZZ3btG9yBk4XKlip4nxMSOqZ
+	 ykELH82XBjeatIRSJiXukW2iD47w7qsIq0zbOKIre5rba29ybwtAMTm3WTkVg8TOnYTEJ
+	 M4giR+0DCmFjqqHypq5Cu6PIvOrQCON1nPwxAVYGulM/qJbcgozjERfUcFi0cO+Kvfv6L
+	 mRH9EXku+7vd8CGjLnuCWdSx0IJKiMLtbb48dRAVWQpIYCusBNwGpbEGfuRoGfKMR4xIH
+	 oJ5u0nWNbrCaIjXcsF3bdYpSh/xNRNQHAgzhgs3LPbLj8/SdqHrn35KEdJoyK8FiUaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RLTsya2A;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vb5yV63i;
 	arc=none smtp.remote-ip=192.198.163.11
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E0060A2606
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A1D60A262C
 	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:28:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56E0060A2606
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54A1D60A262C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RLTsya2A
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vb5yV63i
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1795008533; x=1826544533;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=hUJEvGGezlhJ1vY9jKF3ClIKi9FUNzgHpmPrUiJVaho=;
-  b=RLTsya2AXiCYCSkazNUrX8cpMyJoGI1oirjCyD5TnV/5l61kvuk0OW70
-   Kk5BpHiqYSL62hnimjL1u4ZxJ+/2a/lhcTuMx1tA2M/l1QFHfOKIuXcJb
-   eMd/BrU91COD0mfqyZLgok3ROWxXch0lpGFHocuvnru3CdZNza/y8AmVI
-   iCMXdqSvUHgoDGR8zRY582WJz7x4D1vimY26PSgB8xxjpHteSaCjO9yhH
-   NywEYmksTDL952rFFtihrjoQ3fdvFSeHsy4pRXYFdRooejaGQGenk8BPZ
-   Oeqo9w0PL2UqwBdBA0kJeEhvybGUUUT32sYMG0Ji+15bQ4DBIvk//S00N
+  bh=CZuJPWvxP7ISGVuq5l/Qhy8/s4d+xu84uhlRe2oDf0k=;
+  b=Vb5yV63ioYVUnpWULtUm+JexfssIgoi9kGBShSk3Xsk59saoQzZ3EExM
+   WIDTzZDMZxWXqxxE/cGuUVY8NlUVHQe4hSIjSL+GuhUGBTtYYHwCUvnHA
+   VLqx871+m26ZvyUZCefylEDOFAlx4k/VAXE0V/MBuGRW5hyXLQ+qloYQg
+   HhtPogOnI+XBX4UKNOgZGvn7aUGN/Nx5iNlTzdSOzircP+kW/HHi5PTMN
+   mue32GOiTJ3SiadhnNqZ03iX4nV6KyYrbyc/E7fKzIjUpbB7LzdrkpTmQ
+   t2/5K40+PpVI8QbjRs10Ihc5PGqugQ3/Dy7O373U3YMPEblta4hcJhosT
    g==;
-X-CSE-ConnectionGUID: sygEsk1IRPynPBj9ML1aAA==
-X-CSE-MsgGUID: 8ttAUwwKRb+l55SMZItp1w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3738964"
+X-CSE-ConnectionGUID: FqrRW6oQQhmP8TbD8EqyBA==
+X-CSE-MsgGUID: LWQV81baTrKzo/wf3wAfSQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3738971"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3738964"
+   d="scan'208";a="3738971"
 Received: from fmviesa013.fm.intel.com ([10.60.135.153])
   by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:48 -0800
-X-CSE-ConnectionGUID: E4TvYZW+RC+p26c/89kPZw==
-X-CSE-MsgGUID: lmrjEf/UTdqpZrFZtQLuzQ==
+X-CSE-ConnectionGUID: F/+s4AsMSxCTcNaVbWAOMg==
+X-CSE-MsgGUID: adyRJB+3QhilBrnf8kezHQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="12076083"
+   d="scan'208";a="12076087"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:41 -0800
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 2CE39122DA2;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 18726122D43;
 	Wed, 18 Nov 2026 15:28:31 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xTfhz-00000000taD-3Js4;
+	id 1xTfhz-00000000tZx-31wg;
 	Wed, 18 Nov 2026 15:28:19 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -102,9 +102,9 @@ Cc: hans@jjverkuil.nl,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH v13 09/73] media: Documentation: Reference CFA_PATTERN control in raw mbus docs
-Date: Wed, 18 Nov 2026 15:27:15 +0200
-Message-ID: <20261118132819.213473-10-sakari.ailus@linux.intel.com>
+Subject: [PATCH v13 05/73] media: uapi: Add V4L2_CID_CONFIG_MODEL control
+Date: Wed, 18 Nov 2026 15:27:11 +0200
+Message-ID: <20261118132819.213473-6-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
 References: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
@@ -119,29 +119,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a reference to the V4L2_CID_CFA_PATTERN control in the generic raw
-media bus code documentation.
+Add the V4L2_CID_CONFIG_MODEL control for the configuration model.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
- Documentation/userspace-api/media/v4l/subdev-formats.rst | 3 +++
- 1 file changed, 3 insertions(+)
+ .../userspace-api/media/v4l/ext-ctrls-image-process.rst      | 4 ++++
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c                    | 5 +++++
+ include/uapi/linux/v4l2-controls.h                           | 3 +++
+ 3 files changed, 12 insertions(+)
 
-diff --git a/Documentation/userspace-api/media/v4l/subdev-formats.rst b/Documentation/userspace-api/media/v4l/subdev-formats.rst
-index 7d34c2991f81..3aa5bfdd5175 100644
---- a/Documentation/userspace-api/media/v4l/subdev-formats.rst
-+++ b/Documentation/userspace-api/media/v4l/subdev-formats.rst
-@@ -3865,6 +3865,9 @@ Bayer and other Colour Filter Arrays (CFAs) on serial interfaces. The packing of
- the data on the bus is determined by the hardware, however the bit depth is
- still specific to the format.
- 
-+The native Colour Filter Array (CFA) pattern is determined by the
-+:ref:`V4L2_CID_CFA_PATTERN <image-source-control-cfa-pattern>` control.
+diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
+index 57c2baf34acf..15566f409ca5 100644
+--- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
++++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
+@@ -59,3 +59,7 @@ Image Process Control IDs
+     control value divided by e.g. 0x100, meaning that to get no
+     digital gain the control value needs to be 0x100. The no-gain
+     configuration is also typically the default.
 +
- .. tabularcolumns:: |p{2.0cm}|p{4.0cm}|p{11.3cm}|
++``V4L2_CID_CONFIG_MODEL (bitmask)``
++    Which configuration models the sub-device supports. Please see
++    :ref:`media_subdev_config_model`. This is a read-only control.
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+index e062f2088490..66ec7b911e4f 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+@@ -1167,6 +1167,7 @@ const char *v4l2_ctrl_get_name(u32 id)
+ 	case V4L2_CID_TEST_PATTERN:		return "Test Pattern";
+ 	case V4L2_CID_DEINTERLACING_MODE:	return "Deinterlacing Mode";
+ 	case V4L2_CID_DIGITAL_GAIN:		return "Digital Gain";
++	case V4L2_CID_CONFIG_MODEL:		return "Sub-device Configuration Model";
  
- .. cssclass:: longtable
+ 	/* DV controls */
+ 	/* Keep the order of the 'case's the same as in v4l2-controls.h! */
+@@ -1488,6 +1489,10 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
+ 	case V4L2_CID_DV_RX_POWER_PRESENT:
+ 		*type = V4L2_CTRL_TYPE_BITMASK;
+ 		break;
++	case V4L2_CID_CONFIG_MODEL:
++		*flags |= V4L2_CTRL_FLAG_READ_ONLY;
++		*type = V4L2_CTRL_TYPE_BITMASK;
++		break;
+ 	case V4L2_CID_MIN_BUFFERS_FOR_CAPTURE:
+ 	case V4L2_CID_MIN_BUFFERS_FOR_OUTPUT:
+ 		*type = V4L2_CTRL_TYPE_INTEGER;
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index d17e41d51d2e..6b97ee905c43 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -1269,6 +1269,9 @@ enum v4l2_jpeg_chroma_subsampling {
+ #define V4L2_CID_TEST_PATTERN			(V4L2_CID_IMAGE_PROC_CLASS_BASE + 3)
+ #define V4L2_CID_DEINTERLACING_MODE		(V4L2_CID_IMAGE_PROC_CLASS_BASE + 4)
+ #define V4L2_CID_DIGITAL_GAIN			(V4L2_CID_IMAGE_PROC_CLASS_BASE + 5)
++#define V4L2_CID_CONFIG_MODEL			(V4L2_CID_IMAGE_PROC_CLASS_BASE + 6)
++
++#define V4L2_CONFIG_MODEL_COMMON_RAW_SENSOR	(1U << 0)
+ 
+ /*  DV-class control IDs defined by V4L2 */
+ #define V4L2_CID_DV_CLASS_BASE			(V4L2_CTRL_CLASS_DV | 0x900)
 -- 
 2.47.3
 
