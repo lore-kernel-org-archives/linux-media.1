@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795035188;
-	b=Z+QGTE6Gd7DCZH6v7pG74tmxIMhCr9I0H5YSP+hDzlCn/I2sPCt2q0xqf2toK8hcKOwC
-	 8dnuYh4CoIebwNSrfdKtfU1BGQ0AqwPfCoqEgfyM7WlptIjcNYqDbf+gMzjJtpOGlvEjb
-	 Xt03FwAEsu6YewLAkHMvOXF4pm1JATXFEgSDc4kUCeYE2+hZ0AW/FT7hw9pzEVi7DXXRK
-	 C8MHiC8F13Q71R+b+wEuWm2R0QOzYbKw6Za1/UDalmowW6r9UsmSjA2CFp72LEeeQObub
-	 MqH+hVgxv8So4uvCjq5kNRuslxy+4+7dW0KTVFRDwtQYLsX6dNFxvVqmGjJbg1StQNw==
+	t=1795035191;
+	b=oIVWET29rscsLAl7pjeuhebv71q1drwccBRylqHSd3ur7ZjVXYHgM7gzQojRlxIrJ/ra
+	 2hV869nRq5pF1Wf/mOH6V6AeCJDgLKWmb1BstQmcmqBv+MbHd9PDjZAs3QH91cNEhRaQX
+	 BFiF3CBl9fuLWi+1a0tXAePdgmIhc4D9OI+wKn8OvMCKoOgKplFUvidpaFVrSz0zv6MJ7
+	 /3Daq5Xup+OwioaIQDTpWWrZD9nxOM0UwVa70h/klbCOeKyMZrvorazcR9j2ZbjW2LDgw
+	 PdUX8MveZbgzX/fA+51H7xPJEEf9J8TQIxv12BD9/9E+laUgHyn1BaHUlc4qd2Cb9hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795035188;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795035191;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=HLK3d7iXciTA3gYlWpBInCkheLbOB6EwrTlus+ykLsk=;
-	b=BnYN+wFO9/QmeXMcqVYiBwyaHrVSseHyFVUfWI9pYIHGN+h6VR/UYN+XJy7kMtZLBEUQ
-	 EWmgiWpJXBI9HTFS1Ua/3NTj2T3LakgCPgw/nj4WTgWI/oyLG3kjlj7Au7YFLUf+eHZeU
-	 KDMoeHkFErDtrRTjS19lhA9KIGgeNHHZ19DyDaOlf6ly4diyu0qsE2Ad8SkOvd6BqKF+M
-	 /pL7QahwjQj7BWn//5shDcL2SpyZvJoj071FDH3mVVb7QElr9YtOVRdOkvJnAJHBKtRX0
-	 UhL3rIOcsacoqQKP4fYcRuLVzU/6qiQkymvOZctyLdfHSCifArmLwK/WjDkfcaapRWw==
+	bh=yM3BPJ8QKqRePbbotO/o8nLTIwSIfzAlG3YqharGRPA=;
+	b=Lf3azM5/KW6W745LzexHUkWomRqAHdw7atqcyTzvY7BrG/cl12F288MOEiizliji1kNl
+	 /3WLBav6qXpq0/lhK0pxdEX9MKrd+qjtptDsw7DDSdpziq2MGEtaB1PYU4wHy/bCSRnaV
+	 3/QLYZF+WzV+TzBRpJIr9IJ3Qx43MJ3o3HTtfEDg/xhAtyGqNYtnuCI+hIxOql4T6yp9t
+	 0XHfhhdC2hnqrUnciUrTHosErIklLEsy0aK7RGuVl4xyap/x7WJNOl0wvWxg31+6wDxko
+	 s9Uwj6wXbUKRsXFd2Gn812HF/71ndLNtri/cOEWUwcS0DpCrMHZyzt1EZbvEp655pbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mnuOCiw+;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="0YGOL0/h";
+	arc=none smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65BDF606A333
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 20:53:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65BDF606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CF760A260E
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 20:53:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40CF760A260E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mnuOCiw+
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c50ac25cdd4so192964566b.1
-        for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 12:53:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0YGOL0/h
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4682977f9aso191877966b.1
+        for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 12:53:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795035187; x=1795639987; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795035189; x=1795639989; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HLK3d7iXciTA3gYlWpBInCkheLbOB6EwrTlus+ykLsk=;
-        b=mnuOCiw+XVWApfJrSVasj2ZwbRaCZD5TnFi3wMHnkk89jysXAwnStHMDwJduYhvMWM
-         Q2PvQAilIlElLPf/ESHCmtguPGq6fcjQYD80EbW5p6p0h9w58qWo0WoNsgOv87jk2XBu
-         /6WscvhGjJen+7AUTwNMx5B6jyDT3P35kUvp6+OsGBq9ckOPsugUbOhRIAiTbbo1yvHz
-         wNA72pMm0g/h4/82Wy7xLDShzDOW8g2rwWHflod5hXoYXdjbsupIWjr48douNVW96rIp
-         +LuAqYmahyoe/zpNI7SmwNshZxmL0DXh/aB86mxWTk2jaz3aYAfN2sO2aQ9Kc/bzhEZt
-         dADw==
+        bh=yM3BPJ8QKqRePbbotO/o8nLTIwSIfzAlG3YqharGRPA=;
+        b=0YGOL0/hyy6+47TsMZ+kpoOWJcdMNz0GQ5f6BO1ey+aUmPaC7C71wt2b8RcN4Npjpt
+         ZZBnKB0GopgEbcVVyhxPsQdkIoxmT1KFZJ4Phbk9TfkdktIBirbceKHg97mcgujRhAB5
+         9XTBHooBlgxF5Wew11cVQUHE8Hla1aNPc4Peiq6BKv3nUwdbxqjnV11oq0FG9syzUWzh
+         +7JfH+eFSVVOemmQNNHUb/ulaN8WoGpGuhrjrpY+R0w4aElmtEQqoXcX2SKDk4L/eGOS
+         1xR2eW/G8uFy7TstA8Fqx2tZvmS/ayRWdPAHIj2etOseL8xKMjKXkO9WQ+ii653YBZ1s
+         xXgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795035187; x=1795639987;
+        d=1e100.net; s=20260707; t=1795035189; x=1795639989;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HLK3d7iXciTA3gYlWpBInCkheLbOB6EwrTlus+ykLsk=;
-        b=IXUEwrwczNa9IsDsyH+H+FLo01hfloW4O1ZC7yPwaIzXr5LrUfoRMLuTcROOMutWwr
-         cXoiC6+eaZkWOSlM3ClT6tIzXMoXeT4jggP2nSLWshhZnm1EdikEoEM7oaCFP82X7KrF
-         pKAkXfBBK8xqC2HWsOeAY/MtXa9ZUVNrAyOiwD23PM73czS8Pa4mgVLQOmG6sJnz3v8H
-         +ABP4iX9T/01DRdgBfFl57rDUt864d18Mwjje99ojN5HNJtXgYPG89pOdK4Emg4FFE8X
-         1mD/fr+Yj4xAVhQyvnBOzoI/B7UY20ega540Kwrlg8b30eehdU9e6WFXDp07/MX5OlJd
-         BeWQ==
-X-Forwarded-Encrypted: i=1; AL+hErHUveoIZRV/NUnOeCDtEmDbc3n2Ceqom7CKYo7fx3sHV93V3umnuDaYg7My6qECEDfQjBKOLuY7WV7hwA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+U1f0KK6F9D0HCCFaV6dKfweCazqUtZyp4CFJS2SdwwtB7Amh7
-	/vZjE459aB8guw3bpR+7Y8Gqf2qSm2rjn95kSnoEFxw0RpipMiLsfXvy
-X-Gm-Gg: AYBFou2Nv4U/Ggg/wruzLeOGILQR/bkUc0SD0nsmuhkEBCl3vLO4MD4Vn6+RbWPDxUM
-	ZIUupo3tbVGYHqPmnX29qi53Vnxd8o8oZjXc1Z8Etjwsz4iNk2tyai4yCAzUFOQEz569paRhENg
-	yr2SzLCbxDKSARB8wpKR9Tj1PoUx8uA8iWrEZsHrHmOOlEsOnPa32YHa4gVEkzb2z0dM8hPFCYm
-	Cmt21TLvtXi5k02Lmbm2f9IPlrP1ii98j+Zb2Xz1rJz2TcxZ6FI1QWYMALsA4Isjb0GBfuwxBfX
-	ZWOH22l9xRYJ1BpZz+FQvlW6ilUAzgjtRs0NJkOKEpGvJT691U7XvPhdB/EAx3vb8XduVeMwYxS
-	WUWFLibcuBi3zvE2S5w2h6C7v7vTdbaKKTkzXh6AObJoVG0AkuCWX+BiuW9cegGJINBJDDRL3ZF
-	vjDwWJoD6GsPgDIn84cSlXx7nzBVCUvFarrcNO/Asl4VNp0l+5xqrCf8zCRyE8l62/4ng2UYat3
-	/RUOgwxWdfzi6qMcnFbdn5aZfA330/zcWLJZPRjurzrElNz8jfWeEyt0/VHCxnI9MX3W2DPaJkd
-	YpSp2QGWoBo2anjfDa0TZ93TeOzqGu+uw0FesXJW+lB/0hwi3/TknDmBXIfAWA==
-X-Received: by 2002:a17:907:6d1b:b0:c51:691:c76e with SMTP id a640c23a62f3a-c510e35c6camr355946066b.36.1795035186781;
-        Wed, 18 Nov 2026 12:53:06 -0800 (PST)
+        bh=yM3BPJ8QKqRePbbotO/o8nLTIwSIfzAlG3YqharGRPA=;
+        b=aj6XIkeMPAxCzIFVLTU/0BEc6d4nAmPgEVKQWVouC5sX1VH1NkecJfdk+gekyli/pQ
+         JbVRDBuVGJ6/UzIe2LSo+MrriU2Fbwo9uEXaPMOeL/YIRX3e7dB8zPSd5CcGspety+h/
+         nOfYEZbj8w0waux9KWaYK7e6/jNPlGqH8i1NP7ytAN+6SEbs62AuHstJc65fLQVBDpLt
+         aGj54o6FQaM5CpEWvekQxmZdWOJ69kYFqof3tJiYWWXwPk0WX25ZbW6edfxNzMBCwI7Q
+         gR0djLYrN5b1qH5rH0Fu06P8Gqx4WuQCF2ldfnrqKLqcwEHOlLnKMIWlsp8LMEgtZWos
+         IgLQ==
+X-Forwarded-Encrypted: i=1; AL+hErFs0Yz/cdA4AXEWF0r24sGJjWxVg3b0iHlU/j5E6sxukKKaXHp5wGfX+Fz26hL0kWKEXdzpfgEdNPqV2w==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/lxWt+7m9NaHYCYrR2cO9G/KahgjeBKNdccSgltmAiFDsjCcLH
+	ZeakIA3D680lAhm8fMCCY5frwF2b2Fs5B6xelFyJblrdNlURld3OP7MF
+X-Gm-Gg: AYBFou0i5kxGbhpUzsE8ZliHbCcrBfArtk+x7r8XRa5At79wmoId9hvwf9IsfYfO7if
+	qDxj4GJgitdwVjdYjGKS0hQ57Yn/77xrfcDqe6FNXhuuT8HCrdBXNfiTFb5++IYPO9lg2W9zogu
+	PV1pThNAAtqLZ7syzF2FHho2LqICBMGDuysUC4T6povlUJ0ee7n1n9GhZvsW+d5OMWiKPpBqrtu
+	cWUjnmD5CXi/Ke6pLSjEMhMhVl6VCG/+duZSX6EP/qOt88SV7n6vBv4POqmr2l/9dDbc/tPAlbe
+	z+RB9PqQ7n6oxn4f3ir8CgMU2nornVfu/d1YFnzDy3mdrA/dR6Q+NjbJ5rFzz1D92mHISTFfxtN
+	pvBKT7gTXgNB8+EwkfySuGms3VZXM5s48gYXbJ3pYUJbj0ScKFNHSeAjQhlLVBI08BRyMTEHCpt
+	ZUujDMZsJ0L3+QLl5u4LFLQQvD2OlPC9Ub/h2DRCUJz12DriApS8YH8IB0pqPP78JAmk9pbUYdF
+	O+R+MUnzfsWFyCUV4mYDN41aPB/RGipG39zyiVJga32X7C3NsWVxWx5tzaIkT7RJV6Qr4xwMamR
+	lQb5+la1PLYGNUz66Z1c08SRIbSIl0vPGw6nzOq9WKbvoKP8c6uifhcJIFMiag==
+X-Received: by 2002:a17:906:9f8a:b0:c41:61b9:6ef6 with SMTP id a640c23a62f3a-c510e376c7dmr374133066b.27.1795035189529;
+        Wed, 18 Nov 2026 12:53:09 -0800 (PST)
 Received: from antoniarch (84-40-238-230.cgnat.inetia.pl. [84.40.238.230])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5123421612sm35303166b.41.2026.11.18.12.53.00
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5123421612sm35303166b.41.2026.11.18.12.53.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 12:53:06 -0800 (PST)
+        Wed, 18 Nov 2026 12:53:09 -0800 (PST)
 From: Antoni Pokusinski <apokusinski01@gmail.com>
 To: vigneshr@ti.com,
 	andi.shyti@kernel.org,
@@ -101,9 +101,9 @@ Cc: linux-omap@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	linaro-mm-sig@lists.linaro.org,
 	Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH v2 2/4] ARM: dts: am33xx-l4: Add missing DMAs for I2C controllers
-Date: Wed, 18 Nov 2026 21:52:05 +0100
-Message-ID: <20261118205213.88778-3-apokusinski01@gmail.com>
+Subject: [PATCH v2 3/4] i2c: omap: remove unused is_rdr and is_xdr function arguments
+Date: Wed, 18 Nov 2026 21:52:06 +0100
+Message-ID: <20261118205213.88778-4-apokusinski01@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261118205213.88778-1-apokusinski01@gmail.com>
 References: <20261118205213.88778-1-apokusinski01@gmail.com>
@@ -118,36 +118,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The i2c0 and i2c1 controllers on AM33xx support TX and RX DMA
-requests. Add the EDMA request mappings and DMA names for
-both controllers.
+Both functions omap_i2c_{receive|transmit}_data() have unused arguments
+is_{r|x}dr which can be deleted.
 
 Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
 ---
- arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/i2c/busses/i2c-omap.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi b/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-index 57a45609f9f5..89fb1d1eb049 100644
---- a/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-@@ -239,6 +239,8 @@ i2c0: i2c@0 {
- 				reg = <0x0 0x1000>;
- 				interrupts = <70>;
- 				status = "disabled";
-+				dmas = <&edma 58 0>, <&edma 59 0>;
-+				dma-names = "tx", "rx";
- 			};
- 		};
+diff --git a/drivers/i2c/busses/i2c-omap.c b/drivers/i2c/busses/i2c-omap.c
+index f02d294db42a..3f7060d57a86 100644
+--- a/drivers/i2c/busses/i2c-omap.c
++++ b/drivers/i2c/busses/i2c-omap.c
+@@ -996,8 +996,7 @@ static int errata_omap3_i462(struct omap_i2c_dev *omap)
+ 	return 0;
+ }
  
-@@ -1189,6 +1191,8 @@ i2c1: i2c@0 {
- 				reg = <0x0 0x1000>;
- 				interrupts = <71>;
- 				status = "disabled";
-+				dmas = <&edma 60 0>, <&edma 61 0>;
-+				dma-names = "tx", "rx";
- 			};
- 		};
+-static void omap_i2c_receive_data(struct omap_i2c_dev *omap, u8 num_bytes,
+-		bool is_rdr)
++static void omap_i2c_receive_data(struct omap_i2c_dev *omap, u8 num_bytes)
+ {
+ 	u16		w;
+ 
+@@ -1017,8 +1016,7 @@ static void omap_i2c_receive_data(struct omap_i2c_dev *omap, u8 num_bytes,
+ 	}
+ }
+ 
+-static int omap_i2c_transmit_data(struct omap_i2c_dev *omap, u8 num_bytes,
+-		bool is_xdr)
++static int omap_i2c_transmit_data(struct omap_i2c_dev *omap, u8 num_bytes)
+ {
+ 	u16		w;
+ 
+@@ -1122,7 +1120,7 @@ static int omap_i2c_xfer_data(struct omap_i2c_dev *omap)
+ 					OMAP_I2C_BUFSTAT_REG) >> 8) & 0x3F;
+ 			}
+ 
+-			omap_i2c_receive_data(omap, num_bytes, true);
++			omap_i2c_receive_data(omap, num_bytes);
+ 			omap_i2c_ack_stat(omap, OMAP_I2C_STAT_RDR);
+ 			continue;
+ 		}
+@@ -1133,7 +1131,7 @@ static int omap_i2c_xfer_data(struct omap_i2c_dev *omap)
+ 			if (omap->threshold)
+ 				num_bytes = omap->threshold;
+ 
+-			omap_i2c_receive_data(omap, num_bytes, false);
++			omap_i2c_receive_data(omap, num_bytes);
+ 			omap_i2c_ack_stat(omap, OMAP_I2C_STAT_RRDY);
+ 			continue;
+ 		}
+@@ -1145,7 +1143,7 @@ static int omap_i2c_xfer_data(struct omap_i2c_dev *omap)
+ 			if (omap->fifo_size)
+ 				num_bytes = omap->buf_len;
+ 
+-			ret = omap_i2c_transmit_data(omap, num_bytes, true);
++			ret = omap_i2c_transmit_data(omap, num_bytes);
+ 			if (ret < 0)
+ 				break;
+ 
+@@ -1160,7 +1158,7 @@ static int omap_i2c_xfer_data(struct omap_i2c_dev *omap)
+ 			if (omap->threshold)
+ 				num_bytes = omap->threshold;
+ 
+-			ret = omap_i2c_transmit_data(omap, num_bytes, false);
++			ret = omap_i2c_transmit_data(omap, num_bytes);
+ 			if (ret < 0)
+ 				break;
  
 -- 
 2.56.1
