@@ -1,11 +1,11 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795008549;
-	b=xJna1jNxbPAMj1ZyaK85K3NJYSvvI9VlFQ0OGrG4BWiJS2uilDmsICXrFCNd0s+TP2An
-	 rjoM/i2w0rkDeXhtpsAANM2Ouz/yHCMY8XUYo+/FE1095VRgyItkzovR8Ii8FqZImb7zl
-	 SOa9UJSr9xLyMQUTOUzMmT7oIHNMrSFbm7vKB2zZaPzlXx9ZhZvG0cqXi7yrrimzTNxYj
-	 tYXlx/r1urPtqW8JbyYesWU+rgWzeZ8x+kGhch5jwqL+LXpniK3oFZvvBIWp1ZE/mUgaG
-	 ZBiu4ANiExchn8wUuZGggH4QOhaOlHDuUwnv2cJZRn7DYw47ISuQV03unRD5KLSWYiw==
+	b=vPnLmRuCRQ3yzQt7/TmB7Ef7M7kgDVzJP3tVDWrb9bkmEgrf1k+w8nQx+MS5BDYKG+BR
+	 NNgGlvdNV6ybTd1Q+XRMikioN2/1c4rPTplSJy4Ns3xWI7PLiY6nNKJUk8GtTnYvx3/yr
+	 vlzhnWmCKi4RtX4hH+Bri9+3K1HdgGTrYofZzdvnBbRMJ/o/4qtQmTOMxlEYAzNKSLaxK
+	 88xGuo1xJWrKKasc1Qa7tRpzogPrNZtqICp5OYpJxA2B531PE7r0EcscS/LbHCujkknA0
+	 Tv18Hf6MYxJefBrm+pHdzKyDno99mBzjlQmWypAqFbuF9yPXDhEa75AKfhxbfXDFk5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795008549;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
@@ -13,60 +13,60 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
 	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=UG+c71sUB3X8qrqgKtVoo9AYZdIWRxSPGy2MuyTSow0=;
-	b=Fez7YP3ES0mDJ+NZhfRQX6+WfuNwTN5XcjxBCSiTconSez9MaxU9FxBsCJRqpIiz2t5A
-	 FFvhqsgX6EmPri6kf/Xcp8eRA6WRvmFX6XThk7WmPxj5Uc7/qQZQwVdIAaWT3Bi0+vYgo
-	 N4gE8SynNcxq13fLWajSk1L/lPZk2/nqOOO9Sv8gHvhZrZe+YIIeRG6CT5rK/g+WQBtrK
-	 JxJ6G/bmu1Vgu8Y87bc5c/39bcxib/qkPeCnxBoeEYHl+mYrQSIao+Kp90rpcJdpv/jKT
-	 5sApa5MhcUNeENvyc7G0LArjm2LV/DOALQNVWDwxUPwCOfcGRQY6QBBMXKouEU7rc4Q==
+	bh=J7tG2C4OcgQa1LvnsL0HzgjQx6or2Jn7zUUD/ZqA7K4=;
+	b=Zy21uVshl7OapEIJ2wuBmK8JR3Tf7wVuDEt4hQw8DdWt05iBW6VFSyrOM3KivznkndNW
+	 0eB3T8ENbj78grqsWlcv7aQskAMoXDoUnsx1+rEjV8hJ6yLPjpXmZaj0+AB+Y8fFRt8vz
+	 c2RuskV/qJv1IXKcnhDaC1KabS6C+jAnPhsZA/DblZsuyBC3eANyVSOHeqkssR3Wn8fwY
+	 kJdNbCF15zFPoF74Fo/3dAT3PeH+jyxMLjlQ3ABhRZsEXIVbbWkUv8C0Y4QZgFjoysnHB
+	 7Zg/FknFZFN55pH1BLy9Jpo6qr3R8d0f+eDtQUk6gQ4zZBzBbVV6tWa/HeBq5dEd/Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZVEpDR36;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d6CAncRo;
 	arc=none smtp.remote-ip=192.198.163.17
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D308460A2602
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3AD360A2620
 	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:29:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D308460A2602
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3AD360A2620
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZVEpDR36
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d6CAncRo
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1795008549; x=1826544549;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=q7W5XNGRrqp/xJt1JOGpuOgVjWqeKUKheBtQt8hxHD8=;
-  b=ZVEpDR36dqWH18Lrsnrb6fcxVcn8CciQa9+MzuQJRGHeyTrYOHwiSY1v
-   dMDm2t1091fwgGbK8raceH24jeShwfSN2hG0302HM6dMknlG/GZjsAqlJ
-   Psgl+FGye5qyXD+Egw6OgYf+jbbnIQi1w/1X51ZIopuRgTPyWkIv9Jtf6
-   N5LhJ2LyMRC8wziCrw7WrSzE+/X+TkVlr1xsMU2rGT7Pqui9mnoPbmchN
-   S4jbCJJvh9kRhS9Ngb7387JoNbaxs5FpjJCqrWOcrA8GM4jo304ip0ogM
-   k899uaoTjuNRJVkvDx/0YuQXdAuZLKqN1D0pLdvgdGjfDTL28WYxJ+dpY
-   A==;
-X-CSE-ConnectionGUID: wyf3t57iRmu8bqz/vwtEmA==
-X-CSE-MsgGUID: XuAtvX6gRjWy/SDqR2q1Pg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3808968"
+  bh=Qk7CVBVb3LS0lU4NZN8YuHaMlfgyPB1H27eQWu3N+/Q=;
+  b=d6CAncRo9d1pgdzPG+Wy+EIcu2PLwVggeCcFSfZX6Dnrfq8F3gs60Dl8
+   UQegGk3hxEloxBqEe/HaUFLG9qO4FGulhB226p5TOxl63zs/D7lvD4lEc
+   5BKTPdXjja5xkGJzDqNwhGs8Ncsi5VyE6s38nN3C1/yegwYviIrP94zsk
+   Z58izTVhb7njrnFGM4ytiWmztRErr5w9q/jw0X3BWHcXFy3iJKPmikIwk
+   uGsj+WoR+4FK2DUIJ+5ZaT3Otze6CO7pRXi8y4V1tFAfOAK3Qk0Xuk9ed
+   BEzgfrL361Q0AtRaDOwd3xLV/xFseCQIFVG+vAfHrQ0yEVQmIJLwSTsjb
+   g==;
+X-CSE-ConnectionGUID: QEK4JekQTj+KvQzfTTerOw==
+X-CSE-MsgGUID: NrUcsuHDS1Gn7PXNiJLKeg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3808981"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3808968"
+   d="scan'208";a="3808981"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
   by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:29:05 -0800
-X-CSE-ConnectionGUID: jXvWYNZ6Qnah87PykfcQGg==
-X-CSE-MsgGUID: bhcMHbA7T6+0rqjC0j7PpQ==
+X-CSE-ConnectionGUID: EUI3+DEoQuqmlPOaLPLf4Q==
+X-CSE-MsgGUID: p67Ub0BcQ0S8E1igsiWaGA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="10376791"
+   d="scan'208";a="10376793"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:58 -0800
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id ADCE61230D9;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id B47441230EB;
 	Wed, 18 Nov 2026 15:28:31 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xTfi0-00000000tcH-1IP6;
+	id 1xTfi0-00000000tcP-1RHY;
 	Wed, 18 Nov 2026 15:28:20 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -102,9 +102,9 @@ Cc: hans@jjverkuil.nl,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH v13 41/73] media: Documentation: Add a note on Bayer raw mbus codes
-Date: Wed, 18 Nov 2026 15:27:47 +0200
-Message-ID: <20261118132819.213473-42-sakari.ailus@linux.intel.com>
+Subject: [PATCH v13 43/73] media: uapi: Add more media bus codes for generic raw formats
+Date: Wed, 18 Nov 2026 15:27:49 +0200
+Message-ID: <20261118132819.213473-44-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
 References: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
@@ -119,36 +119,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Now that we do have CFA-independent raw mbus codes, document that using
-them is required in sensor drivers and preferred in other drivers, too.
+Add new generic raw media bus codes for serial buses at bit depths or 16,
+20, 24 and 28.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- Documentation/driver-api/media/camera-sensor.rst | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ Documentation/userspace-api/media/v4l/subdev-formats.rst | 8 ++++++++
+ include/uapi/linux/media-bus-format.h                    | 6 +++++-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/driver-api/media/camera-sensor.rst b/Documentation/driver-api/media/camera-sensor.rst
-index c8552f70f496..27ea5055b3e8 100644
---- a/Documentation/driver-api/media/camera-sensor.rst
-+++ b/Documentation/driver-api/media/camera-sensor.rst
-@@ -127,6 +127,17 @@ Use ``v4l2_fwnode_device_parse()`` to obtain rotation and orientation
- information from system firmware and ``v4l2_ctrl_new_fwnode_properties()`` to
- register the appropriate controls.
+diff --git a/Documentation/userspace-api/media/v4l/subdev-formats.rst b/Documentation/userspace-api/media/v4l/subdev-formats.rst
+index b207119415f1..4b832118060a 100644
+--- a/Documentation/userspace-api/media/v4l/subdev-formats.rst
++++ b/Documentation/userspace-api/media/v4l/subdev-formats.rst
+@@ -3890,6 +3890,14 @@ affect the pattern is conveyed via the :ref:`V4L2_CID_CFA_PATTERN_FLIP
+       - 12
+     * - MEDIA_BUS_FMT_RAW_14
+       - 14
++    * - MEDIA_BUS_FMT_RAW_16
++      - 16
++    * - MEDIA_BUS_FMT_RAW_20
++      - 20
++    * - MEDIA_BUS_FMT_RAW_24
++      - 24
++    * - MEDIA_BUS_FMT_RAW_28
++      - 28
  
-+Media bus codes
-+---------------
-+
-+Supporting the new :ref:`CFA-independent Media bus codes
-+<v4l2-mbus-pixelcode-generic-raw>` is required in new drivers on serial
-+interfaces and the old Bayer pattern specific Media bus codes are thus
-+deprecated. If the rest of the pipeline does not support the new generic raw
-+Media bus codes, the preference is to add support for the codes in the entire
-+pipeline instead of supporting old Bayer pattern specific mbus codes in a sensor
-+driver.
-+
- .. _media-camera-sensor-examples:
+ Packed YUV Formats
+ ^^^^^^^^^^^^^^^^^^
+diff --git a/include/uapi/linux/media-bus-format.h b/include/uapi/linux/media-bus-format.h
+index 83feeae6a31e..40912155c741 100644
+--- a/include/uapi/linux/media-bus-format.h
++++ b/include/uapi/linux/media-bus-format.h
+@@ -190,10 +190,14 @@
+ #define MEDIA_BUS_FMT_META_20			0x8006
+ #define MEDIA_BUS_FMT_META_24			0x8007
  
- Example drivers
+-/* Generic (CFA independent) pixel data formats. Next is 0x9005. */
++/* Generic (CFA independent) pixel data formats. Next is 0x9009. */
+ #define MEDIA_BUS_FMT_RAW_8			0x9001
+ #define MEDIA_BUS_FMT_RAW_10			0x9002
+ #define MEDIA_BUS_FMT_RAW_12			0x9003
+ #define MEDIA_BUS_FMT_RAW_14			0x9004
++#define MEDIA_BUS_FMT_RAW_16			0x9005
++#define MEDIA_BUS_FMT_RAW_20			0x9006
++#define MEDIA_BUS_FMT_RAW_24			0x9007
++#define MEDIA_BUS_FMT_RAW_28			0x9008
+ 
+ #endif /* __LINUX_MEDIA_BUS_FORMAT_H */
 -- 
 2.47.3
 
