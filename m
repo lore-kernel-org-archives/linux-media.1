@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795005874;
-	b=RzAqEB8rnJvxNwCiKqbPvQBGHs4ml892HWg4LYtP2QVOF58TkNBLXak34yGtFZ0lm2vB
-	 OTgak/gn0tX7AmfZ3s3ZwHhneLuX1BiJmfPLSoFegPzgPhYbw4GMexiAfq8uUmVT96wwW
-	 HXlLI3DsZF8CLzl6DV5HHhMEJCGresx7hzKhzzF5rfoc2a49RKtXWLtEfPHzI1COoE7f7
-	 R/9JyBwnUswoxrgAIr1AOGHCE/PfBphSASD7uGeb7HBLwFMAhK3v/mJ6icd/5UHYNPcQc
-	 w63wbFLFA0wNNbaJjU0K0HR9C1GbtA+FTwL5AHEishbCLuC9r7gRLVmc4FyUbcFwuRQ==
+	t=1795005876;
+	b=xMl8q2rF1/BLOMKLuaUDVtC2WQtVbTb++krrKhA5cG4UPSS+EyzqZQksKydiM1gbq52N
+	 WUmKBelJ5T/xBOYcvmxbPyjdlWo+XHwdnkBIiGoKFb5PNpqRXhoO2vI0P/okjSaThhhm/
+	 mY56qlDKTe9TtF7y1IvfWZlyurWYGhLYTEvVXP/bsIQQ8sXrS/tMVYhqvmvJRTQox9PL0
+	 a4Zz86k9m4LWhQwzRYftVYFcNaLmOKfup/HgcxIif42Jan3eV/MngsgsJGchBSVl1TqRc
+	 G7AeTTvp/vp3lsqMb5Ynr98zlaeaDqag7b54pMrSFN1qjV0LJJhNh3ytDnmrdrLr6ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795005874;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795005876;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=+b/bporVQPERPDqhEJifGRe5RVJXvpB/5W9DRGOoLqU=;
-	b=XWxybwIZ2ZoJH/cx4FMeldtgOy9fTVYobX4Dc8WJ64qMFAQarRRJK1n4I8ER7ulbJuAB
-	 sJaeRhwqdgXEJ1lRD9/nloUp5yJVEY+N64Ca0Hn4hJloprcRx+hDN/iWkWjZpa4lio9i4
-	 NCGNIyl1GYObbN3fli8DOjjBXFlT4ynisM8Q7QJtzf0BnyHvPZBGW+ASK7e/u8ZjAde0a
-	 rpxxfBgfcrNd0Er5zpRqCPIYSEDa0l/RcjYbqyEWMDxWqw0YdZROEBzykIIfFR2HYMc5Z
-	 EBBgtr9PDqIlnPvLywqcNaFePX4W5UdSzyeOva1VSHA/xYU/dIbUI7DxQkyT9t9wTjg==
+	bh=E+TFB5ruIZVQXeeFZKL6zFfyFf8j+3Cog2ncFVsXWyg=;
+	b=2pPtDFfbIOcqsyYNkDMNoGaVCfBEgs2deAWXRatK5UWBL/UdHcSgo3lqPcWAmQcakA3u
+	 t4bSuSi9ztwCUnSsRDmNV+O+eF87XPyBtbs7KSA8ygs1BoD2BfjvC+dW2tqhEwCglBMsE
+	 9E9C2Mqc8uSefQdbWcz77XSs/3X1ZYtCRf3m65ov9+KHLl7C4WYJ0FSNoLKvp0NEsPbEj
+	 Tgs94yS43RpMZThuZJEMdLksiNykYVudHkWEIdRBP0xtnqWtNaNj//xCd8NHEP69XQyhF
+	 gZ2wkO5MPDE458gqasaPa9SOYSqfOfmb4peqnf/j6vxK17aZqq1QsI80RNNr9/x9XZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X3tnCQc7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D3mvja+N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B6F60A2608;
-	Wed, 18 Nov 2026 12:44:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BC460A260F;
+	Wed, 18 Nov 2026 12:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X3tnCQc7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EA241F000C7;
-	Wed, 18 Nov 2026 12:44:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D3mvja+N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30991F000CB;
+	Wed, 18 Nov 2026 12:44:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795005873;
-	bh=+b/bporVQPERPDqhEJifGRe5RVJXvpB/5W9DRGOoLqU=;
+	s=k20260515; t=1795005876;
+	bh=E+TFB5ruIZVQXeeFZKL6zFfyFf8j+3Cog2ncFVsXWyg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=X3tnCQc7aBbBrOc78+4TIxr5D8PkEdnPSlgMlp/xh1GUUFy680wR8zUAHEz3ONAlF
-	 IbhoLsMdsgO4HU7AN0gjVcTD0K4jh6D8eS3BP/Rt1kG/3H8/65TaAqoFBIt+XFCpZT
-	 bA+3dSLkpWNYpAQ+FnNdYm8W7IuZkEMfVc82GgeYDtMfPjlk+3tBtb9T6QFZEiXuQv
-	 tdT0IoJeL1dyHmkUFlol5NZaBoARpIdKjeV7TYE2001niWmZlmJ94EErSRNfULQbqk
-	 mGbVtfYGSdFrpIM6zfulKtNNGN9IdP06LIomiEJSkgR7Z4cA3o1ffr5eT7JoNZtbxf
-	 24Uk93/rxuz/w==
+	b=D3mvja+N90ppnyK3GdaXsj8/GlXwzGrdpEJRwSPqtgp8LsqO5ulE7t6+N6CmevMpE
+	 S4xlfTokaK4UhnVP+cCtRot3jduTBW6g1VidZ/J+lnOoo/UdGyG/l/vTUEb0PwgCGG
+	 JnZBWJNbZij1un4/3LD9dVCCLGH2HiObZ+eGELtHAPnD1qvagE4w6roxhh5Jdj16RM
+	 KpKbvSO09GJHmNZdpOsIvl28b0LhHg5sBnujzjD8U2H+xxTnxF3xhFPNZTjzf+FX+n
+	 pRDrNwpwpSC/1vPtuI+yMcnVt1r+SKkHjh9HB9l3ZXdZRJ9s/1k5OtLk0kYQ3i2ff3
+	 enEYJMBzIX7yA==
 From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-Date: Wed, 18 Nov 2026 13:43:59 +0100
-Subject: [PATCH RFC v2 15/16] media: imx219: Allow driver probe with
- missing sensor
+Date: Wed, 18 Nov 2026 13:44:00 +0100
+Subject: [PATCH RFC v2 16/16] media: imx219: Implement .detect() sensor
+ operation
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-v4l2-sensor-detect-v2-15-1bb1a445b556@kernel.org>
+Message-Id: <20261118-v4l2-sensor-detect-v2-16-1bb1a445b556@kernel.org>
 References: <20261118-v4l2-sensor-detect-v2-0-1bb1a445b556@kernel.org>
 In-Reply-To: <20261118-v4l2-sensor-detect-v2-0-1bb1a445b556@kernel.org>
 To: Hans Verkuil <hverkuil+cisco@kernel.org>, 
@@ -73,150 +73,148 @@ Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>,
  Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org, 
  linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4297;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4413;
  i=mkorpershoek@kernel.org; h=from:subject:message-id;
- bh=VflYp+cMHa/Buc2sISbW+WgltI5f9Bvp5e7CfX2o6Uc=;
- b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBq/Z2MYCrd8p4GkkrDokxabrdoluqCFzAsyTnIo
- Jm+lbiOGpOJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCav2djAAKCRAZDR20Zk4Z
- NRWSCACDCs2Meaxyo3N3rJ8EksAVeLUDoE3JWDfMbG/o/BLMHnTZSPybaoHwUl7IYa3ExSVcKMv
- UP9Lbb5wzaeTpQQiz3z1H8btj15uPClgHQv1Fp0oLcn/v+j0YZkSinc7uK7V5KYuS2zDxEKrjT+
- gRyqIt+kfUmO2eUm9bz0HMyitv/eHXU85LtnmlXZ4jGUxCulzH7Mc7oZl+kFY0Il2dG4rWai//Q
- MOSb2SwJ/UFqJXRffrORX11VX7U+gMwkRfmOZcF09i2XdREO9hh5hb8Ffgp3yu16VhdCCTLebgw
- RF1Qbfh9zb2KJGIwRaCxApgGqD+hxBXhBil9Hru+QdSfm0nl
+ bh=TyP8n4mkpZbPBju5QqjjO/ut3VyNVLg80/ioaomM2/I=;
+ b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBq/Z2MW+A406U6qSft7hKPUWd/+EE6oVsQ2ZLpP
+ OUTRs4dc7OJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCav2djAAKCRAZDR20Zk4Z
+ Ne+DB/99/drsuDm6qvrIPblgUnFytjfuXwMz+IUi8uLQOwRkhESRCGXmIBOJLMH4J5mmdIGUqUM
+ 9KyRQrMWbQsJsbzhdQkCJnudpgSCHA4TJAIy/S3BCu1l6fv+mNto13iswTBQu73U8K+l4HUeHIV
+ jnxgENCi1jsfaVOTuoK10sKSMMunFkqKJumyg/N+SYK2ivJFdMuJ1UB0PzdI/ij4scuVk54ui+c
+ zEpuTwosDmr+3M9kYmwWaX9Wia9PTYain7J+g/9gRSD6941jyTGNDq8FiJRwolMlyS1/pmzPdOj
+ Rap/Cq92jl/M5s2ysEAQxElNZjSTyZt81qm0P7J1994OPIYg
 X-Developer-Key: i=mkorpershoek@kernel.org; a=openpgp;
  fpr=8234A35B45C0D26B31C1A2DA570338B018144F28
 
-When media fault tolerance is enabled, probe() should complete even when
-a sensor is disconnected.
+Now that the driver can probe() with a missing sensor, userspace should
+be able to query the sensor connection state via the media device.
 
-Currently, the driver reads the CHIP_ID over i2c in the probe().
-When we can't read CHIP_ID, the probe errors out, which result in the
-v4l2-subdev not being created.
+Implement the .detect() sensor operation so that userspace can do that
+using the MEDIA_IOC_G_ENTITY_STATUS ioctl.
 
-Extract imx219_read_chip_id() from imx219_identify_module() so that
-probe can distinguish an unreachable sensor (I2C read failure) from a
-wrong sensor (CHIP_ID mismatch).
-
-When the sensor is unreachable, skip the LP-11 state initialization and
-continue probe so the v4l2-subdev and media entity are created.
-
-Note that a CHIP_ID mismatch remains a fatal error.
+Also call media_detect_poll_enable() when streaming successfully started
+and poll_disable() when disabling streaming to make sure that the media
+device reports the status to userspace while streaming.
 
 Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
 ---
- drivers/media/i2c/imx219.c | 74 ++++++++++++++++++++++------------------------
- 1 file changed, 36 insertions(+), 38 deletions(-)
+ drivers/media/i2c/imx219.c | 47 +++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 42 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-index 1580562093e8..02d065fb88d0 100644
+index 02d065fb88d0..5d4432a97eee 100644
 --- a/drivers/media/i2c/imx219.c
 +++ b/drivers/media/i2c/imx219.c
-@@ -1099,25 +1099,9 @@ static int imx219_get_regulators(struct imx219 *imx219)
+@@ -28,6 +28,7 @@
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-fwnode.h>
+ #include <media/v4l2-mediabus.h>
++#include <media/v4l2-subdev.h>
+ 
+ /* Chip ID */
+ #define IMX219_REG_CHIP_ID		CCI_REG16(0x0000)
+@@ -742,6 +743,10 @@ static int imx219_enable_streams(struct v4l2_subdev *sd,
+ 	if (ret < 0)
+ 		return ret;
+ 
++	ret = media_entity_detect_or_fail(&sd->entity);
++	if (ret)
++		goto err_rpm_put;
++
+ 	/* Send all registers that are common to all modes */
+ 	ret = cci_multi_reg_write(imx219->regmap, imx219_common_regs,
+ 				  ARRAY_SIZE(imx219_common_regs), NULL);
+@@ -780,6 +785,8 @@ static int imx219_enable_streams(struct v4l2_subdev *sd,
+ 	__v4l2_ctrl_grab(imx219->vflip, true);
+ 	__v4l2_ctrl_grab(imx219->hflip, true);
+ 
++	media_detect_poll_enable(&sd->entity);
++
+ 	return 0;
+ 
+ err_rpm_put:
+@@ -795,6 +802,8 @@ static int imx219_disable_streams(struct v4l2_subdev *sd,
+ 	struct i2c_client *client = v4l2_get_subdevdata(&imx219->sd);
+ 	int ret;
+ 
++	media_detect_poll_disable(&sd->entity);
++
+ 	/* set stream off register */
+ 	ret = cci_write(imx219->regmap, IMX219_REG_MODE_SELECT,
+ 			IMX219_MODE_STANDBY, NULL);
+@@ -1006,6 +1015,33 @@ static int imx219_init_state(struct v4l2_subdev *sd,
+ 	return imx219_set_pad_format(sd, NULL, state, &fmt);
+ }
+ 
++static int imx219_read_chip_id(struct imx219 *imx219, u64 *chip_id)
++{
++	return cci_read(imx219->regmap, IMX219_REG_CHIP_ID, chip_id, NULL);
++}
++
++static int imx219_detect(struct media_entity *entity)
++{
++	struct v4l2_subdev *sd = media_entity_to_v4l2_subdev(entity);
++	struct i2c_client *client = v4l2_get_subdevdata(sd);
++	struct imx219 *imx219 = to_imx219(sd);
++	u64 chip_id;
++	int ret;
++
++	ret = pm_runtime_resume_and_get(&client->dev);
++	if (ret < 0)
++		return ret;
++
++	if (imx219_read_chip_id(imx219, &chip_id))
++		ret = MEDIA_ENT_STATUS_DISCONNECTED;
++	else
++		ret = MEDIA_ENT_STATUS_CONNECTED;
++
++	pm_runtime_put_autosuspend(&client->dev);
++
++	return ret;
++}
++
+ static const struct v4l2_subdev_video_ops imx219_video_ops = {
+ 	.s_stream = v4l2_subdev_s_stream_helper,
+ };
+@@ -1029,6 +1065,10 @@ static const struct v4l2_subdev_internal_ops imx219_internal_ops = {
+ 	.init_state = imx219_init_state,
+ };
+ 
++static const struct media_entity_operations imx219_entity_ops = {
++	.detect = imx219_detect,
++};
++
+ /* -----------------------------------------------------------------------------
+  * Power management
+  */
+@@ -1099,11 +1139,6 @@ static int imx219_get_regulators(struct imx219 *imx219)
  				       imx219->supplies);
  }
  
--/* Verify chip ID */
--static int imx219_identify_module(struct imx219 *imx219)
-+static int imx219_read_chip_id(struct imx219 *imx219, u64 *chip_id)
- {
--	struct i2c_client *client = v4l2_get_subdevdata(&imx219->sd);
--	int ret;
--	u64 val;
+-static int imx219_read_chip_id(struct imx219 *imx219, u64 *chip_id)
+-{
+-	return cci_read(imx219->regmap, IMX219_REG_CHIP_ID, chip_id, NULL);
+-}
 -
--	ret = cci_read(imx219->regmap, IMX219_REG_CHIP_ID, &val, NULL);
--	if (ret)
--		return dev_err_probe(&client->dev, ret,
--				     "failed to read chip id %x\n",
--				     IMX219_CHIP_ID);
--
--	if (val != IMX219_CHIP_ID)
--		return dev_err_probe(&client->dev, -EIO,
--				     "chip id mismatch: %x!=%llx\n",
--				     IMX219_CHIP_ID, val);
--
--	return 0;
-+	return cci_read(imx219->regmap, IMX219_REG_CHIP_ID, chip_id, NULL);
- }
- 
  static int imx219_check_hwcfg(struct device *dev, struct imx219 *imx219)
-@@ -1194,6 +1178,7 @@ static int imx219_probe(struct i2c_client *client)
- 	struct device *dev = &client->dev;
- 	struct imx219 *imx219;
- 	int ret;
-+	u64 val;
+ {
+ 	struct fwnode_handle *endpoint;
+@@ -1237,6 +1272,7 @@ static int imx219_probe(struct i2c_client *client)
+ 			goto error_power_off;
+ 		}
+ 		dev_dbg(&client->dev, "failed to read chip id %x\n", IMX219_CHIP_ID);
++		imx219->sd.entity.status = MEDIA_ENT_STATUS_DISCONNECTED;
+ 	} else if (val != IMX219_CHIP_ID) {
+ 		ret = dev_err_probe(&client->dev, -EIO,
+ 				    "chip id mismatch: %x!=%llx\n",
+@@ -1271,6 +1307,7 @@ static int imx219_probe(struct i2c_client *client)
+ 	/* Initialize subdev */
+ 	imx219->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+ 	imx219->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
++	imx219->sd.entity.ops = &imx219_entity_ops;
  
- 	imx219 = devm_kzalloc(&client->dev, sizeof(*imx219), GFP_KERNEL);
- 	if (!imx219)
-@@ -1235,36 +1220,49 @@ static int imx219_probe(struct i2c_client *client)
- 				     "failed to get reset gpio\n");
- 
- 	/*
--	 * The sensor must be powered for imx219_identify_module()
-+	 * The sensor must be powered for imx219_read_chip_id()
- 	 * to be able to read the CHIP_ID register
- 	 */
- 	ret = imx219_power_on(dev);
- 	if (ret)
- 		return ret;
- 
--	ret = imx219_identify_module(imx219);
--	if (ret)
--		goto error_power_off;
--
--	/*
--	 * Sensor doesn't enter LP-11 state upon power up until and unless
--	 * streaming is started, so upon power up switch the modes to:
--	 * streaming -> standby
--	 */
--	ret = cci_write(imx219->regmap, IMX219_REG_MODE_SELECT,
--			IMX219_MODE_STREAMING, NULL);
--	if (ret < 0)
-+	/* Verify chip ID */
-+	ret = imx219_read_chip_id(imx219, &val);
-+	if (ret) {
-+		if (!media_fault_tolerance_enabled()) {
-+			dev_err_probe(&client->dev, ret,
-+				      "failed to read chip id %x\n",
-+				      IMX219_CHIP_ID);
-+			goto error_power_off;
-+		}
-+		dev_dbg(&client->dev, "failed to read chip id %x\n", IMX219_CHIP_ID);
-+	} else if (val != IMX219_CHIP_ID) {
-+		ret = dev_err_probe(&client->dev, -EIO,
-+				    "chip id mismatch: %x!=%llx\n",
-+				    IMX219_CHIP_ID, val);
- 		goto error_power_off;
-+	} else {
-+		/*
-+		 * Sensor doesn't enter LP-11 state upon power up until and unless
-+		 * streaming is started, so upon power up switch the modes to:
-+		 * streaming -> standby
-+		 */
-+		ret = cci_write(imx219->regmap, IMX219_REG_MODE_SELECT,
-+				IMX219_MODE_STREAMING, NULL);
-+		if (ret < 0)
-+			goto error_power_off;
- 
--	usleep_range(100, 110);
-+		usleep_range(100, 110);
- 
--	/* put sensor back to standby mode */
--	ret = cci_write(imx219->regmap, IMX219_REG_MODE_SELECT,
--			IMX219_MODE_STANDBY, NULL);
--	if (ret < 0)
--		goto error_power_off;
-+		/* put sensor back to standby mode */
-+		ret = cci_write(imx219->regmap, IMX219_REG_MODE_SELECT,
-+				IMX219_MODE_STANDBY, NULL);
-+		if (ret < 0)
-+			goto error_power_off;
- 
--	usleep_range(100, 110);
-+		usleep_range(100, 110);
-+	}
- 
- 	ret = imx219_init_controls(imx219);
- 	if (ret)
+ 	/* Initialize source pad */
+ 	imx219->pad.flags = MEDIA_PAD_FL_SOURCE;
 
 -- 
 2.56.0
