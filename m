@@ -1,104 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794999739;
-	b=Khu59Vs5Y52FFrHBet38IrwQoE1PjxhcylAaTYHOEBvvVZsZpGhQIF/CGSIi+COLiUdd
-	 RAntRK8gg/vuHVuvJV3lCAL7HZMQR2txi/gZLqgijTcBREOFAyfYkHKX7y0yLLfl9yXSw
-	 8tL/YJpGQFVzyn/xiXdloxI0Ysynh+O3gEgU45CWWfANcNKlIVSoJ3KxV86Q8dAshPJfg
-	 T0VHLc0Cu0+sOx0yR7fo4swYeNcjtXyiPGGrL1zoMyrCKzeF30rLAoooTuvyNB2zGz3GC
-	 jMbiqcr2lE6OkZfmTBQzQPC4c2q5l/rUWTFZxnmGDAjCV7mBJK09ev8jgM1eLv8hCpg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794999739;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=iHQaawlG9NYW1VlhBRBvJ4Ovu+2ivyZzcGZvkzyB+yM=;
-	b=16ixHax2mcQcJ8Hvkcxrnw81Pw8dGvLFj2h9BSU5fRvnR58GtgPxYJ6vlWcoL2wS3uvr
-	 vCg6gd3NHKmEamtTHUIoH44q6oL42NKNmpkE6UkKZO3ON7maz1Km+5Grn7OzjIYd/+uRj
-	 aXTGEdL0RWAsxabtnhLcUi0xLkWlMDN/+1KWr+Jio0KU7UXX0/H//jITP65JjvigbsLis
-	 KHJNbEdJMuUOiwvXHs2xYxdHYu8vFot5AH4Zz3SN65ruyyt3Oe3cnCTIvnRGzZz03a0cn
-	 hySP5PHrwQaA6+ZN5teD//tF0irtmHHr2J8ZF6zlnZ7OF58/rKLFriunITUxoPQx5vw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iA0dqRwa;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794999936;
+	b=lZaY7IBjqVCyW6s96dWUfZa1Y+OH4VkJ9J1zgSv9wetjA6lgWXMSNxu/dTABVNE0gXTz
+	 1ZXlj0dvqJQ4XqTUSWaHo5GYqTJ3+EcfPBS1+voHZawrjHKyzdH7csTHYzMrQrf81TnqW
+	 BJtUBdkQ3RgsNz98IYKflCbciK+z66/JIlUGyr5QZuSO28ehOgB5QADojBxgMrjwxUqmp
+	 chSE2N9nccdqF17DrNOTR4pbTzzlrfuQEvuuVcFLwFi1q+sCYeIjsgBM4oLfSUzXWEIj8
+	 BL7l8oT5EGTkSsCyULrQpliTB3AjC9R8reQU/W4TlWMxzTUj9BIUI3s33N6fJn+3Q4A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794999936;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=57OqLOtd0Xhl80XzTnq7CaSkz6krDD79i9AODx5Rmtw=;
+	b=ffeNtpC342coO0uXPviSYXKLdgHKya37XHqQYDSkI0NwqC6wU5Bc9MhugF4MGyTekb0D
+	 vp+KFbB1WwMLoZ6Bdk6mBhqU56K5g4wccKuNmwzOJQITX9NSo5FjVDAqBmSAR1GKqRXT8
+	 yvuDJ0ov5QuE3K70NbvqAroZHUPatt60pUzJwLXdp6D/ocuh+c7nhmRF2YuK0mbRIdwJe
+	 hiJKpNgNB86zCBlK1ZL4f4+E5dyxbCX5iMTlBkmhh9DwlMiKsOTDG+FDnnpf4te3b3JSI
+	 Aaurbgw6a0x177YzgSNcr9nI/RRxJuQgpev9G1aVeFcwhbVhelkqUNqwNxZN+Jc6uSA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=v9rwVvUi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.54
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010054.outbound.protection.outlook.com [52.101.201.54])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D462606A31C
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 11:02:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D462606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A76CA606A31C;
+	Wed, 18 Nov 2026 11:05:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A76CA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iA0dqRwa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794999738; x=1826535738;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=nn/XTr1YRCgmJ2Yomq9VnoAGMRH49mXWARI5f7cRVqk=;
-  b=iA0dqRwaLI/dnRrpVzLGUQvW5XN7AUIhxOLigOrKjo0TMFBoovmGrSxh
-   +1QXnwLGkPKGsC80U8tekLW8pEJhDgtDsl0VzOWks3OCDeySe1wUjx9iP
-   DxSrMNqUZpqrhCfiVSXMlhsg+vHXjy4x3x5KEzLz4UgzgGI5Jfy9C8ZhR
-   ZkqwQxCYdqJ1G64Sdjyfxb/uyZrwBSzZGJENb4eyrAv7/LHYcLHptjCN4
-   CFv3/qKuZThPJCk0HGYMlYC6NMEjYYJXvU5o7m+UCHgnKdkYNIyif2mnG
-   sOa2q19dcjlSLTMj3svkDSjOUQn7UfgL2OftxKxLAQz7/H5zkR5UDBcLF
-   w==;
-X-CSE-ConnectionGUID: 8yCHI090SciBBQuIl7FrYg==
-X-CSE-MsgGUID: jZuNaOlSRpuzinjZsGMMdQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3692291"
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3692291"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 03:02:17 -0800
-X-CSE-ConnectionGUID: uWIl3VGmT6Gl0BokofVSNA==
-X-CSE-MsgGUID: ku8mxDNBQIOOKO4NEV2Xug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="10356419"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 03:02:11 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 2792D121B71;
-	Wed, 18 Nov 2026 13:02:09 +0200 (EET)
-Date: Wed, 18 Nov 2026 13:02:09 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-media@vger.kernel.org, hans@jjverkuil.nl,
-	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Julien Massot <julien.massot@collabora.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	=?iso-8859-1?Q?Andr=E9?= Apitzsch <git@apitzsch.eu>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Ricardo Ribalda Delgado <ribalda@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	David Plowman <david.plowman@raspberrypi.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	" Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v12 30/86] media: Documentation: Add binning and
- sub-sampling controls
-Message-ID: <av2FscJ7JJ-JuzXu@kekkonen.localdomain>
-References: <20260409201501.975242-1-sakari.ailus@linux.intel.com>
- <20260409201501.975242-31-sakari.ailus@linux.intel.com>
- <177929435413.2341049.9256551425193410552@selene>
- <178894548965.11722.1572509771464197490@freya>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=v9rwVvUi
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zHazaAWt+XGQ5Qgy3TGkSAUfJIN0qd9PK0aKOBQjhrqIA2ka/3REmrlEKUmuwKp3BX/wSqBIAxGTiZxL/5e8dEYAXtFyTJV0Bp9fImMcyUahnAUeGM8GGtVKsXXmcKHRzBZgRIR9J2xJ7x+CnL7Y9SelBaCXtgA7by0vFemMDuXHI4bkYqtGKYGQ9jAMzdm8VFkW+rqNWkLVQGo5Ht+K+XtqGuxVGX4MlJ5pCMxzvYTUmknokRnPmSfSOdEMe+XADss+qZiZzWToOtia38j11qbhPkuLwHt4fc0bIPNXMCMGUJGs2Zx2ihHVIrwIZfiCbA1nkBHAK3E35v0fTRixHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=57OqLOtd0Xhl80XzTnq7CaSkz6krDD79i9AODx5Rmtw=;
+ b=LGucC5NEztySTmZCdVlOp5KbLDZrrANrYj11T+CmvQD+sMZFMQNZsWEeKBkWkazh3DGmWhYeJH4POOja+1XIi3wyFjg120EtiL1n6uptPm8OwiOYrXJi572fYTkMLKXZLAs4baoJPhuELjITQzz3TBaxW2Z1zZxAcWscHQ6W8o3A4FbwMWr0j0LoTLBgkvdxVwBUbd0prqyxWZi9hiIV4iNLDlfOS6Y3aSuaTSYn8TOwM5QU4LBfM2n72wc1OCvaHuhIH3JvcLN8CNRKjuudMSKVsEnQMTXKgR2bgbd/Uf/Hfqep76qGKavGKKxWeEOau6FRIgcd5X/ZVAuOZwH4xg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=57OqLOtd0Xhl80XzTnq7CaSkz6krDD79i9AODx5Rmtw=;
+ b=v9rwVvUiPiyPgWgrGkS2NxoV+PXYbExkhrKTX6pqqjyzTluA53yLXIYVZPEDE17hEl5WRBimtM51Bc/Sy912zCE565z0FeF/vo9Vo8mPxJE4EXQDjgSvvFWZpYMf2WKVJDe+sYToiPOav/0MNi7LIgiCu/7oWbv3IwHfSo372B8=
+Received: from MW4PR03CA0246.namprd03.prod.outlook.com (2603:10b6:303:b4::11)
+ by SJ2PR12MB8927.namprd12.prod.outlook.com (2603:10b6:a03:547::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Wed, 18 Nov
+ 2026 11:03:28 +0000
+Received: from CO1PEPF00012E66.namprd05.prod.outlook.com
+ (2603:10b6:303:b4:cafe::13) by MW4PR03CA0246.outlook.office365.com
+ (2603:10b6:303:b4::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Wed,
+ 18 Nov 2026 11:03:28 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF00012E66.mail.protection.outlook.com (10.167.249.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Wed, 18 Nov 2026 11:03:28 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 18 Nov
+ 2026 05:03:22 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Wed, 18 Nov
+ 2026 05:03:18 -0600
+Received: from localhost (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57 via Frontend
+ Transport; Wed, 18 Nov 2026 05:03:17 -0600
+From: Michal Simek <michal.simek@amd.com>
+To: <linux-kernel@vger.kernel.org>, <monstr@monstr.eu>,
+	<michal.simek@amd.com>, <git@amd.com>
+CC: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, "Mauro Carvalho
+ Chehab" <mchehab@kernel.org>, "moderated list:ARM/ZYNQ ARCHITECTURE"
+	<linux-arm-kernel@lists.infradead.org>, "open list:XILINX VIDEO IP CORES"
+	<linux-media@vger.kernel.org>
+Subject: [PATCH v2] media: xilinx: vip: Make use of the devm_clk_get_enabled()
+Date: Wed, 18 Nov 2026 12:03:04 +0100
+Message-ID: <8c5500e70fcd2b4da35e985b9f8a976afa1991b0.1794999782.git.michal.simek@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -108,102 +115,74 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178894548965.11722.1572509771464197490@freya>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1144; i=michal.simek@amd.com; h=from:subject:message-id; bh=Yn8LPnFAVU2UyyKw/e63cP3tiXYjAa3QXl5Y4oXTBzE=; b=owGbwMvMwCG2mv3fB7+vgl8ZT6slMWT9bX2XN8Vivpr2DY0z98w/chbJ7lB8EHb9/msFhsi0o yn79N0lO0pZGMQ4GGTFFFmmM+k4rPl2banY8sh8mDmsTCBDGLg4BWAii3oY/pmdtYqVE1VdkOq6 TXmHRwGD7BSWVbW3o45Fi/ZOznuw7CgjQ4Pt5TR3Ls3OqzO1H7UfDnOrK2q+79xwM5dvxQLxv23 z+QA=
+X-Developer-Key: i=michal.simek@amd.com; a=openpgp; fpr=67350C9BF5CCEE9B5364356A377C7F21FE3D1F91
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E66:EE_|SJ2PR12MB8927:EE_
+X-MS-Office365-Filtering-Correlation-Id: 999fd497-e37e-4231-d40a-08df45639313
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|82310400026|376014|36860700016|18002099003|261009223027099003|11063799006|56012099006|261102123227099003|10067099003|261021123027099003|261021121427099003|261026121527099003|261102130727099003;
+X-Microsoft-Antispam-Message-Info:
+	cz+InQSsJhGtjtKsee4/teCSC26NwZK2n0yXu5yLMkw6hX5IQOPQLaK15sKFE9axXh114iz6PFngiaFLKib3tmxjYZG9XqfXqQHXxHaJ35Kl0AaiWZhMzKp6rynJLwh4AeaKmbt/Z+KwTM4mf00yqFPf3TI5FchsvrmDhr5oxHOz6BZAnt6v9Bx4C0iJdv+BfQcQ6MXBjuSSEpf3nvuMlM6hkr3oorkUt1o83ebM7buuthfywxh2t83RSxpIRp+UIModG7V6FMLAh+mmtx8BBPbzkATXrfTWP/UxMkKRjlVD98i3eXMp99TmoA0nj1Dvp7QV7dDziVSaFduBWOsb96iUgaAnkrTRwxuda4Ca0HcCIA2irDh1GCFyK4/PAF1NDZGNpISwwymWfBFDi2lBNL0qPHNziHWc7ujehRa3OW+s0p9ib/72q8/TX8bBRRa2T5YE0AgxWHfjlAiVEYXnYbBhFS6KsLOx09VEbSXyfwpomvDWSg45yErhgBO7X7ywBvsMxj1PWwnGglcA2cm8PZD+h3dHRr+mkIoS03BrB+oyjgvpdljwzZkpd6Fl1JhfLY59wkMXk3F5MPiY4RdcShH7MB1j9PNJZG426c0XcliIDQIva54EA0By3VMKDNeMaOjRvtTYLOS7G1iGa5VwVTRJ92sjL358xBOZZkbpwCqrBsOLCwawrGAR0gj9utFb2jGbFN7pFhfwAgJygVN/VQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(82310400026)(376014)(36860700016)(18002099003)(261009223027099003)(11063799006)(56012099006)(261102123227099003)(10067099003)(261021123027099003)(261021121427099003)(261026121527099003)(261102130727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	e8BS8KR5wrempUT5J4YhrakJQ86mULo30GlDR05gf9HI4DM4DnnqJR+WxISzMCdZ1KUaYIsEvKLqMw4p4yirckj/5WGAtRM5MJxOZ9HMWXrUtetCpTq52/5cz4v20sRUAQO4S7H5YP63Oqg3CdWEoz5H/EB/4f/or9+boCBF1If74lKUGuPfiGeY4if5/c1K1+WWUsXY3dydRAcPwSZySUv7jLF7gRZR8p1fqnvidPVE5AExgHVEGekL8HRJOqomD0s46J8UCIhBpvWDRdHKYwNtVm7YKUa177BW2bZ5LnPxmemviTsKad8pb/TXDptX6WVG+DgRpqdF1Z0h74lrmuQ+PfGQwCRnoWVEYGT8YmixdZw6YvfvZGPewNxbiBwIe7SgrUm3yXEJPy3M33aOlTciXmE3dE/ncn9g6znyWzeRNRUWWz3M/iR9FgRtcReb
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 11:03:28.0837
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 999fd497-e37e-4231-d40a-08df45639313
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00012E66.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8927
 
-Hi Jai,
+There is missing return value check from clk_prepare_enable(). Fix it by
+using devm_clk_get_enabled() macro.
 
-On Wed, Sep 09, 2026 at 02:48:09PM +0530, Jai Luthra wrote:
-> Hi Sakari,
-> 
-> + Laurent
-> 
-> Quoting Jai Luthra (2026-05-20 21:55:54)
-> > Quoting Sakari Ailus (2026-04-09 22:14:05)
-> > > Document the binning and scaling controls (V4L2_CID_BINNING and
-> > 
-> > nit: s/scaling/sub-sampling
-> > 
-> > Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> > 
-> 
-> Sorry for bringing this up again, after providing my ack months ago.
-> 
-> > > V4L2_CID_SUBSAMPLING_{HORIZONTAL,VERTICAL}) in the common raw sensor
-> > > model.
-> > > 
-> > > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> > > Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> > > Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > ---
-> > >  .../media/v4l/subdev-config-model.rst         | 20 ++++++++++++++-----
-> > >  1 file changed, 15 insertions(+), 5 deletions(-)
-> > > 
-> > > diff --git a/Documentation/userspace-api/media/v4l/subdev-config-model.rst b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-> > > index 0fb01bf6c825..fb6d8a1bcac7 100644
-> > > --- a/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-> > > +++ b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-> > > @@ -144,8 +144,12 @@ separately horizontally and vertically.
-> > >  
-> > >  The combined effect of binning and sub-sampling is configured using the
-> > >  ``V4L2_SEL_TGT_COMPOSE`` rectangle, relative to the analogue crop rectangle, on
-> > > -(pad, stream) pair 1/0. The driver implementation determines how to configure
-> > > -binning and sub-sampling to achieve the desired size.
-> > > +(pad, stream) pair 1/0. It depends on the driver which of these operations are
-> > > +being used to achieve the resulting size. Binning and sub-sampling are also
-> > > +directly configured using :ref:`V4L2_CID_BINNING_FACTORS
-> > > +<image_source_control_binning_factors>` and
-> > > +:ref:`V4L2_CID_SUBSAMPLING_HORIZONTAL and V4L2_CID_SUBSAMPLING_VERTICAL
-> > > +<image_source_control_subsampling>` controls on drivers that support them.
-> > >  
-> > >  The digital crop operation takes place after binning and sub-sampling. It is
-> > >  configured by setting the ``V4L2_SEL_TGT_CROP`` rectangle on (pad, stream) pair
-> > > @@ -216,9 +220,15 @@ Also refer to :ref:`Selection targets <v4l2-selection-targets-table>`.
-> > >        - \-
-> > >        - X
-> > >        - Binning and sub-sampling. This rectangle is relative to the
-> > > -        ``V4L2_SEL_TGT_CROP`` rectangle on the same (pad, stream). The
-> > > -        combination of binning and sub-sampling is configured using this
-> > > -        selection target.
-> > > +        ``V4L2_SEL_TGT_CROP`` rectangle on the same (pad, stream). Binning is
-> > > +        configured using the :ref:`V4L2_CID_BINNING_FACTORS
-> > > +        <image_source_control_binning_factors>` control and sub-sampling is configured
-> > > +        using the :ref:`V4L2_CID_SUBSAMPLING_HORIZONTAL and
-> > > +        V4L2_CID_SUBSAMPLING_VERTICAL <image_source_control_subsampling>`
-> > > +        controls on drivers that support these controls. To configure binning
-> > > +        and sub-sampling on drivers that do not support these controls, the
-> > > +        selection rectangle may be changed directly to configure the combined
-> > > +        effect on the image size.
-> 
-> While discussing the libcamera design to support binning and sub-sampling
-> using the new model, I realized that drivers have two different ways to
-> configure binning and subsampling, listed below:
-> 
->     1. Use the CID_BINNING_FACTORS and CID_SUBSAMPLING_HORIZONTAL/VERTICAL
->        controls, and reflect the final resolution through the compose
->        rectangle as read-only
->     2. Allow writes to the compose rectangle directly, without a clear
->        split between binning and sub-sampling
-> 
-> Pre-ADC there is usually only binning and skipping possible from what I've
-> seen. And arbitrary Post-ADC scaling can be handled by the compose
-> rectangle on the the source pad.
-> 
-> So do we really need to allow the second way of userspace configuring the
-> image pad's compose rectangle directly?
+Signed-off-by: Michal Simek <michal.simek@amd.com>
+---
 
-Thanks for the review.
+Changes in v2:
+- s/devm_clk_get_enable/devm_clk_get_enabled
 
-I think this was written before adding the two controls. I'll change the
-COMPOSE rectangle synopsis as (and make it unmodifiable):
+ drivers/media/platform/xilinx/xilinx-vip.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-      - Binning and sub-sampling. This rectangle is relative to the
-        ``V4L2_SEL_TGT_CROP`` rectangle on the same (pad, stream). The
-        combination of binning and sub-sampling is expressed with this selection
-        target.
-
+diff --git a/drivers/media/platform/xilinx/xilinx-vip.c b/drivers/media/platform/xilinx/xilinx-vip.c
+index f1574edd2b43..537702ace760 100644
+--- a/drivers/media/platform/xilinx/xilinx-vip.c
++++ b/drivers/media/platform/xilinx/xilinx-vip.c
+@@ -212,18 +212,16 @@ int xvip_init_resources(struct xvip_device *xvip)
+ 	if (IS_ERR(xvip->iomem))
+ 		return PTR_ERR(xvip->iomem);
+ 
+-	xvip->clk = devm_clk_get(xvip->dev, NULL);
++	xvip->clk = devm_clk_get_enabled(xvip->dev, NULL);
+ 	if (IS_ERR(xvip->clk))
+ 		return PTR_ERR(xvip->clk);
+ 
+-	clk_prepare_enable(xvip->clk);
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(xvip_init_resources);
+ 
+ void xvip_cleanup_resources(struct xvip_device *xvip)
+ {
+-	clk_disable_unprepare(xvip->clk);
+ }
+ EXPORT_SYMBOL_GPL(xvip_cleanup_resources);
+ 
+---
 -- 
-Regards,
+2.43.0
 
-Sakari Ailus
