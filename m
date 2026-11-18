@@ -1,49 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795023192;
-	b=3eJQDhH51JiyUEqNBrwF7Ioz8BAm9PDcG62xQCADgskqrJRGsTNASuLcvZOp9j67MnSw
-	 UxfFkeBc7rK6qQC+BB0GSIcQVx3B/1jFLMCqusv2hk2TfoSi4YH6XHKj3Qdg60BPdIOk7
-	 xQbVP6YODQvYwC66k/t+VjmE1AqZAivqbcZqnFccOWdRqevOEb8OfCmz7fNXuqZUDvlMO
-	 xxroKgM+0MMZOoiliRnkg4rBsgflKrBSaXz8zVBMbnSPjfF30VCPLeNPiDiyAc9VQ4Td5
-	 0zKN6zLgD5cwvb54igaeWhHKrPsvKXBTn/TI6s+vRfMVAiPcg5aRb5An2W/EXduW1mQ==
+	t=1795025320;
+	b=np2LCw4RyBlwjdJu7pEYSVW7dQRnl76U1kdOr+KR5XwRgMIdhBjQFAMJDKbkJDIIHOWY
+	 BQLlCRHwmSMbNMXVnMs1n198lnaTbnG6NKTLu/Yg51PwXtyehZ22EFBw+Uy/ugLArJiyf
+	 WAMhucgJsWbZCDGNBj60aaXjYm9tZqndZsIh3LkgmFDw3pbzwOQNg04ZiKJEuvgCiynX4
+	 xkQJROlsa/b7vVPKFy9oFydfQi14i0JBdCY2hj8iw82NZ6IXF+9RVNwVTpGzIxwe9kx91
+	 OMNXFSkp2HOMQ8wSqIeeLixwE7XOl3EpktT7J9k91vKJ4nUbE05sbhyL9y5CgnJvkmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795023192;
-	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:In-Reply-To:References:Subject:From:Cc:To:
-	 Date:Message-ID:User-Agent;
-	bh=a/lyCJQdRve1tbsoR8RKcutalG9QBdrs3OjhI/MIc7M=;
-	b=JyL5LW6yugaYkN8Sk5DYx7X59DtXXimPcCIJ+r8ZzBHwWYAmQX+9PaI3us+s+XaMt/tN
-	 YEUuU5ztKsPT0zoLDCZj1RayRkA88fIzEmlvsnq6Nta8LLQ0n4K35z+IMj0DaxROV4CFQ
-	 F0AG2MUGT9JY/naQ8TsDJ99iH0kxMTTGOgtDMA6md7ByoBHg+k5la1sKhYsmligdxLutF
-	 dHY145+adRu/WpS9T5bwGewKq5fdeH2BCYKdHZefdPPJ1VlAj4LQjnBaOUaSaGQm5V8d0
-	 Cr9n7GuBuxVf2XJy9xs9ebQHjAI2mFVJwHtz7HycKNDotegi+QQidPSPA9rN+bhvBqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795025320;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=7ZuwaIfgROg2fkQRXGWIR461doCnGVQ1dB9Mlu7n5Aw=;
+	b=1kejqF5Hh7aDsmnNyaIiJoSqWTBk5j3IJfVKfeASymLHfUotFGwi1sLplBfBX90eMO0G
+	 cVWEMHoCS2rBA6Mkt4UEZEN1bnlhZ60gMAjDMnLg9Lq1F4khbJOsOdj37XZZDlEnG/Abz
+	 a56RRuhg8C9X5WGGXxrD6lGMdNmlugpzOnWyK54qRVMJhRsyt2c/GhmH6PUiHJfGrOYV4
+	 zB4VQhc6QQT4q8VGa+YcsUnpO8mT8TM/s+fMX0IctrDIwbfQ8gkVsNZ17h1S2sRbZVaul
+	 KRYH/iepahfji4Hooqg14YFQxUq3qMXQNxThyFEunrimd/E4Pen5ELi1dUs/XKA6JsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=UvsMN39A;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=IJhWonTS;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26B2606A32A;
-	Wed, 18 Nov 2026 17:33:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E26B2606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1120F606A320;
+	Wed, 18 Nov 2026 18:08:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1120F606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=UvsMN39A
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=IJhWonTS
 Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c67:cdf:7464:6c04:36e4:ee87])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 661D5270;
-	Wed, 18 Nov 2026 18:30:33 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 13A7A34;
+	Wed, 18 Nov 2026 19:06:07 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795023033;
-	bh=kudhAj0IuoHyw+UdwKzgpyxC28M9LV4mqZXkQiOmDlw=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=UvsMN39AxilyRRaSXbHZPXLjNoVKqxq9WMwcJl7ZarDO+oNUHOOtn3n3xnoR2FjEZ
-	 Dm2yUnJwbPbMpjxgimpG5OL7ghKctSjVK+cjZ39AGzVdVYeiIvwR/GwM87S7aFRvX+
-	 IgF6EM6I+ttSJbgktDbenSEUfDgJ3Kl+xLsY/qyo=
-Content-Type: text/plain; charset="utf-8"
+	s=mail; t=1795025168;
+	bh=+Phj15VV6gW/x20r1leoDyONrOjyK56Ocg9fO0ZBV10=;
+	h=From:Subject:Date:To:Cc:From;
+	b=IJhWonTSztSL5d29WM/IKXSCorLoFtivTwM5Rwy/HNDA9ymtqgqwAbPBeIWm3qU7J
+	 e42t4j63eF8+iosmjiP32GtM/rrCxCAHTTyeCyPs5i2rjtK75pE5ieuoa+5NJCJifp
+	 Sqws9QUV7MaD7opAzkI1hSUErGGL0AWhH5Ypw8es=
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Subject: [PATCH v7 0/5] media: Add support for Broadcom/RPi BCM2835 ISP
+Date: Wed, 18 Nov 2026 23:38:13 +0530
+Message-Id: <20261118-b4-vchiq-isp-v7-0-b8c81d193abf@ideasonboard.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -53,247 +56,250 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <avsIXOBDRYvwINiI@valkosipuli.retiisi.eu>
-References: <20261112-b4-vchiq-isp-v6-0-711b48378367@ideasonboard.com> <20261112-b4-vchiq-isp-v6-4-711b48378367@ideasonboard.com> <avsIXOBDRYvwINiI@valkosipuli.retiisi.eu>
-Subject: Re: [PATCH v6 4/5] media: platform: broadcom: Add bcm2835-isp driver
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>, Tomasz Figa <tfiga@chromium.org>, Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, Paul Elder <paul.elder@ideasonboard.com>, Hans Verkuil <hans@jjverkuil.nl>, linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-To: Sakari Ailus <sakari.ailus@iki.fi>
-Date: Wed, 18 Nov 2026 23:02:56 +0530
-Message-ID: <179502317689.4071753.17481325815212926138@freya>
-User-Agent: alot/0.13.dev199+g9722e8483
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XQTW6DMBAF4Ksg1nU0M/6FVe9RdWEb03hBSDC1W
+ kW5ew2RSoXK8o003zzNvU5hiiHVbXWvp5BjiuOlBP1S1f5sLx+Bxa7kmoAkNMSZEyz7c7yxmK5
+ MB+OJPBkFvi4r1yn08Wvl3t6feQq3z6LOz+GGttVCInB4kiwNzA+W9UqT9rzxHck2y0V1NgXmx
+ 2GIc1tlfRJs8lgv/jmmeZy+1/YZ1wNFVYC4K5qRAQsWHAdwfe/Na+yCTePFjXbqTgVfvUybQQg
+ 7g4ohBPBGCJTUhwODb4ZGvTN4MXpniMuA0qujHmIzGlQ7QyyGUuX1gNppcWDIv8a+hywGdcZos
+ F1HHg4M9WsgIu0MVQyN6ITh2nCl/zEej8cPolRAjWMCAAA=
+X-Change-ID: 20250923-b4-vchiq-isp-7e8c22c2860c
+To: Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Tomasz Figa <tfiga@chromium.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Hans Verkuil <hans@jjverkuil.nl>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, 
+ Paul Elder <paul.elder@ideasonboard.com>, linux-media@vger.kernel.org, 
+ linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9723;
+ i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
+ bh=+Phj15VV6gW/x20r1leoDyONrOjyK56Ocg9fO0ZBV10=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBq/emZnMaIcgh29evz096xdP9rWNZx/R5kDCI0I
+ OTvxvDIinmJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCav3pmQAKCRBD3pH5JJpx
+ RSUHEACsbUBXBBDA/qAat7oR4iN0+LbU6XKFz9wD4+x6jM+GMk6VMVsaS6XJ8n3yMcO8iX2PGbe
+ nky8v5Qt90Rli79HI7+w31y3zz+gw17mDwG1idWtblEtNGWveTayzLYhLPKDZ0FCRntGNH33iac
+ xNDWrnui9+xwXzYni84ElJt7z4R0r5V2kBOpJBkjEkOQpLQIJBWQtxTkQPGCxZGfUIwx5pseaaQ
+ e73vGZf1G5fYX4UfGaEHA84W69Z1Ra6N5HWdXZhDn02+ZtqXGHusOeEvIhRUb5cZ6qwZaw5k71R
+ ksLkXxTdc+9AMvKZ5fls+zpr7k4oP7fiBVPFAiyvjdJRNhSnf7f+0PlP0kwI7UWKLzMYtJgx0Kb
+ AIXGtjz0B1OS85oxuTBIA4ZZJpUKfMzYAksw4U7Q+b4Bbww2oVyoYCngkCOMlOZC2U+6M+phIjc
+ fS14ZTdWoOonSJCzPdwa61igMVqYgiqeQLwqAI2LZ6lgDW44V8MrwGG3/UqgJvgIWW00hcLDz7V
+ 0psxEmJqIUo/e3+kxfPkIyNsdwBKZLePDR8090lZC0jOOxHlslmVRHv83kWM+D1KnqrI7PvU0Q6
+ NObCyjcYCCTVqmze9JHTxhLwuO5STrSkJilJHjw9pOgf0GxucWxazo5fAH2bw+HWdb3fqHIy25+
+ MOwfDV0TW+ZYHyQ==
+X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
+ fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
 Hi Sakari,
 
-Thank you for the review.
+The VCSM-CMA driver (which this series depends on) is now picked by
+Florian in the broadcom drivers/next tree [1].
 
-Quoting Sakari Ailus (2026-11-16 19:12:52)
-> Hi Jai, Naush,
->=20
-> On Thu, Nov 12, 2026 at 04:56:32PM +0530, Jai Luthra wrote:
-> > diff --git a/drivers/media/platform/broadcom/bcm2835-isp/bcm2835-isp-fm=
-ts.h b/drivers/media/platform/broadcom/bcm2835-isp/bcm2835-isp-fmts.h
-> > new file mode 100644
-> > index 000000000000..6f3333d33c4f
-> > --- /dev/null
-> > +++ b/drivers/media/platform/broadcom/bcm2835-isp/bcm2835-isp-fmts.h
-> > @@ -0,0 +1,558 @@
-> > +/* SPDX-License-Identifier: GPL-2.0 */
-> > +/*
-> > + * Broadcom BCM2835 ISP driver
-> > + *
-> > + * Copyright =C2=A9 2019-2026 Raspberry Pi (Trading) Ltd.
-> > + *
-> > + * Author: Naushir Patuck (naush@raspberrypi.com)
-> > + *
-> > + */
-> > +
-> > +#ifndef BCM2835_ISP_FMTS
-> > +#define BCM2835_ISP_FMTS
-> > +
-> > +#include <linux/videodev2.h>
-> > +#include <linux/raspberrypi/mmal-encodings.h>
-> > +
-> > +struct bcm2835_isp_fmt {
-> > +     u32 fourcc;
-> > +     int depth;
-> > +     int bytesperline_align;
-> > +     u32 mmal_fmt;
-> > +     int size_multiplier_x2;
-> > +     u32 colorspace_mask;
-> > +     enum v4l2_colorspace colorspace_default;
-> > +     unsigned int step_size;
-> > +};
-> > +
-> > +#define V4L2_COLORSPACE_MASK(colorspace) BIT(colorspace)
->=20
-> The V4L2 prefix shouldn't be used for declaring macros in drivers. Please
-> use a driver specific prefix instead.
->=20
+If the ISP is okay to be merged by you (and Hans/Mauro), we probably
+need to coordinate so it all ends up in a single tree during the merge
+window.
 
-Will fix.
+[1]: https://github.com/Broadcom/stblinux/commits/drivers/next
 
-[...]
+---
+This series adds support for Broadcom/Raspberry Pi BCM2835 ISP present
+on Raspberry Pi 4 and earlier. The underlying hardware for the ISP is
+accessed through the VideoCore VPU, via the VCHIQ/MMAL interface that
+was recently destaged under platform/raspberrypi.
 
-> > +             return -EINVAL;
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int bcm2835_isp_mmal_buf_cleanup(struct mmal_buffer *mmal_buf)
-> > +{
-> > +     mmal_vchi_buffer_cleanup(mmal_buf);
-> > +
-> > +     if (mmal_buf->dma_buf) {
-> > +             dma_buf_put(mmal_buf->dma_buf);
-> > +             mmal_buf->dma_buf =3D NULL;
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int bcm2835_isp_node_queue_setup(struct vb2_queue *q,
-> > +                                     unsigned int *nbuffers,
-> > +                                     unsigned int *nplanes,
-> > +                                     unsigned int sizes[],
-> > +                                     struct device *alloc_devs[])
-> > +{
-> > +     struct bcm2835_isp_node *node =3D vb2_get_drv_priv(q);
-> > +     unsigned int size;
-> > +
-> > +     if (setup_mmal_port(node))
-> > +             return -EINVAL;
-> > +
-> > +     size =3D node->q_data.sizeimage;
-> > +     if (size =3D=3D 0) {
-> > +             v4l2_info(&node_get_dev(node)->v4l2_dev,
-> > +                       "%s: Image size unset in queue_setup for node %=
-s[%d]\n",
-> > +                       __func__, node->name, node->id);
-> > +             return -EINVAL;
-> > +     }
-> > +
-> > +     if (*nplanes)
-> > +             return sizes[0] < size ? -EINVAL : 0;
-> > +
-> > +     *nplanes =3D 1;
-> > +     sizes[0] =3D size;
-> > +
-> > +     node->port->current_buffer.size =3D size;
-> > +
-> > +     if (*nbuffers < node->port->minimum_buffer.num)
-> > +             *nbuffers =3D node->port->minimum_buffer.num;
-> > +
-> > +     node->port->current_buffer.num =3D *nbuffers;
-> > +
-> > +     v4l2_dbg(2, debug, &node_get_dev(node)->v4l2_dev,
-> > +              "%s: Image size %u, nbuffers %u for node %s[%d]\n",
-> > +              __func__, sizes[0], *nbuffers, node->name, node->id);
-> > +     return 0;
-> > +}
-> > +
-> > +static int bcm2835_isp_buf_init(struct vb2_buffer *vb)
-> > +{
-> > +     struct bcm2835_isp_node *node =3D vb2_get_drv_priv(vb->vb2_queue);
-> > +     struct bcm2835_isp_dev *dev =3D node_get_dev(node);
-> > +     struct bcm2835_isp_buffer *buf =3D
-> > +             to_bcm2835_isp_buffer(to_vb2_v4l2_buffer(vb));
-> > +
-> > +     v4l2_dbg(3, debug, &dev->v4l2_dev, "%s: vb %p\n", __func__, vb);
-> > +
-> > +     buf->mmal.buffer =3D vb2_plane_vaddr(&buf->vb.vb2_buf, 0);
-> > +     buf->mmal.buffer_size =3D vb2_plane_size(&buf->vb.vb2_buf, 0);
-> > +     mmal_vchi_buffer_init(dev->mmal_instance, &buf->mmal);
-> > +     return 0;
-> > +}
-> > +
-> > +static int bcm2835_isp_buf_prepare(struct vb2_buffer *vb)
-> > +{
-> > +     struct bcm2835_isp_node *node =3D vb2_get_drv_priv(vb->vb2_queue);
-> > +     struct bcm2835_isp_dev *dev =3D node_get_dev(node);
-> > +     struct vb2_v4l2_buffer *vb2 =3D to_vb2_v4l2_buffer(vb);
-> > +     struct bcm2835_isp_buffer *buf =3D to_bcm2835_isp_buffer(vb2);
-> > +     struct dma_buf *dma_buf;
-> > +     int ret =3D 0;
-> > +
-> > +     v4l2_dbg(3, debug, &dev->v4l2_dev, "%s: type: %d ptr %p\n",
-> > +              __func__, vb->vb2_queue->type, vb);
->=20
-> Is this still appropriate after development time?
->=20
+This series depends on the VCSM CMA driver for shared memory support
+(for lens shading buffers) which was posted as a separate series here:
 
-I don't think so, I'll drop this and other ones at v4l2_dbg level 3.
+https://lore.kernel.org/all/20261112-b4-vc-sm-cma-v5-0-d25e3b687e71@ideasonboard.com/T/#t
 
-[...]
+This series along with dependencies is available here:
+https://github.com/jailuthra/linux/tree/b4/rpi-isp
 
-Ack on rest of the comments for prints as well.
+Libcamera support is posted, and available here:
+https://github.com/jailuthra/libcamera/tree/pi4-upstream
 
-> > diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-=
-core/v4l2-ioctl.c
-> > index 17ba1ae70735..1449de2b64b5 100644
-> > --- a/drivers/media/v4l2-core/v4l2-ioctl.c
-> > +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-> > @@ -1490,6 +1490,8 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc =
-*fmt)
-> >       case V4L2_META_FMT_GENERIC_CSI2_16:     descr =3D "8-bit Generic =
-Meta, 16b CSI-2"; break;
-> >       case V4L2_META_FMT_GENERIC_CSI2_20:     descr =3D "8-bit Generic =
-Meta, 20b CSI-2"; break;
-> >       case V4L2_META_FMT_GENERIC_CSI2_24:     descr =3D "8-bit Generic =
-Meta, 24b CSI-2"; break;
-> > +     case V4L2_META_FMT_BCM2835_ISP_STATS: descr =3D "BCM2835 ISP Imag=
-e Statistics"; break;
-> > +     case V4L2_META_FMT_BCM2835_ISP_PARAMS: descr =3D "BCM2835 ISP Con=
-fig Parameters"; break;
->=20
-> What's the status of the documentation for these? Do we have something
-> beyond the headers?
->=20
+This series depends on the latest raspberry pi firmware present at:
+https://github.com/raspberrypi/rpi-firmware
 
-These are documented in metafmt-bcm2835-isp.rst, which in turn refers to
-v4l2-isp.rst, and also refers to the actual parameter and stats structures
-defined in the bcm2835-isp.h.
-
-I'll add an actual C code example for reading AWB stats, as that seems to
-be missing right now, even though it's straightforward.
-
-[...]
-
-> > +/**
-> > + * struct bcm2835_isp_params_digital_gain - Digital gain parameters bl=
-ock
-> > + *
-> > + * @header: Block header (type =3D BCM2835_ISP_PARAM_BLOCK_DIGITAL_GAI=
-N)
-> > + * @digital_gain: Digital gain configuration
-> > + */
-> > +struct bcm2835_isp_params_digital_gain {
-> > +     struct v4l2_isp_params_block_header header;
-> > +     struct bcm2835_isp_digital_gain digital_gain;
-> > +} __attribute__((aligned(8)));
-> > +
-> > +/**
-> > + * define BCM2835_ISP_PARAMS_MAX_SIZE - Maximum size of all ISP parame=
-ters
->=20
-> How about adding a build-time check to the driver the size remains
-> unchanged? There are quite a few different fields there.
->=20
-> I might do the same for the statistics.
->=20
-> This can be all fixed on top though and doesn't affect the UAPI.
->=20
-
-I'll add a static_assert() for both in the next revision.
-
-> > + *
-> > + * This defines the maximum size needed to accommodate all possible pa=
-rameter
-> > + * blocks in a single buffer. Drivers use this to allocate appropriate=
-ly
-> > + * sized buffers.
-> > + */
-> > +#define BCM2835_ISP_PARAMS_MAX_SIZE                                  \
-> > +     (sizeof(struct bcm2835_isp_params_black_level) +                \
-> > +      sizeof(struct bcm2835_isp_params_geq) +                        \
-> > +      sizeof(struct bcm2835_isp_params_gamma) +                      \
-> > +      sizeof(struct bcm2835_isp_params_denoise) +                    \
-> > +      sizeof(struct bcm2835_isp_params_sharpen) +                    \
-> > +      sizeof(struct bcm2835_isp_params_dpc) +                        \
-> > +      sizeof(struct bcm2835_isp_params_cdn) +                        \
-> > +      sizeof(struct bcm2835_isp_params_cc_matrix) +                  \
-> > +      sizeof(struct bcm2835_isp_params_lens_shading) +               \
-> > +      sizeof(struct bcm2835_isp_params_awb_gains) +                  \
-> > +      sizeof(struct bcm2835_isp_params_digital_gain))
-> > +
-> >=20
->=20
-> --=20
-> Regards,
->=20
-> Sakari Ailus
+---
 
 Thanks,
 Jai
+
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+To: Tomasz Figa <tfiga@chromium.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+To: Sakari Ailus <sakari.ailus@iki.fi>
+Cc: Hans Verkuil <hans@jjverkuil.nl>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Naushir Patuck <naush@raspberrypi.com>
+Cc: Stefan Wahren <wahrenst@gmx.net>
+Cc: Paul Elder <paul.elder@ideasonboard.com>
+Cc: Tomasz Figa <tfiga@chromium.org>
+Cc: linux-media@vger.kernel.org
+Cc: linux-rpi-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+---
+Changes in v7:
+- (Jacopo) Move the uAPI header under include/linux/media/broadcom
+- (Sakari) s/v4l2_isp_params_buffer/v4l2_isp_buffer and
+  s/V4L2_COLORSPACE/BCM2835_ISP_COLORSPACE
+- (Sakari) Fix unnecessary v4l2_dbgs, and other log level issues
+- (Sakari) Improve documentation for stats buffer, reorganize it a bit
+- (Sakari) Add static asserts for params and stats buffer size to avoid
+  unintended changes to uAPI
+- (Sakari) Initialize loop variables inline when possible
+- Link to v6: https://lore.kernel.org/r/20261112-b4-vchiq-isp-v6-0-711b48378367@ideasonboard.com
+
+Changes in v6:
+- Rebase on v7.4-rc1
+- Move vchiq/mmal patches to the vc-sm-cma series, as it goes through a
+  separate tree
+- Update usage of vc_sm_cma_int_handle() which is now renamed to
+  vc_sm_cma_get_vc_handle()
+- Link to v5: https://lore.kernel.org/r/20260917-b4-vchiq-isp-v5-0-2d8870add2c0@ideasonboard.com
+
+Changes in v5:
+- Add missing note in cover letter about dependency on latest firmware
+- Update documentation of return type of vb2_core_expbuf_dmabuf() to only
+  ERR_PTR and not NULL
+- Fix warnings reported by media-ci (coccinelle, smatch etc.)
+  - Use struct_group() around the fields we want to memcpy from UAPI param
+    struct to the anonymous structs inside mmal_parameter_isp_parameters
+  - Don't use complicated pointer arithmetic and instead write
+    mmal_param->_mmal_substruct.update = 1 explicitly
+  - Only check for IS_ERR and not IS_ERR_OR_NULL for output of
+    vb2_core_expbuf_dmabuf()
+  - Check node->id against array bounds
+- Link to v4: https://lore.kernel.org/r/20260916-b4-vchiq-isp-v4-0-f668c2017b74@ideasonboard.com
+
+Changes in v4:
+- Rebase on v7.3-rc1
+- Set ISP_NUM_INSTANCES to 1 until we have proper support for
+  multiplexing ISP instances (Laurent)
+- Add a new struct mmal_parameter_isp_parameters {} in mmal-parameters.h
+  to send combined updates the firmware (Dave)
+- Rework bcm2835-isp-params.c to use the above and save expensive
+  messages over IPC boundary (Dave)
+- Test if the firmware supports the single struct, and fail with an
+  error message asking the user to update their firmware if not (Dave)
+- Check for retval of isp_set_param() and print error messages if it
+  fails
+- Various cleanups and suggestions (Paul)
+- Add "media: videobuf2-core: Move type check out of vb2_core_expbuf()"
+  on Laurent's suggestion
+- Drop comment about FourCC values being copied from V4L2
+- Drop old paragraph in Kconfig that got copied from previous revision
+- Link to v3: https://lore.kernel.org/r/20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com
+
+Changes in v3:
+- Rebase on v7.2-rc1
+- Split PATCH 1 to add missing incles before moving the headers
+- Update commit messages with Laurent's suggestions
+- Drop redundant buffer list and locks for params as we send them
+  immediately to the firmware in .buf_queue
+- Drop the now empty .stop_streaming() for params node
+- Minor cleanups
+- Link to v2: https://lore.kernel.org/r/20260210-b4-vchiq-isp-v2-0-4403944152fe@ideasonboard.com
+
+Changes in v2:
+- Replace custom V4L2 controls (V4L2_CID_USER_BCM2835_ISP_*) with the
+  V4L2 extensible parameters framework via a dedicated metadata output
+  node (bcm2835-isp-params). Split params handling into new file
+  bcm2835-isp-params.c.
+- Add AWB gains and digital gain as extensible parameter block types
+  instead of standard V4L2 integer controls.
+- Use MEDIA_ENT_F_PROC_VIDEO_ISP instead of MEDIA_ENT_F_PROC_VIDEO_SCALER
+  for the media entity function.
+- Rework media controller registration: let video device nodes handle
+  their own entity registration, removing the manual entity/interface
+  creation in media_controller_register_node().
+- Propagate colorspace, ycbcr_enc, xfer_func, and quantization properly
+  through g_fmt/s_fmt.
+- Fold the stats/params FourCC additions (previously a separate commit)
+  into this patch.
+- Drop the custom CID base commit (no longer needed).
+- Update documentation.
+- Link to v1: https://lore.kernel.org/r/20260113-b4-vchiq-isp-v1-0-ea0b300bffc8@ideasonboard.com
+
+---
+Dave Stevenson (1):
+      media: videobuf2: Allow exporting of a struct dmabuf
+
+Jai Luthra (2):
+      media: videobuf2-core: Move type check out of vb2_core_expbuf()
+      media: platform: broadcom: Move unicam driver to subdir
+
+Naushir Patuck (2):
+      media: platform: broadcom: Add bcm2835-isp driver
+      platform/raspberrypi: vchiq: Load bcm2835_isp driver from vchiq
+
+ Documentation/admin-guide/media/bcm2835-isp.dot    |   14 +
+ Documentation/admin-guide/media/bcm2835-isp.rst    |   78 +
+ Documentation/admin-guide/media/v4l-drivers.rst    |    1 +
+ .../userspace-api/media/v4l/meta-formats.rst       |    1 +
+ .../media/v4l/metafmt-bcm2835-isp.rst              |  108 ++
+ MAINTAINERS                                        |   11 +-
+ drivers/media/common/videobuf2/videobuf2-core.c    |   50 +-
+ drivers/media/common/videobuf2/videobuf2-v4l2.c    |    8 +-
+ drivers/media/dvb-core/dvb_vb2.c                   |    3 +-
+ drivers/media/platform/broadcom/Kconfig            |   18 +-
+ drivers/media/platform/broadcom/Makefile           |    3 +-
+ .../media/platform/broadcom/bcm2835-isp/Kconfig    |   15 +
+ .../media/platform/broadcom/bcm2835-isp/Makefile   |    4 +
+ .../broadcom/bcm2835-isp/bcm2835-isp-common.h      |   50 +
+ .../broadcom/bcm2835-isp/bcm2835-isp-fmts.h        |  558 ++++++++
+ .../broadcom/bcm2835-isp/bcm2835-isp-params.c      |  516 +++++++
+ .../broadcom/bcm2835-isp/bcm2835-v4l2-isp.c        | 1494 ++++++++++++++++++++
+ .../media/platform/broadcom/bcm2835-unicam/Kconfig |   18 +
+ .../platform/broadcom/bcm2835-unicam/Makefile      |    3 +
+ .../{ => bcm2835-unicam}/bcm2835-unicam-regs.h     |    0
+ .../broadcom/{ => bcm2835-unicam}/bcm2835-unicam.c |    0
+ drivers/media/v4l2-core/v4l2-ioctl.c               |    2 +
+ .../raspberrypi/vchiq-interface/vchiq_arm.c        |    2 +
+ include/linux/raspberrypi/mmal-parameters.h        |  155 +-
+ include/linux/raspberrypi/vchiq_arm.h              |    1 +
+ include/media/videobuf2-core.h                     |   21 +-
+ include/uapi/linux/media/broadcom/bcm2835-isp.h    |  530 +++++++
+ include/uapi/linux/videodev2.h                     |    2 +
+ 28 files changed, 3609 insertions(+), 57 deletions(-)
+---
+base-commit: bc71431221f5ba8bb33918399552636e059c2c45
+change-id: 20250923-b4-vchiq-isp-7e8c22c2860c
+prerequisite-change-id: 20251030-b4-vc-sm-cma-f6727c39cd25:v5
+prerequisite-patch-id: 4fc8cb49edcbe9c8e699b4ab9f6863ac040a070b
+prerequisite-patch-id: 0a5fdf8fe23298fac2c6d188e1686dd292901efc
+prerequisite-patch-id: d6d9ee5b60f97112dcf1aea01212c724d9151505
+prerequisite-patch-id: 3855700b608f20e2a6857a9702838d1e54fc31cb
+prerequisite-patch-id: e2b1e84a1e94e7095b964da693129d36dda78bb0
+prerequisite-patch-id: 08c61bad2960da29ae7178034560ebab46dc3497
+prerequisite-patch-id: 07e50207cc947f44e1d626b31d0ace7e12a8f3a1
+prerequisite-patch-id: 3d82a2605799686668729fdc2677c3f6b7c2aa0d
+prerequisite-patch-id: b2a6012a5d54ed1ebad4034daa7bc9ca10ab67d4
+prerequisite-patch-id: 7038462996eaf42f0bf47e5eda1cf264abfd8953
+prerequisite-patch-id: 1898d91213e9bd75be3109180527fb0caf6d7174
+prerequisite-patch-id: d0cfc49c673c8c4a4c13d44a547104c24f57cb49
+prerequisite-patch-id: 99e2132187c5db1d65d48200255170835a2a302c
+prerequisite-patch-id: d1edc04e1689cb05f13e61f1370305d4f959cb5b
+prerequisite-patch-id: 1f6521b641f29e85385cd442f347a7745e830a83
+prerequisite-patch-id: f366e5894549a0e9142e8eb202e829834f617679
+prerequisite-patch-id: a7586b3cffb7e1300ff1bd9ce93f636a2d9b48b2
+
+Best regards,
+-- 
+Jai Luthra <jai.luthra@ideasonboard.com>
+
