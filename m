@@ -1,11 +1,11 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795008547;
-	b=CYXdQlOx8qNaXzgkzGV/zUfCiNpwuswkdE4ILPu0zQE6OdWYbq9ZiyTkwLaiLDij8iBe
-	 vSgOLmBvvxn4XTRslfTO9uIlWPxcq5ACdU9zGCxqeGEJfm2tqV5V/ol18dLNCgDkhDBFc
-	 UfgHtTU/oGjXnE2+DtEFy3bc+CehCqz5PjDwhiBs9obEfM1VV1u67tbE9W6VrDD2unGif
-	 90lkxNuuzZ0bfQx6lgbH4vrRWTy6VzZrih7YBdmRme2pR/ZNhDKUAYXzF/yD4bSXbVHZk
-	 nLlZJowMpihnL8zWFrdDpiQ9klxLj1vgGpoCHxthnVsc7i6y0/u40eVin/fFoYOYFOQ==
+	b=NBpuWcluVucfuIgv4v++dkiDr6Ld6VTpfiktyojyGkve8ldimo+np/db/CKbDort5vwr
+	 2K1BqnY2LOBjKQRUFGv8m2yYqzr/dtQxyTy6iGPn6uTcFXD3o5BIg+Xb5hWVai5qQ58IW
+	 VPu8C4UgItoNagvK2Vi7ZxC8QyxpSq2DpHNXTrMXbICxu7DlasiGeVyQ0SP/aTVnxLXap
+	 Lr22EiuGVro7vPsd9x00mfiu0a7r7BEW28pi36SO7n+IxoOoOob2bk6NWg7wpi6CVWS+i
+	 45Qj8uMnfGbaqBPrTdzt2s2Tz1BLjnui5wGvntA7nEIQm6IZxXwrDffYh43Ibehq4xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795008547;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
@@ -13,60 +13,60 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
 	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=UGdpKCsLNGzzLE4PtH1fVpm7t3CaA02h+viz9YBi2U0=;
-	b=NizAubi8tTp8k/DzZOhoSy73iZe8mDs5/0NUEy19mG6LNhysoJaPrFfj2dtAkPHg9DDa
-	 x2oQdNAr4WRAW0ukTtH6F7IGWB6zlQ6ywwoKl6Pr8vS0B6FVXwFWHb8yC2xGm8UCzUSEb
-	 kBDk3aZMfdI28dM2XP0wbLJtXHKR1YtZlnz3KfIDc47CSYDwpNT8pAd2wviexhLb8gj4m
-	 W7ljQkxAgzKOyQIrOzt9xJaWIBiS4VbCHViRTPHc4D0Clm9DqGuqsqTlCAYPkHObQl9OO
-	 FgHW0awl3LQLxsLAtElJFAm8DhrODmdgNPx9+on/7L6fYkxu/QMBcA/CDua7l3rNE1A==
+	bh=G/GNX2+V9nbyWNR+00jmgCILOMXa3eiyG8jaPILcwW0=;
+	b=WyDkbIdzyABzoTc07muo9OHcGtlNY+xzREoFjRPl4ui55odo+HqiXadAhKv30nAecFL8
+	 cBiZIqZV5R28l37SClZgTKK7PYRLWlTRKmcyIbXIWPiR4grPl67fZNTUqZkyEnVWq5MGF
+	 1dx6sen4wqhZhRJ5fKYWrme2+lU+RN51iRQN2eSC/bbAd4tv4PtKWSjPz896j/VW2Z5jr
+	 hKDplcGlX6aieh01a6/irqEpb8L0/ojVXFX2jtqE9BlhRKBW7d9AqEME4lWa+FNBsP7UF
+	 u3Q+d2vyVGv4O/RL7DNvk/zhuNZMG6VsY368PsIqm0mr54zv2OSXysXk8KlFT0ybVAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="YP6Xi/v0";
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b6r8gMbl;
 	arc=none smtp.remote-ip=192.198.163.17
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2A3606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA311606A331
 	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:29:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F2A3606A32C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA311606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YP6Xi/v0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b6r8gMbl
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1795008547; x=1826544547;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=z2xK3WfBVOPlcgtCVCKNAg38LngsE8KyWKghcKvgjSs=;
-  b=YP6Xi/v0lNzoJZgSnffumYJVQdRXkj8tOZ5GugnjEvl2tWmOosr/GMsY
-   Mz/DFx0y2ZUlTTvWUeT5pgXTrrddCsflovwVNxN7Zt5rzkh6UH9ZPH9Nn
-   0vYrjMkELBqEIVs5YoZbGsZnL7klhcY7rAbM5UBwxyRlZjwBFM4aDUsqi
-   fgZdIb/+OcsLlqUQUORZNAU/2zdwSyHPrhpYmkq8kAs8nIzNyFOzci1SE
-   QVg61llhgH+yd19FKkTSHbQab9rnEeBODzOiFYFBi3YVJ9Fv11jP8poBN
-   f/FA08EwetqLWiN3iPh7ExqIWHKWW30Oie42yO87qwcsINGDHSnd7VEAB
+  bh=L/MnQrv3ioGeWL0swcOG3uo+Mjujlaww18J3u/23Qfc=;
+  b=b6r8gMbl9jc7a51os43LzkEZAx8OfVBgiH6BSvPHt9A/BxqaAMon12pw
+   wQ6RPj/2WDmdItHKhShs19wq95ANLKMGSTLKdpRn+gpIjSNHAZouDs/G1
+   Kok6JXV1Ntg+99SPrIMJW+9fvbNRdPZKUSjKl7oI+lkEPJ49AhU+M5bN4
+   7M76ymSdMMvbOMbBWzXvReebtury0yZ1pmcgnm/TCu8puWxyhs63J8Z57
+   XOedVAtO7G6lfCL7ixrtL2B41jh5zaO2M9r10A7jBb63maAsWKOFC0ffk
+   l9PMOqhC76ItwjenZ0+lqOZQTVepHffbQri+JVG1VXIsYrgW781JrNxgh
    Q==;
-X-CSE-ConnectionGUID: luk2Fp8kR1iDruoZWcYCkA==
-X-CSE-MsgGUID: rllOVR/uRtCJrGQ9NXEDiA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3808858"
+X-CSE-ConnectionGUID: GOP/LIFYTHK22ditzJ5EVA==
+X-CSE-MsgGUID: TemNMCnHRMuSgaUjFjWPjg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3808898"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3808858"
+   d="scan'208";a="3808898"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
   by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:29:04 -0800
-X-CSE-ConnectionGUID: OOq2HAMmRi2S6CYeUa0+6w==
-X-CSE-MsgGUID: epCCc/w6Slegii/grtJacw==
+X-CSE-ConnectionGUID: QzgjKGcbQPqewy+AKdr8vQ==
+X-CSE-MsgGUID: ZRm5cl44TjSEDgb59VfR5A==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="10376773"
+   d="scan'208";a="10376776"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:58 -0800
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 8A9F2122FF7;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 9A27B1230B0;
 	Wed, 18 Nov 2026 15:28:31 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xTfi0-00000000tbl-0mfs;
+	id 1xTfi0-00000000tc1-11VB;
 	Wed, 18 Nov 2026 15:28:20 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -102,9 +102,9 @@ Cc: hans@jjverkuil.nl,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH v13 33/73] media: Documentation: Add binning and sub-sampling controls
-Date: Wed, 18 Nov 2026 15:27:39 +0200
-Message-ID: <20261118132819.213473-34-sakari.ailus@linux.intel.com>
+Subject: [PATCH v13 37/73] media: Documentation: Document frame controls for common raw sensor model
+Date: Wed, 18 Nov 2026 15:27:43 +0200
+Message-ID: <20261118132819.213473-38-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
 References: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
@@ -119,54 +119,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the binning and sub-sampling controls (V4L2_CID_BINNING_FACTORS
-and V4L2_CID_SUBSAMPLING_{HORIZONTAL,VERTICAL}) in the common raw sensor
-model.
+Document that V4L2_CID_LINE_LENGTH_PIXELS V4L2_CID_FRAME_LENGTH_LINES are
+used to configure frame rate in common raw camera sensor model. Also
+mention the controls in camera sensor documentation.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
- .../media/v4l/subdev-config-model.rst          | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ .../userspace-api/media/drivers/camera-sensor.rst         | 8 ++++++++
+ .../userspace-api/media/v4l/subdev-config-model.rst       | 8 ++++++++
+ 2 files changed, 16 insertions(+)
 
+diff --git a/Documentation/userspace-api/media/drivers/camera-sensor.rst b/Documentation/userspace-api/media/drivers/camera-sensor.rst
+index 316d14437658..7f762d59eaa8 100644
+--- a/Documentation/userspace-api/media/drivers/camera-sensor.rst
++++ b/Documentation/userspace-api/media/drivers/camera-sensor.rst
+@@ -61,6 +61,8 @@ There are two different methods for obtaining possibilities for different frame
+ intervals as well as configuring the frame interval. Which one to implement
+ depends on the type of the device.
+ 
++.. _media_camera_sensor_frame_rate_raw:
++
+ Raw camera sensors
+ ~~~~~~~~~~~~~~~~~~
+ 
+@@ -78,6 +80,12 @@ The formula is bus independent and is applicable for raw timing parameters on
+ large variety of devices beyond camera sensors. Devices that have no analogue
+ crop, use the full source image size, i.e. pixel array size.
+ 
++The combined *analogue crop width + horizontal blanking* and *analogue crop
++height + vertical blanking* can be controlled directly using the
++:ref:`V4L2_CID_LINE_LENGTH_PIXELS and V4L2_CID_FRAME_LENGTH_LINES
++<image_source_control_frame_length>` controls, respectively, should the driver
++support them.
++
+ Horizontal and vertical blanking are specified by ``V4L2_CID_HBLANK`` and
+ ``V4L2_CID_VBLANK``, respectively. The unit of the ``V4L2_CID_HBLANK`` control
+ is pixels and the unit of the ``V4L2_CID_VBLANK`` is lines. The pixel rate in
 diff --git a/Documentation/userspace-api/media/v4l/subdev-config-model.rst b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-index ff02761726f3..0acb48a0bcce 100644
+index 0acb48a0bcce..46248c9d50ad 100644
 --- a/Documentation/userspace-api/media/v4l/subdev-config-model.rst
 +++ b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-@@ -144,8 +144,12 @@ separately horizontally and vertically.
- 
- The combined effect of binning and sub-sampling is configured using the
- ``V4L2_SEL_TGT_COMPOSE`` rectangle, relative to the analogue crop rectangle, on
--(pad, stream) pair 1/0. The driver implementation determines how to configure
--binning and sub-sampling to achieve the desired size.
-+(pad, stream) pair 1/0. It depends on the driver which of these operations are
-+being used to achieve the resulting size. Binning and sub-sampling are also
-+directly configured using :ref:`V4L2_CID_BINNING_FACTORS
-+<image_source_control_binning_factors>` and
-+:ref:`V4L2_CID_SUBSAMPLING_HORIZONTAL and V4L2_CID_SUBSAMPLING_VERTICAL
-+<image_source_control_subsampling>` controls on drivers that support them.
- 
- The digital crop operation takes place after binning and sub-sampling. It is
- configured by setting the ``V4L2_SEL_TGT_CROP`` rectangle on (pad, stream) pair
-@@ -216,9 +220,13 @@ Also refer to :ref:`Selection targets <v4l2-selection-targets-table>`.
+@@ -260,6 +260,14 @@ Also refer to :ref:`Selection targets <v4l2-selection-targets-table>`.
        - \-
-       - \-
-       - Binning and sub-sampling. This rectangle is relative to the
--        ``V4L2_SEL_TGT_CROP`` rectangle on the same (pad, stream). The
--        combination of binning and sub-sampling is expressed with this selection
--        target.
-+        ``V4L2_SEL_TGT_CROP`` rectangle on the same (pad, stream). Binning is
-+        configured using the :ref:`V4L2_CID_BINNING_FACTORS
-+        <image_source_control_binning_factors>` control and sub-sampling is
-+        configured using the :ref:`V4L2_CID_SUBSAMPLING_HORIZONTAL and
-+        V4L2_CID_SUBSAMPLING_VERTICAL <image_source_control_subsampling>`
-+        controls. The width and the height of this selection rectangle reflect
-+        the combined effect of binning and subsampling.
-     * - 2/0
-       - Format
-       - X
+       - Embedded data source format.
+ 
++Frame rate
++^^^^^^^^^^
++
++Drivers supporting the Common raw camera sensor model support
++:ref:`V4L2_CID_LINE_LENGTH_PIXELS and V4L2_CID_FRAME_LENGTH_LINES
++<image_source_control_frame_length>` controls for :ref:`frame rate configuration
++<media_camera_sensor_frame_rate_raw>`.
++
+ Embedded data
+ ^^^^^^^^^^^^^
+ 
 -- 
 2.47.3
 
