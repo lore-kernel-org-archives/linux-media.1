@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794962306;
-	b=cPQMrcXIOZK/C5Ul8PcqlgQIJZrul4oKJ74VOp1s3w7BtJIkvJJtGEcOAckKNLFRSoZk
-	 1YV22n6GV4n2pRWw+9bfsxLINx5QblYq863DB49CwrbrzSto6brKnWIqB3rTAz0HCMfFF
-	 TVpGXIxOPdQy1pjMjp2QCBBOOJc7W6UOlDlY1sIPKMRiT9AKHJP55Zul7hqaiyXd+CiUz
-	 LuqP97ONs5VJfKf077z8iS3JxXHcL/NYTdAYd6m+hLYVByLrbf9EGPaxqctsMq0tDDDs/
-	 ShFtdEsNnwvtGZLVHF4slVv+22dmcTAVGm8UxRAhJ56ur6dMrPvzYciqGB2gjUZFyFw==
+	t=1794962311;
+	b=wdGbFVasehmuppXsR2O9m+dwtdG+9Xc7PkwSdeNz+ebvizYL8DNBXElonFgDANdJVpko
+	 Vs+CI+IrrCC02h/vjaUA/MLFpKpnNuTwm6akvtiRJx+8B7T2VMAn7l9xSs+jvbt/FZjtZ
+	 H0lbn6Ff/i+jcl+ToTAfTIQhiVVlK7lfdf2468UGSKTy5OIGouULQ8oRWHZnc153p1DQ2
+	 FvFVf+T2JoG9vAkjukZHNHjOF2myLLosTxVvNC9qH0PU0xncQ3xUQlN9Qg1keQDDJ9QNT
+	 zLZHYCHOEWkvGPFCrqWPYKFP6EvV5/dOBPu9OBdUgULvQHObb0gxJh8teXZ5sRNJqYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794962306;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794962311;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pllyLf+++bwuw+cTuPHNT6Ou6itzbDvqjnXe+1hShHA=;
-	b=h65PB3HFQep3Ng18zcu7zmlu4LbXLJS6EM5UeshEfjX7eW8kRG6MmeJr0q6W1WdRAbyG
-	 dn5uTpGFn46ikwfOECDWmtvq+rwVzRfKONy4vir85A3oKhjWTDFCUniqgS8TcdN+2kCLs
-	 cqZzH6Ygh93A+OZwFyjRFH0YNhU30ScdK2cRoG9X5t5eQe3T+e/D1pn975ewzB3OAC6Xv
-	 kSoD/RnDYK/D81vYAaGmO63/Hvvg7qywTlJuJCi5BRThDUMphJZyHxSxfeis8GYvQRd5g
-	 FexlsS235m4FKNNS8izQPI9yLEbR6Nyv29BVWTSL9WF2Yugn29lny199cPmgPbZC6rA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Jigjp+fj5LXEgFrf+eIYUR/gBYQiXZlMSZoHeYqq3yY=;
+	b=SR0bH+Toq+YBWKrsyggRhG+7cdD59fKtRIIwEK2OpHS/G+XhMS2dX1GI36Nfx0LF+2Sd
+	 GiIiSav3sNYJQqICjnL4ZDb3XnXYVHOEvvVhjK5xSoTOwkAyZHWW5WPlf7L7ygPQSfIoV
+	 tDY4ZYjX/Sl58Rzyo5zmm1namuwUqEUtoJl8zRhXO9I7JV+Aj1kyuXW32Q07aFxNGjfwd
+	 WCNY3t76BUYUIVkvsTSLro8z/K0UrlmvIpQNApjUrBIuJg/gU05KVS0bZogZ89J/bvT6C
+	 biEmdzPiFepZttIfIkX8wZKLXAM+tSaym7VbIn0k4KWB8i1R3nquAdhAVkoZdDzRsjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fi1swuCq;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j3O2G2t7;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DCE6606A887
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 00:38:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DCE6606A887
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7934606A33A
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 00:38:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7934606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fi1swuCq
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-381f65e4e4bso795878eec.0
-        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 16:38:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j3O2G2t7
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-382c3c9671fso223062eec.0
+        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 16:38:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794962302; x=1795567102; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pllyLf+++bwuw+cTuPHNT6Ou6itzbDvqjnXe+1hShHA=;
-        b=fi1swuCqsqRD4h8XJOEWAoKYZKTUtgqn9z+mHLkaeVqgxyi9z8AN3eNXyPMIAY5iVB
-         o5XraQNOjQpa1/LixhjJQD7oj0sEGtXeq8Q7Q9Eg8OnG7fsm8qG5lGZ/RVgTy5otSfmj
-         WKvXkQG1LeoGBEXUuDLE500suNdXBzUey8l24lJS3Pl/PGTNeyTxQthpGrehsd5yqusH
-         zyMsY7mH5U8OW0xDSw4q5AknyPiJy1zvmhURWnS6pszdA6xFCreiTsW6rJezEOq4BL4e
-         bDznmDJfZ0TMTEKqPUCGdi7X6+8N/AUX6n+lS/Pzxxb87fcp9FEeWtANpd4Fh3T+j09Z
-         ZqCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794962302; x=1795567102;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794962308; x=1795567108; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pllyLf+++bwuw+cTuPHNT6Ou6itzbDvqjnXe+1hShHA=;
-        b=D674B1+5Op2LWnncCtAeQhbGRiXASnCqgIv0ysU5gU0N1Y7cv1DbCOJUGjmpKEX2SL
-         nOF02t0FhpWuT9P4NQR7Vve+lWbZ/AUrmOKqtNG/gAF4SJeUnEKFClFLTtt/yXic+mkg
-         aow4Jbe6J7rv2We2iCxUTPHCbCGhLE7UAo9dWgICCUADBI5/DPoFwP5P62s2qxSqIqbd
-         0KB8HDzjToB2tOaE9dG+uIwSUP5QVm/aKAN0kuK/YiMpkWRn4pmPm5AsCoFDNnrJtLVB
-         znWAqoWb7ChyuA7vvnCCIFf/CZ13J4u8CtopGNjgi49A4t3xHwha2W4miW0+uDoVbpWK
-         brxQ==
-X-Forwarded-Encrypted: i=1; AL+hErEmaZMB+zBUcHA6wGMuktPN/uXr9vaYCUo4JdNYiYvcldK0mUPNjoh6iRDSINVSKg1OcS2JlkB5U4psGQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/GcHzP2xUOhEkLKGcp0eE3lPEJsxkKXUA5YPSOlPgk79Zf3/+a
-	/UPTdirLVwFCxYz/j9B7OZX5G9WEFeP20Tlztd1ivSGRsG31S4WlPI3o
-X-Gm-Gg: AZFdTZeuHdPoXPyiyaMd7q+aip0wu7rFX3XA8+nUo6+JpIgmbyDxL/woGtgVCdIQ53Y
-	mff61NDRR8D7FlJBAP3leGgZtgWDvQe8sXfZZoXZkMUrwgQ6sj51XGT9sp3f8LW92wKOlpfmhgw
-	5ZG8hMXgzUV0feUtGYqzsU78oSl2EtxocdWn7snpqh03PPsO0cVTp4/2CCPEJwnnkM6p6LOlZ8o
-	1sDEPKkr0N9hqvNOkuMN8us7PRr9gkdJ+uhibRcpNJsdXZf6XESiPlNiC/cAhiqYhd7tZbmNIU5
-	gnl4H1W6A/BMXXjg69o00lykV0SdyqKZjo/KmogJGQ5MCGDeu2l1jQSwQIZqb02QUA6htyss9Oj
-	/Jj1XCFY+U+okMqVgI9RkkuZGv/RIgk9EmIaRM9BYaHanUPLO3hVtfY/m14xBp6D0fYJCEg/gX7
-	nPup2N1FlCkC04by8bW41sxSo1sfPUrtk6jVGs6tLn4uUSpUqcI3QI8NAjDknpEHM3ZXHNeYKIM
-	T1zvLhAKDopznnUzes8+6PHboZD3EqpPag0p6EPdYUoRhupsMAsVx3eKTnGzrQbKYqo5Hd6Xqsr
-	PAkGjm01y8uF/Sd27yY/HVfvdHf7b12DGdaDQmX+5kAwpD4jmkmRObKxYsX5padBjCUdoqWx++D
-	KidYv
-X-Received: by 2002:a05:7301:1a14:b0:382:5dd0:3bb2 with SMTP id 5a478bee46e88-3827fe7882bmr917793eec.9.1794962302027;
-        Tue, 17 Nov 2026 16:38:22 -0800 (PST)
+        bh=Jigjp+fj5LXEgFrf+eIYUR/gBYQiXZlMSZoHeYqq3yY=;
+        b=j3O2G2t7EleXwjDSIAXaqkz83fmJajqHRFZEKncFhXPzTewJP43CrYnwjn/nS6ICvu
+         JiUf9vSIqK/o3Ps1+23SbUg8UJwXFTWSfZYptuVEOlCUI851mjLbKEGjJ4DbmrN4IXj4
+         AT3ClrCSKvM+DL6z7k8MFJzs65x7VUkXkTJZUNm8dBbo8s73K2zY7cCZaVH3K5tPA3K6
+         q2AePKO+oIU67bI6wd8jOnUFfPugWm6jTtc7oBZXdNWhB5AGfdxAVh0orWOBDiLKcTOI
+         Ua3kmlgGLa6NkPqhQh8ew4KonWIIzhdfh+Bbv2vj+MRtQYuggZu436UmGgQ26MmfER/V
+         oSgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794962308; x=1795567108;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jigjp+fj5LXEgFrf+eIYUR/gBYQiXZlMSZoHeYqq3yY=;
+        b=Chg7KGdzAGNI/Z7FIj2IbgckWCS/NE3NWe0CJ9b0bxSnemkm2dS+84XfI0MzLwMelq
+         WxS5WPlVnBxhSHFQuVNbZhc21VgkGx8elkNKzTQqRJKPNMUVjdptHKwJ7RpWaDKg6A0O
+         aCyTUpaak8ekc852KvcekKfw6r3IblsCXECM/2okzVfeuGNKDQdizUP/6g7h23cF8Pxu
+         BZ9C5bVzx9YpE4hIPvat/6qqlKCfELSaWz64KqE31erNwDtT5ABNdoDx7ssGqy2Ql6nd
+         oiPoHDFAQXQDppj2IWIl0MVPMbjdt+2cHv1gg39FPo0Logg4snexUUaerTFeQ76C+b/t
+         JHvg==
+X-Forwarded-Encrypted: i=1; AL+hErEJ5juI+GcqBFNck9aUXqhaf4EVjc5Hk1di9bgPMCVhXuHHXdt2D5MCGrlZB4zBDqtF84w9MspjprJLjA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/U8SAWr8Ar9dHrCTjrH9l9laMpYJA397WIDdlLTfsSReBuJoyq
+	2NaLbaRC+tBD89xEJzWQPbyLsPqyafbtTlH5Ud0QysTjG5KHtpCqpBXX
+X-Gm-Gg: AZFdTZeGns+F/cZTZL16yko8wBGmySnVpP39Wkw1dgAH74egdMRiiXHRtnSOkWT+f1N
+	H7tixbqDv3JDEP83nye6DuPv+6fm91nGrmURab8Mo/kfp9tA0QP3g39IXYQcxD70/5ePqPrGJNe
+	VDEiIXoRFnbH7kSaogEbS91B8Wmn/ZXFJHabcjjNWpvU9DfnqVLNH6ql07TX7dsq+bKN81fDIft
+	r+hoYvsZ4QRj41qOAEq9fjTL3VaNL+veXT/b7SmcO7u6GvaUbluPFZNepkjAK7qzqRyvS1zWmEr
+	WJQDVHRvZHOirVub0Ns/EngzUh2dWRFtXwc9kxju6aXKPw6kNVW2bvqeVuqcsIJvFAmQsdUccCD
+	A3HZ2jfewrprydS+2wf25vkS3chrw2eDzALoczwI2CUqplM8yaFG1xitW5fzcCnFgI5DUS8aFj6
+	K/JeKQA/cDR7yusTbS3ZmgXIiYerUxIPrnYUQQ7edtHL3PsJMpzjnt7hO6hDca5Gu+t7W9rEy/Z
+	6pu/QZv+tsNKBR1w435vBodsCEWIxkbiapb6AO06u7dTXcikI37HvaV3zI+GL2q/HvV+ncfuzGs
+	qy9JUtfpniw+8GrzJM/n8DgHNIGVMFeSdTfeYzhMSAsnc/zBgusN6MI/Fgc=
+X-Received: by 2002:a05:7300:d18c:b0:36e:53bc:467d with SMTP id 5a478bee46e88-3827abdf096mr807203eec.0.1794962307806;
+        Tue, 17 Nov 2026 16:38:27 -0800 (PST)
 Received: from cachyos ([2804:214:64:aaf:eb0:6704:6a19:ed25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a75d8015sm1523892eec.21.2026.11.17.16.38.19
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a75d8015sm1523892eec.21.2026.11.17.16.38.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 16:38:21 -0800 (PST)
+        Tue, 17 Nov 2026 16:38:27 -0800 (PST)
 From: Paulo Ravazzano <paulo.ravazzano@gmail.com>
 To: paulo.ravazzano@gmail.com,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -85,10 +85,12 @@ To: paulo.ravazzano@gmail.com,
 Cc: Biren Pandya <birenpandya@gmail.com>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] media: i2c: msp3400-driver: Guard media_entity_cleanup() calls
-Date: Tue, 17 Nov 2026 21:37:41 -0300
-Message-ID: <20261118003742.363133-1-paulo.ravazzano@gmail.com>
+Subject: [PATCH 2/2] media: i2c: saa7115: Guard media_entity_cleanup() calls
+Date: Tue, 17 Nov 2026 21:37:42 -0300
+Message-ID: <20261118003742.363133-2-paulo.ravazzano@gmail.com>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261118003742.363133-1-paulo.ravazzano@gmail.com>
+References: <20261118003742.363133-1-paulo.ravazzano@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -100,34 +102,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Member entity of struct v4l2_subdev is only defined through
- CONFIG_MEDIA_CONTROLLER, so the unconditional
-media_entity_cleanup(&sd->entity) added by commit 87d1307b6791 was
-breaking the code. A conditional preprocessor
+The entity member of struct v4l2_subdev is only defined when
+CONFIG_MEDIA_CONTROLLER is enabled, so the unconditional
+media_entity_cleanup(&sd->entity) calls added by commit 6787d5189e32
+break the build when CONFIG_MEDIA_CONTROLLER is disabled.
+
+Guard both calls with #if defined(CONFIG_MEDIA_CONTROLLER).
 
 An AI agent was used to find the bug. The correction was done manually.
 
-Fixes: 87d1307b6791 ("media: i2c: msp3400-driver: Add missing media_entity_cleanup()")
+Fixes: 6787d5189e32 ("media: i2c: saa7115: Add missing media_entity_cleanup()")
 Signed-off-by: Paulo Ravazzano <paulo.ravazzano@gmail.com>
 ---
- drivers/media/i2c/msp3400-driver.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/media/i2c/saa7115.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/media/i2c/msp3400-driver.c b/drivers/media/i2c/msp3400-driver.c
-index 8c2edd462..8f0b385fa 100644
---- a/drivers/media/i2c/msp3400-driver.c
-+++ b/drivers/media/i2c/msp3400-driver.c
-@@ -717,7 +717,9 @@ static int msp_probe(struct i2c_client *client)
- 	if (state->rev1 == -1 || (state->rev1 == 0 && state->rev2 == 0)) {
- 		dev_dbg_lvl(&client->dev, 1, msp_debug,
- 				"not an msp3400 (cannot read chip version)\n");
-+#if defined(CONFIG_MEDIA_CONTROLLER)
- 		media_entity_cleanup(&sd->entity);
-+#endif
- 		return -ENODEV;
- 	}
- 
-@@ -813,7 +815,9 @@ static int msp_probe(struct i2c_client *client)
+diff --git a/drivers/media/i2c/saa7115.c b/drivers/media/i2c/saa7115.c
+index f4015f113..32c526df1 100644
+--- a/drivers/media/i2c/saa7115.c
++++ b/drivers/media/i2c/saa7115.c
+@@ -1868,7 +1868,9 @@ static int saa711x_probe(struct i2c_client *client)
  		int err = hdl->error;
  
  		v4l2_ctrl_handler_free(hdl);
@@ -136,17 +130,17 @@ index 8c2edd462..8f0b385fa 100644
 +#endif
  		return err;
  	}
+ 	v4l2_ctrl_auto_cluster(2, &state->agc, 0, true);
+@@ -1927,7 +1929,9 @@ static void saa711x_remove(struct i2c_client *client)
  
-@@ -867,7 +871,9 @@ static void msp_remove(struct i2c_client *client)
- 	msp_reset(client);
- 
- 	v4l2_ctrl_handler_free(&state->hdl);
+ 	v4l2_device_unregister_subdev(sd);
+ 	v4l2_ctrl_handler_free(sd->ctrl_handler);
 +#if defined(CONFIG_MEDIA_CONTROLLER)
- 	media_entity_cleanup(&state->sd.entity);
+ 	media_entity_cleanup(&sd->entity);
 +#endif
  }
  
- /* ----------------------------------------------------------------------- */
+ static const struct i2c_device_id saa711x_id[] = {
 -- 
 2.56.1
 
