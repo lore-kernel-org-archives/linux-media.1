@@ -1,96 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=151.80.165.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794966249;
-	b=afxtgC8Ef2iN/R0PiVqqqxSVnhGbBLnZfL45L9oV07SZ6iOsIYvtVzXqxjECzZfuPpY7
-	 AFW6yZcJm3bu0R6ka0VdU3p7oi8eiTdwuolzDTIo1XnGFeIMSORiq2r0CdmK78410QV4i
-	 IQaVC5pTBAZdTK0HF911m2R1C1GCPFs44pfQKGX4c5JAnSwab3Meb+/zQjMHKYUPAcBxp
-	 2boXh3tyAyVWnKd2MVEIits6gSy2wBpG9yAqFSD9i68UG5cjOIUVTq3XgejOsbd1l4dSS
-	 I5teyzAq+FwX7pmhuLyTX6leReyjClYgOwbw75zNoLhkxpE6wCJb9AmlP3/lO0B35/w==
+	t=1794976511;
+	b=WQ1MNmHt60g/Sn19y5Vf5EwM9yHDtCnulyo1DTr++0yhKTouCoWcO1rdRxBd5AfT9YPp
+	 1gRYPVZTyDoYUzOpd1/EaTiow/0r9KvyFNyQCSp49baRM2FBkwvqNI+gKQmH+d/Ag5VlE
+	 zKXIABJXxqJTLe48hPENnL1RSIKi32e03eXR9E5S9QAeF1ePaxDeigrKakF8+qvrN7KQJ
+	 Q3Ow7dmZdhDdlsscoKwPwOl/K5HJsY0Gyw5Ph0x3YYGu+FfTI8q80LCImP5qNNfTundTH
+	 1Qr6/qQHhz2afsqf6/0TGYK1vZityTLZutlsQosp3T9taQ68Zc835TnJxRbOu29D2hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794966249;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Jigjp+fj5LXEgFrf+eIYUR/gBYQiXZlMSZoHeYqq3yY=;
-	b=SfKhCl4sbsgA9vdsTEp5RH4BJJg53J01EMex/WgBgURD1C56fioK7YlwqMQFCmjLZuGo
-	 QDsBF4CJSwp4dIwCic5yJGeKdmeYXbC4mxoLa0TyWSEIZK0+UyRLJAcj7SvPqUy7WMTmW
-	 WrTUhIBXqd584ojKiwdw0i50x8ITHx0ypDkBxOZSm8vc90HENDdGepVkPtcGoXp/yuVe/
-	 SoSKZquCCZVNpmTKlE0urQ7S79r2jjhI3s1+vZsqB6W+tZWPaqCTvkXBaku68261GFAZC
-	 B3vFRIkNXxzWu2HD9Ug0lm2tuC8vcEnXXp1Iew1/NoraT2PsBZKpaFBXAsVCNy7Z6NQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794976511;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:Date:From:To:
+	 Subject:User-Agent:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Queue-Id:
+	 X-Rspamd-Server:X-Rspamd-Action;
+	bh=bv9KBCgx82TDLhDCdAxD+EscJLGGBg4WClRR/9yUXaU=;
+	b=2VJ2ojQy5tLC3Vu1hTjZdQ7O62ugx+1X1gkH6/ePA3XUDxV6gT1S3+ELTcFscq6YsrCX
+	 mbm6siQnkx4ExC/OxR3OKVwWUod2Q2qk9v7ldI//P4758HorVxah94bvaeboWWy299Qf2
+	 CryEpusLRxkw7plsnEvSyf17uCXME3K6Pyvqcw+DUiZqDHmqPR6bMeIcik9CfV9qoQE9i
+	 kZgMAVBhU2ugIwJjIyE5W4PDwX2xqeufwjkr9O3VLl6HL+Dh9eyI3VuhAPFPDTGSR7Nhz
+	 jvUuUw2x4e9M5l01kbNtVbFeoBJDh9ckco4IjEbUPBg0bMzG+O3UC6e8UHuqyoPNlTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="srOS/ykz";
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=aosc.io;
+	spf=pass smtp.mailfrom=aosc.io;
+	dkim=pass header.d=aosc.io header.i=@aosc.io header.a=rsa-sha256 header.s=default header.b=ibYm2MUH;
+	arc=none smtp.remote-ip=151.80.165.199
+Received: from relay2.mymailcheap.com (relay2.mymailcheap.com [151.80.165.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9976606A31C
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 01:44:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9976606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C2B606A325
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 04:35:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C2B606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aosc.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aosc.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=srOS/ykz
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-381f65e4e4bso861101eec.0
-        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 17:44:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794966248; x=1795571048; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jigjp+fj5LXEgFrf+eIYUR/gBYQiXZlMSZoHeYqq3yY=;
-        b=srOS/ykz3dSNDqloWipBs4oVtUh28EAQMJKnKgDd8CzAWxxgw3VwmpdbwuV9izrH6V
-         EKmeofezDel53zYmFKIqBqqOEzRzUq+PnqQ6WMkJs7V2XP6JQ9f0xUUaALoCFIcrzoou
-         1Lu+daVcNyTQn4EkZE5eGAXVLINlUevDoKNJtt6haz6dV5XeyjHBww3zJqFap4bfFAfJ
-         GyzqbsJB+0H6sn0ZNbl8oQlmd/B+C1QLHM3qCio5Zzmdpl5uKQgtBAycq9PqCDCwgMYF
-         spSih4ZD/vogfvA1WTsHH+XaSn1eg0FGnxph46w6uyGDS52CwwGTTJ+iMPdc5QkuoaGq
-         PNJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794966248; x=1795571048;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jigjp+fj5LXEgFrf+eIYUR/gBYQiXZlMSZoHeYqq3yY=;
-        b=GUWR+j5dblrSKHdmtxHxVLpVDd2OCrwr+m19LVgOu3v9JkXIq625TTOnAflFx6w9tD
-         Bj5GXv1mkkLeTl2LMEUi8PKUQChKXIe2DBILHFIteN6AQNB0HRzrn2aW00eNf+PQ7THi
-         +VsZ5hroKWajDPK87+0ixltSyOueUzfetvjwybvLTN23+QAhRLhB8gt5pjUtNR8qz/Z4
-         XWsCNbsmNGrU26DTakNwrCiF8gsQz4Ryhf5TasYRavkbP2Oag5ux88DSaBz/XfS9pYgc
-         5O1do4Q4kr3kZB12WQWXBzk8e4Rfdeiiupxx6Pq52c5xvyHW/d6xKOA0AssltU4PDm9C
-         PCqg==
-X-Forwarded-Encrypted: i=1; AL+hErHlfuoqtDb9rwIKmRV61ZSFIHgEyFhSMUEsnqsQ77+peNZKWIrCVYTAYs7R7CUxGse4mWm1u3TvNHoXtQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8DavFdywGF+rKEPJV+pDtLPToO2pbqWoFbHTNn35KYCopLTb/J
-	cIg07xaxulgRY7wOywe6RyuLCsX7u/4wNCAfhKgdkG9bxoai26t7V6wh
-X-Gm-Gg: AZFdTZf5D7scBmW+ado0sHslJ4pp0J3BOSxH/S7kdzxYVovx2voQ36eVVq18peDgYqW
-	y8X6iBhCkI1VoHf+J1bNVAS2qqGAFBDveKnEXtGXnyY2H/d5Us0JYR9WXcuB2hgthi9yY+DPQS9
-	0M8GcZV35yK2Rb0EDUM2n0Ll/XBJ2Pit0xi06l3d2ZfsrwOW1Nb6NvtAf2c8rQrQw5gFbpM3T3Y
-	v7UKn07pnnuKr8dkZmhesqm/yIAXartZnMsyEjE0ZQYDgislG4ggTmD1/5GWyUdWcbjGEq8Gdho
-	bLLOa5aVE5WsVaa6qdEBQdKUs/mNrXDauo0egzjE7b+aH5j+z+8By/oFxg3pall4j/ceina/BVW
-	d8PUjvwugazB3Oh56R92Go7QhQb6L3gT3KHgBNfB0xwuqvpCXL4z5/8cdO98xlARhb369WiPNIZ
-	JftmluV5aFPUq2HdGfQ7hGF5DNfh+UXX8Ch9e8Jn6+w7KIfqr+bFaCcnJTiRDh6Pt/8riNk10jP
-	+61mJijRcFm5eeGmSEslZXGc6tHXY0vMALsBJiN3XJvmnHL36eFLiPiMUPO5b0L8q5NiXqsP16j
-	GdlC+c8vqZa/kSQzlxMivMWj/9FNKTwGvAXnoNTRLOVo8FZiXEhKOIuvwJY=
-X-Received: by 2002:a05:693c:69c2:b0:369:1401:c5c2 with SMTP id 5a478bee46e88-3828141dcdfmr960224eec.26.1794966247812;
-        Tue, 17 Nov 2026 17:44:07 -0800 (PST)
-Received: from cachyos ([2804:214:64:aaf:eb0:6704:6a19:ed25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a79c96b2sm2157822eec.24.2026.11.17.17.44.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 17:44:07 -0800 (PST)
-From: Paulo Ravazzano <paulo.ravazzano@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Biren Pandya <birenpandya@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Paulo Ravazzano <paulo.ravazzano@gmail.com>
-Subject: [PATCH v2 2/2] media: i2c: saa7115: Guard media_entity_cleanup() calls
-Date: Tue, 17 Nov 2026 22:42:35 -0300
-Message-ID: <20261118014235.419385-2-paulo.ravazzano@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261118014235.419385-1-paulo.ravazzano@gmail.com>
-References: <20261118014235.419385-1-paulo.ravazzano@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=aosc.io header.i=@aosc.io header.a=rsa-sha256 header.s=default header.b=ibYm2MUH
+Received: from nf2.mymailcheap.com (nf2.mymailcheap.com [54.39.180.165])
+	by relay2.mymailcheap.com (Postfix) with ESMTPS id 85BAE3E88E
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 04:35:03 +0000 (UTC)
+Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.38.223.107])
+	by nf2.mymailcheap.com (Postfix) with ESMTPSA id 14C604006F
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 04:35:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aosc.io; s=default;
+	t=1794976501; bh=bv9KBCgx82TDLhDCdAxD+EscJLGGBg4WClRR/9yUXaU=;
+	h=Date:From:To:Subject:From;
+	b=ibYm2MUHnj0h0V2fwjNG+7ErdsOGKSl2pMXfxBgiI86hBVGRuM1mHXW6zZnhudMDW
+	 dwvJsq680TBuy23+S0CcrAYbKWaWcoE+lh4/CwguEg+RpZQLCANAn7O4Da+hPKx6Ad
+	 KtlVmSvSh3tBG3HZSDpNH8nT9PsqZLOZP4vp5ptU=
+Received: from ehlo.thunderbird.net (unknown [103.172.183.67])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by mail20.mymailcheap.com (Postfix) with ESMTPSA id 74B42E25CE
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 04:34:59 +0000 (UTC)
+Date: Wed, 18 Nov 2026 12:34:56 +0800
+From: stydxm <stydxm@aosc.io>
+To: linux-media@vger.kernel.org
+Subject: Anubis challenges blocking file downloads in CI
+User-Agent: Thunderbird for Android
+Message-ID: <3539F6C5-63E7-44CF-87BE-FE98FE8BD588@aosc.io>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -100,47 +67,42 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Spamd-Result: default: False [-0.29 / 10.00];
+	R_DKIM_ALLOW(-0.10)[aosc.io:s=default];
+	R_SPF_ALLOW(-0.10)[+mx];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_ONE(0.00)[1];
+	RCVD_COUNT_ONE(0.00)[1];
+	ASN(0.00)[asn:16276,ipnet:51.38.0.0/16,country:FR];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	R_DKIM_ALIGNED(0.00)[strict];
+	DMARC_POLICY_ALLOW(0.00)[aosc.io,quarantine];
+	TO_DN_NONE(0.00)[];
+	LOCAL_OUTBOUND(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-media@vger.kernel.org];
+	DKIM_TRACE(0.00)[aosc.io:+]
+X-Rspamd-Queue-Id: 14C604006F
+X-Rspamd-Server: nf2.mymailcheap.com
+X-Rspamd-Action: no action
 
-The entity member of struct v4l2_subdev is only defined when
-CONFIG_MEDIA_CONTROLLER is enabled, so the unconditional
-media_entity_cleanup(&sd->entity) calls added by commit 6787d5189e32
-break the build when CONFIG_MEDIA_CONTROLLER is disabled.
+Hi LinuxTV team,
 
-Guard both calls with #if defined(CONFIG_MEDIA_CONTROLLER).
+=E2=80=8BOur CI pipeline is failing because downloading files from https:/=
+/www=2Elinuxtv=2Eorg/downloads/v4l-utils/ triggers Anubis challenges=2E
 
-An AI agent was used to find the bug. The correction was done manually.
+=E2=80=8BCould you please adjust the configurations for direct file downlo=
+ads via CLI tools such as wget/curl?
 
-Fixes: 6787d5189e32 ("media: i2c: saa7115: Add missing media_entity_cleanup()")
-Signed-off-by: Paulo Ravazzano <paulo.ravazzano@gmail.com>
----
- drivers/media/i2c/saa7115.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/media/i2c/saa7115.c b/drivers/media/i2c/saa7115.c
-index f4015f113..32c526df1 100644
---- a/drivers/media/i2c/saa7115.c
-+++ b/drivers/media/i2c/saa7115.c
-@@ -1868,7 +1868,9 @@ static int saa711x_probe(struct i2c_client *client)
- 		int err = hdl->error;
- 
- 		v4l2_ctrl_handler_free(hdl);
-+#if defined(CONFIG_MEDIA_CONTROLLER)
- 		media_entity_cleanup(&sd->entity);
-+#endif
- 		return err;
- 	}
- 	v4l2_ctrl_auto_cluster(2, &state->agc, 0, true);
-@@ -1927,7 +1929,9 @@ static void saa711x_remove(struct i2c_client *client)
- 
- 	v4l2_device_unregister_subdev(sd);
- 	v4l2_ctrl_handler_free(sd->ctrl_handler);
-+#if defined(CONFIG_MEDIA_CONTROLLER)
- 	media_entity_cleanup(&sd->entity);
-+#endif
- }
- 
- static const struct i2c_device_id saa711x_id[] = {
--- 
-2.56.1
-
+=E2=80=8BThanks,
+stydxm
