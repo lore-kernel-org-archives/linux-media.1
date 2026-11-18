@@ -1,79 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794960372;
-	b=XOhTjOr30ne+9xHYTOq63lUHczIF39RpibL8sK6L58Fhw3PjkcwY7RXmZec995gv9c2L
-	 w9WK+PTFIsDxSroBF63z/XqBWF33hZoClTSZdgFpT1O0ku87AXR3HXMcFch/Odf5bWfDi
-	 0iq8UO/wd91K4dWXXp3x9xB2PfnLN7kaYM1d8AwjyvliZSGnn3MG1MBvFv0rU7JcopiEA
-	 mJntNLXIvnFnyla2lSj074MOwXUKSkt0kepVDwIzBdA93MPN1zYnmeXPXooGd2ez2Ce4u
-	 evwh9F5GanqKUSiJPfjjDJL+LEbVP1qFrKxAtAsaTbZwX3a5viRtVHoyJPV8K7Sm9SQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794960372;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YR3F+2cMgHpOaTTV1V4xuaolSh2g/S6MJdbxlitsQmk=;
-	b=qNLdvAMw5o0Y115l8P0tmkmx1bDRveAiC59zsssVTp90I82fDGprBvs7I3s+3bxwEmww
-	 oPWBEoYY2Nh724qXtBVJtbquwzNvDNZhzhgVJo/qzQjVspK+Ud0yGOAvzcsIQfnbX59yp
-	 55bCXxlzkJYMIpiSP78mYiyiN3X14c6hPYkJqDnKTg8mT5eJtRyf+38O4BxhqjzTYRWDp
-	 pAefRdMj0prlQURWCEbBpaCLLnmLNbLmbOaoRwIrmES7vYPeDagofeqC4Zz7mvRJhz4Gc
-	 nCLYSe6JPV1HleaEFf2kAhSYaDqnbU+r+jsXAKcLtpViqwwnIcHGN12URibHcbH/INQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KMf+XiaW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75A0606A335;
-	Wed, 18 Nov 2026 00:06:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KMf+XiaW
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794960371;
-	b=aQmTMJlwatMDW9Ql9umqKLldvaoMVETCF7dfPtPCOVu/V049g+y9M89kr80CevHflnyH
-	 N9gGTHDhoqSwNUNpDNUuq4sQqB7dsavF08M4ToP0Qj4dXLDKpuZQV0uwoUOCKtkafp3Qc
-	 U7kOeC8CZKQAZt37m+GhBF5teDcWijc6qXNQeJf+WjbyPS9xtGEt/k7PCiKW31+dn+y9u
-	 1IBrFxRhsED5/MIXtOSsqI5BhsYu+oljV37WBj7iP4vJZhP0Awqk8MsMhmg5jAGqoLcDd
-	 P6s1MG0C6bEYtphwsis9QfqEqzwNmFCWhf37hbQWpS2+wJqv7aqLCrNp0eLPSvQu2yQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794960371;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=YR3F+2cMgHpOaTTV1V4xuaolSh2g/S6MJdbxlitsQmk=;
-	b=dIY7X1bQx6xRgc5VmTpCzxgX03El9ZIWmh2coCICW2wW4FmzTl+yKPAxYUimYzW0BF/z
-	 5Hc892vUQFPcyHz9Momwxs+xoFnwg9Qs0pAqTuraLgvThkUfsWOa4iu9M/IzUWMvWk+xN
-	 TlCJZyEPPhKNt48mnE3Oo/ynmIi8q8CPkAC1QpNPy65jgi/5qNYuiOo4oqFseRXUAr8UR
-	 rylallYmX7Pgcd3qRB5Pb7LMFjn7yERuY23Lbio14MV9LsVJXaQfSGy1Fd2c4LmbtugUp
-	 pNL2mW6tZQi/eruzS1NbizBqoSY9YCr1wEgCeKHoGGsu47MBjQfy92l5ZwLoORuuiMA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794962306;
+	b=cPQMrcXIOZK/C5Ul8PcqlgQIJZrul4oKJ74VOp1s3w7BtJIkvJJtGEcOAckKNLFRSoZk
+	 1YV22n6GV4n2pRWw+9bfsxLINx5QblYq863DB49CwrbrzSto6brKnWIqB3rTAz0HCMfFF
+	 TVpGXIxOPdQy1pjMjp2QCBBOOJc7W6UOlDlY1sIPKMRiT9AKHJP55Zul7hqaiyXd+CiUz
+	 LuqP97ONs5VJfKf077z8iS3JxXHcL/NYTdAYd6m+hLYVByLrbf9EGPaxqctsMq0tDDDs/
+	 ShFtdEsNnwvtGZLVHF4slVv+22dmcTAVGm8UxRAhJ56ur6dMrPvzYciqGB2gjUZFyFw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794962306;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pllyLf+++bwuw+cTuPHNT6Ou6itzbDvqjnXe+1hShHA=;
+	b=h65PB3HFQep3Ng18zcu7zmlu4LbXLJS6EM5UeshEfjX7eW8kRG6MmeJr0q6W1WdRAbyG
+	 dn5uTpGFn46ikwfOECDWmtvq+rwVzRfKONy4vir85A3oKhjWTDFCUniqgS8TcdN+2kCLs
+	 cqZzH6Ygh93A+OZwFyjRFH0YNhU30ScdK2cRoG9X5t5eQe3T+e/D1pn975ewzB3OAC6Xv
+	 kSoD/RnDYK/D81vYAaGmO63/Hvvg7qywTlJuJCi5BRThDUMphJZyHxSxfeis8GYvQRd5g
+	 FexlsS235m4FKNNS8izQPI9yLEbR6Nyv29BVWTSL9WF2Yugn29lny199cPmgPbZC6rA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fi1swuCq;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C87BB1F000C9;
-	Wed, 18 Nov 2026 00:06:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794960371;
-	bh=YR3F+2cMgHpOaTTV1V4xuaolSh2g/S6MJdbxlitsQmk=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=KMf+XiaWAcngwFYwjfB/K3fRxQXE442gr0w/8cfS4uhFbKN2eGbZnRyZyzlv7rSFa
-	 pgiQ2WtKpRsejDBDJGLliOdmW590netxaWxotdY4hbep0ud+5nNUV8iEofRLm92sXE
-	 JZU06seo5g7APQX+jVy3WJz4DfiZdd1j4yeYxocCcu5qcVvZk29Ls2s23WlfPlsM01
-	 RbDCX0taIBdyLGOtMU3xACcYilVZahatmzGpV+eT1A2S4EZqmqG500jcSUZzF7Jrut
-	 OFAnf4JmYR/MZ9D+K93n8zVxnRm6cDnChXo348Z2G0IYhEJr8V4tuKg84xX0i6zfJ+
-	 VKvm+W2INISrQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 479414790C;
-	Wed, 18 Nov 2026 00:06:10 +0000 (UTC)
-From: Maximo Manriquez Lizarraga via B4 Relay <devnull+DelaySystem.tubot.lat@kernel.org>
-Date: Tue, 17 Nov 2026 16:06:10 -0800
-Subject: [PATCH v2] staging: media: imx: ic-prpencvf: add FORMAT_TRY frame
- interval support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DCE6606A887
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 00:38:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DCE6606A887
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fi1swuCq
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-381f65e4e4bso795878eec.0
+        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 16:38:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794962302; x=1795567102; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pllyLf+++bwuw+cTuPHNT6Ou6itzbDvqjnXe+1hShHA=;
+        b=fi1swuCqsqRD4h8XJOEWAoKYZKTUtgqn9z+mHLkaeVqgxyi9z8AN3eNXyPMIAY5iVB
+         o5XraQNOjQpa1/LixhjJQD7oj0sEGtXeq8Q7Q9Eg8OnG7fsm8qG5lGZ/RVgTy5otSfmj
+         WKvXkQG1LeoGBEXUuDLE500suNdXBzUey8l24lJS3Pl/PGTNeyTxQthpGrehsd5yqusH
+         zyMsY7mH5U8OW0xDSw4q5AknyPiJy1zvmhURWnS6pszdA6xFCreiTsW6rJezEOq4BL4e
+         bDznmDJfZ0TMTEKqPUCGdi7X6+8N/AUX6n+lS/Pzxxb87fcp9FEeWtANpd4Fh3T+j09Z
+         ZqCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794962302; x=1795567102;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pllyLf+++bwuw+cTuPHNT6Ou6itzbDvqjnXe+1hShHA=;
+        b=D674B1+5Op2LWnncCtAeQhbGRiXASnCqgIv0ysU5gU0N1Y7cv1DbCOJUGjmpKEX2SL
+         nOF02t0FhpWuT9P4NQR7Vve+lWbZ/AUrmOKqtNG/gAF4SJeUnEKFClFLTtt/yXic+mkg
+         aow4Jbe6J7rv2We2iCxUTPHCbCGhLE7UAo9dWgICCUADBI5/DPoFwP5P62s2qxSqIqbd
+         0KB8HDzjToB2tOaE9dG+uIwSUP5QVm/aKAN0kuK/YiMpkWRn4pmPm5AsCoFDNnrJtLVB
+         znWAqoWb7ChyuA7vvnCCIFf/CZ13J4u8CtopGNjgi49A4t3xHwha2W4miW0+uDoVbpWK
+         brxQ==
+X-Forwarded-Encrypted: i=1; AL+hErEmaZMB+zBUcHA6wGMuktPN/uXr9vaYCUo4JdNYiYvcldK0mUPNjoh6iRDSINVSKg1OcS2JlkB5U4psGQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/GcHzP2xUOhEkLKGcp0eE3lPEJsxkKXUA5YPSOlPgk79Zf3/+a
+	/UPTdirLVwFCxYz/j9B7OZX5G9WEFeP20Tlztd1ivSGRsG31S4WlPI3o
+X-Gm-Gg: AZFdTZeuHdPoXPyiyaMd7q+aip0wu7rFX3XA8+nUo6+JpIgmbyDxL/woGtgVCdIQ53Y
+	mff61NDRR8D7FlJBAP3leGgZtgWDvQe8sXfZZoXZkMUrwgQ6sj51XGT9sp3f8LW92wKOlpfmhgw
+	5ZG8hMXgzUV0feUtGYqzsU78oSl2EtxocdWn7snpqh03PPsO0cVTp4/2CCPEJwnnkM6p6LOlZ8o
+	1sDEPKkr0N9hqvNOkuMN8us7PRr9gkdJ+uhibRcpNJsdXZf6XESiPlNiC/cAhiqYhd7tZbmNIU5
+	gnl4H1W6A/BMXXjg69o00lykV0SdyqKZjo/KmogJGQ5MCGDeu2l1jQSwQIZqb02QUA6htyss9Oj
+	/Jj1XCFY+U+okMqVgI9RkkuZGv/RIgk9EmIaRM9BYaHanUPLO3hVtfY/m14xBp6D0fYJCEg/gX7
+	nPup2N1FlCkC04by8bW41sxSo1sfPUrtk6jVGs6tLn4uUSpUqcI3QI8NAjDknpEHM3ZXHNeYKIM
+	T1zvLhAKDopznnUzes8+6PHboZD3EqpPag0p6EPdYUoRhupsMAsVx3eKTnGzrQbKYqo5Hd6Xqsr
+	PAkGjm01y8uF/Sd27yY/HVfvdHf7b12DGdaDQmX+5kAwpD4jmkmRObKxYsX5padBjCUdoqWx++D
+	KidYv
+X-Received: by 2002:a05:7301:1a14:b0:382:5dd0:3bb2 with SMTP id 5a478bee46e88-3827fe7882bmr917793eec.9.1794962302027;
+        Tue, 17 Nov 2026 16:38:22 -0800 (PST)
+Received: from cachyos ([2804:214:64:aaf:eb0:6704:6a19:ed25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a75d8015sm1523892eec.21.2026.11.17.16.38.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 16:38:21 -0800 (PST)
+From: Paulo Ravazzano <paulo.ravazzano@gmail.com>
+To: paulo.ravazzano@gmail.com,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Biren Pandya <birenpandya@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] media: i2c: msp3400-driver: Guard media_entity_cleanup() calls
+Date: Tue, 17 Nov 2026 21:37:41 -0300
+Message-ID: <20261118003742.363133-1-paulo.ravazzano@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,235 +98,55 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-batch1-m2-prpencvf-try-v2-1-dd331ab13137@tubot.lat>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr2Jm7ZhOCS248h6GBS2D1CiQtjQSw
- t0FPIDLl7z//gKBveMA19MCnpMLbug3kOcT2K7uH4yu2RikkIpIaDR1tB3hW+LoR+5tajH6GTM
- qqMiULlRTwjYePbfuc4Tv1Y/DZJ5s417bjc6FOPj5eE60e39PEiGhVqYp21zkmsQtTmaIl1cdo
- VrX9QvXIZ/LzgAAAA==
-X-Change-ID: 20261107-batch1-m2-prpencvf-try-3181836786d9
-To: slongerbeam@gmail.com
-Cc: mchehab@kernel.org, linux-kernel@vger.kernel.org, 
- p.zabel@pengutronix.de, gregkh@linuxfoundation.org, imx@lists.linux.dev, 
- linux-staging@lists.linux.dev, linux-media@vger.kernel.org, 
- Maximo Manriquez Lizarraga <DelaySystem@tubot.lat>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6311;
- i=DelaySystem@tubot.lat; h=from:subject:message-id;
- bh=xXv6qhaJSriSfGL4sUOUFqRWHJ5gIRFjN/xNaPBJO3o=;
- b=owGbwMvMwCH2SNl4+SzWXm/G02pJDFl/Xn8sTVcQetu766vSs58XGG35XWXtWafc//33lKZv/
- MvebZu8O0pZGMQ4GGTFFFnEZHje19/XibO2mnMCZg4rE8gQBi5OAZhI7gyG/54WahZePOW+eztW
- xgWyhaQ80r77dLKVlmbinK3vFS19vBkZ1kaw8btfcP63MHq6XmHTzd06k/+pfvIytNBdFhrPInu
- RGQA=
-X-Developer-Key: i=DelaySystem@tubot.lat; a=openpgp;
- fpr=161C0CEF7FDF2C5E3B3A9CC8E22333A79A058D4B
-X-Endpoint-Received: by B4 Relay for DelaySystem@tubot.lat/default with
- auth_id=1447
-X-Original-From: Maximo Manriquez Lizarraga <DelaySystem@tubot.lat>
-Reply-To: DelaySystem@tubot.lat
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Maximo Manriquez Lizarraga <DelaySystem@tubot.lat>
+Member entity of struct v4l2_subdev is only defined through
+ CONFIG_MEDIA_CONTROLLER, so the unconditional
+media_entity_cleanup(&sd->entity) added by commit 87d1307b6791 was
+breaking the code. A conditional preprocessor
 
-Implement frame interval handling for V4L2_SUBDEV_FORMAT_TRY
-by storing and retrieving per-pad intervals from the subdev state,
-following the same pattern the driver already uses for TRY formats:
-ACTIVE intervals stay in priv->frame_interval while TRY intervals live
-in the subdev state.  Add a PRPENCVF-specific init_state callback to
-initialize TRY intervals from the active default, and move default
-interval initialization to prp_init(), which runs before any state can
-be initialized.
+An AI agent was used to find the bug. The correction was done manually.
 
-Signed-off-by: Maximo Manriquez Lizarraga <DelaySystem@tubot.lat>
+Fixes: 87d1307b6791 ("media: i2c: msp3400-driver: Add missing media_entity_cleanup()")
+Signed-off-by: Paulo Ravazzano <paulo.ravazzano@gmail.com>
 ---
-Compile-tested only: x86_64, VIDEO_IMX_MEDIA=m via COMPILE_TEST, zero
-warnings. No i.MX hardware here for runtime testing; hardware testing
-by others is welcome.
----
-Changes in v2:
-- Propagate TRY intervals from sink to source pad in prp_set_frame_interval(), mirroring prp_set_fmt() (spotted by Sashiko review; apologies for the oversight).
-- Resend under my real name (From/Signed-off-by: Maximo Manriquez Lizarraga).
-- Link to v1: https://patch.msgid.link/20261107-batch1-m2-prpencvf-try-v1-1-76bd9f505710@tubot.lat
----
- drivers/staging/media/imx/imx-ic-prpencvf.c | 109 +++++++++++++++++++++-------
- 1 file changed, 84 insertions(+), 25 deletions(-)
+ drivers/media/i2c/msp3400-driver.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/staging/media/imx/imx-ic-prpencvf.c b/drivers/staging/media/imx/imx-ic-prpencvf.c
-index 3430ddeac356..5ce0eb56be5b 100644
---- a/drivers/staging/media/imx/imx-ic-prpencvf.c
-+++ b/drivers/staging/media/imx/imx-ic-prpencvf.c
-@@ -795,6 +795,18 @@ __prp_get_fmt(struct prp_priv *priv, struct v4l2_subdev_state *sd_state,
- 		return &priv->format_mbus[pad];
- }
- 
-+static struct v4l2_fract *
-+__prp_get_frame_interval(struct prp_priv *priv,
-+			 struct v4l2_subdev_state *sd_state,
-+			 unsigned int pad,
-+			 enum v4l2_subdev_format_whence which)
-+{
-+	if (which == V4L2_SUBDEV_FORMAT_TRY)
-+		return v4l2_subdev_state_get_interval(sd_state, pad);
-+
-+	return &priv->frame_interval;
-+}
-+
- /*
-  * Applies IC resizer and IDMAC alignment restrictions to output
-  * rectangle given the input rectangle, and depending on given
-@@ -1208,22 +1220,25 @@ static int prp_get_frame_interval(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_frame_interval *fi)
- {
- 	struct prp_priv *priv = sd_to_priv(sd);
--
--	/*
--	 * FIXME: Implement support for V4L2_SUBDEV_FORMAT_TRY, using the V4L2
--	 * subdev active state API.
--	 */
--	if (fi->which != V4L2_SUBDEV_FORMAT_ACTIVE)
--		return -EINVAL;
-+	struct v4l2_fract *interval;
-+	int ret = 0;
- 
- 	if (fi->pad >= PRPENCVF_NUM_PADS)
- 		return -EINVAL;
- 
- 	mutex_lock(&priv->lock);
--	fi->interval = priv->frame_interval;
-+	interval = __prp_get_frame_interval(priv, sd_state, fi->pad,
-+					    fi->which);
-+	if (!interval) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
-+	fi->interval = *interval;
-+out:
- 	mutex_unlock(&priv->lock);
- 
--	return 0;
-+	return ret;
- }
- 
- static int prp_set_frame_interval(struct v4l2_subdev *sd,
-@@ -1231,24 +1246,68 @@ static int prp_set_frame_interval(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_frame_interval *fi)
- {
- 	struct prp_priv *priv = sd_to_priv(sd);
--
--	/*
--	 * FIXME: Implement support for V4L2_SUBDEV_FORMAT_TRY, using the V4L2
--	 * subdev active state API.
--	 */
--	if (fi->which != V4L2_SUBDEV_FORMAT_ACTIVE)
--		return -EINVAL;
-+	struct v4l2_fract *interval;
-+	int ret = 0;
- 
- 	if (fi->pad >= PRPENCVF_NUM_PADS)
- 		return -EINVAL;
- 
- 	mutex_lock(&priv->lock);
-+	interval = __prp_get_frame_interval(priv, sd_state, fi->pad,
-+					    fi->which);
-+	if (!interval) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
- 
- 	/* No limits on valid frame intervals */
--	if (fi->interval.numerator == 0 || fi->interval.denominator == 0)
--		fi->interval = priv->frame_interval;
--	else
--		priv->frame_interval = fi->interval;
-+	if (fi->interval.numerator == 0 || fi->interval.denominator == 0) {
-+		fi->interval = *interval;
-+	} else {
-+		*interval = fi->interval;
-+
-+		/*
-+		 * The IC task does not change the frame rate between sink
-+		 * and source, so keep both TRY slots in sync the same way
-+		 * prp_set_fmt() propagates formats to the source pad.
-+		 * (ACTIVE uses a single shared interval and needs nothing.)
-+		 */
-+		if (fi->which == V4L2_SUBDEV_FORMAT_TRY &&
-+		    fi->pad == PRPENCVF_SINK_PAD) {
-+			struct v4l2_fract *src_interval;
-+
-+			src_interval = __prp_get_frame_interval(priv, sd_state,
-+								PRPENCVF_SRC_PAD,
-+								fi->which);
-+			if (src_interval)
-+				*src_interval = fi->interval;
-+		}
-+	}
-+out:
-+	mutex_unlock(&priv->lock);
-+
-+	return ret;
-+}
-+
-+static int prp_init_state(struct v4l2_subdev *sd,
-+			  struct v4l2_subdev_state *sd_state)
-+{
-+	struct prp_priv *priv = sd_to_priv(sd);
-+	struct v4l2_fract *interval;
-+	unsigned int pad;
-+	int ret;
-+
-+	ret = imx_media_init_state(sd, sd_state);
-+	if (ret)
-+		return ret;
-+
-+	mutex_lock(&priv->lock);
-+
-+	for (pad = 0; pad < PRPENCVF_NUM_PADS; pad++) {
-+		interval = v4l2_subdev_state_get_interval(sd_state, pad);
-+		if (interval)
-+			*interval = priv->frame_interval;
-+	}
- 
- 	mutex_unlock(&priv->lock);
- 
-@@ -1274,10 +1333,6 @@ static int prp_registered(struct v4l2_subdev *sd)
- 			return ret;
+diff --git a/drivers/media/i2c/msp3400-driver.c b/drivers/media/i2c/msp3400-driver.c
+index 8c2edd462..8f0b385fa 100644
+--- a/drivers/media/i2c/msp3400-driver.c
++++ b/drivers/media/i2c/msp3400-driver.c
+@@ -717,7 +717,9 @@ static int msp_probe(struct i2c_client *client)
+ 	if (state->rev1 == -1 || (state->rev1 == 0 && state->rev2 == 0)) {
+ 		dev_dbg_lvl(&client->dev, 1, msp_debug,
+ 				"not an msp3400 (cannot read chip version)\n");
++#if defined(CONFIG_MEDIA_CONTROLLER)
+ 		media_entity_cleanup(&sd->entity);
++#endif
+ 		return -ENODEV;
  	}
  
--	/* init default frame interval */
--	priv->frame_interval.numerator = 1;
--	priv->frame_interval.denominator = 30;
--
- 	priv->vdev = imx_media_capture_device_init(ic_priv->ipu_dev,
- 						   &ic_priv->sd,
- 						   PRPENCVF_SRC_PAD, true);
-@@ -1335,7 +1390,7 @@ static const struct v4l2_subdev_ops prp_subdev_ops = {
- };
+@@ -813,7 +815,9 @@ static int msp_probe(struct i2c_client *client)
+ 		int err = hdl->error;
  
- static const struct v4l2_subdev_internal_ops prp_internal_ops = {
--	.init_state = imx_media_init_state,
-+	.init_state = prp_init_state,
- 	.registered = prp_registered,
- 	.unregistered = prp_unregistered,
- };
-@@ -1352,6 +1407,10 @@ static int prp_init(struct imx_ic_priv *ic_priv)
- 	ic_priv->task_priv = priv;
- 	priv->ic_priv = ic_priv;
+ 		v4l2_ctrl_handler_free(hdl);
++#if defined(CONFIG_MEDIA_CONTROLLER)
+ 		media_entity_cleanup(&sd->entity);
++#endif
+ 		return err;
+ 	}
  
-+	/* init default frame interval */
-+	priv->frame_interval.numerator = 1;
-+	priv->frame_interval.denominator = 30;
-+
- 	spin_lock_init(&priv->irqlock);
- 	timer_setup(&priv->eof_timeout_timer, prp_eof_timeout, 0);
+@@ -867,7 +871,9 @@ static void msp_remove(struct i2c_client *client)
+ 	msp_reset(client);
  
-
----
-base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
-change-id: 20261107-batch1-m2-prpencvf-try-3181836786d9
-
-Best regards,
---  
-Maximo Manriquez Lizarraga <DelaySystem@tubot.lat>
-
+ 	v4l2_ctrl_handler_free(&state->hdl);
++#if defined(CONFIG_MEDIA_CONTROLLER)
+ 	media_entity_cleanup(&state->sd.entity);
++#endif
+ }
+ 
+ /* ----------------------------------------------------------------------- */
+-- 
+2.56.1
 
