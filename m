@@ -1,140 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.83
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795010894;
-	b=KWbMdUxZStBczeeoNgIZb9SScHt4ybvJ/FYtaFQ19RPVG2XuuKKOe0HsPpvgoYaFhvgT
-	 E/rnp0dc6NfRB8aeUIgQtKnrjO5/MzghY40eobaZHhAY4pGilaTxRZbuuVHgxhBhue0VI
-	 H16K9UXrFY46KOOu1YTuZD6pAlET6UhKqQu4XEqMJHlvovqc9xHHTkuy15SMSGBmum8T6
-	 0vUFbi5ChCnwDrEHspR3yOKZWoNPISefxodaHiPLt8AZBf4ApBW7x+TpDP+NDuZTFrRnL
-	 CvNnr+c7ThoCzUMfcSRqJWpVkdEYfk5BUUIM4EjPmVeylgg/KDmmTvcacHSrYDTyC9Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795010894;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Date:From:To:cc:Subject:In-Reply-To:Message-ID:
-	 References:MIME-Version:Content-Type;
-	bh=kSUE/o5CqDYurph69R6wpud9Np7SIjoEFQ7s0L3TdZE=;
-	b=4EMIilZ8cQtQTU/9VXo4mmb8fbzLhKV+0okgLf0eKcOJXybmFA9VHsYRhNlbxqjq4+r9
-	 LWB2NKL62TBtc5gSUJVelUH9mxw3kwCj0gq+I1ejZItlHBAxodJUo+tzzaxLGQqnv6y2R
-	 OTOubtdXh1IT87QU24bIMWOfVggy+ObAODJZ4Ro71J4bTd0UZxjIckWs3GLj8vt/UhcF3
-	 kwfgkw+8Jx1wpv4BeCUD3WQGWsS1k4KUbOCsjoXtHiTnV02MgNTPmXWZ3/jAKSiKIPhOf
-	 YWcmltS3oip51jspxf3tqTjJnvMihuC6xyliU2UP8NmTvu6kwtuEfpbNzdj+kTsNeKw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=inria.fr;
-	spf=pass smtp.mailfrom=inria.fr;
-	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=lO8vUGAB;
-	arc=none smtp.remote-ip=192.134.164.83
-Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795012049;
+	b=Y7lttD+kwOoCKggj+jBBX4uqKXJzgc67pjwp+Vc5M/E+fL+Gtej5pEdXbSbOBWSTyD3/
+	 LqBzYgYrvphE9klgCZmjFBeNXRk77L8aRvDE2KYE9xZQPyM1+gyhHD5Dy67LesCcGw44z
+	 MYLqMy+yGQGctGQC1z4suW5ojZnWxBc+sqNV4vrJV224AkVCiHfJVfaa4tBe4PFV2J+VY
+	 r8KauB3uy54Aiv9SHwdVbQH811YIEiwHXTmSRt5Q9eNPhz3otqgLTRn/YvocHBZ2kxYnK
+	 AQkfEPb8LpCBq5VcxQHhjoC5I4mZx9NOuQib7VC2JLnJ9PCJ3QzW+/OnsA2jFuzxzog==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795012049;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:Subject:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=xMp3FYu46+6069H+eeh9xe9hJqU7BcZ6oUpQKIuSBzI=;
+	b=27wjrDYfuRDty/bpUTnBEEPvABDZVIOKvZ1HuG523qQKu18cx5SgnASPJe2WefuDCD1w
+	 EtPUfqh7GIs+c/H2JqHpQKaCM/z3QwBndbuZ7E9xUPpFNGY85o9IkDU4XcVgGn+iv5EoJ
+	 ZOVsGHA52mOkt/iTBeX3FHNqKcSqQ1tUu98IL2pmKQjSCYOmSEZuf8Jkpas/R1Ei8Teum
+	 l7NfTDFq6JvkbYLwUkDa8fA+fZII7spCMUhnO0xxI/RQZKnekkrdp++t845F/bRgouAv7
+	 tjYX2y2m3uPktzjFGEg2lWYHlYm8sRsOCJ3I5zF/7ZKMeCvBuB6IQ15BVV9Vw15iTbg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="Me85+vo/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3878B606A31C;
-	Wed, 18 Nov 2026 14:08:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3878B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3160606A33F;
+	Wed, 18 Nov 2026 14:27:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3160606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=lO8vUGAB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=kSUE/o5CqDYurph69R6wpud9Np7SIjoEFQ7s0L3TdZE=;
-  b=lO8vUGABN3SRz8stmFI6GOw5EdtNndRF+CQvv0/fdjATmxkGTAFZQyyX
-   q3S3Iji9niTjJuaRWhbudJSEAZZKtnIYWDJnU5+hLPXuIFXtC4McFue5K
-   zJmH9mSahEE3uuCKvqXtwc7RUVjEQny86msZaIn/W22PRg53MToih5RN6
-   4=;
-X-CSE-ConnectionGUID: NpDResvMRHWEoFCgk5A11w==
-X-CSE-MsgGUID: tkj3zeBCTZKFS5tJsQM2+w==
-Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.27,219,1787004000"; 
-   d="scan'208";a="306121450"
-Received: from 72-255-236-003.static.imsbiz.com (HELO hadrien) ([72.255.236.3])
-  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 15:07:35 +0100
-Date: Wed, 18 Nov 2026 22:07:31 +0800 (+08)
-From: Julia Lawall <julia.lawall@inria.fr>
-To: Bence Csokas <bence.csokas@arm.com>
-cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-    Marcel Holtmann <marcel@holtmann.org>, 
-    Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
-    Sumit Semwal <sumit.semwal@linaro.org>, 
-    =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
-    Philipp Stanner <phasta@kernel.org>, 
-    Sudeep Holla <sudeep.holla@kernel.org>, 
-    Cristian Marussi <cristian.marussi@arm.com>, 
-    Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-    Maxime Ripard <mripard@kernel.org>, 
-    Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-    Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, 
-    Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
-    Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-    Tvrtko Ursulin <tursulin@ursulin.net>, Lyude Paul <lyude@redhat.com>, 
-    Danilo Krummrich <dakr@kernel.org>, Zack Rusin <zack.rusin@broadcom.com>, 
-    Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
-    Selvin Xavier <selvin.xavier@broadcom.com>, 
-    Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, 
-    Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
-    Chengchang Tang <tangchengchang@huawei.com>, 
-    Junxian Huang <huangjunxian6@hisilicon.com>, 
-    Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-    Hans de Goede <hansg@kernel.org>, 
-    Mauro Carvalho Chehab <mchehab@kernel.org>, 
-    Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-    Dexuan Cui <decui@microsoft.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-    "David S. Miller" <davem@davemloft.net>, 
-    Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-    Paolo Abeni <pabeni@redhat.com>, 
-    Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
-    Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>, 
-    Johannes Berg <johannes@sipsolutions.net>, 
-    Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
-    Guenter Roeck <groeck@chromium.org>, Nilesh Javali <njavali@marvell.com>, 
-    GR-QLogic-Storage-Upstream@marvell.com, 
-    "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
-    "Martin K. Petersen" <mkp@kernel.org>, 
-    Julia Lawall <Julia.Lawall@inria.fr>, 
-    Nicolas Palix <nicolas.palix@imag.fr>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, 
-    Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-    Paulo Alcantara <pc@manguebit.org>, Namjae Jeon <linkinjeon@kernel.org>, 
-    Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
-    Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, 
-    Bharath SM <bharathsm@microsoft.com>, Carlos Maiolino <cem@kernel.org>, 
-    Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-    Peter Zijlstra <peterz@infradead.org>, Darren Hart <dvhart@infradead.org>, 
-    Davidlohr Bueso <dave@stgolabs.net>, 
-    =?ISO-8859-15?Q?Andr=E9_Almeida?= <andrealmeid@igalia.com>, 
-    Alexei Starovoitov <ast@kernel.org>, 
-    Daniel Borkmann <daniel@iogearbox.net>, 
-    Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-    Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-    Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-    Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-    Emil Tsalapatis <emil@etsalapatis.com>, 
-    Ihor Solodrai <ihor.solodrai@linux.dev>, Simon Horman <horms@kernel.org>, 
-    David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
-    Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
-    Steffen Klassert <steffen.klassert@secunet.com>, 
-    Herbert Xu <herbert@gondor.apana.org.au>, 
-    =?ISO-8859-15?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>, 
-    =?ISO-8859-15?Q?G=FCnther_Noack?= <gnoack@google.com>, 
-    Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-    "Serge E. Hallyn" <serge@hallyn.com>, "Geoffrey D. Bennett" <g@b4.vu>, 
-    Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-    linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    linux-bluetooth@vger.kernel.org, linux-media@vger.kernel.org, 
-    dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-    arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-    intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-    linux-rdma@vger.kernel.org, linux-hyperv@vger.kernel.org, 
-    netdev@vger.kernel.org, linux-wireless@vger.kernel.org, 
-    chrome-platform@lists.linux.dev, linux-scsi@vger.kernel.org, 
-    cocci@inria.fr, linux-fsdevel@vger.kernel.org, linux-cifs@vger.kernel.org, 
-    samba-technical@lists.samba.org, linux-xfs@vger.kernel.org, 
-    bpf@vger.kernel.org, ipsec@lists.linux.dev, 
-    linux-security-module@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] overflow: Add offsetofend() variant of
- struct_offset()
-In-Reply-To: <20261118-offsetof-v4-1-95b385c10b22@arm.com>
-Message-ID: <c6fbb025-8de-b716-5d32-877c3d3fa2a6@inria.fr>
-References: <20261118-offsetof-v4-0-95b385c10b22@arm.com> <20261118-offsetof-v4-1-95b385c10b22@arm.com>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Me85+vo/
+Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5d79:c700:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 974E4200467;
+	Wed, 18 Nov 2026 15:27:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795012041;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xMp3FYu46+6069H+eeh9xe9hJqU7BcZ6oUpQKIuSBzI=;
+	b=Me85+vo/f/nhQM61h7rSJ5PPBlV8oD7W9uZoIuFV7DZt+a+nSry9WHf0WeIXJUW72WpSp1
+	pZ3j512U+5drZmnS9kpvHitgtItEfuwwS4CHCz780c/Qn+NtoHd/XUYyOkZr22lDo04KvN
+	dkFXso2iT3oXuEQEmW2r7hWoW9lhSJK+DxbyafO80RVb0iZnJYABEmcjbEwnPAyjX8MpbL
+	shPqt4fR5xk55wOSWQ6lTa+Zwx5ZEAWN+P8t46fxQw3PLdFYPtCPy+hPiwWeh7Mq0n+V8V
+	pb8J6xiieVupVvRgYpBDbQMAMBVpCc+92dvzxKA/mFt0HIo3eN2eoc+JOtb37w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1795012041;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xMp3FYu46+6069H+eeh9xe9hJqU7BcZ6oUpQKIuSBzI=;
+	b=R1CTktpI/kcm1o0kpUr6Vf4xk65GzoczI0OOivAob8oGWg6WoU2s4C5C5CVyfHNK+wMxL6
+	GRQdT+u5gA2FYiM02w3s5iJRS11rVckYYoLDluZ+tRPqFm+DU0gdHxjO6ZDBI+IANEAeOC
+	oHG7a5qHQFYdfyECVb1WsmdYavyNE0N5kzH1eeZgkZyLG+KiWjuk/EkhcUGAkEIcqYT38G
+	whREQHXMzEENeUCO8xgEM2XCGGQL8yPUfKZJb8ShNUUdw25lplmnrpt2uHb/6V8W5R4Ajp
+	1J60u36r8D5y2umasqNR7lFf+JeL17cDGS2/TvCTR34b8sgWRsL6HccpolVF0w==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795012041; a=rsa-sha256;
+	cv=none;
+	b=DWYDpM32y+fWfnZgEaZzIGJmWONZ9jWLYXZGBOtgRvjx+MrMuJWUmg+Mou3TLBXoTaq4kh
+	+6fgA4kb5kcKfwqDiQ2ALD6asMmATMi/zXdLK1IzE7aZh+oSmdWVvXr74cCdJSkYhTE+Gm
+	gQSGCAsd4qA52uVlhipFPYw0ypBI5QUk3nO7Jmi9SJJV8+a++gmEdoKLZEJY8W8oD5JVsA
+	/Qe/ZdoKucq+uzcGyoijWVSD3w9QG4DsvBStDjNrGazsowC3BEY8muIMrewUnw3foksDk6
+	N1S79cC4KI1E1BoYR14Tw3SSFM3ZFVMuux3ZDm3UQwQt+EiMQ1wPTGRmvIfoww==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
+Message-ID: <85353f59-52a0-446d-ace3-65e2d03d0d0b@pengutronix.de>
+From: "Sascha Hauer" <s.hauer@pengutronix.de>
+Subject: Re: [PATCH v7 2/4] media: rockchip: Add JPEG decoder driver
+To: "Sergei Khomenkov" <shomenkow@gmail.com>
+Cc: "Sascha Hauer" <s.hauer@pengutronix.de>, "Lucas Sinn" <lucas.sinn@wolfvision.net>, "Mauro
+ Carvalho Chehab" <mchehab@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Heiko
+ Stuebner" <heiko@sntech.de>, "Philipp Zabel" <p.zabel@pengutronix.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <596F6C9E-4A5D-4AE8-8D26-7A7247050D7D@gmail.com>
+References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
+ <20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
+ <596F6C9E-4A5D-4AE8-8D26-7A7247050D7D@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 18 Nov 2026 14:27:20 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -143,79 +93,49 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
 
+Hi Sergei,
 
+On 2026-11-07 15:38, Sergei Khomenkov wrote:
+> Hi Sascha,
+>=20
+> > +/* Bytes per pixel used to size a coded buffer for a given resolution.=
+ */
+> > +#define RKJPEGD_CODED_MAX_DEPTH	2
+>=20
+> A valid JPEG can be larger than 2 bytes per pixel. libjpeg-turbo sizes
+> its worst case in tj3JPEGBufSize() at 3 bytes per pixel for 4:2:0, 4
+> for 4:2:2 and 6 for 4:4:4, plus 2 KiB. Quality 100 noise comes close:
+> 2.75 bytes per pixel at 4:2:0, both from libjpeg and from the Hantro H1
+> encoder on an RK3026. Such a frame does not fit the default buffer; by
+> your commit message a truncated one fails through BUF_EMPTY, so the
+> client gets an ERROR buffer for a valid picture. I can't run the VDPU720
+> to confirm.
+>=20
+> The default only matters to clients that pass sizeimage 0. GStreamer
+> 1.26 asks for max_width * max_height / 2 of the enumerated range; at
+> 65528x65528 that wraps in its 32-bit calculate_max_sizeimage() to about
+> 255 MiB, which the driver keeps, so 1.26 is not affected. Its main
+> branch (08ea5bc9fab9) asks for width * height bytes of the stream,
+> which the driver keeps too, so these frames would not fit. Both are
+> from reading the code; I did not run them on this driver.
+>=20
+> Would 3 bytes per pixel be acceptable as the default, and as a floor
+> for smaller requests, like the 2 bytes per pixel floor in 6/7 of your
+> hantro-based v1? 4:4:4 at quality 100 would still not fit, but the
+> subsampling is not known before the header is parsed.
 
-On Wed, 18 Nov 2026, Bence Csokas wrote:
+I haven't been affected by this issue lately, but saw it when the series
+was still based on the hantro driver. Yes, I'll change to 3 bytes per
+pixel next round and make that the floor of sizeimage. Would be nice to
+have a proper solution for this rather than either wasting tons of
+memory or risk having too small buffers.
 
-> Many call sites of offsetofend() use it for the purpose of pointer
-> artihmetic. Thus, a common usage pattern is:
->
->   offsetofend(typeof(*ptr), member)
->
-> Capturing this in one macro helps keep lines short and terse, while
-> still making the purpose clear. It also helps discourage spelling out
-> the type name on every callsite, leading to more maintainable code.
->
-> A similar struct_offset() macro already exists, so add an offsetofend()
-> variant in the same spirit.
->
-> Signed-off-by: Bence Csokas <bence.csokas@arm.com>
-> ---
->  include/linux/overflow.h                     | 12 ++++++++++++
->  scripts/coccinelle/api/struct_offsetof.cocci | 18 ++++++++++++++++++
->  2 files changed, 30 insertions(+)
->
-> diff --git a/include/linux/overflow.h b/include/linux/overflow.h
-> index d0f04436343e..c029d68daeca 100644
-> --- a/include/linux/overflow.h
-> +++ b/include/linux/overflow.h
-> @@ -464,6 +464,18 @@ static __always_inline size_t __must_check size_sub(size_t minuend, size_t subtr
->   */
->  #define struct_offset(p, member) (offsetof(typeof(*(p)), member))
->
-> +/**
-> + * struct_offsetofend() - Calculate the end of a member within a struct
-> + * @p: Pointer to the struct
-> + * @member: Name of the member to get the end offset of
-> + *
-> + * Calculates the offset of the end of a particular @member of the structure
-> + * pointed to by @p.
-> + *
-> + * Return: number of bytes to the end of @member.
-> + */
-> +#define struct_offsetofend(p, member) (offsetofend(typeof(*(p)), member))
-> +
->  /**
->   * __DEFINE_FLEX() - helper macro for DEFINE_FLEX() family.
->   * Enables caller macro to pass arbitrary trailing expressions
-> diff --git a/scripts/coccinelle/api/struct_offsetof.cocci b/scripts/coccinelle/api/struct_offsetof.cocci
-> new file mode 100644
-> index 000000000000..5a30647d3787
-> --- /dev/null
-> +++ b/scripts/coccinelle/api/struct_offsetof.cocci
-> @@ -0,0 +1,18 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/// Use struct_offset() family of macros
-> +///
-> +// Confidence: High
-> +// Options: --no-includes --ignore ./tools/
-> +
-> +virtual patch
-> +
-> +@offsetof depends on patch@
-> +expression ptr, member;
-> +@@
-> +- offsetof(typeof(*(ptr)), member)
-> ++ struct_offset(ptr, member)
-> +@offsetofend depends on patch@
-> +expression ptr, member;
-> +@@
-> +- offsetofend(typeof(*(ptr)), member)
-> ++ struct_offsetofend(ptr, member)
+Sascha
 
-Coccinelle script
+--=20
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
 
-Reviewed-by: Julia Lawall <julia.lawall@inria.fr>
