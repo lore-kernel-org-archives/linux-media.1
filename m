@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795029731;
-	b=bruTJKIiDuIS9zeikKTtikRmCOlr09nBozUPBJj2vC1Shw4UAarM66mP6N++ZGB+i89H
-	 IsB5zULPQICNVgfWWWJ7/G7aGL+/f0kePOoReaBlr0sgSnilVaqXtw82J+zLqyGobndBO
-	 Kn+artBPZDiTU9GCeFioTnjdtrT1lTNRSDEYp9qpWbtzcWJcPBcMGPOKxUPl/8/GDU4vp
-	 2tXI82A39qLTTL0+DpdDZ0CJSH0z4lW17a/c3Olu+sk0PKhLHd9QvbH5ZP9It4jYjoYYL
-	 WJyf4A4u9OcsOiMmIu9VvxKLhPQL1gJvmWx0EDgOOk/hDJhVUo0YWXshJh2Cp2BLV7w==
+	t=1795029738;
+	b=jsMEQT6iqH+HORVJ+qGNOX5tIWXQ57CsLwgruZwlvOi9YnPXzjvnFZ/8GKmPll6P1wcY
+	 rKHPnOxEhshm4VpRf4mHZtLV/zqYylbyjHRBowZ9gWrSDBFG2Lk3vSjcjqT0gLDVR9I75
+	 ofd8AGub6vN378t7isqi/yyCsyEGSjEmK0MiwL/4zVJEPuXDy57p/eGXI8VqQsEtClTIU
+	 3ScWCzP3V7FTysK5vSAfnBy74BX3RglunzZhky1O+FifIF0235eIkojGhFgR4kmULQdh+
+	 gjrnXBKqnv1aVZqGRxz87RjFSURD7HltkNsX0WAUO91QK7umyY9U4KFvPpkkHZ9boww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795029731;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795029738;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=14SBEOmGTjg8LS7k3t1iUMs1kWnigFsCdcytzLwbka8=;
-	b=KucuQy8J0agRarZRv35gmJE8zDsSjUqMLwYr7FB23x+aBTmFXn960zZmJh+mm7v8EQTk
-	 h7I5QYlsOlkwhyRgti/VRwZlrmH05uEDhVuk6e71DKhyd0aFEj1ptW2rJUz2ccBJ4Q5xm
-	 tU7TOcFYiOUhhuDHwTDKH9dYD3nrAQvLqJEChQyFRMBnNHgJdu4TnjbWjhXG6yrEefJvc
-	 7JCpAFW1OY2pZHbT/GjVynj8lVjxEzLJNHRNfQ8UJv4PEWSqwecOtY1dufFfp8gd99ZBt
-	 Kqt5bl/70QYuSCVVysaj91dtRPsaVut2eKuPnYULqa6ZluZrPwTPk/Y7sOuuQ+uCPGg==
+	bh=7CFTxIrkgVGgy+aKlyvBSzxrG+mnLeXQiFVLrDU4qps=;
+	b=I7D9qc+L+RlsCeAE4iEg4mZVLcdpkMJ2swJLOOlmAxeLuaFQqt7g7Pi0tK2YgEEqY60t
+	 xQO5p+dXBnQZBjtH5I7kiA7/O1V7I1chmlX+LuutyKq5socnoIw0NvWTvykAsecvV0uLp
+	 EKxvyXg+bwnUysuu1MFZvKdyDFHbgPQhhEAbu0FvCoscMlCi5PxZGFpcH1QkmBCmCd9f5
+	 v9+TIOh/B1TqHxCG+RhyNiyBPjXjN8gS4BHpttRDu+IrBW2yTwCZdjQmGCi9eAW1SvJ54
+	 fjDniz48CF93jicHwSNcsFCIFm8BodSSxYyLdipEX8bKEBEpK77Tfq80Ro6w/IDFnQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AaU5Txn8;
-	arc=none smtp.remote-ip=209.85.161.53
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U9FjOSXN;
+	arc=none smtp.remote-ip=209.85.161.48
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474F8606A32C
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 19:22:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 474F8606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD34C606A332
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 19:22:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD34C606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AaU5Txn8
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-702fd86d674so966266eaf.2
-        for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 11:22:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U9FjOSXN
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6e560e00a86so883169eaf.1
+        for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 11:22:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795029730; x=1795634530; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795029737; x=1795634537; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=14SBEOmGTjg8LS7k3t1iUMs1kWnigFsCdcytzLwbka8=;
-        b=AaU5Txn8U4YORy6HgRBLCwpbSGA4Us09yglJpqied3kQQ4jYr9IXcb0sXVXawU9xEQ
-         dZSDEiioybh3Kd5lX2uLSp75uu7b63Q607h/3owJcw+7Safd+gdGCbWX0cPZj7RZwENO
-         zzx5+1REpGErJsduW6Ind9iwlL7a2CKWLnrdQkCGbUTt8ele93T9dRHd+BufmwN/e3Os
-         Zn7/HcG1hc6JFMKz+szqkSnErs7HsWNsDJphdUjw8Nz21ArLXkbTbEGsKJXW4u+zOFt0
-         2Nz570t3zXs9uHK9eVIGRmUp3+pbpX4v5aL148oslmPBYuzM1Xp/pGZjWm3XAEZj4tbM
-         QKsQ==
+        bh=7CFTxIrkgVGgy+aKlyvBSzxrG+mnLeXQiFVLrDU4qps=;
+        b=U9FjOSXNHp003asYYe7PFiG58xDX7z9VHu6PX4Go8XzZw8sfYyA/1QHeGVexWmY5St
+         M6EMobBpex+13eNFNGzMsJCnHS+K8TV8O++buET/NyqwUcCFaJktCf15XzT4QUXtVvtg
+         ovM9ioicm5U8PLRyk43OIWZ04Q/DWdzDXWAr4bETdlaBv1FMSvJZNJHZAijlvmxItoGL
+         UmPyTar6g+VWte1rntzq1skuv14nDrjDB7wRKbBCoUJSBykB/+IlpaOlAF+1OK1Lgh/o
+         wA2EVA4bxfE8IATT4etOlZ6LUXsF81rNEV54nX1L0veueRbt4ZGKH04rkHJfO/+K07Rt
+         QFzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795029730; x=1795634530;
+        d=1e100.net; s=20260707; t=1795029737; x=1795634537;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=14SBEOmGTjg8LS7k3t1iUMs1kWnigFsCdcytzLwbka8=;
-        b=2tPsF0+HwB+Pv9SEdRb549jeeIjeFhr5VELFFK1CFsW2W/Xt+Q3HiYEk0buHm+MV6m
-         xVSN+6taqmUv7nRWIKKLRgrCN3+HISlvAbDeQEl3HWc2ThEsaGw7/o2M+dDfswWdCErL
-         1LSx1ZE5p01pRZtKFRiRjxs7X73NeFGyRxTcI7ad3rOt/KJA2Iy8hpTqr2CJdyZzIqbu
-         Wv0DkOojbLhXa53hdK3NrH90d5x/YDPG10xMSKXf4TUWhecTNbVuzSEgf0i5Y0US5v+e
-         /hsVJyvEhvIt8y69Tr6v/jPPXox4bRtuzQX7T81CSOYUtI3U5k2djdfbRj03GuTzeXjm
-         OJXw==
-X-Forwarded-Encrypted: i=1; AL+hErFU4LiR4GNtTMsgLFKrvM+Gbn8WxaBlkXDFKWMbzp6FaHWm59JOfaCrJ++IqcMGc+CmU+LeljN31n6DrQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qM66umv/Ojp/bw7FzbkujTlqapBCZFgWNhozyhhy2jjmRSoQw
-	86ySS8FZHn4nIknrFcW/ZtwGKgCeE+9O44ax25iKlHcxVim2kLmYxD3FvsvIi93Lnw==
-X-Gm-Gg: AYBFou1I58xbxDtXqnvDrThkV7lY7vjg8VEGoJL/pXQodnapat7ko0LJqVdnYB8+HpO
-	PAWZ9Qc0C7J2DT2nSNP/JokfUDbz9b9+/Dypas0vhU+s/9Zi6uwQlha7fbb/ltWSe9k+0ytD/am
-	3Zpg8oB8i6MyQPVCWlZkCavO/FbkK5g70BpBzUbe93tRJWPtMsOTIiRAlawdkzkKmQvoInqa2Am
-	F4q9y9NcBVY1Xz2t7F4BZjALNwW0hts4XnDqTYYrU8J/Wl1XNLI8JXbG93LBg3HK77IlbB8yrNy
-	Ac0TQkxn7jxhiiON8zBfvo/OSRiye/sBBm726oQck0vuNeRKj3VGWmEGNUiFqQfeNC/n03DoKmq
-	o8bQFX5P5fGN1CqfRJfDqr86DCMPsDZxThmM/1e9/aLnSosCxOO9OPb2UUa452qYgktnjMoc3wU
-	A6jm+l9jVPHITQHQCXNWczlbF5XwrQpneI4I6QYJ6yuFp/54F0mh6BdrZnI6SDmjf4LSbyI4idC
-	Bl8ZLyXebErqIiluWUzAp1MjHfUtfDF5E7Doj8Ee9dKCY8KI1kuT7jmJ5OHLpoxJXzovdN7qd2d
-	nwNaMZ3I1iNSsfkTtRe2Lm9fm3SBgeZaxI9eIXGWbKK7MhUbEj6WSRY8
-X-Received: by 2002:a05:6820:480a:b0:6d8:57bf:57bf with SMTP id 006d021491bc7-71b1842e2b8mr2146386eaf.21.1795029730168;
-        Wed, 18 Nov 2026 11:22:10 -0800 (PST)
+        bh=7CFTxIrkgVGgy+aKlyvBSzxrG+mnLeXQiFVLrDU4qps=;
+        b=eQ5XH8OXk6runm/JPm3wfgTvA7nYrDzuEQxOQsn0k50UPrfKxWw3++pmD9yMHD+7E9
+         XQPq2B+N5EjpMiNKnb8/1ARXg9huqubpSx4+31mNXUKJX1uKt70sIEQn05WLNrm5c1ed
+         dfXyb70ejdT6kh7B8JWzc+GQUCkgDXLrHemL1R2JcOgSKEJZUyMTwETXqC4RUv7AOTOl
+         5OLJrY75tbFflAxDnPw3NUgAXOHzuLMFWMTpkgT41T9wmj7DkE5+G2r+Xkd7Dle9bFy9
+         pRhqgL1jUvRrbWNbyZ9ytIolBLiNJsK9qmWADT5S2rFn/cBp/vWEEnBBytkrdUKp1IMv
+         ayIA==
+X-Forwarded-Encrypted: i=1; AL+hErFZOSzr29AqBsaR0UyI3xz/8vtYZCiuYIXIcN1wBMPJZ397Klq8eadD789PlOayv0titntOkpydxltobg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/cf/madH59PpP2GEkrqyGHBOigybnaq0b6ioWzICkYAZghDNIj
+	bY2N5ugMuuTlB5PM1nN23bXrNmRDerzAy08QIuS4dz5lEzPUzLcc0Qs=
+X-Gm-Gg: AYBFou3LQpHgzk9XCbLH8bX+saieyrKzGkTTryB5LGBiDgycnPbdwPObZOwKqYIUHoc
+	GTy4Xd4T3yZxGdHvqgYYsMxzCQbWJjh5c1CMon7kSPMaAm0wLCh6HesBslU7704maYnVz3guRgz
+	UyYIaFWxwZMTtITqtLbTN0F6sAPRFGKmaNG+sgL3O+Oqr4iv1D6iOuQ5qc0xX8mytv9ccNcSeea
+	v+eW+f62NsUEg/PcDuJ1xJy2ebLwBAPkSXu5xGxbAeXOZmsQjMgMkgo08fZjpODV83MOJF1lfll
+	xIFzENtnYOlq/z4TwRAtp+wSD8lAwWzEUbcReNZF46UVTMClc8qf8LroZX6Mqi2j9ml0BuCg7cE
+	9z397pba16vmRXLB89BYQmWaUETUnaD1QPfEqEhEujTo6AvRuwp5h39TsxXY0zP9xA0vn7+o8XV
+	UnVLKjSUZA8IQTYpBHt5klrhF3ir1QyT8u0JwXpW+egWuc/xaGpwUWYkK9TxKe20T2Qf5U/h9Ir
+	2jxP/AvF7BRmlzBSKjhGBjOmMMRr/N5UNcStKwO+b13rsdArMnnOZVLuSrgOf2BUYs6bZp41k84
+	s3m6J4bM6b/FIuxvRMcOO27k9vNrs3/CnurClHzfI8FIwIdjmQCWs9dY
+X-Received: by 2002:a05:6820:a504:20b0:70b:8831:8c5e with SMTP id 006d021491bc7-71b1853a165mr2213309eaf.51.1795029736537;
+        Wed, 18 Nov 2026 11:22:16 -0800 (PST)
 Received: from miso.lan ([136.62.61.36])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b195c0bafsm2376912eaf.14.2026.11.18.11.22.09
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b195c0bafsm2376912eaf.14.2026.11.18.11.22.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 11:22:09 -0800 (PST)
+        Wed, 18 Nov 2026 11:22:16 -0800 (PST)
 From: Matthew Laux <matthew.laux@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil@kernel.org>,
@@ -85,9 +85,9 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 Cc: linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	Matthew Laux <matthew.laux@gmail.com>
-Subject: [PATCH v5 2/8] media: tw9900: accept the TW9910 chip ID
-Date: Wed, 18 Nov 2026 13:21:18 -0600
-Message-ID: <20261118192124.23330-3-matthew.laux@gmail.com>
+Subject: [PATCH v5 3/8] media: tw9900: add saturation, hue and sharpness controls
+Date: Wed, 18 Nov 2026 13:21:19 -0600
+Message-ID: <20261118192124.23330-4-matthew.laux@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261118192124.23330-1-matthew.laux@gmail.com>
 References: <20261118192124.23330-1-matthew.laux@gmail.com>
@@ -102,74 +102,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Allow tw9900.c to accept the tw9910's chip ID and revision fields as
-well as the tw9900's. The tw9910 is a superset of the tw9900 for the
-functionality used by the tw9900 driver, and USB3HDCAP/XCAPTURE-1
-capture devices can have either chip.
+Add additional V4L2 controls for the tw9900 that modify the appropriate
+registers for saturation, hue, and sharpness, sourced from the datasheet.
 
 Signed-off-by: Matthew Laux <matthew.laux@gmail.com>
 ---
- drivers/media/i2c/tw9900.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ drivers/media/i2c/tw9900.c | 33 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 32 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/i2c/tw9900.c b/drivers/media/i2c/tw9900.c
-index e07924faa84b..60d5686716f7 100644
+index 60d5686716f7..d365432e8f89 100644
 --- a/drivers/media/i2c/tw9900.c
 +++ b/drivers/media/i2c/tw9900.c
-@@ -23,6 +23,8 @@
- #include <media/v4l2-subdev.h>
+@@ -41,6 +41,11 @@
+ #define TW9900_REG_CNTRL1			0x0C
+ #define TW9900_REG_BRIGHT_CTL			0x10
+ #define TW9900_REG_CONTRAST_CTL			0x11
++#define TW9900_REG_SHARPNESS			0x12
++#define TW9900_REG_SHARPNESS_MASK		GENMASK(3, 0)
++#define TW9900_REG_SAT_U			0x13
++#define TW9900_REG_SAT_V			0x14
++#define TW9900_REG_HUE				0x15
+ #define TW9900_REG_VBI_CNTL			0x19
+ #define TW9900_REG_ANAL_CTL_II			0x1A
+ #define TW9900_REG_OUT_CTRL_II			0x1B
+@@ -252,6 +257,26 @@ static int tw9900_s_ctrl(struct v4l2_ctrl *ctrl)
+ 		ret = tw9900_write_reg(tw9900->client, TW9900_REG_CONTRAST_CTL,
+ 				       (u8)ctrl->val);
+ 		break;
++	case V4L2_CID_SATURATION:
++		ret = tw9900_write_reg(tw9900->client, TW9900_REG_SAT_U,
++				       (u8)ctrl->val);
++		if (ret)
++			break;
++		ret = tw9900_write_reg(tw9900->client, TW9900_REG_SAT_V,
++				       (u8)ctrl->val);
++		break;
++	case V4L2_CID_HUE:
++		ret = tw9900_write_reg(tw9900->client, TW9900_REG_HUE,
++				       (u8)ctrl->val);
++		break;
++	case V4L2_CID_SHARPNESS:
++		ret = tw9900_read_reg(tw9900->client, TW9900_REG_SHARPNESS);
++		if (ret < 0)
++			break;
++		ret = tw9900_write_reg(tw9900->client, TW9900_REG_SHARPNESS,
++				       (ret & ~TW9900_REG_SHARPNESS_MASK) |
++				       ctrl->val);
++		break;
+ 	default:
+ 		ret = -EINVAL;
+ 		break;
+@@ -701,7 +726,7 @@ static int tw9900_probe(struct i2c_client *client)
  
- #define TW9900_REG_CHIP_ID			0x00
-+#define TW9900_REG_CHIP_ID_ID_MASK		GENMASK(7, 3)
-+#define TW9900_REG_CHIP_ID_REV_MASK		GENMASK(2, 0)
- #define TW9900_REG_CHIP_STATUS			0x01
- #define TW9900_REG_CHIP_STATUS_VDLOSS		BIT(7)
- #define TW9900_REG_CHIP_STATUS_HLOCK		BIT(6)
-@@ -51,6 +53,7 @@
- #define TW9900_REG_VVBI				0x55
+ 	hdl = &tw9900->hdl;
  
- #define TW9900_CHIP_ID				0x00
-+#define TW9910_CHIP_ID				0x0B
- #define TW9900_STD_NTSC_M			0
- #define TW9900_STD_PAL_BDGHI			1
- #define TW9900_STD_AUTO				7
-@@ -574,6 +577,7 @@ static int tw9900_check_id(struct tw9900 *tw9900,
- 			   struct i2c_client *client)
- {
- 	struct device *dev = &tw9900->client->dev;
-+	u8 id, rev;
- 	int ret;
+-	ret = v4l2_ctrl_handler_init(hdl, 2);
++	ret = v4l2_ctrl_handler_init(hdl, 5);
+ 	if (ret)
+ 		goto err_destory_mutex;
  
- 	ret = pm_runtime_resume_and_get(&tw9900->client->dev);
-@@ -581,7 +585,7 @@ static int tw9900_check_id(struct tw9900 *tw9900,
- 		return ret;
+@@ -711,6 +736,12 @@ static int tw9900_probe(struct i2c_client *client)
+ 			  -128, 127, 1, 0);
+ 	v4l2_ctrl_new_std(hdl, &tw9900_ctrl_ops, V4L2_CID_CONTRAST,
+ 			  0, 255, 1, 0x60);
++	v4l2_ctrl_new_std(hdl, &tw9900_ctrl_ops, V4L2_CID_SATURATION,
++			  0, 255, 1, 0x80);
++	v4l2_ctrl_new_std(hdl, &tw9900_ctrl_ops, V4L2_CID_HUE,
++			  -128, 127, 1, 0);
++	v4l2_ctrl_new_std(hdl, &tw9900_ctrl_ops, V4L2_CID_SHARPNESS,
++			  0, 15, 1, 1);
  
- 	mutex_lock(&tw9900->mutex);
--	ret = tw9900_read_reg(client, TW9900_CHIP_ID);
-+	ret = tw9900_read_reg(client, TW9900_REG_CHIP_ID);
- 	mutex_unlock(&tw9900->mutex);
- 
- 	pm_runtime_put(&tw9900->client->dev);
-@@ -589,11 +593,17 @@ static int tw9900_check_id(struct tw9900 *tw9900,
- 	if (ret < 0)
- 		return ret;
- 
--	if (ret != TW9900_CHIP_ID) {
--		dev_err(dev, "Unexpected decoder id %#x\n", ret);
-+	id = FIELD_GET(TW9900_REG_CHIP_ID_ID_MASK, ret);
-+	rev = FIELD_GET(TW9900_REG_CHIP_ID_REV_MASK, ret);
-+
-+	if (id != TW9900_CHIP_ID && id != TW9910_CHIP_ID) {
-+		dev_err(dev, "Unexpected decoder id %#x (rev %u)\n", id, rev);
- 		return -ENODEV;
- 	}
- 
-+	dev_dbg(dev, "Found %s revision %u\n",
-+		id == TW9910_CHIP_ID ? "TW9910" : "TW9900", rev);
-+
- 	return 0;
- }
- 
+ 	tw9900->subdev.ctrl_handler = hdl;
+ 	if (hdl->error) {
 -- 
 2.47.3
 
