@@ -1,72 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795008532;
-	b=UD0X1aqnEJ/Zh24Wx5eCqNn47VxCV5T+96l6WEjvg3nndHVvN+zx8vScD7k9gnSNlhAK
-	 TkrkINzPkE78W7GDkCDAnIOcgTfGny+LTxqpldFpQqyIoQ57YTHu9XKsIdo80RWBr0BaO
-	 yNVtHsqmW4Kgc1S2ozmLNL0LZH8/VaW9Ae6LzKBfuJJNgH8kRh/0cukfRKgo+gMmKn+wm
-	 7xswun9UcjeGrPY2EazqRY+SfLBXamhL9JqSwMDUsfiEh+euU2tAJBz6OSp69LnYuOd3Q
-	 d1pJDdy6Us/U7D2IdQnR3HNuu+OMySQg+GK5tlH6RitomQychPAK9rQBUUPIBW/+ruw==
+	t=1795008533;
+	b=s4W+pfKEctqIG64bjIpi7ZwKFxevk2BiXjibqENDKV/RD+qtDDW+tT8SD3B1nXNM+fdP
+	 BZaagPYhbCfhrqtSegvDxy3+Wq58ru/78kGpSDcEMObJkw3cqJn1Gl291SW+Kv3xj0QOd
+	 f6nLjGLfS3FYu+7PpBiuRO3/RxSULsYrdEdYmxzQPaV7tWvLK/GFoE4T833R89cWdk2Nv
+	 ycQ+DVNXsc2BBcs0/xBx7OFZZ6pO92oIkWbbTyd+7HkUPucCW8SjI8QakQTRw5d+amEXq
+	 bvl1yw3czyNXvV2jzCvX6592XjXWiG8rWWnQuBD+1QDKFCOqKV/ZAD807VzW80A+NEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795008532;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795008533;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=PnaKhWvL1ddEbQvav7g3UaknzYuC3c/OKrVvaE8Gr1g=;
-	b=gYmvG5PdegRhfuGmtZJ/qOBEoWyLvHzXrg1C5Ds0YwfQmtgrb0al4NCJQ/dZJzoX5H2K
-	 w9VNzGh/hrrtVs9fJkjVqVp04V1qiKAgqqTjg/7yFyeTNQo/hJxWpQwB3/MxByUbW3JIQ
-	 hQDQPDaRkAgCDNajYAslhFspUje1u1FVlZ0Sa8ojqTPYHplAGcE/oDLhZbL7xEf/2xjm8
-	 otK4oL0EfUn/Sl8g1R5MXoEZn02xG6TZmKbVPOLDAbHCoet6WrDj7Gm5fZAzHvZiiSjIQ
-	 02Xe3qandMUVCkbO4KYZzriYWchjajVlRDCC4XR94zCkFOripFLdSumVp+0/mIPmBVw==
+	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qZ2atPgG9/wEooI1MxAejIRxU7gSdjMRPQslXo1Ryw0=;
+	b=RJtzvf9d5TWPgqWG09xVlyeyITrIDFHEMzFxgxX9DA96dFtmdcH/C0/Tlp9Zi8DP2Kcb
+	 OFNClcMLQehfhkKFUcIR9eI1k5wNVqLYbB84sBlo+uWTSwam07Q/9pfZIGXbPjqJCkVeq
+	 moZETd+/QRn75zIHZRiAJ1nV0N0NVK/kMm4MuJOY0Z8Eidmblk6q9Bc2erXYMif9LVYPB
+	 sldWw4kWOwTZL2nnA8FB2aB/W94yssLK5l0p4rn0axwVTUHahGgKu9ovCvlcfhf6YxniN
+	 Fu8EtsP5Aa6U28xvf2OPLDwTapAD60pVm4oExCk97CI5KdSI6UiQymUk5GRqWkbRfFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IKCYuiy4;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MEqsoT3R;
 	arc=none smtp.remote-ip=192.198.163.11
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5248060A2628
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:28:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5248060A2628
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC0260A2621
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:28:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAC0260A2621
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IKCYuiy4
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MEqsoT3R
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1795008532; x=1826544532;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=syvx4oGMLwGmkaszSjWCV2zb5yctaqcqfJA7jPktxco=;
-  b=IKCYuiy4wecrakJFSsZVUjFlYA9Ym32ax/9MF+He412Ixi+Nj1NXPYQe
-   jinPk3p0wcuOEIh70Ezh50viRSY2VX2TVXHSTBMTAE34KYtEbO/kxqlJI
-   TUYYJavar+LPKgAMmzHXGkvCxAsIY91mbpfP5zUCOfN8sSS5QFTPQELBk
-   59XCij+RssiEwy55tPU5ngMPaKTQPGopU1ZtfeKv9KZP9t8WFvJnDEuvD
-   CMxIvBOxv9KKe3YtUdr4mM/mUjoAxUOIove9GNhm/ZoSXQqlOVRj3nmO0
-   fjZ0qmoWsIPBZmjxXqCuv9jApk4L8wJfpb+9MQqAkAV3VgXhdRpLWEHZv
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=QUtpBY+yXIf5DbAoKOILEuAMqSdBPE/hu40JZZdsiXA=;
+  b=MEqsoT3RE30DkMi7Wl6lB8D2rFXZDIr/ghVfXZvDZiU4CBlTDlJlJpNG
+   K6AXmOo2bUURr1VYjZ0pba0XkUXSVD4SqBx8EnlC/WpU9JeOF8LDm5sqY
+   D5OsiIfmny359JtVrxvczb4K1vqC+ERn1ybFi1FOYXLymY7EEQ6OtvhSI
+   qkE7Qj4wQ39pcoZXBbZmYyIPXWxenHetWAPEioIeDErFwGrkH1UjdzRjo
+   baqx/NF5KMxJe7Cicnv7UUhWafYQcyj2z5oZuUnsOxh12iinaQe2cByFD
+   2NKGq8EJwgLAbTol76HhvwxgLSQJW3hZ1VIjahCJSM2A6xQc5H+ZtXRUQ
    Q==;
-X-CSE-ConnectionGUID: G/3BwAh7SH+aN5Wxiw0N+A==
-X-CSE-MsgGUID: 68GVK5RATsu6NDXNQTxw3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3738945"
+X-CSE-ConnectionGUID: pLWEylOmRju//isF6ccwaQ==
+X-CSE-MsgGUID: XAq9SUZ8Q2Kw/GOttGGh1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3738920"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3738945"
+   d="scan'208";a="3738920"
 Received: from fmviesa013.fm.intel.com ([10.60.135.153])
   by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:48 -0800
-X-CSE-ConnectionGUID: oscjha8vRMGxKR9yRwr04w==
-X-CSE-MsgGUID: mXmSWhmGQkWXAYqhARekXA==
+X-CSE-ConnectionGUID: qCb8/PeHTZ6CtbFY4VZRAw==
+X-CSE-MsgGUID: cxW6jzlMTXm9lCgxDTvOxA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="12076081"
+   d="scan'208";a="12076077"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:40 -0800
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 14442121D4C;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 11229121C41;
 	Wed, 18 Nov 2026 15:28:31 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xTfhz-00000000tZp-2tAS;
+	id 1xTfhz-00000000tZe-2e60;
 	Wed, 18 Nov 2026 15:28:19 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -102,12 +102,10 @@ Cc: hans@jjverkuil.nl,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH v13 03/73] media: uapi: Add generic CSI-2 raw pixelformats
-Date: Wed, 18 Nov 2026 15:27:09 +0200
-Message-ID: <20261118132819.213473-4-sakari.ailus@linux.intel.com>
+Subject: [PATCH v13 00/72] Generic line based metadata support, internal pads
+Date: Wed, 18 Nov 2026 15:27:06 +0200
+Message-ID: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
-References: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -119,245 +117,721 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add generic raw pixelformats for bit depths 8, 10, 12 and 14. These
-formats are CSI-2 packed, apart from the 8-bit format.
+Hi folks,
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
----
- .../media/v4l/pixfmt-raw-generic.rst          | 175 ++++++++++++++++++
+Here are a few patches to add support generic, line based metadata as well
+as internal pads, sub-device configuration models (including the common
+raw sensor model) and a streaming control helper for MC-enabled drivers.
+The amount of code and documentation is in this version is no longer small
+but it still requires some explaining.
+
+Metadata mbus codes and formats have existed for some time in V4L2. They
+however have been only used by drivers that produce the data itself and
+effectively this metadata has always been statistics of some sort (at
+least when it comes to ISPs). What is different here is that we intend to
+add support for metadata originating from camera sensors.
+
+Camera sensors produce different kinds of metadata, embedded data (usually
+register address--value pairs used to capture the frame, in a more or less
+sensor specific format), histograms (in a very sensor specific format),
+dark pixels etc. The number of these formats is probably going to be about
+as large as image data formats if not larger, as the image data formats
+are much better standardised but a smaller subset of them will be
+supported by V4L2, at least initially but possibly much more in the long
+run.
+
+Having this many device specific formats would be a major problem for all
+the other drivers along that pipeline (not to mention the users of those
+drivers), including bridge (e.g. CSI-2 to parallel) but especially CSI-2
+receiver drivers that have DMA: the poor driver developer would not only
+need to know camera sensor specific formats but to choose the specific
+packing of that format suitable for the DMA used by the hardware. It is
+unlikely many of these would ever get tested while being present on the
+driver API. Also adding new sensors with new embedded data formats would
+involve updating all bridge and CSI-2 receiver drivers. I don't expect
+this to be a workable approach.
+
+Instead what I'm proposing is to use controls to convey the colour pattern
+and metadata layout. Generic mbus codes convey the width of the data
+transferred on serial buses (for now, corresponding parallel formats may
+be added when needed) but the control is only relevant on the UAPI, not
+between drivers. This approach unsnarls the layout of the data and its
+colour components, defining what data there is (specific mbus code) and
+how that is transported and packed (generic mbus codes and V4L2 formats)
+separately.
+
+The user space would be required to "know" the path of that data from the
+sensor's internal pad to the V4L2 video node. I do not see this as these
+devices require at least some knowledge of the pipeline, i.e. hardware at
+hand. Separating what the data means and how it is packed may even be
+beneficial: it allows separating code that interprets the data (sensor
+internal mbus code) from the code that accesses it (packing).
+
+These formats are in practice line based, meaning that there may be
+padding at the end of the line, depending on the bus as well as the DMA.
+If non-line based formats are needed, it is always possible to set the
+"height" field to 1.
+
+Internal sink pads behave mostly like regular sink pads, but they describe
+a flow of data that originates from a sub-device instead of arriving to a
+sub-device. The SUBDEV_S_ROUTING IOCTLs are used to enable and disable
+routes from internal sink pads to sub-device's source pads. The subdev
+format IOCTLs are usable, too, so one can find which subdev format is
+available on given internal sink pad.
+
+I've tested the patches using the IPU6 / ov2740 pair of drivers as well as
+Unicam / imx219.
+
+Questions and comments are most welcome.
+
+Preliminary media-ctl and yavta patches can be found here:
+
+<URL:https://git.retiisi.eu/?p=~sailus/yavta.git;a=shortlog;h=refs/heads/metadata>
+<URL:https://git.retiisi.eu/?p=~sailus/v4l-utils.git;a=shortlog;h=refs/heads/metadata>
+
+The patches are on my metadata branch
+<URL:https://git.linuxtv.org/sailus/media_tree.git/log/>.
+
+The documentation build output can be found here:
+<URL:https://www.retiisi.eu/~sailus/v4l2/tmp/metadata/>.
+
+since v12:
+
+- Merged ipu6 patches.
+
+- Merged client_info changes.
+
+- Improve internal sink pad documentation.
+
+- Add subdev-config-model rst file to index directly.
+
+- Improve HBLANK and VBLANK control documentation.
+
+- Use hexadecimal numbers for CFA pattern numbers and add a MONO pattern.
+
+- Fix binning integer menu value example.
+
+- Add unpacked raw pixelformats for 10, 12 and 14 bpp.
+
+- Document the compose rectangle isn't modifiable in Common Raw Sensor
+  Model.
+
+- Fix selection rectangle values for imx219.
+
+- Do not maintain streaming state locally in imx219.
+
+- Dropped a local handler for LLP and FLL controls in imx219; use
+  generic v4l2_sensor_fll_llp_set() instead (moved from v4l2-mc.c to
+  v4l2-common.c).
+
+- Grab binning control during streaming in imx219.
+
+- Use factual (i.e. non-register) values for FLL, LLP and PIXEL_RATE.
+
+- Call client_caps caps instead in struct v4l2_subdev_client_info.
+
+- Drop the VALIDATE_LATE MC link flag.
+
+- Drop v4l2_subdev_call_ci_state_try() and
+  v4l2_subdev_call_ci_state_active(); instead move the code in drivers
+  (one for each) and so avoid interesting-looking macros in v4l2-subdev.h.
+
+- Include Frank's patch for media bus format info.
+
+- Check client caps when accessing internal pads.
+
+- Move out the patches to obtain frame descriptors. They can wait.
+
+- Use __u* types in macros working with binning factors in
+  v4l2-controls.h.
+
+since v11:
+
+- Add a note (patch "media: Documentation: Add a note on Bayer raw mbus
+  codes") to document the use of new generic raw formats
+
+- Link to the LINK_FREQ control from the tx-rx driver documentation. 
+
+- Refer to V4L2 fwnode endpoint parsing functions in tx-rx driver
+  documentation.
+
+- Rename V4L2_CID_COLOR_PATTERN as V4L2_CID_CFA_PATTERN. This matches
+  better with the established use of the terms (CFA in particular).
+
+- Improve and fix references in new camera sensor driver documentation.
+
+- Improve and fix language regarding embedded data in camera sensor driver
+  documentation.
+
+- Improve language in routing documentation in dev-subdev.rst.
+
+- Document the IMMUTABLE route flag in routing documentation.
+
+- Add a note in routing documentation that a sub-device may have either
+  user-created or static routes.
+
+- Also use IMMUTABLE and STATIC flags in internal pads example.
+
+- Elaborate image and metadata stream dependencies in imx219
+  documentation.
+
+- Don't mention selections in sub-device configuration documentation for
+  internal pads.
+
+- The source format of the camera sensor is configured using the source
+  pad; document this in the Common raw sensor model.
+
+- Move binning factors from camera controls class to image source class
+  where they belong.
+
+- Improve description of colour filter array patterns.
+
+- Add that CFA_PATTERN_FLIP is a read-only control.
+
+- Add references to metadata layouts into the metadata layout control.
+
+- Refer to V4L2_METADATA_LAYOUT_OV2740 in ov2740 documentation (not
+  V4L2_METADATA_LAYOUT_CCS).
+
+- Note that ov2740 embedded data dpc correction threshold uses bits 9--2.
+
+- Postpone adding 16 and higher bpp generic raw formats until we have a
+  user (split into separate patches later in the set).
+
+- Generic 16- and 24-bit format isn't really CSI-2 packed (but appears to
+  be big endian) so rename the two accordingly.
+
+- Small but numerous fixes in generic raw image data format documentation.
+
+- Improve documentation of different parts of the pixel array and relation
+  of that to the UAPI under common raw sensor model documentation.
+
+- Reword documentation of the compose rectangle in common raw sensor
+  model documentation.
+
+- Add crop bounds rectangle to the common raw sensor model to convey the
+  bounds of the pixel array. This allows using negative numbers as well.
+
+- Document that the sensor's output format is configured on the source
+  pad.
+
+- Add references to relevant controls in generic raw format documentation.
+
+- Introduce V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR sub-device capability
+  bit. This bit is set by the userspace to signal support for the common
+  raw sensor model and allows supporting common raw sensor model also in
+  existing drivers.
+
+- Introduce the static route flag to indicate a route is always present.
+
+- Add new struct v4l2_subdev_client_info as argument to certain pad
+  operations in order to support passing information on client
+  capabilities to sub-device drivers.
+
+- Added common raw format support to the CCS driver.
+
+- Drop leftover mutex_unlock() in ccs_set_format().
+
+- Fully rely on sub-device state locking in the CCS driver.
+
+- Make METADATA_LAYOUT control read-only.
+
+- Add new controls FRAME_LENGTH_LINES and LINE_LENGTH_PIXELS.
+
+- Don't handle the CFA pattern control in set_ctrl() -- ops is NULL.
+
+- Support the common raw sensor model in imx219:
+
+	- Add support for BINNING_FACTORS, FRAME_LENGTH_LINES and
+	  LINE_LENGTH_PIXELS controls.
+
+	- Support both Common Raw Sensor Model and old behaviour,
+	  depending on V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR bit. The
+	  internal state is the same in both cases but the view to the
+	  state and UAPI behaviour differs based on that bit.
+
+	- Keep track of enabled streams; any started stream starts
+	  streaming on the sensor.
+
+	- Enumerate only generic raw mbus code on the internal image
+	  source pad.
+
+	- Support set_selection for setting analogue crop area.
+
+	- Remove redundant comments in imx219_probe().
+
+- Ipu6 driver changes:
+
+	- Lots of cleanups.
+
+	- Only start streaming on the upstream sub-device when all queues
+	  in the pipeline have been set streaming.
+
+	- Use VALIDATE_LATE link flag for links to video nodes.
+
+	- Move streaming control to the CSI-2 driver. Streaming now starts
+	  on the upstream sub-device once all participating video nodes
+	  have been set streaming.
+
+- Support generic raw formats in the unicam driver.
+
+- Document that common raw sensor model requires implementing
+  FRAME_LENGTH_LINES and LINE_LENGTH_PIXELS controls.
+
+since v10:
+
+- Merge a few patches that aren't strictly related to metadata, mostly
+  documentation cleanups and improvements.
+
+- Add V4L2_SUBDEV_ROUTE_FL_STATIC, to indicate a route is mutable but
+  hardware specific so it remains even if disabled. An example of this are
+  embedded data routes on camera sensors. IMMUTABLE implies STATIC.
+
+- Postpone adding formats higher than 14 bpp and remove reference to
+  "little endian" for the CSI-2 packed formats. It's not entirely clear
+  how the data on higher bit depth formats are laid out in memory. The
+  documentation suggests these are in big endian format but that would be
+  impractical for CPU processing.
+
+- Add references to controls in flipping documentation in
+  subdev-formats.rst.
+
+- Add -ENXIO return code for device specific invalid routing configuration
+  and clarify routing error conditions for -EINVAL.
+
+- Add braces for the case in imx219_enum_mbus_code() to make Clang happy.
+
+- Rebase off of mc-streamon set (to my cleanup branch). The problem of
+  when to stream on and off still needs to be addressed but I'm looking
+  into a different, better integrated approach right now.
+
+- Rename generic metadata formats at bit depths 16 and 24 as it seems
+  these have more generic packing than CSI-2.
+
+since v9:
+
+- Introduce controls for sub-device configuration models (separately
+  discussed in <20250203085853.1361401-1-sakari.ailus@linux.intel.com>),
+  with the following changes:
+
+	- Fix spelling and improve wording in documentation based on
+	  comments.
+	
+	- Use US English spelling for V4L2 control names.
+	
+	- Allow for more than one internal pad for pixel data.
+	
+	- Introduce (or change a bit) generic mbus codes for raw pixel
+	  data and metadata.
+	
+	- Introduce generic and CSI-2 specifc V4L2 pixelformats for image
+	  data and metadata. Also 16- and 24-bit formats are generic, not
+	  specific to CSI-2.
+
+	- Introduce new controls to convey metadata layout on bus and by
+	  extension, in memory, instead of relying on separate metadata
+	  mbus codes, aligning with pixel data.
+
+	- Use generic metadata codes in the example.
+
+- Include imx219 embedded data support patches from Laurent, with
+  modifications.
+
+- Patches to IPU6 ISYS driver needed to support metadata capture. Luma
+  formats added, too.
+
+- Improved debug prints in v4l2_subdev_{en,dis}able_streams().
+
+- Added a patch to make media_entity_to_video_device() NULL-safe.
+
+- Drop _media-glossary-data-unit reference, use :term: to reference it.
+
+- Include a patch to set IPU6 ISYS minimum height to 1.
+
+- Patch 'media: uapi: Document which mbus format fields are valid for
+  metadata' already merged.
+
+- Patch 'media: uapi: v4l: Add generic 8-bit metadata format definitions'
+  already merged.
+
+- Patch 'media: v4l: Support line-based metadata capture' already merged.
+
+- Patch 'media: Documentation: Document S_ROUTING behaviour' already merged.
+
+- Patch 'media: v4l: subdev: Add len_routes field to struct
+  v4l2_subdev_routing' already merged.
+
+since v8:
+
+- Move the patch adding internal pad flag past the routing API reworks, as
+  well as a few other patches, in order to separate the patches to those
+  that could still be merged for v6.10 (routing changes) and those that
+  couldn't (sensor API related). The patch on the edge is "media: uapi:
+  v4l: subdev: Enable streams API".
+
+- Include Laurent's two patches to address crop API issues wrt. streams.
+
+- Add two patches to prepare for CCS driver rework (media: ccs: Move
+  ccs_pm_get_init function up and media: ccs: Rename out label of
+  ccs_start_streaming).
+
+- Address issues in the ov2740 driver patches (as well as the driver
+  itself), 4 more patches towards the end of the set.
+
+- Improved generic metadata format names, align with other existing
+  formats.
+
+- Improved ov2740 embedded data documentation.
+
+- Reworked streams and camera sensor documentation based on Laurent's
+  comments mainly. In particular, the contradictory concept of internal
+  source pads no longer should exist in the patches.
+
+- Fixed pad numbering in the CCS example.
+
+- Fixed S_ROUTING behaviour when len_routes is too small and when
+  S_ROUTING isn't implemented by the driver.
+
+- Reorder sections in meta-formats.rst alphabetically.
+
+- Add a note per struct fields that certain struct v4l2_subdev_format are
+  zero for metadata mbus codes.
+
+- CCS driver patch cleanups.
+
+- CCS driver metadata width fix for space-efficient embedded data at 16
+  bpp and over.
+
+- Postpone CCS frame descriptor quirk for now.
+
+- Use MIPI_CSI2_DT_USER_DEFINED(0) instead of a numerical value for
+  compressed data datatype.
+
+since v7:
+
+- Add embedded data support for the ov2740 driver.
+
+- Add three patches on top, to add an IMMUTABLE flag to source streams
+  when they cannot be disabled.
+
+- Improved documentation of len_routes and num_routes arguments of
+  [GS]_ROUTING.
+
+- Remove one inclusion of twice-included media/v4l2-fwnode.h in
+  drivers/media/i2c/ccs/ccs-core.c .
+
+- Add missing forward declaration of ccs_internal_ops in
+  drivers/media/i2c/ccs/ccs-core.c .
+
+since v6:
+
+- Improve embedded data UAPI documentation on camera sensors.
+
+- Improve wording of stream glossary entry.
+
+- Improve internal pad flag documentation.
+
+- Fix definition of "data unit" and remove an extra "only" in INTERNAL pad
+  flag description (1st patch).
+
+- Use IMX219 driver in examples consistently.
+
+- Remove the CSI-2 to parallel bridge from the example to simplify the
+  example.
+
+- Minor rewording of some parts of the routing examples.
+
+- Rebase on unified sub-device state information access functions:
+  <URL:https://lore.kernel.org/linux-media/20231027095913.1010187-1-sakari.ailus@linux.intel.com/T/#t>
+
+- In CCS driver, do not maintain current active configuration in driver's
+  device context struct (apart from mbus codes). Rely on sub-device state
+  locking and clean up the code. (Multiple patches towards the end of the
+  set.)
+
+- Arrange the CCS patches early in the set towards the end of the set.
+
+- Move the patch enabling streams API to the end of the set.
+
+- Rework IOCTL argument copying condition for [GS]_ROUTING).
+
+- Handle copying back routes in S_ROUTING, do not rely on G_ROUTING
+  IOCTL implementation.
+
+- Rebase on metadata preparation patchset v6:
+  <URL:https://lore.kernel.org/linux-media/20231106121805.1266696-1-sakari.ailus@linux.intel.com/T/#t>.
+
+since v5:
+
+- Rebase on new set of preparation patches.
+
+- Switch CCS driver from s_stream to enable_streams/disable_streams. Keep
+  streaming state information --- the sensor remains in streaming state if
+  any of the streams is enabled.
+
+- Fix setting mbus code on embedded data in get_frame_desc() op in the CCS
+  driver.
+
+since v4:
+
+- Add a patch to acquire two sub-device states that may use the same lock.
+
+- Add a patch for CCS driver to remove ccs_get_crop_compose() helper.
+
+- Add a patch for CCS driver moving acquiring and releasing the mutex to
+  the s_stream callback.
+
+- Add a patch for CCS driver to rely on sub-device state locking using a
+  single driver-provided lock.
+
+- Fixed calculating minimum number of routes in copying the routes
+  (thanks, Laurent).
+
+- Moved a label in S_ROUTING handling to make Clang happy (hopefully).
+
+- Fixed setting emb_data_ctrl register for CCS embedded data support.
+
+- Rebase on Laurent's cleanup patches.
+
+- Wrap a few long lines.
+
+- Write in embedded data documentation sensor drivers generally don't
+  allow configuring it.
+
+since v3:
+
+- Separate preparation patches from this set.
+
+- Add a definition for "Data unit", a pixel that is not image data and use
+  it instead in format documentation.
+
+- Fix more numbered lists in dev-subdev.rst.
+
+- Remove a redundant definition for V4L2_META_FMT_GENERIC_CSI2_2_24 ---
+  V4L2_META_FMT_GENERIC_CSI2_12 can be used instead.
+
+- Use "X" instead of "p" to denote padding in format documentation.
+
+- Use IMX219 in examples instead of CCS.
+
+- Document that the generic V4L2 CSI-2 metadata formats use padding
+  defined in CSI-2 spec and packing defined in CCS spec.
+
+- Add patches to align [GS]_ROUTING behaviour with V4L2. This means mainly
+  returning configured routes as part of S_ROUTING as well. "len_routes"
+  field is added to denote the length of the array and having more routes
+  than fits in the array is no longer an error. Also added more reserved
+  fields.
+
+- Added trivial support for S_ROUTING (via G_ROUTING implementation) for
+  use in drivers with static-only routes.
+
+- Added helper functions to obtain mbus format as well as crop and compose
+  rectangles that are streams-independent.
+
+- Added a patch to define generic CSI-2 long packet types.
+
+- Removed MEDIA_BUS_FMT_IS_META() macro. It didn't seem useful in the end.
+
+- Use a single CCS embedded data format. The bit depth can be selected
+  using the meta stream on the source pad.
+
+- Fix mbus code numbers (there were holes due to removed redundant
+  formats).
+
+- Fix generic mbus code documentation (byte was being used instead of
+  bit).
+
+- Fix spelling of "length".
+
+- Added a patch to remove v4l2_subdev_enable_streams_api that disables
+  streams API. This should be merged once libcamera support for streams
+  works nicely.
+
+- Don't use strings in printing frame descriptor flags.
+
+- Warn on string truncation in printing frame descriptor.
+
+since v2:
+
+- Add a better example, with formats.
+
+- Add CCS static data media bus codes.
+
+- Added an example demonstrating the use of internal pads. --- Is the
+  level of detail enough for the purpose?
+
+- Improved documentation.
+
+- Added a macro to tell whether a format is a metadata format.
+  (Documentation could be added.)
+
+- A small ReST syntax fix in the same section.
+
+- Drop leftovers of a patch checking for the INTERNAL_SOURCE flag.
+
+since v1:
+
+- Make the new pad flag just "INTERNAL", requiring either SINK or SOURCE
+  pad flag to accompany it. Removed the union in struct v4l2_subdev_route.
+
+- Add the term "stream" to MC glossary.
+
+- Improved and fixed documentation (according to comments).
+
+- Note these formats are little endian.
+
+- Remove 1X8 from the names of the mbus codes. These formats have generally
+  8 bits per pixel.
+
+- Fix mbus code numbering (had holes in RFC).
+
+- Add new metadata fields to debug prints.
+
+- Fix a minor documentation build issue.
+
+Frank Li (1):
+  media: v4l2-common: Add helper function
+    media_bus_fmt_to_csi2_(bpp|dt)()
+
+Laurent Pinchart (4):
+  media: imx219: Add image stream
+  media: imx219: Report internal routes to userspace
+  media: imx219: Report streams using frame descriptors
+  media: imx219: Add embedded data support
+
+Sakari Ailus (68):
+  media: uapi: Bump the STREAMS bit a little
+  Revert "media: mc: Keep INTERNAL pad flags just for the kernel, for
+    now"
+  media: uapi: Add generic CSI-2 raw pixelformats
+  media: uapi: Add new media bus codes for generic raw formats
+  media: uapi: Add V4L2_CID_CONFIG_MODEL control
+  media: uapi: Add V4L2_CID_CFA_PATTERN for describing color patterns
+  media: uapi: Add monochromatic CFA pattern
+  media: Documentation: Reference CFA pattern control in pixelformat
+    docs
+  media: Documentation: Reference CFA_PATTERN control in raw mbus docs
+  media: v4l: uapi: Add a control for color pattern flipping effect
+  media: Documentation: Reference flipping controls in raw format docs
+  media: Documentation: Document raw mbus codes and CFA for cameras
+  media: uapi: Add V4L2_CID_METADATA_LAYOUT control
+  media: Documentation: Refer to metadata layout in metadata
+    documentation
+  media: Documentation: v4l: Document internal sink pads
+  media: Documentation: Document embedded data guidelines for camera
+    sensors
+  media: uapi: Correct generic CSI-2 metadata format 4cc
+  Revert "media: uapi: v4l: Don't expose generic metadata formats to
+    userspace"
+  media: v4l: Add V4L2_SUBDEV_ROUTE_FL_IMMUTABLE sub-device routing flag
+  media: v4l: Add V4L2_SUBDEV_ROUTE_FL_STATIC sub-device routing flag
+  media: Documentation: There are either immutable or mutable routes
+  media: Documentation: Document IMMUTABLE and STATIC route flags
+  media: Documentation: Add subdev configuration models, raw sensor
+    model
+  media: v4l2-subdev: Prevent accessing internal pads without STREAMS
+    cap
+  media: subdev: Make get_fmt on INTERNAL pads without STREAMS an error
+  media: Documentation: Add scaling and post-scaler crop for common raw
+  media: uapi: Add MIPI CCS configuration model
+  media: uapi: Add V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR
+  media: uapi: Add V4L2_CID_BINNING_FACTORS control for binning
+    configuration
+  media: uapi: Add controls for sub-sampling configuration
+  media: uapi: Add new controls for camera sensor FLL and LLP
+  media: v4l2-common: Add v4l2_sensor_fll_llp_set()
+  media: Documentation: Add binning and sub-sampling controls
+  media: v4l2-subdev: Set STATIC route flag if IMMUTABLE route flag is
+    set
+  media: uapi: v4l: subdev: Enable streams API
+  media: uapi: Add binning factor helper macros
+  media: Documentation: Document frame controls for common raw sensor
+    model
+  media: v4l2-ctrl: Improve v4l2_ctrl_g_ctrl{,int64} documentation
+  media: Documentation: Add sub-device internal pads example
+  media: Documentation: Document streaming behaviour for common raw
+    cameras
+  media: Documentation: Add a note on Bayer raw mbus codes
+  media: uapi: Add generic raw pixelformats for 10, 12 and 14 bits
+  media: uapi: Add more media bus codes for generic raw formats
+  media: uapi: ccs: Add metadata layout for MIPI CCS embedded data
+  media: Documentation: Document non-CCS use of CCS embedded data layout
+  media: ccs: Add support for generic raw mbus codes
+  media: ccs: Add support for embedded data stream
+  media: Documentation: ccs: Document routing
+  media: ccs: Add IMMUTABLE and STATIC route flags
+  media: uapi: Add metadata layout for ov2740 embedded data
+  media: ov2740: Add support for embedded data
+  media: ov2740: Add support for generic raw formats
+  media: ov2740: Add metadata layout control
+  media: ov2740: Add support for G_SELECTION IOCTL
+  media: ov2740: Add support for FLL and LLP controls
+  media: ov2740: Signal common raw sensor model support
+  media: ov2740: Add IMMUTABLE and STATIC route flags
+  media: imx219: Add internal image pad for Common Raw Sensor Model
+  media: imx219: Add support for generic raw formats
+  media: imx219: Add V4L2_CID_BINNING_FACTORS
+  media: imx219: Allow configuring cropping and binning through CRSM
+  media: imx219: Support LINE_LENGTH_PIXELS and FRAME_LENGTH_LINES
+    controls
+  media: bcm2835-unicam: Support generic raw formats
+  media: ipu6: Add support for raw CFA-agnostic formats
+  media: ipu6: Add support for generic unpacked pixel and metadata
+    formats
+  Documentation: media: Reword blanking control documentation
+  media: uapi: Add generic raw pixelformat for 16 bpp
+  media: uapi: Add generic CSI-2 raw pixelformats for 16, 20, 24 and 28
+    bpp
+
+ .../driver-api/media/camera-sensor.rst        |  11 +
+ .../media/drivers/camera-sensor.rst           |  79 ++
+ .../userspace-api/media/drivers/ccs.rst       |  43 +-
+ .../media/v4l/common-raw-sensor.dia           | 442 ++++++++++
+ .../media/v4l/common-raw-sensor.svg           | 134 ++++
+ .../userspace-api/media/v4l/dev-subdev.rst    | 174 +++-
+ .../userspace-api/media/v4l/devices.rst       |   1 +
+ .../media/v4l/ext-ctrls-image-process.rst     |   6 +
+ .../media/v4l/ext-ctrls-image-source.rst      | 158 +++-
+ .../userspace-api/media/v4l/meta-formats.rst  |   1 +
+ .../media/v4l/metadata-layouts.rst            | 114 +++
+ .../media/v4l/metafmt-generic.rst             |  48 +-
+ .../media/v4l/pixfmt-raw-generic.rst          | 500 ++++++++++++
  .../userspace-api/media/v4l/pixfmt.rst        |   1 +
- drivers/media/v4l2-core/v4l2-ioctl.c          |   4 +
- include/uapi/linux/videodev2.h                |   6 +
- 4 files changed, 186 insertions(+)
+ .../media/v4l/subdev-config-model.rst         | 299 +++++++
+ .../media/v4l/subdev-formats.rst              |  48 ++
+ .../media/v4l/vidioc-subdev-g-client-cap.rst  |   6 +
+ .../media/v4l/vidioc-subdev-g-routing.rst     |   9 +
+ drivers/media/i2c/ccs/ccs-core.c              | 398 ++++++++-
+ drivers/media/i2c/ccs/ccs.h                   |  17 +-
+ drivers/media/i2c/imx219.c                    | 755 +++++++++++++++---
+ drivers/media/i2c/ov2740.c                    | 371 +++++++--
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c |   3 +
+ .../media/pci/intel/ipu6/ipu6-isys-subdev.c   |   3 +
+ .../media/pci/intel/ipu6/ipu6-isys-video.c    |  18 +-
+ .../media/platform/broadcom/bcm2835-unicam.c  |  27 +
+ drivers/media/v4l2-core/v4l2-common.c         | 253 ++++++
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  21 +
+ drivers/media/v4l2-core/v4l2-ioctl.c          |  19 +-
+ drivers/media/v4l2-core/v4l2-subdev.c         |  85 +-
+ include/media/mipi-csi2.h                     |  24 +
+ include/media/v4l2-common.h                   |  31 +
+ include/media/v4l2-ctrls.h                    |   4 +
+ include/media/v4l2-mc.h                       |   1 +
+ include/uapi/linux/media-bus-format.h         |  10 +
+ include/uapi/linux/media.h                    |   6 -
+ include/uapi/linux/v4l2-controls.h            |  34 +
+ include/uapi/linux/v4l2-subdev.h              |  20 +-
+ include/uapi/linux/videodev2.h                |  27 +-
+ 39 files changed, 3868 insertions(+), 333 deletions(-)
+ create mode 100644 Documentation/userspace-api/media/v4l/common-raw-sensor.dia
+ create mode 100644 Documentation/userspace-api/media/v4l/common-raw-sensor.svg
+ create mode 100644 Documentation/userspace-api/media/v4l/metadata-layouts.rst
  create mode 100644 Documentation/userspace-api/media/v4l/pixfmt-raw-generic.rst
+ create mode 100644 Documentation/userspace-api/media/v4l/subdev-config-model.rst
 
-diff --git a/Documentation/userspace-api/media/v4l/pixfmt-raw-generic.rst b/Documentation/userspace-api/media/v4l/pixfmt-raw-generic.rst
-new file mode 100644
-index 000000000000..254f8f18c7c5
---- /dev/null
-+++ b/Documentation/userspace-api/media/v4l/pixfmt-raw-generic.rst
-@@ -0,0 +1,175 @@
-+.. SPDX-License-Identifier: GPL-2.0 OR GFDL-1.1-no-invariants-or-later
-+
-+************************************************************************************************************************************
-+V4L2_PIX_FMT_RAW_8 ('RAW8'), V4L2_PIX_FMT_RAW_CSI2_10 ('RACA'), V4L2_PIX_FMT_RAW_CSI2_12 ('RACC'), V4L2_PIX_FMT_RAW_CSI2_14 ('RACE')
-+************************************************************************************************************************************
-+
-+
-+Generic line-based raw image data formats
-+
-+
-+Description
-+===========
-+
-+These generic raw image data formats define the memory layout of the data without
-+defining the order of the colour components or even the colour components
-+themselves.
-+
-+.. _v4l2-pix-fmt-raw-8:
-+
-+V4L2_PIX_FMT_RAW_8
-+------------------
-+
-+The V4L2_PIX_FMT_RAW_8 format is a plain 8-bit raw pixel data format. This
-+format is used on CSI-2 for 8 bits per :term:`Data Unit`.
-+
-+**Byte Order Of V4L2_PIX_FMT_RAW_8.**
-+Each cell is one byte. "P" denotes a pixel.
-+
-+.. tabularcolumns:: |p{2.4cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|
-+
-+.. flat-table:: Sample 4x2 Image Frame
-+    :header-rows:  0
-+    :stub-columns: 0
-+    :widths: 12 8 8 8 8
-+
-+    * - start + 0:
-+      - P\ :sub:`00`
-+      - P\ :sub:`10`
-+      - P\ :sub:`20`
-+      - P\ :sub:`30`
-+    * - start + 4:
-+      - P\ :sub:`01`
-+      - P\ :sub:`11`
-+      - P\ :sub:`21`
-+      - P\ :sub:`31`
-+
-+.. _v4l2-pix-fmt-raw-csi2-10:
-+
-+V4L2_PIX_FMT_RAW_CSI2_10
-+------------------------
-+
-+V4L2_PIX_FMT_RAW_CSI2_10 contains 10-bit packed image data, with four bytes
-+containing the top 8 bits of the pixels followed by lowest 2 bits of the pixels
-+packed into one byte. This format is typically used by CSI-2 receivers with
-+a source that transmits MEDIA_BUS_FMT_RAW_10 and the CSI-2 receiver writes the
-+received data to memory as-is.
-+
-+The packing of the data follows the MIPI CSI-2 specification.
-+
-+**Byte Order Of V4L2_PIX_FMT_RAW_CSI2_10.**
-+Each cell is one byte. "P" denotes a pixel.
-+
-+.. tabularcolumns:: |p{2.4cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{2cm}|
-+
-+.. flat-table:: Sample 4x2 Image Frame
-+    :header-rows:  0
-+    :stub-columns: 0
-+    :widths: 12 8 8 8 8 8
-+
-+    * - start + 0:
-+      - P\ :sub:`00 bits 9--2`
-+      - P\ :sub:`10 bits 9--2`
-+      - P\ :sub:`20 bits 9--2`
-+      - P\ :sub:`30 bits 9--2`
-+      - P\ :sub:`00 bits 1--0` (bits 1--0),
-+        P\ :sub:`10 bits 1--0` (bits 3--2),
-+        P\ :sub:`20 bits 1--0` (bits 5--4),
-+        P\ :sub:`30 bits 1--0` (bits 7--6)
-+    * - start + 5:
-+      - P\ :sub:`01 bits 9--2`
-+      - P\ :sub:`11 bits 9--2`
-+      - P\ :sub:`21 bits 9--2`
-+      - P\ :sub:`31 bits 9--2`
-+      - P\ :sub:`01 bits 1--0` (bits 1--0),
-+        P\ :sub:`11 bits 1--0` (bits 3--2),
-+        P\ :sub:`21 bits 1--0` (bits 5--4),
-+        P\ :sub:`31 bits 1--0` (bits 7--6)
-+
-+.. _v4l2-pix-fmt-raw-csi2-12:
-+
-+V4L2_PIX_FMT_RAW_CSI2_12
-+------------------------
-+
-+V4L2_PIX_FMT_RAW_CSI2_12 contains 12-bit packed image data, with two bytes
-+containing the top 8 bits of the pixels followed by lowest 4 bits of the pixels
-+packed into 1 byte. This format is typically used by CSI-2 receivers with
-+a source that transmits MEDIA_BUS_FMT_RAW_12 and the CSI-2 receiver writes the
-+received data to memory as-is.
-+
-+The packing of the data follows the MIPI CSI-2 specification.
-+
-+**Byte Order Of V4L2_PIX_FMT_RAW_CSI2_12.**
-+Each cell is one byte. "P" denotes a pixel.
-+
-+.. tabularcolumns:: |p{2.4cm}|p{1.2cm}|p{1.2cm}|p{2cm}|p{1.2cm}|p{1.2cm}|p{2cm}|
-+
-+.. flat-table:: Sample 4x2 Image Frame
-+    :header-rows:  0
-+    :stub-columns: 0
-+    :widths: 12 8 8 8 8 8 8
-+
-+    * - start + 0:
-+      - P\ :sub:`00 bits 11--4`
-+      - P\ :sub:`10 bits 11--4`
-+      - P\ :sub:`00 bits 3--0` (bits 3--0),
-+        P\ :sub:`10 bits 3--0` (bits 7--4)
-+      - P\ :sub:`20 bits 11--4`
-+      - P\ :sub:`30 bits 11--4`
-+      - P\ :sub:`20 bits 3--0` (bits 3--0),
-+        P\ :sub:`30 bits 3--0` (bits 7--4)
-+    * - start + 6:
-+      - P\ :sub:`01 bits 11--4`
-+      - P\ :sub:`11 bits 11--4`
-+      - P\ :sub:`01 bits 3--0` (bits 3--0),
-+        P\ :sub:`11 bits 3--0` (bits 7--4)
-+      - P\ :sub:`21 bits 11--4`
-+      - P\ :sub:`31 bits 11--4`
-+      - P\ :sub:`21 bits 3--0` (bits 3--0),
-+        P\ :sub:`31 bits 3--0` (bits 7--4)
-+
-+.. _v4l2-pix-fmt-raw-csi2-14:
-+
-+V4L2_PIX_FMT_RAW_CSI2_14
-+------------------------
-+
-+V4L2_PIX_FMT_RAW_CSI2_14 contains 14-bit packed image data, with four bytes
-+containing the top 8 bits of the pixels followed by lowest 6 bits of the pixels
-+packed into three bytes. This format is typically used by CSI-2 receivers with a
-+source that transmits MEDIA_BUS_FMT_RAW_14 and the CSI-2 receiver writes the
-+received data to memory as-is.
-+
-+The packing of the data follows the MIPI CSI-2 specification.
-+
-+**Byte Order Of V4L2_PIX_FMT_RAW_CSI2_14.**
-+Each cell is one byte. "P" denotes a pixel.
-+
-+.. tabularcolumns:: |p{2.4cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{1.2cm}|p{2cm}|p{2cm}|p{2cm}|
-+
-+.. flat-table:: Sample 4x2 Image Frame
-+    :header-rows:  0
-+    :stub-columns: 0
-+    :widths: 12 8 8 8 8 8 8 8
-+
-+    * - start + 0:
-+      - P\ :sub:`00 bits 13--6`
-+      - P\ :sub:`10 bits 13--6`
-+      - P\ :sub:`20 bits 13--6`
-+      - P\ :sub:`30 bits 13--6`
-+      - P\ :sub:`10 bits 1--0` (bits 7--6),
-+        P\ :sub:`00 bits 5--0` (bits 5--0)
-+      - P\ :sub:`20 bits 3--0` (bits 7--4),
-+        P\ :sub:`10 bits 5--2` (bits 3--0)
-+      - P\ :sub:`30 bits 5--0` (bits 7--2),
-+        P\ :sub:`20 bits 5--4` (bits 1--0)
-+    * - start + 7:
-+      - P\ :sub:`01 bits 13--6`
-+      - P\ :sub:`11 bits 13--6`
-+      - P\ :sub:`21 bits 13--6`
-+      - P\ :sub:`31 bits 13--6`
-+      - P\ :sub:`11 bits 1--0` (bits 7--6),
-+        P\ :sub:`01 bits 5--0` (bits 5--0)
-+      - P\ :sub:`21 bits 3--0` (bits 7--4),
-+        P\ :sub:`11 bits 5--2` (bits 3--0)
-+      - P\ :sub:`31 bits 5--0` (bits 7--2),
-+        P\ :sub:`21 bits 5--4` (bits 1--0)
-diff --git a/Documentation/userspace-api/media/v4l/pixfmt.rst b/Documentation/userspace-api/media/v4l/pixfmt.rst
-index 71b29267488f..520a8ec438c9 100644
---- a/Documentation/userspace-api/media/v4l/pixfmt.rst
-+++ b/Documentation/userspace-api/media/v4l/pixfmt.rst
-@@ -26,6 +26,7 @@ see also :ref:`VIDIOC_G_FBUF <VIDIOC_G_FBUF>`.)
-     pixfmt-indexed
-     pixfmt-rgb
-     pixfmt-bayer
-+    pixfmt-raw-generic
-     yuv-formats
-     hsv-formats
-     depth-formats
-diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
-index 17ba1ae70735..13139ebf71f3 100644
---- a/drivers/media/v4l2-core/v4l2-ioctl.c
-+++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-@@ -1434,6 +1434,10 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
- 	case V4L2_PIX_FMT_SGBRG16:	descr = "16-bit Bayer GBGB/RGRG"; break;
- 	case V4L2_PIX_FMT_SGRBG16:	descr = "16-bit Bayer GRGR/BGBG"; break;
- 	case V4L2_PIX_FMT_SRGGB16:	descr = "16-bit Bayer RGRG/GBGB"; break;
-+	case V4L2_PIX_FMT_RAW_8:	descr = "8-bit Raw"; break;
-+	case V4L2_PIX_FMT_RAW_CSI2_10:	descr = "10-bit Raw, CSI-2 Packed"; break;
-+	case V4L2_PIX_FMT_RAW_CSI2_12:	descr = "12-bit Raw, CSI-2 Packed"; break;
-+	case V4L2_PIX_FMT_RAW_CSI2_14:	descr = "14-bit Raw, CSI-2 Packed"; break;
- 	case V4L2_PIX_FMT_RAW_CRU20:	descr = "14-bit Raw CRU Packed"; break;
- 	case V4L2_PIX_FMT_SN9C20X_I420:	descr = "GSPCA SN9C20X I420"; break;
- 	case V4L2_PIX_FMT_SPCA501:	descr = "GSPCA SPCA501"; break;
-diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-index 5373dba640fa..c9aa21e1a870 100644
---- a/include/uapi/linux/videodev2.h
-+++ b/include/uapi/linux/videodev2.h
-@@ -745,6 +745,12 @@ struct v4l2_pix_format {
- #define V4L2_PIX_FMT_SGRBG16 v4l2_fourcc('G', 'R', '1', '6') /* 16  GRGR.. BGBG.. */
- #define V4L2_PIX_FMT_SRGGB16 v4l2_fourcc('R', 'G', '1', '6') /* 16  RGRG.. GBGB.. */
- 
-+/* Generic CSI-2 packed raw pixel formats */
-+#define V4L2_PIX_FMT_RAW_8 v4l2_fourcc('R', 'A', 'W', '8')
-+#define V4L2_PIX_FMT_RAW_CSI2_10 v4l2_fourcc('R', 'A', 'C', 'A')
-+#define V4L2_PIX_FMT_RAW_CSI2_12 v4l2_fourcc('R', 'A', 'C', 'C')
-+#define V4L2_PIX_FMT_RAW_CSI2_14 v4l2_fourcc('R', 'A', 'C', 'E')
-+
- /* HSV formats */
- #define V4L2_PIX_FMT_HSV24 v4l2_fourcc('H', 'S', 'V', '3')
- #define V4L2_PIX_FMT_HSV32 v4l2_fourcc('H', 'S', 'V', '4')
+
+base-commit: decc53804e94320af09c3df13d1eee66caa9c25f
 -- 
 2.47.3
 
