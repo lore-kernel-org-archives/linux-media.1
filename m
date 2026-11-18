@@ -1,72 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795008523;
-	b=yUQ6I68CBKi5SeTmmDDo4fvMUtneUHMEwk9T3aYNPMfgkYTqWudlms0umnli3YfRMxUq
-	 wdFdbrpNdJ8TDpAP5EAzJXXW/SD6WUIA4odxNGQR4vjQQnG+zPGeWTcPxe0T8dHqz4rJ5
-	 5tvf71B5g3+rKEHZXlsfgb77jDIgURXJrteiQSNqNRIAlgNiALDeZMCXnQ9Qwip+7tj60
-	 1zy1QzjrWT5HXNFn2C/lvTwytMylU0qkyoIP+zE73EqTcu88+NG0ukBYyKj+8ns1vnre7
-	 N4AoujwQpNVnhNiK0OaJe2f9UiyH91qOO1dD5HTFW4WvSzScDX45QD7mMpWoove/1iQ==
+	t=1795008521;
+	b=JlNrXOsNuzjqiKZ6oGBZwEor5ole1P/D05GPPSa2Nh1C8NOjQifuuzdJFdqD5TyuolYU
+	 Dgn4cM5UZB4Ug9ZVhs1JsQoGuez2QGcJH01qfnm18MdLJFZfKTCOEej0fa+POFe7/SQX7
+	 l8afeRpujaGd17ALF+ldTmcsZGS1o1BL6AIuQ0SPEHLiOuMHm4Vbspm9NDoZidflRrp2B
+	 0wDCOdsyrlupNsjOwSW+aAf+Cymxyddb9yb8afHMHXJr4V/l+USG47ieg2ALvksI4pE+n
+	 90INWl7EHdZh1SR3ov+8fYot2qkVj3VS8Sh0LdVa/gBkyscqM2PwYKcpTsV+gELaizw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795008523;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795008521;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
 	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=DY9yc2fmzpeYciaIw2GHA40n4Gqn4CAxitXky74Gejg=;
-	b=tvNpxAHZMc+AUKb6YH9nBKz8P1NdgrqWqVtL+Pwr8GbvbOSk7fr15nTqPYxyFVHhWZIK
-	 ViLDBrrlHEovHPoZiZlEqAnE3vf8ACl3bnndWm1E3gm2NlcMpSUShvOmV00EPlE6+0NV/
-	 PFR4AllK7gaEGSWC+iL6buUuEMPUAz088WAejD/HnQ3DYBJGsGqm1BalBTTqNuZZhgAmL
-	 9f+VAbSPWwYCIkRb8dhRmfGIPQFoZ4/A/kSDWHkUfnRUusaGaDYGy7NaOP9sqfElPPVRY
-	 gfdgVv3GZa+abKfIAu7gOH6UP2N7abbOQT5F0VyJ27qtw/eVsAHxuC//CKrOotEnKmw==
+	bh=d6fwNSzh+Cvp/spDprhJYkF5R1lWmynwViXlGtk5bF4=;
+	b=Gob8ngo/hMSYuPHhIcDbYCR2iN3HXlRq/CnMK6AWEWfOGZBHzASFMqRnRq/b6O+bK/rk
+	 qdeVjB0LZkQDBKMXjJyhcB8UiohdZSA8/WXGtSEp3KQXP2w3cLA6BaFAMsRwIT/asqWEz
+	 FhzEto4HIhz0P+JDIjqj55uq9cfj+c6w3Vvmfb7A4no2I3dXQVhU+A51vKM6aogA5bmJF
+	 9XHbzESZw1PwEao0l5RDZgYRTzGFb4DxKvznfj8Bzejc7I4eB21LYGQy4ZIg1G/4gYJi0
+	 XyANo4Xe6zgj+Qk8aVLT+40HjWK51Dlv7wEz9GstgYkwV6TNxRvB7vmZ4/5lyQROyNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Dr3E+vVD;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="TTwC/cdv";
 	arc=none smtp.remote-ip=198.175.65.13
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3E1606A337
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:28:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B3E1606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4BF606A333
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:28:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A4BF606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Dr3E+vVD
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TTwC/cdv
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795008524; x=1826544524;
+  t=1795008522; x=1826544522;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=xD67dST7j7rVZ20meSFwpp8LYZmh5Ua8SH10Ie26WzQ=;
-  b=Dr3E+vVDt7WV57mfYB1Ab/vmJgboz9H4n7c8R+xeCDAJkGF/pK3luyuO
-   I4ngp4nZBjX56dpY0Tp0aak//K0O2LvN1+94QGwyzEzUGWpjFNWORgh53
-   FnBvWL4IENT0eIdeNd4lIC+Y+4AGJMPeaexn79u23UeWGFNnAOrf+Ms/k
-   tJegoz93hJFa+Rz7kuLyZhVebPByz0Fg3EZOt4VXRmYWIqWTzESg/KajG
-   H0EC7kBiQCYYC6CvWRtVwn2a5m562k3rZpysWtXTEfzjv919Z3Sesi5G7
-   aUxzHMC1Ef966OvdNavqYvSivMisXI/g5RYSWB0vNgFe0ewrh98wsNJCM
+  bh=dkHlG0GwMMxs17ot+km7G3kUk3jTgHoTOVVDBWWLImk=;
+  b=TTwC/cdvicR82ofAYFKU7j1T31ChvjYvsp+azhy46imPDHyupY4+PFCZ
+   fGqpPUjfJiG4Si8elv6hGQZH3G9pHpyJVG1e44sw4EtXbG/0aiEoeliOY
+   iSeBWjjYUvfNAlut0Oh2YwQS9E7zKW/LFawmGMb3ahLNiOaL85gFQO9jG
+   tFnUAKcukXUMHEKRDD+rJ424ksuhYPHbVlUa98C/0vLdcxd07aVHBXVxI
+   WZrgcFxu0OA5wZTQQOahwzBBq26LUH+QnOqwo5otxN/I/XULdNTRhFKjZ
+   eTKoqtAljThjc2Ac1rSAFDWM5UBLyP86fmiXtTW5wLqxlTJIexv/fQO8V
    A==;
-X-CSE-ConnectionGUID: I/YWw/VgTbyRryfoQ+jxMg==
-X-CSE-MsgGUID: 99/yD22dS0ahj2xKvez5Lw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3702784"
+X-CSE-ConnectionGUID: b4zPmlyKQTuGNk6yWxjO6g==
+X-CSE-MsgGUID: Sf/OZCCXS3e92Jqx4DEHjw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3702724"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3702784"
+   d="scan'208";a="3702724"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:40 -0800
-X-CSE-ConnectionGUID: MbP0QWSvS86dTHvjP361Yw==
-X-CSE-MsgGUID: vSWo3YZ/SiaKk29n9+USng==
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:39 -0800
+X-CSE-ConnectionGUID: cuhPIYDxRp240CbeE/qpWg==
+X-CSE-MsgGUID: 9WkBqHOvTBy8kKT2AOsDtw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="10678040"
+   d="scan'208";a="10678036"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:31 -0800
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id F368E122C10;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id D9A1A122A7B;
 	Wed, 18 Nov 2026 15:28:20 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xTfi0-00000000tdn-2g4g;
+	id 1xTfi0-00000000tdE-2Ez7;
 	Wed, 18 Nov 2026 15:28:20 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -102,9 +102,9 @@ Cc: hans@jjverkuil.nl,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH v13 62/73] media: imx219: Add embedded data support
-Date: Wed, 18 Nov 2026 15:28:08 +0200
-Message-ID: <20261118132819.213473-63-sakari.ailus@linux.intel.com>
+Subject: [PATCH v13 55/73] media: ov2740: Add support for FLL and LLP controls
+Date: Wed, 18 Nov 2026 15:28:01 +0200
+Message-ID: <20261118132819.213473-56-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
 References: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
@@ -119,362 +119,131 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Add support for the V4L2_CID_FRAME_LENGTH_LINES and
+V4L2_CID_LINE_LENGTH_PIXELS controls.
 
-The IMX219 generates embedded data unconditionally. Report it as an
-additional stream, with a new internal embedded data pad, and update
-subdev operations accordingly.
-
-Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Co-developed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/i2c/imx219.c | 176 +++++++++++++++++++++++++++++++------
- 1 file changed, 150 insertions(+), 26 deletions(-)
+ drivers/media/i2c/ov2740.c | 55 ++++++++++++++++++++++++++++----------
+ 1 file changed, 41 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-index f61dd3a25ac6..d0dad5c4eb46 100644
---- a/drivers/media/i2c/imx219.c
-+++ b/drivers/media/i2c/imx219.c
-@@ -160,6 +160,9 @@
- #define IMX219_PIXEL_ARRAY_HEIGHT	2480U
- #define IMX219_NATIVE_FORMAT		MEDIA_BUS_FMT_SRGGB10_1X10
+diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
+index ff1f5158786b..eaf6183b802d 100644
+--- a/drivers/media/i2c/ov2740.c
++++ b/drivers/media/i2c/ov2740.c
+@@ -16,6 +16,7 @@
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-fwnode.h>
++#include <media/v4l2-mc.h>
  
-+/* Embedded metadata stream height */
-+#define IMX219_EMBEDDED_DATA_HEIGHT	2U
-+
- /* Mode : resolution and related config&values */
- struct imx219_mode {
- 	/* Frame width */
-@@ -361,11 +364,13 @@ static const struct imx219_mode supported_modes[] = {
- enum imx219_pad_ids {
- 	IMX219_PAD_SOURCE = 0,
- 	IMX219_PAD_IMAGE,
-+	IMX219_PAD_EDATA,
- 	IMX219_NUM_PADS,
- };
+ #define OV2740_LINK_FREQ_360MHZ		360000000ULL
+ #define OV2740_LINK_FREQ_180MHZ		180000000ULL
+@@ -562,9 +563,12 @@ struct ov2740 {
+ 	/* V4L2 Controls */
+ 	struct v4l2_ctrl *link_freq;
+ 	struct v4l2_ctrl *pixel_rate;
++	struct v4l2_ctrl *fll;
+ 	struct v4l2_ctrl *vblank;
++	struct v4l2_ctrl *llp;
+ 	struct v4l2_ctrl *hblank;
+ 	struct v4l2_ctrl *exposure;
++	bool setting_ctrl;
  
- enum imx219_stream_ids {
- 	IMX219_STREAM_IMAGE,
-+	IMX219_STREAM_EDATA,
- };
- 
- struct imx219 {
-@@ -434,6 +439,25 @@ static u32 imx219_get_format_bpp(const struct v4l2_mbus_framefmt *format)
- 	}
- }
- 
-+static u32
-+imx219_get_embedded_format_code(const struct v4l2_mbus_framefmt *format)
-+{
-+	switch (format->code) {
-+	case MEDIA_BUS_FMT_SRGGB8_1X8:
-+	case MEDIA_BUS_FMT_SGRBG8_1X8:
-+	case MEDIA_BUS_FMT_SGBRG8_1X8:
-+	case MEDIA_BUS_FMT_SBGGR8_1X8:
-+		return MEDIA_BUS_FMT_META_8;
-+
-+	case MEDIA_BUS_FMT_SRGGB10_1X10:
-+	case MEDIA_BUS_FMT_SGRBG10_1X10:
-+	case MEDIA_BUS_FMT_SGBRG10_1X10:
-+	case MEDIA_BUS_FMT_SBGGR10_1X10:
-+	default:
-+		return MEDIA_BUS_FMT_META_10;
-+	}
-+}
-+
- static void imx219_get_binning(struct v4l2_subdev_state *state, u8 *bin_h,
- 			       u8 *bin_v)
+ 	/* GPIOs, clocks, regulators */
+ 	struct gpio_desc *reset_gpio;
+@@ -738,18 +742,28 @@ static int ov2740_set_ctrl(struct v4l2_ctrl *ctrl)
  {
-@@ -777,6 +801,9 @@ static int imx219_enable_streams(struct v4l2_subdev *sd,
- 	struct i2c_client *client = v4l2_get_subdevdata(&imx219->sd);
+ 	struct ov2740 *ov2740 = container_of(ctrl->handler,
+ 					     struct ov2740, ctrl_handler);
+-	s64 exposure_max;
+-	int ret;
++	int ret = 0;
+ 
+ 	/* Propagate change of current control to all related controls */
+-	if (ctrl->id == V4L2_CID_VBLANK) {
+-		/* Update max exposure while meeting expected vblanking */
+-		exposure_max = ov2740->cur_mode->height + ctrl->val -
+-			       OV2740_EXPOSURE_MAX_MARGIN;
+-		__v4l2_ctrl_modify_range(ov2740->exposure,
+-					 ov2740->exposure->minimum,
+-					 exposure_max, ov2740->exposure->step,
+-					 exposure_max);
++	switch (ctrl->id) {
++	case V4L2_CID_FRAME_LENGTH_LINES:
++	case V4L2_CID_VBLANK:
++	case V4L2_CID_LINE_LENGTH_PIXELS:
++	case V4L2_CID_HBLANK: {
++		struct v4l2_subdev_state *state =
++			v4l2_subdev_get_locked_active_state(&ov2740->sd);
++		const struct v4l2_mbus_framefmt *format =
++			v4l2_subdev_state_get_format(state, OV2740_PAD_SOURCE,
++						     OV2740_STREAM_PIXEL);
++
++		ret = v4l2_sensor_fll_llp_set(ov2740->fll, ov2740->vblank,
++					      ov2740->llp, ov2740->hblank,
++					      ov2740->exposure, format,
++					      ctrl, &ov2740->setting_ctrl,
++					      OV2740_EXPOSURE_MAX_MARGIN);
++		if (ret)
++			return ret;
++	}
+ 	}
+ 
+ 	/* V4L2 controls values will be applied only when power is already up */
+@@ -773,8 +787,10 @@ static int ov2740_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		break;
+ 
+ 	case V4L2_CID_VBLANK:
+-		ret = ov2740_write_reg(ov2740, OV2740_REG_VTS, 2,
+-				       ov2740->cur_mode->height + ctrl->val);
++		break;
++
++	case V4L2_CID_FRAME_LENGTH_LINES:
++		ret = ov2740_write_reg(ov2740, OV2740_REG_VTS, 2, ctrl->val);
+ 		break;
+ 
+ 	case V4L2_CID_TEST_PATTERN:
+@@ -804,7 +820,7 @@ static int ov2740_init_controls(struct ov2740 *ov2740)
  	int ret;
  
-+	if (!(streams_mask & 1ULL))
-+		return 0;
-+
- 	ret = pm_runtime_resume_and_get(&client->dev);
- 	if (ret < 0)
+ 	ctrl_hdlr = &ov2740->ctrl_handler;
+-	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 13);
++	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 15);
+ 	if (ret)
  		return ret;
-@@ -834,6 +861,9 @@ static int imx219_disable_streams(struct v4l2_subdev *sd,
- 	struct i2c_client *client = v4l2_get_subdevdata(&imx219->sd);
- 	int ret;
  
-+	if (!(streams_mask & 1ULL))
-+		return 0;
-+
- 	/* set stream off register */
- 	ret = cci_write(imx219->regmap, IMX219_REG_MODE_SELECT,
- 			IMX219_MODE_STANDBY, NULL);
-@@ -854,17 +884,32 @@ static int imx219_enum_mbus_code(struct v4l2_subdev *sd,
- {
- 	struct imx219 *imx219 = to_imx219(sd);
+@@ -825,10 +841,22 @@ static int ov2740_init_controls(struct ov2740 *ov2740)
+ 	vblank_min = ov2740->cur_mode->vts_min - ov2740->cur_mode->height;
+ 	vblank_max = ov2740->cur_mode->vts_max - ov2740->cur_mode->height;
+ 	vblank_default = ov2740->cur_mode->vts_def - ov2740->cur_mode->height;
++	ov2740->fll = v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
++					V4L2_CID_FRAME_LENGTH_LINES,
++					ov2740->cur_mode->vts_min,
++					ov2740->cur_mode->vts_max, 1,
++					ov2740->cur_mode->vts_def);
+ 	ov2740->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
+ 					   V4L2_CID_VBLANK, vblank_min,
+ 					   vblank_max, 1, vblank_default);
  
--	if (code->pad == IMX219_PAD_IMAGE) {
--		/* The internal image pad is hardwired to the native format. */
-+	switch (code->pad) {
-+	case IMX219_PAD_IMAGE:
- 		if (code->index > 0)
- 			return -EINVAL;
- 
--		code->code = IMX219_NATIVE_FORMAT;
--	} else {
--		/*
--		 * On the source pad, the sensor supports multiple raw formats
--		 * with different bit depths.
--		 */
-+		code->code = MEDIA_BUS_FMT_RAW_10;
-+		return 0;
-+
-+	case IMX219_PAD_EDATA:
-+		if (code->index > 0)
-+			return -EINVAL;
-+
-+		code->code = MEDIA_BUS_FMT_META_8;
-+		return 0;
-+
-+	case IMX219_PAD_SOURCE:
-+	default:
-+		break;
-+	}
-+
-+	/*
-+	 * On the source pad, the sensor supports multiple image raw formats
-+	 * with different bit depths. The embedded data format bit depth
-+	 * follows the image stream.
-+	 */
-+	if (code->stream == IMX219_STREAM_IMAGE) {
- 		u32 format;
- 
- 		if (code->index >= ARRAY_SIZE(imx219_mbus_formats) / 4)
-@@ -872,6 +917,15 @@ static int imx219_enum_mbus_code(struct v4l2_subdev *sd,
- 
- 		format = imx219_mbus_formats[code->index * 4];
- 		code->code = imx219_get_format_code(imx219, format);
-+	} else {
-+		struct v4l2_mbus_framefmt *fmt;
-+
-+		if (code->index > 0)
-+			return -EINVAL;
-+
-+		fmt = v4l2_subdev_state_get_format(state, IMX219_PAD_SOURCE,
-+						   IMX219_STREAM_EDATA);
-+		code->code = fmt->code;
- 	}
- 
- 	return 0;
-@@ -883,15 +937,33 @@ static int imx219_enum_frame_size(struct v4l2_subdev *sd,
- {
- 	struct imx219 *imx219 = to_imx219(sd);
- 
--	if (fse->pad == IMX219_PAD_IMAGE) {
-+	switch (fse->pad) {
-+	case IMX219_PAD_IMAGE:
- 		if (fse->code != MEDIA_BUS_FMT_RAW_10 || fse->index > 0)
- 			return -EINVAL;
- 
--		fse->min_width = IMX219_PIXEL_ARRAY_WIDTH;
--		fse->max_width = IMX219_PIXEL_ARRAY_WIDTH;
--		fse->min_height = IMX219_PIXEL_ARRAY_HEIGHT;
--		fse->max_height = IMX219_PIXEL_ARRAY_HEIGHT;
--	} else {
-+		fse->min_width = IMX219_ACTIVE_AREA_WIDTH;
-+		fse->max_width = IMX219_ACTIVE_AREA_WIDTH;
-+		fse->min_height = IMX219_ACTIVE_AREA_HEIGHT;
-+		fse->max_height = IMX219_ACTIVE_AREA_HEIGHT;
-+		return 0;
-+
-+	case IMX219_PAD_EDATA:
-+		if (fse->code != MEDIA_BUS_FMT_META_8 || fse->index > 0)
-+			return -EINVAL;
-+
-+		fse->min_width = IMX219_ACTIVE_AREA_WIDTH;
-+		fse->max_width = IMX219_ACTIVE_AREA_WIDTH;
-+		fse->min_height = IMX219_EMBEDDED_DATA_HEIGHT;
-+		fse->max_height = IMX219_EMBEDDED_DATA_HEIGHT;
-+		return 0;
-+
-+	case IMX219_PAD_SOURCE:
-+	default:
-+		break;
-+	}
-+
-+	if (fse->stream == IMX219_STREAM_IMAGE) {
- 		if (fse->code != imx219_get_format_code(imx219, fse->code) ||
- 		    fse->index >= ARRAY_SIZE(supported_modes))
- 			return -EINVAL;
-@@ -900,6 +972,21 @@ static int imx219_enum_frame_size(struct v4l2_subdev *sd,
- 		fse->max_width = fse->min_width;
- 		fse->min_height = supported_modes[fse->index].height;
- 		fse->max_height = fse->min_height;
-+	} else {
-+		struct v4l2_mbus_framefmt *fmt;
-+
-+		fmt = v4l2_subdev_state_get_format(state, IMX219_PAD_SOURCE,
-+						   IMX219_STREAM_EDATA);
-+		if (fse->code != fmt->code)
-+			return -EINVAL;
-+
-+		if (fse->index > 0)
-+			return -EINVAL;
-+
-+		fse->min_width = fmt->width;
-+		fse->max_width = fmt->width;
-+		fse->min_height = IMX219_EMBEDDED_DATA_HEIGHT;
-+		fse->max_height = IMX219_EMBEDDED_DATA_HEIGHT;
- 	}
- 
- 	return 0;
-@@ -911,13 +998,16 @@ static int imx219_set_pad_format_compat(struct v4l2_subdev *sd,
- {
- 	struct imx219 *imx219 = to_imx219(sd);
- 	const struct imx219_mode *mode;
--	struct v4l2_mbus_framefmt *format;
-+	struct v4l2_mbus_framefmt *format, *embedded_format;
- 	struct v4l2_rect *crop;
- 	u8 bin_h, bin_v, bin_hv;
- 	int ret;
- 
- 	format = v4l2_subdev_state_get_format(state, IMX219_PAD_SOURCE,
- 					      IMX219_STREAM_IMAGE);
-+	embedded_format =
-+		v4l2_subdev_state_get_format(state, IMX219_PAD_SOURCE,
-+					     IMX219_STREAM_EDATA);
- 
- 	/*
- 	 * Adjust the requested format to match the closest mode. The Bayer
-@@ -939,6 +1029,8 @@ static int imx219_set_pad_format_compat(struct v4l2_subdev *sd,
- 
- 	*format = fmt->format;
- 
-+	embedded_format->code = imx219_get_embedded_format_code(format);
-+
- 	/*
- 	 * Use binning to maximize the crop rectangle size, and centre it in the
- 	 * sensor.
-@@ -1031,7 +1123,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 	if (!(ci && ci->caps & V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR))
- 		return imx219_set_pad_format_compat(sd, state, fmt);
- 
--	if (fmt->pad != IMX219_PAD_SOURCE)
-+	if (fmt->pad != IMX219_PAD_SOURCE && fmt->stream != IMX219_STREAM_IMAGE)
- 		return v4l2_subdev_get_fmt(sd, state, fmt);
- 
- 	format = v4l2_subdev_state_get_format(state, IMX219_PAD_SOURCE,
-@@ -1082,7 +1174,11 @@ static int imx219_get_selection(struct v4l2_subdev *sd,
- 		return -EINVAL;
- 	}
- 
--	if (sel->pad != IMX219_PAD_IMAGE)
-+	/*
-+	 * The embedded data stream doesn't support selection rectangles,
-+	 * neither on the embedded data pad nor on the source pad.
-+	 */
-+	if (sel->pad != IMX219_PAD_IMAGE || sel->stream != IMX219_STREAM_IMAGE)
- 		return -EINVAL;
- 
- 	switch (sel->target) {
-@@ -1112,35 +1208,41 @@ static int imx219_get_selection(struct v4l2_subdev *sd,
- static int imx219_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
- 				 struct v4l2_mbus_frame_desc *fd)
- {
--	const struct v4l2_mbus_framefmt *fmt;
- 	struct v4l2_subdev_state *state;
--	u32 code;
-+	u32 img_code;
-+	u32 ed_code;
- 
- 	if (pad != IMX219_PAD_SOURCE)
- 		return -EINVAL;
- 
- 	state = v4l2_subdev_lock_and_get_active_state(sd);
--	fmt = v4l2_subdev_state_get_format(state, IMX219_PAD_SOURCE,
--					   IMX219_STREAM_IMAGE);
--	code = fmt->code;
-+	img_code = v4l2_subdev_state_get_format(state, IMX219_PAD_SOURCE,
-+						IMX219_STREAM_IMAGE)->code;
-+	ed_code = v4l2_subdev_state_get_format(state, IMX219_PAD_SOURCE,
-+					       IMX219_STREAM_EDATA)->code;
- 	v4l2_subdev_unlock_state(state);
- 
- 	fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
--	fd->num_entries = 1;
-+	fd->num_entries = 2;
- 
--	fd->entry[0].pixelcode = code;
-+	fd->entry[0].pixelcode = img_code;
- 	fd->entry[0].stream = IMX219_STREAM_IMAGE;
- 	fd->entry[0].bus.csi2.vc = 0;
--	fd->entry[0].bus.csi2.dt = imx219_format_bpp(code) == 8 ?
-+	fd->entry[0].bus.csi2.dt = imx219_format_bpp(img_code) == 8 ?
- 		MIPI_CSI2_DT_RAW8 : MIPI_CSI2_DT_RAW10;
- 
-+	fd->entry[1].pixelcode = ed_code;
-+	fd->entry[1].stream = IMX219_STREAM_EDATA;
-+	fd->entry[1].bus.csi2.vc = 0;
-+	fd->entry[1].bus.csi2.dt = MIPI_CSI2_DT_EMBEDDED_8B;
-+
- 	return 0;
- }
- 
- static int imx219_init_state(struct v4l2_subdev *sd,
- 			     struct v4l2_subdev_state *state)
- {
--	struct v4l2_subdev_route routes[1] = {
-+	struct v4l2_subdev_route routes[] = {
- 		{
- 			.sink_pad = IMX219_PAD_IMAGE,
- 			.sink_stream = 0,
-@@ -1149,6 +1251,14 @@ static int imx219_init_state(struct v4l2_subdev *sd,
- 			.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE |
- 				 V4L2_SUBDEV_ROUTE_FL_IMMUTABLE |
- 				 V4L2_SUBDEV_ROUTE_FL_STATIC,
-+		}, {
-+			.sink_pad = IMX219_PAD_EDATA,
-+			.sink_stream = 0,
-+			.source_pad = IMX219_PAD_SOURCE,
-+			.source_stream = IMX219_STREAM_EDATA,
-+			.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE |
-+				 V4L2_SUBDEV_ROUTE_FL_IMMUTABLE |
-+				 V4L2_SUBDEV_ROUTE_FL_STATIC,
- 		},
++	ov2740->llp = v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
++					V4L2_CID_LINE_LENGTH_PIXELS,
++					ov2740->cur_mode->hts,
++					ov2740->cur_mode->hts, 1,
++					ov2740->cur_mode->hts);
++	if (ov2740->llp)
++		ov2740->llp->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+ 	h_blank = ov2740->cur_mode->hts - ov2740->cur_mode->width;
+ 	ov2740->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
+ 					   V4L2_CID_HBLANK, h_blank, h_blank, 1,
+@@ -1215,7 +1243,6 @@ static int ov2740_init_state(struct v4l2_subdev *sd,
+ 		.routes = routes,
+ 		.num_routes = ARRAY_SIZE(routes),
  	};
- 	struct v4l2_subdev_krouting routing = {
-@@ -1171,6 +1281,11 @@ static int imx219_init_state(struct v4l2_subdev *sd,
- 	struct v4l2_mbus_framefmt *source_format =
- 		v4l2_subdev_state_get_format(state, IMX219_PAD_SOURCE,
- 					     IMX219_STREAM_IMAGE);
-+	struct v4l2_mbus_framefmt *embedded_format =
-+		v4l2_subdev_state_get_format(state, IMX219_PAD_EDATA);
-+	struct v4l2_mbus_framefmt *embedded_source_format =
-+		v4l2_subdev_state_get_format(state, IMX219_PAD_SOURCE,
-+					     IMX219_STREAM_EDATA);
+-	struct ov2740 *ov2740 = to_ov2740(sd);
+ 	int ret;
  
- 	/* The image pad models the pixel array, and thus has a fixed format. */
- 	pixel_array_format->code = MEDIA_BUS_FMT_RAW_10;
-@@ -1195,6 +1310,13 @@ static int imx219_init_state(struct v4l2_subdev *sd,
- 	source_format->width = compose->width;
- 	source_format->height = compose->height;
- 
-+	embedded_format->code = imx219_get_embedded_format_code(source_format);
-+	embedded_format->width = source_format->width;
-+	embedded_format->height = IMX219_EMBEDDED_DATA_HEIGHT;
-+	embedded_format->field = V4L2_FIELD_NONE;
-+
-+	*embedded_source_format = *embedded_format;
-+
- 	return 0;
- }
- 
-@@ -1470,6 +1592,8 @@ static int imx219_probe(struct i2c_client *client)
- 	imx219->pads[IMX219_PAD_SOURCE].flags = MEDIA_PAD_FL_SOURCE;
- 	imx219->pads[IMX219_PAD_IMAGE].flags = MEDIA_PAD_FL_SINK
- 					     | MEDIA_PAD_FL_INTERNAL;
-+	imx219->pads[IMX219_PAD_EDATA].flags = MEDIA_PAD_FL_SINK
-+					     | MEDIA_PAD_FL_INTERNAL;
- 
- 	ret = media_entity_pads_init(&imx219->sd.entity,
- 				     ARRAY_SIZE(imx219->pads), imx219->pads);
+ 	ret = v4l2_subdev_set_routing(sd, sd_state, &routing);
 -- 
 2.47.3
 
