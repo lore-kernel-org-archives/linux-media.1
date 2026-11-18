@@ -1,11 +1,11 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795008548;
-	b=EO7RvyTltRVO83/arPX7RlYV/triA39XREZiLiImGt12r16fHAc7l0HxrrnsUUGxxpvU
-	 D8tRWSMp/jZ5X7iDhiMQ636EcWg5UlshUMu5eJdVl7xl+TYTFmlUK8st+zsmges36fKUk
-	 Dahe91YzrJF3DYAgYabAnAQzaF1TpOg5W4fJnB1DodjeeFhZCk5utLC1HYUTXtoEuSp2s
-	 PHoeY+G+t57LeCMT3scJrtDqgXsm/0X6F0SarRZ19g8t2C5grIdW2rd+pkAWq+TjRXuH3
-	 7GypgIViYzqLLHBZ7jKVu3G/h1mRMB9L+LWxPe5vZn3MEMaJay500KNPKFy+07XlwbQ==
+	b=IghuNN2QDd0ThPs9IXw592XH4+ycFA9kVJejKLQiC3OgkTKwJOYFMuj0aEwqQzP+QfsD
+	 43iCbIFF99iJ3uEMpB/Zs65d8gyvEtsLQxEw5oHijW++mxFGaGug469FXFlgyFUSYmsNR
+	 KQh4WFPcMT6R1UFFWdkHxFaCdBfHUzD+B2gX/h4/RrWdP44JXae7MWBpP/kGEk4CvWN/n
+	 GyupZlvCcAcDdjl5zPBPrMR0Hcd1ptA2fJiYmQ+Yfl/aROXL0mBgGObLKojG/J6aTITPd
+	 GEG89sCWjBo9v1O0xURn/W3zHZUaGe7+b/tyIP5jnnhhh9P7JZ1vDrnyd9w95rzi/6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795008548;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
@@ -13,60 +13,60 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
 	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=kDHXPfhiqStEAhBhHodHOeHXKe4vRtDCxVfYu/4W6zE=;
-	b=rL3S0H7CoBWmacXsl8wlJlEnaoIOkrBqHzCajgW21pDnhy82ZzOwo9KOuDNfLoi3N2mN
-	 +AYjhBy5XGxmYVpzhOIlwC54FtDgXvLWt6Vabpq1ewizICYS5/z9KNfV+gqYLUA6XRtNy
-	 2Cdu//ftee5vUMpCdXMuzsA6kq0Kas+8/6fLAv5Qhwl8FqlINFkbXKDmgVhH5kUvNQlpO
-	 TmejjRlAQYujIFDjTCIFhA8ivYz18/61XzFXju3u3hEajC/zF6+Ud1oG3gX3N9EBp4BDn
-	 EhOqVXqyucGBeQK5ydQvdaaNmFXOLcuj0S22ADrQ0HClcj293FGW6+eH7bll5Q7y9CA==
+	bh=iVKpHqvPhjNWz8cGw2YlBrMWPMCieH/ktf5+/9fmSXw=;
+	b=iC+TsVRwuDrpxpDK9tYrL+IPzVVJbLuQYTCTNv197ETE9lwMOj9RGfs8oC+QNZXA15cx
+	 b3ZaEFKyuLQGiSv4Z5LjiLYsY8DKIhUkIt1H4uWfKYHelPqB/rYwUA3xxcT/+MHw6MlL6
+	 Rx+4nZSy/+LOTCZGiQZZE+Wp6S2+aHkSP6ex7tmlEqAodaflpVAOWAbUx8L0N4SoDoJII
+	 zUMnPFOVZmmqdUaI2QoSGEaqik7sMvueUeQH92dRBdDHC8pdMlfomowTQ8ux5Cy8FaGul
+	 ptfDLDKxofsQjNplIeiuRrTBs79aDkEcggoEaaLkowBnF6dqVmm1jnDV5OIBShLKQrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=P8fMipVm;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GQaBvTr7;
 	arc=none smtp.remote-ip=192.198.163.17
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D8E60A2612
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:29:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39D8E60A2612
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5543E60A2614
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:29:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5543E60A2614
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=P8fMipVm
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GQaBvTr7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1795008548; x=1826544548;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=KT+9saEK4P1RPw70hn4RS3EbpehcYziuDrs8Lwu6nWc=;
-  b=P8fMipVmjE51VQUC/aKfR6qUE6qcZ1I4lytkrHYD38tWw/cg7z7txgP9
-   OBgrEHq7jw0EnS7KW/0OesuoNhtcLxKfx49xUJe+UHiKyIQelOKXKnK6P
-   do1l6+6IPCDjgxxQsocz6ZiIXZG77tn98W84vyC9+tn7C3mCf7RkTaD3b
-   ttvZjTH8+ZbuEP8yO0X1C864ILy+nT+5gVHWtdh5EFT/khR9m5cpa69jV
-   m47bsRXq20p/I+/dcdELeobAZfv1YDKaDo4LNq1CaOvLEfYuVr2DrHJdS
-   DgWkR+d4M8HbIHBtONuXcqU3uBLtXsVWNW0JZ1PNNx6H/S8ocVwxLBPnK
-   w==;
-X-CSE-ConnectionGUID: kO/uQz0OSOiSctgg+/t0OQ==
-X-CSE-MsgGUID: Hv8oxgb/SL6yALyaeSBw2w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3808931"
+  bh=e6cd09r0Msv3gDu5j/Y8lQzKsaijNQpyuGuc80Gwgys=;
+  b=GQaBvTr7o1eBjROrYJPHKaHw6BBXpM8Dul+l4YjcLRF6qvIVEBl66+/a
+   2x8IepRcBN1Tzqk2zausEztBPK/NNTcrrmbC+5lRznAuoWvW1feqVIR+x
+   Uj4vo/8fK8gFiLU2JYU98+cDGrwqdji3TntX9WnxUqWnsU3oM6VjdWWFw
+   NW2M1jUKajkMDn61hp/MCDFwZCrRwn6RZiv3AuIPEoCHagNYLa+BzlOVo
+   qZ8onFO8k+FN/d2TU7v9+OX4Z6PlE8VbB0kk4eEvnCa0ARYabG+DqNr2I
+   CITjBKUf2BKm+lked5KRjSS98u8UYo4cpJyiMRu3ohIUR6zcSZGDFv/7i
+   g==;
+X-CSE-ConnectionGUID: cuGjuXOeQPioICMZrGS+Gg==
+X-CSE-MsgGUID: 3Y8v0VHsTym0a6AYW+RmqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3808945"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3808931"
+   d="scan'208";a="3808945"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:29:04 -0800
-X-CSE-ConnectionGUID: insAvpWETvG5nH9R+YYJhA==
-X-CSE-MsgGUID: eXCvxA7mTumDQABzq3KhYw==
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:29:05 -0800
+X-CSE-ConnectionGUID: zI7SqK4KSJqlrCEm2ZBO/A==
+X-CSE-MsgGUID: FudlarWXTC2SrvxgUWSHYw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="10376785"
+   d="scan'208";a="10376787"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:58 -0800
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id A42E11230C8;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 8716F122FED;
 	Wed, 18 Nov 2026 15:28:31 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xTfi0-00000000tcD-1Dwf;
+	id 1xTfi0-00000000tbd-0fIo;
 	Wed, 18 Nov 2026 15:28:20 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -102,9 +102,9 @@ Cc: hans@jjverkuil.nl,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH v13 40/73] media: Documentation: Document streaming behaviour for common raw cameras
-Date: Wed, 18 Nov 2026 15:27:46 +0200
-Message-ID: <20261118132819.213473-41-sakari.ailus@linux.intel.com>
+Subject: [PATCH v13 31/73] media: uapi: Add new controls for camera sensor FLL and LLP
+Date: Wed, 18 Nov 2026 15:27:37 +0200
+Message-ID: <20261118132819.213473-32-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
 References: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
@@ -119,35 +119,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document that streaming control is based on stream number 0 and additional
-streams need to be started before that.
+Add new controls for camera sensors, V4L2_CID_LINE_LENGTH_PIXELS and
+V4L2_CID_FRAME_LENGTH_LINES, to convey the combined size of the analogue
+crop rectangle and horizontal and vertical blanking.
+
+The reason for adding the new controls is that they're much easier to use
+as the user doesn't have to be concerned of the analogue crop in the same
+context. Secondarily, the newly added common raw sensor model uses
+different values for the same.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- .../userspace-api/media/v4l/subdev-config-model.rst    | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ .../userspace-api/media/v4l/ext-ctrls-image-source.rst | 10 ++++++++++
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c              |  2 ++
+ include/uapi/linux/v4l2-controls.h                     |  3 +++
+ 3 files changed, 15 insertions(+)
 
-diff --git a/Documentation/userspace-api/media/v4l/subdev-config-model.rst b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-index 46248c9d50ad..f606cd22a1a3 100644
---- a/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-+++ b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-@@ -99,6 +99,16 @@ following routes.
- Support for the embedded data stream is optional. Drivers supporting the
- embedded data stream may allow disabling and enabling the route.
+diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
+index 0613c310ad0c..4e307957c80a 100644
+--- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
++++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
+@@ -204,3 +204,13 @@ For instance, a value of ``0x0003000100030002`` indicates binning by 3
+     Sub-sampling is used to downscale an image, horizontally and vertically, by
+     discarding a part of the image data. Typically sub-sampling produces lower
+     quality images than binning.
++
++.. _image_source_control_frame_length:
++
++``V4L2_CID_FRAME_LENGTH_LINES (integer)``
++    Frame length in lines. The value of the control is the number of lines
++    captured in the sensor's pixel array added to the vertical blanking.
++
++``V4L2_CID_LINE_LENGTH_PIXELS (integer)``
++    Line length in pixels. The value of the control is the number of pixels per
++    line captured in the sensor's pixel array added to the horizontal blanking.
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+index 57c928be1992..5444a6986d70 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+@@ -1164,6 +1164,8 @@ const char *v4l2_ctrl_get_name(u32 id)
+ 	case V4L2_CID_BINNING_FACTORS:		return "Binning Factors";
+ 	case V4L2_CID_SUBSAMPLING_HORIZONTAL:	return "Sub-Sampling Factor, Horizontal";
+ 	case V4L2_CID_SUBSAMPLING_VERTICAL:	return "Sub-Sampling Factor, Vertical";
++	case V4L2_CID_FRAME_LENGTH_LINES:	return "Frame Length in Lines";
++	case V4L2_CID_LINE_LENGTH_PIXELS:	return "Line Length in Pixels";
  
-+Starting and stopping streaming
-+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-+
-+Starting and stopping streaming is controlled through the stream number 0; if
-+there's a desire to capture additional streams, such streams need to be started
-+before stream 0. All streams start and stop at the same moment.
-+
-+This is subject to change in the future through additional API elements while
-+the default behaviour will be maintained.
-+
- Sensor pixel array size, cropping and binning
- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 	/* Image processing controls */
+ 	/* Keep the order of the 'case's the same as in v4l2-controls.h! */
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index 1ca522b1e80a..8671ac06002a 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -1277,6 +1277,9 @@ enum v4l2_jpeg_chroma_subsampling {
+ #define V4L2_CID_SUBSAMPLING_HORIZONTAL		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 14)
+ #define V4L2_CID_SUBSAMPLING_VERTICAL		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 15)
  
++#define V4L2_CID_FRAME_LENGTH_LINES		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 16)
++#define V4L2_CID_LINE_LENGTH_PIXELS		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 17)
++
+ /* Image processing controls */
+ 
+ #define V4L2_CID_IMAGE_PROC_CLASS_BASE		(V4L2_CTRL_CLASS_IMAGE_PROC | 0x900)
 -- 
 2.47.3
 
