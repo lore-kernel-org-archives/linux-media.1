@@ -1,92 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.87.157.213
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794978343;
-	b=WAxItr0nnwEqjZ+iZaxNmbucliP9GhTz+di4XuPVD/3oi4THUx02e8c0Qv1PSZ5Vrn3W
-	 RUI43KNNiQF5cyCTZqw1CloMih7Bc1O1UtE5ouyxv7zFSpqdnEF8qiaC+7B74S3VUlLuJ
-	 1GNGiecCXgPOWDnqWGXPrceRbGm6cRHBw6c5YYVKUZOVeMmwBcuQe/6NutsZ9DlIjf0Ue
-	 /PhmEAX2yqTgUzDmQUrbwTsyKStu1e7ZsYVJtx/hwg1IUPoMiOY9vLSnsuRV63dF7lNVy
-	 u1EAROitADOoH0ZG+tSy5ahv8uKerjmFaMPSgIqrrSuTaymawGE7LrCfcKEDW/BqGHA==
+	t=1794980815;
+	b=oXurkDfv+J0szN3frPzTuvcgf/u2oDg6xaisrCdqwe58aBdQPPnuw1dYHtphcyULKC3k
+	 GxyEpMhteADxRcSFrS3ydJ2+gLDq/DCnqdONBejAmYvo/c6qwM5P+xJHG3b6UjJXMf+oa
+	 Xvv8kEGmsvW0+jjoDUdD489p4OW7MaFBszDHgJjMLTAqjl1pqpIvtrJki0+V+hUhfsoFs
+	 A2+J4Kc+0wOESfWL60c/ZRwXqEWhkVvVBW3Sg22zqY+348p6fpepixy7HCf404UjBOvjW
+	 m2PXiH08Dme0KWjVfbjGgXCGohubVZm9tz452vrOdJ3ye3sX2Kd7OXJKvsKhblj5p/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794978343;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 Received:Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-originating-ip:x-tm-snts-smtp:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-MAIL;
-	bh=niL/66HcQYfGiv+TPYu+CovP2Oq0rJ3Fl4O5tMwyo68=;
-	b=qzMo/sEI+vjWewoIPuSV3Z1yKwRsgGxTbkx7lTrwtLQbO+XCv/jsObLETYR/gKvcybpE
-	 XUafoPP1D7q1VVfk9/VpE00SHGvsKPlkAzr9IiuyzOHayiCKrM+HgVz+wjum6d+80w560
-	 i84ycNzVSv4+bi7lWSdAaYCYSUdhEuqJAyXWRmHJAzv7dXpQqXagedONWTt+4Q6IGXvxF
-	 aqibDhOWT/KgpIqZf0a4vJ1iFp4L72cIOEKnQY4EZ6C7MelVB1psnpWP1Ai/c3oFZ+CDH
-	 vDCm3Zzwz03mv+HcEuoGAHTWnCw/+MY61dyxnb7CNwYuevFnbUrUPg+1vPHuEUOBZfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794980815;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=BvO5IEELPY7k03esD7OvbhhgR0L7sOMqM7a7Ttptan4=;
+	b=K4xBDnw1NB+j3Spc8yvbgVWVMOQb2Y5jV8uAPi0dO5VlV6YTRFTTQewdub3ONdlxhUMj
+	 mzQkqYNcLyc08SMGyQrQFxYBYS9IbGC6onOHHDE6bP4BMqn0NkQ1lgHANmTkVlsjm6YQh
+	 u8q07BvqdsLR9/LkS8W7BqE4B6MpTLm8Il4YlGg7giVj+YVCibzYIwqMlmQQZ3gLU5gy0
+	 U1TQmR2eOVRm9mOoMhnal9OXt9HWal6ee2ZnW4qLHix0DtXqwTAwh/d1O6Yrnshx6O7vL
+	 33c05SMO5EsSYtDQA9OGf5KHDCc/v9KX0HEbwnSfUNpwK21/J57mW5yoNhVfrtgB4vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ite.com.tw;
-	spf=pass smtp.mailfrom=ite.com.tw;
-	dkim=pass header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=FsGb51LQ;
-	arc=none smtp.remote-ip=219.87.157.213
-Received: from ironport.ite.com.tw (unknown [219.87.157.213])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PH2Dmhen;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B09606A31C;
-	Wed, 18 Nov 2026 05:05:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43B09606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F76606A32F;
+	Wed, 18 Nov 2026 05:46:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51F76606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=FsGb51LQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=niL/66HcQYfGiv+TPYu+CovP2Oq0rJ3Fl4O5tMwyo68=;
-  b=FsGb51LQ/RKVjK/nuNsStcVypaHOTe6x0fHEXJI2NlHkAQxO/6mESi8t
-   JhybBRNwKbyEiLFxxNtMRi6rCnwJM9FIfW/HgAgFnTr+y0vwTRGW19KA9
-   fhPaLEYDBwgR8YfmvLfOdU+ctG0RWVxpnDne/iLBOJJrItc9i83vEie8m
-   Ymi9ZHlZH54OdhC6ZSsP2Fm+lLnRjoVqVyKV0iPw0uRrokJypKMCkLwQw
-   von89QR2Dt7zXXQbpwI6h1xknb0iJvcASEmnHioKtGpRaynwdkWar0Hox
-   zfBjm7qaydvsh5DISa6q+ZM7QsYKA1B2gDK4irQQ5SNlmd+Lw7uDl0zQX
-   Q==;
-X-CSE-ConnectionGUID: 3NBhzDxdTXu0g35DtVtuBA==
-X-CSE-MsgGUID: cAQN69FkRqSfn9+S4FIXww==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 18 Nov 2026 13:05:39 +0800
-Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
-	by mse.ite.com.tw with ESMTP id 6AI55XPM009808;
-	Wed, 18 Nov 2026 13:05:33 +0800 (+08)
-	(envelope-from Hermes.Wu@ite.com.tw)
-Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
- TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 18 Nov 2026 13:05:32 +0800
-Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
- TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
- 15.02.2562.046; Wed, 18 Nov 2026 13:05:32 +0800
-From: <Hermes.Wu@ite.com.tw>
-To: <hverkuil+cisco@kernel.org>, <mchehab@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>
-CC: <linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <broonie@kernel.org>,
-        <lgirdwood@gmail.com>, <linux-sound@vger.kernel.org>,
-        <linux-api@vger.kernel.org>
-Subject: RE: [PATCH 2/5] media: Documentation: it6625: document the audio
- controls
-Thread-Topic: [PATCH 2/5] media: Documentation: it6625: document the audio
- controls
-Thread-Index: AQHdcdX93RoL2u2CFUyeme408I10pbczUFWA
-Date: Wed, 18 Nov 2026 05:05:32 +0000
-Message-ID: <4b85b91fba654ab18c2d5afd1820e473@ite.com.tw>
-References: <20261103-upstream-it6625-alsa-i2s-v1-0-bb91e2879b01@ite.com.tw>
- <20261103-upstream-it6625-alsa-i2s-v1-2-bb91e2879b01@ite.com.tw>
- <a554e557-3d10-465e-ad3b-90d8357b60f2@kernel.org>
-In-Reply-To: <a554e557-3d10-465e-ad3b-90d8357b60f2@kernel.org>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-tm-snts-smtp: F9F7769ED813F902E0C8B49A24F5A47D5679E3D240F4F49702DF0BCE5CEBA6692002:8
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PH2Dmhen
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type; bh=BvO5IEELPY7k03esD7OvbhhgR0L7sOMqM7a7Ttptan4=;
+	b=PH2Dmhen/fIAIITJTP7nyirxnQQYwCuTlVcrDvTKG+3OKOuJDmg9MTqfBWTtO8
+	7acPUwMtaSgNeU6Oji+s1LnQaWbe/SCNXGG71NQtgitqESiyXPsrxzyv+B26f4g6
+	Bf8TECq1UptVxO2Bo3tzV5CTAuF8Ab9AootzBMaTcTBA4=
+Received: from WIN-TOG0NDEIICD.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3l7KxO_1qDAR3IA--.59887S4;
+	Wed, 18 Nov 2026 13:46:30 +0800 (CST)
+From: Shirong Zhao <shxzhaosr@163.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <hansg@kernel.org>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] media: uvcvideo: reject descriptor walks that cannot advance
+Date: Wed, 18 Nov 2026 13:46:29 +0800
+Message-ID: <20261118134629.463042-1-shxzhaosr@163.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -96,54 +59,105 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MAIL:mse.ite.com.tw 6AI55XPM009808
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
+X-Mailer: git-send-email 2.53.0
+X-CM-TRANSID:_____wD3l7KxO_1qDAR3IA--.59887S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr15ZrykGF1Utw15uF13twb_yoWrGFWkpa
+	yYkan8AF98GryrA3Wjyws5Jry5Aan7W34UKr4fK34Y9r98JFyrXa42yr40y347CF93Zr1U
+	trs0kasrCr40yrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jlyxiUUUUU=
+X-CM-SenderInfo: hvk06xhdrv2qqrwthudrp/xtbC7hYWVGr9O7YqXwAA3V
 
-SGkgSGFucywNCg0KT24gMTEvMTEvMjAyNiAxMzoxMiwgSGFucyBWZXJrdWlsIHdyb3RlOg0KPiBX
-ZSBuZWVkIHRvIG1ha2Ugc3RhbmRhcmQgY29udHJvbHMgZm9yIHRoZSBhdWRpbyBzYW1wbGluZyBy
-YXRlIGFuZCBwcmVzZW5jZS4NCj4gVGhleSBhcmUgYWxzbyB1c2VkIGJ5IHRoZSB0YzM1ODc0MyBk
-cml2ZXIsIGFuZCBhcmUgaW4gZmFjdCBjb21tb24gZm9yIGFsbA0KPiBIRE1JIHJlY2VpdmVyIGRy
-aXZlcnMgKEkga25vdyBvZiBhIGJ1bmNoIG9mIG91dC1vZi10cmVlIGRyaXZlcnMgdGhhdCB1c2Ug
-dGhlDQo+IHNhbWUgY29udHJvbHMpLg0KPg0KPiBTbyByYXRoZXIgdGhhbiBjcmVhdGluZyBkcml2
-ZXItc3BlY2lmaWMgY29udHJvbHMsIGNhbiB5b3UgYWRkIHN0YW5kYXJkDQo+IGNvbnRyb2xzIGZv
-ciB0aGlzPyBUaGV5IGJlbG9uZyB0byB0aGUgVjRMMl9DSURfRFZfQ0xBU1MgY29udHJvbCBjbGFz
-cy4NCj4NCj4gU28gdGhlIGRlZmluZXMgYmVjb21lOg0KPg0KPiBWNEwyX0NJRF9EVl9SWF9BVURJ
-T19TQU1QTElOR19SQVRFIGFuZCBWNEwyX0NJRF9EVl9SWF9BVURJT19QUkVTRU5ULg0KDQpUaGFu
-a3MgZm9yIHRoZSByZXZpZXcuIEkgd2lsbCBhZGQgdGhlIHR3byBzdGFuZGFyZCBjb250cm9scyBh
-bmQgc2VuZA0KdjIgaW4gdGhpcyBvcmRlcjoNCg0KICAxLiB2NGwyLWN0cmxzOiBhZGQgVjRMMl9D
-SURfRFZfUlhfQVVESU9fU0FNUExJTkdfUkFURSBhbmQNCiAgICAgVjRMMl9DSURfRFZfUlhfQVVE
-SU9fUFJFU0VOVCAocmVhZC1vbmx5OyB0aGUgcmF0ZSBhcyBhbiBpbnRlZ2VyIGluDQogICAgIEh6
-LCAwIHdoZW4gdGhlcmUgaXMgbm8gYXVkaW8gb3IgdGhlIHJhdGUgaXMgdW5rbm93bjsgcHJlc2Vu
-dCBhcyBhDQogICAgIGJvb2xlYW4pLCB3aXRoIHRoZWlyIGRvY3VtZW50YXRpb24gaW4gZXh0LWN0
-cmxzLWR2LnJzdC4NCiAgMi4gdGMzNTg3NDM6IHNldCB0aGUgc3RhbmRhcmQgY29udHJvbHMgaW4g
-YWRkaXRpb24gdG8gaXRzIGN1c3RvbSBvbmVzLg0KICAzLiBUaGUgSVQ2NjI1IHBhdGNoZXMsIHVz
-aW5nIHRoZSBzdGFuZGFyZCBjb250cm9scy4gVGhlIGl0NjYyNS5yc3QNCiAgICAgcGF0Y2ggaXMg
-ZHJvcHBlZC4NCg0KU2hvdWxkIHRoZSB0YzM1ODc0MyBjaGFuZ2UgZ28gaW4gdGhlIHNhbWUgc2Vy
-aWVzLCBvciB3b3VsZCB5b3UgcHJlZmVyDQppdCBzZW50IHNlcGFyYXRlbHk/DQoNCk9uZSBxdWVz
-dGlvbiBhYm91dCBJVDY2MjUgaXRzZWxmLiBJdHMgdHdvIGRyaXZlci1zcGVjaWZpYyBjb250cm9s
-cywNClY0TDJfQ0lEX0lUNjYyNV9BVURJT19TQU1QTElOR19SQVRFIGFuZCBWNEwyX0NJRF9JVDY2
-MjVfQVVESU9fUFJFU0VOVCwNCmFyZSBub3QgbmV3IGluIHRoaXMgc2VyaWVzLiBUaGV5IGNhbWUg
-d2l0aCB0aGUgZHJpdmVyIGl0c2VsZiwgY29tbWl0DQoxNDJlNWYwMGJkNTcgKCJtZWRpYTogaTJj
-OiBhZGQgZHJpdmVyIGZvciBJVEUgSVQ2NjI1L0lUNjYyNiIpLCB3aGljaCBpcw0KaW4gbWVkaWEg
-bmV4dCBhbmQgaW4gdjcuNC1yYzEgYnV0IG5vdCB5ZXQgaW4gYSByZWxlYXNlZCBrZXJuZWwuIFRo
-aXMNCmF1ZGlvIHNlcmllcyBvbmx5IGRvY3VtZW50cyB0aGVtLiBXaGljaCBkbyB5b3UgcHJlZmVy
-Og0KDQogIGEpIGtlZXAgdGhlbSBhbmQgYWxzbyBzZXQgdGhlIHN0YW5kYXJkIGNvbnRyb2xzLCBh
-cyBmb3IgdGMzNTg3NDM7IG9yDQogIGIpIHJlbW92ZSB0aGVtIHdpdGggYSBmaXggZm9yIHY3LjQs
-IGJlZm9yZSB0aGV5IGVuZCB1cCBpbiBhIHJlbGVhc2UsDQogICAgIHNvIHRoYXQgSVQ2NjI1IG9u
-bHkgaGFzIHRoZSBzdGFuZGFyZCBjb250cm9scz8NCg0KQWJvdXQgeW91ciBjb21tZW50IG9uIHBh
-dGNoIDUvNSAodGhlIGF1ZGlvIHR5cGUgY29udHJvbCBhcyBhIHN0YW5kYXJkDQpEViBjb250cm9s
-KTogdGhlIHZhbHVlIElUNjYyNSByZXBvcnRzIHRoZXJlIGlzIHRoZSB0eXBlIG9mIHRoZSBIRE1J
-DQphdWRpbyBzdHJlYW0gYXMgdGhlIGJyaWRnZSBmaXJtd2FyZSBjbGFzc2lmaWVzIGl0IChMUENN
-LCBjb21wcmVzc2VkLA0KSEJSIG9yIG9uZS1iaXQpLCBub3QgdGhlIGNvZGVjLiBJdCBpcyBub3Qg
-YWx3YXlzIGV4YWN0OiB0aGUgZmlybXdhcmUNCmFsc28gcmVwb3J0cyBIQlIgZm9yIHNvbWUgY29t
-cHJlc3NlZCBzdHJlYW1zIGF0IG9yZGluYXJ5IHJhdGVzLCBzdWNoIGFzDQo0OCBrSHogRFRTLiBJ
-IHdvdWxkIHByb3Bvc2UgYSByZWFkLW9ubHkgbWVudSBjb250cm9sOg0KDQogIFY0TDJfQ0lEX0RW
-X1JYX0FVRElPX1RZUEUNCiAgICBWNEwyX0RWX1JYX0FVRElPX1RZUEVfTFBDTSAgICAgIGxpbmVh
-ciBQQ00gKGF1ZGlvIHNhbXBsZSBwYWNrZXRzKQ0KICAgIFY0TDJfRFZfUlhfQVVESU9fVFlQRV9J
-RUM2MTkzNyAgY29tcHJlc3NlZCBhdWRpbywgSUVDIDYxOTM3DQogICAgVjRMMl9EVl9SWF9BVURJ
-T19UWVBFX0hCUiAgICAgICBoaWdoIGJpdCByYXRlIGF1ZGlvIHBhY2tldHMNCiAgICBWNEwyX0RW
-X1JYX0FVRElPX1RZUEVfT05FX0JJVCAgIG9uZS1iaXQgKERTRCkgYXVkaW8gcGFja2V0cw0KDQpU
-aGUgY29kZWMgb2YgYSBjb21wcmVzc2VkIHN0cmVhbSAoQUMtMywgRFRTLCAuLi4pIGlzIG5vdCBy
-ZXBvcnRlZCBieQ0KdGhlIGJyaWRnZTsgdXNlcnNwYWNlIGZpbmRzIGl0IGluIHRoZSBJRUMgNjE5
-MzcgZGF0YS4gRG9lcyB0aGF0IGZpdA0Kd2hhdCB5b3UgaGFkIGluIG1pbmQsIG9yIHNob3VsZCB0
-aGUgY29udHJvbCBkZXNjcmliZSBzb21ldGhpbmcgZWxzZT8NCg0KQmVzdCByZWdhcmRzLA0KSGVy
-bWVzDQo=
+uvc_driver.c walks the extra descriptor data four times, advancing
+the cursor by buffer[0] each round: the frame descriptor loop in
+uvc_parse_format(), the skip loop and the counting pre-pass in
+uvc_parse_streaming(), and the format descriptor loop after them.
+
+buffer[0] is bLength from a descriptor the USB device supplied, and
+nothing constrains it.  A device that reports bLength 0 leaves both
+buflen and buffer unchanged, so the loop condition is still true on the
+next iteration and the same descriptor is parsed again forever, on the
+enumeration path.  A bLength above the remaining extra data walks the
+cursor past the buffer instead.
+
+Add uvc_desc_walkable(), which requires the two-byte descriptor minimum
+and that the descriptor still fits in what is left, and use it in the
+four loop conditions.
+
+uvc_parse_control() is left alone: it already carries
+"if (buflen < buffer[0] || buffer[0] < 3) return -EINVAL;" at the top of
+its loop, which covers the same case there.
+
+Found by static analysis of the descriptor loops; not observed at
+runtime.
+Signed-off-by: Shirong Zhao <shxzhaosr@163.com>
+---
+ drivers/media/usb/uvc/uvc_driver.c | 25 ++++++++++++++++++++-----
+ 1 file changed, 20 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index cbc1456..57437e1 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -332,6 +332,18 @@ static int uvc_parse_frame(struct uvc_device *dev,
+ 	return buffer[0];
+ }
+ 
++/*
++ * A descriptor's length is supplied by the device, and nothing constrains it
++ * before the walks below step the cursor by it.  Below the two-byte
++ * descriptor minimum the cursor does not move at all and the walk spins on
++ * data the device chose; longer than the extra data still unparsed and the
++ * cursor would step outside that buffer.
++ */
++static bool uvc_desc_walkable(const unsigned char *buffer, int buflen)
++{
++	return buffer[0] >= 2 && buffer[0] <= buflen;
++}
++
+ static int uvc_parse_format(struct uvc_device *dev,
+ 	struct uvc_streaming *streaming, struct uvc_format *format,
+ 	struct uvc_frame *frames, u32 **intervals, const unsigned char *buffer,
+@@ -486,8 +498,8 @@ static int uvc_parse_format(struct uvc_device *dev,
+ 	 * based formats have frame descriptors.
+ 	 */
+ 	if (ftype) {
+-		while (buflen > 2 && buffer[1] == USB_DT_CS_INTERFACE &&
+-		       buffer[2] == ftype) {
++		while (buflen > 2 && uvc_desc_walkable(buffer, buflen) &&
++		       buffer[1] == USB_DT_CS_INTERFACE && buffer[2] == ftype) {
+ 			frame = &frames[format->nframes];
+ 			ret = uvc_parse_frame(dev, streaming, format, frame,
+ 					      intervals, ftype, width_multiplier,
+@@ -591,7 +603,8 @@ static int uvc_parse_streaming(struct uvc_device *dev,
+ 	}
+ 
+ 	/* Skip the standard interface descriptors. */
+-	while (buflen > 2 && buffer[1] != USB_DT_CS_INTERFACE) {
++	while (buflen > 2 && uvc_desc_walkable(buffer, buflen) &&
++	       buffer[1] != USB_DT_CS_INTERFACE) {
+ 		buflen -= buffer[0];
+ 		buffer += buffer[0];
+ 	}
+@@ -658,7 +671,8 @@ static int uvc_parse_streaming(struct uvc_device *dev,
+ 	_buflen = buflen;
+ 
+ 	/* Count the format and frame descriptors. */
+-	while (_buflen > 2 && _buffer[1] == USB_DT_CS_INTERFACE) {
++	while (_buflen > 2 && uvc_desc_walkable(_buffer, _buflen) &&
++	       _buffer[1] == USB_DT_CS_INTERFACE) {
+ 		switch (_buffer[2]) {
+ 		case UVC_VS_FORMAT_UNCOMPRESSED:
+ 		case UVC_VS_FORMAT_MJPEG:
+@@ -734,7 +748,8 @@ static int uvc_parse_streaming(struct uvc_device *dev,
+ 	streaming->nformats = 0;
+ 
+ 	/* Parse the format descriptors. */
+-	while (buflen > 2 && buffer[1] == USB_DT_CS_INTERFACE) {
++	while (buflen > 2 && uvc_desc_walkable(buffer, buflen) &&
++	       buffer[1] == USB_DT_CS_INTERFACE) {
+ 		switch (buffer[2]) {
+ 		case UVC_VS_FORMAT_UNCOMPRESSED:
+ 		case UVC_VS_FORMAT_MJPEG:
+
