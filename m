@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795017638;
-	b=YLFQoQdDnfKgzbGWMBC5WAMc32mMJUtKigRbTj9OalUjRKNTJ5VUOTpodJqZNE5S27eX
-	 GBDfEgod2iHuNM8euXgSgGa6bKTAcGDP25ueSDTyTFY54FDpBtXOEOTQlgswDHlMLeGOS
-	 o23mYba0SHV7dzefwh1uGxxcmXupboME1haUUuaTVaMl+g/i/Neejc6GrK1Zmtb+3p7CO
-	 5+adcs/LJ7dHXX4VJAGqhLERho3qnAlCf2gr2rGRwPbBOm3LY6Fwa20MacY/QIco8ASN5
-	 cYs+lQ3KrMn1EootVTruJ8gpHQlQzaT5NA8bGaSTRSwcvVAEMIEQzN+5551hj/mf9nw==
+	t=1795018036;
+	b=bxhKZ9GXwJc0yxRO9MzHQjq8w4IF/pgwseVwjML1t+n50GZflL+itb/kCtJ8rdGiI0XY
+	 UBcooxHaV441FqUUwwUnHGa9oExl6gm5i0Auqc56Cj7CkxFK3mVbEw1A1mm260jHfflEh
+	 2dbC5iThQmK96m7e7nNTevN6QWJ8swxUKtUoXaXK8G1SHg62UZnoM0d5yPypuF4WhqfPO
+	 e+VCvxm1utpFzRKta00sonH7eBztw6+BRjCYMgXRf/Pnvd2JUwWxL4sfBN8NZN5j+bnda
+	 5sKfePjzLN+lv1VTinlmfGDSwA2EIj4P+PLd+xDULvhP5KkHvRJHLaYGuqz12oYzAoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795017638;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795018036;
 	h=Received:DKIM-Signature:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=cSzRCJe203nG3DjmKreWNmifbqQ6eZroTgaCVpedgq8=;
-	b=wsug/zJTNDxUwXHiQiTiIGC0D1A7cIeo3yPL5aSnTb/fYkAoFKnEVBWhubr787RiQB9m
-	 RTxHj6ivko7SpS0eGE1Gyopi7nllkoVfWEVzIFLbTvG7SAzGT6F8MQbm8/NC8PXhKIvDc
-	 8zV3rMZJLESJ166HV7D5lVJbnP77ULOh1uGLdjhg04KzP0ZCTOJNNrLDFUsfzdU9E5FDM
-	 VNK62Xgd6Y9C01uGNR/R5YLafEeMc2UuIKMExrVU4zccU06969Vlfk72H5VJ4+fJrEK3j
-	 lNF8CQj+Qpl679N33XET+RwCb6DFtXfGDN7C+gfDty+U8Em7q1eK7dOzvGszHnXOFqg==
+	bh=ngBn9IgkxuA1QATjbZhn0dD+vrQfjiVM3wD6LtiJpaM=;
+	b=TNLum1jSyWtHrWgzq5gFnSb+rgXz4uWMJZ5rh4D7d2RCbUYAS4iJk8DkVD8mtVqzeiUL
+	 dEIjkJvG+FZ3jzt4TUP5Ecil0wxeHKbNRilTJ3RMFOv4x1DLcA27i6QRCwNvGBFG0M2/1
+	 R6yAkTK/fZtD20HEGFZgWrI4fG4hI2IjF/IR8GgsvGAjnjRTSpNqKtE2wDRy/laNf1IH5
+	 G2F12HWqrerbvwE4rr2EMlSwoQh8Lr+158OBxbl6VI7QsQdtp8+rf4YfOZAwrpad4KHfw
+	 W0HAoGhMFnZIhMmStBL0GxEC7dom5Yv/tozRzsBIgc+O3H2CfNpSjcNsV/apC9Kjsrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AIQpdHT4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dKIZcolW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82613606A325;
-	Wed, 18 Nov 2026 16:00:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09AEF606A320;
+	Wed, 18 Nov 2026 16:07:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AIQpdHT4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3B931F000CE;
-	Wed, 18 Nov 2026 16:00:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dKIZcolW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E4E81F000C4;
+	Wed, 18 Nov 2026 16:07:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795017638;
-	bh=cSzRCJe203nG3DjmKreWNmifbqQ6eZroTgaCVpedgq8=;
+	s=k20260515; t=1795018035;
+	bh=ngBn9IgkxuA1QATjbZhn0dD+vrQfjiVM3wD6LtiJpaM=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=AIQpdHT4afUI2Yr6DBMBJ538B2Jh9xZElqzRV/cOj/VYB8cAtgJzCBK7UrCXioIsF
-	 H47ULU079HX6F41g/CHSqfaIv7Bwuj32R85uJLGeEV2/13wNkoZNMCkVR/AKLPKXyz
-	 wuq1IvVsdSV/QSKDgDvQxyV6Uk1SzF5k517NUksbxr27HYvIa6x8dMOaVBJSbYh3dI
-	 Tc96qzyeszI7j6l/SY/2msWk+N0GWdRfzByWS63Jscgh4selyjVN8xNHBFct5iF+6v
-	 u2tgJXx/Kap7Zt2vMuriPDYSmo9gZE/H+2RNaNXsFOLfRe6DUi4n0LLU0WtO6p7MUn
-	 ZEEdKptvA1njQ==
+	b=dKIZcolWbnuLTKqutq9BmxD9ACQlJdPkqJmQ7dOWKxPpMdvcVKulma5xuQHT0zwHf
+	 v5pqM2+EcmxkfVsmgN1TYYi0ZFoLR4hkQTg1mROqw2VQHX3at7lk8d9b/21gNCnRBz
+	 gk+madvKADNedFNMXuYlAS6UBm77p1LRimtoaPAASi75cwe8gj/NGMvNu7WTpMBhk5
+	 U9+7qdaslGzB6uFNngTzB3NmxhhP0wWAEnMFdMgFVyQTVtk6RBmer8daPM7fDLUB4C
+	 DTps3Soa12TrpMaJysTncT+Y5kn9JLWb3reuFwAGCJpA7zviedaeLHGFvTZDrFebtp
+	 1T1ZmcHGVDWAA==
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,8 +51,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 3/3] media: iris: Use firmware reported count for
- output buffers
+Subject: Re: [PATCH 2/3] media: iris: Skip redundant HFI_PROP_TIER updates
 From: bod@kernel.org
 To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
@@ -66,66 +65,46 @@ Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
  linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
  stable@vger.kernel.org
-In-Reply-To: <20261031-fix_dec_seek-v1-3-cfedf0c267ee@oss.qualcomm.com>
+In-Reply-To: <20261031-fix_dec_seek-v1-2-cfedf0c267ee@oss.qualcomm.com>
 References: <20261031-fix_dec_seek-v1-0-cfedf0c267ee@oss.qualcomm.com>
- <20261031-fix_dec_seek-v1-3-cfedf0c267ee@oss.qualcomm.com>
-Date: Wed, 18 Nov 2026 16:00:32 +0000
-Message-Id: <179501763210.2846709.2834027862962422789.b4-reply@b4>
+ <20261031-fix_dec_seek-v1-2-cfedf0c267ee@oss.qualcomm.com>
+Date: Wed, 18 Nov 2026 16:07:10 +0000
+Message-Id: <179501803041.2846709.479596500645471046.b4-reply@b4>
 X-Mailer: b4 0.17-dev-e3fc9
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1806; i=bod@kernel.org;
- h=from:subject:message-id; bh=/AP0CoAgLohhW5HLCcUNA+EpSWZFnT0y2EdkIXNbETE=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/cugn7uvdcNTuOfP9Xbb1suR9FMivnTjAW0KV
- QwoeoYaKgSJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCav3LoAAKCRAicTuzoY3I
- OpV2EACQ/TsC5dkjOhP0DBcih24tqd5YR4mkMNv2fqwOCG2fzstzwL3xRzS8zguIjtMrDbrhYOo
- ASQxvbyQUl0lrgpefu4w49HWLJe3on1oScY3IE4wSo0Gm90JVfB+EL1uCYSiSgZES/b6jOhulsc
- TnmFfq9OG/UAF6M1Dp78Olg9AdAxwQgfBwutI2C8XSf53BTG/ah/jpFQHDdz/IgsXWScaggYQHI
- dfHugOSWWUUkI8vahNzNw1NzOA5yGzUGZ8x0iTeKP3vj+8ozDkKOBd56ZAreZ7n/Yq95O0+sDtz
- JymFLEArHN5WJR1uA7CJu9GIzBytDWs1YyB9ECicSaWH4+HdfiwxnDVXK92tIUP+cvxu79dl7vB
- 3CqIaat2NH/aXk/3iDMI59ZORZGhKs2uyAjm1kI28niCxaI57QUrPKKRnBXZjuNvJns3D2tJeRN
- q5ldR1+C/y3huHapXc/7zy6/TlSZYg5quu511C7Ofyk9ZZOHlv0nQvC1SAM1DN4Eyp/CE9K14Kb
- FBK8BU1t9biOsj6MOCopt8kax2kouw55EEX7kXfURj8qywRnubbOdcgEgwf3aLqWMYGeCmIhcE0
- 8R3npHC9p254L7f3ouIOBMzx5v/TyDVUh217J9zJf8lsWAr+9sCN1AVpn8rTDV69Ii3jIDZ45Wn
- ltM/Y5fxOt7Jmng==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=941; i=bod@kernel.org;
+ h=from:subject:message-id; bh=EzW7ed+tOi0UapeX4dTOqd0hl7HzztMfnZPqsWsSQGE=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/c0uqfS6qXMMAwhT4jq2zif+9KQU3YgpLK+o2
+ EMiw79tcWCJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCav3NLgAKCRAicTuzoY3I
+ Oqd3D/wOzo0O3Pql77X+XK/wM4/eGgLw2WK1pm4gxuxajoZC5gpbangHaQ/mT1oN4JJ1txvojhm
+ vaWxTkK8w+v22I9BTD1j6EHLekl9pQrzXxjHL+jpjmrANFRTbWb4vTWz0W2mthjvuvtQu3/i1Dz
+ MMqkaq6q6Dk2D/joH6jsrXeUCrj1Mqoh+PZCKQuUA6Rx6pDc6OtPYBhzQVRtmsrV+KXtvntHXsp
+ t1Lhja/dLzXdDKxMKt/jxGbikKRHZtAHcOjP7BqG1cghbV+gQIRLEtjAov8NXBK87iBumVHiFfi
+ 7ouVIKFt08bH+4bHPR2opGILO8q05T0l5KkngsdD8NnnD5rooctnzH5YeXJ6rlkckMS7nsZJtP1
+ JcOPHfgUQM2Asr7yVqlPdnEr4lHrOBxhXp8lV3+P/pK3seP7+wdzT4VQ/rye4MbwmkEZGP8Kmmu
+ EMZ3b8sLjZ4JXIg+6h3qJaFi2Jvot4ZXbCSs5yxSmAyuI1O+vyUCI4Ps9mrpYWcWmvq2af9vwjx
+ phT09K347Kk/0kdGHw4RnoqGMuCQYVE9Ehf6/gKmNttosxxhcdiEg/jtahy8pcoGejsb8QOalhS
+ VdivwqQlynI1oTcydsCOqLbk8xEuD9+n18dnba0ib09VjBoottVnRDfnNtDczIhf/7mKSv5Pc3Y
+ +Zs9PEwUHda8kXA==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
 On 2026-10-31 01:49 +0530, Vishnu Reddy wrote:
-> Once the firmware reports its minimum output buffer count, the driver
-> still caps it to 4 for VP9 and AV1 when split mode is enabled. After a
-> seek, the output buffer count can be lower than the minimum required by
-> the firmware for VP9 streams. This causes the firmware to report
-> insufficient output buffers and the seek operation can fail.
+> HFI_PROP_TIER is already programmed by iris_hfi_gen2_set_tier(), which
+> selects TIER or TIER_AV1 based on the active codec. The TIER and TIER_AV1
+> caps also define a .set callback. As a result, iris_set_properties()
+> programs HFI_PROP_TIER again through the generic cap path.
 > 
-> Use the firmware reported minimum count as is. The driver calculated
-> count is only used until the firmware reports its own requirement.
-> 
-> Fixes: e1f5d32608ec ("media: iris: Add internal buffer calculation for HEVC and VP9 decoders")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_vpu_buffer.c | 10 ++--------
->  1 file changed, 2 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
-> index a8170e5fa9e6..57467c952f42 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
-> @@ -2375,14 +2375,8 @@ static int output_min_count(struct iris_inst *inst)
->  	int output_min_count = 4;
->  
->  	/* fw_min_count > 0 indicates reconfig event has already arrived */
-> -	if (inst->fw_min_count) {
-> -		if (iris_split_mode_enabled(inst) &&
-> -		    (inst->codec == V4L2_PIX_FMT_VP9 ||
-> -		     inst->codec == V4L2_PIX_FMT_AV1))
-> -			return min_t(u32, 4, inst->fw_min_count);
-> -		else
-> -			return inst->fw_min_count;
-> -	}
+> The generic property loop sets TIER first and TIER_AV1 last. For non AV1
+> codecs, the TIER_AV1 property is programmed after the correct tier value
+> and overrides it. Remove the .set callbacks from both caps. This ensures
+> HFI_PROP_TIER is programmed only once with the value for the active codec.
 
-Quite a few questions here. Why is the minimum count currently set to four
-? Why do we use a hard-coded value of four more than once, why not define a
-different minimum count ?
+I think this commit log should list where and how these settings can be
+applied three times ? and what the sequence is exactly which leads to the
+invalid setting.
+
+It's not enomrously obvious reading the log and then the code how that
+happens and which one is so obviously wrong.
 ---
 bod
 
