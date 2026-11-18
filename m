@@ -1,76 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795001554;
-	b=rqh7lp8R3nf+Ff9TTuamCTVEnEqeT3/Gd1V2xCFp8/83zxS+WEne4/xSEiec6qhe03h/
-	 Obzy/6oOsGE7d3J4506iQ1Ddrwj+A17kalqLVS4gE+PoGVdwein/VppdAF2F9f7DBLPql
-	 sryQPkGmGD4+QoePmQWI468UuY/BUGPpujh1pxUaW9Ei9UyVvcDhHQ9qaJrqKLNEMfeP5
-	 xsWFQjXl/1OVKkTQpdZG553LuTgul+4YNIORTQLJkyqR1i845QoLeKiMbC7TW7O7g5EK4
-	 QusR0OuyT5vpCPG078eT1l01TEIbXywcEOubrUp3pJiaqCslpAeG3QPBk1vbtfTFEfA==
+	t=1795001745;
+	b=NmUt9SdJkAxTXRJ4+z2NBup/FKa96TXjXPhy+fyL5jNnCgMJ+hgxEeVSckZzsE7/74wR
+	 bEi1e1amWSdqqdiyUaMl2Dyc4ViisA8bexeno1Vs/qeZctZX4rwRP/LBjrE6cjb93xNFS
+	 p1hyJTRbqGMwv2djQD3Z88EpOnUSQZ/YXa/LIUiift7uGGVL9KlzQxI2K0IkgvEhXlVWu
+	 l9LPflAc96gGk7bql6yIF0wBoRgfT3OzQ8qWd/I2yKBO4ZC/DWdT2NbtI8IBWsD/i14xB
+	 xKlSCzGcm7bH+2TIWLUNjKWmMqgB2JvZBw6myDB9pe6qKpijZC8Noby3Ae+D5Fb5f0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795001554;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795001745;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=aTn2TCJftFrQcjFW3PjA+4u4l+dCEluOrUERM1gp3h8=;
-	b=K6nI7xT2gZgg16XoChPxZy1kwiln018sLb4zA0XhZguwu54BM1WjjB6JmK/loSha0Xm4
-	 FXSUsDDJX+9m2IWWqxUDf9lyeafzp7SfZdNDA3i+wq/GA0egzZRNzWXUXOJZhk8+K/rp5
-	 SnPJJgUreTwhnxzDj4pVndRsjoHzko8nEiZRnqfsCccpQpJunazPNEMMI+Bwkf5T+DoT6
-	 qktVXx3r8ghiExrma9LiswKUjK0/9MzD+fvdTlOIY5zWEHqCbjAq1J/uc4asFKiZV6xiu
-	 HhnY/ir0MLf1FBgeA2R9XTPUpyEoUHNgzUDSIkLVqo9pUXLK9Okyt+hr1Ks5R8zDD7A==
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=iUixPGpAmEzOF1PUyAFmudugrxdERzx0JQxsOdYzZKI=;
+	b=CyI1am8jFvNoDq4MrofifrjzIZ/BKBgGBFUxBp5uhCk9Tadg290iipfCetOb0hLrDFrS
+	 GwU+AbTWgeOHrKL3IxSkbfWkA/BSbhUfqzM/3TC+n7RZpTgZTCwLEZnxoHG/4t6ibIRXY
+	 N8hAV3rRtvn0ZIk4hYMl3AAyEtT4QxZHFOThbX0LpRCjrlkD1A7UfAV40qWPhjxlQP8D1
+	 1jNpqLT7ItK+1D8qcPnp+N0z6Ow3wNI9dxy/5ylKLTJ4GONj6mW/a0TO6TETePOShEoWq
+	 KbNTHVlGOx52xUzxrFyviMXUliw9Fbfxe0SFbfP9Z/Duuy02VM+uaOSS8Wx0KBMV1jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aIYoemd+;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vs9eGYhF;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C10F606A320;
-	Wed, 18 Nov 2026 11:32:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C10F606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5041E606A325;
+	Wed, 18 Nov 2026 11:35:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5041E606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aIYoemd+
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vs9eGYhF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795001554; x=1826537554;
+  t=1795001746; x=1826537746;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=NFnWDBhLRuLnoG+Wd51C14eK9xiBcw4DRsn9WMOefmI=;
-  b=aIYoemd+78CpI9Vpp1PbcWDqsGERl6Tnlsyz+TaCitQr2nQYn5CyOEYd
-   1ITyv2JFxYePUadfbdRNdb2zpg/uK7ATxKus0a28LXufMo5itGAHsWm3R
-   gUk8o3+jpwwLlQb53GBW/KbGIJuitzOTv/wvmXtSo9Bc/1qekOcS/HCwi
-   XT3Ak9nFG2YEGTSMG/iig7p53cA7FbSZSYdYl8ap5MRfWHJ/d0XfKj027
-   Br8KoB6V9XLJEVGkKy2OV4OzYLe+MooD7/6Ag1HrNtnLg6C1aPNb8T0NM
-   8IEbqEmdQ2SLlzKvH++WI8/XqEvAHLEKhc0ISAxWTJC/2GGdmawymfQ8S
-   w==;
-X-CSE-ConnectionGUID: YTog2F1bSUmnp44QzKLuKw==
-X-CSE-MsgGUID: duVzgHlISgKbzVyXO9se8A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3655556"
+  bh=scrDDog2yq5vlMU2hHLdLRQ/pxjPo4E+eU8KMZPGGEc=;
+  b=Vs9eGYhF1xJbx/h4kW44jtWxeJvar/fU/fGT5/f/dzQ0PZdceL+Xd/ex
+   mo8nNFVGHXIMstUMe3+x9EB5RQRZ5bO8lcMU1VXoXijMmjh5MuhUyhtdk
+   Q1JI5wtYLVT6Q04609wnPS/PgAmJqR2NSxcVxqmCpz0RjjG3OlMflDJLd
+   LlLRhmu6Cet7j4tV/g0C+TnrX8TkjfYXpLdbKKjR4O7/yJQ9j96ihgDlS
+   23Ma2siqGCnccvvc0jWm8yUQmjSHAUU5f6FLzgpJrArB3t0KyxxeD2MwL
+   p+nwqNb0+9nRENvarBMDqI/1h3rsbG76x5BjG+I3nGxxjZe+rPuEqreG7
+   g==;
+X-CSE-ConnectionGUID: ILJcKjNOSN+cUGYhU6U4wg==
+X-CSE-MsgGUID: VLMLPhByTjiYu0axveXlvQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3693058"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3655556"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 03:32:34 -0800
-X-CSE-ConnectionGUID: Znnbo5KrSmmzYywMrCBbGA==
-X-CSE-MsgGUID: il3ajXlvRVeG50ClETylRg==
+   d="scan'208";a="3693058"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 03:35:45 -0800
+X-CSE-ConnectionGUID: QnOJrbkrTJWes6hKTaXpUg==
+X-CSE-MsgGUID: QOrSfv4CRRmuaP5KzOEavg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="10489712"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.244.243])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 03:32:31 -0800
-Date: Wed, 18 Nov 2026 12:32:24 +0100
-From: Mehdi Djait <mehdi.djait@linux.intel.com>
-To: Michal Simek <michal.simek@amd.com>
-Cc: linux-kernel@vger.kernel.org, monstr@monstr.eu, git@amd.com, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	"moderated list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, "open list:XILINX VIDEO IP CORES" <linux-media@vger.kernel.org>
-Subject: Re: [PATCH v2] media: xilinx: vip: Make use of the
- devm_clk_get_enabled()
-Message-ID: <av2MP0VlOKC5RUXk@mdjait-mobl>
-References: <8c5500e70fcd2b4da35e985b9f8a976afa1991b0.1794999782.git.michal.simek@amd.com>
+   d="scan'208";a="10265237"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.157])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 03:35:42 -0800
+Date: Wed, 18 Nov 2026 13:35:40 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Volodymyr Chapman <volodymyrchapman@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] media: ipu-bridge: Add Sony IMX175 (INTCF1A)
+Message-ID: <av2NjAA8yTAwwZ7t@ashevche-desk.local>
+References: <20261116175151.20150-1-volodymyrchapman@gmail.com>
+ <20261116175151.20150-3-volodymyrchapman@gmail.com>
+ <avwk93N8D7AYGzDX@ashevche-desk.local>
+ <CAN1s30pEE5vN7Yuz9Y5_+4M6-TeTNTmHA_hYLR9KLnXj05RWfQ@mail.gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -82,31 +88,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <8c5500e70fcd2b4da35e985b9f8a976afa1991b0.1794999782.git.michal.simek@amd.com>
+In-Reply-To: <CAN1s30pEE5vN7Yuz9Y5_+4M6-TeTNTmHA_hYLR9KLnXj05RWfQ@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Michal,
+On Tue, Nov 17, 2026 at 05:50:12PM +0000, Volodymyr Chapman wrote:
 
-On Wed, Nov 18, 2026 at 12:03:04PM +0100, Michal Simek wrote:
-> There is missing return value check from clk_prepare_enable(). Fix it by
-> using devm_clk_get_enabled() macro.
+...
+
+> > Since the ACPI HID here is broken (it's actually a PNP ID), can you also
+> > provide (as a comment) the excerpt from DSDT to show that device description?
 > 
-> Signed-off-by: Michal Simek <michal.simek@amd.com>
-> ---
+> Of course. From the ThinkPad 10 (20C3, BIOS GWET50WW 1.50) DSDT:
 
-[..]
+Thanks!
 
->  void xvip_cleanup_resources(struct xvip_device *xvip)
->  {
-> -	clk_disable_unprepare(xvip->clk);
+> Device (CAM1)
+> {
+> Name (_ADR, Zero)
+> Name (_HID, "INTCF1A")
+> Name (_CID, "INTCF1A")
+> Name (_SUB, "221B17AA")
+> Name (_DDN, "Sony IMX175")
+> Name (_UID, One)
+> ...
+> 
+> I will add that as a comment above the INTCF1A entry.
 
-so the xvip_cleanup_resources() is empty after removing the
-clk_disable_unprepare() call.
+No, in the code just mention the laptop model, DSDT excerpt is only for cover
+letter.
 
-It is also called in xilinx-tpg.c and xilinx-vtc.c
+> Should the same comment go to the INTCF1A entry in atomisp_csi2_bridge.c
+> (patch 3/3)?
 
->  }
->  EXPORT_SYMBOL_GPL(xvip_cleanup_resources);
+If there are already similar comments for other entries, then yes.
 
---
-Kind Regards
-Mehdi Djait
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
