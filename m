@@ -1,79 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795026072;
-	b=MLySDdRfrdQSlzYGyxVjWlQw6pbJao1k0jLwtIY0m9NvHNHAeJSlT3977ne04GjNC69Q
-	 bOHIBpMZnUaEUFEeL53nT0PzwHJ9dKz+D9eVmiWLtrEoVXjHV+7kREDUCp5mYAoaKg5qB
-	 XEJcQMp6GQuXao7TJ6ROgtROSXrSfdYkytxc4JYHZOCnMqeTexUA9njC+AK+lZPg6NV8D
-	 3jt6yLjgd9CzZzmeJLyKSkVuynWMwoWEXC+mFZeGguKM3m2um2OZtEoiiH+dm6XCYMfhr
-	 pzZM6DUB97OWxSUT59jl9i7tcXfyXIuQ1eUdnyqBmfEuAlDeIhNha6hICmyAicFW4lw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795026072;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=IQ4OUkHQY42Gip+tU0i4gGVq6AepGKKt+EFmQierDDo=;
-	b=GM1W5YaRNJmOlj28x787e+jFptdvmTFnTbhA3u9dL0kiqucINGTM8oXXAyoV0wYkMQ7t
-	 B8vtT7nu2J7q4LN3Vy+6aDvCkPleqdz8Sa3CRMY5AbmJ7vadn7FSdx9dOe75bfXqcyU9d
-	 +SmlYP34Nv9htFKsPEcgHKwWz9lAWQoRjuxQA64Q+LncqPNBteRBVnkfVTCfPwYHFPHkd
-	 crfZNRt8ed4j4DLLJXmBfhoZI1GbK34nPqsGU/O941XN/DqZHn2JIa8oyR0kHAJewlvW8
-	 45F8jfL8usRFMTkobRC35yUnj+Lic2Zcyzexd6ETZJeNG2SQu6h60K83mWOkFvu4ekQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQ0PiHvn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC456606A31C;
-	Wed, 18 Nov 2026 18:21:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQ0PiHvn
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795026072;
-	b=l75difnpHrkGu/Uw/sUyYlXBUqNyqvOHp0oWMJsmfTNmx7mMN3+2fnrcqqlj1l+cDCm6
-	 ki02SjFy4IbA08XcYXedWrlXhA7tqpTK6qbrHnLqrcTqoFqWKcC2ryrumfsJNgchugih2
-	 W7PU3mFJjLOXiDraIbB6M9d1kKP7Eo0KjiDeMN3yUoZYFcZr+aEbavEzpf8PJR8q5XogA
-	 7wrrtVgQHky1mcZosRriqTEKqyAeArgyHAg58gapm/HTnx4DOR5ZTzJFT6RtQDd7PDRXm
-	 iTuwDCOnrkWF6S2tnznFpDDyxcgvJ7tlZsnzTyvOamikmAzdMlTJKVggYjyvwezMuZg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795026072;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=IQ4OUkHQY42Gip+tU0i4gGVq6AepGKKt+EFmQierDDo=;
-	b=P97IW14e/Ibi09COnrKKL5JnxKRDtFWI8cxsjbhr1RkVPvINAy0zzh6c6ZiiAegquPSy
-	 7aR1GmzIn/vV8kqYlc0wr7ALXBDWcf3ThHeH4pRZc/H8kzT/zeJD8x1Q6sxzHne0PIGj7
-	 OWiM5Kk3qXGaJzZ6ulNim0Oqtg3jEfLSYeaWU6cWrZYESvcL1lRJm3dbpqliJ31JCqOya
-	 Ybtnl+r3N2c9uwJHQEBRJXZXdmbi30dcUupi913/cKQabOUBEePtvan5BDdACGUBVRy35
-	 TXBuz9Bzwt9j/jvIUPIHj2QbCA4CGpqmWOp9oFp19RIAb+UIhqI4f0fbx9nExUqQ5hg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795029715;
+	b=h4le7ERbhkvXI9Ne/ZpQ54HQx7f0Y0b1evCjsAHkPj9QyV2SHXRv8iSbkJ8zhokTXfpN
+	 q6xiU42YggsODPNQ7uRTHQupHV2OkrZVqfgfldpAgafuEyx6WUk4fw7j9JKtCDk5xNvDe
+	 8U+eNu1r7842HmGYGE2FMlRzgwQqWM7xYtFyuOn2AN6l3/huI6oQQBnNWOcE6UtivXAO9
+	 QjR34CltyW6j/2MVIHunLPpsWQq9EEMcVHLt5+PnFKFM2SdkknNCe9KzG5C/jWJRAjlCX
+	 +G042QN2fzAdy+trE0HSAZPl/F/gjHqxYW6W1aJztAlbyJObMYuW5suS2qSccjRO4rA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795029715;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=XfCY0YxI9o+32ShywolfpfCq150S3JR8ZD2syCrWnV8=;
+	b=EFZs1+Bw1hoKmtWv6AZ5Wn7pzQ+77LZJjy9H+dNmHFvumNJ2jRZ2TaY3TNJx2vMZbepz
+	 8hSj+dr6TTwHpwtq1U0JRGB5jr0Sdp4Dqj3SZ9JSbmmvLenpQktZRSoNLqAXu9B5sFK/G
+	 zx8ywGNPhgz/tr77Kgks5DfHyS+PHmK7MZMRN5pWCdzQiR+kiKZFTZIB9tApfVRdBidWZ
+	 g5o2e8s6hZlByw2VwH055qLffLB+HfZhKkPow0lreIJkmPn2NHxwgYkLbnR7FqfeGnTCN
+	 39wZfriaEn1he/uJuXp3vmxnZTwldg0w5dJE9Dz395tj6GsJFA0PLk4x3ooiozec8/A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XhG0kODF;
+	arc=none smtp.remote-ip=209.85.161.45
+Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 87F171F000C6;
-	Wed, 18 Nov 2026 18:21:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795026072;
-	bh=IQ4OUkHQY42Gip+tU0i4gGVq6AepGKKt+EFmQierDDo=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=WQ0PiHvngEhJMIHEVzl4ndPnYu2Y1A85ntS2iZATwQoFxdVOljpyD9adXgtBEpqbo
-	 sKwXlED+RWQKluwuxwDjTtazFreiQEtoHwn6thAPqCD5RLyJh4WGhN723KOxTg3aAH
-	 EmDMJfwUOgMDj1qL5dTsiiFDH06Pc7RdncIZu3HpWrHUlcWkZKIOxO39nsovwesgAW
-	 u8+vRRfCo+iQ3QzwWFqMFqCiAUVkXZ98lTuKIRd4fQ+sRWYbwDi0Ma4XeZiVWRqwlI
-	 6GjqbwQAmw4nCKK/DPLOhkAtKXGx8goQiBltS1joMHTP8kTlZCbw9rmw/b6Hw87qhl
-	 cBxdTen9dKSOw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DCCA04AEF9;
-	Wed, 18 Nov 2026 18:21:10 +0000 (UTC)
-From: Maximo Manriquez Lizarraga via B4 Relay <devnull+DelaySystem.tubot.lat@kernel.org>
-Date: Wed, 18 Nov 2026 10:20:09 -0800
-Subject: [PATCH v3] staging: media: imx: ic-prpencvf: add FORMAT_TRY frame
- interval support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B91A9606A320
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 19:21:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B91A9606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XhG0kODF
+Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-702dedeb70dso897263eaf.1
+        for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 11:21:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795029714; x=1795634514; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XfCY0YxI9o+32ShywolfpfCq150S3JR8ZD2syCrWnV8=;
+        b=XhG0kODFgIge3YT+uZxRbeQzqh5GLCJcI/501iQVfQWj40icyssFW7nIYWTsFSffS2
+         JuIFYivkc8vYpm8+IZbNOwGc8HCLG7Dk97i+8wbREkqj0NINQi1x4ATn/BFbFlKFqtUR
+         xyDZsleZqBOGl1dpG45l+Qh0OeXEv09/xsiikHAk7Pp/WAyHRkalGzTPy4cV7wQIW5nM
+         /zfh6MZeSeJFGyvRhybjl9wD4VSbpIitxu2IpG2VNy6RVLzJvaXyScI0as82LV5uP/cZ
+         O+pYgFvL5fzZwnLlvXIFXdvqVn0GF8qEec7udxXO3h2f3D19RVarzgqynbGxSvQzJ46u
+         hkYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795029714; x=1795634514;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XfCY0YxI9o+32ShywolfpfCq150S3JR8ZD2syCrWnV8=;
+        b=WqUM8eBPKPo86juyyvq3i0daXUtBUK6ZTWwDaYjzmGzfgrRhwUo1FxJZllKErexAvS
+         kHGJI5WQhC9CABUVyraaQEAw2WTDW0VrkkDh4+UFWGMNITHzxqlp9vUz+gPGBXTmSZRO
+         ++PnS0BHNTLZuM4qDGCAoWQn8QRyLddvxVvJjvplkZcUuWo5dMyuigP6GNFW7VFZ0Zzq
+         VaVCnI9kKvivdHxMgGR9aikdDipLTAjq+z+wfI68PMUyvOG2MOmcqNKx5QRX7dlvcfwy
+         5hnTV99ny8tw4LNpPXDb93u4nUnrAYfmCietgFMjJe2JFzDkyGNx1QAaI5zGKRTQ5Sep
+         YHJg==
+X-Forwarded-Encrypted: i=1; AL+hErGLlnT41OEqaGj6T5fcyNnkGaEtpU6Z65xGvjA2rrJN0NjhrNXCT9DLYJdEW8JKRN/XQzmqhiv+6n8TNQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9no7aFEB1wg7GLK/J+CmKPbBsb73jPXbyALH7SUbJZ8rEvaJDA
+	D8e4h4gcWngegvBrgbb/ZMhg1EwiiSntShEkGcZTUFUDRScNSTOdgbI=
+X-Gm-Gg: AYBFou2r9euqZkuqhu+g5BuGrVZBEyyqSTUYobdSRosetiy7nvh29istlF6t+Vwhz3o
+	kxFmVnDOocW+orw7kaS3c/f3hl4CtZpt6JQQ88xQMBVqASRW0Syj9UabJOeTDC4lbXF2c0JI9+U
+	UPuygjiasfH108ENll3pCOm67vxFcT2qUgY7FYpHBHSLxJAE8SAzqpT7gyIfRJQAuf9/L8r3PEd
+	dKqy4qyalmPySZHQNuMRr+S0gqUiN5xLlAxU8WaJe94Ryknwr5ETC5CEYy0Z9was5j7Nvwh8Iwx
+	R9FU9bhhMSGA8H4bQSyRkknal+N35K5PzNgbYPqjnIFhHXl1shNccoRmvKaOKA99Z4VrIPWYAb+
+	OEC5NiOFOpiChsLqozk70tIBNlepU8toUT9B1oouyTAS3e5FbZnBKnFBVgf2zKaOyvmi9siurUl
+	Ac014tFZRP+CPcBXhqpzbiNb6dbddoTxyiPv0SMFzp9a77fHolmFb9WWJnDNm5oz5r0M2HEftVW
+	yMKiVKchO0nIN+hfryk0SeKE/9/SKCd7pahckBduVV+uxmWhr61nYI6BVx+rfKQc2lVOf7EMOKh
+	Sqd7odUjpGzW8qH+dBfX08G7LZh34Ib9hwhb6EpdjoycUlQwQ1MvulAn
+X-Received: by 2002:a05:6820:c5d4:10b0:71a:fb85:d063 with SMTP id 006d021491bc7-71b18618ca9mr2045803eaf.80.1795029713272;
+        Wed, 18 Nov 2026 11:21:53 -0800 (PST)
+Received: from miso.lan ([136.62.61.36])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b195c0bafsm2376912eaf.14.2026.11.18.11.21.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 11:21:52 -0800 (PST)
+From: Matthew Laux <matthew.laux@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Mehdi Djait <mehdi.djait@bootlin.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	Matthew Laux <matthew.laux@gmail.com>
+Subject: [PATCH v5 0/8] Add driver for StarTech USB3HDCAP capture device
+Date: Wed, 18 Nov 2026 13:21:16 -0600
+Message-ID: <20261118192124.23330-1-matthew.laux@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,246 +97,350 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261118-batch1-m2-prpencvf-try-v3-1-9f3ae7b1c6d8@tubot.lat>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNTQ7CIBgFr2JYi+GDFFpX3sO44K8Wo20DlNg0v
- btQN90Yl5O8N7OgYL2zAZ0PC/I2ueCGPgM7HpDuZH+32JnMiBLKAYjASkbdAX5RPPrR9jq1OPo
- ZM6ihZlzU3DQon0dvW/fexNfbl8OkHlbHYiuLzoU4+HkrJyi7v5EEGLDgyjRtRSoB5BInNcTTU
- 0ZUIonuNPBbQ7PGGMZAKmDAxF6zrusHP+jYFxUBAAA=
-X-Change-ID: 20261107-batch1-m2-prpencvf-try-3181836786d9
-To: slongerbeam@gmail.com
-Cc: linux-staging@lists.linux.dev, error27@gmail.com, 
- p.zabel@pengutronix.de, imx@lists.linux.dev, linux-kernel@vger.kernel.org, 
- mchehab@kernel.org, gregkh@linuxfoundation.org, linux-media@vger.kernel.org, 
- Maximo Manriquez Lizarraga <DelaySystem@tubot.lat>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6976;
- i=DelaySystem@tubot.lat; h=from:subject:message-id;
- bh=ELrkKApt3e08NLg/GQDX2WOQ7c0hwWDn+V8cx4t3NR8=;
- b=owGbwMvMwCH2SNl4+SzWXm/G02pJDFl/30z7FrDrwqP6hO+qK559eP3s/se2z0mzGXeWPYrNu
- vNMnon1XEcpC4MYB4OsmCKLmAzP+/r7OnHWVnNOwMxhZQIZwsDFKQAT4W5mZNjdbLNrwZ3dXMuW
- +Ao3HZkgsVo7fYayrVBjQPfxlG/7uucw/K85f1H1ndPMTUUzT6coHyjzevliaeD1PXf3L51j4TV
- vwg9GAA==
-X-Developer-Key: i=DelaySystem@tubot.lat; a=openpgp;
- fpr=161C0CEF7FDF2C5E3B3A9CC8E22333A79A058D4B
-X-Endpoint-Received: by B4 Relay for DelaySystem@tubot.lat/default with
- auth_id=1447
-X-Original-From: Maximo Manriquez Lizarraga <DelaySystem@tubot.lat>
-Reply-To: DelaySystem@tubot.lat
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Maximo Manriquez Lizarraga <DelaySystem@tubot.lat>
+Add a V4L2/ALSA driver for the StarTech USB3HDCAP (and Micomsoft
+XCAPTURE-1 variant), a USB 3.0 video capture device based on the
+MST3367 HDMI receiver, TW9900 composite decoder, and CS53L21 audio codec.
 
-Frame-interval negotiation on the TRY state failed with EINVAL: both
-get and set rejected anything but ACTIVE. Setup tools that probe an
-interval on the TRY state before committing it got EINVAL and could
-not validate frame rates on this subdev.
+The driver supports composite, S-Video, component, and HDMI inputs,
+including audio capture.
 
-Store per-pad TRY intervals in the subdev state, following the same
-pattern the driver already uses for TRY formats: ACTIVE intervals stay
-in priv->frame_interval while TRY intervals live in the subdev state.
-Add a PRPENCVF-specific init_state callback to initialize TRY
-intervals from the active default, and move default interval
-initialization to prp_init(), which runs before any state can be
-initialized. The IC does not alter frame rate between pads, so setting
-a TRY interval on either pad updates both pads' TRY slots.
+Tested on all four inputs at various resolutions. All v4l2-compliance
+tests pass, including streaming tests, with these two v4l2-compliance bugs
+patched:
 
-Signed-off-by: Maximo Manriquez Lizarraga <DelaySystem@tubot.lat>
----
-Compile-tested only: x86_64, VIDEO_IMX_MEDIA=m via COMPILE_TEST, zero
-warnings. No i.MX hardware here for runtime testing; hardware testing
-by others is welcome.
----
-Changes in v3:
-- Rewrite the commit message to state the user-visible effect (Dan Carpenter).
-- Keep both TRY slots in sync when setting on either pad, so sink/source TRY intervals cannot diverge (Sashiko review).
-- Link to v2: https://patch.msgid.link/20261117-batch1-m2-prpencvf-try-v2-1-dd331ab13137@tubot.lat
+https://lore.kernel.org/linux-media/20261116214655.6979-1-matthew.laux@gmail.com/T/#u
+https://lore.kernel.org/linux-media/20261116214755.7040-1-matthew.laux@gmail.com/T/#u
 
-Changes in v2:
-- Propagate TRY intervals from sink to source pad in prp_set_frame_interval(), mirroring prp_set_fmt() (spotted by Sashiko review; apologies for the oversight).
-- Resend under my real name (From/Signed-off-by: Maximo Manriquez Lizarraga).
-- Link to v1: https://patch.msgid.link/20261107-batch1-m2-prpencvf-try-v1-1-76bd9f505710@tubot.lat
----
- drivers/staging/media/imx/imx-ic-prpencvf.c | 110 +++++++++++++++++++++-------
- 1 file changed, 85 insertions(+), 25 deletions(-)
+The first 6 patches are changes to the existing upstream tw9900 driver to
+prepare for my driver. The 7th is a driver for the MST3367 chip. The 8th
+is the bridge device driver and "everything else".
 
-diff --git a/drivers/staging/media/imx/imx-ic-prpencvf.c b/drivers/staging/media/imx/imx-ic-prpencvf.c
-index 3430ddeac356..50d81c711c35 100644
---- a/drivers/staging/media/imx/imx-ic-prpencvf.c
-+++ b/drivers/staging/media/imx/imx-ic-prpencvf.c
-@@ -795,6 +795,18 @@ __prp_get_fmt(struct prp_priv *priv, struct v4l2_subdev_state *sd_state,
- 		return &priv->format_mbus[pad];
- }
- 
-+static struct v4l2_fract *
-+__prp_get_frame_interval(struct prp_priv *priv,
-+			 struct v4l2_subdev_state *sd_state,
-+			 unsigned int pad,
-+			 enum v4l2_subdev_format_whence which)
-+{
-+	if (which == V4L2_SUBDEV_FORMAT_TRY)
-+		return v4l2_subdev_state_get_interval(sd_state, pad);
-+
-+	return &priv->frame_interval;
-+}
-+
- /*
-  * Applies IC resizer and IDMAC alignment restrictions to output
-  * rectangle given the input rectangle, and depending on given
-@@ -1208,22 +1220,25 @@ static int prp_get_frame_interval(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_frame_interval *fi)
- {
- 	struct prp_priv *priv = sd_to_priv(sd);
--
--	/*
--	 * FIXME: Implement support for V4L2_SUBDEV_FORMAT_TRY, using the V4L2
--	 * subdev active state API.
--	 */
--	if (fi->which != V4L2_SUBDEV_FORMAT_ACTIVE)
--		return -EINVAL;
-+	struct v4l2_fract *interval;
-+	int ret = 0;
- 
- 	if (fi->pad >= PRPENCVF_NUM_PADS)
- 		return -EINVAL;
- 
- 	mutex_lock(&priv->lock);
--	fi->interval = priv->frame_interval;
-+	interval = __prp_get_frame_interval(priv, sd_state, fi->pad,
-+					    fi->which);
-+	if (!interval) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
-+	fi->interval = *interval;
-+out:
- 	mutex_unlock(&priv->lock);
- 
--	return 0;
-+	return ret;
- }
- 
- static int prp_set_frame_interval(struct v4l2_subdev *sd,
-@@ -1231,24 +1246,69 @@ static int prp_set_frame_interval(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_frame_interval *fi)
- {
- 	struct prp_priv *priv = sd_to_priv(sd);
--
--	/*
--	 * FIXME: Implement support for V4L2_SUBDEV_FORMAT_TRY, using the V4L2
--	 * subdev active state API.
--	 */
--	if (fi->which != V4L2_SUBDEV_FORMAT_ACTIVE)
--		return -EINVAL;
-+	struct v4l2_fract *interval;
-+	int ret = 0;
- 
- 	if (fi->pad >= PRPENCVF_NUM_PADS)
- 		return -EINVAL;
- 
- 	mutex_lock(&priv->lock);
-+	interval = __prp_get_frame_interval(priv, sd_state, fi->pad,
-+					    fi->which);
-+	if (!interval) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
- 
- 	/* No limits on valid frame intervals */
--	if (fi->interval.numerator == 0 || fi->interval.denominator == 0)
--		fi->interval = priv->frame_interval;
--	else
--		priv->frame_interval = fi->interval;
-+	if (fi->interval.numerator == 0 || fi->interval.denominator == 0) {
-+		fi->interval = *interval;
-+	} else {
-+		*interval = fi->interval;
-+
-+		/*
-+		 * The IC task does not change the frame rate between sink
-+		 * and source, so keep both TRY slots in sync the same way
-+		 * prp_set_fmt() propagates formats between pads.
-+		 * (ACTIVE uses a single shared interval and needs nothing.)
-+		 */
-+		if (fi->which == V4L2_SUBDEV_FORMAT_TRY) {
-+			unsigned int other = fi->pad == PRPENCVF_SINK_PAD ?
-+				PRPENCVF_SRC_PAD : PRPENCVF_SINK_PAD;
-+			struct v4l2_fract *other_interval;
-+
-+			other_interval = __prp_get_frame_interval(priv, sd_state,
-+								  other,
-+								  fi->which);
-+			if (other_interval)
-+				*other_interval = fi->interval;
-+		}
-+	}
-+out:
-+	mutex_unlock(&priv->lock);
-+
-+	return ret;
-+}
-+
-+static int prp_init_state(struct v4l2_subdev *sd,
-+			  struct v4l2_subdev_state *sd_state)
-+{
-+	struct prp_priv *priv = sd_to_priv(sd);
-+	struct v4l2_fract *interval;
-+	unsigned int pad;
-+	int ret;
-+
-+	ret = imx_media_init_state(sd, sd_state);
-+	if (ret)
-+		return ret;
-+
-+	mutex_lock(&priv->lock);
-+
-+	for (pad = 0; pad < PRPENCVF_NUM_PADS; pad++) {
-+		interval = v4l2_subdev_state_get_interval(sd_state, pad);
-+		if (interval)
-+			*interval = priv->frame_interval;
-+	}
- 
- 	mutex_unlock(&priv->lock);
- 
-@@ -1274,10 +1334,6 @@ static int prp_registered(struct v4l2_subdev *sd)
- 			return ret;
- 	}
- 
--	/* init default frame interval */
--	priv->frame_interval.numerator = 1;
--	priv->frame_interval.denominator = 30;
--
- 	priv->vdev = imx_media_capture_device_init(ic_priv->ipu_dev,
- 						   &ic_priv->sd,
- 						   PRPENCVF_SRC_PAD, true);
-@@ -1335,7 +1391,7 @@ static const struct v4l2_subdev_ops prp_subdev_ops = {
- };
- 
- static const struct v4l2_subdev_internal_ops prp_internal_ops = {
--	.init_state = imx_media_init_state,
-+	.init_state = prp_init_state,
- 	.registered = prp_registered,
- 	.unregistered = prp_unregistered,
- };
-@@ -1352,6 +1408,10 @@ static int prp_init(struct imx_ic_priv *ic_priv)
- 	ic_priv->task_priv = priv;
- 	priv->ic_priv = ic_priv;
- 
-+	/* init default frame interval */
-+	priv->frame_interval.numerator = 1;
-+	priv->frame_interval.denominator = 30;
-+
- 	spin_lock_init(&priv->irqlock);
- 	timer_setup(&priv->eof_timeout_timer, prp_eof_timeout, 0);
- 
+I tried to use patterns from existing drivers wherever possible and
+welcome all feedback. This is my own work. I accepted two small PRs to my
+out-of-tree in-development version on GitHub that were LLM-assisted, for
+a total of 4 lines. I am committed to sticking around to make any
+improvements required.
 
----
-base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
-change-id: 20261107-batch1-m2-prpencvf-try-3181836786d9
+Thanks,
+Matthew
 
-Best regards,
---  
-Maximo Manriquez Lizarraga <DelaySystem@tubot.lat>
+Changelog:
 
+v5: refactor to use subdevices, so it's no longer targeting staging.
+    support HDMI on the XCAPTURE-1
+    detect HDMI timings from the chip instead of using a fixed table
+    fix (valid) Sashiko automated review feedback
+    fix composite/S-Video audio on the XCAPTURE-1
+
+v4: add USB to Kconfig "depends on"... oops. fixes randconfig
+
+v3: fix truncation warnings in (u8) casts >= 0x80, static-ify mode table
+
+v2: remove unused CSC matrix control, remove version.h include,
+    fix all remaining `check`-level checkpatch issues, update TODO
+
+v4l2-compliance 1.33.0-5524, 64 bits, 64-bit time_t
+v4l2-compliance SHA: 485c038f10ae 2026-10-30 13:45:36
+
+Compliance test for usb3hdcap device /dev/video0:
+
+Driver Info:
+	Driver name      : usb3hdcap
+	Card type        : StarTech USB3HDCAP
+	Bus info         : usb-0000:00:14.0-2
+	Driver version   : 7.0.0
+	Capabilities     : 0x85200001
+		Video Capture
+		Read/Write
+		Streaming
+		Extended Pix Format
+		Device Capabilities
+	Device Caps      : 0x05200001
+		Video Capture
+		Read/Write
+		Streaming
+		Extended Pix Format
+
+Required ioctls:
+	test VIDIOC_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/video0 open: OK
+	test VIDIOC_QUERYCAP: OK
+	test VIDIOC_G/S_PRIORITY: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+	test VIDIOC_LOG_STATUS: OK
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 4 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK
+	test VIDIOC_DV_TIMINGS_CAP: OK
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls (Input 0):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 8 Private Controls: 0
+
+Format ioctls (Input 0):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls (Input 0):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 0):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK
+
+Control ioctls (Input 1):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 8 Private Controls: 0
+
+Format ioctls (Input 1):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls (Input 1):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 1):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK
+
+Control ioctls (Input 2):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 8 Private Controls: 0
+
+Format ioctls (Input 2):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls (Input 2):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 2):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK
+
+Control ioctls (Input 3):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 8 Private Controls: 0
+
+Format ioctls (Input 3):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls (Input 3):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 3):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK
+
+Test input 0:
+
+Streaming ioctls:
+	test read/write: OK
+	test MMAP (no poll, REQBUFS): OK
+	test MMAP (select, REQBUFS): OK
+	test MMAP (epoll, REQBUFS): OK
+	test MMAP (no poll, CREATE_BUFS): OK
+	test MMAP (select, CREATE_BUFS): OK
+	test MMAP (epoll, CREATE_BUFS): OK
+	test USERPTR (no poll): OK
+	test USERPTR (select): OK
+	test DMABUF (no poll): OK (Not Supported)
+	test DMABUF (select): OK (Not Supported)
+
+Test input 1:
+
+Streaming ioctls:
+	test read/write: OK
+	test MMAP (no poll, REQBUFS): OK
+	test MMAP (select, REQBUFS): OK
+	test MMAP (epoll, REQBUFS): OK
+	test MMAP (no poll, CREATE_BUFS): OK
+	test MMAP (select, CREATE_BUFS): OK
+	test MMAP (epoll, CREATE_BUFS): OK
+	test USERPTR (no poll): OK
+	test USERPTR (select): OK
+	test DMABUF (no poll): OK (Not Supported)
+	test DMABUF (select): OK (Not Supported)
+
+Test input 2:
+
+Streaming ioctls:
+	test read/write: OK
+	test MMAP (no poll, REQBUFS): OK
+	test MMAP (select, REQBUFS): OK
+	test MMAP (epoll, REQBUFS): OK
+	test MMAP (no poll, CREATE_BUFS): OK
+	test MMAP (select, CREATE_BUFS): OK
+	test MMAP (epoll, CREATE_BUFS): OK
+	test USERPTR (no poll): OK
+	test USERPTR (select): OK
+	test DMABUF (no poll): OK (Not Supported)
+	test DMABUF (select): OK (Not Supported)
+
+Test input 3:
+
+Streaming ioctls:
+	test read/write: OK
+	test MMAP (no poll, REQBUFS): OK
+	test MMAP (select, REQBUFS): OK
+	test MMAP (epoll, REQBUFS): OK
+	test MMAP (no poll, CREATE_BUFS): OK
+	test MMAP (select, CREATE_BUFS): OK
+	test MMAP (epoll, CREATE_BUFS): OK
+	test USERPTR (no poll): OK
+	test USERPTR (select): OK
+	test DMABUF (no poll): OK (Not Supported)
+	test DMABUF (select): OK (Not Supported)
+
+Total for usb3hdcap device /dev/video0: 167, Succeeded: 167, Failed: 0,
+Warnings: 0
+
+Matthew Laux (8):
+  media: tw9900: Disable regulator on runtime resume failure
+  media: tw9900: accept the TW9910 chip ID
+  media: tw9900: add saturation, hue and sharpness controls
+  media: tw9900: use runtime PM autosuspend and power down on suspend
+  media: tw9900: allow board-specific register tables via platform data
+  media: tw9900: add S-Video input and progressive source detection
+  media: Add subdevice driver for the Mstar MST3367 HDMI receiver
+  media: add driver for StarTech USB3HDCAP
+
+ MAINTAINERS                                   |   14 +
+ drivers/media/i2c/Kconfig                     |   11 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/mst3367.c                   | 1085 ++++++++++++++++
+ drivers/media/i2c/tw9900.c                    |  256 +++-
+ drivers/media/usb/Kconfig                     |    1 +
+ drivers/media/usb/Makefile                    |    1 +
+ drivers/media/usb/usb3hdcap/Kconfig           |   15 +
+ drivers/media/usb/usb3hdcap/Makefile          |    8 +
+ drivers/media/usb/usb3hdcap/usb3hdcap-audio.c |  323 +++++
+ .../media/usb/usb3hdcap/usb3hdcap-composite.c |  209 ++++
+ drivers/media/usb/usb3hdcap/usb3hdcap-core.c  | 1107 +++++++++++++++++
+ drivers/media/usb/usb3hdcap/usb3hdcap-hdmi.c  |  202 +++
+ drivers/media/usb/usb3hdcap/usb3hdcap-video.c |  525 ++++++++
+ drivers/media/usb/usb3hdcap/usb3hdcap.h       |  239 ++++
+ include/media/i2c/mst3367.h                   |   27 +
+ include/media/i2c/tw9900.h                    |   38 +
+ 17 files changed, 4030 insertions(+), 32 deletions(-)
+ create mode 100644 drivers/media/i2c/mst3367.c
+ create mode 100644 drivers/media/usb/usb3hdcap/Kconfig
+ create mode 100644 drivers/media/usb/usb3hdcap/Makefile
+ create mode 100644 drivers/media/usb/usb3hdcap/usb3hdcap-audio.c
+ create mode 100644 drivers/media/usb/usb3hdcap/usb3hdcap-composite.c
+ create mode 100644 drivers/media/usb/usb3hdcap/usb3hdcap-core.c
+ create mode 100644 drivers/media/usb/usb3hdcap/usb3hdcap-hdmi.c
+ create mode 100644 drivers/media/usb/usb3hdcap/usb3hdcap-video.c
+ create mode 100644 drivers/media/usb/usb3hdcap/usb3hdcap.h
+ create mode 100644 include/media/i2c/mst3367.h
+ create mode 100644 include/media/i2c/tw9900.h
+
+
+base-commit: aa0f4c41d4870a18e65772a1817af16427200371
+-- 
+2.47.3
 
