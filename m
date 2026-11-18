@@ -1,120 +1,153 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795010139;
-	b=AJW5leTuoMZqYzMPZxjQ42wbJGNLVctn6txTpvfogzs1AEaEgl1Hu71PAivMLQJq+J0I
-	 7unx33Hb0hjcDMQE+8rV/n+uO/hVKzMs1N7gtLLnof4IP50uaL06dwTNg18+uYbVNJ6kX
-	 40SsVOHfu05rzeQzZwj5rMWeCvWS4K2dWeNOlnFKPToEIAj0ch6MqmZwCek95l9abd43L
-	 A+YS8heZrQpAVj/ojFylKdg/zUshto4xkr5MsOGU6ZDahT2oAX8Y6TfsQoA3ZfgWmQHPf
-	 0RYnVPRhqZKSVsGv2zpAFoRsbKlxf/tYQga9Htq+F47OuVwlmMWLABk9NzOliINMhLA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795010139;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Q93IOK+81L655tUS3XT9KzQ8Uws4KOL15ej2huBrpiw=;
-	b=KoylvLpqjxq/28bIbGG8aezsQm95Pe7jBJlJ0ki9VhGUasoAQZwIv9vV+wD6eWp21gQ1
-	 b2h6lJFTvdwNMz/hl+6IAWOUcTlWPySOgYeJEnlVls/rpomZ4n8GadYfYNhUYW0p7kH0B
-	 BpsWfiCukLqZI5zMlW54LsFNgXAceqXVVH4cIHFI9GyjKJmYTioGG8P+3JmpHWzH3ZN4H
-	 kMWUTC9f0BfTsu5bVfZUdIVW/34P7GZLAkWo29BI8KOZxA41lMm6pYuCOQJdGW2ddd5LN
-	 iE5RxUHMzwc5dM+YzC+NvJqpr1YPhOmz2ugMujXnlKxtGGB2zxVGJj1/mQ6bQqS4OoA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QXfsJqiv;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="YdeGXNs/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795010717;
+	b=ZZE2dZnFqBBKXE3nmqAN7i41jopByNWuWPBZuY+MysN+zEuAmuL4rKNXbNCrNjv+MLKP
+	 deuevMLQK2aTQ+HtMVSWWMdS/WuHBFmNJP967YBTobLQ7lccTb9ebA3sYH2t56jIMvjwT
+	 RTFflDRUv3AaUm94yofdzOUXRBtEHd/Bjxa7tzQYz2sN8gW+O2OpVceW4HhK7z01VVhpY
+	 ppopPZm4BbnLXEcPmEfxN8coKi9JY/W9i/oHoBKOytgM447rAZbx01DRarntWHR8d/Qwd
+	 DTkTk7sEOHVujFjPIZUjfaZOoRHpOoOaThBPkfG070S3Ba7PetC6Z7zsgOx/6QT8ahw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795010717;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=foydl+Nk9ZmJviej/30gV1cygoCTSVCceGPI7w/fow0=;
+	b=QHs332L/Lr/gu6dQT6PYAhWtr9koXWUTXm9HUZ3CIdzTbdjlgmdVKYIdNOpjUxioWNJS
+	 prSOWcxyr9Gf1hUYQoTZ88l/pehKB91vYx7n05m0LRvK5Qx4IFLfE67SdQYFQG/8W5S1f
+	 V4JdipqJPT5QcU9uYZv+KH7DBh+C4IzOXNW1aLz4Fp0AcMc1mgeo9xMy0fkfXJ+K5OYBe
+	 WVkQ1CMN45rgRl4y9q4i3XJ4v8bhmsK7jsMAHWzfNZ0Y9rxKFLZMJ++9axQLlXLHUwD3i
+	 aXP+J/9ARPMhP54W6OEWWikYXpBogwbEfnfL48xD2lfDZN0CebiHih2wRifXAwBYpcQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=WOhR5yIs;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AA9606A325
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:55:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3AA9606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14112606A31C;
+	Wed, 18 Nov 2026 14:05:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14112606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QXfsJqiv;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=YdeGXNs/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795010137;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q93IOK+81L655tUS3XT9KzQ8Uws4KOL15ej2huBrpiw=;
-	b=QXfsJqivqBNqfL8AggaLxuMEBU7EfXUwQ79yX9mkY0DsyoJKv14Jj/OiqP17IwmtwHUvtm
-	hDttkoYGz0xiCc9jOMzkOF5g6m+QAdI/wa8hDJ5BtVIpXff4tFeOjBu8nPrel8lbwUuT3W
-	PR8WTtsSxNEPBpbDUz0KfAdFrL/sUoM=
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
- [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-325-MvrYe_3wOVmEra6wTvtPCQ-1; Wed, 18 Nov 2026 08:55:36 -0500
-X-MC-Unique: MvrYe_3wOVmEra6wTvtPCQ-1
-X-Mimecast-MFC-AGG-ID: MvrYe_3wOVmEra6wTvtPCQ_1795010136
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-86c3a053d9bso13316987b3.0
-        for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 05:55:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795010136; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hDf4LbcduTcaDYwFe9YbDDKE20OHYIfyPQ/XskYR0K3Rh5dq/NoNXLqMlcEwR9sD6q
-         be9P3oZwfGaWO0opqO3gtAFHzpc9AxSYOiU/oQSLTGOn6MEfIs6k3WvOIwT3d950U/vO
-         JM2wHuRLuw96fFUAN+vz9u/Qv++Q136f0kkFCyz1l7/hxWrbPljq0eLQNJ7oF8jLdu1s
-         Acbr0ymZ8gYgGJddUNpL5IDql5WmNqQbwgw2y2veTIeW3aNvXBmOOU0vVemP9RxZZKDO
-         RmWkiWtEkGnW+YPlolUmBTWnz3zMQo0ciYNCm/CpySlwAI3tb1veUVKARNf+MWOyPnQP
-         6Nwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Q93IOK+81L655tUS3XT9KzQ8Uws4KOL15ej2huBrpiw=;
-        fh=2nv0q4G832q7NTfK798wEKmG2I87N4bAOTPZJli8NIU=;
-        b=cklJ9XbwWz8CcRvkh9ExQJGrS7AXi3ZQydxDhy/QgZag225cWj+3Z21lFH+tOfZQdv
-         C9EIu7APfORNh1J/kU1QMLRBTN1g78EMlwooY8jGTBgcLgMuam4ZD14y8RQzsnjAdrAx
-         V0453SMFmOw8wykt+wsurSU56FR3UTZGPKHvRZ6tu8+/lwBf6R2VkXDBhEeUs8DGNcR1
-         Vqo0DqlGCfbORHf02e8p1xg6dSXoqGpSLYmydFVDMqqQqLOtt97IEDByJbUsGkqyWUL3
-         RtgaGz2NZE//LqKwGIZrZN/ozEndpemnD9Pyh7ffaUS/LHFgRwrkCmDVE0VjV8c3+162
-         /rLw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795010136; x=1795614936; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Q93IOK+81L655tUS3XT9KzQ8Uws4KOL15ej2huBrpiw=;
-        b=YdeGXNs/g+hxp03HRbQSUUfYwpG+Q463Psgnm5pI6nowFTE0GT/AT+9Eba8UqJXu2F
-         Rjm7s6KZtfcTE+jLnJqY9Yha9DiDRbhjBVk9n/zG7Tl/p4QVD4cOVryiVPrvuioWjJ2V
-         kC4s94SucOy//FSYm1394CoCF5UK5zXU1gxH2PfPcfRIkd2mTJdDSJhVy7FSL4lT5EZc
-         m+HBczANYjijzYP43BM9ZWyF2lkON43QQgIwWQhgllRW+41fvFVuY2rQaXLV1H9y0Dqo
-         Sq+5Nt2E0oRySNF5RHc6s28Fs0dEBL+ug6DeSjIEnvBqVwZGg+FdASv6oArpfSCSBBSS
-         kWvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795010136; x=1795614936;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q93IOK+81L655tUS3XT9KzQ8Uws4KOL15ej2huBrpiw=;
-        b=SEmbC6kc6aav5JzdPTiDwEMZN9NMR+63rh8XteHQDi6cazOYWk7M1cs7fY41otglbC
-         ukwj88BV1YSjZ+/b7IFO43zu9csR9eY65LdNabJuZiFlaInvvZIcEE2UzHPvazbThXs/
-         bYaTyOVY4j2rjwTqXxkmhuuuWwSVWRZGxk2qA/UjOUzR8uTUK6xEzXfiF56x0BUShs/P
-         I8SsHRr84FqjxKqRB1YShbpQIV8bMePvHKjUKmTc1J3zOGwk101RJzgOXp6QIUAAfmqz
-         YEpKQTD8liGjokWl+4MZG+6gRPAQFbX5reP5scX3ihMKXu49AqsX2A49+9p5hL9D1f/b
-         WSkA==
-X-Forwarded-Encrypted: i=1; AL+hErF9UjUGn/tOP1tyNda1BTMyCmQ8RNG26oZLPbjIHAAyPtcfQjrQVMT0xuG/24mbVNcMvs+sfXgfkH1+zQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9cEkR8dxFE0Un2eTSpywIBrv7r6VguNzkouk3zfkabA/1FaAUU
-	r23AXLxcV8Z/XqD3DU4WiWf/RjpQZ/G5ZkXHsB1Oju5uLeyDOXfJTBfvTDOlb78y68D3RVMnDdX
-	sjh0B0z/2a0HR4C8eZhJjWguYmh8TroBMvr2ov97rKfNe6/J3xXO15UUluCbonmqpUGt1K6rG9s
-	j/5wRgtE1qDJcFYI6u4EH+jPR5oCGkYQ4Bo2TbgcU=
-X-Gm-Gg: AZFdTZedaXN2duO+0eofNhdu3D6FZ4zUDOGmfYIEo7No2AIb2bcxh7ZZsY9RYNEIV92
-	RhchQvFfkeubvHbyv7purN/Jrz+Q849U7WIojNL6b44cBGk95KuiHIbNPeN/zFPa3/hAZvaem3C
-	/Oj5F+YzN08QIazI52WH7HNd6GIGXgIdHopE+zEa7UmO3NAMx5yJcUcqdU
-X-Received: by 2002:a05:690e:1387:b0:67b:f249:5b16 with SMTP id 956f58d0204a3-67dd3fdee8amr1338627d50.55.1795010135926;
-        Wed, 18 Nov 2026 05:55:35 -0800 (PST)
-X-Received: by 2002:a05:690e:1387:b0:67b:f249:5b16 with SMTP id
- 956f58d0204a3-67dd3fdee8amr1338592d50.55.1795010135440; Wed, 18 Nov 2026
- 05:55:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=WOhR5yIs
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=foydl+Nk9ZmJviej/30gV1cygoCTSVCceGPI7w/fow0=; b=WOhR5yIsaTPEeHWfDnVfXLmpTK
+	p2fdJUW95t55sxIMgLSjl77d2uFvCfu73mU98Ke2aNCntsKl6aVpkbYBm1Cx/VDmluo1BPNv7+OAu
+	tMoiX8BqQCyAo2LwGhBzWEtPnp6VCu494v+ZfDj7WbrayOV27fzo8fNM8HJjP8LHTkd9iaNFApzsE
+	lk4vuXuzbMGP9cd4HMq3g6UiNuqhVUDjcimTbrMVwrnHALwefYKVv8Cm8jLfaq4XNJkH9YBTHZln7
+	mXEN4VZW1Q1cyhZ4ngMZSOGFp8d6zXJFUUQZrn2EA8U/U3Fygy9Q03FgvLOc+ZshQqvdAFwW3JiIj
+	8W5+1yxw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xTgHj-0000000G6tZ-0guj;
+	Wed, 18 Nov 2026 14:05:15 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id E2EC13005AF; Wed, 18 Nov 2026 15:05:13 +0100 (CET)
+Date: Wed, 18 Nov 2026 15:05:13 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Bence Csokas <bence.csokas@arm.com>
+Cc: Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+	Zack Rusin <zack.rusin@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Selvin Xavier <selvin.xavier@broadcom.com>,
+	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+	Chengchang Tang <tangchengchang@huawei.com>,
+	Junxian Huang <huangjunxian6@hisilicon.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+	Jes Sorensen <Jes.Sorensen@gmail.com>,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Benson Leung <bleung@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	Guenter Roeck <groeck@chromium.org>,
+	Nilesh Javali <njavali@marvell.com>,
+	GR-QLogic-Storage-Upstream@marvell.com,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Julia Lawall <Julia.Lawall@inria.fr>,
+	Nicolas Palix <nicolas.palix@imag.fr>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Carlos Maiolino <cem@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Darren Hart <dvhart@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	=?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	=?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+	=?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	"Geoffrey D. Bennett" <g@b4.vu>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+	linux-rdma@vger.kernel.org, linux-hyperv@vger.kernel.org,
+	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+	chrome-platform@lists.linux.dev, linux-scsi@vger.kernel.org,
+	cocci@inria.fr, linux-fsdevel@vger.kernel.org,
+	linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
+	linux-xfs@vger.kernel.org, bpf@vger.kernel.org,
+	ipsec@lists.linux.dev, linux-security-module@vger.kernel.org,
+	linux-sound@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] treewide: Use struct_offset()
+Message-ID: <20261118140513.GO1813469@noisy.programming.kicks-ass.net>
+References: <20261118-offsetof-v4-0-95b385c10b22@arm.com>
+ <20261118-offsetof-v4-2-95b385c10b22@arm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -124,141 +157,14 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117-v2_20230123_tjmercier_google_com-v5-4-1ce975f2a9ad@redhat.com>
- <44c0c45c0e2f47ed77bc45be47ebb3fb@paul-moore.com>
-In-Reply-To: <44c0c45c0e2f47ed77bc45be47ebb3fb@paul-moore.com>
-From: Albert Esteve <aesteve@redhat.com>
-Date: Wed, 18 Nov 2026 14:55:24 +0100
-X-Gm-Features: Aa3M54okPSWfJ_g3ixS3iw1yy5owTDFGTKhnOXZ64bND8Gaqu8R-9XYtSNGyOOw
-Message-ID: <CADSE00LVsFVOmezzLgPrPWDd+L+SSGzGvqKTiX25waxRnVPh9Q@mail.gmail.com>
-Subject: Re: [PATCH v5 4/8] lsm: Add memcg_charge_task LSM hook
-To: Paul Moore <paul@paul-moore.com>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, 
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
-	John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
-	Christian Brauner <brauner@kernel.org>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
-	Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	=?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
-	Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
-	Philipp Stanner <phasta@kernel.org>, airlied@gmail.com, cgroups@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org, 
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, op-tee@lists.trustedfirmware.org, 
-	echanude@redhat.com, mripard@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261118-offsetof-v4-2-95b385c10b22@arm.com>
 
-On Tue, Nov 17, 2026 at 11:54=E2=80=AFPM Paul Moore <paul@paul-moore.com> w=
-rote:
->
-> On Nov 17, 2026 Albert Esteve <aesteve@redhat.com> wrote:
-> >
-> > Both DMA_HEAP_IOCTL_ALLOC and the new DMA_BUF_IOCTL_XFER_CHARGE ioctl
-> > accept a charge_fd field that, when set, causes the allocation to be
-> > charged to an arbitrary process's cgroup rather than the caller's.
-> >
-> > Charging is currently limited to the caller's own memcg subtree unless
-> > the caller holds CAP_SYS_RESOURCE. But the capability is all-or-nothing=
-.
-> > A process holding it, along with a dma-heap device node or a dma-buf
-> > fd can charge unlimited memory to any other process's cgroup, potential=
-ly
-> > exhausting that cgroup's limit and triggering OOM kills independent of
-> > the victim's own activity or privileges.
-> >
-> > Add security_memcg_charge_task(), called in get_obj_cgroup_from_fd()
-> > when charge_fd refers to another process. The hook receives
-> > the credentials of the allocating process (from) and the credentials
-> > of the process whose cgroup will be charged (to), giving security
-> > modules a controlled enforcement point for cross-cgroup objcg
-> > attribution policy.
-> >
-> > When CONFIG_SECURITY is not set the hook compiles to an inline
-> > returning 0, adding no overhead to the fast path.
-> >
-> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> > ---
-> >  include/linux/lsm_hook_defs.h |  1 +
-> >  include/linux/security.h      |  7 +++++++
-> >  mm/memcontrol.c               | 11 +++++++++++
-> >  security/security.c           | 15 +++++++++++++++
-> >  4 files changed, 34 insertions(+)
->
-> ...
->
-> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> > index 03cd90d5e623..2e6fcbe14d43 100644
-> > --- a/mm/memcontrol.c
-> > +++ b/mm/memcontrol.c
-> > @@ -60,6 +60,7 @@
-> >  #include <linux/lockdep.h>
-> >  #include <linux/resume_user_mode.h>
-> >  #include <linux/psi.h>
-> > +#include <linux/security.h>
-> >  #include <linux/seq_buf.h>
-> >  #include <linux/sched/isolation.h>
-> >  #include <linux/kmemleak.h>
-> > @@ -3198,10 +3199,12 @@ static bool mem_cgroup_may_charge(struct mem_cg=
-roup *memcg)
-> >  struct obj_cgroup *get_obj_cgroup_from_fd(int fd)
-> >  {
-> >       struct cgroup_subsys_state *css;
-> > +     const struct cred *tcred;
-> >       struct obj_cgroup *objcg;
-> >       struct mem_cgroup *memcg;
-> >       struct task_struct *task;
-> >       unsigned int pidfd_flags;
-> > +     int ret;
-> >
-> >       if (mem_cgroup_disabled())
-> >               return ERR_PTR(-EOPNOTSUPP);
-> > @@ -3226,6 +3229,14 @@ struct obj_cgroup *get_obj_cgroup_from_fd(int fd=
-)
-> >               if (IS_ERR(task))
-> >                       return ERR_CAST(task);
-> >
-> > +             tcred =3D get_task_cred(task);
-> > +             ret =3D security_memcg_charge_task(current_cred(), tcred)=
-;
->
-> Do you ever envision this "from" cred being something other than
-> current_cred()?
+On Wed, Nov 18, 2026 at 12:50:09PM +0100, Bence Csokas wrote:
+> Generated with a simple Coccinelle patch found in
+> scripts/coccinelle/api/struct_offsetof.cocci
 
-Good point. No, I do not.
-
-> If the answer is "no", we might want to consider changing
-> the LSM hook slightly to help prevent misuse in the future:
->
->   int security_current_memcg_charge_task(const struct cred *tcred);
-
-Agreed. I'll apply the same to the cgroupfd variant for symmetry (its
-"from" is also always current_cred()).
-
-BR,
-Albert.
-
-
->
-> > +             put_cred(tcred);
-> > +             if (ret) {
-> > +                     put_task_struct(task);
-> > +                     return ERR_PTR(ret);
-> > +             }
-> > +
-> >               rcu_read_lock();
-> >               css =3D task_css(task, memory_cgrp_id);
-> >               put_task_struct(task);
->
-> --
-> paul-moore.com
->
-
+I think this is a good example of why we don't need this. It adds yet
+another macro to remember, and doesn't actually save many characters at
+all.
