@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795004615;
-	b=CiH1GpVkV8UIms5TO+oICIDa7LWIQHCMULLCFJ7qlXsJ5oOIdR650XgBJk9uovvWbg8A
-	 auIylr1dzCRmvqbGIrOuUtu5mg85o33OSoed+T25caM8IJRIS565ppMNxolqHOr8DmGdi
-	 L5s3BkZDK2kB1NVc6ce0DE0sISgmedRbfrZ8vb3IJuOBXrioPGR0pFJcUVx/Cohb6evT8
-	 D6V+bN9Cby8WJxM+aQccMiesG8SvmRIsHBlLgVIFdULs/xDajbU9FGZKtAExH7clJzYZH
-	 FhgF4YEOnIqHj0ZLJlaqzklQf1HhzjjAVHYIAglLj9f8yzBZuTB2v4PEDuqopNL1bPQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795004615;
-	h=DMARC-Filter:DKIM-Signature:Received:Content-Type:Mime-Version:
-	 Subject:From:In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:
-	 References:To:X-Mailer:X-ZohoMailClient;
-	bh=cjhT9lPBrmYqZSZOzIBzYhYI/I9rXhhiam5UCNwKdF8=;
-	b=1J/9McEj9MvvGK1H1CkIliPLZYxLAE67ZcgQToiiBKIAT94c69cLe7WTkvpLRox3bSqb
-	 Smnuy+ktSqjHvzBTGuSPk8tPWH6wqiZkyAlaVtwp16AiLSzeD5GCIRnI9s2X4onIw7hRy
-	 YvVLt1RvqljYX+4yK9Qs5XBRnwo/3HSV/boax0SfponGYsCJu7gc0357XP8mMPMFKSwbo
-	 aHKBjtGCHAEfc0ZKwon+gsjIDryidQ5lSzXIrQRwnDHk6DX3RtxaP1nqkTqoRAKrAu4rL
-	 Dg5sIX0agz0yBfZQawgoxlOasydbysHfZYb9H87MKbc6vaRmDL9jU/WhT6lxhRe9fPg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=J5DBBidH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795004887;
+	b=3MHesBjkR/eT1EEtazzjLn7olain9ObMPp9UwrwEpDwtVKPexsxw+t2XajATXXWFx1Nj
+	 lS+zRIDGEavmuRX028QDVcSMIlMv++9MrMdzRSAp9A/B9PPf3XLYRqE9V8uRX2WtEvL2W
+	 yWYnqZdqUSpMqD6cywItHPkc3jLJ31b8u1qS/eP2JMp2yQ6HozXTJsHk70zi9i5jwRKAN
+	 Mmvp8L9tCiURYNQtqPDBobSEuB5/jh429gTvoyv3Q643r77v4FZ4i2oH+UfqR1EQCzyGL
+	 20OObDxd9HSZumZQIBnj+CuERogK1Sz3s4AcqmuBlWpNTTXN+jrP8trZaN8EUw54+pQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795004887;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7nE1yiuDOjsLguXXYCbkeb5cqi2x+QFFIbocCPDIlo0=;
+	b=l9IVl6+VCInSHtPLlMnoO16r6smkBKzpA6HH9PdhuKfzObx4Oe5Mjx3fjl36FzWQ6zgI
+	 GRnM10F2qq4olzfxL4vvB9MjlHDnZQfsWiguLl8I/f0RNOoGsXIOphicDf+vXKqFvaGWt
+	 d8vq92TPiOdpJo2cZ3oY/wJ+LYqBo57HpduoaCEQHHrgyJ5DN7fs0th4dqPTDJSuOl9Ce
+	 8yiuSlEtTcsjbmFfRFsBCnU0a28HxEifoiK5uK/ZGtJloy0nxuqpq5z4VmiR9l/8TPpl6
+	 9aPP+fyIMCceXy2oSz3/NboUz+LQnud4aSozu6/YyBhr9ZLSf2CTNFi3I4fGsegqplQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LaaDvu4Y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DCA606A320;
-	Wed, 18 Nov 2026 12:23:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73DCA606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB641606A333;
+	Wed, 18 Nov 2026 12:28:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=J5DBBidH
-ARC-Seal: i=1; a=rsa-sha256; t=1795004586; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=oGbns6684pX2WvPKftPvV4vlLiBQyCVkT4FCAuLiDDuGMCE949C3jUBopub8DxV4p2hTIs3zDPbHktFeFCpn39+WpfIuvKpArgFxTBSc1DuP2WZSfQb5G1VDDto8keTAhrVhrry/hkLmQnQBzwSHurx5haNTAH00j+0HtwoIqGQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795004586; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=cjhT9lPBrmYqZSZOzIBzYhYI/I9rXhhiam5UCNwKdF8=; 
-	b=eCYRGWHeG41YcUgNTA7IjsQUmOK1GIOCWlYiQ6BUqKXsRRMS5EDF72rAdGY9BhTqyQsO3XcxOOd2exTPldUKyTwOzTXaD55oHyVEFsvw9umodnae57sV7+vhxnoiqTDLPnEMu9WDbkZfdvzpz3+YXGzRfNiq5DG9pA6B9pvdZI4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=J5DBBidHI4rrMJEWmOlpnBmuoVkNfyaktxykd+RnxCgVuXlsy4E6WKvch5WM+GEqWnJp6WqP5iv2lyQuTXpOadRSWIBBFGjK7zWkitoVzyy4rZbF+WH4HTygm7Nf1kArRPNipbRAH5NDw71kv+0NvGvimg5QjqW9YRwPtk7jWOM=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=cjhT9lPBrmYqZSZOzIBzYhYI/I9rXhhiam5UCNwKdF8=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795004583498854.6891259147035;
-	Wed, 18 Nov 2026 04:23:03 -0800 (PST)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LaaDvu4Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7CD51F000C6;
+	Wed, 18 Nov 2026 12:28:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795004887;
+	bh=7nE1yiuDOjsLguXXYCbkeb5cqi2x+QFFIbocCPDIlo0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LaaDvu4YPm/fHnBCwRzmpD+68yqRHRW4X+WsoTN0tJU+7aNITlo+ALKPdsDhyzsCN
+	 qoEMNd2sXdXF1UB5rB9oitscv978YkoQA23nT38MDTYZ1sg9JGXpTM8yBOnxZbwcjP
+	 a5udyJfBq6OSTrpL3mwlST3B2NvdhvqoYCOheEp8aZAuVsVdmAtdHJlNYUYeCebOLQ
+	 LKIKCxIK6XblDRVNfhO4GJYP12jbF93CAKuFqxpr5bROMLyRUcCrNNzWcThFDXbOpC
+	 86AJjr5BI/qYlh1hdkFlcapE9oVvFkwH4uMlMny0XhSj/1RqdJktrQxy6a7N48M001
+	 E/H7GFUexQ6jg==
+Message-ID: <2a282370-025b-4c0e-8a87-4d05aa1d87a0@kernel.org>
+Date: Wed, 18 Nov 2026 13:27:58 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -57,38 +50,182 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v2] rust: DamFence: Remove warning about unsignaled drop
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20261118120813.1539288-2-phasta@kernel.org>
-Date: Wed, 18 Nov 2026 09:22:46 -0300
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <E66E5A69-4B91-4089-831E-8DB07308185D@collabora.com>
-References: <20261118120813.1539288-2-phasta@kernel.org>
-To: Philipp Stanner <phasta@kernel.org>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
-X-ZohoMailClient: External
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 4/5] iommu/of: Require reg for iommu-addresses
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Vasant Hegde <vasant.hegde@amd.com>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
+ Eric Auger <eric.auger@redhat.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Joerg Roedel
+ <jroedel@suse.de>, Srinath Mannam <srinath.mannam@broadcom.com>,
+ Oza Pawandeep <quic_poza@quicinc.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Alex Williamson <alex@shazbot.org>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+ virtualization@lists.linux.dev, devicetree@vger.kernel.org,
+ kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
+ <20261106-add_iommu_ranges-v7-4-5c0f72083e52@oss.qualcomm.com>
+ <3e4b6491-2b58-4b9c-90ad-0912f47cb217@kernel.org>
+ <ce05d74a-58d1-f605-44c1-ceb9b9d8b9d4@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <ce05d74a-58d1-f605-44c1-ceb9b9d8b9d4@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Philipp,
+On 17/11/2026 17:24, Vishnu Reddy wrote:
+> Hi Krzysztof,
+> 
+> Thanks for review.
+> 
+> On 11/13/2026 6:41 PM, Krzysztof Kozlowski wrote:
+>> On 06/11/2026 18:14, Vikash Garodia wrote:
+>>> The "iommu-addresses" property describes an identity 1:1 mapping between
+>>> an IOVA range and the physical memory specified by "reg" in the same
+>>> reserved-memory node. Without "reg", there is no physical memory to map.
+>> This looks like ABI break.
+> 
+> The original discussion was to avoid keeping iommu-addresses in the
+> reserved-memory, if not backed by reg. In such cases, it is more meaningful
+> to move that entry to corresponding device node.
+> Given this direction, the schema was defined accordingly and the code is now
+> updated to match the dt-schema. At least on Linux, I do not see any client
+> using iommu-addresses without reg.
 
-Just pointing out that the same typo from v1 remains, i.e.: DamFence
+Yeah, but ABI is for all users, not only in-tree.
 
-=E2=80=94 Daniel=
+
+> 
+>>
+>>> The DT schema now requires "reg" whenever "iommu-addresses" is present.
+>>> Align the kernel implementation with this requirement.
+>>> https://github.com/devicetree-org/dt-schema/pull/207
+>>>
+>>> An identity mapping requires matching IOVA and "reg" ranges. Reject
+>>> mismatched ranges and report an error.
+>>>
+>>> Suggested-by: Rob Herring <robh@kernel.org>
+>>> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>>> ---
+>>>  drivers/iommu/of_iommu.c | 32 +++++++++++++++-----------------
+>>>  1 file changed, 15 insertions(+), 17 deletions(-)
+>>>
+>>> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
+>>> index 6675fc900e6c2d55b34c61dc9effaeb48e24f18f..00b02c19f27e195fc36c4bc1d91253255147c9ab 100644
+>>> --- a/drivers/iommu/of_iommu.c
+>>> +++ b/drivers/iommu/of_iommu.c
+>>> @@ -174,19 +174,12 @@ iommu_resv_region_get_type(struct device *dev,
+>>>  {
+>>>  	phys_addr_t end = start + length - 1;
+>>>  
+>>> -	/*
+>>> -	 * IOMMU regions without an associated physical region cannot be
+>>> -	 * mapped and are simply reservations.
+>>> -	 */
+>>> -	if (phys->start >= phys->end)
+>>> -		return IOMMU_RESV_RESERVED;
+>>> -
+>>>  	/* may be IOMMU_RESV_DIRECT_RELAXABLE for certain cases */
+>>>  	if (start == phys->start && end == phys->end)
+>>>  		return IOMMU_RESV_DIRECT;
+>>>  
+>>> -	dev_warn(dev, "treating non-direct mapping [%pr] -> [%pap-%pap] as reservation\n", phys,
+>>> -		 &start, &end);
+>>> +	dev_err(dev, "non-direct mapping [%pr] -> [%pap-%pap] is not supported\n", phys,
+>>> +		&start, &end);
+>>>  	return IOMMU_RESV_RESERVED;
+>>>  }
+>>>  
+>>> @@ -211,12 +204,14 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
+>>>  		struct resource phys;
+>>>  		int size;
+>>>  
+>>> -		memset(&phys, 0, sizeof(phys));
+>>> +		maps = of_get_property(it.node, "iommu-addresses", &size);
+>>> +		if (!maps)
+>>> +			continue;
+>>>  
+>>>  		/*
+>>> -		 * The "reg" property is optional and can be omitted by reserved-memory regions
+>>> -		 * that represent reservations in the IOVA space, which are regions that should
+>>> -		 * not be mapped.
+>>> +		 * "iommu-addresses" must be used in combination with a "reg" that provides
+>>> +		 * the physical address and size of this memory region, for an identity 1:1
+>>> +		 * IOVA mapping to that physical memory.
+>>>  		 */
+>>>  		if (of_property_present(it.node, "reg")) {
+>>>  			err = of_address_to_resource(it.node, 0, &phys);
+>>> @@ -225,11 +220,11 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
+>>>  					it.node, err);
+>>>  				continue;
+>>>  			}
+>>> -		}
+>>> -
+>>> -		maps = of_get_property(it.node, "iommu-addresses", &size);
+>>> -		if (!maps)
+>> I miss the point why you are moving this part. Irrespective to actual
+>> ABI break, why do you nee to check for iommu-addresses before?
+> 
+> It is more optimal to check for iommu-addresses and then read the reg. On the
+> contrary, earlier reg is read irrespective of iommu-addresses is present or
+> not. So in a way reading iommu-addresses first would ensure that reg is read
+> only if iommu-addresses is present.
+
+Sorry, I don't follow. What is here on the contrary? To what part?
+
+Best regards,
+Krzysztof
