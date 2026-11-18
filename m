@@ -1,11 +1,11 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795008530;
-	b=TpOS1X0dicGiWArpnCnx6mbQMUQqhbLcp5Nfd0yQiO038NI+mBva8clfgBFtX5SPdZ0W
-	 tIuR7d/NxE7MN/0oQrJaf+jGUh4uj5XzyFVxP25RT+/F2zUTTRQxpFp4pchOGKZ9F0CrP
-	 jJ2BFJG4Nz7kose0ifVbs1O5konOO0tbnqSmzgwPB+44y8hOakbQzqS0CUkUPv7JskT9T
-	 qOKhtIwdCpywUjg47SHVDjBhNYH4Fr/B5gNpgmXbW0SXSXPu7pLdOeUA7gFdxJQkfno+6
-	 ZJ6cfRsDAuRoO9Ce1v75FubDejJtEFtgWUcXtjC2RfDWZk0IDPNy0RpkKqXP4D8VxfQ==
+	b=spSxREuHooPNlG/LQjWJ4r0NlSUahAnpTeYJK9JhrGcs6nbkG/0maZEs6LPc4jn2as4V
+	 5O55OuLmCSmPHpGh+6+SfW8ZggIsPOcSlGvqSDDtpziQ6db12CwcJ7KbM6m1gltEndm/E
+	 WLiJCKox+T/HNukE8oKMGs4WDIMgFycOwVMgHSTyPhvz2n1U/kPAp6MmDDNFq6/f0QSpv
+	 +YGyPH56GzEAYbx7pPFHl7J6WVUIiTUGVoJ3KrldGJg7UM/MZOoh1bEU0ef8vWQKRocY3
+	 5KrgmQJ1O1USS5+s/uRJ6xSBXo8ngkRK/e20gcEwj0eOKle0l6fv8G/4/rLE64N8SDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795008530;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
@@ -13,61 +13,61 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
 	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=TIZ5NvfZJrkJLlQxj1r0u5RWXRQYSJS4vJWZhTPi6pk=;
-	b=szqU7UgAjh67U+O3dl/24oBDKQ3FMeh/Uzf+liRdGYAai0qnSFgt80Y5lA9tTb+V/6tr
-	 A3PxUkmlOeryxVs1HKB/IIwRRtkhGOzRm/H8wUDy/XzWl8do8yJ97O81Iuy1SuoboQLv/
-	 FsDk8j2qRf7VTI5sL2O/hybFctB1HoaV3B1WUnkzauIfDKUOnGhbBovZFdlmkksReFlIE
-	 iHGNOd+/1mmFQMU1k87LLRFT9sN9Qvp4LBEM0OVNLkotg2UF0GuMXVsIF5xlV/TNSESuG
-	 DsHoqhoDP6x9rQVVVxs/v8NwRsrDa8oW+xAKRMcz/NEHTRNPIS0mqcFkmkv5hDudB+w==
+	bh=dMcGCY4KL9VE3KkjGRk5zLIb7SArI8uuxoVnIEDssr8=;
+	b=gRwpuplpQRTDPzXOFSFpPXeWI7Wz7N26WpD/SDuDvRI0s9lGmy2Bd4eVtuuRwtumPBLq
+	 CBU/8LWRly/PhMkWhea2zcpZtI4WQh1V3/fEZk9lk82Ar/sR1aIF3nb94LVzhnCWTE9aN
+	 y9WHCy5CthFIwbL4dOVuID5Rgc8ljNg9RpiuIIohglgWXj9P7H3oxJJMhun1XQv0FhBMh
+	 ykSG38nLx+gcIhOFBFxktLB3i1fZCjTeWy+KoWZi75OcHDa0ea2WEPe1MWKP8sXRPP1qZ
+	 DAPLctQnpR111DmRlte7lh5pMtZQTrKXQdYV8ZzcRx6dnPdnDLT3dge0/rY4D9nDWSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OWyINIrB;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f0ddML2y;
 	arc=none smtp.remote-ip=192.198.163.11
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60485606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7B760A260E
 	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:28:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60485606A33F
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A7B760A260E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OWyINIrB
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f0ddML2y
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795008530; x=1826544530;
+  t=1795008531; x=1826544531;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=wxd/ggH1pfTRA6CK36PbWmXgO/S8UbuBByS79ZYNuS0=;
-  b=OWyINIrB+HKHzGi5YE8NKJokOlJs0P2kXKE1/X5jzkB14vqrAqcWMLZA
-   fuwgDf1LCUJFwHEiCFVfLGo5Vwy2bSEvGTZYlJealiFwyOHsGtoFVNAin
-   IXBgS+ZJaDWZy6fvKyvlISKtht0z+JxPJTLC53GBjApHzYdnvtQrPJVCZ
-   qwsslvF13t1mLYPtEJuPCZdCNrZKvnSi1dxuGcv/BPNwHLML42ckGLNJv
-   ycr+uvE34yVzRcOPLEjEqstUAltDQpH5YZj18Zr2Zbp/5+d180UXPETR/
-   PAaxXp+GKp0EB79ukru+Rhqk0t5g8MqC7uxQjctzudhN+QEmmHkjR4fxD
-   g==;
-X-CSE-ConnectionGUID: 8DseXrL6RJm6cyTPrT6t7w==
-X-CSE-MsgGUID: WcUl9wbtSNOLIxtsbxmiJQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3738852"
+  bh=FamP04/RqVdu56kY9frHn7pKQWFGaHMB/rh3QVLs3w8=;
+  b=f0ddML2y3lOweeX0ijctcprH47qNMjxdXQD3nd8Z1iP8gS7I8LcEt7Qu
+   A+T81C1442B9lA3WuT/bWzgTg4wjFa+eG0xlEPar/B/0FHkOzkZ4I/jHM
+   NxuUqiDImCf8S8edMs/SS8IIAWfyfbhDYDmO7Vu+XkRVcDyiBT8D1u4wG
+   /wxTop0AlXWV8vxo++tdLLr4xZvqHodz6UOtKCgXiw0A9xQKmR7X6sxUD
+   l09rR+4zaETs2CrFz5WRGp16pZkBGNtIFfCKSNJ4j8Npn3boseKp5vDnV
+   WJuLuiv1M7Fcq0+Wh+PmxwrJIKFAWK5BO7lm0IQMQsuKB+L2GosRL5xl/
+   A==;
+X-CSE-ConnectionGUID: NQiAtp12SISpBoS1tAG/+w==
+X-CSE-MsgGUID: gMuP8L7vQe6Nzofkknirpw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3738863"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3738852"
+   d="scan'208";a="3738863"
 Received: from fmviesa013.fm.intel.com ([10.60.135.153])
   by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:47 -0800
-X-CSE-ConnectionGUID: RbStNC3dS9mt18N9daJhrQ==
-X-CSE-MsgGUID: ecNa+g3vSDaUTQQAL8UagQ==
+X-CSE-ConnectionGUID: +f+szGDlSySLJPCBnFDpgg==
+X-CSE-MsgGUID: thuHUHgVRZeD7dizEPbRfQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="12076065"
+   d="scan'208";a="12076067"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:40 -0800
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 0A8A0122C1F;
-	Wed, 18 Nov 2026 15:28:21 +0200 (EET)
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 1660B121E56;
+	Wed, 18 Nov 2026 15:28:31 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xTfi0-00000000te2-2s3U;
-	Wed, 18 Nov 2026 15:28:20 +0200
+	id 1xTfhz-00000000tZt-2yFB;
+	Wed, 18 Nov 2026 15:28:19 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: linux-media@vger.kernel.org
@@ -102,9 +102,9 @@ Cc: hans@jjverkuil.nl,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH v13 65/73] media: imx219: Allow configuring cropping and binning through CRSM
-Date: Wed, 18 Nov 2026 15:28:11 +0200
-Message-ID: <20261118132819.213473-66-sakari.ailus@linux.intel.com>
+Subject: [PATCH v13 04/73] media: uapi: Add new media bus codes for generic raw formats
+Date: Wed, 18 Nov 2026 15:27:10 +0200
+Message-ID: <20261118132819.213473-5-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
 References: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
@@ -119,194 +119,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Enable the configuration of cropping and binning through the Common Raw
-Sensor Model. Also change the minimum embedded data line length the same
-as that of the output pixel data line.
+Add new media bus codes for generic raw formats that are not specific to
+the colour filter array but that simply specify the bit depth. The layout
+(packing) of the data is interface specific.
+
+The rest of the properties of the format are specified with controls in
+the image source.
+
+The mbus codes added by this patch have bit depth of 8, 10, 12 and 14.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 ---
- drivers/media/i2c/imx219.c | 103 +++++++++++++++++++++++++++++++++----
- 1 file changed, 94 insertions(+), 9 deletions(-)
+ .../media/v4l/subdev-formats.rst              | 27 +++++++++++++++++++
+ include/uapi/linux/media-bus-format.h         |  6 +++++
+ 2 files changed, 33 insertions(+)
 
-diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-index 7b7412da0d60..0b0fbc082e18 100644
---- a/drivers/media/i2c/imx219.c
-+++ b/drivers/media/i2c/imx219.c
-@@ -160,6 +160,9 @@
- #define IMX219_PIXEL_ARRAY_HEIGHT	2480U
- #define IMX219_NATIVE_FORMAT		MEDIA_BUS_FMT_SRGGB10_1X10
+diff --git a/Documentation/userspace-api/media/v4l/subdev-formats.rst b/Documentation/userspace-api/media/v4l/subdev-formats.rst
+index c9999b929773..fecb786cb8af 100644
+--- a/Documentation/userspace-api/media/v4l/subdev-formats.rst
++++ b/Documentation/userspace-api/media/v4l/subdev-formats.rst
+@@ -3855,6 +3855,33 @@ organization is given as an example for the first pixel only.
  
-+#define IMX219_OUTPUT_X_SIZE_MIN	0x100
-+#define IMX219_OUTPUT_Y_SIZE_MIN	0x100
-+
- /* Embedded metadata stream height */
- #define IMX219_EMBEDDED_DATA_HEIGHT	2U
+     \endgroup
  
-@@ -499,6 +502,45 @@ static inline u32 imx219_get_rate_factor(struct imx219 *imx219)
- 		IMX219_BINNING_X2_ANALOG ? 2 : 1;
- }
++Generic raw formats on serial interfaces
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++
++Those formats transfer raw pixel data typically from raw camera sensors using
++Bayer and other Colour Filter Arrays (CFAs) on serial interfaces. The packing of
++the data on the bus is determined by the hardware, however the bit depth is
++still specific to the format.
++
++.. tabularcolumns:: |p{2.0cm}|p{4.0cm}|p{11.3cm}|
++
++.. cssclass:: longtable
++
++.. flat-table:: Generic raw formats on serial buses
++    :header-rows:  1
++    :stub-columns: 0
++    :widths:       1 1
++
++    * - Format name
++      - Bit depth
++    * - MEDIA_BUS_FMT_RAW_8
++      - 8
++    * - MEDIA_BUS_FMT_RAW_10
++      - 10
++    * - MEDIA_BUS_FMT_RAW_12
++      - 12
++    * - MEDIA_BUS_FMT_RAW_14
++      - 14
  
-+static void imx219_apply_binning(struct v4l2_subdev_state *state,
-+				 struct v4l2_rect *crop, unsigned int index)
-+{
-+	struct v4l2_rect *compose =
-+		v4l2_subdev_state_get_compose(state, IMX219_PAD_IMAGE);
-+	struct v4l2_mbus_framefmt *source_format =
-+		v4l2_subdev_state_get_format(state, IMX219_PAD_SOURCE,
-+					     IMX219_STREAM_IMAGE);
-+	struct v4l2_mbus_framefmt *embedded_source_format =
-+		v4l2_subdev_state_get_format(state, IMX219_PAD_SOURCE,
-+					     IMX219_STREAM_EDATA);
-+	s64 binning = imx219_binning_factors[index];
-+
-+	crop->width = clamp(crop->width, IMX219_OUTPUT_X_SIZE_MIN *
-+			    V4L2_BINNING_FACTORS_HNUM(binning),
-+			    IMX219_ACTIVE_AREA_WIDTH) & ~1;
-+	crop->height = clamp(crop->height, IMX219_OUTPUT_Y_SIZE_MIN *
-+			     V4L2_BINNING_FACTORS_VNUM(binning),
-+			     IMX219_ACTIVE_AREA_HEIGHT) & ~1;
-+	crop->left = clamp((unsigned int)crop->left, IMX219_ACTIVE_AREA_LEFT,
-+			   IMX219_ACTIVE_AREA_LEFT + IMX219_ACTIVE_AREA_WIDTH -
-+			   crop->width);
-+	crop->top = clamp((unsigned int)crop->top, IMX219_ACTIVE_AREA_TOP,
-+			  IMX219_ACTIVE_AREA_TOP + IMX219_ACTIVE_AREA_HEIGHT -
-+			  crop->height);
-+
-+	compose->width = crop->width / V4L2_BINNING_FACTORS_HNUM(binning);
-+	compose->height = crop->height / V4L2_BINNING_FACTORS_VNUM(binning);
-+
-+	source_format->width = compose->width;
-+	source_format->height = compose->height;
-+
-+	struct v4l2_mbus_framefmt *embedded_format =
-+		v4l2_subdev_state_get_format(state, IMX219_PAD_EDATA);
-+
-+	embedded_format->width =
-+		embedded_source_format->width = source_format->width;
-+}
-+
- static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
- {
- 	struct imx219 *imx219 =
-@@ -531,9 +573,21 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
- 			return ret;
- 		break;
- 	}
--	case V4L2_CID_BINNING_FACTORS:
-+	case V4L2_CID_BINNING_FACTORS: {
-+		struct v4l2_rect *crop =
-+			v4l2_subdev_state_get_crop(state, IMX219_PAD_IMAGE);
-+
-+		cci_write(imx219->regmap, IMX219_REG_BINNING_MODE_H,
-+			  imx219_binnings[ctrl->val].h, &ret);
-+		cci_write(imx219->regmap, IMX219_REG_BINNING_MODE_V,
-+			  imx219_binnings[ctrl->val].v, &ret);
-+
-+		if (ctrl->val != ctrl->cur.val)
-+			imx219_apply_binning(state, crop, ctrl->val);
-+
- 		return 0;
- 	}
-+	}
+ Packed YUV Formats
+ ^^^^^^^^^^^^^^^^^^
+diff --git a/include/uapi/linux/media-bus-format.h b/include/uapi/linux/media-bus-format.h
+index 6005f033e62c..83feeae6a31e 100644
+--- a/include/uapi/linux/media-bus-format.h
++++ b/include/uapi/linux/media-bus-format.h
+@@ -190,4 +190,10 @@
+ #define MEDIA_BUS_FMT_META_20			0x8006
+ #define MEDIA_BUS_FMT_META_24			0x8007
  
- 	/*
- 	 * Applying V4L2 control value only happens
-@@ -728,8 +782,6 @@ static int imx219_init_controls(struct imx219 *imx219)
- 		goto error;
- 	}
- 
--	imx219->binning->flags = V4L2_CTRL_FLAG_READ_ONLY;
--
- 	ret = v4l2_fwnode_device_parse(&client->dev, &props);
- 	if (ret)
- 		goto error;
-@@ -798,11 +850,6 @@ static int imx219_set_framefmt(struct imx219 *imx219,
- 	cci_write(imx219->regmap, IMX219_REG_Y_ADD_END_A,
- 		  crop->top - IMX219_ACTIVE_AREA_TOP + crop->height - 1, &ret);
- 
--	cci_write(imx219->regmap, IMX219_REG_BINNING_MODE_H,
--		  imx219_binnings[imx219->binning->val].h, &ret);
--	cci_write(imx219->regmap, IMX219_REG_BINNING_MODE_V,
--		  imx219_binnings[imx219->binning->val].v, &ret);
--
- 	cci_write(imx219->regmap, IMX219_REG_X_OUTPUT_SIZE,
- 		  format->width, &ret);
- 	cci_write(imx219->regmap, IMX219_REG_Y_OUTPUT_SIZE,
-@@ -881,6 +928,7 @@ static int imx219_enable_streams(struct v4l2_subdev *sd,
- 	/* vflip and hflip cannot change during streaming */
- 	__v4l2_ctrl_grab(imx219->vflip, true);
- 	__v4l2_ctrl_grab(imx219->hflip, true);
-+	__v4l2_ctrl_grab(imx219->binning, true);
- 
- 	return 0;
- 
-@@ -908,6 +956,7 @@ static int imx219_disable_streams(struct v4l2_subdev *sd,
- 
- 	__v4l2_ctrl_grab(imx219->vflip, false);
- 	__v4l2_ctrl_grab(imx219->hflip, false);
-+	__v4l2_ctrl_grab(imx219->binning, false);
- 
- 	pm_runtime_put_autosuspend(&client->dev);
- 
-@@ -995,7 +1044,7 @@ static int imx219_enum_frame_size(struct v4l2_subdev *sd,
- 		if (fse->code != MEDIA_BUS_FMT_META_8 || fse->index > 0)
- 			return -EINVAL;
- 
--		fse->min_width = IMX219_ACTIVE_AREA_WIDTH;
-+		fse->min_width = IMX219_OUTPUT_X_SIZE_MIN;
- 		fse->max_width = IMX219_ACTIVE_AREA_WIDTH;
- 		fse->min_height = IMX219_EMBEDDED_DATA_HEIGHT;
- 		fse->max_height = IMX219_EMBEDDED_DATA_HEIGHT;
-@@ -1253,6 +1302,41 @@ static int imx219_get_selection(struct v4l2_subdev *sd,
- 	}
- }
- 
-+static int imx219_set_selection(struct v4l2_subdev *sd,
-+				const struct v4l2_subdev_client_info *ci,
-+				struct v4l2_subdev_state *state,
-+				struct v4l2_subdev_selection *sel)
-+{
-+	if (!(ci && ci->caps & V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR))
-+		return -EINVAL;
++/* Generic (CFA independent) pixel data formats. Next is 0x9005. */
++#define MEDIA_BUS_FMT_RAW_8			0x9001
++#define MEDIA_BUS_FMT_RAW_10			0x9002
++#define MEDIA_BUS_FMT_RAW_12			0x9003
++#define MEDIA_BUS_FMT_RAW_14			0x9004
 +
-+	/*
-+	 * The embedded data stream doesn't support selection rectangles,
-+	 * neither on the embedded data pad nor on the source pad.
-+	 */
-+	if (sel->pad != IMX219_PAD_IMAGE || sel->stream != IMX219_STREAM_IMAGE)
-+		return -EINVAL;
-+
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP: {
-+		struct imx219 *imx219 = to_imx219(sd);
-+		struct v4l2_rect *crop =
-+			v4l2_subdev_state_get_crop(state, IMX219_PAD_IMAGE);
-+
-+		imx219_apply_binning(state, &sel->r, imx219->binning->val);
-+
-+		*crop = sel->r;
-+
-+		return 0;
-+	}
-+	case V4L2_SEL_TGT_COMPOSE:
-+		sel->r = *v4l2_subdev_state_get_compose(state, sel->pad);
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- static int imx219_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
- 				 struct v4l2_mbus_frame_desc *fd)
- {
-@@ -1377,6 +1461,7 @@ static const struct v4l2_subdev_pad_ops imx219_pad_ops = {
- 	.get_fmt = v4l2_subdev_get_fmt,
- 	.set_fmt = imx219_set_pad_format,
- 	.get_selection = imx219_get_selection,
-+	.set_selection = imx219_set_selection,
- 	.enum_frame_size = imx219_enum_frame_size,
- 	.get_frame_desc = imx219_get_frame_desc,
- 	.enable_streams = imx219_enable_streams,
+ #endif /* __LINUX_MEDIA_BUS_FORMAT_H */
 -- 
 2.47.3
 
