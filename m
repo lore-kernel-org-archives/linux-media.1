@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795008521;
-	b=JlNrXOsNuzjqiKZ6oGBZwEor5ole1P/D05GPPSa2Nh1C8NOjQifuuzdJFdqD5TyuolYU
-	 Dgn4cM5UZB4Ug9ZVhs1JsQoGuez2QGcJH01qfnm18MdLJFZfKTCOEej0fa+POFe7/SQX7
-	 l8afeRpujaGd17ALF+ldTmcsZGS1o1BL6AIuQ0SPEHLiOuMHm4Vbspm9NDoZidflRrp2B
-	 0wDCOdsyrlupNsjOwSW+aAf+Cymxyddb9yb8afHMHXJr4V/l+USG47ieg2ALvksI4pE+n
-	 90INWl7EHdZh1SR3ov+8fYot2qkVj3VS8Sh0LdVa/gBkyscqM2PwYKcpTsV+gELaizw==
+	t=1795008528;
+	b=QNdERy8NHAgxi2R1PQjuWVad+pzSZtbsiCqjOoSwt3h+RxzgAfVFlvBQsp5rrVNrj5x7
+	 mD2WFRZ+nGz7WMTw/uunyzPsCCb4Q/igdT3dpv6XwBNrREzbNJ+ksiZk72EOPISW4YNdw
+	 sa2dR2rOfwLh/hqvbkolBTTwpIFTK7uTfgml/3GGIglOssheyQynoto4WUZiKVvYGUnYP
+	 q93BwX7mVXrN1X6fkvDaiW3y2/NTVxA2AAgJR9zBOq8Cj5ofkdOSToHH1gbXzJ8e48nE6
+	 mOadmPbJS7NHDovAWEJc7hJ3hToCIAmmcbv4yEG1pj3yzYXoibF35ZZp/sztLvipSjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795008521;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795008528;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
 	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=d6fwNSzh+Cvp/spDprhJYkF5R1lWmynwViXlGtk5bF4=;
-	b=Gob8ngo/hMSYuPHhIcDbYCR2iN3HXlRq/CnMK6AWEWfOGZBHzASFMqRnRq/b6O+bK/rk
-	 qdeVjB0LZkQDBKMXjJyhcB8UiohdZSA8/WXGtSEp3KQXP2w3cLA6BaFAMsRwIT/asqWEz
-	 FhzEto4HIhz0P+JDIjqj55uq9cfj+c6w3Vvmfb7A4no2I3dXQVhU+A51vKM6aogA5bmJF
-	 9XHbzESZw1PwEao0l5RDZgYRTzGFb4DxKvznfj8Bzejc7I4eB21LYGQy4ZIg1G/4gYJi0
-	 XyANo4Xe6zgj+Qk8aVLT+40HjWK51Dlv7wEz9GstgYkwV6TNxRvB7vmZ4/5lyQROyNw==
+	bh=cqzXE2DEADlBF01AMa1pCtbMzWE0EPSnBAJUAe11q9c=;
+	b=TXcto5BasCN4xj93Xw9TP7/+HLX7kSyYC6Aef54XWWFVKstAXYDwjQsCjwDW1QNhvAIw
+	 +FV/LWqI1i+3maLqnPIR6E3dsXlaFngM74DRCrP6Hlef6F942lTdgvMSpKRJU79FkubVj
+	 EmJnqlm5a4Y80+5ueaGs6YEiIrWZF6sg2bsNLFqGHRipedDiXWgb9NSWdg9siM9wmIn9O
+	 +QyiayqaUt+lTu+wBVimdBKte3T2QVHpFA31O3v5R/rTfXp/8rCCdChZGaYiKsYefrZ3u
+	 X4svlxTdjN/CdgmS0f1MrwZRV3DO5MmrM326spEtxXlG015rg8wzuNHA0W4dahkfZqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="TTwC/cdv";
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Dn+tt2Yk;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4BF606A333
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:28:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A4BF606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA93606A325
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:28:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFA93606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TTwC/cdv
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Dn+tt2Yk
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795008522; x=1826544522;
+  t=1795008528; x=1826544528;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=dkHlG0GwMMxs17ot+km7G3kUk3jTgHoTOVVDBWWLImk=;
-  b=TTwC/cdvicR82ofAYFKU7j1T31ChvjYvsp+azhy46imPDHyupY4+PFCZ
-   fGqpPUjfJiG4Si8elv6hGQZH3G9pHpyJVG1e44sw4EtXbG/0aiEoeliOY
-   iSeBWjjYUvfNAlut0Oh2YwQS9E7zKW/LFawmGMb3ahLNiOaL85gFQO9jG
-   tFnUAKcukXUMHEKRDD+rJ424ksuhYPHbVlUa98C/0vLdcxd07aVHBXVxI
-   WZrgcFxu0OA5wZTQQOahwzBBq26LUH+QnOqwo5otxN/I/XULdNTRhFKjZ
-   eTKoqtAljThjc2Ac1rSAFDWM5UBLyP86fmiXtTW5wLqxlTJIexv/fQO8V
-   A==;
-X-CSE-ConnectionGUID: b4zPmlyKQTuGNk6yWxjO6g==
-X-CSE-MsgGUID: Sf/OZCCXS3e92Jqx4DEHjw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3702724"
+  bh=Gd/gucxD2L5L9WWDtlBVCLXP6zDRX0vKQ64Wwb2vmgE=;
+  b=Dn+tt2YkfLk7bCcGG/XA8b2UBTFwYj/A99arm2j1pLhfeUn0g/lOF4Vx
+   wgPRT/J2lay1F5FKTovXjKZYlD/gt1fEPSt4vN1wnOXIVY3rT2hvIpZij
+   EMqIhozPKg6C/h4agzrPI1lIFknEVlt7U2xg2nwt2jeLjWWJhpLf2W40s
+   oScP04yQ7JLf4Iw35W7FwC9Y0EjbsuTlH4abmumdH5OYds0gVko/rASta
+   Nw6mN0RD3+WWDbVSHSeml1KDFYqI6mdontOsJu8NrZ69OQBZIBztZC3Qh
+   UY2RSVVjUfK0FOcIBuUFDFOC48Xup3pptr6mX0QRNftSD8lcArNaTfyUo
+   g==;
+X-CSE-ConnectionGUID: o1cE0DrcSqKd2YUApgF7ow==
+X-CSE-MsgGUID: AAJ3hQsLQvalnPBLd+uAqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3738774"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3702724"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:39 -0800
-X-CSE-ConnectionGUID: cuhPIYDxRp240CbeE/qpWg==
-X-CSE-MsgGUID: 9WkBqHOvTBy8kKT2AOsDtw==
+   d="scan'208";a="3738774"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:47 -0800
+X-CSE-ConnectionGUID: C8bcooj5QdqP+aIvFmf65w==
+X-CSE-MsgGUID: x2Ct5SPrTXiRoqt92gfKJQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="10678036"
+   d="scan'208";a="12076053"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:31 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:40 -0800
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id D9A1A122A7B;
-	Wed, 18 Nov 2026 15:28:20 +0200 (EET)
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 1BD1C122CE3;
+	Wed, 18 Nov 2026 15:28:21 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xTfi0-00000000tdE-2Ez7;
+	id 1xTfi0-00000000teR-3Bfn;
 	Wed, 18 Nov 2026 15:28:20 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -102,9 +102,9 @@ Cc: hans@jjverkuil.nl,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH v13 55/73] media: ov2740: Add support for FLL and LLP controls
-Date: Wed, 18 Nov 2026 15:28:01 +0200
-Message-ID: <20261118132819.213473-56-sakari.ailus@linux.intel.com>
+Subject: [PATCH v13 70/73] media: ipu6: Add support for generic unpacked pixel and metadata formats
+Date: Wed, 18 Nov 2026 15:28:16 +0200
+Message-ID: <20261118132819.213473-71-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
 References: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
@@ -119,131 +119,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the V4L2_CID_FRAME_LENGTH_LINES and
-V4L2_CID_LINE_LENGTH_PIXELS controls.
+Add support for V4L2_PIX_FMT_RAW_10 and V4L2_PIX_FMT_RAW_12 pixelformats
+as well as V4L2_META_FMT_GENERIC_16 for 10- and 12-bit depths.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/i2c/ov2740.c | 55 ++++++++++++++++++++++++++++----------
- 1 file changed, 41 insertions(+), 14 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-isys-video.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
-index ff1f5158786b..eaf6183b802d 100644
---- a/drivers/media/i2c/ov2740.c
-+++ b/drivers/media/i2c/ov2740.c
-@@ -16,6 +16,7 @@
- #include <media/v4l2-ctrls.h>
- #include <media/v4l2-device.h>
- #include <media/v4l2-fwnode.h>
-+#include <media/v4l2-mc.h>
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+index 0e30725dda2f..26925331d8d5 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+@@ -106,6 +106,10 @@ const struct ipu6_isys_pixelformat ipu6_isys_pfmts[] = {
+ 	  IPU6_FW_ISYS_FRAME_FORMAT_RAW10 },
+ 	{ V4L2_PIX_FMT_RAW_CSI2_12, 12, 12, MEDIA_BUS_FMT_RAW_12,
+ 	  IPU6_FW_ISYS_FRAME_FORMAT_RAW12 },
++	{ V4L2_PIX_FMT_RAW_10, 16, 10, MEDIA_BUS_FMT_RAW_10,
++	  IPU6_FW_ISYS_FRAME_FORMAT_RAW16 },
++	{ V4L2_PIX_FMT_RAW_12, 16, 12, MEDIA_BUS_FMT_RAW_12,
++	  IPU6_FW_ISYS_FRAME_FORMAT_RAW16 },
  
- #define OV2740_LINK_FREQ_360MHZ		360000000ULL
- #define OV2740_LINK_FREQ_180MHZ		180000000ULL
-@@ -562,9 +563,12 @@ struct ov2740 {
- 	/* V4L2 Controls */
- 	struct v4l2_ctrl *link_freq;
- 	struct v4l2_ctrl *pixel_rate;
-+	struct v4l2_ctrl *fll;
- 	struct v4l2_ctrl *vblank;
-+	struct v4l2_ctrl *llp;
- 	struct v4l2_ctrl *hblank;
- 	struct v4l2_ctrl *exposure;
-+	bool setting_ctrl;
- 
- 	/* GPIOs, clocks, regulators */
- 	struct gpio_desc *reset_gpio;
-@@ -738,18 +742,28 @@ static int ov2740_set_ctrl(struct v4l2_ctrl *ctrl)
- {
- 	struct ov2740 *ov2740 = container_of(ctrl->handler,
- 					     struct ov2740, ctrl_handler);
--	s64 exposure_max;
--	int ret;
-+	int ret = 0;
- 
- 	/* Propagate change of current control to all related controls */
--	if (ctrl->id == V4L2_CID_VBLANK) {
--		/* Update max exposure while meeting expected vblanking */
--		exposure_max = ov2740->cur_mode->height + ctrl->val -
--			       OV2740_EXPOSURE_MAX_MARGIN;
--		__v4l2_ctrl_modify_range(ov2740->exposure,
--					 ov2740->exposure->minimum,
--					 exposure_max, ov2740->exposure->step,
--					 exposure_max);
-+	switch (ctrl->id) {
-+	case V4L2_CID_FRAME_LENGTH_LINES:
-+	case V4L2_CID_VBLANK:
-+	case V4L2_CID_LINE_LENGTH_PIXELS:
-+	case V4L2_CID_HBLANK: {
-+		struct v4l2_subdev_state *state =
-+			v4l2_subdev_get_locked_active_state(&ov2740->sd);
-+		const struct v4l2_mbus_framefmt *format =
-+			v4l2_subdev_state_get_format(state, OV2740_PAD_SOURCE,
-+						     OV2740_STREAM_PIXEL);
-+
-+		ret = v4l2_sensor_fll_llp_set(ov2740->fll, ov2740->vblank,
-+					      ov2740->llp, ov2740->hblank,
-+					      ov2740->exposure, format,
-+					      ctrl, &ov2740->setting_ctrl,
-+					      OV2740_EXPOSURE_MAX_MARGIN);
-+		if (ret)
-+			return ret;
-+	}
- 	}
- 
- 	/* V4L2 controls values will be applied only when power is already up */
-@@ -773,8 +787,10 @@ static int ov2740_set_ctrl(struct v4l2_ctrl *ctrl)
- 		break;
- 
- 	case V4L2_CID_VBLANK:
--		ret = ov2740_write_reg(ov2740, OV2740_REG_VTS, 2,
--				       ov2740->cur_mode->height + ctrl->val);
-+		break;
-+
-+	case V4L2_CID_FRAME_LENGTH_LINES:
-+		ret = ov2740_write_reg(ov2740, OV2740_REG_VTS, 2, ctrl->val);
- 		break;
- 
- 	case V4L2_CID_TEST_PATTERN:
-@@ -804,7 +820,7 @@ static int ov2740_init_controls(struct ov2740 *ov2740)
- 	int ret;
- 
- 	ctrl_hdlr = &ov2740->ctrl_handler;
--	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 13);
-+	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 15);
- 	if (ret)
- 		return ret;
- 
-@@ -825,10 +841,22 @@ static int ov2740_init_controls(struct ov2740 *ov2740)
- 	vblank_min = ov2740->cur_mode->vts_min - ov2740->cur_mode->height;
- 	vblank_max = ov2740->cur_mode->vts_max - ov2740->cur_mode->height;
- 	vblank_default = ov2740->cur_mode->vts_def - ov2740->cur_mode->height;
-+	ov2740->fll = v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
-+					V4L2_CID_FRAME_LENGTH_LINES,
-+					ov2740->cur_mode->vts_min,
-+					ov2740->cur_mode->vts_max, 1,
-+					ov2740->cur_mode->vts_def);
- 	ov2740->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
- 					   V4L2_CID_VBLANK, vblank_min,
- 					   vblank_max, 1, vblank_default);
- 
-+	ov2740->llp = v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
-+					V4L2_CID_LINE_LENGTH_PIXELS,
-+					ov2740->cur_mode->hts,
-+					ov2740->cur_mode->hts, 1,
-+					ov2740->cur_mode->hts);
-+	if (ov2740->llp)
-+		ov2740->llp->flags |= V4L2_CTRL_FLAG_READ_ONLY;
- 	h_blank = ov2740->cur_mode->hts - ov2740->cur_mode->width;
- 	ov2740->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
- 					   V4L2_CID_HBLANK, h_blank, h_blank, 1,
-@@ -1215,7 +1243,6 @@ static int ov2740_init_state(struct v4l2_subdev *sd,
- 		.routes = routes,
- 		.num_routes = ARRAY_SIZE(routes),
- 	};
--	struct ov2740 *ov2740 = to_ov2740(sd);
- 	int ret;
- 
- 	ret = v4l2_subdev_set_routing(sd, sd_state, &routing);
+ 	{ V4L2_META_FMT_GENERIC_8, 8, 8, MEDIA_BUS_FMT_META_8,
+ 	  IPU6_FW_ISYS_FRAME_FORMAT_RAW8, true },
+@@ -113,6 +117,10 @@ const struct ipu6_isys_pixelformat ipu6_isys_pfmts[] = {
+ 	  IPU6_FW_ISYS_FRAME_FORMAT_RAW10, true },
+ 	{ V4L2_META_FMT_GENERIC_CSI2_12, 12, 12, MEDIA_BUS_FMT_META_12,
+ 	  IPU6_FW_ISYS_FRAME_FORMAT_RAW12, true },
++	{ V4L2_META_FMT_GENERIC_16, 16, 10, MEDIA_BUS_FMT_META_10,
++	  IPU6_FW_ISYS_FRAME_FORMAT_RAW16, true },
++	{ V4L2_META_FMT_GENERIC_16, 16, 12, MEDIA_BUS_FMT_META_12,
++	  IPU6_FW_ISYS_FRAME_FORMAT_RAW16, true },
+ 	{ V4L2_META_FMT_GENERIC_16, 16, 16, MEDIA_BUS_FMT_META_16,
+ 	  IPU6_FW_ISYS_FRAME_FORMAT_RAW16, true },
+ };
 -- 
 2.47.3
 
