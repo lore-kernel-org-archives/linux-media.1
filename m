@@ -1,101 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.103
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795009746;
-	b=JDZDj/t287f2wivTlbD4FzZZo8ftswNUQT3WAZdr6gAnioeLHVcbTY+h4zQ2bSHoLu1u
-	 dE+bOMGIct/CAeVItQegzSydtAXI0kpCYJcpBaO6foyMZbjlQxcu5lJHGa95MjvHBJHmx
-	 TbetOm6cnxNT0fHNumY7wx/LQz9zqijirU8zJI/OKMIVjAV8Lh2l4CW+msYAP4M9wGn2m
-	 r2llB+EreoEImxnEkWq1ioP2/lMIaWBzUvgWkb8KloFuFcwGXZEpCirUzTyEiVD8Sq++s
-	 2yTVnKxslo70HE4yYoZzxD4shy9h1sFYZ8f505vClgISNLPy7zEVtUR7yZ/xf6K+t0w==
+	t=1795010139;
+	b=AJW5leTuoMZqYzMPZxjQ42wbJGNLVctn6txTpvfogzs1AEaEgl1Hu71PAivMLQJq+J0I
+	 7unx33Hb0hjcDMQE+8rV/n+uO/hVKzMs1N7gtLLnof4IP50uaL06dwTNg18+uYbVNJ6kX
+	 40SsVOHfu05rzeQzZwj5rMWeCvWS4K2dWeNOlnFKPToEIAj0ch6MqmZwCek95l9abd43L
+	 A+YS8heZrQpAVj/ojFylKdg/zUshto4xkr5MsOGU6ZDahT2oAX8Y6TfsQoA3ZfgWmQHPf
+	 0RYnVPRhqZKSVsGv2zpAFoRsbKlxf/tYQga9Htq+F47OuVwlmMWLABk9NzOliINMhLA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795009746;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
-	 To:Cc:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=mozPZSQtN0QveURs63dtmDqitSS+mYtI9DEO83tr0VU=;
-	b=xu88HpXrp29Eu3MiwyhnjRvmp/iNK8Mv0txXg7PRVtk3EG4YM58iM6x90nBUkwkISeWY
-	 AvOIVoOxjNo/abt3nqo9gAF1H+azJrwg7DlMBabBlXmi19XGpaeIiQEPZBPzGqM7opJDE
-	 jdON3ZXqLc7R8hEkim/VicRmc6PiQINAlIjfR9x4EOINjdcWLnKjb76EvAjMXDEwiC8gZ
-	 xfJGs16wrFy3aizVXqhk+U2bcw4vhNiV+9C7OkszwVHcpJblPa6RBAHYUKwH3dS3rvLVu
-	 LqCl+SNDLVKQcKM0LXfTCexvjfh3KmdpRbB7D+it9KJJY2TFbpAUMn4Y2r7FFu2HSOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795010139;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Q93IOK+81L655tUS3XT9KzQ8Uws4KOL15ej2huBrpiw=;
+	b=KoylvLpqjxq/28bIbGG8aezsQm95Pe7jBJlJ0ki9VhGUasoAQZwIv9vV+wD6eWp21gQ1
+	 b2h6lJFTvdwNMz/hl+6IAWOUcTlWPySOgYeJEnlVls/rpomZ4n8GadYfYNhUYW0p7kH0B
+	 BpsWfiCukLqZI5zMlW54LsFNgXAceqXVVH4cIHFI9GyjKJmYTioGG8P+3JmpHWzH3ZN4H
+	 kMWUTC9f0BfTsu5bVfZUdIVW/34P7GZLAkWo29BI8KOZxA41lMm6pYuCOQJdGW2ddd5LN
+	 iE5RxUHMzwc5dM+YzC+NvJqpr1YPhOmz2ugMujXnlKxtGGB2zxVGJj1/mQ6bQqS4OoA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=garyguo.net;
-	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=cnXh14SM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.103
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020103.outbound.protection.outlook.com [52.101.196.103])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QXfsJqiv;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="YdeGXNs/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79C0606A320;
-	Wed, 18 Nov 2026 13:49:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D79C0606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AA9606A325
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:55:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3AA9606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=cnXh14SM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QGr8dIWY2VnKgoJVNInU1wN1S7zUPWjFfRdkTaai/2iHagZUlLJ1DHU/xfXbnoKbqj+fqeT5/iaGzzpZjIpnRz8DQThbAn0RScuikTZQFYqDD/RBlnmSoHizQ8fUXesWWdGbG9hHqUOhUExojwlL9jujZl9C/DTPLIJxemgSETxINc2B24RdR9VaM0ip+mffKrZ5SJqvDW834cS74NEqlIcuUeCm9vItmbQnR+E/qzuLm/a3oRjvQOCCRD9d2NIhGeiSvHufv+2S2hx3MOUORCu8N7gaEWhHLsaHoCkKyOgl0JaXli6i3N3nAdld7tPCfprvAoZxVJFBC/yGI32Cbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mozPZSQtN0QveURs63dtmDqitSS+mYtI9DEO83tr0VU=;
- b=Xoe8cKiNrQ+7Yn9dBxvfqD3HY2qpZhlq7ek/aW9GFLUjCPWbdR2hbe8WVRxu5JXH3W3EX8Gel1m5GrdmiPAsjbU+lww382iJORfgsvogmdGVkBp5wy2eFiqLJSrHvqifxCOz64N6JAC1M018EbaSDuqnIxH4pwkpXQwiBLshS8FRCriec390TUHIs/S1P9lhln7mBheDeWgMYGlwiAJdFllgcatWtnjIlOeGW32CR1q0B9p0jxdqw+AeY7VwmcKVp5aDV+PTuYP4loVRRLu9Tc/95wsZo1rRS9ercdwkMY5tgl30clKRBSsS5iWIbdhlcS/kwLW6GIJbPAkSYplntw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mozPZSQtN0QveURs63dtmDqitSS+mYtI9DEO83tr0VU=;
- b=cnXh14SM6bqp3ERtmBl+opjARd0DRPPGMoWNBG+kxnr3nwj0zN2fLsDcwmwKVam5PqJs8nfw/silc8d0ChPvjzENsuzod5y5a/Tbm+8+XPr3+pg0Cglv5cdaRNcDBP0bxevFTCQXmKQbxcgK47l//wqgGPzl+iIpNZl6ezFu+24=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
- by LO0P265MB2761.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:14d::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Wed, 18 Nov
- 2026 13:49:02 +0000
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
- 13:49:02 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 18 Nov 2026 13:49:01 +0000
-Message-Id: <DMYDUJ95PGL5.1QXZ1EK86KC5R@garyguo.net>
-Subject: Re: [PATCH v2] dma-buf/dma-fence: Prevent misordering for error
- checks
-From: "Gary Guo" <gary@garyguo.net>
-To: <phasta@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Simona Vetter" <simona.vetter@ffwll.ch>,
- "Chris Wilson" <chris@chris-wilson.co.uk>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tvrtko Ursulin"
- <tvrtko.ursulin@igalia.com>
-Cc: <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20261118110914.1471416-2-phasta@kernel.org>
- <DMYCSXNA6VQ9.22FS1PMBBYWRO@garyguo.net>
- <3792b7f8f4729820a924e0d60d17c97489827732.camel@mailbox.org>
-In-Reply-To: <3792b7f8f4729820a924e0d60d17c97489827732.camel@mailbox.org>
-X-ClientProxiedBy: LO4P123CA0242.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a7::13) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:1cb::9)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QXfsJqiv;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=YdeGXNs/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795010137;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q93IOK+81L655tUS3XT9KzQ8Uws4KOL15ej2huBrpiw=;
+	b=QXfsJqivqBNqfL8AggaLxuMEBU7EfXUwQ79yX9mkY0DsyoJKv14Jj/OiqP17IwmtwHUvtm
+	hDttkoYGz0xiCc9jOMzkOF5g6m+QAdI/wa8hDJ5BtVIpXff4tFeOjBu8nPrel8lbwUuT3W
+	PR8WTtsSxNEPBpbDUz0KfAdFrL/sUoM=
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
+ [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-325-MvrYe_3wOVmEra6wTvtPCQ-1; Wed, 18 Nov 2026 08:55:36 -0500
+X-MC-Unique: MvrYe_3wOVmEra6wTvtPCQ-1
+X-Mimecast-MFC-AGG-ID: MvrYe_3wOVmEra6wTvtPCQ_1795010136
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-86c3a053d9bso13316987b3.0
+        for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 05:55:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795010136; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hDf4LbcduTcaDYwFe9YbDDKE20OHYIfyPQ/XskYR0K3Rh5dq/NoNXLqMlcEwR9sD6q
+         be9P3oZwfGaWO0opqO3gtAFHzpc9AxSYOiU/oQSLTGOn6MEfIs6k3WvOIwT3d950U/vO
+         JM2wHuRLuw96fFUAN+vz9u/Qv++Q136f0kkFCyz1l7/hxWrbPljq0eLQNJ7oF8jLdu1s
+         Acbr0ymZ8gYgGJddUNpL5IDql5WmNqQbwgw2y2veTIeW3aNvXBmOOU0vVemP9RxZZKDO
+         RmWkiWtEkGnW+YPlolUmBTWnz3zMQo0ciYNCm/CpySlwAI3tb1veUVKARNf+MWOyPnQP
+         6Nwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Q93IOK+81L655tUS3XT9KzQ8Uws4KOL15ej2huBrpiw=;
+        fh=2nv0q4G832q7NTfK798wEKmG2I87N4bAOTPZJli8NIU=;
+        b=cklJ9XbwWz8CcRvkh9ExQJGrS7AXi3ZQydxDhy/QgZag225cWj+3Z21lFH+tOfZQdv
+         C9EIu7APfORNh1J/kU1QMLRBTN1g78EMlwooY8jGTBgcLgMuam4ZD14y8RQzsnjAdrAx
+         V0453SMFmOw8wykt+wsurSU56FR3UTZGPKHvRZ6tu8+/lwBf6R2VkXDBhEeUs8DGNcR1
+         Vqo0DqlGCfbORHf02e8p1xg6dSXoqGpSLYmydFVDMqqQqLOtt97IEDByJbUsGkqyWUL3
+         RtgaGz2NZE//LqKwGIZrZN/ozEndpemnD9Pyh7ffaUS/LHFgRwrkCmDVE0VjV8c3+162
+         /rLw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1795010136; x=1795614936; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q93IOK+81L655tUS3XT9KzQ8Uws4KOL15ej2huBrpiw=;
+        b=YdeGXNs/g+hxp03HRbQSUUfYwpG+Q463Psgnm5pI6nowFTE0GT/AT+9Eba8UqJXu2F
+         Rjm7s6KZtfcTE+jLnJqY9Yha9DiDRbhjBVk9n/zG7Tl/p4QVD4cOVryiVPrvuioWjJ2V
+         kC4s94SucOy//FSYm1394CoCF5UK5zXU1gxH2PfPcfRIkd2mTJdDSJhVy7FSL4lT5EZc
+         m+HBczANYjijzYP43BM9ZWyF2lkON43QQgIwWQhgllRW+41fvFVuY2rQaXLV1H9y0Dqo
+         Sq+5Nt2E0oRySNF5RHc6s28Fs0dEBL+ug6DeSjIEnvBqVwZGg+FdASv6oArpfSCSBBSS
+         kWvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795010136; x=1795614936;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q93IOK+81L655tUS3XT9KzQ8Uws4KOL15ej2huBrpiw=;
+        b=SEmbC6kc6aav5JzdPTiDwEMZN9NMR+63rh8XteHQDi6cazOYWk7M1cs7fY41otglbC
+         ukwj88BV1YSjZ+/b7IFO43zu9csR9eY65LdNabJuZiFlaInvvZIcEE2UzHPvazbThXs/
+         bYaTyOVY4j2rjwTqXxkmhuuuWwSVWRZGxk2qA/UjOUzR8uTUK6xEzXfiF56x0BUShs/P
+         I8SsHRr84FqjxKqRB1YShbpQIV8bMePvHKjUKmTc1J3zOGwk101RJzgOXp6QIUAAfmqz
+         YEpKQTD8liGjokWl+4MZG+6gRPAQFbX5reP5scX3ihMKXu49AqsX2A49+9p5hL9D1f/b
+         WSkA==
+X-Forwarded-Encrypted: i=1; AL+hErF9UjUGn/tOP1tyNda1BTMyCmQ8RNG26oZLPbjIHAAyPtcfQjrQVMT0xuG/24mbVNcMvs+sfXgfkH1+zQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9cEkR8dxFE0Un2eTSpywIBrv7r6VguNzkouk3zfkabA/1FaAUU
+	r23AXLxcV8Z/XqD3DU4WiWf/RjpQZ/G5ZkXHsB1Oju5uLeyDOXfJTBfvTDOlb78y68D3RVMnDdX
+	sjh0B0z/2a0HR4C8eZhJjWguYmh8TroBMvr2ov97rKfNe6/J3xXO15UUluCbonmqpUGt1K6rG9s
+	j/5wRgtE1qDJcFYI6u4EH+jPR5oCGkYQ4Bo2TbgcU=
+X-Gm-Gg: AZFdTZedaXN2duO+0eofNhdu3D6FZ4zUDOGmfYIEo7No2AIb2bcxh7ZZsY9RYNEIV92
+	RhchQvFfkeubvHbyv7purN/Jrz+Q849U7WIojNL6b44cBGk95KuiHIbNPeN/zFPa3/hAZvaem3C
+	/Oj5F+YzN08QIazI52WH7HNd6GIGXgIdHopE+zEa7UmO3NAMx5yJcUcqdU
+X-Received: by 2002:a05:690e:1387:b0:67b:f249:5b16 with SMTP id 956f58d0204a3-67dd3fdee8amr1338627d50.55.1795010135926;
+        Wed, 18 Nov 2026 05:55:35 -0800 (PST)
+X-Received: by 2002:a05:690e:1387:b0:67b:f249:5b16 with SMTP id
+ 956f58d0204a3-67dd3fdee8amr1338592d50.55.1795010135440; Wed, 18 Nov 2026
+ 05:55:35 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,184 +124,141 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LO0P265MB2761:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7bb662f2-f9ee-4a9f-4648-08df457ab414
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|1800799024|10070799003|376014|366016|921020|261009223027099003|261026140227099003|10067099003|4143699003|5023799004|261021121427099003|56012099006|261022105027099003|261022075727099003|261102123227099003|261028144727099003|261026121527099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	ZAHSCdg+Mw+hPgLMbaO3LlVq145hqpe9bQIgQMw+qBllh7g54TI/yx4XpxFb2z8EwpyeTl+C/48YF/kiNuO0IWhsfEGOgqhWMIXatL/lgLkPyJvaYRFwGSIca1QJ6gFZxbXTUpzEYyz8MWOakVi2Lze9S7H6AHcZr3gMWUhbqs9KQ5TQvADigKL3NP68TGZEh92rjXZ4bri4EHzsmB+yYVsu27jCsGKsh8vRwbdORfqxoWRaC/FG/dZM1/b9xOw5RsO9rJ7kSBww8qpNORVYSije++dBGenSw26BQvqwP7XGyD+292b7N3WCsm+yh30AlHzNRKPeRqMA0UBdtCe7+43X8Vw5AmOTF1N9BnyPyPW0u8Ec45adZoarWgPObcpbl7RdtSyaFTDod5M0lxJAu1j23dXkjhVuu9XtbtCqNL/kY7x0L0MIBt+tf5bFCiK/fLALEcxlGs+WaIbUgL+C6bcW3wJaoiJtRjXgIKKXeoDzzU3KgXPRzEIT4GksJHecOnTtrrnGCD2IdQtF/FDPUrzbANj1lTtJicrIz/+Nc7A8qXGCHsIr6JvJjrBULFdg3w92gzN8JGnO3fDYEsYrrMVyFhpbGqj/k09ij87UCNE5XYdCY6niG316Ja2oK3Nbz60Rig3fBaLOzT+EdCztxPGwxM+IYJKrLxUrZLBmsIUzAoogDW3WcNvJsUlV9dCFL1t/YL/Fm3TD0ney6LSZyw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(10070799003)(376014)(366016)(921020)(261009223027099003)(261026140227099003)(10067099003)(4143699003)(5023799004)(261021121427099003)(56012099006)(261022105027099003)(261022075727099003)(261102123227099003)(261028144727099003)(261026121527099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R3h1TFNVQW0wREFoQVY0Qjlvbi9WMVdTOTJOUlBjcGYyVlBuSFVUcDEwdXV1?=
- =?utf-8?B?SVBiSXN4MnRueFl4ZUVMai9KV1BaNWVRaTdiY2hHUVF1R1lwcldJNUVDeXdQ?=
- =?utf-8?B?WTVydTBUdFFpTCtYT0JMR3VHODlIdWFMU2RKRFd0SG92Y0d1M0hJcFRMNUpw?=
- =?utf-8?B?ekRaS1d2dklxcTVSVlF2ZS9RcEttbUpuMDJnZVQxR2lNM1ZHWVJpMm5JU2RH?=
- =?utf-8?B?M1YraEVWS1ZVdFltQUFDRGFHMnpYQ0N0OFZRRmR3K0VTQjVlZVB5T0ozQ0ha?=
- =?utf-8?B?YUxhQkRqUkdqRU9VS3hRbU92b0pkUlBkMk1HV29ONFlXd2JKNHkzYUt2M0px?=
- =?utf-8?B?WHphQm5DZWlqeE5IZ2VBZ1h5ZGkvS1hCdVh0RWdxVDNZTDFaZjM0QjFSZ0dl?=
- =?utf-8?B?Q01LVEQza2YzcENsMndoWWhzaEhjY09EQVhPejUrTVZySnl4R242LzZkdXBD?=
- =?utf-8?B?NUFzVmRFQkVmVDYwMkU2UlFnRk1QZGg5c0hxa2c3Nlg4Sm1tclBWbTRlSis5?=
- =?utf-8?B?RG1zZW82bHNycitkZ2lseG1RSVQramJvdDNhNDVDaGthQTlrWlNCZDh4cmZa?=
- =?utf-8?B?TUl0emRVNlVYcHE0VkFPUUtXSUhhZitWc3lCWUo1ZVFaNWV4MGRCR0lxR256?=
- =?utf-8?B?T091L1V2bEZjS1ZsNTI2a3VUM2c0OTZnYytaTUxlLzA3UDQyeDBQQjNnT0Yx?=
- =?utf-8?B?SWhEOEorMDBNRXBBUmZjTGlzYjU5N1lkS1FkTnlheXRoR1lIU1RaVVIwZEJP?=
- =?utf-8?B?UDZaOXEwQTFCVFhvQUZ0dHREVjduMzgzbUpmSE5weFBuN3NDcWh2L0YwLy8r?=
- =?utf-8?B?blBOYUVyN25NS0JuczFxUTFyTWM0U216YkUyQmlLMzNhM1pUUC96SW5tRmtD?=
- =?utf-8?B?c0JWTTRBelJLRURVNStEdnkzeG85Q0NkNFdBYS9TeTh2MUpTMkJoUENLekZO?=
- =?utf-8?B?cUxsTElSMnpyQ3YzbGplbVlIY3RZTUdpakRVM1NtdFRITTdHWUlLNFRneUUr?=
- =?utf-8?B?dUpOaEErWVpicVJZUGlFME9hWjBoZThTSnJ6TnR1WTl2WkZxMWFHcjFuQkQw?=
- =?utf-8?B?Zm82OFRHME9nYzExUnZ1bUd4RVh4T1lCWTg1amYvdms4S2E1VkVtR01hdDZQ?=
- =?utf-8?B?VjFEWGw2V0gxdERJU0NnMDA5WjNXV0EzQ3JXTEtRWUJZaW55end1TzNhM3Bx?=
- =?utf-8?B?dG9mcWpablVzbTVBVW9MamZaQk9pZC9wdGtUaXNPV1FXVC9EZ21wN0xMbTR1?=
- =?utf-8?B?ZDArRkZ3SXRDcDR1ZXY2ZjZYSVo2eHRWK096MnFrcG5HdFhOZEVON0tLZ09j?=
- =?utf-8?B?RWI4citkbkh2dVpQc3huRUJITDJTZktIR2RsNjNEYmRRa0crd2ljL2ppcUx5?=
- =?utf-8?B?d2dkQ3VYTlZGLy8ya0NxOXpyOThORnFjYzZhVzBURWc1dVVjMWVXRE9uR0g5?=
- =?utf-8?B?WnhwUU5xWndzdlhPREhjYm1SSTZLNFEyODdPNDIwNkNyaEJSY0NxWGs3VmJK?=
- =?utf-8?B?aUM0NzFTaFlkTHIwSzNGYmhUU2FiZ1gyWGoxaUk1UFRwQWJyTGtDUW0xNGMx?=
- =?utf-8?B?WUxlcGpuY2ZwS2FUVTYvcnV6ellIdWlUa3BqZzZhQWJ6QXA0QVlEVkdOVUdE?=
- =?utf-8?B?bFQxZ1lIeGdYUERBVUhXRE5IS3RlQ2hENFJJeGU4N3FUNHRTa0dBZjFjR2Ra?=
- =?utf-8?B?WGIwNERMM21aM3N4L1dTLzFTejVjNE1tY0RVaHNBVWtqRlkxUTNYVWJZb0Ey?=
- =?utf-8?B?dXpienQ3V0tMamQ1bHk0RWNobVZ6R0pyQ1hBb1VuWFdDaUl4V0tsR2lVWWNy?=
- =?utf-8?B?a0ovUlczM1grZW5xOG5RMXQ2Z3Q4cGgvcS9iSTlleGFySW5IdWNNaHZvVzFl?=
- =?utf-8?B?amxFUFJlc01ZV2JVWUhJOFpucWRpa2ppWEMvdmVJakV0U2w0MVNSTmIxdVgy?=
- =?utf-8?B?eXZLRDNZeU5HcWgyMjB0M1VHRzRUcnpjd09ERVNDeG9vVzhEaVd1RmlJODQz?=
- =?utf-8?B?ZmJGcEN3djBzYXlQdDFFWWJKUnA4YnQrR1JlY1pHYmZVbDVpQWN1NUtuS1BU?=
- =?utf-8?B?cXhqQkptZVhnYnIvbnk3SzBiSGRad3Q3dWkvV3Z4Y2w4a3JaTWpRWk5ZYmNB?=
- =?utf-8?B?VFZKemM3dTJsVnk2dzFUU3J2ZGtmbWRnZ2FLd1c1OTFaMWxTS2JveFlUT3hx?=
- =?utf-8?B?eTZ2Rm9IcEhsa2dFZnJSZ2VnL25VeVFKOWt2bEJkSnJ4T3gxZjFBOUJNV09m?=
- =?utf-8?B?VEUvVGdzRlpMbnQ1OThZdDRvYmQ4NUw5WVVReXR1a1NyRVU3Y1hiV1kxSlc5?=
- =?utf-8?B?R1MrU2xyT2dJUWNzYlVDWWxpWlFudEtqVGlKNnZMQ00yanNYZTZFQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7bb662f2-f9ee-4a9f-4648-08df457ab414
-X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 13:49:02.0710
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R23sSVnizHrU6DRYTeGFc6GBYShRHowicgqwoyMaEAJV8xqg8jzIzn8eRhsCBvKe2QbJ95zWZWnoVMbMogFUKA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB2761
+References: <20261117-v2_20230123_tjmercier_google_com-v5-4-1ce975f2a9ad@redhat.com>
+ <44c0c45c0e2f47ed77bc45be47ebb3fb@paul-moore.com>
+In-Reply-To: <44c0c45c0e2f47ed77bc45be47ebb3fb@paul-moore.com>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Wed, 18 Nov 2026 14:55:24 +0100
+X-Gm-Features: Aa3M54okPSWfJ_g3ixS3iw1yy5owTDFGTKhnOXZ64bND8Gaqu8R-9XYtSNGyOOw
+Message-ID: <CADSE00LVsFVOmezzLgPrPWDd+L+SSGzGvqKTiX25waxRnVPh9Q@mail.gmail.com>
+Subject: Re: [PATCH v5 4/8] lsm: Add memcg_charge_task LSM hook
+To: Paul Moore <paul@paul-moore.com>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
+	Christian Brauner <brauner@kernel.org>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
+	Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	=?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
+	Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
+	Philipp Stanner <phasta@kernel.org>, airlied@gmail.com, cgroups@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, op-tee@lists.trustedfirmware.org, 
+	echanude@redhat.com, mripard@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed Nov 18, 2026 at 1:15 PM GMT, Philipp Stanner wrote:
-> On Wed, 2026-11-18 at 12:59 +0000, Gary Guo wrote:
->> On Wed Nov 18, 2026 at 11:09 AM GMT, Philipp Stanner wrote:
+On Tue, Nov 17, 2026 at 11:54=E2=80=AFPM Paul Moore <paul@paul-moore.com> w=
+rote:
 >
-> [=E2=80=A6]
+> On Nov 17, 2026 Albert Esteve <aesteve@redhat.com> wrote:
+> >
+> > Both DMA_HEAP_IOCTL_ALLOC and the new DMA_BUF_IOCTL_XFER_CHARGE ioctl
+> > accept a charge_fd field that, when set, causes the allocation to be
+> > charged to an arbitrary process's cgroup rather than the caller's.
+> >
+> > Charging is currently limited to the caller's own memcg subtree unless
+> > the caller holds CAP_SYS_RESOURCE. But the capability is all-or-nothing=
+.
+> > A process holding it, along with a dma-heap device node or a dma-buf
+> > fd can charge unlimited memory to any other process's cgroup, potential=
+ly
+> > exhausting that cgroup's limit and triggering OOM kills independent of
+> > the victim's own activity or privileges.
+> >
+> > Add security_memcg_charge_task(), called in get_obj_cgroup_from_fd()
+> > when charge_fd refers to another process. The hook receives
+> > the credentials of the allocating process (from) and the credentials
+> > of the process whose cgroup will be charged (to), giving security
+> > modules a controlled enforcement point for cross-cgroup objcg
+> > attribution policy.
+> >
+> > When CONFIG_SECURITY is not set the hook compiles to an inline
+> > returning 0, adding no overhead to the fast path.
+> >
+> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> > ---
+> >  include/linux/lsm_hook_defs.h |  1 +
+> >  include/linux/security.h      |  7 +++++++
+> >  mm/memcontrol.c               | 11 +++++++++++
+> >  security/security.c           | 15 +++++++++++++++
+> >  4 files changed, 34 insertions(+)
 >
->> > =C2=A0static inline bool
->> > =C2=A0dma_fence_test_signaled_flag(struct dma_fence *fence)
->> > =C2=A0{
->> > -	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
->> > +	/*
->> > +	 * Best-effort ordering of the locklessly evaluated signaled-bit,
->> > +	 * especially so that reads of fence->error are not misordered.
->>=20
->> I am not sure if this should focus on the error, or it should just provi=
-de a
->> general guarantee that anything happens before dma_fence_signal is visib=
-le when
->> signal test returns true. I would lean on the latter?
+> ...
 >
-> See below.
+> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> > index 03cd90d5e623..2e6fcbe14d43 100644
+> > --- a/mm/memcontrol.c
+> > +++ b/mm/memcontrol.c
+> > @@ -60,6 +60,7 @@
+> >  #include <linux/lockdep.h>
+> >  #include <linux/resume_user_mode.h>
+> >  #include <linux/psi.h>
+> > +#include <linux/security.h>
+> >  #include <linux/seq_buf.h>
+> >  #include <linux/sched/isolation.h>
+> >  #include <linux/kmemleak.h>
+> > @@ -3198,10 +3199,12 @@ static bool mem_cgroup_may_charge(struct mem_cg=
+roup *memcg)
+> >  struct obj_cgroup *get_obj_cgroup_from_fd(int fd)
+> >  {
+> >       struct cgroup_subsys_state *css;
+> > +     const struct cred *tcred;
+> >       struct obj_cgroup *objcg;
+> >       struct mem_cgroup *memcg;
+> >       struct task_struct *task;
+> >       unsigned int pidfd_flags;
+> > +     int ret;
+> >
+> >       if (mem_cgroup_disabled())
+> >               return ERR_PTR(-EOPNOTSUPP);
+> > @@ -3226,6 +3229,14 @@ struct obj_cgroup *get_obj_cgroup_from_fd(int fd=
+)
+> >               if (IS_ERR(task))
+> >                       return ERR_CAST(task);
+> >
+> > +             tcred =3D get_task_cred(task);
+> > +             ret =3D security_memcg_charge_task(current_cred(), tcred)=
+;
 >
->>=20
->> > +	 *
->> > +	 * The release counterpart is typically ensured like this:
->> > +	 *=C2=A0=C2=A0 a) Error codes must only be set before a fence signal=
-s and
->> > +	 *=C2=A0=C2=A0 b) The fence's spinlock's barriers effective in dma_f=
-ence_signal()
->> > +	 *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ensure ordering.
->>=20
->> Spinlock has nothing to do with this. The only thing that guarantees the
->> ordering is test_and_set_bit in (c).
+> Do you ever envision this "from" cred being something other than
+> current_cred()?
+
+Good point. No, I do not.
+
+> If the answer is "no", we might want to consider changing
+> the LSM hook slightly to help prevent misuse in the future:
 >
-> Why not? A spinlock includes full barriers. If it were set_bit()
-> instead of test_and_set_bit(), it would still work.
+>   int security_current_memcg_charge_task(const struct cred *tcred);
 
-No. spin_lock is a marked acquire access and spin_unlock is a marked releas=
-e
-access. The order guarantee for these are restricted to the spinlock variab=
-le
-only (there is no acquire or release barriers in the kernel).
+Agreed. I'll apply the same to the cgroupfd variant for symmetry (its
+"from" is also always current_cred()).
 
-If you need to establish order using spinlock, you can only establish it wi=
-th
+BR,
+Albert.
 
-    CPU 0  A --> spin_unlock=20
-                            \
-                             \
-                              \
-    CPU 1                     spin_lock -> B
-
-You cannot establish relation just by putting some atomic operation inside
-spinlock critical sections.
-
-You can make spin_lock a full barrier by using smp_mb__after_spinlock(), bu=
-t
-it's not there. I also think it's much easier to reason about test_bit_acqu=
-ire()
-pairing with test_and_set_bit() than "this code will only be executed after=
- a
-spin_lock".
-
->>=20
->> So probably easier just to say something like
->>=20
->> =C2=A0=C2=A0=C2=A0 /* Pairs with test_and_set_bit() in dma_fence_signal_=
-timestamp_locked */
->
-> It is easier.
->
-> I am, however, unhappy with the unclear state of the API contract. It's
-> still unclear what the signaled-flag even is supposed to mean. So this
-> comment was also supposed to hint at the unclear state.
->
-> The desired meaning aimed for by Christian is that it's only meaning is
-> "hardware is done".
-
-Hmm, if the dma-fence doesn't provide ordering guarantee, then how would a
-consumer get ordering guarantee without knowing about the implementation de=
-tail on
-the producer side?
-
-To me it seems that providing ordering guarantee that "when a DMA fence is
-observed to be signaled, everything prior to dma_fence_signal is visible"
-wouldn't be that expensive to implement (practically just need to upgrade a=
- few
-test_bit to test_bit_acquire).
-
-Best,
-Gary
 
 >
-> But as we see here it has implications for the entire semantic, too:
-> a) signaled =3D=3D true -> the error code is valid (what else?)
-> b) The fence has either signaled or "is still signaling", i.e. running
-> callbacks
+> > +             put_cred(tcred);
+> > +             if (ret) {
+> > +                     put_task_struct(task);
+> > +                     return ERR_PTR(ret);
+> > +             }
+> > +
+> >               rcu_read_lock();
+> >               css =3D task_css(task, memory_cgrp_id);
+> >               put_task_struct(task);
 >
-> I still maintain the position that it is inconsistent to run
-> test_and_set_bit() under lock protection and evaluate it without the
-> lock. Should be one or the other, not both.
+> --
+> paul-moore.com
 >
-> Note that this patch intends just to hot-fix the error code evaluation,
-> not to make the fence API fully consistent. It's currently not even
-> clear whether manual flag evaluation is legal. It used to be legal. I'm
-> the one who added dma_fence_test_signaled_flag(), but mostly for
-> readability, not for semantic correctness.
->
-> It should be illegal to evaluate error codes with anything other than
-> dma_fence_get_status(). But there then the meaning of the spinlock is
-> currently also undefined. The lock there, with the current thinking,
-> would seem surplus with this patch here.
->
->
-> P.
-
 
