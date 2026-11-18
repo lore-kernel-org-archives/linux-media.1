@@ -1,71 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795002387;
-	b=VKxryA5f4uzyrxoD5ucT7+VNYXRv0IOKQtspKBMuRnnOAfR3KdvI+iwAVa8jOCzN+ZcK
-	 DdhcWFt/zCgzztHuOK4zuYn5GjrP3NfRPxDr4iTaL5HKln4rs3ongaCbJP4vLzZ7jZgkB
-	 8RANWLs2NA4H7p90TWm2UR2CmS/Wj910okHFun2uNvlX6zomNfvU+uXDZhSXQZHtyGFWt
-	 5syqNGdcB4OvsM/ethwgDuDFlXSzboJ8I/xf2C1pCwBnloxMot6ERWPeoAgKD2clC/udC
-	 5THwpoBlJijZl+ISY+XjWkAOL66/GT3J2zQg6FYLsoVEZxp6dSkjwe0zigrn1ftQZtw==
+	t=1795002624;
+	b=q6qaSh4CONQaYYNZXVDWtp9IdsLnhLqv8qtSMBFfFr5m/QjdXRYmBXpvS9cwd8zVAAD7
+	 GrCOEU/mKvMWyNLAFup7FA0z56jVBceEeMWZmTlECnDgPPImabd0qfIJeRd4+bliaKFts
+	 h8remvsXldfgJOJ5ypbAkou5O+f91DjO7qHlLCAz/6g2tqic1kcDSku89SRPhqGGuMLOD
+	 KYEEmKO/6l/XYbmZ7hu47NvxdSToovRHvTfJGCsG2RDJduL0FA7d3fxcg8n+p2Hr7QmQ7
+	 icAfe83kTmscy/VTiie2UitPDGQDbKExi0a+hl7AapWTuQGPD7I5bgPw8/j7wrQkCOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795002387;
-	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795002624;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Nm1MpgKfwCOo+OO+1uPGVTYdaRxcqscqWt1Og//oUcA=;
-	b=W2UcTknXvK044BDJqGwy08CBjdNfWlhZrTw+Z/AhO4k350nYB7YIedxCpkwhhmNoGfxq
-	 0vzxnEEwzfyuX/+6LTc2OE72TUS1RyB99H7EOhJWqZPr5y43zcAsUQ12vwBz44wP36Ppu
-	 ia1AgfvBVUdpRZTve6C+i0e6R1EZDmjkm+0Zz0cntSdXTMPmvD4QonqpsmrUxJM9BDnYk
-	 lcso5IeWFmRhND/DMSZsNLKc1Srxnau4gW5cJDUVSXJuQhnSnDeN/77aEIqiWXz7Bm+YJ
-	 Coj1yi+c2xUF+x7qWJd7M5PexYKGmK/xHFDbGn95/JUqOL93Fxsm2zYCuIRUBfv+/cw==
+	bh=GwkWG/yGphkbRgx+ktD98fYpEDPc/cQysz/8UZPriO4=;
+	b=D/3ZN9RKmCYCkOyntWzDPFFdkEnZjiAwqmBozIYHjKsz9cMyC9CwzUsFkn+x+f47X8MJ
+	 H3PkdHZPuDqFl87401FoWe34pfGGIVPyRUNjEhnrL2Tf/Fuw0LjPH8kAj13iZaF2E1xTA
+	 WtNO4gtSAwlH1lFE9qT/uJaM+58tZ7Z5skR4pHNaYDRZ+MnFkZl7499X1Cx9SwWBeQbkL
+	 dnU2vvMQm3QTj6UtxF7+vyQ0AI/Y5k38ijXOPt2ZmBOI4QnOVYWqLH2t4ugSM/TxY013k
+	 bfn0Q5rAVkBgS8VOJrtZZCOH7jQDiBRkjHpShM56zosiXMo22sGgnVlWfjjN8Y/R6Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideco.ru;
-	spf=pass smtp.mailfrom=ideco.ru;
-	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=JE6XqfuD;
-	arc=none smtp.remote-ip=51.250.56.165
-Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ieVeJsAC;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C71606A31C;
-	Wed, 18 Nov 2026 11:46:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12C71606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ideco.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B9D606A325
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 11:50:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4B9D606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=JE6XqfuD
-Received: from [169.254.254.254] (localhost [127.0.0.1])
-	by smtp.ideco.ru (Postfix) with ESMTP id 706F026BE6;
-	Wed, 18 Nov 2026 16:46:25 +0500 (+05)
-Received: from laptop-ak.home (unknown [5.189.116.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.ideco.ru (Postfix) with ESMTPSA id 750F126BC1;
-	Wed, 18 Nov 2026 16:46:17 +0500 (+05)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 750F126BC1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
-	t=1795002379; bh=Nm1MpgKfwCOo+OO+1uPGVTYdaRxcqscqWt1Og//oUcA=;
-	h=From:To:Cc:Subject:Date;
-	b=JE6XqfuDLf83PqUXyYT++D9HWj3WvAiFud8r5ErMY81P8REyXZKYeibwxsHeJ0bM3
-	 uITJ6W9r+vuStmzwEojHJ7c7PMzgqks6y+JzDOhLmkDNXs2vMF4niECUe5mBYjALXw
-	 BI6O7501Yt+j6kfrk6ocoKrMuLxX0tQ06XDdphb2sBfAfX4EgVtjE4aFDTg/QmRmMl
-	 WLQkU/We4fLpebQoWAPi1bs1Td1Wi/oUKVxDCyC9cYYlFaxLNpuypQxS2QOuYoeUJV
-	 dyTZN1UNqIZz3D1SQpata6ylK1chNwZFZRLbag0QUhvoGCiopVeYhoGyHekNTTOOGn
-	 VxXLIQkSE+JrQ==
-From: Andrey Karelin <a.karelin@ideco.ru>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Andrey Karelin <a.karelin@ideco.ru>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ieVeJsAC
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1aefd1bf74aso554322c88.1
+        for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 03:50:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795002623; x=1795607423; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GwkWG/yGphkbRgx+ktD98fYpEDPc/cQysz/8UZPriO4=;
+        b=ieVeJsACuz7/5zKQz+TZssEWRPxC85HRgj5PQgMoS+5FaNkiXnt5IS92kv3qdI2/zh
+         VOi/3DGKSVYmmvMC6zONVLDMBZ4tqJbinIIlBQ1eA/B1Df5gvJtEG1izy+Wy2iGTYSeE
+         UOV3vLac0oYm3JYddG8aIQYFj2TgxWHvVGmv89C6dXj2At+3sWbyNLws1Ry+pTp1WtIs
+         CVgYbbisdSKRPumFXQqWURnFR6Olqw/SjP5XiSHoEhdwfWLtS/MeIfYiL4fC/tr/966b
+         wSFk+5n+Rh3VL154k9Ad0WkcWEx4U6CKMQ31WT99NpdwMwi30nyo/hjOMB8/3iuE95N6
+         tQSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795002623; x=1795607423;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GwkWG/yGphkbRgx+ktD98fYpEDPc/cQysz/8UZPriO4=;
+        b=ZzVGilGiApQOt46k5bjUlLwIToqqLz+8eZp/O0ljeUsjQfGzougdhvqXfB8qsvj5we
+         nTJaNWC85RVSWfOisd3SLxs7hiksySzf1mtl5O9HGOx5FZTiMUDVUDPL6xTTjRACyYrD
+         CDdN5gXWEpFg8lGwiq5TaBN7Qjnp5VNFUe5sG27rJNEuEdaZmGovEpJn6Upw8S53Y+64
+         Jc65Ev1tpEOwVZTi2pznfk5tp10hQ4CwCqr01XLnK0wZPS7QPsMLaf4e/HGMbEBrMaDV
+         b6QIqAJFw4e3BoNsCs48EVui6HNIJUW3PEaQEr3L8cK2fToPyhC2hxLbKIPYdhjpUDdA
+         tPuA==
+X-Forwarded-Encrypted: i=1; AL+hErF8JPDGvvQ3iopIMQsN0Nvgl5ujqJ0s3Djljxwz1ZP+mQ/Alv1G503dLaFMbu51pEJwpQKZLzq5WfEtlQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9j1uQnsYjup6I1Wa/N7dN9cTkJ5D2Al3uRxbY9eGLw5jlmb4ke
+	QNrQ0pWw8tF41ZQ/oRkfT5jFTPqRLZHvRpANercIX+1HljiOV0xS3nsc
+X-Gm-Gg: AYBFou0rMvjGABKaD52PHZ+SAiSxvho88hCEzzyssPvsiaW7mbbXWYDO4gAIE5Og7X4
+	s5lpHJZ6bcBtLgAI1HL83SU+jOhTel466wwEJtqZkQ5G43Dlkft4Rt8vPO5Oi5OgojxA8AZ6htL
+	u/cMycp++cImTT5bwFWL7Qm4ydRTkB7fpKqxVF4rETc3tRTmRH9NU+vrhIT22fhG+CTODHQCxMc
+	ZoCO6bXPHlxxDMhOPiS2NsN7Zu+8TpcBbQrbKpQmSmvX+H3DMY1T69CzGazopacxtIevg01Z8SV
+	VGu1EJvgF/TqbL4cJwyu9SRzPbj8K7eIxsL2Zbh1jpR5jOdbJAmTMArnYqTTxFB7twCW4gaRHm7
+	WeC+dHcNV/++QcY5Q/986ckT8ErxP1Ry5eK+QVZIW6bURSaNRdUQZ3X1SWBD0BsBGwdeGYOqSOa
+	Pgo3pfPV4+VqpxxmEpV47/0FGqpQ2/KgY+1WqGS7/d64JvU8o7Vxa6eA2lSxROPu202G31Gq5Th
+	sX9nvVSKFq2EWuE4BOJpFyLkmYQu4GqVuaf2jm5K9CHBti2NmYbqrGESP16PfUx2ICipTmIgJvD
+	m3IRMA2wCLlWHIOWnG27dxUBdT+bxN4v5UwCUVGBbfW7XYhbp+wJBW5+Z5U=
+X-Received: by 2002:a05:701b:42cb:10b0:1b2:de00:9bc2 with SMTP id a92af1059eb24-1b53a44bcc4mr4661767c88.12.1795002622612;
+        Wed, 18 Nov 2026 03:50:22 -0800 (PST)
+Received: from cachyos ([2804:214:64:aaf:eb0:6704:6a19:ed25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5447811efsm6120431c88.3.2026.11.18.03.50.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 03:50:22 -0800 (PST)
+From: Paulo Ravazzano <paulo.ravazzano@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Biren Pandya <birenpandya@gmail.com>,
 	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH RESEND] media: atomisp: check load_copy_binary() result in load_advanced_binaries()
-Date: Wed, 18 Nov 2026 16:46:00 +0500
-Message-ID: <20261118114605.203316-1-a.karelin@ideco.ru>
+	Paulo Ravazzano <paulo.ravazzano@gmail.com>
+Subject: [PATCH v3 1/2] media: i2c: msp3400-driver: Guard media_entity_cleanup() calls
+Date: Wed, 18 Nov 2026 08:48:34 -0300
+Message-ID: <20261118114835.42431-1-paulo.ravazzano@gmail.com>
 X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -78,48 +99,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-load_advanced_binaries() ignores the return value of load_copy_binary(),
-unlike all other callers of this function. If no suitable ISP copy
-binary is found, the error is lost, the copy binary stays unloaded and
-the capture pipeline is created without the copy stage although it is
-required (always on ISP2400, for direct sensor input on ISP2401).
+The entity member of struct v4l2_subdev is only defined when
+CONFIG_MEDIA_CONTROLLER is enabled, so the unconditional
+media_entity_cleanup(&sd->entity) calls added by commit 87d1307b6791
+("media: i2c: msp3400-driver: Add missing media_entity_cleanup()")
+break the build when CONFIG_MEDIA_CONTROLLER is disabled.
 
-Propagate the error to the caller as the other binary loading steps in
-this function already do.
+Guard the calls with #if defined(CONFIG_MEDIA_CONTROLLER).
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+An AI agent was used to find the bug. The correction was done manually.
 
-Fixes: a49d25364dfb ("staging/atomisp: Add support for the Intel IPU v2")
-Signed-off-by: Andrey Karelin <a.karelin@ideco.ru>
+Fixes: 87d1307b6791 ("media: i2c: msp3400-driver: Add missing media_entity_cleanup()")
+Signed-off-by: Paulo Ravazzano <paulo.ravazzano@gmail.com>
 ---
-Resending the patch unchanged, only rebased onto current mainline. The
-original posting got no response, probably because it went out
-during the v7.4 merge window:
-https://lore.kernel.org/all/20261020151247.441124-1-a.karelin@ideco.ru/
+ drivers/media/i2c/msp3400-driver.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
- drivers/staging/media/atomisp/pci/sh_css.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/staging/media/atomisp/pci/sh_css.c b/drivers/staging/media/atomisp/pci/sh_css.c
-index 4a182dc384ca..3f3671ceca59 100644
---- a/drivers/staging/media/atomisp/pci/sh_css.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css.c
-@@ -5459,9 +5459,9 @@ static int load_advanced_binaries(struct ia_css_pipe *pipe)
- 		need_isp_copy = pipe->stream->config.mode == IA_CSS_INPUT_MODE_SENSOR;
+diff --git a/drivers/media/i2c/msp3400-driver.c b/drivers/media/i2c/msp3400-driver.c
+index 8c2edd462..8f0b385fa 100644
+--- a/drivers/media/i2c/msp3400-driver.c
++++ b/drivers/media/i2c/msp3400-driver.c
+@@ -717,7 +717,9 @@ static int msp_probe(struct i2c_client *client)
+ 	if (state->rev1 == -1 || (state->rev1 == 0 && state->rev2 == 0)) {
+ 		dev_dbg_lvl(&client->dev, 1, msp_debug,
+ 				"not an msp3400 (cannot read chip version)\n");
++#if defined(CONFIG_MEDIA_CONTROLLER)
+ 		media_entity_cleanup(&sd->entity);
++#endif
+ 		return -ENODEV;
+ 	}
  
- 	if (need_isp_copy)
--		load_copy_binary(pipe,
--				 &pipe->pipe_settings.capture.copy_binary,
--				 &pipe->pipe_settings.capture.pre_isp_binary);
-+		err = load_copy_binary(pipe,
-+				       &pipe->pipe_settings.capture.copy_binary,
-+				       &pipe->pipe_settings.capture.pre_isp_binary);
+@@ -813,7 +815,9 @@ static int msp_probe(struct i2c_client *client)
+ 		int err = hdl->error;
  
- 	return err;
+ 		v4l2_ctrl_handler_free(hdl);
++#if defined(CONFIG_MEDIA_CONTROLLER)
+ 		media_entity_cleanup(&sd->entity);
++#endif
+ 		return err;
+ 	}
+ 
+@@ -867,7 +871,9 @@ static void msp_remove(struct i2c_client *client)
+ 	msp_reset(client);
+ 
+ 	v4l2_ctrl_handler_free(&state->hdl);
++#if defined(CONFIG_MEDIA_CONTROLLER)
+ 	media_entity_cleanup(&state->sd.entity);
++#endif
  }
-
-base-commit: 20eef29b7c8465ac98d7dd6d6f2ac07a8d8056ca
+ 
+ /* ----------------------------------------------------------------------- */
 -- 
 2.56.1
-
 
