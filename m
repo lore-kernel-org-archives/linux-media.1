@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795002288;
-	b=EXoiexUAfGexalqCUZI41NoEXRs6yU8PXv4/m2Wev7ZS1JSWqO9I3VLHZmn3xD4bcBMm
-	 KFqI/Xtih/lPhpsUT5e5tl3FMtFNlJDD1n0hx3UlIUX7TTr3ji8Xd/s/vL2oXmZ0629xO
-	 RVTsSoZKRh4UidfgSFGHvbfU0+5rvdwIzWqkzfFxsMuPftophk+S550ldk/pcWLmTUL7i
-	 Xlo9z/JroDfIky7yzs98EHVzxmk5lXaflCQljBMOyaEvfzTg1BSKaEJb6+vtWxM/Pd7qt
-	 5E6TxPOHs1h4dLYOIz3kpx9VKpHeDKOcist50AXjni+5k3yLfdOtvzEnGo4gjFQYjeg==
+	t=1795002387;
+	b=VKxryA5f4uzyrxoD5ucT7+VNYXRv0IOKQtspKBMuRnnOAfR3KdvI+iwAVa8jOCzN+ZcK
+	 DdhcWFt/zCgzztHuOK4zuYn5GjrP3NfRPxDr4iTaL5HKln4rs3ongaCbJP4vLzZ7jZgkB
+	 8RANWLs2NA4H7p90TWm2UR2CmS/Wj910okHFun2uNvlX6zomNfvU+uXDZhSXQZHtyGFWt
+	 5syqNGdcB4OvsM/ethwgDuDFlXSzboJ8I/xf2C1pCwBnloxMot6ERWPeoAgKD2clC/udC
+	 5THwpoBlJijZl+ISY+XjWkAOL66/GT3J2zQg6FYLsoVEZxp6dSkjwe0zigrn1ftQZtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795002288;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795002387;
 	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=BDIRuxe0GFFz3EbDryoZgxmSdoxIdO1h/LCZGwLeUvE=;
-	b=C993EcofbzsAPkW0zv3rHokzP5DQ9lPCd0fmweFir0Iq5R/U7gePxuO60PthxoUdiyKR
-	 3bTJ0Pvrg1hBMssmVdJVdrKBYllz4EKojU7RjgQo2kp8tf+3MIWgkEgl2TdyKfWM8r/7v
-	 PfYHq2ZAgl5CUFJhxqhZcTkKVFrZsqu1ArFNyt1GE1MvdlCbjiHXf48LlQ1o2qJ6Be9W7
-	 XNarM77oIHu0fY8a4OiQloxNuZhMmbEG+7DXlFdFghBchr2wGRkdXftOCEa7ZCpNUSjjF
-	 FDZ0YRbWStgBm9CrMOTgXGqxTDOlEWyYLC9kcGg0VhWzz4mQFemNzXzPz7ycDI1zl9A==
+	bh=Nm1MpgKfwCOo+OO+1uPGVTYdaRxcqscqWt1Og//oUcA=;
+	b=W2UcTknXvK044BDJqGwy08CBjdNfWlhZrTw+Z/AhO4k350nYB7YIedxCpkwhhmNoGfxq
+	 0vzxnEEwzfyuX/+6LTc2OE72TUS1RyB99H7EOhJWqZPr5y43zcAsUQ12vwBz44wP36Ppu
+	 ia1AgfvBVUdpRZTve6C+i0e6R1EZDmjkm+0Zz0cntSdXTMPmvD4QonqpsmrUxJM9BDnYk
+	 lcso5IeWFmRhND/DMSZsNLKc1Srxnau4gW5cJDUVSXJuQhnSnDeN/77aEIqiWXz7Bm+YJ
+	 Coj1yi+c2xUF+x7qWJd7M5PexYKGmK/xHFDbGn95/JUqOL93Fxsm2zYCuIRUBfv+/cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideco.ru;
 	spf=pass smtp.mailfrom=ideco.ru;
-	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=cKCxnWBh;
+	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=JE6XqfuD;
 	arc=none smtp.remote-ip=51.250.56.165
 Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BECCB606A31C;
-	Wed, 18 Nov 2026 11:44:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BECCB606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C71606A31C;
+	Wed, 18 Nov 2026 11:46:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12C71606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=cKCxnWBh
+	dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=JE6XqfuD
 Received: from [169.254.254.254] (localhost [127.0.0.1])
-	by smtp.ideco.ru (Postfix) with ESMTP id 5925026BC1;
-	Wed, 18 Nov 2026 16:44:44 +0500 (+05)
+	by smtp.ideco.ru (Postfix) with ESMTP id 706F026BE6;
+	Wed, 18 Nov 2026 16:46:25 +0500 (+05)
 Received: from laptop-ak.home (unknown [5.189.116.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.ideco.ru (Postfix) with ESMTPSA id EA25E26BC0;
-	Wed, 18 Nov 2026 16:44:41 +0500 (+05)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru EA25E26BC0
+	by smtp.ideco.ru (Postfix) with ESMTPSA id 750F126BC1;
+	Wed, 18 Nov 2026 16:46:17 +0500 (+05)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 750F126BC1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
-	t=1795002283; bh=BDIRuxe0GFFz3EbDryoZgxmSdoxIdO1h/LCZGwLeUvE=;
+	t=1795002379; bh=Nm1MpgKfwCOo+OO+1uPGVTYdaRxcqscqWt1Og//oUcA=;
 	h=From:To:Cc:Subject:Date;
-	b=cKCxnWBhOBU9UzTMvlQSagIR5z8nMLzwUb0Pn1r+Q8MUU1teyyqn1S0kAGG9ZIelr
-	 F3ZENi+gqLKbnXkv3ZgSAM7ezasKweo6CmSKxVLknSS4KNWB+ey7Mek3FS4gGd8uaz
-	 RqvYWGPHkVergpUIwnMNT3IaMGIwDiq0kgPr0K8nKZmV7GKCvalxIBoS3MCjDFBCuU
-	 KQzuTdT4/uMl9Y0lP2CKovvmvtoo8L5UPq/ZfNYLtxFoWam8XfBEic+6/NoyD008cX
-	 Eff3KoR6+fF03U3cF0FxBFl5z9PyNqL380vMjbamCYIf58BjvrUdiDZQo/Pdjh8FVm
-	 /ZA1eESCbxL1Q==
+	b=JE6XqfuDLf83PqUXyYT++D9HWj3WvAiFud8r5ErMY81P8REyXZKYeibwxsHeJ0bM3
+	 uITJ6W9r+vuStmzwEojHJ7c7PMzgqks6y+JzDOhLmkDNXs2vMF4niECUe5mBYjALXw
+	 BI6O7501Yt+j6kfrk6ocoKrMuLxX0tQ06XDdphb2sBfAfX4EgVtjE4aFDTg/QmRmMl
+	 WLQkU/We4fLpebQoWAPi1bs1Td1Wi/oUKVxDCyC9cYYlFaxLNpuypQxS2QOuYoeUJV
+	 dyTZN1UNqIZz3D1SQpata6ylK1chNwZFZRLbag0QUhvoGCiopVeYhoGyHekNTTOOGn
+	 VxXLIQkSE+JrQ==
 From: Andrey Karelin <a.karelin@ideco.ru>
 To: Hans de Goede <hansg@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -63,9 +63,9 @@ Cc: Andrey Karelin <a.karelin@ideco.ru>,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	lvc-project@linuxtesting.org
-Subject: [PATCH RESEND] media: atomisp: remove dead error check in ia_css_stream_create()
-Date: Wed, 18 Nov 2026 16:44:22 +0500
-Message-ID: <20261118114425.203120-1-a.karelin@ideco.ru>
+Subject: [PATCH RESEND] media: atomisp: check load_copy_binary() result in load_advanced_binaries()
+Date: Wed, 18 Nov 2026 16:46:00 +0500
+Message-ID: <20261118114605.203316-1-a.karelin@ideco.ru>
 X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -78,46 +78,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In ia_css_stream_create() the return value of
-sh_css_pipe_get_viewfinder_frame_info() is not assigned to err, so the
-"if (err) goto ERR;" that follows only re-tests the result of
-sh_css_pipe_get_grid_info(), which has already been checked, and is
-always false.
+load_advanced_binaries() ignores the return value of load_copy_binary(),
+unlike all other callers of this function. If no suitable ISP copy
+binary is found, the error is lost, the copy binary stays unloaded and
+the capture pipeline is created without the copy stage although it is
+required (always on ISP2400, for direct sensor input on ISP2401).
 
-Propagating the error instead is not an option:
-sh_css_pipe_get_viewfinder_frame_info() returns -EINVAL for capture
-pipes in RAW and BAYER capture modes, which have no viewfinder output,
-and atomisp_set_fmt_to_isp() selects IA_CSS_CAPTURE_MODE_RAW when a RAW
-format is requested in capture run mode, so stream creation would start
-failing for such configurations.
-
-Remove the dead check.
+Propagate the error to the caller as the other binary loading steps in
+this function already do.
 
 Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
+Fixes: a49d25364dfb ("staging/atomisp: Add support for the Intel IPU v2")
 Signed-off-by: Andrey Karelin <a.karelin@ideco.ru>
 ---
 Resending the patch unchanged, only rebased onto current mainline. The
 original posting got no response, probably because it went out
-right before the v7.4 merge window:
-https://lore.kernel.org/all/20261016105553.346322-1-a.karelin@ideco.ru/
+during the v7.4 merge window:
+https://lore.kernel.org/all/20261020151247.441124-1-a.karelin@ideco.ru/
 
- drivers/staging/media/atomisp/pci/sh_css.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/staging/media/atomisp/pci/sh_css.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/staging/media/atomisp/pci/sh_css.c b/drivers/staging/media/atomisp/pci/sh_css.c
-index 4a182dc384ca..6f8cec1f1d87 100644
+index 4a182dc384ca..3f3671ceca59 100644
 --- a/drivers/staging/media/atomisp/pci/sh_css.c
 +++ b/drivers/staging/media/atomisp/pci/sh_css.c
-@@ -8120,8 +8120,6 @@ ia_css_stream_create(const struct ia_css_stream_config *stream_config,
- 				sh_css_pipe_get_viewfinder_frame_info(curr_pipe,
- 								      &pipe_info->vf_output_info[j],
- 								      j);
--				if (err)
--					goto ERR;
- 			}
- 		}
+@@ -5459,9 +5459,9 @@ static int load_advanced_binaries(struct ia_css_pipe *pipe)
+ 		need_isp_copy = pipe->stream->config.mode == IA_CSS_INPUT_MODE_SENSOR;
  
+ 	if (need_isp_copy)
+-		load_copy_binary(pipe,
+-				 &pipe->pipe_settings.capture.copy_binary,
+-				 &pipe->pipe_settings.capture.pre_isp_binary);
++		err = load_copy_binary(pipe,
++				       &pipe->pipe_settings.capture.copy_binary,
++				       &pipe->pipe_settings.capture.pre_isp_binary);
+ 
+ 	return err;
+ }
 
 base-commit: 20eef29b7c8465ac98d7dd6d6f2ac07a8d8056ca
 -- 
