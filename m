@@ -1,11 +1,11 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795008534;
-	b=c3/1UQrjLluFYRHY9y0/DEPT5x+4wF8SxuPMZeGb20O8RK19WHQumXapJrGTiKydB+gG
-	 TJVv0uYIbSZEZibWUP+8fK2O65N9Lynqqzs0dG4lcpDUk0UFmb7+9hYEjW70kAWdeK8i5
-	 SKvhX1/Rg9h5xw3UZOmYl3g3l5nkRFn9SVKmi5UDcjq8JOh5b3Vc+fYLgRz8Pr/eRDft4
-	 fpQK+i4Ki/hF7A56/VbD2Zl2DW0hW6iWV2L2ZVn4vpnrYxdWQo8crdBRq05LsQxCYyaxl
-	 bbLJfeFw12SOD6l8/yGNW5r5T9AV+VcJFOSCoJTUHaPfU9UIYlFazCEAJTI1ZFNGW8A==
+	b=IMbdG4md3kCt4cgrZkMzPCpr1rFB0JstQ250RKDlwIn8UqB9P5RyKTkpPSIfkkPadkR1
+	 4A+sYbYAN3lYGrP4WckntSYLhUJz7b4f3QUC3uCX5jkDNgpXGGeg+RYacKEiXO+JoWS7/
+	 NGXq0iwD1GamxeYFrIcbtI7tIJrVTK3qZhhYK55R9ck00femkTokz+SVSuZ4atWEJTUT/
+	 3D+o2jaRH6OHin29AEn0SG867/axUMckR1Ridha9tkBwHrnGIyIM786Mp1VgEdIRtHLp7
+	 nOfb299WkZWFXmjLp8hBqaTmwj99PM/sqBZb1KxFSYKhNNWiZvmW9gfvmLgl2dWJ4iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795008534;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
@@ -13,60 +13,60 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
 	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=u43BXSk0SL0L4DYIzBgh+V6bFo9xwQv6wMKokT2vzEc=;
-	b=orqB0lKQmerwz+9alOZZy3oN0HiV6WHODs971ZxNmj9VFQCygZGHjzLzs14SODZdOqYp
-	 XWZnov5aeC7zHfMieYb+CCC0L2lgQWf2U5gQ7P/sIVN2cNo2t4hq62gui+HRx6bLmJ4Kz
-	 s3KypAwB+ID91m3SFkirAesyUVVHwtFBMxQI2Vrv0KfYtgRUd74dHD2ktHgdUFc9vd+KO
-	 YLVvRGajz115vvauwCCj58fSxI1iv79LB+bdCPYiPIvY65f89s2zup5PsUM1j+ILLuJUs
-	 K7GDecC11sp4rfUEivVajwRQIaVsbeq87dfvgi91CsVP1J0g/x4c3tYBUwn/qmurLIw==
+	bh=5UJpxJhLkerNB/7/PXCOG7hFJUT0V92tMmAhYGYmuGE=;
+	b=koPAT82Ka8IF6P3snL/SoVbHwPypiDDXNfFzEQ+0q4pY+PIGrDIwPiX3jNLjKEFT/AAw
+	 K8hNDFKbj+55+CG8D+EwDnMHAPOPEQupaTx7bbIVXSVlJGLVfew2JExYRV3R0uKXUjJUJ
+	 5hdHsgruAdr+xEGzsWAyZLYF8yMddZs2+yAApXiWm2MUVkyrVMWDLdMGyrtLkzbQ7cuEz
+	 oHt3ZX4/A2Jt3BBEQrh8NsVLJ87o+ZDDFD2+uN4P3D657VArwXiCZMe/L3U7wGmF1sC1Z
+	 hHSgSclWzJdDvEZytmQgj3lZoCJ9qBiI1lP2eOuEE8OIDq0yHuugVYXXOyiy5RVI0WQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WTnzOW1h;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QRXbkKxV;
 	arc=none smtp.remote-ip=192.198.163.11
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB31B60A2619
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E799060A2628
 	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:28:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB31B60A2619
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E799060A2628
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WTnzOW1h
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QRXbkKxV
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1795008534; x=1826544534;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Xl0ACEJiYHYqpKTV+DC/ffMVEXzY6dvs/BmgPGDcXe4=;
-  b=WTnzOW1hgTQYusokgqUYQUWtiFnODgB9xPz/Ne18cxvyOOAg2MUTjeyl
-   U6kuXbKoxKBpT9+JWhknmKc5BnzGeb/a7idZOOFpYL7Hbsohpg2WA8erF
-   HplTuYFu/a2bUkg02dqUfawDU8AnEg89cEsC5cKQ99Bs4xjVt02T9gRtk
-   NOlQaTxrU5AMufcwS6RoKwGbb+gNrSvqDx1qPfSM/zEtjyWpm9XHEHHFe
-   z3O5VY4McANDO7izdA/RZ8kSTLQSeEMrKugrm4SRyt80f7dzryAtIT/D4
-   iCe6Xbdm/gQLo/UddyTFVJA9LrahdF/hRXJYlQR7vQjJBxFZV58mLyuqP
+  bh=HG96XDZpfumEpIDIQRgmvAa/Ul0p2Ebu5PprzZhpHmA=;
+  b=QRXbkKxV1UOWPPkbk2D8177VBp+fd7jJoDBoJOS7eVIViWyHK/S7eUyh
+   C82j8zuIzdNlnjlxuUmDgyuhldiigkEwA8PI1Y/O/iXG3DHPGiZRLmDzR
+   rNBeWK6uPqMu7DslEfvGeusdz334p7KwEH+0EDnD4Qw1HQC9lqi/qkWau
+   BUfnzyJybNKDIUy4Lb47rgnw4WUV2Z+wbc7wEsBaKljYCVdGpoflUJRKU
+   nvkArx9GkIHywwmQus84dpTHuLb2m+tA75O+F94woqBZs1qy8JpT40+mG
+   xBeoy3LTu1OF6hOLOWnfuoYfLFV9a4reXUmLI0cLRIFgGhFBfaQFnvFv2
    w==;
-X-CSE-ConnectionGUID: DK0t1gtgT1C4cO8N++MMpg==
-X-CSE-MsgGUID: D8S+PhlVTuGlNCgwH73VaA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3738993"
+X-CSE-ConnectionGUID: 9kxVXQmmSru+1SJ0AKiA3Q==
+X-CSE-MsgGUID: dEuTblZJQx6M/pGKlbN6lg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3738988"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3738993"
+   d="scan'208";a="3738988"
 Received: from fmviesa013.fm.intel.com ([10.60.135.153])
   by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:48 -0800
-X-CSE-ConnectionGUID: Q40y9WU1TRKWAokyKDCf5w==
-X-CSE-MsgGUID: vLfYrqk5T1e7YosNthNM8g==
+X-CSE-ConnectionGUID: BSKXBd+LTf2rpVJYVlCf5g==
+X-CSE-MsgGUID: ZycnFSyWSUGbRQSIFB46YQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="12076090"
+   d="scan'208";a="12076088"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:41 -0800
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 34C0B122DA4;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 2333A122D4B;
 	Wed, 18 Nov 2026 15:28:31 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xTfhz-00000000taH-3Ohc;
+	id 1xTfhz-00000000ta1-36bp;
 	Wed, 18 Nov 2026 15:28:19 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -102,9 +102,9 @@ Cc: hans@jjverkuil.nl,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH v13 10/73] media: v4l: uapi: Add a control for color pattern flipping effect
-Date: Wed, 18 Nov 2026 15:27:16 +0200
-Message-ID: <20261118132819.213473-11-sakari.ailus@linux.intel.com>
+Subject: [PATCH v13 06/73] media: uapi: Add V4L2_CID_CFA_PATTERN for describing color patterns
+Date: Wed, 18 Nov 2026 15:27:12 +0200
+Message-ID: <20261118132819.213473-7-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
 References: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
@@ -119,71 +119,108 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a bitmask control (V4L2_CID_CFA_PATTERN_FLIP) to tell whether flipping
-results in a change in the sensor's Color Filter Array (CFA) pattern,
-separately horizontally and vertically. The information is essential for
-raw formats when using generic raw mbus codes.
+Add V4L2_CID_CFA_PATTERN to tell the camera sensor's native Color Filter
+Array (CFA) pattern.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
 ---
- .../media/v4l/ext-ctrls-image-source.rst             | 12 ++++++++++++
- drivers/media/v4l2-core/v4l2-ctrls-defs.c            |  2 ++
- include/uapi/linux/v4l2-controls.h                   |  6 ++++++
- 3 files changed, 20 insertions(+)
+ .../media/v4l/ext-ctrls-image-source.rst      | 43 +++++++++++++++++++
+ .../media/v4l/subdev-formats.rst              |  2 +
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  1 +
+ include/uapi/linux/v4l2-controls.h            |  6 +++
+ 4 files changed, 52 insertions(+)
 
 diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
-index 97ff8a321849..68ac4a2facfd 100644
+index f9c0b7ad3b4e..d4ba8bd066f3 100644
 --- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
 +++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
-@@ -141,3 +141,15 @@ Image Source Control IDs
-     * - V4L2_CFA_PATTERN_MONO
-       - Monochromatic sensor, no CFA pattern.
-       - 0x00010000
+@@ -93,3 +93,46 @@ Image Source Control IDs
+     representing a gain of exactly 1.0. For example, if this default value
+     is reported as being (say) 128, then a value of 192 would represent
+     a gain of exactly 1.5.
 +
-+``V4L2_CID_CFA_PATTERN_FLIP (bitmask)``
-+    This control determines whether the horizontal or vertical flipping controls
-+    (V4L2_CID_HFLIP and V4L2_CID_VFLIP) have an effect on the pixel order of the
-+    output color pattern. Macros ``V4L2_CFA_PATTERN_FLIP_HORIZONTAL`` and
-+    ``V4L2_CFA_PATTERN_FLIP_VERTICAL`` define bitmasks for both bits. If either
-+    horizontal or vertical bit is set, the readout pattern order is that of the
-+    reversed readout. ``V4L2_CFA_PATTERN_FLIP_BOTH`` for setting both
-+    ``V4L2_CFA_PATTERN_FLIP_HORIZONTAL`` and ``V4L2_CFA_PATTERN_FLIP_VERTICAL``
-+    is provided as well.
++``V4L2_CID_CFA_PATTERN (integer)``
++    This control determines the color components and native pixel order in the
++    sensor's CFA (Color Filter Array) when used in conjunction with
++    :ref:`generic raw mbus codes MEDIA_BUS_FMT_RAW_x (where 'x' is the bit
++    depth) <v4l2-mbus-pixelcode-generic-raw>` pixelcodes. The native pixel
++    order is constant for a given device, it is not affected by cropping or
++    flipping.
++
++    This control may only be used on V4L2 sub-devices.
 +
 +    This is a read-only control.
++
++    Available patterns:
++
++.. flat-table:: V4L2 Color Filter Array Patterns
++    :header-rows:  1
++    :stub-columns: 0
++    :widths:       1 2 1
++
++    * - Macro name
++      - Synopsis
++      - Value
++    * - V4L2_CFA_PATTERN_GRBG
++      - Bayer pattern (2x2 macroblocks). Each macroblock has a green filter in
++        the top-left and bottom-right pixels, a red filter in the top-right
++        pixel, and a blue filter in the bottom-left pixel.
++      - 0x00000000
++    * - V4L2_CFA_PATTERN_RGGB
++      - Bayer pattern (2x2 macroblocks). Each macroblock has a green filter in
++        the top-right and bottom-left pixels, a red filter in the top-left
++        pixel, and a blue filter in the bottom-right pixel.
++      - 0x00000001
++    * - V4L2_CFA_PATTERN_BGGR
++      - Bayer pattern (2x2 macroblocks). Each macroblock has a green filter in
++        the top-right and bottom-left pixels, a blue filter in the top-left
++        pixel, and a red filter in the bottom-right pixel.
++      - 0x00000002
++    * - V4L2_CFA_PATTERN_GBRG
++      - Bayer pattern (2x2 macroblocks). Each macroblock has a green filter in
++        the top-left and bottom-right pixels, a blue filter in the top-right
++        pixel, and a red filter in the bottom-left pixel.
++      - 0x00000003
+diff --git a/Documentation/userspace-api/media/v4l/subdev-formats.rst b/Documentation/userspace-api/media/v4l/subdev-formats.rst
+index fecb786cb8af..7d34c2991f81 100644
+--- a/Documentation/userspace-api/media/v4l/subdev-formats.rst
++++ b/Documentation/userspace-api/media/v4l/subdev-formats.rst
+@@ -3855,6 +3855,8 @@ organization is given as an example for the first pixel only.
+ 
+     \endgroup
+ 
++.. _v4l2-mbus-pixelcode-generic-raw:
++
+ Generic raw formats on serial interfaces
+ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 
 diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-index 85ebd025c630..8656fe3144c1 100644
+index 66ec7b911e4f..85ebd025c630 100644
 --- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
 +++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
-@@ -1159,6 +1159,7 @@ const char *v4l2_ctrl_get_name(u32 id)
+@@ -1158,6 +1158,7 @@ const char *v4l2_ctrl_get_name(u32 id)
+ 	case V4L2_CID_TEST_PATTERN_BLUE:	return "Blue Pixel Value";
  	case V4L2_CID_TEST_PATTERN_GREENB:	return "Green (Blue) Pixel Value";
  	case V4L2_CID_NOTIFY_GAINS:		return "Notify Gains";
- 	case V4L2_CID_CFA_PATTERN:		return "Color Filter Array Pattern";
-+	case V4L2_CID_CFA_PATTERN_FLIP:		return "CFA Pattern Flip";
++	case V4L2_CID_CFA_PATTERN:		return "Color Filter Array Pattern";
  
  	/* Image processing controls */
  	/* Keep the order of the 'case's the same as in v4l2-controls.h! */
-@@ -1491,6 +1492,7 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
- 		*type = V4L2_CTRL_TYPE_BITMASK;
- 		break;
- 	case V4L2_CID_CONFIG_MODEL:
-+	case V4L2_CID_CFA_PATTERN_FLIP:
- 		*flags |= V4L2_CTRL_FLAG_READ_ONLY;
- 		*type = V4L2_CTRL_TYPE_BITMASK;
- 		break;
 diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-index c4dbc12609b3..b45a42d9442e 100644
+index 6b97ee905c43..d948b2c0cf41 100644
 --- a/include/uapi/linux/v4l2-controls.h
 +++ b/include/uapi/linux/v4l2-controls.h
-@@ -1265,6 +1265,12 @@ enum v4l2_jpeg_chroma_subsampling {
- #define V4L2_CFA_PATTERN_GBRG			0x00000003
- #define V4L2_CFA_PATTERN_MONO			0x00010000
+@@ -1258,6 +1258,12 @@ enum v4l2_jpeg_chroma_subsampling {
+ #define V4L2_CID_UNIT_CELL_SIZE			(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 8)
+ #define V4L2_CID_NOTIFY_GAINS			(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 9)
  
-+#define V4L2_CID_CFA_PATTERN_FLIP		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 11)
-+#define V4L2_CFA_PATTERN_FLIP_HORIZONTAL	(1U << 0)
-+#define V4L2_CFA_PATTERN_FLIP_VERTICAL		(1U << 1)
-+#define V4L2_CFA_PATTERN_FLIP_BOTH \
-+	(V4L2_CFA_PATTERN_FLIP_HORIZONTAL | V4L2_CFA_PATTERN_FLIP_VERTICAL)
++#define V4L2_CID_CFA_PATTERN			(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 10)
++#define V4L2_CFA_PATTERN_GRBG			0x00000000
++#define V4L2_CFA_PATTERN_RGGB			0x00000001
++#define V4L2_CFA_PATTERN_BGGR			0x00000002
++#define V4L2_CFA_PATTERN_GBRG			0x00000003
 +
  
  /* Image processing controls */
