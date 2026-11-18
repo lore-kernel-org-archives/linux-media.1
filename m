@@ -1,60 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794962713;
-	b=MgcrKl/sf0XCRO+cClGkhCNoCy/QahS3VxuNgBbBs0/Q8By/8BwXmxLWJj9yX2f7DlsT
-	 SNwyB0lHZYMiKQR1nfQns4oJ3ERrRN1zMwdjXBt7/tZXmAHaWwFmbMzgeaMK0ih/ApxgG
-	 wF0Xne8FRJCkZn8aZ0LnPrOU0DruoBPLnyI2xJGe4TBhvMno71mS2abjmLpeBaT6hMtoC
-	 kKQki5N8MDuvCrRPPdiXKEpYmM4cV0/eLDa6cNG3Spt84rGJAk5a4MmQiJxqNtbvkA2n9
-	 wnk4jW28KodYu7ittMWN58/sjgmJj/5URE1tdLaZYCPDrM2A2U3Cfv/iLqIBoA3IQzQ==
+	t=1794962802;
+	b=ki0Rv8NsKt9p/xcuXTfGjxcDesg0j94m0JhW2GE7leMmoMi6QkduZvScKCXJanr6rsU7
+	 5PTI52DgAKYKUXxU+XOsIJL2AoiOjyZ6u6W4PWyExGGb533jgVK9e4g0yo2ydBGpuhSG9
+	 juwzooRxZ5jjnKnB1ziKeXtIXHkNw5DKFmGNWW/XI5QE+mocfROyu1+VGbc/CD9sFWAe/
+	 rT+dcp/YI1+D6jzXWEJfDJiTkeH6FPC5TRj0dSHynnpQja7HLMRwj7p7Ne1kkMImQwF0c
+	 cA2W6t1XxxlpUjH5IM5eMRRYLnmQFHLusRoPuJ5hh3Qiyjw93l87BRoF2GHL7GNYbsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794962713;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZBVxHAo7/9YleCHtV1mEWSvjrDqDjQfMJqJcB9mj8eE=;
-	b=t7/rVrAArOY0rNrKzly706u2IHSUtp1OJCAOuUfVOuF5z5TKv1gnur87tguLNj7kMEQg
-	 EboWhnojn/VABxOoA5XViKXZYRrTHnB03Y6gwDLYVLm9S0OR2gE2cHQ5aBVI3FrJ4xKjy
-	 NdYn4pz8QFx8jpUZZfTHm8eqYu1DTe+/KiLUoCZsHVJXqabCCXcIKlS/tIGsJAnfdp68C
-	 ngQCdXHaUbce4tt5v/x9ix1nnyJbZ19uhDHuaG993ViGS9jMFUx4D+nnt6t9oPpuUiCT1
-	 blFia2N/KluvmIroDipkIaDRZQU6OU7WQLj/IL5XUHq73Tg5zTVh6Nyi58lC3e6d75g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794962802;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=pllyLf+++bwuw+cTuPHNT6Ou6itzbDvqjnXe+1hShHA=;
+	b=jhEenDBbJNepZm3/070TavKl27yME8UyPee1RXCZoNA76JHaavfWoIX5xEc3uX2B92RK
+	 LrkqYocBg//pkcChqFsTmr9kNoqUhyt641C0/yRGBCeoC2fns8GloNuPc51Xc+rh92Kdc
+	 1blnkhsFqq1edwYmpEwQhWMm83d78+9QGYXEcrt2KlSjnZ48s3tzKHqCtLlSoVHp4O86b
+	 DkrL3lYsfjK3fNAs/1vRHKgHX6Jv5UwdtUlGS+r2uri804aSInCZ/XQB6nYMlhTl2ojYT
+	 HnVtycNpSsFfkHsi34wA66o/iOLt4pcC6OVq3ghIN2Gfu8AAPf6OKhe4M8goZPK62HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=dQv4+10O;
-	arc=none smtp.remote-ip=109.224.244.16
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SUY7QHz3;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E132606A32A
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 00:45:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E132606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E2C606A32A
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 00:46:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51E2C606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=dQv4+10O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794962710; x=1795221910;
-	bh=ZBVxHAo7/9YleCHtV1mEWSvjrDqDjQfMJqJcB9mj8eE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=dQv4+10OV9D9yv9DD+0MKnBfc8enMgLX9yKl18VPvSlmNg1OXtxeLxlFAGaIyL2Z9
-	 Apc5SwVVdT4f07c9qmWnxsP7kINwPbYs/BKaEfOUfSuqkcnctHqFLOQb2p0Hxe/GEX
-	 wajWuNVQWYobb2ClUNZQt24rM87HcEy0GL0Uk+cHLjxz4AYsXhhTNzOFHhXCesZapj
-	 vgEFygONjpgnT7Puoavcy6zYWn2eehyDo6GFvgr4iWTz9qeoBHRYHsUBlpCLEkf3zV
-	 JvlobqNLq1tmpAf9KzhdlO/gcn+JOtbt9OkF4E72UN+cK00vC6HU3O+q9wn4bSFZHN
-	 ZbQUnwSz08MAQ==
-Date: Wed, 18 Nov 2026 00:45:06 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-From: Valerii Sokolov <valerii.sokolov@pm.me>
-Cc: Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>, Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>
-Subject: [PATCH v3] media: intel/ipu6: omit sequence number from EOF debug log
-Message-ID: <20261118004459.249226-1-valerii.sokolov@pm.me>
-In-Reply-To: <aus0pXClb3bGAV_7@kekkonen.localdomain>
-References: <20261103211031.1573726-1-valerii.sokolov@pm.me> <20261103211031.1573726-12-valerii.sokolov@pm.me> <aus0pXClb3bGAV_7@kekkonen.localdomain>
-Feedback-ID: 17117034:user:proton
-X-Pm-Message-ID: b22c5d7b61ad67edc652dc26aeaf37451dddb7f6
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SUY7QHz3
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1b3acec6677so698466c88.1
+        for <linux-media@vger.kernel.org>; Tue, 17 Nov 2026 16:46:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794962801; x=1795567601; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pllyLf+++bwuw+cTuPHNT6Ou6itzbDvqjnXe+1hShHA=;
+        b=SUY7QHz3pMDMfnHttkyQCDMUYCeQQWYF00CuqnL3hqx4GgCkONUWo4pR3teU8v6NM5
+         3K0xyH+zW3uaYaLe6aeN/yKqyPhgDAY87UUBQMwPk1YdgjtmSOUSQuFDyFQNwJldJjTr
+         h8eRUWR8FJ2Crt01B1PRF7nz1CZ658b6PkNwQHHUdgDDO0KSDjfISPhZIWz7BWzSQ/jg
+         Ki6Oqxy71CeEdkub4IXgEvtMTqAUROgaTzp6o+e+xvjlwyRUWWAoFuqkFjRl1muR+VQM
+         1OrotrQ8TWDu45dDZUaX4kmadhH82uI7LrzAqpoKjZiFZBsBHQcJjXUxtcSQ36qkBhfF
+         4gqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794962801; x=1795567601;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pllyLf+++bwuw+cTuPHNT6Ou6itzbDvqjnXe+1hShHA=;
+        b=adAMdT2yBt1p1a+foSGOGm7VD7W52rNP29/56O1pBNaLAXgPAZPcLeTaRwdjmM0mep
+         Thlu2OgX3gfzfWJs1rVIz1Su3y536Nxp+edW49yC+QoOHiIELviMY8otYPxW4aUcWAoq
+         mc9UHbLvIZLOyavxnkJH0h5Rs7pn0ERaB242C6ILHDI33QJSODaB5kgcjZCuOUSyFz6P
+         1hnfpW44tRA0RsW5fI2GFSqL48Zo1kGzv87oNFm+qcvscePXWr5dBh4bUHLHMmaDatMB
+         4CnFXj7etnAPeEDhBd8BZNtnqLwI8Nkm0qPKmH9xEDAlNa+OuG+SNGage/QFqDz8QzNE
+         DAIQ==
+X-Forwarded-Encrypted: i=1; AL+hErGha3oBZOC/cLIrWfQt+wjd+u+v0fWe+kSs+444pnyeqfFE5NZUii3imLM8KZfcY9G7dofRYFESak7VHw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xC/8dPTz7PlmvTnYPsJyviZYygVobHHLfANecLpR//RlphU27
+	WjzyvPSW96cPd9DfHgyolW9f0rxu+/LBb5vgXDSrmSePp26JNFTlU5yO
+X-Gm-Gg: AYBFou3ttqr9zxZUv+dMmEY+z38nlDazo0Z6k+ThbTh0K7x8mRSd2fioRvhpYJeGctl
+	PFLMDMt7hIXFYdnIvN8bGtpadlQD+trD9405Q8Fq6A/XBbeDo2d74/tlnQ46HiwptZRQEO3EChg
+	24I1+QtE3+kb6cuBidKBrlYYgAAkUONYWDLQz8By1JwoHYVYXUkOgepVNl46ycQPJeuiohTDJh0
+	H2fe78QS2DMJzK8rty5v7414AcFjJEita37o7U6TUT7+9dx9pjMbq/gLM1hdfdLv3uZGIvd1OSx
+	XaBCBqKpGnUnigtgyeT/EFNUOte2ySzkp1tONK8WHvXS9LyvKlDwZ4fhJGNE2q4Aw3wycehBcSS
+	A+3g/h22wNxvrEPvJ1zquDVSvu73XwKcqHDvlOOPX0F6ygUIONPosSC6A758/1DNm+c+5yzdqmf
+	QiTkR1/nV/uKlTfb8+Sr1Om39lLpiYQZfwPJqWct71g0s9NluqXTfoYkJsApn1NbXwufVRli0qI
+	DxWXnwsDX5K5eXTqqLOSYR1IY42ckMPGQS4yGjWuZ+AR7BDq2zdVYV9ffVjMHFMoyNPN9dgaTwo
+	EBePP4bYmfFW7Yyw8YE6/J+XAPTnYmvs60zEnfJtWXpp1cHbtT3J81RdE4Dt0nPSAPtYLyeE2JK
+	7/P6/
+X-Received: by 2002:a05:701b:4549:20b0:1b2:41af:c21c with SMTP id a92af1059eb24-1b543d4b57amr983339c88.39.1794962801203;
+        Tue, 17 Nov 2026 16:46:41 -0800 (PST)
+Received: from cachyos ([2804:214:64:aaf:eb0:6704:6a19:ed25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5447811efsm1765194c88.3.2026.11.17.16.46.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 16:46:40 -0800 (PST)
+From: Paulo Ravazzano <paulo.ravazzano@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Biren Pandya <birenpandya@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Paulo Ravazzano <paulo.ravazzano@gmail.com>
+Subject: [PATCH 1/2] media: i2c: msp3400-driver: Guard media_entity_cleanup() calls
+Date: Tue, 17 Nov 2026 21:45:59 -0300
+Message-ID: <20261118004600.369915-1-paulo.ravazzano@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261118003742.363133-1-paulo.ravazzano@gmail.com>
+References: <20261118003742.363133-1-paulo.ravazzano@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,52 +101,55 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-When handling IPU6_FW_ISYS_RESP_TYPE_FRAME_SOF in ipu6_isys_isr_one(),
-stream->seq[stream->seq_index] is populated with the current sequence
-and stream->seq_index is immediately advanced to the next ring buffer
-slot.
+Member entity of struct v4l2_subdev is only defined through
+ CONFIG_MEDIA_CONTROLLER, so the unconditional
+media_entity_cleanup(&sd->entity) added by commit 87d1307b6791 was
+breaking the code. A conditional preprocessor
 
-Subsequently, when IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF arrives, logging
-stream->seq[stream->seq_index].sequence reads the next slot in the ring
-buffer rather than the slot corresponding to the frame, printing a
-stale or zero sequence number. Since the IPU firmware tracks frames by
-timestamp rather than sequence number at EOF, omit the unreliable
-sequence number from the EOF debug message.
+An AI agent was used to find the bug. The correction was done manually.
 
-Fixes: f50c4ca0a820 ("media: intel/ipu6: add the main input system driver")
-Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
+Fixes: 87d1307b6791 ("media: i2c: msp3400-driver: Add missing media_entity_cleanup()")
+Signed-off-by: Paulo Ravazzano <paulo.ravazzano@gmail.com>
 ---
-Changes in v3:
-- Omit printing the unreliable sequence number in the EOF debug message
-  instead of reading atomic_read(&stream->sequence) - 1 (Sakari Ailus).
-- Dropped Antti's Reviewed-by tag due to the change in approach.
+ drivers/media/i2c/msp3400-driver.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Changes in v2:
-- Collected Reviewed-by from Antti Laakso.
-
- drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pc=
-i/intel/ipu6/ipu6-fw-isys.c
-index 5d95fb9234..bfe91232d0 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-@@ -649,9 +649,8 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
- =09case IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF:
- =09=09ipu6_isys_csi2_eof_event_by_stream(stream);
- =09=09dev_dbg(&adev->auxdev.dev,
--=09=09=09"eof: handle %d: (index %u), timestamp 0x%16.16llx\n",
--=09=09=09resp->stream_handle,
--=09=09=09stream->seq[stream->seq_index].sequence, ts);
-+=09=09=09"eof: handle %d: timestamp 0x%16.16llx\n",
-+=09=09=09resp->stream_handle, ts);
- =09=09break;
- =09case IPU6_FW_ISYS_RESP_TYPE_STATS_DATA_READY:
- =09=09break;
---=20
-2.56.0
+diff --git a/drivers/media/i2c/msp3400-driver.c b/drivers/media/i2c/msp3400-driver.c
+index 8c2edd462..8f0b385fa 100644
+--- a/drivers/media/i2c/msp3400-driver.c
++++ b/drivers/media/i2c/msp3400-driver.c
+@@ -717,7 +717,9 @@ static int msp_probe(struct i2c_client *client)
+ 	if (state->rev1 == -1 || (state->rev1 == 0 && state->rev2 == 0)) {
+ 		dev_dbg_lvl(&client->dev, 1, msp_debug,
+ 				"not an msp3400 (cannot read chip version)\n");
++#if defined(CONFIG_MEDIA_CONTROLLER)
+ 		media_entity_cleanup(&sd->entity);
++#endif
+ 		return -ENODEV;
+ 	}
+ 
+@@ -813,7 +815,9 @@ static int msp_probe(struct i2c_client *client)
+ 		int err = hdl->error;
+ 
+ 		v4l2_ctrl_handler_free(hdl);
++#if defined(CONFIG_MEDIA_CONTROLLER)
+ 		media_entity_cleanup(&sd->entity);
++#endif
+ 		return err;
+ 	}
+ 
+@@ -867,7 +871,9 @@ static void msp_remove(struct i2c_client *client)
+ 	msp_reset(client);
+ 
+ 	v4l2_ctrl_handler_free(&state->hdl);
++#if defined(CONFIG_MEDIA_CONTROLLER)
+ 	media_entity_cleanup(&state->sd.entity);
++#endif
+ }
+ 
+ /* ----------------------------------------------------------------------- */
+-- 
+2.56.1
 
