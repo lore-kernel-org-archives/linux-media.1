@@ -1,84 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794995866;
-	b=UQSQbyJCOWPpNdV9QGzHx7DxS8lzi9xwQ/nItoA2Rdv00M0gFeSuKKyTlEBbMQRovGmx
-	 uZZVv6eeXawF/knn/5B49UP4uk27uRTCF67P/TvY4cLGxTFZQIazuLrf/u9IPEwTt3M0s
-	 TLZBRc+UV63QEPwjjx6NXABpZOXwDK1m0X19+UvGw9g3pc1fCja7KFrt7eCYpD43Wh0W5
-	 McQLadGy4MRyfIuSk9VoB5bn3gwK9y9B9byiSABUTkvXFdUN10W1SYEgSeXx4dWyb47Xz
-	 reNSuNSWQY0YVF0Ry6oCTHM3ULDQ084MGBtQKdW+6Jc8mYXVmFO0W5cUwjAUY6ZM4sw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794995866;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=crDi3DD9d/MALlwggjqupT+B6dSUsDLqh3xi8KFruuU=;
-	b=4glqmIRV4Arohzt9BDp4dbWqPOcD98Cc7LZnm29wTgIqVqZynYKvqgB43ryU922xYhNp
-	 FANzRjPAYm2tL5dO913Y1MZ34+pdNo0OZAP8YuxJHtlGUGwDw5kpFKu8DsihLXt8bmQBR
-	 AVXDSPeOQEc7Tgcd0he4c9N1K05MyK+otsT1VqyjWf+O2BlGPbyJFDNiAd+LOTXkSMheq
-	 89r17RSvlJaSs0mcWCRxkLEHK1aHDor/sUQKj1GKivCKuAntmWJFFoTEdZ1EoO7hF5m+n
-	 SIzyvcLDFEGM+dxntmR8QWNnmT/ecuc7HmLcVOKN82Q11HYaHfNledHmrTQBQI2cVpw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=J8SSv4fT;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794996451;
+	b=QbWzb9CmE8oWRSPNxd+iqPCsj+BNYp0WrhHBmv7bQ5nUDjHLfyvM9J8ZU/Ymg8W/08CP
+	 yGKUEWBUrodZy7oCxJqaRfJ3pEXLeYCKmrMMWLuX0Oz9NAr/U98iM6UNtfnH1PuyOSRe8
+	 xJL9GHDlxY4AbOXiIXfRpbayrBlQXIUFGTS/appMLVoxV0M4++4vB8oKD6zW+0aKsDiTF
+	 oucD/yjihzmNFHMKKqSbsfRQnYGxqJqVt7K0rVR+8RkDvEbObckl0NbgA3MjDhQjpdLaa
+	 mGJjIjxrh03pItr3xz60S3eKxFPypFR/NmBID7xVhRpibIAlts8B9EnMXNoB6BheL1w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794996451;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=S+vT9vEZXXGE5nylP28OP5E16FdGgGeVcWYBckNJ7xA=;
+	b=DGwmtRM/iYkNDv6elJt2SKvFpDF0BoUAnE4CoSkTCgH3oph1rG4fycL46yVOtqT8EMib
+	 V0X8LxFWQIPva14fJm6+wdIyGQUYwfwTxX5XCTcap3qHSUPVbD4xDmLzG6LXELbA8s13R
+	 CKi5HTDgctIlPAnWtazRN4+I/ZSLUm2kshFhciBhch8ee7KuUheah5qxShA9lsPyvx9kb
+	 ma89O5KfM4Zqne/qfIRHCytPSzhzE11ArPQUuBaFbc6lD7mY0kcOiccAGnzHvFQARYv+0
+	 EpAm+VP90mz9Qq3IIjNtgcwzR8tZIh8MYR0ID3Qk7byqHm+9lCLj2Urn9lWoCiAbi6w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J2OqD5yw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB74606A32C
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 09:57:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FB74606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066A7606A320
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 10:07:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 066A7606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=J8SSv4fT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794995866; x=1826531866;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=oCMbyVUMOyUuO7QuNRgbBCQ+ivAQXTbUqU01mbPVGn8=;
-  b=J8SSv4fTIZWEtcKhOKnHl3JXT5OvS/iO1Lm1UQfxLHzMxB6lEZqQcpmT
-   zTvJnxzKjGthXvan9P83hyNetVLyU9FEfizflEwKpTs0ztfAr8SN+i8pK
-   BelQZ2Q9IoPKtkXRpXz2D+tTO8lpR5kwrrziUCRQoWx00AMrbPwhvhwVV
-   hLeOpqMvbI0Te5H9kXGwlajTYpuK+oweYgm7KOnDl5AdedT/vRbVU8QKU
-   mFCHtWLzF/sROz+dqJXSq8EUUNecSUamyUgra0Sgl6aZhYjiYZZ/XbE5o
-   WuRpofLqM9t3y1Yd6wwTSpAD9Wo6jswS4ygaH6quKXiNAmjXgyelgp92H
-   Q==;
-X-CSE-ConnectionGUID: tHm/DtmrRduU1P9lpEoGrg==
-X-CSE-MsgGUID: F4mDPTXbTgCQ/x/rv7VNKw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3716516"
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3716516"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 01:57:45 -0800
-X-CSE-ConnectionGUID: zluxhfgCRyKzzLigo5GIjg==
-X-CSE-MsgGUID: +xWDqa4IQgivk38nW4uu6w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="10501466"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 01:57:43 -0800
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id EE973121B71;
-	Wed, 18 Nov 2026 11:57:40 +0200 (EET)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xTcQ8-00000000sEn-2GNs;
-	Wed, 18 Nov 2026 11:57:40 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: linux-media@vger.kernel.org
-Cc: Antti Laakso <antti.laakso@linux.intel.com>,
-	"Sapre, Sarang" <sarang.sapre@intel.com>,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>,
-	Manik Bajpai <manik.bajpai@intel.com>
-Subject: [PATCH 1/1] media: ipu6: Make ipu6_dma_{un,}map_sg() static
-Date: Wed, 18 Nov 2026 11:57:40 +0200
-Message-ID: <20261118095740.208482-1-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J2OqD5yw
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b4e2ec4b42so4598487b3.0
+        for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 02:07:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794996450; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Z/094t6wsX42OiGtmK28GWyLVhAalSJMJakcSXLW7XLw7JsVLU8Lk6c+0EaDqbuJ0A
+         cTBu95xY25ILB0HE+O0vAmoRuG+5qiQt3vHTmdM/z3h9hh0wMLxrFj/ewWSrKOgOP1vi
+         gnaHQ94/1UoyeEaThHV8Yii3cU29gRdDfUfvNQKjI4U+Qt4ZLAvVuKnojGqZL+Ys1Y80
+         aq7Kcjt454Vj71g+aTlPOwSfar5ct1q4IdoNsW738seZn5LoE1t7DC4OCoakd95wD6L/
+         ViQTotPYo1ube/DQk1WqFuxWwPBsmbaCUwmgVrApefwRynX6imgGPYD9wDKzFtdthHLj
+         1fEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=S+vT9vEZXXGE5nylP28OP5E16FdGgGeVcWYBckNJ7xA=;
+        fh=e/lZUf3q3F+AKI3bdn42maG8rm+uDRGNmAE7hlJ4BU0=;
+        b=gI4yyfyRF3qJGpJj/dAHh+hOiWAG4/SE5ozcmM5jPwbZo5mtwRT0EGknRAFVGHV5kd
+         VnYlkIEB0WgBVJKkml3i/VL8qhvtxkjCkgfmkDVSPmpwW7AEvnpVo/nXBCgFvqExFdj6
+         dXLPR8Rx8cNaS/oLbBiF9a9MvgM7Jh3gPy8cIDaRFEv7rPS/EI8z90NpRlENxF4GBEaj
+         NzDGy/8FREBcVExAbUFcqb5IVGBl9t+9BbPx4bPAbXmg1qZHO4wBGUpzT/kEAWrHAN6E
+         4iFRjAazol+Z3UWVvWyhiNsXr63SP4/7tq1djcpxaTdY7mkVqyka873cnwu6pyFtikcK
+         eiBA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794996450; x=1795601250; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=S+vT9vEZXXGE5nylP28OP5E16FdGgGeVcWYBckNJ7xA=;
+        b=J2OqD5ywyH6LSEJ9BuWQdnXBANlORCux9CWVCvlPvyXwDNECvacfIqeqlxdhU/zUU9
+         +H9DaQM/3143PxHTTAeEK5al1FsRM5tLGy5D7sFGq8AwKBBEFq+VHS9DWU2RTFSz2g+i
+         fRnqFcRQDp3fhP6XgcjM5fRg+H6He/4Efb7pGNhF+ThcF1lpl23vydjUIOha0qgKTk0p
+         FZ8DOwP75UIDS+6HbXrJtR/h6FeGLPWe43w+x7vcffvzedVvz41971mmbUL0LhzDc6Ax
+         U8nunais28KNSlarbONkt9hj0+CL0ZoFu8k9nZg0iejgjtP3mS01jqBeFFu/d8aT677B
+         /5RQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794996450; x=1795601250;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S+vT9vEZXXGE5nylP28OP5E16FdGgGeVcWYBckNJ7xA=;
+        b=ZGVcH7WuneLW3r4zys9hlzdPx9WsWFhRWwTIPmamFsS+dojDMDoVhJV02iVcATfl+c
+         uePlLe/KeTWMGAwxN8hditsbScy+WnI7PO9RxJKgUy0UfK4bsdw1MNtpNHRkMJYFBm9q
+         P0vlEjW/f37/HJjpHNqUfQNgbMbvNGpAnNwAzztcS/NmzUy/Uu4nJyEmmUhl+kas44Ho
+         mBeCqMu4eyrLDmNBLzPLEBxAhnLsuvjgu2B5ydeZzc5Fx70cw3ZgPRNgM8FRJByJ7WLu
+         pn8ZvA114zQni/8VEr+dOWge5fF7IUCprd30wHHenNT/AtqycKr8gxmWym5vfu8e5n0i
+         RGvg==
+X-Forwarded-Encrypted: i=1; AL+hErGXv9ZNKoRNuqa/jglJrMUZwpEU2woJz06/yAhiXbVAm2JHU9WdVa7DdVHkzsYj2qjpiW252zOb8DZEJQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JZuFPWj4onahBXf5Qov42DqDeSlqhycul9WOb+0uX5BjnzDc+
+	5e/S9CCa/uwIYOFgnm+HuiQ6dLD9OXGeCS/c8MvXFzKfLYmG5vahbVOkQpTZBVApiktf/qid6wt
+	G63qxUVKOT2cnqe/GwrwmuKA/YpvJRys=
+X-Gm-Gg: AZFdTZde/DE1ToOb7IsTfcUAaJgPcNhMhiCw19TCTCY6nKC4weAUstpQebtlrjW5lwJ
+	fwn3bIDzix/enCpvXwzBN5WvUAY2gVigYBf9kMuLiryvdrR5OOZpdrTfXCZS8RCfxkzSzVyVxDx
+	Uo75d/1pLKlv/aZ4CrKxZgbL6mGCt56jw7mSIzOtMpuX2kXfbsIT57M+FiVlqdSLxSvaL5Wg2hD
+	C9bZyW8PW9KIf8BkW8epNg9RsuPQv5hd/hDTciTjFwSetUWPlnQuG11Qc2Gj3uvkaPSAjInKXLJ
+	L3/RHYH/0KP6aHl3+79M6XV9oQE84mQsMDZbvGJjajuo9ILVIJrbxG/kU9CYD3VTF5YXVlermLC
+	gea5Rqfg3EgOv1bNUDiJemZ8zV6RgjWcmLWNHox0ebJNAOJsMqS0D81MoEKXYdmFoFbyfsiBiUM
+	FdrYV/udk6uOK1XJPphPCvoqmpIjyPatvY4l8a9V9IPk/2xpDnVJj3bvUpAgMFP0izQD8QquCva
+	aoMuzL7BqL8xiqZKkL1OWGjrkTNoneXjZp6pWWnggAzgSI7IUjTw3ju6OeQ+w==
+X-Received: by 2002:a05:690c:a402:20b0:8b5:6e9:2183 with SMTP id
+ 00721157ae682-8b506e9277emr1851467b3.7.1794996450036; Wed, 18 Nov 2026
+ 02:07:30 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -88,81 +106,61 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261118095314.42769-1-patelshivani2283@gmail.com>
+In-Reply-To: <20261118095314.42769-1-patelshivani2283@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Wed, 18 Nov 2026 12:06:53 +0200
+X-Gm-Features: Aa3M54qZ8hkps0LsViVJo_s7XZ7AAjtX2_rzeA2MmsfOWg5FnTjwadGRxEgW-j8
+Message-ID: <CAHp75VcPRtBpFmrd0sRD3HHPd3dMgwATzUxTyfkBPkuSh_xABg@mail.gmail.com>
+Subject: Re: [PATCH] staging: media: atomisp: Deduplicate and reformat atomisp_find_in_fmt_conv_by_atomisp_in_fmt()
+To: Shivani Patel <patelshivani2283@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Andy Shevchenko <andy@kernel.org>, linux-media@vger.kernel.org, 
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Make ipu6_dma_map_sg() and ipu6_dma_unmap_sg() static as they are only
-used within the same file.
+On Wed, Nov 18, 2026 at 11:53=E2=80=AFAM Shivani Patel
+<patelshivani2283@gmail.com> wrote:
+>
+> atomisp_subdev.h contains duplicate declarations of
+> atomisp_find_in_fmt_conv_by_atomisp_in_fmt() under ISP2400 and ISP2401
+> comments. Both declare the exact same function with broken formatting
+> (lines ending with open parenthesis, leading spaces, and awkward line
+> breaks).
+>
+> Furthermore, the definition in atomisp_subdev.c uses the same broken
+> formatting with leading spaces and a line ending with an open
+> parenthesis.
+>
+> Remove the duplicate declaration in atomisp_subdev.h, place the return
+> type on its own line, and shorten the parameter name to 'fmt' so that the
+> prototype and definition adhere to the 80-character line limit and
+> Linux coding style.
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- drivers/media/pci/intel/ipu6/ipu6-dma.c | 14 ++++++--------
- drivers/media/pci/intel/ipu6/ipu6-dma.h |  6 ------
- 2 files changed, 6 insertions(+), 14 deletions(-)
+...
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-dma.c b/drivers/media/pci/intel/ipu6/ipu6-dma.c
-index 90f530a93779..ea13a58a80f8 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-dma.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-dma.c
-@@ -327,9 +327,9 @@ int ipu6_dma_mmap(struct ipu6_bus_device *sys, struct vm_area_struct *vma,
- 	return 0;
- }
- 
--void ipu6_dma_unmap_sg(struct ipu6_bus_device *sys, struct scatterlist *sglist,
--		       int nents, enum dma_data_direction dir,
--		       unsigned long attrs)
-+static void ipu6_dma_unmap_sg(struct ipu6_bus_device *sys,
-+			      struct scatterlist *sglist, int nents,
-+			      enum dma_data_direction dir, unsigned long attrs)
- {
- 	struct device *dev = &sys->auxdev.dev;
- 	struct ipu6_mmu *mmu = sys->mmu;
-@@ -369,7 +369,6 @@ void ipu6_dma_unmap_sg(struct ipu6_bus_device *sys, struct scatterlist *sglist,
- 	mmu->ops->tlb_invalidate(mmu);
- 	__free_iova(&mmu->dmap->iovad, iova);
- }
--EXPORT_SYMBOL_NS_GPL(ipu6_dma_unmap_sg, "INTEL_IPU6");
- 
- static struct iova *ipu7_get_fw_code_region(struct ipu6_bus_device *sys)
- {
-@@ -382,9 +381,9 @@ static struct iova *ipu7_get_fw_code_region(struct ipu6_bus_device *sys)
- 	return reserve_iova(&mmu->dmap->iovad, lo, hi);
- }
- 
--int ipu6_dma_map_sg(struct ipu6_bus_device *sys, struct scatterlist *sglist,
--		    int nents, enum dma_data_direction dir,
--		    unsigned long attrs)
-+static int ipu6_dma_map_sg(struct ipu6_bus_device *sys,
-+			   struct scatterlist *sglist, int nents,
-+			   enum dma_data_direction dir, unsigned long attrs)
- {
- 	struct device *dev = &sys->auxdev.dev;
- 	struct ipu6_mmu *mmu = sys->mmu;
-@@ -448,7 +447,6 @@ int ipu6_dma_map_sg(struct ipu6_bus_device *sys, struct scatterlist *sglist,
- 
- 	return 0;
- }
--EXPORT_SYMBOL_NS_GPL(ipu6_dma_map_sg, "INTEL_IPU6");
- 
- int ipu6_dma_map_sgtable(struct ipu6_bus_device *sys, struct sg_table *sgt,
- 			 enum dma_data_direction dir, unsigned long attrs)
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-dma.h b/drivers/media/pci/intel/ipu6/ipu6-dma.h
-index e5e0e7860423..bd1a0481f1ac 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-dma.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-dma.h
-@@ -32,12 +32,6 @@ void ipu6_dma_free(struct ipu6_bus_device *sys, size_t size, void *vaddr,
- int ipu6_dma_mmap(struct ipu6_bus_device *sys, struct vm_area_struct *vma,
- 		  void *addr, dma_addr_t iova, size_t size,
- 		  unsigned long attrs);
--int ipu6_dma_map_sg(struct ipu6_bus_device *sys, struct scatterlist *sglist,
--		    int nents, enum dma_data_direction dir,
--		    unsigned long attrs);
--void ipu6_dma_unmap_sg(struct ipu6_bus_device *sys, struct scatterlist *sglist,
--		       int nents, enum dma_data_direction dir,
--		       unsigned long attrs);
- int ipu6_dma_map_sgtable(struct ipu6_bus_device *sys, struct sg_table *sgt,
- 			 enum dma_data_direction dir, unsigned long attrs);
- void ipu6_dma_unmap_sgtable(struct ipu6_bus_device *sys, struct sg_table *sgt,
+> +const struct atomisp_in_fmt_conv *
+> +atomisp_find_in_fmt_conv_by_atomisp_in_fmt(enum atomisp_input_format fmt=
+)
 
--- 
-2.47.3
+Can't we take one more step and drop the duplicate 'atomisp' in the
+name? The quick suggestion (you can try find a better one) for the
+name is atomisp_find_in_fmt_conv_by_enum() and also rename
+atomisp_find_in_fmt_conv() to atomisp_find_in_fmt_conv_by_code().
 
+Also drop stale declaration for atomisp_find_in_fmt_conv_compressed().
+
+Altogether, make a series of the three patches:
+- drop duplicate / unused declarations of atomisp_find_in_fmt_conv*() names=
+pace
+- rename atomisp_find_in_fmt_conv() to atomisp_find_in_fmt_conv_by_code()
+- this patch that renames atomisp_find_in_fmt_conv_by_atomisp_in_fmt()
+and fixes formatting
+
+Don't forget to add a cover letter.
+
+--=20
+With Best Regards,
+Andy Shevchenko
