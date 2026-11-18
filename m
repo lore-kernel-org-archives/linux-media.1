@@ -1,72 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795008519;
-	b=sxfu0w1J5xE0VeuCs3iKqzN/P5Eh8F7RdPVotxXdP2etOlBOneYWSbWrBVyOPZY7ZuBA
-	 QgeNAv3NicJSFiR+lOvGIJRjhVkdKOtnX3MatJbVJRVmi1Q5yaKPwgqtcs21TN4IjlDxE
-	 Iber9yX0jNiz4mTEPVQflZygj5rUObv5gTXk7vGK8HxbrfxSDeHLobq/WU5Iyx0YHCjJw
-	 K117dzIL6YXvECue1SUzLNRPxKTTmxsXMn/VJ5c2/47vcsiksbRcu93iXK+/AWS2S4NWf
-	 jyX6qspfvYtnmgBGOx9y3vJI6VHciGTnlYmCU0GuLdFqNNGbQzMRHZT5YMM/03rCZjw==
+	t=1795008520;
+	b=tbQ0Sd0PGKvdAwArU/1IeJ6498Gp6FAEJwgPy1/d1D5hdQzJMkaW+CWXa9QD0X1O3sXH
+	 VF8Kbhh3s5KOly0zBR3Q5Mf3VeZ7XC9T9eb7nIhlyGexZE37qH9CGeHeG1VxBQz6sFB+g
+	 ezt/QR+ShTppqQlmPZMvO/YLgAjcikeHcPhx0qvnD0HPdw4A2S2r7XgPLWxoUWpDQrWAS
+	 YDMsFLEu105oeJT2RFqQNwmO9jCVXPuRB/WnMbSzJiJLzQ49tfdcH8N6LJORQtr/B8Ygb
+	 /kf2cy7RZjaOk02iH2TVobfz02LmmKzvnR63K6iK6NaIYJ9OoK1+Sv12hPv8jp7BsIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795008519;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795008520;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
 	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=U4eyfkt3Lu8vLnDpwgxDuCu0bIYeJcvXgANV/5D7v/U=;
-	b=JrnJ+ur1Q7fQbcUr+XXTUEMH/q+IG5fuvZa5+fHOcDywnao7BfPxvRq2+0ruxgHfCIcW
-	 5O7WEyUOyQmUJWPdnLGmXgUzXnLclSMSc0gsyZkiryT6T0/nQlzxTsTcMy+bj8JkKPyiY
-	 nQ1+SXqpk3oZr2vbzZBrQHlOvBUprIgvYZzkCGaG8n4eGhq6Kk0DNLUcUSym2OFHe2bUI
-	 74wBUz1NZNO47YqNm81mj/uKW+QwdT2lnyHVcJr+POteQxb1Tsua68IOMXx+shNK8fdFR
-	 v8FZTEvuEDsAneO3uNTdJoq80I8Rr9yhPrP7bT1IrqogjqIa44GvRGv03NyV57MhcZg==
+	bh=zSfU+4E0WikbEVKGUvBbczo+cggHtaoig4HXk7Wz+KA=;
+	b=EeYYPRqaMd7pRg4I5xMDGDV2Yp8HpZ54yvU9RBnZi2Uok629lqG3OqlDTnBNbB/f6Pkv
+	 qU813bIu+8aZuFSuy81JVqeQMqZ2tVYoBHOHYzNsBhKgMFv5tBPT885WYDgV1+Iqti0+a
+	 R1qorvgNS0YRjZSOgjaRDC9DVMUNDpWBlkwwrqsd5hAumuCHKS8VaIYgb3tpsWcanlvgk
+	 BIzYsiZpcTmCM90Nc48GVcSBiTI+y0s5YAr/hlBLHJqB8cWhoumuB2QXbrBAN7o6gR4h1
+	 1VjfrRGucD1m0AoUMM7xfOJeJS9PO4EmkOxuhNbiKI5k3obeofAQAyUHS4FDDI5TyXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZL0FJA7b;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PpYckSt4;
 	arc=none smtp.remote-ip=198.175.65.13
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13215606A320
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:28:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13215606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC89606A32A
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:28:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAC89606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZL0FJA7b
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PpYckSt4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795008519; x=1826544519;
+  t=1795008520; x=1826544520;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=0V7JZxQdmIRgg6D4+enOyc0QnR2BdwKKJuHebveIUoI=;
-  b=ZL0FJA7bU9ZJ9nlC4MJkJ+rWiIFCDstjlsvF4Tnshu1pR3oULFFP93qG
-   uyc9LBKMhIcOUfhRK2Yho+84zia6ZlX4WOhsQWLOEJJv1YoKl4UyQn0xS
-   +G+HU+FfQ7zdJtFjKycbLwta+v26ONFVU5fXK2cXmA1FWBA6UykdQI/No
-   drsbD07xbsliHJCY77eLJm6aGNCf6co0c0Ga80otU0QiIp4G6QGsG+yRu
-   vVFVsiH5Gp5RLi+k/Vct5k0/kTSBq7/Uvt2gHTW9UTQeXkXKzZaAKkR3E
-   FX8hlyhhXr9HvIGk1ipG6160+dxNmHwtEiSndhuCmn4kHQX9RSuIHjt50
+  bh=6Xv0DTZXUmt5l+ay06+5LaxJTqQjJOfM7x+IsutuQ9c=;
+  b=PpYckSt4KNMTIHHvemgE5Vkwfh/jf6o7IqRkcca2mf1m65Sv/cdRi1NQ
+   fgtItH0kVxAVUGicDpV+lxvhDm9svOwYvM/STFRRAb9P7JqY6FTa7rs07
+   Q36RFFooneNTkYq7X4CaP8uqufBLQnJQAuPMDLsgfzUqg3kBt1DouGe2W
+   fKuzXLBo0lolyqpVFypY5Pm4QN4M6KDLRWTlG9I9OMCsqAIBDC/kPuHx4
+   InjFIWywy49T+5O/7WqkIt7ywW/eqen1xK4qJ+zciAA1l3CcHZauDv3e8
+   hASJcBrWZtx4dZaho3MvOcQlniY7vi2bNY7ndOUktJEVu4PmvXF75St5j
    Q==;
-X-CSE-ConnectionGUID: JoETBP6yTDa4ViTQT2x5jg==
-X-CSE-MsgGUID: mSyhkDu+QTG3I8QuDBLC2w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3702675"
+X-CSE-ConnectionGUID: TAAyEJtsTLeM3nd4Y5/Fpg==
+X-CSE-MsgGUID: prjO6ClES6CCSmPbYs2hbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3702686"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3702675"
+   d="scan'208";a="3702686"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
   by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:38 -0800
-X-CSE-ConnectionGUID: 9+acno69SdqEx8mn1J4AXg==
-X-CSE-MsgGUID: JLC/QlxNQ+G1yaXwtHVStQ==
+X-CSE-ConnectionGUID: oaHv6sVmQ+yVAwusr1s6tw==
+X-CSE-MsgGUID: +w5/8ccfQhW333iGBuKmlA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="10678024"
+   d="scan'208";a="10678026"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:31 -0800
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id DD04D122B6B;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id DFE24122B7F;
 	Wed, 18 Nov 2026 15:28:20 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xTfi0-00000000tdJ-2Icd;
+	id 1xTfi0-00000000tdO-2MNk;
 	Wed, 18 Nov 2026 15:28:20 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -102,9 +102,9 @@ Cc: hans@jjverkuil.nl,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH v13 56/73] media: ov2740: Signal common raw sensor model support
-Date: Wed, 18 Nov 2026 15:28:02 +0200
-Message-ID: <20261118132819.213473-57-sakari.ailus@linux.intel.com>
+Subject: [PATCH v13 57/73] media: ov2740: Add IMMUTABLE and STATIC route flags
+Date: Wed, 18 Nov 2026 15:28:03 +0200
+Message-ID: <20261118132819.213473-58-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
 References: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
@@ -119,37 +119,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the CONFIG_MODEL control and signal support for the common
-raw sensor model.
+Add immutable and static route flags to the routing table. The driver does
+not support disabling the embedded data whereas the sensor itself does.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Julien Massot <julien.massot@collabora.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 ---
- drivers/media/i2c/ov2740.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ov2740.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
-index eaf6183b802d..033db55c012f 100644
+index 033db55c012f..cbf47ad5f049 100644
 --- a/drivers/media/i2c/ov2740.c
 +++ b/drivers/media/i2c/ov2740.c
-@@ -820,7 +820,7 @@ static int ov2740_init_controls(struct ov2740 *ov2740)
- 	int ret;
- 
- 	ctrl_hdlr = &ov2740->ctrl_handler;
--	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 15);
-+	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 16);
- 	if (ret)
- 		return ret;
- 
-@@ -890,6 +890,9 @@ static int ov2740_init_controls(struct ov2740 *ov2740)
- 	v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_METADATA_LAYOUT,
- 			  0, V4L2_METADATA_LAYOUT_OV2740,
- 			  1, V4L2_METADATA_LAYOUT_OV2740);
-+	v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_CONFIG_MODEL,
-+			  0, V4L2_CONFIG_MODEL_COMMON_RAW_SENSOR,
-+			  0, V4L2_CONFIG_MODEL_COMMON_RAW_SENSOR);
- 
- 	ret = v4l2_fwnode_device_parse(ov2740->dev, &props);
- 	if (ret) {
+@@ -1234,12 +1234,16 @@ static int ov2740_init_state(struct v4l2_subdev *sd,
+ 			.sink_pad = OV2740_PAD_PIXEL,
+ 			.source_pad = OV2740_PAD_SOURCE,
+ 			.source_stream = OV2740_STREAM_PIXEL,
+-			.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE,
++			.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE |
++				 V4L2_SUBDEV_ROUTE_FL_IMMUTABLE |
++				 V4L2_SUBDEV_ROUTE_FL_STATIC,
+ 		}, {
+ 			.sink_pad = OV2740_PAD_META,
+ 			.source_pad = OV2740_PAD_SOURCE,
+ 			.source_stream = OV2740_STREAM_META,
+-			.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE,
++			.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE |
++				 V4L2_SUBDEV_ROUTE_FL_IMMUTABLE |
++				 V4L2_SUBDEV_ROUTE_FL_STATIC,
+ 		},
+ 	};
+ 	struct v4l2_subdev_krouting routing = {
 -- 
 2.47.3
 
