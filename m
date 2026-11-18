@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795029754;
-	b=HFOhDpktx25v6KiLzxVHcg3/aic2czJJc/y7qcyeaL/2kEj9cj3pg+0Sedp7A83W6L9E
-	 Z/54ALpQkm5TNX5MEfqkNUdQ1sTIgotByY6eqwkl1uw+rT/J+It92mcNKWJ+OyLzT9O2m
-	 CXDO0iBHuw+PokUaPTg1rb6p9t+fOEHkM6DqkUZGuFFtbvDqukW8tuNYYgBVW3+lcc1qY
-	 T3PH1HV7RW4BTt2AKAXPbYgZiLF5e421zXqSdbHjl9QKcFma/ZT0niqjDJQc+g3atqI/q
-	 f5z67ueb9h5OZhZg3XMURymnyDo9yBQ7J1qro8/0B9MC2YwfWqctYrol+CvFx1tqomA==
+	t=1795029758;
+	b=Hgo16CJqfvQZmOOUsdmoPsTtlEAFdk1Z/cOZAAxrf/EP36zcGFav1aTmUQ8Z3SxxG1yx
+	 uT/2AEPy61QzcidToQ8RxSnRWmRbnj/WPM04NXmIyje6fXpxI0y9jX9xqPyskc4aGPVBD
+	 2UsdeABqQDkoLZ/KB6ZAmkCzS184Og1T2MISmTs59Dyib/c2wa9faVSZgN1NoVeCgKD+i
+	 USCdyykgtLe5jIcmyeSQlLH+9G4/0eCpnEJnztlYjebtu4qS7o3v2/vUtVtVnEGla6A40
+	 6COzl73gRdPlY3bxdj+VyJbxyOMq+JFG8fNIGZGAo8A1LgMPie7l0Qa7gpZXpv3GPhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795029754;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795029758;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=zjHzIWrgVG2TS8hAbxzQ2URMRQPjCkfPaxd1co/07sI=;
-	b=NO4Pq8+65DZMSi1Bpyd1Ze2fxqYRJqpOblA5s66bg5MPD5AgfZb7VFqDn+y8Yy01QSv7
-	 WSDPCFxllOuXZD5SVh2v803ZBW9uD+TjhfJuV/LkpCsYTli5+rfdgNSOAWG3v8nSuZDDL
-	 4Qc75fU7M/xml3RXPDyBl+I/jSkDbAmLRYQ3MVUxVTTRmbWRCbrLQhtn/GjYLxseOmkD2
-	 pUdovSf6L6LFPP0TYyFycJ7p5qWn9YDElQgsiGw9hEMFf+wWpdxVCzrJpsgCNwO2SqRD3
-	 ucs23MPVii8DNWHMIeS3gxmIDE/zhvs5G5KDEGjKfZq6PGmSG+8g0jTYgW/tk5Nurjw==
+	bh=/F2js3lDIFcdlJIrTyRKs+o9LmIC3maHk7o8OWnec6M=;
+	b=T5diX09GgLxYUAOPSoFilSDTrz6V6ZkqlGkfvQOEfFSgFE1C+/Od7pkQl1DGLDg5WqAC
+	 0ugtZRAOpvVujoi0Y2YiS5ODKmrs1TyYUUGQW38VGxxT0Q1r5S2hn5VKuRYcLfHDgstSx
+	 5Ks+tfE2uysnhy7CkkWP1MjC+DLDJpzTwA7mXEHjeBj/0aliOz3oczNQhOpsMNoKsYsgi
+	 wXsap8ZQs20SKDLDz55cC4/tidDOD/lD/rvJKf+Cl6eKS2X8AZSWmI1ZKp94GfwZCe9p/
+	 AEI4xLh4fRVh0AmIvkIl4zL8mNjkHuaeX0pG4cvZGszuQIC8EwrJSrhlPb6snMmA/gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="jQOwmr/m";
-	arc=none smtp.remote-ip=209.85.210.50
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VNwx+V5a;
+	arc=none smtp.remote-ip=209.85.161.49
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039DF60A260E
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 19:22:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 039DF60A260E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C3F606A333
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 19:22:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7C3F606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jQOwmr/m
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-86103aaac12so112123a34.0
-        for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 11:22:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VNwx+V5a
+Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-705cb6ceebaso1172538eaf.3
+        for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 11:22:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795029752; x=1795634552; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795029756; x=1795634556; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zjHzIWrgVG2TS8hAbxzQ2URMRQPjCkfPaxd1co/07sI=;
-        b=jQOwmr/m/b8+3xdmsnUgQTTnSKgv1Z/m/ZbB4/9qaCM4BI08CzObYhpvD8wkg9Bp7W
-         JS4+n5JcACnNllCGpmXgDVp+nixEzGC1O2V164qgKeVjMlo7SLXPmZJ82zyeI4GaK9wn
-         +QELfx2CWH1BsQ/dO2SJJYbqobsbMuY/vBs2V8twwiLN7Ibk2146RUTbJrvV/QCXGj/I
-         Id9EtdFBxTPFO+pxlrxX2e2y+7DNJZIMMOSsMp/H7X8oacRdH7DjBlJG8SnBSF+Z9Mfb
-         Tsg94s4h2jhCqeDEoYeUheD5jFTHc5jT/8qltpKAQMNPWE8vqGKZDbgftiKMcI3tymDY
-         /ZKA==
+        bh=/F2js3lDIFcdlJIrTyRKs+o9LmIC3maHk7o8OWnec6M=;
+        b=VNwx+V5aJFMfFxudAicgLqhZVhKs2L2i7Z4oj9bAVtpJWCaaXD2oX2cbhF7RS0tuJU
+         1NSByxrD5cYzO6zElnlsmm4pVX3rtitIreu6wnflCUwY+BP5EMJZJgoM7x+dsUMq9tcP
+         XZjkp6inmZPiZ4TiYfJqAYU1dJPBdLC22EEWkKXrvg16kWZt6vmUz0aTCAUBlTvuO/r5
+         kInUYOHM1lD4b72KGYpKrErxr2Jkdqo0D/xCjqTOJh/TCnRrf13WogTwlvMc74uikhLR
+         PM4CAmarZHfGQH+o2IOoC6QS/SOz5XTfbLzyo9bc2LGsL+cZajLPOOWWHBmJXyrKKRtD
+         vL+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795029752; x=1795634552;
+        d=1e100.net; s=20260707; t=1795029756; x=1795634556;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zjHzIWrgVG2TS8hAbxzQ2URMRQPjCkfPaxd1co/07sI=;
-        b=RzZ1xqrT2Pd8zY8QIgRPEvRC51uZDsXL04MVoXPJF4f1oXf6YjXLOrR46rT/5vMkno
-         lG3E2Mgu0rA2p+4wB0Yh+TY2Ek1ChAOJyBIsCDee4v+aKbUHocn6kodQFRmUKLzfWZmo
-         OLu11TV/ashZBJASLCG/EnKbZbdpoMiMdHqK9gEf4bgbfxT1mfanDBz40SDwJpftPlPz
-         oLT8oy3vvhFQpwaDDA21D/Af2dxyZqHanH9AJunv0FSbFUyB4WB2xIiHveKv7NG/ZAnk
-         MX/ImAkX+zDCpk1IaR36WYy98GZzQN4tGU/3W0w/QhvoL9TMvFmDQ8r15L97NZB1fxGk
-         YVzg==
-X-Forwarded-Encrypted: i=1; AL+hErFrB2KONiCPMYRy3/56lrUcbOHCblN9tAP8qU5v7g6qHK9Nh6n6RC2x2gNTF3v6657AhXy4dG9+NXI9WQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/lXfTuxhnYNGu2P2IMDk7GFWjIJ6caCwBVRMUpBIiLohpEonDf
-	fyIQO7ionuDfxQUwMaQevc/rrFvdxq4krDJjX8ibhfrafOGuRxDBdyg=
-X-Gm-Gg: AYBFou3PfoZvSQUgQ7N4d+OZ/9RXRUi0PdsWU48yvyUhxtDO8pAY6zwkDutnTZf0+P8
-	2j2EGHOvw3VYYzP9htryGQZh5MFyH+irTev372BmirK0beuA/elaxqu9lLPKykDn/UFjNJa9OBF
-	PBuQa7l3wO9pAjbIzAvXEJaVXi227UAsFe/1as3KajVnIuDwBsaaZqYcu5WSGIbPk/mM03kM8an
-	bejcFXbtrYWi/PKi/ZLOPm5XoNCDJoScuDPPnPIcJA1VWX1c9Ub7jbHTOlolsZMfvXEdAWdtama
-	kHZWwCqtQosDyCwrJgRVqFBgBsz5bIMNDqcBm2MlJIv+MzqPosVEysrr1EuKzIz6bOnidyiakWm
-	xSmOwNTJybccOh0ufNqd476AaUN7wlOgqeYeFgbOixVV49CNzesL0Eo6n83LE9Uj3ngzSN93ncZ
-	kxf1Sr11WSjSL0HYdrnDSDRVXng9XzmxD+5Yd28mDVdv3v08IS4OInBw8NnyTUtJXNhQkTikwtx
-	u5I80B0pD8KPRp0t/TAPwCTAkn9MOGZGigiLc5JOQZSSeRlKgVZGdttxm/4qbRRNzUgy24IFyU4
-	2LpdhskyFstxwr1EjaZc4yUh5RtJt4iIK+rcap1S8AsubNsOl8sKMSTmp0JQ1ysAaProeq6OK0Z
-	VcQ==
-X-Received: by 2002:a05:6820:a75c:20b0:71b:1c49:5f1f with SMTP id 006d021491bc7-71b2a4208e9mr249303eaf.19.1795029751623;
-        Wed, 18 Nov 2026 11:22:31 -0800 (PST)
+        bh=/F2js3lDIFcdlJIrTyRKs+o9LmIC3maHk7o8OWnec6M=;
+        b=h9C8SaYOAZTNfqXkIWC6YJ4YXm1ua4vrTXZ2FkN8lZ2r2BMJTvGpWr3issJcAROkTQ
+         Fen68jcybK3c0/Q4M7oh53ktR0B3/qVpTjaIEDqpVwKJkkkTlEcGZ0+J724oOToasR/H
+         eGbgxNBaQ3zQ/0PRDZDQbgyHdkhOmthKbKZAF/IjhgNCY4MgVYJFAWVfqIynlRa71qNs
+         gLKLEYxjOVDmhWW3gp4n8rjvfYB/PVGXSsOq1tqc7A+VkMJACdXLkqhvP9NGivs4hfCo
+         VNJmQp+NiDEeM/bqSu2PHmL+DimBy6F63btJfehGh8H9j0suOMo1MRLiw6QRPmBAnsF6
+         p3mg==
+X-Forwarded-Encrypted: i=1; AL+hErEk7QaG/jmK0KuKaB9NeHieo4zoR/QpV6g/dOARXCAdrxLYVy6/SGu4m8uetfWHZBwzZi52w+g6axF9qg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/8/SAb9IOHISMFrIx/nvrCdUHfsrFyU/AwMoXd0bXR5MIK7xQI
+	B6QtLNjQsmUanUx7m8a/MSN6IeaM/MnIxFDi4H9NYWop6u4KLPdy0gc=
+X-Gm-Gg: AYBFou3GxbFupNHor8Tu9K8RuUTtgZz3Uzhml3+JdA2vuajStcO9+rlN47MdXqPMZZm
+	T4sUs+Gy2N3SfkW3nTKMkOrMgRSy87QFo10fmP54Fsg5TUnqdGIQ7USWyfpTieSmwSTmDAtA7FK
+	+sFUqCh6YCPuH05i8O5SKstZqzDE22JoH+ezg4OAHSTQgo8BSvn6hgad/bA6BWhQgOn5y7ridY3
+	iZMMezodMfpjCXCqyBuLj0WvvqjWvlowMaC+OQM/505tL59idAT+MCbSMzWgcXG+B8w7f4RTMnW
+	pcJrcuCjQUNvyYHlFrh1M/LNbwh7EGaBm/iOYjMYWsryAIEWvxcfkCRUdSugWWbMhuPmpbMCYFl
+	HBRMD1p6wRaUlFHDERk8c1vrpzFyJQnwae0mci/8vxdxSe61YTwBd8cNcrG5EoMmeF2KRnG+ANO
+	UDYUb2oYTCYmVsORfToC6HFuUQpvJrLxY6O7i5pBdns+gudhjlH8QhBP+m5Y1MHxl3a1L5Flqn/
+	J3M6e/kX+aVWc1L5Q6SnhpP3kEOu1Il5Zc2iv18XVcKonJ6ArHSbS+woz2SlJ3idFU97xQi3rd0
+	q2bHvtswAKr/jNn1Y1zGerrc4WXV9n/mNYzHavJ/5IUkV4WXBy1CReyWmQ==
+X-Received: by 2002:a05:6820:a28c:20b0:71a:e02c:7049 with SMTP id 006d021491bc7-71b184a78femr2083443eaf.33.1795029755286;
+        Wed, 18 Nov 2026 11:22:35 -0800 (PST)
 Received: from miso.lan ([136.62.61.36])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b195c0bafsm2376912eaf.14.2026.11.18.11.22.30
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b195c0bafsm2376912eaf.14.2026.11.18.11.22.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 11:22:31 -0800 (PST)
+        Wed, 18 Nov 2026 11:22:34 -0800 (PST)
 From: Matthew Laux <matthew.laux@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil@kernel.org>,
@@ -86,9 +85,9 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 Cc: linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	Matthew Laux <matthew.laux@gmail.com>
-Subject: [PATCH v5 7/8] media: Add subdevice driver for the Mstar MST3367 HDMI receiver
-Date: Wed, 18 Nov 2026 13:21:23 -0600
-Message-ID: <20261118192124.23330-8-matthew.laux@gmail.com>
+Subject: [PATCH v5 8/8] media: add driver for StarTech USB3HDCAP
+Date: Wed, 18 Nov 2026 13:21:24 -0600
+Message-ID: <20261118192124.23330-9-matthew.laux@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261118192124.23330-1-matthew.laux@gmail.com>
 References: <20261118192124.23330-1-matthew.laux@gmail.com>
@@ -103,1198 +102,2752 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Implement a V4L2 subdevice driver for the MST3367. This was developed
-through reverse engineering the Windows driver, and capturing USB packets.
-The driver supports both HDMI and analog component inputs. YPbPr and RGB
-HDMI sources have been tested. I also added a couple custom DV timings
-for non-interlaced 240p and 288p over component, which are also tested and
-working with this chip.
+Add a V4L2 driver for the StarTech USB3HDCAP video capture device. This is
+a popular capture card based on the MST3367 HDMI receiver and TW9900
+composite video decoder. Support is included for the composite, S-Video,
+component, and HDMI inputs, and these inputs have been tested at various
+resolutions. Audio support is provided by an ALSA device.
+
+Also includes preliminary support for the Micomsoft XCAPTURE-1 hardware
+variant. All inputs have been tested on that variant as well except for
+component.
 
 Signed-off-by: Matthew Laux <matthew.laux@gmail.com>
 ---
- MAINTAINERS                 |    7 +
- drivers/media/i2c/Kconfig   |   11 +
- drivers/media/i2c/Makefile  |    1 +
- drivers/media/i2c/mst3367.c | 1085 +++++++++++++++++++++++++++++++++++
- include/media/i2c/mst3367.h |   27 +
- 5 files changed, 1131 insertions(+)
- create mode 100644 drivers/media/i2c/mst3367.c
- create mode 100644 include/media/i2c/mst3367.h
+ MAINTAINERS                                   |    6 +
+ drivers/media/usb/Kconfig                     |    1 +
+ drivers/media/usb/Makefile                    |    1 +
+ drivers/media/usb/usb3hdcap/Kconfig           |   15 +
+ drivers/media/usb/usb3hdcap/Makefile          |    8 +
+ drivers/media/usb/usb3hdcap/usb3hdcap-audio.c |  323 +++++
+ .../media/usb/usb3hdcap/usb3hdcap-composite.c |  209 ++++
+ drivers/media/usb/usb3hdcap/usb3hdcap-core.c  | 1107 +++++++++++++++++
+ drivers/media/usb/usb3hdcap/usb3hdcap-hdmi.c  |  202 +++
+ drivers/media/usb/usb3hdcap/usb3hdcap-video.c |  525 ++++++++
+ drivers/media/usb/usb3hdcap/usb3hdcap.h       |  239 ++++
+ 11 files changed, 2636 insertions(+)
+ create mode 100644 drivers/media/usb/usb3hdcap/Kconfig
+ create mode 100644 drivers/media/usb/usb3hdcap/Makefile
+ create mode 100644 drivers/media/usb/usb3hdcap/usb3hdcap-audio.c
+ create mode 100644 drivers/media/usb/usb3hdcap/usb3hdcap-composite.c
+ create mode 100644 drivers/media/usb/usb3hdcap/usb3hdcap-core.c
+ create mode 100644 drivers/media/usb/usb3hdcap/usb3hdcap-hdmi.c
+ create mode 100644 drivers/media/usb/usb3hdcap/usb3hdcap-video.c
+ create mode 100644 drivers/media/usb/usb3hdcap/usb3hdcap.h
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 102362c386fe..6cbe402ee9da 100644
+index 6cbe402ee9da..478557056947 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -19039,6 +19039,13 @@ W:	https://linuxtv.org
- Q:	http://patchwork.linuxtv.org/project/linux-media/list/
- F:	drivers/media/usb/msi2500/
+@@ -26880,6 +26880,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/pinctrl/starfive,jhb1*.yaml
+ F:	drivers/pinctrl/starfive/pinctrl-starfive-jhb1*
  
-+MSTAR MST3367 HDMI RECEIVER DRIVER
++STARTECH USB3HDCAP VIDEO CAPTURE DRIVER
 +M:	Matthew Laux <matthew.laux@gmail.com>
 +L:	linux-media@vger.kernel.org
 +S:	Maintained
-+F:	drivers/media/i2c/mst3367.c
-+F:	include/media/i2c/mst3367.h
++F:	drivers/media/usb/usb3hdcap/
 +
- MSTAR INTERRUPT CONTROLLER DRIVER
- M:	Mark-PK Tsai <mark-pk.tsai@mediatek.com>
- M:	Daniel Palmer <daniel@thingy.jp>
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 9e42b380e3f2..0b04f0a2a472 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -1456,6 +1456,17 @@ config VIDEO_ML86V7667
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called ml86v7667.
+ STATIC BRANCH/CALL
+ M:	Peter Zijlstra <peterz@infradead.org>
+ M:	Josh Poimboeuf <jpoimboe@kernel.org>
+diff --git a/drivers/media/usb/Kconfig b/drivers/media/usb/Kconfig
+index 813171d25ac5..9fd043459613 100644
+--- a/drivers/media/usb/Kconfig
++++ b/drivers/media/usb/Kconfig
+@@ -16,6 +16,7 @@ if MEDIA_CAMERA_SUPPORT
+ source "drivers/media/usb/gspca/Kconfig"
+ source "drivers/media/usb/pwc/Kconfig"
+ source "drivers/media/usb/s2255/Kconfig"
++source "drivers/media/usb/usb3hdcap/Kconfig"
+ source "drivers/media/usb/usbtv/Kconfig"
+ source "drivers/media/usb/uvc/Kconfig"
  
-+config VIDEO_MST3367
-+	tristate "MStar MST3367 HDMI receiver and component ADC"
-+	depends on VIDEO_DEV && I2C
-+	select MEDIA_CONTROLLER
+diff --git a/drivers/media/usb/Makefile b/drivers/media/usb/Makefile
+index 6d171beea20d..a9b7a398addb 100644
+--- a/drivers/media/usb/Makefile
++++ b/drivers/media/usb/Makefile
+@@ -29,4 +29,5 @@ obj-$(CONFIG_VIDEO_GO7007) += go7007/
+ obj-$(CONFIG_VIDEO_HDPVR) += hdpvr/
+ obj-$(CONFIG_VIDEO_PVRUSB2) += pvrusb2/
+ obj-$(CONFIG_VIDEO_STK1160) += stk1160/
++obj-$(CONFIG_VIDEO_USB3HDCAP) += usb3hdcap/
+ obj-$(CONFIG_VIDEO_USBTV) += usbtv/
+diff --git a/drivers/media/usb/usb3hdcap/Kconfig b/drivers/media/usb/usb3hdcap/Kconfig
+new file mode 100644
+index 000000000000..b2c841448eb1
+--- /dev/null
++++ b/drivers/media/usb/usb3hdcap/Kconfig
+@@ -0,0 +1,15 @@
++# SPDX-License-Identifier: GPL-2.0-only
++config VIDEO_USB3HDCAP
++	tristate "StarTech USB3HDCAP video capture support"
++	depends on VIDEO_DEV && I2C && SND
++	depends on GPIOLIB && PM
++	select SND_PCM
++	select VIDEOBUF2_VMALLOC
++	select VIDEO_MST3367
++	select VIDEO_TW9900
 +	help
-+	  Support for the MStar MST3367 HDMI receiver, component video
-+	  ADC and scaler.
++	  This is a video4linux2 driver for the StarTech USB3HDCAP and
++	  Micomsoft XCAPTURE-1 USB 3.0 HD video capture devices.
 +
 +	  To compile this driver as a module, choose M here: the
-+	  module will be called mst3367.
-+
- config VIDEO_SAA7110
- 	tristate "Philips SAA7110 video decoder"
- 	depends on VIDEO_DEV && I2C
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index 604b19dbc7b7..b9541ec3f823 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -81,6 +81,7 @@ obj-$(CONFIG_VIDEO_MIRA016) += mira016.o
- obj-$(CONFIG_VIDEO_MIRA220) += mira220.o
- obj-$(CONFIG_VIDEO_ML86V7667) += ml86v7667.o
- obj-$(CONFIG_VIDEO_MSP3400) += msp3400.o
-+obj-$(CONFIG_VIDEO_MST3367) += mst3367.o
- obj-$(CONFIG_VIDEO_MT9M001) += mt9m001.o
- obj-$(CONFIG_VIDEO_MT9M111) += mt9m111.o
- obj-$(CONFIG_VIDEO_MT9M114) += mt9m114.o
-diff --git a/drivers/media/i2c/mst3367.c b/drivers/media/i2c/mst3367.c
++	  module will be called usb3hdcap
+diff --git a/drivers/media/usb/usb3hdcap/Makefile b/drivers/media/usb/usb3hdcap/Makefile
 new file mode 100644
-index 000000000000..84391aa37392
+index 000000000000..f8d833ea530a
 --- /dev/null
-+++ b/drivers/media/i2c/mst3367.c
-@@ -0,0 +1,1085 @@
++++ b/drivers/media/usb/usb3hdcap/Makefile
+@@ -0,0 +1,8 @@
++# SPDX-License-Identifier: GPL-2.0-only
++usb3hdcap-y := usb3hdcap-core.o \
++	usb3hdcap-video.o \
++	usb3hdcap-composite.o \
++	usb3hdcap-hdmi.o \
++	usb3hdcap-audio.o
++
++obj-$(CONFIG_VIDEO_USB3HDCAP) += usb3hdcap.o
+diff --git a/drivers/media/usb/usb3hdcap/usb3hdcap-audio.c b/drivers/media/usb/usb3hdcap/usb3hdcap-audio.c
+new file mode 100644
+index 000000000000..61c28cd76f21
+--- /dev/null
++++ b/drivers/media/usb/usb3hdcap/usb3hdcap-audio.c
+@@ -0,0 +1,323 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * MStar MST3367 HDMI receiver and component ADC
++ * USB3HDCAP audio support - CS53L21 init + ALSA capture device
 + *
-+ * Based on reverse engineering of CY3014.X64.SYS
-+ *   (version 1.1.0.193 of Fri, 04 Jun 2021 09:37:45 UTC)
-+ * HDMI path based on hdcapm by Steven Toth
++ * Audio is embedded in the isochronous video stream as 48kHz stereo
++ * 16-bit LE PCM. Each video line contains 8, 12, or 16 bytes of audio data.
 + */
 +
-+#include <linux/delay.h>
-+#include <linux/i2c.h>
-+#include <linux/kernel.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/v4l2-dv-timings.h>
-+#include <media/i2c/mst3367.h>
-+#include <media/v4l2-device.h>
-+#include <media/v4l2-dv-timings.h>
-+#include <media/v4l2-subdev.h>
++#include <sound/core.h>
++#include <sound/initval.h>
++#include <sound/pcm.h>
++#include <sound/pcm_params.h>
 +
-+struct mst3367 {
-+	struct v4l2_subdev sd;
-+	struct media_pad pads[MST3367_NUM_PADS];
-+	struct device *dev;
-+	struct i2c_client *client;
++#include "usb3hdcap.h"
 +
-+	u32 input;
-+	int current_bank;
-+	bool bt601;
-+	struct v4l2_dv_timings timings;
-+};
++#define HDCAP_AUDIO_BUFSZ	(64 * 1024)
 +
-+static inline struct mst3367 *to_mst3367(struct v4l2_subdev *sd)
-+{
-+	return container_of(sd, struct mst3367, sd);
-+}
-+
-+static int mst3367_write(struct mst3367 *mst, u8 reg, u8 val)
-+{
-+	return i2c_smbus_write_byte_data(mst->client, reg, val);
-+}
-+
-+static int mst3367_read(struct mst3367 *mst, u8 reg)
-+{
-+	return i2c_smbus_read_byte_data(mst->client, reg);
-+}
-+
-+static int mst3367_rmw(struct mst3367 *mst, u8 reg, u8 mask, u8 bits)
-+{
-+	int val = mst3367_read(mst, reg);
-+
-+	if (val < 0)
-+		return val;
-+	return mst3367_write(mst, reg, (val & mask) | bits);
-+}
-+
-+static int mst3367_rmw_get_old(struct mst3367 *mst, u8 reg, u8 mask, u8 bits,
-+			       u8 *old)
-+{
-+	int val = mst3367_read(mst, reg);
-+
-+	if (val < 0)
-+		return val;
-+	*old = val;
-+	return mst3367_write(mst, reg, (val & mask) | bits);
-+}
-+
-+static const struct v4l2_dv_timings_cap mst3367_hdmi_timings_cap = {
-+	.type = V4L2_DV_BT_656_1120,
-+	.bt = {
-+		.min_width = 640,
-+		.max_width = 1920,
-+		.min_height = 480,
-+		.max_height = 1080,
-+		.min_pixelclock = 25175000, /* 640x480p60 */
-+		.max_pixelclock = 148500000, /* 1080p60 */
-+		.standards = V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT,
-+		.capabilities = V4L2_DV_BT_CAP_PROGRESSIVE |
-+				V4L2_DV_BT_CAP_INTERLACED,
-+	},
++static const struct snd_pcm_hardware snd_hdcap_hw = {
++	.info = SNDRV_PCM_INFO_BATCH |
++		SNDRV_PCM_INFO_MMAP |
++		SNDRV_PCM_INFO_INTERLEAVED |
++		SNDRV_PCM_INFO_BLOCK_TRANSFER |
++		SNDRV_PCM_INFO_MMAP_VALID,
++	.formats = SNDRV_PCM_FMTBIT_S16_LE,
++	.rates = SNDRV_PCM_RATE_48000,
++	.rate_min = 48000,
++	.rate_max = 48000,
++	.channels_min = 2,
++	.channels_max = 2,
++	.period_bytes_min = 1024,
++	.period_bytes_max = 65536,
++	.periods_min = 2,
++	.periods_max = 128,
++	.buffer_bytes_max = HDCAP_AUDIO_BUFSZ,
 +};
 +
 +/* ------------------------------------------------------------------ */
-+/* Component scaler mode table                                        */
++/* PCM ops                                                            */
 +/* ------------------------------------------------------------------ */
 +
-+struct component_mode {
-+	int refresh_rate;
-+	/* MST3367 bank 0 ADC/scaler registers (ref: SetADParameters) */
-+	u8 pllgain, clpdly, clpdur, hsopw;
-+	u8 adc_bw0, adc_bw1;
-+	u16 scaler_htotal;
-+	u16 hde_off;
-+	u8 vde_off;
-+	struct v4l2_dv_timings timings;
-+};
-+
-+#define MST3367_DV_BT_CEA_720X240P59_94 { \
-+	.type = V4L2_DV_BT_656_1120, \
-+	V4L2_INIT_BT_TIMINGS(720, 240, 0, 0, \
-+		13500000, 19, 62, 57, 4, 3, 15, 0, 0, 0, \
-+		V4L2_DV_BT_STD_CEA861, \
-+		V4L2_DV_FL_IS_CE_VIDEO | V4L2_DV_FL_HAS_PICTURE_ASPECT | \
-+		V4L2_DV_FL_HAS_CEA861_VIC, { 4, 3 }, 8) \
-+}
-+
-+#define MST3367_DV_BT_CEA_720X288P50 { \
-+	.type = V4L2_DV_BT_656_1120, \
-+	V4L2_INIT_BT_TIMINGS(720, 288, 0, 0, \
-+		13500000, 12, 63, 69, 2, 3, 19, 0, 0, 0, \
-+		V4L2_DV_BT_STD_CEA861, \
-+		V4L2_DV_FL_IS_CE_VIDEO | V4L2_DV_FL_HAS_PICTURE_ASPECT | \
-+		V4L2_DV_FL_HAS_CEA861_VIC, { 4, 3 }, 23) \
-+}
-+
-+/*
-+ * Values from Windows driver table $140303810 + 240p and 288p
-+ */
-+static const struct component_mode component_modes[] = {
-+	/*    pll   clp   clp   hsop  adc   adc                     */
-+	/*Hz  gain  dly   dur   w     bw0   bw1   sclht  hde    vde */
-+	{ 60, 0x08, 0x08, 0x08, 0x18, 0x44, 0x04, 0x35a, 0x076, 0x12,
-+	  V4L2_DV_BT_CEA_720X480I59_94 },
-+	{ 60, 0x08, 0x08, 0x08, 0x18, 0x44, 0x04, 0x35a, 0x077, 0x13,
-+	  MST3367_DV_BT_CEA_720X240P59_94 },
-+	{ 50, 0x08, 0x08, 0x08, 0x18, 0x44, 0x04, 0x360, 0x083, 0x16,
-+	  V4L2_DV_BT_CEA_720X576I50 },
-+	{ 50, 0x08, 0x08, 0x08, 0x18, 0x44, 0x04, 0x360, 0x083, 0x17,
-+	  MST3367_DV_BT_CEA_720X288P50 },
-+	{ 60, 0x20, 0x08, 0x08, 0x18, 0x33, 0x03, 0x35a, 0x079, 0x24,
-+	  V4L2_DV_BT_CEA_720X480P59_94 },
-+	{ 50, 0x18, 0x08, 0x08, 0x18, 0x33, 0x03, 0x360, 0x083, 0x2c,
-+	  V4L2_DV_BT_CEA_720X576P50 },
-+	{ 24, 0x58, 0x38, 0x20, 0x30, 0x11, 0x01, 0xce4, 0x12b, 0x19,
-+	  V4L2_DV_BT_CEA_1280X720P24 },
-+	{ 25, 0x58, 0x38, 0x20, 0x30, 0x11, 0x01, 0xf78, 0x12b, 0x19,
-+	  V4L2_DV_BT_CEA_1280X720P25 },
-+	{ 30, 0x58, 0x38, 0x20, 0x30, 0x11, 0x01, 0xce4, 0x12b, 0x19,
-+	  V4L2_DV_BT_CEA_1280X720P30 },
-+	{ 50, 0x58, 0x38, 0x20, 0x30, 0x11, 0x01, 0x7bc, 0x12b, 0x19,
-+	  V4L2_DV_BT_CEA_1280X720P50 },
-+	{ 60, 0x58, 0x38, 0x20, 0x30, 0x11, 0x01, 0x672, 0x12b, 0x19,
-+	  V4L2_DV_BT_CEA_1280X720P60 },
-+	{ 50, 0x58, 0x38, 0x20, 0x30, 0x11, 0x01, 0xa50, 0x0eb, 0x14,
-+	  V4L2_DV_BT_CEA_1920X1080I50 },
-+	{ 60, 0x58, 0x38, 0x20, 0x30, 0x11, 0x01, 0x898, 0x0eb, 0x14,
-+	  V4L2_DV_BT_CEA_1920X1080I60 },
-+	{ 24, 0xe8, 0x38, 0x30, 0x60, 0x00, 0x00, 0xabe, 0x0eb, 0x29,
-+	  V4L2_DV_BT_CEA_1920X1080P24 },
-+	{ 25, 0xe8, 0x38, 0x30, 0x60, 0x00, 0x00, 0xa50, 0x0eb, 0x29,
-+	  V4L2_DV_BT_CEA_1920X1080P25 },
-+	{ 30, 0xe8, 0x38, 0x30, 0x60, 0x00, 0x00, 0x898, 0x0eb, 0x29,
-+	  V4L2_DV_BT_CEA_1920X1080P30 },
-+	{ 50, 0xe8, 0x38, 0x30, 0x60, 0x00, 0x00, 0xa50, 0x0eb, 0x29,
-+	  V4L2_DV_BT_CEA_1920X1080P50 },
-+	{ 60, 0xe8, 0x38, 0x30, 0x60, 0x00, 0x00, 0x898, 0x0eb, 0x29,
-+	  V4L2_DV_BT_CEA_1920X1080P60 },
-+};
-+
-+static const struct v4l2_dv_timings_cap mst3367_component_timings_cap = {
-+	.type = V4L2_DV_BT_656_1120,
-+	.bt = {
-+		.min_width = 720,
-+		.max_width = 1920,
-+		.min_height = 240,
-+		.max_height = 1080,
-+		.min_pixelclock = 13500000, /* 480i */
-+		.max_pixelclock = 148500000, /* 1080p60 */
-+		.standards = V4L2_DV_BT_STD_CEA861,
-+		.capabilities = V4L2_DV_BT_CAP_PROGRESSIVE |
-+				V4L2_DV_BT_CAP_INTERLACED,
-+	},
-+};
-+
-+static int mst_bank(struct mst3367 *mst, int bank)
++static int snd_hdcap_pcm_open(struct snd_pcm_substream *substream)
 +{
-+	if (mst->current_bank == bank)
-+		return 0;
-+	mst->current_bank = bank;
-+	return mst3367_write(mst, 0x00, bank);
++	struct usb3hdcap *hdcap = snd_pcm_substream_chip(substream);
++
++	hdcap->snd_substream = substream;
++	substream->runtime->hw = snd_hdcap_hw;
++
++	return 0;
 +}
 +
-+static void mst3367_config(struct mst3367 *mst)
++static int snd_hdcap_pcm_close(struct snd_pcm_substream *substream)
 +{
-+	bool hotplug;
++	struct usb3hdcap *hdcap = snd_pcm_substream_chip(substream);
 +
-+	mst_bank(mst, 0x00);
-+	mst3367_write(mst, 0x51, 0x80);
-+	mst3367_write(mst, 0x13, 0x08);
-+	/* RxTmdsHotPlug: all off */
-+	mst3367_rmw(mst, 0xb7, 0xff, 0x02);
-+	/* RxGeneralInit */
-+	mst3367_write(mst, 0x41, 0x6f);
-+	mst3367_write(mst, 0xb8, 0x00);
-+	/* RxVideoInit */
-+	mst3367_write(mst, 0xb0, 0x14);
-+	mst3367_rmw(mst, 0xae, ~0x04, 0x04);
-+	mst3367_write(mst, 0xad, 0x05); /* low-pass filter */
-+	mst3367_write(mst, 0xb1, 0xc0);
-+	mst3367_write(mst, 0xb2, 0x00);
-+	mst3367_write(mst, 0xb3, 0x00);
-+	mst3367_write(mst, 0xb4, 0x55);
-+	/* RxAudioInit */
-+	mst3367_rmw(mst, 0xb4, ~0x03, 0x00);
++	atomic_set(&hdcap->snd_stream, 0);
++	WRITE_ONCE(hdcap->snd_substream, NULL);
 +
-+	/* RxTmdsInit */
-+	mst_bank(mst, 0x01);
-+	mst3367_write(mst, 0x0f, 0x02);
-+	mst3367_write(mst, 0x16, 0x30);
-+	mst3367_write(mst, 0x17, 0x00);
-+	mst3367_write(mst, 0x18, 0x00);
-+	mst3367_write(mst, 0x19, 0x00);
-+	mst3367_write(mst, 0x1a, 0x50);
-+	mst3367_rmw(mst, 0x2a, ~0x07, 0x07);
-+	/* RxHdcpInit */
-+	mst3367_write(mst, 0x24, 0x40);
-+	mst3367_write(mst, 0x25, 0x00);
-+	mst3367_write(mst, 0x30, 0x80);
-+	mst3367_write(mst, 0x31, 0x00);
-+	mst3367_write(mst, 0x32, 0x00);
-+
-+	mst_bank(mst, 0x02);
-+	mst3367_write(mst, 0x08, 0x03);
-+	/* RxAudioInit (cont'd) */
-+	mst3367_write(mst, 0x01, 0x61);
-+	mst3367_write(mst, 0x02, 0xf5);
-+	mst3367_rmw(mst, 0x03, ~0x02, 0x02);
-+	mst3367_write(mst, 0x04, 0x01);
-+	mst3367_write(mst, 0x05, 0x00);
-+	mst3367_write(mst, 0x06, 0x08);
-+	mst3367_write(mst, 0x1c, 0x1a);
-+	mst3367_write(mst, 0x1d, 0x00);
-+	mst3367_write(mst, 0x1e, 0x00);
-+	mst3367_write(mst, 0x1f, 0x00);
-+	mst3367_rmw(mst, 0x25, 0xff ^ 0xa2, 0xa2);
-+	mst3367_rmw(mst, 0x02, 0x7f, 0x80);
-+	mst3367_rmw(mst, 0x07, ~0x04, 0x04);
-+	mst3367_write(mst, 0x17, 0xc0);
-+	mst3367_write(mst, 0x19, 0xff);
-+	mst3367_write(mst, 0x1a, 0xff);
-+	mst3367_write(mst, 0x1b, 0xfc);
-+	mst3367_write(mst, 0x20, 0x00);
-+	mst3367_rmw(mst, 0x21, ~0x03, 0x00);
-+	mst3367_write(mst, 0x22, 0x26);
-+	mst3367_write(mst, 0x27, 0x00);
-+	mst3367_rmw(mst, 0x2e, 0xff ^ 0xa1, 0xa1);
-+
-+	mst_bank(mst, 0x00);
-+
-+	hotplug = false;
-+	v4l2_subdev_notify(&mst->sd, MST3367_HOTPLUG, &hotplug);
-+
-+	mst3367_rmw(mst, 0xb7, 0xff, 0x02);
-+
-+	mst3367_write(mst, 0xab, 0x15); /* COLOR.RANGE */
-+	mst3367_write(mst, 0xac, 0x15); /* COLOR.RANGE */
-+
-+	/* RxHdcpReset */
-+	mst3367_write(mst, 0xb8, 0x10);
-+	mst3367_write(mst, 0xb8, 0x00);
-+
-+	/* RxHdmiReset */
-+	mst_bank(mst, 0x02);
-+	mst3367_write(mst, 0x07, 0xf4);
-+	mst3367_write(mst, 0x07, 0x04);
-+
-+	/* RxSwitchSource: 0x81 = HDMI TMDS.A */
-+	mst_bank(mst, 0x00);
-+	mst3367_write(mst, 0x51, 0x81);
-+
-+	hotplug = true;
-+	v4l2_subdev_notify(&mst->sd, MST3367_HOTPLUG, &hotplug);
-+
-+	mst3367_rmw(mst, 0xb7, 0xfd, 0x00);
-+	msleep(200);
-+
-+	/* FUN_00016640: RxHdmiInit / BT.656 output enable */
-+	mst_bank(mst, 0x02);
-+	mst3367_rmw(mst, 0x01, 0x0f, 0x60);
-+	mst3367_rmw(mst, 0x04, 0xff, 0x01);
-+	mst3367_write(mst, 0x06, 0x08);
-+	mst3367_rmw(mst, 0x09, 0xff, 0x20);
-+
-+	mst_bank(mst, 0x00);
-+	mst3367_rmw(mst, 0x54, 0xef, 0x00);
-+	mst3367_rmw(mst, 0xac, 0xff, 0x80);
-+	mst3367_rmw(mst, 0xce, 0xff, 0x80);
-+	mst3367_rmw(mst, 0xcf, 0xfa, 0x02);
-+
-+	mst3367_rmw(mst, 0x00, 0x7f, 0x00);
-+	mst_bank(mst, 0x00);
++	return 0;
 +}
 +
-+/* Identity CSC for component YPbPr */
-+static const u8 csc_identity_component[] = {
-+	0x10, 0x00,  0x00, 0x00,  0x00, 0x00, /* M11, M12, M13 */
-+	0x00, 0x00,  0x10, 0x00,  0x00, 0x00, /* M21, M22, M23 */
-+	0x00, 0x00,  0x00, 0x00,  0x10, 0x00, /* M31, M32, M33 */
-+	0x20, 0x00,  0x03, 0x80,  0x20, 0x00, /*  A1,  A2,  A3 */
-+};
-+
-+/* Identity CSC for HDMI YCbCr */
-+static const u8 csc_identity_hdmi[] = {
-+	0x10, 0x00,  0x00, 0x00,  0x00, 0x00,
-+	0x00, 0x00,  0x10, 0x00,  0x00, 0x00,
-+	0x00, 0x00,  0x00, 0x00,  0x10, 0x00,
-+	0x20, 0x00,  0x00, 0x00,  0x20, 0x00,
-+};
-+
-+/* BT.601 for SD (width <= 720) */
-+static const u8 csc_r2y_sd[] = {
-+	0x08, 0x02,  0x04, 0xc5,  0xfd, 0x4d,
-+	0xf9, 0x4a,  0x09, 0x5b,  0xfa, 0xb1,
-+	0xfe, 0xb4,  0x01, 0xd2,  0x08, 0x02,
-+	0x20, 0x00,  0x00, 0x00,  0x20, 0x00,
-+};
-+
-+/* BT.709 for HD (width > 720) */
-+static const u8 csc_r2y_hd[] = {
-+	0x08, 0x02,  0x03, 0x65,  0xfe, 0x28,
-+	0xf8, 0xb9,  0x0b, 0x65,  0xf9, 0xd6,
-+	0xff, 0x45,  0x01, 0x27,  0x08, 0x02,
-+	0x20, 0x00,  0x00, 0x00,  0x20, 0x00,
-+};
-+
-+#define COLOR_RGB 0x00
-+#define COLOR_YUV422 0x20
-+#define COLOR_YUV444 0x40
-+
-+static void mst3367_write_csc(struct mst3367 *mst)
++static int snd_hdcap_prepare(struct snd_pcm_substream *substream)
 +{
-+	bool comp = (mst->input == MST3367_INPUT_COMPONENT);
-+	const u8 *csc;
-+	u8 old_ab, reg_92;
-+	bool limited = false;
-+	/* this can be overridden by the source */
-+	bool bt601 = mst->timings.bt.width <= 720;
-+	int k;
++	struct usb3hdcap *hdcap = snd_pcm_substream_chip(substream);
 +
-+	if (comp) {
-+		reg_92 = 0x66;
-+		csc = csc_identity_component;
-+	} else {
-+		int pkt_status;
-+		int color = 0;
-+		int quant = 0;
-+		int colorimetry = 0;
++	hdcap->snd_buffer_pos = 0;
++	hdcap->snd_period_pos = 0;
 +
-+		mst_bank(mst, 0x02);
-+		pkt_status = (mst3367_read(mst, 0x0c) & 0x3f) << 8 |
-+			     (mst3367_read(mst, 0x0b) & 0xff);
-+		if (mst3367_read(mst, 0x0e) & 0x08)
-+			pkt_status |= 0x8000;
-+
-+		/* ref: RxHdmiPacketColor */
-+		if (pkt_status & 0x8) {
-+			/* 0x00 = RGB, 0x20 = YUV422, 0x40 = YUV444 */
-+			color = mst3367_read(mst, 0x48) & 0x60;
-+			/* 0 = default, 1 = limited, 2 = full */
-+			quant = mst3367_read(mst, 0x4a);
-+			quant = quant < 0 ? 0 : (quant >> 2) & 0x03;
-+			limited = quant == 1;
-+			/* 0 = not stated, 1 = BT.601, 2 = BT.709 */
-+			colorimetry = mst3367_read(mst, 0x49);
-+			colorimetry = colorimetry < 0 ? 0 : colorimetry >> 6;
-+		}
-+
-+		dev_info(mst->dev,
-+			 "CSC: pkt_status=0x%04x color=0x%02x quant=%d colorimetry=%d\n",
-+			 pkt_status, color, quant, colorimetry);
-+
-+		if (color == COLOR_RGB) {
-+			reg_92 = limited ? 0x55 : 0x40;
-+			csc = bt601 ? csc_r2y_sd : csc_r2y_hd;
-+			dev_info(mst->dev, "CSC: HDMI RGB, %s R2Y\n",
-+				 bt601 ? "BT.601" : "BT.709");
-+		} else {
-+			bt601 = colorimetry == 1;
-+			reg_92 = limited ? 0x66 : 0x62;
-+			csc = csc_identity_hdmi;
-+			dev_info(mst->dev,
-+				 "CSC: HDMI YCbCr (0x%02x), %s\n",
-+				 color, bt601 ? "BT.601" : "BT.709");
-+		}
-+	}
-+
-+	mst->bt601 = bt601;
-+
-+	mst_bank(mst, 0x00);
-+
-+	/* BLANK.OUTPUT while changing CSC */
-+	mst3367_rmw_get_old(mst, 0xab, 0x7f, 0x80, &old_ab);
-+
-+	/* COLOR.RANGE */
-+	mst3367_write(mst, 0x90, 0x15);
-+	mst3367_write(mst, 0x91, 0x15);
-+	mst3367_write(mst, 0x92, reg_92);
-+
-+	mst3367_rmw(mst, 0xac, ~0x3f, 0x15);
-+	mst3367_write(mst, 0xad, 0x05);
-+	mst3367_write(mst, 0x1e, 0x11);
-+	mst3367_write(mst, 0x1f, 0x01);
-+
-+	for (k = 0; k < 24; k++)
-+		mst3367_write(mst, 0x93 + k, csc[k]);
-+
-+	if (!comp)
-+		mst3367_write(mst, 0xa7, limited ? 0x04 : 0x00);
-+
-+	/* RX_OUTPUT_YUV422 / 08.BITS / EMBEDDED SYNC */
-+	mst3367_rmw(mst, 0xb0, 0xc2, 0x21);
-+	/* NORMAL.OUTPUT (un-blank) */
-+	mst3367_write(mst, 0xab, old_ab & 0x7f);
-+
-+	mst3367_write(mst, 0xb3, 0x00);
-+
-+	mst_bank(mst, 0x02);
-+	mst3367_write(mst, 0x27, 0x00);
-+	mst3367_write(mst, 0x20, 0x00);
++	return 0;
 +}
 +
-+/* ------------------------------------------------------------------ */
-+/* Signal detection polling                                           */
-+/* ------------------------------------------------------------------ */
-+
-+#define HDMI_VTOTAL_TOLERANCE	5
-+#define HDMI_VFREQ_TOLERANCE	5
-+
-+static int mst3367_read_vfreq(struct mst3367 *mst)
++static int snd_hdcap_trigger(struct snd_pcm_substream *substream, int cmd)
 +{
-+	int hi, lo, period;
-+
-+	mst_bank(mst, 0x00);
-+	hi = mst3367_read(mst, 0x59);
-+	lo = mst3367_read(mst, 0x5a);
-+	if (hi < 0 || lo < 0)
-+		return 0;
-+
-+	period = (hi & 0x3f) << 8 | lo;
-+	/* units of 0.1 Hz, ref: RxHdmiModeDetect */
-+	return period ? 1250000 / period : 0;
-+}
-+
-+static const struct v4l2_dv_timings *match_hdmi_timing(int hactive, int vtotal,
-+						       int vfreq)
-+{
-+	const struct v4l2_dv_timings *best = NULL;
-+	int best_err = INT_MAX;
-+	int k;
-+
-+	for (k = 0; v4l2_dv_timings_presets[k].bt.width; k++) {
-+		const struct v4l2_dv_timings *t = &v4l2_dv_timings_presets[k];
-+		const struct v4l2_bt_timings *bt = &t->bt;
-+		u32 frame_width = V4L2_DV_BT_FRAME_WIDTH(bt);
-+		u32 frame_height = V4L2_DV_BT_FRAME_HEIGHT(bt);
-+		int fields = bt->interlaced ? 2 : 1;
-+		int vtotal_err, vfreq_err, err;
-+
-+		if (bt->width != hactive)
-+			continue;
-+		if (!v4l2_valid_dv_timings(t, &mst3367_hdmi_timings_cap,
-+					   NULL, NULL))
-+			continue;
-+
-+		vtotal_err = abs(vtotal * fields - (int)frame_height);
-+		if (vtotal_err > HDMI_VTOTAL_TOLERANCE)
-+			continue;
-+
-+		vfreq_err = abs(vfreq -
-+				(int)DIV_ROUND_CLOSEST_ULL(bt->pixelclock * 10 * fields,
-+							   frame_width * frame_height));
-+		if (vfreq_err > HDMI_VFREQ_TOLERANCE)
-+			continue;
-+
-+		err = vtotal_err * 2 * HDMI_VFREQ_TOLERANCE + vfreq_err;
-+		if (err < best_err) {
-+			best_err = err;
-+			best = t;
-+		}
-+	}
-+	return best;
-+}
-+
-+static void mst3367_enable_auto_position(struct mst3367 *mst)
-+{
-+	mst_bank(mst, 0x00);
-+	mst3367_write(mst, 0xe2, 0x80);
-+	/* report the digital DE window */
-+	mst3367_write(mst, 0xe3, 0x08);
-+	/* position threshold */
-+	mst3367_write(mst, 0xe4, 0x00);
-+}
-+
-+static int hdmi_poll_signal(struct mst3367 *mst,
-+			    struct v4l2_dv_timings *timings)
-+{
-+	int k, status;
-+	int prev_htotal = -1, prev_vtotal = -1, prev_hactive = -1;
-+	int stable_count = 0;
-+
-+	mst3367_enable_auto_position(mst);
-+	msleep(100);
-+
-+	for (k = 0; k < 100; k++) {
-+		int htotal, vtotal, hactive, vfreq, tmds_ratio;
-+		const struct v4l2_dv_timings *std;
-+
-+		msleep(100);
-+
-+		mst_bank(mst, 0x00);
-+		status = mst3367_read(mst, 0x55);
-+		if (status < 0)
-+			continue;
-+
-+		if (!(status & 0x3c)) {
-+			/* Not locked yet */
-+			mst3367_enable_auto_position(mst);
-+			if (k % 10 == 0)
-+				dev_info(mst->dev,
-+					 "HDMI signal poll[%d]: lock=0x%02x (no signal)\n",
-+					 k, status);
-+			stable_count = 0;
-+			continue;
-+		}
-+
-+		htotal = (mst3367_read(mst, 0x6a) << 8 |
-+			  mst3367_read(mst, 0x6b)) & 0xfff;
-+		vtotal = (mst3367_read(mst, 0x5b) << 8 |
-+			  mst3367_read(mst, 0x5c)) & 0x7ff;
-+
-+		mst_bank(mst, 0x02);
-+		hactive = (mst3367_read(mst, 0x29) << 8 |
-+			   mst3367_read(mst, 0x28)) & 0x1fff;
-+
-+		if (k % 5 == 0)
-+			dev_info(mst->dev,
-+				 "HDMI poll[%d]: lock=0x%02x ht=%d vt=%d ha=%d stable=%d\n",
-+				 k, status, htotal, vtotal, hactive, stable_count);
-+
-+		/*
-+		 * Require non-zero timings and two consecutive identical
-+		 * readings before accepting
-+		 */
-+		if (htotal == 0 || vtotal == 0 || hactive == 0 ||
-+		    htotal != prev_htotal || vtotal != prev_vtotal ||
-+		    hactive != prev_hactive) {
-+			prev_htotal = htotal;
-+			prev_vtotal = vtotal;
-+			prev_hactive = hactive;
-+			stable_count = 0;
-+			continue;
-+		}
-+
-+		if (++stable_count < 2)
-+			continue;
-+
-+		vfreq = mst3367_read_vfreq(mst);
-+
-+		dev_info(mst->dev,
-+			 "HDMI locked: htotal=%d vtotal=%d hactive=%d vfreq=%d.%d\n",
-+			 htotal, vtotal, hactive, vfreq / 10, vfreq % 10);
-+
-+		std = match_hdmi_timing(hactive, vtotal, vfreq);
-+		if (!std) {
-+			dev_err(mst->dev,
-+				"unsupported HDMI timing: htotal=%d vtotal=%d hactive=%d vfreq=%d.%d\n",
-+				htotal, vtotal, hactive, vfreq / 10, vfreq % 10);
-+			return -ERANGE;
-+		}
-+
-+		/* 100 = 8 bit, 125 = 10 bit, 150 = 12 bit deep color */
-+		tmds_ratio = htotal * 100 / V4L2_DV_BT_FRAME_WIDTH(&std->bt);
-+		dev_info(mst->dev,
-+			 "HDMI mode: %ux%u%s, TMDS clock = %d.%02dx pixel clock\n",
-+			 std->bt.width, std->bt.height,
-+			 std->bt.interlaced ? "i" : "p",
-+			 tmds_ratio / 100, tmds_ratio % 100);
-+
-+		*timings = *std;
-+
-+		/* DISABLE AUTO POSITION */
-+		mst_bank(mst, 0x00);
-+		mst3367_write(mst, 0xe2, 0x00);
-+
-+		return 0;
-+	}
-+
-+	dev_err(mst->dev, "No HDMI signal lock after 10s\n");
-+	return -ETIMEDOUT;
-+}
-+
-+/* ------------------------------------------------------------------ */
-+/* ADC front-end config (component/VGA only)                          */
-+/* ------------------------------------------------------------------ */
-+
-+static void mst3367_adc_config(struct mst3367 *mst)
-+{
-+	/* RxAdcInit */
-+	mst_bank(mst, 0x00);
-+	mst3367_write(mst, 0x00, 0x80);
-+	mst3367_write(mst, 0x24, 0xc0);
-+	mst3367_write(mst, 0x00, 0x00);
-+	mst3367_rmw(mst, 0x21, ~0x07, 0x01);
-+	mst3367_write(mst, 0x04, 0x00); /* ADC phase */
-+	mst3367_rmw(mst, 0x10, 0x0f, 0xd0);
-+	mst3367_write(mst, 0x11, 0x2d);
-+	mst3367_write(mst, 0x20, 0xc0);
-+	mst3367_write(mst, 0x21, 0x04);
-+	/* bits 5:4 = sync source: 0x30 = SOG for component */
-+	mst3367_rmw(mst, 0x0e, 0xcf, 0x30);
-+}
-+
-+static const struct component_mode *
-+find_component_mode(const struct v4l2_dv_timings *t)
-+{
-+	int k;
-+
-+	for (k = 0; k < ARRAY_SIZE(component_modes); k++)
-+		if (v4l2_match_dv_timings(t, &component_modes[k].timings, 0, false))
-+			return &component_modes[k];
-+	return NULL;
-+}
-+
-+#define COMPONENT_VTOTAL_TOLERANCE	25
-+#define COMPONENT_HFREQ_TOLERANCE	8
-+
-+/* Picks the mode closest to the measured line count and line rate */
-+static const struct component_mode *match_component_mode(int vtotal, int hfreq,
-+							 bool interlaced)
-+{
-+	const struct component_mode *best = NULL;
-+	int best_err = INT_MAX;
-+	int k;
-+
-+	for (k = 0; k < ARRAY_SIZE(component_modes); k++) {
-+		const struct component_mode *m = &component_modes[k];
-+		const struct v4l2_bt_timings *bt = &m->timings.bt;
-+		int std_vtotal = V4L2_DV_BT_FRAME_HEIGHT(bt) /
-+				 (bt->interlaced ? 2 : 1);
-+		int std_hfreq = (u32)bt->pixelclock /
-+				(V4L2_DV_BT_FRAME_WIDTH(bt) * 100);
-+		int vtotal_err = abs(vtotal - std_vtotal);
-+		int hfreq_err = abs(hfreq - std_hfreq);
-+		int err;
-+
-+		if (vtotal_err > COMPONENT_VTOTAL_TOLERANCE ||
-+		    hfreq_err > COMPONENT_HFREQ_TOLERANCE)
-+			continue;
-+
-+		err = vtotal_err + hfreq_err;
-+		if (!bt->interlaced != !interlaced)
-+			err += COMPONENT_VTOTAL_TOLERANCE +
-+			       COMPONENT_HFREQ_TOLERANCE + 1;
-+		if (err < best_err) {
-+			best_err = err;
-+			best = m;
-+		}
-+	}
-+	return best;
-+}
-+
-+/* ------------------------------------------------------------------ */
-+/* Component scaler register write                                    */
-+/* ------------------------------------------------------------------ */
-+
-+static void component_write_scaler(struct mst3367 *mst,
-+				   const struct component_mode *m)
-+{
-+	const struct v4l2_bt_timings *bt = &m->timings.bt;
-+	int width = bt->width;
-+	int height = bt->interlaced ? bt->height / 2 : bt->height;
-+	int ht = m->scaler_htotal - 1;
-+	int is_720_low_rr = width == 1280 && height == 720 &&
-+			(m->refresh_rate == 24 ||
-+				m->refresh_rate == 25 ||
-+				m->refresh_rate == 30);
-+
-+	mst_bank(mst, 0x00);
-+
-+	/*
-+	 * edge case for low frame rate 720p:
-+	 * if (((*(int *)(uVar30 + 0x30) == 0x500) && (*(int *)(uVar30 + 0x34) == 0x2d0)) &&
-+	 *     ((*(int *)(uVar30 + 0x38) == 0x1e ||
-+	 *     ((*(int *)(uVar30 + 0x38) == 0x19 || (*(int *)(uVar30 + 0x38) == 0x18)))))) {
-+	 *   uVar37 = 0;
-+	 * } else {
-+	 *   uVar37 = 4;
-+	 * }
-+	 * send_mst(param_1,0,0x12,uVar37);
-+	 */
-+	mst3367_write(mst, 0x12, is_720_low_rr ? 0x00 : 0x04);
-+
-+	/* SetADParameters */
-+	mst3367_write(mst, 0x03, m->pllgain);
-+	mst3367_write(mst, 0x05, m->clpdly);
-+	mst3367_write(mst, 0x06, m->clpdur);
-+	mst3367_write(mst, 0x07, m->hsopw);
-+
-+	/* ADC gain: Y, Cb, Cr */
-+	mst3367_write(mst, 0x08, 0xa0);
-+	mst3367_write(mst, 0x09, 0xc0);
-+	mst3367_write(mst, 0x0a, 0xa0);
-+
-+	/* grade scale (clamp level): Y, Cb, Cr */
-+	mst3367_write(mst, 0x0b, 0x80);
-+	mst3367_write(mst, 0x0c, 0x60);
-+	mst3367_write(mst, 0x0d, 0x80);
-+
-+	/* clamp offset: Y, Cb, Cr */
-+	mst3367_write(mst, 0x18, 0x10);
-+	mst3367_write(mst, 0x19, 0x10);
-+	mst3367_write(mst, 0x1a, 0x10);
-+	mst3367_write(mst, 0x1b, 0x00);
-+	mst3367_write(mst, 0x1c, 0x00);
-+	mst3367_write(mst, 0x1d, 0x00);
-+
-+	/* ADCSetAutoDetectFormat: output htotal */
-+	mst3367_write(mst, 0x01, ht >> 4);
-+	mst3367_write(mst, 0x02, (ht & 0x0f) << 4);
-+	mst3367_write(mst, 0x1e, m->adc_bw0);
-+	mst3367_write(mst, 0x1f, m->adc_bw1);
-+
-+	/* output data enable start pos after sync */
-+	mst3367_write(mst, 0x80, (m->hde_off >> 8) & 0x0f);
-+	mst3367_write(mst, 0x81, m->hde_off & 0xff);
-+	mst3367_write(mst, 0x82, (width >> 8) & 0xff);
-+	mst3367_write(mst, 0x83, width & 0xff);
-+	mst3367_write(mst, 0x84, m->vde_off);
-+	mst3367_write(mst, 0x85,
-+		      ((height >> 8) & 0x0f) | (bt->interlaced ? 0x20 : 0x00));
-+	mst3367_write(mst, 0x86, height & 0xff);
-+
-+	mst3367_write(mst, 0x2d, 0x11);
-+	mst3367_write(mst, 0x2e, 0x11);
-+	mst3367_write(mst, 0x39, (u8)(m->clpdly + m->clpdur - 0x78));
-+	mst3367_write(mst, 0x2c, 0x9d);
-+	mst3367_write(mst, 0x3a, 0x0c);
-+	mst3367_write(mst, 0x3b, 0x08);
-+
-+	mst3367_rmw(mst, 0x10, 0xfa, 0x05);
-+	mst3367_rmw(mst, 0x0f, 0xff, 0x20);
-+	mst3367_rmw(mst, 0x17, 0xff, 0x02);
-+	mst3367_rmw(mst, 0x2f, 0xff, 0x02);
-+	mst3367_rmw(mst, 0x60, 0xfb, 0x00);
-+}
-+
-+/* ------------------------------------------------------------------ */
-+/* Component ADC signal polling                                       */
-+/* ------------------------------------------------------------------ */
-+
-+static int component_poll_signal(struct mst3367 *mst,
-+				 const struct component_mode **detected)
-+{
-+	const struct component_mode *mode;
-+	int k, status, vtotal, hperiod, hfreq, interlaced;
-+	int signal_count = 0;
-+
-+	/*
-+	 * RxAdcModeDetect()
-+	 *   regs[0x14] & 0x90 == 0x90: H+V locked
-+	 *   regs[0x14] & 0x90 == 0x80: H lock only
-+	 *   regs[0x14] == 0x00 && regs[0x15] & 0x40: none
-+	 */
-+	for (k = 0; k < 100; k++) {
-+		int signal_type;
-+
-+		mst_bank(mst, 0x00);
-+
-+		/* trigger timing measurement? */
-+		mst3367_write(mst, 0x0e, 0x40);
-+
-+		status = mst3367_read(mst, 0x14);
-+		mst3367_read(mst, 0x15);
-+
-+		/* Check signal presence from 0x14 bits 7,4 */
-+		signal_type = status & 0x90;
-+		if (signal_type == 0x90 || signal_type == 0x80 ||
-+		    (signal_type == 0x00 && (status & 0x02)))
-+			signal_count++;
-+		else
-+			signal_count = 0;
-+
-+		hperiod = ((mst3367_read(mst, 0x57) & 0x3f) << 8) |
-+			   mst3367_read(mst, 0x58);
-+
-+		/* scale ADC sample rate to H period */
-+		if (hperiod > 0)
-+			mst3367_write(mst, 0x11,
-+				      (hperiod < 0x401 ? 0x400 : hperiod) >> 7);
-+
-+		/* V period (timer counts) */
-+		mst3367_read(mst, 0x59);
-+		mst3367_read(mst, 0x5a);
-+
-+		/* V total (lines) */
-+		mst3367_read(mst, 0x5b);
-+		mst3367_read(mst, 0x5c);
-+
-+		/* H total (pixels), interlace flag */
-+		mst3367_read(mst, 0x5d);
-+		mst3367_read(mst, 0x5e);
-+		interlaced = mst3367_read(mst, 0x5f);
-+		interlaced = interlaced < 0 ? 0 : !!(interlaced & 0x02);
-+
-+		mst_bank(mst, 0x02);
-+		mst3367_read(mst, 0x11);
-+		mst3367_read(mst, 0x12);
-+		mst3367_write(mst, 0x20, 0x00);
-+
-+		if (k % 10 == 0)
-+			dev_info(mst->dev,
-+				 "component poll[%d]: 0x14=0x%02x count=%d\n",
-+				 k, status, signal_count);
-+
-+		if (signal_count < 3) {
-+			msleep(100);
-+			continue;
-+		}
-+
-+		/* Signal stable - read vtotal and determine format */
-+		mst_bank(mst, 0x00);
-+		vtotal = ((mst3367_read(mst, 0x5b) & 0x07) << 8) |
-+			  mst3367_read(mst, 0x5c);
-+
-+		/* units are 0.1 kHz, ref: RxAdcModeDetect */
-+		hfreq = hperiod > 0 ? 1600000 / hperiod : 0;
-+
-+		dev_info(mst->dev,
-+			 "component locked: vtotal=%d hfreq=%d.%d kHz %s 0x14=0x%02x\n",
-+			 vtotal, hfreq / 10, hfreq % 10,
-+			 interlaced ? "interlaced" : "progressive", status);
-+
-+		mode = match_component_mode(vtotal, hfreq, interlaced);
-+		if (!mode) {
-+			dev_err(mst->dev,
-+				"unsupported component timing: vtotal=%d hfreq=%d.%d kHz\n",
-+				vtotal, hfreq / 10, hfreq % 10);
-+			return -ERANGE;
-+		}
-+		*detected = mode;
-+		return 0;
-+	}
-+
-+	dev_err(mst->dev, "No component signal lock after 10s\n");
-+	return -ETIMEDOUT;
-+}
-+
-+/* ------------------------------------------------------------------ */
-+/* Subdev ops                                                         */
-+/* ------------------------------------------------------------------ */
-+
-+static int mst3367_s_routing(struct v4l2_subdev *sd, u32 input, u32 output,
-+			     u32 config)
-+{
-+	struct mst3367 *mst = to_mst3367(sd);
-+
-+	if (input > MST3367_INPUT_NONE)
++	struct usb3hdcap *hdcap = snd_pcm_substream_chip(substream);
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_RESUME:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		atomic_set(&hdcap->snd_stream, 1);
++		break;
++	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		atomic_set(&hdcap->snd_stream, 0);
++		break;
++	default:
 +		return -EINVAL;
-+
-+	mst->current_bank = -1;
-+	mst->input = input;
-+	memset(&mst->timings, 0, sizeof(mst->timings));
-+
-+	if (input == MST3367_INPUT_NONE) {
-+		mst_bank(mst, 0x00);
-+		mst3367_write(mst, 0x51, 0x80);
-+		return 0;
-+	}
-+
-+	mst3367_config(mst);
-+
-+	if (input == MST3367_INPUT_COMPONENT) {
-+		/* RxSwitchSource: 0x21 = component ADC (YPbPr) */
-+		mst_bank(mst, 0x00);
-+		mst3367_write(mst, 0x51, 0x21);
-+
-+		mst3367_adc_config(mst);
 +	}
 +
 +	return 0;
 +}
 +
-+static int mst3367_query_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
-+				    struct v4l2_dv_timings *timings)
++static snd_pcm_uframes_t snd_hdcap_pointer(struct snd_pcm_substream *substream)
 +{
-+	struct mst3367 *mst = to_mst3367(sd);
-+	const struct component_mode *mode;
++	struct usb3hdcap *hdcap = snd_pcm_substream_chip(substream);
++
++	return hdcap->snd_buffer_pos;
++}
++
++static const struct snd_pcm_ops snd_hdcap_pcm_ops = {
++	.open = snd_hdcap_pcm_open,
++	.close = snd_hdcap_pcm_close,
++	.prepare = snd_hdcap_prepare,
++	.trigger = snd_hdcap_trigger,
++	.pointer = snd_hdcap_pointer,
++};
++
++/* ------------------------------------------------------------------ */
++/* Audio data feed                                                    */
++/* ------------------------------------------------------------------ */
++
++void usb3hdcap_audio_data(struct usb3hdcap *hdcap, const u8 *data, int len)
++{
++	struct snd_pcm_substream *substream;
++	struct snd_pcm_runtime *runtime;
++	size_t frame_bytes, nframes;
++	size_t buffer_pos, period_pos;
++	unsigned long flags;
++
++	substream = READ_ONCE(hdcap->snd_substream);
++	if (!substream)
++		return;
++
++	snd_pcm_stream_lock_irqsave(substream, flags);
++
++	if (!atomic_read(&hdcap->snd_stream))
++		goto out;
++
++	runtime = substream->runtime;
++	if (!runtime || !runtime->dma_area)
++		goto out;
++
++	frame_bytes = runtime->frame_bits >> 3;
++	nframes = len / frame_bytes;
++	if (!nframes)
++		goto out;
++
++	buffer_pos = hdcap->snd_buffer_pos;
++	period_pos = hdcap->snd_period_pos;
++
++	/* Copy into ALSA ring buffer, handling wrap */
++	if (buffer_pos + nframes >= runtime->buffer_size) {
++		size_t cnt = (runtime->buffer_size - buffer_pos) * frame_bytes;
++
++		memcpy(runtime->dma_area + buffer_pos * frame_bytes, data, cnt);
++		memcpy(runtime->dma_area, data + cnt, nframes * frame_bytes - cnt);
++	} else {
++		memcpy(runtime->dma_area + buffer_pos * frame_bytes, data,
++		       nframes * frame_bytes);
++	}
++
++	buffer_pos += nframes;
++	period_pos += nframes;
++
++	if (buffer_pos >= runtime->buffer_size)
++		buffer_pos -= runtime->buffer_size;
++
++	hdcap->snd_buffer_pos = buffer_pos;
++
++	if (period_pos >= runtime->period_size) {
++		hdcap->snd_period_pos = period_pos - runtime->period_size;
++		snd_pcm_period_elapsed_under_stream_lock(substream);
++	} else {
++		hdcap->snd_period_pos = period_pos;
++	}
++
++out:
++	snd_pcm_stream_unlock_irqrestore(substream, flags);
++}
++
++/* ------------------------------------------------------------------ */
++/* CS53L21 codec init                                                 */
++/* ------------------------------------------------------------------ */
++
++int usb3hdcap_cs53l21_init(struct usb3hdcap *hdcap)
++{
++	bool is_xcapture =
++		le16_to_cpu(hdcap->usb_dev->descriptor.idProduct) == XCAPTURE1_PID;
++	u8 in_sel = 0x00;
++	u8 ch_mixer = 0x00;
 +	int ret;
 +
-+	switch (mst->input) {
-+	case MST3367_INPUT_HDMI:
-+		return hdmi_poll_signal(mst, timings);
-+	case MST3367_INPUT_COMPONENT:
-+		ret = component_poll_signal(mst, &mode);
-+		if (ret < 0)
-+			return ret;
-+		*timings = mode->timings;
-+		return 0;
-+	default:
-+		return -ENODATA;
-+	}
-+}
-+
-+static int mst3367_s_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
-+				struct v4l2_dv_timings *timings)
-+{
-+	struct mst3367 *mst = to_mst3367(sd);
-+	const struct component_mode *mode;
-+
-+	switch (mst->input) {
-+	case MST3367_INPUT_HDMI:
-+		if (!v4l2_valid_dv_timings(timings, &mst3367_hdmi_timings_cap,
-+					   NULL, NULL))
-+			return -ERANGE;
-+		mst->timings = *timings;
-+		break;
-+	case MST3367_INPUT_COMPONENT:
-+		mode = find_component_mode(timings);
-+		if (!mode)
-+			return -ERANGE;
-+		mst->timings = *timings;
-+		component_write_scaler(mst, mode);
-+		break;
-+	default:
-+		return -ENODATA;
++	if (is_xcapture) {
++		/*
++		 * composite/S-Video audio is on AIN2A/AIN2B, and for the other inputs
++		 * the ADC channels are swapped
++		 */
++		if (hdcap->input == INPUT_COMPOSITE || hdcap->input == INPUT_SVIDEO)
++			in_sel = 0x50;
++		else
++			ch_mixer = 0x0f;
 +	}
 +
-+	mst3367_write_csc(mst);
++	/* MIC power control: power down mic B, mic A, and bias */
++	/* SPEED = "10 - Half-Speed Mode (HSM) - 12.5 to 25 kHz sample rates" */
++	ret = u3hc_i2c_write(hdcap, ADDR_CS53L21, CS53L21_MIC_PWR_CTL, 0x4e);
++	if (ret)
++		return ret;
++
++	/* interface: I2S, master */
++	ret = u3hc_i2c_write(hdcap, ADDR_CS53L21, CS53L21_IFACE_CTL, 0x44);
++	if (ret)
++		return ret;
++
++	/* ADC input select: AIN1x, or AIN2x for XCAPTURE-1 SD inputs */
++	ret = u3hc_i2c_write(hdcap, ADDR_CS53L21, CS53L21_ADC_IN_SEL, in_sel);
++	if (ret)
++		return ret;
++
++	/* ALC/PGA: 0 dB */
++	ret = u3hc_i2c_write(hdcap, ADDR_CS53L21, CS53L21_ALC_PGAA, 0x00);
++	if (ret)
++		return ret;
++	ret = u3hc_i2c_write(hdcap, ADDR_CS53L21, CS53L21_ALC_PGAB, 0x00);
++	if (ret)
++		return ret;
++
++	/* ADC attenuators: 0 dB */
++	ret = u3hc_i2c_write(hdcap, ADDR_CS53L21, CS53L21_ADCA_ATT, 0x00);
++	if (ret)
++		return ret;
++	ret = u3hc_i2c_write(hdcap, ADDR_CS53L21, CS53L21_ADCB_ATT, 0x00);
++	if (ret)
++		return ret;
++
++	/* ALC enable and attack rate = fastest attack */
++	ret = u3hc_i2c_write(hdcap, ADDR_CS53L21, CS53L21_ALC_EN_ATK, 0xc0);
++	if (ret)
++		return ret;
++
++	/* interface: "SPE Processed ADC data to ADC serial port, SDOUT data." */
++	ret = u3hc_i2c_write(hdcap, ADDR_CS53L21, CS53L21_IFACE_CTL, 0x46);
++	if (ret)
++		return ret;
++
++	/* SPE control: SPE enable, "Soft Ramp" turned on */
++	ret = u3hc_i2c_write(hdcap, ADDR_CS53L21, CS53L21_SPE_CTL, 0x42);
++	if (ret)
++		return ret;
++
++	/* ADC mixer volume: +2.5 dB */
++	ret = u3hc_i2c_write(hdcap, ADDR_CS53L21, CS53L21_ADCA_MIX_VOL, 0x05);
++	if (ret)
++		return ret;
++	ret = u3hc_i2c_write(hdcap, ADDR_CS53L21, CS53L21_ADCB_MIX_VOL, 0x05);
++	if (ret)
++		return ret;
++
++	/* channel mixer: off, or ADCA/ADCB swapped */
++	ret = u3hc_i2c_write(hdcap, ADDR_CS53L21, CS53L21_CH_MIXER, ch_mixer);
++	if (ret)
++		return ret;
++
 +	return 0;
 +}
 +
-+static int mst3367_g_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
-+				struct v4l2_dv_timings *timings)
++/* ------------------------------------------------------------------ */
++/* ALSA card init / teardown                                          */
++/* ------------------------------------------------------------------ */
++
++static void usb3hdcap_snd_free(struct snd_card *card)
 +{
-+	struct mst3367 *mst = to_mst3367(sd);
++	struct usb3hdcap *hdcap = card->private_data;
 +
-+	if (!mst->timings.bt.width)
-+		return -ENODATA;
-+
-+	*timings = mst->timings;
-+	return 0;
++	v4l2_device_put(&hdcap->v4l2_dev);
 +}
 +
-+static int mst3367_enum_dv_timings(struct v4l2_subdev *sd,
-+				   struct v4l2_enum_dv_timings *timings)
++int usb3hdcap_audio_init(struct usb3hdcap *hdcap)
 +{
-+	switch (timings->pad) {
-+	case MST3367_PAD_HDMI:
-+		return v4l2_enum_dv_timings_cap(timings,
-+						&mst3367_hdmi_timings_cap,
-+						NULL, NULL);
-+	case MST3367_PAD_COMPONENT:
-+		if (timings->index >= ARRAY_SIZE(component_modes))
-+			return -EINVAL;
++	int ret;
++	struct snd_card *card;
++	struct snd_pcm *pcm;
 +
-+		timings->timings = component_modes[timings->index].timings;
-+		return 0;
-+	default:
-+		return -EINVAL;
++	atomic_set(&hdcap->snd_stream, 0);
++
++	ret = snd_card_new(hdcap->dev, SNDRV_DEFAULT_IDX1, "usb3hdcap",
++			   THIS_MODULE, 0, &card);
++	if (ret < 0)
++		return ret;
++
++	strscpy(card->driver, "usb3hdcap", sizeof(card->driver));
++	strscpy(card->shortname, "USB3HDCAP Audio", sizeof(card->shortname));
++	snprintf(card->longname, sizeof(card->longname),
++		 "USB3HDCAP Audio at bus %d device %d",
++		 hdcap->usb_dev->bus->busnum, hdcap->usb_dev->devnum);
++
++	hdcap->snd = card;
++	card->private_data = hdcap;
++	card->private_free = usb3hdcap_snd_free;
++	v4l2_device_get(&hdcap->v4l2_dev);
++
++	ret = snd_pcm_new(card, "USB3HDCAP Audio", 0, 0, 1, &pcm);
++	if (ret < 0)
++		goto err;
++
++	strscpy(pcm->name, "USB3HDCAP Audio Input", sizeof(pcm->name));
++	pcm->info_flags = 0;
++	pcm->private_data = hdcap;
++
++	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE, &snd_hdcap_pcm_ops);
++	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_CONTINUOUS, NULL,
++				       HDCAP_AUDIO_BUFSZ, HDCAP_AUDIO_BUFSZ);
++
++	ret = snd_card_register(card);
++	if (ret)
++		goto err;
++
++	dev_info(hdcap->dev, "ALSA audio device registered\n");
++	return 0;
++
++err:
++	hdcap->snd = NULL;
++	snd_card_free(card);
++	return ret;
++}
++
++void usb3hdcap_audio_free(struct usb3hdcap *hdcap)
++{
++	if (hdcap->snd && hdcap->usb_dev) {
++		snd_card_free_when_closed(hdcap->snd);
++		hdcap->snd = NULL;
 +	}
 +}
+diff --git a/drivers/media/usb/usb3hdcap/usb3hdcap-composite.c b/drivers/media/usb/usb3hdcap/usb3hdcap-composite.c
+new file mode 100644
+index 000000000000..20b298bd7fea
+--- /dev/null
++++ b/drivers/media/usb/usb3hdcap/usb3hdcap-composite.c
+@@ -0,0 +1,209 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * USB3HDCAP composite video init - CPLD + TW9900 setup, signal lock
++ */
 +
-+static int mst3367_dv_timings_cap(struct v4l2_subdev *sd,
-+				  struct v4l2_dv_timings_cap *cap)
-+{
-+	unsigned int pad = cap->pad;
++#include <linux/kernel.h>
++#include <linux/delay.h>
++#include <linux/i2c.h>
++#include <linux/usb.h>
++#include <media/i2c/mst3367.h>
++#include <media/i2c/tw9900.h>
++#include <media/v4l2-ctrls.h>
 +
-+	switch (pad) {
-+	case MST3367_PAD_HDMI:
-+		*cap = mst3367_hdmi_timings_cap;
-+		break;
-+	case MST3367_PAD_COMPONENT:
-+		*cap = mst3367_component_timings_cap;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
++#include "usb3hdcap.h"
 +
-+	cap->pad = pad;
-+	return 0;
-+}
-+
-+static int mst3367_enum_mbus_code(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *sd_state,
-+				  struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	if (code->index > 0)
-+		return -EINVAL;
-+
-+	code->code = MEDIA_BUS_FMT_UYVY8_2X8;
-+	return 0;
-+}
-+
-+static int mst3367_get_fmt(struct v4l2_subdev *sd,
-+			   struct v4l2_subdev_state *sd_state,
-+			   struct v4l2_subdev_format *fmt)
-+{
-+	struct mst3367 *mst = to_mst3367(sd);
-+	const struct v4l2_bt_timings *bt = &mst->timings.bt;
-+
-+	fmt->format.code = MEDIA_BUS_FMT_UYVY8_2X8;
-+	fmt->format.width = bt->width;
-+	fmt->format.height = bt->height;
-+	fmt->format.field = bt->interlaced ?
-+		V4L2_FIELD_ALTERNATE : V4L2_FIELD_NONE;
-+	fmt->format.colorspace = mst->bt601 ?
-+		V4L2_COLORSPACE_SMPTE170M : V4L2_COLORSPACE_REC709;
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_video_ops mst3367_video_ops = {
-+	.s_routing = mst3367_s_routing,
++/* Main TW9900 configuration */
++static const struct tw9900_regval tw9900_init_regs[] = {
++	{ TW9900_ACNTL_I, 0x00 },
++	{ TW9900_OPFORM, 0xa7 },
++	{ TW9900_OPCNTL_I, 0x01 },
++	{ TW9900_VDELAY_LO, 0x14 },
++	{ TW9900_VACTIVE_LO, 0xf2 },
++	{ TW9900_HDELAY_LO, 0x0b },
++	{ TW9900_HACTIVE_LO, 0xd2 },
++	{ TW9900_VBICNTL, 0x57 },
++	{ TW9900_ACNTL_II, 0x0f },
++	{ TW9900_OPCNTL_II, 0x00 },
++	{ TW9900_SDT, 0x07 }, /* auto-detect */
++	{ TW9900_VCNTL1, 0x0c },
++	{ TW9900_VCNTL2, 0x03 },
++	{ TW9900_MISC1, 0x07 },
++	{ TW9900_MISC2, 0x06 },
++	{ TW9900_ANAPLLCTL, 0x01 },
++	{ TW9900_VVBI, 0x00 },
++	{ TW9900_HSBEGIN, 0x26 },
++	{ TW9900_HSEND, 0x36 },
++	{ TW9900_OVSDLY, 0xf0 },
++	{ TW9900_OVSEND, 0x28 },
++	{ TW9900_ACNTL_I, 0x80 },
++	/* "internal current reference 2" */
++	{ TW9900_ACNTL_I, 0x40 },
 +};
 +
-+static const struct v4l2_subdev_pad_ops mst3367_pad_ops = {
-+	.enum_mbus_code = mst3367_enum_mbus_code,
-+	.get_fmt = mst3367_get_fmt,
-+	.s_dv_timings = mst3367_s_dv_timings,
-+	.g_dv_timings = mst3367_g_dv_timings,
-+	.query_dv_timings = mst3367_query_dv_timings,
-+	.enum_dv_timings = mst3367_enum_dv_timings,
-+	.dv_timings_cap = mst3367_dv_timings_cap,
++/* Adjust for PAL vs NTSC */
++static const struct tw9900_regval tw9900_pal_regs[] = {
++	{ TW9900_CROP_HI, 0x12 },
++	{ TW9900_VDELAY_LO, 0x19 },
++	{ TW9900_VACTIVE_LO, 0x20 },
++	{ TW9900_HDELAY_LO, 0x0a },
++	{ TW9900_HACTIVE_LO, 0xd0 },
++	{ TW9900_VVBI, 0x00 },
++	{ TW9900_CNTRL2, 0x00 },
++	{ TW9900_SDT_NOISE, 0x11 },
++	{ TW9900_LUMA_CTL, 0x00 },
 +};
 +
-+static const struct v4l2_subdev_ops mst3367_ops = {
-+	.video = &mst3367_video_ops,
-+	.pad = &mst3367_pad_ops,
++static const struct tw9900_regval tw9900_ntsc_regs[] = {
++	{ TW9900_CROP_HI, 0x02 },
++	{ TW9900_VDELAY_LO, 0x14 },
++	{ TW9900_VACTIVE_LO, 0xf2 },
++	{ TW9900_HDELAY_LO, 0x10 },
++	{ TW9900_HACTIVE_LO, 0xd0 },
++	{ TW9900_VVBI, 0x10 },
++	{ TW9900_CNTRL2, 0x00 },
++	{ TW9900_SDT_NOISE, 0x11 },
++	{ TW9900_LUMA_CTL, 0x00 },
 +};
 +
-+static int mst3367_probe(struct i2c_client *client)
++static struct tw9900_platform_data tw9900_pdata = {
++	.init_regs = tw9900_init_regs,
++	.n_init_regs = ARRAY_SIZE(tw9900_init_regs),
++	.ntsc_regs = tw9900_ntsc_regs,
++	.n_ntsc_regs = ARRAY_SIZE(tw9900_ntsc_regs),
++	.pal_regs = tw9900_pal_regs,
++	.n_pal_regs = ARRAY_SIZE(tw9900_pal_regs),
++};
++
++static struct i2c_board_info tw9900_info = {
++	I2C_BOARD_INFO("tw9900", ADDR_TW9900 >> 1),
++	.platform_data = &tw9900_pdata,
++};
++
++int usb3hdcap_composite_register(struct usb3hdcap *hdcap)
 +{
-+	struct device *dev = &client->dev;
-+	struct mst3367 *mst;
++	hdcap->sd_tw9900 = v4l2_i2c_new_subdev_board(&hdcap->v4l2_dev,
++						     &hdcap->i2c_adap,
++						     &tw9900_info, NULL);
++	if (!hdcap->sd_tw9900) {
++		dev_warn(hdcap->dev, "Could not register TW9900\n");
++		return -ENODEV;
++	}
 +
-+	if (!i2c_check_functionality(client->adapter,
-+				     I2C_FUNC_SMBUS_BYTE_DATA))
-+		return -EIO;
++	hdcap->ctrl_brightness = v4l2_ctrl_find(&hdcap->ctrl,
++						V4L2_CID_BRIGHTNESS);
++	hdcap->ctrl_contrast = v4l2_ctrl_find(&hdcap->ctrl, V4L2_CID_CONTRAST);
++	hdcap->ctrl_saturation = v4l2_ctrl_find(&hdcap->ctrl,
++						V4L2_CID_SATURATION);
++	hdcap->ctrl_hue = v4l2_ctrl_find(&hdcap->ctrl, V4L2_CID_HUE);
++	hdcap->ctrl_sharpness = v4l2_ctrl_find(&hdcap->ctrl,
++					       V4L2_CID_SHARPNESS);
++	if (!hdcap->ctrl_brightness || !hdcap->ctrl_contrast ||
++	    !hdcap->ctrl_saturation || !hdcap->ctrl_hue ||
++	    !hdcap->ctrl_sharpness)
++		return -ENODEV;
 +
-+	mst = devm_kzalloc(dev, sizeof(*mst), GFP_KERNEL);
-+	if (!mst)
++	v4l2_ctrl_s_ctrl(hdcap->ctrl_brightness, -9);
++	v4l2_ctrl_s_ctrl(hdcap->ctrl_contrast, 0x79);
++	v4l2_ctrl_s_ctrl(hdcap->ctrl_sharpness, 0x02);
++
++	return 0;
++}
++
++/* Detect PAL vs NTSC from TW9900 auto-detection result */
++static void usb3hdcap_detect_std(struct usb3hdcap *hdcap)
++{
++	v4l2_std_id detected = V4L2_STD_UNKNOWN;
++	int ret;
++
++	ret = v4l2_subdev_call(hdcap->sd_tw9900, video, querystd, &detected);
++	if (ret == -ETIMEDOUT) {
++		dev_warn(hdcap->dev, "Detection not done, using NTSC\n");
++		hdcap->std = V4L2_STD_NTSC;
++	} else if (detected & V4L2_STD_NTSC) {
++		hdcap->std = V4L2_STD_NTSC;
++		dev_info(hdcap->dev, "NTSC detected\n");
++	} else if (detected & V4L2_STD_PAL) {
++		hdcap->std = V4L2_STD_PAL;
++		dev_info(hdcap->dev, "PAL detected\n");
++	} else { /* not sure if this will be hit, because others are disabled */
++		hdcap->std = V4L2_STD_NTSC;
++		dev_info(hdcap->dev, "Non-PAL/NTSC detected\n");
++	}
++
++	v4l2_subdev_call(hdcap->sd_tw9900, video, s_std, hdcap->std);
++
++	hdcap->detected_timings_present = 0;
++}
++
++/* Detect 240p/288p vs 480i/576i */
++static void usb3hdcap_detect_size(struct usb3hdcap *hdcap)
++{
++	struct v4l2_subdev_format fmt = {
++		.which = V4L2_SUBDEV_FORMAT_ACTIVE,
++	};
++	int ret;
++	int full_h = (hdcap->std & V4L2_STD_PAL) ? PAL_HEIGHT : NTSC_HEIGHT;
++	int half_h = full_h / 2;
++
++	hdcap->width = SD_WIDTH;
++	hdcap->height = half_h;
++	hdcap->bpl = hdcap->width * 2;
++
++	/* the TW9900 reports a half height frame if the source is progressive */
++	ret = v4l2_subdev_call(hdcap->sd_tw9900, pad, get_fmt, NULL, &fmt);
++	if (ret >= 0 && fmt.format.height == half_h) {
++		hdcap->interlaced = 0;
++		dev_info(hdcap->dev, "%dp detected\n", half_h);
++	} else {
++		hdcap->interlaced = 1;
++		dev_info(hdcap->dev, "%di detected\n", full_h);
++	}
++}
++
++int usb3hdcap_composite_init(struct usb3hdcap *hdcap)
++{
++	int k, ret;
++	u32 status = 0;
++
++	/* disable MST3367 */
++	v4l2_subdev_call(hdcap->sd_mst3367, video, s_routing,
++			 MST3367_INPUT_NONE, 0, 0);
++
++	/* select TW9900 input of cpld? */
++	/* from windows driver */
++	if (u3hc_i2c_read(hdcap, ADDR_CPLD, 0x3b) != 0)
++		u3hc_i2c_write(hdcap, ADDR_CPLD, 0x3b, 0x80);
++	u3hc_i2c_write(hdcap, ADDR_CPLD, 0x20, 0x05);
++	u3hc_i2c_write(hdcap, ADDR_CPLD, 0x00, 0x01);
++	u3hc_i2c_write(hdcap, ADDR_CPLD, 0x10, hdcap->has_mcu ? 0xfc : 0xfe);
++	u3hc_i2c_write(hdcap, ADDR_CPLD, 0x20, 0x75);
++
++	ret = v4l2_subdev_call(hdcap->sd_tw9900, video, s_routing,
++			       hdcap->input == INPUT_SVIDEO ?
++			       TW9900_INPUT_SVIDEO : TW9900_INPUT_COMPOSITE,
++			       0, 0);
++	if (ret < 0)
++		return ret;
++
++	for (k = 0; k < 10; k++) {
++		ret = v4l2_subdev_call(hdcap->sd_tw9900, video, g_input_status,
++				       &status);
++		if (ret >= 0 && !status) {
++			dev_info(hdcap->dev, "Signal locked (%d ms)\n", k * 100);
++			break;
++		}
++		msleep(100);
++	}
++
++	if (k == 10) {
++		dev_err(hdcap->dev, "No signal lock after 1s (last status=0x%02x)\n",
++			status);
++		return -ETIMEDOUT;
++	}
++
++	usb3hdcap_detect_std(hdcap);
++	usb3hdcap_detect_size(hdcap);
++
++	return 0;
++}
+diff --git a/drivers/media/usb/usb3hdcap/usb3hdcap-core.c b/drivers/media/usb/usb3hdcap/usb3hdcap-core.c
+new file mode 100644
+index 000000000000..47d5b397b362
+--- /dev/null
++++ b/drivers/media/usb/usb3hdcap/usb3hdcap-core.c
+@@ -0,0 +1,1107 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * StarTech USB3HDCAP USB 3.0 HD Video Capture Driver
++ * a.k.a. YUAN High-Tech Development Co., Ltd UB530
++ *
++ * Supported inputs are composite, S-Video, component, and HDMI. I haven't
++ * attempted to support DVI or VGA.
++ *
++ * Tested video modes (all at 60fps):
++ *     composite 240p and 480i
++ *     S-Video 240p and 480i
++ *     component 240p, 480i, 480p, 720p, 1080i
++ *     HDMI 1080p
++ *
++ * Other video modes will probably "just work" if the appropriate entries
++ * are added in the mode tables and code is added to disambiguate using
++ * htotal if necessary.
++ *
++ * Audio is supported and should work with all inputs.
++ *
++ * Also partially supports the Micomsoft XCAPTURE-1 for composite, S-Video,
++ * and HDMI... component is untested but should work.
++ *
++ * Based on USBPcap analysis and reverse engineering of CY3014.X64.SYS
++ *   (version 1.1.0.193 of Fri, 04 Jun 2021 09:37:45 UTC)
++ * MST3367 HDMI path based on hdcapm by Steven Toth
++ * Driver structure based heavily on usbtv
++ */
++
++#include <linux/kernel.h>
++#include <linux/delay.h>
++#include <linux/errno.h>
++#include <linux/i2c.h>
++#include <linux/slab.h>
++#include <linux/module.h>
++#include <linux/kref.h>
++#include <linux/uaccess.h>
++#include <linux/usb.h>
++#include <linux/vmalloc.h>
++#include <linux/mutex.h>
++#include <media/i2c/mst3367.h>
++#include <media/v4l2-common.h>
++#include <media/v4l2-dv-timings.h>
++#include <media/v4l2-event.h>
++#include <media/v4l2-ioctl.h>
++#include <media/videobuf2-vmalloc.h>
++
++#include "usb3hdcap.h"
++
++/* ------------------------------------------------------------------ */
++/* USB control transfer helpers                                       */
++/* ------------------------------------------------------------------ */
++
++int vendor_out(struct usb3hdcap *hdcap, u8 request, u16 value, u16 index,
++	       u8 *data, u16 len)
++{
++	int ret;
++	u8 *buf = NULL;
++
++	if (len > 0) {
++		buf = kmemdup(data, len, GFP_KERNEL);
++		if (!buf)
++			return -ENOMEM;
++	}
++
++	ret = usb_control_msg(hdcap->usb_dev,
++			      usb_sndctrlpipe(hdcap->usb_dev, 0),
++			      request,
++			      USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
++			      value, index, buf, len, 1000);
++
++	kfree(buf);
++
++	if (ret < 0) {
++		dev_err(hdcap->dev, "%s 0x%02x val=0x%04x idx=0x%04x: %d\n",
++			__func__, request, value, index, ret);
++		return ret;
++	}
++
++	return 0;
++}
++
++static int vendor_in(struct usb3hdcap *hdcap, u8 request, u16 value, u16 index,
++		     u8 *data, u16 len)
++{
++	u8 *buf;
++	int ret;
++
++	buf = kmalloc(len, GFP_KERNEL);
++	if (!buf)
 +		return -ENOMEM;
 +
-+	mst->dev = dev;
-+	mst->client = client;
-+	mst->input = MST3367_INPUT_NONE;
-+	mst->current_bank = -1;
++	ret = usb_control_msg(hdcap->usb_dev,
++			      usb_rcvctrlpipe(hdcap->usb_dev, 0),
++			      request,
++			      USB_DIR_IN | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
++			      value, index, buf, len, 1000);
 +
-+	v4l2_i2c_subdev_init(&mst->sd, client, &mst3367_ops);
++	if (ret >= 0 && ret < len) {
++		dev_err(hdcap->dev,
++			"%s 0x%02x val=0x%04x idx=0x%04x: short read %d/%d\n",
++			__func__, request, value, index, ret, len);
++		ret = -EIO;
++	}
++	if (ret >= 0)
++		memcpy(data, buf, len);
 +
-+	mst->pads[MST3367_PAD_HDMI].flags = MEDIA_PAD_FL_SINK;
-+	mst->pads[MST3367_PAD_COMPONENT].flags = MEDIA_PAD_FL_SINK;
-+	mst->pads[MST3367_PAD_SOURCE].flags = MEDIA_PAD_FL_SOURCE;
-+	mst->sd.entity.function = MEDIA_ENT_F_DV_DECODER;
-+
-+	return media_entity_pads_init(&mst->sd.entity, MST3367_NUM_PADS,
-+				      mst->pads);
++	kfree(buf);
++	return ret;
 +}
 +
-+static void mst3367_remove(struct i2c_client *client)
++/* ------------------------------------------------------------------ */
++/* MCU I2C tunnel (XCAPTURE-1)                                        */
++/*                                                                    */
++/* The Nuvoton NUC100 MCU intercepts I2C traffic. Transactions are    */
++/* tunneled through a different USB vendor protocol:                  */
++/*   Write: bRequest=0xC0, wValue=0x5066 or addr|0x5000               */
++/*   Read:  two-phase write+read, always through wValue=0x5066        */
++/*                                                                    */
++/* Some addresses need the 0x66 "gateway" (target addr in payload),   */
++/* others use the I2C addr directly in wValue with 0x5000 flag.       */
++/* ------------------------------------------------------------------ */
++
++static bool mcu_use_gateway(u8 addr)
 +{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+
-+	v4l2_device_unregister_subdev(sd);
-+	media_entity_cleanup(&sd->entity);
++	return ((u8)(addr + 0x78) & 0xeb) || addr == 0x8c;
 +}
 +
-+static const struct i2c_device_id mst3367_id[] = {
-+	{ .name = "mst3367" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, mst3367_id);
++static int mcu_i2c_write(struct usb3hdcap *hdcap, u8 addr, u8 reg, u8 val)
++{
++	u8 buf[3];
++	u16 wvalue;
++	int len;
++	int ret;
 +
-+static struct i2c_driver mst3367_driver = {
-+	.driver = {
-+		.name = "mst3367",
-+	},
-+	.probe = mst3367_probe,
-+	.remove = mst3367_remove,
-+	.id_table = mst3367_id,
++	if (mcu_use_gateway(addr)) {
++		buf[0] = addr;
++		buf[1] = reg;
++		buf[2] = val;
++		wvalue = 0x5066;
++		len = 3;
++	} else {
++		buf[0] = reg;
++		buf[1] = val;
++		wvalue = addr | 0x5000;
++		len = 2;
++	}
++
++	mutex_lock(&hdcap->mcu_lock);
++	ret = vendor_out(hdcap, REQ_I2C, wvalue, 0, buf, len);
++	mutex_unlock(&hdcap->mcu_lock);
++	return ret;
++}
++
++static int mcu_i2c_read(struct usb3hdcap *hdcap, u8 addr, u8 reg)
++{
++	u8 tx[3] = { addr | 1, 1, reg };
++	u8 val;
++	int ret;
++
++	mutex_lock(&hdcap->mcu_lock);
++
++	/* send target addr, rx length, and register */
++	ret = vendor_out(hdcap, REQ_I2C, 0x5066, 0, tx, 3);
++	if (ret < 0)
++		goto out;
++
++	/* Retrieve the result */
++	ret = vendor_in(hdcap, REQ_I2C, 0x5066, 0, &val, 1);
++	if (ret < 0) {
++		dev_err(hdcap->dev, "%s 0x%02x reg 0x%02x: %d\n",
++			__func__, addr, reg, ret);
++		goto out;
++	}
++	ret = val;
++
++out:
++	mutex_unlock(&hdcap->mcu_lock);
++	return ret;
++}
++
++int u3hc_i2c_write(struct usb3hdcap *hdcap, u8 addr, u8 reg, u8 val)
++{
++	if (addr == ADDR_MST3367 && reg == 0x00)
++		hdcap->mst_current_bank = val;
++
++	if (hdcap->has_mcu) {
++		if (addr == ADDR_MST3367 && reg != 0x00)
++			mcu_i2c_write(hdcap, ADDR_MST3367, 0x00, hdcap->mst_current_bank);
++		return mcu_i2c_write(hdcap, addr, reg, val);
++	}
++	return vendor_out(hdcap, REQ_I2C, addr, reg, &val, 1);
++}
++
++int u3hc_i2c_read(struct usb3hdcap *hdcap, u8 addr, u8 reg)
++{
++	u8 val;
++	int ret;
++
++	if (hdcap->has_mcu)
++		return mcu_i2c_read(hdcap, addr, reg);
++
++	ret = vendor_in(hdcap, REQ_I2C, addr, reg, &val, 1);
++	if (ret < 0) {
++		dev_err(hdcap->dev, "%s 0x%02x reg 0x%02x: %d\n",
++			__func__, addr, reg, ret);
++		return ret;
++	}
++
++	return val;
++}
++
++int u3hc_i2c_rmw(struct usb3hdcap *hdcap, u8 addr, u8 reg, u8 mask, u8 bits)
++{
++	int val = u3hc_i2c_read(hdcap, addr, reg);
++
++	if (val < 0)
++		return val;
++	return u3hc_i2c_write(hdcap, addr, reg, (val & mask) | bits);
++}
++
++/* ------------------------------------------------------------------ */
++/* I2C adapter for the TW9900 and MST3367 sub-devices                 */
++/* ------------------------------------------------------------------ */
++
++static int usb3hdcap_smbus_xfer(struct i2c_adapter *adap, u16 addr,
++				unsigned short flags, char read_write,
++				u8 command, int size,
++				union i2c_smbus_data *data)
++{
++	struct usb3hdcap *hdcap = i2c_get_adapdata(adap);
++	int ret;
++
++	if (!hdcap->usb_dev)
++		return -ENODEV;
++
++	if (size != I2C_SMBUS_BYTE_DATA)
++		return -EOPNOTSUPP;
++
++	if (read_write == I2C_SMBUS_WRITE)
++		return u3hc_i2c_write(hdcap, addr << 1, command, data->byte);
++
++	ret = u3hc_i2c_read(hdcap, addr << 1, command);
++	if (ret < 0)
++		return ret;
++
++	data->byte = ret;
++	return 0;
++}
++
++static u32 usb3hdcap_i2c_functionality(struct i2c_adapter *adap)
++{
++	return I2C_FUNC_SMBUS_BYTE_DATA;
++}
++
++static const struct i2c_algorithm usb3hdcap_i2c_algo = {
++	.smbus_xfer = usb3hdcap_smbus_xfer,
++	.functionality = usb3hdcap_i2c_functionality,
 +};
-+module_i2c_driver(mst3367_driver);
++
++static int usb3hdcap_i2c_register(struct usb3hdcap *hdcap)
++{
++	hdcap->i2c_adap.owner = THIS_MODULE;
++	hdcap->i2c_adap.algo = &usb3hdcap_i2c_algo;
++	hdcap->i2c_adap.dev.parent = hdcap->dev;
++	strscpy(hdcap->i2c_adap.name, "usb3hdcap", sizeof(hdcap->i2c_adap.name));
++	i2c_set_adapdata(&hdcap->i2c_adap, hdcap);
++
++	return i2c_add_adapter(&hdcap->i2c_adap);
++}
++
++/* CheckIsMCUExist() */
++static void usb3hdcap_probe_mcu(struct usb3hdcap *hdcap)
++{
++	u8 tx[5] = { 0xab, 0x03, 0x12, 0x34, 0x57 };
++	u8 rx[3] = {};
++	int k, ret;
++
++	hdcap->has_mcu = 0;
++
++	/* Assert CPLD GPIO 0x39 to wake MCU? */
++	vendor_out(hdcap, REQ_GPIO, 0xc039, 0, NULL, 0);
++	vendor_out(hdcap, REQ_GPIO, 0x4134, 0, NULL, 0);
++
++	/* Poll GPIO 0x39 until MCU signals ready */
++	for (k = 0; k < 50; k++) {
++		msleep(20);
++		ret = vendor_in(hdcap, REQ_GPIO, 0x39, 0, rx, 1);
++		if (ret >= 0 && rx[0] == 1)
++			break;
++	}
++	dev_dbg(hdcap->dev, "MCU freed, wait count=%d\n", k);
++
++	/* repeatedly send {0x12, 0x34, 0x57} until response received */
++	for (k = 0; k < 200; k++) {
++		ret = vendor_out(hdcap, REQ_I2C, 0x5066, 0, tx, sizeof(tx));
++		if (ret < 0)
++			return;
++
++		memset(rx, 0, sizeof(rx));
++		ret = vendor_in(hdcap, REQ_I2C, 0x5066, 0, rx, 3);
++		if (ret < 0)
++			return;
++
++		if (rx[0] == 'Q' && rx[1] == 0x10) {
++			hdcap->has_mcu = 1;
++			dev_info(hdcap->dev,
++				 "Nuvoton NUC100 MCU detected after %d tries\n",
++				 k + 1);
++			return;
++		}
++
++		/* still starting up, ask again in 100 ms */
++		if (rx[0] != 0x33 || rx[1] != 0x44 || rx[2] != 0x55)
++			break;
++		msleep(100);
++	}
++
++	if (k == 200)
++		dev_warn(hdcap->dev, "MCU never became ready\n");
++	else
++		dev_info(hdcap->dev,
++			 "Unrecognized MCU probe response: %02x %02x %02x\n",
++			 rx[0], rx[1], rx[2]);
++}
++
++/* Device-level init + GPIO pin state? shared between all inputs */
++static int usb3hdcap_device_init(struct usb3hdcap *hdcap)
++{
++	bool is_xcapture =
++		le16_to_cpu(hdcap->usb_dev->descriptor.idProduct) == XCAPTURE1_PID;
++
++	if (is_xcapture) {
++		/*
++		 * XCAPTURE-1: The Windows driver reads REQ_INIT and
++		 * sends this when the read fails or returns non-zero, purpose unknown
++		 */
++		u8 unk_ec[] = {
++			0xb8, 0x22, 0xb1, 0xd2, 0x03, 0xc0, 0xff, 0x00, 0x00, 0xca,
++		};
++		u8 state = 0;
++
++		if (vendor_in(hdcap, REQ_INIT, 0x0000, 0, &state, 1) < 0 || state)
++			vendor_out(hdcap, REQ_UNK_EC, 0x0000, 0,
++				   unk_ec, sizeof(unk_ec));
++	}
++
++	vendor_out(hdcap, REQ_INIT,   0x0000, 0, NULL, 0);
++	vendor_out(hdcap, REQ_UNK_C7, 0x0064, 0, NULL, 0);
++	/* Windows driver does this but is always fails? */
++	/* vendor_out(hdcap, 0xc5, 0x0000, 0, NULL, 0); */
++
++	/*
++	 * just replay what the windows driver does:
++	 *	FUN_14022e3f4(param_1,0x402d);
++	 *	FUN_14022e3f4(param_1,0x12d);
++	 *	FUN_140001220(0x32);
++	 *	FUN_14022e3f4(param_1,0x2d);
++	 *	FUN_140001220(0x32);
++	 *	FUN_14022e3f4(param_1,0x12d);
++	 *	FUN_140001220(0x32);
++	 *	FUN_14022e3f4(param_1,0x802d);
++	 */
++
++	vendor_out(hdcap, REQ_GPIO, 0x402d, 0, NULL, 0);
++	vendor_out(hdcap, REQ_GPIO, 0x012d, 0, NULL, 0);
++	msleep(50);
++	vendor_out(hdcap, REQ_GPIO, 0x002d, 0, NULL, 0);
++	msleep(50);
++	vendor_out(hdcap, REQ_GPIO, 0x012d, 0, NULL, 0);
++	msleep(50);
++	vendor_out(hdcap, REQ_GPIO, 0x802d, 0, NULL, 0);
++
++	if (!hdcap->has_mcu && is_xcapture)
++		usb3hdcap_probe_mcu(hdcap);
++
++	return 0;
++}
++
++int usb3hdcap_hw_init(struct usb3hdcap *hdcap)
++{
++	/* Clear stale detection state from previous input */
++	hdcap->std = 0;
++	hdcap->requested_std = 0;
++	hdcap->detected_timings_present = 0;
++	hdcap->requested_timings_present = 0;
++
++	usb3hdcap_cs53l21_init(hdcap);
++
++	switch (hdcap->input) {
++	case INPUT_HDMI:
++		return usb3hdcap_hdmi_init(hdcap);
++	case INPUT_COMPONENT:
++		return usb3hdcap_component_init(hdcap);
++	case INPUT_COMPOSITE:
++	case INPUT_SVIDEO:
++	default:
++		return usb3hdcap_composite_init(hdcap);
++	}
++}
++
++/* ------------------------------------------------------------------ */
++/* V4L2 ioctls                                                        */
++/* ------------------------------------------------------------------ */
++
++static int usb3hdcap_querycap(struct file *file, void *priv,
++			      struct v4l2_capability *cap)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++
++	strscpy(cap->driver, "usb3hdcap", sizeof(cap->driver));
++	strscpy(cap->card, hdcap->has_mcu ?
++		"Micomsoft XCAPTURE-1" : "StarTech USB3HDCAP",
++		sizeof(cap->card));
++	usb_make_path(hdcap->usb_dev, cap->bus_info, sizeof(cap->bus_info));
++	return 0;
++}
++
++static int usb3hdcap_enum_input(struct file *file, void *priv,
++				struct v4l2_input *i)
++{
++	if (i->index > INPUT_HDMI)
++		return -EINVAL;
++
++	i->type = V4L2_INPUT_TYPE_CAMERA;
++	switch (i->index) {
++	case INPUT_COMPOSITE:
++		strscpy(i->name, "Composite", sizeof(i->name));
++		i->std = USB3HDCAP_V4L2_STDS;
++		i->capabilities = V4L2_IN_CAP_STD;
++		break;
++	case INPUT_SVIDEO:
++		strscpy(i->name, "S-Video", sizeof(i->name));
++		i->std = USB3HDCAP_V4L2_STDS;
++		i->capabilities = V4L2_IN_CAP_STD;
++		break;
++	case INPUT_COMPONENT:
++		strscpy(i->name, "Component", sizeof(i->name));
++		i->std = 0;
++		i->capabilities = V4L2_IN_CAP_DV_TIMINGS;
++		break;
++	case INPUT_HDMI:
++		strscpy(i->name, "HDMI", sizeof(i->name));
++		i->std = 0;
++		i->capabilities = V4L2_IN_CAP_DV_TIMINGS;
++		break;
++	}
++	return 0;
++}
++
++static int usb3hdcap_enum_fmt_vid_cap(struct file *file, void  *priv,
++				      struct v4l2_fmtdesc *f)
++{
++	if (f->index > 0)
++		return -EINVAL;
++
++	f->pixelformat = V4L2_PIX_FMT_YUYV;
++	return 0;
++}
++
++static int usb3hdcap_fmt_vid_cap(struct file *file, void *priv,
++				 struct v4l2_format *f)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++
++	int width = hdcap->width;
++	int height = hdcap->height;
++	int interlaced = hdcap->interlaced;
++
++	/*
++	 * If timings were explicitly set, report format matching those
++	 * timings instead of what was detected from the signal
++	 */
++	if (hdcap->requested_timings_present) {
++		const struct v4l2_bt_timings *bt = &hdcap->requested_timings.bt;
++
++		width = bt->width;
++		height = bt->interlaced ? bt->height / 2 : bt->height;
++		interlaced = bt->interlaced;
++	}
++
++	f->fmt.pix.width = width;
++	f->fmt.pix.height = height;
++	f->fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV;
++	f->fmt.pix.field = interlaced ? V4L2_FIELD_ALTERNATE : V4L2_FIELD_NONE;
++	f->fmt.pix.bytesperline = width * 2;
++	f->fmt.pix.sizeimage = f->fmt.pix.bytesperline * height;
++	if (hdcap->input == INPUT_COMPOSITE || hdcap->input == INPUT_SVIDEO ||
++	    hdcap->mst_bt601)
++		f->fmt.pix.colorspace = V4L2_COLORSPACE_SMPTE170M;
++	else
++		f->fmt.pix.colorspace = V4L2_COLORSPACE_REC709;
++
++	return 0;
++}
++
++static int usb3hdcap_g_std(struct file *file, void *priv, v4l2_std_id *norm)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++
++	if (!(hdcap->input == INPUT_COMPOSITE || hdcap->input == INPUT_SVIDEO))
++		return -ENODATA;
++
++	/* try what was explicitly set, if unavailable, use detected */
++	if (hdcap->requested_std)
++		*norm = hdcap->requested_std;
++	else if (hdcap->std)
++		*norm = hdcap->std;
++	else
++		*norm = V4L2_STD_NTSC;
++	return 0;
++}
++
++static int usb3hdcap_s_std(struct file *file, void *priv, v4l2_std_id norm)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++
++	if (!(hdcap->input == INPUT_COMPOSITE || hdcap->input == INPUT_SVIDEO))
++		return -ENODATA;
++
++	if (!(norm & USB3HDCAP_V4L2_STDS))
++		return -EINVAL;
++
++	if (vb2_is_busy(&hdcap->vb2q)) {
++		v4l2_std_id cur;
++
++		usb3hdcap_g_std(file, priv, &cur);
++		return norm == cur ? 0 : -EBUSY;
++	}
++
++	hdcap->requested_std = norm;
++	return 0;
++}
++
++/* ------------------------------------------------------------------ */
++/* DV timings (HDMI + HD component)                                   */
++/* ------------------------------------------------------------------ */
++
++static unsigned int usb3hdcap_mst3367_pad(struct usb3hdcap *hdcap)
++{
++	return hdcap->input == INPUT_HDMI ?
++		MST3367_PAD_HDMI : MST3367_PAD_COMPONENT;
++}
++
++static bool usb3hdcap_component_timings_supported(const struct v4l2_dv_timings *t,
++						  void *handle)
++{
++	struct usb3hdcap *hdcap = handle;
++	struct v4l2_enum_dv_timings e = { .pad = MST3367_PAD_COMPONENT };
++
++	while (!v4l2_subdev_call(hdcap->sd_mst3367, pad, enum_dv_timings, &e)) {
++		if (v4l2_match_dv_timings(t, &e.timings, 0, false))
++			return true;
++		e.index++;
++	}
++	return false;
++}
++
++static int usb3hdcap_g_dv_timings(struct file *file, void *priv,
++				  struct v4l2_dv_timings *timings)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++
++	if (!(hdcap->input == INPUT_COMPONENT || hdcap->input == INPUT_HDMI))
++		return -ENODATA;
++
++	if (!(hdcap->requested_timings_present || hdcap->detected_timings_present))
++		return -ENODATA;
++
++	if (hdcap->requested_timings_present)
++		*timings = hdcap->requested_timings;
++	else
++		*timings = hdcap->detected_timings;
++	return 0;
++}
++
++static int usb3hdcap_s_dv_timings(struct file *file, void *priv,
++				  struct v4l2_dv_timings *timings)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++	struct v4l2_dv_timings_cap cap = {};
++	bool valid;
++	int ret;
++
++	if (!(hdcap->input == INPUT_COMPONENT || hdcap->input == INPUT_HDMI))
++		return -ENODATA;
++
++	cap.pad = usb3hdcap_mst3367_pad(hdcap);
++	ret = v4l2_subdev_call(hdcap->sd_mst3367, pad, dv_timings_cap, &cap);
++	if (ret < 0)
++		return ret;
++
++	if (hdcap->input == INPUT_COMPONENT)
++		valid = v4l2_valid_dv_timings(timings, &cap,
++					      usb3hdcap_component_timings_supported,
++					      hdcap);
++	else
++		valid = v4l2_valid_dv_timings(timings, &cap, NULL, NULL);
++
++	if (!valid)
++		return -ERANGE;
++
++	if (vb2_is_busy(&hdcap->vb2q)) {
++		const struct v4l2_dv_timings *cur = NULL;
++
++		if (hdcap->requested_timings_present)
++			cur = &hdcap->requested_timings;
++		else if (hdcap->detected_timings_present)
++			cur = &hdcap->detected_timings;
++
++		if (cur && v4l2_match_dv_timings(timings, cur, 0, false))
++			return 0;
++		return -EBUSY;
++	}
++
++	hdcap->requested_timings = *timings;
++	hdcap->requested_timings_present = 1;
++	return 0;
++}
++
++static int usb3hdcap_enum_dv_timings(struct file *file, void *priv,
++				     struct v4l2_enum_dv_timings *timings)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++	int ret;
++
++	if (!(hdcap->input == INPUT_COMPONENT || hdcap->input == INPUT_HDMI))
++		return -ENODATA;
++
++	timings->pad = usb3hdcap_mst3367_pad(hdcap);
++	ret = v4l2_subdev_call(hdcap->sd_mst3367, pad, enum_dv_timings, timings);
++	timings->pad = 0;
++	return ret;
++}
++
++static int usb3hdcap_dv_timings_cap(struct file *file, void *priv,
++				    struct v4l2_dv_timings_cap *cap)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++	int ret;
++
++	/* if you're not on HDMI/component, DV timings are not supported */
++	if (!(hdcap->input == INPUT_COMPONENT || hdcap->input == INPUT_HDMI))
++		return -ENODATA;
++
++	cap->pad = usb3hdcap_mst3367_pad(hdcap);
++	ret = v4l2_subdev_call(hdcap->sd_mst3367, pad, dv_timings_cap, cap);
++	cap->pad = 0;
++	return ret;
++}
++
++static int usb3hdcap_query_dv_timings(struct file *file, void *priv,
++				      struct v4l2_dv_timings *timings)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++
++	if (!hdcap->detected_timings_present)
++		return -ENODATA;
++
++	*timings = hdcap->detected_timings;
++	return 0;
++}
++
++static void usb3hdcap_activate_ctrls(struct usb3hdcap *hdcap,
++				     enum usb3hdcap_input input)
++{
++	bool is_tw9900 = input == INPUT_COMPOSITE || input == INPUT_SVIDEO;
++
++	v4l2_ctrl_activate(hdcap->ctrl_brightness, is_tw9900);
++	v4l2_ctrl_activate(hdcap->ctrl_contrast, is_tw9900);
++	v4l2_ctrl_activate(hdcap->ctrl_saturation, is_tw9900);
++	v4l2_ctrl_activate(hdcap->ctrl_hue, is_tw9900);
++	v4l2_ctrl_activate(hdcap->ctrl_sharpness, is_tw9900);
++}
++
++static int usb3hdcap_g_input(struct file *file, void *priv, unsigned int *i)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++
++	*i = hdcap->input;
++	return 0;
++}
++
++static int usb3hdcap_s_input(struct file *file, void *priv, unsigned int i)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++	enum usb3hdcap_input old_input = hdcap->input;
++	int ret;
++
++	if (i > INPUT_HDMI)
++		return -EINVAL;
++	if (vb2_is_busy(&hdcap->vb2q))
++		return -EBUSY;
++
++	hdcap->input = i;
++
++	ret = usb3hdcap_hw_init(hdcap);
++	if (ret < 0) {
++		hdcap->input = old_input;
++		hdcap->hw_inited = 0;
++		return ret;
++	}
++
++	hdcap->hw_inited = 1;
++	usb3hdcap_activate_ctrls(hdcap, i);
++
++	if (i == INPUT_COMPOSITE || i == INPUT_SVIDEO)
++		hdcap->video_dev.tvnorms = USB3HDCAP_V4L2_STDS;
++	else
++		hdcap->video_dev.tvnorms = 0;
++
++	return 0;
++}
++
++static int usb3hdcap_enum_framesizes(struct file *file, void *priv,
++				     struct v4l2_frmsizeenum *fsize)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++
++	if (fsize->index > 0)
++		return -EINVAL;
++	if (fsize->pixel_format != V4L2_PIX_FMT_YUYV)
++		return -EINVAL;
++
++	fsize->type = V4L2_FRMSIZE_TYPE_DISCRETE;
++	fsize->discrete.width = hdcap->width;
++	fsize->discrete.height = hdcap->height;
++	return 0;
++}
++
++static void fill_timeperframe(struct usb3hdcap *hdcap, struct v4l2_fract *tf)
++{
++	/*
++	 * using the frame rate here even for interlaced, spec isn't super
++	 * clear on what to do, but adv7180.c does it this way
++	 */
++
++	if (hdcap->detected_timings_present) {
++		const struct v4l2_bt_timings *bt = &hdcap->detected_timings.bt;
++		u32 htotal = V4L2_DV_BT_FRAME_WIDTH(bt);
++		u32 vtotal = V4L2_DV_BT_FRAME_HEIGHT(bt);
++
++		tf->numerator = htotal * vtotal;
++		tf->denominator = (u32)bt->pixelclock;
++		v4l2_simplify_fraction(&tf->numerator, &tf->denominator, 8, 333);
++	} else if (hdcap->std & V4L2_STD_625_50) {
++		tf->numerator = 1;
++		tf->denominator = 25;
++	} else {
++		tf->numerator = 1001;
++		tf->denominator = 30000;
++	}
++}
++
++static int usb3hdcap_g_parm(struct file *file, void *priv,
++			    struct v4l2_streamparm *sp)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++
++	if (sp->type != V4L2_BUF_TYPE_VIDEO_CAPTURE)
++		return -EINVAL;
++
++	sp->parm.capture.capability = V4L2_CAP_TIMEPERFRAME;
++	fill_timeperframe(hdcap, &sp->parm.capture.timeperframe);
++	sp->parm.capture.readbuffers = 4;
++	return 0;
++}
++
++static int usb3hdcap_s_parm(struct file *file, void *priv,
++			    struct v4l2_streamparm *sp)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++
++	if (sp->type != V4L2_BUF_TYPE_VIDEO_CAPTURE)
++		return -EINVAL;
++
++	/* fixed framerate - just report what we have */
++	sp->parm.capture.capability = V4L2_CAP_TIMEPERFRAME;
++	fill_timeperframe(hdcap, &sp->parm.capture.timeperframe);
++	sp->parm.capture.readbuffers = 4;
++	return 0;
++}
++
++static int usb3hdcap_enum_frameintervals(struct file *file, void *priv,
++					 struct v4l2_frmivalenum *fival)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++
++	if (fival->index > 0)
++		return -EINVAL;
++	if (fival->pixel_format != V4L2_PIX_FMT_YUYV)
++		return -EINVAL;
++	if (fival->width != hdcap->width || fival->height != hdcap->height)
++		return -EINVAL;
++
++	fival->type = V4L2_FRMIVAL_TYPE_DISCRETE;
++	fill_timeperframe(hdcap, &fival->discrete);
++	return 0;
++}
++
++static int usb3hdcap_log_status(struct file *file, void *priv)
++{
++	struct usb3hdcap *hdcap = video_drvdata(file);
++
++	dev_info(hdcap->dev,
++		 "status: iso_cbs=%u iso_bytes=%lu markers=%u frames=%u ",
++		 hdcap->iso_cb_count, hdcap->iso_bytes,
++		 hdcap->markers_found, hdcap->frames_delivered);
++	dev_info(hdcap->dev,
++		 "parse_len=%d frame_line=%d synced=%d was_blanking=%d ",
++		 hdcap->parse_len, hdcap->frame_line,
++		 hdcap->synced, hdcap->was_blanking);
++	dev_info(hdcap->dev, "cur_buf=%p\n", hdcap->cur_buf);
++	return 0;
++}
++
++static int usb3hdcap_g_volatile_ctrl(struct v4l2_ctrl *ctrl)
++{
++	switch (ctrl->id) {
++	case V4L2_CID_DV_RX_POWER_PRESENT:
++		ctrl->val = 1;
++		return 0;
++	default:
++		return -EINVAL;
++	}
++}
++
++static const struct v4l2_ctrl_ops usb3hdcap_ctrl_ops = {
++	.g_volatile_ctrl = usb3hdcap_g_volatile_ctrl,
++};
++
++static int usb3hdcap_subscribe_event(struct v4l2_fh *fh,
++				     const struct v4l2_event_subscription *sub)
++{
++	switch (sub->type) {
++	case V4L2_EVENT_SOURCE_CHANGE:
++		return v4l2_src_change_event_subscribe(fh, sub);
++	default:
++		return v4l2_ctrl_subscribe_event(fh, sub);
++	}
++}
++
++static const struct v4l2_ioctl_ops usb3hdcap_ioctl_ops = {
++	.vidioc_querycap = usb3hdcap_querycap,
++	.vidioc_enum_input = usb3hdcap_enum_input,
++	.vidioc_enum_fmt_vid_cap = usb3hdcap_enum_fmt_vid_cap,
++	.vidioc_g_fmt_vid_cap = usb3hdcap_fmt_vid_cap,
++	.vidioc_try_fmt_vid_cap = usb3hdcap_fmt_vid_cap,
++	.vidioc_s_fmt_vid_cap = usb3hdcap_fmt_vid_cap,
++	.vidioc_g_std = usb3hdcap_g_std,
++	.vidioc_s_std = usb3hdcap_s_std,
++	.vidioc_g_dv_timings = usb3hdcap_g_dv_timings,
++	.vidioc_s_dv_timings = usb3hdcap_s_dv_timings,
++	.vidioc_enum_dv_timings = usb3hdcap_enum_dv_timings,
++	.vidioc_dv_timings_cap = usb3hdcap_dv_timings_cap,
++	.vidioc_query_dv_timings = usb3hdcap_query_dv_timings,
++	.vidioc_g_input = usb3hdcap_g_input,
++	.vidioc_s_input = usb3hdcap_s_input,
++	.vidioc_g_parm = usb3hdcap_g_parm,
++	.vidioc_s_parm = usb3hdcap_s_parm,
++	.vidioc_enum_framesizes = usb3hdcap_enum_framesizes,
++	.vidioc_enum_frameintervals = usb3hdcap_enum_frameintervals,
++	.vidioc_log_status = usb3hdcap_log_status,
++
++	.vidioc_reqbufs = vb2_ioctl_reqbufs,
++	.vidioc_prepare_buf = vb2_ioctl_prepare_buf,
++	.vidioc_querybuf = vb2_ioctl_querybuf,
++	.vidioc_create_bufs = vb2_ioctl_create_bufs,
++	.vidioc_qbuf = vb2_ioctl_qbuf,
++	.vidioc_dqbuf = vb2_ioctl_dqbuf,
++	.vidioc_streamon = vb2_ioctl_streamon,
++	.vidioc_streamoff = vb2_ioctl_streamoff,
++
++	.vidioc_subscribe_event = usb3hdcap_subscribe_event,
++	.vidioc_unsubscribe_event = v4l2_event_unsubscribe,
++};
++
++static const struct v4l2_file_operations usb3hdcap_fops = {
++	.owner = THIS_MODULE,
++	.unlocked_ioctl = video_ioctl2,
++	.mmap = vb2_fop_mmap,
++	.open = v4l2_fh_open,
++	.release = vb2_fop_release,
++	.read = vb2_fop_read,
++	.poll = vb2_fop_poll,
++};
++
++static void usb3hdcap_notify(struct v4l2_subdev *sd, unsigned int notification,
++			     void *arg)
++{
++	struct usb3hdcap *hdcap = container_of(sd->v4l2_dev,
++		struct usb3hdcap, v4l2_dev);
++
++	switch (notification) {
++	case MST3367_HOTPLUG:
++		usb3hdcap_hdmi_hotplug(hdcap, *(bool *)arg);
++		break;
++	default:
++		break;
++	}
++}
++
++static void usb3hdcap_release(struct v4l2_device *v4l2_dev)
++{
++	struct usb3hdcap *hdcap = container_of(v4l2_dev,
++		struct usb3hdcap, v4l2_dev);
++
++	v4l2_ctrl_handler_free(&hdcap->ctrl);
++	v4l2_device_unregister(&hdcap->v4l2_dev);
++	i2c_del_adapter(&hdcap->i2c_adap);
++	kfree(hdcap);
++}
++
++static int video_init(struct usb3hdcap *hdcap)
++{
++	int ret;
++
++	mutex_init(&hdcap->v4l2_lock);
++	mutex_init(&hdcap->vb2q_lock);
++	mutex_init(&hdcap->mcu_lock);
++	spin_lock_init(&hdcap->buflock);
++	INIT_LIST_HEAD(&hdcap->bufs);
++
++	hdcap->vb2q.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
++	hdcap->vb2q.io_modes = VB2_MMAP | VB2_USERPTR | VB2_READ;
++	hdcap->vb2q.drv_priv = hdcap;
++	hdcap->vb2q.buf_struct_size = sizeof(struct hdcap_buf);
++	hdcap->vb2q.ops = &usb3hdcap_vb2_ops;
++	hdcap->vb2q.mem_ops = &vb2_vmalloc_memops;
++	hdcap->vb2q.timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC;
++	hdcap->vb2q.min_queued_buffers = 2;
++	hdcap->vb2q.lock = &hdcap->vb2q_lock;
++	ret = vb2_queue_init(&hdcap->vb2q);
++	if (ret < 0) {
++		dev_warn(hdcap->dev, "Could not initialize videobuf2 queue\n");
++		return ret;
++	}
++
++	v4l2_ctrl_handler_init(&hdcap->ctrl, 1);
++	hdcap->ctrl_rx_power = v4l2_ctrl_new_std(&hdcap->ctrl,
++						 &usb3hdcap_ctrl_ops,
++						 V4L2_CID_DV_RX_POWER_PRESENT,
++						 0, 1, 0, 1);
++	if (hdcap->ctrl_rx_power)
++		hdcap->ctrl_rx_power->flags |= V4L2_CTRL_FLAG_VOLATILE |
++						V4L2_CTRL_FLAG_READ_ONLY;
++	ret = hdcap->ctrl.error;
++	if (ret < 0) {
++		dev_warn(hdcap->dev, "Could not initialize controls\n");
++		goto ctrl_fail;
++	}
++
++	hdcap->v4l2_dev.ctrl_handler = &hdcap->ctrl;
++	hdcap->v4l2_dev.release = usb3hdcap_release;
++	hdcap->v4l2_dev.notify = usb3hdcap_notify;
++	ret = v4l2_device_register(hdcap->dev, &hdcap->v4l2_dev);
++	if (ret < 0) {
++		dev_warn(hdcap->dev, "Could not register v4l2 device\n");
++		goto v4l2_fail;
++	}
++
++	usb3hdcap_device_init(hdcap);
++
++	ret = usb3hdcap_i2c_register(hdcap);
++	if (ret < 0) {
++		dev_warn(hdcap->dev, "Could not register I2C adapter\n");
++		goto vdev_fail;
++	}
++
++	ret = usb3hdcap_composite_register(hdcap);
++	if (ret < 0)
++		goto subdev_fail;
++
++	ret = usb3hdcap_hdmi_register(hdcap);
++	if (ret < 0)
++		goto subdev_fail;
++
++	strscpy(hdcap->video_dev.name, "usb3hdcap", sizeof(hdcap->video_dev.name));
++	hdcap->video_dev.v4l2_dev = &hdcap->v4l2_dev;
++	hdcap->video_dev.release = video_device_release_empty;
++	hdcap->video_dev.fops = &usb3hdcap_fops;
++	hdcap->video_dev.ioctl_ops = &usb3hdcap_ioctl_ops;
++	hdcap->video_dev.tvnorms = USB3HDCAP_V4L2_STDS;
++	hdcap->video_dev.queue = &hdcap->vb2q;
++	hdcap->video_dev.lock = &hdcap->v4l2_lock;
++	hdcap->video_dev.device_caps = V4L2_CAP_VIDEO_CAPTURE | V4L2_CAP_READWRITE |
++				  V4L2_CAP_STREAMING;
++	video_set_drvdata(&hdcap->video_dev, hdcap);
++	ret = video_register_device(&hdcap->video_dev, VFL_TYPE_VIDEO, -1);
++	if (ret < 0) {
++		dev_warn(hdcap->dev, "Could not register video device\n");
++		goto subdev_fail;
++	}
++
++	dev_info(hdcap->dev, "%s: registered as %s\n",
++		 __func__, video_device_node_name(&hdcap->video_dev));
++
++	return 0;
++
++subdev_fail:
++	v4l2_device_unregister(&hdcap->v4l2_dev);
++	i2c_del_adapter(&hdcap->i2c_adap);
++	goto v4l2_fail;
++
++vdev_fail:
++	v4l2_device_unregister(&hdcap->v4l2_dev);
++
++v4l2_fail:
++	v4l2_ctrl_handler_free(&hdcap->ctrl);
++
++ctrl_fail:
++	return ret;
++}
++
++static int usb3hdcap_probe(struct usb_interface *intf,
++			   const struct usb_device_id *id)
++{
++	struct device *dev;
++	struct usb3hdcap *hdcap;
++	int ret, is_xcapture;
++
++	/* not using the interrupt interface, just data */
++	if (intf->cur_altsetting->desc.bInterfaceNumber != 0)
++		return -ENODEV;
++
++	/* none, Mult=0 for SD, Mult=1 for HD */
++	if (intf->num_altsetting != 3)
++		return -ENODEV;
++
++	dev = &intf->dev;
++
++	hdcap = kzalloc_obj(*hdcap, GFP_KERNEL);
++	if (!hdcap)
++		return -ENOMEM;
++
++	hdcap->dev = dev;
++	hdcap->usb_dev = usb_get_dev(interface_to_usbdev(intf));
++	hdcap->input = INPUT_COMPOSITE;
++	hdcap->std = 0;
++	hdcap->width = SD_WIDTH;
++	hdcap->height = NTSC_HEIGHT / 2;
++	hdcap->bpl = DEFAULT_BPL;
++
++	usb_set_intfdata(intf, hdcap);
++
++	ret = video_init(hdcap);
++	if (ret < 0)
++		goto video_fail;
++
++	ret = usb3hdcap_audio_init(hdcap);
++	if (ret < 0)
++		dev_warn(dev, "audio init failed: %d (continuing without audio)\n", ret);
++
++	is_xcapture = le16_to_cpu(hdcap->usb_dev->descriptor.idProduct) == XCAPTURE1_PID;
++	dev_info(dev, "%s USB 3.0 HD Video Capture Device",
++		 is_xcapture ? "Micomsoft XCAPTURE-1" : "StarTech USB3HDCAP");
++
++	return 0;
++
++video_fail:
++	usb_set_intfdata(intf, NULL);
++	usb_put_dev(hdcap->usb_dev);
++	kfree(hdcap);
++	return ret;
++}
++
++static void usb3hdcap_disconnect(struct usb_interface *intf)
++{
++	struct usb3hdcap *hdcap = usb_get_intfdata(intf);
++
++	usb_set_intfdata(intf, NULL);
++
++	if (!hdcap)
++		return;
++
++	vb2_video_unregister_device(&hdcap->video_dev);
++	usb3hdcap_audio_free(hdcap);
++	v4l2_device_disconnect(&hdcap->v4l2_dev);
++
++	/* the sub-devices stay around until release and may still do I2C */
++	i2c_lock_bus(&hdcap->i2c_adap, I2C_LOCK_ROOT_ADAPTER);
++	usb_put_dev(hdcap->usb_dev);
++	hdcap->usb_dev = NULL;
++	i2c_unlock_bus(&hdcap->i2c_adap, I2C_LOCK_ROOT_ADAPTER);
++
++	/* hdcap is freed by usb3hdcap_release when last user closes fd */
++	v4l2_device_put(&hdcap->v4l2_dev);
++}
++
++static const struct usb_device_id usb3hdcap_id_table[] = {
++	{ USB_DEVICE(USB3HDCAP_VID, USB3HDCAP_PID) },
++	{ USB_DEVICE(USB3HDCAP_VID, XCAPTURE1_PID) },
++	{ },
++};
++MODULE_DEVICE_TABLE(usb, usb3hdcap_id_table);
 +
 +MODULE_AUTHOR("Matthew Laux <matthew.laux@gmail.com>");
-+MODULE_DESCRIPTION("MStar MST3367 HDMI receiver and component ADC driver");
++MODULE_DESCRIPTION("StarTech USB3HDCAP Driver");
 +MODULE_LICENSE("GPL");
-diff --git a/include/media/i2c/mst3367.h b/include/media/i2c/mst3367.h
++
++static struct usb_driver usb3hdcap_usb_driver = {
++	.name = "usb3hdcap",
++	.id_table = usb3hdcap_id_table,
++	.probe = usb3hdcap_probe,
++	.disconnect = usb3hdcap_disconnect,
++};
++module_usb_driver(usb3hdcap_usb_driver);
+diff --git a/drivers/media/usb/usb3hdcap/usb3hdcap-hdmi.c b/drivers/media/usb/usb3hdcap/usb3hdcap-hdmi.c
 new file mode 100644
-index 000000000000..88d4a4874a9d
+index 000000000000..d30428d14612
 --- /dev/null
-+++ b/include/media/i2c/mst3367.h
-@@ -0,0 +1,27 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
++++ b/drivers/media/usb/usb3hdcap/usb3hdcap-hdmi.c
+@@ -0,0 +1,202 @@
++// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * MStar MST3367 HDMI receiver and component ADC
++ * USB3HDCAP MST3367 support: HDMI and component
 + */
 +
-+#ifndef _MEDIA_I2C_MST3367_H_
-+#define _MEDIA_I2C_MST3367_H_
++#include <linux/kernel.h>
++#include <linux/delay.h>
++#include <linux/i2c.h>
++#include <linux/usb.h>
++#include <media/i2c/mst3367.h>
++#include <media/v4l2-dv-timings.h>
 +
-+enum mst3367_pads {
-+	MST3367_PAD_HDMI,
-+	MST3367_PAD_COMPONENT,
-+	MST3367_PAD_SOURCE,
-+	MST3367_NUM_PADS,
++#include "usb3hdcap.h"
++
++static struct i2c_board_info mst3367_info = {
++	I2C_BOARD_INFO("mst3367", ADDR_MST3367 >> 1),
 +};
 +
-+/* Inputs for the s_routing video op */
-+#define MST3367_INPUT_HDMI	MST3367_PAD_HDMI
-+#define MST3367_INPUT_COMPONENT	MST3367_PAD_COMPONENT
-+#define MST3367_INPUT_NONE	MST3367_NUM_PADS
++int usb3hdcap_hdmi_register(struct usb3hdcap *hdcap)
++{
++	hdcap->sd_mst3367 = v4l2_i2c_new_subdev_board(&hdcap->v4l2_dev,
++						      &hdcap->i2c_adap,
++						      &mst3367_info, NULL);
++	if (!hdcap->sd_mst3367) {
++		dev_warn(hdcap->dev, "Could not register MST3367\n");
++		return -ENODEV;
++	}
++
++	return 0;
++}
++
++void usb3hdcap_hdmi_hotplug(struct usb3hdcap *hdcap, bool hotplug)
++{
++	if (!hdcap->has_mcu)
++		return;
++
++	if (hotplug)
++		u3hc_i2c_rmw(hdcap, ADDR_CPLD, 0x01, 0xfd, 0x01);
++	else
++		u3hc_i2c_rmw(hdcap, ADDR_CPLD, 0x01, 0xff, 0x03);
++	u3hc_i2c_write(hdcap, ADDR_CPLD, 0x11, 0xfc);
++}
++
++static void cpld_init(struct usb3hdcap *hdcap, u8 mux_val)
++{
++	int k, status;
++
++	/*
++	 * cVar3 = i2c_read(param_1,0x98,0x3b,0);
++	 * if (cVar3 != '\0') {
++	 *   uVar5 = *(uint *)(param_1 + 0x6840);
++	 *   if ((uVar5 == 2) || (uVar5 == 3)) {
++	 *     local_res8[0] = -0x80;
++	 *     i2c_write(param_1,0x98,0x3b,local_res8,1);
++	 *     uVar5 = *(uint *)(param_1 + 0x6840);
++	 *   }
++	 *   if (uVar5 < 2) {
++	 *     local_res8[0] = '\x02';
++	 *     i2c_write(param_1,0x98,0x3b,local_res8,1);
++	 *   }
++	 * }
++	 */
++
++	if (u3hc_i2c_read(hdcap, ADDR_CPLD, 0x3b) != 0)
++		u3hc_i2c_write(hdcap, ADDR_CPLD, 0x3b, mux_val);
++
++	/*
++	 * local_res8[0] = '\x05';
++	 * i2c_write(param_1,0x98,0x20,local_res8,1);
++	 * cVar3 = FUN_140226fc4(param_1);
++	 * local_res8[0] = '\x01';
++	 * i2c_write(param_1,0x98,0,local_res8,1);
++	 * local_res8[0] = (-(cVar3 != '\0') & 0xfeU) - 2;
++	 * i2c_write(param_1,0x98,0x10,local_res8,1);
++	 */
++	u3hc_i2c_write(hdcap, ADDR_CPLD, 0x20, 0x05);
++	u3hc_i2c_write(hdcap, ADDR_CPLD, 0x00, 0x01);
++
++	u3hc_i2c_write(hdcap, ADDR_CPLD, 0x10, hdcap->has_mcu ? 0xfc : 0xfe);
++
++	for (k = 0; k < 50; k++) {
++		status = u3hc_i2c_read(hdcap, ADDR_CPLD, 0x01);
++		if (status >= 0x03)
++			break;
++		msleep(20);
++	}
++
++	u3hc_i2c_write(hdcap, ADDR_CPLD, 0x01, hdcap->has_mcu ? 0x03 : 0x02);
++	u3hc_i2c_write(hdcap, ADDR_CPLD, 0x11, 0xfc);
++}
++
++/* Program the MST3367 for the timings it detected and pick up the format */
++static int usb3hdcap_set_detected_timings(struct usb3hdcap *hdcap,
++					  struct v4l2_dv_timings *timings)
++{
++	struct v4l2_subdev_format fmt = {
++		.which = V4L2_SUBDEV_FORMAT_ACTIVE,
++		.pad = MST3367_PAD_SOURCE,
++	};
++	int ret;
++
++	ret = v4l2_subdev_call(hdcap->sd_mst3367, pad, s_dv_timings, 0, timings);
++	if (ret < 0)
++		return ret;
++
++	ret = v4l2_subdev_call(hdcap->sd_mst3367, pad, get_fmt, NULL, &fmt);
++	if (ret < 0)
++		return ret;
++
++	hdcap->mst_bt601 = fmt.format.colorspace == V4L2_COLORSPACE_SMPTE170M;
++
++	hdcap->detected_timings = *timings;
++	hdcap->detected_timings_present = 1;
++	hdcap->std = 0; /* no SD standard */
++	hdcap->width = timings->bt.width;
++	hdcap->interlaced = timings->bt.interlaced;
++	hdcap->height = timings->bt.interlaced
++		? timings->bt.height / 2 : timings->bt.height;
++	hdcap->bpl = hdcap->width * 2;
++
++	return 0;
++}
++
++/* ------------------------------------------------------------------ */
++/* Main HDMI init entry point                                         */
++/* ------------------------------------------------------------------ */
++
++int usb3hdcap_hdmi_init(struct usb3hdcap *hdcap)
++{
++	struct v4l2_dv_timings timings;
++	int ret;
++
++	/* CPLD init with HDMI input mux */
++	cpld_init(hdcap, 0x02);
++
++	ret = v4l2_subdev_call(hdcap->sd_mst3367, video, s_routing,
++			       MST3367_INPUT_HDMI, 0, 0);
++	if (ret < 0)
++		return ret;
++
++	ret = v4l2_subdev_call(hdcap->sd_mst3367, pad, query_dv_timings, 0,
++			       &timings);
++	if (ret < 0)
++		return ret;
++
++	ret = usb3hdcap_set_detected_timings(hdcap, &timings);
++	if (ret < 0)
++		return ret;
++
++	dev_info(hdcap->dev, "hdmi_init: complete (%dx%d)\n",
++		 hdcap->width, hdcap->height);
++	return 0;
++}
++
++/* ------------------------------------------------------------------ */
++/* Main component init entry point                                    */
++/* ------------------------------------------------------------------ */
++
++int usb3hdcap_component_init(struct usb3hdcap *hdcap)
++{
++	struct v4l2_dv_timings timings;
++	int ret, use_height;
++
++	/* CPLD init with component input mux */
++	cpld_init(hdcap, 0x80);
++
++	ret = v4l2_subdev_call(hdcap->sd_mst3367, video, s_routing,
++			       MST3367_INPUT_COMPONENT, 0, 0);
++	if (ret < 0)
++		return ret;
++
++	/* Component CPLD routing, bit 4 = component input? */
++	u3hc_i2c_read(hdcap, ADDR_CPLD, 0x20);
++	u3hc_i2c_write(hdcap, ADDR_CPLD, 0x20, 0x15);
++
++	/*
++	 * Wait for ADC to stabilize, windows driver does this but might be able
++	 * to decrease wait
++	 */
++	msleep(1000);
++
++	/* Final CPLD verify */
++	u3hc_i2c_read(hdcap, ADDR_CPLD, 0x20);
++	u3hc_i2c_write(hdcap, ADDR_CPLD, 0x20, 0x15);
++
++	ret = v4l2_subdev_call(hdcap->sd_mst3367, pad, query_dv_timings, 0,
++			       &timings);
++	if (ret < 0)
++		return ret;
++
++	u3hc_i2c_rmw(hdcap, ADDR_CPLD, 0x00, 0xff, 0x02);
++
++	ret = usb3hdcap_set_detected_timings(hdcap, &timings);
++	if (ret < 0)
++		return ret;
++
++	use_height = hdcap->interlaced ? hdcap->height * 2 : hdcap->height;
++	dev_info(hdcap->dev, "component_init: complete (%dx%d%s)\n",
++		 hdcap->width, use_height,
++		 hdcap->interlaced ? "i" : "p");
++	return 0;
++}
+diff --git a/drivers/media/usb/usb3hdcap/usb3hdcap-video.c b/drivers/media/usb/usb3hdcap/usb3hdcap-video.c
+new file mode 100644
+index 000000000000..29ae0a67d26b
+--- /dev/null
++++ b/drivers/media/usb/usb3hdcap/usb3hdcap-video.c
+@@ -0,0 +1,525 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * USB3HDCAP video streaming - stream parser, ISO URB handling, vb2 ops
++ */
++
++#include <linux/kernel.h>
++#include <linux/slab.h>
++#include <linux/usb.h>
++#include <linux/vmalloc.h>
++#include <media/v4l2-ctrls.h>
++#include <media/videobuf2-v4l2.h>
++
++#include "usb3hdcap.h"
++
++/* ------------------------------------------------------------------ */
++/* Stream parser                                                      */
++/* ------------------------------------------------------------------ */
++
++static void vyuy_to_yuyv(u8 *dst, const u8 *src, int len)
++{
++	int k;
++
++	/* VYUY: V Y0 U Y1 -> YUYV: Y0 U Y1 V */
++	for (k = 0; k < len; k += 4) {
++		dst[k + 0] = src[k + 1]; /* Y0 */
++		dst[k + 1] = src[k + 2]; /* U */
++		dst[k + 2] = src[k + 3]; /* Y1 */
++		dst[k + 3] = src[k + 0]; /* V */
++	}
++}
++
++static struct hdcap_buf *get_next_buf(struct usb3hdcap *hdcap)
++{
++	struct hdcap_buf *buf = NULL;
++	unsigned long flags;
++
++	spin_lock_irqsave(&hdcap->buflock, flags);
++	if (!list_empty(&hdcap->bufs)) {
++		buf = list_first_entry(&hdcap->bufs, struct hdcap_buf, list);
++		list_del(&buf->list);
++	}
++	spin_unlock_irqrestore(&hdcap->buflock, flags);
++
++	return buf;
++}
++
++static void deliver_frame(struct usb3hdcap *hdcap)
++{
++	struct hdcap_buf *buf = hdcap->cur_buf;
++	u8 *vaddr;
++	int k;
++
++	if (!buf)
++		return;
++
++	hdcap->frames_delivered++;
++
++	/* Pad remaining lines with black */
++	vaddr = vb2_plane_vaddr(&buf->vb.vb2_buf, 0);
++	while (hdcap->frame_line < hdcap->height) {
++		u8 *row = vaddr + hdcap->frame_line * hdcap->bpl;
++
++		for (k = 0; k < hdcap->bpl; k += 4) {
++			row[k + 0] = 0x10;
++			row[k + 1] = 0x80;
++			row[k + 2] = 0x10;
++			row[k + 3] = 0x80;
++		}
++		hdcap->frame_line++;
++	}
++
++	vb2_set_plane_payload(&buf->vb.vb2_buf, 0,
++			      hdcap->bpl * hdcap->height);
++	buf->vb.vb2_buf.timestamp = ktime_get_ns();
++	if (hdcap->interlaced) {
++		bool bottom = hdcap->field_f;
++
++		if (!bottom && hdcap->top_done)
++			hdcap->sequence++;
++		buf->vb.field = bottom ? V4L2_FIELD_BOTTOM : V4L2_FIELD_TOP;
++		buf->vb.sequence = hdcap->sequence;
++		hdcap->top_done = !bottom;
++		if (bottom)
++			hdcap->sequence++;
++	} else {
++		buf->vb.field = V4L2_FIELD_NONE;
++		buf->vb.sequence = hdcap->sequence++;
++	}
++	vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
++
++	hdcap->cur_buf = NULL;
++}
 +
 +/*
-+ * Notification sent with v4l2_subdev_notify() before the receiver changes its
-+ * hotplug detect output, for bridge devices to use. The argument is a bool *
++ * Process one video line (shared between composite and HDMI).
++ * 'video' points to the XY byte followed by pixel data.
 + */
-+#define MST3367_HOTPLUG		1
++static void process_video_line(struct usb3hdcap *hdcap, const u8 *video)
++{
++	u8 sav_xy = video[0];
++	int blanking = sav_xy & BT656_V_BIT;
++
++	/* Blanking -> active transition */
++	if (!blanking && hdcap->was_blanking) {
++		if (!hdcap->synced)
++			hdcap->synced = 1;
++		if (hdcap->cur_buf && hdcap->frame_line >= 100)
++			deliver_frame(hdcap);
++		hdcap->frame_line = 0;
++		if (!hdcap->cur_buf)
++			hdcap->cur_buf = get_next_buf(hdcap);
++	}
++	hdcap->was_blanking = blanking;
++
++	if (!hdcap->synced || !hdcap->cur_buf || blanking)
++		return;
++
++	/* Deliver when field is full */
++	if (hdcap->frame_line >= hdcap->height) {
++		deliver_frame(hdcap);
++		hdcap->frame_line = 0;
++		hdcap->cur_buf = get_next_buf(hdcap);
++		if (!hdcap->cur_buf)
++			return;
++	}
++
++	if (hdcap->frame_line == 0) {
++		hdcap->field_f = !!(sav_xy & BT656_F_BIT);
++		/* skip bottom field where the top was dropped */
++		if (hdcap->interlaced && hdcap->field_f && !hdcap->top_done)
++			return;
++	}
++
++	vyuy_to_yuyv(vb2_plane_vaddr(&hdcap->cur_buf->vb.vb2_buf, 0)
++			+ hdcap->frame_line * hdcap->bpl,
++		     video, hdcap->bpl);
++	hdcap->frame_line++;
++}
++
++static void process_data(struct usb3hdcap *hdcap)
++{
++	u8 *buf = hdcap->parse_buf;
++	int line_size = SAV_LEN + hdcap->bpl;
++	int pos = 0;
++
++	while (pos + 3 <= hdcap->parse_len) {
++		if (buf[pos] != 0xff || buf[pos + 1] != 0x00) {
++			pos++;
++			continue;
++		}
++
++		if (buf[pos + 2] == 0x00) {
++			/* SAV: video line */
++			if (pos + line_size > hdcap->parse_len)
++				break;
++			/* -1 because XY byte occupies the first pixel's V position */
++			process_video_line(hdcap, buf + pos + SAV_LEN - 1);
++			pos += line_size;
++		} else if (buf[pos + 2] == 0xff) {
++			u8 type;
++			int alen;
++
++			if (pos + MARKER_LEN > hdcap->parse_len)
++				break;
++			type = buf[pos + 3];
++			if (type < 0x02 || type > 0x04) {
++				pos++;
++				continue;
++			}
++			alen = type * 4;
++			if (pos + MARKER_LEN + alen > hdcap->parse_len)
++				break;
++			hdcap->markers_found++;
++			usb3hdcap_audio_data(hdcap, buf + pos + MARKER_LEN, alen);
++			pos += MARKER_LEN + alen;
++		} else {
++			pos++;
++		}
++	}
++
++	/* Shift unconsumed data to front */
++	if (pos > 0) {
++		hdcap->parse_len -= pos;
++		if (hdcap->parse_len > 0)
++			memmove(buf, buf + pos, hdcap->parse_len);
++	}
++}
++
++/* ------------------------------------------------------------------ */
++/* Isochronous URB handling                                           */
++/* ------------------------------------------------------------------ */
++
++static void usb3hdcap_iso_cb(struct urb *urb)
++{
++	struct usb3hdcap *hdcap = urb->context;
++	int k, ret;
++
++	switch (urb->status) {
++	case 0:
++		break;
++	case -ENODEV:
++	case -ENOENT:
++	case -ECONNRESET:
++	case -ESHUTDOWN:
++		return;
++	default:
++		dev_warn(hdcap->dev, "ISO URB status %d\n", urb->status);
++		goto resubmit;
++	}
++
++	hdcap->iso_cb_count++;
++
++	for (k = 0; k < urb->number_of_packets; k++) {
++		int status = urb->iso_frame_desc[k].status;
++		int len = urb->iso_frame_desc[k].actual_length;
++		u8 *data = urb->transfer_buffer +
++			   urb->iso_frame_desc[k].offset;
++
++		if (status != 0 || len == 0)
++			continue;
++
++		if (hdcap->parse_len + len > PARSE_BUF_SIZE) {
++			hdcap->parse_len = 0;
++			continue;
++		}
++
++		memcpy(hdcap->parse_buf + hdcap->parse_len, data, len);
++		hdcap->parse_len += len;
++		hdcap->iso_bytes += len;
++	}
++
++	process_data(hdcap);
++
++resubmit:
++	ret = usb_submit_urb(urb, GFP_ATOMIC);
++	/* endpoint going away when stopping is expected */
++	if (ret < 0 && ret != -ENOENT)
++		dev_warn(hdcap->dev, "ISO URB resubmit: %d\n", ret);
++}
++
++static struct urb *usb3hdcap_alloc_urb(struct usb3hdcap *hdcap, int npkts)
++{
++	struct urb *urb;
++	int size = hdcap->iso_size;
++	int k;
++
++	urb = usb_alloc_urb(npkts, GFP_KERNEL);
++	if (!urb)
++		return NULL;
++
++	urb->dev = hdcap->usb_dev;
++	urb->context = hdcap;
++	urb->pipe = usb_rcvisocpipe(hdcap->usb_dev, EP_VIDEO);
++	urb->interval = 1;
++	urb->transfer_flags = URB_ISO_ASAP;
++	/* __NOWARN because it retries with fewer packets */
++	urb->transfer_buffer = kcalloc(npkts, size, GFP_KERNEL | __GFP_NOWARN);
++	if (!urb->transfer_buffer) {
++		usb_free_urb(urb);
++		return NULL;
++	}
++	urb->complete = usb3hdcap_iso_cb;
++	urb->number_of_packets = npkts;
++	urb->transfer_buffer_length = size * npkts;
++	for (k = 0; k < npkts; k++) {
++		urb->iso_frame_desc[k].offset = size * k;
++		urb->iso_frame_desc[k].length = size;
++	}
++
++	return urb;
++}
++
++static void usb3hdcap_free_urbs(struct usb3hdcap *hdcap)
++{
++	int k;
++
++	for (k = 0; k < NUM_XFERS; k++) {
++		struct urb *urb = hdcap->isoc_urbs[k];
++
++		if (!urb)
++			continue;
++		usb_kill_urb(urb);
++		kfree(urb->transfer_buffer);
++		usb_free_urb(urb);
++		hdcap->isoc_urbs[k] = NULL;
++	}
++}
++
++static int usb3hdcap_alloc_urbs(struct usb3hdcap *hdcap)
++{
++	int npkts, k;
++
++	/* Retry allocations until one succeeds */
++	for (npkts = NUM_ISO_PKTS; npkts >= MIN_ISO_PKTS; npkts /= 2) {
++		for (k = 0; k < NUM_XFERS; k++) {
++			hdcap->isoc_urbs[k] = usb3hdcap_alloc_urb(hdcap, npkts);
++			if (!hdcap->isoc_urbs[k])
++				break;
++		}
++		if (k == NUM_XFERS)
++			return 0;
++		usb3hdcap_free_urbs(hdcap);
++	}
++
++	return -ENOMEM;
++}
++
++/* Returns true if every queued buffer can hold a frame of the current format */
++static bool usb3hdcap_bufs_fit(struct usb3hdcap *hdcap)
++{
++	unsigned long img_size = hdcap->bpl * hdcap->height;
++	struct hdcap_buf *buf;
++	unsigned long flags;
++	bool fit = true;
++
++	spin_lock_irqsave(&hdcap->buflock, flags);
++	list_for_each_entry(buf, &hdcap->bufs, list) {
++		if (vb2_plane_size(&buf->vb.vb2_buf, 0) < img_size) {
++			fit = false;
++			break;
++		}
++	}
++	spin_unlock_irqrestore(&hdcap->buflock, flags);
++
++	return fit;
++}
++
++static void usb3hdcap_stop(struct usb3hdcap *hdcap,
++			   enum vb2_buffer_state buf_state)
++{
++	unsigned long flags;
++
++	/* usb_dev is already NULL if this stop came from a disconnect */
++	if (hdcap->usb_dev)
++		usb_set_interface(hdcap->usb_dev, 0, 0);
++
++	usb3hdcap_free_urbs(hdcap);
++
++	if (hdcap->usb_dev &&
++	    (hdcap->input == INPUT_COMPOSITE || hdcap->input == INPUT_SVIDEO))
++		v4l2_subdev_call(hdcap->sd_tw9900, video, s_stream, 0);
++
++	/* Return any in-progress buffer */
++	if (hdcap->cur_buf) {
++		vb2_buffer_done(&hdcap->cur_buf->vb.vb2_buf, buf_state);
++		hdcap->cur_buf = NULL;
++	}
++
++	spin_lock_irqsave(&hdcap->buflock, flags);
++	while (!list_empty(&hdcap->bufs)) {
++		struct hdcap_buf *buf = list_first_entry(&hdcap->bufs,
++						struct hdcap_buf, list);
++		list_del(&buf->list);
++		vb2_buffer_done(&buf->vb.vb2_buf, buf_state);
++	}
++	spin_unlock_irqrestore(&hdcap->buflock, flags);
++
++	vfree(hdcap->parse_buf);
++	hdcap->parse_buf = NULL;
++}
++
++static int usb3hdcap_start(struct usb3hdcap *hdcap)
++{
++	struct usb_host_endpoint *ep;
++	int maxp, burst, mult;
++	int k, ret, alt;
++
++	if (!hdcap->hw_inited) {
++		ret = usb3hdcap_hw_init(hdcap);
++		if (ret < 0) {
++			dev_err(hdcap->dev, "open: hw_init failed: %d\n", ret);
++			goto fail;
++		}
++		hdcap->hw_inited = 1;
++	}
++
++	/*
++	 * Avoids this super edge case:
++	 * 1. HDMI or component selected with a mode detected
++	 * 2. s_input fails because of no signal, input reverts, hw_inited = 0
++	 * 3. The application does REQBUFS for the original size
++	 * 4. The source has switched to a larger mode and STREAMON redetects
++	 */
++	if (!usb3hdcap_bufs_fit(hdcap)) {
++		dev_err(hdcap->dev, "buffers too small for %dx%d\n",
++			hdcap->width, hdcap->height);
++		ret = -EINVAL;
++		goto fail;
++	}
++
++	hdcap->parse_buf = vzalloc(PARSE_BUF_SIZE);
++	if (!hdcap->parse_buf) {
++		ret = -ENOMEM;
++		goto fail;
++	}
++	hdcap->parse_len = 0;
++	hdcap->frame_line = 0;
++	hdcap->synced = 0;
++	hdcap->was_blanking = 0;
++	hdcap->field_f = 0;
++	hdcap->top_done = 0;
++	hdcap->cur_buf = NULL;
++
++	if (hdcap->input == INPUT_COMPOSITE || hdcap->input == INPUT_SVIDEO) {
++		ret = v4l2_subdev_call(hdcap->sd_tw9900, video, s_stream, 1);
++		if (ret < 0)
++			goto fail;
++	}
++
++	/*
++	 * Select alt setting based on bandwidth:
++	 * alt 1: maxp=1024 burst=16 mult=1 -> 16KB/pkt (SD)
++	 * alt 2: maxp=1024 burst=16 mult=2 -> 32KB/pkt (HD)
++	 */
++	alt = (hdcap->width > 720 || hdcap->height > 576) ? 2 : 1;
++	dev_info(hdcap->dev, "%s: setting alt %d\n", __func__, alt);
++	ret = usb_set_interface(hdcap->usb_dev, 0, alt);
++
++	if (ret < 0) {
++		dev_err(hdcap->dev, "%s: usb_set_interface failed: %d\n",
++			__func__, ret);
++		goto fail;
++	}
++
++	/* Compute ISO packet size from SS endpoint companion descriptor */
++	ep = usb_pipe_endpoint(hdcap->usb_dev,
++			       usb_rcvisocpipe(hdcap->usb_dev, EP_VIDEO));
++	if (!ep || !usb_endpoint_xfer_isoc(&ep->desc)) {
++		dev_err(hdcap->dev, "ISO endpoint 0x%02x not found\n",
++			EP_VIDEO);
++		ret = -ENODEV;
++		goto fail;
++	}
++
++	maxp = usb_endpoint_maxp(&ep->desc);
++	burst = ep->ss_ep_comp.bMaxBurst;
++	mult = USB_SS_MULT(ep->ss_ep_comp.bmAttributes);
++	hdcap->iso_size = maxp * (burst + 1) * mult;
++
++	ret = usb3hdcap_alloc_urbs(hdcap);
++	if (ret < 0)
++		goto fail;
++
++	for (k = 0; k < NUM_XFERS; k++) {
++		ret = usb_submit_urb(hdcap->isoc_urbs[k], GFP_KERNEL);
++		if (ret < 0)
++			goto fail;
++	}
++
++	return 0;
++
++fail:
++	/* vb2 requires queued buffers to be returned as QUEUED on failure */
++	usb3hdcap_stop(hdcap, VB2_BUF_STATE_QUEUED);
++	return ret;
++}
++
++/* ------------------------------------------------------------------ */
++/* vb2 ops                                                            */
++/* ------------------------------------------------------------------ */
++
++static int usb3hdcap_queue_setup(struct vb2_queue *vq, unsigned int *nbuffers,
++				 unsigned int *nplanes, unsigned int sizes[],
++	struct device *alloc_devs[])
++{
++	struct usb3hdcap *hdcap = vb2_get_drv_priv(vq);
++	unsigned int img_size = hdcap->bpl * hdcap->height;
++
++	if (*nplanes) {
++		dev_info(hdcap->dev, "queue_setup: recheck sizes[0]=%u vs %u\n",
++			 sizes[0], img_size);
++		return sizes[0] < img_size ? -EINVAL : 0;
++	}
++	*nplanes = 1;
++	sizes[0] = img_size;
++
++	return 0;
++}
++
++static void usb3hdcap_buf_queue(struct vb2_buffer *vb)
++{
++	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
++	struct usb3hdcap *hdcap = vb2_get_drv_priv(vb->vb2_queue);
++	struct hdcap_buf *buf = container_of(vbuf, struct hdcap_buf, vb);
++	unsigned long flags;
++
++	if (!hdcap->usb_dev) {
++		dev_warn(hdcap->dev, "buf_queue: usb_dev is NULL\n");
++		vb2_buffer_done(vb, VB2_BUF_STATE_ERROR);
++		return;
++	}
++
++	spin_lock_irqsave(&hdcap->buflock, flags);
++	list_add_tail(&buf->list, &hdcap->bufs);
++	spin_unlock_irqrestore(&hdcap->buflock, flags);
++}
++
++static int usb3hdcap_start_streaming(struct vb2_queue *vq, unsigned int count)
++{
++	struct usb3hdcap *hdcap = vb2_get_drv_priv(vq);
++	int ret;
++
++	if (!hdcap->usb_dev) {
++		dev_err(hdcap->dev, "start_streaming: usb_dev is NULL\n");
++		return -ENODEV;
++	}
++
++	hdcap->sequence = 0;
++	ret = usb3hdcap_start(hdcap);
++	return ret;
++}
++
++static void usb3hdcap_stop_streaming(struct vb2_queue *vq)
++{
++	struct usb3hdcap *hdcap = vb2_get_drv_priv(vq);
++
++	usb3hdcap_stop(hdcap, VB2_BUF_STATE_ERROR);
++}
++
++const struct vb2_ops usb3hdcap_vb2_ops = {
++	.queue_setup = usb3hdcap_queue_setup,
++	.buf_queue = usb3hdcap_buf_queue,
++	.start_streaming = usb3hdcap_start_streaming,
++	.stop_streaming = usb3hdcap_stop_streaming,
++};
+diff --git a/drivers/media/usb/usb3hdcap/usb3hdcap.h b/drivers/media/usb/usb3hdcap/usb3hdcap.h
+new file mode 100644
+index 000000000000..2283fe50bd8d
+--- /dev/null
++++ b/drivers/media/usb/usb3hdcap/usb3hdcap.h
+@@ -0,0 +1,239 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef USB3HDCAP_H
++#define USB3HDCAP_H
++
++#include <linux/i2c.h>
++#include <linux/usb.h>
++#include <media/v4l2-device.h>
++#include <media/v4l2-ctrls.h>
++#include <media/videobuf2-core.h>
++#include <media/videobuf2-v4l2.h>
++
++struct dentry;
++struct snd_card;
++struct snd_pcm_substream;
++
++#define USB3HDCAP_V4L2_STDS (V4L2_STD_NTSC | V4L2_STD_PAL)
++
++/* NTSC SD frame format */
++#define SD_WIDTH       720
++#define NTSC_HEIGHT    480
++/* YUYV = 4 bytes/2 pixels */
++#define DEFAULT_BPL    (SD_WIDTH * 2)
++/* PAL SD frame format */
++#define PAL_HEIGHT    576
++
++enum usb3hdcap_input {
++	INPUT_COMPOSITE = 0,
++	INPUT_SVIDEO    = 1,
++	INPUT_COMPONENT = 2,
++	INPUT_HDMI      = 3,
++};
++
++/* I2C 8-bit addresses */
++#define ADDR_MST3367 0x9c
++#define ADDR_TW9900  0x88
++#define ADDR_CS53L21 0x94
++#define ADDR_CPLD    0x98
++#define ADDR_MCU     0x64 /* Nuvoton NUC100 on XCAPTURE-1 */
++
++/* TW9900 registers */
++#define TW9900_CSTATUS    0x01
++#define TW9900_INFORM     0x02
++#define TW9900_OPFORM     0x03
++#define TW9900_OPCNTL_I   0x05
++#define TW9900_ACNTL_I    0x06
++#define TW9900_CROP_HI    0x07
++#define TW9900_VDELAY_LO  0x08
++#define TW9900_VACTIVE_LO 0x09
++#define TW9900_HDELAY_LO  0x0a
++#define TW9900_HACTIVE_LO 0x0b
++#define TW9900_CNTRL2     0x0d
++#define TW9900_SDT_NOISE  0x0e
++#define TW9900_LUMA_CTL   0x0f
++#define TW9900_BRIGHT     0x10
++#define TW9900_CONTRAST   0x11
++#define TW9900_SHARPNESS  0x12
++#define TW9900_SAT_U      0x13
++#define TW9900_SAT_V      0x14
++#define TW9900_HUE        0x15
++#define TW9900_VBICNTL    0x19
++#define TW9900_ACNTL_II   0x1a
++#define TW9900_OPCNTL_II  0x1b
++#define TW9900_SDT        0x1c
++#define TW9900_SDTR       0x1d
++#define TW9900_VCNTL1     0x28
++#define TW9900_VCNTL2     0x29
++#define TW9900_MISC1      0x2d
++#define TW9900_MISC2      0x2f
++#define TW9900_CSTATUS_II 0x31
++#define TW9900_ANAPLLCTL  0x4c
++#define TW9900_VVBI       0x55
++#define TW9900_HSBEGIN    0x6b
++#define TW9900_HSEND      0x6c
++#define TW9900_OVSDLY     0x6d
++#define TW9900_OVSEND     0x6e
++
++/* CS53L21 registers */
++#define CS53L21_MIC_PWR_CTL  0x03
++#define CS53L21_IFACE_CTL    0x04
++#define CS53L21_ADC_IN_SEL   0x07
++#define CS53L21_SPE_CTL      0x09
++#define CS53L21_ALC_PGAA     0x0a
++#define CS53L21_ALC_PGAB     0x0b
++#define CS53L21_ADCA_ATT     0x0c
++#define CS53L21_ADCB_ATT     0x0d
++#define CS53L21_ADCA_MIX_VOL 0x0e
++#define CS53L21_ADCB_MIX_VOL 0x0f
++#define CS53L21_CH_MIXER     0x18
++#define CS53L21_ALC_EN_ATK   0x1c
++
++#define USB3HDCAP_VID 0x1164
++#define USB3HDCAP_PID 0xf533
++#define XCAPTURE1_PID 0xf531
++
++/* Vendor request codes */
++#define REQ_I2C    0xc0
++#define REQ_GPIO   0xc1
++#define REQ_INIT   0xc2
++#define REQ_WATCH  0xc6
++#define REQ_UNK_C7 0xc7
++#define REQ_UNK_EC 0xec
++
++/* Isochronous transfer parameters */
++#define EP_VIDEO     0x83
++#define NUM_XFERS    8
++#define NUM_ISO_PKTS 64
++#define MIN_ISO_PKTS 8
++
++/*
++ * Stream framing:
++ *   SAV (ff 00 00 XY): bpl-1 pixel bytes, -1 because the XY is actually
++ *   in the first pixel's V position... weird but it's correct
++ *   Marker (ff 00 ff NN):  audio - NN = number of stereo s16le
++ *                          samples, audio data = NN * 4 bytes
++ */
++#define SAV_LEN        4
++#define MARKER_LEN     4
++#define PARSE_BUF_SIZE (2 * 1024 * 1024)
++
++/* BT.656 SAV XY bits */
++#define BT656_F_BIT 0x40
++#define BT656_V_BIT 0x20
++
++struct hdcap_buf {
++	struct vb2_v4l2_buffer vb;
++	struct list_head list;
++};
++
++struct usb3hdcap {
++	struct device *dev;
++	struct usb_device *usb_dev;
++	struct v4l2_device v4l2_dev;
++	struct video_device video_dev;
++	struct vb2_queue vb2q;
++
++	struct i2c_adapter i2c_adap;
++	struct v4l2_subdev *sd_tw9900;
++	struct v4l2_subdev *sd_mst3367;
++
++	struct v4l2_ctrl_handler ctrl;
++	struct v4l2_ctrl *ctrl_brightness;
++	struct v4l2_ctrl *ctrl_contrast;
++	struct v4l2_ctrl *ctrl_saturation;
++	struct v4l2_ctrl *ctrl_hue;
++	struct v4l2_ctrl *ctrl_sharpness;
++	struct v4l2_ctrl *ctrl_rx_power;
++
++	/* protects V4L2 ioctls and device state */
++	struct mutex v4l2_lock;
++	/* protects videobuf2 queue operations */
++	struct mutex vb2q_lock;
++	/* serializes write then read for XCAPTURE-1 */
++	struct mutex mcu_lock;
++
++	/* buffer list */
++	spinlock_t buflock;
++	struct list_head bufs;
++
++	/* ISO URBs */
++	int iso_size;
++	struct urb *isoc_urbs[NUM_XFERS];
++
++	/* frame tracking */
++	unsigned int sequence;
++
++	/* input selection + format */
++	enum usb3hdcap_input input;
++	v4l2_std_id std;
++	v4l2_std_id requested_std;
++	int width;
++	int height;
++	int interlaced;
++	int bpl; /* width * 2 */
++
++	/* stream parser state */
++	u8 *parse_buf;
++	int parse_len;
++	struct hdcap_buf *cur_buf;
++	int frame_line;
++	int synced;
++	int was_blanking;
++	/* BT.656 F bit of the field being captured */
++	u8 field_f;
++	u8 top_done;
++
++	/* hardware init state */
++	int hw_inited;
++	int has_mcu; /* Nuvoton MCU present (XCAPTURE-1) */
++
++	/* MST3367 state */
++	int mst_current_bank;
++	bool mst_bt601;
++	struct v4l2_dv_timings detected_timings;
++	int detected_timings_present;
++	struct v4l2_dv_timings requested_timings;
++	int requested_timings_present;
++
++	/* ALSA audio */
++	struct snd_card *snd;
++	struct snd_pcm_substream *snd_substream;
++	atomic_t snd_stream;
++	size_t snd_buffer_pos;
++	size_t snd_period_pos;
++
++	/* diagnostics */
++	unsigned int iso_cb_count;
++	unsigned long iso_bytes;
++	unsigned int markers_found;
++	unsigned int frames_delivered;
++};
++
++/* USB control helpers (usb3hdcap-core.c) */
++int vendor_out(struct usb3hdcap *hdcap, u8 request, u16 value, u16 index,
++	       u8 *data, u16 len);
++int u3hc_i2c_write(struct usb3hdcap *hdcap, u8 addr, u8 reg, u8 val);
++int u3hc_i2c_read(struct usb3hdcap *hdcap, u8 addr, u8 reg);
++int u3hc_i2c_rmw(struct usb3hdcap *hdcap, u8 addr, u8 reg, u8 mask, u8 bits);
++int usb3hdcap_hw_init(struct usb3hdcap *hdcap);
++
++/* Composite (usb3hdcap-composite.c) */
++int usb3hdcap_composite_register(struct usb3hdcap *hdcap);
++int usb3hdcap_composite_init(struct usb3hdcap *hdcap);
++
++/* HDMI + Component (usb3hdcap-hdmi.c) */
++int usb3hdcap_hdmi_register(struct usb3hdcap *hdcap);
++int usb3hdcap_hdmi_init(struct usb3hdcap *hdcap);
++int usb3hdcap_component_init(struct usb3hdcap *hdcap);
++void usb3hdcap_hdmi_hotplug(struct usb3hdcap *hdcap, bool hotplug);
++
++/* Video/streaming (usb3hdcap-video.c) */
++extern const struct vb2_ops usb3hdcap_vb2_ops;
++
++/* Audio (usb3hdcap-audio.c) */
++int usb3hdcap_cs53l21_init(struct usb3hdcap *hdcap);
++int usb3hdcap_audio_init(struct usb3hdcap *hdcap);
++void usb3hdcap_audio_free(struct usb3hdcap *hdcap);
++void usb3hdcap_audio_data(struct usb3hdcap *hdcap, const u8 *data, int len);
 +
 +#endif
 -- 
