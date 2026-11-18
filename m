@@ -1,72 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795008512;
-	b=VDsx5fY3i98H2kOaA/l1RLcctlDb/MMNCe6FvvEqzwGCQKAy5PuYIjuoXcTyTZhC8vER
-	 9KKzTVfRgBmTHtf077twB1oSU/qIVwIX58pA7zlZgO5Abng9F5VrM4pr/AflfrBUqsN4P
-	 ZN9sVrFZdhmjEQKRwqYqpPa2Yah4A4quY+dLKfKmTe8uCeGLRsb6tuUGfygpUUmuG7YYS
-	 prx2vNyLLlB+diByTMbCoy8rHYUlbtuhhNLHbpdXjS/k2nr96nPpOse8nxkjbeottkHdj
-	 T7Xg1HWNnNGKHK/0D0qfcVS6SjWbaK5YmndQYHJU418OZdI7Ge7mTF0nxqqy55xETzw==
+	t=1795008513;
+	b=X7Nu5u6fo6fnJg3BLn0JaWFWOL7X602QiIU9eaenKKozBJFLENCZ6DJVwRSy3c+DGqjQ
+	 l/F5Amowq3r99PMj+VfAn3Enz9CR6K3IUwCZiTIu8+6+hXzO9XdHiD5BGf7gSgf3eGQJT
+	 V/Xsb7MmL4kc9NaFxhsjqb8CyLkaJgu/5R2PlQZcc5PMqGsdUjqGzdwTzocBxwY/fasAX
+	 EQ10/7FwemWjI3qTdKHQCLfAxXWwVwB4uH+sNrg4XX+3qlFZpjx1/J2F0+EWTVzSxBazo
+	 IataUYMuz2hUMx1nCTdPyfFs2ZwYB7fjx3hvilaT4xWK1yByi8RrqSw2CJNZo9Qkivg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795008512;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795008513;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
 	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=GivGzC8M0LvT1xs+cK4jTgOuw3MXn3D1GtklTQ54RfY=;
-	b=43buoOHOFrFPWDmw+8MmlN7Dizb8wo9YO+1yaVJxlYNREJgjwERYKL4g9t5jI2OepkRD
-	 Gz5EuJB/F2rg5DNEWAHkAHN38GxTtxeFvywENsT29MvyvBULQoMI5aPiGHZygJtmpkVyB
-	 AGxvtnayB5rXZjcUxszqau3UYJdLexF+FEenw0Z6EXmia1MjZmOuwd5i8o8hTcvzDItuV
-	 uEMT45QUj16zmmwYRxYb1ITRD3Ycirpqn1V9KLL08Z0QzciyIHOQfw1R0hWb8fAheWHiL
-	 +jdsCuS9UM8sDGpjzr3eWShQIY2/dNNNtf6+HFrNpo3pbV09y2mySGIKqob73BXDRkA==
+	bh=AV1cYKSlSIekIkdz10im+1br/ExZF+6McBMVz+ahJiA=;
+	b=X9EU/8iUBJHJrm0iOG1u7Djwp4llcxqUsJE26ofGIpEuQytBNs3ZWaHLVNZspMIZrerK
+	 M01ngHjDC41Y5XXCVXpU76Dv2NlJgl8yHuict6H1dgsBswzRFgAnFVspcFe6xCpfITeMv
+	 HU+5pKz6XsfJM0vX5Jp1IVZJkcGRfErxNLcuNCpgt4eg+6zfgiu7AkSE/HcyW/mKhacti
+	 e3KbYU+KnBY4pHffl7yeGQTSdw2kAlsyBArdBL9i5ErGpNQT/O8hKEyZD1zXzbxMGbTTA
+	 yuoYy7WKyf7kl/caF3kkS9xNFkuPqbvllbP9K65BvBOMKNg4kgR6mX/jQ+E1QqJjRnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DNBM4cZq;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MkP2kE0g;
 	arc=none smtp.remote-ip=198.175.65.13
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41063606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBE5606A330
 	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:28:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41063606A32F
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCBE5606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DNBM4cZq
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MkP2kE0g
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795008512; x=1826544512;
+  t=1795008513; x=1826544513;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=NpyFTdElazDhJo9oqNbLr3nQydbLBOjnlQALrYS+pLc=;
-  b=DNBM4cZqpYodycUESkCB1WRV0dgi/iSSuBk4z0SGjwk/SDZDq0u5f6jG
-   mZrBA46G7V7iUpo7yX1C//YFhi/0/121+F0YDhAlPvFQ4CGfmFBFwes0f
-   l8eBFPcJPNQqtIZKAnoVhl/B3P0erb71UvRUFrV43W5JEF675n5cSdLpj
-   jDZbStAxgRInuc00+a7UEZFIHG6c78y16N9msXpvw5PNnxrvJaZnarobZ
-   KBvCf1Dj+eekC4YVTAXKyD/hYkjlMzZUTtVKQeTzKEjYH6sLcPswe8kVj
-   Vu5sjq97ggheVbMZdIxfZNTc8JQSCHubRu8oxsgjDI3dKEGqHMhgRmwPS
-   Q==;
-X-CSE-ConnectionGUID: 5zIea2aMQ+CjcVhTxqKUUw==
-X-CSE-MsgGUID: kH+pBwBmQ5umxhsey4nl4A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3702603"
+  bh=lO6UvO4D04vsvLqXPDDrGOQgjjeXxasSwNAg+poi9o8=;
+  b=MkP2kE0gmr1Of2h9tXkYAKSNGsZtzP1hmqZuzgawRoSju8IdxYardVB/
+   QO7eOrRzmD7gNed8ix89jFfurEfpvnHUm0dredUi6cjYyx4X8LYHwenT5
+   o7uFXZztFT7vevL/TwjxC9pTvGgsewbtDeLP9a2smm4K4wBiCt+CsbQ6G
+   bnpAgMVs57SiCAFtmLZkN4A4Txh3eY//v7bjX1+DdS0DBx3nTB8iACCdJ
+   4zH9D1BMwwc2Ptogdpx4YM91h6/q2SzAI5mgVZCMD2NrmUlAQMrgNKwOV
+   fFQR2QWa9mXr7MQmH7grNUTRI8lkAvGSVe2td7EMy5WYqVmQrsv4HwC9e
+   g==;
+X-CSE-ConnectionGUID: z/RSkfbGSle178Fy9QSoMw==
+X-CSE-MsgGUID: KVBGB+cfRkG3sLKzPN83hw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3702614"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3702603"
+   d="scan'208";a="3702614"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
   by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:31 -0800
-X-CSE-ConnectionGUID: qLKSm0QIQbuumt67HYHgRA==
-X-CSE-MsgGUID: l885gF+BSXuV/yEniweryQ==
+X-CSE-ConnectionGUID: mElP3sXHR4S6jvtqsdofBQ==
+X-CSE-MsgGUID: 1cg9/wuTQUCuC1LKANc3ug==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="10678002"
+   d="scan'208";a="10678005"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:23 -0800
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id CDE11121C9E;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id D53BC121E56;
 	Wed, 18 Nov 2026 15:28:20 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xTfi0-00000000tcz-22YZ;
+	id 1xTfi0-00000000td9-2Ati;
 	Wed, 18 Nov 2026 15:28:20 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -102,9 +102,9 @@ Cc: hans@jjverkuil.nl,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH v13 52/73] media: ov2740: Add support for generic raw formats
-Date: Wed, 18 Nov 2026 15:27:58 +0200
-Message-ID: <20261118132819.213473-53-sakari.ailus@linux.intel.com>
+Subject: [PATCH v13 54/73] media: ov2740: Add support for G_SELECTION IOCTL
+Date: Wed, 18 Nov 2026 15:28:00 +0200
+Message-ID: <20261118132819.213473-55-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
 References: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
@@ -119,78 +119,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add RAW_10 media bus code and V4L2_CID_CFA_PATTERN as well as
-V4L2_CID_CFA_PATTERN_FLIP control support.
+Add support for the G_SELECTION IOCTL in the ov2740 driver.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/i2c/ov2740.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+ drivers/media/i2c/ov2740.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
 diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
-index e10df4840dca..fe7a8d72ac8b 100644
+index 71b5a2fbf686..ff1f5158786b 100644
 --- a/drivers/media/i2c/ov2740.c
 +++ b/drivers/media/i2c/ov2740.c
-@@ -804,7 +804,7 @@ static int ov2740_init_controls(struct ov2740 *ov2740)
- 	int ret;
+@@ -1131,6 +1131,32 @@ static int ov2740_set_format(struct v4l2_subdev *sd,
+ 				   fmt->pad, fmt->stream);
+ }
  
- 	ctrl_hdlr = &ov2740->ctrl_handler;
--	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 10);
-+	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 12);
- 	if (ret)
- 		return ret;
- 
-@@ -852,6 +852,13 @@ static int ov2740_init_controls(struct ov2740 *ov2740)
- 				     V4L2_CID_TEST_PATTERN,
- 				     ARRAY_SIZE(ov2740_test_pattern_menu) - 1,
- 				     0, 0, ov2740_test_pattern_menu);
-+	v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_CFA_PATTERN,
-+			  V4L2_CFA_PATTERN_GRBG, V4L2_CFA_PATTERN_GRBG,
-+			  1, V4L2_CFA_PATTERN_GRBG);
-+	v4l2_ctrl_new_std(ctrl_hdlr, NULL,
-+			  V4L2_CID_CFA_PATTERN_FLIP,
-+			  0, V4L2_CFA_PATTERN_FLIP_BOTH,
-+			  0, V4L2_CFA_PATTERN_FLIP_BOTH);
- 
- 	ret = v4l2_fwnode_device_parse(ov2740->dev, &props);
- 	if (ret) {
-@@ -1082,6 +1089,9 @@ static int __ov2740_set_format(struct v4l2_subdev *sd,
- 				      width, height,
- 				      format->width, format->height);
- 
-+	if (format->code != MEDIA_BUS_FMT_RAW_10)
-+		format->code = MEDIA_BUS_FMT_SGRBG10_1X10;
++static int ov2740_get_selection(struct v4l2_subdev *sd,
++				const struct v4l2_subdev_client_info *ci,
++				struct v4l2_subdev_state *state,
++				struct v4l2_subdev_selection *sel)
++{
++	if (!(ci && ci->caps & V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR))
++		return -EINVAL;
 +
- 	src_pix_fmt->code = format->code;
- 	src_pix_fmt->width = mode->width;
- 	src_pix_fmt->height = mode->height;
-@@ -1122,10 +1132,14 @@ static int ov2740_enum_mbus_code(struct v4l2_subdev *sd,
++	if (sel->stream != OV2740_STREAM_PIXEL ||
++	    sel->pad != OV2740_PAD_PIXEL)
++		return -EINVAL;
++
++	switch (sel->target) {
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++	case V4L2_SEL_TGT_CROP:
++		sel->r.top = OV2740_CROP_TOP;
++		sel->r.left = OV2740_CROP_LEFT;
++		sel->r.width = OV2740_ACTIVE_WIDTH - OV2740_CROP_LEFT;
++		sel->r.height = OV2740_ACTIVE_HEIGHT - OV2740_CROP_TOP;
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
+ static int ov2740_enum_mbus_code(struct v4l2_subdev *sd,
  				 struct v4l2_subdev_state *sd_state,
  				 struct v4l2_subdev_mbus_code_enum *code)
- {
--	if (code->index > 0)
-+	const u32 codes[] = {
-+		MEDIA_BUS_FMT_SGRBG10_1X10,
-+		MEDIA_BUS_FMT_RAW_10,
-+	};
-+	if (code->index >= ARRAY_SIZE(codes))
- 		return -EINVAL;
- 
--	code->code = MEDIA_BUS_FMT_SGRBG10_1X10;
-+	code->code = codes[code->index];
- 
- 	return 0;
- }
-@@ -1140,7 +1154,8 @@ static int ov2740_enum_frame_size(struct v4l2_subdev *sd,
- 	if (fse->index >= ov2740->supported_modes_count)
- 		return -EINVAL;
- 
--	if (fse->code != MEDIA_BUS_FMT_SGRBG10_1X10)
-+	if (fse->code != MEDIA_BUS_FMT_SGRBG10_1X10 &&
-+	    fse->code != MEDIA_BUS_FMT_RAW_10)
- 		return -EINVAL;
- 
- 	fse->min_width = supported_modes[fse->index].width;
+@@ -1255,6 +1281,7 @@ static const struct v4l2_subdev_video_ops ov2740_video_ops = {
+ static const struct v4l2_subdev_pad_ops ov2740_pad_ops = {
+ 	.get_fmt = v4l2_subdev_get_fmt,
+ 	.set_fmt = ov2740_set_format,
++	.get_selection = ov2740_get_selection,
+ 	.enum_mbus_code = ov2740_enum_mbus_code,
+ 	.enum_frame_size = ov2740_enum_frame_size,
+ 	.enable_streams = ov2740_enable_streams,
 -- 
 2.47.3
 
