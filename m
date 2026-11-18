@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795005844;
-	b=Rp2hho49YMdFPqEbSd6X8nLXzzFEqIV+ww7Okc5PUVdQpU0z51W6xQtJmHRVWSCg75Ia
-	 xORWFejb8f+8yIf8G+QKKUn9xa2zuz+jeby3z5RyfueGJw7aQpLecXbs0ktTNSzN12hSq
-	 3prDegS9+Rw0mbMrIa/rQmOdj0Gr9JQ7hrmNr0BdOwfZsSjC7qJ/PIYQRN6UTDs6W/HAL
-	 3tyPUK7aelTUPB/cvARud6LvuV2d9Mo2s5Ggp82A+ZFdxjuv5KxjRgj4NQY7KR1BxUUoz
-	 6FtFBzscbAyoVReLqPJkbrSlXtpaWH+0NF01KXTXqnvy9ZgJTl4NncLXVoojWiYOn5w==
+	t=1795005839;
+	b=I0Sxu3ZiRf3B/xv+tmyHFsvxU38oYVE+j8EZofwoVXe3GulKAsU6r7jl/AC6gJn//FZM
+	 4dL4984friK5b6D7FnmymBlj0IUABuoxYmNbu9KJ8sS3aUq10nGbugutt13LWn3k2NZa2
+	 zaIVTfL5SIijGy6r+mMC17DkP0zQ8ymCdbELDj+L77LqoU3kGlOC4NRqjo0TIqiTQagPO
+	 WE0+niOZw9pTXCzSbfM/VEs6uQtbNax+MpmAnngfdro37pSQE0yUyWnh/4YSfvny/VIIv
+	 RkVziSOCaEoeq7Pke4HeArSAugd+oBCJuqN4/iHnLnF8v+moEZufC7GMrAO1lBhnwQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795005844;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=1jp+LFxkFUNb3kZYr6492Er1uNZ9P/OcpCwscAq3WYw=;
-	b=MdLHdQnPgep232QB6sJVMljLDp6OiCcEAZFSpPMsdv7zgVu0BtgRkuPr0+AIsO73vghZ
-	 moGFlXFNCaT/3bb53fbp3fpfOP25pGQoFq1SUMYNarzBWXAuIIJYHVFcjKEom14JnQyPF
-	 G38QaSijxEwGjRgEtp1tTP5GT1fkhYyQoEnFC2o2y22vZP7Wuqi/eeBRdppeBOxyCmZJ/
-	 P6Io4IHXZpGWWAVu4jS8cU4GlRjCxaDC++61vRmcYANJGSmlqEVnU//f4AbVPCP2iu07n
-	 OOYPfxXcGcTFHsmi9WjhVDDDVXI0trlUfqhSXdrg+0lZBACvDw29rbAqler4Wo4eiDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795005839;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=gC10VzDGHK2VJeM7ibqIPA7PShFYGqEoG8ozb5T2OzQ=;
+	b=ltU2zU6NdvV4P0dnUTvzAR3X0vmzUod15/nfPAeAJTPtnnPxc8MASQP7+kIkKUGFjY/P
+	 5Pw1PRo7L9X3sHcukUssZKuHuqVjJrR2GuB80mu4r6VdPguTUwIlzLG4PBtohq0ANpeRP
+	 6O6TfWG4gcNiF0Wh6BAWSaBQl7f3PP88q++4xbEDFiNGMII9fwpR1FXgVALWfhUdh23U8
+	 d1CBLPzIzObluspLCf6T/J9tLSDHOVi3drWWTykobiMaW1q7Zx8ybbAzjZkM41QuVVSxh
+	 KrXBB5X68uWwMBSd5MWRWlTvyndM57o3fGGFGz+lfg+BB5rf8mBADuVvFNGqc1HYJwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fc9sCOCM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IlIvnwJp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9FA606A32F;
-	Wed, 18 Nov 2026 12:44:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806DA606A31C;
+	Wed, 18 Nov 2026 12:43:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fc9sCOCM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44C931F000C4;
-	Wed, 18 Nov 2026 12:44:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IlIvnwJp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A16151F000C4;
+	Wed, 18 Nov 2026 12:43:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795005843;
-	bh=1jp+LFxkFUNb3kZYr6492Er1uNZ9P/OcpCwscAq3WYw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=fc9sCOCMBewz7KRlepQrHf8ORXOmLTO9XQr4CFLjfzhgUkKfUAtWdj8sH7PcFbZ4M
-	 lgLx+MewmLBFnQPtfWNUbdZ89rrUq8fD2e7/oTkKfyOLNrzwND7UzYkniWW1vhLEWR
-	 AchX2RyezaTgsBzA+mnKYxq1+psEfWrbQDjdNdJzw4V7zhQXl16q947hXeTBhqHjlk
-	 wpkF53R/zW/eMoHnvTatFtAh8ZJXL27/vUvCeq3/X7PF470UCAy3gKTHFpPSHY5bAy
-	 LkbNbsd2OWUNIlgWJXOVNzFOZz/gcaGB1xoiFektZo78r3nDeaWoPA0Lmx39e97Kw6
-	 oJeXjngJTgqwQ==
+	s=k20260515; t=1795005839;
+	bh=gC10VzDGHK2VJeM7ibqIPA7PShFYGqEoG8ozb5T2OzQ=;
+	h=From:Subject:Date:To:Cc;
+	b=IlIvnwJpDpE4FK3fg6xoebsUkS65WZPuXByUSQyBQsv+w6cSZg8BngQQWxcrZDaYO
+	 fihU9irzHzJbiOjtoQn37XfyIRaTUly5P5OIV4vPC8WGc1jkxnsjHRVe5TaTBwhDWL
+	 9dvp4YbtBXjOqt78vdoSuNirK7l0PfA69ltAFnbCyAgrLBXC5FnzX9nsb/epBgCm4d
+	 cUhlH8Gei4DGKOH1l4QMSrMiMcDtMuveBvf/UvWsXRpnmDDbyJjGvxvu7QSzAixT3n
+	 Y1EnbSBUebqWV179Trn0mdXiwRVCqxFrdd8OwtHDmkw4klkfCQhmZ7Ybd9MXhR+6US
+	 aoqnnIOhqBGQQ==
 From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-Date: Wed, 18 Nov 2026 13:43:46 +0100
-Subject: [PATCH RFC v2 02/16] media: mc: Add per-file-handle data support
+Subject: [PATCH RFC v2 00/16] media: Fault-Tolerant V4L2
+Date: Wed, 18 Nov 2026 13:43:44 +0100
+Message-Id: <20261118-v4l2-sensor-detect-v2-0-1bb1a445b556@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -54,9 +55,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-v4l2-sensor-detect-v2-2-1bb1a445b556@kernel.org>
-References: <20261118-v4l2-sensor-detect-v2-0-1bb1a445b556@kernel.org>
-In-Reply-To: <20261118-v4l2-sensor-detect-v2-0-1bb1a445b556@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQrCMBBEf6Xs2UiyqdV4EgQ/wKv00KZrG1oS2
+ ZSglP67sWePb4Z5s0AkdhThXCzAlFx0wWfAXQF2aHxPwnWZASVW0qAWqZxQRPIxsOhoJjsLjY1
+ s0ejKWgV5+GJ6uvcmfcD9doU6h4OLc+DPdpTUVv2cSkr1z5mUkKIpD8boltSxPV1GYk/TPnAP9
+ bquX+Qxp3y6AAAA
+X-Change-ID: 20260923-v4l2-sensor-detect-32a0b2936cc1
 To: Hans Verkuil <hverkuil+cisco@kernel.org>, 
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
  Kieran Bingham <kieran.bingham@ideasonboard.com>, 
@@ -73,166 +76,180 @@ Cc: Mattijs Korpershoek <mkorpershoek@kernel.org>,
  linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
  Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4469;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7840;
  i=mkorpershoek@kernel.org; h=from:subject:message-id;
- bh=Bz7fxtwOOIRRee5KSI62LVoVXlbx02TfJVY8R7KdYlQ=;
- b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBq/Z2KZrMEPoanM6umdCpofknCsTp8DO3SxgrdA
- 8qy0wAojtmJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCav2digAKCRAZDR20Zk4Z
- NaAOB/9t7VlIIXjVcXB99mNI6rI5x6fOiRpw1E0dbPjBX3pk2sPueCCi5+yHHyh0c6OqQvaqZ7w
- WjXKZ+gAhGly9wk0rYvcy6Cq/NAPAO9XexQQfUwEIKcYYZkCa6H2VDG2A4ZxzFmi4OhZ2FO6lvW
- l5D/uL3iKib6+ml6NA34LzXBVNPBEKQAbHfGKTcGZjouxi6EnfGNlv2IIeVa60ng+JT865+FxeP
- 16R93nq4Sm0XlNbdR2ktbRaxasbSRCKYY/3CGHX7J3vYk/kxcc8SwuWAZoEmK8ZiiqXS2CiHoN0
- d+hNBNmOHCZKwRWmQMes0e40pPTf12pjdvx65s2/5CZmwX+K
+ bh=o8f6emCddhrPySCyohc2k1Y5UF+Ua+DfDaTjoTlw94E=;
+ b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBq/Z2K4VjVvTIGXxafDia8ubS3HMyneSQ4P8DZZ
+ N96aKwnLKKJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCav2digAKCRAZDR20Zk4Z
+ NWlYCACDVzOuTtecfiFack+u6/zqMad6nvdeJyZjz903xsXfin5cT9Q2vLT4kzDW80Iz6RBvsaz
+ 5yU3ZtJ6P5BWGnR7+RvIAcuJMyw9ZU+oA+J5DY9c5ZNZ8eXnN7tjQ0yrg5AP4P/InQa687MPTmx
+ cZNob2tNTvmA7ANlDR5ipbktHG8TUtJIRUcQl2Ta1wZQBdWN2KFGHpqhCgr6WVHbotxPs5rykU6
+ IG0z+C3+g5ylXiUsx/YghlgnRxSj8GRYPOvDwqREC+8MdBMX0rdl60TVEKHZd4rjZJ7HIHl/lKr
+ WMtDCuE8vvbY3FKLmaktwtmuBaJWJ+R/w6v/EVdn5Amg1zwo
 X-Developer-Key: i=mkorpershoek@kernel.org; a=openpgp;
  fpr=8234A35B45C0D26B31C1A2DA570338B018144F28
 
-From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+On media-centric camera pipelines, every entity is known at boot time
+and described statically (for example via device-tree).
 
-The media devnode core associates devnodes with files by storing the
-devnode pointer in the file structure private_data field. In order to
-allow tracking of per-file-handle data introduce a new media devnode
-file handle structure that stores the devnode pointer, and store a
-pointer to that structure in the file private_data field.
+The V4L2 framework assumes that every entity of the camera
+pipeline is always present. This is a reasonable assumption for
+integrated cameras in laptops or phones. However, in automotive systems,
+cameras (e.g. rear-view or surround-view) can be damaged or disconnected.
+When the framework assumes all sensors are present, a single missing
+camera can prevent the entire pipeline from operating.
 
-Users of the media devnode code (the only existing user being
-media_device) are responsible for managing their own subclass of the
-media_devnode_fh structure.
+This is a known problem and has been discussed at various conferences:
+* https://www.linuxtv.org/downloads/presentations/media_summit_2026/Michael%20-%20The%20Butterfly%20Effect.pdf
+* https://www.linuxtv.org/news.php?entry=2022-11-14-0.hverkuil
+* https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus.ideasonboard.com/T/#u
 
-Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+For example, in the following pipeline:
+"""
+  imx219  9-0010 -> ds90ub953 7-0044 -> ds90ub960 pad0 -+
+                                                        |-- pad4 -> cdns_csi2rx -> ticsi2rx
+  imx219 10-0010 -> ds90ub953 7-0045 -> ds90ub960 pad1 -+
+"""
+
+If imx219 9-0010 fails to probe, media-ctl -p will show:
+"""
+                    ds90ub953 7-0044 -> ds90ub960 pad0 -+
+                                                        |-- pad4 -> cdns_csi2rx -> ticsi2rx
+  imx219 10-0010 -> ds90ub953 7-0045 -> ds90ub960 pad1 -+
+"""
+
+Now, if ds90ub953 7-0044 fails to probe(), media-ctl -p will only show the
+following topology:
+"""
+                                                                    cdns_csi2rx -> ticsi2rx
+"""
+
+To solve this, we chose to go for a simple solution inspired by
+DRM connectors.
+
+We created an ioctl for media entitities to report their current
+connection status.
+This allows applications to discover an entity state when discovering
+the graph (using media-ctl -p, for example)
+The entity status is then cached. When applications start streaming,
+the status is polled on a regular basis and reported as a media event
+every time it changes.
+This mandates that the driver can probe even when the device is
+not connected.
+
+This has the benefits of being fairly simple to implement, understand
+and support in drivers.
+
+This new behaviour is opt-in. It is enabled via a module parameter
+for the Media Controler: mc.fault_tolerant.
+
+Patch 1-9 Add event support at media device level
+Patch 10-14 Add entity status and ioctls to interact with it
+Patch 15-16 implement this pattern switch for the imx219 driver.
+
+With this, we can hot-plug the sensor and get notified via the media
+device of the status:
+
+[root@fedora]# ./media-event-monitor
+Subscribed to ENTITY_REGISTRATION and ENTITY_STATUS_CHANGE on /dev/media0
+Waiting for events (Ctrl-C to quit)...
+event: type=2 (ENTITY_STATUS_CHANGE) id=0 seq=0 ts=403045107120 pending=0
+  entity_id=40 status=DISCONNECTED
+event: type=2 (ENTITY_STATUS_CHANGE) id=0 seq=1 ts=415292362587 pending=0
+  entity_id=40 status=CONNECTED
+
+The code for this demo is available at:
+https://gitlab.com/-/snippets/6077614
+
+The media device event code is mostly Sakari's work which can be found at:
+https://git.linuxtv.org/sailus/media_tree.git/log/?h=partial-reg
+
+Current known limitations:
+* Only leaf entities (typically sensor nodes) are covered. We should
+  also address entities that are in the middle of the media graph
+
+This has been tested on a SK-AM69 board on top of the following series:
+* https://lore.kernel.org/all/20260824121451.3348583-1-sakari.ailus@linux.intel.com/
+* https://lore.kernel.org/all/20261104-j721e-csi2rx-crash-sd-enable-streams-v1-1-b77ee38c8dcf@kernel.org/
+
+Thanks,
+Mattijs
+
 ---
- drivers/media/mc/mc-device.c  | 21 +++++++++++++++++++++
- drivers/media/mc/mc-devnode.c | 19 ++++++++++---------
- include/media/media-devnode.h | 18 +++++++++++++++++-
- 3 files changed, 48 insertions(+), 10 deletions(-)
+Changes in v2:
+- Notifications are now done at media device level (Laurent, Nicolas)
+- Connection status is tracked at entity level (Laurent)
+- imx219: Fail the probe if CHIP_ID does not match (Dave)
+- Dropped patch 'media: imx219: Move LP-11 state switch to power_on()'
+  as we did not get any feedback from cadence on this
+- Replaced VIDIOC_SUBDEV_G_CONNECTION_STATUS with a media controller
+  ioctl instead: MEDIA_IOC_G_ENTITY_STATUS
+- Do status polling in generic framework (Dave)
+- Increase polling interval to 10s (Dave)
+- Polling/Fault tolerance is only enabled when mc.faul_tolerance=1
+  module param is set (Dave, Hans V, Sakari)
+- Reworked .detect() polling to be only done when streaming is on. This
+  should address the privacy led blinking concerns (Dave, Hans D)
+- Link to v1: https://lore.kernel.org/r/20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org
 
-diff --git a/drivers/media/mc/mc-device.c b/drivers/media/mc/mc-device.c
-index 32e5c9f02ed4..8d0c35a11944 100644
---- a/drivers/media/mc/mc-device.c
-+++ b/drivers/media/mc/mc-device.c
-@@ -36,6 +36,15 @@
- #define MEDIA_ENT_T_DEVNODE_UNKNOWN		(MEDIA_ENT_F_OLD_BASE | \
- 						 MEDIA_ENT_SUBTYPE_MASK)
- 
-+struct media_device_fh {
-+	struct media_devnode_fh fh;
-+};
-+
-+static inline struct media_device_fh *media_device_fh(struct file *filp)
-+{
-+	return container_of(filp->private_data, struct media_device_fh, fh);
-+}
-+
- /* -----------------------------------------------------------------------------
-  * Userspace API
-  */
-@@ -47,11 +56,23 @@ static inline void __user *media_get_uptr(__u64 arg)
- 
- static int media_device_open(struct file *filp)
- {
-+	struct media_device_fh *fh;
-+
-+	fh = kzalloc_obj(*fh);
-+	if (!fh)
-+		return -ENOMEM;
-+
-+	filp->private_data = &fh->fh;
-+
- 	return 0;
- }
- 
- static int media_device_close(struct file *filp)
- {
-+	struct media_device_fh *fh = media_device_fh(filp);
-+
-+	kfree(fh);
-+
- 	return 0;
- }
- 
-diff --git a/drivers/media/mc/mc-devnode.c b/drivers/media/mc/mc-devnode.c
-index 51260a7d6921..bc06cbf0445a 100644
---- a/drivers/media/mc/mc-devnode.c
-+++ b/drivers/media/mc/mc-devnode.c
-@@ -140,6 +140,7 @@ static long media_compat_ioctl(struct file *filp, unsigned int cmd,
- static int media_open(struct inode *inode, struct file *filp)
- {
- 	struct media_devnode *devnode;
-+	struct media_devnode_fh *fh;
- 	int ret;
- 
- 	/* Check if the media device is available. This needs to be done with
-@@ -162,15 +163,16 @@ static int media_open(struct inode *inode, struct file *filp)
- 
- 	filp->private_data = devnode;
- 
--	if (devnode->fops->open) {
--		ret = devnode->fops->open(filp);
--		if (ret) {
--			put_device(&devnode->dev);
--			filp->private_data = NULL;
--			return ret;
--		}
-+	ret = devnode->fops->open(filp);
-+	if (ret) {
-+		put_device(&devnode->dev);
-+		filp->private_data = NULL;
-+		return ret;
- 	}
- 
-+	fh = filp->private_data;
-+	fh->devnode = devnode;
-+
- 	return 0;
- }
- 
-@@ -179,8 +181,7 @@ static int media_release(struct inode *inode, struct file *filp)
- {
- 	struct media_devnode *devnode = media_devnode_data(filp);
- 
--	if (devnode->fops->release)
--		devnode->fops->release(filp);
-+	devnode->fops->release(filp);
- 
- 	filp->private_data = NULL;
- 
-diff --git a/include/media/media-devnode.h b/include/media/media-devnode.h
-index dbcabeffcb57..0912368ea049 100644
---- a/include/media/media-devnode.h
-+++ b/include/media/media-devnode.h
-@@ -59,6 +59,20 @@ struct media_file_operations {
- 	int (*release) (struct file *);
- };
- 
-+/**
-+ * struct media_devnode_fh - Media device node file handle
-+ * @devnode:	pointer to the media device node
-+ *
-+ * This structure serves as a base for per-file-handle data storage. Media
-+ * device node users embed media_devnode_fh in their custom file handle data
-+ * structures and store the media_devnode_fh in the file private_data in order
-+ * to let the media device node core locate the media_devnode corresponding to a
-+ * file handle.
-+ */
-+struct media_devnode_fh {
-+	struct media_devnode *devnode;
-+};
-+
- /**
-  * struct media_devnode - Media device node
-  * @media_dev:	pointer to struct &media_device
-@@ -150,7 +164,9 @@ void media_devnode_unregister(struct media_devnode *devnode);
-  */
- static inline struct media_devnode *media_devnode_data(struct file *filp)
- {
--	return filp->private_data;
-+	struct media_devnode_fh *fh = filp->private_data;
-+
-+	return fh->devnode;
- }
- 
- /**
+---
+Laurent Pinchart (1):
+      media: mc: Add per-file-handle data support
 
--- 
-2.56.0
+Mattijs Korpershoek (7):
+      media: media.h: Add entity connection status
+      media: mc: Add .detect() to media_entity_operations
+      media: mc: Add MEDIA_IOC_G_ENTITY_STATUS ioctl
+      media: mc: Add MEDIA_EVENT_ENTITY_STATUS_CHANGE event
+      media: mc: Add detect polling helpers for drivers
+      media: imx219: Allow driver probe with missing sensor
+      media: imx219: Implement .detect() sensor operation
+
+Sakari Ailus (8):
+      media: mc: Add struct media_device_fh pointer to media device IOCTL op
+      v4l: event: Separate event related information from struct v4l2_fh
+      v4l: event: Rework data structures for separating events and V4L2
+      v4l: event: Split the event framework into generic and V4L2 bits
+      media: mc: Maintain a list of open file handles in a media device
+      media: mc: Add MEDIA_IOC_DQEVENT
+      media: mc: Add MEDIA_EVENT_ENTITY_REGISTRATION
+      Documentation: media: Add Media controller event documentation
+
+ .../userspace-api/media/mediactl/media-funcs.rst   |   3 +
+ .../media/mediactl/media-ioc-dqevent.rst           | 130 +++++++++
+ .../media/mediactl/media-ioc-g-entity-status.rst   |  92 ++++++
+ .../media/mediactl/media-ioc-subscribe-event.rst   | 112 +++++++
+ drivers/media/Kconfig                              |   3 +
+ drivers/media/i2c/imx219.c                         | 117 +++++---
+ drivers/media/mc/Kconfig                           |   3 +
+ drivers/media/mc/Makefile                          |   3 +-
+ drivers/media/mc/mc-device.c                       | 236 ++++++++++++++-
+ drivers/media/mc/mc-devnode.c                      |  19 +-
+ drivers/media/mc/mc-entity.c                       |  59 ++++
+ drivers/media/mc/mc-evbase.c                       | 260 +++++++++++++++++
+ drivers/media/mc/mc-event.c                        | 244 ++++++++++++++++
+ drivers/media/pci/ivtv/ivtv-fileops.c              |   2 +-
+ drivers/media/usb/uvc/uvc_ctrl.c                   |  36 ++-
+ drivers/media/v4l2-core/v4l2-ctrls-api.c           |  16 +-
+ drivers/media/v4l2-core/v4l2-ctrls-core.c          |  20 +-
+ drivers/media/v4l2-core/v4l2-event.c               | 324 +++++++++------------
+ drivers/media/v4l2-core/v4l2-fh.c                  |  12 +-
+ include/media/media-device.h                       |  24 ++
+ include/media/media-devnode.h                      |  18 +-
+ include/media/media-entity.h                       |  77 +++++
+ include/media/media-evbase.h                       | 200 +++++++++++++
+ include/media/media-event.h                        | 181 ++++++++++++
+ include/media/media-fh.h                           |  37 +++
+ include/media/v4l2-event.h                         | 106 ++++---
+ include/media/v4l2-fh.h                            |  32 +-
+ include/uapi/linux/media.h                         |  51 +++-
+ 28 files changed, 2079 insertions(+), 338 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+change-id: 20260923-v4l2-sensor-detect-32a0b2936cc1
+
+Best regards,
+--  
+Mattijs Korpershoek <mkorpershoek@kernel.org>
 
