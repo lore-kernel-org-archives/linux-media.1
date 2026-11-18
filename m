@@ -1,77 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795007766;
-	b=jO7tkvrHwDTYpUpNolcOkMxbEbirCJh8+7UTWOWgZqRx/ot7yjYj8K91OXXXKbzEeQaw
-	 0lBSJcC2kNWobrSlbgHhlvtBAzFOtx/Np/HNcyoQEW0ta66hChGCteA9WpGxC/g4ivI6c
-	 zBERKD4zyZHPZD4yyKTRvCvDwIK0HuRqXqiPOEC6KfHG0gARlxW/M7CTjWeQAayXmNzBO
-	 yJNz1agENYJbJwfoLu/zDNl0F5RnkiIygg8gQ/GINhjKypbCIX03J2jpNChBNga9v8qnj
-	 rMNbAgsU3do6ZTt/69be1TUhPmreH85wfhSekYEAxzDo84G24QBgLyg8h5vX4G9309g==
+	t=1795008512;
+	b=VDsx5fY3i98H2kOaA/l1RLcctlDb/MMNCe6FvvEqzwGCQKAy5PuYIjuoXcTyTZhC8vER
+	 9KKzTVfRgBmTHtf077twB1oSU/qIVwIX58pA7zlZgO5Abng9F5VrM4pr/AflfrBUqsN4P
+	 ZN9sVrFZdhmjEQKRwqYqpPa2Yah4A4quY+dLKfKmTe8uCeGLRsb6tuUGfygpUUmuG7YYS
+	 prx2vNyLLlB+diByTMbCoy8rHYUlbtuhhNLHbpdXjS/k2nr96nPpOse8nxkjbeottkHdj
+	 T7Xg1HWNnNGKHK/0D0qfcVS6SjWbaK5YmndQYHJU418OZdI7Ge7mTF0nxqqy55xETzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795007766;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=yW4osrFS24wgu8pSOiR70jM4pZlWA15tPUFvK4+40fk=;
-	b=Ns7c7bk+sqsb1272mOq4Re2OmZuk9tQxNxSQbny6Dldyi6K5jWUgVhi9G5bnGmH5xycf
-	 jcybJO1dTU4E5/id72TTNXZxLbj9nQemQnvD3D9TLfChP84yqxSjeaFJnZ9uLQXp8JTz0
-	 8h0eDByZBpc6397oHrBlRL5b1OB8d51dckuClucAwNgXYmrOh/jE94RubyXtC7EfWcBoB
-	 ZVNYfpoNz8dLGygUtYXESqN64Fd4kfAwKC9GzrEfhkkmQ33k3bn8xPaf0246Ash9+dA9H
-	 xUzalOJD0+bsAapcvVRPW/63Qfby1glHEiNZyQVGRP8aJ0ey1GsatFPLvK2BbsIPSYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795008512;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=GivGzC8M0LvT1xs+cK4jTgOuw3MXn3D1GtklTQ54RfY=;
+	b=43buoOHOFrFPWDmw+8MmlN7Dizb8wo9YO+1yaVJxlYNREJgjwERYKL4g9t5jI2OepkRD
+	 Gz5EuJB/F2rg5DNEWAHkAHN38GxTtxeFvywENsT29MvyvBULQoMI5aPiGHZygJtmpkVyB
+	 AGxvtnayB5rXZjcUxszqau3UYJdLexF+FEenw0Z6EXmia1MjZmOuwd5i8o8hTcvzDItuV
+	 uEMT45QUj16zmmwYRxYb1ITRD3Ycirpqn1V9KLL08Z0QzciyIHOQfw1R0hWb8fAheWHiL
+	 +jdsCuS9UM8sDGpjzr3eWShQIY2/dNNNtf6+HFrNpo3pbV09y2mySGIKqob73BXDRkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=kMQ2IVGZ;
-	arc=none smtp.remote-ip=80.241.56.171
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DNBM4cZq;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08482606A31C;
-	Wed, 18 Nov 2026 13:16:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08482606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41063606A32F
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:28:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41063606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=kMQ2IVGZ
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jV2Cw1MlDzMlpB;
-	Wed, 18 Nov 2026 14:15:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1795007756; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yW4osrFS24wgu8pSOiR70jM4pZlWA15tPUFvK4+40fk=;
-	b=kMQ2IVGZHdYSJi1qr7AZ9ssQhavYnyXjudHLXhc5Gz4zhD67Q5LNKVdw/Q7Kf3s7YRMYyT
-	z14c4Gxh3PGt5WK59jRYiVr1b2r1qNmAdnntGsByfYF4p0ivZZ7H2p0RvH+EFN9Nez2qSS
-	cUP+vHa6VeOhBAlRkNj7rIOY33r84D5HLofQpEcar11/GSuVbkA/tSPTuWzf3aVtMF3Wmq
-	B3GGpAFcM8mKji5LdLlnzrMuA8AUTiySFzS5Hx/epY8d4q7Yhu0urRLCB5XylYeA34k8EI
-	vYD6ldQhNbIySbQZT5QISSNB5Llj01NBQehK86haf2EU0duawmxW41BL0xPb6Q==
-Message-ID: <3792b7f8f4729820a924e0d60d17c97489827732.camel@mailbox.org>
-Subject: Re: [PATCH v2] dma-buf/dma-fence: Prevent misordering for error
- checks
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Gary Guo <gary@garyguo.net>, Philipp Stanner <phasta@kernel.org>, Sumit
- Semwal <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>,  Simona Vetter <simona.vetter@ffwll.ch>, Chris
- Wilson <chris@chris-wilson.co.uk>, Danilo Krummrich	 <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Daniel Almeida	
- <daniel.almeida@collabora.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 18 Nov 2026 14:15:54 +0100
-In-Reply-To: <DMYCSXNA6VQ9.22FS1PMBBYWRO@garyguo.net>
-References: <20261118110914.1471416-2-phasta@kernel.org>
-	 <DMYCSXNA6VQ9.22FS1PMBBYWRO@garyguo.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DNBM4cZq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795008512; x=1826544512;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=NpyFTdElazDhJo9oqNbLr3nQydbLBOjnlQALrYS+pLc=;
+  b=DNBM4cZqpYodycUESkCB1WRV0dgi/iSSuBk4z0SGjwk/SDZDq0u5f6jG
+   mZrBA46G7V7iUpo7yX1C//YFhi/0/121+F0YDhAlPvFQ4CGfmFBFwes0f
+   l8eBFPcJPNQqtIZKAnoVhl/B3P0erb71UvRUFrV43W5JEF675n5cSdLpj
+   jDZbStAxgRInuc00+a7UEZFIHG6c78y16N9msXpvw5PNnxrvJaZnarobZ
+   KBvCf1Dj+eekC4YVTAXKyD/hYkjlMzZUTtVKQeTzKEjYH6sLcPswe8kVj
+   Vu5sjq97ggheVbMZdIxfZNTc8JQSCHubRu8oxsgjDI3dKEGqHMhgRmwPS
+   Q==;
+X-CSE-ConnectionGUID: 5zIea2aMQ+CjcVhTxqKUUw==
+X-CSE-MsgGUID: kH+pBwBmQ5umxhsey4nl4A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3702603"
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="3702603"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:31 -0800
+X-CSE-ConnectionGUID: qLKSm0QIQbuumt67HYHgRA==
+X-CSE-MsgGUID: l885gF+BSXuV/yEniweryQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="10678002"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:23 -0800
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id CDE11121C9E;
+	Wed, 18 Nov 2026 15:28:20 +0200 (EET)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1xTfi0-00000000tcz-22YZ;
+	Wed, 18 Nov 2026 15:28:20 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: hans@jjverkuil.nl,
+	laurent.pinchart@ideasonboard.com,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Kate Hsuan <hpa@redhat.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Julien Massot <julien.massot@collabora.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
+	Stefan Klug <stefan.klug@ideasonboard.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	=?UTF-8?q?Andr=C3=A9=20Apitzsch?= <git@apitzsch.eu>,
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Ricardo Ribalda Delgado <ribalda@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	David Plowman <david.plowman@raspberrypi.com>,
+	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Rishikesh Donadkar <r-donadkar@ti.com>,
+	Mattijs Korpershoek <mkorpershoek@kernel.org>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	"Bajpai, Manik" <manik.bajpai@intel.com>,
+	Divyamani Tripathi <divyamani.tripathi@intel.com>
+Subject: [PATCH v13 52/73] media: ov2740: Add support for generic raw formats
+Date: Wed, 18 Nov 2026 15:27:58 +0200
+Message-ID: <20261118132819.213473-53-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
+References: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -81,79 +117,80 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: 1cf2ae9d8dfe671f094
-X-MBO-RS-META: ko59io9p5mbdaggd9b7y5om1iqooo31t
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-11-18 at 12:59 +0000, Gary Guo wrote:
-> On Wed Nov 18, 2026 at 11:09 AM GMT, Philipp Stanner wrote:
+Add RAW_10 media bus code and V4L2_CID_CFA_PATTERN as well as
+V4L2_CID_CFA_PATTERN_FLIP control support.
 
-[=E2=80=A6]
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+---
+ drivers/media/i2c/ov2740.c | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
 
-> > =C2=A0static inline bool
-> > =C2=A0dma_fence_test_signaled_flag(struct dma_fence *fence)
-> > =C2=A0{
-> > -	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
-> > +	/*
-> > +	 * Best-effort ordering of the locklessly evaluated signaled-bit,
-> > +	 * especially so that reads of fence->error are not misordered.
->=20
-> I am not sure if this should focus on the error, or it should just provid=
-e a
-> general guarantee that anything happens before dma_fence_signal is visibl=
-e when
-> signal test returns true. I would lean on the latter?
+diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
+index e10df4840dca..fe7a8d72ac8b 100644
+--- a/drivers/media/i2c/ov2740.c
++++ b/drivers/media/i2c/ov2740.c
+@@ -804,7 +804,7 @@ static int ov2740_init_controls(struct ov2740 *ov2740)
+ 	int ret;
+ 
+ 	ctrl_hdlr = &ov2740->ctrl_handler;
+-	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 10);
++	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 12);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -852,6 +852,13 @@ static int ov2740_init_controls(struct ov2740 *ov2740)
+ 				     V4L2_CID_TEST_PATTERN,
+ 				     ARRAY_SIZE(ov2740_test_pattern_menu) - 1,
+ 				     0, 0, ov2740_test_pattern_menu);
++	v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_CFA_PATTERN,
++			  V4L2_CFA_PATTERN_GRBG, V4L2_CFA_PATTERN_GRBG,
++			  1, V4L2_CFA_PATTERN_GRBG);
++	v4l2_ctrl_new_std(ctrl_hdlr, NULL,
++			  V4L2_CID_CFA_PATTERN_FLIP,
++			  0, V4L2_CFA_PATTERN_FLIP_BOTH,
++			  0, V4L2_CFA_PATTERN_FLIP_BOTH);
+ 
+ 	ret = v4l2_fwnode_device_parse(ov2740->dev, &props);
+ 	if (ret) {
+@@ -1082,6 +1089,9 @@ static int __ov2740_set_format(struct v4l2_subdev *sd,
+ 				      width, height,
+ 				      format->width, format->height);
+ 
++	if (format->code != MEDIA_BUS_FMT_RAW_10)
++		format->code = MEDIA_BUS_FMT_SGRBG10_1X10;
++
+ 	src_pix_fmt->code = format->code;
+ 	src_pix_fmt->width = mode->width;
+ 	src_pix_fmt->height = mode->height;
+@@ -1122,10 +1132,14 @@ static int ov2740_enum_mbus_code(struct v4l2_subdev *sd,
+ 				 struct v4l2_subdev_state *sd_state,
+ 				 struct v4l2_subdev_mbus_code_enum *code)
+ {
+-	if (code->index > 0)
++	const u32 codes[] = {
++		MEDIA_BUS_FMT_SGRBG10_1X10,
++		MEDIA_BUS_FMT_RAW_10,
++	};
++	if (code->index >= ARRAY_SIZE(codes))
+ 		return -EINVAL;
+ 
+-	code->code = MEDIA_BUS_FMT_SGRBG10_1X10;
++	code->code = codes[code->index];
+ 
+ 	return 0;
+ }
+@@ -1140,7 +1154,8 @@ static int ov2740_enum_frame_size(struct v4l2_subdev *sd,
+ 	if (fse->index >= ov2740->supported_modes_count)
+ 		return -EINVAL;
+ 
+-	if (fse->code != MEDIA_BUS_FMT_SGRBG10_1X10)
++	if (fse->code != MEDIA_BUS_FMT_SGRBG10_1X10 &&
++	    fse->code != MEDIA_BUS_FMT_RAW_10)
+ 		return -EINVAL;
+ 
+ 	fse->min_width = supported_modes[fse->index].width;
+-- 
+2.47.3
 
-See below.
-
->=20
-> > +	 *
-> > +	 * The release counterpart is typically ensured like this:
-> > +	 *=C2=A0=C2=A0 a) Error codes must only be set before a fence signals=
- and
-> > +	 *=C2=A0=C2=A0 b) The fence's spinlock's barriers effective in dma_fe=
-nce_signal()
-> > +	 *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ensure ordering.
->=20
-> Spinlock has nothing to do with this. The only thing that guarantees the
-> ordering is test_and_set_bit in (c).
-
-Why not? A spinlock includes full barriers. If it were set_bit()
-instead of test_and_set_bit(), it would still work.
-
->=20
-> So probably easier just to say something like
->=20
-> =C2=A0=C2=A0=C2=A0 /* Pairs with test_and_set_bit() in dma_fence_signal_t=
-imestamp_locked */
-
-It is easier.
-
-I am, however, unhappy with the unclear state of the API contract. It's
-still unclear what the signaled-flag even is supposed to mean. So this
-comment was also supposed to hint at the unclear state.
-
-The desired meaning aimed for by Christian is that it's only meaning is
-"hardware is done".
-
-But as we see here it has implications for the entire semantic, too:
-a) signaled =3D=3D true -> the error code is valid (what else?)
-b) The fence has either signaled or "is still signaling", i.e. running
-callbacks
-
-I still maintain the position that it is inconsistent to run
-test_and_set_bit() under lock protection and evaluate it without the
-lock. Should be one or the other, not both.
-
-Note that this patch intends just to hot-fix the error code evaluation,
-not to make the fence API fully consistent. It's currently not even
-clear whether manual flag evaluation is legal. It used to be legal. I'm
-the one who added dma_fence_test_signaled_flag(), but mostly for
-readability, not for semantic correctness.
-
-It should be illegal to evaluate error codes with anything other than
-dma_fence_get_status(). But there then the meaning of the spinlock is
-currently also undefined. The lock there, with the current thinking,
-would seem surplus with this patch here.
-
-
-P.
