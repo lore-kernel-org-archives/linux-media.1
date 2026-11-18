@@ -1,11 +1,11 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795008542;
-	b=4ql+Dxh1pBm1SwrQrGQHZsurZxWl4gCzHrrEddL4RVdzdXLU57EO3x/V7UwUWReB8KDC
-	 hTdreHQ2wfQFqf97iNqP/5aDDfIYB1TaRkzzzFIFv9dn1XJAgu60aFfS59zqHtjp4q9BB
-	 PfGGXoGm7NRaZ5j1sCAKc0rLP+6gz/WOYEOhXN4xxrZL0ahmHgicQMh8O8kGy4HHCFsIH
-	 FHwUy9PWtvuME+Ok3xftVEpTPwR5UqmNQ9NvqoSCmIJJ73S7HhpOgyBwjkH9iZ2ssDOhy
-	 RRIebO5bRM/BWoQFz/ooMW/DJCJw7KN3DyO5sZhha58QSSE3e9hae2aXC3+4Gt3ATYg==
+	b=XstIt9ZtPigZI4eWCPl+S1C8oVNdPH5NjoEt5bTpsk9AbHumdKOmr3DdyOIQZBpsZEOK
+	 +Y4Qzr7Ya1qfiL+oEQClNt/DUaYMpeHDGa0OL1HojpUM2xMkb2YzZP0+QyiE/70rLNfPZ
+	 riGcgMWle+AqKPIIjm4WZzXXLE7q4Uwul2k3WHFrebsuuPD2Y/IY0PTh8rLGSAjbDFos5
+	 2g+Ht9THrN1RGgJO57UePbp++XfHQ3iyC6p+i+fBUCg1r6zNbDioowO/YDmVKcsulZXfx
+	 aeVg4Uy+mwxPEa0gONvxMIVGC1jtyounuQzMEJ7fV4M6ni/yqw3X7mKgQ4uaje+L13g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795008542;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
@@ -13,60 +13,60 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
 	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=iQz2zZY5+Syd+1MwpVT7oES5a+DZi6aMLRjozsDto8Q=;
-	b=iNzn4PLJW14caclMNIpZdO56t5zuy3AfiZyjqB+RY2SwfTSeAuDGd7GOwmxmDrM4RX5O
-	 3zKwe3lHx0mzl/751T+t/gL4+CTPCxKKZogi3NHRwHy+d5B25o+6hYx5xUIjFPhYsk7Ii
-	 inQs4bp/0V4wmyyXL/V3FuLr7KRgJJAQNmxEWUgXsvTvI4dH4J2ATQKBRXKcxy56yUDtO
-	 tH9B8Bba0DEFSMKBk7xO0Z3bfYPd6nue0c/8f8z7bXMcwV7cC+fV5fsHxh8xpedV62rIa
-	 UzkGI0jFmu0ZezYK2x7zqo73VscVjPslIVsA7BMESCz7fYSaKa+CIEP5g9WILnIBFSA==
+	bh=yrLCIe+W62IkGfcNTUO4F5+qDU8xySPPFn3PoKOukXo=;
+	b=hLBYJOwNWBotzHlT9dKyah9TB1cT1ZcSR9UAgefkbwCiF6W3ZwlzKHcUgE8pQFDxboaR
+	 dj9d+lJPp+SKX0LZS7RTUyHE3OpP41sWQHcN81Zv9Ca9E5wN8paYnBHMgcI36j8zgMNwT
+	 muLXR1eWIIAanXSq5I8wqDcBXkUep9hxw46qGDc+vOkl6QpcpFV9Fu+U7yaUYh1qAA/vH
+	 Z+ZQCoSMUxEROAAwOrd9Qxv/jmIB/CgX7yC3CWqNWHA4zKO84zCu9X4ZkoxHBa63cPbhh
+	 Ux7/Z8vthA/j2NaiKHEIYZ9bfkIPnIGPe63CBul9wzqD780sEXxw9mk/5HL+yC6DyoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mM+1fVJT;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="FKlqd/6y";
 	arc=none smtp.remote-ip=192.198.163.17
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB0E60A2611
-	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:29:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BB0E60A2611
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5352260A2633
+	for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 13:29:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5352260A2633
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mM+1fVJT
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FKlqd/6y
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1795008542; x=1826544542;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=0MLyKKGado24TFehko3mEqr0FcC5p6QGRe3hPS3pgFM=;
-  b=mM+1fVJTzcJ3XD49dXvsdJ7BXJVlPWCZSIu/ifP0ge10v//dQso49IsP
-   akZp9L0znSfIkHfQdvr6FlLx8YM9Vv+Fik70sqqMhzzrIvI/2n5smw+0l
-   X14cHU76BYQ1i3Ft2Sf6hAtGYumlPRf3ocbtyfN1qzJEV8dVZ9XgBB6Cz
-   G/2gYQefq/R3xkJBwi6I17Vj088dnb4C+2eHOLXsFqSyQWKjGV/oyNIQy
-   B7C2gbSFIXQOcAuBWJbbBTJ/+pzCsjNb9T5ppwlhib+5Eq3ZVaqXTav1c
-   C8GimyATRKSP67TM9xEX0ucazhq1KQhpb1iFhcrdkEouOo4OI44/YabXT
-   g==;
-X-CSE-ConnectionGUID: U5rJ1HTBTQqkBW+B4hsyUA==
-X-CSE-MsgGUID: i0hhuSgpSqeFrCfsGzyUFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3808806"
+  bh=MWpD2cpZpSk7OvarFhWIY23TXvLS8iXv9WRUc+kx73U=;
+  b=FKlqd/6yj7Ovs2Tz8qNBW9va/pR6gx1Feo+9SihKGlS9WVeGgxAB2DkY
+   pp/j5yteiYBv9MjPxwkQMz0kk3NiSMaz+UHfMfpmQnJrUSp4HieZzb0if
+   p69uJWPFhTD0CpOdevOxGY6NDeKL3cseN98WDWDlW1QUBVZ+qkfdWrmUM
+   MGVdZOx4Lf6Nl0E6wTp/ynKGZXH+PWtej/YeKJG99RXBsLZtNQwFmLQHr
+   Lao1r7kUM2EWICHf4mVvFX1wBESWhn4SCuT6lLj7oR6Lo6oktKpvvpEQp
+   ZuKnB+L8QVK66Pizt1odUoTqishB4VLsvxgKErcLItYkEMPHgFWP8D5EH
+   w==;
+X-CSE-ConnectionGUID: DjnIRd20RCONZRwE/AiYAQ==
+X-CSE-MsgGUID: RFJKrCbORJqs8UVcrzG5Zg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3808824"
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3808806"
+   d="scan'208";a="3808824"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
   by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:57 -0800
-X-CSE-ConnectionGUID: HGduot7PRLavlqP4PM9FWA==
-X-CSE-MsgGUID: CiGtYH+DQdieVBP/0J5ZDA==
+X-CSE-ConnectionGUID: deYvihuvTyKN71HNjWyyBg==
+X-CSE-MsgGUID: 60dXk3bRRP69t8OszqAtfg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="10376723"
+   d="scan'208";a="10376724"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.183])
   by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 05:28:50 -0800
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 7A515122FE2;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 7F8B8122FE3;
 	Wed, 18 Nov 2026 15:28:31 +0200 (EET)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xTfi0-00000000tbR-0Sq3;
+	id 1xTfi0-00000000tbV-0Wmf;
 	Wed, 18 Nov 2026 15:28:20 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -102,9 +102,9 @@ Cc: hans@jjverkuil.nl,
 	Antti Laakso <antti.laakso@linux.intel.com>,
 	"Bajpai, Manik" <manik.bajpai@intel.com>,
 	Divyamani Tripathi <divyamani.tripathi@intel.com>
-Subject: [PATCH v13 28/73] media: uapi: Add V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR
-Date: Wed, 18 Nov 2026 15:27:34 +0200
-Message-ID: <20261118132819.213473-29-sakari.ailus@linux.intel.com>
+Subject: [PATCH v13 29/73] media: uapi: Add V4L2_CID_BINNING_FACTORS control for binning configuration
+Date: Wed, 18 Nov 2026 15:27:35 +0200
+Message-ID: <20261118132819.213473-30-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
 References: <20261118132819.213473-1-sakari.ailus@linux.intel.com>
@@ -119,99 +119,118 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR client capability bit to
-signal the userspace's support for the common raw sensor model and
-document it. A specific capability bit is required for the purpose of
-adding support for the common raw sensor model to existing drivers that
-already have a well-established UAPI that cannot be modified without
-breaking the userspace.
+Add V4L2_CID_BINNING_FACTORS control for configuring binning and
+enumerating a camera sensor's binning capabilities. The control combines
+horizontal and vertical binning into a single control as the two are
+generally related.
+
+New drivers should use this control to configure binning.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
- .../userspace-api/media/v4l/ext-ctrls-image-process.rst     | 2 ++
- .../userspace-api/media/v4l/subdev-config-model.rst         | 5 ++++-
- .../userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst  | 6 ++++++
- drivers/media/v4l2-core/v4l2-subdev.c                       | 3 ++-
- include/uapi/linux/v4l2-subdev.h                            | 6 ++++++
- 5 files changed, 20 insertions(+), 2 deletions(-)
+ .../media/drivers/camera-sensor.rst           | 12 ++++++++
+ .../media/v4l/ext-ctrls-image-source.rst      | 30 +++++++++++++++++++
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c     |  2 ++
+ include/uapi/linux/v4l2-controls.h            |  2 ++
+ 4 files changed, 46 insertions(+)
 
-diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
-index 15566f409ca5..be212eb80c78 100644
---- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
-+++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-process.rst
-@@ -60,6 +60,8 @@ Image Process Control IDs
-     digital gain the control value needs to be 0x100. The no-gain
-     configuration is also typically the default.
+diff --git a/Documentation/userspace-api/media/drivers/camera-sensor.rst b/Documentation/userspace-api/media/drivers/camera-sensor.rst
+index 8002893f1c36..893aec08afab 100644
+--- a/Documentation/userspace-api/media/drivers/camera-sensor.rst
++++ b/Documentation/userspace-api/media/drivers/camera-sensor.rst
+@@ -120,6 +120,18 @@ values programmed by the register sequences. The default values of these
+ controls shall be 0 (disabled). Especially these controls shall not be inverted,
+ independently of the sensor's mounting rotation.
  
-+.. _v4l2-cid-config-model:
++Binning
++-------
 +
- ``V4L2_CID_CONFIG_MODEL (bitmask)``
-     Which configuration models the sub-device supports. Please see
-     :ref:`media_subdev_config_model`. This is a read-only control.
-diff --git a/Documentation/userspace-api/media/v4l/subdev-config-model.rst b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-index ebe1a57fc061..ff02761726f3 100644
---- a/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-+++ b/Documentation/userspace-api/media/v4l/subdev-config-model.rst
-@@ -41,7 +41,10 @@ necessarily offered by all drivers.
- 
- A sub-device complies with the common raw sensor model if the
- ``V4L2_CONFIG_MODEL_COMMON_RAW_SENSOR`` bit is set in the
--``V4L2_CID_CONFIG_MODEL`` control of the sub-device.
-+``V4L2_CID_CONFIG_MODEL`` control of the sub-device. A client supporting the
-+common raw sensor model shall set the
-+``V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR`` :ref:`sub-device client capability
-+<VIDIOC_SUBDEV_G_CLIENT_CAP>` bit.
- 
- The common raw camera sensor model is aligned with
- :ref:`media_using_camera_sensor_drivers`. Please refer to that regarding aspects
-diff --git a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst
-index da4a358ce762..50ac223e10db 100644
---- a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst
-+++ b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-client-cap.rst
-@@ -91,6 +91,12 @@ is unknown to the kernel.
-         ``which`` field. If this is not set (which is the default), the
-         ``which`` field is forced to ``V4L2_SUBDEV_FORMAT_ACTIVE`` by the
-         kernel.
-+    * - ``V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR``
-+      - The client is aware of the :ref:`common raw sensor model
-+        <media_subdev_config_model_common_raw_sensor>` and expects it where it
-+        is supported, as indicated by the :ref:`V4L2_CID_CONFIG_MODEL
-+        <v4l2-cid-config-model>` control bit
-+        ``V4L2_CONFIG_MODEL_COMMON_RAW_SENSOR``.
- 
- Return Value
- ============
-diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index 4a7982e47575..a4dfae1d7850 100644
---- a/drivers/media/v4l2-core/v4l2-subdev.c
-+++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -1230,7 +1230,8 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
- 
- 		/* Filter out unsupported capabilities */
- 		client_cap->capabilities &= (V4L2_SUBDEV_CLIENT_CAP_STREAMS |
--					     V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH);
-+					     V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH |
-+					     V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR);
- 
- 		subdev_fh->ci.caps = client_cap->capabilities;
- 
-diff --git a/include/uapi/linux/v4l2-subdev.h b/include/uapi/linux/v4l2-subdev.h
-index 477d3ce3ddb4..9d5ba062be19 100644
---- a/include/uapi/linux/v4l2-subdev.h
-+++ b/include/uapi/linux/v4l2-subdev.h
-@@ -270,6 +270,12 @@ struct v4l2_subdev_routing {
-  */
- #define V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH	(1ULL << 1)
- 
-+/*
-+ * The client is aware of the common raw sensor model and expects that on camera
-+ * sensor UAPI where supported.
-+ */
-+#define V4L2_SUBDEV_CLIENT_CAP_COMMON_RAW_SENSOR	(1ULL << 2)
++Binning has traditionally been configured using :ref:`the compose selection
++rectangle <v4l2-selection-targets-table>`. The :ref:`V4L2_CID_BINNING_FACTORS
++<image_source_control_binning_factors>` control is also available for binning
++configuration and users should use it when it's available. Drivers supporting
++the control shall also support the compose rectangle, albeit the rectangle may
++be read-only when the control is present.
 +
- /**
-  * struct v4l2_subdev_client_capability - Capabilities of the client accessing
-  *					  the subdev
++Binning isn't affected by flipping.
++
+ .. _media_using_camera_sensor_drivers_embedded_data:
+ 
+ Embedded data
+diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
+index a9fd1458e391..d4f33e50ef97 100644
+--- a/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
++++ b/Documentation/userspace-api/media/v4l/ext-ctrls-image-source.rst
+@@ -163,3 +163,33 @@ Image Source Control IDs
+     interface for metadata streams. The control is used in conjunction with
+     :ref:`generic metadata formats <media-bus-format-generic-meta>` formats to
+     specify the layout of the data.
++
++.. _image_source_control_binning_factors:
++
++``V4L2_CID_BINNING_FACTORS (integer menu)``
++
++    This control determines horizontal and vertical binning factors. Binning
++    combines several horizontal, vertical or both pixel values into a single
++    pixel. It is a way to scale an image. Binning typically produces fairly good
++    quality output.
++
++    Determines both horizontal and vertical binning factors for a camera
++    sensor. The values are encoded in the following way:
++
++.. flat-table::
++    :header-rows:  1
++    :stub-columns: 0
++
++    * - Bits
++      - Synopsis
++    * - 48--63
++      - Horizontal binning numerator.
++    * - 32--47
++      - Horizontal binning denominator.
++    * - 16--31
++      - Vertical binning numerator.
++    * - 0--15
++      - Vertical binning denominator.
++
++For instance, a value of ``0x0003000100030002`` indicates binning by 3
++(horizontally) * 3/2 (vertically).
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+index 950fb714dd5d..b1b852884545 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+@@ -1161,6 +1161,7 @@ const char *v4l2_ctrl_get_name(u32 id)
+ 	case V4L2_CID_CFA_PATTERN:		return "Color Filter Array Pattern";
+ 	case V4L2_CID_CFA_PATTERN_FLIP:		return "CFA Pattern Flip";
+ 	case V4L2_CID_METADATA_LAYOUT:		return "Metadata Layout";
++	case V4L2_CID_BINNING_FACTORS:		return "Binning Factors";
+ 
+ 	/* Image processing controls */
+ 	/* Keep the order of the 'case's the same as in v4l2-controls.h! */
+@@ -1440,6 +1441,7 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
+ 	case V4L2_CID_HDR_SENSOR_MODE:
+ 		*type = V4L2_CTRL_TYPE_MENU;
+ 		break;
++	case V4L2_CID_BINNING_FACTORS:
+ 	case V4L2_CID_LINK_FREQ:
+ 		*type = V4L2_CTRL_TYPE_INTEGER_MENU;
+ 		break;
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index b61b047cf991..235a7e2b005f 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -1273,6 +1273,8 @@ enum v4l2_jpeg_chroma_subsampling {
+ 
+ #define V4L2_CID_METADATA_LAYOUT		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 12)
+ 
++#define V4L2_CID_BINNING_FACTORS		(V4L2_CID_IMAGE_SOURCE_CLASS_BASE + 13)
++
+ /* Image processing controls */
+ 
+ #define V4L2_CID_IMAGE_PROC_CLASS_BASE		(V4L2_CTRL_CLASS_IMAGE_PROC | 0x900)
 -- 
 2.47.3
 
