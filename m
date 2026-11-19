@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795076106;
-	b=kcGRK59isMfCLAgOoC4HNvtt/6CfJR3Q2mZtYsDTMyxrJCUlo6ADiGay//74v2UmaoHp
-	 D29Ztv35gduxOZBfQPnoFd8r8ySGm9/U5PHuh0ZHfE0vBF8QVcY3HqmT9qbzpC9qYB9rS
-	 Srzrr5Z04UxzkgGDbh942MgxLvcrT5/mzKuYeoQ4QPMYslu0fbvJtV1+m/ONy9O7II9ta
-	 YX8qyRERnlMtGPOEUEuoamjeE9eae8yCwmshi+wf7sOKi2DsRHIFyuGm7kTOsBeftGlPU
-	 l8KaFzcd373dCar02/qg/iH2Rg6+Q3cg1/3Qp67kL+xtLTZX2YSwVQPkkl/rHyrwAXw==
+	t=1795076103;
+	b=uOEjwgFesdvoQCsoqJ5+EzyCL8LOWohqTVpECdFNCl/bmZ6aX9Bd6+S1fpEl50QVJKY8
+	 +c8EBvQ7HEgdx0s066cK7tSSFEGJWC9QB/A6MhMwISXKuIPziMxjD2jGcxqvkZr987koT
+	 GZ8KSMehheteOhdwG5ZzAV88LY5zIXtMkNZ/Txj1cIovtWUogX2BIi8eCxd6TgVVl1KBI
+	 J1a6Vpqy/FiQ3IdMQdmaKypi16U7ewrWZ7VH5Sr5JlvLs5tgKeNB6MHiKmJyg5b6+vOH5
+	 yWrtGELEMcIkqQOuKSntDby3SS8ptA9+prdRoJWja4ssw8E9Kb5y++3aOJtQ+9FIaRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795076106;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795076103;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=c+Xf68Xig8eN6y0cDL2+uaRvXFSlaAjuzTq4Gvfamso=;
-	b=xZrLDa43uotknbqWLdv18mb1lo6XRsrRs6OFK4/8UWFEznSRykyMtdx2TD+TzFKNb5gw
-	 omhg7OyoD2XRVqrK4ebARA1Qg9ntiejnaU41mGksMLFvLFc4isT7cURPajFVLOpnINQC2
-	 9NjBuqiSKO/mHoiF0TQ/8lYb10o5cAqo/0Sn9dc4wMs4027NxcRr/QG6mqaNYdw3ngZaz
-	 djVnXSM4YtRRt6/LNjMOiXTYiV/NYNYT3WeOtZoWkooPQUGcUFbh4OisI22ufB9veH9NY
-	 zkGaQgSUKra9sCPG5Xolv29pkFenzahWQzV24mRzKV4ovEX9R4W9jTHCC13NN5Ff5MA==
+	bh=ygx+/Ns8B/r15ANdCD7ToCfuwbLnGJWwfxf/+wh/DiI=;
+	b=ppY9dA7tkUNdfwyuv2sxGSlg/+GEkHpKaRC0naSnvgUy/sz9CfztpQ/TCpOz79VI4s4Y
+	 PEWykReUhIyOF+UOOZVnm+242RSVZpUw/DdECHzUfEx0ZikvTNg8Vxo26gKp8F6wIEaP5
+	 L9ZGOclZC4KY+w1g267ney6HU4yGSkyRArZYBH+8kOwERSWiVlMS/IZJHq6+h14oGNI3f
+	 yq6W8Xo62IDdb6ZhyEA2RgDuyLKOyjW3MfhyEa/BPgOPLFW4owUFaoDhccUIcYxObRp7t
+	 iZlDjXFhC6/gjEVinu2tQJImPA4kAsBQmUvg+lz1a+td1a0nTORUIDfcZka3Nn6Uwdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.zgclab.edu.cn;
 	spf=pass smtp.mailfrom=mail.zgclab.edu.cn;
-	dkim=pass header.d=mail.zgclab.edu.cn header.i=@mail.zgclab.edu.cn header.a=rsa-sha256 header.s=dkim header.b=X8X8BsAL;
-	arc=none smtp.remote-ip=13.75.44.102
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8791760A3804;
-	Thu, 19 Nov 2026 08:15:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8791760A3804
+	dkim=pass header.d=mail.zgclab.edu.cn header.i=@mail.zgclab.edu.cn header.a=rsa-sha256 header.s=dkim header.b="ILw4d9b/";
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C21B860A2611;
+	Thu, 19 Nov 2026 08:15:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C21B860A2611
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.zgclab.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.zgclab.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.zgclab.edu.cn header.i=@mail.zgclab.edu.cn header.a=rsa-sha256 header.s=dkim header.b=X8X8BsAL
+	dkim=pass (1024-bit key) header.d=mail.zgclab.edu.cn header.i=@mail.zgclab.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ILw4d9b/
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.zgclab.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=c+Xf68Xig8eN6y0cDL2+uaRvXFSlaAjuzTq4Gvfamso=; b=X8X8BsAL8KC4U
-	VlJHGrlEBL72yy1wKP7BNIkjGHeuYY4gWayDdlq1qaBZq1UDe/qle1hm9Sxyo/B8
-	8PpmrlkNbiucfyP5tlw2Ag4lUw5Dw8o/0Jv1n39lSR+J3vJf/UysLAnp1cunioDi
-	TRNrPkxRxAjP+Vg4qfU32sQmjadoWM=
-Received: from 05.eml (unknown [58.206.202.11])
-	by web4 (Coremail) with SMTP id ywQGZQDnpAL+r_5qp7whAg--.6701S2;
-	Thu, 19 Nov 2026 16:14:54 +0800 (CST)
+	bh=ygx+/Ns8B/r15ANdCD7ToCfuwbLnGJWwfxf/+wh/DiI=; b=ILw4d9b/xt07a
+	IaTAzxwZWzxQ6ESQnX/zfY44kGR6LV7tV6+VkM8H+FAN4Ba8Kf6TEspddjyh5Frg
+	LJwxXXxKGS25kzcL5kWLTyDDNU5UmPf3tPG7mM97CzKGmQJQ6iRMQznG2IDCRo9u
+	O7yWXEWhlQLC/k0k8Fl7HMobw//D4Q=
+Received: from 07.eml (unknown [58.206.202.11])
+	by web3 (Coremail) with SMTP id ygQGZQCnWZECsP5qClLEAA--.2487S2;
+	Thu, 19 Nov 2026 16:14:58 +0800 (CST)
 From: Wang Haoran <wanghr2026@mail.zgclab.edu.cn>
-To: mehdi.djait@bootlin.com
+To: y-abhilashchandra@ti.com
 Cc: mchehab@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, wanghr2026@mail.zgclab.edu.cn
-Subject: [PATCH] media: i2c: tw9900: disable vdd on resume failure
-Date: Thu, 19 Nov 2026 16:14:55 +0800
-Message-ID: <1795076095438-5-e3a836e0@mail.zgclab.edu.cn>
+Subject: [PATCH] media: ti: cal: use devm regmap for camerrx fallback
+Date: Thu, 19 Nov 2026 16:14:59 +0800
+Message-ID: <1795076099145-7-3a724bd9@mail.zgclab.edu.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -57,77 +57,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:ywQGZQDnpAL+r_5qp7whAg--.6701S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ur4kGFyUXFy7JFWxKFWxZwb_yoW8ur47pF
-	Z2vFnFyrW09F109a9rA342qF1rJw4xKrZ7Zry8Wa98uw1rJFn3tFWkX345Za1kCrykG3W8
-	tayDZ3yxAFsFgFJanT9S1TB71UUUUjUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPC14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:ygQGZQCnWZECsP5qClLEAA--.2487S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCrWrWFWxZrWkWF1kZw4Utwb_yoW5Xr4rpF
+	ZrWay8Cr4kWF4Skay7t3W8CF1ftr9ayF4DCr1xCwn3Zrn8Ar17tF43Aa4fAa4DJF18Ga1Y
+	qF4qq34xtw4DCaUanT9S1TB71UUUUjUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAaw2AFwI0_Jrv_JF1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
-	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx
-	0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lF7I2
-	1c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q6r43MxkIecxEwVAFwVW8ZwCF04
-	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUXVWUAwC2
-	0s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI
-	0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv2
-	0xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2js
-	IE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI
-	43ZEXa7VUjSdgtUUUUU==
-X-CM-SenderInfo: pzdqwxbusqjlo62juzldeovvfxof0/1tbiAQUQD2r+rmUDLwAAso
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	4UJVWxJr1ln4kS14v26r1Y6r17M2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMc
+	Ij6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4x0
+	x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_GFyl42
+	xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1l
+	x2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14
+	v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IY
+	x2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87
+	Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU
+	0xZFpf9x0JUVT5LUUUUU=
+X-CM-SenderInfo: pzdqwxbusqjlo62juzldeovvfxof0/1tbiAgIQD2r+rloDYAADsf
 
-tw9900_runtime_resume() enables the vdd regulator but if the init register
-writes fail the regulator is left enabled and the resume error sets
-runtime_error, after which runtime_suspend() is never called again. The
-only regulator_disable() lives in runtime_suspend(), so a single I2C error
-in the first resume (which happens during probe's check_id) leaves the rail
-enabled until reboot, even across unbind and probe retries.
+cal_init_camerarx_regmap() builds the CAMERARX syscon with a plain
+regmap_init_mmio() in the legacy fallback path and nothing ever calls
+regmap_exit() on it, so any later probe failure leaks the regmap and its
+debugfs entry. The fallback is precisely the tolerant path used with older
+device trees, and defer retries or unbind/bind cycles stack one leak per
+attempt.
 
-Disable the regulator when the register write fails.
+Use devm_regmap_init_mmio() so the regmap is released on probe failure and
+on removal.
 
 Signed-off-by: Wang Haoran <wanghr2026@mail.zgclab.edu.cn>
-Fixes: 918b14a26b12 ("media: i2c: Introduce a driver for the Techwell TW9900 decoder")
+Fixes: 8148baabd1c4 ("media: platform: re-structure TI drivers")
 ---
 
-diff --git a/drivers/media/i2c/tw9900.c b/drivers/media/i2c/tw9900.c
-index 51db5d5ddbde..b4fb566807a8 100644
---- a/drivers/media/i2c/tw9900.c
-+++ b/drivers/media/i2c/tw9900.c
-@@ -624,6 +624,8 @@ static int tw9900_runtime_resume(struct device *dev)
+diff --git a/drivers/media/platform/ti/cal/cal.c b/drivers/media/platform/ti/cal/cal.c
+index c3c1073739a5..460d3e5f14d1 100644
+--- a/drivers/media/platform/ti/cal/cal.c
++++ b/drivers/media/platform/ti/cal/cal.c
+@@ -1123,7 +1123,7 @@ static int cal_init_camerarx_regmap(struct cal_dev *cal)
+ 	config.val_bits = 32;
+ 	config.max_register = resource_size(res) - 4;
  
- 	ret = tw9900_write_array(tw9900->client, tw9900_init_regs,
- 				 ARRAY_SIZE(tw9900_init_regs));
-+	if (ret)
-+		regulator_disable(tw9900->regulator);
- 
- 	mutex_unlock(&tw9900->mutex);
- 
+-	syscon = regmap_init_mmio(NULL, base, &config);
++	syscon = devm_regmap_init_mmio(cal->dev, base, &config);
+ 	if (IS_ERR(syscon)) {
+ 		pr_err("regmap init failed\n");
+ 		return PTR_ERR(syscon);
 
 ---
 
 PoC reproduction (7.4.0-rc2, arm64 QEMU virt, unmodified kernel):
 
-Route 1 (i2c-stub, no DT injection needed):
+Device tree injection, spliced into the QEMU virt machine DT:
 
-    modprobe i2c-stub chip_addr=0x2c
-    echo "tw9900 0x40" > /sys/bus/i2c/devices/i2c-0/new_device
+    fck96m: clock-96m { compatible = "fixed-clock"; #clock-cells = <0>;
+        clock-frequency = <96000000>; };
 
-The probe triggers the first runtime_resume during check_id and the init
-register write fails on the unanswered address.
+    reserved-memory { #address-cells = <2>; #size-cells = <2>; ranges;
+        cal-regs@7f300000 { no-map; reg = <0x0 0x7f300000 0x0 0x2000>; };
+        cal-camerrx@7f310000 { no-map; reg = <0x0 0x7f310000 0x0 0x1000>; }; };
+
+    cal@7f300000 { compatible = "ti,dra72-cal";
+        reg = <0x0 0x7f300000 0x0 0x1000>, <0x0 0x7f310000 0x0 0x1000>;
+        reg-names = "cal_top", "camerrx_control";
+        interrupt-parent = <&gpio0>; interrupts = <6 2>;
+        clocks = <&fck96m>; clock-names = "fck"; };
+
+No ti,camerrx-control phandle is present, so the legacy fallback runs and
+creates the camerrx regmap; the probe then fails later in camerrx creation.
+
+Trigger:
+
+    modprobe ti-cal
 
 Result:
 
-    i2c i2c-0: new_device: Instantiated device tw9900 at 0x40
-    tw9900 0-0040: write reg error: -19
-    WARNING: drivers/regulator/core.c:2678 at _regulator_put
+    cal 7f300000.cal: failed to get ti,camerrx-control: -ENOENT
+    cal 7f300000.cal: Unexpected CAL HW revision 0x00000000
+    cal 7f300000.cal: probe with driver cal failed with error -22
 
-The regulator-dummy use count rises by one on every failed probe (and on
-every delete/new_device retry) and never drops, because runtime_suspend is
-blocked by the runtime_error state.
+The dummy0 regmap entry remains in debugfs/regmap after the failed probe.
 
 Note: the PoC was generated with AI assistance and the vulnerability was
-found by static analysis. Triggering the failed probe via sysfs requires
-root, so this is not a security fix, but it prevents a potential resource
-leak on a failed probe.
+found by static analysis. The device tree is trusted input (a bad DT
+requires root or physical access), so this is not a security fix, but it
+prevents a potential resource leak or system failure on a failed probe or
+an old or malformed DT.
 
