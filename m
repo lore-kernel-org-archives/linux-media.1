@@ -1,51 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=132.226.202.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795076110;
-	b=PcuMUzETKF82fI3VifwNSAB2vlzJAH32hrrlE7Pvn2aHEoJnIXC0nJgKPpjX3qg74la3
-	 WFwWc5UxI1Cqqtntz6k9EoOmlaetDk+Yf/k2zHzZzQMHc+DJ8Smfp9q/81cZUWbTaGrky
-	 2hCHRT+9nbX30tT69t0G/5amFw8ZXkI6Dc08Bg+aiQRYCW70ndH2dvBQNYVYKauOqjSce
-	 hpmGwQLIulHykrGg/B12t4lazjyv7KguPIKViO+0CqqPwH67ELH1vQoJ3HRmsJBbh75Or
-	 vlc8zOcDWXolnK6+R+QWBblUjL0r9CjINYitbLwAO6olLtEHprFt9Tbuh4WTyaR9gMw==
+	t=1795077261;
+	b=NSDRQ8xPmVIspF5QJjOuhz6tr53veLa/oSut5k6cNT1AVcdKkwCdKbIJxaOU9DoMnfqA
+	 urytobTfNneYPJm16HFUa1LXucH4mRHCa0uBucklbGTuZZrtS8t7FGAgVxMHBF1kJ29Pe
+	 ydz/pU++lu8a2UUOfVgnSDu4DvrR4M8EgwZWVbXAijdmCtJlMpHHSPILB9MIY+x02TDUL
+	 VAZMXJuHVH1WtjZwrDSt45zKFZXLTTL5RY6LbrUK68pYUodiVGNZ/BszOzcgTI9RKsULP
+	 hB77Ayj0fCJHsunQluQBxGuPrEEghr6mH2ejV4fnNekwyrUIBhdvoVpeUiVUl69IAAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795076110;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=l9RGs4BDvEAPJGPC1B7Y5D7yby+dqFQdmB19pLlvL/k=;
-	b=4UUiPzuovu33Y/iDnNXGfNYgiyUJycVgmwbPVim3oVMPxaFzIeI8IK8/RvH8q7If0tsJ
-	 WumXmrTcasv9OvH2FJm4VfxN2iS8fHRdMXf6gEh5/UjwKNuHaGAlWGLvKL6IrJCiMhh1k
-	 sJlHbETS2Qg0Iu0Lfj9jlS1msHI/Ob/BtWvdPgzNHTuoaFqV7s0B2tMOTCt5Adl9g5VUt
-	 +CS6ORsuekRVf2fvP1ZiYUff8EmDLlfjZyjCFXrGDT2tYJhWd4+f9iMWIc/GM2ypn6trE
-	 JqiEjryywfWUS2J8oXk3Z4JE9ekCOqcMfw4MQtd5DqVexjY/Aw8d538eYFcMmwTjWGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795077261;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dP3y9LfuJCevZvvA+PZYGeaqMsVwR5fMNr2PjeoMC+k=;
+	b=pvh4j6MmvJyjS0NIGvW5QppZb4ZClOFk4I3UiMwseCubexTeMfXi7cn6erGz7O1eQtjx
+	 fq82EHKnqrGTVAa2eY7goygQJ00PNN1jYz/AnZQXJs13ncreTak07o4PsudB7ER6+QdhO
+	 lluP32657mY4ExquqSB7WeLLR/LWGwyMXlZXqJW1RgHXgc0gxzMlXt51RooJWB/eV/FYg
+	 1ydZ77STDNUKY/l1epeqI9keeVsaBDAICYt1imlEpDw7f33/hUf/8yMUaJQHvzQAgGTSR
+	 5EeHTHh2kWrTdlcIujQc5MVr/PeNzopMVEic22r1PJ5i50gDURX63jn+PIlJGEppuXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.zgclab.edu.cn;
-	spf=pass smtp.mailfrom=mail.zgclab.edu.cn;
-	dkim=pass header.d=mail.zgclab.edu.cn header.i=@mail.zgclab.edu.cn header.a=rsa-sha256 header.s=dkim header.b=n1+27df2;
-	arc=none smtp.remote-ip=132.226.202.154
-Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C884E60A2602;
-	Thu, 19 Nov 2026 08:15:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C884E60A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.zgclab.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.zgclab.edu.cn
+	dmarc=pass header.from=becholey.ch;
+	spf=pass smtp.mailfrom=becholey.ch;
+	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=bg1CK1+L;
+	arc=none smtp.remote-ip=185.70.43.20
+Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B09B4606A320;
+	Thu, 19 Nov 2026 08:34:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B09B4606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.zgclab.edu.cn header.i=@mail.zgclab.edu.cn header.a=rsa-sha256 header.s=dkim header.b=n1+27df2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.zgclab.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=l9RGs4BDvEAPJGPC1B7Y5D7yby+dqFQdmB19pLlvL/k=; b=n1+27df2ubGwf
-	6Wz1PvSkLl0YmiFaZrUEHxHlfo5gubmVG1yhEK+HFEEBouUBvmuiXKLd0Gc4gM/w
-	eTMiDu+oBN5MvrhFR0NX1kvYPJj12w6Z/i/idrtyOp+xhK6I6pseM+YLM7vg+uXO
-	8qWNJTg02j9suWy6mVft0F3Y4eOqyU=
-Received: from 01.eml (unknown [58.206.202.11])
-	by web2 (Coremail) with SMTP id yQQGZQBHdWn3r_5qGSJLAQ--.57096S2;
-	Thu, 19 Nov 2026 16:14:47 +0800 (CST)
-From: Wang Haoran <wanghr2026@mail.zgclab.edu.cn>
-To: jeff.hugo@oss.qualcomm.com, carl.vanderlip@oss.qualcomm.com
-Cc: ogabbay@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, wanghr2026@mail.zgclab.edu.cn
-Subject: [PATCH] accel/qaic: hold the dma_resv lock when mapping imported buffers
-Date: Thu, 19 Nov 2026 16:14:48 +0800
-Message-ID: <1795076088845-1-b103cfa7@mail.zgclab.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=bg1CK1+L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
+	s=protonmail; t=1795077257; x=1795336457;
+	bh=dP3y9LfuJCevZvvA+PZYGeaqMsVwR5fMNr2PjeoMC+k=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=bg1CK1+LEQFwgYvzqXraiNLRGwMhG9cx10x5aQ6SGD4DlKrJEkiT5PZEpvPJ+B+2M
+	 +x1Rgd9ZY2azlaeS9BRoepZw8unnMUx8CCaUYrcwF1ACHIVjVVSzhl0o2MVI4cznbs
+	 rWjdQyCgavk+wxx9zdo/z2S//mpHl222qUAt6+icMCCSVU/ROQ/R02fog+dhzRWJfB
+	 IsNe3sHgL8ProI83YuazKKryBqL3+CD68aVvlpsFecGBwhmRQB4I/R6KX/SzDiQbs7
+	 GD73uBPLjIxJuMr2b4dC0Mmoo5MlXpR73LGpTzXZqKuZaecUZmuoJx+FA4KsUvdCzD
+	 D5NMYhZc6RRmQ==
+Date: Thu, 19 Nov 2026 08:34:12 +0000
+To: Michael Krufky <mkrufky@linuxtv.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Charles Kim <ckim@maxlinear.com>, Asaf Fishov <afishov@maxlinear.com>
+From: Alexandre Becholey <alex@becholey.ch>
+Cc: Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org, linux-media@vger.kernel.org
+Subject: [PATCH] media: mxl5007t: release tuner state when attach fails
+Message-ID: <20261119083359.530446-1-alex@becholey.ch>
+Feedback-ID: 60743817:user:proton
+X-Pm-Message-ID: 81f33d76bc318d7eccb58d9229a271231fede0ac
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -56,76 +62,60 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yQQGZQBHdWn3r_5qGSJLAQ--.57096S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZF15Gry8CrW7tw43tF1fWFg_yoW8urW5pF
-	WFgr9rCrZ0qr48ZFWUZ3yUKw1Ykw4Yk34UZF4DJa4SvFn8WrnIvr1UKFnxAFnIgr1DAF90
-	vr17u393ur9rAF7anT9S1TB71UUUUjUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQ014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAaw2AFwI0_Jrv_JF1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
-	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx
-	0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lF7I2
-	1c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r
-	1q6r43MxkIecxEwVAFwVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8
-	JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14
-	v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY
-	67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2
-	IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v2
-	6r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUeWrWDUUUU
-X-CM-SenderInfo: pzdqwxbusqjlo62juzldeovvfxof0/1tbiAgEQD2r+J8-7xgADse
+Content-Transfer-Encoding: quoted-printable
 
-qaic_prepare_import_bo() maps an imported dma-buf with
-dma_buf_map_attachment() and qaic_unprepare_import_bo() unmaps it with
-dma_buf_unmap_attachment().  Those are the locked variants: the dma-buf
-locking convention requires importers to hold the buffer's reservation
-lock when calling them, and both assert it via dma_resv_assert_held(),
-i.e. lockdep_assert_held() on attach->dmabuf->resv.
+mxl5007t_attach() takes a shared tuner instance with
+hybrid_tuner_request_state() but sets fe->tuner_priv only on success.
+When a register access fails during attach, mxl5007t_release() finds no
+tuner_priv and the instance stays on the global list, still pointing to
+the bridge's i2c adapter. Once the USB device is gone, the next
+mxl5007t_attach() walks the list and uses the freed adapter.
 
-qaic calls both without holding the reservation lock, so on a
-lockdep-enabled kernel every slice attach/detach against an imported
-buffer trips the lockdep assertion (a WARNING with a backtrace).  The
-reservation lock also serializes the importer against the exporter
-moving or invalidating the buffer's backing storage for a dynamic
-attachment, so an unlocked map can race that move and use a stale
-sg_table.
+Set fe->tuner_priv right after hybrid_tuner_request_state(), as the
+other users of the helper do.
 
-Hold the reservation lock around the map and unmap calls, which is
-equivalent to the dedicated dma_buf_map_attachment_unlocked() and
-dma_buf_unmap_attachment_unlocked() helpers.
+The bug was found, and the reproducer and this fix were written, by AI
+agents (Claude Mythos and Claude Opus models). The analysis and the
+patch were reviewed by a human.
 
-Signed-off-by: Wang Haoran <wanghr2026@mail.zgclab.edu.cn>
-Fixes: ff13be830333 ("accel/qaic: Add datapath")
+Fixes: 2a83e4d5e40f ("V4L/DVB (8528): add support for MaxLinear MxL5007T si=
+licon tuner")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexandre Becholey <alex@becholey.ch>
 ---
+A device that fails one tuner register access and then re-enumerates
+triggers it (KASAN, v7.3.1 and master 9d66f26fefac; clean with the fix).
+Reproducer available on request.
 
-diff --git a/drivers/accel/qaic/qaic_data.c b/drivers/accel/qaic/qaic_data.c
-index ee35e13091b3..0b57f8d544a2 100644
---- a/drivers/accel/qaic/qaic_data.c
-+++ b/drivers/accel/qaic/qaic_data.c
-@@ -895,7 +895,9 @@ static int qaic_prepare_import_bo(struct qaic_bo *bo, struct qaic_attach_slice_h
- 	struct sg_table *sgt;
- 	int ret;
- 
-+	dma_resv_lock(obj->resv, NULL);
- 	sgt = dma_buf_map_attachment(obj->import_attach, hdr->dir);
-+	dma_resv_unlock(obj->resv);
- 	if (IS_ERR(sgt)) {
- 		ret = PTR_ERR(sgt);
- 		return ret;
-@@ -936,7 +938,9 @@ static int qaic_prepare_bo(struct qaic_device *qdev, struct qaic_bo *bo,
- 
- static void qaic_unprepare_import_bo(struct qaic_bo *bo)
- {
-+	dma_resv_lock(bo->base.resv, NULL);
- 	dma_buf_unmap_attachment(bo->base.import_attach, bo->sgt, bo->dir);
-+	dma_resv_unlock(bo->base.resv);
- 	bo->sgt = NULL;
- }
- 
+ drivers/media/tuners/mxl5007t.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
----
+diff --git a/drivers/media/tuners/mxl5007t.c b/drivers/media/tuners/mxl5007=
+t.c
+index 03c46a62bf26..4a765a7b0ad8 100644
+--- a/drivers/media/tuners/mxl5007t.c
++++ b/drivers/media/tuners/mxl5007t.c
+@@ -844,6 +844,8 @@ struct dvb_frontend *mxl5007t_attach(struct dvb_fronten=
+d *fe,
+ =09instance =3D hybrid_tuner_request_state(struct mxl5007t_state, state,
+ =09=09=09=09=09      hybrid_tuner_instance_list,
+ =09=09=09=09=09      i2c, addr, "mxl5007t");
++=09/* let the fail path drop the reference taken above */
++=09fe->tuner_priv =3D state;
+ =09switch (instance) {
+ =09case 0:
+ =09=09goto fail;
+@@ -893,8 +895,6 @@ struct dvb_frontend *mxl5007t_attach(struct dvb_fronten=
+d *fe,
+ =09if (mxl_fail(ret))
+ =09=09goto fail;
+=20
+-=09fe->tuner_priv =3D state;
+-
+ =09mutex_unlock(&mxl5007t_list_mutex);
+=20
+ =09memcpy(&fe->ops.tuner_ops, &mxl5007t_tuner_ops,
+--=20
+2.53.0
 
-The vulnerability was found by static analysis.
 
