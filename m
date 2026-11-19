@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102540;
-	b=iEgtQ3g1HQsafbxeCMWv9SFwFKsDOG4Vt9lqJocKapMtZJdLgEQZBhN4b8AR8b2XLEOs
-	 WJKQKpbdubB3HMH3/VwE3riCqn2n8eO6Pva9LnzYLVecNHs8X4PY070SwLM6Xr3scPjPA
-	 N+FDrCIDhOQg/BLzjtzba2d/f+F6quQS3eXWFx39zrPNn7ns623oGR0jCJYukSwKcEaH7
-	 aVc0dBRvcABBS43NwZgp46m8KFpur6SCOkvOOWD8NwvXKAwphn0g1eIbPKbS6DRkKfnF6
-	 jEXRkeWzv9ckHrwmsK1V/aoq3/0s7EyB/XnU1u3/odgmfY7o6AQrXy29nd3srCqiH8Q==
+	t=1795102650;
+	b=1zgECTQUiyP4Qaryq2XS59rdkNkbLUMZbsK1EdathsajgM7gEa/mg4GPZKOfbcj+L/0Q
+	 fd9n6BkuLMi2+S3exLlRbki7gy2DbptcmD9ebrXEEFQAzaxiTvHzBo19ovuR2hInbWVtA
+	 lCsbPOrBo3vHyeKjHb3AKJtO7OKpQOxXMQTiPDWiO2KT60C/H8VytxOwloQuj3/SxbJOx
+	 ya3TMP7SOzTMDiqAR9P4pl7cT0pj+afXSZZRezaEaTEdgl14+lbkPm9vaLIwXNJf8tUTP
+	 kuvwsrVPoK71Qtqh/ty1AJ0S/WJyiIvJP9+vIneMGHE5zayxWPmGdL0rvDZ9ulRkbPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102540;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102650;
 	h=Received:DKIM-Signature:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=UeXDYRBppO46yxPAfOxxsv3qfn3han8/bDVYuqVzF74=;
-	b=n9HUKl2rvlXJxk1eWrltk2vFW+05R2cgu/Ly5EjnMZgJ4IEc33PtwZDgTLbD0naSZYi4
-	 JQ7Lkm4ISMoD5cqY9LSmPYy4DrHHYhk/TTV5rsM0Wp0IloHj6J8AIAF7b/m99OcDf5GYg
-	 aZGbRqSXLAepaeGZQ5iUz+/ihnwBRj1ZaKhnZpUlTG1RbDc40TGEvn0Qs0K1V8V6n1mKW
-	 /5hrUERkMixC6zntcBf5HOG5uJCmGXba4FLWLEU8AR8KsVjO89eN3ZJTRg9TG7HLnxlxh
-	 wgDCvQ85I4gfBa3/xLICUYngxshCE7r/kkVTFcLeLnXvkkixALqm0IzpUTLqJ5pT0tg==
+	bh=qJ0UWfPYC0fYyhd9uiu3p11FNj2/gRpheMtRiGNIGRE=;
+	b=IKaemaS1JVDmhMxWggFOmgX4n4dVVI9BxTvUUDIoWs5GALzOTPhMbPkUXX0MCNwVYwil
+	 qzqqzspVWl2rS/Lmx5LLw9DO3RCKqgQigTPzPEiCdi/+JzobVPsfFGwGLa+1c3xjOMgh7
+	 0dpUtBCj0fLWa/DQUlG8q1XkOys5DRAPPbczDtd9ldqQnynFuB59kZEn6AjACSIPjoNB3
+	 WCxKaXb6zFUPwXvTvZ4+b33oi95S5fKgv5CBNRxzSFJmdDmcCu/qpXtJl+vKPFo/S9w49
+	 4VuMbuL61m6QZZ0oJEnC/KYZLEW6oiLIkvq08UkUe6CODtf27Xm80VrLR1CCcpea9cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+8HXcpg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QagVSURs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B13606A33D;
-	Thu, 19 Nov 2026 15:35:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE4C606A33E;
+	Thu, 19 Nov 2026 15:37:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+8HXcpg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA3B01F000C4;
-	Thu, 19 Nov 2026 15:35:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QagVSURs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAD781F000CC;
+	Thu, 19 Nov 2026 15:37:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795102539;
-	bh=UeXDYRBppO46yxPAfOxxsv3qfn3han8/bDVYuqVzF74=;
+	s=k20260515; t=1795102650;
+	bh=qJ0UWfPYC0fYyhd9uiu3p11FNj2/gRpheMtRiGNIGRE=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=g+8HXcpgP2YojPjDP1+MAQosOl0ajQiv+vGix8PMCsmdpT+EbWUj63X+fiapXZfH2
-	 K7Gw0dLBVdPIax7E/vLEYXn6HsVJWdBmQ0w+pU4TpTlQfIsyD8uHUSv/5N0NL0W6nK
-	 i6CSi9ASQtr+anRpiWcCy2RB1vUVT0mZOQxY3ZlTC9+/ZFcCFCA9zD/mJr2u6mCnL2
-	 yn+rPN4kXhKZSeDyg198LnZ8T1ZIHFqEFuZsxJZ5fj7GyBpqap3j9ofFs5cK7Fev7Y
-	 0HlhxVWQDBJX6Lv33vsmtB19R3n7LtC8oOQfp/euy72hwkQ+fjJO5KalbETUEIjTEp
-	 ExM1OpApaOdsg==
+	b=QagVSURsSVRKl29TU0u8IaqLSpkaLs+1e7qC4N5tfcPG+nREMgL0UEMX8D9pK70LO
+	 uA4f005sIHgZcqmcKtqK8RlmgKzj/ncKtRtz4QxOpHMMTe2FrlePWhiGjuq5u0VRev
+	 M8Nw0TGK1jL6mI+x8/E1yrQ3vGWndY58nPpeRG02pG/OwUGOle8jrxPbziftAGbIFX
+	 BCHpUKzBVrR1YFFeXOaN61puFX37MHqkxIgVnWPwioWY+0pTKVwotXEJ64kDXhaW/j
+	 bQLDJyGvnmeZf+1KI7OThscMnBWkCazgyh+OSNdIHrTfmZixqP94XqvrLSeD4oTMVk
+	 R9sAEgkH2DtKg==
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,8 +51,8 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 2/6] media: qcom: camss: clamp VFE clock rates to
- the highest level
+Subject: Re: [PATCH v4 5/6] media: qcom: camss: sm8250: set the VFE AREG
+ clock rate from the VFE
 From: bod@kernel.org
 To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -62,42 +62,39 @@ Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>, 
  linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org
-In-Reply-To: <20261028132403.3505037-3-atanas.filipov@oss.qualcomm.com>
+In-Reply-To: <20261028132403.3505037-6-atanas.filipov@oss.qualcomm.com>
 References: <20261028132403.3505037-1-atanas.filipov@oss.qualcomm.com>
- <20261028132403.3505037-3-atanas.filipov@oss.qualcomm.com>
-Date: Thu, 19 Nov 2026 15:35:34 +0000
-Message-Id: <179510253465.2846709.6572974352841900681.b4-reply@b4>
+ <20261028132403.3505037-6-atanas.filipov@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 15:37:26 +0000
+Message-Id: <179510264636.2846709.11683938055067241843.b4-reply@b4>
 X-Mailer: b4 0.17-dev-e3fc9
-X-Developer-Signature: v=1; a=openpgp-sha256; l=909; i=bod@kernel.org;
- h=from:subject:message-id; bh=8dYBGYzl2S8liXZhKSMDIb8+flg+1yILtNCpaAexLDc=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/xdGK/lFe7bp7sHjMxtOBZs8ExCA3f5bsnEkh
- lt22sy+x0eJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCav8XRgAKCRAicTuzoY3I
- Oq0NEACk7hlps6xySWJtb7EVAKaeGpHTtDUTwocUhBhSe5HKqt+BVw8ZQt/LyWPIF5FIat/RwxS
- HYmJEvLaP3+e1q2cTbpRvyy/LDoFyPhDwVqjhRwFHpep/CjV6J+0KHnRYVhkS/Pc0Fgleie3GbG
- wMlirdMYH8FA1Jz0m/n1+yASUaL36UpGk3A5huLtLy4eayXgu3rnDjYjKfEvjtYGbA/B70o+9aL
- OdjWrsNybHElRw/1GYevagFcSONY7l2tcFm0yYuegojobhVKeZlCSSPZR1AH3o6jZ4jdzynQe+8
- pWpxOtfhzVjsrmk22lqFZz+ixLLEM7K8BXy55jlRnT0ZXzOk6cqGnv6MbKd6Le6Jch4xIoMXPRg
- sc4jd8vwWHlIuQC/ZfHp6Ny0U45P02gCeI1cmHUKxNZiU3pMOYQag6jfgBittDvTZLoCtCfvjig
- ZB5xzLOT17v8qTWc+ulYFCUQak5ZRbmXVVY3ZG3SzlxRxkdidoqmbZKWbiMDiXg4L6rI/I45Dwb
- RETeZcBHIUwiLKC16SKEJLiidbaqJceX0OUa3nuRCcomDwAcYyslaTVeZ6H8LL0Pv1yCA6AN2B9
- vwpKhCsHUcbTDFH9M3WpXqyOpGBewtk+Zlm0q+6CwTAfzo6UVDx0n2/pvR7qVREjZCcmOkZVRDR
- qyDuenZvLtGWGpg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=762; i=bod@kernel.org;
+ h=from:subject:message-id; bh=1rbqkUnKYNw7JAsUg6r/+qrFKPX2DPdJgcL17Z3Y6vE=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/xe234ZA5pEIAQyPMRYY4lrHFZE1djIqoKCNG
+ euLP3rOIi6JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCav8XtgAKCRAicTuzoY3I
+ Oh1DEACbQ9boV31/H7XdMkDa4J5oaIZT9IgOUwEH2WQmWeJFAa3dKRjqeh6gAzzAnnYYllcbZjO
+ xIMkY81p3VJqJKztzWtuGWgia/jngPnx6ZQ7uCwfkl3os+U4YevloDmwEHSkrLsnVq/wQyCTIcs
+ mww3ZKQjoOCx4UEDv1bNf9Cn/kUWUrGHZ0mORQEw/9o83SqweWKqZ9O5TpQwVK+j3tSMLMqL4Yx
+ btmx90V2efH0CIhMpa6eKYO9EwutZcxDB9LsIkBoX8xtzVcHdn5Sb4L0X+sItRoZ0eE5R0eIP5b
+ dvqAoKcyQ+qsqJ3/5gRFAj1N1LjdTbEgxGuLWjTXY45WsOwCaoxlUrnPRHwsjPq3knTnW0/DI8b
+ AU+4TCEsKeAJcCBu5dOMB3mlHkPwCkTP9+aN7+BZO6aoIqBeSeIwpqfOSqD/tk3Mn0BXnz37Qvc
+ xepy3Dp53MfDjc/zrbnSY+hxiZdWjSrqkSMSEH+p/j8k0DYRwvfTXHxXhRIkQy5DrKEmKL/u2xv
+ 9ZTQv0nmHfsGyX2SWW6pK1Lc9QQr8XjSy10bLjLOr4PedZow9A1nwrVRZe5+EHR/BCNqjdXjIzt
+ QwUYpAGQdmU/KcegylJSM4BS8IK4rprU5P5WsYFyof+Hft146DTrQ9fAichP0XgIl+0bm/MxUiW
+ BM7/+4tF7ePw8mA==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On 2026-10-28 15:23 +0200, Atanas Filipov wrote:
-> The VFE fails to power on when the pixel rate exceeds the highest rate
-> listed for any of its clocks. The rate tables of the VFE clocks are
-> independent and need not have the same number of levels, so a clock
-> with a lower top rate than the VFE core clock, such as the SC7280
-> camnoc_axi clock, makes the VFE reject pixel rates the core clock
-> still supports.
+On 2026-10-28 15:24 +0200, Atanas Filipov wrote:
+> The SM8250 VFE AREG clock lists four rates, 100, 200, 300 and 400 MHz,
+> in both the VFE and the CSID resources. The VFE only enables it, as
+> vfe_match_clock_names() does not match the AREG clock name, so its rate
+> is set by the CSID, which always selects the lowest one.
 > 
-> Keep failing when the pixel rate exceeds the highest rate of the VFE
-> core clock, and clamp the other VFE clocks to their highest listed
-> rate instead. Take the clamp into account for the other clocks when
-> another line powers on an already running VFE, so that a clock
-> running at its highest rate does not reject the request.
+> Match the VFE AREG clock in vfe_match_clock_names(), list a single
+> 400 MHz rate for it and drop its levels from the CSID resources. The
+> AREG clocks of VFE0 and VFE1 are separate clocks on the fast AHB
+> source, so a fixed rate keeps one VFE from lowering it under the other.
 > 
 > Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
