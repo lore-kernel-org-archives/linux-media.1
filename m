@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.57
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795109723;
-	b=QRRCBid84bSHLtOyYSazgHBDLjlfgHgzVANorZfYsN1n5sgl8v1gpxOZtTbXNK3Ao8K/
-	 UcZWwsbZcMiDCpjSQCeDL2Em5voYpy1n6H1Xc58+KbIYUz9aEYQ4fvnnfQeh8I3umFoOR
-	 X8gFeUc7Ql+kR2d9EO8kHHAengRggck8tu+HniwmFXTdf6hyRX49A9IM30Yr7pBwKST6W
-	 7Lmf2Araxn1Ndnuki+WQ5e+0HSEyCd9kkk++D61NlOYXQ4hJ3uutDTTTvG+zHd3OSXBkD
-	 oidq78TTcyhE5mkUU87KDF8SFWoTiy/23/t3kjaYZU8+0L2w1lioQ7hOYAtjWVp4ECw==
+	t=1795109710;
+	b=ZAzREOq6oOtL2fNDuqdKy7oe+6FdLINSB1RfCI2zWvBgoCf8mg6acfF0s3eVZQJMt3Qc
+	 Zxch4IxoM10NlBUjr4k897RMlTikt9me+JfaLBuzrxFaHSgyyDx+VyrCKAoGyJkqCJQVE
+	 6ngothhBH+fpc38bOIJ00P6RHo47HEiHpnfjkJdlFMrC8JHeumtGuboVx+rkaN7hAzm83
+	 goZqYdNvJzAnm2cVZ7F9OP81jLEFngjz8ANEO/cL2dORYySsT81ei/yax8l+C4b33H5IL
+	 XOR+RKRS6JlHf3HCUouuc+vUOLVm7PCa4ngLwwrQK7DfIOje5btWsFzNG+ByKJ58f/A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795109723;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795109710;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
@@ -25,54 +25,54 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=pV3R118iRDzWd/A+Y4PGJVkDtwTBx6+BDMX9mIM1EIE=;
-	b=yQQc+oPNfg7FAoOAK9PMA1WC5mI6wzd03PoynePbLMXnSfbaHv8MQ2Io7LyMzDmANVU9
-	 GjNEWeOVIfzvkviBj9VrRX+jFOlAfTc99euogqjBiQ4LIV1G2g9B6xpUAiZvW/jwnDD1k
-	 fQA9mhzNcr18u3kIQLzam1+rrcbul7ZMJvDBnakTaSmmw/P6dPUc5+5RR3cXGUxKAWDI5
-	 COVPN86RXhCJbyvzPF02HMg4zumYslRQ8NxYXC/Gp/LxKCAuXlFc2oEjVoqPHoh7JcxMP
-	 gTwrGO+r+G+7yVftsyfltEbAjDVNwNGRqMSjIimAo4a4M0akhcaIwmop8on25+Ate9w==
+	bh=ykiQFK4yMR+YuuXGmQFyhckYsPeDd+2zHcSuPzqo0oU=;
+	b=jzn6mRimRqZQeA1bxWNt13LmzgLkdYFOE4A9SzXhhNsRfqfGiCXqYlKQ0KmWcm37eotJ
+	 ybYtH90priJuwIMHAE+c7LzZQI4KtceL4bLju4d0ANOOACroWzpTVzOUUxNeskbPIObHh
+	 6KybX1T2ugltwXpGKs7KWjmSdzWt08MN3kFYeXEUrF3EJmGyipiw1+vuQDTBoQ1gCC/Za
+	 ujVSgyWZaPOOwOeYBgL6lJ46g8sn2bPxTJTiztfjcIuIrPDYeigAwys82p5jI85l69sgS
+	 RIrDImW+yUtl4Zsx2ll+fbjVislRgkOzkL0KIVCKopZKIYDe7ls3hLm96cb4SU6b0Ug==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bp.renesas.com;
 	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b="I/vuQv0G";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.57
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010057.outbound.protection.outlook.com [52.101.228.57])
+	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=nfoJO5ex;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.13
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011013.outbound.protection.outlook.com [40.107.74.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEC4606A32C;
-	Thu, 19 Nov 2026 17:35:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFEC4606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4C9606A334;
+	Thu, 19 Nov 2026 17:35:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F4C9606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=I/vuQv0G
+	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=nfoJO5ex
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tRGLVQlZz00g6ukrZ7zLJLowt5E9h3yXr7aIqnDj/CPoDsM2A2Omb0yMt97ch0dG14Hx0pJHShJcMFQQzUKameUTFJafu60qHt2TzctwZdzkI/es1x0j41VH9n6S56pdS6oVuCUpgT7iL/RVo+DzEu5tQnlZkAslfBC1lMqQ5JtkMzvtYRHAvglVPYCHj7+WRC4Y8HK2aEyv+Znr5WUxxV5PuBpg1zLhuDwHqnBGcPjAz3Ut1arZ+KWd/2UOJK/HoS0SZIJwFy8qdw8pSbELwJ9MfE3GXZL4kksKh2FYig7WHYFnXwfF+Hj+kdcVGWoZ7BBbzmv5Om0rKikCi+e4Uw==
+ b=EVIBOlaYutj9tY0LLb3EqmW0IvncVdfApdApMkUsCxs9ELSyu1eY2FMo5EqfWMFZ43kncCQDX6a7wCIirQpBGT+7nPHNv9bKX6ZGC46m/zFSKRqMky3oJYU60gk87fhZm9TpgDQFBA0r8YowVTLO1Q1UdddZJPkE7e1M2OvfyzJU11zNkh7iPvXQtA/yRvR1rHpLXG50dAILrsMjMn9M/fZwOb69t94T3pUrH7zMNQ5k2CoXgVYJr3DEstIzSyCzM6HpFR/aGQ+TUaEMhHd6qtazjY1q9l5fYtZvYyMlyVlNSqcKAP0SB6IW+pbHuMnFKV7OY62uv+Q+I1eN0owxSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pV3R118iRDzWd/A+Y4PGJVkDtwTBx6+BDMX9mIM1EIE=;
- b=xhLEe6cMlAhMFG89ytIfHNBb5VJnz3ARGre9hV83E983ikux03xKCeDGtl+pjVT6dxeAIGK7Vzg/Mq4ItD7CymiVytLc49GgAPFOdWp7hLEsAT6DjWVt4LU2FQHoSghcqK7YtOffP/PWlrYzycrPZbGD/+Oiumba0m7n1+MF1PG+N8SY4nEloUyUsEWzOLef9s9ZYbdsCGXhfEQTPYVBuJW22aks1Gyj3GQHpcNtZ1F3E39IsVNJi1Dq7G5Xob2tbpxCnZXbqN855yro3/CoMMgzBMpG7ZTNvYgAcISIv7GRe41JADZPL0Q0wAiw91Diw1HHZ+2le5xhNS+e3lgp4w==
+ bh=ykiQFK4yMR+YuuXGmQFyhckYsPeDd+2zHcSuPzqo0oU=;
+ b=CiGO245YbOB3JlUA2zcGVimwKvH0PSGZvdOeJsSMfnsiiiatdwrXck1kwezekVG0nVrJmhN2umd8eTjhe9fTvgm60Y1AVczmJE8kVa+k3hftbTOFM1qehDZbUsxVRpJMWtaV2NqpcMTj3hQFrTK3YKiIm4mWKiTEbGZq/R0odHmLeY9B/Akh15GkEvycgfISgBbacq+qL6D+xvfjXRJ6VM9qYrIaZ58OpUBB1l+BCb0RRbOFZZhsxoR73jM1x1HE0OXItfpK0qmej/83ZqJX1d9/GCQxcU3+btkyFRxtRnnixPqMq+6TL+8uqyH6tWxJC6NpKGCrmdLv8IRH4ZXMlw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
  header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pV3R118iRDzWd/A+Y4PGJVkDtwTBx6+BDMX9mIM1EIE=;
- b=I/vuQv0GRVJL0YWt5kMevtI86wL2M4UcNWd8EEwOPr4Ja9n8YChoB87rHLzpkFpFJxpWUsni0OmfBi0Da31n7Hs1ar93z9RE4bXk5/CieQRR37FiKohoyT6SotzpAdRawRwwgDURApgrqvVlaxJVCYSHqSQlX65U+ndWOrawL4o=
+ bh=ykiQFK4yMR+YuuXGmQFyhckYsPeDd+2zHcSuPzqo0oU=;
+ b=nfoJO5exztbFNZUEqT+gXM+jFpKfg+8fUNgyBjPpiIYk2Hf3fGHeC6dgDuMD9lun/8B7YzGhkQ9TeljTpojIP/3S0mUspuG3FukZp/oVPRPJl8rTDlkJ25S6OdaMVui/3MjSrfPGJFDY9tpQsbxZYoehvVlpBa/MWQ8U9YK3Ly8=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=bp.renesas.com;
 Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
  (2603:1096:604:521::15) by OS3PR01MB10422.jpnprd01.prod.outlook.com
  (2603:1096:604:1fe::9) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
- 2026 17:35:20 +0000
+ 2026 17:35:08 +0000
 Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
  ([fe80::4f0e:fd0e:ff2b:b180]) by OSOPR01MB295138.jpnprd01.prod.outlook.com
  ([fe80::4f0e:fd0e:ff2b:b180%7]) with mapi id 15.21.0639.011; Thu, 19 Nov 2026
- 17:35:20 +0000
+ 17:35:08 +0000
 From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 To: jacopo.mondi@ideasonboard.com,
 	tomm.merciai@gmail.com
@@ -84,9 +84,9 @@ Cc: linux-renesas-soc@vger.kernel.org,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	Philipp Zabel <p.zabel@pengutronix.de>,
 	linux-media@vger.kernel.org
-Subject: [PATCH v2 10/10] media: i2c: ov5645: Add suspend/resume support
-Date: Thu, 19 Nov 2026 18:34:13 +0100
-Message-ID: <20261119173413.341658-11-tommaso.merciai.xr@bp.renesas.com>
+Subject: [PATCH v2 07/10] media: rzg2l-cru: Add suspend/resume support
+Date: Thu, 19 Nov 2026 18:34:10 +0100
+Message-ID: <20261119173413.341658-8-tommaso.merciai.xr@bp.renesas.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261119173413.341658-1-tommaso.merciai.xr@bp.renesas.com>
 References: <20261119173413.341658-1-tommaso.merciai.xr@bp.renesas.com>
@@ -106,82 +106,248 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OSOPR01MB295138:EE_|OS3PR01MB10422:EE_
-X-MS-Office365-Filtering-Correlation-Id: d81bcafb-f2c0-44e3-8aca-08df46637bc7
+X-MS-Office365-Filtering-Correlation-Id: f5f0b23d-f96f-4fa8-cf30-08df46637474
 X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|52116014|376014|1800799024|23010399003|38350700014|56012099006|11063799006|261021121427099003|261009223027099003|10067099003|261102123227099003|261026140227099003|261022105027099003|261022075727099003|261028144727099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|366016|52116014|376014|1800799024|23010399003|38350700014|56012099006|11063799006|261021121427099003|261009223027099003|10067099003|261102130727099003|261102123227099003|261026140227099003|261022105027099003|261022075727099003|261022115727099003|261026121527099003|261028144727099003|261021123027099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	OI5aU143saLmf4l+P0IAFrOUQ7cx5ygZFwatkpbldJj9rrUJJlbcahaG4DcsJI2o+s6CzrJZBjFpOgsY6lEe4kleZ0KettfMDaIO1jjCnFQIH/du8akHgD8w/X55Fd80GJOt9NP9VBRcpXojpQ82v+mP8MhY0gdsif+FP0tO/Os77qFUBYIzaWpoVh3F71Kt0BgbGFUuwrFluPTWAp+YGLEuDYcG7P9W3NURyDKUMq7nrF4fIqgOHsMZRmC+2BP1idK1et0Ez16426P5zPM8XWU9VuJeAjUCcbUB28Pu7+O4yrHhRzFvU0IUjNw1XP+XT7CSLC0KYWdfj0j1s3i6h42/m5DIrbJYMm+gc9gtq26zr0Zine830+ej+ifueM8ZkP8edtAioZgaqAraG3QdjP+JUOLrmdXWd5USPQUCj/2zzpFjyphje4miWMOxy3Yg1n9jpbA2bcUqIx6qBxOe56AyAUquSYxy3pOzugDWcOLiFlQH6j3osVKtZzsOJeXbyOYpUQIE/Z/eV1KCPzIeem4uysa9eSr6VNF+E/1ITFeO8q1iCysidp+xOFJoR0xv3kyNvxUJNesBhKqkbmsmKHRVY7NbqHF4k2J+LiLgDpW5w+pzgJ9eVvJkkfDAV2NNpDba8gny4BHSEIBRCSjVyPlxOF2GYiVf0+ZcvXeE76RUC/uDUDKdPyl8NhknTO0vZDVeCsc6Br4ysJoa1dD010cnXFrCn9DTx7kLjfDhPtw=
+	YAgxeOhV76rhsC16Z2gy20pQG8DMx12xxhmzD9CazpdKKT9AWR9JKKii8t7Bu5162O4hcucmSIHXVljWLTF8Buq99uLYTvBohpOuMoGKmN5nMAvG6Ld62ov3hC/jqV4LlM0XKwWKRxcCnkdvrkt7xoNdub6iuqYDRP6Rwo5X5qSKVh21bFGLvur1Zzn40TTs6pARO74scfysNqW68kN/lJjlbpk2wYk+WRA6qLfwyleBpaxQRiT5zxAiuVnhr0gV6NbdpJs5sbcA097tkNu53i1OBEGsBdBNNgAZYz8BkwM1IbvWDNxRkXzInKvxJLspxiMOpmGDAqghMzeVTYZwZe3oFqpN+fdTWGXSwYSC5KyuPtMtWsxSPzkwjrQDYfhtKhVBmVb2r4LN9H7SrBXXJ5PObXiCaJfGPGIoiaKUHXb2W32ocYE8TjoXZz0/Or5MJDl6jaG1e2vSSjBWmEzH9lA2fsk0LID9lWWM+yZKoPVBR4ZfYDJ4ahQWpwABos43UECCKiPRgXFVDKEV1HTgfS2RShg9D4Vu7aZQxWrNHeH8PwcWc44hQoLiEZyaFCozGeEDmump9jAyrpTGgP6D75rnAOLXLwhJ+dVdXblJVyQvA8GHKy/R5WhFOItjy/W1HciwijAaMFVYSqCRMjObcr6RIb56kU+RIOHXMr88XfUxS6GB5D/3xiAA5IQwv12YhfmVnvZBvT9rKEBm9yJzn/daJPAXpGZgUGI7EHRUyvE=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSOPR01MB295138.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(376014)(1800799024)(23010399003)(38350700014)(56012099006)(11063799006)(261021121427099003)(261009223027099003)(10067099003)(261102123227099003)(261026140227099003)(261022105027099003)(261022075727099003)(261028144727099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSOPR01MB295138.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(376014)(1800799024)(23010399003)(38350700014)(56012099006)(11063799006)(261021121427099003)(261009223027099003)(10067099003)(261102130727099003)(261102123227099003)(261026140227099003)(261022105027099003)(261022075727099003)(261022115727099003)(261026121527099003)(261028144727099003)(261021123027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NuZ1mWg3Dnx0e5ApoBVGrO5zyQqUSmbM3YzrpE+eUPfVFhxMBVuzGV5Dr30i?=
- =?us-ascii?Q?Yqsyf2XmIAFulzxWZ336s31PCA4kkFHH8crRTK/cR+uLZ8pW27Ly585FvbS/?=
- =?us-ascii?Q?yeFfcK8xrg8N38Cz5kLWlaBAtXRiEfYd6iZrkkEnDcJBDsGWsYietWh0QCbd?=
- =?us-ascii?Q?Euz1+E8XvJUQyBun8ppfrVQynR2rVs1zhC0j5OPw2421b1iEcNWJ+e0H4dE7?=
- =?us-ascii?Q?MdSW9Ld/jv3uTbm3Ejv1rA0QiMdN/Ueq+LGOQyGCJMKtWQ8rDZy3vaT5z43N?=
- =?us-ascii?Q?qHxiUUBulq5Dg7J0WXp9gl6YoubslBoyN5alQxmLmoC/NnRJ3T/bLGtMgS43?=
- =?us-ascii?Q?Sb49M5Y62uPCPMiGOi591M8UdYTlcUEG8AiW1JunKx+CyT+IoXnW7UxdX8Od?=
- =?us-ascii?Q?DBOMPAjU8PBIl1xg0RCmvG7z0tc2wtuhzFtrjE6QkkYwnxexN3xglOiAZJur?=
- =?us-ascii?Q?0LCy1YXZn4l32uxGwLGuiBKRw1eHiKFeBxrOZMiM6BZHfF3e6BDtHpfMz4/J?=
- =?us-ascii?Q?YPcDreOLgfxfoyH67qI7GZ/yStMYLE/kz/GMz4SKZvU/uNoTZ0sm8skePTX5?=
- =?us-ascii?Q?pnbtrc2EsAHekIoOHaUwYnC1SaWRONuMDoPN2J99c9bWUdhCC3bJUomxkxp4?=
- =?us-ascii?Q?GUYYSjrUmAyfZLA+RuCcpwrPfoHXjBPKWRx2mVIjnN7/GjOHV37q1BVLzBDC?=
- =?us-ascii?Q?BL7x7reMi2XIem2S9Qis6jAUGo08HN8K8BdPBnUO2kDN0Z7883jaimeBGDdd?=
- =?us-ascii?Q?IQfIbhPpzY/EoyZleM6o3Ko849SeJRNd/E8mR97Dx5uigFZrl8CXYsCknSpv?=
- =?us-ascii?Q?zbWC21EXstDuF08+ETuIZPG+aFDmlPNPTcmfwL/gdvjBuXjPTgVwYgAGNwrB?=
- =?us-ascii?Q?5H8L2DfVRXHBN4wIdem+cPjtNiwY1QWJmLBK/nRdc6N0co6ZYG7wnDuntuyA?=
- =?us-ascii?Q?+3EIEvwpaBzUxqQHbm4dYF8iCrHu38P/8z+fTHe+Q7jOwtgmv6g+SXTwqt+m?=
- =?us-ascii?Q?xykORoDiKccP8iDunMAG45CwzCO7Ea+kh1qd3y2P56YMRyFpPmEtdhKsKGCI?=
- =?us-ascii?Q?a80k9yACilj76t10VZDVW/KDsXfYMcNTNfBOO5BE3pkRejQCQweFzBJMn5Um?=
- =?us-ascii?Q?8t6mceY8MWiiVTx4knjwpjbwh2JBkKkl6XgBfrGHUxXSlpReqCzaXU5rhjw9?=
- =?us-ascii?Q?+2M/TIz+3dxfQFXcQ2BkXUHWofQqxPT80rKiY8OfX5ik3p37rmw7RKt/qDRo?=
- =?us-ascii?Q?G7EwGFklhGkP7UlUlOenmbFw5Qbic2NKoxcbKygKoxw7wOoivEoKEsHRynMJ?=
- =?us-ascii?Q?aub6kiQLCuHYQGY3P+S1kM3JxgCHxFkDvVkDC71SJq6H0vMEbsZdamPkFMEU?=
- =?us-ascii?Q?6qOxPto7/pjLUdrxG51YpWdWRa+0x+6nToIgFKbjzyzwZ4oqtiLbyHwIoqRd?=
- =?us-ascii?Q?rnP+VAV1AwZJMDKwYJ/qNqHSOhrRa9yk36/TSgsQW+Wmko3/yHQfSJS//Mn3?=
- =?us-ascii?Q?IRMGJcgolv5Bt+SUeiy1jQRbOJelGHMduD9jb+Yt13LUclKqogDvnouy4AiN?=
- =?us-ascii?Q?U8A9edo+JsR4RRtNJBynxxcyGa5viL3l8b4DEXd8chqkIrh0V4jqcDQP5R6g?=
- =?us-ascii?Q?7N7YORiVZCtMtPhsHUT6RV4bO8oNYW4UOefHqSnt6duUEJ0s/omv/RRosvWC?=
- =?us-ascii?Q?QDNMhwBmJMCAt1fFKcAozxd7tJf14XSQ3v/O9wjyqk9P4O4azoWMntkuxGYa?=
- =?us-ascii?Q?dqqSvDZ/kwQUqdQK/FzhK/wY96efpkXERyrjPqi5SexcdoWl104i?=
+	=?us-ascii?Q?i+WZ3FKwUi0Edu4mg0lna+ZPx3Mo7jLU3osCRQ8Ggy+06SNxzjkfL6h48mHu?=
+ =?us-ascii?Q?VEe/JHil9r2TZXrNirfkt9w6oydS7fk2PNxbyNl2O4FrfLGiLT7TYqhziPJB?=
+ =?us-ascii?Q?D9R38MBj/4vZy6w/6XG8DvOZpH3QypyeR8Q2ChF6jskTr0muP6oGGj7sBH77?=
+ =?us-ascii?Q?tnQ6fwWD8w7RbSZKxPQllZ9w2DKINXcyxED6O9VJCwyoy19yz85lcgUuxybA?=
+ =?us-ascii?Q?qoZLHmCvMpj/dioOx5aaGGMgXlpR1SeDQLJpqD7aS0sLJZS8QECE74+W5dvF?=
+ =?us-ascii?Q?4tpEwdwzXZZkNE1FQleceFjJ4d/QDUYQvK6oKSD8x75O+BByIShKE2LgSNFO?=
+ =?us-ascii?Q?T3tZVieLnLDo81Fsk0OslUgm6oiMcmU3+roO00vEAn8HDeOlU1pxvsO8N2g9?=
+ =?us-ascii?Q?Id2vsmAIVzw2bENVeEFT/adFuYUNhdVIr2Y0sEGMMAfpK6Xgfmltzr41eFGf?=
+ =?us-ascii?Q?sxQR1jvQuePkdLmKYNHlThXwCKJFNMpo2NG9xnXGTDbWCHA6FIyPCZQ1k/J+?=
+ =?us-ascii?Q?WKmCJabJn9a2X0fyy1gRyaaDMIjhYW/lDwjWp9FFvZnA707hzTLAg2pM0DsI?=
+ =?us-ascii?Q?C3jGf+Unrb3hhlMYc4VGTesLt25vMd+KZzY+MsW5ZCSy5GOdgQx2ZiJwVLW0?=
+ =?us-ascii?Q?nTQuKb1W8/efj6EEPAOIIOvyHvHqTOI99dryAfs1JL+eG9QziL4UyfxtMsKy?=
+ =?us-ascii?Q?urN8OwhfY6nQ0mUveeVB80pfXg8FOB1IX4t8pllmydAeb51+R1x3CQXurjjD?=
+ =?us-ascii?Q?mzah4iOrPZe3HxfVl5d3opJFumvYGVZkcJDWoGJLzKP1KNqIMxhDPtUBXCXK?=
+ =?us-ascii?Q?Il4qoy+GgXAVRZTzwqOCnpV6BfASsyfz4KsgAG4mCCsWuBsYoEZMjTjxQYFT?=
+ =?us-ascii?Q?qAKh6qplR5ABmhIVW/vyn2MO4h994Xkj7zcwBI7ZHJhbIsQO/bOyyKnBWRAe?=
+ =?us-ascii?Q?v/YMXKqpeT5c1OK9TA3THhsmdr3a7kZGnzS2Yn611N/+Jg/8jELZAhoKLFKE?=
+ =?us-ascii?Q?kX/TLKRMfMC5SkTa/vaMwvb6bTbSmagTkV284VpXGB0jic/p2tkEoMN455tN?=
+ =?us-ascii?Q?416RPK1q6Qi9OvLXXxiJ6uB5PdbGifBX9lddC7awbcCH6zXk8Wo5DYhDrqg0?=
+ =?us-ascii?Q?cg2xzsfTOOFSS+zGdGKi968LC2lxN0iSERWjPhHM9fnbz+/mqC63z2T/hcj+?=
+ =?us-ascii?Q?8ufo+UY+dm2MPpB/5rq9vcDh9hK/2bgwwDcHOO5/qu1nVM/EPcf+R2emZ/wJ?=
+ =?us-ascii?Q?ypjexfj8egeMjCu7lgHGnJRQUwPah7txs0fLZH0+KSdMrBnecBMPS2cLliTZ?=
+ =?us-ascii?Q?D2ZvcZeYLMoDsN72xs5IdOPSkjsmBoZKVm8edpLnUpMPgLkTGWdNQQF+j5Xn?=
+ =?us-ascii?Q?onPT02w0NhwhgOrIbI4RgrFXUPbvaf5cmKK/Ko92yf7VLzmDSbvPbNsdolV+?=
+ =?us-ascii?Q?FNVaMUiNoKNS/JXlSugXkFnWxzBvJDuzZowX0XopWAOfqTVyraqxNKyk/bsp?=
+ =?us-ascii?Q?8/TGAfTlqKHYc9+kWal09JLA6cQb+ztZMvy5VvCWatniRLJ7HxRFTm0S16B6?=
+ =?us-ascii?Q?qt1gYJlyZGyo5G68v7t9s7f3xVh9knT3VGrsFvdLAc7KjDHOWPS2dbLMpt3l?=
+ =?us-ascii?Q?MG3P1NHHQjqsdKCKiR5Nb6tcvhfHUGq6hZN5YeKILxJErorMHm66sNf7RuCq?=
+ =?us-ascii?Q?wgG4rn3Cr9azS+Cbk/fCIJVgkWzQahPkbKmuLABqBfhvLXEjrSy99CsGM7UK?=
+ =?us-ascii?Q?omK4z/we+N/thREtfH6wXgI+r2J/c+WpvqHWZHW+MVSpbcmW4Rr1?=
 X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d81bcafb-f2c0-44e3-8aca-08df46637bc7
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5f0b23d-f96f-4fa8-cf30-08df46637474
 X-MS-Exchange-CrossTenant-AuthSource: OSOPR01MB295138.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 17:35:20.3360
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 17:35:08.0328
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y23ameMizAKggOvuP8cCPZ/C/y38xoqUV6pytlyDy7pKI02wbvqJANDYnaY21i7Psbzt9wqiGSg3jWoxCwKHsVKPbHx5QnoC3j4gr4RHkJJ0NfQfZN9mD9grOMqxHN2X
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5ZRyTD+daOxgvV/rm5q+s80hbYbeI3ib548HNiXDYzprbahJ+kZNdiw8R8/5OR3peTMshU7zPD5mJtFLcOGSIAHijyQy4xUYGQX5rU5Q4gnZp/ZXxy9waKf+BOTRGOr9
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB10422
 
-Add suspend/resume support to the ov5645 driver.
+The CRU has no system sleep hooks, leaving the device in an undefined
+state across suspend/resume.
+
+On suspend, stop the pipeline, requeue any buffers held by the hardware
+back to the software queue, and assert the resets. On resume, deassert
+the resets and restart streaming.
+
+Add a bool running field to track pipeline state. stop_streaming uses it
+to skip rzg2l_cru_set_stream() when the pipeline was already stopped by
+a failed resume, avoiding a double-stop. Export rzg2l_cru_set_stream()
+and add rzg2l_cru_requeue_active_buffers() for use by the PM callbacks.
 
 Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 ---
 v1->v2:
- - No changes.
+ - Used pm_runtime_force_{suspend,resume}() to also handle the video
+   clock.
+ - Took cru->lock in rzg2l_cru_pm_{suspend,resume}() to serialize the
+   access to cru->running with start/stop_streaming.
+ - Requeued the active buffers to the head of buf_list, starting from
+   the active slot, to preserve the capture order.
+ - Used guard(spinlock_irq)/guard(spinlock) in
+   rzg2l_cru_requeue_active_buffers().
+ - In rzg2l_cru_pm_suspend() if rzg2l_cru_set_stream(cru, 0)
+   fails, only warn, as the pipeline is stopped anyway.
+ - Added doc "running" field in struct rzg2l_cru_dev.
 
- drivers/media/i2c/ov5645.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../platform/renesas/rzg2l-cru/rzg2l-core.c   | 52 +++++++++++++++++++
+ .../platform/renesas/rzg2l-cru/rzg2l-cru.h    |  7 +++
+ .../platform/renesas/rzg2l-cru/rzg2l-video.c  | 27 +++++++++-
+ 3 files changed, 84 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
-index 6a6ebcb8f4f1..437017ed8974 100644
---- a/drivers/media/i2c/ov5645.c
-+++ b/drivers/media/i2c/ov5645.c
-@@ -1234,6 +1234,7 @@ MODULE_DEVICE_TABLE(of, ov5645_of_match);
+diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c
+index 4de3ae8a9ec9..451b5cbe4cb7 100644
+--- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c
++++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c
+@@ -264,9 +264,61 @@ static int rzg2l_cru_pm_runtime_resume(struct device *dev)
+ 	return ret;
+ }
  
- static const struct dev_pm_ops ov5645_pm_ops = {
- 	RUNTIME_PM_OPS(ov5645_set_power_off, ov5645_set_power_on, NULL)
-+	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
++static int rzg2l_cru_pm_suspend(struct device *dev)
++{
++	struct rzg2l_cru_dev *cru = dev_get_drvdata(dev);
++	int ret;
++
++	guard(mutex)(&cru->lock);
++
++	if (cru->running) {
++		ret = rzg2l_cru_set_stream(cru, 0);
++		if (ret)
++			dev_warn(dev, "Failed to stop streaming: %d\n", ret);
++
++		rzg2l_cru_requeue_active_buffers(cru);
++	}
++
++	return pm_runtime_force_suspend(dev);
++}
++
++static int rzg2l_cru_pm_resume(struct device *dev)
++{
++	struct rzg2l_cru_dev *cru = dev_get_drvdata(dev);
++	int ret;
++
++	guard(mutex)(&cru->lock);
++
++	ret = pm_runtime_force_resume(dev);
++	if (!cru->running)
++		return ret;
++	if (ret)
++		goto err_running;
++
++	ret = reset_control_deassert(cru->aresetn);
++	if (ret)
++		goto err_running;
++
++	ret = rzg2l_cru_set_stream(cru, 1);
++	if (ret)
++		goto err_assert_aresetn;
++
++	return 0;
++
++err_assert_aresetn:
++	reset_control_assert(cru->aresetn);
++err_running:
++	dev_err(dev, "Failed to restart streaming: %d\n", ret);
++	cru->running = false;
++	vb2_queue_error(&cru->queue);
++
++	return ret;
++}
++
+ static const struct dev_pm_ops rzg2l_cru_pm_ops = {
+ 	RUNTIME_PM_OPS(rzg2l_cru_pm_runtime_suspend,
+ 		       rzg2l_cru_pm_runtime_resume, NULL)
++	SYSTEM_SLEEP_PM_OPS(rzg2l_cru_pm_suspend, rzg2l_cru_pm_resume)
  };
  
- static struct i2c_driver ov5645_i2c_driver = {
+ static int rzg2l_cru_probe(struct platform_device *pdev)
+diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
+index 0bab2cb12a61..5fdfaefd2efd 100644
+--- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
++++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
+@@ -120,6 +120,8 @@ struct rzg2l_cru_info {
+  * @buf_list:		list of queued buffers
+  * @sequence:		V4L2 buffers sequence number
+  *
++ * @running:		Keeps track of if the CRU is running
++ *
+  * @format:		active V4L2 pixel format
+  */
+ struct rzg2l_cru_dev {
+@@ -159,12 +161,17 @@ struct rzg2l_cru_dev {
+ 	struct list_head buf_list;
+ 	unsigned int sequence;
+ 
++	bool running;
++
+ 	struct v4l2_pix_format format;
+ };
+ 
+ int rzg2l_cru_start_image_processing(struct rzg2l_cru_dev *cru);
+ void rzg2l_cru_stop_image_processing(struct rzg2l_cru_dev *cru);
+ 
++int rzg2l_cru_set_stream(struct rzg2l_cru_dev *cru, int on);
++void rzg2l_cru_requeue_active_buffers(struct rzg2l_cru_dev *cru);
++
+ int rzg2l_cru_dma_register(struct rzg2l_cru_dev *cru);
+ void rzg2l_cru_dma_unregister(struct rzg2l_cru_dev *cru);
+ 
+diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+index 27d3baad8c6e..a9afb41c862e 100644
+--- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
++++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+@@ -154,6 +154,25 @@ static void rzg2l_cru_return_buffers(struct rzg2l_cru_dev *cru,
+ 	}
+ }
+ 
++void rzg2l_cru_requeue_active_buffers(struct rzg2l_cru_dev *cru)
++{
++	unsigned int slot;
++
++	guard(spinlock_irq)(&cru->hw_lock);
++	guard(spinlock)(&cru->qlock);
++
++	/* Requeue all active buffers in the opposite order */
++	slot = cru->active_slot;
++	do {
++		slot = (slot + cru->num_buf - 1) % cru->num_buf;
++		if (!cru->queue_buf[slot])
++			continue;
++
++		list_add(to_buf_list(cru->queue_buf[slot]), &cru->buf_list);
++		cru->queue_buf[slot] = NULL;
++	} while (slot != cru->active_slot);
++}
++
+ static int rzg2l_cru_queue_setup(struct vb2_queue *vq, unsigned int *nbuffers,
+ 				 unsigned int *nplanes, unsigned int sizes[],
+ 				 struct device *alloc_devs[])
+@@ -527,7 +546,7 @@ int rzg2l_cru_start_image_processing(struct rzg2l_cru_dev *cru)
+ 	return 0;
+ }
+ 
+-static int rzg2l_cru_set_stream(struct rzg2l_cru_dev *cru, int on)
++int rzg2l_cru_set_stream(struct rzg2l_cru_dev *cru, int on)
+ {
+ 	struct media_pipeline *pipe;
+ 	struct v4l2_subdev *sd;
+@@ -699,6 +718,7 @@ static int rzg2l_cru_start_streaming_vq(struct vb2_queue *vq, unsigned int count
+ 		goto out;
+ 	}
+ 
++	cru->running = true;
+ 	dev_dbg(cru->dev, "Starting to capture\n");
+ 	return 0;
+ 
+@@ -720,7 +740,10 @@ static void rzg2l_cru_stop_streaming_vq(struct vb2_queue *vq)
+ {
+ 	struct rzg2l_cru_dev *cru = vb2_get_drv_priv(vq);
+ 
+-	rzg2l_cru_set_stream(cru, 0);
++	if (cru->running) {
++		rzg2l_cru_set_stream(cru, 0);
++		cru->running = false;
++	}
+ 
+ 	/* Free scratch buffer */
+ 	dma_free_coherent(cru->dev, cru->format.sizeimage,
 -- 
 2.54.0
 
