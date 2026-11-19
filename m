@@ -1,59 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795093710;
-	b=YwfEBuwzDYBte1NEe7CnQuMHRF/cp+rBgWMayAP+CPiDD0ZVUveTdJYiIC6dIK1zi8lF
-	 5pQrGQ2fgqfbiRtZMWK+wD40f5x9t09dRYrjk69iRB+yicS4ArYhfFd6+LOGeYVkkBCYB
-	 ZT4l1CDhN1BXVbQHeqiNDB1swCtWJU+KkelUF3nzLl+cfGFA1Vaz4r0dNhVbW63Nd8Dp1
-	 h8kU4uQak5dhq0Jt8VfbDOuoDhVF+pvGmprY+EJz9Brc59vZ9mk10QcbAB5CIk1FlmEtp
-	 MWBiHeaDO1EaR/Yk/jT+Ut22XLUNE+Dg8GyJ5xo0GmvHp5i5XoqP8T3FbvitRk3kcDg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795093710;
-	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
-	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
-	 X-SimpleLogin-Want-Signing;
-	bh=rrzaULI4PDERzS41dVrWshFRT4j/Xv56UkNZCvPJTbw=;
-	b=UcvTpXuwh1IGr8KhRYjDlwHYOxUAWh+1nu7Dnv8lu7PYHw7cJgsz2nOdjFjJ/pExftaG
-	 Uqha2TgxnxrAQRN4jA1YrHUG8AkuBJ0hWSauj2Gg+KqjEpv8IF4WL6VpPGvwXDTW0/wuz
-	 oYG9Zh+2jfyAmHiS9MG63G3ak9FfatveyqaozmJgiFruM13brhSwdXFto4CA4ilEWjhEx
-	 b4VrAUfhL7y9Bhv08rFzXGFxyoERBTCKn276CbQI2PbxUc7e49h+J9srJ2hf7Y+RctqxP
-	 kAScF+9tj5kco8rkm9BgCUq+hSXGvC3n2Qz+c4ZmAPLkGK2kIVzZnkTNC4lZ80rKSFA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yasunobu.dev;
-	spf=pass smtp.mailfrom=yasunobu.dev;
-	dkim=pass header.d=yasunobu.dev header.i=@yasunobu.dev header.a=rsa-sha256 header.s=dkim header.b=vONyspo+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.170
-Received: from mail-200170.simplelogin.co (mail-200170.simplelogin.co [176.119.200.170])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795094107;
+	b=1fS8Rs+UJ2N4s+m1iuRVrbs0T8V2FLvw2p80qU0XuVsHxovTEdM0qAknqnoyxlqt+JOH
+	 8NQq1y0WjbnV7JmXnOtBQNVuESjN021cYApv7FkOBpK7D+FaIGySAlNuiEa2IQTcBESQn
+	 Y3fLmzcsecFcfX92IHb9P4ehKprmhNa+4hx1jdE9XePURnipRrx4xBgI48ttgmtmPpPSD
+	 /02anFd142fd9zGLTQFgWiaEg6+bcg9Pmyl9VoZYt6vKFX5eJEWblvS+vyeSbt7CvhFgt
+	 Z/24MXB0ntawFBrrE+dlUt1hYUN373dg9nza8GLsCHqToXORZ8t5PSa0Q+tq+e9JM0g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795094107;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=lEDLl85riB4xPGlEuQ4qjTbcWJ8DirKFoMcRnSSARDg=;
+	b=lD8l6J78kiXFpaV7lDOdE6e55Ab8Qa6OkUOjnIDAJUCMqEKhGZ77coe6mvTJa159Sbcw
+	 xB+pMbmbqBUJJhx8CxtYgsl1TlsiVcB7MD6Yldf2mF0Pg4kz5DT/lfjdXmTyvvUXzUF6p
+	 YQ0d2bFOw7XoZIs0A6+/eqqFKMC+3x3jpRuXZdRrBHKQFtVzmSV7nwtg8Yn/lvY0GUUCu
+	 INeSWoUmceuhs63UD9y2ohw5+Qg2gDxtM4QBXMbaA5WYCYbIDsOICcuXyE7tdhBgYmeGH
+	 +FBnk/9ymiv7TI9qHFEXmEGpgZsu5DtjPQdIOo3/+FWwxgKR0LQbAT3onsfQh36G+RA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzRctfuk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D05F606A320
-	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 13:08:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D05F606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=yasunobu.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yasunobu.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7391606A320;
+	Thu, 19 Nov 2026 13:15:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=yasunobu.dev header.i=@yasunobu.dev header.a=rsa-sha256 header.s=dkim header.b=vONyspo+
-ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1795093708;
-	cv=none; b=ST4VGM/Bo5p0sdXpx86k0y5zcVpSwai3CEfFnuTd4rBT5LYIqkhOFpUWvS2wH/+d/qkvyHQ5ueYQgE6kbIHWRtn22N0kGELFbumUIykLRsw6/Jfho+0xrn1ZjP//JdkgQ2LlL2szvIWZAVr170cFGqn87kn1wqJbviSKWB0bijBYYGbH4vsoP1GKVJ8yETbGUdafH0zo81CQlqtmJrWI0DeZaVCBXpaMX6u8uMlRazaWz6FfH/rpPaBL46shID9+6HeYmXWwIC2PX6jZcymFHUay8l28+E6te4NCDD3nulSUPNgD7ZdVYKKx+SRvVClzzYi5rUAvJ0qfR60PfEQNTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
-	t=1795093708; c=relaxed/simple;
-	bh=rrzaULI4PDERzS41dVrWshFRT4j/Xv56UkNZCvPJTbw=;
-	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=U31HBwfOw6qJGONqK1qk8zXpxBsBr2yTolRxQJBkRZ5y82/qa4fMas+jD0ZHh8B67vq+bM879OOEYDpqoUCaMYtNSvy8gm5FkFn++X7GqVRSO5pCBdDeCHlsYnZyshzr7WWu6opUOJaQAgIA07GedrZF3etbxZSqkKjceWosRqkebjJP8uM2qcSXsHcrcDdURMDov0Qt74P6/4wPTvO11P2mNm4UPCPn4/XKimntMQ/GNGuUIRJ4455a/QxCLHJknxUABwl03PzzHqZYwYlevQNznUKhF0HyBjfei+Yze0AfxRIz6aO2Y2Mk2J6EgJPDYKJTVHt+kJAU916+cuUmoQ==
-ARC-Authentication-Results: i=1; mail.protonmail.ch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yasunobu.dev;
-	s=dkim; t=1795093708;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rrzaULI4PDERzS41dVrWshFRT4j/Xv56UkNZCvPJTbw=;
-	b=vONyspo+eRK5RN6STgTDjGR4T0cap7wVrYhlHt5bRKH27Uo/2tQ0j8uk8PMMTppbdVpEu3
-	+ap8RMg2xPV3IoHc6OPmVMmyDPYLe8goCavPyA0h6AsPfQBpZK+UEEGK6IF4auX7WEVo6W
-	YUm/bhPTSPugOc3WvQXSuF4GqGRu7+w=
-Date: Thu, 19 Nov 2026 13:08:20 +0000
-Subject: Re: [PATCH] media: uvcvideo: Batch StreamCam unlinks on ASUS ASM2142
-In-Reply-To: <20261119124331.GR1923307@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TzRctfuk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50E5A1F000C4;
+	Thu, 19 Nov 2026 13:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795094106;
+	bh=lEDLl85riB4xPGlEuQ4qjTbcWJ8DirKFoMcRnSSARDg=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=TzRctfukUjjV+daL1Sr5I4dYsBqT4S/AiduY39QTdJiebhdz5s3qSrtN4G83M324z
+	 epAkTZXI4caApBFhpnmHaZxY+4uvhgfNqMSVhpmKD/+4OpCxe7zzw89PJwd7Q3X/+0
+	 dgcwwTSrYgGUH3vWcVjd4BeESFjR+BS9N3bqgnveo0os03SiXC8C34BkXUP4n+415b
+	 LXVtj4CLkHKLsQGUkeCl7DKDeMFvvodaOiZwT/Tkfewh5y2syuZ+HTX84DyQUqHlm+
+	 9K3fI1e4wjf4BgaoBVfNFzrrBrPYs5Y/YJjXEzL4VicY8iiCqlSLXqtfbgcPUPvE/T
+	 wwe6SeEia5CQQ==
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -63,37 +49,60 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: hi@yasunobu.dev
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Ricardo Ribalda <ribalda@chromium.org>,Michal Pecio
- <michal.pecio@gmail.com>,linux-media@vger.kernel.org,Hans de Goede
- <hansg@kernel.org>,Mauro Carvalho Chehab <mchehab@kernel.org>,Mathias Nyman
- <mathias.nyman@intel.com>,linux-usb@vger.kernel.org
-Message-ID: <179509370754.7.5011876058707374029.1785696182@yasunobu.dev>
-References: <20261119-streamcam-batched-unlink-v1-1-076bc02866c1@yasunobu.dev>
- <CANiDSCsdaokL_2u_74b3ADT+U8TXskK53+k+hVA8D+PtttYEZQ@mail.gmail.com>
- <20261119124331.GR1923307@killaraus.ideasonboard.com>
-X-SimpleLogin-Type: Reply
-X-SimpleLogin-EmailLog-ID: 1785696203
-X-SimpleLogin-Want-Signing: yes
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/3] media: qcom: iris: improve probe error reporting
+From: bod@kernel.org
+To: Dipayaan Roy <dipayaan.roy@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, vikash.garodia@oss.qualcomm.com, 
+ dikshita.agarwal@oss.qualcomm.com, abhinav.kumar@linux.dev, bod@kernel.org, 
+ mchehab@kernel.org, p.zabel@pengutronix.de, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261106153126.120858-2-dipayaan.roy@oss.qualcomm.com>
+References: <20261106153126.120858-1-dipayaan.roy@oss.qualcomm.com>
+ <20261106153126.120858-2-dipayaan.roy@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 13:15:00 +0000
+Message-Id: <179509410068.2846709.17530660529486059800.b4-reply@b4>
+X-Mailer: b4 0.17-dev-e3fc9
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1057; i=bod@kernel.org;
+ h=from:subject:message-id; bh=ks5O1DF7yijV1FgoK9RnK+vAJwuKluUd2GhUI5VqS0M=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/vZUirFQGP9Nm5wVNwPaWxEqHPbAebxyBmYFR
+ K6VSsUQumuJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCav72VAAKCRAicTuzoY3I
+ Op9ZEAC4OTXpN+oBubDcAJlAZsMAbgz+ufqXZec3Gs6j0Rh2VTAemYDSWSdBgL345XXsczAc4cR
+ L99cuh2VSJ8Rtam0ejXgM+F6MeefuTeBRZ9PzoUQW0QdtEBwqpgFxSmpszUi0ocbkAf5hDCex1p
+ 70kD8n3gbNZ5I/PyoLkZ7KvSmw8hnxGRip6OWShFiqfAkTuNIYjEyUQ5nSZBouuJdta1/oQ4gjp
+ bggyG1+iMxsvMd04u79D4FNmWHn5d0aIvzCn6IwFn0xZ7Ojf8zgLCyblCC20nStDhp+I1HNDkE5
+ CxGBnYNc1EHxWtp5PMWuSaE/C+WEgdZpytk01G/BZ9Z5oSj45+gJ4AsrIhpOXJ9dcNo9/mA6g39
+ 8dY2Fl3SM31jfS3nXsG12BwruERyY960q+dJISii953aVZAYpSNXiljhS/otPyAdrf4Hq3d/gIE
+ 4GFKh0B+zYVlSE4ebFPngWjq1RW+v4awyy5tN9jZFZ2mnCApSnjaisilSWgLYZ6mCFycELMgOq6
+ VD9I7UgXnUwWW6kvx/rS0ZdExeSCGJ8z8nOc5YKEgDKbAwHzKdIB2vbCvxV92s7pmRjSsb2E8Tm
+ Vk/a90DcsKR9C1bEkMT2BGTZgjV820PCjyuEwPt8Xgw1Zi8WGyICPsulScNkjflAdmHxXtPiAiM
+ uoYxAUP+5MYrFAA==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On Thu, Nov 19, 2026, Laurent Pinchart wrote:
-> On Thu, Nov 19, 2026 at 01:06:50PM +0100, Ricardo Ribalda wrote:
-> > Could you check if your device works fine on 7.3, or if it still crashe=
-s?
+On 2026-11-06 15:31 +0000, Dipayaan Roy wrote:
+> The Iris probe path returned errors from resource initialization and
+> device registration without identifying the operation that failed. This
+> made failures difficult to diagnose, especially when several resources
+> were acquired during probe.
+> 
+> Use dev_err_probe() at probe and resource initialization failure paths to
+> report useful context while preserving deferred-probe handling. Also
+> validate the platform match data before it is dereferenced.
+> 
+> Successful probe behavior and existing cleanup paths remain unchanged.
+> 
+> Signed-off-by: Dipayaan Roy <dipayaan.roy@oss.qualcomm.com>
 
-Thanks for the quick replies.
-I tested 7.3.5 on the same USB-C port, and the xHCI hang did not recur.
+> @@ -220,18 +257,18 @@ static int iris_register_video_device(struct iris_core *core, enum domain_type t
+>  		strscpy(vdev->name, "qcom-iris-decoder", sizeof(vdev->name));
+>  		vdev->ioctl_ops = core->iris_v4l2_ioctl_ops_dec;
+>  		core->vdev_dec = vdev;
+> -	} else if (type == ENCODER) {
+> +	} else {
 
-> This looks like something that should be fixed at the USB level, unless
-> proven impossible.
-
-I agree the fix belongs at the USB level, so I'll drop the patch.
-
-I appreciate your help with my first Linux kernel contribution.
-I hope to contribute again.
-
-Yasunobu
+This change isn't just "fix the prints" so either drop it or separate it.
+---
+bod
 
