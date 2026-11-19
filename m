@@ -1,110 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795088237;
-	b=gAdRkNr5vTARe2VkmjAoccDo10kkaw9j00cmb0pmZUxxQruqPYTaKHcyDAEkRQBswe/i
-	 d01FSb/NYpogjpsuWGt3lcweWnRzSffLpCfasOyHzsRvkMpfRgf+vKA/ym8BH4Fuapsf9
-	 LlseHkHmgOpzA7O23b/FLsk6TYU7qcqWgZi+a55NFP4WGNNqkPST8nTsNzVDcp0dr13kj
-	 h0y11zMafwciDgpQYtyNJ+Aq0vV256W1kifEBfGX1GxMgSQgpMQNS00Gs1aQZH9ez9Lvw
-	 fp7X7kSBCkuRSHfEVKRhAHcdRvv051BdATuKtm2Tcf2BvwTDPLiTQkAa4nP9vDPrzQQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795088237;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=MjzyiYZZfDIc0gpEuG+2pgrmPaO05j0+/+7VTnx2JRk=;
-	b=auYgUSz/WqLIzxu43lf+/SUMgi2cKcXHNxrG0GZgiQzbfIAhKbx7gQCItjIiJ3/CGCi2
-	 nO9Qz30AUnmULQTztZePzHl1UbqmojvP2aKhr0JjgvQhmNdC4NniUu/hs7xfZt0JbUfly
-	 SzvPMPMSE+1JE6Ll4pkBqPLe3+6uBxHxC3lWcspp2iyIcwhU1XkA7hcbaP3hMxaDM66Mi
-	 UhgITIP4d6E9jB6WwCKhc9Oq0EZIIKNLwjWRwC9V895q3LrZ9ndda6F7d/X57zJSc/l2H
-	 SJ7EFN4kIRifKLh+fA0r5xHY0ACa7mqK74K7E/O0PuZGCzt825y/dGNMgi1daq6NinQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Grtmjwtd;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gi6fAnnf;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795088701;
+	b=00u+rTyPKLMpGmClbbEZINW8AAvaQFHeUvOPbgiEUQCcMV22QKZorjq2VGeuIMrf8EJ8
+	 wFhcULxYTAw7vbZcyhElvOfN+/NWIx5wkMh237NceaRzPUUTuYgyhRgTNRCmjFqGXsJaD
+	 nYmay2imfIROd4emSvGzPRfwZfIxYabKdRt4mADHWPYaPnnlYvOtpCenLUd/z+KBipGk9
+	 u7RORP+Vsqni9BlrUkpJMsF1MMPLRZ/7xSLBP91QF88EodlWcrplOi3U8oOjVZ4l9T36s
+	 r0AOdSn0TZDeb/77LDOi5wMifJL2cgZkPqdEdbVVXkPAE+KJrIRoZwL3SScOMRbKOgg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795088701;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=arY3zljhg/9f4oH1J4G/6/OX1UJcdmzYzzT5OdZ4uls=;
+	b=NdimQB29Lp0U8eEDhERaKiDwEdDvweV4mymfv569HfZjvu4Z4yvqcj1Qc/m5yXKxCt5L
+	 3hLWUwSyrgoS88MnwNrAvJ4W80y4P2XXxg3RjzgSUfchPWBTYlXqTbDezQUIlCACtL/NA
+	 o1OR23NlbPNjvzS+K0pSNTJI7ugRoDzRLl+XO6zvDbEeRyvDXKZnX+1iWXz5m1A/LJAIx
+	 yi2xsaBdQzO8J/f1HGTjxcDdNRPCsnRwu+lAWOtg3VevGOGPBcBmHuGjObGo9uX7kLLPG
+	 UFCo4MeeZjVJwTFGz2+EeEE8lw5Nq5i83yv7rckfOJJ6E568qwe3rk6fcOJehNR1x8Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kgv2AhfS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FFD4606A324;
+	Thu, 19 Nov 2026 11:45:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kgv2AhfS
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795088701;
+	b=P2v5noAEbGWE7nN5F50B28/qoYrG8lJkDlFfTF0nqD1Vv0CYLTmcerVwzQeBJn8jsk8+
+	 nwb0RT1WDcUsLh5hg/YfEUekgziqOChgu1ihAQQIANpLwaS9XCyvUEXJaD+sFF81OJ0Di
+	 3QYyIL5zMBf7aDixaIm+cD8M2stf6dBunYdLWxtaSo0CTUVGSAZF23GUw1ITBzxYgkoXa
+	 3C+j95dqDWSzIvM8LTyWywyKQiMDyYq+th9IVKOrnqia2TEtmmPUPBwIO8vOylPX8WrZl
+	 KXqQvSoC80kZRWQsVatJS2CD2D/+YYPffq5D8nKzMevJUSpTtBEO/OEAqM7sP4GFnKw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795088701;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=arY3zljhg/9f4oH1J4G/6/OX1UJcdmzYzzT5OdZ4uls=;
+	b=3UGdK0KngRai254cz2ISPZlgdKesNzDNGcybcWv3PkPZazg78CV+2lIz/znTZ1rj0DHm
+	 fe6wyrb3gHfE/sApUnbqdSjjjWn8DW3NVv7bLYPQjcxf06GlzFd7SsuL0QEbaDvBBqRu9
+	 biAlK8d7QPEbI7msE2s9zM+kBB3MkWu0QVOaH9CleTgyg3jrq6zCfuZA3S9jymK3w/j8T
+	 TgMgcFVCnV+Q46iKRCcx4OCI8vitOnn+SeakVBwuXONfEoKup7288GuUajdLCSv5pO7R2
+	 kSgHpehXX7Xd8g8zgYIMfiHSuD4gGtky21mqBucesCeFXSQhZv6jq0uxpvjUO8v6Mkg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA6A606A326
-	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 11:37:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BA6A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Grtmjwtd;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gi6fAnnf
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AJAvj3Q4173521
-	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 11:37:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MjzyiYZZfDIc0gpEuG+2pgrmPaO05j0+/+7VTnx2JRk=; b=Grtmjwtd2WrqGcHr
-	Cg84k1x+8W6B2qV1BAxheZJdkVwmTYlw2TjCmToqVc5elmng8tDROjGiz+Gc9Q1X
-	Yy2+imaF1q323teMmCXEqkVV9LPsgJhHToJIgPDRH7sMFyHcuBtkX58CZw85zhub
-	b9dQ9nL/StXJ5kEIcZwfgzBPtkup1GvFW+IgC0d32pQwsOPvjD+EVQuODVMUMumQ
-	qLdCzwD2VQRAXciHy1JC4e70lUCPoIsHArpgWykjdBBlrn7T+ZQAVrhCq8iKXMEr
-	asHfAQGanxarmAAg6W9XzLKnNbpxh4MMCS200wZ0iYNjTVNqHaoD13SX22caAwYa
-	TiSvsg==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j1vv2s1xa-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 11:37:16 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd60e4e8bc3so1688478a12.1
-        for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 03:37:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795088235; x=1795693035; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MjzyiYZZfDIc0gpEuG+2pgrmPaO05j0+/+7VTnx2JRk=;
-        b=gi6fAnnf+G51wYczPOqqwI+BycEfpKwczHXT/sBFBaavybMPy6hS+V5x3AXYYegkRA
-         KtZEXj0DDiRN+F+8gL6e9HrIywqWuOUJwgOXGIeXTf13ssyQKo0i/2NC1xk4QsFNkZbB
-         Y4ws8vkWb+b2aBicFGhUZfiQBLOKRR7cS3No63wwR/uFprcXcqzjScNPeygxObgPH4tx
-         CC+xN2abq1baeIEg+BNQfMnKaOFHD4KlJo10cTUAhh7zGDNkZALbBMCNceYHzXSJLvpo
-         IvtW+hCofUJwkza88DIE936VwYBCXo2M4juJQy+6BGU9ea0qKi/hxrJOFKKlUEmkQkG+
-         kj/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795088235; x=1795693035;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MjzyiYZZfDIc0gpEuG+2pgrmPaO05j0+/+7VTnx2JRk=;
-        b=QXz/wKl71W7giRJ35PsYmvT7uMKuiXDywCGzHQqabpFQJLOlF96bu5h7suybE4KNXF
-         gR0Bly+wMsptRy3qw5EqQm0aMCCkSq5TG4jpsUZZOqk84b2KeysPZGWHStfMAdm/J9PA
-         kjEh1ZTJ2xtprdDqqNlRF0Qpw1pgJYkzBsiP0oDFxzvsbIvpFPaOsbDgGQJAP5BQxKz/
-         PUmWEIfnooZQ4fDO0QcSdZoakE4uBQ63e1jFOEPSrs53eRpMVQqvsVv7SMipXemDSac0
-         BMSbar87LXfySt6/8eTQCexS7JgwaFDoE6XnlznHKwduSH9NrZcwrewHqKjSQ/eSzpfF
-         whyw==
-X-Forwarded-Encrypted: i=1; AL+hErGHWVCFi+7epETiVW4PGDYzNHibzL8NAPdyLRD/dydt1W3VuSO7uu5f4fo8sSyvrTWOJ4uyZ98tkUGj+Q==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/qczWM2wjlP62bvuT1oS7z/yk7sd1Hrn38wEYMpM9s+b5OBKom
-	GPzj8+dzJh5mSq01lLoBE+DnuAiK6Y8fG/1dKMC8oKvKEAURODaHyNzEDqUBi4E7ykdN6DO0UfB
-	xK/QcHL4G3Pxs1KjedHb1ttagunqlQM+noDcLCXk/uGbat9fYUJhkFgrKCtWT4twujw==
-X-Gm-Gg: AYBFou2XZShnrnfp2l6qIkLmRCR12uvuxO1DJvji45obNLXPMvULpcxXcJrBXiyz0yJ
-	8Jr4yH5xODrJLHtLQnWCgrUeWZr+vVaPrumzhJFP3kfKGfD5HHJFYaH7vBFbEx7GTNJ72XG+3zz
-	qSqcZ/edH6obAvHJI3I6S52xpXeMvvoJolmDjn7NW6EbGz0FTnHsHMyuzMEku35crEmJG7GNFDZ
-	7YFdmf7EpQzfFW8n1ageuXhMFq3fsnMj9RgObTvMDMY1bFK4Xch4RIq4E4SKzBeDD0gPcdlivi2
-	w0CMUUUICTFzI3QkJG1ugovwqmnfFTDTx9wfiuKI3vOBn2NoSBAfD/78M84/0/aA0b6UciXE7QL
-	clniJ/GM01qzd3jNeMafzphQVxEBemhC06dvmMMpWLGfqoYPJZQeJM1hmZKByNoi3AE4vE7FMe4
-	zgbg==
-X-Received: by 2002:a05:6a20:2590:b0:3e2:2c81:bc6a with SMTP id adf61e73a8af0-3fe8a218d9cmr5801560637.47.1795088235166;
-        Thu, 19 Nov 2026 03:37:15 -0800 (PST)
-X-Received: by 2002:a05:6a20:2590:b0:3e2:2c81:bc6a with SMTP id adf61e73a8af0-3fe8a218d9cmr5801537637.47.1795088234727;
-        Thu, 19 Nov 2026 03:37:14 -0800 (PST)
-Received: from [10.206.111.19] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde534631b8sm1663844a12.7.2026.11.19.03.37.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 19 Nov 2026 03:37:14 -0800 (PST)
-Message-ID: <88467521-f50d-4c87-8206-4a3249f65212@oss.qualcomm.com>
-Date: Thu, 19 Nov 2026 17:07:08 +0530
+	by smtp.kernel.org (Postfix) with ESMTPS id A11AF1F000C5;
+	Thu, 19 Nov 2026 11:45:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795088701;
+	bh=arY3zljhg/9f4oH1J4G/6/OX1UJcdmzYzzT5OdZ4uls=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Kgv2AhfSwmOU7Yy+nVUpf+lY/OX+L/VA3+GLHlizta0KBnV3Y+xToBFKIylVvXvB8
+	 h7IMK04UlRGp43qldUR4oz9hkRzChgwTPXtHOs6AEmecK/cbqc+4gbT51SnAWPikBl
+	 3RG1yJuFaWSlTRe18JpCGQ84AkQw+rkkhMY/c8xoXF9kDxIFZKnFF01j0ateGoqyd1
+	 Eycn+ivn42dmC55TkpwI5xISahyAU4O7OoX173uOc82YDlTX0dHU4EEwR4s/yfPdZk
+	 u7pYOobd1k8kE8+UpFUpGUhNqg2vaMYKMoqp4TVNVwsKqp7fQ0TWZE18eEKFGQB43U
+	 WEGgMIvW81a7g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 0467F4B266;
+	Thu, 19 Nov 2026 11:45:00 +0000 (UTC)
+From: Yasunobu Sakashita via B4 Relay <devnull+hi.yasunobu.dev@kernel.org>
+Date: Thu, 19 Nov 2026 20:44:56 +0900
+Subject: [PATCH] media: uvcvideo: Batch StreamCam unlinks on ASUS ASM2142
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -114,77 +82,128 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: media: qcom,glymur-camss: Drop port@3
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261113-glymur_camss-v2-0-b1b76509c744@oss.qualcomm.com>
- <20261113-glymur_camss-v2-1-b1b76509c744@oss.qualcomm.com>
- <20261116-vegan-amphibian-muskox-3c8a55@quoll>
- <de0bd55f-9b80-414f-adb6-eece067d92ff@oss.qualcomm.com>
- <8e8300f1-d837-495b-b947-a3b52f44b4d6@kernel.org>
- <d90f6dc5-bd8b-4fa3-a17a-e00470a9b8a8@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <d90f6dc5-bd8b-4fa3-a17a-e00470a9b8a8@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261119-streamcam-batched-unlink-v1-1-076bc02866c1@yasunobu.dev>
+X-B4-Tracking: v=1; b=H4sIADfh/moC/yWMQQrCMBBFr1Jm7YCJEqhXEReTdGqidpRMWgqld
+ zfR5fv89zZQzokVLt0GmZek6S0VzKGDEEnujGmoDPZonTGmRy2ZaQo0oacSIg84yyvJE0d/Jse
+ n3lnHUPVP5jGtv/T19med/YNDab328KSMPpOE2CbhtcC+fwGU/I6fkwAAAA==
+X-Change-ID: 20261119-streamcam-batched-unlink-fb4a6e39626e
+To: linux-media@vger.kernel.org
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Mathias Nyman <mathias.nyman@intel.com>, linux-usb@vger.kernel.org, 
+ Yasunobu Sakashita <hi@yasunobu.dev>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795088699; l=3387;
+ i=hi@yasunobu.dev; s=linux-kernel; h=from:subject:message-id;
+ bh=SM/F5q1dd2vyprkfGis4uWr1Bm42nEAIAtBJ4e6DG4M=;
+ b=I9BApyP7CrZMcyE67xRmVhF+o4Qfb7NeHa7K21IK2F7ww7GGWsFrDUNCjCZrDlQVuTj6I55uk
+ JhUduYDGWayBlHnEU3m24BcDXHfiMspq6gZ7Z1swHNKtiW+VXJqEBFR
+X-Developer-Key: i=hi@yasunobu.dev; a=ed25519;
+ pk=QjththR6KbbJLxSuYvQ/eDo4hRrutwL7BdLamwrIW9c=
+X-Endpoint-Received: by B4 Relay for hi@yasunobu.dev/linux-kernel with
+ auth_id=1570
+X-Original-From: Yasunobu Sakashita <hi@yasunobu.dev>
+Reply-To: hi@yasunobu.dev
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: nUam9UVew1uDko61zjm-qOh28jHV0g1u
-X-Proofpoint-ORIG-GUID: nUam9UVew1uDko61zjm-qOh28jHV0g1u
-X-Authority-Analysis: v=2.4 cv=ZZWIpcVA c=1 sm=1 tr=0 ts=6afedf6c cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=RAPgPVZv-YkfXzKxjk0A:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE5MDA0NiBTYWx0ZWRfXyfmA+NMKHS5F
- 40EcOyJryk6fNI1hnoVc088nG+VAkPG16k+GlMoPmYka6Ev424W19DM0ZUAo3n2eNZNTZVOdwUq
- 6sa46WrP8EdWWkyFMlkZHF6N9wiAS9c=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE5MDA0NiBTYWx0ZWRfXzb//aN1plfpM
- he2BSvcx2ylulDDeaa3Ts/MGfLVttl/wrUhBFrWX4kf+2oSBNR6AeH+xh/Arn7Q4XVopwLlLE83
- F02yTDlYEvakZA8/QJ+hVrH7fkFpFeUGJSHyEnhEWeUYO+R+1HJMmZ3EXfAktAKtdSZaaLxPl6o
- m9ILZW4kJ1nKdmqEWQ1k0Vr42jPzPAACVSQzXx3UKUBVPs9KhiZ1yqH3RNzWjAZBFe8qVWU6F3S
- IFeDzI9fayV3c6HOT6KBJ0gEmntvUfCEeEkfSUJzoUry0N+psa4usXg60GinnATRcHnPqbtLfza
- 6gSwYV4Sug6QzC9rnrdP6AG8vgcDk+ZAy9lQ11/TTB+xee45qhCbeNyF0IeV/hJMpnZ9O1YC6VP
- zGdEr4yCoxWBmBW/xTVeBhR/hFem7sFXD+5zYVLOrujurfmwSfTjH4iuv4J4lDFrALBs2GE+eGU
- VzwvXsA8Jhu6xeMlJTQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-19_03,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 bulkscore=0 spamscore=0
- adultscore=0 suspectscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611190046
 
+From: Yasunobu Sakashita <hi@yasunobu.dev>
 
+Stopping a SuperSpeed StreamCam can halt xHCI on the ASUS PRIME Z270-A.
+The fifth Stop Endpoint command timed out after an invalid type 15 event.
 
-On 16-11-2026 18:02, Nihal Kumar Gupta wrote:
-> On 16-11-2026 17:52, Krzysztof Kozlowski wrote:
->>> It was not used in-tree yet. 
->> That's different question. You added ABI and that ABI could have been
->> used. Was the ABI ever correct in the first place?
-> The documented ABI was not correct: port@3 came from the old X1E80100
-> resource-table mapping, not from the Glymur CAMSS port layout.
+For the affected StreamCam and ASM2142, block URB resubmission.
+Queue all unlinks before waiting so xHCI can coalesce them.
 
-Hi Krzysztof ,
+The stock driver reproduced the halt on Ubuntu 6.8.0-149-generic.
+Three FFmpeg 720p MJPEG and audio capture cycles passed with the patch.
 
-How would you prefer this ABI issue to be handled, or should I
-send the next version incorporating Loic's comments?
+I used Codex to help analyze traces and draft the patch and changelog.
 
--- 
-Regards,
-Nihal Kumar Gupta
+Signed-off-by: Yasunobu Sakashita <hi@yasunobu.dev>
+---
+Built uvc_video.o on media-committers/next with and without CONFIG_PCI.
+---
+ drivers/media/usb/uvc/uvc_video.c | 43 ++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 38 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index a92a986ab..0ee5a7d17 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -11,6 +11,7 @@
+ #include <linux/kernel.h>
+ #include <linux/list.h>
+ #include <linux/module.h>
++#include <linux/pci.h>
+ #include <linux/slab.h>
+ #include <linux/usb.h>
+ #include <linux/usb/hcd.h>
+@@ -1885,6 +1886,26 @@ static int uvc_alloc_urb_buffers(struct uvc_streaming *stream,
+ 	return 0;
+ }
+ 
++static bool uvc_streamcam_batch_unlink(const struct uvc_streaming *stream)
++{
++	const struct usb_device *udev = stream->dev->udev;
++	struct device *controller = udev->bus->controller;
++	const struct pci_dev *pdev;
++
++	if (stream->frozen || udev->state != USB_STATE_CONFIGURED ||
++	    udev->speed != USB_SPEED_SUPER ||
++	    le16_to_cpu(udev->descriptor.idVendor) != 0x046d ||
++	    le16_to_cpu(udev->descriptor.idProduct) != 0x0893 ||
++	    !controller || !dev_is_pci(controller))
++		return false;
++
++	pdev = to_pci_dev(controller);
++	return pdev->vendor == PCI_VENDOR_ID_ASMEDIA &&
++	       pdev->device == 0x2142 &&
++	       pdev->subsystem_vendor == PCI_VENDOR_ID_ASUSTEK &&
++	       pdev->subsystem_device == 0x8732 && pdev->revision == 0;
++}
++
+ /*
+  * Uninitialize isochronous/bulk URBs and free transfer buffers.
+  */
+@@ -1896,12 +1917,24 @@ static void uvc_video_stop_transfer(struct uvc_streaming *stream,
+ 	uvc_video_stats_stop(stream);
+ 
+ 	/*
+-	 * We must poison the URBs rather than kill them to ensure that even
+-	 * after the completion handler returns, any asynchronous workqueues
+-	 * will be prevented from resubmitting the URBs.
++	 * URBs must stay blocked until the workqueue has been flushed.
++	 * A completion handler can leave work that tries to resubmit an URB.
+ 	 */
+-	for_each_uvc_urb(uvc_urb, stream)
+-		usb_poison_urb(uvc_urb->urb);
++	if (uvc_streamcam_batch_unlink(stream)) {
++		/*
++		 * usb_block_urb() keeps URBs blocked after usb_kill_urb().
++		 * Queue unlinks together so xHCI can coalesce them.
++		 */
++		for_each_uvc_urb(uvc_urb, stream)
++			usb_block_urb(uvc_urb->urb);
++		for_each_uvc_urb(uvc_urb, stream)
++			usb_unlink_urb(uvc_urb->urb);
++		for_each_uvc_urb(uvc_urb, stream)
++			usb_kill_urb(uvc_urb->urb);
++	} else {
++		for_each_uvc_urb(uvc_urb, stream)
++			usb_poison_urb(uvc_urb->urb);
++	}
+ 
+ 	flush_workqueue(stream->async_wq);
+ 
+
+---
+base-commit: aa0f4c41d4870a18e65772a1817af16427200371
+change-id: 20261119-streamcam-batched-unlink-fb4a6e39626e
+
+Best regards,
+--  
+Yasunobu Sakashita <hi@yasunobu.dev>
+
 
