@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795102737;
-	b=iBhar/tnnPmBz00pDFLO6U65lZQPgnnHvF2fgp16hcGD6CBjlfIYd+y78kkXEYuMlAWT
-	 KBg2UOzAcZ+8xFjxGrQCenuydM1RFq9rff4RE6TqJBuucSGXTFcpPAFSiQ4OrlzG/ff+i
-	 uv+o7BOej6h3tAhjFK9Wv/EtPjAyAe8YDpNiJK3lcJjJigpzlPQD8YyexGAZ9vZqmojC9
-	 /RiOZ5uduEic6N0RWe/OluR6JGC/y4BzS5MjkeVjwRrFboANC5XCPMOAZw/0MCuVlZQwQ
-	 I/SyHt5ciPGvvq/zvq5sI51SyKq1V+gevTIjIO3kAtrMV1vc2BWsM7zwQh3IZBMVPZg==
+	b=dUAEnxIK7mWs+2AvAlRfJE0dTYV4C1lXCp6VB6bXeFvds11o35DruyXR3347bAEeU+0p
+	 +0XQ/OtTutGxxin0ryOgJo6+VAoX6bWBznIRNy2xVzF491Hoti071NtWCTjEXd1DANVDi
+	 uLJnQl9e61ns5IafwG/rVq2nOcAhblZurxj1WdTI3mMElvryRvdiOUo/8LGy7QT3DI2pY
+	 3acICVV3WI+mOehykWVx/YUerQUZN8emIGYD9+WgdUupC8gGCqVK2tJGtKP3lGBwBi9vd
+	 dAH2wF1FUq/NiPe1NptTk4TK1BOehjK49nB2fLdKW2IYxWtw1cCPO2Y6pv06woR9ckg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795102737;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=7D3cGXmB1pSY1ZVD2fE+XwkbJUPare3wS6CynPOirvk=;
-	b=rw4CmY8lEyJpJx3wHWByoKt7k51HzUjlZkz6fYGn0MBdfEdpD950NtpvzcHOoaZBv9Bd
-	 53NALQ3fR5J5ZbZvQ69YA02G+Lugr4b50Ah6rlUCwXkdTWUNdOxX1So/148aVsLXK6KU8
-	 /qnGtaqjS3nt6Z+bPFZaPrP9AqnBbc9xe3NGzDTviU8ymjuINHgCveF8Dh0KLb4kZRg5C
-	 wHfq/eWEfB5u/v+dQAgX2fKTWA7XkrpMyQZPIR449ScP0z8h7XZabaRJdrjRMS6vSh2UO
-	 Y5GbETQe9s/tlaHC3liDP2FgC8EWv9miLYrCEBkJLmEhHZVN0KFN88QqpcN/1EZKQ1A==
+	bh=SblzndgWuxBESsMbvgL1Kl/cf6qJE1+ZpEWgIKNJvXI=;
+	b=htdVM0UiKqTU3lp9wDeg3xptvPjEwoEyu73qYHfiYQsjQRQJqXvAEs93aioAPv/ModZP
+	 Sz6Pyv0vXaQbPNkxQU5Zz9cV6RD74hSFiE9f3r8ar9bfQvvTiZF1Cr0WkPISt0dJJCZik
+	 D17mEa/ZzQkiJs3q7a/+gVHdKFjR2hv0sd+/M0m81Lnw8hgRjHN/kX8p2PMlf4y4HbMEc
+	 Sb6vL6RitAgR7F3ivKXzDNoxj4ZEO3hRmdkKY3c9P7uMATp7bavq5IFIEFdJJHsKqc6tw
+	 gZZNt2GSacUHBZdRUIZJcpicru9YepDTjdUPxUJZlaPdHzZhrkA/A+tD4bJv7YNH6ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DWLFRbS8;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=TCgQtHsx;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CE59E606A338;
-	Thu, 19 Nov 2026 15:38:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE59E606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 872BA606A32A;
+	Thu, 19 Nov 2026 15:38:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 872BA606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DWLFRbS8
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=TCgQtHsx
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 93F931C14;
-	Thu, 19 Nov 2026 07:38:51 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 21D4A1C01;
+	Thu, 19 Nov 2026 07:38:37 -0800 (PST)
 Received: from e140322.cambridge.arm.com (e140322.arm.com [10.2.201.43])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 07F703F882;
-	Thu, 19 Nov 2026 07:38:52 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8D92A3F882;
+	Thu, 19 Nov 2026 07:38:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795102734; bh=AdoWEufl1RBdZGd/5S1A8wS8TpcNvSmgfvjMObbtFkI=;
+	t=1795102720; bh=xCBC+IE/uhfiW5BLQw9T3NFTTbgxZ//j9x0ngvdunWE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DWLFRbS8tErmklJVUiI78Lp14VdUhdB9E8LGiGFX5mLJlDa03sZceKiRDZUKn7V+F
-	 DGGD1whInBeMTHPQq6hqRgM/8xkOJ9KcTVye/9Y4AIX4vSQ+gJxra1io0FvfDyUoSf
-	 ENqC7+byxJoPMSCZ238WGnboLnfFrMTn2CuIG2rs=
+	b=TCgQtHsxM4GGlZiJ1Vu9sZ+OZTonKwLq9cFAw7O3+HbE26vGQ5IUfL24LoRKKeG/z
+	 ERmUv/aWYVahjT5tJZELMZh7zFenlNKj/J0BPd6BK36WNSyX8MRiJI3ysfhXorF+Ch
+	 XiXMRF6MnRRchQA9dIBw/k+mMdFh1qhWJgMZI9RM=
 From: Charvi Mehta <charvi.mehta@arm.com>
 To: linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
@@ -55,9 +55,9 @@ Cc: Charvi Mehta <charvi.mehta@arm.com>,
 	Vincenzo Frascino <vincenzo.frascino@arm.com>,
 	Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
 	Shobhit Pandey <shobhit.pandey@arm.com>
-Subject: [RFC PATCH 15/28] media: mali-vpu: handle firmware RPC requests
-Date: Thu, 19 Nov 2026 15:37:45 +0000
-Message-ID: <20261119153758.1426673-16-charvi.mehta@arm.com>
+Subject: [RFC PATCH 07/28] media: mali-vpu: implement TRY_FMT and S_FMT ioctls
+Date: Thu, 19 Nov 2026 15:37:37 +0000
+Message-ID: <20261119153758.1426673-8-charvi.mehta@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261119153758.1426673-1-charvi.mehta@arm.com>
 References: <20261119153758.1426673-1-charvi.mehta@arm.com>
@@ -72,476 +72,358 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Handle firmware requests for debug output and memory allocation,
-resizing and release. Track allocations by firmware virtual address
-and release outstanding allocations during firmware teardown.
+Implement VIDIOC_TRY_FMT and VIDIOC_S_FMT for the decoder OUTPUT and
+CAPTURE queues.
 
-Flag resize and free requests so the caller can invalidate cached
-firmware MMU translations before resuming execution.
+Move format lookup and buffer layout calculation into shared helpers so
+session initialization and format negotiation use the same sizing rules.
 
 Signed-off-by: Charvi Mehta <charvi.mehta@arm.com>
 ---
- .../platform/arm/mali-vpu/mali-vpu-firmware.c | 277 ++++++++++++++++++
- .../platform/arm/mali-vpu/mali-vpu-firmware.h |  12 +
- .../arm/mali-vpu/mali-vpu-protocol-def-v3.h   |  53 ++++
- 3 files changed, 342 insertions(+)
+ drivers/media/platform/arm/mali-vpu/Makefile  |   3 +-
+ .../platform/arm/mali-vpu/mali-vpu-formats.c  |  81 +++++++++++
+ .../platform/arm/mali-vpu/mali-vpu-formats.h  |  10 ++
+ .../platform/arm/mali-vpu/mali-vpu-session.c  |  24 +---
+ .../platform/arm/mali-vpu/mali-vpu-vidioc.c   | 132 +++++++++++++++---
+ 5 files changed, 209 insertions(+), 41 deletions(-)
+ create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-formats.c
 
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.c
-index 91a989c098cbc..c11d5c6c0ec5f 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.c
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.c
-@@ -7,6 +7,7 @@
- #include <linux/dma-mapping.h>
- #include <linux/err.h>
- #include <linux/errno.h>
-+#include <linux/sizes.h>
- #include <linux/string.h>
+diff --git a/drivers/media/platform/arm/mali-vpu/Makefile b/drivers/media/platform/arm/mali-vpu/Makefile
+index 94ddde02fc528..1dc62621d9dc0 100644
+--- a/drivers/media/platform/arm/mali-vpu/Makefile
++++ b/drivers/media/platform/arm/mali-vpu/Makefile
+@@ -6,6 +6,7 @@ mali-vpu-objs := mali-vpu-probe.o \
+ 		mali-vpu-session.o \
+ 		mali-vpu-dec.o \
+ 		mali-vpu-buffer.o \
+-		mali-vpu-vb2.o
++		mali-vpu-vb2.o \
++		mali-vpu-formats.o
  
- #include "mali-vpu-firmware.h"
-@@ -15,6 +16,7 @@
- #include "mali-vpu-protocol-def-v3.h"
- 
- #define MALI_VPU_FW_MAX_CORES 8
-+#define MALI_VPU_RPC_VA_GRANULE SZ_16M
- 
- static int mali_vpu_fw_get_region(enum mali_vpu_fw_region region,
- 				  mali_vpu_mmu_va *begin, mali_vpu_mmu_va *end)
-@@ -80,6 +82,14 @@ static int mali_vpu_fw_get_region(enum mali_vpu_fw_region region,
- 		*begin = MVE_MEM_REGION_FW_INSTANCE7_ADDR_BEGIN;
- 		*end = MVE_MEM_REGION_FW_INSTANCE7_ADDR_END;
- 		break;
-+	case MALI_VPU_FW_REGION_PROTECTED:
-+		*begin = MVE_MEM_REGION_PROTECTED_ADDR_BEGIN;
-+		*end = MVE_MEM_REGION_PROTECTED_ADDR_END;
-+		break;
-+	case MALI_VPU_FW_REGION_FRAMEBUF:
-+		*begin = MVE_MEM_REGION_FRAMEBUF_ADDR_BEGIN;
-+		*end = MVE_MEM_REGION_FRAMEBUF_ADDR_END;
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -352,6 +362,7 @@ int mali_vpu_fw_construct(struct mali_vpu_fw *fw, const struct mali_vpu_fw_bin *
- 	fw->dev = dev;
- 	fw->mmu = mmu;
- 	fw->ncores = ncores;
-+	hash_init(fw->rpc_mem);
- 
- 	/* Initialise firmware core and protocol regions */
- 	ret = mali_vpu_fw_map_core_regions(fw, fw_bin);
-@@ -375,11 +386,21 @@ int mali_vpu_fw_construct(struct mali_vpu_fw *fw, const struct mali_vpu_fw_bin *
- 
- void mali_vpu_fw_cleanup(struct mali_vpu_fw *fw)
- {
-+	struct mali_vpu_mmu_pages *pages;
-+	struct hlist_node *tmp;
-+	unsigned int bkt;
+ obj-$(CONFIG_VIDEO_MALI_VPU) += mali-vpu.o
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.c
+new file mode 100644
+index 0000000000000..d268435432371
+--- /dev/null
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.c
+@@ -0,0 +1,81 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2026 ARM Limited.
++ */
 +
- 	if (!fw)
- 		return;
- 
- 	mali_vpu_fw_unmap_protocol(fw);
- 	mali_vpu_fw_unmap_core_regions(fw);
++#include <linux/errno.h>
++#include <linux/minmax.h>
++#include <linux/mm.h>
++#include <linux/overflow.h>
++#include <linux/string.h>
++#include <media/v4l2-common.h>
 +
-+	hash_for_each_safe(fw->rpc_mem, bkt, tmp, pages, node) {
-+		hash_del(&pages->node);
-+		mali_vpu_mmu_free_pages(pages);
++#include "mali-vpu-formats.h"
++#include "mali-vpu-session.h"
++
++const struct mali_vpu_format_desc *
++mali_vpu_find_format(struct mali_vpu_session *sess, u32 pixfmt,
++		     enum v4l2_buf_type type)
++{
++	const struct mali_vpu_format_list *fmt_list;
++	u32 i;
++
++	switch (type) {
++	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
++		fmt_list = &sess->port_src.supported_fmts;
++		break;
++	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
++		fmt_list = &sess->port_dst.supported_fmts;
++		break;
++	default:
++		return NULL;
 +	}
 +
- 	memset(fw, 0, sizeof(*fw));
- }
- 
-@@ -908,3 +929,259 @@ int mali_vpu_fw_parse_msg(struct mali_vpu_fw *fw, struct mali_vpu_fw_msg *msg)
- 
- 	return ret;
- }
-+
-+static void mali_vpu_fw_dbg_rpc(struct mali_vpu_fw *fw, const char *direction,
-+				const struct mve_rpc_communication_area *rpc)
-+{
-+	dev_dbg(fw->dev, "rpc %s: state=%u call_id=%u size=%u\n",
-+		direction, rpc->state, rpc->call_id, rpc->size);
-+}
-+
-+static struct mali_vpu_mmu_pages *mali_vpu_find_pages(struct mali_vpu_fw *fw,
-+						      mali_vpu_mmu_va va)
-+{
-+	struct mali_vpu_mmu_pages *pages;
-+
-+	hash_for_each_possible(fw->rpc_mem, pages, node, va) {
-+		if (pages->va == va)
-+			return pages;
++	for (i = 0; i < fmt_list->num_fmts; i++) {
++		if (fmt_list->fmts[i].fourcc == pixfmt)
++			return &fmt_list->fmts[i];
 +	}
 +
 +	return NULL;
 +}
 +
-+static void mali_vpu_rpc_mem_resize(struct mali_vpu_fw *fw,
-+				    struct mve_rpc_communication_area *rpc_area)
++int mali_vpu_fill_pixmp_fmt(const struct mali_vpu_format_desc *fmt,
++			    u32 width, u32 height,
++			    struct v4l2_pix_format_mplane *pix_mp)
 +{
-+	union mve_rpc_params *p = &rpc_area->params;
-+	struct mali_vpu_mmu_pages *pages;
-+	mali_vpu_mmu_va va = 0;
++	u32 sizeimage;
 +	int ret;
 +
-+	pages = mali_vpu_find_pages(fw, p->mem_resize.ve_pointer);
-+	if (pages) {
-+		size_t npages;
++	memset(pix_mp->reserved, 0, sizeof(pix_mp->reserved));
++	memset(pix_mp->plane_fmt, 0, sizeof(pix_mp->plane_fmt));
++	pix_mp->flags = 0;
 +
-+		/* Resize the allocated pages. */
-+		npages = DIV_ROUND_UP(p->mem_resize.new_size, MALI_VPU_PAGE_SIZE);
-+		ret = mali_vpu_mmu_resize_pages(pages, npages);
-+		if (ret) {
-+			dev_warn(fw->dev,
-+				 "failed to resize RPC mapped pages. ret=%d\n",
-+				 ret);
-+			goto err;
-+		}
++	if (fmt->flags & V4L2_FMT_FLAG_COMPRESSED) {
++		pix_mp->width = width;
++		pix_mp->height = height;
++		pix_mp->pixelformat = fmt->fourcc;
++		pix_mp->num_planes = 1;
++		pix_mp->plane_fmt[0].bytesperline = 0;
 +
-+		va = pages->va;
++		/*
++		 * Use one byte per pixel as the default compressed sizeimage,
++		 * with a minimum of one page, aligned to a page boundary.
++		 */
++		if (check_mul_overflow(width, height, &sizeimage))
++			return -EOVERFLOW;
++
++		sizeimage = max_t(u32, PAGE_SIZE, sizeimage);
++
++		if (sizeimage > U32_MAX - (PAGE_SIZE - 1))
++			return -EOVERFLOW;
++
++		pix_mp->plane_fmt[0].sizeimage = PAGE_ALIGN(sizeimage);
++
 +	} else {
-+		dev_warn(fw->dev, "could not find pages for RPC resize. va=0x%x\n",
-+			 p->mem_resize.ve_pointer);
++		ret = v4l2_fill_pixfmt_mp(pix_mp, fmt->fourcc, width, height);
++		if (ret)
++			return ret;
 +	}
 +
-+	dev_dbg(fw->dev, "RPC resize memory. va=0x%x, new_size=%u\n",
-+		p->mem_resize.ve_pointer, p->mem_resize.new_size);
-+
-+err:
-+	/*
-+	 * The memory RPC ABI returns the resulting firmware VA. Firmware treats
-+	 * a zero VA as allocation failure and reports MVE_ERROR_OUT_OF_MEMORY.
-+	 * The RPC itself was still handled successfully.
-+	 */
-+	rpc_area->size = sizeof(u32);
-+	p->data[0] = va;
++	return 0;
 +}
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.h
+index 13031809fdb4d..5703142b93b46 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.h
+@@ -7,6 +7,9 @@
+ #define __MALI_VPU_FORMATS_H__
+ 
+ #include <linux/types.h>
++#include <linux/videodev2.h>
 +
-+static void mali_vpu_rpc_mem_alloc(struct mali_vpu_fw *fw,
-+				   struct mve_rpc_communication_area *rpc_area)
-+{
-+	union mve_rpc_params *p = &rpc_area->params;
-+	enum mali_vpu_fw_region region;
-+	struct mali_vpu_mmu_pages *pages;
-+	size_t npages, max_pages;
-+	mali_vpu_mmu_va end, begin = 0;
-+	int ret;
++struct mali_vpu_session;
+ 
+ enum mali_vpu_codec_fmt {
+ 	MALI_VPU_FORMAT_CODEC_H264,
+@@ -24,4 +27,11 @@ struct mali_vpu_format_list {
+ 	u32 num_fmts;
+ };
+ 
++const struct mali_vpu_format_desc *mali_vpu_find_format(struct mali_vpu_session *sess,
++							u32 pixfmt,
++							enum v4l2_buf_type type);
++int mali_vpu_fill_pixmp_fmt(const struct mali_vpu_format_desc *fmt,
++			    u32 width, u32 height,
++			    struct v4l2_pix_format_mplane *pix_mp);
 +
-+	if (!p->mem_alloc.size ||
-+	    p->mem_alloc.size > p->mem_alloc.max_size) {
-+		dev_warn(fw->dev,
-+			 "invalid RPC allocation:size=%u max_size=%u alignment=%u\n",
-+			 p->mem_alloc.size, p->mem_alloc.max_size,
-+			 p->mem_alloc.log2_alignment);
-+		goto err;
-+	}
-+
-+	switch (p->mem_alloc.region) {
-+	case MVE_MEM_REGION_PROTECTED:
-+		region = MALI_VPU_FW_REGION_PROTECTED;
-+		break;
-+	case MVE_MEM_REGION_OUTBUF:
-+		region = MALI_VPU_FW_REGION_FRAMEBUF;
-+		break;
-+	default:
-+		dev_err(fw->dev,
-+			"unsupported RPC mem alloc region. region=%u\n",
-+			p->mem_alloc.region);
-+		goto err;
-+	}
-+
-+	ret = mali_vpu_fw_get_region(region, &begin, &end);
+ #endif /* __MALI_VPU_FORMATS_H__ */
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+index 95050296f9904..6867f51287f48 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+@@ -5,14 +5,12 @@
+ 
+ #include <linux/err.h>
+ #include <linux/errno.h>
+-#include <linux/minmax.h>
+-#include <linux/mm.h>
+ #include <linux/string.h>
+-#include <media/v4l2-common.h>
+ #include <media/v4l2-mem2mem.h>
+ 
+ #include "mali-vpu-session.h"
+ #include "mali-vpu-dec.h"
++#include "mali-vpu-formats.h"
+ #include "mali-vpu-variant.h"
+ #include "mali-vpu-vb2.h"
+ 
+@@ -32,23 +30,9 @@ static int mali_vpu_set_port_fmt(struct mali_vpu_port *port,
+ 	memset(&port->curr_fmt, 0, sizeof(port->curr_fmt));
+ 	port->curr_fmt.type = type;
+ 
+-	if (fmt_default->flags & V4L2_FMT_FLAG_COMPRESSED) {
+-		pix_mp->pixelformat = fmt_default->fourcc;
+-		pix_mp->num_planes = 1;
+-		pix_mp->width = width;
+-		pix_mp->height = height;
+-		pix_mp->plane_fmt[0].bytesperline = 0;
+-
+-		/*
+-		 * Use one byte per pixel as the default compressed sizeimage,
+-		 * with a minimum of one page, aligned to a page boundary.
+-		 */
+-		pix_mp->plane_fmt[0].sizeimage = PAGE_ALIGN(max_t(u32, PAGE_SIZE, width * height));
+-	} else {
+-		ret = v4l2_fill_pixfmt_mp(pix_mp, fmt_default->fourcc, width, height);
+-		if (ret)
+-			return ret;
+-	}
++	ret = mali_vpu_fill_pixmp_fmt(fmt_default, width, height, pix_mp);
 +	if (ret)
-+		goto err;
-+
-+	npages = DIV_ROUND_UP(p->mem_alloc.size, MALI_VPU_PAGE_SIZE);
-+	max_pages = DIV_ROUND_UP(p->mem_alloc.max_size, MALI_VPU_PAGE_SIZE);
-+
-+	pages = mali_vpu_mmu_alloc_pages(fw->dev, npages, max_pages);
-+	if (IS_ERR(pages)) {
-+		begin = 0;
-+		goto err;
-+	}
-+
-+	ret = -EINVAL;
-+	while (begin < end) {
-+		ret = mali_vpu_mmu_map_pages(fw->mmu, begin, pages,
-+					     MALI_VPU_ATTR_SHARED_RW,
-+					     MALI_VPU_ACCESS_READ_WRITE);
-+		if (!ret)
-+			break;
-+
-+		begin += MALI_VPU_RPC_VA_GRANULE;
-+	}
-+
-+	if (ret) {
-+		dev_err(fw->dev,
-+			"failed to find memory region for RPC alloc.\n");
-+		mali_vpu_mmu_free_pages(pages);
-+		begin = 0;
-+		goto err;
-+	}
-+
-+	hash_add(fw->rpc_mem, &pages->node, pages->va);
-+	begin = pages->va;
-+
-+	dev_dbg(fw->dev,
-+		"RPC alloc memory. size=%u, max_size=%u, region=%u, npages=%zu, begin=0x%x\n",
-+		p->mem_alloc.size, p->mem_alloc.max_size, p->mem_alloc.region, npages, begin);
-+
-+err:
-+	rpc_area->size = sizeof(u32);
-+	p->data[0] = begin;
-+}
-+
-+static void mali_vpu_rpc_mem_free(struct mali_vpu_fw *fw,
-+				  struct mve_rpc_communication_area *rpc_area)
-+{
-+	union mve_rpc_params *p = &rpc_area->params;
-+	struct mali_vpu_mmu_pages *pages;
-+
-+	pages = mali_vpu_find_pages(fw, p->mem_free.ve_pointer);
-+	if (pages) {
-+		hash_del(&pages->node);
-+		mali_vpu_mmu_free_pages(pages);
-+	} else {
-+		dev_warn(fw->dev,
-+			 "could not find pages for RPC free. va=0x%x\n",
-+			 p->mem_free.ve_pointer);
-+	}
-+
-+	dev_dbg(fw->dev, "RPC free memory. va=0x%x\n", p->mem_free.ve_pointer);
-+
-+	rpc_area->size = 0;
-+}
-+
-+int mali_vpu_fw_handle_rpc(struct mali_vpu_fw *fw, bool *flush_mmu)
-+{
-+	struct mve_rpc_communication_area *rpc_area = fw->rpc.cpu;
++		return ret;
+ 
+ 	pix_mp->field = V4L2_FIELD_NONE;
+ 
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+index b993255b8c817..dd142527a1a0c 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+@@ -7,6 +7,7 @@
+ #include <linux/module.h>
+ #include <linux/slab.h>
+ #include <linux/string.h>
++#include <media/v4l2-common.h>
+ #include <media/v4l2-dev.h>
+ #include <media/v4l2-fh.h>
+ #include <media/v4l2-ioctl.h>
+@@ -168,32 +169,119 @@ static int mali_vpu_g_fmt(struct file *filp, void *fh, struct v4l2_format *fmt)
+ 	return ret;
+ }
+ 
+-static const struct mali_vpu_format_desc *mali_vpu_find_format(struct mali_vpu_session *sess,
+-							       u32 pixfmt, u32 type)
++static int mali_vpu_try_format_common(struct mali_vpu_session *sess, struct v4l2_format *fmt)
+ {
+-	const struct mali_vpu_format_desc *fmt_list;
+-	u32 num_fmts;
+-	u32 i;
++	const struct mali_vpu_framesize_caps *fmsz = &sess->vpu_dev->variant->frmsz_caps;
++	struct v4l2_pix_format_mplane *pix_mp = &fmt->fmt.pix_mp;
++	const struct mali_vpu_format_desc *vpu_fmt;
++	const struct v4l2_format *port_fmt, *port_fmt_dec;
++	struct vb2_queue *src_q;
++	u32 w, h;
 +	int ret = 0;
+ 
+-	switch (type) {
+-	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
+-		fmt_list = sess->port_src.supported_fmts.fmts;
+-		num_fmts = sess->port_src.supported_fmts.num_fmts;
+-		break;
+-	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
+-		fmt_list = sess->port_dst.supported_fmts.fmts;
+-		num_fmts = sess->port_dst.supported_fmts.num_fmts;
+-		break;
+-	default:
+-		return NULL;
++	vpu_fmt = mali_vpu_find_format(sess, pix_mp->pixelformat, fmt->type);
++	if (!vpu_fmt) {
++		port_fmt = mali_vpu_get_port_fmt(sess, fmt->type);
++		if (!port_fmt)
++			return -EINVAL;
 +
-+	if (flush_mmu)
-+		*flush_mmu = false;
-+
-+	dma_sync_single_for_cpu(fw->dev, fw->rpc.dma, sizeof(*rpc_area),
-+				DMA_FROM_DEVICE);
-+
-+	if (READ_ONCE(rpc_area->state) == MVE_RPC_STATE_PARAM) {
-+		/*
-+		 * Firmware publishes param only after writing the RPC request.
-+		 */
-+		dma_rmb();
-+
-+		ret = 1;
-+
-+		mali_vpu_fw_dbg_rpc(fw, "fw->host", rpc_area);
-+
-+		switch (rpc_area->call_id) {
-+		case MVE_RPC_FUNCTION_DEBUG_PRINTF: {
-+			if (!rpc_area->size ||
-+			    rpc_area->size > sizeof(rpc_area->params.debug_print.string)) {
-+				ret = -EPROTO;
-+				rpc_area->size = 0;
-+				break;
-+			}
-+
-+			const char *s = rpc_area->params.debug_print.string;
-+			size_t len = strnlen(s, rpc_area->size);
-+
-+			/* Strip trailing characters */
-+			while (len && (s[len - 1] == '\n' || s[len - 1] == '\r'))
-+				len--;
-+
-+			dev_info(fw->dev,
-+				 "firmware DEBUG Print: %.*s\n", (int)len, s);
-+			break;
-+		}
-+		case MVE_RPC_FUNCTION_MEM_ALLOC: {
-+			if (rpc_area->size != sizeof(rpc_area->params.mem_alloc)) {
-+				ret = -EPROTO;
-+				break;
-+			}
-+
-+			mali_vpu_rpc_mem_alloc(fw, rpc_area);
-+			break;
-+		}
-+		case MVE_RPC_FUNCTION_MEM_RESIZE: {
-+			if (rpc_area->size != sizeof(rpc_area->params.mem_resize)) {
-+				ret = -EPROTO;
-+				break;
-+			}
-+
-+			mali_vpu_rpc_mem_resize(fw, rpc_area);
-+			if (flush_mmu)
-+				*flush_mmu = true;
-+			break;
-+		}
-+		case MVE_RPC_FUNCTION_MEM_FREE: {
-+			if (rpc_area->size != sizeof(rpc_area->params.mem_free)) {
-+				ret = -EPROTO;
-+				break;
-+			}
-+
-+			mali_vpu_rpc_mem_free(fw, rpc_area);
-+			if (flush_mmu)
-+				*flush_mmu = true;
-+			break;
-+		}
-+		default:
-+			dev_warn_ratelimited(fw->dev,
-+					     "unsupported RPC request. call_id=%u\n",
-+					     rpc_area->call_id);
-+			ret = -EOPNOTSUPP;
-+			break;
-+		}
-+
-+		/*
-+		 * Make sure the whole RPC message body has been written before
-+		 * the RPC message area is returned to the firmware.
-+		 */
-+		dma_wmb();
-+		WRITE_ONCE(rpc_area->state, MVE_RPC_STATE_RETURN);
-+
-+		dma_sync_single_for_device(fw->dev, fw->rpc.dma,
-+					   sizeof(*rpc_area), DMA_TO_DEVICE);
-+
-+		/* Log RPC response. */
-+		mali_vpu_fw_dbg_rpc(fw, "host->fw", rpc_area);
++		*pix_mp = port_fmt->fmt.pix_mp;
++		return 0;
 +	}
 +
++	/* Requested format found, validate other fields */
++	w = pix_mp->width ? pix_mp->width : fmsz->width_default;
++	h = pix_mp->height ? pix_mp->height : fmsz->height_default;
++
++	v4l2_apply_frmsize_constraints(&w, &h, &fmsz->stepwise);
++
++	/* Decode CAPTURE queue: lock geometry to input if streaming */
++	if (sess->role == MALI_VPU_DECODER && fmt->type == V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE) {
++		src_q = v4l2_m2m_get_src_vq(sess->m2m_ctx);
++		if (vb2_is_streaming(src_q)) {
++			port_fmt_dec = &sess->port_src.curr_fmt;
++			w = port_fmt_dec->fmt.pix_mp.width;
++			h = port_fmt_dec->fmt.pix_mp.height;
++		}
++	}
++
++	ret = mali_vpu_fill_pixmp_fmt(vpu_fmt, w, h, pix_mp);
++	if (ret)
++		return ret;
++
++	if (pix_mp->field == V4L2_FIELD_ANY)
++		pix_mp->field = V4L2_FIELD_NONE;
++
++	return 0;
++}
++
++static int mali_vpu_try_fmt(struct file *filp, void *fh, struct v4l2_format *fmt)
++{
++	struct mali_vpu_session *sess = mali_vpu_get_session(filp);
++	int ret;
++
++	mutex_lock(&sess->vq_lock);
++
++	ret = mali_vpu_try_format_common(sess, fmt);
++
++	mutex_unlock(&sess->vq_lock);
 +	return ret;
 +}
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.h
-index e5dd67ce3397a..c03a07d994873 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.h
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.h
-@@ -6,9 +6,11 @@
- #ifndef __MALI_VPU_FIRMWARE_H__
- #define __MALI_VPU_FIRMWARE_H__
- 
-+#include <linux/hashtable.h>
- #include <linux/media/arm/mali-vpu-config.h>
- #include <linux/types.h>
- 
-+#define MALI_VPU_FW_HTABLE_BITS 3
- #define MALI_VPU_FW_TEXT_BASE_ADDR 0x1000u
- 
- struct device;
-@@ -156,6 +158,8 @@ struct mali_vpu_fw_msg {
-  * @MALI_VPU_FW_REGION_CORE_5: Firmware instance region for core 5.
-  * @MALI_VPU_FW_REGION_CORE_6: Firmware instance region for core 6.
-  * @MALI_VPU_FW_REGION_CORE_7: Firmware instance region for core 7.
-+ * @MALI_VPU_FW_REGION_PROTECTED: Protected firmware memory region.
-+ * @MALI_VPU_FW_REGION_FRAMEBUF: Frame-buffer memory region.
-  */
- enum mali_vpu_fw_region {
- 	MALI_VPU_FW_REGION_MSG_HOST,
-@@ -175,6 +179,9 @@ enum mali_vpu_fw_region {
- 	MALI_VPU_FW_REGION_CORE_5,
- 	MALI_VPU_FW_REGION_CORE_6,
- 	MALI_VPU_FW_REGION_CORE_7,
 +
-+	MALI_VPU_FW_REGION_PROTECTED,
-+	MALI_VPU_FW_REGION_FRAMEBUF,
- };
++static int mali_vpu_s_fmt(struct file *filp, void *fh, struct v4l2_format *fmt)
++{
++	struct mali_vpu_session *sess = mali_vpu_get_session(filp);
++	struct vb2_queue *vq;
++	struct v4l2_pix_format_mplane *pixmp_src = &sess->port_src.curr_fmt.fmt.pix_mp;
++	struct v4l2_pix_format_mplane *pixmp_dst = &sess->port_dst.curr_fmt.fmt.pix_mp;
++	int ret = 0;
++
++	mutex_lock(&sess->vq_lock);
++
++	vq = v4l2_m2m_get_vq(sess->m2m_ctx, fmt->type);
++	if (vb2_is_busy(vq)) {
++		ret = -EBUSY;
++		goto mutex_unlock_return;
+ 	}
  
- /**
-@@ -207,6 +214,8 @@ struct mali_vpu_fw_proto_page {
-  * @shared_bss_pages: Shared BSS pages mapped into every core instance.
-  * @ncores: Number of firmware core-instance regions constructed.
-  * @pending_response_count: Number of requests awaiting a firmware response.
-+ * @rpc_mem: Keeps track of RPC allocated memory. Maps MVE virtual address to
-+ *		'struct mali_vpu_mmu_pages' object.
-  */
- struct mali_vpu_fw {
- 	struct device *dev;
-@@ -225,6 +234,8 @@ struct mali_vpu_fw {
- 	struct mali_vpu_mmu_pages *shared_bss_pages;
- 	u32 ncores;
- 	u32 pending_response_count;
+-	for (i = 0; i < num_fmts; i++) {
+-		if (fmt_list[i].fourcc == pixfmt)
+-			return &fmt_list[i];
++	ret = mali_vpu_try_format_common(sess, fmt);
++	if (ret)
++		goto mutex_unlock_return;
 +
-+	DECLARE_HASHTABLE(rpc_mem, MALI_VPU_FW_HTABLE_BITS);
- };
++	/* OUTPUT provides initial CAPTURE geometry */
++	if (V4L2_TYPE_IS_OUTPUT(fmt->type)) {
++		const struct mali_vpu_format_desc *cap_fmt;
++		struct v4l2_pix_format_mplane *cap;
++		struct v4l2_pix_format_mplane *fmt_mp = &fmt->fmt.pix_mp;
++
++		cap = &sess->port_dst.curr_fmt.fmt.pix_mp;
++		cap_fmt = mali_vpu_find_format(sess, cap->pixelformat,
++					       V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
++		if (!cap_fmt) {
++			ret = -EINVAL;
++			goto mutex_unlock_return;
++		}
++
++		ret = mali_vpu_fill_pixmp_fmt(cap_fmt, fmt_mp->width, fmt_mp->height, cap);
++		if (ret)
++			goto mutex_unlock_return;
+ 	}
  
- int mali_vpu_fw_construct(struct mali_vpu_fw *fw, const struct mali_vpu_fw_bin *fw_bin,
-@@ -235,5 +246,6 @@ int mali_vpu_fw_send_ping(struct mali_vpu_fw *fw);
- int mali_vpu_fw_send_state_change(struct mali_vpu_fw *fw, enum mali_vpu_fw_state state);
- int mali_vpu_fw_send_set_option(struct mali_vpu_fw *fw, struct mali_vpu_fw_set_option *option);
- int mali_vpu_fw_parse_msg(struct mali_vpu_fw *fw, struct mali_vpu_fw_msg *msg);
-+int mali_vpu_fw_handle_rpc(struct mali_vpu_fw *fw, bool *flush_mmu);
+-	return NULL;
++	if (V4L2_TYPE_IS_OUTPUT(fmt->type))
++		sess->port_src.curr_fmt = *fmt;
++	else
++		sess->port_dst.curr_fmt = *fmt;
++
++	/* Keep peer queue colorimetry aligned with input */
++	if (V4L2_TYPE_IS_OUTPUT(fmt->type)) {
++		pixmp_dst->colorspace	= pixmp_src->colorspace;
++		pixmp_dst->ycbcr_enc	= pixmp_src->ycbcr_enc;
++		pixmp_dst->quantization = pixmp_src->quantization;
++		pixmp_dst->xfer_func	= pixmp_src->xfer_func;
++	}
++mutex_unlock_return:
++	mutex_unlock(&sess->vq_lock);
++	return ret;
+ }
  
- #endif /* __MALI_VPU_FIRMWARE_H__ */
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3.h
-index c7c18bd4e1551..8a81ed1fd730a 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3.h
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3.h
-@@ -77,6 +77,16 @@
-  * 0x10079000 - 0x1007FFFF, see special defines further down.
-  */
- 
-+/* PROTECTED virtual memory region */
-+#define MVE_MEM_REGION_PROTECTED_ADDR_BEGIN	(0x20000000u)
-+#define MVE_MEM_REGION_PROTECTED_ADDR_END	(0x6FFFFFFFu + 1)
-+
-+/* FRAMEBUF virtual memory region */
-+#define MVE_MEM_REGION_FRAMEBUF_ADDR_BEGIN	(0x70000000u)
-+#define MVE_MEM_REGION_FRAMEBUF_ADDR_END	(0xEFFFFFFFu + 1)
-+
-+/* 0xF0000000 - 0xFFFFFFFF is used internally in MVE */
-+
- /*****************************************************************************
-  *
-  * Communication queues between HOST/DRIVER and MVE
-@@ -153,6 +163,49 @@ struct mve_comm_area_mve {
- 	u32 out_data[MVE_COMM_QUEUE_SIZE_IN_WORDS];
- };
- 
-+#define MVE_RPC_AREA_SIZE_IN_WORDS 256
-+#define MVE_RPC_DATA_SIZE_IN_WORDS (MVE_RPC_AREA_SIZE_IN_WORDS - 3)
-+union mve_rpc_params {
-+	u32 data[MVE_RPC_DATA_SIZE_IN_WORDS];
-+	struct {
-+		char string[MVE_RPC_DATA_SIZE_IN_WORDS * 4];
-+	} debug_print;
-+	struct {
-+		u32 size;
-+		u32 max_size;
-+		u8 region; /* Memory region selection */
-+			#define MVE_MEM_REGION_PROTECTED (0)
-+			#define MVE_MEM_REGION_OUTBUF    (1)
-+			#define MVE_MEM_REGION_FRAMEBUF  (MVE_MEM_REGION_OUTBUF)
-+
-+		/* The newly allocated memory must be placed
-+		 * on (at least) a 2^(log2_alignment) boundary
-+		 */
-+		u8 log2_alignment;
-+	} mem_alloc;
-+	struct {
-+		u32 ve_pointer;
-+		u32 new_size;
-+	} mem_resize;
-+	struct {
-+		u32 ve_pointer;
-+	} mem_free;
-+};
-+
-+struct mve_rpc_communication_area {
-+	u32 state;
-+		#define MVE_RPC_STATE_FREE   (0)
-+		#define MVE_RPC_STATE_PARAM  (1)
-+		#define MVE_RPC_STATE_RETURN (2)
-+	u32 call_id;
-+		#define MVE_RPC_FUNCTION_DEBUG_PRINTF (1)
-+		#define MVE_RPC_FUNCTION_MEM_ALLOC    (2)
-+		#define MVE_RPC_FUNCTION_MEM_RESIZE   (3)
-+		#define MVE_RPC_FUNCTION_MEM_FREE     (4)
-+	u32 size;
-+	union mve_rpc_params params;
-+};
-+
- /*********************************************************************
-  *
-  *   Message codes
+ static int mali_vpu_validate_format(struct mali_vpu_session *sess, u32 pixfmt)
+@@ -236,6 +324,10 @@ const struct v4l2_ioctl_ops mali_vpu_ioctl_ops_dec = {
+ 	.vidioc_enum_fmt_vid_cap	= mali_vpu_enum_fmt,
+ 	.vidioc_g_fmt_vid_out_mplane	= mali_vpu_g_fmt,
+ 	.vidioc_g_fmt_vid_cap_mplane	= mali_vpu_g_fmt,
++	.vidioc_s_fmt_vid_out_mplane	= mali_vpu_s_fmt,
++	.vidioc_s_fmt_vid_cap_mplane	= mali_vpu_s_fmt,
++	.vidioc_try_fmt_vid_out_mplane	= mali_vpu_try_fmt,
++	.vidioc_try_fmt_vid_cap_mplane	= mali_vpu_try_fmt,
+ 	.vidioc_reqbufs			= v4l2_m2m_ioctl_reqbufs,
+ 	.vidioc_querybuf		= v4l2_m2m_ioctl_querybuf,
+ 	.vidioc_create_bufs		= v4l2_m2m_ioctl_create_bufs,
 -- 
 2.43.0
 
