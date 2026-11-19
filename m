@@ -1,99 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.4
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795120072;
-	b=bk8KV3UVRqWolbgNNEB5MUFnuASXaEVwKH5IvISJaKX6JsOPU6VPOQdOapm3fnG2ZMwU
-	 1vqXWU3bTW9MvobUfolepxBlF2vkGDLmjL88A+GFIpDyZZqkxtCRW+YU2vi1kuW/ybRRO
-	 /ckrbBDAfjDo7Dgm3LmOiiP9dhbdawxfhi2oeO21/+SHYhX7uqo3VoxoE22raJ02nHSis
-	 0nsZGKhGf88dctbGfgJibIrJdBzMZdhsx7ij53MTWe64Ltb0oSxRVu9zQbEON7XvV2JMG
-	 MKb0fA3W2dnf3kj1PG3YDOuXM/AnUe1s+0/FAP9p5BmQOIOpa62kq6qnpDnYlZaYDJQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795120072;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=B+/Begdyc+1jvfZ3TBu26Y+7QysP+nr8awurMjRGl78=;
-	b=TfaEH/+h++q0Rou2r/8wNudk6vOUrcwXWiRzDN41uhP1OWQMgZgSDc7q6q7/IUCmTvOd
-	 G/gpN3CCZC5uHU8CAZOHpURDFwbp1gjWfP4bSYWHVtZLuMQS2dvv2Om2bQCjKBH9+hT2W
-	 LT87zplL+AgDMaycJWu3clxHAVdJMl+9MDD0JOyONOFY1MUi2/w61B1JTLpuAGo667IJc
-	 aX0RuVoVFx/7tpZP3aSH6DyKM/yEfU6QaIbZ0nGVwSt8Dw2bgtNUR0HL4KY6FuZnuOcIo
-	 0+9k/QJhjE97fsCck1TZPoNClNIsO3+AC8WXwDFGWb0Tx3NAiPyTrWZHG3/s3lguE+g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="BDsLd0/4";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.4
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010004.outbound.protection.outlook.com [52.101.69.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795120257;
+	b=fwFl6PQ0IR5GV0gHlwe4gJ78UjNxxzSNMIkzHiwe7/gTHwgYTwVopEfliUlgVvUrVD8C
+	 t28yoxsCcvzqzb0pmYdrmXaKR6GWcXO5w2KB0YAYYzapqP1CMQRCQ/i6EnEoDnEdYrnoD
+	 k4tT+RfZh/1aYEfgg5hJuX4K5H6ca/Exe2Thc4yUC0URkDOWeJqypWkBbsumpka1DoT33
+	 TJLK6A5jv22emJTPb5z7kCe2kVrEF858RkbI858Kk2We/mSBJxEG0N54i/Cx12Yq3WSV8
+	 fO5jV8VivkA4/qXtR6KNezR/pDPLmafe/qY6zdSxS8fXMOx64WxTwQ46qWPm2JpcKgg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795120257;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:User-Agent:MIME-Version;
+	bh=i8ykn4E5LzByOueGyLMiBc4qBRmllQm4EsarmCaWf3M=;
+	b=FcQH6pN0y576euUGWOj8LK5VbETLhaFDGQI+swos7SPtJXgzipOdMvYszMGaAfZPeMH8
+	 3McKjr0v7q6MwRskBV/q6slhOl5CwJ0I6MAVbeOYkkov5QTs7mHk4tAb5ancSe3ehQ0v/
+	 5c9W4Qza0hbku4ZHryIz7LVhfLcuwyr9eMn+4ROkg2w9BMfB13KQeFEOnT3V68iNDNjdd
+	 EOs8vZhiUxURfWBwn/Gh1JLdF1mbFar1i7/v1q8C651V/FBU4YH+eHW5msptFdW+CdzCF
+	 eXPw4+60iB5M54pwVizFtcvuF74u7SIb28WO4A9R7Q8/Jn0czCnSIuWkhfqnpri3qhA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=K9Py7VFs;
+	arc=none smtp.remote-ip=209.85.128.182
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC56606A335;
-	Thu, 19 Nov 2026 20:27:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EC56606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F0AD606A330
+	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 20:30:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F0AD606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=BDsLd0/4
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jE3H7Ch8jgCz4FCR1V4RAd78TTbW2z92cj3/TmTtt80HcACKkAHWntBVOVowjb6wk/eCdnTaHIOOxoOYy+o6Qw8GWbuYq0gBSjI3fftzDMKRc5zjvK8M7vEPjQ7wY/AdD61M0Nvo1DpLm0nt/v5t7+TaU3u3jWbVV2BcSsJU8AI8PAIo4U0y7AylRZBxG9l+PN3+0vpasQSvnU8xoyxnrRqv5b5u6zX3wFUve9l9SoOf3Q1aAecDyRp60KvOCqdqZdm+FdQwNcBu63Yz5b4C+wOa0svPGYYwmXn9pTauUnbViJqb1bNvd4GaQhIUr1guf7UFl6DLqgx1yRMzvsVI+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B+/Begdyc+1jvfZ3TBu26Y+7QysP+nr8awurMjRGl78=;
- b=cRa0Vmyn6mTgdXYCA822H1t5FQAuKKqrvgJZ4kU2LuJcqXVPqdrNtQ0RywHU5TZrq8eJ2gaxNrN25+RR6E577ccVlHTEOR2fCOVBidF68AENRGJlMUzsROrHfAzeY1t6trAr2lxvCle+tk27kS7kYqqcgR6zXMrH+4ilzLF9Un3oOwrXcE7q4mmA4WEjNFGVKJj4BHYwHoOx1mY4A5TKXFx6tt++Y2CrBL9nVH5W8fJi9TMwL36A5AQHQ2DHK8xc26OzOgurh4OtmVe4iwG9+kwtCXgCJ/bJI2yYKY3ZWg7TsDcMY7s2dtL54cD3HkmF8WH1o7M34iQMj+3gE0/O1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B+/Begdyc+1jvfZ3TBu26Y+7QysP+nr8awurMjRGl78=;
- b=BDsLd0/4qkNZGEph9pOgAG/EWRaNR7KIX04QcdYDmEBz20UDfZ4bSzi8eXR7wRpSbdVRdAXW8NmyxtWw5vewj/kMJmBGGzyoQw7ZX8fuXn3IE4RDTlYsiVs4gh7Hl/LNmbxHPJB4kxPlrGloLBZlUfj5f9egHSInjSfgVf9wXS4I+gHKnhQ6pizh0UjGejaxqGLQjJG0sFMZ02/UOlZ4Z9az3BQ+p1HaQPhzgyfSmag+1NUUO3hc4FSl0ogWCfOjuMfxCPreisLiTR41NYlzMpmYYgiK+yzZGMzTzQUnjafPs8I1SrI7sz0iqsUNvPhnGsqfbikk1L3CC5OLA4hI2A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DU0PR04MB9371.eurprd04.prod.outlook.com (2603:10a6:10:35a::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
- 2026 20:27:48 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
- 20:27:48 +0000
-Date: Thu, 19 Nov 2026 14:27:38 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Nas Chung <nas.chung@chipsnmedia.com>
-Cc: mchehab@kernel.org, hverkuil@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
-	s.hauer@pengutronix.de, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	festevam@gmail.com, kernel@pengutronix.de,
-	nicolas.dufresne@collabora.com, ming.qian@oss.nxp.com,
-	marek.vasut@mailbox.org, jackson.lee@chipsnmedia.com,
-	lafley.kim@chipsnmedia.com
-Subject: Re: [PATCH v8 03/11] media: chips-media: wave6: Add Wave6 core driver
-Message-ID: <av9bugRyMCQRNEcQ@SMW015318>
-References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
- <1030b93108a94a28b572a97695f3b5bfc75e0ac9.1795075580.git.nas.chung@chipsnmedia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1030b93108a94a28b572a97695f3b5bfc75e0ac9.1795075580.git.nas.chung@chipsnmedia.com>
-X-ClientProxiedBy: PH0PR07CA0110.namprd07.prod.outlook.com
- (2603:10b6:510:4::25) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=K9Py7VFs
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b4efdc8c20so1243597b3.1
+        for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 12:30:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795120254; x=1795725054; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=i8ykn4E5LzByOueGyLMiBc4qBRmllQm4EsarmCaWf3M=;
+        b=K9Py7VFsp5gYQrQrUGuZZ0yNwck1b/51JNp68XzV/WqcWIeRa6BKAmnBXNY+rpOWwW
+         /e3up888WsrMvkvS3QG+8UDCLYAerJi3uJlkbOvO4HlBxriGX0y+LLS1xagKxU1mVNj3
+         j1wNyJDeE8VruUmCK+msFNeNDlA+XhcGriMGMh6qGNtpdDEuLHczH+bgCBpouFYBY0+G
+         /taobZfgDEWuXuraU82oYy4Bjhm+JnSDITDeEvnGeKDVefdFs1ViX2aaPH5vUXuK+Pt9
+         63CJ2aQVSelea5ZWjDpHK5f4SMK+YxJG5FJR2krAgK7ygfevDRvamQrjAdgN+VjIdSWb
+         YJnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795120254; x=1795725054;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i8ykn4E5LzByOueGyLMiBc4qBRmllQm4EsarmCaWf3M=;
+        b=NXfEUde3vD54gbLMud1f12Wai1n85AHyG4a54OnFw3phf7tJyDYP2UX41GjcgTzE1m
+         jkOMM60XvwrCJPPQDhwXn0zmfmLy4u39uqDDdZ4QcN1zZd9AxZp/3E8XY2Umg2kOYklG
+         S7XE6RVXBgTokBPlMqWl3X/AoK1Nz4k9R1cYhEs2TKDwlR0Dl5cGm6zwxUDKTmfPjod1
+         vuUfPepbKqzMnzNjvbAjDng+n3wDLg6kAXbQBjaO3Bx0zJnDGC9hskaahJ5MMEyfLQvB
+         lz0tmrdYY1tYhmg24dtquiPX4w64zyIEfdtK8RDQzWLF/tfwjA/NPNtKg0PG8fqUYUir
+         HtpQ==
+X-Forwarded-Encrypted: i=1; AL+hErGi22X+i58TX3tU09adtDKhzU9/wD1tcDMjwNDKqnZi0JCZ/yGq43jHTXO4QvHSFl0g8AFY8Z47UdWvhQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9FfHq6GtOGrtzUMoQnI8Un4ivkQmOAQXtPifv0+dzbKbkLb4C1
+	iyUlAwx2KcspBtU06qM6j8I/1r7CrMxCQfGwjYCW7Kvhg2OenNy+hZ0Ng3Fe9JxCEUY=
+X-Gm-Gg: AZFdTZfpyRqm4+ng8Sum1yi3u1NymhGaVIQTt7rYexLd0a/yMKD/YY2dH5oJvUN6tQU
+	c1CXG/VHaRjfsNH4Tr0DU8Hz0LJ4js0uunX28RY1JlqajOOcFXG1P1R4cRmA+/FJatOsjjjI+2X
+	90XqBa/hbQK0N40xLuZa1wPWfCvtJ29xPauGeTTGiYHgUFMMsrSbgEerCfDa9ETrUe/7YegAEpf
+	ID2mvzK0D9iTb7p762plqvDhKXek3C/sg6WpqZ+/+Kd16430wkmVHdm1R3ugRmzeMRmF6Cbk+qt
+	+pkXH85UsPkTgQFWbNnBQEx8EzUyuLFISeT/EoSlHQAv7RYsU30jvkaHdL5akFTnzNogXK6vAFc
+	nx6yflJPzUfKGX0XH9jsO4AfWn4DawbHGkNVHgS92iwJ2OhLq+JS4q2ObIX8/9uH3yn0sUH60JU
+	0fu1OIjHvs/5qt7sgElwEZYXO9TUO+k/PvSHZRy9BeLiFl3SSPv/bAo88TiYc8cmSpmFDhomhmj
+	+w2ykX6/2o2SvQAs6fsdFHGmmGkGpgga+mOfC1ht7d2oGzQNJoB+PcbfO0u6TjP4id9qmIliWa+
+	y61BR/a7PYXRM7So66vAr08DiSZ52a3FIb24MyDJvCPSrp1PKezH6p8=
+X-Received: by 2002:a05:690c:4491:b0:8b3:8d8:e985 with SMTP id 00721157ae682-8b5204faf4amr4886077b3.57.1795120253872;
+        Thu, 19 Nov 2026 12:30:53 -0800 (PST)
+Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b52028d89csm5068547b3.15.2026.11.19.12.30.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 12:30:53 -0800 (PST)
+Message-ID: <d1d53edeb358e1bdcd1c262e48074f7f1be276cf.camel@ndufresne.ca>
+Subject: Re: [RFC PATCH 04/28] media: mali-vpu: initialize decoder format
+ state
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Charvi Mehta <charvi.mehta@arm.com>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Vincenzo
+ Frascino <vincenzo.frascino@arm.com>,  Rathinavel Sankaralingam
+ <rath.sankaralingam@arm.com>, Shobhit Pandey <shobhit.pandey@arm.com>
+Date: Thu, 19 Nov 2026 15:30:51 -0500
+In-Reply-To: <20261119153758.1426673-5-charvi.mehta@arm.com>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
+	 <20261119153758.1426673-5-charvi.mehta@arm.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-x5a1wcjL9jf38bTSf9aZ"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,342 +119,544 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU0PR04MB9371:EE_
-X-MS-Office365-Filtering-Correlation-Id: e08d752f-0ce4-41d1-f79d-08df467b9386
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|7416014|1800799024|23010399003|19092799006|261026121527099003|10067099003|4143699003|11063799006|56012099006|261021121427099003|261021135927099003|261022105027099003|261021123027099003|261022075727099003|261026140227099003|261028144727099003|261009223027099003|261102123227099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	yuNWqO0MubvQ1o8hVFWVvuUhB4+Gnn15O/sM429/QkCw1jcZypVH2XWPPOxbArD25OhlXYDzCKSsviRdVX3vaMZivr5uoRWfYIk0h04RJ5/LS+XPN5qSWePEJMC37+J0ao8rN3p8OJCAn+/YgwiLtuz6gF/1yZpUjKlXIP+AAhPXCFTR9B0hKLZ8f3J++pxs41CihQPQANI0GEPb4GExt1VjwjWP8wWsS+0/jITY+2WDkRRJSmP1NBFz2bwYCeP7lWYspLumFHGC2PEgfdfjJso42yJ/UXUk506XSblAfb19nz+Jrb9lK4uNIeUFVnwfSXYYRiuB6wWvpj+frq7X+4Gs7k3uI1RdxmYR9E54J8EZQn+OF7AztrbMplCOl+VCbMd3xLvguIWrbL6RO2gLoi0k190Rgn0CMzN03q6xsYOKNSF6pac2OX9zdF8/SzoXvE2CnJ48VVe97Udgf1wymVwKodhffRtr4X9BVdsLeLEQddTI8j70lJAMV+Zho1IJma1NLJsZmeTvJ4uqY9+wlOQVNpkludvr6XepJ25UY/S+aC5xFORocdzpV2aGn6DglSRbSegv+P9kOpmmhwguInGQQoA5o9z40EYA/O4QF2gDfFCjZdF4mLbO3gLrgvuo53yklDiWnSzd4OHRuD5bOJHH4aNq+181cTyIgLcdB4E=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(1800799024)(23010399003)(19092799006)(261026121527099003)(10067099003)(4143699003)(11063799006)(56012099006)(261021121427099003)(261021135927099003)(261022105027099003)(261021123027099003)(261022075727099003)(261026140227099003)(261028144727099003)(261009223027099003)(261102123227099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?31Kbge2YoMzEq6JNk4WP2Vz5YRgbMUh+o2gh0W3n+LchdjW1M3rzFHqXOJCs?=
- =?us-ascii?Q?bB128O/Sjtd48Bj6rXGSz45/huMdBcZNJi0NSTC78HOV2MIDRYe7Tvjk9TZv?=
- =?us-ascii?Q?6aqpvhQWeGO1IaIUNFjCs3wmicwM1y3jhwOG1Xg4VaEXRnFBTVJrfElwsZvC?=
- =?us-ascii?Q?i9MNVi9Ea5f/p3oQCwBrtN/nsIa0/PHEQcugHqxXuavSN1Xh+VkPf0rQcDGw?=
- =?us-ascii?Q?Zw6EqJTA4V87XONWoLY2H6vT0oqzrg/F7WIF6Ci7wVZLMElPNIRwYexlu8dA?=
- =?us-ascii?Q?7vR/xyzpUJlo10leEJHdXU5X/CK74BRZlXEhlcF43hkdob5OFyHv4/Exhomk?=
- =?us-ascii?Q?NUxq7JPvErnLQvPRueJe/ejN2dGKG6CyazIgd+0rHiFGaEOmIj7S5GtgbOhC?=
- =?us-ascii?Q?oTa56IknY/QmHPIr+2zUVmv0mFL5e5S3fB+ZbjVwmyj9Du9MyZy3IGvZoFeC?=
- =?us-ascii?Q?fKf6pNQDOMGhugVH6cGLhGrta29Wh3SnJ9ltExBx0SKQCgcCclJJ5nlrgH/y?=
- =?us-ascii?Q?m7GKZ0lsQQtgGEe/7pR2wTXR+T6VmrKqC3s9tbkcuaoA8wp1+mm+xE7caozd?=
- =?us-ascii?Q?mA/y1aNA22RSx6afhFnIeKMD+kPpXyd+1Rlfet1b/uL/w9HlIk++1wBZdudI?=
- =?us-ascii?Q?OsCV+yZGkFh6pv7LZMfG6SXJ/+rJjtl3d/Q4+gJTNjWNspRJgcDpSWJbZ5WT?=
- =?us-ascii?Q?XLCA9Fsdvgw4rfA3EczhCQlqc/vVf6xUwjrfB4ntauhXONwgBKqnXshY5JOY?=
- =?us-ascii?Q?BYoE7DmmZsJnsbeWfx8kbVy/Io80nEKmD1atjogr/yRxrqEmoYtO+079MOup?=
- =?us-ascii?Q?8v4lsvo5PIib8OcPmXpxU8sWuNDvTN1RlcgOg9FQapgFzOIXYqGJo0Y7lhf+?=
- =?us-ascii?Q?l3y15rFWPiReDKyrV1Bv5d8LG8see31xTZoVl+hkmjSPAlXabjWn5Lq1f4CR?=
- =?us-ascii?Q?ftmKPmuwFj1EX+/2vqEN6sBwXYdYLe5ZbEQa41SvZHmiVNrDh+AX1vQTQNUA?=
- =?us-ascii?Q?JSRLGNnNcfHm3qe9n3GR/GPdaRzdnV7etyCuXEwAeYNA/E1OBkyk1/SOjYC8?=
- =?us-ascii?Q?L2s3h9p4TGcXHqW4d2AKvWlksvD5UHO+9+MDp6+0UbRuK9yP+oAoA815zg/r?=
- =?us-ascii?Q?EP9uGnkfyQbL6e8GL1gI58ih/pwv6tPiCDznlGFZ7QqDT4tr4zjdFuX/27Ae?=
- =?us-ascii?Q?Pbm6g6UOi+xxSIcFNj3aHD8L1iaT9P556rie5hER4zP8DlkxyoFxMNqJZRY6?=
- =?us-ascii?Q?3M8HLGVTDoE8VQzQPfja/zGJ10QhXFIDoB1O9/LRbvBLvp6cuS5gzBh5OnNo?=
- =?us-ascii?Q?RLoG/woXzgbmJjUaLecCGcKxfsSNGAYAf2d0jS7+d0y4A7X8e2JDgwaf2gcQ?=
- =?us-ascii?Q?eW36PDjasz4DzbqXPF89U8KdHLTDfrPKaJxTqJ0dO4YUZ5K3U+FQDr/PmWz/?=
- =?us-ascii?Q?hDCvNFAgO0rpTO0YQJCGV27XVfKl6r5I7OrllaCtGz6P9ZOs9NMgc0H4WgEj?=
- =?us-ascii?Q?tqoUyvTfjgX4UvTxvbwx0wDEb95C1siWKbzGF3aVy2HKe96vJxJOzhDS0A3r?=
- =?us-ascii?Q?hRKuURsl1oCH0W3pxR4cWTYQIQYSOICCdByTnz//3OlNDnN9Ypi8M/+/2YCH?=
- =?us-ascii?Q?zUJhClbz3EUNxmd5UdN/Un1XRtno+ABDpceof94XloKI5E6dbC4nrcrHHw1x?=
- =?us-ascii?Q?2cGH4sCtJ1DepCp/452oS0j1pLxRkQyf+sbsHfhhuC7dKYSR/f2QJTL3vhix?=
- =?us-ascii?Q?jzl8saRJic/IYnEsOde+etV2HZkjzKg2fzR0KF0CG9wcZ0HksLqG?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e08d752f-0ce4-41d1-f79d-08df467b9386
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 20:27:48.2135
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V0ap2ulFTwh3w/k2D0beQhSz7hz0shaWry8EukToIV2QOTwcJWlvboLUmdRKK8vK0ufeLhve9h9JYqBUmkSV4ELo81CChgKUXfSKweWTwjbl/A6n2vBATQ+zl7CTTvuc
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9371
 
-On Thu, Nov 19, 2026 at 05:59:57PM +0900, Nas Chung wrote:
-> Add the core driver for the Chips&Media Wave6 video codec IP.
->
-> The hardware contains one control register region and four interface
-> register regions for a shared video processing engine. The core driver
-> handles the interface register regions, each with its own MMIO range
-> and interrupt, while relying on the control driver for firmware loading
-> and shared resource management.
->
-> It configures the V4L2 mem2mem devices and communicates with the Wave6
-> hardware to perform video processing tasks.
->
-> Tested-by: Ming Qian <ming.qian@oss.nxp.com>
-> Tested-by: Marek Vasut <marek.vasut@mailbox.org>
-> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
+--=-x5a1wcjL9jf38bTSf9aZ
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le jeudi 19 novembre 2026 =C3=A0 15:37 +0000, Charvi Mehta a =C3=A9crit=C2=
+=A0:
+> Describe the H.264 OUTPUT format and YUV420M, NV12M and NV21M CAPTURE
+> formats supported by Mali-V76, together with its frame-size limits.
+>=20
+> Add source and destination format state to each decoder session and
+> initialize both ports from variant defaults. Add the MVE format identifie=
+rs
+> required by the format descriptors.
+>=20
+> Signed-off-by: Charvi Mehta <charvi.mehta@arm.com>
 > ---
->  .../media/platform/chips-media/wave6/Kconfig  |   2 +
->  .../media/platform/chips-media/wave6/Makefile |   5 +-
->  .../platform/chips-media/wave6/wave6-hw.c     | 181 ++++++++
->  .../platform/chips-media/wave6/wave6-hw.h     |  22 +
->  .../chips-media/wave6/wave6-regdefine.h       |  65 +++
->  .../platform/chips-media/wave6/wave6-vdi.h    |  20 +
->  .../chips-media/wave6/wave6-vpu-core.c        | 392 ++++++++++++++++++
->  .../chips-media/wave6/wave6-vpu-core.h        | 106 +++++
->  .../chips-media/wave6/wave6-vpu-v4l2.c        | 384 +++++++++++++++++
->  .../platform/chips-media/wave6/wave6-vpu.c    |  24 +-
->  .../platform/chips-media/wave6/wave6-vpu.h    |   2 +
->  .../platform/chips-media/wave6/wave6-vpuapi.h | 381 +++++++++++++++++
->  .../chips-media/wave6/wave6-vpuconfig.h       |   6 +
->  13 files changed, 1588 insertions(+), 2 deletions(-)
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-hw.c
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-hw.h
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-core.c
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-core.h
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-v4l2.c
->  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpuapi.h
->
-...
-> +
-> +u32 wave6_vpu_readl(struct vpu_core_device *core, u32 addr)
-> +{
-> +	u32 data;
-> +
-> +	data = wave6_vdi_readl(core->reg_base, addr);
-> +
-> +	return data;
-
-return wave6_vdi_readl(core->reg_base, addr);
-
-> +}
-> +
-> +void wave6_vpu_writel_relaxed(struct vpu_core_device *core, u32 addr, u32 data)
-> +{
-> +	wave6_vdi_writel_relaxed(core->reg_base, addr, data);
-> +}
-> +
-> +u32 wave6_vpu_readl_relaxed(struct vpu_core_device *core, u32 addr)
-> +{
-> +	u32 data;
-> +
-> +	data = wave6_vdi_readl_relaxed(core->reg_base, addr);
-
-return wave6_vdi_readl_relaxed(core->reg_base, addr);
-
-> +
-> +	return data;
-> +}
-> +
-...
-> +static u32 wave6_vpu_get_product_id(struct vpu_core_device *core)
-> +{
-> +	u32 val;
-> +
-> +	lockdep_assert_held(&core->hw_lock);
-> +
-> +	val = vpu_read_reg_relaxed(core, W6_VPU_RET_PRODUCT_CODE);
-> +
-> +	switch (val) {
-> +	case WAVE617_CODE:
-> +		return PRODUCT_ID_617;
-> +	case WAVE627_CODE:
-> +		return PRODUCT_ID_627;
-> +	case WAVE633_CODE:
-> +	case WAVE637_CODE:
-> +	case WAVE663_CODE:
-> +	case WAVE677_CODE:
-> +		return PRODUCT_ID_637;
-
-what is use for? why not direct use WAVE*_CODE?
-
-> +	default:
-> +		dev_err(core->dev, "Invalid product (%x)\n", val);
-> +		break;
-> +	}
-> +
-> +	return PRODUCT_ID_NONE;
-> +}
-> +
-...
-> +
-> +#endif /* __WAVE6_HW_H__ */
-> diff --git a/drivers/media/platform/chips-media/wave6/wave6-regdefine.h b/drivers/media/platform/chips-media/wave6/wave6-regdefine.h
-> index e879a9743cb3..aa9b972c82d1 100644
-> --- a/drivers/media/platform/chips-media/wave6/wave6-regdefine.h
-> +++ b/drivers/media/platform/chips-media/wave6/wave6-regdefine.h
-> @@ -14,14 +14,51 @@ enum wave6_command {
->  	W6_CMD_INIT_VPU		= 0x0001,
->  	W6_CMD_WAKEUP_VPU	= 0x0002,
->  	W6_CMD_SLEEP_VPU	= 0x0004,
-> +	W6_CMD_CREATE_INSTANCE	= 0x0008,
-> +	W6_CMD_FLUSH_INSTANCE	= 0x0010,
-> +	W6_CMD_DESTROY_INSTANCE	= 0x0020,
-> +	W6_CMD_INIT_SEQ		= 0x0040,
-> +	W6_CMD_SET_FB		= 0x0080,
-> +	W6_CMD_DEC_PIC		= 0x0100,
-> +	W6_CMD_DEC_SET_DISP	= 0x0400,
-
-BIT()?
-
->  	W6_CMD_INIT_WORK_BUF	= 0x1000,
-> +	W6_CMD_QUERY		= 0x4000,
-> +};
-> +
-...
->
->  #endif /* __WAVE6_REGDEFINE_H__ */
-> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vdi.h b/drivers/media/platform/chips-media/wave6/wave6-vdi.h
-> index 69ebf0ebcb13..67704fdbe27d 100644
-> --- a/drivers/media/platform/chips-media/wave6/wave6-vdi.h
-> +++ b/drivers/media/platform/chips-media/wave6/wave6-vdi.h
-> @@ -13,6 +13,26 @@
->  #include <linux/dma-mapping.h>
->  #include <linux/io.h>
->
-> +enum endian_mode {
-
-name is too general and easy happen name collision.
-
-> +	VDI_128BIT_BIG_ENDIAN = 0,
-> +	VDI_128BIT_BE_BYTE_SWAP,
-> +	VDI_128BIT_BE_WORD_SWAP,
-> +	VDI_128BIT_BE_WORD_BYTE_SWAP,
-> +	VDI_128BIT_BE_DWORD_SWAP,
-> +	VDI_128BIT_BE_DWORD_BYTE_SWAP,
-> +	VDI_128BIT_BE_DWORD_WORD_SWAP,
-> +	VDI_128BIT_BE_DWORD_WORD_BYTE_SWAP,
-> +	VDI_128BIT_LE_DWORD_WORD_BYTE_SWAP,
-> +	VDI_128BIT_LE_DWORD_WORD_SWAP,
-> +	VDI_128BIT_LE_DWORD_BYTE_SWAP,
-> +	VDI_128BIT_LE_DWORD_SWAP,
-> +	VDI_128BIT_LE_WORD_BYTE_SWAP,
-> +	VDI_128BIT_LE_WORD_SWAP,
-> +	VDI_128BIT_LE_BYTE_SWAP,
-> +	VDI_128BIT_LITTLE_ENDIAN = 15,
-> +	VDI_ENDIAN_MAX
-> +};
-> +
->  /**
->   * struct vpu_buf - VPU buffer for a coherent DMA buffer
->   * @size:	Buffer size
-> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpu-core.c b/drivers/media/platform/chips-media/wave6/wave6-vpu-core.c
+>  drivers/media/platform/arm/mali-vpu/Makefile  |  4 +-
+>  .../platform/arm/mali-vpu/mali-vpu-dec.c      | 16 ++++
+>  .../platform/arm/mali-vpu/mali-vpu-dec.h      | 13 +++
+>  .../platform/arm/mali-vpu/mali-vpu-formats.h  | 27 ++++++
+>  .../arm/mali-vpu/mali-vpu-protocol-def-v3.h   | 51 ++++++++++++
+>  .../platform/arm/mali-vpu/mali-vpu-session.c  | 83 +++++++++++++++++++
+>  .../platform/arm/mali-vpu/mali-vpu-session.h  | 18 ++++
+>  .../arm/mali-vpu/mali-vpu-variant-v76.c       | 63 ++++++++++++++
+>  .../platform/arm/mali-vpu/mali-vpu-variant.h  | 30 +++++++
+>  .../platform/arm/mali-vpu/mali-vpu-vidioc.c   |  7 ++
+>  10 files changed, 311 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-formats.=
+h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-protocol=
+-def-v3.h
+>  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-session.=
+c
+>=20
+> diff --git a/drivers/media/platform/arm/mali-vpu/Makefile b/drivers/media=
+/platform/arm/mali-vpu/Makefile
+> index e659101bd0eac..0a42c53ae5088 100644
+> --- a/drivers/media/platform/arm/mali-vpu/Makefile
+> +++ b/drivers/media/platform/arm/mali-vpu/Makefile
+> @@ -2,6 +2,8 @@
+> =20
+>  mali-vpu-objs :=3D mali-vpu-probe.o \
+>  =09=09mali-vpu-variant-v76.o \
+> -=09=09mali-vpu-vidioc.o
+> +=09=09mali-vpu-vidioc.o \
+> +=09=09mali-vpu-session.o \
+> +=09=09mali-vpu-dec.o
+> =20
+>  obj-$(CONFIG_VIDEO_MALI_VPU) +=3D mali-vpu.o
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c b/drivers=
+/media/platform/arm/mali-vpu/mali-vpu-dec.c
 > new file mode 100644
-> index 000000000000..67c6666579d9
+> index 0000000000000..cb6eeee2f04df
 > --- /dev/null
-> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu-core.c
-> @@ -0,0 +1,392 @@
-> +// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c
+> @@ -0,0 +1,16 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
 > +/*
-> + * Wave6 series multi-standard codec IP - wave6 core driver
-> + *
-> + * Copyright (C) 2026 CHIPS&MEDIA INC
+> + * Copyright (C) 2026 ARM Limited.
 > + */
 > +
-> +#include <linux/kernel.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/clk.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/iopoll.h>
-
-sort
-
+> +#include "mali-vpu-dec.h"
+> +#include "mali-vpu-session.h"
+> +#include "mali-vpu-variant.h"
 > +
-> +#include "wave6-vpu-core.h"
-> +#include "wave6-regdefine.h"
-> +#include "wave6-vpuconfig.h"
-> +#include "wave6-hw.h"
-> +
-> +static irqreturn_t wave6_vpu_core_irq(int irq, void *dev_id)
+> +void mali_vpu_session_init_dec(struct mali_vpu_session *sess)
 > +{
-> +	struct vpu_core_device *core = dev_id;
-> +	struct vpu_irq irq_info;
+> +=09const struct mali_vpu_format_caps *variant_fmts =3D &sess->vpu_dev->v=
+ariant->fmt_caps;
 > +
-> +	if (!vpu_read_reg(core, W6_VPU_VPU_INT_STS))
-> +		return IRQ_NONE;
-> +
-> +	irq_info.status = vpu_read_reg(core, W6_VPU_VINT_REASON);
-> +	irq_info.inst_idc = vpu_read_reg(core, W6_RET_INT_INSTANCE_INFO);
-> +
-> +	vpu_write_reg(core, W6_RET_INT_INSTANCE_INFO, INT_INSTANCE_INFO_CLEAR);
+> +=09sess->port_src.supported_fmts =3D variant_fmts->dec_src;
+> +=09sess->port_dst.supported_fmts =3D variant_fmts->dec_dst;
 
-suppose only already set irq, irq_info.inst_idc, like below code?
+Why? the variant are constant, you can just read the information from the
+variant. Make a getter or point to it.
 
-> +	vpu_write_reg(core, W6_VPU_VINT_REASON_CLEAR, irq_info.status);
-> +	vpu_write_reg(core, W6_VPU_VINT_CLEAR, VINT_CLEAR);
+p.s. is that "port" like in OMX IL?
+
+> +}
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h b/drivers=
+/media/platform/arm/mali-vpu/mali-vpu-dec.h
+> new file mode 100644
+> index 0000000000000..2514c897587c4
+> --- /dev/null
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h
+> @@ -0,0 +1,13 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (C) 2026 ARM Limited.
+> + */
 > +
-> +	if (irq_info.status & BIT(W6_INT_BIT_REQ_WORK_BUF)) {
-> +		wave6_vpu_require_work_buffer(core->vpu, core->reg_base);
+> +#ifndef __MALI_VPU_DEC_H__
+> +#define __MALI_VPU_DEC_H__
 > +
-> +		return IRQ_HANDLED;
-> +	}
+> +struct mali_vpu_session;
 > +
-> +	if (kfifo_in(&core->irq_fifo, &irq_info, sizeof(struct vpu_irq)) !=
-> +	    sizeof(struct vpu_irq))
-> +		dev_err(core->dev, "IRQ overflow status 0x%x idc 0x%x\n",
-> +			irq_info.status, irq_info.inst_idc);
+> +void mali_vpu_session_init_dec(struct mali_vpu_session *sess);
 > +
-> +	return IRQ_WAKE_THREAD;
+> +#endif /* __MALI_VPU_DEC_H__ */
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.h b/dri=
+vers/media/platform/arm/mali-vpu/mali-vpu-formats.h
+> new file mode 100644
+> index 0000000000000..13031809fdb4d
+> --- /dev/null
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.h
+> @@ -0,0 +1,27 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (C) 2026 ARM Limited.
+> + */
+> +
+> +#ifndef __MALI_VPU_FORMATS_H__
+> +#define __MALI_VPU_FORMATS_H__
+> +
+> +#include <linux/types.h>
+> +
+> +enum mali_vpu_codec_fmt {
+> +=09MALI_VPU_FORMAT_CODEC_H264,
+> +};
+> +
+> +struct mali_vpu_format_desc {
+> +=09u32 fourcc;
+> +=09u16 mve_frame_fmt;
+> +=09u16 codec_fmt;
+> +=09u32 flags;
+> +};
+> +
+> +struct mali_vpu_format_list {
+> +=09const struct mali_vpu_format_desc *fmts;
+> +=09u32 num_fmts;
+> +};
+> +
+> +#endif /* __MALI_VPU_FORMATS_H__ */
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3=
+.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3.h
+> new file mode 100644
+> index 0000000000000..aed51eec6ca9c
+> --- /dev/null
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3.h
+> @@ -0,0 +1,51 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (C) 2026 ARM Limited.
+> + */
+> +
+> +#ifndef __MALI_VPU_PROTOCOL_DEF_V3_H__
+> +#define __MALI_VPU_PROTOCOL_DEF_V3_H__
+> +
+> +/***********************************************************************=
+******
+> + *
+> + * Communication protocol between the host/driver and the MVE firmware,
+> + * the 'host interface'.
+> + *
+> + * MVE =3D=3D MALI Video Engine
+> + *
+> + * Protocol version 3.1
+> + *
+> + * Note: Message structs may be expanded in the future; the host should
+> + * use the 'size' of the message to determine how many bytes to
+> + * read from the message queue, rather than a sizeof(struct).
+> + *
+> + * All multibyte integer fields in the shared-memory interface are littl=
+e-endian.
+> + * The driver supports only little-endian kernels and therefore accesses=
+ these
+> + * fields in native byte order.
+> + *
+> + ***********************************************************************=
+*****/
+> +
+> + #define MVE_CHROMA_FORMAT_420 (0x1)
+> +
+> +/* format bitfield: */
+> +#define MVE_FORMAT_BF_C  (0) /* 3 bits, chroma subsampling   */
+> +#define MVE_FORMAT_BF_B  (4) /* 4 bits, max bitdepth minus 8 */
+> +#define MVE_FORMAT_BF_N  (8) /* 2 bits, number of planes     */
+> +#define MVE_FORMAT_BF_V (12) /* 2 bits, format variant       */
+> +/* formats: */
+> +#define MVE_FORMAT_YUV420_I420=09((MVE_CHROMA_FORMAT_420  << MVE_FORMAT_=
+BF_C) | \
+> +=09=09=09=09((8 - 8) << MVE_FORMAT_BF_B) | \
+> +=09=09=09=09(3 << MVE_FORMAT_BF_N) | \
+> +=09=09=09=09(0 << MVE_FORMAT_BF_V))
+> +
+> +#define MVE_FORMAT_YUV420_NV12=09((MVE_CHROMA_FORMAT_420  << MVE_FORMAT_=
+BF_C) | \
+> +=09=09=09=09((8 - 8) << MVE_FORMAT_BF_B) | \
+> +=09=09=09=09(2 << MVE_FORMAT_BF_N) | \
+> +=09=09=09=09(0 << MVE_FORMAT_BF_V))
+> +
+> +#define MVE_FORMAT_YUV420_NV21=09((MVE_CHROMA_FORMAT_420  << MVE_FORMAT_=
+BF_C) | \
+> +=09=09=09=09((8 - 8) << MVE_FORMAT_BF_B) | \
+> +=09=09=09=09(2 << MVE_FORMAT_BF_N) | \
+> +=09=09=09=09(1 << MVE_FORMAT_BF_V))
+> +
+> +#endif /* __MALI_VPU_PROTOCOL_DEF_V3_H__ */
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/dri=
+vers/media/platform/arm/mali-vpu/mali-vpu-session.c
+> new file mode 100644
+> index 0000000000000..9bcb3a73a582e
+> --- /dev/null
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+> @@ -0,0 +1,83 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2026 ARM Limited.
+> + */
+> +
+> +#include <linux/errno.h>
+> +#include <linux/minmax.h>
+> +#include <linux/mm.h>
+> +#include <linux/string.h>
+> +#include <media/v4l2-common.h>
+> +
+> +#include "mali-vpu-session.h"
+> +#include "mali-vpu-dec.h"
+> +#include "mali-vpu-variant.h"
+> +
+> +static int mali_vpu_set_port_fmt(struct mali_vpu_port *port,
+> +=09=09=09=09 enum v4l2_buf_type type,
+> +=09=09=09=09 u32 width, u32 height)
+> +{
+> +=09struct v4l2_pix_format_mplane *pix_mp =3D &port->curr_fmt.fmt.pix_mp;
+> +=09const struct mali_vpu_format_desc *fmt_default;
+> +=09int ret;
+> +
+> +=09if (!port->supported_fmts.fmts || !port->supported_fmts.num_fmts)
+> +=09=09return -EINVAL;
+> +
+> +=09fmt_default =3D &port->supported_fmts.fmts[0];
+> +
+> +=09memset(&port->curr_fmt, 0, sizeof(port->curr_fmt));
+> +=09port->curr_fmt.type =3D type;
+> +
+> +=09if (fmt_default->flags & V4L2_FMT_FLAG_COMPRESSED) {
+> +=09=09pix_mp->pixelformat =3D fmt_default->fourcc;
+> +=09=09pix_mp->num_planes =3D 1;
+> +=09=09pix_mp->width =3D width;
+> +=09=09pix_mp->height =3D height;
+> +=09=09pix_mp->plane_fmt[0].bytesperline =3D 0;
+> +
+> +=09=09/*
+> +=09=09 * Use one byte per pixel as the default compressed sizeimage,
+> +=09=09 * with a minimum of one page, aligned to a page boundary.
+> +=09=09 */
+> +=09=09pix_mp->plane_fmt[0].sizeimage =3D PAGE_ALIGN(max_t(u32, PAGE_SIZE=
+, width * height));
+> +=09} else {
+> +=09=09ret =3D v4l2_fill_pixfmt_mp(pix_mp, fmt_default->fourcc, width, he=
+ight);
+> +=09=09if (ret)
+> +=09=09=09return ret;
+
+I might have to come back to this code once we have TRY/SET_FMT in place,
+meanwhile it seems more like a default setting helper then something that w=
+ill
+be part of the ioctl interface.
+
+> +=09}
+> +
+> +=09pix_mp->field =3D V4L2_FIELD_NONE;
+> +
+> +=09return 0;
 > +}
 > +
-> +	core->irq = platform_get_irq(pdev, 0);
-
-...
-
-> +	if (core->irq < 0)
-> +		return core->irq;
+> +static int mali_vpu_set_port_defaults(struct mali_vpu_session *sess)
+> +{
+> +=09const struct mali_vpu_framesize_caps *fmsz =3D &sess->vpu_dev->varian=
+t->frmsz_caps;
+> +=09int ret;
 > +
-> +	ret = devm_request_threaded_irq(&pdev->dev, core->irq,
-> +					wave6_vpu_core_irq,
-> +					wave6_vpu_core_irq_thread,
-> +					0, "vpu_irq", core);
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "failed to request IRQ: %d\n", ret);
-> +		return ret;
-
-return dev_err_probe();
-
-> +	}
+> +=09ret =3D mali_vpu_set_port_fmt(&sess->port_src, V4L2_BUF_TYPE_VIDEO_OU=
+TPUT_MPLANE,
+> +=09=09=09=09    fmsz->width_default, fmsz->height_default);
+> +=09if (ret)
+> +=09=09return ret;
 > +
-> +	ret = v4l2_device_register(&pdev->dev, &core->v4l2_dev);
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "failed to register v4l2_dev: %d\n", ret);
-> +		return ret;
-> +	}
+> +=09return mali_vpu_set_port_fmt(&sess->port_dst, V4L2_BUF_TYPE_VIDEO_CAP=
+TURE_MPLANE,
+> +=09=09=09=09    fmsz->width_default, fmsz->height_default);
+> +}
 > +
-...
-> +void wave6_vpu_writel(struct vpu_core_device *core, u32 addr, u32 data);
-> +void wave6_vpu_writel_relaxed(struct vpu_core_device *core, u32 addr, u32 data);
-> +u32 wave6_vpu_readl(struct vpu_core_device *core, u32 addr);
-> +u32 wave6_vpu_readl_relaxed(struct vpu_core_device *core, u32 addr);
+> +int mali_vpu_session_init(struct mali_vpu_session *sess)
+> +{
+> +=09int ret;
 > +
-> +#endif /* __WAVE6_VPUAPI_H__ */
-> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h b/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h
-> index 1d4e016c2a58..fccb854a8a8c 100644
-> --- a/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h
-> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h
-> @@ -18,13 +18,19 @@
->  #define W6_VPU_MAX_NUM_CORE		4
->  #define MAX_NUM_INSTANCE		32
->
-> +#define W6_MAX_PIC_STRIDE		(4096 * 4)
-> +#define W6_PIC_STRIDE_ALIGNMENT		32
+> +=09if (sess->role !=3D MALI_VPU_DECODER)
+> +=09=09return -EINVAL;
 > +
->  #define W6_VPU_POLL_DELAY_US		10
->  #define W6_VPU_POLL_TIMEOUT		300000
-> +#define W6_BOOT_WAIT_TIMEOUT		10000
-> +#define W6_VPU_TIMEOUT			6000
+> +=09mali_vpu_session_init_dec(sess);
+> +
+> +=09ret =3D mali_vpu_set_port_defaults(sess);
+> +=09if (ret)
+> +=09=09return ret;
+> +
+> +=09return 0;
+> +}
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h b/dri=
+vers/media/platform/arm/mali-vpu/mali-vpu-session.h
+> index 7166c53236f1a..a2778ca496381 100644
+> --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
+> @@ -6,21 +6,39 @@
+>  #ifndef __MALI_VPU_SESSION_H__
+>  #define __MALI_VPU_SESSION_H__
+> =20
+> +#include <linux/videodev2.h>
+>  #include <media/v4l2-fh.h>
+> =20
+>  #include "mali-vpu-device.h"
+> +#include "mali-vpu-formats.h"
+> +
+> +/**
+> + * struct mali_vpu_port - format state of a src/dst queue in a session.
+> + * @curr_fmt: V4L2 format currently configured for the port
+> + * @supported_fmts: List of format descriptors supported by the queue.
+> + */
+> +struct mali_vpu_port {
+> +=09struct v4l2_format=09=09curr_fmt;
+> +=09struct mali_vpu_format_list=09supported_fmts;
+> +};
+> =20
+>  /**
+>   * struct mali_vpu_session - holds per session state and resources.
+>   * @vpu_dev: Reference to the parent device structure.
+>   * @role: Role of this session.
+> + * @port_src: Source (OUTPUT) port for this session.
+> + * @port_dst: Destination (CAPTURE) port for this session.
+>   * @fh: V4L2 file handle for this session.
+>   */
+>  struct mali_vpu_session {
+>  =09struct mali_vpu_dev=09=09*vpu_dev;
+>  =09enum mali_vpu_session_role=09role;
+> +=09struct mali_vpu_port=09=09port_src;
+> +=09struct mali_vpu_port=09=09port_dst;
 
-Need unit
+Ok, its time to comment, src_port and dst_port is a lot easier to read imho=
+.
 
-Frank
->
->  #define W6_MAX_REMAP_PAGE_SIZE		(1024 * 1024)
->  #define W6_MAX_CODE_BUF_SIZE		(4 * 1024 * 1024)
->  #define W6_CODE_BUF_SIZE		(1 * 1024 * 1024)
->  #define W6_EXTRA_CODE_BUF_SIZE		(256 * 1024)
-> +#define W6_TEMPBUF_SIZE			(3 * 1024 * 1024)
->  #define W637DEC_WORKBUF_SIZE_FOR_CQ	(3 * 512 * 1024)
->
->  static inline bool wave6_is_product_w_series(u32 code)
-> --
-> 2.41.0.windows.3
->
->
+> =20
+>  =09struct v4l2_fh=09=09fh;
+>  };
+> =20
+> +int mali_vpu_session_init(struct mali_vpu_session *sess);
+> +
+>  #endif /* __MALI_VPU_SESSION_H__ */
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c b=
+/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c
+> index 36509d6a1c5d5..7b04b51eeedc2 100644
+> --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c
+> @@ -4,18 +4,81 @@
+>   */
+> =20
+>  #include <linux/array_size.h>
+> +#include <linux/videodev2.h>
+> =20
+> +#include "mali-vpu-formats.h"
+> +#include "mali-vpu-protocol-def-v3.h"
+>  #include "mali-vpu-variant.h"
+> =20
+>  #define MALI_VPU_HW_PID_V76 0x56627
+> =20
+> +#define MALI_V76_MAX_FRAME_WIDTH 8192
+> +#define MALI_V76_MAX_FRAME_HEIGHT 8192
+> +#define MALI_V76_MIN_FRAME_WIDTH 2
+> +#define MALI_V76_MIN_FRAME_HEIGHT 2
+> +#define MALI_V76_DEFAULT_FRAME_WIDTH 640
+> +#define MALI_V76_DEFAULT_FRAME_HEIGHT 480
+> +
+>  static const char * const mali_v76_rst_names[] =3D {
+>  =09"warm",
+>  };
+> =20
+> +static const struct mali_vpu_format_desc mali_v76_dec_src_fmts[] =3D {
+> +=09{
+> +=09=09.fourcc=09=09=3D V4L2_PIX_FMT_H264,
+> +=09=09.mve_frame_fmt=09=3D 0,
+> +=09=09.codec_fmt=09=3D MALI_VPU_FORMAT_CODEC_H264,
+> +=09=09.flags=09=09=3D V4L2_FMT_FLAG_COMPRESSED | V4L2_FMT_FLAG_DYN_RESOL=
+UTION,
+> +=09},
+> +};
+> +
+> +static const struct mali_vpu_format_desc mali_v76_dec_dst_fmts[] =3D {
+> +=09{
+> +=09=09.fourcc=09=09=3D V4L2_PIX_FMT_YUV420M,
+> +=09=09.mve_frame_fmt=09=3D MVE_FORMAT_YUV420_I420,
+> +=09=09.codec_fmt=09=3D 0,
+> +=09=09.flags=09=09=3D 0,
+> +=09},
+> +=09{
+> +=09=09.fourcc=09=09=3D V4L2_PIX_FMT_NV12M,
+> +=09=09.mve_frame_fmt=09=3D MVE_FORMAT_YUV420_NV12,
+> +=09=09.codec_fmt=09=3D 0,
+> +=09=09.flags=09=09=3D 0,
+> +=09},
+> +=09{
+> +=09=09.fourcc=09=09=3D V4L2_PIX_FMT_NV21M,
+> +=09=09.mve_frame_fmt=09=3D MVE_FORMAT_YUV420_NV21,
+> +=09=09.codec_fmt=09=3D 0,
+> +=09=09.flags=09=09=3D 0,
+> +=09},
+> +};
+> +
+>  const struct mali_vpu_variant mali_vpu_v76_variant =3D {
+>  =09.expected_hw_pid =3D MALI_VPU_HW_PID_V76,
+> =20
+>  =09.rst_names =3D mali_v76_rst_names,
+>  =09.num_rsts =3D ARRAY_SIZE(mali_v76_rst_names),
+> +
+> +=09.fmt_caps =3D {
+> +=09=09.dec_src =3D {
+> +=09=09=09.fmts =3D mali_v76_dec_src_fmts,
+> +=09=09=09.num_fmts =3D ARRAY_SIZE(mali_v76_dec_src_fmts),
+> +=09=09},
+> +=09=09.dec_dst =3D {
+> +=09=09=09.fmts =3D mali_v76_dec_dst_fmts,
+> +=09=09=09.num_fmts =3D ARRAY_SIZE(mali_v76_dec_dst_fmts),
+> +=09=09},
+> +=09},
+> +=09.frmsz_caps =3D {
+> +=09=09.stepwise =3D {
+> +=09=09=09.min_width =3D MALI_V76_MIN_FRAME_WIDTH,
+> +=09=09=09.max_width =3D MALI_V76_MAX_FRAME_WIDTH,
+> +=09=09=09.step_width =3D 2,
+> +=09=09=09.min_height =3D MALI_V76_MIN_FRAME_HEIGHT,
+> +=09=09=09.max_height =3D MALI_V76_MAX_FRAME_HEIGHT,
+> +=09=09=09.step_height =3D 2,
+> +=09=09},
+
+Are you sure this will be the same for all codecs and all formats?
+
+> +=09=09.width_default =3D MALI_V76_DEFAULT_FRAME_WIDTH,
+> +=09=09.height_default =3D MALI_V76_DEFAULT_FRAME_HEIGHT,
+> +=09},
+>  };
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h b/dri=
+vers/media/platform/arm/mali-vpu/mali-vpu-variant.h
+> index dadfd686275db..a46c25a94f18b 100644
+> --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h
+> @@ -7,17 +7,47 @@
+>  #define __MALI_VPU_VARIANT_H__
+> =20
+>  #include <linux/types.h>
+> +#include <linux/videodev2.h>
+> +
+> +#include "mali-vpu-formats.h"
+> +
+> +/**
+> + * struct mali_vpu_framesize_caps - Variant-specific frame size capabili=
+ty.
+> + * @stepwise: Stepwise frame size limits and increments supported by the=
+ hardware.
+> + * @width_default: Default width used when userspace does not request on=
+e.
+> + * @height_default: Default height used when userspace does not request =
+one.
+> + */
+> +struct mali_vpu_framesize_caps {
+> +=09struct v4l2_frmsize_stepwise stepwise;
+> +=09u32 width_default;
+> +=09u32 height_default;
+> +};
+> +
+> +/**
+> + * struct mali_vpu_format_caps - Pixel/coded format capability tables.
+> + * @dec_src: List of formats supported on decoder OUTPUT queue (compress=
+ed bitstream in).
+> + * @dec_dst: List of formats supported on decoder CAPTURE queue (decoded=
+ raw frames).
+> + */
+> +struct mali_vpu_format_caps {
+> +=09const struct mali_vpu_format_list dec_src;
+> +=09const struct mali_vpu_format_list dec_dst;
+
+Strange naming, perhaps src_formats/dst_formats?
+
+> +};
+> =20
+>  /**
+>   * struct mali_vpu_variant - Variant-specific hardware capability descri=
+ptor.
+>   * @rst_names: Array of reset control names for this variant.
+>   * @num_rsts: Number of reset controls for this variant.
+>   * @expected_hw_pid: Expected hardware product ID read from the version =
+register.
+> + * @fmt_caps: Format capability tables for encode/decode paths.
+> + * @frmsz_caps: Frame dimension limits and defaults.
+>   */
+>  struct mali_vpu_variant {
+>  =09const char * const *rst_names;
+>  =09unsigned int num_rsts;
+>  =09u32 expected_hw_pid;
+> +
+> +=09struct mali_vpu_format_caps=09fmt_caps;
+> +=09struct mali_vpu_framesize_caps=09frmsz_caps;
+>  };
+> =20
+>  extern const struct mali_vpu_variant mali_vpu_v76_variant;
+> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c b/driv=
+ers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+> index 7a169b7b14bf3..13468c6baba76 100644
+> --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+> @@ -37,8 +37,15 @@ static int mali_vpu_open(struct file *filp)
+>  =09v4l2_fh_init(&sess->fh, vdev);
+>  =09v4l2_fh_add(&sess->fh, filp);
+> =20
+> +=09ret =3D mali_vpu_session_init(sess);
+> +=09if (ret)
+> +=09=09goto err_v4l2_fh_deinit;
+> +
+>  =09return 0;
+> =20
+> +err_v4l2_fh_deinit:
+> +=09v4l2_fh_del(&sess->fh, filp);
+> +=09v4l2_fh_exit(&sess->fh);
+>  err_free_sess:
+>  =09kfree(sess);
+>  =09return ret;
+
+--=-x5a1wcjL9jf38bTSf9aZ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9cewAKCRDZQZRRKWBy
+9MSpAP0eSHQ+3hy7zpRxGVr4rQcqja2hn0rjTXuVfuEeMp3buQEAruHvL0WkcAMK
+uFbRUCy3Umn8MWJbxN2+mssZsaaRDQM=
+=+GQR
+-----END PGP SIGNATURE-----
+
+--=-x5a1wcjL9jf38bTSf9aZ--
