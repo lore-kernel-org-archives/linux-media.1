@@ -1,75 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795081614;
-	b=CYPhmydwmX9fUKqHNkpwYKjU/0VMxtyW83RP62jfi4IZcptho34d2GtiHIuVs+9AAKgP
-	 5Xl4N2VkqUFEJlSgd1xGK621l63xbpPsfovT/r/BS5SVT49Ds025lqiWfbJYEMNE9maya
-	 sNKwBKuF8pSb3AQBLQ46rndhZlVY/jWmwsYUuSo+0F+zMismBX5cz9wdR4o6Sx90T2WVF
-	 wIUZ8NcL4QQxer+xQzkzGwt0smb6BQ/TVc3E72htoXxw+mLg+w4c6kxd5XdaIwRS6RJB0
-	 TKZjh56brWF3V9G/gSs+BXAD6KtAsYq8oTafJNpOBBztY7iB60el2lgWlB+WZvsF3MQ==
+	t=1795081888;
+	b=RWajoxFEiJUR5u9eQ8Pkl2p1/KY7eHVpZvEdKJYIoQ91RBXkbIKOeNSmXkDdHrYPN2Os
+	 1YLfYQC54lkxP+SXUARq9RFuwNv+FD+Ok3jFNswI3iEccDWh5ndRrK6KIokEpzc8RaGHL
+	 DAlhxg64ObhlEg5izscHlu5I04BLVs5wqu3cbQev0JYFccKBSsOiTjFxJ3t7mT/L9jXlf
+	 Y6/xrpxSxdQM+e4uPqP26Ogcin7de0YBUykLKApv9Kq2LMdNZi/sfE18QWvspQrQkErjD
+	 vx4sE+reBQoA2WLosOez0vpqM8mcMmH3O5/LKJhnqqgqz0huMXIk63ZrdY+JY+er9pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795081614;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:To:
-	 Cc:References:Subject:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=IyK0zWdJYWNP1b9cS0YOg9yhzbb31BwYb4X3D+Fxp4Q=;
-	b=W/mdAhSQe7mEnltGFTxBADbxgmCAis77wng+XEchgYFbiN0eBgzigvWotqWSpVug8x2w
-	 mxUlClGC/jkMVrsEjh4nB+wmzlGgr8uzpeGepF/yyBO8aPMA/b8xVtrWekVlyufq55nv1
-	 Fkz/66mFbcz5/03WLwQFQ8K82TZgB3KQgv5oEc1bxZUAk+qHlVaDWJB9+h3ShZZXx/8LW
-	 V+8h1pWivYBLcylISPRjlbnwjva8LLHyaugPenN0RNG71cTA5pY9Hdt7ucEa3/6UtwmW3
-	 YabsjO/6DqdX8UkZjPfSrUjIVBCng8Kn/puM/zwl0K+IR0Vtaacya35appHWoczFvJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795081888;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=aoPl+pQm9ZHcIGL4Om5Oc2NfD/t8KVMY3eNtZkgFANg=;
+	b=cAr/Za1Ns0VRMlxAlvMOOCMeCuFdqtG0MhtZAoZy1aYoNMpaM+Zpy1jOxC79O6JgT32d
+	 5jU7b/xIdULHr6WimtdQWr4KXn3Cu99739pS6Vy/WqyXaj4Kl+VAjhQC4LGbWtRt2YM4e
+	 QrbMkIaH2EBtZFnvvtaH3Gznji34U7FxUlZVLSplMN/IQ7XHAV53yeIdPYgd1gyTS6Mcq
+	 YCwNGghK/BtyD/9o41bc9sf8NXQH38o1t3QgKCm3ibMQ56V4dYjDqolnic3LcxStjEzux
+	 kl0jc/KSOKyIhbytbs2QMXsFq2cYY4xalIusXies/SuKO8z810o9CfXN9xZiF+jTqWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=web.de;
-	spf=pass smtp.mailfrom=web.de;
-	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=swsCxL8l;
-	arc=none smtp.remote-ip=212.227.15.14
-Received: from mout.web.de (mout.web.de [212.227.15.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=FWeDOLMX;
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE0A606A338
-	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 09:46:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CE0A606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7FA606A33C
+	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 09:51:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA7FA606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=swsCxL8l
-DKIM2-Signature:  i=1; m=1; t=1795081611;
- mf=PE1hcmt1cy5FbGZyaW5nQHdlYi5kZT4=;
- rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
- d=web.de;
- s=s29768273:rsa-sha256:QGGfSlBRURb3pjrtPgxXrrua9+zD
-   wIEgvjXWa299KEgm1OPoM6QgpnyizHxD32+tBGbhJhGas+9zZE71K7H1UxpRikUBiVzymo8KP0D
-   v8mp3S5B+77OXIlC4QBgnwhrC5zgY+nHbearxhpU4TYtxMbHcSnJmdpKiNxGQXtF9QcTl1FwG03
-   undhT7P1oTIQhXLk3p5oEnnjKaJXVHscm5fGfH9NJCEt7KeF8K5vFZk5uhya3exxPspIHjQyusI
-   yeOTzBKeEGO8IXq1uvbyVFV/bB52SNoCF+XsGb3TSJiwxVNJCdB9VrpDxXv6cMW/DLvfEj4YKdN
-   Ed0JN/ZrZ0t/5w==;
-Message-Instance:  m=1;
- h=sha256:
-   B105xMYeUfsO27wkRhEg9G+BYpX8HAJSEqi1QgMgl1c=:
-   IyK0zWdJYWNP1b9cS0YOg9yhzbb31BwYb4X3D+Fxp4Q=,
-  sha512:
-   aLP6HEOJsN/CBq0mO/s6gqZvZFsj7wHeiUVULVO6h/n9hWsPvOagduiVcng3dZv/cxUGgNwr1t34BZwbQQTFRQ==:
-   jJvxO+T9icTBg+CxTQVFjMRaBSFAamBRrHx7OMOHmaPF1j/fu+YT4scnCJ3XzHj3UaJJTGOr7V3f+MzHvLxJGQ==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1795081590; x=1795686390; i=markus.elfring@web.de;
-	bh=IyK0zWdJYWNP1b9cS0YOg9yhzbb31BwYb4X3D+Fxp4Q=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=swsCxL8lWxxqKtkPZ/7ZfA/mwHMZ5wdEyu8hGnwM0FoCOewunlSBHi0/sDUPbNKk
-	 VMa6IefZnKA7A8GwE/9lZn6avdvpRpDkHFXbyz3yWGfskPxTp5E400V9grMyH3Ar+
-	 wVm9M0VY1adrTLpUh6wSD1f+heCMnVHrQSDLRC1lHJ9mFXPyZF7Bzy8meiTTR291D
-	 VkYv6NYeIht0GHcuD7+K4UMkOL0Uf00u8pi8M3otmCrLus1kj1y8vQEAtr0kgRnNe
-	 v5C0MhgiUMlfyYp8xnP9X2Bt+fUpL7ETMz0xFMXOlT5KhScgnATqJggD7dp94bqmt
-	 ZvoSOGAKPfAnKPdJrg==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MC0LJ-1xIBwZ2nIT-00Bt0m; Thu, 19
- Nov 2026 10:46:30 +0100
-Message-ID: <e2f4a6b4-0615-4b3a-b64c-408a27fdeade@web.de>
-Date: Thu, 19 Nov 2026 10:46:28 +0100
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=FWeDOLMX
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4d21051042so339619166b.0
+        for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 01:51:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1795081886; x=1795686686; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aoPl+pQm9ZHcIGL4Om5Oc2NfD/t8KVMY3eNtZkgFANg=;
+        b=FWeDOLMX7eEjKZwV4FINw51BroOkvQE1Ee9sZMTI7oinGpI5vzMgLfaFEliLunRZ+c
+         2abObKZcLrZs1rxgD6kcSoL9855bUYx56B+1LZTacZFu7FtJwPYl/HUTMVqtLE27OWll
+         Xx90WS26Pw5KnX88ygisBJfnAWsBm8iXpSPPRQfOymrbM3MpoJvIGpuLSjo2LhTGxoXQ
+         cz7gzYjpu0HH7cP3ppKGKb7iu25zHGXZm5UcBFhQLt7VqBgAFN+Rg8Sa7xjSZCqm7UQo
+         t59bB+tXUhLXJgF3N/RmBLs6Y1Lm/RzP9dHvJBkZpUi6PXF/RgdF+Qf8SRcixWpgNXxo
+         ptiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795081886; x=1795686686;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aoPl+pQm9ZHcIGL4Om5Oc2NfD/t8KVMY3eNtZkgFANg=;
+        b=mn4U6a4mU2SSQLKzPcPcAPt99/FdB0xm7dF35hIiZlTdzHJkXqidzJbXEJLL9Ht3Iz
+         Sl/K6E0n5lSpXiAU+GbRV1PCw1pQAfgWmcQhVmwxwfrEmJm9vdk0pjLdyyDjU3iNBQXm
+         NGl3fcCZTcFjEyn+365iQJ+yO/y4fnnnRtpb0fbqBdICw2X8EXeweteFEWookaHogm1x
+         LCeO8hdSizLFjjRnXQah4pQKfZ0krYJ0MIYMGOVnYvAQeuqv6oH23X/bLawXV20qWgmv
+         XXhgkjYlN63WLIczA6quDsOpsYjL8ksPzSEs5FgCGXUgN35ERM17ei6qt2ZiewUjAS1h
+         v2wg==
+X-Gm-Message-State: APuU4Z/04jyyplfJif1hIWcEeffGpTAj2aY1A7tk8y5hxGTcBgE3l+qg
+	Qs4Jhan1WSj2wIWk7jdGxNOQMUxN9AFmjZYfAsBnKwPInloQyynSvTqjx21ygKRDs9k=
+X-Gm-Gg: AYBFou0XAcQ8bno4vZ0HAHq2jn99+KEpNx0aTMWEl2/yw9gM4KtR1FP4cz6Q/qEUKAS
+	LCovcxN5JeDFq28KP4XgSvvWCcWodpG0IoAdM5zWStoP5J+VBJzDjgXlFWrqzcVLy9ha3sQvcIK
+	ZeDFfLjMXJkKDzSTdqvj49VNOlIRp0M80iH+ZRKSez6uxvy7YgPyB8cfcrTsieKLP0q4HJUeGD+
+	efN0bYn6hOGk+cmI1O0Qc+hfc51ps4oLX66e2yLSDcw435CaWqD5qUUOgmJvJGui7Q7p7AiMhFD
+	HZ/k0yhsaJMQDbdwioSD928R/DivkgZX/IGDGMwtWE4Ac5F/tavN3Vqnpw+dhnECufpkOwU/x4k
+	XZR6nfmURQG0YsqjPEnO6eHtlftkvUGIIRN7ZZ89HhBAcANPXasydoEEQwmWbi1LoxPPqtiNRHM
+	TQOu0xZi5Xb9JqEJjpT1UQjai3vNusl+vVqJs1cDquZ+gQUtGSjnu7Vm8Z1E3IIwEu8Vl8ITjB1
+	a+xRqkwy131q+20HlV7rFrAnSrRKmhuP8PblCAzpQxojCRIu6L7AAjlEx9FN4MTk9uCFzkod+Dp
+	AOMDDP4UNuEC6Cb8x+2JTdKf5J9tT0D4UxkFu0J4c9OUodMmafABfovTBSeVNU+OcgXzD6ELIW3
+	TM+0OKJjaOXI=
+X-Received: by 2002:a17:906:8f8a:b0:c50:5996:5b89 with SMTP id a640c23a62f3a-c510e219138mr480420266b.23.1795081886208;
+        Thu, 19 Nov 2026 01:51:26 -0800 (PST)
+Received: from [172.16.220.224] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c51231bc213sm95057166b.12.2026.11.19.01.51.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 01:51:25 -0800 (PST)
+From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Date: Thu, 19 Nov 2026 10:51:24 +0100
+Subject: [PATCH v4 2/3] media: i2c: dw9719: Update DW9800K driver
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -79,143 +92,177 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Michal Simek <michal.simek@amd.com>, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, git@amd.com,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Michal Simek <monstr@monstr.eu>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- LKML <linux-kernel@vger.kernel.org>
-References: <abfe9f93f9f93d256b0d60d081e6111d7169c08f.1794994290.git.michal.simek@amd.com>
-Subject: Re: [PATCH] media: xilinx: vip: Make use of the
- devm_clk_get_enabled()
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <abfe9f93f9f93d256b0d60d081e6111d7169c08f.1794994290.git.michal.simek@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:fBWk+Lp0zWy+NPXwJPP65U9e7NULjJZ17NFP3lytPhktc4QqlhI
- hmLMFQR8re3zWxeJbb/BaeurvT4H9TMrjZ04TPBoRZD+2bKONOinnFFFn+otZdfBZ4VW0u6
- mRwS6fr9oYR0xy9/PpUuIIp5/yk4ux2tDSpgakiaTJG6Xk/MLhO50SMZ+64A4a2spcL1ey2
- +nNiGF6H6eCZtKW2IX4NQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:1KhtnqP6vVQ=;zGtR0JrYi7lzddk+qqmANxe7zhp
- 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
- Zbr7/XN3Cej8MRHzEceQgNG1jvOVRP4=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261119-b4-dw9800k_cleanup-v4-2-df26c431595e@fairphone.com>
+References: <20261119-b4-dw9800k_cleanup-v4-0-df26c431595e@fairphone.com>
+In-Reply-To: <20261119-b4-dw9800k_cleanup-v4-0-df26c431595e@fairphone.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ stable@vger.kernel.org, Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795081884; l=4881;
+ i=griffin.kroah@fairphone.com; s=20250804; h=from:subject:message-id;
+ bh=rR/uSR6FC+oVbJMW9ps010sQx6WkZ4oy9AD9qxw5jIE=;
+ b=DpULb/h5PTjtt0PSNy9pvRAVvuv7bvSa72vNW3KbU0KgiLkAHuEv4Rb0KyCk+pu/EvcwbJdA3
+ O/gw60nW0FnAalBove+6U/7ZUom1QfXUT9S/FbndkUbJ1m9rJ0XfkoY
+X-Developer-Key: i=griffin.kroah@fairphone.com; a=ed25519;
+ pk=drSBvqKFiR+xucmLWONHSq/wGrW+YvcVtBXFYnYzn8U=
 
-> There is missing return value check from clk_prepare_enable(). Fix it by
-> using devm_clk_get_enabled() macro.
+The previous DW9800K driver code was created without access to a
+datasheet for the part, now that we have one we can clean up some
+misunderstandings and add some features for further expandability.
 
-How do you think about to add any tags (like =E2=80=9CFixes=E2=80=9D and =
-=E2=80=9CCc=E2=80=9D) accordingly?
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/submitting-patches.rst?h=3Dv7.4-rc3#n145
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/stable-kernel-rules.rst?h=3Dv7.4-rc3#n34
+More specifically:
 
-Regards,
-Markus
+Previously we were blindly writing registers to their downstream values,
+Now we know what the correct default values of SAC and SACT, and write
+to the correct bits as specified from the datasheet.
+
+We found that the device does indeed have an ID, and add it to the
+switch statement when setting up the default device properties.
+
+The largest change would be the implementation of "Ringing," this is
+actually an internal switch bit used to differentiate whether the SAC
+(smart actuator control) modes are enabled. if the "ringing" bit is
+zero, then actuator modes DIRECT and LSC are available(based on the
+value written to the Mode register). If the bit is 1, SAC2-SAC5 are
+available.
+
+For the devices we tested this driver on, no new values are being
+written, but now the option for further use of the DW9800k is available
+to others if they wish to do so.
+
+Fixes: 083f7f0dce16 ("media: i2c: dw9719: Add DW9800K support")
+Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+---
+ drivers/media/i2c/dw9719.c | 68 +++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 58 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
+index 3b7ba88fd67c044ef9005a0aac6a5d26ab939a90..2879dc99088005cba2567b2a73627c91c270906b 100644
+--- a/drivers/media/i2c/dw9719.c
++++ b/drivers/media/i2c/dw9719.c
+@@ -68,9 +68,18 @@
+ #define DW9761_VCM_PRELOAD		CCI_REG8(8)
+ #define DW9761_DEFAULT_VCM_PRELOAD	0x73
+ 
+-#define DW9800K_DEFAULT_SAC		1
++#define DW9800K_ID			0xEB
++#define DW9800K_DEFAULT_SAC		3
+ #define DW9800K_MODE_SAC_SHIFT		6
+-#define DW9800K_DEFAULT_VCM_FREQ		0x10
++
++#define DW9800K_RESONANCE		CCI_REG8(7)
++
++#define DW9800K_DEFAULT_DIV		0x01
++#define DW9800K_DIV_SHIFT		6
++#define DW9800K_DIV_LOW_SHIFT		2
++
++#define DW9800K_DEFAULT_SACT		0x20
++
+ 
+ #define to_dw9719_device(x) container_of(x, struct dw9719_device, sd)
+ 
+@@ -90,6 +99,7 @@ struct dw9719_device {
+ 	u32 mode_low_bits;
+ 	u32 sac_mode;
+ 	u32 vcm_freq;
++	u32 sac_time;
+ 
+ 	struct dw9719_v4l2_ctrls {
+ 		struct v4l2_ctrl_handler handler;
+@@ -140,10 +150,6 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+ 			dw9719->sac_mode = DW9718S_DEFAULT_SAC;
+ 			dw9719->vcm_freq = DW9718S_DEFAULT_VCM_FREQ;
+ 			goto props;
+-		case DW9800K:
+-			dw9719->sac_mode = DW9800K_DEFAULT_SAC;
+-			dw9719->vcm_freq = DW9800K_DEFAULT_VCM_FREQ;
+-			goto props;
+ 		default:
+ 			break;
+ 		}
+@@ -165,6 +171,11 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+ 			dw9719->sac_mode = DW9761_DEFAULT_SAC;
+ 			dw9719->vcm_freq = DW9761_DEFAULT_VCM_FREQ;
+ 			break;
++		case DW9800K_ID:
++			dw9719->sac_mode = DW9800K_DEFAULT_SAC;
++			dw9719->vcm_freq = DW9800K_DEFAULT_DIV;
++			dw9719->sac_time = DW9800K_DEFAULT_SACT;
++			break;
+ 		default:
+ 			dev_err(dw9719->dev,
+ 				"Error unknown device id 0x%02llx\n", val);
+@@ -185,15 +196,52 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+ 		/* Optional indication of VCM prescale */
+ 		device_property_read_u32(dw9719->dev, "dongwoon,vcm-prescale",
+ 					 &dw9719->vcm_freq);
++
++		/* Optional indication of SAC timing */
++		device_property_read_u32(dw9719->dev, "dongwoon,timing-control",
++					 &dw9719->sac_time);
+ 	}
+ 
+ 	switch (dw9719->model) {
+-	case DW9800K:
+-		cci_write(dw9719->regmap, DW9719_CONTROL, DW9719_ENABLE_RINGING, &ret);
++	case DW9800K: {
++		int ring, sac;
++
++		/*
++		 * Enable ringing for SAC3-SAC5
++		 *
++		 * sac_mode	reg	Mode
++		 * ===========================
++		 *	0	0X	Direct
++		 *	1	1X	LSC
++		 *	2	00	SAC2
++		 *	3	01	SAC3
++		 *	4	10	SAC4
++		 *	5	11	SAC5
++		 */
++		switch (dw9719->sac_mode) {
++		case 0:
++			ring = 0;
++			sac = 0;
++			break;
++		case 1:
++			ring = 0;
++			sac = 2;
++			break;
++		default:
++			ring = DW9719_ENABLE_RINGING;
++			sac = dw9719->sac_mode - 2;
++			break;
++		}
++		cci_write(dw9719->regmap, DW9719_CONTROL, ring, &ret);
++		/* DIV is 3 bits split over the bottom bit in reg 6 and the top 2 bits in reg 7 */
+ 		cci_write(dw9719->regmap, DW9719_MODE,
+-			  dw9719->sac_mode << DW9800K_MODE_SAC_SHIFT, &ret);
+-		cci_write(dw9719->regmap, DW9719_VCM_FREQ, dw9719->vcm_freq, &ret);
++			  (sac << DW9800K_MODE_SAC_SHIFT) |
++			  (dw9719->vcm_freq >> DW9800K_DIV_LOW_SHIFT), &ret);
++		cci_write(dw9719->regmap, DW9800K_RESONANCE,
++			  (dw9719->vcm_freq << DW9800K_DIV_SHIFT) |
++			  dw9719->sac_time, &ret);
+ 		break;
++	}
+ 	case DW9718S:
+ 		/* Datasheet says [OCP/UVLO] should be disabled below 2.5V */
+ 		dw9719->sac_mode &= DW9718S_CONTROL_SAC_MASK;
+
+-- 
+2.43.0
+
