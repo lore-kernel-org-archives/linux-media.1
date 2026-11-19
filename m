@@ -1,114 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795118689;
-	b=oTLfdWOTrETvMOZ7hgL3rLz+fh2pjPKF13HQIrg+ke85sLBQy7Dd6eD9Vu4OlAkh+Agp
-	 HWF+6/CWPOfU0I1F6YKZ3d9+onBszcq04BWHdXap/+t9tSYsVbSPMsG17IJ5df154HdYJ
-	 SDZp5zIKJU6J9kPIaQ1D+ACU7rVo4Pa+TlfDlyvioUDNTNn4IWT8s6SwZH58VZgjH7f+E
-	 oE20wfym3T2XwvR7sFX11nzrl+mw7Sa2F12RUDlGCUuZ2PU7bJ3uD5fw3w3aUrH4wFPU0
-	 MTy+20IeLV6gWW0F4BaUSiThhxQ/V+qN7ZaV2ez26mAXvg4evHQKxTNh21pccIN2IKA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795118689;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:User-Agent:MIME-Version;
-	bh=Q14BaH4YWpZ1CMH/OeX/X6O3rC8BtXsm7PEVpfcrbpk=;
-	b=0arxOZR6K6L40MKwO+OLXJemhkp/m9nn60+uX0EU1Lj6BNjgO0BhLLThX5qHbKMPSMJx
-	 /cQlQBIzyACzO1n/pCPRLA+S+e6zB7q97BIfugIZCKuoeXG7QihlCtHCWIApOZl8GOYC8
-	 A/kZqIU5JXqx8YyoMFpGOw41EBp4pL+GcifV1pq+WX/4I+uZRbNMf9kCix7a5lXWce6Z/
-	 7gGUfeXGlsWSp/r6BBOfTjU9241K45mTiLgklmNhUe7D2FkatHGrztDzZIuSljpE6QYfR
-	 /db5tF1lJYauP6rAFBxlFLEFQ/vIg/2BBLl8fBKf4LecWers/1ID5tOx5vf7ssRzYuw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=TpGQ+4NK;
-	arc=none smtp.remote-ip=209.85.160.179
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795118890;
+	b=FqBDeKIGFfzLJ4SsAZtEDOLmhkYIzWa9sVlPsoyLrkBribE2dk3WMmeEMkAEJaQs1OrO
+	 uU+zetN2WkmPXNfT9I4ij8MhZ6iPTDnxtbM1UUkpcQ86I/pu8fkYTfEngRIXLw//srzNk
+	 ZoP4DXu5/o2yqbylwqCZHbKcrDUGUlZ7qVy3jEVhMvRkPHegjvCyHAUemYyB9Yq/KKdkU
+	 6VYYjzxuJHE2FuRtK8ZPLRILm9oW8s6IDXJd7g887wxHnsVtqUibIUbOFNwKJlt7MVB24
+	 Ww432Ra9FICqkFjYaA/pEzWuUFXkLnET51XYsco733grckYOJgGshAd0P3bta+qOkHA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795118890;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=OrNavfq8QGpF87p2/4FjPuH+1VV/cfwQYy2hDi0g8mQ=;
+	b=jSlD6ZMssTHcU7P/X0Zu67CTBbvt1gozxzc/SvE7Jgx+0F8OW3bDYou+4YNqJiyi/f42
+	 5C8AgYPyyFrmWcw5veUytyFd9HKgtluGDDesEf3zE5Lsjew/xYbG/Hk8drNp+UNyKGirH
+	 dHOAHwzyceZuktHsJO0iuUv/C+AVMjx37UqJR4OG/y9d5j4MartFhP69CpURzpI8QHwku
+	 Prf+feukY/57XWUn7KasLsbvYEBXYZeIKqTHeE5bcBunq60w959b2b9Wx03XeyZBMZlzw
+	 LR+LdcyhNY/lSRsaz/kRg8MJl41YaJSqLdIncXXB0cZlwVeO8xxDEn8rxp2L5683zVg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=HJ00JxjQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.28
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011028.outbound.protection.outlook.com [52.101.70.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D39D0606A32A
-	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 20:04:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D39D0606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CECD606A324;
+	Thu, 19 Nov 2026 20:08:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CECD606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=TpGQ+4NK
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-53669f7b518so1882171cf.2
-        for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 12:04:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795118687; x=1795723487; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Q14BaH4YWpZ1CMH/OeX/X6O3rC8BtXsm7PEVpfcrbpk=;
-        b=TpGQ+4NKLDXm7JKIrO1uAL0u3hIlrUP5ngM4xTeUvBr4FRyoOy8xZnncNh/6JihHxk
-         bPu3SCd4KoCQkaLReh6zjuYWH93dArxhO0JlOiIrEM5oQp4SGc1cjPudtYyIRuDI2kg6
-         TLkmY7RiMLqjwDNT8AZr8ZIS7phFjyFl0PQTQjdIPdpvAzw1/i81uIQaPj7nM3ET45rO
-         CYreCZH3FnWEhqghxoqlnMkVsyZsLOhpVnJ5wpU2S0ajhZQXGTNoH7+46whgIJlwYKnL
-         6YWKAsxfCOGwz6mbvd+HWwjcDErphArBPmURMYwhVjVIV5XSzbQd8/0BQObDHaR/vgKi
-         kBlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795118687; x=1795723487;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q14BaH4YWpZ1CMH/OeX/X6O3rC8BtXsm7PEVpfcrbpk=;
-        b=1PdUFNF4tqr3QUThGGjyoajO5QaJEOgRZxgBzjiLF3+mRDa/++b7BjwsDr9XZCcGS8
-         WQjJsMlpOgQWsDKetkJI1+ESGHcUaQ6L+oLDZfVpJ1dBIHMvjRGhJcIOfIXvKYKJrGTH
-         bpW0o4pkp9pEqp+1OGq44VAQTeRw3WqJ0Vo/tEEcU7LvDVWg5dnREnkwkZU0toVt75jj
-         xaytDdCByllSBzMrHFVsWKso0HrXyBBj6/d6+j/K37CKJaAYGwjEPLZllA2EN3HpfNx0
-         qoyxG+5oBNOpWPLItkuNZ/5mAwClFhD5yzPcZISHH9nHzrAKEubOr55ctU8msZ7qCVYk
-         AGkg==
-X-Forwarded-Encrypted: i=1; AL+hErEdv79M9HjoEYeD3bnGEnURCcYlwOXdg51HmU7Z0SkjiUbiklFWpq1H7pf3GTtVznXXqxqWnd4CVtXDYQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z80R1Ekq12IYyk5kB9PfyCQvMq8j+EwHRXcc57r0xAX9aL5ynfg
-	q76RX0tjAUGtxzBmxMWRiGNYFh4HzYOLOeReJbrqPieNm5hvCqQBB+xww0971Oxxyso=
-X-Gm-Gg: AYBFou0TwtdpJeqLSIrkMOrCyzoKd3aDFBYcV6TsC4kloomQGxxs4p4NlJDK4ZeRIkn
-	biaLg92Dah165rLuLiMpCi8qN+yKuefY1V4Z0XvEwWNIa1uPZpGk5YCcypT0v0YnoGpXxmBBMYh
-	pnsu9R0d16y/qxIVZQrl2MlTaDvU7EudsLUhe6AaeK3BNXprbgYynzoFWQ2z1lzOpGtob6XkoQU
-	ozTuom0/oiT10y2Pl7mqsg73zqy45B4w+euRIciP90SwijNS+9HXK5d/TprcGQqvzZq1Os75Nfu
-	23HmT4njA2M61eK4JQTTAvmX90KInG6bmQ9Rw9elI3Zs44poiF4iSZdRdHBL8QvOIV4DeBBOOws
-	iI9qsMQSSwtprbEC8JugQdpaSIsfIbnSRnD34F3hhU6LD5FabNnPLDcG3PZd8gfqcBUFfXNgKbo
-	pv4vKoAiZTAjFIYqvalDwPY3iEy65pZFlAhnZKJraYHyuM3gp3RZlWo+pCLYJ05f+kgJldIvNHH
-	7r4/oQ9Hb6IvctO4GUkmVwcGzFynpWrPRAXnlaZwo+y1Ja30W1IhQfj1Q55gTAcIjKLpBAIdAx7
-	PNVbh2qTNPj+krL6RQQTtc/raNKfAdrl1iuWEA952eMf7ok+oXfZOMU=
-X-Received: by 2002:a05:622a:613:b0:535:9686:b9e9 with SMTP id d75a77b69052e-55d7693bd69mr19037791cf.11.1795118686443;
-        Thu, 19 Nov 2026 12:04:46 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d7882ea2dsm3925891cf.15.2026.11.19.12.04.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 12:04:45 -0800 (PST)
-Message-ID: <8ad5ec8847859937aef900a09ae8b3eddaa15464.camel@ndufresne.ca>
-Subject: Re: [RFC PATCH 02/28] media: mali-vpu: add Mali VPU platform driver
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Charvi Mehta <charvi.mehta@arm.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Vincenzo
- Frascino <vincenzo.frascino@arm.com>,  Rathinavel Sankaralingam
- <rath.sankaralingam@arm.com>, Shobhit Pandey <shobhit.pandey@arm.com>
-Date: Thu, 19 Nov 2026 15:04:43 -0500
-In-Reply-To: <20261119153758.1426673-3-charvi.mehta@arm.com>
-References: <20261119153758.1426673-1-charvi.mehta@arm.com>
-	 <20261119153758.1426673-3-charvi.mehta@arm.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-77/Ca/PVjYZGlYteOTS6"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=HJ00JxjQ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gSesMCYxtLxiEyoi+VToJdq4oizVS+ZHJg8fasvKGhDN5WnHvTEXRRKA+hZYojPkRn0fQJFygUwYMqbaln5ftFBOqsJC3WYFsfOoT0s2KA1Gv5aphRLuyaXRcQgzQuorqugkr7U9xq5PMDTcAvORnHLPUAaFehuz42p6fIYu0uLS9NlfKynAXc3jffDK2HEohoo9FWfz/96Xhc9IFUl1LMHhuLF/+VhjeY9MS7Gmtsyfqb+3zX67qZ3rjWAqmzlu05QIXonXRa0G0YsRPQ2vydTeNIbNv3OOcM5y3mmM49z3Ce1IyPkKdKn8hhCvpFO8TJh56elZBQg5DJdB1KndfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OrNavfq8QGpF87p2/4FjPuH+1VV/cfwQYy2hDi0g8mQ=;
+ b=lb/v3Ri59N7gT7mcSnHnL0N27qWprC5S+7hXUski/QFDfpYszoL656lyqP0BpK0uLlEjmj+1w7QfCkza5Nhgr1fPO47O9767n7+3gqEWRGnKWwXU7n2KeEVdpIb9Pk6yd4Ln7LWg2EwvEQcWfaE/geuRdKnuYLkH1EuVxbVSJYdyftxltOvGYznTviW3A7occ3MK4zyqGcZPgygM1hdlpUfYhrvxuIe3l74aJJPyUi87ef07S4FQkyoF13sXLJDyjQ4vGdWC8oDSkQgXgdM8i5cXQK+g3z9l4qUHecaAbmRcJ/8KtG094F7gAMkPIjeueqklZa3W+3s+SWrj3jShTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OrNavfq8QGpF87p2/4FjPuH+1VV/cfwQYy2hDi0g8mQ=;
+ b=HJ00JxjQv9I34hJCvdNDpPTarCDroIWxbLiBu067+AET7wKv0IuQ6TyhSt8+wBsV1dUSmtLLz7Qwr9LwyMYEsrhGy4NzHVPZdXS/SBsJMDRnXmATpKCWAXZ6cyQ3SAVvw5UYXhEy6ziZqKHe1iAEIuBRInLqYPmPiUzGjNWDBPCG/XoUfDl50FJdbCWW0HsP5rwlbw63wYc0dB/+qhr+bdRMNB4TJoHF3fgl6fLr2c2hr4gj1htaKIGx8AlCv52l2fCQUVTtpPSxEB7YHluLmSb1ALiKfi0LlYQXgGry3Ey8jZUGq/R9fACVRPCaO+Uzq2ieYigvndXVR76Xs1PI1g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by MA6PR04MB210153.eurprd04.prod.outlook.com (2603:10a6:250:55::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Thu, 19 Nov
+ 2026 20:08:06 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
+ 20:08:05 +0000
+Date: Thu, 19 Nov 2026 14:07:55 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Nas Chung <nas.chung@chipsnmedia.com>
+Cc: mchehab@kernel.org, hverkuil@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
+	s.hauer@pengutronix.de, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	festevam@gmail.com, kernel@pengutronix.de,
+	nicolas.dufresne@collabora.com, ming.qian@oss.nxp.com,
+	marek.vasut@mailbox.org, jackson.lee@chipsnmedia.com,
+	lafley.kim@chipsnmedia.com
+Subject: Re: [PATCH v8 02/11] media: chips-media: wave6: Add Wave6 control
+ driver
+Message-ID: <av9XG97eKQ1gZCFb@SMW015318>
+References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
+ <6b00047b748267a2ff4e18ccbfd573ea92166d34.1795075580.git.nas.chung@chipsnmedia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6b00047b748267a2ff4e18ccbfd573ea92166d34.1795075580.git.nas.chung@chipsnmedia.com>
+X-ClientProxiedBy: PH8P221CA0038.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:510:346::9) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -118,515 +104,281 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|MA6PR04MB210153:EE_
+X-MS-Office365-Filtering-Correlation-Id: ebadca54-3e21-4080-5c5e-08df4678d2c5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|1800799024|23010399003|376014|7416014|366016|22082099003|18002099003|261009223027099003|11063799006|5023799004|56012099006|10067099003|4143699003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|261022075727099003|261022105027099003|261021121427099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	UMV8H1p6vQKuw36MrboGyY0Th/yMdFX6X1m6BaDTzW44m0UmBxNp36f9SH+qZOeMMM0aFClUqkiQPoanKh+siJzbAyteW8L1bG6Wh9Ccf/hUObxhE9Ynm7FIV8EU34f0BT2Gw/cdlbqsmtyaJ+4RBPoVPRHfl5hsDF5wGDjQjedv5F7Yd7/+NRCRVR+57kXqJJkaWiPUk3Y6nFhpy5Z7JWB+5KYfEksoTHH2TkDr5kVUEtWV/Rer0KcGQZX15kxJ1lHYyKw1cr6SSbiKgHGcCB/pO3UUXcPyPMKJognzo8y+xirXRT3xbIR8Z8bt5Wa8H4EYslNFCsReAkRQoE3ecoVK9nEQ+AIOm3X6bDqUTMBrSyqYxeFGhdVcqF0x/P02xIZr7EQyaVbcDGapZ9O2ncrrr8Dc6ndLrIDrqoK6LJBTJAKKrnXwJixsBsdYdhoDDtFoJ9sRNqd6rm4iwW13TmtFD1Vvs2vkcwtuAW2xEzDi5Y0dZThQhERTHKnb4J50mvt2iCqlT69EqtQZnNTeZbeDK9aeVa35dt/VtZjgSmZR4Z30YL3NTK2doOcTKJpRfjeV3WisDLOC663fDv2lI2lcT7FUcQnmcUEUjR/BF33kvIcxiCHH44E/7NsV28mRnppu6qLu7VJf0LMTb9i2W5GnB+gH3p92DWmoN2AOvMQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(23010399003)(376014)(7416014)(366016)(22082099003)(18002099003)(261009223027099003)(11063799006)(5023799004)(56012099006)(10067099003)(4143699003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?QRrI8UjZuCRSr8Bfis6BW091qwLEPm2m6SjynfmF2awKuUSNZ/hr9PdcMB5K?=
+ =?us-ascii?Q?CCplUVxCCZ0E87K8CPjQ9qhopQegjbWntBzO0OrchbR/8FJICaUt+JI1eMOe?=
+ =?us-ascii?Q?f43KPXCPYd/Y2F/gb8aBt/g3D+yed5BAPsf+HO1QGkk4JaFxm1RTWyfIVboU?=
+ =?us-ascii?Q?EX/489gxsEOS5TorDq5ZhI0AzCf8kaJE2YEPeNf0IB9iwDmB+aZh5EQHXYjN?=
+ =?us-ascii?Q?sUNJ50UW/OOQd3EvkHy4zqI9gBCFrNjHtqTyLNLORV4VkaLCjxrI2+yzg9AH?=
+ =?us-ascii?Q?lGRqD8p/A5yMzNZfdNPNWFXI7q9uFnFtZtd2ClpSF+InORXex9M5RMpWt5GU?=
+ =?us-ascii?Q?r5yxHjtEw1hidVTIlyz5LTPrw8CjKbsz0C9WJNkjIH3RgHj95vob+7cllZZw?=
+ =?us-ascii?Q?1d9jKFodRHd+CnUMgNu5zg60ww6+lc+fQc+Trw3QOTXr9htT/JyYRIQNyG7/?=
+ =?us-ascii?Q?3QgS/W6gTaUidUrb5qOyqIrI8pngUXaNZEAgiL3b+fMI3x1TwSGyrWEVQdnL?=
+ =?us-ascii?Q?LvuZ+JkNygLEHw3m3ISpxf8QXy3J32up48dS8Gxu3EorUejnt9DFWDRPtg+y?=
+ =?us-ascii?Q?QuQnlVGrIg7AtE0voZz2WAwk/glphwFADGk/l+ptwOaDd0z2n9nprdkLZIoL?=
+ =?us-ascii?Q?w1YGMVP5KQoru8uipdWCleZ51yJXAdlELhEPMq7k3gKB4C/Dw8ng0jY6//0R?=
+ =?us-ascii?Q?1xA4rL0CWLGhOgdwSL3gQVcoI3orXeS/17N/8L3bqp3hkEprnkYUUf6W81gb?=
+ =?us-ascii?Q?NgcVkk7kix/8cQdSglbqCZbKGdYhClCsHCoTEtWNx8OqSQW3Q7N8/zep1x4N?=
+ =?us-ascii?Q?QMQlOu6PTpTxpMU+t2jZcVBQUvUIwz7v2Z1Z4IsGgoCiVzwoydlPON79Munq?=
+ =?us-ascii?Q?X7W3bPzjyZF2a7j3YEPhuyKsjX9E4DG5Se0kJAfspNtW0U1zvGjLFi39z+0s?=
+ =?us-ascii?Q?Ruk1Ku3sNplq8KAFBO/21axXLPdIUNjWqc+SAO7Z/C8QHVa/xGjhuE3UcH5z?=
+ =?us-ascii?Q?izXC2PIBNCeP1A1eph+iAyD/5bmKB6uD1t6UtR8sZO0fzTWjRpWA2W3BnGBV?=
+ =?us-ascii?Q?ESUJT/7AC1/bfeA2rq7IPBbcgYmahNLsf4MoTIdbVowM2KgOBhEFthS7Z06X?=
+ =?us-ascii?Q?srNN5rlkhYGuewBOIMgoLuW/XyyuS/IQQLhhxgyMBtfrmxMxn67zXy9JrnYj?=
+ =?us-ascii?Q?C+F6rMrv50t1e1H9bMfqLDU2YGiE+TeedGmqGN/U4ImJLL+u35Ll2gtw7WVi?=
+ =?us-ascii?Q?klpAdeCS5LPvmnykUY2MEPUsIz1xGzS9SBqEPEXPDUuKjZaZai9aABHbGqcg?=
+ =?us-ascii?Q?FbZ8r0IpeomECXCqHxs29yfHrvBXSs74I8+OaX6eqp1RPyj5WnRCBA7C0BxS?=
+ =?us-ascii?Q?Mti9JTbpnMuYPW94VpKlQnTpJif34DtHV1lEoSQWwmuVuu7zFXbn5+DNxwIf?=
+ =?us-ascii?Q?7DTNEBmXHY8f1uijW8YdqLUpUEKrNSN1jZ5Ciz5wCU4bbnMUGzeUk8q8wS2w?=
+ =?us-ascii?Q?b4HQMkAUImiNOALr/mkIhDQmg5oxG8Jkdv3LYLe+Hjk7F51i5iaUGnZcUpVv?=
+ =?us-ascii?Q?3aHUb/EsIQMOnAHG+5IO/n9ZDqIg+u5OhMB9vlIIhAoKhp0gwx0IRYztDwCi?=
+ =?us-ascii?Q?1l2lXUmTHcWcayzykJfm2b00Rs3VcfiQwgDCircARDR6Poy5K0uQHjK5v3sm?=
+ =?us-ascii?Q?JBvYNqigdjb/AvIzMYbUPND8+LUTk1wCQRl47NQfgtlAZUxMz7O0zH5QdKd6?=
+ =?us-ascii?Q?bWilfHn8zsJc/RVVdPearu5L4BpaOlU3aA6915o7UvASAlC2iZVH?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ebadca54-3e21-4080-5c5e-08df4678d2c5
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 20:08:05.8613
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OdpEhzyDjJsXKCX2IXJgeHRHjnZauCO0XmSD+VjKFB9z0n1/g6qlP/dTqbdqGRrZF4Fj1jRiFTme0ckHLryxKmfIP2Uz7+OouOSpHM/PAm+C0RsjXrfeTRS5+aYOWtPU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA6PR04MB210153
 
---=-77/Ca/PVjYZGlYteOTS6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-Le jeudi 19 novembre 2026 =C3=A0 15:37 +0000, Charvi Mehta a =C3=A9crit=C2=
-=A0:
-> In preparation for adding H.264 video decode support, add the platform
-> driver for Arm Mali-VPU.
->=20
-> Add probe and remove operations to acquire and manage the MMIO region,
-> interrupt, clocks and reset controls. Add the variant data for Mali-V76
-> and validate the hardware product ID during probe.
->=20
-> Restrict the driver to little-endian kernels, as the firmware interface
-> uses little-endian shared memory structures accessed in native-byte order=
-.
->=20
-> Signed-off-by: Charvi Mehta <charvi.mehta@arm.com>
+On Thu, Nov 19, 2026 at 05:59:56PM +0900, Nas Chung wrote:
+> Add the control driver for the Chips&Media Wave6 video codec IP.
+>
+> The hardware contains one control register region and four interface
+> register regions for a shared video processing engine.
+>
+> This driver handles the control region and manages shared resources such
+> as firmware loading, firmware memory allocation, and coordination required
+> by the interface register regions.
+>
+> It also instantiates and coordinates with the `wave6-core` child devices
+> for firmware and power state management.
+>
+> Tested-by: Ming Qian <ming.qian@oss.nxp.com>
+> Tested-by: Marek Vasut <marek.vasut@mailbox.org>
+> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
 > ---
->  drivers/media/platform/arm/Kconfig            |   1 +
->  drivers/media/platform/arm/Makefile           |   1 +
->  drivers/media/platform/arm/mali-vpu/Kconfig   |  14 ++
->  drivers/media/platform/arm/mali-vpu/Makefile  |   6 +
->  .../platform/arm/mali-vpu/mali-vpu-device.h   |  38 ++++
->  .../platform/arm/mali-vpu/mali-vpu-probe.c    | 215 ++++++++++++++++++
->  .../arm/mali-vpu/mali-vpu-registers.h         |  24 ++
->  .../arm/mali-vpu/mali-vpu-variant-v76.c       |  21 ++
->  .../platform/arm/mali-vpu/mali-vpu-variant.h  |  25 ++
->  9 files changed, 345 insertions(+)
->  create mode 100644 drivers/media/platform/arm/mali-vpu/Kconfig
->  create mode 100644 drivers/media/platform/arm/mali-vpu/Makefile
->  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
->  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
->  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-register=
-s.h
->  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-variant-=
-v76.c
->  create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-variant.=
-h
->=20
-> diff --git a/drivers/media/platform/arm/Kconfig b/drivers/media/platform/=
-arm/Kconfig
-> index 4f0764c329c74..339969d0ef4ce 100644
-> --- a/drivers/media/platform/arm/Kconfig
-> +++ b/drivers/media/platform/arm/Kconfig
-> @@ -3,3 +3,4 @@
->  comment "ARM media platform drivers"
-> =20
->  source "drivers/media/platform/arm/mali-c55/Kconfig"
-> +source "drivers/media/platform/arm/mali-vpu/Kconfig"
-> diff --git a/drivers/media/platform/arm/Makefile b/drivers/media/platform=
-/arm/Makefile
-> index 8cc4918725efa..3c38ad267e59a 100644
-> --- a/drivers/media/platform/arm/Makefile
-> +++ b/drivers/media/platform/arm/Makefile
-> @@ -1,2 +1,3 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  obj-y +=3D mali-c55/
-> +obj-y +=3D mali-vpu/
-> diff --git a/drivers/media/platform/arm/mali-vpu/Kconfig b/drivers/media/=
-platform/arm/mali-vpu/Kconfig
-> new file mode 100644
-> index 0000000000000..86403d7f424f9
-> --- /dev/null
-> +++ b/drivers/media/platform/arm/mali-vpu/Kconfig
-> @@ -0,0 +1,14 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +config VIDEO_MALI_VPU
-> +=09tristate "ARM Mali VPU driver"
-> +=09depends on VIDEO_DEV
-> +=09depends on !CPU_BIG_ENDIAN
-> +=09help
-> +=09  Enable this to support Arm's Mali Video hardware accelerator.
-> +=09  This is a V4L2 driver.
+...
 > +
-> +=09  Only little-endian kernels are supported. The firmware interface
-> +=09  uses little-endian shared-memory structures.
+> +static inline int wave6_vdi_alloc_dma(struct device *dev, struct vpu_buf *vb)
+> +{
+> +	void *vaddr;
+> +	dma_addr_t daddr;
+
+Nit try keep revise christmas order, check others
+
+dma_addr_t daddr;
+void *vaddr;
+
 > +
-> +=09  To compile this driver as a module, choose M here: the module
-> +=09  will be called mali-vpu.
-> diff --git a/drivers/media/platform/arm/mali-vpu/Makefile b/drivers/media=
-/platform/arm/mali-vpu/Makefile
-> new file mode 100644
-> index 0000000000000..22acf82e99a88
-> --- /dev/null
-> +++ b/drivers/media/platform/arm/mali-vpu/Makefile
-> @@ -0,0 +1,6 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
+> +	if (!vb || !vb->size)
+> +		return -EINVAL;
 > +
-> +mali-vpu-objs :=3D mali-vpu-probe.o \
-> +=09=09mali-vpu-variant-v76.o
+> +	vaddr = dma_alloc_coherent(dev, vb->size, &daddr, GFP_KERNEL);
+> +	if (!vaddr)
+> +		return -ENOMEM;
 > +
-> +obj-$(CONFIG_VIDEO_MALI_VPU) +=3D mali-vpu.o
-> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h b/driv=
-ers/media/platform/arm/mali-vpu/mali-vpu-device.h
-> new file mode 100644
-> index 0000000000000..04160090e64df
-> --- /dev/null
-> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
-> @@ -0,0 +1,38 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (C) 2026 ARM Limited.
-> + */
+> +	vb->vaddr = vaddr;
+> +	vb->daddr = daddr;
+> +	vb->dev = dev;
 > +
-> +#ifndef __MALI_VPU_DEVICE_H__
-> +#define __MALI_VPU_DEVICE_H__
+> +	return 0;
+> +}
 > +
-> +#include <linux/device.h>
+...
 > +
-> +struct clk_bulk_data;
-> +struct mali_vpu_variant;
-> +struct reset_control_bulk_data;
-> +
-> +/**
-> + * struct mali_vpu_dev - Mali VPU device
-> + * @dev: Reference to device structure.
-> + * @regs_base: MMIO base address for VPU registers.
-> + * @clk_list: List of VPU clocks.
-> + * @clk_count: Number of clocks in @clk_list.
-> + * @rst_list: List of reset controls.
-> + * @rst_count: Number of reset controls in @rst_list.
-> + * @irq: IRQ number for VPU.
-> + * @variant: Structure describing variant-specific features and capabili=
-ties.
-> + */
-> +struct mali_vpu_dev {
-> +=09struct device=09=09=09*dev;
-> +=09void __iomem=09=09=09*regs_base;
-> +=09struct clk_bulk_data=09=09*clk_list;
-> +=09unsigned int=09=09=09clk_count;
-> +=09struct reset_control_bulk_data=09*rst_list;
-> +=09unsigned int=09=09=09rst_count;
-> +=09int=09=09=09=09irq;
-> +
-> +=09const struct mali_vpu_variant=09*variant;
-> +};
-> +
-> +#endif /* __MALI_VPU_DEVICE_H__ */
-> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c b/drive=
-rs/media/platform/arm/mali-vpu/mali-vpu-probe.c
-> new file mode 100644
-> index 0000000000000..49ecd6ac4554c
-> --- /dev/null
-> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
-> @@ -0,0 +1,215 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2026 ARM Limited.
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/errno.h>
-> +#include <linux/io.h>
-> +#include <linux/mod_devicetable.h>
+> +#include <linux/kernel.h>
 > +#include <linux/module.h>
-> +#include <linux/of.h>
 > +#include <linux/platform_device.h>
-> +#include <linux/reset.h>
-> +#include <linux/slab.h>
-> +
-> +#include "mali-vpu-device.h"
-> +#include "mali-vpu-registers.h"
-> +#include "mali-vpu-variant.h"
-> +
-> +/* VPU register access helpers */
-> +static u32 mali_vpu_read_reg(void __iomem *regs_base, u32 off)
-> +{
-> +=09return readl(regs_base + off);
+> +#include <linux/clk.h>
+> +#include <linux/of.h>
+> +#include <linux/of_address.h>
+> +#include <linux/property.h>
+> +#include <linux/of_irq.h>
+> +#include <linux/firmware.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/pm_domain.h>
+> +#include <linux/dma-mapping.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/genalloc.h>
 
-That wrapper does nothing other then increasing the code length. Why not ta=
-ke a
-vpu_dev as parameter?
-
-You're chosen namespace is also very long, worth considering, but not stric=
-tly a
-problem.
-
-> +}
-> +
-> +static void mali_vpu_read_version(struct mali_vpu_dev *vpu_dev, u32 *pro=
-duct_id, u32 *rev,
-> +=09=09=09=09  u32 *patch)
-> +{
-> +=09u32 pid_prefix, pid_suffix;
-> +
-> +=09u32 hwver =3D mali_vpu_read_reg(vpu_dev->regs_base, MALI_VPU_REG_VERS=
-ION);
-> +
-> +=09pid_prefix =3D FIELD_GET(MALI_VPU_VERSION_PRODUCT_ID_MASK, hwver);
-> +=09pid_suffix =3D FIELD_GET(MALI_VPU_PID_SUFFIX_MASK, hwver);
-> +
-> +=09*product_id=09=3D (pid_prefix << 4) | pid_suffix;
-> +=09*rev=09=09=3D FIELD_GET(MALI_VPU_VERSION_REVISION_MASK, hwver);
-> +=09*patch=09=09=3D FIELD_GET(MALI_VPU_VERSION_PATCH_MASK, hwver);
-> +}
-> +
-> +static int mali_vpu_get_clocks(struct mali_vpu_dev *vpu_dev)
-> +{
-> +=09int ret;
-> +
-> +=09ret =3D devm_clk_bulk_get_all(vpu_dev->dev, &vpu_dev->clk_list);
-> +=09if (ret < 0)
-> +=09=09return dev_err_probe(vpu_dev->dev, ret, "failed to get clocks\n");
-> +=09if (!ret)
-> +=09=09return dev_err_probe(vpu_dev->dev, -EINVAL, "no clocks found\n");
-
-I don't think the second check is required, that would mean you have zero c=
-lock
-in your DT, which is invalid according to your binding.
+order by alpabet.
 
 > +
-> +=09vpu_dev->clk_count =3D ret;
+> +#include "wave6-vpuconfig.h"
+> +#include "wave6-regdefine.h"
+> +#include "wave6-vpu.h"
 > +
-> +=09return 0;
-> +}
-> +
-> +static int mali_vpu_get_resets(struct mali_vpu_dev *vpu_dev)
-> +{
-> +=09unsigned int i;
-> +=09int ret;
-> +
-> +=09vpu_dev->rst_count =3D vpu_dev->variant->num_rsts;
-> +=09if (vpu_dev->rst_count =3D=3D 0)
-> +=09=09return 0;
-> +
-> +=09vpu_dev->rst_list =3D devm_kcalloc(vpu_dev->dev, vpu_dev->rst_count,
-> +=09=09=09=09=09 sizeof(*vpu_dev->rst_list), GFP_KERNEL);
-> +=09if (!vpu_dev->rst_list)
-> +=09=09return -ENOMEM;
-> +
-> +=09for (i =3D 0; i < vpu_dev->rst_count; i++)
-> +=09=09vpu_dev->rst_list[i].id =3D vpu_dev->variant->rst_names[i];
-> +
-> +=09ret =3D devm_reset_control_bulk_get_optional_exclusive(vpu_dev->dev,
-> +=09=09=09=09=09=09=09     vpu_dev->rst_count,
-> +=09=09=09=09=09=09=09     vpu_dev->rst_list);
-> +=09if (ret)
-> +=09=09return dev_err_probe(vpu_dev->dev, ret, "failed to get reset contr=
-ols\n");
-> +
-> +=09return 0;
-> +}
-> +
-> +static int mali_vpu_enable_clk(struct mali_vpu_dev *vpu_dev)
-> +{
-> +=09return clk_bulk_prepare_enable(vpu_dev->clk_count, vpu_dev->clk_list)=
-;
-> +}
-> +
-> +static void mali_vpu_disable_clk(struct mali_vpu_dev *vpu_dev)
-> +{
-> +=09clk_bulk_disable_unprepare(vpu_dev->clk_count, vpu_dev->clk_list);
-> +}
-
-The two wrapper above do nothing.
-
-> +
-> +static void mali_vpu_assert_reset(struct mali_vpu_dev *vpu_dev)
-> +{
-> +=09if (!vpu_dev->rst_count)
-> +=09=09return;
-> +
-> +=09reset_control_bulk_assert(vpu_dev->rst_count, vpu_dev->rst_list);
-> +}
-> +
-> +static int mali_vpu_deassert_reset(struct mali_vpu_dev *vpu_dev)
-> +{
-> +=09if (!vpu_dev->rst_count)
-> +=09=09return 0;
-> +
-> +=09return reset_control_bulk_deassert(vpu_dev->rst_count, vpu_dev->rst_l=
-ist);
-> +}
-> +
-> +static int mali_vpu_get_resources(struct mali_vpu_dev *vpu_dev)
-> +{
-> +=09int ret;
-> +
-> +=09ret =3D mali_vpu_get_clocks(vpu_dev);
-> +=09if (ret)
-> +=09=09return ret;
-> +
-> +=09return mali_vpu_get_resets(vpu_dev);
-> +}
-> +
-> +static int mali_vpu_probe(struct platform_device *pdev)
-> +{
-> +=09struct mali_vpu_dev *vpu_dev;
-> +=09u32 pid, rev, patch;
-> +=09int ret;
-> +
-> +=09vpu_dev =3D devm_kzalloc(&pdev->dev, sizeof(*vpu_dev), GFP_KERNEL);
-> +=09if (!vpu_dev)
-> +=09=09return -ENOMEM;
-> +=09vpu_dev->dev =3D &pdev->dev;
-> +
-> +=09vpu_dev->variant =3D of_device_get_match_data(&pdev->dev);
-> +=09if (!vpu_dev->variant)
-> +=09=09return -ENODEV;
-> +
-> +=09vpu_dev->regs_base =3D devm_platform_ioremap_resource(pdev, 0);
-> +=09if (IS_ERR(vpu_dev->regs_base))
-> +=09=09return PTR_ERR(vpu_dev->regs_base);
-> +
-> +=09ret =3D platform_get_irq(pdev, 0);
-> +=09if (ret < 0)
-> +=09=09return ret;
-> +=09vpu_dev->irq =3D ret;
-> +
-> +=09ret =3D mali_vpu_get_resources(vpu_dev);
-> +=09if (ret)
-> +=09=09return ret;
-> +
-> +=09ret =3D mali_vpu_enable_clk(vpu_dev);
-> +=09if (ret) {
-> +=09=09dev_err(vpu_dev->dev, "failed to enable core clock\n");
-> +=09=09return ret;
-> +=09}
-> +
-> +=09ret =3D mali_vpu_deassert_reset(vpu_dev);
-> +=09if (ret) {
-> +=09=09dev_err(vpu_dev->dev, "failed to deassert reset\n");
-> +=09=09goto err_clk;
-> +=09}
-
-In practice the two above should be inside your PM runtime ops, not sure if
-that's coming after, in which case just ignore. It best to do this early, P=
-M as
-after thought would be bad.
-
-> +
-> +=09mali_vpu_read_version(vpu_dev, &pid, &rev, &patch);
-> +=09dev_info(&pdev->dev, "Mali VPU device product ID: %#x, revision: %#x,=
- patch: %#x\n",
-> +=09=09 pid, rev, patch);
-> +
-> +=09if (pid !=3D vpu_dev->variant->expected_hw_pid) {
-> +=09=09dev_err(vpu_dev->dev, "unexpected hardware product ID: %#x (expect=
-ed %#x)\n",
-> +=09=09=09pid, vpu_dev->variant->expected_hw_pid);
-> +=09=09ret =3D -ENODEV;
-> +=09=09goto err_rst_clk;
-> +=09}
-
-Both ways work, but you could also pick the variant based on the version
-instead, and only depend on DT for the "families" (e.g. the version registe=
-r
-layout have changed but you still want this under the same driver).
-
-> +
-> +=09platform_set_drvdata(pdev, vpu_dev);
-> +
-> +=09return 0;
-> +
-> +err_rst_clk:
-> +=09mali_vpu_assert_reset(vpu_dev);
-> +err_clk:
-> +=09mali_vpu_disable_clk(vpu_dev);
-> +
-> +=09return ret;
-> +}
-> +
-> +static void mali_vpu_remove(struct platform_device *pdev)
-> +{
-> +=09struct mali_vpu_dev *vpu_dev =3D platform_get_drvdata(pdev);
-> +
-> +=09mali_vpu_assert_reset(vpu_dev);
-> +=09mali_vpu_disable_clk(vpu_dev);
-> +
-> +=09platform_set_drvdata(pdev, NULL);
-> +}
-> +
-> +static const struct of_device_id mali_vpu_dt_match[] =3D {
-> +=09{
-> +=09=09.compatible =3D "arm,mali-v76",
-> +=09=09.data =3D &mali_vpu_v76_variant,
-> +=09},
-> +=09{},
-> +};
-> +MODULE_DEVICE_TABLE(of, mali_vpu_dt_match);
-> +
-> +static struct platform_driver mali_vpu_driver =3D {
-> +=09.probe =3D mali_vpu_probe,
-> +=09.remove =3D mali_vpu_remove,
-> +=09.driver =3D {
-> +=09=09.name =3D "mali-vpu",
-> +=09=09.of_match_table =3D mali_vpu_dt_match,
-> +=09},
+> +static const struct wave6_vpu_resource wave633c_data = {
+> +	.fw_name = "cnm/wave633c_imx9_codec_fw.bin",
+> +	/* For HEVC, AVC, 4096x4096, 8bit */
+> +	.sram_size = 0x14800,
 > +};
 > +
-> +module_platform_driver(mali_vpu_driver);
-> +MODULE_DESCRIPTION("Arm Mali VPU driver");
-> +MODULE_LICENSE("GPL");
-> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-registers.h b/d=
-rivers/media/platform/arm/mali-vpu/mali-vpu-registers.h
+...
+> +
+> +static u32 wave6_vpu_get_code_buf_size(struct wave6_vpu_device *vpu)
+> +{
+> +	return min_t(u32, vpu->code_buf.size, W6_MAX_CODE_BUF_SIZE);
+
+now use min()
+
+> +}
+> +
+...
+> +
+> +static int wave6_vpu_probe(struct platform_device *pdev)
+> +{
+> +	struct device_node *np;
+> +	struct wave6_vpu_device *vpu;
+> +	const struct wave6_vpu_resource *res;
+> +	int ret;
+> +
+> +	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
+> +	if (ret < 0) {
+> +		dev_err(&pdev->dev, "failed to set DMA mask: %d\n", ret);
+> +		return ret;
+> +	}
+
+Needn't check when mask > 32, if check,
+
+	return dev_err_probe()
+
+> +
+> +	res = device_get_match_data(&pdev->dev);
+> +	if (!res)
+> +		return -ENODEV;
+> +
+...
+> +
+> +	wave6_vpu_allocate_work_buffers(vpu);
+> +
+> +	pm_runtime_enable(&pdev->dev);
+
+devm_pm_runtime_enable();
+
+you have not enable clock here, so you need select PM at Kconfig, otherwise
+if !CONFIG_PM, other register access will be hang because stub do nothing
+of runtime pm when !CONFIG_PM
+
+> +
+> +	init_completion(&vpu->fw_done);
+> +	ret = firmware_request_nowait_nowarn(THIS_MODULE,
+> +					     vpu->res->fw_name,
+> +					     &pdev->dev,
+> +					     GFP_KERNEL,
+> +					     vpu,
+> +					     wave6_vpu_load_firmware);
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "request firmware fail, ret = %d\n", ret);
+> +		goto error;
+> +	}
+> +
+> +	return 0;
+> +
+> +error:
+> +	wave6_vpu_release(vpu);
+> +	pm_runtime_disable(&pdev->dev);
+> +error_detach_pm_domains:
+> +	wave6_vpu_detach_pm_domains(vpu);
+
+use devm_add_action_or_reset() to avoid goto in probe()
+
+> +
+> +	return ret;
+> +}
+> +
+...
+> +
+> +module_platform_driver(wave6_vpu_driver);
+> +MODULE_DESCRIPTION("chips&media Wave6 VPU driver");
+> +MODULE_AUTHOR("CHIPS&MEDIA INC");
+> +MODULE_FIRMWARE("cnm/wave633c_imx9_codec_fw.bin");
+> +MODULE_LICENSE("Dual BSD/GPL");
+> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpu.h b/drivers/media/platform/chips-media/wave6/wave6-vpu.h
 > new file mode 100644
-> index 0000000000000..471a1f2412a7a
+> index 000000000000..96d67e931e71
 > --- /dev/null
-> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-registers.h
-> @@ -0,0 +1,24 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu.h
+> @@ -0,0 +1,137 @@
+> +/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
 > +/*
-> + * Copyright (C) 2026 ARM Limited.
-> + */
-> +
-> +#ifndef __MALI_VPU_REGISTERS_H__
-> +#define __MALI_VPU_REGISTERS_H__
-> +
-> +#include <linux/bits.h>
-> +
-> +/*
-> + * Mali VPU register offsets and bitfield definitions.
+> + * Wave6 series multi-standard codec IP - wave6 driver
 > + *
-> + * Offsets are relative to the VPU MMIO base.
-> + */
-> +#define MALI_VPU_REG_VERSION 0x00000
-> +
-> +/* Version register fields */
-> +#define MALI_VPU_VERSION_PRODUCT_ID_MASK GENMASK(31, 16)
-> +#define MALI_VPU_VERSION_REVISION_MASK   GENMASK(15, 8)
-> +#define MALI_VPU_VERSION_PATCH_MASK      GENMASK(7, 0)
-> +#define MALI_VPU_PID_SUFFIX_MASK         GENMASK(15, 12)
-> +
-> +#endif /* __MALI_VPU_REGISTERS_H__ */
-> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c b=
-/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c
-> new file mode 100644
-> index 0000000000000..36509d6a1c5d5
-> --- /dev/null
-> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c
-> @@ -0,0 +1,21 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2026 ARM Limited.
+> + * Copyright (C) 2026 CHIPS&MEDIA INC
 > + */
 > +
-> +#include <linux/array_size.h>
+> +#ifndef __WAVE6_VPU_H__
+> +#define __WAVE6_VPU_H__
 > +
-> +#include "mali-vpu-variant.h"
+> +#include <linux/completion.h>
+> +#include <linux/device.h>
 > +
-> +#define MALI_VPU_HW_PID_V76 0x56627
+> +#include "wave6-vpuconfig.h"
+> +#include "wave6-vdi.h"
 > +
-> +static const char * const mali_v76_rst_names[] =3D {
-> +=09"warm",
-> +};
+> +#define WAVE6_VPU_PLATFORM_DRIVER_NAME "wave6-vpu"
+> +#define WAVE6_VPU_CORE_PLATFORM_DRIVER_NAME "wave6-vpu-core"
+
+If only use once, needn't define macro.
+
 > +
-> +const struct mali_vpu_variant mali_vpu_v76_variant =3D {
-> +=09.expected_hw_pid =3D MALI_VPU_HW_PID_V76,
-> +
-> +=09.rst_names =3D mali_v76_rst_names,
-> +=09.num_rsts =3D ARRAY_SIZE(mali_v76_rst_names),
-> +};
-> diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h b/dri=
-vers/media/platform/arm/mali-vpu/mali-vpu-variant.h
-> new file mode 100644
-> index 0000000000000..dadfd686275db
-> --- /dev/null
-> +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h
-> @@ -0,0 +1,25 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (C) 2026 ARM Limited.
-> + */
-> +
-> +#ifndef __MALI_VPU_VARIANT_H__
-> +#define __MALI_VPU_VARIANT_H__
-> +
-> +#include <linux/types.h>
+> +struct wave6_vpu_device;
 > +
 > +/**
-> + * struct mali_vpu_variant - Variant-specific hardware capability descri=
-ptor.
-> + * @rst_names: Array of reset control names for this variant.
-> + * @num_rsts: Number of reset controls for this variant.
-> + * @expected_hw_pid: Expected hardware product ID read from the version =
-register.
+> + * enum wave6_vpu_state - VPU states
+> + * @WAVE6_VPU_STATE_OFF:	VPU is powered off
+> + * @WAVE6_VPU_STATE_PREPARE:	VPU is booting
+> + * @WAVE6_VPU_STATE_ON:		VPU is running
+> + * @WAVE6_VPU_STATE_SLEEP:	VPU is in a sleep mode
 > + */
-> +struct mali_vpu_variant {
-> +=09const char * const *rst_names;
-> +=09unsigned int num_rsts;
-> +=09u32 expected_hw_pid;
-> +};
+...
 > +
-> +extern const struct mali_vpu_variant mali_vpu_v76_variant;
+> +#define W6_VPU_MAX_NUM_CORE		4
+> +#define MAX_NUM_INSTANCE		32
 > +
-> +#endif /* __MALI_VPU_VARIANT_H__ */
->=20
->=20
+> +#define W6_VPU_POLL_DELAY_US		10
+> +#define W6_VPU_POLL_TIMEOUT		300000
 
+Need unit surfix
 
-Nicolas
+Frank
 
---=-77/Ca/PVjYZGlYteOTS6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9WWwAKCRDZQZRRKWBy
-9HSFAQC3dR8FY558bI4k7AkFIZnVrSsPsqNBimLPu0y6ccGJbwD7BJXx8SWhMg3O
-mgPuuDQDu5kafUiyuUehOt65wtW2Qgc=
-=0TVw
------END PGP SIGNATURE-----
-
---=-77/Ca/PVjYZGlYteOTS6--
+> +
+> +#define W6_MAX_REMAP_PAGE_SIZE		(1024 * 1024)
+> +#define W6_MAX_CODE_BUF_SIZE		(4 * 1024 * 1024)
+> +#define W6_CODE_BUF_SIZE		(1 * 1024 * 1024)
+> +#define W6_EXTRA_CODE_BUF_SIZE		(256 * 1024)
+> +#define W637DEC_WORKBUF_SIZE_FOR_CQ	(3 * 512 * 1024)
+> +
+> +static inline bool wave6_is_product_w_series(u32 code)
+> +{
+> +	return code == WAVE617_CODE || code == WAVE627_CODE ||
+> +	       code == WAVE633_CODE || code == WAVE637_CODE ||
+> +	       code == WAVE663_CODE || code == WAVE677_CODE;
+> +}
+> +
+> +#endif /* __WAVE6_VPUCONFIG_H__ */
+> --
+> 2.41.0.windows.3
+>
+>
