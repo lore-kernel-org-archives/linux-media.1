@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795125276;
-	b=YPBg7XDyFsJeVsNfPOpxpRl2r0LMUZyu0et3z9S/HIPtZXVmy53ShU0FtAplu8LTMDd8
-	 JC9uv7QoMBJZc1CoJn6TQCXpEQ4myX3GpjUie9Z/SlmGiO/pGbpQJlaYNS9yVcnXy6fr4
-	 gAxOzE2FtXbsLYknRjaIrC6k/vzgQs5wyMMGId80PWVBSvQmmIMTkXT5FPW1pKC65c5e/
-	 bn0B4eqJAQgEgK8kFIyFHm0tF0ZEegzQa1yNWyR/h+OpowsJOxWEC2UWN9Zap8grsW5pZ
-	 KBorM0ChWLiFG/Su+coEeadXByn64Egh2dBFUvmi8DPpWNGJTSBLCd1DKUoZ+CETv6g==
+	t=1795125504;
+	b=vXlKiSvlrwe2KXHFjQJkZNeIrTyv1CNh1peIv/ocKoXcSQAw0qztmu9F06wBmY5/De6E
+	 cqcynt0A2vqUAjNG2qB2JjFiS3k1nBi4iqTsJ0EjvP1bszJa3Sw8e03TWHxOGeoFxDcO1
+	 6CmlpT/NPF0yWb2tZ+0Y25iQgQyhy5/Lot9MzVvYBpc9V900X2sl1TEbyAUmhGqNFmnFv
+	 /mkGmjr8Js8RT/WsERxrt3j2mKEOoGz/+w3TodEAPXSUs4yZ1kYD8QoN3fKDvtYcJixZx
+	 GXWYuV1Q7fxhSjPLb81T+/rl+IovVHgajtSWhEw20JWgAuiUgpapmz1Z5k3WUTIlOmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795125276;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Y/35aAW1ut1aIdfVgHyUsY8D8nkA1UgxzF7RGCR+4yU=;
-	b=Zu10VKXXiv/cHIKkU9PmK3aOL8Vc9mQSSl7D/OW8fql/f03BxnzKjqaQ2mm8dPv28H+i
-	 mQLH9MWvlo28SQoSlV63B4hHnJdAwL9G18uI0LLImPPEfl/A2CWvUAlJAE21anuQmngIB
-	 upyFisHotuKGVd17MU2+S5ReKvC/BGPsrRxxApiQJuSIFwhIV+4UfPBauIIrzFOgM4IJD
-	 N2B/OCeSVlBX9iOKMswtFrNETuEEcp8AcWi9StBF/4Wiri14mAh/ooj1d5S39dkDiwvMy
-	 pNoS+EDca+ytanhRyhr0plwx/Qv9BvvCbn/ZxKQBgLmye5ubU7LbcXAyn0dH0PyMJ+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795125504;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=LBFpxZHG8DXttjFCfrXOKXE0UTtg7CewXCAmh+s72GQ=;
+	b=zamOe24VZ171FmBq6lXnp6/+SUPywoRCK9BY9sY2taY1Jheufz/+/CM0eYZFTTszARw9
+	 Bi6ISiBEW0dq1Pghv4gvZDaYX2j1GjfjBFiY2ZfqcFzjKvyZK64qIRChhZcInFsD+8kCY
+	 dXUY/KxaK4+8CluCzK3gp0wh/5sw79FIWumBYQEcmNGHNxPq6R2dlsby79Nssh7SQlZiM
+	 S6biYLxOOoobFZiSyrqe+ZzQbUISd5v/0TCLQvoa0J56APViK2D2zIejpjInpfocNftYj
+	 590O9IxQ0DX7J2eOZQsV9pArJ1GQxVA4N61CK0gggxalTx6Q5R1vNmOhejwxTiUdJzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="DC/GXQaE";
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VnUIuf9k;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839D3606A33B;
-	Thu, 19 Nov 2026 21:54:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 839D3606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B483606A326;
+	Thu, 19 Nov 2026 21:58:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B483606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DC/GXQaE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795125277; x=1826661277;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4OWh6EnK/Uxnm9WiSZa44kHgClL7HInOJ3m6ycBkMwk=;
-  b=DC/GXQaE6MlEV/oR/YNuMg+I29bVqYSNBsHrIb6CtjMiWJQ1D11wYevA
-   lhlrVMM0zv+Uv9ywtafNIjsx3Nuc84lwzs+qHK6/T6hG2qt3/1uge+4Zd
-   cv/QH+15OdwnYuni0JDU+sdK3T/deaLYa71aXFaYb2a0fCO6cQm++Rah5
-   dOYHaSeIqEeEsldRiLFxgDNRMM6rExJXUwuxsTAf5TnmQ2m3Bo1Td3vBY
-   CQC4TxOF+ygvFGqkBEmDa9pgl2SNBXyCxdwMOEpMi7CYItknWMbl8zU1h
-   hc5jHJZoI7sPDVl3953vs7S4zTn5AKcT/CTYny99x/HualCgoMdps3NrF
-   A==;
-X-CSE-ConnectionGUID: c71L8c7iRNaJt93QEmRgLg==
-X-CSE-MsgGUID: HfJE6ZZOScmyvxfU31qocw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4074215"
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="4074215"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 13:54:36 -0800
-X-CSE-ConnectionGUID: AL5YJNshRpCEqqT8lLQFUw==
-X-CSE-MsgGUID: I/VexjLDTFafFpDR6ckD+Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="10453962"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.189])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 13:54:34 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 4B69C121B5E;
-	Thu, 19 Nov 2026 23:54:32 +0200 (EET)
-Date: Thu, 19 Nov 2026 23:54:32 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: armandas.kvietkus@proton.me
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v5 0/2] media: i2c: Samsung S5K3T2 image sensor
-Message-ID: <av9wGCsEhX-kIW9H@kekkonen.localdomain>
-References: <20261117-upstream-s5k3t2-v5-0-1f7f5fde9e2a@proton.me>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VnUIuf9k
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795125501;
+	bh=LBFpxZHG8DXttjFCfrXOKXE0UTtg7CewXCAmh+s72GQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=VnUIuf9ky9aDe1HxfNH7n/JRkL0tH6fDtd1pmgAHcpIPsYV4qEcppVPVs6UHTEuKP
+	 gjZvkzJvIwVUvFP4k2TK2e/26DPoEvL7E4a2bVl1frNp06SX8149Rfwvx2Jz2VPZL/
+	 QKffBIi50UkDoyEMpYdd7sFaKU3EFJZuYcU7OgAGQystKWNHO1XEiuV525pKsOs51l
+	 PKLMpCdzfGcbGFZbPO5TU3ium3jMDRmcOkscStUK44xUNJf7r7RDWbEsVyNSRWxH2H
+	 tIjk1cdvMv5nm32Rqux71mpjWvA/r2M92JIeIslUrhD1IYeWDQCaf9twQghz+UBfkI
+	 BHcQozXjsWzlQ==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A553017E00E8;
+	Thu, 19 Nov 2026 22:58:20 +0100 (CET)
+Message-ID: <e5b11c9daee18bc93aa3986d85bb280117cf5620.camel@collabora.com>
+Subject: Re: [PATCH v1 1/7] media: verisilicon: Add helpers to allocate and
+ free auxiliary buffers
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	p.zabel@pengutronix.de, mchehab@kernel.org
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, kernel@collabora.com
+Date: Thu, 19 Nov 2026 16:58:18 -0500
+In-Reply-To: <20260916125443.78602-2-benjamin.gaignard@collabora.com>
+References: <20260916125443.78602-1-benjamin.gaignard@collabora.com>
+	 <20260916125443.78602-2-benjamin.gaignard@collabora.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-G8gCA4wMjP1oE/ZB/PAu"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -87,22 +88,34 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117-upstream-s5k3t2-v5-0-1f7f5fde9e2a@proton.me>
 
-Hi Armandas,
+--=-G8gCA4wMjP1oE/ZB/PAu
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 17, 2026 at 09:20:03PM +0100, Armandas Kvietkus via B4 Relay wrote:
-> - The link frequency still follows the mode. The question about it on
->   v3 is still open.
+Le mercredi 16 septembre 2026 =C3=A0 14:54 +0200, Benjamin Gaignard a =C3=
+=A9crit=C2=A0:
+> Add helpers functions to allocate and free the auxiliary buffers.
+> That simplify the code and make it more easy to read and maintain.
 
-I don't remember whether this was discussed earlier, but link frequency
-determines which modes are available, even in a register list based driver.
-This makes it easier to write a freely configurable driver later on without
-affecting this bit of UAPI at least.
+"more easy" -> easier, :-D
 
--- 
-Regards,
+>=20
+> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 
-Sakari Ailus
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
+--=-G8gCA4wMjP1oE/ZB/PAu
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9w+gAKCRDZQZRRKWBy
+9MMpAQDX5MVq3FLT2AZZbIUK7/q/eAwYusGRmh55gqMqOKSEEQD+Jl7Y+eu4QRt9
+niSMVaKFbGTbklGM/mSgUMIS6CkB0gw=
+=yWYf
+-----END PGP SIGNATURE-----
+
+--=-G8gCA4wMjP1oE/ZB/PAu--
