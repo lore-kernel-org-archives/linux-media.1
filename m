@@ -1,70 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795093213;
-	b=PpIqEACcBKos0gtb4e8GYovPO74OhM0eV1K6gsS6Cqzgsj9odwJnM2DCdCchoU7DZpjq
-	 LNrxNBjvbKP6FRUo1kx7Auof7bvPV5iSh4tSiKVTiXWS8uAnpsTfJE1DH0h5VtABGpNYH
-	 xw0ifBiQJVrq+sR27k022Qsid/Cf7ijqzf0Y0Nl774TPjsw9zPEdCO7L99ogzx+RP4UM1
-	 +4wXuqZIY1uJvG/RIlenOZBN0A1f3p1X0BtjWwd6jOapnz9T//bbetBm+AhNEY6BTPLXB
-	 V5kEhKDOAox77IW0xXXJrZoD79YtCWw+4AX1NlI9+c2CR1J+NkUF3zaOThMb/pFqI4w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795093213;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=I5TqpydatrcIiBqyhHz1ZbS8lF4liUszRkHtY8csQK0=;
-	b=XvCXOROkIzMDXxwGkLTF2yi+siFcs/AQ+qWxowVm1Vymddbf8ZuMitGViAmCBpGkq1/v
-	 uTAUIOBPNwaGmAKV7J06Q/StyI0MLNPl55Pb9Ag1xBHRBK9d9hl2UMjpMiY7BOnJdWPOk
-	 2qsVQ21ybf50k2QHh3s7yx6w/UudHpUv0ApX4K2jGIuXcmW4naumrmil6ngk+gGpdSpAz
-	 4rpCB6sMyokyRygX/yYD4axNkx8ktKEIyQxuyi19PaSysMDvRP7VaeFJOJEBiM+3SLr0r
-	 GCYrmlUVkWnN+yKYgco0+1kWI/YrWL2eo3RV/oNpNOPufm0bfxlJpmShG2QLvPXZGmQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YkX9TPFU;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795093710;
+	b=YwfEBuwzDYBte1NEe7CnQuMHRF/cp+rBgWMayAP+CPiDD0ZVUveTdJYiIC6dIK1zi8lF
+	 5pQrGQ2fgqfbiRtZMWK+wD40f5x9t09dRYrjk69iRB+yicS4ArYhfFd6+LOGeYVkkBCYB
+	 ZT4l1CDhN1BXVbQHeqiNDB1swCtWJU+KkelUF3nzLl+cfGFA1Vaz4r0dNhVbW63Nd8Dp1
+	 h8kU4uQak5dhq0Jt8VfbDOuoDhVF+pvGmprY+EJz9Brc59vZ9mk10QcbAB5CIk1FlmEtp
+	 MWBiHeaDO1EaR/Yk/jT+Ut22XLUNE+Dg8GyJ5xo0GmvHp5i5XoqP8T3FbvitRk3kcDg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795093710;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
+	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
+	 X-SimpleLogin-Want-Signing;
+	bh=rrzaULI4PDERzS41dVrWshFRT4j/Xv56UkNZCvPJTbw=;
+	b=UcvTpXuwh1IGr8KhRYjDlwHYOxUAWh+1nu7Dnv8lu7PYHw7cJgsz2nOdjFjJ/pExftaG
+	 Uqha2TgxnxrAQRN4jA1YrHUG8AkuBJ0hWSauj2Gg+KqjEpv8IF4WL6VpPGvwXDTW0/wuz
+	 oYG9Zh+2jfyAmHiS9MG63G3ak9FfatveyqaozmJgiFruM13brhSwdXFto4CA4ilEWjhEx
+	 b4VrAUfhL7y9Bhv08rFzXGFxyoERBTCKn276CbQI2PbxUc7e49h+J9srJ2hf7Y+RctqxP
+	 kAScF+9tj5kco8rkm9BgCUq+hSXGvC3n2Qz+c4ZmAPLkGK2kIVzZnkTNC4lZ80rKSFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=yasunobu.dev;
+	spf=pass smtp.mailfrom=yasunobu.dev;
+	dkim=pass header.d=yasunobu.dev header.i=@yasunobu.dev header.a=rsa-sha256 header.s=dkim header.b=vONyspo+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.170
+Received: from mail-200170.simplelogin.co (mail-200170.simplelogin.co [176.119.200.170])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7916606A325;
-	Thu, 19 Nov 2026 13:00:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7916606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D05F606A320
+	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 13:08:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D05F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=yasunobu.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yasunobu.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YkX9TPFU
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5633B4E6;
-	Thu, 19 Nov 2026 13:57:41 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795093061;
-	bh=jgIfFq12KWtVN3KAiREpPoeqAP2LhfkuX+XP63OrF4w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YkX9TPFUyksRSuellC6rE4404BmoRzyMdg6Yh5AJTdBskk23NTjW+n08/6qRm3pdM
-	 HrjTurCAknQUMYuK/zQFbh6VCyJT55Qf2enEBMqzEA4T8GHdnUPEOETxF/dZyUzZYt
-	 CR3EmaHJeY9I0iJJ/3+O6dPdL3aIv1FUmlsWC/vU=
-Date: Thu, 19 Nov 2026 15:00:09 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Tomasz Figa <tfiga@chromium.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Hans Verkuil <hans@jjverkuil.nl>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Stefan Wahren <wahrenst@gmx.net>,
-	Paul Elder <paul.elder@ideasonboard.com>,
-	linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v7 0/5] media: Add support for Broadcom/RPi BCM2835 ISP
-Message-ID: <20261119130009.GS1923307@killaraus.ideasonboard.com>
-References: <20261118-b4-vchiq-isp-v7-0-b8c81d193abf@ideasonboard.com>
- <av7njO6dZNzM9UFi@kekkonen.localdomain>
+	dkim=pass (1024-bit key, unprotected) header.d=yasunobu.dev header.i=@yasunobu.dev header.a=rsa-sha256 header.s=dkim header.b=vONyspo+
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1795093708;
+	cv=none; b=ST4VGM/Bo5p0sdXpx86k0y5zcVpSwai3CEfFnuTd4rBT5LYIqkhOFpUWvS2wH/+d/qkvyHQ5ueYQgE6kbIHWRtn22N0kGELFbumUIykLRsw6/Jfho+0xrn1ZjP//JdkgQ2LlL2szvIWZAVr170cFGqn87kn1wqJbviSKWB0bijBYYGbH4vsoP1GKVJ8yETbGUdafH0zo81CQlqtmJrWI0DeZaVCBXpaMX6u8uMlRazaWz6FfH/rpPaBL46shID9+6HeYmXWwIC2PX6jZcymFHUay8l28+E6te4NCDD3nulSUPNgD7ZdVYKKx+SRvVClzzYi5rUAvJ0qfR60PfEQNTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
+	t=1795093708; c=relaxed/simple;
+	bh=rrzaULI4PDERzS41dVrWshFRT4j/Xv56UkNZCvPJTbw=;
+	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=U31HBwfOw6qJGONqK1qk8zXpxBsBr2yTolRxQJBkRZ5y82/qa4fMas+jD0ZHh8B67vq+bM879OOEYDpqoUCaMYtNSvy8gm5FkFn++X7GqVRSO5pCBdDeCHlsYnZyshzr7WWu6opUOJaQAgIA07GedrZF3etbxZSqkKjceWosRqkebjJP8uM2qcSXsHcrcDdURMDov0Qt74P6/4wPTvO11P2mNm4UPCPn4/XKimntMQ/GNGuUIRJ4455a/QxCLHJknxUABwl03PzzHqZYwYlevQNznUKhF0HyBjfei+Yze0AfxRIz6aO2Y2Mk2J6EgJPDYKJTVHt+kJAU916+cuUmoQ==
+ARC-Authentication-Results: i=1; mail.protonmail.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yasunobu.dev;
+	s=dkim; t=1795093708;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rrzaULI4PDERzS41dVrWshFRT4j/Xv56UkNZCvPJTbw=;
+	b=vONyspo+eRK5RN6STgTDjGR4T0cap7wVrYhlHt5bRKH27Uo/2tQ0j8uk8PMMTppbdVpEu3
+	+ap8RMg2xPV3IoHc6OPmVMmyDPYLe8goCavPyA0h6AsPfQBpZK+UEEGK6IF4auX7WEVo6W
+	YUm/bhPTSPugOc3WvQXSuF4GqGRu7+w=
+Date: Thu, 19 Nov 2026 13:08:20 +0000
+Subject: Re: [PATCH] media: uvcvideo: Batch StreamCam unlinks on ASUS ASM2142
+In-Reply-To: <20261119124331.GR1923307@killaraus.ideasonboard.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -75,42 +64,36 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <av7njO6dZNzM9UFi@kekkonen.localdomain>
+Content-Transfer-Encoding: quoted-printable
+From: hi@yasunobu.dev
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Ricardo Ribalda <ribalda@chromium.org>,Michal Pecio
+ <michal.pecio@gmail.com>,linux-media@vger.kernel.org,Hans de Goede
+ <hansg@kernel.org>,Mauro Carvalho Chehab <mchehab@kernel.org>,Mathias Nyman
+ <mathias.nyman@intel.com>,linux-usb@vger.kernel.org
+Message-ID: <179509370754.7.5011876058707374029.1785696182@yasunobu.dev>
+References: <20261119-streamcam-batched-unlink-v1-1-076bc02866c1@yasunobu.dev>
+ <CANiDSCsdaokL_2u_74b3ADT+U8TXskK53+k+hVA8D+PtttYEZQ@mail.gmail.com>
+ <20261119124331.GR1923307@killaraus.ideasonboard.com>
+X-SimpleLogin-Type: Reply
+X-SimpleLogin-EmailLog-ID: 1785696203
+X-SimpleLogin-Want-Signing: yes
 
-On Thu, Nov 19, 2026 at 02:11:56PM +0200, Sakari Ailus wrote:
-> On Wed, Nov 18, 2026 at 11:38:13PM +0530, Jai Luthra wrote:
-> > Hi Sakari,
-> > 
-> > The VCSM-CMA driver (which this series depends on) is now picked by
-> > Florian in the broadcom drivers/next tree [1].
-> > 
-> > If the ISP is okay to be merged by you (and Hans/Mauro), we probably
-> > need to coordinate so it all ends up in a single tree during the merge
-> > window.
-> 
-> Is there a chance to have an immutable branch for these? I initially
-> thought the driver could have been merged via the stblinux tree but the set
-> also touches other bits where we certainly have changes to in the media
-> tree.
+On Thu, Nov 19, 2026, Laurent Pinchart wrote:
+> On Thu, Nov 19, 2026 at 01:06:50PM +0100, Ricardo Ribalda wrote:
+> > Could you check if your device works fine on 7.3, or if it still crashe=
+s?
 
-It will be a bit hard as the VC-SM-CMA patches have been applied in
-Florian's tree on top of other changes. Of course we could merge
-Florian's whole -next branch in the media tree, but I don't know if Hans
-and Mauro (and Linus) would be happy with that.
+Thanks for the quick replies.
+I tested 7.3.5 on the same USB-C port, and the xHCI hang did not recur.
 
-This series applies cleanly on top of v7.4-rc1, and it doesn't conflict
-with media -next (merging media -next on top doesn't report any
-conflict). Assuming the series compiles cleanly on top of v7.4-rc1, it
-may be fine to simply merge it whole through Florian's tree. If that's
-considered too risky in the worst case we could wait for v7.5, but that
-would be a bit sad.
+> This looks like something that should be fixed at the USB level, unless
+> proven impossible.
 
-> In any case, for the set:
-> 
-> Acked-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+I agree the fix belongs at the USB level, so I'll drop the patch.
 
--- 
-Regards,
+I appreciate your help with my first Linux kernel contribution.
+I hope to contribute again.
 
-Laurent Pinchart
+Yasunobu
+
