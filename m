@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795081889;
-	b=w0yt0PSem+Aj27QPjH2fJzfh5SHUwZua8Bp1xipY9lxZUMT+I+PxvQvSTIUG4WjtgooX
-	 G5Xxfs5v3Op44XxCFaUxVH6nabQ36/sLj33eDboSQSJdv7NUHMcO2khxpOC0p4KzbqtxH
-	 I/fc/bF+42xlos5QlLpaUtYyL+7bb8nzMdMO7zCsKttpMqyKpr54Nv4QLRE8QjwS+8UuA
-	 B2biyAJhht7c8UdYtO4t3UsEG/OSJJ98NsTX8NyRzAG+r/hAZD95Y7Nk9un5b6ITW/26u
-	 i2iONeKhI8Wm6aF64vTKInbT4M6UcvyLDLNrXwmZLFElYXqC+9KGN6Tw7nagsUZrYwA==
+	t=1795082350;
+	b=vVvW4t4id+4JLs5AbX15iEFVJhfMi6o3ifZM1+vJYyO/g3763wm51wZH1gK4y/cpNzEK
+	 NsJEhapMTPYFY0Fq4YlbKCR/baM6zkka9pYenz73GOlrP852lAmF2JZdGdJgoR62NRCJt
+	 cEcnzc5yRPbB4Gi6wdYNMVepF8weKkNOxuR6Z/KuYfgoIJSUvOfgITl+4ZF3SQ3z6Qdau
+	 t55hWnYsAKLHZaSXr1sgIbBuju52fI6l091CsTq309QjBjd8F4m9dtmTysrh1qhaNJfq7
+	 QjcaeSb8WY8ryDdhM2aFqC2+tIobymR35YOz7rFdvAlisz/amKnFnGib5uP2SgTnrbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795081889;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=QCtvpJJpK/tKPwcjLQpFBntT1fd2LvukVv7GFEkPKKk=;
-	b=1+ONXg8kmJ/NLxEIesSBB6jQIbJ5N+lERDD/n6ySYWW70kEuDleH4DsMajQMkkCt3SyA
-	 0OzfHF9crpztNZN3l78bhtVxSdrPR4H3Ntgx2dp4DUdgPDLdoAjxtBuovOWVnhcCeKFi+
-	 X/4zpvEzh7HLfO+DGBRuG6ojYVvcABZLSh1RmBO1xf+Y8AppTa0Sfi0w6O5CrrYbkbZEi
-	 Nu9hvJ/guim6ZrBr3A8mVc4m5OU1WNwvQm9LdHq/Y/F1rjxdOP6yvsEWQIGa88oD6IbBU
-	 gssDJbHsJ19TZp5qEHTLKIN6nnBCQCN7TzLE90ffmGwaVkRcLmfZPaDd9CZskiZz/Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795082350;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=Q3GQZrybC5QxaJKCFYXWQxqvNW0jtycxDKmrfuuMapE=;
+	b=FbAz1mYxkW2NZQjka30jmjjBRL141tTxZRCBsqErh0egyAO/B9wOiNSupun+43F68f6i
+	 iVnli9xvHjkIXJPkeRD6ap0jBSgjNtESuAEwb4Y4iI1PBD4r55yoighEauuDCpE7QO+8M
+	 9Sv3ps4RRBJ6Gps76zEGcErB5707jCcBGaYojsN1+fMlgPCsP0R6zoPmmJugHC/kyaOqT
+	 h8saKCNXOO4ScI4+LJdkp10XcJ/TU6dWS7avybQQt1MMFKxRfo0M/Zzc6s1wFkQxSC31j
+	 d752NAUphe8x3GofHnnU72g8AhPRvMOBU6PwEByXl5v0CevhKI2gSGoBQN/ZlhyH22Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=UjzmLULU;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=e4wNncEa;
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10B8606A339
-	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 09:51:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F10B8606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37343606A331;
+	Thu, 19 Nov 2026 09:59:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37343606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=UjzmLULU
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c4322d310e7so322108766b.0
-        for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 01:51:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1795081885; x=1795686685; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QCtvpJJpK/tKPwcjLQpFBntT1fd2LvukVv7GFEkPKKk=;
-        b=UjzmLULUbPuX6Kv+v5NXSiVfqZ4enM39iH7s3fpgsoHsdvGqR6DqCDPTZ2Nk/BSSMs
-         NrRUKiKOMKPN3Uo5TCQOpVmslWSouoldP79RLrlf8zrHLk3HTSzZxmYHYq5xyPIz0ARN
-         rPlk+s5mhYW6hPr66VMoNsbqqi+5COb3G/Mk/qMS3xGutAMWrfMG84+yFWQZF1G2gBC6
-         64NipMh6Uj2gRF/H5gOJNUdq+DIncBQFHb31m8XboR1BhOgxNAUD/ZG4O93VJI2ZD/5A
-         YPOD3R59AsyJJckYJHzVb3YCnki9aQaMZ4px+K/iv6g1J29+L0CNgeNduum8NJitorBl
-         IcXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795081885; x=1795686685;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QCtvpJJpK/tKPwcjLQpFBntT1fd2LvukVv7GFEkPKKk=;
-        b=tSoi+GxXvYep24rn6ZuL2DlTtXbV62+IQ89gUk0VDmh70gEuLH8RqLoPPAfB4WOxla
-         5ipMlclpz8cgCNS6RT1OBg7VgweDTha8IHGeVNBt+/KCIGuXz+VphIa2to9eeqHA6GHg
-         tDBiPEwLNSOSKHA4SV9Tl/N+6LWA82JaV76jFjxXfqKGAvIpDLk44l9pVPIsXrdsx8+A
-         94h6Z1DPsqfNi9iQnQBmdF7yKISPZ0SJTenIesveg74Ma6p72eck7sxoPxBoUd8SWcNB
-         0I009C0ZeRi/okZminop+3r+hrFwMaMAuM+ZMqFnJG0yDL9JcsJkGgTbdIgCk4L2ciYe
-         vjiA==
-X-Gm-Message-State: APuU4Z8UNT1FDuXjWAaco6UYXiaYnf/lJU/Uy7LvE6VGlQtSFsK+EYVG
-	c9Wk7U5g8atsasJrnST9EQlBOdLoQyQKVi6/r1ZPzqBnZx+NIMA2jqR5iEay1lKQImI=
-X-Gm-Gg: AYBFou1vP/UZrWQUA5KnnlKlsUCAAc7Zk5hI9gwAOtB7asXcpodMuET+5gE5juizK0y
-	HOjxDIz7kzVWcNgndtGrEh/3uKyv0oMQQyngyfZNbWGx49ipxZt6Qj1VsbA9MXqUV8BIaZPyr9T
-	fRuPI4cSr4QRywAD1/9XzhWdIesW+wrNK8nu+4t2VpCvGaI1Oyu79rz4E2u1qeRcZ4htJHRLKOH
-	nN0B0FypuO+fGLVcqKcBNgU4pquu+nt0HCMFXarY+qlkDJid3R/TPHlU3t1RbPw+LXXetaJLoBc
-	qHk9nqMImQN8HJlytUaaesQki+ZyJkfuySniCvo3aB97fhZ8x7+WfSxw0zKTlKKUgzrDObCMCCW
-	EB8hyp16gyRWtL/goC4zuM3PmCLBBw05WYESnapiPyhgfK0VvNL3OisMKlFlQE8dXMGC1+x+oGJ
-	887Nxl9jpOVBblYuI9Y+5DxQ6hf4o+Juhx9Om4B/Y8IuGSiewrDM+VPA0R5TrM/szZgEjz0aJPm
-	Jr1e50tNZM9xFWL6gTk9yUXl2/RAjTEKYBJJK+uYvy2JIVkPwMCCV1iD27z/BDDZHGEdTYrSJt6
-	y0x3RyXb1ZmlD0uo2bQAg6z63s25xEYGM7Eu8dU20oNM99/A/AI2HjEEBN6NBd6F/ylYZkPqU+H
-	hG29DHXU+8tVv
-X-Received: by 2002:a17:907:d7c9:b0:c2e:63ba:1f90 with SMTP id a640c23a62f3a-c510e58731cmr485530666b.48.1795081885550;
-        Thu, 19 Nov 2026 01:51:25 -0800 (PST)
-Received: from [172.16.220.224] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c51231bc213sm95057166b.12.2026.11.19.01.51.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 01:51:25 -0800 (PST)
-From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Date: Thu, 19 Nov 2026 10:51:23 +0100
-Subject: [PATCH v4 1/3] dt-bindings: media: i2c: dw9800: Redocument DW9800K
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=e4wNncEa
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jVYpF6J2vzKnr1;
+	Thu, 19 Nov 2026 10:59:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1795082341; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q3GQZrybC5QxaJKCFYXWQxqvNW0jtycxDKmrfuuMapE=;
+	b=e4wNncEaiArLAyqQUA+yobmyL1ur4Y2Wpm1fA1jFpvgIgIorXA9ZgMK8KQ6tOAPXvX35CT
+	2TsAbAZoha4kj4Pc+kxwRQ2bDVviWVOBu0YXWciu+gIaaqoXQggXkAxbtzIM50Ean4bqIv
+	Z9ui6UtS8ykCwzvQDXLFut2Uven/pdUxNOtHXQiENDCG2CT63PDcALppOTpsLj/sw65bGL
+	t2GjgbjxRDwCQ5QkJ1nB4Hs3tIaVxckrXzBgzbyifVBbKyH7AFph2rhxGSQO/BFeY21cjG
+	JiRqWz6Vkr2uz+D+uo4Axi9GycZkYRoV7U8gKJHcu/N00YrSFIaQ//G+Oh/1lw==
+Message-ID: <202dd0c3d515ddfa77a8ec8751badadd31b8a7b0.camel@mailbox.org>
+Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo
+ Krummrich <dakr@kernel.org>
+Cc: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Alice Ryhl	
+ <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng	
+ <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
+ Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg	 <a.hindborg@kernel.org>, Trevor Gross
+ <tmgross@umich.edu>, Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir
+ Duberstein <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 19 Nov 2026 10:58:57 +0100
+In-Reply-To: <a7f9e0f3-b299-4d40-9230-106003725dc2@amd.com>
+References: <20261112101015.528127-2-phasta@kernel.org>
+	 <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
+	 <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
+	 <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
+	 <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
+	 <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
+	 <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
+	 <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
+	 <DMXMSIQONGUW.1RRNS7I6LACD6@kernel.org>
+	 <a7f9e0f3-b299-4d40-9230-106003725dc2@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -92,164 +92,141 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261119-b4-dw9800k_cleanup-v4-1-df26c431595e@fairphone.com>
-References: <20261119-b4-dw9800k_cleanup-v4-0-df26c431595e@fairphone.com>
-In-Reply-To: <20261119-b4-dw9800k_cleanup-v4-0-df26c431595e@fairphone.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
- Luca Weiss <luca.weiss@fairphone.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- stable@vger.kernel.org, Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795081884; l=4477;
- i=griffin.kroah@fairphone.com; s=20250804; h=from:subject:message-id;
- bh=g/OiRwFsFfdmnWKD7IddFC6HC4DRBlfOM96+ymjJkqc=;
- b=+9IaxyEdEXtMhI8Q3RfHlupMQA+Qy0T5cjXDl1x0aooiVjh1QhbWPkDRwu49Vw30ieXUb25Nl
- SfvolKTIkzsCOUMlU/9CFGhBywusMmHFMFgObvIcA5prfDof5CtDFpS
-X-Developer-Key: i=griffin.kroah@fairphone.com; a=ed25519;
- pk=drSBvqKFiR+xucmLWONHSq/wGrW+YvcVtBXFYnYzn8U=
+X-MBO-RS-ID: 8917f7885d5135c09a4
+X-MBO-RS-META: 5bgyrspatab3ugyn7198xxbjjtnsxz6p
 
-The DW9800K's properties are too different to justify sharing the same
-bindings file as the dw9719, Create a separate bindings documentation
-for the Dongwoon Anatech DW9800K with its updated properties.
+On Thu, 2026-11-19 at 10:32 +0100, Christian K=C3=B6nig wrote:
+> On 11/17/26 17:36, Danilo Krummrich wrote:
+> > Drivers often reference count representations of hardware resources and=
+ hardware
+> > states and hence keep them alive beyond what their actual lifetime shou=
+ld be --
+> > even beyond driver unbind.
+>=20
+> Yeah, I agree 100% with that. I know why drivers do this and there are un=
+fortunately really good reason for that.
 
-More specifically:
+To me it seems more that we are often working around fundamental design
+errors. What good reasons come to mind?
 
-The DW9800K did not share the SAC1 and SAC6 modes
-that the DW9719 used.
+>=20
+> > This causes lot's of issues and I'm looking into fixing this up, see my=
+ talk in
+> > [1] and an example from Xe [2] for reference.
+> >=20
+> > That said, in Rust we don't have this kind of ambiguity, lifetime and o=
+wnership
+> > of resources are well defined and the core infrastructure guides driver=
+s
+> > accordingly.
+>=20
+> I disagree, you do have that in Rust as well.
+>=20
+> Background is that the fundamental problem of having two signaling
+> directions which want to define lifetime differently doesn't go away
+> because you switch the programming language.
 
-Description of vcm-prescale does not match the calculations labeled in
-the DW9800K datasheet for how clock diving rate is computed.
+For Rust DmaFence, this is addressed by having two distinct objects
+sharing the same refcounted memory, DriverFence and Fence.
 
-New property timing-control introduced to offer more fine-tuned dividing
-options available to the DW9800K.
+Dropping / signaling DriverFence is the decoupling point.
 
-Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
----
- .../bindings/media/i2c/dongwoon,dw9719.yaml        |  1 -
- .../bindings/media/i2c/dongwoon,dw9800k.yaml       | 91 ++++++++++++++++++++++
- 2 files changed, 91 insertions(+), 1 deletion(-)
+Which is by the way why I am trying to convince you so hard to give me
+the spinlock, to make this simpler and fully sync ;)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
-index 8e8d62436e0d0c4f9af9e52262b23881abd37cec..38db0764c0f70ad49295dcddc182b7e100a68b29 100644
---- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
-@@ -21,7 +21,6 @@ properties:
-       - dongwoon,dw9718s
-       - dongwoon,dw9719
-       - dongwoon,dw9761
--      - dongwoon,dw9800k
- 
-   reg:
-     maxItems: 1
-diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..99f3b506cf12c63ddef1e3d18fd59179a5e7800c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.yaml
-@@ -0,0 +1,91 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9800k.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Dongwoon Anatech DW9800K Bi-Direction Voice Coil Motor (Bi-VCM) Controller
-+
-+maintainers:
-+  - Luca Weiss <luca.weiss@fairphone.com>
-+  - Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-+
-+description:
-+  The Dongwoon DW9800K is a single 10-bit digital-to-analog converter with
-+  +-130 mA output current sink capability, designed for linear control of
-+  bi-directional voice coil motors (Bi-VCM) in camera lenses. This chip
-+  provides a Smart Actuator Control (SAC) mode intended for minimizing
-+  mechanical vibration.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - dongwoon,dw9800k
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply:
-+    description: VDD power supply, can range from 2.3V to 4.8V
-+
-+  dongwoon,sac-mode:
-+    description: >
-+      Slew Rate Control mode to use: direct, LSC (Linear Slope Control) or
-+      SAC2-SAC5 (Smart Actuator Control).
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 # Direct mode
-+      - 1 # LSC mode
-+      - 2 # SAC2 mode (operation time# 0.48 x Tvib)
-+      - 3 # SAC3 mode (operation time# 0.72 x Tvib)
-+      - 4 # SAC4 mode (operation time# 1.20 x Tvib)
-+      - 5 # SAC5 mode (operation time# 1.64 x Tvib)
-+    default: 3
-+
-+  dongwoon,vcm-prescale:
-+    description:
-+      Indication of VCM internal clock dividing rate select, as one multiple
-+      factor to calculate VCM ring periodic time Tvib.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum:
-+      - 0 #  Dividing Rate -  2
-+      - 1 #  Dividing Rate -  1
-+      - 2 #  Dividing Rate -  1/2
-+      - 3 #  Dividing Rate -  1/4
-+      - 4 #  Dividing Rate -  8
-+      - 5 #  Dividing Rate -  4
-+    default: 1
-+
-+  dongwoon,timing-control:
-+    description:
-+      In LSC mode (252 + value * 4) * divider value in microseconds
-+      In SAC mode (6.3 + value * 0.1) * divider value in milliseconds
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 0x00
-+    maximum: 0x3f
-+    default: 0x20
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        actuator@c {
-+            compatible = "dongwoon,dw9800k";
-+            reg = <0x0c>;
-+
-+            vdd-supply = <&pm8937_l17>;
-+
-+            dongwoon,sac-mode = <4>;
-+            dongwoon,vcm-prescale = <0>;
-+            dongwoon,timing-control = <16>;
-+        };
-+    };
+> But even in Rust there is still the need to give HW drivers something
+> like a template in which is defined how things should be done and
+> what things need to be avoided.
 
--- 
-2.43.0
+see below
 
+>=20
+> > Consequently, it is perfectly reasonable to assume that a driver object=
+ that
+> > owns device resources (such as DMA memory) will, in its destructor, tea=
+r down
+> > the hardware to not access any of the resources it owns anymore.
+>=20
+> Exactly that is a pattern I have seen many many times before and I
+> can say from experience that it is very prone to human errors as
+> well.
+
+Danilo's argument is that the object that halts the hardware is the
+same that owns the fences.
+
+You drop the hardware-ring-object, this halts the ring, waits for it
+synchronously, then the fences drop and signal. Of course, you can
+additionally signal them manually before their drop with another error
+code than the default.
+
+> > Insisting on an explicit method call is not improving anything in this =
+model.
+>=20
+> I'm not insisting on an explicit method call.
+>=20
+> What I'm insisting on is that the response from the HW that the DMA
+> operation has stopped is signaling the fence.
+
+That is effectively the case, see above.
+
+> And not that driver tell the HW stop DMA and then continue and dma
+> fence is automatically signaled without explicitly saying that is the
+> signal that DMA operations are stopped.
+
+Again, the main point here is that the object layout ensures *exactly*
+what you want, Christian
+
+Like this, pseudocode
+
+// Drops first, stops hardware
+struct exec_context {
+	// drops second
+	jq: JobQueue, // signals remaining fences when it drops
+}
+
+It's maybe more implicit, but ensures exactly what needs to be ensured.
+
+That's how teardown is done in Rust. You drop the lock, it unlocks
+itself. You drop the memory, it frees itself. You drop the fence, it
+signals itself.
+
+That's by design because the object lifetime model falls naturally into
+place.
+
+> I think the most defensive way would be as last resort scream loud in
+> the logs that the driver is somehow buggy and hasn't signaled it's
+> fence, wait for a certain amount of time (100ms?) as safeguard and
+> then signal the fence with an error.
+
+Now that doesn't make any sense at all, either the hardware is stopped
+or it isn't. Having some random delay is probably even worse because
+the problem is then more difficult to even encounter and thus fix.
+
+> Exactly that is what I disagree on.
+>=20
+> Stopping the HW is what makes fences signal and that is what this
+> tear down process should block for.
+
+Our point is that dropping stuff stops the hardware, and *then* signals
+the fences. Exactly what you want! :)
+
+> Well the question is can we enforce this?
+>=20
+> I mean there are usually only limited options from the compiler side
+> to enforce things, but we should still push developers to use well
+> proven patterns and coding practices.
+
+You currently cannot prevent people from refcounting stuff if they
+really want to. The Rust language is working on enforcing that, too,
+though
+
+https://goals.rust-lang.org/2026/move-trait.html
+
+
+btw the best feature that Rust offers IMO is that the refcounting is at
+least always right. That's quite cool. A great many hacks I've seen
+stem from the fact that programmers are not disciplined when it comes
+to copying pointers and their refcount.
+
+
+P.
