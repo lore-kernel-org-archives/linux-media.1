@@ -1,45 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102725;
-	b=d1PfTqPduPGI5pgOoZSSSXHeuqYoCrK39PpGx/CVudp4I8Ol1NUXY9gG0ax2pZfy1pBV
-	 aUuzbrM0l32YNXxHi/dwxU+oZR2iOgksFJZ1v16b1mP0CmBagkgzURzxhEK0NLSuEwbhf
-	 extJIzivKCPZi1TNSQg6I1pnyi8RIIToHfebfssXCL9hWMQuzDhJnmUdpWFPjd4T9Mr3x
-	 yBYutxBB3nlNcXK0ZrfUWc7DkFqpbF2Wzf0L/t9BTIio+lS53+XTyvVmK0pmHX1jNab26
-	 DmWGA7GKYunsyy0TIihec+SdrXo5z+RbVhQcq948Gk/khKSAoai2DGt+yp7X3IptSjQ==
+	t=1795102728;
+	b=ZrVul8CGMdSdv03SqHVwPoeTGUqv+aJr7PD7S9qwOsaZHNNpdF6ybEzFjfAZLvBYM5XF
+	 Z9UTMwNEwtN5/vfNMQC1z3DiGsTd5OqAUmb3nq8ZU4WdT0/mE3XLhe8qE0s9Y5SCcxbak
+	 LBkM1Ym+A2v6nO4Z42neDGvRvXAxXv4wyjckoarLZ3s0c2OUcLbtekkeS5SnrRHhARUBf
+	 C3Ke+Do2YSKe6xDE9NzPJKq9AG9dqhaA8dF6MtQDyacNJk30k6+HVTVyBG51c7/NqpG6p
+	 mPHv3ckksIGLDAFQJ8dDI2QQHV0iLYgvWnXHQDHn5bOnU2wjL2spVe+6BF5FeB4kiVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102725;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=38Sg+iyeqc6KBqbypZKVLEIJ0XzctRN+NIq5fG00TXE=;
-	b=KY7y9QteyN7pUvGrnCqs3q7OyQyJMtuIF64gJFaT9ZVvvUM44r9RDLzzlqugkWQp978e
-	 pWJBSYounoxyk93oEw08L/aKktPvkuHtAr3HXR/TBevuIEUzg9ap3eDoeL2+r1uylHOru
-	 drqbKArnLYNbNvWPJiLDoiKc/WOOhlefYd9yieGigcm0NZx7nTIXhkmvV1YuHcP5uKK4X
-	 khhOKEY2rfx9UvcR74L0lX7CeWnJtMoIgFn5b2NxHMEEVKsZ9QmetWnop0LcVRwCHUm9d
-	 EsgQW0pEl4P6T24hflcE5ZZz4iNQzyIEdYs0le1QD0oR2B26ZUCJTkE7fS1cnVXxhuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102728;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=t/ptjTUIZontaktGiNEpiUvDRFxFjpZ4bo7hFzEny+A=;
+	b=4UURRQZU9Mrs+blrlz13ETHFcBpgRH1ReW15/Hf0U3Pb7FPkWdbq9TTPw03njOyazIfD
+	 jAQgOIyM+oVmzselKYiBbybrCf9QoKouPfk/AEGQVOHdbF3zo+qvJScY94xb3t7k8vfdA
+	 EQBjqsM0nGAp7cM+SHs0kC2Zp0PiYTrtRgh92SamZ3nyqwcNH+uLcPuWUE0UqbRoKnr60
+	 yt+CBiVIF/1Y1FndZXIV60mKE/kRgQrDs57QrAEDzNuoQYY/R4ue61/HR0EidV3V2et1t
+	 vsupxd+eVH6jU5JDkDV3OI+nj0I/i6/LSDSVS2rf1+/Ko0O5lWMPKO3A5jqn7H87VKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XdtxF5+b;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9177D60A262E;
-	Thu, 19 Nov 2026 15:38:45 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AlQgGip5;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F68960A5BDA;
+	Thu, 19 Nov 2026 15:38:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F68960A5BDA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XdtxF5+b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B08141F000C5;
-	Thu, 19 Nov 2026 15:38:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795102725;
-	bh=38Sg+iyeqc6KBqbypZKVLEIJ0XzctRN+NIq5fG00TXE=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=XdtxF5+bO4nTBqs/TOhiQo2zNI9dB4IiFWqsvjBz/06hnwva/YggJIH5rskOKEcal
-	 PIKHD/PygFnXUhlPlaBulKFxQcaFAEdt8nzkrJfNom9h9cn68QY48T1Mg6ahOwUnNo
-	 9T8Oo0gJadpPNX5bgm8qPn3Ksir/QAFfhDmkbqh9XXzRyqQizQI4ARlRM9ChN/W6lq
-	 me3crgRW9TR9JiAYJAyf0/+0YZpoVyKs0aK/9A5hK2/P5JeetVgLbf3jLrGXsYy2yQ
-	 OHTEBgE5fwVAl8n1/87FmcOtkHiTjJvMnYLK713bn80mK/BIfGq8P/HLoVG15UK+1E
-	 Mn0ebwzIBH+Kg==
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AlQgGip5
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 549CD1C25;
+	Thu, 19 Nov 2026 07:38:35 -0800 (PST)
+Received: from e140322.cambridge.arm.com (e140322.arm.com [10.2.201.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C02703F882;
+	Thu, 19 Nov 2026 07:38:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795102718; bh=q1wmOkXsrySVQhcHOt3ZfSMiGZiDmnncuDgR3I9FjOw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=AlQgGip5GpTjqGb7Xi0hN613676MbGZG6D0WqFDpd/dN778Lt5JL1sVA2GfUWb3Ux
+	 KABotX+9D6CvQTFvVYiPPtE6P0oF4vfKXebf3sZ9L/0qAHZ8iuW7wgjCBfawaK8WC8
+	 Yp7c3XxAtRrbNVRlReL4wKTUhFUtc4tuolT/GLPw=
+From: Charvi Mehta <charvi.mehta@arm.com>
+To: linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Charvi Mehta <charvi.mehta@arm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
+	Shobhit Pandey <shobhit.pandey@arm.com>
+Subject: [RFC PATCH 06/28] media: mali-vpu: implement format query ioctls
+Date: Thu, 19 Nov 2026 15:37:36 +0000
+Message-ID: <20261119153758.1426673-7-charvi.mehta@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261119153758.1426673-1-charvi.mehta@arm.com>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -49,59 +70,212 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 6/6] media: qcom: camss: sm8250: set the camera NoC
- AXI rate from the VFE
-From: bod@kernel.org
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>, 
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261028132403.3505037-7-atanas.filipov@oss.qualcomm.com>
-References: <20261028132403.3505037-1-atanas.filipov@oss.qualcomm.com>
- <20261028132403.3505037-7-atanas.filipov@oss.qualcomm.com>
-Date: Thu, 19 Nov 2026 15:38:41 +0000
-Message-Id: <179510272121.2846709.5296245274382118751.b4-reply@b4>
-X-Mailer: b4 0.17-dev-e3fc9
-X-Developer-Signature: v=1; a=openpgp-sha256; l=897; i=bod@kernel.org;
- h=from:subject:message-id; bh=cmwL7aX52x4dm1pGfpUUyGqb0jQfa7yy4tQDAGjcRFQ=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/xgBP+XD3CHvLbZNvQI3StMz0CNiDHGRnK7iB
- RITCtpXPVKJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCav8YAQAKCRAicTuzoY3I
- OvgqD/9Le25BP3oAnae1CAJ9wXdinZ3Ov84nJhxp7kPtZtqehAP4HAoyvgq/1BZyIANWKAhMDoE
- SY54fJwNNYKMh5fsa5azD7ifbSMKn1K2ZrSfxEl1ZVYsMuSvEnACYWpNqdue4RCyxjRKVTjLg4T
- oX5TeOBGBqYYnJqqr2HoH1hYA1OmNTYWz200uZKbOH/UVH55MvnvByTMW74h+s91ma/ZssbRbvh
- kW3/bvhNljWaxeJwc2f5nSUlh8GPc2IZLtiJzi8pcM5VoIZ36JZ9miUUUHejTRixtLJourAF0td
- 2O66w5Rx6h8WIsSRXAgDaf3b631UEvjCEkfBNEw9itaOJ91o/TFKVlfUCnLhLd3BQUkEzRBNspq
- WCpUTpgJJ0RY64taejQYDqwocg8EXrXnP0uZEn4aZ/IHAqtVHoTj1FqrX33tB6li6Ff13HclpCk
- jSVceaP0AEyE8ExjKA+Df1m/S1tj8WQtvfbsfspP2HxM4Gl5a8+iJxWP+5WZU3NCJvJWRboB7CG
- kzcc6kkEfciaWuvLdD8VjtNe1jxilWK4VqbdcejCcDtbA/vBbB9YC0qNuGVnrLsss52kVXy/G51
- fTFWZZHuaY5Y3uNdTWuJUf8bZXq3naNEHQ6GxC/DtNaQ8lQSfu+SiiqQnqvJAErjmgEgYeyVNKN
- Vco2XNS1sik9PxA==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-28 15:24 +0200, Atanas Filipov wrote:
-> The SM8250 VFE resources list both the camera NoC AXI RCG,
-> camnoc_axi_src, and its camnoc_axi branch. The camnoc_axi_src levels
-> are never applied, since vfe_match_clock_names() does not match that
-> name, and they list 480 MHz, which the RCG does not support. The
-> camnoc_axi branch has no rates, so the camera NoC runs from XO and two
-> concurrent streams stall.
-> 
-> Drop camnoc_axi_src, as the camnoc_axi branch keeps it enabled through
-> its parent, and list the 300 and 400 MHz camera NoC AXI rates for the
-> camnoc_axi branch, whose rate the VFE sets through the parent. The four
-> VFEs share the camnoc_axi clock, so it runs at the highest rate
-> requested by the running VFEs.
-> 
-> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Expose H.264 as the decoder OUTPUT format and YUV420M, NV12M, NV21M as the
+CAPTURE formats through VIDIOC_ENUM_FMT.
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Implement VIDIOC_ENUM_FRAMESIZES to report the variant-specific stepwise
+frame size limits. Add VIDIOC_G_FMT support to return the current source
+and destination formats for each session.
+
+Signed-off-by: Charvi Mehta <charvi.mehta@arm.com>
 ---
-bod
+ .../platform/arm/mali-vpu/mali-vpu-session.h  |   5 +
+ .../platform/arm/mali-vpu/mali-vpu-vidioc.c   | 152 ++++++++++++++++--
+ 2 files changed, 146 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
+index dfd1833f884af..f8a602cb59006 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
+@@ -49,4 +49,9 @@ struct mali_vpu_session {
+ int mali_vpu_session_init(struct mali_vpu_session *sess);
+ void mali_vpu_session_cleanup(struct mali_vpu_session *sess);
+ 
++static inline struct mali_vpu_session *mali_vpu_get_session(struct file *filp)
++{
++	return container_of(file_to_v4l2_fh(filp), struct mali_vpu_session, fh);
++}
++
+ #endif /* __MALI_VPU_SESSION_H__ */
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+index aaf604beff93a..b993255b8c817 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+@@ -12,7 +12,9 @@
+ #include <media/v4l2-ioctl.h>
+ #include <media/v4l2-mem2mem.h>
+ 
++#include "mali-vpu-formats.h"
+ #include "mali-vpu-session.h"
++#include "mali-vpu-variant.h"
+ #include "mali-vpu-vidioc.h"
+ 
+ static int mali_vpu_open(struct file *filp)
+@@ -56,8 +58,7 @@ static int mali_vpu_open(struct file *filp)
+ 
+ static int mali_vpu_release(struct file *filp)
+ {
+-	struct mali_vpu_session *sess = container_of(file_to_v4l2_fh(filp),
+-						     struct mali_vpu_session, fh);
++	struct mali_vpu_session *sess = mali_vpu_get_session(filp);
+ 
+ 	mali_vpu_session_cleanup(sess);
+ 	v4l2_fh_del(&sess->fh, filp);
+@@ -105,14 +106,143 @@ static int mali_vpu_querycap(struct file *filp, void *fh,
+ 	return 0;
+ }
+ 
++static int mali_vpu_enum_fmt(struct file *filp, void *fh,
++			     struct v4l2_fmtdesc *f)
++{
++	struct mali_vpu_session *sess = mali_vpu_get_session(filp);
++	const struct mali_vpu_format_list *fmt_list;
++
++	switch (f->type) {
++	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
++		fmt_list = &sess->port_src.supported_fmts;
++		break;
++	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
++		fmt_list = &sess->port_dst.supported_fmts;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	if (f->index >= fmt_list->num_fmts)
++		return -EINVAL;
++
++	f->pixelformat = fmt_list->fmts[f->index].fourcc;
++	f->flags = fmt_list->fmts[f->index].flags;
++	return 0;
++}
++
++static const struct v4l2_format *mali_vpu_get_port_fmt(struct mali_vpu_session *sess,
++						       u32 type)
++{
++	const struct mali_vpu_port *port;
++
++	switch (type) {
++	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
++		port = &sess->port_src;
++		break;
++	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
++		port = &sess->port_dst;
++		break;
++	default:
++		return NULL;
++	}
++
++	return &port->curr_fmt;
++}
++
++static int mali_vpu_g_fmt(struct file *filp, void *fh, struct v4l2_format *fmt)
++{
++	struct mali_vpu_session *sess = mali_vpu_get_session(filp);
++	const struct v4l2_format *port_fmt;
++	int ret = 0;
++
++	mutex_lock(&sess->vq_lock);
++
++	port_fmt = mali_vpu_get_port_fmt(sess, fmt->type);
++	if (port_fmt)
++		*fmt = *port_fmt;
++	else
++		ret = -EINVAL;
++
++	mutex_unlock(&sess->vq_lock);
++	return ret;
++}
++
++static const struct mali_vpu_format_desc *mali_vpu_find_format(struct mali_vpu_session *sess,
++							       u32 pixfmt, u32 type)
++{
++	const struct mali_vpu_format_desc *fmt_list;
++	u32 num_fmts;
++	u32 i;
++
++	switch (type) {
++	case V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE:
++		fmt_list = sess->port_src.supported_fmts.fmts;
++		num_fmts = sess->port_src.supported_fmts.num_fmts;
++		break;
++	case V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE:
++		fmt_list = sess->port_dst.supported_fmts.fmts;
++		num_fmts = sess->port_dst.supported_fmts.num_fmts;
++		break;
++	default:
++		return NULL;
++	}
++
++	for (i = 0; i < num_fmts; i++) {
++		if (fmt_list[i].fourcc == pixfmt)
++			return &fmt_list[i];
++	}
++
++	return NULL;
++}
++
++static int mali_vpu_validate_format(struct mali_vpu_session *sess, u32 pixfmt)
++{
++	const struct mali_vpu_format_desc *fmt;
++
++	fmt = mali_vpu_find_format(sess, pixfmt, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
++	if (!fmt) {
++		fmt = mali_vpu_find_format(sess, pixfmt, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
++		if (!fmt)
++			return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int mali_vpu_enum_framesizes(struct file *filp, void *fh,
++				    struct v4l2_frmsizeenum *fsize)
++{
++	struct mali_vpu_session *sess = mali_vpu_get_session(filp);
++	const struct mali_vpu_framesize_caps *fmsz = &sess->vpu_dev->variant->frmsz_caps;
++	int ret;
++
++	if (fsize->index)
++		return -EINVAL;
++
++	ret = mali_vpu_validate_format(sess, fsize->pixel_format);
++	if (ret)
++		return ret;
++
++	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
++	fsize->stepwise = fmsz->stepwise;
++
++	return 0;
++}
++
+ const struct v4l2_ioctl_ops mali_vpu_ioctl_ops_dec = {
+-	.vidioc_querycap	= mali_vpu_querycap,
+-	.vidioc_reqbufs		= v4l2_m2m_ioctl_reqbufs,
+-	.vidioc_querybuf	= v4l2_m2m_ioctl_querybuf,
+-	.vidioc_create_bufs	= v4l2_m2m_ioctl_create_bufs,
+-	.vidioc_prepare_buf	= v4l2_m2m_ioctl_prepare_buf,
+-	.vidioc_expbuf		= v4l2_m2m_ioctl_expbuf,
+-	.vidioc_qbuf		= v4l2_m2m_ioctl_qbuf,
+-	.vidioc_dqbuf		= v4l2_m2m_ioctl_dqbuf,
+-	.vidioc_remove_bufs	= v4l2_m2m_ioctl_remove_bufs,
++	.vidioc_querycap		= mali_vpu_querycap,
++	.vidioc_enum_fmt_vid_out	= mali_vpu_enum_fmt,
++	.vidioc_enum_fmt_vid_cap	= mali_vpu_enum_fmt,
++	.vidioc_g_fmt_vid_out_mplane	= mali_vpu_g_fmt,
++	.vidioc_g_fmt_vid_cap_mplane	= mali_vpu_g_fmt,
++	.vidioc_reqbufs			= v4l2_m2m_ioctl_reqbufs,
++	.vidioc_querybuf		= v4l2_m2m_ioctl_querybuf,
++	.vidioc_create_bufs		= v4l2_m2m_ioctl_create_bufs,
++	.vidioc_prepare_buf		= v4l2_m2m_ioctl_prepare_buf,
++	.vidioc_expbuf			= v4l2_m2m_ioctl_expbuf,
++	.vidioc_qbuf			= v4l2_m2m_ioctl_qbuf,
++	.vidioc_dqbuf			= v4l2_m2m_ioctl_dqbuf,
++	.vidioc_remove_bufs		= v4l2_m2m_ioctl_remove_bufs,
++	.vidioc_enum_framesizes		= mali_vpu_enum_framesizes,
+ };
+-- 
+2.43.0
 
