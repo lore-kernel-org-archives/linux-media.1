@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795094379;
-	b=2upVxoFHbJc+ZJ/7aOl4ZzOMq2M3PG7xK82oP14OUC9mc5QM0hIkIwYzZMeJCqGnRcmT
-	 nNwAr6k0/1Dp+FEwmF1i4BvtS1IjqcdP2UMh/MDfjnxEqjyXHdvJVvmND+CS7OsNRCzdn
-	 Tn7nisLnqBd0TRonroaYvO0c4d1erru6V1fqcRn+Xun77NldKdNJfXnDbn0FOITtGK5D1
-	 pTeQDZEZA4e+cJBdTikl7LoNmTD/gdndoFcKePOhv58mYXHjpLsrAT0nAARIO0ptZgDzC
-	 SpZAXIz6klrL7GQT5nBlu5kJEwCgEVUgtchQjmT3HCX3VUrf7KiMPiXTGKi0DErApjQ==
+	t=1795094384;
+	b=fsQpr6dbH6uxlgFWtpRVJ0/L029BC+HPsx37QGPMuD2A5YsuHi6FxJ3s+WiYf8IOzd0V
+	 pBfCkhRm+gpk4+cFhLH/GsI1abKytbmOoLO8mbJeTMzt28wo8K+bVhAnqwit3McYhSx2N
+	 aVoZMqnfGyjMVm2IqpdYZe36e2hBt6e69h/Y6DXKjb0QSEa3StCl79da7p3CBTZuEYWpq
+	 kTzY+b+RYNFMjnG+q88e7VivutySiU+oIbRzxU8pCtQS9h/xqBF0gkwo+ouKN0cxKTQdJ
+	 cg2zvKaxMGI2z4+DS0bw4nMZTbMmlP7YYu+n1g33EGaTskhq8KrjFuVM3isYi/m4ycw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795094379;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795094384;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=gK1ForMjyEmgPmikJ+yHxqKUGm6sEgHvzRHvKpK3TlY=;
-	b=24yy/U+DT9BPvAYYKbTTLAYDm1gwMn18jVpOB/BEWtixMOrvdblBiU14qnynnwcxZjl8
-	 Fl/k6hxghHhmy3kuvMeHvBPW3wPF4lMBefOT7qAT1kNl5XK1fsjOB5kiebWBt0OFgmWZG
-	 uYPM1qrz5JVcAJxiWljznPvbu22bKlwGjh9TwkQY6Y2hXaaZz6QZ3nNg9NrrajXn+42jF
-	 i3hvrWXrVd4Pycp5wOwgakk9jcctE87mTlXWHuEnFzhaLCMjcJKlMun6IRYMcJFV+KD+p
-	 dKaWc74FrFIbsK6eUK3xM40rjdO7iSbjZBg+kVAt12F2a21oy88xf+Frd0F86OJHKsA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=tqYW6qfCA89hjEn5S9pqMagRU23Yv0iJY1QqK9VwBZY=;
+	b=0sIrkDT2FZ+PMpnLna+9Hau1H0Gn38Zuy8YPgC4zOyn95IezvXePCgTsAOlZnWNQkESy
+	 6cpIIjRXFeueDl9TLSCrJRETtE7ulpYIwLGpPztEOmHEqYV30f+sqX0TOKglosDlv95hA
+	 XpRLiYHr27QEIgNEIchhFeulQdGvIo2W1/J1xZCyG+Nzlmlr23FFpENGe0PRvO4RQ5XRg
+	 FdBTEaq3v2NeYgB0DHEohnVrIKMWWvxhh28zzFZHLeCP+bVPHEmAYUalfn30+XQpbAK27
+	 9ZgKRNK1d7QsytVVy0KZn949+OHCNWR4caOWTghaHZrRLqFoUfiBzq7ec00Gz3L5/0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iYrxmap9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUMdBXQW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F642606A320;
-	Thu, 19 Nov 2026 13:19:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7228F606A320;
+	Thu, 19 Nov 2026 13:19:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iYrxmap9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 195CB1F000C5;
-	Thu, 19 Nov 2026 13:19:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUMdBXQW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45BD31F000C4;
+	Thu, 19 Nov 2026 13:19:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795094378;
-	bh=gK1ForMjyEmgPmikJ+yHxqKUGm6sEgHvzRHvKpK3TlY=;
-	h=From:To:Cc:Subject:Date;
-	b=iYrxmap9F95zC7zevzlIkNvm2EvW0xFeZEV4uDvbltwjqYDMQDZgoctTK79JgpP6v
-	 I33+MyJSK1AWI6xpnh/bQL3XsfaZZloLDwjcq6M4OhHbjxka2rqWS/9C7k6QjiQKpV
-	 lo9owqejGMK+pEir1kr72Cu8/95kEj1SBJdg2h30swHFWBbRjuuNVzjPRpqxwoL+eP
-	 JDSvzEUSbDMIK3mvtQTtE9JZ1/HfPvaNx7LxdLihSiTz0hvgD8IYiimYGBgxw7degI
-	 5NitSr8PHy4otVpN269UpDlnCkWhacVOysN65dLm6121gLeZ0CWiNJqtj03mZ6OGen
-	 CyOlsrJR23T0w==
+	s=k20260515; t=1795094384;
+	bh=tqYW6qfCA89hjEn5S9pqMagRU23Yv0iJY1QqK9VwBZY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cUMdBXQWPwrmExTjmd3k4UHdq3e3AF8tfw03kNLYOkIghQLXXrteSD0JgH7nrp1WO
+	 kDoUisHmRH+urygOeK5JGPGx/YP9DMmKH+lZrji6Xp5C183puetxI3m9ngILxtDYtv
+	 vRFkeav0jbcQx8gjVvCVLG4Qfya7FKTO2HvwmJ20X3pWeGuWEXyS/tEMZIn8pCvBwv
+	 /Me5CdsmwbHBwb2/mxWvPcSvDHoRMVD1p/skM/7VDHr/cJLWGAnqlrAmXb5DrWltS6
+	 Jw2gLuAniYfQvNFrldjuaJQJ2TgqA1b9qCulsW0iVZWhCgEQfmBNuc84UbEngjXZA+
+	 os/qBDoL8d0tw==
 From: Philipp Stanner <phasta@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -60,11 +60,14 @@ To: Sumit Semwal <sumit.semwal@linaro.org>,
 	Simona Vetter <simona@ffwll.ch>
 Cc: linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] dma-fence: Fix timestamp memory ordering
-Date: Thu, 19 Nov 2026 14:18:28 +0100
-Message-ID: <20261119131830.2535266-2-phasta@kernel.org>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/3] dma-buf/dma-fence: Ensure correct ordering in dma_fence_timestamp()
+Date: Thu, 19 Nov 2026 14:18:29 +0100
+Message-ID: <20261119131830.2535266-3-phasta@kernel.org>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261119131830.2535266-2-phasta@kernel.org>
+References: <20261119131830.2535266-2-phasta@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -76,33 +79,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Based on misc-fixes
+dma_fence_timestamp() tests two fence flags with test_bit(), not
+providing any ordering.
 
-The memory ordering for obtaining a fences timestamp seems to be broken.
-Moreover, there is no canonical way for users to obtain the timestamp,
-as proven by the broken ordering in drm_sched.
+The while loop + cpu_relax() seem to satisfy the desire to avoid
+locking, effectively rebuilding a locks spinning behavior in the rare
+case that a fence is signaling right now. Contrary to proper locking,
+however, correct memory ordering is not guaranteed.
 
-See also my patch for the signaled flag [1].
+Ensure correct ordering with locking.
 
-@Tvrtko, would you mind basing your patch [2] on this series? That way
-we'd solve both bugs.
+Cc: stable@vger.kernel.org
+Fixes: b83ce9cb4a46 ("dma-buf: add dma_fence_timestamp helper")
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+ include/linux/dma-fence.h | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-
-[1] https://lore.kernel.org/dri-devel/20261119104030.2381685-3-phasta@kernel.org/
-[2] https://lore.kernel.org/dri-devel/20261117094324.8256-1-tvrtko.ursulin@igalia.com/
-
-Philipp Stanner (3):
-  dma-buf/dma-fence: Ensure correct ordering in dma_fence_timestamp()
-  dma-buf: dma-fence: Add dma_fence_overwrite_timestamp()
-  drm/sched: Fix memory ordering with dma_fence_overwrite_timestamp()
-
- drivers/dma-buf/dma-fence.c            | 28 ++++++++++++++++++++++++++
- drivers/gpu/drm/scheduler/sched_main.c | 28 +++++++++++++++++++++-----
- include/linux/dma-fence.h              | 15 +++++++++-----
- 3 files changed, 61 insertions(+), 10 deletions(-)
-
-
-base-commit: 7488ee210542b918b9c5749a29fd1502c49a0665
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..34aefb63a7fe 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -708,13 +708,17 @@ static inline void dma_fence_set_error(struct dma_fence *fence,
+  */
+ static inline ktime_t dma_fence_timestamp(struct dma_fence *fence)
+ {
+-	if (WARN_ON(!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)))
+-		return ktime_get();
++	unsigned long flags;
++	ktime_t ret;
+ 
+-	while (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags))
+-		cpu_relax();
++	dma_fence_lock_irqsave(fence, flags);
++	if (WARN_ON(!dma_fence_test_signaled_flag(fence)))
++		ret = ktime_get();
++	else
++		ret = fence->timestamp;
++	dma_fence_unlock_irqrestore(fence, flags);
+ 
+-	return fence->timestamp;
++	return ret;
+ }
+ 
+ signed long dma_fence_wait_timeout(struct dma_fence *,
 -- 
 2.56.0
 
