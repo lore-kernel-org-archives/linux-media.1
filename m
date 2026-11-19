@@ -1,86 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=206.189.79.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795074297;
-	b=4m8/T4fiHS5niSqCK7mIJUrAb9zwe8RIkv+bOmjjYevBHgq8tMlFA5ThB9qfRepdCP0E
-	 QzYoiKjRxgp3Rtttmwx58c+qjXUpwnXfl273v/fe44KdyXDmAFZ2/HV1XImjA0lvuqmVB
-	 BHSzwSKWXz8+ihVGYhCvMHsOUmN7iDdmVIVh46d7J3/XZFVwUyKL8Q6xqKgSvB/sXN22s
-	 OpMF2yUS+r9bTf0GeokuXkVuX9tarDfBmBdnlLZ3Prh2Q1oE+hbhibNrWYnNPsUJHU+01
-	 ALtF9g6IuW9e0EZPKApR8AxlgkfCJsvmAxXOQitiWYS828+aVg22/b4g/ijFcHy5PbQ==
+	t=1795076103;
+	b=nxlTNwMhqZD0ClTloLHhPs2UJD+N52pCt6YiL3pXaPqfZyWoyPUauh0KEVF+B6D5mfVq
+	 TQa4Rl5uoaaoDQTo+k1TNQgOprAyb0aypT3M+f+DUfXAreOeF+EQ8P69gJ5mgO82KyJqb
+	 Pi5+D9kC30xD4u4+uE1GEuaZSeRDBqiq7ZWNJ4nmA7v1C5PyVHA3iSJ9LcEaumukwGd/k
+	 FN5LDkWpkYq/gfgIi3Q1sikCyl+CDOj+g5b8BSHyuoFawvp9ItyrQtSG8czr7F5TUU3O0
+	 ufLfRNeyzSiX6z/7PJueYAxk11mDMd7CIayXQfkItuz4nWo1J1c/iESntS8U7cwbToA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795074297;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type;
-	bh=qYfKBxWqJqldBkcNu1wH5zrI4D2hprilAOB9axqrEy0=;
-	b=hJdT/0Vx0koUQO6BGKRVANJ8EJ9tUaO3d/V75CyIjm8IOOyDrItZK0DNj0M2zrPAdt5v
-	 Coq3Yiozg+XwqdqsEmMCEYJXWKXp1p4cgV5rBz1TUuwASmrckefBBqnoQzUSFmT679wTz
-	 OiVXLSKvIac0IwDbrNK/VWHpbYxWluibQ8NeKf5r14fVy1mMOmPGxW+HUT5YtSNJcfRKy
-	 Y4pSc7m7Ck3l1QIqL2w8XuUJND4V9y78Vpx8IDOwadhK9CXirIdbIsHNcVpDPOSMRyAB9
-	 MehTBQRINpuxVW1Z1WMol+3ooSq/ifcCxfmy5triTDqpNRToz/wf/1UCj1z63Kc4A9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795076103;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=j9Ticeczrk4bisJpNBsHWKj8euFNqV2BLFd8qqYZfT8=;
+	b=idZJqFvvAQ/xnmAycUn7MngfsY2t1/VRMA+pVxfmLFm0kYQhMcln0bRAs8W7PsVkchdx
+	 ZxwuWQQwk3H+ht3trGXGlyRNuxIJN6D8/Qb3XYbFX3z++JN5dWGeq/7eRQSgld5wb6NdL
+	 6jU6OghqyU1AFsPm9pyA4CtHkpY/PpEvG4596Ki6Mcio5u2pRLbv5aXmIII61JFOMNLX1
+	 LU4+lmNKegPW3gF4ISCJzwIxOQ+wxGQCZYoLYIq3pnpVoarl2VjXjMgr7pwpZM5jvPhCd
+	 ErzkimukYTU4lLCn7MnyFpAx3OrZ8WRwRldQoxuJKlO/+lyYcuYQhu25CSL4Egwed1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c94JkHAD;
-	arc=none smtp.remote-ip=209.85.208.41
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22904606A320
-	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 07:44:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22904606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=mail.zgclab.edu.cn;
+	spf=pass smtp.mailfrom=mail.zgclab.edu.cn;
+	dkim=pass header.d=mail.zgclab.edu.cn header.i=@mail.zgclab.edu.cn header.a=rsa-sha256 header.s=dkim header.b=GEQxMFKH;
+	arc=none smtp.remote-ip=206.189.79.184
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 58632606A338;
+	Thu, 19 Nov 2026 08:15:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58632606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.zgclab.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.zgclab.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c94JkHAD
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b47c1a3c74so2710194a12.3
-        for <linux-media@vger.kernel.org>; Wed, 18 Nov 2026 23:44:57 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=mail.zgclab.edu.cn header.i=@mail.zgclab.edu.cn header.a=rsa-sha256 header.s=dkim header.b=GEQxMFKH
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795074295; x=1795679095; darn=vger.kernel.org;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qYfKBxWqJqldBkcNu1wH5zrI4D2hprilAOB9axqrEy0=;
-        b=c94JkHADGfhPq6A6ZvheJ32gdwXx14gO+Rsijyxxs7AWo/6kbLTjI1NiVVkhCvLQMS
-         pafk4gu1Zp5KUtpKB7L+/o8/Eghy+DJhphCjY4PxIWdgSHAH0fXiskS9j5NYk8YdPDgL
-         APZYYEYQ/em/594L06MXbpQseEoisZ0KwEa1m2cz0VdYG2SQAPygXEujBHWr9ihX3GoM
-         HXKtNfomEAlSY8agcKbvH4hFE3UL+K2AItTjWi9dmSSOUU3f1bTUy36iHDTntUeFarmn
-         5PPI/CPeOF1CMo5ybMG2rsHKJh7bGBuNBhQWyz3qmHWf2jK+ndmFAchNwVbOaDEcdcvG
-         9vYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795074295; x=1795679095;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qYfKBxWqJqldBkcNu1wH5zrI4D2hprilAOB9axqrEy0=;
-        b=v3fxa/hV7kRysN5FN5uPOeanmeXv/3s2ykaBpEmthAc3fr6Zo+tUFaXEjOhN+q2Xvm
-         VO/izevbb2aXxqkg6r2MtfrdGPg6QYScZLKe9RwgrnYmOIwak/1OI2kBC4k1Mc5+Ef+S
-         L0GvxuCKVgDOwpuRJSzIyoKc/FWb1AS+K2oCnbYfAhWGpThXxPc5YPhjoR4xUWVUQTAk
-         ksHww9GjCXAiPxWrKPdTFWsy2xyIA7lnSe5BA74rVKZx4s+3RfHXTRiA53v3wq1HKbmn
-         FKEymAG1mkA7dzEquxC350j562uBs4g046y40FT59/9XG5sdwBG9bgxA/YtHTNlpv8kC
-         sskQ==
-X-Forwarded-Encrypted: i=1; AL+hErGQ7Jd3mMmYs3eBMVLuIfTw7aUpF2Sdu2P7uHpaw+BaXhcy+yvRBvNCaVEW8S1rw1CuvC8BTSC9+41qwg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9q9ABenS5PnYqjQ0a2pG9yicPxCjwowNpoXZQzr19f3VHXNyBt
-	yrGU3+zZw0zvbnEq1FYL70e3wzQMEYFRAbaRPxiFKsHSaFgsM2TXckKV
-X-Gm-Gg: AYBFou241B/1ihZZeH9QFDfQmG+683NXH0kXRaR9+PdpejPpzhV8lJgrmvi9z9buh5P
-	ZajYhx6+L6ezn/LNrsQ7qawMVDR7C2hxk0fEAWdTlP5DepaOVbt5wI+T9aTmallaDUYEvMFZQpA
-	7huIqeaC7ptQLr5unqdMw8LbHgcUCWUKwXTyKyZpcywo/ofFlENgVbXLbCqVDhFy1E2l38HiYV3
-	VntUy0tHePBOOAjkvTYuW4KxQjnHYyh7QCk+bX5fh82JJt63E43+97I83HaPSWTU38mqZimFRIo
-	cW+l6gMA9vIMW/w+++dkKZTZwrhAEHDZPV8ern8fdUXJMtJBIB3G17fLzThjdsNg7cBAq9nLN1W
-	AM6kgiL4kGtjqy+xVs5m1uYHASHhs0w1Avg4dm95/ziFWUbqsHC340W4LM2+NwAQVFhbNpobLS3
-	WsQ3YKT5oviGTocxzu5sXIGgMdDU0NSSLRa+CwbKCSa1Dp/WadO7trbx0tGM/PzcNA+5mMnEmht
-	T9GbZY0vsQVcIhpAFkKRFLRY5xluBD5MyAvF+FnG9+X6nCFnWIIYWpVgaB1YwMV3kedx1m6htqb
-	2lo+/sWyV+T3KKicRqZNa9DRcgbxBzOoT3IURF9PhIoT6v72ixV643nhn0sVPA==
-X-Received: by 2002:aa7:c4ec:0:b0:6b1:c2d3:6a79 with SMTP id 4fb4d7f45d1cf-6b887ec9546mr2981335a12.12.1795074295471;
-        Wed, 18 Nov 2026 23:44:55 -0800 (PST)
-Received: from [192.168.2.32] (clk-166.netdrive.pl. [185.24.27.166])
-        by smtp.googlemail.com with ESMTPSA id 4fb4d7f45d1cf-6b888ef9423sm2158552a12.3.2026.11.18.23.44.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 23:44:54 -0800 (PST)
-Message-ID: <637b6c46-dac9-403e-bc13-5a3b2e4b4b44@gmail.com>
-Date: Thu, 19 Nov 2026 08:44:51 +0100
+	d=mail.zgclab.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=j9Ticeczrk4bisJpNBsHWKj8euFNqV2BLFd8qqYZfT8=; b=GEQxMFKH8wXrd
+	aDdWVxT6ptb+DL52A68gngSOdJp4ZSDDJrpgtOFzjc9YAkxk/iF/djelHtbT/rlr
+	qAIcnSDI/WGLwndQ6+wbO4+v1w3kTzarLnPkrDIrRDFFBWz69dyYsil77xMSE89f
+	eTFHDh5BBnkJEkIqAHnf89FptC+u+8=
+Received: from 06.eml (unknown [58.206.202.11])
+	by web2 (Coremail) with SMTP id yQQGZQBHcmYBsP5qVSJLAQ--.56740S2;
+	Thu, 19 Nov 2026 16:14:57 +0800 (CST)
+From: Wang Haoran <wanghr2026@mail.zgclab.edu.cn>
+To: sakari.ailus@linux.intel.com, dan.scally@ideasonboard.com
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, wanghr2026@mail.zgclab.edu.cn
+Subject: [PATCH] media: i2c: dw9719: disable vdd on detection failure
+Date: Thu, 19 Nov 2026 16:14:58 +0800
+Message-ID: <1795076098490-6-83db7e12@mail.zgclab.edu.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,183 +55,89 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] media: em28xx: NULL pointer dereference in
- em28xx_close_extension() on disconnect/unload
-To: Thorsten Leemhuis <regressions@leemhuis.info>,
- linux-media@vger.kernel.org, regressions@lists.linux.dev
-Cc: jiangong.han@windriver.com, hverkuil+cisco@kernel.org,
- mchehab@kernel.org, stable@vger.kernel.org, sikorski.grzegorz@gmail.com
-References: <ec1ffcbb-1625-4925-ae6b-f2b04dca1e1a@gmail.com>
- <f5864dec-ed41-4285-b888-737f3a38b33d@leemhuis.info>
-Content-Language: en-GB
-From: =?UTF-8?Q?Pawe=C5=82_Ziemniak?= <pziemniak@gmail.com>
-Autocrypt: addr=pziemniak@gmail.com; keydata=
- xsFNBFj+S9oBEAC86H+SGAEHMo4Ak5T8DR2QZVPW+6lakAYr0v/F7Ni+d68r2xNFPZGASLgp
- RqQSkeO3qOE9TnppCwzovLAfJJM0qf41EaPQPKr1WdJzm0D0fiRmWMGGz41kSHvjD5J+OeQO
- hNLQnKBaUAwymafgCJIUr5pUZmb5vh+J40e//GF5L1oTrHO29IEEgjvqrE/e+a8is0MfysmK
- obckkF00sQYDUIFkfh3Iiu7q4LfX6Y5I8LKOOXdMJxqIZFjXErByXYESRLm7yCJbgoqgerQx
- T4PRSwWvwHC0xzpYlaDYloHzRRJLrBtFByvtTCmrXc/VBPiGG9Ec2vzF6nGDEkvPBrlzVTmm
- EKLBDCY33Q4XWixw+F1EaWXmeM/uqYe3+ppK3dsFi3gk1YyhyMKnm2DQ2tqOpRGk0roDOEJ+
- QivpDW6+f0W6OrBwazDen5HNZNXyrW8lnJ2PftVPrJLia22HqBG7PN0Psg/MCq0sYWjrTuGc
- VGkgU/HV9Aq5WTgQpYQQGrPpdH00MXtI2kkxfzaRhe5m01sQlxfCX8QK+3ugCLXnR96eMjWg
- Ga7qjLKi+GQtDPZggSdCZM1gaCl8hO07Pa7kYrKr7hrpM9KUvVs5DjZC9qWgRukhANTC/ELT
- oYANX7WdS9Bx5fxtnMo3h9Eh0bVK8sGFUOEcPMD5iumc6gVFEQARAQABzSVQYXdlxYIgWmll
- bW5pYWsgPHB6aWVtbmlha0BnbWFpbC5jb20+wsGWBBMBCABAAhsjBwsJCAcDAgEGFQgCCQoL
- BBYCAwECHgECF4AWIQRHThSYp6KJpqrjV0VyZi6MCrIkMAUCZ+nBzgUJGFLUFgAKCRByZi6M
- CrIkMM/MD/92BN7+SfLO+HrlXnD+Y86pOm0qEhGwpAl8ugKjRtUZBNUC067tnTO7IIJmRjxt
- 55gCpL4bxfuqW86wUokIfww9J7lcgLeM0xw1RpOGoTdpIFV1cyXa9Ys3r7DualgZvl9jE6hs
- 6Y9Era6WNte8Rjhz6EDSFM6P19PjbdxwOthlyVvbJLcG6+i+3RrNPSyp9fjVctv3kQ3W9yRg
- i8GMX5K+xEr4SvNIXU2oqm6CZBPX59xoX0YqwCF69K17VDFu9Fq3LhJSl7LajgTX1WLgVUPC
- qY6O32OkEkTae66Z1fPHjJ1SMlG12szDl6ZlpeDgLxHGNfHiXXDRiW92IgVUml8wEd5pJ0A/
- nFHozm5wOB889zsYSb5HQpm2PA9A0WTHebRi1vo5etNezrhb3r2UF1UGHdHZBKQV65QNu725
- xNtDGup6ccokPZJT5mtB9uwCo3VjbOEb98i48+uw7TqXKKrJLtrPaICbsiaSsmQaB6A4NrUi
- rzoaHWEIqiWqsoEvSDET9w/Yz+RXi+arNy7XPBRAYYtiyrJfSjmZgoiXgqGWbHaz6+Bw5bdF
- JficjyBxVNxG39/nxbtcKvyqLKTgB3Ju9HijAi5EPM9nKwL2q+8RxrqVhfeM7m+k2nCpyuPl
- ZZlUpCPlC7fbV+9fYH1hdKQ0nbhWOT0v0VFHzFfcrpLNoM7BTQRY/kvaARAAwB2PdB8LVcIm
- Qm7nQ7GHUx/BBmKWbjaTdhO9EErGddHwFvRhaXfhkBRaqCdtd/I6HcL3fSxhcYtAj1uMQMRL
- B9nvfY8iVI3GVc9F1+Sz400bAY6ni3rCS3ef9BFNoT8Fvnf3ACKSpqyIPLbx+OoZ+1wLGugi
- DBLjQ5vOclxsF7AclmNSnHc+pOYnPEklcqbZj2/IcPkfpXY+X3UFP5M8cfM/ztb3BnuS6end
- TnedX4OaS4PU9aP8i+w25ebqDYbbyD+sHvzTTI7A2jzsQuzhhebb9rmbgm3PtNYTuYb8wMFE
- nLbLGv3h0o8qHywo6t2LTczjgAfirxwu5N80+/UNVsC6TYnDzv2ZRR05KiOOolVH69I3IeDA
- xOx4Ow2KXHpeky8djs9rHsFDCKr3XgX6Rd3MsEk6a/WIetaMgDgmaIV5JVnbSeQDN8nfx/12
- X69yFKbGKYjdbLCS2vhRC2N66GP6O1Dc181whCdb8mxAQKa9zxfexjmInYVJ05HsNRm7L+xr
- hBxCuXrPYNI9Ree5r6+RvVvKMv7DVdYINbXYlso2ruo+GnHVzb5UmP7l7yxyEAeWexcHF4On
- RwMAskBeXQ9GPPDle1Zo2NKR7mCOJYRQMiONEJ9MJGT4ABtbROso6KD5F6gADVbanNUkv+CJ
- 8yY2FbyZUBLGjtqcNlhYKtsAEQEAAcLBfAQYAQgAJgIbDBYhBEdOFJinoommquNXRXJmLowK
- siQwBQJn6cHOBQkYUtQWAAoJEHJmLowKsiQwmNYP/1e/0juggJMYp2OqlZ8B+5AdaYrqdLWy
- cbXJtjH9Gf39R8FbcKUiaNOm4sFJCsHdRWKmjfzOM8/yNnuuBmMXloHS/4R8w6dHSLyP7ilb
- xUhpVZlA5xNrvbmDfsMtbkcXvnb/XzLbam4pnxDRsGIzyfvZgote1hqI2/wUfoKPC9gxD46O
- px2CwJFN3zG1Lgb1RZjIn+OFRXxSoTUZjVszCiHQmk3nHIrlLHu/BcbWTmrjOwRabHQowy0k
- F902F23Ffxx4XN2Z9vQS6/WQ2Gh15wwjtdGXQ4zMBiTrr81TXFJrwAbGw69GiViV7iDd+5Vn
- h22FEWucFsXfXwjK8YJsJRnVpGFgy6+bmap59sFxBQAacbAqPdnOf0tEk+Quj8C2PSYynBZ0
- 0LJuS+7LVcCKxnZ+ehyQ8VbVNeFcwYLTaeOrVGoKAsgZrxnawMlAOep9ftKh4aTmULEQFs4N
- 4ZC2QzOyGh7REy1XCwY6Xg/qnZGFV7T0Ug9OVdrUO7azRuhe6DHh5zZHR7xqQxIFRXjfumeh
- nk/7+pKmyxkFjj4nQhBwSVPP5EiawCYrN8Zlej5+zSIsHTRJyTIMQph6LEFQ8BmKMoF6As5E
- ZkAgSXaACf/tUbhMB4C3ojit5o62/8p/6hzN0mD+U0SmW4fb+wtPHTAAhgrS19UqW8Aj+SKF Yt7+
-In-Reply-To: <f5864dec-ed41-4285-b888-737f3a38b33d@leemhuis.info>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------nYQU0oRfPYb3sqp3iHI8k0K3"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yQQGZQBHcmYBsP5qVSJLAQ--.56740S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFyxZr48Xr17XF1xurW7Arb_yoW8uF4DpF
+	ZFvrZIyrW8K3WxuF45ua4IvFyFy3WxA3ySkryfGw4Uuw15uas5JFyxGa4Y93W09r18A3W2
+	vws8Xry8A3ZF9FJanT9S1TB71UUUUjUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPC14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAaw2AFwI0_Jrv_JF1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
+	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx
+	0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lF7I2
+	1c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q6r43MxkIecxEwVAFwVW8ZwCF04
+	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUXVWUAwC2
+	0s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI
+	0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv2
+	0xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2js
+	IE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI
+	43ZEXa7VUjSdgtUUUUU==
+X-CM-SenderInfo: pzdqwxbusqjlo62juzldeovvfxof0/1tbiAQMQD2r+rmUDMAAAsx
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------nYQU0oRfPYb3sqp3iHI8k0K3
-Content-Type: multipart/mixed; boundary="------------NwgqydRh0N514dRn0iPJCO80";
- protected-headers="v1"; hp="clear"
-Message-ID: <637b6c46-dac9-403e-bc13-5a3b2e4b4b44@gmail.com>
-Date: Thu, 19 Nov 2026 08:44:51 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] media: em28xx: NULL pointer dereference in
- em28xx_close_extension() on disconnect/unload
-To: Thorsten Leemhuis <regressions@leemhuis.info>,
- linux-media@vger.kernel.org, regressions@lists.linux.dev
-Cc: jiangong.han@windriver.com, hverkuil+cisco@kernel.org,
- mchehab@kernel.org, stable@vger.kernel.org, sikorski.grzegorz@gmail.com
-References: <ec1ffcbb-1625-4925-ae6b-f2b04dca1e1a@gmail.com>
- <f5864dec-ed41-4285-b888-737f3a38b33d@leemhuis.info>
-Content-Language: en-GB
-From: =?UTF-8?Q?Pawe=C5=82_Ziemniak?= <pziemniak@gmail.com>
-Autocrypt: addr=pziemniak@gmail.com; keydata=
- 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 Yt7+
-In-Reply-To: <f5864dec-ed41-4285-b888-737f3a38b33d@leemhuis.info>
+dw9719_power_up() enables the vdd regulator but neither the INFO register
+read error nor the unknown device id path disables it again, and the probe
+error path does not call dw9719_power_down(). Device detection is the
+driver's normal hot-plug path, so a missing or mismatched module leaves the
+VCM rail enabled after every failed probe and _regulator_put() warns on the
+leaked enable.
 
---------------NwgqydRh0N514dRn0iPJCO80
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Disable the regulator on these detection failures.
 
-VGhhbmsgeW91LCB0aGF0IHNlZW1zIHRvIGJlIHRoZSBzYW1lIHByb2JsZW0sIEknbSBzb3Jy
-eSBJIG1pc3NlZCB0aGF0Lg0KDQpJIGJhY2twb3J0ZWQgYW5kIHRlc3RlZCBjb21taXQgYjBi
-YjlhNGZlMGQzIGZyb20gbGludXgtbmV4dA0KKCJtZWRpYTogZW0yOHh4OiBmaXggTlVMTCBw
-b2ludGVyIGRlcmVmZXJlbmNlIG9uIGRpc2Nvbm5lY3Qgb2YgZHVhbC1UUyANCmRldmljZXMi
-KQ0KYWdhaW5zdCA3LjAuMTQtMjktcHZlIG9uIG15IEhhdXBwYXVnZSBXaW5UVi1kdWFsSEQg
-KDIwNDA6ODI2NSkuDQoNClVubG9hZGluZy9yZWxvYWRpbmcgKGBtb2Rwcm9iZSAtciBlbTI4
-eHhfZHZiIGVtMjh4eF9yYyBlbTI4eHhgICsgDQpgbW9kcHJvYmUgZW0yOHh4YCkNCmFuZCBV
-U0IgZGlzY29ubmVjdCBub3cgY29tcGxldGUgY2xlYW5seSB3aXRoIG5vIE9vcHMgYW5kIG5v
-IFVTQiBoYW5nLg0KDQojcmVnemJvdCBmaXg6IG1lZGlhOiBlbTI4eHg6IGZpeCBOVUxMIHBv
-aW50ZXIgZGVyZWZlcmVuY2Ugb24gZGlzY29ubmVjdCANCm9mIGR1YWwtVFMgZGV2aWNlcw0K
-DQoNClJlZ2FyZHMsDQoNCiDCoCBQYXdlxYIgWmllbW5pYWsNCg0KDQpXIGRuaXUgMjAyNi0x
-MS0xOSBvwqAwNjo0NCwgVGhvcnN0ZW4gTGVlbWh1aXMgcGlzemU6DQo+IE9uIDExLzE4LzI2
-IDIyOjU2LCBQYXdlxYIgWmllbW5pYWsgd3JvdGU6DQo+PiBDb21taXQgODI2OTE1YjZiNjVl
-ICgibWVkaWE6IGVtMjh4eDogZml4IHVzZS1hZnRlci1mcmVlIG9mIGRldl9uZXh0LQ0KPj4+
-IGRldmxpc3Qgb24gZGlzY29ubmVjdCIsDQo+PiBDVkUtMjAyNi04OTg5MSkgaW50cm9kdWNl
-cyBhIDEwMCUgcmVwcm9kdWNpYmxlIGtlcm5lbCBOVUxMIHBvaW50ZXINCj4+IGRlcmVmZXJl
-bmNlIGluDQo+PiBlbTI4eHhfY2xvc2VfZXh0ZW5zaW9uKCkgb24gcmVhbCBkdWFsLVRTIGhh
-cmR3YXJlIChIYXVwcGF1Z2UgV2luVFYtDQo+PiBkdWFsSEQsIFVTQiBJRCAyMDQwOjgyNjUp
-DQo+PiB3aGVuZXZlciB0aGUgZGV2aWNlIGRpc2Nvbm5lY3RzIG9yIHRoZSBlbTI4eHggbW9k
-dWxlIGlzIHVubG9hZGVkLg0KPiBUaGlzIGlzIG5vdCBteSBhcmVhIG9mIGV4cGVydGlzZSwg
-c28gdGhlIGZvbGxvd2luZyBtaWdodCBiZSBzZW5kaW5nIHlvdQ0KPiBpbiB0aGUgd3Jvbmcg
-ZGlyZWN0aW9uLiBCdXQgRldJVzoNCj4NCj4gIEZyb20gYSB2ZXJ5IHF1aWNrIGxvb2sgdGhp
-cyBzZWVtcyB0byBiZSB0aGUgcHJvYmxlbSB0aGF0IHdhcyByZXBvcnRlZA0KPiBlYXJsaWVy
-OyBhIGZpeCBpcyBkaXNjdXNzZWQgaGVyZToNCj4NCj4gW1BBVENIXSBtZWRpYTogZW0yOHh4
-OiBmaXggTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIG9uIGRpc2Nvbm5lY3Qgb2YNCj4gZHVh
-bC1UUyBkZXZpY2VzDQo+IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI2MTEwNDA1
-MjgwMC40NDU1MS0xLXNpa29yc2tpLmdyemVnb3J6QGdtYWlsLmNvbS8NCj4NCj4gSWYgeW91
-cidzIGlzIGEgZGlmZmVyZW50IHByb2JsZW0sIHBsZWFzZSBsZXQgdXMga25vdy4NCj4NCj4g
-Q2lhbywgVGhvcnN0ZW4NCg==
+Signed-off-by: Wang Haoran <wanghr2026@mail.zgclab.edu.cn>
+Fixes: fed60fc552c8 ("media: i2c: Add driver for DW9719 VCM")
+---
 
---------------NwgqydRh0N514dRn0iPJCO80--
+diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
+index 5d5da0439dba..d1aef321e26c 100644
+--- a/drivers/media/i2c/dw9719.c
++++ b/drivers/media/i2c/dw9719.c
+@@ -149,8 +149,10 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+ 		}
+ 
+ 		ret = cci_read(dw9719->regmap, DW9719_INFO, &val, NULL);
+-		if (ret < 0)
++		if (ret < 0) {
++			dw9719_power_down(dw9719);
+ 			return ret;
++		}
+ 
+ 		switch (val) {
+ 		case DW9719_ID:
+@@ -168,6 +170,7 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+ 		default:
+ 			dev_err(dw9719->dev,
+ 				"Error unknown device id 0x%02llx\n", val);
++			dw9719_power_down(dw9719);
+ 			return -ENXIO;
+ 		}
+ 
 
---------------nYQU0oRfPYb3sqp3iHI8k0K3
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+---
 
------BEGIN PGP SIGNATURE-----
+PoC reproduction (7.4.0-rc2, arm64 QEMU virt, unmodified kernel):
 
-wsF5BAABCAAjFiEER04UmKeiiaaq41dFcmYujAqyJDAFAmr+qPMFAwAAAAAACgkQcmYujAqyJDAW
-iw//fT85NPSOr5HWVPGcBN+YVKVxjtESNst7eruRQGyXNplo9UjhkJN4X6U/XiUsgGDvxSLNqkbK
-dJPZaR5tWB+yLQ5bSbxXLfkcWYUDRMP/pe+kD+oFwTIkzT+beHWUrj4xksCcPz1znO3FuH91A2hN
-G+EreifZEj8/r3tFfGv0BNZEnOIcLp96eL1fxn8xreLj/VCLJjnVlTA+TtxLWGpPVjJe3ipFNqBf
-Jx8oy/J+RIHvLqDG5L5x4cxR3L/AXGoQGForsyElZbZ5DGv0BMGQBGr3RxFIacnir6JLkq5cTKWH
-t2iVZV5oM967SgsUhBEGcMphvws6dxkr90aLEZ+1eZsGyw5q84QgXDbM9gf6v4XBBwFmNLg9nJ1F
-hJ2OIMji4G+a4E8gQDvLuN/QGWA0uAXXqGr3LPYxtIlLabeQePfXT+Tga28XqRqADRc85eWgiIjU
-y2MnzNx8n7jSAomK/irDop9cPbPwDivdPsZru0q1I/uJ83JHOgQ7OeqEuPlPr2j+qspQHLRMOXer
-CNrR79ZYNSBZVK7CsivqFtZ5YGK6guNCpdaRELpg/nPm+TJlHFnHYP8yvu9Y1PiGxXwqMiDIqcuk
-YbHWUigJMy6RRdxSsHlNfK6fPhBkpOZYRLrPkNp7e0ms5cEaNIQWmfhn2GNc+hx2O3RMY80+N+xx
-8Rc=
-=LAtx
------END PGP SIGNATURE-----
+Route 1 (i2c-stub, no DT injection needed):
 
---------------nYQU0oRfPYb3sqp3iHI8k0K3--
+    modprobe i2c-stub chip_addr=0x2c
+    echo "dw9719 0x40" > /sys/bus/i2c/devices/i2c-0/new_device
+
+The probe powers up the device and the INFO register read fails on the
+unanswered address.
+
+Result:
+
+    i2c i2c-0: new_device: Instantiated device dw9719 at 0x40
+    dw9719 0-0040: Error reading reg 0x0000: -19
+    WARNING: drivers/regulator/core.c:2678 at _regulator_put
+
+The regulator-dummy use count rises by one on every failed probe (and on
+every delete/new_device retry) and never drops.
+
+Note: the PoC was generated with AI assistance and the vulnerability was
+found by static analysis. Triggering the failed probe via sysfs requires
+root, so this is not a security fix, but it prevents a potential resource
+leak on a failed probe.
+
