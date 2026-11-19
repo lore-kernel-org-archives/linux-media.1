@@ -1,83 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795063171;
-	b=zD0UAT8rhkn+vPZ9kToRnm8ZnrvgPcb0UsxcwE6qdildaoH3u4lwWxSgax+cLQ7m+q4q
-	 5w+3ptMzeyF1tC/JS+1kIKZ0SALTsbujVlBXi/Qo2oTPFjCSJOFeZQW6venScSp0by9hT
-	 W/84v0d4i/6U/VOnPz9Gt/Xd2lFIoLSQsq++RtRCwus46EMyky7TE1I3+JykS2Do2BQ5P
-	 2kq3TTIWQaNSjmzge0XFuxvAVtibyFXlGWMoT4oILLqh9dOOVZXr/j9ucqFJvaAQdk+dF
-	 l+HKaK7hCW8vQpCweDVlg6zRzyPu5rOOUWWT3EdrT07TO2PFQ86AbVmLrg/cxRIWBSw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795063171;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=HGoYUoEJLo2pINrnesL8crVvN61TGPT9mU4EfzF0THk=;
-	b=r8Z5e0/mQETkJJnPNiAjg08WsOoCb9Hd/s+blvigOBsEnV8yM0IVqm3l7+NzoWLxN9uG
-	 83Y+oXJoQruleyhXcscaix8czZeDRMYBOMNxX7/C2YYt7nYnA5Np+IrElUW08Y7vKRZK1
-	 n5G58xNfo1wvQNgcPreBRj5+nyUIjfY9Bt/T+EifPl7fhnfhhJKCukOsYimbISsLjJvSb
-	 nNneHDpiRy7ovy3kzEltb9A+j4BzLTDtDVS1hA5CoR9ljh80RtMJH7FbS5D65Z08fMupt
-	 8MAK9yBdtkygRXwMW9TI18UofUZtjPUoa4GPTmpNY+mQfyLkf8W57T3YzeRJrDgiBuQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YUHt80YU;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795063209;
+	b=bbHS86xGtltPJAgq2Gn+nrzv4H7qgqC7TMtVLXTXicosPOode4fTbZFwPjLqHgYAbyen
+	 h5tvro07VxaQTd9wRFOwcHx/J+hHTMii76NFr4DF6g1Xfj4L3tGUSObFGTfBwXGd+TPt/
+	 xIyBaqs2N96tA90G1/QVmRFnXMowLMhDav4PK88xskGdXU+yIGCp07AmnNgkKkvkUQbvr
+	 vqhxS0autTo+9ShTBzEWVQmqu3Q01oB1nH3APtjRMFAREOsDwGWpPMJ4805DgnhfooC5h
+	 BLsNWIIxRlmJlUMZb0Annr7o9yeja80ZE4d02fzyaqknZpUEKzm2BCUweQtwOJeBjyg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795063209;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=4oqpS4dQEE780ziYgVJrJjkAKFnJaNBh3UF7CqdybZ0=;
+	b=2D4zFnhA9DfrAQX0pAzwLc2m9R/geBTeMQjQ9kr6C9Kay0V4tNTB6sypQ320065PeHsh
+	 U4R7qJ/NGy0023QueyOZjouDoAG9Q0+Nn01tBXJZ0g1iuGULSgvUxu2OOjIPsRquvH3Ci
+	 N0IXbw33Bz1fdFG/iD+OXHJOmNNrd5fwwxslUv3MpQBDGHQVvGY6pePGd4Lk2VpXbFh4i
+	 MrEmelGgrPgnZr5Vv4PS+/Ngc0PSONpy05RgEQYZ9fL/EtVFHQCqbYIBe35+CESHHkFeL
+	 WFR6B6e8EI/6nZpgQrVNQP+xqCHSwAi7pYZUInzR8XV4u6EOTM5ugeTiJAQJtyKjvUA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R3v+pohz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E197606A325;
-	Thu, 19 Nov 2026 04:39:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E197606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291A3606A326;
+	Thu, 19 Nov 2026 04:40:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YUHt80YU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795063171; x=1826599171;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=VBCEgYy/crUpata0T6Lh38Ywa1dQP48mANWtNkE9c5A=;
-  b=YUHt80YUWRyTPdFptMKz7Ga8RFpYaTP5x/wP5mu2YPbui7H1V7L63gtb
-   K2jIOvm+uimgGQzr54XReyGT1z7egqwKbzG7dmj1AFC3P01Boe5SQGutR
-   cf02v7OuZzT44Ee2QXFAJW48T/6KMj1/+K7wY1izAxfk9C4OYjeUaV0hM
-   P7lgypLaj3nUHxM6AGAGiVwgqTuwloJUqggQ3enXAKr6poqs7ImkBKLV6
-   cqXsxLocQdGQzKfBi41KoKlmA+UgmB5F+2zfMJWwFmUreBNVj09Y37RfQ
-   lnudbqlOlsU4ozz4IXfWE9C94QrFY3RiO3vKzXsv0XAkHBhUZWxH+YVo6
-   w==;
-X-CSE-ConnectionGUID: BlSlmOn1SdunM5A5eDeTtA==
-X-CSE-MsgGUID: x7HlgWVFTh+N9Ov/Mm/wHA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3794303"
-X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
-   d="scan'208";a="3794303"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 20:39:30 -0800
-X-CSE-ConnectionGUID: vYsccUheT8694vW4J44aRg==
-X-CSE-MsgGUID: 46E1PlnTQwmWvXMi7zO6cw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
-   d="scan'208";a="10324470"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa004.fm.intel.com with ESMTP; 18 Nov 2026 20:39:28 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xTtvg-00000001F1a-3Cyw;
-	Thu, 19 Nov 2026 04:39:24 +0000
-Date: Thu, 19 Nov 2026 12:39:16 +0800
-From: kernel test robot <lkp@intel.com>
-To: Michal Simek <monstr@monstr.eu>, linux-kernel@vger.kernel.org,
-	michal.simek@amd.com, git@amd.com
-Cc: oe-kbuild-all@lists.linux.dev,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	"moderated list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH] media: xilinx: vip: Make use of the
- devm_clk_get_enabled()
-Message-ID: <202611191243.pxt5RLKL-lkp@intel.com>
-References: <abfe9f93f9f93d256b0d60d081e6111d7169c08f.1794994290.git.michal.simek@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R3v+pohz
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795063208;
+	b=WYSTbAWURDXtAZCDlD+gRYO263pnQN2mx9A4vHlRl/NDjSF44Y3Uf9dYYdtnCsD0BqQ9
+	 4DH8An2dIzjIci8peqyzpRS+UX/tgFrbZUGOhLo69PdY6MfNfvcxsO2YiRBZIFQd8iYS4
+	 uJVUgPt3B28m+KRaq4vaOpstWvAOlhEvINjG/GBHvrBfwLY9Tn82zvJjihaCpDeqPRFK8
+	 n+mhlE+qTN68fzoeCNXd2mGIIm38LvavuGpwmvc9zRtrypsbu5MS9l4XujN9BNcdmihOk
+	 oMFOoFNsQ2naZJvgFQtlNHfraykkyqfDMqFO0BnwaAJpxMUKzwhYngzfUPneMiAMlIQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795063208;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=4oqpS4dQEE780ziYgVJrJjkAKFnJaNBh3UF7CqdybZ0=;
+	b=oqVzY/d5QmOnH2BwtaAwFDJkqXwJpJiaOsTbVOsrDDq5mp/V1Kmp7NZuqCNocMzgQG7g
+	 MjBLkfw+3jDJNuJKEZQuQzNz07CWuKXXxZAfuOPkRZx4lX8q9jvdYppr3XBP65C0Etl3C
+	 YqYi0UMCkY+GOt4QV2UQvz3MLG87WAqdGz9XuQdP6JHi78c6SDcQnB2w53SG0zdrgWvuC
+	 fzs+XOA5v6R0wvxyHRvosfR0/Ie5H/j36uDGYH2ftmkGcCKZdk55dEtWvhP8X9Qu3KP/D
+	 b71rqW50X6h9+FVxsgJy5Wn+xTkgHRaZ1Jhidd3f0mCCg9Y0IoQEBblfSV1XILIJJog==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 9F6F11F000C4;
+	Thu, 19 Nov 2026 04:40:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795063208;
+	bh=4oqpS4dQEE780ziYgVJrJjkAKFnJaNBh3UF7CqdybZ0=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=R3v+pohzN6ruJXzFzzbDhG2djn4aC6bfiACkiOCNzCC+Zkt/Z7BzFsOGySEbRy93q
+	 HBG9kaqOYvl/0S4Bn0nk4tLZPmK3mATTvf/HBnTO3f5XkF+Vl4Z3UbzsScV3Yz1uwk
+	 5ep9S5gmgYVGgGjBtvszByZeWR0o3rQeWHluRLMGzzvz0QlwAamlBbr4Db+aVpYRlN
+	 9cPsar9EcShxcc/c3dj5gdVnhSLJrDGtg+mOUTNVlBstzhZ6uW0axI/6CTP5CQRBq/
+	 ZJDSyRCQI6XskyM98Gm8Wfp3IJ56HbvOADHgrUvovUh5UPTjJDrA8EhsrfZVJJSxAH
+	 AydKaEmlWZh6g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3077E4B0E1;
+	Thu, 19 Nov 2026 04:40:07 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Subject: [PATCH v2 0/2] media: verisilicon: av1: Fix two reference reads
+Date: Thu, 19 Nov 2026 04:40:06 +0000
+Message-Id: <20261119-b4-vpu981-av1-refs-v2-0-7c270158b20e@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -87,67 +83,72 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <abfe9f93f9f93d256b0d60d081e6111d7169c08f.1794994290.git.michal.simek@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Nyw6CMBBFf4V07Rim4WFd+R+GRWkHGCOPtNBoC
+ P9uwbhzNTmTe+9ZhSfH5MU1WYWjwJ7HIYI8JcJ0emgJ2EYWMpUFImZQZxCmRV0QdEBw1HiwKkO
+ lG5SUWhGLU/zy6xi9V1/2S/0gM+9Le6JjP4/ufVgD7rmfIP8niDcFU+RloUrMba1uba/5eTZjL
+ 6pt2z5VNL4FxgAAAA==
+X-Change-ID: 20261114-b4-vpu981-av1-refs-d9419af12e0d
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ stable@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795063206; l=1699;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=OVghNADDFQgyMPns3Y0DpyFYJj40oVDPUx76Vlxtv0A=;
+ b=bFtv+bW9XyZ00rINk+J3aZT/SH6Had8LfW5wFMAjwS6QIWZefb+9/8hgEOR1TynoMecwnrsYr
+ iHsBWdV+KIxAxtTutwPnrz6g2MyLwCWzDtCTQLrxi9nOROoipO5G147
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 
-Hi Michal,
+The RK3588 AV1 decoder (VPU981) can read a CAPTURE buffer freed with
+VIDIOC_REMOVE_BUFS (patch 1), and reads the segmentation map past the
+end of a smaller reference after a switch to a larger CAPTURE format
+(patch 2).
 
-kernel test robot noticed the following build warnings:
+Found by code review. Tested on an Orange Pi 5 (RK3588S, 7.3-based
+kernel with KASAN): AV1 resolution-change streams (sizeup, sizedown,
+svc-L2T1) and 203 AV1 conformance streams decode bit-exact;
+with a reference buffer removed, or replaced by a smaller one, the
+current buffer is used and the segmentation map is skipped; a map in a
+smaller buffer is read at its own offset.
 
-[auto build test WARNING on v7.4-rc3]
-[also build test WARNING on linus/master next-20261116]
-[cannot apply to xilinx-xlnx/master]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Developed with Claude (Anthropic), which wrote the code and the commit
+messages. I reviewed every change.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Michal-Simek/media-xilinx-vip-Make-use-of-the-devm_clk_get_enabled/20261118-103132
-base:   v7.4-rc3
-patch link:    https://lore.kernel.org/r/abfe9f93f9f93d256b0d60d081e6111d7169c08f.1794994290.git.michal.simek%40amd.com
-patch subject: [PATCH] media: xilinx: vip: Make use of the devm_clk_get_enabled()
-config: nios2-allmodconfig (https://download.01.org/0day-ci/archive/20261119/202611191243.pxt5RLKL-lkp@intel.com/config)
-compiler: nios2-linux-gcc (GCC) 11.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261119/202611191243.pxt5RLKL-lkp@intel.com/reproduce)
+---
+Changes in v2:
+- 1/2: Also fall back when the reference buffer holds a frame of another
+  size; set the CAPTURE buffer up before the references; drop
+  current_frame_index (Sashiko). Reviewed-by dropped, the patch changed.
+- 2/2: Use the buffer checked in 1/2.
+- Link to v1: https://patch.msgid.link/20261115-b4-vpu981-av1-refs-v1-0-c65769715db9@gmail.com
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611191243.pxt5RLKL-lkp@intel.com/
+---
+Arun Iyengar (2):
+      media: verisilicon: av1: Find the reference buffers by timestamp
+      media: verisilicon: av1: Read the segmentation map at the reference's offset
 
-All warnings (new ones prefixed by >>):
+ drivers/media/platform/verisilicon/hantro.h        |  2 +
+ drivers/media/platform/verisilicon/hantro_hw.h     |  3 -
+ .../verisilicon/rockchip_vpu981_hw_av1_dec.c       | 79 ++++++++++++++--------
+ 3 files changed, 54 insertions(+), 30 deletions(-)
+---
+base-commit: aa0f4c41d4870a18e65772a1817af16427200371
+change-id: 20261114-b4-vpu981-av1-refs-d9419af12e0d
 
-   drivers/media/platform/xilinx/xilinx-vip.c: In function 'xvip_init_resources':
-   drivers/media/platform/xilinx/xilinx-vip.c:215:21: error: implicit declaration of function 'devm_clk_get_enable'; did you mean 'devm_clk_get_enabled'? [-Werror=implicit-function-declaration]
-     215 |         xvip->clk = devm_clk_get_enable(xvip->dev, NULL);
-         |                     ^~~~~~~~~~~~~~~~~~~
-         |                     devm_clk_get_enabled
->> drivers/media/platform/xilinx/xilinx-vip.c:215:19: warning: assignment to 'struct clk *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-     215 |         xvip->clk = devm_clk_get_enable(xvip->dev, NULL);
-         |                   ^
-   cc1: some warnings being treated as errors
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
-vim +215 drivers/media/platform/xilinx/xilinx-vip.c
-
-   206	
-   207	int xvip_init_resources(struct xvip_device *xvip)
-   208	{
-   209		struct platform_device *pdev = to_platform_device(xvip->dev);
-   210	
-   211		xvip->iomem = devm_platform_ioremap_resource(pdev, 0);
-   212		if (IS_ERR(xvip->iomem))
-   213			return PTR_ERR(xvip->iomem);
-   214	
- > 215		xvip->clk = devm_clk_get_enable(xvip->dev, NULL);
-   216		if (IS_ERR(xvip->clk))
-   217			return PTR_ERR(xvip->clk);
-   218	
-   219		return 0;
-   220	}
-   221	EXPORT_SYMBOL_GPL(xvip_init_resources);
-   222	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
