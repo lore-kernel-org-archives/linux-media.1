@@ -1,111 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795085272;
-	b=4g516HeTFmX6Z4vAXWo27DHDgrqJGiMdQxq0d6FxHv/b/ssBi6mhKZTA3tTW5mq+zMvt
-	 Csry24ROJ4KxkLjPu9nwARRwQxA03mf0dfzQ2EReSoeLzeqPew1vXKq89e7tGRFb9+K9r
-	 ITpdwKRv93FMt5vuG5x7g1FvC/uM9Pr5nbdFNKL+pXDxG2pytRVWFmhvTzgweWPtnESL4
-	 MfhG/PYtwdQJaeJ52GH4oH4DOPIMElQzHrvL3wA8enGQaK3omDmH4w//GqoIJmGDAFkrG
-	 SO49HRL/veTlYJMLWbelzTftqCNntzpgaSuy57QH3+8Y/x/VikLO2Ue6v1TOnXaF+AA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795085272;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=YDMFaX/WjsCXCufWP9KTH8AgKDF2brfKQH1hfBOpovQ=;
-	b=iAYwTpRgDm3UJ1e8Or4Mf9xDFL2nq5gO5jVtLvZyg3OpJWJfJDaeBcKan29uKveCxkxj
-	 WrdjbCbgOzurppdHhFa4xzYaThJWmC0GMV6ZuoqNGDRK8qNLv38t+gFVES1yk7bhuu38T
-	 GYUWLeXlQ26uAITNY9OlK3MHRsyrtl9bTYoQNrsvsHY66g7hq63bZwN5AuVZT7vFe/dUL
-	 58wy08q+DecV3ulTATJ7PftWBykHpvOpEmTG6XE4+iWeSbqVIJ1fOr8dGIkNoy/QDep1c
-	 IIAq7ZdPxKaSl5+0/YfSmOU7wgK9ofLhNzlsrRjiqIUbgCTkDepq8MVgYeXyqo9ATXQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=OaTekQnc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.44
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012044.outbound.protection.outlook.com [40.93.195.44])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795085273;
+	b=Qdvm1nqI7muCZk28I+uMk+irca8ralM6MUhAI2dqSu/yAQ7H+kYMU1usxGV7Tw5Y3Yjd
+	 QdSqgxWLpmLpxF10t1CczkljOaUdqF3kkDl243rtMb5AVa8ruhv8UpyXbH7NV4VVlG2Lv
+	 tjmuHk1w1oy1tEsYpp669PaW+gT6HElkD3tsKE7NE3Re5RRD6bf15nH1kVMdB2ghEIIq+
+	 Twmc9rywoEItXXlkGBarP1oiuBkR7bwWQpNF1nOaAO0lVcMKL6w6sllGvgZMcGLGvK5aG
+	 YMaZUgLoSIev4ALz8iKUDoTuAOFrB0ydFKAskrf+rSGqAjl5ULiiB70zd/ptE7qWGlQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795085273;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=mZv7/6E9a4SISGFNdMub+4nJ6wT36NrB51qqk6YBK40=;
+	b=4bcUIDA97fd7SW4WUCbT62vONp2ibUIe14g5gW9v6vAQr/KdG9px1b9FEyFKBR9oIdbj
+	 HSdi8ITRezlpYEr+smsIH2L4NFpV4xHog0rtsHCTd9bzZpu1v30YBjaWgFhoGs7U8VSpl
+	 j5IepjGfW2RhH6n3z+XtQvlmfGxco1/A31O4hHnUEXgjirkzUz0IKuSRz+ti45QQn8Ki4
+	 UXgr1BzN1S91F2Duw6H9CD1rpsDzyWSCNpthRSmw1qfw9/JLm+ioXknBkixDBWFvVQyHG
+	 BLrxbC0Il8kSKbEBnS+OmM5p8Q8jL3eAlPs099eF6g0I08wXrdLtowr2dkFNC/1LBYw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hIBs3YIm;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCB2606A324;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD03E606A332;
 	Thu, 19 Nov 2026 10:47:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBCB2606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD03E606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=OaTekQnc
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LKGUQ9IYl0O4KduYqcPSJ8NoA/gdWhSq5UIb0h5eWC9QV4lYa1eNJl7gC1uro1icvw4cBRsxTrUqawo8v4RQ1D8pcEFv6Uc4uCI1l/7tTUfwMlMxa2UTRDZ1q7nAH0RDXLxKu2wltc7ODSUq80PRBHOSBwep8M+GxuAxyFa/Nt3w6CEk+mEkKK3uUlgU5Rcni1HeoVY0jxmdnAX7YQngUDTjgZ0KaEA/k28gooXri+nFWlk+HooKNPqjZDvr8c+9mhGF+h15bMA1f8p587mZaH/6TMJnxZASEjIYYJbTJZRMCCYmSWGRUyIDqfCLzDrlZ5qG9rgYnuFtD7PKjRkknQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YDMFaX/WjsCXCufWP9KTH8AgKDF2brfKQH1hfBOpovQ=;
- b=R50cuX5lPLVcfziiFAGD8bG34CmK2kfBNeWeA7NcBSdJSFH4MLkeixZ9xsQ8AQeJql+/dazZdRyfCZIuLpTcPVkAtPMlHtGvK4e/dhr7dr5+mE6MNySQOPOygNbuiF4kNg5o1Fecc8uSg/j4IoeCG+QtCGG/QcTONYBMMTl9EV8jcZS4dW4QoDSI6JmZFGMmhjdSog1kdvGNmL4nsCpWfqe8CVlVlAzQN57hRjI4dqXeM+jk3BuBAb+DmBGDaXishehnWYgZsPsOQr1ytTHB9wxnMAI5+nQhLS4bWqmiCR/t88g3kcFBWkVHTwRUx08mRbmgZQWmBcV2Uynbw+DbNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YDMFaX/WjsCXCufWP9KTH8AgKDF2brfKQH1hfBOpovQ=;
- b=OaTekQncAJEDVu0moHCR6bXgzuSd6WWi0ZLxBMR0SM6YVQR5wEbZRR9NgF3oCzSLXGes/7xMN/f+M9vI3rWLAJY6ZLxX+3Y5ggBMbI4HqVzJ2n9jpoSNOYYDgJ87uQ0s6x1D+L67nxDyCKjDxVY5Iwb+IshRyHPwxv7Tmd5jNHc=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by AT6PR12MB727359.namprd12.prod.outlook.com (2603:10b6:170:116::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
- 2026 10:47:42 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.013; Thu, 19 Nov 2026
- 10:47:42 +0000
-Message-ID: <141892f8-180c-4157-8c59-6e69057334f2@amd.com>
-Date: Thu, 19 Nov 2026 11:47:34 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
-To: phasta@kernel.org, Danilo Krummrich <dakr@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Alice Ryhl
- <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261112101015.528127-2-phasta@kernel.org>
- <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
- <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
- <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
- <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
- <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
- <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
- <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
- <DMXMSIQONGUW.1RRNS7I6LACD6@kernel.org>
- <a7f9e0f3-b299-4d40-9230-106003725dc2@amd.com>
- <202dd0c3d515ddfa77a8ec8751badadd31b8a7b0.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <202dd0c3d515ddfa77a8ec8751badadd31b8a7b0.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0101.namprd13.prod.outlook.com
- (2603:10b6:208:2b9::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hIBs3YIm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795085272; x=1826621272;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=3RkewFMLbuKBNyQHoIv2WdoiJwFgV8xAO6kGAFKsKMI=;
+  b=hIBs3YImbpkgt5h0IdZduWtqwNHjk8/3TR3acklGB7sTjtEYfiizlqs6
+   d0hTFe+O7Zw7nexLfviMfbpbEQnunt6JguIuGCGM5jlLmTzTEqUNfq9t9
+   51mQyiNPIbTK9GlcAKJETc2dPKx5nYyaBaHP8i7Pcsz/mggv0dcbmKGR3
+   3s8dKs8FqtZGcswY8110C3ZiKhWfZf0n2pMXFJZ2LQU8+9lwRxcdIvM4z
+   iAUBrW1N7r2QgWJcK2ILTzia1qEGXMbf36RKIzdtK6uONcKbj6X1qZwbW
+   K4BojOWyZJuA1sayinZkVP8R1oDVfrhVWhuZE8MEipkUvoNDqZcXvn4dI
+   g==;
+X-CSE-ConnectionGUID: 4rFEiCMETAuyPBWtdCnnkw==
+X-CSE-MsgGUID: sSQgO3wFSM+SlK16S312jw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3812185"
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
+   d="scan'208";a="3812185"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 02:47:51 -0800
+X-CSE-ConnectionGUID: cnh2uKGJSFyGp6PLPA78AQ==
+X-CSE-MsgGUID: +dOzOpMBRzaHxEOyk9ApHg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
+   d="scan'208";a="10959617"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.86])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 02:47:47 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id D4000121B89;
+	Thu, 19 Nov 2026 12:47:44 +0200 (EET)
+Date: Thu, 19 Nov 2026 12:47:44 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Ramshouriesh R <rshouriesh@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jake Steinman <j@metarealtyinc.ca>,
+	Eduard Kulyk <kulikeduard89@gmail.com>,
+	Ray Strode <halfline@gmail.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 2/3] media: i2c: hm1092: add Himax HM1092 mono NIR
+ sensor driver
+Message-ID: <av7T0Op9hZqw2ZDu@kekkonen.localdomain>
+References: <20261025-hm1092-driver-v8-0-9cd575c366cf@gmail.com>
+ <20261025-hm1092-driver-v8-2-9cd575c366cf@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,236 +95,1019 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|AT6PR12MB727359:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4670aae7-b866-4f4d-6226-08df462a8984
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|4143699003|261021121427099003|261021123027099003|261102123227099003|261022075727099003|261022105027099003|261022113327099003|261026140227099003|261028144727099003|261026121527099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	PXMV9WAGfL8a5MRiXY1szduw0jyyOe3Up5721rWS8UbkN3yOZKjv4Y+Jl3vefQeutmWnOuGDdxMsq4pFSrqDF/+sKwOamso7uFw8kmEkFJEX/G7DQDfZfuIXGiAeGq+jL/u00MUcXTorROJyOIAbT12jMIQ6eFaw10PCaw1wgMpqYLhr113Qybd1tAjJ6Az7crIzW1yjU+wPAx9bkNR+mcjS4C2q/6A/nqO08qmuYOKhgMMQs+XybySh81msHCEYxi74ObLwvJ26kwzsTzyGgmM1oHvc3feLMUV3qGvhln6EGym2sfYaoz5qkAMv3OP7gbdmBTy+KfcesHplw9p86RIJeXPvbNWiC6Q0R3GtRIM5Py0Lffi94RFSCa3nHq0ugn/Ets/WkvjKhPuQTElGxmILq9NRvH5bd8rEs0rPB7JGyzLgY2T9vMkwDGjlXbamoWiGgYhqhyyEbRoYc2hDWmvXz0km5Palox0Xith8sCSibE3DDU+6weaWDsX0YfDVt7SG4PAI5nPIpXZPCkq1blTdXUZTb0MREJ4T/ZwS8iJ5BTULZXG3H1medLOq2qrvNbf1AWulssvs2EnLi3RTWkMqXQg/3OkWb6MVp4NhP+eN8uU3sUNOsFBogEOSq4+K
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(261021121427099003)(261021123027099003)(261102123227099003)(261022075727099003)(261022105027099003)(261022113327099003)(261026140227099003)(261028144727099003)(261026121527099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TktrOEZwQkpDcUZia2dxVFBHWndhajVlUExCREkwUWVMTUEwZnhnQ0hodGp5?=
- =?utf-8?B?TW1CUkxWb2F2cVBCaERjSWN1bXlXc0UxZ1lNSzY3WlVVOS9ValBhTEQrZEJS?=
- =?utf-8?B?SGZkNUo0OWFRK3JyNGkwQjJWUER5eTN5clhCNzJ4ZDUrZDJkMWtwaU82UlVu?=
- =?utf-8?B?WFlDTDJCWXVQOFZpeUoxRWJhcHpKK0NNK1dpWmh4T2xQTG5DV2pGK3NEOWFo?=
- =?utf-8?B?cFROQkNldlBxNm9KbkdWNHpraWZvR1hpTVlCUGFWMUg1QnJTa3M1bENvdDdp?=
- =?utf-8?B?bUtUeEt0ZldFUkcxY0FDelRHQWZmWHd4SWRFQlVFMHFrcXBraXYvQloxSFRW?=
- =?utf-8?B?cmFYQ2VIMFFhME1OdFo3amovSUdQaEdhM0hUODE3dzJuRU5qd29ETTJYMkFR?=
- =?utf-8?B?UzZkRHY2WmtOODgzRU04L3NidU1EQXBiZEJEeDl4ZmJqTm14VTV6eHFVbWw3?=
- =?utf-8?B?eHdVdndUcGlUbGI3cW5DczNRSEw3NEJQRkg5ODRoZUZ1Tmk4UzdDNlUrcjlp?=
- =?utf-8?B?SWdNQmJsL1RaM2tSaDMxV1RIaFFQQVdyZGRJNUhCTXkxMS9QQitlRjVUSHJO?=
- =?utf-8?B?VGthMVNYdUFJdWFFWEp3RnpsbEhYSEpRQi9Vdi9nd1NvNTJNSkJhQmxDS1pR?=
- =?utf-8?B?SEROcE4za25mZ3lMRFRkOFFxQjNYUVlsSUI5UGFXanVpclh5VmRwOVQrSkc3?=
- =?utf-8?B?eFBvdlROMk1kdnJmUENpVnlBK0MwM1FvRzdnbnNtaVlsbTRoankzbExLNmJL?=
- =?utf-8?B?dGlhUmRzYU0waW9Ba1pmUWMxRzA0V0xHVkJ6UDJpYW9TVmZEYXFkYldtbmdM?=
- =?utf-8?B?QTZLL0ZRQkE4SHRIVm9xMk9nMnZvSWZCc3NyMzNiMEtwa1lGZTRLWFFHUmdq?=
- =?utf-8?B?aWtIN1AxSEZZdStnV0ZNQjIyeDl1eHpvTkZSOG51bzVURkJXOHFObG0xMnJS?=
- =?utf-8?B?a0RvRllQblM2M005ZkhoWDl6UFFla0hDdTRFbzBZMGhrQXRIUytRNEZyanlp?=
- =?utf-8?B?ZGZ5MVlXVTc3UXVzbmhCT2Fqd2pxVTJjdUFLRUVJUFptUEdUTkI2aXIrV3Zi?=
- =?utf-8?B?Z2t6OEJ0VTJzYTU2R0VWR3lZbjJOVEdjNHBFZm9nV1MzNTJybzhkMWg4TTlx?=
- =?utf-8?B?THAreVJieFVLT2p4K045TDVLZHNMdVhPVlZ1RFlxelRlM2d2dDk4N0tCU29u?=
- =?utf-8?B?NzdyVEltdFpHVk40TEx1UUp1V2dqdjNkU0RJTW9xVHNOc2NGWjVwNm11MjEv?=
- =?utf-8?B?V1NxU0J1blJWTGxmWUJUeWNEMnNjUWpaNFl6SDhoV2hvdEVZZklTYjJqSnE2?=
- =?utf-8?B?emtpUUNkenBQZngyV0NXT3JxS1BBb0tQUFR0WktnN2lnZ3JtL0hhTTJFdFVm?=
- =?utf-8?B?ZUhMQ0gvbGlVUjluQmdBbUFFdXVEWWw3S1hMcjYxWGVRZ1Z6UDVhUVBsKzlV?=
- =?utf-8?B?UWh2WnhQV3hlQzRGdFJvUWNoa21icnZtTEtLS1VvTUF4V1d2ZlRpU0owNkE3?=
- =?utf-8?B?VzducU5yZUFFeGRwMm50NzRUZXFWNHhGM2J4b3hmQ3NoTHJKQWF6QkpGakdw?=
- =?utf-8?B?eU9rNFlqdjF6ekdTNTNJWHAyc0NueW5IcC9MY1Vza2hUOUJqWVN4QmhReFli?=
- =?utf-8?B?N0JBUWg0aHgwcVNnRlArWktLanIwMFJJZDhla3BJa2NVejlKVDljSDBJQnZG?=
- =?utf-8?B?MUY5bkh6dVRDenZ2L2M2eThGMzVreFFnMW1RZjJFdE5FbUdMQVltZUhKYndu?=
- =?utf-8?B?THIwSEhaUkMzYW9IS0NNNEthQnAvamtJMXhaNG1lUXV2djVTdVpRNHRpWTNX?=
- =?utf-8?B?T2xMbFJSTUN6cWxMYWxFb3cxU0J0a3kyWkRWTEhxRFpWUWlOQTNyVVFoZDlK?=
- =?utf-8?B?UUJuTXhyNjV5c1c1aHVzUXc2WmZVdTc1NXN1aldJL09VSHE2ZVprdG1zQ3lO?=
- =?utf-8?B?ZzdPRWRaN3hIVlhDZk1laVhBc0Z1NFRDQVBOQzIweG1iQkFKZlhlMVFpMkV4?=
- =?utf-8?B?dnk1L296K2hha05TV0hKUnowU2ZkTVdldlVrcHNSS2YzR0ZjVXAwMGIwclQy?=
- =?utf-8?B?RWJjei8zQ2VKSlYwK0NvTVVrM2JtaC9yRlJhdWpTeHpJYnNoMVBzbmYxQmMx?=
- =?utf-8?B?aVQxUjhyeGlXallFbFd6aVAzTEMwZk8xRmN5TStwMVdQS2lTZm5vU0tFenlP?=
- =?utf-8?B?QlM5MDJqdDhqbmhWUXZVaXFTWHpDZU84d1lGQTRkWkRyR3JRcE5vRFBmcDJa?=
- =?utf-8?B?VFVUNTRxY0N2Q09BcERnS0xVM0NvRlRPUHU5STZZRGNpVHBzelp6SFM1MUVL?=
- =?utf-8?Q?x/mtisaQPOsYhPeA4/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4670aae7-b866-4f4d-6226-08df462a8984
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 10:47:42.3079
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qU0ykhTfLmpMy4dYE0Y/hFs1ZlXuNhYpAtDw28Pk7p1QITGMXBMx/T5ZquBOdYSt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AT6PR12MB727359
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261025-hm1092-driver-v8-2-9cd575c366cf@gmail.com>
 
-On 11/19/26 10:58, Philipp Stanner wrote:
-> On Thu, 2026-11-19 at 10:32 +0100, Christian KÃ¶nig wrote:
->> On 11/17/26 17:36, Danilo Krummrich wrote:
->>> Drivers often reference count representations of hardware resources and hardware
->>> states and hence keep them alive beyond what their actual lifetime should be --
->>> even beyond driver unbind.
->>
->> Yeah, I agree 100% with that. I know why drivers do this and there are unfortunately really good reason for that.
+Hi Ramshouriesh,
+
+Thanks for the update.
+
+On Sun, Oct 25, 2026 at 09:54:18PM +0530, Ramshouriesh R wrote:
+> Add a V4L2 subdev driver for the Himax HM1092, a 1 megapixel monochrome
+> near-infrared image sensor with a single-lane MIPI CSI-2 interface,
+> typically used as the face-authentication IR camera on laptops.
 > 
-> To me it seems more that we are often working around fundamental design
-> errors. What good reasons come to mind?
-
-Because of the different requirements.
-
-You have one arrow of dependencies pointing down the SW stack, e.g from the application over libraries, uAPI, drivers all the way down to the HW.
-
-But you also have the different direction, where your HW has dependencies on signaling both completion and abortion from way down the stack all the way up to the application.
-
-Now at least permanent references can point only in one direction or otherwise you have a circle dependencies.
-
-BTW that is the reason why dma_fences are RCU protected as well. That is not because of performance but rather to be able to do a try get on a reference to solve reference direction problems.
-
->>
->>> This causes lot's of issues and I'm looking into fixing this up, see my talk in
->>> [1] and an example from Xe [2] for reference.
->>>
->>> That said, in Rust we don't have this kind of ambiguity, lifetime and ownership
->>> of resources are well defined and the core infrastructure guides drivers
->>> accordingly.
->>
->> I disagree, you do have that in Rust as well.
->>
->> Background is that the fundamental problem of having two signaling
->> directions which want to define lifetime differently doesn't go away
->> because you switch the programming language.
+> The driver supports the sensor's 560x360 10-bit mono mode, test patterns,
+> exposure, analogue gain and digital gain controls, and the standard
+> fwnode properties (orientation and rotation). It also reports the
+> 1296x736 native pixel array, the 1280x720 active array and the mode's
+> 1150x718 crop.
 > 
-> For Rust DmaFence, this is addressed by having two distinct objects
-> sharing the same refcounted memory, DriverFence and Fence.
+> The vendor Windows configuration supplies a 24 MHz external clock and
+> programs the MIPI PLL with a divide-by-12 pre-divider and a multiply-by-90
+> multiplier. This gives a 180 MHz CSI-2 DDR link frequency, a 360 Mbit/s
+> single-lane bit rate and a 36 MHz pixel rate. With HTS 1616 and VTS 750,
+> the resulting frame rate is approximately 29.7 frames per second.
 > 
-> Dropping / signaling DriverFence is the decoupling point.
+> The exposure, analogue gain and digital gain register layout was
+> independently identified by Jake Steinman. Program multi-byte controls as
+> separate high- and low-byte writes, and bracket exposure and gain updates
+> with the sensor's group hold. The exposure default is 500 lines, selected
+> from illuminated captures on an ASUS Zenbook A14 and programmed by the
+> init sequence so the hardware and control states agree. The controls were
+> exercised on that system, including full-range exposure and analogue gain
+> tests and digital gain endpoint updates while streaming.
 > 
-> Which is by the way why I am trying to convince you so hard to give me
-> the spinlock, to make this simpler and fully sync ;)
-
-Yeah I perfectly understand that :) I just disagree that this approach is a good idea.
-
->>> Consequently, it is perfectly reasonable to assume that a driver object that
->>> owns device resources (such as DMA memory) will, in its destructor, tear down
->>> the hardware to not access any of the resources it owns anymore.
->>
->> Exactly that is a pattern I have seen many many times before and I
->> can say from experience that it is very prone to human errors as
->> well.
+> Assisted-by: Claude:claude-opus-5
+> Co-developed-by: Jake Steinman <j@metarealtyinc.ca>
+> Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
+> Link: https://lore.kernel.org/r/20260727131252.1580332-1-j@metarealtyinc.ca
+> Link: https://lore.kernel.org/r/20260727154058.2350497-1-j@metarealtyinc.ca
+> Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
+> ---
+>  MAINTAINERS                |   7 +
+>  drivers/media/i2c/Kconfig  |  11 +
+>  drivers/media/i2c/Makefile |   1 +
+>  drivers/media/i2c/hm1092.c | 870 +++++++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 889 insertions(+)
 > 
-> Danilo's argument is that the object that halts the hardware is the
-> same that owns the fences.
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c5519d67b6f4..fcba2a83baa9 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -11969,6 +11969,13 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/media/i2c/himax,hm1246.yaml
+>  F:	drivers/media/i2c/hm1246.c
+>  
+> +HIMAX HM1092 SENSOR DRIVER
+> +M:	Ramshouriesh R <rshouriesh@gmail.com>
+> +L:	linux-media@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
+> +F:	drivers/media/i2c/hm1092.c
+> +
+>  HIMAX HX83112B TOUCHSCREEN SUPPORT
+>  M:	Job Noorman <job@noorman.info>
+>  L:	linux-input@vger.kernel.org
+> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+> index 7de2d095c969..24ea80676849 100644
+> --- a/drivers/media/i2c/Kconfig
+> +++ b/drivers/media/i2c/Kconfig
+> @@ -137,6 +137,17 @@ config VIDEO_HI847
+>            To compile this driver as a module, choose M here: the
+>            module will be called hi847.
+>  
+> +config VIDEO_HM1092
+> +	tristate "Himax HM1092 sensor support"
+> +	select V4L2_CCI_I2C
+> +	help
+> +	  This is a Video4Linux2 sensor driver for the Himax HM1092
+> +	  monochrome near-infrared CMOS image sensor, used as the
+> +	  face-authentication IR camera on laptops.
+> +
+> +	  To compile this driver as a module, choose M here: the
+> +	  module will be called hm1092.
+> +
+>  config VIDEO_HM1246
+>  	tristate "Himax HM1246 sensor support"
+>  	depends on OF
+> diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+> index 59e31af457cd..b25b9d73a04d 100644
+> --- a/drivers/media/i2c/Makefile
+> +++ b/drivers/media/i2c/Makefile
+> @@ -45,6 +45,7 @@ obj-$(CONFIG_VIDEO_GC2145) += gc2145.o
+>  obj-$(CONFIG_VIDEO_HI556) += hi556.o
+>  obj-$(CONFIG_VIDEO_HI846) += hi846.o
+>  obj-$(CONFIG_VIDEO_HI847) += hi847.o
+> +obj-$(CONFIG_VIDEO_HM1092) += hm1092.o
+>  obj-$(CONFIG_VIDEO_HM1246) += hm1246.o
+>  obj-$(CONFIG_VIDEO_I2C) += video-i2c.o
+>  obj-$(CONFIG_VIDEO_IMX111) += imx111.o
+> diff --git a/drivers/media/i2c/hm1092.c b/drivers/media/i2c/hm1092.c
+> new file mode 100644
+> index 000000000000..400e9ded2166
+> --- /dev/null
+> +++ b/drivers/media/i2c/hm1092.c
+> @@ -0,0 +1,870 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Himax HM1092 monochrome near-infrared image sensor driver.
+> + *
+> + * Copyright (c) 2026 Ramshouriesh R <rshouriesh@gmail.com>
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <media/v4l2-cci.h>
+> +#include <media/v4l2-ctrls.h>
+> +#include <media/v4l2-device.h>
+> +#include <media/v4l2-fwnode.h>
+> +
+> +/*
+> + * CSI-2 D-PHY link frequency (DDR, i.e. half the per-lane bit rate).
+> + *
+> + * The vendor Windows configuration supplies a 24 MHz EXTCLK and programs the
+> + * MIPI PLL pre-divider to 12 (0x030d = 0x0c) and multiplier to 90
+> + * (0x030f = 0x5a):
+> + *   link freq  = 24000000 * 90 / 12          = 180000000
+> + *   bit rate   = link freq * 2               = 360000000 bps
+> + *   pixel_rate = bit rate * 1 lane / 10 bpp  = 36000000 pixels/s
+> + */
+> +#define HM1092_LINK_FREQ		180000000ULL
+> +#define HM1092_MCLK			24000000
+> +#define HM1092_BITS_PER_SAMPLE		10
+> +
+> +#define HM1092_REG_STREAM		CCI_REG8(0x0100)
+> +#define HM1092_STREAM_STANDBY		0x00
+> +#define HM1092_STREAM_ON		0x01
+> +
+> +#define HM1092_REG_TEST_PATTERN		CCI_REG8(0x0601)
+> +#define HM1092_TEST_PATTERN_MAX		4
+> +
+> +/*
+> + * Exposure is a 16-bit value in lines and analogue gain an 8-bit register.
+> + * Digital gain is a 10-bit value in 2.8 fixed point (0x100 is unity) split
+> + * across 0x020e/0x020f; bits above bit 9 are ignored by the sensor.
+> + * The register layout is not documented publicly; it was recovered from the
+> + * vendor Windows driver. The exposure default (500) was selected from
+> + * illuminated hardware tests and is also programmed by the init sequence at
+> + * 0x0202/0x0203.
+> + */
+> +#define HM1092_REG_EXPOSURE_H		CCI_REG8(0x0202)
+> +#define HM1092_REG_EXPOSURE_L		CCI_REG8(0x0203)
+> +#define HM1092_EXPOSURE_MIN		2
+> +#define HM1092_EXPOSURE_MARGIN		21
+> +#define HM1092_EXPOSURE_STEP		1
+> +#define HM1092_EXPOSURE_DEFAULT		500
+> +
+> +#define HM1092_REG_ANALOGUE_GAIN	CCI_REG8(0x0205)
+> +#define HM1092_ANALOGUE_GAIN_MIN	0
+> +#define HM1092_ANALOGUE_GAIN_MAX	0xff
+> +#define HM1092_ANALOGUE_GAIN_STEP	1
+> +#define HM1092_ANALOGUE_GAIN_DEFAULT	0
+> +
+> +#define HM1092_REG_DIGITAL_GAIN_H	CCI_REG8(0x020e)
+> +#define HM1092_REG_DIGITAL_GAIN_L	CCI_REG8(0x020f)
+> +#define HM1092_DIGITAL_GAIN_MIN		0x0100
+> +#define HM1092_DIGITAL_GAIN_MAX		0x03ff
+> +#define HM1092_DIGITAL_GAIN_STEP	1
+> +#define HM1092_DIGITAL_GAIN_DEFAULT	0x0100
+> +
+> +#define HM1092_REG_GROUP_HOLD		CCI_REG8(0x0104)
+> +#define HM1092_GROUP_HOLD_START		0x01
+> +#define HM1092_GROUP_HOLD_END		0x00
+> +
+> +/*
+> + * Pixel array geometry. The vendor specifies a 1280x720 active array; the
+> + * full array including the surrounding dummy/optical-black pixels is 1296x736
+> + * (8 pixels of margin on each side). The crop bounds cover the full array,
+> + * since a readout window may include the margin; the default crop is the
+> + * active array. The single fixed mode reads a window out of the active array
+> + * (X_ADDR [0x0030..0x04ad], Y_ADDR [0x0008..0x02d5]); subsequent internal
+> + * processing produces the 560x360 output.
+> + */
+> +#define HM1092_NATIVE_WIDTH		1296U
+> +#define HM1092_NATIVE_HEIGHT		736U
+> +#define HM1092_ACTIVE_LEFT		8U
+> +#define HM1092_ACTIVE_TOP		8U
+> +#define HM1092_ACTIVE_WIDTH		1280U
+> +#define HM1092_ACTIVE_HEIGHT		720U
+> +#define HM1092_CROP_LEFT		48U
+> +#define HM1092_CROP_TOP			8U
+> +#define HM1092_CROP_WIDTH		1150U
+> +#define HM1092_CROP_HEIGHT		718U
+> +
+> +static const struct cci_reg_sequence hm1092_init_regs[] = {
+> +	{ CCI_REG8(0x0103), 0x00 },
+> +	{ CCI_REG8(0x030a), 0x05 },
+> +	{ CCI_REG8(0x030d), 0x0c },
+> +	{ CCI_REG8(0x030f), 0x5a },
+> +	{ CCI_REG8(0x0307), 0x00 },
+> +	{ CCI_REG8(0x0309), 0x01 },
+> +	{ CCI_REG8(0x0387), 0x01 },
+> +	{ CCI_REG8(0x0100), 0x02 },
+> +	{ CCI_REG8(0x4265), 0x02 },
+> +	{ CCI_REG8(0x4002), 0x2b },
+> +	{ CCI_REG8(0x4001), 0x00 },
+> +	{ CCI_REG8(0x0101), 0x03 },
+> +	{ CCI_REG8(0x4024), 0x40 },
+> +	{ CCI_REG8(0x0203), 0xf4 },
+> +	{ CCI_REG8(0x0202), 0x01 },
+> +	{ CCI_REG8(0x0341), 0xee },
+> +	{ CCI_REG8(0x0340), 0x02 },
+> +	{ CCI_REG8(0x0343), 0x50 },
+> +	{ CCI_REG8(0x0342), 0x06 },
+> +	{ CCI_REG8(0x0345), 0x30 },
+> +	{ CCI_REG8(0x0344), 0x00 },
+> +	{ CCI_REG8(0x0349), 0xad },
+> +	{ CCI_REG8(0x0348), 0x04 },
+> +	{ CCI_REG8(0x0347), 0x08 },
+> +	{ CCI_REG8(0x0346), 0x00 },
+> +	{ CCI_REG8(0x034b), 0xd5 },
+> +	{ CCI_REG8(0x034a), 0x02 },
+> +	{ CCI_REG8(0x5015), 0xb3 },
+> +	{ CCI_REG8(0x0350), 0x53 },
+> +	{ CCI_REG8(0x0361), 0x30 },
+> +	{ CCI_REG8(0x0360), 0x00 },
+> +	{ CCI_REG8(0x034d), 0x30 },
+> +	{ CCI_REG8(0x034c), 0x02 },
+> +	{ CCI_REG8(0x034f), 0x68 },
+> +	{ CCI_REG8(0x034e), 0x01 },
+> +	{ CCI_REG8(0x0390), 0x03 },
+> +	{ CCI_REG8(0x0383), 0x00 },
+> +	{ CCI_REG8(0x0387), 0x10 },
+> +	{ CCI_REG8(0x50dd), 0x01 },
+> +	{ CCI_REG8(0x50cb), 0x21 },
+> +	{ CCI_REG8(0x5005), 0x28 },
+> +	{ CCI_REG8(0x5004), 0x40 },
+> +	{ CCI_REG8(0x5007), 0x28 },
+> +	{ CCI_REG8(0x5006), 0x40 },
+> +	{ CCI_REG8(0x5011), 0x00 },
+> +	{ CCI_REG8(0x501d), 0x4c },
+> +	{ CCI_REG8(0x5013), 0x03 },
+> +	{ CCI_REG8(0x4131), 0x01 },
+> +	{ CCI_REG8(0x5283), 0x03 },
+> +	{ CCI_REG8(0x5282), 0xff },
+> +	{ CCI_REG8(0x5010), 0x20 },
+> +	{ CCI_REG8(0x4132), 0x20 },
+> +	{ CCI_REG8(0x50d5), 0xe0 },
+> +	{ CCI_REG8(0x50d7), 0x12 },
+> +	{ CCI_REG8(0x50bb), 0x14 },
+> +	{ CCI_REG8(0x50b7), 0x00 },
+> +	{ CCI_REG8(0x50b9), 0xff },
+> +	{ CCI_REG8(0x50b8), 0x70 },
+> +	{ CCI_REG8(0x50ba), 0xff },
+> +	{ CCI_REG8(0x50fa), 0x02 },
+> +	{ CCI_REG8(0x50b4), 0x00 },
+> +	{ CCI_REG8(0x50a2), 0x0b },
+> +	{ CCI_REG8(0x50ad), 0x07 },
+> +	{ CCI_REG8(0x50ac), 0x24 },
+> +	{ CCI_REG8(0x50af), 0x40 },
+> +	{ CCI_REG8(0x50ae), 0x20 },
+> +	{ CCI_REG8(0x50ab), 0x07 },
+> +	{ CCI_REG8(0x50aa), 0x22 },
+> +	{ CCI_REG8(0x50a7), 0x00 },
+> +	{ CCI_REG8(0x50a6), 0x00 },
+> +	{ CCI_REG8(0x5099), 0x11 },
+> +	{ CCI_REG8(0x509b), 0x03 },
+> +	{ CCI_REG8(0x50b3), 0x04 },
+> +	{ CCI_REG8(0x50a0), 0x30 },
+> +	{ CCI_REG8(0x5098), 0x00 },
+> +	{ CCI_REG8(0x52f2), 0x53 },
+> +	{ CCI_REG8(0x5209), 0x0c },
+> +	{ CCI_REG8(0x5216), 0x02 },
+> +	{ CCI_REG8(0x521e), 0x01 },
+> +	{ CCI_REG8(0x50e8), 0x00 },
+> +	{ CCI_REG8(0x5200), 0x60 },
+> +	{ CCI_REG8(0x5202), 0x00 },
+> +	{ CCI_REG8(0x5201), 0x80 },
+> +	{ CCI_REG8(0x5203), 0x01 },
+> +	{ CCI_REG8(0x5208), 0x0b },
+> +	{ CCI_REG8(0x520d), 0x40 },
+> +	{ CCI_REG8(0x520c), 0x15 },
+> +	{ CCI_REG8(0x5215), 0x04 },
+> +	{ CCI_REG8(0x50ea), 0x74 },
+> +	{ CCI_REG8(0x5214), 0x28 },
+> +	{ CCI_REG8(0x5218), 0x07 },
+> +	{ CCI_REG8(0x5217), 0x01 },
+> +	{ CCI_REG8(0x0310), 0x00 },
+> +	{ CCI_REG8(0x4b31), 0x06 },
+> +	{ CCI_REG8(0x4b3b), 0x02 },
+> +	{ CCI_REG8(0x4b45), 0x01 },
+> +	{ CCI_REG8(0x4b44), 0x0c },
+> +	{ CCI_REG8(0x4b47), 0x00 },
+> +	{ CCI_REG8(0x5101), 0x13 },
+> +	{ CCI_REG8(0x5100), 0x03 },
+> +	{ CCI_REG8(0x5103), 0x33 },
+> +	{ CCI_REG8(0x5102), 0x23 },
+> +	{ CCI_REG8(0x5105), 0x42 },
+> +	{ CCI_REG8(0x5104), 0x43 },
+> +	{ CCI_REG8(0x5106), 0x40 },
+> +	{ CCI_REG8(0x5119), 0x00 },
+> +	{ CCI_REG8(0x5118), 0x00 },
+> +	{ CCI_REG8(0x511b), 0x00 },
+> +	{ CCI_REG8(0x511a), 0x00 },
+> +	{ CCI_REG8(0x511d), 0x00 },
+> +	{ CCI_REG8(0x511c), 0x00 },
+> +	{ CCI_REG8(0x511e), 0x00 },
+> +	{ CCI_REG8(0x5131), 0x23 },
+> +	{ CCI_REG8(0x5130), 0x13 },
+> +	{ CCI_REG8(0x5133), 0x43 },
+> +	{ CCI_REG8(0x5132), 0x33 },
+> +	{ CCI_REG8(0x5135), 0x40 },
+> +	{ CCI_REG8(0x5134), 0x42 },
+> +	{ CCI_REG8(0x5136), 0x40 },
+> +	{ CCI_REG8(0x5149), 0x01 },
+> +	{ CCI_REG8(0x5148), 0x01 },
+> +	{ CCI_REG8(0x514b), 0x01 },
+> +	{ CCI_REG8(0x514a), 0x01 },
+> +	{ CCI_REG8(0x514d), 0x01 },
+> +	{ CCI_REG8(0x514c), 0x01 },
+> +	{ CCI_REG8(0x514e), 0x01 },
+> +	{ CCI_REG8(0x51c0), 0x00 },
+> +	{ CCI_REG8(0x51c6), 0x00 },
+> +	{ CCI_REG8(0x51cc), 0x00 },
+> +	{ CCI_REG8(0x51d2), 0x00 },
+> +	{ CCI_REG8(0x51d8), 0x00 },
+> +	{ CCI_REG8(0x51c1), 0x81 },
+> +	{ CCI_REG8(0x51c7), 0x81 },
+> +	{ CCI_REG8(0x51cd), 0x81 },
+> +	{ CCI_REG8(0x51d3), 0x81 },
+> +	{ CCI_REG8(0x51d9), 0x81 },
+> +	{ CCI_REG8(0x51c2), 0xec },
+> +	{ CCI_REG8(0x51c8), 0xec },
+> +	{ CCI_REG8(0x51ce), 0xec },
+> +	{ CCI_REG8(0x51d4), 0xec },
+> +	{ CCI_REG8(0x51da), 0xec },
+> +	{ CCI_REG8(0x51c3), 0x00 },
+> +	{ CCI_REG8(0x51c9), 0x00 },
+> +	{ CCI_REG8(0x51cf), 0x00 },
+> +	{ CCI_REG8(0x51d5), 0x00 },
+> +	{ CCI_REG8(0x51db), 0x00 },
+> +	{ CCI_REG8(0x51c4), 0x55 },
+> +	{ CCI_REG8(0x51ca), 0x55 },
+> +	{ CCI_REG8(0x51d0), 0x54 },
+> +	{ CCI_REG8(0x51d6), 0x53 },
+> +	{ CCI_REG8(0x51dc), 0x53 },
+> +	{ CCI_REG8(0x51c5), 0x44 },
+> +	{ CCI_REG8(0x51cb), 0x24 },
+> +	{ CCI_REG8(0x51d1), 0x24 },
+> +	{ CCI_REG8(0x51d7), 0x14 },
+> +	{ CCI_REG8(0x51dd), 0x14 },
+> +	{ CCI_REG8(0x51e0), 0x09 },
+> +	{ CCI_REG8(0x51e2), 0x04 },
+> +	{ CCI_REG8(0x51e4), 0x08 },
+> +	{ CCI_REG8(0x51e6), 0x08 },
+> +	{ CCI_REG8(0x51e1), 0x03 },
+> +	{ CCI_REG8(0x51e3), 0x03 },
+> +	{ CCI_REG8(0x51e5), 0x07 },
+> +	{ CCI_REG8(0x51e8), 0x04 },
+> +	{ CCI_REG8(0x51e7), 0x07 },
+> +	{ CCI_REG8(0x51e9), 0x46 },
+> +	{ CCI_REG8(0x51eb), 0x62 },
+> +	{ CCI_REG8(0x51ea), 0x43 },
+> +	{ CCI_REG8(0x51ed), 0x00 },
+> +	{ CCI_REG8(0x51ec), 0x61 },
+> +	{ CCI_REG8(0x51ee), 0x00 },
+> +	{ CCI_REG8(0x5206), 0x80 },
+> +	{ CCI_REG8(0x3110), 0x02 },
+> +	{ CCI_REG8(0x3704), 0x02 },
+> +	{ CCI_REG8(0x3704), 0x02 },
+> +	{ CCI_REG8(0x4b20), 0x9e },
+> +	{ CCI_REG8(0x4b18), 0x00 },
+> +	{ CCI_REG8(0x4b3e), 0x00 },
+> +	{ CCI_REG8(0x4b0e), 0x0e },
+> +	{ CCI_REG8(0x4800), 0xac },
+> +	{ CCI_REG8(0x0104), 0x01 },
+> +	{ CCI_REG8(0x0104), 0x00 },
+> +	{ CCI_REG8(0x4801), 0xae },
+> +	{ CCI_REG8(0x0000), 0x00 },
+> +	{ CCI_REG8(0x0037), 0x30 },
+> +};
+> +
+> +struct hm1092_mode {
+> +	u32 width;
+> +	u32 height;
+> +	u32 hts;
+> +	u32 vts;
+> +};
+> +
+> +static const struct hm1092_mode hm1092_mode_560x360 = {
+> +	.width = 560,
+> +	.height = 360,
+> +	.hts = 0x0650,
+> +	.vts = 0x02ee,
+> +};
+> +
+> +static const char * const hm1092_supply_names[] = {
+> +	"dovdd",
+> +	"avdd",
+> +	"dvdd",
+> +};
+> +
+> +/*
+> + * The available HM1092 documentation does not describe the test patterns.
+> + * Their names are based on observed output from hardware testing; the
+> + * register and mode values were reverse-engineered from the Windows driver.
+> + */
+> +static const char * const hm1092_test_pattern_menu[] = {
+> +	"Disabled",
+> +	"Solid Color Fill",
+> +	"Standard Color Bars",
+> +	"Fade To Grey Color Bars",
+> +	"Pseudorandom data",
+> +};
+> +
+> +static const s64 hm1092_link_freq_menu[] = {
+> +	HM1092_LINK_FREQ,
+> +};
+> +
+> +struct hm1092 {
+> +	struct device *dev;
+> +	struct v4l2_subdev sd;
+> +	struct media_pad pad;
+> +	struct v4l2_ctrl_handler ctrl_handler;
+> +	struct regmap *regmap;
+> +	struct clk *img_clk;
+> +	struct gpio_desc *reset;
+> +	struct regulator_bulk_data supplies[ARRAY_SIZE(hm1092_supply_names)];
+> +	struct v4l2_ctrl *link_freq;
+> +	struct v4l2_ctrl *pixel_rate;
+> +	struct v4l2_ctrl *hblank;
+> +	struct v4l2_ctrl *vblank;
+> +	struct v4l2_ctrl *exposure;
+> +	u8 mipi_lanes;
+
+Why are you storing mipi_lanes here?
+
+> +};
+> +
+> +static inline struct hm1092 *to_hm1092(struct v4l2_subdev *sd)
+> +{
+> +	return container_of(sd, struct hm1092, sd);
+> +}
+> +
+> +static int hm1092_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +	struct hm1092 *hm1092 = container_of(ctrl->handler, struct hm1092,
+> +					     ctrl_handler);
+> +	int release_ret;
+> +	int ret = 0;
+
+Redundant initialisation.
+
+> +
+> +	/*
+> +	 * The control value is cached by the framework and (re)applied from
+> +	 * hm1092_enable_streams() once the device is powered up for streaming.
+> +	 */
+> +	ret = pm_runtime_get_if_in_use(hm1092->dev);
+> +	if (ret <= 0)
+> +		return ret;
+> +
+> +	ret = 0;
+> +
+> +	switch (ctrl->id) {
+> +	case V4L2_CID_EXPOSURE:
+> +	case V4L2_CID_ANALOGUE_GAIN:
+> +	case V4L2_CID_DIGITAL_GAIN:
+> +		ret = cci_write(hm1092->regmap, HM1092_REG_GROUP_HOLD,
+> +				HM1092_GROUP_HOLD_START, NULL);
+> +		if (ret)
+> +			break;
+> +
+> +		if (ctrl->id == V4L2_CID_EXPOSURE) {
+> +			cci_write(hm1092->regmap, HM1092_REG_EXPOSURE_H,
+> +				  ctrl->val >> 8, &ret);
+> +			cci_write(hm1092->regmap, HM1092_REG_EXPOSURE_L,
+> +				  ctrl->val & 0xff, &ret);
+> +		} else if (ctrl->id == V4L2_CID_ANALOGUE_GAIN) {
+> +			cci_write(hm1092->regmap, HM1092_REG_ANALOGUE_GAIN,
+> +				  ctrl->val, &ret);
+> +		} else {
+> +			cci_write(hm1092->regmap, HM1092_REG_DIGITAL_GAIN_H,
+> +				  ctrl->val >> 8, &ret);
+> +			cci_write(hm1092->regmap, HM1092_REG_DIGITAL_GAIN_L,
+> +				  ctrl->val & 0xff, &ret);
+
+A switch would seem reasonable here, too.
+
+> +		}
+> +
+> +		release_ret = cci_write(hm1092->regmap, HM1092_REG_GROUP_HOLD,
+> +					HM1092_GROUP_HOLD_END, NULL);
+> +		if (!ret)
+> +			ret = release_ret;
+> +		break;
+> +	case V4L2_CID_TEST_PATTERN:
+> +		ret = cci_write(hm1092->regmap, HM1092_REG_TEST_PATTERN,
+> +				ctrl->val, NULL);
+> +		break;
+> +	default:
+> +		ret = -EINVAL;
+> +		break;
+> +	}
+> +
+> +	pm_runtime_put(hm1092->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct v4l2_ctrl_ops hm1092_ctrl_ops = {
+> +	.s_ctrl = hm1092_set_ctrl,
+> +};
+> +
+> +static int hm1092_init_controls(struct hm1092 *hm1092)
+> +{
+> +	struct v4l2_ctrl_handler *ctrl_hdlr = &hm1092->ctrl_handler;
+> +	const struct hm1092_mode *mode = &hm1092_mode_560x360;
+> +	struct v4l2_fwnode_device_properties props;
+> +	s64 hblank, pixel_rate;
+> +	int ret;
+> +
+> +	ret = v4l2_fwnode_device_parse(hm1092->dev, &props);
+> +	if (ret)
+> +		return ret;
+> +
+> +	v4l2_ctrl_handler_init(ctrl_hdlr, 9);
+> +
+> +	hm1092->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr,
+> +						   &hm1092_ctrl_ops,
+> +						   V4L2_CID_LINK_FREQ,
+> +						   0, 0,
+> +						   hm1092_link_freq_menu);
+> +
+> +	pixel_rate = div_u64(HM1092_LINK_FREQ * 2 * hm1092->mipi_lanes,
+> +			     HM1092_BITS_PER_SAMPLE);
+> +	hm1092->pixel_rate = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
+> +					       V4L2_CID_PIXEL_RATE, 0,
+> +					       pixel_rate, 1, pixel_rate);
+> +
+> +	hblank = mode->hts - mode->width;
+> +	hm1092->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
+> +					   V4L2_CID_HBLANK, hblank, hblank, 1,
+> +					   hblank);
+> +
+> +	hm1092->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
+> +					   V4L2_CID_VBLANK,
+> +					   mode->vts - mode->height,
+> +					   0xffff - mode->height, 1,
+> +					   mode->vts - mode->height);
+> +
+> +	hm1092->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
+> +					     V4L2_CID_EXPOSURE,
+> +					     HM1092_EXPOSURE_MIN,
+> +					     mode->vts -
+> +					     HM1092_EXPOSURE_MARGIN,
+> +					     HM1092_EXPOSURE_STEP,
+> +					     HM1092_EXPOSURE_DEFAULT);
+> +
+> +	v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
+> +			  V4L2_CID_ANALOGUE_GAIN,
+> +			  HM1092_ANALOGUE_GAIN_MIN,
+> +			  HM1092_ANALOGUE_GAIN_MAX,
+> +			  HM1092_ANALOGUE_GAIN_STEP,
+> +			  HM1092_ANALOGUE_GAIN_DEFAULT);
+> +
+> +	v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
+> +			  V4L2_CID_DIGITAL_GAIN,
+> +			  HM1092_DIGITAL_GAIN_MIN,
+> +			  HM1092_DIGITAL_GAIN_MAX,
+> +			  HM1092_DIGITAL_GAIN_STEP,
+> +			  HM1092_DIGITAL_GAIN_DEFAULT);
+> +
+> +	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &hm1092_ctrl_ops,
+> +				     V4L2_CID_TEST_PATTERN,
+> +				     ARRAY_SIZE(hm1092_test_pattern_menu) - 1,
+> +				     0, 0, hm1092_test_pattern_menu);
+> +
+> +	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &hm1092_ctrl_ops, &props);
+> +
+> +	if (ctrl_hdlr->error) {
+> +		ret = ctrl_hdlr->error;
+
+You can omit assigning ret here...
+
+> +		goto err_free;
+> +	}
+> +
+> +	hm1092->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> +	hm1092->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> +	hm1092->vblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> +
+> +	hm1092->sd.ctrl_handler = ctrl_hdlr;
+> +
+> +	return 0;
+> +
+> +err_free:
+> +	v4l2_ctrl_handler_free(ctrl_hdlr);
+
+and:
+
+	return v4l2_ctrl_handler_free(ctrl_hdlr);
+
+> +
+> +	return ret;
+> +}
+> +
+> +static void hm1092_update_pad_format(struct v4l2_mbus_framefmt *fmt)
+> +{
+> +	fmt->width = hm1092_mode_560x360.width;
+> +	fmt->height = hm1092_mode_560x360.height;
+> +	fmt->code = MEDIA_BUS_FMT_Y10_1X10;
+> +	fmt->field = V4L2_FIELD_NONE;
+> +	fmt->colorspace = V4L2_COLORSPACE_RAW;
+> +	fmt->ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
+> +	fmt->quantization = V4L2_QUANTIZATION_DEFAULT;
+> +	fmt->xfer_func = V4L2_XFER_FUNC_NONE;
+> +}
+> +
+> +static int hm1092_enable_streams(struct v4l2_subdev *sd,
+> +				 struct v4l2_subdev_state *state,
+> +				 u32 pad, u64 streams_mask)
+> +{
+> +	struct hm1092 *hm1092 = to_hm1092(sd);
+> +	int ret;
+> +
+> +	ret = pm_runtime_resume_and_get(hm1092->dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = cci_multi_reg_write(hm1092->regmap, hm1092_init_regs,
+> +				  ARRAY_SIZE(hm1092_init_regs), NULL);
+> +	if (ret) {
+> +		dev_err(hm1092->dev, "failed to write init registers\n");
+> +		goto out;
+> +	}
+> +
+> +	ret = __v4l2_ctrl_handler_setup(hm1092->sd.ctrl_handler);
+> +	if (ret)
+> +		goto out;
+> +
+> +	ret = cci_write(hm1092->regmap, HM1092_REG_STREAM,
+> +			HM1092_STREAM_ON, NULL);
+> +	if (ret)
+> +		dev_err(hm1092->dev, "failed to start streaming\n");
+> +
+
+	return 0;
+
+> +out:
+> +	if (ret)
+
+And drop the check.
+
+> +		pm_runtime_put(hm1092->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static int hm1092_disable_streams(struct v4l2_subdev *sd,
+> +				  struct v4l2_subdev_state *state,
+> +				  u32 pad, u64 streams_mask)
+> +{
+> +	struct hm1092 *hm1092 = to_hm1092(sd);
+> +	int ret;
+> +
+> +	ret = cci_write(hm1092->regmap, HM1092_REG_STREAM,
+> +			HM1092_STREAM_STANDBY, NULL);
+> +	pm_runtime_put(hm1092->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static int hm1092_enum_mbus_code(struct v4l2_subdev *sd,
+> +				 struct v4l2_subdev_state *state,
+> +				 struct v4l2_subdev_mbus_code_enum *code)
+> +{
+> +	if (code->index)
+> +		return -EINVAL;
+> +
+> +	code->code = MEDIA_BUS_FMT_Y10_1X10;
+> +
+> +	return 0;
+> +}
+> +
+> +static int hm1092_enum_frame_size(struct v4l2_subdev *sd,
+> +				  struct v4l2_subdev_state *state,
+> +				  struct v4l2_subdev_frame_size_enum *fse)
+> +{
+> +	if (fse->index)
+> +		return -EINVAL;
+> +
+> +	if (fse->code != MEDIA_BUS_FMT_Y10_1X10)
+> +		return -EINVAL;
+> +
+> +	fse->min_width = hm1092_mode_560x360.width;
+> +	fse->max_width = hm1092_mode_560x360.width;
+> +	fse->min_height = hm1092_mode_560x360.height;
+> +	fse->max_height = hm1092_mode_560x360.height;
+> +
+> +	return 0;
+> +}
+> +
+> +static int hm1092_get_selection(struct v4l2_subdev *sd,
+> +				const struct v4l2_subdev_client_info *ci,
+> +				struct v4l2_subdev_state *state,
+> +				struct v4l2_subdev_selection *sel)
+> +{
+> +	switch (sel->target) {
+> +	case V4L2_SEL_TGT_CROP:
+> +		sel->r.left = HM1092_CROP_LEFT;
+> +		sel->r.top = HM1092_CROP_TOP;
+> +		sel->r.width = HM1092_CROP_WIDTH;
+> +		sel->r.height = HM1092_CROP_HEIGHT;
+> +		return 0;
+> +	case V4L2_SEL_TGT_CROP_DEFAULT:
+> +		sel->r.left = HM1092_ACTIVE_LEFT;
+> +		sel->r.top = HM1092_ACTIVE_TOP;
+> +		sel->r.width = HM1092_ACTIVE_WIDTH;
+> +		sel->r.height = HM1092_ACTIVE_HEIGHT;
+> +		return 0;
+> +	case V4L2_SEL_TGT_CROP_BOUNDS:
+> +	case V4L2_SEL_TGT_NATIVE_SIZE:
+> +		sel->r.left = 0;
+> +		sel->r.top = 0;
+> +		sel->r.width = HM1092_NATIVE_WIDTH;
+> +		sel->r.height = HM1092_NATIVE_HEIGHT;
+> +		return 0;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int hm1092_init_state(struct v4l2_subdev *sd,
+> +			     struct v4l2_subdev_state *state)
+> +{
+> +	hm1092_update_pad_format(v4l2_subdev_state_get_format(state, 0));
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct v4l2_subdev_video_ops hm1092_video_ops = {
+> +	.s_stream = v4l2_subdev_s_stream_helper,
+> +};
+> +
+> +static const struct v4l2_subdev_pad_ops hm1092_pad_ops = {
+> +	.get_fmt = v4l2_subdev_get_fmt,
+> +	.enum_mbus_code = hm1092_enum_mbus_code,
+> +	.enum_frame_size = hm1092_enum_frame_size,
+> +	.get_selection = hm1092_get_selection,
+> +	.enable_streams = hm1092_enable_streams,
+> +	.disable_streams = hm1092_disable_streams,
+> +};
+> +
+> +static const struct v4l2_subdev_ops hm1092_subdev_ops = {
+> +	.video = &hm1092_video_ops,
+> +	.pad = &hm1092_pad_ops,
+> +};
+> +
+> +static const struct media_entity_operations hm1092_entity_ops = {
+> +	.link_validate = v4l2_subdev_link_validate,
+> +};
+> +
+> +static const struct v4l2_subdev_internal_ops hm1092_internal_ops = {
+> +	.init_state = hm1092_init_state,
+> +};
+> +
+> +static int hm1092_check_hwcfg(struct hm1092 *hm1092)
+> +{
+> +	struct v4l2_fwnode_endpoint bus_cfg = {
+> +		.bus = {
+> +			.mipi_csi2 = {
+> +				.num_data_lanes = 1,
+> +			},
+> +		},
+> +		.bus_type = V4L2_MBUS_CSI2_DPHY,
+> +	};
+> +	struct device *dev = hm1092->dev;
+> +	struct fwnode_handle *ep, *fwnode = dev_fwnode(dev);
+> +	unsigned long link_freq_bitmap;
+> +	int ret;
+> +
+> +	ep = fwnode_graph_get_endpoint_by_id(fwnode, 0, 0, 0);
+> +	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
+> +	fwnode_handle_put(ep);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "parsing endpoint failed\n");
+> +
+> +	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
+> +				       bus_cfg.nr_of_link_frequencies,
+> +				       hm1092_link_freq_menu,
+> +				       ARRAY_SIZE(hm1092_link_freq_menu),
+> +				       &link_freq_bitmap);
+> +	if (ret)
+> +		goto out;
+> +
+> +	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 1) {
+
+Please drop the check as well as assigning the default, it's redundant.
+
+> +		ret = dev_err_probe(dev, -EINVAL,
+> +				    "only 1 data lane is supported, got %u\n",
+> +				    bus_cfg.bus.mipi_csi2.num_data_lanes);
+> +		goto out;
+> +	}
+> +
+> +	hm1092->mipi_lanes = bus_cfg.bus.mipi_csi2.num_data_lanes;
+> +
+> +out:
+> +	v4l2_fwnode_endpoint_free(&bus_cfg);
+> +	return ret;
+> +}
+> +
+> +static int hm1092_get_pm_resources(struct hm1092 *hm1092)
+> +{
+> +	hm1092->reset = devm_gpiod_get_optional(hm1092->dev, "reset",
+> +						GPIOD_OUT_HIGH);
+> +	if (IS_ERR(hm1092->reset))
+> +		return dev_err_probe(hm1092->dev, PTR_ERR(hm1092->reset),
+> +				     "failed to get reset gpio\n");
+> +
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(hm1092_supply_names); i++)
+> +		hm1092->supplies[i].supply = hm1092_supply_names[i];
+> +
+> +	return devm_regulator_bulk_get(hm1092->dev,
+> +				       ARRAY_SIZE(hm1092_supply_names),
+> +				       hm1092->supplies);
+> +}
+> +
+> +static int hm1092_power_off(struct device *dev)
+> +{
+> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> +	struct hm1092 *hm1092 = to_hm1092(sd);
+> +
+> +	gpiod_set_value_cansleep(hm1092->reset, 1);
+> +	clk_disable_unprepare(hm1092->img_clk);
+> +	regulator_bulk_disable(ARRAY_SIZE(hm1092_supply_names),
+> +			       hm1092->supplies);
+> +
+> +	return 0;
+> +}
+> +
+> +static int hm1092_power_on(struct device *dev)
+> +{
+> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> +	struct hm1092 *hm1092 = to_hm1092(sd);
+> +	int ret;
+> +
+> +	/*
+> +	 * Power-up sequence:
+> +	 *   1. enable all rails (~3 ms ramp)
+> +	 *   2. hold reset asserted
+> +	 *   3. start MCLK and let the sensor clock for ~1 ms
+> +	 *   4. release reset and wait 18 ms for the sensor to come up
+> +	 */
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(hm1092_supply_names),
+> +				    hm1092->supplies);
+> +	if (ret)
+> +		return ret;
+> +	fsleep(3000);
+
+It seems the datasheet only requires 100 µs after lifting xshutdown before
+I²C transactions; it's not entirely clear if other delays are required, but
+if so, 10 ms should be enough before starting streaming.
+
+> +
+> +	gpiod_set_value_cansleep(hm1092->reset, 1);
+> +
+> +	ret = clk_prepare_enable(hm1092->img_clk);
+> +	if (ret) {
+> +		regulator_bulk_disable(ARRAY_SIZE(hm1092_supply_names),
+> +				       hm1092->supplies);
+> +		return ret;
+> +	}
+> +	fsleep(1000);
+> +
+> +	gpiod_set_value_cansleep(hm1092->reset, 0);
+> +	fsleep(18000);
+> +
+> +	return 0;
+> +}
+> +
+> +static void hm1092_remove(struct i2c_client *client)
+> +{
+> +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
+> +	struct hm1092 *hm1092 = to_hm1092(sd);
+> +
+> +	v4l2_async_unregister_subdev(sd);
+> +	v4l2_subdev_cleanup(sd);
+> +	media_entity_cleanup(&sd->entity);
+> +	v4l2_ctrl_handler_free(sd->ctrl_handler);
+> +	pm_runtime_disable(hm1092->dev);
+> +	if (!pm_runtime_status_suspended(hm1092->dev)) {
+> +		hm1092_power_off(hm1092->dev);
+> +		pm_runtime_set_suspended(hm1092->dev);
+> +	}
+> +}
+> +
+> +static int hm1092_probe(struct i2c_client *client)
+> +{
+> +	struct hm1092 *hm1092;
+> +	unsigned long freq;
+> +	int ret;
+> +
+> +	hm1092 = devm_kzalloc(&client->dev, sizeof(*hm1092), GFP_KERNEL);
+> +	if (!hm1092)
+> +		return -ENOMEM;
+> +
+> +	hm1092->dev = &client->dev;
+> +
+> +	hm1092->img_clk = devm_v4l2_sensor_clk_get(hm1092->dev, NULL);
+> +	if (IS_ERR(hm1092->img_clk))
+> +		return dev_err_probe(hm1092->dev, PTR_ERR(hm1092->img_clk),
+> +				     "failed to get imaging clock\n");
+> +
+> +	freq = clk_get_rate(hm1092->img_clk);
+> +	if (freq != HM1092_MCLK)
+> +		return dev_err_probe(hm1092->dev, -EINVAL,
+> +				     "external clock %lu is not supported\n",
+> +				     freq);
+> +
+> +	v4l2_i2c_subdev_init(&hm1092->sd, client, &hm1092_subdev_ops);
+> +
+> +	ret = hm1092_check_hwcfg(hm1092);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = hm1092_get_pm_resources(hm1092);
+> +	if (ret)
+> +		return ret;
+> +
+> +	hm1092->regmap = devm_cci_regmap_init_i2c(client, 16);
+> +	if (IS_ERR(hm1092->regmap))
+> +		return PTR_ERR(hm1092->regmap);
+> +
+> +	ret = hm1092_init_controls(hm1092);
+> +	if (ret)
+> +		return ret;
+> +
+> +	hm1092->sd.internal_ops = &hm1092_internal_ops;
+> +	hm1092->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+> +	hm1092->sd.entity.ops = &hm1092_entity_ops;
+> +	hm1092->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
+> +	hm1092->pad.flags = MEDIA_PAD_FL_SOURCE;
+> +	ret = media_entity_pads_init(&hm1092->sd.entity, 1, &hm1092->pad);
+> +	if (ret)
+> +		goto err_ctrls;
+> +
+> +	hm1092->sd.state_lock = hm1092->ctrl_handler.lock;
+> +	ret = v4l2_subdev_init_finalize(&hm1092->sd);
+> +	if (ret)
+> +		goto err_entity;
+> +
+> +	/*
+> +	 * The sensor is left powered off; runtime PM brings it up on demand
+> +	 * from hm1092_enable_streams(). There is no I2C access during probe
+> +	 * (e.g. a chip-ID read) that would require it to be powered here.
+> +	 */
+
+This comment appears redundant.
+
+> +	pm_runtime_enable(hm1092->dev);
+> +
+> +	ret = v4l2_async_register_subdev_sensor(&hm1092->sd);
+> +	if (ret)
+> +		goto err_subdev;
+> +
+> +	return 0;
+> +
+> +err_subdev:
+> +	pm_runtime_disable(hm1092->dev);
+> +	v4l2_subdev_cleanup(&hm1092->sd);
+> +
+> +err_entity:
+> +	media_entity_cleanup(&hm1092->sd.entity);
+> +
+> +err_ctrls:
+> +	v4l2_ctrl_handler_free(hm1092->sd.ctrl_handler);
+> +
+> +	return ret;
+> +}
+> +
+> +static DEFINE_RUNTIME_DEV_PM_OPS(hm1092_pm_ops, hm1092_power_off,
+> +				 hm1092_power_on, NULL);
+> +
+> +static const struct of_device_id hm1092_of_match[] = {
+> +	{ .compatible = "himax,hm1092" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, hm1092_of_match);
+> +
+> +static struct i2c_driver hm1092_i2c_driver = {
+> +	.driver = {
+> +		.name = "hm1092",
+> +		.pm = pm_ptr(&hm1092_pm_ops),
+> +		.of_match_table = hm1092_of_match,
+> +	},
+> +	.probe = hm1092_probe,
+> +	.remove = hm1092_remove,
+> +};
+> +
+> +module_i2c_driver(hm1092_i2c_driver);
+> +
+> +MODULE_DESCRIPTION("Himax HM1092 monochrome NIR image sensor driver");
+> +MODULE_LICENSE("GPL");
 > 
-> You drop the hardware-ring-object, this halts the ring, waits for it
-> synchronously,
 
-Well how do you wait for the HW ring synchronously?
-
-My point is that this waiting should be done by blocking for the fence to signal and NOT by any other funky method the driver may come up with.
-
-> then the fences drop and signal. Of course, you can
-> additionally signal them manually before their drop with another error
-> code than the default.
-> 
->>> Insisting on an explicit method call is not improving anything in this model.
->>
->> I'm not insisting on an explicit method call.
->>
->> What I'm insisting on is that the response from the HW that the DMA
->> operation has stopped is signaling the fence.
-> 
-> That is effectively the case, see above.
-> 
->> And not that driver tell the HW stop DMA and then continue and dma
->> fence is automatically signaled without explicitly saying that is the
->> signal that DMA operations are stopped.
-> 
-> Again, the main point here is that the object layout ensures *exactly*
-> what you want, Christian
-> 
-> Like this, pseudocode
-> 
-> // Drops first, stops hardware
-> struct exec_context {
-> 	// drops second
-> 	jq: JobQueue, // signals remaining fences when it drops
-> }
-> 
-> It's maybe more implicit, but ensures exactly what needs to be ensured.
-
-No it doesn't.
-
-What I want to ensure is that drivers don't come up with funky methods to signal fences.
-
-The cleanup part you want to have here is clearly good to get that defined as well, but to be honest that is peanuts compared to what you get when you have the dma_fence signaling wrong.
-
-> 
-> That's how teardown is done in Rust. You drop the lock, it unlocks
-> itself. You drop the memory, it frees itself. You drop the fence, it
-> signals itself.
-> 
-> That's by design because the object lifetime model falls naturally into
-> place.
-> 
->> I think the most defensive way would be as last resort scream loud in
->> the logs that the driver is somehow buggy and hasn't signaled it's
->> fence, wait for a certain amount of time (100ms?) as safeguard and
->> then signal the fence with an error.
-> 
-> Now that doesn't make any sense at all, either the hardware is stopped
-> or it isn't.
-
-There is a huge window of state in between.
-
-> Having some random delay is probably even worse because
-> the problem is then more difficult to even encounter and thus fix.
-
-Well the whole point of the delay is to at least have some kind of save guard that makes follow up problems less likely to encounter in production.
-
-That the underlying problem is fixed should be triggered by the big warning in the system log and not because I notice that my valuable data is corrupted because a DMA fence signaled to early and caused random corruption.
-
-> 
->> Exactly that is what I disagree on.
->>
->> Stopping the HW is what makes fences signal and that is what this
->> tear down process should block for.
-> 
-> Our point is that dropping stuff stops the hardware, and *then* signals
-> the fences. Exactly what you want! :)
-
-No, that is completely backwards.
-
-A dma_fence should *NEVER* signal because you waited for something. Instead the dma_fence is what is waited on.
-
->> Well the question is can we enforce this?
->>
->> I mean there are usually only limited options from the compiler side
->> to enforce things, but we should still push developers to use well
->> proven patterns and coding practices.
-> 
-> You currently cannot prevent people from refcounting stuff if they
-> really want to. The Rust language is working on enforcing that, too,
-> though
-> 
-> https://goals.rust-lang.org/2026/move-trait.html
-> 
-> 
-> btw the best feature that Rust offers IMO is that the refcounting is at
-> least always right. That's quite cool. A great many hacks I've seen
-> stem from the fact that programmers are not disciplined when it comes
-> to copying pointers and their refcount.
-
-Yeah completely agree as well. I mean OCaml already got that point right.
-
-The problem with OCaml was always that you had to distinct between strong and weak references to avoid circle dependencies and therefore memory leaks.
-
-The ownership model from Rust seems to be a big step into the right direction to also solve such issues.
-
+-- 
 Regards,
-Christian.
 
-> 
-> 
-> P.
-
+Sakari Ailus
