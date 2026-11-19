@@ -1,45 +1,70 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795094363;
-	b=YQT4nyRUFGLxSoVSICqiLilUk1jeY5DaegPu6bhSUGb7uh0beXYYdO8f5Gspzb4j92A+
-	 Kw/JFeWpIYwZVjTsW0VK+8gt8QjPs4AQF/rWUTwowYv2ehMeMsY1JKBdwwqT6ZZ5JzPvB
-	 Ngcj59OoVeA5X3wBN430ZrNODbcZDlonZG/OxVdExhpRLlhYho1ha4O8hgV/gCf6maidi
-	 6peEUJO1m5MhsZ3KKwrnipXlYzoi7CETK4TGLWv+faz3EgAF8kMFS8i/ZVYLcdtRC3YAZ
-	 zOKA3JIiGj+RZyP6ENv4siWwMMN+Le7gm2cz9tsEyTU6NShVihTPxzvGIbctPnm75kg==
+	t=1795094379;
+	b=2upVxoFHbJc+ZJ/7aOl4ZzOMq2M3PG7xK82oP14OUC9mc5QM0hIkIwYzZMeJCqGnRcmT
+	 nNwAr6k0/1Dp+FEwmF1i4BvtS1IjqcdP2UMh/MDfjnxEqjyXHdvJVvmND+CS7OsNRCzdn
+	 Tn7nisLnqBd0TRonroaYvO0c4d1erru6V1fqcRn+Xun77NldKdNJfXnDbn0FOITtGK5D1
+	 pTeQDZEZA4e+cJBdTikl7LoNmTD/gdndoFcKePOhv58mYXHjpLsrAT0nAARIO0ptZgDzC
+	 SpZAXIz6klrL7GQT5nBlu5kJEwCgEVUgtchQjmT3HCX3VUrf7KiMPiXTGKi0DErApjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795094363;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Y1OVXSHvlvZEo/9tU0mtIh7APp20mcVAytWRmOeHWk8=;
-	b=lYqOGiogh8F8y4Y39OkGGgb9n2w2knSULHK5+Ypklgbfoz82fGkHA5jUs2W1eWN1/CTV
-	 uUh8bIC/ZEFY1135sQrUsT6TgEydS4hLZMMf/LGQeJAiiy1Jcf0kgn/N5mu17ThjLf6lK
-	 CyLY0Pp9Jgi1uI2/nzjIkQLjXCZnzB8IO76quzgWLSulGBNgJS/NzJIEQure2+eMGKVzt
-	 BoSKRxONq9NNtC3Im/FpL7eUwtSEsdGXIODYtFl90LafpvrOUYVV54aTDtZ4seMywG4oo
-	 qAq436uBiim3ZD1AzF78RmeFcYkdbjrDp3UyDNuHrFVBRrk2zo6Z4yo3OGMmYIOVD2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795094379;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=gK1ForMjyEmgPmikJ+yHxqKUGm6sEgHvzRHvKpK3TlY=;
+	b=24yy/U+DT9BPvAYYKbTTLAYDm1gwMn18jVpOB/BEWtixMOrvdblBiU14qnynnwcxZjl8
+	 Fl/k6hxghHhmy3kuvMeHvBPW3wPF4lMBefOT7qAT1kNl5XK1fsjOB5kiebWBt0OFgmWZG
+	 uYPM1qrz5JVcAJxiWljznPvbu22bKlwGjh9TwkQY6Y2hXaaZz6QZ3nNg9NrrajXn+42jF
+	 i3hvrWXrVd4Pycp5wOwgakk9jcctE87mTlXWHuEnFzhaLCMjcJKlMun6IRYMcJFV+KD+p
+	 dKaWc74FrFIbsK6eUK3xM40rjdO7iSbjZBg+kVAt12F2a21oy88xf+Frd0F86OJHKsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ko2+EvCa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iYrxmap9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB1E606A320;
-	Thu, 19 Nov 2026 13:19:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F642606A320;
+	Thu, 19 Nov 2026 13:19:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ko2+EvCa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388051F000C4;
-	Thu, 19 Nov 2026 13:19:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iYrxmap9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 195CB1F000C5;
+	Thu, 19 Nov 2026 13:19:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795094362;
-	bh=Y1OVXSHvlvZEo/9tU0mtIh7APp20mcVAytWRmOeHWk8=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=ko2+EvCaly/s61/qAxmLcjbIxYuzlmKCn6Ia1C/N0oHUt46E4ZFllw3UQEDipu7vK
-	 iB3gN2tcltYzbdYdB3A5j2/l0Q9EZxDtBd+cGXqogw2j+Sv3lYTct0mU7T1UPMJRci
-	 d9Ij9cfFoZBksYOEHLxrbkqsCTcP2rh40bXFj44Jq3p52LsG/+2sXigZePq4LPk+2z
-	 g9JxLTskPe36Fe+C9NWh3A8vsl58l6lgIWgjNJ4x1HsSBKAYFr+ahbeuj+R07z2SoP
-	 LMYR4uqnAjCaKkBMBKksIHSIZ0rWVnqK3tgAPmqckRqPKcBpOFxY+0WQrO+pDvR+f8
-	 uX3B37sQzPytw==
+	s=k20260515; t=1795094378;
+	bh=gK1ForMjyEmgPmikJ+yHxqKUGm6sEgHvzRHvKpK3TlY=;
+	h=From:To:Cc:Subject:Date;
+	b=iYrxmap9F95zC7zevzlIkNvm2EvW0xFeZEV4uDvbltwjqYDMQDZgoctTK79JgpP6v
+	 I33+MyJSK1AWI6xpnh/bQL3XsfaZZloLDwjcq6M4OhHbjxka2rqWS/9C7k6QjiQKpV
+	 lo9owqejGMK+pEir1kr72Cu8/95kEj1SBJdg2h30swHFWBbRjuuNVzjPRpqxwoL+eP
+	 JDSvzEUSbDMIK3mvtQTtE9JZ1/HfPvaNx7LxdLihSiTz0hvgD8IYiimYGBgxw7degI
+	 5NitSr8PHy4otVpN269UpDlnCkWhacVOysN65dLm6121gLeZ0CWiNJqtj03mZ6OGen
+	 CyOlsrJR23T0w==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Chris Wilson <chris@chris-wilson.co.uk>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Yunxiang Li <Yunxiang.Li@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] dma-fence: Fix timestamp memory ordering
+Date: Thu, 19 Nov 2026 14:18:28 +0100
+Message-ID: <20261119131830.2535266-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -49,264 +74,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/3] media: qcom: iris: add error and status details to
- diagnostics
-From: bod@kernel.org
-To: Dipayaan Roy <dipayaan.roy@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org, vikash.garodia@oss.qualcomm.com, 
- dikshita.agarwal@oss.qualcomm.com, abhinav.kumar@linux.dev, bod@kernel.org, 
- mchehab@kernel.org, p.zabel@pengutronix.de, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261106153126.120858-3-dipayaan.roy@oss.qualcomm.com>
-References: <20261106153126.120858-1-dipayaan.roy@oss.qualcomm.com>
- <20261106153126.120858-3-dipayaan.roy@oss.qualcomm.com>
-Date: Thu, 19 Nov 2026 13:19:17 +0000
-Message-Id: <179509435732.2846709.9192164322227229466.b4-reply@b4>
-X-Mailer: b4 0.17-dev-e3fc9
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9975; i=bod@kernel.org;
- h=from:subject:message-id; bh=A9d48vBT/5/HBnNwBb3hxeJq9iMxThbJEbUzCCnkZuE=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/vdV+Lrr/tqnJ/VCEeaZiA+ANyfYo65KflLpW
- yxMoXVBMgKJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCav73VQAKCRAicTuzoY3I
- OlVKD/4sY8ocPVGx4RYVDTE2VLk8d/ltmyMKL3XfDKnJk6gquhIIeKNvrKWKSKW0YeA74ozUOO5
- zltrzij820ekRVt/82h46ljZb31i5BQvTr5sw/J/kv+bjUOX2nSEvFrKVaoPzEsoIaTml8MMmpf
- txJ8yYJmG6TnPcWB0IMbRmidwhWJZEZnLwHd0Sd9qlclhoGLbDzQVdFT+fRjl7Nt4PcJUiIz58S
- b7XU/1OYX0ZTzm9TQ4FlUMFB3iG/bD58HWJmDNeSiSY7TvNGCOs5IGYFlP1DgTgotxfK1Va2c/a
- ASDuHyDOwaHlCjv9jYP+kI35QGJz5eCYPF0VpmL4es16rqzBFo22GyphYn5roIOsWUtx+v+FiTw
- B1kSsL4WjZuMm64Cj7Ntf3Y0HMT9ZDJktZYkg58r7Z1YD3U2XWxvYQXPGemn7S4kvTOND50YT4D
- IT9BNkBCKkOT8+/iCUZOb5VoRiK6Ir39gtDhQcz1Q4UXPQ0h8y45r0T+14uo+hKRYE5BBPFjOUu
- pqJ/hnS9iikY9+Gg44bw1u1PBXCQWAUHMluT/s7ux7cPlKbv0b92TOwwAFW8/qQiPp67TDQnB/n
- 41wTrG9X4qu1ei1E6XU2ixhB2pa9KZp+F0PjKQhv2LC7yx3ZbO1IuRh7ecmjGhloXHE+MXQW5he
- oQwZ7liqBNcxZ8A==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-06 15:31 +0000, Dipayaan Roy wrote:
-> Several Iris error messages identify a failed operation without showing
-> the return code or state that caused it, making failures difficult to
-> diagnose.
-> 
-> Include available return codes, hardware status, queue positions, and
-> packet or session identifiers in these messages. Also report the header
-> details when an HFI response fails validation.
-> 
-> Error handling remains unchanged.
-> 
-> Signed-off-by: Dipayaan Roy <dipayaan.roy@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_hfi_common.c |  4 ++--
->  .../platform/qcom/iris/iris_hfi_gen1_response.c    |  9 ++++++---
->  .../platform/qcom/iris/iris_hfi_gen2_response.c    |  5 ++++-
->  drivers/media/platform/qcom/iris/iris_hfi_queue.c  | 14 +++++++++----
->  drivers/media/platform/qcom/iris/iris_vb2.c        |  2 +-
->  drivers/media/platform/qcom/iris/iris_vdec.c       |  3 ++-
->  drivers/media/platform/qcom/iris/iris_venc.c       |  3 ++-
->  drivers/media/platform/qcom/iris/iris_vidc.c       |  2 +-
->  drivers/media/platform/qcom/iris/iris_vpu3x.c      | 23 +++++++++++-----------
->  drivers/media/platform/qcom/iris/iris_vpu4x.c      |  6 ++++--
->  drivers/media/platform/qcom/iris/iris_vpu_common.c | 15 ++++++++------
->  11 files changed, 53 insertions(+), 33 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_common.c b/drivers/media/platform/qcom/iris/iris_hfi_common.c
-> index dad906d03fdc..1fd4cecd7956 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_common.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_common.c
-> @@ -138,7 +138,7 @@ int iris_hfi_pm_suspend(struct iris_core *core)
->  	return 0;
->  
->  error:
-> -	dev_err(core->dev, "failed to suspend\n");
-> +	dev_err(core->dev, "failed to suspend: %d\n", ret);
->  
->  	return ret;
->  }
-> @@ -179,7 +179,7 @@ int iris_hfi_pm_resume(struct iris_core *core)
->  err_power_off:
->  	iris_vpu_power_off(core);
->  error:
-> -	dev_err(core->dev, "failed to resume\n");
-> +	dev_err(core->dev, "failed to resume: %d\n", ret);
->  
->  	return -EBUSY;
->  }
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-> index ffa98139f0eb..1ce7f97d4087 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-> @@ -301,7 +301,8 @@ iris_hfi_gen1_sys_get_prop_image_version(struct iris_core *core,
->  	u32 i;
->  
->  	if (req_bytes < IRIS_FW_VERSION_LENGTH - 1 || !pkt->data[0] || pkt->num_properties > 1) {
-> -		dev_err(core->dev, "bad packet\n");
-> +		dev_err(core->dev, "invalid firmware version packet (size %u, properties %u)\n",
-> +			pkt->hdr.size, pkt->num_properties);
->  		return;
->  	}
->  
-> @@ -382,7 +383,8 @@ static void iris_hfi_gen1_session_etb_done(struct iris_inst *inst, void *packet)
->  
->  error:
->  	iris_inst_change_state(inst, IRIS_INST_ERROR);
-> -	dev_err(inst->core->dev, "error in etb done\n");
-> +	dev_err(inst->core->dev, "ETB done without input buffer (session %#x, tag %u)\n",
-> +		inst->session_id, pkt->input_tag);
->  }
->  
->  static void iris_hfi_gen1_session_ftb_done(struct iris_inst *inst, void *packet)
-> @@ -530,7 +532,8 @@ static void iris_hfi_gen1_session_ftb_done(struct iris_inst *inst, void *packet)
->  
->  error:
->  	iris_inst_change_state(inst, IRIS_INST_ERROR);
-> -	dev_err(core->dev, "error in ftb done\n");
-> +	dev_err(core->dev, "FTB done without output buffer (session %#x, tag %u, offset %u)\n",
-> +		inst->session_id, output_tag, offset);
->  }
->  
->  static enum iris_buffer_type iris_hfi_gen1_buf_type(struct iris_inst *inst, u32 type)
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> index f0782c4b1e6e..b82f50458fe1 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> @@ -980,8 +980,11 @@ static int iris_hfi_gen2_handle_response(struct iris_core *core, void *response)
->  	int ret;
->  
->  	ret = iris_hfi_gen2_validate_hdr_packet(core, hdr);
-> -	if (ret)
-> +	if (ret) {
-> +		dev_err(core->dev, "invalid HFI response (size %u, packets %u): %d\n",
-> +			hdr->size, hdr->num_packets, ret);
->  		return iris_hfi_gen2_handle_system_error(core, NULL);
-> +	}
->  
->  	if (!hdr->session_id)
->  		return iris_hfi_gen2_handle_system_response(core, hdr);
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_queue.c b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-> index bf6db23b53e2..ef556e54f6f1 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-> @@ -112,14 +112,18 @@ static int iris_hfi_queue_read(struct iris_iface_q_info *qinfo, void *packet)
->  int iris_hfi_queue_cmd_write_locked(struct iris_core *core, void *pkt, u32 pkt_size)
->  {
->  	struct iris_iface_q_info *q_info = &core->command_queue;
-> +	int ret;
->  
->  	if (core->state == IRIS_CORE_ERROR || core->state == IRIS_CORE_DEINIT)
->  		return -EINVAL;
->  
-> -	if (!iris_hfi_queue_write(q_info, pkt, pkt_size)) {
-> +	ret = iris_hfi_queue_write(q_info, pkt, pkt_size);
-> +	if (!ret) {
->  		iris_vpu_raise_interrupt(core);
->  	} else {
-> -		dev_err(core->dev, "queue full\n");
-> +		dev_err(core->dev, "command queue write failed: %d (size %u, read %u, write %u)\n",
-> +			ret, pkt_size, q_info->qhdr->read_idx,
-> +			q_info->qhdr->write_idx);
->  		return -ENODATA;
->  	}
->  
-> @@ -254,7 +258,8 @@ int iris_hfi_queues_init(struct iris_core *core)
->  						    &core->iface_q_table_daddr,
->  						    GFP_KERNEL, DMA_ATTR_WRITE_COMBINE);
->  	if (!core->iface_q_table_vaddr) {
-> -		dev_err(core->dev, "queues alloc and map failed\n");
-> +		dev_err(core->dev, "failed to allocate HFI queues (%u bytes)\n",
-> +			queue_size);
->  		return -ENOMEM;
->  	}
->  
-> @@ -262,7 +267,8 @@ int iris_hfi_queues_init(struct iris_core *core)
->  					  &core->sfr_daddr,
->  					  GFP_KERNEL, DMA_ATTR_WRITE_COMBINE);
->  	if (!core->sfr_vaddr) {
-> -		dev_err(core->dev, "sfr alloc and map failed\n");
-> +		dev_err(core->dev, "failed to allocate SFR (%u bytes)\n",
-> +			(unsigned int)SFR_SIZE);
->  		dma_free_attrs(core->dev, queue_size, core->iface_q_table_vaddr,
->  			       core->iface_q_table_daddr, DMA_ATTR_WRITE_COMBINE);
->  		return -ENOMEM;
-> diff --git a/drivers/media/platform/qcom/iris/iris_vb2.c b/drivers/media/platform/qcom/iris/iris_vb2.c
-> index 8faf709c26c1..b770cd5349b6 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vb2.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vb2.c
-> @@ -135,8 +135,8 @@ int iris_vb2_queue_setup(struct vb2_queue *q,
->  
->  		ret = inst->hfi_session_ops->session_open(inst);
->  		if (ret) {
-> +			dev_err(core->dev, "session open failed: %d\n", ret);
->  			ret = -EINVAL;
-> -			dev_err(core->dev, "session open failed\n");
->  			goto unlock;
->  		}
->  
-> diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
-> index 0dd33ff447bb..d359d3716ba1 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vdec.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vdec.c
-> @@ -529,7 +529,8 @@ int iris_vdec_start_cmd(struct iris_inst *inst)
->  			clear_sub_state |= IRIS_INST_SUB_OUTPUT_PAUSE;
->  		}
->  	} else {
-> -		dev_err(inst->core->dev, "start called before receiving last_flag\n");
-> +		dev_err(inst->core->dev, "start before last buffer (sub-state %#x)\n",
-> +			inst->sub_state);
->  		iris_inst_change_state(inst, IRIS_INST_ERROR);
->  		return -EBUSY;
->  	}
-> diff --git a/drivers/media/platform/qcom/iris/iris_venc.c b/drivers/media/platform/qcom/iris/iris_venc.c
-> index 2f2c56bf9122..a7a0f14a78d1 100644
-> --- a/drivers/media/platform/qcom/iris/iris_venc.c
-> +++ b/drivers/media/platform/qcom/iris/iris_venc.c
-> @@ -602,7 +602,8 @@ int iris_venc_start_cmd(struct iris_inst *inst)
->  			clear_sub_state |= IRIS_INST_SUB_OUTPUT_PAUSE;
->  		}
->  	} else {
-> -		dev_err(inst->core->dev, "start called before receiving last_flag\n");
-> +		dev_err(inst->core->dev, "start before last buffer (sub-state %#x)\n",
-> +			inst->sub_state);
->  		iris_inst_change_state(inst, IRIS_INST_ERROR);
->  		return -EBUSY;
->  	}
-> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
-> index 05aab6e3005d..80f0a56712bf 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
-> @@ -168,7 +168,7 @@ int iris_open(struct file *filp)
->  
->  	ret = iris_core_init(core);
->  	if (ret) {
-> -		dev_err(core->dev, "core init failed\n");
-> +		dev_err(core->dev, "core init failed: %d\n", ret);
->  		pm_runtime_put_sync(core->dev);
->  		return ret;
->  	}
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/media/platform/qcom/iris/iris_vpu3x.c
-> index c3b760730c98..cd22534c0904 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
-> @@ -17,14 +17,12 @@
->  #define NOC_HALT				BIT(0)
->  #define AON_WRAPPER_SPARE			(AON_BASE_OFFS + 0x28)
->  
-> -static bool iris_vpu3x_hw_power_collapsed(struct iris_core *core)
-> +static bool iris_vpu3x_hw_power_collapsed(struct iris_core *core,
-> +					  u32 *power_status)
->  {
-> -	u32 value, pwr_status;
-> +	*power_status = readl(core->reg_base + WRAPPER_CORE_POWER_STATUS);
->  
-> -	value = readl(core->reg_base + WRAPPER_CORE_POWER_STATUS);
-> -	pwr_status = value & BIT(1);
-> -
-> -	return pwr_status ? false : true;
-> +	return !(*power_status & BIT(1));
->  }
+Based on misc-fixes
 
-This is another example. Your patch says "capture status and return codes
-print them" but this change right here is not that.
+The memory ordering for obtaining a fences timestamp seems to be broken.
+Moreover, there is no canonical way for users to obtain the timestamp,
+as proven by the broken ordering in drm_sched.
 
-Please separate out changes like this.
----
-bod
+See also my patch for the signaled flag [1].
+
+@Tvrtko, would you mind basing your patch [2] on this series? That way
+we'd solve both bugs.
+
+
+[1] https://lore.kernel.org/dri-devel/20261119104030.2381685-3-phasta@kernel.org/
+[2] https://lore.kernel.org/dri-devel/20261117094324.8256-1-tvrtko.ursulin@igalia.com/
+
+Philipp Stanner (3):
+  dma-buf/dma-fence: Ensure correct ordering in dma_fence_timestamp()
+  dma-buf: dma-fence: Add dma_fence_overwrite_timestamp()
+  drm/sched: Fix memory ordering with dma_fence_overwrite_timestamp()
+
+ drivers/dma-buf/dma-fence.c            | 28 ++++++++++++++++++++++++++
+ drivers/gpu/drm/scheduler/sched_main.c | 28 +++++++++++++++++++++-----
+ include/linux/dma-fence.h              | 15 +++++++++-----
+ 3 files changed, 61 insertions(+), 10 deletions(-)
+
+
+base-commit: 7488ee210542b918b9c5749a29fd1502c49a0665
+-- 
+2.56.0
 
