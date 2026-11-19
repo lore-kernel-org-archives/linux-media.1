@@ -1,97 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.16
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795122896;
-	b=N4PcCr66R8/NUPkpboM0dYn6pQcY9aNEblHS6/sas0cGeB2KX2x6kXB9s0wwaaZpnvBf
-	 3PLWrWurXW6SPOC1yU7ulHIueq6JWXDJ3GOQTROdGwqPOJVN1UG/ipEJJoyuA2DfhsDo/
-	 rJwKc6A4saulV7nfpH/BtXO1XVnhemaq8c/tyXEIfXsw4ox88Y/lHz8xjrFyoK2MgefJG
-	 HnGGt/qN1rH4MwYW9zTk9FOT1JXF6w58UO7Fzec6atHOCj87YnGnnGPi8vrn2zQHZM3/3
-	 qluzHWrB/qCzxvPwFRH0elPrgGqHXIeYr2IypEsxBIn0Td+ocB1DqnfMVbHe20CO7AA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795122896;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=uD/3GGb4aw8jMr2+9K5csmWHvkhaYmWZgQCieDk7sv8=;
-	b=OofTsxjeKuPzGcsmTlD2QlL3f1QNfcEpjQ7XGkmKhCygLbtk5t998B5s3FmYdzJL7GCk
-	 DQFMjbvTmyB/8WEFpGUIMDxlBaIQcvtLZ5gThz6O8YEfAJ78xi3z4xxq8bD5SOt67lkXX
-	 dlxShSOsgYciDntiPgf4xiqnrrrL6M4ahPTs/PRRzQQh+bn4SPrC+3fpa/Zi1GNM/umyt
-	 n4PPmH1HqGGf+nd2esM6XdNEAYxaXZCdXDBoA072lZgMDUNL6LgoD4vhlqgiS33ib7GgA
-	 D7hBqIxj/dO+m9y1HnNEnnKOV+QAOcK+0pkoLL2imXEEPoVI5RTAlniItVizd8HJiQg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=FQLJC698;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.16
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011016.outbound.protection.outlook.com [52.101.65.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795124087;
+	b=otGUHOqKqA+2fw6y1jGigWDUSnB1aDDS4GOUUjp8nXKYRdp6+lM4AzYElg80UYXWbqJ+
+	 Vf2AEi8dAjP5aKElq2nJt6IzoJYvN/xOBclXeUqLuvcJySBTpoguRKz7ahwBN7Xd6Euib
+	 QUpQ7UfWY19pKV6CWm4imcVkwMgwB+7UbXpDd7/GHvJf6vwozFbyrDc6oWn8HTAk6eebu
+	 Z8qPuV+Zo5Ly6ZkcBeKu9BENB2lplje7q8V9rXnzil8shncks09cjnJA6UsdF1UQLtot6
+	 SNcaRApH1Ufez+pn8ZjKx1oj2F7nhsBlGEcGPfFafu6SysSTCNZD9tRYxJsHppFHsTQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795124087;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:User-Agent:MIME-Version;
+	bh=4PLRPYEt6tusU5aT1XxZRjXDBd+sz/kTb86+H3nHWAk=;
+	b=Pq+sg0uStI4MtquP3uwg+g7ul/WIqDZJn6BdqjN+RSwgUO5bNrqCta+wus8XJYaLqN56
+	 8263wr3bw1L8QqY4y6hFltj99RnpyGdXYr1eIS0PvGzDkot7WS5S14Xmgi/nQedopRBRV
+	 DCnJqNWLm46yASTYkDU7/Zll9tTmLbhcdLdMUvtIwNz0ILODMtys94A1sB0+UHQUzpKgR
+	 D3jbCxXdIqa2DV2jp3whXixW3NnjS0rb3FASoNuuDITbl4ZxubYqM0ZuR/Ei5IfALP9fe
+	 5uj1QT37RqSbfjrwpAOYohu1uNbPpFPIG62fvcnCji1iQOum09/xpQuPlUL2iF3IaDQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Y8sx7kPy;
+	arc=none smtp.remote-ip=209.85.219.48
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7E4606A33C;
-	Thu, 19 Nov 2026 21:14:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA7E4606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E94A606A32A
+	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 21:34:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E94A606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=FQLJC698
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xuk3LqxCLC4mlXFjFK1WZlYP1IfGywqKe7Rsxov9hijMpz8AB8TqTWzRq9qIJ9FcgZ1423todz6k8RmokPgg/WjT75joUer1uNd9yM/8CoS5RTe6/B4I+c2giJkurIlPaGnXZ7uEZvjUcAg9AlQZ8ZQKPxl8CkntJ6eS5YLeUWMoa64+XX9rEyNazKNcMOV/0hep33hmm8PNSsY6cxzXbZ/+1fgJICrM8E3RSFmLZlQZo/IJHF6LcShtFxnu/d2UGHc/O2F/FIkpZKjZPC6N7f2GE7j57Pd+8d0x6B4NWwp/vLipbKtgd65/1tPHJmZpClZF4fL5o05aN2L6q5iwrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uD/3GGb4aw8jMr2+9K5csmWHvkhaYmWZgQCieDk7sv8=;
- b=u2ReYB/me5tvSecYitebamkbEZbr2dXKohPZS5opaPUMOgPXSWnC5/NYUsH2DCbFUIXts9tnVLNBlTLLucxPF5O+8ybW09yD7sInp5IlyxYCaQbWPPgNpvv6kSRQGYR3WzgJ35XctMVx2+l0dw3ZmXS7HghXte/mny45Dzxb7DSOH905occ7mIpLOa+cuMxaWZGsBLXS3zdZHGl0AhIpR2w9RNda4/veCYHUpdB8n0WnjfKMNuSEQC842Z+ddxdEAkORreZBX+/XFnWATJamSc0rRfbiRMa1w2jmP0G1BF4Ra0eeifGwYhfa2+hvU5KVRc9fCnzspLQBeeEXQPByFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uD/3GGb4aw8jMr2+9K5csmWHvkhaYmWZgQCieDk7sv8=;
- b=FQLJC698khwSRn1S3/FDpeNCZkzct9bGzk+6At0SQgsmNc7dRBx2+zH+1anDWMRn06WwjjrkbMG9JxDdMZRyOreesAny1DNqae2KMQ7PPcMFiYL4acxA0sA4bMhTsV1FHms+Jb1QSvZn/wFFnX8j+lLZNiJ/GPl3Sa8Y3G5kL42AI1HPgbasaEIOFCItUNw5kbMPYje50/vFsBDUG+SsjYHJoc1qkvvm9yMsxVIXtS57dW5G3EeHJuM0ssYkCc7cG82+lQVqvs+8beU+QZqJZLkg97nEKnsJR4NKNwncugsxQ6cpQ2qy0y2FgzTXDZ6lUd241z0NFuJQOqO4wvZlyw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AS4PR04MB9481.eurprd04.prod.outlook.com (2603:10a6:20b:4ea::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Thu, 19 Nov
- 2026 21:14:51 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
- 21:14:51 +0000
-Date: Thu, 19 Nov 2026 16:14:43 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH] media: coda: Fix potential use-after-free after VDOA
- removal
-Message-ID: <av9mwwAmlRoDdU0d@lizhi-Precision-Tower-5810>
-References: <20261107-0d0c29e10a-media-coda-1@mail.sdu.edu.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107-0d0c29e10a-media-coda-1@mail.sdu.edu.cn>
-X-ClientProxiedBy: PH0PR07CA0109.namprd07.prod.outlook.com
- (2603:10b6:510:4::24) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Y8sx7kPy
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-920fed989b2so2811206d6.2
+        for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 13:34:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795124086; x=1795728886; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4PLRPYEt6tusU5aT1XxZRjXDBd+sz/kTb86+H3nHWAk=;
+        b=Y8sx7kPyic2bavNpYGzSAMzW7BhhRL2PGJcSKHRBkPf5/Trq1xstO2LrxtRD/bBuri
+         Fvnk/m9NSmAqfhFe8fDYY1SicQ8Gnpgu8EX2hSZKXfxtLXTuDTUC+qsg1bf3uqONy8HX
+         SOBV2hfhNRFqgHrqTQeR2YZLmxhtMM/R29gf94ENwutwWmtoODGK171+MypP9yG3YWWt
+         EWRiMEQCIasBhNe2fIDCpV/UsKMtd9iMw8WYsj2BUo3UirKDUbRdh97YkUfXYe+LA+Gd
+         Rn6NaLGA55uJXRF7RYkFQ6ch52AFMBbj3+QraZGCtbb0yiH+DB9bZ1ZGl2jHdJUd1x3d
+         woGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795124086; x=1795728886;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4PLRPYEt6tusU5aT1XxZRjXDBd+sz/kTb86+H3nHWAk=;
+        b=xKWaPdR8SorB2dFFIZSY6jX8h4cGpNBYnZonhQR00fz007bScpbNTfDfPvhb9Sk4uk
+         B+P6jn2n1dVdixedPRHysEq2dLrnS/ma34SScTcZw5libHq7V+YtCZ24upKk+HlP7eNq
+         9lSXujBUGgh2Hpme2NtC674SzrwbtQ0IGA0UNSRsCDk75WP+RFiqbB+163CKPInk42KQ
+         XFGrMDfwXhHWfUD6730mT90iLWwJB6K7mtxKyPn4Zucre5DYyp80GNQF2UqbcYjWH39Y
+         ZEkchY6FTVqSB6Q2kjtXTc7HnzHYFn2yQb6ovS6aso2N3ZDzKvX9Rz4pthZOyUvLHsSf
+         RzaA==
+X-Forwarded-Encrypted: i=1; AL+hErGshk9IafIyg6Fc6mJh/3AlMxBYIq5Azev3xZrifougnx4dTby6sEcQZhDF/eFKMVw92KRQyn75mFYqow==@vger.kernel.org
+X-Gm-Message-State: APuU4Z917Waz0pJiO0NAgVYvlil3LEKf95L73l0f79bDrhbN4x/mnCUT
+	i4ASkFGxfnNoTpzrQFaFir1N94Ys+hOTHam+ApVgO7VrfDUcKQjSmVD/m4vPOGvWUCpfbeojZc+
+	4JdIXWFA=
+X-Gm-Gg: AZFdTZd4M1n3zcAZaO/JaUFazxBJWxgYmeyrclg8oMymIA9j/F7OL4OjvyEXSVfQ5cu
+	wzh0edvhla169JIn6Xbb3euSWtK0j0ugmK3s0YhFp2EXMqDCuu5uzQdtgbqHjUNMHJ3SKdi2oM8
+	id7sLNHywAZPkjhBikthSo4CqN4Gghy5kj/YeiLL2CLcWYnwkvs4olQJCpMOZVeRf5k4hhgyNXB
+	RCGGtY83h9e1kVZOWSuse2uvjeVPtiA5TJUJHZTPbcqQEHWD7DocJgYg1Mpgv4Sib7IchuKN5mj
+	yYixhO333rDG7Gr736rWm4xRgw9SRjCemVGawfAnv3vzWi55YJvKrQ0G+jLap/IocqDTr5aPzHC
+	X4f0Ky5yu6ano7urMo+9j9uljSYBY9Arej9fKBI+UoTmDx+/ppeh++1n8x2RGF2xITqbnssFVNi
+	EVrz2e0xrYJUoqwRR7lG7FZhRudxT2Y5dsdLppEpiei6BriPXvwvB4aGoPQuumIqou4NuQXRJLb
+	BEQnzAkOKGo5DFjYvI9rhFgKZL/ndImAwDyq8YdaxE4GIR8S8Vnf/ABqmfhpQSLDaXJigs4aNjv
+	DtiLiv54Be5EpvJr4arGQP0rJsU58cPxjqP7PcKTyfPWeD7EkXyIXlU=
+X-Received: by 2002:a05:6214:85ce:20b0:920:fd33:dfde with SMTP id 6a1803df08f44-92134aaeb65mr13172176d6.19.1795124086320;
+        Thu, 19 Nov 2026 13:34:46 -0800 (PST)
+Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-921349b1e58sm8767676d6.12.2026.11.19.13.34.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 13:34:45 -0800 (PST)
+Message-ID: <0fe8752a8e772928ed9c86b022b4770a5c65a05f.camel@ndufresne.ca>
+Subject: Re: [RFC PATCH 10/28] media: mali-vpu: add firmware cache
+ infrastructure
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Charvi Mehta <charvi.mehta@arm.com>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Vincenzo
+ Frascino <vincenzo.frascino@arm.com>,  Rathinavel Sankaralingam
+ <rath.sankaralingam@arm.com>, Shobhit Pandey <shobhit.pandey@arm.com>
+Date: Thu, 19 Nov 2026 16:34:43 -0500
+In-Reply-To: <20261119153758.1426673-11-charvi.mehta@arm.com>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
+	 <20261119153758.1426673-11-charvi.mehta@arm.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-n9uFvmouF7zu3p1k930u"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -101,411 +120,41 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS4PR04MB9481:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47322d96-a2a7-44be-c3dc-08df4682262d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|7416014|376014|23010399003|1800799024|18002099003|22082099003|11063799006|56012099006|10067099003|261026140227099003|261026121527099003|261102130727099003|261102123227099003|261028144727099003|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	KJl8T0y+N9K2TDLq0teasWdCRp9/8iPJYshIsn21eWR3efdhybfycB1T2eG/GcWBsj+xW1VER6aCF0W/BKi7t+0GNersPv4xqmO6ITNxwq3brjeOIVp/ZTc9vDz51lvGbOKdQ/VFkQqnaiIOJ0MYyoxmZRxg/3IpCni2rLCkJvuXFtx/JKkUh8nWBpdncq4UwBNRxQKPCWVllHt1fXm3zeSIyCBk/ImFCCjtNUsfY/zLt05IiSX5S5ijKUvGPvxDztdG4iLHTUrNB/jdRrPa36TGRrvCg9w+RG0krHTxBXqakHA7RVR45tPJpCci/wUN1Rd/DaXHb5yxRkLkclkcQFxNLTYm5f8SzcZpx+WzZysFYoGPeSjfdp4uJ1ar540WYOjHb7OM6RFyKomxy+htwWNJV3pdJOlQ4emqbG//mJS6y1pAYkGF7v0s7HPiTJOchl2qMQXIl/MqgA4hjDO/lR/1EesLB3ckpZ0HqLBEohy0Zuel5bgJZ0t509zSkIFyxfIAWfon5jeslbiXm/J6UMzzToqouF3OuS1oHjsEOj+9uQJsrEhVQTJNf7zcT26QNqPbgffBBo3urGUfwrK0+10UjwEIjmLx3KBjqOjOoLlxwnaSqE1xkY+welXQDAxwSSVTP0yqo8L3mqZ3asVo/Jku2oRik3zGuifIADySEiI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(7416014)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003)(261026140227099003)(261026121527099003)(261102130727099003)(261102123227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?/xf/TaFf/hFzsk7aAS4e8HBVAS/kbCFo/zrAI1vvWp7a5nAtasirilHUi3Zb?=
- =?us-ascii?Q?wcCxJtD2lMqeHakVZZPm4pG1jaS7KRqZ+wUrDSIH9It4uT4IlcRoP4oti2fW?=
- =?us-ascii?Q?GGGXxr9OqpaVYyVT/4IMpJQOMKW4jEhbQ5hudxlUND2XuxpC4Y6l3IuHzEh9?=
- =?us-ascii?Q?q+/RHoBvE4+TXo+LYVc71EYPinZ4TJORUn7mqbU8ShhKMQcxU3oUsFvIi4Q+?=
- =?us-ascii?Q?/GOe/LJjqAHaIVTsbC3AkBqOTG49t4v6E5CBuvjc3U86tMG/7aQxLilOWr9H?=
- =?us-ascii?Q?tvifhxrgqEv/1lBsZSbSgIG27dlYfNXetFMqcsai8YL2k54HSob6mCiK7r+Y?=
- =?us-ascii?Q?F9NVUWPIT3iDvKSs82grUKcpjgIwvv5fyI8pfpAjwxH5bX7kTSHLHwRmePYl?=
- =?us-ascii?Q?RvAUcDhGRGynRttA+sg4OoI2qWlSQUcv+0r+OMw25NCYyAd14v7uhBHi02b9?=
- =?us-ascii?Q?AHsM8eqva1n25/XHWkC+42HolzOAX58z/8+9HbM43v6lLlehmtoed65C66ai?=
- =?us-ascii?Q?qNk9YFGP2EhNfZ16hudGMUswkdDUBIDJPjBwUQ2QzNTyivLVsD9OH1R/iQCr?=
- =?us-ascii?Q?wDn7RroFQ2PgDwax5zqx+f7gC4RxGVJ87jumehqROda4b/eESO/26MLFQ+ho?=
- =?us-ascii?Q?Jjd88uxo3vuGvenTAEnsfzj679Bn45fSf09rBPnzJBxRU+F266kjq3DibMdl?=
- =?us-ascii?Q?Y9S+ItKGzAdZqv9e1/e2tcNEPhujI1E9Ry1smrudHs8eHTW65yfkvnGmawWr?=
- =?us-ascii?Q?yapN8pX9vnU8r1LGBm5FjNEaHU5l+B4Y1KZvzPgYi098hOEekRMrvCK9ratU?=
- =?us-ascii?Q?fTUOnr1clYuKXJEq9EGIhHm79tzL0UzSQxYBvlWrSNqU7xg50qHMmc0q7unU?=
- =?us-ascii?Q?IouEb7EoMCSMQbRVXMKWP6fjZDJtI2WAHu49hzIxpyG+H+2tCkacMQQg5X8v?=
- =?us-ascii?Q?eIrK621HaiHJGmS1EejrYngS94qnWOpPlrxb3+qeMnCTngzSHm8ofVC/VKpn?=
- =?us-ascii?Q?I6Vo8fi/y5LSLjeCtd/KYqEyBjO7GV8Ry/KSN3yx/N3jiSQsYLm039wAbK3C?=
- =?us-ascii?Q?YcB27jA2QSvn0pguAFhksSJJcWnCkHw7wbo96gTCm3HNZQIkST3JyYoCFAHL?=
- =?us-ascii?Q?RBX0gArJaBCBrKjCteOYFH2/Hwm/wHjOqUdMK+FFy6uhm7YMs0xv2Z2JY78H?=
- =?us-ascii?Q?bNhrRSyr8WxbcnwyZcSUFgMFvW9MNzVOG9LQMumGh+V5UNfDG15ksMm5oyGi?=
- =?us-ascii?Q?f3W6F1RTUxDxSZFKudr2ssb77kQ2dDKhoce5EdhCDs33Ov6WRvy9a6cUPvF0?=
- =?us-ascii?Q?rflAigxRVeLLDWZM8tcdIDut6lfXW64Eyk83idssky4fjQZdmO8FnyhENutS?=
- =?us-ascii?Q?ps4umxh5HpH/Y6mBczFnOMCr2e/8bxAU/USB0dPDyQ6bAXJdmTT3B9batPhk?=
- =?us-ascii?Q?V0LfQvVm9ZgkK+FOqrfX6CSKrKMn4Kb0UTCTDgAjbMchOR/J/CJcWbR698yf?=
- =?us-ascii?Q?WGacfBA+uBX8kWbUWOW7YstSiwNKDJAK7WJfpSCR8VCfWmNjOupsjiFMT9/E?=
- =?us-ascii?Q?8wPKREgY16besEXHcb0g6AnpfN4AD+7tDd+7RiCcOcyYm+irvMTAXTHUCFLM?=
- =?us-ascii?Q?5LtSD4twmLuoUHKOSTlYqTBQ1VhHoAErSuzN40c0OT+PHwQbbyWP8QN5gjZg?=
- =?us-ascii?Q?wABumBfD1m7TF6zl40GLQQqXa6h0iFtIDSTq0y5ggFhxN5lJ5skUzSyREFtt?=
- =?us-ascii?Q?KfBf8bK1L24+u3M9tOYNQMLtwq6rcEgHA9ppYIFX15b4FhK72aq5?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47322d96-a2a7-44be-c3dc-08df4682262d
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 21:14:51.2427
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zXdaqn+AZNOjkRYhlM+7bUZ2QYXo2dphl75kX40v+h+PSTfqEhShgVRVGce0X49qNS0MVgY1EXb/Ay8y0SijisT1kqZUXycRzZ0JH3gaPNtJRGt2olhgxjXIn9fXBYMB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9481
 
-On Sat, Nov 07, 2026 at 02:54:30PM +0800, Guangshuo Li wrote:
-> VDOA can be unbound while CODA still holds its driver data and open
-> contexts. Their next transfer or close then accesses released state
-> and device-managed resources.
->
-> Retain the VDOA state for its consumers and contexts. Serialize hardware
-> access with removal, stop outstanding transfers and balance the clock
-> references before disconnecting the retained contexts. Also release a
-> VDOA context when opening CODA fails.
->
-> This issue was found by our static analysis tool under development.
->
-> Fixes: e7f3c5481035 ("[media] coda: use VDOA for un-tiling custom macroblock format")
-> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-> ---
-> Validation: x86-64 GCC W=1 changed-object compilation passed. An
-> extracted-code test with mocked services reports an ASan failure before
-> the fix and passes after it; this is not a kernel reproducer. No
-> hardware test, ARM64 build or full linked-kernel build.
-> OpenAI Codex assisted with source review, patch implementation and
-> commit-message drafting. The submitter has reviewed the changes.
->
->  .../platform/chips-media/coda/coda-common.c   |  14 +-
->  .../platform/chips-media/coda/imx-vdoa.c      | 133 ++++++++++++++++--
->  .../platform/chips-media/coda/imx-vdoa.h      |   8 ++
->  3 files changed, 134 insertions(+), 21 deletions(-)
->
-> diff --git a/drivers/media/platform/chips-media/coda/coda-common.c b/drivers/media/platform/chips-media/coda/coda-common.c
-> index be37ea568bfe..b519cf8541de 100644
-> --- a/drivers/media/platform/chips-media/coda/coda-common.c
-> +++ b/drivers/media/platform/chips-media/coda/coda-common.c
-> @@ -396,7 +396,7 @@ const char *coda_product_name(int product)
->  	}
->  }
->
-> -static struct vdoa_data *coda_get_vdoa_data(void)
-> +static struct vdoa_data *coda_get_vdoa_data(struct device *dev)
->  {
->  	struct device_node *vdoa_node;
->  	struct platform_device *vdoa_pdev;
-> @@ -410,9 +410,7 @@ static struct vdoa_data *coda_get_vdoa_data(void)
->  	if (!vdoa_pdev)
->  		goto out;
->
-> -	vdoa_data = platform_get_drvdata(vdoa_pdev);
-> -	if (!vdoa_data)
-> -		vdoa_data = ERR_PTR(-EPROBE_DEFER);
-> +	vdoa_data = devm_vdoa_get(dev, &vdoa_pdev->dev);
->
->  	put_device(&vdoa_pdev->dev);
->  out:
-> @@ -2721,6 +2719,8 @@ static int coda_open(struct file *file)
->  err_clk_enable:
->  	pm_runtime_put_sync(dev->dev);
->  err_pm_get:
-> +	if (ctx->vdoa)
-> +		vdoa_context_destroy(ctx->vdoa);
->  	v4l2_fh_del(&ctx->fh, file);
->  	v4l2_fh_exit(&ctx->fh);
->  err_coda_name_init:
-> @@ -3220,9 +3220,9 @@ static int coda_probe(struct platform_device *pdev)
->  	dev->iram_pool = pool;
->
->  	/* Get vdoa_data if supported by the platform */
-> -	dev->vdoa = coda_get_vdoa_data();
-> -	if (PTR_ERR(dev->vdoa) == -EPROBE_DEFER)
-> -		return -EPROBE_DEFER;
-> +	dev->vdoa = coda_get_vdoa_data(&pdev->dev);
-> +	if (IS_ERR(dev->vdoa))
-> +		return PTR_ERR(dev->vdoa);
->
->  	ret = v4l2_device_register(&pdev->dev, &dev->v4l2_dev);
->  	if (ret)
-> diff --git a/drivers/media/platform/chips-media/coda/imx-vdoa.c b/drivers/media/platform/chips-media/coda/imx-vdoa.c
-> index cd085c1c73f4..d9249c943dfa 100644
-> --- a/drivers/media/platform/chips-media/coda/imx-vdoa.c
-> +++ b/drivers/media/platform/chips-media/coda/imx-vdoa.c
-> @@ -9,7 +9,9 @@
->  #include <linux/clk.h>
->  #include <linux/device.h>
->  #include <linux/interrupt.h>
-> +#include <linux/kref.h>
->  #include <linux/module.h>
-> +#include <linux/mutex.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/platform_device.h>
->  #include <linux/videodev2.h>
-> @@ -74,6 +76,12 @@ enum {
->  };
->
->  struct vdoa_data {
-> +	struct kref		ref;
-> +	/* Serializes context hardware access with removal. */
-> +	struct mutex		lock;
-> +	unsigned int		num_contexts;
-> +	bool			removed;
-> +	int			irq;
->  	struct vdoa_ctx		*curr_ctx;
->  	struct device		*dev;
->  	struct clk		*vdoa_clk;
-> @@ -126,7 +134,7 @@ static irqreturn_t vdoa_irq_handler(int irq, void *data)
->  	return IRQ_HANDLED;
->  }
->
-> -int vdoa_wait_for_completion(struct vdoa_ctx *ctx)
-> +static int vdoa_wait(struct vdoa_ctx *ctx)
->  {
->  	struct vdoa_data *vdoa = ctx->vdoa;
->
-> @@ -142,17 +150,43 @@ int vdoa_wait_for_completion(struct vdoa_ctx *ctx)
->
->  	return 0;
->  }
-> +
-> +int vdoa_wait_for_completion(struct vdoa_ctx *ctx)
-> +{
-> +	struct vdoa_data *vdoa = ctx->vdoa;
-> +	int ret;
-> +
-> +	mutex_lock(&vdoa->lock);
-> +	ret = vdoa->removed ? -ENODEV : vdoa_wait(ctx);
-> +	mutex_unlock(&vdoa->lock);
-> +
-> +	return ret;
-> +}
->  EXPORT_SYMBOL(vdoa_wait_for_completion);
->
-> +static void vdoa_stop(struct vdoa_data *vdoa)
-> +{
-> +	if (!vdoa->curr_ctx)
-> +		return;
-> +
-> +	if (vdoa_wait(vdoa->curr_ctx))
-> +		writel(VDOASRR_SWRST, vdoa->regs + VDOASRR);
-> +	writel(0, vdoa->regs + VDOAIE);
-> +	synchronize_irq(vdoa->irq);
-> +	vdoa->curr_ctx = NULL;
-> +}
-> +
->  void vdoa_device_run(struct vdoa_ctx *ctx, dma_addr_t dst, dma_addr_t src)
->  {
->  	struct vdoa_q_data *src_q_data, *dst_q_data;
->  	struct vdoa_data *vdoa = ctx->vdoa;
->  	u32 val;
->
-> -	if (vdoa->curr_ctx)
-> -		vdoa_wait_for_completion(vdoa->curr_ctx);
-> +	mutex_lock(&vdoa->lock);
+--=-n9uFvmouF7zu3p1k930u
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-use cleanup guard()
+Before I move on, since I think you have enough early feedback,
 
-> +	if (vdoa->removed)
-> +		goto out_unlock;
->
-> +	vdoa_stop(vdoa);
->  	vdoa->curr_ctx = ctx;
->
->  	reinit_completion(&ctx->completion);
-> @@ -192,9 +226,44 @@ void vdoa_device_run(struct vdoa_ctx *ctx, dma_addr_t dst, dma_addr_t src)
->  	/* Enable interrupts and start transfer */
->  	writel(VDOAIE_EITERR | VDOAIE_EIEOT, vdoa->regs + VDOAIE);
->  	writel(VDOASRR_START, vdoa->regs + VDOASRR);
-> +out_unlock:
-> +	mutex_unlock(&vdoa->lock);
->  }
->  EXPORT_SYMBOL(vdoa_device_run);
->
-> +static void vdoa_release(struct kref *ref)
-> +{
-> +	struct vdoa_data *vdoa = container_of(ref, struct vdoa_data, ref);
-> +
-> +	put_device(vdoa->dev);
-> +	kfree(vdoa);
-> +}
-> +
-> +static void vdoa_put(void *data)
-> +{
-> +	struct vdoa_data *vdoa = data;
-> +
-> +	kref_put(&vdoa->ref, vdoa_release);
-> +}
-> +
-> +struct vdoa_data *devm_vdoa_get(struct device *dev, struct device *supplier)
-> +{
-> +	struct vdoa_data *vdoa;
-> +	int ret;
-> +
-> +	device_lock(supplier);
+Le jeudi 19 novembre 2026 =C3=A0 15:37 +0000, Charvi Mehta a =C3=A9crit=C2=
+=A0:
+> +=09n =3D snprintf(name, name_sz, "arm/mali-vpu/v%u/%s%s.fwb",
+> +=09=09=C2=A0=C2=A0=C2=A0=C2=A0 key->fw_ver_major, codec, role_str);
 
-why not use device link ?
+Your firmware will have to be published into linux-firmware project for you=
+r
+driver to be accepted upstream. Depending on the state, feedback and clarit=
+y of
+your driver, I may or may not ask to ship some HW to verify your work. No
+immediate action needed. Since you only offered a generic DT binding, its n=
+ot
+clear what upstream SoC can actually make use of this driver. Some informat=
+ion
+about this would be appreciated in your next cover letter.
 
-> +	vdoa = dev_get_drvdata(supplier);
-> +	if (vdoa)
-> +		kref_get(&vdoa->ref);
-> +	device_unlock(supplier);
-> +	if (!vdoa)
-> +		return ERR_PTR(-EPROBE_DEFER);
-> +
-> +	ret = devm_add_action_or_reset(dev, vdoa_put, vdoa);
-> +	return ret ? ERR_PTR(ret) : vdoa;
-> +}
-> +EXPORT_SYMBOL(devm_vdoa_get);
-> +
->  struct vdoa_ctx *vdoa_context_create(struct vdoa_data *vdoa)
->  {
->  	struct vdoa_ctx *ctx;
-> @@ -204,16 +273,26 @@ struct vdoa_ctx *vdoa_context_create(struct vdoa_data *vdoa)
->  	if (!ctx)
->  		return NULL;
->
-> +	mutex_lock(&vdoa->lock);
-> +	if (vdoa->removed)
-> +		goto err_unlock;
-> +
->  	err = clk_prepare_enable(vdoa->vdoa_clk);
-> -	if (err) {
-> -		kfree(ctx);
-> -		return NULL;
-> -	}
-> +	if (err)
-> +		goto err_unlock;
->
-> +	kref_get(&vdoa->ref);
-> +	vdoa->num_contexts++;
->  	init_completion(&ctx->completion);
->  	ctx->vdoa = vdoa;
-> +	mutex_unlock(&vdoa->lock);
->
->  	return ctx;
-> +
-> +err_unlock:
-> +	mutex_unlock(&vdoa->lock);
-> +	kfree(ctx);
-> +	return NULL;
->  }
->  EXPORT_SYMBOL(vdoa_context_create);
->
-> @@ -221,12 +300,15 @@ void vdoa_context_destroy(struct vdoa_ctx *ctx)
->  {
->  	struct vdoa_data *vdoa = ctx->vdoa;
->
-> -	if (vdoa->curr_ctx == ctx) {
-> -		vdoa_wait_for_completion(vdoa->curr_ctx);
-> -		vdoa->curr_ctx = NULL;
-> +	mutex_lock(&vdoa->lock);
-> +	if (!vdoa->removed) {
-> +		if (vdoa->curr_ctx == ctx)
-> +			vdoa_stop(vdoa);
-> +		clk_disable_unprepare(vdoa->vdoa_clk);
-> +		vdoa->num_contexts--;
->  	}
-> -
-> -	clk_disable_unprepare(vdoa->vdoa_clk);
-> +	mutex_unlock(&vdoa->lock);
-> +	vdoa_put(vdoa);
->  	kfree(ctx);
->  }
->  EXPORT_SYMBOL(vdoa_context_destroy);
-> @@ -291,11 +373,16 @@ static int vdoa_probe(struct platform_device *pdev)
->  		return ret;
->  	}
->
-> -	vdoa = devm_kzalloc(&pdev->dev, sizeof(*vdoa), GFP_KERNEL);
-> +	vdoa = kzalloc_obj(*vdoa);
->  	if (!vdoa)
->  		return -ENOMEM;
->
-> -	vdoa->dev = &pdev->dev;
-> +	vdoa->dev = get_device(&pdev->dev);
-> +	kref_init(&vdoa->ref);
-> +	mutex_init(&vdoa->lock);
+Nicolas
 
-devm_mutex_init();
+--=-n9uFvmouF7zu3p1k930u
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-Frank
-> +	ret = devm_add_action_or_reset(&pdev->dev, vdoa_put, vdoa);
-> +	if (ret)
-> +		return ret;
->
->  	vdoa->vdoa_clk = devm_clk_get(vdoa->dev, NULL);
->  	if (IS_ERR(vdoa->vdoa_clk)) {
-> @@ -310,6 +397,7 @@ static int vdoa_probe(struct platform_device *pdev)
->  	ret = platform_get_irq(pdev, 0);
->  	if (ret < 0)
->  		return ret;
-> +	vdoa->irq = ret;
->  	ret = devm_request_threaded_irq(&pdev->dev, ret, NULL,
->  					vdoa_irq_handler, IRQF_ONESHOT,
->  					"vdoa", vdoa);
-> @@ -323,6 +411,22 @@ static int vdoa_probe(struct platform_device *pdev)
->  	return 0;
->  }
->
-> +static void vdoa_remove(struct platform_device *pdev)
-> +{
-> +	struct vdoa_data *vdoa = platform_get_drvdata(pdev);
-> +
-> +	platform_set_drvdata(pdev, NULL);
-> +	mutex_lock(&vdoa->lock);
-> +	vdoa_stop(vdoa);
-> +	disable_irq(vdoa->irq);
-> +	while (vdoa->num_contexts) {
-> +		clk_disable_unprepare(vdoa->vdoa_clk);
-> +		vdoa->num_contexts--;
-> +	}
-> +	vdoa->removed = true;
-> +	mutex_unlock(&vdoa->lock);
-> +}
-> +
->  static const struct of_device_id vdoa_dt_ids[] = {
->  	{ .compatible = "fsl,imx6q-vdoa" },
->  	{}
-> @@ -331,6 +435,7 @@ MODULE_DEVICE_TABLE(of, vdoa_dt_ids);
->
->  static struct platform_driver vdoa_driver = {
->  	.probe		= vdoa_probe,
-> +	.remove		= vdoa_remove,
->  	.driver		= {
->  		.name	= VDOA_NAME,
->  		.of_match_table = vdoa_dt_ids,
-> diff --git a/drivers/media/platform/chips-media/coda/imx-vdoa.h b/drivers/media/platform/chips-media/coda/imx-vdoa.h
-> index a62eab476d58..e0ab414ddf5a 100644
-> --- a/drivers/media/platform/chips-media/coda/imx-vdoa.h
-> +++ b/drivers/media/platform/chips-media/coda/imx-vdoa.h
-> @@ -6,11 +6,13 @@
->  #ifndef IMX_VDOA_H
->  #define IMX_VDOA_H
->
-> +struct device;
->  struct vdoa_data;
->  struct vdoa_ctx;
->
->  #if (defined CONFIG_VIDEO_IMX_VDOA || defined CONFIG_VIDEO_IMX_VDOA_MODULE)
->
-> +struct vdoa_data *devm_vdoa_get(struct device *dev, struct device *supplier);
->  struct vdoa_ctx *vdoa_context_create(struct vdoa_data *vdoa);
->  int vdoa_context_configure(struct vdoa_ctx *ctx,
->  			   unsigned int width, unsigned int height,
-> @@ -22,6 +24,12 @@ int vdoa_wait_for_completion(struct vdoa_ctx *ctx);
->
->  #else
->
-> +static inline struct vdoa_data *devm_vdoa_get(struct device *dev,
-> +					      struct device *supplier)
-> +{
-> +	return NULL;
-> +}
-> +
->  static inline struct vdoa_ctx *vdoa_context_create(struct vdoa_data *vdoa)
->  {
->  	return NULL;
->
-> base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9rcwAKCRDZQZRRKWBy
+9GkqAQDLRsHeO/IVaaYhuSlkJJ24RnPJjWX8LIvZrnkoUg8JcwEA46uq+Ds3k1yE
+6EXC6M9FaZzEw7VAybZv0GKKCISBOAU=
+=n32o
+-----END PGP SIGNATURE-----
+
+--=-n9uFvmouF7zu3p1k930u--
