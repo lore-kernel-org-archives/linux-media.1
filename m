@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795124730;
-	b=AI8HuPgWfX3zFsy2eqqO2ZeDEkDWVpNpSkMpi5ycqGG4/vwCk7oWKc7R73KGE1ftrJ6q
-	 nJJWNSswve3pTDqOpMNeI7K+uv1qLBEkptwL4WmtrhaTOQWhceK4wh7+Q4E/iurYqh8sq
-	 MvnH240Sp2OPJGA7OsF9PFfCfpUf1uF5gXctW0UInZoz0ppDBwti2OqI/vN8ug3LR8LdT
-	 nBa4ckvyRKNEMuIW/JXhNxWXWtjZ0QZvADv6AuqRdLThYPJSZuNuAZL0TOvPesFTLNnOM
-	 cEpeq9EvD3qXQwGozOmEeDSTuAKDK3/jaAHrujx/vOpLjxRE87NvFFqdiHDGDTaQh+A==
+	t=1795125201;
+	b=RO67MRTZ63WLpsEU24JTGYFYZ41YMgD/yXsXBqh3+lWPp48EzlEafaRhfciBMT1Ckahp
+	 FYoAnBX7VREImlT+cGsFt3oWGNiZcw74fgGrdLQqhovY/dzvGXtiYJKBbwxW7vqdDRSGS
+	 1XUaaQocCHaBwwx0d0ROZKNFeG1gicsyYuVpiT7KB2iOZozluqYVZ5vZroo3VlGapahJr
+	 jlpZh4FBE4+Jtr2Dy8V/kJyVerGstfVt1CSCAMnfJTpnDhpXWW6mev7a1MWKsLGA+5aQy
+	 YZsPcGZQUNLX3KYunSDNWTfMUWJHWCcGWqVJkeoYjrJKAs+8tRg3WuwwXlUVqUDP5NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795124730;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=2B5oJvmSQj/uLvDSVbb038rz/I+fF454frE8nhawMRc=;
-	b=Kux8CsllFCgE+/xbDK//9onUvNnopz4dAfRAdmAY55co2usnlCD66upzpwZmL5aHosDw
-	 bdVn4itMFLWwGBhZyGG00YECNd0WtKL+Cn0JubaDo5mIClUB4q55PYxgUkgYRFJwaQegr
-	 JVpDXDXDROT9snMLMsRKleFPXuMiFDyLpFhURBFyIWKIjtyNw12fYUbvdcKE/+koBQNcX
-	 FIk7Q2xK1gM3Srp1VdeM4GOUIw5cauXb08RuRTFOEApghCdxam2PPZ8wtr232ZrkrhFas
-	 tnFm3DPUQ8doydrybMVoZ5Y3WOa4CaXgp4NgFfOBju+4Ptaou0Bj+9ANqB4MRuyKoVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795125201;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=zxsejDMXy3b8JN2b8ZGVshPylRw+4jYLo55cSsxUOCQ=;
+	b=rUbGpcXzcFnf3UYVQORLv4hFRSDpcLqUh54Ud+KbL62Rzmc+9nI0G2RWmIaHiU6Xxns/
+	 NaZb0Tn4+rFwd60eKAMOEF9vvRWIDyJHK9RVO8TEAgT4q0qYMVDljsZ9h54Rtiv5hErcj
+	 uMVCn8LVbFzmXfa5qnSZRnh6rPRVgoFqPK5EXHzQXEx5kwiDLda84OahcVZ4p75lkYui4
+	 r94mlVI+hdyfPPC2WoshSG9FpCEiWRkKYhOyjtjmhGDiQ3f/RCJWBQD8ziWa6i/+butMW
+	 8VtwaOp58QMHPFDu5YB/cxvIi0R3CDffHiCaToFw8l0s5ayewWLB8BfzGdo1/3NP0lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=bUeatrqE;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="KzG6UM/v";
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C21606A320;
-	Thu, 19 Nov 2026 21:45:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6C21606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8328606A320;
+	Thu, 19 Nov 2026 21:53:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8328606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=bUeatrqE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795124728;
-	bh=qWrn0xVdylPSfFkj1g2JFpd2zWe+c98phSaOjNlvRvg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=bUeatrqEEzqiXVtOvzacLan37HwzC6db6JqRsmwDkTUkVSRoZT8UQsF4Pbg1hD7v3
-	 xCi6tfisi0UkR4k/JzY5G7CdJ0uFfl4TNAtBa1hbmyBarDoq1+e5qxTd1m/34sdKqb
-	 Qbm1cP5H9JVUp4GClTINNoLNKZD0c8W7e4fgqUBNxn+PaaXCbY1xU2XEf8qVJGGZN/
-	 /IvE/PVq100GkIuRkN2RHTuqEdkJpnTn1BdpVc32KJ4NOb+pRKOykjS9t4ctddwskb
-	 pBS8m+67VA+3/beOw+qxIy+tonf6jZnPi07bU3Gt59RTDG/C03covc9n2USyECJP+h
-	 172Y0qY5UzqNA==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1571C17E0480;
-	Thu, 19 Nov 2026 22:45:26 +0100 (CET)
-Message-ID: <3611eee93f6d48bbe7de642abd238c7da147eaa2.camel@collabora.com>
-Subject: Re: [PATCH v6] media: verisilicon: Create AV1 helper library
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	p.zabel@pengutronix.de, mchehab@kernel.org, heiko@sntech.de
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	kernel@collabora.com
-Date: Thu, 19 Nov 2026 16:45:25 -0500
-In-Reply-To: <ac588bfc-94f3-4ad7-9808-92ea0db1d017@collabora.com>
-References: <20260910092021.139970-1-benjamin.gaignard@collabora.com>
-	 <ac588bfc-94f3-4ad7-9808-92ea0db1d017@collabora.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Dg5vUNNPaPxbWQnJXS5h"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KzG6UM/v
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795125201; x=1826661201;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=MULnZxuGB+gctiBjMEdbjc6VlUOfpZ24GX4HL7Pe8sg=;
+  b=KzG6UM/vVdpBo07UBS3UzUv0BsL0oIDPlmSpdX6nO1ch2S6ESNDGxlVq
+   4OLF2is/KbmXpY1Skq7hZ48UW2qE0b+ZNe7yzj+iu0aEtko272Tr6CUhY
+   I4eBow2Q/gkydwgzmb4htc+RLBxbx+bxel27GZ4tZX1Gt4XRI8xhtAet1
+   P6M3c1GGRZCOeC+wcyQ3rcZ1iuP3G3Len3ilsKk4nvWflToJD2xgbeStD
+   JZdnirDa2IePq8PhtSsac4Zvk2dsuiQvwyDW4LWbw1xOfeBtkxlSN32fT
+   BuFohnKFCAoHt3cFKj4NZ5eNjoWXLc+RvNfWzgUQc2QF0DNJw621WU2MP
+   A==;
+X-CSE-ConnectionGUID: mjt4hf1yTqykeEdFqsYaAg==
+X-CSE-MsgGUID: VxJ1LWJUQPClukc8JAtZlQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4074115"
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="4074115"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 13:53:21 -0800
+X-CSE-ConnectionGUID: MjNLGoo3Rqm5WDUhFt/H4A==
+X-CSE-MsgGUID: DunXhLtUQbq8+ZB/qOyoMg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="10453599"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.189])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 13:53:19 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 53A63121B5E;
+	Thu, 19 Nov 2026 23:53:16 +0200 (EET)
+Date: Thu, 19 Nov 2026 23:53:16 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: armandas.kvietkus@proton.me
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+Subject: Re: [PATCH v5 2/2] media: i2c: Add Samsung S5K3T2 image sensor driver
+Message-ID: <av9vzLSureeB4j41@kekkonen.localdomain>
+References: <20261117-upstream-s5k3t2-v5-0-1f7f5fde9e2a@proton.me>
+ <20261117-upstream-s5k3t2-v5-2-1f7f5fde9e2a@proton.me>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -88,75 +87,102 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117-upstream-s5k3t2-v5-2-1f7f5fde9e2a@proton.me>
 
---=-Dg5vUNNPaPxbWQnJXS5h
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Armandas,
 
-Hi,
+Thanks for the update. A few comments below...
 
-Le lundi 16 novembre 2026 =C3=A0 14:33 +0100, Benjamin Gaignard a =C3=A9cri=
-t=C2=A0:
-> Le 10/09/2026 =C3=A0 11:20, Benjamin Gaignard a =C3=A9crit=C2=A0:
-> > Regroup all none hardware related AV1 functions into a helper library.
-> > The goal is to avoid code duplication for future AV1 codecs.
-> >=20
-> > Tested on rock 5b board Fluster score remains the same 204/241.
-> >=20
-> > Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-> > Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
->=20
-> Gentle ping on this patch.
+On Tue, Nov 17, 2026 at 09:20:05PM +0100, Armandas Kvietkus via B4 Relay wrote:
+> From: Armandas Kvietkus <armandas.kvietkus@proton.me>
+> 
+> Add a driver for the Samsung S5K3T2 20 Mpixel CMOS image sensor.
+> 
+> The driver supports three modes. All of them are RAW10 on four D-PHY
+> lanes.
+> 
+>   5184x3880 at 15 fps, link frequency 448 MHz
+>   2592x1940 at 60 fps, link frequency 448 MHz
+>   1280x720 at 120 fps, link frequency 300 MHz
+> 
+> The pixel clock does not change between modes, so the pixel rate control
+> is constant. The frame rate follows from the line length and the frame
+> length.
+> 
+> The controls are exposure, analogue gain, horizontal blanking, vertical
+> blanking, horizontal flip, vertical flip and test pattern. Rotation and
+> orientation come from the device tree. Power is handled by runtime PM
+> with autosuspend.
+> 
+> The register tables come from the vendor camera firmware. They were
+> checked on hardware.
+> 
+> Tested on a Xiaomi POCO F3 with the Qualcomm CAMSS driver.
 
-Nice ping, but it does not apply. I've manually applied it, but will leave =
-to
-you to retest.
+A lot of this should go to the cover letter.
 
-https://gitlab.freedesktop.org/linux-media/users/ndufresne/-/commit/c98580a=
-49562a26d2cfc11fc0eb88e6e75f329d8
+> 
+> Reviewed-by: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+> Signed-off-by: Armandas Kvietkus <armandas.kvietkus@proton.me>
+> ---
+>  MAINTAINERS                |    1 +
+>  drivers/media/i2c/Kconfig  |   10 +
+>  drivers/media/i2c/Makefile |    1 +
+>  drivers/media/i2c/s5k3t2.c | 1327 ++++++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 1339 insertions(+)
+> 
+> diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+> index d04bd5724552..9a25d8200b65 100644
+> --- a/drivers/media/i2c/Makefile
+> +++ b/drivers/media/i2c/Makefile
 
-While doing so I notice few hidden changes:
+...
 
-rockchip_vpu981_av1_dec_luma_size -> hantro_av1_luma_size:
+> +static int s5k3t2_check_hwcfg(struct s5k3t2 *s5k3t2)
+> +{
+> +	struct fwnode_handle *fwnode = dev_fwnode(s5k3t2->dev), *ep;
+> +	struct v4l2_fwnode_endpoint bus_cfg = {
+> +		.bus = {
+> +			.mipi_csi2 = {
+> +				.num_data_lanes = S5K3T2_DATA_LANES,
+> +			},
+> +		},
 
--=09return ctx->dst_fmt.width * ctx->dst_fmt.height * ctx->bit_depth / 8;
-+=09return ctx->ref_fmt.plane_fmt[0].bytesperline * ctx->ref_fmt.height;
+Does the sensor support other number of active lanes than 4? Very probably.
+But this isn't reflected in DT bindings (and it should be).
 
+> +		.bus_type = V4L2_MBUS_CSI2_DPHY,
+> +	};
+> +	int ret;
+> +
+> +	ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
+> +	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
+> +	fwnode_handle_put(ep);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (bus_cfg.bus.mipi_csi2.num_data_lanes != S5K3T2_DATA_LANES) {
+> +		dev_err(s5k3t2->dev, "invalid number of data lanes: %u\n",
+> +			bus_cfg.bus.mipi_csi2.num_data_lanes);
+> +		ret = -EINVAL;
+> +		goto endpoint_free;
+> +	}
+> +
+> +	ret = v4l2_link_freq_to_bitmap(s5k3t2->dev, bus_cfg.link_frequencies,
+> +				       bus_cfg.nr_of_link_frequencies,
+> +				       s5k3t2_link_freq_menu,
+> +				       ARRAY_SIZE(s5k3t2_link_freq_menu),
+> +				       &s5k3t2->link_freq_bitmap);
+> +
+> +endpoint_free:
+> +	v4l2_fwnode_endpoint_free(&bus_cfg);
+> +
+> +	return ret;
+> +}
 
-Change is really good, and it allows for padding, but totally undocumented,=
- and
-would be better placed in its own commit. And then couple of bound check, w=
-hich:
+-- 
+Regards,
 
-
-int hantro_av1_get_frame_index(struct hantro_ctx *ctx, int ref):
-+=09if (ref < 0 || ref >=3D V4L2_AV1_REFS_PER_FRAME)
-+=09=09return AV1_INVALID_IDX;
-
-void hantro_av1_set_prob(struct hantro_ctx *ctx):
- =09} else {
-+=09=09if (frame->primary_ref_frame < 0 ||
-+=09=09    frame->primary_ref_frame >=3D V4L2_AV1_REFS_PER_FRAME)
-+=09=09=09return;
-
-
-These should clearly be prepend patches with Fixes tag for backport, and no=
-t
-hidden in the rework. Looking for your v7.
-
-Nicolas
-
---=-Dg5vUNNPaPxbWQnJXS5h
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9t9QAKCRDZQZRRKWBy
-9CM/AQCgYjUXpp9ak9su9niYjM75+PBdrqkoOLdBR1tzshrL7gEAvsCwrMGVV+Ln
-l/ilaftJcZE6qkNjcFU3b6foC2Y9Ags=
-=wAiv
------END PGP SIGNATURE-----
-
---=-Dg5vUNNPaPxbWQnJXS5h--
+Sakari Ailus
