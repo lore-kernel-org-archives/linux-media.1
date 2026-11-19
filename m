@@ -1,115 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795119056;
-	b=x7Eyhhl8j6DRLAdIlQP9Fu94x25Cb4E/M21O3bUZr5OA1TeigLjvQRVKho1VviASKiFj
-	 knUUCE8KAgeDv18KcB0fD5CODOnHg+d+A3jakYacuSv8n7qzqNz1HduQUe0kWyfwfgzMT
-	 e3Uk2ZlWpOmRjEjJEizsxqdckEhxOCc/W8LX13al0QFKzQQ9ZP9tQYuMuxGTigoxR9khR
-	 /gxdS9Zmx3Xp3mqBRplrSckgpmht0vQv9bzQvbJhk8HtQ1Yr1JMsW0cde/ZE/a07TQZS4
-	 aI8MmU4MBmVJar8nmVbK0tqipwMZZ3174m214oQ1yprbOXCvNBKMOLiFO99fQHuc5Aw==
+	t=1795119613;
+	b=xYI1hohMPYPgZRge6tyZ+s17BrQoPW6r2GF+jRRjxw0niXX+1Vu+7xQ6hSgrmx65jLjI
+	 q+KdtNSoub5HTZzOS1mGedvHnj074DAssn/1duTdCMpp44P/d8/U0hFIl0+RyuQi182gb
+	 ly2G/tbmWjVgJtKL53Tt0PjnfkU20EeEl01jaUWnktQdU68ebS3qm9LGI6d1pV42ejexM
+	 4fihoJ3odX0+bciwQ0l9s4rSZq0izKYt3S5Uu46sf4WKo9aVnbL0Kxkm8ytXW6jc0Qpin
+	 4mI5k7jH5Tqt/OsaS+vghhmWRKRG0hjd1qUtm/m34D2/wdptQt8aCcsJzQ5S3A8R23w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795119056;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795119613;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:User-Agent:MIME-Version;
-	bh=8aqv+DwVQzSb2PSvDQkheb2OINfUMuqmq/Dn5ckO2bU=;
-	b=iE0+D2mlUPV/Bp5Zt7GNK7ZzSI1hGp0LxUdLvaM++WTt30kQGhZp/VjWlldpZ0NsFNEH
-	 61VhSzkbR/W0XvvBrdqR3P7XsesEPqwSdZt/maH1AfDQQOLVwcY+JMthAC9onDn3EjW+n
-	 gt/+fQsezPMUaGZb+UQnaSE/rVMXvnbIVwNBHAGzKRZXSRotCV98UvQGw+CASqkkbMW+E
-	 H1VqdwtAyY+1uzdhNwsZLdBFdAftRxdVPJJbBJPbKJooFaCPkHQ+oY5GhRJ6bA8GJzSvu
-	 GXEV5DZw4fcoukOPr2Ik9MZm04XcsIeOOolR3hqLplMKl4IVYtBGy4c5B8kxkgEfudA==
+	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=oUxQWUg0cFfOfFkOLUnILAxBRHkeTjUzpnJn7oclOAs=;
+	b=QpPhSABZqvqFlNzZtWi/qFLBDuDJkGrapboxoJrAKimXLnmP5FQupS/f8jKmx6YQ0T+F
+	 nAhqXW0j9pSX2JISVNHBZGSZ1+mfZDYjsDRs0Ud4PrcdSllttq02aLOkxii1Df50YsDNu
+	 K13Tq4Kk7lAcBAkxzvXnNIAJ9kpuKwfmowdY6IMbBlua2mh164bRJCsqX1fXL+ccSZwl/
+	 DEeppfLqI7z0e59LuW8BINZIBdCujMCluLf7NRbOUwU+2k1S22Onr2DDN62/iqbuwZaau
+	 26wbcNFSyksr5ip/By2lJuzZ5sPNvpJIhxKutIYlda/zFf0Q7pMn2zyoUu/K2sFDLHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hyGQcQ+k;
-	arc=none smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sRmY0MrQ;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81292606A324
-	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 20:10:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81292606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC73606E4C3
+	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 20:20:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAC73606E4C3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hyGQcQ+k
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-94937a33cfbso18777185a.0
-        for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 12:10:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sRmY0MrQ
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a210470b49so888685e9.2
+        for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 12:20:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795119054; x=1795723854; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8aqv+DwVQzSb2PSvDQkheb2OINfUMuqmq/Dn5ckO2bU=;
-        b=hyGQcQ+keDK2b+poWfXaBz3rTfz1FyheOYiUzJEERYAMhFZyAu6PuvsqtyX6pjeesS
-         RPo/zf+sr9tDJlWK7LXyI/JwnAF7qkNwpYO+juoobzUbk0BUFczoNvQWEGADycDW2iwF
-         y7jXJjMSOIhu/MUmTcjReZe3qIh+eFzLgqwR6LVOhkzMf0koL12QfW68TIcDa6ESyTAX
-         A9hpOxUza4P7LOMWuFbIYg7gicCapbN+ffcwUDGx9yF0j4jjlLHoiZI6aajcrdXNLT9q
-         oyXtSD7jOBruYl34nyNNIo/0UAbvOlzJE8VI6uN8Ph4wXC/te+u0l1swEJRdwwPBFBRP
-         Hcrg==
+        d=gmail.com; s=20260707; t=1795119611; x=1795724411; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oUxQWUg0cFfOfFkOLUnILAxBRHkeTjUzpnJn7oclOAs=;
+        b=sRmY0MrQcatai13CSp3tCaVymT1Jdx9sG8+PxtJ6vo2v8nOZIgAZr5TMPPHpfiIlo5
+         YeuoYsv0bU3CF7cOwhMYGcnJjSdp9bSZnYfiOmii7KSkZaPayIh7i0ubLMe0y/GmTkSl
+         UWVRD2/OFS/frqPDCs2oplroD1XKkvFyDNKbMg0NCq1oppThffMV+wUT8ciuERJVLFgz
+         SFsPQiffpYXeuwpMZpV27b772hz62Y5powU21nIF3Lch5bw1KmX6DICLJs3U7srUMiEJ
+         sTNZPXkPO5oIaA+KlBEbc8bXwD14HR56QIl7P7TplxCLtnEplNpl7O4fCynYkrsTGU0E
+         wjLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795119054; x=1795723854;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1795119611; x=1795724411;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8aqv+DwVQzSb2PSvDQkheb2OINfUMuqmq/Dn5ckO2bU=;
-        b=IUYdJ2oYBV2yP2zxNV5zauMyfXJN8oTRjwQFpohcLlMMB8DpEtctcwvN1idPzsuDYp
-         pby+W4cblHwp18tUP4leAd802e4V9G/MDWU1hh+bTyEGqBXVsGAxjXfDJXFN6Q7KtAyq
-         6NJzEHj9+c5DIlmhNnX0l6c3Wk1UDgoBmTt0NjMbMbG4wc6NGylJJtL1xS7b6lP/Hibb
-         I4Pxg3jJdObLo+bRxe9lLZ3w58+6XvPNM5TFyqXXLScrgpw1UdVelBSvroqc+c4CwKb+
-         LY+sLoBdMQ6xENkBxbX+pKIq+oqtTgjbS100MzyK3JImMQhLwOykED4mqmz6zbbZAglQ
-         FxpQ==
-X-Forwarded-Encrypted: i=1; AL+hErF1hkLs5XVNXPGu/PGpRFGnKVg/Hh5QwOQ57fBnfAz3h3kHknKsrQY6nYVpargTiLPxkjBsu6WJ5aWpzg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cjIsoXULyQSwrWY7l/Z+CrMD1lEbBY8F1QsQ7xevUOdXkrJWf
-	+6hUmVX8OCsZlAKEVXN2QGPwCnHjhvn2AR6Xh9mflK+X3qfocFkn6es0unz3fyXzfk4=
-X-Gm-Gg: AYBFou1Lm2OISKrRuTY7Uavymx57h7Pt5mN4paKvYgzQBZXJPeLsjoIHptgVxhK/478
-	Ph8BRNXh8ziZqXrqR3it5TZDTU8+bG5NYqScjCX9gE4xp3g5dd5zxrxpgovaKiH3GTfmmV0rixQ
-	pIl3ADGHrZLIC/Z0jz3w/8ONiWALsA+5vhfuWzwqUVDBMNdMXuDoe5A+TaNkfrUxdM1ytMW84mO
-	0AnTdX8FR+nBmeiEUD/eE1UrBH4CoFZz+e/DEtFvewLU+kTv2pPP/8xphpSsiZrZD44AMe8pxH+
-	bkEOgQ1SWB+gmkRkhZrLR4/pSuNrdU75BrEvkKsWsGGGOKeBiBbDOVUb6taCV+rlPm3NnJUIj/f
-	HLplpHrz0p4niThd0m41TgqwgW5Z/ISLAjEKS77dt4RxZJGE4lj4VQoKt/Hwrak3tSQbtJAse/U
-	ZmF0b4OM+3rfnKBA/M5M5u/04nFSrVS77fwzjoh1AwrQOzUWZ8AHqiEAT1L8UOo8e9IGknisHz0
-	a7+MdjyOoYzfnKwbYDnb8RuI+fEi3jdD5tQ9TZuyt7h/1CjQR75iGsa3cb2oBOkjkQ2XADe+Dx8
-	8L/bxv99yCLIN8nv+rSELBmMA9qWK/6RLDW5oSTefX2RDYzeyiVmAgc=
-X-Received: by 2002:a05:620a:480e:b0:949:7502:6a5 with SMTP id af79cd13be357-949bab2275emr133918285a.57.1795119054458;
-        Thu, 19 Nov 2026 12:10:54 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb3ba04bsm37578685a.24.2026.11.19.12.10.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 12:10:53 -0800 (PST)
-Message-ID: <91e8a132f2ddff24b30c244dff0a8389afa313fa.camel@ndufresne.ca>
-Subject: Re: [RFC PATCH 03/28] media: mali-vpu: register V4L2 decoder device
- and add querycap ioctl
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Charvi Mehta <charvi.mehta@arm.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Vincenzo
- Frascino <vincenzo.frascino@arm.com>,  Rathinavel Sankaralingam
- <rath.sankaralingam@arm.com>, Shobhit Pandey <shobhit.pandey@arm.com>
-Date: Thu, 19 Nov 2026 15:10:51 -0500
-In-Reply-To: <20261119153758.1426673-4-charvi.mehta@arm.com>
-References: <20261119153758.1426673-1-charvi.mehta@arm.com>
-	 <20261119153758.1426673-4-charvi.mehta@arm.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-68tdt8CJA0v7u8ZWQyHT"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+        bh=oUxQWUg0cFfOfFkOLUnILAxBRHkeTjUzpnJn7oclOAs=;
+        b=LDP7k9q8N/XS4Jk76FwKIkjLK9v1tDPXPc0JnBDFRKNQwiflMAxnXG2xRsu57xVHHl
+         406o2rSpCY0UFdu/Lhwspv2jF9vBCKtDwv5zzmtSZR9kgyLlcg/CbERZ8f43CMHR+KA7
+         v1Y08KVuIlYt4HBQPhEU9aNg/A3GmYbkegAVsU3A7mgxX24d2+S99RjH0CI91+/MAV6M
+         Aqt9AgJ8EC32RezNJCaoM1h00y2slCOyS5LQ8ESObvGbWU5OuhFW8MyfQCCd++pSwMbg
+         EJ8osNLlgpDVqLTCTLsYaw1kMcvhYChGU9VKKvlwf+q0l9azO5XlS4ttYcE9my/XslRF
+         wYnw==
+X-Forwarded-Encrypted: i=1; AL+hErFs7g7T3hIxH+fO2tMAjGz6RDb2ku3LERtALvx9BxydgHOqdxvE4j8KHEPhxT9OOIRXJl/8UI5XuhKeBQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/mEC9lUi45DPg0cF0jwrk3mCqP6MvtN87SG2Y7HKE3NhhFWVkn
+	v1l02uP0gTL7qQbJD514Aaaa6vhAfhY9rfq/xSJw09oSHbHmt/y9OD9i
+X-Gm-Gg: AYBFou3b4xLSf+CysrsQ3b37fGQjtl/TUzuK+/yzL/qtrJ5+84AOuj2pIOPJ0iWpixX
+	5Ko202nU5brETdePp1Ptd/D7SVjk7/MPlOOEG5xJcmiLwA14no6WKaQ4bPRRvpcr6qp4CPZAltW
+	Ci/0rEDLauLIhC6Lk3sf0vS5zubEMXbZSnXiBrOjI5WJ2kFKjn0lnOqOUhPlmvA+l6ejlFL3XYk
+	EoqdPlyb2urgz8jKQw0SQx4l1tckQcv3Qflph/pngqWSc3DuTeWZlTI+Ze4ZbDZgdABBiZ7Lftq
+	VMEXmhKC/xef9YC8TuSnS5odrdqZqxnNn8t5EM3R75lgORcARPSwdCbjnQaG6FCmHcqk8NwnhNw
+	3+Yhwa96MQUyvLfFOYNjtTvkLHxfqh1rcOK7i0ouj5prgC3prwch71BFmmmCVJ7mQVYSvA1YBJa
+	Ic1oJQ34eAGCIlktiSi3DOEFa/NxnCVTfQLsxKI29uskpwA41pfZ4tZpM7g9zUawAoA+wRi4GJX
+	j3t2GX1HT81kGSvJFkxyPnB8OPY8rO7/BKaWJLLKH4jQW4y6a3RhQTrYjFfHICtyA6xdo3/oI4L
+	Bu+QpbJYuc1oYGJR4TKP6sP+rNrJez417pZKODdMj3kE4N9HAg8NOTfM9vyFvb46YsvEd0Xm
+X-Received: by 2002:a05:600c:64c8:b0:4a0:1c0e:b057 with SMTP id 5b1f17b1804b1-4bb887e2380mr14648215e9.4.1795119610866;
+        Thu, 19 Nov 2026 12:20:10 -0800 (PST)
+Received: from smtpclient.apple ([77.83.249.177])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b09bsm94509405e9.4.2026.11.19.12.20.08
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 19 Nov 2026 12:20:10 -0800 (PST)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -118,45 +89,60 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v7 2/4] media: rockchip: Add JPEG decoder driver
+From: Sergei Khomenkov <shomenkow@gmail.com>
+In-Reply-To: <85353f59-52a0-446d-ace3-65e2d03d0d0b@pengutronix.de>
+Date: Thu, 19 Nov 2026 22:19:57 +0200
+Cc: Lucas Sinn <lucas.sinn@wolfvision.net>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <92CE2271-6485-4B33-AF75-480F9BD56980@gmail.com>
+References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
+ <20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
+ <596F6C9E-4A5D-4AE8-8D26-7A7247050D7D@gmail.com>
+ <85353f59-52a0-446d-ace3-65e2d03d0d0b@pengutronix.de>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
---=-68tdt8CJA0v7u8ZWQyHT
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Sascha,
 
-Le jeudi 19 novembre 2026 =C3=A0 15:37 +0000, Charvi Mehta a =C3=A9crit=C2=
-=A0:
-> Register a V4L2 M2M decoder video device for the Mali VPU.
-> Add open and release file operations that allocate a per-file session.
->=20
-> Implement VIDIOC_QUERYCAP to report the driver and decoder identity.
->=20
-> Signed-off-by: Charvi Mehta <charvi.mehta@arm.com>
-> ---
->  drivers/media/platform/arm/mali-vpu/Kconfig   |  1 +
->  drivers/media/platform/arm/mali-vpu/Makefile  |  3 +-
->  .../platform/arm/mali-vpu/mali-vpu-device.h   | 15 ++++
->  .../platform/arm/mali-vpu/mali-vpu-probe.c    | 59 +++++++++++++-
->  .../platform/arm/mali-vpu/mali-vpu-session.h  | 26 +++++++
->  .../platform/arm/mali-vpu/mali-vpu-vidioc.c   | 78 +++++++++++++++++++
->  .../platform/arm/mali-vpu/mali-vpu-vidioc.h   | 15 ++++
+On 2026-11-18 14:27, Sascha Hauer wrote:
+> I haven't been affected by this issue lately, but saw it when the series
+> was still based on the hantro driver. Yes, I'll change to 3 bytes per
+> pixel next round and make that the floor of sizeimage. Would be nice to
+> have a proper solution for this rather than either wasting tons of
+> memory or risk having too small buffers.
 
-nit: I'd say rename to mali-vpu-v4l2.c to be consistent with nearly all oth=
-er
-drivers.
+Thanks. A correction to my last mail: 3 bytes per pixel is not a worst
+case for 4:2:0, despite what tj3JPEGBufSize() suggests. Since then I
+built 4:2:0 test patterns that push the quality 100 scan as far as I
+could: libjpeg-turbo writes 3.35 bytes per pixel of scan data, byte
+stuffing included, for one of them (640x480), and the Hantro H1
+encoder on the RK3026 3.14. At quality 99 the largest I found was 3.08
+(libjpeg-turbo) and 2.88 (H1). The patterns, 96x48 and 640x480 JPEGs,
+the same frames as raw NV12 and a short script that makes them at any
+size, are at https://homenkow.ru/kernel/vpu/
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+With the Annex K Huffman tables and 8-bit samples, a baseline 4:2:0
+scan is at most about 3.3 bytes per pixel before byte stuffing and 4.9
+after it, at quality 100 (lower qualities are smaller). Other tables
+give a higher bound, and APPn/COM segments add any amount on top, so
+for a decoder any fixed factor is a trade-off.
 
---=-68tdt8CJA0v7u8ZWQyHT
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+So 3 bytes per pixel covers what the H1 wrote up to quality 99 and most
+of its quality 100 frames, but libjpeg-turbo goes over it from quality
+99 up. If that trade-off is fine for you, I have no objection; I only
+would not call it the worst case in the commit message or a comment.
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9XywAKCRDZQZRRKWBy
-9Gk9AQClEgbrQYsilxSJEOtw7LEwCrwtEVoSpQ1tbx+me1p3KwEA6yr3WzRocwTb
-/VnV9DMVgAS6/9EfRVX6UUJhsXdqnAI=
-=Gwtb
------END PGP SIGNATURE-----
-
---=-68tdt8CJA0v7u8ZWQyHT--
+Sergei
