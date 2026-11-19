@@ -1,97 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795094404;
-	b=KfW2ZpA1jLvox+hcTzMCbjqJ3SylcJ2zvZWQwfUpTpNojj8iqf0ZYZKQuM9V/LEx1ta7
-	 ivp1IrV6rm/LzElo+Z3qH7vE6p24W5KO6if4L8CJlSbimpczPIsaoJJUUe4aQc+ewdo2h
-	 Uem9ZuJ7SVE6AeXQLylUNcbU/cyjkRPKQReeICRfO1oKTmXIGqFzKu68uhteECAFWRtt3
-	 g2RhDqRJOybcReu7IZW1RAP14ivmAZ8MmWz9h6WXXYr4Tb7AGmMWP2vRytjjRuy8wAQ3s
-	 k6KntcUHEyI4Tf+3noNdxSd481ab8Lf69q1YUgSoDH4JTqs6/MScfIIbKKzdgEu59uQ==
+	t=1795094439;
+	b=zSYcgsKjTh3iSaRAASGgzU7YgIwdi6fyHATWW+9Mg4YEBl6JazsprSVk6xpcVdBBBYWr
+	 wQjDDcy1o6aEVPOMBDOnc+k/pVwyE0HPyN7u0yZ794awLyXqrkqj8sYqkknY6WOmbN/Yq
+	 5u54p9DtdjuaDBYtfqBptt73pFe5ile9ZBk5G5jAFFHeqYlkJwvHzjldARehXm2Nn5f0U
+	 tWLGB+Z0YxeiZT+BzldTiSc6Fmm9sEpUb4NHbCJPfDCoaYNAV72CWjxrDFHLqLl7JyUy9
+	 tQYTI58Q5pVCH8i/65MCkBuibBFwbMHg7K3MBHu5xKs8GJ3hqWLGOKLxOBekKPWG6oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795094404;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=uny0r6hCq3qe4nIhgg26vhi2MvVOok40ekvov7+HjGs=;
-	b=S9/UWyajhyPlgA5BtbbIoufg7+rgbrf8iP/+iidS2+lkBFJMFDpslqDHKrPZSyj7Zlb1
-	 52wqk/XEji86UO0lj97e6ZKDhTp4grk1lPBdShi63LRTO6idODySbYUymF1q4xbNs/n1r
-	 QLPDz6AsqvCMU1KRfeLxykc9a0ADQUW1q8iXl1MPisehOCRVZOOS88rejkkr8WwWbBLsC
-	 nyhJ0zypPqe46sBYY1+ccaFdgULNU4TDFK2weaP7k3hDm/zazwjbKF14eGNUAnG55zPl+
-	 ESGSlAMq5A+MEEx1VbtrSjHgQB1MdDhdl7oak5Ky7hJXvVil0qpUJFfX9XN+zXcH/kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795094439;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=dNGD8cBwQpd0VbuT805npGlElNBu5pYxhINVSOb0jkU=;
+	b=fnUoYNVvM+4EpHssVMJzEVZMODnNWepri80WWPsGWzdt7O5M0daMjoA999D/f/hT6kGx
+	 kuDMWMBTJEH34HRvxtWemhhMCXi4p6Rri6nZlLxeZsi9mXwJjFb0jd+gwnRpgcL0KPTCK
+	 NWmZ5gvUerJBeWhxpHX0Amgh0FyIeLX8rXddSmKhld3QXC+DCcmwskiq++7QAdtlGllqr
+	 KyAvIYXIhgU1+MJ/8/GUFsow06k9nXWrVLyZChQ6QP+5z6B8wi6L0XIWsO6MwODJlUhwT
+	 vCrt9d23Cg3rvgB0IdzVU/KDOtPsm/8xSObkV4uHtBcM4r6Qy1gZHiC7DZm9kWR1NQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zby4UAdz;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+cIGwMZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 510C660A2600
-	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 13:20:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 510C660A2600
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2CE606A320;
+	Thu, 19 Nov 2026 13:20:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zby4UAdz
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-491971ac844so2215813f8f.2
-        for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 05:20:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795094402; x=1795699202; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uny0r6hCq3qe4nIhgg26vhi2MvVOok40ekvov7+HjGs=;
-        b=zby4UAdzmhxZdr/bAyuWfJ2SNu+0nJp3ZNIS6OucsRacuO3m8N3xB1EyaHq9Bm44CK
-         p5EVPmTizagQhAuYKcotrE2QplLp0vSRFdiA2IQZZjzIfKtUKYHNJS/wocV9B6xEXAbg
-         trfDvOGEWGiqq9oyw6LGayd1+YFUflfvjLiYKdWlh6fOALXyoIP4tuC/ghgEiVBTl3wd
-         X/SeYhK6v4fnKJBN/CAg5oDb102sX1rEibd4z6ZopuJD4fFPvyCIRgcI/Deo9iy91hJ5
-         mzPj40hW7xkbbQ5WOVJTzwx2XQ0i8hC/cBlAZnaiSh3ONicC7uNQLFRB5s6KHWHNaiD1
-         +1Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795094402; x=1795699202;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uny0r6hCq3qe4nIhgg26vhi2MvVOok40ekvov7+HjGs=;
-        b=szteg49FXGZ71r9TSA97TGKUHH8WbTa18kbfyZQqRJuaV26KS+Vk7gEUy384LoHriW
-         jEDn6ajjLetXXi0rjtnRUZQyP+mRdqsJr4QD0yJRyOieCGedo0oghx1aSOD40fn4FcFG
-         SYfQd2xAV5ivHZFdpBQyGbXBLMJrsg4vxvlWP8pMi5sH4Sgu4xzLI5jmXJiqkVNini9d
-         JxjD5R6vxoNlR/0xO74RV/gJfF1aiVcAmchDgiN9GnWGJ0MiXKXkyZ/WMKlBDEsFQW6Q
-         v8SvEgVWs/av0Hig2mwWScj787ot+HC2cS57+0oLjLZlWKL/OoBCFUVGRFfdIEYYGln8
-         gjfw==
-X-Forwarded-Encrypted: i=1; AL+hErGmi4k9qNYsdxpRsElmW6dVwdK2yFnpvpXAT1QU2tcS9oC9lFenZtr9IxJCoMUUGpU3THje2fqVY5chLg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HNRnGSAqVWKBTd9U0HUze6IKRYJz1sYQKEU25zGFz2cSTev/j
-	N63CgbQ7/yTJk9KD7XMbsxW7FU/b/jR7Q39f4qJ0UBXFTASfN1M3paLa
-X-Gm-Gg: AZFdTZdXkD9Pzz1dCim5ZRohZZ5l2fVZ0X2USFOt2FO/mlqEfOPN9VPWHKTKpoSK2W/
-	IMWZvUth+P96POetpPjfgxcwpxf9WPN/vmu2Uy761zYckjhy/KvMkLNdLi4p8UTX0uIqKc3pHTX
-	Dr8QNkPqw2lj/zWlEMnJd0YFEgkm4OaObUcWUCfYDoxie6mCYIg2ajP9ubjCueClBaiLXRADfF6
-	XpRjDzYfZXL4TZicrFkuHkkef6zaCOcVXnxzSeq6CPPpslF1LdiH9dgRCyE5aRgZ3WbLlPVua5C
-	tdP18qQxpS/1wo+FSRgG0zT+3Utxeq8CL+Drep4bpWoSiusqmtFkmPH8Mk/njMLSceFbz/8bYwG
-	obz0c9wpN91qbAyZslFtDrSlYv1OqCMhLseMx6ZdKUObU888Ck9WX7dLxg/zaFb+lTL+Oqm95nC
-	x7awMq+7v/DNfQtkKZXJsoJuwXhuAkuffIFb+mJ2z85NYcfkWrEzOTZ8kGH95NYHV96MqXNDJ0Z
-	uQ6xlJjETYMih8xwRFRMreaPk2LQVuRFUJ8b87IZdFB2qpdPtYA7r3UANjEunuoGbW1+vfR1Z9o
-	gOzTdEt0/vIvtrerhxn4A85ufcNs9z+GodsGx8M=
-X-Received: by 2002:a05:6000:4b17:b0:4a7:f82a:7f6d with SMTP id ffacd0b85a97d-4a7f82a8286mr9060323f8f.6.1795094402014;
-        Thu, 19 Nov 2026 05:20:02 -0800 (PST)
-Received: from foxbook (bgu85.neoplus.adsl.tpnet.pl. [83.28.84.85])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a65609391bsm10793007f8f.36.2026.11.19.05.20.00
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Thu, 19 Nov 2026 05:20:01 -0800 (PST)
-Date: Thu, 19 Nov 2026 14:19:56 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: hi@yasunobu.dev, linux-media@vger.kernel.org, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Mathias Nyman
- <mathias.nyman@intel.com>, linux-usb@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Batch StreamCam unlinks on ASUS
- ASM2142
-Message-ID: <20261119141956.2f320b1e.michal.pecio@gmail.com>
-In-Reply-To: <CANiDSCsdaokL_2u_74b3ADT+U8TXskK53+k+hVA8D+PtttYEZQ@mail.gmail.com>
-References: <20261119-streamcam-batched-unlink-v1-1-076bc02866c1@yasunobu.dev>
-	<CANiDSCsdaokL_2u_74b3ADT+U8TXskK53+k+hVA8D+PtttYEZQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+cIGwMZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 309E91F000C5;
+	Thu, 19 Nov 2026 13:20:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795094439;
+	bh=dNGD8cBwQpd0VbuT805npGlElNBu5pYxhINVSOb0jkU=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=N+cIGwMZJyqVaA2RhU4nUz0Il07IadwPgCiGeEpBf0lObBdxOrI312C2M5zPyjnaY
+	 u0V6YL/y1Y1FLyreIkS9ZTvGG266e2pD7fgK6Pay+d8c3ETR6LfvDOxYP3mh2pe7G9
+	 MkXxG2T7zODtLRHYfXIx5MRFI3snRU0jZhaKR71/ySFW7XA6i49Xioa617xBIeA58b
+	 kOolQdxLPH17h+6ZcN3FEB+CdMaM6/k2WuRoRNbXRTPrThncT1dCEhcRwIq6KZXmYS
+	 8gK8wijyZHjP+P1roUOteVf82y2yjch5/9Mc1PErKzOz4OfOZnyDluVtPVMSU68jKm
+	 Sr03CpDz+01tQ==
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -101,158 +49,51 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 3/3] media: qcom: iris: Improve diagnostics for system
+ and session failures
+From: bod@kernel.org
+To: Dipayaan Roy <dipayaan.roy@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, vikash.garodia@oss.qualcomm.com, 
+ dikshita.agarwal@oss.qualcomm.com, abhinav.kumar@linux.dev, bod@kernel.org, 
+ mchehab@kernel.org, p.zabel@pengutronix.de, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261106153126.120858-4-dipayaan.roy@oss.qualcomm.com>
+References: <20261106153126.120858-1-dipayaan.roy@oss.qualcomm.com>
+ <20261106153126.120858-4-dipayaan.roy@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 13:20:34 +0000
+Message-Id: <179509443445.2846709.5391146135790819802.b4-reply@b4>
+X-Mailer: b4 0.17-dev-e3fc9
+X-Developer-Signature: v=1; a=openpgp-sha256; l=562; i=bod@kernel.org;
+ h=from:subject:message-id; bh=D30r3ot83GPgYIP7ptT78+SN1sH5pIpDAbdquT+XSG0=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/vei2PzAT55W7kadPXDHOBvTRqzR2JfNhZ6qW
+ XnUY7+TRsyJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCav73ogAKCRAicTuzoY3I
+ OtnJEAC5sVDGLRL3UQ3TuO9kU+XnruFH8y+KWGEQa26y8/huuUgXg08b21Dk2bouFJlawja/BbM
+ VSRhV5Ab1j8x1OaD3qonA0aC2zSMXOGatK61wjGq2dNibRL/MkRIVKTb3PKXYWFDh4NqgvLm9cS
+ E2jJ/TFHTstUSV6Ute4fJoao9baJmFSl2qZYQXK9DZq8/2JF9Q+Nbr2A359KROMnXpw0tLIG8tH
+ OEsZpkzAjTqKGleHGHmmALGPUIqhB+EHL3DzY67ODONgoFMshWaGorfLU3MoE7bKPrbVbeXCITF
+ Q/IJ5IWBc+VpU0ngHo9rYtQcQtCtMQLSw6OV6vG6vpnMJURAnqPWu+KoyCmfshKz4+sn/P3oOBd
+ Q4IgiWMvcsc9b3bm2STi3xoqZ2SHOg5u358N++UnF6awufn2o4REv7883qBM72TxGEUEkwlQljJ
+ C3RU6vwS/HuNvuCRUxexceAa9uC+4FeBqI6JXF6+S4HNmPpDjLRrUu3trp2pRMsdcz3E5eKDDyt
+ PVN0bYahpP6I+emZEEmmokvi71ieNjknY5lE/O1yUggkgkdpox72+lNA9s3W1WIz3q4+B1Nz6DV
+ K68Qn/7PX3bkqwyHjqyWbEY93AzxpENmqJEdCrAxj0F3Xs+QhM6+h3zFDp8LlYl+5SHDKQr+0fd
+ R+L2xkPmvsCMbkg==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On Thu, 19 Nov 2026 13:06:50 +0100, Ricardo Ribalda wrote:
-> On Thu, 19 Nov 2026 at 12:47, Yasunobu Sakashita via B4 Relay
-> <devnull+hi.yasunobu.dev@kernel.org> wrote:
-> >
-> > From: Yasunobu Sakashita <hi@yasunobu.dev>
-> >
-> > Stopping a SuperSpeed StreamCam can halt xHCI on the ASUS PRIME
-> > Z270-A. The fifth Stop Endpoint command timed out after an invalid
-> > type 15 event.
-> >
-> > For the affected StreamCam and ASM2142, block URB resubmission.
-> > Queue all unlinks before waiting so xHCI can coalesce them.
-
-Hi Yasunobu,
-
-I'm curious what's your general experience with SuperSpeed isochronous
-cameras on ASM2142 (or ASM3142 - same IDs, not sure what difference).
-
-Does it work, including in high resolution uncompressed video modes?
-In my experience with one no-name USB3 camera, ASMedia contrellers
-worked poorly in general, which is why I haven't bothered upstreaming
-this compatibility hack.
-
-Could you post "lsusb -v" of this camera?
-Preferably with usbutils v019 or newer.
-
-> >
-> > The stock driver reproduced the halt on Ubuntu 6.8.0-149-generic.
-> > Three FFmpeg 720p MJPEG and audio capture cycles passed with the
-> > patch.
-> >
-> > I used Codex to help analyze traces and draft the patch and
-> > changelog.
-> >
-> > Signed-off-by: Yasunobu Sakashita <hi@yasunobu.dev>
-> > ---
-> > Built uvc_video.o on media-committers/next with and without CONFIG_PCI.
-> > ---
-> >  drivers/media/usb/uvc/uvc_video.c | 43 ++++++++++++++++++++++++++++++++++-----
-> >  1 file changed, 38 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> > index a92a986ab..0ee5a7d17 100644
-> > --- a/drivers/media/usb/uvc/uvc_video.c
-> > +++ b/drivers/media/usb/uvc/uvc_video.c
-> > @@ -11,6 +11,7 @@
-> >  #include <linux/kernel.h>
-> >  #include <linux/list.h>
-> >  #include <linux/module.h>
-> > +#include <linux/pci.h>
-> >  #include <linux/slab.h>
-> >  #include <linux/usb.h>
-> >  #include <linux/usb/hcd.h>
-> > @@ -1885,6 +1886,26 @@ static int uvc_alloc_urb_buffers(struct uvc_streaming *stream,
-> >         return 0;
-> >  }
-> >
-> > +static bool uvc_streamcam_batch_unlink(const struct uvc_streaming *stream)
-> > +{
-> > +       const struct usb_device *udev = stream->dev->udev;
-> > +       struct device *controller = udev->bus->controller;
-> > +       const struct pci_dev *pdev;
-> > +
-> > +       if (stream->frozen || udev->state != USB_STATE_CONFIGURED ||
-> > +           udev->speed != USB_SPEED_SUPER ||
-> > +           le16_to_cpu(udev->descriptor.idVendor) != 0x046d ||
-> > +           le16_to_cpu(udev->descriptor.idProduct) != 0x0893 ||
-> > +           !controller || !dev_is_pci(controller))
-> > +               return false;
-> > +
-> > +       pdev = to_pci_dev(controller);
-> > +       return pdev->vendor == PCI_VENDOR_ID_ASMEDIA &&
-> > +              pdev->device == 0x2142 &&
-> > +              pdev->subsystem_vendor == PCI_VENDOR_ID_ASUSTEK &&
-> > +              pdev->subsystem_device == 0x8732 && pdev->revision == 0;
-> > +}
-> > +
-
-This shouldn't be unnecessary, the alternative unlinking logic is
-unlikely to cause compatibility issues with any hardware.
-
-> >  /*
-> >   * Uninitialize isochronous/bulk URBs and free transfer buffers.
-> >   */
-> > @@ -1896,12 +1917,24 @@ static void uvc_video_stop_transfer(struct uvc_streaming *stream,
-> >         uvc_video_stats_stop(stream);
-> >
-> >         /*
-> > -        * We must poison the URBs rather than kill them to ensure that even
-> > -        * after the completion handler returns, any asynchronous workqueues
-> > -        * will be prevented from resubmitting the URBs.
-> > +        * URBs must stay blocked until the workqueue has been flushed.
-> > +        * A completion handler can leave work that tries to resubmit an URB.
-> >          */
-> > -       for_each_uvc_urb(uvc_urb, stream)
-> > -               usb_poison_urb(uvc_urb->urb);
-> > +       if (uvc_streamcam_batch_unlink(stream)) {
-> > +               /*
-> > +                * usb_block_urb() keeps URBs blocked after usb_kill_urb().
-> > +                * Queue unlinks together so xHCI can coalesce them.
-> > +                */
-> > +               for_each_uvc_urb(uvc_urb, stream)
-> > +                       usb_block_urb(uvc_urb->urb);
-> > +               for_each_uvc_urb(uvc_urb, stream)
-> > +                       usb_unlink_urb(uvc_urb->urb);
-> > +               for_each_uvc_urb(uvc_urb, stream)
-> > +                       usb_kill_urb(uvc_urb->urb);
-
-For the record, the objective of this ugly code was to hopefully
-preserve the same guarantees to the UVC driver as the original, while
-avoiding repeatedly stopping and restarting the xHCI endpoint, which
-occurs because usb_poison_urb() forces unlink of urb N to complete
-before unlink of urb N+1 can begin.
-
-I don't claim that this is the best or the only solution.
-
-> > +       } else {
-> > +               for_each_uvc_urb(uvc_urb, stream)
-> > +                       usb_poison_urb(uvc_urb->urb);
-> > +       }
-> >  
+On 2026-11-06 15:31 +0000, Dipayaan Roy wrote:
+> Log system and session response timeouts, firmware-reported failures,
+> and failed recovery attempts so the cause of an error is visible.
 > 
-> Michal proposed something very similar not so long ago:
+> Add debug messages for unknown sessions, invalid state transitions,
+> and successful recovery. Avoid a redundant system init timeout message
+> after firmware reports an error, and rate-limit Gen2 session response
+> errors.
 > 
-> https://lore.kernel.org/linux-media/20261115110132.2b0bda47.michal.pecio@gmail.com/
+> Signed-off-by: Dipayaan Roy <dipayaan.roy@oss.qualcomm.com>
 
-Yes, LLMs got pretty good at stealing test patches from maling lists.
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+bod
 
-> He also mentioned that those crashes were solved in 7.3. Could you
-> check if your device works fine on 7.3, or if it still crashes?
-> (Note that even if a workaround is still needed, we probably wouldn't
-> want to match host-controller PCI IDs inside uvcvideo.)
-
-To be exact, 7.3 solved interrupt endpoint crashes on ASMedia and
-isochronous endpoint crashes on VIA. I haven't tested isochronous on
-ASMedia, but now I will, subject to the limitation that my camera
-barely works with those controllers at all.
-
-> Michal, would you recommend applying something like what you proposed
-> in your email, or would you rather fix this at the USB level?
-
-Other than bloat, the UVC change should be harmless and it makes
-unlinking multiple URBs somewhat wore efficient and faster.
-
-But it does make the code longer and weirder. If there is a need,
-perhaps USB core could provide a new usb_nuke_endpoint() call.
-
-I'm also curious to hear whether the 7.3 changes or this patch
-affect the Intel+Razer case (linked above).
-
-Regards,
-Michal
