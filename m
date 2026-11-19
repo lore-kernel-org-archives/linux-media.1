@@ -1,67 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795125703;
-	b=HN9edsMyaVUeaa/SZphIzR11wvl3Zjqtxf7wM1ikRgG1USujIH24Wg6YCJdXhJRU9viT
-	 UXFAIKV0dasoHR/FQ7pFMA8wMmsXorgqaV0AbjlPDYm92u4UyQCg+u66PKLbj13w4Lbbj
-	 FOImJYAwftznUJWjeqRcgp0vW/Sxi9xDNQwSJ+KSsBldZoBePlxeoaZ2d7lNCd/DZ4X2s
-	 fgIU4xMDNG1pXU6uRFg/zUIMXjP6HQBOIUqaJXijyeFyMfnuTHtwK48BYZEe6QmU3yOdo
-	 +8eVKsUzATgFYPOfdNMAMM2PLQLwftYqo8Y5pmkeCvtatOZwyhSYSYF9qH/Ymr2isRg==
+	t=1795125717;
+	b=nxB0ch9YtsXYgAYsAp5csLt+822Vk/HyjDyWjbjSg++hj9bdedhx/G+GSASYN2pX5yNl
+	 BFCG0/g4tDrAlwzVg+0sO4I1RrCy3nQhczs3gM09xIdPiS4/DFko7gG4vAV2HHfFqQe3d
+	 uZHGo1XoSDx3d9icFeeGeJ2hBXodq90a5wlZHw2GjEXO0SOlPvS1gGforoqLKAYqMXO2h
+	 0Nf3CtZCoOOTpQhgIFCRFz5YCQneLEk2cok7n6ra8VAHA9GFqP/1vGLp0WB0XQa46PFLH
+	 fpVa1J+9EC2pVsEC+tL2/cTOfOEOk9+Mtz3Ce2fC8g1QzXVxYP1c6ZFhZIuG1DNWF2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795125703;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795125717;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
 	 User-Agent:MIME-Version;
-	bh=bFV9TsTjHT6hSPFjc0iPI6dPyGyNoUZ/LNuf2mJ730E=;
-	b=K2FK/mwz3i9/DTTP54pFl1UdoXMZ6bJTav/pfBaONyS4ZgzV/CCFv/CEm8dh+/xAYqgQ
-	 pPWs7XDq+hR8nklHV2808qTBb1qoMq/uPXCy8cRgZAoB0lJcKmd0X8NmiCPnXcy+ryiSA
-	 8BaAROHsZqv3cE0bHQZ/6YildyLvVdTgHlD/2kF9Ns4me22BuQ0m0GpDzesBat56VyE/z
-	 WmIwBkrT7YxTu8rOHcDMj2NZKfqUHFbC/6sl58RQFqd8b2MVZtPQ6jGhCiVOAWUDSB0Y2
-	 Gx/2IRRl/C2bYm9XZYAURO6lI3BtjOVwG5QlpnjaO9Kwkk46sUZ92ljtl5tfH5j2qcA==
+	bh=oplpI6eEMtoBxL6wUQwQJv5QhRq1ffS8cKsbhl/Ft20=;
+	b=tUyrw6hltPIQmI3/smQy/wVi4a80p3c2WipnVfb9PdFTyibUBMABjHNxhsKb9dWCRgCU
+	 3mH/lVN788se6ZVwmxFuE3w13vuSWCvW3wucG9dE13NlhZ1AtsMwiA20KEYa1pEqMSRBo
+	 7NM8qUeK1qfakqdU2XiKGK0eFfKfzPRwMimx0wO7YUsq4cKDywQCxmoM1Lo+WbJmkcDs2
+	 t0LTJdWup9Gbcw7gZj9O3g+je/4vaBQ4ftMwKAt/um/EFPBYvrZAn80i/GHKUPW3tez0m
+	 hKI7vbvDLnxtjGQj7iyQsWQyj2UJnu+SaC/VJIrUIpeKJuhT00bfa3u2iwazgbse4eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=HTQ+HkMa;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AOpY1SSz;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219DB606A320;
-	Thu, 19 Nov 2026 22:01:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 219DB606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18021606A325;
+	Thu, 19 Nov 2026 22:01:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18021606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=HTQ+HkMa
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AOpY1SSz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795125701;
-	bh=ANMivH/q60amS51egZxMp9rwlv7XQDk68NdQazduH/c=;
+	s=mail; t=1795125715;
+	bh=X23YaxjFeV2zYUTZgzInNORDdEE5msEkxPHU1jfRRjA=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=HTQ+HkMakNtqgxTMf1rmVeqvFNB3hKbHwG6dIBnPA2y5w8VdcXgvI2psMBTMg5L2S
-	 WW54JmTnmaOUJX5zrnvl/cEVodDCIXnnqBIL4tyXN2F6m7bh3ZFHvbWLFsufdm4U5a
-	 rSpSPOLE/tkXbsR/IwZtRrCiOl/eR7FrvYcNFNwXjRMS4JTd3ySYMWNv3ATcc5GqmH
-	 3VezNNsAE9OE8BmrxVyFxiR6CXRxiEpNpJzu2mOogD3TSLqr5estFv2zgGbDTw7DBG
-	 FXqGuHruYdeCQ0VMwaomE5UEq26LVUKfig/f6UFbaMucCQMgLOnHd8RMif5kyC3VEo
-	 WHmB8FzXNAayw==
+	b=AOpY1SSzKfxYWCzhMCz3lter8jnMMJqqYqXT6o5Mc4mAN3GaPg9c1gJlDjsQryifw
+	 4gpzmUXLoUWeruuLYaAuUvbTKqs64+sOMsI62+bNXX17PuBvTkpCGjMls5y62XMP2M
+	 lt+bxCKC3+V36KfpdA9rbccnubCfI3rJflwVOYLPV1EZwOE3UIVsVfJ/3RdZArvqRx
+	 LKFJPtPwloQzVvcknNQtC+dIN7CwD54pHIebkuG9uKJ8RJ2NjLqPu9P9ey5amyg/h6
+	 II3c5ge6yqfb6iJ14OtOD2vyLQcwGNJAe0bntdW6eyuKGP57JNkBTkKZ5B3l6yax+l
+	 TRMdyg/Fv74rQ==
 Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7B1D417E0311;
-	Thu, 19 Nov 2026 23:01:40 +0100 (CET)
-Message-ID: <21f16b602cbb1b581bb26356e39e86c845d5809a.camel@collabora.com>
-Subject: Re: [PATCH v1 6/7] media: verisilicon: vp9: Use alloc/free helpers
- for auxiliary buffers
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9CD7A17E0311;
+	Thu, 19 Nov 2026 23:01:54 +0100 (CET)
+Message-ID: <dc33dcf5fbc332d02dc54b2068787dc63f193f46.camel@collabora.com>
+Subject: Re: [PATCH v1 7/7] media: verisilicon: mpeg4: Use alloc/free
+ helpers for auxiliary buffers
 From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 To: Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
 	p.zabel@pengutronix.de, mchehab@kernel.org
 Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
 	linux-kernel@vger.kernel.org, kernel@collabora.com
-Date: Thu, 19 Nov 2026 17:01:39 -0500
-In-Reply-To: <20260916125443.78602-7-benjamin.gaignard@collabora.com>
+Date: Thu, 19 Nov 2026 17:01:53 -0500
+In-Reply-To: <20260916125443.78602-8-benjamin.gaignard@collabora.com>
 References: <20260916125443.78602-1-benjamin.gaignard@collabora.com>
-	 <20260916125443.78602-7-benjamin.gaignard@collabora.com>
+	 <20260916125443.78602-8-benjamin.gaignard@collabora.com>
 Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -77,7 +77,7 @@ Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-SHXXuNwkg3TPbXQrg/xe"
+	protocol="application/pgp-signature"; boundary="=-7qE1DpbACoyuWbHd2Qx0"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,122 +89,68 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-SHXXuNwkg3TPbXQrg/xe
+--=-7qE1DpbACoyuWbHd2Qx0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Le mercredi 16 septembre 2026 =C3=A0 14:54 +0200, Benjamin Gaignard a =C3=
 =A9crit=C2=A0:
 > Simplify and clean up the code by using the helpers.
-> For upstream it should be merged into only one commit.
-
-What do you want me to do exactly?
-
 >=20
 > Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
 > ---
->  .../media/platform/verisilicon/hantro_vp9.c   | 37 ++++++-------------
->  1 file changed, 11 insertions(+), 26 deletions(-)
+>  .../media/platform/verisilicon/hantro_mpeg2.c   | 17 ++---------------
+>  1 file changed, 2 insertions(+), 15 deletions(-)
 >=20
-> diff --git a/drivers/media/platform/verisilicon/hantro_vp9.c b/drivers/me=
-dia/platform/verisilicon/hantro_vp9.c
-> index 566cd376c097..7a46a4767254 100644
-> --- a/drivers/media/platform/verisilicon/hantro_vp9.c
-> +++ b/drivers/media/platform/verisilicon/hantro_vp9.c
-> @@ -181,23 +181,17 @@ int hantro_vp9_dec_init(struct hantro_ctx *ctx)
->  =09size =3D hantro_vp9_tile_filter_size(max_height);
->  =09vp9_dec->bsd_ctrl_offset =3D size;
->  =09size +=3D hantro_vp9_bsd_control_size(max_height);
-> -
-> -=09tile_edge->cpu =3D dma_alloc_coherent(vpu->dev, size, &tile_edge->dma=
-, GFP_KERNEL);
-> -=09if (!tile_edge->cpu)
-> +=09if (hantro_allocate_aux_buf(ctx, tile_edge, size))
->  =09=09return -ENOMEM;
+> diff --git a/drivers/media/platform/verisilicon/hantro_mpeg2.c b/drivers/=
+media/platform/verisilicon/hantro_mpeg2.c
+> index 04e545eb0a83..f21115e6bdbe 100644
+> --- a/drivers/media/platform/verisilicon/hantro_mpeg2.c
+> +++ b/drivers/media/platform/verisilicon/hantro_mpeg2.c
+> @@ -37,25 +37,12 @@ void hantro_mpeg2_dec_copy_qtable(u8 *qtable,
 > =20
-> -=09tile_edge->size =3D size;
->  =09memset(tile_edge->cpu, 0, size);
-> =20
->  =09size =3D hantro_vp9_segment_map_size(max_width, max_height);
->  =09vp9_dec->segment_map_size =3D size;
->  =09size *=3D 2; /* we need two areas of this size, used alternately */
-> +=09if (hantro_allocate_aux_buf(ctx, segment_map, size))
-> +=09=09goto error;
-> =20
-> -=09segment_map->cpu =3D dma_alloc_coherent(vpu->dev, size, &segment_map-=
->dma, GFP_KERNEL);
-> -=09if (!segment_map->cpu)
-> -=09=09goto err_segment_map;
-> -
-> -=09segment_map->size =3D size;
->  =09memset(segment_map->cpu, 0, size);
-> =20
->  =09size =3D hantro_vp9_prob_tab_size();
-> @@ -205,36 +199,27 @@ int hantro_vp9_dec_init(struct hantro_ctx *ctx)
->  =09size +=3D hantro_vp9_count_tab_size();
->  =09vp9_dec->tile_info_offset =3D size;
->  =09size +=3D hantro_vp9_tile_info_size();
-> +=09if (hantro_allocate_aux_buf(ctx, misc, size))
-> +=09=09goto error;
-> =20
-> -=09misc->cpu =3D dma_alloc_coherent(vpu->dev, size, &misc->dma, GFP_KERN=
-EL);
-> -=09if (!misc->cpu)
-> -=09=09goto err_misc;
-> -
-> -=09misc->size =3D size;
->  =09memset(misc->cpu, 0, size);
-> =20
->  =09init_v4l2_vp9_count_tbl(ctx);
-> =20
->  =09return 0;
-> =20
-> -err_misc:
-> -=09dma_free_coherent(vpu->dev, segment_map->size, segment_map->cpu, segm=
-ent_map->dma);
-> -
-> -err_segment_map:
-> -=09dma_free_coherent(vpu->dev, tile_edge->size, tile_edge->cpu, tile_edg=
-e->dma);
-> +error:
-> +=09hantro_free_aux_buf(ctx, segment_map);
-> +=09hantro_free_aux_buf(ctx, tile_edge);
-> =20
->  =09return -ENOMEM;
->  }
-> =20
->  void hantro_vp9_dec_exit(struct hantro_ctx *ctx)
+>  int hantro_mpeg2_dec_init(struct hantro_ctx *ctx)
 >  {
 > -=09struct hantro_dev *vpu =3D ctx->dev;
->  =09struct hantro_vp9_dec_hw_ctx *vp9_dec =3D &ctx->vp9_dec;
-> -=09struct hantro_aux_buf *tile_edge =3D &vp9_dec->tile_edge;
-> -=09struct hantro_aux_buf *segment_map =3D &vp9_dec->segment_map;
-> -=09struct hantro_aux_buf *misc =3D &vp9_dec->misc;
+> -
+> -=09ctx->mpeg2_dec.qtable.size =3D ARRAY_SIZE(zigzag) * 4;
+> -=09ctx->mpeg2_dec.qtable.cpu =3D
+> -=09=09dma_alloc_coherent(vpu->dev,
+> -=09=09=09=09   ctx->mpeg2_dec.qtable.size,
+> -=09=09=09=09   &ctx->mpeg2_dec.qtable.dma,
+> -=09=09=09=09   GFP_KERNEL);
+> -=09if (!ctx->mpeg2_dec.qtable.cpu)
+> +=09if (hantro_allocate_aux_buf(ctx, &ctx->mpeg2_dec.qtable, ARRAY_SIZE(z=
+igzag) * 4))
+>  =09=09return -ENOMEM;
+>  =09return 0;
+>  }
 > =20
-> -=09dma_free_coherent(vpu->dev, misc->size, misc->cpu, misc->dma);
-> -=09dma_free_coherent(vpu->dev, segment_map->size, segment_map->cpu, segm=
-ent_map->dma);
-> -=09dma_free_coherent(vpu->dev, tile_edge->size, tile_edge->cpu, tile_edg=
-e->dma);
-> +=09hantro_free_aux_buf(ctx, &vp9_dec->tile_edge);
-> +=09hantro_free_aux_buf(ctx, &vp9_dec->segment_map);
-> +=09hantro_free_aux_buf(ctx, &vp9_dec->misc);
+>  void hantro_mpeg2_dec_exit(struct hantro_ctx *ctx)
+>  {
+> -=09struct hantro_dev *vpu =3D ctx->dev;
+> -
+> -=09dma_free_coherent(vpu->dev,
+> -=09=09=09  ctx->mpeg2_dec.qtable.size,
+> -=09=09=09  ctx->mpeg2_dec.qtable.cpu,
+> -=09=09=09  ctx->mpeg2_dec.qtable.dma);
+> +=09hantro_free_aux_buf(ctx, &ctx->mpeg2_dec.qtable);
 >  }
 
---=-SHXXuNwkg3TPbXQrg/xe
+--=-7qE1DpbACoyuWbHd2Qx0
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9xwwAKCRDZQZRRKWBy
-9PpaAQCrbJCywZvoLReO0PLLa3rbPd7Mz0js3xyFsonVvBCcTQD7BSUTJgCdqtzO
-kRtRf4dDAiPGIqL9SSArx+DZfoKn/wM=
-=IjkY
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9x0QAKCRDZQZRRKWBy
+9I5WAP0bVAbmeSLRHwv8CO5B/BZyJJ/7mKqBLZN3iIqZIpe4+wEA0LPjqPmZCWD8
+2oRxjuRdHBGrPG4tB6J/F2paCcVd5gE=
+=QSYg
 -----END PGP SIGNATURE-----
 
---=-SHXXuNwkg3TPbXQrg/xe--
+--=-7qE1DpbACoyuWbHd2Qx0--
