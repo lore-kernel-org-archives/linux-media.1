@@ -1,78 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795088701;
-	b=00u+rTyPKLMpGmClbbEZINW8AAvaQFHeUvOPbgiEUQCcMV22QKZorjq2VGeuIMrf8EJ8
-	 wFhcULxYTAw7vbZcyhElvOfN+/NWIx5wkMh237NceaRzPUUTuYgyhRgTNRCmjFqGXsJaD
-	 nYmay2imfIROd4emSvGzPRfwZfIxYabKdRt4mADHWPYaPnnlYvOtpCenLUd/z+KBipGk9
-	 u7RORP+Vsqni9BlrUkpJMsF1MMPLRZ/7xSLBP91QF88EodlWcrplOi3U8oOjVZ4l9T36s
-	 r0AOdSn0TZDeb/77LDOi5wMifJL2cgZkPqdEdbVVXkPAE+KJrIRoZwL3SScOMRbKOgg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795088701;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=arY3zljhg/9f4oH1J4G/6/OX1UJcdmzYzzT5OdZ4uls=;
-	b=NdimQB29Lp0U8eEDhERaKiDwEdDvweV4mymfv569HfZjvu4Z4yvqcj1Qc/m5yXKxCt5L
-	 3hLWUwSyrgoS88MnwNrAvJ4W80y4P2XXxg3RjzgSUfchPWBTYlXqTbDezQUIlCACtL/NA
-	 o1OR23NlbPNjvzS+K0pSNTJI7ugRoDzRLl+XO6zvDbEeRyvDXKZnX+1iWXz5m1A/LJAIx
-	 yi2xsaBdQzO8J/f1HGTjxcDdNRPCsnRwu+lAWOtg3VevGOGPBcBmHuGjObGo9uX7kLLPG
-	 UFCo4MeeZjVJwTFGz2+EeEE8lw5Nq5i83yv7rckfOJJ6E568qwe3rk6fcOJehNR1x8Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kgv2AhfS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FFD4606A324;
-	Thu, 19 Nov 2026 11:45:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kgv2AhfS
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795088701;
-	b=P2v5noAEbGWE7nN5F50B28/qoYrG8lJkDlFfTF0nqD1Vv0CYLTmcerVwzQeBJn8jsk8+
-	 nwb0RT1WDcUsLh5hg/YfEUekgziqOChgu1ihAQQIANpLwaS9XCyvUEXJaD+sFF81OJ0Di
-	 3QYyIL5zMBf7aDixaIm+cD8M2stf6dBunYdLWxtaSo0CTUVGSAZF23GUw1ITBzxYgkoXa
-	 3C+j95dqDWSzIvM8LTyWywyKQiMDyYq+th9IVKOrnqia2TEtmmPUPBwIO8vOylPX8WrZl
-	 KXqQvSoC80kZRWQsVatJS2CD2D/+YYPffq5D8nKzMevJUSpTtBEO/OEAqM7sP4GFnKw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795088701;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=arY3zljhg/9f4oH1J4G/6/OX1UJcdmzYzzT5OdZ4uls=;
-	b=3UGdK0KngRai254cz2ISPZlgdKesNzDNGcybcWv3PkPZazg78CV+2lIz/znTZ1rj0DHm
-	 fe6wyrb3gHfE/sApUnbqdSjjjWn8DW3NVv7bLYPQjcxf06GlzFd7SsuL0QEbaDvBBqRu9
-	 biAlK8d7QPEbI7msE2s9zM+kBB3MkWu0QVOaH9CleTgyg3jrq6zCfuZA3S9jymK3w/j8T
-	 TgMgcFVCnV+Q46iKRCcx4OCI8vitOnn+SeakVBwuXONfEoKup7288GuUajdLCSv5pO7R2
-	 kSgHpehXX7Xd8g8zgYIMfiHSuD4gGtky21mqBucesCeFXSQhZv6jq0uxpvjUO8v6Mkg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795088760;
+	b=PsHX4vSRR9vacFdZdp8kwkGcdIu0mN+oPFfoT7CZ/msNsxxyKZ+hpBMjAPtXjAHgmr13
+	 4WfSHAvQqQAoDbMlZfrZRJ8gW+jaXLkNN6xgoS0nDS9vQlpm/ceMpUT9YsjMuEmvuBGQy
+	 0GeCwGYorXfbYqvdtWyz6l6QUL3OrziaW9wlq1YwxsxHyLB61rdLIKKseUxLvwmVHInlp
+	 quE76VVUhgNS1bWdeWtcj9gnW3KG1JdHxPbZO8+MKQyLfS4q2LTttcJPu5hXJWN3Jk7wU
+	 tqIrjBySbRvQhSN6PzxvYD1QH3zCqUkHjFUMmf53ZIKz/NgBXvQmzi6ZwR2qt2aCgxQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795088760;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=cl2K1V+C1GydrvsfniG7BfW1zVvH/YWUHlDDFm15Zm4=;
+	b=E9j2/fzx+rXoe9oYmTz4avwuBAIqaHZVU+StD2rruAsQnBB2bKGvhK48UY9edOOzywc1
+	 75KFiXJtiDcb7hjVTIp2uBedcDQZav6uICc3C4O3uWGBvZ0u4NetquicjJ/lzzqYb0n9A
+	 hV/0xNrczXpxtNVaVE04S786eC8owrNaC2e2iz4bz7eEjEidW2YxWRIYCoJmT+n/1DgV3
+	 XjB3fn+l1F5imSWFCxXEtPQbMJJ+Dz3IfAkkKR/35bjgNshVe/4YOY/aEhHntF8n2fVWn
+	 LrF1KSftIgjFweiqj8O6QpkAxs2m9YtpwQu80zOpjyIwvKbETVCwBuC8dJ1yDgHqjjw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=os0wq+nK;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RGLaGV0G;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A11AF1F000C5;
-	Thu, 19 Nov 2026 11:45:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795088701;
-	bh=arY3zljhg/9f4oH1J4G/6/OX1UJcdmzYzzT5OdZ4uls=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Kgv2AhfSwmOU7Yy+nVUpf+lY/OX+L/VA3+GLHlizta0KBnV3Y+xToBFKIylVvXvB8
-	 h7IMK04UlRGp43qldUR4oz9hkRzChgwTPXtHOs6AEmecK/cbqc+4gbT51SnAWPikBl
-	 3RG1yJuFaWSlTRe18JpCGQ84AkQw+rkkhMY/c8xoXF9kDxIFZKnFF01j0ateGoqyd1
-	 Eycn+ivn42dmC55TkpwI5xISahyAU4O7OoX173uOc82YDlTX0dHU4EEwR4s/yfPdZk
-	 u7pYOobd1k8kE8+UpFUpGUhNqg2vaMYKMoqp4TVNVwsKqp7fQ0TWZE18eEKFGQB43U
-	 WEGgMIvW81a7g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0467F4B266;
-	Thu, 19 Nov 2026 11:45:00 +0000 (UTC)
-From: Yasunobu Sakashita via B4 Relay <devnull+hi.yasunobu.dev@kernel.org>
-Date: Thu, 19 Nov 2026 20:44:56 +0900
-Subject: [PATCH] media: uvcvideo: Batch StreamCam unlinks on ASUS ASM2142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F20606A324
+	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 11:46:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48F20606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=os0wq+nK;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RGLaGV0G
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AJBjuHe2609138
+	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 11:45:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=cl2K1V+C1GydrvsfniG7Bf
+	W1zVvH/YWUHlDDFm15Zm4=; b=os0wq+nKvUOWxHdg/7HlQyP3T2DhzMkL9h21Zf
+	6FDiIhePHOdDBwsltzVGClNMqFrK3m3uuoMP7Zc8pw2C9fgfojgQVQexpEIf0Mik
+	AzbZCdEsUd7NRDXxlK7TJdIE0ZRm+NkF2N2sRgln2zC8mLJjKPC4nBygTTf13mK7
+	JD5w+uLEjCywqgdbU8Q1J/6SBVx6oxfy8JC7sm5qwKbQbxLKjvFtXLUyAS6q4kKU
+	gP9PobKfUkXfkuk9Zu0gyOGygUfGXtyzWH0MmVlB6VnLsfGKYFYUMP8OafUk6s1m
+	f+KZGfaWZRjLCw7Kdfef+UCLc48LpLYWQVuOVslYgbaBVdqw==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j1gxcv53x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 11:45:59 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b08364cdc7so1956230a91.0
+        for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 03:45:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795088759; x=1795693559; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cl2K1V+C1GydrvsfniG7BfW1zVvH/YWUHlDDFm15Zm4=;
+        b=RGLaGV0G9BqZpfILaO7XjweZ8ZfmP++nY+XetoHBY8vfdcj3Se4BrOww7H8mRSPBt2
+         1zH2rFuu7vydn2nnYARHGylIIvPnRaEWpargcQNvyTMovSpwy9I5v20c913WAwjiOkxn
+         Zx4Ah6rxrsS2jG1SA9ZR+5BdburjFoMkVDXPhR+6a5mOq6qEtEOGRDMFjBUcw4qRxep3
+         rXyswispz/67+pUzRtdHmZpaNddERfy97Lr46B3Ky9GYo4iQmVXe0mAI5sF/41ajEs63
+         ZU3bdZ56+qjTHHwwR4nZhplrgoC5C2zLp8IItySeIYjbvKkcoorazktzlQvMnD2uUkBW
+         RFVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795088759; x=1795693559;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cl2K1V+C1GydrvsfniG7BfW1zVvH/YWUHlDDFm15Zm4=;
+        b=vvQrFua18eFSLGugEq9ajrDfUPGG82xFQn0FAu94bHPKYineose1C2QnEteAf/MOmv
+         ORYOB/vrqf7QxJ/FRZXo8sQyMLwk736kZe0Hxdiq7BczSXhqaMZNXPW7Suh0SXJ1F6iZ
+         9Ln7dwuWHaxMV1qIkp2oFuyx/NxQQ6LrCWo7HSWTHNO8iKskoF9VSEvokQO/tjH8ael4
+         VqgGET2bcsJDtLUAp7owGYifqVrTtoNsJIqGJhA+L8jrGRmsuxhhilteTdO7i0ewACBe
+         +oOpytVlJJwqX2ISZ/LrKcjWuzk58sETs/mNW7YMvIDLxWfOejopfQE3EqIrawHRTZtV
+         gt+Q==
+X-Gm-Message-State: APuU4Z+MOqRRkhsZeFd+f1fr1NVBX0/jP/+BzgD/o8p1SO0E94nvl2Zq
+	FVq05ONJ9jA1ytmD7M2Y2WbSjYWxhhAAuqPAQemvDjvE+YOmLJ+GrWWneZBu8XG+1V8vSGdgIb5
+	xijLAoVmwdvHCnUZepAzHUgs3MW+sHnx7mizl0xjx9f2yy7fUHnwGgE8G/TBkhdBTEg==
+X-Gm-Gg: AZFdTZdj+tGOYGmtv/Ip8o30nH3sMMEHufMdhYOETxalWmmHSkit7VIzFJGik7QFZM3
+	rZ6QNB8DYiRfzkRj+3dQ6TqoHvyXGZ0WbBUQEBRPcuAUWt3RD5fiIWHrZ4/b4jvbWjvAu2OrStP
+	B8QzyM33u9t9zJ8iSN7vBxlspTEbhva8TeQum6mqugH5/FvidPUxoYTWVFjD62i3bSitnJjFPcF
+	7tuDu9TWdrHQpmz+W4PLNqBX+TbCWZnzEw8oGmlRyn/g21d941Q4fmtmCNEtndJlW7QTvd/9+xQ
+	EYhQPhyyClqbahdemN01xPtRAR51ID2WP0v1FZA6gtMFdlPGUqsGNL289u0A/5HbwHv2qdVn98d
+	qhwhLK7x3KwqA4tSZFt/vOxsb3jTwKJCs06OD7qM+xt/3pXwgx8WD550aFDa4x+4hPuvXBmjIkA
+	iMuzBIsD8=
+X-Received: by 2002:a17:90b:3890:b0:3b1:8300:f48e with SMTP id 98e67ed59e1d1-3b3d07b032dmr5632899a91.49.1795088758896;
+        Thu, 19 Nov 2026 03:45:58 -0800 (PST)
+X-Received: by 2002:a17:90b:3890:b0:3b1:8300:f48e with SMTP id 98e67ed59e1d1-3b3d07b032dmr5632867a91.49.1795088758281;
+        Thu, 19 Nov 2026 03:45:58 -0800 (PST)
+Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ecbd0bsm2397030a91.15.2026.11.19.03.45.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 03:45:57 -0800 (PST)
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: [PATCH v3 0/4] media: iris: Fix issues in the driver unbind path
+Date: Thu, 19 Nov 2026 17:15:29 +0530
+Message-Id: <20261119-iris-handle-unbind-v3-0-52d467a13907@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,127 +115,111 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-streamcam-batched-unlink-v1-1-076bc02866c1@yasunobu.dev>
-X-B4-Tracking: v=1; b=H4sIADfh/moC/yWMQQrCMBBFr1Jm7YCJEqhXEReTdGqidpRMWgqld
- zfR5fv89zZQzokVLt0GmZek6S0VzKGDEEnujGmoDPZonTGmRy2ZaQo0oacSIg84yyvJE0d/Jse
- n3lnHUPVP5jGtv/T19med/YNDab328KSMPpOE2CbhtcC+fwGU/I6fkwAAAA==
-X-Change-ID: 20261119-streamcam-batched-unlink-fb4a6e39626e
-To: linux-media@vger.kernel.org
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Mathias Nyman <mathias.nyman@intel.com>, linux-usb@vger.kernel.org, 
- Yasunobu Sakashita <hi@yasunobu.dev>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795088699; l=3387;
- i=hi@yasunobu.dev; s=linux-kernel; h=from:subject:message-id;
- bh=SM/F5q1dd2vyprkfGis4uWr1Bm42nEAIAtBJ4e6DG4M=;
- b=I9BApyP7CrZMcyE67xRmVhF+o4Qfb7NeHa7K21IK2F7ww7GGWsFrDUNCjCZrDlQVuTj6I55uk
- JhUduYDGWayBlHnEU3m24BcDXHfiMspq6gZ7Z1swHNKtiW+VXJqEBFR
-X-Developer-Key: i=hi@yasunobu.dev; a=ed25519;
- pk=QjththR6KbbJLxSuYvQ/eDo4hRrutwL7BdLamwrIW9c=
-X-Endpoint-Received: by B4 Relay for hi@yasunobu.dev/linux-kernel with
- auth_id=1570
-X-Original-From: Yasunobu Sakashita <hi@yasunobu.dev>
-Reply-To: hi@yasunobu.dev
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFnh/moC/22NQQ6CMBBFr2K6tqQtcQKuvIdhAXQqY6DVDhAN4
+ e4W2LqZ5GX+/28RjJGQxfW0iIgzMQWfID+fRNvV/oGSbGJhlAGtdC4pEsv0sT3KyTfkrXSoSih
+ KBChBpOIroqPPPnqvDuapeWI7bktboiMeQ/zu1tlsuUOgtfonmI1UsgB7ceC0xbq4BebsPdV9G
+ 4YhS0dU67r+AFDEpzfNAAAA
+X-Change-ID: 20261013-iris-handle-unbind-fe09689e6696
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Hungyu Lin <dennylin0707@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>, stable@vger.kernel.org,
+        sashiko-bot <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795088753; l=2349;
+ i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
+ bh=/P2Y5/7trPmYQVLg1UXQyZX0w+9QilRr0lKIvkPBL4I=;
+ b=hI5HHtCMwWBWfndFvyi4JmCSexNKPJH8f92JgZvqylo6fwdxs7rwn8DIgeMb5h4Cvy/ieWaEv
+ pRjpuL1CmhUDoN2TZdiEhJqKAOihI4188iUL/VfDrsZubRsC2TSjbn4
+X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
+ pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
+X-Authority-Analysis: v=2.4 cv=LZapeTfi c=1 sm=1 tr=0 ts=6afee177 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=6I88XT8292Qb7oD-W5sA:9
+ a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: YiHhOXxNT1kE66xTcqaQTEK2IhLPtNR8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE5MDA0NiBTYWx0ZWRfX4eKxPhRm/GHQ
+ jfhssUT5Y/9oc+zBUGwBZsDO0zTzUDnmA8yemxnlP3mgP5x8ygbyu1luMPfir2veXIXd5TPNN2M
+ aQR+XzOp21so1xnWpBJpuWgH69sXjgXas5j9VhLcHtTZVskOLXWg6oOUTzgQVIsWUMNa2xb492Q
+ WwxBa9Fgw30Xzvqr5UfWHBYSrqLTeSw1e7nsAu3fuHkIlU93z8alWnUdwBl869sxeddagua6WsO
+ FKn/dBkM58PIK8RjTQ+4xNvL1GN64nczTBdmK9XP7S0a23bMEnU+oENpVjfC56iGigoXFExW369
+ evM5ucf3QNT6gbC4ud7//+wZwD4gJUOdD1rLQGWU3txVinGz8SeYWBRPM5zasxfHSuVdRT4BhCK
+ J6m+J+TiZ7iEC+DNjM2mEIqACPifyRIUBzgr4F9uJeRxNNZVhIfM6Wn7B+UYUb/wSwMt4O0b94R
+ b4Sz7mQz894fQk7hYCw==
+X-Proofpoint-GUID: YiHhOXxNT1kE66xTcqaQTEK2IhLPtNR8
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE5MDA0NiBTYWx0ZWRfX4HrmwWCDr/aj
+ sCbwZZOKpPJmI2tHGxDGB6j86x+u+OyrQABjViqc2Yky3HkBrht3NZ/K4KtioIXeEDOy8YgNT58
+ B9n4DTfikmt7biUiKql64uJajIFVxEo=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-19_03,2026-11-19_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 phishscore=0 priorityscore=1501 suspectscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611190046
 
-From: Yasunobu Sakashita <hi@yasunobu.dev>
+The driver unbind can be triggered through sysfs while a client has a
+video session running. The devm resources are freed when the unbind
+completes. That leads to use after free for the running sessions.
 
-Stopping a SuperSpeed StreamCam can halt xHCI on the ASUS PRIME Z270-A.
-The fifth Stop Endpoint command timed out after an invalid type 15 event.
+The core and its device are now kept allocated until the last file
+descriptor is closed. New sessions are stopped as soon as the removal
+starts.
 
-For the affected StreamCam and ASM2142, block URB resubmission.
-Queue all unlinks before waiting so xHCI can coalesce them.
+The system error work was only cancelled during the removal. An
+interrupt could still arrive afterwards and queue the work again. The
+work is now disabled.
 
-The stock driver reproduced the halt on Ubuntu 6.8.0-149-generic.
-Three FFmpeg 720p MJPEG and audio capture cycles passed with the patch.
+The runtime PM usage count was dropped twice when a resume failed. This
+happens for a command written after runtime PM is disabled. The count
+underflowed. The reference is no longer dropped a second time.
 
-I used Codex to help analyze traces and draft the patch and changelog.
-
-Signed-off-by: Yasunobu Sakashita <hi@yasunobu.dev>
+Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 ---
-Built uvc_video.o on media-committers/next with and without CONFIG_PCI.
----
- drivers/media/usb/uvc/uvc_video.c | 43 ++++++++++++++++++++++++++++++++++-----
- 1 file changed, 38 insertions(+), 5 deletions(-)
+Changes in v3:
+- Ensured that runtime PM references are dropped before driver removal.
+- Dropped the unnecessary interrupt freeing change.
+- Link to v2: https://patch.msgid.link/20261110-iris-handle-unbind-v2-0-86d5f6f1dea8@oss.qualcomm.com
 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index a92a986ab..0ee5a7d17 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -11,6 +11,7 @@
- #include <linux/kernel.h>
- #include <linux/list.h>
- #include <linux/module.h>
-+#include <linux/pci.h>
- #include <linux/slab.h>
- #include <linux/usb.h>
- #include <linux/usb/hcd.h>
-@@ -1885,6 +1886,26 @@ static int uvc_alloc_urb_buffers(struct uvc_streaming *stream,
- 	return 0;
- }
- 
-+static bool uvc_streamcam_batch_unlink(const struct uvc_streaming *stream)
-+{
-+	const struct usb_device *udev = stream->dev->udev;
-+	struct device *controller = udev->bus->controller;
-+	const struct pci_dev *pdev;
-+
-+	if (stream->frozen || udev->state != USB_STATE_CONFIGURED ||
-+	    udev->speed != USB_SPEED_SUPER ||
-+	    le16_to_cpu(udev->descriptor.idVendor) != 0x046d ||
-+	    le16_to_cpu(udev->descriptor.idProduct) != 0x0893 ||
-+	    !controller || !dev_is_pci(controller))
-+		return false;
-+
-+	pdev = to_pci_dev(controller);
-+	return pdev->vendor == PCI_VENDOR_ID_ASMEDIA &&
-+	       pdev->device == 0x2142 &&
-+	       pdev->subsystem_vendor == PCI_VENDOR_ID_ASUSTEK &&
-+	       pdev->subsystem_device == 0x8732 && pdev->revision == 0;
-+}
-+
- /*
-  * Uninitialize isochronous/bulk URBs and free transfer buffers.
-  */
-@@ -1896,12 +1917,24 @@ static void uvc_video_stop_transfer(struct uvc_streaming *stream,
- 	uvc_video_stats_stop(stream);
- 
- 	/*
--	 * We must poison the URBs rather than kill them to ensure that even
--	 * after the completion handler returns, any asynchronous workqueues
--	 * will be prevented from resubmitting the URBs.
-+	 * URBs must stay blocked until the workqueue has been flushed.
-+	 * A completion handler can leave work that tries to resubmit an URB.
- 	 */
--	for_each_uvc_urb(uvc_urb, stream)
--		usb_poison_urb(uvc_urb->urb);
-+	if (uvc_streamcam_batch_unlink(stream)) {
-+		/*
-+		 * usb_block_urb() keeps URBs blocked after usb_kill_urb().
-+		 * Queue unlinks together so xHCI can coalesce them.
-+		 */
-+		for_each_uvc_urb(uvc_urb, stream)
-+			usb_block_urb(uvc_urb->urb);
-+		for_each_uvc_urb(uvc_urb, stream)
-+			usb_unlink_urb(uvc_urb->urb);
-+		for_each_uvc_urb(uvc_urb, stream)
-+			usb_kill_urb(uvc_urb->urb);
-+	} else {
-+		for_each_uvc_urb(uvc_urb, stream)
-+			usb_poison_urb(uvc_urb->urb);
-+	}
- 
- 	flush_workqueue(stream->async_wq);
- 
+Changes in v2:
+- Updated the commit description of patch 3 (Bryan)
+- Split the interrupt freeing into a separate patch (Bryan)
+- Added a new patch to wake up clients blocked on open sessions at removal.
+- Link to v1: https://lore.kernel.org/r/20261017-iris-handle-unbind-v1-0-7809148eb90f@oss.qualcomm.com
 
 ---
-base-commit: aa0f4c41d4870a18e65772a1817af16427200371
-change-id: 20261119-streamcam-batched-unlink-fb4a6e39626e
+Vishnu Reddy (4):
+      media: iris: Fix runtime PM reference imbalance on failed resume
+      media: iris: Disable the system error work on removal
+      media: iris: Fix use-after-free on unbind with open sessions
+      media: iris: Wake up blocked clients when the driver is removed
+
+ drivers/media/platform/qcom/iris/iris_core.c      |  5 ++
+ drivers/media/platform/qcom/iris/iris_core.h      |  4 ++
+ drivers/media/platform/qcom/iris/iris_hfi_queue.c | 20 ++++++-
+ drivers/media/platform/qcom/iris/iris_instance.h  |  2 +
+ drivers/media/platform/qcom/iris/iris_power.c     | 24 ++++++++-
+ drivers/media/platform/qcom/iris/iris_probe.c     | 66 +++++++++++++++++++----
+ drivers/media/platform/qcom/iris/iris_vidc.c      | 20 ++++++-
+ 7 files changed, 127 insertions(+), 14 deletions(-)
+---
+base-commit: e8017d29067fd1310a65c3494ce1a1b492adbac6
+change-id: 20261013-iris-handle-unbind-fe09689e6696
 
 Best regards,
 --  
-Yasunobu Sakashita <hi@yasunobu.dev>
-
+Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
