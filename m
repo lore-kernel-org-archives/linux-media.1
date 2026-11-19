@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102710;
-	b=cO227qVCe0mSqBeYA3+AzPW5Q/Iesm3TiTUAaU83yl+O9ziP/oRpsyBmmqglC1tPL8AI
-	 npQlbAT8Z/PATBJ/RTRva7CqsLIVyBnUoNzG09GjGDIxPey074rU71d+FxtShNkY5LH/7
-	 FSQ378ZD0NCdVn9Xp0Jj3M1XuPpCLU4W8M6c92/ZwIaZMiEvuR7J3EZE6R7niuZxQXQW0
-	 aaaALVceDrGQA6SzP+OBWXBekZ2YamSxy+LTjz30z1jeRjEmPLwa0M1s4LL7ZQwE4nODQ
-	 /Jru0NmEBZ5RpZqrNi2YHLZqCy+AJY4rYKr4wyycJUHJm4Zttc0f+vuFQ9lDxmMJlbA==
+	t=1795102713;
+	b=T6bQbwFLIS5t0Jy9PlYyee6SDncJFHLsVIyZrIdOKd87lq2JH1oEskEa7jIgN3txwvyC
+	 P1fayDBrUxCPH8jIp5aXSo4UeQT0K2r3Yz0A2ry8oL5xsqNAEJLta4u3tud5g5ohXBc/w
+	 cLJgqaTWTtAQfpkP23+ccVGsY6Jw2tFjBvJhb5cF+cjvHHJjaWMxlba8mKGoEXd1Ml5Ou
+	 mbFYSyULEIjkqrmXi1YEV+HAugjbAhtqhbReJ6Na9kJuoqyi60UWWSHI6ISaE8Ykly62w
+	 FuxpiQxtWequad5jkh21LGGFukJcOzMj0YlqqU6TSmbNzR/PQtFO5PhyjIPNZT6ndHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102710;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102713;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=FbNtF5FHv0WDrkyvzCRlU8lR54qdI/EjpcFZPVsY40I=;
-	b=uP1fE/w8hZ2+1WN6Z8daVtPFlQWDmX9e70/eSj76NCKkomM1XvIbCTitrB0nh49K0Afk
-	 GBpIhmmSSwhwBr1+nRLxyk6RrHvfGqyQOmh+8sA5iz5IzvGh7QfAD572tfP9w8YofB2nN
-	 gP+eyPiXXc27Q2N1jh3pEsy04beZMa0Y/38PJJ5hfEIlEEO7M1U4KxuBzkAS2M4NMPYr+
-	 mYJmTRP4fVsN7FCJIfe0nO2Fo6tY/+iMOH7vNT13zwg2sSZl+M8PFDw+Pe3eZ+FBPj0gk
-	 +4NeYpVUfjSjnpbSmMdSde5mgRtRiQm4P267FoYXGteHMIhmoNRrq2EwvbmdatWHpzQ==
+	bh=YXqd8tbtiVidGHxnazqMDUeGgcKxK/6kHEi2ab2RrA8=;
+	b=YAP/CXC2PB2/ZCHhCrHCuDJ2FIWsJWLKGVcoZv7M0kQvMAqIDG3aeVwv13MfkA20kJk0
+	 nnK01AJ+ZHMVdJ4A9ZEzIwwBxpqliB90MKFeZGKYzEdzBpIqsJXIUsshgzAG1qmA8BTQ3
+	 hBeuNNiyCv1ZhEPo6cZX4/OofHntwLI0HV5AbdsYuMHFsIonUhy+D0gZaJJj8NHQ7OlJ1
+	 jr8bUONK1NbJnBNkUlY3lHiXC4ozmYmNLjKBzUB594nDYt6buBaIaGsreGUB2glQtD1kM
+	 EfmEoZGy+mnkm4nflahRE8aCw40qN5FHCtp4GePujhPuJEkCFqaUDmF4+kT5/z2jeaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AfsRJles;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vEjFMJej;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B66A960A3806;
-	Thu, 19 Nov 2026 15:38:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B66A960A3806
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 453E5606A32F;
+	Thu, 19 Nov 2026 15:38:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 453E5606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AfsRJles
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vEjFMJej
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 449A21C14;
-	Thu, 19 Nov 2026 07:38:26 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EFF7F1C01;
+	Thu, 19 Nov 2026 07:38:29 -0800 (PST)
 Received: from e140322.cambridge.arm.com (e140322.arm.com [10.2.201.43])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AE9EF3F882;
-	Thu, 19 Nov 2026 07:38:27 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 64B633F882;
+	Thu, 19 Nov 2026 07:38:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795102709; bh=YMlizsyPF1bk+1wbvFmQX9WCN/mxHD2ZAOrHcc8o77A=;
+	t=1795102712; bh=Spd4kpPtZmPnCsBLnHjpSSENlbzTiFUN4cZdmg12lDM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=AfsRJlesKpvbtyIDwYlbjIwmMu2rIriBk5WtmvbElG+2lVRKCuQ7tVL4UggJBhDN/
-	 jYFLPLZhILu15KnOWCokFTgBSsnbNVt5u2Dz5Xnkb53qeqSiYZszsa1XsI0EmstlZI
-	 NBZ7aMXE8QoRaz/h/ggoNI74bYpxIYXDO7u5xNeM=
+	b=vEjFMJejC63u86kDeyDXUqXV0X8PPzoTqX2DfOvcixEeIhSawwN1ZivIPzju0TPJm
+	 lQyRhXUlOYOiFso2raGjfICx/RR3X93wa40RNH1+PlE8sGcR1MyktSx+OjvFAP/whS
+	 l8/4XLgJK9HIwPpo2hAyZFk9/heGMFga6cavZ2p0=
 From: Charvi Mehta <charvi.mehta@arm.com>
 To: linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
@@ -55,9 +55,9 @@ Cc: Charvi Mehta <charvi.mehta@arm.com>,
 	Vincenzo Frascino <vincenzo.frascino@arm.com>,
 	Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
 	Shobhit Pandey <shobhit.pandey@arm.com>
-Subject: [RFC PATCH 01/28] dt-bindings: media: add Arm Mali-V76 VPU
-Date: Thu, 19 Nov 2026 15:37:31 +0000
-Message-ID: <20261119153758.1426673-2-charvi.mehta@arm.com>
+Subject: [RFC PATCH 03/28] media: mali-vpu: register V4L2 decoder device and add querycap ioctl
+Date: Thu, 19 Nov 2026 15:37:33 +0000
+Message-ID: <20261119153758.1426673-4-charvi.mehta@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261119153758.1426673-1-charvi.mehta@arm.com>
 References: <20261119153758.1426673-1-charvi.mehta@arm.com>
@@ -72,91 +72,338 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add devicetree binding for the Arm Mali-V76 video processing unit,
-a hardware accelerator for video encoding and decoding.
+Register a V4L2 M2M decoder video device for the Mali VPU.
+Add open and release file operations that allocate a per-file session.
+
+Implement VIDIOC_QUERYCAP to report the driver and decoder identity.
 
 Signed-off-by: Charvi Mehta <charvi.mehta@arm.com>
 ---
- .../bindings/media/arm,mali-v76.yaml          | 70 +++++++++++++++++++
- 1 file changed, 70 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/arm,mali-v76.yaml
+ drivers/media/platform/arm/mali-vpu/Kconfig   |  1 +
+ drivers/media/platform/arm/mali-vpu/Makefile  |  3 +-
+ .../platform/arm/mali-vpu/mali-vpu-device.h   | 15 ++++
+ .../platform/arm/mali-vpu/mali-vpu-probe.c    | 59 +++++++++++++-
+ .../platform/arm/mali-vpu/mali-vpu-session.h  | 26 +++++++
+ .../platform/arm/mali-vpu/mali-vpu-vidioc.c   | 78 +++++++++++++++++++
+ .../platform/arm/mali-vpu/mali-vpu-vidioc.h   | 15 ++++
+ 7 files changed, 195 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
+ create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+ create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.h
 
-diff --git a/Documentation/devicetree/bindings/media/arm,mali-v76.yaml b/Documentation/devicetree/bindings/media/arm,mali-v76.yaml
+diff --git a/drivers/media/platform/arm/mali-vpu/Kconfig b/drivers/media/platform/arm/mali-vpu/Kconfig
+index 86403d7f424f9..d98872f2b7ec0 100644
+--- a/drivers/media/platform/arm/mali-vpu/Kconfig
++++ b/drivers/media/platform/arm/mali-vpu/Kconfig
+@@ -1,6 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ config VIDEO_MALI_VPU
+ 	tristate "ARM Mali VPU driver"
++	depends on V4L_MEM2MEM_DRIVERS
+ 	depends on VIDEO_DEV
+ 	depends on !CPU_BIG_ENDIAN
+ 	help
+diff --git a/drivers/media/platform/arm/mali-vpu/Makefile b/drivers/media/platform/arm/mali-vpu/Makefile
+index 22acf82e99a88..e659101bd0eac 100644
+--- a/drivers/media/platform/arm/mali-vpu/Makefile
++++ b/drivers/media/platform/arm/mali-vpu/Makefile
+@@ -1,6 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ 
+ mali-vpu-objs := mali-vpu-probe.o \
+-		mali-vpu-variant-v76.o
++		mali-vpu-variant-v76.o \
++		mali-vpu-vidioc.o
+ 
+ obj-$(CONFIG_VIDEO_MALI_VPU) += mali-vpu.o
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
+index 04160090e64df..d9b0801cbb520 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
+@@ -7,11 +7,22 @@
+ #define __MALI_VPU_DEVICE_H__
+ 
+ #include <linux/device.h>
++#include <media/v4l2-device.h>
++
++#define MALI_VPU_DRV_NAME "mali-vpu"
+ 
+ struct clk_bulk_data;
+ struct mali_vpu_variant;
+ struct reset_control_bulk_data;
+ 
++/**
++ * enum mali_vpu_session_role - Mali VPU session role
++ * @MALI_VPU_DECODER: Video decoding session
++ */
++enum mali_vpu_session_role {
++	MALI_VPU_DECODER = 0,
++};
++
+ /**
+  * struct mali_vpu_dev - Mali VPU device
+  * @dev: Reference to device structure.
+@@ -22,6 +33,8 @@ struct reset_control_bulk_data;
+  * @rst_count: Number of reset controls in @rst_list.
+  * @irq: IRQ number for VPU.
+  * @variant: Structure describing variant-specific features and capabilities.
++ * @v4l2_dev: V4L2 device structure for mali vpu.
++ * @vdev_dec: Video device structure for decoder.
+  */
+ struct mali_vpu_dev {
+ 	struct device			*dev;
+@@ -33,6 +46,8 @@ struct mali_vpu_dev {
+ 	int				irq;
+ 
+ 	const struct mali_vpu_variant	*variant;
++	struct v4l2_device		v4l2_dev;
++	struct video_device		*vdev_dec;
+ };
+ 
+ #endif /* __MALI_VPU_DEVICE_H__ */
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
+index 49ecd6ac4554c..6d21cb731ee1d 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
+@@ -15,10 +15,14 @@
+ #include <linux/platform_device.h>
+ #include <linux/reset.h>
+ #include <linux/slab.h>
++#include <linux/string.h>
++#include <media/v4l2-dev.h>
++#include <media/v4l2-device.h>
+ 
+ #include "mali-vpu-device.h"
+ #include "mali-vpu-registers.h"
+ #include "mali-vpu-variant.h"
++#include "mali-vpu-vidioc.h"
+ 
+ /* VPU register access helpers */
+ static u32 mali_vpu_read_reg(void __iomem *regs_base, u32 off)
+@@ -119,6 +123,44 @@ static int mali_vpu_get_resources(struct mali_vpu_dev *vpu_dev)
+ 	return mali_vpu_get_resets(vpu_dev);
+ }
+ 
++static int mali_vpu_register_video_device(struct mali_vpu_dev *vpu_dev,
++					  enum mali_vpu_session_role role)
++{
++	struct video_device *vdev;
++	int ret;
++
++	vdev = video_device_alloc();
++	if (!vdev)
++		return -ENOMEM;
++
++	vdev->release		= video_device_release;
++	vdev->fops		= &mali_vpu_fops;
++	vdev->vfl_dir		= VFL_DIR_M2M;
++	vdev->v4l2_dev		= &vpu_dev->v4l2_dev;
++	vdev->device_caps	= V4L2_CAP_VIDEO_M2M_MPLANE | V4L2_CAP_STREAMING;
++
++	if (role == MALI_VPU_DECODER) {
++		strscpy(vdev->name, "mali-vpu-decoder", sizeof(vdev->name));
++		vdev->ioctl_ops		= &mali_vpu_ioctl_ops_dec;
++		vpu_dev->vdev_dec	= vdev;
++	} else {
++		ret = -EINVAL;
++		goto err_vdev_release;
++	}
++
++	video_set_drvdata(vdev, vpu_dev);
++
++	ret = video_register_device(vdev, VFL_TYPE_VIDEO, -1);
++	if (ret)
++		goto err_vdev_release;
++
++	return 0;
++
++err_vdev_release:
++	video_device_release(vdev);
++	return ret;
++}
++
+ static int mali_vpu_probe(struct platform_device *pdev)
+ {
+ 	struct mali_vpu_dev *vpu_dev;
+@@ -170,10 +212,22 @@ static int mali_vpu_probe(struct platform_device *pdev)
+ 		goto err_rst_clk;
+ 	}
+ 
++	ret = v4l2_device_register(&pdev->dev, &vpu_dev->v4l2_dev);
++	if (ret) {
++		dev_err(vpu_dev->dev, "failed to register V4L2 device\n");
++		goto err_rst_clk;
++	}
++
++	ret = mali_vpu_register_video_device(vpu_dev, MALI_VPU_DECODER);
++	if (ret)
++		goto err_unreg_v4l2;
++
+ 	platform_set_drvdata(pdev, vpu_dev);
+ 
+ 	return 0;
+ 
++err_unreg_v4l2:
++	v4l2_device_unregister(&vpu_dev->v4l2_dev);
+ err_rst_clk:
+ 	mali_vpu_assert_reset(vpu_dev);
+ err_clk:
+@@ -186,6 +240,9 @@ static void mali_vpu_remove(struct platform_device *pdev)
+ {
+ 	struct mali_vpu_dev *vpu_dev = platform_get_drvdata(pdev);
+ 
++	video_unregister_device(vpu_dev->vdev_dec);
++	v4l2_device_unregister(&vpu_dev->v4l2_dev);
++
+ 	mali_vpu_assert_reset(vpu_dev);
+ 	mali_vpu_disable_clk(vpu_dev);
+ 
+@@ -205,7 +262,7 @@ static struct platform_driver mali_vpu_driver = {
+ 	.probe = mali_vpu_probe,
+ 	.remove = mali_vpu_remove,
+ 	.driver = {
+-		.name = "mali-vpu",
++		.name = MALI_VPU_DRV_NAME,
+ 		.of_match_table = mali_vpu_dt_match,
+ 	},
+ };
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
 new file mode 100644
-index 0000000000000..2ac4934ddaf4d
+index 0000000000000..7166c53236f1a
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/media/arm,mali-v76.yaml
-@@ -0,0 +1,70 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/arm,mali-v76.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
+@@ -0,0 +1,26 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2026 ARM Limited.
++ */
 +
-+title: ARM Mali-V76 Video Processing Unit
++#ifndef __MALI_VPU_SESSION_H__
++#define __MALI_VPU_SESSION_H__
 +
-+maintainers:
-+  - Charvi Mehta <charvi.mehta@arm.com>
++#include <media/v4l2-fh.h>
 +
-+description:
-+  The ARM Mali-V76 VPU is a hardware accelerator for video encoding and
-+  decoding present on ARM platforms.
++#include "mali-vpu-device.h"
 +
-+properties:
-+  compatible:
-+    const: arm,mali-v76
++/**
++ * struct mali_vpu_session - holds per session state and resources.
++ * @vpu_dev: Reference to the parent device structure.
++ * @role: Role of this session.
++ * @fh: V4L2 file handle for this session.
++ */
++struct mali_vpu_session {
++	struct mali_vpu_dev		*vpu_dev;
++	enum mali_vpu_session_role	role;
 +
-+  reg:
-+    maxItems: 1
++	struct v4l2_fh		fh;
++};
 +
-+  interrupts:
-+    maxItems: 1
++#endif /* __MALI_VPU_SESSION_H__ */
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+new file mode 100644
+index 0000000000000..7a169b7b14bf3
+--- /dev/null
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+@@ -0,0 +1,78 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2026 ARM Limited.
++ */
 +
-+  clocks:
-+    items:
-+      - description: VPU core clock
++#include <linux/errno.h>
++#include <linux/module.h>
++#include <linux/slab.h>
++#include <linux/string.h>
++#include <media/v4l2-dev.h>
++#include <media/v4l2-fh.h>
++#include <media/v4l2-ioctl.h>
 +
-+  clock-names:
-+    items:
-+      - const: core
++#include "mali-vpu-session.h"
++#include "mali-vpu-vidioc.h"
 +
-+  resets:
-+    description:
-+      Optional VPU warm reset control. Platforms without this control must
-+      ensure that the VPU is released from external reset before the driver
-+      accesses it. The driver performs initialization and recovery resets
-+      through the VPU's software reset register.
-+    items:
-+      - description: VPU warm reset
++static int mali_vpu_open(struct file *filp)
++{
++	struct video_device *vdev	= video_devdata(filp);
++	struct mali_vpu_dev *vpu_dev	= video_drvdata(filp);
++	struct mali_vpu_session *sess;
++	int ret;
 +
-+  reset-names:
-+    items:
-+      - const: warm
++	sess = kzalloc_obj(*sess);
++	if (!sess)
++		return -ENOMEM;
 +
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
++	if (vdev == vpu_dev->vdev_dec) {
++		sess->role = MALI_VPU_DECODER;
++	} else {
++		ret = -EINVAL;
++		goto err_free_sess;
++	}
 +
-+dependencies:
-+  resets: [ reset-names ]
-+  reset-names: [ resets ]
++	sess->vpu_dev = vpu_dev;
 +
-+additionalProperties: false
++	v4l2_fh_init(&sess->fh, vdev);
++	v4l2_fh_add(&sess->fh, filp);
 +
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
++	return 0;
 +
-+    mali_v76: video-codec@6f030000 {
-+        compatible = "arm,mali-v76";
-+        reg = <0x6f030000 0x300>;
-+        interrupts = <GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&clock 0>;
-+        clock-names = "core";
-+    };
++err_free_sess:
++	kfree(sess);
++	return ret;
++}
++
++static int mali_vpu_release(struct file *filp)
++{
++	struct mali_vpu_session *sess = container_of(file_to_v4l2_fh(filp),
++						     struct mali_vpu_session, fh);
++
++	v4l2_fh_del(&sess->fh, filp);
++	v4l2_fh_exit(&sess->fh);
++	kfree(sess);
++	return 0;
++}
++
++const struct v4l2_file_operations mali_vpu_fops = {
++	.owner		= THIS_MODULE,
++	.open		= mali_vpu_open,
++	.release	= mali_vpu_release,
++	.unlocked_ioctl = video_ioctl2,
++};
++
++static int mali_vpu_querycap(struct file *filp, void *fh,
++			     struct v4l2_capability *cap)
++{
++	struct video_device *vdev = video_devdata(filp);
++
++	strscpy(cap->driver, MALI_VPU_DRV_NAME, sizeof(cap->driver));
++	strscpy(cap->card, vdev->name, sizeof(cap->card));
++
++	return 0;
++}
++
++const struct v4l2_ioctl_ops mali_vpu_ioctl_ops_dec = {
++	.vidioc_querycap = mali_vpu_querycap,
++};
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.h
+new file mode 100644
+index 0000000000000..e1aedea5bbcb6
+--- /dev/null
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2026 ARM Limited.
++ */
++
++#ifndef __MALI_VPU_VIDIOC_H__
++#define __MALI_VPU_VIDIOC_H__
++
++struct v4l2_file_operations;
++struct v4l2_ioctl_ops;
++
++extern const struct v4l2_file_operations mali_vpu_fops;
++extern const struct v4l2_ioctl_ops mali_vpu_ioctl_ops_dec;
++
++#endif /* __MALI_VPU_VIDIOC_H__ */
 -- 
 2.43.0
 
