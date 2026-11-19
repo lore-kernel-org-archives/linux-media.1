@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795081888;
-	b=RWajoxFEiJUR5u9eQ8Pkl2p1/KY7eHVpZvEdKJYIoQ91RBXkbIKOeNSmXkDdHrYPN2Os
-	 1YLfYQC54lkxP+SXUARq9RFuwNv+FD+Ok3jFNswI3iEccDWh5ndRrK6KIokEpzc8RaGHL
-	 DAlhxg64ObhlEg5izscHlu5I04BLVs5wqu3cbQev0JYFccKBSsOiTjFxJ3t7mT/L9jXlf
-	 Y6/xrpxSxdQM+e4uPqP26Ogcin7de0YBUykLKApv9Kq2LMdNZi/sfE18QWvspQrQkErjD
-	 vx4sE+reBQoA2WLosOez0vpqM8mcMmH3O5/LKJhnqqgqz0huMXIk63ZrdY+JY+er9pw==
+	b=uxxiZymVZk8CCd+/NVI70uAhFhIXOlkAetTCCUAInrQU6PC5+7aSISt50bDRlNslHepG
+	 v8NCy0T7BOyzLQgGBuY2QoTdLD5zjqhR+Yefno8yrICYXyLIIMyQdUy/BmCYicLxLO6m+
+	 JCokmEa45mmzK9qp6Zy+kRbQ838/OwyizHSJG5eLP3C80i93OTPHfD5EKROCkDz1P/x3O
+	 BgzQp5xM4y3gVdrc56udY5w+1Tbd2xYRbDz38tMD4WEwE/056YCZE/8Vu8/yxW1cVyRon
+	 ctFXYzAEV/pA79/Q0eBU8pU5NErJ1ANl05lpzXxUto3RVypPq1f1Be3OOzhsWtazhcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795081888;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=aoPl+pQm9ZHcIGL4Om5Oc2NfD/t8KVMY3eNtZkgFANg=;
-	b=cAr/Za1Ns0VRMlxAlvMOOCMeCuFdqtG0MhtZAoZy1aYoNMpaM+Zpy1jOxC79O6JgT32d
-	 5jU7b/xIdULHr6WimtdQWr4KXn3Cu99739pS6Vy/WqyXaj4Kl+VAjhQC4LGbWtRt2YM4e
-	 QrbMkIaH2EBtZFnvvtaH3Gznji34U7FxUlZVLSplMN/IQ7XHAV53yeIdPYgd1gyTS6Mcq
-	 YCwNGghK/BtyD/9o41bc9sf8NXQH38o1t3QgKCm3ibMQ56V4dYjDqolnic3LcxStjEzux
-	 kl0jc/KSOKyIhbytbs2QMXsFq2cYY4xalIusXies/SuKO8z810o9CfXN9xZiF+jTqWw==
+	bh=miRDDdwyAGE8kK5Ez7Kp3L+1oDitSC4QAxpqcs7Tz2Y=;
+	b=ItU+7axPSYxtFkhgdAAXHD2GqBPqnkItMDRkQX1zAvxKk/5TYgc9GM1lFCVjQ9RqdzX7
+	 14IrAooAhdxiPIZcGkuhk+4wrQsCU/l6EW+Hokz7npy4vY6Ej0gwDkDSeCSQzz35lSK9S
+	 vNUO5frwmIOzRz5YVWHlL9QJ3iG8x5Gv44+xyiUJcBi1sebby0GXawVPwkme6SPRfkGEA
+	 /T51/Yumj3xx7skBlpvdQzgBtpZjj9aHSKOeGV9abnLts950mi82PBZ7ZQRYNEct8Zeo0
+	 6tGBHyrwPMWU3n4TQBa4C3sRK3dVtYeEOjEmd/dQ4y4IHHwjqTJtg2KRHvSrzDjtgBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=fairphone.com;
 	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=FWeDOLMX;
-	arc=none smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=l7wB9BRn;
+	arc=none smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7FA606A33C
-	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 09:51:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA7FA606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE0E606A332
+	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 09:51:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AE0E606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=FWeDOLMX
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4d21051042so339619166b.0
-        for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 01:51:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=l7wB9BRn
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c4322d310e7so322106466b.0
+        for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 01:51:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1795081886; x=1795686686; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aoPl+pQm9ZHcIGL4Om5Oc2NfD/t8KVMY3eNtZkgFANg=;
-        b=FWeDOLMX7eEjKZwV4FINw51BroOkvQE1Ee9sZMTI7oinGpI5vzMgLfaFEliLunRZ+c
-         2abObKZcLrZs1rxgD6kcSoL9855bUYx56B+1LZTacZFu7FtJwPYl/HUTMVqtLE27OWll
-         Xx90WS26Pw5KnX88ygisBJfnAWsBm8iXpSPPRQfOymrbM3MpoJvIGpuLSjo2LhTGxoXQ
-         cz7gzYjpu0HH7cP3ppKGKb7iu25zHGXZm5UcBFhQLt7VqBgAFN+Rg8Sa7xjSZCqm7UQo
-         t59bB+tXUhLXJgF3N/RmBLs6Y1Lm/RzP9dHvJBkZpUi6PXF/RgdF+Qf8SRcixWpgNXxo
-         ptiQ==
+        d=fairphone.com; s=fair; t=1795081885; x=1795686685; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=miRDDdwyAGE8kK5Ez7Kp3L+1oDitSC4QAxpqcs7Tz2Y=;
+        b=l7wB9BRnTpdVrHTtVNpulXaVzZZHz6U0HuTknPXZVuTgOLrpMZpuTfeBxyjqSwb0tI
+         GNjAkko0T7ZxjVCK5YCtczM2UtvTiM4s7l+wjN8k6ILeocUzluTGQ6P3rtBgwSqggYuX
+         gDevutH0FgjNuV2e8KrvSlKjh51cAH2D3jhc9ESCA1Zv6tkmPdBtuMRbzGb5sipFfzFA
+         evq/DPfcVTz6zaLU3IUoWffhlZMdiFIGzQ9MigleadceW5hoHZZXkNSUpAIygk+HccUu
+         2vJ+aS8wrqPL5OASX02/0RmXn/OyzrgfAVw2F96Trtr6UVe+l5W4VEuH04ypy1pMzWg7
+         aL4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795081886; x=1795686686;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aoPl+pQm9ZHcIGL4Om5Oc2NfD/t8KVMY3eNtZkgFANg=;
-        b=mn4U6a4mU2SSQLKzPcPcAPt99/FdB0xm7dF35hIiZlTdzHJkXqidzJbXEJLL9Ht3Iz
-         Sl/K6E0n5lSpXiAU+GbRV1PCw1pQAfgWmcQhVmwxwfrEmJm9vdk0pjLdyyDjU3iNBQXm
-         NGl3fcCZTcFjEyn+365iQJ+yO/y4fnnnRtpb0fbqBdICw2X8EXeweteFEWookaHogm1x
-         LCeO8hdSizLFjjRnXQah4pQKfZ0krYJ0MIYMGOVnYvAQeuqv6oH23X/bLawXV20qWgmv
-         XXhgkjYlN63WLIczA6quDsOpsYjL8ksPzSEs5FgCGXUgN35ERM17ei6qt2ZiewUjAS1h
-         v2wg==
-X-Gm-Message-State: APuU4Z/04jyyplfJif1hIWcEeffGpTAj2aY1A7tk8y5hxGTcBgE3l+qg
-	Qs4Jhan1WSj2wIWk7jdGxNOQMUxN9AFmjZYfAsBnKwPInloQyynSvTqjx21ygKRDs9k=
-X-Gm-Gg: AYBFou0XAcQ8bno4vZ0HAHq2jn99+KEpNx0aTMWEl2/yw9gM4KtR1FP4cz6Q/qEUKAS
-	LCovcxN5JeDFq28KP4XgSvvWCcWodpG0IoAdM5zWStoP5J+VBJzDjgXlFWrqzcVLy9ha3sQvcIK
-	ZeDFfLjMXJkKDzSTdqvj49VNOlIRp0M80iH+ZRKSez6uxvy7YgPyB8cfcrTsieKLP0q4HJUeGD+
-	efN0bYn6hOGk+cmI1O0Qc+hfc51ps4oLX66e2yLSDcw435CaWqD5qUUOgmJvJGui7Q7p7AiMhFD
-	HZ/k0yhsaJMQDbdwioSD928R/DivkgZX/IGDGMwtWE4Ac5F/tavN3Vqnpw+dhnECufpkOwU/x4k
-	XZR6nfmURQG0YsqjPEnO6eHtlftkvUGIIRN7ZZ89HhBAcANPXasydoEEQwmWbi1LoxPPqtiNRHM
-	TQOu0xZi5Xb9JqEJjpT1UQjai3vNusl+vVqJs1cDquZ+gQUtGSjnu7Vm8Z1E3IIwEu8Vl8ITjB1
-	a+xRqkwy131q+20HlV7rFrAnSrRKmhuP8PblCAzpQxojCRIu6L7AAjlEx9FN4MTk9uCFzkod+Dp
-	AOMDDP4UNuEC6Cb8x+2JTdKf5J9tT0D4UxkFu0J4c9OUodMmafABfovTBSeVNU+OcgXzD6ELIW3
-	TM+0OKJjaOXI=
-X-Received: by 2002:a17:906:8f8a:b0:c50:5996:5b89 with SMTP id a640c23a62f3a-c510e219138mr480420266b.23.1795081886208;
-        Thu, 19 Nov 2026 01:51:26 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795081885; x=1795686685;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=miRDDdwyAGE8kK5Ez7Kp3L+1oDitSC4QAxpqcs7Tz2Y=;
+        b=HSi+3VNO4maK4pNBcDcqaLu9/meyFhAeihv0dMo4alx8rmTdPBrfTNC0dG9VeXzIfY
+         htI0/OdhY9VieZjGSrQwZsxf+ezIQtOLukHiPOhZnhm4Do6BiIbFQN9JaRGd981qba5z
+         f18TUJWjFEjmdixtMyXP0s+npwcdtTUAWLSyPWkp7iTLDTFuDvD53t7LxqEOPo1xC9l+
+         WIDLmO061JnOy2EvVmkdnB6AHF6VKdMED6mRInOhdskfB/AssjA080S2Tcbujhdrgd1k
+         pNPpkioLDLoUtvG3TfeRdQER0fFdEXSVNnXnh4Dul5qKmYRR7ujtJnxXywtBCi+XMesl
+         p3VQ==
+X-Gm-Message-State: APuU4Z9+vN5Jgz6/EoB1Y7TnVJ1FtLudKmmWlbJwjH35g1VaumURCviT
+	gvro65kAeIDRUS8mQ0z68bTvbxC69btUNoQ3hOwBPrZzG763yeNeZX1PX7+eiwW+P0I=
+X-Gm-Gg: AYBFou2rkAcMO3xRgmiSK+LLTPVSeH4AgzGd5lief65aq3w8knMr6vOtrlNPBYoGGzP
+	24nHrenn9AV6q0Gmmco1YuM33xQZ8Ld5RvwBjtI+pIZPce9YUl6vm3NKJB7P0JRVH7MkvBR+p1u
+	Hbr7mmzGe0hG7wvhCIxJT5VsIg42fVkP4Q8FsU9nmvpsvfSwpxoeDacsTzLc+iHlva2VNGVkfaV
+	YsRsaRHk9iRZLzZSI3lhtjtN6KlqZD2Agc2mpZTVKfloN45XiRSEG4wZUJVkyAnCTs5CTNxfbnE
+	TcHVq+tHrZDRe0SCnmpj3JylsG1KoZm3Lel91D9XOJ6XW0XYTfA7mK9dpqxoXZUNrkx062433Cj
+	xX+aU+2IuftWtw84fOEJs9Th2+dcdXlFqpuAiyPrly9E3wqJBt++2qEwgqKvIZnGEMWgNQkvPdv
+	QbD4IKnSXw2D2/zwsG02WqDURDg583KGsxCx3OwBAPyd/nfPALSKSWyoFra/NksPWfFAJKFuJMC
+	NCtywlfJ0yruNd27iQ4ob648il5+xStMIkEgxUtV326I/bk8A0OULYomfe56s3DymJWl/FRbvto
+	Tbuv7AFoDzPCvk/y2KbLTGt0ohDAQ3E8AM5CzoD5QjtYdp/Ao5C3esO0eGRfQd4wwHuSY8riDfm
+	GLDcmMqmDVKE=
+X-Received: by 2002:a17:907:6d13:b0:c50:4983:5d8c with SMTP id a640c23a62f3a-c510e4c7dc5mr462265166b.34.1795081884916;
+        Thu, 19 Nov 2026 01:51:24 -0800 (PST)
 Received: from [172.16.220.224] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c51231bc213sm95057166b.12.2026.11.19.01.51.25
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c51231bc213sm95057166b.12.2026.11.19.01.51.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 01:51:25 -0800 (PST)
+        Thu, 19 Nov 2026 01:51:24 -0800 (PST)
 From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Date: Thu, 19 Nov 2026 10:51:24 +0100
-Subject: [PATCH v4 2/3] media: i2c: dw9719: Update DW9800K driver
+Subject: [PATCH v4 0/3] Dongwoon DW9800K update patchset
+Date: Thu, 19 Nov 2026 10:51:22 +0100
+Message-Id: <20261119-b4-dw9800k_cleanup-v4-0-df26c431595e@fairphone.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -94,9 +94,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261119-b4-dw9800k_cleanup-v4-2-df26c431595e@fairphone.com>
-References: <20261119-b4-dw9800k_cleanup-v4-0-df26c431595e@fairphone.com>
-In-Reply-To: <20261119-b4-dw9800k_cleanup-v4-0-df26c431595e@fairphone.com>
+X-B4-Tracking: v=1; b=H4sIAJrG/moC/22Q3W7CMAyFX6XK9YKcv5b2au+BEHKDWbNB2yVt2
+ IR4dxIquEDIV0c+/o7tCwvkHQXWFBfmKbrghj4J/VEw22H/Rdztk2YSZAm1AN5qvj/Xa4CfnT0
+ S9vPIoa2xQiNI6JqlwdHTwf3doZvtosPcfpOdMik7Ohemwf/fU6PMvkeAfhcQJQdeGqNkpRBRq
+ c8DOj92Q08rO5xYDonqiRECzFuMypi1AaISTapXzHVZ1tPvnB4xLRewFgPx1D+5qSlitdLcW5X
+ M1xuAQwriPQEAAA==
+X-Change-ID: 20260910-b4-dw9800k_cleanup-0b9a7a51e149
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
@@ -111,158 +114,56 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  stable@vger.kernel.org, Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795081884; l=4881;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795081884; l=1866;
  i=griffin.kroah@fairphone.com; s=20250804; h=from:subject:message-id;
- bh=rR/uSR6FC+oVbJMW9ps010sQx6WkZ4oy9AD9qxw5jIE=;
- b=DpULb/h5PTjtt0PSNy9pvRAVvuv7bvSa72vNW3KbU0KgiLkAHuEv4Rb0KyCk+pu/EvcwbJdA3
- O/gw60nW0FnAalBove+6U/7ZUom1QfXUT9S/FbndkUbJ1m9rJ0XfkoY
+ bh=wt4hIVeK/o47k3U4oT+VKM8Utd3/8tsRODOOzKhUBVQ=;
+ b=Z9r7Y/VSolQbt86bB4HMFdlXQsAfQN7L4Y900nrfMljELYc1gQAUGiXcH6vqhfusGhM0t6Fif
+ uSkXV6JjcHdBe9nTaPUETQrlFLuv1Rj4mEt5uhAUjdQzAYpB1bJR6hp
 X-Developer-Key: i=griffin.kroah@fairphone.com; a=ed25519;
  pk=drSBvqKFiR+xucmLWONHSq/wGrW+YvcVtBXFYnYzn8U=
 
-The previous DW9800K driver code was created without access to a
-datasheet for the part, now that we have one we can clean up some
-misunderstandings and add some features for further expandability.
+This patchset edits the dw9800k driver and related files, to properly
+match previously mismatched register writes, variables, and logic now
+that we have the datasheet for the dongwoon dw98900k.
 
-More specifically:
+This is a breaking change, but is necessary to ensure proper bindings
+and driver behavior. The previous naive approach did not ensure proper
+functionality with different device tree properties.
 
-Previously we were blindly writing registers to their downstream values,
-Now we know what the correct default values of SAC and SACT, and write
-to the correct bits as specified from the datasheet.
-
-We found that the device does indeed have an ID, and add it to the
-switch statement when setting up the default device properties.
-
-The largest change would be the implementation of "Ringing," this is
-actually an internal switch bit used to differentiate whether the SAC
-(smart actuator control) modes are enabled. if the "ringing" bit is
-zero, then actuator modes DIRECT and LSC are available(based on the
-value written to the Mode register). If the bit is 1, SAC2-SAC5 are
-available.
-
-For the devices we tested this driver on, no new values are being
-written, but now the option for further use of the DW9800k is available
-to others if they wish to do so.
-
-Fixes: 083f7f0dce16 ("media: i2c: dw9719: Add DW9800K support")
 Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 ---
- drivers/media/i2c/dw9719.c | 68 +++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 58 insertions(+), 10 deletions(-)
+Changes in v4:
+- Fix typo in dtb example.
+- Fix build error in switch statement case
+- Link to v3: https://lore.kernel.org/r/20261105-b4-dw9800k_cleanup-v3-0-6850ee6a5a5a@fairphone.com
 
-diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
-index 3b7ba88fd67c044ef9005a0aac6a5d26ab939a90..2879dc99088005cba2567b2a73627c91c270906b 100644
---- a/drivers/media/i2c/dw9719.c
-+++ b/drivers/media/i2c/dw9719.c
-@@ -68,9 +68,18 @@
- #define DW9761_VCM_PRELOAD		CCI_REG8(8)
- #define DW9761_DEFAULT_VCM_PRELOAD	0x73
- 
--#define DW9800K_DEFAULT_SAC		1
-+#define DW9800K_ID			0xEB
-+#define DW9800K_DEFAULT_SAC		3
- #define DW9800K_MODE_SAC_SHIFT		6
--#define DW9800K_DEFAULT_VCM_FREQ		0x10
-+
-+#define DW9800K_RESONANCE		CCI_REG8(7)
-+
-+#define DW9800K_DEFAULT_DIV		0x01
-+#define DW9800K_DIV_SHIFT		6
-+#define DW9800K_DIV_LOW_SHIFT		2
-+
-+#define DW9800K_DEFAULT_SACT		0x20
-+
- 
- #define to_dw9719_device(x) container_of(x, struct dw9719_device, sd)
- 
-@@ -90,6 +99,7 @@ struct dw9719_device {
- 	u32 mode_low_bits;
- 	u32 sac_mode;
- 	u32 vcm_freq;
-+	u32 sac_time;
- 
- 	struct dw9719_v4l2_ctrls {
- 		struct v4l2_ctrl_handler handler;
-@@ -140,10 +150,6 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
- 			dw9719->sac_mode = DW9718S_DEFAULT_SAC;
- 			dw9719->vcm_freq = DW9718S_DEFAULT_VCM_FREQ;
- 			goto props;
--		case DW9800K:
--			dw9719->sac_mode = DW9800K_DEFAULT_SAC;
--			dw9719->vcm_freq = DW9800K_DEFAULT_VCM_FREQ;
--			goto props;
- 		default:
- 			break;
- 		}
-@@ -165,6 +171,11 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
- 			dw9719->sac_mode = DW9761_DEFAULT_SAC;
- 			dw9719->vcm_freq = DW9761_DEFAULT_VCM_FREQ;
- 			break;
-+		case DW9800K_ID:
-+			dw9719->sac_mode = DW9800K_DEFAULT_SAC;
-+			dw9719->vcm_freq = DW9800K_DEFAULT_DIV;
-+			dw9719->sac_time = DW9800K_DEFAULT_SACT;
-+			break;
- 		default:
- 			dev_err(dw9719->dev,
- 				"Error unknown device id 0x%02llx\n", val);
-@@ -185,15 +196,52 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
- 		/* Optional indication of VCM prescale */
- 		device_property_read_u32(dw9719->dev, "dongwoon,vcm-prescale",
- 					 &dw9719->vcm_freq);
-+
-+		/* Optional indication of SAC timing */
-+		device_property_read_u32(dw9719->dev, "dongwoon,timing-control",
-+					 &dw9719->sac_time);
- 	}
- 
- 	switch (dw9719->model) {
--	case DW9800K:
--		cci_write(dw9719->regmap, DW9719_CONTROL, DW9719_ENABLE_RINGING, &ret);
-+	case DW9800K: {
-+		int ring, sac;
-+
-+		/*
-+		 * Enable ringing for SAC3-SAC5
-+		 *
-+		 * sac_mode	reg	Mode
-+		 * ===========================
-+		 *	0	0X	Direct
-+		 *	1	1X	LSC
-+		 *	2	00	SAC2
-+		 *	3	01	SAC3
-+		 *	4	10	SAC4
-+		 *	5	11	SAC5
-+		 */
-+		switch (dw9719->sac_mode) {
-+		case 0:
-+			ring = 0;
-+			sac = 0;
-+			break;
-+		case 1:
-+			ring = 0;
-+			sac = 2;
-+			break;
-+		default:
-+			ring = DW9719_ENABLE_RINGING;
-+			sac = dw9719->sac_mode - 2;
-+			break;
-+		}
-+		cci_write(dw9719->regmap, DW9719_CONTROL, ring, &ret);
-+		/* DIV is 3 bits split over the bottom bit in reg 6 and the top 2 bits in reg 7 */
- 		cci_write(dw9719->regmap, DW9719_MODE,
--			  dw9719->sac_mode << DW9800K_MODE_SAC_SHIFT, &ret);
--		cci_write(dw9719->regmap, DW9719_VCM_FREQ, dw9719->vcm_freq, &ret);
-+			  (sac << DW9800K_MODE_SAC_SHIFT) |
-+			  (dw9719->vcm_freq >> DW9800K_DIV_LOW_SHIFT), &ret);
-+		cci_write(dw9719->regmap, DW9800K_RESONANCE,
-+			  (dw9719->vcm_freq << DW9800K_DIV_SHIFT) |
-+			  dw9719->sac_time, &ret);
- 		break;
-+	}
- 	case DW9718S:
- 		/* Datasheet says [OCP/UVLO] should be disabled below 2.5V */
- 		dw9719->sac_mode &= DW9718S_CONTROL_SAC_MASK;
+Changes in v3:
+- Added more detailed descriptions of the changes actually made
+  to the driver.
+- Reverted to using vcm-prescale attribute to avoid unneeded breaking
+  with dtb.
+- Link to v2: https://lore.kernel.org/r/20260914-b4-dw9800k_cleanup-v2-0-6553273aaa33@fairphone.com
 
+Changes in v2:
+- Expanded commit messages to be more verbose with their changes.
+- Link to v1: https://lore.kernel.org/all/20260910-b4-dw9800k_cleanup-v1-0-608255ea61ab@fairphone.com
+
+---
+Griffin Kroah-Hartman (3):
+      dt-bindings: media: i2c: dw9800: Redocument DW9800K
+      media: i2c: dw9719: Update DW9800K driver
+      arm64: dts: qcom: qcm6490-fairphone-fp5: Fix DW9800K support
+
+ .../bindings/media/i2c/dongwoon,dw9719.yaml        |  1 -
+ .../bindings/media/i2c/dongwoon,dw9800k.yaml       | 91 ++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts |  5 +-
+ drivers/media/i2c/dw9719.c                         | 68 +++++++++++++---
+ 4 files changed, 152 insertions(+), 13 deletions(-)
+---
+base-commit: 19d1b4de6d37bccecc3ad9144d279f1baa405eb1
+change-id: 20260910-b4-dw9800k_cleanup-0b9a7a51e149
+
+Best regards,
 -- 
-2.43.0
+Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 
