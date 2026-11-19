@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102759;
-	b=KzIhKO7dM6IogXYaiTthebuHtACQklV6ybWD+AnM8RVW1dEBM4EvSbbjr6frVJf4yqcr
-	 WAWHv5JaCL3utLF4knqbMJYwAcC70UqyVKJ58pZ30O6B0woJlaPVK8nxHJUwQ9PpbIef8
-	 MmNEztR/UTMgENr8iBZN4tEZC30106qIvXaijKP0nMbfHk89exLZhEkixdLlMbl1Nyeuq
-	 7B1prrrrcNTgLysRsXSWVqETbfqkOK/fpSWeRN9JhmR3L8BeYVG9U8p/t0ut276g/lzR9
-	 Hv6bSCEDWutx7FNOA7QKkj0OwaMzqldeD2yJVU0l7xOxe9aV3CCsA98YxPzPTeX7Nlg==
+	t=1795102762;
+	b=VjlxgPLzhRj1uNQm8BO4LeQ8f/q7bGiPRAv5Q1rB2CrtCoLY0iK742xerBtKx+RoNUe0
+	 zd3RD9tbE1cFTCDqOmPE/PVPuMgjPU+/vpbnCuwa4vk1P2Xt8PmqFVWr9gNP63diZXio9
+	 u9Vnm3fLN0pm5bxOAP0zRFHDMAv0Lutov0Q/aq8U/JRZXe/dzwL63J1ceylBVEr0MDNBn
+	 lWf9zXCrI+muYniAMxcBv+yykGogmM1T6Pv47mzp/Ezyz0K/oBCpWdykuU1ffdFKhf6mO
+	 24u9CoZe/5/Rs0gwvei0U6ASo5W9pJPQ5YrS6cB4U29taAhZrZgO788pGQbKJVT+0Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102759;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102762;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=f3yhApWmNNz6QfJD96mHMO0Nq5glzss2T9Rht5Z3lCQ=;
-	b=4WfhO47+2Eay+FsDu8EG/GOsfFz3vxDWC/BUyEjzGPMoFiPeWLgrrA163nmxMi2B3oRV
-	 yWu56kACTqRBA9w2c6UG2AabhQZUGXjjgzhLpijMkLKdTqVTu+3YqiagKx6SxthhDufQm
-	 YB9Gob4+LkyMOOlpthO7shrW03qcYlHg8gOgUJRThUIrF5RLfdVwLSsqULP/qKDPAiTML
-	 BA9cnjzhotSYqIM4+sxPplIO0D3asVRsWOgLxPuuSamv65+Y5+01uOdBnndZvACOjH5s9
-	 zEVa2pEN2G9zXPgAJagQA4TuzNnnzw5pHAJ+0mAFAUxE0i1CjrIyaHz6z+MRg6UXjJQ==
+	bh=/rWc7f1kz9h4SsHc8CPjNEoZ5x/svy/yT2C/OPC9X2E=;
+	b=cvCg2wyyLAsKCtQq6oDcQD2J0AGWXUTShhC/oZJdL9mALpflzx2ZHzORjNd/ga6HZWDS
+	 CCi2CpjSznUfmBNUYTRqhhcX8i936cW79giB8e7ghDGd0+T6s4ZamAVfhzrvBdu62ZpIV
+	 iE/aNNKPRT6c0FV+CJLWsh0ka0Wk+0w007ytCvPjTjugU95C58CW3HeEbzmi9w4XAkLoR
+	 5BlMRrNTfIBOO6QgXjygq1gcsn1ADTj3YKeNIuF85YyHQdA2Cp6+XjE7r9N7DluVaYYfq
+	 o+5U1wk9Zbt6WseRPYAaZlYTL5awuUdYsJ1xRzWRyMaQcmr8doNtt4HO4CjXwR3f7YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=SBiMhUUX;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HhQy5R2+;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5EAA260A5BC8;
-	Thu, 19 Nov 2026 15:39:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EAA260A5BC8
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F35CC606D6C6;
+	Thu, 19 Nov 2026 15:39:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F35CC606D6C6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=SBiMhUUX
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HhQy5R2+
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 182CA1575;
-	Thu, 19 Nov 2026 07:39:13 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7F7E51C25;
+	Thu, 19 Nov 2026 07:39:09 -0800 (PST)
 Received: from e140322.cambridge.arm.com (e140322.arm.com [10.2.201.43])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 82CAD3F882;
-	Thu, 19 Nov 2026 07:39:14 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E85DD3F882;
+	Thu, 19 Nov 2026 07:39:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795102756; bh=dJc7TEJbJuMLau6YCuAxAupuiZZ/bbRvYqtgKH41+Ok=;
+	t=1795102752; bh=HJ+yJa6z9YGWow0T4s0FefQx5R9lsyg9EJsfPRyqA1M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=SBiMhUUXsre7cJ8PhBIwXxDPaUuN8SEsiVU2ha1hpQVe7aqXlYL5uiSPQVZbISakn
-	 Wmq4654K1t/vNVuUOnEDGu717t18xiHv4SzOK/ElMpBMBfFgM/iOMX2cObVhmBXva/
-	 vBSS5wPthRAIzW7Koo5Xj38T8ywdUTXXzO1belrA=
+	b=HhQy5R2+eBTFCHOMsB/T1fyt5R8zgOKLOdrGxGg1gvxAr28FCD5EqiTQmU5jaI/Yf
+	 KLWPqlcBCDwzAN00nwu725QnjI3Au9jG70EPsI0YyNctPb+WC1P1HqBpMqhXwRgy1F
+	 h3Fu4ppscVETuyEpv2LniKkmPGxUxAqkPXgUz9AM=
 From: Charvi Mehta <charvi.mehta@arm.com>
 To: linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
@@ -55,9 +55,9 @@ Cc: Charvi Mehta <charvi.mehta@arm.com>,
 	Vincenzo Frascino <vincenzo.frascino@arm.com>,
 	Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
 	Shobhit Pandey <shobhit.pandey@arm.com>
-Subject: [RFC PATCH 27/28] media: mali-vpu: add stateful decoder state machine
-Date: Thu, 19 Nov 2026 15:37:57 +0000
-Message-ID: <20261119153758.1426673-28-charvi.mehta@arm.com>
+Subject: [RFC PATCH 25/28] media: mali-vpu: handle firmware buffer parameters
+Date: Thu, 19 Nov 2026 15:37:55 +0000
+Message-ID: <20261119153758.1426673-26-charvi.mehta@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261119153758.1426673-1-charvi.mehta@arm.com>
 References: <20261119153758.1426673-1-charvi.mehta@arm.com>
@@ -74,568 +74,168 @@ Content-Transfer-Encoding: 8bit
 
 From: Shobhit Pandey <shobhit.pandey@arm.com>
 
-Replace the decoder drc_pending flag with explicit session-state
-tracking during FW SOURCE CHANGE and STREAMON/STREAMOFF.
-Validate decoder state transitions and update the state during queue
-STREAMON/STREAMOFF, decoder START/STOP commands, EOS handling and
-firmware responses.
-Distinguish initial picture-size discovery from runtime resolution
-changes, and delay the source-change event until the firmware has
-completed the CAPTURE queue flush. Track draining until the final
-CAPTURE buffer is returned with EOS.
+Add protocol definitions and parsing for firmware buffer-parameter
+messages. Recognize colour-description and DPB-held-frame
+notifications, log and ignore them when no session action is required.
 
 Signed-off-by: Shobhit Pandey <shobhit.pandey@arm.com>
+Signed-off-by: Charvi Mehta <charvi.mehta@arm.com>
 ---
- .../platform/arm/mali-vpu/mali-vpu-dec.c      | 139 +++++++++++++++++-
- .../platform/arm/mali-vpu/mali-vpu-dec.h      |   4 +
- .../platform/arm/mali-vpu/mali-vpu-session.c  |  67 +++++++--
- .../platform/arm/mali-vpu/mali-vpu-session.h  |   6 +-
- .../platform/arm/mali-vpu/mali-vpu-state.h    | 136 +++++++++++++++++
- 5 files changed, 331 insertions(+), 21 deletions(-)
- create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-state.h
+ .../platform/arm/mali-vpu/mali-vpu-firmware.c | 32 +++++++++++++++++++
+ .../platform/arm/mali-vpu/mali-vpu-firmware.h |  5 +++
+ .../arm/mali-vpu/mali-vpu-protocol-def-v3.h   | 19 +++++++++++
+ .../platform/arm/mali-vpu/mali-vpu-session.c  |  9 ++++++
+ 4 files changed, 65 insertions(+)
 
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c
-index 7e34c24ae050f..6ce61de22a802 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c
-@@ -9,6 +9,7 @@
- #include "mali-vpu-dec.h"
- #include "mali-vpu-session.h"
- #include "mali-vpu-variant.h"
-+#include "mali-vpu-state.h"
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.c
+index 55bad502cae0b..34d57b288a682 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.c
+@@ -8,6 +8,7 @@
+ #include <linux/err.h>
+ #include <linux/errno.h>
+ #include <linux/sizes.h>
++#include <linux/stddef.h>
+ #include <linux/string.h>
  
- void mali_vpu_session_init_dec(struct mali_vpu_session *sess)
- {
-@@ -23,7 +24,7 @@ void mali_vpu_session_init_dec(struct mali_vpu_session *sess)
- 	sess->num_ctrls_caps	= variant_ctrls->num_dec_ctrls;
- 
- 	sess->min_buffers_required = 3;	/* For CAPTURE/dst queue */
--	sess->drc_pending	= false;
-+	sess->sess_state	= MALI_VPU_STATE_INITIALIZATION;
- }
- 
- int mali_vpu_ctrl_set_ignore_stream_headers(struct mali_vpu_session *sess,
-@@ -69,6 +70,7 @@ int mali_vpu_ctrl_set_frame_reordering(struct mali_vpu_session *sess, u32 cid,
- int mali_vpu_decoder_cmd(struct file *filp, void *priv, struct v4l2_decoder_cmd *cmd)
- {
- 	struct mali_vpu_session *sess = mali_vpu_get_session(filp);
-+	struct vb2_queue *dst_q = v4l2_m2m_get_dst_vq(sess->m2m_ctx);
- 	int ret;
- 
- 	ret = v4l2_m2m_ioctl_try_decoder_cmd(filp, priv, cmd);
-@@ -79,11 +81,31 @@ int mali_vpu_decoder_cmd(struct file *filp, void *priv, struct v4l2_decoder_cmd
- 
- 	switch (cmd->cmd) {
- 	case V4L2_DEC_CMD_STOP:
--		ret = mali_vpu_session_fw_send_eos(sess);
-+		if (sess->sess_state == MALI_VPU_STATE_DRAIN) {
-+			ret = -EBUSY;
-+			break;
-+		} else if (sess->sess_state == MALI_VPU_STATE_STREAMING) {
-+			ret = mali_vpu_session_fw_send_eos(sess);
-+			if (!ret)
-+				ret = mali_vpu_dec_update_state(sess, MALI_VPU_STATE_DRAIN);
-+		}
- 		break;
- 	case V4L2_DEC_CMD_START:
--		vb2_clear_last_buffer_dequeued(v4l2_m2m_get_dst_vq(sess->m2m_ctx));
--		ret = 0;
-+		if (sess->sess_state == MALI_VPU_STATE_DRAIN &&
-+		    !dst_q->last_buffer_dequeued) {
-+			ret = -EBUSY;
-+			break;
-+		}
-+
-+		ret = mali_vpu_submit_deferred_bufs(sess);
-+		if (ret)
-+			break;
-+
-+		ret = mali_vpu_dec_update_state(sess, MALI_VPU_STATE_STREAMING);
-+		if (ret)
-+			break;
-+
-+		vb2_clear_last_buffer_dequeued(dst_q);
- 		break;
- 	default:
- 		ret = -EINVAL;
-@@ -93,3 +115,112 @@ int mali_vpu_decoder_cmd(struct file *filp, void *priv, struct v4l2_decoder_cmd
- 	mutex_unlock(&sess->vq_lock);
- 	return ret;
- }
-+
-+static bool mali_vpu_dec_allow_state_change(struct mali_vpu_session *sess,
-+					    enum mali_vpu_sess_state new_state)
-+{
-+	switch (sess->sess_state) {
-+	case MALI_VPU_STATE_INITIALIZATION:
-+		return (new_state == MALI_VPU_STATE_RESET ||
-+			new_state == MALI_VPU_STATE_STOPPED);
-+	case MALI_VPU_STATE_STREAMING:
-+		return (new_state == MALI_VPU_STATE_RESET ||
-+			new_state == MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE ||
-+			new_state == MALI_VPU_STATE_DRAIN);
-+	case MALI_VPU_STATE_RESET:
-+		return (new_state == MALI_VPU_STATE_INITIALIZATION ||
-+			new_state == MALI_VPU_STATE_STREAMING);
-+	case MALI_VPU_STATE_DRAIN:
-+		return (new_state == MALI_VPU_STATE_STOPPED ||
-+			new_state == MALI_VPU_STATE_RESET);
-+	case MALI_VPU_STATE_STOPPED:
-+		return (new_state == MALI_VPU_STATE_INITIALIZATION ||
-+			new_state == MALI_VPU_DEC_STATE_FIRST_SOURCE_CHANGE ||
-+			new_state == MALI_VPU_STATE_STREAMING ||
-+			new_state == MALI_VPU_STATE_RESET);
-+	case MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE:
-+		return new_state == MALI_VPU_STATE_STOPPED;
-+	case MALI_VPU_DEC_STATE_FIRST_SOURCE_CHANGE:
-+		return new_state == MALI_VPU_STATE_STREAMING;
-+	default:
-+		return false;
-+	}
-+}
-+
-+int mali_vpu_dec_update_state(struct mali_vpu_session *sess, u32 new_state)
-+{
-+	if (sess->role != MALI_VPU_DECODER)
-+		return -EINVAL;
-+
-+	if (sess->sess_state == new_state)
-+		return 0;
-+
-+	if (!mali_vpu_dec_allow_state_change(sess, new_state))
-+		return -EINVAL;
-+
-+	sess->sess_state = new_state;
-+	return 0;
-+}
-+
-+int mali_vpu_dec_state_change_streamon(struct mali_vpu_session *sess, enum v4l2_buf_type type)
-+{
-+	enum mali_vpu_sess_state new_state;
-+
-+	switch (sess->sess_state) {
-+	case MALI_VPU_STATE_INITIALIZATION:
-+		new_state = V4L2_TYPE_IS_OUTPUT(type) ?
-+			MALI_VPU_STATE_STOPPED : MALI_VPU_STATE_RESET;
-+		break;
-+	case MALI_VPU_STATE_STOPPED:
-+	case MALI_VPU_DEC_STATE_FIRST_SOURCE_CHANGE:
-+		if (V4L2_TYPE_IS_OUTPUT(type))
-+			return 0;
-+		new_state = MALI_VPU_STATE_STREAMING;
-+		break;
-+	case MALI_VPU_STATE_RESET:
-+		if (!V4L2_TYPE_IS_OUTPUT(type))
-+			return 0;
-+		new_state = MALI_VPU_STATE_STREAMING;
-+		break;
-+	default:
-+		return 0;
-+	}
-+
-+	return mali_vpu_dec_update_state(sess, new_state);
-+}
-+
-+int mali_vpu_dec_state_change_streamoff(struct mali_vpu_session *sess, enum v4l2_buf_type type)
-+{
-+	enum mali_vpu_sess_state new_state;
-+
-+	if (V4L2_TYPE_IS_OUTPUT(type)) {
-+		switch (sess->sess_state) {
-+		case MALI_VPU_STATE_STOPPED:
-+			new_state = MALI_VPU_STATE_INITIALIZATION;
-+			break;
-+		case MALI_VPU_STATE_STREAMING:
-+		case MALI_VPU_STATE_DRAIN:
-+			new_state = MALI_VPU_STATE_RESET;
-+			break;
-+		default:
-+			return 0;
-+		}
-+	} else {
-+		switch (sess->sess_state) {
-+		case MALI_VPU_STATE_RESET:
-+			new_state = MALI_VPU_STATE_INITIALIZATION;
-+			break;
-+		case MALI_VPU_STATE_STREAMING:
-+		case MALI_VPU_STATE_DRAIN:
-+			new_state = MALI_VPU_STATE_STOPPED;
-+			break;
-+		case MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE:
-+			new_state = MALI_VPU_STATE_STOPPED;
-+			break;
-+		default:
-+			return 0;
-+		}
-+	}
-+
-+	return mali_vpu_dec_update_state(sess, new_state);
-+}
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h
-index a108aaaa4a959..fccda5b3d5b2e 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h
-@@ -7,6 +7,7 @@
- #define __MALI_VPU_DEC_H__
- 
- #include <linux/types.h>
-+#include <linux/videodev2.h>
- 
- struct file;
- struct mali_vpu_session;
-@@ -19,5 +20,8 @@ int mali_vpu_ctrl_set_ignore_stream_headers(struct mali_vpu_session *sess, u32 c
- int mali_vpu_ctrl_set_frame_reordering(struct mali_vpu_session *sess, u32 cid, s64 value);
- 
- int mali_vpu_decoder_cmd(struct file *filp, void *priv, struct v4l2_decoder_cmd *cmd);
-+int mali_vpu_dec_update_state(struct mali_vpu_session *sess, u32 new_state);
-+int mali_vpu_dec_state_change_streamon(struct mali_vpu_session *sess, enum v4l2_buf_type type);
-+int mali_vpu_dec_state_change_streamoff(struct mali_vpu_session *sess, enum v4l2_buf_type type);
- 
- #endif /* __MALI_VPU_DEC_H__ */
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-index 500d80788d0eb..3ff4635e682eb 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-@@ -329,7 +329,7 @@ static int mali_vpu_submit_deferred_bufs_for_queue(struct mali_vpu_session *sess
- 	return 0;
- }
- 
--static int mali_vpu_submit_deferred_bufs(struct mali_vpu_session *sess)
-+int mali_vpu_submit_deferred_bufs(struct mali_vpu_session *sess)
- {
- 	int ret;
- 
-@@ -448,7 +448,7 @@ static void mali_vpu_session_buffer_done(struct mali_vpu_session *sess,
- 	if (V4L2_TYPE_IS_CAPTURE(vpu_buf->type) &&
- 	    !q->last_buffer_dequeued &&
- 	    (vbuf->flags & V4L2_BUF_FLAG_LAST) &&
--	    !sess->drc_pending) {
-+	    sess->sess_state != MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE) {
- 		const struct v4l2_event event = {
- 			.type = V4L2_EVENT_EOS,
- 		};
-@@ -513,7 +513,14 @@ static int mali_vpu_session_handle_fw_msg(struct mali_vpu_session *sess,
- 		state = mali_vpu_buffer_update_info_to_v4l2(vpu_buf);
- 
- 		mali_vpu_session_buffer_done(sess, vpu_buf, state);
--
-+		if (vpu_buf->flags & MALI_VPU_BUFFER_EOS) {
-+			if (V4L2_TYPE_IS_OUTPUT(vpu_buf->type) &&
-+			    sess->sess_state == MALI_VPU_STATE_STREAMING) {
-+				ret = mali_vpu_dec_update_state(sess, MALI_VPU_STATE_DRAIN);
-+				if (ret)
-+					return ret;
-+			}
-+		}
- 		return 0;
- 	}
- 	case MALI_VPU_FW_CODE_PONG:
-@@ -569,17 +576,31 @@ static int mali_vpu_session_handle_fw_msg(struct mali_vpu_session *sess,
- 			fw_msg->data.dpb_held_frames);
- 		return 0;
- 	case MALI_VPU_FW_CODE_OUTPUT_FLUSH:
--		dev_dbg(sess->vpu_dev->dev, "fw rsp: Dst queue flushed\n");
--		if (sess->role == MALI_VPU_DECODER && sess->drc_pending)
-+		if (sess->sess_state == MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE ||
-+		    sess->sess_state == MALI_VPU_DEC_STATE_FIRST_SOURCE_CHANGE) {
- 			return mali_vpu_session_send_drc_event(sess);
-+		}
- 
- 		return 0;
- 	case MALI_VPU_FW_CODE_ALLOC_PARAM:
- 		ret = mali_vpu_session_update_capture_format(sess, fw_msg->data.alloc_params);
--		if (!ret)
--			sess->drc_pending = true;
-+		if (ret)
-+			return ret;
- 
--		return ret;
-+		if (sess->sess_state == MALI_VPU_STATE_STREAMING) {
-+			ret =
-+			mali_vpu_dec_update_state(sess,
-+						  MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE);
-+			if (ret)
-+				return ret;
-+		} else if (sess->sess_state == MALI_VPU_STATE_STOPPED) {
-+			ret = mali_vpu_dec_update_state(sess,
-+							MALI_VPU_DEC_STATE_FIRST_SOURCE_CHANGE);
-+			if (ret)
-+				return ret;
-+		}
-+
-+		return 0;
- 	case MALI_VPU_FW_CODE_SEQUENCE_PARAMS: {
- 		struct vb2_queue *dst_q;
- 		u32 buffers_min;
-@@ -829,7 +850,7 @@ int mali_vpu_session_qbuf(struct mali_vpu_session *sess, struct vb2_buffer *vb2_
- 	 * Do not give the requeued buffer back to fw as it belongs to pre DRC
- 	 * allocation which will be unmapped immediately afterwards.
- 	 */
--	if (sess->drc_pending && sess->role == MALI_VPU_DECODER &&
-+	if (sess->sess_state == MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE &&
- 	    mali_vpu_is_raw_q(sess, vb2_buf->type) &&
- 	    port->stream_requested) {
- 		v4l2_buf->flags |= V4L2_BUF_FLAG_LAST;
-@@ -840,7 +861,9 @@ int mali_vpu_session_qbuf(struct mali_vpu_session *sess, struct vb2_buffer *vb2_
- 
- 	if (!port->stream_requested ||
- 	    !mali_vpu_session_can_stream(sess) ||
--	    sess->fw_state != MALI_VPU_FW_STATE_RUNNING) {
-+	    sess->fw_state != MALI_VPU_FW_STATE_RUNNING ||
-+	    (V4L2_TYPE_IS_OUTPUT(vb2_buf->type) &&
-+	    sess->sess_state == MALI_VPU_STATE_DRAIN)) {
- 		vpu_buf->attr = MALI_VPU_BUF_ATTR_DEFERRED;
- 
- 		if (V4L2_TYPE_IS_OUTPUT(vb2_buf->type))
-@@ -949,6 +972,7 @@ int mali_vpu_session_prepare_streaming(struct mali_vpu_session *sess,
- 				       enum v4l2_buf_type type)
- {
- 	struct mali_vpu_port *port = mali_vpu_session_get_port(sess, type);
-+	enum mali_vpu_sess_state old_state;
- 	int ret;
- 
- 	lockdep_assert_held(&sess->vq_lock);
-@@ -964,6 +988,12 @@ int mali_vpu_session_prepare_streaming(struct mali_vpu_session *sess,
- 	    sess->fw_requested_state != MALI_VPU_FW_STATE_RUNNING)
- 		return -EBUSY;
- 
-+	old_state = sess->sess_state;
-+
-+	ret = mali_vpu_dec_state_change_streamon(sess, type);
-+	if (ret)
-+		return ret;
-+
- 	port->stream_requested = true;
- 
- 	if (sess->fw_bin_state == MALI_VPU_SESSION_FW_BIN_READY &&
-@@ -975,15 +1005,14 @@ int mali_vpu_session_prepare_streaming(struct mali_vpu_session *sess,
- 		}
- 	}
- 
--	if (sess->role == MALI_VPU_DECODER && mali_vpu_is_raw_q(sess, type))
--		sess->drc_pending = false;
--
- 	port->sequence = 0;
- 
- 	return 0;
- 
- err_rollback:
-+
- 	port->stream_requested = false;
-+	sess->sess_state = old_state;
- 
- 	return ret;
- }
-@@ -991,6 +1020,7 @@ int mali_vpu_session_prepare_streaming(struct mali_vpu_session *sess,
- int mali_vpu_session_streamoff(struct mali_vpu_session *sess, enum v4l2_buf_type type)
- {
- 	struct mali_vpu_port *port = mali_vpu_session_get_port(sess, type);
-+	bool drc_capture;
- 	int ret;
- 
- 	lockdep_assert_held(&sess->vq_lock);
-@@ -1003,12 +1033,19 @@ int mali_vpu_session_streamoff(struct mali_vpu_session *sess, enum v4l2_buf_type
- 	if (sess->error)
- 		return 0;
- 
-+	drc_capture =
-+		sess->sess_state == MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE &&
-+		mali_vpu_is_raw_q(sess, type);
-+
-+	ret = mali_vpu_dec_state_change_streamoff(sess, type);
-+	if (ret)
-+		goto err_session;
-+
- 	if (sess->fw_bin_state != MALI_VPU_SESSION_FW_BIN_READY ||
- 	    !sess->sched_sess.lsid)
- 		return 0;
- 
--	if (sess->drc_pending && sess->role == MALI_VPU_DECODER &&
--	    mali_vpu_is_raw_q(sess, type)) {
-+	if (drc_capture) {
- 		ret = mali_vpu_session_wait_pending(sess);
- 		if (ret)
- 			goto err_session;
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
-index 45d0b6710aced..b37ed569ffb7a 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
-@@ -17,6 +17,7 @@
  #include "mali-vpu-firmware.h"
- #include "mali-vpu-formats.h"
- #include "mali-vpu-mmu.h"
-+#include "mali-vpu-state.h"
+@@ -950,6 +951,33 @@ mali_vpu_convert_buffer_bitstream(struct mali_vpu_fw *fw,
+ 	return 0;
+ }
  
- struct v4l2_m2m_ctx;
- struct mali_vpu_fw_bin;
-@@ -115,7 +116,7 @@ enum mali_vpu_session_fw_bin_state {
-  * @sched_sess: Scheduler state used to map this session to an LSID.
-  * @ncores: Number of cores assigned to this session by scheduler.
-  * @error: Fatal session error code.
-- * @drc_pending: Dynamic resolution change is waiting for CAPTURE reconfigure.
-+ * @sess_state: Session main state.
++static int mali_vpu_convert_buffer_param(struct mali_vpu_fw_msg *msg,
++					 struct mve_buffer_param *p,
++					 size_t size)
++{
++	if (size < sizeof(p->type))
++		return -EPROTO;
++
++	switch (p->type) {
++	case MVE_BUFFER_PARAM_TYPE_COLOUR_DESCRIPTION:
++		/* The colour-description payload is currently ignored. */
++		msg->code = MALI_VPU_FW_CODE_COLOR_DESC;
++		break;
++	case MVE_BUFFER_PARAM_TYPE_DPB_HELD_FRAMES:
++		if (size < offsetofend(struct mve_buffer_param, data.arg))
++			return -EPROTO;
++
++		msg->code = MALI_VPU_FW_CODE_DPB_HELD_FRAMES;
++		msg->data.dpb_held_frames = p->data.arg;
++		break;
++	default:
++		msg->code = MALI_VPU_FW_CODE_UNKNOWN;
++		break;
++	}
++
++	return 1;
++}
++
+ static int mali_vpu_fw_get_buffer(struct mali_vpu_fw *fw,
+ 				  struct mali_vpu_fw_proto_page *buf_host_page,
+ 				  struct mali_vpu_fw_proto_page *buf_mve_page,
+@@ -1007,6 +1035,7 @@ int mali_vpu_fw_parse_msg(struct mali_vpu_fw *fw, struct mali_vpu_fw_msg *msg)
+ 		struct mve_response_state_change state_change;
+ 		struct mve_response_frame_alloc_parameters alloc_params;
+ 		struct mve_response_sequence_parameters seq_params;
++		struct mve_buffer_param buffer_param;
+ 		struct mve_response_error error;
+ 	} fw_msg = {};
+ 	size_t size = sizeof(fw_msg);
+@@ -1137,6 +1166,9 @@ int mali_vpu_fw_parse_msg(struct mali_vpu_fw *fw, struct mali_vpu_fw_msg *msg)
+ 
+ 		fw->pending_response_count--;
+ 		break;
++	case MVE_BUFFER_CODE_PARAM:
++		ret =  mali_vpu_convert_buffer_param(msg, &fw_msg.buffer_param, size);
++		break;
+ 	case MVE_RESPONSE_CODE_ERROR: {
+ 		size_t message_offset = offsetof(struct mve_response_error, message);
+ 		size_t message_size;
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.h
+index ca90cc71ac64e..6c46f23ac8638 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware.h
+@@ -144,6 +144,8 @@ struct mali_vpu_fw_error {
+  * @MALI_VPU_FW_CODE_OUTPUT_FLUSH: Firmware successfully completed a CAPTURE queue flush.
+  * @MALI_VPU_FW_CODE_SEQUENCE_PARAMS: Firmware reported new sequence parameters.
+  * @MALI_VPU_FW_CODE_ALLOC_PARAM: Firmware reported new frame allocation parameters.
++ * @MALI_VPU_FW_CODE_COLOR_DESC: Firmware reported colour-description metadata.
++ * @MALI_VPU_FW_CODE_DPB_HELD_FRAMES: Firmware reported the number of frames held in the DPB.
+  * @MALI_VPU_FW_CODE_UNKNOWN: Unrecognized firmware message.
+  * @MALI_VPU_FW_CODE_MAX: Sentinel marking the end of the message-code enum.
   */
- struct mali_vpu_session {
- 	struct mali_vpu_dev		*vpu_dev;
-@@ -148,7 +149,7 @@ struct mali_vpu_session {
- 	struct mali_vpu_sched_session	sched_sess;
- 	u32				ncores;
- 	int				error;
--	bool				drc_pending;
-+	enum mali_vpu_sess_state	sess_state;
+@@ -164,6 +166,8 @@ enum mali_vpu_fw_code {
+ 	MALI_VPU_FW_CODE_OUTPUT_FLUSH,       /* Driver <- Firmware. */
+ 	MALI_VPU_FW_CODE_SEQUENCE_PARAMS,    /* Driver <- Firmware. */
+ 	MALI_VPU_FW_CODE_ALLOC_PARAM,        /* Driver <- Firmware. */
++	MALI_VPU_FW_CODE_COLOR_DESC,         /* Driver <- Firmware. */
++	MALI_VPU_FW_CODE_DPB_HELD_FRAMES,    /* Driver <- Firmware. */
+ 	MALI_VPU_FW_CODE_UNKNOWN,            /* Driver <- Firmware. */
+ 	MALI_VPU_FW_CODE_MAX
+ };
+@@ -182,6 +186,7 @@ struct mali_vpu_fw_msg {
+ 		struct mali_vpu_buffer *vpu_buf;
+ 		struct mali_vpu_fw_alloc_param alloc_params;
+ 		struct mali_vpu_fw_seq_param seq_params;
++		u32 dpb_held_frames;
+ 	} data;
  };
  
- int mali_vpu_session_init(struct mali_vpu_session *sess);
-@@ -163,6 +164,7 @@ void mali_vpu_session_irq(struct mali_vpu_session *sess);
- int mali_vpu_session_qbuf(struct mali_vpu_session *sess, struct vb2_buffer *vb2_buf);
- void mali_vpu_session_reset_ts_metadata(struct mali_vpu_session *sess);
- int mali_vpu_session_fw_send_eos(struct mali_vpu_session *sess);
-+int mali_vpu_submit_deferred_bufs(struct mali_vpu_session *sess);
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3.h
+index cb4533a367957..76dc7bf076c8f 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3.h
+@@ -269,6 +269,8 @@ struct mve_msg_header {
+ 		#define MVE_BUFFER_CODE_FRAME                 (3001)
+ 		/* struct mve_buffer_bitstream */
+ 		#define MVE_BUFFER_CODE_BITSTREAM             (3002)
++		/* struct mve_buffer_param */
++		#define MVE_BUFFER_CODE_PARAM                 (3003)
  
- static inline struct mali_vpu_session *mali_vpu_get_session(struct file *filp)
- {
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-state.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-state.h
-new file mode 100644
-index 0000000000000..4602c468a079d
---- /dev/null
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-state.h
-@@ -0,0 +1,136 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2026 ARM Limited.
+ 	u16 size; /* size in bytes of trailing data, 0 if none */
+ };
+@@ -601,4 +603,21 @@ struct mve_buffer_bitstream {
+ 	u32 reserved;
+ };
+ 
++/* Parameters that are sent in the same communication channels
++ * as the buffers. A parameter applies to all subsequent buffers.
++ * Some types are only valid for decode, and some only for encode.
 + */
++struct mve_buffer_param {
++	u32 type;                                                   /* Extra data: */
++		#define MVE_BUFFER_PARAM_TYPE_COLOUR_DESCRIPTION        (15)
++		/* arg, number of output buffers that are complete and held by firmware in the
++		 * DPB for reordering purposes. Valid after the next frame is output.
++		 */
++		#define MVE_BUFFER_PARAM_TYPE_DPB_HELD_FRAMES           (19)
 +
-+#ifndef __MALI_VPU_STATE_H__
-+#define __MALI_VPU_STATE_H__
-+
-+/*
-+ * Decoder session state machine
-+ *
-+ *            open
-+ *              |
-+ *              |
-+ *              v
-+ *      +----------------+   ->  ->   ->   StreamOff(Output)    ->   ->   ->      +------------+
-+ *      | INITIALIZATION |<------------------------------------------------------>| RESET/SEEK |
-+ *      +----------------+  <-  <-   StreamOff(Capture)/REQBUF(OUTPUT, 0) <-  <-  +------------+
-+ *              ^                                                                          ^
-+ *              | capture format                                                           |
-+ *              |  established                                            StreamOff(Output)|
-+ *              |                                                                          |
-+ *              |                      +---------------+                                   |
-+ *              +--------------------->|               |-----------------------------------+
-+ * +---------------------------------->| CAPTURE_SETUP/|                                   |
-+ * |                                   |    STOPPED    |                                   |
-+ * |            +--------------------->|               |                                   |
-+ * |            |capture format        +---------------+                                   |
-+ * |            | established            |           ^                                     |
-+ * |  +-------------------+              |           |                                     |
-+ * |  | RESOLUTION_CHANGE |              |           |                                     |
-+ * |  +-------------------+              |           |                                     |
-+ * |            ^                        |           |   StreamOff(Capture)  +-------+     |
-+ * |            |                        |           +-----------------------| DRAIN |     |
-+ * |            |                        |                                   +-------+     |
-+ * |            |                        |                                      ^          |
-+ * |            |                        |START_CMD/                            |          |
-+ * |            |                        |StreamOn                              |          |
-+ * |            |                        |(Capture)                             |          |
-+ * |            |  Stream                |                                      |          |
-+ * |            |Resolution              |                                      |          |
-+ * |            |  Change                |                                      |          |
-+ * |            |                        |                                      |          |
-+ * |            |                        |                                      |          |
-+ * |            |                        |                                      |STOP_CMD/ |
-+ * |            |                        |                                      |EOS Mark  |
-+ * |            |                        |                                      |          |
-+ * |            |                        v                                      |          |
-+ * |            |                      +---------------+                        |          |
-+ * |            +----------------------|   STREAMING   |------------------------+          |
-+ * |                                   +---------------+                                   |
-+ * |                                      ^     ^                                          |
-+ * |                                      |     |  ->  ->    StreamOff(Output)   ->   ->   |
-+ * +--------------------------------------+     +------------------------------------------+
-+ *                                                  <-  <-   StreamOn(Output)   <-  <-
-+ */
-+
-+/*
-+ * INITIALIZATION -> STOPPED			OUTPUT STREAMON happens first. Firmware may parse
-+ *						source headers while CAPTURE is not configured.
-+ *
-+ * STOPPED -> INITIALIZATION			OUTPUT STREAMOFF while CAPTURE is stopped.
-+ *						Now neither queue is streaming.
-+ *
-+ * INITIALIZATION -> RESET			CAPTURE STREAMON happens first, as exercised by the
-+ *						compliance blocking test. Firmware should not start
-+ *						decoding yet.
-+ *
-+ * RESET -> INITIALIZATION			CAPTURE STREAMOFF while OUTPUT is already stopped.
-+ *						Now neither queue is streaming.
-+ *
-+ * RESET -> STREAMING				OUTPUT STREAMON after CAPTURE was started first.
-+ *						Both queues are now streaming.
-+ *
-+ * STREAMING -> RESET				OUTPUT STREAMOFF first; CAPTURE remains streaming.
-+ *
-+ * STREAMING -> DYNAMIC_RESOLUTION_CHANGE	Firmware reports changed stream parameters while
-+ *						actively decoding. The driver flushes CAPTURE and
-+ *						sends V4L2_EVENT_SOURCE_CHANGE.
-+ *
-+ * DYNAMIC_RESOLUTION_CHANGE -> STOPPED		Userspace performs CAPTURE STREAMOFF following the
-+ *						source-change event. OUTPUT remains streaming.
-+ *
-+ * STREAMING -> DRAIN				V4L2_DEC_CMD_STOP is received or implicit EOS is
-+ *						detected on OUTPUT/source.
-+ *
-+ * DRAIN -> STOPPED				Firmware returns the final CAPTURE buffer with
-+ *						LAST/EOS, completing the drain.
-+ *
-+ * DRAIN -> RESET				OUTPUT STREAMOFF occurs during draining;
-+ *						CAPTURE remains streaming.
-+ *
-+ * STOPPED -> STREAMING				Userspace sends V4L2_DEC_CMD_START to continue
-+ *						decoding while both queues remain streaming./
-+ *						CAPTURE STREAMON after OUTPUT was started first.
-+ *						Both queues are now streaming.
-+ *
-+ * STOPPED -> FIRST_SOURCE_CHANGE		Firmware reports first RESOLUTION CHANGE in sequence
-+ *						occurs during before CAPTURE is configured; it is
-+ *						not runtime DRC. The driver flushes CAPTURE and
-+ *						sends V4L2_EVENT_SOURCE_CHANGE.
-+ *
-+ * FIRST_SOURCE_CHANGE -> STREAMING		Userspace on receiving V4L2_EVENT_SOURCE_CHANGE for
-+ *						FIRST_SOURCE_CHANGE will allocate CAPTURE BUFFERS
-+ *						and call streamOn which will move the state to
-+ *						STREAMING as both queues are now streaming.
-+ *
-+ * STOPPED -> RESET				OUTPUT STREAMOFF after drain completion; CAPTURE
-+ *						remains streaming. TO BE VERIFIED
-+ */
-+
-+/**
-+ * enum mali_vpu_sess_state - VPU session streaming states
-+ *
-+ * @MALI_VPU_STATE_INITIALIZATION: Session is initialized with no queues streaming.
-+ * @MALI_VPU_STATE_STREAMING: Session both queues streaming.
-+ * @MALI_VPU_STATE_STOPPED: For decoder session CAPTURE is not streaming.
-+ * @MALI_VPU_STATE_DRAIN: For decoder session all CAPTURE buffers returned
-+ * @MALI_VPU_STATE_RESET: For decoder session OUTPUT is not streaming.
-+ * @MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE: Decoder only for mid stream resolution change
-+ * @MALI_VPU_DEC_STATE_FIRST_SOURCE_CHANGE: Decoder only for first source change when CAPTURE
-+ * not streaming.
-+ */
-+enum mali_vpu_sess_state {
-+	/* Common states for encoder and decoder */
-+	MALI_VPU_STATE_INITIALIZATION = 0,
-+	MALI_VPU_STATE_STREAMING,
-+	MALI_VPU_STATE_STOPPED,
-+	MALI_VPU_STATE_DRAIN,
-+	MALI_VPU_STATE_RESET,
-+	/* Decoder only states */
-+	MALI_VPU_DEC_STATE_DYNAMIC_RESOLUTION_CHANGE,
-+	MALI_VPU_DEC_STATE_FIRST_SOURCE_CHANGE,
++	union {
++		u32                                        arg;
++	} data;
 +};
 +
-+#endif /* __MALI_VPU_STATE_H__ */
+ #endif /* __MALI_VPU_PROTOCOL_DEF_V3_H__ */
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+index fcfad581223be..411421e175e71 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+@@ -559,6 +559,15 @@ static int mali_vpu_session_handle_fw_msg(struct mali_vpu_session *sess,
+ 		 * state update is required.
+ 		 */
+ 		return 0;
++	case MALI_VPU_FW_CODE_COLOR_DESC:
++		/* Colour metadata is currently not consumed by the driver. */
++		return 0;
++	case MALI_VPU_FW_CODE_DPB_HELD_FRAMES:
++		/* DPB occupancy is informational. */
++		dev_dbg(sess->vpu_dev->dev,
++			"firmware holds %u frames in the DPB\n",
++			fw_msg->data.dpb_held_frames);
++		return 0;
+ 	case MALI_VPU_FW_CODE_OUTPUT_FLUSH:
+ 		dev_dbg(sess->vpu_dev->dev, "fw rsp: Dst queue flushed\n");
+ 		if (sess->role == MALI_VPU_DECODER && sess->drc_pending)
 -- 
 2.43.0
 
