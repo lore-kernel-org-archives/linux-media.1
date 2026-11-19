@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102745;
-	b=zfwYneCI7n5g7DcGW42V8jqVgd10P+YRXBDJRB+m0kACukETaPgar/MNCz+YN4rL9dA2
-	 V3vuv8C11F38Hh0tnsAtK+W8gtgid25olCQpoa4UgLhce6vsTq8eGvvy5oMRL8tgZTi5X
-	 LhOI+v0nErevfOUUk0XfauHDzuMH1TPR9nVn+YuOzL+fYc/8+wbpYx0BlYfbDdsIlSger
-	 Hva/6AKqshc4B3dz9Gy1ejWGxNLP84bk9BtAggE0gSKzJ5jLmtrSfYbiguhndZdZ6a1eK
-	 BrrGHsMm2u3SMUd5QPUIJq7D3j+AUEmKsqi95qOf/Lg7v9oFVRazCnvHjR5Y771gKjg==
+	t=1795102741;
+	b=xQ6j+RcV34ie0CYwNoFzgC1jwa/q3jkenXmAaDqM8OxFTem2Xr94fEj6yrD6BB0O0g1n
+	 2PKmI74NMiqGftqVQWMWakcVMgx1lEm0eDtbzFhJ/LAyo8KlAeR0YWK5KqWThrwkD7rqU
+	 AoiUFhLF305lwAn/R+FiX/RHxE+QgMNvOq5cLUKiWcQx5LQSq/jhK/t5fDaGc4aYa16kj
+	 L2e1+KXqMsiFCEtd+Z9o8cvbD0V+dKlPhd+NzGml9tBRSD1nTl31bCFx1Hd/WTVHEJSl1
+	 MGoVr8lOQTQgXTrVkt1jdNZPSU6+4rLgawZTKrYTU6FrfhrgHLV7emyYSP/BKSJw7ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102745;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102741;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=faUlNFmkjkOKYiIsWufZ/Fj4P8ugW9ChhWe0YAe2m6U=;
-	b=I8yNyjouXziJZM5k9SXclsRSFT6Hsx98A0VSBAN9o31iPZqmMRRhg/6vXRg/7A7WwMrt
-	 FOfSgbSBJWtoOB+yRB+2c2wNjRUw6puRoAsiJhMQmoXBsbq1poNoaXLqTbnBLs8Z2Y0jT
-	 l+cr7Zj6L3e7YEKEEfSWDu1CfPYgYlGFNxwyvXECNv5LqYm9wj8VJ6rvSgrZpGNSwck3a
-	 vc3QR2F5jX9tcVNdLVfT4l5Ym+R0jMR5Y++6J+jQ74fk7TOFpfuTNUx+UOZqsIf53ZsKh
-	 VCEZMrO5GGtSzwtY/hWY7GJyOThUgaGJ0AbWOA47VIdCwdYY5RkpR6otGbUrxcmQvMA==
+	bh=O8HYYjupFmfPa9Xd5itdWPX+UoG8R9ZtiB0654TVUaI=;
+	b=S1PZM7Exd3OnJgmgVhzrZCERiadMUeSGhO8VCyuwc57wbEL1v+vQIx+Uo9Lsuek9zNYS
+	 5FtWEtRJMZjuNKfsWfxAbY3TGnYrSQRBmITFLyYxdphUlbxkhxBGrj4i8e4EwMqhryikL
+	 DllD+QmMRW5V8SxL01etHVjeOrZNZK879rf6DEgwCKITTNRqh8ldQvfMZ5mBNcpsgMlHX
+	 8WDF0lvQQL8RZWSTy0lMvtmgeARkmDqDaB6Hy928bjlQjcfwQbanXJPwFfoVWQFABZQRQ
+	 IxsdEM16e9Mfz3NJrqNIv3Xj/z2gPPAv8BfqDGpdZ0/yTh9zb7rcVQpPcXlrvjIb6nQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=k68YWRN6;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="uFxM/cgS";
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 12C4D606B307;
-	Thu, 19 Nov 2026 15:39:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12C4D606B307
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9D3D6606C495;
+	Thu, 19 Nov 2026 15:38:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D3D6606C495
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=k68YWRN6
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=uFxM/cgS
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BBC8F19F0;
-	Thu, 19 Nov 2026 07:38:58 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2C36E1C0A;
+	Thu, 19 Nov 2026 07:38:55 -0800 (PST)
 Received: from e140322.cambridge.arm.com (e140322.arm.com [10.2.201.43])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3100B3F882;
-	Thu, 19 Nov 2026 07:39:00 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 96C3D3F882;
+	Thu, 19 Nov 2026 07:38:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795102741; bh=ADToRRf6aVyYLeoKOSWxjIkUf8pU1nYZ1L+KX7iLF48=;
+	t=1795102738; bh=KM8ICToR4BCELBHnAn/N7rkHDdKpgb/VXN8cxuvwvDI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=k68YWRN6fKbBExACuwLEzfv44GDEzxr9VV+Eg+YE2OUheoKe2uJE8E7Ywsq/Yrqz7
-	 uQBNdXhhkiWuLGBw8l28HZIfXbhuNmLL7TPhPk4IPR1Gcf7ne2U5MssDQiqRHMkFCR
-	 UCUhIA3+6XgYMZamqNptuAOCTkfSu4NA1RtFdkZA=
+	b=uFxM/cgS9+n6HsNhZoEZrqnnBUD/JM9/Oku7CKYU3RKSNy1SF/3nvsNVDPEDu/qZd
+	 yVfq1sLvigrSVKSNEE07E4vP9PowSK0wHVjcmhyQCpaUCb8JtxNk58YzdIsW6oqnf+
+	 ALdJLMBwBeoLcGSzjP1HNNT69AjK/pRKAeJJKBNI=
 From: Charvi Mehta <charvi.mehta@arm.com>
 To: linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
@@ -55,9 +55,9 @@ Cc: Charvi Mehta <charvi.mehta@arm.com>,
 	Vincenzo Frascino <vincenzo.frascino@arm.com>,
 	Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
 	Shobhit Pandey <shobhit.pandey@arm.com>
-Subject: [RFC PATCH 19/28] media: mali-vpu: start decoder firmware through LSID scheduling
-Date: Thu, 19 Nov 2026 15:37:49 +0000
-Message-ID: <20261119153758.1426673-20-charvi.mehta@arm.com>
+Subject: [RFC PATCH 17/28] media: mali-vpu: add single session scheduler
+Date: Thu, 19 Nov 2026 15:37:47 +0000
+Message-ID: <20261119153758.1426673-18-charvi.mehta@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261119153758.1426673-1-charvi.mehta@arm.com>
 References: <20261119153758.1426673-1-charvi.mehta@arm.com>
@@ -72,566 +72,604 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Connect decoder firmware execution to queue preparation and asynchronous
-firmware loading. Start the decoder when OUTPUT requests streaming,
-without requiring CAPTURE to be streaming.
+Add a scheduler with a simple policy that assigns all available VPU cores
+to a single session mapped at LSID 0. Provide operations for switching
+the session in, signalling firmware, flushing its MMU context and
+terminating execution.
 
-Activate the LSID and wait for pending option responses before requesting
-the firmware running state. Track requested and confirmed firmware states
-and coordinate shutdown with firmware responses and interrupt processing.
+Initialize the scheduler during probe and prepare the session hardware
+context when its firmware is loaded.
 
 Signed-off-by: Charvi Mehta <charvi.mehta@arm.com>
 ---
- .../platform/arm/mali-vpu/mali-vpu-formats.c  |   7 +
- .../platform/arm/mali-vpu/mali-vpu-formats.h  |   1 +
- .../platform/arm/mali-vpu/mali-vpu-session.c  | 297 +++++++++++++++++-
- .../platform/arm/mali-vpu/mali-vpu-session.h  |  12 +
- .../platform/arm/mali-vpu/mali-vpu-vb2.c      |  46 ++-
- .../platform/arm/mali-vpu/mali-vpu-vidioc.c   |   2 +
- 6 files changed, 356 insertions(+), 9 deletions(-)
+ drivers/media/platform/arm/mali-vpu/Makefile  |   3 +-
+ .../platform/arm/mali-vpu/mali-vpu-device.h   |   4 +
+ .../platform/arm/mali-vpu/mali-vpu-lsid.h     |   3 +
+ .../platform/arm/mali-vpu/mali-vpu-mmu.c      |   6 +
+ .../platform/arm/mali-vpu/mali-vpu-mmu.h      |   2 +
+ .../platform/arm/mali-vpu/mali-vpu-probe.c    |  11 +-
+ .../arm/mali-vpu/mali-vpu-registers.h         |   9 +
+ .../arm/mali-vpu/mali-vpu-scheduler.c         | 224 ++++++++++++++++++
+ .../arm/mali-vpu/mali-vpu-scheduler.h         |  57 +++++
+ .../platform/arm/mali-vpu/mali-vpu-session.c  |  14 +-
+ .../platform/arm/mali-vpu/mali-vpu-session.h  |   6 +
+ .../arm/mali-vpu/mali-vpu-variant-v76.c       |   2 +
+ .../platform/arm/mali-vpu/mali-vpu-variant.h  |   2 +
+ 13 files changed, 334 insertions(+), 9 deletions(-)
+ create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.c
+ create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.h
 
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.c
-index 57aa1b3baf40f..072e3b4aa9473 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.c
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.c
-@@ -20,6 +20,13 @@ bool mali_vpu_is_coded_q(const struct mali_vpu_session *sess, enum v4l2_buf_type
- 	return V4L2_TYPE_IS_CAPTURE(type);
- }
+diff --git a/drivers/media/platform/arm/mali-vpu/Makefile b/drivers/media/platform/arm/mali-vpu/Makefile
+index 51d49d815f1fb..5860cda6055cc 100644
+--- a/drivers/media/platform/arm/mali-vpu/Makefile
++++ b/drivers/media/platform/arm/mali-vpu/Makefile
+@@ -12,6 +12,7 @@ mali-vpu-objs := mali-vpu-probe.o \
+ 		mali-vpu-mmu.o \
+ 		mali-vpu-firmware-cache.o \
+ 		mali-vpu-firmware.o \
+-		mali-vpu-lsid.o
++		mali-vpu-lsid.o \
++		mali-vpu-scheduler.o
  
-+bool mali_vpu_is_raw_q(const struct mali_vpu_session *sess, enum v4l2_buf_type type)
-+{
-+	if (sess->role == MALI_VPU_DECODER)
-+		return V4L2_TYPE_IS_CAPTURE(type);
-+	return V4L2_TYPE_IS_OUTPUT(type);
-+}
-+
- const struct mali_vpu_format_desc *
- mali_vpu_find_format(struct mali_vpu_session *sess, u32 pixfmt,
- 		     enum v4l2_buf_type type)
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.h
-index 37198325ee481..6901e295d7c33 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.h
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-formats.h
-@@ -34,5 +34,6 @@ int mali_vpu_fill_pixmp_fmt(const struct mali_vpu_format_desc *fmt,
- 			    u32 width, u32 height,
- 			    struct v4l2_pix_format_mplane *pix_mp);
- bool mali_vpu_is_coded_q(const struct mali_vpu_session *sess, enum v4l2_buf_type type);
-+bool mali_vpu_is_raw_q(const struct mali_vpu_session *sess, enum v4l2_buf_type type);
+ obj-$(CONFIG_VIDEO_MALI_VPU) += mali-vpu.o
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
+index a35c1b901aa3f..9be36e47d0879 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
+@@ -9,6 +9,8 @@
+ #include <linux/device.h>
+ #include <media/v4l2-device.h>
  
- #endif /* __MALI_VPU_FORMATS_H__ */
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-index 09ec6d14f4ad0..6d22a5d479008 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
-@@ -19,8 +19,15 @@
- #include "mali-vpu-variant.h"
- #include "mali-vpu-vb2.h"
++#include "mali-vpu-scheduler.h"
++
+ #define MALI_VPU_DRV_NAME "mali-vpu"
  
-+static const unsigned int mali_vpu_fw_response_timeout_ms = 10000;
- static const unsigned int mali_vpu_fw_load_timeout_ms     = 10000;
+ struct clk_bulk_data;
+@@ -40,6 +42,7 @@ enum mali_vpu_session_role {
+  * @vdev_dec: Video device structure for decoder.
+  * @m2m_dev: V4L2 mem2mem device structure for mali vpu.
+  * @fw_cache: Firmware cache for sharing or reusing firmware blobs.
++ * @sched: Mali VPU hardware scheduler state.
+  */
+ struct mali_vpu_dev {
+ 	struct device			*dev;
+@@ -56,6 +59,7 @@ struct mali_vpu_dev {
+ 	struct video_device		*vdev_dec;
+ 	struct v4l2_m2m_dev		*m2m_dev;
+ 	struct mali_vpu_fw_cache	*fw_cache;
++	struct mali_vpu_sched		sched;
+ };
  
-+static struct mali_vpu_port *
-+mali_vpu_session_get_port(struct mali_vpu_session *sess, enum v4l2_buf_type type)
-+{
-+	return V4L2_TYPE_IS_OUTPUT(type) ? &sess->port_src : &sess->port_dst;
-+}
-+
- static int mali_vpu_set_port_fmt(struct mali_vpu_port *port,
- 				 enum v4l2_buf_type type,
- 				 u32 width, u32 height)
-@@ -67,10 +74,91 @@ mali_vpu_both_ports_unrequested(struct mali_vpu_session *sess)
- 	       !sess->port_dst.stream_requested;
- }
+ #endif /* __MALI_VPU_DEVICE_H__ */
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-lsid.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-lsid.h
+index 97c32f9ac9aa0..57733304d4e17 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-lsid.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-lsid.h
+@@ -9,6 +9,7 @@
+ #include <linux/types.h>
  
-+static bool mali_vpu_session_can_stream(const struct mali_vpu_session *sess)
-+{
-+	/*
-+	 * Start a decoder with OUTPUT/src port only, so firmware can
-+	 * parse the bitstream and report its decoded format.
-+	 * An encoder requires both ports.
-+	 *
-+	 * Use the driver's preparation state because VB2 sets its streaming
-+	 * flag only after prepare_streaming() and initial buffer handoff.
-+	 */
-+	if (sess->role == MALI_VPU_DECODER)
-+		return sess->port_src.stream_requested;
-+
-+	return sess->port_src.stream_requested &&
-+	       sess->port_dst.stream_requested;
-+}
-+
-+static int mali_vpu_session_fw_send_job(struct mali_vpu_session *sess, u16 frames)
-+{
-+	int ret;
-+
-+	ret = mali_vpu_fw_send_job(&sess->fw, sess->ncores, frames);
-+	if (ret)
-+		return ret;
-+
-+	mali_vpu_sched_send_irq(&sess->sched_sess, &sess->vpu_dev->sched);
-+	return 0;
-+}
-+
-+static int mali_vpu_session_fw_send_ping(struct mali_vpu_session *sess)
-+{
-+	int ret;
-+
-+	ret = mali_vpu_fw_send_ping(&sess->fw);
-+	if (ret)
-+		return ret;
-+
-+	mali_vpu_sched_send_irq(&sess->sched_sess, &sess->vpu_dev->sched);
-+	return 0;
-+}
-+
-+static int mali_vpu_session_fw_send_state(struct mali_vpu_session *sess,
-+					  enum mali_vpu_fw_state new_state)
-+{
-+	int ret;
-+
-+	if (sess->fw_requested_state != sess->fw_state)
-+		/* There is a pending request: is this one duplicate? */
-+		return sess->fw_requested_state == new_state ? 0 : -EBUSY;
-+
-+	if (sess->fw_state == new_state)
-+		return 0;
-+
-+	ret = mali_vpu_fw_send_state_change(&sess->fw, new_state);
-+	if (ret)
-+		return ret;
-+
-+	sess->fw_requested_state = new_state;
-+	mali_vpu_sched_send_irq(&sess->sched_sess, &sess->vpu_dev->sched);
-+
-+	return 0;
-+}
-+
- int mali_vpu_session_fw_send_set_option(struct mali_vpu_session *sess,
- 					struct mali_vpu_fw_set_option *opt)
- {
--	return mali_vpu_fw_send_set_option(&sess->fw, opt);
-+	int ret;
-+
-+	ret = mali_vpu_fw_send_set_option(&sess->fw, opt);
-+	if (ret)
-+		return ret;
-+
-+	mali_vpu_sched_send_irq(&sess->sched_sess, &sess->vpu_dev->sched);
-+	return 0;
-+}
-+
-+static int mali_vpu_session_sched_activate(struct mali_vpu_session *sess)
-+{
-+	lockdep_assert_held(&sess->vq_lock);
-+
-+	if (sess->sched_sess.lsid)
-+		return 0;
-+
-+	/* This maps LSID 0 and makes any staged IRQHOST visible. */
-+	return mali_vpu_sched_switch_in(&sess->sched_sess, &sess->vpu_dev->sched);
- }
+ struct mali_vpu_dev;
++struct mali_vpu_sched_session;
  
- static int mali_vpu_session_handle_fw_msg(struct mali_vpu_session *sess,
-@@ -123,6 +211,102 @@ static int mali_vpu_session_handle_fw_msg(struct mali_vpu_session *sess,
- 	}
- }
+ /*
+  * A local session identifier (LSID) represents a hardware execution
+@@ -36,10 +37,12 @@ struct mali_vpu_lsid_pcb {
+ /**
+  * struct mali_vpu_lsid - Hardware LSID instance.
+  * @vpu_dev: Back pointer to parent Mali VPU device.
++ * @sched_sess: Scheduler session currently mapped to this LSID, if any.
+  * @id: Hardware LSID instance.
+  */
+ struct mali_vpu_lsid {
+ 	struct mali_vpu_dev *vpu_dev;
++	struct mali_vpu_sched_session *sched_sess;
+ 	u32 id;
+ };
  
-+static int mali_vpu_session_wait_pending(struct mali_vpu_session *sess)
-+{
-+	long timeout;
-+
-+	lockdep_assert_held(&sess->vq_lock);
-+
-+	while (sess->fw_bin_state == MALI_VPU_SESSION_FW_BIN_READY &&
-+	       sess->fw.pending_response_count) {
-+		mutex_unlock(&sess->vq_lock);
-+
-+		timeout = wait_event_timeout(sess->fw_waitq,
-+					     READ_ONCE(sess->fw_bin_state) !=
-+					     MALI_VPU_SESSION_FW_BIN_READY ||
-+					     !READ_ONCE(sess->fw.pending_response_count),
-+					     msecs_to_jiffies(mali_vpu_fw_response_timeout_ms));
-+
-+		mutex_lock(&sess->vq_lock);
-+
-+		if (!timeout && sess->fw.pending_response_count)
-+			return -ETIMEDOUT;
-+	}
-+
-+	return 0;
-+}
-+
-+static int mali_vpu_session_fw_init(struct mali_vpu_session *sess)
-+{
-+	int ret;
-+
-+	lockdep_assert_held(&sess->vq_lock);
-+
-+	if (sess->fw_requested_state != sess->fw_state) {
-+		if (sess->fw_requested_state != MALI_VPU_FW_STATE_RUNNING)
-+			return -EBUSY;
-+
-+		return mali_vpu_session_sched_activate(sess);
-+	}
-+
-+	if (sess->fw_state == MALI_VPU_FW_STATE_RUNNING)
-+		return 0;
-+
-+	ret = mali_vpu_session_fw_send_job(sess, 0);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Map the LSID and allow the stopped firmware to process the
-+	 * queued SET_OPTION requests before it can be RUNNING.
-+	 */
-+	ret = mali_vpu_session_sched_activate(sess);
-+	if (ret)
-+		return ret;
-+
-+	ret = mali_vpu_session_fw_send_ping(sess);
-+	if (ret)
-+		return ret;
-+
-+	ret = mali_vpu_apply_staged_controls(sess);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * SET_OPTION is only valid while stopped. Wait for pending option
-+	 * responses before requesting RUNNING.
-+	 */
-+	ret = mali_vpu_session_wait_pending(sess);
-+	if (ret)
-+		return ret;
-+
-+	/* Waiting drops vq_lock, so streaming may have been withdrawn. */
-+	if (!mali_vpu_session_can_stream(sess))
-+		return 0;
-+
-+	return mali_vpu_session_fw_send_state(sess, MALI_VPU_FW_STATE_RUNNING);
-+}
-+
-+static int mali_vpu_session_fw_stop(struct mali_vpu_session *sess)
-+{
-+	int ret;
-+
-+	lockdep_assert_held(&sess->vq_lock);
-+
-+	ret = mali_vpu_session_wait_pending(sess);
-+	if (ret)
-+		return ret;
-+
-+	if (sess->fw_state == MALI_VPU_FW_STATE_STOPPED)
-+		return 0;
-+
-+	ret = mali_vpu_session_fw_send_state(sess, MALI_VPU_FW_STATE_STOPPED);
-+	if (ret)
-+		return ret;
-+
-+	return mali_vpu_session_wait_pending(sess);
-+}
-+
- int mali_vpu_session_init(struct mali_vpu_session *sess)
- {
- 	int ret;
-@@ -170,7 +354,9 @@ int mali_vpu_session_init(struct mali_vpu_session *sess)
- 	sess->port_src.stream_requested = false;
- 	sess->port_dst.stream_requested = false;
- 	init_completion(&sess->fw_load_done);
-+	init_waitqueue_head(&sess->fw_waitq);
- 	sess->fw_state = MALI_VPU_FW_STATE_STOPPED;
-+	sess->fw_requested_state = MALI_VPU_FW_STATE_STOPPED;
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.c
+index 00cf5251eff5e..115539fe1cb3e 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.c
+@@ -691,3 +691,9 @@ int mali_vpu_mmu_write(struct mali_vpu_mmu_pages *pages,
  
  	return 0;
+ }
++
++mali_vpu_mmu_pte mali_vpu_mmu_get_root_pte(const struct mali_vpu_mmu *mmu)
++{
++	return mali_vpu_mmu_set_pte(MALI_VPU_ATTR_PRIVATE, mmu->root.dma,
++				    MALI_VPU_ACCESS_READ_WRITE);
++}
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.h
+index 6ad645a2dc6bb..4baf1daaf2983 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-mmu.h
+@@ -149,4 +149,6 @@ int mali_vpu_mmu_map_dma(struct mali_vpu_mmu *mmu,
+ void mali_vpu_mmu_unmap_va(struct mali_vpu_mmu *mmu, mali_vpu_mmu_va va, size_t size);
+ int mali_vpu_mmu_write(struct mali_vpu_mmu_pages *pages, const void *data, size_t size);
  
-@@ -208,6 +394,8 @@ int mali_vpu_session_cleanup(struct mali_vpu_session *sess)
- {
- 	struct mali_vpu_dev *vpu_dev = sess->vpu_dev;
- 	int fw_load_ret = 0;
-+	int fw_stop_ret = 0;
-+	int terminate_ret;
- 	bool waiter_cancelled = false;
- 
- 	mutex_lock(&sess->vq_lock);
-@@ -215,7 +403,9 @@ int mali_vpu_session_cleanup(struct mali_vpu_session *sess)
- 	sess->port_src.stream_requested = false;
- 	sess->port_dst.stream_requested = false;
- 
--	if (sess->fw_bin_state == MALI_VPU_SESSION_FW_BIN_LOADING) {
-+	if (sess->fw_bin_state == MALI_VPU_SESSION_FW_BIN_LOADING ||
-+	    (sess->fw_bin_state == MALI_VPU_SESSION_FW_BIN_READY &&
-+	     !completion_done(&sess->fw_load_done))) {
- 		mutex_unlock(&sess->vq_lock);
- 
- 		if (!wait_for_completion_timeout(&sess->fw_load_done,
-@@ -243,6 +433,21 @@ int mali_vpu_session_cleanup(struct mali_vpu_session *sess)
- 			sess->fw_bin_state = MALI_VPU_SESSION_FW_BIN_FAILED;
++mali_vpu_mmu_pte mali_vpu_mmu_get_root_pte(const struct mali_vpu_mmu *mmu);
++
+ #endif /* __MALI_VPU_MMU_H__ */
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
+index 123ff4d8fc937..0c7ea9035fb50 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
+@@ -208,17 +208,21 @@ static int mali_vpu_probe(struct platform_device *pdev)
+ 		goto err_rst_clk;
  	}
  
-+	if (sess->fw_bin_state == MALI_VPU_SESSION_FW_BIN_READY)
-+		fw_stop_ret = mali_vpu_session_fw_stop(sess);
++	ret = mali_vpu_sched_init(&vpu_dev->sched, vpu_dev);
++	if (ret)
++		goto err_rst_clk;
 +
-+	terminate_ret = mali_vpu_sched_session_terminate(&sess->sched_sess,
-+							 &vpu_dev->sched);
-+	mutex_unlock(&sess->vq_lock);
-+
-+	/*
-+	 * The LSID is no longer routed to this session. Drain a worker that
-+	 * may have resolved sess before it was detached.
-+	 */
-+	flush_work(&vpu_dev->irq_work);
-+
-+	mutex_lock(&sess->vq_lock);
-+
- 	mali_vpu_session_release_fw_bin(sess);
+ 	vpu_dev->dma_mask = vpu_dev->variant->dma_mask;
+ 	ret = dma_set_mask_and_coherent(vpu_dev->dev, vpu_dev->dma_mask);
+ 	if (ret)
+-		goto err_rst_clk;
++		goto err_cleanup_sched;
  
- 	if (sess->m2m_ctx) {
-@@ -258,7 +463,72 @@ int mali_vpu_session_cleanup(struct mali_vpu_session *sess)
- 	mali_vpu_ctrls_cleanup(sess);
- 	mutex_destroy(&sess->vq_lock);
+ 	dma_set_max_seg_size(vpu_dev->dev, SZ_2G);
  
--	return fw_load_ret;
-+	if (fw_load_ret)
-+		return fw_load_ret;
+ 	ret = v4l2_device_register(&pdev->dev, &vpu_dev->v4l2_dev);
+ 	if (ret) {
+ 		dev_err(vpu_dev->dev, "failed to register V4L2 device\n");
+-		goto err_rst_clk;
++		goto err_cleanup_sched;
+ 	}
+ 
+ 	vpu_dev->m2m_dev = v4l2_m2m_init(&mali_vpu_m2m_ops);
+@@ -251,6 +255,8 @@ static int mali_vpu_probe(struct platform_device *pdev)
+ 	v4l2_m2m_release(vpu_dev->m2m_dev);
+ err_unreg_v4l2:
+ 	v4l2_device_unregister(&vpu_dev->v4l2_dev);
++err_cleanup_sched:
++	mali_vpu_sched_cleanup(&vpu_dev->sched);
+ err_rst_clk:
+ 	mali_vpu_assert_reset(vpu_dev);
+ err_clk:
+@@ -268,6 +274,7 @@ static void mali_vpu_remove(struct platform_device *pdev)
+ 	v4l2_m2m_release(vpu_dev->m2m_dev);
+ 	v4l2_device_unregister(&vpu_dev->v4l2_dev);
+ 
++	mali_vpu_sched_cleanup(&vpu_dev->sched);
+ 	mali_vpu_assert_reset(vpu_dev);
+ 	mali_vpu_disable_clk(vpu_dev);
+ 
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-registers.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-registers.h
+index f2386bdc4943a..1a3e0fcdba4c6 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-registers.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-registers.h
+@@ -17,7 +17,10 @@
+ #define MALI_VPU_REG_VERSION  0x00000
+ #define MALI_VPU_REG_ENABLE   0x00004
+ #define MALI_VPU_REG_NCORES   0x00008
++#define MALI_VPU_REG_NLSID    0x0000C
+ #define MALI_VPU_REG_JOBQUEUE 0x00014
++#define MALI_VPU_REG_CLKFORCE 0x00024
++#define MALI_VPU_REG_RESET    0x00050
+ 
+ #define MALI_VPU_LSID_BASE    0x00200
+ #define MALI_VPU_LSID_STRIDE  0x40
+@@ -54,6 +57,12 @@
+ #define MALI_VPU_JOBQUEUE_JOB_INVALID 0xf
+ #define MALI_VPU_JOBQUEUE_NJOBS       4
+ 
++/* IRQVE contains one interrupt bit per LSID. */
++#define MALI_VPU_IRQVE_NUM_BITS 32
 +
-+	if (fw_stop_ret)
-+		return fw_stop_ret;
++/* CTRL register fields */
++#define MALI_VPU_CTRL_MAXCORES GENMASK(11, 8)
 +
-+	return terminate_ret;
-+}
+ #define MALI_VPU_ALLOC_FREE          0
+ #define MALI_VPU_ALLOC_NON_PROTECTED 1
+ #define MALI_VPU_ALLOC_PROTECTED     2
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.c
+new file mode 100644
+index 0000000000000..cae9ac0093be9
+--- /dev/null
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.c
+@@ -0,0 +1,224 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2026 ARM Limited.
++ */
 +
-+int mali_vpu_session_prepare_streaming(struct mali_vpu_session *sess,
-+				       enum v4l2_buf_type type)
++#include <linux/bitfield.h>
++#include <linux/string.h>
++
++#include "mali-vpu-device.h"
++#include "mali-vpu-mmu.h"
++#include "mali-vpu-registers.h"
++#include "mali-vpu-scheduler.h"
++#include "mali-vpu-session.h"
++#include "mali-vpu-variant.h"
++
++int mali_vpu_sched_init(struct mali_vpu_sched *sched, struct mali_vpu_dev *vpu_dev)
 +{
-+	struct mali_vpu_port *port = mali_vpu_session_get_port(sess, type);
-+	int ret;
++	u32 hw_nlsid, variant_nlsid;
++	u32 lsid, max_irq_lsid;
 +
-+	lockdep_assert_held(&sess->vq_lock);
++	if (!vpu_dev->variant || !vpu_dev->variant->max_lsid)
++		return -EINVAL;
 +
-+	if (port->stream_requested)
-+		return 0;
++	hw_nlsid = mali_vpu_read_reg(vpu_dev->regs_base, MALI_VPU_REG_NLSID);
++	variant_nlsid = vpu_dev->variant->max_lsid;
 +
-+	if (sess->fw_bin_state == MALI_VPU_SESSION_FW_BIN_READY &&
-+	    sess->fw_requested_state != sess->fw_state &&
-+	    sess->fw_requested_state != MALI_VPU_FW_STATE_RUNNING)
-+		return -EBUSY;
-+
-+	port->stream_requested = true;
-+
-+	if (sess->fw_bin_state == MALI_VPU_SESSION_FW_BIN_READY &&
-+	    mali_vpu_session_can_stream(sess)) {
-+		ret = mali_vpu_session_fw_init(sess);
-+		if (ret)
-+			goto err_rollback;
++	max_irq_lsid = min_t(u32, BITS_PER_LONG, MALI_VPU_IRQVE_NUM_BITS);
++	if (variant_nlsid > max_irq_lsid) {
++		dev_err(vpu_dev->dev,
++			"variant supports %u LSIDs, but IRQ handling supports only %u\n",
++			variant_nlsid, max_irq_lsid);
++		return -EINVAL;
 +	}
 +
++	if (!hw_nlsid || hw_nlsid > variant_nlsid) {
++		dev_err(vpu_dev->dev,
++			"hardware reports %u LSIDs, but variant supports only %u\n",
++			hw_nlsid, variant_nlsid);
++		return -EINVAL;
++	}
++
++	sched->nlsid = hw_nlsid;
++	sched->lsid_list = devm_kcalloc(vpu_dev->dev, sched->nlsid,
++					sizeof(*sched->lsid_list), GFP_KERNEL);
++	if (!sched->lsid_list)
++		return -ENOMEM;
++
++	sched->vpu_dev = vpu_dev;
++	mutex_init(&sched->lock);
++
++	for (lsid = 0; lsid < sched->nlsid; lsid++)
++		mali_vpu_lsid_init(&sched->lsid_list[lsid], vpu_dev, lsid);
++
++	mali_vpu_write_reg(vpu_dev->regs_base, MALI_VPU_REG_RESET, 1);
++	mali_vpu_write_reg(vpu_dev->regs_base, MALI_VPU_REG_CLKFORCE, 0);
++
 +	return 0;
++}
 +
-+err_rollback:
-+	port->stream_requested = false;
++void mali_vpu_sched_cleanup(struct mali_vpu_sched *sched)
++{
++	mutex_destroy(&sched->lock);
++}
 +
++int mali_vpu_sched_session_prepare(struct mali_vpu_sched_session *sched_sess,
++				   struct mali_vpu_session *sess)
++{
++	u32 hw_ncores, ctrl = 0;
++
++	if (sched_sess->lsid)
++		return -EBUSY;
++
++	if (!sess->mmu.root.cpu)
++		return -EINVAL;
++
++	/* Simple scheduling policy - all cores for all sessions */
++	hw_ncores = mali_vpu_read_reg(sess->vpu_dev->regs_base, MALI_VPU_REG_NCORES);
++	if (!hw_ncores ||
++	    hw_ncores > BIT(MALI_VPU_JOBQUEUE_NCORES_BITS))
++		return -EINVAL;
++
++	ctrl |= FIELD_PREP(MALI_VPU_CTRL_MAXCORES, hw_ncores);
++
++	memset(sched_sess, 0, sizeof(*sched_sess));
++
++	sched_sess->core_count = hw_ncores;
++	sched_sess->pcb.ctrl = ctrl;
++	sched_sess->pcb.mmu_ctrl = mali_vpu_mmu_get_root_pte(&sess->mmu);
++	sched_sess->pcb.nprot = 1;
++
++	sess->ncores = sched_sess->core_count;
++
++	return 0;
++}
++
++static void mali_vpu_sched_reset_locked(struct mali_vpu_sched *sched)
++{
++	struct mali_vpu_lsid *lsid;
++	u32 i;
++
++	lockdep_assert_held(&sched->lock);
++
++	mali_vpu_write_reg(sched->vpu_dev->regs_base, MALI_VPU_REG_RESET, 1);
++
++	for (i = 0; i < sched->nlsid; i++) {
++		lsid = &sched->lsid_list[i];
++
++		if (lsid->sched_sess)
++			lsid->sched_sess->lsid = NULL;
++
++		lsid->sched_sess = NULL;
++	}
++
++	mali_vpu_write_reg(sched->vpu_dev->regs_base, MALI_VPU_REG_CLKFORCE, 0);
++}
++
++int mali_vpu_sched_switch_in(struct mali_vpu_sched_session *sched_sess,
++			     struct mali_vpu_sched *sched)
++{
++	struct mali_vpu_lsid *lsid;
++	struct mali_vpu_sched_session *owner;
++	bool mapped_here = false;
++	int ret = 0;
++
++	mutex_lock(&sched->lock);
++
++	if (!sched->nlsid) {
++		ret = -ENODEV;
++		goto err_unlock;
++	}
++
++	/* Allow only one active session as a simple policy */
++	lsid = &sched->lsid_list[0];
++
++	owner = lsid->sched_sess;
++	if (owner && owner != sched_sess) {
++		ret = -EBUSY;
++		goto err_unlock;
++	}
++
++	if (sched_sess->lsid && sched_sess->lsid != lsid) {
++		ret = -EINVAL;
++		goto err_unlock;
++	}
++
++	if (!sched_sess->lsid) {
++		/* Map the session to an lsid first */
++		ret = mali_vpu_lsid_map(lsid, &sched_sess->pcb);
++		if (ret) {
++			if (ret == -ETIMEDOUT)
++				mali_vpu_sched_reset_locked(sched);
++			goto err_unlock;
++		}
++
++		lsid->sched_sess = sched_sess;
++		sched_sess->lsid = lsid;
++		mapped_here = true;
++	}
++
++	/* Add the session to jobqueue */
++	ret = mali_vpu_lsid_jobqueue_add(sched_sess->lsid, sched_sess->core_count);
++	if (ret && mapped_here) {
++		mali_vpu_lsid_unmap(lsid, &sched_sess->pcb);
++		lsid->sched_sess = NULL;
++		sched_sess->lsid = NULL;
++	}
++
++err_unlock:
++	mutex_unlock(&sched->lock);
 +	return ret;
 +}
 +
-+int mali_vpu_session_streamoff(struct mali_vpu_session *sess, enum v4l2_buf_type type)
++void mali_vpu_sched_send_irq(struct mali_vpu_sched_session *sched_sess,
++			     struct mali_vpu_sched *sched)
 +{
-+	struct mali_vpu_port *port = mali_vpu_session_get_port(sess, type);
-+	int ret;
++	mutex_lock(&sched->lock);
++	if (!sched_sess->lsid)
++		sched_sess->pcb.irqhost = 1;
++	else
++		mali_vpu_lsid_send_irq(sched_sess->lsid);
++	mutex_unlock(&sched->lock);
++}
 +
-+	lockdep_assert_held(&sess->vq_lock);
++void mali_vpu_sched_flush_mmu(struct mali_vpu_sched_session *sched_sess,
++			      struct mali_vpu_sched *sched)
++{
++	mutex_lock(&sched->lock);
++	if (sched_sess->lsid)
++		mali_vpu_lsid_flush_mmu(sched_sess->lsid);
++	mutex_unlock(&sched->lock);
++}
 +
-+	if (!port->stream_requested)
-+		return 0;
++int mali_vpu_sched_session_terminate(struct mali_vpu_sched_session *sched_sess,
++				     struct mali_vpu_sched *sched)
++{
++	struct mali_vpu_lsid *lsid;
++	int ret = 0;
 +
-+	port->stream_requested = false;
++	mutex_lock(&sched->lock);
 +
-+	if (sess->fw_bin_state != MALI_VPU_SESSION_FW_BIN_READY ||
-+	    !sess->sched_sess.lsid)
-+		return 0;
++	lsid = sched_sess->lsid;
++	if (!lsid)
++		goto unlock;
 +
-+	if (mali_vpu_is_raw_q(sess, type))
-+		return mali_vpu_session_wait_pending(sess);
++	mali_vpu_lsid_jobqueue_remove(sched_sess->lsid);
 +
-+	ret = mali_vpu_session_fw_stop(sess);
-+	if (ret)
-+		return ret;
-+
-+	return mali_vpu_session_wait_pending(sess);
- }
- 
- static void mali_vpu_session_fw_bin_ready(struct mali_vpu_fw_bin *vpu_fw_bin,
-@@ -308,8 +578,27 @@ static void mali_vpu_session_fw_bin_ready(struct mali_vpu_fw_bin *vpu_fw_bin,
- 
- 	sess->fw_bin_state = MALI_VPU_SESSION_FW_BIN_READY;
- 
-+	/*
-+	 * A synchronous callback leaves startup to session preparation.
-+	 * A delayed callback completes startup itself.
-+	 */
-+	if (!same_thread && mali_vpu_session_can_stream(sess)) {
-+		ret = mali_vpu_session_fw_init(sess);
-+		if (ret) {
-+			dev_err(sess->vpu_dev->dev,
-+				"failed to start streaming: %d\n", ret);
-+			sess->fw_bin_state = MALI_VPU_SESSION_FW_BIN_UNINITIALIZED;
-+			goto err_fw_cleanup;
-+		}
++	ret = mali_vpu_lsid_terminate(sched_sess->lsid);
++	if (ret) {
++		dev_err(sched->vpu_dev->dev,
++			"failed to terminate LSID %u: %d; resetting VPU\n",
++			lsid->id, ret);
++		mali_vpu_sched_reset_locked(sched);
++		goto unlock;
 +	}
 +
- 	goto out_complete;
- 
-+err_fw_cleanup:
-+	mali_vpu_fw_cleanup(&sess->fw);
-+	sess->fw_state = MALI_VPU_FW_STATE_STOPPED;
-+	sess->fw_requested_state = MALI_VPU_FW_STATE_STOPPED;
++	mali_vpu_lsid_unmap(lsid, &sched_sess->pcb);
++	lsid->sched_sess = NULL;
++	sched_sess->lsid = NULL;
 +
- err_cache_put:
- 	mali_vpu_fw_cache_put(vpu_fw_bin);
- 
-@@ -405,5 +694,7 @@ void mali_vpu_session_irq(struct mali_vpu_session *sess)
- 	} while (ret >= 0);
- 
- unlock_mutex:
-+	wake_up(&sess->fw_waitq);
++unlock:
++	mutex_unlock(&sched->lock);
 +
- 	mutex_unlock(&sess->vq_lock);
- }
++	return ret;
++}
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.h
+new file mode 100644
+index 0000000000000..23167aef6ff62
+--- /dev/null
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-scheduler.h
+@@ -0,0 +1,57 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (C) 2026 ARM Limited.
++ */
++
++#ifndef __MALI_VPU_SCHEDULER_H__
++#define __MALI_VPU_SCHEDULER_H__
++
++#include <linux/mutex.h>
++
++#include "mali-vpu-lsid.h"
++
++struct mali_vpu_dev;
++struct mali_vpu_session;
++
++/**
++ * struct mali_vpu_sched_session - Client session class.
++ * @lsid: Pointer to LSID the session is mapped to.
++ * @pcb: LSID process control block programmed when the session is mapped.
++ * @core_count: Number of cores assigned to this scheduled session.
++ *
++ * This struct is used to keep track of session's information needed by the scheduler.
++ */
++struct mali_vpu_sched_session {
++	struct mali_vpu_lsid *lsid;
++	struct mali_vpu_lsid_pcb pcb;
++	u32 core_count;
++};
++
++/**
++ * struct mali_vpu_sched - Scheduler class.
++ * @vpu_dev: Pointer to mali_vpu_dev structure.
++ * @lock: Serialise access to sched resources.
++ * @lsid_list: Array of LSID instances.
++ * @nlsid: Number of LSIDs.
++ */
++struct mali_vpu_sched {
++	struct mali_vpu_dev *vpu_dev;
++	struct mutex lock;	/* Serialise access to sched resources. */
++	struct mali_vpu_lsid *lsid_list;
++	u32 nlsid;
++};
++
++int mali_vpu_sched_init(struct mali_vpu_sched *sched, struct mali_vpu_dev *dev);
++void mali_vpu_sched_cleanup(struct mali_vpu_sched *sched);
++int mali_vpu_sched_session_prepare(struct mali_vpu_sched_session *sched_sess,
++				   struct mali_vpu_session *sess);
++int mali_vpu_sched_switch_in(struct mali_vpu_sched_session *sched_sess,
++			     struct mali_vpu_sched *sched);
++void mali_vpu_sched_send_irq(struct mali_vpu_sched_session *sched_sess,
++			     struct mali_vpu_sched *sched);
++void mali_vpu_sched_flush_mmu(struct mali_vpu_sched_session *sched_sess,
++			      struct mali_vpu_sched *sched);
++int mali_vpu_sched_session_terminate(struct mali_vpu_sched_session *sched_sess,
++				     struct mali_vpu_sched *sched);
++
++#endif /* __MALI_VPU_SCHEDULER_H__ */
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+index 36197e82461be..c5579edfe627f 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+@@ -16,7 +16,6 @@
+ #include "mali-vpu-firmware.h"
+ #include "mali-vpu-firmware-cache.h"
+ #include "mali-vpu-formats.h"
+-#include "mali-vpu-registers.h"
+ #include "mali-vpu-variant.h"
+ #include "mali-vpu-vb2.h"
+ 
+@@ -216,7 +215,6 @@ static void mali_vpu_session_fw_bin_ready(struct mali_vpu_fw_bin *vpu_fw_bin,
+ 					  bool same_thread)
+ {
+ 	struct mali_vpu_session *sess = arg;
+-	u32 ncores;
+ 	int ret;
+ 
+ 	if (!same_thread)
+@@ -239,13 +237,17 @@ static void mali_vpu_session_fw_bin_ready(struct mali_vpu_fw_bin *vpu_fw_bin,
+ 	sess->fw_bin = vpu_fw_bin;
+ 
+ 	/*
+-	 * Get total number of cores on VPU element.
+-	 * This will be scheduler decision in subsequent patches.
++	 * Prepare the scheduler's saved session hardware context.
++	 * Scheduler assigns the session's core count.
+ 	 */
+-	ncores = mali_vpu_read_reg(sess->vpu_dev->regs_base, MALI_VPU_REG_NCORES);
++	ret = mali_vpu_sched_session_prepare(&sess->sched_sess, sess);
++	if (ret) {
++		sess->fw_bin_state = MALI_VPU_SESSION_FW_BIN_UNINITIALIZED;
++		goto err_cache_put;
++	}
+ 
+ 	ret = mali_vpu_fw_construct(&sess->fw, sess->fw_bin, sess->vpu_dev->dev,
+-				    &sess->mmu, ncores);
++				    &sess->mmu, sess->ncores);
+ 	if (ret) {
+ 		dev_err(sess->vpu_dev->dev,
+ 			"failed to initialise firmware: %d\n", ret);
 diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
-index e6b9de3b272cf..e331965d32fd8 100644
+index f0aa98005e92a..bf5923494773b 100644
 --- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
 +++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
-@@ -47,6 +47,11 @@ struct mali_vpu_port {
-  * construct the firmware address space before making the binary READY. The
-  * session retains its binary reference until cleanup.
-  *
-+ * A synchronous callback leaves firmware startup to session preparation.
-+ * An asynchronous callback starts firmware if the required ports still request
-+ * streaming: OUTPUT for a decoder, both ports for an encoder.
-+ * Binary READY and firmware RUNNING are separate states.
-+ *
-  * Session cleanup waits for an in-flight callback before releasing the
-  * session-owned binary reference and callback event. On timeout, it cancels
-  * the pending cache waiter or waits for an already claimed callback.
-@@ -78,7 +83,9 @@ enum mali_vpu_session_fw_bin_state {
+@@ -20,6 +20,7 @@
+ struct v4l2_m2m_ctx;
+ struct mali_vpu_fw_bin;
+ struct mali_vpu_fw_event;
++struct mali_vpu_sched_session;
+ 
+ /**
+  * struct mali_vpu_port - format state of a src/dst queue in a session.
+@@ -77,6 +78,8 @@ enum mali_vpu_session_fw_bin_state {
   * @fw_event: Firmware binary load event callback structure for this session.
   * @fw_bin_state: Session firmware binary status.
   * @fw_load_done: Completion used to synchronize teardown with an in-flight firmware load.
-+ * @fw_waitq: Wait queue used while waiting for firmware responses.
-  * @fw_state: Last state confirmed by the firmware.
-+ * @fw_requested_state: Last firmware state requested by the driver.
-  * @sched_sess: Scheduler state used to map this session to an LSID.
-  * @ncores: Number of cores assigned to this session by scheduler.
++ * @sched_sess: Scheduler state used to map this session to an LSID.
++ * @ncores: Number of cores assigned to this session by scheduler.
   */
-@@ -104,7 +111,9 @@ struct mali_vpu_session {
+ struct mali_vpu_session {
+ 	struct mali_vpu_dev		*vpu_dev;
+@@ -100,6 +103,9 @@ struct mali_vpu_session {
  	struct mali_vpu_fw_event		*fw_event;
  	enum mali_vpu_session_fw_bin_state	fw_bin_state;
  	struct completion			fw_load_done;
-+	wait_queue_head_t			fw_waitq;
- 	enum mali_vpu_fw_state			fw_state;
-+	enum mali_vpu_fw_state			fw_requested_state;
- 
- 	struct mali_vpu_sched_session	sched_sess;
- 	u32				ncores;
-@@ -115,6 +124,9 @@ int mali_vpu_session_cleanup(struct mali_vpu_session *sess);
- int mali_vpu_session_request_fw_load(struct mali_vpu_session *sess);
- int mali_vpu_session_fw_send_set_option(struct mali_vpu_session *sess,
- 					struct mali_vpu_fw_set_option *opt);
-+int mali_vpu_session_prepare_streaming(struct mali_vpu_session *sess,
-+				       enum v4l2_buf_type type);
-+int mali_vpu_session_streamoff(struct mali_vpu_session *sess, enum v4l2_buf_type type);
- void mali_vpu_session_irq(struct mali_vpu_session *sess);
- 
- static inline struct mali_vpu_session *mali_vpu_get_session(struct file *filp)
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-vb2.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-vb2.c
-index 4262758a5be26..b9f6968e9f13f 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-vb2.c
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-vb2.c
-@@ -62,8 +62,6 @@ static void mali_vpu_vb2_buffer_queue(struct vb2_buffer *vb2_buf)
- static int mali_vpu_vb2_prepare_streaming(struct vb2_queue *q)
- {
- 	struct mali_vpu_session *sess = vb2_get_drv_priv(q);
--	struct mali_vpu_port *port = V4L2_TYPE_IS_OUTPUT(q->type) ?
--					&sess->port_src : &sess->port_dst;
- 	int ret;
- 
- 	if (mali_vpu_is_coded_q(sess, q->type)) {
-@@ -72,17 +70,51 @@ static int mali_vpu_vb2_prepare_streaming(struct vb2_queue *q)
- 			return ret;
- 	}
- 
--	port->stream_requested = true;
-+	return mali_vpu_session_prepare_streaming(sess, q->type);
-+}
 +
-+static int mali_vpu_vb2_start_streaming(struct vb2_queue *q,
-+					unsigned int count __always_unused)
-+{
-+	struct mali_vpu_session *sess = vb2_get_drv_priv(q);
-+
-+	v4l2_m2m_update_start_streaming_state(sess->m2m_ctx, q);
- 	return 0;
- }
- 
-+static void mali_vpu_vb2_stop_streaming(struct vb2_queue *q)
-+{
-+	struct mali_vpu_session *sess = vb2_get_drv_priv(q);
-+	struct vb2_v4l2_buffer *v4l2_buf;
-+	int ret;
-+
-+	ret = mali_vpu_session_streamoff(sess, q->type);
-+	if (ret)
-+		dev_warn(sess->vpu_dev->dev, "failed to stop streaming: %d\n", ret);
-+
-+	if (V4L2_TYPE_IS_OUTPUT(q->type)) {
-+		while ((v4l2_buf = v4l2_m2m_src_buf_remove(sess->m2m_ctx)))
-+			v4l2_m2m_buf_done(v4l2_buf, VB2_BUF_STATE_ERROR);
-+	} else {
-+		while ((v4l2_buf = v4l2_m2m_dst_buf_remove(sess->m2m_ctx)))
-+			v4l2_m2m_buf_done(v4l2_buf, VB2_BUF_STATE_ERROR);
-+	}
-+
-+	v4l2_m2m_update_stop_streaming_state(sess->m2m_ctx, q);
-+}
-+
- static void mali_vpu_vb2_unprepare_streaming(struct vb2_queue *q)
- {
- 	struct mali_vpu_session *sess = vb2_get_drv_priv(q);
--	struct mali_vpu_port *port = V4L2_TYPE_IS_OUTPUT(q->type) ?
--					&sess->port_src : &sess->port_dst;
-+	int ret;
-+
-+	ret = mali_vpu_session_streamoff(sess, q->type);
-+	if (ret)
-+		dev_warn(sess->vpu_dev->dev,
-+			 "failed to unprepare streaming: %d\n", ret);
- 
--	port->stream_requested = false;
-+	if (!vb2_start_streaming_called(q))
-+		v4l2_m2m_update_stop_streaming_state(sess->m2m_ctx, q);
- }
- 
- static const struct vb2_ops mali_vpu_vb2_ops = {
-@@ -92,6 +124,8 @@ static const struct vb2_ops mali_vpu_vb2_ops = {
- 	.buf_prepare		= mali_vpu_vb2_buffer_prepare,
- 	.buf_queue		= mali_vpu_vb2_buffer_queue,
- 	.prepare_streaming	= mali_vpu_vb2_prepare_streaming,
-+	.start_streaming	= mali_vpu_vb2_start_streaming,
-+	.stop_streaming		= mali_vpu_vb2_stop_streaming,
- 	.unprepare_streaming	= mali_vpu_vb2_unprepare_streaming,
++	struct mali_vpu_sched_session	sched_sess;
++	u32				ncores;
  };
  
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
-index d9196cc86cdf4..0fcd3835e52d3 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
-@@ -357,4 +357,6 @@ const struct v4l2_ioctl_ops mali_vpu_ioctl_ops_dec = {
- 	.vidioc_enum_framesizes		= mali_vpu_enum_framesizes,
- 	.vidioc_subscribe_event		= mali_vpu_subscribe_event,
- 	.vidioc_unsubscribe_event	= v4l2_event_unsubscribe,
-+	.vidioc_streamon		= v4l2_m2m_ioctl_streamon,
-+	.vidioc_streamoff		= v4l2_m2m_ioctl_streamoff,
- };
+ int mali_vpu_session_init(struct mali_vpu_session *sess);
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c
+index 0a7481d97c717..30ff5c25417e0 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c
+@@ -18,6 +18,7 @@
+ 
+ #define MALI_VPU_HW_PID_V76 0x56627
+ #define MALI_VPU_FW_VER_MAJOR_V76 1
++#define MALI_VPU_MAX_LSID_V76 4
+ 
+ #define MALI_V76_MAX_FRAME_WIDTH 8192
+ #define MALI_V76_MAX_FRAME_HEIGHT 8192
+@@ -153,6 +154,7 @@ const struct mali_vpu_variant mali_vpu_v76_variant = {
+ 	.dma_mask = DMA_BIT_MASK(40),
+ 	.expected_hw_pid = MALI_VPU_HW_PID_V76,
+ 	.fw_ver_major = MALI_VPU_FW_VER_MAJOR_V76,
++	.max_lsid = MALI_VPU_MAX_LSID_V76,
+ 
+ 	.rst_names = mali_v76_rst_names,
+ 	.num_rsts = ARRAY_SIZE(mali_v76_rst_names),
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h
+index 3c37cd70bd81f..ac0bc3d899877 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h
+@@ -51,6 +51,7 @@ struct mali_vpu_control_caps {
+  * @expected_hw_pid: Expected hardware product ID read from the version register.
+  * @dma_mask: DMA addressing capability mask.
+  * @fw_ver_major: Major firmware version compatible with this variant.
++ * @max_lsid: Maximum number of hardware LSID slots in a VPU element.
+  * @fmt_caps: Format capability tables for encode/decode paths.
+  * @frmsz_caps: Frame dimension limits and defaults.
+  * @ctrl_caps:  Control capability tables for encode/decode paths.
+@@ -61,6 +62,7 @@ struct mali_vpu_variant {
+ 	u32 expected_hw_pid;
+ 	u64 dma_mask;
+ 	u32 fw_ver_major;
++	u32 max_lsid;
+ 
+ 	struct mali_vpu_format_caps	fmt_caps;
+ 	struct mali_vpu_framesize_caps	frmsz_caps;
 -- 
 2.43.0
 
