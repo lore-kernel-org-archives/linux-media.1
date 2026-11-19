@@ -1,88 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795082350;
-	b=vVvW4t4id+4JLs5AbX15iEFVJhfMi6o3ifZM1+vJYyO/g3763wm51wZH1gK4y/cpNzEK
-	 NsJEhapMTPYFY0Fq4YlbKCR/baM6zkka9pYenz73GOlrP852lAmF2JZdGdJgoR62NRCJt
-	 cEcnzc5yRPbB4Gi6wdYNMVepF8weKkNOxuR6Z/KuYfgoIJSUvOfgITl+4ZF3SQ3z6Qdau
-	 t55hWnYsAKLHZaSXr1sgIbBuju52fI6l091CsTq309QjBjd8F4m9dtmTysrh1qhaNJfq7
-	 QjcaeSb8WY8ryDdhM2aFqC2+tIobymR35YOz7rFdvAlisz/amKnFnGib5uP2SgTnrbA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795082350;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=Q3GQZrybC5QxaJKCFYXWQxqvNW0jtycxDKmrfuuMapE=;
-	b=FbAz1mYxkW2NZQjka30jmjjBRL141tTxZRCBsqErh0egyAO/B9wOiNSupun+43F68f6i
-	 iVnli9xvHjkIXJPkeRD6ap0jBSgjNtESuAEwb4Y4iI1PBD4r55yoighEauuDCpE7QO+8M
-	 9Sv3ps4RRBJ6Gps76zEGcErB5707jCcBGaYojsN1+fMlgPCsP0R6zoPmmJugHC/kyaOqT
-	 h8saKCNXOO4ScI4+LJdkp10XcJ/TU6dWS7avybQQt1MMFKxRfo0M/Zzc6s1wFkQxSC31j
-	 d752NAUphe8x3GofHnnU72g8AhPRvMOBU6PwEByXl5v0CevhKI2gSGoBQN/ZlhyH22Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=e4wNncEa;
-	arc=none smtp.remote-ip=80.241.56.161
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795082879;
+	b=zaKD54IGM1873cov/WCP1eM0XVS6WjpogKfavqR6UB+u5a2zJs7p6N3svLv8YjFdOsxP
+	 MC5jsFEC5Vaq/LsnB13pDMDiCIQAqMwhaUGQ+nVSZz2roYPAgjw27Az/dbF2r/yXECaYP
+	 C7SkijEEUIvBQ6ltmceXkrVxX8cEhZUTddsA8QEuoB42zjWi17C9fCg8XHSQIB+HBQbVc
+	 FvKrE5PBDzNtj2eQ/6K8S+OKnTFVNvGOk+oVSiYb46h4fRXsKb1YLYifwJhfzQCxUm/+u
+	 NB4HVjPKdWiqVJFKXFDp+EoX44u16MmaMLDbOOzWv0nkIx+onNPUAE6sixV9DJx8X6w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795082879;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=gYAYrLCOGgg/07L+LDhGF2bUCvhFzYdBrR2yq0ZLqyw=;
+	b=AwWawW0YOlUF2NdnqSaDpv6z/P3Kl6pkNHW3wq5qDsYnMnUJRa825tvtiFtpmU7sYHd+
+	 pdqAAUaUvT24PZJ6Zl6pNOggVud4U0ooZB4WtGLQbQiQNRZPI9fIJZZGV4lXy37+mUhyt
+	 Kgf9Jut00p8uiqNBdl1RufmQUXhfKq5Ub4ut8UpoG//iTcb/Y7dkHGZAKoylbiDbERhAp
+	 vFOFYkvz6lJTq8PNpgYRjxqgsbznOv2Frx8v2eww2ClehmWZwyOP2GYCL8x2/dQOVYs31
+	 M+xtLKu5NBGLKqE5+13/H3Cu52pOcd1LzScJEKLsQY0Txf5sf6Qz443EDIGBwjAQWrA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T8t+X2ah;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CB2606A320;
+	Thu, 19 Nov 2026 10:07:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T8t+X2ah
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795082879;
+	b=Cf2/qBq34dLnxUZDWbMpiT2mkrxuoIP73tlM77n7U59vctV02TAXJCvVYAnASGLFO5Tf
+	 zDK+CLu0jcPbZLC36gS/Be9s/f0LJjxoEYf3c7AhTvLbXRaozDoi5HGgyKD2KPA0wRi49
+	 xeJQLarQe+nkIOi1XFWO9JlivLaSwcVT856Rac/lz9ahDYh6OkNRiiv+0VW/QOUWaI8+f
+	 iMXGJ8OrEWaLxo8HbCxPyMKmmMoK1zk00MUex75ZhHWWgP3TR9Gjyxr/Z7b+aYWtdFsrK
+	 +4ky1m3OYBjA18roJ8dt9PIkg2MW9moj6LT7QZV5GkSD4UM5jdyVVkP00lc4smNDdPQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795082879;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=gYAYrLCOGgg/07L+LDhGF2bUCvhFzYdBrR2yq0ZLqyw=;
+	b=LPLXfaA0ju6jXbtzUMQ3lFreqj7ms+4QR6P5vcNAuC0F5FPNJdEE4k0V+nIL+d2kB+dY
+	 YLYKblzj43bJgKrnLVIZcDDwc1aYYQsAOZWE5usQSQD1wAWY+t+9WYxOytBLRFcPv3XGl
+	 o5zyMhoVmiW+zbNzbgUzSLmTftZT2MhDFJWfbbRub7j2RgqsxcJvQ7m+zUm3P16EAtLQ9
+	 QOg3IC1UoXbw6D8bHHxAUDkcrOrexmlDA+ufpx/K03jXiCPGZp6M0Fe/+Sq4upRc3Bip6
+	 hp8BKFNiqNFW14zO2+tRJgjMbaidNnW2bj7VRBnmp2vQAMlY8UXRUInTl3pDv+2O3yA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37343606A331;
-	Thu, 19 Nov 2026 09:59:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37343606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=e4wNncEa
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jVYpF6J2vzKnr1;
-	Thu, 19 Nov 2026 10:59:01 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1795082341; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q3GQZrybC5QxaJKCFYXWQxqvNW0jtycxDKmrfuuMapE=;
-	b=e4wNncEaiArLAyqQUA+yobmyL1ur4Y2Wpm1fA1jFpvgIgIorXA9ZgMK8KQ6tOAPXvX35CT
-	2TsAbAZoha4kj4Pc+kxwRQ2bDVviWVOBu0YXWciu+gIaaqoXQggXkAxbtzIM50Ean4bqIv
-	Z9ui6UtS8ykCwzvQDXLFut2Uven/pdUxNOtHXQiENDCG2CT63PDcALppOTpsLj/sw65bGL
-	t2GjgbjxRDwCQ5QkJ1nB4Hs3tIaVxckrXzBgzbyifVBbKyH7AFph2rhxGSQO/BFeY21cjG
-	JiRqWz6Vkr2uz+D+uo4Axi9GycZkYRoV7U8gKJHcu/N00YrSFIaQ//G+Oh/1lw==
-Message-ID: <202dd0c3d515ddfa77a8ec8751badadd31b8a7b0.camel@mailbox.org>
-Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Danilo
- Krummrich <dakr@kernel.org>
-Cc: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Alice Ryhl	
- <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng	
- <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
- Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg	 <a.hindborg@kernel.org>, Trevor Gross
- <tmgross@umich.edu>, Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 19 Nov 2026 10:58:57 +0100
-In-Reply-To: <a7f9e0f3-b299-4d40-9230-106003725dc2@amd.com>
-References: <20261112101015.528127-2-phasta@kernel.org>
-	 <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
-	 <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
-	 <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
-	 <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
-	 <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
-	 <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
-	 <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
-	 <DMXMSIQONGUW.1RRNS7I6LACD6@kernel.org>
-	 <a7f9e0f3-b299-4d40-9230-106003725dc2@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.kernel.org (Postfix) with ESMTPS id 0E1A81F000C5;
+	Thu, 19 Nov 2026 10:07:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795082879;
+	bh=gYAYrLCOGgg/07L+LDhGF2bUCvhFzYdBrR2yq0ZLqyw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=T8t+X2ah2gHvrkFQ3W2yMPBC+uL/144J9JzCFJUzPZfef0zDYFEHFE963tH1OE+T1
+	 mzxdKJXffY0sebIWXn0UCBPVFWPOsLs8EXshu07vGxsJJ367e/W1h2vnaSVHe6k49G
+	 4y5D9wTCToF+CEJUwqBQ6XUmcJ4aaF8eRGcT1byEd3loo7ApaR/GW2BfoTWU8egpBV
+	 QldPZ9qs6StAtRmp6ztGoNaJq3idERLcyN7Lu8QuRRHRCnTgVzWbgXxnjdPavqbTx/
+	 W0OcckyJcfLljWTX/vH8lwvuwqrltz+6aix3FSCWAAD91ANAkKkJRaQo+kAX6wuifI
+	 WNyjtCPS6LImQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 92AA04B1FE;
+	Thu, 19 Nov 2026 10:07:57 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Thu, 19 Nov 2026 10:07:58 +0000
+Subject: [PATCH] media: verisilicon: Limit the i.MX8MM G1 decoder to 1920
+ pixel wide pictures
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -92,141 +83,148 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: 8917f7885d5135c09a4
-X-MBO-RS-META: 5bgyrspatab3ugyn7198xxbjjtnsxz6p
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261119-hantro-imx8mm-vp8-v1-1-835dd9b5382c@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0Q5EMBCF4VeRuTaJ6Qrtvoq4sEwZSZEWkYh3V
+ +vyO8n5TwjshQN8kxM87xJkniIoTaAdmqlnlC4aVKYKIjIYx9XPKO7QzuG+aFQfy7q0ZLrcQPw
+ tnq0c/2ZVvw7bb+R2fUJwXTfIrYPTdQAAAA==
+X-Change-ID: 20261119-hantro-imx8mm-vp8-23fe87f19d49
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Hans Verkuil <hverkuil@kernel.org>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Adam Ford <aford173@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795082877; l=3675;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=ttabhbq6HX9n6LkD9lfDtGqujWqiEJqLK1Woo7amLA4=;
+ b=+G5/+KW2AA45IYVMYGsAK031f3/0CCyalGQ+9VZaUy/I1qNSEut0kIdVEsvlPABpwv/SV97aN
+ by0MkGaTorGCX58eERoTDkfsA1sJAYMPiaiCNQwfVdOyBtXjalc1cP+
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2026-11-19 at 10:32 +0100, Christian K=C3=B6nig wrote:
-> On 11/17/26 17:36, Danilo Krummrich wrote:
-> > Drivers often reference count representations of hardware resources and=
- hardware
-> > states and hence keep them alive beyond what their actual lifetime shou=
-ld be --
-> > even beyond driver unbind.
->=20
-> Yeah, I agree 100% with that. I know why drivers do this and there are un=
-fortunately really good reason for that.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-To me it seems more that we are often working around fundamental design
-errors. What good reasons come to mind?
+The i.MX8MM G1 uses the i.MX8MQ format table, which allows H.264, VP8
+and NV12 up to 3840x2160. The i.MX 8M Mini data sheet rates the decoder
+at 1080p60, and NXP's hantro_v4l2 driver offers a decoder of that size
+1920 pixels wide and up to 4096 high.
 
->=20
-> > This causes lot's of issues and I'm looking into fixing this up, see my=
- talk in
-> > [1] and an example from Xe [2] for reference.
-> >=20
-> > That said, in Rust we don't have this kind of ambiguity, lifetime and o=
-wnership
-> > of resources are well defined and the core infrastructure guides driver=
-s
-> > accordingly.
->=20
-> I disagree, you do have that in Rust as well.
->=20
-> Background is that the fundamental problem of having two signaling
-> directions which want to define lifetime differently doesn't go away
-> because you switch the programming language.
+Give it its own table with these formats limited to 1920 pixels wide.
+Heights are kept so that portrait pictures such as 1080x1920 are still
+accepted, as in NXP's driver.
 
-For Rust DmaFence, this is addressed by having two distinct objects
-sharing the same refcounted memory, DriverFence and Fence.
+Fixes: cf1abc501a5c ("media: hantro: Add support for i.MX8MM Hantro-G1")
+Reported-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Closes: https://lore.kernel.org/r/f041c5d87698ab3be8283ecc71ead0679327238e.camel@collabora.com
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+Not tested on hardware: I have no i.MX8MM board, so the limit is from the
+data sheet and NXP's driver, not from the decoder's configuration
+register. Build-tested only (W=1 arm64). The i.MX8MQ table is unchanged:
+NXP's driver gives VP8 the same 4096x4096 as H.264 there.
 
-Dropping / signaling DriverFence is the decoupling point.
+Developed with Claude (Anthropic), which wrote the code and the commit
+messages. I reviewed every change.
+---
+ drivers/media/platform/verisilicon/imx8m_vpu_hw.c | 58 ++++++++++++++++++++++-
+ 1 file changed, 56 insertions(+), 2 deletions(-)
 
-Which is by the way why I am trying to convince you so hard to give me
-the spinlock, to make this simpler and fully sync ;)
+diff --git a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c b/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
+index fa4224de4b99..805c57a4adcb 100644
+--- a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
++++ b/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
+@@ -148,6 +148,60 @@ static const struct hantro_fmt imx8m_vpu_dec_fmts[] = {
+ 	},
+ };
+ 
++static const struct hantro_fmt imx8mm_vpu_g1_dec_fmts[] = {
++	{
++		.fourcc = V4L2_PIX_FMT_NV12,
++		.codec_mode = HANTRO_MODE_NONE,
++		.frmsize = {
++			.min_width = FMT_MIN_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
++			.step_width = MB_DIM,
++			.min_height = FMT_MIN_HEIGHT,
++			.max_height = FMT_UHD_HEIGHT,
++			.step_height = MB_DIM,
++		},
++	},
++	{
++		.fourcc = V4L2_PIX_FMT_MPEG2_SLICE,
++		.codec_mode = HANTRO_MODE_MPEG2_DEC,
++		.max_depth = 2,
++		.frmsize = {
++			.min_width = FMT_MIN_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
++			.step_width = MB_DIM,
++			.min_height = FMT_MIN_HEIGHT,
++			.max_height = FMT_FHD_HEIGHT,
++			.step_height = MB_DIM,
++		},
++	},
++	{
++		.fourcc = V4L2_PIX_FMT_VP8_FRAME,
++		.codec_mode = HANTRO_MODE_VP8_DEC,
++		.max_depth = 2,
++		.frmsize = {
++			.min_width = FMT_MIN_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
++			.step_width = MB_DIM,
++			.min_height = FMT_MIN_HEIGHT,
++			.max_height = FMT_UHD_HEIGHT,
++			.step_height = MB_DIM,
++		},
++	},
++	{
++		.fourcc = V4L2_PIX_FMT_H264_SLICE,
++		.codec_mode = HANTRO_MODE_H264_DEC,
++		.max_depth = 2,
++		.frmsize = {
++			.min_width = FMT_MIN_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
++			.step_width = MB_DIM,
++			.min_height = FMT_MIN_HEIGHT,
++			.max_height = FMT_UHD_HEIGHT,
++			.step_height = MB_DIM,
++		},
++	},
++};
++
+ static const struct hantro_fmt imx8m_vpu_g2_postproc_fmts[] = {
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_NV12,
+@@ -382,8 +436,8 @@ const struct hantro_variant imx8mq_vpu_g2_variant = {
+ };
+ 
+ const struct hantro_variant imx8mm_vpu_g1_variant = {
+-	.dec_fmts = imx8m_vpu_dec_fmts,
+-	.num_dec_fmts = ARRAY_SIZE(imx8m_vpu_dec_fmts),
++	.dec_fmts = imx8mm_vpu_g1_dec_fmts,
++	.num_dec_fmts = ARRAY_SIZE(imx8mm_vpu_g1_dec_fmts),
+ 	.codec = HANTRO_MPEG2_DECODER | HANTRO_VP8_DECODER |
+ 		 HANTRO_H264_DECODER,
+ 	.codec_ops = imx8mq_vpu_g1_codec_ops,
 
-> But even in Rust there is still the need to give HW drivers something
-> like a template in which is defined how things should be done and
-> what things need to be avoided.
+---
+base-commit: aa0f4c41d4870a18e65772a1817af16427200371
+change-id: 20261119-hantro-imx8mm-vp8-23fe87f19d49
 
-see below
-
->=20
-> > Consequently, it is perfectly reasonable to assume that a driver object=
- that
-> > owns device resources (such as DMA memory) will, in its destructor, tea=
-r down
-> > the hardware to not access any of the resources it owns anymore.
->=20
-> Exactly that is a pattern I have seen many many times before and I
-> can say from experience that it is very prone to human errors as
-> well.
-
-Danilo's argument is that the object that halts the hardware is the
-same that owns the fences.
-
-You drop the hardware-ring-object, this halts the ring, waits for it
-synchronously, then the fences drop and signal. Of course, you can
-additionally signal them manually before their drop with another error
-code than the default.
-
-> > Insisting on an explicit method call is not improving anything in this =
-model.
->=20
-> I'm not insisting on an explicit method call.
->=20
-> What I'm insisting on is that the response from the HW that the DMA
-> operation has stopped is signaling the fence.
-
-That is effectively the case, see above.
-
-> And not that driver tell the HW stop DMA and then continue and dma
-> fence is automatically signaled without explicitly saying that is the
-> signal that DMA operations are stopped.
-
-Again, the main point here is that the object layout ensures *exactly*
-what you want, Christian
-
-Like this, pseudocode
-
-// Drops first, stops hardware
-struct exec_context {
-	// drops second
-	jq: JobQueue, // signals remaining fences when it drops
-}
-
-It's maybe more implicit, but ensures exactly what needs to be ensured.
-
-That's how teardown is done in Rust. You drop the lock, it unlocks
-itself. You drop the memory, it frees itself. You drop the fence, it
-signals itself.
-
-That's by design because the object lifetime model falls naturally into
-place.
-
-> I think the most defensive way would be as last resort scream loud in
-> the logs that the driver is somehow buggy and hasn't signaled it's
-> fence, wait for a certain amount of time (100ms?) as safeguard and
-> then signal the fence with an error.
-
-Now that doesn't make any sense at all, either the hardware is stopped
-or it isn't. Having some random delay is probably even worse because
-the problem is then more difficult to even encounter and thus fix.
-
-> Exactly that is what I disagree on.
->=20
-> Stopping the HW is what makes fences signal and that is what this
-> tear down process should block for.
-
-Our point is that dropping stuff stops the hardware, and *then* signals
-the fences. Exactly what you want! :)
-
-> Well the question is can we enforce this?
->=20
-> I mean there are usually only limited options from the compiler side
-> to enforce things, but we should still push developers to use well
-> proven patterns and coding practices.
-
-You currently cannot prevent people from refcounting stuff if they
-really want to. The Rust language is working on enforcing that, too,
-though
-
-https://goals.rust-lang.org/2026/move-trait.html
+Best regards,
+--  
+Arun Iyengar <aiyengar1990@gmail.com>
 
 
-btw the best feature that Rust offers IMO is that the refcounting is at
-least always right. That's quite cool. A great many hacks I've seen
-stem from the fact that programmers are not disciplined when it comes
-to copying pointers and their refcount.
-
-
-P.
