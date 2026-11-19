@@ -1,88 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102192;
-	b=Zoub1HkJPsceiX54tdB4BbBjF3P9HpTmSGqwp9Oe0gCzd/WGIoSUAJXP+8pvElDPyclv
-	 9wujl7UHK9KKSG/Br3dP1Tw4x+vC/8YZLvDjIGnv8bwRy10Gl8/Ga1P1Cc5m7bETCzNIA
-	 L/x8bPjN/SjBmwNkDqP2GI/DlCMHfL4lW1zGsWcJkGlRo/Znp8yhLioO/0/9cmlqomZQ9
-	 eVFCNGpta+FvgwikdEUCJvxDpP82NkCB+Hqz/kNsVTTGBpZzowBQPvQAz9qGgvqUYe94A
-	 BxQpqlwrB5BReLF7LVAnSgWg1eI2k0TzBHDJO2vMab6GIsK9xp/34kKOy17Of9nOcPw==
+	t=1795102489;
+	b=0TX7bWkjXZoxSSBr4FD66ZaGwr87KlKtQG9LuA42BmMUOJwIx51eFXT50QV9SFk9VEdH
+	 Y0FIQYcCmmbKPh8/OCawssmXCWi/9aKk097va/7ky3zvNE+d6wETm4qNKL01UarjKDz4G
+	 B86h3mwYIjsoHGgJVxyI5QIZgMxGrReclrzjIqJ9NR/XsV3WoCJ8/qMAxQIMeDC1mSIos
+	 +51u42EpBPP0bLCCPNPEUyd2vR7eRsbbEsLVkcTvHxExqVL/xvSmgpuhloVmHpnMqXEXn
+	 wc4Ho3EbPDcviPMXRXp4pQh/1MLB6e2DimVzNY2UoO6TecEkSTDEZY2drKegg4Nigfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102192;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=KnbdfePd50cx23JvpChjt9LYDM6NifugSVoKNVLpHBY=;
-	b=vAOUMo/uD2tiUbnCDFx9TpjvJVHWV6IOe3YoSuk80E8PPPQCm7RAtgEsfiSs8/bW/Yeu
-	 N72ihX2sDiJg4ujrHOu/NV5ua0Uv5IQXqCMHEGblFvAbVr9WkxzGAt8UTx6rDAZudda7f
-	 /jWxn7ACNoAoG8Vwps9Xl8EXuOMsUuFcxa0R8VCvqQEHiSsYp0LogYFZmoQXtVYC0y7uq
-	 qi5EEmvdwli9AN/zZVEhLHdntHwuoI6aDfN33CL9HqIqRlEGYhW/8bXUuwamSxdH+/Ng8
-	 2yoC98oV2Y+av50NVYb//HSjUpLVuDi7Y/gOpYlPstG/stD9c/jQ1pJTFljMO2/PyCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102489;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To;
+	bh=ZlsTCsBICLBJ597QEBYNx8FtzkLGCbDoSLusHqWgJeM=;
+	b=fvL5eRuXgF15syU8500zEueK+58w6Eu5bPKVviEMQAIvlFk4185hyIa6Q+vf2yHmMW95
+	 4aRnI8wwGFNxkzg58VNXx8ge/cU3SI4icXk9yqPJM42iDzlyhyuxQGZADX8TiNarn28r0
+	 +3PH73I2CCOeIEgK0HyECam1YVN9LM3DskD3ROABEZlZhqkcfM0OhUHkss00woFV2Nowy
+	 FKJALxe3QP9Ei9D7TF7NmWY14Llj3+yMmTWGxyXyNs3/aZLHQu9xy8FNDLnWPWyiQYe+g
+	 VaMsUTywFsd2QyuWM57O3iNJTRsK0Nf+wwGTpZZQfLJIZbR+8RpCxVcEXmD3VlL+OMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=pTLeWf2C;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=em1S4iOC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5927606A320;
-	Thu, 19 Nov 2026 15:29:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5927606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F5C606A320;
+	Thu, 19 Nov 2026 15:34:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=pTLeWf2C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795102189;
-	bh=Y31Aqu/ldrVNOH8NWT+K15XwnhuT0aa2J5qcnZjNsQE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=pTLeWf2CvggpnVn6mgPTtu2P5jyV8zAI42CrI5UNI+np2uaeGTE210VX3NcyYAPBf
-	 j0cZWJWKPf9ytklQUgkU9dJA+MJryEXSZwOKWfjdGWM/+IlWTHNqic0aYE91nM75LZ
-	 6p0LsNcqvQ6qI5PYa37igU29lzp8KNuq2uTAe3aTF3XlLSGQQLnqEONqUAA6Fr3iRz
-	 anuFN+n0URkv2ho/ZsdlTqqWc/3nSTe7Kti1RhIlrgsJYgQ7MvIp7AXTtT0wlcNJdK
-	 mf8s51IAGpzpFK7SWw3JYfTWd9V2QT6BsdnNJKTKjtfITMbMi1Pat2ChxyQDFZde1f
-	 XcJ7GYTz+mRig==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 25DD317E0A27;
-	Thu, 19 Nov 2026 16:29:48 +0100 (CET)
-Message-ID: <b1aeedac26af03a4b1bd25d5f062f9efb7c04639.camel@collabora.com>
-Subject: Re: [PATCH 2/2] media: verisilicon: Reset the VDPU2 decoder after
- an error
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: aiyengar1990@gmail.com, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner	
- <heiko@sntech.de>, Jonas Karlman <jonas@kwiboo.se>, Boris Brezillon	
- <boris.brezillon@collabora.com>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Thu, 19 Nov 2026 10:29:46 -0500
-In-Reply-To: <20261119-vdpu2-errreset-v1-2-f8fa403b6a3a@gmail.com>
-References: <20261119-vdpu2-errreset-v1-0-f8fa403b6a3a@gmail.com>
-	 <20261119-vdpu2-errreset-v1-2-f8fa403b6a3a@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-VNfhIxJwLPoRKtgwmuvP"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=em1S4iOC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26B441F0092A;
+	Thu, 19 Nov 2026 15:34:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795102488;
+	bh=ZlsTCsBICLBJ597QEBYNx8FtzkLGCbDoSLusHqWgJeM=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=em1S4iOCUTv7C881BZNPp9wI9EhYKy2Zy5dF8x8GynqYkmpnkGYDoojwjWSQJXHbv
+	 hsLTQmtJhklrD2YeqpH2NLKbFPU85IJrKjPFQwjKQSBNdD65s5qxkQsyxNVmiR3rLp
+	 9lkxzAG4wDEOSxYR1fCltUl7FYvc+NI7jLN5FS23KFXkCLR0mr75EYeqBr6ZIpnBYX
+	 1XKJPPgQWisvjFNMyL+EMauFGFf3xAFDNE1XhGEPX83zb8VgCIBJcRSuJNLgAbQ4j1
+	 U5jMLtfQ9wGBi9jKsm3p3Qmu3WD5qc5hoRTjXoaQe31EkAW3f21kzbT4QgWCIvTpOi
+	 K/QtJpZrXDdyg==
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,117 +48,60 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-
---=-VNfhIxJwLPoRKtgwmuvP
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 19 Nov 2026 16:34:43 +0100
+Message-Id: <DMZAQ0G6LTTB.1CRPNXSYB4QHG@kernel.org>
+Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
+Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261112101015.528127-2-phasta@kernel.org>
+ <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
+ <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
+ <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
+ <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
+ <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
+ <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
+ <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
+ <DMXMSIQONGUW.1RRNS7I6LACD6@kernel.org>
+ <a7f9e0f3-b299-4d40-9230-106003725dc2@amd.com>
+ <202dd0c3d515ddfa77a8ec8751badadd31b8a7b0.camel@mailbox.org>
+ <141892f8-180c-4157-8c59-6e69057334f2@amd.com>
+In-Reply-To: <141892f8-180c-4157-8c59-6e69057334f2@amd.com>
 
-Le jeudi 19 novembre 2026 =C3=A0 06:20 +0000, Arun Iyengar via B4 Relay a =
-=C3=A9crit=C2=A0:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->=20
-> After a stream or bus error the decoder can still access the buffers of
-> the failed picture. On RK3588 these accesses hit buffers userspace had
-> already freed: IOMMU page faults, an IOMMU that can no longer stall and
-> corrupted output for the next job.
->=20
-> Soft-reset the decoder on every error interrupt, as the vendor driver
-> does, and wait for the reset to complete.
+On Thu Nov 19, 2026 at 11:47 AM CET, Christian K=C3=B6nig wrote:
+> A dma_fence should *NEVER* signal because you waited for something. Inste=
+ad
+> the dma_fence is what is waited on.
 
-Its not because the vendor use a big hammer that we should use it upstream.=
- We
-fixed a lot of these driver bugs by handling specific error correctly. When=
- the
-TRM says the IP will self reset, it does, and you should not add extra over=
-head
-there unless you can prove something is broken.
+In the end, despite doing it on behalf of the hardware, the driver is the
+producer of the fence. And there are cases where it can't wait on its own f=
+ence,
+because no one is going to signal it other than the driver itself.
 
-Please check G2 IRQ handler, its more aligned to were we want to bring all =
+Assume you have an execution context that is torn down, and also assume the
+hardware supports preemption. Then some of the jobs in the queue might stil=
+l
+signal, but some jobs are not processed anymore and hence are not signaled.
+
+For those jobs that did not execute anymore, the fence still has to be sign=
+aled.
+So the driver has to signal them after it waited on the preemption and exec=
+ution
+context teardown is complete and no more operations are in flight.
+
+The same is true for job fences that are in a software queue and never hit =
 the
-IRQ handlers in this driver.
-
-Nicolas
-
->=20
-> Fixes: 879dee56a40c ("media: rockchip/vpu: Add MPEG2 decoding support to =
-RK3399")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->  .../media/platform/verisilicon/rockchip_vpu_hw.c    | 21 +++++++++++++++=
-++++--
->  1 file changed, 19 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drive=
-rs/media/platform/verisilicon/rockchip_vpu_hw.c
-> index 4bc1bdb41c70..01cd449f3ab2 100644
-> --- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-> +++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-> @@ -7,6 +7,7 @@
->   */
-> =20
->  #include <linux/clk.h>
-> +#include <linux/iopoll.h>
-> =20
->  #include "hantro.h"
->  #include "hantro_jpeg.h"
-> @@ -384,6 +385,21 @@ static irqreturn_t rockchip_vpu1_vepu_irq(int irq, v=
-oid *dev_id)
->  =09return IRQ_HANDLED;
->  }
-> =20
-> +/*
-> + * After an error the decoder can still have bus accesses of the failed
-> + * picture in flight; reset it before its buffers go back to userspace.
-> + */
-> +static void rockchip_vpu2_dec_soft_reset(struct hantro_dev *vpu)
-> +{
-> +=09u32 val;
-> +
-> +=09vdpu_write(vpu, 0, VDPU_REG_EN_FLAGS);
-> +=09vdpu_write(vpu, 1, VDPU_REG_SOFT_RESET);
-> +=09if (read_poll_timeout_atomic(vdpu_read, val, !val, 0, 5, false, vpu,
-> +=09=09=09=09     VDPU_REG_SOFT_RESET))
-> +=09=09dev_warn_ratelimited(vpu->dev, "decoder soft reset timed out\n");
-> +}
-> +
->  static irqreturn_t rockchip_vpu2_vdpu_irq(int irq, void *dev_id)
->  {
->  =09struct hantro_dev *vpu =3D dev_id;
-> @@ -396,6 +412,8 @@ static irqreturn_t rockchip_vpu2_vdpu_irq(int irq, vo=
-id *dev_id)
-> =20
->  =09vdpu_write(vpu, 0, VDPU_REG_INTERRUPT);
->  =09vdpu_write(vpu, 0, VDPU_REG_AXI_CTRL);
-> +=09if (state !=3D VB2_BUF_STATE_DONE)
-> +=09=09rockchip_vpu2_dec_soft_reset(vpu);
-> =20
->  =09hantro_irq_done(vpu, state);
-> =20
-> @@ -482,8 +500,7 @@ static void rockchip_vpu2_dec_reset(struct hantro_ctx=
- *ctx)
->  =09struct hantro_dev *vpu =3D ctx->dev;
-> =20
->  =09vdpu_write(vpu, VDPU_REG_INTERRUPT_DEC_IRQ_DIS, VDPU_REG_INTERRUPT);
-> -=09vdpu_write(vpu, 0, VDPU_REG_EN_FLAGS);
-> -=09vdpu_write(vpu, 1, VDPU_REG_SOFT_RESET);
-> +=09rockchip_vpu2_dec_soft_reset(vpu);
->  }
-> =20
->  static void rockchip_vpu2_enc_reset(struct hantro_ctx *ctx)
-
---=-VNfhIxJwLPoRKtgwmuvP
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav8V6gAKCRDZQZRRKWBy
-9E1/AQCQ/OEC7goF6NstMHroyb/dSBFTJpopbeXazJtj+GWl+QD+PV71UkvRHlSI
-DHHIB57bxeLUtYz/8hJRQEs2dAGUmAw=
-=zEAS
------END PGP SIGNATURE-----
-
---=-VNfhIxJwLPoRKtgwmuvP--
+queue of the hardware execution context.
