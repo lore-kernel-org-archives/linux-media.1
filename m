@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102728;
-	b=N+x09ulLMHRz+qF8GFBxaVrJ6BSoeGivccidg31DbEa54Mkujj7o/VuAic1wzPX3BVKy
-	 Lo/9OeA7ncXBilg5q1LUH7PHOOcfI8aje1s8YnhOOrB0GTD0oQWmJL3v/PCU12vKUc10Z
-	 sz7r0tJqQgxNa1B4GqPfGIM5ZoAvixL5heflxHvbKeW4lo8WHD//CZLXSaja3CQIuFcI1
-	 bhwYoSPY4WO7jytClMUXgwhv+sKub10MjiH1c+fpKKH7vrWCcrCP6lMD8bj9LqQR6wW02
-	 IOGN6mYKqFSmLgqo1LmqmTj5Rb0H94rwYCYJgjVPLLus0zMihNZ06jxxkDck1ugsfGQ==
+	t=1795102724;
+	b=wy8eFrLAoekTmgd2hNb8ToBLYOkF4h8we5LlOEyprSoxdL7GZLdZmhddIeXm5I5ONiwM
+	 JSBH/Lz3JIMomC8plCSRvZNEnPftnpsjMCL5tl2opPhplnVWBqHaLGJXo/TKuHJTdAnM6
+	 Nhq4Xl0104y3kQc497CQ8Mv8csvTSruJsuy7QNRXyQAQWehFfKa0tX9i1yOTe/sosSPRx
+	 4gblI+7i4O8xEAOK4kbisIH7POtzrVG59RjMu8aHgav7SX8FBB7w2i+LkCDiEzlOd8HYs
+	 r57ZFTP9HY7JIdZa/FZNPFrdWfN3UpY0DUKkfLQze0jfkCdjd3pOiU1x/7PhfiIeHZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102728;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102724;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=daNrK7FWHiMT3f7MaGMEXwhUz/CP7udAT2Dcelol6I4=;
-	b=RyiCXK6cgETVNPsy4aE6BgVvz66AJQdHFQAHLZVaZNt0Z7f9VYPUU1OdY2iIEl/KauL6
-	 24Z9TKg//a76VveNnsjVv/X56AveEs0VFO8qHIIZlDR+K5c/OqRVy7faYJBtEwsasyFqv
-	 3mJoMdG9BPC1GR05xrmtSmooKTKkauhPKDjiOrp/Me97oZV57zVnHXhkhKETKF8sEhFAC
-	 HdzaYsdEOPLPIpss2kcbP6ivXcEybJm2//cUCQJnjh5ZTxK5A1esCYWMtph+N2pTOHphu
-	 +HMM/98Y2iwgAKTSq/5TwP9jLUPApQx7JUSahxrCxzCAdxBHTEvyEt0ze3H6BeuiqMA==
+	bh=DuSGSuNYHChP7yZXuxkMpEIFyIL38ed1I/EdpuALIvU=;
+	b=vJ3jlDy8e4vlR8SBnmk2gKn9LFO7K9n1aRVzLDzL+gyA/tvMa7adNGHnU1fT7R74QvNu
+	 03Nfr+bkvM8+CY3fygq8QAR6CqaE5wiLxKaTZo1tPragcZwz2o3xyxJxQ5Qoh84yMy9jy
+	 aSZv2vhWGy2dxLAcduv6p6wg/WeqGNKGX3tfdC3LCopCN0X+u6fXrM7FxK4Qru5OQc4by
+	 Ezug1SqWm++79HVn+OXRKDvbXBrn2k+Qkgyh/2C0rXEcbxQWGNmtiiW4xXPmvwY/yRcwg
+	 2ebNs3GcksJl3ZGUz/rt6uH3A1OU9sCZ3MRj+mpAqGrt9yvEizw2mlNr8oVIakfTskQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=oKwvfdxJ;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hjMF53jc;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D644260A6F5B;
-	Thu, 19 Nov 2026 15:38:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D644260A6F5B
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9073B60A263D;
+	Thu, 19 Nov 2026 15:38:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9073B60A263D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=oKwvfdxJ
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hjMF53jc
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9B1761CC4;
-	Thu, 19 Nov 2026 07:38:42 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 094811C0A;
+	Thu, 19 Nov 2026 07:38:39 -0800 (PST)
 Received: from e140322.cambridge.arm.com (e140322.arm.com [10.2.201.43])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0FA953F882;
-	Thu, 19 Nov 2026 07:38:43 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5B21B3F882;
+	Thu, 19 Nov 2026 07:38:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795102725; bh=jUCaHPIrNJkyRTaYQgg7unWLLsLVhWDqTOFIXiHywaQ=;
+	t=1795102722; bh=4WX5JL4Keo2Zxb5/WOxRUXFStJ2vpfzY20F3jDaUl1U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=oKwvfdxJb4/M5Y86yl1H+mmTJQXg3T9fAwaAzpX+NPHDBD9qpnwZHjJ0q/HxQej9M
-	 2RxdXm3RuEOpSCO0A2G0qbdjign2UXG190i6YeF5fSIYkVVkf6U5F+9mxnqj0edszG
-	 nnvUj3eZLcwwbDgbpd8/dhiSZuZSJTKhc9s1PfGY=
+	b=hjMF53jchAzClv/MsTZCQaOvb43lUraf46jsD/zmVdJqbp893KIx2F8OI5o/L7/Wf
+	 BnmZBwwFfyWwI3ychtQaplbEzsGNT2DqmUfmDDMNFUPvUcfzhjLn5/ct/CwYJAsNh+
+	 P0Vn6s9lHkqTOvzGfrFqS1pN/2wG2TfrR5bJFTJI=
 From: Charvi Mehta <charvi.mehta@arm.com>
 To: linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
@@ -55,9 +55,9 @@ Cc: Charvi Mehta <charvi.mehta@arm.com>,
 	Vincenzo Frascino <vincenzo.frascino@arm.com>,
 	Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
 	Shobhit Pandey <shobhit.pandey@arm.com>
-Subject: [RFC PATCH 10/28] media: mali-vpu: add firmware cache infrastructure
-Date: Thu, 19 Nov 2026 15:37:40 +0000
-Message-ID: <20261119153758.1426673-11-charvi.mehta@arm.com>
+Subject: [RFC PATCH 08/28] media: mali-vpu: register V76 decoder controls and introduce UAPI controls
+Date: Thu, 19 Nov 2026 15:37:38 +0000
+Message-ID: <20261119153758.1426673-9-charvi.mehta@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261119153758.1426673-1-charvi.mehta@arm.com>
 References: <20261119153758.1426673-1-charvi.mehta@arm.com>
@@ -72,783 +72,920 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a per-device cache for VPU firmware binaries and wire its lifetime
-into probe and remove paths. Key cache entries by codec, session role
-and compatible firmware major version, and load new entries asynchronously
-through the firmware loader.
+Register a V4L2 control handler for each decoder session and attach it to
+the session file handle. Describe the controls supported by V76 in the
+variant data and maintain their values in per-session state.
 
-Validate the firmware and host protocol versions from the firmware
-header and derive the number of text, private BSS and shared BSS pages.
-Notify registered waiters when loading completes while retaining each
-binary through cache, loader and caller references. Failed entries are
-evicted immediately.
+Add Mali VPU userspace controls for NALU layout, stream escaping,
+intermediate buffer size, stream-header handling, frame reordering and
+firmware debug output. Also expose the standard read-only
+V4L2_CID_MIN_BUFFERS_FOR_CAPTURE control.
 
-For now, keep the cache policy deliberately simple: a background thread
-periodically prunes entries that are only held by the cache itself.
-This is intentional for initial upstreaming, so lifetime and
-concurrency behavior stays easy to reason about before adding a
-smarter eviction policy.
+Stage control values set before the firmware is ready and reject changes to
+non-dynamic controls while the OUTPUT queue is streaming. Allow userspace
+to subscribe to control events.
 
 Signed-off-by: Charvi Mehta <charvi.mehta@arm.com>
 ---
  drivers/media/platform/arm/mali-vpu/Makefile  |   3 +-
- .../platform/arm/mali-vpu/mali-vpu-device.h   |   3 +
- .../arm/mali-vpu/mali-vpu-firmware-cache.c    | 461 ++++++++++++++++++
- .../arm/mali-vpu/mali-vpu-firmware-cache.h    | 172 +++++++
- .../platform/arm/mali-vpu/mali-vpu-probe.c    |  16 +-
- .../arm/mali-vpu/mali-vpu-protocol-def-v3.h   |   3 +
- 6 files changed, 656 insertions(+), 2 deletions(-)
- create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-firmware-cache.c
- create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-firmware-cache.h
+ .../platform/arm/mali-vpu/mali-vpu-controls.c | 339 ++++++++++++++++++
+ .../platform/arm/mali-vpu/mali-vpu-controls.h |  71 ++++
+ .../platform/arm/mali-vpu/mali-vpu-dec.c      |  44 +++
+ .../platform/arm/mali-vpu/mali-vpu-dec.h      |   6 +
+ .../platform/arm/mali-vpu/mali-vpu-session.c  |  15 +
+ .../platform/arm/mali-vpu/mali-vpu-session.h  |  14 +
+ .../arm/mali-vpu/mali-vpu-variant-v76.c       |  99 +++++
+ .../platform/arm/mali-vpu/mali-vpu-variant.h  |  13 +
+ .../platform/arm/mali-vpu/mali-vpu-vidioc.c   |  19 +
+ .../uapi/linux/media/arm/mali-vpu-config.h    |  47 +++
+ include/uapi/linux/v4l2-controls.h            |   6 +
+ 12 files changed, 675 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-controls.c
+ create mode 100644 drivers/media/platform/arm/mali-vpu/mali-vpu-controls.h
+ create mode 100644 include/uapi/linux/media/arm/mali-vpu-config.h
 
 diff --git a/drivers/media/platform/arm/mali-vpu/Makefile b/drivers/media/platform/arm/mali-vpu/Makefile
-index 0716a2b0c8712..74e1455c01d8b 100644
+index 1dc62621d9dc0..95bad821eb466 100644
 --- a/drivers/media/platform/arm/mali-vpu/Makefile
 +++ b/drivers/media/platform/arm/mali-vpu/Makefile
-@@ -9,6 +9,7 @@ mali-vpu-objs := mali-vpu-probe.o \
+@@ -7,6 +7,7 @@ mali-vpu-objs := mali-vpu-probe.o \
+ 		mali-vpu-dec.o \
+ 		mali-vpu-buffer.o \
  		mali-vpu-vb2.o \
- 		mali-vpu-formats.o \
- 		mali-vpu-controls.o \
--		mali-vpu-mmu.o
-+		mali-vpu-mmu.o \
-+		mali-vpu-firmware-cache.o
+-		mali-vpu-formats.o
++		mali-vpu-formats.o \
++		mali-vpu-controls.o
  
  obj-$(CONFIG_VIDEO_MALI_VPU) += mali-vpu.o
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
-index 20361df05bdcd..a35c1b901aa3f 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-device.h
-@@ -14,6 +14,7 @@
- struct clk_bulk_data;
- struct v4l2_m2m_dev;
- struct mali_vpu_variant;
-+struct mali_vpu_fw_cache;
- struct reset_control_bulk_data;
- 
- /**
-@@ -38,6 +39,7 @@ enum mali_vpu_session_role {
-  * @v4l2_dev: V4L2 device structure for mali vpu.
-  * @vdev_dec: Video device structure for decoder.
-  * @m2m_dev: V4L2 mem2mem device structure for mali vpu.
-+ * @fw_cache: Firmware cache for sharing or reusing firmware blobs.
-  */
- struct mali_vpu_dev {
- 	struct device			*dev;
-@@ -53,6 +55,7 @@ struct mali_vpu_dev {
- 	struct v4l2_device		v4l2_dev;
- 	struct video_device		*vdev_dec;
- 	struct v4l2_m2m_dev		*m2m_dev;
-+	struct mali_vpu_fw_cache	*fw_cache;
- };
- 
- #endif /* __MALI_VPU_DEVICE_H__ */
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware-cache.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware-cache.c
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-controls.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-controls.c
 new file mode 100644
-index 0000000000000..746d30f179305
+index 0000000000000..d4921eddf0fcf
 --- /dev/null
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware-cache.c
-@@ -0,0 +1,461 @@
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-controls.c
+@@ -0,0 +1,339 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Copyright (C) 2026 ARM Limited.
 + */
 +
-+#include <linux/delay.h>
-+#include <linux/kthread.h>
++#include <linux/errno.h>
++#include <linux/limits.h>
++#include <linux/slab.h>
++#include <media/v4l2-mem2mem.h>
 +
-+#include "mali-vpu-device.h"
-+#include "mali-vpu-firmware-cache.h"
-+#include "mali-vpu-mmu.h"
-+#include "mali-vpu-protocol-def-v3.h"
++#include <linux/media/arm/mali-vpu-config.h>
 +
-+#define MALI_VPU_FW_CACHE_CLEANUP_INTERVAL_MS 30000
++#include "mali-vpu-controls.h"
++#include "mali-vpu-session.h"
 +
-+#define MALI_VPU_GET_MAJOR_VERSION(ver) (((ver) >> 16) & 0xFF)
-+
-+static inline bool mali_vpu_test_bit_le32(u32 bit, const __le32 *addr)
++static int mali_vpu_ctrl_slot_from_cid(const struct mali_vpu_session *sess,
++				       u32 cid, u32 *slot)
 +{
-+	return !!(le32_to_cpu(addr[bit >> 5]) & BIT(bit & 0x1F));
-+}
-+
-+static void mali_vpu_fw_bin_release(struct kref *ref)
-+{
-+	struct mali_vpu_fw_bin *bin = container_of(ref, struct mali_vpu_fw_bin, refcount);
-+
-+	/* cache_link must already be detached before final put */
-+	WARN_ON_ONCE(!list_empty(&bin->cache_link));
-+
-+	if (bin->fw)
-+		release_firmware(bin->fw);
-+
-+	kfree(bin);
-+}
-+
-+static int mali_vpu_fw_build_name(char *name, size_t name_sz,
-+				  const struct mali_vpu_fw_key *key)
-+{
-+	const char *role_str = NULL;
-+	const char *codec = NULL;
-+	int n;
-+
-+	if (!name || !name_sz || !key)
-+		return -EINVAL;
-+
-+	if (key->session_role != MALI_VPU_DECODER)
-+		return -EINVAL;
-+
-+	role_str = "dec";
-+
-+	if (key->codec_fourcc == V4L2_PIX_FMT_H264)
-+		codec = "h264";
-+
-+	if (!codec)
-+		return -ENOENT;
-+
-+	n = snprintf(name, name_sz, "arm/mali-vpu/v%u/%s%s.fwb",
-+		     key->fw_ver_major, codec, role_str);
-+	if (n < 0)
-+		return n;
-+	if ((size_t)n >= name_sz)
-+		return -ENAMETOOLONG;
-+
-+	return 0;
-+}
-+
-+static int mali_vpu_fw_parse_header(const struct firmware *fw,
-+				    struct mali_vpu_fw_bin *vpu_fw_bin)
-+{
-+	const struct mali_vpu_fw_header *header;
-+	u32 header_fw_ver_major;
-+	u32 fw_version, text_length, bss_start, bss_bitmap_size;
-+	u32 master_rw_start, master_rw_size;
-+	mali_vpu_mmu_va va;
++	const struct mali_vpu_ctrl_state *ctrl_state = sess->ctrls_state;
 +	u32 i;
 +
-+	/* Validate the fw binary */
-+	if (fw->size < sizeof(*header)) {
-+		dev_err(vpu_fw_bin->cache->dev,
-+			"firmware bin too small: %zu bytes, need at least %zu\n",
-+			fw->size, sizeof(*header));
-+		return -EINVAL;
-+	}
-+
-+	header = (const struct mali_vpu_fw_header *)fw->data;
-+
-+	fw_version	= le32_to_cpu(header->fw_version);
-+	text_length	= le32_to_cpu(header->text_length);
-+	bss_start	= le32_to_cpu(header->bss_start_address);
-+	bss_bitmap_size	= le32_to_cpu(header->bss_bitmap_size);
-+	master_rw_start	= le32_to_cpu(header->master_rw_start_address);
-+	master_rw_size	= le32_to_cpu(header->master_rw_size);
-+
-+	if (text_length < sizeof(*header) ||
-+	    text_length > fw->size) {
-+		dev_err(vpu_fw_bin->cache->dev,
-+			"invalid firmware text length: %u\n",
-+			text_length);
-+		return -EBADMSG;
-+	}
-+
-+	if (bss_bitmap_size > ARRAY_SIZE(header->bss_bitmap) * 32) {
-+		dev_err(vpu_fw_bin->cache->dev,
-+			"invalid firmware BSS bitmap size: %u (max %zu)\n",
-+			bss_bitmap_size, ARRAY_SIZE(header->bss_bitmap) * 32UL);
-+		return -EBADMSG;
-+	}
-+
-+	/* Firmware version mismatch */
-+	header_fw_ver_major = MALI_VPU_GET_MAJOR_VERSION(fw_version);
-+	if (header_fw_ver_major != vpu_fw_bin->key.fw_ver_major) {
-+		dev_err(vpu_fw_bin->cache->dev,
-+			"firmware major version mismatch: expected %u, got %u. Binary ver: %#x\n",
-+			vpu_fw_bin->key.fw_ver_major, header_fw_ver_major, fw_version);
-+		return -EINVAL;
-+	}
-+
-+	/* Match host<->firmware communication protocol version */
-+	if (header->protocol_major != MALI_VPU_HOST_PROTOCOL_MAJOR ||
-+	    header->protocol_minor > MALI_VPU_HOST_PROTOCOL_MINOR) {
-+		dev_err(vpu_fw_bin->cache->dev,
-+			"firmware protocol version mismatch: expected %u.%u, got %u.%u\n",
-+			MALI_VPU_HOST_PROTOCOL_MAJOR, MALI_VPU_HOST_PROTOCOL_MINOR,
-+			header->protocol_major, header->protocol_minor);
-+		return -EINVAL;
-+	}
-+
-+	vpu_fw_bin->header = header;
-+
-+	/* Calculate number of pages needed for the text segment. */
-+	vpu_fw_bin->text_page_count = DIV_ROUND_UP(text_length, MALI_VPU_PAGE_SIZE);
-+
-+	/* Calculate number of pages needed for the BSS segments. */
-+	vpu_fw_bin->bss_page_count = 0;
-+	vpu_fw_bin->shared_bss_page_count = 0;
-+
-+	va = bss_start;
-+	for (i = 0; i < bss_bitmap_size; i++) {
-+		if (va >= master_rw_start &&
-+		    va < (master_rw_start + master_rw_size))
-+			vpu_fw_bin->shared_bss_page_count++;
-+		else if (mali_vpu_test_bit_le32(i, header->bss_bitmap))
-+			vpu_fw_bin->bss_page_count++;
-+
-+		va += MALI_VPU_PAGE_SIZE;
-+	}
-+
-+	return 0;
-+}
-+
-+static void mali_vpu_fw_notify_event_list(struct list_head *event_list,
-+					  struct mali_vpu_fw_bin *bin,
-+					  bool same_thread)
-+{
-+	struct mali_vpu_fw_event *event, *tmp;
-+
-+	list_for_each_entry_safe(event, tmp, event_list, link) {
-+		list_del_init(&event->link);
-+		event->fw_bin_ready(bin, event->arg, same_thread);
-+	}
-+}
-+
-+static void mali_vpu_fw_request_done(const struct firmware *fw, void *context)
-+{
-+	struct mali_vpu_fw_bin *vpu_fw_bin = context;
-+	const struct mali_vpu_fw_header *hdr;
-+	LIST_HEAD(local_event_list);
-+	int ret = 0;
-+
-+	mutex_lock(&vpu_fw_bin->cache->lock);
-+	mutex_lock(&vpu_fw_bin->lock);
-+
-+	if (!fw) {
-+		ret = -ENOENT;
-+		vpu_fw_bin->fw = NULL;
-+	} else {
-+		ret = mali_vpu_fw_parse_header(fw, vpu_fw_bin);
-+		if (ret) {
-+			release_firmware(fw);
-+			vpu_fw_bin->fw = NULL;
-+		} else {
-+			vpu_fw_bin->fw = fw;
++	for (i = 0; i < sess->num_ctrls_caps; i++) {
++		if (ctrl_state[i].cid == cid) {
++			*slot = i;
++			return 0;
 +		}
 +	}
 +
-+	/* We have to notify waiters in failure or success case */
-+	vpu_fw_bin->load_status = ret;
-+	vpu_fw_bin->state = ret ? MALI_VPU_FW_BIN_FAILED : MALI_VPU_FW_BIN_READY;
-+
-+	/*
-+	 * Take a local copy of events/waiters
-+	 * so that notify callback can be called outside vpu_fw_bin->lock
-+	 */
-+	list_splice_init(&vpu_fw_bin->event_list, &local_event_list);
-+
-+	if (ret) {
-+		/* Firmware load failed, remove cached entry */
-+		list_del_init(&vpu_fw_bin->cache_link);
-+		kref_put(&vpu_fw_bin->refcount, mali_vpu_fw_bin_release); /* Drop cache-ref */
-+	}
-+
-+	mutex_unlock(&vpu_fw_bin->lock);
-+	mutex_unlock(&vpu_fw_bin->cache->lock);
-+
-+	/*
-+	 * Keep the loader-owned reference until all waiters have been notified
-+	 * and completion logging has finished. Callbacks may release their
-+	 * caller-owned reference to vpu_fw_bin; on a load failure, the cache
-+	 * reference has also already been dropped.
-+	 */
-+	mali_vpu_fw_notify_event_list(&local_event_list, vpu_fw_bin, false);
-+
-+	if (ret) {
-+		dev_warn(vpu_fw_bin->cache->dev, "firmware load failed: %s (status=%d)\n",
-+			 vpu_fw_bin->filename, ret);
-+	} else {
-+		hdr = vpu_fw_bin->header;
-+		dev_info(vpu_fw_bin->cache->dev, "firmware loaded: %s\n", vpu_fw_bin->filename);
-+
-+		dev_dbg(vpu_fw_bin->cache->dev,
-+			"firmware info: Version %.*s, MVE Protocol Version %u.%u,\n",
-+			(int)sizeof(hdr->fw_version_str), (const char *)hdr->fw_version_str,
-+			hdr->protocol_major, hdr->protocol_minor);
-+		dev_dbg(vpu_fw_bin->cache->dev,
-+			"firmware info: \"%.*s\", Rasc jmp = %#x, text_length=%u, bss=%#x\n",
-+			(int)sizeof(hdr->info_string), (const char *)hdr->info_string,
-+			le32_to_cpu(hdr->rasc_jmp),
-+			le32_to_cpu(hdr->text_length),
-+			le32_to_cpu(hdr->bss_start_address));
-+		dev_dbg(vpu_fw_bin->cache->dev,
-+			"firmware info: text pages=%u, shared bss=%u, bss pages=%u\n",
-+			vpu_fw_bin->text_page_count, vpu_fw_bin->shared_bss_page_count,
-+			vpu_fw_bin->bss_page_count);
-+	}
-+
-+	/* Notification and logging are complete; drop loader-owned reference */
-+	kref_put(&vpu_fw_bin->refcount, mali_vpu_fw_bin_release);
++	return -EINVAL;
 +}
 +
-+static struct mali_vpu_fw_bin *
-+mali_vpu_fw_bin_create(struct mali_vpu_fw_cache *cache,
-+		       const struct mali_vpu_fw_key *key,
-+		       struct mali_vpu_fw_event *event,
-+		       bool *call_now)
++static int mali_vpu_get_volatile_ctrl(struct v4l2_ctrl *ctrl)
 +{
-+	struct mali_vpu_fw_bin *vpu_fw_bin;
++	struct mali_vpu_session *sess = container_of(ctrl->handler,
++						     struct mali_vpu_session,
++						     ctrl_handler);
++
++	switch (ctrl->id) {
++	case V4L2_CID_MIN_BUFFERS_FOR_CAPTURE:
++		if (sess->role != MALI_VPU_DECODER)
++			return -EINVAL;
++		ctrl->val = sess->min_buffers_required;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int mali_vpu_apply_or_stage_ctrl(struct mali_vpu_session *sess,
++					const struct mali_vpu_ctrl_desc *desc,
++					struct mali_vpu_ctrl_state *state,
++					s64 value)
++{
++	bool staged;
 +	int ret;
 +
-+	vpu_fw_bin = kzalloc_obj(*vpu_fw_bin);
-+	if (!vpu_fw_bin)
-+		return ERR_PTR(-ENOMEM);
++	staged = !sess->is_fw_ready;
 +
-+	/* One cache-owned reference while binary is in cache->fw_bins */
-+	kref_init(&vpu_fw_bin->refcount);
-+	/* One caller-owned reference returned by this get(). */
-+	kref_get(&vpu_fw_bin->refcount);
-+
-+	vpu_fw_bin->cache = cache;
-+	vpu_fw_bin->key = *key;
-+	vpu_fw_bin->state = MALI_VPU_FW_BIN_LOADING;
-+	vpu_fw_bin->load_status = -EINPROGRESS;
-+	mutex_init(&vpu_fw_bin->lock);
-+	INIT_LIST_HEAD(&vpu_fw_bin->cache_link);
-+	INIT_LIST_HEAD(&vpu_fw_bin->event_list);
-+
-+	ret = mali_vpu_fw_build_name(vpu_fw_bin->filename,
-+				     sizeof(vpu_fw_bin->filename), key);
-+	if (ret) {
-+		dev_err(vpu_fw_bin->cache->dev,
-+			"could not build fw name: fourcc=%#x, role=%d, version=%#x\n",
-+			key->codec_fourcc, key->session_role, key->fw_ver_major);
-+		goto err_put_caller_cache;
++	if (!staged) {
++		ret = desc->set(sess, state->cid, value);
++		if (ret)
++			return ret;
 +	}
 +
-+	list_add(&vpu_fw_bin->cache_link, &cache->fw_bins);
++	state->value = value;
++	state->client_set = true;
++	state->is_staged = staged;
 +
-+	/* One loader-owned reference while firmware is being loaded */
-+	kref_get(&vpu_fw_bin->refcount);
++	return 0;
++}
 +
-+	ret = request_firmware_nowait(THIS_MODULE, true, vpu_fw_bin->filename,
-+				      cache->dev, GFP_KERNEL, vpu_fw_bin,
-+				      mali_vpu_fw_request_done);
++static int mali_vpu_set_ctrl(struct v4l2_ctrl *ctrl)
++{
++	struct mali_vpu_session *sess = container_of(ctrl->handler,
++						     struct mali_vpu_session,
++						     ctrl_handler);
++	const struct mali_vpu_ctrl_desc *desc;
++	struct mali_vpu_ctrl_state *state;
++	struct vb2_queue *src_vq;
++	u32 slot;
++	int ret;
++
++	ret = mali_vpu_ctrl_slot_from_cid(sess, ctrl->id, &slot);
 +	if (ret)
-+		goto err_put_loader_caller_cache;
++		return ret;
++
++	desc = &sess->ctrls_caps[slot];
++	state = &sess->ctrls_state[slot];
++
++	src_vq = v4l2_m2m_get_src_vq(sess->m2m_ctx);
++	if (vb2_is_streaming(src_vq) &&
++	    !(desc->flags & MALI_VPU_CTRL_FLAG_DYNAMIC))
++		return -EBUSY;
++
++	return mali_vpu_apply_or_stage_ctrl(sess, desc, state, ctrl->val);
++}
++
++static const struct v4l2_ctrl_ops mali_vpu_ctrl_ops = {
++	.g_volatile_ctrl = mali_vpu_get_volatile_ctrl,
++	.s_ctrl          = mali_vpu_set_ctrl,
++};
++
++static int mali_vpu_register_control(struct mali_vpu_session *sess,
++				     const struct mali_vpu_ctrl_desc *d)
++{
++	struct v4l2_ctrl *ctrl;
++
++	if (d->is_custom) {
++		struct v4l2_ctrl_config cfg = {
++			.ops = &mali_vpu_ctrl_ops,
++			.id = d->cid,
++			.name = d->name,
++			.type = d->type,
++			.min = d->min_val,
++			.max = d->max_val,
++			.step = (d->type == V4L2_CTRL_TYPE_MENU) ? 0 : d->step_or_mask,
++			.def = d->default_val,
++			.menu_skip_mask = (d->type == V4L2_CTRL_TYPE_MENU) ? ~(d->step_or_mask) : 0,
++			.qmenu = d->qmenu,
++		};
++
++		ctrl = v4l2_ctrl_new_custom(&sess->ctrl_handler, &cfg, NULL);
++
++	} else if (d->type == V4L2_CTRL_TYPE_MENU) {
++		ctrl = v4l2_ctrl_new_std_menu(&sess->ctrl_handler,
++					      &mali_vpu_ctrl_ops,
++					      d->cid,
++					      d->max_val,
++					      ~(d->step_or_mask),
++					      d->default_val);
++	} else {
++		ctrl = v4l2_ctrl_new_std(&sess->ctrl_handler,
++					 &mali_vpu_ctrl_ops,
++					 d->cid,
++					 d->min_val,
++					 d->max_val,
++					 d->step_or_mask,
++					 d->default_val);
++	}
++
++	if (!ctrl || sess->ctrl_handler.error)
++		return sess->ctrl_handler.error ? sess->ctrl_handler.error : -EINVAL;
++
++	return 0;
++}
++
++static int mali_vpu_validate_ctrl_caps(const struct mali_vpu_session *sess)
++{
++	u32 i, j;
++
++	if (!sess->ctrls_caps || !sess->num_ctrls_caps) {
++		dev_err(sess->vpu_dev->dev, "invalid ctrl caps structure\n");
++		return -EINVAL;
++	}
++
++	for (i = 0; i < sess->num_ctrls_caps; i++) {
++		const struct mali_vpu_ctrl_desc *d = &sess->ctrls_caps[i];
++
++		if (!d->cid || !d->set)
++			return -EINVAL;
++
++		if (d->min_val > d->max_val)
++			return -EINVAL;
++
++		if (d->default_val < d->min_val || d->default_val > d->max_val)
++			return -EINVAL;
++
++		if (d->is_custom && !d->name)
++			return -EINVAL;
++
++		if (d->is_custom && d->type == V4L2_CTRL_TYPE_MENU && !d->qmenu)
++			return -EINVAL;
++
++		/* Reject duplicate entries */
++		for (j = i + 1; j < sess->num_ctrls_caps; j++) {
++			if (d->cid == sess->ctrls_caps[j].cid)
++				return -EINVAL;
++		}
++	}
++
++	return 0;
++}
++
++int mali_vpu_ctrls_init(struct mali_vpu_session *sess)
++{
++	const struct mali_vpu_ctrl_desc *ctrls_cap = sess->ctrls_caps;
++	struct mali_vpu_ctrl_state *ctrl_state;
++	struct v4l2_ctrl *volatile_ctrl;
++	u32 i;
++	int ret;
++
++	ret = mali_vpu_validate_ctrl_caps(sess);
++	if (ret)
++		return ret;
++
++	sess->ctrls_state = kcalloc(sess->num_ctrls_caps, sizeof(*sess->ctrls_state), GFP_KERNEL);
++	if (!sess->ctrls_state)
++		return -ENOMEM;
 +
 +	/*
-+	 * Serialise adding event to the event_list and firmware load completion.
-+	 * For fast callback where firmware load is completed before this thread can
-+	 * queue the event to the event_list for notification.
++	 * Adding 1 to num_ctrls to include
++	 * V4L2_CID_MIN_BUFFERS_FOR_CAPTURE for decoder
 +	 */
-+	mutex_lock(&vpu_fw_bin->lock);
-+	if (vpu_fw_bin->state == MALI_VPU_FW_BIN_LOADING)
-+		list_add(&event->link, &vpu_fw_bin->event_list);
-+	else
-+		*call_now = true;
-+	mutex_unlock(&vpu_fw_bin->lock);
++	ret = v4l2_ctrl_handler_init(&sess->ctrl_handler, sess->num_ctrls_caps + 1);
++	if (ret)
++		goto err_free_state;
 +
-+	return vpu_fw_bin;
++	sess->ctrl_handler.lock = &sess->vq_lock;
 +
-+err_put_loader_caller_cache:
-+	kref_put(&vpu_fw_bin->refcount, mali_vpu_fw_bin_release); /* Loader ref */
-+	list_del_init(&vpu_fw_bin->cache_link);
++	ctrl_state = sess->ctrls_state;
 +
-+err_put_caller_cache:
-+	kref_put(&vpu_fw_bin->refcount, mali_vpu_fw_bin_release); /* Caller ref */
-+	kref_put(&vpu_fw_bin->refcount, mali_vpu_fw_bin_release); /* Cache ref */
-+	/* Binary freed in release callback */
-+	return ERR_PTR(ret);
-+}
++	for (i = 0; i < sess->num_ctrls_caps; i++) {
++		const struct mali_vpu_ctrl_desc *d = &ctrls_cap[i];
 +
-+static bool mali_vpu_fw_key_match(const struct mali_vpu_fw_key *a,
-+				  const struct mali_vpu_fw_key *b)
-+{
-+	return a->codec_fourcc == b->codec_fourcc &&
-+	       a->session_role == b->session_role &&
-+	       a->fw_ver_major == b->fw_ver_major;
-+}
++		ctrl_state[i].cid = d->cid;
++		ctrl_state[i].value = d->default_val;
++		ctrl_state[i].client_set = false;
++		ctrl_state[i].is_staged = false;
 +
-+static struct mali_vpu_fw_bin *mali_vpu_fw_find_locked(struct mali_vpu_fw_cache *cache,
-+						       const struct mali_vpu_fw_key *key)
-+{
-+	struct mali_vpu_fw_bin *bin;
-+
-+	list_for_each_entry(bin, &cache->fw_bins, cache_link) {
-+		if (!mali_vpu_fw_key_match(&bin->key, key))
-+			continue;
-+		if (!kref_get_unless_zero(&bin->refcount))
-+			continue;
-+
-+		return bin;
++		ret = mali_vpu_register_control(sess, d);
++		if (ret)
++			goto err_free_handler;
 +	}
 +
-+	return NULL;
++	if (sess->role == MALI_VPU_DECODER) {
++		volatile_ctrl = v4l2_ctrl_new_std(&sess->ctrl_handler,
++						  &mali_vpu_ctrl_ops,
++						  V4L2_CID_MIN_BUFFERS_FOR_CAPTURE,
++						  1, 32, 1, 1);
++	} else {
++		ret = -EINVAL;
++		goto err_free_handler;
++	}
++
++	if (!volatile_ctrl || sess->ctrl_handler.error) {
++		ret = sess->ctrl_handler.error ? sess->ctrl_handler.error : -EINVAL;
++		goto err_free_handler;
++	}
++
++	volatile_ctrl->flags |= V4L2_CTRL_FLAG_VOLATILE | V4L2_CTRL_FLAG_READ_ONLY;
++
++	sess->fh.ctrl_handler = &sess->ctrl_handler;
++
++	return 0;
++
++err_free_handler:
++	v4l2_ctrl_handler_free(&sess->ctrl_handler);
++
++err_free_state:
++	kfree(sess->ctrls_state);
++	sess->ctrls_state = NULL;
++	return ret;
 +}
 +
-+int mali_vpu_fw_cache_get(struct mali_vpu_fw_cache *cache,
-+			  const struct mali_vpu_fw_key *key,
-+			  struct mali_vpu_fw_event *event)
++void mali_vpu_ctrls_cleanup(struct mali_vpu_session *sess)
 +{
-+	struct mali_vpu_fw_bin *bin;
-+	bool call_now = false;
-+	int ret = 0;
++	v4l2_ctrl_handler_free(&sess->ctrl_handler);
++	kfree(sess->ctrls_state);
++	sess->ctrls_state = NULL;
++	sess->fh.ctrl_handler = NULL;
++}
 +
-+	if (!cache || !key || !event || !event->fw_bin_ready)
++int mali_vpu_apply_staged_controls(struct mali_vpu_session *sess)
++{
++	u32 i;
++	int ret;
++
++	if (!sess->is_fw_ready)
 +		return -EINVAL;
 +
-+	/*
-+	 * The callback may run synchronously before this function returns if
-+	 * firmware loading has already completed. In that case, same_thread is
-+	 * true. Otherwise, the firmware loader invokes it asynchronously with
-+	 * same_thread set to false.
-+	 *
-+	 * The event must remain valid until the callback runs. Every call that
-+	 * returns 0 owns one reference to the binary supplied to the callback;
-+	 * the caller must release it with mali_vpu_fw_cache_put()
-+	 */
-+	INIT_LIST_HEAD(&event->link);
++	for (i = 0; i < sess->num_ctrls_caps; i++) {
++		const struct mali_vpu_ctrl_desc *d = &sess->ctrls_caps[i];
++		struct mali_vpu_ctrl_state *s = &sess->ctrls_state[i];
 +
-+	mutex_lock(&cache->lock);
-+	bin = mali_vpu_fw_find_locked(cache, key);
-+	if (!bin) {
-+		bin = mali_vpu_fw_bin_create(cache, key, event, &call_now);
-+		if (IS_ERR(bin)) {
-+			ret = PTR_ERR(bin);
-+			goto unlock_cache;
-+		}
-+	} else {
-+		mutex_lock(&bin->lock);
-+		if (bin->state == MALI_VPU_FW_BIN_LOADING)
-+			list_add(&event->link, &bin->event_list);
-+		else
-+			call_now = true;
-+		mutex_unlock(&bin->lock);
-+	}
-+
-+unlock_cache:
-+	mutex_unlock(&cache->lock);
-+
-+	if (ret)
-+		return ret;
-+
-+	if (call_now)
-+		event->fw_bin_ready(bin, event->arg, true);
-+
-+	return 0;
-+}
-+
-+void mali_vpu_fw_cache_put(struct mali_vpu_fw_bin *bin)
-+{
-+	kref_put(&bin->refcount, mali_vpu_fw_bin_release);
-+}
-+
-+static void mali_vpu_fw_cache_prune(struct mali_vpu_fw_cache *cache)
-+{
-+	LIST_HEAD(prune_list);
-+	struct mali_vpu_fw_bin *bin, *temp;
-+
-+	mutex_lock(&cache->lock);
-+	list_for_each_entry_safe(bin, temp, &cache->fw_bins, cache_link) {
-+		if (kref_read(&bin->refcount) != 1) /* If only cache holds ref */
++		if (!s->client_set || !s->is_staged)
 +			continue;
 +
-+		list_del_init(&bin->cache_link);
-+		list_add(&bin->cache_link, &prune_list);
-+	}
-+	mutex_unlock(&cache->lock);
-+
-+	list_for_each_entry_safe(bin, temp, &prune_list, cache_link) {
-+		list_del_init(&bin->cache_link);
-+		kref_put(&bin->refcount, mali_vpu_fw_bin_release);
-+	}
-+}
-+
-+static int mali_vpu_fw_cache_thread_fn(void *data)
-+{
-+	struct mali_vpu_fw_cache *cache = data;
-+
-+	while (!kthread_should_stop()) {
-+		mali_vpu_fw_cache_prune(cache);
-+		msleep_interruptible(MALI_VPU_FW_CACHE_CLEANUP_INTERVAL_MS);
++		ret = mali_vpu_apply_or_stage_ctrl(sess, d, s, s->value);
++		if (ret)
++			return ret;
 +	}
 +
 +	return 0;
 +}
 +
-+int mali_vpu_fw_cache_init(struct mali_vpu_fw_cache *cache, struct device *dev)
++int mali_vpu_ctrl_set_nalu_format(struct mali_vpu_session *sess, u32 cid,
++				  s64 value)
 +{
-+	int ret;
++	if (cid != V4L2_CID_MALI_VPU_NALU_FORMAT)
++		return -EINVAL;
 +
-+	cache->dev = dev;
-+	mutex_init(&cache->lock);
-+	INIT_LIST_HEAD(&cache->fw_bins);
-+
-+	cache->cache_thread = kthread_run(mali_vpu_fw_cache_thread_fn, cache, "mali_vpu_fw_cache");
-+	if (IS_ERR(cache->cache_thread)) {
-+		ret = PTR_ERR(cache->cache_thread);
-+		cache->cache_thread = NULL;
-+		return ret;
-+	}
-+
++	(void)sess;
++	(void)value;
 +	return 0;
 +}
 +
-+void mali_vpu_fw_cache_cleanup(struct mali_vpu_fw_cache *cache)
++int mali_vpu_ctrl_set_intbuf_size(struct mali_vpu_session *sess, u32 cid,
++				  s64 value)
 +{
-+	struct mali_vpu_fw_bin *bin;
-+	struct mali_vpu_fw_bin *temp;
-+	LIST_HEAD(local);
++	if (cid != V4L2_CID_MALI_VPU_INTBUF_SIZE || value < 0 || value > INT_MAX)
++		return -EINVAL;
 +
-+	if (cache->cache_thread)
-+		kthread_stop(cache->cache_thread);
-+
-+	mutex_lock(&cache->lock);
-+	list_splice_init(&cache->fw_bins, &local);
-+	mutex_unlock(&cache->lock);
-+
-+	list_for_each_entry_safe(bin, temp, &local, cache_link) {
-+		list_del_init(&bin->cache_link);
-+		kref_put(&bin->refcount, mali_vpu_fw_bin_release);
-+	}
++	(void)sess;
++	(void)value;
++	return 0;
 +}
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware-cache.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware-cache.h
++
++int mali_vpu_ctrl_set_stream_escaping(struct mali_vpu_session *sess, u32 cid,
++				      s64 value)
++{
++	if (cid != V4L2_CID_MALI_VPU_STREAM_ESCAPING)
++		return -EINVAL;
++
++	if (value == -1)
++		return 0; /* tristate no-op */
++
++	if (value != 0 && value != 1)
++		return -EINVAL;
++
++	(void)sess;
++	(void)value;
++	return 0;
++}
++
++int mali_vpu_ctrl_set_host_print_enable(struct mali_vpu_session *sess, u32 cid,
++					s64 value)
++{
++	if (cid != V4L2_CID_MALI_VPU_HOST_PRINT_ENABLE)
++		return -EINVAL;
++
++	if (value != 0 && value != 1)
++		return -EINVAL;
++
++	(void)sess;
++	(void)value;
++	return 0;
++}
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-controls.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-controls.h
 new file mode 100644
-index 0000000000000..f8b024222d2d2
+index 0000000000000..d7f5898963478
 --- /dev/null
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-firmware-cache.h
-@@ -0,0 +1,172 @@
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-controls.h
+@@ -0,0 +1,71 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
 + * Copyright (C) 2026 ARM Limited.
 + */
 +
-+#ifndef __MALI_VPU_FIRMWARE_CACHE_H__
-+#define __MALI_VPU_FIRMWARE_CACHE_H__
++#ifndef __MALI_VPU_CONTROLS_H__
++#define __MALI_VPU_CONTROLS_H__
 +
-+#include <asm/byteorder.h>
-+#include <linux/firmware.h>
-+#include <linux/kref.h>
-+#include <linux/list.h>
-+#include <linux/mutex.h>
++#include <linux/bits.h>
++#include <linux/types.h>
++#include <media/v4l2-ctrls.h>
++
++struct mali_vpu_session;
++
++enum mali_vpu_ctrl_flags {
++	MALI_VPU_CTRL_FLAG_DYNAMIC	= BIT(0),
++};
++
++/**
++ * struct mali_vpu_ctrl_desc - static description of one driver control.
++ * @cid: V4L2 control ID.
++ * @type: V4L2 control type.
++ * @name: Control name used for custom registration. NULL for standard controls.
++ * @qmenu: Menu labels for V4L2_CTRL_TYPE_MENU custom controls.
++ * @min_val: Minimum allowed value for this control.
++ * @max_val: Maximum allowed value for this control.
++ * @default_val: Default value for this control at session init.
++ * @step_or_mask: Step for integer controls, or enabled-item mask for menu controls.
++ * @is_custom: Flag to indicate if a control is a custom Mali VPU control.
++ * @flags: Driver-specific behavior flags from enum mali_vpu_ctrl_flags.
++ * @set: Setter callback invoked on client control changes, to apply value to firmware.
++ */
++struct mali_vpu_ctrl_desc {
++	u32 cid;
++	enum v4l2_ctrl_type type;
++	const char *name;
++	const char * const *qmenu;
++	s64 min_val;
++	s64 max_val;
++	s64 default_val;
++	u64 step_or_mask;
++	bool is_custom;
++	enum mali_vpu_ctrl_flags flags;
++	int (*set)(struct mali_vpu_session *sess, u32 cid, s64 value);
++};
++
++/**
++ * struct mali_vpu_ctrl_state - per-session runtime state of one driver control.
++ * @cid: V4L2 control ID.
++ * @value: Last accepted value for the control (from userspace or default at init).
++ * @client_set: True if userspace explicitly set this control at least once.
++ * @is_staged: True if value is accepted but not yet sent to firmware.
++ */
++struct mali_vpu_ctrl_state {
++	u32 cid;
++	s64 value;
++	bool client_set;
++	bool is_staged;
++};
++
++int mali_vpu_ctrls_init(struct mali_vpu_session *sess);
++void mali_vpu_ctrls_cleanup(struct mali_vpu_session *sess);
++int mali_vpu_apply_staged_controls(struct mali_vpu_session *sess);
++
++/* Common controls setters */
++int mali_vpu_ctrl_set_nalu_format(struct mali_vpu_session *sess, u32 cid, s64 value);
++int mali_vpu_ctrl_set_intbuf_size(struct mali_vpu_session *sess, u32 cid, s64 value);
++int mali_vpu_ctrl_set_stream_escaping(struct mali_vpu_session *sess, u32 cid, s64 value);
++int mali_vpu_ctrl_set_host_print_enable(struct mali_vpu_session *sess, u32 cid, s64 value);
++
++#endif /* __MALI_VPU_CONTROLS_H__ */
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c
+index cb6eeee2f04df..7e78c475a4ff3 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.c
+@@ -3,6 +3,9 @@
+  * Copyright (C) 2026 ARM Limited.
+  */
+ 
++#include <linux/errno.h>
++#include <linux/media/arm/mali-vpu-config.h>
++
+ #include "mali-vpu-dec.h"
+ #include "mali-vpu-session.h"
+ #include "mali-vpu-variant.h"
+@@ -13,4 +16,45 @@ void mali_vpu_session_init_dec(struct mali_vpu_session *sess)
+ 
+ 	sess->port_src.supported_fmts = variant_fmts->dec_src;
+ 	sess->port_dst.supported_fmts = variant_fmts->dec_dst;
++
++	const struct mali_vpu_control_caps *variant_ctrls = &sess->vpu_dev->variant->ctrl_caps;
++
++	sess->ctrls_caps	= variant_ctrls->dec_ctrls;
++	sess->num_ctrls_caps	= variant_ctrls->num_dec_ctrls;
++
++	sess->min_buffers_required = 3;	/* For CAPTURE/dst queue */
++}
++
++int mali_vpu_ctrl_set_ignore_stream_headers(struct mali_vpu_session *sess,
++					    u32 cid, s64 value)
++{
++	if (cid != V4L2_CID_MALI_VPU_IGNORE_STREAM_HEADERS)
++		return -EINVAL;
++
++	if (value == -1)
++		return 0; /* tristate no-op */
++
++	if (value != 0 && value != 1)
++		return -EINVAL;
++
++	(void)sess;
++	(void)value;
++	return 0;
++}
++
++int mali_vpu_ctrl_set_frame_reordering(struct mali_vpu_session *sess, u32 cid,
++				       s64 value)
++{
++	if (cid != V4L2_CID_MALI_VPU_FRAME_REORDERING)
++		return -EINVAL;
++
++	if (value == -1)
++		return 0; /* tristate no-op */
++
++	if (value != 0 && value != 1)
++		return -EINVAL;
++
++	(void)sess;
++	(void)value;
++	return 0;
+ }
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h
+index 2514c897587c4..e323b38475c81 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-dec.h
+@@ -6,8 +6,14 @@
+ #ifndef __MALI_VPU_DEC_H__
+ #define __MALI_VPU_DEC_H__
+ 
 +#include <linux/types.h>
 +
-+struct device;
-+struct task_struct;
+ struct mali_vpu_session;
+ 
+ void mali_vpu_session_init_dec(struct mali_vpu_session *sess);
+ 
++/* Decoder controls setters */
++int mali_vpu_ctrl_set_ignore_stream_headers(struct mali_vpu_session *sess, u32 cid, s64 value);
++int mali_vpu_ctrl_set_frame_reordering(struct mali_vpu_session *sess, u32 cid, s64 value);
 +
-+/**
-+ * struct mali_vpu_fw_cache - Per-device firmware cache context.
-+ * @dev: Device used for firmware requests and logging.
-+ * @lock: Serializes access to @fw_bins and cache-global state.
-+ * @fw_bins: List of cached firmware binaries (linked by struct mali_vpu_fw_bin::cache_link).
-+ * @cache_thread: Background thread that periodically prunes bins as per cache policy.
-+ *
-+ * One cache context exists per VPU device.
-+ */
-+
-+struct mali_vpu_fw_cache {
-+	struct device *dev;
-+	struct mutex lock;		/* Protects the fw_bins list */
-+	struct list_head fw_bins;
-+	struct task_struct *cache_thread;
-+};
-+
-+/**
-+ * struct mali_vpu_fw_header - Firmware binary header.
-+ * @rasc_jmp: Start address.
-+ * @protocol_minor: Host interface protocol minor version.
-+ * @protocol_major: Host interface protocol major version.
-+ * @reserved: Reserved for future use. Always 0.
-+ * @mve_version: MVE version string.
-+ * @info_string: Human readable codec information.
-+ * @part_number: Part number.
-+ * @git_hash: Short git hash of the firmware source.
-+ * @fw_version: Semantic firmware version encoded as 0x00MMmmpp where MM = major,
-+ *		mm = minor, pp = patch.
-+ * @fw_version_str: Semantic firmware version as a string.
-+ * @text_length: Length in bytes of the read-only part of the firmware.
-+ * @bss_start_address: Start address for BSS segment. This is always page-aligned.
-+ * @bss_bitmap_size: The number of bits used in 'bss_bitmap'.
-+ * @bss_bitmap: Bitmap which pages that shall be allocated and MMU mapped.
-+ *		If bit N is set, then a page shall be allocated and MMU mapped to VA address
-+ *		FW_BASE + bss_start_address + N * MVE_PAGE_SIZE.
-+ * @master_rw_start_address: Defines a region of shared pages.
-+ * @master_rw_size: Defines a region of shared pages.
-+ *
-+ * This structure is read directly from the firmware binary and describes the layout
-+ * of the firmware in memory. All multibyte integer fields are little-endian.
-+ */
-+struct mali_vpu_fw_header {
-+	__le32 rasc_jmp;
-+	u8 protocol_minor;
-+	u8 protocol_major;
-+	u8 reserved[2];
-+
-+	u8 mve_version[8];
-+	u8 info_string[48];
-+
-+	u8 part_number[8];
-+	u8 git_hash[8];
-+
-+	__le32 fw_version;
-+	u8 fw_version_str[16];
-+
-+	__le32 text_length;
-+	__le32 bss_start_address;
-+	__le32 bss_bitmap_size;
-+	__le32 bss_bitmap[16];
-+
-+	__le32 master_rw_start_address;
-+	__le32 master_rw_size;
-+};
-+
-+/**
-+ * struct mali_vpu_fw_key - Structure describing the key fields to identify a firmware binary.
-+ * @codec_fourcc: Fourcc code of the codec.
-+ * @session_role: Role of the session (encoder/decoder).
-+ * @fw_ver_major: Expected major firmware version.
-+ *
-+ * The key uniquely identifies the firmware variant expected by a session.
-+ */
-+struct mali_vpu_fw_key {
-+	u32 codec_fourcc;
-+	u32 session_role;
-+	u32 fw_ver_major;
-+};
-+
-+enum mali_vpu_fw_bin_state {
-+	MALI_VPU_FW_BIN_LOADING = 0,
-+	MALI_VPU_FW_BIN_READY,
-+	MALI_VPU_FW_BIN_FAILED,
-+};
-+
-+/**
-+ * struct mali_vpu_fw_bin - Structure describing a loaded firmware binary.
-+ * @refcount: Lifetime reference count (cache/session/loader references).
-+ * @cache: Owning firmware cache context.
-+ * @cache_link: Node in mali_vpu_fw_cache::fw_bins list.
-+ * @event_list: List of waiters (mali_vpu_fw_event) waiting for this firmware to load.
-+ * @lock: Protects load, status, header pointers and @event_list.
-+ * @key: Identity key for cache match and filename generation.
-+ * @filename: Firmware filename derived from @key.
-+ * @state: Current load state of the firmware binary (loading/ready/failed).
-+ * @load_status: Final load result (0 on success, negative errno on failure).
-+ * @fw: Firmware object returned by firmware loader.
-+ * @header: Parsed firmware header within @fw->data.
-+ * @text_page_count: Derived page count for firmware text segment.
-+ * @bss_page_count: Derived page count for firmware BSS segment.
-+ * @shared_bss_page_count: Derived page count for shared BSS area.
-+ *
-+ * A bin remains in the cache while referenced and may be shared by many sessions
-+ * requesting the same @key.
-+ */
-+struct mali_vpu_fw_bin {
-+	struct kref refcount;
-+	struct mali_vpu_fw_cache *cache;
-+
-+	struct list_head cache_link;
-+	struct list_head event_list;
-+	struct mutex lock;      /* protects state/load_status/header/waiters */
-+
-+	struct mali_vpu_fw_key key;
-+	char filename[128];
-+
-+	enum mali_vpu_fw_bin_state state;
-+	int load_status;
-+
-+	const struct firmware *fw;
-+	const struct mali_vpu_fw_header *header;
-+
-+	/* Derived fields from mali_vpu_fw_header */
-+	u32 text_page_count;
-+	u32 bss_page_count;
-+	u32 shared_bss_page_count;
-+};
-+
-+/**
-+ * struct mali_vpu_fw_event - Completion callback registration for firmware loads.
-+ * @link: Internal list node used while in queued in a bin's waiter list.
-+ * @fw_bin_ready: Callback routine invoked when firmware load finishes. Its same_thread
-+ *		argument is true when called synchronously from mali_vpu_fw_cache_get(),
-+ *		and false when called from the asynchronous firmware-loader callback.
-+ * @arg: Opaque client context passed to @fw_bin_ready.
-+ *
-+ * Callback is invoked for both success and failure. The client checks fw_bin->load_status
-+ * to determine result.
-+ */
-+struct mali_vpu_fw_event {
-+	struct list_head link;
-+	void (*fw_bin_ready)(struct mali_vpu_fw_bin *fw_bin, void *arg, bool same_thread);
-+	void *arg;
-+};
-+
-+int mali_vpu_fw_cache_init(struct mali_vpu_fw_cache *cache, struct device *dev);
-+void mali_vpu_fw_cache_cleanup(struct mali_vpu_fw_cache *cache);
-+int mali_vpu_fw_cache_get(struct mali_vpu_fw_cache *cache,
-+			  const struct mali_vpu_fw_key *key,
-+			  struct mali_vpu_fw_event *event);
-+void mali_vpu_fw_cache_put(struct mali_vpu_fw_bin *bin);
-+
-+#endif /* __MALI_VPU_FIRMWARE_CACHE_H__ */
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
-index 2d63dc058c91a..b87725d7d4cab 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-probe.c
-@@ -21,6 +21,7 @@
+ #endif /* __MALI_VPU_DEC_H__ */
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+index 6867f51287f48..d1e8680de5556 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.c
+@@ -3,12 +3,14 @@
+  * Copyright (C) 2026 ARM Limited.
+  */
+ 
++#include <linux/device.h>
+ #include <linux/err.h>
+ #include <linux/errno.h>
+ #include <linux/string.h>
  #include <media/v4l2-mem2mem.h>
  
- #include "mali-vpu-device.h"
-+#include "mali-vpu-firmware-cache.h"
- #include "mali-vpu-registers.h"
+ #include "mali-vpu-session.h"
++#include "mali-vpu-controls.h"
+ #include "mali-vpu-dec.h"
+ #include "mali-vpu-formats.h"
  #include "mali-vpu-variant.h"
- #include "mali-vpu-vidioc.h"
-@@ -232,14 +233,26 @@ static int mali_vpu_probe(struct platform_device *pdev)
- 		goto err_unreg_v4l2;
+@@ -76,8 +78,19 @@ int mali_vpu_session_init(struct mali_vpu_session *sess)
+ 		goto err_mutex_destroy;
  	}
  
--	ret = mali_vpu_register_video_device(vpu_dev, MALI_VPU_DECODER);
-+	vpu_dev->fw_cache = devm_kzalloc(&pdev->dev, sizeof(*vpu_dev->fw_cache), GFP_KERNEL);
-+	if (!vpu_dev->fw_cache) {
-+		ret = -ENOMEM;
-+		goto err_release_m2m;
++	sess->is_fw_ready = false;
++
++	ret = mali_vpu_ctrls_init(sess);
++	if (ret) {
++		dev_err(sess->vpu_dev->dev, "failed to initialise controls: %d\n", ret);
++		goto err_m2m_ctx_release;
 +	}
 +
-+	ret = mali_vpu_fw_cache_init(vpu_dev->fw_cache, vpu_dev->dev);
- 	if (ret)
- 		goto err_release_m2m;
- 
-+	ret = mali_vpu_register_video_device(vpu_dev, MALI_VPU_DECODER);
-+	if (ret)
-+		goto err_cleanup_fw_cache;
-+
- 	platform_set_drvdata(pdev, vpu_dev);
- 
  	return 0;
  
-+err_cleanup_fw_cache:
-+	mali_vpu_fw_cache_cleanup(vpu_dev->fw_cache);
- err_release_m2m:
- 	v4l2_m2m_release(vpu_dev->m2m_dev);
- err_unreg_v4l2:
-@@ -257,6 +270,7 @@ static void mali_vpu_remove(struct platform_device *pdev)
- 	struct mali_vpu_dev *vpu_dev = platform_get_drvdata(pdev);
- 
- 	video_unregister_device(vpu_dev->vdev_dec);
-+	mali_vpu_fw_cache_cleanup(vpu_dev->fw_cache);
- 	v4l2_m2m_release(vpu_dev->m2m_dev);
- 	v4l2_device_unregister(&vpu_dev->v4l2_dev);
- 
-diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3.h
-index aed51eec6ca9c..f3a61731191bc 100644
---- a/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3.h
-+++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-protocol-def-v3.h
-@@ -25,6 +25,9 @@
-  *
-  ****************************************************************************/
- 
-+#define MALI_VPU_HOST_PROTOCOL_MAJOR 3
-+#define MALI_VPU_HOST_PROTOCOL_MINOR 1
++err_m2m_ctx_release:
++	v4l2_m2m_ctx_release(sess->m2m_ctx);
 +
-  #define MVE_CHROMA_FORMAT_420 (0x1)
+ err_mutex_destroy:
+ 	mutex_destroy(&sess->vq_lock);
+ 	return ret;
+@@ -94,5 +107,7 @@ void mali_vpu_session_cleanup(struct mali_vpu_session *sess)
+ 	}
  
- /* format bitfield: */
+ 	mutex_unlock(&sess->vq_lock);
++
++	mali_vpu_ctrls_cleanup(sess);
+ 	mutex_destroy(&sess->vq_lock);
+ }
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
+index f8a602cb59006..766912aec0b8e 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-session.h
+@@ -8,6 +8,7 @@
+ 
+ #include <linux/mutex.h>
+ #include <linux/videodev2.h>
++#include <media/v4l2-ctrls.h>
+ #include <media/v4l2-fh.h>
+ 
+ #include "mali-vpu-device.h"
+@@ -32,6 +33,12 @@ struct mali_vpu_port {
+  * @port_src: Source (OUTPUT) port for this session.
+  * @port_dst: Destination (CAPTURE) port for this session.
+  * @vq_lock: Mutex lock to serialise per-session queue related ioctls.
++ * @is_fw_ready: True if the firmware is loaded and ready to accept commands.
++ * @min_buffers_required: Driver-reported minimum buffers for role-specific queue.
++ * @ctrls_caps: Variant-provided immutable control capability table.
++ * @num_ctrls_caps: Number of entries in @ctrls_caps.
++ * @ctrls_state: Per-session control cache and staging state.
++ * @ctrl_handler: V4L2 control handler bound to this session.
+  * @fh: V4L2 file handle for this session.
+  * @m2m_ctx: V4L2 mem2mem context for this session.
+  */
+@@ -41,6 +48,13 @@ struct mali_vpu_session {
+ 	struct mali_vpu_port		port_src;
+ 	struct mali_vpu_port		port_dst;
+ 	struct mutex			vq_lock; /* lock to serialise per-session ioctls */
++	bool				is_fw_ready;
++	u32				min_buffers_required;
++
++	const struct mali_vpu_ctrl_desc *ctrls_caps;
++	u32				num_ctrls_caps;
++	struct mali_vpu_ctrl_state	*ctrls_state;
++	struct v4l2_ctrl_handler	ctrl_handler;
+ 
+ 	struct v4l2_fh		fh;
+ 	struct v4l2_m2m_ctx	*m2m_ctx;
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c
+index 7b04b51eeedc2..b807f8d888222 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant-v76.c
+@@ -4,8 +4,14 @@
+  */
+ 
+ #include <linux/array_size.h>
++#include <linux/bits.h>
++#include <linux/limits.h>
+ #include <linux/videodev2.h>
+ 
++#include <linux/media/arm/mali-vpu-config.h>
++
++#include "mali-vpu-controls.h"
++#include "mali-vpu-dec.h"
+ #include "mali-vpu-formats.h"
+ #include "mali-vpu-protocol-def-v3.h"
+ #include "mali-vpu-variant.h"
+@@ -53,6 +59,95 @@ static const struct mali_vpu_format_desc mali_v76_dec_dst_fmts[] = {
+ 	},
+ };
+ 
++static const char *const mali_v76_nalu_format_qmenu[] = {
++	"Start Codes",
++	"One NALU Per Buffer",
++	"One Byte Length Field",
++	"Two Byte Length Field",
++	"Four Byte Length Field",
++	NULL,
++};
++
++static const struct mali_vpu_ctrl_desc mali_v76_dec_ctrls[] = {
++	{
++		.cid = V4L2_CID_MALI_VPU_NALU_FORMAT,
++		.type = V4L2_CTRL_TYPE_MENU,
++		.name = "NALU format",
++		.qmenu = mali_v76_nalu_format_qmenu,
++		.min_val = MALI_VPU_NALU_FORMAT_START_CODES,
++		.max_val = MALI_VPU_NALU_FORMAT_FOUR_BYTE_LENGTH_FIELD,
++		.default_val = MALI_VPU_NALU_FORMAT_START_CODES,
++		.step_or_mask = BIT(MALI_VPU_NALU_FORMAT_START_CODES) |
++				BIT(MALI_VPU_NALU_FORMAT_ONE_NALU_PER_BUFFER) |
++				BIT(MALI_VPU_NALU_FORMAT_ONE_BYTE_LENGTH_FIELD) |
++				BIT(MALI_VPU_NALU_FORMAT_TWO_BYTE_LENGTH_FIELD) |
++				BIT(MALI_VPU_NALU_FORMAT_FOUR_BYTE_LENGTH_FIELD),
++		.is_custom = true,
++		.flags = 0,
++		.set = mali_vpu_ctrl_set_nalu_format,
++	},
++	{
++		.cid = V4L2_CID_MALI_VPU_INTBUF_SIZE,
++		.type = V4L2_CTRL_TYPE_INTEGER,
++		.name = "Internal buffer size",
++		.min_val = 0,
++		.max_val = INT_MAX,
++		.default_val = 0,
++		.step_or_mask = 1,
++		.is_custom = true,
++		.flags = 0,
++		.set = mali_vpu_ctrl_set_intbuf_size,
++	},
++	{
++		.cid = V4L2_CID_MALI_VPU_STREAM_ESCAPING,
++		.type = V4L2_CTRL_TYPE_INTEGER,
++		.name = "Stream Escaping",
++		.min_val = -1,
++		.max_val = 1,
++		.default_val = -1,
++		.step_or_mask = 1,
++		.is_custom = true,
++		.flags = 0,
++		.set = mali_vpu_ctrl_set_stream_escaping,
++	},
++	{
++		.cid = V4L2_CID_MALI_VPU_HOST_PRINT_ENABLE,
++		.type = V4L2_CTRL_TYPE_BOOLEAN,
++		.name = "Firmware debug prints",
++		.min_val = false,
++		.max_val = true,
++		.default_val = false,
++		.step_or_mask = 1,
++		.is_custom = true,
++		.flags = MALI_VPU_CTRL_FLAG_DYNAMIC,
++		.set = mali_vpu_ctrl_set_host_print_enable,
++	},
++	{
++		.cid = V4L2_CID_MALI_VPU_IGNORE_STREAM_HEADERS,
++		.type = V4L2_CTRL_TYPE_INTEGER,
++		.name = "Ignore Stream Headers",
++		.min_val = -1,
++		.max_val = 1,
++		.default_val = -1,
++		.step_or_mask = 1,
++		.is_custom = true,
++		.flags = 0,
++		.set = mali_vpu_ctrl_set_ignore_stream_headers,
++	},
++	{
++		.cid = V4L2_CID_MALI_VPU_FRAME_REORDERING,
++		.type = V4L2_CTRL_TYPE_INTEGER,
++		.name = "Frame Reordering",
++		.min_val = -1,
++		.max_val = 1,
++		.default_val = -1,
++		.step_or_mask = 1,
++		.is_custom = true,
++		.flags = 0,
++		.set = mali_vpu_ctrl_set_frame_reordering,
++	},
++};
++
+ const struct mali_vpu_variant mali_vpu_v76_variant = {
+ 	.expected_hw_pid = MALI_VPU_HW_PID_V76,
+ 
+@@ -81,4 +176,8 @@ const struct mali_vpu_variant mali_vpu_v76_variant = {
+ 		.width_default = MALI_V76_DEFAULT_FRAME_WIDTH,
+ 		.height_default = MALI_V76_DEFAULT_FRAME_HEIGHT,
+ 	},
++	.ctrl_caps = {
++		.dec_ctrls = mali_v76_dec_ctrls,
++		.num_dec_ctrls = ARRAY_SIZE(mali_v76_dec_ctrls),
++	},
+ };
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h
+index a46c25a94f18b..ad20896c90b0f 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-variant.h
+@@ -9,6 +9,7 @@
+ #include <linux/types.h>
+ #include <linux/videodev2.h>
+ 
++#include "mali-vpu-controls.h"
+ #include "mali-vpu-formats.h"
+ 
+ /**
+@@ -33,6 +34,16 @@ struct mali_vpu_format_caps {
+ 	const struct mali_vpu_format_list dec_dst;
+ };
+ 
++/**
++ * struct mali_vpu_control_caps - Control capability tables per role.
++ * @dec_ctrls: Array of controls supported by the decoder.
++ * @num_dec_ctrls: Number of entries in @dec_ctrls.
++ */
++struct mali_vpu_control_caps {
++	const struct mali_vpu_ctrl_desc *dec_ctrls;
++	u32 num_dec_ctrls;
++};
++
+ /**
+  * struct mali_vpu_variant - Variant-specific hardware capability descriptor.
+  * @rst_names: Array of reset control names for this variant.
+@@ -40,6 +51,7 @@ struct mali_vpu_format_caps {
+  * @expected_hw_pid: Expected hardware product ID read from the version register.
+  * @fmt_caps: Format capability tables for encode/decode paths.
+  * @frmsz_caps: Frame dimension limits and defaults.
++ * @ctrl_caps:  Control capability tables for encode/decode paths.
+  */
+ struct mali_vpu_variant {
+ 	const char * const *rst_names;
+@@ -48,6 +60,7 @@ struct mali_vpu_variant {
+ 
+ 	struct mali_vpu_format_caps	fmt_caps;
+ 	struct mali_vpu_framesize_caps	frmsz_caps;
++	struct mali_vpu_control_caps	ctrl_caps;
+ };
+ 
+ extern const struct mali_vpu_variant mali_vpu_v76_variant;
+diff --git a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+index dd142527a1a0c..88e706be6705e 100644
+--- a/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
++++ b/drivers/media/platform/arm/mali-vpu/mali-vpu-vidioc.c
+@@ -8,7 +8,9 @@
+ #include <linux/slab.h>
+ #include <linux/string.h>
+ #include <media/v4l2-common.h>
++#include <media/v4l2-ctrls.h>
+ #include <media/v4l2-dev.h>
++#include <media/v4l2-event.h>
+ #include <media/v4l2-fh.h>
+ #include <media/v4l2-ioctl.h>
+ #include <media/v4l2-mem2mem.h>
+@@ -318,6 +320,21 @@ static int mali_vpu_enum_framesizes(struct file *filp, void *fh,
+ 	return 0;
+ }
+ 
++static int mali_vpu_subscribe_event(struct v4l2_fh *fh, const struct v4l2_event_subscription *sub)
++{
++	switch (sub->type) {
++	case V4L2_EVENT_CTRL:
++		return v4l2_ctrl_subscribe_event(fh, sub);
++	case V4L2_EVENT_EOS:
++		return v4l2_event_subscribe(fh, sub, 2, NULL);
++	case V4L2_EVENT_SOURCE_CHANGE:
++		return v4l2_event_subscribe(fh, sub, 2, NULL);
++
++	default:
++		return -EINVAL;
++	}
++}
++
+ const struct v4l2_ioctl_ops mali_vpu_ioctl_ops_dec = {
+ 	.vidioc_querycap		= mali_vpu_querycap,
+ 	.vidioc_enum_fmt_vid_out	= mali_vpu_enum_fmt,
+@@ -337,4 +354,6 @@ const struct v4l2_ioctl_ops mali_vpu_ioctl_ops_dec = {
+ 	.vidioc_dqbuf			= v4l2_m2m_ioctl_dqbuf,
+ 	.vidioc_remove_bufs		= v4l2_m2m_ioctl_remove_bufs,
+ 	.vidioc_enum_framesizes		= mali_vpu_enum_framesizes,
++	.vidioc_subscribe_event		= mali_vpu_subscribe_event,
++	.vidioc_unsubscribe_event	= v4l2_event_unsubscribe,
+ };
+diff --git a/include/uapi/linux/media/arm/mali-vpu-config.h b/include/uapi/linux/media/arm/mali-vpu-config.h
+new file mode 100644
+index 0000000000000..a82fd69f16b75
+--- /dev/null
++++ b/include/uapi/linux/media/arm/mali-vpu-config.h
+@@ -0,0 +1,47 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++/*
++ * Arm Mali-VPU Driver - Userspace API
++ *
++ * (C) COPYRIGHT 2026 ARM Limited.
++ */
++
++#ifndef __UAPI_MALI_VPU_CONFIG_H__
++#define __UAPI_MALI_VPU_CONFIG_H__
++
++#include <linux/v4l2-controls.h>
++
++/* Mali VPU specific V4L2 driver controls */
++
++/* Encoded stream NALU encapsulation mode. */
++#define V4L2_CID_MALI_VPU_NALU_FORMAT		(V4L2_CID_USER_MALI_VPU_BASE + 0x00)
++
++/**
++ * enum mali_vpu_nalu_format - Encoded stream NALU OUTPUT format.
++ *
++ * @MALI_VPU_NALU_FORMAT_START_CODES: Each NAL unit is prefixed by an Annex B start code.
++ * @MALI_VPU_NALU_FORMAT_ONE_NALU_PER_BUFFER: Exactly one NALU in each output buffer.
++ * @MALI_VPU_NALU_FORMAT_ONE_BYTE_LENGTH_FIELD: Length-prefixed NALU with 1-byte size field.
++ * @MALI_VPU_NALU_FORMAT_TWO_BYTE_LENGTH_FIELD: Length-prefixed NALU with 2-byte size field.
++ * @MALI_VPU_NALU_FORMAT_FOUR_BYTE_LENGTH_FIELD: Length-prefixed NALU with 4-byte size field.
++ *
++ * Options for V4L2_CID_MALI_VPU_NALU_FORMAT control, which determines how the firmware
++ * encapsulates NALUs in the output stream buffers H.264.
++ */
++enum mali_vpu_nalu_format {
++	MALI_VPU_NALU_FORMAT_START_CODES		= 0,
++	MALI_VPU_NALU_FORMAT_ONE_NALU_PER_BUFFER	= 1,
++	MALI_VPU_NALU_FORMAT_ONE_BYTE_LENGTH_FIELD	= 2,
++	MALI_VPU_NALU_FORMAT_TWO_BYTE_LENGTH_FIELD	= 3,
++	MALI_VPU_NALU_FORMAT_FOUR_BYTE_LENGTH_FIELD	= 4,
++};
++
++#define V4L2_CID_MALI_VPU_STREAM_ESCAPING	(V4L2_CID_USER_MALI_VPU_BASE + 0x01)
++#define V4L2_CID_MALI_VPU_IGNORE_STREAM_HEADERS	(V4L2_CID_USER_MALI_VPU_BASE + 0x02)
++#define V4L2_CID_MALI_VPU_FRAME_REORDERING	(V4L2_CID_USER_MALI_VPU_BASE + 0x03)
++/* Suggested firmware intermediate buffer size limit. */
++#define V4L2_CID_MALI_VPU_INTBUF_SIZE		(V4L2_CID_USER_MALI_VPU_BASE + 0x04)
++
++/* Enable firmware protocol to send debug prints to host. */
++#define V4L2_CID_MALI_VPU_HOST_PRINT_ENABLE	(V4L2_CID_USER_MALI_VPU_BASE + 0x05)
++
++#endif /* __UAPI_MALI_VPU_CONFIG_H__ */
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index d17e41d51d2ec..b9f7bc3aac1de 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -255,6 +255,12 @@ enum v4l2_colorfx {
+  */
+ #define V4L2_CID_USER_IT6625_BASE		(V4L2_CID_USER_BASE + 0x1250)
+ 
++/*
++ * The base for Arm Mali-VPU driver controls.
++ * We reserve 64 controls for this driver.
++ */
++#define V4L2_CID_USER_MALI_VPU_BASE		(V4L2_CID_USER_BASE + 0x1260)
++
+ /* MPEG-class control IDs */
+ /* The MPEG controls are applicable to all codec controls
+  * and the 'MPEG' part of the define is historical */
 -- 
 2.43.0
 
