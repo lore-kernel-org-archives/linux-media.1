@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102489;
-	b=0TX7bWkjXZoxSSBr4FD66ZaGwr87KlKtQG9LuA42BmMUOJwIx51eFXT50QV9SFk9VEdH
-	 Y0FIQYcCmmbKPh8/OCawssmXCWi/9aKk097va/7ky3zvNE+d6wETm4qNKL01UarjKDz4G
-	 B86h3mwYIjsoHGgJVxyI5QIZgMxGrReclrzjIqJ9NR/XsV3WoCJ8/qMAxQIMeDC1mSIos
-	 +51u42EpBPP0bLCCPNPEUyd2vR7eRsbbEsLVkcTvHxExqVL/xvSmgpuhloVmHpnMqXEXn
-	 wc4Ho3EbPDcviPMXRXp4pQh/1MLB6e2DimVzNY2UoO6TecEkSTDEZY2drKegg4Nigfg==
+	t=1795102540;
+	b=iEgtQ3g1HQsafbxeCMWv9SFwFKsDOG4Vt9lqJocKapMtZJdLgEQZBhN4b8AR8b2XLEOs
+	 WJKQKpbdubB3HMH3/VwE3riCqn2n8eO6Pva9LnzYLVecNHs8X4PY070SwLM6Xr3scPjPA
+	 N+FDrCIDhOQg/BLzjtzba2d/f+F6quQS3eXWFx39zrPNn7ns623oGR0jCJYukSwKcEaH7
+	 aVc0dBRvcABBS43NwZgp46m8KFpur6SCOkvOOWD8NwvXKAwphn0g1eIbPKbS6DRkKfnF6
+	 jEXRkeWzv9ckHrwmsK1V/aoq3/0s7EyB/XnU1u3/odgmfY7o6AQrXy29nd3srCqiH8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102489;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To;
-	bh=ZlsTCsBICLBJ597QEBYNx8FtzkLGCbDoSLusHqWgJeM=;
-	b=fvL5eRuXgF15syU8500zEueK+58w6Eu5bPKVviEMQAIvlFk4185hyIa6Q+vf2yHmMW95
-	 4aRnI8wwGFNxkzg58VNXx8ge/cU3SI4icXk9yqPJM42iDzlyhyuxQGZADX8TiNarn28r0
-	 +3PH73I2CCOeIEgK0HyECam1YVN9LM3DskD3ROABEZlZhqkcfM0OhUHkss00woFV2Nowy
-	 FKJALxe3QP9Ei9D7TF7NmWY14Llj3+yMmTWGxyXyNs3/aZLHQu9xy8FNDLnWPWyiQYe+g
-	 VaMsUTywFsd2QyuWM57O3iNJTRsK0Nf+wwGTpZZQfLJIZbR+8RpCxVcEXmD3VlL+OMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102540;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=UeXDYRBppO46yxPAfOxxsv3qfn3han8/bDVYuqVzF74=;
+	b=n9HUKl2rvlXJxk1eWrltk2vFW+05R2cgu/Ly5EjnMZgJ4IEc33PtwZDgTLbD0naSZYi4
+	 JQ7Lkm4ISMoD5cqY9LSmPYy4DrHHYhk/TTV5rsM0Wp0IloHj6J8AIAF7b/m99OcDf5GYg
+	 aZGbRqSXLAepaeGZQ5iUz+/ihnwBRj1ZaKhnZpUlTG1RbDc40TGEvn0Qs0K1V8V6n1mKW
+	 /5hrUERkMixC6zntcBf5HOG5uJCmGXba4FLWLEU8AR8KsVjO89eN3ZJTRg9TG7HLnxlxh
+	 wgDCvQ85I4gfBa3/xLICUYngxshCE7r/kkVTFcLeLnXvkkixALqm0IzpUTLqJ5pT0tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=em1S4iOC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+8HXcpg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F5C606A320;
-	Thu, 19 Nov 2026 15:34:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B13606A33D;
+	Thu, 19 Nov 2026 15:35:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=em1S4iOC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26B441F0092A;
-	Thu, 19 Nov 2026 15:34:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+8HXcpg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA3B01F000C4;
+	Thu, 19 Nov 2026 15:35:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795102488;
-	bh=ZlsTCsBICLBJ597QEBYNx8FtzkLGCbDoSLusHqWgJeM=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=em1S4iOCUTv7C881BZNPp9wI9EhYKy2Zy5dF8x8GynqYkmpnkGYDoojwjWSQJXHbv
-	 hsLTQmtJhklrD2YeqpH2NLKbFPU85IJrKjPFQwjKQSBNdD65s5qxkQsyxNVmiR3rLp
-	 9lkxzAG4wDEOSxYR1fCltUl7FYvc+NI7jLN5FS23KFXkCLR0mr75EYeqBr6ZIpnBYX
-	 1XKJPPgQWisvjFNMyL+EMauFGFf3xAFDNE1XhGEPX83zb8VgCIBJcRSuJNLgAbQ4j1
-	 U5jMLtfQ9wGBi9jKsm3p3Qmu3WD5qc5hoRTjXoaQe31EkAW3f21kzbT4QgWCIvTpOi
-	 K/QtJpZrXDdyg==
+	s=k20260515; t=1795102539;
+	bh=UeXDYRBppO46yxPAfOxxsv3qfn3han8/bDVYuqVzF74=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=g+8HXcpgP2YojPjDP1+MAQosOl0ajQiv+vGix8PMCsmdpT+EbWUj63X+fiapXZfH2
+	 K7Gw0dLBVdPIax7E/vLEYXn6HsVJWdBmQ0w+pU4TpTlQfIsyD8uHUSv/5N0NL0W6nK
+	 i6CSi9ASQtr+anRpiWcCy2RB1vUVT0mZOQxY3ZlTC9+/ZFcCFCA9zD/mJr2u6mCnL2
+	 yn+rPN4kXhKZSeDyg198LnZ8T1ZIHFqEFuZsxJZ5fj7GyBpqap3j9ofFs5cK7Fev7Y
+	 0HlhxVWQDBJX6Lv33vsmtB19R3n7LtC8oOQfp/euy72hwkQ+fjJO5KalbETUEIjTEp
+	 ExM1OpApaOdsg==
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -48,60 +48,60 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 19 Nov 2026 16:34:43 +0100
-Message-Id: <DMZAQ0G6LTTB.1CRPNXSYB4QHG@kernel.org>
-Subject: Re: [PATCH] rust: DamFence: Remove warning about unsignaled drop
-Cc: <phasta@kernel.org>, "Sumit Semwal" <sumit.semwal@linaro.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261112101015.528127-2-phasta@kernel.org>
- <5d466f7c-2e70-4011-be04-9ffdf877b915@amd.com>
- <49298d3a328c1695ea27993f714c20b8a1c05f32.camel@mailbox.org>
- <e2ec8a39-56c3-4274-91ce-60c273904877@amd.com>
- <ab99758408df682c68a3792cc3014b77d6e1c8ab.camel@mailbox.org>
- <c2dd46ea-94d8-4720-af37-897c91809338@amd.com>
- <DMXJ8TBSZJJ4.3HG0OJDI9URTT@kernel.org>
- <8da4a8c0-1740-450c-9cf1-1a7b21d12997@amd.com>
- <DMXMSIQONGUW.1RRNS7I6LACD6@kernel.org>
- <a7f9e0f3-b299-4d40-9230-106003725dc2@amd.com>
- <202dd0c3d515ddfa77a8ec8751badadd31b8a7b0.camel@mailbox.org>
- <141892f8-180c-4157-8c59-6e69057334f2@amd.com>
-In-Reply-To: <141892f8-180c-4157-8c59-6e69057334f2@amd.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 2/6] media: qcom: camss: clamp VFE clock rates to
+ the highest level
+From: bod@kernel.org
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>, 
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261028132403.3505037-3-atanas.filipov@oss.qualcomm.com>
+References: <20261028132403.3505037-1-atanas.filipov@oss.qualcomm.com>
+ <20261028132403.3505037-3-atanas.filipov@oss.qualcomm.com>
+Date: Thu, 19 Nov 2026 15:35:34 +0000
+Message-Id: <179510253465.2846709.6572974352841900681.b4-reply@b4>
+X-Mailer: b4 0.17-dev-e3fc9
+X-Developer-Signature: v=1; a=openpgp-sha256; l=909; i=bod@kernel.org;
+ h=from:subject:message-id; bh=8dYBGYzl2S8liXZhKSMDIb8+flg+1yILtNCpaAexLDc=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/xdGK/lFe7bp7sHjMxtOBZs8ExCA3f5bsnEkh
+ lt22sy+x0eJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCav8XRgAKCRAicTuzoY3I
+ Oq0NEACk7hlps6xySWJtb7EVAKaeGpHTtDUTwocUhBhSe5HKqt+BVw8ZQt/LyWPIF5FIat/RwxS
+ HYmJEvLaP3+e1q2cTbpRvyy/LDoFyPhDwVqjhRwFHpep/CjV6J+0KHnRYVhkS/Pc0Fgleie3GbG
+ wMlirdMYH8FA1Jz0m/n1+yASUaL36UpGk3A5huLtLy4eayXgu3rnDjYjKfEvjtYGbA/B70o+9aL
+ OdjWrsNybHElRw/1GYevagFcSONY7l2tcFm0yYuegojobhVKeZlCSSPZR1AH3o6jZ4jdzynQe+8
+ pWpxOtfhzVjsrmk22lqFZz+ixLLEM7K8BXy55jlRnT0ZXzOk6cqGnv6MbKd6Le6Jch4xIoMXPRg
+ sc4jd8vwWHlIuQC/ZfHp6Ny0U45P02gCeI1cmHUKxNZiU3pMOYQag6jfgBittDvTZLoCtCfvjig
+ ZB5xzLOT17v8qTWc+ulYFCUQak5ZRbmXVVY3ZG3SzlxRxkdidoqmbZKWbiMDiXg4L6rI/I45Dwb
+ RETeZcBHIUwiLKC16SKEJLiidbaqJceX0OUa3nuRCcomDwAcYyslaTVeZ6H8LL0Pv1yCA6AN2B9
+ vwpKhCsHUcbTDFH9M3WpXqyOpGBewtk+Zlm0q+6CwTAfzo6UVDx0n2/pvR7qVREjZCcmOkZVRDR
+ qyDuenZvLtGWGpg==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On Thu Nov 19, 2026 at 11:47 AM CET, Christian K=C3=B6nig wrote:
-> A dma_fence should *NEVER* signal because you waited for something. Inste=
-ad
-> the dma_fence is what is waited on.
+On 2026-10-28 15:23 +0200, Atanas Filipov wrote:
+> The VFE fails to power on when the pixel rate exceeds the highest rate
+> listed for any of its clocks. The rate tables of the VFE clocks are
+> independent and need not have the same number of levels, so a clock
+> with a lower top rate than the VFE core clock, such as the SC7280
+> camnoc_axi clock, makes the VFE reject pixel rates the core clock
+> still supports.
+> 
+> Keep failing when the pixel rate exceeds the highest rate of the VFE
+> core clock, and clamp the other VFE clocks to their highest listed
+> rate instead. Take the clamp into account for the other clocks when
+> another line powers on an already running VFE, so that a clock
+> running at its highest rate does not reject the request.
+> 
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-In the end, despite doing it on behalf of the hardware, the driver is the
-producer of the fence. And there are cases where it can't wait on its own f=
-ence,
-because no one is going to signal it other than the driver itself.
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+bod
 
-Assume you have an execution context that is torn down, and also assume the
-hardware supports preemption. Then some of the jobs in the queue might stil=
-l
-signal, but some jobs are not processed anymore and hence are not signaled.
-
-For those jobs that did not execute anymore, the fence still has to be sign=
-aled.
-So the driver has to signal them after it waited on the preemption and exec=
-ution
-context teardown is complete and no more operations are in flight.
-
-The same is true for job fences that are in a software queue and never hit =
-the
-queue of the hardware execution context.
