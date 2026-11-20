@@ -1,86 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795216113;
-	b=KiXxLO72HwJxAY/i7OZtIBKMiAtYHXBb9RZzxLt+e26glb+S/tViq8pxz4yxOKFW31S9
-	 GfXhNlXNipycQPBPDAj/HnsxluXX/CnPzdG8hmFfYwz9xpSMunYOEhgqDQacTkwHWcp8z
-	 YfUYtnhpE2Y6ZTAKUgdtIWD7eCG5eNIrHGkFmhbS6HHH3UpHFRk6uwsqnbMWmUyMsK6TO
-	 91WMwWRN1GGr03gi4pArVQH5buU4Om7LUWXJWHMcEu25xQGtYg+se7JMBWALVYbNj821e
-	 P/x548Xh1749AUeUmKsotsUEJuqySbL4jS7BCQhYgrlR5o0yFVuWz/lxEp5I2B+0yuA==
+	t=1795216683;
+	b=wAHqzxBtYIrStlEfcCrnOm+dxIdEPjt/1uamuT/laJeuQbDu5k8YLxYSEh8uY/RSTIY7
+	 H/AVdwqDKErPyKc/W7ORKkNEGpth1vhoE7gUDgzHjWcEtBTp/n+TaVRq8KJTtF1xjyX4w
+	 80lkBJEvW/t3SJvAXDGrXOhubr0Li566JV+oe4FXHFYlNFmv8DSGUSG+8ZiRyp3xC7scF
+	 4Oi8NseeX2G/YUUeBmbg8CehuiQh7JIOW43tCGi0bblyZhHomSAuxI3qzbLOqmtWWvyOf
+	 8mLnotCPp9gST9mt950uLFvxYHv7TyUDe2VlGlm7D20QvAf/u7L6OKEn0TuCljxLf/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795216113;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=vhRGA5stCNe5n0EWpCuQMaKiuxZMQFmZwfvJS2nbnJs=;
-	b=Tm1wTjHJg2gPXSdp/i69Rly621nVMMopKeTqIUxRNokPRAhfLEDYeqpVlhnB/C8tB+2o
-	 DLaqWJNpqAMbtkCkxPMbEJMirkLieN1E3iIO+QMvhk8Vx5VtZa9GjpuPt4VTuIoRIHDF/
-	 i6oqx2Vow38uo2qfsCOHgkuv7SURqNOZgBoicfu1IWDMvW/TJPbDvUAItpfYuBzfAW/i4
-	 UGptuwlFcyHJxjgIz8+5pxXrRTt5NK4uGqmHT5LIbJ/WBrA5djopQQP/tyIuW8l7sVdK5
-	 kkfnWz6v8uEr1rZ3JSRHqmqaZwOE8iWA6e8by6blvscyI/n0fWuebaTybLcWJBMzVfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795216683;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=AMvdsJFzYJevO2T5BugHtOY5r9UDNyXdokVGV9enPe8=;
+	b=aZLAv+X7zzzp6kOxRvrb9gGJVr+und3w+nZXtf4BUlJd37Qha97F84ABEDrI+PLfQurA
+	 +WEdia4oDjoc/T2J38Xk9aNVfiIF4uXcMtsskIug1ek3i+n/DZUiAxvpJFnrbQ/Wh03n7
+	 38QOlsDmIk/cdLeuDs+e1aMUb0mqfU7byaS5ol04PRNcnpCfoZFrmDk8j1b7E3dhslGs5
+	 +Bol3BPV0el0IrY3xDNXcNhdYUuoaPF6qFIrVbQ3b5S99RcSuINF3Egzccvy7UBpfWKln
+	 0UOmnb2umRACmS8bWUDF5vi4AWwQBnW82dljb8E7Zl3Z3iFT621HNOwzXTrryAwU8PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="Ku/us/nu";
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=none header.from=makrotopia.org;
+	spf=pass smtp.mailfrom=makrotopia.org;
+	arc=none smtp.remote-ip=185.142.180.65
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E05606A691;
-	Fri, 20 Nov 2026 23:08:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2E05606A691
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Ku/us/nu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795216105;
-	bh=vhRGA5stCNe5n0EWpCuQMaKiuxZMQFmZwfvJS2nbnJs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=Ku/us/nudTVXa1sGIDwmBnCyhJyIoDqC4IqMpZYBnsH2YKz7i1ub6EJ56VVQgHVrl
-	 0e/bcAlozEsdha+oA5ioGWJSmKVtCutMBs7wjIUZvns9QtrIyl8CNewH6M6Pus6CRQ
-	 8mdOuNZSnMV7Gq6x3HrE2CdQjODP2/Z/2bVjgh2yeemw02C3CrW7Hn4upUr1jfvbfF
-	 7tLgaeNvQUWY5bb9SKy1sRX9AEL2/AxIxXD7nI2aU69EWPnhNch3xJH7oonhuzVJhy
-	 MUtVG90XUwxdbfL57SVZYUU8tuTmkyGlMbfeCzs178gL6JvPoIQ6JSSkjSMfTrqmwt
-	 IdJPAMXe0mldg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 737EB17E031D;
-	Sat, 21 Nov 2026 00:08:23 +0100 (CET)
-Message-ID: <fd7d38bfd2e6b3ba56422c0f14ccf46f6f1bea6d.camel@collabora.com>
-Subject: Re: [PATCH v3] media: rkvdec: Handle interrupts without a current
- context
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Alex Kazinsky <a.kazinsky@ideco.ru>, Detlev Casanova
-	 <detlev.casanova@collabora.com>
-Cc: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	lvc-project@linuxtesting.org
-Date: Fri, 20 Nov 2026 18:08:22 -0500
-In-Reply-To: <20261113102456.4155237-1-a.kazinsky@ideco.ru>
-References: <20261113102456.4155237-1-a.kazinsky@ideco.ru>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-voWmVM1frdbreVTmWmdK"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21757606A681;
+	Fri, 20 Nov 2026 23:18:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21757606A681
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xUXrc-000000002XZ-17Ii;
+	Fri, 20 Nov 2026 23:17:52 +0000
+Date: Fri, 20 Nov 2026 23:17:42 +0000
+From: Daniel Golle <daniel@makrotopia.org>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Cc: Detlev Casanova <detlev.casanova@collabora.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, Alex Bee <knaerzche@gmail.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Sebastian Fricke <sebastian.fricke@collabora.com>,
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/7] media: rkvdec: hevc: bound the RPS reads by the
+ control size
+Message-ID: <awDU_2e2yIVP5VMx@makrotopia.org>
+References: <cover.1794645268.git.daniel@makrotopia.org>
+ <bb9c44d0f56221874b105394169e5c377ef21b42.1794645268.git.daniel@makrotopia.org>
+ <6ae6d1101d3f7095d11462579a5a3313153533e6.camel@collabora.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,43 +63,40 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
---=-voWmVM1frdbreVTmWmdK
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <6ae6d1101d3f7095d11462579a5a3313153533e6.camel@collabora.com>
 
-Le vendredi 13 novembre 2026 =C3=A0 14:24 +0400, Alex Kazinsky a =C3=A9crit=
-=C2=A0:
-> The watchdog can finish the current job before the threaded IRQ handler
-> retrieves its context. In that case, v4l2_m2m_get_curr_priv() returns NUL=
-L,
-> but the variant IRQ handlers unconditionally dereference ctx->dev.
+Hi Nicolas,
+
+thanks for the review and sorry about the messy text.
+
+On Mon, Nov 16, 2026 at 08:49:44AM -0500, Nicolas Dufresne wrote:
+> Le samedi 14 novembre 2026 =E0 10:22 +0000, Daniel Golle a =E9crit=A0:
+> > The RPS helpers read num_short_term_ref_pic_sets elements of the
+> > EXT_SPS_ST_RPS control and num_long_term_ref_pics_sps elements of the
+> > EXT_SPS_LT_RPS control, however many elements userspace passed.
+> >=20
 >=20
-> Pass only the device pointer to the variant IRQ handlers, so they can
-> acknowledge interrupts without accessing the current context. Retrieve
-> the context inside rkvdec_job_finish() instead. In the IRQ path, this
-> happens only after successfully cancelling the watchdog, while the job
-> is still active.
+> What did you want to say?
+
+The number of RPS entries comes from the SPS control, the entries
+themselves from the EXT_SPS_ST_RPS/LT_RPS array controls. The driver
+never checks that the arrays are as long as the SPS says, so it reads
+past the end of what userspace passed. I will reword the message
+along these lines in v2.
+
 >=20
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> > Beyond
+> > the passed elements they read stale entries of the control's array,
+> > and past its allocation once the SPS counts more sets than the control
 >=20
-> Fixes: f9c7b7deeffd ("media: rkvdec: Support per-variant interrupt handle=
-r")
-> Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+> More broken text, can you work a bit on your messages, be concise, precis=
+e,
+> don't get into details but into the understanding of what you are achievi=
+ng. The
+> code is precise enough.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
---=-voWmVM1frdbreVTmWmdK
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawDS5gAKCRDZQZRRKWBy
-9N/xAP93QEhfxMoixZ27CiEovcLw6efRsiOmrPrLVvLdjDXqVwD/Y19TZSzDEVqi
-qmeVvZAq3Glew2P4GvsejKJZnuBWiQI=
-=hXHK
------END PGP SIGNATURE-----
-
---=-voWmVM1frdbreVTmWmdK--
+Got it. Reading it again now I understand your point, I may have been a
+bit too excited about my findings on a Saturday morning...
