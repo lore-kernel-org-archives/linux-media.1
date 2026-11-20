@@ -1,84 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795167435;
-	b=dUX+3H5qfuQZPH0TOH/Z5pJyABVvWU2iG8zg3H9RZlm5p//u7UKJ33bKv5LY4NaJ9Q3C
-	 RF1U+4/6MzYnh7kfgLUbHi/nvjgfprZdOnGfbgbcEgMu0bQaCvMCrrzIrlek0s2RZLjyD
-	 C6YA+DPqHneQmmqFiySVYJ4eU9ZnghvsoUD9kawYHkd+YIwjm+jyMx4LTqMr0Tfi0ec6Y
-	 n2EIfEYLz6HUaWPDNkqS9BnDkn+yhcIylKHRAmw7XNFLp1aG41vgVdOpxECZF7fMBTW5r
-	 qLW/GQO34rbB/4Q7M+2ozaz31qLLGkxUJfU3vNlAre1BakKeaB6TJEVzzkTvVgH5xHg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795167435;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=MrNarIVU0YX4mWeXh4vyBELTR6sZxtTEz/XfzxTFPVE=;
-	b=bWwmjf0t5h5t+2XNj88UvvN6ESF5h7xVMldzMkOItTJOCTAVUgi9W5UX2LNqxQQaoZ6Q
-	 /T1uFAwA8QHTEMG/GHqJl7dmdsxNBE3/RFlQ01N4vRCjdwtoKCXDXdor+L4XhB8tOvgPZ
-	 bAN/Fn9m5nnWkJ1SbjOg1kJim8A+jN+P1yG3Ov1Yz8udosQGzyJ07XfahgC96yPmv8wWi
-	 qcdQhI0r29Z6wZBdT6UoA04cYwsYXnddkZp7nN8lQIO20K/I+yY+XRuDCK4IQs40bbfcU
-	 aO5gT8YOVpoyBmvtET1lD92t2EZ3PQywqyYNBAW6g2sHygiTqCTtS/jgUMkoidVgEqQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bz8Zhy4w;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.66
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795167514;
+	b=2fTdUu/0xNGcGCwtxqtZfqIavsnWRAkaQsaXZ7k9kCEnElC+AXpWhJUwAH4nW7ZCfSRy
+	 VDSrWr0NAmb6Rb960QS3HpS5zKCdOjS9Xa8aZMkZE6AQsf36OUaQzPpYtsG9co1ZkGZVb
+	 x/ymmYIUreeyIgbUKyC7D72ZXrUvLChBCrxdVnJNI9Ss7DxBgJOlWGyNnjm033YYp9BXT
+	 cg2lUb1nSbkJvZa99AAwRGQuaEe2ynP2p6bv8Dtgw10uhHKx/vplXrRZDDi9HsYqvVMj8
+	 QAK6/9seezmg2Zj67hxTdhZBU8+gt6VufM1pvDKCFOEIpnWw3gbp4xDHDs8k4uh6MIQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795167514;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=E3kYN66unIfWJU+PWktPCCCNMP6jyfq3fFNRcFYEJqk=;
+	b=XOTB65WxsumrsHMij2F8tgaz38VuPiexRA1ehwTJ/lzE2segzJmtYRY+OYjgrKwK5iX4
+	 4g/297H1AsApZptHSjl5anhUozAaisu8oc4LR61C6wWTjTCVWAoHgH971/NtiJRn6igTS
+	 5mRAguCRchhSlEo+2H2W01kBBR42gffTjquMKnEUClOceWzlijmSUmu5dQtsvznJ/revk
+	 MQpYFB1Pr2+AnVgxYU5Z8xrMcZiB9xzohd9DW+cfjVikhCfW99WCVuWS/QgIqlR/Ztvwv
+	 3WFM8/ntY1z+1RVWSQCG97v3Zfg9oqtGxRQ2U7T2lF+RkwQF/iOsOT/0azKIgsP3ncQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TQzXAOsU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.66
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011066.outbound.protection.outlook.com [40.107.208.66])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86757606A33D;
-	Fri, 20 Nov 2026 09:37:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86757606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE4C606A33A;
+	Fri, 20 Nov 2026 09:38:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BE4C606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bz8Zhy4w
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795167435; x=1826703435;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rlHqRw8hS+FTCGK5Viu7WJ5pApqs6rhAMq0KeFmr74A=;
-  b=Bz8Zhy4woSNtdWIH+npdZxZew+v+WCLQ5bzMRCk+J0Sfm0qbn1fpXVaP
-   0y9wawGc9JYq3fIX3uzQjkh6AFzPoC3fp99/h6n8X/Ux4NyWJqUUrHX1J
-   QSXItMuzajKTalkIB5QCg1cepHR8d+UiyOoL1JdcNwY/Sol/T3j6S6KfM
-   wKag8nMcvKS26fftuQoAU4diejnwJegVYME5hNQQkt4K7XyQpqJyqA02J
-   wA/nXjMeMTa0urS9xFNOOFbGUurT4Esv64/TkWxL1Hu+PXkMkLL1xJa5C
-   J83lX0JgYmmOJ57d5KvMyE8VRk5b6KdenAGV590x9dDrFiTCS6C1y0gzw
-   w==;
-X-CSE-ConnectionGUID: Dka6nkWsQpCXkuopLNWGDw==
-X-CSE-MsgGUID: MVateqPURN+/wGbERm3K2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3934024"
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="3934024"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 01:37:14 -0800
-X-CSE-ConnectionGUID: UMEumKBHSk6L3a6qHfAsPQ==
-X-CSE-MsgGUID: E2Xk2eg7QCu/USZPLDoWiA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
-   d="scan'208";a="11092297"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.253])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 01:37:12 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id B3854121B99;
-	Fri, 20 Nov 2026 11:37:10 +0200 (EET)
-Date: Fri, 20 Nov 2026 11:37:10 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Marco Ziliani <rylos78@gmail.com>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, Chris Simpson <chris@nilk.net>,
-	Tony Garcia <tony@loafecho.com>,
-	Simon Kruse <simon0x+git@proton.me>,
-	"D. Manresa" <dmanresa@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] media: i2c: ov5693: Program the mode registers on
- stream start
-Message-ID: <awAUxukyHCqtABs_@kekkonen.localdomain>
-References: <20261029-ov5693-fixes-v2-0-2526d7b13030@gmail.com>
- <20261029-ov5693-fixes-v2-1-2526d7b13030@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=TQzXAOsU
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yGbw3k4M+2k71o/VSFreHzjc9RDnYkrzqkTTi1SzPhhXYD56dITfGe62j+ctDgEthbmTQYFXakn4EBJPjFGpuKXWavZFhOUete6Of7gvEKoxaZTIZN3lfbtlOKITp4cUXUtcet/ZzVv9AGodZWGR3B32HADwdbWb6L4UP/7WdVMYLhwVTSPCco1GauZHabOy6rO1GQD0Qs1fOG+N3EO2UgJw7PEdid0HlRe5y2k5VIFxNo6Zcrw16OXUhScrKjBOB9MjKmJKVk6xyO/uIgCx2h1CaKbTAbguvN71+7TWJdztI3K73zD/I8pKN7GjAiQaAPkdvmqeuYAPs/gEtgx+2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E3kYN66unIfWJU+PWktPCCCNMP6jyfq3fFNRcFYEJqk=;
+ b=QSlPrzD5oZG57PzACrVqu4//e3EptTGah/JxKBlPwnNb72iYyfa4pUHKbkiKjO+8am5IV2DhjAdcrEXF/uxZDcrDcurGxEQ8lVfMRsoXyQEo36k+DKZgXY4g20WMDtvM1PbJ1kR205QyTQ1ONTaUyHmvOvQsjfK4HyXRBslLjTs3OuSUoI9PhSsgCAnyMh4BNtsZXcWPoiZQXqeHEEguxOqGJKLIzJLcuwJdxl2iNDqlT8cyF/BBo5+a5nR6kx1eHWRrLmA4yd6yZBqJh7gzskxS8K7GNto501yo7sGr2F3HnYwG3GrAJ7FC94y1SOXl4dGPjkKQ4AoNr1I3GSsWVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E3kYN66unIfWJU+PWktPCCCNMP6jyfq3fFNRcFYEJqk=;
+ b=TQzXAOsUccTBTEFBNfbHevfIzVNiE3nwq3O1qCWHb0fzBWjP5hD8O5NV+YhKu6ZU6TPTxHIMheVZlqOqqyXEGaCjLU1jPlpYND3iOEVj/VO701r3VygsRL6d0GzXpnxMIEN0K3HZSghy/9KtmdzEdnAjTWWXjK4MmsfB91SWTlY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY8PR12MB7194.namprd12.prod.outlook.com (2603:10b6:930:5a::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 20 Nov
+ 2026 09:38:31 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
+ 09:38:30 +0000
+Message-ID: <a8fe714b-6d26-4777-8b9c-4299ecdc3f44@amd.com>
+Date: Fri, 20 Nov 2026 10:38:20 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] dma-buf: dma-fence: Add
+ dma_fence_overwrite_timestamp()
+To: Philipp Stanner <phasta@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Chris Wilson <chris@chris-wilson.co.uk>, Danilo Krummrich <dakr@kernel.org>,
+ Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ "Paul E . McKenney" <paulmck@kernel.org>, Yunxiang Li <Yunxiang.Li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261119131830.2535266-2-phasta@kernel.org>
+ <20261119131830.2535266-4-phasta@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261119131830.2535266-4-phasta@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0087.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9b::6) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -88,73 +109,149 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-ov5693-fixes-v2-1-2526d7b13030@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB7194:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76af6d12-94e4-4f69-6b0c-08df46ea0968
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|261102123227099003|261026140227099003|261026121527099003|11063799006|261028144727099003|261022075727099003|261022105027099003|261021121427099003|921020|56012099006|4143699003|261102130727099003|10067099003|18002099003|261009223027099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	daysot/Q0R2jsfrfCFYShvAmksU2zPzBKE2c3JtPAm8s4Eh6Shz9OKr0wEbDyTArMWEW/9Mb/jNcs1YVUEmIQg0AXDnwrOiP82N2Qn0YgJpYgcY5SjTvt3jW3zOomz0DPUJ7oec4RdNUYkA5ntEqlZkO5/KvLKuHHBK7ii/OqFvZYA95sm9jTW/qBgzOzVNAISRI5KpP68hQvB8339PcsB4SfEus0lvmYq+7doFrn+jvwG/3/7ddHPq72EOcbq/llRpknMgpAuK2F3pYD0dsdyy3aMLDMEyH/EgO3BPurcDHI00T7SJrgB6bi5oVDYNd/YV1RodCdNnXNI6j9knwleDKAFV21vLptzSNtkfmFqoVTb+BBki//wSwLLDeGmq6JIzi/wSnRiJtqiJtV1qKOkRf3hdIujsD/8AG3k/iF+TSCKwDaqhM4Y8IvdqwrBernl9RJIj/0tQksfiM0OXTEedB5ZZVLGdCC4KE6qhquUbQ37hl4mTtchJkPFBRfugCxpnAhkBWj3Jp48EOsrQxwoVyHoy87tIC0J3I6qzbIP45O065xlct0fsaRP2jgN4dqy7sdDm4lV9erco195Xdvugr8nsRkA3cLzubikuQL2In6sXlL03TD2NwmlE2lou8DmDmvfSXo6iRkDjWpPJVguWVX+vft0uvH7RhZzGk5i14g6ELv2OK15C2UMsPVYrg9c9dn/MPAIOZFYVxcqtxiw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261102123227099003)(261026140227099003)(261026121527099003)(11063799006)(261028144727099003)(261022075727099003)(261022105027099003)(261021121427099003)(921020)(56012099006)(4143699003)(261102130727099003)(10067099003)(18002099003)(261009223027099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MUlGSW9Wa09vaVlSS0NNWFkxSEQzZGc1MXVtaDc4bXJHSWEvZVlMdHhSelVy?=
+ =?utf-8?B?YTNZRTNaN29odXlMcWR5d1hYUW9QYVF4TzFzTVM4bmNkOHdqOE9JZXR3WHRq?=
+ =?utf-8?B?bGY4K3psektZTjlaeUZvMnJINHd5aW9LTjNoQzVOWW0vSGxFS0RJcmt1aVJv?=
+ =?utf-8?B?NUh4SE1XZWxaeHoyZC82QWp2NDFyNndNYmZXSmZLbDdHZ01XVUh2TGtwUzly?=
+ =?utf-8?B?N2FkcGtSVk5lQlFaMFkwTXEvY2o3aDAvMStmaW5tVzZwUkRBZEtXY2ZRWDVP?=
+ =?utf-8?B?ZTB4Yy9yOHRBUHhjL1VvVWg1OXBWZXhrZmYvVnpaVTFhMkpZWXZobnhwTzF2?=
+ =?utf-8?B?cXVKZXhQVk5LTlRSTlFSRndvNXBQWnl3VUI2YkwzTUVISWMvMUhEcnp3S3Nl?=
+ =?utf-8?B?SEdSdWMrNS9TVVZ3dk1JRTJuMEM3dU5sVmkvWWs2YmNjUE0zdTZhVms5NG0r?=
+ =?utf-8?B?bHc5R2xrR0JRclJXSjJVODFDRW93VWdSdC94c1ZvdXdSSFgrL2xwZm1FRnF4?=
+ =?utf-8?B?QU5CWm10MlZ3U3lHM2NtajZWV1kvaEV3Tjc2YzRwcjRFMzBaN2M2clh0UWh0?=
+ =?utf-8?B?dUY5b1N5czZBcngyR0VyNXYzbGdodkpiMTdHRW9yM1dqYmcvZDJ2MEtIQy9l?=
+ =?utf-8?B?dG01dlBQMkRWY3FjTThFZUlBcTVoWWlBRCt3WXNTdDZaK3BWeGs1cDN6ZWZW?=
+ =?utf-8?B?ZjdtVjRtMXIrUXVIbVF0TFk5OWR1dlprZ3oyMlFiNWJjNk9TWDZ1YWxxbU9Z?=
+ =?utf-8?B?M3ZpbXk5ZEtpOTlsYmt2NDJKL0ViOEJjVHZtMzJVOWJ6bmNRbmtwL0pLbnJJ?=
+ =?utf-8?B?ZXVpa2FtQTlBQTVyQ0FPakh5azFaVUpsUlVjeTNWMEJvT20wOVcxZUduUmc5?=
+ =?utf-8?B?cVBrNDRTZmR1dWN2d2M5RWF0bTlKa1hHRFNjT1V3cmJQTDB5UTJUQ0NYYUZO?=
+ =?utf-8?B?YWo5ZmluMWxSVjBaSXlQd05YTStlSGJacDM1LzVPSzVKalJxWHBWaHh2UEYr?=
+ =?utf-8?B?ZzZMMzRxOExxVkhyRTgzcnAxak1JNEFVTmxFR1V2ZENKcmRHTUhoT1YxOURV?=
+ =?utf-8?B?M3llMXFMR3dZWmQzcEhoRjVvUzNndmtndHM1MkJpOVNlUjZseDFCd1JNYTBX?=
+ =?utf-8?B?TU1Kano3Y0ovb3M5R1RIMk1IZUQ3ZjJaQVJJTHRxcm1ieW9FVHNFdXZzV21Q?=
+ =?utf-8?B?VkZQS1lXMjdrcXN3d0FCNTlHdTlueDcxc1BBVFBuNnNlK2tENFdtck5lVWcr?=
+ =?utf-8?B?S1dEWlF0WHJXdXhwSC9nREhoUFp0K3FEcXZlQ2lMS3B4Z2tiOFlMdm9DcDhu?=
+ =?utf-8?B?WXBWeFNNY09KMit6SXR5M1RSZzNiMmxVdElhcWRGbDZSTS9PeXdWZDdoUGpj?=
+ =?utf-8?B?N1NBMUpZUDJLUlFZM0FuYjA3dmNiQjNyNmtKdUo4QVdXUW1sc1BWTUdTMUFS?=
+ =?utf-8?B?aTd1T1lvTmErNXBJVmVJYzRUbVlkd3NFWU84TEk0Z1RFVEZXTUo3UGhZZXdZ?=
+ =?utf-8?B?N0dMUHEvTWlRNzRCb1NSbE5hb29Nc2hGQ01BczMvanlXSWZiMXViK2hoRGY2?=
+ =?utf-8?B?WVJIM1V4TkhRYXIyK2hWNUN6WVJUblgrS2pOanVsVXA1UnRTM0dzakpoZHVK?=
+ =?utf-8?B?QndRSDZJcWZTcHAvcm4wNDE4S0xDUndLZnphWnlBQXlWeDFzZXlmUklYUFZH?=
+ =?utf-8?B?bHpiNUhRa1MxNW9uTVpaOUVqY1B2U040RG1QZUlsSHZtUjBaVU41NE9LZE5p?=
+ =?utf-8?B?aENxRWd2VXpWYzlPemtaKytTVUFzM3VBKy9oRWNzRGlPdUFXditmMWRvbFNW?=
+ =?utf-8?B?eEMxZU9jTTBEdTJLdWtOUmRjVytUTGtiL1RaQWhTTnJnV1dsSTRPSHNiU2t3?=
+ =?utf-8?B?OXRGV0RYVzc3dzY5b1o5RVJwZUdaTUhzeXJGdk41SzBLZVFtS3dhRTJZYW9U?=
+ =?utf-8?B?WTdVQnptYkpHUUhLaFdzOWlQNFh6T292blJLREc5ZG5QbmZ2YmsvS2x1ZDg0?=
+ =?utf-8?B?QlpEYzFvWVhrN0Z5bGtMWHRHWUJyeUFSL3ZxMlhxdE5FVnVQTXFxTmFXdnk2?=
+ =?utf-8?B?YXlqV1hmSy9WR1pWVDIzS3VXeVNIVVJpSk4zdE1JNk5CWTN5MjRlSEVRb3RC?=
+ =?utf-8?B?dE10M0NVSlVrOSt6b1pOWFh6TGdNZ2Q0dFdQakl5eitxTGNSNS92dW1pd1I4?=
+ =?utf-8?B?alhhbkdDMExMbXN0RWlNNStiN2JKaGxJMnB3dHZaL2NBdnN4cG9uOFdzR2dy?=
+ =?utf-8?B?a3Q2RXNWUGxRZkp3YW5LczI1QlVaSFY1QzJTLzA3VHRTVHRXRGY5dUJiNVc3?=
+ =?utf-8?Q?hdm4LPX+mbpfQ2PIO0?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76af6d12-94e4-4f69-6b0c-08df46ea0968
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 09:38:30.7645
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NA5IIrvz3ppRtV9BOEUkEjsqRzDSSx7ve5deEDyLLjVkkuvmZol0eRHYTzc2SLsl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7194
 
-Hi Marco,
-
-On Thu, Oct 29, 2026 at 10:27:52AM +0100, Marco Ziliani wrote:
-> ov5693_mode_configure() is only called from the runtime PM resume path,
-> through ov5693_sensor_init(). If the sensor stays powered between two
-> streams with different modes, the settings for the second mode are never
-> written to the hardware.
+On 11/19/26 14:18, Philipp Stanner wrote:
+> A fence's timestamp is just an opportunistic data point for debugging
+> information etc. drm_sched, for example, uses the timestamps for its
+> scheduling algorithms.
 > 
-> Move the call from ov5693_sensor_init() to ov5693_s_stream(), before the
-> controls are applied, so that the mode is written on every stream start.
+> In rare situations it can make sense to allow users to overwrite a
+> timestamp with a more accurate value. This is relatively harmless since
+> the timestamp has no meaning for the implementation itself.
 > 
-> Fixes: 89aef879cb53 ("media: i2c: Add support for ov5693 sensor")
-> Link: https://github.com/linux-surface/kernel/pull/181
-> Signed-off-by: Marco Ziliani <rylos78@gmail.com>
-> ---
->  drivers/media/i2c/ov5693.c | 18 +++++++++++++-----
->  1 file changed, 13 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
-> index 56599f9ca..d09095c3e 100644
-> --- a/drivers/media/i2c/ov5693.c
-> +++ b/drivers/media/i2c/ov5693.c
-> @@ -663,11 +663,6 @@ static int ov5693_sensor_init(struct ov5693_device *ov5693)
->  		return dev_err_probe(ov5693->dev, ret,
->  				     "global settings error\n");
->  
-> -	ret = ov5693_mode_configure(ov5693);
-> -	if (ret)
-> -		return dev_err_probe(ov5693->dev, ret,
-> -				     "mode configure error\n");
-> -
->  	ret = ov5693_enable_streaming(ov5693, false);
->  	if (ret)
->  		dev_err(ov5693->dev, "stop streaming error\n");
-> @@ -1000,6 +995,19 @@ static int ov5693_s_stream(struct v4l2_subdev *sd, int enable)
->  			return ret;
->  
->  		mutex_lock(&ov5693->lock);
-> +
-> +		/*
-> +		 * Program the mode on every stream start, so that a format
-> +		 * change also reaches a sensor that stayed powered since the
-> +		 * previous stream, and before the controls so that the mode
-> +		 * registers don't clobber them.
-> +		 */
+> Add dma_fence_overwrite_timestamp().
 
-This doesn't seem quite right. The static register list should be written
-on power-on and the rest when they change. Also there shouldn't be overlap
-between the register list and the registers programmatically determined by
-the driver.
+I think that this is a very bad idea since it gives the impression that overwriting the timestamp on a fence is ok.
 
-> +		ret = ov5693_mode_configure(ov5693);
-> +		if (ret) {
-> +			mutex_unlock(&ov5693->lock);
-> +			goto err_power_down;
-> +		}
-> +
->  		ret = __v4l2_ctrl_handler_setup(&ov5693->ctrls.handler);
->  		if (ret) {
->  			mutex_unlock(&ov5693->lock);
-> 
+That was only done on the scheduled dma-fence because nobody cares about that time in the uAPI. For all other cases that can blow up.
 
--- 
+I would rather come up with a clean approach for the scheduler to track the spend time per entity which would make that hack completely superfluous.
+
+IIRC Tvrtko already created patches for that, I'm just not sure if they were ever committed.
+
 Regards,
+Christian.
 
-Sakari Ailus
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> ---
+>  drivers/dma-buf/dma-fence.c | 28 ++++++++++++++++++++++++++++
+>  include/linux/dma-fence.h   |  1 +
+>  2 files changed, 29 insertions(+)
+> 
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index bd58688b81a7..f1b7e90864bf 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -412,6 +412,34 @@ void dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp)
+>  }
+>  EXPORT_SYMBOL(dma_fence_signal_timestamp);
+>  
+> +/**
+> + * dma_fence_overwrite_timestamp - overwrite a fence's timestamp
+> + * @fence: the fence whose timestamp shall be overwritten
+> + * @timestamp: the timestamp
+> + *
+> + * A dma_fence's timestamp is merely an opportunistically evaluated value to
+> + * obtain information such as scheduling granularity. In some situations it can
+> + * make sense to overwrite with a custom value. This function provides said
+> + * functionality with the correct memory ordering.
+> + *
+> + * Return: 0 on success, -EAGAIN if the fence was not yet signaled.
+> + */
+> +int dma_fence_overwrite_timestamp(struct dma_fence *fence, ktime_t timestamp)
+> +{
+> +	unsigned long flags;
+> +	int ret = 0;
+> +
+> +	dma_fence_lock_irqsave(fence, flags);
+> +	if (dma_fence_test_signaled_flag(fence))
+> +		fence->timestamp = timestamp;
+> +	else
+> +		ret = -EAGAIN;
+> +	dma_fence_unlock_irqrestore(fence, flags);
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(dma_fence_overwrite_timestamp);
+> +
+>  /**
+>   * dma_fence_signal_locked - signal completion of a fence
+>   * @fence: the fence to signal
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index 34aefb63a7fe..815471b844f0 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -447,6 +447,7 @@ bool dma_fence_check_and_signal_locked(struct dma_fence *fence);
+>  void dma_fence_signal_locked(struct dma_fence *fence);
+>  void dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp);
+>  void dma_fence_signal_timestamp_locked(struct dma_fence *fence, ktime_t timestamp);
+> +int dma_fence_overwrite_timestamp(struct dma_fence *fence, ktime_t timestamp);
+>  signed long dma_fence_default_wait(struct dma_fence *fence,
+>  				   bool intr, signed long timeout);
+>  int dma_fence_add_callback(struct dma_fence *fence,
+
