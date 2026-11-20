@@ -1,80 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795210291;
-	b=ejlpe4JjmCptKHOqbsoc8nkD1SXda155pAP/+Wk6P3XKIJeIRwstIh+B0lOQmeG3yOLS
-	 Jh9uWOx3wtDbcnw7ZRcOKcYPI4hVXZTJU9SFZMm1AgKPAkI9Uqcj5ybUr16PaNMGMxYuZ
-	 hdR94MsG66CKTXH7akLAJ+trO8YK3gP80FEBnMqrgIYrGQDC/6tjFJbkGEaDN+QsJ8TqY
-	 loaTjnu+hyjtLxhkQpiLhuDyqcdbs21qLicuI+oS8F3m1oIVYtmwT6+tvkU0Yhyzr5vfq
-	 jyR3g+8DKYWFq5BtXVrPTWXY5xyHkQQXS5dkdJMPtLDBGWIyC8tBIqC558ILw1hc1ww==
+	t=1795210313;
+	b=4ARf4BxCa6RJU0bGNrCkuezpW9lXZZJblIuDZy8Bm3ZQDfIXw/pFRlM4+3RSmBh9lDcx
+	 RAYym5fnrJb/eoFqYAK0ZLqq5wprdXsl47KMRdpq6Pdp+bVIojXogzN00ePFort4RcpXJ
+	 qSQyhAn+OlxQUjBeT5+vUhVHq7lgh8Llf/r/vbivbXp3S17DxQ6aqCa9hFaHwoa9I1CrW
+	 skY4Y0HJJQopuKDiOrryRCvf/JbaCLkzyOVTwn+yzVoRnj8EFf3U4pRR3obkoxFoFmVoy
+	 4jn0CcYvrPuS1Duzc2gzXHoqk4iiSuUW7NEn3U+ybvt9cStr7DMsSip28CKytrKrcqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795210291;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795210313;
 	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Hre9/kYvnxV6FE+cSP1phJsMVFoDyXzQDpFxO2GUIh4=;
-	b=Z3zHXFFT3XTIEqp3LRaabBfBp2H30mCXcJh4C5UnoAU5Q1IIR/9/RSyT2ISFOZ53fmnC
-	 8QHjT6CV6Y0LO//yMVxXTieZIHVsmPzCZcP7TQ1tW9lfJDqrpwgaGRvd2HDtn4bhhnPpc
-	 M2wY1LDYL5TuYh0vPQizTaC45sacAvucJ231R82e8g0dN/mNkX9qLbNkTmGEC0ijAi2Xj
-	 yoHzv3yWn1C9jIKxC8ownSMqzXpyxJ+7NBghjfIwQ93mBof55ESixMaz/UnILNWrj4OJ/
-	 8q5lOm8sxG/F7BCkAmxHysQ8aR0gLtQd767Z8kyNU6NdLmY7Y/u5AIkWm9TEVLDRH8w==
+	 In-Reply-To;
+	bh=f6Uv9MJ4vpovhqINHEuPUPqtVo+UnXFbVPdaYJZYw1U=;
+	b=KC57W0iXpKnsnmNxg3JxdRRrkCyfy+5FlKQUbHSTAvUGqTW1X3gOcXKPM6jrT3myfsk9
+	 PR0n39J/DH2cZzj21w/CvglThx35TEoi4UKgWx3I/F5F0x9GLV/6OlEw9fKd6xZwIiv12
+	 NvrrS2bKR7q2ogDgjO+mI+7Z1LlghNbJpP9Fk6LM5AB7M2sXZ5jvdxgQdCLIyr1jezY7m
+	 Ie/DZwtDlfKh5gI8Zn+t9aD5n+qr5oHoqoW1uUkOFpGi+Ri4lVsgAP4PMiCCDh7Gano46
+	 iJrwAqv6q9FZApujF+DEt83Lez5c3K36b98qcRAj5z939zSI/XazhTowX51FbXRsp1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Y7+pEitH;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=iYvfWxJN;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE82606A69B;
-	Fri, 20 Nov 2026 21:31:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FE82606A69B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E64606A680;
+	Fri, 20 Nov 2026 21:31:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77E64606A680
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Y7+pEitH
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=iYvfWxJN
 Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6FA714E6;
-	Fri, 20 Nov 2026 22:28:47 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 090794E6;
+	Fri, 20 Nov 2026 22:29:18 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795210127;
-	bh=M7Qcq8V3Jr2gLoOzs+ayK8dikX5kJkrE/bo1yp+s4tA=;
+	s=mail; t=1795210159;
+	bh=HSzhy66PiWvOlLRkHf2I9CCsNl+3COEm1jiGZVw6MaE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Y7+pEitHa7rz0OLH9JT3Q9uw0F6+sdkuHT9Va5Ttw9M7zug6ogtix7wCXpSlsVxCG
-	 NHanSRRXOK5a+B19zRjoYv+jA1z9LQvpvNAX6SSyN9Yzpd/EtJGvqYv9+kyTipz/Ck
-	 xjilVepncVyQs3BTnJRFx+9YYuNn0i87hLlfnmmw=
-Date: Fri, 20 Nov 2026 23:31:16 +0200
+	b=iYvfWxJNUjUistDmt8x/KLvOdXWH56uTon8uwgZ4Jqbnu0XRNWyeel4e6rDzWmJXT
+	 kB8BI6h/skQ+fxABkZE57zGBuseArNtUVuuQItBBOK0HZo1u2+VIqDRcyxpeFuJown
+	 1uepMe5cpqss5+AF/IinjfCg/+YIp58bbaOsjWwE=
+Date: Fri, 20 Nov 2026 23:31:47 +0200
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Cong Nguyen <congnt264@gmail.com>,
-	Faisal Mukhtar <mukhtarfaisal03@gmail.com>,
-	Dan Carpenter <error27@gmail.com>,
-	Hungyu Lin <dennylin0707@gmail.com>,
-	Hao-Qun Huang <alvinhuang0603@gmail.com>,
-	Yury Norov <ynorov@nvidia.com>,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	linux-media@vger.kernel.org, linux-tegra@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-Subject: Re: [PATCH v1 01/10] staging: media: tegra-video: Move driver to
- media/platform/nvidia
-Message-ID: <20261120213116.GB2472094@killaraus.ideasonboard.com>
-References: <20261113161819.36847-1-clamor95@gmail.com>
- <20261113161819.36847-2-clamor95@gmail.com>
- <20261120143147.GA2466366@killaraus.ideasonboard.com>
- <CAPVz0n3u3oe1+H_w9jE2afb9PQT0VLtYVqfHeVNc3D+tLN6NDQ@mail.gmail.com>
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] media: i2c: mt9m114: Add get_fwnode_pad operation
+ for IFP
+Message-ID: <20261120213147.GA2510168@killaraus.ideasonboard.com>
+References: <20261006153619.304520-1-clamor95@gmail.com>
+ <20261006153619.304520-2-clamor95@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -86,85 +65,121 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n3u3oe1+H_w9jE2afb9PQT0VLtYVqfHeVNc3D+tLN6NDQ@mail.gmail.com>
+In-Reply-To: <20261006153619.304520-2-clamor95@gmail.com>
 
-On Fri, Nov 20, 2026 at 05:31:17PM +0200, Svyatoslav Ryhel wrote:
-> пт, 20 лист. 2026 р. о 16:31 Laurent Pinchart пише:
-> > On Fri, Nov 13, 2026 at 06:18:10PM +0200, Svyatoslav Ryhel wrote:
-> > > The Tegra Video Input drivers are mature and developed enough to be moved
-> > > from staging into the media subsystem. No other changes are introduced.
-> >
-> > The driver should at least be converted to be MC-centric before being
-> > moved out of staging. I haven't checked if other changes would also be
-> > needed.
+On Tue, Oct 06, 2026 at 06:36:19PM +0300, Svyatoslav Ryhel wrote:
+> Currently, the driver's binding exposes only one endpoint, which maps to
+> the IFP subdevice's SOURCE pad. This configuration causes failures for
+> many devices using this camera because both the DT binding and the
+> one-to-one pad mapping logic map the endpoint to the wrong pad. Fix this
+> by implementing the get_fwnode_pad operation for the IFP, which correctly
+> matches the endpoint to the corresponding IFP pad.
+
+The discussion in the review of v1 died out after my last reply. Let's
+continue it there.
+
+https://lore.kernel.org/linux-media/20260721103845.GJ50424@killaraus.ideasonboard.com/
+
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/media/i2c/mt9m114.c | 39 +++++++++++++++++++++++++++----------
+>  1 file changed, 29 insertions(+), 10 deletions(-)
 > 
-> Does the media subsystem deny video-centric devices from even being
-> moved into it? I have not seen this restriction imposed; could you
-> please point me to where this is stated in the media subsystem
-> documentation?
-
-There's a consensus that devices that require control of camera sensors
-(i.e. "MIPI" cameras) must be MC-centric. That's not documented, we
-should probably fix that.
-
-> I would like to convert this device, but that may take quite some time
-> and may case regressions if not done carefully. This patchset apart
-> from moving to media is mostly fixes to work correctly with mt9m114
-> and tegra114 bring-up which is quite simple and straight forward
-> change.
-
-Converting to the MC API will require some changes in userspace. That's
-why it's important to make this change before destaging the driver.
-
-> BTW, may you ack mt9m114 get_fwnode_pad change[1]. I have updated it
-> to your liking, Sakari seems to ignore it.
+> diff --git a/drivers/media/i2c/mt9m114.c b/drivers/media/i2c/mt9m114.c
+> index c6c950d5c8f3d..583cf47aa652e 100644
+> --- a/drivers/media/i2c/mt9m114.c
+> +++ b/drivers/media/i2c/mt9m114.c
+> @@ -9,6 +9,7 @@
+>   * itself based on work from Andrew Chew <achew@nvidia.com>.
+>   */
+>  
+> +#include <linux/cleanup.h>
+>  #include <linux/clk.h>
+>  #include <linux/delay.h>
+>  #include <linux/errno.h>
+> @@ -1019,14 +1020,6 @@ static int mt9m114_stop_streaming(struct mt9m114 *sensor)
+>  	return ret;
+>  }
+>  
+> -/* -----------------------------------------------------------------------------
+> - * Common Subdev Operations
+> - */
+> -
+> -static const struct media_entity_operations mt9m114_entity_ops = {
+> -	.link_validate = v4l2_subdev_link_validate,
+> -};
+> -
+>  /* -----------------------------------------------------------------------------
+>   * Pixel Array Control Operations
+>   */
+> @@ -1383,6 +1376,10 @@ static const struct v4l2_subdev_internal_ops mt9m114_pa_internal_ops = {
+>  	.init_state = mt9m114_pa_init_state,
+>  };
+>  
+> +static const struct media_entity_operations mt9m114_pa_entity_ops = {
+> +	.link_validate = v4l2_subdev_link_validate,
+> +};
+> +
+>  static int mt9m114_pa_init(struct mt9m114 *sensor)
+>  {
+>  	struct v4l2_ctrl_handler *hdl = &sensor->pa.hdl;
+> @@ -1405,7 +1402,7 @@ static int mt9m114_pa_init(struct mt9m114 *sensor)
+>  
+>  	/* Initialize the media entity. */
+>  	sd->entity.function = MEDIA_ENT_F_CAM_SENSOR;
+> -	sd->entity.ops = &mt9m114_entity_ops;
+> +	sd->entity.ops = &mt9m114_pa_entity_ops;
+>  	pads[0].flags = MEDIA_PAD_FL_SOURCE;
+>  	ret = media_entity_pads_init(&sd->entity, 1, pads);
+>  	if (ret < 0)
+> @@ -2097,6 +2094,23 @@ static int mt9m114_ifp_registered(struct v4l2_subdev *sd)
+>  	return 0;
+>  }
+>  
+> +/*
+> + * The IFP has only one fwnode endpoint, which corresponds to the pad
+> + * linked to the PA (PA SINK), while it should be the SOURCE for the
+> + * next media device in the pipe.
+> + */
+> +static int mt9m114_ifp_get_fwnode_pad(struct media_entity *entity,
+> +				      struct fwnode_endpoint *endpoint)
+> +{
+> +	struct v4l2_subdev *sd = media_entity_to_v4l2_subdev(entity);
+> +	struct mt9m114 *sensor = ifp_to_mt9m114(sd);
+> +	struct fwnode_handle *fwnode = dev_fwnode(&sensor->client->dev);
+> +	struct fwnode_handle *ifp_ep __free(fwnode_handle) =
+> +		fwnode_graph_get_next_endpoint(fwnode, NULL);
+> +
+> +	return endpoint->local_fwnode == ifp_ep ? 1 : -ENXIO;
+> +}
+> +
+>  static const struct v4l2_subdev_video_ops mt9m114_ifp_video_ops = {
+>  	.s_stream = mt9m114_ifp_s_stream,
+>  };
+> @@ -2124,6 +2138,11 @@ static const struct v4l2_subdev_internal_ops mt9m114_ifp_internal_ops = {
+>  	.unregistered = mt9m114_ifp_unregistered,
+>  };
+>  
+> +static const struct media_entity_operations mt9m114_ifp_entity_ops = {
+> +	.link_validate = v4l2_subdev_link_validate,
+> +	.get_fwnode_pad = mt9m114_ifp_get_fwnode_pad,
+> +};
+> +
+>  static int mt9m114_ifp_init(struct mt9m114 *sensor)
+>  {
+>  	struct v4l2_subdev *sd = &sensor->ifp.sd;
+> @@ -2141,7 +2160,7 @@ static int mt9m114_ifp_init(struct mt9m114 *sensor)
+>  
+>  	/* Initialize the media entity. */
+>  	sd->entity.function = MEDIA_ENT_F_PROC_VIDEO_ISP;
+> -	sd->entity.ops = &mt9m114_entity_ops;
+> +	sd->entity.ops = &mt9m114_ifp_entity_ops;
+>  	pads[0].flags = MEDIA_PAD_FL_SINK;
+>  	pads[1].flags = MEDIA_PAD_FL_SOURCE;
+>  	ret = media_entity_pads_init(&sd->entity, 2, pads);
+> -- 
+> 2.53.0
 > 
-> [1] - https://lore.kernel.org/lkml/20261006153619.304520-1-clamor95@gmail.com/
-
-In the review of v1, I wrote in my last message
-(https://lore.kernel.org/linux-media/20260721103845.GJ50424@killaraus.ideasonboard.com/)
-that the issue seems to come from a bug in the VI driver. Let's continue
-the discussion there.
-
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  drivers/media/platform/nvidia/Kconfig                           | 2 ++
-> > >  drivers/media/platform/nvidia/Makefile                          | 1 +
-> > >  .../media => media/platform/nvidia}/tegra-video/Kconfig         | 0
-> > >  .../media => media/platform/nvidia}/tegra-video/Makefile        | 0
-> > >  .../{staging/media => media/platform/nvidia}/tegra-video/TODO   | 0
-> > >  .../{staging/media => media/platform/nvidia}/tegra-video/csi.c  | 0
-> > >  .../{staging/media => media/platform/nvidia}/tegra-video/csi.h  | 0
-> > >  .../media => media/platform/nvidia}/tegra-video/tegra20.c       | 0
-> > >  .../media => media/platform/nvidia}/tegra-video/tegra210.c      | 0
-> > >  .../{staging/media => media/platform/nvidia}/tegra-video/vi.c   | 0
-> > >  .../{staging/media => media/platform/nvidia}/tegra-video/vi.h   | 0
-> > >  .../media => media/platform/nvidia}/tegra-video/video.c         | 0
-> > >  .../media => media/platform/nvidia}/tegra-video/video.h         | 0
-> > >  .../{staging/media => media/platform/nvidia}/tegra-video/vip.c  | 0
-> > >  .../{staging/media => media/platform/nvidia}/tegra-video/vip.h  | 0
-> > >  drivers/staging/media/Kconfig                                   | 2 --
-> > >  drivers/staging/media/Makefile                                  | 1 -
-> > >  17 files changed, 3 insertions(+), 3 deletions(-)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/Kconfig (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/Makefile (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/TODO (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/csi.c (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/csi.h (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/tegra20.c (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/tegra210.c (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/vi.c (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/vi.h (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/video.c (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/video.h (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/vip.c (100%)
-> > >  rename drivers/{staging/media => media/platform/nvidia}/tegra-video/vip.h (100%)
-> >
-> > --
-> > Regards,
-> >
-> > Laurent Pinchart
 
 -- 
 Regards,
