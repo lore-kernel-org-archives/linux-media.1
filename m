@@ -1,157 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.42.116
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795149280;
-	b=zDrViQfQ1q8NNsFm6uIrabvmiVa699ndohRWj4CSrOdLAgInDXe/efvjHt4fM82E2AAW
-	 Wt0gIIo4PW6pIU4qOZC61sj67IOWRUJ5Rg6RHsdQ4huHRd9hCMqqSW3zRM9aUJtbvphoq
-	 NJT3skPTagbpC+1+YW/ERa2BDLytEd/fKv8EaeeM7NEVVc4uRqPkSNFNJMjk0uhGcJK6Y
-	 eEjCOijTLBEx41quQ1vN69l5uQI41G//xGzS57BYXbs9hGPVJYTULquPqsGrVtMPmE4Md
-	 GddmRqljp9Fr85H5r4pAXE2mjaVbSc2q0htwOH5K+Zf6cH3LDNCdkfzY4iILB+AnEBQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795149280;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=YmaM25r+8C+J37WvP0GM+EhWHpMzbHlS12Y+Zb4EwcI=;
-	b=BvcOWbsYil4VKJd7BEiZKhySGHp22Q3XVujG8sy3KHEJi4Nri6J0BnsgDVZqVpeZWWr3
-	 4ERICGSqdw3vYuZgTTMlJsnklCw+IHkKCjvQ/f6tXAX/nFRJyutuX4W0tUEWqAw6C6DK3
-	 YsBtb2sbSzJD4PgrFwoIBVB58FIfK5kAiwPFjOqVfr5cGKBq64XIcCpc2yWt5EaBa2Mk2
-	 Mpke4CxISqhLzMqxSXSLpHLIYLCKeaRVtnK6iFZtk/n+LJApCBt7/4cnjp+vLeySBRv0/
-	 w2B3AtT+ikLY5gIN0+24VBZicu2+pnA7TGSTWb23WAw7kwq/jiC3WzhhKaOxPbyLi/A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chipsnmedia.com;
-	spf=fail smtp.mailfrom=chipsnmedia.com;
-	dkim=pass header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=caISTFJ3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.42.116
-Received: from SLXP216CU001.outbound.protection.outlook.com (mail-koreacentralazon11021116.outbound.protection.outlook.com [40.107.42.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.204
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795153381;
+	b=VAjm8wSXDT2v6ZypHd6+64XeuvxkOudSRePoSLiCfXB1e3X5tIZjigvJvT13CiJ36dV6
+	 dtETTTDlENgD+g4sZ6kvRl0JsgDPkhwvydA/NGbjFfwTR9zYBfQ1NfVoCjDKOGiSGowDa
+	 6Ksfif9Hpukw4o3OI6auDdAAIO0x+yy81SD6Rqr4E2SPl3e6MIyWq7l19P/r/BPwaJGwL
+	 UlV7YF4VQBkX9efE0wG6l0TI8BP9VFfesfMZMjYRqWQGzyynI7If3xGxp09sF2dnMLW3w
+	 LpN43LZWMgHyhKcW681M82JJ1NgXEUf8shPfbHxAKiKSkVP86trRrZ9LzyhROE7GmzA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795153381;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=hEpOzMSWsqAZ4vmFyWKGhKlXAADp5QsHm5LpUYITr+0=;
+	b=O9OWcDW+bBx3ePSAYH0Tp9ISXvZH5dVxI3PGLiyiAUtbOGuC4fBKOflhfsgGswe0vWyp
+	 WTGcryPmOVmspf9bBF1gsbguGplo2EDh45kWsYch3ZSAYbQT7YOnFYCzLmEtxqRAC8NW6
+	 rxZlNJZBYd3zUQICAkenTCutkEMixrghAzX5G+1ty8AIejDq+JWLsaGBrymM3tAsUJksX
+	 mKrOXizQhAv7Yhk+IGzwJRpfC6+JuFVZ4QeLBBG+PMeCLRadZ57PMkGeSI4VdsoA6DADR
+	 yNRz1cVSvtFUfrzzDKAVlGZKLiOk/YLikCG0hIWbRyiN/W1Ob7Es7czQW1vDW2Q1nEg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HnwNyYEh;
+	arc=none smtp.remote-ip=95.215.58.204
+Received: from mta1.migadu.com (out-204.mta1.migadu.com [95.215.58.204])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74042606A325;
-	Fri, 20 Nov 2026 04:34:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74042606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFCA606A326
+	for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 05:42:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EFCA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=caISTFJ3
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x5PQgazYdN9Q245n6jlc31W16RStMcpWV86+rR5vCKTdNNMQRMWkKk5GncFDATd0sbAzU0splcWerpF24Jw3VRisjC42IEqYaujYWV8aHsKWP+1bxaAYcecfBVdqx4ND5IgloX90BIO7p7ZusBjLIwUni27hzkIC6p1xSPmOBLOxMhqpHYbuBmlVKe/4b6tpBCyCputu8tg7RbHRY4/NKtmLU5ISkYrdADTfZeQ5mx9uIIb9kYlNe3585XuM0pE77GTwmqWUHLrDhDJRgsx08B+8Tir1FuvUSYkEMY2/ytcsqu/nTwmQW6X3WjZIU82SvVHhfj1Z7r8vBQHgWTxLgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YmaM25r+8C+J37WvP0GM+EhWHpMzbHlS12Y+Zb4EwcI=;
- b=XFt/4V3Nldhijf+EvjYH7wG4S9XMTgHk5vByGlX5RrDFU2xzpd0eKWte/PWlNtAS2in/hi4GZK8zX0jEA5uxKt9VsBLLcmeJPxW80V7dwBhj7Pr7S0dlxu4S1kKJRk+0JDgv1D8bkvy+Bc1tvgGsUCKoAz1vidieARqw6HSpHsnBWcHm6WyAHd77nuWmE17j3I1/eyDVChr9fzyZkjFzKtA72UHuvT7H+EhrTn3b6pEfodA84pUJRyyRqPcfFRR+b8HxhS1WmOZ/eDqOglVrICtHfO85G2wzM3dPuq+K3WXtGsA6Q3cwHnBSSQfPv6pP7bO9d1waH77jWV2dN7SFGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
- header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YmaM25r+8C+J37WvP0GM+EhWHpMzbHlS12Y+Zb4EwcI=;
- b=caISTFJ3m7mzY3geaN3sEQJ7RK+23/wkr9F+rhTa29MwXacZRKJVVHuyrn71FXHXx/ejYE3TIo8mQdF1fs/t0Q2W1wY/co+ipbnobblRcGom78c5SQI+e99/cZsx/qnkPgOdl7hf6AClCkdeW4nehsGFCvyf17EEm7ZuK43uuphqObeEk7QEnm/+nT3JDu+LZYhy9GFBmBt5iwWFwiXYOdIP46sOAi1r8f79B8WbEXrAqUbqGrVy8KRHZxn1D3IKhCAzAXD+n299ljTBEk0WiguWx9ZQB0P+0ltZsE77lxIr5C38AUkaciXUMrgEbWlbGw020YpuIGjpS8yAcJB4Zw==
-Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM (2603:1096:101:1b9::8)
- by SE5P216MB3149.KORP216.PROD.OUTLOOK.COM (2603:1096:101:2fe::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Fri, 20 Nov
- 2026 04:34:38 +0000
-Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
- ([fe80::f234:3bc6:9197:8232]) by SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
- ([fe80::f234:3bc6:9197:8232%6]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
- 04:34:38 +0000
-From: Nas Chung <nas.chung@chipsnmedia.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-CC: "mchehab@kernel.org" <mchehab@kernel.org>, "hverkuil@kernel.org"
-	<hverkuil@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "Frank.Li@nxp.com" <Frank.Li@nxp.com>,
-	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "festevam@gmail.com"
-	<festevam@gmail.com>, "kernel@pengutronix.de" <kernel@pengutronix.de>,
-	"nicolas.dufresne@collabora.com" <nicolas.dufresne@collabora.com>,
-	"ming.qian@oss.nxp.com" <ming.qian@oss.nxp.com>, "marek.vasut@mailbox.org"
-	<marek.vasut@mailbox.org>, "jackson.lee" <jackson.lee@chipsnmedia.com>,
-	"lafley.kim" <lafley.kim@chipsnmedia.com>
-Subject: RE: [PATCH v8 10/11] media: chips-media: wave6: Add Wave6 thermal
- cooling device
-Thread-Topic: [PATCH v8 10/11] media: chips-media: wave6: Add Wave6 thermal
- cooling device
-Thread-Index: AQHdeARtlVZt/dvDTk+1cGJg7YekHrc14tIAgAB9rZA=
-Date: Fri, 20 Nov 2026 04:34:38 +0000
-Message-ID:
- <SL2P216MB24418B9F81DE8CF8D69A107CFB782@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
-References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
- <d973e48036b43e9f1e5fc254153303a4c21deebb.1795075582.git.nas.chung@chipsnmedia.com>
- <av9kIkW6rYeUGFBE@SMW015318>
-In-Reply-To: <av9kIkW6rYeUGFBE@SMW015318>
-Accept-Language: en-US, ko-KR
-Content-Language: ko-KR
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SL2P216MB2441:EE_|SE5P216MB3149:EE_
-x-ms-office365-filtering-correlation-id: 0da8e5d1-2ab2-4206-3c9c-08df46bf962e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|261026121527099003|261021135927099003|261026140227099003|261021121427099003|261022075727099003|261022105027099003|261028144727099003|261102123227099003|38070700021|5023799004|56012099006|4143699003|10067099003|18002099003|22082099003|261009223027099003;
-x-microsoft-antispam-message-info:
- yA3vXVtW9k/pA5yQsvVTkp5bhuwiKz9e9MNZ+/Gceh3mg4wp6nL5txm1ZUv0E31B5dfwQd7bQXWtmAL7LbJ/mGuqAd5eFAeifKlfyijLIIoi+lp/jyidA/NwktB/aD+WPGJmDLCKS4mr80DPYhQ1aPVRf12K6XrZe045YQOGZyN+ZWy6a9Fw2qGMXxaOzDogM5+cT9ixj8eEDJVCHL4uQFVxivpfa3Nm4EfrU2Vc8fQ8VmxqHEl2VOa4PNkl3FpLaowSFVWukkHReukSD6ZzoFBKxggTd6gDW4XtDHob5OZ6/3RoqN0JR8x73te29D2Mtdj+8YrqJFOdaym0TSWHuPz8bAX76ZCAv8esL0qEQExX9Kk4OHnYQT+90VMOgmv9BW5Z3tpR8SMgf0F0Jnlq8MVNobdeGy6YZcIPF8XNduPO6Plnd4gOoLW8MlkRUSB5jZDIonkr995L9RRYpTG5kv2maWsHS2Vk2KgH0dX+4R+k1OEb0duocxYmXDdmoLb+svhKdNKZlI62fdrsZ9//YlEI11bB8SGiQK6FH0cB2vGkiCy2hjfzymtytCrx/D1pB4oX4TrYvnykM3gs3qndxnt0PrYAnmq3tR8hVYDUdFxWEDfjO1YkWhJ60cb2/b1vC0e5MJAnhH8BO3nvkD9KxluSmIt2S5B9pv/8CiKIILvzW94xldHgktMJPtOFsGRhK06MfxBziN5VWHp6X7SJho4BtShtxO60gu/3Qott3Vw=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SL2P216MB2441.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(261026121527099003)(261021135927099003)(261026140227099003)(261021121427099003)(261022075727099003)(261022105027099003)(261028144727099003)(261102123227099003)(38070700021)(5023799004)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003)(261009223027099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?F9pAuNMX2Z+yIJ7ueumtei55OUGZ3rcB7ihRxHfM++DvrMO+5LPVki9ipq9f?=
- =?us-ascii?Q?pJG4DzxL7LRAt7HvOi8/UnB2waCiNmAe4/f9lAkaFF87ADWIRP5OON369bZu?=
- =?us-ascii?Q?ifTV0YplYs8Bq8poin8pC5dS6xoNacgWp3cG8iTnctK4R4R+tfX8g0mUCLeh?=
- =?us-ascii?Q?wQS4pnxAUhGZEOT+Jo0+9qRRxgDjoFknxStY5u+iud5T5bTN2Bw2DnMBJIA+?=
- =?us-ascii?Q?T22l9EKOSQBYrPVvjH5VQK6iQkns3tjPDVtElF+C9R6VFI5w8gg3DTNMp50S?=
- =?us-ascii?Q?B+xNUdu21vjKx7KbbmIl8zitd7J+5yHXH5rVe9qmX+DRFv4+4W7E9u3WQKr3?=
- =?us-ascii?Q?m7lmJLdeRCCE7o36pYBl7m4Ayw0nFyBo5GKgFsVJ6oMEsDdFe4UwrahHGf7V?=
- =?us-ascii?Q?mCTf/oFF1/teR+1owGjA5Eqiolfi6DM/HY4jQDGQ6/M8sXDXfty2Ia7LPA27?=
- =?us-ascii?Q?EqMWJtarbVsDFN+pWPJxkwMXxomtLrc4jp6C/dC1AA78dC0r8qKJZklk9+YR?=
- =?us-ascii?Q?dvG7bTykAtx4aX1YFtdlbYuM6M3qfnW/l9L60Hl2/XbEfjqnDXNNgi+6zd6Y?=
- =?us-ascii?Q?d1GezdnFPKxeKIw53vX7Zj1KFSGAQFcX2bsEoNC65X9SoxP8ZSohDqnqiJHu?=
- =?us-ascii?Q?mu8AhfljiEZ3dQnntnQiMiKD/MKmoPBqWA2luoPxZaJMXo7yBFmKUAmrMKC6?=
- =?us-ascii?Q?90PmAe39rZhPNj5j1/HoHH/FIlFxhs13lOaFWlhi0P2ltp18agE8gpIuUaFD?=
- =?us-ascii?Q?86+TQARgP11QmQ8psQbL66DWzoOoG71F/7wvjPpbys3zEx0R9Fn8/XLVRdmO?=
- =?us-ascii?Q?+cFZrE+h3NRtD2HzoqL5x0noCTDy9PLeQ4oVzfrQJ3miLZZAccZEXB6sg7AA?=
- =?us-ascii?Q?8WHE87TaULyI+XFYCyYdyiIcpUEz6dqj9ZOS5n976lColcG7ZQwT02FUbbyn?=
- =?us-ascii?Q?HCgRhiXtk1jdJ4ulS59B0/MRuAZXooW8J6Fi8moZHdFdgwt053A9JGo3sTLO?=
- =?us-ascii?Q?s+fFhj6L7UWm/HiIz/GUS4jmFyxKIAa6rQkeLlRwtCnV7YnfUFBkSJfF7Ajj?=
- =?us-ascii?Q?vNIFnBCLkVAFK37CdqPXtLzsDOoq7V30dqZ6sV88wHQRAYuBdYAL7+BbqJ/Z?=
- =?us-ascii?Q?dFOk1ad3VqOY3bhPo7Zite/3PPwxXNJDkuyZh7JwB9hsFZQrIl3jXPkxPc6v?=
- =?us-ascii?Q?E/8Kpo04FsRCW/u55XqDKCM9ctG/ssyAxZMlPceQVttNwMbez17NnUYwoGM+?=
- =?us-ascii?Q?Aj3C8xm9i+YU8kWarYOBoNqaQ4u9wd4A4mHUtenPgnI/IFN/BBuMJrPcZg+e?=
- =?us-ascii?Q?EDEBR9rCBKIOWuIk+qUHtWJvxtfrYGvqgVuo6m6Gu1cn3N+hsQYrH8JadMD9?=
- =?us-ascii?Q?64F42htHDbi2zhOr/VmaDsmhNI9/fZazHdG7qmfe6gbcCebPmfYpnjFwCgje?=
- =?us-ascii?Q?Zaxy8BC5OatC39lyIX54nQaRfl6kpTPJaGfqXuxoSSJuSFiDuiSKzRGb7m/S?=
- =?us-ascii?Q?9wnvZfr9H9SYQNvTRLj8VCkzVw40ZCBRjzfrz0evBqeShZIUfkF6PrUGlTsb?=
- =?us-ascii?Q?5I9mc/iq8swjsKL6lwckhQcGsvPIG/c0QagG4Q0uhOzNdiuV/PX0h/pz7BoF?=
- =?us-ascii?Q?c8ipEkeotlQ1YvAqzSY3+hVK7DrlpXMYlq6qnOM4jaVKL+r2KMmMvgkZWG+l?=
- =?us-ascii?Q?UpvjIUbQYFPKQnZBExzxaa+3PZRIb0bJLzrz1tn5LMiepgZPh8r9wglJKq+a?=
- =?us-ascii?Q?gDJ1DXivgg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HnwNyYEh
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=sygBjDYX2IBEsh5RgXxZv4L/2uT7TB2ul0lFCsAHpAY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795153377; v=1; x=1795758177;
+ b=HnwNyYEhKKOlUdgeUYJUJL4JYe667WQ34/ki58BF47Qx6FMrzuJzi/koQHY+tSl9fG6h2AKC
+ 4jhvrHpMYNsO34J5V4AC+PVlfXiIS59hS21wgPH1wAZWjsXy+y5kxYSZhry1uDm3q+d6qSAuMmG
+ rq2jRXrp8iKbnNfr5iXFW5/A=
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5caa3697f8970349;
+	Fri, 20 Nov 2026 05:42:57 +0000
+X-Mizu-Trace-ID: 5caa3697f8970349
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Albert Esteve <aesteve@redhat.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+	Philipp Stanner <phasta@kernel.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-mm@kvack.org,
+	akpm@linux-foundation.org,
+	cuitao@kylinos.cn
+Subject: [PATCH v2] dma-buf/udmabuf: account the page array metadata to memcg
+Date: Fri, 20 Nov 2026 13:42:41 +0800
+Message-ID: <20261120054241.525109-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -161,88 +74,69 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: chipsnmedia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0da8e5d1-2ab2-4206-3c9c-08df46bf962e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Nov 2026 04:34:38.1488
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: biRVmxMEp8Y5qwEtVdPGEd6bHiKacGOhXesYg8EauAmyPrBq/8QK+FYU7EXnke6W9PGwbmqGjKk2dh6w0V+BLy5TVxQCJYJjJzwUnUBRUrY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE5P216MB3149
+Content-Transfer-Encoding: 8bit
 
-Hi, Frank.
+From: Tao Cui <cuitao@kylinos.cn>
 
->-----Original Message-----
->From: Frank Li <Frank.li@oss.nxp.com>
->Sent: Friday, November 20, 2026 6:04 AM
->To: Nas Chung <nas.chung@chipsnmedia.com>
->Cc: mchehab@kernel.org; hverkuil@kernel.org; robh@kernel.org;
->krzk+dt@kernel.org; conor+dt@kernel.org; Frank.Li@nxp.com;
->s.hauer@pengutronix.de; linux-media@vger.kernel.org;
->devicetree@vger.kernel.org; linux-kernel@vger.kernel.org;
->imx@lists.linux.dev; linux-arm-kernel@lists.infradead.org;
->festevam@gmail.com; kernel@pengutronix.de; nicolas.dufresne@collabora.com;
->ming.qian@oss.nxp.com; marek.vasut@mailbox.org; jackson.lee
-><jackson.lee@chipsnmedia.com>; lafley.kim <lafley.kim@chipsnmedia.com>
->Subject: Re: [PATCH v8 10/11] media: chips-media: wave6: Add Wave6 thermal
->cooling device
->
->On Thu, Nov 19, 2026 at 06:00:04PM +0900, Nas Chung wrote:
->> Add a thermal cooling device for the Wave6 VPU, so the thermal
->> framework can lower the VPU performance state when the SoC gets hot.
->>
->> The control driver registers the cooling device on its device tree
->> node. The cooling states are built from the OPP table of the "perf"
->> power domain.
->>
->> Tested-by: Ming Qian <ming.qian@oss.nxp.com>
->> Tested-by: Marek Vasut <marek.vasut@mailbox.org>
->> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
->> ---
->>  .../media/platform/chips-media/wave6/Makefile |   1 +
->>  .../chips-media/wave6/wave6-vpu-thermal.c     | 141 ++++++++++++++++++
->>  .../chips-media/wave6/wave6-vpu-thermal.h     |  24 +++
->>  .../platform/chips-media/wave6/wave6-vpu.c    |  22 +++
->>  .../platform/chips-media/wave6/wave6-vpu.h    |   3 +
->>  5 files changed, 191 insertions(+)
->>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-
->thermal.c
->>  create mode 100644 drivers/media/platform/chips-media/wave6/wave6-vpu-
->thermal.h
->...
->> +
->> +	if (!thermal->thermal_max)
->> +		goto error;
->
->nothing clean up at error label, just return ret
+udmabuf pins the pages of a memfd and hands them out as a dma-buf.  The
+data pages keep the accounting of the memfd they were instantiated in,
+but the bookkeeping around them does not: the page pointer array and
+the pinned_folios array, both sized by the buffer page count, plus the
+transient folios array sized by the memfd folio count, are plain
+GFP_KERNEL.  A 1GB buffer costs about 4MB of uncharged SUnreclaim
+memory, and size_limit_mb defaults to INT_MAX.
 
-Agreed.
+Charge the three kvmalloc allocations so the creator pays for the
+metadata it induces.  The data pages stay with the memfd they were
+instantiated in, including hugetlb memfds, which remain uncharged.
 
->
->> +
->> +	thermal->thermal_event =3D 0;
->> +	thermal->cooling =3D devm_thermal_of_child_cooling_device_register(dev=
-,
->> +									 dev->of_node,
->> +
->dev_name(thermal->dev),
->> +									 thermal,
->> +
->&wave6_cooling_ops);
->> +	if (IS_ERR(thermal->cooling)) {
->> +		dev_err(thermal->dev, "register cooling device failed\n");
->> +		ret =3D PTR_ERR(thermal->cooling);
->> +		goto error;
->
->return dev_err_probe()
+The system heap in the same subsystem accounts its buffer allocation
+only when the mem_accounting module param is set; Android runs with it
+off because heap buffers change ownership mid lifetime, and explicit
+charge transfer for dma-buf memory is being worked on.  The metadata
+here is charged to the creator directly, which sidesteps the transfer
+problem for a resource that does keep a single owner: the memfd.
 
-I'll address this in v9.
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+---
+Changes in v2:
+- commit message: note that the system heap accounting is gated by the
+  mem_accounting module param, which Android keeps off, and that
+  hugetlb memfds stay uncharged.  No functional change.
+Link to v1: https://lore.kernel.org/r/20261106131829.3228926-3-cui.tao@linux.dev
 
-Thanks.
-Nas.
+ drivers/dma-buf/udmabuf.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
->
->Frank
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index df6dd0046242..40182c82df6b 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -190,11 +190,12 @@ static void unpin_all_folios(struct udmabuf *ubuf)
+ 
+ static __always_inline int init_udmabuf(struct udmabuf *ubuf, pgoff_t pgcnt)
+ {
+-	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt);
++	ubuf->pages = kvmalloc_objs(*ubuf->pages, pgcnt, GFP_KERNEL_ACCOUNT);
+ 	if (!ubuf->pages)
+ 		return -ENOMEM;
+ 
+-	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt);
++	ubuf->pinned_folios = kvmalloc_objs(*ubuf->pinned_folios, pgcnt,
++					    GFP_KERNEL_ACCOUNT);
+ 	if (!ubuf->pinned_folios)
+ 		return -ENOMEM;
+ 
+@@ -387,7 +388,7 @@ static long udmabuf_create(struct miscdevice *device,
+ 	if (ret)
+ 		goto err;
+ 
+-	folios = kvmalloc_objs(*folios, max_nr_folios);
++	folios = kvmalloc_objs(*folios, max_nr_folios, GFP_KERNEL_ACCOUNT);
+ 	if (!folios) {
+ 		ret = -ENOMEM;
+ 		goto err;
+-- 
+2.43.0
+
