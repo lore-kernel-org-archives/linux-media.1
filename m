@@ -1,105 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795167218;
-	b=mMwsdNJfWPnG/B2W8by3nxZcqxIbJsHwHTEXBKNCG76+mjHERt6DFBinusXD3j4MwLWi
-	 x1P3ZV5+orhFYF3dczOmHxwRZLKB6vqM6bXQKBwbl3/09xf7aUDxghdmUcZLUDzVNYnaL
-	 WtkrKjd1ntIjuxfPNrQshkQRWPphcG/hc5w2Lbe8C2idrKstknd+zeX4skbC72iiNaL+/
-	 J1YSErseISWzYcTStTbykQMpOiPd/+gyFtx1LFFLBg6iW4kCrSlmqQR6lg3WARn5naUPH
-	 3rhKAv1XNdbNW1ORjbyxin+usw/xNMkg+skM/Dv8GzFMPWHOp2C8vJM73AZChVu9cGQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795167218;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=f46fSWsQEpET4J8APD1E1HzLj2/b8klFa+7cub+C8ys=;
-	b=AGMamjK3zav8KVJru6bMbqlsqeXL+NH/WI7LCQ99yjfzJJh6P1f3YEAWmeqsmgRe2QQt
-	 HOr/LZquYLRZjbp8TZ7xbPjOcydo3pLbxvdQ5ljmeQHhLxKrI6UMeS4VCOtoDHFygPcf+
-	 KoErvVvrKPTXwFFIEtc7uSJ65Itz0DgOgu0TLzJoik65E0yaE7VfvKkOHptzesEs5eszz
-	 FWUEPSW69jYgUXZhYdYr6O1GtSmfvNN9n2RAInKcQb000h/lXMhodCXa+FcVFY0l92t/K
-	 JKkayXOFCMKRrmltstxiyzp0wjP2zaHurB84Pe7IYPFUTvCSW1SLh/QM9JV6MiKS/8w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="h/Ka2vJb";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.43
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010043.outbound.protection.outlook.com [52.101.46.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795167435;
+	b=dUX+3H5qfuQZPH0TOH/Z5pJyABVvWU2iG8zg3H9RZlm5p//u7UKJ33bKv5LY4NaJ9Q3C
+	 RF1U+4/6MzYnh7kfgLUbHi/nvjgfprZdOnGfbgbcEgMu0bQaCvMCrrzIrlek0s2RZLjyD
+	 C6YA+DPqHneQmmqFiySVYJ4eU9ZnghvsoUD9kawYHkd+YIwjm+jyMx4LTqMr0Tfi0ec6Y
+	 n2EIfEYLz6HUaWPDNkqS9BnDkn+yhcIylKHRAmw7XNFLp1aG41vgVdOpxECZF7fMBTW5r
+	 qLW/GQO34rbB/4Q7M+2ozaz31qLLGkxUJfU3vNlAre1BakKeaB6TJEVzzkTvVgH5xHg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795167435;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=MrNarIVU0YX4mWeXh4vyBELTR6sZxtTEz/XfzxTFPVE=;
+	b=bWwmjf0t5h5t+2XNj88UvvN6ESF5h7xVMldzMkOItTJOCTAVUgi9W5UX2LNqxQQaoZ6Q
+	 /T1uFAwA8QHTEMG/GHqJl7dmdsxNBE3/RFlQ01N4vRCjdwtoKCXDXdor+L4XhB8tOvgPZ
+	 bAN/Fn9m5nnWkJ1SbjOg1kJim8A+jN+P1yG3Ov1Yz8udosQGzyJ07XfahgC96yPmv8wWi
+	 qcdQhI0r29Z6wZBdT6UoA04cYwsYXnddkZp7nN8lQIO20K/I+yY+XRuDCK4IQs40bbfcU
+	 aO5gT8YOVpoyBmvtET1lD92t2EZ3PQywqyYNBAW6g2sHygiTqCTtS/jgUMkoidVgEqQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bz8Zhy4w;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB846606A325;
-	Fri, 20 Nov 2026 09:33:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB846606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86757606A33D;
+	Fri, 20 Nov 2026 09:37:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86757606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=h/Ka2vJb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xJb9XUOBSyRF7CO/KdRoRyAHv7cW28zwPsYmqTnbYL04gXGP5EQT93frzhtbCUUrjgPZGYZXUR0ZPtxK6CSbKdp3cLJ091NqR9lgBMKzMklAhT220pJsOaiQsF4xV1yGSSR6vz7/4UnTOKGk+Wr4Fu7Q08Y2gmMpYhhu145GUB+p+AG1TebwDIIn1xRMsBj15auuxrgrNf2KF5y4Qm/fzDELK3HH5ER2GBoApfCU/WTaaJrvmIRyWlMAifOTHc9VDKdpkk0t9BUbZtompgpjN+kD7JFlqsNtvXWltJz0sMUqziUTH4phEyVfkf8Sf7GDxG5riZZ0Gv0Vk3bCxs+yUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f46fSWsQEpET4J8APD1E1HzLj2/b8klFa+7cub+C8ys=;
- b=OYscwwbwNZaiBbOvHy1DCmEQBps9RSJ7XE4FmF41qbGzj1B7qSTEwIeaTk310dWqeq9XIVJkKSePFSksQ9Oq5BWtFYAvCRLk1h/Nb2FRzUsEstnU4GXnhi98zG50ORpBPJKh2FUw2zHPIyjNr39koQ6rmyCWAbLhLpn6WwCiTryr2Tv8A1ZQXRk89hODwAQIsPVc5Yd1+fJSWtwY7uHb8iyz4pPv7Uqb+m1ZuJxQXLAstW+I/doyMG485OaDjUppypAWhmBkZyclCNI2rzRsrWkWvBKOjJ13RlDbn25H6vJEzAnWhV2dTBUk4C3dylqYd+oyf9aFl7H1cTJKPOBeLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f46fSWsQEpET4J8APD1E1HzLj2/b8klFa+7cub+C8ys=;
- b=h/Ka2vJbA6NT0K0zUxXqQ8V2mMvY5DPntODKnGw3UIgDVkuMSSepCer97VRSVJ8lFUAiLcCwAaLi1iHvx12+CrUzCx8WhjA0e+fgfeqvEKhJmhvKhOkorsJISE84a94wpPeuLTJrb402+bjmDCrL0y/Ti45sOPyNkin4hhXdDvE=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY8PR12MB7194.namprd12.prod.outlook.com (2603:10b6:930:5a::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 20 Nov
- 2026 09:33:34 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
- 09:33:34 +0000
-Message-ID: <1505a605-a5ba-4fed-bc91-89177faee4a0@amd.com>
-Date: Fri, 20 Nov 2026 10:33:25 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dma-buf/dma-fence: Ensure correct ordering in
- dma_fence_timestamp()
-To: Philipp Stanner <phasta@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Chris Wilson <chris@chris-wilson.co.uk>, Danilo Krummrich <dakr@kernel.org>,
- Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- "Paul E . McKenney" <paulmck@kernel.org>, Yunxiang Li <Yunxiang.Li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261119131830.2535266-2-phasta@kernel.org>
- <20261119131830.2535266-3-phasta@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261119131830.2535266-3-phasta@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0085.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::12) To SJ0PR12MB5673.namprd12.prod.outlook.com
- (2603:10b6:a03:42b::13)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bz8Zhy4w
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795167435; x=1826703435;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rlHqRw8hS+FTCGK5Viu7WJ5pApqs6rhAMq0KeFmr74A=;
+  b=Bz8Zhy4woSNtdWIH+npdZxZew+v+WCLQ5bzMRCk+J0Sfm0qbn1fpXVaP
+   0y9wawGc9JYq3fIX3uzQjkh6AFzPoC3fp99/h6n8X/Ux4NyWJqUUrHX1J
+   QSXItMuzajKTalkIB5QCg1cepHR8d+UiyOoL1JdcNwY/Sol/T3j6S6KfM
+   wKag8nMcvKS26fftuQoAU4diejnwJegVYME5hNQQkt4K7XyQpqJyqA02J
+   wA/nXjMeMTa0urS9xFNOOFbGUurT4Esv64/TkWxL1Hu+PXkMkLL1xJa5C
+   J83lX0JgYmmOJ57d5KvMyE8VRk5b6KdenAGV590x9dDrFiTCS6C1y0gzw
+   w==;
+X-CSE-ConnectionGUID: Dka6nkWsQpCXkuopLNWGDw==
+X-CSE-MsgGUID: MVateqPURN+/wGbERm3K2A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3934024"
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
+   d="scan'208";a="3934024"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 01:37:14 -0800
+X-CSE-ConnectionGUID: UMEumKBHSk6L3a6qHfAsPQ==
+X-CSE-MsgGUID: E2Xk2eg7QCu/USZPLDoWiA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
+   d="scan'208";a="11092297"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.253])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 01:37:12 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id B3854121B99;
+	Fri, 20 Nov 2026 11:37:10 +0200 (EET)
+Date: Fri, 20 Nov 2026 11:37:10 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Marco Ziliani <rylos78@gmail.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, Chris Simpson <chris@nilk.net>,
+	Tony Garcia <tony@loafecho.com>,
+	Simon Kruse <simon0x+git@proton.me>,
+	"D. Manresa" <dmanresa@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] media: i2c: ov5693: Program the mode registers on
+ stream start
+Message-ID: <awAUxukyHCqtABs_@kekkonen.localdomain>
+References: <20261029-ov5693-fixes-v2-0-2526d7b13030@gmail.com>
+ <20261029-ov5693-fixes-v2-1-2526d7b13030@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -109,122 +88,73 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB7194:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ed25bb2-748e-4853-7d9a-08df46e95857
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|261102123227099003|261026140227099003|261026121527099003|11063799006|261028144727099003|261022105027099003|261021123027099003|261021121427099003|921020|56012099006|4143699003|10067099003|18002099003|261009223027099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	4jVJsdCKGMU/SsMNhHFOwdhSRB4bpMqL7isz3OLMzLn8h1cdt7K0258TyeD4yTbPFKWoXM/LtwNWD6iJa4hwhPQUyMWf+rPaWc7oznDH8LKkh3q/dbuK0JJcgdmUTpW1jVEB9bukNx7kQX7K6wtVI7Zp6jL8ATFFbkSxmQlbOC7Ove/4BzlL83q5cHUAiwq9oBVcwokFQGAOneZK30jeDMRupE2F9DfeJH1QsZWHJxOduvxlPzS2R5TDuNbcsAIHuohyfFEWGPcuaCgFWasWoQl4JZXVkl6Mgw5i3GkR4BroUBawpOnMSXfgL7HeGsKYm1scEIHXsLIonsw5vX0HSE4tfYhrTeA1CSUS443LNWfoNXznJz4N5lRsw8KSQgoxoYlTelTLJ4Z1RzGmBXxrFONWfOu45h0LEVZtK0Ctp+1IGsl+H3sTEj1cFHySXRiijDQcRTyv1dRy1vOudkEYrScpaSep8fHK2kaoeGJTr91nyJNTLguG1mhT4j9dWUWG7kSD50oZv4bU9J0xO/bTHMduSRcW+L4NQdwbzGPcq9LXCp8EaWnYvR8HGWzF5Eg5c3vwR5CpX4mGFnbukqYDdQw6bnlpTjoRNQX62czN7Qoed5gdxNsUIDwvrEAmzyd4P0UaWtKHW0ybcxihNk26veXvwub0bnDqdIbDnO267Xs3EmQasyw0+MAI1RHbCujghcnOoNt4Gz0DjqgJM3OINA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261102123227099003)(261026140227099003)(261026121527099003)(11063799006)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003)(921020)(56012099006)(4143699003)(10067099003)(18002099003)(261009223027099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bUF4NDdxYmJQZVdPaFJkMjlYMVdBS0wyZ1ozSFRnRmU4c1FvZkc0Y0pDMEJk?=
- =?utf-8?B?bUJtWDBxSWhjeGh4WG8yMjdkblpNd1d1eTJXUUZYYUxyWDI5YVZQWTVOZzNU?=
- =?utf-8?B?U2cvNUtTTmhqZ3VMZlA1OUEwblgyOXFkN25yajVHNU9SZXlzeHpwdmFZeWtx?=
- =?utf-8?B?bVRhWk9WaEduVnY2a1dLMDZFOXJFbTVKYzdKV2VZNEl6VTJKWXpvajVldXIw?=
- =?utf-8?B?NE1nZXBFaTcvTEJ1WUlEZ3p6bjgvR2M4TjY3VUJGcEVvT1YydUhzMGxQcHgy?=
- =?utf-8?B?OE5CbXlOVGlvRUh3bWJiUmJlUXEySDdMU2VaNm1rai9EZjZnclpKaWt3VUZu?=
- =?utf-8?B?UnVHUTFkTmxjUzgzdWhEOVhFVnhVT21EOCtaUVpjMDR5U0F5K1g0UjdZSFVv?=
- =?utf-8?B?UlUwZ25CZ0RxendDTUZ3VVJvSTNGWXI4T0pVbG9RdUFNbGFZdE5IajNNdUNJ?=
- =?utf-8?B?ZFZKbFpoTlhpQ1FvWVB5Y1QzN01sQmdzL2owOVhLVTAxZmt1cUZDcnYyZURv?=
- =?utf-8?B?MlFibDUxN1FiNmxOWVc1aC9xaUZQNVZOZ2pZOVptY21SQWppdmcvZVE4UDJC?=
- =?utf-8?B?VTJwRDhScnpFcm4rWVRWeEo3S2JkeDByM0JyWE9ZM2VJaUJJM2lCVWhvdmhT?=
- =?utf-8?B?YWJQYUwzRjhoY1NhYU1HbHk4azdEc2VCRHFGU3J2d2RpVjloYzRQa003WW1D?=
- =?utf-8?B?eGJaU1ZYNjB1b2pralU1Z1VEVTR2eTVYbUJvbGRZcUhneGE3d0JjaWt4VFBK?=
- =?utf-8?B?U2pEWTNLd3htM3J3bTg3TzF5SnBXcGkrZUNnQURMNXFNTVduZEFFN1BPbitR?=
- =?utf-8?B?bndMR0ZZakovRDRnMDU2UkkyaGNvYjRQM0FxaHI5RSthb2FSc1dIRDRESFln?=
- =?utf-8?B?UkxEMTVMOHVuSFdCMWFDSllRQmpJdDBKRkVmSU5ERVAvYzI1R0lDYzRxUmlY?=
- =?utf-8?B?Vlh1T0hMZjlLU2RZaHFncjJBYkcxblBsYlZEWDRFSWk3NFhhS3gweGRzOHpV?=
- =?utf-8?B?WnplNXlUVmpXUmh0eGZnN1pqMUxWeDZrWFVHQUZIV0tiRk9RamhzSEhOb2pC?=
- =?utf-8?B?d3FqM3hzNHFxOHNIR1dQTkJpSXhxZjZBdTMrTFdjZ2RvSCtYUG84aG40Vkh4?=
- =?utf-8?B?NzIwWEJnalhDMEdUbTFhdzZzUjNIN1NPV0YrLzNLT3VhYnVMWDRyV2dyUXhv?=
- =?utf-8?B?ais2Nlh2WjhyWkl3cVlNQUIxT25DVWlGMnF1YjIzOS9lR0YzMnNGT1BtN2xI?=
- =?utf-8?B?SlJEMWF2ejh6cXVWS1pPUTdEMnJ2Ymxqd01XZW5Hai9EQnIwdERXRmFMemN6?=
- =?utf-8?B?VzBONlQ2b0xSOTVOK0FraEUvdGRWWmxsMTE0eXRhNnBFUDNsM1VLdjBSaDFt?=
- =?utf-8?B?SUV3RDR1Q0FicDdjd29KK1AzZ2VmYVhlVVlWSUo2Q21uNCs2clNucHpEYUl5?=
- =?utf-8?B?amQ3VlRNRFkvM0VGUituOHRxMXI3a1FOSFQ1dVNEdCtRUk5pSXlXZ1lVODdQ?=
- =?utf-8?B?WXJnK1pMUnl3SVc2dklUZXlvSjB1RWJ0K09KcktRUm9mWk1lWHNUS1pJWEpR?=
- =?utf-8?B?ZkxEM3MrSTlXbGZJN2Ntaml0cWE4WFh0NVlBUXVFdDlPeERlYVlhZGdOL3gr?=
- =?utf-8?B?aUp2TCsxQitwWVNoNzZjbGFiaEE3Qkk1b1FhQ1hGMTE5eGJLV2I4V1U1Sk4y?=
- =?utf-8?B?Zi80RUZ0MXRsNGw2SGp3dkprb1liTnBZRC9Da1A0YXZUQjlocDI3cDZGN1BQ?=
- =?utf-8?B?TEZXMGUvbkErRVVCTXVIRlY5dlEwVzR2S1NRei9PZDhKL2FHT0gwRS8xVXBi?=
- =?utf-8?B?SVovMkpCQ01kODdoZWR0eDZOSFRIMFJvcGJBRXZKNnFNbzB3bmtmTWl3b0R1?=
- =?utf-8?B?N2hlUHNTcXprM0lqSlpuQUZxdktzaExDS0trK1ZyRGJUQW05WkdzTnhKcndO?=
- =?utf-8?B?Tlp0OWQzbExqalFUT3RtN3NpcE0vVWlFcjgvcm5Lck51QTJRRVp4a2NhaU1h?=
- =?utf-8?B?NEpBUWpqR0tXL05QZytIM0RnU2FEMnJadTZpdU5EakhHQjIxUDdoTmRYWU4x?=
- =?utf-8?B?SG5UTFNIR2RPeEw0dENmK0swamswdFJpNS9SMlRYelFQU2d3UTFPdmNXSVZT?=
- =?utf-8?B?bDQreW8wbkpXeUVlVFRyMFBoT0RlNXBRdW1VNCt5WU42TUVmeVMxdndla3Rx?=
- =?utf-8?B?SWVHT1lWUVJ5amFOWUFGRGdsbnovMHBuWkNuOFBNNlRhQjVDOUlHdWpYRDly?=
- =?utf-8?B?MVZBZ2xYdnhOby9sSkpUMGgzWG1sNVBDWmFYZGZXaEZiZVpvemNHNzUyT3FY?=
- =?utf-8?Q?5X44sRK4MWPrrbB2Sv?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ed25bb2-748e-4853-7d9a-08df46e95857
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 09:33:33.9391
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ta8hqCHJ7rW6/hi5UUogq57SEoq1VC5RyqtYCtr57asvzIIBlCoHL84aQJZH6AFL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7194
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-ov5693-fixes-v2-1-2526d7b13030@gmail.com>
 
-On 11/19/26 14:18, Philipp Stanner wrote:
-> dma_fence_timestamp() tests two fence flags with test_bit(), not
-> providing any ordering.
+Hi Marco,
+
+On Thu, Oct 29, 2026 at 10:27:52AM +0100, Marco Ziliani wrote:
+> ov5693_mode_configure() is only called from the runtime PM resume path,
+> through ov5693_sensor_init(). If the sensor stays powered between two
+> streams with different modes, the settings for the second mode are never
+> written to the hardware.
 > 
-> The while loop + cpu_relax() seem to satisfy the desire to avoid
-> locking, effectively rebuilding a locks spinning behavior in the rare
-> case that a fence is signaling right now. Contrary to proper locking,
-> however, correct memory ordering is not guaranteed.
+> Move the call from ov5693_sensor_init() to ov5693_s_stream(), before the
+> controls are applied, so that the mode is written on every stream start.
 > 
-> Ensure correct ordering with locking.
-
-My words when I tried to clean that up the first time: "Another alternative would be to grab the spinlock when that happens."
-
-I don't remember the story why the busy loop was used and can't see any reasons why it wasn't done this way in the first place.
-
-But my suggestion is to completely drop the DMA_FENCE_FLAG_TIMESTAMP_BIT as well. As far as I can tell that was only added as indicator that the timestamp is set, but we do that now for all fences anyway.
-
-Regards,
-Christian.
-
-> Cc: stable@vger.kernel.org
-> Fixes: b83ce9cb4a46 ("dma-buf: add dma_fence_timestamp helper")
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> Fixes: 89aef879cb53 ("media: i2c: Add support for ov5693 sensor")
+> Link: https://github.com/linux-surface/kernel/pull/181
+> Signed-off-by: Marco Ziliani <rylos78@gmail.com>
 > ---
->  include/linux/dma-fence.h | 14 +++++++++-----
->  1 file changed, 9 insertions(+), 5 deletions(-)
+>  drivers/media/i2c/ov5693.c | 18 +++++++++++++-----
+>  1 file changed, 13 insertions(+), 5 deletions(-)
 > 
-> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> index dd07d128adc3..34aefb63a7fe 100644
-> --- a/include/linux/dma-fence.h
-> +++ b/include/linux/dma-fence.h
-> @@ -708,13 +708,17 @@ static inline void dma_fence_set_error(struct dma_fence *fence,
->   */
->  static inline ktime_t dma_fence_timestamp(struct dma_fence *fence)
->  {
-> -	if (WARN_ON(!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)))
-> -		return ktime_get();
-> +	unsigned long flags;
-> +	ktime_t ret;
+> diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
+> index 56599f9ca..d09095c3e 100644
+> --- a/drivers/media/i2c/ov5693.c
+> +++ b/drivers/media/i2c/ov5693.c
+> @@ -663,11 +663,6 @@ static int ov5693_sensor_init(struct ov5693_device *ov5693)
+>  		return dev_err_probe(ov5693->dev, ret,
+>  				     "global settings error\n");
 >  
-> -	while (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags))
-> -		cpu_relax();
-> +	dma_fence_lock_irqsave(fence, flags);
-> +	if (WARN_ON(!dma_fence_test_signaled_flag(fence)))
-> +		ret = ktime_get();
-> +	else
-> +		ret = fence->timestamp;
-> +	dma_fence_unlock_irqrestore(fence, flags);
+> -	ret = ov5693_mode_configure(ov5693);
+> -	if (ret)
+> -		return dev_err_probe(ov5693->dev, ret,
+> -				     "mode configure error\n");
+> -
+>  	ret = ov5693_enable_streaming(ov5693, false);
+>  	if (ret)
+>  		dev_err(ov5693->dev, "stop streaming error\n");
+> @@ -1000,6 +995,19 @@ static int ov5693_s_stream(struct v4l2_subdev *sd, int enable)
+>  			return ret;
 >  
-> -	return fence->timestamp;
-> +	return ret;
->  }
->  
->  signed long dma_fence_wait_timeout(struct dma_fence *,
+>  		mutex_lock(&ov5693->lock);
+> +
+> +		/*
+> +		 * Program the mode on every stream start, so that a format
+> +		 * change also reaches a sensor that stayed powered since the
+> +		 * previous stream, and before the controls so that the mode
+> +		 * registers don't clobber them.
+> +		 */
 
+This doesn't seem quite right. The static register list should be written
+on power-on and the rest when they change. Also there shouldn't be overlap
+between the register list and the registers programmatically determined by
+the driver.
+
+> +		ret = ov5693_mode_configure(ov5693);
+> +		if (ret) {
+> +			mutex_unlock(&ov5693->lock);
+> +			goto err_power_down;
+> +		}
+> +
+>  		ret = __v4l2_ctrl_handler_setup(&ov5693->ctrls.handler);
+>  		if (ret) {
+>  			mutex_unlock(&ov5693->lock);
+> 
+
+-- 
+Regards,
+
+Sakari Ailus
