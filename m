@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795209388;
-	b=2h9nrArF+BUPPrPkjzmnfnJ1/yi2GH0T8u/5znuVjymPn0j+KbzSyuuO4VR/2lhNR3eR
-	 6eaXkVRJv3ejgNC23C3tzlrdEbsL7a2mJ9AU6REOcuMxHDZFs+L1TCmnvNl8Vc2V7IRUP
-	 pq0wBNBGJuGxxPZx7Ye79+VKQj3S/odcqcJhEtsIfV4TeWmrKAV8GRhy9zyo+gi7JHBV9
-	 hTixCVuW4NWbtul2ydyzntGHvEuGI/ux0E+hnlH1kkYwcHwumcEeBcVhe4y7eVUcR90Cj
-	 LRjH5g+clxIDyuopsqc9rdgYoUcJ6weE9y9/xJ5KvM1MGisJozGeO1O+s7cxnGzst2g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795209388;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=d7+mHRTo6mgB6YljCC8xTp3hfMCWQo1jCyRlofOJKI4=;
-	b=qnjPSlNf0mVptj+gdZFVgbFD6ZGLN8Fp0iAEqP6EWMmUvr2kdXVi3mABKYBD5vfOB6aC
-	 my66Ye8O6YWz8v6mqQYbDW/rTA4grFuj1uaI97bisCHH7R+0nicw4qE5xL06Q/m6cVADF
-	 tT38pAlmrrUcArqxqWv07mryLn71PPwQfLuigYiRxUEXNsdGRcoTOub6SznlS1eGHpKla
-	 GcV1ZbAe2/dqyJYmwDFhLBfuV5SdHGvuTmSmPrZxDmCbj7bsptS/kcyWDbYbd+Nk6M6EV
-	 KVHEsJLB60+8mLyC0oVxKrfads+6jnQITzU01fsX3KXMFxkwopm1ymkD2uvUJBxucOA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q0ezxby9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.177
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795209504;
+	b=jjs0JKs68Dvz1VM2qADB3k8AU7vXqH8FbvQo6RITbskNrs5OfPwhaAyFOUbJLVvtGY1r
+	 PET9ox9yYUA7uPEx/4ubQHhTWaBMs6S4wtEoFGJVWvXpNzFn7rIRdoYWh4JpJxef/K27h
+	 enx8zI0EjsNRPdKfVsy/EF5x+85O8syHgV3iXH4F7kj1l0JDEDhIIB0tVye7LJ3h/T7Ma
+	 scMP3p9umkgxnTHGwqzH8Ecn7Ig5kHSZJprFu3voobzD9deatuTbQh4u9DtgKXAlUF7OU
+	 JXSA367FCLQJwNFXvhLxRGmACrp8cNHmuQ28nKIEDrCt8neqtve9/admBmPq7nWrcLg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795209504;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=wjd64Or23nw/KUsVntyuyIfn77R+aFtaF7PwFr5d/Ws=;
+	b=BrRlPukrs+OAJKj70ABYix4Fm2ZH7rZAzq+PLm2zvfwpSUYzUS+DlAyUULAgnvebvZfE
+	 IbVvKbTPY02TepfZMF5nf8MZGeoy73W5vM5wAq+O6xRw5hb8fCwtXH+UhRDK7YzzZH3OL
+	 vSg09OOlNO6oxbN/t2HL0ZEL/dFpt2A9evYI82NSombVq655Ydv4hS9z99SXAdfOy47M2
+	 jGzQtxhJXmBgZBuSSSEQgiWELatKd7gWNPTR9f6fXZSq1YxlmAkXS7i73nQXiKCYqdiTv
+	 ncLJotXuQvE9SWnZ2No0i03T/ooyJ5k8FdmdHpWazgJ4jrdklgLWoahbt3bvxRci5qQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hiHbLGgf;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F48606A33C
-	for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 21:16:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3F48606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F258B606A689;
+	Fri, 20 Nov 2026 21:18:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F258B606A689
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q0ezxby9
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ad0102edd4so12584811fa.1
-        for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 13:16:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795209384; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TTSox+gXvF07zG4xfgDA6Boa6FfiEISInVJMa0hxadPkZQiCmMOVQPu7FoJ5omiK1M
-         s4PdlPdwIfu7Khrh36oGHrPLcSyaKM26hWoNUWVwFk1UM87J+nJb5a5SrY/hbKRmWNrU
-         1d9VnaPAX37EaIDYmvg5164efoYAs7Os1+bE60NYAWbfsQR7uDJFHSJZ31JuJgpgFHi8
-         xh/i9rM4iRmhvBoZn6ACp/ZUSWTK6nc4fa1PU+M27p1Cjf/qcsJCmkQxmF8bugfiuWWI
-         tM73BRZVY/ZpBULPq0ynf+Rs4TmkDo8i/iDHgpkorwCU4i9ZQ85vENSwrF2korgVE39X
-         Nonw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=d7+mHRTo6mgB6YljCC8xTp3hfMCWQo1jCyRlofOJKI4=;
-        fh=1mS8dTGKuxTmwO2rAyDAsYk9mjAzJVZQ6AaP61FBd4Q=;
-        b=RT2WZF6qAvs6ygzHQqPPrVmWmNAe+pLQMUV4uG1dnZpCfUFY+iCPPWaTdtXp67vICP
-         nbqPO/qDRlfOXLVhdUboa1xQqGxJ4Myh8viJSwmNgxiBwkEdQhNoxI4e+bTkI9x5WMIN
-         N9CFZp2V8FFB84ND9V/8rADuA8ZT5cAUxLd9tqS2KIqb9lOLP/u/vhLioBVgjQZr3fq/
-         pwT2+QZKA4n8/WbiqvTBC024I+wACGXl3ykVHmCRkR+dbR7gqlsp/+9z/Zq+3mXlZtve
-         6z5uZYYHCQEPUYnvCmHfTOylrdwO+WS0peXFnAJ+h4FO9jzKOdyMvCJOk//O1Px1KCQi
-         Pv4Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795209384; x=1795814184; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d7+mHRTo6mgB6YljCC8xTp3hfMCWQo1jCyRlofOJKI4=;
-        b=q0ezxby914XfUpGLrhzfA6E1/m4QOv5ChuIclloI+bpZwI7pSVyRELveWg3VGGlf8x
-         0ah6sTes6aaFJBTBqrSDmqmK8zeRZLPStCECxFt4dPRObKQN4NTxhbUgf3PGooeUOUoB
-         V5av6Vxqu1RodwnduQCs/LIC06FqUqHLGVoQtRi+YpYNQcegi2LayeGPBGDYKO6k1HUs
-         6RZ1441EVAo+jHUIpmaivLDV9OyMZm0rjt2rU/q4wkvtqqvqzDkPC3MwrwPjX0KgP+16
-         rLdHJKs5CsP5+/40QnppnK2xzVaxqA9fxCMguzrsuioWYq+InT3/FAxG9QpEr4OyP9Bo
-         bKkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795209384; x=1795814184;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d7+mHRTo6mgB6YljCC8xTp3hfMCWQo1jCyRlofOJKI4=;
-        b=aV3ZQ/Yrkk5VuAFWehFUgxltgcwv+8raYPqL2iFpfR2KjoTB0OPKtAy5Ob5idUVHHk
-         pU/qDqrdaBpREOx1GzaJbokg0t8+22YyEwYSDv2lsEBkfdJIV+tZTcpZSEQgCaKClqxl
-         dP8nUGs+sJlk94zvb+WUwHNFBvZrBEFA+p2gKfZ8ElwxL8EM5OaZ66MQQLIlRKKp2FGA
-         9KY2SnGLa/amWtGdmlN+F/J7Rlu20+fPo5CiW3kq0IG8lxyTp7U+8OcXHqrXfpR8nodT
-         Lnf9/5mUhqEEdMk1/b/aXVvN9zW7/28lxs+j58pruevnzYhd8U8vw8jSnf8osf7Mvf2C
-         g8Cg==
-X-Forwarded-Encrypted: i=1; AL+hErH0gbnh7dlyvEujIfnJY43QOdL9+9muaKq1glNnhhkcjI7sw1S6J8s2vseUjFE+aFsUqST6pN1XwK7ziQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fIN6JUgQVqXbDoN77+BSf70s3pHWQBLW09LQbf7ArIeEj+rFd
-	o6s+zvImsl5GUvZgP+G3lLZR/SeEKHwOH20kv0Zm+Ai4rtLuB/g8ilBMPo33ahf931kIGsWs0XG
-	tke94CLn0XcTLv/tPOeVzepWM3pllsTE=
-X-Gm-Gg: AZFdTZeKRHRjzJpLju/klf04OVr2HxQ4GJetI9eQ6EFNfxHcuSgFe7rmHMb0q7GFt0+
-	Heh3/weI7pE3CbXWhGvg9ZVTQuBpz7Adx6zxeTeppmtzENGLkJ6Bk9lcY90ADtYEHGr6KpkDimx
-	0ZMpR8xRqgBYlW1G2VpolSsPzPcHJJxbePMX4Wv1ngHovccdWOtEynWGmS3n9jzCeNMpY58sopg
-	71iJx0uZfD/2XIqva3SF5r7piOByvOMCmgAQgUuq81UKIjkbCiM7ASCMDWNDml/pO3VaDdD0BLR
-	THGbt/pGiuUwo6oKIGjSQNeTJ93wY7XgAHt2YI4JJHqNyYcZN/zRQG2j7KB4mZ8pMmhZSbr9xpv
-	pZVR4/+JheSkkOhNAhJaXeestPDPEk/rfMLV2yhATS60dYW2nb6enJf5+ir/8gYTnvbJa/+mzyI
-	EVwd1KC/ShCEIDtjIagUnrN4LW
-X-Received: by 2002:a05:651c:1595:b0:3ad:f0bb:344c with SMTP id
- 38308e7fff4ca-3ae7f9def47mr12754941fa.10.1795209383639; Fri, 20 Nov 2026
- 13:16:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hiHbLGgf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795209497; x=1826745497;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=VayXO2obERxLTh/FIisCjx2Bi3BpVJ+zEUoxkoWvpiw=;
+  b=hiHbLGgfAwCaRmh097WBjq/Av4qWMW7l8E7mN/mnxu4JnpXwGlAY3IWN
+   1UDSXVsRi4t4tJgX0oBAFGOVX15nmkewy7d3iG7zHpNi88R0pVXA9Mylh
+   q3ZhsFZUpk4jds0POfnGbNWITBKSiOXtQ/fTZEF5rpa5Cl89RSpc/xVsb
+   zNz77CmRcpo0WvoeKgJBVcoirroco7CRhiIKSmaktb9XEe3PMgb2Aq8NQ
+   fQ5+AZUuETPA9xJorBe+dzbUkvx21OAZJBcoO9bcAvw3Ba4y1sYtQ10SF
+   VAfAMPv8GU6i6bPeffqGUF2XluboQs2E5iO/8aNCLQA0zvzEU+52uaRBZ
+   g==;
+X-CSE-ConnectionGUID: bUXx0zq6Tb6hhX24DCMeBw==
+X-CSE-MsgGUID: N31w90kJR+CFzNJBqYyKTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11972"; a="4084722"
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
+   d="scan'208";a="4084722"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 13:18:16 -0800
+X-CSE-ConnectionGUID: BMjj23xJQqSojMr33lja1A==
+X-CSE-MsgGUID: 4yEJNJXHQJ+q7NJzFHpFnA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,223,1787036400"; 
+   d="scan'208";a="11364362"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa010.fm.intel.com with ESMTP; 20 Nov 2026 13:18:10 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xUVzi-00000001Iah-0bcq;
+	Fri, 20 Nov 2026 21:18:06 +0000
+Date: Sat, 21 Nov 2026 05:17:29 +0800
+From: kernel test robot <lkp@intel.com>
+To: Olivier Moysan <olivier.moysan@foss.st.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-sound@vger.kernel.org,
+	Olivier Moysan <olivier.moysan@foss.st.com>
+Subject: Re: [PATCH v2 02/11] iio: adc: stm32-mdf: add core registration
+Message-ID: <202611210514.27XNsKFF-lkp@intel.com>
+References: <20261118-upstream_mdf_v2-v2-2-7939d3c3720a@foss.st.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,159 +104,113 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261004121931.6746-1-festevam@gmail.com> <20261004121931.6746-2-festevam@gmail.com>
-In-Reply-To: <20261004121931.6746-2-festevam@gmail.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Fri, 20 Nov 2026 18:16:12 -0300
-X-Gm-Features: Aa3M54oHDOEQ22OODjmPc2GutyOvkFljPYhxfBAHn2qECiQinM-o8DAEKa4qfsg
-Message-ID: <CAOMZO5DFgk66C=+eNepzWwrNHa-t8KQ47wstPZRGW+tf548rOQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] media: rc: Add keymap for Ruwido Z3 RC-34 remote
-To: sean@mess.org
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Fabio Estevam <festevam@nabladev.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261118-upstream_mdf_v2-v2-2-7939d3c3720a@foss.st.com>
 
-Hi Sean,
+Hi Olivier,
 
-On Sun, Oct 4, 2026 at 9:19=E2=80=AFAM Fabio Estevam <festevam@gmail.com> w=
-rote:
->
-> From: Fabio Estevam <festevam@nabladev.com>
->
-> Add keymap for the Ruwido Z3 RC-34 remote control.
->
-> Signed-off-by: Fabio Estevam <festevam@nabladev.com>
-> ---
-> Changes since v2:
-> - None.
+kernel test robot noticed the following build warnings:
 
-A gentle ping.
+[auto build test WARNING on d922ed738439e1d5b4701df7f4cdd49a09925624]
 
->
-> Changes since v1:
-> - Use RC_PROTO_NECX. (Sean)
-> - Use media prefix in the Subject.
->
->  drivers/media/rc/keymaps/Makefile             |  1 +
->  .../media/rc/keymaps/rc-nec-ruwido-z3-rc34.c  | 80 +++++++++++++++++++
->  include/media/rc-map.h                        |  1 +
->  3 files changed, 82 insertions(+)
->  create mode 100644 drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c
->
-> diff --git a/drivers/media/rc/keymaps/Makefile b/drivers/media/rc/keymaps=
-/Makefile
-> index 38b84e34b225..525d203c0a94 100644
-> --- a/drivers/media/rc/keymaps/Makefile
-> +++ b/drivers/media/rc/keymaps/Makefile
-> @@ -86,6 +86,7 @@ obj-$(CONFIG_RC_MAP) +=3D \
->                         rc-msi-tvanywhere-plus.o \
->                         rc-mygica-utv3.o \
->                         rc-nebula.o \
-> +                       rc-nec-ruwido-z3-rc34.o \
->                         rc-nec-terratec-cinergy-xs.o \
->                         rc-norwood.o \
->                         rc-npgtech.o \
-> diff --git a/drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c b/drivers/m=
-edia/rc/keymaps/rc-nec-ruwido-z3-rc34.c
-> new file mode 100644
-> index 000000000000..8a090772446d
-> --- /dev/null
-> +++ b/drivers/media/rc/keymaps/rc-nec-ruwido-z3-rc34.c
-> @@ -0,0 +1,80 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +//
-> +// Keytable for the Ruwido Z3 RC-34 remote
-> +
-> +#include <media/rc-map.h>
-> +#include <linux/module.h>
-> +
-> +static struct rc_map_table nec_ruwido_z3_rc34[] =3D {
-> +       /* Ruwido Z3 RC-34, NECX address 0xe310 */
-> +       { 0xe3100f, KEY_POWER },
-> +       { 0xe31016, KEY_MENU },
-> +       { 0xe3100a, KEY_UP },
-> +       { 0xe3100b, KEY_DOWN },
-> +       { 0xe3100d, KEY_LEFT },
-> +       { 0xe3100c, KEY_RIGHT },
-> +       { 0xe31019, KEY_OK },
-> +       { 0xe3106a, KEY_BACK },
-> +       { 0xe31033, KEY_INFO },
-> +       { 0xe31066, KEY_DISPLAYTOGGLE },
-> +       { 0xe3101a, KEY_VOLUMEUP },
-> +       { 0xe31010, KEY_VOLUMEDOWN },
-> +       { 0xe31013, KEY_MUTE },
-> +       { 0xe31032, KEY_CHANNELUP },
-> +       { 0xe31031, KEY_CHANNELDOWN },
-> +       { 0xe31069, KEY_HP },
-> +       { 0xe31000, KEY_NUMERIC_1 },
-> +       { 0xe31001, KEY_NUMERIC_2 },
-> +       { 0xe31002, KEY_NUMERIC_3 },
-> +       { 0xe31003, KEY_NUMERIC_4 },
-> +       { 0xe31004, KEY_NUMERIC_5 },
-> +       { 0xe31005, KEY_NUMERIC_6 },
-> +       { 0xe31006, KEY_NUMERIC_7 },
-> +       { 0xe31007, KEY_NUMERIC_8 },
-> +       { 0xe31008, KEY_NUMERIC_9 },
-> +       { 0xe31030, KEY_NUMERIC_0 },
-> +       { 0xe31065, KEY_RED },
-> +       { 0xe31063, KEY_GREEN },
-> +       { 0xe31064, KEY_YELLOW },
-> +       { 0xe3106b, KEY_OPTION },
-> +       { 0xe31050, KEY_PLAY },
-> +       { 0xe31057, KEY_REWIND },
-> +       { 0xe31058, KEY_FASTFORWARD },
-> +       { 0xe31060, KEY_PROG1 },
-> +       { 0xe31061, KEY_PROG2 },
-> +       { 0xe31062, KEY_PROG3 },
-> +
-> +       /* RC-34 remote volume keys */
-> +       { 0x3506, KEY_VOLUMEUP },
-> +       { 0x3507, KEY_VOLUMEDOWN },
-> +
-> +       /* McIntosh HR070 remote volume keys */
-> +       { 0xca5542, KEY_VOLUMEUP },
-> +       { 0xca5543, KEY_VOLUMEDOWN },
-> +};
-> +
-> +static struct rc_map_list nec_ruwido_z3_rc34_map =3D {
-> +       .map =3D {
-> +               .scan     =3D nec_ruwido_z3_rc34,
-> +               .size     =3D ARRAY_SIZE(nec_ruwido_z3_rc34),
-> +               .rc_proto =3D RC_PROTO_NECX,
-> +               .name     =3D RC_MAP_NEC_RUWIDO_Z3_RC34,
-> +       }
-> +};
-> +
-> +static int __init init_rc_map_nec_ruwido_z3_rc34(void)
-> +{
-> +       return rc_map_register(&nec_ruwido_z3_rc34_map);
-> +}
-> +
-> +static void __exit exit_rc_map_nec_ruwido_z3_rc34(void)
-> +{
-> +       rc_map_unregister(&nec_ruwido_z3_rc34_map);
-> +}
-> +
-> +module_init(init_rc_map_nec_ruwido_z3_rc34)
-> +module_exit(exit_rc_map_nec_ruwido_z3_rc34)
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Fabio Estevam <festevam@gmail.com>");
-> +MODULE_DESCRIPTION("Ruwido Z3 RC-34 remote keytable");
-> diff --git a/include/media/rc-map.h b/include/media/rc-map.h
-> index f167c37179c8..290919a7247e 100644
-> --- a/include/media/rc-map.h
-> +++ b/include/media/rc-map.h
-> @@ -289,6 +289,7 @@ struct rc_map *rc_map_get(const char *name);
->  #define RC_MAP_MSI_TVANYWHERE_PLUS       "rc-msi-tvanywhere-plus"
->  #define RC_MAP_MYGICA_UTV3               "rc-mygica-utv3"
->  #define RC_MAP_NEBULA                    "rc-nebula"
-> +#define RC_MAP_NEC_RUWIDO_Z3_RC34        "rc-nec-ruwido-z3-rc34"
->  #define RC_MAP_NEC_TERRATEC_CINERGY_XS   "rc-nec-terratec-cinergy-xs"
->  #define RC_MAP_NORWOOD                   "rc-norwood"
->  #define RC_MAP_NPGTECH                   "rc-npgtech"
-> --
-> 2.43.0
->
+url:    https://github.com/intel-lab-lkp/linux/commits/Olivier-Moysan/dt-bindings-iio-adc-add-stm32mp2-mdf-filter/20261118-161746
+base:   d922ed738439e1d5b4701df7f4cdd49a09925624
+patch link:    https://lore.kernel.org/r/20261118-upstream_mdf_v2-v2-2-7939d3c3720a%40foss.st.com
+patch subject: [PATCH v2 02/11] iio: adc: stm32-mdf: add core registration
+config: csky-allmodconfig (https://download.01.org/0day-ci/archive/20261121/202611210514.27XNsKFF-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261121/202611210514.27XNsKFF-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611210514.27XNsKFF-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/iio/adc/stm32-mdf-core.c:447:12: warning: 'stm32_mdf_core_runtime_resume' defined but not used [-Wunused-function]
+     447 | static int stm32_mdf_core_runtime_resume(struct device *dev)
+         |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/iio/adc/stm32-mdf-core.c:442:12: warning: 'stm32_mdf_core_runtime_suspend' defined but not used [-Wunused-function]
+     442 | static int stm32_mdf_core_runtime_suspend(struct device *dev)
+         |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/iio/adc/stm32-mdf-core.c:407:12: warning: 'stm32_mdf_core_resume' defined but not used [-Wunused-function]
+     407 | static int stm32_mdf_core_resume(struct device *dev)
+         |            ^~~~~~~~~~~~~~~~~~~~~
+>> drivers/iio/adc/stm32-mdf-core.c:388:12: warning: 'stm32_mdf_core_suspend' defined but not used [-Wunused-function]
+     388 | static int stm32_mdf_core_suspend(struct device *dev)
+         |            ^~~~~~~~~~~~~~~~~~~~~~
+
+
+vim +/stm32_mdf_core_runtime_resume +447 drivers/iio/adc/stm32-mdf-core.c
+
+   387	
+ > 388	static int stm32_mdf_core_suspend(struct device *dev)
+   389	{
+   390		struct stm32_mdf *mdf = dev_get_drvdata(dev);
+   391		struct stm32_mdf_priv *priv = to_stm32_mdf_priv(mdf);
+   392		int ret;
+   393	
+   394		ret = pm_runtime_force_suspend(dev);
+   395		if (ret)
+   396			return ret;
+   397	
+   398		regcache_cache_only(priv->regmap, true);
+   399		regcache_mark_dirty(priv->regmap);
+   400	
+   401		/* Balance regmap_mmio_attach_clk() clk_prepare() */
+   402		clk_unprepare(priv->kclk);
+   403	
+   404		return pinctrl_pm_select_sleep_state(dev);
+   405	}
+   406	
+ > 407	static int stm32_mdf_core_resume(struct device *dev)
+   408	{
+   409		struct stm32_mdf *mdf = dev_get_drvdata(dev);
+   410		struct stm32_mdf_priv *priv = to_stm32_mdf_priv(mdf);
+   411		int ret;
+   412	
+   413		ret = pinctrl_pm_select_default_state(dev);
+   414		if (ret) {
+   415			dev_err(dev, "Failed to set pins default state: %d\n", ret);
+   416			return ret;
+   417		}
+   418	
+   419		ret = clk_prepare(priv->kclk);
+   420		if (ret) {
+   421			dev_err(dev, "Failed to prepare kernel clock: %d\n", ret);
+   422			goto err_clk;
+   423		}
+   424	
+   425		regcache_cache_only(priv->regmap, false);
+   426		ret = regcache_sync(priv->regmap);
+   427		if (ret) {
+   428			dev_err(dev, "Failed to sync cache: %d\n", ret);
+   429			goto err_cache;
+   430		}
+   431	
+   432		return pm_runtime_force_resume(dev);
+   433	
+   434	err_cache:
+   435		clk_unprepare(priv->kclk);
+   436	err_clk:
+   437		pinctrl_pm_select_sleep_state(dev);
+   438	
+   439		return ret;
+   440	}
+   441	
+ > 442	static int stm32_mdf_core_runtime_suspend(struct device *dev)
+   443	{
+   444		return 0;
+   445	}
+   446	
+ > 447	static int stm32_mdf_core_runtime_resume(struct device *dev)
+   448	{
+   449		return 0;
+   450	}
+   451	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
