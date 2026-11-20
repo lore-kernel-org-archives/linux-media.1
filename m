@@ -1,113 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795207908;
-	b=EKLMznuHXYF8KOe5Fw6R6omEQyD4DgnISGujQxniA75hXhOxIzVUzeqlV0yyDbStszGT
-	 iQ6AvH+xj3CGXviGsjMWdhRpSbbA+wzB7lCmWQ0DiojoB1gWK5QMxta59Z/ct8VrWnGFr
-	 sLYq2zRGLds6mDZxbzqu601IkyuveWQTqgn+IZZNmhvxKXWkhuibqAqBh/sunA00CjKKn
-	 Cof6Iv35Go6yan3dE9dCym1D1yz4AiJAdstG3Y8QjsRWNVWT/ysLcjLH00ATXCkgyijl1
-	 imrH8OdXCkfUQd8zR0yqsiQxL/NqploPLFetlBmFeMm/+1pT9/SPv+XiMnhfPLv/MZA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795207908;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=U820FuiJk8PT3EN3MqNrdqNmsP/q5hz3h1B6G6YSSPg=;
-	b=QiPzuI6smq4zrJDEerwtAmxyy80EmLO22pz/7raTIDKaVa7si4KzdwGkMPMRCVnc5MEM
-	 Pi2D6776Q3InTiqfjMZNlh6cC7xDblnHdkX/ja8UbVFGg++oBNWYL2wjiZFa9lCbIqFlc
-	 qaTBKUGiOqWIUL6ZI27s0sYj1FO0PFFrp2WFSwKNPyT9rIhGyzNhIltkB8tRr7Ab5JN8T
-	 RDV6gCUNvYT1+qQ05ZknVf5Tu16G66vry4lkgyXoAc1BShRXQbbRf5UXdf3XvWW4oSxH4
-	 z9TSQRgDQEqRpBgVwZ7dNn8t27Ce1FLayfEasNVX174Yxv182Xv1jQ2jaGWyJ9rs+Tg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TW9M4pDw;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JotuTw0o;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.26
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795208080;
+	b=chKltBuZJ4M7gWdJRnvsl9GIMe1x9rImcaUfSnQ7GLlHAKpc2j7yQc49nVp7cN6nXQe0
+	 siWu24NxSOfvesAIzJyCVWGgcos7/enZT3rQRYt7jUBXHRZyt1AndEBw8LW8kTzgjKgVx
+	 dvjaqhAE9PuIU9T3J804hTWodiGostYsZmj7Rg5yv76f5VBv/iLwy9iIeURZH1tOR0w3N
+	 wGWESVBRYWsuUTKfhbnoQ6An9geZQEF+YifwGvN6EvLoFWCKcjRSVdJ6eKpNgrX/R9C6M
+	 bKzbr7lRCjFqLMJ+nnwziSS2fdU/ZXZJHyyxSPj+nCn4ad5ebQbJemFlFi04ttACVeA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795208080;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=sBXQYfcy1i8Bi/FlH/xlEHVkHpg6pZV4gl/1Ef8Zgyo=;
+	b=U6ferQlYyLCjZpNUi9VnHF9+E3UDGgo9u2w631DesRlroOkiNXtvYGwS8hc15aZBGGIG
+	 /IpD9I5Hkr0L0cV3Q5BxW10U1BLrkp8X+ZF72L7hipIEsbRrtUX0YyAlLmHiHdvsIsb7x
+	 T4pdCVrO5qNTselMT2cF/t5IzwN3VGaAT5UuV5LWOgM/+w1zWDfUHRKFzs/yQyR4aHsNy
+	 gY8Pmm/9H4+bPkFvRKa+hF/+ns31qrPfexYsIsZ+XhWPZd+3h5V7OAHU1aZBuNe9zSCRU
+	 Vf4auLovTocOFGa8Xj256igpA2Jmqn1k+kAUmutG4Bcy1NEhErgYTeoQjDLRY61EsmA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZICi5BZb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.26
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011026.outbound.protection.outlook.com [40.107.208.26])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F32D606A6B2
-	for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 20:51:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F32D606A6B2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9A0606A684;
+	Fri, 20 Nov 2026 20:54:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A9A0606A684
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TW9M4pDw;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JotuTw0o
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AKEfgWW049068
-	for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 20:51:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	U820FuiJk8PT3EN3MqNrdqNmsP/q5hz3h1B6G6YSSPg=; b=TW9M4pDwMjFwqPeU
-	Jgqois8eOV6b0ny9uaDLw2TY60X+Npr05SkLhqEcZYe9BN93K9W2Bm6+V3S7v0ly
-	Auf/+7ukKesOrE/RV8jz+hG+DtQorAKJQUGgK55f8WOL+Ss+hvaPGevmoZwZFHCx
-	6sr6t7UbiFXJ6VoMmUjwQktET2cfHDD+Fbztrjc3aRSVQcTYA/Jx3Z7a56Wx+ZF5
-	uCmIrPoq8Mzyose82qeQiRzseOkN9Jb6zlWv9smKQj0JYVvIDIA8BEKGiXJwOUJA
-	3ppjN3S7NDyqZRPjDQPMADmGRes0Un+dN9JknJo1k1iEvpPnt0quh1+UltNKjh7l
-	xhN1cw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j2mm4jdu8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 20:51:42 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f20addba1so234811285a.1
-        for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 12:51:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795207902; x=1795812702; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U820FuiJk8PT3EN3MqNrdqNmsP/q5hz3h1B6G6YSSPg=;
-        b=JotuTw0oKaQOKJ3kFOQdnYO43UNA7Lkd5AZ9y2+8UgOZmsupubXagHBK5MhTiCNEJT
-         HmnNmTnX0TpsUaQrZ8bTayDxInDX+lTkP1FJyb6ZLTMEy7uQGx9+UeWV9rUY4bvldzYW
-         N+U5xE8rXIh/TrKSzmlvhZU5nrg0NiirLGF501YvPAWyqfjlKDDMQVg4uyY01xxapwR1
-         oAjKQF97hOlii6C7cNs6lN2D0Z1XxwwB7l4YY1cDo0bud6WCFKoMCj6xg8RbJHuFIQv3
-         8xvlajY4WQBXddda/CizWgDOYLcMuV/Npu3b7VfM0HlIBda/L+vOmUzRWo1rYFuG0vyZ
-         VWWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795207902; x=1795812702;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U820FuiJk8PT3EN3MqNrdqNmsP/q5hz3h1B6G6YSSPg=;
-        b=lP9ab0TpsBZi72jvS7XPx3o86So8zsu58FpHMTW5mSezvCeXDDxbf2qGDSOV1bJ7xO
-         IXYcrooY2R+rqNFoKjyMfYtDpWb4fAh8X+pCb4ILfYmir9Jk973b4leYgkQJa7eDnXXh
-         oEw4YKcoS9hKLMkT+I6KRuSih2e03fuzk/ezFdbqhbeUZv6OIyPPtUDON5q6SQnI3wUC
-         lV/Xhz7LB9anliqfGtOgZCmBdIFQTQLDzfMpB3M2LSsd5xJ2dh2q8xMhiAS8VefMyY0V
-         YXwjpyANUgFKpGlDQGhi9G7eeMO3qDgPRjMY2ZAfrVRG7kFFI70A416i0F2DmLgDgzyo
-         X0cQ==
-X-Forwarded-Encrypted: i=1; AL+hErEoCl4+nemNoeukE3WC8aEVIHGJCKHk6QDlOxamXgZdeWYmvonTTYOHNuO9AXR1YZP6MUbPdfFSewmeJg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RPn6cp1OAnX6IDCtZJwABXif87DQqMnZVdm452tpikFUJ03vi
-	5T6is4+dbz/RfP8FMlIfIQS70WxqS/6Kp6jNOvSPZovCUbgyxvVV2AzQQoq58hSo9DQGJcg7Wcl
-	qIoaGiTyAnoVr4j8wtAciwVJnBm0+6ehqlZWvBChQL3l1IYGooC7vcoqve2Vv8cubAeUaGdt2Ew
-	==
-X-Gm-Gg: AYBFou3Pc7MBBELTQl1Dc9vTWOR8weN0RH9E2IyW4C3/9HAs5qCLBRQGOsvBTffrya9
-	RsSKvjUGlt5OKJ7rGWMoVuMX63gPnaytSVDLMPmoHhV6rYpICcGaABggJDlaS26LfwYDuSeWB5h
-	jrJ+fDc+nD5qbTZcfcWSMQdqdi4KxMkFZPgw44EtgdVUs1wCSJCXL5IYzR9zkVn+kpATQQ1UCJA
-	DI/CLOd8cAxEft39GeLp9IGPA+iH/bvwicHU3Sg1iNEkHIYefaINnp22mqxlCUk2j60Ajydmf1X
-	Wrpd59PgSZQ0AgL1ujrT8gOyJlKDOGd9RpmrNBcA/9I/DAuLhxxbTi4YTLpqVC8jhjeMSHogAHG
-	aPYrbI+BqmwFE0D/+DkS2pHyxobaI9NYRpfA0dHfnWD8UYKlfKvF336j3PMlgGazcLzUUYWk7zq
-	YdVVnf3Y33vum8
-X-Received: by 2002:a05:620a:4403:b0:947:7f9b:f839 with SMTP id af79cd13be357-949ba9bf10emr710750785a.47.1795207901685;
-        Fri, 20 Nov 2026 12:51:41 -0800 (PST)
-X-Received: by 2002:a05:620a:4403:b0:947:7f9b:f839 with SMTP id af79cd13be357-949ba9bf10emr710748485a.47.1795207901286;
-        Fri, 20 Nov 2026 12:51:41 -0800 (PST)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88442693sm103013545e9.1.2026.11.20.12.51.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 20 Nov 2026 12:51:40 -0800 (PST)
-Message-ID: <331d37b0-eea3-40b1-9a27-9a33cc756949@oss.qualcomm.com>
-Date: Fri, 20 Nov 2026 22:51:38 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ZICi5BZb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tv26+4/S6wTCm57gHdS96Q8Q9UjsipbE+KzmNvZnJRVZLQadm/2gHoeYYWcXbSCsI4/mMfhq1XudbvzCpNevWTzcMgBKK1LEEBnVpY563QzQw4cuMuTsDE8RWw8oNvAxUp5kzCSFM6G1wqffRKGUhHQLEjGG8zgkVbUW4ul6wsnWU3kWsa1gqdRpZ02RUWVNSVNLQkCk0X19O6kOzWQCPtJ8H3uUA1pEp6cL6ige4IZngvNTQg3tP2fCRS25a5/g8MaWwIZKWF7F0SHFO5BckatphzsR1nKN8DD1LLYYQgGuac3C4kF/Lync5iz9GpZMvgBH5zGH7BL9u6K0c3LTiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sBXQYfcy1i8Bi/FlH/xlEHVkHpg6pZV4gl/1Ef8Zgyo=;
+ b=upM3WgVHIVHgFBNb/F6qCF6/W8wZoVIZAtkTkOoNRMUXrwyx1IVj0dnshS4V59Vpc0gNpUV91yb0tBsML19vnd3PJIWgnnjsd2rlsBX90Tx0If1E1QqWT+iiu0gPGKDfdjGG97uW1B4hqKmpY509GRFJh4qJZ1Wfiy6WM1txiUgCOxOQQLQGhGI8uYMxWqGU9ZaBX8v6Ngmxs+iHo7IFuCBLwd+n8LLHclPBPj6gbc015EtGEqoWEJ7ceZGYlk4i4T/6+vOqgjAik/1pmIDO5FXIWU9r5cLRllTfiPN9MzgGvHgedMyaQEqwviKJafh1T5f0MzUNMZVy2pKoG5wYNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sBXQYfcy1i8Bi/FlH/xlEHVkHpg6pZV4gl/1Ef8Zgyo=;
+ b=ZICi5BZbBRnzm8sNJzbWb2w62OGnx64RTLIuv8dCsS/Ruyjl548uREgZFW6fYtjnSGCjk8419fvpOr1He61DvptCgSLRmUEjL6K9pg8l5GSXsPvY6zreB5W3jIkOFsScEuxt4ZmO2qz0H/i9rUEbiIWAxA3gZPO11EDjWa7blBM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from LV8PR12MB9133.namprd12.prod.outlook.com (2603:10b6:408:188::15)
+ by LV2PR12MB5992.namprd12.prod.outlook.com (2603:10b6:408:14e::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Fri, 20 Nov
+ 2026 20:54:29 +0000
+Received: from LV8PR12MB9133.namprd12.prod.outlook.com
+ ([fe80::d29f:9915:159b:b02]) by LV8PR12MB9133.namprd12.prod.outlook.com
+ ([fe80::d29f:9915:159b:b02%4]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
+ 20:54:29 +0000
+Message-ID: <886d2fe0-ac06-407f-b1db-f8d7857282c5@amd.com>
+Date: Fri, 20 Nov 2026 15:54:26 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/3] platform/x86: amd_isp4: add the OV13B10
+ (OMNI13B1) board configuration
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+Cc: Mario Limonciello <superm1@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
+ Benjamin Chan <benjamin.chan@amd.com>, King Li <King.Li@amd.com>,
+ Caspar Adriani <caspar.adriani@proton.me>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Arec Kao <arec.kao@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
+ <20261103155313.114347-3-saif.elden.hatim@gmail.com>
+ <avMH5glolytc9L86@kekkonen.localdomain>
+Content-Language: en-GB
+From: "Nirujogi, Pratap" <pnirujog@amd.com>
+In-Reply-To: <avMH5glolytc9L86@kekkonen.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0155.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:8c::8) To LV8PR12MB9133.namprd12.prod.outlook.com
+ (2603:10b6:408:188::15)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -117,178 +110,104 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] media: qcom: camss: Map each CSID to the VFE it feeds
-To: Jesse Casco <jesse.casco@gmail.com>, Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Allan Siriani <allan@fatecpompeia.edu.br>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-References: <cover.1795196107.git.jesse.casco@gmail.com>
- <9e5bee0dbc1c116672ba0020013ef0a346385c29.1795196107.git.jesse.casco@gmail.com>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <9e5bee0dbc1c116672ba0020013ef0a346385c29.1795196107.git.jesse.casco@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: DBf0-SQXFptdnRwfIeN4ev9b9Td4pkNH
-X-Authority-Analysis: v=2.4 cv=RZYFmFtv c=1 sm=1 tr=0 ts=6b00b2de cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=pGLkceISAAAA:8 a=nvFhTvURjgvQkRSehrwA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIwMDA4MyBTYWx0ZWRfX0vSmWDQvt2Cf
- eK889UE78683/gIPHJKS6EeOlbPtzQv3GpLla+HbMLUKeAk3qfI7Uv0FZLcs9CqWhpRz5wjMahN
- yoPpfqzuvNd2TXVAea/TdIjZoHOnGJs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIwMDA4MyBTYWx0ZWRfX7ZvAssmyDxPs
- o1ssHdgo5NIu4yc7ROKoLCI9ganZu+G2548TpItVi8959Xd7Ra4vplAacqAn0uH/UYE2+Q4qEr5
- bDXtLlq9yNOtKGHeMYIpFapsgoIYN/f/K7bOeT2tPymCdgGPIrsex9n8ClKqJT37aVK5OQd0/st
- rm2iWFGDrjImW645VzsreszpRr4ExRm/JPeGXXjEDpl5bTdvBv2C3DCnodD0izDDVt3rCruePMY
- uFK6AD/ok3oc79SjwxTfjw8aD/HhfVUw6MlYdO5Ok909zb34kFDwo0ST2kfh0duo6eqsoVXeF1I
- N/vznzNUgCH5Df5cOUhBgFKGdsz++S2t3iGnMVzvx0e8a4ACpRqB8HbgT2AcxraMkIgOD2MtwUj
- xYBEjbJD26swivmlLcpGQhhSI0Tw6cu4zj0py4hH/ykl5fLA9xUwI9KNyG73eWs8uyObzRuXGmQ
- 2ecXi3SKM1hW8cioJ+Q==
-X-Proofpoint-GUID: DBf0-SQXFptdnRwfIeN4ev9b9Td4pkNH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-20_05,2026-11-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 suspectscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611200083
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9133:EE_|LV2PR12MB5992:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e14e155-7495-448d-7576-08df4748786b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|11063799006|261026140227099003|4143699003|261021123027099003|10067099003|261022105027099003|261028144727099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	upGsmQkJIi7i4pNPwITUqb3IeGYT24HLRqVgxEiNVBMX0r7zMIfDPjdP66tvjFHpS2zEBk5ef4CVd9Rr5kTU1PppYtR8HZ++W7O6Jn/9v/UtqxOnfFQCLDtb2tk50O3SiWA0bKFNCEt3ulfu6wtmZJOlyxFAF+lAkLxFzCUUPwhYXBCR+GZe8MXiQAHINx8phkLgqYWQCPYqVyAPdrBFf+itprMOlToMFA9M9U5II2dq92F5iio0SZVQ0/dC2waF2mVoPkN2zaJ96J7PpMjnS3deJNOSKhCeuuaAwjP0DpK7Q4FpD8FrF7cE9zUaHqhYkSG8H26ejavDOQcAlVHZ1p3YYRwOzL8eiIFoziiab9OYNTnZmxeX4nujE1WI0T2kLybpDvqYNIcD0hbWyXpBYn7HVGTZYe6ngGVJz1XnByn3YnsezkO15SIbeZbFLe8wXDHhcqw6NyppLBPKoWbBrMiCsfvKfuQYVpzl2p2huB4XBPWozgaQn8fezH4+NnQw5vFxeHiQ2SvW3vOxdPPbNVERalYe6KDnDPa4ozHK92INSqJi+Ke/H2I+6NTuLWCzUm+7hu3m1INqXKIvxrFzgg/ZUepDEwbC5dOZkS9fD16bZiWv2a036dcxlb/Gp8vD
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9133.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(11063799006)(261026140227099003)(4143699003)(261021123027099003)(10067099003)(261022105027099003)(261028144727099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y3JoR25wTmtac1h5VkFnUTk0MXB6aS9ySFRrZUtPeWZEci9WazZ1cnMvZ0RS?=
+ =?utf-8?B?RmY5ekpFTTkyQ3VUclNRTFR1cTRDL1cvNUJVWEo5VS8rZW9GWitVOUV5SkFZ?=
+ =?utf-8?B?dlltNWpBY1p6RG1NcnNMQzVsUFh1bFRVRkIxMzhGNytONkliTkE5bTRzUmVP?=
+ =?utf-8?B?YUN2ZzVTTlNoOHZ1Z0xUTi8xQ1VRMFZiK0NyaklwNG1PZE0xTjNIaUtiR3lr?=
+ =?utf-8?B?eUkyN1BBR3hGOVZaNjhIREh2RjZiU2RQZFhsVXV4bzIrMVlpRXhXTHpPUDVP?=
+ =?utf-8?B?UE0wMU5GSXFTT1I2Um5CalFtSEx6TG1UeUJlSU1pWTcydnhiZU8wanVmeURy?=
+ =?utf-8?B?RjhaY3d2S29HZlR4NlZ4YWI2RmhrS21LRzdaSi9GbUlrOUVCTVZ3aC9EYk9P?=
+ =?utf-8?B?dGRjS2JMTm9WcTQ5RUJOL0NkOVE4aFNTRGE3RnZSVXBiejNWSkVYT01XaE1S?=
+ =?utf-8?B?dEVoaCtJZTVtL044eGdyckcxZ3gxblliMEtsdDY1cGtZR0VDMFk1UE1lampu?=
+ =?utf-8?B?Vm83Tll2aXhQeG5yWHZCd0ZxenZaRUw0YkFmTXNDdG1lYjRpRU9yUFdaTEVK?=
+ =?utf-8?B?UUV4bGVqdS94aTQwbkg3dHo0YmZCZkNpM2h3aGMyQzhmM2xTWTIrQmhFbmkz?=
+ =?utf-8?B?STc0Q0lsVnFmK1VMWkN1ZTlWM1hzU1hKSmZvaVdqekdEWkY0a1MvNS83T1Ux?=
+ =?utf-8?B?aHN1RFRhVGJScW1SUGQ5VjNCazJ2SnhvSXBGM1NQOVgvdVNNazRjR0NEaEp3?=
+ =?utf-8?B?THZpd3hFaFVCOGpLU3M5ekJHbVo3eVZGeGF2U2M2eG9SeHNIZVZSZDJuemhk?=
+ =?utf-8?B?RTZwU1ZVUlRqbzlEbE5kWk1vaHNJVUNpSUhHdkFJcHRKRXdOUTBXZEc3NUM4?=
+ =?utf-8?B?SGJLUDhmMXBlSHQ2Q2xTalErWDRza0VrcXFuZjhyYjJLTmo5bGZQK2tIclRN?=
+ =?utf-8?B?cUpKNytDSURvSm5UU1gwTU1sRXR3T1N6ZmdvRnNFbW9PMkJCTCtDbXUwcUN6?=
+ =?utf-8?B?RC9PQnM1ZTMxSktxZVBEYjUxbHkybUY1VG1EcFZ2TCs2VTM5czZqbmZxaTk3?=
+ =?utf-8?B?UG1Cc1NqMU5zKzFsK210MEZWMVZEWTV3YXlXblNsalJ3UHI5OVQxV2E3RlRE?=
+ =?utf-8?B?WTFEVkQ1VHV1TEtPZUNPd2lZc2l2dkU5di82eE1XcUljazN1ZDhYTjNEVG9h?=
+ =?utf-8?B?N3hSOG1kbmxnMkVmRUhqWXhsWktkczBkSXFhUjR4REtEbkZWMmZ5ZENweUJX?=
+ =?utf-8?B?cDVtZHBPWlJINEtZdE1GYmc0N2hZTC9rM0Q1cVhyMXNSU1c1M1J2ZUpGTGlL?=
+ =?utf-8?B?cm1JdHNMdXNuWFdqUTZLc2dKMzc4eUxPS2ZOWEJocWNXM2M1UEJiUkFkY0xV?=
+ =?utf-8?B?RExzTGhsRDc4aVUyOEdEZkpPS0pLYXY1V2cxWkpsTmh1STFLeXF6RFpjUDFI?=
+ =?utf-8?B?NjJETVhMRDU0TmxWQVZkRm9wZzJRQXh6cU02Qlh2SWpTSFUyT3Rza2szR0F0?=
+ =?utf-8?B?VkQwMjVwdWcwaDQvWW9CL25pQTVqRG5SRVlIWStaVmt2L2xGT0NlMEhpTHA5?=
+ =?utf-8?B?Ri9ldDRrQkVMT2lGT2hjeHhnSVRhREczN3VCSS9aa1JnV0NRZ2YwTUdsNjlO?=
+ =?utf-8?B?Um92c0JoVkRKTVF5RS9JaTl4bzllVWxPQXI0d3ZVWTZhYVZ2YmxNYzhFL0lT?=
+ =?utf-8?B?dFlvOXZteEpCVG5QaGtMMndXYi9mcHE0cklYQXU3TWVYbmhYOXJWYzRvaG0r?=
+ =?utf-8?B?dE9IeDl3MVlEY013NEpKMWM1dktaejV4UktYbjJrTDZlWEV6bW9TdkZWaWpE?=
+ =?utf-8?B?UzJnOTVZeTgwaVJVM1JuUVJNWXNpSnViTTJQOFp2eWRTQURvTEl0Rk9oczMw?=
+ =?utf-8?B?c2ZFeVVjcFQwTGVmYVVIZ0tPY3hnVVR5VU9nL2pXOUxYaERhc3pIN0JUNnJ2?=
+ =?utf-8?B?M3dxSHhaVTg2KzhYdm5nckxjb3VmWk5scHZiSXVMYzVHcENON2c4WGpiN0RY?=
+ =?utf-8?B?UG9adFBDMk5DazFyZzk3UjM2cTJzSlBrZGpuZm9WOHNvczdLTXVtN00vbUtZ?=
+ =?utf-8?B?MlZkR08rdVlBcDNwUVcxZ3o4MXB0YjFmS3BQbklNRWFlTDRXVURuakdrVjB1?=
+ =?utf-8?B?SW5HYm1wUERmbmExUWMzVysrbFNZUHVibThNT3JiV2t1d3cydXFYeHhPN1Rp?=
+ =?utf-8?B?cVNYdFptbUZoRjdhcWNBRlE2V1RscFBCVUJwWXZEeUJGYVVqK3BQemNCY0JW?=
+ =?utf-8?B?MWkyRTZBRVc3NnUrVnhscmtnbDFqMWVZbXh1TCs3K2hET2d3emJpOXM2bDJB?=
+ =?utf-8?B?TVRxWHhTWEJpTk5HVDdDbm9pQXlLY002M0RrclR5RjNuNFN0NGJkZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e14e155-7495-448d-7576-08df4748786b
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9133.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2026 20:54:29.5431
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NGOiDR+P1Dbtvd+JSthBcgLlYqWvTWq9/BkwA/5TaXFGLlpwtDPyiD6ccP7zm3qkPjoPBwttBHh6F2SrRbtpcQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5992
 
-Hi Jesse,
+Hi Sakari,
 
-On 11/20/2026 7:40 PM, Jesse Casco wrote:
-> CAMSS assumes that CSID n feeds VFE n: csid_set_power() powers the VFE
-> with the CSID's index through parent_dev_ops, camss_buf_done() is passed
-> a CSID index and completes the buffer on the VFE of that index, and
-> camss_reg_update() is passed a VFE index and updates the CSID of that
-> index.
+On 11/10/2026 7:02 AM, Sakari Ailus wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
 > 
-> That holds as long as a SoC has the same number of full CSIDs and full
-> VFEs, with the lite blocks after them. X1E80100 has three full CSIDs but
-> only two full VFEs:
 > 
->   CSID:  0, 1, 2, LITE0 (3), LITE1 (4)
->   VFE:   0, 1, LITE0 (2), LITE1 (3)
+> Hi Seifelden,
 > 
-> so CSID2 powers VFE_LITE0, CSID_LITE0 powers VFE_LITE1, and CSID_LITE1
-> fails to stream with "Failed to power up pipeline: -22" because there is
-> no VFE 4.
+> Thanks for the set.
 > 
-> Look the VFE up instead: a full CSID feeds the full VFE with the same
-> index, and the n-th lite CSID feeds the n-th lite VFE. CSID2 has no VFE.
-> This gives the same mapping as before on every other SoC.
+> On Tue, Nov 03, 2026 at 06:53:12PM +0300, Seifelden Abdelmonem wrote:
+>> +#define AMDISP_OV13B10_HID           "OMNI13B1"
 > 
-> Fixes: 1830cf0f56c3 ("media: qcom: camss: Add x1e80100 specific support")
-> Signed-off-by: Jesse Casco <jesse.casco@gmail.com>
-> ---
->  drivers/media/platform/qcom/camss/camss.c | 46 ++++++++++++++++++++---
->  1 file changed, 41 insertions(+), 5 deletions(-)
+> Any idea who allocates these HIDs? Omnivision ACPI ID prefix is "OVTI" and
+> "OMNI" is indeed unallocated. I presume these HIDs have been "allocated" by
+> AMD? This is not the first time something like this happens but it would be
+> good to avoid it from happening in the future.
 > 
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index 7d9622097..8020b675c 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -4629,11 +4629,39 @@ static int camss_read_version(struct camss *camss)
->  	return 0;
->  }
->  
-> +/*
-> + * Return the index of the VFE fed by CSID @csid_id, or -EINVAL if it feeds
-> + * none. A full CSID feeds the full VFE with the same index and the n-th lite
-> + * CSID feeds the n-th lite VFE. The two only differ when a SoC has more full
-> + * CSIDs than full VFEs, as X1E80100 does (three full CSIDs, two full VFEs).
-> + */
-> +static int camss_csid_to_vfe(struct camss *camss, int csid_id)
-> +{
-> +	const struct camss_resources *res = camss->res;
-> +	int i, n = 0;
-> +
-> +	if (!res->csid_res[csid_id].csid.is_lite) {
-> +		if (csid_id < res->vfe_num && !res->vfe_res[csid_id].vfe.is_lite)
-> +			return csid_id;
-> +		return -EINVAL;
-> +	}
-> +
-> +	for (i = 0; i < csid_id; i++)
-> +		n += res->csid_res[i].csid.is_lite;
-> +
-> +	for (i = 0; i < res->vfe_num; i++)
-> +		if (res->vfe_res[i].vfe.is_lite && n-- == 0)
-> +			return i;
-> +
-> +	return -EINVAL;
-> +}
-> +
->  static int vfe_parent_dev_ops_get(struct camss *camss, int id)
->  {
->  	int ret = -EINVAL;
->  
-> -	if (id < camss->res->vfe_num) {
-> +	id = camss_csid_to_vfe(camss, id);
-> +	if (id >= 0 && id < camss->res->vfe_num) {
->  		struct vfe_device *vfe = &camss->vfe[id];
->  
->  		ret = vfe_get(vfe);
-> @@ -4644,7 +4672,8 @@ static int vfe_parent_dev_ops_get(struct camss *camss, int id)
->  
->  static int vfe_parent_dev_ops_put(struct camss *camss, int id)
->  {
-> -	if (id < camss->res->vfe_num) {
-> +	id = camss_csid_to_vfe(camss, id);
-> +	if (id >= 0 && id < camss->res->vfe_num) {
->  		struct vfe_device *vfe = &camss->vfe[id];
->  
->  		vfe_put(vfe);
+Apologies for the delayed response.
 
-Those parent device callbacks were actually submitted by me to remove
-circular dependency between csid and camss. However i see that 
-camss_buf_done is also introduced which make the api kind of mixed.
+Thank you for bringing this up. You are correct that "OMNI" is not 
+registered with the UEFI Forum. The OMNI5C10 and OMNI13B1 IDs were 
+created by AMD. Since these IDs are already present on shipped 
+platforms, they need to continue to be recognized by the kernel to 
+maintain compatibility with those platforms.
 
-I will propose to not go thru the camss and those helpers,
-but during the creation of the csid the vfe instance to be provided 
-as parent device. Then the csid to call directly vfe avoiding all
-those helpers which may increase in the future. Maybe csid resources should
-contain the parent device index as well. 
+Going forward, we will use IDs registered with the UEFI Forum 
+(https://uefi.org/ACPI_ID_List?acpi_search) i.e. "OVTI" for OmniVision.
 
-~Gjorgji
+Thanks,
+Pratap
 
-
-> @@ -5043,11 +5072,16 @@ static int camss_link_entities(struct camss *camss)
->  void camss_reg_update(struct camss *camss, int hw_id, int port_id, bool is_clear)
->  {
->  	struct csid_device *csid;
-> +	int i;
->  
-> -	if (hw_id < camss->res->csid_num) {
-> -		csid = &camss->csid[hw_id];
-> +	/* hw_id is a VFE index; update the CSID that feeds that VFE */
-> +	for (i = 0; i < camss->res->csid_num; i++) {
-> +		if (camss_csid_to_vfe(camss, i) != hw_id)
-> +			continue;
->  
-> +		csid = &camss->csid[i];
->  		csid->res->hw_ops->reg_update(csid, port_id, is_clear);
-> +		return;
->  	}
->  }
->  
-> @@ -5055,7 +5089,9 @@ void camss_buf_done(struct camss *camss, int hw_id, int port_id)
->  {
->  	struct vfe_device *vfe;
->  
-> -	if (hw_id < camss->res->vfe_num) {
-> +	/* hw_id is a CSID index; complete the buffer on the VFE it feeds */
-> +	hw_id = camss_csid_to_vfe(camss, hw_id);
-> +	if (hw_id >= 0 && hw_id < camss->res->vfe_num) {
->  		vfe = &camss->vfe[hw_id];
->  
->  		vfe->res->hw_ops->vfe_buf_done(vfe, port_id);
+> --
+> Regards,
+> 
+> Sakari Ailus
 
