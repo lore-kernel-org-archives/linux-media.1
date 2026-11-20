@@ -1,75 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795211986;
-	b=fZVV7DxIH9F3jmyZ5UPZmwZqIsWNJHnymKq/nrgWPL2obXFhbl6mmPEZEEVJL7+O2rvL
-	 lJMK/wtvhwewZECWqMIM082CCktnZ6fbYALosaeHGKEkcJWdJO8GcwnWZsSUiRUILb/HP
-	 rfM2sBo1AwAKdQH9hhtLWouBb4ISn87pj/UNhMwsoTLx7vi+GCeIU/gpm4iIT/GPHlsoi
-	 4TBK8Bd0IdOpkgbbERcSs9jzq63/1Me2idiINJvjoNgjGZuEI6PjZRw18xXxkzumSoX4T
-	 ahYKjofCJMz9HVIKPl5krmFAqGHpIBtqmKabk+rMRtSrdOWoPCixzeDRfdViS8lhEKw==
+	t=1795212035;
+	b=2Ql0rtF3ATlO0l9zIHgttpSysXScJp+qwdk848k8xFWi5l0PmRNJv+hQGtxqeRWyfL57
+	 w5JgvJb1ZwasUwAMZEyV7Fu4+LyrnjpxZ3TUD6m6D3L3dLO30q8fVWfaP56oaRuzuT90G
+	 YPUcgWmNomKh73cOmGnkCLZPvUrndVErArgoHyhkdyewqP4+wkSUKStjAdkym7em3KsZD
+	 FRt4jb3iE9tprePQasP8H23Kvsm34En7VhW00pLDWCB9KRoc8vtOs7tiCKB5b5NjmVYXz
+	 8E/yWX1lxHbgh38NWXz3LImA1fytRtyghS4MyW7i5tAZ0tdM+FcmMPJVirXYg2Ldrog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795211986;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795212035;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=yQp6wu37grFSLFpLYqDqLuKQZrEDeFa5v47ChyJcE5k=;
-	b=ALB8rhYIWAkreJwM4dbbNA3KEWIyqAwC1gFUBHwVHuNgfvgLjqs0HpL0U5hmH/uvcoW5
-	 WY5ft+Z1kD1T2mygts5kbbTZY4l5QhUy7nIWvsPKy2oeff5+6ok7NjO8vFfFZSONHt1Iw
-	 JvOM5QKYFbRiPb/0nrBJ2D/VQFcnao9sZcBtLoZm6VlgQZawUXr6mpIjap8I0U6XsOo1i
-	 2SgWcSR7Ej9rxnS2vzBcGEitcOsFUcRvUsvHGq8GQ985M2pUjW7QQqR5AdRgIKD0Wf4iB
-	 g0L7UezZCqa7Gn9+upboWO6byjHGZo4jcned/WBTpm5g/hybSnL8tuaPk4gaQZpsarw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=2xDPC6qU1uwq+PJaTb5Go3aqyR32791c6Eohq6KP4zc=;
+	b=oD4yV3OPhlQBrSKlWrqHAoJ/j/6ZDqOIBmxP7Yfi79caznPksvIx8l1nyO/sw2QOJN8B
+	 mn1enGIs2ZDjwVfMuB5y6DALMmsWwyonRyv47IldLAosJLy2XgzOlbaGEgsweA2LlkjNj
+	 pgZYjGEP1EL3ZNpg7qlwDagHYyZLNTnpYma/HeTMIFxLJgR70QIMb0VJY11N+bcEkXTsj
+	 eLKB+AQYOgIqpRSWviV9GxbHAUrDbFw54Tjz3KpuLb54To0tPAbI6g37M/4VtoClxsgSC
+	 eRVGpzKXOZh0YdjnRWwuYi7eGjZ6eha9E7Mx0nU/9XuSBb4jWrriGvcJMlNfjoziBmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=g781nT6c;
-	arc=none smtp.remote-ip=209.85.222.200
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	dmarc=none header.from=fatecpompeia.edu.br;
+	spf=none smtp.mailfrom=fatecpompeia.edu.br;
+	dkim=pass header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=CFGSxRTa;
+	arc=none smtp.remote-ip=209.85.217.54
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E98260A2637
-	for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 21:59:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E98260A2637
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4FA606A6B3
+	for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 22:00:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD4FA606A6B3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fatecpompeia.edu.br
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fatecpompeia.edu.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=g781nT6c
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-949b0d322fcso248174485a.2
-        for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 13:59:35 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=CFGSxRTa
+Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7cc81984fceso557652137.0
+        for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 14:00:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795211975; x=1795816775; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yQp6wu37grFSLFpLYqDqLuKQZrEDeFa5v47ChyJcE5k=;
-        b=g781nT6c760iZjIVLDh4MGsfSFp4okZX+bxwJFJILGMVaPKRxxnd2oanYks6PZeVoY
-         lB7XXMJngUQpjwOX2ATZMaEUVL8NvUiYTGDwcOsfDEMMctSirp90UAjiIaO/4VzOngBz
-         X4JFXqOejur02MfqVfYcncNyflhXxOKspWhCjdi/BwNXMVM+KtzJFTIfwbq+rLAR/hWs
-         maUFak2ctArvqm1REFfvuFVL2gGbYQhoN9KHM7IS2w+kJ+CjXzhrZ18ndQm8fsG/J0+U
-         eWRLYAvqsR/2FvzCPpZpwjf/DMi3HkTnONS8AkcW+X9nGXNS+ftxSRvCuQ9X7MIzVQC/
-         05sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795211975; x=1795816775;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=fatecpompeia-edu-br.20260707.gappssmtp.com; s=20260707; t=1795212033; x=1795816833; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yQp6wu37grFSLFpLYqDqLuKQZrEDeFa5v47ChyJcE5k=;
-        b=IRlgjbk+MIwR//kVYjIE5OOI19J0ejqUrAtWdt9kH/9Pv9D0fEMpXyo2Jy8TAbaLdo
-         egvH5v65aoKXCZEXzu9JYi0cOgtmP37HZ+RAJIlbW3olK30uxWFCtzei71zyZlnXGCJk
-         NMDeigyXl3ipnGGpPkBnl7qMtK0OUZWH9gTG25a/3jW9VmtFkrvUM5db/SQSWS7S8P2S
-         m1uodGGRuF4dbMdE2bHCWtbQBBNR+DaCfhhDhvqYD6qwwXKNu7XnNP70RTlcLme2kbbZ
-         s7aXTxwqt9uYgzCFVaZxMRhvYmlQm7BIlAC+rkRR8FgUxoLc5jAdlvxCU9KKTYqVP6Dv
-         4hFA==
-X-Forwarded-Encrypted: i=1; AL+hErGkfBodBvz+D02Fr1BixsCSx5bN5KWGcYYRQPVuESbY5WXlJLFBfQgGsjUh/nD42h3eMcfCs0U9Q6N+Uw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9nfzkZSna2A8lkGPi9is/U9rblbRzomCDKv5n06SeVrHGMtw+H
-	1mfJj3PeTBxVa8JoSOSqWBlBaKQ3qABixVpaF5uBPCBuG62vu1u+55+fIpzpn9MF634auyYPT7I
-	SavrsswaPNRBOKdoBV3Ex7e9noqbt
-X-Received: from qkil7.prod.google.com ([2002:a05:620a:c07:b0:93e:7793:940c])
- (user=briandaniels job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:620a:4556:b0:93e:c691:a1c with SMTP id af79cd13be357-949bab3d32emr690699785a.76.1795211974300;
- Fri, 20 Nov 2026 13:59:34 -0800 (PST)
-Date: Fri, 20 Nov 2026 16:59:16 -0500
-In-Reply-To: <20261120215916.3149345-1-briandaniels@google.com>
+        bh=2xDPC6qU1uwq+PJaTb5Go3aqyR32791c6Eohq6KP4zc=;
+        b=CFGSxRTa6bXs2QsYxgQ5v5d73J8Lj+epxBHOHXX2mlDR7UWb4MxwQ5Bm1Pr7vzdrwh
+         r8USXI5bJ+m7mAwuDd1B5apByZPbv5TxAApGDoJcZyE6XihUvV8Ok3s8poJO6FJSznlk
+         0Y2S3Nw1+LUcDT/xigP5IqjMkya5XQmdJNer8Ry7ph2qGx2p7PHSbRfVb2c0lJfxBSgY
+         yUosia0gElcX1WJ3sO67PttycNQBvwtTqGzyWL7w8N+GQX3mpIDDGSGjSKvm0Me9P3eM
+         NS16tg+468SMAoWp3Xi6mifOowze35Xbii2XDYmvxmnBOjoBv7RR3hGpcpvqkUNzesj6
+         B3gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795212033; x=1795816833;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2xDPC6qU1uwq+PJaTb5Go3aqyR32791c6Eohq6KP4zc=;
+        b=lCN4ERqyjbSm76UcEV8ACLEVpbz+N0uzV/nCPab0DacLVx36tWaAReM26OiERl3cKw
+         NPwbEy6Injr1KxwPe02ggl3/UpZwl02yGmjhg1jZcu4s25l0k14a1NnMX5rp03aedJsZ
+         VhyM/e/uAjtMijFnk2Nj9tITi7FDjdekVGC5V7wMcBV3WU3OzXjsfP31Q5/lEuwSL9/z
+         pwgqXbSU8WowrwX5h7kLQ4hzuYqqwplcctYYZlMsG4ih5Lk+3XmH8RgoAoxhI7AG0Zgo
+         DEtOsvADdjqfFg2a2hmbugcI8yL0V4Ghsbi8DLZTCnWFjxiz1yz0CPTvTrQHXa1Fqave
+         jkew==
+X-Forwarded-Encrypted: i=1; AL+hErFM6PEZ+OC71RaJYdXt3pfRV/bnee2hp1ajWGmtpFxf7TdpXHp+A8xT/Safo93vffPpymRpBdQ7rJ8voQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z99naq7+OHwiI9uhTmjlTWohcSTIiTpxgGjGnuPCHglEoYp6t+T
+	NAuXg0eDeuCeR/qL9pLeQmcOhW1ecFCw0bCLLrGD2gePHlMss8Jso1FDzDWpwTMsf7E=
+X-Gm-Gg: AZFdTZdkVN/qxWxqyfiQJLTnF7capMsKktMhppI/r/69S52/TGNnp8hN2je+omONq6l
+	J5NY9IKmKoTDGug/IK54QMWhT+BhoK9E4vQe1NyvrmY+ucFg4GO6NGO6Phd1h0CLKhUHPujr/pC
+	TyHA/Lb4uN+heYT+9hW4+RDfjU5VH3cbQv0iNdA8bCLdPgATRrRZoZfF/+VsiTBMjWcGK1xppbB
+	U0tcvCZO/Ebo/eRopUJ4BkqNxGWoigicGRY2y3DWEX7iYgtx1FStfYniUu8VdS+/uipmYrmINmi
+	8PzL9lcb9rDew9GuCGgLV2kvKTePOgmiLpEL+WPydv7C7gXVOr/5ADgM5d1ItdJLIz7lPYFaPpC
+	U92amAtOOslOLZpv4IkQanFodgKQNwgMfdDpzsUavvZqErsPHaPy4pxPSuaGmiTNgNhv8NGWOvv
+	YXxdQqRhFXSjfgcML2h6MOf/YQJnX8e50UgLBd0kiYUMbdkVZDCNKcc/ef0mgGfJSBG95Mo/JQb
+	EA3mZ2KhYDxWc7zkkLNIRyJhdZHp1nLNiJH3tfbJ6/HGdVIhQOkW5vhK6KyprWx5sKZ0EoXaXRT
+	uRMf91zIsxQq9rO7hMK5HJKDdq1Xxrplhf5AsL6FkTq4VfBbKDGrVitv0OPAQ22fEaM=
+X-Received: by 2002:a05:6102:5cca:b0:785:c39b:6a1 with SMTP id ada2fe7eead31-7d7393a114amr1838341137.6.1795212032547;
+        Fri, 20 Nov 2026 14:00:32 -0800 (PST)
+Received: from localhost.localdomain ([2a09:bac1:1120:3bd0::422:8])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99e6e0a2865sm4180139241.12.2026.11.20.14.00.29
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 20 Nov 2026 14:00:32 -0800 (PST)
+From: Allan Siriani <allan@fatecpompeia.edu.br>
+To: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+	Jesse Casco <jesse.casco@gmail.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 2/2] media: qcom: camss: Map each CSID to the VFE it feeds
+Date: Fri, 20 Nov 2026 19:00:25 -0300
+Message-Id: <20261120220025.56887-1-allan@fatecpompeia.edu.br>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <331d37b0-eea3-40b1-9a27-9a33cc756949@oss.qualcomm.com>
+References: <cover.1795196107.git.jesse.casco@gmail.com> <9e5bee0dbc1c116672ba0020013ef0a346385c29.1795196107.git.jesse.casco@gmail.com> <331d37b0-eea3-40b1-9a27-9a33cc756949@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -78,111 +102,19 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261120215916.3149345-1-briandaniels@google.com>
-X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
-Message-ID: <20261120215916.3149345-7-briandaniels@google.com>
-Subject: [PATCH v11 6/6] media: virtio: clear the size of legacy controls
- built on the stack
-From: Brian Daniels <briandaniels@google.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: adelva@google.com, aesteve@redhat.com, changyeon@google.com, 
-	daniel.almeida@collabora.com, eperezma@redhat.com, gnurou@gmail.com, 
-	gurchetansingh@google.com, hverkuil@xs4all.nl, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, mst@redhat.com, nicolas.dufresne@collabora.com, 
-	virtualization@lists.linux.dev, xuanzhuo@linux.alibaba.com, 
-	dbassey@redhat.com, laurent.pinchart@ideasonboard.com, 
-	Nick Rogers <nick@getfieldwork.ai>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Nick Rogers <nick@getfieldwork.ai>
+On 11/20/2026 9:51 PM, Gjorgji Rosikopulos (Consultant) wrote:
+> Maybe csid resources should contain the parent device index as well.
 
-A driver without a control handler receives VIDIOC_G_CTRL and
-VIDIOC_S_CTRL from the V4L2 core as a single extended control that the
-core builds on its own stack, with the control's size left
-uninitialized. virtio_media_send_ext_controls_ioctl() takes a nonzero
-size as a payload to copy from userspace, so these ioctls fail with
--EINVAL whenever the stack is dirty. GStreamer's V4L2 encoders set their
-profile with VIDIOC_S_CTRL and cannot negotiate, and v4l2-ctl cannot
-read the MIN_BUFFERS controls.
+That doesn't work on the ISPIF based SoCs: MSM8916/MSM8226 have two
+CSIDs and one VFE, and the ISPIF routes either CSID to VFE0. The parent
+has to come from the media link. CSID1 currently fails with -EINVAL in
+vfe_parent_dev_ops_get() (no VFE1); minimal fix:
 
-Legacy controls carry a 32-bit value and never a payload, and an array
-that comes from userspace is copied into an allocation, never onto the
-stack. Clear the size of each control when the array is on the stack.
+https://lore.kernel.org/r/20261111135338.27008-5-allan@fatecpompeia.edu.br
 
-The core is being fixed to zero the structure [1]; this keeps the driver
-working on kernels without that fix.
+I'll drop it if the parent is resolved from the link as in Jesse's 2/2.
 
-[1] https://lore.kernel.org/all/20260923160936.33445-1-nick@getfieldwork.ai/
-
-Assisted-by: LLM
-Signed-off-by: Nick Rogers <nick@getfieldwork.ai>
----
- drivers/media/virtio/virtio_media_ioctls.c | 25 ++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
-
-diff --git a/drivers/media/virtio/virtio_media_ioctls.c b/drivers/media/virtio/virtio_media_ioctls.c
-index aa56efe9a..ad240073a 100644
---- a/drivers/media/virtio/virtio_media_ioctls.c
-+++ b/drivers/media/virtio/virtio_media_ioctls.c
-@@ -6,6 +6,7 @@
-  * Copyright (c) 2024-2026 Google LLC.
-  */
- 
-+#include <linux/sched/task_stack.h>
- #include <linux/mutex.h>
- #include <linux/videodev2.h>
- #include <linux/virtio_config.h>
-@@ -593,11 +594,31 @@ static int virtio_media_querycap(struct file *file, void *fh,
-  * Extended control ioctls are handled mostly identically.
-  */
- 
-+/*
-+ * VIDIOC_G_CTRL and VIDIOC_S_CTRL reach a driver without a control handler
-+ * as one extended control the V4L2 core builds on its own stack, with its
-+ * size left uninitialized. They carry a 32-bit value and never a payload,
-+ * so a size there is stack garbage, which would be sent as a user pointer
-+ * to copy and fail the ioctl. An array from userspace is never on the
-+ * stack: the core copies it into an allocation.
-+ */
-+static void virtio_media_legacy_ctrl(struct v4l2_ext_controls *ctrls)
-+{
-+	u32 i;
-+
-+	if (!ctrls->count || !object_is_on_stack(ctrls->controls))
-+		return;
-+	for (i = 0; i < ctrls->count; i++)
-+		ctrls->controls[i].size = 0;
-+}
-+
- static int virtio_media_g_ext_ctrls(struct file *file, void *fh,
- 				    struct v4l2_ext_controls *ctrls)
- {
- 	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
- 
-+	virtio_media_legacy_ctrl(ctrls);
-+
- 	return virtio_media_send_ext_controls_ioctl(vfh, VIDIOC_G_EXT_CTRLS,
- 						    ctrls);
- }
-@@ -607,6 +628,8 @@ static int virtio_media_s_ext_ctrls(struct file *file, void *fh,
- {
- 	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
- 
-+	virtio_media_legacy_ctrl(ctrls);
-+
- 	return virtio_media_send_ext_controls_ioctl(vfh, VIDIOC_S_EXT_CTRLS,
- 						    ctrls);
- }
-@@ -616,6 +639,8 @@ static int virtio_media_try_ext_ctrls(struct file *file, void *fh,
- {
- 	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
- 
-+	virtio_media_legacy_ctrl(ctrls);
-+
- 	return virtio_media_send_ext_controls_ioctl(vfh, VIDIOC_TRY_EXT_CTRLS,
- 						    ctrls);
- }
--- 
-2.56.1.750.gf70dc682cf-goog
-
+Allan
