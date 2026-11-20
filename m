@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795137040;
-	b=sUgjRKeGvktTHLmejxM9XOYkwAJ5aIUSTs7smeW5YUXvtj9gr5myiq7/GAZm/1GgRtOb
-	 pyi8LkSNiv/XVqBW340R2Hv1KgNyvEiMMoVedcOH4qcrCR376P40rUycdxpvrU7haXOu6
-	 Tc0zHS72aVmABgd+cthugapOcpdndrj7mzGyihSbbC+VcRkLpASYAn1jQquKZlE0JmyOT
-	 2NY4NXgePh9LuXXsmqcwULjnyi4qi0MLzpY0XQhfT07ZejvutrzRR49iIZrVHxkehZUN7
-	 Bkn19to31CVf6JLswug0CfHOIgfo6JrFn7bPAv4t5uTMcD1HDYjbgrZSkYLKJ9par8A==
+	t=1795137042;
+	b=mv0OYt4k9axxUGVIFD34+WfnDN/FLgp3xk0RLD7gdGBnqQVRCLNirAzHZwRiNNNipFpC
+	 VDuwh5stCXswj9dcjKgj1MFvXk695sWVrA5LhQ5o/JoGgPUdapSotqcUKIo6ACWmnQA++
+	 33R3jdTPSDq1pGAbz6BkbalVE/YArMOyeV+mpoHi3SsnnM8YCLQLYKr4MUaFxNYa7lZPS
+	 o8jaQM6LiMABlzPm/RBowpT5xer8S0leHe3fzLUp2qhyC7i36oXS3nFu2sfZwvf21ahgm
+	 1BvKA+YNU9gh/VYLqqaRJu+4SK+7HEiLqZOboFaE0MLQcg6jxqz9nco3kUfsFXJzWyw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795137040;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795137042;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DYuaKPeKKBoFHxsSLjHCErEEtup9B+QVnh5Q9/Z4f9o=;
-	b=W36x09UJhHZXs75YuJD+26JlVVTJajmhAYAJaiINflELW7c9gHRFPsjP+4APmm/uODJ3
-	 DKjCDWbrWdEi2F5PfOtHvQpXgxcyTXTl3rEQxoFza8ddKtG0Y47Hdi2mWOt0vBYzErEbB
-	 10+aEk5Vf/DUVp7Rj7XAewSh474qC1SamOritI66gwhqzgS6XlMeN5EWn7Eh2w+93B5hc
-	 Cc26mzhXW8qr2FvkGJlUO4nt+yqsHmx7zusxJ8fozUpcIcUI0WP20zd7k7KXYwqgDc4yG
-	 45o1SThrdDWhejJ5RWOfJtrNZkSOwH4oVkeuOkENcU8DtFIMZbrbJDGr32moRHsXLEQ==
+	bh=7duCnWH8krM8z9+VrW7onyigZ+9oryd9rni6Jfwyl9w=;
+	b=Cm38NOJL8Qgl5xNU4tBQ4LfsLIigtwzQqQYuEUOdLGa1ETQF9Z9s+IA/jhjOrFr+EWIw
+	 SvZbox7ELbf5sdOf061Z1JRliH7OpdPoTgJhAB6LZd8WmeRuCaddQ4sKmxG8D95WphrRA
+	 FquGG/ihF3OCR9//U7DgZ0kgZWSIXRrUdHAUTe3hk9vKoSSR8qklkwfEbwwOHlo1awDnh
+	 IcbN/kFHnkITnqx2i+5+GRWoLLvZILmesslOjSNwVVAwkji5CEX6liw++tgwnvKTolZwX
+	 A9AAEsdkHE7F33j1UeeFIXmVdzNZ3svjNffVHuowqlKVG0wn5CP5AH2omrEb/rxA2Og==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bEpJu+SN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOs7uVy1;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948F2606A320;
-	Fri, 20 Nov 2026 01:10:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1719606A5C0;
+	Fri, 20 Nov 2026 01:10:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bEpJu+SN
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOs7uVy1
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795137040;
-	b=qd7Hhe6VY+uvwTV6/Y90RGR7r9e3YTf65r5bt0ZwbrTKXirxlVbhn+ZzcER/MYkFh+eE
-	 QcRV2JWea4LaE3tucdpRdnRRTiH/p5d2RBhfIOqD25+tAq3CUgvn9gbT/OoMsH6Oqiubv
-	 SAR+6vmEIHSkl+WKv6WHJqvGonBgdl63zsDX+U/PxXgOejsYNpi1/r1SD+KudqUzLGBB4
-	 eDHJmfKb4xyGrglSIkmdIbmg7JPIiFxOxVhC3av6fRuJ0I3W9QJB72Rb+6QeY30uMrXQM
-	 Cz9YbPtorhvIEAgMDt/oFPrHVHrzOd96rG9Cn889P/gtWTK1etWeWTA4/9haRswsOCA==
+	t=1795137041;
+	b=kLRAsry49vnT9xr2/QCCfZu/oUOuOkpUAyuD4s/HP8JVFMDfSLXdquGF2BO+hcId4diZ
+	 yxOlO21RIKAzY3ic3FlDmgmYbcgCeTQrCuULPe19KAY2lAfsyQjwVnl0Enud2qHBs4NBq
+	 9bgn68Byr+rb4ktox5yZaXTp6ENOeLnEMsXF2I6SWsKVK9blcnMQffgh7vI1x7uJ1om0z
+	 I9JV84sZ5ygCfJzoZ1IN0G74jnAwoweOx+P7fGhC+S3282bgFRH/Sqw5El8QxMx0gZ5VI
+	 b+wRONJXY+nGTlURPeR7BJl12QvcBy5oAuLJDVGo0P5iiDNTyAiSG+LV8BaJMcO1xRA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795137040;
+	c=relaxed/relaxed; t=1795137041;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DYuaKPeKKBoFHxsSLjHCErEEtup9B+QVnh5Q9/Z4f9o=;
-	b=YdUVWtj5Au0YZhuKoNFM5qIou91T6Jun0JD+JtBOL22FwyQPN0xYy3Gd3txWZDmKPg4Z
-	 0JlplwklFvl8DzCmdaznysbZb6guvbtRk+9FaC4S4Jq77A+dNBwVKkScyzGThU6iTBe12
-	 1dyvJkHEmLsno0oGtmzbhy/bQWMLpa/F5wNeVx86PPfgRs7J3zJns/pXZX/plkXXbRF7u
-	 R5oen/VkDmvBINh02gEjFOs73oHzJOmzGK5SEOSB3gdljn7rGvWvLb0ulDk6sc90yKF8x
-	 bQwjous5mAYXbRCiAEZpbXEpH3aNkC4Fyz2NOEiA/nMlWZ0CP5voVBlr/CrtI0ghJ7g==
+	bh=7duCnWH8krM8z9+VrW7onyigZ+9oryd9rni6Jfwyl9w=;
+	b=Tlo2Kxf5YNHjcD7kukl3amsRCVaB3ZOzC29zAVZxG80yQdUrbQyrDS/VYv8Gmkib6PtT
+	 LODaD1lyQkhFnWKHTED1rcEkxfOh/rmjMtYR/vfmLERecpyjJ8sqUECzxbvs2szqdjTsG
+	 /PGC7ssW7UCZ2ifXCBjzoyuaZkPzK/xZ2XGbfgFbxyXsIZvhJMtFzp/Er1aaP4scVfoYV
+	 f2fC5egVWqSfSwE397icpS5QvBPF28+gdDn6bHJtBvjM064wJSnKiJ8kCIerCAvS2xghR
+	 u7P7xO4ZyC0BE4amwT44P3M5lH1q54KtYV7+ebPJwbutJiQ8m5undrpH5XCmH9guqug==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5665A1F000CF;
+	by smtp.kernel.org (Postfix) with ESMTPS id 707111F000D0;
 	Fri, 20 Nov 2026 01:10:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795137040;
-	bh=DYuaKPeKKBoFHxsSLjHCErEEtup9B+QVnh5Q9/Z4f9o=;
+	s=k20260515; t=1795137041;
+	bh=7duCnWH8krM8z9+VrW7onyigZ+9oryd9rni6Jfwyl9w=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=bEpJu+SNmJds09V+f4/Px/443sLpRUPVOiW8Q4jH3+Q7TM2i6E5WPG0obcB4nZ3pH
-	 Bz/dNRLAo4lyqKWhzEUGCIW7GxuRXojaN7BJPb0IhFdkb9Yen067/mQJ268gp7vHDC
-	 BY19RDJQzghdGLO0OV+rH7dsY85KVky4jyTtPiIUuhEaZhWa688VL8BIbuyjMGVE0O
-	 fnLvLJ7xBekYq+FZBoY6yRlfYYX+DIfaZkHyZzq7hVkMytXN3wP3EMa/jzAm27U1wm
-	 aHFyRB3r8qT47DcT8fssg8U/oWK1E/S+VUkVww/uq592VEaJ8OjVJ6cIKvTkldSCQd
-	 Qhanoeaf8IYew==
+	b=SOs7uVy1kyWSzfXRFke+sxBjFeI01b7JTq5+M9JKrH4clSEcLBrImX5rt2465xtep
+	 6oc/HZnNhHLZAyVsC0E4tgX+MZxaCWaNgA6xO1DAKKDEnR7T2vgNiIDnDac/loRkEG
+	 IL1+ZZGN309TU6wIwD0f8SAeyXhczoBz1yvkDjacBQGZGeuVn91yvaCQQEqc2ftEDe
+	 8TbMqydyBAo6GmfP/vXJRhbNC6CrzbGB8j7fOt7YR4nfriR9tgMvHruFLx9/fscgTf
+	 x+8hG4WKatasEHpvKvqqqm08L7QRzVruOCR7nLQ0+S42mQJfG1O3GcgJ1rEnq0Oj5C
+	 6FEYQ07JIMM2A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D929B425F0;
+	by lkml.kernel.org (Postfix) with ESMTP id F29D742607;
 	Fri, 20 Nov 2026 01:10:38 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 20 Nov 2026 01:10:39 +0000
-Subject: [PATCH 1/2] media: verisilicon: Decode monochrome H.264 to GREY on
- Rockchip
+Date: Fri, 20 Nov 2026 01:10:40 +0000
+Subject: [PATCH 2/2] media: rkvdec: Decode monochrome H.264 to GREY
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261120-b4-h264-monochrome-grey-v1-1-887102a688fd@gmail.com>
+Message-Id: <20261120-b4-h264-monochrome-grey-v1-2-887102a688fd@gmail.com>
 References: <20261120-b4-h264-monochrome-grey-v1-0-887102a688fd@gmail.com>
 In-Reply-To: <20261120-b4-h264-monochrome-grey-v1-0-887102a688fd@gmail.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
@@ -99,11 +98,11 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795137038; l=9453;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795137038; l=2530;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=Cg78992fL67XsePaXBhmaELrgNkRAfWpGaMq2lmYWt0=;
- b=8e/q6GX/hugFSbVYzGVUr5yizHYOxXBzXjN9BhZegL4mpogiBBXuUUJxzUdJyWQPTFqvRSLlS
- ByRhQXIypolBgNxrDcTMtl39keT8k0Y1W09JQfp2cxdlpOQf7mypvv6
+ bh=PaUrtuP231glBes9RSGbgqUD4OET3z2k5Uwhdrm6JOc=;
+ b=ziqFhy0u+TcXxphBaKndOpcw060D4mWES5y6K3+Q8++wHVqYdqkdxbv075+tUd/TcQEdUHgXW
+ bAsn9WYaHQLC8/BMFlgDI6p46QTkdHZA8gcNCvItWxKy6W3ODncr0yu
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -114,273 +113,63 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The Rockchip G1 and VDPU2 decoders write no chroma for a 4:0:0 H.264
-picture, and the driver places the direct mode motion vectors right
-after the luma plane. The driver offers NV12 only, so userspace reads
-motion vectors as chroma. JVT-FR-EXT HPCAMOLQ_BRCM_B and
+The decoder writes only the luma plane of a 4:0:0 H.264 picture, but
+the driver offers NV12, so userspace gets a chroma plane the decoder
+never wrote (green or stale pictures). JVT-FR-EXT HPCAMOLQ_BRCM_B and
 HPCVMOLQ_BRCM_B fail although their luma is bit-exact.
 
-Track 4:0:0 from the SPS and offer only GREY for such streams on these
-variants. Refuse the switch with -EBUSY while CAPTURE streams. Other
-variants are unchanged.
+Offer GREY for 8-bit 4:0:0 streams. There is no V4L2 format for the
+packed 10-bit luma that 10-bit 4:0:0 would need, so those keep NV15.
 
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/platform/verisilicon/hantro.h        |  4 +++
- drivers/media/platform/verisilicon/hantro_drv.c    | 40 ++++++++++++++++++++--
- drivers/media/platform/verisilicon/hantro_v4l2.c   | 27 ++++++++++++---
- .../media/platform/verisilicon/rockchip_vpu_hw.c   | 39 +++++++++++++++++++++
- 4 files changed, 103 insertions(+), 7 deletions(-)
+ drivers/media/platform/rockchip/rkvdec/rkvdec-h264-common.c | 4 +++-
+ drivers/media/platform/rockchip/rkvdec/rkvdec.c             | 4 ++++
+ drivers/media/platform/rockchip/rkvdec/rkvdec.h             | 1 +
+ 3 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
-index 0353de154a1e..abd50d15b2e0 100644
---- a/drivers/media/platform/verisilicon/hantro.h
-+++ b/drivers/media/platform/verisilicon/hantro.h
-@@ -234,6 +234,7 @@ struct hantro_dev {
-  * @ctrl_handler:	Control handler used to register controls.
-  * @jpeg_quality:	User-specified JPEG compression quality.
-  * @bit_depth:		Bit depth of current frame
-+ * @monochrome:		The stream is 4:0:0 (H.264), the decoder writes luma only
-  * @need_postproc:	Set to true if the bitstream features require to
-  *			use the post-processor.
-  *
-@@ -263,6 +264,7 @@ struct hantro_ctx {
- 	struct v4l2_ctrl_handler ctrl_handler;
- 	int jpeg_quality;
- 	int bit_depth;
-+	bool monochrome;
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-h264-common.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-h264-common.c
+index 54639512e456..8ad41c4e56c8 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec-h264-common.c
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-h264-common.c
+@@ -146,7 +146,9 @@ enum rkvdec_image_fmt rkvdec_h264_get_image_fmt(struct rkvdec_ctx *ctx,
+ 		return RKVDEC_IMG_FMT_ANY;
  
- 	const struct hantro_codec_ops *codec_ops;
- 	struct hantro_postproc_ctx postproc;
-@@ -291,6 +293,7 @@ struct hantro_ctx {
-  * @frmsize:	Supported range of frame sizes (only for bitstream formats).
-  * @postprocessed: Indicates if this format needs the post-processor.
-  * @match_depth: Indicates if format bit depth must match video bit depth
-+ * @monochrome: Decoded format for 4:0:0 streams only
-  */
- struct hantro_fmt {
- 	char *name;
-@@ -302,6 +305,7 @@ struct hantro_fmt {
- 	struct v4l2_frmsize_stepwise frmsize;
- 	bool postprocessed;
- 	bool match_depth;
-+	bool monochrome;
+ 	if (sps->bit_depth_luma_minus8 == 0) {
+-		if (sps->chroma_format_idc == 2)
++		if (sps->chroma_format_idc == 0)
++			return RKVDEC_IMG_FMT_400_8BIT;
++		else if (sps->chroma_format_idc == 2)
+ 			return RKVDEC_IMG_FMT_422_8BIT;
+ 		else
+ 			return RKVDEC_IMG_FMT_420_8BIT;
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+index fbcd0f175ad3..548659d23bc2 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+@@ -414,6 +414,10 @@ static const struct rkvdec_decoded_fmt_desc rkvdec_h264_decoded_fmts[] = {
+ 		.fourcc = V4L2_PIX_FMT_NV20,
+ 		.image_fmt = RKVDEC_IMG_FMT_422_10BIT,
+ 	},
++	{
++		.fourcc = V4L2_PIX_FMT_GREY,
++		.image_fmt = RKVDEC_IMG_FMT_400_8BIT,
++	},
  };
  
- struct hantro_reg {
-diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index 26e5d5547466..25d7ac4b45da 100644
---- a/drivers/media/platform/verisilicon/hantro_drv.c
-+++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -300,6 +300,41 @@ static int hantro_jpeg_s_ctrl(struct v4l2_ctrl *ctrl)
- 	return 0;
- }
- 
-+static int hantro_h264_s_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct hantro_ctx *ctx;
-+	bool monochrome;
-+	int ret;
-+
-+	ctx = container_of(ctrl->handler,
-+			   struct hantro_ctx, ctrl_handler);
-+
-+	switch (ctrl->id) {
-+	case V4L2_CID_STATELESS_H264_SPS:
-+		monochrome = ctrl->p_new.p_h264_sps->chroma_format_idc == 0;
-+		if (ctx->monochrome == monochrome)
-+			return 0;
-+
-+		ctx->monochrome = monochrome;
-+		/* Variants without a 4:0:0 format keep their formats */
-+		if (!hantro_get_default_fmt(ctx, false, ctx->bit_depth,
-+					    HANTRO_AUTO_POSTPROC)) {
-+			ctx->monochrome = false;
-+			return 0;
-+		}
-+		if (vb2_is_streaming(v4l2_m2m_get_dst_vq(ctx->fh.m2m_ctx))) {
-+			ctx->monochrome = !monochrome;
-+			return -EBUSY;
-+		}
-+		ret = hantro_reset_raw_fmt(ctx, ctx->bit_depth, HANTRO_AUTO_POSTPROC);
-+		if (ret)
-+			ctx->monochrome = !monochrome;
-+		return ret;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- static int hantro_vp9_s_ctrl(struct v4l2_ctrl *ctrl)
- {
- 	struct hantro_ctx *ctx;
-@@ -377,8 +412,9 @@ static int hantro_av1_s_ctrl(struct v4l2_ctrl *ctrl)
- 	return 0;
- }
- 
--static const struct v4l2_ctrl_ops hantro_ctrl_ops = {
-+static const struct v4l2_ctrl_ops hantro_h264_ctrl_ops = {
- 	.try_ctrl = hantro_try_ctrl,
-+	.s_ctrl = hantro_h264_s_ctrl,
+ static const struct rkvdec_ctrl_desc rkvdec_vp9_ctrl_descs[] = {
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.h b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
+index a24be6638b6b..58c53a1f58b3 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec.h
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
+@@ -108,6 +108,7 @@ enum rkvdec_image_fmt {
+ 	RKVDEC_IMG_FMT_420_10BIT,
+ 	RKVDEC_IMG_FMT_422_8BIT,
+ 	RKVDEC_IMG_FMT_422_10BIT,
++	RKVDEC_IMG_FMT_400_8BIT,
  };
  
- static const struct v4l2_ctrl_ops hantro_jpeg_ctrl_ops = {
-@@ -460,7 +496,7 @@ static const struct hantro_ctrl controls[] = {
- 		.codec = HANTRO_H264_DECODER,
- 		.cfg = {
- 			.id = V4L2_CID_STATELESS_H264_SPS,
--			.ops = &hantro_ctrl_ops,
-+			.ops = &hantro_h264_ctrl_ops,
- 		},
- 	}, {
- 		.codec = HANTRO_H264_DECODER,
-diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 83af9fa1ce94..550062069b04 100644
---- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-+++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-@@ -109,6 +109,17 @@ hantro_check_depth_match(const struct hantro_fmt *fmt, int bit_depth)
- 	return fmt_depth == bit_depth;
- }
- 
-+static bool
-+hantro_check_fmt_match(const struct hantro_ctx *ctx,
-+		       const struct hantro_fmt *fmt, int bit_depth)
-+{
-+	if (!ctx->is_encoder && fmt->codec_mode == HANTRO_MODE_NONE &&
-+	    fmt->monochrome != ctx->monochrome)
-+		return false;
-+
-+	return hantro_check_depth_match(fmt, bit_depth);
-+}
-+
- static const struct hantro_fmt *
- hantro_find_format(const struct hantro_ctx *ctx, u32 fourcc)
- {
-@@ -156,7 +167,7 @@ hantro_get_default_fmt(const struct hantro_ctx *ctx, bool bitstream,
- 	for (i = 0; i < num_fmts; i++) {
- 		if (bitstream == (formats[i].codec_mode !=
- 				  HANTRO_MODE_NONE) &&
--		    hantro_check_depth_match(&formats[i], bit_depth))
-+		    hantro_check_fmt_match(ctx, &formats[i], bit_depth))
- 			return &formats[i];
- 	}
- 
-@@ -164,7 +175,7 @@ hantro_get_default_fmt(const struct hantro_ctx *ctx, bool bitstream,
- 	for (i = 0; i < num_fmts; i++) {
- 		if (bitstream == (formats[i].codec_mode !=
- 				  HANTRO_MODE_NONE) &&
--		    hantro_check_depth_match(&formats[i], bit_depth))
-+		    hantro_check_fmt_match(ctx, &formats[i], bit_depth))
- 			return &formats[i];
- 	}
- 
-@@ -253,7 +264,7 @@ static int vidioc_enum_fmt(struct file *file, void *priv,
- 
- 		if (skip_mode_none == mode_none)
- 			continue;
--		if (!hantro_check_depth_match(fmt, ctx->bit_depth) && !enum_all_formats)
-+		if (!hantro_check_fmt_match(ctx, fmt, ctx->bit_depth) && !enum_all_formats)
- 			continue;
- 		if (j == index) {
- 			f->pixelformat = fmt->fourcc;
-@@ -273,7 +284,7 @@ static int vidioc_enum_fmt(struct file *file, void *priv,
- 	for (i = 0; i < num_fmts; i++) {
- 		fmt = &formats[i];
- 
--		if (!hantro_check_depth_match(fmt, ctx->bit_depth) && !enum_all_formats)
-+		if (!hantro_check_fmt_match(ctx, fmt, ctx->bit_depth) && !enum_all_formats)
- 			continue;
- 		if (j == index) {
- 			f->pixelformat = fmt->fourcc;
-@@ -337,6 +348,9 @@ static int hantro_try_fmt(const struct hantro_ctx *ctx,
- 	vpu_debug(4, "trying format %p4cc\n", &pix_mp->pixelformat);
- 
- 	fmt = hantro_find_format(ctx, pix_mp->pixelformat);
-+	if (fmt && !coded && !ctx->is_encoder &&
-+	    fmt->monochrome != ctx->monochrome)
-+		fmt = NULL;
- 	if (!fmt) {
- 		fmt = hantro_get_default_fmt(ctx, coded, HANTRO_DEFAULT_BIT_DEPTH, HANTRO_AUTO_POSTPROC);
- 		pix_mp->pixelformat = fmt->fourcc;
-@@ -570,10 +584,13 @@ static int hantro_set_fmt_out(struct hantro_ctx *ctx,
- 	 * Note that hantro_reset_raw_fmt() also propagates size
- 	 * changes to the raw format.
- 	 */
--	if (!ctx->is_encoder)
-+	if (!ctx->is_encoder) {
-+		/* A new stream: assume chroma until its H.264 SPS says otherwise */
-+		ctx->monochrome = false;
- 		hantro_reset_raw_fmt(ctx,
- 				     hantro_get_format_depth(pix_mp->pixelformat),
- 				     need_postproc);
-+	}
- 
- 	/* Colorimetry information are always propagated. */
- 	ctx->dst_fmt.colorspace = pix_mp->colorspace;
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-index 02673be9878e..851af0e6c80b 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-@@ -134,6 +134,19 @@ static const struct hantro_fmt rk3066_vpu_dec_fmts[] = {
- 			.step_height = MB_DIM,
- 		},
- 	},
-+	{
-+		.fourcc = V4L2_PIX_FMT_GREY,
-+		.codec_mode = HANTRO_MODE_NONE,
-+		.monochrome = true,
-+		.frmsize = {
-+			.min_width = FMT_MIN_WIDTH,
-+			.max_width = FMT_FHD_WIDTH,
-+			.step_width = MB_DIM,
-+			.min_height = FMT_MIN_HEIGHT,
-+			.max_height = FMT_FHD_HEIGHT,
-+			.step_height = MB_DIM,
-+		},
-+	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_H264_SLICE,
- 		.codec_mode = HANTRO_MODE_H264_DEC,
-@@ -188,6 +201,19 @@ static const struct hantro_fmt rk3288_vpu_dec_fmts[] = {
- 			.step_height = MB_DIM,
- 		},
- 	},
-+	{
-+		.fourcc = V4L2_PIX_FMT_GREY,
-+		.codec_mode = HANTRO_MODE_NONE,
-+		.monochrome = true,
-+		.frmsize = {
-+			.min_width = FMT_MIN_WIDTH,
-+			.max_width = FMT_4K_WIDTH,
-+			.step_width = MB_DIM,
-+			.min_height = FMT_MIN_HEIGHT,
-+			.max_height = FMT_4K_HEIGHT,
-+			.step_height = MB_DIM,
-+		},
-+	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_H264_SLICE,
- 		.codec_mode = HANTRO_MODE_H264_DEC,
-@@ -242,6 +268,19 @@ static const struct hantro_fmt rockchip_vdpu2_dec_fmts[] = {
- 			.step_height = MB_DIM,
- 		},
- 	},
-+	{
-+		.fourcc = V4L2_PIX_FMT_GREY,
-+		.codec_mode = HANTRO_MODE_NONE,
-+		.monochrome = true,
-+		.frmsize = {
-+			.min_width = FMT_MIN_WIDTH,
-+			.max_width = FMT_FHD_WIDTH,
-+			.step_width = MB_DIM,
-+			.min_height = FMT_MIN_HEIGHT,
-+			.max_height = FMT_FHD_HEIGHT,
-+			.step_height = MB_DIM,
-+		},
-+	},
- 	{
- 		.fourcc = V4L2_PIX_FMT_H264_SLICE,
- 		.codec_mode = HANTRO_MODE_H264_DEC,
+ struct rkvdec_decoded_fmt_desc {
 
 -- 
 2.55.0
