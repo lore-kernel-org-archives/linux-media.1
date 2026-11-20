@@ -1,78 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795184853;
-	b=KNH6uryQ+9Abjcyk/w2QwTEhRLgcuF0BEutcZTGPPpmUtjVTdEkNmQFepHN6u1mW5Rjz
-	 OjfnIaumkpzg/xwWG5wdIL0VlN1/4OvmCsh3xcdiBtpHPNB2bMrgjVWeYj6kSCGRFjrx8
-	 BHyyrDIZdnSEIIf0LbPZJNS+p1rgXmw4PszkVCL1hzbXjsJ8WxlmKr0/FSOMN/3nMxCeE
-	 EgNxjpfm8SDKhgKHR7Bk2GUCwAlTT3PfM5c0fjOD+N5DOgA37NMvy9QEsgZ4aFBG/i9h0
-	 yAX6zyFvmHhvw4N0Sla27lGhCPrQkza8JH301thje2u3gg1Khv2+vdsBD9ssHEIFXlA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795184853;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:References:Content-Language:Cc:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=dIW8l1jmAMoopAylHO4JbVjM7+yfy0/+M5N9pT2h0sU=;
-	b=UJU+wP7MNCOxLC5Yhk3ieKfvZjXlFnZ+f8Fzr/l1wNP4ioRCYe7Fu9UZc1008G9sC0/M
-	 HRvjekMl2ycoXQxQVigTY/KQzoQeEyz9Hc38p75QTFMnB+l6FJShL7Q8Vz3/HkWgahAo4
-	 evdKZCY2jsslvKLDfm0pU5b8us0tKE8cO/8z/EXVuFM75SCtPuX6VhDvIdQ5tGHPyF+48
-	 gtB0malmJAdFWkhcUUlBbffUu9rfGnsHgApzRoolkaxGIISJzZ5p1ZQZYdxOp8x85ztx8
-	 FPNrtYbDUxHS7HmAbwmkiwz0XTlfekVj7YMyutZfLskRjIEbAYI2ZfyljC3igSEO2jQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=RGmBMqLO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795185109;
+	b=Aq1UMmUe9zZZf9ZxLmoFfPLfn60Ar7iDI9yD1yGOVRDN4oFqNskoiFULSXoh4UpnboyK
+	 9G4vIStiUCnTGcNbFzbGYGNeFHsQTAnms+uCUnQTeVQLAPtpn7MMZSLf9eM9m8H2t08tt
+	 tTEALQPSaBCy0En1bOXm+9K9rlCbjC6YlfWBtspwZpV2lU0OAOjnkQDCxv06Wyo8hBRMl
+	 PMlygysuy1UNSgNJxVc4FhmjmO+oMpFhIrRe0mK4tS1/P2Gq9RTFBEl//dZMi8Ef7htRQ
+	 1/obCoM4LGuSJ2h6SnUW5ri7PIQVoapr7aTsPfAd92s0B3HNac5pRaLDZlNfUFDTD0Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795185109;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=3EuKYU1V/nUAnDXv79PPh/iSTftFFLoG3EvfW9crCwI=;
+	b=2qCD3IUw/CqfR3sxQmhld0NXGjIiIZjVIlnGei/DmIX2K5BHqgFpJo7eDAH8jzk+IOJi
+	 db847RtCM8gQgKQowstpzvSA7pyDNNgBXtC36K8BYFE4gVSjWZhZIa2b4Noku+lmZeSj2
+	 X2XOHadg6ExJw/3DHQvcb5ktoxdTNWoRm+rwJfOYT5fUCgHXWxMeBdJ8JtmMqmSfE6vNr
+	 7yxTHQ3yF9snJdjrGdoDoWP1ygzQKNCeFpuXbJvjl3qMoLUa2yiwQgUlbk9ur7z72Qbov
+	 7vlLJQ6J/9+LNGaBeoRHf9WV/XdgRJb4nHTFts+1DVNex9icQh4ZT2XN4+PdWnRqZyg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GPMxLtZJ;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BB6606A325
-	for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 14:27:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3BB6606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FDB8606A320;
+	Fri, 20 Nov 2026 14:31:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FDB8606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=RGmBMqLO
-Received: from [0.0.0.0] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
-	(Authenticated sender: spu@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EBD1B20102E;
-	Fri, 20 Nov 2026 15:27:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795184845;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dIW8l1jmAMoopAylHO4JbVjM7+yfy0/+M5N9pT2h0sU=;
-	b=RGmBMqLOUbeSR1o7Q4vmacQFs3/oB863tT2tuqZxcs5V3hjiJsxm1Mqar8TCKO/tZ/LBBJ
-	f5h32ISXoDJJO+0mwCbm6GkGCDgZl3b8tyzGMxhESiBK/a/tcwRsuITqI0re9gdYPno2yP
-	VIyrTwSuoBwuxH2XLEilEhEkzxgfOdiTIW6exK606cNXGnO3q75y14IZ+Sz8Nwoi0XI5H2
-	Y+i+UWnCGC5orvbc6RkbhrNMYQeCUsPTS4kQAd1JfMcd3q87YEqHeVYaEVN6Sxkj+UmulV
-	3HzrQq27spT+rZuNyXdbI4AiptxnA1/iuYVl7EBAF7soE7pYMvWfA42f5KZ7EA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795184845;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dIW8l1jmAMoopAylHO4JbVjM7+yfy0/+M5N9pT2h0sU=;
-	b=XOKrUwWWgDc/384LQ7JXk9MU99nTXLVXrARvYhlK4m/qoPItJudsSu5FDd38PCfvpi+dPg
-	zRYVyOpU0qel4wwu1Zi+NEwcd0liOhrVu/m9IMHDcLCHqwQ6qUSCKMTvOGWlxf3U49F1ZV
-	DI3R9U8KYAZzZM8+pZMCYLW9et7LN7En0VLBypaL8Uv9s8Q18HLpPBayHLRrSsk6FgQl2x
-	ni9kepTWPzI0k8MsrK1iR9Z+sRcjvktazZ1vD71wBqSJ1dp++CO83nsnhBucjdqUPsuzxl
-	66uiZLPfCIeUOVFV5GzhL4E2nvz2poBJ6DVGc3jEgO89jAy3kLX9ZgWO9fnjtQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795184845; a=rsa-sha256;
-	cv=none;
-	b=LqWWGNn9wCcQTmS3zB0VAck0cBTStcsKLLkFrad1bl+o6PSv6rb4cb/oNKMNvKfwzklb83
-	31gPruzsHzSuHPrsX/JiGdw9fqEDMFn3yfB53Fsqhwa+nhtAWQI716jcuOv91XpotEjj3k
-	6/LnTh3DC448MXLEdmpGDJ9WBWjdslVmIV4ocnQ+E9TIvTMTWD4seq/hY2SGlarWFgtIkJ
-	/FI/gUQxaEDhI8Ik0PjYWTYglWW/buNOwL9tMpo4Y1vzpqNulL+maU52l8MMUtDCl09KpY
-	dB67bbdNoEPLVJe5M9dkbr/xjyeVcjXq3kTsyCLtt7tJHg+3SrdUJe/LidEk+g==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=spu@pengutronix.de smtp.mailfrom=s.pueschel@pengutronix.de
-Message-ID: <00617d74-cb47-49b8-af46-b3d93607e730@pengutronix.de>
-Date: Fri, 20 Nov 2026 15:27:25 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GPMxLtZJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795185101;
+	bh=YK/k1fZJBJ7Ho2aRUWs/6q2KowLDTaMyFWDZCUHSuK0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=GPMxLtZJeYIvB0K8CA/6DuwErAe+OJF1hU6+qnMKH9AfMzhtA1Efxpd0RUMEfbdrW
+	 P1oI6zhsbNKSoHcDQsUSDPBJN26vd1cf+ghhan2vlYBrP5c1vBVS4U7joyIGwa2Zq0
+	 yjSBVzDL4bL1yb1aoRFIC1iXfnoWym8z/a8sPB29pdVds5VyfVHdWAhe38G0TUi/TK
+	 hJoJrOgfoSinTP4ihsPx1St0COTJEOt0YSA4UURE7HGcOaUVlganEfDCq3I7/DKtmM
+	 Mng00isuAem7euYzS7Olpu78gJb5uynHNqnlzgOhZeljVEme5UlEX9d8/JvuPBp1b1
+	 fS3FPlxmAcmiw==
+Received: from benjamin-XPS-13-9310 (unknown [100.64.1.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: benjamin.gaignard)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E365E17E0883;
+	Fri, 20 Nov 2026 15:31:40 +0100 (CET)
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+To: nicolas.dufresne@collabora.com,
+	p.zabel@pengutronix.de,
+	mchehab@kernel.org,
+	heiko@sntech.de,
+	hverkuil@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Subject: [PATCH v7 1/3] media: verisilicon: AV1: Check reference frame index
+Date: Fri, 20 Nov 2026 15:31:33 +0100
+Message-ID: <20261120143135.71134-2-benjamin.gaignard@collabora.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261120143135.71134-1-benjamin.gaignard@collabora.com>
+References: <20261120143135.71134-1-benjamin.gaignard@collabora.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -82,47 +76,45 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Anubis challenges blocking file downloads in CI
-To: linux-media@vger.kernel.org
-References: <3539F6C5-63E7-44CF-87BE-FE98FE8BD588@aosc.io>
-Content-Language: en-US
-Cc: kernel@pengutronix.de
-From: =?UTF-8?Q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
-In-Reply-To: <3539F6C5-63E7-44CF-87BE-FE98FE8BD588@aosc.io>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Make sure that reference frame index is valid before using it.
 
-On 11/18/26 05:34, stydxm wrote:
-> Hi LinuxTV team,
->
-> ​Our CI pipeline is failing because downloading files from https://www.linuxtv.org/downloads/v4l-utils/ triggers Anubis challenges.
->
-> ​Could you please adjust the configurations for direct file downloads via CLI tools such as wget/curl?
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Fixes: 727a400686a2c ("media: verisilicon: Add Rockchip AV1 decoder")
+---
+ .../platform/verisilicon/rockchip_vpu981_hw_av1_dec.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-also stumbled over this (with PTXdist). For zbar I've switched the URL 
-to GitHub. But for v4l-utils there doesn't seem to be an official 
-(GitHub) mirror.
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+index 2a145433e6d1..5da59104a966 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+@@ -121,7 +121,12 @@ static int rockchip_vpu981_get_frame_index(struct hantro_ctx *ctx, int ref)
+ 	struct hantro_av1_dec_ctrls *ctrls = &av1_dec->ctrls;
+ 	const struct v4l2_ctrl_av1_frame *frame = ctrls->frame;
+ 	u64 timestamp;
+-	int i, idx = frame->ref_frame_idx[ref];
++	int i, idx;
++
++	if (ref < 0 || ref >= V4L2_AV1_REFS_PER_FRAME)
++		return AV1_INVALID_IDX;
++
++	idx = frame->ref_frame_idx[ref];
+ 
+ 	if (idx >= V4L2_AV1_TOTAL_REFS_PER_FRAME || idx < 0)
+ 		return AV1_INVALID_IDX;
+@@ -1262,6 +1267,10 @@ static void rockchip_vpu981_av1_dec_set_prob(struct hantro_ctx *ctx)
+ 		rockchip_av1_default_coeff_probs(quantization->base_q_idx,
+ 						 av1_dec->cdfs);
+ 	} else {
++		if (frame->primary_ref_frame < 0 ||
++		    frame->primary_ref_frame >= V4L2_AV1_REFS_PER_FRAME)
++			return;
++
+ 		rockchip_av1_get_cdfs(ctx, frame->ref_frame_idx[frame->primary_ref_frame]);
+ 	}
+ 	rockchip_av1_store_cdfs(ctx, frame->refresh_frame_flags);
+-- 
+2.53.0
 
-While I could (like meta-openembedded [1]) do a (shallow) Git clone 
-instead, it doesn't seem right to me (as it produces more data and 
-server load).
-
-Maybe just exempt the project download dirs from Anubis? Automated 
-version check tooling sometimes uses the directory listing to detect the 
-newest version (Anitya for example [2]). I'd hope that the whole AI 
-scraping is smart enough to only try to download each of the ~200 
-download tarballs exposed with a dir listing once.
-
-Sincerely
-     Sven
-
-[1] 
-https://git.openembedded.org/meta-openembedded/tree/meta-oe/recipes-multimedia/v4l2apps/v4l-utils_1.32.0.bb#n29
-[2] https://release-monitoring.org/project/9998/
-
->
-> ​Thanks,
-> stydxm
