@@ -1,81 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795176047;
-	b=UWSaCGLFWgx10XO1YrEQGwoOute28j22KFwh7s9bFC0dsbkNQSIKyEn1RH8UpuwWjT0w
-	 NJKxW74LjeMWB1ogfYRhE7x5/aFFTwYu9L4P/oJ8OKmcAG2ROOfhO/J9tmKJ/6Xwa1uaX
-	 c9L18UYBYIs3/RvndB1WlvSP+wQGTWTgKJHei0Qbs+TbRclQWx/90Xg0eiXqFxrw3HA5q
-	 hWkc8BWRkJUG1pAcliSJBOHTojs56RkC9fD7cURqjxc6d868N9rosxhq3ucZS6qC2ZE7c
-	 PAjoa/MZxjGf4MWhtn7GqN2WDQ3fEcXBi1ZHLxGFUljolUaAGZVo86R7Ti+wJ2Jhq+A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795176047;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=beQWb4LoAtDg8Zy+5AKtlfFZLus+EPwyn9DYxNFG6mU=;
-	b=nY8fMPcLeErqjvAYNJVx1B0AWZNWZG+kJcoPPkkvHYEQ/GwVzjcdE2tagt99qhVwy1h4
-	 OwQcRMOGLUlgnp302kgbrnoocubc2eFTgfPQtLSSoe0TgGM57TDboEzxuRLt3giTd/ryU
-	 MHoVlCj6Fj3nlhDmNSW73W7JTndAV+QdX+pB+45C4X3bSO3pn5sNBtC4jUY2loRQEOCYk
-	 i/9pC6Xx5+MMGvemVVLVzDduWLLD0UfE2IyVRpEsGLaJ3cLCYuUKczTeaD8g5clHfEv+5
-	 Ia8rmu42WHnrUME3R2us90PmLhIuLeisFI2Xqw03GaHa3aYfvH7HXpXUdb1xuu2iyvQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EIYxJwKV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795180160;
+	b=NmPuFO3hFeCtplHhq1T8dhDCk1dADteRa/b/z8xvBSZyqbtKCe/tzaMZIr8i9dODSRpR
+	 TW6ujq4Hxhwx3MJHS4LVMmsPrSQtyfQPSIB8gcGSrhKW60nph1BSZDK+GXHDC/Gs+9//I
+	 Ns5IIc1bicEhiMwa4KN3KcEQIpWg0REzNOnK8UZ0mwiGaRIwoUzH42EdcjMxu3nqTH/L4
+	 /7VOTylY4mseLKenx3W/uGN2O+wUFjuDQDsFXYWrIakNnEwAFxFaBvTO4MRckyi8otndg
+	 HciQeexon99fxGUaZSS/Sy8h8QoXg+fXUVKCBEZ8P6uLrCWwk+99quewL8WSdhGb+kg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795180160;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Message-ID:
+	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Importance:User-Agent:X-Mailer;
+	bh=sf4AH1zOcw+3m6cCakkCBTqDSIqFr2QBiWyWayVrX3Q=;
+	b=m5CYqxN0HGXghUJ/TkSPcIlTwc17CKP0Y6OAxeSnZ74bwhxB5sBrelx8eJwauuLyG2DM
+	 id+ogIhdNbuZHRN/4eoLVXfSE5AotY6hXT+/opkPX4uGAIhqLbB+3Us6SxbrrCf1p8B0/
+	 rC7kdyk68RhNcb1OV+yfAENr6PVBv2H9Blwgyysu04gA6E+fVz5BsqXkG2yf/kxWi6m3b
+	 WfEILEip2uAaK94TYs1B69y5Jsxiot9+QKRNPQB0oDEFIUQchhWSFI/MbDzgzUxwrVbWy
+	 5EDXsmgptKKbj/ujtw4svRul0RGKv735MJ5Y+floPcmXgX4USa9quatb6JPavOJA+SQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=ehbxFn6Q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 111F3606A338;
-	Fri, 20 Nov 2026 12:00:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D26606A320;
+	Fri, 20 Nov 2026 13:09:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91D26606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EIYxJwKV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F5811F000CA;
-	Fri, 20 Nov 2026 12:00:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795176046;
-	bh=beQWb4LoAtDg8Zy+5AKtlfFZLus+EPwyn9DYxNFG6mU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EIYxJwKV6pKOzzIEBuRXOlDo0Y+HodiAO2ZB2R6VQEfoBQ/HvGlDsgCsZZD6G5Czz
-	 6Hw2mEq4W7WWL2M0khcowQ1ijdyhpl4Mf5E6jvjTXU3BGCjU3W7JH3HwTFePuk7BsW
-	 Zf0fcxra0plL9c0eF7Yjpx+CYN7bzoUzk/Q+FqleL9bhb1AcVGEf22bj+ScG5xaNBz
-	 T66Fe3ePBa9AIlYOk+9jLYdZIJzmgdv7gXFnPj3yOg7RrM21kpYHHujoSPlrAH4uP9
-	 arxmZfKtYgbrYZDY/oMy1BhaVWUrcfXk5RMw2HX+ZvgFLWMDcsj5WLUngXGiGzaopt
-	 u7hrJu5tbh8fQ==
-Date: Fri, 20 Nov 2026 13:00:27 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Andreas Hindborg <a.hindborg@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Lyude Paul <lyude@redhat.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
-	Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Igor Korotin <igor.korotin@linux.dev>, 
-	Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, Michal Wilczynski <m.wilczynski@samsung.com>, 
-	Ira Weiny <iweiny@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, Johan Hovold <johan@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Dave Jiang <dave.jiang@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Saeed Mahameed <saeedm@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, Jonathan Cameron <jic23@kernel.org>, 
-	Markus Probst <markus.probst@posteo.de>
-Cc: Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, driver-core@lists.linux.dev, 
-	linux-block@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, 
-	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, linux-serial@vger.kernel.org, 
-	Oliver Mangold <oliver.mangold@pm.me>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Subject: Re: [PATCH v22 4/5] rust: rename `AlwaysRefCounted` to `RefCounted`
-Message-ID: <20261120-belichtet-austoben-januar-9fca976c1371@brauner>
-References: <20261116-unique-ref-v22-0-12029383206d@kernel.org>
- <20261116-unique-ref-v22-4-12029383206d@kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=ehbxFn6Q
+ARC-Seal: i=1; a=rsa-sha256; t=1795180132; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=FYuT9fhElAX47KBGkB2SllZszrMGccBSGnyXiMEX3YyCdM+qz2KtfxinqDTV0gnBxd7yL1QjJk62yM6TZYzHg7HN8T0fwLQvz8MlW3Nh/5Z8Fmfsk0rFHXd7i7DT1Nz40qqIUfmm42YhlDKF3hcOZiBttATAo9+v27L9plRC+H8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1795180132; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=sf4AH1zOcw+3m6cCakkCBTqDSIqFr2QBiWyWayVrX3Q=; 
+	b=ZvoUZTyPgb2vfXKImZEhHSAbdbVhjmCzBRjYcu6VXR90/d3TPkzip110xHwT9jQopXhZZyymkcmaT+hs2loUQtQJNdUao3WN0bJBD5ToCXonxp7vH/9WwJUypvvvngNIyFQ2ODELpu9gb2gKFl6HcsFWy+Vycxb2Lwe5ACDY4cU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=nicolas.dufresne@collabora.com;
+	dmarc=pass header.from=<nicolas.dufresne@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=ehbxFn6Q8yTrPbnsU7wE9E48PYRCjMfiX6+/+ropJDEv7ZZJUwwiOwqGBdAKwHfXE50PWuhmohKp7qW3kRr5IezHe5AfOzOAWWZ0ENmw8J/IIAJQS9I2Ndy6j11Wd4BteUiDNonSiNc+Ny8gPbFJcnssEkziiKPJBPidYaiBhew=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=sf4AH1zOcw+3m6cCakkCBTqDSIqFr2QBiWyWayVrX3Q=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: from mail.zoho.com by mx.zohomail.com
+	with SMTP id 1795180130356352.2454153669245; Fri, 20 Nov 2026 05:08:50 -0800 (PST)
+Date: Fri, 20 Nov 2026 08:08:50 -0500
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: <aiyengar1990@gmail.com>
+Cc: <hverkuil@kernel.org>, <mchehab@kernel.org>,
+	<benjamin.gaignard@collabora.com>, <p.zabel@pengutronix.de>,
+	<mripard@kernel.org>, <paulk@sys-base.io>,
+	<gregkh@linuxfoundation.org>, <wens@kernel.org>,
+	<jernej.skrabec@gmail.com>, <samuel@sholland.org>, <jonas@kwiboo.se>,
+	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-rockchip@lists.infradead.org>,
+	<linux-staging@lists.linux.dev>,
+	<linux-arm-kernel@lists.infradead.org>,
+	<linux-sunxi@lists.linux.dev>, <ckoever@outlook.de>,
+	<aiyengar1990@gmail.com>
+Message-ID: <1a1f912f033.2efff015191157.7190884739957848478@collabora.com>
+In-Reply-To: <20261119-b4-cedrus-mpeg1-v1-2-aa5ba1192822@gmail.com>
+References: <20261119-b4-cedrus-mpeg1-v1-0-aa5ba1192822@gmail.com> <20261119-b4-cedrus-mpeg1-v1-2-aa5ba1192822@gmail.com>
+Subject: =?UTF-8?Q?Re:=C2=A0[PATCH_RFC_2/2]_media:_cedrus:_mpeg2:?=
+ =?UTF-8?Q?_decode_MPEG-1_as_V4L2=5FPIX=5FFMT=5FMPEG1=5FSLICE?=
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -85,12 +75,305 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261116-unique-ref-v22-4-12029383206d@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Importance: Normal
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 
-On Mon, Nov 16, 2026 at 03:21:01PM +0100, Andreas Hindborg wrote:
+Hi,
 
-For the fs and pid_namespace bits:
 
-Acked-by: Christian Brauner <brauner@kernel.org>
+---- Le jeu., 19 nov. 2026 11:34:53 -0500
+devnull+aiyengar1990.gmail.com@kernel.org a =C3=A9crit ----
+
+
+> From: Arun Iyengar
+>
+> The engine has an MPEG-1 mode, selected with the MPEG-1 decoder type in
+> the trigger register, and takes the full pel flags and the picture
+> coding type (D-pictures included) in the picture header register.
+>
+> Enumerate V4L2_PIX_FMT_MPEG1_SLICE on every variant with the MPEG-2
+> decoder (tested on H616 only), with the MPEG-2 limits, and select the
+> MPEG-1 mode from the coded format. try_ctrl accepts the MPEG-1 flag, the
+> full pel flags and D-pictures only with the MPEG-1 format. A job whose
+> sequence control does not match the coded format fails, as do field
+> pictures in MPEG-1 sequences.
+
+
+MPEG2 requires MPEG1 support. The new format simply add noise, you can fix =
+cedrus with V4L2_MPEG2_SEQ_FLAG_MPEG1 alone.
+
+
+Nicolas
+
+
+
+>
+> Signed-off-by: Arun Iyengar
+>
+> ---
+> drivers/staging/media/sunxi/cedrus/cedrus.c | 22 +++++++++++++
+> drivers/staging/media/sunxi/cedrus/cedrus_dec.c | 1 +
+> drivers/staging/media/sunxi/cedrus/cedrus_hw.c | 1 +
+> drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c | 38 ++++++++++++++++++=
+++---
+> drivers/staging/media/sunxi/cedrus/cedrus_video.c | 7 +++++
+> 5 files changed, 65 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.c
+> b/drivers/staging/media/sunxi/cedrus/cedrus.c
+> index c3331b4f3f02..60b296032a90 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus.c
+> @@ -77,6 +77,26 @@ static int cedrus_try_ctrl(struct v4l2_ctrl *ctrl)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0c=
+tx->bit_depth =3D bit_depth;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0c=
+edrus_reset_cap_format(ctx);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0}
+> +=C2=A0=C2=A0=C2=A0=C2=A0} else if (ctrl->id =3D=3D V4L2_CID_STATELESS_MP=
+EG2_SEQUENCE) {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0const struct v4l2_ctrl_m=
+peg2_sequence *seq =3D
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ctrl->p_new.p_mpeg2_sequence;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct cedrus_ctx *ctx =
+=3D container_of(ctrl->handler,
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 st=
+ruct cedrus_ctx, hdl);
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (seq->flags & V4L2_MP=
+EG2_SEQ_FLAG_MPEG1 &&
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ctx->src_fmt.pixelforma=
+t !=3D V4L2_PIX_FMT_MPEG1_SLICE)
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+return -EINVAL;
+> +=C2=A0=C2=A0=C2=A0=C2=A0} else if (ctrl->id =3D=3D V4L2_CID_STATELESS_MP=
+EG2_PICTURE) {
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0const struct v4l2_ctrl_m=
+peg2_picture *pic =3D
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ctrl->p_new.p_mpeg2_picture;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0struct cedrus_ctx *ctx =
+=3D container_of(ctrl->handler,
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 st=
+ruct cedrus_ctx, hdl);
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (ctx->src_fmt.pixelfo=
+rmat !=3D V4L2_PIX_FMT_MPEG1_SLICE &&
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (pic->picture_coding_ty=
+pe =3D=3D V4L2_MPEG2_PIC_CODING_TYPE_D ||
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pic->flags & (V4L2_MPEG=
+2_PIC_FLAG_FULL_PEL_FORWARD |
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 V4L2_MPEG2_PIC_FLAG_FULL_PEL_BACKWARD)))
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+return -EINVAL;
+> =C2=A0=C2=A0=C2=A0=C2=A0}
+>
+> =C2=A0=C2=A0=C2=A0=C2=A0return 0;
+> @@ -90,12 +110,14 @@ static const struct cedrus_control cedrus_controls[]=
+ =3D {
+> =C2=A0=C2=A0=C2=A0=C2=A0{
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.cfg =3D {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.=
+id=C2=A0=C2=A0=C2=A0=C2=A0=3D V4L2_CID_STATELESS_MPEG2_SEQUENCE,
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+.ops=C2=A0=C2=A0=C2=A0=C2=A0=3D &cedrus_ctrl_ops,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0},
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.capabilities=C2=A0=C2=A0=
+=C2=A0=C2=A0=3D CEDRUS_CAPABILITY_MPEG2_DEC,
+> =C2=A0=C2=A0=C2=A0=C2=A0},
+> =C2=A0=C2=A0=C2=A0=C2=A0{
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.cfg =3D {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.=
+id=C2=A0=C2=A0=C2=A0=C2=A0=3D V4L2_CID_STATELESS_MPEG2_PICTURE,
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+.ops=C2=A0=C2=A0=C2=A0=C2=A0=3D &cedrus_ctrl_ops,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0},
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.capabilities=C2=A0=C2=A0=
+=C2=A0=C2=A0=3D CEDRUS_CAPABILITY_MPEG2_DEC,
+> =C2=A0=C2=A0=C2=A0=C2=A0},
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_dec.c
+> b/drivers/staging/media/sunxi/cedrus/cedrus_dec.c
+> index 9f8b0555b7dc..6657d6060c39 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus_dec.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_dec.c
+> @@ -41,6 +41,7 @@ void cedrus_device_run(void *priv)
+>
+> =C2=A0=C2=A0=C2=A0=C2=A0switch (ctx->src_fmt.pixelformat) {
+> =C2=A0=C2=A0=C2=A0=C2=A0case V4L2_PIX_FMT_MPEG2_SLICE:
+> +=C2=A0=C2=A0=C2=A0=C2=A0case V4L2_PIX_FMT_MPEG1_SLICE:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0run.mpeg2.sequence =3D ce=
+drus_find_control_data(ctx,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0V=
+4L2_CID_STATELESS_MPEG2_SEQUENCE);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0run.mpeg2.picture =3D ced=
+rus_find_control_data(ctx,
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_hw.c
+> b/drivers/staging/media/sunxi/cedrus/cedrus_hw.c
+> index 444fb53878d1..fd3ee8f5e9a5 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus_hw.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_hw.c
+> @@ -44,6 +44,7 @@ int cedrus_engine_enable(struct cedrus_ctx *ctx)
+>
+> =C2=A0=C2=A0=C2=A0=C2=A0switch (ctx->src_fmt.pixelformat) {
+> =C2=A0=C2=A0=C2=A0=C2=A0case V4L2_PIX_FMT_MPEG2_SLICE:
+> +=C2=A0=C2=A0=C2=A0=C2=A0case V4L2_PIX_FMT_MPEG1_SLICE:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0reg |=3D VE_MODE_DEC_MPEG=
+;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0break;
+>
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
+> b/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
+> index 10e98f08aafc..18d91b9b1e4a 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
+> @@ -48,6 +48,30 @@ static void cedrus_mpeg2_irq_disable(struct cedrus_ctx
+> *ctx)
+> =C2=A0=C2=A0=C2=A0=C2=A0cedrus_write(dev, VE_DEC_MPEG_CTRL, reg);
+> }
+>
+> +static bool cedrus_mpeg2_is_mpeg1(struct cedrus_ctx *ctx)
+> +{
+> +=C2=A0=C2=A0=C2=A0=C2=A0return ctx->src_fmt.pixelformat =3D=3D V4L2_PIX_=
+FMT_MPEG1_SLICE;
+> +}
+> +
+> +static bool
+> +cedrus_mpeg2_format_matches(struct cedrus_ctx *ctx,
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ const struct v4l2_ctrl_mpeg2_sequence *seq,
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ const struct v4l2_ctrl_mpeg2_picture *pic)
+> +{
+> +=C2=A0=C2=A0=C2=A0=C2=A0bool mpeg1 =3D cedrus_mpeg2_is_mpeg1(ctx);
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0/* try_ctrl checked the controls against the for=
+mat set at that time. */
+> +=C2=A0=C2=A0=C2=A0=C2=A0if (mpeg1 !=3D !!(seq->flags & V4L2_MPEG2_SEQ_FL=
+AG_MPEG1))
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return false;
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0if (mpeg1)
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return pic->picture_stru=
+cture =3D=3D V4L2_MPEG2_PIC_FRAME;
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0return pic->picture_coding_type !=3D V4L2_MPEG2_=
+PIC_CODING_TYPE_D &&
+> +=C2=A0=C2=A0=C2=A0=C2=A0 !(pic->flags & (V4L2_MPEG2_PIC_FLAG_FULL_PEL_FO=
+RWARD |
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ V4L2_MPEG2_PIC_FLAG_FULL_PEL_BACKWARD));
+> +}
+> +
+> static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, struct cedrus_run *=
+run)
+> {
+> =C2=A0=C2=A0=C2=A0=C2=A0const struct v4l2_ctrl_mpeg2_sequence *seq;
+> @@ -63,6 +87,9 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, s=
+truct
+> cedrus_run *run)
+> =C2=A0=C2=A0=C2=A0=C2=A0seq =3D run->mpeg2.sequence;
+> =C2=A0=C2=A0=C2=A0=C2=A0pic =3D run->mpeg2.picture;
+>
+> +=C2=A0=C2=A0=C2=A0=C2=A0if (!cedrus_mpeg2_format_matches(ctx, seq, pic))
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return -EINVAL;
+> +
+> =C2=A0=C2=A0=C2=A0=C2=A0quantisation =3D run->mpeg2.quantisation;
+>
+> =C2=A0=C2=A0=C2=A0=C2=A0/* Activate MPEG engine. */
+> @@ -101,8 +128,10 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx=
+,
+> struct cedrus_run *run)
+> =C2=A0=C2=A0=C2=A0=C2=A0reg |=3D VE_DEC_MPEG_MP12HDR_Q_SCALE_TYPE(pic->fl=
+ags &
+> V4L2_MPEG2_PIC_FLAG_Q_SCALE_TYPE);
+> =C2=A0=C2=A0=C2=A0=C2=A0reg |=3D VE_DEC_MPEG_MP12HDR_INTRA_VLC_FORMAT(pic=
+->flags &
+> V4L2_MPEG2_PIC_FLAG_INTRA_VLC);
+> =C2=A0=C2=A0=C2=A0=C2=A0reg |=3D VE_DEC_MPEG_MP12HDR_ALTERNATE_SCAN(pic->=
+flags &
+> V4L2_MPEG2_PIC_FLAG_ALT_SCAN);
+> -=C2=A0=C2=A0=C2=A0=C2=A0reg |=3D VE_DEC_MPEG_MP12HDR_FULL_PEL_FORWARD_VE=
+CTOR(0);
+> -=C2=A0=C2=A0=C2=A0=C2=A0reg |=3D VE_DEC_MPEG_MP12HDR_FULL_PEL_BACKWARD_V=
+ECTOR(0);
+> +=C2=A0=C2=A0=C2=A0=C2=A0reg |=3D VE_DEC_MPEG_MP12HDR_FULL_PEL_FORWARD_VE=
+CTOR(pic->flags &
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0V4L2_MPEG2_PIC_FLAG_FULL_PEL_FORWARD);
+> +=C2=A0=C2=A0=C2=A0=C2=A0reg |=3D VE_DEC_MPEG_MP12HDR_FULL_PEL_BACKWARD_V=
+ECTOR(pic->flags &
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0V4L2_MPEG2_PIC_FLAG_FULL_PEL_BACKWARD);
+>
+> =C2=A0=C2=A0=C2=A0=C2=A0cedrus_write(dev, VE_DEC_MPEG_MP12HDR, reg);
+>
+> @@ -183,8 +212,9 @@ static void cedrus_mpeg2_trigger(struct cedrus_ctx *c=
+tx)
+> =C2=A0=C2=A0=C2=A0=C2=A0u32 reg;
+>
+> =C2=A0=C2=A0=C2=A0=C2=A0/* Trigger MPEG engine. */
+> -=C2=A0=C2=A0=C2=A0=C2=A0reg =3D VE_DEC_MPEG_TRIGGER_HW_MPEG_VLD | VE_DEC=
+_MPEG_TRIGGER_MPEG2 |
+> -=C2=A0=C2=A0=C2=A0=C2=A0 VE_DEC_MPEG_TRIGGER_MB_BOUNDARY;
+> +=C2=A0=C2=A0=C2=A0=C2=A0reg =3D VE_DEC_MPEG_TRIGGER_HW_MPEG_VLD | VE_DEC=
+_MPEG_TRIGGER_MB_BOUNDARY;
+> +=C2=A0=C2=A0=C2=A0=C2=A0reg |=3D cedrus_mpeg2_is_mpeg1(ctx) ? VE_DEC_MPE=
+G_TRIGGER_MPEG1 :
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 VE_DEC_MPEG_TRIGGER_MPEG2;
+>
+> =C2=A0=C2=A0=C2=A0=C2=A0cedrus_write(dev, VE_DEC_MPEG_TRIGGER, reg);
+> }
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_video.c
+> b/drivers/staging/media/sunxi/cedrus/cedrus_video.c
+> index ad4ec3490775..8979693e9109 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus_video.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_video.c
+> @@ -40,6 +40,11 @@ static struct cedrus_format cedrus_formats[] =3D {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.directions=C2=A0=C2=A0=
+=C2=A0=C2=A0=3D CEDRUS_DECODE_SRC,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.capabilities=C2=A0=C2=A0=
+=C2=A0=C2=A0=3D CEDRUS_CAPABILITY_MPEG2_DEC,
+> =C2=A0=C2=A0=C2=A0=C2=A0},
+> +=C2=A0=C2=A0=C2=A0=C2=A0{
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.pixelformat=C2=A0=C2=A0=
+=C2=A0=C2=A0=3D V4L2_PIX_FMT_MPEG1_SLICE,
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.directions=C2=A0=C2=A0=
+=C2=A0=C2=A0=3D CEDRUS_DECODE_SRC,
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.capabilities=C2=A0=C2=
+=A0=C2=A0=C2=A0=3D CEDRUS_CAPABILITY_MPEG2_DEC,
+> +=C2=A0=C2=A0=C2=A0=C2=A0},
+> =C2=A0=C2=A0=C2=A0=C2=A0{
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.pixelformat=C2=A0=C2=A0=
+=C2=A0=C2=A0=3D V4L2_PIX_FMT_H264_SLICE,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0.directions=C2=A0=C2=A0=
+=C2=A0=C2=A0=3D CEDRUS_DECODE_SRC,
+> @@ -125,6 +130,7 @@ void cedrus_prepare_format(struct v4l2_pix_format
+> *pix_fmt)
+>
+> =C2=A0=C2=A0=C2=A0=C2=A0switch (pix_fmt->pixelformat) {
+> =C2=A0=C2=A0=C2=A0=C2=A0case V4L2_PIX_FMT_MPEG2_SLICE:
+> +=C2=A0=C2=A0=C2=A0=C2=A0case V4L2_PIX_FMT_MPEG1_SLICE:
+> =C2=A0=C2=A0=C2=A0=C2=A0case V4L2_PIX_FMT_H264_SLICE:
+> =C2=A0=C2=A0=C2=A0=C2=A0case V4L2_PIX_FMT_HEVC_SLICE:
+> =C2=A0=C2=A0=C2=A0=C2=A0case V4L2_PIX_FMT_VP8_FRAME:
+> @@ -352,6 +358,7 @@ static int cedrus_s_fmt_vid_out_p(struct cedrus_ctx *=
+ctx,
+>
+> =C2=A0=C2=A0=C2=A0=C2=A0switch (ctx->src_fmt.pixelformat) {
+> =C2=A0=C2=A0=C2=A0=C2=A0case V4L2_PIX_FMT_MPEG2_SLICE:
+> +=C2=A0=C2=A0=C2=A0=C2=A0case V4L2_PIX_FMT_MPEG1_SLICE:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0ctx->current_codec =3D &c=
+edrus_dec_ops_mpeg2;
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0break;
+> =C2=A0=C2=A0=C2=A0=C2=A0case V4L2_PIX_FMT_H264_SLICE:
+>
+> --
+> 2.55.0
