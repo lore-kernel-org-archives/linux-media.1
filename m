@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795204546;
-	b=jxPRGxK81eNnm1onFbJf9j82XTvB+hG1MDpr6Gy0PKfnz+nwct4zu8Hbftdm/JTLZOkQ
-	 5Pe7A4eHHLwjywMcQY8e+XRxbf1qy8iXXJ2GyuUddSGuqEmcXsHUxIXEd14RUsSwOvF2n
-	 keoO4XMlDNtMk/VA40rYwO5i0UGR/ra+qV1uFzt/AuY4rrR2DcrhMbF2Q3GzJ4t3dWdzH
-	 4Pn5hhiXSroxvy/TakACBV4lvChHwli0WAe7/edC8V/OpWfS8Fs9HCeQtKIjE6s39iGhO
-	 z8XUZUw+30ki1eokxDUP8W8cmzMDKYpN+hagKD/NYmT0zH0xrirP9PYf436YyYlylPw==
+	t=1795204547;
+	b=CYnH+kfZ8A6CTQjli17r2J9fH9HgYK3VdTX5yjm0+ftTS+0Ne1FXoX2XbtRm6maIQjKv
+	 dMltWaWPe08vrFissBDiQ/eXlX3D5vd89GtXwepNYdR8i1wjwPQ0bGh2k6Y1mT0RJ/Hgy
+	 lVD3IH+vRmlD+hctQdd2o/hRT53jZtmyfPA30i+sArnjF4E4bJA+1N/gHZ6sJFZ8cj5ds
+	 VZrfeS4kDC02f3sgiWujaVC47xSFPv5F5AN0LmkAYYlqEVTJ5R1Yqk0DeRycDCJN0ec7m
+	 fAsEGvNyTZkHp57zva5R2IhcnTD6y0ZsG4KKPh/3qFvskLSBZj0cQiy9Buo9/xJHp8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795204546;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795204547;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=1wnQ204GptI3uHstIXrv4s0GxSxXuj5ZG+acWZmXsgk=;
-	b=OTlxGM1MWCfJ9FXNQfnSWkfzONz5+dqNSJstBHsp19FT0eBozeTu8LFoWZTEI+NS3V59
-	 WuMZbso1L2c5Toa2KrcNUbPggfdbIu79K2IEyj5/dIdzdE4hqyXj2PX1bk4n03/4Z6aQu
-	 o5jh0bUUenfFTO7Nf/MKfy7FIL7NfASWP652rvFHuAUcW4YQqihuMAYAmy+GAy3rls22k
-	 tLvvg2rrL+rUpuRvsodya6R+ZhaV//rczo/KP+pfLe7sqMixqaumP+slaCfwWj5+r3jY/
-	 yIE6jnL9x29Iubiio23g8vyhuxG2LKRk5lKBexPDWtWQBqC/ZA8BOssjAJVr6Oj22qg==
+	bh=Eftqcv9qvPmxYW8Z6+X08Y50XJ4HZw+RRHpMnGeSvBA=;
+	b=KbgtZZ13wZB8UVTFnQRKZh8bBA+gMpOy7h4NIXHIj5f7YxzjvTrch2AYsXZziXNgpTE7
+	 8O/Gj7MmbCgT03NOQlefJy7gvumQXBlniiygYQP7qQq4/Vl27dfxMCYE/yRgVQy6Ai1Z4
+	 dzFmKD1ywSXjjU1g24jSvqs3/TyPjcaL88+XehaR+dlNQ8FityxKRaRDEI/f4Ot2uXyyi
+	 bJRjPVhSdhT4Qk2p8hzisglQPWxwOvFD/Ruf54yAe8pEY3ST1PxOe9NJ2SKZQs7w7yydC
+	 zwRD5Y0IveYZsSQ7qLxDC9PuKX5xZfNZ5n4KyEsHrEkAorwJBuHWX5WN0It2DgAINaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dhd0ChaB;
-	arc=none smtp.remote-ip=74.125.231.136
-Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jk2vHwSg;
+	arc=none smtp.remote-ip=74.125.231.133
+Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D862560A2607
-	for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 19:55:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D862560A2607
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E46606A6D5
+	for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 19:55:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60E46606A6D5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dhd0ChaB
-Received: by mail-oo2-f8.google.com with SMTP id 006d021491bc7-71733a926edso165650eaf.1
-        for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 11:55:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jk2vHwSg
+Received: by mail-oo2-f5.google.com with SMTP id 46e09a7af769-862a1dbb516so245120a34.0
+        for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 11:55:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795204542; x=1795809342; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795204543; x=1795809343; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1wnQ204GptI3uHstIXrv4s0GxSxXuj5ZG+acWZmXsgk=;
-        b=dhd0ChaBIiiBhplfGfn3Z1KoOMh9XdY72u42YJUrClpxPo3obVNg2CmLKsuT/vJwZJ
-         TODSLVi6tFEu1J/TJBYg03ecRM6/v/iFZKgtq5lfbCHIUA/4SjyKHAFGqUY3AVHQ8Odw
-         D87Km7jEVy+Z5L1Ad82DGQeUPVaSdWXYGzaAgaZzMyym5m2vMZyCJv82iL/6Q59FUip4
-         9sywXRDccSfIVP55ZBesyDetPKJ1Ltd0tPqCW8m1RGykWsCePO7GGlPt8RvWWvXYi7NL
-         iExzNmQeLOdUYg6fLGYCE0A5TifpstEh9go5GsytIMrJs7PuX32yfnj1AIWJ+6Za4K99
-         qmGg==
+        bh=Eftqcv9qvPmxYW8Z6+X08Y50XJ4HZw+RRHpMnGeSvBA=;
+        b=jk2vHwSg8mDnRIKspvKkSi8BqQSrrAkPmGYU1Va0V9rJqpt7BrkBYSZAIysNBY2arh
+         QW6WmtqAc0Mv3KZcnjN/zRkrksk0C21Nul/4fXUEyQkueUirbZFsL/vmmpZqCiQbA4jQ
+         nyOYq9HPrfCoAXebuGmh9+bBLIOFc3Fb2JUJwU00LmEpULD4sNSZo4Z2Zc6QkE7ZBxvv
+         2WM2KQeFQ4xZRY8JaQ4APIguku+qXRTlS5K8ZnlLTR6189Nw5wcHhZnEVKosPR75owt8
+         VI25MF3ZHWBYmolusq5eLK4V4MkHokHeSE4+DKjEMtiuBWfzDpxAe/xqH80sbBTWy7a0
+         /hAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795204542; x=1795809342;
+        d=1e100.net; s=20260707; t=1795204543; x=1795809343;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1wnQ204GptI3uHstIXrv4s0GxSxXuj5ZG+acWZmXsgk=;
-        b=wBO0nSh9nj4cpPr7ZDUNMtSo+DHpF5xfRu6VvzAFbbXNU/TK8z6Mv0ynDS5Ikq/THn
-         YrDHPkh+it0/qhJB1vLe+7YeCqsDB1FZqpiCKmRjbzBo8rm3YsEEEJlgjqxNXyZmIc6h
-         ibKaxxWHpyLrJET4iEcjE3pUgl3bx9SY28yqY4E2iBYJLEiN+19dUkUZp/tWClB0S17u
-         MfBUSx2/fAhysmqNdFq9+TMEf3IPY+wrTQPA/KVEIYRSqmQYeY2B+UKh3Y4T8lHjLqE5
-         BiR1twozw61jEn9OvWsqMWL9LnD1M9pPMh1vpkOUsr1c+Bpu7vGrWzaJ5HZuBJbdLYd+
-         seaw==
-X-Forwarded-Encrypted: i=1; AL+hErGxiRuTE2XA0OW7IcXD/H5XoIQs+PiooYAxXAkAGfb4rsijoATvusa+E+kklRmP/wJRWreZLRl+ccFrng==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/8vm4g5S9aQDj9SwDnUaHCW381R0q3XZ6sCjalEjQIPzdM0Cok
-	uN3+Gg/vT6zj0LCOYddmuKS6PtaZADPB8fERuAuq+aYh/lqYSQu4ThlB
-X-Gm-Gg: AYBFou3YIbS04AlfNAxaexZm3RpstxF2Iqy3xOKRCxIBcHH7fCRX98F/DKkWc0jg3XY
-	7vW/Uojo2Y8EnAIOJ/7gpT//Zz0uT4E2QBRea2Uo9g7rtzjdqRR/4liuoaddF9HbbqA5Zt16G0F
-	nv3atv5CNA55Plsymgp4Xr/exEMFKmLUI4+3mydWmt3XjimTi82PQmG4zjGZhcFocT8P1YYbJPL
-	aeit8liZpl7IRUlgeMFJSy3DuqWoGpV4W+sqh3/+luuJHqGiJOM23gJVxXTyVTw0DBxmhX0Nab9
-	u7UolOiCuz3HrryB++vUaUv4amx24ThXpXUFCfNxdQm8gC7GtCS5URpCsWm4p/jfKHA1nK9sLYQ
-	mPlVp7n5piUYDtCPHD3VjVX70/jHsZwfS28wnUxDq9+BboEs0hU1LQu0Z3gVuMVw1ffeyn9tJ26
-	fwBcMjduWJII/8PdJR+Q/X2blu2rlwAhoDW6w0Gk/0eftkxtHy6zZX48m+ngDgxM11b5BcQbFEL
-	agHX5m0IvAH3pew2ckLP/ya547LKrnscYbEf8W+TEbzE3ZWfl0AoJBt55n4Ubag/wDSkmzmvKAP
-	xt3TjlV/wjJPMJ8EfOJmqpfGN2kUeevq8sh60gBQg4NoIAPbc0xCPrcYbKL60AVEpz/LBUytirB
-	pRDTH52LafI21sAP7qM0=
-X-Received: by 2002:a05:6820:2ac2:b0:71a:df0d:e9fa with SMTP id 006d021491bc7-71b39591da5mr2512697eaf.80.1795204541857;
-        Fri, 20 Nov 2026 11:55:41 -0800 (PST)
+        bh=Eftqcv9qvPmxYW8Z6+X08Y50XJ4HZw+RRHpMnGeSvBA=;
+        b=XBdh/fizSMzQeRDvslE7s98k8p1jW6lBXyRhf+IzGWzrAxoiRNY3ShHXqbSRneZUui
+         ziryqPYDwqC4bLf2X14h7idWRVAYiIjkNOBgUR2ajFq5mVJ4j/aD0JqV+yjEAqJ4KRSi
+         IQxvCAcYel5UzeANfaCAxCPnVCy9CqoEloavaDUKx6/JQXXEMXW4ggAwN5/3H0r8HS2i
+         LVp2Ey3mE9DWKRN4Ddc0tye5QQWnxhuvqckJTY2pgZibvyysAq3H1USS4f6WBkDMoV5T
+         9nhQsSxaIt2MISE2OpOZ0PtXDdgyEkpI6uA+FDSc05r8kXzUcPKEtXlRYbItxFuz6pMs
+         q5hA==
+X-Forwarded-Encrypted: i=1; AL+hErFPpTzWuvg6KqUBYl2h4R8G6GEKcI+lCPQv1TqtQ9blI0BjTRedJ7z+1z2zak86UurzPogx5mvoZMpkdA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8UTSqxQXYgIzMgcf8QKMho0ETHlzElRh4ooDv57dlDkPFw+f0B
+	ETepHyb+JDr2khQfQbPRcSLdaLjRKPOLIkVkU1lvn6BzrosivsXkrDpv
+X-Gm-Gg: AYBFou2SRiLeXrGqyOWt01q6Zpz68FuB1t3RqJeUcvvMmG00uwDUtL4hZG7CcyYWcjH
+	z0Wcqk/6uTXhjMGCFeQpBlrrrGNQizo+ofQTOVRfchBIE7MknXSwlIOVdSUQrePM10w/8xIQB4F
+	DIRF43XzCd+/q/OLtxrnaju4GAQ9xN714i6vIT9o/Evq/JrjF32abtf9X8kWS5ea/5Xmg9ChKCQ
+	sOI5xobhaTKN2oaeGf/ZOuGyjodFL8x+SciEX9F2imcrm357rLTc+FOVhFRheG0P4pj0tClE+pp
+	X3kzx/smKErsIGrBH+6T85VBKbZoAdhSjb4mxXhtr2CqPcAoVCwijlZ2b5fnDr2Wkigy8xF9HSs
+	enHx6DITSdjqmOSTCFgxhQAfP2SZvF0YSC1FSstgbnLNzkSfFOmcWo92yMZa4oYyUJfoK0gphx9
+	UKwICSiSx6iLK6fLXIij+0rwidyV8csO527a6fdO5D7u6ASiSSh04hNjda7yALq8bkYwpFeRVus
+	8Yq1ivRl3eZVIOEly6J1BE8+/q8inPv9XfVMsBiL2M0ocUWjWGUb8vcf7LrEEW8H7axfPwBCXab
+	wf7DXi86TtbyHo0u3JiQIohGJuMLnk3tMLPelH+ZYS1HGS2PXOWedwXypRFlE/lwXywP7hQRPW+
+	nYVqZ3Gbk+ZxgFO/XNZ8=
+X-Received: by 2002:a05:6830:438e:b0:814:8259:781e with SMTP id 46e09a7af769-863151bb271mr4983334a34.1.1795204543316;
+        Fri, 20 Nov 2026 11:55:43 -0800 (PST)
 Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-863168dcf38sm2703953a34.9.2026.11.20.11.55.39
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-863168dcf38sm2703953a34.9.2026.11.20.11.55.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 11:55:40 -0800 (PST)
+        Fri, 20 Nov 2026 11:55:42 -0800 (PST)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Fri, 20 Nov 2026 13:55:36 -0600
-Subject: [PATCH 2/8] media: mediatek: vcodec: Pick an OUTPUT buffer size
- when given zero
+Date: Fri, 20 Nov 2026 13:55:37 -0600
+Subject: [PATCH 3/8] media: mediatek: vcodec: Report the visible rectangle
+ as default compose
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261120-rbrue-suez-upstreaming-mtk-vcodec-mdp-fixes-v1-2-877dea14c3d0@gmail.com>
+Message-Id: <20261120-rbrue-suez-upstreaming-mtk-vcodec-mdp-fixes-v1-3-877dea14c3d0@gmail.com>
 References: <20261120-rbrue-suez-upstreaming-mtk-vcodec-mdp-fixes-v1-0-877dea14c3d0@gmail.com>
 In-Reply-To: <20261120-rbrue-suez-upstreaming-mtk-vcodec-mdp-fixes-v1-0-877dea14c3d0@gmail.com>
 To: Tiffany Lin <tiffany.lin@mediatek.com>, 
@@ -118,72 +118,104 @@ Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
  Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
  Ryan Brue <ryanbrue.dev@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795204536; l=2640;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795204536; l=3432;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=MdHaPFnIJfi7B9svaRku2VvRxyRKfqWOKsblgQ6Pmac=;
- b=RGnd5wD8UWEUd4ugoBRg/wBGw/yk6CJlzgxUEwHK4g+3osGkf6SAUebULJ59+LFIABjMwSBZY
- 1O8x0cg4QqMBy/NSDP3xvBC/ASWTTTsiQwVZKrktw4UHLMREL2t+Wm8
+ bh=oiFySgVqt+7XnX7ycDBKE4VLYw9gJVvkD5dQiMAZTM8=;
+ b=cTogffUF7xjKiziZK+BVcGyBnc5RI5Ib23pwR0Td1xK+sjGiQJPiF7n90B2SdcuSuAOUv+O5w
+ XiJvJBspeomC0HkqHIxlGpJFymYsi665HAx2H9LY0sG8CnDiMCyfytT
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-A client may leave the size of the bitstream (OUTPUT) buffers to the
-decoder (dev-decoder.rst: sizeimage is the desired size, which the
-decoder may adjust), and GStreamer probes with zero. VIDIOC_TRY_FMT
-refused that with -EINVAL, while VIDIOC_S_FMT, which does not go through
-that check, stored a zero buffer size. Choose 1 MiB, or three bytes per
-four pixels of the given size, whichever is larger, in the format check
-that both share, after the size is clamped.
+The default compose rectangle of a decoder's CAPTURE queue is the
+visible rectangle (dev-decoder.rst: equal to V4L2_SEL_TGT_CROP), but the
+driver reported the picture size the firmware gives, which for H.264 is
+a whole number of macroblocks: 1088 lines for a 1080-line stream, which
+GStreamer then shows with eight lines of garbage. Report the crop
+rectangle, as V4L2_SEL_TGT_COMPOSE already does for most codecs, and
+return the same rectangle for V4L2_SEL_TGT_COMPOSE and from
+VIDIOC_S_SELECTION, which only allows the default.
+
+Fall back to the picture size when the codec leaves the crop rectangle
+unset (the stateless VP8 and VP9 ones, for which V4L2_SEL_TGT_COMPOSE
+returned the caller's rectangle) or reports it empty. Only MT8173 was
+tested.
 
 Fixes: 590577a4e525 ("[media] vcodec: mediatek: Add Mediatek V4L2 Video Decoder Driver")
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
- .../media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.c  | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ .../mediatek/vcodec/decoder/mtk_vcodec_dec.c       | 38 +++++++++++++---------
+ 1 file changed, 23 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.c
-index d76e891f784b..9339f53431aa 100644
+index 9339f53431aa..1223738ece4e 100644
 --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.c
 +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.c
-@@ -5,6 +5,7 @@
-  *         Tiffany Lin <tiffany.lin@mediatek.com>
-  */
- 
-+#include <linux/sizes.h>
- #include <media/v4l2-event.h>
- #include <media/v4l2-mem2mem.h>
- #include <media/videobuf2-dma-contig.h>
-@@ -306,6 +307,11 @@ static int vidioc_try_fmt(struct mtk_vcodec_dec_ctx *ctx, struct v4l2_format *f,
- 	if (f->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) {
- 		pix_fmt_mp->num_planes = 1;
- 		pix_fmt_mp->plane_fmt[0].bytesperline = 0;
-+		/* The client may leave the bitstream buffer size to us */
-+		if (!pix_fmt_mp->plane_fmt[0].sizeimage)
-+			pix_fmt_mp->plane_fmt[0].sizeimage =
-+				max_t(u32, SZ_1M, pix_fmt_mp->width *
-+						  pix_fmt_mp->height * 3 / 4);
- 	} else if (f->type == V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE) {
- 		int tmp_w, tmp_h;
- 
-@@ -370,7 +376,6 @@ static int vidioc_try_fmt_vid_cap_mplane(struct file *file, void *priv,
- static int vidioc_try_fmt_vid_out_mplane(struct file *file, void *priv,
- 				struct v4l2_format *f)
- {
--	struct v4l2_pix_format_mplane *pix_fmt_mp = &f->fmt.pix_mp;
- 	const struct mtk_video_fmt *fmt;
- 	struct mtk_vcodec_dec_ctx *ctx = file_to_dec_ctx(file);
- 	const struct mtk_vcodec_dec_pdata *dec_pdata = ctx->dev->vdec_pdata;
-@@ -382,11 +387,6 @@ static int vidioc_try_fmt_vid_out_mplane(struct file *file, void *priv,
- 		fmt = mtk_vdec_find_format(f, dec_pdata);
- 	}
- 
--	if (pix_fmt_mp->plane_fmt[0].sizeimage == 0) {
--		mtk_v4l2_vdec_err(ctx, "sizeimage of output format must be given");
--		return -EINVAL;
--	}
--
+@@ -390,6 +390,26 @@ static int vidioc_try_fmt_vid_out_mplane(struct file *file, void *priv,
  	return vidioc_try_fmt(ctx, f, fmt);
  }
  
++/*
++ * The visible rectangle (dev-decoder.rst), which for H.264 is the stream's
++ * cropping rectangle and not the picture size the firmware reports, which
++ * is a whole number of macroblocks. Not every codec fills it in.
++ */
++static void mtk_vdec_visible_rect(struct mtk_vcodec_dec_ctx *ctx,
++				  struct v4l2_rect *r)
++{
++	struct v4l2_rect crop = {};
++
++	r->left = 0;
++	r->top = 0;
++	r->width = ctx->picinfo.pic_w;
++	r->height = ctx->picinfo.pic_h;
++
++	if (!vdec_if_get_param(ctx, GET_PARAM_CROP_INFO, &crop) &&
++	    crop.width && crop.height)
++		*r = crop;
++}
++
+ static int vidioc_vdec_g_selection(struct file *file, void *priv,
+ 			struct v4l2_selection *s)
+ {
+@@ -403,10 +423,7 @@ static int vidioc_vdec_g_selection(struct file *file, void *priv,
+ 
+ 	switch (s->target) {
+ 	case V4L2_SEL_TGT_COMPOSE_DEFAULT:
+-		s->r.left = 0;
+-		s->r.top = 0;
+-		s->r.width = ctx->picinfo.pic_w;
+-		s->r.height = ctx->picinfo.pic_h;
++		mtk_vdec_visible_rect(ctx, &s->r);
+ 		break;
+ 	case V4L2_SEL_TGT_COMPOSE_BOUNDS:
+ 		s->r.left = 0;
+@@ -415,13 +432,7 @@ static int vidioc_vdec_g_selection(struct file *file, void *priv,
+ 		s->r.height = ctx->picinfo.buf_h;
+ 		break;
+ 	case V4L2_SEL_TGT_COMPOSE:
+-		if (vdec_if_get_param(ctx, GET_PARAM_CROP_INFO, &(s->r))) {
+-			/* set to default value if header info not ready yet*/
+-			s->r.left = 0;
+-			s->r.top = 0;
+-			s->r.width = q_data->visible_width;
+-			s->r.height = q_data->visible_height;
+-		}
++		mtk_vdec_visible_rect(ctx, &s->r);
+ 		break;
+ 	default:
+ 		return -EINVAL;
+@@ -449,10 +460,7 @@ static int vidioc_vdec_s_selection(struct file *file, void *priv,
+ 
+ 	switch (s->target) {
+ 	case V4L2_SEL_TGT_COMPOSE:
+-		s->r.left = 0;
+-		s->r.top = 0;
+-		s->r.width = ctx->picinfo.pic_w;
+-		s->r.height = ctx->picinfo.pic_h;
++		mtk_vdec_visible_rect(ctx, &s->r);
+ 		break;
+ 	default:
+ 		return -EINVAL;
 
 -- 
 2.56.0
