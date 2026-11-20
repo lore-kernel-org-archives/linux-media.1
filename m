@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795215624;
-	b=hjJ43GRHqwOhrH2XNQUCbJZNvcFefeRNEXhHqB90XuThbJ95Y2Fw4rA0gHi1WxQtU5B9
-	 w5BF8LLOJn9Q4G0zqQTdLqotzh/ys7HQd0FYgtPa++mpFYm7pfXto9LAD3/gYoMEynpCu
-	 QKS3CpMyGXIDtTOhT/a8s7ijR/ZDLkowEMyDy3wdIONsNz7XxVhwDZFOShJkjRFr6Wn29
-	 2xOH9215jHnP9COB3PuiIBDBlzuVDEeZnocvfBeOsDmWzs/dmu9izw1b/QbsdZbI4ijfI
-	 5DVCLKtYsmHIYNMWoHX6CMbsazHwVcW/+d1SYdJZKLfrznEjs6GCWkmBYWZW1ycJQJQ==
+	t=1795215639;
+	b=KfJsIP3uGHy9TqoK97/qsU+HYqwky21lhSoVVskgrKuYUu7mzuuTeyiRwPld6fISWAVq
+	 r3+IA2+aHOdFhqgOr/lSYsWJHNoNfdMTx8dA/kCwChi0c5Jy9cq7BkrjX0PXBjou8FlLu
+	 9nNTuSTYjiji0EQiLljCpGgLYZSmTRmq99gkNPS8S+IPtqavYaClAaMDcR0Pmh8x7hjQ/
+	 NkbviZpVpEtfiReheoLaWbUg3L0gXACYX3uEB6EUHcJnC3fAbgb9FR+N2lRTBHDJlSLL/
+	 wABQ9/FY4WBy9Hqg98hJdCKRuORghOYWVcJAImD8HsqkFMuJnQt2Vbr1o3p/Ne9e/Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795215624;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795215639;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
 	 User-Agent:MIME-Version;
-	bh=HhHXufRCrjFN/dq6HVpUh+o6/tPEtRCzgY7mDiTsBk8=;
-	b=gAWueXKc/Si6NpcwnFeDKmcfHgACsXHPDUjPTowk7rWTYXGBzIeZlTBvoOObAjqCCUHc
-	 tkOXP3GDqY7UOzpGkDf09mDuyabW1Eg4dyTXkXUbttfyWC1YQk5003zoFFVQ2Cm9XohOX
-	 oDM/WfHwNgfJkLydg0Bh+qDl1dlWE7laQaQfR7RbB8G2mCB9u9fjgWjnW174rrmdF0idF
-	 ZDVkHFt1oHcCSbHNB0x4vdqXTrY63IJknlM0KY1XvTRghS1E2T8gHd27hjmOm6WBequGH
-	 keP8cHXUaPKigvuuOpjSR822EeVXdKSj//ZiGNGgDivYhDMpCWEG10tLUCqDLuMTSVQ==
+	bh=ZfyeQ8kiceh9vKHw6nyjYQ17yD41+C4A4ZyooxKj7h8=;
+	b=NgaVRgAV9cVwSVljfrZcMr3uTrWydz8Zhg962aFHEMMS+DosMF7+/htBDCt7Ywyn2ueP
+	 iB6rtcNj1jrYKLfYbjcRMmsJtuDAwmOi3FLw7PFWmeavOX8u4avq++LPl3NfC2w+Ndl8P
+	 XkWnz+2dp2alD8GvQPyQocWX06ZT0tmF1eqrVtZ+oKpfv81Y4sbMsbBC4RYmSaek6/wDW
+	 k8e+AbqCXulnJXI7qVrVCpac0x5bYXg5DXP1Ga3AWP6kftCI7TxkKP3y/+0Ntjtv//Xfz
+	 U+pKPbfe3AFEl87gFWYoHb8lLZs+AXxvBmchZJjolMr2lKWRkqQhITmBoeVI2fOXf6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gGHxnwhR;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="Z/1j7BYT";
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315FD606A33F;
-	Fri, 20 Nov 2026 23:00:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 315FD606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F5D7606A6AC;
+	Fri, 20 Nov 2026 23:00:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F5D7606A6AC
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gGHxnwhR
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Z/1j7BYT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795215621;
-	bh=8QJNmFNB7eHS2pukQJjzkptuIZoj5T1eb1LbOd09li4=;
+	s=mail; t=1795215636;
+	bh=K4e2VYLcZ7zQZ1eaew87SzkYvCxdTvZku1cYHYpTPgU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=gGHxnwhR7wS3xLVx3e/8nfAg/EVNeENnOlwCpEmChz3IRkICVAL5A9T5O3WD/4kT6
-	 qh7sKqL2R4a+ZR1dqIUBLjRnpzaQf+O8LrrD3MONm407NmVGXH642k1dJ+OPtKvCeg
-	 h6f53oSSarsDkCG6VXsq0HQwBQC0+pdP40juYiuzztCpF1TiCxoxD40vvlqYrnZbaM
-	 qIefeVodquGiqyMZpto6J9CER9AvuJYbo6fRRzQaUNRaYtrqCt5OFXgxeiYIBJBC8J
-	 3WkjW1P8hrQSJr6cpnhITvG9tAfsPGQGZ2SYPp5jPXpPKlPnS2+cpJLfupSfx67yyG
-	 HIQefQIK9XS5Q==
+	b=Z/1j7BYTouF+EtT7x0CGNjcC4PA/1iHzmstb10kAZVHxyu78YuHl6DORcSRJrBR73
+	 sNfW0hOl52VD/n26S6gChpA+pJD68RbeYN5gvyE4TZmVon789H/OxhLhlf3sl/WKTr
+	 mujbz0GANbNhNbLxrPJjadw/LBBd/6yfCWHKcNSfI1TY3HCUrQxJKYuw7n4TY+Ctna
+	 oRygGJavGwKMei+xISbIrQurFffOV2z6Kd2meObHeK2N0u9QC668S6F8+wx4Lpt2Cq
+	 W+8yH52utLnM22rnNG1LQ1sGb/s+F/y3Xyc+C3woQAfXNRQrS9zG2Tf/pXzw4FvE11
+	 CvVPdsNSWhH/w==
 Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange secp256r1)
 	(No client certificate requested)
 	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 19E2217E0060;
-	Sat, 21 Nov 2026 00:00:19 +0100 (CET)
-Message-ID: <3fc964299086dbe5436d44009218d15eb7c51f69.camel@collabora.com>
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 11FDC17E0060;
+	Sat, 21 Nov 2026 00:00:34 +0100 (CET)
+Message-ID: <53db01280c85529e09daf56af48e55311f4a38fa.camel@collabora.com>
 Subject: Re: [PATCH v2 3/7] media: verisilicon: h264: Use alloc/free helpers
  for auxiliary buffers
 From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
@@ -58,7 +58,7 @@ To: Benjamin Gaignard <benjamin.gaignard@collabora.com>,
 	p.zabel@pengutronix.de, mchehab@kernel.org
 Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
 	linux-kernel@vger.kernel.org
-Date: Fri, 20 Nov 2026 18:00:18 -0500
+Date: Fri, 20 Nov 2026 18:00:34 -0500
 In-Reply-To: <20261120151345.88802-4-benjamin.gaignard@collabora.com>
 References: <20261120151345.88802-1-benjamin.gaignard@collabora.com>
 	 <20261120151345.88802-4-benjamin.gaignard@collabora.com>
@@ -77,7 +77,7 @@ Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-+jVkEY2oqmTK+8km2w/Y"
+	protocol="application/pgp-signature"; boundary="=-4aiA40uwE+TdXv0yb5Ab"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,7 +89,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-+jVkEY2oqmTK+8km2w/Y
+--=-4aiA40uwE+TdXv0yb5Ab
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -134,7 +134,7 @@ ctx)
 > +=09if (hantro_allocate_aux_buf(ctx, priv, sizeof(*tbl)))
 >  =09=09return -ENOMEM;
 
-As found by Philipp, you mask EINVAL here.
+EINVAL is masked.
 
 > =20
 > -=09priv->size =3D sizeof(*tbl);
@@ -142,17 +142,17 @@ As found by Philipp, you mask EINVAL here.
 >  =09memcpy(tbl->cabac_table, h264_cabac_table, sizeof(tbl->cabac_table));
 > =20
 
---=-+jVkEY2oqmTK+8km2w/Y
+--=-4aiA40uwE+TdXv0yb5Ab
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawDRAgAKCRDZQZRRKWBy
-9P4IAQCJdmIkEYiKaA8iBuJXfScw1LKOvqzA9/ec/Hn+6SeuAgEA4MsYWMibrVth
-vZnwseJRaP0E9TwFBy9oOlkTLuvesgE=
-=V2kn
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawDREgAKCRDZQZRRKWBy
+9IOWAQCA6UMU7WmyeqL6t8usni3NYUSWMeAYUQioq7Dqqp8+rgD/cCV+mPm0VO+V
+j4uYJ4mnXDb1FfNqhctT0j0qE341jQM=
+=mi1m
 -----END PGP SIGNATURE-----
 
---=-+jVkEY2oqmTK+8km2w/Y--
+--=-4aiA40uwE+TdXv0yb5Ab--
