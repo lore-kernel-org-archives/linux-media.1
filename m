@@ -1,54 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.210
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795132457;
-	b=O785Zppj67097RjvMXKMep2PWk5r3+GAEbZpWL/0sP1ML0hCkYiei29kRCCJoUsmDCXr
-	 6rB5djoN59cs4SHcgCYypQwUhmVdtFzQQI3jCvApJ3FzGppavPAnA/G1f9mQ4dQtC6xid
-	 dU0z2mt8QAZNKvfCO6TaaJ8JjxdToE/pytSG8nH6NJTr1Yk2ydvSsen6TnSdV4ZHwJAex
-	 MKu7AE5od3bnEdCxxcfo6xn9bqGo+igP9cE9eKZgd597FdyeYIaGAIFgqTqamSfcU8A1U
-	 clKan3yFP2MB6rVMkQpTcX8wWN4fyFHo498KZ+fkBrtBgstdDG2gRNEvuQfoWC8DWRQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795132457;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=o8Jkl3D6PyKBQ9flRwdsQA2PhUfjW1xzSb0OsieXFqU=;
-	b=oVzIBG8gB5aaWLgGEDKmjMhQd2nnZyZn/75Vj16gnse1dnOJLQep0xDVjT7iqGpDg9Sr
-	 RyiUEEBmRq4YDbdVWkd/BoMgditoRuoEFifW+eW+S0N1ZiHPnKdJEEzvuBPIBEL6rACjQ
-	 4bz+I/alTU2BKzlAMO7A9o6d7c0aq7JkQb0usH8BUxOp0OWZwf1gcO7Or0dyfLTXuSMl+
-	 CH5pZL9NlN7SLgOhtz0KL9XnOw3KCGN8JC4WLwiLMXO3/bVIMn96JBk+SYcQOV3s5CSTq
-	 vIFmNKfg+nBWvA4YR72/jHnjgaPcb8t7L/tbjpLTJY7aNf8HpXFTZMGo8dR5Y9Ev5ew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=q70IX0lu;
-	arc=none smtp.remote-ip=91.218.175.210
-Received: from mta0.migadu.com (out-210.mta0.migadu.com [91.218.175.210])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795137040;
+	b=sUgjRKeGvktTHLmejxM9XOYkwAJ5aIUSTs7smeW5YUXvtj9gr5myiq7/GAZm/1GgRtOb
+	 pyi8LkSNiv/XVqBW340R2Hv1KgNyvEiMMoVedcOH4qcrCR376P40rUycdxpvrU7haXOu6
+	 Tc0zHS72aVmABgd+cthugapOcpdndrj7mzGyihSbbC+VcRkLpASYAn1jQquKZlE0JmyOT
+	 2NY4NXgePh9LuXXsmqcwULjnyi4qi0MLzpY0XQhfT07ZejvutrzRR49iIZrVHxkehZUN7
+	 Bkn19to31CVf6JLswug0CfHOIgfo6JrFn7bPAv4t5uTMcD1HDYjbgrZSkYLKJ9par8A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795137040;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=DYuaKPeKKBoFHxsSLjHCErEEtup9B+QVnh5Q9/Z4f9o=;
+	b=W36x09UJhHZXs75YuJD+26JlVVTJajmhAYAJaiINflELW7c9gHRFPsjP+4APmm/uODJ3
+	 DKjCDWbrWdEi2F5PfOtHvQpXgxcyTXTl3rEQxoFza8ddKtG0Y47Hdi2mWOt0vBYzErEbB
+	 10+aEk5Vf/DUVp7Rj7XAewSh474qC1SamOritI66gwhqzgS6XlMeN5EWn7Eh2w+93B5hc
+	 Cc26mzhXW8qr2FvkGJlUO4nt+yqsHmx7zusxJ8fozUpcIcUI0WP20zd7k7KXYwqgDc4yG
+	 45o1SThrdDWhejJ5RWOfJtrNZkSOwH4oVkeuOkENcU8DtFIMZbrbJDGr32moRHsXLEQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bEpJu+SN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948F2606A320;
+	Fri, 20 Nov 2026 01:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bEpJu+SN
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795137040;
+	b=qd7Hhe6VY+uvwTV6/Y90RGR7r9e3YTf65r5bt0ZwbrTKXirxlVbhn+ZzcER/MYkFh+eE
+	 QcRV2JWea4LaE3tucdpRdnRRTiH/p5d2RBhfIOqD25+tAq3CUgvn9gbT/OoMsH6Oqiubv
+	 SAR+6vmEIHSkl+WKv6WHJqvGonBgdl63zsDX+U/PxXgOejsYNpi1/r1SD+KudqUzLGBB4
+	 eDHJmfKb4xyGrglSIkmdIbmg7JPIiFxOxVhC3av6fRuJ0I3W9QJB72Rb+6QeY30uMrXQM
+	 Cz9YbPtorhvIEAgMDt/oFPrHVHrzOd96rG9Cn889P/gtWTK1etWeWTA4/9haRswsOCA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795137040;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=DYuaKPeKKBoFHxsSLjHCErEEtup9B+QVnh5Q9/Z4f9o=;
+	b=YdUVWtj5Au0YZhuKoNFM5qIou91T6Jun0JD+JtBOL22FwyQPN0xYy3Gd3txWZDmKPg4Z
+	 0JlplwklFvl8DzCmdaznysbZb6guvbtRk+9FaC4S4Jq77A+dNBwVKkScyzGThU6iTBe12
+	 1dyvJkHEmLsno0oGtmzbhy/bQWMLpa/F5wNeVx86PPfgRs7J3zJns/pXZX/plkXXbRF7u
+	 R5oen/VkDmvBINh02gEjFOs73oHzJOmzGK5SEOSB3gdljn7rGvWvLb0ulDk6sc90yKF8x
+	 bQwjous5mAYXbRCiAEZpbXEpH3aNkC4Fyz2NOEiA/nMlWZ0CP5voVBlr/CrtI0ghJ7g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B12E606A320
-	for <linux-media@vger.kernel.org>; Thu, 19 Nov 2026 23:54:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B12E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=q70IX0lu
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SVZrlJks8sXPVt3xrpYdTAoVZmdk9CSrl7P148bcFmU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795132454; v=1; x=1795737254;
- b=q70IX0luUcbU6FCiJYBpmUfdNrXaCDzDyverVa5nohERhVo++3RcTQWOyKaGqDjVgz3oc5Fx
- VBY96WxGxsdaNk3gHTfIfp6AF/YK/SO2tPRF0sI/OQFkm0I4B33qwJ5F3URCKw0ij+tnYR3yJa0
- Gw0mzX4e9eiXeXHZeFdigyFI=
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eca0a2cac3c52e86;
-	Thu, 19 Nov 2026 23:54:14 +0000
-X-Mizu-Trace-ID: eca0a2cac3c52e86
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1ea66d73-4d40-4d95-855f-4235cbd1d809@linux.dev>
-Date: Fri, 20 Nov 2026 07:53:53 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id 5665A1F000CF;
+	Fri, 20 Nov 2026 01:10:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795137040;
+	bh=DYuaKPeKKBoFHxsSLjHCErEEtup9B+QVnh5Q9/Z4f9o=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=bEpJu+SNmJds09V+f4/Px/443sLpRUPVOiW8Q4jH3+Q7TM2i6E5WPG0obcB4nZ3pH
+	 Bz/dNRLAo4lyqKWhzEUGCIW7GxuRXojaN7BJPb0IhFdkb9Yen067/mQJ268gp7vHDC
+	 BY19RDJQzghdGLO0OV+rH7dsY85KVky4jyTtPiIUuhEaZhWa688VL8BIbuyjMGVE0O
+	 fnLvLJ7xBekYq+FZBoY6yRlfYYX+DIfaZkHyZzq7hVkMytXN3wP3EMa/jzAm27U1wm
+	 aHFyRB3r8qT47DcT8fssg8U/oWK1E/S+VUkVww/uq592VEaJ8OjVJ6cIKvTkldSCQd
+	 Qhanoeaf8IYew==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D929B425F0;
+	Fri, 20 Nov 2026 01:10:38 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Fri, 20 Nov 2026 01:10:39 +0000
+Subject: [PATCH 1/2] media: verisilicon: Decode monochrome H.264 to GREY on
+ Rockchip
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,187 +83,306 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, akpm@linux-foundation.org, dgilbert@interlog.com,
- mkp@kernel.org, loberman@redhat.com, jmeneghi@redhat.com, kraxel@redhat.com,
- vivek.kasireddy@intel.com, jasowangio@gmail.com, eperezma@redhat.com,
- stefanha@redhat.com, sgarzare@redhat.com, rostedt@goodmis.org,
- vdonnefort@google.com, mhiramat@kernel.org, jgg@ziepe.ca,
- kevin.tian@intel.com, axboe@kernel.dk, linux-mm@kvack.org,
- James.Bottomley@hansenpartnership.com, sumit.semwal@linaro.org,
- christian.koenig@amd.com, phasta@kernel.org, joro@8bytes.org,
- will@kernel.org, linux-scsi@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
- iommu@lists.linux.dev, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org, bobbyeshleman@meta.com,
- mathieu.desnoyers@efficios.com, robin.murphy@arm.com, mason@kernel.org,
- aesteve@redhat.com, tjmercier@google.com, harry@kernel.org, vbabka@suse.cz,
- cuitao@kylinos.cn
-Subject: Re: [PATCH 3/7] vhost: account the per-device kernel allocations to
- memcg
-To: "Michael S. Tsirkin" <mst@redhat.com>
-References: <20261106131829.3228926-1-cui.tao@linux.dev>
- <20261106131829.3228926-4-cui.tao@linux.dev>
- <20261119101239-mutt-send-email-mst@kernel.org>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20261119101239-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261120-b4-h264-monochrome-grey-v1-1-887102a688fd@gmail.com>
+References: <20261120-b4-h264-monochrome-grey-v1-0-887102a688fd@gmail.com>
+In-Reply-To: <20261120-b4-h264-monochrome-grey-v1-0-887102a688fd@gmail.com>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Heiko Stuebner <heiko@sntech.de>, 
+ Detlev Casanova <detlev.casanova@collabora.com>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795137038; l=9453;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=Cg78992fL67XsePaXBhmaELrgNkRAfWpGaMq2lmYWt0=;
+ b=8e/q6GX/hugFSbVYzGVUr5yizHYOxXBzXjN9BhZegL4mpogiBBXuUUJxzUdJyWQPTFqvRSLlS
+ ByRhQXIypolBgNxrDcTMtl39keT8k0Y1W09JQfp2cxdlpOQf7mypvv6
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hello, Michael,
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-在 2026/11/19 23:12, Michael S. Tsirkin 写道:
-> On Fri, Nov 06, 2026 at 09:18:25PM +0800, Tao Cui wrote:
->> From: Tao Cui <cuitao@kylinos.cn>
->>
->> Everything except the worker struct is allocated with plain GFP_KERNEL:
->> the per-vq iovec and log arrays at VHOST_SET_OWNER, the memory table at
->> VHOST_SET_MEM_TABLE whose size follows the user supplied region count,
->> the pending message nodes, and the vhost_net/vhost_vsock device structs
->> with their fallback to vmalloc.  The worker has been accounted since the
->> vhost_task conversion.
->>
->> A container that can open /dev/vhost-net or /dev/vhost-vsock, which
->> device plugins hand out with passthrough, holds roughly 150KB of
->> resident kernel memory per device after SET_OWNER.  Charge the rest the
->> same way the worker already is.
->>
->> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> 
-> 
-> Acked-by: Michael S. Tsirkin <mst@redhat.com>
-> 
-> should each patch be merged individually?
-> 
-Yes, I think merging them individually is the cleaner path here: the series spans six subsystems, and each maintainer taking their own piece keeps things simple. Jason has already taken patch 5 into iommufd.  Please feel free to take patch 3 through your tree.
+The Rockchip G1 and VDPU2 decoders write no chroma for a 4:0:0 H.264
+picture, and the driver places the direct mode motion vectors right
+after the luma plane. The driver offers NV12 only, so userspace reads
+motion vectors as chroma. JVT-FR-EXT HPCAMOLQ_BRCM_B and
+HPCVMOLQ_BRCM_B fail although their luma is bit-exact.
 
-Thanks,
-Tao
-> 
->> ---
->>  drivers/vhost/net.c   | 14 ++++++++------
->>  drivers/vhost/vhost.c | 16 ++++++++++------
->>  drivers/vhost/vsock.c |  5 +++--
->>  3 files changed, 21 insertions(+), 14 deletions(-)
->>
->> diff --git a/drivers/vhost/net.c b/drivers/vhost/net.c
->> index 4570a4ffbab2..bab6597c696d 100644
->> --- a/drivers/vhost/net.c
->> +++ b/drivers/vhost/net.c
->> @@ -249,7 +249,7 @@ vhost_net_ubuf_alloc(struct vhost_virtqueue *vq, bool zcopy)
->>  	/* No zero copy backend? Nothing to count. */
->>  	if (!zcopy)
->>  		return NULL;
->> -	ubufs = kmalloc_obj(*ubufs);
->> +	ubufs = kmalloc_obj(*ubufs, GFP_KERNEL_ACCOUNT);
->>  	if (!ubufs)
->>  		return ERR_PTR(-ENOMEM);
->>  	atomic_set(&ubufs->refcount, 1);
->> @@ -302,7 +302,8 @@ static int vhost_net_set_ubuf_info(struct vhost_net *n)
->>  		if (!zcopy)
->>  			continue;
->>  		n->vqs[i].ubuf_info =
->> -			kmalloc_objs(*n->vqs[i].ubuf_info, UIO_MAXIOV);
->> +			kmalloc_objs(*n->vqs[i].ubuf_info, UIO_MAXIOV,
->> +				     GFP_KERNEL_ACCOUNT);
->>  		if  (!n->vqs[i].ubuf_info)
->>  			goto err;
->>  	}
->> @@ -1344,17 +1345,18 @@ static int vhost_net_open(struct inode *inode, struct file *f)
->>  	struct xdp_buff *xdp;
->>  	int i;
->>  
->> -	n = kvmalloc_obj(*n, GFP_KERNEL | __GFP_RETRY_MAYFAIL);
->> +	n = kvmalloc_obj(*n, GFP_KERNEL | __GFP_RETRY_MAYFAIL |
->> +			 __GFP_ACCOUNT);
->>  	if (!n)
->>  		return -ENOMEM;
->> -	vqs = kmalloc_objs(*vqs, VHOST_NET_VQ_MAX);
->> +	vqs = kmalloc_objs(*vqs, VHOST_NET_VQ_MAX, GFP_KERNEL_ACCOUNT);
->>  	if (!vqs) {
->>  		kvfree(n);
->>  		return -ENOMEM;
->>  	}
->>  
->>  	queue = kmalloc_array(VHOST_NET_BATCH, sizeof(void *),
->> -			      GFP_KERNEL);
->> +			      GFP_KERNEL_ACCOUNT);
->>  	if (!queue) {
->>  		kfree(vqs);
->>  		kvfree(n);
->> @@ -1362,7 +1364,7 @@ static int vhost_net_open(struct inode *inode, struct file *f)
->>  	}
->>  	n->vqs[VHOST_NET_VQ_RX].rxq.queue = queue;
->>  
->> -	xdp = kmalloc_objs(*xdp, VHOST_NET_BATCH);
->> +	xdp = kmalloc_objs(*xdp, VHOST_NET_BATCH, GFP_KERNEL_ACCOUNT);
->>  	if (!xdp) {
->>  		kfree(vqs);
->>  		kvfree(n);
->> diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
->> index ea127af58ada..d1274106ad5d 100644
->> --- a/drivers/vhost/vhost.c
->> +++ b/drivers/vhost/vhost.c
->> @@ -526,11 +526,14 @@ static long vhost_dev_alloc_iovecs(struct vhost_dev *dev)
->>  
->>  	for (i = 0; i < dev->nvqs; ++i) {
->>  		vq = dev->vqs[i];
->> -		vq->indirect = kmalloc_objs(*vq->indirect, UIO_MAXIOV);
->> -		vq->log = kmalloc_objs(*vq->log, dev->iov_limit);
->> -		vq->heads = kmalloc_objs(*vq->heads, dev->iov_limit);
->> +		vq->indirect = kmalloc_objs(*vq->indirect, UIO_MAXIOV,
->> +					    GFP_KERNEL_ACCOUNT);
->> +		vq->log = kmalloc_objs(*vq->log, dev->iov_limit,
->> +				       GFP_KERNEL_ACCOUNT);
->> +		vq->heads = kmalloc_objs(*vq->heads, dev->iov_limit,
->> +					 GFP_KERNEL_ACCOUNT);
->>  		vq->nheads = kmalloc_array(dev->iov_limit, sizeof(*vq->nheads),
->> -					   GFP_KERNEL);
->> +					   GFP_KERNEL_ACCOUNT);
->>  		if (!vq->indirect || !vq->log || !vq->heads || !vq->nheads)
->>  			goto err_nomem;
->>  	}
->> @@ -2053,7 +2056,8 @@ static long vhost_set_memory(struct vhost_dev *d, struct vhost_memory __user *m)
->>  		return -E2BIG;
->>  	if (max_iotlb_entries <= 0)
->>  		return -EINVAL;
->> -	newmem = kvzalloc_flex(*newmem, regions, mem.nregions);
->> +	newmem = kvzalloc_flex(*newmem, regions, mem.nregions,
->> +			       GFP_KERNEL_ACCOUNT);
->>  	if (!newmem)
->>  		return -ENOMEM;
->>  
->> @@ -3405,7 +3409,7 @@ EXPORT_SYMBOL_GPL(vhost_disable_notify);
->>  struct vhost_msg_node *vhost_new_msg(struct vhost_virtqueue *vq, int type)
->>  {
->>  	/* Make sure all padding within the structure is initialized. */
->> -	struct vhost_msg_node *node = kzalloc_obj(*node);
->> +	struct vhost_msg_node *node = kzalloc_obj(*node, GFP_KERNEL_ACCOUNT);
->>  	if (!node)
->>  		return NULL;
->>  
->> diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
->> index 0cb87971d749..600daeb05e7b 100644
->> --- a/drivers/vhost/vsock.c
->> +++ b/drivers/vhost/vsock.c
->> @@ -721,11 +721,12 @@ static int vhost_vsock_dev_open(struct inode *inode, struct file *file)
->>  	/* This struct is large and allocation could fail, fall back to vmalloc
->>  	 * if there is no other way.
->>  	 */
->> -	vsock = kvmalloc_obj(*vsock, GFP_KERNEL | __GFP_RETRY_MAYFAIL);
->> +	vsock = kvmalloc_obj(*vsock, GFP_KERNEL | __GFP_RETRY_MAYFAIL |
->> +			     __GFP_ACCOUNT);
->>  	if (!vsock)
->>  		return -ENOMEM;
->>  
->> -	vqs = kmalloc_objs(*vqs, ARRAY_SIZE(vsock->vqs));
->> +	vqs = kmalloc_objs(*vqs, ARRAY_SIZE(vsock->vqs), GFP_KERNEL_ACCOUNT);
->>  	if (!vqs) {
->>  		ret = -ENOMEM;
->>  		goto out;
->> -- 
->> 2.43.0
-> 
+Track 4:0:0 from the SPS and offer only GREY for such streams on these
+variants. Refuse the switch with -EBUSY while CAPTURE streams. Other
+variants are unchanged.
+
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ drivers/media/platform/verisilicon/hantro.h        |  4 +++
+ drivers/media/platform/verisilicon/hantro_drv.c    | 40 ++++++++++++++++++++--
+ drivers/media/platform/verisilicon/hantro_v4l2.c   | 27 ++++++++++++---
+ .../media/platform/verisilicon/rockchip_vpu_hw.c   | 39 +++++++++++++++++++++
+ 4 files changed, 103 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
+index 0353de154a1e..abd50d15b2e0 100644
+--- a/drivers/media/platform/verisilicon/hantro.h
++++ b/drivers/media/platform/verisilicon/hantro.h
+@@ -234,6 +234,7 @@ struct hantro_dev {
+  * @ctrl_handler:	Control handler used to register controls.
+  * @jpeg_quality:	User-specified JPEG compression quality.
+  * @bit_depth:		Bit depth of current frame
++ * @monochrome:		The stream is 4:0:0 (H.264), the decoder writes luma only
+  * @need_postproc:	Set to true if the bitstream features require to
+  *			use the post-processor.
+  *
+@@ -263,6 +264,7 @@ struct hantro_ctx {
+ 	struct v4l2_ctrl_handler ctrl_handler;
+ 	int jpeg_quality;
+ 	int bit_depth;
++	bool monochrome;
+ 
+ 	const struct hantro_codec_ops *codec_ops;
+ 	struct hantro_postproc_ctx postproc;
+@@ -291,6 +293,7 @@ struct hantro_ctx {
+  * @frmsize:	Supported range of frame sizes (only for bitstream formats).
+  * @postprocessed: Indicates if this format needs the post-processor.
+  * @match_depth: Indicates if format bit depth must match video bit depth
++ * @monochrome: Decoded format for 4:0:0 streams only
+  */
+ struct hantro_fmt {
+ 	char *name;
+@@ -302,6 +305,7 @@ struct hantro_fmt {
+ 	struct v4l2_frmsize_stepwise frmsize;
+ 	bool postprocessed;
+ 	bool match_depth;
++	bool monochrome;
+ };
+ 
+ struct hantro_reg {
+diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+index 26e5d5547466..25d7ac4b45da 100644
+--- a/drivers/media/platform/verisilicon/hantro_drv.c
++++ b/drivers/media/platform/verisilicon/hantro_drv.c
+@@ -300,6 +300,41 @@ static int hantro_jpeg_s_ctrl(struct v4l2_ctrl *ctrl)
+ 	return 0;
+ }
+ 
++static int hantro_h264_s_ctrl(struct v4l2_ctrl *ctrl)
++{
++	struct hantro_ctx *ctx;
++	bool monochrome;
++	int ret;
++
++	ctx = container_of(ctrl->handler,
++			   struct hantro_ctx, ctrl_handler);
++
++	switch (ctrl->id) {
++	case V4L2_CID_STATELESS_H264_SPS:
++		monochrome = ctrl->p_new.p_h264_sps->chroma_format_idc == 0;
++		if (ctx->monochrome == monochrome)
++			return 0;
++
++		ctx->monochrome = monochrome;
++		/* Variants without a 4:0:0 format keep their formats */
++		if (!hantro_get_default_fmt(ctx, false, ctx->bit_depth,
++					    HANTRO_AUTO_POSTPROC)) {
++			ctx->monochrome = false;
++			return 0;
++		}
++		if (vb2_is_streaming(v4l2_m2m_get_dst_vq(ctx->fh.m2m_ctx))) {
++			ctx->monochrome = !monochrome;
++			return -EBUSY;
++		}
++		ret = hantro_reset_raw_fmt(ctx, ctx->bit_depth, HANTRO_AUTO_POSTPROC);
++		if (ret)
++			ctx->monochrome = !monochrome;
++		return ret;
++	default:
++		return -EINVAL;
++	}
++}
++
+ static int hantro_vp9_s_ctrl(struct v4l2_ctrl *ctrl)
+ {
+ 	struct hantro_ctx *ctx;
+@@ -377,8 +412,9 @@ static int hantro_av1_s_ctrl(struct v4l2_ctrl *ctrl)
+ 	return 0;
+ }
+ 
+-static const struct v4l2_ctrl_ops hantro_ctrl_ops = {
++static const struct v4l2_ctrl_ops hantro_h264_ctrl_ops = {
+ 	.try_ctrl = hantro_try_ctrl,
++	.s_ctrl = hantro_h264_s_ctrl,
+ };
+ 
+ static const struct v4l2_ctrl_ops hantro_jpeg_ctrl_ops = {
+@@ -460,7 +496,7 @@ static const struct hantro_ctrl controls[] = {
+ 		.codec = HANTRO_H264_DECODER,
+ 		.cfg = {
+ 			.id = V4L2_CID_STATELESS_H264_SPS,
+-			.ops = &hantro_ctrl_ops,
++			.ops = &hantro_h264_ctrl_ops,
+ 		},
+ 	}, {
+ 		.codec = HANTRO_H264_DECODER,
+diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
+index 83af9fa1ce94..550062069b04 100644
+--- a/drivers/media/platform/verisilicon/hantro_v4l2.c
++++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
+@@ -109,6 +109,17 @@ hantro_check_depth_match(const struct hantro_fmt *fmt, int bit_depth)
+ 	return fmt_depth == bit_depth;
+ }
+ 
++static bool
++hantro_check_fmt_match(const struct hantro_ctx *ctx,
++		       const struct hantro_fmt *fmt, int bit_depth)
++{
++	if (!ctx->is_encoder && fmt->codec_mode == HANTRO_MODE_NONE &&
++	    fmt->monochrome != ctx->monochrome)
++		return false;
++
++	return hantro_check_depth_match(fmt, bit_depth);
++}
++
+ static const struct hantro_fmt *
+ hantro_find_format(const struct hantro_ctx *ctx, u32 fourcc)
+ {
+@@ -156,7 +167,7 @@ hantro_get_default_fmt(const struct hantro_ctx *ctx, bool bitstream,
+ 	for (i = 0; i < num_fmts; i++) {
+ 		if (bitstream == (formats[i].codec_mode !=
+ 				  HANTRO_MODE_NONE) &&
+-		    hantro_check_depth_match(&formats[i], bit_depth))
++		    hantro_check_fmt_match(ctx, &formats[i], bit_depth))
+ 			return &formats[i];
+ 	}
+ 
+@@ -164,7 +175,7 @@ hantro_get_default_fmt(const struct hantro_ctx *ctx, bool bitstream,
+ 	for (i = 0; i < num_fmts; i++) {
+ 		if (bitstream == (formats[i].codec_mode !=
+ 				  HANTRO_MODE_NONE) &&
+-		    hantro_check_depth_match(&formats[i], bit_depth))
++		    hantro_check_fmt_match(ctx, &formats[i], bit_depth))
+ 			return &formats[i];
+ 	}
+ 
+@@ -253,7 +264,7 @@ static int vidioc_enum_fmt(struct file *file, void *priv,
+ 
+ 		if (skip_mode_none == mode_none)
+ 			continue;
+-		if (!hantro_check_depth_match(fmt, ctx->bit_depth) && !enum_all_formats)
++		if (!hantro_check_fmt_match(ctx, fmt, ctx->bit_depth) && !enum_all_formats)
+ 			continue;
+ 		if (j == index) {
+ 			f->pixelformat = fmt->fourcc;
+@@ -273,7 +284,7 @@ static int vidioc_enum_fmt(struct file *file, void *priv,
+ 	for (i = 0; i < num_fmts; i++) {
+ 		fmt = &formats[i];
+ 
+-		if (!hantro_check_depth_match(fmt, ctx->bit_depth) && !enum_all_formats)
++		if (!hantro_check_fmt_match(ctx, fmt, ctx->bit_depth) && !enum_all_formats)
+ 			continue;
+ 		if (j == index) {
+ 			f->pixelformat = fmt->fourcc;
+@@ -337,6 +348,9 @@ static int hantro_try_fmt(const struct hantro_ctx *ctx,
+ 	vpu_debug(4, "trying format %p4cc\n", &pix_mp->pixelformat);
+ 
+ 	fmt = hantro_find_format(ctx, pix_mp->pixelformat);
++	if (fmt && !coded && !ctx->is_encoder &&
++	    fmt->monochrome != ctx->monochrome)
++		fmt = NULL;
+ 	if (!fmt) {
+ 		fmt = hantro_get_default_fmt(ctx, coded, HANTRO_DEFAULT_BIT_DEPTH, HANTRO_AUTO_POSTPROC);
+ 		pix_mp->pixelformat = fmt->fourcc;
+@@ -570,10 +584,13 @@ static int hantro_set_fmt_out(struct hantro_ctx *ctx,
+ 	 * Note that hantro_reset_raw_fmt() also propagates size
+ 	 * changes to the raw format.
+ 	 */
+-	if (!ctx->is_encoder)
++	if (!ctx->is_encoder) {
++		/* A new stream: assume chroma until its H.264 SPS says otherwise */
++		ctx->monochrome = false;
+ 		hantro_reset_raw_fmt(ctx,
+ 				     hantro_get_format_depth(pix_mp->pixelformat),
+ 				     need_postproc);
++	}
+ 
+ 	/* Colorimetry information are always propagated. */
+ 	ctx->dst_fmt.colorspace = pix_mp->colorspace;
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+index 02673be9878e..851af0e6c80b 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+@@ -134,6 +134,19 @@ static const struct hantro_fmt rk3066_vpu_dec_fmts[] = {
+ 			.step_height = MB_DIM,
+ 		},
+ 	},
++	{
++		.fourcc = V4L2_PIX_FMT_GREY,
++		.codec_mode = HANTRO_MODE_NONE,
++		.monochrome = true,
++		.frmsize = {
++			.min_width = FMT_MIN_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
++			.step_width = MB_DIM,
++			.min_height = FMT_MIN_HEIGHT,
++			.max_height = FMT_FHD_HEIGHT,
++			.step_height = MB_DIM,
++		},
++	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_H264_SLICE,
+ 		.codec_mode = HANTRO_MODE_H264_DEC,
+@@ -188,6 +201,19 @@ static const struct hantro_fmt rk3288_vpu_dec_fmts[] = {
+ 			.step_height = MB_DIM,
+ 		},
+ 	},
++	{
++		.fourcc = V4L2_PIX_FMT_GREY,
++		.codec_mode = HANTRO_MODE_NONE,
++		.monochrome = true,
++		.frmsize = {
++			.min_width = FMT_MIN_WIDTH,
++			.max_width = FMT_4K_WIDTH,
++			.step_width = MB_DIM,
++			.min_height = FMT_MIN_HEIGHT,
++			.max_height = FMT_4K_HEIGHT,
++			.step_height = MB_DIM,
++		},
++	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_H264_SLICE,
+ 		.codec_mode = HANTRO_MODE_H264_DEC,
+@@ -242,6 +268,19 @@ static const struct hantro_fmt rockchip_vdpu2_dec_fmts[] = {
+ 			.step_height = MB_DIM,
+ 		},
+ 	},
++	{
++		.fourcc = V4L2_PIX_FMT_GREY,
++		.codec_mode = HANTRO_MODE_NONE,
++		.monochrome = true,
++		.frmsize = {
++			.min_width = FMT_MIN_WIDTH,
++			.max_width = FMT_FHD_WIDTH,
++			.step_width = MB_DIM,
++			.min_height = FMT_MIN_HEIGHT,
++			.max_height = FMT_FHD_HEIGHT,
++			.step_height = MB_DIM,
++		},
++	},
+ 	{
+ 		.fourcc = V4L2_PIX_FMT_H264_SLICE,
+ 		.codec_mode = HANTRO_MODE_H264_DEC,
+
+-- 
+2.55.0
+
 
