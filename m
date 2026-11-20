@@ -1,101 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795196434;
-	b=bh0wrnka9lD66urJ1hyjN2Si4DZC1RPAkN6Zqxe9gar1sjf/xbyUjyvKvNWZUuccVXCp
-	 3MWfVuXlaye2RWcjXrwSzEpfNLVk0t01h/qvZUszgpJyJOp32DFWCF1fnkhkMFqtZO4Fl
-	 Jb7MxHTh+9bNm0ugOBYplk3baQMDhswPuPmO8qYK95zy2kUfo1A51mcwTkdCHRzobw3Ff
-	 y312KtFVmuRDjUqETlhsDxE9bQZwKFkZys6DnqKBvnoKrcc7ydXbCrDgIv91AkLhS1nNP
-	 TUYmCtmfRKVKHkzMiP/Ro13wqp/FWKI5Y1O06t28+zpPdbkQQ1jMOMPFFG337Bns3zw==
+	t=1795196430;
+	b=HIvbrAXMZ8wItRpfHXiNoMkVtEgG5SYL9DHAOP6u5WALrMyh8NN6/UExOuelKbtS4Q4B
+	 XoTZiA+GyY9yOIvUqqIy+aKknIPiJGHw7plJmPpo59c5uaPAcwJUfL7OrsAco4zaunh0p
+	 +EhuYlLWB0+4szyOtyX+jgTiiIElGJHVBMfl0kfRPMo3amCv/F9Ngvkx0Dam+KOM6M8Al
+	 MULFFZOrGeCSJGRQihv0aFAO2CM74huYvsPts+hSSc8eGMgxSLPtKhsRl4aSl0Yxcvl68
+	 CARyFq84PPzC8BMHUzwrxKDEZ4tK1ncxzgduxs2/iMELhcm5Hjv+uRqYfwVu8SstRMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795196434;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mAqhAwYtTGGUt9HsaNHp93GmUA0b3RGVILqFHkMc3dc=;
-	b=WZhUJly6fb/UzBbesaI9TVWJ812u0JbCgEfKTqDyrFXosjhM75208OUJ+EbWlTO6p8e7
-	 s4i6WcuM/VywyZgTTqsTdncW705+4lin2lUNJDthAk06km805prjD70YdGB0ITxW3kipw
-	 uIqRUS93M78BvGax3/mVur08PBEpqnThxgk4H++HnyFc/iI6La5MkTTxDwG08TiejpnF6
-	 WoVYzKtXhunTxbTSK4N69wpWcHF6Yha2ZWU6hSIw7ttf+AjoJHlcY59ayWN+QX+cDAcvY
-	 SdGtohfcHtQJ0OPr0H4jPByQ7a9Yjb+ESU196OXrcnNjhSgepiPkaBUD9cyxlbpl72A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795196430;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Gruq8nQHIe+quQ7RML00zfULCCGlk6QoaFUMUsneJmU=;
+	b=5Tm4xlivXA2wBBF8q3j4oqnZ6o3V9g8Zi5KivPZl8alNctCzTDErEgzRqwjlM6ZiIkOH
+	 HrXWPYtd7zt2Msv5JRMIaine5mDbmzZILke3pZrZgXtCif5YCRm6dkxfuBMsEnVYc+ffh
+	 Fly8RA3Af6tNJEUogE9+ywZrXSd6t7jVnqOpl8+FriqqhTDukxcxVwj4GlXIHdP0ovEiD
+	 fqBgkuh1kEtaGHVrstAfe5Xcwx6WDbIuu3NPekwF1JyEcBovXFaUX/gacYSpe+wEWy5t9
+	 r3pabRrHQHopGjVefkXSlBkg4CzJGxS/g8QP5HQFtqMAElVFfWySXTy/ILORmMXMg0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aBURvjdg;
-	arc=none smtp.remote-ip=209.85.160.173
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=makrotopia.org;
+	spf=pass smtp.mailfrom=makrotopia.org;
+	arc=none smtp.remote-ip=185.142.180.65
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28AD160A2618
-	for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 17:40:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28AD160A2618
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aBURvjdg
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-53639b8903bso14417881cf.0
-        for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 09:40:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795196427; x=1795801227; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mAqhAwYtTGGUt9HsaNHp93GmUA0b3RGVILqFHkMc3dc=;
-        b=aBURvjdgxtLl5qAXgNdjYWSJnP66qnq8B2tblPLUXp88tUYLeqNR+SLJeCHnh2nghb
-         aTPmeT7jUar3P086sAi4sgLvFaRZcRvXDyRVX5ClNXV1Mg7gbBTOJbUvFBCwe/nLJ0oS
-         COtMCuYSY8Ej/OrWv5rabABWXky7gZzf0IyHlOU2+y3EsRkKcVsYcDs4cI3V0ilO+3gv
-         2t0CntRIr/Ikh+R08aOf4B5Y5sk6QeTU37eTl1XFQD/d9hukV/pZoavqBHYCkquiW7l7
-         Spxtogf8d/rH0ZpKrubJDKhDCIiosnQ1cel5U9eRRKgGAs5OyRYWBNUzpwFkBzl9DGxl
-         PVgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795196427; x=1795801227;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mAqhAwYtTGGUt9HsaNHp93GmUA0b3RGVILqFHkMc3dc=;
-        b=Tq/S4oG8GPVVnffesgI7w+02t/9dbTlY+LUKjTbfFZbqHn+wADiiBx/d1Jql6nn/H/
-         rTin4l+DzZ335t8Vzr8iV4magY/3V7gOkHXX5alxZ+Vrv4Kh198BjH+gok9h0VtoegjD
-         SbRDlqoRv+1XMA6s1cAdwnft6DxjurqG/u+cRxcaVHk8QmHLcfDlX3Bz6WJUdRqoU+7P
-         NH6nLrQ0jbmwXPF7/no0BeN4NVkpD9sYboexfeesqgPdoAzd/ZVJdQm8d7vTZDz0Iebd
-         KDkI5Gnx0gSz8JlvYWB26uEAGgxE1+CPOaYIG4hY4wvUu6Sj2hjwL+Z0SdTAnSX8MiUj
-         mexw==
-X-Forwarded-Encrypted: i=1; AL+hErHt/zi6Wc3nyxrSXZEasBQiH9Hb4iWyE++/4CMJzUSWlEACCXMCJwIWG87fdkzqymO1empZa0YjuJ8YQw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/oZrGlb4Ae9BMNNPQqu3+ijLvB9Ta5FTjhRYViWCAIPuu6Adsx
-	MwOb0PDZeN3ClAwb3+947e3BLzaUgbUMcHCl421o1FbTgXMU3lR7/umQ
-X-Gm-Gg: AYBFou26Yp8Kq4BVMOv6lVqRm0RtGgvIcCjdGupkpXsO5y3ApfLe9bLwo49IKAlohsr
-	rSkykgHMe1HPqorlQQF26Pnyy/oVUioZYbQsaz/wmN77P9m+gS3fYH2FtEJoUSTZ8IinArHbGeU
-	BFScv6j4bCaCZBxZYoZsWaLu7i+40Bz/ubQLyvWjYsJnip6ucEY+mDxqtx4MC6CWd/0BPXn6fsG
-	wqcVz6Tq4f2kDsK5VRdXOQekfBjwrplgVK4y1VaWDGHzcAE8THFtRFfFZgWX4Gx0fOMmV8ZNzdJ
-	c0yUnd+6gfXAh7HpCiuQuQff6yBs2FomOsvy57FJpP/lfF0MzgUepYu8ToXHNqNmAyEwnt/axUW
-	GYj/krzIHvw3H/TW+Iv+rwY+dM1Al9s5VRydwuCIqUYI2RRmyCQQylh+btGRkerRBk4Q+4H6MR7
-	sg+4vv9EwuqikV8UJOHiVFrlOHOM3r1um+hMnrOc2P6MVsFxHQ4RZcWrL5opfBi5FXzw1Z+LjzB
-	s/U6gIKRaknePFZYsJXzjLW20+aqc/F7VR8X/h7RIZb2SZ/AtK0gq+0jBgXj51UeCUks2KghkJa
-	MXUroj2ZMKO/7LBu2hrwm1sn+kwTSVAcsTxcHtpVpef2W1RHuOVu3lYd1uVycBIR5gONWOeuG/j
-	3gusbH5VvObl3C4XVQTD6tZk4ErjyRY2zFI/10goUJLbTw+7WOIOybY0NxG9dwtUJfb5unJnsLM
-	Wigs/op9G3fVYiMZaDAsroiUJpbGBJrIDE6jprXLVH11c9+Z+RE2z1LVkGjhpLOG9WKXI4E/KKx
-	RZ3rlUXWThq49SO3FSzLcvHEBygmz1FXFpfF4Uj87Q5WA==
-X-Received: by 2002:a05:622a:1808:b0:535:a5f7:d596 with SMTP id d75a77b69052e-55d6fd36ed3mr78926921cf.37.1795196427043;
-        Fri, 20 Nov 2026 09:40:27 -0800 (PST)
-Received: from LRMS.tailf8556c.ts.net ([2600:4041:5024:4b00:d420:4621:169f:8773])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d7889f8b6sm28110831cf.28.2026.11.20.09.40.26
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 20 Nov 2026 09:40:26 -0800 (PST)
-From: Jesse Casco <jesse.casco@gmail.com>
-To: Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-	Allan Siriani <allan@fatecpompeia.edu.br>,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: [PATCH 1/2] media: qcom: camss: x1e80100: Use the lite clocks for the lite CSIDs
-Date: Fri, 20 Nov 2026 12:40:24 -0500
-Message-ID: <bf48f3c809f33c060e2944e5896f8a5a93fd78ea.1795196107.git.jesse.casco@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1795196107.git.jesse.casco@gmail.com>
-References: <cover.1795196107.git.jesse.casco@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1584606A32A;
+	Fri, 20 Nov 2026 17:40:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1584606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xUSav-000000000J7-28k7;
+	Fri, 20 Nov 2026 17:40:17 +0000
+Date: Fri, 20 Nov 2026 17:40:07 +0000
+From: Daniel Golle <daniel@makrotopia.org>
+To: Detlev Casanova <detlev.casanova@collabora.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	David Heidelberg <david@ixit.cz>,
+	Christian Hewitt <christianshewitt@gmail.com>,
+	Marc Zyngier <maz@kernel.org>, linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Diederik de Haas <diederik@cknow-tech.com>,
+	Dang Huynh <dang.huynh@mainlining.org>,
+	Piotr Oniszczuk <piotr.oniszczuk@gmail.com>
+Subject: [PATCH v5 1/5] media: dt-bindings: rockchip: Add RK3568 Video
+ Decoder bindings
+Message-ID: <70b950c4b4fefbe07fe081f780ff359ed697d37f.1795191822.git.daniel@makrotopia.org>
+References: <cover.1795191822.git.daniel@makrotopia.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,60 +70,47 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1795191822.git.daniel@makrotopia.org>
 
-The X1E80100 CSID_LITE0 and CSID_LITE1 resources list the full CSID
-clocks, "csid" and "csid_csiphy_rx", instead of "vfe_lite_csid" and
-"vfe_lite_cphy_rx", which the binding provides for them. The lite CSIDs
-then run with their own CSI-2 receiver unclocked: their registers can be
-read and they raise the reset interrupt, but they never report RX, RDI
-or buffer-done interrupts, so no frame arrives.
+From: Christian Hewitt <christianshewitt@gmail.com>
 
-Use the lite clocks, with the vfe_lite_csid rates the IFE_LITE entries
-already use.
+The video decoder in RK356X (vdpu346) is described in the same way as
+the one in RK3588 (vdpu381). A new compatible is added as the decoder
+capabilities are a subset of the vdpu381 capabilities.
 
-Fixes: 1830cf0f56c3 ("media: qcom: camss: Add x1e80100 specific support")
-Signed-off-by: Jesse Casco <jesse.casco@gmail.com>
+Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Tested-by: Diederik de Haas <diederik@cknow-tech.com> # PineTab2, Quartz64-A, NanoPi R5S
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 ---
- drivers/media/platform/qcom/camss/camss.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+v5: no changes
+v4: add Tested-by from Diederik de Haas
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index f8e5cf9f3..7d9622097 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4287,13 +4287,13 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
- 	{
- 		.regulators = {},
- 		.clock = { "gcc_axi_hf", "gcc_axi_sf", "cpas_ahb",
--			   "cpas_fast_ahb", "csid", "csid_csiphy_rx" },
-+			   "cpas_fast_ahb", "vfe_lite_csid", "vfe_lite_cphy_rx" },
- 		.clock_rate = { { 0 },
- 				{ 0 },
- 				{ 64000000, 80000000 },
- 				{ 80000000,  100000000, 200000000,
- 				  300000000, 400000000 },
--				{ 300000000, 400000000, 480000000 },
-+				{ 266666667, 400000000, 480000000 },
- 				{ 300000000, 400000000, 480000000 }, },
- 		.reg = { "csid_lite0" },
- 		.interrupt = { "csid_lite0" },
-@@ -4308,13 +4308,13 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
- 	{
- 		.regulators = {},
- 		.clock = { "gcc_axi_hf", "gcc_axi_sf", "cpas_ahb",
--			   "cpas_fast_ahb", "csid", "csid_csiphy_rx" },
-+			   "cpas_fast_ahb", "vfe_lite_csid", "vfe_lite_cphy_rx" },
- 		.clock_rate = { { 0 },
- 				{ 0 },
- 				{ 64000000, 80000000 },
- 				{ 80000000,  100000000, 200000000,
- 				  300000000, 400000000 },
--				{ 300000000, 400000000, 480000000 },
-+				{ 266666667, 400000000, 480000000 },
- 				{ 300000000, 400000000, 480000000 }, },
- 
- 		.reg = { "csid_lite1" },
+---
+ Documentation/devicetree/bindings/media/rockchip,vdec.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/media/rockchip,vdec.yaml b/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
+index 4f38a0ef29d84..ea5386e84f17e 100644
+--- a/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
++++ b/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
+@@ -18,6 +18,7 @@ properties:
+     oneOf:
+       - const: rockchip,rk3288-vdec
+       - const: rockchip,rk3399-vdec
++      - const: rockchip,rk3568-vdec
+       - const: rockchip,rk3576-vdec
+       - const: rockchip,rk3588-vdec
+       - items:
+@@ -110,6 +111,7 @@ allOf:
+         compatible:
+           contains:
+             enum:
++              - rockchip,rk3568-vdec
+               - rockchip,rk3576-vdec
+               - rockchip,rk3588-vdec
+     then:
 -- 
 2.56.1
-
