@@ -1,85 +1,86 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795196429;
-	b=F3JOMWeEyilH+mV0pqKifwCGObv+iTUtUYj1Po+z20UGjdRE+9Pr1fgK4MgQmJbjxvQi
-	 poIyGSz/2nwHJLUs1dMmizMbv6Al/Hd74tCkDZHxXm3EuVQMeeBOnB2K+POOO3RqSwnmf
-	 naw2/qEAFFfvGJ4mePHLlo9JAJXbQTvJE18/Bx/3Rntw5fCZ6TSnt1lMhMKerWPZVvaSp
-	 fw/8b5OEis2rOm4PzWjXhaVYZlKpktfhRiFKzlpKs2G2U1wum4tVRXE9fiiJZX6W6l1TX
-	 ELCDsvFk+OghZ7+8vRmd+PyyzISYloe8Pv3e/d8r8Im2IVbrlesN+U/w3SRVPdinECw==
+	t=1795196432;
+	b=NXPKC+xHqiy9jHyOcniMkxEJtaIUhldYJs5p1Gk5kTIrLlmrMIxGhKkzRLyT+2wZCjvG
+	 TD1FVrUg0UKlBHaiN7yg8quAzvPrSbPietKrDfmAvILZ1YqlcDEcMYU1Zas2EaqKSGff8
+	 YuA0ZrILxeQ7ugKeIiZHTNMXTEO54MQPmNcHnn5O8WotzpEQC+7zau7fY1Eksji0109FB
+	 6bdFhwGMkGKNMygKeVKF2siaAGBmn8VFvmF2ERpdOB17uEVKu2gVe+spCFaICDqSXC5tu
+	 i4mxv4x1tSBtE+Y18UxCXOnc4g0ABGALKq2fWv9GH+X1lDtvPTJh+nkxZSvqlbDyakQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795196429;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795196432;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Uq9H+1lFYYvgo3IDYWApxfWNUbzn0gKG5Ril08BpDPA=;
-	b=2XtC2tiXTqWSWWGO5qnpP0OfA5uYNxM5cFWobnNp0qHg2uuAlr5FXZwZumgpatiqh40w
-	 tQWT/uKSnDukyPsyFZfgJ3DVs6uNyCl1zr+3CDwA6enalaNv/hyjg8UC0Gd93wzzk3qwN
-	 a41PMrcNDfkbhaGqFNJ33aS9BalMQSdw8q+5niotvVVBLdDwHq55iEJRo3gTFY5bZmMp3
-	 OBwuY80uQgsBvRbpNRBWrYi+jIHUPrABjGkbBHwYpTMximOhs2ogTyEt5crEKIW4flUYH
-	 ArN4NBDbYC36Uwoow8JLLojxYybLoAxTCrciIkeEG4b1+jhc381PlV1Zhc1tb4EvuPQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=fe0PplXkfJEjGF1pRChOr9FUjudOYaWFATaaoi8fy8c=;
+	b=de5y+sTg4DYCPbtomHxvddi7c/KIaGzRKxBmmCJ5VneR1B6qHkNXTpaYRLDOKTkADYXw
+	 fE38krS5xnlbEP3zOkpHWBCPPJSWvFv+CMfTXbsRsx7+a9O0L0YvNZQX5nNVumcy+vLHK
+	 t37vEPmSg+lpsQf0Ri4BCDKue5rdLxb9Gknt/fTeUzkDJKyrlNbAwF3nd78AlwB/WkhLq
+	 UZJxGqFKHCj8reONXkAZbjX7FjXGxYOWHPRky7TV5k9FuaBxXwhXCuS6e4rdZx9fBmaXi
+	 jPpu86tFfW43jikrQjJexXTDf1+zXL2HXFFzZAjZTSEtitzsoyT07h4AJQwQkXjAdIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oj+kBFl2;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sNKmrKTU;
 	arc=none smtp.remote-ip=209.85.160.181
 Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8771260A2605
-	for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 17:40:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8771260A2605
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD250606A330
+	for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 17:40:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD250606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oj+kBFl2
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-5366ae57896so12249801cf.3
-        for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 09:40:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sNKmrKTU
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-55ade1de0b4so13449191cf.3
+        for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 09:40:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795196426; x=1795801226; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Uq9H+1lFYYvgo3IDYWApxfWNUbzn0gKG5Ril08BpDPA=;
-        b=oj+kBFl2mFyou4ugg5xyx756ynmWosuj6EnM4EqEifbQVF1upP8tAc4NC+4u3DD+bM
-         B5e4mAnLzH06i/ryZMER2uThnbcQvc21pxmQwNar/yrWX5dizUq6B/8NTVgufjjJAB6f
-         hP30V39JUmBavLgizJ6nXAkIrWHnwhDEUKDbQgkjvdk14ePChjaDJtfk75hp4BHwYMIt
-         nV5GI+F1Jj97v/2pANN8X/4yregVxxUzEqcyfJ4kDgK+orPkncMGSpEjxd81u00Y+fIg
-         QZtP0J2E/MWURxT5w5qWOPPgUK9BUS9qilHsKnrrJKk3FTNKPZ6NcdvVJkWL/+Qn4bja
-         wCIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795196426; x=1795801226;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795196428; x=1795801228; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Uq9H+1lFYYvgo3IDYWApxfWNUbzn0gKG5Ril08BpDPA=;
-        b=Ml6uKTZtywL7lKEEVMp1gqzbt+UIJTo4QRjbom3nMlor+zRMAQwiQe4Mk3J4SZXUXU
-         CtFDl79Jz/GqM63t1Kz6Rp0aHaZCIXPIi/qR6eGkMUQRTwI8qLzhm46NPHdfevFvKZ4S
-         /S6pzCWvfLz4FVc8x4NiMxsY4EK+4fOKOPHtV72wsxcmoXSRJ5PxCGdkH+/MWse01DBF
-         GNu+fCTLz0+cOxMwsTkJnmhdpx6g/LRMF42w3JMEQuoxFVNYx2neurdGI/97hpo8iFD/
-         5pQUCrWMHKkrM81ka2gTYV8olwJb82vnESrtod8AJ4HASOgGllzRrsSt85GZjeGZ6/r0
-         kBLA==
-X-Forwarded-Encrypted: i=1; AL+hErHi+Ca6a01mugk+aW/91ilncRaADM+a7Qrx8vH1oY+RjNcInw20kgLjleqr4eB+fWUyI/5366ZKGIZ/oQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+jC68bx+CBHEHqe02ZVFu/CJX+icl1CjcCPal9mT9m6Juwwq7
-	KRCLrmrvxogGnqgGW0V4neOUMo4RC2WYF+YsDTYFOr/I8Hke4wHddwVk
-X-Gm-Gg: AYBFou13liS9+eVgENYKs/xlEUOSCHyaaqAnQRaXLHm6L0nzfLyDfvzKrdNYLRzxXqQ
-	B/0ijUYnKjkgHDyk9+smCHEMC7xrUzn1SuB+8cQ+8X6dKaWMnd8syiKQt4aneIbK94bljZOi+lw
-	nZsUJoEdup2084eox2Mx1gs6lvNzpQtOy8EC/Dab0wLKjnNIQEKG9u/7+JnwzEdBfODijOc1rB3
-	zPeIirbZIgVrg7NSy0CGBIngKCxoHParm1dCxgVTPwbUAWXQNVhfxzwPJLGYeU+HAp0nrAX7Sqk
-	9bCfh2zH7k1D3pZlpVOwj8r0HH1p6/VmkL7HpvoOKxej6iQT49ZlVTi9uHGcehiQe5RbTdcUSBs
-	EwzfsuQwI0bxgsbsgl/7NP1GOLRs+mXb9H8sCrc54eEbRHi3gxiTC5h7oEtrDxFDueCGsQbCyQM
-	nhB9PksNMordwSgHHJwJvynyE1A3FMDLeodO3MuqIj6LJCFvmWPTVf/uzEt4V7KdZmLt3XayAXy
-	ddbPC4tP0ibddlX/tNLR1HlP24TtPhsbR0AAT9dteNLsyDiyU5uAUCZMiE9rdBCVGgl/eb5hqqb
-	V+aAmQ3xWxDgjZvpMUvQKaPeRYmOZnhXJrQodjEypRR7oPFJhPVmNEnPyBS8BmyAXqZaCD+QsZH
-	FLaktV3xxdBwhTJc5Ew0ohW2cNqjsbOb4StqB9P4TGDbP5LJf5U8iYVk31wrJAY3oQEKb4HPbQC
-	9xbIgAvVaYwN3Yr5LhqIlK8/nO2sIOluW6ZyupQ8EtZicvjs5YKTG6iMRifUq+pt5yf8CvHVpOs
-	MOS4ptM1rpBBouy6yMpQ045z04CmTkcy+nMcaj56JyUbQ==
-X-Received: by 2002:ac8:5d93:0:b0:533:39bc:efec with SMTP id d75a77b69052e-55d76938609mr70320971cf.2.1795196426393;
-        Fri, 20 Nov 2026 09:40:26 -0800 (PST)
+        bh=fe0PplXkfJEjGF1pRChOr9FUjudOYaWFATaaoi8fy8c=;
+        b=sNKmrKTUQ+N/e8JWkw8tQEKL0TzMegwf3BapIpPt8Sz0nA4Xcx5K6WXIWVmuU2ZAMu
+         Ec2of/rPL6lg3oAKglcGb6H51PtIkHkEPuwWe1vNTuZNycrogWI3r5NFC9PbHhZVhrvX
+         b1pzXgBYMXA5KE8Gy28Ofs9vIABDkefs24m0Wr2lGg7+F1JEdRUt8Y41sBaq6E0yPRVI
+         BEgb029AAEWFrcmUkmZfovrq8xnjbpdBu9GDPWxess9y4swJoSL+xwT+ComaiJQZWQ/t
+         3dQMFVPYtQdzWal5YKkSbOrYVQWETQxE1OeSxE6vsKDiD2iUUJpuYvdlPdgDqngBQf35
+         AQzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795196428; x=1795801228;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fe0PplXkfJEjGF1pRChOr9FUjudOYaWFATaaoi8fy8c=;
+        b=Re7MoTDmJ3aF+qOfEz4Xlhiujw9BGJeGkJZfPboEVabTM7A3jGr6jLZ/RNihr1KIN5
+         FtuzujgQZTzqNOpGtN7mVvm1jWLrYAEU9oMsdoqObncyjvWMSc3CXbMScRCjJVK7RSbf
+         iKhl4EgsM0hY+oI76X2pc4hcOEXzETVBY2ME3Dx1f/EN621fPxggxGXb3FWASC9Zwgpk
+         9YxtKO736eoBafjWph9p4P9OE92AY/TN5MQECwp+v6IEqhMef3aYH9z7QsyB6qjP+pda
+         4T3h+ycAB3ozwSR6XW6raWjofZDx0GNJDA9h5uOCUmlSqUaicW8O6UMD6WYyydIiNhah
+         cvsA==
+X-Forwarded-Encrypted: i=1; AL+hErEj98mvm49pLcOtGr1B/M9FHgxW1fw69kyZfHpxHp78Xii10dXlDQP4DZ6REuMkmaw7HO2A6nxh0x0Psg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/eJjTnZl+5iADQMD+CbqtHgNDidW/LUHdTPcHhozc+rBrYbaCc
+	V1TpZurp5/6Ijrv5mVi8BbROHtdEtpDKXA9jBDzEYdUNB6uOuncQHko1
+X-Gm-Gg: AYBFou15TcEkJc/ZtFEYNPVaDJNbQKQ7SQQYPxQKziLBge5MDE+pYkvjSzDGAlmJLma
+	FtWLKe5NuatHcMX61fbbDRzZqfvtVJBg/sH/35oCZsjnwuDtHkiMWlg2WUwcgaZ5AsrgVu7JlO4
+	e2aB0tYuXfG+LMX+3JvjZYSWu+y26reW1YpYUIeH/H9ekH3l5+rSaY1LjT6UU49nMjsXFY7KL9L
+	TBtywp8VBRJNnA9CroVPhOAgK+Hs6/LpnQkuQG+7Oea1wh7tg1m4mudnxXztrs1jTD4HontUvh5
+	Of/ROr+ZWeC2t4CsF7urOBTvAMW5kB3ARM0CeoyU99d+dvUuWqG6nK8icX1OnYbR0ijxpwI2bim
+	LsuiX1lnMNdAQdURRqEmRc44ZWW/djLNoIlKGZodslDGiXuu8Q5pGjIcuRSCQBIHSOq3c5H37ea
+	ASe1imOqOE+JfoZZJGuFzFlZ0ChY7s335SH1LyeXKAecQKvj2D3QGeQS10A5bZvtsSuNUX1AvxT
+	8k90QpFOBFZJLUjnLOaKhh4q82CTbipyzNvXNjEWqcZjDsqZEYR9Oc7OPNTZGI+e2uD+fEmdCZe
+	Pd+0YC5EkzEe8r+G6M3cGBgB0q5LNi1ppF7rIgwAED7Pt803MWSk154QH/NYg8g4+1Ai9fyGEUH
+	fHRxBcjREHmvFi66PRszsl4zZ/IciLJkf+OyLYqDaW86O4CJx7a+VgebrikHpE8OXDr/lRaTyr3
+	w6NroVeo073+9K3Vrxr3lvKZBeJgilMkVnqq05Kw/Sah3LuTnRPAMHp6qXTuD85Xk1sy9vNPxQp
+	mG8hY03k+09tObGKlAqUaCLYVcIkCmjkvumhD4zEeqa0g==
+X-Received: by 2002:a05:622a:2609:b0:55a:df3b:38d4 with SMTP id d75a77b69052e-55d76b5b9b8mr68312731cf.75.1795196427747;
+        Fri, 20 Nov 2026 09:40:27 -0800 (PST)
 Received: from LRMS.tailf8556c.ts.net ([2600:4041:5024:4b00:d420:4621:169f:8773])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d7889f8b6sm28110831cf.28.2026.11.20.09.40.25
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d7889f8b6sm28110831cf.28.2026.11.20.09.40.27
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 20 Nov 2026 09:40:26 -0800 (PST)
+        Fri, 20 Nov 2026 09:40:27 -0800 (PST)
 From: Jesse Casco <jesse.casco@gmail.com>
 To: Bryan O'Donoghue <bod@kernel.org>,
 	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
@@ -89,10 +90,12 @@ Cc: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
 	Allan Siriani <allan@fatecpompeia.edu.br>,
 	linux-media@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org
-Subject: [PATCH 0/2] media: qcom: camss: Fix the X1E80100 lite CSID paths
-Date: Fri, 20 Nov 2026 12:40:23 -0500
-Message-ID: <cover.1795196107.git.jesse.casco@gmail.com>
+Subject: [PATCH 2/2] media: qcom: camss: Map each CSID to the VFE it feeds
+Date: Fri, 20 Nov 2026 12:40:25 -0500
+Message-ID: <9e5bee0dbc1c116672ba0020013ef0a346385c29.1795196107.git.jesse.casco@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1795196107.git.jesse.casco@gmail.com>
+References: <cover.1795196107.git.jesse.casco@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,51 +107,118 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The X1E80100 CAMSS resources, which Glymur reuses for its CSIDs and VFEs
-(also with Nihal's Glymur-specific resources [1]), have two problems on
-the lite paths:
+CAMSS assumes that CSID n feeds VFE n: csid_set_power() powers the VFE
+with the CSID's index through parent_dev_ops, camss_buf_done() is passed
+a CSID index and completes the buffer on the VFE of that index, and
+camss_reg_update() is passed a VFE index and updates the CSID of that
+index.
 
-- the lite CSIDs are given the full CSID clocks, so their CSI-2
-  receiver is never clocked and they never see a frame;
-- CAMSS assumes CSID n feeds VFE n, but X1E80100 has three full CSIDs
-  and two full VFEs, so CSID_LITE0 powers VFE_LITE1, CSID_LITE1 has no
-  VFE to power and CSID2 powers VFE_LITE0.
+That holds as long as a SoC has the same number of full CSIDs and full
+VFEs, with the lite blocks after them. X1E80100 has three full CSIDs but
+only two full VFEs:
 
-Tested on an Asus Zenbook A16 (Glymur), Linux 7.3 with the X1E80100
-CSID/VFE tables, streaming 8 frames from the HM1092 IR sensor on CSIPHY0
-through each CSID/VFE pair with media-ctl and v4l2-ctl:
+  CSID:  0, 1, 2, LITE0 (3), LITE1 (4)
+  VFE:   0, 1, LITE0 (2), LITE1 (3)
 
-                     before          after
-  CSID0 -> VFE0      8 frames        8 frames
-  CSID1 -> VFE1      8 frames        8 frames
-  LITE0 -> LITE0     no frames       8 frames
-  LITE1 -> LITE1     -EINVAL         8 frames
-  CSID2 -> VFE0      no frames       -EINVAL
+so CSID2 powers VFE_LITE0, CSID_LITE0 powers VFE_LITE1, and CSID_LITE1
+fails to stream with "Failed to power up pipeline: -22" because there is
+no VFE 4.
 
-The OV02C10 RGB sensor on CSIPHY4 through LITE1 -> LITE1 also goes from
--EINVAL to 8 frames. libcamera still captures from both cameras. I ran
-the same tests again with Nihal's v3 [1] applied and the board's CSIPHY4
-link on port@2, with the same results.
+Look the VFE up instead: a full CSID feeds the full VFE with the same
+index, and the n-th lite CSID feeds the n-th lite VFE. CSID2 has no VFE.
+This gives the same mapping as before on every other SoC.
 
-I don't have an X1E80100 machine; testing there would be welcome.
+Fixes: 1830cf0f56c3 ("media: qcom: camss: Add x1e80100 specific support")
+Signed-off-by: Jesse Casco <jesse.casco@gmail.com>
+---
+ drivers/media/platform/qcom/camss/camss.c | 46 ++++++++++++++++++++---
+ 1 file changed, 41 insertions(+), 5 deletions(-)
 
-The series applies on its own and in either order with [1]. Patch 2
-touches vfe_parent_dev_ops_get() like Allan's "media: qcom: camss: do
-not fail CSID power up without a matching VFE" [2]. They don't depend
-on each other; I'm happy to rebase on whichever lands first.
-
-[1] https://lore.kernel.org/r/20261119-glymur_camss-v3-0-71ab966c41c9@oss.qualcomm.com
-[2] https://lore.kernel.org/r/20261111135338.27008-5-allan@fatecpompeia.edu.br
-
-Jesse Casco (2):
-  media: qcom: camss: x1e80100: Use the lite clocks for the lite CSIDs
-  media: qcom: camss: Map each CSID to the VFE it feeds
-
- drivers/media/platform/qcom/camss/camss.c | 54 +++++++++++++++++++----
- 1 file changed, 45 insertions(+), 9 deletions(-)
-
-
-base-commit: adcad7f4e6332cff3d6d7165f41584899f598534
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index 7d9622097..8020b675c 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -4629,11 +4629,39 @@ static int camss_read_version(struct camss *camss)
+ 	return 0;
+ }
+ 
++/*
++ * Return the index of the VFE fed by CSID @csid_id, or -EINVAL if it feeds
++ * none. A full CSID feeds the full VFE with the same index and the n-th lite
++ * CSID feeds the n-th lite VFE. The two only differ when a SoC has more full
++ * CSIDs than full VFEs, as X1E80100 does (three full CSIDs, two full VFEs).
++ */
++static int camss_csid_to_vfe(struct camss *camss, int csid_id)
++{
++	const struct camss_resources *res = camss->res;
++	int i, n = 0;
++
++	if (!res->csid_res[csid_id].csid.is_lite) {
++		if (csid_id < res->vfe_num && !res->vfe_res[csid_id].vfe.is_lite)
++			return csid_id;
++		return -EINVAL;
++	}
++
++	for (i = 0; i < csid_id; i++)
++		n += res->csid_res[i].csid.is_lite;
++
++	for (i = 0; i < res->vfe_num; i++)
++		if (res->vfe_res[i].vfe.is_lite && n-- == 0)
++			return i;
++
++	return -EINVAL;
++}
++
+ static int vfe_parent_dev_ops_get(struct camss *camss, int id)
+ {
+ 	int ret = -EINVAL;
+ 
+-	if (id < camss->res->vfe_num) {
++	id = camss_csid_to_vfe(camss, id);
++	if (id >= 0 && id < camss->res->vfe_num) {
+ 		struct vfe_device *vfe = &camss->vfe[id];
+ 
+ 		ret = vfe_get(vfe);
+@@ -4644,7 +4672,8 @@ static int vfe_parent_dev_ops_get(struct camss *camss, int id)
+ 
+ static int vfe_parent_dev_ops_put(struct camss *camss, int id)
+ {
+-	if (id < camss->res->vfe_num) {
++	id = camss_csid_to_vfe(camss, id);
++	if (id >= 0 && id < camss->res->vfe_num) {
+ 		struct vfe_device *vfe = &camss->vfe[id];
+ 
+ 		vfe_put(vfe);
+@@ -5043,11 +5072,16 @@ static int camss_link_entities(struct camss *camss)
+ void camss_reg_update(struct camss *camss, int hw_id, int port_id, bool is_clear)
+ {
+ 	struct csid_device *csid;
++	int i;
+ 
+-	if (hw_id < camss->res->csid_num) {
+-		csid = &camss->csid[hw_id];
++	/* hw_id is a VFE index; update the CSID that feeds that VFE */
++	for (i = 0; i < camss->res->csid_num; i++) {
++		if (camss_csid_to_vfe(camss, i) != hw_id)
++			continue;
+ 
++		csid = &camss->csid[i];
+ 		csid->res->hw_ops->reg_update(csid, port_id, is_clear);
++		return;
+ 	}
+ }
+ 
+@@ -5055,7 +5089,9 @@ void camss_buf_done(struct camss *camss, int hw_id, int port_id)
+ {
+ 	struct vfe_device *vfe;
+ 
+-	if (hw_id < camss->res->vfe_num) {
++	/* hw_id is a CSID index; complete the buffer on the VFE it feeds */
++	hw_id = camss_csid_to_vfe(camss, hw_id);
++	if (hw_id >= 0 && hw_id < camss->res->vfe_num) {
+ 		vfe = &camss->vfe[hw_id];
+ 
+ 		vfe->res->hw_ops->vfe_buf_done(vfe, port_id);
 -- 
 2.56.1
 
