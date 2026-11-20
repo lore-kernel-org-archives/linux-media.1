@@ -1,157 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.43.85
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795165090;
-	b=rrOmSwCE+io/KY5XP2epfRuOaJjkmfITP0mqbTUierPUtar24GSxuDGlSlng2FjehcOo
-	 pTI3HA4zPN5Na5VQYAemqQHNXaNQhNjOEj0ViaD37eLKBszFAliirhNt0xqILNEnPBF4w
-	 qrZ1RWdsnCNLPQoIXrZNiLPBdL3zzLrXt7YriYlE4Qmb3nIg/JcavQCMFAaQNUw8qLLaD
-	 xnG/jI4kySGVFLZZZSTITiaBGR8+nXqfuiicxolXwCgGtXbo3/kzKI/ppKzPMEoy3FtpV
-	 sbl44JzuxP5F+/rdsdtmMSqL02cCXWUglh11YTlYGp+2KP//lOGnnbLdBQnhtF/GQtg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795165090;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=54gzJ0f1Iu4WoekbXINpvny2QXOKLI+uMBBubYVfK/s=;
-	b=aHY+bHe8b1NIM3mwVVDR6aZDwDRDrEBNyFV+n9/oRwyIlNgpWivUxyJ/voRm26k6I4Ev
-	 ZICMo9rnt/73DBsD8tOZGoOVwXeN4hFEKJG5JLg9nPlPw/vYQvGz7mblngMSEvA6G7/2G
-	 s+w4sXAq40KuGIT8GBGDAL4wcrchR3/RUm1YO3NUyGGYQDSac280PcVOvmw/WZ2S45fNY
-	 777lVI6SsU/Y83KVvx8QmexIHnsBVyeXkxnOai9M7BP5exPd0R0JQbaq2LJVkxU0S1GVD
-	 BdgH97670wRPhx8niqJKRGO9deRsKyPPU7ayR7LQVHC2ZI3p6RZFzIb1DprTxSu9E6w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chipsnmedia.com;
-	spf=fail smtp.mailfrom=chipsnmedia.com;
-	dkim=pass header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=cPOqurhc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.43.85
-Received: from SEVP216CU002.outbound.protection.outlook.com (mail-koreacentralazon11022085.outbound.protection.outlook.com [40.107.43.85])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795165360;
+	b=EsFeV0grl6HPX94J6/JIsXCpAkim8NaAZlDJwIRJJN7MG/TUFfzrWtT2nq7NGmbzZdFV
+	 KFM8J30pAusbGZKe9wgXRvy1VFtNtsCjwRfA5K2aSn5srq//COE6InxEqngstizX3Zg6V
+	 PqJ+h8Lw4LC94qC1efIH+g0aUSy4j3/6Ml8KW5ZQAwKVjgmPPjWqa9ce8Ny6TsuoFZhPG
+	 Wi8JEMqT4PSmxCi7/FjZhj5FZAhG7ZQVoHeGvfVdo9Ps9+37inpVcQ1mYpR9cUZ5lE+pQ
+	 N4/iiFJFxXwdjVyST4z9SUekS3Ku0GMmS3Sao91Y6YUptSkW9k2ekFHow0hGtRXYhbQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795165360;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=B27NBmW6xEW99C4mPgAJ/Hv6uDSHsBlZ/pHbt7OCb5c=;
+	b=TqrM066Rm6vlvnXrstUzhSqNCEysvCtBlCeLbGNBNzOcSkE/LBANLbqH14jVSh3ox3jU
+	 +bPrK3kt17JPZ8r6ZINBzzYh1Avpg+OhoLYPM4kMqY7d1VW5JW3q8NPWzFfFKu/DqDeRO
+	 vDWmdfDS6C8F56vE3TQyKN+8C+R9oSqvbMdnEBz25g+vcu0GXKGA5wTpxdfsJAoxz7VDZ
+	 nM5Jy1BKeo3HR2aYouPctt+pNCVHa2kCWPrah9bGL7m0AfSWYax2iWurl0GCo2u+OE3/S
+	 YqYRlilGP6i6JLBFDAdBBzF4yQTycHJMw7+RV+GiW4E11b+ygvX7YzLAqIB8SPylVVw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CbL1ygrH;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E10A606A320;
-	Fri, 20 Nov 2026 08:58:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E10A606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB628606A325;
+	Fri, 20 Nov 2026 09:02:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB628606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=cPOqurhc
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LEcMc8Eth2MHp6r625Q304fbVokCa5n56OJdU1EEGw9AOJNciWzMebwQiG5TPUfNtNErOzeNEjkcpdCQ6SLGnaL6zNKQ3toug+p6CEIC7F2zeB4MutMihtzdPM697Qc+wXpNZGczwRnIh9AgcYeSiAKmtWpMfWUgsvh5RnaXiswGEJp81FH16VekLm+7c4ZbBtxuDGibkpKsGr/xc3aeiS5XlakvWzwxkCjqvPkibPl0gu/i3d+nOB95TdFtuCodT+LErEB7M/iVJhrWafQjCFPe4xbB2yicE3khSvtRSZBkM14/QGjhSeWjapUpgsRLEGluGJm+PNpnxa7XcuwLAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=54gzJ0f1Iu4WoekbXINpvny2QXOKLI+uMBBubYVfK/s=;
- b=juBic4/Lqt4s3+hddY7dRp/UpFonN2rb+FBGoxwUZdQyobdDw6FAbg16KoMYARCM29MxE0wjSP+drLC+P34FGY5IHuTlqWOMZ42q9M247+QqrxNxMCZCEp2np6O3cI0tyDkCoBpx9Y4HCc/f7EVn8ShV0iwGMXrnppWbswPukSnWqBMu6dK2vXltN4MutXuE3Gn93fpwTu2wdPPxe6dc34BwLgmQ9/ZFkCL3RNeMVZpdwIx231lHJFL529Bh0N3suAsKp87rD/enr52e/lyyng0W6Fu1DbfhPDqE6s0d+ZnCRW+m0Lj17OA1xCDZm7E9kh7314a39Hook3Gj9Ay7+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
- header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=54gzJ0f1Iu4WoekbXINpvny2QXOKLI+uMBBubYVfK/s=;
- b=cPOqurhcErhHL4ZbitrGSOjBx7adUtgYsyU1dQT1N9trZdimvWI0Kv9eDI/STsSYloqjLVOXLB5K60HdfNq6p76VYYeILHm8QmCTO/1POXppdBXLFTLkrIyziHKy0lepWDrOe2lOFtPlzyIB53YvGdiorR03ZnT0f2G+f4ZH49ZWqNVVICAoUyJ3uyyL4c8kSqZb/qHA7P/rspf2UHjc4eGguoDcZ6nOzpvsF4m68FnF/DZXqUGz8T9DvehL+dmA75w2hWZjKIwDqLXnNxlzV0xHMkx9yb0FZwMP2z4pBN9r/1w6S4jkaDvYB+l+5WELFGw1pzc7ouBDCsUsYZFDYg==
-Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM (2603:1096:101:1b9::8)
- by PUUP216MB3514.KORP216.PROD.OUTLOOK.COM (2603:1096:301:16b::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Fri, 20 Nov
- 2026 08:58:07 +0000
-Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
- ([fe80::f234:3bc6:9197:8232]) by SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
- ([fe80::f234:3bc6:9197:8232%6]) with mapi id 15.21.0639.011; Fri, 20 Nov 2026
- 08:58:07 +0000
-From: Nas Chung <nas.chung@chipsnmedia.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-CC: "mchehab@kernel.org" <mchehab@kernel.org>, "hverkuil@kernel.org"
-	<hverkuil@kernel.org>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "Frank.Li@nxp.com" <Frank.Li@nxp.com>,
-	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "festevam@gmail.com"
-	<festevam@gmail.com>, "kernel@pengutronix.de" <kernel@pengutronix.de>,
-	"nicolas.dufresne@collabora.com" <nicolas.dufresne@collabora.com>,
-	"ming.qian@oss.nxp.com" <ming.qian@oss.nxp.com>, "marek.vasut@mailbox.org"
-	<marek.vasut@mailbox.org>, "jackson.lee" <jackson.lee@chipsnmedia.com>,
-	"lafley.kim" <lafley.kim@chipsnmedia.com>
-Subject: RE: [PATCH v8 02/11] media: chips-media: wave6: Add Wave6 control
- driver
-Thread-Topic: [PATCH v8 02/11] media: chips-media: wave6: Add Wave6 control
- driver
-Thread-Index: AQHdeARozyfnwPkovUOydj9BJXEYp7c100uAgADWJ1A=
-Date: Fri, 20 Nov 2026 08:58:07 +0000
-Message-ID:
- <SL2P216MB2441AAC89D661DE574918603FB782@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
-References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
- <6b00047b748267a2ff4e18ccbfd573ea92166d34.1795075580.git.nas.chung@chipsnmedia.com>
- <av9XG97eKQ1gZCFb@SMW015318>
-In-Reply-To: <av9XG97eKQ1gZCFb@SMW015318>
-Accept-Language: en-US, ko-KR
-Content-Language: ko-KR
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SL2P216MB2441:EE_|PUUP216MB3514:EE_
-x-ms-office365-filtering-correlation-id: a97609cf-aa2f-4a82-9457-08df46e4652a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|10067099003|38070700021|5023799004|4143699003|56012099006|261022105027099003|261022075727099003|261021135927099003|261102123227099003|261021123027099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261021121427099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- HMRPoZ83eBHGgLuRcKucja51kxULVkeLfbQYYOnxofiB47vKTiQZ3iYXqsgRVSUcP0PhrxbnjLX6WscpPxbxsBL07LOByN7fE2EQWIs6qHsKbbt+Stoh4U8Okv/aoeXaHDjS0fzGYZKbC8H5sUc2BYrBn8rZTgsBndRpxYTi9ewH0qNZjsVG9JgjG6Oz2CO1Wru/AK1/+xgWmeHro+242hyTPOjxSeTxsXlZeFbemwXeFDIpU3xlMluOEITwLq04x+mae7/f2MsPNW2IMkV5rqCb/xURNH+HBmidIhJ3+sNvn+GvoV9BNFXk7jTusW3+Sd345ee0iI0/f5FOLrvWX4ux2c4qZildiPUPPuauzHg7XHItKPPyuDX5dTrFRXPayrcYvEib6Gv+5fxGYbwaxnJkt8GatQdl6/XrPmmdZ3lxeVd7/qOFJkRnN3FtL0rEKqZ7DJo3RD66MtDgHnY0VNkbwhbx8q3PMpMUp0cvyts7bkQY3qMITqT9JSw+KreP7e/ypGKxFg5m7T8Pqns+2sXw01UoyYV9A+GhEoq3zorGo7Jve/n7VpS4HEH2a4Hjy0W9qS6KfjT2zCws1RiEB9xFj7H7YUrNiDoYP3s48aYiwLtVrgjUYkKKl+hljmJJnfg5lBUyxOu9uLhNbEzp4jkWFCGYJ3yw5jSx3KyPRrYwGxfAxr+ISSCNS/zvcRVR24Ekokumk3gExu6V3ZDdldxXrH9DdMEGS2jSWycA00E=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SL2P216MB2441.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(10067099003)(38070700021)(5023799004)(4143699003)(56012099006)(261022105027099003)(261022075727099003)(261021135927099003)(261102123227099003)(261021123027099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261021121427099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?fpW7lhhbdCvIkYFE39b7FUFte+YXlfYPwjhkYP/ygYptVYeG99EYxkd02gby?=
- =?us-ascii?Q?+6eFkj++mTHCluJ9aFsbvSyJjFjo3xyOxsP7ygtQVsbS0ifqiSgvBmlU5Wfz?=
- =?us-ascii?Q?e8c2VGMwnCVmdYjxY/Z+frn9qS4Oz3DQDuIF8Vq2tspM3KoYr/uZ6gileKSD?=
- =?us-ascii?Q?+qtqxIms5xiKnR2k4SR5a41xUue6xH/Rskhnas/X6xJ3k/q51bXxGkOTjuXn?=
- =?us-ascii?Q?v78Etq/hLl9lDZCdOdUTc6bwQf1cHefSSWnNdXLvLNzmGC3WyURaCyS2xpDa?=
- =?us-ascii?Q?FjHe0OG2KkONGtP3U0LsUn3rlfKC7QL3lY3w/bQDJp1U8QB53eNZmintK6FG?=
- =?us-ascii?Q?w88o1lrayYsFhCg58+GGhbvZHC1plwIGt3tNfb3yIupgqV34MQv4G0PI5D/C?=
- =?us-ascii?Q?TQmT+bZQ7l86IOxD2dtCYgmOalCcHEoZWLQspHLknlwno9l3OIg/hRX+tc/w?=
- =?us-ascii?Q?BMK+OOuVk+yf2aQH2r47UjWy5bT6TG0aJlMBDtRpkXRvF84BgdRhodoFe0s0?=
- =?us-ascii?Q?YKhRtI+j1qpil/DTQ2UHs/arghQsi1/co5NAH+9BLzQDUXCc28fzX2fJwdWu?=
- =?us-ascii?Q?39nZlvSQqIKhQSyAhFSQpb0Kqqz4r7Aem1gWSiOuKNg+hqCDrTMf2sYPKiGf?=
- =?us-ascii?Q?tKsWjrsTkHIo+ST/mWSXpH+OSoHGbRG1XMNEh8QX6Wo8yeK6EGpNdrCmBSpp?=
- =?us-ascii?Q?IPRNOv9xLVFXVSZjciXgU57tm/Kg1jhHSRibdBSnetYl0jcK33stvPQKW9yk?=
- =?us-ascii?Q?uoF6hOjSITFap+UxiI4Aa3dfipze56DGbIGtXNTIbgYs7HsK8Q3qZWqX1WU8?=
- =?us-ascii?Q?YPwliDo8P+oV+02lG6cCpGo6zmmXg9uh07hOHFzLEUNEROiqLRojwhrhUkE7?=
- =?us-ascii?Q?dTvQ+Vb5RVBjZ4HIcr/e3vzgIx1suZeIJyYcAtGuWtxgWfg+OQMTngYU9a66?=
- =?us-ascii?Q?xj8q+P5icZjn3k+KDTuvWqSmGhJlcGv0weWE7xfCWFW2eyMgKuFhkRX2r894?=
- =?us-ascii?Q?x7LK/oDkh+DJhZ/67riT6V8RzeMkJBkOICtBUk68iIyODEGSUKZOV6F7uZBF?=
- =?us-ascii?Q?0X01/9VgtLJzML/zBUNmWy+8+qQgLhBBkzi2BvNURdQhWTpUB4UvRv8pdlyu?=
- =?us-ascii?Q?AKGkoQJAW6brJsX589NxU+MOF3O6PthZuONW2VP6nob+g2rou95zv8yr3KWT?=
- =?us-ascii?Q?1cNW+5pNyh8m/9OocB9Hro5UFuFtHZ15S865JolL0jIRSuXzK6cGL5MFgjby?=
- =?us-ascii?Q?g9oNUK6WqrVP5cAUGE484QTr+78StksWYonIw+YNwUMpmyLUmWR4ZtzNJZaC?=
- =?us-ascii?Q?o+qm2hVR0JJf7XejsShE/RiES5U4xAaKOO3SOrJHiyM7pZ5uGTlW+PFzuIOU?=
- =?us-ascii?Q?hwdZmqtJbnhSdqojpzjfq75XsYAhsT/Eld4zaRO86zZtKtCTrtdSCCBQi/sj?=
- =?us-ascii?Q?skGhlBQYc8mg9kMDey7kjJ8QXgHSY1xfSCeqiwnjy0kpQbbAG50m3RCyTgdE?=
- =?us-ascii?Q?quvNlnv/nSTD+zAgw6+NFBbvq1qMvThV56Clupx3KLQYTJ/0DZq7rj2HDDFx?=
- =?us-ascii?Q?BX1zourBR2hR6FjlC7pZory1hQZTWjnp0kKtLQ1LBjeRZDYH+RVh1rRbq/PK?=
- =?us-ascii?Q?t7qh6dhDd07DTKbELUOzsf/YMvfXIagSLsxZq6jtye5VTZ3saRdQdaS+rdsv?=
- =?us-ascii?Q?xyuaJxI2aXN65TMl7x2a+3Uo3ncP8DfpmMYzLRV6oEb95PYlgIocfrokyU8z?=
- =?us-ascii?Q?XXz3YlK6BQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CbL1ygrH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795165359; x=1826701359;
+  h=message-id:date:mime-version:subject:to:references:from:
+   in-reply-to:content-transfer-encoding;
+  bh=gARWLH6ZEUJrL59sAcqoW3jvuymgTvg3AgpOXJipfyc=;
+  b=CbL1ygrHZWBkpMsFO9UllxrDIMpb1z5cMPNV6c4OqwOLjC+tVhHpdAvH
+   EVnKn/J8dRlNlgXzRi7T8x89OZJbJ2HDx5wEf9ywCMVVBRz6bPOc+Zgdb
+   hSrSG/QQKoUCZ5Ptiu2bxZfArvRferEJpDFVWNoorlyB+RZ3kTam9bMN5
+   zxMooJOF54M+D4cFI2VK0U7PkN/GTw1HXbTkYDmB+K/kVq9R27r0JKrfd
+   gczzVQjHCGMnXPHz3z/qZPPB9M6tToSfcslRG52hp1TR8YJj0aZnlA4/z
+   aMAebxtDYa6KoU9euJPu1tTZzHw5wckwflQICTIpFr4RK2JF6w9JJBV20
+   A==;
+X-CSE-ConnectionGUID: DsEtWkpXT46iE3YQ3rsPMA==
+X-CSE-MsgGUID: 9cVg5mjQTsmOOoaCgUy5Sw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3927345"
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
+   d="scan'208";a="3927345"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 01:02:38 -0800
+X-CSE-ConnectionGUID: fBG0jayzTsmxWVASfsMV9Q==
+X-CSE-MsgGUID: Nmec7opNSWCMak6X0xk8jw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,222,1787036400"; 
+   d="scan'208";a="10648511"
+Received: from soc-pf6038af.clients.intel.com (HELO [10.217.180.38]) ([10.217.180.38])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Nov 2026 01:02:29 -0800
+Message-ID: <47f2ff46-1837-43f5-a413-0dbf29716d7a@linux.intel.com>
+Date: Fri, 20 Nov 2026 10:02:27 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -161,290 +72,860 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: chipsnmedia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: a97609cf-aa2f-4a82-9457-08df46e4652a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Nov 2026 08:58:07.2756
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oi+eaebIgb6nWBUnZsqSVciHbFQdJTK3N6kTRFUq9jbv6qXQRDRIziMzcUX1n2IdfLTGiKm3PMno4AkHuoiZS+s+iGw3ljVAyTN6QdWqf2Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUUP216MB3514
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/24] dma-buf: Convert exporters allocating a table
+ per map to the SGT mapping type
+To: Alistair Popple <apopple@nvidia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling
+ <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com,
+ jhubbard@nvidia.com, chaitanyak@nvidia.com, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>
+References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+ <20261120-dma_mapping_type_v4-v3-7-c0183a409bdf@nvidia.com>
+Content-Language: en-US
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
+In-Reply-To: <20261120-dma_mapping_type_v4-v3-7-c0183a409bdf@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi, Frank.
+On 20-Nov-26 6:55, Alistair Popple wrote:
+> These exporters allocate a struct sg_table in map_dma_buf() and free
+> it again in unmap_dma_buf().
+> 
+> The conversion is mechanical and no behaviour change is expected.
+> Instead of map_dma_buf() allocating a sg_table it instead allocates and
+> returns a dma_buf_sgt_mapping, which the unmap callbacks also take.
+> 
+> As a side effect this fixes a leak in fsl_asrc_m2m. Its unmap_dma_buf()
+> only DMA unmapped the per-map table and never freed it. It now frees the
+> mapping including the table.
+> 
+> Co-developed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+> Signed-off-by: Alistair Popple <apopple@nvidia.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_cbuf.c             | 30 ++++++++------
+>   drivers/accel/amdxdna/amdxdna_ubuf.c             | 34 +++++++++-------
+>   drivers/accel/habanalabs/common/memory.c         | 52 +++++++++++++-----------
+>   drivers/gpu/drm/armada/armada_gem.c              | 36 +++++++++-------
+>   drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c | 30 ++++++++------
+>   drivers/gpu/drm/tegra/gem.c                      | 30 ++++++++------
+>   samples/vfio-mdev/mbochs.c                       | 31 ++++++++------
+>   sound/soc/fsl/fsl_asrc_m2m.c                     | 32 +++++++++------
+>   8 files changed, 161 insertions(+), 114 deletions(-)
+> 
+> diff --git a/drivers/accel/amdxdna/amdxdna_cbuf.c b/drivers/accel/amdxdna/amdxdna_cbuf.c
+> index a504560aae98..945436516cc6 100644
+> --- a/drivers/accel/amdxdna/amdxdna_cbuf.c
+> +++ b/drivers/accel/amdxdna/amdxdna_cbuf.c
+> @@ -5,6 +5,7 @@
+>   
+>   #include <drm/drm_mm.h>
+>   #include <drm/drm_prime.h>
+> +#include <linux/dma-buf-mapping.h>
+>   
+>   #include "amdxdna_cbuf.h"
+>   #include "amdxdna_pci_drv.h"
+> @@ -81,11 +82,13 @@ struct amdxdna_cbuf_priv {
+>   	struct drm_mm_node node;
+>   };
+>   
+> -static struct sg_table *amdxdna_cbuf_map(struct dma_buf_attachment *attach,
+> -					 enum dma_data_direction direction)
+> +static struct dma_buf_sgt_mapping *
+> +amdxdna_cbuf_map(struct dma_buf_attachment *attach,
+> +		 enum dma_data_direction direction)
+>   {
+>   	struct amdxdna_cbuf_priv *cbuf = attach->dmabuf->priv;
+> -	struct device *dev = attach->dev;
+> +	struct device *dev = dma_buf_sgt_dma_device(attach);
+> +	struct dma_buf_sgt_mapping *mapping;
+>   	struct scatterlist *sgl, *sg;
+>   	int ret, n_entries, i;
+>   	struct sg_table *sgt;
+> @@ -93,9 +96,10 @@ static struct sg_table *amdxdna_cbuf_map(struct dma_buf_attachment *attach,
+>   	size_t dma_size;
+>   	size_t max_seg;
+>   
+> -	sgt = kzalloc_obj(*sgt);
+> -	if (!sgt)
+> +	mapping = kzalloc_obj(*mapping);
+> +	if (!mapping)
+>   		return ERR_PTR(-ENOMEM);
+> +	sgt = &mapping->sgt;
+>   
+>   	max_seg = min_t(size_t, UINT_MAX, dma_max_mapping_size(dev));
+>   	n_entries = (cbuf->node.size + max_seg - 1) / max_seg;
+> @@ -127,24 +131,27 @@ static struct sg_table *amdxdna_cbuf_map(struct dma_buf_attachment *attach,
+>   		dma_size -= len;
+>   	}
+>   
+> -	return sgt;
+> +	return mapping;
+>   
+>   free_sgl:
+>   	kfree(sgl);
+>   free_sgt:
+> -	kfree(sgt);
+> +	kfree(mapping);
+>   	return ERR_PTR(ret);
+>   }
+>   
+>   static void amdxdna_cbuf_unmap(struct dma_buf_attachment *attach,
+> -			       struct sg_table *sgt,
+> +			       struct dma_buf_sgt_mapping *mapping,
+>   			       enum dma_data_direction direction)
+>   {
+> -	dma_unmap_resource(attach->dev, sg_dma_address(sgt->sgl),
+> +	struct sg_table *sgt = &mapping->sgt;
+> +
+> +	dma_unmap_resource(dma_buf_sgt_mapping_dma_device(mapping),
+> +			   sg_dma_address(sgt->sgl),
+>   			   drm_prime_get_contiguous_size(sgt), direction,
+>   			   DMA_ATTR_SKIP_CPU_SYNC);
+>   	sg_free_table(sgt);
+> -	kfree(sgt);
+> +	kfree(mapping);
+>   }
+>   
+>   static void amdxdna_cbuf_release(struct dma_buf *dbuf)
+> @@ -210,12 +217,11 @@ static void amdxdna_cbuf_vunmap(struct dma_buf *dbuf, struct iosys_map *map)
+>   }
+>   
+>   static const struct dma_buf_ops amdxdna_cbuf_dmabuf_ops = {
+> -	.map_dma_buf = amdxdna_cbuf_map,
+> -	.unmap_dma_buf = amdxdna_cbuf_unmap,
+>   	.release = amdxdna_cbuf_release,
+>   	.mmap = amdxdna_cbuf_mmap,
+>   	.vmap = amdxdna_cbuf_vmap,
+>   	.vunmap = amdxdna_cbuf_vunmap,
+> +	DMA_BUF_SIMPLE_SGT_EXP_MATCH(amdxdna_cbuf_map, amdxdna_cbuf_unmap),
+>   };
+>   
+>   static int amdxdna_cbuf_clear(struct dma_buf *dbuf)
+> diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
+> index 0e0cd69cd1fb..ed8b0ab9e554 100644
+> --- a/drivers/accel/amdxdna/amdxdna_ubuf.c
+> +++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
+> @@ -7,6 +7,7 @@
+>   #include <drm/drm_device.h>
+>   #include <drm/drm_print.h>
+>   #include <linux/dma-buf.h>
+> +#include <linux/dma-buf-mapping.h>
+>   #include <linux/overflow.h>
+>   #include <linux/pagemap.h>
+>   #include <linux/vmalloc.h>
+> @@ -20,42 +21,48 @@ struct amdxdna_ubuf_priv {
+>   	struct mm_struct *mm;
+>   };
+>   
+> -static struct sg_table *amdxdna_ubuf_map(struct dma_buf_attachment *attach,
+> -					 enum dma_data_direction direction)
+> +static struct dma_buf_sgt_mapping *
+> +amdxdna_ubuf_map(struct dma_buf_attachment *attach,
+> +		 enum dma_data_direction direction)
+>   {
+>   	struct amdxdna_ubuf_priv *ubuf = attach->dmabuf->priv;
+> +	struct dma_buf_sgt_mapping *mapping;
+>   	struct sg_table *sg;
+>   	int ret;
+>   
+> -	sg = kzalloc_obj(*sg);
+> -	if (!sg)
+> +	mapping = kzalloc_obj(*mapping);
+> +	if (!mapping)
+>   		return ERR_PTR(-ENOMEM);
+> +	sg = &mapping->sgt;
+>   
+>   	ret = sg_alloc_table_from_pages(sg, ubuf->pages, ubuf->nr_pages, 0,
+>   					ubuf->nr_pages << PAGE_SHIFT, GFP_KERNEL);
+>   	if (ret)
+> -		goto err_free_sg;
+> +		goto err_free_mapping;
+>   
+> -	ret = dma_map_sgtable(attach->dev, sg, direction, 0);
+> +	ret = dma_map_sgtable(dma_buf_sgt_dma_device(attach), sg, direction, 0);
+>   	if (ret)
+>   		goto err_free_table;
+>   
+> -	return sg;
+> +	return mapping;
+>   
+>   err_free_table:
+>   	sg_free_table(sg);
+> -err_free_sg:
+> -	kfree(sg);
+> +err_free_mapping:
+> +	kfree(mapping);
+>   	return ERR_PTR(ret);
+>   }
+>   
+>   static void amdxdna_ubuf_unmap(struct dma_buf_attachment *attach,
+> -			       struct sg_table *sg,
+> +			       struct dma_buf_sgt_mapping *mapping,
+>   			       enum dma_data_direction direction)
+>   {
+> -	dma_unmap_sgtable(attach->dev, sg, direction, 0);
+> +	struct sg_table *sg = &mapping->sgt;
+> +
+> +	dma_unmap_sgtable(dma_buf_sgt_mapping_dma_device(mapping), sg,
+> +			  direction, 0);
+>   	sg_free_table(sg);
+> -	kfree(sg);
+> +	kfree(mapping);
+>   }
+>   
+>   static void amdxdna_ubuf_release(struct dma_buf *dbuf)
+> @@ -70,9 +77,8 @@ static void amdxdna_ubuf_release(struct dma_buf *dbuf)
+>   }
+>   
+>   static const struct dma_buf_ops amdxdna_ubuf_dmabuf_ops = {
+> -	.map_dma_buf = amdxdna_ubuf_map,
+> -	.unmap_dma_buf = amdxdna_ubuf_unmap,
+>   	.release = amdxdna_ubuf_release,
+> +	DMA_BUF_SIMPLE_SGT_EXP_MATCH(amdxdna_ubuf_map, amdxdna_ubuf_unmap),
+>   };
+>   
+>   struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+> diff --git a/drivers/accel/habanalabs/common/memory.c b/drivers/accel/habanalabs/common/memory.c
+> index 361cff577381..fc39ccd6f8db 100644
+> --- a/drivers/accel/habanalabs/common/memory.c
+> +++ b/drivers/accel/habanalabs/common/memory.c
+> @@ -9,6 +9,7 @@
+>   #include "habanalabs.h"
+>   #include "../include/hw_ip/mmu/mmu_general.h"
+>   
+> +#include <linux/dma-buf-mapping.h>
+>   #include <linux/uaccess.h>
+>   #include <linux/slab.h>
+>   #include <linux/vmalloc.h>
+> @@ -1531,13 +1532,15 @@ static int set_dma_sg(struct scatterlist *sg, u64 bar_address, u64 chunk_size,
+>   	return 0;
+>   }
+>   
+> -static struct sg_table *alloc_sgt_from_device_pages(struct hl_device *hdev, u64 *pages, u64 npages,
+> -						u64 page_size, u64 exported_size, u64 offset,
+> -						struct device *dev, enum dma_data_direction dir)
+> +static struct dma_buf_sgt_mapping *
+> +alloc_sgt_from_device_pages(struct hl_device *hdev, u64 *pages, u64 npages, u64 page_size,
+> +			    u64 exported_size, u64 offset, struct device *dev,
+> +			    enum dma_data_direction dir)
+>   {
+>   	u64 dma_max_seg_size, curr_page, size, chunk_size, left_size_to_export, left_size_in_page,
+>   		left_size_in_dma_seg, device_address, bar_address, start_page;
+>   	struct asic_fixed_properties *prop = &hdev->asic_prop;
+> +	struct dma_buf_sgt_mapping *mapping;
+>   	struct scatterlist *sg;
+>   	unsigned int nents, i;
+>   	struct sg_table *sgt;
+> @@ -1553,9 +1556,10 @@ static struct sg_table *alloc_sgt_from_device_pages(struct hl_device *hdev, u64
+>   		return ERR_PTR(-EINVAL);
+>   	}
+>   
+> -	sgt = kzalloc_obj(*sgt);
+> -	if (!sgt)
+> +	mapping = kzalloc_obj(*mapping);
+> +	if (!mapping)
+>   		return ERR_PTR(-ENOMEM);
+> +	sgt = &mapping->sgt;
+>   
+>   	/* Use the offset to move to the actual first page that is exported */
+>   	for (start_page = 0 ; start_page < npages ; ++start_page) {
+> @@ -1686,7 +1690,7 @@ static struct sg_table *alloc_sgt_from_device_pages(struct hl_device *hdev, u64
+>   			"SG entry %d: address %#llx, length %#x\n",
+>   			i, sg_dma_address(sg), sg_dma_len(sg));
+>   
+> -	return sgt;
+> +	return mapping;
+>   
+>   err_unmap:
+>   	for_each_sgtable_dma_sg(sgt, sg, i) {
+> @@ -1700,7 +1704,7 @@ static struct sg_table *alloc_sgt_from_device_pages(struct hl_device *hdev, u64
+>   	sg_free_table(sgt);
+>   
+>   err_free_sgt:
+> -	kfree(sgt);
+> +	kfree(mapping);
+>   	return ERR_PTR(rc);
+>   }
+>   
+> @@ -1714,22 +1718,22 @@ static int hl_dmabuf_attach(struct dma_buf *dmabuf,
+>   	hl_dmabuf = dmabuf->priv;
+>   	hdev = hl_dmabuf->ctx->hdev;
+>   
+> -	rc = pci_p2pdma_distance(hdev->pdev, attachment->dev, true);
+> +	rc = pci_p2pdma_distance(hdev->pdev, dma_buf_sgt_dma_device(attachment), true);
+>   
+>   	if (rc < 0)
+>   		attachment->peer2peer = false;
+>   	return 0;
+>   }
+>   
+> -static struct sg_table *hl_map_dmabuf(struct dma_buf_attachment *attachment,
+> -					enum dma_data_direction dir)
+> +static struct dma_buf_sgt_mapping *
+> +hl_map_dmabuf(struct dma_buf_attachment *attachment, enum dma_data_direction dir)
+>   {
+>   	u64 *pages, npages, page_size, exported_size, offset;
+>   	struct dma_buf *dma_buf = attachment->dmabuf;
+>   	struct hl_vm_phys_pg_pack *phys_pg_pack;
+> +	struct dma_buf_sgt_mapping *mapping;
+>   	struct hl_dmabuf_priv *hl_dmabuf;
+>   	struct hl_device *hdev;
+> -	struct sg_table *sgt;
+>   
+>   	hl_dmabuf = dma_buf->priv;
+>   	hdev = hl_dmabuf->ctx->hdev;
+> @@ -1753,18 +1757,21 @@ static struct sg_table *hl_map_dmabuf(struct dma_buf_attachment *attachment,
+>   		page_size = hl_dmabuf->dmabuf->size;
+>   	}
+>   
+> -	sgt = alloc_sgt_from_device_pages(hdev, pages, npages, page_size, exported_size, offset,
+> -						attachment->dev, dir);
+> -	if (IS_ERR(sgt))
+> -		dev_err(hdev->dev, "failed (%ld) to initialize sgt for dmabuf\n", PTR_ERR(sgt));
+> +	mapping = alloc_sgt_from_device_pages(hdev, pages, npages, page_size,
+> +					      exported_size, offset,
+> +					      dma_buf_sgt_dma_device(attachment),
+> +					      dir);
+> +	if (IS_ERR(mapping))
+> +		dev_err(hdev->dev, "failed (%ld) to initialize sgt for dmabuf\n", PTR_ERR(mapping));
+>   
+> -	return sgt;
+> +	return mapping;
+>   }
+>   
+>   static void hl_unmap_dmabuf(struct dma_buf_attachment *attachment,
+> -				  struct sg_table *sgt,
+> +				  struct dma_buf_sgt_mapping *mapping,
+>   				  enum dma_data_direction dir)
+>   {
+> +	struct sg_table *sgt = &mapping->sgt;
+>   	struct scatterlist *sg;
+>   	int i;
+>   
+> @@ -1776,14 +1783,14 @@ static void hl_unmap_dmabuf(struct dma_buf_attachment *attachment,
+>   	 * a sync of the memory to the CPU's cache, as it never resided inside that cache.
+>   	 */
+>   	for_each_sgtable_dma_sg(sgt, sg, i)
+> -		dma_unmap_resource(attachment->dev, sg_dma_address(sg),
+> -					sg_dma_len(sg), dir,
+> -					DMA_ATTR_SKIP_CPU_SYNC);
+> +		dma_unmap_resource(dma_buf_sgt_mapping_dma_device(mapping),
+> +				   sg_dma_address(sg), sg_dma_len(sg), dir,
+> +				   DMA_ATTR_SKIP_CPU_SYNC);
+>   
+>   	/* Need to restore orig_nents because sg_free_table use that field */
+>   	sgt->orig_nents = sgt->nents;
+>   	sg_free_table(sgt);
+> -	kfree(sgt);
+> +	kfree(mapping);
+>   }
+>   
+>   static struct hl_vm_hash_node *memhash_node_export_get(struct hl_ctx *ctx, u64 addr)
+> @@ -1850,9 +1857,8 @@ static void hl_release_dmabuf(struct dma_buf *dmabuf)
+>   
+>   static const struct dma_buf_ops habanalabs_dmabuf_ops = {
+>   	.attach = hl_dmabuf_attach,
+> -	.map_dma_buf = hl_map_dmabuf,
+> -	.unmap_dma_buf = hl_unmap_dmabuf,
+>   	.release = hl_release_dmabuf,
+> +	DMA_BUF_SIMPLE_SGT_EXP_MATCH(hl_map_dmabuf, hl_unmap_dmabuf),
+>   };
+>   
+>   static int export_dmabuf(struct hl_ctx *ctx,
+> diff --git a/drivers/gpu/drm/armada/armada_gem.c b/drivers/gpu/drm/armada/armada_gem.c
+> index 044acdef6351..1eff00567386 100644
+> --- a/drivers/gpu/drm/armada/armada_gem.c
+> +++ b/drivers/gpu/drm/armada/armada_gem.c
+> @@ -4,6 +4,7 @@
+>    */
+>   
+>   #include <linux/dma-buf.h>
+> +#include <linux/dma-buf-mapping.h>
+>   #include <linux/dma-mapping.h>
+>   #include <linux/mman.h>
+>   #include <linux/shmem_fs.h>
+> @@ -383,41 +384,44 @@ int armada_gem_pwrite_ioctl(struct drm_device *dev, void *data,
+>   }
+>   
+>   /* Prime support */
+> -static struct sg_table *
+> +static struct dma_buf_sgt_mapping *
+>   armada_gem_prime_map_dma_buf(struct dma_buf_attachment *attach,
+>   	enum dma_data_direction dir)
+>   {
+> +	struct device *dma_dev = dma_buf_sgt_dma_device(attach);
+>   	struct drm_gem_object *obj = attach->dmabuf->priv;
+>   	struct armada_gem_object *dobj = drm_to_armada_gem(obj);
+> +	struct dma_buf_sgt_mapping *mapping;
+>   	struct scatterlist *sg;
+>   	struct sg_table *sgt;
+>   	int i;
+>   
+> -	sgt = kmalloc_obj(*sgt);
+> -	if (!sgt)
+> +	mapping = kzalloc_obj(*mapping);
+> +	if (!mapping)
+>   		return NULL;
+> +	sgt = &mapping->sgt;
+>   
+>   	if (dobj->obj.filp) {
+> -		struct address_space *mapping;
+> +		struct address_space *file_mapping;
+>   		int count;
+>   
+>   		count = dobj->obj.size / PAGE_SIZE;
+>   		if (sg_alloc_table(sgt, count, GFP_KERNEL))
+>   			goto free_sgt;
+>   
+> -		mapping = dobj->obj.filp->f_mapping;
+> +		file_mapping = dobj->obj.filp->f_mapping;
+>   
+>   		for_each_sgtable_sg(sgt, sg, i) {
+>   			struct page *page;
+>   
+> -			page = shmem_read_mapping_page(mapping, i);
+> +			page = shmem_read_mapping_page(file_mapping, i);
+>   			if (IS_ERR(page))
+>   				goto release;
+>   
+>   			sg_set_page(sg, page, PAGE_SIZE, 0);
+>   		}
+>   
+> -		if (dma_map_sgtable(attach->dev, sgt, dir, 0))
+> +		if (dma_map_sgtable(dma_dev, sgt, dir, 0))
+>   			goto release;
+>   	} else if (dobj->page) {
+>   		/* Single contiguous page */
+> @@ -426,7 +430,7 @@ armada_gem_prime_map_dma_buf(struct dma_buf_attachment *attach,
+>   
+>   		sg_set_page(sgt->sgl, dobj->page, dobj->obj.size, 0);
+>   
+> -		if (dma_map_sgtable(attach->dev, sgt, dir, 0))
+> +		if (dma_map_sgtable(dma_dev, sgt, dir, 0))
+>   			goto free_table;
+>   	} else if (dobj->linear) {
+>   		/* Single contiguous physical region - no struct page */
+> @@ -437,7 +441,7 @@ armada_gem_prime_map_dma_buf(struct dma_buf_attachment *attach,
+>   	} else {
+>   		goto free_sgt;
+>   	}
+> -	return sgt;
+> +	return mapping;
+>   
+>    release:
+>   	for_each_sgtable_sg(sgt, sg, i)
+> @@ -446,19 +450,21 @@ armada_gem_prime_map_dma_buf(struct dma_buf_attachment *attach,
+>    free_table:
+>   	sg_free_table(sgt);
+>    free_sgt:
+> -	kfree(sgt);
+> +	kfree(mapping);
+>   	return NULL;
+>   }
+>   
+>   static void armada_gem_prime_unmap_dma_buf(struct dma_buf_attachment *attach,
+> -	struct sg_table *sgt, enum dma_data_direction dir)
+> +	struct dma_buf_sgt_mapping *mapping, enum dma_data_direction dir)
+>   {
+>   	struct drm_gem_object *obj = attach->dmabuf->priv;
+>   	struct armada_gem_object *dobj = drm_to_armada_gem(obj);
+> +	struct sg_table *sgt = &mapping->sgt;
+>   	int i;
+>   
+>   	if (!dobj->linear)
+> -		dma_unmap_sgtable(attach->dev, sgt, dir, 0);
+> +		dma_unmap_sgtable(dma_buf_sgt_mapping_dma_device(mapping), sgt,
+> +				  dir, 0);
+>   
+>   	if (dobj->obj.filp) {
+>   		struct scatterlist *sg;
+> @@ -468,7 +474,7 @@ static void armada_gem_prime_unmap_dma_buf(struct dma_buf_attachment *attach,
+>   	}
+>   
+>   	sg_free_table(sgt);
+> -	kfree(sgt);
+> +	kfree(mapping);
+>   }
+>   
+>   static int
+> @@ -478,10 +484,10 @@ armada_gem_dmabuf_mmap(struct dma_buf *buf, struct vm_area_struct *vma)
+>   }
+>   
+>   static const struct dma_buf_ops armada_gem_prime_dmabuf_ops = {
+> -	.map_dma_buf	= armada_gem_prime_map_dma_buf,
+> -	.unmap_dma_buf	= armada_gem_prime_unmap_dma_buf,
+>   	.release	= drm_gem_dmabuf_release,
+>   	.mmap		= armada_gem_dmabuf_mmap,
+> +	DMA_BUF_SIMPLE_SGT_EXP_MATCH(armada_gem_prime_map_dma_buf,
+> +				     armada_gem_prime_unmap_dma_buf),
+>   };
+>   
+>   struct dma_buf *
+> diff --git a/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c
+> index f2863da7f5c1..bba066f3cb50 100644
+> --- a/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c
+> +++ b/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c
+> @@ -4,20 +4,24 @@
+>    * Copyright © 2016 Intel Corporation
+>    */
+>   
+> +#include <linux/dma-buf-mapping.h>
+>   #include <linux/vmalloc.h>
+>   #include "mock_dmabuf.h"
+>   
+> -static struct sg_table *mock_map_dma_buf(struct dma_buf_attachment *attachment,
+> -					 enum dma_data_direction dir)
+> +static struct dma_buf_sgt_mapping *
+> +mock_map_dma_buf(struct dma_buf_attachment *attachment,
+> +		 enum dma_data_direction dir)
+>   {
+>   	struct mock_dmabuf *mock = to_mock(attachment->dmabuf);
+> +	struct dma_buf_sgt_mapping *mapping;
+>   	struct sg_table *st;
+>   	struct scatterlist *sg;
+>   	int i, err;
+>   
+> -	st = kmalloc_obj(*st);
+> -	if (!st)
+> +	mapping = kzalloc_obj(*mapping);
+> +	if (!mapping)
+>   		return ERR_PTR(-ENOMEM);
+> +	st = &mapping->sgt;
+>   
+>   	err = sg_alloc_table(st, mock->npages, GFP_KERNEL);
+>   	if (err)
+> @@ -29,26 +33,27 @@ static struct sg_table *mock_map_dma_buf(struct dma_buf_attachment *attachment,
+>   		sg = sg_next(sg);
+>   	}
+>   
+> -	err = dma_map_sgtable(attachment->dev, st, dir, 0);
+> +	err = dma_map_sgtable(dma_buf_sgt_dma_device(attachment), st, dir, 0);
+>   	if (err)
+>   		goto err_st;
+>   
+> -	return st;
+> +	return mapping;
+>   
+>   err_st:
+>   	sg_free_table(st);
+>   err_free:
+> -	kfree(st);
+> +	kfree(mapping);
+>   	return ERR_PTR(err);
+>   }
+>   
+>   static void mock_unmap_dma_buf(struct dma_buf_attachment *attachment,
+> -			       struct sg_table *st,
+> +			       struct dma_buf_sgt_mapping *mapping,
+>   			       enum dma_data_direction dir)
+>   {
+> -	dma_unmap_sgtable(attachment->dev, st, dir, 0);
+> -	sg_free_table(st);
+> -	kfree(st);
+> +	dma_unmap_sgtable(dma_buf_sgt_mapping_dma_device(mapping),
+> +			  &mapping->sgt, dir, 0);
+> +	sg_free_table(&mapping->sgt);
+> +	kfree(mapping);
+>   }
+>   
+>   static void mock_dmabuf_release(struct dma_buf *dma_buf)
+> @@ -88,12 +93,11 @@ static int mock_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma)
+>   }
+>   
+>   static const struct dma_buf_ops mock_dmabuf_ops =  {
+> -	.map_dma_buf = mock_map_dma_buf,
+> -	.unmap_dma_buf = mock_unmap_dma_buf,
+>   	.release = mock_dmabuf_release,
+>   	.mmap = mock_dmabuf_mmap,
+>   	.vmap = mock_dmabuf_vmap,
+>   	.vunmap = mock_dmabuf_vunmap,
+> +	DMA_BUF_SIMPLE_SGT_EXP_MATCH(mock_map_dma_buf, mock_unmap_dma_buf),
+>   };
+>   
+>   static struct dma_buf *mock_dmabuf(int npages)
+> diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
+> index e6aa6dae4ec8..8e288a34f10f 100644
+> --- a/drivers/gpu/drm/tegra/gem.c
+> +++ b/drivers/gpu/drm/tegra/gem.c
+> @@ -11,6 +11,7 @@
+>    */
+>   
+>   #include <linux/dma-buf.h>
+> +#include <linux/dma-buf-mapping.h>
+>   #include <linux/iommu.h>
+>   #include <linux/module.h>
+>   #include <linux/pagemap.h>
+> @@ -626,51 +627,56 @@ int tegra_drm_mmap(struct file *file, struct vm_area_struct *vma)
+>   	return __tegra_gem_mmap(gem, vma);
+>   }
+>   
+> -static struct sg_table *
+> +static struct dma_buf_sgt_mapping *
+>   tegra_gem_prime_map_dma_buf(struct dma_buf_attachment *attach,
+>   			    enum dma_data_direction dir)
+>   {
+> +	struct device *dma_dev = dma_buf_sgt_dma_device(attach);
+>   	struct drm_gem_object *gem = attach->dmabuf->priv;
+>   	struct tegra_bo *bo = to_tegra_bo(gem);
+> +	struct dma_buf_sgt_mapping *mapping;
+>   	struct sg_table *sgt;
+>   
+> -	sgt = kmalloc_obj(*sgt);
+> -	if (!sgt)
+> +	mapping = kzalloc_obj(*mapping);
+> +	if (!mapping)
+>   		return NULL;
+> +	sgt = &mapping->sgt;
+>   
+>   	if (bo->pages) {
+>   		if (sg_alloc_table_from_pages(sgt, bo->pages, bo->num_pages,
+>   					      0, gem->size, GFP_KERNEL) < 0)
+>   			goto free;
+>   	} else {
+> -		if (dma_get_sgtable(attach->dev, sgt, bo->vaddr, bo->iova,
+> +		if (dma_get_sgtable(dma_dev, sgt, bo->vaddr, bo->iova,
+>   				    gem->size) < 0)
+>   			goto free;
+>   	}
+>   
+> -	if (dma_map_sgtable(attach->dev, sgt, dir, 0))
+> +	if (dma_map_sgtable(dma_dev, sgt, dir, 0))
+>   		goto free;
+>   
+> -	return sgt;
+> +	return mapping;
+>   
+>   free:
+>   	sg_free_table(sgt);
+> -	kfree(sgt);
+> +	kfree(mapping);
+>   	return NULL;
+>   }
+>   
+>   static void tegra_gem_prime_unmap_dma_buf(struct dma_buf_attachment *attach,
+> -					  struct sg_table *sgt,
+> +					  struct dma_buf_sgt_mapping *mapping,
+>   					  enum dma_data_direction dir)
+>   {
+>   	struct drm_gem_object *gem = attach->dmabuf->priv;
+>   	struct tegra_bo *bo = to_tegra_bo(gem);
+> +	struct sg_table *sgt = &mapping->sgt;
+>   
+>   	if (bo->pages)
+> -		dma_unmap_sgtable(attach->dev, sgt, dir, 0);
+> +		dma_unmap_sgtable(dma_buf_sgt_mapping_dma_device(mapping), sgt,
+> +				  dir, 0);
+>   
+>   	sg_free_table(sgt);
+> -	kfree(sgt);
+> +	kfree(mapping);
+>   }
+>   
+>   static void tegra_gem_prime_release(struct dma_buf *buf)
+> @@ -740,14 +746,14 @@ static void tegra_gem_prime_vunmap(struct dma_buf *buf, struct iosys_map *map)
+>   }
+>   
+>   static const struct dma_buf_ops tegra_gem_prime_dmabuf_ops = {
+> -	.map_dma_buf = tegra_gem_prime_map_dma_buf,
+> -	.unmap_dma_buf = tegra_gem_prime_unmap_dma_buf,
+>   	.release = tegra_gem_prime_release,
+>   	.begin_cpu_access = tegra_gem_prime_begin_cpu_access,
+>   	.end_cpu_access = tegra_gem_prime_end_cpu_access,
+>   	.mmap = tegra_gem_prime_mmap,
+>   	.vmap = tegra_gem_prime_vmap,
+>   	.vunmap = tegra_gem_prime_vunmap,
+> +	DMA_BUF_SIMPLE_SGT_EXP_MATCH(tegra_gem_prime_map_dma_buf,
+> +				     tegra_gem_prime_unmap_dma_buf),
+>   };
+>   
+>   struct dma_buf *tegra_gem_prime_export(struct drm_gem_object *gem,
+> diff --git a/samples/vfio-mdev/mbochs.c b/samples/vfio-mdev/mbochs.c
+> index 64ea19253ee3..3502d0b37bd1 100644
+> --- a/samples/vfio-mdev/mbochs.c
+> +++ b/samples/vfio-mdev/mbochs.c
+> @@ -32,6 +32,7 @@
+>   #include <linux/pci.h>
+>   #include <linux/dma-buf.h>
+>   #include <linux/highmem.h>
+> +#include <linux/dma-buf-mapping.h>
+>   #include <drm/drm_fourcc.h>
+>   #include <drm/drm_rect.h>
+>   #include <drm/drm_modeset_lock.h>
+> @@ -857,46 +858,51 @@ static void mbochs_print_dmabuf(struct mbochs_dmabuf *dmabuf,
+>   		dmabuf->mode.offset, dmabuf->mode.size, dmabuf->pagecount);
+>   }
+>   
+> -static struct sg_table *mbochs_map_dmabuf(struct dma_buf_attachment *at,
+> -					  enum dma_data_direction direction)
+> +static struct dma_buf_sgt_mapping *
+> +mbochs_map_dmabuf(struct dma_buf_attachment *at,
+> +		  enum dma_data_direction direction)
+>   {
+>   	struct mbochs_dmabuf *dmabuf = at->dmabuf->priv;
+>   	struct device *dev = mdev_dev(dmabuf->mdev_state->mdev);
+> +	struct dma_buf_sgt_mapping *mapping;
+>   	struct sg_table *sg;
+>   
+>   	dev_dbg(dev, "%s: %d\n", __func__, dmabuf->id);
+>   
+> -	sg = kzalloc(sizeof(*sg), GFP_KERNEL);
+> -	if (!sg)
+> +	mapping = kzalloc_obj(*mapping);
+> +	if (!mapping)
+>   		goto err1;
+> +	sg = &mapping->sgt;
+>   	if (sg_alloc_table_from_pages(sg, dmabuf->pages, dmabuf->pagecount,
+>   				      0, dmabuf->mode.size, GFP_KERNEL) < 0)
+>   		goto err2;
+> -	if (dma_map_sgtable(at->dev, sg, direction, 0))
+> +	if (dma_map_sgtable(dma_buf_sgt_dma_device(at), sg, direction, 0))
+>   		goto err3;
+>   
+> -	return sg;
+> +	return mapping;
+>   
+>   err3:
+>   	sg_free_table(sg);
+>   err2:
+> -	kfree(sg);
+> +	kfree(mapping);
+>   err1:
+>   	return ERR_PTR(-ENOMEM);
+>   }
+>   
+>   static void mbochs_unmap_dmabuf(struct dma_buf_attachment *at,
+> -				struct sg_table *sg,
+> +				struct dma_buf_sgt_mapping *mapping,
+>   				enum dma_data_direction direction)
+>   {
+>   	struct mbochs_dmabuf *dmabuf = at->dmabuf->priv;
+>   	struct device *dev = mdev_dev(dmabuf->mdev_state->mdev);
+> +	struct sg_table *sg = &mapping->sgt;
+>   
+>   	dev_dbg(dev, "%s: %d\n", __func__, dmabuf->id);
+>   
+> -	dma_unmap_sgtable(at->dev, sg, direction, 0);
+> +	dma_unmap_sgtable(dma_buf_sgt_mapping_dma_device(mapping), sg,
+> +			  direction, 0);
+>   	sg_free_table(sg);
+> -	kfree(sg);
+> +	kfree(mapping);
+>   }
+>   
+>   static void mbochs_release_dmabuf(struct dma_buf *buf)
+> @@ -918,11 +924,10 @@ static void mbochs_release_dmabuf(struct dma_buf *buf)
+>   	mutex_unlock(&mdev_state->ops_lock);
+>   }
+>   
+> -static struct dma_buf_ops mbochs_dmabuf_ops = {
+> -	.map_dma_buf	  = mbochs_map_dmabuf,
+> -	.unmap_dma_buf	  = mbochs_unmap_dmabuf,
+> +static const struct dma_buf_ops mbochs_dmabuf_ops = {
+>   	.release	  = mbochs_release_dmabuf,
+>   	.mmap		  = mbochs_mmap_dmabuf,
+> +	DMA_BUF_SIMPLE_SGT_EXP_MATCH(mbochs_map_dmabuf, mbochs_unmap_dmabuf),
+>   };
+>   
+>   static struct mbochs_dmabuf *mbochs_dmabuf_alloc(struct mdev_state *mdev_state,
+> diff --git a/sound/soc/fsl/fsl_asrc_m2m.c b/sound/soc/fsl/fsl_asrc_m2m.c
+> index 58101ce07c9f..79fde68f9394 100644
+> --- a/sound/soc/fsl/fsl_asrc_m2m.c
+> +++ b/sound/soc/fsl/fsl_asrc_m2m.c
+> @@ -7,6 +7,7 @@
+>   
+>   #include <linux/dma/imx-dma.h>
+>   #include <linux/dma-buf.h>
+> +#include <linux/dma-buf-mapping.h>
+>   #include <linux/dma-mapping.h>
+>   #include <linux/pm_runtime.h>
+>   #include <sound/asound.h>
+> @@ -414,35 +415,42 @@ static int fsl_asrc_m2m_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma)
+>   	return snd_dma_buffer_mmap(dmab, vma);
+>   }
+>   
+> -static struct sg_table *fsl_asrc_m2m_map_dma_buf(struct dma_buf_attachment *attachment,
+> -						 enum dma_data_direction direction)
+> +static struct dma_buf_sgt_mapping *
+> +fsl_asrc_m2m_map_dma_buf(struct dma_buf_attachment *attachment,
+> +			 enum dma_data_direction direction)
+>   {
+> +	struct device *dma_dev = dma_buf_sgt_dma_device(attachment);
+>   	struct snd_dma_buffer *dmab = attachment->dmabuf->priv;
+> +	struct dma_buf_sgt_mapping *mapping;
+>   	struct sg_table *sgt;
+>   
+> -	sgt = kmalloc_obj(*sgt);
+> -	if (!sgt)
+> +	mapping = kzalloc_obj(*mapping);
+> +	if (!mapping)
+>   		return NULL;
+> +	sgt = &mapping->sgt;
+>   
+> -	if (dma_get_sgtable(attachment->dev, sgt, dmab->area, dmab->addr, dmab->bytes) < 0)
+> +	if (dma_get_sgtable(dma_dev, sgt, dmab->area, dmab->addr, dmab->bytes) < 0)
+>   		goto free;
+>   
+> -	if (dma_map_sgtable(attachment->dev, sgt, direction, 0))
+> +	if (dma_map_sgtable(dma_dev, sgt, direction, 0))
+>   		goto free;
+>   
+> -	return sgt;
+> +	return mapping;
+>   
+>   free:
+>   	sg_free_table(sgt);
+> -	kfree(sgt);
+> +	kfree(mapping);
+>   	return NULL;
+>   }
+>   
+>   static void fsl_asrc_m2m_unmap_dma_buf(struct dma_buf_attachment *attachment,
+> -				       struct sg_table *table,
+> +				       struct dma_buf_sgt_mapping *mapping,
+>   				       enum dma_data_direction direction)
+>   {
+> -	dma_unmap_sgtable(attachment->dev, table, direction, 0);
+> +	dma_unmap_sgtable(dma_buf_sgt_mapping_dma_device(mapping),
+> +			  &mapping->sgt, direction, 0);
+> +	sg_free_table(&mapping->sgt);
+> +	kfree(mapping);
+>   }
+>   
+>   static void fsl_asrc_m2m_release(struct dma_buf *dmabuf)
+> @@ -452,9 +460,9 @@ static void fsl_asrc_m2m_release(struct dma_buf *dmabuf)
+>   
+>   static const struct dma_buf_ops fsl_asrc_m2m_dma_buf_ops = {
+>   	.mmap = fsl_asrc_m2m_mmap,
+> -	.map_dma_buf = fsl_asrc_m2m_map_dma_buf,
+> -	.unmap_dma_buf = fsl_asrc_m2m_unmap_dma_buf,
+>   	.release = fsl_asrc_m2m_release,
+> +	DMA_BUF_SIMPLE_SGT_EXP_MATCH(fsl_asrc_m2m_map_dma_buf,
+> +				     fsl_asrc_m2m_unmap_dma_buf),
+>   };
+>   
+>   static int fsl_asrc_m2m_comp_task_create(struct snd_compr_stream *stream,
+> 
 
->-----Original Message-----
->From: Frank Li <Frank.li@oss.nxp.com>
->Sent: Friday, November 20, 2026 5:08 AM
->To: Nas Chung <nas.chung@chipsnmedia.com>
->Cc: mchehab@kernel.org; hverkuil@kernel.org; robh@kernel.org;
->krzk+dt@kernel.org; conor+dt@kernel.org; Frank.Li@nxp.com;
->s.hauer@pengutronix.de; linux-media@vger.kernel.org;
->devicetree@vger.kernel.org; linux-kernel@vger.kernel.org;
->imx@lists.linux.dev; linux-arm-kernel@lists.infradead.org;
->festevam@gmail.com; kernel@pengutronix.de; nicolas.dufresne@collabora.com;
->ming.qian@oss.nxp.com; marek.vasut@mailbox.org; jackson.lee
-><jackson.lee@chipsnmedia.com>; lafley.kim <lafley.kim@chipsnmedia.com>
->Subject: Re: [PATCH v8 02/11] media: chips-media: wave6: Add Wave6 control
->driver
->
->On Thu, Nov 19, 2026 at 05:59:56PM +0900, Nas Chung wrote:
->> Add the control driver for the Chips&Media Wave6 video codec IP.
->>
->> The hardware contains one control register region and four interface
->> register regions for a shared video processing engine.
->>
->> This driver handles the control region and manages shared resources such
->> as firmware loading, firmware memory allocation, and coordination
->required
->> by the interface register regions.
->>
->> It also instantiates and coordinates with the `wave6-core` child devices
->> for firmware and power state management.
->>
->> Tested-by: Ming Qian <ming.qian@oss.nxp.com>
->> Tested-by: Marek Vasut <marek.vasut@mailbox.org>
->> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
->> ---
->...
->> +
->> +static inline int wave6_vdi_alloc_dma(struct device *dev, struct vpu_bu=
-f
->*vb)
->> +{
->> +	void *vaddr;
->> +	dma_addr_t daddr;
->
->Nit try keep revise christmas order, check others
->
->dma_addr_t daddr;
->void *vaddr;
-
-OK, I'll fix it across the driver.
-
->
->> +
->> +	if (!vb || !vb->size)
->> +		return -EINVAL;
->> +
->> +	vaddr =3D dma_alloc_coherent(dev, vb->size, &daddr, GFP_KERNEL);
->> +	if (!vaddr)
->> +		return -ENOMEM;
->> +
->> +	vb->vaddr =3D vaddr;
->> +	vb->daddr =3D daddr;
->> +	vb->dev =3D dev;
->> +
->> +	return 0;
->> +}
->> +
->...
->> +
->> +#include <linux/kernel.h>
->> +#include <linux/module.h>
->> +#include <linux/platform_device.h>
->> +#include <linux/clk.h>
->> +#include <linux/of.h>
->> +#include <linux/of_address.h>
->> +#include <linux/property.h>
->> +#include <linux/of_irq.h>
->> +#include <linux/firmware.h>
->> +#include <linux/interrupt.h>
->> +#include <linux/pm_runtime.h>
->> +#include <linux/pm_domain.h>
->> +#include <linux/dma-mapping.h>
->> +#include <linux/iopoll.h>
->> +#include <linux/genalloc.h>
->
->order by alpabet.
-
-OK.
-
->
->> +
->> +#include "wave6-vpuconfig.h"
->> +#include "wave6-regdefine.h"
->> +#include "wave6-vpu.h"
->> +
->> +static const struct wave6_vpu_resource wave633c_data =3D {
->> +	.fw_name =3D "cnm/wave633c_imx9_codec_fw.bin",
->> +	/* For HEVC, AVC, 4096x4096, 8bit */
->> +	.sram_size =3D 0x14800,
->> +};
->> +
->...
->> +
->> +static u32 wave6_vpu_get_code_buf_size(struct wave6_vpu_device *vpu)
->> +{
->> +	return min_t(u32, vpu->code_buf.size, W6_MAX_CODE_BUF_SIZE);
->
->now use min()
-
-OK.
-
->
->> +}
->> +
->...
->> +
->> +static int wave6_vpu_probe(struct platform_device *pdev)
->> +{
->> +	struct device_node *np;
->> +	struct wave6_vpu_device *vpu;
->> +	const struct wave6_vpu_resource *res;
->> +	int ret;
->> +
->> +	ret =3D dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
->> +	if (ret < 0) {
->> +		dev_err(&pdev->dev, "failed to set DMA mask: %d\n", ret);
->> +		return ret;
->> +	}
->
->Needn't check when mask > 32, if check,
->
->	return dev_err_probe()
-
-The mask is exactly 32 bits, so I'll keep the check and use
-dev_err_probe().
-
->
->> +
->> +	res =3D device_get_match_data(&pdev->dev);
->> +	if (!res)
->> +		return -ENODEV;
->> +
->...
->> +
->> +	wave6_vpu_allocate_work_buffers(vpu);
->> +
->> +	pm_runtime_enable(&pdev->dev);
->
->devm_pm_runtime_enable();
->
->you have not enable clock here, so you need select PM at Kconfig, otherwis=
-e
->if !CONFIG_PM, other register access will be hang because stub do nothing
->of runtime pm when !CONFIG_PM
-
-OK. I'll add "depends on PM", as other drivers in drivers/media/platform
-do.
-
->
->> +
->> +	init_completion(&vpu->fw_done);
->> +	ret =3D firmware_request_nowait_nowarn(THIS_MODULE,
->> +					     vpu->res->fw_name,
->> +					     &pdev->dev,
->> +					     GFP_KERNEL,
->> +					     vpu,
->> +					     wave6_vpu_load_firmware);
->> +	if (ret) {
->> +		dev_err(&pdev->dev, "request firmware fail, ret =3D %d\n", ret);
->> +		goto error;
->> +	}
->> +
->> +	return 0;
->> +
->> +error:
->> +	wave6_vpu_release(vpu);
->> +	pm_runtime_disable(&pdev->dev);
->> +error_detach_pm_domains:
->> +	wave6_vpu_detach_pm_domains(vpu);
->
->use devm_add_action_or_reset() to avoid goto in probe()
-
-OK.
-
->
->> +
->> +	return ret;
->> +}
->> +
->...
->> +
->> +module_platform_driver(wave6_vpu_driver);
->> +MODULE_DESCRIPTION("chips&media Wave6 VPU driver");
->> +MODULE_AUTHOR("CHIPS&MEDIA INC");
->> +MODULE_FIRMWARE("cnm/wave633c_imx9_codec_fw.bin");
->> +MODULE_LICENSE("Dual BSD/GPL");
->> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpu.h
->b/drivers/media/platform/chips-media/wave6/wave6-vpu.h
->> new file mode 100644
->> index 000000000000..96d67e931e71
->> --- /dev/null
->> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu.h
->> @@ -0,0 +1,137 @@
->> +/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
->> +/*
->> + * Wave6 series multi-standard codec IP - wave6 driver
->> + *
->> + * Copyright (C) 2026 CHIPS&MEDIA INC
->> + */
->> +
->> +#ifndef __WAVE6_VPU_H__
->> +#define __WAVE6_VPU_H__
->> +
->> +#include <linux/completion.h>
->> +#include <linux/device.h>
->> +
->> +#include "wave6-vpuconfig.h"
->> +#include "wave6-vdi.h"
->> +
->> +#define WAVE6_VPU_PLATFORM_DRIVER_NAME "wave6-vpu"
->> +#define WAVE6_VPU_CORE_PLATFORM_DRIVER_NAME "wave6-vpu-core"
->
->If only use once, needn't define macro.
-
-I'll drop WAVE6_VPU_PLATFORM_DRIVER_NAME. The core name is used by both
-the child device and the core driver, so it stays.
-
->
->> +
->> +struct wave6_vpu_device;
->> +
->> +/**
->> + * enum wave6_vpu_state - VPU states
->> + * @WAVE6_VPU_STATE_OFF:	VPU is powered off
->> + * @WAVE6_VPU_STATE_PREPARE:	VPU is booting
->> + * @WAVE6_VPU_STATE_ON:		VPU is running
->> + * @WAVE6_VPU_STATE_SLEEP:	VPU is in a sleep mode
->> + */
->...
->> +
->> +#define W6_VPU_MAX_NUM_CORE		4
->> +#define MAX_NUM_INSTANCE		32
->> +
->> +#define W6_VPU_POLL_DELAY_US		10
->> +#define W6_VPU_POLL_TIMEOUT		300000
->
->Need unit surfix
-
-OK.
-
-Thanks.
-Nas.
-
->
->Frank
->
->> +
->> +#define W6_MAX_REMAP_PAGE_SIZE		(1024 * 1024)
->> +#define W6_MAX_CODE_BUF_SIZE		(4 * 1024 * 1024)
->> +#define W6_CODE_BUF_SIZE		(1 * 1024 * 1024)
->> +#define W6_EXTRA_CODE_BUF_SIZE		(256 * 1024)
->> +#define W637DEC_WORKBUF_SIZE_FOR_CQ	(3 * 512 * 1024)
->> +
->> +static inline bool wave6_is_product_w_series(u32 code)
->> +{
->> +	return code =3D=3D WAVE617_CODE || code =3D=3D WAVE627_CODE ||
->> +	       code =3D=3D WAVE633_CODE || code =3D=3D WAVE637_CODE ||
->> +	       code =3D=3D WAVE663_CODE || code =3D=3D WAVE677_CODE;
->> +}
->> +
->> +#endif /* __WAVE6_VPUCONFIG_H__ */
->> --
->> 2.41.0.windows.3
->>
->>
+Acked-by: Karol Wachowski <karol.wachowski@linux.intel.com>
