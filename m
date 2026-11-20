@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795187634;
-	b=j2S6ONbGrfA6MuiL/nD8PVvIAFDjnO54eW91ynCd5e7Rkrhfv7NJnfgyYyU5m8oVI4Zo
-	 NM1HOPtkOr6zj8chjuHc+PPOUVYGXpbD7gIGn5QEDi55NWvjkBij5Si6Ci3DSUx4lgLsB
-	 dnkIyHV/FOwk470uK/yhlh4fywj98cb8D8KcaXmwpYnhF1juEfA6e/JdP6TE0Hp8GD4cN
-	 itIbTm3e+m5/7igR+7plgL8o1bbr17AXaAKcjvW/qKEImDk9HwG72L+onC1/T//OMBcxQ
-	 c2ldN5C3pXMHQEBSVhdUlxFzASvmzWBZFd8JmIIJ0KFjwh1UORhBWi884sCcM7DnWNw==
+	t=1795187636;
+	b=veeyr+/OjYwBVX1y50PO4cMuf1Tp5b1KT6Bh5I6gSpDDIFP2U8rvTOwKoSMJ4UeGHHhU
+	 rVEKpGzDTCYucBjkVN/A7caMi6o4Oy9ZMc2CBNTwbNXZNMW5GZTlIVr7eviluIbL99UP0
+	 JJoewtZY5TssR/GiO4AQfSiUZdiLHnRKIeYp1ZioCC8vm+ofqGCez99bQ4a1VpiQoGnXK
+	 06oIeK8bjZH7pjZXCiSm9GSE5eOUE2ZrJUXfC04hU7ddTnhbyxRO0vJn48CSMRUdqBDpU
+	 i6m41IXq1UouUsQpH5QqXjTnClf5bwftCpwbIQuWABeJhuSDQoHubFzr/J5wtnxuStQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795187634;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795187636;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=hLJg7DeUbsn/QR4Ui41PvgLUL2EkXau5M7NU9/LyXzY=;
-	b=0bOep2Nl9OzMWfNjyN+D7XMOFha/TC9R2YzzAx7vaedt8H8M5meyvxMPpeYN77YMCZX6
-	 b3EwmIv6GwbwJ2SDLJBJfTz+4TWpE1vHwrntP9mSCvt/anLgS3xtJh1ztbo/yghsO13ST
-	 QWEMpAfReip2nSpvLAUtNg3PvvgWuIwq2G3CZUp3WepXEO+w3fb7z0olWR/hFRrNawGGu
-	 dxqexTp2ClNbd/d/eWZeE7P/PFM94GWLnAyW+ZzW/eJEfQpohX4yNAABFjo/MfqvMKGOn
-	 h3llXVjiUIRaQGWEkwJ9SCXObYLDdjPglhL+CvIC3l5GBeL34ffyHmySsWiKML6a4AQ==
+	bh=bY0/gZDMMyEM81fjCjWUZyK8s2jWJMcglFxbroDzTbA=;
+	b=Q/Fzo3EvQSWBUFU5oK1VWr3TzxAPMAr9RqkOW4NQYLQutT1PJCRj6+YclTt5rMY/4Ypc
+	 omZknSyhii1F7GznHAcCHYagC/uzLruqqjMVtJgpY059HQGhQ4md/XpMOHxqYy9C+m2iA
+	 hT/VKOiTw6uLM7jFRoxqn+KSHMUJaihiNRdVGwk76FOTwOUR7PlpJHFLkj7Y9SkBOFRpI
+	 NbWPVoESMoj5V+WMJbx/6yKnvjPRlfkQkluKOitat+AG3C+XXph96sCuCGupgMvsDhEsf
+	 ORZyO1s9dVbLUbuD4YlKx9tufLUem0qPGYHA/D0qn5uLEmMZ8LmbGcxOint7L42BttQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=c2UlZNcR;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=guTG6gPO;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8955F606A332;
-	Fri, 20 Nov 2026 15:13:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8955F606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01DA160A2611;
+	Fri, 20 Nov 2026 15:13:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01DA160A2611
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=c2UlZNcR
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=guTG6gPO
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795187632;
-	bh=eHvtUm9gXR5TOG/ySst4yE08/6fWAkVWOtUNBDRKhpw=;
+	s=mail; t=1795187633;
+	bh=jRz07Mds3fldJ4UvvVJs9bQOv2otc9dZOS7B7+fjNTg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=c2UlZNcR05Zf7p+dQZxjjRZDmUi0gmut/GMR/A1euqPV8km0aLLn3KJ+vMhD/V987
-	 7o8PUj0pTPHUFHeVwJDdln/WChS4eGIg5lgW6iguFsbfHHrDzIupEbWok/3RUtJqRh
-	 RftreAbc3ODBexQxY4bQ0iYojumWwMZ1usdkTTS7sKicn8zZYBANL74EMVNlYNLzc/
-	 ZB3U3bLK2bVlA89HHHhRMwsbRvpBUsHuZhRvuUCt++Vf7bAiMXzzUgpikao0FjaVeU
-	 Z/hsIpsyR7lL8wgogYAJUybYFez8UtHPU2uQSBcV8K59briaUzTxMPvXDRr75c4VcC
-	 OcW6uAEkkrTdg==
+	b=guTG6gPOhjPeJKUEJF8quPnWpGXDX+Qb3S803TpybGJq4Ie4fAY+OpvlPmNI4PY9T
+	 P1kcciXNcK/S/aPyShyuHHgLjdJ0aPIZd79e//RqoMe+jKZKeLFM3OUGCV3EsbNett
+	 3OuqtVnblz2D6Hb1K1kSPraFgfWLnT/kgSiQ6vZr5eQenrtTtNqiB56G0a9DDJHOBo
+	 dooH6fP+3+duuHSq9FIVlFtNwBGoNmfN2UQIwKCCG1b74sjTIfyrOKNBp/mJCH7BXE
+	 TLKtapsohIq/8kLCqOdTh/2u5v5FhTSgTv6Vstz5xOkJF58CsnBPjjCWlucWyQuvyA
+	 TYiMxfvK1AxrA==
 Received: from benjamin-XPS-13-9310 (unknown [100.64.1.43])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: benjamin.gaignard)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id DFA9917E091F;
-	Fri, 20 Nov 2026 16:13:51 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4ABAB17E0BCD;
+	Fri, 20 Nov 2026 16:13:53 +0100 (CET)
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 To: nicolas.dufresne@collabora.com,
 	p.zabel@pengutronix.de,
@@ -58,9 +58,9 @@ Cc: linux-media@vger.kernel.org,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Subject: [PATCH v2 3/7] media: verisilicon: h264: Use alloc/free helpers for auxiliary buffers
-Date: Fri, 20 Nov 2026 16:13:41 +0100
-Message-ID: <20261120151345.88802-4-benjamin.gaignard@collabora.com>
+Subject: [PATCH v2 7/7] media: verisilicon: mpeg4: Use alloc/free helpers for auxiliary buffers
+Date: Fri, 20 Nov 2026 16:13:45 +0100
+Message-ID: <20261120151345.88802-8-benjamin.gaignard@collabora.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261120151345.88802-1-benjamin.gaignard@collabora.com>
 References: <20261120151345.88802-1-benjamin.gaignard@collabora.com>
@@ -80,42 +80,44 @@ Simplify and clean up the code by using the helpers.
 Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 ---
- drivers/media/platform/verisilicon/hantro_h264.c | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+changes in v2:
+- fix commit message
 
-diff --git a/drivers/media/platform/verisilicon/hantro_h264.c b/drivers/media/platform/verisilicon/hantro_h264.c
-index 2414782f1eb6..68dde1cd1ac2 100644
---- a/drivers/media/platform/verisilicon/hantro_h264.c
-+++ b/drivers/media/platform/verisilicon/hantro_h264.c
-@@ -494,26 +494,21 @@ int hantro_h264_dec_prepare_run(struct hantro_ctx *ctx)
+ .../media/platform/verisilicon/hantro_mpeg2.c   | 17 ++---------------
+ 1 file changed, 2 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/media/platform/verisilicon/hantro_mpeg2.c b/drivers/media/platform/verisilicon/hantro_mpeg2.c
+index 04e545eb0a83..f21115e6bdbe 100644
+--- a/drivers/media/platform/verisilicon/hantro_mpeg2.c
++++ b/drivers/media/platform/verisilicon/hantro_mpeg2.c
+@@ -37,25 +37,12 @@ void hantro_mpeg2_dec_copy_qtable(u8 *qtable,
  
- void hantro_h264_dec_exit(struct hantro_ctx *ctx)
+ int hantro_mpeg2_dec_init(struct hantro_ctx *ctx)
  {
 -	struct hantro_dev *vpu = ctx->dev;
- 	struct hantro_h264_dec_hw_ctx *h264_dec = &ctx->h264_dec;
- 	struct hantro_aux_buf *priv = &h264_dec->priv;
- 
--	dma_free_coherent(vpu->dev, priv->size, priv->cpu, priv->dma);
-+	hantro_free_aux_buf(ctx, priv);
+-
+-	ctx->mpeg2_dec.qtable.size = ARRAY_SIZE(zigzag) * 4;
+-	ctx->mpeg2_dec.qtable.cpu =
+-		dma_alloc_coherent(vpu->dev,
+-				   ctx->mpeg2_dec.qtable.size,
+-				   &ctx->mpeg2_dec.qtable.dma,
+-				   GFP_KERNEL);
+-	if (!ctx->mpeg2_dec.qtable.cpu)
++	if (hantro_allocate_aux_buf(ctx, &ctx->mpeg2_dec.qtable, ARRAY_SIZE(zigzag) * 4))
+ 		return -ENOMEM;
+ 	return 0;
  }
  
- int hantro_h264_dec_init(struct hantro_ctx *ctx)
+ void hantro_mpeg2_dec_exit(struct hantro_ctx *ctx)
  {
 -	struct hantro_dev *vpu = ctx->dev;
- 	struct hantro_h264_dec_hw_ctx *h264_dec = &ctx->h264_dec;
- 	struct hantro_aux_buf *priv = &h264_dec->priv;
- 	struct hantro_h264_dec_priv_tbl *tbl;
- 
--	priv->cpu = dma_alloc_coherent(vpu->dev, sizeof(*tbl), &priv->dma,
--				       GFP_KERNEL);
--	if (!priv->cpu)
-+	if (hantro_allocate_aux_buf(ctx, priv, sizeof(*tbl)))
- 		return -ENOMEM;
- 
--	priv->size = sizeof(*tbl);
- 	tbl = priv->cpu;
- 	memcpy(tbl->cabac_table, h264_cabac_table, sizeof(tbl->cabac_table));
- 
+-
+-	dma_free_coherent(vpu->dev,
+-			  ctx->mpeg2_dec.qtable.size,
+-			  ctx->mpeg2_dec.qtable.cpu,
+-			  ctx->mpeg2_dec.qtable.dma);
++	hantro_free_aux_buf(ctx, &ctx->mpeg2_dec.qtable);
+ }
 -- 
 2.53.0
 
