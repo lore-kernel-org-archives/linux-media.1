@@ -1,11 +1,11 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.57.82
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795244493;
-	b=zsGxrBpw1xrx/IrcEu/MLnlNwm1yybRh1TgDLNTm014a8Xazj6xzDABNHd0SItn1dpyK
-	 sWPBHwUuHWRPvJdzpJYQw1IY5aVrTZPejBvKWi7SF4STOyssTm6MWcPucJVcow4YmcAOz
-	 0WkvgVaI91o/n1wJlQqnCv6E873mj3I72l2VyG56qS0PqtucnOkJ5bzjTxqVTS5Ffivfa
-	 ZeE+o+/9kTTmaQEAKeVX/n4X6AvGdRypRPuZllu+3x0NvFnKDmNFgInPSgFYObSmzhtD0
-	 0HGpgtaMyu/lraGYRZXoNnHC0Zt/5sBmgF9toZXcDXRe9Pq2BgB6yiZMtVD67ry1eFA==
+	b=QjGOOzJzh8QRhef6KrYkxNHBHR46hIuWxJvQtGutgTcraU18+aLELzAn2ebP8Z1q+GI5
+	 nGNagF9BoxebV3ZnuPNtG+w6io5z6vk+FbzfFHtJAQHegQVJzyMlctzJol2zmYEt6lz+n
+	 La8oYKsgHKH3K1Givhkndv7xbY8MkHST3AC2mXNpMcEOsj2kV1L5pqBiU4YOj0COywhzf
+	 MgjrMOzMhKNC+/VYdJxU7u+0kZZwY+Mwno4Hgu/Cl7TvipIjttb8MzNe/k6L/cf4kOSXd
+	 C8VVOCmtV1PW9o0+O+Q93Q74WTOchn3PnjQFu7h5Qt/9ZvznSZMYh6bj2817WPdnaEw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795244493;
 	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
@@ -24,12 +24,12 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=D6FvhZ5+At1ZrRQr11bWTfcW5PI/WkQqodL9x0y200M=;
-	b=NGhB2oZTKe7lGMBQFnElJe6rLeGi6h9Z3OrPsmMMETtsGMZScRgEMjvPonqKI2nR5sJn
-	 pS3PS1aDSfE5z+yT3R3SGGuUMCsKD7NcjpCW2iOvJg3iFe9A7IpTOYCKB9VoG5Ikzlsie
-	 SNugr2F/CljW/VDIJyyFQTwlZsXv1ymgqm4Y4MRRQ2tRT4OoismOrLeirMLykJSpWq4ml
-	 30Zr0vPsQ4FTNin1TK9NZh/qv7gYsFO2ImnGd6VyYV6SPKxI/b8d7LgFFmM+3paCC9rEg
-	 uf9ppMXpLsfDsolHwYaxIryph6GZ59hpE2ssmVy1MBTp+tOSRfXq/CN371HP1muvWIA==
+	bh=y2/kzQrNyTwTgyUCqUSmim9urUqccLyozgMUuH+Qgfc=;
+	b=w+IT65W7yocIi9sRLcr5Dw60pKq/rAMrpYB90ORH7JXQiUfDCLw6IUn5hDvu/hWrhzwc
+	 bpc7ccrxz7bQ+rt22aQOciZZLLEEJHU35L+VVq8+hGrFmNOFa0YvryGYfJsT5D0pzBnAi
+	 SLqjuWj3KCiCQ1dfA1oVGDD1uw9N8AMt81hdISXcsQDF+W4MhVlW5UqrczqPkaK7iuQOV
+	 YGU5qgV1t8Pnr+a/vN7jQqxaag93dFAF4J2q8ogXiqOZN4BZaH23R8S67D0EjcP92ztcn
+	 ousxdRsl0/ZRTin/Gwm66VDCmK7o1SJ6h6K8/+BmgccK045lvqhtz+LG1Sz+gIgZ2Wg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=siliconsignals.io;
 	spf=pass smtp.mailfrom=siliconsignals.io;
@@ -38,18 +38,18 @@ Received: from MA0PR01CU012.outbound.protection.outlook.com (mail-southindiaazon
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9012B606A331;
-	Sat, 21 Nov 2026 07:01:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9012B606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63209606A33F;
+	Sat, 21 Nov 2026 07:01:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63209606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V9ptl3bl0fny9p6ooaeIbp92UmRZNFGZeZkYeJsrW3rrWJj7AASto8SvuFJBuKQrZLjuBdegyIRonliB3dCoC+5lCja/lhxs19L0Zw4YvbUN55gWsEqBjwzihSwz98ZQLKK64FnIxmZtTucftWWMbKdLp7LOJbm/DWNLQHOnbvd/gZ+ciWmVzCFY626r0wIrsY2Wh4bfnPlErJO4Uv2ubyGVzstXI2mqo6J1LhbWPl2h4+7/QglPfPsxvCw4ceQQMNPrDoGAWF5baeUdkFAsWUfVCgS/PjN4O4ThpwOEf1TfBxsJsusgFGjN/fN3Y4H69AstbCg01z2jc6cflrvHNQ==
+ b=ASwMJyp55kOKLbMdaFBjZvfgIK6TLnB0dUkFeb7g+FOjFc58miTUBtiETweFgIqRYVqylNlVqZlGaLcT+akFQYn5iv5F6axxaQXnBiBN/ojgfkXo8JLQNnuqHKu30AZ6zuCK/MvqPfxk+URaHSTfhWfEIRKyqhZ8nj7+d0rInlS4dbgcpxoM0xlG/eaAzYwksKV40ArbPxsif9OTo7fjz3RdAHZm1Fh+2yaaUUs6KYUdiYRl7sAawhKpXXMr3B/GiDAiLuxnbs2Ns4zNBvTWRz4pnreN/gnaZEa7EsoYQhGMp6gpHg6+lux3i/El4UExuQ1AxQpf5TdvAF/clvRNaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D6FvhZ5+At1ZrRQr11bWTfcW5PI/WkQqodL9x0y200M=;
- b=WtZtqhdMKTe4YqvzpIDXUMwOJb8pnWMxAvqJcoC8CCBWTkc1qoArdM4ouNKUUxPjk8m+NHE7AVnCT6enr05CIHrFe6cn7zyPhdXpgu8XW3ZudmMil7ohB+7KumovP+bdWHnq0tpFAvMaAe08gS//xJ0MYTk4zc+VnIVjuw7AufeRsr9UrWZK+lwduKPaOgE0srwq6H+iqRXsRoUDRDwNJiINrG9FqlUuSMggciC6uSLlz1tnv4ihqGDiIis4GxCL3eHzMyFepptAMPOWXBr/6rFoy+a/gAk6kff6HrtRyQaScuEKeeJo6j4lU2Cf32EKblc6gj4W1UDv0A8c4JeMaQ==
+ bh=y2/kzQrNyTwTgyUCqUSmim9urUqccLyozgMUuH+Qgfc=;
+ b=ON7kcuJybFuQcShwtPojNByHVyMrp7M7RJwOcAvvOIpfwTvI974+nNY92lPvUVobbFPz6odGPNa16sk0DOsWL2Rj9+NdD8rBth4yReJxlUFbTSXl+QYylCWPwNJ1UngVPUdPAQ89ttqBj07BK/tNR56m6bv8PziDWjCVgX5hozAknwUxuKSAjCQEsHib8vQr4JaA//WRVRlfj65qhfE30qriWPka/4u2sLtr7N47Ud4pV6fFPtHxDyr3TCtBHZKyJrqabVV8XyD7xchUDlCcTEhEIoICh85s+R/Gh/uT10qPBM/HRMItmiipUMbiUgsHYybYJayhGh4KfyWW5bpr/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
  header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
@@ -59,26 +59,25 @@ Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
  by PN3P287MB1492.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:19e::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Sat, 21 Nov
- 2026 07:01:29 +0000
+ 2026 07:01:31 +0000
 Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
  ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
  ([fe80::ce63:5749:b390:508b%4]) with mapi id 15.21.0639.011; Sat, 21 Nov 2026
- 07:01:29 +0000
+ 07:01:31 +0000
 From: Tarang Raval <tarang.raval@siliconsignals.io>
 To: sakari.ailus@linux.intel.com
 Cc: jai.luthra@ideasonboard.com,
 	Tarang Raval <tarang.raval@siliconsignals.io>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
 	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
 	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 01/15] media: i2c: os05b10: drop unused group-hold programming
-Date: Sat, 21 Nov 2026 12:30:51 +0530
-Message-Id: <20261121070107.1768-2-tarang.raval@siliconsignals.io>
+Subject: [PATCH v6 02/15] media: i2c: os05b10: Rename vmax variable in VBLANK control
+Date: Sat, 21 Nov 2026 12:30:52 +0530
+Message-Id: <20261121070107.1768-3-tarang.raval@siliconsignals.io>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261121070107.1768-1-tarang.raval@siliconsignals.io>
 References: <20261121070107.1768-1-tarang.raval@siliconsignals.io>
@@ -98,127 +97,94 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PN3P287MB1829:EE_|PN3P287MB1492:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d0c083e-680c-4a61-1169-08df479d445d
+X-MS-Office365-Filtering-Correlation-Id: c7e786fb-46cb-44c6-e398-08df479d4591
 X-LD-Processed: 7ec5089e-a433-4bd1-a638-82ee62e21d37,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|1800799024|366016|376014|52116014|23010399003|22082099003|18002099003|56012099006|10067099003|261028144727099003|261026140227099003|261021123027099003|261022075727099003|261022105027099003|261009223027099003|38350700014;
+ BCL:0;ARA:13230040|1800799024|366016|376014|52116014|23010399003|22082099003|18002099003|56012099006|10067099003|261028144727099003|261026140227099003|261021121427099003|261102123227099003|261021123027099003|261022105027099003|261009223027099003|38350700014;
 X-Microsoft-Antispam-Message-Info:
- zySLXcvIJUX7TQuBNErvKVAU1v8TL5ThXBLq+JO0peHEihuhvir5Je/AbhzrxkBsZ0u8ggXfEhE6bibLpN+ReggJMb4LRruGrzbp8OaTvIhgWRw3o5MgE6egNDbPdhv1GeIerl2FnKQP4VbrwOy4vCVavpNBVj0zjjnysqjlGeNsjyvuHQMx2SX949HfKhN7+Qf3lYUxdChX4wIhgCSUXuBXXbfyleB4YJVgKngOLNvtC/S8qEb0Dlg0YrpU4d/yJoDmFTVnAsbuKnS0N2VSFlTKWtf/sFBHqN+4oMfZ9fAQehaSNhYC0h8+xoE361MTsLI6C4HF0lqnjFdiFIVaMMwSw0H8tAGmKX987oZRFfd30j/+hiK0fn+5TdDBJLhXy+Ahu7JAlHzR+cMpChqMVyNHKAsDJvKOOxEUn5GYO0rCHDJHVY/E56JqES/lB1I0zB0LK5BxelS0BsdVgFoBU6eRgiXbrbRww0TY0mYk95mqP8BfmuP38hx2DoqEQvvZyaNr+hTwaX4Vhw89SwoVxZRYHfBHNCQG0Frk3axU/BEsNivvUkbyuxTFDgt9DWqXyUbQJCHpjPT7mJjOv05u/k+V1fo6xFCzO6FzYMashguuR844EUqPiaI98KivmzMujm9icOuZ6u62eGaiTq/KGAbeT64y9EtGhD+thXSPfWwjelLF8mGewU7GNrA6QDyfH2ESGsguBzP+T/jabquy6XWdm3oMjpX3Zk4PGVdOfD0=
+ qMQKZn0LmnGaVbDyMlj3sl5UP1xQYwQS50jgmu96IhhTiXtsKgl7SLtAFGvymE/tCmYX2fXQt4yo9L0Gu0UCkmIjdr9qI2vcTLDRrud1JPpkeS5BRdq5HknShhnClSAhpWoWHI4bCrqYWB8JXxeIaEymaVvHqsGnIkKhXia2GFV9Nde0HXvd8VayvtTtxfIGCU71pEPzhHoYQfid6ub2Z5HObpjthx6TBU7RbBvvU7CJSu8i32MAJY3nZ8t0pyOnV2oExoV9dWnGN88p9dbM8VX+J4/DC3VM5iuhh0GyMd/n0tgH/2hOVXdIisyOwIxxAeolEPRESXkDgOBZfvcG3ZVLQGvpw4jNOFq06ioX2tRF3+uQBeop2rZbVfhQdqfMOfyoy8g0pvwjFNQVXZBHOfjq/ijqhYjxmFvA1sCHgXmZ5lk8qPjobw9doAs/kdMVVuHoGnMl8PZBoUobv726gdGvnDB0a6gJiX9fbAbh+EEG8qGPC/kjm/Uer2bVWZC4zwxWNWXvA/BHjtew9r/KF5TD/0wHorOECUoryOfSGU4DilQfIUVCYZg3trfDed0UUJHdFptRFFH58ewnqUQXWCKu1Z42AGFp+NFzJEcruXUME+zD/jOKCdsEDrN2Th/oZ9lWkTugVEDWuSErq2ob/Jt2c95GBPftCwLKpVQmvOl6mAM6rPJssoEWJ2qcZaVPuViluQG07KoV1bWqgzIEpGw6whaXwlzxuzS4XwXunvc=
 X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(52116014)(23010399003)(22082099003)(18002099003)(56012099006)(10067099003)(261028144727099003)(261026140227099003)(261021123027099003)(261022075727099003)(261022105027099003)(261009223027099003)(38350700014);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(52116014)(23010399003)(22082099003)(18002099003)(56012099006)(10067099003)(261028144727099003)(261026140227099003)(261021121427099003)(261102123227099003)(261021123027099003)(261022105027099003)(261009223027099003)(38350700014);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?dikEC97riqG8BmCDKuQ5BIQpJNnIJS05DKRNTZ5RJBLpBS7SSeLGqUPOmx0m?=
- =?us-ascii?Q?7t0T8CTOEArQlwTXxRRax/trl2jBVwvjonTNUNkjq7d3QsI+Fs3+2qlXMNhY?=
- =?us-ascii?Q?Nnc7hX0foJvC32XH12G4OoLQOwk37LgevuHGiUn/2JmqVo83AYEq72xNaHgO?=
- =?us-ascii?Q?r7OsfVb0lOgDl19/fs41CxXz+EynCcLA6x+8Shno8h9HvYlko+4l6jT1Y3Xf?=
- =?us-ascii?Q?37++/VGr81wOjf7hD6DcydmclfCAMCPqZGiaoJJ2ZmainqUNFkxJkMwPMkBo?=
- =?us-ascii?Q?Bma7dHDO/yEIUhG6Ahyo6odCm22ruwpjlr6i3i5vU7GcM7Q6uFaSpIDdJx8A?=
- =?us-ascii?Q?knIGubCjbomy2J079PAz/gbJdi/wPBkowzF2TTHDXI5LEu6RGJq3rLpn9e5E?=
- =?us-ascii?Q?APN9e7rWbUTtLxh9OcZkBG07qYn/xFIBD+KnXU+Vyd5f72Njgn9mi1lTNGTc?=
- =?us-ascii?Q?fG0s0IpjqjdRwcFppZcPV/BxRju8cMOTBrfJTn8G6mCwNWo7nCca9gaVqDyj?=
- =?us-ascii?Q?TfwbLy0gLyWNzOxVqWkxkTKW+2zbE2UC2I8DUDqLsa/Pnxrx8Lj7xsNraciL?=
- =?us-ascii?Q?dPjmSuoCfPnyAvD1a0bn9T2lUdF57VvChck3/LMNTknA9L8B+YgqHnw3eN+z?=
- =?us-ascii?Q?ptQ1DH9/GspjsdUaKPRNHvzi8dsA1gOnkNfr/iQq8m3FWmD31UJX/Paw/QDM?=
- =?us-ascii?Q?qmejKByvFKa/YCKH/GRMCO0ONfQqyjgv01s4MqhTHVXwVkZyfCJb5YffuzeF?=
- =?us-ascii?Q?eivIRIpfv0viurVGSAFhqym2l8sDGNWmvU99BMZynfmLE/O64vAgGGHErGQ5?=
- =?us-ascii?Q?D6Tl/Qngd5X5smpnSubAQv0Cjf/TR+QyEAHM38JUSCOXCiu//JUSEhduE8M4?=
- =?us-ascii?Q?DnT+IIb2UTF9ONg+x+USunjBMVz3WLP8eYyUnoiqCgYNEZWEVrkmy3CBgG3j?=
- =?us-ascii?Q?k4ODAH5myf2CReKOdzXgOu5jC3Ht0dU5snZPGIxNjwskV92dIwFjhlUg0uUR?=
- =?us-ascii?Q?SUDOlexHaZsNb023peAKH7JoHZqNSrUXLtGeQrmxfQovI956IYNLgyhgXSww?=
- =?us-ascii?Q?4JKhy1ULQB2Pzddja9JJPWmOogxlrAzJm8lI+qznfga1klTcgUPv3e5AR5O1?=
- =?us-ascii?Q?zbpY+r7exfRjKgqocfJ2HUmgOba937pFJL8i/ImI3KubFECkmecPlCDfK7pA?=
- =?us-ascii?Q?YLbvegNp1NaY3sU5LqisH6ZvCRfAaDW2oknznu6uB6HVUTkI1SG9RYaxNUxz?=
- =?us-ascii?Q?qrdrwLAmfUyntseH01q9hbTqxPUhsVTQXJfTcAo2d/QvspiU8N/W9y7IU+Vn?=
- =?us-ascii?Q?618PQojNI9X4O9HRp8kV2eBf6zkNgPgU9fok2SUmKLt+0EnqSAVtYa0lz1iT?=
- =?us-ascii?Q?w2UdBya/T5/X17g1in0O0wihppsuk3LyZ7ZFS8K4ZaWl3xnzul7iWSG3crYE?=
- =?us-ascii?Q?jg5Hl9Qk3Rf9xEXPOgNBlW5EiTc9q7O1kWhSRHiZ48+SjHwsIV1DL9pAfKPI?=
- =?us-ascii?Q?Q34ady8HD0pa6/INO+WisBE3zP+7BS3hLtcj8wgTpHyNq6712LFs+rE2xgxZ?=
- =?us-ascii?Q?r7DrgI6CSNU9xSKNWgWZSJ5zClA0ZWS5GQ0b/ka9EGDd3SjmkYbyT3AOOFwx?=
- =?us-ascii?Q?zup2elHFCqiIntBbOaU5t1IAmeXSVgfLIBFuBJiMmJ0D8fQbWB85tObkJWpK?=
- =?us-ascii?Q?7iiDSov0pcyEbGtWm878bVO5nekdErmeJ84DqO5Eq2PDfotyDekII5h+00RI?=
- =?us-ascii?Q?zGC4Fwia569hsHKXLh0heSLbSF9MWeo=3D?=
+ =?us-ascii?Q?RyMwTQ1qjEkwKWEoOF5RtREorOT/fjqj34koQdKgTl7eW5Q9MRLQyi/Rc1PI?=
+ =?us-ascii?Q?LdKnYs47PQXPUs3t3hC/XoHCNfNQu1ut4HfG9W+hpIkKwcGFulHuw/Wy6VUo?=
+ =?us-ascii?Q?9orLL3BL45wmAq+MOaqxrq7APEvdQ0CAY/7KjywgD6s8v1Bpz9DWW0Wfx4Re?=
+ =?us-ascii?Q?QCgd++DVPS/OhchhVL/uJWVYCWMoHWyBNTtwkG+fI+dAvIdvk1tW3KzncXmO?=
+ =?us-ascii?Q?uBzmXIAeJ3BimVJhvevpZaaa+IHR/Akv1zlF/hGLukz7ry4GJ3DuKpGKC25L?=
+ =?us-ascii?Q?/gr84ESxmlTZ+guDmL+fr9Ki7ypYymQ6/0JiWCA8yh2ZS+Lolv76F82PRD+n?=
+ =?us-ascii?Q?0NYoyVUgfHoznlxVnPXCYnHffEV9sM0K3eMMOd4/iSKk9cQr6o2hQMMFcnYJ?=
+ =?us-ascii?Q?C5bSxa8ibb1je6i+rZbDpLhSLLVZKTpLDIF2CwUh04yPMRZfH0lGMB2eq9R0?=
+ =?us-ascii?Q?Cbjre/fqX8QdbCdbfdQfbzQhFDaB2PYPa2M3u8QTYdM86RG61JRX4haDPM77?=
+ =?us-ascii?Q?Zvy6VRIJAx+RCjE1kIXxncuqHceBl9vrvzpW198Jy9PHaVx8MNhcnRSYeu9g?=
+ =?us-ascii?Q?p15jZ3jH96wkwpq/mwL2tLhVtOrwtRjd2ndUwlVZ59Usy+I2JXj7ipu/yjPK?=
+ =?us-ascii?Q?nN+nilJ+lPCkMbGJ2RvKjU7EgBFsRiVDhTt209GHYBDJbHCsYrLW8b3W0th+?=
+ =?us-ascii?Q?x+SJfVE2WA5U/RfbdnMwEUQ/lOvxTLaQ1kgiTMdsWlPRLy4Xj2Uclx2MpV/S?=
+ =?us-ascii?Q?MStOtyn6WDO7i7azm7Uaqf1uwrw/qYJrqOlQbLFf6BsRmUZnpjhYZua6DFjB?=
+ =?us-ascii?Q?LSdas+8jUkSYYH6sxQTSwJkDUYM7c6asBnA5wPw7Q55EP3UEJdsoMfxENRLV?=
+ =?us-ascii?Q?t7ZXoDf/4lr4GGkt1A9biVzrodcWkoOkGrzwG4RXuN9o++ZCDb2FU+4aZXQ+?=
+ =?us-ascii?Q?udKdH5DaHGdpRRtvjJAd7HqMsSepA84Ugu+piEj9T7iyFLIYbvN+P0mLCvUQ?=
+ =?us-ascii?Q?sD+eYS0JGc7K1Fin8fsmFKL9tkNnjwsqBXzI36d0Mamm/oRlndBMvgjYQJPb?=
+ =?us-ascii?Q?SPC5I2nXBKXhBFkKd3Loaq1hz650I4sBONS+KpDVZ+qAuo+OhM/vTw2ONZSR?=
+ =?us-ascii?Q?y5cWsxoXBWGfAvGw+pc/7xSeGaX/nitR/9Kt2wDLhuHZwznLZlVhJvdq2ZzZ?=
+ =?us-ascii?Q?v0Cj+YUL1xHTUhZ3/7lbmqFBECuAJkJIlXIaHN+ShAM9Hcludnj3SL0W6wUF?=
+ =?us-ascii?Q?cNblgGpiCoir71092dIEL763fvMxh2cb8MkBE4EvvjcM/BqYGm8bAWKU8hMV?=
+ =?us-ascii?Q?dKOwh96KNjbGYpryIpsu+6u4wHIfGWyAtRguliZl27+rv5N9jhcWqSFzR0VJ?=
+ =?us-ascii?Q?8X1nEj9nGaru+ahEK/AZJIOnnfGTO2kQMM6TFLGGNTZ2hsxC6gBjuudZl7WA?=
+ =?us-ascii?Q?T6XjI3pWqJxju3RCWeHYiE6x4i4TiK/P69x4ZTg2UFX/weUt1QnXcxSWFbr8?=
+ =?us-ascii?Q?P2/afLjRbW0wlRTynnsUlGdcWL9RlkMwRGnRQ0CzrDe1bLThkn3MOIt0sIxp?=
+ =?us-ascii?Q?ZmcmAUp1arZI8nwaMfPEg8fP7999fOws7h4CuEzKONIa2Sj+wwjc82+L1Ws9?=
+ =?us-ascii?Q?D03dLKiwIWvtBgJybr0XPKZPHNsDvB9RTSWLmFalKvP4xt+X46sVdtTy/VGC?=
+ =?us-ascii?Q?g0RuAxPoEN3mP+mt3/iTAltqUuYmIfBRzvcjVEmWPYtxopo+WjBUiQFgIB9L?=
+ =?us-ascii?Q?NvxOWJ4PNNhSIqdnm1ZT2zZ6UNoI/bo=3D?=
 X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d0c083e-680c-4a61-1169-08df479d445d
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7e786fb-46cb-44c6-e398-08df479d4591
 X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2026 07:01:29.3453
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2026 07:01:31.3442
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4OWZVNpoxr6eN74g5UPkE7FmIrg4WXmXQq5hd696yW6YAAdCrhUnC4S/8b3zEopvw/KZ6Zw1/fj6XIXf0C9/jpanSyhzdmz9glt+rPAzeb4=
+X-MS-Exchange-CrossTenant-UserPrincipalName: fxfIcQtZRkwOpP35/rXsc5nEK/CQ3h243hqAsKmunhEhI/brZrAm7ZHUHcbasu1iQyEjyxJzJ0p6u3phy+2svD85DLKIv9iqjf0m9MZprJ4=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN3P287MB1492
 
-Register table included group-hold (0x3208) sequences for
-groups 6/7/8/9 that only stage alternative tuning values in SRAM but are
-never launched by the driver. Remove these group-hold blocks.
-
-Also remove a duplicate register entry for 0x37bf.
+The VBLANK control programs the sensor VTS register. Rename the local
+variable from vmax to vts to match the register meaning and improve
+readability.
 
 Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
-Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 ---
- drivers/media/i2c/os05b10.c | 37 -------------------------------------
- 1 file changed, 37 deletions(-)
+ drivers/media/i2c/os05b10.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
-index a46cfa513e98..d5f573b1614a 100644
+index d5f573b1614a..46246d297a44 100644
 --- a/drivers/media/i2c/os05b10.c
 +++ b/drivers/media/i2c/os05b10.c
-@@ -250,7 +250,6 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
- 	{ CCI_REG8(0x37ab), 0x0e },
- 	{ CCI_REG8(0x37ac), 0xa0 },
- 	{ CCI_REG8(0x37be), 0x0a },
--	{ CCI_REG8(0x37bf), 0x05 },
- 	{ CCI_REG8(0x37bb), 0x02 },
- 	{ CCI_REG8(0x37bf), 0x05 },
- 	{ CCI_REG8(0x37c2), 0x04 },
-@@ -415,42 +414,6 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
- 	{ CCI_REG8(0x5820), 0x00 },
- 	{ CCI_REG8(0x5821), 0x00 },
- 	{ CCI_REG8(0x3222), 0x03 },
--	{ CCI_REG8(0x3208), 0x06 },
--	{ CCI_REG8(0x3701), 0x1d },
--	{ CCI_REG8(0x37ab), 0x01 },
--	{ CCI_REG8(0x3790), 0x21 },
--	{ CCI_REG8(0x38be), 0x00 },
--	{ CCI_REG8(0x3791), 0x5a },
--	{ CCI_REG8(0x37bf), 0x1c },
--	{ CCI_REG8(0x3610), 0x37 },
--	{ CCI_REG8(0x3208), 0x16 },
--	{ CCI_REG8(0x3208), 0x07 },
--	{ CCI_REG8(0x3701), 0x1d },
--	{ CCI_REG8(0x37ab), 0x0e },
--	{ CCI_REG8(0x3790), 0x21 },
--	{ CCI_REG8(0x38be), 0x00 },
--	{ CCI_REG8(0x3791), 0x5a },
--	{ CCI_REG8(0x37bf), 0x0a },
--	{ CCI_REG8(0x3610), 0x87 },
--	{ CCI_REG8(0x3208), 0x17 },
--	{ CCI_REG8(0x3208), 0x08 },
--	{ CCI_REG8(0x3701), 0x1d },
--	{ CCI_REG8(0x37ab), 0x0e },
--	{ CCI_REG8(0x3790), 0x21 },
--	{ CCI_REG8(0x38be), 0x00 },
--	{ CCI_REG8(0x3791), 0x5a },
--	{ CCI_REG8(0x37bf), 0x0a },
--	{ CCI_REG8(0x3610), 0x87 },
--	{ CCI_REG8(0x3208), 0x18 },
--	{ CCI_REG8(0x3208), 0x09 },
--	{ CCI_REG8(0x3701), 0x1d },
--	{ CCI_REG8(0x37ab), 0x0e },
--	{ CCI_REG8(0x3790), 0x28 },
--	{ CCI_REG8(0x38be), 0x00 },
--	{ CCI_REG8(0x3791), 0x63 },
--	{ CCI_REG8(0x37bf), 0x0a },
--	{ CCI_REG8(0x3610), 0x87 },
--	{ CCI_REG8(0x3208), 0x19 },
- };
+@@ -477,7 +477,7 @@ static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)
+ 						     struct os05b10, handler);
+ 	struct v4l2_subdev_state *state;
+ 	struct v4l2_mbus_framefmt *fmt;
+-	int vmax, ret;
++	int vts, ret;
  
- struct os05b10 {
+ 	state = v4l2_subdev_get_locked_active_state(&os05b10->sd);
+ 	fmt = v4l2_subdev_state_get_format(state, 0);
+@@ -499,8 +499,8 @@ static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)
+ 
+ 	switch (ctrl->id) {
+ 	case V4L2_CID_VBLANK:
+-		vmax = fmt->height + ctrl->val;
+-		ret = cci_write(os05b10->cci, OS05B10_REG_VTS, vmax, NULL);
++		vts = fmt->height + ctrl->val;
++		ret = cci_write(os05b10->cci, OS05B10_REG_VTS, vts, NULL);
+ 		break;
+ 	case V4L2_CID_ANALOGUE_GAIN:
+ 		ret = cci_write(os05b10->cci, OS05B10_REG_ANALOG_GAIN,
 -- 
 2.34.1
 
