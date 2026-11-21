@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795229423;
-	b=XRRrgUZLAwJ85FT6zAyKoBLZ77l6xnzUAfRkdX1LuZc7/LDdjQeIAMbULRoNKdgdA12z
-	 BBoDbj6TP50I/nPrCyb/kWn31azzhRd04e4fzweqn0+QQs4JPsXyEHk3L3pOqd1Bvd9mP
-	 rVBGwR38b1/JWN09tRevZvNVYHI8MlwNFijstz7RcwuvDxTE79lybSsz3K3DlgB1X3s9a
-	 L8axa8eCZ+OWTyMO4+2onk6eHizH8GkPvAyYmMbIFBt5xHepUvZx3HnUS29MVbkH6r0bx
-	 GKWOZnltMWG8khLGsq0A2j31oUN7rec1ZgwqEtyo3wFeBesvpyRVsFt93aFTxokHJTw==
+	t=1795229424;
+	b=I2n3OC3IOFaoUlQedWkELp1yPlhulOcahszLef+oG5x+lD3IoKEwMRSST4AduHJnWKMr
+	 5VoePNVMzJhz2ja9ftFtJUL8CeuCPEEgBo/hlqH6zCaBFaQfHJpo7IOSB2uhEuPkpPOji
+	 7c2ZsSXIYeRoP2A+g+gW6Kc/RAjinzH9AAZtG0CZal4ZLrM1CeLugjVqTJ/4mWImWK4Yh
+	 WKdnWF37eNu4gg/y7xs+id9u/wnoHePJBOCk3NCD9wjfb/D4pkqnhcIkHtq7HG7GHvJ4x
+	 A9f0LrzvJYTaoTD+Fsd+6YQF91wfMnsFer0UB4SEwLGWV9QTz5FRExX2rCV5d2kS4Kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795229423;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795229424;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=AeIehshobaBW7sJsqwLTRISjsy3SdPFV2HokrUS9HfU=;
-	b=hPl30ZbA196KHE975hI+/Wk9uHznvVXWnMndU9P6wd/IFi+jpAHWqrhyntxm2prlcq68
-	 p6nzmOz/HHCs9YEjk/3hHgnzwVCbyAjOXQLLoJrZeHwI8dg4VKNWjJ1GECEwmt+sADiGx
-	 WIxNV53HMmr8tqklUA3q20foieBRWy1eKwrfVRAg/AniYZ3OdqjRkTRWErSHemKCb15by
-	 1ENdWu3zYtxcFD9fmuZq4j3gp0IJtuYPjKgDEwh9ym+xZjmz5x2ZnamiVFS1F8gsePFAI
-	 fPhDvpBno61Qw5ed6prKuMuCJrN9sa5gOphJJamvy655ErHVSs+968vl1G8klriDkZQ==
+	bh=Qno4z6wJ+6Pj/3ZsgyReuilsORsK31+sE01I7rt/N6s=;
+	b=bMvacaCRX8F9dR7JMiLb2K3uSdalwP5HShY5zc7DIOJ3w0g7v4V/9VZQAMQGDSszVLbo
+	 RanLMSmFBq2JMw0gI4NgWwy0Po02xIxQ7X4/qfb98rpiNqfZUVC30qZhpCdDk5KShSwGi
+	 1Rbs2T0pQGhmFDX5oiFLO9QJSR5T2hXWnoS1p2BzkMXOFt7tN/184mVM56c9yCzFe/TfT
+	 4XTNrltw+4DHHalut3R0xuh8kdAI4TM2KG2QWq5JqF83GOeZjEwGqO+i7n3DoTABqRlLy
+	 tpPU2MfRaRyYoTvGNSiZQjMzudDlBBavoUTpI/pXxvIYVdj+jCGLrngn09GJ7Qwo//Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bBqdHv22;
-	arc=none smtp.remote-ip=209.85.128.199
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JFX3oitR;
+	arc=none smtp.remote-ip=209.85.219.72
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE78660A260E
-	for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 02:50:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE78660A260E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF4860A263E
+	for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 02:50:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EF4860A263E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bBqdHv22
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8b0d978e4faso25723287b3.0
-        for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 18:50:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JFX3oitR
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-92125693bc6so29938256d6.1
+        for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 18:50:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795229417; x=1795834217; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1795229421; x=1795834221; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AeIehshobaBW7sJsqwLTRISjsy3SdPFV2HokrUS9HfU=;
-        b=bBqdHv22a9BCXcSU8MQpHGyx4ONjrCQyXDPFrE87rZcToBrL8Cxikb4e/gJuukx5Sl
-         zBqbD/BFWxrcfMOmuBofuabEMhbjnkw9ga5vgDxvJkQppZZ/fo1vnKV0P+JmId01J4cd
-         ny6FtmuvlbA1m26aDbCUKSYiO4+yGARRFssaONFOBxRJ84o6TlICryWkgMiWmNf9Wj3k
-         ueyDq7EnGqPGw49iSJATd4wWLR2LT3dNhzOeTEIWCkXJ9yegjAWcAyXvcO78NI5twBsh
-         dd+x4PddnGiZgrVgoRqjUoeYqNTqEvojM3/DuxWDbjVrEhELZ87gjHhATQEk3ykePsWx
-         ALbg==
+        bh=Qno4z6wJ+6Pj/3ZsgyReuilsORsK31+sE01I7rt/N6s=;
+        b=JFX3oitRvJaGpTGrxhUuhqnPlD4UmqgBeIaKIJKhmHyXKFysF5DDjVEE/QjnlnI+U9
+         cDf2C0YDye7KVxyCgO8PePsYUHNogb8GZ3ydk+JwLuVQ/VeeGGlEGu/yqAcSXS+fZ1QR
+         7yUb3BBhvA4xyW9FrQt9Oc3/v+TjqeBMNy5LfmJiQ3bFqZg8laDFA6+bJ9M5VsZ3RBt0
+         xfMX2p08U5Bm0Bj0rQ2feIh+OhdkYxUuVY0avd0UXJ+XQykiHB7XUR6uuA5ROkI7HeqD
+         TwByvcyB0ERf0A6kYbOCvYsPiasfOd9IKjVTw7SqvOOcb9I18+4XNlg6krpAJyoDkFeo
+         AafQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795229417; x=1795834217;
+        d=1e100.net; s=20260707; t=1795229421; x=1795834221;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AeIehshobaBW7sJsqwLTRISjsy3SdPFV2HokrUS9HfU=;
-        b=AGFdaZGIsgXecA5p6HDZ5wELChULxYqCr9njzDJEwr0/Q/wnMOcYzWah36O/HqRMit
-         8rhDfRg4apCFp3zUWSWyI5wdd+jflqPk7yS/i36Odiyp9jLYpXAX+WTY1MUezyWcqiXq
-         PeyhnliNkqrQnQKcwdSjZMKvDvhgvIgB39z3TAjLIUDt9pXwjVutLHwHRpzDXEv3eOYT
-         qcDWCPRWftvUNq36V6Ik8u4q1nPMtOk+YjKM/5bfNxJt5TpeYd64K66IUqcqNZ9e3H8H
-         vZtCvhYhBJC2ovXjsb8G51/hydbueoPzGIH4mHikhxAdBFMJuLdtJ8r0XZVFsYOwFHYH
-         KQDw==
-X-Forwarded-Encrypted: i=1; AL+hErHlMGU+UXDvS8SsmggmOQese+75fXAIzwZjIHb5EThofpaezaMuQsxn5iygJik+0SvBHzpYhCdevVhA2w==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ArJJjIObKNHatNjj80JULzRXTm4BOfE0f2cthb7XpfoQvYzSV
-	/JWdtjWWqGNwDTB0+NZvmFE20ay6SiY1zpQPdfGVY/FdBdaiMLtn8woBSfZ86Y7RSo4g8UnBSlS
-	vTNRZGXvUZIt2l6PClpI6CZSq0GhQ
-X-Received: from ywbme24-n2.prod.google.com ([2002:a05:690c:8698:20b0:8b4:fbc6:1835])
+        bh=Qno4z6wJ+6Pj/3ZsgyReuilsORsK31+sE01I7rt/N6s=;
+        b=W+T7fhYRIIgoOBHSi/GCpsT9AIV3CUTrmATc0sHnLrS1yhDkb4KrYb8u7eYCZJkfJI
+         kOTvHHwIyu9TDv3xxs8j8lCeMdFxiHKrXdTCNw7NJT5H9Poo7X/5H4ry6Acqv3cGQkgF
+         2JAGvtSTLPRsc6Iyc/E8FMYbZZnkvGtj4JcAhoOFI5nMSW9uDOTiSu+Xi49FzBh2o3fI
+         QSYon4Z7R21iiD30G695cEMv31fRBZGDloxxd4AieIP9Rmumd4CuTnqUiJSnP9b9gVCc
+         8CQhCfP2p+CzirJ1G+N3BG6480npEtsEWptwiAljyTfOBh7JJObNhYj6ncHxVoyVEYK+
+         zxGA==
+X-Forwarded-Encrypted: i=1; AL+hErH40jPsX3LUq7fSWX++m1CL2mAvuOe+Xj3Gexuy6PpncYvtTzs0BthA/CwEulebOX1buWbnfgVt1DxvOA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+1sLRjMUFQ8Aq1kI8G+J6BulcoVzx/sfKwplaKFf+F4BSnFbaE
+	HEb/0/IlY9mXVVNDhl58V33G5p7MwldNH1o123QAValyLKKhF1vKn0/lkPQiITYsg+mQVrQTIKQ
+	TAaB46oR4tsjXGFxkodbVtO8kuj9Y
+X-Received: from qvbld13.prod.google.com ([2002:a05:6214:418d:b0:91e:cc05:97dd])
  (user=briandaniels job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:690c:4a06:b0:8b4:d66a:2002 with SMTP id 00721157ae682-8b520515e7fmr23275967b3.65.1795229416758;
- Fri, 20 Nov 2026 18:50:16 -0800 (PST)
-Date: Fri, 20 Nov 2026 21:50:04 -0500
+ 2002:a05:6214:29e8:b0:921:21ee:1643 with SMTP id 6a1803df08f44-92134771510mr82859566d6.0.1795229420832;
+ Fri, 20 Nov 2026 18:50:20 -0800 (PST)
+Date: Fri, 20 Nov 2026 21:50:06 -0500
 In-Reply-To: <20261121025007.3445723-1-briandaniels@google.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261121025007.3445723-1-briandaniels@google.com>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
-Message-ID: <20261121025007.3445723-4-briandaniels@google.com>
-Subject: [PATCH v12 3/6] media: virtio: Add extended controls support
+Message-ID: <20261121025007.3445723-6-briandaniels@google.com>
+Subject: [PATCH v12 5/6] media: virtio: Add MMAP buffer mapping support
 From: Brian Daniels <briandaniels@google.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: adelva@google.com, aesteve@redhat.com, changyeon@google.com, 
@@ -96,618 +96,388 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Alexandre Courbot <gnurou@gmail.com>
 
-Add support for VIDIOC_G_EXT_CTRLS, VIDIOC_S_EXT_CTRLS, and
-VIDIOC_TRY_EXT_CTRLS.
+Support mapping V4L2_MEMORY_MMAP buffers into guest userspace through
+virtio shared memory region 0.
 
-Extended controls carry an auxiliary array of struct v4l2_ext_control
-entries and may reference userspace payload buffers. Pin userspace
-control payloads using vb2_create_framevec() for the duration of the
-virtio command and pass their physical memory segments to the host as an
-array of struct virtio_media_sg_entry descriptors in the session shadow
-buffer.
+Query the shared memory region during device probe and implement the
+mmap file operation and VMA close callback using VIRTIO_MEDIA_CMD_MMAP
+and VIRTIO_MEDIA_CMD_MUNMAP, remapping the host-provided shared memory
+offset into userspace via io_remap_pfn_range().
 
 Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
 Co-developed-by: Brian Daniels <briandaniels@google.com>
 Signed-off-by: Brian Daniels <briandaniels@google.com>
 ---
- drivers/media/virtio/scatterlist_builder.c | 302 +++++++++++++++++++++
- drivers/media/virtio/scatterlist_builder.h |  27 ++
- drivers/media/virtio/virtio_media_ioctls.c | 164 +++++++++++
- include/uapi/linux/virtio_media.h          |  13 +
- 4 files changed, 506 insertions(+)
+ drivers/media/virtio/session.h             |  14 +-
+ drivers/media/virtio/virtio_media.h        |  13 +-
+ drivers/media/virtio/virtio_media_driver.c | 159 +++++++++++++++++++++
+ include/uapi/linux/virtio_media.h          |  67 +++++++++
+ 4 files changed, 243 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/media/virtio/scatterlist_builder.c b/drivers/media/virtio/scatterlist_builder.c
-index ae8ffee82..631c7b13c 100644
---- a/drivers/media/virtio/scatterlist_builder.c
-+++ b/drivers/media/virtio/scatterlist_builder.c
-@@ -220,3 +220,305 @@ int scatterlist_builder_add_ioctl_resp(struct scatterlist_builder *builder,
- 	return scatterlist_builder_add_data(builder, resp_ioctl,
- 					    sizeof(*resp_ioctl));
- }
-+
-+/**
-+ * __scatterlist_builder_add_userptr() - Add user pages to @builder.
-+ * @builder: builder to use.
-+ * @userptr: pointer to userspace memory that we want to add.
-+ * @length: length of the data to add.
-+ * @sg_list: output parameter. Upon success, points to the area of the shadow
-+ *           buffer containing the array of SG entries to be added to the
-+ *           descriptor chain.
-+ * @nents: output parameter. Upon success, contains the number of entries
-+ *         pointed to by @sg_list.
-+ *
-+ * Data referenced by userspace pointers can be potentially large and very
-+ * scattered, which could overwhelm the descriptor chain if added as-is. For
-+ * these, we instead build an array of &struct virtio_media_sg_entry in the
-+ * shadow buffer and reference it using a single descriptor.
-+ *
-+ * This function is a helper to perform that. Callers should then add the
-+ * descriptor to the chain properly.
-+ *
-+ * Returns %-EFAULT if @userptr is not a valid user address, which is a case the
-+ * driver should consider as "normal" operation. All other failures signal a
-+ * problem with the driver.
-+ */
-+static int
-+__scatterlist_builder_add_userptr(struct scatterlist_builder *builder,
-+				  unsigned long userptr, unsigned long length,
-+				  struct virtio_media_sg_entry **sg_list,
-+				  int *nents)
-+{
-+	struct sg_table sg_table = {};
-+	struct frame_vector *framevec;
-+	struct scatterlist *sg_iter;
-+	struct page **pages;
-+	const unsigned int offset = userptr & ~PAGE_MASK;
-+	unsigned int pages_count;
-+	size_t entries_size;
-+	size_t initial_cur_framevec = builder->cur_framevec;
-+	int i;
-+	int ret;
-+
-+	if (builder->cur_framevec >= builder->num_framevecs) {
-+		pr_err("Ran out of framevecs (%zu/%zu)", builder->cur_framevec,
-+		       builder->num_framevecs);
-+		ret = -ENOMEM;
-+	}
-+
-+	framevec = vb2_create_framevec(userptr, length, true);
-+	if (IS_ERR(framevec)) {
-+		if (PTR_ERR(framevec) != -EFAULT) {
-+			pr_warn("error %ld creating frame vector for userptr 0x%lx, length 0x%lx\n",
-+				PTR_ERR(framevec), userptr, length);
-+		} else {
-+			/* -EINVAL is expected in case of invalid userptr. */
-+			framevec = ERR_PTR(-EINVAL);
-+		}
-+		return PTR_ERR(framevec);
-+	}
-+
-+	pages = frame_vector_pages(framevec);
-+	if (IS_ERR(pages)) {
-+		pr_warn("error getting vector pages\n");
-+		ret = PTR_ERR(pages);
-+		goto free_framevec;
-+	}
-+	pages_count = frame_vector_count(framevec);
-+	ret = sg_alloc_table_from_pages(&sg_table, pages, pages_count, offset,
-+					length, 0);
-+	if (ret) {
-+		pr_warn("error creating sg table\n");
-+		goto free_framevec;
-+	}
-+
-+	/* Allocate our actual SG in the shadow buffer. */
-+	*nents = sg_nents(sg_table.sgl);
-+	entries_size = sizeof(**sg_list) * *nents;
-+	if (builder->shadow_buffer_pos + entries_size >
-+	    builder->shadow_buffer_size) {
-+		ret = -ENOMEM;
-+		goto free_sg;
-+	}
-+
-+	*sg_list = builder->shadow_buffer + builder->shadow_buffer_pos;
-+	builder->shadow_buffer_pos += entries_size;
-+
-+	for_each_sgtable_sg(&sg_table, sg_iter, i) {
-+		struct virtio_media_sg_entry *sg_entry = &(*sg_list)[i];
-+
-+		sg_entry->start = sg_phys(sg_iter);
-+		sg_entry->len = sg_iter->length;
-+		sg_entry->__reserved = 0;
-+	}
-+
-+	builder->framevecs[builder->cur_framevec++] = framevec;
-+
-+free_sg:
-+	sg_free_table(&sg_table);
-+free_framevec:
-+	// Only destroy the framevec if we didn't save it
-+	if (builder->cur_framevec == initial_cur_framevec && framevec)
-+		vb2_destroy_framevec(framevec, false);
-+	return ret;
-+}
-+
-+/**
-+ * scatterlist_builder_add_userptr() - Add a user-memory buffer using an array
-+ *                                     of &struct virtio_media_sg_entry.
-+ * @builder: builder to use.
-+ * @userptr: pointer to userspace memory that we want to add.
-+ * @length: length of the data to add.
-+ *
-+ * Upon success, an array of &struct virtio_media_sg_entry referencing
-+ * @userptr has been built into the shadow buffer, and that array added to the
-+ * descriptor chain.
-+ */
-+static int scatterlist_builder_add_userptr(struct scatterlist_builder *builder,
-+					   unsigned long userptr,
-+					   unsigned long length)
-+{
-+	int ret;
-+	int nents;
-+	struct virtio_media_sg_entry *sg_list;
-+
-+	ret = __scatterlist_builder_add_userptr(builder, userptr, length,
-+						&sg_list, &nents);
-+	if (ret)
-+		return ret;
-+
-+	ret = scatterlist_builder_add_data(builder, sg_list,
-+					   sizeof(*sg_list) * nents);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+/**
-+ * scatterlist_builder_add_ext_ctrls() - Add a &struct v4l2_ext_controls and its
-+ *                                       controls to @builder.
-+ * @builder: builder to use.
-+ * @ctrls: &struct v4l2_ext_controls to add.
-+ *
-+ * Add @ctrls and its array of &struct v4l2_ext_control to the descriptor
-+ * chain.
-+ */
-+int scatterlist_builder_add_ext_ctrls(struct scatterlist_builder *builder,
-+				      struct v4l2_ext_controls *ctrls)
-+{
-+	int ret;
-+
-+	/* v4l2_ext_controls */
-+	ret = scatterlist_builder_add_data(builder, ctrls, sizeof(*ctrls));
-+	if (ret)
-+		return ret;
-+
-+	if (ctrls->count > 0) {
-+		/* array of v4l2_controls */
-+		ret = scatterlist_builder_add_data(builder, ctrls->controls,
-+						   sizeof(ctrls->controls[0]) *
-+							   ctrls->count);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * scatterlist_builder_allocate_framevecs() - Allocate the pointers to store
-+ *                                            framevecs during a request.
-+ * @builder: builder to use.
-+ * @ctrls: &struct v4l2_ext_controls from which we determine how many framevecs
-+ *         are needed
-+ *
-+ * The framevecs are used to pin the user pages during the request. Once the
-+ * request is completed, the allocated framevecs and pointers should be freed
-+ * with scatterlist_builder_free_framevecs().
-+ */
-+int
-+scatterlist_builder_allocate_framevecs(struct scatterlist_builder *builder,
-+				       struct v4l2_ext_controls *ctrls)
-+{
-+	int i;
-+
-+	builder->cur_framevec = 0;
-+
-+	/* Count the pointers to user memory in individual controls */
-+	for (i = 0; i < ctrls->count; i++) {
-+		struct v4l2_ext_control *ctrl = &ctrls->controls[i];
-+
-+		if (ctrl->size > 0)
-+			builder->num_framevecs += 1;
-+	}
-+
-+	if (builder->num_framevecs > 0) {
-+		builder->framevecs = kzalloc_objs(struct frame_vector*,
-+						  builder->num_framevecs);
-+		if (!builder->framevecs) {
-+			builder->num_framevecs = 0;
-+			return -ENOMEM;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * scatterlist_builder_free_framevecs() - Free the framevecs used during a
-+ *                                        request.
-+ * @builder: builder to use.
-+ *
-+ * Frees the framevecs allocated in scatterlist_builder_allocate_framevecs().
-+ */
-+void
-+scatterlist_builder_free_framevecs(struct scatterlist_builder *builder)
-+{
-+	if (builder->cur_framevec && builder->framevecs) {
-+		struct frame_vector *vec;
-+
-+		while (builder->cur_framevec--) {
-+			vec = builder->framevecs[builder->cur_framevec];
-+			vb2_destroy_framevec(vec, true);
-+		}
-+
-+		kfree(builder->framevecs);
-+	}
-+
-+	builder->framevecs = NULL;
-+	builder->num_framevecs = 0;
-+	builder->cur_framevec = 0;
-+}
-+
-+/**
-+ * scatterlist_builder_add_ext_ctrls_userptrs() - Add the userspace payloads of
-+ *                                                a &struct v4l2_ext_controls
-+ *                                                to the descriptor chain.
-+ * @builder: builder to use.
-+ * @ctrls: &struct v4l2_ext_controls from which we want to add the
-+ *         userspace payload.
-+ *
-+ * Add the userspace payloads of @ctrls to the descriptor chain. This is split
-+ * out of scatterlist_builder_add_ext_ctrls() because we only want to add
-+ * these to the device-readable part of the descriptor chain.
-+ */
-+int
-+scatterlist_builder_add_ext_ctrls_userptrs(struct scatterlist_builder *builder,
-+					   struct v4l2_ext_controls *ctrls)
-+{
-+	int i;
-+	int ret;
-+
-+	for (i = 0; i < ctrls->count; i++) {
-+		struct v4l2_ext_control *ctrl = &ctrls->controls[i];
-+
-+		if (ctrl->size > 0) {
-+			unsigned long uptr = (unsigned long)ctrl->ptr;
-+
-+			ret = scatterlist_builder_add_userptr(builder, uptr,
-+							      ctrl->size);
-+			if (ret)
-+				return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * scatterlist_builder_retrieve_ext_ctrls() - Retrieve controls written by the
-+ *                                            device on the shadow buffer,
-+ *                                            if needed.
-+ * @builder: builder to use.
-+ * @sg_index: index of the first SG entry of the controls in the builder's
-+ *            descriptor chain.
-+ * @ctrls: &struct v4l2_ext_controls to copy shadow buffer data into.
-+ *
-+ * If the shadow buffer is pointed to by @sg_index, copy its content back into
-+ * @ctrls.
-+ */
-+int scatterlist_builder_retrieve_ext_ctrls(struct scatterlist_builder *builder,
-+					   size_t sg_index,
-+					   struct v4l2_ext_controls *ctrls)
-+{
-+	struct v4l2_ext_control *controls_backup = ctrls->controls;
-+	int ret;
-+
-+	ret = scatterlist_builder_retrieve_data(builder, sg_index++, ctrls);
-+
-+	if (ret)
-+		return ret;
-+
-+	ctrls->controls = controls_backup;
-+
-+	if (ctrls->count > 0 && ctrls->controls) {
-+		ret = scatterlist_builder_retrieve_data(builder, sg_index++,
-+							ctrls->controls);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-diff --git a/drivers/media/virtio/scatterlist_builder.h b/drivers/media/virtio/scatterlist_builder.h
-index 044ea409a..bced1e030 100644
---- a/drivers/media/virtio/scatterlist_builder.h
-+++ b/drivers/media/virtio/scatterlist_builder.h
-@@ -25,6 +25,11 @@
-  * @sgs: descriptor chain to eventually pass to virtio functions.
-  * @num_sgs: total number of entries in @sgs.
-  * @cur_sg: next entry in @sgs to be used.
-+ * @framevecs: Array of *struct frame_vector that is allocated to keep user
-+ *             pages pinned until after a response is received. It is allocated
-+ *             in scatterlist_builder_add_ext_ctrls_userptrs() and freed in
-+ *             scatterlist_builder_retrieve_ext_ctrls().
-+ * @cur_framevec: next entry in @framevecs to be used.
-  *
-  * Virtio passes data from the driver to the device (through e.g.
-  * virtqueue_add_sgs()) via a scatterlist that the device interprets as a
-@@ -69,6 +74,10 @@ struct scatterlist_builder {
- 	struct scatterlist **sgs;
- 	size_t num_sgs;
- 	size_t cur_sg;
-+
-+	struct frame_vector **framevecs;
-+	size_t num_framevecs;
-+	size_t cur_framevec;
- };
+diff --git a/drivers/media/virtio/session.h b/drivers/media/virtio/session.h
+index 16bb86bf4..c074ffc2c 100644
+--- a/drivers/media/virtio/session.h
++++ b/drivers/media/virtio/session.h
+@@ -63,12 +63,12 @@ struct virtio_media_queue_state {
+  * @nonblocking_dequeue: whether dequeue should block or not (nonblocking if
+  *                       file opened with O_NONBLOCK).
+  * @uses_mplane: whether the queues for this session use the MPLANE API or not.
+- * @cmd: union of session commands ``close`` and ``ioctl``. A session can have
+- *       one command currently running. The rest of the commands are handled by
+- *       &struct virtio_media.
+- * @resp: union of responses to session commands. A session can wait on one
+- *        command only. The rest of the responses are handled by
+- *        &struct virtio_media.
++ * @cmd: union of session commands ``close``, ``ioctl``, and ``mmap``. A
++ *       session can have one command currently running. The rest of the
++ *       commands are handled by &struct virtio_media.
++ * @resp: union of responses to session commands ``close``, ``ioctl``, and
++ *        ``mmap``. A session can wait on one command only. The rest of the
++ *        responses are handled by &struct virtio_media.
+  * @shadow_buf: shadow buffer where data to be added to the descriptor chain can
+  *              be staged before being sent to the device.
+  * @command_sgs: SG table gathering descriptors for a given command and its
+@@ -91,10 +91,12 @@ struct virtio_media_session {
+ 	union {
+ 		struct virtio_media_cmd_close close;
+ 		struct virtio_media_cmd_ioctl ioctl;
++		struct virtio_media_cmd_mmap mmap;
+ 	} cmd;
  
- int scatterlist_builder_add_descriptor(struct scatterlist_builder *builder,
-@@ -87,4 +96,22 @@ int scatterlist_builder_add_ioctl_cmd(struct scatterlist_builder *builder,
- int scatterlist_builder_add_ioctl_resp(struct scatterlist_builder *builder,
- 				       struct virtio_media_session *session);
+ 	union {
+ 		struct virtio_media_resp_ioctl ioctl;
++		struct virtio_media_resp_mmap mmap;
+ 	} resp;
+ 	__dma_from_device_group_end();
  
-+int scatterlist_builder_add_ext_ctrls(struct scatterlist_builder *builder,
-+				      struct v4l2_ext_controls *ctrls);
-+
-+int
-+scatterlist_builder_allocate_framevecs(struct scatterlist_builder *builder,
-+				       struct v4l2_ext_controls *ctrls);
-+
-+void
-+scatterlist_builder_free_framevecs(struct scatterlist_builder *builder);
-+
-+int
-+scatterlist_builder_add_ext_ctrls_userptrs(struct scatterlist_builder *builder,
-+					   struct v4l2_ext_controls *ctrls);
-+
-+int scatterlist_builder_retrieve_ext_ctrls(struct scatterlist_builder *builder,
-+					   size_t sg_index,
-+					   struct v4l2_ext_controls *ctrls);
-+
- #endif // __VIRTIO_MEDIA_SCATTERLIST_BUILDER_H
-diff --git a/drivers/media/virtio/virtio_media_ioctls.c b/drivers/media/virtio/virtio_media_ioctls.c
-index e92032bce..d0ea743e7 100644
---- a/drivers/media/virtio/virtio_media_ioctls.c
-+++ b/drivers/media/virtio/virtio_media_ioctls.c
-@@ -41,6 +41,8 @@ static int virtio_media_send_r_ioctl(struct v4l2_fh *fh, u32 ioctl,
- 		.sgs = sgs,
- 		.num_sgs = ARRAY_SIZE(sgs),
- 		.cur_sg = 0,
-+		.framevecs = NULL,
-+		.cur_framevec = 0,
- 	};
+diff --git a/drivers/media/virtio/virtio_media.h b/drivers/media/virtio/virtio_media.h
+index 8b21c1941..7acb2b842 100644
+--- a/drivers/media/virtio/virtio_media.h
++++ b/drivers/media/virtio/virtio_media.h
+@@ -26,14 +26,15 @@
+  * @commandq: virtio command queue.
+  * @eventq: virtio event queue.
+  * @eventq_work: work to run when events are received on @eventq.
++ * @mmap_region: region into which MMAP buffers are mapped by the host.
+  * @event_buffer: buffer for event descriptors.
+  * @sessions: list of active sessions on the device.
+  * @sessions_lock: protects @sessions and &struct virtio_media_session.list.
+  * @events_lock: prevents concurrent processing of events.
+- * @cmd: union of device-level commands. Session commands are handled by
+- *       &struct virtio_media_session.
+- * @resp: union of responses to device-level commands. Session responses are
+- *        handled by &struct virtio_media_session.
++ * @cmd: union of the device commands ``open`` and ``munmap``. The other
++ *       commands are handled by &struct virtio_media_session
++ * @resp: union of responses to device commands ``open`` and ``munmap``. The
++ *        other responses are handled by &struct virtio_media_session
+  * @vlock: serializes access to the command queue.
+  * @wq: waitqueue for host responses on the command queue.
+  */
+@@ -46,6 +47,8 @@ struct virtio_media {
+ 	struct virtqueue *eventq;
+ 	struct work_struct eventq_work;
  
- 	/* Command descriptor */
-@@ -107,6 +109,8 @@ static int virtio_media_send_w_ioctl(struct v4l2_fh *fh, u32 ioctl,
- 		.sgs = sgs,
- 		.num_sgs = ARRAY_SIZE(sgs),
- 		.cur_sg = 0,
-+		.framevecs = NULL,
-+		.cur_framevec = 0,
- 	};
++	struct virtio_shm_region mmap_region;
++
+ 	void *event_buffer;
  
- 	/* Command descriptor */
-@@ -171,6 +175,8 @@ static int virtio_media_send_wr_ioctl(struct v4l2_fh *fh, u32 ioctl,
- 		.sgs = sgs,
- 		.num_sgs = ARRAY_SIZE(sgs),
- 		.cur_sg = 0,
-+		.framevecs = NULL,
-+		.cur_framevec = 0,
- 	};
+ 	struct list_head sessions;
+@@ -56,10 +59,12 @@ struct virtio_media {
+ 	__dma_from_device_group_begin();
+ 	union {
+ 		struct virtio_media_cmd_open open;
++		struct virtio_media_cmd_munmap munmap;
+ 	} cmd;
  
- 	/* Command descriptor */
-@@ -215,6 +221,130 @@ static int virtio_media_send_wr_ioctl(struct v4l2_fh *fh, u32 ioctl,
- 	return 0;
+ 	union {
+ 		struct virtio_media_resp_open open;
++		struct virtio_media_resp_munmap munmap;
+ 	} resp;
+ 	__dma_from_device_group_end();
+ 
+diff --git a/drivers/media/virtio/virtio_media_driver.c b/drivers/media/virtio/virtio_media_driver.c
+index 748357725..eb6b31d7e 100644
+--- a/drivers/media/virtio/virtio_media_driver.c
++++ b/drivers/media/virtio/virtio_media_driver.c
+@@ -6,6 +6,7 @@
+  * Copyright (c) 2024-2026 Google LLC.
+  */
+ 
++#include <linux/bits.h>
+ #include <linux/device.h>
+ #include <linux/dev_printk.h>
+ #include <linux/mutex.h>
+@@ -20,6 +21,7 @@
+ #include <linux/workqueue.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/poll.h>
++#include <linux/mm.h>
+ 
+ #include <media/v4l2-dev.h>
+ #include <media/v4l2-device.h>
+@@ -32,6 +34,12 @@
+ 
+ #define VIRTIO_MEDIA_NUM_EVENT_BUFS 16
+ 
++/* ID of the SHM region into which MMAP buffer will be mapped. */
++#define VIRTIO_MEDIA_SHM_MMAP 0
++
++/* Bit mask for the VIRTIO_MEDIA_MMAP_FLAG_RW flag */
++#define VIRTIO_MEDIA_MMAP_FLAG_RW_MASK BIT(VIRTIO_MEDIA_MMAP_FLAG_RW)
++
+ /**
+  * virtio_media_session_alloc() - Allocate a new session.
+  * @vv: virtio-media device the session belongs to.
+@@ -697,12 +705,155 @@ static __poll_t virtio_media_device_poll(struct file *file, poll_table *wait)
+ 	return rc;
  }
  
-+/**
-+ * virtio_media_send_ext_controls_ioctl() - Send an ioctl taking extended
-+ * controls as parameters to the device.
-+ * @fh: file handler of the session doing the ioctl.
-+ * @ioctl: ``VIDIOC_*`` ioctl code.
-+ * @ctrls: &struct v4l2_ext_controls to be sent as the ioctl payload.
-+ *
-+ * Queues an ioctl that sends a &struct v4l2_ext_controls to the host and
-+ * receives an updated version.
-+ *
-+ * &struct v4l2_ext_controls has a pointer to an array of
-+ * &struct v4l2_ext_control, and also potentially pointers to user-space memory
-+ * that we need to map properly, hence the dedicated function.
-+ */
-+static int virtio_media_send_ext_controls_ioctl(struct v4l2_fh *fh, u32 ioctl,
-+						struct v4l2_ext_controls *ctrls)
++static void virtio_media_vma_close_locked(struct vm_area_struct *vma)
 +{
-+	struct video_device *video_dev = fh->vdev;
-+	struct virtio_media *vv = to_virtio_media(video_dev);
-+	struct virtio_media_session *session = fh_to_session(fh);
-+	size_t num_cmd_sgs;
-+	size_t end_ctrls_sg;
-+	struct v4l2_ext_control *controls_backup = ctrls->controls;
-+	const u32 num_ctrls = ctrls->count;
-+	struct scatterlist *sgs[64];
-+	struct scatterlist_builder builder = {
-+		.descs = session->command_sgs.sgl,
-+		.num_descs = DESC_CHAIN_MAX_LEN,
-+		.cur_desc = 0,
-+		.shadow_buffer = session->shadow_buf,
-+		.shadow_buffer_size = VIRTIO_SHADOW_BUF_SIZE,
-+		.shadow_buffer_pos = 0,
-+		.sgs = sgs,
-+		.num_sgs = ARRAY_SIZE(sgs),
-+		.cur_sg = 0,
-+		.framevecs = NULL,
-+		.cur_framevec = 0,
-+	};
-+	size_t resp_len = 0;
-+	int i;
++	struct virtio_media *vv = vma->vm_private_data;
++	struct virtio_media_cmd_munmap *cmd_munmap = &vv->cmd.munmap;
++	struct virtio_media_resp_munmap *resp_munmap = &vv->resp.munmap;
++	struct scatterlist cmd_sg = {}, resp_sg = {};
++	struct scatterlist *sgs[2] = { &cmd_sg, &resp_sg };
++	int ret;
 +
-+	int ret = scatterlist_builder_allocate_framevecs(&builder, ctrls);
++	sg_set_buf(&cmd_sg, cmd_munmap, sizeof(*cmd_munmap));
++	sg_mark_end(&cmd_sg);
 +
-+	if (ret)
-+		return ret;
++	sg_set_buf(&resp_sg, resp_munmap, sizeof(*resp_munmap));
++	sg_mark_end(&resp_sg);
 +
-+	/* Command descriptor */
-+	ret = scatterlist_builder_add_ioctl_cmd(&builder, session, ioctl);
-+
-+	if (ret)
-+		goto free_framevecs;
-+
-+	/* v4l2_controls */
-+	ret = scatterlist_builder_add_ext_ctrls(&builder, ctrls);
-+	if (ret)
-+		goto free_framevecs;
-+
-+	end_ctrls_sg = builder.cur_sg;
-+
-+	ret = scatterlist_builder_add_ext_ctrls_userptrs(&builder, ctrls);
-+	if (ret)
-+		goto free_framevecs;
-+
-+	num_cmd_sgs = builder.cur_sg;
-+
-+	/* Response descriptor */
-+	ret = scatterlist_builder_add_ioctl_resp(&builder, session);
-+	if (ret)
-+		goto free_framevecs;
-+
-+	/* Response payload (same as input but without userptrs) */
-+	for (i = 1; i < end_ctrls_sg; i++) {
-+		ret = scatterlist_builder_add_descriptor(&builder, i);
-+		if (ret < 0)
-+			goto free_framevecs;
-+	}
-+
-+	ret = virtio_media_send_command(vv, builder.sgs, num_cmd_sgs,
-+					builder.cur_sg - num_cmd_sgs,
-+					sizeof(struct virtio_media_resp_ioctl) +
-+					sizeof(*ctrls),
-+					&resp_len);
-+
-+	/* Just in case the host touched these. */
-+	ctrls->controls = controls_backup;
-+	if (ctrls->count != num_ctrls) {
-+		v4l2_err(&vv->v4l2_dev,
-+			 "device returned a number of controls different than the one submitted\n");
-+	}
-+	if (ctrls->count > num_ctrls)
-+		return -ENOSPC;
++	cmd_munmap->hdr.cmd = VIRTIO_MEDIA_CMD_MUNMAP;
++	cmd_munmap->hdr.__reserved = 0;
++	cmd_munmap->driver_addr =
++		(vma->vm_pgoff << PAGE_SHIFT) - vv->mmap_region.addr;
++	ret = virtio_media_send_command(vv, sgs, 1, 1, sizeof(*resp_munmap),
++					NULL);
 +	if (ret < 0) {
-+		/*
-+		 * Even if we have received an error, we may need to read our
-+		 * payloadback.
-+		 */
-+		if (resp_len >= sizeof(struct virtio_media_resp_ioctl) +
-+		    sizeof(*ctrls)) {
-+			/*
-+			 * Deliberately ignore the error here as we want to
-+			 * return the previous one.
-+			 */
-+			scatterlist_builder_retrieve_ext_ctrls(&builder,
-+							       num_cmd_sgs + 1,
-+							       ctrls);
-+		}
-+
-+		goto free_framevecs;
++		v4l2_err(&vv->v4l2_dev, "host failed to unmap buffer: %d\n",
++			 ret);
 +	}
++}
 +
-+	resp_len -= sizeof(struct virtio_media_resp_ioctl);
++/**
++ * virtio_media_vma_close() - Close a MMAP buffer mapping.
++ * @vma: VMA of the mapping to close.
++ *
++ * Inform the host that a previously created MMAP mapping is no longer needed
++ * and can be removed.
++ */
++static void virtio_media_vma_close(struct vm_area_struct *vma)
++{
++	struct virtio_media *vv = vma->vm_private_data;
 +
-+	/* Make sure that the reply's length covers our v4l2_ext_controls */
-+	if (resp_len < sizeof(*ctrls))
++	mutex_lock(&vv->vlock);
++	virtio_media_vma_close_locked(vma);
++	mutex_unlock(&vv->vlock);
++}
++
++static const struct vm_operations_struct virtio_media_vm_ops = {
++	.close = virtio_media_vma_close,
++};
++
++/**
++ * virtio_media_device_mmap() - Perform a mmap request from userspace.
++ * @file: opened file of the session to map for.
++ * @vma: VM area struct describing the desired mapping.
++ *
++ * This requests the host to map a MMAP buffer for us, so we can then make that
++ * mapping visible into user-space address space.
++ */
++static int virtio_media_device_mmap(struct file *file,
++				    struct vm_area_struct *vma)
++{
++	struct video_device *video_dev = video_devdata(file);
++	struct virtio_media *vv = to_virtio_media(video_dev);
++	struct virtio_media_session *session =
++		fh_to_session(file->private_data);
++	struct virtio_media_cmd_mmap *cmd_mmap = &session->cmd.mmap;
++	struct virtio_media_resp_mmap *resp_mmap = &session->resp.mmap;
++	struct scatterlist cmd_sg = {}, resp_sg = {};
++	struct scatterlist *sgs[2] = { &cmd_sg, &resp_sg };
++	int ret;
++
++	mutex_lock(&session->error_lock);
++	bool session_error = session->error;
++
++	mutex_unlock(&session->error_lock);
++
++	if (session_error)
++		return -EIO;
++	if (!(vma->vm_flags & VM_SHARED))
++		return -EINVAL;
++	if (!(vma->vm_flags & (VM_READ | VM_WRITE)))
 +		return -EINVAL;
 +
-+	ret = scatterlist_builder_retrieve_ext_ctrls(&builder, num_cmd_sgs + 1,
-+						     ctrls);
++	mutex_lock(&vv->vlock);
 +
-+free_framevecs:
-+	scatterlist_builder_free_framevecs(&builder);
++	cmd_mmap->hdr.cmd = VIRTIO_MEDIA_CMD_MMAP;
++	cmd_mmap->hdr.__reserved = 0;
++	cmd_mmap->session_id = session->id;
++	cmd_mmap->flags =
++		(vma->vm_flags & VM_WRITE) ? VIRTIO_MEDIA_MMAP_FLAG_RW_MASK : 0;
++	cmd_mmap->offset = vma->vm_pgoff << PAGE_SHIFT;
++	cmd_mmap->__reserved = 0;
++
++	sg_set_buf(&cmd_sg, cmd_mmap, sizeof(*cmd_mmap));
++	sg_mark_end(&cmd_sg);
++
++	sg_set_buf(&resp_sg, resp_mmap, sizeof(*resp_mmap));
++	sg_mark_end(&resp_sg);
++
++	/*
++	 * The host performs reference counting and is smart enough to return
++	 * the same guest physical address if this is called several times on
++	 * the same
++	 * buffer.
++	 */
++	ret = virtio_media_send_command(vv, sgs, 1, 1, sizeof(*resp_mmap),
++					NULL);
++	if (ret < 0)
++		goto end;
++
++	vma->vm_private_data = vv;
++	/*
++	 * Keep the guest address at which the buffer is mapped since we will
++	 * use that to unmap.
++	 */
++	vma->vm_pgoff = (resp_mmap->driver_addr + vv->mmap_region.addr) >>
++			PAGE_SHIFT;
++
++	/*
++	 * We cannot let the mapping be larger than the buffer.
++	 */
++	if (vma->vm_end - vma->vm_start > PAGE_ALIGN(resp_mmap->len)) {
++		dev_dbg(&video_dev->dev,
++			"invalid MMAP, as it would overflow buffer length\n");
++		ret = -EINVAL;
++		goto cleanup;
++	}
++
++	ret = io_remap_pfn_range(vma, vma->vm_start, vma->vm_pgoff,
++				 vma->vm_end - vma->vm_start,
++				 vma->vm_page_prot);
++	if (ret) {
++		dev_dbg(&video_dev->dev, "io_remap_pfn_range() failed\n");
++		goto cleanup;
++	}
++
++	vma->vm_ops = &virtio_media_vm_ops;
++	goto end;
++cleanup:
++	virtio_media_vma_close_locked(vma);
++end:
++	mutex_unlock(&vv->vlock);
 +	return ret;
 +}
 +
- /*
-  * Macros suitable for defining ioctls with a constant size payload.
-  */
-@@ -327,6 +457,37 @@ static int virtio_media_querycap(struct file *file, void *fh,
- 	return 0;
- }
+ static const struct v4l2_file_operations virtio_media_fops = {
+ 	.owner = THIS_MODULE,
+ 	.open = virtio_media_device_open,
+ 	.release = virtio_media_device_close,
+ 	.poll = virtio_media_device_poll,
+ 	.unlocked_ioctl = virtio_media_device_ioctl,
++	.mmap = virtio_media_device_mmap,
+ };
  
-+/*
-+ * Extended control ioctls are handled mostly identically.
-+ */
-+
-+static int virtio_media_g_ext_ctrls(struct file *file, void *fh,
-+				    struct v4l2_ext_controls *ctrls)
-+{
-+	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
-+
-+	return virtio_media_send_ext_controls_ioctl(vfh, VIDIOC_G_EXT_CTRLS,
-+						    ctrls);
-+}
-+
-+static int virtio_media_s_ext_ctrls(struct file *file, void *fh,
-+				    struct v4l2_ext_controls *ctrls)
-+{
-+	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
-+
-+	return virtio_media_send_ext_controls_ioctl(vfh, VIDIOC_S_EXT_CTRLS,
-+						    ctrls);
-+}
-+
-+static int virtio_media_try_ext_ctrls(struct file *file, void *fh,
-+				      struct v4l2_ext_controls *ctrls)
-+{
-+	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
-+
-+	return virtio_media_send_ext_controls_ioctl(vfh, VIDIOC_TRY_EXT_CTRLS,
-+						    ctrls);
-+}
-+
- /*
-  * s/g_input/output work with an unsigned int - recast this to a u32 so the
-  * size is unambiguous.
-@@ -472,6 +633,9 @@ const struct v4l2_ioctl_ops virtio_media_ioctl_ops = {
+ static void virtio_media_release(struct v4l2_device *v4l2_dev)
+@@ -773,6 +924,14 @@ static int virtio_media_probe(struct virtio_device *virtio_dev)
+ 	vv->eventq = vqs[1];
+ 	INIT_WORK(&vv->eventq_work, virtio_media_event_work);
  
- 	/* Control handling */
- 	.vidioc_query_ext_ctrl = virtio_media_query_ext_ctrl,
-+	.vidioc_g_ext_ctrls = virtio_media_g_ext_ctrls,
-+	.vidioc_s_ext_ctrls = virtio_media_s_ext_ctrls,
-+	.vidioc_try_ext_ctrls = virtio_media_try_ext_ctrls,
- 	.vidioc_querymenu = virtio_media_querymenu,
- 
- 	/* Audio ioctls */
++	/* Get MMAP buffer mapping SHM region */
++	if (!virtio_get_shm_region(virtio_dev, &vv->mmap_region,
++				   VIRTIO_MEDIA_SHM_MMAP)) {
++		dev_err(&virtio_dev->dev, "Failed to get shared memory region");
++		ret = -ENOMEM;
++		goto err_del_vqs;
++	}
++
+ 	vd = &vv->video_dev;
+ 	vd->v4l2_dev = &vv->v4l2_dev;
+ 	vd->ioctl_ops = &virtio_media_ioctl_ops;
 diff --git a/include/uapi/linux/virtio_media.h b/include/uapi/linux/virtio_media.h
-index c1e68d47c..f117b97fc 100644
+index da5c5baf0..2ea28770e 100644
 --- a/include/uapi/linux/virtio_media.h
 +++ b/include/uapi/linux/virtio_media.h
-@@ -158,4 +158,17 @@ struct virtio_media_resp_ioctl {
- 	struct virtio_media_resp_header hdr;
+@@ -171,6 +171,73 @@ struct virtio_media_sg_entry {
+ 	__le32 __reserved;
  };
  
 +/**
-+ * struct virtio_media_sg_entry - Description of part of a scattered guest
-+ *                                memory.
-+ * @start: start guest address of the memory segment.
-+ * @len: length of this memory segment.
++ * VIRTIO_MEDIA_MMAP_FLAG_RW - Bit position of the VIRTIO_MEDIA_MMAP_FLAG_RW
++ *                             flag.
++ */
++#define VIRTIO_MEDIA_MMAP_FLAG_RW 0
++
++/**
++ * VIRTIO_MEDIA_CMD_MMAP - Command for mapping a MMAP buffer into the driver's
++ *                         address space.
++ */
++#define VIRTIO_MEDIA_CMD_MMAP 4
++
++/**
++ * struct virtio_media_cmd_mmap - Driver command for VIRTIO_MEDIA_CMD_MMAP.
++ * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_MMAP.
++ * @session_id: ID of the session we are mapping for.
++ * @flags: combination of VIRTIO_MEDIA_MMAP_FLAG_*.
++ * @offset: mem_offset field of the plane to map, as returned by
++ *          VIDIOC_QUERYBUF.
 + * @__reserved: must be set to zero by the driver.
 + */
-+struct virtio_media_sg_entry {
-+	__le64 start;
-+	__le32 len;
++struct virtio_media_cmd_mmap {
++	struct virtio_media_cmd_header hdr;
++	__le32 session_id;
++	__le32 flags;
++	__le32 offset;
 +	__le32 __reserved;
 +};
 +
- #endif // _UAPI__LINUX_VIRTIO_MEDIA_H
++/**
++ * struct virtio_media_resp_mmap - Device response for VIRTIO_MEDIA_CMD_MMAP.
++ * @hdr: header containing the status of the command.
++ * @driver_addr: offset into SHM region 0 of the start of the mapping.
++ * @len: length of the mapping.
++ */
++struct virtio_media_resp_mmap {
++	struct virtio_media_resp_header hdr;
++	__le64 driver_addr;
++	__le64 len;
++};
++
++/**
++ * VIRTIO_MEDIA_CMD_MUNMAP - Unmap a MMAP buffer previously mapped using
++ *                           VIRTIO_MEDIA_CMD_MMAP.
++ */
++#define VIRTIO_MEDIA_CMD_MUNMAP 5
++
++/**
++ * struct virtio_media_cmd_munmap - Driver command for VIRTIO_MEDIA_CMD_MUNMAP.
++ * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_MUNMAP.
++ * @driver_addr: offset into SHM region 0 at which the buffer has been
++ *               previously mapped.
++ */
++struct virtio_media_cmd_munmap {
++	struct virtio_media_cmd_header hdr;
++	__le64 driver_addr;
++};
++
++/**
++ * struct virtio_media_resp_munmap - Device response for
++ *                                   VIRTIO_MEDIA_CMD_MUNMAP.
++ * @hdr: header containing the status of the command.
++ */
++struct virtio_media_resp_munmap {
++	struct virtio_media_resp_header hdr;
++};
++
+ /* The values for these events are set by the virtio-media specification. */
+ #define VIRTIO_MEDIA_EVT_ERROR 0
+ #define VIRTIO_MEDIA_EVT_DQBUF 1
 -- 
 2.56.1.750.gf70dc682cf-goog
 
