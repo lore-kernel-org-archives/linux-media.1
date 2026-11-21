@@ -1,97 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795263952;
-	b=SgbczkwfNhbPjj2ak8sgOXAMC0mK9hzsp785YEa8SioFjLBeXgyZcWm1djxcgx6WdbKc
-	 wT1402x81t7GHdnbp5L4BOL94w4e+ibup8IKt25xhsuuh8Ot4SkREFfDefrniP4bm8d2l
-	 ecVsx3GPTBvlSR0Ix1gGYfB8Ed4xsVa6we0Nc12AOmz1fsBBU9c+K/+0NVXMMry5CtQ8W
-	 mDvh0Y86aVNQ1AEHr6un+KjrZ+Nt47ul4IhRC9MP4ssECPlY6uDzpM3Q4YEAcPCEdVeYq
-	 SzCWpuHd1YDVssErOczrlC+SY2RWcj6cKZWOWY9yvk5WMsNYTLz6nmb5Cz7T65LCaBQ==
+	t=1795264383;
+	b=m+m05zcRg6e+tpkyxkR81sCyHFwmz88A7nbE5Gl468TOBcF2prAuRhgGA7ZWidUAFS6i
+	 5/8NrXqYk2TgurDrboVOI1g5EXfeCVwb1TWM/tfSZ4Fvz9cRH+sYcgzi4cUF3N2bHtqke
+	 Vl37zjlcFxdvgQUFT2dWHP50+mWGH+elvFZMhKBP45Ak16TBnDNwHlAxcve470DakMBf7
+	 LdWqWfeZQyv0pglxVb2WTmi4g5QlSCo+xNw/rvgMUu1R4rHFzgD27MaP0NX6x2VJp73Uu
+	 YoOmo4dhl8lz1u5+uaAdd+EeAfbk950gw725FusOpUKyTOXQ2XJ6JxPrqnx3UJwsnog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795263952;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=jIad2Olj92CNzs479lQy7bfwjc0bTVZb8HfHFWlPwwE=;
-	b=JfaLX/RrMiTpIBtdyFNvBCAuivhvhg3QM8LTMyOApdHjjLySHkb41xr06R+T8eHSQ+P2
-	 nwMUHwMCtTW0A1qMHenV5gL2hfZimcn6iDQdosjbbA3MdcRXyaUYBkcwHMfEmXIqSZUTw
-	 mXTVyetFyoeH457EaaDYj/2APy8Owwo8mOUxoSOkgs+IcZYKlSYS/rnj+4S/17CJkjjcF
-	 1888T2H5IaopvWGfOnkzNh47Gt+rA7soFIzyGZ6dnC5NnZHffVTALI248hCFx1+QHb9HA
-	 uoyXygXENUqXiKRdyTUTEi2gaT8T1UXm2/S+V0Z3I8OYPUkPUH/yWg015g1qi6yKzbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795264383;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=cNTODI7JrIIu1DnD7iwwKJNOM2aZnndQZB/sdyIkwEI=;
+	b=QgJiK5vjpVFBXIBO6UbUilxXkPPO94XlFj6OkewsdQyNZ0lFk4hkgJyDrSkBuPuNAonZ
+	 Taas0l/6gpRFTfuHIBGo91uDqdpTYcDMhUV/Q2rDWzEt1JHpqOU1Pxf9LSKCcNaPFYmxN
+	 W3mTgYy+RFiQwhOQoc2rlaDcRcqFUa2snezBpWZQ7kuxXVaMN1zFXZoRj/6BSezJMrrOu
+	 cOyI701juIYrAcVIv6vHQCrI9XyP5jwc86Iqsx8SmqnHm7l1Z0T4BwD4sKTOhECHgPrV/
+	 qMfjlOOe9Hg4G69Mx890VlzF7AkVC5jJqDqfUqyNJdR1n7q8eiGTaWZylcD5Q0KTZ7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eksHB53G;
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=o6Kux1qO;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19E9E606A320
-	for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 12:25:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19E9E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C02606A320;
+	Sat, 21 Nov 2026 12:32:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5C02606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eksHB53G
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cde1479f76fso1171093a12.0
-        for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 04:25:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795263951; x=1795868751; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jIad2Olj92CNzs479lQy7bfwjc0bTVZb8HfHFWlPwwE=;
-        b=eksHB53GJ89+gQaQFhKKAbEMIXH0d5Na+IHNxgLtXMX+V+Otkt2saNYJq+sWIk5mEE
-         0TX9vdMOOWcifmyRSZvBSL+UovFPZ5d7Q94VU/xH2kiCRxYu1AqnIO8WPv85XsmkXRMz
-         wZfB2KZidqLU1TcuraJCs3ht/7LpJ+Ow8023FRgx/rRR00NkcJK7vyxa++lRjdkMiUed
-         fjRUjjONSMNje6VJjjhXmMRGbi917M7tsttfaUqfIiXruyFB3j2RVdGrl17J1y+MgiYr
-         i1BINGD/+ldFMCJoG7KTRi7jtbHfUwVMCA9GEGS3SaCef1z751T/N4oz81PvpQiWfkm4
-         OOzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795263951; x=1795868751;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jIad2Olj92CNzs479lQy7bfwjc0bTVZb8HfHFWlPwwE=;
-        b=AhtBW1pSjjVUxoyjRLDbfZKqj5itB6ACyolRC+2TATJbkj0mq8xjkFA7xE87ARFzPi
-         mKJ7HitnntBi14iXNQYwrYW7fON5r1my9xT++T0ZUgRGfYnNFp+XA4f+4Dm9ZRh8wa0B
-         NcRdPCL5ep8yFFkPsU3uBAdlsthR0KNc87zvi2gcfayqK0LCy0yuemfGEbg9A71D57rH
-         Kscty2vX/+dkf2j7LCc9xNLvP8lgNmLs3hOLW3y5MMIMtZ/O4mOETPkCPNzleuceWoVT
-         taxxP3MjFbRL96MkcWxK1s0s09wKggGphyz7GLmfYK99ExXKHlfmiDPVXCJu9pgQHkPq
-         cPEA==
-X-Forwarded-Encrypted: i=1; AL+hErF4eKSzr0KD+dLN4whHOuoouzF2r0cl7opODWBXFxSq6bsnrRbhg0g2fviFhhJpkzbXPm3T6Tc4oB2p9g==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+4in90YipeqOKdtxNPkEj5yPEjqigidvT2XlkW6+FNGSEyjZVi
-	vj6iyvAuhMeY3IQXYgnc7VR0QbzO0QPKVRZuinnDWD6D6RAXJV7C/1zL
-X-Gm-Gg: AZFdTZeh1ZchT783q85o/qt7k8qwaMr/WnqSowgRav+bbwhlr1hhS3afbRvnODnvS3C
-	X1MqbQy9FlmsBRtZyrYMExvHWfeZXu/IoAImGCj9WCd37vpqL0fQJm2R3lbC6eUvk0LvuZzkjgm
-	xh4fT34vporfAGLotTZrjonQhBlwN7SXAu7aNa1TyFqyueV1M/hhToBXmjAcZI6f3m4SFxVQskV
-	mdhfp4BEV9jj/MoLm63A1PbpC4Di9Z9HzuI35LHQGZRzQe58znKyUUAHjHK97bvW7D4a5eJsm6m
-	/tQQr9skn5t2rYche37NKDQsfysZgW4pYAk6FCpdCGzVxu51BO2LUB9BrJvGQWSBQW58zT4M0WP
-	E3aA665oUqqBKOjKK4h3poCSB7oN6GjLSgHC/tKNmIPYW3dHGG1ObzK5+GCbAR1Ug/1vDr5Xnwp
-	LdCVqbFJg29JWI2IUh7EXutKzvfq3s4+880q2HlL+JRs0mwQVJ6CyBYS72intaPVBlJ8GuM7Dqs
-	yvzFYOSQsCJcmixb1eMM722kMDxBiYBKENAVOtVWlURQ84r9lGoYp+BejslOdH0vV/zaa4cerTn
-	nO300UiPybQnleG9gakSDvj7cjrOt5xm7wZzquDrCk1PziBrdBBPYApZwz1iVaho/Pa3Q2BoCck
-	+t7TGQQsg5tuZIgm6XvI=
-X-Received: by 2002:a17:90b:39a7:b0:3ab:a3ee:33ad with SMTP id 98e67ed59e1d1-3b41c8d95f0mr5500808a91.22.1795263951403;
-        Sat, 21 Nov 2026 04:25:51 -0800 (PST)
-Received: from X.tail7c3ebe.ts.net ([103.190.40.238])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6cea7c38sm2616474a12.2.2026.11.21.04.25.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 04:25:50 -0800 (PST)
-From: Avishek Chaulagain <chaulagainavishek14@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=o6Kux1qO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=cN
+	TODI7JrIIu1DnD7iwwKJNOM2aZnndQZB/sdyIkwEI=; b=o6Kux1qOJa9aLU1HqZ
+	i408TbCIsl5Ud1udoRSLaNquOo8R2uGjqDk+/ZwUGI+JolE05YZKdvQ327DwLqk/
+	Tu5rfoHkibw8PbxKr+ofgzVygTeCzGEP6C6OHiGHjB6Lm5fKMLimej8bEKrqchrI
+	IhByvHzlqZEcfzEzvuz6iKYaU=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD31BBejwFroa+1JA--.58410S2;
+	Sat, 21 Nov 2026 20:32:30 +0800 (CST)
+From: Haoxiang Li <haoxiang_li2024@163.com>
+To: mchehab@kernel.org,
+	hverkuil+cisco@kernel.org,
+	atharvd440@gmail.com,
+	u.kleine-koenig@baylibre.com
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Abhishek Chaulagain <chaulagainavishek14@gmail.com>
-Subject: [PATCH] media: atomisp: Remove unused ISP state control functions
-Date: Sat, 21 Nov 2026 12:25:44 +0000
-Message-ID: <20261121122544.428-1-chaulagainavishek14@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Haoxiang Li <haoxiang_li2024@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: cx25821: Fix a potential leak in snd_cx25821_hw_params()
+Date: Sat, 21 Nov 2026 20:32:16 +0800
+Message-Id: <20261121123216.535327-1-haoxiang_li2024@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -102,87 +65,56 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD31BBejwFroa+1JA--.58410S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AFy3XF13Jr4rKFW7Cw45Jrb_yoW8Xr47pa
+	yavwn5GF4xJF48W3W8Gw109a98JwsYgryIgFWDZwnxZFnIqr4rtFyFqas5Wr1Yk3yfZFnx
+	XFs8uw45Gr1rJFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEQJ5UUUUUU=
+X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7R8WhGsBj18-WwAA3+
 
-From: Abhishek Chaulagain <chaulagainavishek14@gmail.com>
+Add an error path to free the memory allocated by cx25821_alsa_dma_init().
+Also move cx25821_alsa_dma_unmap() to the goto label to unify the error
+handling.
 
-isp_is_ready(), isp_is_sleeping(), isp_start() and isp_wake() are
-defined in isp.c and declared in isp_public.h, but have no callers
-anywhere in the tree. Remove the four unused functions along with
-their prototypes.
-
-isp_wake() was the only user of udelay() in this file, so drop the
-now-unused linux/delay.h include as well.
-
-Signed-off-by: Abhishek Chaulagain <chaulagainavishek14@gmail.com>
+Fixes: 8d8e6d6005de ("[media] cx28521: drop videobuf abuse in cx25821-alsa")
+Cc: stable@vger.kernel.org
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
 ---
- .../pci/hive_isp_css_common/host/isp.c        | 32 -------------------
- .../hive_isp_css_include/host/isp_public.h    |  8 -----
- 2 files changed, 40 deletions(-)
+ drivers/media/pci/cx25821/cx25821-alsa.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp.c
-index 39cccbfa3..13ea6d2a5 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp.c
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/isp.c
-@@ -4,8 +4,6 @@
-  * Copyright (c) 2010-2015, Intel Corporation.
-  */
+diff --git a/drivers/media/pci/cx25821/cx25821-alsa.c b/drivers/media/pci/cx25821/cx25821-alsa.c
+index f963ae79f685..1bf4fb96db1c 100644
+--- a/drivers/media/pci/cx25821/cx25821-alsa.c
++++ b/drivers/media/pci/cx25821/cx25821-alsa.c
+@@ -529,14 +529,13 @@ static int snd_cx25821_hw_params(struct snd_pcm_substream *substream,
  
--#include <linux/delay.h>
--
- #include <system_global.h>
- #include "isp.h"
+ 	ret = cx25821_alsa_dma_map(chip);
+ 	if (ret < 0)
+-		goto error;
++		goto error_free;
  
-@@ -29,33 +27,3 @@ void cnd_isp_irq_enable(
+ 	ret = cx25821_risc_databuffer_audio(chip->pci, &buf->risc, buf->sglist,
+ 			chip->period_size, chip->num_periods, 1);
+ 	if (ret < 0) {
+ 		pr_info("DEBUG: ERROR after cx25821_risc_databuffer_audio()\n");
+-		cx25821_alsa_dma_unmap(chip);
+-		goto error;
++		goto err_unmap;
  	}
- 	return;
- }
--
--/* ISP functions to control the ISP state from the host, even in crun. */
--
--/* Inspect readiness of an ISP indexed by ID */
--unsigned int isp_is_ready(isp_ID_t ID)
--{
--	assert(ID < N_ISP_ID);
--	return isp_ctrl_getbit(ID, ISP_SC_REG, ISP_IDLE_BIT);
--}
--
--/* Inspect sleeping of an ISP indexed by ID */
--unsigned int isp_is_sleeping(isp_ID_t ID)
--{
--	assert(ID < N_ISP_ID);
--	return isp_ctrl_getbit(ID, ISP_SC_REG, ISP_SLEEPING_BIT);
--}
--
--/* To be called by the host immediately before starting ISP ID. */
--void isp_start(isp_ID_t ID)
--{
--	assert(ID < N_ISP_ID);
--}
--
--/* Wake up ISP ID. */
--void isp_wake(isp_ID_t ID)
--{
--	assert(ID < N_ISP_ID);
--	isp_ctrl_setbit(ID, ISP_SC_REG, ISP_START_BIT);
--	udelay(1);
--}
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/isp_public.h b/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/isp_public.h
-index 78abd77c5..f778922f6 100644
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/isp_public.h
-+++ b/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/isp_public.h
-@@ -153,12 +153,4 @@ STORAGE_CLASS_ISP_H uint32_t isp_2w_cat_1w(
-     const u16		x0,
-     const uint16_t		x1);
  
--unsigned int isp_is_ready(isp_ID_t ID);
--
--unsigned int isp_is_sleeping(isp_ID_t ID);
--
--void isp_start(isp_ID_t ID);
--
--void isp_wake(isp_ID_t ID);
--
- #endif /* __ISP_PUBLIC_H_INCLUDED__ */
+ 	/* Loop back to start of program */
+@@ -550,6 +549,10 @@ static int snd_cx25821_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	return 0;
+ 
++err_unmap:
++	cx25821_alsa_dma_unmap(chip);
++error_free:
++	cx25821_alsa_dma_free(buf);
+ error:
+ 	chip->buf = NULL;
+ 	kfree(buf);
 -- 
-2.43.0
+2.25.1
 
