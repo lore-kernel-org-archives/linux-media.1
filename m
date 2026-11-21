@@ -1,96 +1,152 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795233374;
-	b=FLEJODqrcXjErg1+4/HsXQkE1F/7iVa4OWjhATgQBzkswzFXnft4rBt2PS1bETDzpp2A
-	 AyupUzJvt2rfQbjWbbIMok1F+9+9R9ouAD803f3vbTjtMFcI7yveRZWFyT/bLoHcCRPE+
-	 H3PR2XJHqz+5ypxfcZq2HWF8pzDfLL0tyrLDeRzVEL2hEduT0aJQdj9jVdGqE0QdLUpz8
-	 cZUNPPC9P5TLPr2btoC3U3SXx9pZHFzhrBa09CH4xg0H0k22/u1KHf+n9rmn4BNsTkAF7
-	 +WpPEajzQ1V9f9J+9gbepf0L6+GScdVlsglwLC3Ed0DNEABqRGzJJbiX9R5M4WP/NVw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795233374;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=eLZxih5z08b2fc+/M1y5EZmfTNGPdZhiTJAvtqxetN4=;
-	b=Tin9WrtZMF5zItarr7vzX7L8cxaatIgzcG7O9/PChDuWw5R7LXZL0zyGK1oMfa5aeOnt
-	 oaqzf+EdW4QVKtzMrl/gmP0CDGrATMqE6r5ISFUoAPE735JJPN0iyLRXYsroTUBNjUQBf
-	 lI6lU9rfNyIxsHI3YfQUseVbsPEnTj41sBIf+fs6hxYhioR9YQBarYrQStwSg5/gHIB4O
-	 Vg7OYy+LbH7vRSMLNaGEOYD4ri+ivB4PvxgJGZdSMYxEOveoS8aMxK+LEaH4asliUb8tV
-	 AtP3AX4wqGdTHN09kQ8sSWCUyrEQf7LxxeZgCia0uwvZCELXgdMuQ/MYeKXoT6jaAMQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f1ixSw3R;
-	arc=none smtp.remote-ip=209.85.161.46
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.137
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795233778;
+	b=WKadplASVrZKz8+aX/++KUY52xy6D4Em8jOREP5QV2yRYLs8PT1JmWO5ICBwaI4iFD8l
+	 R9x6jJ+UUa+gUcnWJa5wr23FONCws4gTTxXfYjMPHv858WLGcxhJckP2XwRVs6b8jAPhk
+	 tAjn5n72hSu5GIUBjzq1Mf2gZvVJES9Hjn9wTPOdFVxampA3HznsHYpgbEZ0ClAYzQdtz
+	 ttcJd6jWiP+V6iA9vnGDc4hGpkttT2kCtnAAeE6kR0AtxmS+G71C67sLOwJsmPBbohUTw
+	 b5J3FZSeoKE4EUTknkNsFgWcSAOBlY/Fa+7o/mZk+gVQjlxf3VkSXWhAW4uOzYRtCqQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795233778;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+X3Cd5kzvVKN/JlZe6DjIUFxzktvcV9f6RFkp/7VzWI=;
+	b=4NJyb4ElLRrTvGodTdJz0bpLHYnt6VX3LbBKOMfCj7yGnPFPJv25SJsb2LThUjVk+V14
+	 lntwm2Z5MIDAfTNXz8oHurOqH4JVc2pKJmREy8g1LiRqe2UkL1rpJCoOnG+JpTSljs1PR
+	 943lfslb9/kOa1oF001886yPHzb2f6VAAmydNzX6Uagw+M/bVM2RhzXqALZiBL7GzagI+
+	 /fqPhm099Pmd8mKmIS7Z3MltXmh67h6PCVXQyypZJq7h25FiA7X0oSkA/KmFrB+8SIBQh
+	 0EYT9dDJ639nz72Ts6uT6zL+tN+ZiWZn9UftaGTLojOHDjtRXo69fF9xaGGtDT4//QQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=doany.io;
+	spf=pass smtp.mailfrom=doany.io;
+	dkim=pass header.d=doany.io header.i=@doany.io header.a=rsa-sha256 header.s=selector1 header.b="eM9r1Z/x";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.137
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11020137.outbound.protection.outlook.com [52.101.229.137])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F140E606A690
-	for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 03:56:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F140E606A690
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662F5606A696;
+	Sat, 21 Nov 2026 04:02:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 662F5606A696
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=doany.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=doany.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f1ixSw3R
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-717080a2d50so1455349eaf.0
-        for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 19:56:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795233367; x=1795838167; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eLZxih5z08b2fc+/M1y5EZmfTNGPdZhiTJAvtqxetN4=;
-        b=f1ixSw3R1avXsaFg6QdNWcFVcV4FHmLJ0onhPPtxr7wrzzWpg83iY5DwKN87W79LfX
-         9tuGxtSkuQhy/rh0hNPhjauBlsN+BDH9iGUfRDzDI806VFDNdfxxB7uLARvuPvqV/Ycz
-         P66MagtCP4s6ccQQb/wpawFDeKAtJu5cf4jH+LwVgdLU09HeGmEtJU3F8/7lQv4JjTMm
-         UUB/O1JPiBS1zMxS9tqT77+hXwSiJhhuxTHqJGerpXRwany7IGEbVgAJKz6TcuMN0nnd
-         CSTkwKjvM96NBrjRJCWdD8iz+dwAN4JXyk33nsaPFNMiJFYveXBWIv0AUPdZlogNpOia
-         fWeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795233367; x=1795838167;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eLZxih5z08b2fc+/M1y5EZmfTNGPdZhiTJAvtqxetN4=;
-        b=i0bjbqiSQznHhZGBuQS4qGE6CriSfUaNlR6XMnmkmNr1vZ7Mqz9UHdvkHCUM0CcOJi
-         1cWVrIDhr49fxSS4KZ3yCBDp2Q606iBUxAP20c3fv+JGNdp3ySDjUp5CQwTqmVNy6iiS
-         bdosEbiraSZQK2pNLee4QBxge7SjAlbYudr7hvFtZKv65F9Z/45zZ8NxBoZRlA18mgao
-         t2rERXxEuarXCndbjJzTgbFH0JocYfVShRZpHCGHOsM3O8MeWludu46b4TTq3CW1lQ6W
-         E0Mn/PvVF1d8mNqHgmnCN70E2XPu93yDXfDcATlAetxVFryITnn3EYGvrLMhmSLIOuO1
-         qvDQ==
-X-Forwarded-Encrypted: i=1; AL+hErFoLuTEOzOSFkdj/L2NCn3qmnIPLVWAEldc2+qSoBMk7e3qgmwXD2rjboW7HP+zEjLRBf+sPYDSEVvrdQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+i829289cUsSma5G6+Hx+O2RN9RVBNcB5L6c1ft+SpCyMIAgu
-	vGxFr59iDkPLpAK3o2N2C05kQY+y036uRxZuFiyvV1yOaEzYi96kniPiCV7b8eMt4w==
-X-Gm-Gg: AYBFou0YXt6PP2Ss5j5/64Q3gwqy6CzXhea0g1ChBJS/1/qPZO6JZb1/DIA3hXDi7vQ
-	H+BO0PYbr33rxJGSQ6vtyz5ni6rQ/cisqDnFXr08eZgcM++E7a3Hzpj7VdfvH3Fs4fLiikRYnt/
-	rq/Nluw5SwStCiDhZBP7qKSIjrt+ci5QrfNgUKNUpt7OWe4HX9g0437loIiYwcTX6+GTkVD3cSO
-	qF23qZ84yhHpxNOSWHu1i/PFUrYdK6/nmC7aziux/9SCmBCPYVZL4+0ztknAzjfT64B77NgDQfh
-	+4nnhI0WB6zOsAZmMAgix0UhhnJWG11HYDZTu2ZFfK0wmtIoT8mXg3+tOV0mNqVz0DbTsVwrp7C
-	/mJhnX4I0O3z12RPQpMft8VRN/ww8xW1qs/is4AzEMORZgHAg8S4UHOVKq6WUuGwQeciyuL/O0c
-	1pdyDEkdXEFR3SIswqdojSCJa+zTz/I79BDiGiEc4sxvyd3+ukDBcACNPGzW1+g+CKOhbuC2b7q
-	5Ku+A0VVMntYn84CkU7U5JKMrhsvZhIw28ZbsCDje2Hu0XX5JPDwcjE6Qy3e6e9Jmzu41k1Wsne
-	lOGrJxch0siXJFlif1Tfo2v+COPe9JFSFANarsECB0ePV4KXZcDg5wRX
-X-Received: by 2002:a05:6820:4a19:b0:71a:ea6a:4f64 with SMTP id 006d021491bc7-71b394eff5cmr3917901eaf.50.1795233366717;
-        Fri, 20 Nov 2026 19:56:06 -0800 (PST)
-Received: from miso.lan ([136.62.61.36])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b380b6f82sm2878076eaf.10.2026.11.20.19.56.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 20 Nov 2026 19:56:05 -0800 (PST)
-From: Matthew Laux <matthew.laux@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Mehdi Djait <mehdi.djait@bootlin.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	Matthew Laux <matthew.laux@gmail.com>
-Subject: [PATCH v7 11/12] media: Add subdevice driver for the Mstar MST3367 HDMI receiver
-Date: Fri, 20 Nov 2026 21:55:22 -0600
-Message-ID: <20261121035523.26764-12-matthew.laux@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261121035523.26764-1-matthew.laux@gmail.com>
-References: <20261121035523.26764-1-matthew.laux@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=doany.io header.i=@doany.io header.a=rsa-sha256 header.s=selector1 header.b=eM9r1Z/x
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XfWfJgnhLJaLytxJp6s7glr5QxAKv2mJz+ChVxnNlTMEA17L32fCoSKEKZcT3l9Fi5jS756G0uQQCDlh67V/f60iXHOQTl0+3iyX3GAqc9eJGeU7sGgOns4wqJEr4Lc6J7/w/uN4Jll4hxH3ud3hHyi340V0XgZt7gOLMR9veX5/R6JCzZlOgALYUMBG0lAEPHMW7vj5NuitzEmYUa8P3YMFG13eakqQxNGgZz9BRRSeLK5HpepEjMaBYyc0HLHcBcatEwkvyYsPIjuboESSikREnIW+wkpedYgMiYuIuzgYxHgsYTE44KabHXahyKU2RPM4JzYjOBB1vQJBsjzhHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+X3Cd5kzvVKN/JlZe6DjIUFxzktvcV9f6RFkp/7VzWI=;
+ b=MHH8SPZKgOEtlTJBnYqwAxxhzbCqqMpG8HYwpbZiQbGvO+YjtYsYkYhj5RGT13M8qVPFyyENiU5P/PxLht/rqlYFaMXx3O9yhgg0P7t1/zqB53/vileFwT4TA81XcqgXCroVz2wfiFKwcnVfdVJYNZ/0wY5mqk9hzb53UV9g5pc4SSbmVLfIIws+GkLI6YIxB1ZxWQ3K0IJI2W5ev0baS36zvxMQQV4D9qv2zhY7hFf18ifCa05tEtKbSNRFEYCg2UW/B6qKhwgXdKwmvQEs5KI0YZEq/g/nGVVRnzdmFRXyl1+BD6qHlTxD4aJhXnh8jx9pbDGBrtn19PDfaXu+8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=doany.io; dmarc=pass action=none header.from=doany.io;
+ dkim=pass header.d=doany.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=doany.io; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+X3Cd5kzvVKN/JlZe6DjIUFxzktvcV9f6RFkp/7VzWI=;
+ b=eM9r1Z/xAS3co6oyNPkIoGcgD4/kGd8xEdOtpagsPQStvxgn8V6ruPMs8TkYhIAW36fIwuzNLjNECh4d6kwycrK22uGNyerOBU69hPdDOYDbYrbamJ42y3+xYdqEGiqZpzThlo3AUuXmpQLiCiQLfsxXqNd5y1SizIdwe5iTeU29zFwGtPuM8UPSl8BYIY3LN5F3gY8F9t+x3RL9OgKNXSACytAfQh0V96PXRRe8+ARAED4lB+F3CvhMNl8eFzC4rLyl0PIExr4mBjqUmXo/G6FdHmTMtY+FKXQvKzD+fASVH4VrPXdBWFW2XVcyJY/XxhqkObZS4WwEYk/eNGGcXA==
+Received: from TYCPR01MB8850.jpnprd01.prod.outlook.com (2603:1096:400:18d::13)
+ by OS7PR01MB14504.jpnprd01.prod.outlook.com (2603:1096:604:387::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Sat, 21 Nov
+ 2026 04:02:55 +0000
+Received: from TYCPR01MB8850.jpnprd01.prod.outlook.com
+ ([fe80::dc0a:e711:9a33:4362]) by TYCPR01MB8850.jpnprd01.prod.outlook.com
+ ([fe80::dc0a:e711:9a33:4362%5]) with mapi id 15.21.0639.011; Sat, 21 Nov 2026
+ 04:02:55 +0000
+From: Ryuki Maruyama <info@doany.io>
+To: Alessandro Menezes <alessandroasm@gmail.com>, Hans Verkuil
+	<hverkuil@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
+CC: Sasha Levin <sashal@kernel.org>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, ye xingchen <ye.xingchen@zte.com.cn>
+Subject: Re: [PATCH] Revert "media: siano: Convert to use sysfs_emit_at() API"
+Thread-Topic: [PATCH] Revert "media: siano: Convert to use sysfs_emit_at()
+ API"
+Thread-Index: AQHdeW0vEn/Y7xjbRUehm8UuxcBv6Q==
+Date: Sat, 21 Nov 2026 04:02:55 +0000
+Message-ID: <20261121-siano-revert-plus1-7f3c9a2e41d8@doany.io>
+References: <20260830172330.3395671-1-alessandroasm@gmail.com>
+ <20260924211146.2921657-1-alessandroasm@gmail.com>
+In-Reply-To: <20260924211146.2921657-1-alessandroasm@gmail.com>
+Accept-Language: en-US, ja-JP
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=doany.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYCPR01MB8850:EE_|OS7PR01MB14504:EE_
+x-ms-office365-filtering-correlation-id: e3e731e8-cf16-4ede-0abe-08df4784527c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|18002099003|22082099003|261009223027099003|4143699003|10067099003|56012099006|261028144727099003|261026140227099003|261026121527099003|261022105027099003|38070700021|7055299009;
+x-microsoft-antispam-message-info:
+ +M5yUmmVKAJ8z+5pbolShrN6Ur3yhxYL/6LZP9CpyIqjOlWI6B8l5vkn+guTUUKXnTxZDEg4UHJ81EVMMcy/H179DK9UpfxjigWROV3ZO77k+0+uGoTy+TjuGj62dsDMgvtnwNwmsE6vzCPV+pBcgvQLP83rCQgXF94mcA9j08lcOtzNov7xer7qpgin/N1GF9+rGdasIWKI0KJjTtzyX70L2mD7xAP3SXoK/4tExZVGrBNGphCsu24bkzAY7V4M3PAGbt9ew+3hODhIheIMN97jMkQG1ro9ytVQgsAVeiiaufu69Sx9e4NNh2YteUvRCdpkLmM5MS2KK5pys7tSK1Ol1ZTx4EshZ8dLE5iJOE0gVPGzxwy2H5JyUnR5w7eOvA9DFHhscofD61zBAKPKn2Bh9N8AIpklsItKUqXO8NPigTI23dxfDZOMtpmRu8lbTIY4pVu+jeauCPmt7G6kPltcqWvZ1Me7gKxfXUpOaPZ6aeC9KtX00Ncfc7oVgvCwFjSO8ses3opnzUF+a8schGX6QlJ5yfzuXmxspuDhB5QTGktPrcAXnwZLsvBfMORdMHjQoGpdTFWpXzguaJHWhvF62pB/gn8exj4kwutsft0rjui93EmyephYQcHfXH249RpSnC3Rkrlis5MNOoOZIecMXqbeYSwf/i/3HVBf28JcInsuTDzQ7I8x9C6R/hzsvsalA6UllEx8jHEuXC4RtQ==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB8850.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(18002099003)(22082099003)(261009223027099003)(4143699003)(10067099003)(56012099006)(261028144727099003)(261026140227099003)(261026121527099003)(261022105027099003)(38070700021)(7055299009);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?MnNLVU9VYkVnWjBDVWFLbXhCUU9qdURWa1RUaHlZSEw4ODd0VzR1U0FVYitN?=
+ =?utf-8?B?TXVOUmVuZDBBTDhYRGVGSEZKTDRzY0VvUWx6emgrY2d1eC91QW9RK20wNWti?=
+ =?utf-8?B?ZGlBcm12ejkreW5SN1E2MURUR042NmdLdCtIMXd5VU5CZWxyUTcyTGxaRWc5?=
+ =?utf-8?B?N2dpRjZTWXhCRXNJb1ovRnZDRDJFS1VCT2FRbmc0Q3FENExuaTJROG5tQTJx?=
+ =?utf-8?B?M014cVdrVVFpdUVDZFR1OGRyNko5eldGUlV5aUFjUUpXUFBCQXB0THZoRlhG?=
+ =?utf-8?B?amJsL0RTaEw4WHpxOFJDeDMyRjJTSUxyV0pEMzJnSlNXbnhwdlRCYUt2blhz?=
+ =?utf-8?B?RklUKythOThLMU05Z3FBMDMya2k3a2VHN1NSRXhDZGxZVVE0WGpvYis0TmpJ?=
+ =?utf-8?B?ZWpOOEordnA5RnJQYVYvZWJqTEkzMzdGR1BjQUtVODlqNXF0RXphcEVhUFFR?=
+ =?utf-8?B?T3kxdlJLTkhKYjg4NCtCUEMzK3p5Y3JCWm5ZZy9TY3B1MWtlU1UxaVR3WG1S?=
+ =?utf-8?B?UlgrY0VQRTJxa2hTYzVXaDBETzNyVG5GTTVrOTgvNGdPUlQyaGxjUTNUM0hF?=
+ =?utf-8?B?WDYzcVltdE44dGozeHBFWFViZzF1enFqc2RxcG54cS9UTHFadVFxMm1WZVZy?=
+ =?utf-8?B?QmR0RHNIaXoreUMraGlOZVVpQ21NS3VueWw5RjE5NmRzMTc3UzROdTRFWjBD?=
+ =?utf-8?B?ai8yZnMrdUJkbEZZc21ZbXpMeDJWeXdYNDU4MEZmck5yK050bUxndUNUZWhk?=
+ =?utf-8?B?c09aMm9FZGlrVmIvUFp1UkdqVjJtbGRzUmlsakRsQktKUDZhUzE3RUtOWFRG?=
+ =?utf-8?B?QjN4aExUNm9NdldqdEJLcjVXK2pRcGhMVlRvREQzK0U2VVJVMU9MUnR1OGtp?=
+ =?utf-8?B?MHNUaDA0YXNDbFFNV0J6MVhmR3RENlVsb3VQYitDV0RkaHdXY2VGcU00bWNS?=
+ =?utf-8?B?US9pYmFGKzY5SytxS3Jpd2VzODhqYnlROGQvT1pnNDg0SDMwYjJqYW5Obmll?=
+ =?utf-8?B?M2VOU3MyM3lWK3JXNjVXV1FvNmNFZGZoWmxJQVVZNEtZZE9oMTQ1VXg4cGtx?=
+ =?utf-8?B?UVVIMmtoaWZlZ2xpWlkrWmM5YVNsTEErM3ROOGFtV3VNZWgvV3pKQmRmNXIr?=
+ =?utf-8?B?UlRzWjlMOUhOOU5ZbHBOQTFWUTFCOVJ4Z3BFQ2huYkxiZk1tWkF2REl3SVNE?=
+ =?utf-8?B?SnA2L3ltZ2R3a3hyV2hBd2tpMllKZTZIUTlLOENqeUFNY3NZN3VYUktXb2tO?=
+ =?utf-8?B?eDFZK3Y5OFpVMTFMb0I1L2prYysrdE1XOXQ0YWE4cGNqMmtiK3JRODRFYTFS?=
+ =?utf-8?B?T2tYTGdRQmR4M1o1ZEZCTUxXR3JDM1ZzQ0FIcUcwajRBV3lBOVp4T3hLd0g1?=
+ =?utf-8?B?Ui9IVDNIYkd6aXorRE5uc3dwZzdiZXpueEREZkR1eHBOL0tFSGVJQkR3b2w2?=
+ =?utf-8?B?U2ttUFR0ZmR4bDNROUhPSUhJeVlHbnpKNXZJRkQ3UDRMMjFHc2xZeWFacXNZ?=
+ =?utf-8?B?bmp6eGtoMGo0U05mbHZnRDRsQUlFTXhZUDB0amEvd0oxck12MVFTeGFXbjh3?=
+ =?utf-8?B?YndKcjdRUzgzOUk4MVY1SFlXVHhkaVVQbjNSc0FGZk5zQ04zN2VsdHlpc0hn?=
+ =?utf-8?B?UUtwN2ZUNkltMmJRcEY3TStiMUNpYjJqaHBuVUpkZ2VQY0dZaGwxbnRZMytQ?=
+ =?utf-8?B?WjUyZWJvc2pXdC9nLzhLeHFzclNabGtPUllWSkpUYjhscUlZNTZBVXI4dFdG?=
+ =?utf-8?B?M2J1SkRvNUtGejRqNVhlMkh2Z1hHeTV3K2FPbUYycDJPdmYxcnhOT2hsSTRw?=
+ =?utf-8?B?SFIrODZYcDJScG16OWZ0dkpsR3RyazZLSUxBK2hRTTI4MTVmTW9tQ2t3RGQz?=
+ =?utf-8?B?K2QwelJmOVFjTDN6M0NWZXpqbDVOWERuOVdnZzBrZnZkSzJkMFhqOHFMaGFT?=
+ =?utf-8?B?eVpJajdvek9IV3dlcS9pMTJ0ZDRJV3V5UUprLzJuRWFKdWUrYkNlUE9iVFJH?=
+ =?utf-8?B?MEtSM0VsL2k4TnlyeXBxU1dDV0pBTUR0RHg1RFVwY2RBTjZyME8ycUVtSzZF?=
+ =?utf-8?B?Qy9nemg3YkJJQ0JleEJkQ3JyejBUWWJnYWFSU2hib21WUmdBbXpRMEUvcGlj?=
+ =?utf-8?B?ODFRQW9ZaFlEUVNVUUlvbmpGTzhIS1dLSkZPSU8xQkhXVnBYeExLdVVscEhq?=
+ =?utf-8?B?elZHbzNUY1lFOUJnQ1pMRDQ2Y0xBTElSeWx3c1VzQXdOTnN4RnFwbWNpUjNv?=
+ =?utf-8?B?MUVoZWczNjBxbjZxbmlCWlpUQzRnSWNlQkVUSkNqbDV0QzB3ai9YelM1WUJW?=
+ =?utf-8?Q?0tUlpDoyvZp2EQF9Z/?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <910FDA10117A8C4E8F4ADED2DB2521C8@jpnprd01.prod.outlook.com>
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -100,1254 +156,31 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: doany.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB8850.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3e731e8-cf16-4ede-0abe-08df4784527c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Nov 2026 04:02:55.4833
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 22ac977d-b140-4dc8-8150-90d645d3475b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: c8SZmjgsLlRhzI5MbMF0+aZmMQa7mt5EhAW5B4l2QrvxCUzFkUA8oMu5h5flP1N8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB14504
 
-Implement a V4L2 subdevice driver for the MST3367. This was developed
-through reverse engineering the Windows driver, and capturing USB packets.
-The driver supports both HDMI and analog component inputs. YPbPr and RGB
-HDMI sources have been tested. I also added a couple custom DV timings
-for non-interlaced 240p and 288p over component, which are also tested and
-working with this chip.
-
-I tested this with a ThinkPad's video output, MacBook (10-bit deep color),
-Nintendo Switch (both full and limited range) and PS4 720p/1080i/1080p.
-
-Signed-off-by: Matthew Laux <matthew.laux@gmail.com>
----
- MAINTAINERS                 |    7 +
- drivers/media/i2c/Kconfig   |   11 +
- drivers/media/i2c/Makefile  |    1 +
- drivers/media/i2c/mst3367.c | 1134 +++++++++++++++++++++++++++++++++++
- include/media/i2c/mst3367.h |   27 +
- 5 files changed, 1180 insertions(+)
- create mode 100644 drivers/media/i2c/mst3367.c
- create mode 100644 include/media/i2c/mst3367.h
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 102362c386fe..6cbe402ee9da 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19039,6 +19039,13 @@ W:	https://linuxtv.org
- Q:	http://patchwork.linuxtv.org/project/linux-media/list/
- F:	drivers/media/usb/msi2500/
- 
-+MSTAR MST3367 HDMI RECEIVER DRIVER
-+M:	Matthew Laux <matthew.laux@gmail.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	drivers/media/i2c/mst3367.c
-+F:	include/media/i2c/mst3367.h
-+
- MSTAR INTERRUPT CONTROLLER DRIVER
- M:	Mark-PK Tsai <mark-pk.tsai@mediatek.com>
- M:	Daniel Palmer <daniel@thingy.jp>
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 9e42b380e3f2..0b04f0a2a472 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -1456,6 +1456,17 @@ config VIDEO_ML86V7667
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called ml86v7667.
- 
-+config VIDEO_MST3367
-+	tristate "MStar MST3367 HDMI receiver and component ADC"
-+	depends on VIDEO_DEV && I2C
-+	select MEDIA_CONTROLLER
-+	help
-+	  Support for the MStar MST3367 HDMI receiver, component video
-+	  ADC and scaler.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called mst3367.
-+
- config VIDEO_SAA7110
- 	tristate "Philips SAA7110 video decoder"
- 	depends on VIDEO_DEV && I2C
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index 604b19dbc7b7..b9541ec3f823 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -81,6 +81,7 @@ obj-$(CONFIG_VIDEO_MIRA016) += mira016.o
- obj-$(CONFIG_VIDEO_MIRA220) += mira220.o
- obj-$(CONFIG_VIDEO_ML86V7667) += ml86v7667.o
- obj-$(CONFIG_VIDEO_MSP3400) += msp3400.o
-+obj-$(CONFIG_VIDEO_MST3367) += mst3367.o
- obj-$(CONFIG_VIDEO_MT9M001) += mt9m001.o
- obj-$(CONFIG_VIDEO_MT9M111) += mt9m111.o
- obj-$(CONFIG_VIDEO_MT9M114) += mt9m114.o
-diff --git a/drivers/media/i2c/mst3367.c b/drivers/media/i2c/mst3367.c
-new file mode 100644
-index 000000000000..0d71807a2a5d
---- /dev/null
-+++ b/drivers/media/i2c/mst3367.c
-@@ -0,0 +1,1134 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * MStar MST3367 HDMI receiver and component ADC
-+ *
-+ * Based on reverse engineering of CY3014.X64.SYS
-+ *   (version 1.1.0.193 of Fri, 04 Jun 2021 09:37:45 UTC)
-+ * HDMI path based on hdcapm by Steven Toth
-+ */
-+
-+#include <linux/delay.h>
-+#include <linux/hdmi.h>
-+#include <linux/i2c.h>
-+#include <linux/kernel.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/v4l2-dv-timings.h>
-+#include <media/i2c/mst3367.h>
-+#include <media/v4l2-device.h>
-+#include <media/v4l2-dv-timings.h>
-+#include <media/v4l2-subdev.h>
-+
-+struct mst3367 {
-+	struct v4l2_subdev sd;
-+	struct media_pad pads[MST3367_NUM_PADS];
-+	struct device *dev;
-+	struct i2c_client *client;
-+
-+	u32 input;
-+	int current_bank;
-+	bool bt601;
-+	struct v4l2_dv_timings timings;
-+};
-+
-+static inline struct mst3367 *to_mst3367(struct v4l2_subdev *sd)
-+{
-+	return container_of(sd, struct mst3367, sd);
-+}
-+
-+static int mst3367_write(struct mst3367 *mst, u8 reg, u8 val)
-+{
-+	return i2c_smbus_write_byte_data(mst->client, reg, val);
-+}
-+
-+static int mst3367_read(struct mst3367 *mst, u8 reg)
-+{
-+	return i2c_smbus_read_byte_data(mst->client, reg);
-+}
-+
-+static int mst3367_rmw(struct mst3367 *mst, u8 reg, u8 mask, u8 bits)
-+{
-+	int val = mst3367_read(mst, reg);
-+
-+	if (val < 0)
-+		return val;
-+	return mst3367_write(mst, reg, (val & mask) | bits);
-+}
-+
-+static int mst3367_rmw_get_old(struct mst3367 *mst, u8 reg, u8 mask, u8 bits,
-+			       u8 *old)
-+{
-+	int val = mst3367_read(mst, reg);
-+
-+	if (val < 0)
-+		return val;
-+	*old = val;
-+	return mst3367_write(mst, reg, (val & mask) | bits);
-+}
-+
-+static const struct v4l2_dv_timings_cap mst3367_hdmi_timings_cap = {
-+	.type = V4L2_DV_BT_656_1120,
-+	.bt = {
-+		.min_width = 640,
-+		.max_width = 1920,
-+		.min_height = 480,
-+		.max_height = 1080,
-+		.min_pixelclock = 25175000, /* 640x480p60 */
-+		.max_pixelclock = 148500000, /* 1080p60 */
-+		.standards = V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT,
-+		.capabilities = V4L2_DV_BT_CAP_PROGRESSIVE |
-+				V4L2_DV_BT_CAP_INTERLACED,
-+	},
-+};
-+
-+/* ------------------------------------------------------------------ */
-+/* Component scaler mode table                                        */
-+/* ------------------------------------------------------------------ */
-+
-+struct component_mode {
-+	int refresh_rate;
-+	/* MST3367 bank 0 ADC/scaler registers (ref: SetADParameters) */
-+	u8 pllgain, clpdly, clpdur, hsopw;
-+	u8 adc_bw0, adc_bw1;
-+	u16 scaler_htotal;
-+	u16 hde_off;
-+	u8 vde_off;
-+	struct v4l2_dv_timings timings;
-+};
-+
-+#define MST3367_DV_BT_CEA_720X240P59_94 { \
-+	.type = V4L2_DV_BT_656_1120, \
-+	V4L2_INIT_BT_TIMINGS(720, 240, 0, 0, \
-+		13500000, 19, 62, 57, 4, 3, 15, 0, 0, 0, \
-+		V4L2_DV_BT_STD_CEA861, \
-+		V4L2_DV_FL_IS_CE_VIDEO | V4L2_DV_FL_HAS_PICTURE_ASPECT | \
-+		V4L2_DV_FL_HAS_CEA861_VIC, { 4, 3 }, 8) \
-+}
-+
-+#define MST3367_DV_BT_CEA_720X288P50 { \
-+	.type = V4L2_DV_BT_656_1120, \
-+	V4L2_INIT_BT_TIMINGS(720, 288, 0, 0, \
-+		13500000, 12, 63, 69, 2, 3, 19, 0, 0, 0, \
-+		V4L2_DV_BT_STD_CEA861, \
-+		V4L2_DV_FL_IS_CE_VIDEO | V4L2_DV_FL_HAS_PICTURE_ASPECT | \
-+		V4L2_DV_FL_HAS_CEA861_VIC, { 4, 3 }, 23) \
-+}
-+
-+/*
-+ * Values from Windows driver table $140303810 + 240p and 288p
-+ */
-+static const struct component_mode component_modes[] = {
-+	/*    pll   clp   clp   hsop  adc   adc                     */
-+	/*Hz  gain  dly   dur   w     bw0   bw1   sclht  hde    vde */
-+	{ 60, 0x08, 0x08, 0x08, 0x18, 0x44, 0x04, 0x35a, 0x076, 0x12,
-+	  V4L2_DV_BT_CEA_720X480I59_94 },
-+	{ 60, 0x08, 0x08, 0x08, 0x18, 0x44, 0x04, 0x35a, 0x077, 0x13,
-+	  MST3367_DV_BT_CEA_720X240P59_94 },
-+	{ 50, 0x08, 0x08, 0x08, 0x18, 0x44, 0x04, 0x360, 0x083, 0x16,
-+	  V4L2_DV_BT_CEA_720X576I50 },
-+	{ 50, 0x08, 0x08, 0x08, 0x18, 0x44, 0x04, 0x360, 0x083, 0x17,
-+	  MST3367_DV_BT_CEA_720X288P50 },
-+	{ 60, 0x20, 0x08, 0x08, 0x18, 0x33, 0x03, 0x35a, 0x079, 0x24,
-+	  V4L2_DV_BT_CEA_720X480P59_94 },
-+	{ 50, 0x18, 0x08, 0x08, 0x18, 0x33, 0x03, 0x360, 0x083, 0x2c,
-+	  V4L2_DV_BT_CEA_720X576P50 },
-+	{ 24, 0x58, 0x38, 0x20, 0x30, 0x11, 0x01, 0xce4, 0x12b, 0x19,
-+	  V4L2_DV_BT_CEA_1280X720P24 },
-+	{ 25, 0x58, 0x38, 0x20, 0x30, 0x11, 0x01, 0xf78, 0x12b, 0x19,
-+	  V4L2_DV_BT_CEA_1280X720P25 },
-+	{ 30, 0x58, 0x38, 0x20, 0x30, 0x11, 0x01, 0xce4, 0x12b, 0x19,
-+	  V4L2_DV_BT_CEA_1280X720P30 },
-+	{ 50, 0x58, 0x38, 0x20, 0x30, 0x11, 0x01, 0x7bc, 0x12b, 0x19,
-+	  V4L2_DV_BT_CEA_1280X720P50 },
-+	{ 60, 0x58, 0x38, 0x20, 0x30, 0x11, 0x01, 0x672, 0x12b, 0x19,
-+	  V4L2_DV_BT_CEA_1280X720P60 },
-+	{ 50, 0x58, 0x38, 0x20, 0x30, 0x11, 0x01, 0xa50, 0x0eb, 0x14,
-+	  V4L2_DV_BT_CEA_1920X1080I50 },
-+	{ 60, 0x58, 0x38, 0x20, 0x30, 0x11, 0x01, 0x898, 0x0eb, 0x14,
-+	  V4L2_DV_BT_CEA_1920X1080I60 },
-+	{ 24, 0xe8, 0x38, 0x30, 0x60, 0x00, 0x00, 0xabe, 0x0eb, 0x29,
-+	  V4L2_DV_BT_CEA_1920X1080P24 },
-+	{ 25, 0xe8, 0x38, 0x30, 0x60, 0x00, 0x00, 0xa50, 0x0eb, 0x29,
-+	  V4L2_DV_BT_CEA_1920X1080P25 },
-+	{ 30, 0xe8, 0x38, 0x30, 0x60, 0x00, 0x00, 0x898, 0x0eb, 0x29,
-+	  V4L2_DV_BT_CEA_1920X1080P30 },
-+	{ 50, 0xe8, 0x38, 0x30, 0x60, 0x00, 0x00, 0xa50, 0x0eb, 0x29,
-+	  V4L2_DV_BT_CEA_1920X1080P50 },
-+	{ 60, 0xe8, 0x38, 0x30, 0x60, 0x00, 0x00, 0x898, 0x0eb, 0x29,
-+	  V4L2_DV_BT_CEA_1920X1080P60 },
-+};
-+
-+static const struct v4l2_dv_timings_cap mst3367_component_timings_cap = {
-+	.type = V4L2_DV_BT_656_1120,
-+	.bt = {
-+		.min_width = 720,
-+		.max_width = 1920,
-+		.min_height = 240,
-+		.max_height = 1080,
-+		.min_pixelclock = 13500000, /* 480i */
-+		.max_pixelclock = 148500000, /* 1080p60 */
-+		.standards = V4L2_DV_BT_STD_CEA861,
-+		.capabilities = V4L2_DV_BT_CAP_PROGRESSIVE |
-+				V4L2_DV_BT_CAP_INTERLACED,
-+	},
-+};
-+
-+static int mst_bank(struct mst3367 *mst, int bank)
-+{
-+	int ret;
-+
-+	if (mst->current_bank == bank)
-+		return 0;
-+	ret = mst3367_write(mst, 0x00, bank);
-+	mst->current_bank = ret ? -1 : bank;
-+	return ret;
-+}
-+
-+static void mst3367_config(struct mst3367 *mst)
-+{
-+	bool hotplug;
-+
-+	mst_bank(mst, 0x00);
-+	mst3367_write(mst, 0x51, 0x80);
-+	mst3367_write(mst, 0x13, 0x08);
-+	/* RxTmdsHotPlug: all off */
-+	mst3367_rmw(mst, 0xb7, 0xff, 0x02);
-+	/* RxGeneralInit */
-+	mst3367_write(mst, 0x41, 0x6f);
-+	mst3367_write(mst, 0xb8, 0x00);
-+	/* RxVideoInit */
-+	mst3367_write(mst, 0xb0, 0x14);
-+	mst3367_rmw(mst, 0xae, ~0x04, 0x04);
-+	mst3367_write(mst, 0xad, 0x05); /* low-pass filter */
-+	mst3367_write(mst, 0xb1, 0xc0);
-+	mst3367_write(mst, 0xb2, 0x00);
-+	mst3367_write(mst, 0xb3, 0x00);
-+	mst3367_write(mst, 0xb4, 0x55);
-+	/* RxAudioInit */
-+	mst3367_rmw(mst, 0xb4, ~0x03, 0x00);
-+
-+	/* RxTmdsInit */
-+	mst_bank(mst, 0x01);
-+	mst3367_write(mst, 0x0f, 0x02);
-+	mst3367_write(mst, 0x16, 0x30);
-+	mst3367_write(mst, 0x17, 0x00);
-+	mst3367_write(mst, 0x18, 0x00);
-+	mst3367_write(mst, 0x19, 0x00);
-+	mst3367_write(mst, 0x1a, 0x50);
-+	mst3367_rmw(mst, 0x2a, ~0x07, 0x07);
-+	/* RxHdcpInit */
-+	mst3367_write(mst, 0x24, 0x40);
-+	mst3367_write(mst, 0x25, 0x00);
-+	mst3367_write(mst, 0x30, 0x80);
-+	mst3367_write(mst, 0x31, 0x00);
-+	mst3367_write(mst, 0x32, 0x00);
-+
-+	mst_bank(mst, 0x02);
-+	mst3367_write(mst, 0x08, 0x03);
-+	/* RxAudioInit (cont'd) */
-+	mst3367_write(mst, 0x01, 0x61);
-+	mst3367_write(mst, 0x02, 0xf5);
-+	mst3367_rmw(mst, 0x03, ~0x02, 0x02);
-+	mst3367_write(mst, 0x04, 0x01);
-+	mst3367_write(mst, 0x05, 0x00);
-+	mst3367_write(mst, 0x06, 0x08);
-+	mst3367_write(mst, 0x1c, 0x1a);
-+	mst3367_write(mst, 0x1d, 0x00);
-+	mst3367_write(mst, 0x1e, 0x00);
-+	mst3367_write(mst, 0x1f, 0x00);
-+	mst3367_rmw(mst, 0x25, 0xff ^ 0xa2, 0xa2);
-+	mst3367_rmw(mst, 0x02, 0x7f, 0x80);
-+	mst3367_rmw(mst, 0x07, ~0x04, 0x04);
-+	mst3367_write(mst, 0x17, 0xc0);
-+	mst3367_write(mst, 0x19, 0xff);
-+	mst3367_write(mst, 0x1a, 0xff);
-+	mst3367_write(mst, 0x1b, 0xfc);
-+	mst3367_write(mst, 0x20, 0x00);
-+	mst3367_rmw(mst, 0x21, ~0x03, 0x00);
-+	mst3367_write(mst, 0x22, 0x26);
-+	mst3367_write(mst, 0x27, 0x00);
-+	mst3367_rmw(mst, 0x2e, 0xff ^ 0xa1, 0xa1);
-+
-+	mst_bank(mst, 0x00);
-+
-+	hotplug = false;
-+	v4l2_subdev_notify(&mst->sd, MST3367_HOTPLUG, &hotplug);
-+
-+	mst3367_rmw(mst, 0xb7, 0xff, 0x02);
-+
-+	mst3367_write(mst, 0xab, 0x15); /* COLOR.RANGE */
-+	mst3367_write(mst, 0xac, 0x15); /* COLOR.RANGE */
-+
-+	/* RxHdcpReset */
-+	mst3367_write(mst, 0xb8, 0x10);
-+	mst3367_write(mst, 0xb8, 0x00);
-+
-+	/* RxHdmiReset */
-+	mst_bank(mst, 0x02);
-+	mst3367_write(mst, 0x07, 0xf4);
-+	mst3367_write(mst, 0x07, 0x04);
-+
-+	/* RxSwitchSource: 0x81 = HDMI TMDS.A */
-+	mst_bank(mst, 0x00);
-+	mst3367_write(mst, 0x51, 0x81);
-+
-+	hotplug = true;
-+	v4l2_subdev_notify(&mst->sd, MST3367_HOTPLUG, &hotplug);
-+
-+	mst3367_rmw(mst, 0xb7, 0xfd, 0x00);
-+	msleep(200);
-+
-+	/* FUN_00016640: RxHdmiInit / BT.656 output enable */
-+	mst_bank(mst, 0x02);
-+	mst3367_rmw(mst, 0x01, 0x0f, 0x60);
-+	mst3367_rmw(mst, 0x04, 0xff, 0x01);
-+	mst3367_write(mst, 0x06, 0x08);
-+	mst3367_rmw(mst, 0x09, 0xff, 0x20);
-+
-+	mst_bank(mst, 0x00);
-+	mst3367_rmw(mst, 0x54, 0xef, 0x00);
-+	mst3367_rmw(mst, 0xac, 0xff, 0x80);
-+	mst3367_rmw(mst, 0xce, 0xff, 0x80);
-+	mst3367_rmw(mst, 0xcf, 0xfa, 0x02);
-+
-+	mst3367_rmw(mst, 0x00, 0x7f, 0x00);
-+	mst_bank(mst, 0x00);
-+}
-+
-+/* Identity CSC for component YPbPr */
-+static const u8 csc_identity_component[] = {
-+	0x10, 0x00,  0x00, 0x00,  0x00, 0x00, /* M11, M12, M13 */
-+	0x00, 0x00,  0x10, 0x00,  0x00, 0x00, /* M21, M22, M23 */
-+	0x00, 0x00,  0x00, 0x00,  0x10, 0x00, /* M31, M32, M33 */
-+	0x20, 0x00,  0x03, 0x80,  0x20, 0x00, /*  A1,  A2,  A3 */
-+};
-+
-+/* Identity CSC for HDMI YCbCr */
-+static const u8 csc_identity_hdmi[] = {
-+	0x10, 0x00,  0x00, 0x00,  0x00, 0x00,
-+	0x00, 0x00,  0x10, 0x00,  0x00, 0x00,
-+	0x00, 0x00,  0x00, 0x00,  0x10, 0x00,
-+	0x20, 0x00,  0x00, 0x00,  0x20, 0x00,
-+};
-+
-+/* BT.601 for SD (width <= 720) */
-+static const u8 csc_r2y_sd[] = {
-+	0x08, 0x02,  0x04, 0xc5,  0xfd, 0x4d,
-+	0xf9, 0x4a,  0x09, 0x5b,  0xfa, 0xb1,
-+	0xfe, 0xb4,  0x01, 0xd2,  0x08, 0x02,
-+	0x20, 0x00,  0x00, 0x00,  0x20, 0x00,
-+};
-+
-+/* BT.709 for HD (width > 720) */
-+static const u8 csc_r2y_hd[] = {
-+	0x08, 0x02,  0x03, 0x65,  0xfe, 0x28,
-+	0xf8, 0xb9,  0x0b, 0x65,  0xf9, 0xd6,
-+	0xff, 0x45,  0x01, 0x27,  0x08, 0x02,
-+	0x20, 0x00,  0x00, 0x00,  0x20, 0x00,
-+};
-+
-+/* Bank 2 HDMI packet registers */
-+#define MST3367_PKT_STATUS		0x0b
-+#define MST3367_PKT_STATUS_AVI		BIT(3)
-+/* AVI InfoFrame data bytes PB1..PB5 */
-+#define MST3367_AVI_PB1			0x48
-+
-+/*
-+ * Fill @avi from the AVI InfoFrame registers. Returns -ENODATA if no
-+ * InfoFrame has been received, e.g. from a DVI source.
-+ */
-+static int mst3367_read_avi(struct mst3367 *mst,
-+			    struct hdmi_avi_infoframe *avi)
-+{
-+	u8 pb[5];
-+	int k, ret;
-+
-+	ret = mst_bank(mst, 0x02);
-+	if (ret)
-+		return ret;
-+
-+	ret = mst3367_read(mst, MST3367_PKT_STATUS);
-+	if (ret < 0)
-+		return ret;
-+	if (!(ret & MST3367_PKT_STATUS_AVI))
-+		return -ENODATA;
-+
-+	for (k = 0; k < ARRAY_SIZE(pb); k++) {
-+		ret = mst3367_read(mst, MST3367_AVI_PB1 + k);
-+		if (ret < 0)
-+			return ret;
-+		pb[k] = ret;
-+	}
-+
-+	avi->colorspace = (pb[0] >> 5) & 0x3;
-+	avi->colorimetry = (pb[1] >> 6) & 0x3;
-+	avi->itc = !!(pb[2] & BIT(7));
-+	avi->extended_colorimetry = (pb[2] >> 4) & 0x7;
-+	avi->quantization_range = (pb[2] >> 2) & 0x3;
-+	avi->video_code = pb[3];
-+	avi->ycc_quantization_range = (pb[4] >> 6) & 0x3;
-+	avi->content_type = (pb[4] >> 4) & 0x3;
-+	avi->pixel_repeat = pb[4] & 0xf;
-+
-+	return 0;
-+}
-+
-+static void mst3367_write_csc(struct mst3367 *mst)
-+{
-+	bool comp = (mst->input == MST3367_INPUT_COMPONENT);
-+	const u8 *csc;
-+	u8 old_ab = 0, reg_92;
-+	bool limited = false;
-+	/* this can be overridden by the source */
-+	bool bt601 = mst->timings.bt.width <= 720;
-+	int k;
-+
-+	if (comp) {
-+		reg_92 = 0x66;
-+		csc = csc_identity_component;
-+	} else {
-+		struct hdmi_avi_infoframe avi = {};
-+		struct v4l2_hdmi_colorimetry c;
-+		int ret;
-+
-+		ret = mst3367_read_avi(mst, &avi);
-+		if (ret && ret != -ENODATA)
-+			dev_warn(mst->dev, "failed to read AVI InfoFrame: %d\n",
-+				 ret);
-+
-+		c = v4l2_hdmi_rx_colorimetry(&avi, NULL, mst->timings.bt.height);
-+		limited = c.quantization == V4L2_QUANTIZATION_LIM_RANGE;
-+
-+		dev_dbg(mst->dev,
-+			"AVI: %s colorspace=%d colorimetry=%d ec=%d q=%d yq=%d vic=%u\n",
-+			ret ? "absent" : "present", avi.colorspace,
-+			avi.colorimetry, avi.extended_colorimetry,
-+			avi.quantization_range, avi.ycc_quantization_range,
-+			avi.video_code);
-+
-+		if (avi.colorspace == HDMI_COLORSPACE_RGB) {
-+			reg_92 = limited ? 0x55 : 0x40;
-+			csc = bt601 ? csc_r2y_sd : csc_r2y_hd;
-+		} else {
-+			switch (c.ycbcr_enc) {
-+			case V4L2_YCBCR_ENC_601:
-+			case V4L2_YCBCR_ENC_XV601:
-+				bt601 = true;
-+				break;
-+			case V4L2_YCBCR_ENC_709:
-+			case V4L2_YCBCR_ENC_XV709:
-+				bt601 = false;
-+				break;
-+			default:
-+				/* keep the size default */
-+				break;
-+			}
-+			reg_92 = limited ? 0x66 : 0x62;
-+			csc = csc_identity_hdmi;
-+		}
-+
-+		dev_info(mst->dev, "CSC: HDMI %s, %s, %s range\n",
-+			 avi.colorspace == HDMI_COLORSPACE_RGB ? "RGB" : "YCbCr",
-+			 bt601 ? "BT.601" : "BT.709",
-+			 limited ? "limited" : "full");
-+	}
-+
-+	mst->bt601 = bt601;
-+
-+	mst_bank(mst, 0x00);
-+
-+	/* BLANK.OUTPUT while changing CSC */
-+	mst3367_rmw_get_old(mst, 0xab, 0x7f, 0x80, &old_ab);
-+
-+	/* COLOR.RANGE */
-+	mst3367_write(mst, 0x90, 0x15);
-+	mst3367_write(mst, 0x91, 0x15);
-+	mst3367_write(mst, 0x92, reg_92);
-+
-+	mst3367_rmw(mst, 0xac, ~0x3f, 0x15);
-+	mst3367_write(mst, 0xad, 0x05);
-+	mst3367_write(mst, 0x1e, 0x11);
-+	mst3367_write(mst, 0x1f, 0x01);
-+
-+	for (k = 0; k < 24; k++)
-+		mst3367_write(mst, 0x93 + k, csc[k]);
-+
-+	if (!comp)
-+		mst3367_write(mst, 0xa7, limited ? 0x04 : 0x00);
-+
-+	/* RX_OUTPUT_YUV422 / 08.BITS / EMBEDDED SYNC */
-+	mst3367_rmw(mst, 0xb0, 0xc2, 0x21);
-+	/* NORMAL.OUTPUT (un-blank) */
-+	mst3367_write(mst, 0xab, old_ab & 0x7f);
-+
-+	mst3367_write(mst, 0xb3, 0x00);
-+
-+	mst_bank(mst, 0x02);
-+	mst3367_write(mst, 0x27, 0x00);
-+	mst3367_write(mst, 0x20, 0x00);
-+}
-+
-+/* ------------------------------------------------------------------ */
-+/* Signal detection polling                                           */
-+/* ------------------------------------------------------------------ */
-+
-+#define HDMI_VTOTAL_TOLERANCE	5
-+#define HDMI_VFREQ_TOLERANCE	5
-+
-+static int mst3367_read_vfreq(struct mst3367 *mst)
-+{
-+	int hi, lo, period;
-+
-+	mst_bank(mst, 0x00);
-+	hi = mst3367_read(mst, 0x59);
-+	lo = mst3367_read(mst, 0x5a);
-+	if (hi < 0 || lo < 0)
-+		return 0;
-+
-+	period = (hi & 0x3f) << 8 | lo;
-+	/* units of 0.1 Hz, ref: RxHdmiModeDetect */
-+	return period ? 1250000 / period : 0;
-+}
-+
-+static const struct v4l2_dv_timings *match_hdmi_timing(int hactive, int vtotal,
-+						       int vfreq)
-+{
-+	const struct v4l2_dv_timings *best = NULL;
-+	int best_err = INT_MAX;
-+	int k;
-+
-+	for (k = 0; v4l2_dv_timings_presets[k].bt.width; k++) {
-+		const struct v4l2_dv_timings *t = &v4l2_dv_timings_presets[k];
-+		const struct v4l2_bt_timings *bt = &t->bt;
-+		u32 frame_width = V4L2_DV_BT_FRAME_WIDTH(bt);
-+		u32 frame_height = V4L2_DV_BT_FRAME_HEIGHT(bt);
-+		int fields = bt->interlaced ? 2 : 1;
-+		int vtotal_err, vfreq_err, err;
-+
-+		if (bt->width != hactive)
-+			continue;
-+		if (!v4l2_valid_dv_timings(t, &mst3367_hdmi_timings_cap,
-+					   NULL, NULL))
-+			continue;
-+
-+		vtotal_err = abs(vtotal * fields - (int)frame_height);
-+		if (vtotal_err > HDMI_VTOTAL_TOLERANCE)
-+			continue;
-+
-+		vfreq_err = abs(vfreq -
-+				(int)DIV_ROUND_CLOSEST_ULL(bt->pixelclock * 10 * fields,
-+							   frame_width * frame_height));
-+		if (vfreq_err > HDMI_VFREQ_TOLERANCE)
-+			continue;
-+
-+		err = vtotal_err * 2 * HDMI_VFREQ_TOLERANCE + vfreq_err;
-+		if (err < best_err) {
-+			best_err = err;
-+			best = t;
-+		}
-+	}
-+	return best;
-+}
-+
-+static void mst3367_enable_auto_position(struct mst3367 *mst)
-+{
-+	mst_bank(mst, 0x00);
-+	mst3367_write(mst, 0xe2, 0x80);
-+	/* report the digital DE window */
-+	mst3367_write(mst, 0xe3, 0x08);
-+	/* position threshold */
-+	mst3367_write(mst, 0xe4, 0x00);
-+}
-+
-+static int hdmi_poll_signal(struct mst3367 *mst,
-+			    struct v4l2_dv_timings *timings)
-+{
-+	int k, status;
-+	int prev_htotal = -1, prev_vtotal = -1, prev_hactive = -1;
-+	int stable_count = 0;
-+
-+	mst3367_enable_auto_position(mst);
-+	msleep(100);
-+
-+	for (k = 0; k < 100; k++) {
-+		int htotal, vtotal, hactive, vfreq, tmds_ratio;
-+		const struct v4l2_dv_timings *std;
-+
-+		msleep(100);
-+
-+		mst_bank(mst, 0x00);
-+		status = mst3367_read(mst, 0x55);
-+		if (status < 0)
-+			continue;
-+
-+		if (!(status & 0x3c)) {
-+			/* Not locked yet */
-+			mst3367_enable_auto_position(mst);
-+			if (k % 10 == 0)
-+				dev_info(mst->dev,
-+					 "HDMI signal poll[%d]: lock=0x%02x (no signal)\n",
-+					 k, status);
-+			stable_count = 0;
-+			continue;
-+		}
-+
-+		htotal = (mst3367_read(mst, 0x6a) << 8 |
-+			  mst3367_read(mst, 0x6b)) & 0xfff;
-+		vtotal = (mst3367_read(mst, 0x5b) << 8 |
-+			  mst3367_read(mst, 0x5c)) & 0x7ff;
-+
-+		mst_bank(mst, 0x02);
-+		hactive = (mst3367_read(mst, 0x29) << 8 |
-+			   mst3367_read(mst, 0x28)) & 0x1fff;
-+
-+		if (k % 5 == 0)
-+			dev_info(mst->dev,
-+				 "HDMI poll[%d]: lock=0x%02x ht=%d vt=%d ha=%d stable=%d\n",
-+				 k, status, htotal, vtotal, hactive, stable_count);
-+
-+		/*
-+		 * Require non-zero timings and consecutive matching readings
-+		 * before accepting (within one vertical line for interlaced)
-+		 */
-+		if (htotal == 0 || vtotal == 0 || hactive == 0 ||
-+		    htotal != prev_htotal || abs(vtotal - prev_vtotal) > 1 ||
-+		    hactive != prev_hactive) {
-+			prev_htotal = htotal;
-+			prev_vtotal = vtotal;
-+			prev_hactive = hactive;
-+			stable_count = 0;
-+			continue;
-+		}
-+
-+		if (++stable_count < 2)
-+			continue;
-+
-+		vfreq = mst3367_read_vfreq(mst);
-+
-+		dev_info(mst->dev,
-+			 "HDMI locked: htotal=%d vtotal=%d hactive=%d vfreq=%d.%d\n",
-+			 htotal, vtotal, hactive, vfreq / 10, vfreq % 10);
-+
-+		std = match_hdmi_timing(hactive, vtotal, vfreq);
-+		if (!std) {
-+			dev_err(mst->dev,
-+				"unsupported HDMI timing: htotal=%d vtotal=%d hactive=%d vfreq=%d.%d\n",
-+				htotal, vtotal, hactive, vfreq / 10, vfreq % 10);
-+			return -ERANGE;
-+		}
-+
-+		/* 100 = 8 bit, 125 = 10 bit, 150 = 12 bit deep color */
-+		tmds_ratio = htotal * 100 / V4L2_DV_BT_FRAME_WIDTH(&std->bt);
-+		dev_info(mst->dev,
-+			 "HDMI mode: %ux%u%s, TMDS clock = %d.%02dx pixel clock\n",
-+			 std->bt.width, std->bt.height,
-+			 std->bt.interlaced ? "i" : "p",
-+			 tmds_ratio / 100, tmds_ratio % 100);
-+
-+		*timings = *std;
-+
-+		/* DISABLE AUTO POSITION */
-+		mst_bank(mst, 0x00);
-+		mst3367_write(mst, 0xe2, 0x00);
-+
-+		return 0;
-+	}
-+
-+	dev_err(mst->dev, "No HDMI signal lock after 10s\n");
-+	return -ETIMEDOUT;
-+}
-+
-+/* ------------------------------------------------------------------ */
-+/* ADC front-end config (component/VGA only)                          */
-+/* ------------------------------------------------------------------ */
-+
-+static void mst3367_adc_config(struct mst3367 *mst)
-+{
-+	/* RxAdcInit */
-+	mst_bank(mst, 0x00);
-+	mst3367_write(mst, 0x00, 0x80);
-+	mst3367_write(mst, 0x24, 0xc0);
-+	mst3367_write(mst, 0x00, 0x00);
-+	mst3367_rmw(mst, 0x21, ~0x07, 0x01);
-+	mst3367_write(mst, 0x04, 0x00); /* ADC phase */
-+	mst3367_rmw(mst, 0x10, 0x0f, 0xd0);
-+	mst3367_write(mst, 0x11, 0x2d);
-+	mst3367_write(mst, 0x20, 0xc0);
-+	mst3367_write(mst, 0x21, 0x04);
-+	/* bits 5:4 = sync source: 0x30 = SOG for component */
-+	mst3367_rmw(mst, 0x0e, 0xcf, 0x30);
-+}
-+
-+static const struct component_mode *
-+find_component_mode(const struct v4l2_dv_timings *t)
-+{
-+	int k;
-+
-+	for (k = 0; k < ARRAY_SIZE(component_modes); k++)
-+		if (v4l2_match_dv_timings(t, &component_modes[k].timings, 0, false))
-+			return &component_modes[k];
-+	return NULL;
-+}
-+
-+#define COMPONENT_VTOTAL_TOLERANCE	25
-+#define COMPONENT_HFREQ_TOLERANCE	8
-+
-+/* Picks the mode closest to the measured line count and line rate */
-+static const struct component_mode *match_component_mode(int vtotal, int hfreq,
-+							 bool interlaced)
-+{
-+	const struct component_mode *best = NULL;
-+	int best_err = INT_MAX;
-+	int k;
-+
-+	for (k = 0; k < ARRAY_SIZE(component_modes); k++) {
-+		const struct component_mode *m = &component_modes[k];
-+		const struct v4l2_bt_timings *bt = &m->timings.bt;
-+		int std_vtotal = V4L2_DV_BT_FRAME_HEIGHT(bt) /
-+				 (bt->interlaced ? 2 : 1);
-+		int std_hfreq = (u32)bt->pixelclock /
-+				(V4L2_DV_BT_FRAME_WIDTH(bt) * 100);
-+		int vtotal_err = abs(vtotal - std_vtotal);
-+		int hfreq_err = abs(hfreq - std_hfreq);
-+		int err;
-+
-+		if (vtotal_err > COMPONENT_VTOTAL_TOLERANCE ||
-+		    hfreq_err > COMPONENT_HFREQ_TOLERANCE)
-+			continue;
-+
-+		err = vtotal_err + hfreq_err;
-+		if (!bt->interlaced != !interlaced)
-+			err += COMPONENT_VTOTAL_TOLERANCE +
-+			       COMPONENT_HFREQ_TOLERANCE + 1;
-+		if (err < best_err) {
-+			best_err = err;
-+			best = m;
-+		}
-+	}
-+	return best;
-+}
-+
-+/* ------------------------------------------------------------------ */
-+/* Component scaler register write                                    */
-+/* ------------------------------------------------------------------ */
-+
-+static void component_write_scaler(struct mst3367 *mst,
-+				   const struct component_mode *m)
-+{
-+	const struct v4l2_bt_timings *bt = &m->timings.bt;
-+	int width = bt->width;
-+	int height = bt->interlaced ? bt->height / 2 : bt->height;
-+	int ht = m->scaler_htotal - 1;
-+	int is_720_low_rr = width == 1280 && height == 720 &&
-+			(m->refresh_rate == 24 ||
-+				m->refresh_rate == 25 ||
-+				m->refresh_rate == 30);
-+
-+	mst_bank(mst, 0x00);
-+
-+	/*
-+	 * edge case for low frame rate 720p:
-+	 * if (((*(int *)(uVar30 + 0x30) == 0x500) && (*(int *)(uVar30 + 0x34) == 0x2d0)) &&
-+	 *     ((*(int *)(uVar30 + 0x38) == 0x1e ||
-+	 *     ((*(int *)(uVar30 + 0x38) == 0x19 || (*(int *)(uVar30 + 0x38) == 0x18)))))) {
-+	 *   uVar37 = 0;
-+	 * } else {
-+	 *   uVar37 = 4;
-+	 * }
-+	 * send_mst(param_1,0,0x12,uVar37);
-+	 */
-+	mst3367_write(mst, 0x12, is_720_low_rr ? 0x00 : 0x04);
-+
-+	/* SetADParameters */
-+	mst3367_write(mst, 0x03, m->pllgain);
-+	mst3367_write(mst, 0x05, m->clpdly);
-+	mst3367_write(mst, 0x06, m->clpdur);
-+	mst3367_write(mst, 0x07, m->hsopw);
-+
-+	/* ADC gain: Y, Cb, Cr */
-+	mst3367_write(mst, 0x08, 0xa0);
-+	mst3367_write(mst, 0x09, 0xc0);
-+	mst3367_write(mst, 0x0a, 0xa0);
-+
-+	/* grade scale (clamp level): Y, Cb, Cr */
-+	mst3367_write(mst, 0x0b, 0x80);
-+	mst3367_write(mst, 0x0c, 0x60);
-+	mst3367_write(mst, 0x0d, 0x80);
-+
-+	/* clamp offset: Y, Cb, Cr */
-+	mst3367_write(mst, 0x18, 0x10);
-+	mst3367_write(mst, 0x19, 0x10);
-+	mst3367_write(mst, 0x1a, 0x10);
-+	mst3367_write(mst, 0x1b, 0x00);
-+	mst3367_write(mst, 0x1c, 0x00);
-+	mst3367_write(mst, 0x1d, 0x00);
-+
-+	/* ADCSetAutoDetectFormat: output htotal */
-+	mst3367_write(mst, 0x01, ht >> 4);
-+	mst3367_write(mst, 0x02, (ht & 0x0f) << 4);
-+	mst3367_write(mst, 0x1e, m->adc_bw0);
-+	mst3367_write(mst, 0x1f, m->adc_bw1);
-+
-+	/* output data enable start pos after sync */
-+	mst3367_write(mst, 0x80, (m->hde_off >> 8) & 0x0f);
-+	mst3367_write(mst, 0x81, m->hde_off & 0xff);
-+	mst3367_write(mst, 0x82, (width >> 8) & 0xff);
-+	mst3367_write(mst, 0x83, width & 0xff);
-+	mst3367_write(mst, 0x84, m->vde_off);
-+	mst3367_write(mst, 0x85,
-+		      ((height >> 8) & 0x0f) | (bt->interlaced ? 0x20 : 0x00));
-+	mst3367_write(mst, 0x86, height & 0xff);
-+
-+	mst3367_write(mst, 0x2d, 0x11);
-+	mst3367_write(mst, 0x2e, 0x11);
-+	mst3367_write(mst, 0x39, (u8)(m->clpdly + m->clpdur - 0x78));
-+	mst3367_write(mst, 0x2c, 0x9d);
-+	mst3367_write(mst, 0x3a, 0x0c);
-+	mst3367_write(mst, 0x3b, 0x08);
-+
-+	mst3367_rmw(mst, 0x10, 0xfa, 0x05);
-+	mst3367_rmw(mst, 0x0f, 0xff, 0x20);
-+	mst3367_rmw(mst, 0x17, 0xff, 0x02);
-+	mst3367_rmw(mst, 0x2f, 0xff, 0x02);
-+	mst3367_rmw(mst, 0x60, 0xfb, 0x00);
-+}
-+
-+/* ------------------------------------------------------------------ */
-+/* Component ADC signal polling                                       */
-+/* ------------------------------------------------------------------ */
-+
-+static int component_poll_signal(struct mst3367 *mst,
-+				 const struct component_mode **detected)
-+{
-+	const struct component_mode *mode;
-+	int k, status, vtotal, hperiod, hfreq, interlaced;
-+	int signal_count = 0;
-+
-+	/*
-+	 * RxAdcModeDetect()
-+	 *   regs[0x14] & 0x90 == 0x90: H+V locked
-+	 *   regs[0x14] & 0x90 == 0x80: H lock only
-+	 *   regs[0x14] == 0x00 && regs[0x15] & 0x40: none
-+	 */
-+	for (k = 0; k < 100; k++) {
-+		int signal_type;
-+
-+		mst_bank(mst, 0x00);
-+
-+		/* trigger timing measurement? */
-+		mst3367_write(mst, 0x0e, 0x40);
-+
-+		status = mst3367_read(mst, 0x14);
-+		mst3367_read(mst, 0x15);
-+
-+		/* Check signal presence from 0x14 bits 7,4 */
-+		signal_type = status & 0x90;
-+		if (signal_type == 0x90 || signal_type == 0x80 ||
-+		    (signal_type == 0x00 && (status & 0x02)))
-+			signal_count++;
-+		else
-+			signal_count = 0;
-+
-+		hperiod = ((mst3367_read(mst, 0x57) & 0x3f) << 8) |
-+			   mst3367_read(mst, 0x58);
-+
-+		/* scale ADC sample rate to H period */
-+		if (hperiod > 0)
-+			mst3367_write(mst, 0x11,
-+				      (hperiod < 0x401 ? 0x400 : hperiod) >> 7);
-+
-+		/* V period (timer counts) */
-+		mst3367_read(mst, 0x59);
-+		mst3367_read(mst, 0x5a);
-+
-+		/* V total (lines) */
-+		mst3367_read(mst, 0x5b);
-+		mst3367_read(mst, 0x5c);
-+
-+		/* H total (pixels), interlace flag */
-+		mst3367_read(mst, 0x5d);
-+		mst3367_read(mst, 0x5e);
-+		interlaced = mst3367_read(mst, 0x5f);
-+		interlaced = interlaced < 0 ? 0 : !!(interlaced & 0x02);
-+
-+		mst_bank(mst, 0x02);
-+		mst3367_read(mst, 0x11);
-+		mst3367_read(mst, 0x12);
-+		mst3367_write(mst, 0x20, 0x00);
-+
-+		if (k % 10 == 0)
-+			dev_info(mst->dev,
-+				 "component poll[%d]: 0x14=0x%02x count=%d\n",
-+				 k, status, signal_count);
-+
-+		if (signal_count < 3) {
-+			msleep(100);
-+			continue;
-+		}
-+
-+		/* Signal stable - read vtotal and determine format */
-+		mst_bank(mst, 0x00);
-+		vtotal = ((mst3367_read(mst, 0x5b) & 0x07) << 8) |
-+			  mst3367_read(mst, 0x5c);
-+
-+		/* units are 0.1 kHz, ref: RxAdcModeDetect */
-+		hfreq = hperiod > 0 ? 1600000 / hperiod : 0;
-+
-+		dev_info(mst->dev,
-+			 "component locked: vtotal=%d hfreq=%d.%d kHz %s 0x14=0x%02x\n",
-+			 vtotal, hfreq / 10, hfreq % 10,
-+			 interlaced ? "interlaced" : "progressive", status);
-+
-+		mode = match_component_mode(vtotal, hfreq, interlaced);
-+		if (!mode) {
-+			dev_err(mst->dev,
-+				"unsupported component timing: vtotal=%d hfreq=%d.%d kHz\n",
-+				vtotal, hfreq / 10, hfreq % 10);
-+			return -ERANGE;
-+		}
-+		*detected = mode;
-+		return 0;
-+	}
-+
-+	dev_err(mst->dev, "No component signal lock after 10s\n");
-+	return -ETIMEDOUT;
-+}
-+
-+/* ------------------------------------------------------------------ */
-+/* Subdev ops                                                         */
-+/* ------------------------------------------------------------------ */
-+
-+static int mst3367_s_routing(struct v4l2_subdev *sd, u32 input, u32 output,
-+			     u32 config)
-+{
-+	struct mst3367 *mst = to_mst3367(sd);
-+
-+	if (input > MST3367_INPUT_NONE)
-+		return -EINVAL;
-+
-+	mst->current_bank = -1;
-+	mst->input = input;
-+	memset(&mst->timings, 0, sizeof(mst->timings));
-+
-+	if (input == MST3367_INPUT_NONE) {
-+		mst_bank(mst, 0x00);
-+		mst3367_write(mst, 0x51, 0x80);
-+		return 0;
-+	}
-+
-+	mst3367_config(mst);
-+
-+	if (input == MST3367_INPUT_COMPONENT) {
-+		/* RxSwitchSource: 0x21 = component ADC (YPbPr) */
-+		mst_bank(mst, 0x00);
-+		mst3367_write(mst, 0x51, 0x21);
-+
-+		mst3367_adc_config(mst);
-+	}
-+
-+	return 0;
-+}
-+
-+static int mst3367_query_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
-+				    struct v4l2_dv_timings *timings)
-+{
-+	struct mst3367 *mst = to_mst3367(sd);
-+	const struct component_mode *mode;
-+	int ret;
-+
-+	switch (mst->input) {
-+	case MST3367_INPUT_HDMI:
-+		return hdmi_poll_signal(mst, timings);
-+	case MST3367_INPUT_COMPONENT:
-+		ret = component_poll_signal(mst, &mode);
-+		if (ret < 0)
-+			return ret;
-+		*timings = mode->timings;
-+		return 0;
-+	default:
-+		return -ENODATA;
-+	}
-+}
-+
-+static int mst3367_s_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
-+				struct v4l2_dv_timings *timings)
-+{
-+	struct mst3367 *mst = to_mst3367(sd);
-+	const struct component_mode *mode;
-+
-+	switch (mst->input) {
-+	case MST3367_INPUT_HDMI:
-+		if (!v4l2_valid_dv_timings(timings, &mst3367_hdmi_timings_cap,
-+					   NULL, NULL))
-+			return -ERANGE;
-+		mst->timings = *timings;
-+		break;
-+	case MST3367_INPUT_COMPONENT:
-+		mode = find_component_mode(timings);
-+		if (!mode)
-+			return -ERANGE;
-+		mst->timings = *timings;
-+		component_write_scaler(mst, mode);
-+		break;
-+	default:
-+		return -ENODATA;
-+	}
-+
-+	mst3367_write_csc(mst);
-+	return 0;
-+}
-+
-+static int mst3367_g_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
-+				struct v4l2_dv_timings *timings)
-+{
-+	struct mst3367 *mst = to_mst3367(sd);
-+
-+	if (!mst->timings.bt.width)
-+		return -ENODATA;
-+
-+	*timings = mst->timings;
-+	return 0;
-+}
-+
-+static int mst3367_enum_dv_timings(struct v4l2_subdev *sd,
-+				   struct v4l2_enum_dv_timings *timings)
-+{
-+	switch (timings->pad) {
-+	case MST3367_PAD_HDMI:
-+		return v4l2_enum_dv_timings_cap(timings,
-+						&mst3367_hdmi_timings_cap,
-+						NULL, NULL);
-+	case MST3367_PAD_COMPONENT:
-+		if (timings->index >= ARRAY_SIZE(component_modes))
-+			return -EINVAL;
-+
-+		timings->timings = component_modes[timings->index].timings;
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int mst3367_dv_timings_cap(struct v4l2_subdev *sd,
-+				  struct v4l2_dv_timings_cap *cap)
-+{
-+	unsigned int pad = cap->pad;
-+
-+	switch (pad) {
-+	case MST3367_PAD_HDMI:
-+		*cap = mst3367_hdmi_timings_cap;
-+		break;
-+	case MST3367_PAD_COMPONENT:
-+		*cap = mst3367_component_timings_cap;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	cap->pad = pad;
-+	return 0;
-+}
-+
-+static int mst3367_enum_mbus_code(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *sd_state,
-+				  struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	if (code->index > 0)
-+		return -EINVAL;
-+
-+	code->code = MEDIA_BUS_FMT_UYVY8_2X8;
-+	return 0;
-+}
-+
-+static int mst3367_get_fmt(struct v4l2_subdev *sd,
-+			   struct v4l2_subdev_state *sd_state,
-+			   struct v4l2_subdev_format *fmt)
-+{
-+	struct mst3367 *mst = to_mst3367(sd);
-+	const struct v4l2_bt_timings *bt = &mst->timings.bt;
-+
-+	fmt->format.code = MEDIA_BUS_FMT_UYVY8_2X8;
-+	fmt->format.width = bt->width;
-+	fmt->format.height = bt->interlaced ? bt->height / 2 : bt->height;
-+	fmt->format.field = bt->interlaced ?
-+		V4L2_FIELD_ALTERNATE : V4L2_FIELD_NONE;
-+	fmt->format.colorspace = mst->bt601 ?
-+		V4L2_COLORSPACE_SMPTE170M : V4L2_COLORSPACE_REC709;
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_video_ops mst3367_video_ops = {
-+	.s_routing = mst3367_s_routing,
-+};
-+
-+static const struct v4l2_subdev_pad_ops mst3367_pad_ops = {
-+	.enum_mbus_code = mst3367_enum_mbus_code,
-+	.get_fmt = mst3367_get_fmt,
-+	.s_dv_timings = mst3367_s_dv_timings,
-+	.g_dv_timings = mst3367_g_dv_timings,
-+	.query_dv_timings = mst3367_query_dv_timings,
-+	.enum_dv_timings = mst3367_enum_dv_timings,
-+	.dv_timings_cap = mst3367_dv_timings_cap,
-+};
-+
-+static const struct v4l2_subdev_ops mst3367_ops = {
-+	.video = &mst3367_video_ops,
-+	.pad = &mst3367_pad_ops,
-+};
-+
-+static int mst3367_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct mst3367 *mst;
-+
-+	if (!i2c_check_functionality(client->adapter,
-+				     I2C_FUNC_SMBUS_BYTE_DATA))
-+		return -EIO;
-+
-+	mst = devm_kzalloc(dev, sizeof(*mst), GFP_KERNEL);
-+	if (!mst)
-+		return -ENOMEM;
-+
-+	mst->dev = dev;
-+	mst->client = client;
-+	mst->input = MST3367_INPUT_NONE;
-+	mst->current_bank = -1;
-+
-+	v4l2_i2c_subdev_init(&mst->sd, client, &mst3367_ops);
-+
-+	mst->pads[MST3367_PAD_HDMI].flags = MEDIA_PAD_FL_SINK;
-+	mst->pads[MST3367_PAD_COMPONENT].flags = MEDIA_PAD_FL_SINK;
-+	mst->pads[MST3367_PAD_SOURCE].flags = MEDIA_PAD_FL_SOURCE;
-+	mst->sd.entity.function = MEDIA_ENT_F_DV_DECODER;
-+
-+	return media_entity_pads_init(&mst->sd.entity, MST3367_NUM_PADS,
-+				      mst->pads);
-+}
-+
-+static void mst3367_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+
-+	v4l2_device_unregister_subdev(sd);
-+	media_entity_cleanup(&sd->entity);
-+}
-+
-+static const struct i2c_device_id mst3367_id[] = {
-+	{ .name = "mst3367" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, mst3367_id);
-+
-+static struct i2c_driver mst3367_driver = {
-+	.driver = {
-+		.name = "mst3367",
-+	},
-+	.probe = mst3367_probe,
-+	.remove = mst3367_remove,
-+	.id_table = mst3367_id,
-+};
-+module_i2c_driver(mst3367_driver);
-+
-+MODULE_AUTHOR("Matthew Laux <matthew.laux@gmail.com>");
-+MODULE_DESCRIPTION("MStar MST3367 HDMI receiver and component ADC driver");
-+MODULE_LICENSE("GPL");
-diff --git a/include/media/i2c/mst3367.h b/include/media/i2c/mst3367.h
-new file mode 100644
-index 000000000000..88d4a4874a9d
---- /dev/null
-+++ b/include/media/i2c/mst3367.h
-@@ -0,0 +1,27 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * MStar MST3367 HDMI receiver and component ADC
-+ */
-+
-+#ifndef _MEDIA_I2C_MST3367_H_
-+#define _MEDIA_I2C_MST3367_H_
-+
-+enum mst3367_pads {
-+	MST3367_PAD_HDMI,
-+	MST3367_PAD_COMPONENT,
-+	MST3367_PAD_SOURCE,
-+	MST3367_NUM_PADS,
-+};
-+
-+/* Inputs for the s_routing video op */
-+#define MST3367_INPUT_HDMI	MST3367_PAD_HDMI
-+#define MST3367_INPUT_COMPONENT	MST3367_PAD_COMPONENT
-+#define MST3367_INPUT_NONE	MST3367_NUM_PADS
-+
-+/*
-+ * Notification sent with v4l2_subdev_notify() before the receiver changes its
-+ * hotplug detect output, for bridge devices to use. The argument is a bool *
-+ */
-+#define MST3367_HOTPLUG		1
-+
-+#endif
--- 
-2.47.3
-
+T24gVGh1LCBTZXAgMjQsIDIwMjYgYXQgMDU6MTE6NDRQTSAtMDQwMCwgQWxlc3NhbmRybyBNZW5l
+emVzIHdyb3RlOgo+IEdlbnRsZSBwaW5nIG9uIHRoaXMgb25lLiBTYXNoYSBub3RlZCBvbiB0aGUg
+c3RhYmxlIHNpZGUgdGhhdCBpdCBsb29rcwo+IHJpZ2h0IGJ1dCBuZWVkcyB0byBsYW5kIGluIG1h
+aW5saW5lIGZpcnN0LCBzbyBpdCdzIHdhaXRpbmcgb24gbWVkaWEuCgpIaSBIYW5zLCBNYXVybywK
+CisxIGZvciB0aGlzIHJldmVydC4gQW4gVWJ1bnR1IHVzZXIgaXMgaGl0dGluZyB0aGUgc2FtZSBX
+QVJOIGZsb29kIHdpdGggYQpQWC1TMVVEICgzMjc1OjAwODApIG9uIElTREItVDogaW4gdGhlIHJl
+cG9ydCBiZWxvdywgc3lzbG9nIGFuZCBrZXJuLmxvZwplYWNoIGdyZXcgdG8gYWJvdXQgMTAxIEdC
+IGFuZCBmaWxsZWQgdGhlIHJvb3QgZmlsZSBzeXN0ZW0uCgogIGh0dHBzOi8vYnVncy5sYXVuY2hw
+YWQubmV0L3VidW50dS8rc291cmNlL2xpbnV4LytidWcvMjE2MjEzOQoKSSBoYWQgbWlzc2VkIHRo
+aXMgcGF0Y2ggYW5kIHNlbnQgdGhlIHNhbWUgcmV2ZXJ0IG9uIDIwMjYtMTEtMDc6CgogIGh0dHBz
+Oi8vbG9yZS5rZXJuZWwub3JnL3IvMjAyNjExMDctc2lhbm8tcmV2ZXJ0LXYxLTEtNzA0ZmZjMTFm
+YzZiQGRvYW55LmlvCgpQbGVhc2UgZHJvcCBtaW5lIGluIGZhdm91ciBvZiBBbGVzc2FuZHJvJ3Ms
+IHdoaWNoIGNhbWUgZmlyc3QgYW5kIHdhcwp0ZXN0ZWQgb24gaGFyZHdhcmUgKEkgb25seSBjb21w
+aWxlIHRlc3RlZCBtaW5lLCBzbyBubyB0YWcgZnJvbSBtZSkuCgpJdCB3b3VsZCBiZSBncmVhdCB0
+byBzZWUgdGhpcyBnbyBpbiBhcyBhIGZpeCwgc28gc3RhYmxlIGNhbiBwaWNrIGl0IHVwLgoKVGhh
+bmtzLApSdWsK
