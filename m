@@ -1,80 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795271139;
-	b=pmeSy0QyDcXssuc2KLc8tVcP8GkKcIN//3pOYs8ererk5Xw39fP4+bQCIblvRCJBRAoq
-	 o3QMXJCrYKpjMfZeoPCy2Mq/FdIPTm3H+hnxPEACp/9yBQmLTbXrojBaK/9OJjem9GnZC
-	 6HJolQckPulC732NjIYgg4jPsUS6fD6ZcRAa3rXpbaEuTFHKJcCCBtGMY7iVpLWQYRU+m
-	 btnLvsNANERm5Xx9td8vaR8YQbxJA1iRpC/nTa/bpcBINxyH+C5EBKXI1Elq2j5dt6caZ
-	 jMCxNOs5d9ObRPuLHelVCDc18UPz4pYnBIQ/fYg1Bd6zRlc5G6piUZTbgJ5GUvu1xBQ==
+	b=C5tGNcoGG/xP6nGgVE1NctkltB65QBAInS8LjxiQDNaVPnh7sWrDytq0rCqXw6CrmRS3
+	 /dTcyWbb5WlYK5uJI/E+cfjOnLPRo10EKSloRPaPHSrczCjDZbh7nyAQHJ0x4J6ykLis7
+	 JObvHQY+ae6PkBEkSilVQ/0+KZyRytFL41zipG2Qb4v5W/l/v+ponFVTR7xAnVmapJkPj
+	 E/LmFJ00Y5Ug/X7xpGppYZgEsq39RnuyYpXhmW3Ni0zdH7CohXr4Ga6D93eCI7rrmJbkf
+	 +ESdQeGW8MvOVcjvJzHA4A/C2RA19sjT6cjlFfpSIyHlpOiYxd0L94ZTfTTN3mRHqVA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795271139;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=D02QCZ4m4lcM6wMx2nh3xb3J/nnJjgLqNKP5V5qS1WU=;
-	b=AuSLgGDMtQNKSiwmjh//h/KS863bc5fHWEuwvOjO7yQh4KhTLwdLzxakCF2XY8BK3R60
-	 neoCv7lzPBwW/QzRVBY54FayhN+NGeIlOMOc9HVVlZOASZkC8HJ0TmOCXNiSS9PVaV5GA
-	 ubPVki5pk5qeIwXn6/72SacbDgkFFcpAJJP7OHBrbrffUhwYgLemEuFzam+WQAhuX7A/x
-	 xXzjBt6Tc2RifHgrBobrmH8qA/yyYa6Izi/X6IMKH5qpOfl2rC17ATu6Q+Mzro+cLFuO4
-	 og1jnlF4EmGxdfBzYS5yfFRbMh2eGc/qtSJhmhyGcnNBR62TBRo6bGIM6mgdr7QhfXA==
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=q/1mAtnvyHaNeeiEpckn+2XG2425nFHR5nzDQK/AUM4=;
+	b=mH2aZrp8K+vIjGx8UxzAO4l8KFMCxIpbVhVzvZuRNKzQCUT9XshjnFrubF2je9eAAVpU
+	 +Zb7plk0eeekKSK+16Bi/7XmnV0hnROsBspjvOStZPdoX0PdnBfj4VRt5H44TSFRk3G7X
+	 lnvDLBVppOhVHLI8WLiLcllSNfnDfsimkTym/4X/5MXjxFgxbBfWSBihsBr9Cx2BCAKLA
+	 h2Vzgnq6M0HLMJLQaaFKwYK6/t3jt4vvZdBvUN+C9IWLu/rmEVWMF9fJXVXWfag9MEymg
+	 axcstyPlLx5lr63sztxZJwXatEUpWkeONsNGINPkPUDDGzBV7+a7/lOIWzNq0E6YQsQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lL7Ila/B";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BUbROApz;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7986606A32C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D59CC606A333;
 	Sat, 21 Nov 2026 14:25:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lL7Ila/B
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BUbROApz
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1795271139;
-	b=XjGRV1LIdnKoaw6n71sxPigg4pLpSQCN9BhB2RPV95udScAWZQXbmrEsFpxgRxst1QgA
-	 hlCNQFnIH6LNa9FhWN2iZ3SQiL8qkAoDiDBEkZu1IEGqxXr0dbg6/T9JtYotUXh3Pr9jb
-	 H3lQ50Hqf/fN37zhkW7KQIjwjquHswv2vfDnihu0hUEWOwk9VN31w09Tct49gPR+lOYco
-	 BbWavdp+mLgc1WFlJmMM2v0Qu6aqY5StT8S5uo51RunYYM//fAqortn6jZn1lFCTKO/Nr
-	 dX/BgWAJA0Xe5ILU7cwt4VKOX0jVIpQyujSk0NX/ojAWqh2bH18FO8+2IyCDb0KL9ig==
+	b=AL474SCIZU/i4iSyIeXzZC2Uyr1rvO7ty6OFRomoHXCpJWtK8UIYUw8H4H4teCZ7SUKR
+	 gZxhcQMuayuR5BQHWa+mKnoLcK7TkpXuaLi0Mqyq/IStiyj6pSA29YAKgnSvOMLm4Yfdl
+	 3O3b9wBF6bdrTBa8RWx0JGw6snYqm25i0FIiYSyR39u3K5KVwPmtAYC4Wadws1Tv4GoiH
+	 ssruE37bNiVG5DE0hygI6pmCHf9/WOER4160+izfy/CnUSHCPGpIwCYQ0ldQQnHJXKBoP
+	 Nn0hi7bkyfR7/eDQFrMmnfHGCECLC2zmD76qBVZrvf07Mv7FvTun/GVlTZYSfDne7FA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1795271139;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=D02QCZ4m4lcM6wMx2nh3xb3J/nnJjgLqNKP5V5qS1WU=;
-	b=FQmzPfN0Yc3yRESK3zzaNZ9AmNpxfL6/kXyacM4ZgNNMuT1Hmvz4BHgiB9IWJy4YACBe
-	 4rWFYoE/T/Bw7ZGmTdUM3RBnl40mXOl/eFSaTs0JtHr5d7nx/gfACQQLptA6SplC3q5lP
-	 NGutofFxdBdj8paz4Oo6kEwpzx3+F3tH6x4BSEMlzXNNnHUoZ3eYNhV4D6PY2irj6N6TI
-	 aPy2Nj6uMyLLKWAcSXcz7LUyfRt5z+T4eR+oHSZlBFWMGvEFOvilcpn0MmCb1YuRgjmkJ
-	 52JQvhJefYGGsHf/jc3Y3DZ8WpAMH468nHGTuQ8WVrUea9yjPsBh4BkSFc7GrShaeZA==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=q/1mAtnvyHaNeeiEpckn+2XG2425nFHR5nzDQK/AUM4=;
+	b=dfBQgIGfVIkI0AHVw/WBm68qjoHv5c1mJ654pXkGD/GTTTS9pP3zHcRqgaGS3gSJTZDc
+	 fYhDzzQxqRA11CgZXYgw+Y5DcMnmR8EpOfYSPcGsgbP8GpSRFQ0bGHT54bIA4em776SGv
+	 vq/vwhazX2H7ZcbWchK8mSxyc9+d4cLKpDgwweGLVhcIQn9rNLA5iMXu+SGGtvzi83rs6
+	 RX5y0NqsXF4YWEXSbqWUxsIikr661Q45wfYgLbDv4Ec4wY1Ce5isgA/EvFIv46Tmorxur
+	 YVwOjj27Rgjg0ksv3JGOricgyj1s9CZDKC18aIteiBpbXOeFotjM2JUKntrSl9h9OOA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 374191F000D1;
+	by smtp.kernel.org (Postfix) with ESMTPS id 50FD21F000C0;
 	Sat, 21 Nov 2026 14:25:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1795271139;
-	bh=D02QCZ4m4lcM6wMx2nh3xb3J/nnJjgLqNKP5V5qS1WU=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=lL7Ila/BEZQ7XJTVO4pw9y7aYhd9xKgyUHSiqkrrz7mop/yVabACgNIwuS/9TnlzV
-	 AfEOeYupercC0wrUTeXwg2L4XCn1GFUCcDESdYpUawdE9/13IZh1G1zrc2oLo0i+uE
-	 sNgnHxoka4ifdWghS+2EErWClffOU7K7fdZUafYY+Fh8r+xJDUHClt9LB6aZyqPgK5
-	 jW43juciTNMIqGHXJo5kUJzohNfLmNuOc+pYm7CFPqrK0L1j17DDNcIciLyovtCCEe
-	 qZ+X+u8GQ4pjt5f8HrZWRdcjVWQzAOoVCTPgAJWxn8v5ik5LdadLKzfx+Hp+2vlbjm
-	 LEhqMTTTyDIww==
+	bh=q/1mAtnvyHaNeeiEpckn+2XG2425nFHR5nzDQK/AUM4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=BUbROApzTQ32B8qUq2WbZRXeENZAGbqjzB6ha2pmMJmzI9E6AHKmq43wp/qAOWujt
+	 fWk+C5oGHc+HbWEh39nyA6yvXYsgqoGd2BOnrHSkETBJ71gq1BF3XOn3SCbKv2JPZE
+	 UiNTG/2sZKlx/uRskDPpuZu/hsB2BjgZ1mvR0OHBQaiNtrdvagdE6yP0oUk9Utl+Zl
+	 emJjJEz+S6911LRZmg58zlFKlSQjXLatgzP7hpKWjMDQgznC71A0ILUJrQO4i5plzW
+	 4Pikyfma8ll1EMWU4spc/ov11YOm6Brj6rbUo47nD7Xdw2Ye+ggsnWTRcow0h61Tl6
+	 Eqj5DJ8tIwE3w==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BAF414BCA1;
+	by lkml.kernel.org (Postfix) with ESMTP id D4A7B4BCB3;
 	Sat, 21 Nov 2026 14:25:37 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v4 0/3] media: rockchip: Add the IEP2 deinterlacer of
- RK3568/RK3588
-Date: Sat, 21 Nov 2026 14:25:36 +0000
-Message-Id: <20261121-iep2-v4-0-760cf25f322b@gmail.com>
+Date: Sat, 21 Nov 2026 14:25:37 +0000
+Subject: [PATCH v4 1/3] media: dt-bindings: Add Rockchip IEP2 deinterlacer
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -85,12 +83,9 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13Oyw6CMBAF0F8hXVtDh/KoK//DuCjtADXySIuNh
- vDvlocJcXmTe+7MRBxag45coolY9MaZvguBnyKiGtnVSI0OmUAMGWMspgYHoKWQQmWY54pzEqq
- Dxcq815nbfcvuVT5QjYtdGo1xY28/6x3Plt5vkm+TntGYygK1xlQCQ3atW2meZ9W3ZJn0cETpj
- iCgRBe5KJQWMk3/UXJAsD/vk4BQcCxFlYHQcETzPH8B7n4B2hQBAAA=
-X-Change-ID: 20261110-iep2-b9a9c6e77c44
+Message-Id: <20261121-iep2-v4-1-760cf25f322b@gmail.com>
+References: <20261121-iep2-v4-0-760cf25f322b@gmail.com>
+In-Reply-To: <20261121-iep2-v4-0-760cf25f322b@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
@@ -103,68 +98,155 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795271137; l=2350;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795271137; l=3925;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=G5R9VMIFiJU1tJNOmYpfUElrCWf6JYYQ7tduXHilQTo=;
- b=ZF5lg+BDUPoifHZlr601YFWm6SGCsP1AN87K283TtzRWDsLlHl5SL2TGW2Lv9oYTFxeFc4gKc
- hTIQcAzvEloCEcX2AMsVyk/x1pUuoIzYGbygGRUlUAdbcJPa5q9B+Oz
+ bh=CeX1QEjZuZNTsKtj8wHcP2hhIDK1JE/9M0cffwr9/u0=;
+ b=PlpZcWdBwyv5rqAHqUswJmO9fNm4dF5Vu4I44TWNiuzX2MchkseZXQ2IKRW8tkmOqjannb2V0
+ 59SOsILAbp7BCJ3wnrAdQOilpmmBGFd1nIHrTUvQfrerlxgTJQcPMLS
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Add a V4L2 mem2mem driver for the IEP2 deinterlacer of the RK3568 and
-RK3588, with its binding and the RK3588 DT node. The V4L2 side follows
-Alex Bee's IEP driver.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Tested on an Orange Pi 5 (RK3588S) with a 7.3-based kernel (KASAN,
-lockdep); build-tested on media next. v4l2-compliance 59/59, all four
-modes at 1080i without IOMMU faults, s2idle and deep suspend while
-streaming, unbind while streaming, forced watchdog and IOMMU fault
-resets. Not tested: RK3568. DMABUF imports of exactly the image size
-are refused, because of the 4 KiB OUTPUT padding (see 2/3).
+Add a binding for the IEP2 deinterlacer of the RK3568 and RK3588 SoCs.
+It is a different block from the IEP of RK3228/RK3288/RK3328/RK3399,
+hence "iep2". The RK3588 block falls back to the RK3568 compatible.
 
-One case is still open: a reset during a transfer, seen only with
-forced watchdog resets, can leave the IOMMU busy. Jobs then fail
-without DMA and the driver suspends at once so that PD_VDPU powers
-off, which restores it. While another device of the domain, e.g. a
-video decoder, keeps it on, the jobs keep failing.
+Clock and reset names follow the RGA binding. The resets are optional:
+the block has its own soft reset.
 
-Developed with Claude (Anthropic), which wrote the code and the commit
-messages. I reviewed every change.
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Changes in v4:
-- 2/3: fail the probe if the IOMMU domain allocation fails (Sashiko)
-- Link to v3: https://patch.msgid.link/20261120-iep2-v3-0-e94eb9f629d2@gmail.com
+ .../bindings/media/rockchip,rk3568-iep2.yaml       | 95 ++++++++++++++++++++++
+ MAINTAINERS                                        |  6 ++
+ 2 files changed, 101 insertions(+)
 
----
-Arun Iyengar (3):
-      media: dt-bindings: Add Rockchip IEP2 deinterlacer
-      media: rockchip: Add IEP2 deinterlacer driver
-      arm64: dts: rockchip: Add IEP2 deinterlacer to RK3588
+diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
+new file mode 100644
+index 000000000000..0c7666de19f8
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
+@@ -0,0 +1,95 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/rockchip,rk3568-iep2.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Rockchip IEP2 image enhancement processor
++
++maintainers:
++  - Arun Iyengar <aiyengar1990@gmail.com>
++
++description:
++  Memory to memory video deinterlacer of the Rockchip RK3568 and RK3588
++  SoCs. It has its own IOMMU, with which it shares its interrupt line.
++
++properties:
++  compatible:
++    oneOf:
++      - const: rockchip,rk3568-iep2
++      - items:
++          - const: rockchip,rk3588-iep2
++          - const: rockchip,rk3568-iep2
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: AXI bus clock
++      - description: AHB bus clock
++      - description: Core clock
++
++  clock-names:
++    items:
++      - const: aclk
++      - const: hclk
++      - const: sclk
++
++  resets:
++    items:
++      - description: AXI reset
++      - description: AHB reset
++      - description: Core reset
++
++  reset-names:
++    items:
++      - const: axi
++      - const: ahb
++      - const: core
++
++  power-domains:
++    maxItems: 1
++
++  iommus:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - power-domains
++  - iommus
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/power/rk3588-power.h>
++    #include <dt-bindings/reset/rockchip,rk3588-cru.h>
++
++    bus {
++      #address-cells = <2>;
++      #size-cells = <2>;
++
++      deinterlace@fdbb0000 {
++        compatible = "rockchip,rk3588-iep2", "rockchip,rk3568-iep2";
++        reg = <0x0 0xfdbb0000 0x0 0x500>;
++        interrupts = <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&cru ACLK_IEP2P0>, <&cru HCLK_IEP2P0>,
++                 <&cru CLK_IEP2P0_CORE>;
++        clock-names = "aclk", "hclk", "sclk";
++        resets = <&cru SRST_A_IEP2P0>, <&cru SRST_H_IEP2P0>,
++                 <&cru SRST_IEP2P0_CORE>;
++        reset-names = "axi", "ahb", "core";
++        power-domains = <&power RK3588_PD_VDPU>;
++        iommus = <&iep_mmu>;
++      };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f72ce07a4e38..90ec701edce6 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24285,6 +24285,12 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/rockchip,i2s-tdm.yaml
+ F:	sound/soc/rockchip/rockchip_i2s_tdm.*
+ 
++ROCKCHIP IEP2 DEINTERLACER DRIVER
++M:	Arun Iyengar <aiyengar1990@gmail.com>
++L:	linux-rockchip@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/rockchip,rk3568-iep2.yaml
++
+ ROCKCHIP ISP V1 DRIVER
+ M:	Dafna Hirschfeld <dafna@fastmail.com>
+ M:	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
- Documentation/admin-guide/media/rockchip-iep2.rst  |   32 +
- Documentation/admin-guide/media/v4l-drivers.rst    |    1 +
- .../bindings/media/rockchip,rk3568-iep2.yaml       |   95 ++
- MAINTAINERS                                        |    8 +
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |   22 +
- drivers/media/platform/rockchip/Kconfig            |    1 +
- drivers/media/platform/rockchip/Makefile           |    1 +
- drivers/media/platform/rockchip/iep2/Kconfig       |   16 +
- drivers/media/platform/rockchip/iep2/Makefile      |    3 +
- drivers/media/platform/rockchip/iep2/iep2-regs.h   |  191 +++
- drivers/media/platform/rockchip/iep2/iep2.c        | 1319 ++++++++++++++++++++
- drivers/media/platform/rockchip/iep2/iep2.h        |  108 ++
- 12 files changed, 1797 insertions(+)
----
-base-commit: ccf78740d63813c452c035b57d17a650492562fa
-change-id: 20261110-iep2-b9a9c6e77c44
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
