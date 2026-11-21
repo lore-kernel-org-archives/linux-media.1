@@ -1,124 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795250293;
-	b=C1B+lu+Usbww7Tsf4qY1w1jsCc53TEl0TMq+FLPwjgfMxOIwVpQc8hRRax4EZgDzuwKf
-	 U4LD7A7sTf6HeEVnYlynM132mnd947Nko1NV4l6NGS4I7/nmYHCXvEXgJGstvcKhwW5ir
-	 aPU+2kvSYvyCCQOg+dTSBP4V+8KynZ97UAq2XSSOW0udmROQDhpagD6QIxj+O2CKbQWwr
-	 19Q9vtI8vwik1mzOqKIzdzxkCRasyK+Kju6o3yCBfMy3Fl2JTZNG6X+a3OVolcQEtQI/4
-	 BvuFKd6MWCA1sTzTKVyeCgcjvSAwYth7G6COPRlzIl5mo935DvtXvbNDf8o+t4Lkg2w==
+	t=1795252753;
+	b=Kn9wC8IPWFkSn3y+Jc8gY10mbvEqM2wUOmPYWj1JBh6smLRmFGQ4OmP8+r1/uzfLjcgo
+	 72+zeevc9znQJcC+VREipnX/m6pMYMK3rcXY87eZSyHU0+sXAsNHe7RnE3V+/Bj0M/bEd
+	 18gBp+WY6s5CzMFcrECsbBXuWt5TB/kdytlEFfjaMiWAG3DR0SgQEDEI28dKrgxsjVMzd
+	 tB2tj0k/6IjrK3TSe7ZY+oRnocMybYLzHyaf7hQtJEq6NsLLTM6q+qrwuu4aHnbPL/IrW
+	 2o9Uvllmk/zk4OTYPOv+fIQ1ebTi0/fB5qSD4UOSdOBzQi3LsPsMo1baqaHVxPb45sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795250293;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=ONyMxX9vSJ8SY7VeS7y2lP74kEkT78GR7xzJRBQz01k=;
-	b=S803gDqooFaIyvWLLbTSeD63rhYVXZw4zFhfNHnja+/BkozC9K5cZyduVGsb5AYohfw9
-	 uuYn5HWFaJSdqnzyQbFUTTBEabehRWv7PINzG7ZkPzu8PhFQpk4K3pC7Ph+pfBggDkCiH
-	 jscIRMmYOLHmMfnpvDFBosV6NbcEj17QeqnWBl2FlrMOVwkPfBEJw2cWLwlQ9Oktwr+1A
-	 uYuDFfQoyzxfMf79vwwdyDQAXAn6Bz26IefUkhl9VgFc3/lwnkrx8SRtu7aCxM28yoRPL
-	 tz99ufGezabtYbATCVr20dvPNGSW+MTgdPq/LAh6wmuJCDrviKwILBvrDDTyPH7Hj5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795252753;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=JOOW8rwk0fxLyNA5MGe5otqpgV1eEvzk99HIB9Qw9QM=;
+	b=oNcw6aQ+z42tNVW84Y0VULdIuXS8GF/VBRIlX17ZCykPm1YxDhvBZI76EP6BiNp0Dffz
+	 wSHz/8+Vib7CGZujsTEfS95sdyFJK+fZVbFQRdXdFZEf8qXTNlBtn8qRjAuE9kIjX6Rpr
+	 HJ2JqCNze3l3WEeRAeRoihXyZO4WXaGq9AU5iyMdur695OAshhxEo42rekNDKk8k5T9TB
+	 dBoTciWzFyMgbu0LuH42QCmzqe1fH36R4LmmyafnGK2u7RXTfnEnTqcArrsT1boGWH7lM
+	 woq4fFwD3bbUdJTLqAMeLXkH9W7cEyIejB87OvDD3yTlAmqZwEgPaIqhKJiJ4zpJcZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ragnatech.se;
-	spf=pass smtp.mailfrom=ragnatech.se;
-	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=yTBIcL0O;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=BPlKKHo3;
-	arc=none smtp.remote-ip=103.168.172.144
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cX8Oyko+;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D618606A32A
-	for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 08:38:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D618606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C03606A320
+	for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 09:19:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70C03606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=yTBIcL0O;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=BPlKKHo3
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfout.phl.internal (Postfix) with ESMTP id 9379DEC0BE9
-	for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 03:38:11 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Sat, 21 Nov 2026 03:38:11 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1795250291;
-	 x=1795336691; bh=ONyMxX9vSJ8SY7VeS7y2lP74kEkT78GR7xzJRBQz01k=; b=
-	yTBIcL0OVTfkwK1O+Ziuw6by7/1he7UynoUnsw0zhUxa4dpS/XSkkT+7x8RfiSxl
-	GsG6KqO8zDf8Onr13YPeEiG7QA6jZw3CkJa0MwM3CBVqx611Htn+tIwfVMQXCXkQ
-	dHjCEUtdWtwmwbc5Mgodsk5j6Ic4hxW4Rzmq6pwBxENRFqCH+1b/SW2glfyw/8Q1
-	jpJl8e83Sq9BMq44sLgwK4x0cr7lJ40m+Md6W133DuB7UI7IfnIal0SYgVzVByEP
-	qSoNcbyG6K6hz+UVZbIZ0RXFNDjQurtNTS1b1TSoXx0FLSPitMYoFGJeIjm8BnMV
-	AvXfdoGWVBdJSsB2MIKpGA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795250291; x=
-	1795336691; bh=ONyMxX9vSJ8SY7VeS7y2lP74kEkT78GR7xzJRBQz01k=; b=B
-	PlKKHo3f5e5IjsPU/UoboA3FH9gfpeG7XJbV4SWe7YQ27QAsPWDoekoeoUjESBlm
-	Nx6x8f9wpAECBufTaZAgcDG/CjcjTzOKmCcq9nEqeQu2FWJuUMjMC1mOArwDt2fz
-	dOvZXSf8M5yVipaay0N6fJ1RaZFP3CcpmzvYdZZMG0bD9NkNjHlsSDo34B1p2Xwu
-	hq3SzKUfb0QcyH+oDVMjpR9+qzts/OYUWkrUAhjvGYHSmjs2SXZIEb82UVdXwYXX
-	mepOGynMti+K+c2QtQ6rGxQkwiAHcea7mNfv5FdGdX7HmqrtnoGKQhZptQaoNUdj
-	X2ErabDko1zLO6XpBR+6Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795250291; d=ragnatech.se;
-	mf=PG5pa2xhcy5zb2Rlcmx1bmQrcmVuZXNhc0ByYWduYXRlY2guc2U+;
-	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
-	s=fm2:rsa-sha256:uv/2LeRHvFI6MoK9Yu9yUk3/70c/AwOhhxkN2pVLhxiJ/dL
-	4mUtgH5fZazftXXFXF50rHHMxma+Zzy6UXAJz0kp6KNQ176ZVS7xPB+Mq503084O
-	pMg6XFIOm4/DqnvF6L12E+68MVHjmpiwd+Svmv6DXzdXmU15OuQ9FBXkfmPcmfeL
-	0x46TqraqldaILi0ai1VrdRTtVvb2QxCyZ759FV+MtrdYnUkKu0uQvWwsnNjMmEu
-	XD8xweC0E0j/vdRAYeMtUBibIlRsHb5xE/0z6Mp2Y4Bm7KaV/CHfR0+iyuc6NEP5
-	Ss1Lg1V5luZoj6GuSUONjPCwqmRM2IY5lI58Tqw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:stQRC3wf2Mt1GCbs6g+MLavBHIPa6uwL6IZoF+DXH9o=:MfXNwx8swPnJ27cLVRpyGi5OnQwysva2fosK1YGKONg=;
-X-ME-Sender: <xms:c1gBa25mAHuA-5P8jiK4dMfVRMlTVDF8k2RBAsAfkj1dK6Xe2FVvmg>
-    <xme:c1gBa5_Q597HqvW3W__-NTjPFhcag3n51uUQ3JwLSFo6TJNs5FHa90TNRx0AohgAx
-    X8HPIpKZkfFH8SA_DUI2_9nM1UtdnJiUkBhseIlyU8VsK0B0WVA6rE>
-X-ME-Received: <xmr:c1gBa1UJkda1zCSdBHf9oMdyOJtG4l_NbUBPH_FqglhmXpRAYKuqUDV72vTF0viTorXIRc4Unk0yX74PVej5-CZyk2KXteQ>
-X-ME-Proxy-Cause: dmFkZTGATlhUHJGPMjy89lofXANpd99TT9hI1Tn/BqkjoEhOT0ebjQ9D9s857XRffav92Q
-    cCi2L188Pnbe1ErP6tuHv4sd2I7/aLAXkFZLu96lxVg+HmQVbGB37Imf0wk+mPV4aF4Syj
-    et0/jHpxPdGhUxpxs1Ha097qsDLsy/pcAIp7tuDvc9WV4gjmDao8tzlWyhgmPmlF4aQwCE
-    ZqemdzVvf0l8JQ1QANKTi/czpo8xMaRqVdGsK3/5sFGMxSRy6ZQ/sQCnZHRAyvIHfcPaO4
-    uV/AGmayK+RCGAvivuHNKgFVnfoaU0IeXT8ql1E920dKtVFZ2QpnW5XQQJD/jdHYO7uVpY
-    nhFNE9WEUU7bg2evZ72wn3n0u5U13DhlbCsMKGLHZ9bJ3XhPzqg8b8gz/OqMwf9R8VWBVW
-    WQvhzmSOyS0YavFXl33/pv3M3gJ47CEREPHxsN1F0euqWQaPB0TPsIg1OEpCvj2XU9QbS0
-    2s1jhPwAdG8f+c8WcEqtpmGw2QnpCtPXLjHyRq3lZWiOZVU6PSn6fVVWJ/XHTX9Qt9XDNx
-    Gl0bqmDbfTVo8f6uOb/aVnELHjUYpolBW33+iLkaKgWQOlYkt4RPFWB14D8VOcwofl7ij6
-    x62MfSOVjb8YirBEnqJrjrc/YJIOjPmm9SAbKSH21FXx/MdDChpjepWzrVSQ
-X-ME-Proxy: <xmx:c1gBa0pS6IiAyvwRYIZZN7Lxo8BsnKOuubUlwC5R1yQhwz3Rpdvu-A>
-    <xmx:c1gBa3lDnqAsKllzAD_alCo8DsSaYr75c8z0Q70Anj0f_nhzEhs7dg>
-    <xmx:c1gBa02OdipLbLRh-wvwNatvk44Opl87k95I_47SFoweoezdKhYxyg>
-    <xmx:c1gBa0RTjrX9Jp2_etaYAaiCvfXmJ9dfYpG30es40nru5lEqkQh7yA>
-    <xmx:c1gBa4NNh4D-duesFV_z8gT5LFaMgOB4W10tS2gRmh2PBp7fSA0kSKMV>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 21 Nov 2026 03:38:10 -0500 (EST)
-Date: Sat, 21 Nov 2026 09:38:08 +0100
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: rcar-vin: Return unused buffers correctly
-Message-ID: <20261121083808.GC3363038@ragnatech.se>
-References: <20260828-vin-fix-vb2-v1-1-97eb1f4f75c9@ragnatech.se>
- <avrXFz3LNGShIT1K@zed>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cX8Oyko+
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cde0daf3a2aso754412a12.3
+        for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 01:19:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795252753; x=1795857553; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JOOW8rwk0fxLyNA5MGe5otqpgV1eEvzk99HIB9Qw9QM=;
+        b=cX8Oyko+9BUJ/LRlYYfIwfgInAZ3izQZGGnx1hum+2acbpMVS4IYjbzQzd9pKpoV0f
+         44Wpq79tf+r5VYD19ARiwSugHU8xOe6sQOtDChKtZi+KjerM87VVcXC6M0z1q05qGsV/
+         WqMydRz4AkYBRGL2jnVs3EjOUKxIUUAh+C6e4iIn+0c5x9KKOfr0c4EYFtNIaSiY3R5K
+         NW/pWs2guC4Q2psx/sEgNlnZnel9Dgy5sJW1VOr23GKKfk3Pt5HMr3iNVGeV9olKqqtU
+         UAlE3dUMzqzEYhvHzAolx11xHKYJXre9woJXGXi2JXj0DgKTvYH9wqhqQ/ZQdq0AYdVx
+         2FSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795252753; x=1795857553;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JOOW8rwk0fxLyNA5MGe5otqpgV1eEvzk99HIB9Qw9QM=;
+        b=gwfKtIkduBMxoe1q+WSKvXifyQnSyFQgdzc+6ert50k1jJakveIIenYZvUMEuZwFqR
+         Hq82bayb2UWx4s1dBQU2+gkdSEj71MYHVUD/w1jrfVDlPE3h4GMp93ECeOh/YHF/SHMJ
+         SaSNRjB93MLbHX4M0f7cxivVbcpPkF0P/8XIl6XksV42+Z5aJWRr8KrytLFCR9oSCB7a
+         96ASOHakjS2E66SUZ+f/OooKfajYtgFmGCsaSN0T9bAOsXkER+Pi9oPRIRoNMqet49y8
+         b0emv8Q2hoEwAUMyG0fjYfgH3DZ+YiuOPOiohbXg+90wwd7+87QqfAmzQCAhJtFbftNM
+         HedQ==
+X-Gm-Message-State: APuU4Z9Z1seKVx5wtz26c9rMXtA89mGP7SPOURDf+AgbJHgghhWHlOZt
+	2IDH9LiP01ApjKoEQBKjYlyWTEbiyCIVsRcfviWMjVZ9takIxe6GuLkl0fqjitGf8Cc=
+X-Gm-Gg: AZFdTZd9DhVaAEwQFRubH3ksF9GX84zpy+dnfWqPdVJH7RUljb+NiSZpcXP3H4XGOsq
+	gWAx2cbUOyPVKo9ab4tnGDgLJIzQTpgSBmBRoZRsUBYU3hq32GPucW33NaL1MjrHcuAR4OpiG2N
+	ZV1KBSfgH9DX07JkA0VfunmhjclO7A/l+OmT0FxVGMbREzvG7V+eSa09gCveEExBcg13v0Yax1F
+	xOK3s0zlDRFDLANstjgd8P1nlsAiTWT9phZyj69EiXr/J3zWRKqIH3q36iJTOOMou6dfrOrc1Wy
+	Duo/C2CIjy8OTkNyl/6c4ll9DUqdFGtqAQrlMEQ9Ky4ChI/7LGwc0zg07IuPL69rP8EopzskeAk
+	YqMe5UCesNhD498W0cBQNzrbGhYsrCQSiwjpGzXKfYz0KSCyrxTI0QMvNaXJkOZodXDWnhBro5F
+	PxEBabygwBOOwhGoLItkj2CXS5xSvqHNU6byq4Ms88e1oI5HylxdK3omvWw+1QhQPAhvRpCPG5t
+	3kWC76xNGHKuAXDizcTJWRbj6wPMviAOt/VGHgO9+W9JjkWUBEC7MrJRb5hqHdFMCPp0tVuMTog
+	jvk18FyP84KQD6dPclPL9TZHEMShZql3wfd8H+YmIsZbVv25P9PyF89py2RYZen/5fMShjMLcy+
+	ddo9B+p5gRO5rNulHheA=
+X-Received: by 2002:a05:6a20:e68e:b0:3fb:1640:c504 with SMTP id adf61e73a8af0-4014db5856bmr4796813637.63.1795252752623;
+        Sat, 21 Nov 2026 01:19:12 -0800 (PST)
+Received: from default-vnic.degu-barley.ts.net ([161.118.211.100])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde6d05c0cfsm2379895a12.26.2026.11.21.01.19.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 01:19:12 -0800 (PST)
+From: Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
+To: linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Andrii Cherniavskyi <chernyav.a@gmail.com>,
+	Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: media: i2c: Add Samsung S5K5E8YX image sensor
+Date: Sat, 21 Nov 2026 16:19:06 +0700
+Message-ID: <20261121091907.1190346-1-huynhtuankiet33@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -128,95 +99,130 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <avrXFz3LNGShIT1K@zed>
 
-Hi Jacopo,
+From: Andrii Cherniavskyi <chernyav.a@gmail.com>
 
-Thanks for your review.
+Add Device Tree bindings for the Samsung S5K5E8YX 5MP RAW10 CMOS image
+sensor, including optional standby-gpios and MIPI CSI-2 endpoint
+properties.
 
-On 2026-11-16 11:21:36 +0100, Jacopo Mondi wrote:
-> Hi Niklas
-> 
-> On Fri, Aug 28, 2026 at 12:37:44PM +0200, Niklas Söderlund wrote:
-> > Unused VB2 buffers should be returned with state DONE not ERROR when
-> > stopping.
-> 
-> Indeed
-> 
-> I think this is worth a fixes tag
-> 
-> I'll add, if you agree:
-> 
-> Fixes: 63a71dd813e2 ("media: rcar-vin: Break out hardware start and stop to new methods")
-> Cc: stable@vger.kernel.org
-> 
-> Not 100% sure what commit to use in the Fixes tag as unused buffers
-> were returned in ERROR state before that commit, possibily from the
-> very first commit that introduced the driver
+Signed-off-by: Andrii Cherniavskyi <chernyav.a@gmail.com>
+Co-developed-by: Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
+Signed-off-by: Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
+---
+ .../bindings/media/i2c/samsung,s5k5e8yx.yaml  | 102 ++++++++++++++++++
+ 1 file changed, 102 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8yx.yaml
 
-If a fixes tag is needed I indeed think it needs be be back to when the 
-driver was added. But is it worth the churn? I will leave it out for 
-now.
-
-> 
-> >
-> > Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> > ---
-> >  drivers/media/platform/renesas/rcar-vin/rcar-dma.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
-> > index 73cda0e2d45a..f3003dd61890 100644
-> > --- a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
-> > +++ b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
-> > @@ -1449,7 +1449,7 @@ static void rvin_stop_streaming_vq(struct vb2_queue *vq)
-> >  	dma_free_coherent(vin->dev, vin->format.sizeimage, vin->scratch,
-> >  			  vin->scratch_phys);
-> >
-> > -	return_unused_buffers(vin, VB2_BUF_STATE_ERROR);
-> > +	return_unused_buffers(vin, VB2_BUF_STATE_DONE);
-> 
-> Does the same apply to buffers queued to the hardware and not
-> processed released in rvin_stop_streaming() ?
-> 
-> 	/* Return unprocessed buffers from hardware. */
-> 	for (unsigned int i = 0; i < HW_BUFFER_NUM; i++) {
-> 		if (vin->buf_hw[i].buffer)
-> 			vb2_buffer_done(&vin->buf_hw[i].buffer->vb2_buf,
-> 					VB2_BUF_STATE_ERROR);
-> 	}
-
-Indeed it should.
-
-> 
-> (nit: there is a stray empty line after this loop, if this hunk needs
-> to be patches as well, it might be a good occasion to remove it as
-> well)
-
-Nice catch, this in itself is worth a respin ;-)
-
-> 
-> Thanks
->    j
-> 
-> 
-> >  }
-> >
-> >  static const struct vb2_ops rvin_qops = {
-> >
-> > ---
-> > base-commit: 4900cad020c0580dfb1be27776ff10a4ef110cfa
-> > change-id: 20260828-vin-fix-vb2-28e1bb24a618
-> >
-> > Best regards,
-> > --
-> > Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> >
-> >
-
+diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8yx.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8yx.yaml
+new file mode 100644
+index 000000000..a70becba5
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8yx.yaml
+@@ -0,0 +1,102 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/samsung,s5k5e8yx.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung S5K5E8YX Image Sensor
++
++description:
++  Samsung S5K5E8YX image sensor is a 5MP CMOS image sensor.
++  The sensor is controlled over a serial camera control bus protocol,
++  the widest supported output image frame size is 2608x1960 at 30 frames
++  per second, data output format is RAW10 transferred over 2-lane
++  MIPI D-PHY interface.
++
++maintainers:
++  - Andrii Cherniavskyi <chernyav.a@gmail.com>
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: samsung,s5k5e8yx
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: MCLK supply clock.
++    maxItems: 1
++
++  reset-gpios:
++    description: Active low GPIO connected to RESET pad of the sensor.
++    maxItems: 1
++
++  standby-gpios:
++    description: Active low GPIO connected to STANDBY/XSHUTDN pad of the sensor.
++    maxItems: 1
++
++  vdda-supply:
++    description: Analogue voltage supply, 2.8 volts.
++
++  vddd-supply:
++    description: Digital core voltage supply, 1.2 volts.
++
++  vddio-supply:
++    description: Digital I/O voltage supply, 1.8 or 2.8 volts.
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          link-frequencies: true
++          remote-endpoint: true
++
++        required:
++          - link-frequencies
++          - remote-endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++      #include <dt-bindings/gpio/gpio.h>
++
++      i2c {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          camera@2d {
++              compatible = "samsung,s5k5e8yx";
++              reg = <0x2d>;
++              clocks = <&camera_mclk 0>;
++              assigned-clocks = <&camera_mclk 0>;
++              assigned-clock-rates = <24000000>;
++              reset-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
++              vdda-supply = <&vreg_2p8>;
++              vddd-supply = <&vreg_1p2>;
++              vddio-supply = <&vreg_1p8>;
++
++              port {
++                  endpoint {
++                      link-frequencies = /bits/ 64 <420000000>;
++                      remote-endpoint = <&mipi_csi2_ep>;
++                  };
++              };
++          };
++      };
++...
 -- 
-Kind Regards,
-Niklas Söderlund
+2.43.0
+
