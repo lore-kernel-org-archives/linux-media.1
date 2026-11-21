@@ -1,152 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.137
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795233778;
-	b=WKadplASVrZKz8+aX/++KUY52xy6D4Em8jOREP5QV2yRYLs8PT1JmWO5ICBwaI4iFD8l
-	 R9x6jJ+UUa+gUcnWJa5wr23FONCws4gTTxXfYjMPHv858WLGcxhJckP2XwRVs6b8jAPhk
-	 tAjn5n72hSu5GIUBjzq1Mf2gZvVJES9Hjn9wTPOdFVxampA3HznsHYpgbEZ0ClAYzQdtz
-	 ttcJd6jWiP+V6iA9vnGDc4hGpkttT2kCtnAAeE6kR0AtxmS+G71C67sLOwJsmPBbohUTw
-	 b5J3FZSeoKE4EUTknkNsFgWcSAOBlY/Fa+7o/mZk+gVQjlxf3VkSXWhAW4uOzYRtCqQ==
+	t=1795240882;
+	b=xNlyBhwVljONXlk/c1n8SFQqf7XzbQwgc+X2Fs9siKlk5UD2lReSHQAqKWltLyMSBOPJ
+	 8VF6gT+589NL+RoHLYgTBoBQfmXNfcmXLTDCU0Xv8PnODIqjUU9331QiAjgtUe9W3tH3/
+	 WKQd7nmpvQPYGReJe+izw5MopTyOKXQj1zTjjv6FNZDQCcthFz2DkVZfj0SmQj0ALYFj9
+	 ZbCDKxSEJc6SV+G9O7Aqc/AmB6ERhClHgMREbUSQCCe+5GhXyUbKX2/TQh3ZMrdTaZ/ge
+	 QC5A80YBU/Y/Ax5DsYz6X+NLSMWdSnXrsqzKkJ9FfLsrvPnchRazM9DAoCF6rw1VCdg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795233778;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=+X3Cd5kzvVKN/JlZe6DjIUFxzktvcV9f6RFkp/7VzWI=;
-	b=4NJyb4ElLRrTvGodTdJz0bpLHYnt6VX3LbBKOMfCj7yGnPFPJv25SJsb2LThUjVk+V14
-	 lntwm2Z5MIDAfTNXz8oHurOqH4JVc2pKJmREy8g1LiRqe2UkL1rpJCoOnG+JpTSljs1PR
-	 943lfslb9/kOa1oF001886yPHzb2f6VAAmydNzX6Uagw+M/bVM2RhzXqALZiBL7GzagI+
-	 /fqPhm099Pmd8mKmIS7Z3MltXmh67h6PCVXQyypZJq7h25FiA7X0oSkA/KmFrB+8SIBQh
-	 0EYT9dDJ639nz72Ts6uT6zL+tN+ZiWZn9UftaGTLojOHDjtRXo69fF9xaGGtDT4//QQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795240882;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=224Uc4tdGl14OHpe8I6uXHMDyRc5b/bC6BZG730xv28=;
+	b=kzriOvQ2jC/4sNG3mWrfjFCNpAA6sINJ9ckoUx8X4tu7jAAL8j+Z1cA5u1Rxy5NHNoqI
+	 05ljOIFu3AVdrwBsDFPT4ntCHSWzmqPx4tW9pUIKB7oTBCAgqz2ZHcszozp4/KYcIgugO
+	 15mnglDwvsQWAT9mQybaNu7T8VCFPBqnKDGDI3vCkG0s7D4Zyj+nqfqZ5BXGGGwBXV8JJ
+	 I3Nv4iST96mB+Q1M5z1jrtrLSxAicPxpfnliOgoY1YsCDrxAkFO7KSM9GsUPc2/bNb5xU
+	 QgBdkZpPM0lgmjXk1JRQg775voolY3ihpc8llPQE8jTGFxLgGCzavDcXQ8BCjp3Prwg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=doany.io;
-	spf=pass smtp.mailfrom=doany.io;
-	dkim=pass header.d=doany.io header.i=@doany.io header.a=rsa-sha256 header.s=selector1 header.b="eM9r1Z/x";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.137
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11020137.outbound.protection.outlook.com [52.101.229.137])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tEOIXF8z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662F5606A696;
-	Sat, 21 Nov 2026 04:02:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 662F5606A696
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=doany.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=doany.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59FCD606A33E
+	for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 06:01:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59FCD606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=doany.io header.i=@doany.io header.a=rsa-sha256 header.s=selector1 header.b=eM9r1Z/x
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XfWfJgnhLJaLytxJp6s7glr5QxAKv2mJz+ChVxnNlTMEA17L32fCoSKEKZcT3l9Fi5jS756G0uQQCDlh67V/f60iXHOQTl0+3iyX3GAqc9eJGeU7sGgOns4wqJEr4Lc6J7/w/uN4Jll4hxH3ud3hHyi340V0XgZt7gOLMR9veX5/R6JCzZlOgALYUMBG0lAEPHMW7vj5NuitzEmYUa8P3YMFG13eakqQxNGgZz9BRRSeLK5HpepEjMaBYyc0HLHcBcatEwkvyYsPIjuboESSikREnIW+wkpedYgMiYuIuzgYxHgsYTE44KabHXahyKU2RPM4JzYjOBB1vQJBsjzhHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+X3Cd5kzvVKN/JlZe6DjIUFxzktvcV9f6RFkp/7VzWI=;
- b=MHH8SPZKgOEtlTJBnYqwAxxhzbCqqMpG8HYwpbZiQbGvO+YjtYsYkYhj5RGT13M8qVPFyyENiU5P/PxLht/rqlYFaMXx3O9yhgg0P7t1/zqB53/vileFwT4TA81XcqgXCroVz2wfiFKwcnVfdVJYNZ/0wY5mqk9hzb53UV9g5pc4SSbmVLfIIws+GkLI6YIxB1ZxWQ3K0IJI2W5ev0baS36zvxMQQV4D9qv2zhY7hFf18ifCa05tEtKbSNRFEYCg2UW/B6qKhwgXdKwmvQEs5KI0YZEq/g/nGVVRnzdmFRXyl1+BD6qHlTxD4aJhXnh8jx9pbDGBrtn19PDfaXu+8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=doany.io; dmarc=pass action=none header.from=doany.io;
- dkim=pass header.d=doany.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=doany.io; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+X3Cd5kzvVKN/JlZe6DjIUFxzktvcV9f6RFkp/7VzWI=;
- b=eM9r1Z/xAS3co6oyNPkIoGcgD4/kGd8xEdOtpagsPQStvxgn8V6ruPMs8TkYhIAW36fIwuzNLjNECh4d6kwycrK22uGNyerOBU69hPdDOYDbYrbamJ42y3+xYdqEGiqZpzThlo3AUuXmpQLiCiQLfsxXqNd5y1SizIdwe5iTeU29zFwGtPuM8UPSl8BYIY3LN5F3gY8F9t+x3RL9OgKNXSACytAfQh0V96PXRRe8+ARAED4lB+F3CvhMNl8eFzC4rLyl0PIExr4mBjqUmXo/G6FdHmTMtY+FKXQvKzD+fASVH4VrPXdBWFW2XVcyJY/XxhqkObZS4WwEYk/eNGGcXA==
-Received: from TYCPR01MB8850.jpnprd01.prod.outlook.com (2603:1096:400:18d::13)
- by OS7PR01MB14504.jpnprd01.prod.outlook.com (2603:1096:604:387::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Sat, 21 Nov
- 2026 04:02:55 +0000
-Received: from TYCPR01MB8850.jpnprd01.prod.outlook.com
- ([fe80::dc0a:e711:9a33:4362]) by TYCPR01MB8850.jpnprd01.prod.outlook.com
- ([fe80::dc0a:e711:9a33:4362%5]) with mapi id 15.21.0639.011; Sat, 21 Nov 2026
- 04:02:55 +0000
-From: Ryuki Maruyama <info@doany.io>
-To: Alessandro Menezes <alessandroasm@gmail.com>, Hans Verkuil
-	<hverkuil@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
-CC: Sasha Levin <sashal@kernel.org>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, ye xingchen <ye.xingchen@zte.com.cn>
-Subject: Re: [PATCH] Revert "media: siano: Convert to use sysfs_emit_at() API"
-Thread-Topic: [PATCH] Revert "media: siano: Convert to use sysfs_emit_at()
- API"
-Thread-Index: AQHdeW0vEn/Y7xjbRUehm8UuxcBv6Q==
-Date: Sat, 21 Nov 2026 04:02:55 +0000
-Message-ID: <20261121-siano-revert-plus1-7f3c9a2e41d8@doany.io>
-References: <20260830172330.3395671-1-alessandroasm@gmail.com>
- <20260924211146.2921657-1-alessandroasm@gmail.com>
-In-Reply-To: <20260924211146.2921657-1-alessandroasm@gmail.com>
-Accept-Language: en-US, ja-JP
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=doany.io;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYCPR01MB8850:EE_|OS7PR01MB14504:EE_
-x-ms-office365-filtering-correlation-id: e3e731e8-cf16-4ede-0abe-08df4784527c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|18002099003|22082099003|261009223027099003|4143699003|10067099003|56012099006|261028144727099003|261026140227099003|261026121527099003|261022105027099003|38070700021|7055299009;
-x-microsoft-antispam-message-info:
- +M5yUmmVKAJ8z+5pbolShrN6Ur3yhxYL/6LZP9CpyIqjOlWI6B8l5vkn+guTUUKXnTxZDEg4UHJ81EVMMcy/H179DK9UpfxjigWROV3ZO77k+0+uGoTy+TjuGj62dsDMgvtnwNwmsE6vzCPV+pBcgvQLP83rCQgXF94mcA9j08lcOtzNov7xer7qpgin/N1GF9+rGdasIWKI0KJjTtzyX70L2mD7xAP3SXoK/4tExZVGrBNGphCsu24bkzAY7V4M3PAGbt9ew+3hODhIheIMN97jMkQG1ro9ytVQgsAVeiiaufu69Sx9e4NNh2YteUvRCdpkLmM5MS2KK5pys7tSK1Ol1ZTx4EshZ8dLE5iJOE0gVPGzxwy2H5JyUnR5w7eOvA9DFHhscofD61zBAKPKn2Bh9N8AIpklsItKUqXO8NPigTI23dxfDZOMtpmRu8lbTIY4pVu+jeauCPmt7G6kPltcqWvZ1Me7gKxfXUpOaPZ6aeC9KtX00Ncfc7oVgvCwFjSO8ses3opnzUF+a8schGX6QlJ5yfzuXmxspuDhB5QTGktPrcAXnwZLsvBfMORdMHjQoGpdTFWpXzguaJHWhvF62pB/gn8exj4kwutsft0rjui93EmyephYQcHfXH249RpSnC3Rkrlis5MNOoOZIecMXqbeYSwf/i/3HVBf28JcInsuTDzQ7I8x9C6R/hzsvsalA6UllEx8jHEuXC4RtQ==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB8850.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(18002099003)(22082099003)(261009223027099003)(4143699003)(10067099003)(56012099006)(261028144727099003)(261026140227099003)(261026121527099003)(261022105027099003)(38070700021)(7055299009);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?MnNLVU9VYkVnWjBDVWFLbXhCUU9qdURWa1RUaHlZSEw4ODd0VzR1U0FVYitN?=
- =?utf-8?B?TXVOUmVuZDBBTDhYRGVGSEZKTDRzY0VvUWx6emgrY2d1eC91QW9RK20wNWti?=
- =?utf-8?B?ZGlBcm12ejkreW5SN1E2MURUR042NmdLdCtIMXd5VU5CZWxyUTcyTGxaRWc5?=
- =?utf-8?B?N2dpRjZTWXhCRXNJb1ovRnZDRDJFS1VCT2FRbmc0Q3FENExuaTJROG5tQTJx?=
- =?utf-8?B?M014cVdrVVFpdUVDZFR1OGRyNko5eldGUlV5aUFjUUpXUFBCQXB0THZoRlhG?=
- =?utf-8?B?amJsL0RTaEw4WHpxOFJDeDMyRjJTSUxyV0pEMzJnSlNXbnhwdlRCYUt2blhz?=
- =?utf-8?B?RklUKythOThLMU05Z3FBMDMya2k3a2VHN1NSRXhDZGxZVVE0WGpvYis0TmpJ?=
- =?utf-8?B?ZWpOOEordnA5RnJQYVYvZWJqTEkzMzdGR1BjQUtVODlqNXF0RXphcEVhUFFR?=
- =?utf-8?B?T3kxdlJLTkhKYjg4NCtCUEMzK3p5Y3JCWm5ZZy9TY3B1MWtlU1UxaVR3WG1S?=
- =?utf-8?B?UlgrY0VQRTJxa2hTYzVXaDBETzNyVG5GTTVrOTgvNGdPUlQyaGxjUTNUM0hF?=
- =?utf-8?B?WDYzcVltdE44dGozeHBFWFViZzF1enFqc2RxcG54cS9UTHFadVFxMm1WZVZy?=
- =?utf-8?B?QmR0RHNIaXoreUMraGlOZVVpQ21NS3VueWw5RjE5NmRzMTc3UzROdTRFWjBD?=
- =?utf-8?B?ai8yZnMrdUJkbEZZc21ZbXpMeDJWeXdYNDU4MEZmck5yK050bUxndUNUZWhk?=
- =?utf-8?B?c09aMm9FZGlrVmIvUFp1UkdqVjJtbGRzUmlsakRsQktKUDZhUzE3RUtOWFRG?=
- =?utf-8?B?QjN4aExUNm9NdldqdEJLcjVXK2pRcGhMVlRvREQzK0U2VVJVMU9MUnR1OGtp?=
- =?utf-8?B?MHNUaDA0YXNDbFFNV0J6MVhmR3RENlVsb3VQYitDV0RkaHdXY2VGcU00bWNS?=
- =?utf-8?B?US9pYmFGKzY5SytxS3Jpd2VzODhqYnlROGQvT1pnNDg0SDMwYjJqYW5Obmll?=
- =?utf-8?B?M2VOU3MyM3lWK3JXNjVXV1FvNmNFZGZoWmxJQVVZNEtZZE9oMTQ1VXg4cGtx?=
- =?utf-8?B?UVVIMmtoaWZlZ2xpWlkrWmM5YVNsTEErM3ROOGFtV3VNZWgvV3pKQmRmNXIr?=
- =?utf-8?B?UlRzWjlMOUhOOU5ZbHBOQTFWUTFCOVJ4Z3BFQ2huYkxiZk1tWkF2REl3SVNE?=
- =?utf-8?B?SnA2L3ltZ2R3a3hyV2hBd2tpMllKZTZIUTlLOENqeUFNY3NZN3VYUktXb2tO?=
- =?utf-8?B?eDFZK3Y5OFpVMTFMb0I1L2prYysrdE1XOXQ0YWE4cGNqMmtiK3JRODRFYTFS?=
- =?utf-8?B?T2tYTGdRQmR4M1o1ZEZCTUxXR3JDM1ZzQ0FIcUcwajRBV3lBOVp4T3hLd0g1?=
- =?utf-8?B?Ui9IVDNIYkd6aXorRE5uc3dwZzdiZXpueEREZkR1eHBOL0tFSGVJQkR3b2w2?=
- =?utf-8?B?U2ttUFR0ZmR4bDNROUhPSUhJeVlHbnpKNXZJRkQ3UDRMMjFHc2xZeWFacXNZ?=
- =?utf-8?B?bmp6eGtoMGo0U05mbHZnRDRsQUlFTXhZUDB0amEvd0oxck12MVFTeGFXbjh3?=
- =?utf-8?B?YndKcjdRUzgzOUk4MVY1SFlXVHhkaVVQbjNSc0FGZk5zQ04zN2VsdHlpc0hn?=
- =?utf-8?B?UUtwN2ZUNkltMmJRcEY3TStiMUNpYjJqaHBuVUpkZ2VQY0dZaGwxbnRZMytQ?=
- =?utf-8?B?WjUyZWJvc2pXdC9nLzhLeHFzclNabGtPUllWSkpUYjhscUlZNTZBVXI4dFdG?=
- =?utf-8?B?M2J1SkRvNUtGejRqNVhlMkh2Z1hHeTV3K2FPbUYycDJPdmYxcnhOT2hsSTRw?=
- =?utf-8?B?SFIrODZYcDJScG16OWZ0dkpsR3RyazZLSUxBK2hRTTI4MTVmTW9tQ2t3RGQz?=
- =?utf-8?B?K2QwelJmOVFjTDN6M0NWZXpqbDVOWERuOVdnZzBrZnZkSzJkMFhqOHFMaGFT?=
- =?utf-8?B?eVpJajdvek9IV3dlcS9pMTJ0ZDRJV3V5UUprLzJuRWFKdWUrYkNlUE9iVFJH?=
- =?utf-8?B?MEtSM0VsL2k4TnlyeXBxU1dDV0pBTUR0RHg1RFVwY2RBTjZyME8ycUVtSzZF?=
- =?utf-8?B?Qy9nemg3YkJJQ0JleEJkQ3JyejBUWWJnYWFSU2hib21WUmdBbXpRMEUvcGlj?=
- =?utf-8?B?ODFRQW9ZaFlEUVNVUUlvbmpGTzhIS1dLSkZPSU8xQkhXVnBYeExLdVVscEhq?=
- =?utf-8?B?elZHbzNUY1lFOUJnQ1pMRDQ2Y0xBTElSeWx3c1VzQXdOTnN4RnFwbWNpUjNv?=
- =?utf-8?B?MUVoZWczNjBxbjZxbmlCWlpUQzRnSWNlQkVUSkNqbDV0QzB3ai9YelM1WUJW?=
- =?utf-8?Q?0tUlpDoyvZp2EQF9Z/?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <910FDA10117A8C4E8F4ADED2DB2521C8@jpnprd01.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tEOIXF8z
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-38190551625so2960127eec.1
+        for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 22:01:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795240880; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nVCnv+7PRt6F3HChBzJYS4uBDv+2FABVWSoTrZZLa+xg+4R2DV4zpm81vte/WYZU5h
+         G57qUc6oMYPLSKMviYsWRvgHBjlRR4AaYmV1aENVIhfyDo1xFh9wcurGIiVzZqgZ+96y
+         GrHuNOUidMGpiXWr5MiEZYL+34krc3RN8YqrMnc3FtcFEwmmnLV6uYDzauj53oWqidCK
+         bQ/q/WH8zWdOKhUHP+49sHjFBcGPDd0uocFR5m+FklNh5n/eklgfTOpJqVFadSCNoPRa
+         6Lon7TmWKkB/2MuWEXUfkZTWQ3DExaBARaJLvvDLUIfRsYqNt7pbRkQjXXIA8oUAFVx+
+         RlNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=224Uc4tdGl14OHpe8I6uXHMDyRc5b/bC6BZG730xv28=;
+        fh=iFcfhCNIVsRFKFZYZ6QS7erqiN2Ip2aFR+2Br1ry5R8=;
+        b=rStK6kZikPhHsRdAmPJ6pCK4L8wrKz7yZgse9h2HhKBggx+tVqkOVRbMzAvtksou3T
+         iWCD/xD/xZmTxapjoqtGgjCeiIYG1RGXSDraWLnNTA5Sa0V5zRDcwDQ+U+QhtwdP+Ipj
+         mKC30W9etqj9R6iMJsa7Phh2F/do5Q/drnPbvjiORgQ75YQVG0LQ3DKw0peQvsG2wXRD
+         p07FXkp23a3owWOqlj/Ue1jA1cqrA4KyOKaxXfLb1o8bDTImRUn54EXnbaThIf6EyRpf
+         vvPZXJnf4WzlqUYWb5uEP3Cbi6uCYk/F+7bFSXQEHvXluATJLGksnWKBj84/3Ri05v0u
+         mNhQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795240880; x=1795845680; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=224Uc4tdGl14OHpe8I6uXHMDyRc5b/bC6BZG730xv28=;
+        b=tEOIXF8zOT6TI59P3S2WZoDI/6toupXQV8ZU4vDjAcNY4bFymszFVbIMTLD7pFZFPy
+         4+iO1icqTU9Q8PnntX9zdO3c+m5DoK4TLr+qTd7EB3Nfd5FcXVq36ekjRu0TWTJCBV0X
+         en0v8AvWU2lkMgfW6x0Bfd82ThtEd6WdbKsu2sXoolWpFr7+1ICTK05JIuHCtO0HDjkt
+         HzMMECkfCO9k0M56Xp+pVlFGD5ONQIHmo2VtVbrQuAZsQcGexQuITTaEgsQJM4BU8Cg0
+         4CCI/gpZ72EwLqpfFgr7C7bMTZY2zi+Ycsc9CBbJxEe0lAcFRB93+lAbLmrFnotqDGY6
+         AaNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795240880; x=1795845680;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=224Uc4tdGl14OHpe8I6uXHMDyRc5b/bC6BZG730xv28=;
+        b=yO8nGqDhAkCqJMX5pfQ/Z0loHVsmkI+tHoCiO5gFvVqvojSJoh2k9Y5VjT2tg6rzbD
+         uKp7VVX37PnQVH6HAix+AxUCw9DGhSSTUmxJGQpfOj7iVPerYXf57K0rAqeV3Tr8aEJ7
+         2OCXDf1rbH1EuMHqf+4rDDlvILqr/y6WArQm6o0hEU5WYt+DIoBh3lcNxATRhwQq34rZ
+         ZFRbNMGMsp9ejr2S8hs6jPHdH++omY40/F3aU35LR5rI3cPh+zK6ez8mFO+7Y2RoW/tl
+         nvhr0y6VxbcE9Z/XaVLGn1YNysnsZs/SS4/KSjA8++I1Iw4ycPWHIrUjhPhfLC67XKF5
+         Moqw==
+X-Forwarded-Encrypted: i=1; AL+hErGhm6oKFj3oooaeamX2k7K0ef2HZRsRx5c+uIhlIWL050gGtYNQYM7FmSdjpgFaWqHdeWPGFNI4CUL5rg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+bu8rbH/DpqHcMt42GeQfmLgtmYpyJt6Ym6Bx86M/1gcBpG9Dk
+	jvW+uvhR3yxm4JMUiSrIN2d6a6E3g/7HPhfeUlE69kRBeLyFwEtDeKTGktfx6FhX1lsYVJ92/uA
+	xBhvVhxeUJoP7XNsuICKnlSliQ6GQkgQ=
+X-Gm-Gg: AZFdTZdij3uC611C3F/7Amg6bjmCoz+cjk+UM87trl4kGMLhxL6PKTaXiavVUDR3sSq
+	FjOq2E2zqGX2iXMM2yXdYuP2DUvPQJGT4PgJAK9XIXpL3VnLHD+U06VItUyVsJ/QLRaqrvfvQPC
+	GSDjG6rdJmKuGh0USb1EdwDdrg6SxpJ/HFcYlzTpmwsg8tSF0SvS3glh5Uknx96hr0QOEbQ1wGk
+	yY4wcUcUkgfss4tJaFd2gt4KAPMNL/4+XNEMynYcsUpRt/DIHr0QOZFOzkoFllcy5Yx+0lWef7Q
+	LkF9z522c9+HADbkgev9UV+8vf9zGfPKZSt6j2OoO60CMCR0XzKQ8RWggfPa9/kEQbU0Zl0yjOa
+	mGA1p9K4S5DWRWIxD1bkseNCFG8Ogswis2JP3hB8n7qiDHpq+BGl+36YhSufQBTfM+0fPzGnTv9
+	dpkLRgBLROZWoiMcSEC5PoumeewCVVsA==
+X-Received: by 2002:a05:7301:1884:b0:374:ba43:ae2e with SMTP id
+ 5a478bee46e88-3856f65eccamr4973269eec.14.1795240880388; Fri, 20 Nov 2026
+ 22:01:20 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -156,31 +105,162 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: doany.io
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB8850.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3e731e8-cf16-4ede-0abe-08df4784527c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Nov 2026 04:02:55.4833
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 22ac977d-b140-4dc8-8150-90d645d3475b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: c8SZmjgsLlRhzI5MbMF0+aZmMQa7mt5EhAW5B4l2QrvxCUzFkUA8oMu5h5flP1N8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB14504
+References: <20261006153619.304520-1-clamor95@gmail.com> <20261006153619.304520-2-clamor95@gmail.com>
+ <20261120213147.GA2510168@killaraus.ideasonboard.com>
+In-Reply-To: <20261120213147.GA2510168@killaraus.ideasonboard.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Sat, 21 Nov 2026 08:01:09 +0200
+X-Gm-Features: Aa3M54qqRu5YpD_M-B645oU2wUp9Zhi2TFYXGvcBEXy6Ngu-pXKdX4X0B0Y-q1c
+Message-ID: <CAPVz0n3-+m6ke=RmjWtTtDChBi6n695ndYsyQ7XN4WwNQtQUtw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/1] media: i2c: mt9m114: Add get_fwnode_pad operation
+ for IFP
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-T24gVGh1LCBTZXAgMjQsIDIwMjYgYXQgMDU6MTE6NDRQTSAtMDQwMCwgQWxlc3NhbmRybyBNZW5l
-emVzIHdyb3RlOgo+IEdlbnRsZSBwaW5nIG9uIHRoaXMgb25lLiBTYXNoYSBub3RlZCBvbiB0aGUg
-c3RhYmxlIHNpZGUgdGhhdCBpdCBsb29rcwo+IHJpZ2h0IGJ1dCBuZWVkcyB0byBsYW5kIGluIG1h
-aW5saW5lIGZpcnN0LCBzbyBpdCdzIHdhaXRpbmcgb24gbWVkaWEuCgpIaSBIYW5zLCBNYXVybywK
-CisxIGZvciB0aGlzIHJldmVydC4gQW4gVWJ1bnR1IHVzZXIgaXMgaGl0dGluZyB0aGUgc2FtZSBX
-QVJOIGZsb29kIHdpdGggYQpQWC1TMVVEICgzMjc1OjAwODApIG9uIElTREItVDogaW4gdGhlIHJl
-cG9ydCBiZWxvdywgc3lzbG9nIGFuZCBrZXJuLmxvZwplYWNoIGdyZXcgdG8gYWJvdXQgMTAxIEdC
-IGFuZCBmaWxsZWQgdGhlIHJvb3QgZmlsZSBzeXN0ZW0uCgogIGh0dHBzOi8vYnVncy5sYXVuY2hw
-YWQubmV0L3VidW50dS8rc291cmNlL2xpbnV4LytidWcvMjE2MjEzOQoKSSBoYWQgbWlzc2VkIHRo
-aXMgcGF0Y2ggYW5kIHNlbnQgdGhlIHNhbWUgcmV2ZXJ0IG9uIDIwMjYtMTEtMDc6CgogIGh0dHBz
-Oi8vbG9yZS5rZXJuZWwub3JnL3IvMjAyNjExMDctc2lhbm8tcmV2ZXJ0LXYxLTEtNzA0ZmZjMTFm
-YzZiQGRvYW55LmlvCgpQbGVhc2UgZHJvcCBtaW5lIGluIGZhdm91ciBvZiBBbGVzc2FuZHJvJ3Ms
-IHdoaWNoIGNhbWUgZmlyc3QgYW5kIHdhcwp0ZXN0ZWQgb24gaGFyZHdhcmUgKEkgb25seSBjb21w
-aWxlIHRlc3RlZCBtaW5lLCBzbyBubyB0YWcgZnJvbSBtZSkuCgpJdCB3b3VsZCBiZSBncmVhdCB0
-byBzZWUgdGhpcyBnbyBpbiBhcyBhIGZpeCwgc28gc3RhYmxlIGNhbiBwaWNrIGl0IHVwLgoKVGhh
-bmtzLApSdWsK
+=D0=BF=D1=82, 20 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 23:3=
+1 Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Tue, Oct 06, 2026 at 06:36:19PM +0300, Svyatoslav Ryhel wrote:
+> > Currently, the driver's binding exposes only one endpoint, which maps t=
+o
+> > the IFP subdevice's SOURCE pad. This configuration causes failures for
+> > many devices using this camera because both the DT binding and the
+> > one-to-one pad mapping logic map the endpoint to the wrong pad. Fix thi=
+s
+> > by implementing the get_fwnode_pad operation for the IFP, which correct=
+ly
+> > matches the endpoint to the corresponding IFP pad.
+>
+> The discussion in the review of v1 died out after my last reply. Let's
+> continue it there.
+>
+> https://lore.kernel.org/linux-media/20260721103845.GJ50424@killaraus.idea=
+sonboard.com/
+>
+
+Yes, sure. Mt9m114 has only one fw endpoint which co-responds to pad 0
+of IFP, pad 0 of IFP is sink. Implementing get_fwnode_pad() allows to
+map endpoint to source pad (pad 1), the sink pad is linked to PA
+internally.
+
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/media/i2c/mt9m114.c | 39 +++++++++++++++++++++++++++----------
+> >  1 file changed, 29 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/drivers/media/i2c/mt9m114.c b/drivers/media/i2c/mt9m114.c
+> > index c6c950d5c8f3d..583cf47aa652e 100644
+> > --- a/drivers/media/i2c/mt9m114.c
+> > +++ b/drivers/media/i2c/mt9m114.c
+> > @@ -9,6 +9,7 @@
+> >   * itself based on work from Andrew Chew <achew@nvidia.com>.
+> >   */
+> >
+> > +#include <linux/cleanup.h>
+> >  #include <linux/clk.h>
+> >  #include <linux/delay.h>
+> >  #include <linux/errno.h>
+> > @@ -1019,14 +1020,6 @@ static int mt9m114_stop_streaming(struct mt9m114=
+ *sensor)
+> >       return ret;
+> >  }
+> >
+> > -/* -------------------------------------------------------------------=
+----------
+> > - * Common Subdev Operations
+> > - */
+> > -
+> > -static const struct media_entity_operations mt9m114_entity_ops =3D {
+> > -     .link_validate =3D v4l2_subdev_link_validate,
+> > -};
+> > -
+> >  /* -------------------------------------------------------------------=
+----------
+> >   * Pixel Array Control Operations
+> >   */
+> > @@ -1383,6 +1376,10 @@ static const struct v4l2_subdev_internal_ops mt9=
+m114_pa_internal_ops =3D {
+> >       .init_state =3D mt9m114_pa_init_state,
+> >  };
+> >
+> > +static const struct media_entity_operations mt9m114_pa_entity_ops =3D =
+{
+> > +     .link_validate =3D v4l2_subdev_link_validate,
+> > +};
+> > +
+> >  static int mt9m114_pa_init(struct mt9m114 *sensor)
+> >  {
+> >       struct v4l2_ctrl_handler *hdl =3D &sensor->pa.hdl;
+> > @@ -1405,7 +1402,7 @@ static int mt9m114_pa_init(struct mt9m114 *sensor=
+)
+> >
+> >       /* Initialize the media entity. */
+> >       sd->entity.function =3D MEDIA_ENT_F_CAM_SENSOR;
+> > -     sd->entity.ops =3D &mt9m114_entity_ops;
+> > +     sd->entity.ops =3D &mt9m114_pa_entity_ops;
+> >       pads[0].flags =3D MEDIA_PAD_FL_SOURCE;
+> >       ret =3D media_entity_pads_init(&sd->entity, 1, pads);
+> >       if (ret < 0)
+> > @@ -2097,6 +2094,23 @@ static int mt9m114_ifp_registered(struct v4l2_su=
+bdev *sd)
+> >       return 0;
+> >  }
+> >
+> > +/*
+> > + * The IFP has only one fwnode endpoint, which corresponds to the pad
+> > + * linked to the PA (PA SINK), while it should be the SOURCE for the
+> > + * next media device in the pipe.
+> > + */
+> > +static int mt9m114_ifp_get_fwnode_pad(struct media_entity *entity,
+> > +                                   struct fwnode_endpoint *endpoint)
+> > +{
+> > +     struct v4l2_subdev *sd =3D media_entity_to_v4l2_subdev(entity);
+> > +     struct mt9m114 *sensor =3D ifp_to_mt9m114(sd);
+> > +     struct fwnode_handle *fwnode =3D dev_fwnode(&sensor->client->dev)=
+;
+> > +     struct fwnode_handle *ifp_ep __free(fwnode_handle) =3D
+> > +             fwnode_graph_get_next_endpoint(fwnode, NULL);
+> > +
+> > +     return endpoint->local_fwnode =3D=3D ifp_ep ? 1 : -ENXIO;
+> > +}
+> > +
+> >  static const struct v4l2_subdev_video_ops mt9m114_ifp_video_ops =3D {
+> >       .s_stream =3D mt9m114_ifp_s_stream,
+> >  };
+> > @@ -2124,6 +2138,11 @@ static const struct v4l2_subdev_internal_ops mt9=
+m114_ifp_internal_ops =3D {
+> >       .unregistered =3D mt9m114_ifp_unregistered,
+> >  };
+> >
+> > +static const struct media_entity_operations mt9m114_ifp_entity_ops =3D=
+ {
+> > +     .link_validate =3D v4l2_subdev_link_validate,
+> > +     .get_fwnode_pad =3D mt9m114_ifp_get_fwnode_pad,
+> > +};
+> > +
+> >  static int mt9m114_ifp_init(struct mt9m114 *sensor)
+> >  {
+> >       struct v4l2_subdev *sd =3D &sensor->ifp.sd;
+> > @@ -2141,7 +2160,7 @@ static int mt9m114_ifp_init(struct mt9m114 *senso=
+r)
+> >
+> >       /* Initialize the media entity. */
+> >       sd->entity.function =3D MEDIA_ENT_F_PROC_VIDEO_ISP;
+> > -     sd->entity.ops =3D &mt9m114_entity_ops;
+> > +     sd->entity.ops =3D &mt9m114_ifp_entity_ops;
+> >       pads[0].flags =3D MEDIA_PAD_FL_SINK;
+> >       pads[1].flags =3D MEDIA_PAD_FL_SOURCE;
+> >       ret =3D media_entity_pads_init(&sd->entity, 2, pads);
+> > --
+> > 2.53.0
+> >
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
