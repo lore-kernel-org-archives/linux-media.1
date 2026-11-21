@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795264383;
-	b=m+m05zcRg6e+tpkyxkR81sCyHFwmz88A7nbE5Gl468TOBcF2prAuRhgGA7ZWidUAFS6i
-	 5/8NrXqYk2TgurDrboVOI1g5EXfeCVwb1TWM/tfSZ4Fvz9cRH+sYcgzi4cUF3N2bHtqke
-	 Vl37zjlcFxdvgQUFT2dWHP50+mWGH+elvFZMhKBP45Ak16TBnDNwHlAxcve470DakMBf7
-	 LdWqWfeZQyv0pglxVb2WTmi4g5QlSCo+xNw/rvgMUu1R4rHFzgD27MaP0NX6x2VJp73Uu
-	 YoOmo4dhl8lz1u5+uaAdd+EeAfbk950gw725FusOpUKyTOXQ2XJ6JxPrqnx3UJwsnog==
+	t=1795264755;
+	b=U2Ed4+jHs0L6qsre0gH5iiQJsGj+1q00Baj2X7NpsIj+bCfLIwjfOsAsu7dTxs6fdmTZ
+	 L1O0UQxTHSeolJ2yyWAZl7NArbewBUIGakW3CZFY+6BIfqcYjAE7g/hQEgbDM/jPi7nrC
+	 nOUDHYllm53YHhvlvpDnEB1gRnCtan31tY7x6Qdk28YJsGHTsNDX3mWk+vdxrugvV2B9i
+	 9W4JofAWcP0mArKIDked20dP1k1Cs37vCQvLyMBM+p/4S449F4Jql7dHNDAky8QXFC3KT
+	 C3ROKFuE+oo81GGEyxp6oFaic1M28cIivV1w5uXmgKhztB1qyGg0AKhLIYyU0W1KySA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795264383;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=cNTODI7JrIIu1DnD7iwwKJNOM2aZnndQZB/sdyIkwEI=;
-	b=QgJiK5vjpVFBXIBO6UbUilxXkPPO94XlFj6OkewsdQyNZ0lFk4hkgJyDrSkBuPuNAonZ
-	 Taas0l/6gpRFTfuHIBGo91uDqdpTYcDMhUV/Q2rDWzEt1JHpqOU1Pxf9LSKCcNaPFYmxN
-	 W3mTgYy+RFiQwhOQoc2rlaDcRcqFUa2snezBpWZQ7kuxXVaMN1zFXZoRj/6BSezJMrrOu
-	 cOyI701juIYrAcVIv6vHQCrI9XyP5jwc86Iqsx8SmqnHm7l1Z0T4BwD4sKTOhECHgPrV/
-	 qMfjlOOe9Hg4G69Mx890VlzF7AkVC5jJqDqfUqyNJdR1n7q8eiGTaWZylcD5Q0KTZ7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795264755;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=QhcR+FgElJw2wYOYLrrbwLgUPU3P5DQ8R/NSwKGVo4s=;
+	b=JKINWLp+/eMm+RonDETbw32cpTgRqvgSRnhqJ+oHabgyRAYxVf3KX756Eham0rKpt6Bh
+	 wdVNdJ49onnErVc+/4vUcuZYTGkYEfnCnWuRO9w1kY2PwqUhTAUdoDx6fXRTym8K/ZH7U
+	 WOH/14h2mjQtW2LCcjPT/Pj/b3iCknEx82lUMxEWY38ZvYubJIU/qvpg+kBDynRKD5uEc
+	 YuGNGlk9jqijtsuhzyIS4oXVHe8yAwcRwYtHwgoc9IJdrEWZx12LxydLkpuvRal3QBytY
+	 lKY7Xwd8OL+P5dYVRkZLa7SzAp5LQMKXH4m91D7BjYBiZ6W2xBLMCvMdJerPlfNtOIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=o6Kux1qO;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PlX+JJOJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C02606A320;
-	Sat, 21 Nov 2026 12:32:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5C02606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11730606A320;
+	Sat, 21 Nov 2026 12:39:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=o6Kux1qO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=cN
-	TODI7JrIIu1DnD7iwwKJNOM2aZnndQZB/sdyIkwEI=; b=o6Kux1qOJa9aLU1HqZ
-	i408TbCIsl5Ud1udoRSLaNquOo8R2uGjqDk+/ZwUGI+JolE05YZKdvQ327DwLqk/
-	Tu5rfoHkibw8PbxKr+ofgzVygTeCzGEP6C6OHiGHjB6Lm5fKMLimej8bEKrqchrI
-	IhByvHzlqZEcfzEzvuz6iKYaU=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD31BBejwFroa+1JA--.58410S2;
-	Sat, 21 Nov 2026 20:32:30 +0800 (CST)
-From: Haoxiang Li <haoxiang_li2024@163.com>
-To: mchehab@kernel.org,
-	hverkuil+cisco@kernel.org,
-	atharvd440@gmail.com,
-	u.kleine-koenig@baylibre.com
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: cx25821: Fix a potential leak in snd_cx25821_hw_params()
-Date: Sat, 21 Nov 2026 20:32:16 +0800
-Message-Id: <20261121123216.535327-1-haoxiang_li2024@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PlX+JJOJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18ED11F000CA;
+	Sat, 21 Nov 2026 12:39:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795264754;
+	bh=QhcR+FgElJw2wYOYLrrbwLgUPU3P5DQ8R/NSwKGVo4s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PlX+JJOJMWKF6qq8m9vcoVBN7A/qN4mQlMk5yv6F97kUZ/Nm/JvBGpXIYwna++kmO
+	 iT297rrAgeVRO7xcy1kjdVN8eEmJTu2rrHBjsvNts2q1ZpZXOiJqtAa+JA6xh+Z38f
+	 hV4Xcgab8ldDI5nxV6iR07uTrNFO629ohxw50LDK3AcXG6muidx4FjORLkLLXwXhA/
+	 +6K6rQzGaOzjJ48WITgowRYLO4q81fOQGH8xOA370XLHODs4BnXhGMGX3P8A+mQGVy
+	 KUQHrTMEeecvi++tepckyhJtLJqw6dHUiQea+fl9ZsSvHzMVYEKH6RBj+MRt1FhfBT
+	 Utt+DUIgHBAqw==
+Date: Sat, 21 Nov 2026 13:39:11 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wangao Wang <wangao.wang@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Bryan O'Donoghue <bod@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/8] dt-bindings: media: qcom,hawi-iris: Add Hawi
+ video codec
+Message-ID: <20261121-neat-chachalaca-of-adventure-0a4cc6@quoll>
+References: <20261118-add_iris_for_hawi-v3-0-51786f6d4057@oss.qualcomm.com>
+ <20261118-add_iris_for_hawi-v3-3-51786f6d4057@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,57 +63,27 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD31BBejwFroa+1JA--.58410S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7AFy3XF13Jr4rKFW7Cw45Jrb_yoW8Xr47pa
-	yavwn5GF4xJF48W3W8Gw109a98JwsYgryIgFWDZwnxZFnIqr4rtFyFqas5Wr1Yk3yfZFnx
-	XFs8uw45Gr1rJFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEQJ5UUUUUU=
-X-CM-SenderInfo: xkdr5xpdqjszblsqjki6rwjhhfrp/xtbC7R8WhGsBj18-WwAA3+
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261118-add_iris_for_hawi-v3-3-51786f6d4057@oss.qualcomm.com>
 
-Add an error path to free the memory allocated by cx25821_alsa_dma_init().
-Also move cx25821_alsa_dma_unmap() to the goto label to unify the error
-handling.
+On Wed, Nov 18, 2026 at 05:41:42PM +0800, Wangao Wang wrote:
+> Add a devicetree binding for the Iris5 video encoder and decoder block
+> found on the Qualcomm Hawi SoC.
+> 
+> Compared to the Iris4 generation, this block has
+> - additional power domains for internal NoC(cx & mm).
+> - additional clock for internal NoC(cx_iface).
+> - additional power domain and clock for apv codec.
+> - different reset lines.
+> 
+> Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/media/qcom,hawi-iris.yaml  | 256 +++++++++++++++++++++
+>  1 file changed, 256 insertions(+)
 
-Fixes: 8d8e6d6005de ("[media] cx28521: drop videobuf abuse in cx25821-alsa")
-Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
----
- drivers/media/pci/cx25821/cx25821-alsa.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-diff --git a/drivers/media/pci/cx25821/cx25821-alsa.c b/drivers/media/pci/cx25821/cx25821-alsa.c
-index f963ae79f685..1bf4fb96db1c 100644
---- a/drivers/media/pci/cx25821/cx25821-alsa.c
-+++ b/drivers/media/pci/cx25821/cx25821-alsa.c
-@@ -529,14 +529,13 @@ static int snd_cx25821_hw_params(struct snd_pcm_substream *substream,
- 
- 	ret = cx25821_alsa_dma_map(chip);
- 	if (ret < 0)
--		goto error;
-+		goto error_free;
- 
- 	ret = cx25821_risc_databuffer_audio(chip->pci, &buf->risc, buf->sglist,
- 			chip->period_size, chip->num_periods, 1);
- 	if (ret < 0) {
- 		pr_info("DEBUG: ERROR after cx25821_risc_databuffer_audio()\n");
--		cx25821_alsa_dma_unmap(chip);
--		goto error;
-+		goto err_unmap;
- 	}
- 
- 	/* Loop back to start of program */
-@@ -550,6 +549,10 @@ static int snd_cx25821_hw_params(struct snd_pcm_substream *substream,
- 
- 	return 0;
- 
-+err_unmap:
-+	cx25821_alsa_dma_unmap(chip);
-+error_free:
-+	cx25821_alsa_dma_free(buf);
- error:
- 	chip->buf = NULL;
- 	kfree(buf);
--- 
-2.25.1
+Best regards,
+Krzysztof
 
