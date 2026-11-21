@@ -1,102 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795218916;
-	b=to7Qj8j2JV2nvhQtR7b6Y1F8A71KHPoqr3QDK0SmDn7rPD/mLGZZU61DClUxc9c0gOW+
-	 7RVE83QbuAFn2QFiCrWjTQxF83RB/Qdb3RMBRRpUi/5o5rrTLLc9NPVEmsm8QrnYgIxg6
-	 BcNRWeLR2Hq9tdo5HTw4vjN6n/esN94OqGS6cnaBnbnWE10b4mhqpO9YVvbz6q/Rmh4w/
-	 9sQc1OE2DcQNy1rpIaxk3OlwNG56WxdBWIjxURo84E2Ox1eYnd6L8TX5kHNh9p8mu32Y4
-	 0eGhICU3KsUais2UuJ2rzmBMz/atzWtZ2lcmlVKkueJne/0I+Y0P2SAYz429jfF3dMQ==
+	t=1795223869;
+	b=2Z8x0G+0tyek064WezwJ7x/3d+a8tDBUMd9ggdg+1c/0gCH29B5ssU2paXATtFTTJwpc
+	 7egv3F5yDdku92AuTr0Ya2s+qQVWP7PK+4c+uUYJa+qScO8v3c56+63+tC2uU6NR7ORYG
+	 kyqinvLP5m6lEzu3gaRvooD+qvchs95HC4FljLwHD5Seljjj1O4xq6SVCJ9ubZo7F6s53
+	 smHYXMldOJrtUhBlf0C1ShPe1vzCFVL/VXTm8wVBqKaYKxa0GHjLYVEowU6C+aj84D+Yi
+	 UrZ5GIs+HbRrMkpbC+rH4AzMWI9e2JHkHViiOnvniTK1tKcPA001BD/Qg9KWeOMFQCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795218916;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=CVBcvs4NEZacI32sTy9QLmqQIro1hPd0gzRPGIIodS8=;
-	b=e6YBCOEt7BGZFuZPfRKkHUOt20Fga+AxWaKhd0T1707r5TPUxEEekbiwapAxJ19Boltx
-	 rA++LJTx6abXQ+vLvnMAQ2/SNM019iwbl/hV8gaG7UWCB8rqlMEpxwkGmruMmdHW+P0SQ
-	 b80gpYfA+6C++fdI2MtIxW1FYtL8h/g2ekSuMrocj+rJvaqjmtUqZBA/a3N617k/atdmN
-	 Xm/5lxQfYjiSw7qKKSUfd/4YhWLJgCahthdLpfYHd7YK3KrKx4WW8aB/mIWx0EtlH8vxN
-	 K27wj0fDLQ3m7uP7/ZJ+6JThsOT/tGsAyN8TCxk7ZtsmuaxLZo3m9u3E5E2D1Pv8H1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795223869;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=B86lTJg6fVd92y4pCKi8wB4ITu4XfOT9mAL1WQiizMQ=;
+	b=BxMhu/NfNWxZsrIuL213K2T/jMHl+4IJ40XkBseqU8FF1QB8PUBjEzut++5e8TfGSVKK
+	 duor/gg/8hD1YRHlJjOffsr9jzFGuSNidc3xSqFtl2ptscPG0S4tbHD2PXOQ/qVTVE5mF
+	 iKvflWSj1MjuLBk72YQ5BkjVYdx2kjaj2IswfMeywkNlYpfv2ozUcU19XPwSbylv5cawv
+	 O/kR4HnuFsOx1SH6aKYTILjhnW7S+PYarvPjJDxJrKgB6fOOxhvGok6I3yZ9YQk4H/yNV
+	 TYiJCEBKFL5idXP7bfvpNCLUMCf+8c7oS3pOf/E6r+AbqLUHrnuaYIqDb/qLfbQMowg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lzvQDMQj;
-	arc=none smtp.remote-ip=209.85.219.52
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=innora.ai;
+	spf=pass smtp.mailfrom=innora.ai;
+	dkim=pass header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=h+kM8mcH;
+	arc=none smtp.remote-ip=185.70.43.18
+Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A5C606A6AF
-	for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 23:55:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64A5C606A6AF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D40606A325;
+	Sat, 21 Nov 2026 01:17:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14D40606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innora.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innora.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lzvQDMQj
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91ebf4cd218so9187416d6.3
-        for <linux-media@vger.kernel.org>; Fri, 20 Nov 2026 15:55:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795218914; x=1795823714; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CVBcvs4NEZacI32sTy9QLmqQIro1hPd0gzRPGIIodS8=;
-        b=lzvQDMQjTaKlnOvN0osh10u1dCW92+LFSqAhxHVdlifH6CkeHuho3jdMSdRsiLbwaV
-         wX08o7Synjp0sr8A48cvdstOBuLGx7U9GHSjHL3E7c6dnT2uw67geq3t0vUjj5LyJ6Tp
-         JE1wUyiIep79eGRURxu8A3Rg5rGw+/KEhyd6VM83IQUrbleNhg6k0DH7avYXJE24l41I
-         WZP2bDd0+qWRwFbh7w+bs7kPffriV3a3vuLlqTNxf3gzTDm73zoYzZZa0AbHfFwFhhqm
-         srZB2N2OPmbT0nC1jIeahzHzGPKfvnnmy1rgv5Ux0Xay4mo7TF3Q1RoanWoX84SMSypW
-         YwRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795218914; x=1795823714;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CVBcvs4NEZacI32sTy9QLmqQIro1hPd0gzRPGIIodS8=;
-        b=Wl93sMvRj+JcEmBaUikewegjGwUjVoF9FwoqvSUswsu+/gMCEnWvtfEWZjo2eabC9s
-         yJ73nvgREfi91O53N8Oni6ngjADhTSTWJeoH6ggnTrpCbDYjEUlXpJThLT6PVk6CTXHF
-         NpPBr9WzNBb/QgpzgY+FP37zvLszW4Wd0ACOw1A4nx77G8HKqR3T6N7oyH3wJG0sxi/+
-         2161MBQdY7ppYU59HhlzVYVAvc9dBoI8SiA89Fr2CqM+ELCYOK4Pg2rMkzopv5PHh8QR
-         MPpM/iHUlKnxxeGtPAjA1EhjI9Q6XVGMNH7+kpjQeWqk1kp3nWPts9NrgMiZX7WAz+ak
-         mhUw==
-X-Forwarded-Encrypted: i=1; AL+hErFZ2Tt1+DeHt5ZMfC0Kvt9We6U2wrHmaoFAtlcHhst0QIpcjklvQrD8ERh/hNYc7GfavHoL9gXAo3rljw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9i7848xCSFi/FUKDHVBZBajmgnURJmKORGbcOPSqwwOIyYANAf
-	Y2wY4tuLy1yoqPhqv7QUU1EVc8g0m0IMrMFH+ipcHj8Nob/9Vc+omYAc
-X-Gm-Gg: AZFdTZd8wMwOQewd/jgYPjYnM+ZxiaPMQji6xuKO4rco5nWXGeA5m1b0tGIgpXYlfVf
-	EzlWBb00TjQCYDrq299y8GNvio7NUZx9fEVOm6PFxbZNfbaQ7DO5H42PCzybc2NLrPiS4+kb+lv
-	T9s/bkFylj9QFdKt4Zhc1pk0MczMSLjBW8mpnZRhLzZn2XeHI8Ibw8U+h496+LidHMRLLTYhO6K
-	kxVSmgDp0qZavflmajgOG+ankF61VASeIycowAWHGO1b7GldgWJBqbVlV07p61gQ3sK/ILhRc1h
-	zwnY9bJ4rUHqan0sSlGNINKbcGyj1OLU2ojBMl43sQhwNV70fjneIUaw2lfXApd0rnxoMRO4op7
-	+Vm0Ssu7y95eeV7+2RBGwid5PRxvonaJ+mMcp08Jw3V7JmsbiOAhpgNU7tXv+bltqiILqr3Wfo+
-	jak1MewsOtpDvmK6r/M3iEIJd3K99903LByR9XCzB+08pYSnnrlLUlrYl2OCp69ej+uOLEGAhRR
-	PpTvzRsXESGX5LoIA7x/Ry00XIh32Jbj6c2bPzpowsI4W6eVLC5S+sOaeZ9+ZUp5WvlhEX+zpbN
-	c8yV5KYd+Ju3kJrofCk6Ej8qeFoB6KbmGVDqAELOjCLcgtpyoQgF1I5hXDnXtPxu5nKvpRAfo8T
-	KhdfCyEH3hHnYLA0hkNvN7AuQQB+ZQKgm7T2QyrW68Wu26b25QJVPdkzegCJG0Yjomu+rmVM7Jf
-	y8MFmIvijTRR6WIsWjwCu+UIzs5aQ9yh9l6rHiWvm3vOT8cofmAYaEBviCaLfKSk63/3CXKvZbF
-	90nN7ZvnSDmsX/+KNNJr+trCq2TlPa3/DthHBJcw6XHYQ==
-X-Received: by 2002:a05:6214:528a:b0:91e:c00c:b7b with SMTP id 6a1803df08f44-92134b28841mr78465516d6.48.1795218914174;
-        Fri, 20 Nov 2026 15:55:14 -0800 (PST)
-Received: from LRMS.tailf8556c.ts.net ([2600:4041:5024:4b00:d420:4621:169f:8773])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-921349f8c34sm39973856d6.32.2026.11.20.15.55.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 20 Nov 2026 15:55:13 -0800 (PST)
-From: Jesse Casco <jesse.casco@gmail.com>
-To: "Gjorgji Rosikopulos (Consultant)" <gjorgji.rosikopulos@oss.qualcomm.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-	Allan Siriani <allan@fatecpompeia.edu.br>,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 0/2] media: qcom: camss: Fix the X1E80100 lite CSID paths
-Date: Fri, 20 Nov 2026 18:55:12 -0500
-Message-ID: <20261120235512.1230-1-jesse.casco@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <5485aa11-386e-4648-b27f-f4090bf90d66@oss.qualcomm.com>
-References: <cover.1795196107.git.jesse.casco@gmail.com> <5485aa11-386e-4648-b27f-f4090bf90d66@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=h+kM8mcH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=innora.ai;
+	s=protonmail3; t=1795223859; x=1795483059;
+	bh=B86lTJg6fVd92y4pCKi8wB4ITu4XfOT9mAL1WQiizMQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=h+kM8mcHIgzX0lzJc9I1gfApeVJxk96qYuvNq+lOX6VYlwvZTmqcSsSAVQALI9Rsq
+	 HNphwwSMOAYCNTbkbz4VmYny1iqHtLi3mYCBcoJznT1hyUOQkdz7vMk2tWuC50GGPB
+	 WbG6Th8dpkxs1+ILao2fwmF4RJWToAlewPVRmqfvJN9A1I1OIhCgUo4uJ22KE0lFZf
+	 jXMU/btB8JdpSHH3rl2U4FpTr9w4AXhWMw7IkKU4UOyISD9K1t+axEHG9wpyMX7sB9
+	 46M2lqBLTLFLJ0V6m3HFSrSNH4CanIa9HtB+ZnvsgNZSR9qQrZaoi+Vx2IIaIBI63V
+	 z9NrQ3m6KH4BQ==
+Date: Sat, 21 Nov 2026 01:17:31 +0000
+To: Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>, andy@kernel.org, hansg@kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com, gregkh@linuxfoundation.org
+From: Feng Ning <feng@innora.ai>
+Cc: ~lkcamp/patches@lists.sr.ht, linux-kernel-mentees@lists.linux.dev, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, linux-staging@lists.linux.dev
+Subject: Re: [PATCH v4 0/3] staging: media: atomisp: use kvmalloc_objs() and drop redundant OOM messages
+Message-ID: <fFOS6YphXT9R2XDv53HTfEYV5vtnDpJcxclUqfj6zTAiE3lzliiJwFvLcdzqa8Fa0hkkyo_lQPZ3Rig_d1bBLIaIXoDYI5glhBs15cjjZ_E=@innora.ai>
+In-Reply-To: <a848c700-f1b4-4975-8c80-27b8c81160ec@gmail.com>
+References: <20260714225235.47134-1-rodrigo.gobbi.7@gmail.com> <a848c700-f1b4-4975-8c80-27b8c81160ec@gmail.com>
+Feedback-ID: 140578448:user:proton
+X-Pm-Message-ID: ad9a0e95a03b7ecd04a5a18409552a3ccf551525
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -106,16 +64,23 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 11/20/2026 10:01 PM, Gjorgji Rosikopulos (Consultant) wrote:
-> Just to note that my opinion is that CSID2 shall be removed from the
-> resources since can not be used as of today. But others may share
-> different opinion.
+Hi Rodrigo,
 
-Hi Gjorgji,
+As co-author of 2 of the 3 patches in this v4 series, I'd like to add my
+support to your ping.
 
-Agreed, I'll drop CSID2 in v2. That also makes CSID n -> VFE n hold
-again on X1E80100.
+The series is still marked "New" on patchwork and does not appear to have
+been picked up or delegated yet.  Since d178c7ca8fef has already been
+merged, the remaining changes are small cleanups on top of it.
 
-Jesse
+If it helps, I'm happy to help rebase onto the current media tree or
+prepare a v5, subject to your preference as the series owner.
+
+Thanks for taking a look when time permits.
+
+Best regards,
+Feng Ning
+
