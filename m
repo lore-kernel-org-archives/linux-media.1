@@ -1,47 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795254247;
-	b=anVL7t0LkyiNfhQnpBI69cThzwHo+oBdeQI4EPOJPomrs/gRtf+rrk556H/TTGb6cVf9
-	 /O4ikNQjkXR+ol/1q8UDTGXrRgnsUgrHR+aTKHmlJO3UVxHgFaDvzmYU+Hx1i41hEArU/
-	 NbjuSmWoAojp90JpbO2OLuxaKBmePQoAzudKdfNKny89pTGpK6Vge/c0A6BsmriUpu3B7
-	 xvO0MzzLiy2qmqdBdil5tfZUqEwL2CaCdO9yK74yVAH0JT+y7caZHnrdkYPFa9UCWDa3O
-	 AlsUAF9auiAc6/C+VPLthFyrcXp2b3DzdDOBA/MUUmoI3XW/taHXTo43vTH9zhZk+3g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795254247;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=nqqIfSZg6Py9n79TN9GVKXv5W/xgy6vsJTNqyxTYogg=;
-	b=q3puCELSsxSWxor35dWts8DbzKpiwFtpVsmNxL0EVxoLaeWmutLWH6m7BUMTOG9hFqLj
-	 MM+7obZjjrid3ckVKRoYLrvkf81WtxsOtcaWDnVFLibGw7wbqphPwsyTQHovZzLWOQsmP
-	 8WzZo6QQvtVqozlb0CMb9MAkJc+1Sm8tUEJanQEzKMICPh2Jnc45BsmZoVnZckop3uBwH
-	 DGQTDTpCiHnmmRAF3st2eXuGRaPUjEzBl/JAl9KgpfgzU1feVjpk8GIPU2ERmPO1mQqX5
-	 xMsUwFH8U4gi9yeUQtkRwCZ83JFhiwF0XF2abi9wQdE2EIDpkMSxxxERS7TGxEkxwtw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lb7enRfs;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795255856;
+	b=p2Z6TL/Ub445/2FmFzgPyReNjDNtZWINZ9gj7X74HzpfJkGFhX/ESC1a1vugp3g3Gj37
+	 4przOIdRrpfl7JUFETo9o93VZpQp0yU3Hc1SmFQasY6Zofrjbddrbk8Kwr0PQpBznQzep
+	 omAA3ObHt76ay/mmezotlTyibsxGiZs9d4cTj77ydfd3l59iygMWTWSb4GSpUY9E1x8XQ
+	 ZspMhQOaojrS9567JE1r0fVobhMBhLyDmK3rz/t7NnTCXOLI2DauLPcpoAtXJ3g+INl7k
+	 y+ca/lOhmOjAKuDIJ6/QLTm/qvO1JoRy18p0xOlGqc17DLfIaO1OTJtuw2BRqpswxUg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795255856;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=B4YHsAoHyJKwkFBTxKLpr1lA7OsEShL43buMSm7NE7g=;
+	b=IM28qaPBf+mI1K2hgcuidCkUXQNBR9PmQT1LRPvAqfE6cWMjDfoYHFdza8Lm39O/OvBb
+	 Scm9hPL17Evv1vfqNPy35eyROHn/Ty6uN5R2jcsPiVFXNPSe1zIe9pTudgunvtPcxRUKi
+	 tXXuZjHWzQHfObe7WvG5yI7ncY2OLpAhu7IZsVQovMmvL/gQAJBTGeqjAxGj+zCOTwdkX
+	 oAwV3SBHM+ZMaDnR9ZieBdOTgBBbJ4SU86sAFFZ60nHhPkYhWa6DKwa/7NlSy+2UN6d5a
+	 PDm3UwN/VVPuVk365JrUlUkMNnv+W6a1SP6AbT5aldxmcc48GJGHubH1PM3j6EYCSsg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F8AKbIsO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D682606A320;
-	Sat, 21 Nov 2026 09:44:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE6E606A33B;
+	Sat, 21 Nov 2026 10:10:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lb7enRfs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D39291F000C4;
-	Sat, 21 Nov 2026 09:44:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F8AKbIsO
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795255856;
+	b=FR7hq2yN4iJ6BzJZO150WFrBXvwutgsv+v4IN9s0IC+RUVwKyJ1jenKAyF8gub2qU+FN
+	 HCT1zpfUyQNHOrh3AGfdaZBNti6FYsmwAut2rTfDw5GsUPlmm2g0/FcoruF/aX6Wu2zr4
+	 XM2e72FlJM5tvZnXj+zHzAimz6GmhMQACiyz9LyUxGQ3JTQSCdiBy//T9yvOo3u9BeOb0
+	 WHd4CyKPFnvLyij/muYEvv2mhM91rq8FVGMYlxMqFp6TvFWHMQgBcVINY9/KC0jJZaI13
+	 ArIrQwH4iZfByQga8ztozwJS2gACKZ/v/4Aqxw3FA86rAoKpZSQrsBN/3o0q343JEiQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795255856;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=B4YHsAoHyJKwkFBTxKLpr1lA7OsEShL43buMSm7NE7g=;
+	b=JKEWiidVx9F1aUFaGF0V+l0DYbCRKEZ1ZOEjQrXu2zHD7yYx8hSiLuDJEtQrrMcdpmSC
+	 UFrPeKfFv0bks1oEprAHq8cNPRHh5fnZxJSnxJwUyjr2LvbOzEq4u6rI35XcMxUvjI022
+	 AClYrDTlZk0AyqgwLO4uLQZfK74aSIN5JZLG0QjS+7Xeq2R04x6voQR5Or2NnSU3cIUnX
+	 UdICEmw5MWUfsOoLRaiSUfL6OfksR89mGLD1+kyGu+Ck7wx5+n2220Lu5/GBRUNCwTmlx
+	 3bqo88iOA4TUKr0cVVpl6Uuj1/2ABTgMestfW0K0tC8GXvqMqjlJdA5OzeOWLoG1d9Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 555201F000CF;
+	Sat, 21 Nov 2026 10:10:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795254246;
-	bh=nqqIfSZg6Py9n79TN9GVKXv5W/xgy6vsJTNqyxTYogg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Lb7enRfsMHsjGzT8WTW+o7dN87jnpNvlAlHXcYeW6Vsq0zPQGHX6gp/DjaFGeAYfc
-	 vBMGD39RsVKoZpvlZd/srCbwtAYy+0NEQQ3SvQoUqfgHLiccxWcjMcW14X+iETDkr7
-	 95rJ6DZ2z8yfRYY+5RxqhwdxUtTXppiSAThjc+rzrj/bT4YgYTytUqZpX7ZMTxnMO1
-	 DbYSoQKR/rVkv7L2N9YlZll1XgTl1vP3/yfu0lE6lc9nIIHh+mgsVmNkOY87/S6ihc
-	 eqt0GiGujSI2Aon6YdmyxsOV9l6gs8bD+uMDCrUf8mM573f+GjNx+R/Fo28xzX6DwC
-	 7vM9e42VUEk4g==
-Message-ID: <455da85b-b11a-46d6-9c39-09cd59d09c8b@kernel.org>
-Date: Sat, 21 Nov 2026 09:44:03 +0000
+	s=k20260515; t=1795255856;
+	bh=B4YHsAoHyJKwkFBTxKLpr1lA7OsEShL43buMSm7NE7g=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=F8AKbIsOYYhRu2GUIgxy695fHCbk1rNXbdQpuZHglQYtzSdKoLYIUb7zIb64Q5Hi0
+	 EwAL+LyfcDSzMxQ9gEELjY3ZaJAr+gS1r/GpSGipiecUdgrORJ9qAhDWFcm6Wlhbm9
+	 ZDG6EZvTOIaeLtEbsmNNVX5HvMaodhaxIk/VAq16e4alRMJr7zeAbYvoMtTNBTZQvY
+	 K/cdMBPcSA8rLPm5rD5E4D/LaJVPs1tfoWsOEs7FNa5XZ5IDwIyoCh/NJiLbDQJinn
+	 +1lO/I2QBPs9c9AKDVlRNjCFxMOJ1QfFb5/l17Mf+BHdsRFl2QrKySLSqfgFVECjG3
+	 bjXW5+cnxn5tA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id DBBDF4BBD4;
+	Sat, 21 Nov 2026 10:10:54 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Sat, 21 Nov 2026 10:10:56 +0000
+Subject: [PATCH v2 3/3] media: cedrus: mpeg2: decode MPEG-1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,121 +82,131 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] media: qcom: camss: x1e80100: Use the lite clocks for
- the lite CSIDs
-To: Jesse Casco <jesse.casco@gmail.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Allan Siriani <allan@fatecpompeia.edu.br>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <cover.1795196107.git.jesse.casco@gmail.com>
- <lXsjrL39xogsB7tRB1AEPdtkw2BBHhTT06NEjPRjs8xOrajFEY7fl0tczP-zzkJvsEUv56CuZ5FaOIUb4eTlKA==@protonmail.internalid>
- <bf48f3c809f33c060e2944e5896f8a5a93fd78ea.1795196107.git.jesse.casco@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <bf48f3c809f33c060e2944e5896f8a5a93fd78ea.1795196107.git.jesse.casco@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261121-b4-cedrus-mpeg1-v2-3-95e4decf03fa@gmail.com>
+References: <20261121-b4-cedrus-mpeg1-v2-0-95e4decf03fa@gmail.com>
+In-Reply-To: <20261121-b4-cedrus-mpeg1-v2-0-95e4decf03fa@gmail.com>
+To: Hans Verkuil <hverkuil@kernel.org>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Maxime Ripard <mripard@kernel.org>, 
+ Paul Kocialkowski <paulk@sys-base.io>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>
+Cc: Jonas Karlman <jonas@kwiboo.se>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-staging@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, 
+ =?utf-8?q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795255854; l=3799;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=ENgCu+1MFMZtAJZUuEt0T+q6P9F/T+1zchxBMroIOiw=;
+ b=i5C3tVNnGqk1IrEyGSmXdZ2XEwdhU7cGA82UV4f11t7RXP0HNEAvQEtdnKwP2DzacRy5m35Pa
+ xZgEqCOj6eQAg8Am49A4qiLCCykWgl3+ChPpmm6D961m0tS721fJQu5
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
 Content-Transfer-Encoding: 7bit
 
-On 20/11/2026 17:40, Jesse Casco wrote:
-> The X1E80100 CSID_LITE0 and CSID_LITE1 resources list the full CSID
-> clocks, "csid" and "csid_csiphy_rx", instead of "vfe_lite_csid" and
-> "vfe_lite_cphy_rx", which the binding provides for them. The lite CSIDs
-> then run with their own CSI-2 receiver unclocked: their registers can be
-> read and they raise the reset interrupt, but they never report RX, RDI
-> or buffer-done interrupts, so no frame arrives.
-> 
-> Use the lite clocks, with the vfe_lite_csid rates the IFE_LITE entries
-> already use.
-> 
-> Fixes: 1830cf0f56c3 ("media: qcom: camss: Add x1e80100 specific support")
-> Signed-off-by: Jesse Casco <jesse.casco@gmail.com>
-> ---
->   drivers/media/platform/qcom/camss/camss.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index f8e5cf9f3..7d9622097 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -4287,13 +4287,13 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
->   	{
->   		.regulators = {},
->   		.clock = { "gcc_axi_hf", "gcc_axi_sf", "cpas_ahb",
-> -			   "cpas_fast_ahb", "csid", "csid_csiphy_rx" },
-> +			   "cpas_fast_ahb", "vfe_lite_csid", "vfe_lite_cphy_rx" },
->   		.clock_rate = { { 0 },
->   				{ 0 },
->   				{ 64000000, 80000000 },
->   				{ 80000000,  100000000, 200000000,
->   				  300000000, 400000000 },
-> -				{ 300000000, 400000000, 480000000 },
-> +				{ 266666667, 400000000, 480000000 },
->   				{ 300000000, 400000000, 480000000 }, },
->   		.reg = { "csid_lite0" },
->   		.interrupt = { "csid_lite0" },
-> @@ -4308,13 +4308,13 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
->   	{
->   		.regulators = {},
->   		.clock = { "gcc_axi_hf", "gcc_axi_sf", "cpas_ahb",
-> -			   "cpas_fast_ahb", "csid", "csid_csiphy_rx" },
-> +			   "cpas_fast_ahb", "vfe_lite_csid", "vfe_lite_cphy_rx" },
->   		.clock_rate = { { 0 },
->   				{ 0 },
->   				{ 64000000, 80000000 },
->   				{ 80000000,  100000000, 200000000,
->   				  300000000, 400000000 },
-> -				{ 300000000, 400000000, 480000000 },
-> +				{ 266666667, 400000000, 480000000 },
->   				{ 300000000, 400000000, 480000000 }, },
-> 
->   		.reg = { "csid_lite1" },
-> --
-> 2.56.1
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+From: Arun Iyengar <aiyengar1990@gmail.com>
+
+The engine has an MPEG-1 mode, selected with the MPEG-1 decoder type in
+the trigger register, and takes the full pel flags and the picture
+coding type (D-pictures included) in the picture header register.
+
+Select the MPEG-1 mode when V4L2_MPEG2_SEQ_FLAG_MPEG1 is set (every
+variant with the MPEG-2 decoder; tested on H616 only). A job fails if
+an MPEG-1 sequence has field pictures, or an MPEG-2 one has D-pictures
+or full pel flags.
+
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ drivers/staging/media/sunxi/cedrus/cedrus.h       |  3 +++
+ drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c | 27 +++++++++++++++++++----
+ 2 files changed, 26 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.h b/drivers/staging/media/sunxi/cedrus/cedrus.h
+index c4b1217c14b6..9c35078ef02f 100644
+--- a/drivers/staging/media/sunxi/cedrus/cedrus.h
++++ b/drivers/staging/media/sunxi/cedrus/cedrus.h
+@@ -144,6 +144,9 @@ struct cedrus_ctx {
+ 			void		*entry_points_buf;
+ 			dma_addr_t	entry_points_buf_addr;
+ 		} h265;
++		struct {
++			bool		mpeg1;
++		} mpeg2;
+ 		struct {
+ 			unsigned int	last_frame_p_type;
+ 			unsigned int	last_filter_type;
+diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c b/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
+index 10e98f08aafc..557e3d029318 100644
+--- a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
++++ b/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
+@@ -48,6 +48,17 @@ static void cedrus_mpeg2_irq_disable(struct cedrus_ctx *ctx)
+ 	cedrus_write(dev, VE_DEC_MPEG_CTRL, reg);
+ }
+ 
++static bool cedrus_mpeg2_pic_valid(const struct v4l2_ctrl_mpeg2_sequence *seq,
++				   const struct v4l2_ctrl_mpeg2_picture *pic)
++{
++	if (seq->flags & V4L2_MPEG2_SEQ_FLAG_MPEG1)
++		return pic->picture_structure == V4L2_MPEG2_PIC_FRAME;
++
++	return pic->picture_coding_type != V4L2_MPEG2_PIC_CODING_TYPE_D &&
++	       !(pic->flags & (V4L2_MPEG2_PIC_FLAG_FULL_PEL_FORWARD |
++			       V4L2_MPEG2_PIC_FLAG_FULL_PEL_BACKWARD));
++}
++
+ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, struct cedrus_run *run)
+ {
+ 	const struct v4l2_ctrl_mpeg2_sequence *seq;
+@@ -63,6 +74,11 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, struct cedrus_run *run)
+ 	seq = run->mpeg2.sequence;
+ 	pic = run->mpeg2.picture;
+ 
++	if (!cedrus_mpeg2_pic_valid(seq, pic))
++		return -EINVAL;
++
++	ctx->codec.mpeg2.mpeg1 = seq->flags & V4L2_MPEG2_SEQ_FLAG_MPEG1;
++
+ 	quantisation = run->mpeg2.quantisation;
+ 
+ 	/* Activate MPEG engine. */
+@@ -101,8 +117,10 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, struct cedrus_run *run)
+ 	reg |= VE_DEC_MPEG_MP12HDR_Q_SCALE_TYPE(pic->flags & V4L2_MPEG2_PIC_FLAG_Q_SCALE_TYPE);
+ 	reg |= VE_DEC_MPEG_MP12HDR_INTRA_VLC_FORMAT(pic->flags & V4L2_MPEG2_PIC_FLAG_INTRA_VLC);
+ 	reg |= VE_DEC_MPEG_MP12HDR_ALTERNATE_SCAN(pic->flags & V4L2_MPEG2_PIC_FLAG_ALT_SCAN);
+-	reg |= VE_DEC_MPEG_MP12HDR_FULL_PEL_FORWARD_VECTOR(0);
+-	reg |= VE_DEC_MPEG_MP12HDR_FULL_PEL_BACKWARD_VECTOR(0);
++	reg |= VE_DEC_MPEG_MP12HDR_FULL_PEL_FORWARD_VECTOR(pic->flags &
++				V4L2_MPEG2_PIC_FLAG_FULL_PEL_FORWARD);
++	reg |= VE_DEC_MPEG_MP12HDR_FULL_PEL_BACKWARD_VECTOR(pic->flags &
++				V4L2_MPEG2_PIC_FLAG_FULL_PEL_BACKWARD);
+ 
+ 	cedrus_write(dev, VE_DEC_MPEG_MP12HDR, reg);
+ 
+@@ -183,8 +201,9 @@ static void cedrus_mpeg2_trigger(struct cedrus_ctx *ctx)
+ 	u32 reg;
+ 
+ 	/* Trigger MPEG engine. */
+-	reg = VE_DEC_MPEG_TRIGGER_HW_MPEG_VLD | VE_DEC_MPEG_TRIGGER_MPEG2 |
+-	      VE_DEC_MPEG_TRIGGER_MB_BOUNDARY;
++	reg = VE_DEC_MPEG_TRIGGER_HW_MPEG_VLD | VE_DEC_MPEG_TRIGGER_MB_BOUNDARY;
++	reg |= ctx->codec.mpeg2.mpeg1 ? VE_DEC_MPEG_TRIGGER_MPEG1 :
++					    VE_DEC_MPEG_TRIGGER_MPEG2;
+ 
+ 	cedrus_write(dev, VE_DEC_MPEG_TRIGGER, reg);
+ }
+
+-- 
+2.55.0
+
+
