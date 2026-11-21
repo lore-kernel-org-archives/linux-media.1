@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.51.99
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.57.91
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795244516;
-	b=GQ1LzqDR7RtyQcVAj6rd+Bq/Q3w3+Of6GHu45CYMJDX7ZPXaX4o9MU4tai5knaigk33m
-	 zh4uz/bBgn9R56vGFPqx9/gpUPudL/RRHfoC+KbXIgdGsBHLZ2YdWaM+Wp3bJgrYB7tT0
-	 HUh3lB/XsCo6pzTUj+asXlh9NCSh0LFjwCY+FoVAPu/Yd2gjwc6rGYTedGt8ZH56MwJcl
-	 Km2lSpenuddj8kcRm0tEqgamrZlmDah5gBHeymaL9gaCn38Aip0/mKNlodIi2LZbbv04R
-	 ETB6lTyjyNX/MmG27w1QmqTBeAMyu3O+pudIJTl8X1/3Ytw12q3yRnud/Lhgg6afjLw==
+	t=1795244522;
+	b=niTCTYfRIP+SsZ98xHRPMx1542wcnzOvDt5JmSS5N6E82x4nb1Yiig2WI1pjk/1nVmW7
+	 WKRMfTZfBq6WLKPEGhuWmEIr5xF9R2F1UO5OniSWsGHUsXurgq//zqFAQldJiLQQpzqTs
+	 zN9kCYelx+OOu8fqJE3lnPbepI0eatfFXNHVz6PJyL85JCRChfbPfNqEIfJmY8jQ0UGv4
+	 S1cAZYEAOjZ8PvaFrIBrMcUYI3QpAESSba2wOHLD/8LWj23aKdz+xcsG+azrqobyIisO2
+	 PkM8d/AR3A6OyBQyNbRovdg6ZemM5fTj1xlKPSquxSYvkZmMJDBMkVUzRjNb7BH43UA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795244516;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795244522;
 	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
 	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
@@ -24,32 +24,32 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=qwpegY5gO3T3zamXBonwL8ekgsDCkAjpfn7dxlf67x4=;
-	b=kG1+lFILanfhVmx0BJT2uV+ZZlgKkDkUWWybYffNVKm6aq5G099MVDRG2xGA5FXzLFFr
-	 ewRREl+lQ3ksUs9Xnxm3ly8eHKKVjeNrPodO2W/f2Ke4T8OrD3nd8gocyGFEACHGa4jdg
-	 9bR5Ozg29gQJ0t0YpONTZkFVwrxFSjuc+hkymuENFwgK4Q15ty6bJNBErBzczgi5A2kEs
-	 ti2FUkDrk8Q5OTMilFul2l1KLeA4DppksQb5EMW9aFma3KxM7/heJwm3Rx6On5QacFjZX
-	 ThqbUFObMZqaFXqDbt2B0UA/Mk1lf8EAuH/VPiNCO5BhXxnJfzyOI4bqiqZzG4KhTQQ==
+	bh=ynF/pD9hrRMyciCfKr3ww4F6lv0lnbnzxZPrmV1nMRQ=;
+	b=XyyXVCS94zhvsbt3Qi8JKbpc1mbI2vt3sRdPnPmNOnVUZ0usvcMAw0GmwJ+6LS2wXDah
+	 VwLWAcO3kbwhFaLh62CjUMYIPEnNglyiZCuDXBRB6peunJKTEQo7gpUx2aZt9oC3QRwKB
+	 oc75hI0Wp6Y/mXo+/h17wGh6Wy5WCWoeA3SBJx2JVNa2J/0PBtOvQrFTRbnegO4iErPqf
+	 CROXjuozzAXin7v5AmcGB6I1heoJmb80HIHFgo0k5S5Xcreffb3xcV8kRBNpVbs67cK6f
+	 RH0MGys1WP/E/xUTzqO0m8E3lsoPahVVOqbJZR+LyZgtcAOMcm+7dvSsdlHMqharAMQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=siliconsignals.io;
 	spf=pass smtp.mailfrom=siliconsignals.io;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.51.99
-Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021099.outbound.protection.outlook.com [40.107.51.99])
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.57.91
+Received: from MA0PR01CU012.outbound.protection.outlook.com (mail-southindiaazon11021091.outbound.protection.outlook.com [40.107.57.91])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCB1606A698;
-	Sat, 21 Nov 2026 07:01:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BCB1606A698
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB83560A260A;
+	Sat, 21 Nov 2026 07:02:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB83560A260A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rSFgjVOuA5soKqGKcMvP+j47SgcR89y+cuEi8Me7EstY3P2xmpwwCD96J3Yvejd05+JwZZjlm9Xc2uT7eyIMefj1AbBhLos56VEEP1gzH3ZyIGQFgY61oad9uGdcgrA9pRLUIP+fATovTLZlJMYDwl/gdoSC0Fv/Ul2mcjT7+bRAYTikfWBYo+Jkz+rDxpzVVDHzdi2+WdLyIwIBlq1z50z8u/XvtkUsEZ2FmZYEiad6VsYZIfH9UTv+F64VGUhfubLp5k+ViXojOwND5JRTKzXoxgOUZGNei9P/N7LFe1FwrDBKN3uNM3yFSkdUbA9kYxHxmT3J22zBNRZ13l5o1g==
+ b=JaQK+MSDfys11gHq9FWLSyySyQon5VvClhrI//Nudi28x8xCXd83sIqU2lxwlhHBw3pWnM09/S7TmQHMzllqyuhiJlFl45oUp2ufJoXIWukLNSe3jOtcupt6yyk2HWpDT3cNAQlVUW9qGtD4cklbMcT3bVwUj6qTj3h9INrHTj2FifIzyyUg53yrw8pbAmAsL/MTOkKIQUfWMA+H6/z6fhA/ZwBiES/uCM1FnHrhcT9IOG1rIx29WC1ZrZ9dnpoQbVjy0cFMKWu1fNaW4PeDR2B8aQJ0VhMo7UM1CwWOJrXEPsmHYPDpdLet3gUXw/K9yoNLSUqXTwbYO2sZ89uEjQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qwpegY5gO3T3zamXBonwL8ekgsDCkAjpfn7dxlf67x4=;
- b=e7smudsHMhseBwRsLpMWwilDQgLZID3kMZaQ298+WmSdaHJLG9cBw3EdUeD4hrbTGw+LqnGI+AEVTlVs/5jkU09b0va/tSBP5oJSkI61r0nAJNIzRu+1E9KHVF0w+0qcxiOQOcSPE0Mdn1i/D2cHSQFT2uDdAcw6z5Q93bshaNlP8vXdqh2oyDkI26iVsZYOCUD6vqWO2bbIViIl+P9vWO5c3ODp1JgA+/bJ5Hp0FlSg3DZdzJOk/U1sIaSkujMTrIqT859+3XVg5+PJpmp//0PW3Oe5oKiuRh/2H8W31vLmgU6v8Xa4RFiNJqtIAGqzUxGvfAAOP5ElMxN9Zq2TMQ==
+ bh=ynF/pD9hrRMyciCfKr3ww4F6lv0lnbnzxZPrmV1nMRQ=;
+ b=PYB+eVhzZ5sXMIYFvtZ2br2JFgjCvw4BCQ1VRE5oI5TecTYT8pSY8Z6IP8aLVxkXADtNnYsfvjEziScr3ktlpFSUw5+EpzeLQgNJ9EhtZwxyiR6p0PgS0Z3stPs1BRzTBy6mWud44wyvo8co3VOMAC1DO9TrgKI00FPG/0V6J4u0gw18iY/HEnam7TBNnNiQi8fxCZOcKcAEfxsA63jNt0zx2yKgXpj7c+blqNZuOYNAJe1/QQ+yjGHH9jxB9sx5qW8t5kBQf+2abYfvapS8Er6bVKNyb2VDriTiJr2RDtSBiU12HkKALYY56mdIJra6aSvgHqqNUFfZRIWAWMr+Mw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
  header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
@@ -59,11 +59,11 @@ Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
  by PN2P287MB1768.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1b1::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Sat, 21 Nov
- 2026 07:01:52 +0000
+ 2026 07:01:59 +0000
 Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
  ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
  ([fe80::ce63:5749:b390:508b%4]) with mapi id 15.21.0639.011; Sat, 21 Nov 2026
- 07:01:52 +0000
+ 07:01:59 +0000
 From: Tarang Raval <tarang.raval@siliconsignals.io>
 To: sakari.ailus@linux.intel.com
 Cc: jai.luthra@ideasonboard.com,
@@ -75,9 +75,9 @@ Cc: jai.luthra@ideasonboard.com,
 	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 11/15] media: i2c: os05b10: add 12-bit RAW mode support
-Date: Sat, 21 Nov 2026 12:31:01 +0530
-Message-Id: <20261121070107.1768-12-tarang.raval@siliconsignals.io>
+Subject: [PATCH v6 14/15] media: i2c: os05b10: add 2-lane support
+Date: Sat, 21 Nov 2026 12:31:04 +0530
+Message-Id: <20261121070107.1768-15-tarang.raval@siliconsignals.io>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261121070107.1768-1-tarang.raval@siliconsignals.io>
 References: <20261121070107.1768-1-tarang.raval@siliconsignals.io>
@@ -97,303 +97,224 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PN3P287MB1829:EE_|PN2P287MB1768:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68e473f4-6c59-4128-5eab-08df479d51ec
+X-MS-Office365-Filtering-Correlation-Id: ff9b405e-8b92-48cc-33ff-08df479d5616
 X-LD-Processed: 7ec5089e-a433-4bd1-a638-82ee62e21d37,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|366016|1800799024|52116014|376014|23010399003|38350700014|10067099003|56012099006|261021123027099003|261021121427099003|261022075727099003|261022115727099003|261022105027099003|261009223027099003|261028144727099003|261026140227099003|261102123227099003|18002099003|22082099003|6133799003|3023799007;
+ BCL:0;ARA:13230040|366016|1800799024|52116014|376014|23010399003|38350700014|10067099003|56012099006|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261009223027099003|261028144727099003|261026140227099003|261102123227099003|18002099003|22082099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
- qFGNYmBc+KDK3EvFt73xWYkgugeAJGWomYOQONvJLQq1osmYwPXoJivpcCMFBndUlEh2vzdbRHy44M5OUUCU74W0NJTkw9qvuGOsf59iXW0g6Iio2bTOdNM02zwYNtHE0TSsq35Q5KR8c5gGXTtQh8hPrV0YYIH8G7hr8DftEbWe6xbU+21X5In3LELEufXTdHiqYxW8c8HWPhXQsJsrCmgKYIqedjHoIynd5XHX03NLxh45JgBOL5/1/KET4nfJsQchde3wpiv/T45WOlj+SCsQ5xhmgk2RNh9sscl7zRahRNI4PI93mPCwb1rxqtRj2f8jYNM1bT4bc9sza3q9XZm9T09KwSroEmdV1jIIf0uB6nM9DFYb//OYLrBdIL1Nq2Lzg41ybjm1QoKSgcvxh9I6Po9pknKBm8t5s3pQ5wZHEnFIq5Ljk8JAG39LSNLWrsm8iI2w11fnPfh+dcbyws2u5l9Ttrc06cMgaC9elLXxmtQ7CZOmRRtyGvMQxaca2CcY/2XnBAs4WJa5yFMjO9EluZjG/a2JhLhuTqMyoPuXwlxQfdmSDkz7CWcTg+QMQLMWD9mLM0eg/oxuGIHxauzGiS2dUxUh+5X8yom4P462CEroLmyXQGYXH0gPJ0R/gKS4d64kEF8kK+6eBN7Rzjgb0411PU72qCX6tS1x16oaavWDYvd/cgveFy5ctqQtp51TOBGTi+E+GJmyn35L6YNH/VrtT4gAX05culvj3pI=
+ 82jD0vjrWvLEv5Q2bx0Y8SfICflA5lRwOs44R15L+FIy7OpoKvwRIG7wzrnlXfJeZHrfJNBfoPjjiEUhIW2DfkHC0WFCsy1CZ8Xm2hK+O0XDBfLmlkIeTfNgDURllYKi9I/GqorctZKsVESVjThIfiA2iWR4HUwPk8JkPNmYpByaJ2cYvbQZZJwJUanrx/7lesJ/+RnXQSEntH+/rhpFFXPugceZ2tmgxMC2TokjWnf41jWPyDeE0vKAkQqREP72tnBCr1njiEsao5g6xvUW6gN7E+9aJ0999DqFSDHVCUc8EjP2RE3QSzENCpGFweVNyQOEW5X91sOEQLY+X85FkX7XN7DS3oOX5eEbe0bPHCatiTDaraXwOP0hgOIlntU2/BHNh9KmFdbq/Gi5tzdmGqdgMA28xbO0u6KqKO8gdd65mfx8tvUNz9k0P5fxkReJ9wq87LiMPRObvcWEs9Ut+M5OLnf4SmM4pyBFFt51UioF6WJnBfsp8jZgxjSijUmRWjoxMn4k/uC9R+eVo9FBSgpa6jiETq8lqYi1IXMFYBv2L2+x8BJmDCIkrtfz8iwEY62hcxiB5fuzVQxtLLn3VCPHQwihgv8Z2o/nRdIccIJttKklvEEiUHUcfmhTB1GP9jWbhmW7ONMM/6ZkNtGmuG04dgpm4v38BM2bQEKLA9PNCf/83WSUfJ/3TYp7ciQjsPVYwXagaZp5YM0oqYix91ttab6e/nrm6d0bOxqcwrg=
 X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(376014)(23010399003)(38350700014)(10067099003)(56012099006)(261021123027099003)(261021121427099003)(261022075727099003)(261022115727099003)(261022105027099003)(261009223027099003)(261028144727099003)(261026140227099003)(261102123227099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(376014)(23010399003)(38350700014)(10067099003)(56012099006)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261009223027099003)(261028144727099003)(261026140227099003)(261102123227099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?OESWmoWPYhRDcok9+lVSIyae2PfKjL10s6qGB1IcE/c9eDIlul2MgkLf0AQe?=
- =?us-ascii?Q?DDQI1mcLTVMOkg834uVSERTE8xp85DOoLN3WhX2JPh7bjr/Dz16w/rhFwDf0?=
- =?us-ascii?Q?dfg570nJsp/PFLyuJ+5mdf2hTEDXPhwS9eT6Axe+GPOUW7IqgnlyqfzYahuJ?=
- =?us-ascii?Q?ulDGX1vl//vmtPezws/A0p907WAgDSK3DMFiyt84ND/vvtCH64E108WC6Iq1?=
- =?us-ascii?Q?PxNFfVYjyME5ILcCdTd4yt+iP0OJN2DeVGYAW+iakUoOUyJ7TyU07vY30GJT?=
- =?us-ascii?Q?QjritiM5ZMG3nvbq3G7KD4U++XtMeHYefUBS9zcw5zLmz2YuEWMzqx+mORJv?=
- =?us-ascii?Q?pB9VOenKFhRs4ALttB3BvdALgsXyGerRCtBviF3G4NvUQjS+OYlukDIucZBb?=
- =?us-ascii?Q?MjgaDwd6xrv2cHSEdigS2FJkvUJaJ84WLIz+J2//2/nDOGz7FLtfv3SOD4Zf?=
- =?us-ascii?Q?1ZSY2aqF81vnnh8Vvbs3cPo6mKH6Tp2zRsMXDbNNJDY9bZ5ndyo+DT+ZU1Cr?=
- =?us-ascii?Q?qnOsiRfUs3Y13uhLKvtd1Kp1prkmusOKXJ5eiWdRWgkDgAgPJiY0xgS3q4OF?=
- =?us-ascii?Q?9YuSVxXRLJ/XL412Cw5odoegLtBL2LEGQS+KyZDyl+kaDUBtQBQpvzScIge5?=
- =?us-ascii?Q?rP8DoBjhfzc/K+rLHBvCGf5QvsG8u0ApeWoJy74Bbvju88R40rr4hFqyQW5l?=
- =?us-ascii?Q?rw/Q0OrvJLcL5fbseuhAon1ALAeDjHeSxwJDK+R2k7wx8dGYFDp8OQ6QVTVT?=
- =?us-ascii?Q?HMjDQuXOOx+6EfajqPxJuHnyHeGtf7ckDKSD2G3pTY/EP40iRm1oGrqTganM?=
- =?us-ascii?Q?E6XkYZkMA0Y2B+iGt4ES+vJd8Z4Lk+4HZaXTgYMgkAuWRBahOAMFfblZoXPK?=
- =?us-ascii?Q?Rjj37u7JBu7jV5zEs8F6bTqxv1H5hsMYTuuq7ON3s6g7tlkFG5u4f3Qvy3ad?=
- =?us-ascii?Q?ej+93lEZ16F1CTaCW/t7W1VJuZE9fjVI1LC0OQAbTmsJsyHKOHKXF3gBE4IC?=
- =?us-ascii?Q?70t/hu24kjkDjyvF+2eX028E8WQBGNGqK2IGeiDK+E+73TqK3/iPfaeZShEM?=
- =?us-ascii?Q?zohRjl+BAi/keSiq3s/LLCpxiIZftcF2uVWCmBtw6uY71pQ0hVRTz9rZ9UV8?=
- =?us-ascii?Q?UbO3qtszE7cIoiz5jIYOhHtAqGBsz4mnDcX0t1eH/r5TPXm99eG3JauDhAqh?=
- =?us-ascii?Q?Ts/VFYlqUgm+mn4ZPHdoFb7nbxR5sNA9wBt0krYPlRnyPfQhChbTMJSwWXDF?=
- =?us-ascii?Q?tUTsNTynbwQqezNr1SDGQJUBve79irGpQiaAC5XT6qVQa+2CCZVhyHhYVfeD?=
- =?us-ascii?Q?r7e7jZTvCdOMZiImbmzOerTYh/YgFLP8PzOl7A9A4+UU0p8dW2mtLcVwW4nB?=
- =?us-ascii?Q?xnS7257ZIl6pD6UynKBInCtNcNXhmKRdRe6cyAtQXqa7sVmhE4GSe+0fRYTa?=
- =?us-ascii?Q?UsIB7JCuYqGvSY6JOrSc/aLuF5iLFEBtf3qhsuXGN9s/SYWVOR9x8zudgSv8?=
- =?us-ascii?Q?E5yB9AkKNjr6tDjSATbxs54DV37smVnJC8lIl8P3sah5ArGKD+oX2He+YVi7?=
- =?us-ascii?Q?OGrLW+hxe3crlw9BaK22NAmt7D/VF5MJZIV8NN+YaElWVLRX0wYGH3R4/DAH?=
- =?us-ascii?Q?AYEavsIv3/3tF78Mq8TlCz4IYja70NGO95dP9qFxVvlYvYGT02Gylngj63+Y?=
- =?us-ascii?Q?8vLKIpSRnYmDQgsXrBP94Bjoj5h+gcqO1VzR6ZLsF22x48OgnHGOcDYVMwtD?=
- =?us-ascii?Q?WzzItogNmK0TdAnl1oHSYOBZkuI4qNI=3D?=
+ =?us-ascii?Q?zY0gl7gO1+9DpVkNUEFq2FnOvuWx/shPFFIpbUO78BNMSYlrj3BzgvN2PzBv?=
+ =?us-ascii?Q?26a5gVcOMO8A/Z89n9ZICVvRwz5YReZfMXFWG0v4ySYicMtujMJwJNXpfCT2?=
+ =?us-ascii?Q?Pi+x5ufyQMaVw3V0N99ch7Fy1ktJ7t2EQKK8goX7g2GBY/+SOv6OZEIEqfk/?=
+ =?us-ascii?Q?cevkhyBXM+ha8UL9vd8E4FbPfFxkJaDST/YkGmPsZkPJCfZi+ugJLqGlAlAO?=
+ =?us-ascii?Q?4TDhiqcMSaa1FkUmOgdBPd/cEzSpuPmovg32RHuipV3Nb3JESynp3gC4d3iD?=
+ =?us-ascii?Q?659qGoTYvXyptqULicymPw5N1NVrbgwIbp8L7iSJbY79xg7AM2M+Ypy2iX4Z?=
+ =?us-ascii?Q?unWrMAeSqnE7mytO+LFlHMQzvOvDWuNeq1RJBtBMVDFs9QuIyvLSuvE9uO17?=
+ =?us-ascii?Q?iRTGX712xsrjxamc9CJMoXI+VKMfwMirjkRWxjQtyfycLe95hGftKOvxVTi7?=
+ =?us-ascii?Q?Lp04mRfPvEwScj5g1vJN7FLxqjhe0+xJVxivcGXYOgrA78eMbr9bv/a3jIXw?=
+ =?us-ascii?Q?1BeAgHpS3jDj24xFEHBeJw5GyBSQ27b44CnvLYEV1nSrMilR/AGF3h1KX3/K?=
+ =?us-ascii?Q?vsKz6mJMf0cSTD9ZIgr6z+EMchu1X84S7Z683SsCaxSWIN3O8ekjYCX0Faz0?=
+ =?us-ascii?Q?uGocq5nSpgPvYg9CcZVRNJkJE0vlmG1Cmjl7UqzfPnjAempSywdq30G/iMH+?=
+ =?us-ascii?Q?jhA6LU/GCWLCtWxqQ5zHVTekwdDxbZhQRteqakX5UQahO4+A9zQR7TFSecNq?=
+ =?us-ascii?Q?nMHzgC5C6o7C/YcE9pMP34ODIioaLkRbpIiadBboqRE/ddWKoVitwS+KiSpI?=
+ =?us-ascii?Q?LY0S/R2SmGxAduX4wVAc78FrYDDFZlzY4Uict7ARDu6xDFTpzXyRY6N/1huH?=
+ =?us-ascii?Q?Yp6ndQeoSei2ldINwxS0x2vDyDncp+KlQoO4W46oh9M8oGvMgKGPORoY4kqN?=
+ =?us-ascii?Q?CliyV5PPeb4iUd58X6eyyC06OLdRJj7KQ67nCIatR9DP/jQ9WNcRsA4wkB42?=
+ =?us-ascii?Q?YUv5XmYR3U84LEnwlSqaIBe5LNbDKw7HeWAWmHX2U5NTQ6qRje6PHZmuxQzk?=
+ =?us-ascii?Q?w9YgUSanXRfXqs6hbEjHYVjxB7V9VP2gwSN6yGVmD2jD8U5gToQHOgRKC1re?=
+ =?us-ascii?Q?aflmZDC+2tRL6jWmoytmu2m4e00DVYUdPDSy0AjBMhfyhzYY+t6FCJM4HdaO?=
+ =?us-ascii?Q?IoYzTC1foDbm/fSNj05KhL8B5TGHqPxRnuF3sZmFvcvpXpgqQoPR8Jt6Rm8N?=
+ =?us-ascii?Q?/XUiqxfITtnlDKnZnsADItQ3hBABCrGJHKu8myJl/+5gSLWLF1q1wx3d0lEQ?=
+ =?us-ascii?Q?tJDcCt7h7SLcPgfog2Lqn4q97UVbq7PuMjyunRDqjVFLeLz0EgdPvNksLfPB?=
+ =?us-ascii?Q?P637bYDBkQaF6mIo0zMQpkpnKMkk/x4lEwGc7qzhZkiX2ToxFtI9aAAlAhTP?=
+ =?us-ascii?Q?p9B8b8uwBqnltCuWyahe93KoIeHEmMCnlBbeSh/sOBh7LXEOmt46YWC61EMs?=
+ =?us-ascii?Q?cjPeA9TFg99UYYh84x6flkwTK14o/ey12uTGSTl40k4b2+HK469l0qnD7y18?=
+ =?us-ascii?Q?MMeOKb4yhk+/Fdkvh055SRZYZZYkyEF7zmqc8YD/NGy53hIHa0nT/DGspc/c?=
+ =?us-ascii?Q?VvSKn+qnk06c7y0U6rVwvqVGQT34XpIrhsvi9r+y5dSp+NrbawZmDH+i4H1f?=
+ =?us-ascii?Q?d/plkEm405NGp/b2+UGxAdi9ogBvBL13hybGmKSapvMcT1fNJtT3pRRne25+?=
+ =?us-ascii?Q?+0qYZpBuLzIVt2cD5mGa59Tfx1tWqqs=3D?=
 X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68e473f4-6c59-4128-5eab-08df479d51ec
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff9b405e-8b92-48cc-33ff-08df479d5616
 X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2026 07:01:52.0778
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2026 07:01:59.0622
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2Fft25AqSWXljBIuNfX3GYrdnYvqxpqY/wgjPIxvtklV1w//UGRuq+fJ9gBo2NKwxjBw29mkxGSvUgO9dZrYhdQeyX4CKwfHTAREVhoTDSE=
+X-MS-Exchange-CrossTenant-UserPrincipalName: EsN6vMR9F9M2mq+XBOCqIJjWiZ1Stbvnrul8WJbiZ7yUbriAmVIttylSG6OSJqb2S/TB/cLDNmKRMnJ5wRHgJtpVfOe1KWU5Gs0g0BChQ5U=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB1768
 
-Expose a 12-bit Bayer output option in the OS05B10 V4L2 sub-device driver.
+Add support for 2-lane operation.
 
-Add a 12-bit mode table alongside the existing 10-bit mode, extend the
-enumerated mbus codes to include RAW12, and select the correct mode table
-based on the requested mbus format in enum_frame_size and stream enable.
+The link frequency depends on the number of data lanes: 750 MHz for
+2-lane and 600 MHz for 4-lane. Select the matching frequency table while
+parsing the endpoint and use it for the LINK_FREQ control and the pixel
+rate computation. Accept 2 or 4 data lanes in the endpoint.
 
 Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
 ---
- drivers/media/i2c/os05b10.c | 128 +++++++++++++++++++++++++++++++-----
- 1 file changed, 111 insertions(+), 17 deletions(-)
+ drivers/media/i2c/os05b10.c | 70 +++++++++++++++++++++++++++++--------
+ 1 file changed, 55 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
-index 79d497e6c1c5..b1b1cc2d8fc7 100644
+index c03738d20a2b..0d248d3bf0c5 100644
 --- a/drivers/media/i2c/os05b10.c
 +++ b/drivers/media/i2c/os05b10.c
-@@ -142,7 +142,6 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
+@@ -111,6 +111,7 @@
+ #define OS05B10_ROLLING_BAR_EFFECT	0xc0
+ 
+ #define OS05B10_LINK_FREQ_600MHZ	(600 * HZ_PER_MHZ)
++#define OS05B10_LINK_FREQ_750MHZ	(750 * HZ_PER_MHZ)
+ 
+ static const struct v4l2_rect os05b10_native_area = {
+ 	.top = 0,
+@@ -133,13 +134,7 @@ static const char * const os05b10_supply_name[] = {
+ };
+ 
+ static const struct cci_reg_sequence os05b10_common_regs[] = {
+-	{ OS05B10_REG_PLL_CTRL(0x01), 0x44 },
+-	{ OS05B10_REG_PLL_CTRL(0x03), 0x02 },
+-	{ OS05B10_REG_PLL_CTRL(0x05), 0x32 },
+-	{ OS05B10_REG_PLL_CTRL(0x06), 0x00 },
+-	{ OS05B10_REG_PLL_CTRL(0x25), 0x3b },
+ 	{ CCI_REG8(0x3002), 0x21 },
+-	{ OS05B10_REG_MIPI_SC_CTRL, OS05B10_4_LANE_MODE },
  	{ CCI_REG8(0x301e), 0xb4 },
  	{ CCI_REG8(0x301f), 0xd0 },
  	{ CCI_REG8(0x3021), 0x03 },
--	{ OS05B10_REG_MIPI_SC_CTRL_1, OS05B10_10BIT_MODE },
- 	{ CCI_REG8(0x3107), 0xa1 },
- 	{ CCI_REG8(0x3108), 0x7d },
- 	{ CCI_REG8(0x3109), 0xfc },
-@@ -494,6 +493,21 @@ struct os05b10_mode {
- 	struct os05b10_reg_list reg_list;
+@@ -529,6 +524,24 @@ static const struct cci_reg_sequence mode_1280_720_regs[] = {
+ 	{ CCI_REG8(0x4837), 0x0d },
  };
  
-+static const struct os05b10_mode supported_modes_12bit[] = {
-+	{
-+		.width = 2592,
-+		.height = 1944,
-+		.vts = 2007,
-+		.hts = 1744,
-+		.exp = 1900,
-+		.bpp = 12,
-+		.reg_list = {
-+			.num_of_regs = ARRAY_SIZE(mode_2592_1944_regs),
-+			.regs = mode_2592_1944_regs,
-+		},
-+	},
++static const struct cci_reg_sequence os05b10_2lane_regs[] = {
++	{ OS05B10_REG_PLL_CTRL(0x01), 0x44 },
++	{ OS05B10_REG_PLL_CTRL(0x03), 0x02 },
++	{ OS05B10_REG_PLL_CTRL(0x05), 0x64 },
++	{ OS05B10_REG_PLL_CTRL(0x06), 0x00 },
++	{ OS05B10_REG_PLL_CTRL(0x25), 0x3b },
++	{ OS05B10_REG_MIPI_SC_CTRL, OS05B10_2_LANE_MODE },
 +};
 +
- static const struct os05b10_mode supported_modes_10bit[] = {
- 	{
- 		.width = 2592,
-@@ -515,6 +529,7 @@ static const s64 link_frequencies[] = {
++static const struct cci_reg_sequence os05b10_4lane_regs[] = {
++	{ OS05B10_REG_PLL_CTRL(0x01), 0x44 },
++	{ OS05B10_REG_PLL_CTRL(0x03), 0x02 },
++	{ OS05B10_REG_PLL_CTRL(0x05), 0x32 },
++	{ OS05B10_REG_PLL_CTRL(0x06), 0x00 },
++	{ OS05B10_REG_PLL_CTRL(0x25), 0x3b },
++	{ OS05B10_REG_MIPI_SC_CTRL, OS05B10_4_LANE_MODE },
++};
++
+ struct os05b10 {
+ 	struct device *dev;
+ 	struct regmap *cci;
+@@ -547,6 +560,7 @@ struct os05b10 {
+ 	struct v4l2_ctrl *vflip;
+ 	struct v4l2_ctrl *hflip;
  
++	const s64 *link_frequencies;
+ 	u32 link_freq_index;
+ 	u32 data_lanes;
+ };
+@@ -644,10 +658,14 @@ static const struct os05b10_mode supported_modes_10bit[] = {
+ 	},
+ };
+ 
+-static const s64 link_frequencies[] = {
++static const s64 link_frequencies_4lane[] = {
+ 	OS05B10_LINK_FREQ_600MHZ,
+ };
+ 
++static const s64 link_frequencies_2lane[] = {
++	OS05B10_LINK_FREQ_750MHZ,
++};
++
  static const u32 os05b10_mbus_codes[] = {
  	MEDIA_BUS_FMT_SBGGR10_1X10,
-+	MEDIA_BUS_FMT_SBGGR12_1X12,
- };
- 
- static const char * const os05b10_test_pattern_menu[] = {
-@@ -546,14 +561,33 @@ static inline struct os05b10 *to_os05b10(struct v4l2_subdev *sd)
- 	return container_of_const(sd, struct os05b10, sd);
- };
- 
--static u32 os05b10_get_format_code(struct os05b10 *os05b10)
-+static u32 os05b10_get_format_code(struct os05b10 *os05b10, u32 code)
- {
--	static const u32 codes[2][2] = {
--		{ MEDIA_BUS_FMT_SBGGR10_1X10, MEDIA_BUS_FMT_SGBRG10_1X10, },
--		{ MEDIA_BUS_FMT_SGRBG10_1X10, MEDIA_BUS_FMT_SRGGB10_1X10, },
-+	static const u32 codes[2][2][2] = {
-+		{ /* 10 bpp */
-+			{ MEDIA_BUS_FMT_SBGGR10_1X10, MEDIA_BUS_FMT_SGBRG10_1X10 },
-+			{ MEDIA_BUS_FMT_SGRBG10_1X10, MEDIA_BUS_FMT_SRGGB10_1X10 },
-+		},
-+		{ /* 12 bpp */
-+			{ MEDIA_BUS_FMT_SBGGR12_1X12, MEDIA_BUS_FMT_SGBRG12_1X12 },
-+			{ MEDIA_BUS_FMT_SGRBG12_1X12, MEDIA_BUS_FMT_SRGGB12_1X12 },
-+		},
- 	};
-+	unsigned int is_12bit;
-+
-+	switch (code) {
-+	case MEDIA_BUS_FMT_SBGGR12_1X12:
-+	case MEDIA_BUS_FMT_SGBRG12_1X12:
-+	case MEDIA_BUS_FMT_SGRBG12_1X12:
-+	case MEDIA_BUS_FMT_SRGGB12_1X12:
-+		is_12bit = 1;
-+		break;
-+	default:
-+		is_12bit = 0;
-+		break;
-+	}
- 
--	return codes[os05b10->vflip->val][os05b10->hflip->val];
-+	return codes[is_12bit][os05b10->vflip->val][os05b10->hflip->val];
- }
- 
- static int os05b10_update_test_pattern(struct os05b10 *os05b10, u32 pattern)
-@@ -565,6 +599,34 @@ static int os05b10_update_test_pattern(struct os05b10 *os05b10, u32 pattern)
- 			 os05b10_tp_val[pattern], NULL);
- }
- 
-+static int get_mode_table(struct os05b10 *os05b10, unsigned int code,
-+			  const struct os05b10_mode **mode_list,
-+			  unsigned int *num_modes)
-+{
-+	switch (code) {
-+	case MEDIA_BUS_FMT_SBGGR12_1X12:
-+	case MEDIA_BUS_FMT_SGBRG12_1X12:
-+	case MEDIA_BUS_FMT_SGRBG12_1X12:
-+	case MEDIA_BUS_FMT_SRGGB12_1X12:
-+		*mode_list = supported_modes_12bit;
-+		*num_modes = ARRAY_SIZE(supported_modes_12bit);
-+		return 0;
-+
-+	case MEDIA_BUS_FMT_SBGGR10_1X10:
-+	case MEDIA_BUS_FMT_SGBRG10_1X10:
-+	case MEDIA_BUS_FMT_SGRBG10_1X10:
-+	case MEDIA_BUS_FMT_SRGGB10_1X10:
-+		*mode_list = supported_modes_10bit;
-+		*num_modes = ARRAY_SIZE(supported_modes_10bit);
-+		return 0;
-+
-+	default:
-+		dev_err(os05b10->dev,
-+			"Unsupported media bus format: %#x\n", code);
-+		return -EINVAL;
-+	}
-+}
-+
- static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)
- {
- 	struct os05b10 *os05b10 = container_of_const(ctrl->handler,
-@@ -625,7 +687,7 @@ static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)
- 		if (ret)
- 			break;
- 
--		fmt->code = os05b10_get_format_code(os05b10);
-+		fmt->code = os05b10_get_format_code(os05b10, fmt->code);
- 		break;
- 	case V4L2_CID_TEST_PATTERN:
- 		ret = os05b10_update_test_pattern(os05b10, ctrl->val);
-@@ -646,10 +708,11 @@ static int os05b10_enum_mbus_code(struct v4l2_subdev *sd,
- {
- 	struct os05b10 *os05b10 = to_os05b10(sd);
- 
--	if (code->index)
-+	if (code->index >= ARRAY_SIZE(os05b10_mbus_codes))
- 		return -EINVAL;
- 
--	code->code = os05b10_get_format_code(os05b10);
-+	code->code = os05b10_get_format_code(os05b10,
-+					     os05b10_mbus_codes[code->index]);
- 
- 	return 0;
- }
-@@ -684,11 +747,20 @@ static int os05b10_set_pad_format(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_state *sd_state,
- 				  struct v4l2_subdev_format *fmt)
- {
--	const struct os05b10_mode *mode = &supported_modes_10bit[0];
- 	struct os05b10 *os05b10 = to_os05b10(sd);
-+	const struct os05b10_mode *mode_list;
- 	struct v4l2_mbus_framefmt *format;
-+	const struct os05b10_mode *mode;
-+	unsigned int num_modes;
- 	int ret;
- 
-+	ret = get_mode_table(os05b10, fmt->format.code, &mode_list, &num_modes);
-+	if (ret)
-+		return ret;
-+
-+	mode = v4l2_find_nearest_size(mode_list, num_modes, width, height,
-+				      fmt->format.width, fmt->format.height);
-+
- 	fmt->format.width = mode->width;
- 	fmt->format.height = mode->height;
- 	fmt->format.field = V4L2_FIELD_NONE;
-@@ -732,12 +804,21 @@ static int os05b10_enum_frame_size(struct v4l2_subdev *sd,
- 				   struct v4l2_subdev_state *sd_state,
- 				   struct v4l2_subdev_frame_size_enum *fse)
- {
--	if (fse->index >= ARRAY_SIZE(supported_modes_10bit))
-+	struct os05b10 *os05b10 = to_os05b10(sd);
-+	const struct os05b10_mode *mode_list;
-+	unsigned int num_modes;
-+	int ret;
-+
-+	ret = get_mode_table(os05b10, fse->code, &mode_list, &num_modes);
-+	if (ret)
-+		return ret;
-+
-+	if (fse->index >= num_modes)
- 		return -EINVAL;
- 
--	fse->min_width = supported_modes_10bit[fse->index].width;
-+	fse->min_width = mode_list[fse->index].width;
- 	fse->max_width = fse->min_width;
--	fse->min_height = supported_modes_10bit[fse->index].height;
-+	fse->min_height = mode_list[fse->index].height;
- 	fse->max_height = fse->min_height;
- 
- 	return 0;
-@@ -750,13 +831,18 @@ static int os05b10_enable_streams(struct v4l2_subdev *sd,
- 	struct os05b10 *os05b10 = to_os05b10(sd);
- 	const struct os05b10_reg_list *reg_list;
- 	const struct v4l2_mbus_framefmt *fmt;
-+	const struct os05b10_mode *mode_list;
- 	const struct os05b10_mode *mode;
-+	unsigned int num_modes;
- 	int ret;
- 
- 	fmt = v4l2_subdev_state_get_format(state, 0);
--	mode = v4l2_find_nearest_size(supported_modes_10bit,
--				      ARRAY_SIZE(supported_modes_10bit), width,
--				      height, fmt->width, fmt->height);
-+	ret = get_mode_table(os05b10, fmt->code, &mode_list, &num_modes);
-+	if (ret)
-+		return ret;
-+
-+	mode = v4l2_find_nearest_size(mode_list, num_modes, width, height,
-+				      fmt->width, fmt->height);
- 
- 	ret = pm_runtime_resume_and_get(os05b10->dev);
+ 	MEDIA_BUS_FMT_SBGGR12_1X12,
+@@ -983,6 +1001,19 @@ static int os05b10_enable_streams(struct v4l2_subdev *sd,
  	if (ret < 0)
-@@ -770,6 +856,14 @@ static int os05b10_enable_streams(struct v4l2_subdev *sd,
- 		goto err_rpm_put;
- 	}
+ 		return ret;
  
-+	ret = cci_write(os05b10->cci, OS05B10_REG_MIPI_SC_CTRL_1,
-+			(mode->bpp == 12) ? OS05B10_12BIT_MODE :
-+			OS05B10_10BIT_MODE, NULL);
++	/* Write PLL and MIPI lane configuration */
++	if (os05b10->data_lanes == 2)
++		ret = cci_multi_reg_write(os05b10->cci, os05b10_2lane_regs,
++					  ARRAY_SIZE(os05b10_2lane_regs), NULL);
++	else
++		ret = cci_multi_reg_write(os05b10->cci, os05b10_4lane_regs,
++					  ARRAY_SIZE(os05b10_4lane_regs), NULL);
 +	if (ret) {
-+		dev_err(os05b10->dev, "failed to write pixel bit registers\n");
++		dev_err(os05b10->dev,
++			"failed to write PLL and MIPI lane registers\n");
 +		goto err_rpm_put;
 +	}
 +
- 	/* Write sensor mode registers */
- 	reg_list = &mode->reg_list;
- 	ret = cci_multi_reg_write(os05b10->cci, reg_list->regs,
-@@ -832,7 +926,7 @@ static int os05b10_init_state(struct v4l2_subdev *sd,
- 	format = v4l2_subdev_state_get_format(state, 0);
+ 	/* Write common registers */
+ 	ret = cci_multi_reg_write(os05b10->cci, os05b10_common_regs,
+ 				  ARRAY_SIZE(os05b10_common_regs), NULL);
+@@ -1194,9 +1225,16 @@ static int os05b10_parse_endpoint(struct os05b10 *os05b10)
+ 	if (ret)
+ 		return ret;
  
- 	mode = &supported_modes_10bit[0];
--	format->code = os05b10_get_format_code(os05b10);
-+	format->code = os05b10_get_format_code(os05b10, os05b10_mbus_codes[0]);
+-	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 4) {
++	switch (bus_cfg.bus.mipi_csi2.num_data_lanes) {
++	case 2:
++		os05b10->link_frequencies = link_frequencies_2lane;
++		break;
++	case 4:
++		os05b10->link_frequencies = link_frequencies_4lane;
++		break;
++	default:
+ 		ret = dev_err_probe(os05b10->dev, -EINVAL,
+-				    "only 4 data lanes are supported\n");
++				    "only 2 or 4 data lanes are supported\n");
+ 		goto error_out;
+ 	}
  
- 	/* Update image pad formate */
- 	format->width = mode->width;
+@@ -1204,11 +1242,13 @@ static int os05b10_parse_endpoint(struct os05b10 *os05b10)
+ 
+ 	ret = v4l2_link_freq_to_bitmap(os05b10->dev, bus_cfg.link_frequencies,
+ 				       bus_cfg.nr_of_link_frequencies,
+-				       link_frequencies,
+-				       ARRAY_SIZE(link_frequencies),
++				       os05b10->link_frequencies,
++				       ARRAY_SIZE(link_frequencies_4lane),
+ 				       &link_freq_bitmap);
+ 	if (ret) {
+-		dev_err(os05b10->dev, "only 600MHz frequency is available\n");
++		dev_err(os05b10->dev, "%lld Hz link frequency required for %u lanes\n",
++			os05b10->link_frequencies[0],
++			os05b10->data_lanes);
+ 		goto error_out;
+ 	}
+ 
+@@ -1223,7 +1263,7 @@ static int os05b10_parse_endpoint(struct os05b10 *os05b10)
+ static u64 os05b10_pixel_rate(struct os05b10 *os05b10,
+ 			      const struct os05b10_mode *mode)
+ {
+-	u64 link_freq = link_frequencies[os05b10->link_freq_index];
++	u64 link_freq = os05b10->link_frequencies[os05b10->link_freq_index];
+ 	u64 pixel_rate = div_u64(link_freq * 2 * os05b10->data_lanes, mode->bpp);
+ 
+ 	dev_dbg(os05b10->dev,
+@@ -1255,9 +1295,9 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
+ 
+ 	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &os05b10_ctrl_ops,
+ 					   V4L2_CID_LINK_FREQ,
+-					   ARRAY_SIZE(link_frequencies) - 1,
++					   ARRAY_SIZE(link_frequencies_4lane) - 1,
+ 					   os05b10->link_freq_index,
+-					   link_frequencies);
++					   os05b10->link_frequencies);
+ 
+ 	hblank_def = mode->hts - mode->width;
+ 	os05b10->hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK,
 -- 
 2.34.1
 
