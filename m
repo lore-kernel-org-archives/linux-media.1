@@ -1,66 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795280255;
-	b=rmnPI7Zpcp1V0opuFxCpcehm3TY1f0ErFitLA19KYHzgXXz/p/YOOntFHZLvd+biqjrV
-	 8D9C5f7B2Ip3U02h2SP8FL4AWA5A0u+bfVKebyU7prFR7y1hiI//md570I9tzrAx1DXC3
-	 XN7MrryXllOtOQkH01y4+siXY3hYFw5WLf/tVFFnIAcBVR6o0wFKRwcQtwF8OP/lPQtUT
-	 7PaUc4mkztx9cMYMHkjqTeTGskUWNqcob38UVllcA5hwf75NDLLb/nMZKd2IvUd1snQbq
-	 tFvZOe8Cq88yo4zpZ9OTI3m/r0Bjo+J8ix3ZUeZr5tRQZOJCp9dn54sKKBKJPYqlyEw==
+	t=1795280594;
+	b=k555LgeacbvmAf87toZVcO5UrUKnoI1AXCeH2gWyPg8/FmGDvoJr1t48YssnrBSoZFli
+	 5odJ0SEgnC8FLFkILpgS227ic/KQmxd6501xaUB/HNKDU7A3Ny5dqfYTyCS9+6r9gtpwc
+	 DLcIXCeAeRyn+dRraQPducqf/fQR6zGBzBZ2Nut7LJwRiNn6AM5bcIes1CNSZaP2L12Tg
+	 EeZ2wb6pB8CvoKIIKd0oIp98WxmRKhND7yW0q8DyINURz3Qp2SYt5NCXF53D34bQwlh5s
+	 ThbFQQXZjSrcg07jhdo6o4RucozLTTVozjGS8KdV6toa6efWq/VohFXeYvwFsgeKv1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795280255;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VS06vSM4qtWUmBvMENtTVI0rKBtvKYghkg4SBYgLU6w=;
-	b=l27TedCkteMP/Cz01AhmF07gWnM+is3Y02oQyi+pWgDM8Ho0GEsRWI9XNoEf9iS2kEvG
-	 vw7CjpgpTwT01JiFn8eAeWoyvVfEm3VfO/qXi93dK93/2khkXQcKxrVtXL6Dus26iO+uD
-	 vdBWnYDrof6aBx34wwQp4D61ZxFEf/60JcOpZ4ZaK1A+AAHAv2IxTrdHA1EDmv41JSdGP
-	 or08L6wSlFoqlysi0MILVO631l9l7z2lXUdCMVcjoIjNssW/vxBROqmyj7QkBhEWhBiPt
-	 X2pjL3YIUoJNMgI4GY+JYbKMBafrV+l8Scw3w4S0J9pJb93j0/ydm35ygdjKoLm6K+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795280594;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=E7zw4OvfJS9WxxRydc8gjWSqNO5VuBv0ubtJ7RVhPKc=;
+	b=brRuRGgeAosaeOSKDKyphriTEBalOGKJF440RK5GcvavzX6XL/jTKvMUWxo92oqdgLFw
+	 /ueVQ+AIM83ZlvAYKelkgH1Cp7ovsR539soajOen35sNuROo7b2mkWxRI3LYLEv6kXpwV
+	 /bhOwXqzkpKbk1LtdZkuTDnSfqc+5P9bzp8RGNlbltEVUn3030b5tNCkRyhgbZ/MxWzm8
+	 OCX1dJa3c9+HofjX/e3z+s/gW66UI88ZjuFnvYYehGKVH9AQv/Z3qUqg9wV/f5n1oYWq2
+	 yuU977bUjc57coIxfbR1edTIWqSOwrsdCEtW5Or0mlQRiKxTaScaYeKnwXbYWo14OYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=makrotopia.org;
-	spf=pass smtp.mailfrom=makrotopia.org;
-	arc=none smtp.remote-ip=185.142.180.65
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="kdyZgZ/V";
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF6C606A68E;
-	Sat, 21 Nov 2026 16:57:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECF6C606A68E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100.1)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xUoP1-000000006J5-3KDm;
-	Sat, 21 Nov 2026 16:57:27 +0000
-Date: Sat, 21 Nov 2026 16:57:18 +0000
-From: Daniel Golle <daniel@makrotopia.org>
-To: Detlev Casanova <detlev.casanova@collabora.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	David Heidelberg <david@ixit.cz>,
-	Christian Hewitt <christianshewitt@gmail.com>,
-	Marc Zyngier <maz@kernel.org>, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Diederik de Haas <diederik@cknow-tech.com>,
-	Dang Huynh <dang.huynh@mainlining.org>,
-	Piotr Oniszczuk <piotr.oniszczuk@gmail.com>
-Subject: [PATCH v6 5/5] arm64: dts: rockchip: rk356x: Clock the vdec at 400
- MHz
-Message-ID: <11b23bbdd9b1e2e351978ed87ed87bfbb7a00076.1795279680.git.daniel@makrotopia.org>
-References: <cover.1795279680.git.daniel@makrotopia.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF153606A320
+	for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 17:03:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF153606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kdyZgZ/V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=E7
+	zw4OvfJS9WxxRydc8gjWSqNO5VuBv0ubtJ7RVhPKc=; b=kdyZgZ/VzLZ5DMWTQ4
+	eG8+n1vpAcCQ1h5VE9VziRd68x631SbgUzVspV9WgBiYhlKRjOk1XQJXsAv6Ybex
+	biwuPjFPZtyiqMMVl18lmjgYpLlYFaY0MwGfnLKRkEiWFI4w37DeAox7ik0SYw9c
+	MfeGIGaK28KT98jCVMCyJPXaM=
+Received: from Ubuntu26.04LTS (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgCXDkKozgFrr_GYHQ--.15432S2;
+	Sun, 22 Nov 2026 01:02:33 +0800 (CST)
+From: Jiaqi Shi <shijiaqi_develop@163.com>
+To: linux-media@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-staging@lists.linux.dev
+Cc: slongerbeam@gmail.com,
+	p.zabel@pengutronix.de,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org,
+	Frank.Li@nxp.com,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	Jiaqi Shi <shijiaqi_develop@163.com>
+Subject: [PATCH v2 0/2] media: imx: staging cleanup and FIM export to v4l2-core
+Date: Sun, 22 Nov 2026 01:02:30 +0800
+Message-ID: <20261121170232.414316-1-shijiaqi_develop@163.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -70,45 +67,70 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1795279680.git.daniel@makrotopia.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgCXDkKozgFrr_GYHQ--.15432S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGr18Wr15Jw4rAF15tw4fKrg_yoW5Wr1xpF
+	4Ska1akrWxJF43CrnrJw17XF98Zw1fGa9Igw47X340vFyrCas7X3y8Ka48Zr98CrZav34a
+	vFyYqryxWa1jyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pico7tUUUUU=
+X-CM-SenderInfo: xvklyxpdtlsvxhyhz0rs6rljoofrz/xtbCzQn4TGsBzqkeBAAA3n
 
-The decoder AXI, core and CABAC clocks are assigned 297 MHz, the rate
-the vendor kernel derives as a quarter of its 1188 MHz GPLL. This dtsi
-runs the GPLL at 1200 MHz, from which the closest rate below 297 MHz
-is 240 MHz.
+Changes in v2:
+- Drop the ICAP_CHANNEL s_ctrl patch. The ICAP controls are clustered and
+  s_ctrl is always called on ICAP_EDGE, so the added case was dead code.
+- Initialize the default field and colorimetry with
+  imx_media_init_mbus_fmt(), and resolve try-format colorimetry using the
+  selected format's media bus code.
+- Clamp dimensions to non-zero values and reject formats whose image size
+  exceeds the 32-bit sizeimage field.
+- Validate the selected pixel format against the source media bus format,
+  including an exact match on non-IPU passthrough links.
+- Update the v4l2-ctl examples to specify width and height explicitly.
+- During FIM control updates, read new values only from the active
+  cluster and committed values from other clusters.
 
-Assign 400 MHz, a third of the GPLL. The vendor kernel clocks the
-decoder at a third of its GPLL for streams above 1920x1088 and lists
-400 MHz at 900 mV as the highest decoder operating point. The rkvdec
-driver scales neither the clocks nor the supply, so the rate applies
-to every stream.
+This series continues the i.MX staging media driver cleanup by removing
+legacy video node handling and exporting the Frame Interval Monitor to
+v4l2-core.
 
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
----
-v6: no changes
-v5: state that the rate applies to all streams; no changes to the dtsi
-v4: new patch
+Patch 1 removes control inheritance and source-dependent format handling
+from capture video nodes in favor of the subdev-based userspace API.
 
----
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Patch 2 moves the generic FIM implementation to v4l2-core while keeping
+the i.MX-specific input capture controls in the i.MX adapter. The error
+calculation uses signed arithmetic to avoid underflow when the measured
+interval is smaller than the nominal interval.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-index 411c9ed62d4ac..6305a57258b4c 100644
---- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-@@ -666,8 +666,8 @@ vdec: video-codec@fdf80100 {
- 				  <&cru CLK_RKVDEC_CORE>,
- 				  <&cru CLK_RKVDEC_CA>,
- 				  <&cru CLK_RKVDEC_HEVC_CA>;
--		assigned-clock-rates = <297000000>, <297000000>,
--				       <297000000>, <600000000>;
-+		assigned-clock-rates = <400000000>, <400000000>,
-+				       <400000000>, <600000000>;
- 		iommus = <&vdec_mmu>;
- 		power-domains = <&power RK3568_PD_RKVDEC>;
- 		resets = <&cru SRST_A_RKVDEC>, <&cru SRST_H_RKVDEC>,
+Validation:
+- allmodconfig build and sparse
+- local FIM KUnit tests, not included in this series: 13/13 passed
+- local white-box i.MX capture format tests, not included: 15/15 passed
+- QEMU vivid: v4l2-compliance 125/125, 30-frame streaming passed
+- QEMU vim2m: v4l2-compliance 49/49, 10-frame streaming passed
+- i.MX register-level and hardware DMA paths remain untested
+
+Jiaqi Shi (2):
+  media: imx: remove legacy video node control and format handling
+  media: v4l2-core: add frame interval monitor helper
+
+ Documentation/admin-guide/media/imx.rst       |  20 +-
+ drivers/media/v4l2-core/Kconfig               |   4 +
+ drivers/media/v4l2-core/Makefile              |   1 +
+ drivers/media/v4l2-core/v4l2-fim.c            | 331 ++++++++++++++++
+ drivers/staging/media/imx/Kconfig             |   1 +
+ drivers/staging/media/imx/TODO                |  13 -
+ drivers/staging/media/imx/imx-ic-prpencvf.c   |   7 +-
+ drivers/staging/media/imx/imx-media-capture.c | 230 +++---------
+ drivers/staging/media/imx/imx-media-csi.c     |   7 +-
+ .../staging/media/imx/imx-media-dev-common.c  | 113 +-----
+ drivers/staging/media/imx/imx-media-fim.c     | 355 +++---------------
+ drivers/staging/media/imx/imx-media.h         |   9 +-
+ include/media/v4l2-fim.h                      |  40 ++
+ 13 files changed, 490 insertions(+), 641 deletions(-)
+ create mode 100644 drivers/media/v4l2-core/v4l2-fim.c
+ delete mode 100644 drivers/staging/media/imx/TODO
+ create mode 100644 include/media/v4l2-fim.h
+
 -- 
-2.56.1
+2.53.0
+
