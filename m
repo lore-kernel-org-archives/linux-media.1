@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795267981;
-	b=piEppXKmrvKsg2kgOLg+Cyh2FNmpDYPOp2boEjHm/7sZ1yJSYyhWcXtNPtpks8jqVqLn
-	 CGHsXtf6SdTBKmoznjD+PzzGm4NiSYzXis1BKVO3A2jSiPvC19RGLntRKzkShOlxSlEyg
-	 ZQN9VpPcapviNEy0GHBs/fgTqpqWeUQjxirKfnV4OFEJaq4g8opYJXaZHqSKjmJNUZuw6
-	 BO5nz7GUuqVV6LYNe4sFzzl+qVRClqw14sIWNndRQKwlDwP+ZU26ExZxGMX5wj2KZzJjX
-	 Sz8wrPQ3IQB7eHAKaPzvOtBTbJLJ+5ZNFvD9Vn4D4IArxLkQfdEz0lIdK9GWoU+vY/A==
+	t=1795267983;
+	b=JgnrKpd/675H8jUolk5p/MgKTeWMob2OA4KGzrovcw3gOysI+RrgQfrXGg95HVlY8K5J
+	 zvNC08YK/dO5rVPqm6L7IJjhyKiUBYe7hGZKMkKIbHR7BuBIlp6o7mrN5FqcvjxHV2Ip3
+	 P1Y8PA652pWn7iCnaxhk2lbiw5ePRZzcjbLVvQLpzyKkT39oo4SvXojhwwfudn4bu5Qzz
+	 nV8Rf8jRUJPirZuyqNSuodF9L2HtrA9N/BNQzxFSvEIz6lUEKEllgeh2sAnDLfPOyZ+Gm
+	 quogdFi768g727y6tFrAvd62mVsY4O3jFL4MhO/rdrEhKEHx1wLgRYted+7my4yiArg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795267981;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795267983;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=VpH7vOBV8zTAkCwE1fdPUsN34Rs/B2a+/bMMRlSHON4=;
-	b=u8sellbBbVFhw62vu9p0m5PTXWe8SsKPxPGYiBOVOdCnJUYGXobUV6lEWb0dt6Nnzvva
-	 0AEai883zosuPZvIILnAEk0dwGPc2rY9jmUm/FxLudA10zN9Dd7kws93GiBDVwwzCJhQs
-	 g3saaTGdGUksbfBzmEHTwmmKaoHKSKQZk4XVK5926vysOvjMOSzzEBQURU0JXJPRYcbPs
-	 /kAN5vBzbYPZ/gpLhx7qksAOM3o3oa1iRJ1ThdqVOiCXouiPD/TEnxEG5ceMoMkho8PPz
-	 yDADJ4CGv3YtT9u07W1O+zPB1sHwmE/y+VBzJpu3UUTckwrSvw2hTjrmm54xPvcQOrQ==
+	bh=zwpdxzq/WcfSOjL57zIT4PrpsEc3o3kmbfQWvILYAxU=;
+	b=OXp+7d7O0PFT4Y+kXJVCpiSfr9W7dCbuQAIRSmT35agAFH9nClhp/lRhGP1+Udwc4yVl
+	 k69/tKmQG3NmwXMJ6L9TRaaA9ppTfs2M5CPuHYjX7hLFYQWummcGNJT0ZZtrs9JhRTQXe
+	 73nQIRct6T1lXe8Xd5jnrOCunZ8+HNivt0yysDXlWaKLYoBO5B9AiMvO/kTUp/Jm7Lokt
+	 CjxZK2NUtgYR2UXvkp8Ub9xxIOQocN/sIkRk9x+iO+ylA+wMlr2uP8p139hYiu/bWpQGG
+	 QQ7TUJ35BCQ0OggGgAM+zHF7PPtAUJ9TVo1Vi0qaejjSkl0OG86RPsfT9DPNCJ2H5Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m5DofsG7;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="LWl//dU0";
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF341606A33F
-	for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 13:33:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF341606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D671F606A6BB
+	for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 13:33:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D671F606A6BB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m5DofsG7
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48dee593f18so1676466f8f.3
-        for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 05:33:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LWl//dU0
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so16511885e9.2
+        for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 05:33:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795267979; x=1795872779; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795267981; x=1795872781; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VpH7vOBV8zTAkCwE1fdPUsN34Rs/B2a+/bMMRlSHON4=;
-        b=m5DofsG7cV/aIgU22NYy3EVCZX7BtBnsald0Ejtjr01c1Qg+HVTSTpW46ooJQP9vwz
-         2jZUu/YEhqVeosla5OM6RWbtITXm+j6rsnJCDAjVAYnWH8QvfO9Pm3GWRBaKmgHSfRQb
-         RBMmFlM5qS5kKPAoNbtABwxq4bxaUkPhGeCgUIjExu9uwp5BZys2XgkRBSLiQlPuGYUE
-         LiYUpFKKrU/t8g7uppModsNnJ9KvagfXkMntpmae77FvTnAvu+AMWWrHX79hF9b4du2l
-         5CzjR/r8lJyHT/MXE+FZ2A6yHuVUP9OKoCPV74NOt3Zb0r7+KHLUZ5Y9HprcizPWhgDt
-         CV6g==
+        bh=zwpdxzq/WcfSOjL57zIT4PrpsEc3o3kmbfQWvILYAxU=;
+        b=LWl//dU03z1C+qSwkZvXEy4JwPY9iXsSDmJSk/UxOd9UpUr6ZVgbwex+7kp6CfTrUR
+         cLyg6AEM2ToTPGVdg/ZrKf3tWhYGyDyEoIM3TBOdyPoMokOw39wAm9gXLyqij7SgQA+y
+         Hb+ED4JRi2pI5rHWTRUO0ycFCDMm6hXjx80E6BDFG+4zoyzGEnJnSAxRZAuVnXlqrREN
+         jPOVIk1BqhojkuTmi2aS8OiqXYkLNCaijrvyuMHMCPjkwiCDzyXesriLF9Onae4ra7ND
+         Qpk/rgWs0o5oc1d7PgRMKTd49g0dT/HUsY/C4Yj/w8gV3cpjnJG+8V/6NFFvJsn15ydE
+         YXZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795267979; x=1795872779;
+        d=1e100.net; s=20260707; t=1795267981; x=1795872781;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VpH7vOBV8zTAkCwE1fdPUsN34Rs/B2a+/bMMRlSHON4=;
-        b=z9G6OZxT7r3K/El1yVdEBITU4GDEldPTUnuMIF4jwv+DOIrAhe2GJjz5G7W3rS6owU
-         yegLSM98DSqZ/Snxn262G1MDXH1HafgxvRspdux2q60cOYJdk/AopyTAfv9zn381sjHq
-         OZX9gt9BwnsILMmBr/qnajFOvYA6wPvR6AnuKd5oM2mCWNrnmSU0T29QphTE3NKbuWTn
-         wTMBhSffCROXjHJGRFVGiHJk3sSCUdDnJ977q975atj/rFh6QIKqMoRgxle1JECG1f1q
-         rvbASmq1uMM+WnqMCFnwHE2JwUYZecdVXFcalB5XrH9MeyLeZHHiLMT3/gUpi8dqRWeb
-         Coeg==
-X-Gm-Message-State: APuU4Z9MKk8yZc3UfwtlsHTqvS5Ji8Y+uEkWH4RaedtBuKfaD3i6aFqP
-	PXHDBuTRb8Jg5aTJM+l2jjgGleNK5auG0zhi+KVpxmW1oK58gE6FF0jmGOaUyg==
-X-Gm-Gg: AZFdTZdYqj8G9PgcEMHBQBpHBl8rvahZgRJnN8CMm9tjQX6zeAoLdqJvRPk+CoblPQ6
-	CtTn3cohxVIpWjyJgqUhbnbMyHofQ1CrPqIl6PlXd7L82Ec+tf7puq9aSEtYebOn0hyC20FYMcA
-	izfyOwpwfWwg+IwIZEbqqBrs6VgiHeXZoZ8tJNSk3V6nuIlJqEVoaTtbo3WAOw0J679mF8Lpbcc
-	lffYS678ZlylRdYol334T4Tli3z25ooBeKFrgvi76k/l/Zg/XxrwT0YeYRJpWta1NPZFxTHE4zz
-	ScaqWF5CHgQUu53JvhSI8X/NX1QUrh4P1IiDbCxlrk88Stg6Bg7UO3Wo4pp6TKm2MgihtgrGq0E
-	/q2jFAyfYzUiHcf/8GKyIsx8Erx5bCAKpd+eA2AFdwMocgwM4TTZbT+X+uhlkB2mucoyLozREQv
-	emgKkRPkgF3Vc3Zzv+0mXRcilvDG92EkScir/mwEWV1tC15ZaXBTZBcCorl2eNqCEkeGGsJ9ltA
-	0Sk5cdwCrRq2aY4B9J3lGPhLmUePTtIkTE3OTGwfa16GgFxqLmGdOrhNdv/hqUkAnTmdR8n8Yi3
-	nESEcv4Rve5PjDDIkWrkEVAYZ9pXMyumo0Ts35IvxQhcTm1KGBL+tQ0IgNSw2cknrH0Phu+a/WE
-	VBQg4pSj2lYuV
-X-Received: by 2002:a05:600c:5306:b0:4bb:6ac0:6dc1 with SMTP id 5b1f17b1804b1-4bb887c994cmr145819765e9.2.1795267979159;
-        Sat, 21 Nov 2026 05:32:59 -0800 (PST)
+        bh=zwpdxzq/WcfSOjL57zIT4PrpsEc3o3kmbfQWvILYAxU=;
+        b=U2RY0dA0nYUgRwF2Bu8JzFX6HE9vvA6/BdpUvpC2Ta1LWOKvWYOGeNHqFPxr+XSW0a
+         fP7kixqFx7VHYNev1mn51AOldgO/4Ydf2pasdZUvSeO5tsUa33bHfQG3jL+3hGD77d0m
+         JqXpauhlR2B0JhP0ZQTQ0dptfIYahjhHUUPGeJimw9+3AFF2kxVGQ4bQ3dpE0C5aOibm
+         ikxBbc4Ha/KPOlLxVpBF7GG08XtvHFRhCQS1sIRdbDJSNAzUcQBRl7cD+1MmmoZhWbIH
+         D2ex5SNM/ZufdUCeN+vy1xFjiEHsUQheAqRyLJvO+Sd9TCiDPGprDJdW/ZAxrVTitkPJ
+         oPwA==
+X-Gm-Message-State: APuU4Z+E36yYdI5P3+MW8ZqBlXAo8lToPGnUtntHmYw692gwVtQWgw4Y
+	wba11eWkYGGAT5UiZeEzKDXfM5Zps75hGfIsuogjuHLfolG1q7fsB7kyq9LG8A==
+X-Gm-Gg: AZFdTZcN+BRiLVgAhz4FNrUUd3Y1t1cOE4OM9FAWKNVDX7ZCvNOMfIrquLPnAgpKvDl
+	ONzZ86VnTfzf5z+pYlWv5/NK3lVqoXJ7MCw8QjL/yxq1QcbyfG7akSKd/97IQrRzdUwW+MIaP/9
+	IKKIpZy//5ZkYAO21L1nemZ/ZoxLe1jpS1K3pZD1TtWcizN/SBQzi7m1n0KD0aV5OsZosEzHRQ7
+	CR8zr+4ezgpMTxApJzyGoFnVQYRa67JETGY6py8GKFYmI927O6FJrxISi3Q8BZGA5laFoZ4sgWv
+	EZ1sxGA1uCki6hygUJ5XciYkw6/fWN6oTcviwCG3SACSoG2N+fq/e8hu/6PG8DshhtBKj3gjANL
+	YOQ1/hKIFqSFrmGFdq1JLTL2iVwxDqoEgBTWbtnE/puLkNrZRKgfnJxwrbGgAUB84YXE/1ibq5+
+	5Y18STVIGfzxWmjpEKwX7GuGCY3NQrKB6jrvfDySdgNQ0bgZADPqi1A+cTq3W/kuJdSaTI1fvE3
+	YzlrMPPAC08sAjUKVglVupqKc4a6nE1gv4iJwsWHrB3XhtvcbU+TQnCfgh2ianiN15BGXj7fEUs
+	bAucjcTivc27HMLG2CdPL8/TTsDTfwhsoIv5e80/zK+w2Kj3R6xtsEc/rcL/YdYSBr5z/RI1UiQ
+	/+H+aJIo8NIGb
+X-Received: by 2002:a05:600c:4e87:b0:4a7:6bc7:f778 with SMTP id 5b1f17b1804b1-4bb88938d38mr144837645e9.30.1795267981193;
+        Sat, 21 Nov 2026 05:33:01 -0800 (PST)
 Received: from 1Z10 ([2a02:b123:8010:295a:cf7a:d53b:95ce:c0e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb90660cb4sm83345955e9.2.2026.11.21.05.32.56
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb90660cb4sm83345955e9.2.2026.11.21.05.32.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 05:32:58 -0800 (PST)
+        Sat, 21 Nov 2026 05:33:00 -0800 (PST)
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
@@ -94,9 +94,9 @@ Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	linux-staging@lists.linux.dev,
 	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: [PATCH v11 06/14] media: atomisp: Add Yoga Book camera configuration
-Date: Sat, 21 Nov 2026 14:31:36 +0100
-Message-ID: <3768f17b328286f4dc3e6a31a265eaa6e484e57a.1795267528.git.mauriziocasciano7@gmail.com>
+Subject: [PATCH v11 07/14] media: ov2740: support 288 MHz link frequency
+Date: Sat, 21 Nov 2026 14:31:37 +0100
+Message-ID: <3885fc22c2a195125139d5d748a65e739acf0871.1795267528.git.mauriziocasciano7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1795267528.git.mauriziocasciano7@gmail.com>
 References: <cover.1795267528.git.mauriziocasciano7@gmail.com>
@@ -111,65 +111,120 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Yoga Book YB1-X91 firmware lacks usable AtomISP configuration for
-both cameras. Rear INT3477 OV8858 uses four CSI-2 lanes and a WV517S
-actuator, while the front OVTI2740 firmware reports the wrong lane
-count.
+The Lenovo Yoga Book YB1-X91 front camera uses two CSI-2 lanes at a
+288 MHz link frequency. Add the matching PLL configuration and mode
+timing.
 
-Add the rear sensor configuration and a DMI-scoped two-lane override
-for OVTI2740:00. Add the front sensor configuration separately once
-its link frequency can be supplied at the same time.
+Reuse the existing 1932x1092 crop and mode register list so the Bayer
+order remains SGRBG across link frequencies. Cropping the CSI-2
+receiver output to a smaller processed frame is a userspace pipeline
+decision.
 
 Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 ---
- .../media/atomisp/pci/atomisp_csi2_bridge.c   | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ov2740.c | 43 ++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 41 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-index cca91c6d7..56da454f0 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-@@ -74,6 +74,12 @@ static struct gmin_cfg_var lenovo_ideapad_miix_310_vars[] = {
- 	{}
+diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
+index 7d786d09f..30eb58eed 100644
+--- a/drivers/media/i2c/ov2740.c
++++ b/drivers/media/i2c/ov2740.c
+@@ -12,12 +12,14 @@
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/unaligned.h>
++#include <linux/units.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-fwnode.h>
+ 
+-#define OV2740_LINK_FREQ_360MHZ		360000000ULL
+-#define OV2740_LINK_FREQ_180MHZ		180000000ULL
++#define OV2740_LINK_FREQ_360MHZ		(360 * HZ_PER_MHZ)
++#define OV2740_LINK_FREQ_288MHZ		(288 * HZ_PER_MHZ)
++#define OV2740_LINK_FREQ_180MHZ		(180 * HZ_PER_MHZ)
+ #define OV2740_SCLK			72000000LL
+ #define OV2740_MCLK			19200000
+ #define OV2740_DATA_LANES		2
+@@ -91,6 +93,7 @@ struct nvm_data {
+ 
+ enum {
+ 	OV2740_LINK_FREQ_360MHZ_INDEX,
++	OV2740_LINK_FREQ_288MHZ_INDEX,
+ 	OV2740_LINK_FREQ_180MHZ_INDEX,
  };
  
-+static struct gmin_cfg_var lenovo_yogabook_x91_vars[] = {
-+	/* The vendor driver and sensor modes use two CSI data lanes. */
-+	{ "OVTI2740:00", "CsiLanes", "2" },
-+	{}
+@@ -142,6 +145,14 @@ static const struct ov2740_reg mipi_data_rate_720mbps[] = {
+ 	{0x0312, 0x11},
+ };
+ 
++static const struct ov2740_reg mipi_data_rate_576mbps[] = {
++	{0x0302, 0x1e},
++	{0x0303, 0x00},
++	{0x030d, 0x1e},
++	{0x030e, 0x02},
++	{0x0312, 0x01},
 +};
 +
- static struct gmin_cfg_var xiaomi_mipad2_vars[] = {
- 	/* _DSM contains the wrong CsiPort for the front facing OV5693 sensor */
- 	{ "INT33BE:00", "CsiPort", "0" },
-@@ -83,6 +89,14 @@ static struct gmin_cfg_var xiaomi_mipad2_vars[] = {
+ static const struct ov2740_reg mipi_data_rate_360mbps[] = {
+ 	{0x0302, 0x4b},
+ 	{0x0303, 0x01},
+@@ -468,6 +479,7 @@ static const char * const ov2740_test_pattern_menu[] = {
+ 
+ static const s64 link_freq_menu_items[] = {
+ 	OV2740_LINK_FREQ_360MHZ,
++	OV2740_LINK_FREQ_288MHZ,
+ 	OV2740_LINK_FREQ_180MHZ,
  };
  
- static const struct dmi_system_id gmin_cfg_dmi_overrides[] = {
-+	{
-+		/* Lenovo Yoga Book X91L */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Lenovo YB1-X91L"),
-+		},
-+		.driver_data = lenovo_yogabook_x91_vars,
+@@ -478,6 +490,12 @@ static const struct ov2740_link_freq_config link_freq_configs[] = {
+ 			.regs = mipi_data_rate_720mbps,
+ 		}
+ 	},
++	[OV2740_LINK_FREQ_288MHZ_INDEX] = {
++		.reg_list = {
++			.num_of_regs = ARRAY_SIZE(mipi_data_rate_576mbps),
++			.regs = mipi_data_rate_576mbps,
++		}
 +	},
- 	{
- 		/* Lenovo Ideapad Miix 310 */
- 		.matches = {
-@@ -359,7 +373,10 @@ static const struct acpi_device_id atomisp_sensor_configs[] = {
- 	 * the sensor fails to start streaming when instantiating
- 	 * an i2c-client for the VCM, so it is disabled for now.
- 	 */
--	ATOMISP_SENSOR_CONFIG("INT33BE", 2, false),	/* OV5693 */
-+	/* OV5693 */
-+	ATOMISP_SENSOR_CONFIG("INT33BE", 2, false),
-+	/* OV8858 */
-+	ATOMISP_SENSOR_CONFIG("INT3477", 4, true),
- 	{}
+ 	[OV2740_LINK_FREQ_180MHZ_INDEX] = {
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mipi_data_rate_360mbps),
+@@ -502,6 +520,22 @@ static const struct ov2740_mode supported_modes_360mhz[] = {
+ 	},
  };
  
++static const struct ov2740_mode supported_modes_288mhz[] = {
++	{
++		.width = 1932,
++		.height = 1092,
++		.hts = 2160,
++		.vts_min = 1776,
++		.vts_def = 1776,
++		.vts_max = 32767,
++		.reg_list = {
++			.num_of_regs = ARRAY_SIZE(mode_1932x1092_regs_360mhz),
++			.regs = mode_1932x1092_regs_360mhz,
++		},
++		.link_freq_index = OV2740_LINK_FREQ_288MHZ_INDEX,
++	},
++};
++
+ static const struct ov2740_mode supported_modes_180mhz[] = {
+ 	{
+ 		.width = 1932,
+@@ -1179,6 +1213,11 @@ static int ov2740_check_hwcfg(struct ov2740 *ov2740)
+ 			ov2740->supported_modes_count =
+ 				ARRAY_SIZE(supported_modes_360mhz);
+ 			break;
++		case OV2740_LINK_FREQ_288MHZ_INDEX:
++			ov2740->supported_modes = supported_modes_288mhz;
++			ov2740->supported_modes_count =
++				ARRAY_SIZE(supported_modes_288mhz);
++			break;
+ 		case OV2740_LINK_FREQ_180MHZ_INDEX:
+ 			ov2740->supported_modes = supported_modes_180mhz;
+ 			ov2740->supported_modes_count =
 -- 
 2.53.0
 
