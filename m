@@ -1,103 +1,97 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795299663;
-	b=MFQ/J3oidyX4Zk2ZDJscLM4qhv/hWwySOvhp7+AJvTCOO6r1liVe1G3c9eZoR7hTirsZ
-	 KpfTISi3yHriUS7L8aohpiKdd929cN+0tLL5N6PI2U55i056xgoSJCEO/SmGKIzE+e9LE
-	 9hhVzZ9H7vs9RVJRwuhLUILnvbLCN9jaWvoXtCiMyVoMHW0OtfOU94wnolf1GKRog3C/6
-	 XiEHt6ZIyYwXfs3hEPyohlNlb8wN+dBHoYBIh6C7VeJcPMB5iq3p0TUATDA4+OHzZu/WT
-	 CJ8zzWSkT43RElRW4rUFCfO2VaQoBjVmTBqYnP5pN2wUcQ9BphlcAbnbFSf5ZrYKo3A==
+	t=1795299672;
+	b=OneZd6qGMrcr5IZyHWryHoP4gSke0juPfGl+3mov8soyonnR9y9FkEyMgC62QCSEHqs5
+	 YwRBPTW9HqoINs9Q7KDFUyZpreki2XKdU6WpAqz5Ho42hreUn2LuSQwnvmT/BeyvON0fR
+	 XGzQcgZZyarz+YaT/AEAhyJdP1hpuYVlfGIBCNLsTvcsC5WeMY96UbXSTpxcGXfgYPcd7
+	 YOF6tjgBwVXj4PqYQYVm9TUFf1109RMjlIuADl2+HIx80a2WqcNNQ32aD4lUDtpsQ2sXV
+	 B5eOdma2pi5WSZAKm9Zhm/u+0N4z4iAMpqHoxoDV5gISl+RvXbEE9C3W43vuSzT+sNg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795299663;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795299672;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:In-Reply-To:References:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Content-Type;
-	bh=jRxNYfU3ByhGygFCC0tlb+fhfMUQdL+3gkt8Fyeoc2c=;
-	b=KXPcsEMvh+VXWOeO6zVAuZeogDOBSSEXMj4hAimdcKArLoswebVSBWzpklKqmI1E8oLC
-	 wXv6ezBFZYGBMkNkd2y6AI6Io0hTXRFAPkN4s7ciDmN17FgUM6OvbB9iErvItDn+/P/gY
-	 BzfxKvCO8E6+ZFijlGOnHuAIJjcumrlZZqjh3DUHnG3GVerahKujrIAdCCvbcoyETiCnW
-	 gvy0JD+AmGODRXfvUhq5oUvVkjt3xPYzP4exQkyUkCyo5LS48ya7s9hNPvzIMGFPOrQF8
-	 a9Zex8SKvQ6zezrn02n1o4uz+FRIK4qlje4wqLihr1ldQLhjdFaohSZVfx9BnFXmidQ==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Content-Type;
+	bh=5eUjyD6lMD32t5ZqTm+/uDRHmI2UXnPx7e+71IoFIgc=;
+	b=AaaosHfzwxw2HmNpyjDmU7Fatn5jFopuitINWSoLgFizMGOuDnFcOxLYoOe/Yom1iUSW
+	 VLz0TyYWJywqeKBAdA+gcyOEmbigAkyUM48KJ8Pj9ZPPnvF+j3pvrKlFclS6lPxvc0Fgf
+	 clz213Zl2x5gnn56N08Ovf7teAKHs8CPDZ2rtesjQ4Mz8E7UAWINNSlpiKGMR0RvHJpvD
+	 U83ZNuR1nx2XWZpMLR0OEwWbQ/iCBgDGNqMY8AFTjgUKlCxfx5dPVxH91/xqpbuXrVGcB
+	 uw27OXSVOtaa+Ne1RBnKZX57NyIWm3H2l63hatE/DJ954bWYkprTYrNQbW7NwD+FIGg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="w7/A6zhK";
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="eNxPlR/g";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
 Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CA7606A32A
-	for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 22:21:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81CA7606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E43A606A32A
+	for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 22:21:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E43A606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w7/A6zhK
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2f05b465cd1so5783105ad.3
-        for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 14:21:03 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795299663; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eNxPlR/g
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2f05b465cd1so5783345ad.3
+        for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 14:21:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795299672; cv=none;
         d=google.com; s=arc-20260327;
-        b=ZrTCy3OvN3hD9YvSohQW164dczeqRvzOGYTbkT6GgbWkH/UTg5k5TK5x3mEtznLJNp
-         ccUGQBiSV/LTSz1VwI23WyEq/Gj16xRCgD0gOmMExtHQzZ1DtCyC8IXJ5TnwbAYZNiSM
-         uZbUZ828/euBuy/wRQHpJ/+VlXEiVMF+5KZf13A7+uVxWjsPNOqUXLL+LZLQyWVh40Zp
-         pVO576tz8W98FtDVoeHf5Hwu2QGUmoljqS49ujHkGUP+k+TP8QfgLDFV15cgsQ8CxLZk
-         9Q/u/FosXCJVrtvhwxo1f5n8UAtc/BYdaEw1SOXzNpp9sywxbxP9z/cyoN9+/xFReBU8
-         7DnQ==
+        b=XyPPAOKoIrnjPIASGG2msRLGhy2JO2opH8D695B0f1OO89/pmrcZuPo+qVeoy2Bc4c
+         PX/y4K354efrow2sRYS0oka2bdmOOmU9g9ZN1SAclaKi/odcxo+2YBdbG81qPSqPtn/2
+         YUB+yZYxzqJH/jJMuk4z7qvI82QnrnbrLhnjZk18EspaygGkYRCW72aIHp5ultelbFyy
+         o+d2I5l4lVVqo8VphiVGyXZV4F1LJJX7rrZQfn/vJ8w/rfeCVm/6PpmxjRL0/7Tr2tv2
+         xrWNgn8PUS/8GvoFLTCEk8BXz2bBbZkuPY24plXcHO0PlJK+LiMDSuJdKjEsaNkqeNtb
+         fl+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:mime-version:references:in-reply-to
-         :dkim-signature;
-        bh=jRxNYfU3ByhGygFCC0tlb+fhfMUQdL+3gkt8Fyeoc2c=;
-        fh=RpYxnnRW5A5FvuL86z7f7YWfE0tvaTrs4Vecbev4fLA=;
-        b=X/V4X/Pp4feuT5T1zbnprGXuZSfwR6hXieUbepZdINTNe3ATntgg6CQrPyAmqV9617
-         l8gm4em+tQy3wGExk/2MmRxLoOKQ5XJDZX7hyDNd1zhkoKiVXQcdtkIUXXo0Q9suKpi4
-         ky5m51SWOh7/DEept6tezw6M/2lRTJF/qq50R50McPd2rI1ubyGPYqWN/1MZnM++780Y
-         tFMXO+9AcbSDHGHHrzpXmjzOPlioea0OZNUV32ZKrdTRIuLVBJHrqGtP2CANLWTUjZ3f
-         rCm+b4JuQS2FbVDfWK5uttKX8B+qjtag4os4OhG77+hIEDzTphlxGBzMO6KVM1VEAuvp
-         0ydA==;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=5eUjyD6lMD32t5ZqTm+/uDRHmI2UXnPx7e+71IoFIgc=;
+        fh=AcFltS6jZL+HMsn34kNvRnhCUI0uWVII61gQbxqEcS8=;
+        b=aLS0CAO71Oz7m7kglkVFhtj1aP5I3U1DpWwzl3OvRapgb55Sw6k9RGF7aWggAlJJzR
+         sei38T3yIICpyUB/Hn6KEJHzFSXxXACEiL2Z0I84XZzLQXhVLrk58lrFpqsEkHwxK/CR
+         Qv71fAEZ9oph/GGYuiPK4wMynbmm64/ctJA7GlMsrFFd1IyOgcwZxnar+cROGETYuJxR
+         96e8NsCQZNPnMOW38ghRnWRow2O8WARLRGMFwbFtXAMbkNATbjPiF/7CYK2emRMeGdab
+         mUTBVkh6TosF6qEQ3O0QYg0bORq8g88r6spZnhSupJUaeEivHma+dweY9TKvxBbSa/b2
+         ai1w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795299663; x=1795904463; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:mime-version
-         :references:in-reply-to:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jRxNYfU3ByhGygFCC0tlb+fhfMUQdL+3gkt8Fyeoc2c=;
-        b=w7/A6zhKEG4aveWFvLMX9zu4811y1GIbAdTVvoZVps2DEx0KbkpHAtHU1ZY0TzvZw0
-         qOZNPUEt3wgCyy4P0POETmHOJ8eIhzl7bTA+tMbmq0JUeOJ5nkZBM9fZPzSiIbune0fB
-         jeExY//dtrRZHv8rGyTlAxRSlWY89amsHRcXRHT2Ha0NAx+jUF0GsRkgBp1/sjyIrAAL
-         IchR2SvC9N/PgH1nDxYZEE4ddev8mcWFyHt1qbAndJY2LzGLDzDP7zuSjhO4Qz7AxqyD
-         v1kjmvZ2QyO+MFQzQfkNBHySLXQmAcbhYm1E/Yk02jb41FMECWeocwivNyDgm1+ElVvA
-         XX3A==
+        d=gmail.com; s=20260707; t=1795299672; x=1795904472; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=5eUjyD6lMD32t5ZqTm+/uDRHmI2UXnPx7e+71IoFIgc=;
+        b=eNxPlR/gmFsp9E5slMfUGlzAXHTjBEwdCsPq3joo6TCrIWWLOOBFMhMqnqyshtkoBO
+         cLglt3f3s2gHHs3x2Y+HesRznH5u/M0gi4q7hbVgCx/kSvYE690L6ZKSL/Omj7gHGvtO
+         58BtaJ2/DjDcMpnM7Rjb7AmMzF0uxqlG9CzQIjDODJbEUOuyBRb8FBeWtIKQ10SmsmCz
+         zXSJIt6gWTQYXnXWMOOMC7iwN1y+Tg+HbY1Syig/gldz8p+pukJOhx4jLlHQyng7q8Hg
+         O4YdLSiOJl9x+xsSDN2J730Ti9Xg8L1YrjxehYTBmf8YHiNJQahpsabsHtIZLCiPV0e3
+         DENA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795299663; x=1795904463;
-        h=content-type:to:subject:message-id:date:from:mime-version
-         :references:in-reply-to:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jRxNYfU3ByhGygFCC0tlb+fhfMUQdL+3gkt8Fyeoc2c=;
-        b=xdtU7bJeBwTVVdlqHHf2330tbr/xdK39TehIP9frHCTVq59gPv4VNwLEDWxfmVUU8o
-         yuLhnCsTH4HLY3Q5UAkRQY4GeZMsZlXrc9Bm9vu8GQ0wddPscmSfO9ZecXV/VC4K+h02
-         PVG39Town2PwFkCuUDUyGW9cREryYjtCtkAixgDX5nMgwSzFv1ApD7nN/pAkOBTfnblk
-         aApRGT79QUCx8BHi0+CIX14Gag84xBIZLMBvQNf4xbqzC/9tdpYaierCfvCGOI0dQT6h
-         ijiP2op2L5yl1yaMK/WpvNh+/efZzDDC2TbFVZbvOaq497mGw8JwCSjNThnFahzCyRRU
-         qEig==
-X-Gm-Message-State: APuU4Z8ECqpGxjisnzhAQxyO6xm4EfRwiAc4XYL+zaNPlyaBARgbsWHH
-	XUBfVzcBfnpTA+UW9+qeUvMAyOfn2cKg5e2AI7UIoeYFWgxeicJ123zwUfOKo9J9658e+NUghAc
-	Kxb1Mmt0q+7iF7otKafXkeYTmJH3v63ixa/YBtIA=
-X-Gm-Gg: AZFdTZftynmYfU7KCDc/j5z2ArT6BpJjPfmZbsEAxgxxVhwhmqgD1w3EME8+yNozRC5
-	59i3XNj/BhsBqPJlzN3qh/rpqzTeiH80WHx323J1SoKAB7KzsBL4J6vbjO+Q+n93o+MZ2bH6ylR
-	ncTDLW1y4HYDYH4dDl/N4GE9b+foUwd5TN1V2Z6bPZwx4DYtwRxd5yp7mJsClDq1V19Fyf7Hm1d
-	Q3Xh9ick+eFGp90o2ZwJdt1lK3N74wJYw31B/3a6zXhV8CfSV5PZPiRxTTSWNbvCdBpd8Ul2Fa8
-	tt5NvROMCKXz9DlUc48q0lBhaVoZVnJYmcn5b2ey0pzjeHCzxmMqnOrPRpU0qJUwK182xIQZ1Yc
-	wjOT6pJkV78tili5kehAsaW4bqMcsRjkrIe1P
-X-Received: by 2002:a17:903:4b07:b0:2dd:ad73:5b6c with SMTP id
- d9443c01a7336-2f03f14521emr60536915ad.28.1795299662716; Sat, 21 Nov 2026
- 14:21:02 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795299672; x=1795904472;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5eUjyD6lMD32t5ZqTm+/uDRHmI2UXnPx7e+71IoFIgc=;
+        b=wzHVQefikZmhN7SGYFAFP0afCfOnJKpEIr6gRJOT7EteOKplZvjuWaLMw4PQWsZBLj
+         +kRdwRZpdXwNvS1WkXQdeSCbEJm4RCrUF0dZtnvkPHZrTlVH66QpGts7NRt5ZrUPiy8l
+         HPn252EEym1h5SpBLRu0ych659DZrzbOdud7yBMjYEZaRs7Ec1WQZ1iebGIM/g6MGtjx
+         q93PxuXvNbkc815z5OyaWLrIfVJUPxna5Aoc30w7l8MUQ95uV89+3+sVhWI3qMTwrKG2
+         KafmWgj4c4kubgGb42i5KQtKghGRdS6FC2CNyr6hA2L7HutZ8WaThj4RejSWBMiygW5H
+         Pc/Q==
+X-Gm-Message-State: APuU4Z9qLW1JdczWBQuUWypcspSPIzLHJdL2pSy5IzMLZmBU1uKUn3PU
+	8ezN0qFDOFzB+t/ghEHlvrpbAi4FGOC+9ZHMbW8OhuYD7dXQEtEctCYG/wC9RjCThFjnMwkc8pm
+	woiOGT3YI2GyJkaXi/3LLxRk54V6FsX7iVP33
+X-Gm-Gg: AZFdTZeUJpYYmdPDkPLHjYc2ANXP+15NXkMEgdShsdxOvCr22K8vf/jn2hrN+UUB457
+	2DFmlaB329rONVZgEPy97Z0chu76VoGqBwEw+GTl1JsTfMyU06wPXe2XgYbaXw3FcCITnqlfZs7
+	ot5EMwRtYq48Ef5fY17ub44uauzlN68/bgCYPB+iFfHrOCLv4kY+VU7IIbNQcpXXAlSISkvPZdF
+	haerh6giNLvD/H2th1XTJ06lMRNXEwzV+Md9jqyPfihD1UeC4j2ILu9Cmg7H6EP9Qf7GFtm42iF
+	+zw2e/h41tz3Qa5if337GsdQbj6RY0RsbAg7OdMIxsHau1hx24dkXhsvPIqJhNY45NDBVxHONGf
+	1E0DhQhX3pC8RccdEbll2jIVvthjF9QfMZjaY
+X-Received: by 2002:a17:90b:2c84:b0:3ac:a203:e092 with SMTP id
+ 98e67ed59e1d1-3b41c7b6864mr6590328a91.1.1795299671894; Sat, 21 Nov 2026
+ 14:21:11 -0800 (PST)
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sat, 21 Nov 2026 23:21:02 +0100
-In-Reply-To: <af0d5840-f025-4791-b026-139e4e5f490b@gmail.com>
-References: <20261018-ov13858-x1e-v2-0-cd35434cfcfe@gmail.com>
- <20261018-ov13858-x1e-v2-2-cd35434cfcfe@gmail.com> <af0d5840-f025-4791-b026-139e4e5f490b@gmail.com>
+ Sat, 21 Nov 2026 14:21:11 -0800
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -108,88 +102,61 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 From: geoca <geocausa@gmail.com>
-Date: Sat, 21 Nov 2026 23:21:02 +0100
-X-Gm-Features: Aa3M54pFwbXjPMP2UP-L1X0P7KN7JP7RDuvx3EprKG6jEkeKEf-LRAK-O66ox70
-Message-ID: <CA+7Hbh+r9w-9E-V6QSpfwMpXUzMMs-mmM9kzZneYWew60OANvw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] media: i2c: ov13858: Add device tree support
-To: linux-media@vger.kernel.org
+Date: Sat, 21 Nov 2026 14:21:11 -0800
+X-Gm-Features: Aa3M54oWaGiFdEs4GnyFcYKj9Je7NUEFv5NSE69434b6Hqj7oww9wqh-UlyJq4A
+Message-ID: <CA+7HbhKKt9thtbS0AR2Gi_Asm5X3pT51xEknuHreyHO2RuWuwQ@mail.gmail.com>
+Subject: Surface Pro 11 OLED: tested optional vddio for DW9800K (re: [PATCH v4 0/3])
+To: linux-media@vger.kernel.org, devicetree@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi all,
+Hi Griffin, Sakari and all,
 
-Resending this reply in plain text because the initial HTML-containing
-copy was rejected by the linux-media mailing list. The individual
-recipients were already addressed separately.
+Resending this note in plain text because the earlier HTML-containing
+copy was rejected by both mailing lists. The individual recipients
+were already addressed separately.
 
-On my Surface Pro 11 OLED (X1E80100), I have hardware-tested a
-solution to the rear DW9800K actuator's dependence on OV13858 DOVDD.
+I have hardware results relevant to the November 19 DW9800K v4 patch
+series on the Surface Pro 11 OLED (X1E80100).
 
-The actuator uses separate VDD (PM8550 L16B, 2.912 V) and I/O (PM8010
-L6M, 1.8 V). I implemented an optional vddio consumer in dw9719,
-enabling I/O before VDD and disabling it after VDD. The OV13858
-retains its independent DOVDD consumer on L6M.
+The actuator uses independent PM8550 L16B (2.912 V VDD) and PM8010 L6M
+(1.8 V I/O) supplies. L6M is shared with the rear OV13858 sensor's
+DOVDD.
 
-The sensor and actuator both probe on CCI0 master1 (0x10 and 0x0c).
-Lens focus_absolute writes and readbacks succeed, and OV13858 delivers
-4224x3136 RAW frames at approximately 30 fps. OV13858 V4L2 compliance
-passed 46/46.
+I added optional vddio handling to dw9719, enabling I/O before VDD and
+disabling it after VDD. This allows the actuator to probe and power
+down independently while preserving the shared sensor supply.
 
-Under concurrent streaming and actuator use, L6M regulator enable
-counts transitioned 0 -> 1 -> 2 -> 1 -> 0 as the devices opened and
-closed independently. L16B turned off when the lens closed without
-interrupting sensor streaming. Four device-level PM callback cycles on
-our experimental kernel passed.
+Measured L6M enable counts during sensor/VCM use were 0 -> 1 -> 2 -> 1
+-> 0. L16B powered down when the actuator closed, even while sensor
+capture continued.
 
-I have now independently validated the same optional-vddio change on
-Oaklee's v15 kernel 7.3.0-jg-1sp11v15-qcom-x1e with its isolated
-Ubuntu userspace: a 240-frame capture continued through lens
-open/focus/close, all three cameras captured sequential RAW frames,
-and three pm_test=devices cycles passed with subsequent focus and
-capture.
+I combined your posted v4 driver changes with optional vddio handling
+and compiled it as an isolated module. On the physical SP11, the
+actuator bound, accepted focus positions 128/512/896/0 with matching
+readback, and autosuspended with L6M/L16B at zero enable counts. I
+restored the prior tested module afterward.
 
-Tested Oaklee-v15 handover:
+I also added optional vddio-supply to the separate
+dongwoon,dw9800k.yaml introduced by v4, and binding and DT validation
+passed. A pre-v4 RFC and a post-v4 integration preview are prepared,
+but the latter is not suitable for submission until the ongoing v4 DT
+backwards-compatibility discussion is resolved.
+
+I have since also validated optional vddio directly on Oaklee v15's
+real kernel/userspace, with uninterrupted 240-frame capture through
+VCM open/close and successful subsequent camera/PM testing. The
+Oaklee-specific source and hardware evidence are here:
 https://github.com/geocausa/SP11X1ECamera/tree/wip/oaklee-v15-vddio-hardware-verified-20261121/experiments/E003-oaklee-v15-rear-vcm-vddio
 
-This is hardware evidence from downstream-derived integration, not a
-formal Tested-by for unchanged upstream patches. Optical lens
-sharpness, full deep standby, and the L6M input parent are unverified.
+Upstream preview patches:
+https://github.com/geocausa/SP11X1ECamera/tree/wip/ov13858-dw9800k-l6m-vddio-untested-20261121/patches/ov13858-dw9800k-l6m-vddio/mail-ready
+
+Would you prefer optional-vddio support as a follow-up series after v4
+settles, or rolled into an updated v4 revision?
+
+These tests prove driver communication and regulator consumer
+lifetimes, not optical lens sharpness or full deep-standby power
+behaviour.
 
 Thanks,
 George
-
-On Sat, 21 Nov 2026 14:10:41 -0500, Haipeng Lin <jimmie.lin@gmail.com> wrote:
-> On 10/18/26 5:10 PM, George Neacsu via B4 Relay wrote:
-> > From: George Neacsu <geocausa@gmail.com>
-> >
-> > Add an OF match table for OV13858 and parse its firmware endpoint at
-> > probe time. Require a four-lane D-PHY endpoint and both link frequencies
-> > used by the existing sensor modes.
->
-> [...]
->
-> Hi George,
->
-> Tested on a Surface Pro 11 (X1P-64-100, LCD 5G) together with Sergey's
-> power v4 on a v7.3.4-based tree with out-of-tree CCI/CAMSS & camera DT
-> nodes.
->
-> The sensor binds via OF at cci0 bus 1 (0x10) on csiphy1 (4 lanes,
-> 540/270 MHz) and streams 4224x3136 at ~30 fps via libcamera v0.7.2.
->
-> A few notes from the X1P/LCD SKU for a future SP11 DT supporting the
-> cameras:
->
-> - The rear module is mounted upside down on this device
-> (rotation = <180>)
-> - Routing and power sequencing match what you decoded for X1E/OLED:
-> IR, rear, and front sensors all identify on cci0 bus 0, cci0 bus 1,
-> cci1 bus 1.
-> - Rear VCM at 0x0c on cci0 bus 1 works with dw9719 as "donwoon,dw9800k"
-> (vdd = L16B; focus_absolute shifts focus) but it only answers when
-> the sensor's DOVDD (L6M) is up so dw9719 times out at boot unless we
-> keep L6M on.
->
-> Tested-by: Haipeng Lin <jimmie.lin@gmail.com> # Surface Pro 11 (LCD 5G)
->
-> Thanks,
-> Haipeng
