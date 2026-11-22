@@ -1,54 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795320891;
-	b=Z0tq10bBUbqsihjvPql1f3l9KnZj8hzNr51YsKN6r1cc4YRhZ8GAIhs8FBa9ZVENQ920
-	 QHAi5q31Fls7ikg8FWQu46pR+WGZbX7vxLTkPQrp388vyqF/iXA69AW/ld+1HMVkDth80
-	 emUNXIzZZk7uqVIy4aa8qUXoLobDgnfbwScgqunfWdaTn8nV9U+t8wjrXSFYos5jLFdmg
-	 Y2e4oJ0ldDDQmAw4a2NrhyBJtX5xeSgw0OcghZUwConaLK4EuGl99+a9NOy4PMBwkvxmp
-	 6S89g3PenUxl11fmn6jQseGYc2TxfKr1+46n/hXvOkP2jx3PKT+oa8xNL3nqi9dXGGg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795320891;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=5u1zw2xDfXlokUAYq4P7MlC9IU1TjOTlkmcuI5H9thc=;
-	b=KsXojsJa28XtYeLIj9kX7CCmMZJM8ZWG43u8GL96RblPlaZxazZDxbTPDTQKMkEQUyWm
-	 L9NCxgrbg5mYmr5BE1/OMw7GdE+zT6FX582AtOR4ZjoITXDqaFZkOyYHBXJqAkQ+HvfFb
-	 aFQAMdAxq8G4u5ZS/ZUriWok6iagB/jN99JeQWIqjWDlpcGAfYEfWdeo1sgfeGKF9C3ga
-	 w6KIcNiXLixhVc21TWFhDCRC9KYQmL3tjiXHsc8jmth4cFx+oBukJXYTcbusqI3urDPSP
-	 FdDVVu2BwSeJlH5U9QwEhFXTvTO3JbS8o4rL8UahoRLm3GkUQV4+4D9PyVAgOpfkvSg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795324401;
+	b=0pHzYRJ23WMZ7xFgXn9FiFgh1RYUuWeYh+794zZTOY/32gj723BQhUrWQ24VlEIrrBiL
+	 amKcY3P48brC5Ctz6ZknRRTbOZDOsNDiUt5G4RTi52kE8/C4a7LFpqe7wiiAMA+5mwOd2
+	 mkWpEvmYhGf26FfOhUPHx51fSkzvF1Z58c4kTJN/Uh54Sfbu++x9iow2E30/mNp2vMV5v
+	 Ws1xT8+MmcbPNdJVNQvGXVNlTjI221nKQaP/eXiEoH9j1qy+xdvkyvvCi8/ge+dM4CMGJ
+	 sG8T+sgYDk8d6X4OVLkBnlKVMM2pWc3h1LtrZ5HbJrTdQqMx22yqWcCezn9B/Bf28Nw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795324401;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=bDf7SaXXZN4Bj/kAPPt2M+ftmRFAu5u0Yw49fk6nP6Y=;
+	b=zdYZu8G5cA9UiugJqmaCX6zvZkzpovK6b2oFccNz+jeB6mdsby2NC6PKyALPe4LLbxwl
+	 53psBUteFkcjaMC+X/6tvQwHAwmD4LD0iIo9xF94qSFSzHjALq74prce0IowErgdfnDy8
+	 L8LHgPsyFWKeHTN5VVf+fmNEfvne4xEfX6+u8Iq2ZzCbvYSYhe4kCwfdbUwIdv8hfuCBS
+	 PEJRQ2CeXMx1ichFOIFYbljwTkiQ7sNlAPAsdreM2OXqIxgqf5VxDyLTq158SQu4cRK1i
+	 DGQB8ayFHM8Z7HkP0uoBlsZGJy7DXPV8TnmNOINJfoe28/dWVMmu4PAAEx6unb6QT6w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IOIIfaG/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E776A606A320;
+	Sun, 22 Nov 2026 05:13:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOIIfaG/
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795324400;
+	b=medm7ajO6Hge+UZlD6aUTqzA/D7dwCRShiYsceDaqulzq/z6jMiMlzf9IUTER2+rZqrO
+	 eIDw+Mv2+MmTL1heDzuosSgnUi3kCm/B3nhcqGhpxMRMklShsiuZZeayfe9PJGkgnqjOl
+	 hISvQBTsLHT89lanD73M1pZxRbOZX6Nbqg9D0sjeCv8zWW0ye3xt3cfrBiDOjXTPaIMMw
+	 PTke/rMNgpTC+dpZsjFgO53uCeqJyR7mjSBUAJL7XTIvWVvWzBrHaRsc+B0HYi86oOShA
+	 Kp/6jHFZQH6NhKhWWGlDd2HAJ+NrVW1LYNNdMzsTjtqouVGmgTGHV749XGMuvL15Bpw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795324400;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=bDf7SaXXZN4Bj/kAPPt2M+ftmRFAu5u0Yw49fk6nP6Y=;
+	b=LnMBIbC1Efu3a+sT9CZz4HgJZ+srnyws8+nxGw+I4WRCuk4IdUlILegLoMdZO2zQwRCz
+	 MsM5OWPuQVZQuWbLMT2J3OfSFv042MF63r+ZeokIwBlp5bedSw5ugl0CVUou6+A35C5rx
+	 JZABXklsoYzMGQnzRUE0cY1EsEAa44SAQIygUwleXXArZwiBBAkz8U1E4yfq+nWOC5Ffr
+	 k1DqTyEPB/9fBvWNo2A83baNajXXcj+40izEjZBw0MXYceTV4hwFPghn9S314NN6BpyIH
+	 tDWquNzK6trEeBDIfvrwIgWUvopc7VGkaZY5K2kR2bOLL/gjTzgillVLtfnYrojZu9w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D116606A320
-	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 04:14:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D116606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a41f46d629so3390464b6e.3
-        for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 20:14:51 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795320890; x=1795925690;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5u1zw2xDfXlokUAYq4P7MlC9IU1TjOTlkmcuI5H9thc=;
-        b=HevATByr9HtLFohUrbZuNSI98fM45wz+QzqA5FhTtCbTX7aLKUXlNieotwGLw7KKNG
-         3fBBQhEKUucKk4Gq8oq47jo51KUWF1JNLsnKtcXyr+NioNcuzyE9sq0WaWB+hUVgrS7M
-         1zHKLIKnPVeG0HYZIzNXiCXOrufzWH0gduc0L5nun5AkZKjFzFTSoEzELA+uU81p4rFB
-         LOVo+fGJ9ZAeYpkq/NCsrKOHnjJoEgjERxd5zVYX0WDtZCwwY7YvdKieDg6zdIotxV0c
-         Ff975iNmuu5R9cwgosT27ZzbQnzqNaUrWTuDu6kl1rJepX2ezLgJmijQpK7ggt+o1kKZ
-         tNkA==
-X-Forwarded-Encrypted: i=1; AL+hErFMSAjzjnYn2uEGUuh+hfrQtF/+aJ0y2Y3lhuo2/8dkBs+4c8XSAk8RgnO2rqpZ8utwpFzTtadgVwsfiw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tIQs2IbxmykQT1Up9yBKjmobBlM0yDnl0ma5TeKY4iZZO7qis
-	AdTT2Ni1dn7XimtJvJYSFetuR9iMbdDa72Et09HFV1cAq5E3+OaG+kbKsbjc64eOqG9V/Yd5Y4f
-	7kxrrJcXhKJ2odUJvbBBdODXoQcMRjv1SrQADU904uwnboKx24wXhO/k4jU4=
+	by smtp.kernel.org (Postfix) with ESMTPS id 070291F000C4;
+	Sun, 22 Nov 2026 05:13:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795324400;
+	bh=bDf7SaXXZN4Bj/kAPPt2M+ftmRFAu5u0Yw49fk6nP6Y=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=IOIIfaG/m64o8WnC3cezw19w3lTrSjsvSUYFV2qxyJ3gG4yvdlUzOb5t8vofGPkHG
+	 gWadKhcx3GTq3w7qpRnJZFQF7tCXlDprbrQAb2JVsDOXzrSPKSxvgJkc+6rpdFGs+v
+	 4dGlBS+8IxfFYh+bxDw1yVkybvR6/ZyG2fKkDdmjhtejVT4vW529NjoRQFVeRl5Iq0
+	 edtVyPbOU/MmXVY24D75AtSKA5eLVDV4F7vjlMCSHMIG4sSxEZwrO2WODH2InNI6d/
+	 cDNEjUDKFdyvBVZEJ2hmJqzGhfLci9fXMujSlM7NG8L8mVh5Icfwt79lfA539Vjb0F
+	 pz4lOzvjf1vVw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8BF8F4BF37;
+	Sun, 22 Nov 2026 05:13:19 +0000 (UTC)
+From: EMCP333 via B4 Relay <devnull+emcp.enser.io@kernel.org>
+Subject: [PATCH 0/2] media: venus: Fix end-of-stream and seeks on SDM845
+Date: Sun, 22 Nov 2026 05:13:15 +0000
+Message-Id: <20261122-b4-venus-eos-seek-v1-0-2e38912c7cf9@enser.io>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,271 +83,75 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:30a3:b0:572:d0fb:ae5a with SMTP id
- 5614622812f47-57a09105d60mr9128801b6e.31.1795320890336; Sat, 21 Nov 2026
- 20:14:50 -0800 (PST)
-Date: Sat, 21 Nov 2026 20:14:50 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6b026c3a.91c4c7f9.2424d6.000b.GAE@google.com>
-Subject: [syzbot] [usb?] [media?] KASAN: slab-use-after-free Read in __media_entity_remove_links
-From: syzbot <syzbot+fb0d2df09b56117605fc@syzkaller.appspotmail.com>
-To: hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-usb@vger.kernel.org, mchehab+huawei@kernel.org, mchehab@kernel.org, 
-	sakari.ailus@linux.intel.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOt5AmsC/yXMzQrCMBAE4Fcpe3bVhKqtryIe8jO1UUhL1gah9
+ N1N9PgNM7OSIAUIXZuVEnKQMMUCtWvIjSY+wMEXkz7qs1Jas205Iy7CmIQFeLHHoHvVo+v8icp
+ uThjC5/d5u/8ti33CvetRbVgjYJtMdGONKg/5sm85OU3b9gXw/SnqlQAAAA==
+X-Change-ID: 20261122-b4-venus-eos-seek-def2919e88d5
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>, 
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, EMCP333 <emcp@enser.io>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795324396; l=1979;
+ i=emcp@enser.io; s=ultron; h=from:subject:message-id;
+ bh=iP7FYS+EUWbdvN2tGSghCLya/Epnwo8AlsueNNlxKd8=;
+ b=3SJ4nGg5MO7AHbPM4HnJT6atKVij5aE02Xdb7Kp/IFJ/qkQAXViTsx23qxP2PSXXLHUolhcAl
+ AUeItdKTwrcAp2HQV90Me3jveKK77HQ/9l00Y2+DYUs+G+hiUZklaH7
+X-Developer-Key: i=emcp@enser.io; a=ed25519;
+ pk=5sG48Lul+Vn7OzXu3VZrCWk5uvEFPYMXYnAV0TZR/tY=
+X-Endpoint-Received: by B4 Relay for emcp@enser.io/ultron with auth_id=1598
+X-Original-From: EMCP333 <emcp@enser.io>
+Reply-To: emcp@enser.io
 
-Hello,
+Two fixes for the Venus decoder and encoder, found on a OnePlus 6T
+(SDM845, firmware VIDEO.VE.5.2-00050-PROD-1) while using it from
+GStreamer, ffmpeg and mpv.
 
-syzbot found the following issue on:
+Patch 1 gives the end-of-stream buffer that the STOP commands queue a
+real, mapped address instead of the made-up 0xdeadb000. This firmware
+rejects the made-up address, which leaves the encoder unusable until
+reboot and decoder clients draining forever.
 
-HEAD commit:    5f22fb20497f Merge tag 'fuse-fixes-7.4-rc4' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1066c2bc580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5c210800cfc8f61e
-dashboard link: https://syzkaller.appspot.com/bug?extid=fb0d2df09b56117605fc
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=171dbc03580000
+Patch 2 makes a CAPTURE STREAMON issued while OUTPUT is stopped for a
+seek take effect when OUTPUT restarts. That is the order GStreamer uses
+for every flushing seek, and without it the seek never completes.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/98fce4d0b21b/non_bootable_disk-5f22fb20.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/3026db345225/vmlinux-5f22fb20.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/af47b7c72f38/bzImage-5f22fb20.xz
+Both were tested on the phone with the postmarketOS sdm845 kernel
+(6.18). On v7.4-rc2 the driver builds with W=1 and no warnings.
 
-The issue was bisected by AI to:
+Both also ran on v7.4-rc3: three encodes drained by V4L2_ENC_CMD_STOP
+and decoded back (90 of 90 frames), and three flushing seeks through
+GStreamer completed in 0.02 s each, with no venus errors.
 
-commit 288254383674be25b26cf137bc12bfe38fefbad6
-Author: Hans Verkuil <hverkuil+cisco@kernel.org>
-Date:   Tue May 19 10:07:59 2026 +0000
-
-    media: em28xx: use v4l2_device release callback
-
-AI reasoning:   https://syzkaller.appspot.com/ai_job?id=60f8dabf-5027-4072-8efa-b74f756d8088
-
-AI-generated root cause summary:
-In `em28xx_v4l2_init()`, if initialization fails (e.g.,
-`v4l2_mc_create_media_graph()` returns `-EINVAL` when no decoder subdev is
-found) after `video_register_device()` has exposed the device node and userspace
-(such as `v4l_id`) has opened it, the `unregister_dev:` error path calls
-`v4l2_device_put(&v4l2->v4l2_dev)` to drop the initial `v4l2_device` reference.
-Because the open `video_device` still holds a reference to `v4l2_dev`, the
-refcount only drops from 2 to 1, so `em28xx_free_v4l2()` is not called and
-`dev->v4l2` remains non-NULL. On subsequent USB disconnect, `em28xx_v4l2_fini()`
-checks `if (!v4l2)`, sees `dev->v4l2` is still set, and calls
-`v4l2_device_put(&v4l2->v4l2_dev)` a second time for the initial reference,
-dropping the refcount to 0 and freeing `v4l2` (including `v4l2->vdev`) while
-userspace still holds an open file descriptor. When userspace later closes the
-fd, `v4l2_release()` -> `v4l2_device_release()` ->
-`media_device_unregister_entity()` -> `__media_entity_remove_links()` reads
-`&v4l2->vdev.entity.links` inside the freed `em28xx_v4l2` object, causing a
-slab-use-after-free.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=fb0d2df09b56117605fc
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+fb0d2df09b56117605fc@syzkaller.appspotmail.com
-
-The cause commit was identified by AI and may be wrong.
-If you agree with it, please also add:
-Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-
-==================================================================
-BUG: KASAN: slab-use-after-free in __media_entity_remove_links+0x156/0x160 drivers/media/mc/mc-entity.c:1274
-Read of size 8 at addr ffff88806b0c8248 by task v4l_id/6472
-
-CPU: 1 UID: 0 PID: 6472 Comm: v4l_id Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- __media_entity_remove_links+0x156/0x160 drivers/media/mc/mc-entity.c:1274
- __media_device_unregister_entity+0x188/0x2f0 drivers/media/mc/mc-device.c:593
- media_device_unregister_entity+0x4b/0x70 drivers/media/mc/mc-device.c:677
- v4l2_device_release+0x363/0x480 drivers/media/v4l2-core/v4l2-dev.c:208
- device_release+0xd2/0x270 drivers/base/core.c:2640
- kobject_cleanup lib/kobject.c:689 [inline]
- kobject_release lib/kobject.c:720 [inline]
- kref_put include/linux/kref.h:65 [inline]
- kobject_put+0x1f7/0x640 lib/kobject.c:737
- put_device+0x1f/0x30 drivers/base/core.c:3886
- video_put drivers/media/v4l2-core/v4l2-dev.c:173 [inline]
- v4l2_release+0x2da/0x390 drivers/media/v4l2-core/v4l2-dev.c:480
- __fput+0x3fb/0xb50 fs/file_table.c:512
- fput_close_sync+0x118/0x250 fs/file_table.c:618
- filp_close_sync+0x75/0xa0 fs/open.c:1574
- __do_sys_close fs/open.c:1597 [inline]
- __se_sys_close fs/open.c:1584 [inline]
- __x64_sys_close+0x81/0x110 fs/open.c:1584
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x780 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7efe06ca7407
-Code: 48 89 fa 4c 89 df e8 38 aa 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-RSP: 002b:00007ffeede16410 EFLAGS: 00000202 ORIG_RAX: 0000000000000003
-RAX: ffffffffffffffda RBX: 00007efe073fa880 RCX: 00007efe06ca7407
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
-RBP: 00007efe073fa6e8 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000013
-R13: 00007ffeede16640 R14: 00007efe07561000 R15: 000055de6e7e84d8
- </TASK>
-
-Allocated by task 5993:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x40 mm/kasan/common.c:79
- poison_kmalloc_redzone mm/kasan/common.c:412 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:429
- kasan_kmalloc include/linux/kasan.h:267 [inline]
- __kmalloc_cache_noprof+0x2f8/0x6d0 mm/slub.c:5680
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- em28xx_v4l2_init.cold+0x94/0x3a7f drivers/media/usb/em28xx/em28xx-video.c:2751
- em28xx_init_extension+0x13a/0x200 drivers/media/usb/em28xx/em28xx-core.c:1245
- request_module_async+0x1e/0x30 drivers/media/usb/em28xx/em28xx-cards.c:3723
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
- process_scheduled_works kernel/workqueue.c:3578 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 11:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x40 mm/kasan/common.c:79
- kasan_save_free_info+0x3b/0x60 mm/kasan/generic.c:599
- poison_slab_object mm/kasan/common.c:267 [inline]
- __kasan_slab_free+0x73/0x90 mm/kasan/common.c:299
- kasan_slab_free include/linux/kasan.h:239 [inline]
- slab_free_hook mm/slub.c:2780 [inline]
- slab_free mm/slub.c:6637 [inline]
- kfree+0x22d/0x6d0 mm/slub.c:6930
- em28xx_free_v4l2+0x7b/0x110 drivers/media/usb/em28xx/em28xx-video.c:2337
- v4l2_device_release drivers/media/v4l2-core/v4l2-device.c:51 [inline]
- kref_put include/linux/kref.h:65 [inline]
- v4l2_device_put+0xa3/0xd0 drivers/media/v4l2-core/v4l2-device.c:56
- em28xx_v4l2_fini.cold+0x267/0x312 drivers/media/usb/em28xx/em28xx-video.c:2465
- em28xx_close_extension+0xd2/0x460 drivers/media/usb/em28xx/em28xx-core.c:1262
- em28xx_usb_disconnect.cold+0x13d/0x253 drivers/media/usb/em28xx/em28xx-cards.c:4488
- usb_unbind_interface+0x1dd/0x9b0 drivers/usb/core/driver.c:460
- device_remove drivers/base/dd.c:619 [inline]
- device_remove+0x12a/0x180 drivers/base/dd.c:611
- __device_release_driver drivers/base/dd.c:1357 [inline]
- device_release_driver_internal+0x441/0x610 drivers/base/dd.c:1380
- bus_remove_device+0x2bc/0x560 drivers/base/bus.c:678
- device_del+0x376/0x9b0 drivers/base/core.c:3967
- usb_disable_device+0x367/0x810 drivers/usb/core/message.c:1484
- usb_disconnect+0x2e2/0x9a0 drivers/usb/core/hub.c:2355
- hub_port_connect drivers/usb/core/hub.c:5425 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
- port_event drivers/usb/core/hub.c:5889 [inline]
- hub_event+0x1bb1/0x4420 drivers/usb/core/hub.c:5971
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
- process_scheduled_works kernel/workqueue.c:3578 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-The buggy address belongs to the object at ffff88806b0c8000
- which belongs to the cache kmalloc-8k of size 8192
-The buggy address is located 584 bytes inside of
- freed 8192-byte region [ffff88806b0c8000, ffff88806b0ca000)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x6b0c8
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0x4fff00000000040(head|node=1|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 04fff00000000040 ffff88801d443180 dead000000000122 0000000000000000
-raw: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
-head: 04fff00000000040 ffff88801d443180 dead000000000122 0000000000000000
-head: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
-head: 04fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 859, tgid 859 (kworker/0:2), ts 138895551242
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1873
- prep_new_page mm/page_alloc.c:1881 [inline]
- get_page_from_freelist+0xdae/0x2c80 mm/page_alloc.c:3963
- __alloc_frozen_pages_noprof+0x2ad/0x31e0 mm/page_alloc.c:5505
- alloc_slab_page mm/slub.c:3384 [inline]
- allocate_slab mm/slub.c:3499 [inline]
- new_slab+0xb1/0x6d0 mm/slub.c:3550
- refill_objects+0xe3/0x410 mm/slub.c:7546
- refill_sheaf mm/slub.c:2917 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4811
- alloc_from_pcs mm/slub.c:4887 [inline]
- slab_alloc_node mm/slub.c:5021 [inline]
- __kmalloc_cache_noprof+0x4ef/0x6d0 mm/slub.c:5676
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- em28xx_v4l2_init.cold+0x94/0x3a7f drivers/media/usb/em28xx/em28xx-video.c:2751
- em28xx_init_extension+0x13a/0x200 drivers/media/usb/em28xx/em28xx-core.c:1245
- request_module_async+0x1e/0x30 drivers/media/usb/em28xx/em28xx-cards.c:3723
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
- process_scheduled_works kernel/workqueue.c:3578 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-page last free pid 6118 tgid 6118 ts 138113338887 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1415 [inline]
- __free_frozen_pages+0x7b1/0x10f0 mm/page_alloc.c:2971
- kasan_depopulate_vmalloc_pte+0x5d/0x80 mm/kasan/shadow.c:484
- apply_to_pte_range mm/memory.c:3555 [inline]
- apply_to_pmd_range mm/memory.c:3599 [inline]
- apply_to_pud_range mm/memory.c:3635 [inline]
- apply_to_p4d_range mm/memory.c:3671 [inline]
- __apply_to_page_range+0xb1d/0x1520 mm/memory.c:3707
- __kasan_release_vmalloc+0xd7/0xe0 mm/kasan/shadow.c:602
- kasan_release_vmalloc include/linux/kasan.h:600 [inline]
- kasan_release_vmalloc_node mm/vmalloc.c:2312 [inline]
- purge_vmap_node+0x210/0xb40 mm/vmalloc.c:2334
- __purge_vmap_area_lazy+0x90a/0xc00 mm/vmalloc.c:2424
- drain_vmap_area_work+0x27/0x40 mm/vmalloc.c:2458
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
- process_scheduled_works kernel/workqueue.c:3578 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Memory state around the buggy address:
- ffff88806b0c8100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88806b0c8180: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff88806b0c8200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                              ^
- ffff88806b0c8280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88806b0c8300: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-
+One related problem is not addressed here: from 1280x720 up, the encoder
+bitstream buffer is an eighth of the size used just below 720p, and
+this firmware produces nothing with it. Fixing that properly needs the
+firmware's own buffer requirement rather than a bigger guess, so it is
+left for a separate change.
 
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+EMCP333 (2):
+      media: venus: Signal end-of-stream with a mapped buffer
+      media: venus: vdec: Resume CAPTURE restarted during a seek
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-For information about AI bisection see: https://goo.gl/tpsmEJ#ai-bisection
+ drivers/media/platform/qcom/venus/core.h    |  7 +++++
+ drivers/media/platform/qcom/venus/helpers.c | 40 +++++++++++++++++++++++++++++
+ drivers/media/platform/qcom/venus/helpers.h |  3 +++
+ drivers/media/platform/qcom/venus/vdec.c    | 33 +++++++++++++++++++++---
+ drivers/media/platform/qcom/venus/venc.c    |  7 ++++-
+ 5 files changed, 85 insertions(+), 5 deletions(-)
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261122-b4-venus-eos-seek-def2919e88d5
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+Best regards,
+--  
+EMCP333 <emcp@enser.io>
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
