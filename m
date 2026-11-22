@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795319222;
-	b=364C5R4ezb37OWLSmz5dvQevtMrFQQjW5x+kojKwnmJwZoNXm2AmNrOK6t5oObkj+0NZ
-	 zMLa1tx2BgbwaNbNaSGWpLE2FSmtbAmMuh/jkHUsX5cbzOoZmOwP+nJeof505GTKW5SoR
-	 T1lJILBKrzUqpQQUTKsLb4zPuM3zGEOU/TyjCTfsWp+hHnK1Zmp5PfRNGU5TKbXNS1BOt
-	 TG/RwAJX2wAWcmmTvvixTS9UK56CZ2LhYblTkgvuJxEKf0aopAy625Lx+cuZH6zV3VqfL
-	 DpO7abHuqUx689aKWD+0eZuEE6DCeEPRRFmosRD2u03tXf6wuqHU5zVZ2Paz17/Ph4w==
+	t=1795319225;
+	b=h5IHYynWexuqfdHUqIIttp0h6YijAOmhshPIv4WWhwvDRUZAHGCXl2d0DO7pI1LzBsmv
+	 9X+BcGeEXLf9CBEMbYSu9KP5wvHMjmEdUu1nk8Y5BE87Y3P8EUPl9p/3HLEKk4qug7I/I
+	 uzLSV7OGnmGD/FVeLn6dLVUfpcgFcG1kOYlahXRtA1Bic1UXTTd/MxS1NLtfwUXqv+6O1
+	 jtZFzs0tYGQ2Y89suFmde+oWQi5cvF87vW2OitHeVJO80j+TV6AKr9HgRRzSLf7uQSXLE
+	 HqZWOJElFxZXQ3YDAL6B2+SUge76tk7tNxBV2WAZXODE2He2I5rCDAyQPIMRdxfTuhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795319222;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795319225;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=D8e8pIUItvuPYRgF3NPYFE6tJ5ovr6dpnf69J/+UZLk=;
-	b=xekIX/Pp2tsvqYOVD6jOQZIcxPjKnl5RExLl6Uv18geUQiXXEkEOX4O+g2FyvLp93Vpc
-	 QDG2rG51A9tpvCSEdeOZmBW2nhGQ+KBbzecl+2BnW24Apni1ErbT8eWTX6GHQExNgEEKV
-	 krnPYHHJF7Hc5vEsAW/lsQEQ/5H9hijnAvYpzfWeRNOlRV7UCPZZB87Qf9jotB50WL56S
-	 LODnhZ7Ji2z7nOpmOle3lOtG9JZL8iCM/g3wS18GEIHT95uF6FCTLCsAzpr/nT1JiEKWg
-	 IwYedSOt6jH/c/wbHwzMzMZc213B1LHHIn3HgNa5kyi6jOWdc30rJuGIN9MlAU+jXug==
+	bh=xgEf59wW516NgPmfsLZmDRO6dAOrXpUhyDeSMZa7qDQ=;
+	b=375Ihw4OU7j3LPk4r3CB9rXlaHrvRSJ12PLFlRyGq/xYdDVuoBGSO3ADpJ7MLCck9XSn
+	 Twte52Ju/rjQQEeCBpwUkSjkTY+k6DJc4y1sZr/7OgvMfSh0b640H39VpPyJMDyCHho3E
+	 pVplXV/JuVPQHe//+A+Z/R5oDuJo1H5UYOpRsfSbXSIW2Yh51IOIUfNCyNy+jZioBGE9J
+	 foHXJp1Gj7LQw6LYPi5l9meqoGokBx6mr3AJ32VxRHmyaUUwqUvdYw+yePUxI14Ra+KFa
+	 43BDSDOclaXAOzJlxhc42dD+7BP8fVXv6p3AU1auMlID2BQEuHDWoxCGCcc+2zHXDPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Q/IZHBMm";
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U7+KuGat;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D655606A320
-	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 03:47:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D655606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A707606A330
+	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 03:47:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A707606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q/IZHBMm
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2f066274caeso4234415ad.2
-        for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 19:47:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U7+KuGat
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b421e8d111so1419651a91.3
+        for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 19:47:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795319221; x=1795924021; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795319223; x=1795924023; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=D8e8pIUItvuPYRgF3NPYFE6tJ5ovr6dpnf69J/+UZLk=;
-        b=Q/IZHBMmdSxT6CxM4EvKEfeKaTHx1t6Zb7X8DvWa0G272RxztavonpeZ5Xx8v2Hkfb
-         L/2UCBQogUOgb0VPMa3MaikEgxY94MAXUVEAwGmEJj2Z4kUIQmfNkYf2G4ai+fIMjmf1
-         Db7YyFA7Tb4jI9BH63FWnTNhq6GOfYE43hWes0rVX9cbC886Q5AUXqW+FFz+HGeY2kma
-         nJJQRXi7OiGyBNjzwFDnmPRovRxxNXObua7aMcBm3LNj/0LfK+5L4pOVe7nnWGu7JdHm
-         Rzxlq8H2ylcSS/3Q1oyTktrcn3Ug7iszanI0nMJu6qQGcd/NRmsYbKUHCQZ+4oaCZt7D
-         WQ9Q==
+        bh=xgEf59wW516NgPmfsLZmDRO6dAOrXpUhyDeSMZa7qDQ=;
+        b=U7+KuGatBQ2Ti1dwmiNQUpfbYWGVoNkgEVdpVGe6L+kgG+4Zi3VJSNV3NxUT2flsft
+         KO12/u6c/lL05p2Hbc8T4nM1fzopwOtQTYh2NocLitrRCRZjlo/hY8Ph4YcluFv2VDbI
+         Eba0eyvkGvU9NRPEFhzB2Y6uEmWkyoR7zkv6qH0t067qBdvZaccc/A4wvnAXCteuRPCf
+         8JVCm1Io7/M/HZU9g2CWRkvPsc9q1tzyIEzLRhGgqDR2P7hkFyyu7CFOIl/IUPw+fQaH
+         POh3e72ZrCI/YYu3f8i36SJVKeTnwVIZx+BgR07EiIWqpJmcoGAm9P82+Fvq2trx/gde
+         Nzuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795319221; x=1795924021;
+        d=1e100.net; s=20260707; t=1795319223; x=1795924023;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D8e8pIUItvuPYRgF3NPYFE6tJ5ovr6dpnf69J/+UZLk=;
-        b=HdyxtFB+1KoyNzEM5ldmikcmTZEslFnfc3Y9hflABbo0tN+MNmzoA6Ve60nlkvCRUo
-         dgm1HYhUo8MX3u+JMNXi3TVEL6h1kO+OSE78CAAnlvkjeg0LIStzvVP8LQSft+9MiWIX
-         RUIgqwaChu9Oc3DDFbX/UzSTHN9mD45d0iRmCZa+bHMC8XKmw6m0xAqjSqk6xPYWkf8d
-         01SWg8xwweQrt26cYjpPdcK5JopSKDwSC6ubgCoaGGrV3q/V7lp4OxhS4+KnIncwUNl8
-         mhHCV2oA4qUCV22Op8l/vKOkrpyk5v29DEUKvREC+yRWSPmsuyoLnfX07xIU9ipohf4J
-         GQ/w==
-X-Gm-Message-State: APuU4Z8Vzw4E6zkpu1gtCxfDTBYoseRf4LuurBzSnCh6OsDHqNJWlXuw
-	hrBFKLXMXjP6C34QeB7JFSbV3Gumby4cragTNnRqLvDKsH8TqvbywGwCX6RKIlBWJ0A=
-X-Gm-Gg: AZFdTZeXhOMR2YlTWCr1wGrk8ciFfEY2IDqqUEqkO56JY4iGrPgq/wJJEpl+dscmbqz
-	aC16RVJFiCAeWRacq1wgU6pHtfbhN8ai6nXbenh1BbaTrdypL3YZmjShjFc1mMQRa3iOs6QRKhM
-	zG8Q663HulsI4D5WmbMpmB5ziyiRo/QLvht3SiO8588cL6FLon5bG1MHWMW++vCq7Ola0xsX+Ub
-	g1HOtS35AkQqzFOAEATdfjVuC6HjpC3LlQxpe5W1B+s5hdtekPWdSZK1u9r90xAMzohE4rfRL4e
-	44HeZi2CltkC/52XSC0noggeFs4eYVA5oexmX83IzsdZvTw7syWEecuuV28a7uJdMGwge0kEEuY
-	BkWpuQB93ssAUzlVPnfUGpM+HpwzaMwuwFh2LenIScMWP1iezFtMXUitk2+4GL5xU52nswQ0Xdz
-	bEJ3C2MOqNaIy5PunDsEr4mM9XPa/DDdmsODEU4xZ42PjTcwRd3SIAX5REkAYZ7MCGJxD49U10n
-	mjVrPtBJ9iyVRkBpCDqFvTf7MPj5x7ougUZfJbilV3WxI8C84//Y/8ZSZk2xnP+ilDwl02HtZ5w
-	rFvN8p7G0kb6ch+NknEeqhG7XgHXRMs9nlABaSu5S5aSznP91HMlMI+z/kiXqXzofFMercfrrQX
-	F84aEJXcCW0tjBRgN3YU=
-X-Received: by 2002:a17:90b:5109:b0:3b4:e3e:650 with SMTP id 98e67ed59e1d1-3b41c9c40a1mr7014717a91.67.1795319220695;
-        Sat, 21 Nov 2026 19:47:00 -0800 (PST)
+        bh=xgEf59wW516NgPmfsLZmDRO6dAOrXpUhyDeSMZa7qDQ=;
+        b=zMN1YkUa1Y2bqYmPsqU0C/uppFZRi6T0OKUAKqdlL5+nVCX2UHI+Odf05JH/52ZUgD
+         muPBPDgHk/yYFheenpCjOJ0A/Abdh11ogXiOxgMH2kUr6xBsfPIq5QNFCqJ1DF8YwP6Q
+         fkQeMhSv8LZAHLHyjxFurBFDZTmN0Y2z6pLVBsii6s/55yme2GY9qSBaswg6CKKJmgwj
+         sKwFtHKfKQSKFN1Vqt2p8WTAPAub+I9PxcZlYDdqwlh2lXZKMS52acKkf4etlJtfRTUZ
+         C7+QOpCzZeBqswFWiCFaAs6iaw33loJu8Y7gNO03EqKU8hqFVSeU0i5XGSH5FsakG6s1
+         75KQ==
+X-Gm-Message-State: APuU4Z/gV2QuEc7PSSe8Sa+6vTym4iYQwvXzD1HK5SKPlT1WxzJtqhHO
+	CRgt0yJEbezNLPQJ85xgp+d7+3Hj+VQ3SadYQQr2i4ZqIctsNjIT/0Np9Kj134e76Gc=
+X-Gm-Gg: AZFdTZf81/uSOwW3YbNLC9C+KAHIood2x2B1sKUbTi4KqZ1ZHjL7xbpmcWTrHl2WQ0n
+	XkSTuvDGqxf1e6kfu5/PbLp5Pk+6yyGeE/ihH/zQ342j9ulfyYMuStiUbXt3md+rm369hC3bVRJ
+	RyB6HLrmdCs4mLDDsA2x4+qMdAqDruMj1p2898DMfqLF7o05ZqeIgGypJ4bWiEFIXuagcjOVsAg
+	OzTxdEb7oQdV0cox+FCsok9jwvE4wrDBAYDpyv14eolyCFF8HxD9tw5wZxy1VGgwzen7LJBxAsd
+	vHnOTM4yFVQuupNE3OgksS0DTRoK5VoPcSrT8oCQ0W6OgIQ4/PN1XDVjRdA35JtWwkFSgrDimmD
+	gxZAwudgTYq1eu/TvJUzCHaE7aL3iAIdEKSK0yEo/v/tN+Av0q4xD23h9EogZCuYL632Dya/3oK
+	+MZ+MEIfG+onT67/36MOVq1fDoLZwPpNu6bo0vGm+YSuNRptoxODIjmGDHF/P/njpuZK6XyrFYW
+	edxRkqKq6vJazMi8mYaVYePisR+5cAbQz2uv2tRCz2fdLMGkPt9aq3cyHAHNFSjJFRaO3A69mqa
+	wH/zrj0hzItHEcqQv38JkICRrV1EPKs5JuWV0E6GzCJOTMl5kl8y4nrHsC1n2BNyZzz14toTLp/
+	6E7R+9eqSF0eRfWC+YVI=
+X-Received: by 2002:a17:90b:388c:b0:3b3:c04e:4b74 with SMTP id 98e67ed59e1d1-3b41c9b2becmr7746348a91.15.1795319223311;
+        Sat, 21 Nov 2026 19:47:03 -0800 (PST)
 Received: from default-vnic.degu-barley.ts.net ([161.118.211.100])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41adcfe16sm11040018a91.17.2026.11.21.19.46.58
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41adcfe16sm11040018a91.17.2026.11.21.19.47.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 21 Nov 2026 19:47:00 -0800 (PST)
+        Sat, 21 Nov 2026 19:47:03 -0800 (PST)
 From: Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
 To: linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org
@@ -88,12 +88,13 @@ Cc: sakari.ailus@linux.intel.com,
 	conor+dt@kernel.org,
 	chernyav.a@gmail.com,
 	Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
-Subject: [PATCH v3 0/2] media: i2c: Add Samsung S5K5E8 camera sensor driver
-Date: Sun, 22 Nov 2026 10:46:54 +0700
-Message-ID: <20261122034656.1093369-1-huynhtuankiet33@gmail.com>
+Subject: [PATCH v3 1/2] dt-bindings: media: i2c: Add Samsung S5K5E8 image sensor
+Date: Sun, 22 Nov 2026 10:46:55 +0700
+Message-ID: <20261122034656.1093369-2-huynhtuankiet33@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261121120731.2028810-1-huynhtuankiet33@gmail.com>
+In-Reply-To: <20261122034656.1093369-1-huynhtuankiet33@gmail.com>
 References: <20261121120731.2028810-1-huynhtuankiet33@gmail.com>
+ <20261122034656.1093369-1-huynhtuankiet33@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,90 +106,155 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add Device Tree bindings and a V4L2 subdev driver for the Samsung S5K5E8
-5MP RAW10 CMOS image sensor.
+From: Andrii Cherniavskyi <chernyav.a@gmail.com>
 
-Initial patches were authored by Andrii Cherniavskyi (shown in the
-git shortlog below); v2 and v3 updates, active-state refinements, and
-hardware testing on Xiaomi Redmi Note 4X (msm8953 / mido) were carried out
-by Tuan Kiet Huynh.
+Add Device Tree bindings for the Samsung S5K5E8 5MP RAW10 CMOS image
+sensor, including required regulators, optional reset/powerdown GPIOs,
+and 2-lane MIPI CSI-2 endpoint properties.
 
-Changes in v3:
-- Rename driver, DT binding, Kconfig symbol (VIDEO_S5K5E8), compatible
-  string ("samsung,s5k5e8"), and MAINTAINERS entry from s5k5e8yx to s5k5e8.
-- Rename standby-gpios to powerdown-gpios in both the DT binding and
-  driver, and switch to sequential regulator_enable() (vddio -> vdda ->
-  vddd) with powerdown-then-reset deassertion (matching the Samsung S5K5E8
-  OEM PWR_ON sequence).
-- Use RUNTIME_PM_OPS() with pm_ptr() instead of DEFINE_RUNTIME_DEV_PM_OPS()
-  per Documentation/driver-api/media/camera-sensor.rst (runtime PM only,
-  leaving stream suspend/resume coordination to the bridge driver).
-- Adopt full V4L2 subdev active state: drop duplicated s5k5e8->mode and
-  err_restore_mode, derive mode from state in enable_streams() and
-  s5k5e8_set_ctrl() (guarded by WARN_ON_ONCE(!state) -> -EINVAL), and
-  store/return active and try crop rectangles in v4l2_subdev_state
-  (CROP_DEFAULT returns mode 0's crop).
-- Align 2592x1944 X_ADDR_START (0x0008) with 0x3306/07 and reported crop
-  ((8, 8)/2592x1944); program 0x3307 (0x00) and 0x3308 (0x0a) in
-  1304x980_60fps_mode[]; align 1304x980 MIPI link PLL registers (0x0306,
-  0x0308, 0x0820/21 = 0x0344) with Samsung OEM binned preview so both modes
-  share the 168 Mpix/s VT clock and ~418 MHz actual (420 MHz nominal) CSI link.
-- Update active pad Bayer format code synchronously on V4L2_CID_HFLIP /
-  V4L2_CID_VFLIP changes, cluster hflip/vflip controls, and reject active
-  format changes with -EBUSY while streaming.
-- Pass NULL ops for read-only V4L2_CID_LINK_FREQ, V4L2_CID_PIXEL_RATE,
-  and V4L2_CID_HBLANK controls, set V4L2_CID_PIXEL_RATE minimum to
-  pixel_rate, check ctrl_hdlr->error in s5k5e8_init_controls(), and clamp
-  default exposure in s5k5e8_set_ctrl().
-- Set V4L2_SUBDEV_FL_HAS_EVENTS, use pm_runtime_get_if_in_use() == 0, call
-  pm_runtime_dont_use_autosuspend() in s5k5e8_remove(), remove redundant
-  0x0100=0 writes in mode tables, document init_array_setting[] as the
-  vendor flow, remove unused S5K5E8_AGAIN_SHIFT, add copyright headers, and
-  unify probe error reporting with ret = dev_err_probe() and an explicit
-  chip ID mismatch message.
-- Update DT binding to require vdda-supply, vddd-supply, vddio-supply, and
-  endpoint data-lanes (and enforce data-lanes presence in
-  s5k5e8_check_hwcfg()), drop driver-mode claims from description, add
-  data-lanes and powerdown-gpios to example, and add Tuan Kiet Huynh as
-  binding maintainer.
-
-Changes in v2:
-- Rebase onto linux-media next branch and update .set_fmt/.get_selection
-  for const struct v4l2_subdev_client_info *ci.
-- Convert PM ops to pm_ptr().
-- Place DT binding MAINTAINERS entry in patch 1/2.
-
-Verification:
-- Build/schema checks run against media-next:
-  - yamllint + make ARCH=arm64 DT_SCHEMA_FILES=Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml dt_binding_check: 0 warnings, 0 errors (samsung,s5k5e8.example.dtb built cleanly).
-  - ./scripts/checkpatch.pl --strict (with spdxcheck.py): 0 errors, 0 warnings, 0 checks on both patches (123 and 1071 lines checked).
-  - Compiled drivers/media/i2c/s5k5e8.o with GCC W=1 and Clang LLVM=1 W=1: 0 warnings, 0 errors.
-  - Applied cleanly via git am onto media-next (origin/next).
-- Live hardware tests run on Xiaomi Redmi Note 4X (msm8953 / mido) using
-  downstream Linux 7.0.9-msm8953 with this driver backported (without
-  media-next's const struct v4l2_subdev_client_info *ci parameter in
-  set_fmt/get_selection):
-  - v4l2-compliance -u /dev/v4l-subdev17: Total: 46, Succeeded: 46, Failed: 0, Warnings: 0.
-  - media-ctl -d /dev/media0 -p (front sensor entity):
-    - entity 428: s5k5e8 4-002d (1 pad, 1 link, 0 routes)
-      pad0: SOURCE [stream:0 fmt:SGRBG10_1X10/2592x1944 field:none colorspace:raw xfer:none quantization:full-range
-                    crop.bounds:(0,0)/2608x1960 crop:(8,8)/2592x1944]
-  - libcamera cam -c 2: verified streaming in both 1304x980 (59.81 fps)
-    and 2592x1944 (29.89 fps) with SoftISP and unbind/bind cycle.
-
-Andrii Cherniavskyi (2):
-  dt-bindings: media: i2c: Add Samsung S5K5E8 image sensor
-  media: i2c: Add Samsung S5K5E8 camera sensor driver
-
- .../bindings/media/i2c/samsung,s5k5e8.yaml    |  109 ++
- MAINTAINERS                                   |    9 +
- drivers/media/i2c/Kconfig                     |   10 +
- drivers/media/i2c/Makefile                    |    1 +
- drivers/media/i2c/s5k5e8.c                    | 1041 +++++++++++++++++
- 5 files changed, 1170 insertions(+)
+Signed-off-by: Andrii Cherniavskyi <chernyav.a@gmail.com>
+Co-developed-by: Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
+Signed-off-by: Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
+---
+ .../bindings/media/i2c/samsung,s5k5e8.yaml    | 109 ++++++++++++++++++
+ MAINTAINERS                                   |   8 ++
+ 2 files changed, 117 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml
- create mode 100644 drivers/media/i2c/s5k5e8.c
 
+diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml
+new file mode 100644
+index 000000000..3aa50bd58
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml
+@@ -0,0 +1,109 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/samsung,s5k5e8.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung S5K5E8 Image Sensor
++
++description:
++  Samsung S5K5E8 is a 5MP CMOS image sensor controlled over an I2C-compatible
++  serial interface, outputting RAW10 image data over a 2-lane MIPI D-PHY
++  interface.
++
++maintainers:
++  - Andrii Cherniavskyi <chernyav.a@gmail.com>
++  - Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: samsung,s5k5e8
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: MCLK supply clock.
++    maxItems: 1
++
++  reset-gpios:
++    description: Active low GPIO connected to RESET pad of the sensor.
++    maxItems: 1
++
++  powerdown-gpios:
++    description:
++      Active low GPIO connected to the XSHUTDN (powerdown) pad of the sensor.
++    maxItems: 1
++
++  vdda-supply:
++    description: Analogue voltage supply, 2.8 volts.
++
++  vddd-supply:
++    description: Digital core voltage supply, 1.2 volts.
++
++  vddio-supply:
++    description: Digital I/O voltage supply, 1.8 or 2.8 volts.
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - vdda-supply
++  - vddd-supply
++  - vddio-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++      #include <dt-bindings/gpio/gpio.h>
++
++      i2c {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          camera@2d {
++              compatible = "samsung,s5k5e8";
++              reg = <0x2d>;
++              clocks = <&camera_mclk 0>;
++              assigned-clocks = <&camera_mclk 0>;
++              assigned-clock-rates = <24000000>;
++              reset-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
++              powerdown-gpios = <&gpio1 11 GPIO_ACTIVE_LOW>;
++              vdda-supply = <&vreg_2p8>;
++              vddd-supply = <&vreg_1p2>;
++              vddio-supply = <&vreg_1p8>;
++
++              port {
++                  endpoint {
++                      data-lanes = <1 2>;
++                      link-frequencies = /bits/ 64 <420000000>;
++                      remote-endpoint = <&mipi_csi2_ep>;
++                  };
++              };
++          };
++      };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f72ce07a4..10b7bf57a 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25013,6 +25013,14 @@ M:	Andrzej Hajda <andrzej.hajda@intel.com>
+ S:	Supported
+ F:	drivers/media/i2c/s5k5baf.c
+ 
++SAMSUNG S5K5E8 CAMERA DRIVER
++M:	Andrii Cherniavskyi <chernyav.a@gmail.com>
++M:	Tuan Kiet Huynh <huynhtuankiet33@gmail.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++T:	git git://linuxtv.org/media_tree.git
++F:	Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml
++
+ SAMSUNG S5KJN1 CAMERA DRIVER
+ M:	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+ S:	Maintained
 -- 
 2.43.0
 
