@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795388187;
-	b=SU04pZ7PW96WmqAmAV2kZeS0WMy4BcKSZfpAiKhWn9UCN2EKLa5xOCgi/1p/vvFJCzvq
-	 2JyiL0lN681unW6xXlH1098/fQJppMLSiBJBFZ0dF8BqyxsqGVZMj0h62/xC+GiOXMM57
-	 a9QBxuJ7AK3Bl/APZlLQ9RtKvm0dFsYgAyP2i9coTUesCpSp/3mGu+5S8YzSvP5lRHUA8
-	 47kQ+WPFSVRDT+PZgR27ILpEdb7DC1/9DI217A0p+dAJBEv8Vu3COfCLEjypV5U2czal4
-	 W7p9lsCWdjmZVP97tEKj2dzSKvRnvWCn0jX+FPWE0xKbXT5geS1J+fjmt0bnCdh5pSQ==
+	t=1795388981;
+	b=r5boQZFpoTH3+wCja3ijYQDjOauAI1/JYI2K69QQHJ/EzYFZQwt3ZHYfuyZbSeT2Mm/N
+	 6YD0sT9cLNkOtYm8W+/dhaRTuijhjuy9Uu30UMYz+4n8lLPUnqbJKjaUbWYPqFHZCDkUn
+	 EcQ2oFWs9vPFnml1u38zIPd8odxrFD7/EYRWYBOZ1wPKbXlN/jNP7cX9owcEe7q4LmQTg
+	 /nFLZLNEkE4DCujaqTJxlZGE+gef5So06tbHCEXJquyEKvmwQCdrix0nEbuPi4veoh9kY
+	 UdDktEaHhmhg5vHrxg7qozAutkLZjI9WNLhA4BCpsdato2JqKZ2aCVKVgmbzxtpB42w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795388187;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795388981;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=KIinOygrsBNDkSujvqaAeAdUWcQOoEnFOlfev0JX91E=;
-	b=WyMbJM+YDBDin1bAh1C/nHeRY3zVmYvz8PyepRulQ4sRBxWOMB+gmqpmktzd00xBJIqE
-	 BjiBHyP5QkABTVX6Ln6hi654MipkP82VujEbRhrPkdJKGKg2xgd8/NFq9JiiE7KILPdFX
-	 kMak+8tzXls69hXKI82XlQs6MilFt5P9+31GXazmAxLNvMA/72xbIkP4n7RVLtswuCMkT
-	 uwIs4UZeR2nXmWD+tiD6ox9G3gR7xcotv7IA+a8oiGy7xmOu2IMfFK1YE/2fkEUmr9tVY
-	 khUAw7O4ttM17kBs5mJw1UPwIBjP//41Mdv0wRbYu36nzU0rUWtaDVzP5EiMdcwV7ag==
+	bh=4PVgXPRwijzJCkg5P2UlmwCaAxY+3wgWaL0TibkK/9o=;
+	b=ZiLD4O5pmE/v4OOF0Tva2MB0jpJKWR/LL5jTatFE1ZOKNj6NhNoG2N8FHlPify3ueQ9F
+	 IvuUU6nlTNLq9BJInBOnCypwnj6PYpytYLAYDorZ6KUWzCScZTPLZiLcrhlSh4lyRhqhg
+	 5mbdp1Js/yXlo+sOS1PthpwfbAtmuFsPtH+0Rex4T147CDmwocUBXGk2mgcEen2NAojTK
+	 6II9FMbIEsWuo8JIWm7Sye+DnjPX8gO4CJv5NdtwPkHKKbMdRof0OjR579MFAqesNgx6I
+	 GEDnq+O9Bg27Y5nhqfppxvbxtL5sBDQoTmM81bJBJLnqMrEnfW7TN+183lQ9Q4TfI1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GWI1dkQJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OLwB4wlx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A1C606A31A;
-	Sun, 22 Nov 2026 22:56:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8828606A31A;
+	Sun, 22 Nov 2026 23:09:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GWI1dkQJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BD0B1F000C4;
-	Sun, 22 Nov 2026 22:56:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OLwB4wlx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CDB31F000C6;
+	Sun, 22 Nov 2026 23:09:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795388187;
-	bh=KIinOygrsBNDkSujvqaAeAdUWcQOoEnFOlfev0JX91E=;
+	s=k20260515; t=1795388980;
+	bh=4PVgXPRwijzJCkg5P2UlmwCaAxY+3wgWaL0TibkK/9o=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GWI1dkQJj1xzkIrPk3feli0BlX0HTQwbpPWL7vTQwrt90JG99WcjDP3VgdI08ckNs
-	 DqUR0BRsHIF/B0JorclK5Ffkb+E6jrpNCrnjQnD83nv4fLWlKPvYIY2HnLnTwdoX+/
-	 6H5L/ED/hEmfiQ7IQ48F0998SoSLizvQynt5hhXx0uih6VIH/bBTbLLSnRkanrQwrm
-	 VpDJah4aVNyZE5PQ3Ab10aF/tq+clRZnDsdignidJ9pdvbaUfcNkOB45aQXZKZnNkq
-	 xKSuz1Acs4a1Dks4gBbCCcpHR2vF/NbtzPLMj3LI8IG1u+oBXZYHLkzDDT8xXCRMIC
-	 YZn8s3qK4ip3g==
-Message-ID: <a37ed6db-de5c-4566-9af7-68cd6cf3d77b@kernel.org>
-Date: Sun, 22 Nov 2026 22:56:23 +0000
+	b=OLwB4wlxxvfTo0vz+nmeisREst1pGDpqh0PbnNQZS85V/cCdpEx1zAABE6UrWXxB7
+	 6q6geNvpJhm6ejgnsSOU/LSj17EDKBWGtbwbZ+/YXMWSuvEO/4OXhWbvWdplHb0m3b
+	 OvM9NGkuMU5yTBg1RdlVP7U2nPEw//fUApcIW14MdCbFc6rcUyppqoIt/Lz6mP0XSS
+	 dlC7FhNVpPN7vWDvTuZQKfFWnG/tj5eUCoHU6QqTg3oV0jR7/FCUnZw4wBOw1pVw4Q
+	 lEEepUlHKN1vbU72CPR42MRYzKAvAV69hRaqcZdApuh40+3kNUetGjokek6ol0mJOs
+	 0dXtl01FHYSEw==
+Message-ID: <bfe911bd-6642-44a7-8100-84ad6d23db04@kernel.org>
+Date: Sun, 22 Nov 2026 23:09:36 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,8 +52,8 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] media: venus: Signal end-of-stream with a mapped
- buffer
+Subject: Re: [PATCH 2/2] media: venus: vdec: Resume CAPTURE restarted during a
+ seek
 To: emcp@enser.io, Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
  Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
 Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -62,8 +62,8 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
  linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20261122-b4-venus-eos-seek-v1-0-2e38912c7cf9@enser.io>
- <xvOqr6NGA_oI_3jbBAXrpmgzYNUJpfGsBxTbc8Bsqk7dUknmWC1YsnpqotHjGuXGoW1RJFRpSBbwplo-ZPWvxg==@protonmail.internalid>
- <20261122-b4-venus-eos-seek-v1-1-2e38912c7cf9@enser.io>
+ <9BBteWrtlxmVtI0GWrjHkaJY7msPwkyQSlKYzEOzgV4-PQObBN78h7LPVJDWft7qSeuqPh4CX_whiysRD8nWOg==@protonmail.internalid>
+ <20261122-b4-venus-eos-seek-v1-2-2e38912c7cf9@enser.io>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -109,172 +109,55 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20261122-b4-venus-eos-seek-v1-1-2e38912c7cf9@enser.io>
+In-Reply-To: <20261122-b4-venus-eos-seek-v1-2-2e38912c7cf9@enser.io>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 22/11/2026 05:13, EMCP333 via B4 Relay wrote:
 > From: EMCP333 <emcp@enser.io>
 > 
-> V4L2_ENC_CMD_STOP and V4L2_DEC_CMD_STOP signal end-of-stream by queueing
-> an empty input buffer at the made-up device address 0xdeadb000. The
-> SDM845 firmware on a OnePlus 6T (VIDEO.VE.5.2-00050-PROD-1) rejects it:
+> GStreamer's V4L2 decoder handles a flushing seek by calling STREAMOFF on
+> both queues, then STREAMON on CAPTURE, then STREAMON on OUTPUT when the
+> first buffer of the new segment arrives. On a OnePlus 6T (SDM845) the
+> seek never completes: the decoder takes two OUTPUT buffers, produces
+> nothing, and the pipeline times out waiting for preroll.
 > 
->    qcom-venus aa00000.video-codec: session error: event id:1001 (deadb000)
+> The driver loses CAPTURE in that order:
 > 
-> and the LAST buffer never comes back. An encoder session then goes on to
-> session error 1006 and a system error whose recovery fails ("recovery
-> failed to init HFI"), and the encoder is unusable until reboot. A decoder
-> leaves the client draining forever: ffmpeg and mpv with v4l2m2m decoded
-> 1188 of 1200 frames of a clip, then hung at end of file.
+>    STREAMOFF OUTPUT   vdec_stop_output()    DECODING -> SEEK, flush
+>    STREAMOFF CAPTURE  vdec_stop_capture()   SEEK: buffers cancelled
+>    STREAMON  CAPTURE  vdec_start_capture()  streamon_out is 0: return 0,
+>                                             streamon_cap stays 0
+>    STREAMON  OUTPUT   vdec_start_output()   SEEK -> DECODING, but capture
+>                                             buffers are queued only if
+>                                             streamon_cap is set
 > 
-> A zero-length buffer queued by userspace reaches the firmware with the
-> EOS flag at its real, mapped address, and is accepted. Do the same for
-> STOP: allocate one small buffer per instance the first time STOP is
-> issued, against the core device like the internal buffers, and free it
-> once the session has been destroyed at close. The IRIS2 branch for old
-> firmware, which needs address 0, is unchanged.
+> so the buffers CAPTURE was restarted with stay in the m2m queue and the
+> firmware has nothing to decode into. A seek that restarts only OUTPUT,
+> as ffmpeg and mpv do, is not affected.
+> 
+> Remember a CAPTURE restart that happens while OUTPUT is stopped in the
+> SEEK state, hold the capture buffers queued meanwhile, and hand them to
+> the firmware together with the DPB buffers when OUTPUT restarts. Clear
+> the flag whenever CAPTURE is stopped again.
 > 
 > Tested on a OnePlus 6T with this change on the postmarketOS sdm845
-> kernel (6.18): three 640x480 H.264 encodes in one boot, each drained
-> with ENC_CMD_STOP, all reach end-of-stream with a valid stream; decoding
-> one of them returns all 90 frames and end-of-stream; no session or
-> system errors are logged.
+> kernel (6.18): three flushing seeks through GStreamer's v4l2h264dec, to
+> 5, 2 and 8 s of a 10 s clip, each preroll in 0.04-0.07 s with the first
+> frame at the exact target timestamp, and playback then runs to
+> end-of-stream.
 > 
 > The code and this changelog were prepared with the help of an AI coding
 > assistant. The submitter has reviewed both and takes responsibility for
 > them.
 > 
-> Fixes: e69b987a9759 ("media: venus: reimplement decoder stop command")
-> Fixes: 7493db46e4c4 ("venus: venc: add handling for VIDIOC_ENCODER_CMD")
+> Fixes: beac82904a87 ("media: venus: make decoder compliant with stateful codec API")
 > Signed-off-by: EMCP333 <emcp@enser.io>
-> ---
->   drivers/media/platform/qcom/venus/core.h    |  4 ++++
->   drivers/media/platform/qcom/venus/helpers.c | 35 +++++++++++++++++++++++++++++
->   drivers/media/platform/qcom/venus/helpers.h |  3 +++
->   drivers/media/platform/qcom/venus/vdec.c    | 11 ++++++---
->   drivers/media/platform/qcom/venus/venc.c    |  7 +++++-
->   5 files changed, 56 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/venus/core.h b/drivers/media/platform/qcom/venus/core.h
-> index 93fa77f058..f521bccfe3 100644
-> --- a/drivers/media/platform/qcom/venus/core.h
-> +++ b/drivers/media/platform/qcom/venus/core.h
-> @@ -463,6 +463,8 @@ enum venus_inst_modes {
->    * @drain_active:	Drain sequence is in progress
->    * @flags:	bitmask flags describing current instance mode
->    * @dpb_ids:	DPB buffer ID's
-> + * @eos_va:	CPU address of the empty buffer that carries end-of-stream
-> + * @eos_da:	device address of that buffer
->    */
->   struct venus_inst {
->   	struct list_head list;
-> @@ -534,6 +536,8 @@ struct venus_inst {
->   	bool drain_active;
->   	enum venus_inst_modes flags;
->   	struct ida dpb_ids;
-> +	void *eos_va;
-> +	dma_addr_t eos_da;
->   };
-> 
->   #define IS_V1(core)	((core)->res->hfi_version == HFI_VERSION_1XX)
-> diff --git a/drivers/media/platform/qcom/venus/helpers.c b/drivers/media/platform/qcom/venus/helpers.c
-> index 59eee3dd9e..e0bd2b0478 100644
-> --- a/drivers/media/platform/qcom/venus/helpers.c
-> +++ b/drivers/media/platform/qcom/venus/helpers.c
-> @@ -3,9 +3,11 @@
->    * Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
->    * Copyright (C) 2017 Linaro Ltd.
->    */
-> +#include <linux/dma-mapping.h>
->   #include <linux/idr.h>
->   #include <linux/list.h>
->   #include <linux/mutex.h>
-> +#include <linux/sizes.h>
->   #include <linux/slab.h>
->   #include <linux/kernel.h>
->   #include <media/videobuf2-dma-contig.h>
-> @@ -1541,6 +1543,39 @@ void venus_helper_buffers_done(struct venus_inst *inst, unsigned int type,
->   }
->   EXPORT_SYMBOL_GPL(venus_helper_buffers_done);
-> 
-> +#define VENUS_EOS_BUF_SIZE	SZ_4K
-> +
-> +/*
-> + * The STOP commands signal end-of-stream with an empty input buffer. Give it
-> + * a real, mapped address, as a zero-length buffer queued by userspace has:
-> + * SDM845 firmware rejects a made-up one (session error 1001), and the LAST
-> + * buffer then never comes back.
-> + */
-> +int venus_helper_eos_buf(struct venus_inst *inst, struct hfi_frame_data *fdata)
-> +{
-> +	if (!inst->eos_va) {
-> +		inst->eos_va = dma_alloc_attrs(inst->core->dev, VENUS_EOS_BUF_SIZE,
-> +					       &inst->eos_da, GFP_KERNEL, 0);
-> +		if (!inst->eos_va)
-> +			return -ENOMEM;
-> +	}
-> +	fdata->device_addr = inst->eos_da;
-> +	fdata->alloc_len = VENUS_EOS_BUF_SIZE;
-> +	fdata->filled_len = 0;
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(venus_helper_eos_buf);
-> +
-> +void venus_helper_free_eos(struct venus_inst *inst)
-> +{
-> +	if (!inst->eos_va)
-> +		return;
-> +	dma_free_attrs(inst->core->dev, VENUS_EOS_BUF_SIZE, inst->eos_va,
-> +		       inst->eos_da, 0);
-> +	inst->eos_va = NULL;
-> +}
-> +EXPORT_SYMBOL_GPL(venus_helper_free_eos);
-> +
->   void venus_helper_vb2_stop_streaming(struct vb2_queue *q)
->   {
->   	struct venus_inst *inst = vb2_get_drv_priv(q);
-> diff --git a/drivers/media/platform/qcom/venus/helpers.h b/drivers/media/platform/qcom/venus/helpers.h
-> index 358e4f39c9..6acae43459 100644
-> --- a/drivers/media/platform/qcom/venus/helpers.h
-> +++ b/drivers/media/platform/qcom/venus/helpers.h
-> @@ -10,6 +10,7 @@
-> 
->   struct venus_inst;
->   struct venus_core;
-> +struct hfi_frame_data;
-> 
->   bool venus_helper_check_codec(struct venus_inst *inst, u32 v4l2_pixfmt);
->   struct vb2_v4l2_buffer *venus_helper_find_buf(struct venus_inst *inst,
-> @@ -71,4 +72,6 @@ int venus_helper_get_profile_level(struct venus_inst *inst, u32 *profile, u32 *l
->   int venus_helper_set_profile_level(struct venus_inst *inst, u32 profile, u32 level);
->   int venus_helper_set_stride(struct venus_inst *inst, unsigned int aligned_width,
->   			    unsigned int aligned_height);
-> +int venus_helper_eos_buf(struct venus_inst *inst, struct hfi_frame_data *fdata);
-> +void venus_helper_free_eos(struct venus_inst *inst);
->   #endif
-> diff --git a/drivers/media/platform/qcom/venus/vdec.c b/drivers/media/platform/qcom/venus/vdec.c
-> index 6a43ea191d..a49acef5db 100644
-> --- a/drivers/media/platform/qcom/venus/vdec.c
-> +++ b/drivers/media/platform/qcom/venus/vdec.c
-> @@ -574,10 +574,13 @@ vdec_decoder_cmd(struct file *file, void *fh, struct v4l2_decoder_cmd *cmd)
->   		 * avoids misapplying this quirk and breaking VP9 decode on SC7280.
->   		 */
-> 
-> -		if (IS_IRIS2(inst->core) && is_fw_rev_or_older(inst->core, 1, 0, 87))
-> +		if (IS_IRIS2(inst->core) && is_fw_rev_or_older(inst->core, 1, 0, 87)) {
->   			fdata.device_addr = 0;
-> -		else
-> -			fdata.device_addr = 0xdeadb000;
-> +		} else {
-> +			ret = venus_helper_eos_buf(inst, &fdata);
-> +			if (ret)
-> +				goto unlock;
-> +		}
+This also looks similar to : 
+https://patchwork.linuxtv.org/project/linux-media/patch/20260928-venus-vdec-eos-v1-2-6e9eb3ce9849@ixit.cz/
 
-Duplicates: 
-https://patchwork.linuxtv.org/project/linux-media/patch/20260928-venus-vdec-eos-v1-1-6e9eb3ce9849@ixit.cz/
+Please pick up on David's patches, give Tested-by: as appropriate and 
+propose any additional fixes on top.
 
 ---
 bod
-
