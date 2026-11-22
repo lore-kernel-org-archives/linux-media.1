@@ -1,92 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795374068;
-	b=uOO0Xf3lyryKMC3hz7pFi6LKK9XvaZOsjFBy6sgDQLncolb8k04kcz45WXbZudiJTovX
-	 cDGJlaDWkvxca/J+vGL/GuQJx2uRgoqe+0bSXfDWbHamNtofYO6M3yUpyAE69ypL+Y8fs
-	 6YrxbieQEXRsJlthBo41stKA5XdQOyZElvFLpPC3d2PitHBYyhcjw4En2XBdrhNvYzlL8
-	 uSSXHeZFYjWFvJSPfv0ubk5GiLzqd9didxZ14L1HNetXR2hkFaZURdKLPoyxm3gKAjqz/
-	 8TPk6hxvJ63d4jc8bGNGXzCIIKLXbush4LJFFi5A70bRUc5FBA/iC532dLAawxh/bpw==
+	t=1795374197;
+	b=1yVc0Oyt2psi3eBdEpLEJ0HaG/FmKzhn9jVCa8AwtWNdyVPTPcpeTIUkWjxk7jM4z4GM
+	 F+L5499kWFJU282ti0v2oJSUpF8rNurYACOnUBB8qbj7tBvRG98zoLY1WIMTrRSEPMfNt
+	 804t4u13hU21yKotcY0C0Eo4wplBQEI/T5zF5cIFUoxplqVaBRm9dpCPZECWv20oNjXfK
+	 mBhO6Jpztmo2S9mIU41DNz5lHtQYh0M1/1VKDf08MbF2Oq8H14Q3qjaC0TLPq5w2Ai1f5
+	 xytxSBlveUfChIQItkAJGW+9ul/i7jw1fTtAC8rJmiva3jNP4eI8TqJCDCVjvv5nbFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795374068;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=psP2uIlkimEYW+kQJSgqbVunRYZcoC3y/JABKKHgk3g=;
-	b=ZyfSQJNFR3r6oz5K73H9euDcrumRgREADHa2piFBW16eE9Qvxu3wD9Ztxtx+2RTrmkhq
-	 URi85ymSRBD9S6I0ZShvXdftzDf5O8xTjR+uORnEzrM8vO9TDgqO6oUC0vCqr/fkVcXVP
-	 3pQvWRPOC7QSiUjPjPHGn2/qHsJar0zPp037V8Fy2h/X7RmDjd/va6DH+hXq3iCEBabmr
-	 +TpFex/QCYVIE5MJENwI6VdeLEKLvqbEbo0CfqfUA2RraeALnEq13puy8wuLX+XGzr3+G
-	 UQMOd11GWrnqy+6D1ONz/TWzJt5sD+yUrEaVf5VlZAshZnwnez2iHsjDQhRx6kJxE8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795374197;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=kmoFusvyzW8rHvZc8KpW7XguvidS7PpWapoBiQhCE/E=;
+	b=GJM4I3oO4Kv7z9pPwm3CgvE9afbiR3UrzI7Zw8m2t+/WEL3ctd8zUt5Nh9Hfe06z7nQm
+	 T9AWlU3TE0vV2jd4aESU7mG9juNZTZ/5NxeGZoUhgtmE8E6BWLK3HpPY3lMrhH0WoFzGs
+	 Gt5IpMxp/b8HtYdtCOsO/yon5KUPds3puh0n1ioDD8nSPIPEfx8EpgZSPNpBEwUcw4NLi
+	 w+fOqJ9X73F8UPeUCyx3CkX1zbdl5SORe9O9kMSktn5vhjwl7MjkQa7gIqKyHBGqWUs/j
+	 x5HNfZ6P0CKpC1Ho+r1rnOM1Z5nyaZvsJd2jMIhxW3a6G21KA2X4ZljnzGDq7Z1rkEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d7AO7oiM;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="kflYew/k";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MfwRm7Pp;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68699606A684
-	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 19:01:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68699606A684
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45D7606A320
+	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 19:03:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A45D7606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d7AO7oiM
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so31276275e9.1
-        for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 11:01:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kflYew/k;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=MfwRm7Pp
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AMGUw233476759
+	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 19:03:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	kmoFusvyzW8rHvZc8KpW7XguvidS7PpWapoBiQhCE/E=; b=kflYew/kyJZDMFSX
+	DhVKouEskDccLqfoHH6ubTw5C7r/atRkc4tkcTKsAqr8NwvkRh0TKmro0ihGil+f
+	0uTqdZoL+6hXYCaJF/mQEJjc+6wOwSX5jxyn4tyLT2TXBPm6CVqqxSLUEGBIqFy4
+	zYufGWBmykxmV9NM6z211c4mCBjFbE4/zZ52SytxnPqGSfM2hEb8MpWbdzJW+Va9
+	ujwTKtD4GXKSgeVpQ0SRtSncw96/Lrrpf5b5fWVtZPsiKxaWZp/C8Lu+kpvX98iT
+	ymp4AzDEjkUQW62bkZ4+o1JNKjRxWX0XR4XMPK6HiFS9s3mUlSImKiDPMicj1Fag
+	2o6C/Q==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j342gkxyf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 19:03:15 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5edf86a8c00so706890e0c.0
+        for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 11:03:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795374067; x=1795978867; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=psP2uIlkimEYW+kQJSgqbVunRYZcoC3y/JABKKHgk3g=;
-        b=d7AO7oiMDNVsFh0LM4DDKaTKjlPQXm/32TtE6F0SynaZGe7KrFwsGdFSW+iOtkrCj0
-         Di0w3iZEbeIjuIueiDIsB/9NIDyUk86Kwvz5K+7WfCtRouCSFbM3YBPrvDSmmBaKseVm
-         LQC7JLblIZ8LUVFyKjVA7otkeG1kO7+f3RlI1uAgDoxG8FSwCcKCqngDMaoCx+UX3Jl9
-         d3pHBf0bEjA9RLOJNPrs5YFHpCVdyR6Pj1cHBPdUCzOGc5nUEM+jqMF3pXh1uIVW1kF4
-         G+jB0bUaWK48X/PmGHmpNQZ+8Mtay6QfZBz30QVPtVdlRuWD8ij96D2OgqTVgQ50pLLq
-         YE9g==
+        d=oss.qualcomm.com; s=google; t=1795374195; x=1795978995; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kmoFusvyzW8rHvZc8KpW7XguvidS7PpWapoBiQhCE/E=;
+        b=MfwRm7Pp63sXAQMQobDOI6n5BENUFuDlJo7hEFMw8A+9OypIXzq/sE50+PdJNqrSX6
+         8PVCoellAQxwflT78Yo7/i6Djobzon1CLP7iKtXCUeEZgnQuSbRI09mjvSycO3gGeN0D
+         zRilCBk7glf1KD9iQHxbxd/ebEdARzwngS8+9itTIiO2MXm1/XVsQLpw3fL4G1Tp3obz
+         ltkHwHQslPgT24P7awgx+cKVMUkAHFQLxhoaxjQ2nYu0HQFL3nzrN4jX+49BDxXJ0+nZ
+         nh72xqpfY/T+Af8F2KsfyBEWmtC1+drLUEwlMlbfjQ3PxUF/c4tRw4XExY5tCQvzRfoO
+         YDkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795374067; x=1795978867;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795374195; x=1795978995;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=psP2uIlkimEYW+kQJSgqbVunRYZcoC3y/JABKKHgk3g=;
-        b=Aw+9/1C/O2FSkITASfbNVtoDiJpGtEZE0APXp1H0X9M9a7Kk7ffLlTrXfvJJIp5s+Z
-         xl6oveSK5LeFCYbppoWD8+yZ2Tm2YKhshPjFx3E/gMJPOJrTiqM++VtWgcdD6qT7uruD
-         mtSsMeewdIIHxjMhHOCE/hmV4hgWZenNzxrkj1As9j+PnN8Lps/kz2g8bn+nx2YECT+O
-         NKQ7xDuTcubkkEML5Fxji+IZYjpyLFWZnAufvxo0XFKoi/g3kboNaxf2vxXzU//FDJZc
-         /lRVnuZiJgzXgE0pmf9KXeAoIj/yEL1DwP0c96MVA8a6BSRWTxfqRYrBYGRwLTSerhXs
-         KXKQ==
-X-Gm-Message-State: APuU4Z9a7YmKMs414OUiYg2+p31blFDPn+SfGmOvh15c6/Wo74xfvBY9
-	I3lT91y3/u94HP125rrhSufQlBCGlgxauS5pE4OKP+C3OqbyybRBKbfU
-X-Gm-Gg: AZFdTZdCFP2j1n2ndBEPhlpdsNuY7t0HmowjAUMwGbQCrTMhSVJnDW9PNQgNsxsAruS
-	Yes/ml3p+FzqO0JG5IgHPImG+ww7yDV68lWBBVgisOuACbk42Lhl/In3K2QTKoN6zI0yru2ivKZ
-	ka42t+J3q8G0RSkhc+SBAkbIkPBtqtIEhmYFcMvDo+E0EWWnfEBxhi1KU3Q8DUShQ5S4z8GmVEK
-	c0eBQN3Qu/9hiI4XyGD/ST4s4BvtW5E/Ft067YcmkJNxX0njUp7iy9nUTpBhXLSQy5rM+F4BV99
-	IyA66mYghcUFwtFe0+hK8QrPQDzjxYKRhR/i/0jpODHjQzPecGu5mNvWrx1CDabmHiYX9e37JiT
-	FQlSWKyhD7rFcZTpwzLcmo87jrn4MdwwS4tqv6cVzY4cvWME2pMFpa3KO4qQsiKEjVKzPDjU/CS
-	k46g7QuJmCXIpt8Ge7X+3USfPUYoEYgBQ9lvk0jbE3JHOhxOMDP96fLnHJHfUrQlcaV8ZGZpYoB
-	BnPeK1BP9eYp81gAHeihFU5VlOdqS9B1embit5jGxVLfgzxrmnvFJgFBvH+6X7OFCEe0mZYbHo2
-	DPRPO5fPYCxm1BsOUARFni1QuLTAzUxPVE1SFEOmdlIek7f1bAaJJGoB
-X-Received: by 2002:a05:600c:3547:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4bb8880b88fmr189495385e9.10.1795374066559;
-        Sun, 22 Nov 2026 11:01:06 -0800 (PST)
-Received: from DESKTOP-V28CTA4.localdomain ([103.125.177.105])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884865a2sm283389045e9.3.2026.11.22.11.01.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2026 11:01:06 -0800 (PST)
-From: Arbab Haider <arbabhaider649@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+fb0d2df09b56117605fc@syzkaller.appspotmail.com,
-	stable@vger.kernel.org,
-	Arbab Haider <arbabhaider649@gmail.com>
-Subject: [PATCH] media: em28xx: clear dev->v4l2 on init failure and fini to avoid double put
-Date: Mon, 23 Nov 2026 00:00:09 +0500
-Message-ID: <20261122190008.21278-2-arbabhaider649@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        bh=kmoFusvyzW8rHvZc8KpW7XguvidS7PpWapoBiQhCE/E=;
+        b=BWSJ+QLfX+sldOLSm39CbFSuWugo/U6nFMG0L7GX75W5TVuZfSMM1Gp638KD9qAJEi
+         7nI1z1SWQ3wmOInHoWVeWOcaRhm9693Xlp0iFqLg/pQPMHLLAeAvKNdWZzl4GhaeEOma
+         3PPCsZzgGgWoVRZJVGUTpZRx7cXXkwLrfyLFe+w5lhKTatO5IqSna6LomJMW2aEdzOW+
+         rvCUEu1OttUpPfpI4g8N99gAQ/s5hmXhhXj8JEdVPYxA4huNIL2RLNkbfI0pPqJ9M92h
+         ki6bO1mT7u3tw6qBnT/v7MHbL8hSN0Qf7jcI5IXbwrhRS1gzUe7P+CvmKWg3EQb17zYg
+         utZQ==
+X-Gm-Message-State: APuU4Z/CksDNry5Lq8wj4kENA5C3m5xUhuSnYA450OmPneOv3zFDgrfu
+	FkOZ4Y4OVgYwpC1EYGgDGqKXUf3/zEPW81rsCQ0zwyuWoQwI3ampjlwY8y55bsodNpBvq7fiYrL
+	PXU0Wk/VVzopRiF8t1qRBuriipxcKwcoXWVukJ4qJjyHQ/bTfkxwwpJHN35w71yxWog0UqOV9aA
+	==
+X-Gm-Gg: AZFdTZfZgn1rg5T9E52VODeaJWSHqP7tGvg0SOdNq6cDW5Xj/SiYZSQI48+dJRBVQwY
+	5tJkcOlvOeleTa95pq1k/wHXSllxznCy5+UJcEY0it8DUUbj13Fx90PrcZLF1p7iWHLdcgz4oGR
+	1+oUeF9pISsPzXLEf5pFILOQ/Wcx6H6kiBvP9BGg1CcO3Uj3HAah74CMKpW5/r8ZYM4+sbeTy8Y
+	sAqoyv+N1/axsZlpIl2qjra+NvR4Yo83038rhax5dF02Cujj/lUOPqralYh9UBu421+poMoT4XE
+	MrUGEfzg4V4m4qmbwRLQIJiD50LCG4jvKGMVf+lwtUbtVX5LPZ02rtYE9mCCFyWTuAqWceZMUyu
+	3itQUvVFAaKhKhGvxVpPfaworgIQZV0bs+dcyIHiir/sIxzL3hVHg2UkbOiq/MZnjvwszkOA1ni
+	JiOkOayLURcKUs
+X-Received: by 2002:a05:6122:46a7:b0:5ec:e522:70d9 with SMTP id 71dfb90a1353d-5ee8af2f1camr4520936e0c.16.1795374194606;
+        Sun, 22 Nov 2026 11:03:14 -0800 (PST)
+X-Received: by 2002:a05:6122:46a7:b0:5ec:e522:70d9 with SMTP id 71dfb90a1353d-5ee8af2f1camr4520912e0c.16.1795374194058;
+        Sun, 22 Nov 2026 11:03:14 -0800 (PST)
+Received: from [192.168.1.31] ([85.196.172.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b09bsm530661575e9.4.2026.11.22.11.03.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 22 Nov 2026 11:03:13 -0800 (PST)
+Message-ID: <c2c2ca30-a1a1-4ac1-af52-0999e7fa8122@oss.qualcomm.com>
+Date: Sun, 22 Nov 2026 21:03:12 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -96,140 +115,102 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] media: qcom: camss: Two routing fixes and one tidy-up
+To: bryan.odonoghue@linaro.org,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+References: <20261122-camss-routing-fixes-v1-0-0deeeaca2622@kernel.org>
+Content-Language: en-US
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <20261122-camss-routing-fixes-v1-0-0deeeaca2622@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=H+5OUOYi c=1 sm=1 tr=0 ts=6b033c73 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=VwQbUJbxAAAA:8
+ a=1TreyUIoxbpaR6lyi_gA:9 a=QEXdDO2ut3YA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
+ a=Vxmtnl_E_bksehYqCbjh:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: OwV_eOVEL6OmSAc5qtdFXb90TB9eixRX
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIyMDA3NSBTYWx0ZWRfXxRPBG3nnMJsx
+ Q6A7auxw0MLNqID4gDEMoWt33h0qPuSvo8rKzbjOdWvH9DUVlaSoaJjWWvW4HP2xPPFml7Wt2ek
+ MOUvJsrHQ1daS3AheujAwnDER1XH89w=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIyMDA3NSBTYWx0ZWRfX8sfRdsrO8Ccs
+ YBNkHBJ+N91dakAsTBDotCD4TjFha0dSk2kPCgF1R5sI9berdMDYcRfLneDhRp200kRRnQIsQME
+ MwX74an2GMQ4cji8yzFjlWYraQTywOJShEdeqPQdaLoL0idUw9q7KQxadUr8IIgRQlun5yg2KqW
+ x7I+6yKgpHbD3GFHmGuVgPJz6dn/uGqVJ4bf7da83ImJED87nBpItN1Zrqt5FQkHgKFlzrR+z13
+ qj9J/CiTsqAxw2oBF2eXF2xXNDVsmAylQQFnS9w/IMZc9Ap9TpFW2ZZ7F6w+vV3mCr0aIJKR1Uv
+ dB1Q9+6e30VNt9I/sK9UFCHe2MqUk8bvsq+D4BjBN/riT8C0+sK1zrZJJXWcj82ldhhvaJIvLWW
+ 5fNhxPyjO1RaiwsLbDCbXuFGOXQoFoTi2Jm6pxfC7OZTBg3zwUhl6AvrBVCOeO271iqWG7XVmLt
+ H8+e/0w79DYu7esB6Xg==
+X-Proofpoint-GUID: OwV_eOVEL6OmSAc5qtdFXb90TB9eixRX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-22_04,2026-11-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 spamscore=0
+ lowpriorityscore=0 phishscore=0 suspectscore=0 bulkscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611220075
 
-Commit 288254383674 ("media: em28xx: use v4l2_device release callback")
-switched em28xx_v4l2 teardown to v4l2_device reference counting, where
-dev->v4l2 is only cleared inside em28xx_free_v4l2() once the refcount
-reaches zero.
+Hi Bryan,
 
-If em28xx_v4l2_init() fails after video_register_device() (for example,
-when v4l2_mc_create_media_graph() returns -EINVAL) while userspace has
-opened the video node, the unregister_dev error path calls
-v4l2_device_put(&v4l2->v4l2_dev) to drop the initial reference, but
-em28xx_free_v4l2() does not run yet because the open file handle still
-holds a reference, leaving dev->v4l2 non-NULL.
+Thanks for the fixes.
 
-When the USB device is subsequently disconnected, em28xx_v4l2_fini()
-sees dev->v4l2 != NULL and calls v4l2_device_put(&v4l2->v4l2_dev) a
-second time for the initial reference, freeing struct em28xx_v4l2 while
-the video device node is still referenced and causing a
-slab-use-after-free in media_device_unregister() /
-__media_entity_remove_links().
+For the whole series:
 
-Fix this by:
-- Calling v4l2_device_disconnect() and clearing dev->v4l2 = NULL under
-  dev->lock in em28xx_v4l2_init()'s unregister_dev path before dropping
-  the initial v4l2_device reference.
-- Checking and clearing dev->v4l2 under dev->lock in em28xx_v4l2_fini()
-  so the initial reference is dropped at most once.
-- Reading dev->v4l2 under dev->lock and checking for !v4l2 in
-  em28xx_v4l2_close() so a close racing with teardown cannot dereference
-  a NULL pointer.
+Reviewed-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 
-Tested locally in QEMU (x86_64, KASAN+UBSAN) using dummy_hcd and
-raw-gadget emulating an EM2820 device with failed media graph creation
-and concurrent /dev/video0 open/disconnect.
-
-Reported-by: syzbot+fb0d2df09b56117605fc@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=fb0d2df09b56117605fc
-Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
----
- drivers/media/usb/em28xx/em28xx-video.c | 23 ++++++++++++++++-------
- 1 file changed, 16 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index 84424284d..50998aa1c 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -2333,7 +2333,6 @@ static void em28xx_free_v4l2(struct v4l2_device *v4l2_dev)
- 
- 	v4l2_ctrl_handler_free(&v4l2->ctrl_handler);
- 	v4l2_device_unregister(v4l2_dev);
--	dev->v4l2 = NULL;
- 	kfree(v4l2);
- 	kref_put(&dev->ref, em28xx_free_device);
- }
-@@ -2414,7 +2413,7 @@ static int em28xx_v4l2_open(struct file *filp)
-  */
- static int em28xx_v4l2_fini(struct em28xx *dev)
- {
--	struct em28xx_v4l2 *v4l2 = dev->v4l2;
-+	struct em28xx_v4l2 *v4l2;
- 
- 	if (dev->is_audio_only) {
- 		/* Shouldn't initialize IR for this interface */
-@@ -2426,13 +2425,16 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
- 		return 0;
- 	}
- 
--	if (!v4l2)
-+	mutex_lock(&dev->lock);
-+
-+	v4l2 = dev->v4l2;
-+	if (!v4l2) {
-+		mutex_unlock(&dev->lock);
- 		return 0;
-+	}
- 
- 	dev_info(&dev->intf->dev, "Closing video extension\n");
- 
--	mutex_lock(&dev->lock);
--
- 	v4l2_device_disconnect(&v4l2->v4l2_dev);
- 
- 	em28xx_uninit_usb_xfer(dev, EM28XX_ANALOG_MODE);
-@@ -2455,6 +2457,8 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
- 		vb2_video_unregister_device(&v4l2->vdev);
- 	}
- 
-+	dev->v4l2 = NULL;
-+
- 	mutex_unlock(&dev->lock);
- 
- 	/*
-@@ -2502,18 +2506,19 @@ static int em28xx_v4l2_close(struct file *filp)
- {
- 	struct video_device   *vdev = video_devdata(filp);
- 	struct em28xx         *dev  = video_drvdata(filp);
--	struct em28xx_v4l2    *v4l2 = dev->v4l2;
-+	struct em28xx_v4l2    *v4l2;
- 	struct usb_device *udev = interface_to_usbdev(dev->intf);
- 	int              err;
- 	bool last_user;
- 
- 	mutex_lock(&dev->lock);
-+	v4l2 = dev->v4l2;
- 	last_user = v4l2_fh_is_singular_file(filp);
- 	_vb2_fop_release(filp, vdev->queue->lock);
- 
- 	if (last_user) {
- 		/* No sense to try to write to the device */
--		if (dev->disconnected)
-+		if (dev->disconnected || !v4l2)
- 			goto exit;
- 
- 		/* Save some power by putting tuner to sleep */
-@@ -3110,6 +3115,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
- 	return 0;
- 
- unregister_dev:
-+	v4l2_device_disconnect(&v4l2->v4l2_dev);
-+
- 	if (video_is_registered(&v4l2->radio_dev)) {
- 		dev_info(&dev->intf->dev,
- 			 "V4L2 device %s deregistered\n",
-@@ -3129,6 +3136,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
- 		vb2_video_unregister_device(&v4l2->vdev);
- 	}
- 
-+	dev->v4l2 = NULL;
-+
- 	mutex_unlock(&dev->lock);
- 
- 	/*
--- 
-2.53.0
+On 11/22/2026 4:10 AM, bryan.odonoghue@linaro.org wrote:
+> This series lands late-enough in the kernel cycle and applies against the
+> camss-next branch staging to linux-media/next.
+> 
+> Link: https://gitlab.freedesktop.org/linux-media/users/bodonoghue/-/tree/camss-next
+> 
+> First up a patch drops the declaration of CSID2 from x1e/Hamoa since this
+> CSID doesn't have a corresponding VFE it is entirely useless and violates
+> our 1:1 mapping between VFE and CSID. Since CSID2 routes nowhere there's no
+> reason to keep it around.
+> 
+> Second is a fix for a longstanding error in CAMSS which as stemmed from
+> the original development of post ISPIF devices. These devices have a 1:1
+> mapping between CSID and VFE so the mapping we have given to user-space
+> which declares each CSID as connecting to each VFE is just plain wrong on
+> these devices and has always been.
+> 
+> So the second patch addresses that longstanding issue but, I've been
+> holding off on fixing this for a while since I believed it might require
+> extensive surgery, but in the end its quite simple to do.
+> 
+> Finally the third patch is a tidy-up patch which inverts our current logic
+> of continuously adding new elements to the src_pad_code switch for new SoCs
+> filtering those SoCs down to a default: statement. In fact is is the old
+> SoCs which are the exceptional case so, just do the switch for the old and
+> the default for the new.
+> 
+> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+> ---
+> Bryan O'Donoghue (3):
+>       media: qcom: camss: x1e80100: Fix CSID2 routing to nowhere
+>       media: qcom: camss: Fix CSID to VFE routing for non ISPIF platforms
+>       media: qcom: camss: vfe: Eliminate ever expanding src_pad_code switch logic
+> 
+>  drivers/media/platform/qcom/camss/camss-vfe.c | 20 +--------
+>  drivers/media/platform/qcom/camss/camss.c     | 59 ++++++++++-----------------
+>  2 files changed, 23 insertions(+), 56 deletions(-)
+> ---
+> base-commit: 2ad58ca589da80990b7afbcff018777851577f89
+> change-id: 20261122-camss-routing-fixes-b178bdb84f20
+> 
+> Best regards,
+> --  
+> ---
+> bod
 
