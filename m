@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795324401;
-	b=fagNHStVacWidv31zUlSNDS3EGiDcmWWCyf+5D7m01xc9AZVWa7NqRg9PNzQy2yP4s1x
-	 cUaPfNI0rrAt2ICrWaGjs1A5L89W5cIPE8NkCnSKGXs19NeJNQXV7zt1wEAXYpUtsKybW
-	 y3VbiWXUvxQ88Sdj++SPSjywgK4RPupJV5Jocdr8bxEeRXzKzosAbUCeO5Y7qHIaFJ5Jy
-	 qDmwsQeMbgFLWl2MGZC4H8DwcIXSwK0Js1jTndWC7x493ZfqfOOGBqfgf0/AB1lzY+uFu
-	 NUDxEsayxsPrVKdPRVmwHFxhunN1lzDDp0w+IxNn7ThcgkBKk1/CsAHQaM3ljuiTBAQ==
+	t=1795324409;
+	b=OAFEKsJ1Ya0BC8DeEQ0dfEswkN3/cmGd+M34xfvrt/3HJ+53AxBG4WUJhUBTuRo9AEON
+	 U03GHLGR/Zm6AeqWSQpLV6yDtBFvYTGTHGMuE1xd9uz6mJ2yuC5cyhRtv+vzS6iv9S+cD
+	 oS1Yig/AdZtjDbr4q1/2G/Adr423V1mxSwGwexb2GXW1UQrs3Zxpwzq2AwR4XSOsPU3xe
+	 4ZXpANeqBBU6xH8H/JsoLwKsCbHIOZWnyKtRjg5d2lPEiLpX0Zwfjp8lA/j8th0psfOeU
+	 Arh1+hGQ14OUrIHvUwBP+LRx/ptMDyG8gYnhBihtNQ3FZRpVAUuH+CMZZtiOFcSQa6w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795324401;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795324409;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yH1Y/gZWLZm60i+f2ynhzHOwKFPBsXc6zClPm1XMFxY=;
-	b=18y6eZiVTeEx+Ar8scdeVH9o90qACg4DRjT63nTRM1wzx1lpJ31rFf79ruvAxEvrChlp
-	 PC/rtigKzaIucpO3GckdXHSW7jpO/aGESMk7w38JWZaplI+LFshayZN9f5UNlHIYibCr1
-	 rctp6TUs3QoedHc9nFpXRQ7ojXBBlYtUolUACYHRk+64WqEHwwGRHCV23Ze4ABi9ylrlr
-	 oSt/s90wgHULep6h87/wDINmg8Tt+InJgOthWoUa0063RmKMkEfBfBOfr19/GZi8MxGpC
-	 yQSf1IN9NMDlapWZgdFZaFkpS6HXegn41n61skwTX0DeFN7SqMCSxstfG0Y3lSW1a8w==
+	bh=ABzajoCm5GzVHUgyMP+//rqW5DXkrevpJ0RZL1w9Xb4=;
+	b=1ILazMw+44qlM/+GwiKbrEHRCzw3mWnEN+GwnX8iu4ltg8mvAF4qVvgajk8yIxUpOCH+
+	 KF5FJuLY5Stk+knFQ2yLPXRpexHBAKDjNKFqahk4aP2KNJ49FS8pfwG8RUbdC6g5d8jBd
+	 0I114slYNEM+rHq6j1KHRGaCDDQLPP0NiSrKQcLH+5GLBSPV1T8PDFSBG/hGAt+/Ffg/T
+	 fEXcMUzgzXtWyIJPatIKtc76dHnV7rQbom+LW9+OQUp90pWZcrHavL7OE5R2TCzd8TX4T
+	 doHqd2lnhCAshzW1FkC8mNvY4RJvrNeInZ+vqQweO9rXStdl7w4ArXm6Kip8JyjwBtw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHnFMIuc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHxTHMvo;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61174606A335;
-	Sun, 22 Nov 2026 05:13:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC783606A33B;
+	Sun, 22 Nov 2026 05:13:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YHnFMIuc
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHxTHMvo
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795324401;
-	b=JW/nZCvFXkBT95s/KJszfB28uucoW8jGTlRk8ZzZWWLLvPHX8PWH1KIeO0UfALO0Yaxw
-	 4eWvjXpbmA8iLZ4H2UAONCtsNL7TMCUP8WmGqVDS80T5MBvdxirL/PUDYTyBuoBjeC33V
-	 EIh8AGa0D4YaOObqoDgglNA4OYaHMAjWqYBcFJp7HQu42VUBqCat0qcxHY9L0vkRdUbPL
-	 vozu/zWkErPS7dB2fyotJtNgNCQPJ4SKszjGvNnhsYDlgZwqYvuiRYYA2DozM44CIdjDr
-	 GwysYp+29GPvG3u92mg0w+cABTQX6Ptuue5ZqkiDVzVTN9xPWFvirMXs/7PLCfWy9tw==
+	t=1795324408;
+	b=AbmIw9D4scjRRhnt0+pBr2BQ44vQ740cdLiATd1dvqS9OE1yd24szgZa570FNKXXpNjg
+	 jet5jVck9iUp2WjxESDK8/TCz7uA3w+8ue2utszwTwmm/JT4O/szl73vhpEFzz6V3TRh+
+	 yK4Rd2zYdLjJH/Pwf5shoZk4sTrWACWULuJXylTh1+mRz8+nSqo6Bq5ONLcNIjeTs8BU9
+	 eZPNL5D/PzLWFInPr+cWgEDgk2TNw2fzhUvM7SMDLDP28EBzfMZnUvc3RgGXfmjg5G5o4
+	 dA/XKkA+R2yi5eS/E1JPS84p1Zha7vCpFcMrvZjewgQGvIZPNTwYNvFXAG+CNsY0/xw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795324401;
+	c=relaxed/relaxed; t=1795324408;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yH1Y/gZWLZm60i+f2ynhzHOwKFPBsXc6zClPm1XMFxY=;
-	b=Cf+LG4tTgX2eTojTXmv9kEstRWNTxa3loW9HN6vrWknHoIXV2NAZGqoPmU2Ya3gy4UXO
-	 89jnT78FCe2G2NEyuW6Qwp5K/f5PrRZaXSczZE9Wda60Hxl0CXpo6T8UTgRHDXhfjbhMu
-	 iphjOmP0wS2piRqY8Sz0X0NY5lUQMjEXuAm+s82cRhUwya3MCqzpMT6BgRgqCT7+DAvvW
-	 BhzH6A1rLF67JKV6+jUwtKLXNDFkPQDNjphyZ6o/MkgtGK7//q7J8Bu055FwnzoMnaNz5
-	 hUgYqUj9JShF4r8n0yoKWnrukFhOpfw3X+eogtSvu8pwowSN1NtHj7hHi4Dno+rVvbQ==
+	bh=ABzajoCm5GzVHUgyMP+//rqW5DXkrevpJ0RZL1w9Xb4=;
+	b=W7hIdZy3WgqsnobwuIXiSIVLO4txKVpizTpNjhQXdDW88qRy5oyeiswcPNKOTpUvGFZ3
+	 4gxGiYoz/Z+s+AiAXw+QXNJskkXUUmSi/ApsUE8edoqBQ5vIxg3OGEhHWtXdAPqoB0T0/
+	 0ulbTMaiFWDs99f6BbyvTnMgTib7e2eWNmjKrfbdlRJEKCr9Xyv1kESkhxaygk14zuKsW
+	 4RQ0qOaD9kXuCAGNscjCIP7H8CrZ7kXYNHlc4Ihy6cdPrFYfap5Nk/OFbZ0aWTxEVwZHG
+	 n0kGkZacXz0PCF+w8UbM0mJEcYAi2ZZ0SlmnKeyZZN7rImGY0xDxqQBB83K1Jl60Ugg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 25C791F000CA;
-	Sun, 22 Nov 2026 05:13:20 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 1CCF01F000D0;
+	Sun, 22 Nov 2026 05:13:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795324401;
-	bh=yH1Y/gZWLZm60i+f2ynhzHOwKFPBsXc6zClPm1XMFxY=;
+	s=k20260515; t=1795324408;
+	bh=ABzajoCm5GzVHUgyMP+//rqW5DXkrevpJ0RZL1w9Xb4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=YHnFMIucKep+P2CNgeO/P5caxNQIF+C8nPiYPROUENVrz8fSH/Ep1Bs3qtnjXpkwc
-	 YtHvsdS8YQrEFaWr3ZYlK5eKKVyV1XwR9hb0I9nXzNBeoTHGKQkvWWItNOXpnim6Rt
-	 u53ohB2M6mSRQc0gIw/zJLllsa3Yx0+0yR/fdUj9vX9XHNSno067veiDITViPMIZrE
-	 kMEfcbWkRWacwTlP+MqRDXdPQgLDn/3o8kg4wjGHREfH/FJn4FdJ2gFjurW4m4OGpe
-	 b/bkPYFBglciGOUoudSS4trcigI1c+mEpJrxbN3w7dn0wDnzyqoUEv6Z0/gLCDgYoY
-	 wxIAMiri3z8Ww==
+	b=IHxTHMvoH4T9kL79JTbZJ8Z/20nbsdrD5GBypB16MCzXGG2zVdTAgo0rsLoAWezPd
+	 aUF4Sb+eJSD8O8Y8Am09nNrjsrH7QLg9Gcr7kA/pSNnktMx/9p630wTIA7fqqjE+uJ
+	 v1111DjUaBaOCboptY/veUW8OSp3jJwjy9oSHU8WScVilhyjmWMFqrlcxri6JEJfxA
+	 NA8JSSJrZddMIFr9njQ1OGKA5yXwnJ+/MGLIc7rr6TQMBYpmk0UFn7OwUI07DF34cV
+	 EQRW0Jlevr+dxOplXDQQIC2kPlVb8hnEgtzwlivd9FKmbgAKKd6AnxJ/d5LQDnV0yK
+	 20pUzKQL6yvSg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A6F1C4BF3A;
-	Sun, 22 Nov 2026 05:13:19 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id A24044BF46;
+	Sun, 22 Nov 2026 05:13:27 +0000 (UTC)
 From: EMCP333 via B4 Relay <devnull+emcp.enser.io@kernel.org>
-Date: Sun, 22 Nov 2026 05:13:16 +0000
-Subject: [PATCH 1/2] media: venus: Signal end-of-stream with a mapped
- buffer
+Date: Sun, 22 Nov 2026 05:13:24 +0000
+Subject: [PATCH 1/3] dt-bindings: media: qcom,sdm845-camss: Add
+ interconnects
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,23 +84,26 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-b4-venus-eos-seek-v1-1-2e38912c7cf9@enser.io>
-References: <20261122-b4-venus-eos-seek-v1-0-2e38912c7cf9@enser.io>
-In-Reply-To: <20261122-b4-venus-eos-seek-v1-0-2e38912c7cf9@enser.io>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Stanimir Varbanov <stanimir.varbanov@linaro.org>, 
+Message-Id: <20261122-b4-camss-sdm845-icc-v1-1-0671ef770fd0@enser.io>
+References: <20261122-b4-camss-sdm845-icc-v1-0-0671ef770fd0@enser.io>
+In-Reply-To: <20261122-b4-camss-sdm845-icc-v1-0-0671ef770fd0@enser.io>
+To: Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Robert Foss <rfoss@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
  linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, EMCP333 <emcp@enser.io>
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ EMCP333 <emcp@enser.io>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795324396; l=7783;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795324405; l=2153;
  i=emcp@enser.io; s=ultron; h=from:subject:message-id;
- bh=LYIKmiVYhHueVSkCwtia7v3TSHQG+liZ0JL1pDnQfi4=;
- b=a3/YjhjvV+YKznhQ1N4gXGROGMkDfK5F5tNCTOlXV1WdotcXcGofh0jgWin0pvVoXbi9KAgw8
- 7jrDfZV0citAXFTjM1uCnnIhRPKFL0nwbXWkU+idcfp5q9tcWmNWEV2
+ bh=LulMe8vMo++IKeIIAh8v8M3uKtAlXb13KLuNcRYJ0PQ=;
+ b=v+A31bhfotuokwdDizd43svOLiboSnHvUQH/g4vvxlCFBFpkOb9zv8/7CTxMWPDod3R9TrjM6
+ 2oPkMrQelsaC2gnmqx1KhlVsUQPqC7WrmkHTIrYNs/MxWk0/KZtm3lm
 X-Developer-Key: i=emcp@enser.io; a=ed25519;
  pk=5sG48Lul+Vn7OzXu3VZrCWk5uvEFPYMXYnAV0TZR/tY=
 X-Endpoint-Received: by B4 Relay for emcp@enser.io/ultron with auth_id=1598
@@ -110,198 +113,67 @@ Content-Transfer-Encoding: 7bit
 
 From: EMCP333 <emcp@enser.io>
 
-V4L2_ENC_CMD_STOP and V4L2_DEC_CMD_STOP signal end-of-stream by queueing
-an empty input buffer at the made-up device address 0xdeadb000. The
-SDM845 firmware on a OnePlus 6T (VIDEO.VE.5.2-00050-PROD-1) rejects it:
+CAMSS on SDM845 reaches DDR through two camnoc HF ports and one SF
+port, and its registers through the config NoC. Describe the four
+paths, named as in the sm6150 binding, which has the same two HF ports.
 
-  qcom-venus aa00000.video-codec: session error: event id:1001 (deadb000)
-
-and the LAST buffer never comes back. An encoder session then goes on to
-session error 1006 and a system error whose recovery fails ("recovery
-failed to init HFI"), and the encoder is unusable until reboot. A decoder
-leaves the client draining forever: ffmpeg and mpv with v4l2m2m decoded
-1188 of 1200 frames of a clip, then hung at end of file.
-
-A zero-length buffer queued by userspace reaches the firmware with the
-EOS flag at its real, mapped address, and is accepted. Do the same for
-STOP: allocate one small buffer per instance the first time STOP is
-issued, against the core device like the internal buffers, and free it
-once the session has been destroyed at close. The IRIS2 branch for old
-firmware, which needs address 0, is unchanged.
-
-Tested on a OnePlus 6T with this change on the postmarketOS sdm845
-kernel (6.18): three 640x480 H.264 encodes in one boot, each drained
-with ENC_CMD_STOP, all reach end-of-stream with a valid stream; decoding
-one of them returns all 90 frames and end-of-stream; no session or
-system errors are logged.
+They are optional, so existing device trees stay valid. The driver
+votes on them where they are present.
 
 The code and this changelog were prepared with the help of an AI coding
 assistant. The submitter has reviewed both and takes responsibility for
 them.
 
-Fixes: e69b987a9759 ("media: venus: reimplement decoder stop command")
-Fixes: 7493db46e4c4 ("venus: venc: add handling for VIDIOC_ENCODER_CMD")
 Signed-off-by: EMCP333 <emcp@enser.io>
 ---
- drivers/media/platform/qcom/venus/core.h    |  4 ++++
- drivers/media/platform/qcom/venus/helpers.c | 35 +++++++++++++++++++++++++++++
- drivers/media/platform/qcom/venus/helpers.h |  3 +++
- drivers/media/platform/qcom/venus/vdec.c    | 11 ++++++---
- drivers/media/platform/qcom/venus/venc.c    |  7 +++++-
- 5 files changed, 56 insertions(+), 4 deletions(-)
+ .../devicetree/bindings/media/qcom,sdm845-camss.yaml | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/venus/core.h b/drivers/media/platform/qcom/venus/core.h
-index 93fa77f058..f521bccfe3 100644
---- a/drivers/media/platform/qcom/venus/core.h
-+++ b/drivers/media/platform/qcom/venus/core.h
-@@ -463,6 +463,8 @@ enum venus_inst_modes {
-  * @drain_active:	Drain sequence is in progress
-  * @flags:	bitmask flags describing current instance mode
-  * @dpb_ids:	DPB buffer ID's
-+ * @eos_va:	CPU address of the empty buffer that carries end-of-stream
-+ * @eos_da:	device address of that buffer
-  */
- struct venus_inst {
- 	struct list_head list;
-@@ -534,6 +536,8 @@ struct venus_inst {
- 	bool drain_active;
- 	enum venus_inst_modes flags;
- 	struct ida dpb_ids;
-+	void *eos_va;
-+	dma_addr_t eos_da;
- };
+diff --git a/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
+index be09cf3a3b..8c87ecd406 100644
+--- a/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
+@@ -76,6 +76,16 @@ properties:
+       - const: vfe1
+       - const: vfe_lite
  
- #define IS_V1(core)	((core)->res->hfi_version == HFI_VERSION_1XX)
-diff --git a/drivers/media/platform/qcom/venus/helpers.c b/drivers/media/platform/qcom/venus/helpers.c
-index 59eee3dd9e..e0bd2b0478 100644
---- a/drivers/media/platform/qcom/venus/helpers.c
-+++ b/drivers/media/platform/qcom/venus/helpers.c
-@@ -3,9 +3,11 @@
-  * Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
-  * Copyright (C) 2017 Linaro Ltd.
-  */
-+#include <linux/dma-mapping.h>
- #include <linux/idr.h>
- #include <linux/list.h>
- #include <linux/mutex.h>
-+#include <linux/sizes.h>
- #include <linux/slab.h>
- #include <linux/kernel.h>
- #include <media/videobuf2-dma-contig.h>
-@@ -1541,6 +1543,39 @@ void venus_helper_buffers_done(struct venus_inst *inst, unsigned int type,
- }
- EXPORT_SYMBOL_GPL(venus_helper_buffers_done);
- 
-+#define VENUS_EOS_BUF_SIZE	SZ_4K
++  interconnects:
++    maxItems: 4
 +
-+/*
-+ * The STOP commands signal end-of-stream with an empty input buffer. Give it
-+ * a real, mapped address, as a zero-length buffer queued by userspace has:
-+ * SDM845 firmware rejects a made-up one (session error 1001), and the LAST
-+ * buffer then never comes back.
-+ */
-+int venus_helper_eos_buf(struct venus_inst *inst, struct hfi_frame_data *fdata)
-+{
-+	if (!inst->eos_va) {
-+		inst->eos_va = dma_alloc_attrs(inst->core->dev, VENUS_EOS_BUF_SIZE,
-+					       &inst->eos_da, GFP_KERNEL, 0);
-+		if (!inst->eos_va)
-+			return -ENOMEM;
-+	}
-+	fdata->device_addr = inst->eos_da;
-+	fdata->alloc_len = VENUS_EOS_BUF_SIZE;
-+	fdata->filled_len = 0;
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(venus_helper_eos_buf);
++  interconnect-names:
++    items:
++      - const: ahb
++      - const: hf_0
++      - const: hf_1
++      - const: sf_mnoc
 +
-+void venus_helper_free_eos(struct venus_inst *inst)
-+{
-+	if (!inst->eos_va)
-+		return;
-+	dma_free_attrs(inst->core->dev, VENUS_EOS_BUF_SIZE, inst->eos_va,
-+		       inst->eos_da, 0);
-+	inst->eos_va = NULL;
-+}
-+EXPORT_SYMBOL_GPL(venus_helper_free_eos);
+   iommus:
+     maxItems: 4
+ 
+@@ -233,6 +243,7 @@ examples:
+     #include <dt-bindings/interrupt-controller/arm-gic.h>
+     #include <dt-bindings/clock/qcom,camcc-sdm845.h>
+     #include <dt-bindings/clock/qcom,gcc-sdm845.h>
++    #include <dt-bindings/interconnect/qcom,sdm845.h>
+ 
+     soc {
+       #address-cells = <2>;
+@@ -337,6 +348,15 @@ examples:
+           "vfe1",
+           "vfe_lite";
+ 
++        interconnects = <&gladiator_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_CAMERA_CFG 0>,
++          <&mmss_noc MASTER_CAMNOC_HF0 0 &mem_noc SLAVE_EBI1 0>,
++          <&mmss_noc MASTER_CAMNOC_HF1 0 &mem_noc SLAVE_EBI1 0>,
++          <&mmss_noc MASTER_CAMNOC_SF 0 &mem_noc SLAVE_EBI1 0>;
++        interconnect-names = "ahb",
++          "hf_0",
++          "hf_1",
++          "sf_mnoc";
 +
- void venus_helper_vb2_stop_streaming(struct vb2_queue *q)
- {
- 	struct venus_inst *inst = vb2_get_drv_priv(q);
-diff --git a/drivers/media/platform/qcom/venus/helpers.h b/drivers/media/platform/qcom/venus/helpers.h
-index 358e4f39c9..6acae43459 100644
---- a/drivers/media/platform/qcom/venus/helpers.h
-+++ b/drivers/media/platform/qcom/venus/helpers.h
-@@ -10,6 +10,7 @@
- 
- struct venus_inst;
- struct venus_core;
-+struct hfi_frame_data;
- 
- bool venus_helper_check_codec(struct venus_inst *inst, u32 v4l2_pixfmt);
- struct vb2_v4l2_buffer *venus_helper_find_buf(struct venus_inst *inst,
-@@ -71,4 +72,6 @@ int venus_helper_get_profile_level(struct venus_inst *inst, u32 *profile, u32 *l
- int venus_helper_set_profile_level(struct venus_inst *inst, u32 profile, u32 level);
- int venus_helper_set_stride(struct venus_inst *inst, unsigned int aligned_width,
- 			    unsigned int aligned_height);
-+int venus_helper_eos_buf(struct venus_inst *inst, struct hfi_frame_data *fdata);
-+void venus_helper_free_eos(struct venus_inst *inst);
- #endif
-diff --git a/drivers/media/platform/qcom/venus/vdec.c b/drivers/media/platform/qcom/venus/vdec.c
-index 6a43ea191d..a49acef5db 100644
---- a/drivers/media/platform/qcom/venus/vdec.c
-+++ b/drivers/media/platform/qcom/venus/vdec.c
-@@ -574,10 +574,13 @@ vdec_decoder_cmd(struct file *file, void *fh, struct v4l2_decoder_cmd *cmd)
- 		 * avoids misapplying this quirk and breaking VP9 decode on SC7280.
- 		 */
- 
--		if (IS_IRIS2(inst->core) && is_fw_rev_or_older(inst->core, 1, 0, 87))
-+		if (IS_IRIS2(inst->core) && is_fw_rev_or_older(inst->core, 1, 0, 87)) {
- 			fdata.device_addr = 0;
--		else
--			fdata.device_addr = 0xdeadb000;
-+		} else {
-+			ret = venus_helper_eos_buf(inst, &fdata);
-+			if (ret)
-+				goto unlock;
-+		}
- 
- 		ret = hfi_session_process_buf(inst, &fdata);
- 
-@@ -1762,6 +1765,8 @@ static int vdec_close(struct file *file)
- 	vdec_pm_get(inst);
- 	cancel_work_sync(&inst->delayed_process_work);
- 	venus_close_common(inst, file);
-+	/* The session is destroyed, so the firmware can no longer touch it. */
-+	venus_helper_free_eos(inst);
- 	ida_destroy(&inst->dpb_ids);
- 	vdec_pm_put(inst, false);
- 
-diff --git a/drivers/media/platform/qcom/venus/venc.c b/drivers/media/platform/qcom/venus/venc.c
-index 79acf7c1ec..9c2b602568 100644
---- a/drivers/media/platform/qcom/venus/venc.c
-+++ b/drivers/media/platform/qcom/venus/venc.c
-@@ -548,7 +548,10 @@ venc_encoder_cmd(struct file *file, void *fh, struct v4l2_encoder_cmd *cmd)
- 
- 		fdata.buffer_type = HFI_BUFFER_INPUT;
- 		fdata.flags |= HFI_BUFFERFLAG_EOS;
--		fdata.device_addr = 0xdeadb000;
-+
-+		ret = venus_helper_eos_buf(inst, &fdata);
-+		if (ret)
-+			goto unlock;
- 
- 		ret = hfi_session_process_buf(inst, &fdata);
- 
-@@ -1538,6 +1541,8 @@ static int venc_close(struct file *file)
- 
- 	venc_pm_get(inst);
- 	venus_close_common(inst, file);
-+	/* The session is destroyed, so the firmware can no longer touch it. */
-+	venus_helper_free_eos(inst);
- 	inst->enc_state = VENUS_ENC_STATE_DEINIT;
- 	venc_pm_put(inst, false);
- 
+         iommus = <&apps_smmu 0x0808 0x0>,
+           <&apps_smmu 0x0810 0x8>,
+           <&apps_smmu 0x0c08 0x0>,
 
 -- 
 2.47.3
