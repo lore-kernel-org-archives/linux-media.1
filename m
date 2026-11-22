@@ -1,99 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795386987;
-	b=TyFAoistvUn5icT7vpTyUIQVOXX5k++dYe0es9LUMcIC0OqdUoXpqhgRzSX2ptlYkBcs
-	 KHr2BYhWuWWy4Z6HNpre2R0JDv5UexA7DLkBNU8w1MKJ4jDZRkZePhV6v/duLBmLTPiOM
-	 5ae3DdAUqRvudxn5cwgr+zDchfeJIcRDt3I098pzBVeyU62TUH+lzwQQMRIhnvkRa99Qt
-	 QiVrP88PtLlzDRR+l3LjPspt9MVmxf9AUxhsl5i+TaqGOyGrUp2ZMHaQZGupZ+OZPD2BS
-	 0YOnA/i3SDKBK8vZfc6CJRHHMbjAHwkSd/WhIhPeian9eeO0lavW5usvayq2DDSj+AA==
+	t=1795387854;
+	b=sL5s1v1PMB/rMsB+N7Rv7ZtH+9JhD9Lb38WyPk0kdyY4+ksojRBREwGP7Jkh+3IAJtnw
+	 WiZCmiMBixGcC/sPJ/9zHGkDConhXzx2lHJeEAB+1jDSHMX7/pnnSct6rQxbeGcVnEmX+
+	 b696kW5ayjji/SuUEmwLYgbmi0DXggADZS37T5l8fKsnMu0azc9OmYdRCvkyQKSX+ffa7
+	 cddXGdeYKvbwDr/JWNzI7RVnisxNedhpf3GnRfVf2VVAsEFCfB3NN3On+EkdEpIONUKP0
+	 1iN6USE/dJ4oEyq6UYiRpliFDa+i5BJMT2PybEqXKb3wBcVu+TPrOWgVlxDDzoc6gzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795386987;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=uWvM+vYR0BVoqm9nbONEaSEkLJpCFi3QrFnnVcJ0YBI=;
-	b=0cHwA/dnZzb1kJia0QE9Umk2EKaaWd2imhGz8rRmaxf2eay2j8GQ3d0HdYvyOyF2CvSN
-	 UaiBA3cqXqTt2j4EwtcZFMyDd59EoGehgoe/aDs9izzrXkNMRjbOelmt8ogCBrruDBDC9
-	 ThUmkMs8n9PYpfCHffNk0MIduWmMuOhc22SXG+97k/oEqfsKjYzLBoQxiSb8NsfFNP/8V
-	 82w0pb0brDgzW8Q3jmkjiHmAzUtIf1vSaY9uvQYi5xYa20meK7anRKFW//jzIHmlsCf+l
-	 A8iRT9W0mcH6sx6hNqwhJ75l+NhSAE0uoj4QTLiXQ2hLYZVo1K4TY+NtH2zw6/DjaNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795387854;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=iJm2GNroKLV2zzxKVlxwUbd/xJEtVbqINCOj6OUMXgQ=;
+	b=3a7lqVcB4ZYy6BAVYT7xSfEHEbnSZFkpyLB5QlUhoX42Sit2CkdUu1+XaSONA82OpIO5
+	 xWcy9Px0kc1P+Al2LU9xJaOjXlIkajKUvySviIuMmi46ra85/XuhztEVAwMdeoO1y2rCy
+	 dJFoM+uVKclsUFQZho2ldZ3Ph5RVBuQ7gOO54r6OFI8bZ9IPkIGDByKiVHiTwIDJ86D8x
+	 hXiwrGAcvA6fvlndUNhxo8V5JJLVB4ne/pGLOUlr1lPC5rgycolCoPzQpoEiMivS2tgok
+	 DQ7W8ZXJxRWuFxQmBjKU7mn8GLr97asOkvIvhhASfz3rhoKvcmuDHA93Eqoj7ac685Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qkkZn9om;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=innora.ai;
+	spf=pass smtp.mailfrom=innora.ai;
+	dkim=pass header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=JnTnYF3F;
+	arc=none smtp.remote-ip=185.70.43.17
+Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B429B606A31E
-	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 22:36:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B429B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B797606A6A1
+	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 22:50:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B797606A6A1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innora.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innora.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qkkZn9om
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso18693905e9.1
-        for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 14:36:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795386985; x=1795991785; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uWvM+vYR0BVoqm9nbONEaSEkLJpCFi3QrFnnVcJ0YBI=;
-        b=qkkZn9omnKCP/4xapjal4Kxp8i3q/V+VVP9CIaNwHU+HkkB7gn4sNzJgJAhkGdBoaP
-         HFcVDGRop0NR+x1AzkcPSS8p5EgrHnHVFE1aEXm0g9meFpO4Z5eoJ1znj3qqfvkv5Wku
-         1Eo8YwxTLXPPoR1i8g8uKDeg6UV4i7iz7jmzOmRUe/qHil9PAVU90bM6gMG5eQIumaLf
-         RssQFVXvfVvpTZUcukHgRNwtzT5rWfALeAf1Qli+eSlEHw3O3uidDZkuX9KxTHgjZ9E+
-         1qfjbcJrb/E0s2xmFO41TRmq1/BvmbewOW9Z7EJgLMM2K0E9399RphesjHm5XAcP7BoT
-         qj9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795386985; x=1795991785;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uWvM+vYR0BVoqm9nbONEaSEkLJpCFi3QrFnnVcJ0YBI=;
-        b=JWvyWO2VVgiqri/ciWBUQL94e4dmEgKW8TElJA1c8L2o3ozoKc7W5/KEu9pWy/LjgW
-         mmNiOnb2p+V8cL0nS6GBIdL8kVWKCAgkOosArI30I2L5tgOROZsT0k5w6eOKcZhhiov3
-         3PvdwKbRZRbMCoQGc0jFUPiRwIZUtG90C2h6/QZwN0rmEYiL+TA2HYhm6MkaBdKCYvPn
-         3DQALG9B3QcIGBxk+wjjgDancLROZfrO6e9Tf0Y9rSRpn9bqraf23Wn0flx2TgOt+/ZH
-         2F8eOAmvSKAYrYx1+VN9ys1pm3vWI+GQ/F16sRQv1Xw88VxmcJpM7y+VwIzwiHhUpR8N
-         hULA==
-X-Forwarded-Encrypted: i=1; AL+hErGf2saX6s5AMKj+YExrbdJ0vd7eO7uEjjafIqr+1FuH9oosd2wv0Ss4Txm842IYXcThgjrJxzivtJVkBw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/CKhg6jPU/8eMJSbjFJiOsuGt3/5meGzJ8CX+Cmg+1ETA+iqag
-	3IUvzfyYfXonj/IiV+ATgaZRQkYr/PuJAaO1NFKIY7DCj3Wdnc+QGlUz
-X-Gm-Gg: AZFdTZfUYsQbhjdYjeSLwQvb62I4GgNe3t10zGs9gr56CKJcax9wTAE9QlktMbciMBo
-	cID058+/7Z0tOUwUeYLrGpzSoD//l61H9Wfc5TYQ2Qisd6CGAPvrnvbQB/Uc8HDzoYLgoMtndx0
-	NfDsHa/H01Wgu4NKA3j7lkxPaLRu+MLTDTn5pDKQCaca5oLnaVEB3w5vAonIjYN4ZV43itN1oLK
-	dOgGCevZzebI6dGemj4F9TMtzi4lobwyhu2MeZVRB8XnVkH5UZ+mAsItjMOZ1jCgRZHLXOFIDP0
-	b0lcoZOVfAkazSF+B2F18zhq2juZ9ZR/xdFXV40DvpkNUxbwCmgNVLdkqUTKXwH/jtGw2+3UDsE
-	SBPvmHELMZu55wg6WGHdclzyCigAB7ONKpNKhHcqEhL9e31673azBCeRCr6/iLTwtGNcYuKegI/
-	+2/AMMmiml9C0FNj5DF4Nhdh6ThY4ojLmu5pAb22s1HBLlg4Oh4RKakGomEl8eziiY4JkfQyCde
-	K8TLIKrRWiYSsiRt6GvmfGErCouOByLaWq2nKR1YTa/8KDnNvj5Xka9p+G/8zN++KHOwAq+QKFx
-	6pzvqemhjpCjV4WJHJ3UroRYtbrtjzJk0hV9gAH96w==
-X-Received: by 2002:a05:600c:1547:b0:4a2:397:73f6 with SMTP id 5b1f17b1804b1-4bb8880974amr226721925e9.8.1795386985012;
-        Sun, 22 Nov 2026 14:36:25 -0800 (PST)
-Received: from foxbook (bfh118.neoplus.adsl.tpnet.pl. [83.28.45.118])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab6b110ba3sm15054394f8f.35.2026.11.22.14.36.22
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Sun, 22 Nov 2026 14:36:24 -0800 (PST)
-Date: Sun, 22 Nov 2026 23:36:27 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: hi@yasunobu.dev
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Ricardo Ribalda
- <ribalda@chromium.org>, linux-media@vger.kernel.org, Hans de Goede
- <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Mathias
- Nyman <mathias.nyman@intel.com>, linux-usb@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Batch StreamCam unlinks on ASUS
- ASM2142
-Message-ID: <20261122233627.162cf5db.michal.pecio@gmail.com>
-In-Reply-To: <179509370754.7.5011876058707374029.1785696182@yasunobu.dev>
-References: <20261119-streamcam-batched-unlink-v1-1-076bc02866c1@yasunobu.dev>
-	<CANiDSCsdaokL_2u_74b3ADT+U8TXskK53+k+hVA8D+PtttYEZQ@mail.gmail.com>
-	<20261119124331.GR1923307@killaraus.ideasonboard.com>
-	<179509370754.7.5011876058707374029.1785696182@yasunobu.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=JnTnYF3F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=innora.ai;
+	s=protonmail3; t=1795387852; x=1795647052;
+	bh=iJm2GNroKLV2zzxKVlxwUbd/xJEtVbqINCOj6OUMXgQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=JnTnYF3Fsy2LA3VpPO09KPsIMXS+Ko/4jyydR+WsrsBIjx7v2iFUEgTN/m0YzhJgk
+	 8xzvXES/eUeU5sigpwiJQI6x2at064nPq9+utKKzt7AFUsUf15cpl1NUqrf4wibfeV
+	 cXZ5Gx0LKZiGEjqjdTsYAxr7kbDkhh6Nb3XgN9GA00fOonVm3O0+FjY7YdCGT/ZLKf
+	 99WvZhXRgfni6ujVDnT6rJauyEEWU2RgClwW9FNNLtxl00GfACfkZeAAuyhznrwuFM
+	 yWR0OxO18s3U0IyWGsnb5oSrePV2OUg1V8oS5eCRO6QdBWPxcURUT/yQy+018jUk1J
+	 wQvCssfdNJa3g==
+Date: Sun, 22 Nov 2026 22:50:45 +0000
+To: linux-media@vger.kernel.org
+From: Feng Ning <feng@innora.ai>
+Cc: linux-staging@lists.linux.dev, sakari.ailus@linux.intel.com, hansg@kernel.org
+Subject: [PATCH] staging: media: atomisp: validate DVS 6-axis config dimensions
+Message-ID: <0c2Zqei57CqmMI6Dh34hKZdsp1D1ar1jHsyfzY4owI-GIAu-jshsaBCptOXe6b81ZwQ39udm6hHTgalp23YhtChJnYEuYu4pW5oPsu42acA=@innora.ai>
+Feedback-ID: 140578448:user:proton
+X-Pm-Message-ID: cd2e366804931e694787fe72d5606c49664f5264
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,35 +61,67 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 19 Nov 2026 13:08:20 +0000, hi@yasunobu.dev wrote:
-> On Thu, Nov 19, 2026, Laurent Pinchart wrote:
-> > On Thu, Nov 19, 2026 at 01:06:50PM +0100, Ricardo Ribalda wrote:  
-> > > Could you check if your device works fine on 7.3, or if it still
-> > > crashes?  
-> 
-> Thanks for the quick replies.
-> I tested 7.3.5 on the same USB-C port, and the xHCI hang did not
-> recur.
+The atomisp driver allocates the DVS 6-axis coordinate buffers using the
+stream geometry, but copies from userspace using the dimensions supplied
+in the ioctl argument.  If the user-supplied dimensions are larger than
+the stream geometry, copy_from_compatible() writes past the end of the
+allocated buffer.
 
-I too have done some testing with recent mainline. My camera works
-quite reliably on ASMedia HCs at low bitrates and ASM1142, ASM3142,
-as well as VL805, all survived thousands of stream restarts.
+Validate that the user-supplied dimensions match the allocated table
+before copying.
 
-I confirmed that reverting mainline xhci-hcd commit 7c0c31c66a7f
-causes familiar problems to return (in absence of uvcvideo hack).
-On ASM1142 symptoms are similar to those reported here, including
-occassional "ERROR unknown event type 15". On ASM3142, HC enters
-a broken state where control transfers to all devices time out.
-VL805 completely stops working until a reboot.
+Note on commit d178c7ca8fef ("staging: media: atomisp: use array3_size()
+for overflow-safe allocation"): that commit fixed the multiplication
+wrap in these same allocations.  It does not change which dimensions are
+used for the copy, so the two issues are independent.
 
-One glitch remains on VL805 - sometimes the next attempt to start
-streaming hangs until the application is killed, then yet another 
-attempt succeeds. It's nothing compared to the pre-7.3 hang, but
-it *does* go away with the uvcvideo patch. Whether it can be
-solved by more xhci-hcd tweaks is TBD.
+Signed-off-by: Feng Ning <feng@innora.ai>
+---
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c b/drivers/stag=
+ing/media/atomisp/pci/atomisp_cmd.c
+index e66a7d1c7..ab7cbbb8f 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
+@@ -2637,6 +2637,16 @@ int atomisp_cp_dvs_6axis_config(struct atomisp_sub_d=
+evice *asd,
+ =09=09=09=09return -ENOMEM;
+ =09=09}
+=20
++=09=09if (t_6axis_config.width_y !=3D dvs_6axis_config->width_y ||
++=09=09    t_6axis_config.height_y !=3D dvs_6axis_config->height_y ||
++=09=09    t_6axis_config.width_uv !=3D dvs_6axis_config->width_uv ||
++=09=09    t_6axis_config.height_uv !=3D dvs_6axis_config->height_uv) {
++=09=09=09dev_err_ratelimited(asd->isp->dev, "invalid DVS 6-axis table dime=
+nsions\n");
++=09=09=09if (dvs_6axis_config !=3D css_param->dvs_6axis)
++=09=09=09=09ia_css_dvs2_6axis_config_free(dvs_6axis_config);
++=09=09=09return -EINVAL;
++=09=09}
++
+ =09=09dvs_6axis_config->exp_id =3D t_6axis_config.exp_id;
+=20
+ =09=09if (copy_from_compatible(dvs_6axis_config->xcoords_y,
+@@ -2689,6 +2699,16 @@ int atomisp_cp_dvs_6axis_config(struct atomisp_sub_d=
+evice *asd,
+ =09=09=09}
+ =09=09}
+=20
++=09=09if (source_6axis_config->width_y !=3D dvs_6axis_config->width_y ||
++=09=09    source_6axis_config->height_y !=3D dvs_6axis_config->height_y ||
++=09=09    source_6axis_config->width_uv !=3D dvs_6axis_config->width_uv ||
++=09=09    source_6axis_config->height_uv !=3D dvs_6axis_config->height_uv)=
+ {
++=09=09=09dev_err_ratelimited(asd->isp->dev, "invalid DVS 6-axis table dime=
+nsions\n");
++=09=09=09if (dvs_6axis_config !=3D css_param->dvs_6axis)
++=09=09=09=09ia_css_dvs2_6axis_config_free(dvs_6axis_config);
++=09=09=09return -EINVAL;
++=09=09}
++
+ =09=09dvs_6axis_config->exp_id =3D source_6axis_config->exp_id;
+=20
+ =09=09if (copy_from_compatible(dvs_6axis_config->xcoords_y,
 
-Regards,
-Michal
