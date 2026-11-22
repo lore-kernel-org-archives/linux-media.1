@@ -1,86 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795333492;
-	b=x5yX/hn8lxbus6LaNiL27SSiP3YoLj0h1xLn+jlpjWX4u2Z/K9KN0iO7fDaR18jUjXOh
-	 5IfWK8rVixIJJ4GjZtx4X4NrQDOVgGn8kw3tESlpNhWjB1bJX+5sdfN3zXRFnuk+xXvSp
-	 s/5sq4otn9KPkgC0EkVldV0vR0Zs4WA8f4zY5RlzlNWEKKK1gowB/K86d4aaI41TghjlX
-	 jwLX1bSq578DfICgpq9RMpkQ3EnRr1YzyhvfQ49EBFD9wRszWvb+QYTLBG8ScjSDLGaOx
-	 I7f7wi1vcZxeclO2agj401lfYkd5BCG+4QvetJUUInQCxgTOIuqrGHdwc1NFC/Yk1pQ==
+	t=1795333559;
+	b=CTCNG5JiJWbDD+438Dla6lht1XSVwRV0R7/yJkVACPj1moGDssLL+2tCpoUxLSaMg68N
+	 bPewFdLSXilcMFrUX22q/uDPtaJwVSPlrhKmHZMU6PEUd3/0iXtAVHDrG9QSZGHNutbha
+	 VwX1CvrKMGHZW6q05/SwWNTh0l+TROuLLXEJ9X3xUrVbL6CTECog6ivnWCZhBA4XU1BJE
+	 aa+6b1/Gzhqp8ohoLhYAtxxfSuF0yalXDzO1klZ8Swwm/yhKtdRL5AKEf8mxX5pzqnWTc
+	 WkLzVc65H7NK/u4qQuLVv9bgqR9IGBl82ZxTxsM/SqZEP8UX0sn+l8w84VML5VSYqwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795333492;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795333559;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=41aq7Q/odxYWtRll/Ido8PrmDSMYdlxmstPU7VScg2I=;
-	b=V25nizZ2RlrMGW/QfMKZ1/6kRyRB7pcWKCkORs/FwDDvpIuk4Che+ISbVCWEzfPPOX1V
-	 gBj+u+S576JDektW3bBXSW/8DKjisrY40PNJdXu1nStcm2eszVLOm9CnJV6w40kp08NeS
-	 ggT+XKIjl/HlUBZAAnuPKeH4XNVDD5V2/SmrvdkdMZ/C+i5uTA+YTmOktKAKmG9ZnX5Ds
-	 JyjD4ZgZez6kfHDbEGxiHz8CEIeFcoXMHlH+LDk1slo6VDSPTHOD/iPfN7EIqmLcG340W
-	 UPFJgnkYVl2csDzgDCMGlJJ+eKd/i8Iu3NdMCttAAXjymBY6+J8+lnlrmCKl+vyVoDA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=mJ1uV0nElB+ZuXOREmohOqblGnYAv6C9rlmGAxRkS6c=;
+	b=Mv/PrmXDJmlun7w79zuAqdyn8gev6ib3yk6NwKDdwcYUoYfribzS8M0Bw4ib33ulclxP
+	 U2qpHA5G1Q4pWfEXODDyh7dUfp+Pi5D7C8zeSWKRht7QNIELLxpG0wdRdOUCYS2yT7r5o
+	 wNdEqzv0ervbodAGuI+cGRzqOrrqX/hUSiGzW8cjB2tC01qZ5mp6vYkLs4eGWWqTb++Hk
+	 EkHtvNqjjisMJALOhY3ixVDucX9CNo6RkEm43qQcq6qlrTrTlqIRasnKNw8YWBOAcnzBe
+	 mQLwilcD6dfQV9rSgw/RUQgm+LUozIx4p5J25/8P4xAv6l9Z69tX9ruONlH8AmXHdjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z7X5Rd+p;
-	arc=none smtp.remote-ip=209.85.167.46
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KSznfNbj;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 661C1606A32A
-	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 07:44:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 661C1606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3764E606A320
+	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 07:45:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3764E606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z7X5Rd+p
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5c07c7306e1so2114839e87.1
-        for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 23:44:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KSznfNbj
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so1276401a91.1
+        for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 23:45:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795333490; x=1795938290; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=41aq7Q/odxYWtRll/Ido8PrmDSMYdlxmstPU7VScg2I=;
-        b=Z7X5Rd+pQJxXdbBxIt936qFnWyPHuZgv6ToTZF9o8i+7fW9lCeef/XVlFnGFRZ6n/2
-         1S5VVrmZavWKUoqektKnCEzteboKGyHsdMExO1by03lEiGuRtdiyV/k66OsYPABnr1C+
-         qCr53b4W4CvGKfdw/ZPb8sAFzGQkgdaXr2kLNCI4j+JY4RuBeG1KoPdLFz3YyGbTeqJb
-         Akl2YpqK0Grak4BrAsTnsr6od8g82cigTnxr63Uss8i1YRfweMFxPU9Vah/GeXd0Yr/w
-         sRPVXzV9c5x14MTRtKpBEdWmrsbtL91zNUqAGH8LgJGXx0LoKXfoshnzR93tse9OvO7j
-         4ZRQ==
+        d=gmail.com; s=20260707; t=1795333558; x=1795938358; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mJ1uV0nElB+ZuXOREmohOqblGnYAv6C9rlmGAxRkS6c=;
+        b=KSznfNbjQEdIwCRDjvqUJVj8AWWKkclnfCt/nxKxboMQxFLd5bU0xjpbjJtwi0Hj+C
+         VvbXZLFMx0xo2Up2ZVtkJDs22xIaedi7P5Yo5sltOITaT4Os7/8YfGmFSGQ7xNCmbQwY
+         I8h8jAXj2PJcspFlWfnyrGSDI4ulSZiWSQrHlEchUDdJD9LlgSkt9acxqSQguQgi5Wfl
+         I73kzACl8dCad46JN8471fVV//x08ajMaFEyGK1A0xtyiIQR7HfX5Wu8/LPvw+qTgatP
+         /Pz0QsI6b8lboDGj2gFkCziF1rr6HncaiZO9OJgbVMHrZ6eDRL/a40fLCGc859LUCXkR
+         kG/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795333490; x=1795938290;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=41aq7Q/odxYWtRll/Ido8PrmDSMYdlxmstPU7VScg2I=;
-        b=VrWklaKtt334rl9OWoJMzhLYJ9y8lyDLDCUGdCLBvZU5DjMVtrBFk5vmBIsgI0UjAd
-         FCqBx4h3K3dRI3qzlygsB9XF7yQtenjzHxW3ryJr6rokiTAJiLoE/Y8S6eJ5rULI+c0N
-         VUJ/t+nQLOaNlN67N8CQU4nn9Dw5gu5LBAo3mGXGfgccJgHGBZPLfey5wUceoR0+Aoyc
-         Xzx03jeklPB16wkdyMQ4iSxTqYblLoo8nuThfjeK+jmmynE2qmUy52qIAcCYJAX2qBnM
-         6i6XRjbaioE4mhjaNSjzImN79TlxGKnehfIxREvEhixVgFKMGj4yUHvmGZ8zeFcGfszy
-         QMAw==
-X-Forwarded-Encrypted: i=1; AL+hErEL4DuUPQp5LHDMMehUdz+gdG+AiDZuqDtXkaFoSPYlF0KP6xMJ/FwYKg+HlDu40coMJzRTxRZJ1gknEw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8hYNkbD0V39IijBF7ZW1bW4axMgt95uzwBu43bzOpvJ7kEaS7v
-	2Kirllc+eBHMwNJY0vJloYTgNxsCn2SPomOhMOwHCwNP1EIA+TER5FGo
-X-Gm-Gg: AZFdTZd6OEtzaY2aLHgHrw4CuM5pWB7jTKqvbV45P1sUUrH7WMm3Pl9Xw78X+SQ01WA
-	HELwwenjDR5oM3OJhX9akQbM8Et5/e+VtEbbVNrgRBvdTs4Ml44A61ZIyaiWz3juCXlEEhEvdc3
-	DL7uwBrsjlHrqdhXXdgCj/ZuzIz37KTduge7aotZqESXuxzb8JlnD4eHMBwwqohyy9xYSEUzIoE
-	ev/Y85n0PRV4dmSs4yhdGYcxyCWkC9RkEozbrQPYtxK4GPcS7f7WIj82vztBLFkveqh1xgS8Dy5
-	iTmlFMv9lRsEfoxsc+WaZaUXTUasHYOCu+bRZppCXNdPPv3/Dn2fPGxIEepbO/VqJZn6Et6QYwx
-	y+GqF3RbtBklKey0EZ+jsuCVtAVdv/zhD1URfFtW6wb+EYsKLfiXSRtV/e0kxj1+4i4LLMPKlTL
-	qjF03K4EXSFuyrDZKJIeiFS1LcXqAcLgQPoIbMhuv1BXeiT607gcNGsyymsbM5duI9Y2dAerxdR
-	JPjttLU8JsnGtpQ2zL/g83zfZqnChPWOIV5fbBQVJFmhhKVobT/fCtjRd20F4PDTdpDgdXL2trt
-	6VKb9zOFBgU+SP82z0JDYqJ65b876kxRBETw/b4YwToOhegfgzQuj7QGQG54
-X-Received: by 2002:a05:6512:ba0:b0:5c1:c107:7477 with SMTP id 2adb3069b0e04-5c1c107755cmr1942269e87.43.1795333490191;
-        Sat, 21 Nov 2026 23:44:50 -0800 (PST)
-Received: from smtpclient.apple ([87.200.95.144])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd07bfdcsm2022134e87.82.2026.11.21.23.44.45
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sat, 21 Nov 2026 23:44:49 -0800 (PST)
-Content-Type: text/plain;
-	charset=utf-8
+        d=1e100.net; s=20260707; t=1795333558; x=1795938358;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mJ1uV0nElB+ZuXOREmohOqblGnYAv6C9rlmGAxRkS6c=;
+        b=FVg9tGTmAPAW4FIVWabKWh/0+R9X9vCzhgk1ZCahqib54QzP1E/nrZ7Ri86B/vhzLo
+         lABhEVFrHVEDx8ScKMrX2DBnuA5uOWAk8kVoNutkO6l4KGgjySvnBT2xQvf2KneK9lpD
+         w/EAxpf1JuWBTBv5qeebkP0uJJr2cWaJAZWrpKttvkDtR0XqcnqxyTEBi6SP41FpEWPx
+         TocNGvog2BFR1yLbNLAO868VoscTiZ5w0ZZBMzhgiPGn01QJLUC0np4uEovnG4Fm913k
+         dEwN5J1mG12jb6dVwPRgBQh+4u50OSuNH92REtvDcMLZ5W4Nw9BOyMBL0Dxu4teFvSNr
+         O66A==
+X-Forwarded-Encrypted: i=1; AL+hErFPCMBOB60DogPeJcLsd43qpsopxlx2BPNWFaxHnbcFcQXdgq1Dk0optFpxIjiezeG53/8FhcjoUJvbGQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+eIl3S74vlJjgDm3QNLP9drhTsWmJpyuhGFLS3Vqdffabxtsa1
+	ler6QII1hniRL1iwdJ34F9DaNcA8swWv3Ypv1Vm0veU9eSyeRscjAhDM
+X-Gm-Gg: AZFdTZenMHDttwKTvqu5QIXWzZ2TvzmbVsLxKXUAcLPzP1nVerd3S8Gbt/dH470LnCD
+	Ss2U5unGiIvZLDqTWZW+T/FPRHGKTBOr6nfzxgw0r1OdTyV5SgoMeyVizPqXNR+274KB5M495Qw
+	b9Syw0tTh6cdiRgjRQP5d87ZLK1NvykUfvrGxz8JvGQTzW38AsXgNAIODUhARcBFjjsdY9CWhYs
+	ovv5qbyiNh7/DG9rqxawBCiOKJw0pSfs+C5+kyesImtl8wfwTBC1SKNQ9UIEUP8/6p6tTJ3wn1y
+	2IAQ2n8hNKnC3VmuWKWzpH21gNLLDETNc8clR8rBPi2WVeLsdh/Xe9BW96ZYalUzGKQH1kFj4UF
+	NpUqlErQ4aPVmx5Pz2x7Y8tpcWF7NtWXBmbkRq3NXDVKHmyuO6fav3R6RzS87vKtdCjNe+f0Z66
+	FF733qc/BsaK3RzhdH6zoqJ+EOqntFqV3lzu/4ss9gurkZFtv1pW1sWWNus8CRoEpKZw37+/Ffy
+	Hl08EFPu3MX6B+ZeoCswgA66MEdyhF7jTXyKJXQLPDv1a+uSCpeWQhA+4LK9GKwkt+SHXjdeqNc
+	JWUH2sFUGndaP+F1f/pYLXr8EGGAT/EyPyjLAvlfhdUBcLZt8zYRkAwoq9U/eQGOV5NCuVgQVg=
+	=
+X-Received: by 2002:a17:90a:e710:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-3b41c96151cmr5449533a91.38.1795333558425;
+        Sat, 21 Nov 2026 23:45:58 -0800 (PST)
+Received: from X.tail7c3ebe.ts.net ([103.190.40.238])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41adcfe23sm11665150a91.15.2026.11.21.23.45.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2026 23:45:57 -0800 (PST)
+From: Avishek Chaulagain <chaulagainavishek14@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Abhishek Chaulagain <chaulagainavishek14@gmail.com>
+Subject: [PATCH] media: atomisp: Remove unused ISP vmem load/store functions
+Date: Sun, 22 Nov 2026 07:45:52 +0000
+Message-ID: <20261122074552.545-1-chaulagainavishek14@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,232 +100,365 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v5 0/5] media: rockchip: rkvdec: add support for the
- VDPU346 variant
-From: Christian Hewitt <christianshewitt@gmail.com>
-In-Reply-To: <cover.1795191822.git.daniel@makrotopia.org>
-Date: Sun, 22 Nov 2026 11:44:32 +0400
-Cc: Detlev Casanova <detlev.casanova@collabora.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>,
- Shawn Lin <shawn.lin@rock-chips.com>,
- Michael Riesch <michael.riesch@collabora.com>,
- David Heidelberg <david@ixit.cz>,
- Marc Zyngier <maz@kernel.org>,
- linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Jonas Karlman <jonas@kwiboo.se>,
- Diederik de Haas <diederik@cknow-tech.com>,
- Dang Huynh <dang.huynh@mainlining.org>,
- Piotr Oniszczuk <piotr.oniszczuk@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <E8475BAC-F137-493E-B7AC-9C81FB158610@gmail.com>
-References: <cover.1795191822.git.daniel@makrotopia.org>
-To: Daniel Golle <daniel@makrotopia.org>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-> On 20 Nov 2026, at 9:36=E2=80=AFpm, Daniel Golle =
-<daniel@makrotopia.org> wrote:
->=20
-> This series adds the VDPU346 decoder of the RK3566 and RK3568 to the
-> rkvdec driver, for H.264 and HEVC. It continues Christian Hewitt's v3
-> [1]; in the v2 cover letter he offered to pass the series on. The
-> previous posting [2] carried no version in its subject and counts as
-> v4.
+From: Abhishek Chaulagain <chaulagainavishek14@gmail.com>
 
-The original offer was directed at Detlev based on conversations with
-other Collabora folks who were hinting that he would be able to (and
-it would even be desirable to) fold VDPU346 patches into his work on
-VDPU381/383 which was in-flight at the time. However he didn=E2=80=99t =
-take
-the bait and it didn=E2=80=99t happen. The comment is also pre-Claude =
-when my
-coding abilities were more rudimentary. The main reason for the long
-delay in following up has been the length of time it took for Detlev=E2=80=
-=99s
-and related DRM series that permit wider testing to land; a vacation
-over the summer, and then Claude distracting me with a deep dive into
-the Amlogic and Rockchip media stacks that=E2=80=99s resulted in 300+ =
-patches
-that need a proper plan for upstreaming else I=E2=80=99m going to annoy =
-the
-already-overworked media/drm maintainers.
+isp_vmem_load(), isp_vmem_store(), isp_vmem_2d_load() and
+isp_vmem_2d_store() are the only external functions provided by
+vmem.c, and none of them has a caller anywhere in the tree. Every
+other function in the file (load_vector()/store_vector() and the
+hive_sim_wide pack/unpack helpers) exists solely to implement those
+four, so the whole translation unit is dead.
 
-I don=E2=80=99t object to someone upstreaming my patches. I do object to =
-the
-lack of outreach to check on my plans and patch status before blindly
-(and wrongly) assuming there were none. You will find later versions
-of my patches with fixes for changes in surrounding code (as I work
-on something broadly equivalent to drm-tip not Linux 6.18) and from
-further testing in my not-very-abandoned development tree:
+Remove vmem.c along with its Makefile entry and the four prototypes
+in vmem_local.h. The t_vmem_elem/t_svmem_elem typedefs and the
+VMEM_ARRAY/SVMEM_ARRAY macros in that header are used elsewhere and
+are kept.
 
-https://github.com/chewitt/linux/commits/rockchip-7.4.y
+Signed-off-by: Abhishek Chaulagain <chaulagainavishek14@gmail.com>
+---
+ drivers/staging/media/atomisp/Makefile        |   1 -
+ .../pci/hive_isp_css_common/host/vmem.c       | 275 ------------------
+ .../pci/hive_isp_css_common/host/vmem_local.h |  32 --
+ 3 files changed, 308 deletions(-)
+ delete mode 100644 drivers/staging/media/atomisp/pci/hive_isp_css_common/host/vmem.c
 
-=C2=AF\_(=E3=83=84)_/=C2=AF=20
-
-> Patches 1, 2 and 4 are Christian's, with two fixups folded in that v4
-> carried as separate patches. Patches 3 and 5 are new since v3 and come
-> out of a comparison of the driver with the vendor kernel driver
-> (rockchip-linux/kernel develop-6.6, drivers/video/rockchip/mpp) and
-> the Rockchip MPP library, followed by conformance runs on hardware.
->=20
-> Fluster on a NanoPi R5C (RK3568B2), GStreamer 1.28.7 v4l2sl decoders:
->=20
->  JCT-VC-HEVC_V1   142/147
->  JVT-AVC_V1       129/135
->  JVT-FR-EXT        65/69
->=20
-> HEVC failures: PICSIZE_A/B/C/D_Bossen_1 are coded at up to 8440 luma
-> samples in one dimension, beyond the 4096x2304 limit of the decoder.
-> TSUNEQBD_A_MAIN10_Technicolor_2 has unequal luma and chroma bit depth,
-> which the driver rejects for every variant.
->=20
-> H.264 failures: CVFC1_Sony_C, FM1_BT_B, FM1_FT_E, SP1_BT_A, sp2_bt_b
-> and FM2_SVA_C fail in JVT-AVC_V1; the Hantro G1 of the same board
-> fails the same six with the same GStreamer. In JVT-FR-EXT
-> Hi422FREXT17_SONY_A, Hi422FREXT19_SONY_A, HPCAMOLQ_BRCM_B and
-> HPCVMOLQ_BRCM_B fail; the two BRCM vectors fail on the Hantro G1 as
-> well, the two Hi422 intra profile vectors are not understood yet.
->=20
-> SAODBLK_A/B_MainConcept_4 and FREH10-1/2 are counted as passes: they
-> decode correctly and exceed the default 60 s fluster timeout only
-> because the checksum is computed from an uncached mapping of the
-> capture buffers.
->=20
-> Patch 3 is what makes the score deterministic. With the read caches
-> left in their reset state, RAP_B_Bossen_2, WPP_D_ericsson_MAIN_2,
-> WPP_D_ericsson_MAIN10_2, WPP_E_ericsson_MAIN_2 (HEVC) and
-> CAPM3_Sony_D, MR8_BT_B, MR9_BT_B, NRF_MW_E (H.264) produce wrong
-> output in three runs out of three; with the patch they pass in three
-> out of three. This is likely the source of the artefacts reported
-> against v3. The function is shared with the VDPU381, where the cache
-> block is mapped by the binding already. The series has been run on
-> the RK3588 as well as on the RK3568.
->=20
-> Decode rates with the series: HEVC Main 2160p 92 fps, Main10 2160p
-> 77 fps, Main 1080p 380 fps, H.264 High 1080p 197 fps.
->=20
-> Patch 5 is kept apart from the node it modifies because the existing
-> Tested-by tags were given at the v3 clock rates, and so that it can be
-> dropped on its own.
->=20
-> On the row and column buffer sizes raised in the v3 review [3]: the
-> MPP library uses one vdpu34x HAL with one set of size formulas for the
-> RK356x and the RK3588, so the variant keeps vdpu381_rcb_sizes.
->=20
-> Known limits, none of them introduced here:
->=20
-> - FFmpeg's v4l2-request hwaccel does not set the HEVC EXT_SPS_ST_RPS
->  and EXT_SPS_LT_RPS controls, so HEVC through FFmpeg decodes wrongly
->  on this decoder as on the VDPU381 ("Long and short term RPS not
->  set"). The handling of these controls is also the subject of [6].
-> - A decode error on such a stream ends in the IOMMU page faults and
->  the oops reported against v3 [4]. The cause is in the error path
->  shared by all variants: the interrupt handler restores the IOMMU
->  while the watchdog is still armed, and the watchdog starts the next
->  job while the IOMMU is detached. "media: rkvdec: Handle interrupts
->  without a current context" [5] covers the oops; the remainder will
->  be addressed separately.
-> - The Sashiko review of v4 points out that rkvdec_probe() takes the
->  SRAM pool without a device link to its provider. This predates the
->  series, affects all variants with an sram property and will be sent
->  as a separate fix.
-
-FFmpeg: https://github.com/chewitt/FFmpeg/commits/armsoc-9.0.2/
-
-This contains Jonas' current v4l2_request series plus Detlevs patch
-and relevant work on deinterlacing and fixes for issues found from
-testing on Allwinner/Amlogic/RPi/Rockchip implementations. We even
-started work on UAPI for VC1. Unfortunately we are in a holding pattern
-waiting patiently for Jonas to resume his series and fold fixes in
-(rather than shanghai the series).
-
-> Patches 3 and 5 were written with the help of an LLM coding assistant,
-> which also performed the comparison with the vendor sources. It was
-> asked to review the v3 series against the vendor driver and to
-> complete it, and for v5 to go through the v4 feedback, fold the fixups
-> and revise the commit messages. The conformance and A/B runs above
-> were done on the board with builds of v4 on Linux 6.18; v5 differs
-> from v4 in the order of two writes to the device tree source and in
-> one node name, the driver code is unchanged.
-
-IMHO there is way too much word-salad and blogging the journey in this
-cover-letter. Concise text and brevity is a virtue. You should also be
-working against a current kernel.
-
-> Changes since v4:
-> - Fold "media: rkvdec: vdpu346: Limit HEVC EXT SPS RPS dimensions"
->  into "media: rkvdec: Add support for the VDPU346 variant", so that
->  no commit registers 65 element controls
-> - Fold "arm64: dts: rockchip: rk356x: Order vdec regs by address" into
->  "arm64: dts: rockchip: Add the vdpu346 Video Decoders on RK356X"
-> - Name the SRAM pool node codec-sram as on the RK3588
-> - Read caches: shorten the commit message and state that the cache
->  block is mapped for the VDPU383 as well
-> - 400 MHz: state that the rate applies to all streams
-> - Cc the reviewers and testers of v3
->=20
-> Changes since v3:
-> - Add "media: rkvdec: vdpu381: Program the read caches"
-> - Add "arm64: dts: rockchip: rk356x: Clock the vdec at 400 MHz"
-> - Register the HEVC EXT SPS RPS controls with 64 and 32 elements
-> - List the vdec register blocks as link, function, cache
-> - Add fluster scores and failure analysis
-> - Add Tested-by from Diederik de Haas
->=20
-> v4: =
-https://lore.kernel.org/r/cover.1794654074.git.daniel@makrotopia.org
-> v3: =
-https://lore.kernel.org/r/20260110053727.2295260-1-christianshewitt@gmail.=
-com
-> v2: =
-https://lore.kernel.org/r/20251226113140.573759-1-christianshewitt@gmail.c=
-om
->=20
-> [1] =
-https://lore.kernel.org/r/20260110053727.2295260-1-christianshewitt@gmail.=
-com
-> [2] =
-https://lore.kernel.org/r/cover.1794654074.git.daniel@makrotopia.org
-> [3] =
-https://lore.kernel.org/r/DFL5TY0QQNMN.1RS04UM9D1V8S@cknow-tech.com
-> [4] =
-https://lore.kernel.org/r/DFRU6ODDM71P.3NQGLRK8IVDUY@cknow-tech.com
-> [5] =
-https://lore.kernel.org/r/20261026124808.642373-1-a.kazinsky@ideco.ru
-> [6] =
-https://lore.kernel.org/r/cover.1794645268.git.daniel@makrotopia.org
->=20
-> Christian Hewitt (3):
->  media: dt-bindings: rockchip: Add RK3568 Video Decoder bindings
->  media: rkvdec: Add support for the VDPU346 variant
->  arm64: dts: rockchip: Add the vdpu346 Video Decoders on RK356X
->=20
-> Daniel Golle (2):
->  media: rkvdec: vdpu381: Program the read caches
->  arm64: dts: rockchip: rk356x: Clock the vdec at 400 MHz
->=20
-> .../bindings/media/rockchip,vdec.yaml         |   2 +
-> arch/arm64/boot/dts/rockchip/rk356x-base.dtsi |  49 +++++++
-> .../rockchip/rkvdec/rkvdec-vdpu381-h264.c     |   2 +
-> .../rockchip/rkvdec/rkvdec-vdpu381-hevc.c     |   2 +
-> .../rockchip/rkvdec/rkvdec-vdpu381-regs.h     |   9 ++
-> .../media/platform/rockchip/rkvdec/rkvdec.c   | 121 ++++++++++++++++++
-> .../media/platform/rockchip/rkvdec/rkvdec.h   |   2 +
-> 7 files changed, 187 insertions(+)
->=20
->=20
-> base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-> --=20
-> 2.56.1
+diff --git a/drivers/staging/media/atomisp/Makefile b/drivers/staging/media/atomisp/Makefile
+index 1d0fbe220..3b2dad720 100644
+--- a/drivers/staging/media/atomisp/Makefile
++++ b/drivers/staging/media/atomisp/Makefile
+@@ -146,7 +146,6 @@ atomisp-objs += \
+ 	pci/hive_isp_css_common/host/mmu.o \
+ 	pci/hive_isp_css_common/host/sp.o \
+ 	pci/hive_isp_css_common/host/timed_ctrl.o \
+-	pci/hive_isp_css_common/host/vmem.o \
+ 	pci/hive_isp_css_shared/host/tag.o \
+ 	pci/system_local.o \
+ 	pci/runtime/isys/src/ibuf_ctrl_rmgr.o \
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/vmem.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/vmem.c
+deleted file mode 100644
+index 1c5c50406..000000000
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/vmem.c
++++ /dev/null
+@@ -1,275 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-/*
+- * Support for Intel Camera Imaging ISP subsystem.
+- * Copyright (c) 2010 - 2016, Intel Corporation.
+- */
+-
+-#include "isp.h"
+-#include "vmem.h"
+-#include "vmem_local.h"
+-
+-#if !defined(HRT_MEMORY_ACCESS)
+-#include "ia_css_device_access.h"
+-#endif
+-#include "assert_support.h"
+-
+-typedef unsigned long long hive_uedge;
+-typedef hive_uedge *hive_wide;
+-
+-/* Copied from SDK: sim_semantics.c */
+-
+-/* subword bits move like this:         MSB[____xxxx____]LSB -> MSB[00000000xxxx]LSB */
+-static inline hive_uedge
+-subword(hive_uedge w, unsigned int start, unsigned int end)
+-{
+-	return (w & (((1ULL << (end - 1)) - 1) << 1 | 1)) >> start;
+-}
+-
+-/* inverse subword bits move like this: MSB[xxxx____xxxx]LSB -> MSB[xxxx0000xxxx]LSB */
+-static inline hive_uedge
+-inv_subword(hive_uedge w, unsigned int start, unsigned int end)
+-{
+-	return w & (~(((1ULL << (end - 1)) - 1) << 1 | 1) | ((1ULL << start) - 1));
+-}
+-
+-#define uedge_bits (8 * sizeof(hive_uedge))
+-#define move_lower_bits(target, target_bit, src, src_bit) move_subword(target, target_bit, src, 0, src_bit)
+-#define move_upper_bits(target, target_bit, src, src_bit) move_subword(target, target_bit, src, src_bit, uedge_bits)
+-#define move_word(target, target_bit, src) move_subword(target, target_bit, src, 0, uedge_bits)
+-
+-static void
+-move_subword(
+-    hive_uedge *target,
+-    unsigned int target_bit,
+-    hive_uedge src,
+-    unsigned int src_start,
+-    unsigned int src_end)
+-{
+-	unsigned int start_elem = target_bit / uedge_bits;
+-	unsigned int start_bit  = target_bit % uedge_bits;
+-	unsigned int subword_width = src_end - src_start;
+-
+-	hive_uedge src_subword = subword(src, src_start, src_end);
+-
+-	if (subword_width + start_bit > uedge_bits) { /* overlap */
+-		hive_uedge old_val1;
+-		hive_uedge old_val0 = inv_subword(target[start_elem], start_bit, uedge_bits);
+-
+-		target[start_elem] = old_val0 | (src_subword << start_bit);
+-		old_val1 = inv_subword(target[start_elem + 1], 0,
+-				       subword_width + start_bit - uedge_bits);
+-		target[start_elem + 1] = old_val1 | (src_subword >> (uedge_bits - start_bit));
+-	} else {
+-		hive_uedge old_val = inv_subword(target[start_elem], start_bit,
+-						 start_bit + subword_width);
+-
+-		target[start_elem] = old_val | (src_subword << start_bit);
+-	}
+-}
+-
+-static void
+-hive_sim_wide_unpack(
+-    hive_wide vector,
+-    hive_wide elem,
+-    hive_uint elem_bits,
+-    hive_uint index)
+-{
+-	/* pointers into wide_type: */
+-	unsigned int start_elem = (elem_bits * index) / uedge_bits;
+-	unsigned int start_bit  = (elem_bits * index) % uedge_bits;
+-	unsigned int end_elem   = (elem_bits * (index + 1) - 1) / uedge_bits;
+-	unsigned int end_bit    = ((elem_bits * (index + 1) - 1) % uedge_bits) + 1;
+-
+-	if (elem_bits == uedge_bits) {
+-		/* easy case for speedup: */
+-		elem[0] = vector[index];
+-	} else if (start_elem == end_elem) {
+-		/* only one (<=64 bits) element needs to be (partly) copied: */
+-		move_subword(elem, 0, vector[start_elem], start_bit, end_bit);
+-	} else {
+-		/* general case: handles edge spanning cases (includes >64bit elements) */
+-		unsigned int bits_written = 0;
+-		unsigned int i;
+-
+-		move_upper_bits(elem, bits_written, vector[start_elem], start_bit);
+-		bits_written += (64 - start_bit);
+-		for (i = start_elem + 1; i < end_elem; i++) {
+-			move_word(elem, bits_written, vector[i]);
+-			bits_written += uedge_bits;
+-		}
+-		move_lower_bits(elem, bits_written, vector[end_elem], end_bit);
+-	}
+-}
+-
+-static void
+-hive_sim_wide_pack(
+-    hive_wide vector,
+-    hive_wide elem,
+-    hive_uint elem_bits,
+-    hive_uint index)
+-{
+-	/* pointers into wide_type: */
+-	unsigned int start_elem = (elem_bits * index) / uedge_bits;
+-
+-	/* easy case for speedup: */
+-	if (elem_bits == uedge_bits) {
+-		vector[start_elem] = elem[0];
+-	} else if (elem_bits > uedge_bits) {
+-		unsigned int bits_to_write = elem_bits;
+-		unsigned int start_bit = elem_bits * index;
+-		unsigned int i = 0;
+-
+-		for (; bits_to_write > uedge_bits;
+-		     bits_to_write -= uedge_bits, i++, start_bit += uedge_bits) {
+-			move_word(vector, start_bit, elem[i]);
+-		}
+-		move_lower_bits(vector, start_bit, elem[i], bits_to_write);
+-	} else {
+-		/* only one element needs to be (partly) copied: */
+-		move_lower_bits(vector, elem_bits * index, elem[0], elem_bits);
+-	}
+-}
+-
+-static void load_vector(
+-    const isp_ID_t		ID,
+-    t_vmem_elem		*to,
+-    const t_vmem_elem	*from)
+-{
+-	unsigned int i;
+-	hive_uedge *data;
+-	unsigned int size = sizeof(short) * ISP_NWAY;
+-
+-	VMEM_ARRAY(v, 2 * ISP_NWAY); /* Need 2 vectors to work around vmem hss bug */
+-	assert(ISP_BAMEM_BASE[ID] != (hrt_address) - 1);
+-#if !defined(HRT_MEMORY_ACCESS)
+-	ia_css_device_load(ISP_BAMEM_BASE[ID] + (unsigned long)from, &v[0][0], size);
+-#else
+-	hrt_master_port_load(ISP_BAMEM_BASE[ID] + (unsigned long)from, &v[0][0], size);
+-#endif
+-	data = (hive_uedge *)v;
+-	for (i = 0; i < ISP_NWAY; i++) {
+-		hive_uedge elem = 0;
+-
+-		hive_sim_wide_unpack(data, &elem, ISP_VEC_ELEMBITS, i);
+-		to[i] = elem;
+-	}
+-	udelay(1); /* Spend at least 1 cycles per vector */
+-}
+-
+-static void store_vector(
+-    const isp_ID_t		ID,
+-    t_vmem_elem		*to,
+-    const t_vmem_elem	*from)
+-{
+-	unsigned int i;
+-	unsigned int size = sizeof(short) * ISP_NWAY;
+-
+-	VMEM_ARRAY(v, 2 * ISP_NWAY); /* Need 2 vectors to work around vmem hss bug */
+-	//load_vector (&v[1][0], &to[ISP_NWAY]); /* Fetch the next vector, since it will be overwritten. */
+-	hive_uedge *data = (hive_uedge *)v;
+-
+-	for (i = 0; i < ISP_NWAY; i++)
+-		hive_sim_wide_pack(data, (hive_wide)&from[i], ISP_VEC_ELEMBITS, i);
+-
+-	assert(ISP_BAMEM_BASE[ID] != (hrt_address) - 1);
+-#if !defined(HRT_MEMORY_ACCESS)
+-	ia_css_device_store(ISP_BAMEM_BASE[ID] + (unsigned long)to, &v, size);
+-#else
+-	//hrt_mem_store (ISP, VMEM, (unsigned)to, &v, siz); /* This will overwrite the next vector as well */
+-	hrt_master_port_store(ISP_BAMEM_BASE[ID] + (unsigned long)to, &v, size);
+-#endif
+-	udelay(1); /* Spend at least 1 cycles per vector */
+-}
+-
+-void isp_vmem_load(
+-    const isp_ID_t		ID,
+-    const t_vmem_elem	*from,
+-    t_vmem_elem		*to,
+-    unsigned int elems) /* In t_vmem_elem */
+-{
+-	unsigned int c;
+-	const t_vmem_elem *vp = from;
+-
+-	assert(ID < N_ISP_ID);
+-	assert((unsigned long)from % ISP_VEC_ALIGN == 0);
+-	assert(elems % ISP_NWAY == 0);
+-	for (c = 0; c < elems; c += ISP_NWAY) {
+-		load_vector(ID, &to[c], vp);
+-		vp = (t_vmem_elem *)((char *)vp + ISP_VEC_ALIGN);
+-	}
+-}
+-
+-void isp_vmem_store(
+-    const isp_ID_t		ID,
+-    t_vmem_elem		*to,
+-    const t_vmem_elem	*from,
+-    unsigned int elems) /* In t_vmem_elem */
+-{
+-	unsigned int c;
+-	t_vmem_elem *vp = to;
+-
+-	assert(ID < N_ISP_ID);
+-	assert((unsigned long)to % ISP_VEC_ALIGN == 0);
+-	assert(elems % ISP_NWAY == 0);
+-	for (c = 0; c < elems; c += ISP_NWAY) {
+-		store_vector(ID, vp, &from[c]);
+-		vp = (t_vmem_elem *)((char *)vp + ISP_VEC_ALIGN);
+-	}
+-}
+-
+-void isp_vmem_2d_load(
+-    const isp_ID_t		ID,
+-    const t_vmem_elem	*from,
+-    t_vmem_elem		*to,
+-    unsigned int height,
+-    unsigned int width,
+-    unsigned int stride_to,  /* In t_vmem_elem */
+-
+-    unsigned stride_from /* In t_vmem_elem */)
+-{
+-	unsigned int h;
+-
+-	assert(ID < N_ISP_ID);
+-	assert((unsigned long)from % ISP_VEC_ALIGN == 0);
+-	assert(width % ISP_NWAY == 0);
+-	assert(stride_from % ISP_NWAY == 0);
+-	for (h = 0; h < height; h++) {
+-		unsigned int c;
+-		const t_vmem_elem *vp = from;
+-
+-		for (c = 0; c < width; c += ISP_NWAY) {
+-			load_vector(ID, &to[stride_to * h + c], vp);
+-			vp = (t_vmem_elem *)((char *)vp + ISP_VEC_ALIGN);
+-		}
+-		from = (const t_vmem_elem *)((const char *)from + stride_from / ISP_NWAY *
+-					     ISP_VEC_ALIGN);
+-	}
+-}
+-
+-void isp_vmem_2d_store(
+-    const isp_ID_t		ID,
+-    t_vmem_elem		*to,
+-    const t_vmem_elem	*from,
+-    unsigned int height,
+-    unsigned int width,
+-    unsigned int stride_to,  /* In t_vmem_elem */
+-
+-    unsigned stride_from /* In t_vmem_elem */)
+-{
+-	unsigned int h;
+-
+-	assert(ID < N_ISP_ID);
+-	assert((unsigned long)to % ISP_VEC_ALIGN == 0);
+-	assert(width % ISP_NWAY == 0);
+-	assert(stride_to % ISP_NWAY == 0);
+-	for (h = 0; h < height; h++) {
+-		unsigned int c;
+-		t_vmem_elem *vp = to;
+-
+-		for (c = 0; c < width; c += ISP_NWAY) {
+-			store_vector(ID, vp, &from[stride_from * h + c]);
+-			vp = (t_vmem_elem *)((char *)vp + ISP_VEC_ALIGN);
+-		}
+-		to = (t_vmem_elem *)((char *)to + stride_to / ISP_NWAY * ISP_VEC_ALIGN);
+-	}
+-}
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/vmem_local.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/vmem_local.h
+index 0163d31cd..3af34c9bd 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/vmem_local.h
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/vmem_local.h
+@@ -16,36 +16,4 @@ typedef s16 t_svmem_elem;
+ #define VMEM_ARRAY(x, s)	t_vmem_elem x[(s) / ISP_NWAY][ISP_NWAY]
+ #define SVMEM_ARRAY(x, s)	t_svmem_elem x[(s) / ISP_NWAY][ISP_NWAY]
+ 
+-void isp_vmem_load(
+-    const isp_ID_t		ID,
+-    const t_vmem_elem	*from,
+-    t_vmem_elem		*to,
+-    unsigned int elems); /* In t_vmem_elem */
+-
+-void isp_vmem_store(
+-    const isp_ID_t		ID,
+-    t_vmem_elem		*to,
+-    const t_vmem_elem	*from,
+-    unsigned int elems); /* In t_vmem_elem */
+-
+-void isp_vmem_2d_load(
+-    const isp_ID_t		ID,
+-    const t_vmem_elem	*from,
+-    t_vmem_elem		*to,
+-    unsigned int height,
+-    unsigned int width,
+-    unsigned int stride_to,  /* In t_vmem_elem */
+-
+-    unsigned		stride_from /* In t_vmem_elem */);
+-
+-void isp_vmem_2d_store(
+-    const isp_ID_t		ID,
+-    t_vmem_elem		*to,
+-    const t_vmem_elem	*from,
+-    unsigned int height,
+-    unsigned int width,
+-    unsigned int stride_to,  /* In t_vmem_elem */
+-
+-    unsigned		stride_from /* In t_vmem_elem */);
+-
+ #endif /* __VMEM_LOCAL_H_INCLUDED__ */
+-- 
+2.43.0
 
