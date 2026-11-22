@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795324401;
-	b=PLIrZ8xVdTOeBNchG+uaas82ecJufLmeXuv+71km/GUGESYlsKb7nloBOV8SV3fgYQz/
-	 JnCoSfDMGKcHoRQ6Z6PaoK3h0liWIqBYfvwFa2wtopPFyDbx1P9kGqRaAVyVK2Dme1p3P
-	 YHmIlZdsorKQBgW40QPhMzWp9geo7Nxt8GSSOiVGANKhvR2V9Bht1bmB3ezxUapqrYnQH
-	 oqROevrQW7Q8CiWntDQUhpovlFZD3BWQrCso32PFmAtHeUfsXXTVJoE/imH/YXFrJekZE
-	 xTiwrzgAywaEZE/TNRXQ8tkV+XXlhHTST7cCMe8WdxzsXpkREOBIUYXOYpuW1JQzQTw==
+	t=1795324409;
+	b=5P1aRZo/eO7nW8timB43m7rFFTEadlvNFDOF+TTlBMNyehlMa79WS2aVdeBoouvtXRe7
+	 TwNrLRpbGrh1Ugs7uc/IBaJxKH9hiLP7AZP8DoiA3t6aHgdSCA1AktvbZEwQ2X5MScSf+
+	 iRez6oat8gnNnZY51ZwZ1+8NdsFNUmrsvp+0UB6Py1nzUUOZKi98kgTrRCKpJXL3cUXq8
+	 BhZodi0Ny8ezGt43RPGlHNdAEvcDenCt4r4tfQY/ApPcuMbfpdZADy9iN6ov4LAdhuchT
+	 szsN8lCSn/oDpLYmUn4xo6ovvQ/pNJjmPyn0I57xnRKdrbbTKGjOB5vYYEUT6yAhuvw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795324401;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xumUc1z4t8VZUjAW7jTjjy2eWJ033Qs4zdr2uCuvqy4=;
-	b=GrvvmpfhH6vtqnwwQx9ZIw8SMUy0gyAFpejh+yJEpA4dMNV+y7+mXgLBV7SSEttZnzW0
-	 knjEIkhIxtgmYMJoopCBAl7tKdQiSjdkLS+cjeVA8ZeEOFBOKhdZvNZU1YNM3G6e23bDZ
-	 FpwK1w80WuMTslrX7AAiyj4TpF0tsXLmkBPnFHHRRDBhc3g6yMqKkv5pyEY7xP4/EfcCQ
-	 2bg3+oEv6totE8/qTYwPNE2/iL3UaG/RqyNqOeOTDANK9FjYBO8zfbp2dmHgVmF+RhB8a
-	 no38X2REDdryDD5yygx5ATDRI8owwuSghJUWbkZLUQ3UDfvzZ90MEaOYt7Nc9o0NoNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795324409;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=D3FHZwdzbc+DzBCXcwAt60rvyFF9oaH2jUzt7UMfw8Q=;
+	b=OxnhTGUF1v3GrEzUulqL7yHryBUE1s17OIJ6WlSxlMkcXWsYiJF/E03V74tk3pABdLKW
+	 6rTfET+2ECH87hU4oPKGQB79Z7xaWvmeSv0EBr6F4JwB6PQyDSfd6RGhoHDhJf89sMllt
+	 4upLXiM8+NptvB1icndDiJ4YF7P9jafeKArZ2PPn8lq6XV0Obvp2yekNV4b5P/VODNs64
+	 78Syyl2XF7IOa4tNvGRZGFdSYANoO6itOK+t4B6y0XoeiHE5w9uYpo5Q+oVo0WoVmRixv
+	 okYMrjlvmL77fjNo5uIWVsj0iKYd56c1Cl91jyyXsQklicpN+q4g+MwBmp8bCi6zskA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XSy48WZd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxiBqSJh;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6113E606A334;
-	Sun, 22 Nov 2026 05:13:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7BD606A33D;
+	Sun, 22 Nov 2026 05:13:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XSy48WZd
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxiBqSJh
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795324401;
-	b=PpbgP/a0nILS8ZyDatcGel/mhmCBvXhBfPxWhHPJNhiuvfoOP7ToNbxgHFC7HAe/iUEw
-	 FW8yzcxqStUNjeYdPfFJ/+3FnkZdDzVK9geeqzmGbgsjbq/aOoH2MBkkfHI8dlvVC4BNN
-	 fbCBpsthLS/WLsAftcw7bCfRJLQyswiybfJsUlFRRrhbx2wfbirz6NJ75p9oZACZNxPR2
-	 Dfdkr4Lnt1Yf0OGIiMUPFc9BnLLuJ4uooOiQpfjJYK70RG0H38S8A85CEkNrNa045GvuL
-	 WBVz3fLelaHhJC7+GLiHt8l/CSExZ162HIXgpPkkwUAKfNRX3NUPhCeTU6NyuOS/GPg==
+	t=1795324408;
+	b=SbALYnEakLPz5otuk1mj8aveGXfL6zj7/TF7pQSbuFWsQAoJpgnXLiZlT2fTD2i1dzVO
+	 I6L2KvHz6NgDqThJr1uqWtXISGQ3dwalD5msA9XRDN8+hfgArdkMXWgWLFebPpYFakBWi
+	 /PuPlKdEKqJJpi5ZAcAbdzImTRzBmAAmUIa2ZMj2XGjTacpw+zT3IlLqCCR2nYIgq8Y0f
+	 uunxSo/HNSib8P0DLOcVdpSs9wjvHg7Vv1uiuFW/SqhPzf9oRE496Mhzznr6WDonm7tF+
+	 CJ16/Kjtd/KmJyW8Hy92hN78eY2RXhHRb1+UaoFj/G+LPrYD0JcPIaKd19sOW9BuXUQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795324401;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xumUc1z4t8VZUjAW7jTjjy2eWJ033Qs4zdr2uCuvqy4=;
-	b=ZRLXdJzmw6E3MQqhi7WxQDi2vr3wbFy+du3DJ93YbObomGKMVUPpa+IMO9fOmlnhRXLE
-	 GJleNqxR7EztLhPAs59FuGaAtNAYp+SxPsFZUPMV8z7y5CiGcq+5ga7TG35BRWbWhc6mF
-	 CsnhBd/4j+2uRhjVwRDIzfbE6Sof/VzvHV22BG6c9DNRw8OuNJW7y2/gjUkIu3p5R0fwA
-	 Chdum4ZpNDx9R9UyEpuzsFGpbnlPk1+KkgLxkuRgYYBmc6w3TlZduaRebosknaEdRCGNj
-	 uvz4UMdb3ZBq68jws0lMoYkJynn6lOUt2kbfepx9KSMLulnkmS6xB1RFP3CPgycjexA==
+	c=relaxed/relaxed; t=1795324408;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=D3FHZwdzbc+DzBCXcwAt60rvyFF9oaH2jUzt7UMfw8Q=;
+	b=ZHIlr8hqcRP+VjCTr2Kl45jMdhYJMrRdSIqMflxXIUhB+SB3SLgNtMXcH5t/x0UEXons
+	 b3yERJjUbqjTArSXZ93T+/uvrHzR5HfQu6urwUiDg0vWTVGBPAeJ3fJopA/HJZjcOQHwn
+	 okeSylJojWdA907gIArvxggOl9wE1mfE7r2XRZn+zoRvmJe00O94dxsfaTuIyrlv0g+vv
+	 Odf5xGB09M43uWazPNsyuejpYN9r5cfWT+BilPas6wRgqnsZI/vaBMVpZugA7D0V3Ui19
+	 y8nPWo752zorjgikMYyDjYNE8Dl2xz2KZD03l/pvz08LjFW/uER6D0fFKZriW6h3JKQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 42AF11F000CF;
-	Sun, 22 Nov 2026 05:13:20 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 006131F000C6;
+	Sun, 22 Nov 2026 05:13:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795324401;
-	bh=xumUc1z4t8VZUjAW7jTjjy2eWJ033Qs4zdr2uCuvqy4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=XSy48WZdbwAyUjL7jONld4E8f1qPvDkX/No0RVPXX6gdcuQdbpIsb3hNxYnCixq68
-	 oiUwbsDddb09G4PCY6MdAmeyAR3AjdV5h7Es3LG3AsffIRiQG5Eo7sX2YGsKvjdB5n
-	 Cm7mEP1WSYsIKj97ahgrX+Do8QPO2v00iDKAb0jOFzgpgmQVEIpBjWTor08GAkYIvr
-	 TDJzh8bVADc9BWE8T7eZisdHHbUcZXs6fojOudIdtjZXgvUiO7xvvA+knbOig574b3
-	 NgJ5fcpEd/h723HKlvsP55IInXrM5VWzBKFOXq2o1kZ2o5O+2dNdQGglrduPjJhFS3
-	 LmTpwbMprXtQw==
+	s=k20260515; t=1795324408;
+	bh=D3FHZwdzbc+DzBCXcwAt60rvyFF9oaH2jUzt7UMfw8Q=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=TxiBqSJhH55ZWnrZF2Vh00jz3ZZMzoPU2dLMR+ZVKJYQt1rh0bPv8RLpM7LGo533j
+	 CmmLf3hhQ02b9/4BY9Yi+QkIhQXAoX6hhcEol633KPuOg67ukTKyxMKRKsKMCYAmsM
+	 Wfz/H81KIDXDeII3rk3yDbu4BSj5dn6ihn1lQ6mLhm57oN0VzvSeCk/v9kUzJyniJg
+	 2ZAIgftGc7S9H8Q1Ms62O+TcOcvEvBlc2oetvH6HKkqs+XUsyiiUA+cAsYwIXI4wLZ
+	 1u+RfvW6o5thIFTDMnG3svtadHM1W/K27G47kETblWuw8R8VoJ2XNIKQthz8MO13Dm
+	 BIvor3Sd1kMpw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C3AF44BF3E;
-	Sun, 22 Nov 2026 05:13:19 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 83C574BF37;
+	Sun, 22 Nov 2026 05:13:27 +0000 (UTC)
 From: EMCP333 via B4 Relay <devnull+emcp.enser.io@kernel.org>
-Date: Sun, 22 Nov 2026 05:13:17 +0000
-Subject: [PATCH 2/2] media: venus: vdec: Resume CAPTURE restarted during a
- seek
+Subject: [PATCH 0/3] media: qcom: camss: Interconnect votes for SDM845
+Date: Sun, 22 Nov 2026 05:13:23 +0000
+Message-Id: <20261122-b4-camss-sdm845-icc-v1-0-0671ef770fd0@enser.io>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,164 +84,75 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-b4-venus-eos-seek-v1-2-2e38912c7cf9@enser.io>
-References: <20261122-b4-venus-eos-seek-v1-0-2e38912c7cf9@enser.io>
-In-Reply-To: <20261122-b4-venus-eos-seek-v1-0-2e38912c7cf9@enser.io>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Stanimir Varbanov <stanimir.varbanov@linaro.org>, 
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPN5AmsC/yXMwQ6CMBAE0F8he3bV1irEXzEc2u0qa0IlXSUkh
+ H+31eObzMwKyllY4dqskHkWlVcqMLsGaPDpwSixGOzRXoyxFoND8qMqahw7d0YhQhMdxY5OTKa
+ Fspwy32X5vd76v/UTnkzvelUbwStjyD7RUKPKw9zuHWaysG1f+uk2bZcAAAA=
+X-Change-ID: 20261122-b4-camss-sdm845-icc-1d4cd8c3ec17
+To: Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Robert Foss <rfoss@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
  linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, EMCP333 <emcp@enser.io>
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ EMCP333 <emcp@enser.io>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795324396; l=5323;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795324405; l=1830;
  i=emcp@enser.io; s=ultron; h=from:subject:message-id;
- bh=3/BXWrEXd2DCO3KyLlWUnPPLDGGlTHRZ1gN4n0ZsF4w=;
- b=sDSfBsLC7bfj/YWIu4AnREfHjXZwskKQsEmeE3u+GfvyGX2kpdtY0wALgkzn5SkfMPQGc7BDE
- 9+b6OoQk4+vB8AYP0R/Ymrkq6j47bVTxWgxKxxKi0fPHlR0G3BtLLm4
+ bh=0eKhIZ+ChtKI73qyKB4ZI4olHiQz7Q9wrSL2FmVT5UU=;
+ b=/jIJzyp9G4JmqAhPZ393/BkZFtZPUci/21USxarhIHV2aEb6kzwHmXVbg00OrikYxV7dz66z1
+ J83cxfN9EFyAwqbrmz/kcDcguCUvsJlSZWfb678acfiVWdgKqWzV/qv
 X-Developer-Key: i=emcp@enser.io; a=ed25519;
  pk=5sG48Lul+Vn7OzXu3VZrCWk5uvEFPYMXYnAV0TZR/tY=
 X-Endpoint-Received: by B4 Relay for emcp@enser.io/ultron with auth_id=1598
 X-Original-From: EMCP333 <emcp@enser.io>
 Reply-To: emcp@enser.io
-Content-Transfer-Encoding: 7bit
 
-From: EMCP333 <emcp@enser.io>
+CAMSS on SDM845 declares no interconnect paths, so it never votes for
+memory bandwidth and runs on whatever the display happens to hold. With
+the display off, capture stalls: on a OnePlus 6T, 8 of 10 1080p
+captures stopped after 0-1 frames, against 10 of 10 complete with the
+display on.
 
-GStreamer's V4L2 decoder handles a flushing seek by calling STREAMOFF on
-both queues, then STREAMON on CAPTURE, then STREAMON on OUTPUT when the
-first buffer of the new segment arrives. On a OnePlus 6T (SDM845) the
-seek never completes: the decoder takes two OUTPUT buffers, produces
-nothing, and the pipeline times out waiting for preroll.
+Patch 1 allows the four paths in the binding, patch 2 gives the driver
+a bandwidth table for SDM845, and patch 3 adds the paths to sdm845.dtsi.
 
-The driver loses CAPTURE in that order:
+Patches 1 and 2 are for the media tree and patch 3 for the Qualcomm
+tree. The driver gets a NULL path, and so no votes, from a device tree
+without the paths, so patch 2 is safe on its own; patch 3 needs patch
+1 for dtbs_check.
 
-  STREAMOFF OUTPUT   vdec_stop_output()    DECODING -> SEEK, flush
-  STREAMOFF CAPTURE  vdec_stop_capture()   SEEK: buffers cancelled
-  STREAMON  CAPTURE  vdec_start_capture()  streamon_out is 0: return 0,
-                                           streamon_cap stays 0
-  STREAMON  OUTPUT   vdec_start_output()   SEEK -> DECODING, but capture
-                                           buffers are queued only if
-                                           streamon_cap is set
+Tested on the phone with the postmarketOS sdm845 kernel (6.18): with
+the display off, 10 of 10 1080p captures of 100 frames complete, and
+the camnoc HF ports vote while streaming and not when idle. On
+v7.4-rc2, dt_binding_check and dtbs_check are clean and camss builds
+with W=1 and no warnings.
 
-so the buffers CAPTURE was restarted with stay in the m2m queue and the
-firmware has nothing to decode into. A seek that restarts only OUTPUT,
-as ffmpeg and mpv do, is not affected.
+The same three commits also ran on v7.4-rc3: with the display off, 10
+of 10 captures of 100 frames, no camss errors, and the camss bandwidth
+requests go from zero to non-zero while streaming and back to zero
+after.
 
-Remember a CAPTURE restart that happens while OUTPUT is stopped in the
-SEEK state, hold the capture buffers queued meanwhile, and hand them to
-the firmware together with the DPB buffers when OUTPUT restarts. Clear
-the flag whenever CAPTURE is stopped again.
-
-Tested on a OnePlus 6T with this change on the postmarketOS sdm845
-kernel (6.18): three flushing seeks through GStreamer's v4l2h264dec, to
-5, 2 and 8 s of a 10 s clip, each preroll in 0.04-0.07 s with the first
-frame at the exact target timestamp, and playback then runs to
-end-of-stream.
-
-The code and this changelog were prepared with the help of an AI coding
-assistant. The submitter has reviewed both and takes responsibility for
-them.
-
-Fixes: beac82904a87 ("media: venus: make decoder compliant with stateful codec API")
-Signed-off-by: EMCP333 <emcp@enser.io>
 ---
- drivers/media/platform/qcom/venus/core.h    |  3 +++
- drivers/media/platform/qcom/venus/helpers.c |  5 +++++
- drivers/media/platform/qcom/venus/vdec.c    | 22 +++++++++++++++++++++-
- 3 files changed, 29 insertions(+), 1 deletion(-)
+EMCP333 (3):
+      dt-bindings: media: qcom,sdm845-camss: Add interconnects
+      media: qcom: camss: Vote interconnect bandwidth on SDM845
+      arm64: dts: qcom: sdm845: Add CAMSS interconnects
 
-diff --git a/drivers/media/platform/qcom/venus/core.h b/drivers/media/platform/qcom/venus/core.h
-index f521bccfe3..a6e898ca83 100644
---- a/drivers/media/platform/qcom/venus/core.h
-+++ b/drivers/media/platform/qcom/venus/core.h
-@@ -461,6 +461,8 @@ enum venus_inst_modes {
-  * @pic_struct:		bitstream progressive vs interlaced
-  * @next_buf_last: a flag to mark next queued capture buffer as last
-  * @drain_active:	Drain sequence is in progress
-+ * @cap_resume:	CAPTURE was restarted while OUTPUT was stopped for a seek;
-+ *		its buffers wait until OUTPUT restarts
-  * @flags:	bitmask flags describing current instance mode
-  * @dpb_ids:	DPB buffer ID's
-  * @eos_va:	CPU address of the empty buffer that carries end-of-stream
-@@ -534,6 +536,7 @@ struct venus_inst {
- 	unsigned int pic_struct;
- 	bool next_buf_last;
- 	bool drain_active;
-+	bool cap_resume;
- 	enum venus_inst_modes flags;
- 	struct ida dpb_ids;
- 	void *eos_va;
-diff --git a/drivers/media/platform/qcom/venus/helpers.c b/drivers/media/platform/qcom/venus/helpers.c
-index e0bd2b0478..425caf6b34 100644
---- a/drivers/media/platform/qcom/venus/helpers.c
-+++ b/drivers/media/platform/qcom/venus/helpers.c
-@@ -1512,6 +1512,11 @@ void venus_helper_vb2_buf_queue(struct vb2_buffer *vb)
- 
- 	cache_payload(inst, vb);
- 
-+	/* Held until OUTPUT restarts after a seek: see vdec_start_capture() */
-+	if (inst->session_type == VIDC_SESSION_TYPE_DEC &&
-+	    V4L2_TYPE_IS_CAPTURE(vb->vb2_queue->type) && inst->cap_resume)
-+		return;
-+
- 	if (inst->session_type == VIDC_SESSION_TYPE_ENC &&
- 	    !(inst->streamon_out && inst->streamon_cap))
- 		return;
-diff --git a/drivers/media/platform/qcom/venus/vdec.c b/drivers/media/platform/qcom/venus/vdec.c
-index a49acef5db..9c076379ed 100644
---- a/drivers/media/platform/qcom/venus/vdec.c
-+++ b/drivers/media/platform/qcom/venus/vdec.c
-@@ -1044,8 +1044,17 @@ static int vdec_start_capture(struct venus_inst *inst)
- {
- 	int ret;
- 
--	if (!inst->streamon_out)
-+	if (!inst->streamon_out) {
-+		/*
-+		 * CAPTURE restarted while OUTPUT is stopped for a seek, as
-+		 * GStreamer does on every flushing seek. Its buffers can only go
-+		 * to the firmware once OUTPUT restarts, so remember it for
-+		 * vdec_start_output().
-+		 */
-+		if (inst->codec_state == VENUS_DEC_STATE_SEEK)
-+			inst->cap_resume = true;
- 		return 0;
-+	}
- 
- 	if (inst->codec_state == VENUS_DEC_STATE_DECODING) {
- 		if (inst->reconfig)
-@@ -1130,8 +1139,17 @@ static int vdec_start_output(struct venus_inst *inst)
- 				ret = venus_helper_queue_dpb_bufs(inst);
- 				if (ret)
- 					return ret;
-+			} else if (inst->cap_resume) {
-+				ret = venus_helper_queue_dpb_bufs(inst);
-+				if (ret)
-+					return ret;
-+				ret = venus_helper_process_initial_cap_bufs(inst);
-+				if (ret)
-+					return ret;
-+				inst->streamon_cap = 1;
- 			}
- 		}
-+		inst->cap_resume = false;
- 		goto done;
- 	}
- 
-@@ -1236,6 +1254,8 @@ static int vdec_stop_capture(struct venus_inst *inst)
- {
- 	int ret = 0;
- 
-+	inst->cap_resume = false;
-+
- 	switch (inst->codec_state) {
- 	case VENUS_DEC_STATE_DECODING:
- 		ret = hfi_session_flush(inst, HFI_FLUSH_ALL, true);
+ .../bindings/media/qcom,sdm845-camss.yaml          | 20 +++++++++++++++++
+ arch/arm64/boot/dts/qcom/sdm845.dtsi               | 10 +++++++++
+ drivers/media/platform/qcom/camss/camss.c          | 26 ++++++++++++++++++++++
+ 3 files changed, 56 insertions(+)
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261122-b4-camss-sdm845-icc-1d4cd8c3ec17
 
--- 
-2.47.3
+Best regards,
+--  
+EMCP333 <emcp@enser.io>
 
 
