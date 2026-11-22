@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795354563;
-	b=uyEttbTnjSsNaQgJdv34mlK00qC39fXFGB3rDetZqiuqvnoF+X9kV3ULSf9kOkcYAhTf
-	 Iq9x8Ho5YLseys04bTPbUhQ3k5olk3mUQ05ehRLAn/gXR5cEbwcJ7hbfjit+PGANnnBZp
-	 tWSgMtITDmHHW51ObwKLmxFlQhtVI5Gg/mp5PnC8QuasMqRjOp203MwRhhwWmoOWbJ2hl
-	 nxkEAt4d3tfcnw6mRwkaflLahR/tZX++smsMoOEUm27YAwG2N4VOAUmoxZecDWxUa99Oo
-	 wdRJ6px9NiWhKb9ZgGPk9Yx18NR75QUaMGq1DGSCHPKtjgYw6NLk4nFD23yoIVj+D1Q==
+	t=1795354564;
+	b=5d0Or2zDd26CqFDfB7Qbc9M+qLnVkT83b4ojkg48YmwJYYXGu0c0oST1LC/Rl/BYHXza
+	 Ao1DxQ9c15MvwPnQsNGrNg6Vmll586FNk1s7rBvFb39fAV4k5Hm82Iu6bHxbz9we6j8kU
+	 lxoT7zAe5Qz/Oh3HJKXxLYsDgNtmiE7L+jurHcJZx5tAMbDiXm3cTZaSPWSOCh03ShxPx
+	 h7Oz/q0cfYfVbVuXEA2Cb+5MSA0gfItJxZMjZKhJNi9DIlaflzJnv98pzpfrHWhMSXqXT
+	 4VtkzrLzEjDkFaHWo0VI+lW/LZ4K3iDzRb267QkPhth8tlzPJ7UpqtLWPIcNpM1Qqtw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795354563;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795354564;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=0tuOivg5ChLx19EHxXqO3UQCSOt1zkhAShfYbzfVufA=;
-	b=vLDa5JOZQuT4c76hto2Ii7/wkoQffWWGM8nMRahGLIRZwRBwb4Fa/hgeXiNEO0Y4gjpJ
-	 /IVSSuH+IZU1OC37+j+uNQdM0v6tseEHRKYo2fiszY5e1/82upoy4/5WTAsZ2AYdrtSfR
-	 Bxge2YW4S/64vjoARGggY+u9PgXXRFU1eKha7YmWOfN6ng1shMRE6Y1NdZbXkudqPL+yM
-	 kgHCN+huYaZA7ArOOrr9rgPZ3k9HDP2S2E/ZwKhgAFjP2Xfg+317P5ULRy50LCOJ5sONg
-	 rU27VpXggbzu9rAW5g7R09ywWp+sBv3u4E24WuChLURSTrhwUZSSkfz7MBWlzw9v2+A==
+	bh=c2QsuCWDPbRYUWD6G/mIRpsT/4H4rCgNsdnchtMOxKc=;
+	b=e8UFZo7m0JV+rHs8ykpgrUOK3ht40LIXF4T0pzER+BRFI/DWXYM9VKNGVjlRkglonqNQ
+	 wgDSwZcdXJhJJjK/IzAMnmDXFHCTQNe2w+Qju5sHBsee7/dNBwUl5Dv7p3fHpdkdxmkhG
+	 S+Dig/DYFRhkRFYkTNmt0MX5eowEqRUx5hNhXJX6yNmgzShICh8ItZQZYlOvyqebtx0P/
+	 0eCV1EZ6hg5ikOPGwMXyWKGjnu7ppkgBsVHQixUWDFAxPDG7hEBuhODasqPe4u+YRc6P/
+	 OLz8lWTCd2JyhPlk3aG6vt+uWwbkMDNtpJbpil/MqwdZ2/0bYNrqNsI+XoHf8pJSZbw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q8c93KjS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NcFZB66M;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B06606A333;
-	Sun, 22 Nov 2026 13:36:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81355606A339;
+	Sun, 22 Nov 2026 13:36:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q8c93KjS
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NcFZB66M
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795354562;
-	b=IIRBZfvDfC43ALrU7GL/rh9m0kmRkncRWhPBbwmN4g43BMJoSpITuLFze/XNE1ugSQ6D
-	 stz3glmOg50d7yIp+p5HscigOC5Mscmfs8R+I+5nYi9aPOZ+f1Ye2386BH0t5iFyIoxC8
-	 JNkumZH295W9yU2RZ2QyfKxSj9xATZbsdsVUg/5RwWwrDVRKKyr9FgpN8ULmtOLp5kbQs
-	 WTZ1cscsdkPQ5yJPGBvHlCalAMMWzVXoKsdpCQ4jB0ewOU9j6GwvkAKdfHJ3X4YcdF0OV
-	 f/+j4gPaK5Ch5Yo0yuNkRdldm6q+9p8cz+Km2i6LXujuxqMfBnnupsoOK0Rpxk1h1gA==
+	t=1795354564;
+	b=JS9YdSHLt0BQXVpZv7UJZVcjAa/Ijdsc8RMNr7+RLaVYzljDXJs5YoPgMgQAF4R9ycCu
+	 ogyhbuRC92Br/Z87VKTCntKB2L5ueLfHhsZpq4goI+1irSyBTaWSTJH1uUOtgIMpEuF6X
+	 qSBBb92bt/KtMFicTnZVLrUJB+YXDaUT/awafUHe0RVnArPpTfnSxje0iCeulNmvCAfDU
+	 LP23nblxGebQdlUgYBFB+p7sovKIGGO3sY8rejWxIwUK+drxS2lL+ixxaCrGm+Ffz3JWD
+	 q5wM+nekLFZGawSf1nPsAVDqmBAAlyBJ42EHTA2Mlm9S6XvzadGkAWz0kVursn4xG0A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795354562;
+	c=relaxed/relaxed; t=1795354564;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=0tuOivg5ChLx19EHxXqO3UQCSOt1zkhAShfYbzfVufA=;
-	b=TPpYkM/3uXKFd480C3+TXOOwePRDoWNGFL99wGtltSkBXkWCdI0qerCD8T0cud/pBQ3O
-	 vogUxTKnQRuHO+OVWlHQKNyQ6rJxu90KBfysENVQi75bI86C9/9wuYFTKRl59JBDokLDP
-	 MAvsL5EnwtUonjGULqOUVQsHfKWI63Enu4z0nORFiSojZDYIPtpvnRJh2RQyh7jf49bg4
-	 tdV25uS4THXYk8vXvtEXnIgILY637+3m1DbhmB8Dkw+UrwUpegUfKgAdvLric6uJsjo1D
-	 kE2HSsKst7ksQ5SH/26Ttwx448bRTqEqDGzgoTxHndWFOhhCEU4iDmR6OrCEFbtEEmA==
+	bh=c2QsuCWDPbRYUWD6G/mIRpsT/4H4rCgNsdnchtMOxKc=;
+	b=jh/+TUGl5OQqQxPCRoIymMfu18GqfK31fH5kw/r8Xe3p63FkHkzqp2fTcR2MYlD4SVA/
+	 FnHQEVl72uqaYSZfg0uzPYNn0aaRDemDi8/O0vDgS1y+H94TdZoT/tqPfbxU9R4hkXtJV
+	 NcVmzXv2S51eof7+rHlTaO2tBO1jeoKgOfw2zZ8RowUBqFCdOusmDKVmP8FSETKWyktKC
+	 tqaICSNFOTdWHVuoN0zwJCes3f85A37Vjoyflo+MXgNt6H66U+PmNu3u3weiqa14fO2uT
+	 P0C2QeO9xan570kV0kgy4nYsEWaWdzx+OExU6hSs5He8xguldLlxqq4jDo09Sgetm+A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C3DFD1F000E6;
-	Sun, 22 Nov 2026 13:35:51 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 1B7B41F000EE;
+	Sun, 22 Nov 2026 13:35:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795354562;
-	bh=0tuOivg5ChLx19EHxXqO3UQCSOt1zkhAShfYbzfVufA=;
+	s=k20260515; t=1795354564;
+	bh=c2QsuCWDPbRYUWD6G/mIRpsT/4H4rCgNsdnchtMOxKc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Q8c93KjSEiseDyh1b5Hcwx0Z/VdEk6Rwx56CZmn2++D70xAD4qNCNkn/uzX6mnh9j
-	 lEHCxUhewgDQXA/v3roiyHGr0W3G9PmZzHOfQvKg2CTDgpQ0sWNwfxu555WF0goyxq
-	 DRh7m48NyZizInPGiKb05gMLATDUegARa8dKujSCTz55BBH87exxG7Y4kvzBXdiwuz
-	 wMChHlyioBKxx3aSjp8vQVLftKNRDnSw2H0qBQIziowN21642Dhqvb2LAWXIhJHIbJ
-	 gvK7Ui5FNCC7ZTxsZW3xfpnTTnQjbv0BlKsNHWDmJZepONntVXr/nrZUzWDsuQvAkX
-	 8PFHLs1yXeP+Q==
+	b=NcFZB66Mow62BtzDz37VDh92KIOAjiRK4sa2FMarg0G6/qe76b2YCggFBRVQG5AVM
+	 enToKFayeabzLZ2al7KLaCCDNEzyBtpl91sxIgWiuFIcoO603YFHXQtVDEEnVl3DtZ
+	 IDimh5G9OQrY0o1BhswvMfdfneDv2EDDdj0fCllyc/R4R7qFpp3fcHPL81QHh5GiKX
+	 fY/4O4AGDAFAL8ExaC++ZAFx1Q6VfOSsDVnR/y5R6tw8rozdE4HtCxMPYZYYR52fFV
+	 n0V/rBYVRJQBxCfhFQJjxI9DsavJNdV93EDy7Vyrlkp6RV0hjFxT4C+LCN7Rjkyepw
+	 S+zhmoaGJZM3Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 51C224C0A6;
+	by lkml.kernel.org (Postfix) with ESMTP id 9CBAB4C0B1;
 	Sun, 22 Nov 2026 13:35:51 +0000 (UTC)
 From: Robert Ijtsma via B4 Relay <devnull+robertijtsma.gmail.com@kernel.org>
-Date: Sun, 22 Nov 2026 14:35:49 +0100
-Subject: [PATCH 1/5] media: qcom: camss: vfe-17x: check status1 for RDI SOF
- interrupts
+Date: Sun, 22 Nov 2026 14:35:52 +0100
+Subject: [PATCH 4/5] media: qcom: camss: vfe: destroy mutexes after
+ unregistering entities
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-camss-fixes-v1-1-9df4deb87ea2@gmail.com>
+Message-Id: <20261122-camss-fixes-v1-4-9df4deb87ea2@gmail.com>
 References: <20261122-camss-fixes-v1-0-9df4deb87ea2@gmail.com>
 In-Reply-To: <20261122-camss-fixes-v1-0-9df4deb87ea2@gmail.com>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -94,11 +94,11 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  Robert Ijtsma <robertijtsma@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795354550; l=1123;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795354550; l=1478;
  i=robertijtsma@gmail.com; s=20261122; h=from:subject:message-id;
- bh=/XplKxzo3xBe+qvINmUy9iYAgDI+ymaYkcn4JNfIyLM=;
- b=THI9NN12J8zHoYM+F9D7O4jV56puBXikRwbTvHTZW5S8l23e/4DVDRNNeeVT3upVMGxykRLZL
- 0IuSQQ7CGkSB0E0dooOCvWZZuZEr6x3Ln1bcUjEcagTO4WkUK4TuQPV
+ bh=fxXjZCpKylb9Zdw8zET2pjCmttHE0rto+mTxN2BDIWI=;
+ b=YHXFpQxs2/W8ARGIle65Lw9LvWpUEE055taSUQaSxu5nCxWhzkom10uFC7X6miUT9wIX7R+kV
+ Zf4rrwzAcsZB792k2A/iw44uW4YIyT2Tv9im58IT9o51kpxmaLPg0BD
 X-Developer-Key: i=robertijtsma@gmail.com; a=ed25519;
  pk=qiDyKVqFicxFIR5sB5m+p9SWPKL2/+mMoiQnUx0C9P0=
 X-Endpoint-Received: by B4 Relay for robertijtsma@gmail.com/20261122 with
@@ -109,31 +109,44 @@ Content-Transfer-Encoding: 7bit
 
 From: Robert Ijtsma <robertijtsma@gmail.com>
 
-In vfe_isr(), STATUS_1_RDI_SOF(i) is a bitmask for VFE_IRQ_STATUS_1
-(status1), not VFE_IRQ_STATUS_0 (status0). Checking status0 instead
-tests the unrelated STATUS_0_IMAGE_COMPOSITE_DONE bits (27..30).
+msm_vfe_unregister_entities() destroys vfe->power_lock and
+vfe->stream_lock before unregistering the VFE video devices and V4L2
+subdevices. Active userspace handles or concurrent teardown callbacks
+can still acquire these mutexes until the entities are unregistered.
 
-Check status1 against STATUS_1_RDI_SOF(i) as intended.
+Destroy power_lock and stream_lock after all VFE entities have been
+unregistered and cleaned up.
 
-Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
+Fixes: 4c98a5f57f90 ("media: camss: Add VFE files")
 Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
 ---
- drivers/media/platform/qcom/camss/camss-vfe-17x.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/platform/qcom/camss/camss-vfe.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-17x.c b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-index 62c2405..502a0d4 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-@@ -356,7 +356,7 @@ static irqreturn_t vfe_isr(int irq, void *dev)
- 			vfe->isr_ops.reg_update(vfe, i);
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index ad09593..fe6b7ef 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -2168,9 +2168,6 @@ void msm_vfe_unregister_entities(struct vfe_device *vfe)
+ {
+ 	int i;
  
- 	for (i = VFE_LINE_RDI0; i < vfe->res->line_num; i++)
--		if (status0 & STATUS_1_RDI_SOF(i))
-+		if (status1 & STATUS_1_RDI_SOF(i))
- 			vfe->isr_ops.sof(vfe, i);
+-	mutex_destroy(&vfe->power_lock);
+-	mutex_destroy(&vfe->stream_lock);
+-
+ 	for (i = 0; i < vfe->res->line_num; i++) {
+ 		struct v4l2_subdev *sd = &vfe->line[i].subdev;
+ 		struct camss_video *video_out = &vfe->line[i].video_out;
+@@ -2179,6 +2176,9 @@ void msm_vfe_unregister_entities(struct vfe_device *vfe)
+ 		v4l2_device_unregister_subdev(sd);
+ 		media_entity_cleanup(&sd->entity);
+ 	}
++
++	mutex_destroy(&vfe->power_lock);
++	mutex_destroy(&vfe->stream_lock);
+ }
  
- 	for (i = 0; i < MSM_VFE_COMPOSITE_IRQ_NUM; i++)
+ bool vfe_is_lite(struct vfe_device *vfe)
 
 -- 
 2.56.0
