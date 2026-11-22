@@ -1,97 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795299672;
-	b=OneZd6qGMrcr5IZyHWryHoP4gSke0juPfGl+3mov8soyonnR9y9FkEyMgC62QCSEHqs5
-	 YwRBPTW9HqoINs9Q7KDFUyZpreki2XKdU6WpAqz5Ho42hreUn2LuSQwnvmT/BeyvON0fR
-	 XGzQcgZZyarz+YaT/AEAhyJdP1hpuYVlfGIBCNLsTvcsC5WeMY96UbXSTpxcGXfgYPcd7
-	 YOF6tjgBwVXj4PqYQYVm9TUFf1109RMjlIuADl2+HIx80a2WqcNNQ32aD4lUDtpsQ2sXV
-	 B5eOdma2pi5WSZAKm9Zhm/u+0N4z4iAMpqHoxoDV5gISl+RvXbEE9C3W43vuSzT+sNg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795299672;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:MIME-Version:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Content-Type;
-	bh=5eUjyD6lMD32t5ZqTm+/uDRHmI2UXnPx7e+71IoFIgc=;
-	b=AaaosHfzwxw2HmNpyjDmU7Fatn5jFopuitINWSoLgFizMGOuDnFcOxLYoOe/Yom1iUSW
-	 VLz0TyYWJywqeKBAdA+gcyOEmbigAkyUM48KJ8Pj9ZPPnvF+j3pvrKlFclS6lPxvc0Fgf
-	 clz213Zl2x5gnn56N08Ovf7teAKHs8CPDZ2rtesjQ4Mz8E7UAWINNSlpiKGMR0RvHJpvD
-	 U83ZNuR1nx2XWZpMLR0OEwWbQ/iCBgDGNqMY8AFTjgUKlCxfx5dPVxH91/xqpbuXrVGcB
-	 uw27OXSVOtaa+Ne1RBnKZX57NyIWm3H2l63hatE/DJ954bWYkprTYrNQbW7NwD+FIGg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="eNxPlR/g";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.25
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795305923;
+	b=mpEMandBnChy+j4thqMzrJohOioGe1Aglr7LP0m4ksi7YxLq3mfdkJ1Dm0F7SYmvy1Xn
+	 8kTa4ci+JNiiPzf05FDFQO1hkaNiNk/0O3tvDrTMAt3qypuG4A60VlFuWSvkOa5h7L/iy
+	 6/KhCTd+Q8X8NaPIs0tvQSKtHJ6StcPFaTC8eENFKIjgsU9kr/ZqISi5ALE9GvsJuKtP8
+	 H7ZGUjEduVP+rC/QkoanRxQNbxHrlcPaV0PKgN94GRQTbFBARxCM38vLjDgczDleDJ5Q7
+	 /66E4k5fuwAg02GMex/+hZfUk9pZM9MA8knTEJtDc9aizFeISq3Mv0PLONdUVVxQrFA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795305923;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type;
+	bh=GjZ15nH+Zr9dV+VfJP4mz2smNi+U2Ekt9QMOm/mP68c=;
+	b=ei6o0h5ZYwmS1k3En4FfrDaOQHPYzPvdSB9l9fJ3jHsFB7s+rD/RDw82nNFdTi2QnasJ
+	 nRdDCQbVbbc5Ylx8FZYpNqYfUrVbTkjWFXkMs3qma0lBpSAUYDP1D95srXkxGYgbklHkG
+	 G1maMpHxGiDTgE/1zR42rFGUWHbMPou54+CwAuO3b0OlEGs5MERFgyRRWHTQtcwKyT+hx
+	 8rkOmXgBGQ6C1zAhdrzceFYCb6kEVGa/GG88r3KHY1XF4ra+JxHuZ5f6nJAhJIsSwpSFB
+	 SwAHayQEMzCMn8rbaeedqVX7VwrfwObxKIFbiF5Xq8BoQ8PgtMSAFrCVR08HMQCzCCw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=f5c2wPln;
+	arc=none smtp.remote-ip=185.70.43.25
+Received: from mail-4325.protonmail.ch (mail-4325.protonmail.ch [185.70.43.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E43A606A32A
-	for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 22:21:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E43A606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B2D606A320;
+	Sun, 22 Nov 2026 00:05:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00B2D606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eNxPlR/g
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2f05b465cd1so5783345ad.3
-        for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 14:21:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795299672; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XyPPAOKoIrnjPIASGG2msRLGhy2JO2opH8D695B0f1OO89/pmrcZuPo+qVeoy2Bc4c
-         PX/y4K354efrow2sRYS0oka2bdmOOmU9g9ZN1SAclaKi/odcxo+2YBdbG81qPSqPtn/2
-         YUB+yZYxzqJH/jJMuk4z7qvI82QnrnbrLhnjZk18EspaygGkYRCW72aIHp5ultelbFyy
-         o+d2I5l4lVVqo8VphiVGyXZV4F1LJJX7rrZQfn/vJ8w/rfeCVm/6PpmxjRL0/7Tr2tv2
-         xrWNgn8PUS/8GvoFLTCEk8BXz2bBbZkuPY24plXcHO0PlJK+LiMDSuJdKjEsaNkqeNtb
-         fl+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=5eUjyD6lMD32t5ZqTm+/uDRHmI2UXnPx7e+71IoFIgc=;
-        fh=AcFltS6jZL+HMsn34kNvRnhCUI0uWVII61gQbxqEcS8=;
-        b=aLS0CAO71Oz7m7kglkVFhtj1aP5I3U1DpWwzl3OvRapgb55Sw6k9RGF7aWggAlJJzR
-         sei38T3yIICpyUB/Hn6KEJHzFSXxXACEiL2Z0I84XZzLQXhVLrk58lrFpqsEkHwxK/CR
-         Qv71fAEZ9oph/GGYuiPK4wMynbmm64/ctJA7GlMsrFFd1IyOgcwZxnar+cROGETYuJxR
-         96e8NsCQZNPnMOW38ghRnWRow2O8WARLRGMFwbFtXAMbkNATbjPiF/7CYK2emRMeGdab
-         mUTBVkh6TosF6qEQ3O0QYg0bORq8g88r6spZnhSupJUaeEivHma+dweY9TKvxBbSa/b2
-         ai1w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795299672; x=1795904472; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:mime-version:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=5eUjyD6lMD32t5ZqTm+/uDRHmI2UXnPx7e+71IoFIgc=;
-        b=eNxPlR/gmFsp9E5slMfUGlzAXHTjBEwdCsPq3joo6TCrIWWLOOBFMhMqnqyshtkoBO
-         cLglt3f3s2gHHs3x2Y+HesRznH5u/M0gi4q7hbVgCx/kSvYE690L6ZKSL/Omj7gHGvtO
-         58BtaJ2/DjDcMpnM7Rjb7AmMzF0uxqlG9CzQIjDODJbEUOuyBRb8FBeWtIKQ10SmsmCz
-         zXSJIt6gWTQYXnXWMOOMC7iwN1y+Tg+HbY1Syig/gldz8p+pukJOhx4jLlHQyng7q8Hg
-         O4YdLSiOJl9x+xsSDN2J730Ti9Xg8L1YrjxehYTBmf8YHiNJQahpsabsHtIZLCiPV0e3
-         DENA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795299672; x=1795904472;
-        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5eUjyD6lMD32t5ZqTm+/uDRHmI2UXnPx7e+71IoFIgc=;
-        b=wzHVQefikZmhN7SGYFAFP0afCfOnJKpEIr6gRJOT7EteOKplZvjuWaLMw4PQWsZBLj
-         +kRdwRZpdXwNvS1WkXQdeSCbEJm4RCrUF0dZtnvkPHZrTlVH66QpGts7NRt5ZrUPiy8l
-         HPn252EEym1h5SpBLRu0ych659DZrzbOdud7yBMjYEZaRs7Ec1WQZ1iebGIM/g6MGtjx
-         q93PxuXvNbkc815z5OyaWLrIfVJUPxna5Aoc30w7l8MUQ95uV89+3+sVhWI3qMTwrKG2
-         KafmWgj4c4kubgGb42i5KQtKghGRdS6FC2CNyr6hA2L7HutZ8WaThj4RejSWBMiygW5H
-         Pc/Q==
-X-Gm-Message-State: APuU4Z9qLW1JdczWBQuUWypcspSPIzLHJdL2pSy5IzMLZmBU1uKUn3PU
-	8ezN0qFDOFzB+t/ghEHlvrpbAi4FGOC+9ZHMbW8OhuYD7dXQEtEctCYG/wC9RjCThFjnMwkc8pm
-	woiOGT3YI2GyJkaXi/3LLxRk54V6FsX7iVP33
-X-Gm-Gg: AZFdTZeUJpYYmdPDkPLHjYc2ANXP+15NXkMEgdShsdxOvCr22K8vf/jn2hrN+UUB457
-	2DFmlaB329rONVZgEPy97Z0chu76VoGqBwEw+GTl1JsTfMyU06wPXe2XgYbaXw3FcCITnqlfZs7
-	ot5EMwRtYq48Ef5fY17ub44uauzlN68/bgCYPB+iFfHrOCLv4kY+VU7IIbNQcpXXAlSISkvPZdF
-	haerh6giNLvD/H2th1XTJ06lMRNXEwzV+Md9jqyPfihD1UeC4j2ILu9Cmg7H6EP9Qf7GFtm42iF
-	+zw2e/h41tz3Qa5if337GsdQbj6RY0RsbAg7OdMIxsHau1hx24dkXhsvPIqJhNY45NDBVxHONGf
-	1E0DhQhX3pC8RccdEbll2jIVvthjF9QfMZjaY
-X-Received: by 2002:a17:90b:2c84:b0:3ac:a203:e092 with SMTP id
- 98e67ed59e1d1-3b41c7b6864mr6590328a91.1.1795299671894; Sat, 21 Nov 2026
- 14:21:11 -0800 (PST)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sat, 21 Nov 2026 14:21:11 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=f5c2wPln
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1795305920; x=1795565120;
+	bh=GjZ15nH+Zr9dV+VfJP4mz2smNi+U2Ekt9QMOm/mP68c=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=f5c2wPlnjKmm2QADBvoaVdvS2RlJI75kJu9QhfH6gB6I1860erVlK0FcvwrTdQ5HS
+	 2HvN2M49tDYHjo+fmAG2QMLK2dOcx0msRyIYHvw6VOV2z9ahCPVzDPwIT7ZcIRAJVE
+	 /Y1t7C9bAE+rqd1YbbjEeSyf30A1oKTaN5e2AzsiFLhwmt+p4ObUp3fKK8gr2OvnZ9
+	 kvzqi0pRCPO1OLRVceje2OhbppdYKd6erAIpLz7qR5JCUrpNBsatQZH/Jb7KrXIUrh
+	 Dokc7df1Aw8/9qk8THLzNPMWIkE4w1j0i77Y9Lw3x/c+zlmXapLZBVUZN29r62JmDl
+	 oVEVL27kGJULw==
+Date: Sun, 22 Nov 2026 00:05:17 +0000
+To: "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>, "christian.koenig@amd.com" <christian.koenig@amd.com>
+From: Falconet3 <Falconet3@proton.me>
+Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>, "axboe@kernel.dk" <axboe@kernel.dk>, "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>, "asml.silence@gmail.com" <asml.silence@gmail.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [PATCH] dma-buf: fix leak of ctx and dmabuf reference in dma_buf_io_ctx_create() WARN path
+Message-ID: <htm5h9oaY-vk0g9JVYJmz5XCaKe_nPoWkUJYJqDulyNvv_sAWfzSMp0T6GWt5okc8R4SyvXXpJQ3VGhetKnjEa2KGem5uCYdxpmdzUFf6XA=@proton.me>
+Feedback-ID: 48740069:user:proton
+X-Pm-Message-ID: 702b096feba5ccb2efa67b42272d49e6cc5e4207
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -101,62 +60,55 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: geoca <geocausa@gmail.com>
-Date: Sat, 21 Nov 2026 14:21:11 -0800
-X-Gm-Features: Aa3M54oWaGiFdEs4GnyFcYKj9Je7NUEFv5NSE69434b6Hqj7oww9wqh-UlyJq4A
-Message-ID: <CA+7HbhKKt9thtbS0AR2Gi_Asm5X3pT51xEknuHreyHO2RuWuwQ@mail.gmail.com>
-Subject: Surface Pro 11 OLED: tested optional vddio for DW9800K (re: [PATCH v4 0/3])
-To: linux-media@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/mixed;
+ boundary="b1=_abzXme9ze1hXxLPsku0U8W6cWhzMpEqIMQF3RF8w4"
 
-Hi Griffin, Sakari and all,
+--b1=_abzXme9ze1hXxLPsku0U8W6cWhzMpEqIMQF3RF8w4
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Resending this note in plain text because the earlier HTML-containing
-copy was rejected by both mailing lists. The individual recipients
-were already addressed separately.
+(leak of ctx + dmabuf ref on the WARN_ON_ONCE path, new file in v7.4-rc1, p=
+atch attached)
+--b1=_abzXme9ze1hXxLPsku0U8W6cWhzMpEqIMQF3RF8w4
+Content-Type: text/x-patch; name=0002-dma-buf-fix-leak-in-dma_buf_io_ctx_create-WARN-path.patch
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=0002-dma-buf-fix-leak-in-dma_buf_io_ctx_create-WARN-path.patch
 
-I have hardware results relevant to the November 19 DW9800K v4 patch
-series on the Surface Pro 11 OLED (X1E80100).
+RnJvbTogRmFsY29uZXQzIDxGYWxjb25ldDNAcHJvdG9uLm1lPgpEYXRlOiBTYXQsIDIxIE5vdiAy
+MDI2IDIxOjA1OjAwICswMDAwClN1YmplY3Q6IFtQQVRDSF0gZG1hLWJ1ZjogZml4IGxlYWsgb2Yg
+Y3R4IGFuZCBkbWFidWYgcmVmZXJlbmNlIGluIGRtYV9idWZfaW9fY3R4X2NyZWF0ZSgpIFdBUk4g
+cGF0aAoKVGhlIGZpbGUgZHJpdmVycy9kbWEtYnVmL2RtYS1idWYtaW8uYyAoYW5kIHRoZSBpb191
+cmluZyBkbWFidWYgcmVnYnVmCmZlYXR1cmUgb24gdG9wIG9mIGl0KSBpcyBuZXcgaW4gdjcuNC1y
+YzEuIEluIGRtYV9idWZfaW9fY3R4X2NyZWF0ZSgpLAp0aGUgZXJyb3IgcGF0aCBvZiBpbml0X2Rt
+YV9idWZfaW9fY3R4KCkgY29ycmVjdGx5IGRvZXMKa2ZyZWUoY3R4KSArIGRtYV9idWZfcHV0KGRt
+YWJ1ZikgKGRtYS1idWYtaW8uYzoxNzgtMTgyKSwgYnV0IHRoZQpXQVJOX09OX09OQ0UoKSBwYXRo
+IHJpZ2h0IGJlbG93IGl0IHJldHVybnMgLUVJTlZBTCB3aXRob3V0IGZyZWVpbmcKZWl0aGVyIChk
+bWEtYnVmLWlvLmM6MTg0LTE4OCk6CgoJaWYgKFdBUk5fT05fT05DRSghY3R4LT5kZXZfb3BzIHx8
+IC4uLikpCgkJcmV0dXJuIC1FSU5WQUw7ICAgICAgICAgIC8qIGxlYWtzIGN0eCBhbmQgdGhlIGdl
+dF9kbWFfYnVmKCkgcmVmICovCgpSZWFjaGFibGUgZnJvbSB1c2Vyc3BhY2UgdmlhIGlvX3VyaW5n
+IGJ1ZmZlciByZWdpc3RyYXRpb24KKElPUklOR19SRUdJU1RFUl9CVUYgLyByc3JjIHVwZGF0ZSB3
+aXRoIElPX1JFR0JVRl9UWVBFX0RNQUJVRiwKaW9fdXJpbmcvZG1hLWJ1Zi5jIC0+IGRtYV9idWZf
+aW9fY3R4X2NyZWF0ZSgpKSB3aGVuZXZlciBhbiBpbXBvcnRlcidzCmluaXRfZG1hX2J1Zl9pb19j
+dHgoKSBzdWNjZWVkcyBidXQgbGVhdmVzIGRldl9vcHMgaW5jb21wbGV0ZToKa2VybmVsIG1lbW9y
+eSArIGRtYS1idWYgcmVmZXJlbmNlIGxlYWsgKERvUy1ncmFkZSkuCgpBZmZlY3RzIHY3LjQtcmMx
+Li52Ny40LXJjMyBvbmx5OyB0aGUgZmlsZSBkb2VzIG5vdCBleGlzdCBpbiB2Ny4zLjUuCgpGaXgg
+d2FzIHZlcmlmaWVkIHdpdGggZ2l0IGFwcGx5IC0tY2hlY2sgYWdhaW5zdCB2Ny40LXJjMzsgbm90
+CmJ1aWxkLXRlc3RlZCBhbmQgbm8gcmVwcm9kdWNlciBhdmFpbGFibGUgaW4gdGhpcyBlbnZpcm9u
+bWVudC4KCkZpeGVzOiBGSUxMLUlOLVNIQSAoImRtYS1idWY6IGludHJvZHVjZSAuLi4gZmlsZSBJ
+L08gLi4uIikKQXNzaXN0ZWQtYnk6IExMTSBNaXN0cmFsIFZpYmUKU2lnbmVkLW9mZi1ieTogRmFs
+Y29uZXQzIDxGYWxjb25ldDNAcHJvdG9uLm1lPgotLS0KIGRyaXZlcnMvZG1hLWJ1Zi9kbWEtYnVm
+LWlvLmMgfCA3ICsrKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDIgZGVs
+ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9kbWEtYnVmL2RtYS1idWYtaW8uYyBiL2Ry
+aXZlcnMvZG1hLWJ1Zi9kbWEtYnVmLWlvLmMKaW5kZXggMDAwMDAwMC4uMDAwMDAwMCAxMDA2NDQK
+LS0tIGEvZHJpdmVycy9kbWEtYnVmL2RtYS1idWYtaW8uYworKysgYi9kcml2ZXJzL2RtYS1idWYv
+ZG1hLWJ1Zi1pby5jCkBAIC0xNzksMTMgKzE3OSwxNiBAQCBpbnQgZG1hX2J1Zl9pb19jdHhfY3Jl
+YXRlKHN0cnVjdCBmaWxlICpmaWxlLAogCQlrZnJlZShjdHgpOwogCQlkbWFfYnVmX3B1dChkbWFi
+dWYpOwogCQlyZXR1cm4gcmV0OwogCX0KIAogCWlmIChXQVJOX09OX09OQ0UoIWN0eC0+ZGV2X29w
+cyB8fAogCQkJICFjdHgtPmRldl9vcHMtPm1hcCB8fAogCQkJICFjdHgtPmRldl9vcHMtPnVubWFw
+IHx8Ci0JCQkgIWN0eC0+ZGV2X29wcy0+cmVsZWFzZSkpCi0JCXJldHVybiAtRUlOVkFMOworCQkJ
+ICFjdHgtPmRldl9vcHMtPnJlbGVhc2UpKSB7CisJCWtmcmVlKGN0eCk7CisJCWRtYV9idWZfcHV0
+KGRtYWJ1Zik7CisJCXJldHVybiAtRUlOVkFMOworCX0KIAogCSpvdXRfY3R4ID0gY3R4OwogCXJl
+dHVybiAwOwotLSAKMi41My4wCg==
 
-The actuator uses independent PM8550 L16B (2.912 V VDD) and PM8010 L6M
-(1.8 V I/O) supplies. L6M is shared with the rear OV13858 sensor's
-DOVDD.
+--b1=_abzXme9ze1hXxLPsku0U8W6cWhzMpEqIMQF3RF8w4--
 
-I added optional vddio handling to dw9719, enabling I/O before VDD and
-disabling it after VDD. This allows the actuator to probe and power
-down independently while preserving the shared sensor supply.
-
-Measured L6M enable counts during sensor/VCM use were 0 -> 1 -> 2 -> 1
--> 0. L16B powered down when the actuator closed, even while sensor
-capture continued.
-
-I combined your posted v4 driver changes with optional vddio handling
-and compiled it as an isolated module. On the physical SP11, the
-actuator bound, accepted focus positions 128/512/896/0 with matching
-readback, and autosuspended with L6M/L16B at zero enable counts. I
-restored the prior tested module afterward.
-
-I also added optional vddio-supply to the separate
-dongwoon,dw9800k.yaml introduced by v4, and binding and DT validation
-passed. A pre-v4 RFC and a post-v4 integration preview are prepared,
-but the latter is not suitable for submission until the ongoing v4 DT
-backwards-compatibility discussion is resolved.
-
-I have since also validated optional vddio directly on Oaklee v15's
-real kernel/userspace, with uninterrupted 240-frame capture through
-VCM open/close and successful subsequent camera/PM testing. The
-Oaklee-specific source and hardware evidence are here:
-https://github.com/geocausa/SP11X1ECamera/tree/wip/oaklee-v15-vddio-hardware-verified-20261121/experiments/E003-oaklee-v15-rear-vcm-vddio
-
-Upstream preview patches:
-https://github.com/geocausa/SP11X1ECamera/tree/wip/ov13858-dw9800k-l6m-vddio-untested-20261121/patches/ov13858-dw9800k-l6m-vddio/mail-ready
-
-Would you prefer optional-vddio support as a follow-up series after v4
-settles, or rolled into an updated v4 revision?
-
-These tests prove driver communication and regulator consumer
-lifetimes, not optical lens sharpness or full deep-standby power
-behaviour.
-
-Thanks,
-George
