@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795324409;
-	b=GsnaiYPHtFJKR2L1FQWSsJdtJFAuwBSQUMozxz9+uGWO54Tf/PpDJZHG7dmOdvfSLEpt
-	 JcwvapMWZ1SYt08EX8s9H4U7j5+gR/VcU54VeTJJwoY+PLgpYGT28tEjjlP3Z7EdGR25H
-	 wLeIs3J0CNpeG8uLxdjJorp6k/IGvFtu5TV0JFNwVhznfeyIqkE0nQhMnYv+CbeMmq4Y2
-	 iZN8BKUzRWcU3sZBuZ7tBVlMEVS1EXkER0xABxU+yEejuJKjXqN+yYO3K119lycb/8F1H
-	 K6x+nKS6jgxWL2f9rR44p8Uu9LbSAnt4UdW35V7xUEKZuZwQi3wpVZklXF229lLd4Fg==
+	t=1795324401;
+	b=PLIrZ8xVdTOeBNchG+uaas82ecJufLmeXuv+71km/GUGESYlsKb7nloBOV8SV3fgYQz/
+	 JnCoSfDMGKcHoRQ6Z6PaoK3h0liWIqBYfvwFa2wtopPFyDbx1P9kGqRaAVyVK2Dme1p3P
+	 YHmIlZdsorKQBgW40QPhMzWp9geo7Nxt8GSSOiVGANKhvR2V9Bht1bmB3ezxUapqrYnQH
+	 oqROevrQW7Q8CiWntDQUhpovlFZD3BWQrCso32PFmAtHeUfsXXTVJoE/imH/YXFrJekZE
+	 xTiwrzgAywaEZE/TNRXQ8tkV+XXlhHTST7cCMe8WdxzsXpkREOBIUYXOYpuW1JQzQTw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795324409;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795324401;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=C3jGhSkfDY/pORaPUJcs1Wqc3hDHzljAe9Kie45QYyI=;
-	b=3oIbuVZY2BSiX/oY0EIOI58Du6ZcSYG7z2O6FNy0TjS20mhNe2VZxoUJGIEs72jIikUU
-	 KEogob40MPwDQYCLxqV4zIuSvhb8RWZJibeOHl93nEkM6gawrM+mI4sSWyjDy6W7qnRsi
-	 FX+qsFzmu54ZKkZ2sQqiHWVJ1UAV2rTr24hN2uGd9X4mJOpnWbUH8G/Sds+w/uSVteQm4
-	 UYX2VrlcfqnpzY+Ejv1JsvJMksl2p+PYwi40YlJR3D141JdD3rqGagNXYalvQ82IUfeNy
-	 6ZTKVuedkLaOtHjWfXatM84T44OiK+dZ9CtEIMIQCT4XzQ/KnieX+lAdTHA4hEriRvg==
+	bh=xumUc1z4t8VZUjAW7jTjjy2eWJ033Qs4zdr2uCuvqy4=;
+	b=GrvvmpfhH6vtqnwwQx9ZIw8SMUy0gyAFpejh+yJEpA4dMNV+y7+mXgLBV7SSEttZnzW0
+	 knjEIkhIxtgmYMJoopCBAl7tKdQiSjdkLS+cjeVA8ZeEOFBOKhdZvNZU1YNM3G6e23bDZ
+	 FpwK1w80WuMTslrX7AAiyj4TpF0tsXLmkBPnFHHRRDBhc3g6yMqKkv5pyEY7xP4/EfcCQ
+	 2bg3+oEv6totE8/qTYwPNE2/iL3UaG/RqyNqOeOTDANK9FjYBO8zfbp2dmHgVmF+RhB8a
+	 no38X2REDdryDD5yygx5ATDRI8owwuSghJUWbkZLUQ3UDfvzZ90MEaOYt7Nc9o0NoNA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HiKWrhU/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XSy48WZd;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 801D0606A68F;
-	Sun, 22 Nov 2026 05:13:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6113E606A334;
+	Sun, 22 Nov 2026 05:13:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HiKWrhU/
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XSy48WZd
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795324409;
-	b=MIuoa56ChQ50rM0guGsFp2rWJpjHvcltjrLrDvcwJqlRroMboea/vK1nUEeqNQ9FK29a
-	 n03zvvslY4VihVS3OY+M3EPKQp7IstFa7i5Uzsojq9tcmpn2d2mcvLcvD8bizOdhq7m9T
-	 geu/irY/LbF8UM1AY8QETNtWZ8lxnbgU8lwRGiO7Y/w2NIeBAwWz0kCNU/jIPP098MGLC
-	 gVg2m2Ak2SUu6hXQHbbvRMA02u9wH/2bFOXd3Z2GLw/R1DS79ylSWCw2cREJA55jQd21e
-	 JoaiJliohna1u/hzReH1/DtaaSokVqf0JmrFt2Uzf9xvNRydRgZW/I4XEeBDT4Joqqg==
+	t=1795324401;
+	b=PpbgP/a0nILS8ZyDatcGel/mhmCBvXhBfPxWhHPJNhiuvfoOP7ToNbxgHFC7HAe/iUEw
+	 FW8yzcxqStUNjeYdPfFJ/+3FnkZdDzVK9geeqzmGbgsjbq/aOoH2MBkkfHI8dlvVC4BNN
+	 fbCBpsthLS/WLsAftcw7bCfRJLQyswiybfJsUlFRRrhbx2wfbirz6NJ75p9oZACZNxPR2
+	 Dfdkr4Lnt1Yf0OGIiMUPFc9BnLLuJ4uooOiQpfjJYK70RG0H38S8A85CEkNrNa045GvuL
+	 WBVz3fLelaHhJC7+GLiHt8l/CSExZ162HIXgpPkkwUAKfNRX3NUPhCeTU6NyuOS/GPg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795324409;
+	c=relaxed/relaxed; t=1795324401;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=C3jGhSkfDY/pORaPUJcs1Wqc3hDHzljAe9Kie45QYyI=;
-	b=VoMv704Ro2KfuEKzd3IJHVyvZn7OM9hscBJ5AluxaTWxxbpcFnadfAYbeB2XMRx1dsCf
-	 zwdUvRAZkK61CNq4DrzFwCaDvRbNwr1N24Hll6Qh3No7bRrcIPAEUq7nuN9X40MoUQres
-	 tk7rI6GbrWYYKi9d4vUpJlNSLVzccO4hpyupLxYIhXPARzDcXDMLQqQH+R5Jr6kVSc2yR
-	 ZwcY4a/TmPtuLSm14t1Amvau/tIvdV707jFIbCdGIdMZgiQttkDqSlowilIvTpMcymDYi
-	 pNzRgZ7p0ZC+rrhIYpLIl8vOByD6HcwcW12fhdSPHQEoEbb+3WnBSiAX3YuE2QH0eSw==
+	bh=xumUc1z4t8VZUjAW7jTjjy2eWJ033Qs4zdr2uCuvqy4=;
+	b=ZRLXdJzmw6E3MQqhi7WxQDi2vr3wbFy+du3DJ93YbObomGKMVUPpa+IMO9fOmlnhRXLE
+	 GJleNqxR7EztLhPAs59FuGaAtNAYp+SxPsFZUPMV8z7y5CiGcq+5ga7TG35BRWbWhc6mF
+	 CsnhBd/4j+2uRhjVwRDIzfbE6Sof/VzvHV22BG6c9DNRw8OuNJW7y2/gjUkIu3p5R0fwA
+	 Chdum4ZpNDx9R9UyEpuzsFGpbnlPk1+KkgLxkuRgYYBmc6w3TlZduaRebosknaEdRCGNj
+	 uvz4UMdb3ZBq68jws0lMoYkJynn6lOUt2kbfepx9KSMLulnkmS6xB1RFP3CPgycjexA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5643B1F000C0;
-	Sun, 22 Nov 2026 05:13:28 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 42AF11F000CF;
+	Sun, 22 Nov 2026 05:13:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795324409;
-	bh=C3jGhSkfDY/pORaPUJcs1Wqc3hDHzljAe9Kie45QYyI=;
+	s=k20260515; t=1795324401;
+	bh=xumUc1z4t8VZUjAW7jTjjy2eWJ033Qs4zdr2uCuvqy4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=HiKWrhU/aldHdXd42RSlUWjv/sB1iJS16ph2KKoKtrY3u+Ey2nNViV6Ykpkw6S1Jl
-	 gJGZA4LskTjWI0bKlNwN9qH3Y728jViyc5lfz5OmR3Ph3zfBVHHl7i5rO7YWxVU+xA
-	 blgwlxyCLqxseL/MgQ4O24OOH/rtP0H6C04WZQ683uE9KRDRqTiBi2Rfk9iTxn/1jr
-	 zTYtM0SN1Yq8KDTFmqJj+ISDagj8PhzS9shTtd7RHAf5IIdQPH2w48jGI9SD2V1LNW
-	 FPJudKVDA5oJk2KA08XmXBU2r0b6r7MVr2tdSIwR+ppsZFGMGQEVzQ3Bk3xKr9V0hn
-	 Jfw0H4FhsbH9A==
+	b=XSy48WZdbwAyUjL7jONld4E8f1qPvDkX/No0RVPXX6gdcuQdbpIsb3hNxYnCixq68
+	 oiUwbsDddb09G4PCY6MdAmeyAR3AjdV5h7Es3LG3AsffIRiQG5Eo7sX2YGsKvjdB5n
+	 Cm7mEP1WSYsIKj97ahgrX+Do8QPO2v00iDKAb0jOFzgpgmQVEIpBjWTor08GAkYIvr
+	 TDJzh8bVADc9BWE8T7eZisdHHbUcZXs6fojOudIdtjZXgvUiO7xvvA+knbOig574b3
+	 NgJ5fcpEd/h723HKlvsP55IInXrM5VWzBKFOXq2o1kZ2o5O+2dNdQGglrduPjJhFS3
+	 LmTpwbMprXtQw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D73A24BF4B;
-	Sun, 22 Nov 2026 05:13:27 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id C3AF44BF3E;
+	Sun, 22 Nov 2026 05:13:19 +0000 (UTC)
 From: EMCP333 via B4 Relay <devnull+emcp.enser.io@kernel.org>
-Date: Sun, 22 Nov 2026 05:13:26 +0000
-Subject: [PATCH 3/3] arm64: dts: qcom: sdm845: Add CAMSS interconnects
+Date: Sun, 22 Nov 2026 05:13:17 +0000
+Subject: [PATCH 2/2] media: venus: vdec: Resume CAPTURE restarted during a
+ seek
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,26 +84,23 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261122-b4-camss-sdm845-icc-v1-3-0671ef770fd0@enser.io>
-References: <20261122-b4-camss-sdm845-icc-v1-0-0671ef770fd0@enser.io>
-In-Reply-To: <20261122-b4-camss-sdm845-icc-v1-0-0671ef770fd0@enser.io>
-To: Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Robert Foss <rfoss@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+Message-Id: <20261122-b4-venus-eos-seek-v1-2-2e38912c7cf9@enser.io>
+References: <20261122-b4-venus-eos-seek-v1-0-2e38912c7cf9@enser.io>
+In-Reply-To: <20261122-b4-venus-eos-seek-v1-0-2e38912c7cf9@enser.io>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>, 
  linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- EMCP333 <emcp@enser.io>
+ linux-kernel@vger.kernel.org, EMCP333 <emcp@enser.io>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795324405; l=1474;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795324396; l=5323;
  i=emcp@enser.io; s=ultron; h=from:subject:message-id;
- bh=vetqSv1oRjiySBze/nzqgzM3hC1OiU7h99VJ2Cazd+Q=;
- b=u1AUgAtlHUrvXG+9LsYER0zQrszSscsQaEe3WPlwJOB6wRkfpmH2XAU2iH0Nm2Zcy7u6fWyN6
- EsQWtvDccTTAmdVfWcpPiM2StViJusmu+NjH1EvCnFlcqbXR5xuPWEb
+ bh=3/BXWrEXd2DCO3KyLlWUnPPLDGGlTHRZ1gN4n0ZsF4w=;
+ b=sDSfBsLC7bfj/YWIu4AnREfHjXZwskKQsEmeE3u+GfvyGX2kpdtY0wALgkzn5SkfMPQGc7BDE
+ 9+b6OoQk4+vB8AYP0R/Ymrkq6j47bVTxWgxKxxKi0fPHlR0G3BtLLm4
 X-Developer-Key: i=emcp@enser.io; a=ed25519;
  pk=5sG48Lul+Vn7OzXu3VZrCWk5uvEFPYMXYnAV0TZR/tY=
 X-Endpoint-Received: by B4 Relay for emcp@enser.io/ultron with auth_id=1598
@@ -112,43 +110,136 @@ Content-Transfer-Encoding: 7bit
 
 From: EMCP333 <emcp@enser.io>
 
-Give CAMSS its four interconnect paths: the AHB config path, and the two
-camnoc HF ports plus the SF port into DDR. Without them CAMSS has no
-bandwidth votes of its own, and capture stalls when the display is off.
+GStreamer's V4L2 decoder handles a flushing seek by calling STREAMOFF on
+both queues, then STREAMON on CAPTURE, then STREAMON on OUTPUT when the
+first buffer of the new segment arrives. On a OnePlus 6T (SDM845) the
+seek never completes: the decoder takes two OUTPUT buffers, produces
+nothing, and the pipeline times out waiting for preroll.
 
-Tested on a OnePlus 6T: with the display off, 10 of 10 1080p captures of
-100 frames complete, with CAMSS voting on both HF ports while streaming.
+The driver loses CAPTURE in that order:
+
+  STREAMOFF OUTPUT   vdec_stop_output()    DECODING -> SEEK, flush
+  STREAMOFF CAPTURE  vdec_stop_capture()   SEEK: buffers cancelled
+  STREAMON  CAPTURE  vdec_start_capture()  streamon_out is 0: return 0,
+                                           streamon_cap stays 0
+  STREAMON  OUTPUT   vdec_start_output()   SEEK -> DECODING, but capture
+                                           buffers are queued only if
+                                           streamon_cap is set
+
+so the buffers CAPTURE was restarted with stay in the m2m queue and the
+firmware has nothing to decode into. A seek that restarts only OUTPUT,
+as ffmpeg and mpv do, is not affected.
+
+Remember a CAPTURE restart that happens while OUTPUT is stopped in the
+SEEK state, hold the capture buffers queued meanwhile, and hand them to
+the firmware together with the DPB buffers when OUTPUT restarts. Clear
+the flag whenever CAPTURE is stopped again.
+
+Tested on a OnePlus 6T with this change on the postmarketOS sdm845
+kernel (6.18): three flushing seeks through GStreamer's v4l2h264dec, to
+5, 2 and 8 s of a 10 s clip, each preroll in 0.04-0.07 s with the first
+frame at the exact target timestamp, and playback then runs to
+end-of-stream.
 
 The code and this changelog were prepared with the help of an AI coding
 assistant. The submitter has reviewed both and takes responsibility for
 them.
 
+Fixes: beac82904a87 ("media: venus: make decoder compliant with stateful codec API")
 Signed-off-by: EMCP333 <emcp@enser.io>
 ---
- arch/arm64/boot/dts/qcom/sdm845.dtsi | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/media/platform/qcom/venus/core.h    |  3 +++
+ drivers/media/platform/qcom/venus/helpers.c |  5 +++++
+ drivers/media/platform/qcom/venus/vdec.c    | 22 +++++++++++++++++++++-
+ 3 files changed, 29 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index 844b840bc5..4710556324 100644
---- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-@@ -4518,6 +4518,16 @@ camss: camss@acb3000 {
- 				"vfe_lite_cphy_rx",
- 				"vfe_lite_src";
+diff --git a/drivers/media/platform/qcom/venus/core.h b/drivers/media/platform/qcom/venus/core.h
+index f521bccfe3..a6e898ca83 100644
+--- a/drivers/media/platform/qcom/venus/core.h
++++ b/drivers/media/platform/qcom/venus/core.h
+@@ -461,6 +461,8 @@ enum venus_inst_modes {
+  * @pic_struct:		bitstream progressive vs interlaced
+  * @next_buf_last: a flag to mark next queued capture buffer as last
+  * @drain_active:	Drain sequence is in progress
++ * @cap_resume:	CAPTURE was restarted while OUTPUT was stopped for a seek;
++ *		its buffers wait until OUTPUT restarts
+  * @flags:	bitmask flags describing current instance mode
+  * @dpb_ids:	DPB buffer ID's
+  * @eos_va:	CPU address of the empty buffer that carries end-of-stream
+@@ -534,6 +536,7 @@ struct venus_inst {
+ 	unsigned int pic_struct;
+ 	bool next_buf_last;
+ 	bool drain_active;
++	bool cap_resume;
+ 	enum venus_inst_modes flags;
+ 	struct ida dpb_ids;
+ 	void *eos_va;
+diff --git a/drivers/media/platform/qcom/venus/helpers.c b/drivers/media/platform/qcom/venus/helpers.c
+index e0bd2b0478..425caf6b34 100644
+--- a/drivers/media/platform/qcom/venus/helpers.c
++++ b/drivers/media/platform/qcom/venus/helpers.c
+@@ -1512,6 +1512,11 @@ void venus_helper_vb2_buf_queue(struct vb2_buffer *vb)
  
-+			interconnects = <&gladiator_noc MASTER_APPSS_PROC 0
-+					 &config_noc SLAVE_CAMERA_CFG 0>,
-+					<&mmss_noc MASTER_CAMNOC_HF0 0 &mem_noc SLAVE_EBI1 0>,
-+					<&mmss_noc MASTER_CAMNOC_HF1 0 &mem_noc SLAVE_EBI1 0>,
-+					<&mmss_noc MASTER_CAMNOC_SF 0 &mem_noc SLAVE_EBI1 0>;
-+			interconnect-names = "ahb",
-+					     "hf_0",
-+					     "hf_1",
-+					     "sf_mnoc";
+ 	cache_payload(inst, vb);
+ 
++	/* Held until OUTPUT restarts after a seek: see vdec_start_capture() */
++	if (inst->session_type == VIDC_SESSION_TYPE_DEC &&
++	    V4L2_TYPE_IS_CAPTURE(vb->vb2_queue->type) && inst->cap_resume)
++		return;
 +
- 			iommus = <&apps_smmu 0x0808 0x0>,
- 				 <&apps_smmu 0x0810 0x8>,
- 				 <&apps_smmu 0x0c08 0x0>,
+ 	if (inst->session_type == VIDC_SESSION_TYPE_ENC &&
+ 	    !(inst->streamon_out && inst->streamon_cap))
+ 		return;
+diff --git a/drivers/media/platform/qcom/venus/vdec.c b/drivers/media/platform/qcom/venus/vdec.c
+index a49acef5db..9c076379ed 100644
+--- a/drivers/media/platform/qcom/venus/vdec.c
++++ b/drivers/media/platform/qcom/venus/vdec.c
+@@ -1044,8 +1044,17 @@ static int vdec_start_capture(struct venus_inst *inst)
+ {
+ 	int ret;
+ 
+-	if (!inst->streamon_out)
++	if (!inst->streamon_out) {
++		/*
++		 * CAPTURE restarted while OUTPUT is stopped for a seek, as
++		 * GStreamer does on every flushing seek. Its buffers can only go
++		 * to the firmware once OUTPUT restarts, so remember it for
++		 * vdec_start_output().
++		 */
++		if (inst->codec_state == VENUS_DEC_STATE_SEEK)
++			inst->cap_resume = true;
+ 		return 0;
++	}
+ 
+ 	if (inst->codec_state == VENUS_DEC_STATE_DECODING) {
+ 		if (inst->reconfig)
+@@ -1130,8 +1139,17 @@ static int vdec_start_output(struct venus_inst *inst)
+ 				ret = venus_helper_queue_dpb_bufs(inst);
+ 				if (ret)
+ 					return ret;
++			} else if (inst->cap_resume) {
++				ret = venus_helper_queue_dpb_bufs(inst);
++				if (ret)
++					return ret;
++				ret = venus_helper_process_initial_cap_bufs(inst);
++				if (ret)
++					return ret;
++				inst->streamon_cap = 1;
+ 			}
+ 		}
++		inst->cap_resume = false;
+ 		goto done;
+ 	}
+ 
+@@ -1236,6 +1254,8 @@ static int vdec_stop_capture(struct venus_inst *inst)
+ {
+ 	int ret = 0;
+ 
++	inst->cap_resume = false;
++
+ 	switch (inst->codec_state) {
+ 	case VENUS_DEC_STATE_DECODING:
+ 		ret = hfi_session_flush(inst, HFI_FLUSH_ALL, true);
 
 -- 
 2.47.3
