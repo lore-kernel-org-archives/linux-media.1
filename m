@@ -1,59 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795367171;
-	b=t9zFvtaBs88EzJW5NMq6nK7gjmsZP27iI4YD6BeT3apqhTdGizTfjYIz+BHw6SwTr61H
-	 C3QQl/7yTjjiPXVoY6C0wsa0KGD05GSYJK4cRABpcFiaYXEKWmEvTDIvAjDzrqcUJiyvy
-	 4c4Uyhok5xTPXorvVKLbTVCP0k8V6aqAZWcQNUv1SITMkrnfMGHILpH9Mr3JF8LhWcteC
-	 9hZI3iNQvYkgbZGl0z7XEU6QXreE04GVHugRSgqUAlh2/CesAS/pumB1L1oWQt6/EM0wO
-	 y49D3zIMK9+nFkL9KMNW4nCJeOK9IK7VIXyfLNcndrWDUIFtQWtfsH/+4AEZmsnnTDQ==
+	t=1795369741;
+	b=pPFDRSYbc0gLoeVECpTlyUsFamKFSQ4nrhX7a/poPRjeZteQUH9M74YSQv9RxMynKlYY
+	 wET1sZ50ya07xRMMtmg1gFJtn+FhltIFlmESfeEIRql0AGgO/dfEwJijjdGc4uGzX1C45
+	 RIpM8PxFpy1V58YfbDaoP3h1XVZlb5PrzEVV1pwH5rlcjpWPqOyMaqH0/dC6aLcCo/6ur
+	 gICZ/Bss2tnGneQPZ2rxwOp12BMdBcewUfbCOGRKOBBbV9yWPDXAbzK+fe+KsqjRGoy1K
+	 2ccANtD0Ipc6CwuhaggOjytT8HnpYwIMj7/qsqpnNWq2tP15yDQG7cg3jRjH/HJ7J1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795367171;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6KZpeDJvFmZFTAOYbgotULxo1IDD82xdkWrbRNG+0VE=;
-	b=p9kX3RfWrH13K/1mqYD2jMyyN4+gXVg0hisIey5Z3bvDaNbuN0QRWCUlL7PfM5tJVmk4
-	 ru9BFXiD5YUOlJCNSUhOMT5d9dSN5kzb1n/nXcSK58xxuyKtaN32lI7uw+STWvUWAXqkf
-	 GURo8IaEGgSK7BQoPvH07l7nohqDrk4QJKMP010nzwV81JLRJgwau45AbcFGwxTR3VudG
-	 OwvGypnPnmpTOZ0bt6t5UcVcC+REGw/1taborakrvVcEsJBExnEs83ttdZxOV97gp5K4h
-	 r8kTGwJBQGMAkDW8/j5AL7XFm5zBhXCztB/KOoLf619b5zL924t5yWtweAUlku9F/7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795369741;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=jhWW+kJ2ECwied9c9jbdzaZaNyOlWvuDb69ULztgqnw=;
+	b=iviDgjqIv8+EfdakpJ/11ZfmjUffuroS48TpnMsIuSXJiDUbJxSEfJ/Bgx3eoHl2xFqs
+	 KZcML5Gzy0uEb+TaH83fRekLDubs0Eg9KjM2+4/rs5ktB5npoc6HM98XoWpAbOwZS1auj
+	 oG230Yqq5lPWKhoh3QwsLrxBpX/Q5+zDAGtXrDhc/UlDCC3rClbMK0LWkLTKrhZZ7wf21
+	 MhiT/EBheFOm3wvDYbF/VBofo7/j/WNLaKI+6LPPHNJ38dNRk+lpbvsoqlGXLYkV/izdk
+	 mGb1oSL+vwq39MeCm8u1onnhqj0/o2DZD1NbLLN5zT23Diy2AVOLZlT9K4YRh5Q2mYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQdr1TaQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=JEpaaNU9;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D23606A32A;
-	Sun, 22 Nov 2026 17:06:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE56A606A337;
+	Sun, 22 Nov 2026 17:49:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE56A606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQdr1TaQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEB551F000C0;
-	Sun, 22 Nov 2026 17:06:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795367171;
-	bh=6KZpeDJvFmZFTAOYbgotULxo1IDD82xdkWrbRNG+0VE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KQdr1TaQSbS0MGIFvMWuB3zok+qvUnfERKIxScBxDysP0kr68q8lhJ0/2wmpJaGlE
-	 ewmL2Jctq7QnUapazQE2uFwlvsIeu5A2P+tr5HlYiJBwJLPyIVr8eLNrQUBoWO8nrw
-	 5TWdsE8J+Yg+IS1BDpd2n/LunfQIFXnT34oA6TP+YtT/XELlYhAB+I982kkKdXhqR5
-	 LEPfUcon2t38MDGC8b7SrYHNoBUWfnxnnI2gWSEKKiQa6mWSw/QhvPXwycLJEGwU1s
-	 Cty+Ga7aQUKqGSqZVua8zLMOWQWWPm0KcroGe1rSx+NvtB3Viej2Jliy47uycazUoa
-	 9sVbRNuP1PvXw==
-Date: Sun, 22 Nov 2026 18:06:07 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Suresh Vankadara <svankada@qti.qualcomm.com>, Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: media: qcom,glymur-camss: Use linear
- CSI ports
-Message-ID: <20261122-jumping-slim-wolf-aa3e9f@quoll>
-References: <20261119-glymur_camss-v3-0-71ab966c41c9@oss.qualcomm.com>
- <20261119-glymur_camss-v3-1-71ab966c41c9@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=JEpaaNU9
+Received: from ideasonboard.com (mob-5-92-38-150.net.vodafone.it [5.92.38.150])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1E6C15E;
+	Sun, 22 Nov 2026 18:46:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1795369587;
+	bh=1FEhLBDHlPa+Gz66pFGciWJsxQUbBFEcy379JEySN8E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JEpaaNU9OLu3uYXVB2LWje0ru7Jq2CppKdkxwvs2fXyd387qlCWg8v9RxTy9RN5Gy
+	 VPHa25ySRK2yukM8ZLMz1ladMaJ4wz2Mzc29vSQvi3n1eQdCtCeN4qa/RS/wLLCxCF
+	 9n4jzn3+EE3etd1/9PieFiK1fygFP+kKjurpFWGY=
+Date: Sun, 22 Nov 2026 18:48:54 +0100
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: jacopo.mondi@ideasonboard.com, philippebaetens@gmail.com, 
+	mchehab@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: mira016: Fix analogue gain range for the
+ default format
+Message-ID: <awMqfTOFAiwUcxGs@zed>
+References: <20261121195010.820752-1-devnexen@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -65,26 +63,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261119-glymur_camss-v3-1-71ab966c41c9@oss.qualcomm.com>
+In-Reply-To: <20261121195010.820752-1-devnexen@gmail.com>
 
-On Thu, Nov 19, 2026 at 08:34:22PM +0530, Nihal Kumar Gupta wrote:
-> Glymur has three CSI2 PHY connections: CSIPHY0, CSIPHY1 and CSIPHY4.
-> The existing ABI used port@3 for CSIPHY4 because the driver reused the
-> X1E80100 CSIPHY table, where entry 3 maps to hardware PHY id 4.
-> 
-> Use linear graph ports 0-2 by replacing port@3 with port@2 for the third
-> CSI2 PHY connection. The matching Glymur driver data maps port@2 to
-> hardware PHY id 4, and there are no in-tree users of the old port@3 ABI
-> yet.
+Hi David
 
-There is in-tree user - I clearly see camss.c. Your next patch even
-changes that user!
+On Sat, Nov 21, 2026 at 07:50:10PM +0000, David Carlier wrote:
+> The analogue gain control is created with a 1..1 range, and the range is
+> only updated when an active format is set. The default 8-bit format is
+> applied by init_state as a TRY format, so the gain cannot be changed
+> until userspace sets the active format.
+>
+> Create the control with the 8-bit gain range to match the default format.
 
-This is just not correct :/
+I'm surprised I used the 8-bits format as default. I thought it was 12
+and clearly overlooked it.
 
-Anyway, mark it as fixes and be explicit that you target CURRENT RC. Or
-was this already a released ABI?
+Honestly, I would use the 12 bits format as a default as higher
+bitdepths are maybe preferable ?
 
-Best regards,
-Krzysztof
+>
+> The issue was found by code inspection with an LLM, build tested only.
+>
+> Fixes: ab4a4c39c611 ("media: i2c: mira016: Add driver for Mira016")
 
+Do we need one ? The driver didn't land in any published kernel yet.
+
+
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+>  drivers/media/i2c/mira016.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/media/i2c/mira016.c b/drivers/media/i2c/mira016.c
+> index 082442ffad28..076e8a22be82 100644
+> --- a/drivers/media/i2c/mira016.c
+> +++ b/drivers/media/i2c/mira016.c
+> @@ -1917,9 +1917,11 @@ static int mira016_init_controls(struct mira016 *mira016)
+>  					      MIRA016_MAX_EXPOSURE, 1,
+>  					      def_exposure);
+>
+> +	/* The gain range matches the default 8-bit format set in init_state. */
+>  	mira016->gain = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
+> -					  V4L2_CID_ANALOGUE_GAIN,
+> -					  1, 1, 1, 1);
+> +					  V4L2_CID_ANALOGUE_GAIN, 1,
+> +					  ARRAY_SIZE(mira016_gain_lut_8bit),
+> +					  1, 1);
+>
+>  	/*
+>  	 * Changing VFLIP requires re-programming the top point, hence we
+> --
+> 2.55.0
+>
