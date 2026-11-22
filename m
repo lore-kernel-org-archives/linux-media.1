@@ -1,72 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795397873;
-	b=s1XFSx1X1neNnJb1DPMf4zsEuq/WIJ/7po0XpHstyNK2BXGWTJVH0dOdij/sBElr+O+5
-	 2GPPpVbLum9ayapdyqgj1rNs0hwUmW5SFATGZIPcSSpmkFoXVw10f6UaWPprV48sXPmn0
-	 72qEGPaKZYUMZ6fBifLaRrIvNsEV6qIjWTt6PVLeWniSLdGZF4sk9h53eieat6KBa2Y8A
-	 LpNIcq1UR3R26nOUFLyfENzqNrhHH3+JAOvp8VPCk66SZ3GSyCapfw4wa63vrD7X84igj
-	 wGyqN1UcNYhBn/ntWDf2brWaJ2KgDdh/+i1qeKc3d6w+8cqqJeRxZESHKqbv7JbccuQ==
+	t=1795397875;
+	b=RrE7e7Q2rIeJwjpQEnoN6o8w1nV++CmIJpkP+nAVowJg1G79WSEq3erwOolY2RRGOWWZ
+	 fqG/KDXFevn1gmg3gW7XITPzrtY8kiyYhvN5pLm2V3Z4px6OLzI8UBspaxdvbi00N7H7u
+	 kHXkWhb7pFr0D4MW0XuYaVBH6D2iZyacmJ6gB89557172IUCRe6o0TVwfAB+gl3qCfmTL
+	 IQ2Ff62hB51zQfeuCk7yhJw8PwBOLx+k/axLhrJfvf31+j/w+LwzPEV5BR1uWAP4HP7J9
+	 JTWDB/T/ExHrJB0V+Vr0RGI+fx0ZpvXoBBPXs1K6IjLCGR2ysU4MIZzrjVi0EUAnVww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795397873;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795397875;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=lBhQmOkV3VI4LUiwZhyJ/bAcfX2YSM8fVCAFeer0wgQ=;
-	b=FQ9byuajTzBaawG3kj6/eVZMtJqtCUNIgoZyXMeq0Cwm+538EcrO4v5219ZhGwbsmQvc
-	 c3M77+EfyxZ60h6kBb57k67Cd3/sVRZu0oS+5UTT+pSSOu3h7lvYNxFfeU+2ttDGLzZb9
-	 0e2OUpfS/s3oQIt1DVN9b1jfAbAaK48QwS4Zq09hZoT/3DljLkz5AK2kJS3+SbmOfXM7h
-	 7BmZ+MwRLGl8WH0ojiciTRInamfBcM6Lhgj7XDZhJQbF7kI8QDmrAg98bLRhd6olHS7b2
-	 V6SSWGEPnPv+j3CPSLMaqX+Y50HcL6evLYy6uQsAVSq9yliHpFJYE4Wef06lGxR9kYA==
+	bh=t7HP89qCv4f0VaWU6luj6srJ1B6pPh3Y7K09RSutBYE=;
+	b=EoXZLb/XQJfx3uOsVr9BqcBU1T+Gd0OHssTfIUTP3MBj22PL7okvtTsOyk0apusUEOOt
+	 nwmdiDFZ0f5jSR3ziBlQpXSzz4YOE5DtNFqUu5ZBdqzs2xox3H+b7yBopadRKk08MtMZ/
+	 kYOIFiiGGpWA6wa6pGZkF16xnIeTVR759RzHH5rd8S9t3vqt+3HdBc6JYpZGDijvArORm
+	 QRFCRTPu2YMFSlNXiyF8t9HehNA1p/1tlRkI0KiEr8gjEf+hL/mkq1PQzz3l1j6Yn4Ahu
+	 j3vA6A5uRaQfO7LJDtUqvNqPJ2435PXBGNX1PV4t5exS6U4e6SIjfW4P7Sf+3zWzy1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CFh2QbgS;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K51SsqtW;
 	arc=none smtp.remote-ip=198.175.65.13
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45674606A339
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 01:37:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45674606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7C0606A31A
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 01:37:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F7C0606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CFh2QbgS
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K51SsqtW
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795397873; x=1826933873;
+  t=1795397875; x=1826933875;
   h=from:to:subject:date:message-id:in-reply-to:references:
    mime-version:content-transfer-encoding;
-  bh=kygoMksJfQVVTUB+ISiQgn9xKObA/PkWx/S3q9DDO3Q=;
-  b=CFh2QbgS/1u7PBBSutzLKeR4MdPALbpKS1kn9gur+EU76TlT7qiiENzL
-   LyF3o42gAerSMXdP1utqBg0UTYHjGu4NSP2J7dvMAIDUTcHEAP9Tfdc1K
-   jK1enLRfPTIyRi+3J5fc7i6ZoMl2Z1JD4v5f3ctSFEHyo4L3S6TNlvff1
-   830D6hgu+JxWCWz8gKiOIPjaZzXzzhCJ10Ta4XwZLj6iNaclvAU9cl6nm
-   RGAVWn8mxd4hboiYImwKC3Jacnmqu7uEbKqW135ury/QWfTTS3hAITUL1
-   z4HsyNPiRGTuXSNzNXvsluKrkttgi94AUP9y2qzctg5nMz9olH2DOWLLt
+  bh=UvRPTgRa9MLmLa1gBhWTvCbSseQQhPyMH8R6KgnjI/8=;
+  b=K51SsqtWv3D4nYkm9Msq8012lf0PCKU9C0PHF8z4DD6RAYQNY0axH/8+
+   hSS/36L11hTg6HuvgwDvCEN17f+cCSXR9YQjCMzgSEjTVaEXlhrADUxmi
+   MDFn9it+Or6xNiybqsVFxmNjRrzqM/IW83+TR2PSUQww+nkbj7or4Uss+
+   nWrxtMDcKWqMxjWxXtk2D9irlQNz7Tb7aIfqjIIh6aVewaBxH7hPlufSJ
+   XS+yWXpQ45V8z+f9eIhEVh+9asri6Gjr8Zrhtn1+MuFfx9xmDw26WzNEu
+   MLZBncgJ9DSvhmQhyZs9Y6jqsJlCaMRi9QgXmhxsJZPTqcGJ2hs6ifEUi
    A==;
-X-CSE-ConnectionGUID: 8qRBnYQUQWCLhavLn8eIlg==
-X-CSE-MsgGUID: pYABflUJQ0inH8kFg5YxGg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4091824"
+X-CSE-ConnectionGUID: ZFhzTev6SbO75KxNF5EfqA==
+X-CSE-MsgGUID: nMIcm605S7mX/xUTxzinEQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4091831"
 X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="4091824"
+   d="scan'208";a="4091831"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Nov 2026 17:37:53 -0800
-X-CSE-ConnectionGUID: 4EOGXoLZQ6S3NCwOrXT7aQ==
-X-CSE-MsgGUID: FxYfRKh5Tna2TuvgGWystw==
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Nov 2026 17:37:55 -0800
+X-CSE-ConnectionGUID: vVQcmdQAT8akzZTVYbTtbw==
+X-CSE-MsgGUID: iJgZH0PhSa2lANrj6xXkqQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="11173698"
+   d="scan'208";a="11173703"
 Received: from pg12hl01tchew6.png.intel.com ([10.107.246.123])
-  by orviesa006.jf.intel.com with ESMTP; 22 Nov 2026 17:37:52 -0800
+  by orviesa006.jf.intel.com with ESMTP; 22 Nov 2026 17:37:54 -0800
 From: vunny.sodhi@intel.com
 To: linux-drivers-review@eclists.intel.com,
 	linux-media@vger.kernel.org
-Subject: [PATCH 2/3] media: i2c: max9296a: fix video pipe status register offset
-Date: Mon, 23 Nov 2026 07:43:12 +0800
-Message-ID: <20261122234313.327866-3-vunny.sodhi@intel.com>
+Subject: [PATCH 3/3] media: i2c: maxim-serdes: resolve V4L2_FIELD_ANY in set_fmt
+Date: Mon, 23 Nov 2026 07:43:13 +0800
+Message-ID: <20261122234313.327866-4-vunny.sodhi@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261122234313.327866-1-vunny.sodhi@intel.com>
 References: <20261122234313.327866-1-vunny.sodhi@intel.com>
@@ -81,38 +81,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Khai Wen Ng <khai.wen.ng@intel.com>
+From: "Sodhi, Vunny" <vunny.sodhi@intel.com>
 
-Correct the VPRBS base address used for pipe 0 status reads.
+max_ser_set_fmt() and max_des_set_fmt() store the requested format as
+is. When userspace leaves the field unset, V4L2_FIELD_ANY ends up in the
+pad state, while the sensor reports V4L2_FIELD_NONE. Link validation
+then fails with -EPIPE:
 
-Per the MAX9296A datasheet, the video pipe status register block has
-pipe 0 base 0x1DC and a stride of 0x20 between pipes, so pipe 1 is
-0x1FC. Using 0x1FC as the base for pipe 0 reads the wrong pipe.
+  v4l2_subdev_link_validate_default: field does not match (source 1, sink 0)
 
-Signed-off-by: Khai Wen Ng <khai.wen.ng@intel.com>
-Signed-off-by: Kris Pan <kris.pan@intel.com>
+V4L2_FIELD_ANY is not a valid active field, so resolve it to
+V4L2_FIELD_NONE as done for the default formats.
+
 Signed-off-by: Sodhi, Vunny <vunny.sodhi@intel.com>
 ---
- drivers/media/i2c/maxim-serdes/max9296a.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/media/i2c/maxim-serdes/max_des.c | 3 +++
+ drivers/media/i2c/maxim-serdes/max_ser.c | 3 +++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/drivers/media/i2c/maxim-serdes/max9296a.c b/drivers/media/i2c/maxim-serdes/max9296a.c
-index abc2a0f03a8c..096942ab0a77 100644
---- a/drivers/media/i2c/maxim-serdes/max9296a.c
-+++ b/drivers/media/i2c/maxim-serdes/max9296a.c
-@@ -65,7 +65,11 @@
- #define MAX9296A_VIDEO_PIPE_SEL_STREAM(p)	(GENMASK(1, 0) << ((p) * 3))
- #define MAX9296A_VIDEO_PIPE_SEL_LINK(p)		BIT(2 + (p) * 3)
+diff --git a/drivers/media/i2c/maxim-serdes/max_des.c b/drivers/media/i2c/maxim-serdes/max_des.c
+index 37f438608616..8e9ebfae0956 100644
+--- a/drivers/media/i2c/maxim-serdes/max_des.c
++++ b/drivers/media/i2c/maxim-serdes/max_des.c
+@@ -1923,6 +1923,9 @@ static int max_des_set_fmt(struct v4l2_subdev *sd,
+ 	if (format->format.code == ~0U)
+ 		format->format.code = MEDIA_BUS_FMT_UYVY8_1X16;
  
--#define MAX9296A_VPRBS(p)			(0x1fc + (p) * 0x20)
-+/*
-+ * TODO(VERIFY): Downstream uses 0x1dc as the pipe-0 VPRBS base; upstream
-+ * v17 keeps 0x1fc. Confirm the correct offset with HW/ADI before upstreaming.
-+ */
-+#define MAX9296A_VPRBS(p)			(0x1dc + (p) * 0x20)
- #define MAX9296A_VPRBS_VIDEO_LOCK		BIT(0)
- #define MAX9296A_VPRBS_PATGEN_CLK_SRC		BIT(7)
- #define MAX9296A_VPRBS_PATGEN_CLK_SRC_150MHZ	0b0
++	if (format->format.field == V4L2_FIELD_ANY)
++		format->format.field = V4L2_FIELD_NONE;
++
+ 	fmt = v4l2_subdev_state_get_format(state, format->pad, format->stream);
+ 	if (!fmt)
+ 		return -EINVAL;
+diff --git a/drivers/media/i2c/maxim-serdes/max_ser.c b/drivers/media/i2c/maxim-serdes/max_ser.c
+index 1c4cec2efb95..b4c1afd6cad4 100644
+--- a/drivers/media/i2c/maxim-serdes/max_ser.c
++++ b/drivers/media/i2c/maxim-serdes/max_ser.c
+@@ -510,6 +510,9 @@ static int max_ser_set_fmt(struct v4l2_subdev *sd,
+ 	if (format->format.code == ~0U)
+ 		format->format.code = MEDIA_BUS_FMT_UYVY8_1X16;
+ 
++	if (format->format.field == V4L2_FIELD_ANY)
++		format->format.field = V4L2_FIELD_NONE;
++
+ 	fmt = v4l2_subdev_state_get_format(state, format->pad, format->stream);
+ 	if (!fmt)
+ 		return -EINVAL;
 -- 
 2.43.0
 
