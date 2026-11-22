@@ -1,71 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795307916;
-	b=pVkghrPEdcGTjoJUXyUGsN2CY1lgIQDwbcdRW1sswDSzlIURp6UUZIxP0FBDOT6LiPFe
-	 SQmuHAc1aU9iR/ynj2RHB8uIMC6FmpQGVpQDNQfKHE7qMDnwuRuxIqs3Wdrekng7uGBGH
-	 Fo7DHbO2zndg7kr5DUX5PF9xDKGc6Le2535ux7/UYFY6pLwp/kJn9ngkuW9DJlXTCN/x6
-	 1iuPyCi6vqfL4jKvnKAjv1/ZOPqhf+u2VuUIn/Bja6kmhbz5SUui5hzBe+0knAiDJFw4/
-	 OcX9nZOBiZmA4Q8C6tx+eeD3mvT02DrG1Z8rM7IOEtbteloVrDe61uWClRqi52hiAlQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795307916;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=7721dtXy+uOqmJAcrPmJ693zdXv7T0kbGWyN960JshA=;
-	b=D9SqAVTx1/WGxQfA8soGAlUhBPTkHhuWvKMkYHBO6TwBRV+N61eUeHRjgXszb3GQscbn
-	 C/w6bKxWe5HgswVQ8vcb5SXwelBFb3o6tUJEzV+VaSVUBSv7wN9XxqvcNd4ckOnAB3UQU
-	 kzrqC3zUhI5r1ypqSRDj7TK0sBYdiqywlOBOZR4yBuU5yPcK06igLoSMtVGl0b9bSy6+9
-	 aIbEdvwLlZPF7u0qtKRB4pGx6nuDO0c21aTBc/GVPUTzwNZeAv/cXYONXN5MHp+IOwXIE
-	 S1tTV59sylPnReY2qIAYwNjaW/sbytSOPQtsyVxZQ5Nf2J/+qJQIqjBlMkX0YJU9jxA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b="dmKjF/nD";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.17
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795308565;
+	b=4/08QyOQj1LrEuqahXzyRaD8pjwDGwT7MTfo/A4tcifjSk9iBcUkSLMD+9pI5GDElce/
+	 fxO3T7nvRoYEp+Ohq/i3UoyK94Zcu2gNrlDJjEXzm81NzX58fZ+m5U7wFpydugKAgoRJV
+	 qFfG/MqLr5OI+zVgzVwmYLhbJKZhplSUBKZm9oMMLvRZZS+RxHPtl4L8ZuMYxN6Dd2vva
+	 UwbwR1uIXCrGv0k9X7zWYltZFLRbbq/mfRXz6StMEk8um5EHgmjdvtI6fiujCYaheXduR
+	 F0nD1RydPqenoUYGTj3ROyHlkS4ZpBzkj7WGIfr/+UMlQNKceuCz3x/qwiUB75GQ+lQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795308565;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=HB4GGGiTx/77gkcgbtZkvnLnAdHz3bFsq58nhMt/PIc=;
+	b=ilZDB+cD2LL+PWDyZ/AN2Q51yi6vQsSPNIzjVRUYpuxw2/hQVCNK1wJ/vYfZOIgjWJwc
+	 UMLuf+/webZBEVQ4vWawgAQ0e8k1xHTkgCeWlt4vTPvlHaej82DyxeSG7Q0tqez7mVkdD
+	 fAIn9WR0z3HqgpczRh4WCMwukPvp6IAKI9JkstkTrIZ3KpwlhNb0YhJC0jbT96zQldQwb
+	 s0YoJv2vpgQ9ldDmAwaqqkdUbNVXKmTJqxCo8EZcMXoQeKxv2stpHJALYR80Hf01bPKf/
+	 wxzcM9CKYyk5jbFmnvwgoNUzsU7kKZCwXwYg4rRI5AxQrtRyAqD5e+U8hvsNEDi3L4g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=a+0K0Nob;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E7D606A320;
-	Sun, 22 Nov 2026 00:38:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1E7D606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63808606A331
+	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 00:49:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63808606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=dmKjF/nD
-ARC-Seal: i=1; a=rsa-sha256; t=1795307882; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=Xoz6J5k4tYYUi4YEY7jetL/jIJpIPUyROt2bfpoTFCS9sHBL6QgWu5a9yQOkL/XHr562updjmfBm1N9TCESXzJqsg7EQmWt3LcP7M0X67GK0UMuutS7lDXGSD2ob+e6DcBLcw6UHu+m8/UxE0uYu50ZxcejRgISnesx4XvSEbGM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1795307882; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=7721dtXy+uOqmJAcrPmJ693zdXv7T0kbGWyN960JshA=; 
-	b=FwkTp0kAI2KTbRyjxVjzfyRa1lMVN1/8wLq0erCfrW+FtrMyS3BOpq4fI+dtem85XXrkJ4WjQvXOY+ouKeVbUpjNWqlPh+6zcowZ1h/8XqGaV8QNYzGrDpMQWQgKp+0oS/tPBuKkBhIpMJ14NJDfmslAaIWE115U7WrbtwU1Q4Y=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=dmKjF/nDHJcEIgJiWQ/QomA2hvEKtXqknP/ruqOOpPo4gLbj2aowB+nYXtGKNFna/+Uat5XIpANWJRzAahk5ZDLtE3qTITqcnpmkqQf029Vn144CE5E/V1CM42SNVPDoZeWQNYCWmCdDI+jppZJkP6EZLFjHthzqeJdiUMQph08=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=7721dtXy+uOqmJAcrPmJ693zdXv7T0kbGWyN960JshA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1795307880165583.4787051402167;
-	Sun, 22 Nov 2026 01:38:00 +0100 (CET)
-Date: Sun, 22 Nov 2026 02:37:58 +0200
-From: Igor Velkov <iav@iav.lv>
-To: Venkata Atchuta Bheemeswara Sarma Darbha <vdarbha0473@gmail.com>
-Cc: Detlev Casanova <detlev.casanova@collabora.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Igor Paunovic <royalnet026@gmail.com>,
- Francesco Saverio Pavone <pavone.lawyer@gmail.com>,
- linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] media: rkvdec: Add VP9 support for VDPU381 variant
-Message-ID: <20261122-rkvdec-vp9-vdpu381-regs-1@iav.lv>
-In-Reply-To: <20260726-b4-add-rkvdec2-vp9-vdpu381-v1-3-180fb2d1f10c@gmail.com>
-References: <20260726-b4-add-rkvdec2-vp9-vdpu381-v1-0-180fb2d1f10c@gmail.com>
- <20260726-b4-add-rkvdec2-vp9-vdpu381-v1-3-180fb2d1f10c@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.dk header.i=@kernel.dk header.a=rsa-sha256 header.s=google header.b=a+0K0Nob
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3282db206d3so6311034eec.0
+        for <linux-media@vger.kernel.org>; Sat, 21 Nov 2026 16:49:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel.dk; s=google; t=1795308563; x=1795913363; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HB4GGGiTx/77gkcgbtZkvnLnAdHz3bFsq58nhMt/PIc=;
+        b=a+0K0NobGtz8B+Z6ohea3+PQBOuq9f9JzKTQBspnxU9MlUKd23RHrnQ/U63zDmpNXa
+         310pYIZWMhbPXR3V9v3T3E9gb25EjGUCgo6dUZU6lcQpR2i2Qb00GqIqPVp/c1eY/iq9
+         DVeEUVw2ftb1AYegSyT3Ty9tvWpglgfj4lj72H4b2e7qEZ8H2w3VVWUcpHX20DmyO/P2
+         BpLeGSUMhO6tPClhvvY1wCdP6Q/s5Cz47oA7Qp6V91+qa7DpxuzS+Ig52i4Aou/ydtN1
+         VzdYp8mXweVEJ0vBNovXjjjcjuxWXGZUeevBExCzYsvcoqBEQ8K8GDplaPpwxPICCWuM
+         PTGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795308563; x=1795913363;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HB4GGGiTx/77gkcgbtZkvnLnAdHz3bFsq58nhMt/PIc=;
+        b=RVq6tX6ywNRbKrlweMSos/tFHt1rCE7gA/Pa3Lz7JbtgmJsws1Z58bHPLLiPlfbSTw
+         QGfX8jZIWXQ+smNYZyBzCNcse7GkV5Vo+0exqva3WJ109PqKSY5GIu4WhPPH4ddxg45y
+         yBm7MlxoaO4Dux7Ppkpl5sqMTvOqcIKTcjST3QsQeuCjy/BYyEg72jGWDYHQiDw2NBbQ
+         Na/KRmPJL5h5RptdMo0Bdk8H3fWh6g6lTZXKp7pwos/yQMxYlwz61nahr21ZrRta7bar
+         8JS52gLwN7akFGxSxq1B31+pyTAHtA1NQfyfSIy2hff+PFMhdsp0GYEEasJfjJQaN8Es
+         478w==
+X-Gm-Message-State: APuU4Z/RnR5vHtZGgK0Tu3AX8iKykdNbqf4i3fgPZdsPLDiI1nl0CEbY
+	TuBcl/JmT3ibRlMBK2tEnapXY8ptIs1k4Ya2Ttjv3nHvSKtt35lFl6/eh1Mo5ZtrZSM=
+X-Gm-Gg: AZFdTZd2Iit6TqEYBtcAQh8tvPfYtgWpdfQ7xlmlem1MjP1qan/tw809s+zajKTOksJ
+	UCbOMyLqaJeLRmW5r/BWFFWz6BTKTV31VHMAYrLXrjS/GS0zN1kkKm2SUhtHJ39aAH7fTdYmlKL
+	lOMlwZTt9DTxOoD/rfPSebT3S0xRLcIf9eSrVjVjxQZEU+jrV5kxZJjbnBxMCaxOqk1UpUy7acA
+	dQfWUWQreJWChs+5BGphU7Tvej00mbh/c4N64wUvTw2Y4YU5qLj9B7PkIghbfZHtPIOAIGwn8W+
+	2GStwwpfFX3iGtDpSSqHlZ4DqWC0/ozpH4SzJjC6q+0aOQaAW4xKRKytm4D0REvK+YBiBTo6nRm
+	BOv+70VS3W7NlfGMp/sdyVv9lXyBidAzC6FkS0riU5yfSdlPAY2fpEzSHUqOv84ij4i2h2aZRTV
+	KeorVRZarbW7en4PVJPqL44ulKeNHNKxB3Ndh5w8jGytbQkrnle9wvTFflp/IO88Ss4vk7hseS7
+	moxi/bioVwPqZ/f+WOXfuBOSwbt3MfjgoavrC6LWSQP/2TZtlftY0m529xYzJXf6WyjG8kAw7k/
+	U1jTyPPT0rI+v1XgZeT19mvzB27tFUlYfElECtdZ0ELnTF+Nle0yOhA51vaIkiirKbWoCXJeJI8
+	hiMMQZ8SJ133YMcxptMPlJThX391XJ13AjY09S6m9DydSPs8t
+X-Received: by 2002:a05:7022:ea54:b0:193:9aa3:474c with SMTP id a92af1059eb24-1b56d7cf637mr883791c88.21.1795308563262;
+        Sat, 21 Nov 2026 16:49:23 -0800 (PST)
+Received: from [192.168.1.142] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b556840494sm17621494c88.12.2026.11.21.16.49.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 21 Nov 2026 16:49:22 -0800 (PST)
+Message-ID: <35aef1da-2277-4d9c-9bf4-cbc6094be4cb@kernel.dk>
+Date: Sat, 21 Nov 2026 17:49:21 -0700
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -75,32 +91,34 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: fix leak of ctx and dmabuf reference in
+ dma_buf_io_ctx_create() WARN path
+To: Falconet3 <Falconet3@proton.me>,
+ "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>
+Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
+ "asml.silence@gmail.com" <asml.silence@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <htm5h9oaY-vk0g9JVYJmz5XCaKe_nPoWkUJYJqDulyNvv_sAWfzSMp0T6GWt5okc8R4SyvXXpJQ3VGhetKnjEa2KGem5uCYdxpmdzUFf6XA=@proton.me>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <htm5h9oaY-vk0g9JVYJmz5XCaKe_nPoWkUJYJqDulyNvv_sAWfzSMp0T6GWt5okc8R4SyvXXpJQ3VGhetKnjEa2KGem5uCYdxpmdzUFf6XA=@proton.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Jul 26, 2026 at 03:25:36PM -0500, Venkata Atchuta Bheemeswara
-Sarma Darbha wrote:
-> +		for (i = 0; i < ARRAY_SIZE(lf->ref_deltas); i++)
-> +			regs->vp9_param.reg94.vp9_ref_deltas_lastframe |=
-> +				(lf->ref_deltas[i] & 0x7f) << (7 * i);
-> +
-> +		for (i = 0; i < ARRAY_SIZE(lf->mode_deltas); i++)
-> +			regs->vp9_param.reg75.vp9_mode_deltas_lastframe |=
-> +				(lf->mode_deltas[i] & 0x7f) << (7 * i);
+On 11/21/26 5:05 PM, Falconet3 wrote:
+> (leak of ctx + dmabuf ref on the WARN_ON_ONCE path, new file in v7.4-rc1, patch attached)
 
-vp9_ctx->regs is allocated once in rkvdec_vp9_start() and
-config_registers() does not clear it, so these two fields accumulate
-the deltas of all previous inter frames: a stream that changes the loop
-filter deltas gets the OR of the old and the new values.
+Please see how patches are usually sent - not a huge deal, attachments can
+be applied, it's just a lot more inconvenient than a properly sent
+patch as you can't comment on it in email. The bigger issue is your
+From and Signed-off-by - that needs to be a real identify, not some
+leet handle.
 
-The same goes for config_seg_registers(): the *_en bits and their values
-are only written while the feature is enabled, so they stay set when a
-later frame disables it. rkvdec-vp9.c has the same code there.
+-- 
+Jens Axboe
 
-The VDPU381 H.264 and HEVC backends start config_registers() with
-memset(regs, 0, sizeof(*regs)); the same here would cover both.
-
-Found by reading the code; I have no RK3588 board to show it on a
-stream.
-
-Igor
