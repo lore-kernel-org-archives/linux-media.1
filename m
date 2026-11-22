@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795349736;
-	b=DKaNwSYjwui7VjN6md6BNUUz0er2h4/zasKE/NNAFW4IfNe1x7yXOl+L7UHsFKnPRjNb
-	 Fk4BvRMikL+CzPn2PHyK9yyu4gVdXGTW7X6PUmhozsN6FasEYEwlqlimXlTnZG6GRvHXl
-	 Xtzj5DjwWSEB0cudfZIKYkoEBzi/kvuASa0HJ2ajJLgLx17Kdi6doqm1SpQA1SG0oEpCG
-	 Nm3eC440fWFQIJpC1V42UFfVp6sypb9i+b7XkAgCQIqrQoBaFqtgLJghs9va6y+6TlAqA
-	 +hsBEFvQsDktyzMmvMxXJGfsBFZUkDcIAn3D95ajHvpSzUCq2by6YLG8zzZsONDUV3g==
+	t=1795350720;
+	b=xEJ5dFSmPZ4nogsimGug7PMrPUD/uOgAeB9nhlXQGVGqjP2gm6GKNdnZRtHZ+JOpUpJx
+	 JhJkIAmqoHmm5usI5hhpW7NiD8PC7IEIE5O0E+/6ECTgowonp+NsmPpRc1XgUvRys8VwT
+	 4zbb82eAWSd8qUH3Xp1NVdsXLN7RBTUX/c8gyEQVb4c8GaWLCuFq9q724uuHB7BmdJscj
+	 5KBN55U/QyEGbdrlLaYS69ElHEJSekCwPsjLlhS71F7kAlTqkau89Yu9+w7Zimzvvpr3G
+	 YQHwv/j4uVh+iLNj6p9qLIwVcLD2pIcOZ4fhfJeRqG893YP2fRUid/w80PBKPcegWLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795349736;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795350720;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=DCc2S3vQ6jSV7i0N9chKSEbA2jYT502zeuF6yPEtHQE=;
-	b=hVGbxd4adzKcbFm825aG114Gm5eRk+krb+rnGTGLeW+P8NLY/JhR5qCBu5F4EGJFNQdR
-	 Jofn+rBD9u4NEHwePwaj4WMDyJtgX96eQpIKDmgIqON0x0QLhwK7af+1h8BTOVwnltbXB
-	 X5Y4z2FTkQCHpPPSlGMj9fjoXs60DdpwSbV2BKp8dMa7HnMb5Y96iKhJloPkGFPD4snvT
-	 8GNodKfoHDq4S8YEaAOUudL4YR572LJwTm5dApm+Ahmh9lhucIqX1st5451hlX9lyb6ky
-	 Inzi5dDF9nzANdq9aMdzO1arBvRHIRJZ4q5kmvt/xdZFSfp+M2Ex7njraeCFAtfem1A==
+	bh=60qxnH8zNh+6sMf3e24eYLbHhDBJWkGs8OF78JNc6sI=;
+	b=HQomWJyRaYHa23pLfXsPCFvH9E4/ePlklRwl+EhoSchwauwEV2X1t7wlv6gylXQbSslF
+	 yPcf1TF6mUqsjqqJvqRtI6eJiCPJQvedfbF1p9F2bA9AW5KKRz84rxGUmS5H5GzMkNaNj
+	 nFbLPx6UUFeJj9fE2L7CES9WPvKcriaGxQTlvl3VRIBBrbC+DrsKZy46vNIcpOsTkSpVe
+	 nnqDEArNyQgdDW3qc02DQ7r/TNSlhRRh6zO8JCWnH1QhaSFHHNmWZLRe7uhyjFIc6Lmh7
+	 JwuASKJ9g9Y5X8RqiPujqkueoFAjnBsc+/KtZ5wxfQ7Kt5XFAyfiNFJ9UVhKiv5MRgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cs6D4xcN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AtzUc/M8";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EB9606A320;
-	Sun, 22 Nov 2026 12:15:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5CF606A320;
+	Sun, 22 Nov 2026 12:32:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cs6D4xcN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20B561F000C4;
-	Sun, 22 Nov 2026 12:15:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AtzUc/M8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17D61F000C0;
+	Sun, 22 Nov 2026 12:31:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795349736;
-	bh=DCc2S3vQ6jSV7i0N9chKSEbA2jYT502zeuF6yPEtHQE=;
+	s=k20260515; t=1795350719;
+	bh=60qxnH8zNh+6sMf3e24eYLbHhDBJWkGs8OF78JNc6sI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Cs6D4xcN0YUaBdtbwHQpaxUx07Z2iQsj4tIDbVWdPhcIEqlV/Tn5uUINhKUtQcaPC
-	 0e4sT8lc1xRx7hCSU7VX/1X54M+ExPRGff/rDMl68JM9r9ceewoF8Kv6gQrq4lPjMT
-	 +R7nvmB08JcaEDD7hf0sGvTeGC1nU/TEeQmRD4xzsAkxJfIMgsnXQU50kAmWco82zU
-	 hA1RhfUHDbKAgw7rdtiO1xdkaoUwjvJiEDWXnmlsWh172svhXdW9P8yKw2hbIcSZSl
-	 gmiMnesiuiEg+20TC1cuuRZi0VuNRDlCpRkYlwnrR3Md0d5jMmk8z3zwFe9E6iopQy
-	 9fq7kTnUZf18A==
-Message-ID: <96aff3fb-7a7a-4922-a18b-fa44f67d3655@kernel.org>
-Date: Sun, 22 Nov 2026 12:15:31 +0000
+	b=AtzUc/M8k383Y/6Ja0sGjBDLTqH0oQlwacKJrBLZwuUTf+ftpuhjuS2xynUqlnsyv
+	 rQQwH3siW4HIDfVNMB40pTWucn8+2aNYddc7i4//PHsQHIsCvqOCka6uR9w93uFhZ8
+	 V/d6owQRwlQ7iiBs/RgGhInWlglJOcu3357l7I7bM18R+MTnQ1CxoiFXg7101xhavb
+	 erK93A+JwdndE9Kv43mlRKlv/4JBgJ0RoevLZE3rZmxVKnh9y4HisuvNUn/MX78S6V
+	 ohWa9N0OFr7SIa6y/XnREXWBGcoMLlOYouvhrVNv5QX57yxfXOzgKvWZukF0G/Opo7
+	 RGn8dhMY8NVmg==
+Message-ID: <5c8e33b7-a316-44dc-bdc0-c1571947a81e@kernel.org>
+Date: Sun, 22 Nov 2026 12:31:54 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,8 +52,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: media: qcom,sdm845-camss: Add
- interconnects
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: sdm845: Add CAMSS interconnects
 To: emcp@enser.io, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
  Loic Poulain <loic.poulain@oss.qualcomm.com>
 Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
@@ -64,8 +63,8 @@ Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20261122-b4-camss-sdm845-icc-v1-0-0671ef770fd0@enser.io>
- <tFRov2FDqtwLChjesvopeCKdv3y-agN4MN3wt2SAzqj4EbYaUAu3C_eTFQ2FVdYmvK9GOSJ75_pKuHQOZnCA6Q==@protonmail.internalid>
- <20261122-b4-camss-sdm845-icc-v1-1-0671ef770fd0@enser.io>
+ <KGdMKf6VqQeoMJ8qYf5tIgtqs26K1nRBWvEr-QbxizgvZcF6EN3Xp54wjeRWxrXHvMwjgkBIVAIqnA4mScJxrQ==@protonmail.internalid>
+ <20261122-b4-camss-sdm845-icc-v1-3-0671ef770fd0@enser.io>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -111,102 +110,23 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20261122-b4-camss-sdm845-icc-v1-1-0671ef770fd0@enser.io>
+In-Reply-To: <20261122-b4-camss-sdm845-icc-v1-3-0671ef770fd0@enser.io>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 22/11/2026 05:13, EMCP333 via B4 Relay wrote:
-> From: EMCP333 <emcp@enser.io>
-> 
-> CAMSS on SDM845 reaches DDR through two camnoc HF ports and one SF
-> port, and its registers through the config NoC. Describe the four
-> paths, named as in the sm6150 binding, which has the same two HF ports.
-> 
-> They are optional, so existing device trees stay valid. The driver
-> votes on them where they are present.
-> 
-> The code and this changelog were prepared with the help of an AI coding
-> assistant. The submitter has reviewed both and takes responsibility for
-> them.
-
-
-> 
-> Signed-off-by: EMCP333 <emcp@enser.io>
-> ---
->   .../devicetree/bindings/media/qcom,sdm845-camss.yaml | 20 ++++++++++++++++++++
->   1 file changed, 20 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
-> index be09cf3a3b..8c87ecd406 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,sdm845-camss.yaml
-> @@ -76,6 +76,16 @@ properties:
->         - const: vfe1
->         - const: vfe_lite
-> 
-> +  interconnects:
-> +    maxItems: 4
+> +			interconnects = <&gladiator_noc MASTER_APPSS_PROC 0
+> +					 &config_noc SLAVE_CAMERA_CFG 0>,
+> +					<&mmss_noc MASTER_CAMNOC_HF0 0 &mem_noc SLAVE_EBI1 0>,
+> +					<&mmss_noc MASTER_CAMNOC_HF1 0 &mem_noc SLAVE_EBI1 0>,
+> +					<&mmss_noc MASTER_CAMNOC_SF 0 &mem_noc SLAVE_EBI1 0>;
+> +			interconnect-names = "ahb",
+> +					     "hf_0",
+> +					     "hf_1",
+> +					     "sf_mnoc";
 > +
-> +  interconnect-names:
-> +    items:
-> +      - const: ahb
-> +      - const: hf_0
-> +      - const: hf_1
-> +      - const: sf_mnoc
-> +
->     iommus:
->       maxItems: 4
-> 
-> @@ -233,6 +243,7 @@ examples:
->       #include <dt-bindings/interrupt-controller/arm-gic.h>
->       #include <dt-bindings/clock/qcom,camcc-sdm845.h>
->       #include <dt-bindings/clock/qcom,gcc-sdm845.h>
-> +    #include <dt-bindings/interconnect/qcom,sdm845.h>
-> 
->       soc {
->         #address-cells = <2>;
-> @@ -337,6 +348,15 @@ examples:
->             "vfe1",
->             "vfe_lite";
-> 
-> +        interconnects = <&gladiator_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_CAMERA_CFG 0>,
-> +          <&mmss_noc MASTER_CAMNOC_HF0 0 &mem_noc SLAVE_EBI1 0>,
-> +          <&mmss_noc MASTER_CAMNOC_HF1 0 &mem_noc SLAVE_EBI1 0>,
-> +          <&mmss_noc MASTER_CAMNOC_SF 0 &mem_noc SLAVE_EBI1 0>;
 
-Ah come on. "The LLM made this and I reviewed it" but this is what 
-sm6150 upstream looks like:
+Same thing use the defines not the integers.
 
-
-             interconnects = <&gem_noc MASTER_APPSS_PROC 
-QCOM_ICC_TAG_ACTIVE_ONLY
-                              &config_noc SLAVE_CAMERA_CFG 
-QCOM_ICC_TAG_ACTIVE_ONLY>,
-                             <&mmss_noc MASTER_CAMNOC_HF0 
-QCOM_ICC_TAG_ALWAYS
-                              &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-                             <&mmss_noc MASTER_CAMNOC_HF1 
-QCOM_ICC_TAG_ALWAYS
-                              &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-                             <&mmss_noc MASTER_CAMNOC_SF QCOM_ICC_TAG_ALWAYS
-                              &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-             interconnect-names = "ahb",
-                                  "hf_0",
-                                  "hf_1",
-                                  "sf_mnoc";
-
-Please _actually_ review it, the patchlog even calls out the source yaml 
-used as reference.
-
-> +        interconnect-names = "ahb",
-> +          "hf_0",
-> +          "hf_1",
-> +          "sf_mnoc";
-> +
->           iommus = <&apps_smmu 0x0808 0x0>,
->             <&apps_smmu 0x0810 0x8>,
->             <&apps_smmu 0x0c08 0x0>,
-> 
-> --
-> 2.47.3
-
+---
+bod
