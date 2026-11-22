@@ -1,112 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795373811;
-	b=uuoCxo1ZSE5vXGD/DnyE8AEpGkjzE6QASLAoRwkx1SLqpMhwQkOvgFEf1iGNZPxVwTRk
-	 O8lYx7W4LOl1sX0sWLe90wNWhcVICI9hFAyYM4YVzx9CdInloJNeiBwL7kkyqEIbdnHw6
-	 Fhi59jFODkpYhsq19plr+0MLyaiDUQO8wP/nCYN5n3j6h2A+4xo8x7O/zUpzhtwQXBxxv
-	 zbIlj5c13eyTlt0q8eQO3qlWexb4+lBeiKO3ixt9xMofQyU0Uj+W4Gg8AgE1FjARgpENz
-	 nwtY5LsRFcEff/m7UcaL7yIEssc5GyOBDl9gAIw7QIKFnlhSbszDPlZcz2x3cROQ99w==
+	t=1795374068;
+	b=uOO0Xf3lyryKMC3hz7pFi6LKK9XvaZOsjFBy6sgDQLncolb8k04kcz45WXbZudiJTovX
+	 cDGJlaDWkvxca/J+vGL/GuQJx2uRgoqe+0bSXfDWbHamNtofYO6M3yUpyAE69ypL+Y8fs
+	 6YrxbieQEXRsJlthBo41stKA5XdQOyZElvFLpPC3d2PitHBYyhcjw4En2XBdrhNvYzlL8
+	 uSSXHeZFYjWFvJSPfv0ubk5GiLzqd9didxZ14L1HNetXR2hkFaZURdKLPoyxm3gKAjqz/
+	 8TPk6hxvJ63d4jc8bGNGXzCIIKLXbush4LJFFi5A70bRUc5FBA/iC532dLAawxh/bpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795373811;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=HRvN52s7z6Z6ebg/B7u9QoUXaIdsxgVH6C5C+S1jI1c=;
-	b=Pq8l62Qz2e9fEm524CAOscSJkAH4Oq8SJ3s/RPz4voo7I839zkkU0utvYlxDuyR14hnk
-	 mWZ55eLs7xDeJDa0c9a/0s68p6HT5UEAD+2pXabr6D8FrcesrlqDXHbQlY3BFxKHVu0Vj
-	 R6Q+a95ainJosJSnVy039ZayvR01ubkUesUVykchH6ACs1bnfKNMG0DihrWxvNWNt3mfV
-	 V4z9/lVZHSIbgu0acNk6L/Fv17nnVieG+IXAlqMyo7PYfVvUtT0rFWsJKEORaHs60s/nQ
-	 +A7XQauX8+cU40Ajf8x0PBzJwulPUKhbmsnkNxq6I1SAUEOfe/32wCtWXdeaq2fqWVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795374068;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=psP2uIlkimEYW+kQJSgqbVunRYZcoC3y/JABKKHgk3g=;
+	b=ZyfSQJNFR3r6oz5K73H9euDcrumRgREADHa2piFBW16eE9Qvxu3wD9Ztxtx+2RTrmkhq
+	 URi85ymSRBD9S6I0ZShvXdftzDf5O8xTjR+uORnEzrM8vO9TDgqO6oUC0vCqr/fkVcXVP
+	 3pQvWRPOC7QSiUjPjPHGn2/qHsJar0zPp037V8Fy2h/X7RmDjd/va6DH+hXq3iCEBabmr
+	 +TpFex/QCYVIE5MJENwI6VdeLEKLvqbEbo0CfqfUA2RraeALnEq13puy8wuLX+XGzr3+G
+	 UQMOd11GWrnqy+6D1ONz/TWzJt5sD+yUrEaVf5VlZAshZnwnez2iHsjDQhRx6kJxE8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Tga9OHiB;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jSQJdwYl;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d7AO7oiM;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBB4606A332
-	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 18:56:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BBB4606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68699606A684
+	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 19:01:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68699606A684
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Tga9OHiB;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jSQJdwYl
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AMGUwIA2242501
-	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 18:56:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HRvN52s7z6Z6ebg/B7u9QoUXaIdsxgVH6C5C+S1jI1c=; b=Tga9OHiBWXVl+nTY
-	DKDA4ERV8awrNJTU6vWHB+B++4uCOvHAUuQgI5MRr5KNNje/krngRdL5hsw23T3+
-	WTZfCAgmbhhZhQ2OOKkc599UnBpVOfoBR/grypJ6mpyAr9lm0Ea3YDbqoMvzUEqY
-	6eLlzcMkV5JlrH0zsG0/fBd+kYemQNad5StvmxeEudnOTTkFQMefnlGZ7oAt5t0s
-	LbSyVpVnSa1oiYzcyMKczk4dK8ic8enhqU8LroTjxLPrqueEZ6m0ztnL13mH3B3H
-	bsMfMuHzKR69zvLOAr5UAgnqO6bWiA3tZ7LF9jzSQjlRedctMjnUeSO9k8045D1N
-	34IojA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j34fk3vpw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 18:56:50 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9495a1f5e47so444367685a.1
-        for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 10:56:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d7AO7oiM
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so31276275e9.1
+        for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 11:01:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795373809; x=1795978609; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HRvN52s7z6Z6ebg/B7u9QoUXaIdsxgVH6C5C+S1jI1c=;
-        b=jSQJdwYlo2r+9m3bOyza6XXx0si231V7050R83+Ylkf7R2gFpvpyaEi0CIMNnU6HQC
-         42OpdyEgrio9wgNKDbmOEk7LZkMQ4Pek6UdXofSP7tvrqT0+v4s3fLiYrE6T0E71Ya+l
-         AUd1C0Be4niaZxkBQBzi46Hg8iq35kU4Qv84xuXvuhNFIuG2HVC6ddZ0hxoehqDoDLdy
-         MVl0gdmS1zZnfcKvERONgFTmxvoNbTo3phpAVuvjus1OZ8DHkgj/Q4H11Hk6mpNE02be
-         4Yj9Xmu5eAP6FMU1PkDkrEDCCSzEMtoW+wTrDHchyLTasedltbvW3ykbEounxWin3lFj
-         4TeQ==
+        d=gmail.com; s=20260707; t=1795374067; x=1795978867; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=psP2uIlkimEYW+kQJSgqbVunRYZcoC3y/JABKKHgk3g=;
+        b=d7AO7oiMDNVsFh0LM4DDKaTKjlPQXm/32TtE6F0SynaZGe7KrFwsGdFSW+iOtkrCj0
+         Di0w3iZEbeIjuIueiDIsB/9NIDyUk86Kwvz5K+7WfCtRouCSFbM3YBPrvDSmmBaKseVm
+         LQC7JLblIZ8LUVFyKjVA7otkeG1kO7+f3RlI1uAgDoxG8FSwCcKCqngDMaoCx+UX3Jl9
+         d3pHBf0bEjA9RLOJNPrs5YFHpCVdyR6Pj1cHBPdUCzOGc5nUEM+jqMF3pXh1uIVW1kF4
+         G+jB0bUaWK48X/PmGHmpNQZ+8Mtay6QfZBz30QVPtVdlRuWD8ij96D2OgqTVgQ50pLLq
+         YE9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795373809; x=1795978609;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795374067; x=1795978867;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HRvN52s7z6Z6ebg/B7u9QoUXaIdsxgVH6C5C+S1jI1c=;
-        b=t4Qdis+Q92oF3GZ1mL2ATk9jE90id7rIaoLxJXAwURmChWh/ZfVtrQ+mO4OnMM3uOy
-         IAyh2NVGRkFqwPOGczt0BVhnIYBQaBxgjrG8mVnfk9MceKnq4NRO7cO85eEEc50tfFcd
-         XmCtbeJANW14Z/zBSdMBo9g3xfZJ4rn4+KV21Y/hli/rdi0I8Lc2A+RLH+zbi/IMdyhw
-         rjDzP21pCl8ETzmAc1IYXiEriSJFbDAsC+W4VTTwNbwrJFo3MIQfas7PbgdvyriVBdbb
-         ocyvLTjxTu8jwAGTHRZy/c4eqWK/mX8Ho7xDVUkAZdWkcs/tg/aNIhZBU0z+UoxEIcHM
-         0TpQ==
-X-Forwarded-Encrypted: i=1; AL+hErGRzjXDlEaLUT8bWIroldkCdaLv+ceaFvzmg0Sqj9xPgG3HPJjELsooPa8Wha9JvYr0GMfbkW+tNohBoQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z80E4bONtLACyfn2nIODzrsl+oWWBbJd7Xt6kP9vZfHTYy4wkWw
-	JNbVCfoDd8ymmVYf+8chkH4iDVyoO04AZlnc1u9UJkOSdEqCxHINi/C6eR7GaSD3NHhNYOX9A33
-	E5I5zHbeheFUUYaVExa8zRXwU/8fRsCKtcfpzzdPgTmRHOSb4HOioMayBNzTs5bTtwA==
-X-Gm-Gg: AZFdTZeYSD8zn4fQlT8SIOgMNVZVrTe/rYMgjZviT8kvCEzJiShr5JNx5QvzOUEkbdd
-	Efvb2WkGUT93Ihyq8S6m7tUhGL0PcO5dQe3dJrbqCclGYnCU00h4Lz5Hp2Fj9/0CjXP4iIC2870
-	RRRyZ7vvxseTtDNUZbOpGIImo3Tj/udMSWoa30XK//q5Ob04k924o06lfIx9SzuONZ15SB/8OwF
-	EqfbteLN21OG5ah1rxltYP1+oqrOO/FFr6CjERybjjlBDdlId6lcS7/HLl73K+BMVSo8fKPr52D
-	FkqrEY8VqvKJ4ukQ+XSr3UV8Gm9aFRWwD9vuVCQQzrouh8fFsYgTdoqcipKgYmPwrIV8LA6KSjS
-	KvFlTKHW2lZOOrzMkJTL0ifzSBN74ZEUpydoNwEMMf3ToQzjvy5w+3aKUXMFAhjFOGeCs8YT1Hz
-	WfnZ0RabfMBqYT
-X-Received: by 2002:a05:620a:2842:b0:93f:5717:e7b9 with SMTP id af79cd13be357-949ba99b091mr1605107085a.30.1795373809445;
-        Sun, 22 Nov 2026 10:56:49 -0800 (PST)
-X-Received: by 2002:a05:620a:2842:b0:93f:5717:e7b9 with SMTP id af79cd13be357-949ba99b091mr1605104985a.30.1795373808954;
-        Sun, 22 Nov 2026 10:56:48 -0800 (PST)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ad6403fdbbsm12158751f8f.15.2026.11.22.10.56.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 22 Nov 2026 10:56:48 -0800 (PST)
-Message-ID: <8e4a9c2e-e92c-4491-8f7a-25f68d468df1@oss.qualcomm.com>
-Date: Sun, 22 Nov 2026 20:56:46 +0200
+        bh=psP2uIlkimEYW+kQJSgqbVunRYZcoC3y/JABKKHgk3g=;
+        b=Aw+9/1C/O2FSkITASfbNVtoDiJpGtEZE0APXp1H0X9M9a7Kk7ffLlTrXfvJJIp5s+Z
+         xl6oveSK5LeFCYbppoWD8+yZ2Tm2YKhshPjFx3E/gMJPOJrTiqM++VtWgcdD6qT7uruD
+         mtSsMeewdIIHxjMhHOCE/hmV4hgWZenNzxrkj1As9j+PnN8Lps/kz2g8bn+nx2YECT+O
+         NKQ7xDuTcubkkEML5Fxji+IZYjpyLFWZnAufvxo0XFKoi/g3kboNaxf2vxXzU//FDJZc
+         /lRVnuZiJgzXgE0pmf9KXeAoIj/yEL1DwP0c96MVA8a6BSRWTxfqRYrBYGRwLTSerhXs
+         KXKQ==
+X-Gm-Message-State: APuU4Z9a7YmKMs414OUiYg2+p31blFDPn+SfGmOvh15c6/Wo74xfvBY9
+	I3lT91y3/u94HP125rrhSufQlBCGlgxauS5pE4OKP+C3OqbyybRBKbfU
+X-Gm-Gg: AZFdTZdCFP2j1n2ndBEPhlpdsNuY7t0HmowjAUMwGbQCrTMhSVJnDW9PNQgNsxsAruS
+	Yes/ml3p+FzqO0JG5IgHPImG+ww7yDV68lWBBVgisOuACbk42Lhl/In3K2QTKoN6zI0yru2ivKZ
+	ka42t+J3q8G0RSkhc+SBAkbIkPBtqtIEhmYFcMvDo+E0EWWnfEBxhi1KU3Q8DUShQ5S4z8GmVEK
+	c0eBQN3Qu/9hiI4XyGD/ST4s4BvtW5E/Ft067YcmkJNxX0njUp7iy9nUTpBhXLSQy5rM+F4BV99
+	IyA66mYghcUFwtFe0+hK8QrPQDzjxYKRhR/i/0jpODHjQzPecGu5mNvWrx1CDabmHiYX9e37JiT
+	FQlSWKyhD7rFcZTpwzLcmo87jrn4MdwwS4tqv6cVzY4cvWME2pMFpa3KO4qQsiKEjVKzPDjU/CS
+	k46g7QuJmCXIpt8Ge7X+3USfPUYoEYgBQ9lvk0jbE3JHOhxOMDP96fLnHJHfUrQlcaV8ZGZpYoB
+	BnPeK1BP9eYp81gAHeihFU5VlOdqS9B1embit5jGxVLfgzxrmnvFJgFBvH+6X7OFCEe0mZYbHo2
+	DPRPO5fPYCxm1BsOUARFni1QuLTAzUxPVE1SFEOmdlIek7f1bAaJJGoB
+X-Received: by 2002:a05:600c:3547:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4bb8880b88fmr189495385e9.10.1795374066559;
+        Sun, 22 Nov 2026 11:01:06 -0800 (PST)
+Received: from DESKTOP-V28CTA4.localdomain ([103.125.177.105])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884865a2sm283389045e9.3.2026.11.22.11.01.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 22 Nov 2026 11:01:06 -0800 (PST)
+From: Arbab Haider <arbabhaider649@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+fb0d2df09b56117605fc@syzkaller.appspotmail.com,
+	stable@vger.kernel.org,
+	Arbab Haider <arbabhaider649@gmail.com>
+Subject: [PATCH] media: em28xx: clear dev->v4l2 on init failure and fini to avoid double put
+Date: Mon, 23 Nov 2026 00:00:09 +0500
+Message-ID: <20261122190008.21278-2-arbabhaider649@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -116,82 +96,140 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] media: qcom: camss: Map each CSID to the VFE it feeds
-To: Jesse Casco <jesse.casco@gmail.com>,
-        Allan Siriani <allan@fatecpompeia.edu.br>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <cover.1795196107.git.jesse.casco@gmail.com>
- <9e5bee0dbc1c116672ba0020013ef0a346385c29.1795196107.git.jesse.casco@gmail.com>
- <331d37b0-eea3-40b1-9a27-9a33cc756949@oss.qualcomm.com>
- <20261120220025.56887-1-allan@fatecpompeia.edu.br>
- <20261122002800.41569-1-jesse.casco@gmail.com>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <20261122002800.41569-1-jesse.casco@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: GsXCpB_7E9SrhuOdDFUJ7ZH9f-jcTVtn
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIyMDA3NSBTYWx0ZWRfX75ATDmzRKxpt
- 4Z+hj81T7GS89Xf2hJVM4beRwrgmFrmza3alCUkToLCu7uUQndGaW1MVUyqP/2B1rKXWJrfTgD3
- pUcL7A6zkAY1m64NHZEhdOLb774RFOOX9oTHMHftwDYrAfHw56nRwBZJvCEATCJStDmEdN3BwRo
- gd4hTMo6svdqLWAFIZue8j//gJ1fdPxPuEzfDu23mRVmT6oVBm/gKcSNZgZ7GZvtzfuKnTfOd+e
- oLkTNpVqvBaMwGd5iUrzBc45uo4m1C8Ckx84tbH4cMcmNniTiAoxkdMfUM0KN4yVb+MBxFp9YFv
- 4WbNTO5PZsSfvz0P9bpuZh9Vl7toFiHZAGCW5v4j37h97BjN1Z9SBddP5R1cvQcLrpVOZXN/EBE
- WVoqOYmbHkUCktVWN1Ay8qC8yM0Iys2RhbbXZVJYioFLmtAwm0QdAOs7feyEmv2uNGvEniOiv7+
- W7vRIrrE+1/OG9qQGLQ==
-X-Authority-Analysis: v=2.4 cv=PsUG/AM3 c=1 sm=1 tr=0 ts=6b033af2 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=W52NO4HEYjdIeXn2O88A:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIyMDA3NSBTYWx0ZWRfX7SvYXPz/ehUc
- rLc/iEkblUDO9zhOOcui7vASq7tF/5Dq5A6x8h7XlUGoIuktRM3WGIQ8uPFtfg0LcnoIheQHN7X
- N0v4SKPrRaQbanich3AQ2lbz9MH5XmY=
-X-Proofpoint-GUID: GsXCpB_7E9SrhuOdDFUJ7ZH9f-jcTVtn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-22_04,2026-11-22_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0 priorityscore=1501
- impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611220075
+Content-Transfer-Encoding: 8bit
 
-Hi Jesse,
+Commit 288254383674 ("media: em28xx: use v4l2_device release callback")
+switched em28xx_v4l2 teardown to v4l2_device reference counting, where
+dev->v4l2 is only cleared inside em28xx_free_v4l2() once the refcount
+reaches zero.
 
-On 11/22/2026 2:28 AM, Jesse Casco wrote:
-> On Fri, Nov 20, 2026 at 07:00:25PM -0300, Allan Siriani wrote:
->> I'll drop it if the parent is resolved from the link as in Jesse's 2/2.
-> 
-> Hi Allan, Gjorgji, and Loic,
-> 
-> Allan, my 2/2 mapped CSIDs to VFEs by index, not from the link, so
-> MSM8916 CSID1 would still fail. v2 drops CSID2 instead, as Gjorgji
-> suggested on 0/2, and leaves vfe_parent_dev_ops_get() alone, so please
-> keep your patch.
-> 
-> Loic, every CSID still links to every lite and full VFE today. I can
-> add a patch to v2 that skips links between lite and full blocks, but I
-> can only test Glymur. Are they never connected on any of the non-ISPIF
-> SoCs?
+If em28xx_v4l2_init() fails after video_register_device() (for example,
+when v4l2_mc_create_media_graph() returns -EINVAL) while userspace has
+opened the video node, the unregister_dev error path calls
+v4l2_device_put(&v4l2->v4l2_dev) to drop the initial reference, but
+em28xx_free_v4l2() does not run yet because the open file handle still
+holds a reference, leaving dev->v4l2 non-NULL.
 
-There is already patch for linking issue as part of multistream support:
-https://lore.kernel.org/all/20260911062213.195007-6-gjorgji.rosikopulos@oss.qualcomm.com/
+When the USB device is subsequently disconnected, em28xx_v4l2_fini()
+sees dev->v4l2 != NULL and calls v4l2_device_put(&v4l2->v4l2_dev) a
+second time for the initial reference, freeing struct em28xx_v4l2 while
+the video device node is still referenced and causing a
+slab-use-after-free in media_device_unregister() /
+__media_entity_remove_links().
 
-However this fix will not be part of new series for stream API. Bryan plan to 
-post bugfix for addressing linking for all SoC's. Please wait for that and hold with
-linking fixes.
+Fix this by:
+- Calling v4l2_device_disconnect() and clearing dev->v4l2 = NULL under
+  dev->lock in em28xx_v4l2_init()'s unregister_dev path before dropping
+  the initial v4l2_device reference.
+- Checking and clearing dev->v4l2 under dev->lock in em28xx_v4l2_fini()
+  so the initial reference is dropped at most once.
+- Reading dev->v4l2 under dev->lock and checking for !v4l2 in
+  em28xx_v4l2_close() so a close racing with teardown cannot dereference
+  a NULL pointer.
 
-~Gjorgji
+Tested locally in QEMU (x86_64, KASAN+UBSAN) using dummy_hcd and
+raw-gadget emulating an EM2820 device with failed media graph creation
+and concurrent /dev/video0 open/disconnect.
 
-> 
-> Jesse
+Reported-by: syzbot+fb0d2df09b56117605fc@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=fb0d2df09b56117605fc
+Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
+---
+ drivers/media/usb/em28xx/em28xx-video.c | 23 ++++++++++++++++-------
+ 1 file changed, 16 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index 84424284d..50998aa1c 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -2333,7 +2333,6 @@ static void em28xx_free_v4l2(struct v4l2_device *v4l2_dev)
+ 
+ 	v4l2_ctrl_handler_free(&v4l2->ctrl_handler);
+ 	v4l2_device_unregister(v4l2_dev);
+-	dev->v4l2 = NULL;
+ 	kfree(v4l2);
+ 	kref_put(&dev->ref, em28xx_free_device);
+ }
+@@ -2414,7 +2413,7 @@ static int em28xx_v4l2_open(struct file *filp)
+  */
+ static int em28xx_v4l2_fini(struct em28xx *dev)
+ {
+-	struct em28xx_v4l2 *v4l2 = dev->v4l2;
++	struct em28xx_v4l2 *v4l2;
+ 
+ 	if (dev->is_audio_only) {
+ 		/* Shouldn't initialize IR for this interface */
+@@ -2426,13 +2425,16 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
+ 		return 0;
+ 	}
+ 
+-	if (!v4l2)
++	mutex_lock(&dev->lock);
++
++	v4l2 = dev->v4l2;
++	if (!v4l2) {
++		mutex_unlock(&dev->lock);
+ 		return 0;
++	}
+ 
+ 	dev_info(&dev->intf->dev, "Closing video extension\n");
+ 
+-	mutex_lock(&dev->lock);
+-
+ 	v4l2_device_disconnect(&v4l2->v4l2_dev);
+ 
+ 	em28xx_uninit_usb_xfer(dev, EM28XX_ANALOG_MODE);
+@@ -2455,6 +2457,8 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
+ 		vb2_video_unregister_device(&v4l2->vdev);
+ 	}
+ 
++	dev->v4l2 = NULL;
++
+ 	mutex_unlock(&dev->lock);
+ 
+ 	/*
+@@ -2502,18 +2506,19 @@ static int em28xx_v4l2_close(struct file *filp)
+ {
+ 	struct video_device   *vdev = video_devdata(filp);
+ 	struct em28xx         *dev  = video_drvdata(filp);
+-	struct em28xx_v4l2    *v4l2 = dev->v4l2;
++	struct em28xx_v4l2    *v4l2;
+ 	struct usb_device *udev = interface_to_usbdev(dev->intf);
+ 	int              err;
+ 	bool last_user;
+ 
+ 	mutex_lock(&dev->lock);
++	v4l2 = dev->v4l2;
+ 	last_user = v4l2_fh_is_singular_file(filp);
+ 	_vb2_fop_release(filp, vdev->queue->lock);
+ 
+ 	if (last_user) {
+ 		/* No sense to try to write to the device */
+-		if (dev->disconnected)
++		if (dev->disconnected || !v4l2)
+ 			goto exit;
+ 
+ 		/* Save some power by putting tuner to sleep */
+@@ -3110,6 +3115,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 	return 0;
+ 
+ unregister_dev:
++	v4l2_device_disconnect(&v4l2->v4l2_dev);
++
+ 	if (video_is_registered(&v4l2->radio_dev)) {
+ 		dev_info(&dev->intf->dev,
+ 			 "V4L2 device %s deregistered\n",
+@@ -3129,6 +3136,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 		vb2_video_unregister_device(&v4l2->vdev);
+ 	}
+ 
++	dev->v4l2 = NULL;
++
+ 	mutex_unlock(&dev->lock);
+ 
+ 	/*
+-- 
+2.53.0
 
