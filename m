@@ -1,85 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795430550;
-	b=ZQ1fhGZrx4VQel5/VmnsLVhC1ln3ZmZUKJ/vDlOR6LdIACOkY+6959hDekNeaseMajJ2
-	 Cw3ND105PkDEGNuN6mqjmBrB3UNfBtKYqJW7vr0+exny4L6+VUg9nNLybXnfqes7g3EhM
-	 XHk1IgxBGWvhzzpxqC1wzJx43XnBEbb68lew72gVebCLYvQ4KDEj8x5UyvBtvJj8hO1YF
-	 IinTDLUZB/3bHapVl8jsnh0/+iIHEEYoPxKQLE0hCGdy48BsxcjtzoXGnGlCTAk3cm38w
-	 li3BlBEty/9Rnr4sYEdDsLWKD8iFFoWfQERFr0AhF/SFzhsise453SArj3XszyzdGjQ==
+	t=1795431936;
+	b=u4z7tDO/kLlZ8PcC88IDK3prqVacaZd3asz0wuXINBwTZi898yVwroF5cx2E0nD4HHDy
+	 T3tzRKwoHOhtZA564B/JX+Z04vv8r4tqly+9i9PtE6zWBbjLrwslM1lvVDZ0nVRnadxZ6
+	 ayrPm/KODNn5M6csQwZ5/8z4gMfz2z5ZgvGzvQFoItqY2pv+osUSin/XIyHwDYbYvyuGF
+	 S7SIXhxdqXJ6POAa1lENlLbcpR8H0RGVX3WQYrtyurWzTrjWMEboZK9N0s56t4kPOcOyW
+	 UZYdiEutbRDXtceqxlmHONdSCb5HlLGy5Cy7B8kbdilyAJOqVMlsfC34S4Ob7A8Tx0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795430550;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795431936;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=v3brPViDlcXh4jdBPnkLkUXXAK6Bh6m1AFJ66HSdYUc=;
-	b=VM3UWcqzdPF1aWnQFAbvivJZGNixsYNvepeGknwBRx4DPUylsdQ1fDlWPTd5RCMjKuvL
-	 YTdWzyFhj2uKLRsDnxGCB1aqfHGgcFuM6Tv/33tGLiPWC5/lGjtnjaMUMeCw9h4qOOnHF
-	 Mpbob52kjQiBb8XA7/GXIFV5oKdvy1NgKgX07b/lNzhMJ2NzTCEzwdD/aj7RRZ3Aa9LTJ
-	 JFOhPV/m4pxz38vk8fZHhlLeh4xFffHxk8cf47RbbN2yR2yFwIiGeoFP3q/cPir1USMGm
-	 0ZXTUxKm0HDvEnJ6bLQrmhsdRXVAMukCRQ79KXg2PDcYhGkcSMT6dRXv5iCOmV17T2Q==
+	 Content-Disposition:In-Reply-To;
+	bh=y+pXRncvtOc4nB9TtW4KG6FLyRulzoczl3trVZwKBJI=;
+	b=HwwKIWoYn3QUB81FgioexWHnriWyFNssCRPyly0QN66siWWc4SWXLpXa86//4I25B2Yq
+	 coZtnGx8+Lu8NYeZCf89B2Z7VzIMq3TuiOWw7rorVDqVdF0dK9v3ODNnuaF0rme66WEbU
+	 9EEORIOPuqG07VDPXmQ8ct50YT5xIkaIxsTv/BIZ8bQZzw+EH3TLDsv5cD2H5emXNupPT
+	 yt2arhY6Dpurmw6i2YVzxEojSn/8JokkQEqoCLj1DiBC7o0eaqvn+/ZZ+peGdRum9zBcT
+	 In9aJYcm2NnSJs5mClbBFJyN4NNyBvYRgqfjxJca4gOod9vQr0cOyoSsgLORLuJv1bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PJs4giMK;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5211A60A2605;
-	Mon, 23 Nov 2026 10:42:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5211A60A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KvhrT8NK;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B071D606A31F
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 11:05:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B071D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PJs4giMK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795430550; x=1826966550;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MVSvmc3RlJ7KVv/V0gixli5mcWzR1R73vzwYA9KN5Ms=;
-  b=PJs4giMKQ5ruYDQyDsKm0fvQw3Q5p4KIA1FjYpPu04lQVxdld286ZvEP
-   ZH8rSnBJtY/H5Idb0E9RoE06Q96D+Crc8VfpAWNj9aKpVT6+BcvUEhWaM
-   /rtbibIbgzU9cRymof/Lv+Ijwas3NI1XvsCYmSKZVW20Qag9IGGrzE6pk
-   BJIqiv7MtRu0E7zAIySTmRcGklhEQLh+o6kPICh+ZL0LI0kM0jwdbRzge
-   WuWc7u2srvoa/4frjH7dNns6iA9XuL+y5niHIOrKp4p5ADGdFeztBWCed
-   xAeXBo7JX4/2izTVKnoEAy7bvUw3WkbiqcYGx2AXghh3W3HsR1tzE4p6L
-   A==;
-X-CSE-ConnectionGUID: 7icyP/QgRuGLbFczzPotnA==
-X-CSE-MsgGUID: +Jenrz0oQDSm9/0tc34RNw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4128709"
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="4128709"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 02:42:30 -0800
-X-CSE-ConnectionGUID: 6YQIn0/YRb+pW/CrJSeADA==
-X-CSE-MsgGUID: +3LNSA2PTaa6mn6nXk9uIA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="11683872"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 02:42:27 -0800
-Date: Mon, 23 Nov 2026 12:42:24 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: linux-media@vger.kernel.org,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: Re: [PATCH v11 14/14] media: atomisp: Preserve the capture graph
- when a lens rebinds
-Message-ID: <awQYkJLnmiZe9jxg@ashevche-desk.local>
-References: <cover.1795267528.git.mauriziocasciano7@gmail.com>
- <e19d87138eaf283350f85ace17ee9ee4563e9423.1795267528.git.mauriziocasciano7@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KvhrT8NK
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 24EEA1476;
+	Mon, 23 Nov 2026 03:05:32 -0800 (PST)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A83273F882;
+	Mon, 23 Nov 2026 03:05:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795431935; bh=kCUeWgNlDSox1V+xXIV0FoQklIwe01iQtQShkTSpFns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KvhrT8NKkwfUQlN/JVYJ5xdBVy5POFXKjhsTfodMnif/DZoxUXBTRSE+v99DKNllE
+	 5d1fBxUVR51g74P9by/+O7T3jZUmuCzToT2ynvCd+snaLJQPIjfE7jA9gHVgHouzT3
+	 DFYSeENRGheUkSn0CCeE9f0MsFw+W0BZ+uXNA9WQ=
+Date: Mon, 23 Nov 2026 11:05:23 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+	linaro-mm-sig@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+	linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
+Subject: Re: [PATCH v10 04/13] irqchip/gic-v3-its: Allocate shared tables
+ using CoCo shared memory allocator
+Message-ID: <awQd81MwZqi55gf8@arm.com>
+References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
+ <20261116091137.94252-5-aneesh.kumar@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,56 +107,108 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <e19d87138eaf283350f85ace17ee9ee4563e9423.1795267528.git.mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261116091137.94252-5-aneesh.kumar@kernel.org>
 
-On Sat, Nov 21, 2026 at 02:31:44PM +0100, Maurizio Casciano wrote:
-> The root notifier completes again when the lens subdevice is rebound.
-> Rebuilding the entire graph adds the original sensors a second time
-> and attempts to register the capture video device again.
-> 
-> If the capture node already exists and the sensors are unchanged,
-> register only missing subdevice nodes. Reject a changed sensor graph until
-> the driver is reinitialized. The preceding V4L2 rollback fix keeps
-> existing sensor nodes if new node registration fails. The X91L rebind
-> trial exposed the original issue. Codex drafted the notifier change.
-> 
-> Link: https://linuxtv.org/mailman3/hyperkitty/list/media-ci@linuxtv.org/message/2PUHZIDBEIGQKGXTJJOUXXJS2EOEMJGD/
+Hi Aneesh,
 
-Don't put unreferred Link tags.
+I'm replying on this patch rather than on the one introducing the API. I
+think it's more obvious here why I think we can make things simpler.
 
-...
-
->  static int atomisp_notifier_complete(struct v4l2_async_notifier *notifier)
+On Mon, Nov 16, 2026 at 02:41:27PM +0530, Aneesh Kumar K.V (Arm) wrote:
+>  static struct page *its_alloc_pages_node(int node, gfp_t gfp,
+>  					 unsigned int order)
 >  {
->  	struct atomisp_device *isp = notifier_to_atomisp(notifier);
-> +	unsigned int i;
+> -	struct page *page;
+> -	int ret = 0;
+> +	struct cc_shared_pages mem;
 >  
-> -	return atomisp_register_device_nodes(isp);
-> +	if (!video_is_registered(&isp->asd.video_out.vdev))
-> +		return atomisp_register_device_nodes(isp);
-> +
-> +	/*
-> +	 * Completing the lens notifier again only needs a new lens node.
-> +	 * The existing graph is valid as long as its sensors are unchanged.
-> +	 */
+>  	if (node == NUMA_NO_NODE)
+>  		node = numa_mem_id();
+>  
+> -	page = alloc_pages_node(node, gfp | gfp_flags_quirk, order);
+> -
+> -	if (!page)
+> -		return NULL;
+> -
+> -	ret = set_memory_decrypted((unsigned long)page_address(page),
+> -				   1 << order);
+> -	/*
+> -	 * If set_memory_decrypted() fails then we don't know what state the
+> -	 * page is in, so we can't free it. Instead we leak it.
+> -	 * set_memory_decrypted() will already have WARNed.
+> -	 */
+> -	if (ret)
+> +	if (alloc_cc_shared_pages_node(node, gfp | gfp_flags_quirk,
+> +				       PAGE_SIZE << order, &mem))
+>  		return NULL;
+>  
+> -	return page;
+> +	return mem.page;
 
-> +	for (i = 0; i < isp->input_cnt; i++) {
+This part is mostly fine but I do wonder why not make this alloc
+function the same as buddy alloc_pages_node() - return a struct page
+pointer.
 
-	for (unsigned int i = 0; i < isp->input_cnt; i++) {
-
-> +		const struct atomisp_input_subdev *input = &isp->inputs[i];
+>  static void its_free_pages(void *addr, unsigned int order)
+>  {
+> -	/*
+> -	 * If the memory cannot be encrypted again then we must leak the pages.
+> -	 * set_memory_encrypted() will already have WARNed.
+> -	 */
+> -	if (set_memory_encrypted((unsigned long)addr, 1 << order))
+> +	struct cc_shared_layout layout;
+> +	struct cc_shared_pages mem;
 > +
-> +		if (input->csi_remote_source != isp->sensor_subdevs[input->port])
-> +			return -EBUSY;
-> +	}
+> +	if (WARN_ON(cc_shared_calc_layout(PAGE_SIZE << order, &layout)))
+>  		return;
+> -	free_pages((unsigned long)addr, order);
 > +
-> +	return v4l2_device_register_subdev_nodes(&isp->v4l2_dev);
+> +	mem.page = virt_to_page(addr);
+> +	mem.shared_size = layout.shared_size;
+> +	free_cc_shared_pages(&mem);
 >  }
 
+Here it gets weird and I don't see why we can't have just a buddy-like
+interface. The kernel-doc for alloc says that shared_size must be
+retained for the corresponding free but without reading the source code,
+you can't tell that cc_shared_calc_layout() gives you the same
+shared_size populated by alloc. We have a similar pattern in dma-buf but
+using the compound page order.
+
+What's wrong with a simpler API:
+
+struct page *alloc_cc_shared_pages_node(int nid, gfp_t gfp, unsigned int order);
+struct page *alloc_cc_shared_pages(gfp_t gfp, unsigned int order);
+void free_cc_shared_pages(struct page *page, unsigned int order);
+
+Both alloc and free take the original request order and perform the
+round up internally without exposing the details to the caller. Alloc
+shares the whole resulting buddy block and free makes the same block
+private before releasing it. We can document that free takes the
+original requested order and releases the whole allocation. Partial
+frees aren't supported.
+
+We can get rid of layout and mem structures (or at least not as
+part of the API). Of course, this assumes that the shared granule size
+remains constant for a guest's lifetime but I don't think that's a
+problem.
+
+> @@ -278,7 +267,8 @@ static void *itt_alloc_pool(int node, int size)
+>  		if (!page)
+>  			break;
+>  
+> -		gen_pool_add(itt_pool, (unsigned long)page_address(page), PAGE_SIZE, node);
+> +		gen_pool_add(itt_pool, (unsigned long)page_address(page),
+> +			     cc_shared_granule_size(), node);
+
+Here we can introduce:
+
+unsigned int cc_shared_page_order(unsigned int order);
+
+and just use (PAGE_SIZE << cc_shared_page_order(0)) for gen_pool_add().
+
+Was there a caller you had in mind that needs the common allocator to
+share less than the whole buddy block?
+
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Catalin
