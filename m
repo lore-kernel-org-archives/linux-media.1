@@ -1,46 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.205.14.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795454551;
-	b=FVKoB+SZfLl40vxka7nLU+Ivm8LLab3avGzj3P/95sa+Mp1u1uMTupjDHWy+U4tVr1gX
-	 iUVCJuz99o6C2d/v8drHmqeVCWE+b04lyldSnOuyEykl1duekKGJK1ocfbCZeAmv909wM
-	 r6QZaskjHh797SDzp3AOTDObfk2qhebM8PobPqf5lklodTRNUBdKzXRED1AtVNwTuxZ1Y
-	 gQS/94cJhbJFCVLW+7Hajz34zUniHuuedF/01CT1wsBZ9HRm2Diu8OTQuJbu/56RS86Yt
-	 YZzKZLZF5L01g/FH9kJC2vNKyT/896sPRiG8fRKOLq/iko4w+jrEGvJ4ues+alYqITg==
+	t=1795454733;
+	b=ynyAsTwf5lf9c33ec5zB5swigINUogBbIdFzZZoaqaA4Iegn7rE2M7vGStAjIuMs466O
+	 LL3hzTkW6aVPo6YB+EW4/SwX5HDznqemBQEOvChGqizB/IRuFrDDfASJr/gT4ikT7FTl2
+	 MagHL5xZQA15CM8AhTxuRkIiZnnTM6ARLN44CbjSBIvgKaWm477EpdYop5D7gdxQJ8TEO
+	 Yo68iW5yIVBlJQOZolAmt9by3jayndFN7WNizd6LaJZoc2dj667Tfo7uIIzO8qHiMMchA
+	 Axpdznx4H0eDTZo8b4Ym6PUHojM+W/gVkSHCSm6iWWJTfn+aLYGI+JolYoiuvbZ+bKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795454551;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fLQu8QVdKIs7Ogz5lNJLzeIdms4BeIu0fjTXQJywUSE=;
-	b=dwhVSZFzLsrN7WI/MhYLNe6VwrSbOYp19XbI6dKyioMPpBpHs5ybCLx30FT3gReyV8zG
-	 sOMMxmRGYO8BDxa985NannayVxU/nQ2HaCFGr14BN/QDZB65a2GuPsj5Hae5+7uImHglL
-	 bDV8Y56OUd2/87G+VjhGWbXWZuBkRpLm1ThCUJUJAtKHBtrOCxngSKjWEwllAoYf8KyE0
-	 RAAGKD02HeNCRBXILiLg/VzPikt3TV4k09FR2XrHeEzFOFrjMtjQeVrTKBZlDmWflAUfx
-	 lsSA32iDTBM+pUnOFrgBM/3FO0FJqJRrpN6OBezKpRec78tlu15jLAWUE+WHoPOsQFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795454733;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=lfhg2+/rNBhkH2W0arnD3tR/lai12P2aVjqQX7vl+Hc=;
+	b=Og5ypdhUnwJg+Sno4A5oitEOigInBuAerV4QrlC4cPZN0fKIEFO8iSkBESA2LdlQO4k4
+	 +I7Qge4PE3yy5JRxFFVPtNbwjV8LU+bSX2zjwFc54cLzirRkAAIq2c+yofdItO0Tq+qPl
+	 85M/zK9RzYGNpldidE+DyQDgqxMnX/wDPxE+0YhBrRJO6wTwkNwaeNIUpnepodZYC58V1
+	 rdTtOoyZHHqfL5hDkFUHQo4JTZ7ZnebKwFPdSMoRAqL7p9m9bKBCvFAqbv3Q5OtWLp4U8
+	 T8ghUBW0l4TjnIYwv7Ft93jpSKT22lFx5KWP0M+jKh7Z07MdmSDcbMq8c/qZfNzLvoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gpxsee.org;
-	spf=pass smtp.mailfrom=gpxsee.org;
-	arc=none smtp.remote-ip=37.205.14.76
-Received: from mx.gpxsee.org (mx.gpxsee.org [37.205.14.76])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="ES/btqeW";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IRw1kSt7;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812E3606A327;
-	Mon, 23 Nov 2026 17:22:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 812E3606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gpxsee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gpxsee.org
-Received: from localhost (unknown [62.77.71.229])
-	by mx.gpxsee.org (Postfix) with ESMTPSA id A54E2C1669;
-	Mon, 23 Nov 2026 18:22:25 +0100 (CET)
-From: tumic@gpxsee.org
-To: Martin Tuma <martin.tuma@digiteqautomotive.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: mgb4: Fix broken PM suspend/resume
-Date: Mon, 23 Nov 2026 18:22:02 +0100
-Message-ID: <20261123172202.304364-1-tumic@gpxsee.org>
-X-Mailer: git-send-email 2.56.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F40606A327
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 17:25:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2F40606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ES/btqeW;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IRw1kSt7
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ANGGnmt1861277
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 17:25:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	lfhg2+/rNBhkH2W0arnD3tR/lai12P2aVjqQX7vl+Hc=; b=ES/btqeWk9Ry0Y4v
+	sPoVsd4C6na0WcfUDwzbpyMtnHs5bhkYPybKr0Ecn5CNPpAnGtJ2KRoTSefgpWvb
+	WhW4cG3J1iecCApouM0FOxcwsEPDtC/Dz+JZXNw+eJ+pABSjSMhYtz59XtGFdTeD
+	d0fR+0wd+MQXKA//TVuDVjOYxcoUdchjCyvRjRsu/RcjF2KOoLQgHzN/jOWEUilb
+	cY4R496mMi+8iksuU59eHyMhnG4+gSRDuR2YiBV6/Pwqa9Kqzw2Fp8Cfgk//Kqx8
+	UH5imSinHWeiwAFLJ2drOD3iW/aTwHN3iVnrpD8swI+eDjvTGggOp7mbUBRauXCC
+	Vue6Iw==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4g9a2hyk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 17:25:32 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-99af36c8b98so40414241.1
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 09:25:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795454731; x=1796059531; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lfhg2+/rNBhkH2W0arnD3tR/lai12P2aVjqQX7vl+Hc=;
+        b=IRw1kSt73pjEXYwJdclzKQgGlvG7nnxBJ/HytOijac9G7jNTPElk53F3x9kII9r1Yn
+         CO1pum/eIjjS4OM+EZL2yMK5oXbpn/4qlTZcXRRc0Yl+oxI0h9qHAC5jdlUficg9L+qp
+         LPyPVTBqvLJHbTt6VsipJ7gVzRfzq7deJC9QNLCfoC1HZHGBn46a4FwYH58yCrBFsn8Q
+         9Zhm/+KWB1fy9sZTGLtklj/ImEvRizE5gMORGcpkuPZJRHNu4AgKNHaAJAauO4MO34WM
+         WoyDW7p8Y3U3tMEmDrf4nemtv99eNd5Ban3wGfyGPenvxjjcRlVHHMS6lbB2WpON+9i2
+         73Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795454731; x=1796059531;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lfhg2+/rNBhkH2W0arnD3tR/lai12P2aVjqQX7vl+Hc=;
+        b=ve6OR95sGh8BcuTAhUQvERnDu4HSvVz9XGh0UTh5kmyviMaUVcaS7NZ/KXLtuCOXX5
+         A/n4zQKM0H6hkbJuPuV+2cUifqtEz4rpNSG++77LuN6LnVyWv/pl25uewF9Ncqqx80fe
+         fEVrmH30G7U2UR22I9cridNAY52buEaxscHf0KEfZuJXoIyRR8+cLwDOUIR2N4kFokWb
+         MIHKQGd6iHAvRQ1Zy4zK14d63zJhiaGYeYWSnL2akot3lOM1jd6MFUFpJMQUiJulyAeq
+         QwIGoSt9VIOGB2qilpU46ZT1kVnmpJ/DlyQdDY7CC6OjWV9DOuoL0oh0Q69f9T9wsmEu
+         giWw==
+X-Gm-Message-State: APuU4Z9+bVWzvkB0ltAOLsItIJ9WpSNoHWOKE8H2oulokEYQcBxy2/os
+	8hcG/pYOIxocUnVoUdGc0YT+bYjt/WP3h7T3N+epHzkLXt8tIAifv/erPcOEGEsDVrkSxxWNAAV
+	sZVyKHsF/9mmPF3sLT3IsCxg3EVIAKV3Qu7xvXga5gLbojQ2oQirvefqNAWm8NPoRAQ==
+X-Gm-Gg: AZFdTZfG9BOOe1Ewk8yagHuE1s9/OhU40ohTDnf6cnde2+VC5ND32exqG3V8b3xNOuu
+	32H+wuAYmVDw93lQ7X43BEMO6fRunRfHbP/xV+/kXEBEu/yxmnaTExnM6M4U2Hptcsrd4beheuM
+	0+khxgSHU1kC7gW/Oa2CfBqAyb6pqhdTUaAfqZnWVr65H24hVeL3p2PmaNZ/p/YjNpCsrxfk+zX
+	dd1owD0hNUEQTsWqf/FqqKxXosiTgHHA9Y+Kk6wR2i4RvXbLErDofoUIYi78y6cV+SpCQYUb/Ee
+	RFxneqo1yYKI2pZcfUczXDnJA1MKKfoq0oBQEqKI8Tn4WmjIL6UzJnKKx31fs/WtaU/tYxyDYIB
+	dRBJ85C55B3vRdFCybSniLMwjOGXAUZ4RHc0PSpRz81MQ1GZBWRGBepRtp/sCo1ZNExsjxOM=
+X-Received: by 2002:ac5:c00a:0:20b0:5cf:ad27:3a67 with SMTP id 71dfb90a1353d-5ee8af8d7bfmr7450515e0c.5.1795454730971;
+        Mon, 23 Nov 2026 09:25:30 -0800 (PST)
+X-Received: by 2002:ac5:c00a:0:20b0:5cf:ad27:3a67 with SMTP id 71dfb90a1353d-5ee8af8d7bfmr7450472e0c.5.1795454730544;
+        Mon, 23 Nov 2026 09:25:30 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afc679bsm432664066b.63.2026.11.23.09.25.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Nov 2026 09:25:29 -0800 (PST)
+Message-ID: <97ccd0d2-6410-40f4-9c0f-c08931dbeb10@oss.qualcomm.com>
+Date: Mon, 23 Nov 2026 18:25:27 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -50,798 +113,65 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/7] media: dt-bindings: media: i2c: add Samsung S5K5E8
+To: Hikmah Gumelar <hikmahgumelar@gmail.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org,
+        =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@baylibre.com>
+References: <20261123123546.152162-1-hikmahgumelar@gmail.com>
+ <20261123152722.168879-1-hikmahgumelar@gmail.com>
+ <20261123152722.168879-3-hikmahgumelar@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261123152722.168879-3-hikmahgumelar@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA2OSBTYWx0ZWRfX5sJH6YYHxq94
+ WMwufWOWg1/86sTxWo5JBmHKAFl6FzR+YeK7w9VB0kSi/fVF/mGx+RWme5fnNnK0ovD0EIqkOFv
+ s2wH0bB3f0seCprt1RBR1S7NLsCSPmc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA2OSBTYWx0ZWRfX35wJ8vuCpHPm
+ iJ44YnBhWdKeh+RbAVg8HMYJRUNilI6GHF8JsXgZIqPMdT4VU2wlrV2PEyls9LVkZUr1kg+1l72
+ tAH26UkoYINmv/bd2zLDGGaeMy0/HIv9e9BY4SNMDXrraWKe+b4fpb6ige+tRYLvZgottLSB6XI
+ byW8hqwaEdysxcdn31oL5o69LD16FlFzGaWH32EJdxkxu2Js3L2x0+G+PWXuvBADWIWo705YcXX
+ D9mUKcMMM7sh3nRDmObczv7bP9AKONPkyUv87wsapO1eAU1hN3Cz7Ifp9Crnx9aZOBu3J/ud4qg
+ FHLCh6SBkuD+W5awto54Yc5T6/BJt3z2+ezYbvQYd0h0PM+qtSgLB3WKmHRPlz7vwrYgcSCjB2E
+ 8D1OdsIF3D5wp7eH91oGNUHOlw2r6g0+2/MoAEXdBV57ANCMBoI7CP5wkkhUCHZVovnGsLvMFEy
+ PcMKRvr67HHbeXUmbJg==
+X-Proofpoint-ORIG-GUID: aWmNmHJYT_JIj1IRgcOiEnKJj1-EtSD2
+X-Authority-Analysis: v=2.4 cv=cYJHPXDM c=1 sm=1 tr=0 ts=6b04770c cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=2S1_hLxhzeHvXZh1LqAA:9 a=QEXdDO2ut3YA:10 a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-GUID: aWmNmHJYT_JIj1IRgcOiEnKJj1-EtSD2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_04,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 malwarescore=0 spamscore=0 bulkscore=0
+ priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611230069
 
-From: Martin Tůma <martin.tuma@digiteqautomotive.com>
+On 11/23/26 4:27 PM, Hikmah Gumelar wrote:
+> Add Devicetree binding schema for the Samsung S5K5E8 5-megapixel MIPI CSI-2 CMOS image sensor.
 
-Add the missing PM suspend/resume callbacks that properly reconfigure
-the mgb4 HW on PCIe suspend/resume.
+Please wrap the commit messages at 72 chars
 
-In addition to adding the PM calllbacks themselve, the already existing
-i2c functions were refactored so they can be used both during probe()
-and PM suspend()/resume().
-
-This patch only handles the mgb4 part (FPGA and i2c
-serializer/deserializer) of the reconfiguration. The used sub-devices
-(xdma, i2c-xiic, spi-xilinx) also need propper reconfiguration during
-suspend/resume but this is handled in separate patches to the relevant
-drivers and their PM callbacks. The patches are independent, if any of
-them is not present, the mgb4 suspend/resume won't work, but this is no
-change to the current state where the HW is broken after PM resume.
-
-Signed-off-by: Martin Tůma <martin.tuma@digiteqautomotive.com>
----
- drivers/media/pci/mgb4/mgb4_core.c     |  58 +++++++++--
- drivers/media/pci/mgb4/mgb4_i2c.c      |  26 ++++-
- drivers/media/pci/mgb4/mgb4_i2c.h      |  11 +-
- drivers/media/pci/mgb4/mgb4_sysfs_in.c |  79 ++++++++------
- drivers/media/pci/mgb4/mgb4_vin.c      | 137 ++++++++++++++++++++-----
- drivers/media/pci/mgb4/mgb4_vin.h      |  19 ++++
- drivers/media/pci/mgb4/mgb4_vout.c     |  93 +++++++++++++++--
- drivers/media/pci/mgb4/mgb4_vout.h     |  17 +++
- 8 files changed, 359 insertions(+), 81 deletions(-)
-
-diff --git a/drivers/media/pci/mgb4/mgb4_core.c b/drivers/media/pci/mgb4/mgb4_core.c
-index cbd193e06536..d33d1e047301 100644
---- a/drivers/media/pci/mgb4/mgb4_core.c
-+++ b/drivers/media/pci/mgb4/mgb4_core.c
-@@ -40,10 +40,13 @@
- #include "mgb4_trigger.h"
- #include "mgb4_core.h"
- 
--#define MGB4_USER_IRQS  16
-+#define MGB4_USER_IRQS   16
- #define MGB4_MGB4_BAR_ID 0
- #define MGB4_XDMA_BAR_ID 1
- 
-+#define XDMA_IRQ_SPI 14
-+#define XDMA_IRQ_I2C 15
-+
- #define DIGITEQ_VID 0x1ed8
- #define T100_DID    0x0101
- #define T200_DID    0x0201
-@@ -168,8 +171,6 @@ static int init_spi(struct mgb4_dev *mgbdev, u32 devid)
- 			.name	= "io-memory",
- 		},
- 		{
--			.start	= 14,
--			.end	= 14,
- 			.flags	= IORESOURCE_IRQ,
- 			.name	= "irq",
- 		},
-@@ -190,7 +191,7 @@ static int init_spi(struct mgb4_dev *mgbdev, u32 devid)
- 
- 	request_module("platform:xilinx_spi");
- 
--	irq = xdma_get_user_irq(mgbdev->xdev, 14);
-+	irq = xdma_get_user_irq(mgbdev->xdev, XDMA_IRQ_SPI);
- 	xdma_enable_user_irq(mgbdev->xdev, irq);
- 
- 	spi_resources[0].parent = &pdev->resource[MGB4_MGB4_BAR_ID];
-@@ -276,8 +277,6 @@ static int init_i2c(struct mgb4_dev *mgbdev)
- 			.name	= "io-memory",
- 		},
- 		{
--			.start	= 15,
--			.end	= 15,
- 			.flags	= IORESOURCE_IRQ,
- 			.name	= "irq",
- 		},
-@@ -291,7 +290,7 @@ static int init_i2c(struct mgb4_dev *mgbdev)
- 
- 	request_module("platform:xiic-i2c");
- 
--	irq = xdma_get_user_irq(mgbdev->xdev, 15);
-+	irq = xdma_get_user_irq(mgbdev->xdev, XDMA_IRQ_I2C);
- 	xdma_enable_user_irq(mgbdev->xdev, irq);
- 
- 	i2c_resources[0].parent = &pdev->resource[MGB4_MGB4_BAR_ID];
-@@ -693,6 +692,48 @@ static void mgb4_remove(struct pci_dev *pdev)
- 	kfree(mgbdev);
- }
- 
-+static int mgb4_suspend(struct device *dev)
-+{
-+	struct pci_dev *pdev = to_pci_dev(dev);
-+	struct mgb4_dev *mgbdev = pci_get_drvdata(pdev);
-+	int i, rv = 0;
-+
-+	for (i = 0; i < MGB4_VIN_DEVICES; i++)
-+		if (mgbdev->vin[i])
-+			rv |= mgb4_vin_suspend(mgbdev->vin[i]);
-+	for (i = 0; i < MGB4_VOUT_DEVICES; i++)
-+		if (mgbdev->vout[i])
-+			rv |= mgb4_vout_suspend(mgbdev->vout[i]);
-+
-+	xdma_disable_user_irq(mgbdev->xdev,
-+			      xdma_get_user_irq(mgbdev->xdev, XDMA_IRQ_SPI));
-+	xdma_disable_user_irq(mgbdev->xdev,
-+			      xdma_get_user_irq(mgbdev->xdev, XDMA_IRQ_I2C));
-+
-+	return rv ? -EIO : 0;
-+}
-+
-+static int mgb4_resume(struct device *dev)
-+{
-+	struct pci_dev *pdev = to_pci_dev(dev);
-+	struct mgb4_dev *mgbdev = pci_get_drvdata(pdev);
-+	int i, rv = 0;
-+
-+	xdma_enable_user_irq(mgbdev->xdev,
-+			     xdma_get_user_irq(mgbdev->xdev, XDMA_IRQ_SPI));
-+	xdma_enable_user_irq(mgbdev->xdev,
-+			     xdma_get_user_irq(mgbdev->xdev, XDMA_IRQ_I2C));
-+
-+	for (i = 0; i < MGB4_VIN_DEVICES; i++)
-+		if (mgbdev->vin[i])
-+			rv |= mgb4_vin_resume(mgbdev->vin[i]);
-+	for (i = 0; i < MGB4_VOUT_DEVICES; i++)
-+		if (mgbdev->vout[i])
-+			rv |= mgb4_vout_resume(mgbdev->vout[i]);
-+
-+	return rv ? -EIO : 0;
-+}
-+
- static const struct pci_device_id mgb4_pci_ids[] = {
- 	{ PCI_DEVICE(DIGITEQ_VID, T100_DID) },
- 	{ PCI_DEVICE(DIGITEQ_VID, T200_DID) },
-@@ -700,11 +741,14 @@ static const struct pci_device_id mgb4_pci_ids[] = {
- };
- MODULE_DEVICE_TABLE(pci, mgb4_pci_ids);
- 
-+static DEFINE_SIMPLE_DEV_PM_OPS(mgb4_pm_ops, mgb4_suspend, mgb4_resume);
-+
- static struct pci_driver mgb4_pci_driver = {
- 	.name = KBUILD_MODNAME,
- 	.id_table = mgb4_pci_ids,
- 	.probe = mgb4_probe,
- 	.remove = mgb4_remove,
-+	.driver.pm = pm_sleep_ptr(&mgb4_pm_ops),
- };
- 
- module_pci_driver(mgb4_pci_driver);
-diff --git a/drivers/media/pci/mgb4/mgb4_i2c.c b/drivers/media/pci/mgb4/mgb4_i2c.c
-index 2697b67e290e..b29f34dce606 100644
---- a/drivers/media/pci/mgb4/mgb4_i2c.c
-+++ b/drivers/media/pci/mgb4/mgb4_i2c.c
-@@ -124,17 +124,37 @@ s32 mgb4_i2c_mask_byte(struct mgb4_i2c_client *client, u16 reg, u8 mask, u8 val)
- }
- 
- int mgb4_i2c_configure(struct mgb4_i2c_client *client,
--		       const struct mgb4_i2c_kv *values, size_t count)
-+		       const struct mgb4_i2c_key *keys,
-+		       const u8 *values,
-+		       size_t count)
- {
- 	size_t i;
- 	s32 res;
- 
- 	for (i = 0; i < count; i++) {
--		res = mgb4_i2c_mask_byte(client, values[i].reg, values[i].mask,
--					 values[i].val);
-+		res = mgb4_i2c_mask_byte(client, keys[i].reg, keys[i].mask,
-+					 values[i]);
- 		if (res < 0)
- 			return res;
- 	}
- 
- 	return 0;
- }
-+
-+int mgb4_i2c_store(struct mgb4_i2c_client *client,
-+		   const struct mgb4_i2c_key *keys,
-+		   u8 *values,
-+		   size_t count)
-+{
-+	size_t i;
-+	s32 res;
-+
-+	for (i = 0; i < count; i++) {
-+		res = mgb4_i2c_read_byte(client, keys[i].reg);
-+		if (res < 0)
-+			return res;
-+		values[i] = (u8)res;
-+	}
-+
-+	return 0;
-+}
-diff --git a/drivers/media/pci/mgb4/mgb4_i2c.h b/drivers/media/pci/mgb4/mgb4_i2c.h
-index fac6a1634474..1c3624ffd6e4 100644
---- a/drivers/media/pci/mgb4/mgb4_i2c.h
-+++ b/drivers/media/pci/mgb4/mgb4_i2c.h
-@@ -14,10 +14,9 @@ struct mgb4_i2c_client {
- 	int addr_size;
- };
- 
--struct mgb4_i2c_kv {
-+struct mgb4_i2c_key {
- 	u16 reg;
- 	u8 mask;
--	u8 val;
- };
- 
- int mgb4_i2c_init(struct mgb4_i2c_client *client, struct i2c_adapter *adap,
-@@ -30,6 +29,12 @@ s32 mgb4_i2c_mask_byte(struct mgb4_i2c_client *client, u16 reg, u8 mask,
- 		       u8 val);
- 
- int mgb4_i2c_configure(struct mgb4_i2c_client *client,
--		       const struct mgb4_i2c_kv *values, size_t count);
-+		       const struct mgb4_i2c_key *keys,
-+		       const u8 *values,
-+		       size_t count);
-+int mgb4_i2c_store(struct mgb4_i2c_client *client,
-+		   const struct mgb4_i2c_key *keys,
-+		   u8 *values,
-+		   size_t count);
- 
- #endif
-diff --git a/drivers/media/pci/mgb4/mgb4_sysfs_in.c b/drivers/media/pci/mgb4/mgb4_sysfs_in.c
-index 80ff05450e98..1ff3f06aac92 100644
---- a/drivers/media/pci/mgb4/mgb4_sysfs_in.c
-+++ b/drivers/media/pci/mgb4/mgb4_sysfs_in.c
-@@ -551,22 +551,29 @@ static ssize_t gmsl_mode_show(struct device *dev,
-  * locking/queue check is not needed.
-  */
- static ssize_t gmsl_mode_store(struct device *dev,
--			       struct device_attribute *attr, const char *buf,
-+			       struct device_attribute *attr,
-+			       const char *buf,
- 			       size_t count)
- {
--	static const struct mgb4_i2c_kv G12[] = {
--		{0x01, 0x03, 0x03}, {0x300, 0x0C, 0x0C}, {0x03, 0xC0, 0xC0}};
--	static const struct mgb4_i2c_kv G6[] = {
--		{0x01, 0x03, 0x02}, {0x300, 0x0C, 0x08}, {0x03, 0xC0, 0x00}};
--	static const struct mgb4_i2c_kv G3[] = {
--		{0x01, 0x03, 0x01}, {0x300, 0x0C, 0x04}, {0x03, 0xC0, 0x00}};
--	static const struct mgb4_i2c_kv G1[] = {
--		{0x01, 0x03, 0x00}, {0x300, 0x0C, 0x00}, {0x03, 0xC0, 0x00}};
--	static const struct mgb4_i2c_kv reset[] = {
--		{0x10, 1U << 5, 1U << 5}, {0x300, 1U << 6, 1U << 6}};
--	struct video_device *vdev = to_video_device(dev);
--	struct mgb4_vin_dev *vindev = video_get_drvdata(vdev);
--	const struct mgb4_i2c_kv *values;
-+	static const struct mgb4_i2c_key G12_keys[] = {
-+		{0x01, 0x03}, {0x300, 0x0C}, {0x03, 0xC0}};
-+	static const u8 G12_values[] = {0x03, 0x0C, 0xC0};
-+	static const struct mgb4_i2c_key G6_keys[] = {
-+		{0x01, 0x03}, {0x300, 0x0C}, {0x03, 0xC0}};
-+	static const u8 G6_values[] = {0x02, 0x08, 0x00};
-+	static const struct mgb4_i2c_key G3_keys[] = {
-+		{0x01, 0x03}, {0x300, 0x0C}, {0x03, 0xC0}};
-+	static const u8 G3_values[] = {0x01, 0x04, 0x00};
-+	static const struct mgb4_i2c_key G1_keys[] = {
-+		{0x01, 0x03}, {0x300, 0x0C}, {0x03, 0xC0}};
-+	static const u8 G1_values[] = {0x00, 0x00, 0x00};
-+	static const struct mgb4_i2c_key reset_keys[] = {
-+		{0x10, 1U << 5}, {0x300, 1U << 6}};
-+	static const u8 reset_values[] = {1U << 5, 1U << 6};
-+	struct video_device *vdev = to_video_device(dev);
-+	struct mgb4_vin_dev *vindev = video_get_drvdata(vdev);
-+	const struct mgb4_i2c_key *keys;
-+	const u8 *values;
- 	unsigned long val;
- 	int ret;
- 
-@@ -576,24 +583,28 @@ static ssize_t gmsl_mode_store(struct device *dev,
- 
- 	switch (val) {
- 	case 0: /* 12Gb/s */
--		values = G12;
-+		keys = G12_keys;
-+		values = G12_values;
- 		break;
- 	case 1: /* 6Gb/s */
--		values = G6;
-+		keys = G6_keys;
-+		values = G6_values;
- 		break;
- 	case 2: /* 3Gb/s */
--		values = G3;
-+		keys = G3_keys;
-+		values = G3_values;
- 		break;
- 	case 3: /* 1.5Gb/s */
--		values = G1;
-+		keys = G1_keys;
-+		values = G1_values;
- 		break;
- 	default:
- 		return -EINVAL;
- 	}
- 
- 	mutex_lock(&vindev->mgbdev->i2c_lock);
--	ret = mgb4_i2c_configure(&vindev->deser, values, 3);
--	ret |= mgb4_i2c_configure(&vindev->deser, reset, 2);
-+	ret = mgb4_i2c_configure(&vindev->deser, keys, values, 3);
-+	ret |= mgb4_i2c_configure(&vindev->deser, reset_keys, reset_values, 2);
- 	mutex_unlock(&vindev->mgbdev->i2c_lock);
- 	if (ret < 0)
- 		return -EIO;
-@@ -676,15 +687,19 @@ static ssize_t gmsl_fec_show(struct device *dev, struct device_attribute *attr,
- static ssize_t gmsl_fec_store(struct device *dev, struct device_attribute *attr,
- 			      const char *buf, size_t count)
- {
-+	static const struct mgb4_i2c_key enable_keys[] = {
-+		{0x3E0, 0x07}, {0x308, 0x01}};
-+	static const u8 enable_values[] = {0x07, 0x01};
-+	static const struct mgb4_i2c_key disable_keys[] = {
-+		{0x3E0, 0x07}, {0x308, 0x01}};
-+	static const u8 disable_values[] = {0x00, 0x00};
-+	static const struct mgb4_i2c_key reset_keys[] = {
-+		{0x10, 1U << 5}, {0x300, 1U << 6}};
-+	static const u8 reset_values[] = {1U << 5, 1U << 6};
- 	struct video_device *vdev = to_video_device(dev);
- 	struct mgb4_vin_dev *vindev = video_get_drvdata(vdev);
--	static const struct mgb4_i2c_kv enable[] = {
--		{0x3E0, 0x07, 0x07}, {0x308, 0x01, 0x01}};
--	static const struct mgb4_i2c_kv disable[] = {
--		{0x3E0, 0x07, 0x00}, {0x308, 0x01, 0x00}};
--	static const struct mgb4_i2c_kv reset[] = {
--		{0x10, 1U << 5, 1U << 5}, {0x300, 1U << 6, 1U << 6}};
--	const struct mgb4_i2c_kv *values;
-+	const struct mgb4_i2c_key *keys;
-+	const u8 *values;
- 	unsigned long val;
- 	int ret;
- 
-@@ -694,18 +709,20 @@ static ssize_t gmsl_fec_store(struct device *dev, struct device_attribute *attr,
- 
- 	switch (val) {
- 	case 0: /* disabled */
--		values = disable;
-+		keys = disable_keys;
-+		values = disable_values;
- 		break;
- 	case 1: /* enabled */
--		values = enable;
-+		keys = enable_keys;
-+		values = enable_values;
- 		break;
- 	default:
- 		return -EINVAL;
- 	}
- 
- 	mutex_lock(&vindev->mgbdev->i2c_lock);
--	ret = mgb4_i2c_configure(&vindev->deser, values, 2);
--	ret |= mgb4_i2c_configure(&vindev->deser, reset, 2);
-+	ret = mgb4_i2c_configure(&vindev->deser, keys, values, 2);
-+	ret |= mgb4_i2c_configure(&vindev->deser, reset_keys, reset_values, 2);
- 	mutex_unlock(&vindev->mgbdev->i2c_lock);
- 	if (ret < 0)
- 		return -EIO;
-diff --git a/drivers/media/pci/mgb4/mgb4_vin.c b/drivers/media/pci/mgb4/mgb4_vin.c
-index 64b7a9b13573..ce0fd9cf4b2a 100644
---- a/drivers/media/pci/mgb4/mgb4_vin.c
-+++ b/drivers/media/pci/mgb4/mgb4_vin.c
-@@ -45,7 +45,7 @@ static const struct i2c_board_info fpdl3_deser_info[] = {
- 	{I2C_BOARD_INFO("deserializer2", 0x36)},
- };
- 
--static const struct i2c_board_info gmsl3_deser_info[] = {
-+static const struct i2c_board_info gmsl3tp_deser_info[] = {
- 	{I2C_BOARD_INFO("deserializer1", 0x4C)},
- 	{I2C_BOARD_INFO("deserializer2", 0x2A)},
- };
-@@ -60,26 +60,35 @@ static const struct i2c_board_info gmsl1_deser_info[] = {
- 	{I2C_BOARD_INFO("deserializer2", 0x6C)},
- };
- 
--static const struct mgb4_i2c_kv fpdl3_i2c[] = {
--	{0x06, 0xFF, 0x04}, {0x07, 0xFF, 0x01}, {0x45, 0xFF, 0xE8},
--	{0x49, 0xFF, 0x00}, {0x34, 0xFF, 0x00}, {0x23, 0xFF, 0x00}
-+static const struct mgb4_i2c_key fpdl3_i2c_keys[] = {
-+	{0x06, 0xFF}, {0x07, 0xFF}, {0x45, 0xFF}, {0x49, 0xFF},
-+	{0x34, 0xFF}, {0x23, 0xFF}
- };
- 
--static const struct mgb4_i2c_kv gmsl3_i2c[] = {
--	{0x01, 0x03, 0x03}, {0x300, 0x0C, 0x0C}, {0x03, 0xC0, 0xC0},
--	{0x1CE, 0x0E, 0x0E}, {0x11, 0x05, 0x00}, {0x05, 0xC0, 0x40},
--	{0x307, 0x0F, 0x00}, {0xA0, 0x03, 0x00}, {0x3E0, 0x07, 0x07},
--	{0x308, 0x01, 0x01}, {0x10, 0x20, 0x20}, {0x300, 0x40, 0x40}
-+static const u8 fpdl3_i2c_values[] = {
-+	0x04, 0x01, 0xE8, 0x00, 0x00, 0x00
- };
- 
--static const struct mgb4_i2c_kv gmsl3c_i2c[] = {
--	{0x01, 0x03, 0x02}, {0x300, 0x0C, 0x08}, {0x03, 0xC0, 0x00},
--	{0x1CE, 0x0E, 0x0E}, {0x11, 0x05, 0x05}, {0x05, 0xC0, 0x40},
--	{0x307, 0x0F, 0x00}, {0xA0, 0x03, 0x00}, {0x3E0, 0x07, 0x00},
--	{0x308, 0x01, 0x00}, {0x10, 0x20, 0x20}, {0x300, 0x40, 0x40}
-+static const struct mgb4_i2c_key gmsl3_i2c_keys[] = {
-+	{0x01, 0x03}, {0x300, 0x0C}, {0x03, 0xC0}, {0x1CE, 0x0E},
-+	{0x11, 0x05}, {0x05, 0xC0}, {0x307, 0x0F}, {0xA0, 0x03},
-+	{0x3E0, 0x07}, {0x308, 0x01}, {0x10, 0x20}, {0x300, 0x40}
- };
- 
--static const struct mgb4_i2c_kv gmsl1_i2c[] = {
-+static const u8 gmsl3tp_i2c_values[] = {
-+	0x03, 0x0C, 0xC0, 0x0E, 0x00, 0x40, 0x00, 0x00,
-+	0x07, 0x01, 0x20, 0x40
-+};
-+
-+static const u8 gmsl3c_i2c_values[] = {
-+	0x02, 0x08, 0x00, 0x0E, 0x05, 0x40, 0x00, 0x00,
-+	0x00, 0x00, 0x20, 0x40
-+};
-+
-+static const struct mgb4_i2c_key gmsl1_i2c_keys[] = {
-+};
-+
-+static const u8 gmsl1_i2c_values[] = {
- };
- 
- static const struct v4l2_dv_timings_cap video_timings_cap = {
-@@ -818,8 +827,7 @@ static irqreturn_t err_handler(int irq, void *ctx)
- static int deser_init(struct mgb4_vin_dev *vindev, int id)
- {
- 	int rv, addr_size = 0;
--	size_t count = 0;
--	const struct mgb4_i2c_kv *values = NULL;
-+	const u8 *values = NULL;
- 	const struct i2c_board_info *info = NULL;
- 	struct device *dev = &vindev->mgbdev->pdev->dev;
- 
-@@ -827,24 +835,28 @@ static int deser_init(struct mgb4_vin_dev *vindev, int id)
- 		if (MGB4_IS_GMSL3C(vindev->mgbdev)) {
- 			info = &gmsl3c_deser_info[id];
- 			addr_size = 16;
--			values = gmsl3c_i2c;
--			count = ARRAY_SIZE(gmsl3c_i2c);
-+			vindev->deser_regs = gmsl3_i2c_keys;
-+			vindev->deser_regs_size = ARRAY_SIZE(gmsl3_i2c_keys);
-+			values = gmsl3c_i2c_values;
- 		} else {
--			info = &gmsl3_deser_info[id];
-+			info = &gmsl3tp_deser_info[id];
- 			addr_size = 16;
--			values = gmsl3_i2c;
--			count = ARRAY_SIZE(gmsl3_i2c);
-+			vindev->deser_regs = gmsl3_i2c_keys;
-+			vindev->deser_regs_size = ARRAY_SIZE(gmsl3_i2c_keys);
-+			values = gmsl3tp_i2c_values;
- 		}
- 	} else if (MGB4_IS_FPDL3(vindev->mgbdev)) {
- 		info = &fpdl3_deser_info[id];
- 		addr_size = 8;
--		values = fpdl3_i2c;
--		count = ARRAY_SIZE(fpdl3_i2c);
-+		vindev->deser_regs = fpdl3_i2c_keys;
-+		vindev->deser_regs_size = ARRAY_SIZE(fpdl3_i2c_keys);
-+		values = fpdl3_i2c_values;
- 	} else if (MGB4_IS_GMSL1(vindev->mgbdev)) {
- 		info = &gmsl1_deser_info[id];
- 		addr_size = 8;
--		values = gmsl1_i2c;
--		count = ARRAY_SIZE(gmsl1_i2c);
-+		vindev->deser_regs = gmsl1_i2c_keys;
-+		vindev->deser_regs_size = ARRAY_SIZE(gmsl1_i2c_keys);
-+		values = gmsl1_i2c_values;
- 	} else {
- 		return -EINVAL;
- 	}
-@@ -855,12 +867,19 @@ static int deser_init(struct mgb4_vin_dev *vindev, int id)
- 		dev_err(dev, "failed to create deserializer\n");
- 		return rv;
- 	}
--	rv = mgb4_i2c_configure(&vindev->deser, values, count);
-+	rv = mgb4_i2c_configure(&vindev->deser, vindev->deser_regs, values,
-+				vindev->deser_regs_size);
- 	if (rv < 0) {
- 		dev_err(dev, "failed to configure deserializer\n");
- 		goto err_i2c_dev;
- 	}
- 
-+	vindev->pm_deser = kzalloc(vindev->deser_regs_size, GFP_KERNEL);
-+	if (!vindev->pm_deser) {
-+		rv = -ENOMEM;
-+		goto err_i2c_dev;
-+	}
-+
- 	return 0;
- 
- err_i2c_dev:
-@@ -1076,5 +1095,69 @@ void mgb4_vin_free(struct mgb4_vin_dev *vindev)
- 	video_unregister_device(&vindev->vdev);
- 	v4l2_device_unregister(&vindev->v4l2dev);
- 
-+	kfree(vindev->pm_deser);
- 	kfree(vindev);
- }
-+
-+int mgb4_vin_suspend(struct mgb4_vin_dev *vindev)
-+{
-+	struct device *dev = &vindev->mgbdev->pdev->dev;
-+	int err_irq = xdma_get_user_irq(vindev->mgbdev->xdev,
-+					vindev->config->err_irq);
-+	struct mgb4_regs *video = &vindev->mgbdev->video;
-+	const struct mgb4_vin_regs *regs = &vindev->config->regs;
-+	struct mgb4_vin_fpga_pm *fpga = &vindev->pm_fpga;
-+
-+	int rv = mgb4_i2c_store(&vindev->deser,
-+				vindev->deser_regs,
-+				vindev->pm_deser,
-+				vindev->deser_regs_size);
-+	if (rv)
-+		dev_err(dev, "failed to store deserializer configuration\n");
-+	else
-+		xdma_disable_user_irq(vindev->mgbdev->xdev, err_irq);
-+
-+	fpga->config = mgb4_read_reg(video, regs->config);
-+	fpga->resolution = mgb4_read_reg(video, regs->resolution);
-+	fpga->frame_period = mgb4_read_reg(video, regs->frame_period);
-+	fpga->sync = mgb4_read_reg(video, regs->sync);
-+	fpga->pclk = mgb4_read_reg(video, regs->pclk);
-+	fpga->hsync = mgb4_read_reg(video, regs->hsync);
-+	fpga->vsync = mgb4_read_reg(video, regs->vsync);
-+	fpga->padding = mgb4_read_reg(video, regs->padding);
-+	fpga->timer = mgb4_read_reg(video, regs->timer);
-+
-+	return rv;
-+}
-+
-+int mgb4_vin_resume(struct mgb4_vin_dev *vindev)
-+{
-+	struct device *dev = &vindev->mgbdev->pdev->dev;
-+	int err_irq = xdma_get_user_irq(vindev->mgbdev->xdev,
-+					vindev->config->err_irq);
-+	struct mgb4_regs *video = &vindev->mgbdev->video;
-+	const struct mgb4_vin_regs *regs = &vindev->config->regs;
-+	struct mgb4_vin_fpga_pm *fpga = &vindev->pm_fpga;
-+
-+	int rv = mgb4_i2c_configure(&vindev->deser,
-+				    vindev->deser_regs,
-+				    vindev->pm_deser,
-+				    vindev->deser_regs_size);
-+	if (rv)
-+		dev_err(dev, "failed to re-configure deserializer\n");
-+
-+	mgb4_write_reg(video, regs->config, 0x00000001);
-+	mgb4_write_reg(video, regs->resolution, fpga->resolution);
-+	mgb4_write_reg(video, regs->frame_period, fpga->frame_period);
-+	mgb4_write_reg(video, regs->sync, fpga->sync);
-+	mgb4_write_reg(video, regs->pclk, fpga->pclk);
-+	mgb4_write_reg(video, regs->hsync, fpga->hsync);
-+	mgb4_write_reg(video, regs->vsync, fpga->vsync);
-+	mgb4_write_reg(video, regs->padding, fpga->padding);
-+	mgb4_write_reg(video, regs->timer, fpga->timer);
-+	mgb4_write_reg(video, regs->config, fpga->config);
-+
-+	xdma_enable_user_irq(vindev->mgbdev->xdev, err_irq);
-+
-+	return rv;
-+}
-diff --git a/drivers/media/pci/mgb4/mgb4_vin.h b/drivers/media/pci/mgb4/mgb4_vin.h
-index 2a2c829914ce..e903df6118a2 100644
---- a/drivers/media/pci/mgb4/mgb4_vin.h
-+++ b/drivers/media/pci/mgb4/mgb4_vin.h
-@@ -36,6 +36,18 @@ struct mgb4_vin_config {
- 	struct mgb4_vin_regs regs;
- };
- 
-+struct mgb4_vin_fpga_pm {
-+	u32 config;
-+	u32 resolution;
-+	u32 frame_period;
-+	u32 sync;
-+	u32 pclk;
-+	u32 hsync;
-+	u32 vsync;
-+	u32 padding;
-+	u32 timer;
-+};
-+
- struct mgb4_vin_dev {
- 	struct mgb4_dev *mgbdev;
- 	struct v4l2_device v4l2dev;
-@@ -54,9 +66,14 @@ struct mgb4_vin_dev {
- 	u32 padding;
- 
- 	struct mgb4_i2c_client deser;
-+	const struct mgb4_i2c_key *deser_regs;
-+	size_t deser_regs_size;
- 
- 	const struct mgb4_vin_config *config;
- 
-+	u8 *pm_deser;
-+	struct mgb4_vin_fpga_pm pm_fpga;
-+
- #ifdef CONFIG_DEBUG_FS
- 	struct debugfs_regset32 regset;
- 	struct debugfs_reg32 regs[sizeof(struct mgb4_vin_regs) / 4];
-@@ -65,5 +82,7 @@ struct mgb4_vin_dev {
- 
- struct mgb4_vin_dev *mgb4_vin_create(struct mgb4_dev *mgbdev, int id);
- void mgb4_vin_free(struct mgb4_vin_dev *vindev);
-+int mgb4_vin_suspend(struct mgb4_vin_dev *vindev);
-+int mgb4_vin_resume(struct mgb4_vin_dev *vindev);
- 
- #endif
-diff --git a/drivers/media/pci/mgb4/mgb4_vout.c b/drivers/media/pci/mgb4/mgb4_vout.c
-index 22fbc9e53819..3bfc7cca129f 100644
---- a/drivers/media/pci/mgb4/mgb4_vout.c
-+++ b/drivers/media/pci/mgb4/mgb4_vout.c
-@@ -43,11 +43,19 @@ static const struct i2c_board_info gmsl1_ser_info[] = {
- 	{I2C_BOARD_INFO("serializer2", 0x22)},
- };
- 
--static const struct mgb4_i2c_kv fpdl3_i2c[] = {
--	{0x05, 0xFF, 0x04}, {0x06, 0xFF, 0x01}, {0xC2, 0xFF, 0x80}
-+static const struct mgb4_i2c_key fpdl3_i2c_keys[] = {
-+	{0x05, 0xFF}, {0x06, 0xFF}, {0xC2, 0xFF}, {0x5B, 0x03},
-+	{0x4F, 0x40}
- };
- 
--static const struct mgb4_i2c_kv gmsl1_i2c[] = {
-+static const u8 fpdl3_i2c_values[] = {
-+	0x04, 0x01, 0x80, 0x00, 0x00
-+};
-+
-+static const struct mgb4_i2c_key gmsl1_i2c_keys[] = {
-+};
-+
-+static const u8 gmsl1_i2c_values[] = {
- };
- 
- static const struct v4l2_dv_timings_cap video_timings_cap = {
-@@ -646,18 +654,19 @@ static int ser_init(struct mgb4_vout_dev *voutdev, int id)
- 	struct mgb4_i2c_client *ser = &voutdev->ser;
- 	struct device *dev = &voutdev->mgbdev->pdev->dev;
- 	const struct i2c_board_info *info = NULL;
--	const struct mgb4_i2c_kv *values = NULL;
--	size_t count = 0;
-+	const u8 *values = NULL;
- 	int rv;
- 
- 	if (MGB4_IS_FPDL3(voutdev->mgbdev)) {
- 		info = &fpdl3_ser_info[id];
--		values = fpdl3_i2c;
--		count = ARRAY_SIZE(fpdl3_i2c);
-+		voutdev->ser_regs = fpdl3_i2c_keys;
-+		voutdev->ser_regs_size = ARRAY_SIZE(fpdl3_i2c_keys);
-+		values = fpdl3_i2c_values;
- 	} else if (MGB4_IS_GMSL1(voutdev->mgbdev)) {
- 		info = &gmsl1_ser_info[id];
--		values = gmsl1_i2c;
--		count = ARRAY_SIZE(gmsl1_i2c);
-+		voutdev->ser_regs = gmsl1_i2c_keys;
-+		voutdev->ser_regs_size = ARRAY_SIZE(gmsl1_i2c_keys);
-+		values = gmsl1_i2c_values;
- 	}
- 
- 	if (!info)
-@@ -668,12 +677,19 @@ static int ser_init(struct mgb4_vout_dev *voutdev, int id)
- 		dev_err(dev, "failed to create serializer\n");
- 		return rv;
- 	}
--	rv = mgb4_i2c_configure(ser, values, count);
-+	rv = mgb4_i2c_configure(ser, voutdev->ser_regs, values,
-+				voutdev->ser_regs_size);
- 	if (rv < 0) {
- 		dev_err(dev, "failed to configure serializer\n");
- 		goto err_i2c_dev;
- 	}
- 
-+	voutdev->pm_ser = kzalloc(voutdev->ser_regs_size, GFP_KERNEL);
-+	if (!voutdev->pm_ser) {
-+		rv = -ENOMEM;
-+		goto err_i2c_dev;
-+	}
-+
- 	return 0;
- 
- err_i2c_dev:
-@@ -869,5 +885,62 @@ void mgb4_vout_free(struct mgb4_vout_dev *voutdev)
- 	video_unregister_device(&voutdev->vdev);
- 	v4l2_device_unregister(&voutdev->v4l2dev);
- 
-+	kfree(voutdev->pm_ser);
- 	kfree(voutdev);
- }
-+
-+int mgb4_vout_suspend(struct mgb4_vout_dev *voutdev)
-+{
-+	struct device *dev = &voutdev->mgbdev->pdev->dev;
-+	struct mgb4_regs *video = &voutdev->mgbdev->video;
-+	const struct mgb4_vout_regs *regs = &voutdev->config->regs;
-+	struct mgb4_vout_fpga_pm *fpga = &voutdev->pm_fpga;
-+
-+	int rv = mgb4_i2c_store(&voutdev->ser,
-+				voutdev->ser_regs,
-+				voutdev->pm_ser,
-+				voutdev->ser_regs_size);
-+	if (rv < 0)
-+		dev_err(dev, "failed to store serializer configuration\n");
-+
-+	fpga->config = mgb4_read_reg(video, regs->config);
-+	fpga->resolution = mgb4_read_reg(video, regs->resolution);
-+	fpga->frame_limit = mgb4_read_reg(video, regs->frame_limit);
-+	fpga->hsync = mgb4_read_reg(video, regs->hsync);
-+	fpga->vsync = mgb4_read_reg(video, regs->vsync);
-+	fpga->padding = mgb4_read_reg(video, regs->padding);
-+	fpga->timer = mgb4_read_reg(video, regs->timer);
-+
-+	return rv;
-+}
-+
-+int mgb4_vout_resume(struct mgb4_vout_dev *voutdev)
-+{
-+	struct device *dev = &voutdev->mgbdev->pdev->dev;
-+	struct mgb4_regs *video = &voutdev->mgbdev->video;
-+	const struct mgb4_vout_regs *regs = &voutdev->config->regs;
-+	struct mgb4_vout_fpga_pm *fpga = &voutdev->pm_fpga;
-+	u32 dp;
-+
-+	int rv = mgb4_i2c_configure(&voutdev->ser,
-+				    voutdev->ser_regs,
-+				    voutdev->pm_ser,
-+				    voutdev->ser_regs_size);
-+	if (rv < 0)
-+		dev_err(dev, "failed to re-configure serializer\n");
-+
-+	mgb4_write_reg(video, regs->config, 0x00000001);
-+	mgb4_write_reg(video, regs->resolution, fpga->resolution);
-+	mgb4_write_reg(video, regs->frame_limit, fpga->frame_limit);
-+	mgb4_write_reg(video, regs->hsync, fpga->hsync);
-+	mgb4_write_reg(video, regs->vsync, fpga->vsync);
-+	mgb4_write_reg(video, regs->padding, fpga->padding);
-+	mgb4_write_reg(video, regs->timer, fpga->timer);
-+
-+	dp = (fpga->config & 0x10) >> 4;
-+	mgb4_cmt_set_vout_freq(voutdev, voutdev->freq >> dp);
-+
-+	mgb4_write_reg(video, regs->config, fpga->config);
-+
-+	return rv;
-+}
-diff --git a/drivers/media/pci/mgb4/mgb4_vout.h b/drivers/media/pci/mgb4/mgb4_vout.h
-index a07eeabdcf34..dcfca32d403a 100644
---- a/drivers/media/pci/mgb4/mgb4_vout.h
-+++ b/drivers/media/pci/mgb4/mgb4_vout.h
-@@ -33,6 +33,16 @@ struct mgb4_vout_config {
- 	struct mgb4_vout_regs regs;
- };
- 
-+struct mgb4_vout_fpga_pm {
-+	u32 config;
-+	u32 resolution;
-+	u32 frame_limit;
-+	u32 hsync;
-+	u32 vsync;
-+	u32 padding;
-+	u32 timer;
-+};
-+
- struct mgb4_vout_dev {
- 	struct mgb4_dev *mgbdev;
- 	struct v4l2_device v4l2dev;
-@@ -50,9 +60,14 @@ struct mgb4_vout_dev {
- 	u32 padding;
- 
- 	struct mgb4_i2c_client ser;
-+	const struct mgb4_i2c_key *ser_regs;
-+	size_t ser_regs_size;
- 
- 	const struct mgb4_vout_config *config;
- 
-+	u8 *pm_ser;
-+	struct mgb4_vout_fpga_pm pm_fpga;
-+
- #ifdef CONFIG_DEBUG_FS
- 	struct debugfs_regset32 regset;
- 	struct debugfs_reg32 regs[sizeof(struct mgb4_vout_regs) / 4];
-@@ -61,5 +76,7 @@ struct mgb4_vout_dev {
- 
- struct mgb4_vout_dev *mgb4_vout_create(struct mgb4_dev *mgbdev, int id);
- void mgb4_vout_free(struct mgb4_vout_dev *voutdev);
-+int mgb4_vout_suspend(struct mgb4_vout_dev *voutdev);
-+int mgb4_vout_resume(struct mgb4_vout_dev *voutdev);
- 
- #endif
-
-base-commit: aa0f4c41d4870a18e65772a1817af16427200371
--- 
-2.56.1
+Konrad
 
