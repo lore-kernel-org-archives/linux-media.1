@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795398721;
-	b=ugDBIbag3X+h8/Z1/zMDmuwikbwKjtose35r23AtgkVIch7/qsUqwFXOdgtUptO6VBZv
-	 V8QfMrTGv7nrHnHUd/Y8++xflOPpK1eBu1fd0yT5btOPYx33/4SHFjMD0oNyekLmEdJNi
-	 Rji/6hKRTJqJnk86kEbT3mok27K4r8O5Wb2YbUrFrA3GHUv3B4siY3tWP7lDUIXpBG+i8
-	 bDej3Ux1D9iViop7ELDRXWV1qbz3OoFf0GuGz1JLcK6P1sDtLRyRXgCHrS91xpocDGUVC
-	 kZHNIMyykhBdK2+Gg+2CYrmMEaSbyir2J7jV5ZXlQR5WJmyUQc7NvV12SnI14VLtjyQ==
+	t=1795399256;
+	b=zSxgRbD+ufsZQSXJcdCx0SGVhT8nEfbx8GIrWiz2zleiiH+/N1HJ+Bx8pmyjud87E2DB
+	 9CQvt3W7dVdXAcayxRd5wZttRgzy1L9B+gZdXB1ud75K7483LsPWYVykgIg0iIDZj+9UK
+	 4zYajk0yiBrRCfRA+TFY9niIG53hi0P5RGwYnSZdiY1p3KdHthLc4Z1qlmFmSTFrgj7Ph
+	 1xDo+H/wzBrcZR46GlZw+ebqwtbM3nzn9d5BiSgnnYFUjw1gqKvcn+Qi/MTPfPQbB5MFq
+	 JH5yYbsAO8XLe43DNrXb8Bx8AlAoT//lQbgkkfr2a+YLU0kMgAR8zmeNCt9NFBdqnhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795398721;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=YVtyufYB92pslMYc1cNPbAx48nCwMK6/elZbLI4VZ4c=;
-	b=lUrK1QRMjHcNhJyM7rI5XtT9wNKZ3jZ+QeNULN9dh6lD9qNAuF5lFzW/2SKOHC6XfCqu
-	 IB2WiWexIqiEG2fOSkCdNZuF3wQwNncD5LJs0jpui3bbEAF+xbKW9Hb617o+2yBGw9r77
-	 E+e8HiM3HCu3jBmpVc+5ujS+lqzGw05IXFh5F4rVtNPfwJ0fqxx9xH2CjNSAKyjIFRerN
-	 UAcS22jgZqMYSP3AgP/dmnukW4ozI6L/6B+8UYAjepNXGshQeQXOjqOPVJOqA9TIqAunf
-	 GvRO8LpSY469kMH82MREYipIpqvUWVOY+Okoh6TFJMG/I6SlxtzrjfikhUcIvUirHzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795399256;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=abuHts2iLCDIlqg/UOb0cnFGjClC7OODd7kpb0gel4Q=;
+	b=vq6UD8s2Zjnx5hCwN4pP7jyFDkDG01JdXk5UVGRRBaMJ2Isvc9IRFPJsAijDEkHiBiHy
+	 lViNhjNkvkLRRcNWEe9WmehuH8gnMazFpidOC75giwR21LNmcHnqM3hLeqD48edTbC0S8
+	 WYY/GVoli26z7oUMzrxIfGR7uAvhp3QYmn8qYVZHfzoBk6tggaBnjfo2cfIWOgJyeEK34
+	 Fcq2yUyQHdfWpQd1m2Z6liHLej7ahfbuWio3jqV9oyP1QfaunjOc0sngsqYUhf2B1yVe9
+	 3Tsk1hLnQ3wyEQCrPktKqpwpzo1Y/Cl/ZJ09t/M6EkWlGareiCrPax286/b9Q8qsCDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XJO+XIkm;
-	arc=none smtp.remote-ip=95.215.58.80
-Received: from mta1.migadu.com (out-80.mta1.migadu.com [95.215.58.80])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=mNzfWYi1;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8A5606A32E
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 01:52:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B8A5606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E83D0606A31E
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 02:00:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E83D0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XJO+XIkm
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=e+QHWbBPMWAeiyatS48Y4WE7Tii5hCDimKpeiM65Zg8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795398718; v=1; x=1796003518;
- b=XJO+XIkm3rkM9nMrQaJ88DBU/SbDNDS8sX/2dIaj3cwmRrKirwqyb+I0+uhLyek6+NMpIzpi
- feptrx/ngiR7GStYVclrJX2X302KeSUwM1np0LDwreiaO4CnEGlTK2BETzp5dn6xGe4YcTGokd9
- xsy7UnLpMsmmUcjbVs0s4weY=
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1054823f21723493;
-	Mon, 23 Nov 2026 01:51:57 +0000
-X-Mizu-Trace-ID: 1054823f21723493
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <361c4312-f77b-495f-9ee4-e0b9612b4463@linux.dev>
-Date: Mon, 23 Nov 2026 09:51:41 +0800
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=mNzfWYi1
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2BCA7177;
+	Mon, 23 Nov 2026 02:58:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1795399102;
+	bh=4pT1LtwoS4OSxPyQLZ0golaCvmGhRONJYsbX0worwcg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=mNzfWYi18y5AZcO42KHO3WHT+MmGriLw1Ps7xmW/8ienXLIrm9cOfOnehfsYIKDub
+	 Fsf0TSZEAaIosFOhUrQ/8PkMX0iFBOWgtXnVUii6lQJrWQ81DQrCdT7LAeYsP1bwxf
+	 ZumRxqvP8/+rx526chvPmQlyd+JEt+9dQQgO+iGs=
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: linux-media@vger.kernel.org
+Cc: Hans Verkuil <hans@jjverkuil.nl>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@iki.fi>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>
+Subject: [PATCH] Documentation: media: Document API requirements for complex cameras
+Date: Mon, 23 Nov 2026 04:00:52 +0200
+Message-ID: <20261123020052.2990492-1-laurent.pinchart@ideasonboard.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,55 +62,167 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 0/8] ext4: Add dma-buf read/write support
-To: Christoph Hellwig <hch@lst.de>, Anuj Gupta <anuj1072538@gmail.com>,
- Nitesh Shetty <nj.shetty@samsung.com>, asml.silence@gmail.com
-Cc: Jens Axboe <axboe@kernel.dk>, Sumit Semwal <sumit.semwal@linaro.org>,
- christian.koenig@amd.com, Philipp Stanner <phasta@kernel.org>,
- Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, tytso@mit.edu,
- Andreas Dilger <adilger.kernel@dilger.ca>,
- Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
- <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Zhang Yi <yi.zhang@huawei.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, Li Wang <liwang@kylinos.cn>,
- Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-References: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
- <20261120154153.GC28611@lst.de>
-From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
-In-Reply-To: <20261120154153.GC28611@lst.de>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/20/26 23:41, Christoph Hellwig wrote:
-> On Fri, Nov 13, 2026 at 03:06:13PM +0800, Mengmeng Zhao wrote:
->> From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
->>
->> This series adds dma-buf read/write support for ext4. The dma-buf direct
->> I/O infrastructure allows dma-buf to be handed to file I/O as an iov_iter,
->> but currently it only supports raw block devices. To better serve the
->> GPU-NVMe direct access through normal filesystems, prior work for XFS has
->> been discussed at [1]. We are also interested in this field and working on
->> it [2].
-> 
-> Can you an Anuj please work together and merge this into a single
-> series covering both XFS and ext4?
-> 
+Complex cameras use the Media Controller and V4L2 userspace APIs. While
+those APIs are standardized, their broad scope provide lots of freedom
+for drivers to expose features to applications. The lack of guidelines
+for driver developers has led to confusion, with drivers exposing
+identical features in different ways, increasing complexity for
+userspace.
 
-Hi Christoph, sure, I'm glad to work with Anuj on this.
+Add a document that explains what API elements drivers for complex
+cameras shall or shall not expose to userspace, as well as requirements
+for suitable test implementations in userspace.
 
-Hi Anuj, I'd be happy to help pull our patches together into a single
-unified series and send it out for review, if you're okay with that—and
-would appreciate your review once it's posted as well. Please let me know how
-you'd like to coordinate, or if you have any updates in progress on your
-side before I put the series together.
+This document is a starting point and is expected to be extended over
+time to address architectural issues noticed during review. The
+userspace requirements are inspired by the DRM userspace requirements
+(Documentation/gpu/drm-uapi.rst).
 
+Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+---
+A recent discussion regarding the tegra-video driver ([1]) reminded me
+that documentation about what APIs drivers for complex camera should
+implement is still missing. This is an attempt to start such a document.
+I have tried to keep it relatively short, and focus on the issues that
+immediately came to my mind. As the scope is large, I believe extending
+the documentation as issues arise is a good strategy.
+
+Part of the userspace requirements is not specific to complex cameras.
+The section could be generalized and moved to a different location, but
+I wasn't sure what a suitable location could be. I would appreciate if
+this patch could get merged without first refactoring large parts of the
+V4L2 documentation :-)
+
+[1] https://lore.kernel.org/linux-media/20261120213116.GB2472094@killaraus.ideasonboard.com
+---
+ .../driver-api/media/complex-camera.rst       | 82 +++++++++++++++++++
+ Documentation/driver-api/media/index.rst      |  1 +
+ Documentation/driver-api/media/v4l2-isp.rst   |  6 +-
+ 3 files changed, 87 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/driver-api/media/complex-camera.rst
+
+diff --git a/Documentation/driver-api/media/complex-camera.rst b/Documentation/driver-api/media/complex-camera.rst
+new file mode 100644
+index 000000000000..a6133b11575a
+--- /dev/null
++++ b/Documentation/driver-api/media/complex-camera.rst
+@@ -0,0 +1,82 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++.. _media_writing_complex_camera_drivers:
++
++Writing drivers for complex cameras
++===================================
++
++Complex cameras are devices that combine camera sensors, transmitters,
++receivers, processing elements and DMA engines in ways that require control of
++those elements individually from userspace.
++
++Prime examples of such devices are "MIPI cameras" found in most phones and in
++many laptops, where a raw camera sensor is connected to an SoC over MIPI CSI-2,
++with the camera sensor, the CSI-2 receiver and the ISP controlled directly from
++userspace. Such system where all the components are controlled by a firmware
++that exposes a high-level, webcam-like API are not considered complex cameras.
++
++Complex cameras use the Media Controller and V4L2 userspace APIs. While those
++APIs are standardized, their broad scope provide lots of freedom for drivers to
++expose features to applications. This has historically led to drivers exposing
++identical features in very different ways, increasing complexity for userspace.
++This document defines what API elements drivers for complex cameras should
++expose to userspace.
++
++
++Architecture
++------------
++
++Complex cameras are made of at least one inline processing pipeline and zero or
++more offline processing pipelines. The inline pipelines contain at least one
++camera sensor, one receiver and one DMA engine, and may include other elements
++such as serializers, deserializers or inline ISPs. The offline pipelines
++typically contain processing elements such as memory-to-memory ISPs and their
++associated DMA engines.
++
++Each pipeline shall be exposed to userspace using the Media Controller API as
++one media graph. All media entities in the graph that require software control
++shall be exposed to userspace using the V4L2 video device API for DMA engines,
++and the V4L2 subdevice API for all other entities.
++
++Camera sensor drivers shall implement the API described in
++:ref:`media_using_camera_sensor_drivers`.
++
++ISP drivers, for both inline and memory-to-memory ISPs, shall expose parameters
++and statistics using the :ref:`v4l2_isp_parameters_statistics_api`. They shall
++not expose ISP parameters through V4L2 controls, and shall not implement ISP
++control algorithms such as auto-exposure or auto-white balance within the
++kernel.
++
++Video devices shall report the `V4L2_CAP_IO_MC` device capability (see
++:ref:`VIDIOC_QUERYCAP`). In accordance to the principles of MC-centric drivers,
++video devices shall not control other entities in the pipeline.
++
++
++Open-source userspace requirements
++----------------------------------
++
++Any addition to the Media Controller or V4L2 userspace API, regardless of its
++nature (new or extensions to IOCTLs, new controls or events, new ISP parameters
++or statistics formats, new media graph topologies, ...), requires a
++corresponding open-source userspace implementation in a suitable upstream
++project. That implementation must have been reviewed by the project and be
++ready for merging.
++
++Historically, proving the design of V4L2 userspace API extensions only required
++a test implementation in userspace, usually in the `media-ctl` or `v4l2-ctl`
++tools and in `v4l2-compliance`. Over the years, it became clear that test tools
++only guaranteed suitability of the APIs for test tools, not for real world use
++cases. This has led to APIs that were cumbersome to use in userspace, or too
++specific to a particular use case. Proper review and validation of APIs
++therefore requires a userspace implementation in a real project.
++
++Furthermore, maintaining kernel drivers requires an open-source userspace
++implementation to test changes and debug problems. As drivers need to be
++maintained in the long term, that implementation must provide quality and
++support guarantees that are not compatible with a one-off test project, or a
++vendor fork of a project. The userspace implementation must therefore be part
++of a suitable upstream project, and have been reviewed and ready for merging by
++project maintainers.
++
++For complex cameras, a suitable userspace project is
++`libcamera <https://libcamera.org>`_.
+diff --git a/Documentation/driver-api/media/index.rst b/Documentation/driver-api/media/index.rst
+index 08fc2cfc07a3..8fa6dac57994 100644
+--- a/Documentation/driver-api/media/index.rst
++++ b/Documentation/driver-api/media/index.rst
+@@ -35,6 +35,7 @@ Documentation/userspace-api/media/index.rst
+     cec-core
+     tx-rx
+     camera-sensor
++    complex-camera
+ 
+     drivers/index
+ 
+diff --git a/Documentation/driver-api/media/v4l2-isp.rst b/Documentation/driver-api/media/v4l2-isp.rst
+index 618ae614ff79..1736a1f139d8 100644
+--- a/Documentation/driver-api/media/v4l2-isp.rst
++++ b/Documentation/driver-api/media/v4l2-isp.rst
+@@ -1,7 +1,9 @@
+ .. SPDX-License-Identifier: GPL-2.0
+ 
+-V4L2 generic ISP parameters and statistics support
+-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++.. _v4l2_isp_parameters_statistics_api:
++
++V4L2 generic ISP parameters and statistics API
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 
+ Design rationale
+ ================
+
+base-commit: b7ac871daee981f1963f632586ff9b9d898ce5dd
+-- 
+Regards,
+
+Laurent Pinchart
 
