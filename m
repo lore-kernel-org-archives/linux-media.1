@@ -1,91 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795472788;
-	b=tTSb1O4DTa4BrxFlROVKFnE/Dm2KvRi52wD2T+ZtQc63xQSXltOEYxUdmFg74l/8xK1V
-	 aBtmkwGPSeRVZeqXbCcqYM59lzL1c/LlvypRguDAtRcR+lvW61IHex3QiQtgwwiIE+NGT
-	 Toq0K6fipckbRYPYyIPO4vMQdJeeb6L+CEVuLJA+/7AreRq8MendDDkqRGJs1sshkPsZU
-	 sgnRH4ojJcw7dCd6r3OZP6FSkS1stAaXt9fGS0FiMXw3DhhENF8MuztJR4II/n8dlmPNd
-	 HAsTVIDb64aibQfYPRWxtWyw1f5XYCFf3+AnOxZIXeUeqeITS2OUO06vjCEgklziy5A==
+	t=1795472819;
+	b=LE/XLoQtdGUfzgZq+ms1vGiCfoqnDYxSrGKZpUlr88Eh8XGwgLZqF5VJTI4pdd4zklmE
+	 ybaHm7+B4tnXbmwYkav5Jw7ReAwUsLOm64NaxqBUeiEwL93q9HfTBB3gDyqJTEtxL5bDH
+	 nD2wGFqygA6R4aIII3z/H2LP0wXrisVAJNkBHbddiAL6xDyFzmiUk7y1gVB7XzkkMqp01
+	 jg3jvEaWR985pJmUHG4uwf92IpRinmwlP+gAULxUKjdRsv+hcz9PeUY6TCjMGxQqpsA2f
+	 MsMR1txN3Yyq3x8j7f2KYS3NZy08JnqHB6BC6dQ6WJ4HdSGZxEN7b8/NMcCOe9W6Czg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795472788;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=zL9FW6qmJVERb9uBjlstt4dUn5W525DT8FCMzg4JX1I=;
-	b=GmhCN6z+Yt5XUacN6qpDYgkoQJUL8hrYkMtdOGYq2xUk3iHVBd5wRpAQjP64tkHlDYUl
-	 M9mvTtcvOmkvLU0zkstsS37geWFeUjKIFMbno0eRxeA5zTwA7GXhkDCuoNzHeTYOjPMip
-	 RVIe+7xQld7weuc3GZf8VNAk0RjU/Gb/u19Ix8hvxZr95w05n05sjL5ZCW9Xrc8yW0KWJ
-	 0QsAVIHYVVgz/Tya7SxpKnaZAxIN0Om/ydReV//EW05BjOaaE8Gx3+ngc0Ap0AXQjrH5f
-	 2qTtHWV4x63HdxKzHYor2wnk6JDUkygHh70OthGpdWZn+TZibYCxmkNhDKt+GPcB6ZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795472819;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=yYD5vZBdnkFtnUsJ6D8rbr9QKv09GjSrmbmfhpJgdAs=;
+	b=pnLRyC+r4X6OnMmd4DljqzR1hBTnw/yZsjg+quO5whjp1lCmjqCeWevT8cGy2xhChZxG
+	 wxZduRN05qrL+okRSI9RYglpDS7KEaIc/urC6vIvQkSzF18ptKDOFPZ9OB5xFIvyhvEbQ
+	 8dBIqhHBERV92hL+ilHTIvTxkZ7A1a1fFLJZNDgluo1YSarJ5F4ST//5+QFzR+KqK3CBJ
+	 hy8XGXp745QNVlg0LYFPgN0Zat4Pai+3qOYjCE1spWKypzePVp8lMvt33Iypu1PhpMo8o
+	 dl2RXEUn4bNGC52nJqMVi1h/QikpXI2rbeyiIrpDbGJG6Nx7Lcw4+G5JjHvnBUIqAug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ntYxdNfw;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q9R06Iht;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F13606A326;
-	Mon, 23 Nov 2026 22:26:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8F13606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778C8606A332;
+	Mon, 23 Nov 2026 22:26:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ntYxdNfw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795472786;
-	bh=jafCJiO5kEDoT7LeCzSexDLui/CmGZgBcYWpbAal89Q=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=ntYxdNfwbYMnR4G45krGiMK/xALKPCbBjGzrhhLZGJQYQdwmRIX5bijv4Rj14dK7C
-	 YoIU6u0/EddOz3/sPdJScestRmDdf7TqRSAspK9AodsFySnvLSrxw0AQjQ67/sHDhZ
-	 +oC3+nJZlvNNbwEx7VZ3xLY7EUBEv6uvDz7H74nM2NP4NdK1o4bXh6Gz25gIHf0PXd
-	 onMmipYGNV55v3SSLWC2IgIQoPJElx9DzDTmGBpAqe8DRMojWjUdrrXwFUhCqRjPcO
-	 skrk3XF/3Mcke4Qw3KUSoOqJDSBxCqUPpw2lWsqCic43iwh2yRWnmIK7X6lavKcMmb
-	 VAhExsYZuVxOw==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 424EA17E05F2;
-	Mon, 23 Nov 2026 23:26:24 +0100 (CET)
-Message-ID: <adfcc7bb137c294d01395dff64bfb915d2f34a5e.camel@collabora.com>
-Subject: Re: [PATCH v2 2/3] media: verisilicon: reject MPEG-1 controls
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: aiyengar1990@gmail.com, Hans Verkuil <hverkuil@kernel.org>, Mauro
- Carvalho Chehab <mchehab@kernel.org>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
- Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski	 <paulk@sys-base.io>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,  Chen-Yu Tsai
- <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
- Holland	 <samuel@sholland.org>
-Cc: Jonas Karlman <jonas@kwiboo.se>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-staging@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, Christian Stefan
- =?ISO-8859-1?Q?K=F6v=E9r-Draxl?=	 <ckoever@outlook.de>
-Date: Mon, 23 Nov 2026 17:26:23 -0500
-In-Reply-To: <20261121-b4-cedrus-mpeg1-v2-2-95e4decf03fa@gmail.com>
-References: <20261121-b4-cedrus-mpeg1-v2-0-95e4decf03fa@gmail.com>
-	 <20261121-b4-cedrus-mpeg1-v2-2-95e4decf03fa@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-fZd9Y1jimBb0WSf6xeuw"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q9R06Iht
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E31CE1F000CA;
+	Mon, 23 Nov 2026 22:26:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795472819;
+	bh=yYD5vZBdnkFtnUsJ6D8rbr9QKv09GjSrmbmfhpJgdAs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Q9R06IhtsuQiCDcfXLA76ThniV+03fiA5vFBcWrHH4yVDSdtp+HXHCSKoBqMXfwQU
+	 btOLOtabBXNbseUBje7KPsBlzOzN3tUjmPrwPGR8TqgXI/khlEQfCpnVSAgTy2ZeUs
+	 pFtsks7RftbWpnaIA6iDYUCyRrDrtUQZmzUMxLpLeHBcA3b6E1uDdUr4j/aYVDzu8o
+	 qRjk38WKdd6V5hAmspUEx5oo4SbD39zK/zbJb9+bgflt6ruMTr7TFp70suKteeTbTk
+	 qIDUUvrr9T/oiAjh6meFEyf8yKBH+pgJMIMguuRc3F6zB/SKXz0soJD4GT5ZNH/mN4
+	 Ix3m3RYTe9p/g==
+Date: Mon, 23 Nov 2026 16:26:56 -0600
+From: Rob Herring <robh@kernel.org>
+To: Antoni Pokusinski <apokusinski01@gmail.com>
+Cc: vigneshr@ti.com, andi.shyti@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, aaro.koskinen@iki.fi, andreas@kemnade.info,
+	khilman@baylibre.com, rogerq@kernel.org, tony@atomide.com,
+	jmkrzyszt@gmail.com, sumit.semwal@linaro.org,
+	christian.koenig@amd.com, phasta@kernel.org,
+	linux-omap@vger.kernel.org, linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: i2c: ti,omap4-i2c: Add DMA properties
+Message-ID: <20261123222656.GA3008799-robh@kernel.org>
+References: <20261120185915.150228-1-apokusinski01@gmail.com>
+ <20261120185915.150228-2-apokusinski01@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -95,82 +64,14 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261120185915.150228-2-apokusinski01@gmail.com>
 
---=-fZd9Y1jimBb0WSf6xeuw
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Fri, Nov 20, 2026 at 07:59:11PM +0100, Antoni Pokusinski wrote:
+> Document the TX and RX DMA request channels featured
+> by the OMAP I2C controller.
+> 
+> Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
 
-Le samedi 21 novembre 2026 =C3=A0 10:10 +0000, Arun Iyengar via B4 Relay a =
-=C3=A9crit=C2=A0:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->=20
-> The driver decodes everything in MPEG-2 mode. Reject
-> V4L2_MPEG2_SEQ_FLAG_MPEG1, the full pel flags and D-pictures, which it
-> would otherwise decode as MPEG-2. Compile tested only.
-
-That change flags the the API is not backward compatible. Please fix.
-
-Nicolas
-
->=20
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->  drivers/media/platform/verisilicon/hantro_drv.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
->=20
-> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/me=
-dia/platform/verisilicon/hantro_drv.c
-> index 26e5d5547466..c910a69e8e3c 100644
-> --- a/drivers/media/platform/verisilicon/hantro_drv.c
-> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
-> @@ -264,6 +264,16 @@ static int hantro_try_ctrl(struct v4l2_ctrl *ctrl)
->  =09=09if (sps->bit_depth_luma_minus8 !=3D 0 && sps->bit_depth_luma_minus=
-8 !=3D 2)
->  =09=09=09/* Only 8-bit and 10-bit are supported */
->  =09=09=09return -EINVAL;
-> +=09} else if (ctrl->id =3D=3D V4L2_CID_STATELESS_MPEG2_SEQUENCE) {
-> +=09=09if (ctrl->p_new.p_mpeg2_sequence->flags & V4L2_MPEG2_SEQ_FLAG_MPEG=
-1)
-> +=09=09=09return -EINVAL;
-> +=09} else if (ctrl->id =3D=3D V4L2_CID_STATELESS_MPEG2_PICTURE) {
-> +=09=09const struct v4l2_ctrl_mpeg2_picture *pic =3D ctrl->p_new.p_mpeg2_=
-picture;
-> +
-> +=09=09if (pic->picture_coding_type =3D=3D V4L2_MPEG2_PIC_CODING_TYPE_D |=
-|
-> +=09=09    pic->flags & (V4L2_MPEG2_PIC_FLAG_FULL_PEL_FORWARD |
-> +=09=09=09=09  V4L2_MPEG2_PIC_FLAG_FULL_PEL_BACKWARD))
-> +=09=09=09return -EINVAL;
->  =09} else if (ctrl->id =3D=3D V4L2_CID_STATELESS_VP9_FRAME) {
->  =09=09const struct v4l2_ctrl_vp9_frame *dec_params =3D ctrl->p_new.p_vp9=
-_frame;
-> =20
-> @@ -435,11 +445,13 @@ static const struct hantro_ctrl controls[] =3D {
->  =09=09.codec =3D HANTRO_MPEG2_DECODER,
->  =09=09.cfg =3D {
->  =09=09=09.id =3D V4L2_CID_STATELESS_MPEG2_SEQUENCE,
-> +=09=09=09.ops =3D &hantro_ctrl_ops,
->  =09=09},
->  =09}, {
->  =09=09.codec =3D HANTRO_MPEG2_DECODER,
->  =09=09.cfg =3D {
->  =09=09=09.id =3D V4L2_CID_STATELESS_MPEG2_PICTURE,
-> +=09=09=09.ops =3D &hantro_ctrl_ops,
->  =09=09},
->  =09}, {
->  =09=09.codec =3D HANTRO_MPEG2_DECODER,
-
---=-fZd9Y1jimBb0WSf6xeuw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawS9jwAKCRDZQZRRKWBy
-9FgnAQD8bTw31XYUe1vtqtfkbGoUUqyeBO03yvS9WjlSeEZEqAEAwb/xlN87u1WT
-eKzhSo5iACnSctSO6DI1zERR4hborwY=
-=+31i
------END PGP SIGNATURE-----
-
---=-fZd9Y1jimBb0WSf6xeuw--
+Missing Krzysztof's ack
