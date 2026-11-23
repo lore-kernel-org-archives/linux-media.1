@@ -1,57 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795452953;
-	b=X/WPHAd671bracaqEEbbXaVzARoWg0JVfpz9VKN294m13MdqxBXzicYstGfZ9iGN3G5q
-	 4Jo7Yusx5x1/ot+wwQhUIDAYtizWqPLPU9VXcBa4q4KK6A6sMs1jXvU6Ss9B4X9vannNB
-	 d54wYIdnUPW/MENYZLpP5YYwK725uPbLbYU/+TLZL9XuUiP9kS1ETiRDxWO2I8cby83JO
-	 8b+U/ro3TjxNXxxTvLLA2HVPNO62N62LAh+Orz73Hgg7i0zck6iSC6GbFlfbkJbgq6dSZ
-	 C7tAloIuauIefMYr3D2bPlaFXNnCk7GORboq9aVJdIK7Ivaq0Z7fG2qk49dF7ETHvvg==
+	t=1795453039;
+	b=Gjcsol+TWW020M1L+rN/F/BUI0oTTzLtBFHjFsYzxMU4mxGiL+BlkVblUem3mQH90yew
+	 2HMZwMeqto2vbHqMJ0c36PTbm2i0euoABcweAvvgwdMvs5MbTKuJvO4Ay7VaLC9sJ8ct6
+	 18BNUUfTKQbgF0dIT4yInF5K615aPpbESL+8vzAQvciBjj+o5rPKiuOFe85/71BFmdSJN
+	 WsBYNQeD5YC97YnukYuktEmRSAC3tSvcfJ/nKDkxGo73IeFazueV2Scwr/A0bYd3iwwBS
+	 bw+9ie5DfUazCk0XlVudvPLLoG5M5i7XJ98eSyjfLx3Hnqce/4TFmwNIjHgqo44PD9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795452953;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795453039;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
 	 In-Reply-To;
-	bh=PhPty5Pk5FoTMUpwzy0rqVwfMQchDrwcfqdIpjAYoaQ=;
-	b=og4FAzXrvMbo///kqc3/thHs4kklfIhPHwvLtETZpi0favyKd2AzKnOBqzdM9EWHKuIi
-	 PpInW1PSemb67CNy1c9JK9Bq2M2Vch3hRR3CTRzhUj6B2la/z9S6kLFsi7Us6j+ifKBh0
-	 6v6j/Ht+/6tBFg+zvr2d/GqAxKRRPXBTQcv4YG2luFSUzyBeFqSnhyq8FRZoBXI1n5hhS
-	 fkIk+2yEF9gVKRvwFJk9Lf2PzpfSKPee44feorAiN5KDLPVhyNGueiB/nsyVRoFaX9ofA
-	 zhFS4gcJtKF3Djp2NBLcChv8KhSdTE6r1mxGOw/hvAYm0V4BV5sfW5yVeeI/t7T7GXg==
+	bh=j5i4WU3qjrhh//MRl3wcVLLT33h5NdpwdC0V5dWlBjs=;
+	b=CtD2TR70xuZfBC+LC4yrRnWai8M63z19lmv2DLUQtvh98VQ4Hzw2CxNg6bKz+PCeoq1x
+	 N6LaMtQnpIfZbGi9EtLPNzilD1UsJ3ffzrosf6u3qjOaJKDLJ2p66DmDOC+9OiSzD3ir/
+	 0OZih9s+ToVNnSEBE7cwvnbn/BlxjjlWvMPK+1H6Y8lDMRpsccgWZfAPB6MhPQCU4P/wB
+	 jpRWDbtnxG2tHahGn3rCcYaLo1Ndb5bH20ch/n7G8aIP69soeAaUXGKW3mgxTlUkGH0wp
+	 yFWf978PPZ2Fup8p+eMzxUIom13fI8ubfDlWVAIaO2FGSwPCo3nLL1XVT1and2DIaHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=AjpeLAvE;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=M0q5ij1L;
+	arc=none smtp.remote-ip=209.85.222.174
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632B1606A31E
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 16:55:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 632B1606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F6E606A31F
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 16:57:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3F6E606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=AjpeLAvE
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AFD8F524;
-	Mon, 23 Nov 2026 17:53:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795452798;
-	bh=AJSYiiyI9tLqDmxNG0ueD/WakkyOgyv/K6t6rCOY8qI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AjpeLAvEEZen2Yd5UeNhAahLB69aG3mFqoOXlAWjYsDwISfxowM6wlwq98R0TdRWW
-	 oSbuumbcDQjc20AUZH2PTrhAcnVFS0gRH9Uq6h4qvVuzz5rotGJbO9ROVtN2Fn5YZm
-	 uZtqhIFhxhVvjA0KwEcfY8hX1jHw4pSOQ/rOmhc8=
-Date: Mon, 23 Nov 2026 18:55:49 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: david@ixit.cz
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org
-Subject: Re: [PATCH 0/4] Various CCS fixes
-Message-ID: <20261123165549.GE2959742@killaraus.ideasonboard.com>
-References: <20261123-ccs-clanked-fixes-v1-0-fb2bcc87a517@ixit.cz>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=M0q5ij1L
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-949dcf80821so134619585a.0
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 08:57:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1795453037; x=1796057837; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j5i4WU3qjrhh//MRl3wcVLLT33h5NdpwdC0V5dWlBjs=;
+        b=M0q5ij1LhLu1pt/WBsCTfGk2pgdeixAIFRjKrLvHL/TTIbhR0zt6Py+dVE/jZCi574
+         A8p5TyscgxlbeCsN2akPCKF/4Um0svMxtMatqEPC/2EBpqTcJeSfimdHF7dS8Kn/NmhR
+         fPcup6GYHWoAJR5DTrkXCJUmy0m0UkqFuQbOrzCu00RVDCiRq1oTKMQMxk38soR4095I
+         p8ph6lOgLEJtA4VE9QO8AtZnh3D9Rp+2YCN94vxecamNCBtfMhYrqMY/8OzDajFYcYL5
+         RMMotB/CqaFXeKYlXBaMAaqAxQjbgnQ7b+ojHvRq3DU6MG2WDLWnc5aQbE129lDGEHax
+         NPOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795453037; x=1796057837;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=j5i4WU3qjrhh//MRl3wcVLLT33h5NdpwdC0V5dWlBjs=;
+        b=v527//C1YPsKHJAe4GDYeTmEnLsudAdpxUvd5rstXNkZSGfic4b2HQYw8oqW+EEwOq
+         KIeMHM8J9b6kAMqpYF7PUzBeeiviNkQwO6Hdgz32lauhaY1UcuIMXyppHx9xAJsbWC5q
+         wSeCcfWhV4wI6b7S6aZzY9S9eLbP61JKUkfNeLFRdvRvglyZ5ECYEqK9UTRgFH4/6SfY
+         OEOOatU6oo2qxjXR++1lFC4e07mZpcp+jmOD+va9LaLTXJVudjCIMK/bsSzPCoEGJ18w
+         r1F2VVU6FFlm/7sX6w5qQp+iI6/a5JUUaXMf9s8I6MQ14jjkerriHR/p0FOS38LzfchJ
+         lAgw==
+X-Forwarded-Encrypted: i=1; AL+hErG8PXaJVytlutN1Hbb8ZJe4e5Es6f1/RkKHOvtEK5bPgX2aWp6nPrJZIpCP/lRy97VnincTHRZFgi2uQg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/DN9oZ/r1I+mZR3pDCEZO3qRruHtZIe/rC0ux6PMG6GGBgMWcz
+	e9ZBrbWPCBDJ3fi9V8aofRzr+TTnABUn/8e5ClvwpjEURhOFylbfTWqNZhwlK/TVhXw=
+X-Gm-Gg: AZFdTZfpG9/ZLF+WIfQsmes4g+h5lshKhxNkMsViqZlvxQKM/RGnE5Rc70+7S38LEMv
+	lIL41FABNSfepkxo383t/wjqEboBV4DSlGRaEB4hnXg08xiYjwOZJhPDAyucnYr7ldMNMu4L9L0
+	bTMb4u5MlN2ZcEhBEflgjcBbeY3pn/mp86m8NB+LEG7boFY/dIJoTUev2ovlpeGkEu0As0nsEFs
+	fvoCX4gUlH74DzvVjT1oomS+fXVH7q8hqPCXheeDmkswfpTc5rPNdKBDNMq44hfrK/lNRxFhMea
+	sHzvA41KzNZcueB480g9bwpqwN2V+kAICOHV4DigFP2pic5TE6R7qvOETDPUgl4RkwlTgRBWLta
+	b9VMfmydas0QwCSajhfgImvJSZv8yyDrA39U7EDk9vrZKDLowub0n3X4GPOhZfmY82lICtDNY3R
+	golyAuAEJ2xzAt0Fg+jyZFeoxVu16zCNsUYVWm2lFaPSAIOeJ+BpYtiJcYZd8HnrFhzhi0U+8Gw
+	5Oq53IpDAUWibiItYYwWzT9KAoe8bpTk1mj3fP4q+SBQiUrvyHB5qBjHtLTvuAOfor5RRHV6g6e
+	UFULovJ23qaH7/s0Q2ZYxEhEjW/wRLaMN5eVuKXPmVMz57fu/4vpFZIHOI/VqDyTgcSoxXtZIXn
+	i0kOTWLjtXfBNbXhy9ErJcVAT
+X-Received: by 2002:a05:620a:270d:b0:949:8109:8bcd with SMTP id af79cd13be357-949bab6d24dmr1950593985a.77.1795453037117;
+        Mon, 23 Nov 2026 08:57:17 -0800 (PST)
+Received: from ziepe.ca (stjhnbsu6iw-159-2-142-59.dhcp-dynamic.fibreop.nb.bellaliant.net. [159.2.142.59])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb031601sm844162485a.6.2026.11.23.08.57.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 08:57:16 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xVXLw-00000000woc-0Jy7;
+	Mon, 23 Nov 2026 12:57:16 -0400
+Date: Mon, 23 Nov 2026 12:57:16 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Alistair Popple <apopple@nvidia.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Dongwon Kim <dongwon.kim@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Baolu Lu <baolu.lu@linux.intel.com>,
+	Felix Kuehling <felix.kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	linux-nvme@lists.infradead.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+	Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com,
+	treding@nvidia.com, jhubbard@nvidia.com, chaitanyak@nvidia.com,
+	Leon Romanovsky <leon@kernel.org>
+Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
+Message-ID: <20261123165716.GM179082@ziepe.ca>
+References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+ <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
+ <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -63,30 +132,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261123-ccs-clanked-fixes-v1-0-fb2bcc87a517@ixit.cz>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
 
-On Mon, Nov 23, 2026 at 01:02:38PM +0100, David Heidelberg via B4 Relay wrote:
-> First two seems to be no-brainers. Next two seems to be correct too.
-
-What exactly do you mean by "seems to be correct" ? Are you sending
-LLM-generated patches that you're not even sure about ? That's a
-complete no-go.
-
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
-> David Heidelberg (4):
->       media: ccs: Use dev_dbg() instead of dev_err() in ccs_enum_mbus_code()
->       media: ccs: Fix sub-device index in ccs_cleanup()
->       media: ccs: Update PLL and blanking limits when pixel_array crop changes
->       media: ccs: Set V4L2_CTRL_FLAG_MODIFY_LAYOUT on flip controls
+On Mon, Nov 23, 2026 at 02:36:46PM +0100, Christian König wrote:
+> On 11/20/26 06:55, Alistair Popple wrote:
+> > From: Jason Gunthorpe <jgg@nvidia.com>
+> > 
+> > The SGT (Scatter Gather Table) DMA mapping type represents the existing
+> > sg_table/scatterlist based DMA mapping. For now it continues to use a
+> > sg_table for map/unmap, but this will allow a future patch series to
+> > convert to using a different data structure for importers without having
+> > to convert all at once.
 > 
->  drivers/media/i2c/ccs/ccs-core.c | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
-> ---
-> base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
-> change-id: 20261123-ccs-clanked-fixes-609bb0754028
+> I strongly think we shouldn't have an SGT mapping type in the new DMA-buf mapping API.
+> 
+> Instead we should have something like either an array or an xarray
+> of DMA addresses.
 
--- 
-Regards,
+My plan was always to get there, but I don't think it is reasonable to
+start there? There are too many places all over the place that are
+just hardwired to do SGT right now.
 
-Laurent Pinchart
+Part of the design of this series was to allow the conversion away
+from SGT to be done incrementally without breaking compatibility.
+
+So it is effectively this:
+
+> The framework should then either connect the SGT directly if both
+> importer and export are using the "classic" interface 
+
+And this:
+
+> or convert
+> from DMA-addr array to SGT and back if either of them are using this
+> new interface.
+
+Is something I imagined as a followup series.
+
+As this is actually quite complicated and needs discussion exactly
+what it will look like.
+
+Jason
