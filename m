@@ -1,97 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795465061;
-	b=I7KV/vSd019fUyiTDPZgmOJXT8X5RUUD1ArgHvffhEPsXkPINL1nNUF/3IC8e3pO+NyY
-	 /IuXN9UWa0aESuGpc0/bI7D77eEmt0D6A+40/FmMx53Q6CYjib6LMug/ZFTSRpc+XyYiY
-	 BNEAuEVDn57fRKiLkyvP4S8PhpfMf2tMrQ10ZkPsG5z/cuQqr7wZm6/O0Z1+V4BlkRW6j
-	 LvS0GWVBNeSwO63QtaIRSlYklqEQO+oa4liV0YFYUJ3wXPMr4k+ZTFVxLPH3CO5RvFRZJ
-	 qBqazBifaubqatzy/WJIjD23ahQqIKya0a0yaiXUu+Hxd7kwgVh06HRiGlL4F5ImKrA==
+	t=1795465549;
+	b=LT7WQDq63vHJTvAR/F/+f2+PkgUjvGZ2W7pw1FLR/PmR0V+cAyDep5CSir8Jcp9/aq8C
+	 3yTtbVPYa7x7bI/QdiuvByy+WB6Pzhb5X6DZ/n7Ym8/6Oq593nyptdW1amgelxU6NdMud
+	 sklFtoPm3peJEtQzRf+FZWi3JxujtEpvmk9uXojoicONfc7GkGa6wNTk7jY3zM3g+R8Bq
+	 Isq4FHmKEzPq21FjlzYR+SgwMsjvYUwbBka/1Yex418oufWw8nJxAMzuvr/8h0fzmGSFS
+	 Z6ECHspQSr9+v8x4m5HKmfGRabutexg5m82BSFd2/sIHRa+R/rduqAHMmArNY3elUdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795465061;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:User-Agent:
-	 MIME-Version;
-	bh=vaTxSvR5uRGznwAaCzW/CZ+c+SqZLPHFjqdiifAy+hc=;
-	b=XVEqGyPM+4mekROxXffWbqsaJSgZvkviHxvnXTh7dup2phDrwEt8imsrkhk2kG/QidwP
-	 jywbnCiDBtID8kOK8ocsDGgbNBnwWHum0EezwhptZ5WN+1jXN37zHleGksoMM8TuESIOZ
-	 gwTzsMrWrCoGjBj0YrsTAh7stbSuexQAb2oV25PpbzfOOMj4UQ5RIi/+Kaq3FVA/U9Yc0
-	 oxZqe+zpJY4mkUGG89IkAmx1A8xZq18Y1nK86gyShOEtJjec1L7KtDEzGOyk7d0cB5zyy
-	 AhoakH3L1JGQ4gITdeEvp3DkQCRdg9eSs1U5biNqS2MBQHmbyAJpcJoZJlUdP5OhdJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795465549;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=MQ2RrQtG1OM0LiBJp2KbHu85/ogHhtSJ39duNkPwNTM=;
+	b=Ps3qch0rIGPiNMkRDsif/1Ofchh2cpHg9Uzcub6qwkhv/gIyI2aagxUwOG/hWSnXwyeq
+	 Sbnahr3rKD7DGDzZqEeOpUf2jhu95DdWUVoRdD0idbBvBcSeS1bEUsN/RhFIFMWMseQMm
+	 H8gD1JD1u7rl+xr5MDzG6K6XjsdM8/8JcSw1RHPWBiDBRyhc6q3cKf79Z5ktlcmTPfY3D
+	 QOVNkDDzDvuvzVCyrdNdlLo++ttgmaqqBQ2nOk/YpBRsASsl884U4HoQYOd9XVFGwZ/Re
+	 z+TIS4Efiov7DhOrYcKBBmhhe1y7du8pW+PBgkx1Mh3j0gcDOCsM1s/ZIKpYfB0zT/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="RplCXp/g";
-	arc=none smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gKiuorXW;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F33606A331
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 20:17:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0F33606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03110606A31E;
+	Mon, 23 Nov 2026 20:25:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03110606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=RplCXp/g
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-943e8d35f74so375297885a.0
-        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 12:17:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795465060; x=1796069860; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:date:cc:to:from
-         :subject:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vaTxSvR5uRGznwAaCzW/CZ+c+SqZLPHFjqdiifAy+hc=;
-        b=RplCXp/gZXox2teRZf7DYhDSJAxB93wwhVKgD4CAUskoLuIBVGFLIGhQERlAzdlN22
-         MUylmL7KarchGd3oBC9HkxKJE0iTmmtlco4NpUJ50X57I24n3PsZMq5G88TgSewAJmEi
-         8UUoe3LniFV6OqDDBPsbGDqzvu1b8pJwce4UYWPa9K2SLf+7pobevyJFSkexwdfXuULv
-         f6w7FKJc1L7Ea90LVrwQedo3PFKnGz403zAm/gIqYEqrtZL0CiNjCkWwum/3fwr9JXNs
-         Vdf0HMEP9HncTo1kf8HSz+/5jCwq3QbVQsuE1FI2SuCcuqqYCIjRdIthLItsAayTmC8j
-         nKcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795465060; x=1796069860;
-        h=mime-version:user-agent:content-type:autocrypt:date:cc:to:from
-         :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vaTxSvR5uRGznwAaCzW/CZ+c+SqZLPHFjqdiifAy+hc=;
-        b=iqkP2hkM60Q7HHK+JvFm8KbzKPA7RADkWulLvLlkXgkbF8fCpNreznySZRT7pPlOCx
-         3tyFA65J69K6DMGFAAWMOY5W5zMvvhKsFFKxClu4y34RWeQeP+HzR6L4rNIt5uyNe2kS
-         sytpE6Nduxfo0mwhVETTLXOR3siOgrr+E1agBUEPKtBoVRSGrZ4JTbnGNXqRJea+nsx/
-         kR+/Rle7YCyCCp4/2Y+PAyG6GwyjDisnCHgogwgMwaE2KU37rWvam95a4YmTXY54HddM
-         C1PDI5pV7dpc7wNxWAacqtSClBB17fBXlsQNsvzno2uMArkimFKI2bPx16HmG2STaueF
-         Evhg==
-X-Forwarded-Encrypted: i=1; AL+hErH/qouxZN80FkH+SWliXUMw9eS3H1mitz5rtN9WKHz1qeFQckGzMmibktvJiryyilI2+a4CiuKHdttE3Q==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+9IcyUGA2zcyJNZZKyjKlu+UwHttqcjgHDvwlAi6PHp01GJnOO
-	lYJDTKsaZf/77JageavUEcl6WWz9MstKx1xOLbc4ELaf6rd+oGGQ05oZkCNZ6fcsihU=
-X-Gm-Gg: AZFdTZf9+Ui4DcH66rSDIGG2b7y3To7j/yJZm6cQl+ABb419MHGgiL6zMuuGkvVx5V5
-	6ew29Lu03lTWxBw9lh9ne6H3kCUyGOn2NbbL/HDlnFayxW5S4Mx9k/jpkZw5B2BYkXru/h/CnCu
-	a2N4uoD4SKS/dfU6EYu+S5I/aYbDwK7tDtLzc0AoFuGz2mvpl31h8tLNP8Z4QwKZ/Mb8wxbjSxi
-	b+7J/wPBlFA+IGAYgFGnPS/UkLrAs3KETZCAc4mgpzZDzhuYhgc4p8Shk2DQgjrZU9of4Xpn/Pf
-	/ilGL3dX5gep3tLI1vM9yFxIt1ORSxI8+5jqV4Er4R/aRXaiaZoDmWa6PQ54G87B4XBibVQbRxY
-	zwFO3ABOKeVYqpwJma8v05UBLn6hgNq5oohCZ2ugaxE8j7euEnG+zChu1UCC1PCvXE2wbenIJOY
-	GffFObK8ZcuazXnYu2F0kE50kAr+m79n5s021FItrVGIx4ZchQTpH3mYNezf6EFPO6KSuXofTA+
-	boJsAkC5Z3GwPwVrC5QVgIxlDhCJ2rD86zVqmqpc1wCIJ0JnJmceHvfv2IRc+qDFH7u/BoLHDAi
-	QObbENEwaXM9XLyDF5hfYM5EvH6OJ6tmcfuiycZIRRguCAfbNGJ+aPg=
-X-Received: by 2002:a05:620a:28c8:b0:949:7acc:1695 with SMTP id af79cd13be357-949ba6c5900mr2056425885a.0.1795465059662;
-        Mon, 23 Nov 2026 12:17:39 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949ca846322sm695648785a.34.2026.11.23.12.17.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 12:17:38 -0800 (PST)
-Message-ID: <104c4805de06b15ce0701c026de4540b19016b82.camel@ndufresne.ca>
-Subject: [PATCH v2] media: verisilicon: suspend the device before
- unregistering it on remove
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sergei Khomenkov <shomenkow@gmail.com>, Benjamin Gaignard
-	 <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
-	 <hverkuil+cisco@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Frank Li
-	 <Frank.Li@nxp.com>, Tharit Tangkijwanichakul <tharitt97@gmail.com>, 
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
-Date: Mon, 23 Nov 2026 15:17:37 -0500
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gKiuorXW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795465547;
+	bh=MQ2RrQtG1OM0LiBJp2KbHu85/ogHhtSJ39duNkPwNTM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=gKiuorXWWGlvRFndCd/W8ewTB3EtABWyQ6+hc877mXzlUNbbP4XJIBBMTvCVB+v/d
+	 FFA3cvYHquUuQMM+nwqrclYAoq9XC+3Iov6VT/Xs6wpwBDT1fArFbYFwvhcUri2Mb7
+	 zJBVnBdPSalWeUtd1c/2EPHlNCZSoXBFG5pXjoL3v8rW2fRawmhr9BtkOS89qfT3cb
+	 wKSZbtFmJ+1mdXY4ngtB+hJjWgQsPWdDq6Ziw+qUmUjAgixAray1SiL3Su8RkHoakF
+	 vY/h01988YIziDCHUmmbZVaWxzC6gWIrTLLk2YbStXFwJjNovyEriSgQzDoEDpW56a
+	 FvBZeATeA93/w==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C701217E0CD7;
+	Mon, 23 Nov 2026 21:25:44 +0100 (CET)
+Message-ID: <8624fb6a39e5e13466882f01ea54842252f154af.camel@collabora.com>
+Subject: Re: [PATCH v8 09/11] media: chips-media: wave6: Add performance
+ profiling
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Nas Chung <nas.chung@chipsnmedia.com>, Frank Li <Frank.li@oss.nxp.com>, 
+ Detlev Casanova <detlev.casanova@collabora.com>
+Cc: "mchehab@kernel.org" <mchehab@kernel.org>, "hverkuil@kernel.org"	
+ <hverkuil@kernel.org>, "robh@kernel.org" <robh@kernel.org>, 
+ "krzk+dt@kernel.org"	 <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+ <conor+dt@kernel.org>,  "Frank.Li@nxp.com"	 <Frank.Li@nxp.com>,
+ "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, 
+ "linux-media@vger.kernel.org"	 <linux-media@vger.kernel.org>,
+ "devicetree@vger.kernel.org"	 <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>, 
+ "linux-arm-kernel@lists.infradead.org"	
+ <linux-arm-kernel@lists.infradead.org>, "festevam@gmail.com"	
+ <festevam@gmail.com>, "kernel@pengutronix.de" <kernel@pengutronix.de>, 
+ "ming.qian@oss.nxp.com"	 <ming.qian@oss.nxp.com>, "marek.vasut@mailbox.org"
+ <marek.vasut@mailbox.org>,  "jackson.lee" <jackson.lee@chipsnmedia.com>,
+ "lafley.kim" <lafley.kim@chipsnmedia.com>
+Date: Mon, 23 Nov 2026 15:25:43 -0500
+In-Reply-To: <SL2P216MB244104B49860D6D6B3A92821FB452@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
+References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
+	 <5702baa6ed97eb30dec14bddba2919252ec8f3c8.1795075582.git.nas.chung@chipsnmedia.com>
+	 <av9iadpXveXGb0R0@SMW015318>
+	 <SL2P216MB244104B49860D6D6B3A92821FB452@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
  cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
@@ -104,8 +90,9 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-uwgP2ITtTeUtNsVLr8YC"
+	protocol="application/pgp-signature"; boundary="=-hywlTlSbm67gmuaBuGD6"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -117,135 +104,84 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-uwgP2ITtTeUtNsVLr8YC
+--=-hywlTlSbm67gmuaBuGD6
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-From: Sergei Khomenkov <shomenkow@gmail.com>
+Hi,
 
-The clocks are enabled and disabled by the runtime PM callbacks.
-hantro_remove() calls v4l2_device_unregister() and clk_bulk_unprepare()
-first and only then pm_runtime_dont_use_autosuspend(), which suspends
-an active device right away. By then v4l2_device_unregister() has
-cleared the driver data (it points to the v4l2_device, the first member
-of struct hantro_dev), so hantro_runtime_suspend() dereferences NULL.
+Le lundi 23 novembre 2026 =C3=A0 09:18 +0000, Nas Chung a =C3=A9crit=C2=A0:
+> Hi, Frank.
+>=20
+> > -----Original Message-----
+> > From: Frank Li <Frank.li@oss.nxp.com>
+> > Sent: Friday, November 20, 2026 5:56 AM
+> > To: Nas Chung <nas.chung@chipsnmedia.com>
+> > Cc: mchehab@kernel.org; hverkuil@kernel.org; robh@kernel.org;
+> > krzk+dt@kernel.org; conor+dt@kernel.org; Frank.Li@nxp.com;
+> > s.hauer@pengutronix.de; linux-media@vger.kernel.org;
+> > devicetree@vger.kernel.org; linux-kernel@vger.kernel.org;
+> > imx@lists.linux.dev; linux-arm-kernel@lists.infradead.org;
+> > festevam@gmail.com; kernel@pengutronix.de; nicolas.dufresne@collabora.c=
+om;
+> > ming.qian@oss.nxp.com; marek.vasut@mailbox.org; jackson.lee
+> > <jackson.lee@chipsnmedia.com>; lafley.kim <lafley.kim@chipsnmedia.com>
+> > Subject: Re: [PATCH v8 09/11] media: chips-media: wave6: Add performanc=
+e
+> > profiling
+> >=20
+> > On Thu, Nov 19, 2026 at 06:00:03PM +0900, Nas Chung wrote:
+> > > Add per-instance performance profiling to help identify whether a
+> > > throughput problem comes from the firmware or from the host side.
+> >=20
+> > why not register as perf interface?
+>=20
+> The numbers are kept per instance (per open file). Each instance has
+> its own fps, latency and min/max frame time, and they are updated each
+> time one of its frames is done.
+>=20
+> As far as I know, perf can only count per CPU or per task, and a device
+> PMU usually counts for the whole system. So perf would only show the
+> total of all instances, and we could not get the min/max frame time
+> from it.
 
-The device is always active at that point: the driver core resumes it
-before calling remove(), and its put only starts the 100 ms autosuspend
-timer. So every unbind and every module unload, with or without a
-decode before it, gives an "Unpreparing enabled" warning for each clock
-and then that oops.
+My preference would then go toward .fdinfo() then instead of custom debug f=
+s. It
+gives the FD owner the right to see the statistics and not just root. Here'=
+s an
+example of in progress attempt. The idea is that some key would be generali=
+zed
+and documented and some other key would be driver specific (e.g. wave6- pre=
+fix).
 
-Stop runtime PM before the unregister and the unprepare. If runtime PM
-is forbidden through sysfs (power/control set to "on"), the device is
-still active after that, so disable its clocks and mark it suspended by
-hand.
+https://lore.kernel.org/all/20260706-v4l2-add-fdinfo-v3-0-d556568cf38e@coll=
+abora.com/
 
-The probe error path unwinds in the same order. It can only hit this if
-a job runs between the encoder node registration and a later probe
-failure, so it is left for a follow-up.
+Then once we've upstream v4l2top, one can track the performance live, and y=
+ou
+can even add driver specific metrics.
 
-Fixes: 556ab0b2741d ("media: hantro: release runtime resources when device_=
-run fails")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
----
+Nicolas
 
-Changes in v2 (maintainer update):
-- Slimmed commit message
-- Re-use hantro_runtime_suspend() instead of open coding
-- This required moving code around, hence posting it to be clear
+>=20
+> Thanks.
+> Nas.
+>=20
+> >=20
+> > Frank
+> >=20
 
-Moved outside of the commit message:
-
-Found with an LLM coding assistant while porting mainline Linux to a
-Rockchip RK3026 board (G1, ID 0x6731); the assistant also drafted this
-change. Tested on that board. Without this change, unloading the idle
-module (runtime status "suspended") gives the warnings and the oops.
-With it, the idle module unloads with no warning or oops, and so it does
-right after an H.264 or VP8 decode with the autosuspend delay raised to
-10 s through sysfs; the clock enable and prepare counts are back to
-their values before the load. The same holds with power/control set to
-"on", over three load, decode and unload cycles on one boot. kmemleak
-reports nothing after five load, decode and unload cycles. Built with
-W=3D1 with and without CONFIG_PM. Not tested on other SoCs or with a
-power domain.
-
-
- .../media/platform/verisilicon/hantro_drv.c   | 26 ++++++++++++-------
- 1 file changed, 16 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/medi=
-a/platform/verisilicon/hantro_drv.c
-index 70a2bb39777f3..55480ff1ca57f 100644
---- a/drivers/media/platform/verisilicon/hantro_drv.c
-+++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -1285,6 +1285,14 @@ static int hantro_probe(struct platform_device *pdev=
-)
- =09return ret;
- }
-=20
-+static int hantro_runtime_suspend(struct device *dev)
-+{
-+=09struct hantro_dev *vpu =3D dev_get_drvdata(dev);
-+
-+=09clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
-+=09return 0;
-+}
-+
- static void hantro_remove(struct platform_device *pdev)
- {
- =09struct hantro_dev *vpu =3D platform_get_drvdata(pdev);
-@@ -1296,10 +1304,16 @@ static void hantro_remove(struct platform_device *p=
-dev)
- =09hantro_remove_enc_func(vpu);
- =09media_device_cleanup(&vpu->mdev);
- =09v4l2_m2m_put(vpu->m2m_dev);
--=09v4l2_device_unregister(&vpu->v4l2_dev);
--=09clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
-+=09/* Suspend first: v4l2_device_unregister() clears the driver data. */
- =09pm_runtime_dont_use_autosuspend(vpu->dev);
- =09pm_runtime_disable(vpu->dev);
-+=09/* Runtime PM forbidden through sysfs: the device is still active. */
-+=09if (IS_ENABLED(CONFIG_PM) && !pm_runtime_status_suspended(vpu->dev)) {
-+=09=09hantro_runtime_suspend(vpu->dev);
-+=09=09pm_runtime_set_suspended(vpu->dev);
-+=09}
-+=09v4l2_device_unregister(&vpu->v4l2_dev);
-+=09clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
- =09reset_control_assert(vpu->resets);
- }
-=20
-@@ -1325,14 +1339,6 @@ static int hantro_runtime_resume(struct device *dev)
- =09return ret;
- }
-=20
--static int hantro_runtime_suspend(struct device *dev)
--{
--=09struct hantro_dev *vpu =3D dev_get_drvdata(dev);
--
--=09clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
--=09return 0;
--}
--
- static DEFINE_RUNTIME_DEV_PM_OPS(hantro_pm_ops, hantro_runtime_suspend,
- =09=09=09=09hantro_runtime_resume, NULL);
-=20
---=20
-2.56.1
-
---=-uwgP2ITtTeUtNsVLr8YC
+--=-hywlTlSbm67gmuaBuGD6
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawSfYQAKCRDZQZRRKWBy
-9KeKAP9CcDZUI34xMYJIMGncXf4XJcb7fZENpFaEKrlq8u8HuQEAgGgRcRqx3b09
-Fpe+wdqI8J1FIvo6R7IA/MeN6qQXgAM=
-=ZcMk
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawShRwAKCRDZQZRRKWBy
+9PT1APwIoRkl5PprFS3ATJ/OPwAb4iqJR1TdxwP7/noc44qDbAD+N7Yli8uqL8oV
+LEytlo3i71WPvgSfaRViB9O04fQiyQw=
+=qWVx
 -----END PGP SIGNATURE-----
 
---=-uwgP2ITtTeUtNsVLr8YC--
+--=-hywlTlSbm67gmuaBuGD6--
