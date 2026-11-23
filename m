@@ -1,88 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795466057;
-	b=p2y8aHGYLH6Sx4OnFizqzFreCvjQk1elMa3bYtL982kNvWohK885yflBsSq7lEmjokkL
-	 zmALRNs5lq45v8EfgUDIhAw+CS6SkKDpRmkuXkb4BOg74Ln3jIlngsu4yCQwHOog874WN
-	 773D84NblkIyXVPegMG8Ek9oTOV+uJ9kcBpO4DeNyVD9xw9/fVV7fZjjbrcvYvRIM4JU0
-	 c0e2mnDMsLgnMi6OcK18Hqeo3andq6n+s4tszDktiQiOeO+DlCZI8xDKn3U6d9fIxqzM1
-	 LnSroF8/yp3qamPNgDAoJhiIxYV3t4FwI/ub4WNSIUD5hrThaT+UmrmTtMvXeOpyFOg==
+	t=1795467086;
+	b=vRkjyzljbBCgB+r7Ay51/kBmQoeqTNn39tFwp66TR5BbkUwTCytNo0cKho2WbSS7ZByz
+	 vDH8hddp5Y0NQw8AzB5pFQKtQ6fMxFaGyyBJKXTjr7cD6dsDNHLPlJret6fYjy9elj/3N
+	 hKShJV/WWMBKQrlejOrPDcFbP/DTqGIlQUQPM1rRe1dkoxiFJTvR2XJOuQkophTBqGfWv
+	 Ku8W1qu9L0rwC46Dht0tFoKcul183JjyZoQif1eVZgNEmSVNi+0aEL7Vk++6XeT8m39HU
+	 0bCIwyqvxOF7f6VI2UZIJyS/z47KX+phZyVKviIkDB9oniryR2B9BERmVA9S8FNLeYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795466057;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=hPT/ypmWmLMxLtJbyhU72b/6yrEAVjSw6rFwMDxvsHg=;
-	b=grbbxbqiWJKur2QN8YUJk1kPt2DEwkNKV0UQRc/Pq6thU86xRpgavogKOL61OKYuwfFQ
-	 tN8s3SSihtI0oGPPmpv501gnkxPC1YwvDk64ysjtc5YRxg5izaUhSMi/w2DoWEjv5TVsw
-	 cpqf2BPLzbegO4Hph1BIF7958t/VGjxg3tDpoVn9lKL1Zin7+k1ijn93yEI4fr1S6Lthe
-	 30KcxoVZ30p0WXpZK48+jwCLIkFi/L4adA4f5Ncymw5+kayn8XdQhEpDkmNlZyahQ71fY
-	 D0HQmU8TRD64zyyJzx5Mex4p06aR+i9DZVqKpmu9ZPj1w7j04uXiJID/5gchDkly4LQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795467086;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=Rnfj8P/89hZGG8JA8cSc7uOTWfh3tYe6K/ikKfWJdVU=;
+	b=0lweQ9I1EOHoDpckm0/LBs1UEoAGUVXNhdAXI1eBh/g5xeFLrkuNvLOIYr+79SCHroSe
+	 p8YsVU96J8FdlCAxWXU0M7tr5Qspnw4UxGPIUb2MovA4FEHemG/7D/gGreRFVrwO6VFUz
+	 ZB0QRFqrzRziJRY4A+UalOUzbsqi2/hh5LOsVl0zCiDAxD9tR9qhkLkQEJerq219hOtfc
+	 KwDICNdCXOMgCJAaafjbDXNBtwLdYarTPlAzbKAkXdFLj8UFNXCFaTtKF52t5VxN+E7pA
+	 2mgz9Ro6gBr9dv+g05VQqCbm3/pzlIggx9FLOKb8RFX0BK4ES83+QPkWl4uZCimsgvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VNYlOwFm;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=UZGam3YW;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13FED60A262A
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 20:34:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13FED60A262A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D5F5606A31E;
+	Mon, 23 Nov 2026 20:51:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D5F5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VNYlOwFm
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4bb9d8e8e90so8883595e9.3
-        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 12:34:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795466055; x=1796070855; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hPT/ypmWmLMxLtJbyhU72b/6yrEAVjSw6rFwMDxvsHg=;
-        b=VNYlOwFmrm+wLhEGoOMDJnlhb33JACLnJI2PJY6WoDx/+lw/0L8iwubY+Fe1T5seGq
-         uZOpHDJ8XNVSvY0CRcJTzls5ESPF9EJEteQRXiQCQXzG5DSRDqmPkOfoqugitUOKR8ti
-         h88EGkLgbTcUZz5hMLVudh2rLEHCHdcx2s0zsG6oPyJk/ijyqvJBXe0CJGxMIoIKJsXv
-         ucw/jA1j/R0pu+1/mT5GuEZdh23/cy6/Hp8C50+7ByE2ZlF3+vtEl340GDeE5NaXFKfS
-         wCVXj4rqIfT7XGkND+GsqDdX1A8i8BuGw5pjL+cury/90Nswk4eah2cqRYyqMffqhhpi
-         mh+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795466055; x=1796070855;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hPT/ypmWmLMxLtJbyhU72b/6yrEAVjSw6rFwMDxvsHg=;
-        b=gwHwgoxj1Y0rg+xaUBJyYHbB1ypnUgoy0KDgP4zkc4lIB8RU4pMa3MxEcLtBcO7c7W
-         ktwVkk092JRoYZSzWzaAmduUKnQAxD78tCpnGEuRlDerWN8UFZs0kDOnePDc99ifGVkx
-         /NBo+zy6uOgYcmERnqVgcMErQbZ4dGnpIX4PnlrflGlZloOoBnIa8z5cA23RhnxO1jY/
-         4Q6hWBKNDyEsF4wq7l6VnvxWHrWDNfJPZAtDM03o7Oc0Ob164nkBpQeQBSI0drk7Ts/Q
-         LZ7Ee94dNTmyFnAipRdfydAMMobBxYQ2ghoqodby9lj9EGX8ljDJIQLkt+3xZGNvZRKK
-         CcUQ==
-X-Gm-Message-State: APuU4Z+rl7qGEA7Az65z8ZNKYHc79I0cHtkXIiw/SGdVHEoBhwhHDnTb
-	bk38xqZ1d8TrSSIo18DzAesIzWMRJ3SwZkz11IBmIqpI5RWptFtQeFwo
-X-Gm-Gg: AZFdTZdMWgGtKu7SYopj1Yd3EriDP+qytROw+svM12qLbq9DpjGsX+qn96I1+HTccRK
-	JUAm1eHi4l/I+PFbsVLK+tZ/x9bDWsQGR3c96hAKpFft+w+qVBl7onXVOFLDCPbmzTyV25yNSSE
-	ckL8CBcNJlme0ZqP2+DQ+PMx+1Fv2ECZhhdLESc+dGvtPfNbzuUMmdJOSOu3/YzqtyelxVguOcu
-	qmrPQHdJpJXmfzolbZ4oV6000SrkLjfk67Y3Wb2Pkber2OTVT4H0gu7Rzp0XHiapH3kAMmvgOhm
-	cHjx442Ol6FCVfdUbu1RvZPDVXz1p13G1ackjwLFsjHQHWylS6JNMkaxlSSVM923bNMEC9o+vBa
-	PcuqImN/PeaoUE6IH400xaL6KzGvOegVVDrfnELLrGzR+8W6cpX4P7A9Sn7LXl8Y7MHBkdnH1dB
-	e+N1SLdY+r6chlqsbuA5NRcttCvlnykC8UMH0K7hJDGbc5UhSE7jg4Hr/rLWu87jyGzKoojh9ut
-	c+qs0er2Jn/osWcWbd+p4RpG98khvQbVAW6JHYDNaIiXsDCK3jXKCgUJ4/JFZYazN3KjHE870DR
-	1eQKlv1FgRrEM8FV5iGhte4iyt74Tw==
-X-Received: by 2002:a05:600c:4e0b:b0:49f:e772:6ddf with SMTP id 5b1f17b1804b1-4bb8881ae90mr271461095e9.32.1795466055465;
-        Mon, 23 Nov 2026 12:34:15 -0800 (PST)
-Received: from unknown.local ([151.34.53.154])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb884b7515sm515946805e9.13.2026.11.23.12.34.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 12:34:15 -0800 (PST)
-From: Gianluca Boiano <morf3089@gmail.com>
-Date: Mon, 23 Nov 2026 21:33:57 +0100
-Subject: [PATCH 5/5] media: ccs: Apply rule-based manufacturer register
- blocks at stream start
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=UZGam3YW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795467084;
+	bh=kDrM4gC4cGaNAY7YOiqyl+SIl6oSmR9kum2gtMOqZkQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=UZGam3YWzmE4GapanOJIUzrWE+a3lCYuGo0Jj10Or/26aEUImXB6k3PgCfGCfHzG2
+	 z2zNVyvXi3pEdtBgz0sR9pk2l8gUGzAwFAUMeafnb1cPNUaCrtqtaGWVhSTVMRR7zc
+	 3SijO7sSWPRdP61viGRb3Gegc6R/UzRq41aFl95UA6FtV8Q0wbotWy8q0cub0AFeXO
+	 1Wrg4CTN7Ddy5DkFYW1dKiHyJEhP8BWdH0uXWr5c/PLLlSg+eHxCg0EaMu4VMRZvjI
+	 Tqh+sf/2H6IouZHLgdx9j4OnE5rhWWFgV2pfTfjzWNlys7tFxaiGexTYhClrBKnncL
+	 xUltB+CSto1nQ==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 071AD17E00C4;
+	Mon, 23 Nov 2026 21:51:22 +0100 (CET)
+Message-ID: <59d1ae17abc709ddfdc9608d1e744aa95ba7f2a1.camel@collabora.com>
+Subject: Re: [PATCH v2 2/2] media: verisilicon: Handle VDPU2 decoder
+ interrupts like the G2
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: aiyengar1990@gmail.com, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner	
+ <heiko@sntech.de>, Jonas Karlman <jonas@kwiboo.se>, Boris Brezillon	
+ <boris.brezillon@collabora.com>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon, 23 Nov 2026 15:51:21 -0500
+In-Reply-To: <20261120-vdpu2-errreset-v2-2-8f4ef55e6dee@gmail.com>
+References: <20261120-vdpu2-errreset-v2-0-8f4ef55e6dee@gmail.com>
+	 <20261120-vdpu2-errreset-v2-2-8f4ef55e6dee@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-NaJf9URqSAIJAeYjH5aT"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -92,137 +91,85 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+
+--=-NaJf9URqSAIJAeYjH5aT
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le vendredi 20 novembre 2026 =C3=A0 02:49 +0000, Arun Iyengar via B4 Relay =
+a =C3=A9crit=C2=A0:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+> Do as the G2 interrupt handler: ignore interrupts the decoder did not
+> raise, report the error type and don't finish the job while the decoder
+> is still enabled. The decoder disables itself on errors, except when
+> its input buffer runs empty; a later interrupt or the driver's
+> watchdog then ends the job.
+>=20
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>  drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 18 ++++++++++++++=
++++-
+>  1 file changed, 17 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drive=
+rs/media/platform/verisilicon/rockchip_vpu_hw.c
+> index 4bc1bdb41c70..d20f295b43de 100644
+> --- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+> +++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+> @@ -391,10 +391,26 @@ static irqreturn_t rockchip_vpu2_vdpu_irq(int irq, =
+void *dev_id)
+>  =09u32 status;
+> =20
+>  =09status =3D vdpu_read(vpu, VDPU_REG_INTERRUPT);
+> +=09if (!(status & VDPU_REG_INTERRUPT_DEC_IRQ))
+> +=09=09return IRQ_NONE;
+> +
+> +=09vdpu_write(vpu, 0, VDPU_REG_INTERRUPT);
+> +
+>  =09state =3D (status & VDPU_REG_INTERRUPT_DEC_RDY_INT) ?
+>  =09=09VB2_BUF_STATE_DONE : VB2_BUF_STATE_ERROR;
+> +=09if (state =3D=3D VB2_BUF_STATE_ERROR) {
+> +=09=09if (status & VDPU_REG_INTERRUPT_DEC_BUS_INT)
+> +=09=09=09dev_warn_ratelimited(vpu->dev, "bus error detected.\n");
+> +=09=09if (status & VDPU_REG_INTERRUPT_DEC_ERROR_INT)
+> +=09=09=09dev_warn_ratelimited(vpu->dev, "decode error detected.\n");
+> +=09=09if (status & VDPU_REG_INTERRUPT_DEC_TIMEOUT)
+> +=09=09=09dev_warn_ratelimited(vpu->dev, "frame decode timed out.\n");
+
+My take is that you really want to know if these error are raised without t=
+he
+DEC_RDY_INT. BUS_INT is one that can occur (seen on imx8mq). I think you ca=
+n
+easily endup in hantro_irq_done() on a hot IP with this construct. I ack th=
+e
+different with G2 here though.
+
+Nicolas
+
+> +
+> +=09=09/* Still enabled: a later interrupt or the watchdog ends the job. =
+*/
+> +=09=09if (vdpu_read(vpu, VDPU_REG_EN_FLAGS) & VDPU_REG_INTERRUPT_DEC_E)
+> +=09=09=09return IRQ_HANDLED;
+> +=09}
+> =20
+> -=09vdpu_write(vpu, 0, VDPU_REG_INTERRUPT);
+>  =09vdpu_write(vpu, 0, VDPU_REG_AXI_CTRL);
+> =20
+>  =09hantro_irq_done(vpu, state);
+
+--=-NaJf9URqSAIJAeYjH5aT
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-b4-ccs-imx376-v1-5-2b26850a6f11@gmail.com>
-References: <20261123-b4-ccs-imx376-v1-0-2b26850a6f11@gmail.com>
-In-Reply-To: <20261123-b4-ccs-imx376-v1-0-2b26850a6f11@gmail.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>, Gianluca Boiano <morf3089@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795466045; l=3499;
- i=morf3089@gmail.com; s=20240402; h=from:subject:message-id;
- bh=VfDCx66Bt9Q8ssDuqyaFOOZuxp5MaGCTsBGPv8t+RG8=;
- b=NAftwknVuWdeZhsZgh/6X5zyWUZbkl202qCbHJEL29BwWA0IUWx/7BgmqO5i80iqHzD4qKiJ6
- 6mHO0e+HqvVDk176PadruzQefMIA//D4e/+mM70fA0XvtZsNzGlkz6V
-X-Developer-Key: i=morf3089@gmail.com; a=ed25519;
- pk=HsGrEQ3ia8BGGGO8/nUM2K2UX9JKvRPV+nbrVDGrYhA=
 
-The static data rule based blocks were parsed but never used. Before
-streaming, write the base manufacturer register set again (undoing any
-earlier rule) and then the manufacturer registers of each sensor and
-module rule whose if-rules all match the current register values, e.g.
-binning_mode, which is already written at that point. This lets one
-static file carry settings that depend on the readout mode.
+-----BEGIN PGP SIGNATURE-----
 
-Tested on a Xiaomi Mi A2 (Sony IMX376) with a static file whose base set
-is the 2x2 binned mode and whose rule on binning_mode 0 holds the full
-resolution deltas: both 2592x1940 and 5184x3880 stream correctly from the
-same file. Without the rule application full resolution output is corrupt.
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawSnSQAKCRDZQZRRKWBy
+9Hz7AP4ve/5j20b9ak39jzktZWr6s64fYNfO4dmviULkHJM9+AD8DUz3Gq+dlS3Q
+MKt3BCggHMsrVbvbGZq58hR9D0aaEwk=
+=+YNp
+-----END PGP SIGNATURE-----
 
-Signed-off-by: Gianluca Boiano <morf3089@gmail.com>
----
- drivers/media/i2c/ccs/ccs-core.c | 72 ++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 72 insertions(+)
-
-diff --git a/drivers/media/i2c/ccs/ccs-core.c b/drivers/media/i2c/ccs/ccs-core.c
-index acea07d906f3..db98590c1ed6 100644
---- a/drivers/media/i2c/ccs/ccs-core.c
-+++ b/drivers/media/i2c/ccs/ccs-core.c
-@@ -1620,6 +1620,72 @@ static int ccs_write_msr_regs(struct ccs_sensor *sensor)
- 				   sensor->mdata.num_module_manufacturer_regs);
- }
- 
-+static int ccs_rule_matches(struct ccs_sensor *sensor,
-+			    const struct ccs_rule *rule)
-+{
-+	for (unsigned int i = 0; i < rule->num_if_rules; i++) {
-+		const struct ccs_if_rule *if_rule = &rule->if_rules[i];
-+		u32 val;
-+		int rval;
-+
-+		rval = ccs_read_addr_8only(sensor, CCI_REG8(if_rule->addr),
-+					   &val);
-+		if (rval)
-+			return rval;
-+
-+		if ((val & if_rule->mask) != (if_rule->value & if_rule->mask))
-+			return 0;
-+	}
-+
-+	return 1;
-+}
-+
-+static int ccs_apply_rule_list(struct ccs_sensor *sensor,
-+			       const struct ccs_rule *rules, size_t num_rules)
-+{
-+	for (unsigned int i = 0; i < num_rules; i++) {
-+		int rval = ccs_rule_matches(sensor, &rules[i]);
-+
-+		if (rval < 0)
-+			return rval;
-+		if (!rval)
-+			continue;
-+
-+		rval = ccs_write_data_regs(sensor, rules[i].manufacturer_regs,
-+					   rules[i].num_manufacturer_regs);
-+		if (rval)
-+			return rval;
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Apply the manufacturer-specific registers of the matching rule based
-+ * blocks. The conditions refer to registers that are already set for this
-+ * stream (e.g. binning_mode). The base set is written first, undoing what a
-+ * previous stream's rules may have left in the sensor.
-+ */
-+static int ccs_apply_rules(struct ccs_sensor *sensor)
-+{
-+	int rval;
-+
-+	if (!sensor->sdata.num_sensor_rules && !sensor->mdata.num_module_rules)
-+		return 0;
-+
-+	rval = ccs_write_msr_regs(sensor);
-+	if (rval)
-+		return rval;
-+
-+	rval = ccs_apply_rule_list(sensor, sensor->sdata.sensor_rules,
-+				   sensor->sdata.num_sensor_rules);
-+	if (rval)
-+		return rval;
-+
-+	return ccs_apply_rule_list(sensor, sensor->mdata.module_rules,
-+				   sensor->mdata.num_module_rules);
-+}
-+
- static int ccs_update_phy_ctrl(struct ccs_sensor *sensor)
- {
- 	struct i2c_client *client = v4l2_get_subdevdata(&sensor->src->sd);
-@@ -1993,6 +2059,12 @@ static int ccs_enable_streams(struct v4l2_subdev *subdev,
- 			goto err_pm_put;
- 	}
- 
-+	rval = ccs_apply_rules(sensor);
-+	if (rval) {
-+		dev_err(&client->dev, "applying rules failed (%d)\n", rval);
-+		goto err_pm_put;
-+	}
-+
- 	rval = ccs_call_quirk(sensor, pre_streamon);
- 	if (rval) {
- 		dev_err(&client->dev, "pre_streamon quirks failed\n");
-
--- 
-2.56.1
-
+--=-NaJf9URqSAIJAeYjH5aT--
