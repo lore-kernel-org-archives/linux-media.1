@@ -1,64 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.247.196.160
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795433217;
-	b=larLfzBnGdzlYiyHSaGcw3qS4e2XIi0/k/dAW3uQeM2UXVLdZrIwLNQrfQaihg6vBxge
-	 yQqv5VAMiUykO4+o/U7QSCBq2neUFq7hIft7/scBdyOT/vJvBtAsp0KtRcBRcUbr2iIXf
-	 QEjA0uYhvchc8DrvEESqSO5q/JdOYY1q8Pj7jKfKeC+Rf8hwzc85hvEIcg9YwWsCS4iiS
-	 kC1li7ZqPY9LqzAzcEtYaE1NLpGM5a7NGBJTHcCF5F5m5pnr6Uooa96PiFvnKtcjdy1ka
-	 aAIt3DoXJ74xY8Y4dGlgvR2o+WtdBT4JpDkl1i+yFR507IjehaYZH6uteEy5WwYXHgA==
+	t=1795433772;
+	b=r9OH9ghxVm7tVSGAW2f6DEDwwGf8vw6UUVvrbZstZ509Ri48p3TEEW8HGkF9sfcirumL
+	 kvAb3zE+F3Cp5N+Jtj4aZAOStO8rbf/RYYJaxFYswCrv1AZMGoZBBryHxx84QZcynAWQO
+	 UNqZPz8njFLKBFW4t5QBQYoItncEFyz1XKhaCL0L63GgL1JaAy8WcU5xGMg35Dq/jENlY
+	 LicjrUJ0Axf3vmWaV4SFQywmkH6amcw0VPQZr70SVxaH3CFTrIazxrABu6Dchzo4545PL
+	 yKmIr4uPbHX6R86MvMdFl1DieufTxYd4KqhGJthCyfM1MK2yCZiJDnb4bC702+VSk6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795433217;
-	h=DMARC-Filter:X-Originating-IP:Received:DKIM-Signature:X-Session-ID:
-	 X-Originating-IP:X-Works-Send-Opt:X-Works-Smtp-Source:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6sk62LNmHESb+gpVo64SwdJD+2A8bWD0o3fIPXdA2Kw=;
-	b=HwQGH1JheWbbS2WOzsLS+7fRSdwqxxwDK5U7MUhF4ofbu171YC9/M4uGdb9scq+qDxiz
-	 eY9/acDvT2mX4bYuJkOxbyqSoiBvK03y16uprybTPQJw/SllFMC0Vg8gSjPw3sVme5ZTT
-	 HFG4dofQhOIP4zBQzl2UfEwm0p4FGo36uQ85Lln0qfckU7UN4p/uIZO21BqZ86kKSYhPU
-	 10Fum82TZNlx3RDVBSl2TVk5FwBa7XCuOMf/+uyo53J2+6+XaoOfOnysTFTNYE9vn8tHk
-	 tY5EfyW7rkN+SC+Da6Oj4cXT1JvEw/KkHT2y31QMRPcCSj0+GuOCvwQ0IJAK0WLF+dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795433772;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Kvf1DqFBV/lYSc3QlXJzJuXexwpm5K3ANgpze4xoM4c=;
+	b=hiuH5n0UB0LSYNs5Jw7h3rNVk3wyJ87GwtOpgTZgibIsJZcxve7t6tjWheHxN+RaOkli
+	 wIFQ/FhbnwupV38Nd5DGwfue24cQrZGUYj26oLJveFHAeT2AA5Xx61j9rO6orzi+bn52M
+	 uBCfKAUMQ416w32TVOa7igl3moW3e/4ALhx1uT1hQmJPNgLwOzvcsCm27I0sSQP+R17Lu
+	 tSI5Y6uw8kMu52WXVcIRRPNHxJ1NpqW9QFQU3plgdCq16nBoA5wj51h/BJC5xAdxUkiFB
+	 K3TxnEzd7vzr9ANcRM66LPOhpU32XVyiknAlsuYIgUD5Sv8DIFKBisrt9UYasC7jP/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=naver.com;
-	spf=pass smtp.mailfrom=naver.com;
-	dkim=pass header.d=naver.com header.i=@naver.com header.a=rsa-sha256 header.s=s20171208 header.b=ui6wRAhf;
-	arc=none smtp.remote-ip=61.247.196.160
-Received: from mvsmtppost17.nm.naver.com (mvsmtppost17.nm.naver.com [61.247.196.160])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f2cTu1ho;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WHvyILew;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F664606A31A
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 11:26:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F664606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A6E606A31A
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 11:36:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68A6E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=naver.com header.i=@naver.com header.a=rsa-sha256 header.s=s20171208 header.b=ui6wRAhf
-Received: from nv1s-hmac-real-31 ([10.180.31.91])
-  by mvsmtppost17.nm.naver.com with ESMTP id QEm4x7SkQLWifBoF1--pnQ
-  for <linux-media@vger.kernel.org>;
-  Mon, 23 Nov 2026 11:26:48 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1795433208; bh=JUKnqCFlKVmNzUsmNeamof8nvtY7e99ZGb6fV7QgMY8=;
-	h=Message-ID:Date:Subject:To:From:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=ui6wRAhfTXsnGvHGEGTati//brjd2/NX3CN2W/i3V7aQ9O1eORBn4liUpH7vL63Hc
-	 Jl1192KRi9CZiM+ZDP1cMGooaEubE1Lijqj8Xf35vBgmLqCBhMtTpYEGPYLp+0MvzN
-	 vTroNeu6t/j6yn2OQZ/GAUzYpc/KLoCEa/FkUyG7P+89Jcmlju6F3WlfeI3K4++Rj8
-	 3ul9BChHG/a+z8BNmsB4ISdgBYoH5zfuGBOKyNyU3m46zl3c8rq4gnZvhk1sBjGqWx
-	 vFOU1yK3wr2iJ+1f6/5qTjKS2jicyIkHIr68uTWhAMCMKpsFhmFxIOjNQ1V9XpxXv4
-	 7IG0w46hXgrzQ==
-X-Session-ID: 1sPL8fHRRRSUmkF9QpeVLw
-X-Works-Send-Opt: 4qFNWNkvjHwvb4enW4e0bqb/aBmmjAFYKxM/KxulKxgXKBwkx0eFjAJYKg==
-X-Works-Smtp-Source: PZYmFAElFqJZ+HmXKA2m+6E=
-Received: from [172.30.1.76] ([125.132.232.68])
-  by cvnsmtp006.nm.naver.com with ESMTP id 1sPL8fHRRRSUmkF9QpeVLw
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256);
-  Mon, 23 Nov 2026 11:26:47 -0000
-Message-ID: <693e3223-7e6e-405d-b9e4-7b234309d3b9@naver.com>
-Date: Mon, 23 Nov 2026 20:26:04 +0900
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=f2cTu1ho;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WHvyILew
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AN9G7Ij4095711
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 11:36:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Kvf1DqFBV/lYSc3QlXJzJu
+	Xexwpm5K3ANgpze4xoM4c=; b=f2cTu1hoW8g4gc2nA2KmEj7+fu4Rcv6msPJOZj
+	pWfS3GBSDt57U4QgesVu2y+y7tr/1vpP9mlzE5dMRgcDztNroAjd2TSs8gOmA3Lm
+	05x5pXTTtAgW6A6fxy/dWrhJSOIUmYjq4N4N0X/NcUhzA1Hk48vbNEhPAuX8hOz2
+	aBwZaWoVmfGX1+xkQrb5bXKDBqkjOYKzfcMkDochqvhM8g7JEif3WbyzyzAdp5ei
+	L8r4dxJFAv6U1K6P3QhxtCOshymmjgt51clBV46KQtDgvbrBid8n6m1lwt6YDS8s
+	ibAiJHeOOkGhQK0ORFSAnUcZoSLBgIA7QuOBIwTgUpxEYa5A==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j4g74162j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 11:36:11 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b4162e1605so3172754a91.0
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 03:36:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795433770; x=1796038570; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Kvf1DqFBV/lYSc3QlXJzJuXexwpm5K3ANgpze4xoM4c=;
+        b=WHvyILewrcips1cDH7vbJ3lUf7LorMQ1n/k7wtjsBgOEa2SgQzFszKGCHZX38OoGQj
+         POEKLJC9zfXQLXkuMG0B4X2NflTWFT8NTNjbdt26KXTafzG760Cwyx6zOv0MgJDgQ9/8
+         5MD8iRbc04aiE/bj2U7suNuA1ooXIdnVoBwIpWO/hsDaaBq5fRlGOus1VdrG7cRhYz3e
+         HxPSgEjMYP/IJhQbJmzdVrAuAXzbMYg8RtOd1wMYqi992ECyT9nG8RfPdykTyJkhuaP1
+         7jhEJ2XSThDthPjW8KqWTE/2yDorwJ31rzXeDzDFdZ5fXSb9naC91oC7UxWzlhbtK0S7
+         +5Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795433770; x=1796038570;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Kvf1DqFBV/lYSc3QlXJzJuXexwpm5K3ANgpze4xoM4c=;
+        b=P5kWbO1y6wSvFd/29u9rZQ4kBUZa04S89JGfAtx6AviJlwV1sKRjhNGSmpsRZoZmhQ
+         w/Q6V02zi5d3Yxl+pZ/chglgrjVms5PA8FzscxTubUf0kE2Cv/IBrJHx4NyTVUOfOV8K
+         Be5STKPHlo4wGrFxwpapoFJGtHkQrJymuvz6mCdR58PiHV8vROY6ZwTWrHVHSm9eAScN
+         cgONeCMFMN6l/vfajdy1/lMi0VFc/lZ8+pvrQKafdX0POaNL4FKiCAoFeo/TKaAk1iQs
+         qHmpvmYf4ICp9aAh2B0ZUKq4U1yOMkrwku/Z7LMEBK/rlLM7f4PJ5aqiX7P88n8Os34E
+         hBtw==
+X-Forwarded-Encrypted: i=1; AL+hErFEbwe4x83aEJwR0yyVvYT+Jf8dRs8YeG8WmH7WdVL46B4YT7YJvkpJ9kUayqB4GWT3fuiI06j1ZQOQGg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+k+u0BxGBVDTksrnCS8PmbuwPXKLPDdUdSZdIo05itJb7J9HJU
+	u0JZTmpm76OLnmljGywzWHTtVQSDqJLCZipmkGRQ713GuLNg18KyORO7EJdB+Qmc8K3it8LAwlh
+	hGtsgTccI/jKDTO5gluUnvYjGE2MSAfeeqFJpO89fTl9hmafdxRuGitbXeLAInAnpaQ==
+X-Gm-Gg: AZFdTZdD0VhRFaVZ10SrHEuVpQ7YV4l4H/q+KW1qVn2HJYYZwktLKOAs1D1ZPNokQrB
+	jMRN/7wM0nC5o7DY+y5zqRwhWEziSlbmDJaNpO6GSACRpALlDb1670WOO8fNp+umUJ3GvjcjCUV
+	0PHQv8ONjoQPc/D1RwYqZBpUXpZuv39Y4ncD9XvUluG/bnY+WDYjkuhraIlb0Kzc/eixBr88wx1
+	w2YltXwsnuynrK6TaKPhRTooD3Xyju/CVtysQIZdzf1AIgPZoM6K0XEsYYFbozPHclQ6mJV4SD1
+	d2q2O6M2+4k+igUFqrRz41/d2wf/Hv7CnmYF6JOh4LkxDrRy8tte1cqlIzpx+7EpSCHuS7Giyix
+	EW3Oki7hMd+GDeJUuYlQRepD6dhZuEnmy/iLFpqr7oSJF1RbziZbO6s7eMOlaUufgxCzzc5so6r
+	4RS/dl
+X-Received: by 2002:a17:90b:2d8a:b0:3a4:6f38:f2a2 with SMTP id 98e67ed59e1d1-3b41c92ce58mr10129791a91.25.1795433770193;
+        Mon, 23 Nov 2026 03:36:10 -0800 (PST)
+X-Received: by 2002:a17:90b:2d8a:b0:3a4:6f38:f2a2 with SMTP id 98e67ed59e1d1-3b41c92ce58mr10129770a91.25.1795433769726;
+        Mon, 23 Nov 2026 03:36:09 -0800 (PST)
+Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad8e93asm17489024a91.11.2026.11.23.03.36.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 03:36:09 -0800 (PST)
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Subject: [PATCH v4 0/2] media: qcom: camss: Fix Glymur CSIPHY topology
+Date: Mon, 23 Nov 2026 17:05:58 +0530
+Message-Id: <20261123-glymur_camss-v4-0-d7db74f59e22@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -68,77 +115,106 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4l-utils 1/1] doc: upd
-To: Kieran Bingham <kieran.bingham@ideasonboard.com>,
- linux-media@vger.kernel.org
-Cc: Andrei Cherniaev <27889022+AndreiCherniaev@users.noreply.github.com>
-References: <20261121163237.46332-1-dungeonlords789@naver.com>
- <179543030033.68583.8462255388156577551@ping.linuxembedded.co.uk>
-Content-Language: en-US
-From: Andrei Cherniaev <dungeonlords789@naver.com>
-In-Reply-To: <179543030033.68583.8462255388156577551@ping.linuxembedded.co.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAB4lBGsC/3XOTWrDMBAF4KsYraug0W+UVe9RSpGmo0QQx41km
+ 4bgu1dxNiGkm4E3MN+8K6tUMlW2666s0JxrHk4t6LeO4SGc9sTzd8tMCmkBhOT746WfyheGvlY
+ OmLYq6aC1S6yd/BRK+XflPj7vudB5aup4X7IYKnEc+j6Pu84LT8kFH5RIAZQn68kYQ8oKa7ciG
+ cTgnLTsZh1yHYdyWZvOsGKvS83ABU8YLfiEToF/H2rdnKdwvP3dtLF6s3wwQD0ZshkRorNGeHR
+ a/2OoR8M/GaoZDkL01qIGfNVjWZY/9npnJIMBAAA=
+X-Change-ID: 20261102-glymur_camss-1cf83f4a447f
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795433764; l=1935;
+ i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
+ bh=8yFIvWAABarJ0JyJs13EEogwta+ICFjTnQS8FxrfjGY=;
+ b=0whS6kx5agoifZd4Hi3g5c1l2aKyklENAVvviS1Ua/4nBS+idtPpWP+TpLYe7U5bN9PeDuASC
+ pzfCoAjkGS0DB8GqvdYjBCbJy38VfUNfDGEQUDk9YkXnErqt2ZZq2D+
+X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
+ pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
+X-Proofpoint-GUID: cANbs1gWylqCgmPEaxV1aMd6Okpnc2qV
+X-Proofpoint-ORIG-GUID: cANbs1gWylqCgmPEaxV1aMd6Okpnc2qV
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTIzMDA0NiBTYWx0ZWRfX7mIQYFIKBtNx
+ yotnxn251d+qWzv7f0Pl9t+XljyA4ldX8TKlLFQhDdbv4unIiLs/H0imh0Oip22Fn/qvhLx1SYE
+ IY5IIBi/QLbdQhlYXdUG/pbmVKOPMco=
+X-Authority-Analysis: v=2.4 cv=T/cZ3PKQ c=1 sm=1 tr=0 ts=6b04252b cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ffzozp4-zBr36aKF_PUA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTIzMDA0NiBTYWx0ZWRfX3DwAb+okEjUh
+ gFqaIuYR4rgWNRAH9nscvzIBeejBtrStoCZTdadJYKCMoqYRmYfD9er5fvwFEqKYnpW7kjK6hTf
+ +hJT1IqP+AXh+ke2vzdDUCgrCa4Q3ozJDXKXoRSuNCdTNJob3oKyRKRzlcgwNf0nRxAqAAtjRfT
+ c45ka54x00VrytzLZY17WsRx0KDNDllHoKpRR+daYgMV9cttiAZQB0O0Xf7Qdr0cPE6PZdIy9i1
+ J5r6A8wOSjShr1WbBM5nIP4brbp7AdWgVpiSC51zJ4MVMlubzaLfCS/zp31DjHJyft05bsyt3/I
+ /JS0gfVIc06lXzddcIqLW7AhDMlTAKCu/W5VB3yZ/Sb23LGVwQbirIhaCiUKvGis4ytAk4sNLlD
+ yqZSdTBXY8h8j8TaluvWOiBFdGkbyFl4hkI9k2Imj8PDt+wnaLaVVXDXiGefpkn5TzKb1kv4ueT
+ jgt6E6P5dNCG2rhr5rg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-23_02,2026-11-22_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 bulkscore=0 suspectscore=0 lowpriorityscore=0
+ impostorscore=0 priorityscore=1501 adultscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611230046
 
-Thank you for review. 
+Glymur reuses the X1E80100 CAMSS block resources, but has only three
+CSI2 PHYs instead of four.
 
-1) My subject is chopped. I tried to make it as short as possible but
-still clear. I am sorry if "upd" is not clear. Feel free to cahnge to
-"update". Should I re-send the patch?
+Update the binding to describe three logical CAMSS input ports, and add
+Glymur-specific CSIPHY resources for the PHYs present on Glymur while
+continuing to reuse the common X1E80100 CAMSS resources.
 
-2) I just apply code `v4l-utils/doc$ doxygen -u Doxyfile.in` to update
-existing Doxyfile.in. I use Ubuntu 26.04.1 ($ doxygen --version 1.15.0).
-I didn't change anything manually. I am sorry if it was not clear from
-my commit's msg. However, such work might be done by maintainer before
-each release so I have provided such path for future
-https://lore.kernel.org/linux-media/20261121165132.50309-1-dungeonlords789@naver.com/
+This fixes the Glymur CAMSS binding added for v7.4-rc before the old
+port@3 ABI appears in a final release.
 
-On 23/11/2026 19.38, Kieran Bingham wrote:
-> Quoting dungeonlords789@naver.com (2026-11-21 16:32:37)
->> From: Andrei Cherniaev <27889022+AndreiCherniaev@users.noreply.github.com>
->>
-> Your subject/commit title is chopped.
->
->> No manual work, just update via code
-> What does that mean ? How did  you update this ?
->
-> How do we know this is worth reviewing, or correct ? Was it automated?
-> Did you use a tool or a script? or update from a newer version of the
-> Doxygen documentation/defaults ?
->
->
->> ```
->> $ doxygen -u Doxyfile.in
->> warning: Tag 'HTML_TIMESTAMP' at line 1151 of file 'Doxyfile.in' has become obsolete.
->>          This tag has been removed.
->> warning: Tag 'FORMULA_TRANSPARENT' at line 1431 of file 'Doxyfile.in' has become obsolete.
->>          This tag has been removed.
->> warning: Tag 'DOT_FONTNAME' at line 2062 of file 'Doxyfile.in' has become obsolete.
->>          This tag has been removed.
->> warning: Tag 'DOT_FONTSIZE' at line 2069 of file 'Doxyfile.in' has become obsolete.
->>          This tag has been removed.
->> warning: Tag 'DOT_TRANSPARENT' at line 2269 of file 'Doxyfile.in' has become obsolete.
->>          This tag has been removed.
->>
->> Configuration file 'Doxyfile.in' updated.
-> Describe more about why and what is changed. Consider writing something
-> like 'where this file originated from' or where you are getting the
-> updates from to make all of this change.
->
-> Maybe even break it down to one thing at a time to review easily, unless
-> it's simply pulling in a new default file.
->
->
->
->> ```
->>
->> Signed-off-by: Andrei Cherniaev <27889022+AndreiCherniaev@users.noreply.github.com>
->> ---
->>  doc/Doxyfile.in | 1669 +++++++++++++++++++++++++++++++++--------------
->>  1 file changed, 1191 insertions(+), 478 deletions(-)
-> There's simply too much churn there. I'm not reading the individual
-> changes currently.
->
-> --
-> Kieran
+Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+---
+Changes in v4:
+- Rebase on next-20261120
+- Add Fixes tags and clarify that this targets the current v7.4-rc cycle - Krzysztof, Bryan
+- Rework commit logs to describe the ABI fix and Glymur CSIPHY resources 
+- Link to v3: https://lore.kernel.org/r/20261119-glymur_camss-v3-0-71ab966c41c9@oss.qualcomm.com
+
+Changes in v3:
+- Clarify the binding ABI change and why the old port@3 ABI worked - Krzysztof
+- Explain in commit dropping port@3 does not affect in-tree users because
+  Glymur DTS support is still under review - Loic
+- Link to v2: https://lore.kernel.org/r/20261113-glymur_camss-v2-0-b1b76509c744@oss.qualcomm.com
+
+Changes in v2:
+- Rebase on next-20261112
+- Use logical CAMSS ports 0-2 in the Glymur binding example - Krzysztof
+- Add Glymur-specific CSIPHY resources for the three available PHYs.
+- Link to v1: https://lore.kernel.org/r/20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com
+
+---
+Nihal Kumar Gupta (2):
+      dt-bindings: media: qcom,glymur-camss: Use linear CSI ports
+      media: qcom: camss: Add Glymur-specific resources
+
+ .../bindings/media/qcom,glymur-camss.yaml          |  6 ++--
+ drivers/media/platform/qcom/camss/camss.c          | 42 +++++++++++++++++++++-
+ 2 files changed, 44 insertions(+), 4 deletions(-)
+---
+base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
+change-id: 20261102-glymur_camss-1cf83f4a447f
+
+Best regards,
+-- 
+Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+
