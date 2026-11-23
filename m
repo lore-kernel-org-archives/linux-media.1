@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795447533;
-	b=nZpdDIbhofwwoycBHQXgHbPgaA49SBf6sXe7lUb2rTGRncSXZcethlfgf4Z5gBLZ1hE1
-	 NcynW5fu/d8MwgZ0D+S2URNnnQh9P2lzeB0JY3gezKj5PC+fE6ysKwMWKE1lQ5b+s8/Hi
-	 /P9X8naRNBo7/lAa9cFJcWdOG/FMB0XfrMS8L4TOecWUkJdNc8A/9gvueP4zzKGjF3XFv
-	 grQlZcRYr5DMjHXVfeOITyONivaCVxva2/8/dsvpqMxDeXPruMGzRcGtQ3/uqh34ppv/C
-	 jrag7MMgEbh9nqbq6om5ItnSjU6bStn3ntM6VXzQhSxGRJ2rXW0BArSRQ8/G4jCyu/g==
+	t=1795447529;
+	b=xgydjWFRXcXdVbjG4swAlrtTuYTS45rAaoV04MG6r7HV+gWAwZs10obaXvRgP5wmd3Uv
+	 ckFifqorskhQxOmFxUVuMhJX4jNk8udUJQarkpKdZnAaj3TX7b3oDLSn3jmAWgz1tcZjr
+	 wApEv4EEoHBRYBPUEQpM8AMjwq57ThE8fb0FKEUQ60wtIQQZiuauICcPV1S3M/t0aLrpE
+	 yg0fbie6e17zgGNrWRElrH7az1uYVgJD6Lq+ivJzVLnFEivhuOkk1FF4YFz5Vu8cWYGtL
+	 gy/HbwKGQzf8W/o8pHzY0i7wfCvr+GBpFoTdOt6A4KY+7X832/ZQqModuUdHdRkVbgw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795447533;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=5kI8gmY1B2lqy3EqGixZzS2Fx5POa83a6PEWgQ3NNoQ=;
-	b=qnrGCsltLcJ46lpdyHZfWmkkqlko+xUzRl+nj3iMma+HQVhE4InIFY4oS7KnaM4HXvPt
-	 961ThmPeuKikwJF/s0AoJhtUXiaXGO1o6uCSbt7W7cEoJ34S/oZPeAHsc9h00OT6RB609
-	 Ie/R6vwkS7fkSrZim+hJW3XX00AK+RkOsRNRSoTvqKxhTKQEGQRhEnWLNs9/Aj87hKOEy
-	 FUx6S+dYNsXdyN0ddno3touLsdKiLSUil1fHIcx3XSz0AgGzGNSEYHlJDNp3U910PfwPV
-	 FNFaObrv7ysSwaPFv2Vs+qH+hwFjecqDmCyHQa9WaFCSNEpJBA6C3KYTeCH9DMCDJLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795447529;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Jh1FAcyIFxWBHDTEoMkBkVWCay9xDRHExguDM+g3k4s=;
+	b=HaeTrSc+GFDWumEegfyXeqmng0M0RWwKRSwFT4/nHgxCp5dNMW8Ye+Gt2A7qqdp6Q7cL
+	 ORxHrP1ydu1K9PXWKtc8rOese444Q5LXONdlAY2I1zvrC2waQztv0pZsXknEKtEdmurOO
+	 fq/p2GNR6CUN4QK45jDV6HkKxS7RKqaf63UyA2geDYvrJ9djhCdMMj9KDLqdefSOnvLGG
+	 Qrhu82XEfjZ3E6tgEj8Nzb5rHIXJmvy8PrZszxU7TXSIQzqn5xucexWb+wZ8V6jVAXy4l
+	 hgjPcTpxr5gkARkzkHQNNt10DIgWNFTJJKXOTgDqDzW8YUWxoJXu1IgUXXYHIoKOW+w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gGSLRprC;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="a/ra4Oxi";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECBD606A31F;
-	Mon, 23 Nov 2026 15:25:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DECBD606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA7A606A31A;
+	Mon, 23 Nov 2026 15:25:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDA7A606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gGSLRprC
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=a/ra4Oxi
 Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5c0a:3200:9ebf:dff:fe00:fdb5])
 	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0C2D8200531;
-	Mon, 23 Nov 2026 16:25:26 +0100 (CET)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BC92F2004FC;
+	Mon, 23 Nov 2026 16:25:21 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795447526;
+	s=20260414; t=1795447521;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5kI8gmY1B2lqy3EqGixZzS2Fx5POa83a6PEWgQ3NNoQ=;
-	b=gGSLRprClSYpl72LsmyLTiP0muvKpJfOcNf66puwPZewcHWm/B0iEyXuxdtMtuKwZ7glGy
-	ytNizaD9Kcqqjrzr/CQ9Sb2vEX0KkYK7OI70NCzYOOdCUC0f2RzjhXwKrk0YwjyFCnoBDE
-	r+6CYfpWlxODQTJmqzkEIz9qDkpzStbpcCyzAHG611fBETRsFNtCmxmXVNzeYmZcYuhSuS
-	U8g6IgCcYpFNpHXhe2UpGFhOlpL0KsO7koucNAGaSQPQBExdzSAxsm8nAXMtLlIoHjoT53
-	6QiVgt4wLTXi8h/CTvYzj6/5Ci4RBe+Fjp+sSF2qbw4v9r4rVN3CQhHYcsL+XQ==
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Jh1FAcyIFxWBHDTEoMkBkVWCay9xDRHExguDM+g3k4s=;
+	b=a/ra4Oxi5RsqC2frbeatoZnBPDf5yAZDYJ7vKmhKyuEcHgZeRtZUvjrWqduh3emYY0yG0E
+	yllsZtRgM/AXkNlsE5rEyC5NaHcmalIZJx3UfeA7IWWmRL4FjmcCTqrmgh99XGLSZ8hSDK
+	J+A6aMokzEJsAG8r83mDzoG+a77JjOfTJz9YCL7Tc0gxNgzp3vxThq+58EsWZZF8je/79U
+	ZqbWhIgg9i66CVNwmRTW105HuKe5FOlYH2Gb3y2lHySVnLMF/iu7hHiqQN9dEFG5gkeDyH
+	5kU9b/DC96fMrchTZLaJ1pDOol9iDKxX/UEIHUXPzVmNnMbpV1XwmptKSUpkzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795447526;
+	s=20260414; t=1795447521;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5kI8gmY1B2lqy3EqGixZzS2Fx5POa83a6PEWgQ3NNoQ=;
-	b=JbVAedhtxr506rU+58mqGBfdr+1cXrHT2YlXADIWcdeBgqB06mjwRIWWki0bZU+e1F9qOC
-	cQuidKnd7KWru+WjfvbtzwFrhU1gGLNTFvIzKhW53M4xXIo/2kmv24dC6t+M6/K4RYp/AH
-	RnjR5m2YB5Az0KVBYy/xI69f5BmcF/jUMpe6ln7kMkr2QWsYuKYVRIOB0dpt8O1I65YGpX
-	luQu6w2E5I1dHC0CGCZ5mIZ+5ecR74hbftpHtDsvekGu7VmFJRTMzmTrPWCoQMo1V87Zwj
-	OQZDGVSu5H8gjpiih9QAqJh6QJIL67IP98ptD0GC5j+pTfyzUJOS8A0b8VMbpA==
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Jh1FAcyIFxWBHDTEoMkBkVWCay9xDRHExguDM+g3k4s=;
+	b=Rx57CHe2FGy1EN30pT9Ubv0PqdSFwY2iXarXp77oiXSfjiFHP6zBwq9ra3KNvpOvaMQMsx
+	3LjrTjgDP7zzwOENIrbc4no+4ZHtuVN/3dooPfqa4YyGh4+HmUGj2i3PUwsbJk6dKG7NcK
+	D1Wc5OnigGnnAJ7N5VRKal/E0234Hts78POtnTHlZuXmtZbLt0EIDsskv9iEz4Ii7GoN/9
+	0Qrzqr4V/UQeaXvX41yJyD+vhZpZ8JDvX3fIuor4EO/xxTsh3c/SDDwXq0mtrNV1FlCwz2
+	p08SFjhNOd8RHrFGsPQTeoIIM5TfFWMXHXHQFuo9Ib2UhscDyhutwsFThTzb1g==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795447526; a=rsa-sha256;
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795447521; a=rsa-sha256;
 	cv=none;
-	b=HtCDbINCaEHNs2OgZ6RBbkg7xwTJUXBW/1eqKPnCxjlwMdR3kxmgVlBCexv7tjgB7pSyFF
-	ycEaFQSYrS2/OVqgjvGewEXlPW9SF3JPpS9ExbFMbcK8NdmIl0zoIakw+KquZMrZmZMVa4
-	L8SMMWvrgRcL0Wk4m0G/STGXcg3CuDxZtF6NvDiOJbFzcDmalXwbdB3F19birkVp81Tbku
-	Vx1AJDN5zpclFf1mJKMdTanm+ssJ5M1ZPNtMd8sbDmkhgTtAZMS40g8qZ9e66/eOAMOy4y
-	kzJJvso9QMxS78Lvt43YcJzo4PAFHgBSv0J3exhzRQFQa/C95Y/2Ar2dt3apBw==
+	b=gjMPppAsIYrfJ82PM9SS8o2gvMzcdtBhd6Po+pA9xjWArvimmnLBptkCLvNOwlOt81zSul
+	T+xxBrkOr2+HqTTsXQQtCDZwbzVQEhtURSxwLinbB8sjmI7UMgCFiSXLXdwG4+RQF8pEH0
+	+m3P07En62fP/Wa1c/U0ZfjL/UBS/mtPGVD3YIv0MVzymG6C/P/HMue0yLlBQv7rpmXMhz
+	BQLdQ77UyJ/1NLWFPNJ0DCD6Tc2GxpUf3nDy6k1qyIjbOXa7FCKKBp9Ny5M2Lynq2M5+18
+	VYPzBUJyMhDK9tISrG90QMZ7EwpvDs04M8Rz/vi0ja5TfgmJGPmwboG9zaYNWQ==
 From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Mon, 23 Nov 2026 16:25:20 +0100
-Subject: [PATCH v8 1/4] media: dt-bindings: Add Rockchip JPEG decoder
+Subject: [PATCH v8 0/4] media: rockchip: Add JPEG decoder driver
+Date: Mon, 23 Nov 2026 16:25:19 +0100
+Message-Id: <20261123-rockchip-jpegdec-v8-0-3316cd31b043@pengutronix.de>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -85,9 +84,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-rockchip-jpegdec-v8-1-3316cd31b043@pengutronix.de>
-References: <20261123-rockchip-jpegdec-v8-0-3316cd31b043@pengutronix.de>
-In-Reply-To: <20261123-rockchip-jpegdec-v8-0-3316cd31b043@pengutronix.de>
+X-B4-Tracking: v=1; b=H4sIAN9aBGsC/23PwWrDMAwG4FcpPs9DlmPZ2WnvMXZILDv1Bklwu
+ tBR8u5zCtsC9fEX6NOvm1hCTmERL6ebyGFNS5rGEtzTSfhzNw5BJi5ZICCBQyXz5D/9Oc3yYw4
+ DBy+ByTnwkQx5UdbmHGK63sm395LPablM+ft+YVX79BdrHrFVSZAOlHKIfTQAr3MYh69LnsZ0f
+ eYgdnHFo2IqCu4KddGZttNIVFX0v9KqWhddFG2c9toSA2NVaY6KqyhNUYC5tRwb2/V9VTEHpfq
+ R2bsAGee09j25qkJ/igKoKVQUNFERh05Ra6uKPSiIFcXuXSJbZmNiA49dtm37AYG7FeFZAgAA
+X-Change-ID: 20260821-rockchip-jpegdec-0d6880cf656c
 To: Lucas Sinn <lucas.sinn@wolfvision.net>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -98,160 +100,180 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795447521; l=4940;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795447521; l=8565;
  i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=w0ZyeOuPJN4G/4KlIW7sG2pYv8p9hc+BbbJymlcGgu4=;
- b=lB0cbr50Ncc2B2pOiq9T1A4/uDcMawDoUiXUSnWrNq5/savcy3PSkwP0tANCcg0/07RaW3R6N
- 65D6S0QYYxGCIK490+yNaFiVIIuGRPXjXX7ICAc0YrtzXSTqpy7ZzsV
+ bh=rbKUoeFc1Zv6Eaoh7f4mgSkA6iWDdk7Y4gMxMnD33EY=;
+ b=RefEf2UcSCLdPUJkGh1GnzGzfbrcdLGMLCxYmtPU55bSEeOLKS+SqDZA3icHn17u8/cjdUY/d
+ j9juXb6IgKHBnvLoMvPq6SAjWPpCmqFsu4lzA951NF1L0thiI4TWm/R
 X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
  pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-Add a devicetree binding schema for the JPEG hardware decoder Rockchip
-integrates into a number of its SoCs.  Documents the single register
-window (task registers plus the LLP link-table block at offset 0x300),
-the decode interrupt, the AXI and AHB clocks and resets, the IOMMU and
-the power domain.
+This series adds support for the Rockchip JPEG decoder hardware. The JPEG decoder
+is an in-house IP which is integrated into various Rockchip SoCs. The driver is
+tested on a RK3588 board but reportedly works on RK3568 as well.
 
-The core is not tied to one SoC.  Downstream it is known as the VDPU720
-and the same block sits on the RK3528, RK3562, RK356x, RK3576, RK3588 and
-RV1126B, with only the clocks, the resets and the power domain differing,
-none of which this schema constrains.  A compatible per SoC is all it
-takes to cover them; the RK3568 and the RK3588 are the two that have been
-tested and are enabled here.
+An earlier version of this driver was posted as part of the Hantro
+driver [1]. That turned out to be the wrong abstraction, so it was split
+up into a series with the Hantro fixes [2] and this series with a
+standalone driver, which started over at v1.
 
-The resets and the power domain are required.  The block cannot be
-reached with its domain off, and the driver takes it out of reset when
-it probes and puts it back into reset when it is removed.
+[1] https://lore.kernel.org/r/20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de
+[2] https://lore.kernel.org/r/20260824-rk3588-jpegdec-v1-0-180a30a2852d@pengutronix.de
 
-The IOMMU stays optional.  The driver never refers to it, it is a platform
-integration detail, and rockchip-vpu.yaml does not require it for the
-other codec blocks on these SoCs either.
+An LLM (Claude) was used throughout the development of this series:
+for parts of the driver code, for reviewing it and working through
+review comments, and for debugging on the hardware and with
+GStreamer.  I have reviewed and tested all of it.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
- .../bindings/media/rockchip,rk3568-jpegd.yaml      | 92 ++++++++++++++++++++++
- MAINTAINERS                                        |  8 ++
- 2 files changed, 100 insertions(+)
+Changes in v8:
+- Decode 4:2:2 frames to NV16, or to NV12 on request.  ENUM_FMT on the
+  capture queue lists the formats the current frame can decode to
+  (Philipp)
+- Report the coded frame sizes as continuous up to 65535.  Frames whose
+  size is not a multiple of 8, e.g. 1366x768, failed to negotiate in
+  GStreamer (Philipp)
+- Size coded buffers for at least 3 bytes per pixel, also when userspace
+  asks for less (Sergei)
+- Don't resume the m2m queue when runtime PM resume fails (Philipp),
+  drop a dead error path from suspend
+- Use one RKJPEGD_MIN_SIZE for both dimensions, inline
+  rkjpegd_irq_done() (Philipp)
+- Link to v7: https://lore.kernel.org/r/20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de
 
-diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
-new file mode 100644
-index 0000000000000..27d85f17922ec
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
-@@ -0,0 +1,92 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/rockchip,rk3568-jpegd.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Rockchip JPEG Decoder
-+
-+maintainers:
-+  - Lucas Sinn <lucas.sinn@wolfvision.net>
-+  - Sascha Hauer <s.hauer@pengutronix.de>
-+
-+description:
-+  Rockchip's in-house JPEG/MJPEG hardware decoder, known downstream as the
-+  VDPU720.  The same core is integrated into a number of Rockchip SoCs, which
-+  differ only in the clocks, resets and power domain they are wired to.  A
-+  dedicated Link List Processor (LLP) register block, located at offset 0x300
-+  within the same register window, allows the hardware to decode a chain of
-+  frames autonomously ("link mode").
-+
-+properties:
-+  compatible:
-+    enum:
-+      - rockchip,rk3568-jpegd
-+      - rockchip,rk3588-jpegd
-+
-+  reg:
-+    maxItems: 1
-+    description:
-+      The decoder register window.  It covers both the task (function)
-+      registers at offset 0x000 and the LLP (link table) registers at
-+      offset 0x300.
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: AXI clock
-+      - description: AHB clock
-+
-+  clock-names:
-+    items:
-+      - const: axi
-+      - const: ahb
-+
-+  resets:
-+    items:
-+      - description: AXI reset line
-+      - description: AHB reset line
-+
-+  reset-names:
-+    items:
-+      - const: axi
-+      - const: ahb
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  iommus:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - resets
-+  - reset-names
-+  - power-domains
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/rk3588-power.h>
-+    #include <dt-bindings/reset/rockchip,rk3588-cru.h>
-+
-+    video-codec@fdb90000 {
-+        compatible = "rockchip,rk3588-jpegd";
-+        reg = <0xfdb90000 0x400>;
-+        interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH 0>;
-+        clocks = <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
-+        clock-names = "axi", "ahb";
-+        resets = <&cru SRST_A_JPEG_DECODER>, <&cru SRST_H_JPEG_DECODER>;
-+        reset-names = "axi", "ahb";
-+        iommus = <&jpegd_mmu>;
-+        power-domains = <&power RK3588_PD_VDPU>;
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 782389bd5cd3d..f47f614dc6857 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23714,6 +23714,14 @@ F:	Documentation/userspace-api/media/v4l/metafmt-rkisp1.rst
- F:	drivers/media/platform/rockchip/rkisp1
- F:	include/uapi/linux/rkisp1-config.h
- 
-+ROCKCHIP JPEG DECODER DRIVER
-+M:	Lucas Sinn <lucas.sinn@wolfvision.net>
-+M:	Sascha Hauer <s.hauer@pengutronix.de>
-+L:	linux-media@vger.kernel.org
-+L:	linux-rockchip@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
-+
- ROCKCHIP RK3568 RANDOM NUMBER GENERATOR SUPPORT
- M:	Daniel Golle <daniel@makrotopia.org>
- M:	Aurelien Jarno <aurelien@aurel32.net>
+Changes in v7:
+- Don't set a capture payload larger than the buffer when a job fails
+  because the buffer is too small (sashiko)
+- Drop the Assisted-by tags, upstream removed them in favour of a
+  note in the cover letter
+- Drop the review questions and answers from the driver patch
+- Link to v6: https://lore.kernel.org/r/20261005-rockchip-jpegdec-v6-0-25f16dea1697@pengutronix.de
 
+Changes in v6:
+- Rework dynamic resolution change: a changed frame is marked when it
+  is queued, the decoder stops in front of it, and only the ioctls that
+  resume change the capture format, so fmt_lock is gone
+- Keep a drain going across the capture restart of a resolution change
+- Decode grayscale frames to GREY instead of filling the NV12 chroma
+  plane from the CPU, and allocate capture buffers without a kernel
+  mapping
+- Leave cache maintenance of coded buffers to videobuf2, drop the
+  dma-buf CPU access calls
+- Drop the EOI scan, a truncated frame fails through BUF_EMPTY, and log
+  all hardware errors
+- Drop the runtime PM check in the interrupt handler
+- Drop the interrupt masking around the watchdog reset
+- Drop the hard reset fallback
+- Drop the media device
+- Drop the EOS event on STREAMOFF(OUTPUT)
+- Allow up to 65535 pixels per side, limited by the size of the decoded
+  frame instead of 16384 per side
+- Report sRGB colorimetry on the capture queue, keep what is set on the
+  coded queue and default it to V4L2_COLORSPACE_JPEG
+- Return a failed frame with its full payload, GStreamer takes an empty
+  capture buffer for the end of the stream
+- Return errors from the header parse instead of setting a flag
+- Use guard() and __free(), drop NULL checks the core rules out
+- Name the VDPU720 in the Kconfig help
+- Use Assisted-by: LLM
+- Link to v5: https://lore.kernel.org/r/20260925-rockchip-jpegdec-v5-0-30658833cb68@pengutronix.de
+
+Changes in v5:
+- Keep the device until both the binding and the last file handle are
+  gone, devres freed it under an open file
+- Let a job still running in rkjpegd_remove() finish and start no more,
+  close() waited forever
+- Reset the block after a job that ended in error
+- Reset the block after a frame that left SOFT_RST_RDY clear
+- Skip trailing padding of any length when looking for the EOI, 63 bytes
+  of padding hid the marker, and search only the entropy coded data
+- Annotate the DMA side buffer as little-endian
+- Return -EINVAL from enum_framesizes() for an unsupported format
+- Drop most of the in-function comments
+- Drop the review note on rkjpegd_remove(), the code is fixed instead
+- Bound the Huffman value copy by the table length parsed at queue time
+- Fall back to the standard Huffman tables for frames without a DHT
+- Resume decoding on V4L2_DEC_CMD_START after a drain or resolution change
+- Do not re-arm a drain that already completed
+- Report no resolution change for a corrupt frame past the first one
+- Send no EOS event for the LAST buffer of a resolution change
+- Correct the IRQ clear and Huffman table set comments
+- Keep a resolution change out of the mem2mem drain state, a STOP sent
+  before the capture queue was restarted ended the stream at once
+- Look for a mid-stream resolution change only in device_run(), buf_queue()
+  raced the interrupt handler for the capture buffer
+- Set the field on every capture buffer and the sequence on every LAST
+  buffer the driver returns itself
+- Report the first resolution after CREATE_BUFS on the OUTPUT queue too
+- Report the capture colorimetry from the OUTPUT format rather than echoing
+  what userspace passed, and stop S_FMT(CAPTURE) changing the OUTPUT format
+- Refuse RGB coded frames, Adobe APP14 transform 0, instead of decoding them
+  as YCbCr
+- Drop the 4:4:0 mode, the JPEG parser never lets such a frame through
+- Depend on V4L_MEM2MEM_DRIVERS
+- Correct the downstream clock rate in the rk356x DT commit message
+- Serialise V4L2_DEC_CMD_STOP/START with the job completion, a drain
+  racing the last job's interrupt never finished
+- Forget a drain that STREAMOFF(CAPTURE) aborted, a later resolution
+  change re-armed it
+- Bracket CPU reads of imported coded buffers with
+  dma_buf_begin_cpu_access()
+- Wait for a running job when probe fails after registering the video
+  device
+- Add an SPDX line to the Makefile
+- Link to v4: https://lore.kernel.org/r/20260918-rockchip-jpegdec-v4-0-0dd97df47abb@pengutronix.de
+
+Changes in v4:
+- Set and read the source change flags under fmt_lock
+- Check the runtime PM state in the interrupt handler
+- Use dma-buf CPU access around the grayscale chroma fill
+- Update the review notes in the driver patch
+- Link to v3: https://lore.kernel.org/r/20260914-rockchip-jpegdec-v3-0-3583c376d0d2@pengutronix.de
+
+Changes in v3:
+- Rename binding to rockchip,rk3568-jpegd.yaml to match the compatible
+- Link the earlier Hantro based series in the cover letter
+- Enable clocks from the runtime PM callbacks, use pm_ptr()
+- Protect capture format and crop with a mutex
+- Clear bytesused on capture buffers returned without a picture
+- Revert padding the capture buffer to the MCU width, it broke 4:1:1
+- Add notes on review questions to the driver patch
+- Link to v2: https://lore.kernel.org/r/20260825-rockchip-jpegdec-v2-0-86af859a3266@pengutronix.de
+
+Changes in v2:
+- rename clocks from aclk/hclk to axi/ahb
+- Add missing Signed-off-by
+- Fix suspend/resume path
+- Pad the capture buffer to the mode's MCU width, not to a macroblock
+- Reject a frame header picture size outside the supported range
+- Set the capture payload at decode time, not at queue time
+- Trim comments in the driver
+- Link to v1: https://lore.kernel.org/r/20260824-rockchip-jpegdec-v1-0-8011822bf500@pengutronix.de
+
+---
+Sascha Hauer (4):
+      media: dt-bindings: Add Rockchip JPEG decoder
+      media: rockchip: Add JPEG decoder driver
+      arm64: dts: rockchip: rk3588: Add JPEG decoder node
+      arm64: dts: rockchip: rk356x: Add JPEG decoder node
+
+ .../bindings/media/rockchip,rk3568-jpegd.yaml      |   92 +
+ MAINTAINERS                                        |    9 +
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi      |   22 +
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |   24 +
+ drivers/media/platform/rockchip/Kconfig            |    1 +
+ drivers/media/platform/rockchip/Makefile           |    1 +
+ drivers/media/platform/rockchip/rkjpegd/Kconfig    |   16 +
+ drivers/media/platform/rockchip/rkjpegd/Makefile   |    4 +
+ .../rockchip/rkjpegd/rkjpegd-vdpu720-regs.h        |  235 ++
+ drivers/media/platform/rockchip/rkjpegd/rkjpegd.c  | 2332 ++++++++++++++++++++
+ 10 files changed, 2736 insertions(+)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20260821-rockchip-jpegdec-0d6880cf656c
+
+Best regards,
 -- 
-2.47.3
+Sascha Hauer <s.hauer@pengutronix.de>
 
