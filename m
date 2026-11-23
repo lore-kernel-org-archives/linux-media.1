@@ -1,56 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795458436;
-	b=pVi9lWc1uOHX2Qo+713R+xMnHGtU7hfOw2OE5/fV9nbETYEmUWldRFwpbJL2O6W4eZnB
-	 AcBrgCkNetUdU6yF2fHBl+XS3npMUCMCItqlskQfJFqIpAvkSxTLOC/qAnnYyrcGLs5Aa
-	 L2EOqP1qbicj3trXBDGxMyIAYlA5vh5U88ykwvNKf0WGXLbKg5lfWihSiobU4rfui2lrH
-	 9E5uocw3+MqkuQOsNrkSGKSm9OATjT/eg56DWh9i84kKUsjep/8+H6lNVo4+QsJMWzDzd
-	 MJTVj5r83cv1hh/I0PjcAhxp+B2lWQYna9IaQ9J4PN0bt01No584OT/dqT8BDxCihnQ==
+	t=1795458581;
+	b=0KQpDG4JgdK9ybJRJGwLXjUUC+PKu1t8/Tq3Wayf9zwAZ6T227xr7G5gIxq47YaJM5M1
+	 869THL/8b4+c5i1ycOQbXUdIQBZT3EhoQZf6fg2KNVcm3M+mCLOt3Oa3uALW6+abvTTRL
+	 8MbA+c8rp2W+pEuJe7WKxt+kddVlBpvz5/hv1UeGC7pJqmCdW4e+qWVmXMURR5VUJ6M7n
+	 MI23w2ZqkUBpL18vX6TFnxhZ7+8skJoonam5TQVmGuoNKIldD5570kqSZoC1wpRYnTEpi
+	 xeRXttcFPxEo/xwA9J9MYQlPH+JuAj0V8gjdGN8P3ff8Gg+kf9BggfNod9K0iQGdxXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795458436;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=ZmOxiuWiVREG/xxsxKNmWwGxYCUEEUhnys7Cmf52QWI=;
-	b=gPaa8SBxF3Xz08Cu3BMU8lfEqPuq12J+gyGrGjfhBwIPLMzOv8Ao3O/88y9n7FkQR9xg
-	 Dxbp7pbj5SBUhUL1/gW3kxVUnb74ExtiKc/XtJ3ZuqMMFGQZRMZoQzYSFVo7yszKYEXkW
-	 ZG/EiruNOsu3YYS9gMfekhC7INsdBYxZM43VVxvda66qms5h7uRnQZi3lYgwzMS9LUXPV
-	 B4G23LTQLP+rcfXmz3g4O00/2EJjYMvpRdMWlHk5eguAJGqGeT+RpZwi6nBF7hEV1hVXp
-	 8O4oze98OD655z7Khy4hFOLBkCw6N85bjrKX90EKqUviuXVWKsxIMnmNsHAIt3viG+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795458581;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=4/j1tVsYjuDomGfTOiRNEufIvsMjxkzCoGFkLJLsf4Q=;
+	b=xysSC9rh3rui9zLetImxwWUrq38WWrtcFoUuu3lYj6svAsP84Gq9ZJPWp7JBp4nIublh
+	 qIXK7jL19mE9Eow1H4VFHgi8mR0qDMcrE9C/GRugFiZYiEb9ooXnT7pW+nPoQf7dOQP4h
+	 OeNiCMrs271LaRhU3n0VQql/cIe2S5R41gQQ/pstN20CBK+oA7QuBKsmCJ52TrUJsTVha
+	 aIS7VOuwSjlTUOoDE7XF2bGFS3ARy86SICvUAOQjEhhby+jeRG87Ejj0qii68iEFaHmbQ
+	 HiE10S3DJqHf1rXKEFOjzfcsqy5wOHDvqnq41m7XJDpAi+EaRy9cQPWCU3YuSAv1tYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=1bR806fP;
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBD7606A31A
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 18:27:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DBD7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ijpVlN8I;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A228606A31A
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 18:29:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A228606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=1bR806fP
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id E8496534026C;
-	Mon, 23 Nov 2026 19:27:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1795458431;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ZmOxiuWiVREG/xxsxKNmWwGxYCUEEUhnys7Cmf52QWI=;
-	b=1bR806fPbzPf1/g3/i/bsaPGrNOsdcB1zf635+1jzmqkUFwc/ZfJmMFicMgBdoc9DgzvYo
-	sSFJGpQSSoLNmgGRzZc4RR8cAG/8Oz3yzqL/MDhBc/nAVL0hc7+z8OF25G9Gj6/0H5b0It
-	mNJTyr5HNl8rWkw3ZdEuJVz3ySz1ysg=
-Message-ID: <775a6f72-d138-4ff2-9328-1c0c9c865d07@ixit.cz>
-Date: Mon, 23 Nov 2026 19:27:10 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ijpVlN8I
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B9961176B;
+	Mon, 23 Nov 2026 10:29:32 -0800 (PST)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8E3763F763;
+	Mon, 23 Nov 2026 10:29:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795458575; bh=91rRqWnUFnt98sbMIZIWLen5dQtczci7+M9TkR+C2eQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ijpVlN8I1I3lz+oP0f/Ra6j/FKXUuG6yrg9sGG6aArSc3WgM6d06k0TeBcvheHnlB
+	 +bg049yO3+3oRRTrxvdP291vcWCMxo9GAp2+PsBjvQ08/CJLOgCUEhOoOYk7V5y0sg
+	 lWIn7leu+umSmLK0yR2G0mX6r/H/ZewmLWycrNRc=
+Date: Mon, 23 Nov 2026 18:29:25 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	linux-coco@lists.linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+	linaro-mm-sig@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+	linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
+Subject: Re: [PATCH v10 04/13] irqchip/gic-v3-its: Allocate shared tables
+ using CoCo shared memory allocator
+Message-ID: <awSGBdS1AiFhJzZV@arm.com>
+References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
+ <20261116091137.94252-5-aneesh.kumar@kernel.org>
+ <awQd81MwZqi55gf8@arm.com>
+ <20261123150041.GB179082@ziepe.ca>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -60,152 +107,91 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] Various CCS fixes
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org
-References: <20261123-ccs-clanked-fixes-v1-0-fb2bcc87a517@ixit.cz>
- <20261123165549.GE2959742@killaraus.ideasonboard.com>
- <dc8bcacc-d743-4108-87e7-3c6715b23f4a@ixit.cz>
- <20261123180203.GC3050935@killaraus.ideasonboard.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20261123180203.GC3050935@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261123150041.GB179082@ziepe.ca>
 
-On 23/11/2026 19:02, Laurent Pinchart wrote:
-> On Mon, Nov 23, 2026 at 06:55:53PM +0100, David Heidelberg wrote:
->> On 23/11/2026 17:55, Laurent Pinchart wrote:
->>> On Mon, Nov 23, 2026 at 01:02:38PM +0100, David Heidelberg via B4 Relay wrote:
->>>> First two seems to be no-brainers. Next two seems to be correct too.
->>>
->>> What exactly do you mean by "seems to be correct" ? Are you sending
->>> LLM-generated patches that you're not even sure about ? That's a
->>> complete no-go.
->>
->> Hello Laurent.
->>
->> While I'm aware of your antipathy against LLM models, current situations doesn't
->> look like there are lining people to fix it and make sensors work with the MIPI
->> CCS drivers (introduced 2012).
->> This leads to endless forks of imxXXX sensors across hundreds of trees + people
->> clanking this stuff over and over. Let's establish that first.
->>
->> When I see opportunity to improve the generic driver, I'm taking it.
->>
->> change-id: 20261123-ccs-clanked-fixes-609bb0754028
->>
->> As you can see the change-id, I didn't make it somehow hidden. I reviewed the
->> changes which LLM found when helping me figuring out why I have black/white
->> output from the sensor which sequences seemed to be correct to me.
->>
->> My logical thinking would be evaluate quality and review the code, which leads
->> to my brain marked:
->>
->> patch 1 + 2 as pretty confident it's correct and
->> patch 3 + 4 as looking reasonable to me.
->> patch 5 + 6 I haven't send because of unnecessary complexity and likely wrong
->> approach (still in the backlog to analyze)
->>
->> I would believe it's better to at least report in this form, thus my comment
->> inside the cover, that last two patches may be useful. And yes, I understand
->> there is infinite amount of randomly clanked patches coming in your direction
->> and I understand it's huge time-waster and pain.
->>
->> For v2 I'll drop patch 3 and 4. Hopefully that makes more sense to you, because
->> as I'm working on getting Linux mobile phones in a good shape, I have not
->> ability to split myself into developer highly specialized in every field
->> (subsystem).
+On Mon, Nov 23, 2026 at 11:00:41AM -0400, Jason Gunthorpe wrote:
+> On Mon, Nov 23, 2026 at 11:05:23AM +0000, Catalin Marinas wrote:
+> > > -	/*
+> > > -	 * If set_memory_decrypted() fails then we don't know what state the
+> > > -	 * page is in, so we can't free it. Instead we leak it.
+> > > -	 * set_memory_decrypted() will already have WARNed.
+> > > -	 */
+> > > -	if (ret)
+> > > +	if (alloc_cc_shared_pages_node(node, gfp | gfp_flags_quirk,
+> > > +				       PAGE_SIZE << order, &mem))
+> > >  		return NULL;
+> > >  
+> > > -	return page;
+> > > +	return mem.page;
+> > 
+> > This part is mostly fine but I do wonder why not make this alloc
+> > function the same as buddy alloc_pages_node() - return a struct page
+> > pointer.
 > 
-> Sakari maintains the CCS driver, so it's his call.
+> I'd argue we shouldn't even be returning struct page here, do many
+> places even use the struct page? What for?
+
+I just suggested it for similarity with alloc_pages_node(). It can be
+made better indeed.
+
+> Exposing struct page to places that just want a kernel addr means they
+> have to call page_address and we are back to the highmem weirdness.
+
+dma-buf system heap needs struct page for scatterlist, so we need the
+virt_to_page() conversion if we return a VA.
+
+> > >  static void its_free_pages(void *addr, unsigned int order)
+> > >  {
+> > > -	/*
+> > > -	 * If the memory cannot be encrypted again then we must leak the pages.
+> > > -	 * set_memory_encrypted() will already have WARNed.
+> > > -	 */
+> > > -	if (set_memory_encrypted((unsigned long)addr, 1 << order))
+> > > +	struct cc_shared_layout layout;
+> > > +	struct cc_shared_pages mem;
+> > > +
+> > > +	if (WARN_ON(cc_shared_calc_layout(PAGE_SIZE << order, &layout)))
+> > >  		return;
+> > > -	free_pages((unsigned long)addr, order);
+> > > +
+> > > +	mem.page = virt_to_page(addr);
+> > > +	mem.shared_size = layout.shared_size;
+> > > +	free_cc_shared_pages(&mem);
+> > >  }
+> > 
+> > Here it gets weird and I don't see why we can't have just a buddy-like
+> > interface. The kernel-doc for alloc says that shared_size must be
+> > retained for the corresponding free but without reading the source code,
+> > you can't tell that cc_shared_calc_layout() gives you the same
+> > shared_size populated by alloc. We have a similar pattern in dma-buf but
+> > using the compound page order.
 > 
-> I find it very rude to throw LLM-generated patches to reviewers and
-
-Take generated slop and just throw it maintainer - definitely rude.
-
-Do a review myself with non-maintainer level of skills and partial 
-understanding? Hard to say.
-
-It's rude to send patch when I'm fixing something in the kernel, but maybe my 
-understanding isn't that brilliant as the maintainer one?
-
-> maintainers if you can't have full confidence yourself that they're
-> correct. If you don't want to invest *your* time and energy into
-> properly understanding what a series does, 
-
-That's fair argument. Again not B/W, I invest my time. I have partial knowledge 
-of media subsystem, sent fixes before (even without LLMs).
-
- > why should maintainers spend
- > any time helping you for free ?
-
-That's good point. I could ask myself too - why am I sending fixes for free (not 
-paid by contract or company - community work)?
-
-Maybe you're right. Maybe I should just patch the local imxXXX.c file in few 
-minutes and ignore it for year until it breaks again.
-
-David
-
+> This makes sense, we should not be passing size to a free function,
+> make a compount page/high order folio instead if the API is going to
+> be struct page based.
 > 
->>>> Signed-off-by: David Heidelberg <david@ixit.cz>
->>>> ---
->>>> David Heidelberg (4):
->>>>         media: ccs: Use dev_dbg() instead of dev_err() in ccs_enum_mbus_code()
->>>>         media: ccs: Fix sub-device index in ccs_cleanup()
->>>>         media: ccs: Update PLL and blanking limits when pixel_array crop changes
->>>>         media: ccs: Set V4L2_CTRL_FLAG_MODIFY_LAYOUT on flip controls
->>>>
->>>>    drivers/media/i2c/ccs/ccs-core.c | 14 +++++++++++---
->>>>    1 file changed, 11 insertions(+), 3 deletions(-)
->>>> ---
->>>> base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
->>>> change-id: 20261123-ccs-clanked-fixes-609bb0754028
+> > We can get rid of layout and mem structures (or at least not as
+> > part of the API). Of course, this assumes that the shared granule size
+> > remains constant for a guest's lifetime but I don't think that's a
+> > problem.
 > 
+> It should be encoded in the struct page meta data, as the order.
 
+I agree.
+
+> > Was there a caller you had in mind that needs the common allocator to
+> > share less than the whole buddy block?
+> 
+> If we want this it definitely needs to be a void * based API not
+> struct page one though..
+
+For whole-block sharing, either a VA or a folio works for me. If the
+allocator takes an order, the requested size and the sharing granule are
+both powers of two. Rounding up to the granule already gives a valid
+buddy block size, so there’s no need for a separate shared_size.
+
+-- 
+Catalin
