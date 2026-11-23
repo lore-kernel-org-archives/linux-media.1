@@ -1,76 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795459650;
-	b=uChgGSq93GLjDXzLzoLjIQScRZcD7t/HAzokNgF4GCZ8WkehdZbNFMpqI6U3HrMNX06Y
-	 +AS0b2X0fN7uKQDdnhoEcxKBSDjOmdMXjq7ri4av+4ASFLNMDddGUXDwPzRzoTV108cjP
-	 PwoWQpSPSXKZKjzfDkZ4W5nCXm/HMt1H6PlCHcUZL2OcrO55jQJYc+JqKIktSLDU95Uiy
-	 EujU3df0g15gJBIUgBezb+aoAAh+Pda3wpeskEC5BZ3DJdFT+If5iCJGpH4PIxlGAnB4w
-	 t0xA//gl6Bj6Si5z9yTZBUZTS9saBR/yGsaFChYT2Rwe7kIOl2q7SYOeAeV7XW/u2gw==
+	t=1795460374;
+	b=YhXyHJFjMfUHm3WRG1s5bB2uka9eGJPjod8GcvS3f9TywGIlpcQ7lgQIVzwus3O1qzoN
+	 edzaiOWgS3Rgsbe8OTt0iGmb7tFSlUWOOls+dqmdH+SlOChwGkn95wHrq2DNWVk7g7CoR
+	 FQmhtfOhAbHs3lIRDueyBtYUY3665FAaS5wRbpVIXCCkbEE4L09g4fqwZ7otcJHyUhtoz
+	 XXmjp7aX1mpNqPfkK2FNqKO88SidAG67nMfkGA/3Qi2KHK+UaOi//txF8d5vjiY9BrGR9
+	 4MFUyjHz6nKDPJU5LoAzm94cNL8Vqq1ExnVFMLDAApQkzJilPuZ3N757zqrfDxKDRZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795459650;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=BFhk7KNw6tTjqC1vRODMwUqNQx4e84W/bgMoMm4CftU=;
-	b=5YAJo12q/Y5B5UoDpQ7vUvE/q38v0EjUqlCbq6ZmnRre+bpLEy6Fp6ha6dR61uurGLsP
-	 xfM7xwxuiAWi6YyJjzGYbc9O/wkmIEYgtsPx2eyaJ+ASSEsEFKvwb60erpyPKa1AVXiPM
-	 VK0WQVzTs6ArJx1yD+kEYq+LKVRwzq2bZbqfcfVVzB0wVr3mAZjF6x5+HmFk9jh+4NdFA
-	 rSxUJfzUHX8JmkfktzZTrY+0swtFbmiAMciyRUnMr9jj3tV3Lk7EF1fM3cHdIAIdjB3pV
-	 bvL4EiDBCviHlHzoiXCgT7UYRX0n4EdK0oibOKTcmJ4yR4GlqCCF+8HIkQ/PP7RYaFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795460374;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=0O+tuIrtS72up1qGHdFeeTcnR9v0RwFLGoqv618GUxU=;
+	b=QTYvsRctXE+XwirpCx3vRSH+D8j6gcSjhnYxG7BUGLwk02vVhE2OT84zk3eHEMLgtKR1
+	 YbdGEvxpzBbwDj4fyScZA5bwnlL3Clk5Hj1Fe+fUJ6I2NJFspUsAZcsJDJsFWRmqFyLo0
+	 5sSHB7WFyJBO94rfgsWzVxYAExe+MFwEqOxyNSPFeQzMJiumHUrPtfsA1VJ8UaWSNpB22
+	 J/386nOuE17Dz7Awv651PgqbOKWkP3z3u3lePMPYwFzOe1Opwp82KD2jr1vabcfYf22cR
+	 F3JN0Q9emkUupKnYN+sPxkrKe8yJaeDCb6J+gnaU3qxxnwXYRHmnffbAvUcw91CHHzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iEK9biQ0;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ixit.cz;
+	spf=pass smtp.mailfrom=ixit.cz;
+	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b="pQbJmO7/";
+	arc=none smtp.remote-ip=84.42.129.46
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89BFD606A31A
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 18:47:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89BFD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57327606A31F
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 18:59:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57327606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iEK9biQ0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795459649; x=1826995649;
-  h=date:from:to:cc:subject:message-id;
-  bh=f1e/luLKjcrwthB+P0GZhiXZfqS2Bhpstj/Y+iE9YKg=;
-  b=iEK9biQ0b+InEjgMpATweReBklhpVszpBu+Nn9V7dityIvIStlM0/mOa
-   Q1BkwAcQpgetlKzR2PnY59Ab9FurkXWtCCjEVXvRmAwSiLOMWwDFzcQwc
-   fFTNzj/tnkX8tsg0EBA/IEO/NuqN6bhCVbeQU7eMN78nFOAS+iCGzUlFS
-   hR8l4vCagXBMj7P/bhXC1usiH9qrW/98MqAUVQ86ZMfSvIuOOBMLGpBDK
-   3eA1B71+bpdXd1nqsVVFSMwC//YR5C5+qcINytDnwLpvX6KQm99eyQJLY
-   JtEPq2eAr6MbxKg4Yn9ellGj4TsagxGNCzzVAsoNF76CA91Shdlm/2SJJ
-   w==;
-X-CSE-ConnectionGUID: jHxSzmxvTe+yKA1Gr+2/bg==
-X-CSE-MsgGUID: uhaQRTO2RYCs1FJze06kmw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11975"; a="4323512"
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="4323512"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 10:47:29 -0800
-X-CSE-ConnectionGUID: 5/XZgvuERPCVjkmGfth7wA==
-X-CSE-MsgGUID: ZumudOEWSaKdBOgOFCd3xw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,229,1787036400"; 
-   d="scan'208";a="11274316"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa005.jf.intel.com with ESMTP; 23 Nov 2026 10:47:28 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xVZ4X-00000001Nig-2kGU;
-	Mon, 23 Nov 2026 18:47:25 +0000
-Date: Tue, 24 Nov 2026 02:46:50 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org
-Subject: [sailus-media-tree:next] BUILD SUCCESS
- ccf78740d63813c452c035b57d17a650492562fa
-Message-ID: <20261124024650.9mbVZzr7-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=pQbJmO7/
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id DAEBB5340271;
+	Mon, 23 Nov 2026 19:59:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1795460370;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=0O+tuIrtS72up1qGHdFeeTcnR9v0RwFLGoqv618GUxU=;
+	b=pQbJmO7/+8a9xtkFlIJK0PezK0AoOBCGvfiZ2jSeWmvVOASXRuGgBw3hfHT0ehMUdiWuUw
+	PUmAGvqtst8MMrZfFjHW9KdqPdgpNKr4TEOJE95aOPh2Be4ilswbGyvnue9rpoEFuRNzHG
+	ml4S6NWfDcTJXxfa7S2j72dtsUre/80=
+Message-ID: <10c0d068-be46-4702-a6a4-f0b0dbd6e388@ixit.cz>
+Date: Mon, 23 Nov 2026 19:59:30 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -79,249 +59,198 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] Various CCS fixes
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org
+References: <20261123-ccs-clanked-fixes-v1-0-fb2bcc87a517@ixit.cz>
+ <20261123165549.GE2959742@killaraus.ideasonboard.com>
+ <dc8bcacc-d743-4108-87e7-3c6715b23f4a@ixit.cz>
+ <20261123180203.GC3050935@killaraus.ideasonboard.com>
+ <775a6f72-d138-4ff2-9328-1c0c9c865d07@ixit.cz>
+ <20261123183525.GF2959742@killaraus.ideasonboard.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20261123183525.GF2959742@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-tree/branch: git://linuxtv.org/sailus/media_tree.git next
-branch HEAD: ccf78740d63813c452c035b57d17a650492562fa  media: i2c: ov8856: Enable runtime PM before registering the sub-device
+On 23/11/2026 19:35, Laurent Pinchart wrote:
+> On Mon, Nov 23, 2026 at 07:27:10PM +0100, David Heidelberg wrote:
+>> On 23/11/2026 19:02, Laurent Pinchart wrote:
+>>> On Mon, Nov 23, 2026 at 06:55:53PM +0100, David Heidelberg wrote:
+>>>> On 23/11/2026 17:55, Laurent Pinchart wrote:
+>>>>> On Mon, Nov 23, 2026 at 01:02:38PM +0100, David Heidelberg via B4 Relay wrote:
+>>>>>> First two seems to be no-brainers. Next two seems to be correct too.
+>>>>>
+>>>>> What exactly do you mean by "seems to be correct" ? Are you sending
+>>>>> LLM-generated patches that you're not even sure about ? That's a
+>>>>> complete no-go.
+>>>>
+>>>> Hello Laurent.
+>>>>
+>>>> While I'm aware of your antipathy against LLM models, current situations doesn't
+>>>> look like there are lining people to fix it and make sensors work with the MIPI
+>>>> CCS drivers (introduced 2012).
+>>>> This leads to endless forks of imxXXX sensors across hundreds of trees + people
+>>>> clanking this stuff over and over. Let's establish that first.
+>>>>
+>>>> When I see opportunity to improve the generic driver, I'm taking it.
+>>>>
+>>>> change-id: 20261123-ccs-clanked-fixes-609bb0754028
+>>>>
+>>>> As you can see the change-id, I didn't make it somehow hidden. I reviewed the
+>>>> changes which LLM found when helping me figuring out why I have black/white
+>>>> output from the sensor which sequences seemed to be correct to me.
+>>>>
+>>>> My logical thinking would be evaluate quality and review the code, which leads
+>>>> to my brain marked:
+>>>>
+>>>> patch 1 + 2 as pretty confident it's correct and
+>>>> patch 3 + 4 as looking reasonable to me.
+>>>> patch 5 + 6 I haven't send because of unnecessary complexity and likely wrong
+>>>> approach (still in the backlog to analyze)
+>>>>
+>>>> I would believe it's better to at least report in this form, thus my comment
+>>>> inside the cover, that last two patches may be useful. And yes, I understand
+>>>> there is infinite amount of randomly clanked patches coming in your direction
+>>>> and I understand it's huge time-waster and pain.
+>>>>
+>>>> For v2 I'll drop patch 3 and 4. Hopefully that makes more sense to you, because
+>>>> as I'm working on getting Linux mobile phones in a good shape, I have not
+>>>> ability to split myself into developer highly specialized in every field
+>>>> (subsystem).
+>>>
+>>> Sakari maintains the CCS driver, so it's his call.
+>>>
+>>> I find it very rude to throw LLM-generated patches to reviewers and
+>>
+>> Take generated slop and just throw it maintainer - definitely rude.
+>>
+>> Do a review myself with non-maintainer level of skills and partial
+>> understanding? Hard to say.
+>>
+>> It's rude to send patch when I'm fixing something in the kernel, but maybe my
+>> understanding isn't that brilliant as the maintainer one?
+>>
+>>> maintainers if you can't have full confidence yourself that they're
+>>> correct. If you don't want to invest *your* time and energy into
+>>> properly understanding what a series does,
+>>
+>> That's fair argument. Again not B/W, I invest my time. I have partial knowledge
+>> of media subsystem, sent fixes before (even without LLMs).
+> 
+> The social contract is that maintainers get something in return for help
+> contributors. They expect contributors to learn, improve their
+> contributions over time, and occasionally some of those contributors
+> will help with development and maintenance in the long term.
 
-elapsed time: 2696m
+I'm well aware of that :)
 
-configs tested: 229
-configs skipped: 6
+> LLM-generated contributions break that contract completely when they're
+> just thrown over the fence with nothing more than a cursory glance.
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+Sadly, yes.
 
-tested configs:
-alpha                              allnoconfig    gcc-16.2.0
-alpha                             allyesconfig    gcc-16.2.0
-alpha                 randconfig-2000-20261121    gcc-16.2.0
-alpha                 randconfig-2001-20261121    gcc-14.4.0
-alpha                randconfig-r2104-20261121    gcc-16.2.0 cocci
-arc                               allmodconfig    clang-24
-arc                                allnoconfig    gcc-16.2.0
-arc                               allyesconfig    clang-24
-arc                   randconfig-2200-20261120    gcc-15.3.0 smatch
-arc                  randconfig-r2103-20261121    gcc-13.5.0 cocci
-arc                  randconfig-r2301-20261120    gcc-10.5.0 sparse
-arm                                allnoconfig    gcc-16.2.0
-arm                               allyesconfig    clang-24
-arm                  randconfig-r2100-20261121    gcc-8.5.0  cocci
-arm                  randconfig-r2106-20261120    gcc-14.4.0 cocci
-arm                              rpc_defconfig    gcc-16.2.0
-arm                          wpcm450_defconfig    gcc-16.2.0
-arm64                             allmodconfig    clang-24
-arm64                              allnoconfig    gcc-16.2.0
-arm64                 randconfig-1000-20261123    clang-17
-arm64                 randconfig-1001-20261123    clang-17
-arm64                 randconfig-1002-20261123    clang-17
-arm64                 randconfig-1003-20261123    clang-17
-arm64                 randconfig-2200-20261120    clang-17   smatch
-arm64                randconfig-r2105-20261121    gcc-8.5.0  cocci
-csky                              allmodconfig    gcc-16.2.0
-csky                               allnoconfig    gcc-16.2.0
-csky                  randconfig-1000-20261123    clang-17
-csky                  randconfig-1001-20261123    clang-17
-csky                  randconfig-2000-20261121    gcc-16.2.0
-csky                  randconfig-2001-20261121    gcc-16.2.0
-csky                  randconfig-2200-20261120    gcc-15.3.0 smatch
-csky                 randconfig-r2111-20261120    gcc-16.2.0 cocci
-hexagon                            allnoconfig    gcc-16.2.0
-hexagon               randconfig-2000-20261121    clang-24
-hexagon               randconfig-2001-20261121    clang-24
-hexagon               randconfig-2200-20261120    clang-17   smatch
-i386                              allmodconfig    clang-22
-i386                               allnoconfig    gcc-16.2.0
-i386                              allyesconfig    clang-22
-i386                  randconfig-2000-20261120    gcc-14
-i386                  randconfig-2001-20261120    gcc-14
-i386                  randconfig-2002-20261120    clang-22
-i386                  randconfig-2003-20261120    clang-22
-i386                  randconfig-2004-20261120    clang-22
-i386                  randconfig-2005-20261120    clang-22
-i386                  randconfig-2100-20261120    clang-22   cocci
-i386                  randconfig-2101-20261120    gcc-14     cocci
-i386                  randconfig-2102-20261120    gcc-14     cocci
-i386                  randconfig-2103-20261120    clang-22   cocci
-i386                  randconfig-2104-20261120    gcc-14     cocci
-i386                  randconfig-2105-20261120    gcc-12     cocci
-i386                  randconfig-2200-20261120    clang-22   smatch
-i386                 randconfig-r2102-20261121    gcc-14     cocci
-i386                 randconfig-r2300-20261120    clang-22   sparse
-i386                 randconfig-r2302-20261120    clang-22   sparse
-loongarch                         allmodconfig    clang-24
-loongarch                          allnoconfig    gcc-16.2.0
-loongarch                            defconfig    clang-24
-loongarch             randconfig-2000-20261120    clang-24
-loongarch             randconfig-2001-20261120    clang-20
-loongarch             randconfig-2200-20261120    clang-18   smatch
-m68k                              allmodconfig    gcc-16.2.0
-m68k                               allnoconfig    gcc-16.2.0
-m68k                              allyesconfig    clang-24
-m68k                                 defconfig    clang-24
-m68k                        m5329evb_defconfig    gcc-16.2.0
-m68k                  randconfig-2000-20261121    gcc-13.5.0
-m68k                  randconfig-2001-20261121    gcc-8.5.0
-m68k                  randconfig-2200-20261120    gcc-14.4.0 smatch
-microblaze                         allnoconfig    gcc-16.2.0
-microblaze                        allyesconfig    gcc-16.2.0
-microblaze                           defconfig    clang-24
-microblaze            randconfig-2000-20261121    gcc-8.5.0
-microblaze            randconfig-2001-20261121    gcc-10.5.0
-mips                               allnoconfig    gcc-16.2.0
-mips                              allyesconfig    gcc-16.2.0
-mips                           ath25_defconfig    gcc-16.2.0
-mips                       fuloong2e_defconfig    gcc-16.2.0
-mips                       maltasmvp_defconfig    gcc-16.2.0
-mips                  randconfig-2000-20261120    gcc-15.3.0
-mips                  randconfig-2001-20261120    clang-19
-mips                  randconfig-2002-20261120    gcc-11.5.0
-mips                  randconfig-2200-20261121    clang-21   smatch
-mips                 randconfig-r2105-20261121    gcc-9.5.0  cocci
-nios2                             allmodconfig    clang-20
-nios2                              allnoconfig    clang-24
-nios2                                defconfig    clang-24
-nios2                 randconfig-2000-20261120    gcc-8.5.0
-nios2                 randconfig-2001-20261120    gcc-8.5.0
-nios2                 randconfig-2200-20261120    gcc-11.5.0 smatch
-nios2                randconfig-r2305-20261120    gcc-11.5.0 sparse
-openrisc                          allmodconfig    clang-20
-openrisc                           allnoconfig    clang-24
-openrisc              randconfig-2000-20261120    gcc-9.5.0
-openrisc              randconfig-2001-20261120    gcc-11.5.0
-openrisc              randconfig-2002-20261120    gcc-9.5.0
-openrisc              randconfig-2200-20261120    gcc-11.5.0 smatch
-parisc                            allmodconfig    gcc-16.2.0
-parisc                             allnoconfig    clang-24
-parisc                            allyesconfig    clang-17
-parisc                randconfig-1000-20261123    clang-24
-parisc                randconfig-1001-20261123    clang-24
-parisc                randconfig-2000-20261120    gcc-8.5.0
-parisc                randconfig-2001-20261120    gcc-13.5.0
-parisc                randconfig-2200-20261120    gcc-8.5.0  smatch
-parisc               randconfig-r2110-20261120    gcc-11.5.0 cocci
-parisc64                             defconfig    clang-24
-powerpc                            allnoconfig    clang-24
-powerpc               randconfig-1000-20261123    clang-24
-powerpc               randconfig-1001-20261123    clang-24
-powerpc               randconfig-2000-20261120    clang-17
-powerpc               randconfig-2001-20261120    clang-19
-powerpc               randconfig-2002-20261120    clang-24
-powerpc               randconfig-2200-20261121    gcc-11.5.0 smatch
-powerpc              randconfig-r2303-20261120    clang-24   sparse
-powerpc64             randconfig-1000-20261123    clang-24
-powerpc64             randconfig-1001-20261123    clang-24
-powerpc64             randconfig-2000-20261120    clang-24
-powerpc64             randconfig-2001-20261120    clang-24
-powerpc64             randconfig-2002-20261120    clang-18
-powerpc64             randconfig-2200-20261121    gcc-10.5.0 smatch
-riscv                             allmodconfig    clang-24
-riscv                              allnoconfig    clang-24
-riscv                             allyesconfig    clang-24
-riscv                 randconfig-2000-20261120    clang-24
-riscv                 randconfig-2001-20261120    gcc-10.5.0
-riscv                 randconfig-2002-20261120    gcc-8.5.0
-riscv                 randconfig-2003-20261120    clang-24
-riscv                 randconfig-2004-20261120    clang-20
-riscv                 randconfig-2005-20261120    gcc-10.5.0
-riscv                 randconfig-2200-20261120    gcc-8.5.0  smatch
-riscv                randconfig-r2101-20261121    gcc-13.5.0 cocci
-riscv                randconfig-r2102-20261121    gcc-15.3.0 cocci
-s390                              allmodconfig    clang-17
-s390                               allnoconfig    clang-24
-s390                  randconfig-2000-20261120    gcc-8.5.0
-s390                  randconfig-2001-20261120    clang-24
-s390                  randconfig-2002-20261120    clang-24
-s390                  randconfig-2003-20261120    clang-24
-s390                  randconfig-2004-20261120    gcc-16.2.0
-s390                  randconfig-2005-20261120    clang-24
-s390                  randconfig-2200-20261120    clang-17   smatch
-s390                 randconfig-r2104-20261121    clang-24   cocci
-sh                                allmodconfig    gcc-16.2.0
-sh                                 allnoconfig    clang-24
-sh                                allyesconfig    clang-17
-sh                    randconfig-2000-20261120    gcc-16.2.0
-sh                    randconfig-2001-20261120    gcc-16.2.0
-sh                    randconfig-2002-20261120    gcc-16.2.0
-sh                    randconfig-2003-20261120    gcc-11.5.0
-sh                    randconfig-2004-20261120    gcc-16.2.0
-sh                    randconfig-2005-20261120    gcc-15.3.0
-sh                    randconfig-2200-20261120    gcc-11.5.0 smatch
-sh                   randconfig-r2100-20261121    gcc-16.2.0 cocci
-sh                              shx3_defconfig    gcc-16.2.0
-sparc                              allnoconfig    clang-24
-sparc                 randconfig-1000-20261123    gcc-14
-sparc                 randconfig-1001-20261123    gcc-14
-sparc                 randconfig-2000-20261120    gcc-16.2.0
-sparc                 randconfig-2001-20261120    gcc-8.5.0
-sparc64                           allmodconfig    clang-20
-sparc64               randconfig-1000-20261123    gcc-14
-sparc64               randconfig-1001-20261123    gcc-14
-sparc64               randconfig-2000-20261120    gcc-8.5.0
-sparc64               randconfig-2001-20261120    gcc-8.5.0
-sparc64               randconfig-2200-20261120    gcc-14.4.0 smatch
-sparc64              randconfig-r2103-20261121    gcc-15.3.0 cocci
-um                                allmodconfig    clang-17
-um                                 allnoconfig    clang-24
-um                    randconfig-1000-20261123    gcc-14
-um                    randconfig-1001-20261123    gcc-14
-um                    randconfig-2000-20261120    clang-24
-um                    randconfig-2001-20261120    gcc-14
-um                    randconfig-2200-20261121    gcc-14     smatch
-um                   randconfig-r2107-20261120    clang-24   cocci
-um                   randconfig-r2108-20261120    gcc-14     cocci
-um                   randconfig-r2304-20261120    gcc-14     sparse
-x86_64                            allmodconfig    clang-22
-x86_64                             allnoconfig    clang-24
-x86_64                            allyesconfig    clang-22
-x86_64      buildonly-randconfig-1000-20261123    clang-22
-x86_64      buildonly-randconfig-1001-20261123    clang-22
-x86_64      buildonly-randconfig-1002-20261123    clang-22
-x86_64      buildonly-randconfig-1003-20261123    clang-22
-x86_64      buildonly-randconfig-1004-20261123    clang-22
-x86_64      buildonly-randconfig-1005-20261123    clang-22
-x86_64                                   kexec    clang-22
-x86_64                randconfig-1000-20261123    gcc-14
-x86_64                randconfig-1001-20261123    gcc-14
-x86_64                randconfig-1002-20261123    gcc-14
-x86_64                randconfig-1003-20261123    gcc-14
-x86_64                randconfig-1004-20261123    gcc-14
-x86_64                randconfig-1005-20261123    gcc-14
-x86_64                randconfig-1012-20261123    gcc-14
-x86_64                randconfig-1013-20261123    gcc-14
-x86_64                randconfig-1014-20261123    gcc-14
-x86_64                randconfig-1015-20261123    gcc-14
-x86_64                randconfig-1016-20261123    gcc-14
-x86_64                randconfig-1017-20261123    gcc-14
-x86_64                randconfig-2000-20261120    gcc-14
-x86_64                randconfig-2001-20261120    gcc-14
-x86_64                randconfig-2002-20261120    clang-22
-x86_64                randconfig-2003-20261120    clang-22
-x86_64                randconfig-2004-20261120    clang-22
-x86_64                randconfig-2005-20261120    gcc-14
-x86_64                randconfig-2100-20261120    gcc-14     cocci
-x86_64                randconfig-2101-20261120    gcc-14     cocci
-x86_64                randconfig-2102-20261120    gcc-14     cocci
-x86_64                randconfig-2103-20261120    clang-22   cocci
-x86_64                randconfig-2104-20261120    clang-22   cocci
-x86_64                randconfig-2105-20261120    clang-22   cocci
-x86_64                randconfig-2200-20261120    clang-22   smatch
-x86_64               randconfig-r2109-20261120    gcc-13     cocci
-x86_64                                rhel-9.4    clang-22
-x86_64                            rhel-9.4-bpf    gcc-14
-x86_64                           rhel-9.4-func    clang-22
-x86_64                     rhel-9.4-kselftests    clang-22
-x86_64                          rhel-9.4-kunit    gcc-14
-x86_64                            rhel-9.4-ltp    gcc-14
-x86_64                           rhel-9.4-rust    clang-22
-xtensa                             allnoconfig    clang-24
-xtensa                            allyesconfig    clang-20
-xtensa                randconfig-1000-20261123    gcc-14
-xtensa                randconfig-1001-20261123    gcc-14
-xtensa                randconfig-2000-20261121    gcc-8.5.0
-xtensa                randconfig-2001-20261121    gcc-12.5.0
-xtensa                randconfig-2200-20261120    gcc-9.5.0  smatch
-xtensa                     smp_lx200_defconfig    gcc-16.2.0
+> There's no learning any more, no improvements, just increased maintainer
+> burden.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+I would disagree here. There is learning, maybe for 1 person from 10. LLM is 
+great at explaining code, reviews - recently surprised by the quality of it.
+
+Yes, there is maintenance burden, I agree. If we omit the slop, I would say it's 
+also because it's easier to upstream code, e.g. the barrier is lower.
+
+> 
+> Nobody expects you, or any other contributor, to be an expert, but if
+> you decide not to spend time learning and improving, I won't want to
+> spend my time reviewing your patches.
+
+You still writing in absolutes. How much time needs to be spend?
+
+I cam answer the original question thou:
+
+| why should maintainers spend
+| any time helping you for free
+
+I would say because
+a) it's obviously correct code on first sight (easy, fixes almost for free)
+b) maintainer may assume the amount of time person invested into writing patch 
+(LLM irrelevant here) was reasonable and after receiving feedback the person 
+follow in similar pace (long-term cooperation)
+c) maintainer may see the short-term value of the contribution regardless of the 
+effort spent on the code.
+
+David
+
+> 
+>>> why should maintainers spend
+>>> any time helping you for free ?
+>>
+>> That's good point. I could ask myself too - why am I sending fixes for free (not
+>> paid by contract or company - community work)?
+>>
+>> Maybe you're right. Maybe I should just patch the local imxXXX.c file in few
+>> minutes and ignore it for year until it breaks again.
+>>
+>>>>>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>>>>>> ---
+>>>>>> David Heidelberg (4):
+>>>>>>          media: ccs: Use dev_dbg() instead of dev_err() in ccs_enum_mbus_code()
+>>>>>>          media: ccs: Fix sub-device index in ccs_cleanup()
+>>>>>>          media: ccs: Update PLL and blanking limits when pixel_array crop changes
+>>>>>>          media: ccs: Set V4L2_CTRL_FLAG_MODIFY_LAYOUT on flip controls
+>>>>>>
+>>>>>>     drivers/media/i2c/ccs/ccs-core.c | 14 +++++++++++---
+>>>>>>     1 file changed, 11 insertions(+), 3 deletions(-)
+>>>>>> ---
+>>>>>> base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
+>>>>>> change-id: 20261123-ccs-clanked-fixes-609bb0754028
+> 
+
