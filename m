@@ -1,99 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795465549;
-	b=LT7WQDq63vHJTvAR/F/+f2+PkgUjvGZ2W7pw1FLR/PmR0V+cAyDep5CSir8Jcp9/aq8C
-	 3yTtbVPYa7x7bI/QdiuvByy+WB6Pzhb5X6DZ/n7Ym8/6Oq593nyptdW1amgelxU6NdMud
-	 sklFtoPm3peJEtQzRf+FZWi3JxujtEpvmk9uXojoicONfc7GkGa6wNTk7jY3zM3g+R8Bq
-	 Isq4FHmKEzPq21FjlzYR+SgwMsjvYUwbBka/1Yex418oufWw8nJxAMzuvr/8h0fzmGSFS
-	 Z6ECHspQSr9+v8x4m5HKmfGRabutexg5m82BSFd2/sIHRa+R/rduqAHMmArNY3elUdQ==
+	t=1795466051;
+	b=dQv8iI9zPOQlVMsueX/AI/taQVtxXiOENGi8xcEsm8yV3ClmsUCz9LPQJSQlj/5MOvuM
+	 Nn8tivqQWeav5p0pjtCKTSjReOrOP8g5p2cpJKXoegiPoRncdZngecWlivLXLr+y+/q1Z
+	 IPY8tz7rAeGG+KHLwOF7I3clNGJAjqQUdBAOicjIyf1GSZdy6hCIMn6IV7nQDHz0W/5fR
+	 gH6lqC1HUfCCpJTCbD02yb7wMK8RaeIKXKkg6McrdbCeNGSn1n3EUBe5na3wnRVPYFZrW
+	 UYhn77+Rg2d2o8csI1PXwgK0vd/3iosGF+jT/0zY8r4no1U0To7Qz+8TqTsEQpyK3ZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795465549;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=MQ2RrQtG1OM0LiBJp2KbHu85/ogHhtSJ39duNkPwNTM=;
-	b=Ps3qch0rIGPiNMkRDsif/1Ofchh2cpHg9Uzcub6qwkhv/gIyI2aagxUwOG/hWSnXwyeq
-	 Sbnahr3rKD7DGDzZqEeOpUf2jhu95DdWUVoRdD0idbBvBcSeS1bEUsN/RhFIFMWMseQMm
-	 H8gD1JD1u7rl+xr5MDzG6K6XjsdM8/8JcSw1RHPWBiDBRyhc6q3cKf79Z5ktlcmTPfY3D
-	 QOVNkDDzDvuvzVCyrdNdlLo++ttgmaqqBQ2nOk/YpBRsASsl884U4HoQYOd9XVFGwZ/Re
-	 z+TIS4Efiov7DhOrYcKBBmhhe1y7du8pW+PBgkx1Mh3j0gcDOCsM1s/ZIKpYfB0zT/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795466051;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=e2HIsCv1tN4Vi7S2Bt6sM0bBboMl+JYL9mFDX5CB8EU=;
+	b=aD3ipl4dSgmUlMFCOst40feTIBOWorJ90EWUUU44l/qGEme79LXo7Ci5tpCssyXr1dD/
+	 safeaS9jAckl8fKGJlLE81HCNGJVanZUk0F0y11l9aD+HQKil1nVEs6s4otgStruiyFoK
+	 +QB4ICF0JMeg8Sbk//zsf7SpCtIODCDhYEdyjPyI/sEz0fpiDnndGdaQcfvYXsgPm1sgg
+	 b9zpCX70cgb8dwQWsF4gcv9uRKs5trCKd1xuDfYxL3wN/ACj0bbsRLWITGwzlRmyQnPnt
+	 5bIT8ddTEpNRF/cUxE3yVmtmj0PF57BXBJSurq1QxgtrI5UCm0b4gKFQ+Jz+iY7w9bA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gKiuorXW;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z0dkIdz1;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03110606A31E;
-	Mon, 23 Nov 2026 20:25:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03110606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B21606A321
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 20:34:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12B21606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gKiuorXW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795465547;
-	bh=MQ2RrQtG1OM0LiBJp2KbHu85/ogHhtSJ39duNkPwNTM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=gKiuorXWWGlvRFndCd/W8ewTB3EtABWyQ6+hc877mXzlUNbbP4XJIBBMTvCVB+v/d
-	 FFA3cvYHquUuQMM+nwqrclYAoq9XC+3Iov6VT/Xs6wpwBDT1fArFbYFwvhcUri2Mb7
-	 zJBVnBdPSalWeUtd1c/2EPHlNCZSoXBFG5pXjoL3v8rW2fRawmhr9BtkOS89qfT3cb
-	 wKSZbtFmJ+1mdXY4ngtB+hJjWgQsPWdDq6Ziw+qUmUjAgixAray1SiL3Su8RkHoakF
-	 vY/h01988YIziDCHUmmbZVaWxzC6gWIrTLLk2YbStXFwJjNovyEriSgQzDoEDpW56a
-	 FvBZeATeA93/w==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C701217E0CD7;
-	Mon, 23 Nov 2026 21:25:44 +0100 (CET)
-Message-ID: <8624fb6a39e5e13466882f01ea54842252f154af.camel@collabora.com>
-Subject: Re: [PATCH v8 09/11] media: chips-media: wave6: Add performance
- profiling
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Nas Chung <nas.chung@chipsnmedia.com>, Frank Li <Frank.li@oss.nxp.com>, 
- Detlev Casanova <detlev.casanova@collabora.com>
-Cc: "mchehab@kernel.org" <mchehab@kernel.org>, "hverkuil@kernel.org"	
- <hverkuil@kernel.org>, "robh@kernel.org" <robh@kernel.org>, 
- "krzk+dt@kernel.org"	 <krzk+dt@kernel.org>, "conor+dt@kernel.org"
- <conor+dt@kernel.org>,  "Frank.Li@nxp.com"	 <Frank.Li@nxp.com>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>, 
- "linux-media@vger.kernel.org"	 <linux-media@vger.kernel.org>,
- "devicetree@vger.kernel.org"	 <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>, 
- "linux-arm-kernel@lists.infradead.org"	
- <linux-arm-kernel@lists.infradead.org>, "festevam@gmail.com"	
- <festevam@gmail.com>, "kernel@pengutronix.de" <kernel@pengutronix.de>, 
- "ming.qian@oss.nxp.com"	 <ming.qian@oss.nxp.com>, "marek.vasut@mailbox.org"
- <marek.vasut@mailbox.org>,  "jackson.lee" <jackson.lee@chipsnmedia.com>,
- "lafley.kim" <lafley.kim@chipsnmedia.com>
-Date: Mon, 23 Nov 2026 15:25:43 -0500
-In-Reply-To: <SL2P216MB244104B49860D6D6B3A92821FB452@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
-References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
-	 <5702baa6ed97eb30dec14bddba2919252ec8f3c8.1795075582.git.nas.chung@chipsnmedia.com>
-	 <av9iadpXveXGb0R0@SMW015318>
-	 <SL2P216MB244104B49860D6D6B3A92821FB452@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-hywlTlSbm67gmuaBuGD6"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z0dkIdz1
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4bb61185057so24833845e9.1
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 12:34:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795466048; x=1796070848; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=e2HIsCv1tN4Vi7S2Bt6sM0bBboMl+JYL9mFDX5CB8EU=;
+        b=Z0dkIdz1roQI0bhGJaA9+OHdDJUb11pyWR1I0jClrb25KvbgqdbiUJpTQ/2I5gSBa1
+         ox35HBBCOO/04aN+1/A2xtOItH+b2YFK3uEiKdSjLNqcUXt7OWClMQuHYnWIlhzNABdT
+         8JGr7lszt+hrHB3P1lnIuYM3IuSJLMBfr4IQKPq8lfbOhRi5Z5Bqc+XiAZlqJLcfqu6F
+         Tex4oD/W46mqnR5WWtm149Ey8O/ke4KvGBV89JhJiqn7Z5DGI3EvTQeTBtsgnr6oNDYH
+         CBKE3gbHgR6HixF4//gzTiEUrZxUyfLt/Bi5nmrzEfR3RtbNbrsgZkb0JjKoZTjb6IMA
+         s4aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795466048; x=1796070848;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=e2HIsCv1tN4Vi7S2Bt6sM0bBboMl+JYL9mFDX5CB8EU=;
+        b=bTcCbRSzBOcdToC2zf2HgjQo1fetSWTpiRNUsElomaI21uFzkHHEsveHRGtwBypOzQ
+         tfBPH/Gzzr1xQgksYOIakeQCozIbQHOJLLDyXJ8XDBYJexPrqIEuzcixioq/1gnGKaNq
+         coAK4Pu0ouYEjz6onqLbEGbbZITh+UUwK35WYuEr6LaokMH54GqWhOCliL+9CaM3Aw8D
+         ZPxhNERpqrKMCpHgXJxsnfCHZB3dIoFdmkkMzaiLvFR/TT6kor3MwKQRp6c7QmO2WezB
+         c958Ey7jBIS6Mfj2ubtN5KQu+uVhthtFCbnlwVgv+2WZrnr+tjjla+q5waoWH/xO8JFY
+         Wttw==
+X-Gm-Message-State: APuU4Z97v0N15BTfAixTtPd6rX79nCdoHoyFkNkNpXFSoTo9mAvSbsjv
+	MwTyabaBB4zSErl7/db3kelur/YexIouQqZGEtxz8UgNga2jSL+VGd4S
+X-Gm-Gg: AZFdTZcmO/aVCaR0/Ug5kPd8AyvX9Z+6AQyQFGFpmvxTqB8YNjLJWVtvDI7gpDjhs00
+	r4TuXVrLGoNRHxa9N52pirh1xeIbkhw4+28+ZF7fzX7TnqI31o1LgsWGfeg2tfc62baLFG5eave
+	EC0Khpe6LE0+h8oQL4MivoEFv7+oHKxp2YKduwgD+6YcE/iTKrENCefve09i0aLH/vwhfQ5VQru
+	5XQ4lTf0RVHtfaz084q1OmZSQM6HM7ysEqlztTFzNZSMWgqmmMsXTxBQrIvacqugdBXRb0AYiTh
+	pzk0IUZkQqJhsg49K/2/oCDR7qCmALZ7c1PP4lY16ySXR75w7j1NDIy3BWg1h6K7+m4u7S0lkPX
+	zjPpYTYCXWfNEi6ONMSd56ha1tZOGLjDjhvT0DPzJdLUAYKLx5kxzELzf8tRbxkE950lHfROX9L
+	4jLgp6u95srUKzajFWcVtTXtBqe8N2OndXTHayi+i/ijOlHVCutKgxxYxQ1cSDnQJaXvjlHrmaf
+	DHLQrW2MmMvINuR8Se8ylFeUkPGX4utoePrg15hwYIgB0nXhHDKb7w34ZHDjV/I6C7dfJ9l2rp4
+	H9f3MKVSY0Zv1hR8izd/dE4cQ90siQ==
+X-Received: by 2002:a05:600c:64c8:b0:4bb:6848:d433 with SMTP id 5b1f17b1804b1-4bb8881d141mr251247305e9.26.1795466048254;
+        Mon, 23 Nov 2026 12:34:08 -0800 (PST)
+Received: from unknown.local ([151.34.53.154])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4bb884b7515sm515946805e9.13.2026.11.23.12.34.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 12:34:07 -0800 (PST)
+From: Gianluca Boiano <morf3089@gmail.com>
+Subject: [PATCH 0/5] media: qcom: camss, ccs: Sony IMX376 on SDM660 using
+ the MIPI CCS driver
+Date: Mon, 23 Nov 2026 21:33:52 +0100
+Message-Id: <20261123-b4-ccs-imx376-v1-0-2b26850a6f11@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,85 +92,105 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
---=-hywlTlSbm67gmuaBuGD6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5EQBBA4atIrVWiy99kriIWuhVKwky6EIm4u
+ 8byW7x3gLIXVvhGB3jeROU3B5g4Ajc0c88obTBQQoUxRGgzdE5Rpj0tC0zStqGcyk+XWwjN33M
+ n+/Or6te62pHdck/gPC+R5DbtcQAAAA==
+X-Change-ID: 20261122-b4-ccs-imx376-03da25278f5b
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>, Gianluca Boiano <morf3089@gmail.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795466045; l=3605;
+ i=morf3089@gmail.com; s=20240402; h=from:subject:message-id;
+ bh=Ux1jAIk65UvpQG9eUkT9o3z3KHkRuAwplFQDfWVP5dU=;
+ b=Vskrd5wcS4R1Anr5d6Nyalh7iBdzMn/H73Qb2lS95hRFgbE9FGaCuvQ9ikd9Hacqt/V2wzhXR
+ 6U9YRMIlS/oAOkvr6vMQ5bzaJ2s+MkhuOnvS0jFNeEWgPI1e7GDTjVa
+X-Developer-Key: i=morf3089@gmail.com; a=ed25519;
+ pk=HsGrEQ3ia8BGGGO8/nUM2K2UX9JKvRPV+nbrVDGrYhA=
 
 Hi,
 
-Le lundi 23 novembre 2026 =C3=A0 09:18 +0000, Nas Chung a =C3=A9crit=C2=A0:
-> Hi, Frank.
->=20
-> > -----Original Message-----
-> > From: Frank Li <Frank.li@oss.nxp.com>
-> > Sent: Friday, November 20, 2026 5:56 AM
-> > To: Nas Chung <nas.chung@chipsnmedia.com>
-> > Cc: mchehab@kernel.org; hverkuil@kernel.org; robh@kernel.org;
-> > krzk+dt@kernel.org; conor+dt@kernel.org; Frank.Li@nxp.com;
-> > s.hauer@pengutronix.de; linux-media@vger.kernel.org;
-> > devicetree@vger.kernel.org; linux-kernel@vger.kernel.org;
-> > imx@lists.linux.dev; linux-arm-kernel@lists.infradead.org;
-> > festevam@gmail.com; kernel@pengutronix.de; nicolas.dufresne@collabora.c=
-om;
-> > ming.qian@oss.nxp.com; marek.vasut@mailbox.org; jackson.lee
-> > <jackson.lee@chipsnmedia.com>; lafley.kim <lafley.kim@chipsnmedia.com>
-> > Subject: Re: [PATCH v8 09/11] media: chips-media: wave6: Add performanc=
-e
-> > profiling
-> >=20
-> > On Thu, Nov 19, 2026 at 06:00:03PM +0900, Nas Chung wrote:
-> > > Add per-instance performance profiling to help identify whether a
-> > > throughput problem comes from the firmware or from the host side.
-> >=20
-> > why not register as perf interface?
->=20
-> The numbers are kept per instance (per open file). Each instance has
-> its own fps, latency and min/max frame time, and they are updated each
-> time one of its frames is done.
->=20
-> As far as I know, perf can only count per CPU or per task, and a device
-> PMU usually counts for the whole system. So perf would only show the
-> total of all instances, and we could not get the min/max frame time
-> from it.
+These make the Sony IMX376 work with the mainline MIPI CCS driver behind
+the Qualcomm CAMSS on SDM660. Nothing specific to the sensor is added to
+the driver: the DT node uses "mipi-ccs-1.1", and the manufacturer specific
+register settings come from CCS static data (sensors/sony,imx376.yaml,
+https://github.com/M0Rf30/ccs-static-data/pull/1, to be submitted to
+ccs-static-data).
 
-My preference would then go toward .fdinfo() then instead of custom debug f=
-s. It
-gives the FD owner the right to see the statistics and not just root. Here'=
-s an
-example of in progress attempt. The idea is that some key would be generali=
-zed
-and documented and some other key would be driver specific (e.g. wave6- pre=
-fix).
+Tested on a Xiaomi Mi A2 (SDM660, rear IMX376, 4 lanes, link frequencies
+500 and 864 MHz):
 
-https://lore.kernel.org/all/20260706-v4l2-add-fdinfo-v3-0-d556568cf38e@coll=
-abora.com/
+  - 2592x1940 (2x2 binned), 36 fps at 500 MHz
+  - 5184x3880, 29 fps at 864 MHz
+  - switching between the two repeatedly
+  - cropping the pixel array (4096x3000 binned to 2048x1500)
+  - the front IMX376 and the IMX486, which use dedicated drivers, still
+    stream
 
-Then once we've upstream v4l2top, one can track the performance live, and y=
-ou
-can even add driver specific metrics.
+Patches:
 
-Nicolas
+1: CAMSS calls s_stream on every sub-device from the video node up to the
+   sensor. For a sensor with several sub-devices (CCS has a pixel array, a
+   binner and a scaler) that includes the pixel array, whose s_stream
+   fails with -EINVAL as only the CSI-2 source pad can be enabled. Stop at
+   the sub-device that is bound to CAMSS, as the other CSI-2 receiver
+   drivers do (ipu3-cio2, rkisp1, ti-cal, ipu6, rcar-vin): that
+   sub-device is responsible for starting what is upstream of it. This
+   touches the loops that Qianhui Xu's "media: camss: video: factor
+   pipeline stream on/off into a helper" also changes; I'm happy to
+   rebase on top of it.
 
->=20
-> Thanks.
-> Nas.
->=20
-> >=20
-> > Frank
-> >=20
+2: The link frequency and the pixel clock were looked up from the pixel
+   array of a CCS sensor, whose pixel rate is not the one on the CSI-2
+   bus. Use the sub-device bound to CAMSS instead.
 
---=-hywlTlSbm67gmuaBuGD6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+3, 4: Two CCS bugs found while doing the above, both regressions from the
+   switch to sub-device active state: the format set on a sink pad is not
+   stored, and the format of a source pad does not follow the crop
+   rectangle. Link validation fails with -EPIPE for anything but the
+   native size.
 
------BEGIN PGP SIGNATURE-----
+5: CCS static data can carry manufacturer register blocks conditional on
+   sensor register values (rules); the driver parses them but never
+   writes them. Apply the matching blocks at stream start. The IMX376
+   needs this for its full resolution mode, which uses different
+   readout registers than the binned one.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawShRwAKCRDZQZRRKWBy
-9PT1APwIoRkl5PprFS3ATJ/OPwAb4iqJR1TdxwP7/noc44qDbAD+N7Yli8uqL8oV
-LEytlo3i71WPvgSfaRViB9O04fQiyQw=
-=qWVx
------END PGP SIGNATURE-----
+The pipeline is configured the usual way, from the pixel array to the
+source of the CSI-2 bus (here the scaler), setting the binning with the
+compose rectangle of the binner and then the size of the sink pad of the
+scaler:
 
---=-hywlTlSbm67gmuaBuGD6--
+  media-ctl -V '"ccs binner 2-001a":0[fmt:SRGGB12_1X12/5184x3880 compose:(0,0)/2592x1940]'
+  media-ctl -V '"ccs scaler 2-001a":0[fmt:SRGGB12_1X12/2592x1940 crop:(0,0)/2592x1940 compose:(0,0)/2592x1940]'
+  media-ctl -V '"ccs scaler 2-001a":1[fmt:SRGGB10_1X10/2592x1940]'
+
+---
+Gianluca Boiano (5):
+      media: qcom: camss: Don't stream sub-devices upstream of the sensor
+      media: qcom: camss: Look up link frequency from the sub-device on the CSI-2 link
+      media: ccs: Store the format set on a sink pad
+      media: ccs: Make the source pad format follow the crop rectangle
+      media: ccs: Apply rule-based manufacturer register blocks at stream start
+
+ drivers/media/i2c/ccs/ccs-core.c                | 106 +++++++++++++++++++++---
+ drivers/media/platform/qcom/camss/camss-video.c |  28 +++++++
+ drivers/media/platform/qcom/camss/camss.c       |   6 +-
+ 3 files changed, 129 insertions(+), 11 deletions(-)
+---
+base-commit: aa0f4c41d4870a18e65772a1817af16427200371
+change-id: 20261122-b4-ccs-imx376-03da25278f5b
+
+Best regards,
+--  
+Gianluca Boiano <morf3089@gmail.com>
+
