@@ -1,106 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795432136;
-	b=Lql/RRQwzy3uLjPiT948ohazFWNGAJfioexWk11xAP61W8D4YXfsq7qH2CXkZJZy1WBm
-	 4zNuQO4vmbdN7IBuzuKSkUMPBs1PyJ+AnGE2+He9ATapuKhwYtzjQqLf/071UIbyhhLuX
-	 lspYCndRF/2aEUz97AyfRKMkkOP8IBGBfmsbRe7Jk5BwJgFvYfFE+v0N46kB+dXJzEgj8
-	 ne7/klW1MGQ/o3QAgEaTWUuzAgATgH+E44Aao8xlp6tQ4wJAcigx1eD8vcD0aB9jv8InA
-	 EWYNusMJfRRqdxoNVvfUNqC1SIyW0Os2RzE1Sk9yKdU8zC5nCSypMJFxIzJ1T62E9OQ==
+	t=1795432365;
+	b=L9wi9OzA+7itbQCKprq4mQrHK3ZEBsfbzbQSsdvgHOypu2wuylqJtZUSV5nrUxSOoiu4
+	 8MPltuedHN86lZHARkjUEFDOsPKb3WDf0Il8KhLenyTs5pb8tslj+mq/dhffyA0ayPEgL
+	 2ASztG2vg6ekSgy5djuF4vqgadjEZkXGH8Fd13GMEt0ucUASUGc8emReoV96B0CF9cdJs
+	 pXqBQVsco7DMpyKLdeKET/T/cSldSxCQrl5xVFd0t6XCBWuk+E1SDPbxLI+stFMQn+NlF
+	 p5NCZYtljfQqCkNNk6PzOmJIL0Mb6D5ci0j6koAT3rDFqvm8dEJV5lveTYB4K0au8Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795432136;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=xPfVHiYNEgedGdsEEXACtNCGn8S+xuE6Ru5ISfJrNXA=;
-	b=4lQQjTZbiv0oQlHeh/mRgtFsnawCu9n9XV0EJ5/vQ5GdJncFUqayZWJC4uwKqWVLcGaX
-	 MhpKRQJprdzehQZX7+7mRkq1MxEm5PlwI9LoEC6J2q0o0ny5Mvgz+s14PRiTKKkCct+IA
-	 bVwweanZit7t1tvkKejvbQSzU8FnWWbgUbK+nxy1grfN5eoT7TEBor8KikZu9yJAlPytk
-	 dVeBBCKKwvNc2ExkzwalJH4jbM6tVkn1FZuJmVS356/vs28zwA7utL1KuXNXG1ibZej+J
-	 b8NxR944Kujy7RvWYuGB1I461rAS+UbQpwJWubySiSZWTKrbR4R9hdhc62fKSUQxpOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795432365;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=nt98V4xlJAcIm+P/s6KIkxpYlGbaidkMKh5RbWgckdA=;
+	b=tdijeLvObQhgz1UZWQibLLZ1gt7ljy4yMxYqlI12vJmo9+D6/uyT+Umoy9nLMYZaOH6K
+	 L1wRFZ6oSR8YqtgbOgPA8yntrI+fDegE7QQsKqPf+GJIUDFtxrAdx4OFCD6QF8Ssw488H
+	 mxiUKQM1RGi6mAW0yZSPKAR3KyF6OwbBaAAmXH8ovU2IXU8NkhNnoqDSmAyBSpKYMvNva
+	 v25eghkCYMQIyjQLtAPM2HkmAHfZy2eAsRBXnq8wcukrQJJ5aXdRKn6486LjBeNZV4b7u
+	 IyTmn53MlFvIUb336bHt4aUcSP4R3lSjjuWecS+HJ00iOnPb9m8nnZ02hcSHuZuuTdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="GV3Ox3m/";
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=cghn12iM;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752AA606A31A
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 11:08:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 752AA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67580606A31A;
+	Mon, 23 Nov 2026 11:12:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67580606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GV3Ox3m/
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-170135e43c7so4340091c88.0
-        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 03:08:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795432136; x=1796036936; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xPfVHiYNEgedGdsEEXACtNCGn8S+xuE6Ru5ISfJrNXA=;
-        b=GV3Ox3m/nwlScDSi01EojkTUY3OAbqwZCcsZyEc3A2ODjDkx63iQHWMPBypXLaUTdt
-         vYXuXfgTZWM4Wt45ElJVAx4k6HmH+ATHBmBKr04VQE0xixKP2pFKqCpHKvNTCjBNSEyI
-         cd6fpPdiLLgaHK2kNST1nJi0tKTbw37CW9QXC8soarFdkCGcU3UicgTNAW0QCFHTFzHD
-         p7XT7/rZOK09ZHvbQsm0WIlxgtwIyQ+Wzlcmo/ErjYanKDDJB5TujuSnj0gOfUhEvUsu
-         L+236Z2ijkpTolk5xRoNNPEXp4ru1FCx1VqOnmwz/zaD688iFhL7Xqt/HWC4bNA+T0Mf
-         zKaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795432136; x=1796036936;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xPfVHiYNEgedGdsEEXACtNCGn8S+xuE6Ru5ISfJrNXA=;
-        b=Lhs/KsmcjZHtNyOfGZ4eI8f51WHHqk6SNxAZagjDgyki1nmKDph9rMA9d2Xf/7T6yn
-         T8S/lO5E4v4EOyV6Bg4XTUzfNfwOajjuNxsSU3MxDHXYMTNbq49Qt1slw+3uzEo9qZ10
-         yExxCxg+k96y1Yj2kzkizBMye8/tFykHqF4sL/O2W5C53VNAxnsYRuCg5NpYJLMwl40L
-         qEQgJCeCJSyt3nHR+EE+68KIm5LrHzmcBpf2fII8GBxQxQ+EoMnMV0RCr+DAaFQ/uv+u
-         4iuRIdkqID1PVpwOUTSHLdkxCBuRWpDpkcJ8QVTDw+HlbfzEbFT6Ccv0YAwA79l35Lb9
-         Y6Dg==
-X-Forwarded-Encrypted: i=1; AL+hErElkooBOnmFTxhvAf6kgcoap+bpDrj+6MwENHy3nu2WZ3l02tmMYdHoyGkdlfoZRXuOf6wTyAG+KQ61+Q==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8O+JPn89BNof3IO7Eb937dSxFplWcn3daL2lzRCpnIy5xQh1SM
-	K5CxnuSGGxCRZ1acESaOAAg8fVqvlAp6jkvMo6moDsZbx6KN7MsLjtUKwSGkX28oh2Y=
-X-Gm-Gg: AZFdTZfZaBBw05SQMJIXH9xEnEhHtok0MeQYIU5VsSLYOyUPhS0joASEyxL/afH2JKR
-	/yPFaLSmt5lK+rjXVr0jkAeqNwDNLk9KQmgJ/n4mAcwarglrVwEQXX3JTNPGnmwK3ikck49ol+j
-	vAq2FO/KYolBT8xCXVL0JS6ZqBXW84W0RPcgDtBF6xGSK58RX40hmWTZdQECyskdntSJgR/wFHC
-	6Th9fz2bcdiKt6v5hYL/RvocaM+iiWo4Ra6VFYq9MbS42WXRrmK3QTwlN2O42gWTVJtfVOjlkSP
-	387dsio2yUz0Vhx2/d5e7EcZ6wQg8j7QWmOza/oeot9yHqilyYE38dWiWl5dlZYD+ZJXnERmgE6
-	y6vrau5vaO5MoPwD7ETrUfn+PCfFPgHyi7eAQSOqG1yZyrNN8D5jTd7vyXR9kBg19q1Illz8xgi
-	AxVL58t96YlfVnybEIJQbLqJstfNgD4ytm76rqkeXQyj0RAI9z+jq+0tkOcwSd2aLKhhS8IUJfL
-	P2ibLqu/+sbbX+fYW0/ttIgQX9uvpQLsyN9deQQOmnpxCFSoBnECmWHH+v8TYUVtq3G/k2S6r/B
-	BdvgssCTQnjmaG/UJ/1QJ4Wv209yvNPT1MneY/zvX31Iew==
-X-Received: by 2002:a05:701b:2704:b0:1b5:4f6d:8277 with SMTP id a92af1059eb24-1b5568e78b1mr11025822c88.26.1795432135606;
-        Mon, 23 Nov 2026 03:08:55 -0800 (PST)
-Received: from localhost.localdomain ([2404:c0:aa07:12b3:e89:dfdd:d14b:d911])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5568592adsm27061102c88.15.2026.11.23.03.08.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 03:08:55 -0800 (PST)
-From: Hikmah Gumelar <hikmahgumelar@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Hikmah Gumelar <hikmahgumelar@gmail.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org
-Subject: [PATCH 6/6] arm64: dts: qcom: msm8953-xiaomi-tissot: enable front and rear cameras
-Date: Mon, 23 Nov 2026 18:08:05 +0700
-Message-ID: <20261123110805.119610-7-hikmahgumelar@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261123110805.119610-1-hikmahgumelar@gmail.com>
-References: <20261123110805.119610-1-hikmahgumelar@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=cghn12iM
+Received: from ideasonboard.com (mob-5-92-38-150.net.vodafone.it [5.92.38.150])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7410C177;
+	Mon, 23 Nov 2026 12:10:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1795432211;
+	bh=OsiH9qpIq0gwPnTzaY/Wt8xuGbupdcCHjm7KALc0Brc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cghn12iM9S0IGyxxETI9ftgoDzhVWXAv4DRZYrICX/kMm3R9Wg0z7zAe9OjPF3hHK
+	 lq7pILK5ZfzQ9vhyqNFHXmi0HKbsJBnHhKte9xzPwQWqAlDcloOEybWei3Kvs1veXa
+	 Hk/kB0cTzdeGJO3z6iNqEvYlT7itmr6ieGH+ydRg=
+Date: Mon, 23 Nov 2026 12:12:39 +0100
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Li Youhong <dayou5941@163.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Nayden Kanchev <nayden.kanchev@arm.com>, linux-media@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] media: mali-c55: Keep IRQ requested during suspend
+Message-ID: <awQYXLhEd2royiLw@zed>
+References: <20261027-mali-c55-irq-supend-resume-v2-1-759b3f5b2cfd@kernel.org>
+ <avMP-y1B9K0cp4M8@zed>
+ <CAD++jLnuS9ZE8mRwkCizsqo3f40s5etqOJAUqLJNsCtE5eEkDg@mail.gmail.com>
+ <awP0mKeNtrJj8zh6@zed>
+ <CAD++jLnTCEPKG5hNtfQ8rbijxF8nsk3H_K+R4H+f1HJak3Dhvw@mail.gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -110,145 +66,196 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jLnTCEPKG5hNtfQ8rbijxF8nsk3H_K+R4H+f1HJak3Dhvw@mail.gmail.com>
 
-Enable the CAMSS, CCI, CSIPHY0/CSIPHY2 ports, and the OmniVision OV12A10
-rear camera and Samsung S5K5E8 front camera on Xiaomi Mi A1 (tissot).
+Hi Linus
 
-Signed-off-by: Hikmah Gumelar <hikmahgumelar@gmail.com>
----
- .../boot/dts/qcom/msm8953-xiaomi-tissot.dts   | 114 ++++++++++++++++++
- 1 file changed, 114 insertions(+)
+On Mon, Nov 23, 2026 at 11:38:26AM +0100, Linus Walleij wrote:
+> Hi Jacopo,
+>
+> On Mon, Nov 23, 2026 at 9:28 AM Jacopo Mondi
+> <jacopo.mondi@ideasonboard.com> wrote:
+>
+> > So yeah, maybe Sashiko would tell you this is possible but I hardly
+> > believe it is.
+> > Anyway, there is a remote possibility for a window here, so let's
+> > increase the pm runtime counter.
+>
+> I'm honestly not sure. The framework should ideally stop this
+> from ever happening but I'm not good enough with the media
+> framework to have even a vaguest idea of how to fix this.
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts b/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts
-index 8ba7982fcd81..40a14301ee3f 100644
---- a/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts
-@@ -271,6 +271,20 @@ headphones_amp_default: headphones-switch-default-state {
- 		bias-disable;
- 		output-low;
- 	};
-+
-+	cam_sensor_rear_default: cam-sensor-rear-default-state {
-+		pins = "gpio33", "gpio39", "gpio62";
-+		function = "gpio";
-+		bias-disable;
-+		drive-strength = <2>;
-+	};
-+
-+	cam_sensor_front_default: cam-sensor-front-default-state {
-+		pins = "gpio129";
-+		function = "gpio";
-+		bias-disable;
-+		drive-strength = <2>;
-+	};
- };
- 
- &uart_0 {
-@@ -288,3 +302,103 @@ &wcd_codec {
- 	qcom,mbhc-vthreshold-high = <91 259 488 488 488>;
- 	qcom,mbhc-vthreshold-low = <91 259 488 488 488>;
- };
-+
-+&camss {
-+	status = "okay";
-+	vdda-supply = <&pm8953_s3>;
-+
-+	ports {
-+		port@0 {
-+			reg = <0>;
-+			csiphy0_ep: endpoint {
-+				clock-lanes = <7>;
-+				data-lanes = <0 1 2 3>;
-+				remote-endpoint = <&rear_cam_ep>;
-+			};
-+		};
-+
-+		port@2 {
-+			reg = <2>;
-+			csiphy2_ep: endpoint {
-+				clock-lanes = <7>;
-+				data-lanes = <0 1>;
-+				remote-endpoint = <&front_cam_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&cci0_default>,
-+		    <&cci1_default>,
-+		    <&camss_mclk0_default>,
-+		    <&camss_mclk1_default>,
-+		    <&camss_mclk2_default>;
-+
-+	status = "okay";
-+};
-+
-+&cci_i2c0 {
-+	camera-sensor@10 {
-+		compatible = "ovti,ov12a10";
-+		reg = <0x10>;
-+		clocks = <&gcc GCC_CAMSS_MCLK0_CLK>;
-+		pinctrl-0 = <&cam_sensor_rear_default>;
-+		pinctrl-names = "default";
-+		reset-gpios = <&tlmm 33 GPIO_ACTIVE_LOW>;
-+		pwdn-gpios = <&tlmm 39 GPIO_ACTIVE_LOW>;
-+		vana-gpios = <&tlmm 62 GPIO_ACTIVE_HIGH>;
-+		avdd-supply = <&pm8953_l22>;
-+		dvdd-supply = <&pm8953_l2>;
-+		dovdd-supply = <&pm8953_l6>;
-+		rotation = <270>;
-+		orientation = <1>;
-+		status = "okay";
-+		port {
-+			rear_cam_ep: endpoint {
-+				data-lanes = <0 1 2 3>;
-+				remote-endpoint = <&csiphy0_ep>;
-+				link-frequencies = /bits/ 64 <216000000>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci_i2c1 {
-+	camera-sensor@2d {
-+		compatible = "samsung,s5k5e8";
-+		reg = <0x2d>;
-+
-+		clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
-+		pinctrl-0 = <&cam_sensor_front_default>;
-+		pinctrl-names = "default";
-+
-+		reset-gpios = <&tlmm 129 GPIO_ACTIVE_LOW>;
-+
-+		avdd-supply = <&pm8953_l22>;
-+		dvdd-supply = <&pm8953_l23>;
-+		dovdd-supply = <&pm8953_l6>;
-+		rotation = <90>;
-+		orientation = <0>;
-+
-+		status = "okay";
-+
-+		port {
-+			front_cam_ep: endpoint {
-+				data-lanes = <0 1>;
-+				remote-endpoint = <&csiphy2_ep>;
-+				link-frequencies = /bits/ 64 <418000000>;
-+			};
-+		};
-+	};
-+};
-+
-+&pm8953_l23 {
-+	regulator-min-microvolt = <1200000>;
-+};
-+
-+&pm8953_l2 {
-+	regulator-min-microvolt = <1200000>;
-+	regulator-max-microvolt = <1225000>;
-+};
--- 
-2.47.3
+The only way for this to happen is that all devices in the capture
+pipeline probe before the ISP and when we register a notifier in
+mali_c55_media_frameworks_init() the v4l2-async framework notices all
+dependencies are there and calls mali_c55_notifier_complete() which
+registers all device nodes. At this point we should have userspace
+operating the pipeline before we get to installing the irq handlers
+(which happens just after calling mali_c55_media_frameworks_init()).
 
+Yes, there is a window there, but its so tiny I wonder if it we can
+really ever hit it. But as we know the most unlikely things can
+happen, let's take it into account even if unlikely ? What do you
+think ?
+>
+> What happened is that I asked an LLM to review the code
+> using the Sashiko scripts and it complains about this risk.
+>
+
+Exactly, this is one of the very far fetched issues bots tend to
+report and for which we're receiving an increasing number of
+not-really-required fixes for.
+
+This is not your case of course, I'm just complaining about the
+current state of affairs and the overload it imposes on reviewers and
+maintainers :)
+
+> > > PM reference. The probe reference keeps the ISP active until the IRQ is
+> > > installed, so runtime suspend cannot call disable_irq() on an IRQ we
+> > > haven’t requested yet. I’ll add a comment.
+> >
+> > A suspend will always follow a resume, and if a resume tries to enable
+> > an irq before it is installed we'll have problems as well.
+> >
+> > If that's a real concern to you, shouldn't we install the irq handler
+> > before enabling pm runtime and powering the device up ?
+>
+> Often that is not a good idea, because the IRQ line can
+> be in an undefined state and give rise to interrupt storms
+> if you do that. As soon as the irq handler is installed it gets
+> unmasked by enable_irq().
+
+Right, and those are probably the spurious IRQs I had seen when I first
+tried to install irq handlers in probe(). I still question the idea of
+having the irq vector being fully unmasked in POR state, but it's
+probably a bit late to complain to hardware designers.
+
+>
+> Also right now the device is powered up
+> by directly calling __mali_c55_power_on() in probe() maybe
+> we should just let the PM runtime resume power it up
+> for clarity?
+
+The thing is that the driver doesn't depend on PM.
+
+Honestly, I would just depend on PM everywhere these days.
+
+>
+> It's quite common to power up a device (enable clocks
+> and de-assert resets) before enabling
+> runtime PM though, that's what I usually do.
+
+Isn't it happening here as well ? I see a call to
+__mali_c55_power_on() before pm_runtime_enable().
+
+>
+> Remove problems:
+>
+> > > > > +     pm_runtime_disable(&pdev->dev);
+> > > > > +     free_irq(mali_c55->irqnum, &pdev->dev);
+>
+> Note: here we disable runtime PM and free the IRQ and this will
+> make sure no further IRQs appear from this point.
+>
+> But clocks can still be running and resets can still be
+> de-asserted because there is no guarantee that runtime
+> suspend has executed just because we disable pm_runtime.
+>
+> > > > >       mali_c55_media_frameworks_deinit(mali_c55);
+> > > > > -     if (!pm_runtime_suspended(&pdev->dev)) {
+> > > > > +     if (!pm_runtime_status_suspended(&pdev->dev)) {
+> > > >
+> > > > I guess this is required because you moved pm_runtime_disable() up
+> > >
+> > > The remove ordering is part of the IRQ lifetime change. Both runtime
+> > > PM callbacks now assume the IRQ is installed, so we need to drain
+> > > them befor free_irq(). Then free_irq() waits for the threaded handler
+> > > before we unregister the media entities it uses.
+> >
+> > I'm sorry, this is certainly me missing some pm_runtime internals,
+> > but where is this happening ?
+>
+> It's not a pm runtime thing more of a free_irq() thing,
+> it will wait for outstanding threaded handlers to complete.
+
+I see
+
+>
+> When we get here we know no further IRQs can happen, but we
+> have no guarantee that runtime suspend has been called,
+> so we check just like the old code did to make sure it
+> gets de-clocked and resets are asserted.
+>
+> Compare with the old code:
+>
+> static void mali_c55_remove(struct platform_device *pdev)
+> {
+>         struct mali_c55 *mali_c55 = platform_get_drvdata(pdev);
+>
+>         mali_c55_media_frameworks_deinit(mali_c55);
+>         if (!pm_runtime_suspended(&pdev->dev)) {
+>                 __mali_c55_power_off(mali_c55);
+>                 pm_runtime_set_suspended(&pdev->dev);
+>         }
+>         pm_runtime_disable(&pdev->dev);
+>         kfree(mali_c55->context.registers);
+> }
+>
+> Since IRQs are unregistered in the runtime suspend callback,
+> this is not a problem here.
+>
+> > > That’s also why I switched to pm_runtime_status_suspended().
+> > > It reports the actual status after pm_runtime_disable(), so we only
+> > > power off the ISP if it’s still active.
+> >
+> > It seems to me pm_runtime_status_suspended() ignores the runtime
+> > counter and is only there because you pm_runtime_disable() earlier ?
+>
+> Kind of, I guess it's a bad idea to free_irq() before disabling
+> runtime PM?
+>
+> An alternative is to call pm_runtime_force_suspend() before
+> free_irq() so you know for sure the device is powered off,
+> I can try this if you like it better.
+
+Reading the pm_runtime_force_suspend() documentation
+
+ * Typically this function may be invoked from a system suspend callback to make
+ * sure the device is put into low power state and it should only be used during
+ * system-wide PM transitions to sleep states.  It assumes that the analogous
+ * pm_runtime_force_resume() will be used to resume the device.
+
+Do you think it is appropriate at remove() ?
+
+
+>
+> Hm actually that would probably be better... shall I try that?
+
+Is pm_runtime_force_suspend() different than open coding
+
+        pm_runtime_disable(&pdev->dev);
+        if (pm_runtime_status_suspended(&pdev->dev) {
+                __mali_c55_power_off(mali_c55);
+                pm_runtime_set_suspended(&pdev->dev);
+        }
+        free_irq(mali_c55->irqnum, &pdev->dev);
+
+
+Is it different because of the dev_pm_enable_wake_irq_check() (which I
+don't the purpose of) ?
+
+Anyway the implementation of pm_runtime_force_suspend() calls
+pm_runtime_disable() first as your patch does, and we're really
+looking at details here. Also, I'm a bit out of my experties area
+here, so whatever seems appropriate to you should be fine with me as
+well.
+
+Thanks
+  j
+
+>
+> Yours,
+> Linus Walleij
