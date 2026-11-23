@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795451104;
-	b=is7ydDBR4ephyRZODQmClF9XaKZJUrWNvSDG4n/sJ0/Nnk+l8iGXJF73LpKfqjs50rcZ
-	 k/hmQ3xcVbSPvPIPzNObOMKqnzhghga3xRlWM0gxdjpsn74y8/tUMOnVwFuqAyGFsk3eS
-	 DOBvMujfBSmBLDrF3mIS7pPMtcpYt9Y/bWLE0NR9rrCtMj1v5CO4yJAY69nN1YAKvNzLo
-	 8eAufOL/eZI++iv5/uFTljrum+e62kQthBaNj7wlSTrj0w5z9NB/2oYp9yAp81abvpqx1
-	 wxj/1lwr79dtUCVrigKaHbvHkz/M5Put3I4FYrZLWdoeUVKPhcI+5NquHpfeEQp8ALQ==
+	t=1795452788;
+	b=22xF4rgrMwQS7SoQMS3MhqDsqanjKkp/eBog/afwMiXkhiym+BypWpb2XuwWTMI3cshR
+	 TUbR4/rMb8s6HX8a54M2j0v6YANfATbGC/ymEPEFx8Fh/8RH26/TlChuSGmgpN0DaP8W1
+	 j4n6LE66H3nW/EsLKUpCODeujCZHyCNI2Al2FmBnwp6JBOAYXKIZlVxYKyrFiIyx3lciw
+	 sTYU2e3nyK7wHcCF5ROF+vUO6njgyOc+1P4UIwhBOB5HAHHZqb0IzlHud+55+Z7PCam9D
+	 9Yv457yerMcmKEY7XjSE21I11rJc0LsDH6mu7tj05ced6fqOV/G+i4MzpJ2tTR9K4vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795451104;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795452788;
 	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
 	 In-Reply-To;
-	bh=j/3kbrH99PE4PwaLUUHdPahwKMK6ntpa6NPocr60VWY=;
-	b=tjsZmhKPh9BIXQABSLUb7G9b3xn3NvnefcZad8AxogAJmqH1J+rEVYbIiI3NqnztWktk
-	 mUgyLsqdduZAlLyrWdpEqEYOqioqjZ3umCrnewaOROLhyN62o8/cV1NU7RZYls6N/vvrC
-	 qd63u+tVg0IOFDG90jTYJj91Nx2dunYlDAahbFHeCbqK9a7yk7fXZ6QVLzgJwr8BHS33E
-	 +X6v7Kf8x3ZTuG0gu8V9v5h2Z8fi6p9JCd2L1TrNN10ypsv6rwgNJNaKd0aQ++knC+FRE
-	 dNk5nZbKDLFWrvH6KzsoqyP8nVz6zvrjlvXCyNizY70U5FEaEOaH5iAeaxGnB04Sy3w==
+	bh=G5GOcfVTJpzXTpkHsyO9JFPHHkreXdYL3TX6r7XgD7c=;
+	b=sD3eV0pwnVb8/6+6+3akOaa9zc0ajqTKTHcyHxaQ94qrqqmeNdrHT3+fS9ch0wI9eqKY
+	 U9yBi4TgvzGC7oOjVCFE8tUvsLeY9Em0Rf6sydG4LCvY8iUCSnVwhg9xte975edlZO0pb
+	 d7QujdYXy3w3ag1JlnKo86wouVqRFeWJo46h2RRyhJ8L0cHHLFqAm5SmZOIDtsoOUxHN7
+	 9IdqEja4NeRFdVFIenlTirFU8sq4zBQICBiF3EJiKrJPoVqUzIqaaQVY+YXk2+9zRXS//
+	 bMdpNE2LH70QAY3n/Ub3zXBO6iACfmSqyiD3p5ZNenrkE1WEil1wZOKtu6sSF0xi6fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=DZX1CFj0;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="KWbo/N1+";
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7093606A31A;
-	Mon, 23 Nov 2026 16:25:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7093606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9735F606A32C
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 16:53:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9735F606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=DZX1CFj0
-Received: from ideasonboard.com (mob-5-92-38-150.net.vodafone.it [5.92.38.150])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DDF07524;
-	Mon, 23 Nov 2026 17:22:29 +0100 (CET)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=KWbo/N1+
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E0351524;
+	Mon, 23 Nov 2026 17:50:33 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795450950;
-	bh=K4brBUJxbNbf85GJhU0zYprIz6udL+ZFgRDszYCGEaA=;
+	s=mail; t=1795452634;
+	bh=l8/dryjLxuvT6FFRE4uKR6sOJuF/HwjH8CE8LQaSU+A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DZX1CFj0GsGXPUzc2caybHEPjTzUrewGIXFI0mLeDecAYp7ehpkCKWJ+HnrWYdmc1
-	 AJpXgC0HDsAaQbaVELmMN8L/GAwz4fJDVJFAmtPz7cGRNihYIru/jie8KPRAdrBFm1
-	 G797AKqrrToC6B0tJIgmc15sogy8JNwV9VlwtwUM=
-Date: Mon, 23 Nov 2026 17:24:58 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: jacopo.mondi@ideasonboard.com, philippebaetens@gmail.com, 
-	mchehab@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] media: i2c: mira016: Use the 12-bit format as default
-Message-ID: <awRou1TctcbkSnv0@zed>
-References: <20261123053212.212169-1-devnexen@gmail.com>
+	b=KWbo/N1+IfkJV4d6PxOlBrVDROTiyT5d+9WMaT6Yz/GIqFi+/4V1c62W/YxD/aspM
+	 D5w1jWSjV667oQxkJGEZIKzWYNXBSd3VpLhvJYDEO+E6CFWc5L+1ba7FBImJd3OMYt
+	 iADYNegydcl1L7uu0RuFRG4CC7ye5b6ZbtBdlnS4=
+Date: Mon, 23 Nov 2026 18:53:04 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: david@ixit.cz
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org
+Subject: Re: [PATCH 1/4] media: ccs: Use dev_dbg() instead of dev_err() in
+ ccs_enum_mbus_code()
+Message-ID: <20261123165304.GC2959742@killaraus.ideasonboard.com>
+References: <20261123-ccs-clanked-fixes-v1-0-fb2bcc87a517@ixit.cz>
+ <20261123-ccs-clanked-fixes-v1-1-fb2bcc87a517@ixit.cz>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -62,56 +65,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261123053212.212169-1-devnexen@gmail.com>
+In-Reply-To: <20261123-ccs-clanked-fixes-v1-1-fb2bcc87a517@ixit.cz>
 
-On Mon, Nov 23, 2026 at 05:32:12AM +0000, David Carlier wrote:
-> The analogue gain control is created with a 1..1 range, which is only
-> valid for the 12-bit format, while init_state applies the 8-bit format.
-> The gain cannot be changed until userspace sets the active format.
->
-> Make the 12-bit format the default, and initialise row_length to the
-> matching value so the blanking, pixel rate and exposure limits are
-> computed for it.
->
-> The issue was found by code inspection with an LLM, build tested only.
->
-> Signed-off-by: David Carlier <devnexen@gmail.com>
+On Mon, Nov 23, 2026 at 01:02:39PM +0100, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> Commit 63bd19442f08 accidentally converted two dev_dbg() calls in
+> ccs_enum_mbus_code() to dev_err(), flooding the kernel log with error
+> messages whenever userspace enumerates media bus codes.
+> 
+> Restore them to dev_dbg().
+> 
+> Fixes: 63bd19442f08 ("media: ccs: Use %u for printing unsigned values, remove extra debug print")
 
-Thanks, I'll make sure it gets in together with the driver in 7.5
+According to the git history those have been there since the first
+version of the driver (named smiapp back then).
 
-Acked-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+The change is good, the commit message needs an update.
 
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 > ---
->
-> Notes:
->     v2: make 12-bit the default format instead of widening the gain range,
->         drop the Fixes tag (Jacopo)
->
->  drivers/media/i2c/mira016.c | 4 ++--
+>  drivers/media/i2c/ccs/ccs-core.c | 4 ++--
 >  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/media/i2c/mira016.c b/drivers/media/i2c/mira016.c
-> index 082442ffad28..d6db922f01b6 100644
-> --- a/drivers/media/i2c/mira016.c
-> +++ b/drivers/media/i2c/mira016.c
-> @@ -1630,7 +1630,7 @@ static int mira016_init_state(struct v4l2_subdev *sd,
->  		.which = V4L2_SUBDEV_FORMAT_TRY,
->  		.pad = 0,
->  		.format = {
-> -			.code = MEDIA_BUS_FMT_Y8_1X8,
-> +			.code = MEDIA_BUS_FMT_Y12_1X12,
->  			.width = MIRA016_PIXEL_ARRAY_WIDTH,
->  			.height = MIRA016_PIXEL_ARRAY_HEIGHT
->  		},
-> @@ -2254,7 +2254,7 @@ static int mira016_probe(struct i2c_client *client)
->  	 */
->  	mira016_pll_calc(mira016);
->  	mira016_timings_calc(mira016);
-> -	mira016->timings.row_length = 1062;
-> +	mira016->timings.row_length = 1504;
->
->  	ret = mira016_power_on(dev);
->  	if (ret)
-> --
-> 2.55.0
->
+> 
+> diff --git a/drivers/media/i2c/ccs/ccs-core.c b/drivers/media/i2c/ccs/ccs-core.c
+> index c3592317ee575..284cfbd89349c 100644
+> --- a/drivers/media/i2c/ccs/ccs-core.c
+> +++ b/drivers/media/i2c/ccs/ccs-core.c
+> @@ -2104,17 +2104,17 @@ static int ccs_enum_mbus_code(struct v4l2_subdev *subdev,
+>  			      struct v4l2_subdev_state *sd_state,
+>  			      struct v4l2_subdev_mbus_code_enum *code)
+>  {
+>  	struct i2c_client *client = v4l2_get_subdevdata(subdev);
+>  	struct ccs_sensor *sensor = to_ccs_sensor(subdev);
+>  	unsigned int i;
+>  	int idx = -1;
+>  
+> -	dev_err(&client->dev, "subdev %s, pad %u, index %u\n",
+> +	dev_dbg(&client->dev, "subdev %s, pad %u, index %u\n",
+>  		subdev->name, code->pad, code->index);
+>  
+>  	if (subdev != &sensor->src->sd || code->pad != CCS_PAD_SRC) {
+>  		if (code->index)
+>  			return -EINVAL;
+>  
+>  		code->code = sensor->internal_csi_format->code;
+>  
+> @@ -2122,17 +2122,17 @@ static int ccs_enum_mbus_code(struct v4l2_subdev *subdev,
+>  	}
+>  
+>  	for (i = 0; i < ARRAY_SIZE(ccs_csi_data_formats); i++) {
+>  		if (sensor->mbus_frame_fmts & BIT_U64(i))
+>  			idx++;
+>  
+>  		if (idx == code->index) {
+>  			code->code = ccs_csi_data_formats[i].code;
+> -			dev_err(&client->dev, "found index %u, i %u, code %x\n",
+> +			dev_dbg(&client->dev, "found index %u, i %u, code %x\n",
+>  				code->index, i, code->code);
+>  			return 0;
+>  		}
+>  	}
+>  
+>  	return -EINVAL;
+>  }
+>  
+
+-- 
+Regards,
+
+Laurent Pinchart
