@@ -1,49 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795430304;
-	b=4oeliUz+91dPZPXwt3pWnYtiFLaxMDxrRE/NLFf+fUPbgg0B57H7ZaKGfSmNURjuJePR
-	 8HNf/VgD+2od5ZwxP2oJJcSqbHrvfuCqj3ZF+WGvvXrbjwaJc9NWVwAWpOXizHujRf5MV
-	 1h/FpmlKX3JjWa+L6zOJUhDxl2kXIESdjoZlv+2DOrQFOwTuGrff/+ZVhf5arqmI0Fsoj
-	 ohM3jPnmdBxJnjeAgmHDpuj1XQIogbYspflfHAqoGY89jLd4m14DTKDyWvVIE7jadZPN2
-	 rmFHygn3u5rm+S4pOhv+p3Ccy56z47iIXXKaiGi3PWXT7yN0BE3rvfE/C9b/2SID26w==
+	t=1795430320;
+	b=zP2PcbSQH/e+ZMn//scQq53gmopx6yRyDt+y9HeN0a7Rj0pdXe0p28YEJ/9wgsMARdEB
+	 CfmOcEVbJ9TPB4yZPvI1uujRnlbhUoSY/epIMAoplHqiM95iHR3Ly+KpTG7y/jnORfA7/
+	 Hlo02Y5eFj7FS3jSVrahI1FhaiWNmARrFQqMhn9xtuL7s4jXioiE5LraeouUvE7TKAEqk
+	 SI4d+xsH5u2iaYobl6GOQLtSX62S12eLDUjt82gHfcLhMZX+wIcgL60Q7f4XvX0lW4S4p
+	 PbLAoai/V4eWTWlK6kKc3i5i55truq4e9Y5i/4lBiZWu7KIDZYTdtS5MgbEYEfmoeDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795430304;
-	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:In-Reply-To:References:Subject:From:Cc:To:
-	 Date:Message-ID:User-Agent;
-	bh=SbWEJUjsX0YE70O2+Wb1YzHB/4D3qAf9pObHkNERrUw=;
-	b=0EVxtmxzbuak68pVTMwfTAZ9hr6UCV6x13DbkBpXh61N6FlV+DSutV47k7JhA1K1KA8D
-	 mu/YhbT1XA1Nm0vH0pa6qd/mN9uXLn4R6UjT9lM2iHyrh0v93a7mCzWkYvQw9E47Z9VlR
-	 72JDbnT/pK8CO1WHOBNXKPTMW+lIJPTqpad6c2oWmPcmVyOmasK+/3EHNP9/B/SQ/wAvi
-	 StsD4oFQhnByqr/VON/s5VOsEhONRyrVH0Z2PMCO1ydJUQE27QbkHeeUQzXzMKd2NNzb+
-	 VG/30c3dddU5MTZtO6LzxTLwRQkLN4TQZpL55XN3rLjkNWNYil+WkzSXZy8WFqSpH6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795430320;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=4uMBHgBjHPr5TrgiVfTBcQRGxAuQekn3tbU+m3Rem5w=;
+	b=b3NpZzXgxePskhj+FDTpF5pPYnJbAhb6jIznVjy21FvI4vTZlhDfcv+lQiYATd+MFP7X
+	 YJBybNz6GYzirgH+NgwzTJ+kydCtJWjZqQrl3woBg8xV0g/fjj2n/NKS3biC9xu8mx3yE
+	 xbaX1sy6//Gn/HtQKKlS9MgUHKEWlIufZ4RsZwPVVWGAqfhj+BHXKuJmwTyieI4Qs7NbE
+	 msTs4zbnasZ5fI7Q9UHbae2S/lOcy8/yaLAWMCCMFuPo3CJMJG8fyocoNUpb3Vj4UJs7r
+	 JG1mcUcMDvZwHdva/xWhlCnSkrto6O3gx6RWiq0dD3sUu6xS4qCpsm7J5U3kCnnByQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=qx7bPP8t;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X6kZQUpK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68815606A31A
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 10:38:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68815606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FF4606A31E
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 10:38:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=qx7bPP8t
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D81764B0;
-	Mon, 23 Nov 2026 11:35:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795430151;
-	bh=iL+JZANKdznsaN78nML6Ar59HX93IgrUJ70eNSTp9cU=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=qx7bPP8tZou74oLLyYeXowkJI0bwFpjKezfNgZx2LFRxMxedtLemNdmpfzGRIPqRK
-	 DijaRT4WeG3WLabFancp9TQOqbLgH8+WDOcWOI+qdu8988EBjA6SoeKG5z2Ac8NDZY
-	 UJKkkzuHxJ4KPGlsLkdDMOYJs+dHNkPHe5qDa1Fo=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X6kZQUpK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C6521F000E0
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 10:38:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795430319;
+	bh=4uMBHgBjHPr5TrgiVfTBcQRGxAuQekn3tbU+m3Rem5w=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=X6kZQUpKCnlcvvx8/m22zj3JYZNRBppgl38bJfin75SRiOdZZW07QMJFmI+UhTZm/
+	 BVsfSJ+SX5RDGQNhYyI5OgDvRFpHWyX/7d5sIpFvBWLdsGJ68Mec3EJoTKvYdePozL
+	 lrokFRgdsVl2avYPb6cABUK8smsfvmChhgOalWDVT91z9kFkU64csOXhORVjotIPHy
+	 yRBYfgLDzu7uYm7c2IUH6/ZpaQ2i6goFZi9RXP3ye8+fuXeln9/jpRQvJ5hKJSUmrx
+	 kTrPsuGdfvfOhXU4bZ6zkDpdLQXJ4LEh3hqORHN8FeB9woNaUzsCmgFrAQNo9BwGCm
+	 gU+Bq3MiyWkQw==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5c1c0c8d61aso1887942e87.1
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 02:38:39 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErG6BdYjgzm+wTMc1ECdILxMD8rRnL2POpckE2xsEQaaWgSABQYy0Oe/pimcr3HFWaIyCDt2hgcGJWeEig==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Hc6ADBYNzy2+dNyA6xmncM8InU3akX6fYlf1+KKwxtZCT2sYk
+	18EG7765yb4NsXawJQzjuORTD4xCvm4ikuwopEEmyqMCczYZSP7Pf4xvxTPz53L5VqW6BiO+PB2
+	OGOkS0fy0pKSpyKNJuCWVPMPa6LGyAx4=
+X-Received: by 2002:a05:6512:2301:b0:5bf:d000:bca3 with SMTP id
+ 2adb3069b0e04-5c1bc80af80mr2599775e87.49.1795430318053; Mon, 23 Nov 2026
+ 02:38:38 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -53,71 +59,132 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261027-mali-c55-irq-supend-resume-v2-1-759b3f5b2cfd@kernel.org>
+ <avMP-y1B9K0cp4M8@zed> <CAD++jLnuS9ZE8mRwkCizsqo3f40s5etqOJAUqLJNsCtE5eEkDg@mail.gmail.com>
+ <awP0mKeNtrJj8zh6@zed>
+In-Reply-To: <awP0mKeNtrJj8zh6@zed>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 23 Nov 2026 11:38:26 +0100
+X-Gmail-Original-Message-ID: <CAD++jLnTCEPKG5hNtfQ8rbijxF8nsk3H_K+R4H+f1HJak3Dhvw@mail.gmail.com>
+X-Gm-Features: Aa3M54rRKaj8R3sfZW-3iO4iridVTVI6IfP5ufKPSkuf_T5v6hl73pARMuoD_pk
+Message-ID: <CAD++jLnTCEPKG5hNtfQ8rbijxF8nsk3H_K+R4H+f1HJak3Dhvw@mail.gmail.com>
+Subject: Re: [PATCH v2] media: mali-c55: Keep IRQ requested during suspend
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Li Youhong <dayou5941@163.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Nayden Kanchev <nayden.kanchev@arm.com>, linux-media@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261121163237.46332-1-dungeonlords789@naver.com>
-References: <20261121163237.46332-1-dungeonlords789@naver.com>
-Subject: Re: [PATCH v4l-utils 1/1] doc: upd
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Andrei Cherniaev <27889022+AndreiCherniaev@users.noreply.github.com>
-To: dungeonlords789@naver.com, linux-media@vger.kernel.org
-Date: Mon, 23 Nov 2026 10:38:20 +0000
-Message-ID: <179543030033.68583.8462255388156577551@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
 
-Quoting dungeonlords789@naver.com (2026-11-21 16:32:37)
-> From: Andrei Cherniaev <27889022+AndreiCherniaev@users.noreply.github.com>
->=20
+Hi Jacopo,
 
-Your subject/commit title is chopped.
+On Mon, Nov 23, 2026 at 9:28=E2=80=AFAM Jacopo Mondi
+<jacopo.mondi@ideasonboard.com> wrote:
 
-> No manual work, just update via code
+> So yeah, maybe Sashiko would tell you this is possible but I hardly
+> believe it is.
+> Anyway, there is a remote possibility for a window here, so let's
+> increase the pm runtime counter.
 
-What does that mean ? How did  you update this ?
+I'm honestly not sure. The framework should ideally stop this
+from ever happening but I'm not good enough with the media
+framework to have even a vaguest idea of how to fix this.
 
-How do we know this is worth reviewing, or correct ? Was it automated?
-Did you use a tool or a script? or update from a newer version of the
-Doxygen documentation/defaults ?
+What happened is that I asked an LLM to review the code
+using the Sashiko scripts and it complains about this risk.
 
+> > PM reference. The probe reference keeps the ISP active until the IRQ is
+> > installed, so runtime suspend cannot call disable_irq() on an IRQ we
+> > haven=E2=80=99t requested yet. I=E2=80=99ll add a comment.
+>
+> A suspend will always follow a resume, and if a resume tries to enable
+> an irq before it is installed we'll have problems as well.
+>
+> If that's a real concern to you, shouldn't we install the irq handler
+> before enabling pm runtime and powering the device up ?
 
-> ```
-> $ doxygen -u Doxyfile.in
-> warning: Tag 'HTML_TIMESTAMP' at line 1151 of file 'Doxyfile.in' has beco=
-me obsolete.
->          This tag has been removed.
-> warning: Tag 'FORMULA_TRANSPARENT' at line 1431 of file 'Doxyfile.in' has=
- become obsolete.
->          This tag has been removed.
-> warning: Tag 'DOT_FONTNAME' at line 2062 of file 'Doxyfile.in' has become=
- obsolete.
->          This tag has been removed.
-> warning: Tag 'DOT_FONTSIZE' at line 2069 of file 'Doxyfile.in' has become=
- obsolete.
->          This tag has been removed.
-> warning: Tag 'DOT_TRANSPARENT' at line 2269 of file 'Doxyfile.in' has bec=
-ome obsolete.
->          This tag has been removed.
->=20
-> Configuration file 'Doxyfile.in' updated.
+Often that is not a good idea, because the IRQ line can
+be in an undefined state and give rise to interrupt storms
+if you do that. As soon as the irq handler is installed it gets
+unmasked by enable_irq().
 
-Describe more about why and what is changed. Consider writing something
-like 'where this file originated from' or where you are getting the
-updates from to make all of this change.
+Also right now the device is powered up
+by directly calling __mali_c55_power_on() in probe() maybe
+we should just let the PM runtime resume power it up
+for clarity?
 
-Maybe even break it down to one thing at a time to review easily, unless
-it's simply pulling in a new default file.
+It's quite common to power up a device (enable clocks
+and de-assert resets) before enabling
+runtime PM though, that's what I usually do.
 
+Remove problems:
 
+> > > > +     pm_runtime_disable(&pdev->dev);
+> > > > +     free_irq(mali_c55->irqnum, &pdev->dev);
 
-> ```
->=20
-> Signed-off-by: Andrei Cherniaev <27889022+AndreiCherniaev@users.noreply.g=
-ithub.com>
-> ---
->  doc/Doxyfile.in | 1669 +++++++++++++++++++++++++++++++++--------------
->  1 file changed, 1191 insertions(+), 478 deletions(-)
+Note: here we disable runtime PM and free the IRQ and this will
+make sure no further IRQs appear from this point.
 
-There's simply too much churn there. I'm not reading the individual
-changes currently.
+But clocks can still be running and resets can still be
+de-asserted because there is no guarantee that runtime
+suspend has executed just because we disable pm_runtime.
 
---
-Kieran
+> > > >       mali_c55_media_frameworks_deinit(mali_c55);
+> > > > -     if (!pm_runtime_suspended(&pdev->dev)) {
+> > > > +     if (!pm_runtime_status_suspended(&pdev->dev)) {
+> > >
+> > > I guess this is required because you moved pm_runtime_disable() up
+> >
+> > The remove ordering is part of the IRQ lifetime change. Both runtime
+> > PM callbacks now assume the IRQ is installed, so we need to drain
+> > them befor free_irq(). Then free_irq() waits for the threaded handler
+> > before we unregister the media entities it uses.
+>
+> I'm sorry, this is certainly me missing some pm_runtime internals,
+> but where is this happening ?
+
+It's not a pm runtime thing more of a free_irq() thing,
+it will wait for outstanding threaded handlers to complete.
+
+When we get here we know no further IRQs can happen, but we
+have no guarantee that runtime suspend has been called,
+so we check just like the old code did to make sure it
+gets de-clocked and resets are asserted.
+
+Compare with the old code:
+
+static void mali_c55_remove(struct platform_device *pdev)
+{
+        struct mali_c55 *mali_c55 =3D platform_get_drvdata(pdev);
+
+        mali_c55_media_frameworks_deinit(mali_c55);
+        if (!pm_runtime_suspended(&pdev->dev)) {
+                __mali_c55_power_off(mali_c55);
+                pm_runtime_set_suspended(&pdev->dev);
+        }
+        pm_runtime_disable(&pdev->dev);
+        kfree(mali_c55->context.registers);
+}
+
+Since IRQs are unregistered in the runtime suspend callback,
+this is not a problem here.
+
+> > That=E2=80=99s also why I switched to pm_runtime_status_suspended().
+> > It reports the actual status after pm_runtime_disable(), so we only
+> > power off the ISP if it=E2=80=99s still active.
+>
+> It seems to me pm_runtime_status_suspended() ignores the runtime
+> counter and is only there because you pm_runtime_disable() earlier ?
+
+Kind of, I guess it's a bad idea to free_irq() before disabling
+runtime PM?
+
+An alternative is to call pm_runtime_force_suspend() before
+free_irq() so you know for sure the device is powered off,
+I can try this if you like it better.
+
+Hm actually that would probably be better... shall I try that?
+
+Yours,
+Linus Walleij
