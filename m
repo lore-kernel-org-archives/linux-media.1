@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795477445;
-	b=Y+bTV5PsNj3zEgCXmDX+cFhspPCAc0POH1AuNpV7CnR+GDV1scjr8ypTnEAG4ooaMXkH
-	 j7D0XwGm68zCuddVV8iiiUchoBFPUKO4hXPG2RKco6WdUbL7a14Ije7IAS5bqoCL/ITz3
-	 pLvdnhkxuYfGP0aUlkD7vHtgvAaUYEqrk0SO9yPGweWfdlh6VP+kLHfyi4FsokKLUgcMX
-	 0I1DUbZEc5EhYq59GA9qB59Hwfvc4ZhuCStVxuKz/3h0bYv4W2TNcnlnf251l3GqWkK2+
-	 VyI3mnXcOsptx3y4M8fd9i3r5tovfKZ0VD/+HGvpNvUcnjb6sib1txmUmOOnig3ZRSw==
+	t=1795477448;
+	b=a3UbUkB81z8qyb5hJ5b3f5boFQhcAaVhheHF/1K0IfTFOkCjaplGuc5vuM6A/sKXXHC6
+	 0omjhlHnKrBGxygP/k7QEDibatfrDnECIFyfOU78I8id5xcRPnjwimewftzyr0kdLIrAH
+	 q4mPs+8Zp/ofQPd6yWfVSk3nWClkBOGEmq35/rO29McMjblnZZccpPhZDjbLwrpCjKLOg
+	 +qzSBokOeol15eb/tgRFKIRdeue9IJIvG5SQG2XjpxLOLtKDtGUuqjD3vZUjvkwY2+Jnr
+	 MbWyEgx2iBk5Cqk7h6qRSz4nV+EoG58Ki5U2mYr7+DFH4JmZ8adctL31yatKoUGm19w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795477445;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=XsEVMvyPOdonXytfbApASL6TI/QJ/Qg9uNWuvBu4ZTg=;
-	b=v6zScMggOD4hTcbE09VV2+uRwcOwjv0/f0MUgU29q61a7BC9EZxRFQsb0/xqv0wvw3tn
-	 wuZxthBEqnEuTJ9Oyqx0rzA+nKxAD5oLXqH5sst30FbU3j8N8+KzFqdHkq2wHyvCcDBIt
-	 mAZnf7Yv7Ts7tpkxy7GgSlcGet+p7Ql8Kzb6p3bWswcGY8IMYNyehGtcM85BYPqCaDt60
-	 FJO1A9x29fyrmfzVY3QYN5/1b0YbQugLcKfpiYWn1Yv9sa0k0XeWBFEJaC9d17CsIFX/u
-	 NE4NHV1OPmcuMEOZbCDwv5eXcUg2l0xoiQAcfWvgQQZTSRk9YyPIObI12b8/2ABLA/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795477448;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=zm7/8CmG+MEvmliGH31CDDX4MWFsX87olFlbu//kRGo=;
+	b=qSWoA+BS7UuTHkqvEzkO7Iv/E+RdLo0JWatmCLWV6rzDXtBjeUSN9b48SBcB1D600/+b
+	 RVTNmaHM6EMvAFGwch8c2zGlHeW40LH9r5i6APzDHRSisdvwmczpB39bgIzDJYfli/ZRc
+	 l15Z9BQhp/Bth3eZpdgGWEgBV5Ilq8HUxefPl+58pW0+4/qR9cjBLJ92ra2d3YpLpUsYh
+	 ZlW4Oc77oJoU5fmtSuMmZEDIO8532ffYq3bH8brcVipoTpj3HwPab4tuObmf02cruGrGp
+	 CUbP6mn6+gOsUzHje2hb0pKOd+I7WPcZ6dLd73WNVSl9w24ZhFIO4kKDUUWfTM3KSkg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fPKiIrDz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C22KA4Fq;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBAE606A321;
-	Mon, 23 Nov 2026 23:44:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92BC0606A31E;
+	Mon, 23 Nov 2026 23:44:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fPKiIrDz
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C22KA4Fq
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795477445;
-	b=npJLdVuAXfEf22kFjZDEfH98vX8xOJjdYm/5IzATyvBLeXVAwG5rc/n0lLJhYohbJbce
-	 UfJeBBdXrPIvEbprrgCtK+Tu/4xG7s0SUPXnaFXaswiHFgpNUd6oIZrCQC0hq6426GobL
-	 vdMbwjp7EeBWfXigkLKWT0RdOSJBAkBPcDs6s+t3rFDk5YzfoQhsuApOYUhZ3GoYCJRf+
-	 2o+kwu8cFXeg4zdBaBJyYli/51pQ4SRCMqdlcJC4fzPQKPf2xpRwxiryBaxiHwyWHn1Jx
-	 azlOkfJKmjtjffWpPAAdf/VhMlcrAfSsFV54WIVCmPBPTWOb3wJORV/Wl3EclyZmVig==
+	t=1795477448;
+	b=T/iHhuOwFNVhMpRLBHWlxoMoKJS0i1xxnH9GWf4wkLPo4lFPIfqxJr4KLz0rDyHiqKkd
+	 SpHBZMPTqYup1oOJ8xMmfKph2le55i19lt0CYmN2f9Qf8BsLxBI5KDkciJteE8zcJ/4MD
+	 fpVv8Pj8xyiFhJUu4Xe831vTT7ZpAYuvsUXzOtfVuW6TW2RiUmH+6vYVrYcKq6s0z6rvz
+	 4Hi4fhu1STIHN2R3DRS7O43WJXxETeO4gc70272DTIFBCwcahkEtZuiRtTVh125Wz1LH4
+	 en+287NALGBa3QipayvzeG/Et5jI6wdzqeXQckotiZh6tRq91hp6rr6JfOLqZtt22IQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795477445;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=XsEVMvyPOdonXytfbApASL6TI/QJ/Qg9uNWuvBu4ZTg=;
-	b=RBhylYhtycfYzDW5BQE2wq7UtvZ0IJAh9W6YHabbFKwrz+OuZckFCQ2ag2pDExts9o98
-	 jK/8xBHH/7qWbho7xR/9OchNgUXZug6r3BMnZGHiK9aAZGu8PBk2ND/ieQOROG5IKAyq9
-	 z72d/cAg8SArmRxoX1f8PafLEHNpsctTjAVnZ1E2j/U1Z2kAG3awtdrfN7bECeCfFZG98
-	 jJOauvDJtRO5+1P6X8KcFZyNwSHAgoAMSECAuCNZDSMxRCmLJ3/Elde3ytyNuyDnIBXqd
-	 c0FDrPV6QsmXybQcVJ3LRJnZApibq+wWdrVs36jKZx35fJuG2nf8IWrv7b1sEm27uvg==
+	c=relaxed/relaxed; t=1795477448;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=zm7/8CmG+MEvmliGH31CDDX4MWFsX87olFlbu//kRGo=;
+	b=DWdCm6iMte9BnecKZ/TwcsbJ5K6r3qGfCiNJeM2duF5x4PL1Nr5ftwbmLLgwqcn0QQVp
+	 x+JaooOHOLbsZIzpTEKTQnJI/gzX+ynGTvjSBE7vltdOCzJvGpOV4oWtPmp8VBuMI7oKM
+	 icYzNwzvPn5rddYE3dVkc87W0V67sgFFSQQ9wyEhEjPpQULO6hnKEq/PxntHbgANDG1J6
+	 T159zH7Aotk+vvzexKMclm7nktmL9Trb2tM+rISsnM/VmnFgVzYljlyTU3cIuZROIISlL
+	 fiRJTb0hg3GI8CLWRcqtZfHMbzuhjp+ZruE9nH3fjF5SswwrN5OtDX5HpY5dkb3qMIQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0A2AF1F000D0;
+	by smtp.kernel.org (Postfix) with ESMTPS id 3C1BA1F000C4;
 	Mon, 23 Nov 2026 23:43:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795477445;
-	bh=XsEVMvyPOdonXytfbApASL6TI/QJ/Qg9uNWuvBu4ZTg=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=fPKiIrDzy5HiRrl2Ms3GuSWlSm5yLAWrmU4UrmBUDCzYLQ9qEVJz5V1N27bgGGj5D
-	 Zf0ZLvA4mT+D6EAeeNFb4frTmV3NPbjy+ZTPgWDoZwEwYPB8oFbbF1HJVDtNl3YwyJ
-	 JqNHGshudBIn247In8QN76GCX/ZQL4o0g37QCdlcvyLn9QxckXn0H8E2652E8KTauS
-	 tvnVeKOscJS2YKXNAMKO25NY2U5Ptw/Q4DOxoIt6RF79/q3UjQ1L5GbsOAA5eR4HmS
-	 g42iFipWq5yIfDWRUZCsZVpYMu4uCKHPz/8buTovrlNqZgVRNRqp72/1EiaoLLnMPG
-	 YCRCfn2XS94rw==
+	s=k20260515; t=1795477448;
+	bh=zm7/8CmG+MEvmliGH31CDDX4MWFsX87olFlbu//kRGo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=C22KA4FqsSCWMOG6gvhjft4RBccEnjcbxI/6L92v0m+1/8fW2wEL7k5LsnppOx1pl
+	 cDL8VQtOJecHBUiCJYN+clTLDgG1kebpnrN1RGtaC0L7DPsCxkuWr3ni1rvjaaxK3t
+	 1ywk45tOKRXLk1Rxgz8GyzQVMKjbqKTZE7qUxMXsDWvJC2kCYXzxJwDy+W6VE0qWu0
+	 TkaRnDn50dOaiB35sDclexdIp3sd6o3i7R2Yxv/oMauKOeaoPEo8wkAvHXoCxBOdlJ
+	 h5txmssOe8Xcrqq3bCRcleuzOZCf3AGmkS+xjR4WSdVbji9gOnYHut/mgn39ZQYO9i
+	 zxP5pLJO+u8/Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5CDD84C7D6;
+	by lkml.kernel.org (Postfix) with ESMTP id B95134C7DE;
 	Mon, 23 Nov 2026 23:43:55 +0000 (UTC)
 From: Robert Ijtsma via B4 Relay <devnull+robertijtsma.gmail.com@kernel.org>
-Subject: [PATCH v2 0/5] media: qcom: camss: fix VFE/CSID/video error
- handling and register bugs
-Date: Tue, 24 Nov 2026 00:43:52 +0100
-Message-Id: <20261124-camss-fixes-v2-0-231a5523cd59@gmail.com>
+Date: Tue, 24 Nov 2026 00:43:55 +0100
+Subject: [PATCH v2 3/5] media: qcom: camss: csid: release parent device on
+ power-on failure
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -85,12 +84,9 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6CMBBEf4Xs2Zp204B68j8Mh1IWWGOp6SLRE
- P7dglePLzNvZgGhxCRwKRZINLNwHDPgoQA/uLEnxW1mQI2lMYjKuyCiOn6TKOvKynhCoy1CNp6
- J9iALt/rH8mru5KdtYmsMLFNMn/1uNlvv//JslFbntrMtNaeKHF774Phx9DFAva7rF9nXceO4A
- AAA
-X-Change-ID: 20261122-camss-fixes-4a671ce21042
+Message-Id: <20261124-camss-fixes-v2-3-231a5523cd59@gmail.com>
+References: <20261124-camss-fixes-v2-0-231a5523cd59@gmail.com>
+In-Reply-To: <20261124-camss-fixes-v2-0-231a5523cd59@gmail.com>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
  Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
  Loic Poulain <loic.poulain@oss.qualcomm.com>, 
@@ -98,69 +94,126 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  Robert Ijtsma <robertijtsma@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795477434; l=2793;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795477434; l=3176;
  i=robertijtsma@gmail.com; s=20261122; h=from:subject:message-id;
- bh=vYw1nPh4Klj7yHJJhzQwQj3DP4trkjzglC80GQbAh9g=;
- b=f6LOdyOpXQ6PZYXfnrU/+X9zNYMIEEJmIqnb9ruI3YgBRDuFFTxrGwH+szN/WIP4+WOJdRVKg
- sAM+MRsWE1GCZHVajo4+Tc2vcxZnWCJZWam8F5BDhRvfnwcJl37twud
+ bh=l8BJgwb8YH+21l9KNFz5RZ28SzemG6MQfy5k8gd73tQ=;
+ b=s7oghpaIu2xADB1QXAeTWIK48qDUUMnAwrsIuSoJGUjccBmhoiFTZrzzjGcZ85sfaGsrNypU3
+ Ou9MMu7oISjC4RWhMzzAvA5alf0KeOc7BiGP5YsXaSIm9V5vnpMWtuy
 X-Developer-Key: i=robertijtsma@gmail.com; a=ed25519;
  pk=qiDyKVqFicxFIR5sB5m+p9SWPKL2/+mMoiQnUx0C9P0=
 X-Endpoint-Received: by B4 Relay for robertijtsma@gmail.com/20261122 with
  auth_id=1604
 X-Original-From: Robert Ijtsma <robertijtsma@gmail.com>
 Reply-To: robertijtsma@gmail.com
+Content-Transfer-Encoding: 7bit
 
-This series fixes five bugs in the Qualcomm CAMSS driver found during
-Titan 175 (SC8180X) camera bring-up and code review:
+From: Robert Ijtsma <robertijtsma@gmail.com>
 
-1. vfe-17x: Check VFE_IRQ_STATUS_1 (status1) rather than
-   VFE_IRQ_STATUS_0 (status0) against STATUS_1_RDI_SOF(i) in vfe_isr().
-2. csid-gen2: Change `enable` to bool and use BIT(RDI_CFG0_ENABLE) to
-   explicitly set or clear bit 31 in __csid_configure_rdi_stream().
-3. csid: Release the parent device reference via parent_dev_ops->put()
-   on all csid_set_power() power-on failure paths.
-4. vfe: Destroy power_lock and stream_lock after unregistering VFE
-   subdevices and video nodes in msm_vfe_unregister_entities().
-5. video: Factor subdevice stream start/stop into a shared helper using
-   v4l2_subdev_enable_streams()/v4l2_subdev_disable_streams(), unwinding
-   partial start failures and continuing teardown on stop errors.
+csid_set_power() acquires a reference on the parent device via
+parent_dev_ops->get() before resuming runtime PM, enabling regulators
+and clocks, and resetting the CSID hardware. If any of these subsequent
+steps fail, the function returns without calling parent_dev_ops->put(),
+leaking the parent VFE power reference.
 
+Consolidate the power-on error paths using goto labels and release the
+parent device reference on all failure paths.
+
+Fixes: c5af8db84c01 ("media: camss: Do vfe_get/vfe_put for csid on sm8250")
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
 ---
-Changes in v2:
-- Patch 1/5: Drop Fixes tag since vfe_isr_sof() is currently a no-op on
-  vfe-17x (Loic); collect Reviewed-by tags from Loic and Bryan.
-- Patch 2/5: Change `enable` parameter to `bool` (Loic), drop irrelevant
-  sign-bit remark from commit message, and add Bryan's Reviewed-by (Bryan).
-- Patch 3/5: Collect Reviewed-by tags from Loic and Bryan.
-- Patch 4/5: Collect Reviewed-by tags from Loic and Bryan.
-- Patch 5/5: Rework into a shared camss_subdev_pipeline_set_stream() helper
-  using v4l2_subdev_enable_streams()/v4l2_subdev_disable_streams() and
-  iterating entity sink pads rather than media_entity_remote_source_pad_unique()
-  so entities with multiple active sink links (e.g. VFE with CSID + params)
-  are handled cleanly (Loic). Dropped Bryan's v1 Reviewed-by due to rework.
-- Link to v1: https://patch.msgid.link/20261122-camss-fixes-v1-0-9df4deb87ea2@gmail.com
+ drivers/media/platform/qcom/camss/camss-csid.c | 48 ++++++++++++--------------
+ 1 file changed, 22 insertions(+), 26 deletions(-)
 
----
-Robert Ijtsma (5):
-      media: qcom: camss: vfe-17x: check status1 for RDI SOF interrupts
-      media: qcom: camss: csid-gen2: fix RDI enable bit manipulation
-      media: qcom: camss: csid: release parent device on power-on failure
-      media: qcom: camss: vfe: destroy mutexes after unregistering entities
-      media: qcom: camss: video: factor pipeline stream start/stop into helper
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
+index 51f2090..e67edc3 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.c
++++ b/drivers/media/platform/qcom/camss/camss-csid.c
+@@ -682,7 +682,7 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
+ 	struct csid_device *csid = v4l2_get_subdevdata(sd);
+ 	struct camss *camss = csid->camss;
+ 	struct device *dev = camss->dev;
+-	int ret = 0;
++	int ret;
+ 
+ 	if (on) {
+ 		/*
+@@ -696,44 +696,28 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
+ 
+ 		ret = pm_runtime_resume_and_get(dev);
+ 		if (ret < 0)
+-			return ret;
++			goto err_parent_put;
+ 
+ 		ret = regulator_bulk_enable(csid->num_supplies,
+ 					    csid->supplies);
+-		if (ret < 0) {
+-			pm_runtime_put_sync(dev);
+-			return ret;
+-		}
++		if (ret < 0)
++			goto err_pm_put;
+ 
+ 		ret = csid_set_clock_rates(csid);
+-		if (ret < 0) {
+-			regulator_bulk_disable(csid->num_supplies,
+-					       csid->supplies);
+-			pm_runtime_put_sync(dev);
+-			return ret;
+-		}
++		if (ret < 0)
++			goto err_regulators_disable;
+ 
+ 		ret = camss_enable_clocks(csid->nclocks, csid->clock, dev);
+-		if (ret < 0) {
+-			regulator_bulk_disable(csid->num_supplies,
+-					       csid->supplies);
+-			pm_runtime_put_sync(dev);
+-			return ret;
+-		}
++		if (ret < 0)
++			goto err_regulators_disable;
+ 
+ 		csid->phy.need_vc_update = true;
+ 
+ 		enable_irq(csid->irq);
+ 
+ 		ret = csid->res->hw_ops->reset(csid);
+-		if (ret < 0) {
+-			disable_irq(csid->irq);
+-			camss_disable_clocks(csid->nclocks, csid->clock);
+-			regulator_bulk_disable(csid->num_supplies,
+-					       csid->supplies);
+-			pm_runtime_put_sync(dev);
+-			return ret;
+-		}
++		if (ret < 0)
++			goto err_reset;
+ 
+ 		csid->res->hw_ops->hw_version(csid);
+ 	} else {
+@@ -745,6 +729,18 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
+ 		csid->res->parent_dev_ops->put(camss, csid->id);
+ 	}
+ 
++	return 0;
++
++err_reset:
++	disable_irq(csid->irq);
++	camss_disable_clocks(csid->nclocks, csid->clock);
++err_regulators_disable:
++	regulator_bulk_disable(csid->num_supplies, csid->supplies);
++err_pm_put:
++	pm_runtime_put_sync(dev);
++err_parent_put:
++	csid->res->parent_dev_ops->put(camss, csid->id);
++
+ 	return ret;
+ }
+ 
 
- .../media/platform/qcom/camss/camss-csid-gen2.c    |   8 +-
- drivers/media/platform/qcom/camss/camss-csid.c     |  48 ++++-----
- drivers/media/platform/qcom/camss/camss-vfe-17x.c  |   2 +-
- drivers/media/platform/qcom/camss/camss-vfe.c      |   6 +-
- drivers/media/platform/qcom/camss/camss-video.c    | 116 +++++++++++++--------
- 5 files changed, 104 insertions(+), 76 deletions(-)
----
-base-commit: 4843f6873f7c4835e62f2c73ba0fd538e57a2f22
-change-id: 20261122-camss-fixes-4a671ce21042
-
-Best regards,
---  
-Robert Ijtsma <robertijtsma@gmail.com>
+-- 
+2.56.0
 
 
