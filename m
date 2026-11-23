@@ -1,86 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795398400;
-	b=3oeaf09JUHAE9gtb1KNw7ihZUaYooDX9YaaOxU+L9MBF5ze3NfOd/kiXYAwKy/KezMXL
-	 mU9updO8Of1yLFbQbzqXt8RwyILgJBV5S0cZ1Udnl1SPf2DBtDnaL8XOlnTK2qg53gwtm
-	 HKlPd43Qx9kqe63TBim2RCTJynTDElWStA4CS/LwQ9o90Y+mNxqQLkAyMmPo4E49eGafO
-	 Mpa+VoljwAoZCbJ51a7aSXW19prvIG2wabFpNzGGdukvNZxENGOPAsVsTPfPwYMZtI4ON
-	 TXOsfOg0X0PdJv0eSE/3AIbeAVdMVli4S0LN1sE8itl8eNfYJtHsBrgydM7B7jlW7OA==
+	t=1795398721;
+	b=ugDBIbag3X+h8/Z1/zMDmuwikbwKjtose35r23AtgkVIch7/qsUqwFXOdgtUptO6VBZv
+	 V8QfMrTGv7nrHnHUd/Y8++xflOPpK1eBu1fd0yT5btOPYx33/4SHFjMD0oNyekLmEdJNi
+	 Rji/6hKRTJqJnk86kEbT3mok27K4r8O5Wb2YbUrFrA3GHUv3B4siY3tWP7lDUIXpBG+i8
+	 bDej3Ux1D9iViop7ELDRXWV1qbz3OoFf0GuGz1JLcK6P1sDtLRyRXgCHrS91xpocDGUVC
+	 kZHNIMyykhBdK2+Gg+2CYrmMEaSbyir2J7jV5ZXlQR5WJmyUQc7NvV12SnI14VLtjyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795398400;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=J7SM8IJEkihEJUb+/6O+/CyfvEJC1DOUd1MAPDV9+/g=;
-	b=Z6fpP6C8FyH/ESlcLYcjdxlGavwJMMXQE8ULptE7FetdXmo3duqOJyk7aKHZLB/zUO8J
-	 aLuT94NrvDdaQq09rcAHbDpSpROEcN+JWZl2grrDBpCjjGvKc3Ta/Dofn3bqPvmJ8Dd2F
-	 nyRXHi6RfnTHhy2tSDRXN8A6iCYlMN/BowWXg0PR+ffQ5E6MaBXDj1DqC9MSxS9KeZEaF
-	 oaWAvX27xmbowM7ZL81v9Tq2eefWacqykXWiPJJhRrwibnUwCLNXqCBd2X+AdGYIOp20H
-	 TyGWkY4MEW1dFZa+Tqc6YfSogBMOLGh3s5AFwzJ7ULe2PCd5Fzghw1xQEgmuw9Wc3eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795398721;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=YVtyufYB92pslMYc1cNPbAx48nCwMK6/elZbLI4VZ4c=;
+	b=lUrK1QRMjHcNhJyM7rI5XtT9wNKZ3jZ+QeNULN9dh6lD9qNAuF5lFzW/2SKOHC6XfCqu
+	 IB2WiWexIqiEG2fOSkCdNZuF3wQwNncD5LJs0jpui3bbEAF+xbKW9Hb617o+2yBGw9r77
+	 E+e8HiM3HCu3jBmpVc+5ujS+lqzGw05IXFh5F4rVtNPfwJ0fqxx9xH2CjNSAKyjIFRerN
+	 UAcS22jgZqMYSP3AgP/dmnukW4ozI6L/6B+8UYAjepNXGshQeQXOjqOPVJOqA9TIqAunf
+	 GvRO8LpSY469kMH82MREYipIpqvUWVOY+Okoh6TFJMG/I6SlxtzrjfikhUcIvUirHzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hyMUp7qt;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XJO+XIkm;
+	arc=none smtp.remote-ip=95.215.58.80
+Received: from mta1.migadu.com (out-80.mta1.migadu.com [95.215.58.80])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF228606A31A
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 01:46:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF228606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8A5606A32E
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 01:52:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B8A5606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hyMUp7qt
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so23222735e9.2
-        for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 17:46:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795398398; x=1796003198; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J7SM8IJEkihEJUb+/6O+/CyfvEJC1DOUd1MAPDV9+/g=;
-        b=hyMUp7qtXScGFjw5VJWtC8lxSVW/noa4jMYKoldsEQMVJJfY+9Sq7WvD/3a9YtO61f
-         t7q73AZbrv9pio+/1SqXRSNyPPVXOdXN2qLGCeDhkhj/M3o545TMI5DNs+JMIU+rn+59
-         hQrSx7HzWfe0FYJUWv1i66v/qdPGNjWAH94Kc2y60LmwbXqAu3pTLwEt0Y7VXZjulDd9
-         f3R3R90rtf+JjUpCnn3Nh06DQxr5tSV1hu2FtYCgas7hwt3CSBFvmT4DcRzxL4qqo/kh
-         7rMae1m40aaJN7SgoLmnR8MmEkIAzWHJuJwoMP16c+cMpV4AmIJUpPaareUMzlnzz8mQ
-         ZWmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795398398; x=1796003198;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J7SM8IJEkihEJUb+/6O+/CyfvEJC1DOUd1MAPDV9+/g=;
-        b=FT40DXGDXd5aO/HEhgH1pejrfkRRpt20DDOHz4jY5zGtspc25RDdfthxKYL+x5ROHY
-         2+B+Sz2X9Y+J3JzQLjuXrCG3Vh4qpNhTPeb4bZY1D4LI7IH+2ZDGZwkeEPD+KPYigQKW
-         N8UMNenTihbtSUn9SgbXsCfGTFMBQIiA+o2DD1Hc8H0XzdIhJogU4eBJDKZ8ax+eRSby
-         i/C4QyjjXYvN1twqUWtnvHDr7jwBEv8iHzT0hY9jcWtk+57vxlFKgJnFP+ozVqoLh1YR
-         GtkbN9Vi1f3t2Z+4CIn03A7hLhXCtcw9xJ0+SQGMyImN6YObpwkSbQAv8KJ4B8VtiXAL
-         1Bbw==
-X-Forwarded-Encrypted: i=1; AL+hErHbT6HBNlqgOEToghu1jUUhZIGc8VCBHm3VsjjPKNDPZOYCW1ek2wMRsI2atbdleN7Ko1Y0kyoiIgJLIw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z89pRIw6uSceL48cKp1JNcwUflNMST2YTKy/3//j5bUeeuUgC+c
-	G97t+QypsB1m3lq/rtyc8weQpCFttrJi992elp1ouzk+Ah5Op1b65VejKoJbuuwEJyI=
-X-Gm-Gg: AZFdTZe1oHeyEIGBIJkYKYWaQw3Ojiri00LYPGOEMbuPPKdvSxDe+T8Wi37LgW+7cbs
-	OkPifhXS/8NBQpnU2SVC6KpscHzn6AHmksQqfzH4BKEFhkREeJFs2DO1FsWYHqvvFNH1uyRd6H7
-	oCtjmlH/ij50qC56ihEIsnTbG7dxukPKV0AMvU6XOFSuS6m7HlIR987qtEpNXsY9t8+qyBpSULf
-	U5gOc4D5uay76q+w8ALxkk+IYCf1V7Lm7aHVFVJohJ/CbuIf/iO3XYESsRI5qnaBXm3bDhXiKqm
-	WyBKJXmd4FVqKOSsNzg7hqehC4ytQ7wHkF8Vd6CvJ4+H0VLsCfdqJW/m1QTV15ddyoBWxF5yVKZ
-	P5tW7w0q6yLyt4TtVMcoRBH036toPJelFv4knvlBGPdHgR5y9ZIAK4rUqtybqZ7PRdI+iUx9FHP
-	1VJPO/8fwHdpq4GytD5gwYJI8bLtWUW8EOjoxQV63BAewm0f2lBpq1TMyafVNdZkpHoNM9AKIxf
-	SlnJE/L+54MhWxLH+N/Z7Y01hDm3BJb69X9gw3HuhHeva8xcbWDy1ToH7O+I2uXRYLU15WlsBio
-	ivD7pVHcyS74+YF+jn4Ac8ik4Ow9hPxoV2RGecueBw==
-X-Received: by 2002:a05:600c:840d:b0:4bb:6814:738c with SMTP id 5b1f17b1804b1-4bb88820cedmr210403515e9.22.1795398398283;
-        Sun, 22 Nov 2026 17:46:38 -0800 (PST)
-Received: from [192.168.0.167] ([109.77.88.117])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853a1e8bsm264872155e9.9.2026.11.22.17.46.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 22 Nov 2026 17:46:37 -0800 (PST)
-Message-ID: <e707a3ce-7e3f-480f-9166-3f048b02e7e3@linaro.org>
-Date: Mon, 23 Nov 2026 01:46:36 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XJO+XIkm
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=e+QHWbBPMWAeiyatS48Y4WE7Tii5hCDimKpeiM65Zg8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795398718; v=1; x=1796003518;
+ b=XJO+XIkm3rkM9nMrQaJ88DBU/SbDNDS8sX/2dIaj3cwmRrKirwqyb+I0+uhLyek6+NMpIzpi
+ feptrx/ngiR7GStYVclrJX2X302KeSUwM1np0LDwreiaO4CnEGlTK2BETzp5dn6xGe4YcTGokd9
+ xsy7UnLpMsmmUcjbVs0s4weY=
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1054823f21723493;
+	Mon, 23 Nov 2026 01:51:57 +0000
+X-Mizu-Trace-ID: 1054823f21723493
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <361c4312-f77b-495f-9ee4-e0b9612b4463@linux.dev>
+Date: Mon, 23 Nov 2026 09:51:41 +0800
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,44 +59,54 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] media: qcom: camss: Add Glymur-specific resources
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261119-glymur_camss-v3-0-71ab966c41c9@oss.qualcomm.com>
- <20261119-glymur_camss-v3-2-71ab966c41c9@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261119-glymur_camss-v3-2-71ab966c41c9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [RFC PATCH v2 0/8] ext4: Add dma-buf read/write support
+To: Christoph Hellwig <hch@lst.de>, Anuj Gupta <anuj1072538@gmail.com>,
+ Nitesh Shetty <nj.shetty@samsung.com>, asml.silence@gmail.com
+Cc: Jens Axboe <axboe@kernel.dk>, Sumit Semwal <sumit.semwal@linaro.org>,
+ christian.koenig@amd.com, Philipp Stanner <phasta@kernel.org>,
+ Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, tytso@mit.edu,
+ Andreas Dilger <adilger.kernel@dilger.ca>,
+ Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
+ <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Zhang Yi <yi.zhang@huawei.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Li Wang <liwang@kylinos.cn>,
+ Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+References: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
+ <20261120154153.GC28611@lst.de>
+From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
+In-Reply-To: <20261120154153.GC28611@lst.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 19/11/2026 15:04, Nihal Kumar Gupta wrote:
-> Glymur previously reused the X1E80100 CAMSS resources, where port@3
-> selected CSIPHY4 through x1e80100 csiphy_res[3].csiphy.id.
+On 11/20/26 23:41, Christoph Hellwig wrote:
+> On Fri, Nov 13, 2026 at 03:06:13PM +0800, Mengmeng Zhao wrote:
+>> From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+>>
+>> This series adds dma-buf read/write support for ext4. The dma-buf direct
+>> I/O infrastructure allows dma-buf to be handed to file I/O as an iov_iter,
+>> but currently it only supports raw block devices. To better serve the
+>> GPU-NVMe direct access through normal filesystems, prior work for XFS has
+>> been discussed at [1]. We are also interested in this field and working on
+>> it [2].
 > 
-> Add Glymur-specific CSIPHY resources so ports 0, 1 and 2 map to hardware
-> PHY ids 0, 1 and 4. The remaining CAMSS resources continue to reuse the
-> X1E80100 CAMSS resources.
+> Can you an Anuj please work together and merge this into a single
+> series covering both XFS and ext4?
 > 
-> Signed-off-by: Nihal Kumar Gupta<nihal.gupta@oss.qualcomm.com>
 
-I mean this is a bit of a convoluted way of describing this.
+Hi Christoph, sure, I'm glad to work with Anuj on this.
 
-You have one less CSIPHY Hamoa has four Glymur has three according to 
-this patch.
+Hi Anuj, I'd be happy to help pull our patches together into a single
+unified series and send it out for review, if you're okay with that—and
+would appreciate your review once it's posted as well. Please let me know how
+you'd like to coordinate, or if you have any updates in progress on your
+side before I put the series together.
 
-=> Fixes: tag
-=> A commit log that says this
 
-Talking about the ports doesn't really describe what this patch is doing.
-
----
-bod
