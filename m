@@ -1,56 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795460374;
-	b=YhXyHJFjMfUHm3WRG1s5bB2uka9eGJPjod8GcvS3f9TywGIlpcQ7lgQIVzwus3O1qzoN
-	 edzaiOWgS3Rgsbe8OTt0iGmb7tFSlUWOOls+dqmdH+SlOChwGkn95wHrq2DNWVk7g7CoR
-	 FQmhtfOhAbHs3lIRDueyBtYUY3665FAaS5wRbpVIXCCkbEE4L09g4fqwZ7otcJHyUhtoz
-	 XXmjp7aX1mpNqPfkK2FNqKO88SidAG67nMfkGA/3Qi2KHK+UaOi//txF8d5vjiY9BrGR9
-	 4MFUyjHz6nKDPJU5LoAzm94cNL8Vqq1ExnVFMLDAApQkzJilPuZ3N757zqrfDxKDRZw==
+	t=1795461311;
+	b=bBE2laFNUUbINBGzTLsHu7WGQdiUagGkKDVxNDsNF3pBLHLcUW56MN/8DkctfyBPG61y
+	 vR68qNHqKSfOnX7++PV2zbUPJw7QDJyxV5Q3TkXjDvOFnYcANksrRdU0QzFxZjayvcuWb
+	 PazL6YYbXtRcB9tIQoDpLK5FBsz9GUbuthHoW5AM1Uftw+8IgXYlAXDv58d/f+UzYdBpW
+	 fKaAV81xhjvWHc2DTjNXhKSU6CEZfZ0FHG0TfQJzHB/wc8NZmJSX10a8SAxqhClO2RO0e
+	 Kb4RVe4zlg52nAJurYzMkwx2mTjULLyOTwaGZ4+XgqKpA/QFyTB8tL7rVy+pyBkoxog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795460374;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=0O+tuIrtS72up1qGHdFeeTcnR9v0RwFLGoqv618GUxU=;
-	b=QTYvsRctXE+XwirpCx3vRSH+D8j6gcSjhnYxG7BUGLwk02vVhE2OT84zk3eHEMLgtKR1
-	 YbdGEvxpzBbwDj4fyScZA5bwnlL3Clk5Hj1Fe+fUJ6I2NJFspUsAZcsJDJsFWRmqFyLo0
-	 5sSHB7WFyJBO94rfgsWzVxYAExe+MFwEqOxyNSPFeQzMJiumHUrPtfsA1VJ8UaWSNpB22
-	 J/386nOuE17Dz7Awv651PgqbOKWkP3z3u3lePMPYwFzOe1Opwp82KD2jr1vabcfYf22cR
-	 F3JN0Q9emkUupKnYN+sPxkrKe8yJaeDCb6J+gnaU3qxxnwXYRHmnffbAvUcw91CHHzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795461311;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=TtwF9m0dsYM7DXA5kCIoVhSRU8hz4R/5DTLztjK7Brs=;
+	b=WGYATPMerKzzqGylGZr37T2ytLUsqWy+pQWAgJ1+g7omOouVkjtRloB9n78bN+jNlumB
+	 LehdAk1hV7Tp0SWmYZoTBC/T/BnvqVUEx0FdZfMFkH6kZsIjVw3+2iCDdHfkQG5C2Wj/9
+	 sNBA5VDPQDb868rWAkj/0z+a/CLNsl8r1uRenVqHhsCtIU+KJz2GHyhFohyPs6GePHM/i
+	 vTmizTibtdMwlFowS7OB02as0votCzu2RqiB1QYbjgPhyRZNHJXcvkR+deaAYfUdyjKSb
+	 JjYsjp/LnsQ0BHoPWanj+jcYK+gDirGeN9j1pIPcpTENGDt3cFYQ/g7ryVgZPjo9EKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b="pQbJmO7/";
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RZnu+8vT;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57327606A31F
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 18:59:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57327606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432AB606A31A;
+	Mon, 23 Nov 2026 19:15:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 432AB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=pQbJmO7/
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RZnu+8vT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795461309;
+	bh=1UTK7C2L/leKYOV1vpyJUfwzZPkqImLHSYWPJ0HxDWA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=RZnu+8vT52sXp8u5MzM7OVRlx+tCuz5kp2Q710LRjID98hbmD6aG+rcG+vtjbjChJ
+	 vIb8qB554gew2pq2FKrpk/f5HmivAHinpFmzMKaTsXa6CVDeZxqlvV7WSw8Eveea4B
+	 DKVVfizmpDtQJFGs1gVTEncZMI7oqMODQlN9Ubf27C5ZsfZ/yYMRcg6DMw5WfgfPdk
+	 lMkQKWxr7DszHYqomtMGa11CJM951Bp/9WzIh6zBOL+4H9SfH7VUa8ScM1XAShOmVk
+	 VcVe47GHSLFV8CQPyqxB304vTOhWC9dZ8sOd++u+sRghyiR5BGKU3ML5rMbmCbkuU6
+	 pueGA33+BUMAQ==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id DAEBB5340271;
-	Mon, 23 Nov 2026 19:59:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1795460370;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=0O+tuIrtS72up1qGHdFeeTcnR9v0RwFLGoqv618GUxU=;
-	b=pQbJmO7/+8a9xtkFlIJK0PezK0AoOBCGvfiZ2jSeWmvVOASXRuGgBw3hfHT0ehMUdiWuUw
-	PUmAGvqtst8MMrZfFjHW9KdqPdgpNKr4TEOJE95aOPh2Be4ilswbGyvnue9rpoEFuRNzHG
-	ml4S6NWfDcTJXxfa7S2j72dtsUre/80=
-Message-ID: <10c0d068-be46-4702-a6a4-f0b0dbd6e388@ixit.cz>
-Date: Mon, 23 Nov 2026 19:59:30 +0100
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 71DAE17E00B2;
+	Mon, 23 Nov 2026 20:15:08 +0100 (CET)
+Message-ID: <5b5b87d40c3a3ac5c9b04ea77e9310c92f9f4e49.camel@collabora.com>
+Subject: Re: [PATCH v3 7/7] media: verisilicon: mpeg4: Use alloc/free
+ helpers for auxiliary buffers
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	p.zabel@pengutronix.de, mchehab@kernel.org
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Date: Mon, 23 Nov 2026 14:15:06 -0500
+In-Reply-To: <20261123095905.60622-8-benjamin.gaignard@collabora.com>
+References: <20261123095905.60622-1-benjamin.gaignard@collabora.com>
+	 <20261123095905.60622-8-benjamin.gaignard@collabora.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-6OhJFZ1YC2eqKEd3+Wjr"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -60,197 +88,78 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] Various CCS fixes
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org
-References: <20261123-ccs-clanked-fixes-v1-0-fb2bcc87a517@ixit.cz>
- <20261123165549.GE2959742@killaraus.ideasonboard.com>
- <dc8bcacc-d743-4108-87e7-3c6715b23f4a@ixit.cz>
- <20261123180203.GC3050935@killaraus.ideasonboard.com>
- <775a6f72-d138-4ff2-9328-1c0c9c865d07@ixit.cz>
- <20261123183525.GF2959742@killaraus.ideasonboard.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20261123183525.GF2959742@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+
+--=-6OhJFZ1YC2eqKEd3+Wjr
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le lundi 23 novembre 2026 =C3=A0 10:59 +0100, Benjamin Gaignard a =C3=A9cri=
+t=C2=A0:
+> Simplify and clean up the code by using the helpers.
+
+I'll pick the series, just wanted to mention that I will edit your subject =
+line
+from mpeg4 to mpeg2.
+
+Nicolas
+
+>=20
+> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> ---
+> changes in v3:
+> - As suggested by Philipp do not mask hantro_allocate_aux_buf() returned
+>   value.
+>=20
+>  .../media/platform/verisilicon/hantro_mpeg2.c | 19 ++-----------------
+>  1 file changed, 2 insertions(+), 17 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/verisilicon/hantro_mpeg2.c b/drivers/=
+media/platform/verisilicon/hantro_mpeg2.c
+> index 04e545eb0a83..7386cc50b11b 100644
+> --- a/drivers/media/platform/verisilicon/hantro_mpeg2.c
+> +++ b/drivers/media/platform/verisilicon/hantro_mpeg2.c
+> @@ -37,25 +37,10 @@ void hantro_mpeg2_dec_copy_qtable(u8 *qtable,
+> =20
+>  int hantro_mpeg2_dec_init(struct hantro_ctx *ctx)
+>  {
+> -=09struct hantro_dev *vpu =3D ctx->dev;
+> -
+> -=09ctx->mpeg2_dec.qtable.size =3D ARRAY_SIZE(zigzag) * 4;
+> -=09ctx->mpeg2_dec.qtable.cpu =3D
+> -=09=09dma_alloc_coherent(vpu->dev,
+> -=09=09=09=09   ctx->mpeg2_dec.qtable.size,
+> -=09=09=09=09   &ctx->mpeg2_dec.qtable.dma,
+> -=09=09=09=09   GFP_KERNEL);
+> -=09if (!ctx->mpeg2_dec.qtable.cpu)
+> -=09=09return -ENOMEM;
+> -=09return 0;
+> +=09return hantro_allocate_aux_buf(ctx, &ctx->mpeg2_dec.qtable, ARRAY_SIZ=
+E(zigzag) * 4);
+>  }
+> =20
+>  void hantro_mpeg2_dec_exit(struct hantro_ctx *ctx)
+>  {
+> -=09struct hantro_dev *vpu =3D ctx->dev;
+> -
+> -=09dma_free_coherent(vpu->dev,
+> -=09=09=09  ctx->mpeg2_dec.qtable.size,
+> -=09=09=09  ctx->mpeg2_dec.qtable.cpu,
+> -=09=09=09  ctx->mpeg2_dec.qtable.dma);
+> +=09hantro_free_aux_buf(ctx, &ctx->mpeg2_dec.qtable);
+>  }
+
+--=-6OhJFZ1YC2eqKEd3+Wjr
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
-On 23/11/2026 19:35, Laurent Pinchart wrote:
-> On Mon, Nov 23, 2026 at 07:27:10PM +0100, David Heidelberg wrote:
->> On 23/11/2026 19:02, Laurent Pinchart wrote:
->>> On Mon, Nov 23, 2026 at 06:55:53PM +0100, David Heidelberg wrote:
->>>> On 23/11/2026 17:55, Laurent Pinchart wrote:
->>>>> On Mon, Nov 23, 2026 at 01:02:38PM +0100, David Heidelberg via B4 Relay wrote:
->>>>>> First two seems to be no-brainers. Next two seems to be correct too.
->>>>>
->>>>> What exactly do you mean by "seems to be correct" ? Are you sending
->>>>> LLM-generated patches that you're not even sure about ? That's a
->>>>> complete no-go.
->>>>
->>>> Hello Laurent.
->>>>
->>>> While I'm aware of your antipathy against LLM models, current situations doesn't
->>>> look like there are lining people to fix it and make sensors work with the MIPI
->>>> CCS drivers (introduced 2012).
->>>> This leads to endless forks of imxXXX sensors across hundreds of trees + people
->>>> clanking this stuff over and over. Let's establish that first.
->>>>
->>>> When I see opportunity to improve the generic driver, I'm taking it.
->>>>
->>>> change-id: 20261123-ccs-clanked-fixes-609bb0754028
->>>>
->>>> As you can see the change-id, I didn't make it somehow hidden. I reviewed the
->>>> changes which LLM found when helping me figuring out why I have black/white
->>>> output from the sensor which sequences seemed to be correct to me.
->>>>
->>>> My logical thinking would be evaluate quality and review the code, which leads
->>>> to my brain marked:
->>>>
->>>> patch 1 + 2 as pretty confident it's correct and
->>>> patch 3 + 4 as looking reasonable to me.
->>>> patch 5 + 6 I haven't send because of unnecessary complexity and likely wrong
->>>> approach (still in the backlog to analyze)
->>>>
->>>> I would believe it's better to at least report in this form, thus my comment
->>>> inside the cover, that last two patches may be useful. And yes, I understand
->>>> there is infinite amount of randomly clanked patches coming in your direction
->>>> and I understand it's huge time-waster and pain.
->>>>
->>>> For v2 I'll drop patch 3 and 4. Hopefully that makes more sense to you, because
->>>> as I'm working on getting Linux mobile phones in a good shape, I have not
->>>> ability to split myself into developer highly specialized in every field
->>>> (subsystem).
->>>
->>> Sakari maintains the CCS driver, so it's his call.
->>>
->>> I find it very rude to throw LLM-generated patches to reviewers and
->>
->> Take generated slop and just throw it maintainer - definitely rude.
->>
->> Do a review myself with non-maintainer level of skills and partial
->> understanding? Hard to say.
->>
->> It's rude to send patch when I'm fixing something in the kernel, but maybe my
->> understanding isn't that brilliant as the maintainer one?
->>
->>> maintainers if you can't have full confidence yourself that they're
->>> correct. If you don't want to invest *your* time and energy into
->>> properly understanding what a series does,
->>
->> That's fair argument. Again not B/W, I invest my time. I have partial knowledge
->> of media subsystem, sent fixes before (even without LLMs).
-> 
-> The social contract is that maintainers get something in return for help
-> contributors. They expect contributors to learn, improve their
-> contributions over time, and occasionally some of those contributors
-> will help with development and maintenance in the long term.
+-----BEGIN PGP SIGNATURE-----
 
-I'm well aware of that :)
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawSQugAKCRDZQZRRKWBy
+9DGRAQCUAeCDyxVQ+dajb9KwTStV2mLTHQA7lvvU5/davwOQJwD/e9YUVaBM3LkJ
+BAk47rc4UTDzFemhor+2FOHt4ASpjAE=
+=IhE2
+-----END PGP SIGNATURE-----
 
-> LLM-generated contributions break that contract completely when they're
-> just thrown over the fence with nothing more than a cursory glance.
-
-Sadly, yes.
-
-> There's no learning any more, no improvements, just increased maintainer
-> burden.
-
-I would disagree here. There is learning, maybe for 1 person from 10. LLM is 
-great at explaining code, reviews - recently surprised by the quality of it.
-
-Yes, there is maintenance burden, I agree. If we omit the slop, I would say it's 
-also because it's easier to upstream code, e.g. the barrier is lower.
-
-> 
-> Nobody expects you, or any other contributor, to be an expert, but if
-> you decide not to spend time learning and improving, I won't want to
-> spend my time reviewing your patches.
-
-You still writing in absolutes. How much time needs to be spend?
-
-I cam answer the original question thou:
-
-| why should maintainers spend
-| any time helping you for free
-
-I would say because
-a) it's obviously correct code on first sight (easy, fixes almost for free)
-b) maintainer may assume the amount of time person invested into writing patch 
-(LLM irrelevant here) was reasonable and after receiving feedback the person 
-follow in similar pace (long-term cooperation)
-c) maintainer may see the short-term value of the contribution regardless of the 
-effort spent on the code.
-
-David
-
-> 
->>> why should maintainers spend
->>> any time helping you for free ?
->>
->> That's good point. I could ask myself too - why am I sending fixes for free (not
->> paid by contract or company - community work)?
->>
->> Maybe you're right. Maybe I should just patch the local imxXXX.c file in few
->> minutes and ignore it for year until it breaks again.
->>
->>>>>> Signed-off-by: David Heidelberg <david@ixit.cz>
->>>>>> ---
->>>>>> David Heidelberg (4):
->>>>>>          media: ccs: Use dev_dbg() instead of dev_err() in ccs_enum_mbus_code()
->>>>>>          media: ccs: Fix sub-device index in ccs_cleanup()
->>>>>>          media: ccs: Update PLL and blanking limits when pixel_array crop changes
->>>>>>          media: ccs: Set V4L2_CTRL_FLAG_MODIFY_LAYOUT on flip controls
->>>>>>
->>>>>>     drivers/media/i2c/ccs/ccs-core.c | 14 +++++++++++---
->>>>>>     1 file changed, 11 insertions(+), 3 deletions(-)
->>>>>> ---
->>>>>> base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
->>>>>> change-id: 20261123-ccs-clanked-fixes-609bb0754028
-> 
-
+--=-6OhJFZ1YC2eqKEd3+Wjr--
