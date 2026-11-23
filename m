@@ -1,56 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795443153;
-	b=hKX7UUTu+YjCjW7t/4zFGOpHLrAuL61JsQsSB2XbchZAPkXxXxKniFM7fMtP1nqFk7NX
-	 A1FftBYqcEk26P9RDpDUhucfmhZh3+FCsih1NirTFJsDZhE9/9TJxJdtae9ZvM/ntRGrB
-	 WVGF8/DDM5Yx/cFDv/0NzMj5f1QzeG9jJLJYeusrCGxqKBJ3B1NxTzPNUMRPb0nlfjvdp
-	 fg8cQHx5wKGjOz1EGQbGf2sfYjdc8Xxdiv8CdVy3OhfX5A6BSbZTELAo8iTghuaXnm2Wu
-	 8+zcA4gHvSnCaBdQxXqxySlXFIxQNFG2Pk+Ho2vJbwC9tR1a8HBWtbne36ou7+YttQA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795443153;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=GMI4Me2ARFv/4uojQIezkuj7KG00oQdLi8a3gMfNyYw=;
-	b=O7Nwel4SvG9Q5BFop/VDQAmgZgBcOotaROFGNDclCJbYmrBFOeBbMKRiPE5adNIC2/9g
-	 k88l4dGHz0QY1ersxgQ/MEcUVaS4qT4nkjsOR69cSkE7MPJDcPe8iiQCRtT7FwdfDGWU9
-	 LuOc+dXjPfIrxWji5DjX5ulqrvL7/cIkvtvsRO0e4pMHClZTkFS48QqO3e0W3iw9WgWhG
-	 lCT72z5Mnaj3UUih8DLQ7G9o7Sa/vTRcP2v4S5j5FvUnmHvNBgOPPZt6KKY4fJWMdEcKw
-	 eC0hpY+to60RqBtGTcpW44HkJj4L3EJYV96T8zrjA6fQ36gn7blw9M5PzO8K0JkMIiw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6OZYZQI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795443276;
+	b=j3yEcPxVUTDBUVCYjP3vP1r5e0HC8PkZ3dFPYqj5ykHaTS9gf2fGXLWnBd53nfke2k1e
+	 7q//JkCiyPuyIxA9Lc3OzwX9t2YFhCDKo/bI/MdlARaU+mGXTNW5MnWeFBBz4vJKhbMlF
+	 Sd4BclWNdvkFskc2bRLG2oElH0FZc7OoKRO7ZbDEHgVKQIGe36I/I4+lKQL4tb8xtMyE3
+	 JJhnJY7qyh6Ncn27NsQ4fxEkVV181qXa7lu419kqg410Ajhk1Vgq7UeDSz+wOdtfZbWcA
+	 9DjJoLxx8qEj1PQEO2nxRLDyHmNmGneqk9+pWSdUoRnLSN2kKbDWMADFd2eYf2a3laQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795443276;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8IRkRbzaMpbwELBdc3WayrNv0eqStaY6Oo07xiTVssU=;
+	b=MERKAGUojPNiNgS6rdmZiPrLjBJICzhRsV1hNH2qzUwNcHvlCwjnX8f3Ej2kGpd4pBxW
+	 IuaUmUojcg8w6I4bNKYHboLnJ1aXpTcApswajj4umP3KVwunuJJfksHKjAuP9dCj7MO0r
+	 zGz2z+FQG9gGsZS46XYwHOM/RLeR7mrbUTU9SLI7/fncyiX5p+ycTAwWwvN9PhZyxabgk
+	 tvXh99xAjmbi2MIH4UyRtcvRzCCKgMm4JicWUHJkNyFd3rpGDidqyDYr4kw+vSc/QCaFb
+	 SZBhEfYz3mU2uvISwsXKFqG1tK1tDXTm8bJEqmEzHdBpBD473NvWLcH8V0rsCghWVxQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pVQ7UJlC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.173
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70322606A32E
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 14:12:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0066E606A327
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 14:14:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0066E606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6OZYZQI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32F191F000CF;
-	Mon, 23 Nov 2026 14:12:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795443152;
-	bh=GMI4Me2ARFv/4uojQIezkuj7KG00oQdLi8a3gMfNyYw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S6OZYZQINeSdk9a1HcPQTKfFzXeTSQQCP/XOCS7hYqZ7seehwGV9ulIonfWXVJ6Ed
-	 rp+2dl0E9yz+Lr/+Ghz/+uKcjMJAPZqJoFWdN57u37aRfYMuLhMHikpgJUvyUa0doQ
-	 4XM3oKjoAhEAkyhKQeaq1vLztctfMAfzteTrLkq7epqFrfAJiYZ9LU3b39sfrs1axH
-	 PENtQzkCW4L5tfnU6hRrGfSuWzHaMvMHX5EiPqPjyx0FlNE6YQVoeOWXkj9scWJBbD
-	 59E/9cuM6eY3gvf7wkn/9QqWHTXhcPdzFS5KQHn94UZrEoKO/SZaUZGGuZFkGxs9VA
-	 wt9/pKQzLhT0w==
-From: Maxime Ripard <mripard@kernel.org>
-To: linux-media@vger.kernel.org,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>,
-	dri-devel@lists.freedesktop.org
-Subject: Re: (subset) [PATCHv3 00/13] media/drm: cec: add HPD_PRESENT
-Date: Mon, 23 Nov 2026 15:12:27 +0100
-Message-ID: <179544314318.1189238.7248780865420148038.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <cover.1793863347.git.hverkuil+cisco@kernel.org>
-References: <cover.1793863347.git.hverkuil+cisco@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pVQ7UJlC
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-943e8d35f74so341608285a.0
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 06:14:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795443275; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hLhquOZgXEyjpUMZW6UDkAU0V8fLPZVZq6tbA2oLV7e+Qs22OWUnvI9Cg4XSauhE88
+         v6WQp6E4zq5p3ubCm9/9tzY64e9nlvlT1nYsEt9UUpy//vp6xyczPMDPuQIDz1UCL4ra
+         sDURgHMPGwhq4X+l50+ZxRtFc/vThFs3rR4uAYQyOcwNEBerdjG07lpf0WdraaLFOv1i
+         2knHEAY0Li/DFfCUvQhwM7nhsfYAxIqJXyWmpLdT/XK7duuBu/OovK+OUTPP4Ztw6b2H
+         ufCjMYQLwuwPgayq/9gW6qVr20KYb2nU3hvr46lK+4m9qgFZUrN0DNlm3zVUlFPznJj1
+         A95A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8IRkRbzaMpbwELBdc3WayrNv0eqStaY6Oo07xiTVssU=;
+        fh=hsf2NlMJm6j9O3w8gry+PmpAOs3iXruFBw1n9ACC9hM=;
+        b=URmR9RoLbrusuTwgsyimP9sV7HLqDKOvqS0pZTGy8Vo3P+E/xuwZ2M+PCpedbF0nF8
+         m/gyeKUPi7RVPZ02zsh1oyuhN/JXx6LPHbz8vNYvpPzIz54Y0GNgZprKGV7BlEeNDKEI
+         8WmUJciPBMkrQh/9zN7VLoMYXBpduFzpBQBV6k+s8A8RGExnUR3JwDQsRKkrsJqHQn02
+         X1mVHKLS09GQzG1/cTMI5GtwsHB2ILieWttu0mriSq5xAMmd0nEiTnjcjV3LfnVVIkKV
+         A93DXl2Fb242v0YOD7yKXsZ4oZlt15HkCuR/3kRZ0VlpFi9VjYaECC8eKN66w0F+ypZm
+         mhIw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795443275; x=1796048075; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8IRkRbzaMpbwELBdc3WayrNv0eqStaY6Oo07xiTVssU=;
+        b=pVQ7UJlCgo/i8qIJ5r+TI0bhFO9M/AHBAsMBkclyd5JPDNPNAC1ive6ihMUYtf0gRC
+         CcJfFPetUu3bIvXWV/40l1p0yytvFY30H42Yb03nKB0vGILT3FB/1j3mHuAFV+J0eeWz
+         rNRCsh2lN2uPcOsLWiLnaBH3E1IgfopAAWEJSXAIYCe7POy9dcsSCE1WetJUJKPEiym9
+         ZwJERfMKAxexTWdeRfkv8O6zjjhRzUYWsy2m4kQzXSx7RUqby1pwlA9GziUzQePoRCNv
+         qlAQpICwDt3FK6zq/XcNFg4oOSdqC+R86t/m0s/mCJ5ub+GpvrLuDaQyyQg7BHu3EQ/I
+         nkyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795443275; x=1796048075;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8IRkRbzaMpbwELBdc3WayrNv0eqStaY6Oo07xiTVssU=;
+        b=clQhj5PPKDOllyVDSRNn7vyx10lFUtzMqkcUYUxwKr0khc6f+rDDtycj11cgrw3wH7
+         XAU/q9f6f81c/i9KaDhfEu+kMrlNelmjb6I9amHAnUwJ+eInt+uI064Duwg/Ox8xg0Ao
+         A3O/Cp18Vcf/STm/s9z0RZmkvoulnefp3b0Dqef0kWYuWRNEikBUFNUQdqol0mj7bPwI
+         L93pVyOYZXsCeFHeyJYw8HuiRphl5v0oqcmhgnKtAJxPJJBxG0gW9KedHfyJdaDsa8vG
+         34LrB7Kydx3TZcFuO6Ssr9RKGjw11ve53R8U1/CRBkBlAZ9iC40o0JWX9q4rToVuOQ/X
+         X17g==
+X-Forwarded-Encrypted: i=1; AL+hErEHFG2TdyUkSWyW3X4rQxXwtlV3wJCaWJcO5X5pm1Xr4tzG9sKPL0MmJcHNPb5zqP6EBxcd/YvQElq3jw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/g43OD3FhE5G0Yg4SCLbXX1isujlOQ141Rt8j2Z55jWdAQgFcc
+	8+JszfnYDXcH5a9ITojysoupeAdnGI90ZXuzeyjj2BETvkCukhT0aFJvs8tXcSlKhJNG+NDcmn3
+	bhN054jI4XELJqDuI6JhLJDUYVvnXmkQ=
+X-Gm-Gg: AZFdTZd5WyrZiLRZ0MBn1gPxMt/ZhP8AWp5VcQ9NooW92+M66wP8scUftlhKougDWOn
+	ga4RMKWnJwl2vqnaQCC4vkIRpkgl5/MSOSp+BUhiX7gaABhgS2jDlUCvQnAJfu253x1YGF6PaEj
+	mk4r2CxkbwASLlEhnOLf0SE0xYojdhpHusP59LTsNHEYe1FsI1c5fzcmUFEcHUqEFEopNDo2BL6
+	sFR6WSBPOPpJYQC3Snhuxa0tcmvXli7a7Qok4jsEuLhPCXaGsZM8m1spjaXoYjMa0P8zbIaHl8y
+	XiKOh5wnKouF9L8SjV/U8iKmiDonZQVeLdbVEDlbCsqh34jLBnHxyhBGuQ8QMhemk9gh5K/8tYU
+	Y1IDuV0VYiSzYv2SjXQ8k3qgnm1W9U0H/3qJFJ2z8zAz0sj2a3R0VFp1Pjb2aHlvgi88=
+X-Received: by 2002:a05:620a:4041:b0:949:8307:664d with SMTP id
+ af79cd13be357-949ba8239a7mr1762779285a.2.1795443274706; Mon, 23 Nov 2026
+ 06:14:34 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -60,27 +104,318 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <20261123110805.119610-1-hikmahgumelar@gmail.com>
+ <20261123123546.152162-1-hikmahgumelar@gmail.com> <20261123123546.152162-4-hikmahgumelar@gmail.com>
+ <awRDMjtMC74v5zQq@monoceros>
+In-Reply-To: <awRDMjtMC74v5zQq@monoceros>
+From: Hikmah Gumelar <hikmahgumelar@gmail.com>
+Date: Mon, 23 Nov 2026 21:14:22 +0700
+X-Gm-Features: Aa3M54qIm1JJMDMAkwJOVERPLiDKCTfKydQ0A71fCUKBRcUDp_3D9SJp6eBsw4g
+Message-ID: <CADA=zOOYzywVAHhSbYQXyfS3m8SRx4x=S4wNi7vSoQBB6GVRUA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/7] media: i2c: add s5k5e8 image sensor driver
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 05 Nov 2026 08:22:14 +0100, Hans Verkuil wrote:
-> Using the media CEC framework the application receives events when the
-> Physical and/or Logical Addresses change. However, if the Physical Address
-> changes to f.f.f.f (Invalid), it does not know whether that is because the
-> HDMI link is disconnected, or because the EDID does not provide a valid
-> Physical Address. That can happen because the display does not support CEC,
-> as is the case for DisplayPort inputs or PC monitors.
-> 
-> [...]
+Hi Uwe,
+Thanks for the review! I had just sent out v3 right before seeing your
+feedback; I will drop <linux/mod_devicetable.h> from both s5k5e8.c and
+ov12a10.c in v4 along with any further review comments on v3.
+Best regards,
+Hikmah
 
-Applied to misc/kernel.git (drm-misc-next)
 
-[01/13] gpu: drm: sti: call cec_notifier_phys_addr_invalidate if no HPD
-        commit: 87eab2c253293b14d0b47ea9680654ba2592ca95
-[02/13] gpu: drm: exynos: call cec_notifier_phys_addr_invalidate if no HPD
-        commit: d35eaf955b325239ac67d51e910e149cf59243b8
-[03/13] gpu: drm: omapdrm: call cec_s_phys_addr only if HPD is present
-        commit: a4db1e6625e4bb77fb7e7d937d85edb9bd511c58
+Pada Sen, 23 Nov 2026 pukul 20.56 Uwe Kleine-K=C3=B6nig
+<u.kleine-koenig@baylibre.com> menulis:
+>
+> Hello,
+>
+> On Mon, Nov 23, 2026 at 07:35:42PM +0700, Hikmah Gumelar wrote:
+> > diff --git a/drivers/media/i2c/s5k5e8.c b/drivers/media/i2c/s5k5e8.c
+> > new file mode 100644
+> > index 000000000000..80931e5a1c6b
+> > --- /dev/null
+> > +++ b/drivers/media/i2c/s5k5e8.c
+> > @@ -0,0 +1,500 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +#include <linux/clk.h>
+> > +#include <linux/delay.h>
+> > +#include <linux/gpio/consumer.h>
+> > +#include <linux/i2c.h>
+> > +#include <linux/mod_devicetable.h>
+>
+> <linux/i2c.h> already provides of_device_id, so please drop
+> <linux/mod_devicetable.h> (which adds a lot of unneeded dependencies).
+>
+> > +#include <linux/module.h>
+> > +#include <linux/pm_runtime.h>
+> > +#include <linux/regulator/consumer.h>
+> > +#include <linux/unaligned.h>
+> > +#include <media/v4l2-ctrls.h>
+> > +#include <media/v4l2-device.h>
+> > +#include <media/v4l2-fwnode.h>
+> > +
+> > +#define S5K5E8_CHIP_ID_REG           0x0000
+> > +#define S5K5E8_CHIP_ID                       0x5e80
+> > +#define S5K5E8_REG_MODE_SELECT               0x0100
+> > +#define S5K5E8_MODE_STANDBY          0x00
+> > +#define S5K5E8_MODE_STREAMING                0x01
+> > +#define S5K5E8_REG_VTS                       0x0340
+> > +#define S5K5E8_REG_EXPOSURE          0x0202
+> > +#define S5K5E8_REG_ANALOG_GAIN               0x0204
+> > +#define S5K5E8_REG_TEST_PATTERN              0x0600
+> > +#define S5K5E8_XVCLK_FREQ            24000000
+> > +#define S5K5E8_LINK_FREQ_418MHZ              418000000ULL
+> > +#define S5K5E8_PIXEL_RATE            167200000ULL
+> > +
+> > +struct s5k5e8_reg { u16 address;
+> > +u8 val;
+> > +};
+> > +struct s5k5e8_mode {
+> > +     u32 width, height, hts_def, vts_def, vts_min, num_regs;
+> > +     const struct s5k5e8_reg *regs;
+> > +};
+> > +
+> > +static const char * const s5k5e8_supply_names[] =3D { "avdd", "dvdd", =
+"dovdd" };
+> > +#define S5K5E8_NUM_SUPPLIES ARRAY_SIZE(s5k5e8_supply_names)
+> > +
+> > +static const struct s5k5e8_reg s5k5e8_common_regs[] =3D {
+> > +     { 0x0100, 0x00 }, { 0x3906, 0x7e }, { 0x3c01, 0x0f }, { 0x3c14, 0=
+x00 },
+> > +     { 0x3235, 0x08 }, { 0x3063, 0x2e }, { 0x307a, 0x10 }, { 0x307b, 0=
+x0e },
+> > +     { 0x3079, 0x20 }, { 0x3070, 0x05 }, { 0x3067, 0x06 }, { 0x3071, 0=
+x62 },
+> > +     { 0x3072, 0x16 }, { 0x3203, 0x43 }, { 0x3205, 0x43 }, { 0x320b, 0=
+x42 },
+> > +     { 0x3007, 0x00 }, { 0x3008, 0x14 }, { 0x3020, 0x58 }, { 0x300d, 0=
+x34 },
+> > +     { 0x300e, 0x17 }, { 0x3021, 0x02 }, { 0x3010, 0x59 }, { 0x3002, 0=
+x01 },
+> > +     { 0x3005, 0x01 }, { 0x3008, 0x04 }, { 0x300f, 0x70 }, { 0x3010, 0=
+x69 },
+> > +     { 0x3017, 0x10 }, { 0x3019, 0x19 }, { 0x300c, 0x62 }, { 0x3064, 0=
+x10 },
+> > +     { 0x3c08, 0x0e }, { 0x3c09, 0x10 }, { 0x3c31, 0x0d }, { 0x3c32, 0=
+xac },
+> > +};
+> > +
+> > +static const struct s5k5e8_reg s5k5e8_2592x1944_regs[] =3D {
+> > +     { 0x0100, 0x00 }, { 0x0136, 0x18 }, { 0x0137, 0x00 }, { 0x0305, 0=
+x06 },
+> > +     { 0x0306, 0x18 }, { 0x0307, 0xa8 }, { 0x0308, 0x34 }, { 0x0309, 0=
+x42 },
+> > +     { 0x3c1f, 0x00 }, { 0x3c17, 0x00 }, { 0x3c0b, 0x04 }, { 0x3c1c, 0=
+x47 },
+> > +     { 0x3c1d, 0x15 }, { 0x3c14, 0x04 }, { 0x3c16, 0x00 }, { 0x0820, 0=
+x03 },
+> > +     { 0x0821, 0x44 }, { 0x0114, 0x01 }, { 0x0344, 0x00 }, { 0x0345, 0=
+x08 },
+> > +     { 0x0346, 0x00 }, { 0x0347, 0x08 }, { 0x0348, 0x0a }, { 0x0349, 0=
+x27 },
+> > +     { 0x034a, 0x07 }, { 0x034b, 0x9f }, { 0x034c, 0x0a }, { 0x034d, 0=
+x20 },
+> > +     { 0x034e, 0x07 }, { 0x034f, 0x98 }, { 0x0900, 0x00 }, { 0x0901, 0=
+x00 },
+> > +     { 0x0381, 0x01 }, { 0x0383, 0x01 }, { 0x0385, 0x01 }, { 0x0387, 0=
+x01 },
+> > +     { 0x0340, 0x07 }, { 0x0341, 0xb0 }, { 0x0342, 0x0b }, { 0x0343, 0=
+x28 },
+> > +     { 0x0200, 0x00 }, { 0x0201, 0x00 }, { 0x0202, 0x03 }, { 0x0203, 0=
+xde },
+> > +     { 0x3303, 0x02 }, { 0x3400, 0x00 }, { 0x323b, 0x02 }, { 0x3301, 0=
+x00 },
+> > +     { 0x3321, 0x04 }, { 0x3306, 0x00 }, { 0x3307, 0x08 }, { 0x3308, 0=
+x0a },
+> > +     { 0x3309, 0x27 }, { 0x330a, 0x01 }, { 0x330b, 0x01 }, { 0x330e, 0=
+x00 },
+> > +     { 0x330f, 0x08 }, { 0x3310, 0x07 }, { 0x3311, 0x9f }, { 0x3312, 0=
+x01 },
+> > +     { 0x3313, 0x01 },
+> > +};
+>
+> Is this a reverse engineered table of initial register values? A comment
+> would be awesome.
+>
+> > +static const struct s5k5e8_mode supported_modes[] =3D {
+> > +     {
+> > +             .width =3D 2592, .height =3D 1944, .hts_def =3D 2856,
+> > +             .vts_def =3D 1968, .vts_min =3D 1968,
+> > +             .num_regs =3D ARRAY_SIZE(s5k5e8_2592x1944_regs),
+> > +             .regs =3D s5k5e8_2592x1944_regs,
+> > +     },
+> > +};
+> > +
+> > [...]
+> > +static int s5k5e8_enum_frame_size(struct v4l2_subdev *sd, struct v4l2_=
+subdev_state *sd_state,
+> > +             struct v4l2_subdev_frame_size_enum *fse)
+> > +{
+> > +     if (fse->index >=3D ARRAY_SIZE(supported_modes) ||
+> > +         fse->code !=3D MEDIA_BUS_FMT_SGRBG10_1X10)
+> > +             return -EINVAL;
+>
+> ARRAY_SIZE(supported_modes) is one. Does supported_modes really need to
+> be an array?
+>
+> > +     fse->min_width =3D fse->max_width =3D supported_modes[fse->index]=
+.width;
+> > +     fse->min_height =3D fse->max_height =3D supported_modes[fse->inde=
+x].height;
+> > +     return 0;
+> > +}
+> > +
+> > [...]
+> > +static int s5k5e8_probe(struct i2c_client *client)
+> > +{
+> > +     struct device *dev =3D &client->dev;
+> > +     struct s5k5e8 *s5k5e8;
+> > +     u32 val =3D 0;
+> > +     unsigned int i;
+> > +     int ret;
+> > +
+> > +     s5k5e8 =3D devm_kzalloc(dev, sizeof(*s5k5e8), GFP_KERNEL);
+> > +     if (!s5k5e8)
+> > +             return -ENOMEM;
+> > +     s5k5e8->dev =3D dev;
+> > +     v4l2_i2c_subdev_init(&s5k5e8->sd, client, &s5k5e8_subdev_ops);
+> > +     s5k5e8->xvclk =3D devm_v4l2_sensor_clk_get(dev, NULL);
+> > +     if (IS_ERR(s5k5e8->xvclk))
+> > +             return dev_err_probe(dev, PTR_ERR(s5k5e8->xvclk), "xvclk\=
+n");
+> > +     clk_set_rate(s5k5e8->xvclk, S5K5E8_XVCLK_FREQ);
+> > +     s5k5e8->reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIO=
+D_OUT_HIGH);
+> > +     if (IS_ERR(s5k5e8->reset_gpio))
+> > +             return dev_err_probe(dev, PTR_ERR(s5k5e8->reset_gpio), "r=
+eset\n");
+> > +     for (i =3D 0; i < S5K5E8_NUM_SUPPLIES; i++)
+> > +             s5k5e8->supplies[i].supply =3D s5k5e8_supply_names[i];
+> > +     ret =3D devm_regulator_bulk_get(dev, S5K5E8_NUM_SUPPLIES, s5k5e8-=
+>supplies);
+> > +     if (ret)
+> > +             return dev_err_probe(dev, ret, "regulators\n");
+> > +     ret =3D s5k5e8_power_on(dev);
+> > +     if (ret)
+> > +             return ret;
+> > +     ret =3D s5k5e8_read_reg(s5k5e8, S5K5E8_CHIP_ID_REG, 2, &val);
+> > +     if (ret || val !=3D S5K5E8_CHIP_ID) {
+> > +             dev_err(dev, "failed to identify s5k5e8 (ret=3D%d, id=3D0=
+x%x)\n", ret, val);
+>
+> Use dev_err_probe() for error messages in the probe function.
+>
+> > +             ret =3D ret ? ret : -ENXIO;
+> > +             goto err_power;
+> > +     }
+> > +     dev_info(dev, "identified Samsung S5K5E8 sensor (0x%04x)\n", val)=
+;
+>
+> Degrade to dev_dbg() or drop. Once the driver is considered ok, messages
+> of this kind only clutter the kernel log with very little value and add
+> to the boot time.
+>
+> > +     mutex_init(&s5k5e8->mutex);
+> > +     s5k5e8->cur_mode =3D &supported_modes[0];
+> > +     ret =3D s5k5e8_init_controls(s5k5e8);
+> > +     if (ret)
+> > +             goto err_mutex;
+> > +     s5k5e8->sd.internal_ops =3D &s5k5e8_internal_ops;
+> > +     s5k5e8->sd.flags |=3D V4L2_SUBDEV_FL_HAS_DEVNODE;
+> > +     s5k5e8->sd.entity.ops =3D &s5k5e8_entity_ops;
+> > +     s5k5e8->sd.entity.function =3D MEDIA_ENT_F_CAM_SENSOR;
+> > +     s5k5e8->pad.flags =3D MEDIA_PAD_FL_SOURCE;
+> > +     ret =3D media_entity_pads_init(&s5k5e8->sd.entity, 1, &s5k5e8->pa=
+d);
+> > +     if (ret)
+> > +             goto err_ctrl;
+>
+> Use newlines to separate function call + its error handling from the
+> other code.
+>
+> > +     s5k5e8->sd.state_lock =3D &s5k5e8->mutex;
+> > +     ret =3D v4l2_subdev_init_finalize(&s5k5e8->sd);
+> > +     if (ret)
+> > +             goto err_media;
+> > +     ret =3D v4l2_async_register_subdev_sensor(&s5k5e8->sd);
+> > +     if (ret)
+> > +             goto err_media;
+> > +     pm_runtime_set_active(dev);
+> > +     pm_runtime_enable(dev);
+> > +     pm_runtime_idle(dev);
+> > +     return 0;
+> > +err_media: media_entity_cleanup(&s5k5e8->sd.entity);
+> > +err_ctrl: v4l2_ctrl_handler_free(s5k5e8->sd.ctrl_handler);
+> > +err_mutex: mutex_destroy(&s5k5e8->mutex);
+> > +err_power: s5k5e8_power_off(dev);
+>
+> A label should be on its own line.
+>
+> > +     return ret;
+> > +}
+> > +
+> > +static void s5k5e8_remove(struct i2c_client *client)
+> > +{
+> > +     struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
+> > +     struct s5k5e8 *s5k5e8 =3D to_s5k5e8(sd);
+> > +
+> > +     v4l2_async_unregister_subdev(sd);
+> > +     media_entity_cleanup(&sd->entity);
+> > +     v4l2_ctrl_handler_free(sd->ctrl_handler);
+> > +     mutex_destroy(&s5k5e8->mutex);
+> > +     pm_runtime_disable(&client->dev);
+> > +     if (!pm_runtime_status_suspended(&client->dev))
+> > +             s5k5e8_power_off(&client->dev);
+> > +     pm_runtime_set_suspended(&client->dev);
+> > +}
+> > +
+> > +static const struct dev_pm_ops s5k5e8_pm_ops =3D { SET_RUNTIME_PM_OPS(=
+s5k5e8_power_off,
+> > +             s5k5e8_power_on, NULL) };
+>
+> This looks strange. I'd add a \n before SET_RUNTIME_PM_OPS. In general
+> align continuation lines to the previous opening brace or parenthesis.
+>
+> > +static const struct of_device_id s5k5e8_of_match[] =3D { { .compatible=
+ =3D "samsung,s5k5e8" }, { } };
+>
+> Please fix the layout of this struct. It should look like:
+>
+> static const struct of_device_id s5k5e8_of_match[] =3D {
+>         { .compatible =3D "samsung,s5k5e8" },
+>         { }
+> };
+>
+>
+> > +MODULE_DEVICE_TABLE(of, s5k5e8_of_match);
+> > +static struct i2c_driver s5k5e8_i2c_driver =3D {
+> > +     .driver =3D { .name =3D "s5k5e8", .pm =3D &s5k5e8_pm_ops, .of_mat=
+ch_table =3D s5k5e8_of_match },
+> > +     .probe =3D s5k5e8_probe, .remove =3D s5k5e8_remove,
+>
+> This also lacks newlines.
+>
+> > +};
+> > +module_i2c_driver(s5k5e8_i2c_driver);
+> > +MODULE_DESCRIPTION("Samsung S5K5E8 5MP sensor driver");
+> > +MODULE_LICENSE("GPL");
+>
+> The same critics apply to (at least) patch #5, too.
+>
+> Best regards
+> Uwe
 
-Thanks!
-Maxime
+
+
+--=20
+Best regards,
+Hikmah Gumelar
