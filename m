@@ -1,59 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795456927;
-	b=Tx6H5gj7OB5wFr3AOVDEM8OOA3idVSKX3cnsDjrqqnMBRggkfe6YkGFc8i7ImWZZI48G
-	 RoJdlEmQ/afYKJ2wT0egT463wwcGs6pT+c1G8zhxB9RqJ81/oA2jsLEM1Sf04ayYklxT1
-	 K35FlZBw9wpdp8ZbKVHhyeqcGFyd0bbWhAi9sCEBchxu+icNF/yl0s4OIN+UGpRT4y9Td
-	 HWg7xl+f7fkexFj/rBoH2YnMl3Vq7my6H4m9p6wi/5UXSBQUZffZJf6o/c3Rq01vvx1z5
-	 JW/2DD9cneAkBfKr5tkIeJiYsF23jMG2mNMI+6d70yQB6Acl/+Xoe2f63N5EPcPBoVA==
+	t=1795458436;
+	b=pVi9lWc1uOHX2Qo+713R+xMnHGtU7hfOw2OE5/fV9nbETYEmUWldRFwpbJL2O6W4eZnB
+	 AcBrgCkNetUdU6yF2fHBl+XS3npMUCMCItqlskQfJFqIpAvkSxTLOC/qAnnYyrcGLs5Aa
+	 L2EOqP1qbicj3trXBDGxMyIAYlA5vh5U88ykwvNKf0WGXLbKg5lfWihSiobU4rfui2lrH
+	 9E5uocw3+MqkuQOsNrkSGKSm9OATjT/eg56DWh9i84kKUsjep/8+H6lNVo4+QsJMWzDzd
+	 MJTVj5r83cv1hh/I0PjcAhxp+B2lWQYna9IaQ9J4PN0bt01No584OT/dqT8BDxCihnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795456927;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=pKlXgOewf+o3UFmngDas4t6V3A9twRqQfDsEtlYDJok=;
-	b=m/7mH8Uq9o/8HA6OEP8emLlrZTrVsox5ni6IX79sysKqDgRqXg/kIc6NjCi5YjhoLNm0
-	 dZ9rpvQFQl0rTWoLlB8GFIywNFhMQL7NTKEyL/crapFSrQOfCoyk/C867PwXzKmv/5Ccj
-	 DkuvxRuqdu9XUEILqF0ljIl+BAjdhqt9FLGxAZw0PqXVQ/mdCl0tDC731x6mKvjlS7SXk
-	 LbN5T67lO+5mAV+7d3uqBrzrg70Bg8w7bvpsK+kW1iXEWMeaIHEH0h80Ov1tzRt2yWEkG
-	 uGjmD9mUbQ1d8J3ST60azdfbF9Yj7YX5VDAfOcqGRkxRjMKv6S0HOa3kxPCanZSV5Sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795458436;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=ZmOxiuWiVREG/xxsxKNmWwGxYCUEEUhnys7Cmf52QWI=;
+	b=gPaa8SBxF3Xz08Cu3BMU8lfEqPuq12J+gyGrGjfhBwIPLMzOv8Ao3O/88y9n7FkQR9xg
+	 Dxbp7pbj5SBUhUL1/gW3kxVUnb74ExtiKc/XtJ3ZuqMMFGQZRMZoQzYSFVo7yszKYEXkW
+	 ZG/EiruNOsu3YYS9gMfekhC7INsdBYxZM43VVxvda66qms5h7uRnQZi3lYgwzMS9LUXPV
+	 B4G23LTQLP+rcfXmz3g4O00/2EJjYMvpRdMWlHk5eguAJGqGeT+RpZwi6nBF7hEV1hVXp
+	 8O4oze98OD655z7Khy4hFOLBkCw6N85bjrKX90EKqUviuXVWKsxIMnmNsHAIt3viG+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Jpq2nYuD;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=ixit.cz;
+	spf=pass smtp.mailfrom=ixit.cz;
+	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=1bR806fP;
+	arc=none smtp.remote-ip=84.42.129.46
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78EA6606A31A
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 18:02:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78EA6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBD7606A31A
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 18:27:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DBD7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Jpq2nYuD
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 24E1E228;
-	Mon, 23 Nov 2026 18:59:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1795456772;
-	bh=CUaGrrg4kpz+zuGVm/MSF6QOabC0gJXC5hLQSE+daSk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Jpq2nYuDzHuy8t80O+h+0jgbY9GzBCZAnuIChvBl824KXJ1UK8YcUc5o2dDb8p2pz
-	 A55C7J/MVckggx8ox0oGmJmx0Y0WyF4XtaOaA/HAJTXlNhWsfk5Tcf0xvTzUOfvK5p
-	 u/ODx1ONo3Il2Lj0odVghymCEEhp9z6HnD/IS91Q=
-Date: Mon, 23 Nov 2026 20:02:03 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org
-Subject: Re: [PATCH 0/4] Various CCS fixes
-Message-ID: <20261123180203.GC3050935@killaraus.ideasonboard.com>
-References: <20261123-ccs-clanked-fixes-v1-0-fb2bcc87a517@ixit.cz>
- <20261123165549.GE2959742@killaraus.ideasonboard.com>
- <dc8bcacc-d743-4108-87e7-3c6715b23f4a@ixit.cz>
+	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=1bR806fP
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id E8496534026C;
+	Mon, 23 Nov 2026 19:27:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1795458431;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=ZmOxiuWiVREG/xxsxKNmWwGxYCUEEUhnys7Cmf52QWI=;
+	b=1bR806fPbzPf1/g3/i/bsaPGrNOsdcB1zf635+1jzmqkUFwc/ZfJmMFicMgBdoc9DgzvYo
+	sSFJGpQSSoLNmgGRzZc4RR8cAG/8Oz3yzqL/MDhBc/nAVL0hc7+z8OF25G9Gj6/0H5b0It
+	mNJTyr5HNl8rWkw3ZdEuJVz3ySz1ysg=
+Message-ID: <775a6f72-d138-4ff2-9328-1c0c9c865d07@ixit.cz>
+Date: Mon, 23 Nov 2026 19:27:10 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -63,76 +60,152 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <dc8bcacc-d743-4108-87e7-3c6715b23f4a@ixit.cz>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] Various CCS fixes
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org
+References: <20261123-ccs-clanked-fixes-v1-0-fb2bcc87a517@ixit.cz>
+ <20261123165549.GE2959742@killaraus.ideasonboard.com>
+ <dc8bcacc-d743-4108-87e7-3c6715b23f4a@ixit.cz>
+ <20261123180203.GC3050935@killaraus.ideasonboard.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20261123180203.GC3050935@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 23, 2026 at 06:55:53PM +0100, David Heidelberg wrote:
-> On 23/11/2026 17:55, Laurent Pinchart wrote:
-> > On Mon, Nov 23, 2026 at 01:02:38PM +0100, David Heidelberg via B4 Relay wrote:
-> >> First two seems to be no-brainers. Next two seems to be correct too.
-> > 
-> > What exactly do you mean by "seems to be correct" ? Are you sending
-> > LLM-generated patches that you're not even sure about ? That's a
-> > complete no-go.
+On 23/11/2026 19:02, Laurent Pinchart wrote:
+> On Mon, Nov 23, 2026 at 06:55:53PM +0100, David Heidelberg wrote:
+>> On 23/11/2026 17:55, Laurent Pinchart wrote:
+>>> On Mon, Nov 23, 2026 at 01:02:38PM +0100, David Heidelberg via B4 Relay wrote:
+>>>> First two seems to be no-brainers. Next two seems to be correct too.
+>>>
+>>> What exactly do you mean by "seems to be correct" ? Are you sending
+>>> LLM-generated patches that you're not even sure about ? That's a
+>>> complete no-go.
+>>
+>> Hello Laurent.
+>>
+>> While I'm aware of your antipathy against LLM models, current situations doesn't
+>> look like there are lining people to fix it and make sensors work with the MIPI
+>> CCS drivers (introduced 2012).
+>> This leads to endless forks of imxXXX sensors across hundreds of trees + people
+>> clanking this stuff over and over. Let's establish that first.
+>>
+>> When I see opportunity to improve the generic driver, I'm taking it.
+>>
+>> change-id: 20261123-ccs-clanked-fixes-609bb0754028
+>>
+>> As you can see the change-id, I didn't make it somehow hidden. I reviewed the
+>> changes which LLM found when helping me figuring out why I have black/white
+>> output from the sensor which sequences seemed to be correct to me.
+>>
+>> My logical thinking would be evaluate quality and review the code, which leads
+>> to my brain marked:
+>>
+>> patch 1 + 2 as pretty confident it's correct and
+>> patch 3 + 4 as looking reasonable to me.
+>> patch 5 + 6 I haven't send because of unnecessary complexity and likely wrong
+>> approach (still in the backlog to analyze)
+>>
+>> I would believe it's better to at least report in this form, thus my comment
+>> inside the cover, that last two patches may be useful. And yes, I understand
+>> there is infinite amount of randomly clanked patches coming in your direction
+>> and I understand it's huge time-waster and pain.
+>>
+>> For v2 I'll drop patch 3 and 4. Hopefully that makes more sense to you, because
+>> as I'm working on getting Linux mobile phones in a good shape, I have not
+>> ability to split myself into developer highly specialized in every field
+>> (subsystem).
 > 
-> Hello Laurent.
+> Sakari maintains the CCS driver, so it's his call.
 > 
-> While I'm aware of your antipathy against LLM models, current situations doesn't 
-> look like there are lining people to fix it and make sensors work with the MIPI 
-> CCS drivers (introduced 2012).
-> This leads to endless forks of imxXXX sensors across hundreds of trees + people 
-> clanking this stuff over and over. Let's establish that first.
-> 
-> When I see opportunity to improve the generic driver, I'm taking it.
-> 
-> change-id: 20261123-ccs-clanked-fixes-609bb0754028
-> 
-> As you can see the change-id, I didn't make it somehow hidden. I reviewed the 
-> changes which LLM found when helping me figuring out why I have black/white 
-> output from the sensor which sequences seemed to be correct to me.
-> 
-> My logical thinking would be evaluate quality and review the code, which leads 
-> to my brain marked:
-> 
-> patch 1 + 2 as pretty confident it's correct and
-> patch 3 + 4 as looking reasonable to me.
-> patch 5 + 6 I haven't send because of unnecessary complexity and likely wrong 
-> approach (still in the backlog to analyze)
-> 
-> I would believe it's better to at least report in this form, thus my comment 
-> inside the cover, that last two patches may be useful. And yes, I understand 
-> there is infinite amount of randomly clanked patches coming in your direction 
-> and I understand it's huge time-waster and pain.
-> 
-> For v2 I'll drop patch 3 and 4. Hopefully that makes more sense to you, because 
-> as I'm working on getting Linux mobile phones in a good shape, I have not 
-> ability to split myself into developer highly specialized in every field 
-> (subsystem).
+> I find it very rude to throw LLM-generated patches to reviewers and
 
-Sakari maintains the CCS driver, so it's his call.
+Take generated slop and just throw it maintainer - definitely rude.
 
-I find it very rude to throw LLM-generated patches to reviewers and
-maintainers if you can't have full confidence yourself that they're
-correct. If you don't want to invest *your* time and energy into
-properly understanding what a series does, why should maintainers spend
-any time helping you for free ?
+Do a review myself with non-maintainer level of skills and partial 
+understanding? Hard to say.
 
-> >> Signed-off-by: David Heidelberg <david@ixit.cz>
-> >> ---
-> >> David Heidelberg (4):
-> >>        media: ccs: Use dev_dbg() instead of dev_err() in ccs_enum_mbus_code()
-> >>        media: ccs: Fix sub-device index in ccs_cleanup()
-> >>        media: ccs: Update PLL and blanking limits when pixel_array crop changes
-> >>        media: ccs: Set V4L2_CTRL_FLAG_MODIFY_LAYOUT on flip controls
-> >>
-> >>   drivers/media/i2c/ccs/ccs-core.c | 14 +++++++++++---
-> >>   1 file changed, 11 insertions(+), 3 deletions(-)
-> >> ---
-> >> base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
-> >> change-id: 20261123-ccs-clanked-fixes-609bb0754028
+It's rude to send patch when I'm fixing something in the kernel, but maybe my 
+understanding isn't that brilliant as the maintainer one?
 
--- 
-Regards,
+> maintainers if you can't have full confidence yourself that they're
+> correct. If you don't want to invest *your* time and energy into
+> properly understanding what a series does, 
 
-Laurent Pinchart
+That's fair argument. Again not B/W, I invest my time. I have partial knowledge 
+of media subsystem, sent fixes before (even without LLMs).
+
+ > why should maintainers spend
+ > any time helping you for free ?
+
+That's good point. I could ask myself too - why am I sending fixes for free (not 
+paid by contract or company - community work)?
+
+Maybe you're right. Maybe I should just patch the local imxXXX.c file in few 
+minutes and ignore it for year until it breaks again.
+
+David
+
+> 
+>>>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>>>> ---
+>>>> David Heidelberg (4):
+>>>>         media: ccs: Use dev_dbg() instead of dev_err() in ccs_enum_mbus_code()
+>>>>         media: ccs: Fix sub-device index in ccs_cleanup()
+>>>>         media: ccs: Update PLL and blanking limits when pixel_array crop changes
+>>>>         media: ccs: Set V4L2_CTRL_FLAG_MODIFY_LAYOUT on flip controls
+>>>>
+>>>>    drivers/media/i2c/ccs/ccs-core.c | 14 +++++++++++---
+>>>>    1 file changed, 11 insertions(+), 3 deletions(-)
+>>>> ---
+>>>> base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
+>>>> change-id: 20261123-ccs-clanked-fixes-609bb0754028
+> 
+
