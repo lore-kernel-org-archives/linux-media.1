@@ -1,73 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795455063;
-	b=YH/SMWemDLD8DB44PCiB0D3NNFhk6TLclTLIBIg/W5B85YHLDRyMAqtAkfxn5oN7YjBa
-	 GCUetp3M/pCoy2jbygI7+RNW19DYe/jxOkhatO07nwX3kQv56+zpG32Vt/MXjTeDvkDAi
-	 US6sCJ40ECbCuxgdvxHufqJOraZBXPTKDp1q5gFF/TxRwXAua3xNhdYIX16++gFF1gfLm
-	 yNV+O8hqJPYBDed6saob7s1UYf7CIKxDZi4yKLU7Vvf/yA3L2L2StGm2O4QQr1rzCGk4y
-	 zVguhhLv9iDV27YC0UePjV70oJ6NkfnnSv4Px6Iop6v9g1w/eEcd5iRorPMAqGsEhWA==
+	t=1795456040;
+	b=XWbdqVEjLgAkZ5kQQLk+vr5ED35iiKyYZv8sEeUK1YZHUlaRV2mpA3ji8U6VOWAt+bKV
+	 94tePwS9XB5DbQnKleQ5z82czxrQOoS1Fd/7RTXu8IoAhvezG0oVPEGCu6O+wgWIY7doR
+	 /Nj4SLbfR74j4PieUGATdSgQRDErrHi1fmHWNtwGc+uv9afPG2jdvAo6lK6sZLIFBNN1m
+	 IDP41Quky4JKFrsOUxhk2R+kaUW2krnPDC8HdRZsn9mkcsFiZQHR39jqD9lhtsQxzhb2W
+	 2Ix7U1zbAhHayb1i3FpK4ridHhKyuB9eWg63w2Di59EU1pzjuYAistecDhGJ0pyvK1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795455063;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=H5+Lix3xzZSXhmyLmSdI/jrXb/6kX811TwJY7/S4SQU=;
-	b=X05NJbIq8wfaqakRnBf5BaJ5+pc9SSFT8dtnhjJtdKjlVU69/mnslB7MtyRXymg63d8y
-	 TuAfydM68VVak1Bp0ML7rjf8v2bJP6Ex87RaLBMK1Ro48HuqHT94v2F1RhlTsX9+7fywJ
-	 Zv0Oa4nCwhbyQfCtBAU0jvtVdxvS/mrAItD2qS3LUTqgtN+Uee/mMSEvGKHj/05jqV4p0
-	 oNbN4yUl+TPzTmOO7OmMU+u7F9YBNMHaWThqysVtXx5fJbYKBJBtDmUWA+1NBSnnA422P
-	 wWLQEiu6cACtHRSGU/SvYZzZ6QWSmNqCnl8ReBYdcNEyMUD9YFM36hABOGNXrcWq5hQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795456040;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=KJ+qZXgGJu+2QOQssohcMg51b5jRGstSAHnCRdWh0Nc=;
+	b=WkvElTyq23El7m/6W/ATOp2Azv2LdIKAKD6v+HbIafW4DOaezktfigmCpZjOf11f2Ceu
+	 MUCrsgRfo/xMkkihpkSJ0IP8Rf2NO3E1kLhtA5VNqk5RR3Z+zB1q6ihZkjnjl4D7dbySk
+	 qfFQcGINMqQ6JNmQMNYlfbFwYfYD1/lGelHSpX+jRbi29LJT6fVQgRHyqJiRFXEQeyF7h
+	 LUXu+Qko8rJ0Y2d2Ruf1nraQf+F3t7AfSiJ+uMDLhBZbn7WQHMhnKRigd9E8FQMUyqVQb
+	 gElEnC3nNScT+LBh4WYLGelgOcO98Yfl91ZiPRRBU4Dc45lX1Ens9JtpPYq8Kw4n2Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amLS0Yjn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ixit.cz;
+	spf=pass smtp.mailfrom=ixit.cz;
+	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=vbc+Ig9e;
+	arc=none smtp.remote-ip=84.42.129.46
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0557606A327;
-	Mon, 23 Nov 2026 17:31:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733C5606A31A
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 17:47:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 733C5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amLS0Yjn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE51D1F000CF;
-	Mon, 23 Nov 2026 17:30:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795455062;
-	bh=H5+Lix3xzZSXhmyLmSdI/jrXb/6kX811TwJY7/S4SQU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=amLS0YjncvNQ8pmJUK54pkqj7g6R+BvKyP09zvF4FpC6ZYJmXf1rqrz7cnIDa8kEs
-	 EUWLGPx3cl2WgTRKDzJkV84pGWBytW6j9+dXVHk7oe7IXom0C0t1BBtDTglYuoGEr2
-	 +dudUVBvI0XE2yWAg43iUgkd3VALtI0xsoRsEWxc32FATRGUvTqFUJgYjC2wPW2ejR
-	 3OYKYRxwTZ9nqFnxGFvdZog3FoMn5f+9VHIRADSYUm3uJ0DVSAP7h+a0vgFv4PVXYB
-	 mCIrobfQpnSLlKmUBRL2VRuQAqVkSDv29/242VxHYj768lQqO4v6kUn4Wd1DakW3nd
-	 HKQpbNyYBIH8Q==
-Date: Mon, 23 Nov 2026 17:30:54 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Olivier Moysan <olivier.moysan@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH v2 01/11] dt-bindings: iio: adc: add stm32mp2 mdf filter
-Message-ID: <20261123-barbecue-trickily-4ae8d9f01b3d@spud>
-References: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
- <20261118-upstream_mdf_v2-v2-1-7939d3c3720a@foss.st.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=vbc+Ig9e
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 0CEF95340237;
+	Mon, 23 Nov 2026 18:47:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1795456037;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=KJ+qZXgGJu+2QOQssohcMg51b5jRGstSAHnCRdWh0Nc=;
+	b=vbc+Ig9eL54fESGChS5SIipBuBbwoMCNs1MtqGpczawUDs9j7UQuMprIKKzDrhVIKz5303
+	PfOz+h+r/q+w/HltR91OjYx2ijdnapS4izEEtgQ9XNBWrcnAsbKl8knASWwKMi1K/d7Ifi
+	Cfvsw+BhmWKWhduSMKHm1iuND10seyw=
+Message-ID: <7f0c3af1-0251-45d5-9413-6549950d273b@ixit.cz>
+Date: Mon, 23 Nov 2026 18:47:16 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -77,422 +60,133 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qmIYYbkYuRL7omxq"
-Content-Disposition: inline
-In-Reply-To: <20261118-upstream_mdf_v2-v2-1-7939d3c3720a@foss.st.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] media: ccs: Use dev_dbg() instead of dev_err() in
+ ccs_enum_mbus_code()
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org
+References: <20261123-ccs-clanked-fixes-v1-0-fb2bcc87a517@ixit.cz>
+ <20261123-ccs-clanked-fixes-v1-1-fb2bcc87a517@ixit.cz>
+ <20261123165304.GC2959742@killaraus.ideasonboard.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20261123165304.GC2959742@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---qmIYYbkYuRL7omxq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 23/11/2026 17:53, Laurent Pinchart wrote:
+> On Mon, Nov 23, 2026 at 01:02:39PM +0100, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> Commit 63bd19442f08 accidentally converted two dev_dbg() calls in
+>> ccs_enum_mbus_code() to dev_err(), flooding the kernel log with error
+>> messages whenever userspace enumerates media bus codes.
+>>
+>> Restore them to dev_dbg().
+>>
+>> Fixes: 63bd19442f08 ("media: ccs: Use %u for printing unsigned values, remove extra debug print")
+> 
+> According to the git history those have been there since the first
+> version of the driver (named smiapp back then).
+> 
+> The change is good, the commit message needs an update.
 
-With an eye to accepting something of this nature, rather than a rework,
-I have some initial questions before suggesting some remodeling of what
-is here.
+Thank you, will be fixed in the v2!
 
-On Wed, Nov 18, 2026 at 04:17:46PM +0100, Olivier Moysan wrote:
-> Add bindings that describes STM32 MDF settings to support
-> digital filtering for Pulse Density Modulation (PDM) microphones
-> and analog sigma delta modulators, on STM32MP2 SoCs.
->=20
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> ---
->  .../bindings/iio/adc/st,stm32mp25-mdf.yaml         | 341 +++++++++++++++=
-++++++
->  1 file changed, 341 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32mp25-mdf.y=
-aml b/Documentation/devicetree/bindings/iio/adc/st,stm32mp25-mdf.yaml
-> new file mode 100644
-> index 000000000000..e4925a38012d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32mp25-mdf.yaml
-> @@ -0,0 +1,341 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/st,stm32mp25-mdf.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STMicroelectronics STM32 Multi-function Digital Filter (MDF) ADC
-> +
-> +maintainers:
-> +  - Olivier Moysan <olivier.moysan@foss.st.com>
-> +
-> +description: |
-> +  STM32 MDF ADC is a sigma delta analog-to-digital converter dedicated to
-> +  interface external sigma delta modulators to STM32 micro controllers.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - st,stm32mp23-mdf
-> +      - st,stm32mp25-mdf
-> +
-> +  reg:
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  "#clock-cells":
-> +    enum: [0, 1]
-> +
-> +  clock-output-names:
-> +    description: |
-> +      CCK0 and CCK1 are optional output clocks, which share the same clo=
-ck frequency,
-> +      but can be gated independently to save power.
-> +    minItems: 1
-> +    items:
-> +      - enum: [cck0, cck1]
-> +      - const: cck1
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +  ranges: true
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  access-controllers:
-> +    maxItems: 1
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +
-> +  st,interleave:
-> +    description: |
-> +      Number of interleaved filters, starting from filter 0. For a value=
- N,
-> +      filters 0 through N - 1 participate in interleaving. Their samples=
- are
-> +      multiplexed into a single channel and retrieved through the device
-> +      associated with filter 0. Filters 1 through N - 1 must be enabled =
-and
-> +      inherit their configuration from filter 0. If absent, interleaving=
- is
-> +      disabled.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 2
-> +    maximum: 8
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - ranges
-> +  - clocks
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +
-> +additionalProperties: false
-> +
-> +patternProperties:
-> +  "^sitf@[0-9]+$":
-> +    type: object
-> +    description: |
-> +      Serial interface configuration, managed by the MDF core. Pin contr=
-ol
-> +      states for the serial interface pins belong to the MDF parent node.
-> +
-> +    properties:
-> +      reg:
-> +        description: Specify the SITF serial interface instance
-> +        maxItems: 1
-> +
-> +      clocks:
-> +        description: |
-> +          Serial interface clock (optional depending on interface mode)
-> +        maxItems: 1
-> +
-> +      st,sitf-mode:
-> +        description: |
-> +          Select serial interface protocol
-> +          - spi: SPI mode
-> +          - lf_spi: low frequency SPI mode for low power applications
-> +        $ref: /schemas/types.yaml#/definitions/string
-> +        enum:
-> +          - spi
-> +          - lf_spi
-> +
-> +    required:
-> +      - reg
-> +      - st,sitf-mode
-> +
-> +    additionalProperties: false
-> +
-> +  "^filter@[0-9]+$":
-> +    type: object
-> +    description: Digital filter path child node
-> +
-> +    properties:
-> +      compatible:
-> +        enum:
-> +          - st,stm32mp25-mdf-dmic
-> +          - st,stm32mp25-mdf-adc
+David
 
-These two compatibles don't represent different hardware, just different
-roles from the same hardware, right?
+> 
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+>>   drivers/media/i2c/ccs/ccs-core.c | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/media/i2c/ccs/ccs-core.c b/drivers/media/i2c/ccs/ccs-core.c
+>> index c3592317ee575..284cfbd89349c 100644
+>> --- a/drivers/media/i2c/ccs/ccs-core.c
+>> +++ b/drivers/media/i2c/ccs/ccs-core.c
+>> @@ -2104,17 +2104,17 @@ static int ccs_enum_mbus_code(struct v4l2_subdev *subdev,
+>>   			      struct v4l2_subdev_state *sd_state,
+>>   			      struct v4l2_subdev_mbus_code_enum *code)
+>>   {
+>>   	struct i2c_client *client = v4l2_get_subdevdata(subdev);
+>>   	struct ccs_sensor *sensor = to_ccs_sensor(subdev);
+>>   	unsigned int i;
+>>   	int idx = -1;
+>>   
+>> -	dev_err(&client->dev, "subdev %s, pad %u, index %u\n",
+>> +	dev_dbg(&client->dev, "subdev %s, pad %u, index %u\n",
+>>   		subdev->name, code->pad, code->index);
+>>   
+>>   	if (subdev != &sensor->src->sd || code->pad != CCS_PAD_SRC) {
+>>   		if (code->index)
+>>   			return -EINVAL;
+>>   
+>>   		code->code = sensor->internal_csi_format->code;
+>>   
+>> @@ -2122,17 +2122,17 @@ static int ccs_enum_mbus_code(struct v4l2_subdev *subdev,
+>>   	}
+>>   
+>>   	for (i = 0; i < ARRAY_SIZE(ccs_csi_data_formats); i++) {
+>>   		if (sensor->mbus_frame_fmts & BIT_U64(i))
+>>   			idx++;
+>>   
+>>   		if (idx == code->index) {
+>>   			code->code = ccs_csi_data_formats[i].code;
+>> -			dev_err(&client->dev, "found index %u, i %u, code %x\n",
+>> +			dev_dbg(&client->dev, "found index %u, i %u, code %x\n",
+>>   				code->index, i, code->code);
+>>   			return 0;
+>>   		}
+>>   	}
+>>   
+>>   	return -EINVAL;
+>>   }
+>>   
+> 
 
-> +
-> +      reg:
-> +        description: Specify the MDF filter instance
-> +        maxItems: 1
-> +
-> +      interrupts:
-> +        maxItems: 1
-> +
-> +      dmas:
-> +        maxItems: 1
-> +
-> +      dma-names:
-> +        items:
-> +          - const: rx
-> +
-> +      "#io-channel-cells":
-> +        const: 1
-> +
-> +      '#address-cells':
-> +        const: 1
-> +
-> +      '#size-cells':
-> +        const: 0
-> +
-> +      st,cic-mode:
-> +        description: |
-> +          Cascaded-integrator-comb (CIC) filter configuration
-> +          - 0: MCIC & ACIC filters in FastSinc mode
-> +          - [1-3]: MCIC & ACIC filters in Sinc mode order 1 to 3
-> +          - [4-5]: Single CIC filter in Sinc mode order 4 to 5
-> +          For audio purpose it is recommended to use CIC Sinc4 or Sinc5
-> +          This property is mandatory for filter 0 or filters not used in=
- interleave mode.
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        minimum: 0
-> +        maximum: 5
-> +
-> +      st,delay:
-> +        description: Filter delay in samples
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        maximum: 127
-> +
-> +      st,rs-filter-bypass:
-> +        description: Bypass RSFLT reshaping filter.
-> +        $ref: /schemas/types.yaml#/definitions/flag
-> +
-> +      st,hpf-filter-cutoff-bp:
-> +        description: |
-> +          High Pass Filter (HPF) cut-off frequency expressed as a fracti=
-on of the PCM sampling rate.
-> +          Cut-off frequency =3D st,hpf-filter-cutoff-bp x Fpcm / 10000.
-> +          If this property is not defined the HPF is disabled.
-> +        enum: [625, 1250, 2500, 9500]
-> +
-> +      st,sync:
-> +        description:
-> +          Synchronize to another filter.
-> +          Must contain the phandle of the filter providing the synchroni=
-zation.
-> +        allOf:
-> +          - $ref: /schemas/types.yaml#/definitions/phandle-array
-> +          - maxItems: 1
-> +
-
-> +      st,sitf:
-> +        $ref: /schemas/types.yaml#/definitions/phandle-array
-> +        items:
-> +          - items:
-> +              - description: Phandle of the serial interface connected t=
-o the digital filter
-> +              - description: |
-> +                  The phandle's argument selects the bitstream on the fa=
-lling or rising edge
-> +                  of the serial interface clock:
-> +                  - 0: rising edge
-> +                  - 1: falling edge
-> +                enum: [0, 1]
-> +                default: 0
-> +        description:
-> +          Should be phandle/bitstream pair.
-
-Can this ever be more than a single phandle?
-
-> +
-> +      mdf-dai:
-> +        type: object
-> +        description: Audio interface for the MDF filter
-> +
-> +        properties:
-> +          compatible:
-> +            const: st,stm32mp25-mdf-dai
-> +
-> +          "#sound-dai-cells":
-> +            const: 0
-> +
-> +          io-channels:
-> +            description:
-> +              From common IIO binding. Used to pipe external sigma delta
-> +              modulator or internal ADC output to MDF channel.
-> +
-> +          power-domains:
-> +            maxItems: 1
-> +
-> +          port:
-> +            $ref: /schemas/sound/audio-graph-port.yaml#
-> +            unevaluatedProperties: false
-> +
-> +        required:
-> +          - compatible
-> +          - "#sound-dai-cells"
-> +          - io-channels
-> +
-> +        additionalProperties: false
-> +
-> +    required:
-> +      - compatible
-> +      - reg
-> +      - interrupts
-> +      - dmas
-> +      - dma-names
-> +      - "#io-channel-cells"
-> +      - "#address-cells"
-> +      - "#size-cells"
-> +      - st,sitf
-> +
-> +    patternProperties:
-> +      "^channel@([0-7])$":
-> +        type: object
-> +        $ref: adc.yaml
-> +        description: Represents the external channel which is connected =
-to the MDF.
-> +
-> +        properties:
-> +          reg:
-> +            maximum: 7
-> +
-> +          io-backends:
-> +            description:
-> +              Used to pipe external sigma delta modulator or internal AD=
-C backend to MDF
-> +              channel.
-> +            maxItems: 1
-> +
-> +        required:
-> +          - reg
-> +
-> +        unevaluatedProperties: false
-> +
-> +    allOf:
-> +      - if:
-> +          properties:
-> +            compatible:
-> +              contains:
-> +                const: st,stm32mp25-mdf-adc
-> +
-> +        then:
-> +          patternProperties:
-> +            "^channel@[0-7]$":
-> +              required:
-> +                - io-backends
-> +          properties:
-> +            mdf-dai: false
-> +
-> +    unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/st,stm32mp25-rcc.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    mdf1: filter@504d0000 {
-> +      compatible =3D "st,stm32mp25-mdf";
-> +      ranges =3D <0 0x504d0000 0x1000>;
-> +      reg =3D <0x504d0000 0x8>, <0x504d0ff0 0x10>;
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <1>;
-> +      clocks =3D <&rcc CK_KER_MDF1>;
-> +      #clock-cells =3D <1>;
-> +      clock-output-names =3D "cck0", "cck1";
-> +
-> +      sitf5: sitf@300 {
-> +        reg =3D <0x300 0x4>;
-> +        st,sitf-mode =3D "spi";
-> +        clocks =3D <&mdf1 0>;
-> +        assigned-clocks =3D <&mdf1 0>;
-> +        assigned-clock-rates =3D <2048000>;
-> +      };
-> +
-> +      filter0: filter@84 {
-> +        compatible =3D "st,stm32mp25-mdf-dmic";
-> +        reg =3D <0x84 0x70>;
-> +        #io-channel-cells =3D <1>;
-> +        interrupts =3D <GIC_SPI 184 IRQ_TYPE_LEVEL_HIGH>;
-> +        dmas =3D <&hpdma 63 0x63 0x12 0>;
-> +        dma-names =3D "rx";
-> +        st,cic-mode =3D <5>;
-> +        st,sitf =3D <&sitf5 0>;
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        channel@0 {
-> +          reg =3D <0>;
-> +        };
-> +
-> +        mdf-dai {
-> +          compatible =3D "st,stm32mp25-mdf-dai";
-> +          #sound-dai-cells =3D <0>;
-> +          io-channels =3D <&filter0 0>;
-> +        };
-> +      };
-> +
-> +      filter@104 {
-> +        compatible =3D "st,stm32mp25-mdf-adc";
-> +        reg =3D <0x104 0x70>;
-> +        #io-channel-cells =3D <1>;
-> +        interrupts =3D <GIC_SPI 185 IRQ_TYPE_LEVEL_HIGH>;
-> +        dmas =3D <&hpdma 64 0x63 0x12 0>;
-> +        dma-names =3D "rx";
-> +        st,cic-mode =3D <2>;
-> +        st,sitf =3D <&sitf5 1>;
-
-Is this a realistic example, with multiple devices connected to the same
-sitf? I assume it is technically possible, given what I have seen in the
-docs but would anyone do this in reality?
-
-Cheers,
-Conor.
-
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        channel@1 {
-> +          reg =3D <1>;
-> +          settling-time-us =3D <1000>;
-> +          io-backends =3D <&sd_adc1>;
-> +        };
-> +      };
-> +    };
-> +
-> +...
->=20
-> --=20
-> 2.43.0
->=20
-
---qmIYYbkYuRL7omxq
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCawR4TgAKCRB4tDGHoIJi
-0t1eAP9+SKDfz/fXqCrDw0Xq8RD8jyl2939S/hKOCEEMY+AzcQEA8kFKkJ2Ma5xy
-MH26truzNzaIE4lDOb7gNwiUWblYrgk=
-=JJBX
------END PGP SIGNATURE-----
-
---qmIYYbkYuRL7omxq--
