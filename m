@@ -1,75 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795435611;
-	b=aWnyvMrAO1V6x3rJg7zSDwQN+omPZBlpCoY4Q6MSwewu1kryoh4vLKhE5OaIKTEsoyUC
-	 UQ+b57biCszdoPEam4oKS96IWYuXZQkhzyWQSJN4mcgEYwlMgz0bpu6geam7q1ndcLsbI
-	 aqOYM4YrfEC6F5NSBvnUilDk1dIj0FjC4Y/RCd6OvkaOoys6sOH+Zt6JsQIDdHyY15pWG
-	 LVr9AFbJQzgFqRv+AHZWkOxvMHqu8aOzgxFtoyMvWXLbBicD8w+v3H2FVhjG8FPP/xdQ2
-	 6Ty45OYcgU9HvzLCgZGe/gzxslq9wWC/LrVyLCQaNQchydfZdj5cIjpUKdEg+xE2tRw==
+	t=1795437361;
+	b=NUEG6T4S4f0nhyNZlmLbxk8LBbnz+6p+6TN5Lv0cHNxf1sjf7n+UGbBwGMPvuA/rre+o
+	 rqFZZun7VdFRNjBCPLpEv2bZyOeQDVOQ/CMEUDQmdUliHPniqiyAHpnuqpvirmy5X7SOx
+	 lpz6bQnox59M+jzaj1MaRMyNXrxcXeS7MV+Gu3myJriEef1SxPJ2cCUSnCrJfDqNmZorO
+	 FrMpaqaARWQ2vwy8GBqa5LA/zmUN8I6jdtM+gVFi2vX2qt5v9qTda8lOsbKsJ8Vzgmw6u
+	 9EAmDns0qHQ68IKR3MEatxFrLgR4kWwXdSE9LlbsUEnEVr/hi1M0O5Yd7vr+rZJ1oqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795435611;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=RbOBeOqRVePbn0UND3rpLU8dyxwzzNyczxKi/hoVT9M=;
-	b=uykroWGpOTTFfrW4Dc0XVDpEaqDX6rcGhJ5QIzn1h6K6H9xqpKCrnMzicN9A2HkBUHpa
-	 PndzzfJcIjaluw+sZ7XKSXCkJhoD8ViFNCdAgb/fueQg00LG72OjGHxcZzNe4W6VeEbhQ
-	 eJYljFIKAz+kk9zNs5EBVJ3PcN9ZFWGs6yoBerWxlGjNDRdMC3EshbZCNqGrNldjxuilQ
-	 7GG7bh3F5coRUF8i3rjjjBWHWKKR+MOe9mXML1btI6C1uTzBzZPebrBvUypwyjZHSQNDB
-	 M7M5eaml4GsbAlcGEwYUYjIcjH65lk18C13OA53J9Zb4MYFEFzv6h2BJGHGZb+7qqhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795437361;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ncj4S8gNxyfQfqVipK+ZlxLd+2fZZ7DWNGqNx0Zlc7g=;
+	b=GVHuQ2fy7Nsg+uB1IdMY0pCD79LDulYlcEltU+u2AveR4rIk1lJutRBFLFgjCSUrExhY
+	 Hv0p+LtVti5IWmuJjm04IDOn8uH1UCHJ5shtG5BzJtRwGfn0k4AhaczTFi6U6iMOJ9o/c
+	 H0ol+syfvRkW5lotPDevnmuCDDJE0gZKA3zUVUds2zSDgIz1mLc4iMGdQAngo3iFqgn5N
+	 1yBJ81J3RoYBS7f3sb/KZ70cLJJXI/sKhHsB7elHlbkjmgEokH8y2DHirUi8ojaNNES+W
+	 1tmPNYZh5j8meKY5So6Ih8kMSXzotFUb0CWL9BAT5FsoUGrkIREi69LYXbzbKwXm33w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O6vw69vA;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QTqnQskK;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D0D606A327
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 12:06:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30D0D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23BE3606A330
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 12:36:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23BE3606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O6vw69vA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795435610; x=1826971610;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=doMzYxcXcg/7BK2TDlq+rZDmj5ZAt/sDQZgBkhZDx70=;
-  b=O6vw69vABDno4xpx9IMuoyp+Zzq8Ci7VvyutyF/SFSsOibUPb3Vuuhir
-   YjwB4IgSq90lRwrl8bC20cHcOrImqEYCGgeNlk5BXL0xkl7cppPU1LFB/
-   NtWc/F6M4FHjJh0H+J90sdQoJup7RwOgDGsZj/GO7HYhHxQPT1itTo9Me
-   sPkpWTBSEV+9PlgX/RGjqsQatQ5pzCeff9BE9U/x0zXWX1og1n8QTdcPw
-   B1Z+09WHRyoFlcRmRmohr0d7uvYJPx+tVRriE6vUz1RNPzhkvZr84Hb2i
-   VeUT3F7Oe7aFXM68SCPhixkbnmB4Yp1M5Kwrf0yB9tLoncyT86/5AVz1m
-   Q==;
-X-CSE-ConnectionGUID: XZxg1znGQwCvXDzEcmYGtg==
-X-CSE-MsgGUID: +G18fLHQS6eI4CZZ4WVjRQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4252048"
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="4252048"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 04:04:09 -0800
-X-CSE-ConnectionGUID: iu39tx38TSyBENy/bsgtyA==
-X-CSE-MsgGUID: lok0a7xpT12q25MYhb0kFQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="11381616"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 04:04:06 -0800
-Date: Mon, 23 Nov 2026 14:04:04 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: vunny.sodhi@intel.com
-Cc: linux-drivers-review@eclists.intel.com, linux-media@vger.kernel.org
-Subject: Re: [linux-drivers-review] [PATCH 2/3] media: i2c: max9296a: fix
- video pipe status register offset
-Message-ID: <awQrtJK6ft0NA98v@ashevche-desk.local>
-References: <20261122234313.327866-1-vunny.sodhi@intel.com>
- <20261122234313.327866-3-vunny.sodhi@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QTqnQskK
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-382f4710a17so5494724eec.0
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 04:36:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795437360; x=1796042160; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ncj4S8gNxyfQfqVipK+ZlxLd+2fZZ7DWNGqNx0Zlc7g=;
+        b=QTqnQskKRIE1cgebk3mNS42vnXeE3k4W3M13JDorM8JvXmThQ7ACiYCLcu4VK+bQ9V
+         g9layI4Geer0IOQZSMpwe9SmleQDj3GdZ0xBTxfRnNCZcIoDxaN4eMTAAQcEORsQ0/80
+         tii9DA5HDOBumdveehsPOCePuj/xeFzr+6lGzKrTexMPx6iaf2QQaouV9oVfECfX4GbR
+         tktf5MzOOMFFJmCl5KCqs0BusxJIYl022a8IDjATdmIUAL2jKzvhtbHQmBqgFV+QyZlp
+         5QUGCEimTBcZ/hVaYWkKucKZXfSp2wPr67biq8Y4qw8gmMngKzfe9Z6+Nfv+VVPoYlOQ
+         cPHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795437360; x=1796042160;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ncj4S8gNxyfQfqVipK+ZlxLd+2fZZ7DWNGqNx0Zlc7g=;
+        b=t4W8R00FtiI2Ms8Ll2wfMHpCaR1cyaflw/ORmc4bPVxmle5n5ecj0DeNiPnpTTl/DS
+         r4QFGJDPR0P3qe77bny9TppIjw+P+YBqCEPokexaxz/xNy6CplJF+tDfSmznm/ggVp8I
+         OFyjE0om6QUQ4LUYlXYpVd5zmPb/h0NRVHStwwNowLgENvB7NjRe0cvhH4N9D+BBqSHm
+         S2SsWy+Mptrasvfv59mKwbjJx+YwKCYR/jiYXlHWFYZSWsyW36DZgkcFB6V48yFMp2Uy
+         zR+YBYVgIOlQq7+/4kUvZOA84ryWQ3KPL+TGMpY0lwK/VkJVqlcB1fLp2w0EI5Lqli+c
+         PMYw==
+X-Forwarded-Encrypted: i=1; AL+hErEn7il8ezFS7Ls0vdn0xd5yI6yK3QIid0Yh0u1N6LXoxZaFG0tMVV2TZT/avEW0/cZBdDyboVDpGU8/5A==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8U88npHH702IADe7FWh6ungx1pw1rTWnhZZaupmdHiQ2B43z3Z
+	wlU3EIv+pJe5OPmCjRdmve34XC3XmYfby1dvH45tK1VxGe4/pMHbTjgj
+X-Gm-Gg: AZFdTZfjYneP37FQZpdiKNLFWQSb7Q+c0iOa8wIiz2DxzqrKaJei4ka2V6bUu8q1wgD
+	H4tbWc+x4mq+HFG+P8hrLUrZi+l0iUcIJUyd1RZ2AdhE4ObIu38AAXeCIw5T2zJ0/i+m7fMTQAv
+	q/7+vzzjUbaJXUYxb5clZtHjMtGY2e2X8J9ghAH1iKW+8Q9FY3MPCspry2XUAqo3DZfM2uNvXtT
+	4QScLM/PU9soR/8mMAyI3qOzEHPm6WTMpcNrGjQj8w3g+0v9tqs57E04X+IT4TO6KBysg48vGbX
+	RXDxd0kHvSnmICVVZjmgZHJD/WWxexu9oOn4EpVtGEF9ZGXasR/LDQZ/5xVs5vo7vQB0AN643j4
+	AyIYUb7E2ZdAgSQXXegrEczzQ4g2dMYVrlk54NfHrUK8A35YLC9jflxJldn99j9NaaDxrH5n3J0
+	OyvQWEoWhisxXq5vpOA0Emr7PfhSggF2B6cpZbt2mvEBcOATHwdv+RNrcRQTtG5sPnwbmz1XUX9
+	wLLNDEwSWMnqSSqAuwiZnsoww97DD8OYreMhzLjqwClSngOqlYVHq6Ti8GtVhicWVOwD+Nb6KfJ
+	/cuFSI1SwH+koHc7jYKO7rhWN+fY93TCx2IhAj+PlgNthA==
+X-Received: by 2002:a05:7301:7110:b0:383:b90a:3535 with SMTP id 5a478bee46e88-386a0ab67c8mr6531336eec.24.1795437360084;
+        Mon, 23 Nov 2026 04:36:00 -0800 (PST)
+Received: from localhost.localdomain ([2404:c0:aa07:12b3:e89:dfdd:d14b:d911])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385f68bc0adsm32854353eec.13.2026.11.23.04.35.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 04:35:59 -0800 (PST)
+From: Hikmah Gumelar <hikmahgumelar@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Hikmah Gumelar <hikmahgumelar@gmail.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org
+Subject: [PATCH v2 0/7] arm64: dts: qcom: msm8953-xiaomi-tissot: enable front and rear cameras
+Date: Mon, 23 Nov 2026 19:35:39 +0700
+Message-ID: <20261123123546.152162-1-hikmahgumelar@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261123110805.119610-1-hikmahgumelar@gmail.com>
+References: <20261123110805.119610-1-hikmahgumelar@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -79,29 +111,41 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261122234313.327866-3-vunny.sodhi@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 23, 2026 at 07:43:12AM +0800, vunny.sodhi@intel.com wrote:
-> 
-> Correct the VPRBS base address used for pipe 0 status reads.
-> 
-> Per the MAX9296A datasheet, the video pipe status register block has
-> pipe 0 base 0x1DC and a stride of 0x20 between pipes, so pipe 1 is
-> 0x1FC. Using 0x1FC as the base for pipe 0 reads the wrong pipe.
-> 
-> Signed-off-by: Khai Wen Ng <khai.wen.ng@intel.com>
-> Signed-off-by: Kris Pan <kris.pan@intel.com>
-> Signed-off-by: Sodhi, Vunny <vunny.sodhi@intel.com>
+Enable both the front (Samsung S5K5E8) and rear (OmniVision OV12A10)
+MIPI CSI-2 cameras on Xiaomi Mi A1 (msm8953-xiaomi-tissot).
 
-The previous patch lacks of your SoB. And the other ones should be checked why
-(I understand the author's one, but the rest).
+Changes in v2:
+- Rebased onto linux-media/media-committers.git next branch.
+- Updated set_fmt and get_selection pad ops signatures for v7.4-rc.
+- Added the missing MSM8953 SoC CAMSS node and MCLK pinctrl states to
+  msm8953.dtsi so the board DTB builds cleanly on upstream.
+
+Hikmah Gumelar (7):
+  clk: qcom: gcc-msm8953: fix csi_phytimer_clk_src 100MHz parent
+  media: dt-bindings: media: i2c: add Samsung S5K5E8
+  media: i2c: add s5k5e8 image sensor driver
+  media: dt-bindings: media: i2c: add OmniVision OV12A10
+  media: i2c: add ov12a10 image sensor driver
+  arm64: dts: qcom: msm8953: add CAMSS node and MCLK pinctrl states
+  arm64: dts: qcom: msm8953-xiaomi-tissot: enable front and rear cameras
+
+ .../bindings/media/i2c/ovti,ov12a10.yaml      | 115 +++
+ .../bindings/media/i2c/samsung,s5k5e8.yaml    | 103 +++
+ .../boot/dts/qcom/msm8953-xiaomi-tissot.dts   | 114 +++
+ arch/arm64/boot/dts/qcom/msm8953.dtsi         | 155 ++++
+ drivers/clk/qcom/gcc-msm8953.c                |   2 +-
+ drivers/media/i2c/Kconfig                     |  18 +
+ drivers/media/i2c/Makefile                    |   2 +
+ drivers/media/i2c/ov12a10.c                   | 720 ++++++++++++++++++
+ drivers/media/i2c/s5k5e8.c                    | 500 ++++++++++++
+ 9 files changed, 1728 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov12a10.yaml
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml
+ create mode 100644 drivers/media/i2c/ov12a10.c
+ create mode 100644 drivers/media/i2c/s5k5e8.c
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.47.3
 
