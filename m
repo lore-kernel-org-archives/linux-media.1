@@ -1,98 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795441315;
-	b=MTFJsPgV5/CPWm/I7Y3/r2Ov+EmPLZH/y/IMLwgDP1lsBhxu5VLVmSAHMDfvv5Z5CfqE
-	 Ws/3Mo6kNyGXsWlfb81u+eq5w3/pR+mET27NURNGnl/2XqhZzBvjf2dgyLSEOIcGvBDcr
-	 E1KcPoZD5kHT1wYNpVsdVzsGxu0hVejhHhdvhaScr/QCGGdhIdqZF1VPtu7AbcVYpPCMC
-	 93SxsFRuCJJRV+eWvXh1E8eve+GK9dGYgVlf2dej39oH2u78PKMef0QPWP9jq/bgL3Fkz
-	 ncVdQPEiM5D3id62ot+xJI5OFGLSGwV0z2gg9bR8Cpp2RuHR7Wg6BHHd6GuYNY8eJCA==
+	t=1795441395;
+	b=MimyJYnOS4wyIXVDmtSpu/om3sX0X6lOYdffnVDz+KwgkqNC1hIqupDk6fQU4ccg67Y+
+	 IqgVo0VZIK/498ZWaYkh5LTbaRE6tDkZLl282g3Ydqgdpf53GiKU0f66ND1GymAV8Y8Kv
+	 /dZEysz1w85cbDG2MocCV1ixyZ/niMOzG+IE8P/RP6lg+/zdMjnkNqb/+StyIQSkm6wbI
+	 Fig5DFSPDjnls9mmF+2Dp4bSwxDJGEYQUCGg+s0v0TYfxcX08Y9NHqAm9ay+IidM5KFTm
+	 Ou3vhspfYRgZy6vUF7utWhEWE9LUeoUhKKz1JM5ucK1Zbla+kj+B9UBNhHexGaiPj8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795441315;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795441395;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0fwCy0JhhA2lRss9bSrLi2rmUykOiCxn4Yb5yOnWwD8=;
-	b=P+8XqLGrZBsnKvqx2TeA2bS2mHar1MUPJRB/ciyMUuGXT+lqrNQak6lRqW0nz/dfLfJf
-	 9iPH8x98ZzzS/LMUzOrjHwHxnyY+mGHlKmINOYmuQ7Aa1BV9rH78o8O78M3bM0woNGC4K
-	 LLwownLGz5Ggqd8YRuHY9cthSFvTeHkVLmBp1rGkkTqUp5SLegBDnlkE/uoxXrkhw4Lig
-	 H0T74JJ4dUI/ltA1RusglxbzVt5D/pscfh+KsFW3NRmdGrAqhh3cQ2ipfb/J4wP+X3qtC
-	 6Ici6ul3koGzfaS/7FVu/LUzjjIRK80GgbVmP3GJP5YZBUaEkuvgQ9f/I6K19CokPrA==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=kqCL8yR438jqEfqX8sdAOmG8GdM6o1iX2qDOd73H3eE=;
+	b=oqt7KVHnN66xzyVz9aY5I2A/MT50JhJ4T0Lq3oA4tCgqrk/TcRKwpCx7ocxwZyNJcNXH
+	 7HzroePoCvmt06oGnQaf+gG0k8lGWRDeD8fgUQ5LwtRnQ82bwKPO30XyCyNh3cduexGCF
+	 0kJMwLkAIel8DsfhVgmv0W3Od+Ua6GNSY1RLv22XEaXUlo7jG0zcq9+fwaxjmMsSc5knP
+	 YUiDyTrV8ar9mdrSUQzbHTQH4GDNO5Sndv+dF5T5aFozj92IJxtaM1gu0KdxfojQ/Psxt
+	 NRe5Z0cBs/FX4M5wnH95udaZfV55aCVVEfnm0scU9vxluHiSBjPGrEywFCa5t/hFzdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eyvfIlCc;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="tSQq84S/";
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABCF606C165
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 13:41:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AABCF606C165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0936F606A32D
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 13:43:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0936F606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eyvfIlCc
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso25874905e9.0
-        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 05:41:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tSQq84S/
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c5154989984so370955166b.1
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 05:43:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795441313; x=1796046113; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0fwCy0JhhA2lRss9bSrLi2rmUykOiCxn4Yb5yOnWwD8=;
-        b=eyvfIlCcGTaSKz+XVlurAUDJb+If/4fbsS1OApjTLARCHcvgzUuPPEl00pB5nTTfZo
-         L05lG+Tw1hSNssWCqBMSAAD1P/GmvHMGOGK87SWO/+LcdsSVFVDsCS4fCd4AMKwgs22f
-         8tA/aLYtBosOMt+ND9jySQycEXKXTGKkRs08EDYO9IfTKHd5/zqQrozd3OnCvjN8iv2z
-         7Ti+SDpPT2HBKpy2Q5YZ3+X5mdemSxtPiTKlOrlQAcpAfR9lNmjzB1ztyrcDs365PWsQ
-         vxlBIoG6CANyTPV/yBqku78YmpVsJJOKqmdNgSv3U6LlmFjKXays3yeoYvsWJelBAmJ8
-         Psaw==
+        d=gmail.com; s=20260707; t=1795441393; x=1796046193; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kqCL8yR438jqEfqX8sdAOmG8GdM6o1iX2qDOd73H3eE=;
+        b=tSQq84S/1UMt0IuanHyasApDHPmNpDwhzVwotDPkeVq/SQyYZhFtggn3Cq/Gk/1tCk
+         h2cA1OEReS/CYPQpS40RC7oB08MVqUd7hmoO2j5ugvGQeh1InNKeFitZ+YOOi7s7VDVk
+         kyDC14iqfVs+yv1uzySejV0P+NH+PFQwPOU+3jS3mTPfmL6qomnI8+BCpKJhq3+wnmK0
+         /3c4tviGXnzIz6iHoW1QhfVYLYZTEEUWmKBd+iYSEEDhv2iVJJ3HF5eOOzXLPrYX1BfL
+         bAi0dp13I8lbGwD8qBUh4z2IGeZE250GZYAMy2MdxG0g/K6rOzOXfmCJZ62/M2fgsumP
+         2CPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795441313; x=1796046113;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795441393; x=1796046193;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0fwCy0JhhA2lRss9bSrLi2rmUykOiCxn4Yb5yOnWwD8=;
-        b=RX7TdmbT0TYeitJtgpNJPr/ewK5VIB080hN+wD3QZkax3tKl1VEoP2h/oaOGWHPXe/
-         ODGTvFxfi+h/NTnRnFTXzY3w+atuQwQkLm7ObD2TGg188ROGeYF3ezlr6jhXY2m6TrT0
-         4xdMFhFzO72JPqb3Ewg2SFGiIk0GSomvnspBW35ZZ3vPWvrA6IHNTYjy5308qpMcEuiH
-         8DIceWuV0QQAu63DAP58CpEd8uBFPOPbXEein0nZziq9W3lJsUQxOpOkCwnfz8Gv8ttQ
-         aEqYrX2oBeKjlRtAmoohekoTK9EyhSurKxvDqig82ySGeGOfi1dXrNUUeMEf7FiAAuCY
-         cg4w==
-X-Forwarded-Encrypted: i=1; AL+hErG/YMtTHMTzehn/iIXYH6czgQTGKk2u5JB05D4tqIq9xEoua6fZYWzBaEn4rPVnNiqc/b4NSsP2JMEDQw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8evpN/j/v371frTIkjg3UEhbgs+1SLQuccnr9HQQqBwTDrLY/I
-	eZDVgJSaaG6bChOjhW32aHwAS81GsqkzZXPPdeBHuLwleUWfj87l7I9hjW/4Ap0K/oE=
-X-Gm-Gg: AZFdTZfS26473KYvc1kEFFQVeDckBXFvyseNw5t55BNWoyp0CfuXS+k107v8SywQT/z
-	qRLKpnst7M7ZQiUoUIckTXEhQgN5mU3H80DT6Lzlsm4pBBGuFma3Zx2Pwac/jyQSNof+OPc5v6f
-	VveRMyCUzUcBbpXuqiOtkRSNIFtFUpTLuCueVUrjoS5/MxCO4ezf1/yqUI0LKZMBl+bdjYUj0FH
-	BDhphONT1APagvboWB2Aw3ynJYzCdQScuuP7sxJVnv9RKLEhEH7WCMhsIvbojgrSTdrXAWF6cnc
-	RCeEgg3EGGRNRD+ptysphWeMzDPoaxedO49AJvLLZFz6BARiRTttUcClOk9V2nByZu1C1eNzpUq
-	avHzlfkWdWSZ+OqgJ5b+vy97nb2penWAbR9F5G6VkuRT+MOvUvLmUmlcVE18xr7Rc9vrkWhNNTt
-	yVva92FpPvgZ9Xkboeb6k5X5UOgXnsMEIyFqRVl5+ormj2j4C1NeW4LF7eJsaasiAHWQaiwnygG
-	Ewg0R9NoQWEB0AGeR1pfm7yx5qjSvX7gUskZ7iJX1xtOWC6X97C24/aAW7mcwtaVnkBkehuR6TZ
-	RixOjtigZOASWFG//EEzp1O2sB8tVhRjVc+TQME=
-X-Received: by 2002:a05:600c:848d:b0:4a5:1cf1:b7bd with SMTP id 5b1f17b1804b1-4bb88810b2dmr228475015e9.16.1795441312887;
-        Mon, 23 Nov 2026 05:41:52 -0800 (PST)
-Received: from HachikujiMayoi.amicon.wifi ([83.237.12.186])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853b216esm395444895e9.12.2026.11.23.05.41.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 05:41:52 -0800 (PST)
-From: Daniil Iskhakov <shkiper325@gmail.com>
-To: Steve Longerbeam <slongerbeam@gmail.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	Jacopo Mondi <jacopo+renesas@jmondi.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Agalakov Daniil <empt1nesss@proton.me>,
-	Roman Razov <bonenooo@gmail.com>,
-	Daniil Iskhakov <shkiper325@gmail.com>
-Subject: [PATCH V2 RESEND] media: i2c: ov5640: Fix potential integer overflow in sysclk calculation
-Date: Mon, 23 Nov 2026 16:41:03 +0300
-Message-ID: <20261123134104.12152-1-shkiper325@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        bh=kqCL8yR438jqEfqX8sdAOmG8GdM6o1iX2qDOd73H3eE=;
+        b=jMoTiMxtMhjVXul0VVlwe6SnVpK3lfntcx+lhSZw812RGJb9hYTuWCB54Ybfpl3Zqj
+         J0AZMKElUKw04F65ZqAEuWaIvBwGnCrPNjafCDwlE/0vzTE2HlBBWYPSsRDYAZGCS/7t
+         MkP6kOqkiQu02TKxJPcSSje1KeepHlUmw3wxjS+rLeMaxwmJSZLxpisq+WI7krZh8vFL
+         IkpgjIPYEYyo7A/v8wdmMar3DbAA0mWJPV9WOPvYzE33FXbMNyDoBBwJK9sFrh9FSdD4
+         TQL28/scTjX9/RvAXQzHxdPOkd23sHnjDAoLF4KtgatJgjJd46uc0AZLvdL7qXQNiqHo
+         IeCw==
+X-Gm-Message-State: APuU4Z+K//d7PE5JaJcLR4RhOoDrp+ef6tMhhG7NJ2D0n46woM4pfUS5
+	zfaPnRMDViR83PMFggsXhbwG7m6kHijQDQW3RXel/wwTLaSNceaHeTgO
+X-Gm-Gg: AZFdTZcEtLARf9m2w2BwlvC7fiq9asEgfmNoYN5P1B6hawjqhgaqV9Zw/WsvsRy/MWb
+	oxd2EMnIpLum5Rqq6N0xmCT7Hs1SCLKv/zf+SlOrmKYBTrsWGmmZwT8Wp6HaMx3Hap+Sz6iHY4S
+	19QOWIbLsnRNf8tXxjccYhrqeioiUZPH9bbPnWvlQRLjOBbOxhMnPNpoWwWKRd+qwSVHSHwC1CN
+	6JRF746uFVaXbqf1ywj/XeRhLx3MqC+rDCLWEI6HEM7vwoHIZvQSCaxFWfMUT728KR4CJp2QG9W
+	BkJsDfw4yjNdeZ89DgoihNcUn5v5OxbJYEDPr1ZaDGbP+zvFhIWvmmAcdWPvxTqWhYV9UhhJ4ay
+	zGSGKycv7sjAkS3ebI+HoojJkdCcmmMTbcG9FroSCFYlJ5QI3K/554KwJ2WANwIHJEathu5IUwm
+	nk5pyNdX0TDVOmUBznWGagGzl4kXmZ7fpB6EvhlKaJ5zpEqs9eOOA/S1IszJq5a5CJ6rGryCFQy
+	ax4awv1pIaP9xQUFYMA906UIC10gorvx1NrL4LujirNzqED3Y6tAKk3nbc8C9xAGAuLsZXb8swz
+	QBIZEFubqeEMLEiy4uf2ngmVm+qMFku/Z27t7s1NsiyAbx3j+roEjACNc4cBN1cfvJMYLdXod+W
+	fGwqqg74J7UuhvKsMVEmG701ZmDewXJSZgIXRb3saeGoVlrmQpxEyZyry41GqcdliL/Li7lIB7H
+	HXpkI=
+X-Received: by 2002:a17:907:2d13:b0:c50:ca93:19a0 with SMTP id a640c23a62f3a-c513aab9bcemr968102666b.40.1795441393323;
+        Mon, 23 Nov 2026 05:43:13 -0800 (PST)
+Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513aeca720sm409336466b.53.2026.11.23.05.43.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Nov 2026 05:43:12 -0800 (PST)
+Message-ID: <664a18cc-24d8-4140-9c3a-d522945cd2cb@gmail.com>
+Date: Mon, 23 Nov 2026 13:42:49 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -102,73 +92,43 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: fix leak of ctx and dmabuf reference in
+ dma_buf_io_ctx_create() WARN path
+To: Falconet3 <Falconet3@proton.me>,
+ "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>
+Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "axboe@kernel.dk" <axboe@kernel.dk>,
+ "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <htm5h9oaY-vk0g9JVYJmz5XCaKe_nPoWkUJYJqDulyNvv_sAWfzSMp0T6GWt5okc8R4SyvXXpJQ3VGhetKnjEa2KGem5uCYdxpmdzUFf6XA=@proton.me>
+ <tRqxbL7txMRAzNLKylzBLQURNLpU-D0Xx5CrngGwLoYrK7V7kREharagUfgQLGIfiYFyTALR0BwL93AL_PWmFXq_MoZPhvPfUojBsyCnilI=@proton.me>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <tRqxbL7txMRAzNLKylzBLQURNLpU-D0Xx5CrngGwLoYrK7V7kREharagUfgQLGIfiYFyTALR0BwL93AL_PWmFXq_MoZPhvPfUojBsyCnilI=@proton.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Daniil Iskhakov <shkiper325@gmail.com>
+On 11/22/26 10:49, Falconet3 wrote:
+> Withdrawing this patch. Apologies for the noise.
+> 
+> The WARN_ON_ONCE() path in dma_buf_io_ctx_create() is not reachable with
+> in-tree code: the only in-tree implementation, nvme_init_io_ctx_locked(),
+> installs all of dev_ops (map/unmap/release) before it returns 0.
 
-The calculation of sysclk uses 32-bit arithmetic because
-sensor->xclk_freq is a 32-bit integer. The intermediate multiplication
-result can overflow 32 bits sysclk variable.
+Right, it's a warning for the same exact reason, and cleanup considerations
+for it are different as well.
 
-For example, with pll_prediv fixed at 3 (OV5640_PLL_PREDIV), xclk_freq
-set to its maximum of 54MHz (OV5640_XCLK_MAX) and a pll_mult value above
-238 (the maximum value for pll_mult is 252, defined as
-OV5640_PLL_MULT_MAX), the result exceeds the 32-bit limit.
-
-This overflow causes the 1GHz safety check to fail, as the truncated
-value fits within the 1GHz limit. Consequently, the function returns an
-incorrect frequency, leading to misconfiguration of the sensor.
-
-The expression sysclk / 1000000 > 1000 now also cannot be compiled on
-nios2.
-
-Cast the result of the naturally 32-bit xclk_freq / pll_prediv division
-to u64 instead. This keeps the pre-divider operation 32-bit while the
-potentially overflowing multiplication is performed with 64-bit
-precision. Once the 1GHz safety check has passed, sysclk is guaranteed
-to fit in an unsigned long even on 32-bit systems. Cast it back before
-dividing by sysdiv to avoid another variable 64-bit division. Avoid
-64-bit division in test.
-
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: aa2882481cad ("media: ov5640: Adjust the clock based on the expected rate")
-Co-developed-by: Agalakov Daniil <empt1nesss@proton.me>
-Signed-off-by: Agalakov Daniil <empt1nesss@proton.me>
-Signed-off-by: Daniil Iskhakov <shkiper325@gmail.com>
----
-v2: The patch is adapted for nios2 thanks to automated tests and a tip from
-David Laight <david.laight.linux@gmail.com>. The first version cast
-sensor->xclk_freq to u64, making the division by pll_prediv a 64-bit operation.
-Keeping sysclk as u64 also made the final division by sysdiv a 64-bit operation.
-The kernel test robot reported that nios2 GCC emitted unresolved references to
-__udivdi3 and __divdi3. These libgcc helpers are not provided by the kernel,
-causing modpost to fail.
-
- drivers/media/i2c/ov5640.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 92d2d6cd4ba4..dbe767afefd5 100644
---- a/drivers/media/i2c/ov5640.c
-+++ b/drivers/media/i2c/ov5640.c
-@@ -1377,13 +1377,13 @@ static unsigned long ov5640_compute_sys_clk(struct ov5640_dev *sensor,
- 					    u8 pll_prediv, u8 pll_mult,
- 					    u8 sysdiv)
- {
--	unsigned long sysclk = sensor->xclk_freq / pll_prediv * pll_mult;
-+	u64 sysclk = (u64)(sensor->xclk_freq / pll_prediv) * pll_mult;
- 
- 	/* PLL1 output cannot exceed 1GHz. */
--	if (sysclk / 1000000 > 1000)
-+	if (sysclk > 1000000000)
- 		return 0;
- 
--	return sysclk / sysdiv;
-+	return (unsigned long)sysclk / sysdiv;
- }
- 
- static unsigned long ov5640_calc_sys_clk(struct ov5640_dev *sensor,
+> And on the only path where it could ever fire — an importer violating the
+> contract — freeing ctx directly is not safe: init_dma_buf_io_ctx() has
+> already attached ctx to the dmabuf and linked it into the importer's
+> tracking, so kfree() + dma_buf_put() leaves dangling pointers and turns an
+> unreachable leak into a potential use-after-free. Since dev_ops->release
+> may itself be one of the missing callbacks, the core has no safe generic
+> cleanup on that path.
 -- 
-2.53.0
+Pavel Begunkov
 
