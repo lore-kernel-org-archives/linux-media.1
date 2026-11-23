@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1795396914;
-	b=sCHBduKK14Kj/BdSIrMl7T0OJzM4YtcJZD0sS9yB/XELMRipbryZk1AJCnErTPA+tM6+
-	 aB2MZ0anAHCPMveE090IDbeI+nKOCQBoZzOZPKfuVBPa1f1XR+i1XStK1DX7o87D/Scr6
-	 TlpT5yA15KWXZSDOU/sZ64I3LwfNxpIE08/yfH1qbeVLW8Zpux4Xze3gZ/7qma9HPGuss
-	 JYbTEAeVN/AjrttIQfXNmbhGg+9A0p7BEO82FwcM88wJA/3veuokqHo/+1OswYeZsNMMi
-	 GEu67zAkhj9nW0z1NdXOg6duCZrujy0+8PvZd3qJda3MtBh2uxboj7itlRemxwj+4nw==
+	b=XvNhBRtT1//WfmlQsBJqwpp0nYjKV5kmvLu90+cOdTcdTmMkrcd7cv80a58DzDsB6ptc
+	 yIqp6PRNDf31FvxuSMvpfWHuGQAn9DXWeKykoo0bTxXs767t8MSAV7kIpW7rPGvT9leGS
+	 4Ix6EiELoqiGH8TlrA9NO5KlR53PGC/zN/h1A1W1r4etIu/TvgkmhY2rOu13E9mJ6FGjK
+	 MazTRYF11UbY5YiyAi0k1GM9bmxgw27WJH6bGKj9mExMPswWjWDVPLxxEh+dcC9bJ18rc
+	 fRNLyxpX8abBwHwelkvsMx5Rh8/B0hIZhdJRYuK62m4Rer/Yk6RuAzEwFJIKrl0x5TA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795396914;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=CWigIpPVsSLso/LPVQlnZ8yKOycJwVSRyTPiWiXdq8g=;
-	b=rZB36vBCdA2c2ujxb0dXQF4IAxIpJZuXG5cnbtPh25QV+dMih6qxbzO9X8kWa6ObeXNg
-	 s1+Rn0ycClepFalQl7K+YWq6VdyIbjACOQ9+mR3Y88uTMMqwtGOdQ0jIOlNhOQwyt0Kzr
-	 LCZ1PvdObPUMf4ZX/VMvcsIdI9YBf3/Pb+wFRPHwViR1ceGBBsCRh6x4XNG9YQMcyfMA/
-	 fF7nU+ST9gec/Xf+/T79+aR433Co/4dXzkK/GHRWqd5A4dN9V/X4Y9I0rt1Qmm5RQybRT
-	 IEzGZJbZFxwBNx+6J82T28nI0arvgI/tmY+L1sEgKaRWvep/qwbBVCzmUsken4mnEHg==
+	bh=Q6bkxdikXUOU091jplOGu0mVELvYreTq+WLXYzThjD0=;
+	b=cECIru2J4IUz6GhdHTediExJHlz7hwoVLV/PSPg/35bFHQz8Wprz6M4miCA1VdmjXO9M
+	 X5zOK9TV9stCJbkizKqobNDVs8rw4ZoS5TlDckYhyAHfZKpPBmscXhBxarXaxDAXTUEc2
+	 trFX3Ctqm4nTvfpnRi1iXDsPB+6lJZR5mFOJrG5NqRmPBIG7evZz7g2SuotQQps19ns7v
+	 uTGh+e23nWURupr/q7uSnDjTa602PLAGsT94LkwpT1OuXTjc1ZoBREKAxQaawQrWnQ/Rr
+	 rJ8mQ/l1YfpntXFAmKRKrpjqQPbtAkHm0T1SAYnROXodLzhOm+eK3aNiKRV11kKHOoA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9zc+RpN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BrkSPiKN;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E46606A334;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03863606A31E;
 	Mon, 23 Nov 2026 01:21:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9zc+RpN
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BrkSPiKN
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795396914;
-	b=KHRW1GKKb9IK040vukuVyzi0y1yOL7v5NgKbeT7/z+i7ycH/K7Slc0+jCWZgyNHvGgpk
-	 xFq6NyTaNY9Ou4oHgMlbt2SkZ39hR/OQAx0OZ2um3R4MqZFaiyXNs+bzIDLNwDLyHc+6s
-	 eP9xlhaTZDOAVdOpz9uizKVbTHA/XBSctPCl6WXOnrJpsSL497VzE8eb3AIZBusaMpqvP
-	 y6qMms6BLSlI7gpddivkRoNNLp5lj4dWzv0PCA9Cy0vKR1MQ9OM6WehChr8gMqk+gxQWx
-	 6TGF5ie02JBsh4eeeW4DTW5WG22QbVnI4cw3gnXTKQXa5wyHsZEZkvWggld8/aYVw9w==
+	t=1795396913;
+	b=AjfeZY49Cj5m7ZxE2+qqKEBkm/YBUHxR7Ez/RSvH8oHoRCfa89acWlp7eGdCKkyCzZ01
+	 uY8CyIk3NCz4U6HYm/gNtV7dpZbBQUd1mmcsy4eSFk2MGaGYaT+V0iTak2l19gBF+EbO2
+	 EV2+k2UFHC1rrDvUhAUuxpWCcCxXaZm6HMVZ3LseYX31K1pFiR/Y1bPRrqL/SUSXIPvpL
+	 YDabMZO37w1GPRLjFcwX0O5sZVA4T2iFIW4PgdQwjysAfny0d9AF54JOn+Zv/L7321ere
+	 Mx4/h8FOkwtkABYzemp1/7yyxNyM9PWjklA+TZf3u5TglLI20Hmdr/mRiAUIbRuNX8g==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795396914;
+	c=relaxed/relaxed; t=1795396913;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=CWigIpPVsSLso/LPVQlnZ8yKOycJwVSRyTPiWiXdq8g=;
-	b=fGl84biGzCcuNphPd1dTVJWj5hCnMU8OYCnS8cY1ShY7h1mgiRIu7GrY/FxRDudZNrT+
-	 dUj273QznqBztih060v9sIwz1uHHMGu1tVY2ZIvm67D+s18xd+KlPR4MP59U5uEQVo54o
-	 37TheNNP/enZSR94cQK1fZ08XQxP+qLTu4I3nr4HGi2Rz5qU3EEqwaq9tDupbGLN/bI5R
-	 eEoY09l9Ko5SV88ICKZyUkc2cGkLH3f3ugCyxToio4i0do+LbR3TIzDRfAvIaM/0s2Wnu
-	 kdyyHpLXBGRPAT4cchhQnLiQgl0QrzaTALu34VyGoADF0oULPdl8Igi6HovbriPDsVw==
+	bh=Q6bkxdikXUOU091jplOGu0mVELvYreTq+WLXYzThjD0=;
+	b=Owrcaw9DDhmHYrkXt/VB2Hy8cfZFUxzpSuC0Du2NNmrHFmSlqRleJD4/oM8ljHb3Umn/
+	 oK9PCrPERYGJhQGGjBNKZFvH39b/iWUM4lX/XtKsLeYS7gcXn8oqzuLSr0JWSrNIeDIiK
+	 qZThhPYMUrETn+8Zw5Rh5GHsLWMGtpV8RAykxfJniPbdPng3F4gwvzKgYDCzbF583e1Pm
+	 tc4FLh7mJmPu+uYoAa9Hx/X5iKJ6RJNWH+xbi3GPKYG3fWHVFC3649ZhK9lfy0X22FmFi
+	 bMmZmZPu5g0DPFC38R33ADjCiU8wQJN4vu70T3LCs13m28WkWB1BWcZIHe6L5e/6uWA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6C3C91F000C6;
+	by smtp.kernel.org (Postfix) with ESMTPS id 535DC1F000C4;
 	Mon, 23 Nov 2026 01:21:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795396914;
-	bh=CWigIpPVsSLso/LPVQlnZ8yKOycJwVSRyTPiWiXdq8g=;
+	s=k20260515; t=1795396913;
+	bh=Q6bkxdikXUOU091jplOGu0mVELvYreTq+WLXYzThjD0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=T9zc+RpNDrfCMyEjapWz8OvBuBnlBtbO8fzsblCq8Niugev6JsLgkw7BnSZ14Jyfz
-	 u+YfeJyLMK8OdDhLPS+/6kdhuPUWaFRGRBCYDylW4bNHjFMi+od3XKJjwLv0FfqGT5
-	 G/YWlEQzi++TKw2aHM/7n4A0/OhgrBrIvNzkSjZP22PiAtqa7dSL4JC/kNI8rJZZEK
-	 Qy5IE0oxAYBg/vquxn2vAU6jTsL0JrBeZ3Ee+sDiLCm0EuYx/03twone2JelGlbM/1
-	 SMMZ5EIao9i18dzSBRZsZY/Fn8PyuOybrJ6B1LZUSC4c5EA6OuT0i0OvRjfIdWUZbK
-	 pA91HEjUM5JsA==
+	b=BrkSPiKNDBMOYrtIYwcJaEb5W7A3baOgF0KzsyajTN2tXoJHcuUevSX0JktuQdTem
+	 +DZQvYpQ3cOF/+FDrPSl01153BjfFoukgmN9Qa/D3OD1caP6xSnNB/kRn+zUg/DyfW
+	 jRrkmSBCMjioRvfnoD//o4G2VHwfMWck+RiOU9HEa6Twlwq8P4Uqz1sm/cffrKB+DU
+	 NG6/l/lLN3xxE2gw7XTmxnRSM88pSbjWDX17pCKi2Af+ql9c33bholOsAlmOptqDFP
+	 upLS7RfpjKDAhMwDoq2Z7SOEM/bVUPMhi+tjPtn0LL9XMmW8n5PbZNzri3jY9o8Q2z
+	 Vn6ymM32nxBdw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id ECFA44C2B8;
+	by lkml.kernel.org (Postfix) with ESMTP id CD5A04C2B6;
 	Mon, 23 Nov 2026 01:21:52 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 23 Nov 2026 02:21:47 +0100
-Subject: [PATCH 2/3] media: dt-bindings: mipi-ccs: Support IMX371 and
- IMX376K
+Date: Mon, 23 Nov 2026 02:21:46 +0100
+Subject: [PATCH 1/3] media: dt-bindings: mipi-ccs: Allow 90 and 270 deg
+ rotation
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-op6-upstream-cameras-v1-2-234fb3b7bb18@ixit.cz>
+Message-Id: <20261123-op6-upstream-cameras-v1-1-234fb3b7bb18@ixit.cz>
 References: <20261123-op6-upstream-cameras-v1-0-234fb3b7bb18@ixit.cz>
 In-Reply-To: <20261123-op6-upstream-cameras-v1-0-234fb3b7bb18@ixit.cz>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -98,21 +98,21 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
  David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1078; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1238; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=WONKLUZwZONG/1eyGGSAmyn63j+1WD61eX0aPYZ8HQ8=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrA5UvO124MmbWZgkQIqSWbuKBfOconQnBGfhXU
- ZTwfcG+M0SJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawOVLwAKCRBgAj/E00kg
- cu5hEAC1mEhErZKfCsK25+A4L7ozBWptF2uhmM9e7vVEplZi7u4q7P5z+YwlKgdqJheZ2DmvVJt
- c3ojF+bKgNZjGaO+1KC7JrG8J6w72Fph2hMXxEcS6CxABoeGoF01joildOyOSbI9i0tHhDIpj3j
- lPupEmXQJmBUmM70WgWGMLd+/LYTWWRou7rItmr/T6Jpqn8DqwWvuKRDM9ygDSs1EoeDYVx0JYZ
- tFz74UvE5m1ZWgmODZ4VV7cZiCjhhGuzKJg9VASZgxoZkUpIe0HdbysxAxzizBuLjkBUCalhdzy
- OaPy90Z6ksC63xNfLnhar3NuqZkznvPIJ5Z8t8h6VfgBuan+8kuBoPnGXQhI/jWYMr8l4vVdbOn
- HlGTtfqHlNmHm5EYwQsKqAQsNBNo8t0tV/xTk+7jHs4qMeAAnXHs7V7p0lnUJ8VxId241auGCQM
- 7seQd2ShCtlXY7pXa0ioCPbUNp+hZ5nCq47ovdNbj3Lim5EPJPG37/GuQBeSbzmnmbLYkzEo5R1
- wvLg0LbU1e4/GCxnnDIfG9eX0SYzmlGSRRoE2coEevfw7ojbgU8C/iwVOmBiQRnCkYZxli1xr8L
- gLZakxtdZVlKqCpizAo5BB9CglYyxkfeG9dFLFkAlpE5P93j8P9z31p4xlgvgYxfcySvHujVpC1
- 77O1SsLbIqVi7fg==
+ bh=YSUwepiSqoDBtH0gFw4KuC+ySgKsZDWDkOBfiJm5ygk=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrA5UvX/SGAmXo0JT1pG6AU93lHHgkXbdX/cFu1
+ Z/7eHbu23qJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawOVLwAKCRBgAj/E00kg
+ cuauD/957XAku1JmXT8/JIRZ7RCPQLy2QmCNk9ti/ZOfy3pSPdPPKCYGG012UlwuBiHOStfCZBJ
+ 46ZsNjekrayuExMp64gMbhHOduU6iovOu0xv2lcsYCO07xQ4pb7atAnc/tCH/MQaGqhTt+dQMu+
+ fRhL74yNvaWUr5KKWNtM3kjl17e0qDDNrKPYRFMoXpCR7kXkv/pO1YUs7lGbNUy+uFGCNDeAjMy
+ FOjbsb9T8Mje87A2NQn8o5CssOWz4CVJjMrnea5ZuZ6fIUYcrZpfP9znlMaZyqlY4dVl0KoTrIz
+ 6hbdyJXn7aw+d/1BpF9mYpoKgVUazsZ30EeOyM20E1xgWSG1LPNbRW+RCn74x5i40AhHKvA2VLp
+ 99EyqCxDz5YxiBX4K/eFUgP22mgiTb1x6UGyXikZSQBzwqj5LirVdoWihyg5DUQckMdPG1098xH
+ sywlQ5oKa50qSa7HQVSPl9IHnxo9KvIHv9K3jgOQuTmmOBC8HWxLkZD9rTrms82oU0h/3BejZdj
+ OXz1kv43IAHctA1luk13svQNlL0O9U7j7pC07wLVyTVCpleL3w12LIeC7kq0gggq5hesDZjxEqv
+ mM86STPj8YAi8oY3ISg17kq0HbSHWSb/qEwW7aHQf3ynN06tRAA9IrbJF/veLvvAMqTFvxiIjjC
+ Ugh3oCoIFn5Gp2g==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -122,40 +122,42 @@ Content-Transfer-Encoding: 7bit
 
 From: David Heidelberg <david@ixit.cz>
 
-Extend compatible list with these now supported sensors.
+Driver works with it without any issue.
+Also allow orientation
 
+Fixes: 72aa1c5f1d0f ("media: dt-bindings: mipi-ccs: Refer to video-interface-devices.yaml")
+Fixes: 72051783cd73 ("media: dt-bindings: nokia,smia: Amend SMIA bindings with MIPI CCS support")
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+ Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml b/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml
-index 44faa2f613f37..049eaee31175a 100644
+index 217b08c8cbbd3..44faa2f613f37 100644
 --- a/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml
 +++ b/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml
-@@ -31,16 +31,22 @@ properties:
-     oneOf:
-       - items:
-           - const: mipi-ccs-1.1
-           - const: mipi-ccs
-       - items:
-           - const: mipi-ccs-1.0
-           - const: mipi-ccs
-       - const: nokia,smia
-+      - items:
-+          - const: sony,imx371
-+          - const: mipi-ccs
-+      - items:
-+          - const: sony,imx376k
-+          - const: mipi-ccs
+@@ -59,19 +59,18 @@ properties:
  
-   reg:
+   reset-gpios:
+     description: Reset GPIO. Also commonly called XSHUTDOWN in hardware
+       documentation.
      maxItems: 1
  
-   vana-supply:
-     description: Analogue voltage supply (VANA), sensor dependent.
+   flash-leds: true
+   lens-focus: true
+-
+-  rotation:
+-    enum: [ 0, 180 ]
++  orientation: true
++  rotation: true
  
-   vcore-supply:
+   port:
+     $ref: /schemas/graph.yaml#/$defs/port-base
+     additionalProperties: false
+ 
+     properties:
+       endpoint:
+         $ref: /schemas/media/video-interfaces.yaml#
 
 -- 
 2.55.0
