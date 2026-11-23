@@ -1,103 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795458581;
-	b=0KQpDG4JgdK9ybJRJGwLXjUUC+PKu1t8/Tq3Wayf9zwAZ6T227xr7G5gIxq47YaJM5M1
-	 869THL/8b4+c5i1ycOQbXUdIQBZT3EhoQZf6fg2KNVcm3M+mCLOt3Oa3uALW6+abvTTRL
-	 8MbA+c8rp2W+pEuJe7WKxt+kddVlBpvz5/hv1UeGC7pJqmCdW4e+qWVmXMURR5VUJ6M7n
-	 MI23w2ZqkUBpL18vX6TFnxhZ7+8skJoonam5TQVmGuoNKIldD5570kqSZoC1wpRYnTEpi
-	 xeRXttcFPxEo/xwA9J9MYQlPH+JuAj0V8gjdGN8P3ff8Gg+kf9BggfNod9K0iQGdxXQ==
+	t=1795458929;
+	b=QBEZ6jg907t0b1q5Axx5dCzw2nsf/uaXDR8eluXMmhJyXbh9tzjkIOE7Qqe+rM86iaOn
+	 wLE2AngGoMFxt4i+vcBS0g4VA3D2NKMA43jaDmPt3T9HYjsL3zkFTmFaxcu9aE1ImQySs
+	 x+tFKFHq59bQVR934Cwq2QiXuty4NXhKBFLTwSDL1sgodiYPrFcjfPA5NqB83IsRIMfdr
+	 FlxKk5OWTyrytM6B9kTzAPxQxRFsGVySUGgxDuO5kZ1KnayeNKG3gPi6PXbW7+vrXpdGD
+	 UzX1Sjk5Owcaxrg67T80rxE/uVzGsJKudOameuztlShJgB6MwBohppp4fB/84eH+KNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795458581;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=4/j1tVsYjuDomGfTOiRNEufIvsMjxkzCoGFkLJLsf4Q=;
-	b=xysSC9rh3rui9zLetImxwWUrq38WWrtcFoUuu3lYj6svAsP84Gq9ZJPWp7JBp4nIublh
-	 qIXK7jL19mE9Eow1H4VFHgi8mR0qDMcrE9C/GRugFiZYiEb9ooXnT7pW+nPoQf7dOQP4h
-	 OeNiCMrs271LaRhU3n0VQql/cIe2S5R41gQQ/pstN20CBK+oA7QuBKsmCJ52TrUJsTVha
-	 aIS7VOuwSjlTUOoDE7XF2bGFS3ARy86SICvUAOQjEhhby+jeRG87Ejj0qii68iEFaHmbQ
-	 HiE10S3DJqHf1rXKEFOjzfcsqy5wOHDvqnq41m7XJDpAi+EaRy9cQPWCU3YuSAv1tYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795458929;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=sGyO6zCOF9qPt4b+sfkYsjNTyAW6+jH2b3V4HYUfhgk=;
+	b=V5ozk+yI+aCqHE2oCRHriDqhSaU8U4gszvHZ0Q9xmm8GuTGo0F/Nzcz2E24H3oqGjDS7
+	 B9V+SFVEX6BXeRMoYMWjrUoEcu4yDF9yWtbHuKxwx7aL42CNoOrtLbr4z2W8x762b92UC
+	 xT4hZtAuz8v1rW22GmPTd80TVqbtzULopx0phXi9D1MwV6YF2dABK47qzMEkWDV1P+i4g
+	 6P5yxN2/DzYgzYH3iIsVqGJcBfJDWglwwdbTchgVR7TBcqI+8AsEP4vKqPW2Leu90HCar
+	 0CF4K3OL/b51gxmbFT8EdFY84IVeypM8USIDv3SsOeRDTUUgwJEg+5QEEG+zIFGcyXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ijpVlN8I;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A228606A31A
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 18:29:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A228606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=X4xxiMBE;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0CB606A31A
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 18:35:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB0CB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ijpVlN8I
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B9961176B;
-	Mon, 23 Nov 2026 10:29:32 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8E3763F763;
-	Mon, 23 Nov 2026 10:29:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795458575; bh=91rRqWnUFnt98sbMIZIWLen5dQtczci7+M9TkR+C2eQ=;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=X4xxiMBE
+Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A20F32E9;
+	Mon, 23 Nov 2026 19:32:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1795458774;
+	bh=GK0OYzNTN5gtZyS6ZtSq8Av4SX3vBBzqtNVYSnseHj4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ijpVlN8I1I3lz+oP0f/Ra6j/FKXUuG6yrg9sGG6aArSc3WgM6d06k0TeBcvheHnlB
-	 +bg049yO3+3oRRTrxvdP291vcWCMxo9GAp2+PsBjvQ08/CJLOgCUEhOoOYk7V5y0sg
-	 lWIn7leu+umSmLK0yR2G0mX6r/H/ZewmLWycrNRc=
-Date: Mon, 23 Nov 2026 18:29:25 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	linux-coco@lists.linux.dev,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
-	linaro-mm-sig@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
-	linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
-Subject: Re: [PATCH v10 04/13] irqchip/gic-v3-its: Allocate shared tables
- using CoCo shared memory allocator
-Message-ID: <awSGBdS1AiFhJzZV@arm.com>
-References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
- <20261116091137.94252-5-aneesh.kumar@kernel.org>
- <awQd81MwZqi55gf8@arm.com>
- <20261123150041.GB179082@ziepe.ca>
+	b=X4xxiMBE+aQ7z7jJ8ZrxtrOFkSYCSIU/Cvw4EFSv121tRiVf9V3untZd1Y9vOiK7+
+	 ja5JmpZU9ueGPU7m2hfu6sdVJj0iIjYgypQXuzn8GU6SZMPJ82s1D5gnFpRj4qkZqY
+	 Lzg7VCrE5+5l5xG//auHCF798eJT7WJgPSuVMNK0=
+Date: Mon, 23 Nov 2026 20:35:25 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org
+Subject: Re: [PATCH 0/4] Various CCS fixes
+Message-ID: <20261123183525.GF2959742@killaraus.ideasonboard.com>
+References: <20261123-ccs-clanked-fixes-v1-0-fb2bcc87a517@ixit.cz>
+ <20261123165549.GE2959742@killaraus.ideasonboard.com>
+ <dc8bcacc-d743-4108-87e7-3c6715b23f4a@ixit.cz>
+ <20261123180203.GC3050935@killaraus.ideasonboard.com>
+ <775a6f72-d138-4ff2-9328-1c0c9c865d07@ixit.cz>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -109,89 +67,109 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261123150041.GB179082@ziepe.ca>
+In-Reply-To: <775a6f72-d138-4ff2-9328-1c0c9c865d07@ixit.cz>
 
-On Mon, Nov 23, 2026 at 11:00:41AM -0400, Jason Gunthorpe wrote:
-> On Mon, Nov 23, 2026 at 11:05:23AM +0000, Catalin Marinas wrote:
-> > > -	/*
-> > > -	 * If set_memory_decrypted() fails then we don't know what state the
-> > > -	 * page is in, so we can't free it. Instead we leak it.
-> > > -	 * set_memory_decrypted() will already have WARNed.
-> > > -	 */
-> > > -	if (ret)
-> > > +	if (alloc_cc_shared_pages_node(node, gfp | gfp_flags_quirk,
-> > > +				       PAGE_SIZE << order, &mem))
-> > >  		return NULL;
-> > >  
-> > > -	return page;
-> > > +	return mem.page;
+On Mon, Nov 23, 2026 at 07:27:10PM +0100, David Heidelberg wrote:
+> On 23/11/2026 19:02, Laurent Pinchart wrote:
+> > On Mon, Nov 23, 2026 at 06:55:53PM +0100, David Heidelberg wrote:
+> >> On 23/11/2026 17:55, Laurent Pinchart wrote:
+> >>> On Mon, Nov 23, 2026 at 01:02:38PM +0100, David Heidelberg via B4 Relay wrote:
+> >>>> First two seems to be no-brainers. Next two seems to be correct too.
+> >>>
+> >>> What exactly do you mean by "seems to be correct" ? Are you sending
+> >>> LLM-generated patches that you're not even sure about ? That's a
+> >>> complete no-go.
+> >>
+> >> Hello Laurent.
+> >>
+> >> While I'm aware of your antipathy against LLM models, current situations doesn't
+> >> look like there are lining people to fix it and make sensors work with the MIPI
+> >> CCS drivers (introduced 2012).
+> >> This leads to endless forks of imxXXX sensors across hundreds of trees + people
+> >> clanking this stuff over and over. Let's establish that first.
+> >>
+> >> When I see opportunity to improve the generic driver, I'm taking it.
+> >>
+> >> change-id: 20261123-ccs-clanked-fixes-609bb0754028
+> >>
+> >> As you can see the change-id, I didn't make it somehow hidden. I reviewed the
+> >> changes which LLM found when helping me figuring out why I have black/white
+> >> output from the sensor which sequences seemed to be correct to me.
+> >>
+> >> My logical thinking would be evaluate quality and review the code, which leads
+> >> to my brain marked:
+> >>
+> >> patch 1 + 2 as pretty confident it's correct and
+> >> patch 3 + 4 as looking reasonable to me.
+> >> patch 5 + 6 I haven't send because of unnecessary complexity and likely wrong
+> >> approach (still in the backlog to analyze)
+> >>
+> >> I would believe it's better to at least report in this form, thus my comment
+> >> inside the cover, that last two patches may be useful. And yes, I understand
+> >> there is infinite amount of randomly clanked patches coming in your direction
+> >> and I understand it's huge time-waster and pain.
+> >>
+> >> For v2 I'll drop patch 3 and 4. Hopefully that makes more sense to you, because
+> >> as I'm working on getting Linux mobile phones in a good shape, I have not
+> >> ability to split myself into developer highly specialized in every field
+> >> (subsystem).
 > > 
-> > This part is mostly fine but I do wonder why not make this alloc
-> > function the same as buddy alloc_pages_node() - return a struct page
-> > pointer.
-> 
-> I'd argue we shouldn't even be returning struct page here, do many
-> places even use the struct page? What for?
-
-I just suggested it for similarity with alloc_pages_node(). It can be
-made better indeed.
-
-> Exposing struct page to places that just want a kernel addr means they
-> have to call page_address and we are back to the highmem weirdness.
-
-dma-buf system heap needs struct page for scatterlist, so we need the
-virt_to_page() conversion if we return a VA.
-
-> > >  static void its_free_pages(void *addr, unsigned int order)
-> > >  {
-> > > -	/*
-> > > -	 * If the memory cannot be encrypted again then we must leak the pages.
-> > > -	 * set_memory_encrypted() will already have WARNed.
-> > > -	 */
-> > > -	if (set_memory_encrypted((unsigned long)addr, 1 << order))
-> > > +	struct cc_shared_layout layout;
-> > > +	struct cc_shared_pages mem;
-> > > +
-> > > +	if (WARN_ON(cc_shared_calc_layout(PAGE_SIZE << order, &layout)))
-> > >  		return;
-> > > -	free_pages((unsigned long)addr, order);
-> > > +
-> > > +	mem.page = virt_to_page(addr);
-> > > +	mem.shared_size = layout.shared_size;
-> > > +	free_cc_shared_pages(&mem);
-> > >  }
+> > Sakari maintains the CCS driver, so it's his call.
 > > 
-> > Here it gets weird and I don't see why we can't have just a buddy-like
-> > interface. The kernel-doc for alloc says that shared_size must be
-> > retained for the corresponding free but without reading the source code,
-> > you can't tell that cc_shared_calc_layout() gives you the same
-> > shared_size populated by alloc. We have a similar pattern in dma-buf but
-> > using the compound page order.
+> > I find it very rude to throw LLM-generated patches to reviewers and
 > 
-> This makes sense, we should not be passing size to a free function,
-> make a compount page/high order folio instead if the API is going to
-> be struct page based.
+> Take generated slop and just throw it maintainer - definitely rude.
 > 
-> > We can get rid of layout and mem structures (or at least not as
-> > part of the API). Of course, this assumes that the shared granule size
-> > remains constant for a guest's lifetime but I don't think that's a
-> > problem.
+> Do a review myself with non-maintainer level of skills and partial 
+> understanding? Hard to say.
 > 
-> It should be encoded in the struct page meta data, as the order.
+> It's rude to send patch when I'm fixing something in the kernel, but maybe my 
+> understanding isn't that brilliant as the maintainer one?
+> 
+> > maintainers if you can't have full confidence yourself that they're
+> > correct. If you don't want to invest *your* time and energy into
+> > properly understanding what a series does, 
+> 
+> That's fair argument. Again not B/W, I invest my time. I have partial knowledge 
+> of media subsystem, sent fixes before (even without LLMs).
 
-I agree.
+The social contract is that maintainers get something in return for help
+contributors. They expect contributors to learn, improve their
+contributions over time, and occasionally some of those contributors
+will help with development and maintenance in the long term.
+LLM-generated contributions break that contract completely when they're
+just thrown over the fence with nothing more than a cursory glance.
+There's no learning any more, no improvements, just increased maintainer
+burden.
 
-> > Was there a caller you had in mind that needs the common allocator to
-> > share less than the whole buddy block?
+Nobody expects you, or any other contributor, to be an expert, but if
+you decide not to spend time learning and improving, I won't want to
+spend my time reviewing your patches.
+
+> > why should maintainers spend
+> > any time helping you for free ?
 > 
-> If we want this it definitely needs to be a void * based API not
-> struct page one though..
-
-For whole-block sharing, either a VA or a folio works for me. If the
-allocator takes an order, the requested size and the sharing granule are
-both powers of two. Rounding up to the granule already gives a valid
-buddy block size, so there’s no need for a separate shared_size.
+> That's good point. I could ask myself too - why am I sending fixes for free (not 
+> paid by contract or company - community work)?
+> 
+> Maybe you're right. Maybe I should just patch the local imxXXX.c file in few 
+> minutes and ignore it for year until it breaks again.
+> 
+> >>>> Signed-off-by: David Heidelberg <david@ixit.cz>
+> >>>> ---
+> >>>> David Heidelberg (4):
+> >>>>         media: ccs: Use dev_dbg() instead of dev_err() in ccs_enum_mbus_code()
+> >>>>         media: ccs: Fix sub-device index in ccs_cleanup()
+> >>>>         media: ccs: Update PLL and blanking limits when pixel_array crop changes
+> >>>>         media: ccs: Set V4L2_CTRL_FLAG_MODIFY_LAYOUT on flip controls
+> >>>>
+> >>>>    drivers/media/i2c/ccs/ccs-core.c | 14 +++++++++++---
+> >>>>    1 file changed, 11 insertions(+), 3 deletions(-)
+> >>>> ---
+> >>>> base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
+> >>>> change-id: 20261123-ccs-clanked-fixes-609bb0754028
 
 -- 
-Catalin
+Regards,
+
+Laurent Pinchart
