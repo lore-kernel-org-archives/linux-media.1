@@ -1,93 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795448398;
-	b=tgSTog5VfUWLFRO5XDRnJJOrko98oIB8E7s+hfJH4N6OT5rybT35z1cnambDZq4ZDvrN
-	 Z3nr4m+tyQtUxeMCdlv7l4ldmhML3DseX9zIz2XVy+sGI+R/awzzu/RzbDTULSFqzELKU
-	 5ptw2wPOr57piBL+WixHPhJxjjBGK3Cu6g96IQhWa5ex5ey53id8FjKc7eERrqCbyiaJm
-	 JEz1ZScvkDzLAH3fx/on11ybSrAymwr+9tkVoEiB76DJ45wlccPGntuddyCin+/4i7hkq
-	 xbYHeFe5OIRbahMtMWtEj7ax/pzyWGi0nbkN/g7i23zLjBDuoHOw4IJyYxIH1WVEEwg==
+	t=1795448404;
+	b=FTPod/UevXTRm+SN8k2e9cZadBXxJI83FxHEdYFYbq614VPdk4xbplVsq+RYQiyNh5T8
+	 fA9QRxo83LP3kOPE/ppzweYOcNxl27Oqos7zxt47J/OLhc1ewy8GeauFsgFkHoXhGRBnn
+	 OYSxVN+O6e7+ctYfqJArYluwJAOEEIo0aawe9/Ei+RkKne9Qb/7f//WM1aev3w88VK7a4
+	 y3lbMcNmX8y9mzV+Vpmo+xBeE5L0eZYPluPBwYZjTQ3g6Ig6t7oQojkYOyy+60H4dXZz1
+	 xwK3kksVdQoVfv3qq5BUvW4ayIE6OE+dXqtHwTObBU4dAkdnFHC/0iOjhNi3aAqoxDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795448398;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795448404;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=1GFxZl4y484OqU2tYpxeVAzeWG8inzouoinZygUizxk=;
-	b=cPDFwdsbWCJG74QHS789HWScZlHP4jhFbkHzgpmt+hnfNXX4a7qpk3Ae5yadVV3FQFax
-	 TI+SEkQ+ah5XTM9PVxtXrfu2rYOK/0bOO7AZu+LbVib9FPAGBuvgMteILvBJaiUUyw5H2
-	 uF5F0QIDeYUlqJKZnLA1ERV3AaBUSb+bRggL1SiYp+6ekREEWFNlLEkgBdEDItPBhOMSh
-	 HagFQCmQApiRa2gum7ee2Hg9Su4mx4zP3CkcinaFwy3LUy7IeNvBm6QwsRvoowWSZVjT9
-	 VYiMG5mbzuiSTVDM4Qm+Q1z+x1ZGGIGbttJKYfTsxQVKKGVFurIdwaBITV4BA9nk9jA==
+	bh=JnXIma4YtN2iSsfSPRgrg8cOsz4M8vjVbnmrPKec7R0=;
+	b=rWzkNHj+mUTCexrfjnd5pwM23NNDcJPqb9/IT28vj1W4MBevwMeGUYoZfBZzkCDfH41K
+	 o6lVGmiBUnpRWMFE92qY8IuAQhk/kzNC99uBgS+ifEsXzvm0jUmTPTC5QVsbUYu/0xsd6
+	 chAouVyTfdHt5RsHX/1a4MQ9gh54fEJmEVOSbOjmwQtiE96Qqat7TXGnoKo/9f/HbG09D
+	 Ygp9OkIL3qi8CwqXqEgJzfuWZKRTTx0pfw5hiIBo78KTT9Gd3sKMSTDbwx0xSBy6GqcbJ
+	 OAwMAUKYLYZWo1v535zL4/EbsQHk9g0mbiJYm6NF9BYDAFz60uDh6QtZJdVNJr6qIXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iM529hfW;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DMAFUW01;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47395606A69F
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 15:39:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47395606A69F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2052606A6BB
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 15:40:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2052606A6BB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iM529hfW
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b546061d58so7608429c88.1
-        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 07:39:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DMAFUW01
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15ea896ddc8so5753416c88.0
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 07:40:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795448397; x=1796053197; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795448403; x=1796053203; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1GFxZl4y484OqU2tYpxeVAzeWG8inzouoinZygUizxk=;
-        b=iM529hfWQ+n94eebPbIoplRbcrnJHE4vvXXd0I8VP1GY6h17sc42vj54pbR1neSnqj
-         7CFdh0nJmR2V+6geapTCnOfymuO8B6lj++4aaL68o6LUIf66cZtKUNZOtQ9cmray/7Sa
-         rgcJk38ZLsEPfQJGI2/wNaeAerZaXhU8Ar/Y9jOh6DzPdRtU70cI8qtccUxr4fylnicZ
-         Vzz4Brqkj7oxkJOhjTIRO86XMdoFM6NBQ1i9MXJOUIcpbIe2QnNB8Z4b27jB42wxBTnd
-         FjBkcBlWzuwhToVqjJdcjaDal0UiugtXDwgM5al4U25boOgF4F7wazDFV7AavZa25ooY
-         kWvg==
+        bh=JnXIma4YtN2iSsfSPRgrg8cOsz4M8vjVbnmrPKec7R0=;
+        b=DMAFUW01EGyBKKPHGz1YCRmTSB0oy5xhgTrKXgFMtP8k6vq5JkI4q8U8WWs7RQG8R3
+         tpoYvdcRkYgEf4u7oWA2NUljx8lNGVHNiAKOTSKUrZ822WYyPGtd2IVIWHuWp87mvopT
+         PzZ+YrAgE9fFZMcNTr371vzZ01o0A1w5oDZlwFUbCBHNaiG0+jPQfyi0m9RPxCdrVLsu
+         OVtWNl825wP8bwIWOoYjlKyzQJTaiFBe0zRx79Q3Hw0FzkICkHW4f9KowL6p1uJBNi5D
+         /S0IC39SgoKNfd554bQQkxkRW3mffYuIJvWrW1lgqnDzqT5Sl9XmyKxNSdb8gTHnHGiv
+         6vZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795448397; x=1796053197;
+        d=1e100.net; s=20260707; t=1795448403; x=1796053203;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1GFxZl4y484OqU2tYpxeVAzeWG8inzouoinZygUizxk=;
-        b=Q1uwat4WMEdB6pf/UNfkBDVgDjQh9WpsL+DC4jI8U1LnIXeXBbdva/mwhW+/Lh19U0
-         edI9nnKq4WzIp0xfC5zZOnLSg4KL1tSL96MidoOrfHOfTisBCVLv6uOmgx0H02yOHsBu
-         gnJv8IAgOZeEU9PYMUQKpj7EGhlQDZKocwsOJ8OythRX1YbtJ/MB8FOxO21Jr+w9uEi5
-         ZJ/lRFtaFXxvwuFjzH7cQgcuVY15SoPCNNFcSpHOoyH36j3rwooSGNuGb83wW5pWTIZZ
-         5MwN2AVhbdfadCgeuW0wNLHEcrmfUvWlKWwaMmC0/k+N/T4tEglpOh0p0TFYtgRNvdql
-         WkxQ==
-X-Gm-Message-State: APuU4Z9YiD7pphbq9M6e7JERlMuFHEizsNcuxAkceH0TRWbkLmjgaVLv
-	gsAuPJcE9+floyAGbLqfrmeveelhReR4mKAKEhsH3KqhaXDpYvy71jrn
-X-Gm-Gg: AZFdTZcXcQcZONMvgpWecbCecw2vwhgZrm3D7tINRFmluwUkqqtshNzs/r73v63ZNWN
-	/DjM7g0EfJEeZLydAi0WggdQGPKEhS+77erCQ2Dqn6WlOSdj1nQ9UOZQtSjyRO7CXCk8irEn7t0
-	SgwMUd1t0LUuY6IRXCM7GuRQW0Oh07blSQfkm9hwIBaFjjQ4Tv8Jxdj+6PAlfGoBEjd0GeaMo7e
-	6QY22L8udKtS6YMJjksePMmFs1ZD01zGkVHwdkW4Vmk/JO+emP1n5xf3OxScWP22YTCTVBwx1Go
-	hEFueIqMFITh+wyfaRF9JT55m+4TD+oAb2YPPKWK+xGU5kwmSvMU61dPAu1MQHPzm4PvevIOB4y
-	RaTN1DxSufbXco+uYDspQFrdvLTvjnCIUAMxQ+gfxHEC80G9NB+1LFo5as07ayG9rAOf/ceW4KF
-	d2EnqOgOTBnDtvJ/OhvD1kW+uMUB/jfIUBh8xYTB+XKMJhS5RDmIzvz5Y9T9FCHX25FIDM8mpq4
-	D534AEH3LTm6HfFFpwxkIK7y6+AZNkNVA5TTb0HmSTpdS5VU8YBMa933rQUYb2xPbP6kJ3J1QAu
-	tx7SpouGW7jQQyS0AgEqPAX3KepHnTIe6/poBovqu1Ox0EnE
-X-Received: by 2002:a05:701a:cc84:10b0:1b5:709f:d510 with SMTP id a92af1059eb24-1b5709fd63fmr4476005c88.22.1795448397400;
-        Mon, 23 Nov 2026 07:39:57 -0800 (PST)
+        bh=JnXIma4YtN2iSsfSPRgrg8cOsz4M8vjVbnmrPKec7R0=;
+        b=AdlUwrnTAnRcfxYFbKe0R0RAvVGm5w+Ll3MLso1JUABWQ5dX8WMfJqfLZMW+D6VFNb
+         2K+aXQkaIz1fz+jNkuYzUFutOuv89uk9L6Qqg6+fUfGoNhcNuXM+OhoPAcWxJpsyYIhS
+         eXzEss5dU2scrwO535JkGC3N/jItfffAaz5qNKAKFOILlAfCnaWH+TXk7BZ+O9Of6JPf
+         I9jZuDliQpvImjmD940hNMoj4q0qepzcTEaOwcd0bFNsM+m9qYe0yEM+XGYGZnjj7z/K
+         nTL3QSzk/l/ZTHs2SS7kZj7sWNXRQtDlh1X39538ttWijdhAAisReSJ9rLtmSNgPr67p
+         OuLA==
+X-Gm-Message-State: APuU4Z97qdanG/tbhVk8OP/s7owTvHtUJVsHtDcivVRMjb+t1IHBCpWq
+	7WxkhPPWPxnL/ewKgSjdzMqEkbyRXUMvBUZoO5crC7pA2Ri+oUi6GDEk
+X-Gm-Gg: AZFdTZffaMXxIqxeE3DRQCDlN8UMEn0Fen+UfbibhkYsm2uFsHm9IV0k0zpEE787u6I
+	dF9U/5xeJxCmhUCwZPfSdu3+NWcLjTAccrOc2+m8I6lHN5RmQmHLfVDh9+bWqI6Rjgi+CCOTR/1
+	pR3AZ4pPTps/+5ByKhUk2LMvVAnX0110De14gZ8PSKEpTj3NB5zG7gC0Jo/A1djS9CtaZT44jNw
+	mZY7y2YXzs7t9OtdyHyKM2wOlUl4tG1Fbg0EeYlaRd2Ng6RaEHSxcbexHfIWVrrEObNvfqXj92s
+	H8gNFNf2qtKeCW/jNSbEqNhdV/w3/3Em7UekloKX7nacc3hoehUmETqt7YnmufyQaY30Z2vk2XS
+	SJI19LQs3XGhgwWqgjvrlpnXMbfqHZJiin+VbellbPudDCs3wTl3jOS7I/gn+lWeBjsCfZg69a7
+	TTkGs4+YYEDiSDpoeZkbhSIfamupgoXrcrL/RMDvqzByBl4PlFQUYD2U8cILvdaAPLwddkwkkIh
+	O3sZKz9VZBYhcHgfAEYX+GHKo61uUbLAJDYiDoExfVWAGVZ36x3GBQzHcgy3FNa+NdUJ4teP2N6
+	c7J/hmodqAp/w+6mOnav8wbF2fsjRH/TAS5SZzdRVo1hVBYQ
+X-Received: by 2002:a05:7022:3d14:b0:151:6e80:baa9 with SMTP id a92af1059eb24-1b55687f17dmr18299006c88.12.1795448402877;
+        Mon, 23 Nov 2026 07:40:02 -0800 (PST)
 Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5567ffa8csm33680067c88.7.2026.11.23.07.39.55
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5567ffa8csm33680067c88.7.2026.11.23.07.40.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 07:39:57 -0800 (PST)
+        Mon, 23 Nov 2026 07:40:02 -0800 (PST)
 From: Cong Nguyen <congnt264@gmail.com>
 To: sakari.ailus@linux.intel.com
 Cc: linux-media@vger.kernel.org,
 	Cong Nguyen <congnt264@gmail.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tomasz Figa <tfiga@chromium.org>,
-	Hidenori Kobayashi <hidenorik@chromium.org>,
+	Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+	=?UTF-8?q?K=C3=A9vin=20L=27h=C3=B4pital?= <kevin.lhopital@bootlin.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 09/16] media: i2c: ov8856: do not power off twice on remove
-Date: Mon, 23 Nov 2026 22:39:20 +0700
-Message-Id: <20261123153927.2547169-10-congnt264@gmail.com>
+Subject: [PATCH v2 11/16] media: i2c: ov8865: power off the sensor on remove
+Date: Mon, 23 Nov 2026 22:39:22 +0700
+Message-Id: <20261123153927.2547169-12-congnt264@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261123153927.2547169-1-congnt264@gmail.com>
 References: <20261123153927.2547169-1-congnt264@gmail.com>
@@ -102,42 +102,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ov8856_remove() calls ov8856_power_off() unconditionally after
-pm_runtime_disable(). In the usual case the device is already runtime
-suspended by then, because probe ends with pm_runtime_idle() and the
-stream has stopped, so the regulators and the clock are disabled a
-second time. That can trigger the unbalanced disable warnings from the
-regulator and clock cores.
+ov8865_probe() ends with the device runtime suspended, and
+ov8865_s_stream() takes a runtime PM reference with
+pm_runtime_resume_and_get() when streaming starts and drops it when
+streaming stops. ov8865_remove() only calls pm_runtime_disable(), which
+does not run the runtime suspend callback, so a device that is still
+runtime active when the driver is unbound can keep its regulators and clock
+enabled and its GPIOs released.
 
-Only call ov8856_power_off() if the device is not runtime suspended, and
-set the runtime PM status to suspended afterwards. This also covers the
-case where the device is still runtime active, which the unconditional
-call handled by accident.
+After disabling runtime PM, call ov8865_sensor_power(sensor, false) if
+the device is not runtime suspended, and set the runtime PM status to
+suspended. Avoid powering it off again when runtime suspend has already
+done so.
 
 This issue was found by auditing the driver with an LLM coding assistant.
 
-Fixes: 08304923d317 ("media: ov8856: Add runtime PM callbacks")
+Fixes: 11c0d8fdccc5 ("media: i2c: Add support for the OV8865 image sensor")
 Signed-off-by: Cong Nguyen <congnt264@gmail.com>
 ---
- drivers/media/i2c/ov8856.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ov8865.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
-index 1c879e461fa5..bc17deb945d9 100644
---- a/drivers/media/i2c/ov8856.c
-+++ b/drivers/media/i2c/ov8856.c
-@@ -2367,7 +2367,10 @@ static void ov8856_remove(struct i2c_client *client)
- 	pm_runtime_disable(ov8856->dev);
- 	mutex_destroy(&ov8856->mutex);
+diff --git a/drivers/media/i2c/ov8865.c b/drivers/media/i2c/ov8865.c
+index c7dc97bf75f6..02948c5888f4 100644
+--- a/drivers/media/i2c/ov8865.c
++++ b/drivers/media/i2c/ov8865.c
+@@ -3118,6 +3118,10 @@ static void ov8865_remove(struct i2c_client *client)
  
--	ov8856_power_off(ov8856->dev);
-+	if (!pm_runtime_status_suspended(ov8856->dev)) {
-+		ov8856_power_off(ov8856->dev);
-+		pm_runtime_set_suspended(ov8856->dev);
+ 	v4l2_async_unregister_subdev(subdev);
+ 	pm_runtime_disable(sensor->dev);
++	if (!pm_runtime_status_suspended(sensor->dev)) {
++		ov8865_sensor_power(sensor, false);
++		pm_runtime_set_suspended(sensor->dev);
 +	}
- }
- 
- static int ov8856_probe(struct i2c_client *client)
+ 	v4l2_ctrl_handler_free(&sensor->ctrls.handler);
+ 	mutex_destroy(&sensor->mutex);
+ 	media_entity_cleanup(&subdev->entity);
 -- 
 2.25.1
 
