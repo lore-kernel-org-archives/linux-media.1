@@ -1,48 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795393883;
-	b=zf6WIZNsG7O362at26W6WlrTPcohhTdvopa2OghbGiTyT7/F0UrXyYfzB8ofP5TYy9de
-	 k76jeF+SbQkABmnyQUppJ5H0cBrP8JnmwndRvlfVQqNMacQVl/ifuveVdohsXfTBF2WXo
-	 WXY26PmS9rETlY3T9oxXZgBA2SUZ+dhaunuKvE1duJsodoqga9Y0wFQoftxN8Q9WehELg
-	 +RwdzOp4OKN74/xfVQ/+m/jT/HTi9S/EcNL42x8sVemL9Q9EQhJFIHNxQPWPF9ptDkv03
-	 L7imfJcswnErdYdVp72UjnSVcCmyJIauYjHLbHchqnRMGXyHrNzfO1BuBD3eOqov2sA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795393883;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=SDBUxlPhjW6BO1LnZPH3b7vj+VNeQjb3oZ27uq+UPLQ=;
-	b=GUPtfD4YibG+QlXF91WRToJLIrtgj3UVrXh/zpOOpSP6O/4krouF+zWFjKMCYMGk4n9N
-	 LvvL5Y5AS6xw4KXmjpmssaTSD2xBWoMg2xOcf6eBFDPlMFm07mEgh+84zMcpCSVKue0sk
-	 kz3vnbPvAFf0Y0pIp4yEOO7ifrKx94naWYUzgAMVTY+bULcOYfukHiKt7PIebnMDWQf7W
-	 8t2l2vOdo/aCpsfpnX6sJFJQLjCv9rH3AKizoMCs2xYTs6c1rZyzW8sBTehXUMzQ5ERSY
-	 MhPMkZPTfTY39yCuFXHXAWdrv5WM3gA92GUppA1sT7WNHhak4J/dRCBqORyvhtf/5Lw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jbN3K0Lj;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795396914;
+	b=sCHBduKK14Kj/BdSIrMl7T0OJzM4YtcJZD0sS9yB/XELMRipbryZk1AJCnErTPA+tM6+
+	 aB2MZ0anAHCPMveE090IDbeI+nKOCQBoZzOZPKfuVBPa1f1XR+i1XStK1DX7o87D/Scr6
+	 TlpT5yA15KWXZSDOU/sZ64I3LwfNxpIE08/yfH1qbeVLW8Zpux4Xze3gZ/7qma9HPGuss
+	 JYbTEAeVN/AjrttIQfXNmbhGg+9A0p7BEO82FwcM88wJA/3veuokqHo/+1OswYeZsNMMi
+	 GEu67zAkhj9nW0z1NdXOg6duCZrujy0+8PvZd3qJda3MtBh2uxboj7itlRemxwj+4nw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795396914;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=CWigIpPVsSLso/LPVQlnZ8yKOycJwVSRyTPiWiXdq8g=;
+	b=rZB36vBCdA2c2ujxb0dXQF4IAxIpJZuXG5cnbtPh25QV+dMih6qxbzO9X8kWa6ObeXNg
+	 s1+Rn0ycClepFalQl7K+YWq6VdyIbjACOQ9+mR3Y88uTMMqwtGOdQ0jIOlNhOQwyt0Kzr
+	 LCZ1PvdObPUMf4ZX/VMvcsIdI9YBf3/Pb+wFRPHwViR1ceGBBsCRh6x4XNG9YQMcyfMA/
+	 fF7nU+ST9gec/Xf+/T79+aR433Co/4dXzkK/GHRWqd5A4dN9V/X4Y9I0rt1Qmm5RQybRT
+	 IEzGZJbZFxwBNx+6J82T28nI0arvgI/tmY+L1sEgKaRWvep/qwbBVCzmUsken4mnEHg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9zc+RpN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DF5606A31E;
-	Mon, 23 Nov 2026 00:31:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E46606A334;
+	Mon, 23 Nov 2026 01:21:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jbN3K0Lj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E6A91F000D0;
-	Mon, 23 Nov 2026 00:31:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9zc+RpN
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795396914;
+	b=KHRW1GKKb9IK040vukuVyzi0y1yOL7v5NgKbeT7/z+i7ycH/K7Slc0+jCWZgyNHvGgpk
+	 xFq6NyTaNY9Ou4oHgMlbt2SkZ39hR/OQAx0OZ2um3R4MqZFaiyXNs+bzIDLNwDLyHc+6s
+	 eP9xlhaTZDOAVdOpz9uizKVbTHA/XBSctPCl6WXOnrJpsSL497VzE8eb3AIZBusaMpqvP
+	 y6qMms6BLSlI7gpddivkRoNNLp5lj4dWzv0PCA9Cy0vKR1MQ9OM6WehChr8gMqk+gxQWx
+	 6TGF5ie02JBsh4eeeW4DTW5WG22QbVnI4cw3gnXTKQXa5wyHsZEZkvWggld8/aYVw9w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795396914;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=CWigIpPVsSLso/LPVQlnZ8yKOycJwVSRyTPiWiXdq8g=;
+	b=fGl84biGzCcuNphPd1dTVJWj5hCnMU8OYCnS8cY1ShY7h1mgiRIu7GrY/FxRDudZNrT+
+	 dUj273QznqBztih060v9sIwz1uHHMGu1tVY2ZIvm67D+s18xd+KlPR4MP59U5uEQVo54o
+	 37TheNNP/enZSR94cQK1fZ08XQxP+qLTu4I3nr4HGi2Rz5qU3EEqwaq9tDupbGLN/bI5R
+	 eEoY09l9Ko5SV88ICKZyUkc2cGkLH3f3ugCyxToio4i0do+LbR3TIzDRfAvIaM/0s2Wnu
+	 kdyyHpLXBGRPAT4cchhQnLiQgl0QrzaTALu34VyGoADF0oULPdl8Igi6HovbriPDsVw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 6C3C91F000C6;
+	Mon, 23 Nov 2026 01:21:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795393882;
-	bh=SDBUxlPhjW6BO1LnZPH3b7vj+VNeQjb3oZ27uq+UPLQ=;
-	h=From:Date:Subject:To:Cc;
-	b=jbN3K0LjwJjUXuKoLraxYkQ0HL2/B6ASEDs9D89ZefB5uQueSOP99afcSBZSNuIJz
-	 1jiXYsB8HzoR81gr9F9AZt+vAKChVcHoQmPOEIhH7MgItTZKDtghxmlfJlW6Z7BkqF
-	 6xMqEt6I/Qx7FTnO/Wok0eFjmz97TdINkl4cJC3j5uLFFGuYOvxTMgAtG74TKAMsdv
-	 RJo0y1XMOvbdRZlzFFL/K53BNrSSRGfectYCE8XUTawqIJGzdFUlBHBcGj6zTKFBY2
-	 oMnctXtvHjLG5mYf6d2+/+KhERZK13yRvtswU2w/WlBbsuET1SPqQCDMrwbuklDmum
-	 P8hc4rorNxYFA==
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 23 Nov 2026 01:31:18 +0100
-Subject: [PATCH v3] media: mali-c55: Keep IRQ requested during suspend
+	s=k20260515; t=1795396914;
+	bh=CWigIpPVsSLso/LPVQlnZ8yKOycJwVSRyTPiWiXdq8g=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=T9zc+RpNDrfCMyEjapWz8OvBuBnlBtbO8fzsblCq8Niugev6JsLgkw7BnSZ14Jyfz
+	 u+YfeJyLMK8OdDhLPS+/6kdhuPUWaFRGRBCYDylW4bNHjFMi+od3XKJjwLv0FfqGT5
+	 G/YWlEQzi++TKw2aHM/7n4A0/OhgrBrIvNzkSjZP22PiAtqa7dSL4JC/kNI8rJZZEK
+	 Qy5IE0oxAYBg/vquxn2vAU6jTsL0JrBeZ3Ee+sDiLCm0EuYx/03twone2JelGlbM/1
+	 SMMZ5EIao9i18dzSBRZsZY/Fn8PyuOybrJ6B1LZUSC4c5EA6OuT0i0OvRjfIdWUZbK
+	 pA91HEjUM5JsA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id ECFA44C2B8;
+	Mon, 23 Nov 2026 01:21:52 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Mon, 23 Nov 2026 02:21:47 +0100
+Subject: [PATCH 2/3] media: dt-bindings: mipi-ccs: Support IMX371 and
+ IMX376K
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -53,170 +84,80 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-mali-c55-irq-supend-resume-v3-1-8a933864e7aa@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/33NTQ6CMBBA4as0s2ZMO7UirLyHcVFgqo382QrRE
- O5uIMbEDdu3+N4EkYPnCLmYIPDoo+9ayIVOBJQ3214ZfQW5AJJ0kJk6YmNrj6Ux6MMD49BzW2H
- gODSMWhZGppakVAoSAX1g518rfr4kAm4+PrvwXl+jWuqXpWyLHRVKZG2d3lvnnKLTnUPL9a4LV
- 1jckX6WkpRuWoQKU5MV2pmCSlf9WfM8fwDn0CLZEQEAAA==
-X-Change-ID: 20260918-mali-c55-irq-supend-resume-30b507a20011
-To: Li Youhong <dayou5941@163.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, 
- Nayden Kanchev <nayden.kanchev@arm.com>
-Cc: linux-media@vger.kernel.org, stable@vger.kernel.org, 
- Linus Walleij <linusw@kernel.org>
+Message-Id: <20261123-op6-upstream-cameras-v1-2-234fb3b7bb18@ixit.cz>
+References: <20261123-op6-upstream-cameras-v1-0-234fb3b7bb18@ixit.cz>
+In-Reply-To: <20261123-op6-upstream-cameras-v1-0-234fb3b7bb18@ixit.cz>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, 
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1078; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=WONKLUZwZONG/1eyGGSAmyn63j+1WD61eX0aPYZ8HQ8=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrA5UvO124MmbWZgkQIqSWbuKBfOconQnBGfhXU
+ ZTwfcG+M0SJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawOVLwAKCRBgAj/E00kg
+ cu5hEAC1mEhErZKfCsK25+A4L7ozBWptF2uhmM9e7vVEplZi7u4q7P5z+YwlKgdqJheZ2DmvVJt
+ c3ojF+bKgNZjGaO+1KC7JrG8J6w72Fph2hMXxEcS6CxABoeGoF01joildOyOSbI9i0tHhDIpj3j
+ lPupEmXQJmBUmM70WgWGMLd+/LYTWWRou7rItmr/T6Jpqn8DqwWvuKRDM9ygDSs1EoeDYVx0JYZ
+ tFz74UvE5m1ZWgmODZ4VV7cZiCjhhGuzKJg9VASZgxoZkUpIe0HdbysxAxzizBuLjkBUCalhdzy
+ OaPy90Z6ksC63xNfLnhar3NuqZkznvPIJ5Z8t8h6VfgBuan+8kuBoPnGXQhI/jWYMr8l4vVdbOn
+ HlGTtfqHlNmHm5EYwQsKqAQsNBNo8t0tV/xTk+7jHs4qMeAAnXHs7V7p0lnUJ8VxId241auGCQM
+ 7seQd2ShCtlXY7pXa0ioCPbUNp+hZ5nCq47ovdNbj3Lim5EPJPG37/GuQBeSbzmnmbLYkzEo5R1
+ wvLg0LbU1e4/GCxnnDIfG9eX0SYzmlGSRRoE2coEevfw7ojbgU8C/iwVOmBiQRnCkYZxli1xr8L
+ gLZakxtdZVlKqCpizAo5BB9CglYyxkfeG9dFLFkAlpE5P93j8P9z31p4xlgvgYxfcySvHujVpC1
+ 77O1SsLbIqVi7fg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 7bit
 
-The interrupt is currently freed on every runtime suspend and requested
-again on runtime resume. Apart from tying interrupt ownership to the
-power state rather than to the driver lifetime, this leaves remove to
-guess whether an action is installed for the IRQ.
+From: David Heidelberg <david@ixit.cz>
 
-Request the interrupt once during probe and free it during remove.
+Extend compatible list with these now supported sensors.
 
-Disable and synchronize the IRQ before powering the ISP off, and enable
-it only after a successful power-on.
-
-Hold a runtime PM reference during probe until the IRQ is installed,
-and stop runtime PM and drain the IRQ before unregistering the media
-entities during remove.
-
-Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
-This is essentially my reply with the "proper fix" for:
-https://lore.kernel.org/linux-media/20260903025526.2657105-1-dayou5941@163.com/
+ Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Keep the Mali-C55 interrupt requested for the driver's lifetime instead
-of changing interrupt ownership along with the runtime power state.
-Synchronize and disable the IRQ before power-off, and enable it after
-power-on. Hold a PM reference until probe installs the IRQ, and stop
-runtime PM and drain the IRQ before removing the media entities.
+diff --git a/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml b/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml
+index 44faa2f613f37..049eaee31175a 100644
+--- a/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/mipi-ccs.yaml
+@@ -31,16 +31,22 @@ properties:
+     oneOf:
+       - items:
+           - const: mipi-ccs-1.1
+           - const: mipi-ccs
+       - items:
+           - const: mipi-ccs-1.0
+           - const: mipi-ccs
+       - const: nokia,smia
++      - items:
++          - const: sony,imx371
++          - const: mipi-ccs
++      - items:
++          - const: sony,imx376k
++          - const: mipi-ccs
+ 
+   reg:
+     maxItems: 1
+ 
+   vana-supply:
+     description: Analogue voltage supply (VANA), sensor dependent.
+ 
+   vcore-supply:
 
-Tested on the Renesas RZ/V2H board with the other in-flight patches
-(DTS changes and the TPG enablement) doing full suspend/resume cycles
-with wakeup from RTC and NMI and capturing images before and after
-the test.
+-- 
+2.55.0
 
-This patch was authored with the assistance of an LLM.
----
-Changes in v3:
-- Explain the probe PM reference and drop the threaded IRQ comment.
-- Link to v2: https://patch.msgid.link/20261027-mali-c55-irq-supend-resume-v2-1-759b3f5b2cfd@kernel.org
-
-Changes in v2:
-- Drop the wakeup-source binding patch and all ISP wakeup handling.
-- Drop the patch retaining ISP power for wakeup; keep the IRQ lifetime fix.
-- Link to v1: https://patch.msgid.link/20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org
----
- .../media/platform/arm/mali-c55/mali-c55-core.c    | 40 +++++++++++-----------
- 1 file changed, 20 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-index f28e9f4354ac..c8d970b9673e 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-@@ -675,8 +675,7 @@ static int __maybe_unused mali_c55_runtime_suspend(struct device *dev)
- {
- 	struct mali_c55 *mali_c55 = dev_get_drvdata(dev);
- 
--	if (irq_has_action(mali_c55->irqnum))
--		free_irq(mali_c55->irqnum, dev);
-+	disable_irq(mali_c55->irqnum);
- 	__mali_c55_power_off(mali_c55);
- 
- 	return 0;
-@@ -745,20 +744,9 @@ static int __maybe_unused mali_c55_runtime_resume(struct device *dev)
- 	if (ret)
- 		return ret;
- 
--	/*
--	 * The driver needs to transfer large amounts of register settings to
--	 * the ISP each frame, using either a DMA transfer or memcpy. We use a
--	 * threaded IRQ to avoid disabling interrupts the entire time that's
--	 * happening.
--	 */
--	ret = request_threaded_irq(mali_c55->irqnum, NULL, mali_c55_isr,
--				   IRQF_ONESHOT, dev_driver_string(dev), dev);
--	if (ret) {
--		__mali_c55_power_off(mali_c55);
--		dev_err(dev, "failed to request irq\n");
--	}
-+	enable_irq(mali_c55->irqnum);
- 
--	return ret;
-+	return 0;
- }
- 
- static const struct dev_pm_ops mali_c55_pm_ops = {
-@@ -825,27 +813,38 @@ static int mali_c55_probe(struct platform_device *pdev)
- 	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
- 	pm_runtime_use_autosuspend(&pdev->dev);
- 	pm_runtime_set_active(&pdev->dev);
-+
-+	/* Keep the ISP active until its IRQ handler is installed. */
-+	pm_runtime_get_noresume(dev);
- 	pm_runtime_enable(&pdev->dev);
- 
- 	ret = mali_c55_media_frameworks_init(mali_c55);
- 	if (ret)
- 		goto err_pm_runtime_disable;
- 
--	pm_runtime_idle(&pdev->dev);
--
- 	mali_c55->irqnum = platform_get_irq(pdev, 0);
- 	if (mali_c55->irqnum < 0) {
- 		ret = mali_c55->irqnum;
- 		goto err_deinit_media_frameworks;
- 	}
- 
-+	ret = request_threaded_irq(mali_c55->irqnum, NULL, mali_c55_isr,
-+				   IRQF_ONESHOT, dev_driver_string(dev), dev);
-+	if (ret) {
-+		dev_err(dev, "failed to request irq\n");
-+		goto err_deinit_media_frameworks;
-+	}
-+
-+	pm_runtime_put_autosuspend(dev);
-+
- 	return 0;
- 
- err_deinit_media_frameworks:
- 	mali_c55_media_frameworks_deinit(mali_c55);
- err_pm_runtime_disable:
--	pm_runtime_set_suspended(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_put_noidle(dev);
-+	pm_runtime_set_suspended(&pdev->dev);
- 	kfree(mali_c55->context.registers);
- err_power_off:
- 	__mali_c55_power_off(mali_c55);
-@@ -859,12 +858,13 @@ static void mali_c55_remove(struct platform_device *pdev)
- {
- 	struct mali_c55 *mali_c55 = platform_get_drvdata(pdev);
- 
-+	pm_runtime_disable(&pdev->dev);
-+	free_irq(mali_c55->irqnum, &pdev->dev);
- 	mali_c55_media_frameworks_deinit(mali_c55);
--	if (!pm_runtime_suspended(&pdev->dev)) {
-+	if (!pm_runtime_status_suspended(&pdev->dev)) {
- 		__mali_c55_power_off(mali_c55);
- 		pm_runtime_set_suspended(&pdev->dev);
- 	}
--	pm_runtime_disable(&pdev->dev);
- 	kfree(mali_c55->context.registers);
- 	of_reserved_mem_device_release(&pdev->dev);
- }
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260918-mali-c55-irq-supend-resume-30b507a20011
-
-Best regards,
---  
-Linus Walleij <linusw@kernel.org>
 
