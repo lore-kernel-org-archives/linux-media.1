@@ -1,79 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795447540;
-	b=QFCM4/WWy5SX8OIyhxCM0HPsTEIv5XRH/UiCqv9jVqu/Ig3mRQrWeSxB/sViFOUBt/V+
-	 8vYkxjY9We1B/yz+pZccu51TZjNcR4iO8DZ5gl/3v0v9uFBowsqB9f9zVP+Ag6napMOrw
-	 d6rFweQykB9YeeojKsX33LCUCRGAyH+nBCmmCflW8saQ74SRQs5DvUT6/mGSHWzyJmdhz
-	 yukUQlXgIF5HYyIr2bNrLxQY7iMT7Srv4vn2rZxSrm22UTOeh+Xf9DaGgGPQbBslXjM5S
-	 hOYxL+4nzvCXTsRhWxq9g5GaGUE6bR9v2B6jCz6VipRS3Zt2eBt2DM/5+1cKJl17h1g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795447540;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=RtZuQpjBISQ5PzofF8ezvlSlMkGFsIg2Ig7KZUE+5nI=;
-	b=A63OFvwpRJF4xUrix6N1NvPP/qFeFdkfgcVk795+jRkVKTs6M+yxnm7NsIVeAIbMdt0U
-	 fzhi9HZX32Ddyhfj3Pfrx5X8e9ttl8qGqOcBYz+CUgLJ8mCuMUjH+Grhn3lwxTzytq599
-	 CUkgTGjiXaAWQe0t5aaIdlIqolthic4jW4T6dPlqOaYtZejO2SUwsKC8WWLfKghjX7tO1
-	 4LW7wzTByHmmaq5n73DLfz0dXILicqUJGGVT/dKrtasPSAdrjv255igLWAq+QC5H/Q4m2
-	 OT5G40Vpe8aw2pfTXAL4peslHRVCjP75jLUdhgcDe2B02C6HuaN5dOxDO+wmIU3qsvQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=YCJ1Sm9w;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795447675;
+	b=Oel8J5CFHRyJESgnuDXy32xUDIvxkHgAEES1xhaKAtRvf94j5Y/l6BItKq1LkM3CspjN
+	 91Qv6eCkUaTU1LGaQycx8aXVumNfVokhOQfZt6CFUhuTtQUOB/i69mQwQXZA05QyYmzEa
+	 DsaJPrY1afm81pb0xb0JJM6iYVo6Y018rpLIAJowR7/ZRnijHl9NBjQtfVKeoKVWWp3Dl
+	 Bko69CfL720zkkdRLqGeQww3idzlab2p2A4Uj+buv5xaZPbq6VCE/hAkFj9J3kUq7DaTI
+	 7D5M7swITmn6p7+P23TJgfaq1V+Y61kEiD59G5Fy7JMs3MJt4ynO2DcEo2o06EFbpLw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795447675;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=uBAOfdEywnKwLI3Q30a2UJ1axUEupHQCdZ1P51aKI0w=;
+	b=3EyC0h9TG1KClAVDhJK2H/g44FZY3+Yc+09d4OGl3oiFk9B+lcQFgpYRj3Y6JFQ0vbIW
+	 q/Cf4U4i+4nHWK4Imxtcu+Rq1u8NwqQNo4jLMMe1pU/B4KXQwcy2Y+yI2glEyE16AX9ul
+	 aKh2s8r44l07LFEv/RxW5VvcBCoNOZ8WyU4F7CsbkosyHmqNwhrzrZ4uUUoh/QSz27e0h
+	 bg27PUxnFO897dTDONOBSNTekbB/fQs/h+JHo5kTJL6sAcLYlL/A9ToUGKR3TOGDWcse5
+	 oEIOMXMux4+Jjj3SGJu0+U9s+VB60opgoIZET3lztO+eZs5b11tS2ZapwS8q6mAEgOA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cWUb1R2v;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D568606A689;
-	Mon, 23 Nov 2026 15:25:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D568606A689
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155CA606A327
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 15:27:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 155CA606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=YCJ1Sm9w
-Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5c0a:3200:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 87D9920215A;
-	Mon, 23 Nov 2026 16:25:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795447534;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RtZuQpjBISQ5PzofF8ezvlSlMkGFsIg2Ig7KZUE+5nI=;
-	b=YCJ1Sm9wSJyTcVdstzw5TsvJXDZrTsBfIFbBj2QnEq1t68ZAOhF3V5MaZ9/eAxq3HNlxTp
-	jc/3pewzJvQrqCfRvXslFI41qGS5lBjg0x25htfrqy69o18UWIzMycjC4ezzcslHcaTVUO
-	yYB+LVEVHPQWIoKv8KRRldVuVgiFzJsxXSo9LY/LMgeCXpZcjqrHbpYUPQyWkbrhloHJT7
-	jJq1PlkUyLZAH9dM7b0ECp+0irb9iNxbL8SqnvSjsxsTvnvFAU7itTDyeE2yrtBI+IbiJu
-	PQQFI0W9324A5dSTzfGxgS2F9GZ3iLMG2TkSreMvydlRcKVLyB8p4S86jVau7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795447534;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RtZuQpjBISQ5PzofF8ezvlSlMkGFsIg2Ig7KZUE+5nI=;
-	b=JdFLa67ldlJXlkWYyXw5VpJGdvOdZ4zAAp3LVTkbFNiGrVQy2ofOAx5QaZbHyFSfuXZkYU
-	fTXayBwvauLYRfU4pUsaVy92lJRz3PX+cDVEXkuHzd1F9AcophTX/yEdIERH1WQnG0eoI7
-	sk3S+N9qaXNAYADa/SjWp9LjfkerXaR6bIXpSYdEFkiA3MtsvbJ+295evOJfVbDoBcqLj5
-	NHqs9sCNlnwM6sdexA6Kc9aJe3dw4iuJjnERt8K2vpcZmUXIyG31XmJ2W3LB4lGVwzukLc
-	kvZHOYlPctPwsu/UgkXEmXoeo/l62guBLiRSvkdRercqqKAsaGYhiJFdfMg4Og==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795447534; a=rsa-sha256;
-	cv=none;
-	b=PSfHtdakjULySKUW65G9H7whHeWSjhN4P340vni8F5U5Mv2jTVc7M3bcCjfFLOMXvOx4zt
-	GXGeuvGQWhpuaxtoFepPIjcNqW0U6In9KQUX+t2tJe7WgzI6Gv/Pyn3gbyeTF5Fyvp2UlF
-	xxiWg1Fi/3c7PsEdyGUQAxDrMIrTlqpTtQDva+McDmsxHZIRuF0q8qo0vG9qexCR3hcqYt
-	8jEpNoTEgUCfBfSy5PtfXYSbmbGzkCpMLpX6spo5x0pgMnm4gfaMOpZz8d5EBA9zeM6i+J
-	uOKoM5yWcXbJcNpq4PVtkhUi/IXQU0L8Ahs1kL30uIAf/NiWduqpfY7IEGZXqA==
-From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Mon, 23 Nov 2026 16:25:22 +0100
-Subject: [PATCH v8 3/4] arm64: dts: rockchip: rk3588: Add JPEG decoder node
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cWUb1R2v
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1b3acec6677so4817289c88.1
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 07:27:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795447674; x=1796052474; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uBAOfdEywnKwLI3Q30a2UJ1axUEupHQCdZ1P51aKI0w=;
+        b=cWUb1R2vJjz6q1bHmoPN/LqInvTMfkVUHJM4/GfA2TcN29DOBUjjq8PtpXn5jaj5AL
+         93lxc+XMTCtIQ+iYvqkvAWdBYKVc7/OGn8+41OgyJowmRjEGLTX8UIqIv1s8UCJfmqYk
+         AzomVOu58i73iY/MROCpGxPoHo9igrRfdDeNzrI7OKLGSbfrXrSHUTMziEfZCM9z8r+B
+         VBQ1n3AmEHl3IwSJ1PcxhZuO78OiBdcDPoAv+SjwCWtQ/gu8RB9cWNYT75p2l7guU70D
+         nCeDlvuXjJyXpdv3FcZFxsnRu6O3lmeDvcfcQmCKaOw/FgBK1982jNY60Awlp/F1GNiH
+         cwDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795447674; x=1796052474;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uBAOfdEywnKwLI3Q30a2UJ1axUEupHQCdZ1P51aKI0w=;
+        b=o7ix6NQte2TFbg89DqF3hSiOG+ST1h8ZwTj5e5U8kMlN44OSxQZIdIftFGVSlLhnZE
+         6L31+cq53bUo7V8nys/s0/fNTm+/bOGuVmuG3AQH8LHTpj15CZdkCTmDJTLAvhUp7hYn
+         LrFeAD/4W584p3tLXt+6VMNkr4cESosa6R+oDyo4hUoDjKCn1hL1ixfyFoBeet1MyAvn
+         IDm+HEwGUMxbEhp6qIQ39xG2HqVM9mRwhgtl51FrKB1wD+0nc84f8xXVPdVdFjymGdRR
+         DFcxPsjgeEO5IjP9AocY3RYJcnNrZyLaeC0vqKtKrd2CsZpFXAJimVIZ04zYyKLGWNDo
+         Ce1A==
+X-Forwarded-Encrypted: i=1; AL+hErER+8GQqyLUusy1CNH/2CzIWhNHnXqh8H//0fxPlbYut/PJp7LQJw3CPuyaZo5Oqg1XL/wIuPAq6hFfDw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+eKZpZRDU39mffMs3X52FErvKDI6eYwdddZpgtpnZQnElm0QQd
+	AIL/I+j0Ish7zpx7KHy/bToHbZ/R9USGMcjOMz6atGFFhT+tDw3cwjIP
+X-Gm-Gg: AZFdTZeHzP3qBTuf9njmCQw2QQteKa84mGvRC6ni/+PK8dtP2RsCp8FpinygfNHSvVy
+	1Gu6QZZiKUsRkPO5i3utegvP1xUX/XlNfA9zAZCGfBB/siVhB5/NzzXIf2WC0JjlwWQELhE4ii/
+	cEkNkM2FEjOXYProXeHIXnONz7qfLXdeRs08DqAS6ByFHFg9R/PCnM0XzTkfjV3MOmH8n+KQeR7
+	pD3ec6ZJJ45vvzN+ALtcFDnDIfJ7Npemic4tc5XX5eAWtZPWWlC0kCu4DhN2toTrZmPrUq7v94c
+	W/0f/x/X4TyBgJ7jGllyfnUQ1s0U5e8sM/xTL2zpQOrqCMRRxDOVq5z77ZoYlZlh0kI822a8ilJ
+	FsoXJidfmIwprWGBu8/EbjtXj5E6Y/LrYh0rlOrluhiAeqa5aEH/2UMhmn+qA/V6ngnZB260eBJ
+	TYxlsX6QnoVffEO262cFx5z5kMqU6r4wpTDVVDxuG0lToVwgvsH1f5qG+Q61TgyZ6sETV6qMPAj
+	sRWdbLiLXBPsixKkmg25TMCwRjGRDd6Kpw8uyZ717pMLhklkr6Sgy0bEd2w+HBx88WQ9ZXi6/Y+
+	Qenc1MjJRXz5Oc6OwlFNgIsg78ec42gOdRSEpQjpsAirXA==
+X-Received: by 2002:a05:7300:de08:b0:382:42a:d3ea with SMTP id 5a478bee46e88-38570258929mr12093640eec.29.1795447674020;
+        Mon, 23 Nov 2026 07:27:54 -0800 (PST)
+Received: from localhost.localdomain ([2404:c0:aa07:12b3:e89:dfdd:d14b:d911])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e99fdsm46569087eec.5.2026.11.23.07.27.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 07:27:53 -0800 (PST)
+From: Hikmah Gumelar <hikmahgumelar@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Hikmah Gumelar <hikmahgumelar@gmail.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Subject: [PATCH v3 0/7] arm64: dts: qcom: msm8953-xiaomi-tissot: enable front and rear cameras
+Date: Mon, 23 Nov 2026 22:27:15 +0700
+Message-ID: <20261123152722.168879-1-hikmahgumelar@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261123123546.152162-1-hikmahgumelar@gmail.com>
+References: <20261123123546.152162-1-hikmahgumelar@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,79 +112,51 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-rockchip-jpegdec-v8-3-3316cd31b043@pengutronix.de>
-References: <20261123-rockchip-jpegdec-v8-0-3316cd31b043@pengutronix.de>
-In-Reply-To: <20261123-rockchip-jpegdec-v8-0-3316cd31b043@pengutronix.de>
-To: Lucas Sinn <lucas.sinn@wolfvision.net>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795447521; l=2087;
- i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=/5otNey9wykcyEsqmcE7HpFPjCyCSXpdbrUJbjJZsqU=;
- b=2yShTeDEluSQe4gR/nnFNAVc68Wmhp64tCITD1cDWJyFuY4hJMhVnxPZHxrlXbGauz3QEGvJs
- 7rU4X2ja9DjAqPaBb1+6B14MWm1tcWrq5unELJp/aHNaTFVL3NnZJtZ
-X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
- pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
+Content-Transfer-Encoding: 8bit
 
-Add device tree nodes for the Rockchip JPEG hardware decoder and its
-IOMMU on the RK3588.
+Enable both the front (Samsung S5K5E8) and rear (OmniVision OV12A10)
+MIPI CSI-2 cameras on Xiaomi Mi A1 (msm8953-xiaomi-tissot).
 
-The decoder is at 0xfdb90000 with its MMU at 0xfdb90480.  It takes the
-AXI and AHB clocks and resets, and sits in the VDPU power domain.  The
-AXI clock is pinned to 600 MHz, which is the rate the downstream BSP
-runs it at; it is a dedicated clock, not shared with another block.
+Changes in v3:
+- Add Fixes trailer to clk: qcom: gcc-msm8953 commit.
+- Fix $id and $schema URIs and switch MIPI CSI-2 data-lanes to 1-based.
+- Replace deprecated pwdn-gpios with powerdown-gpios and model GPIO62 as
+  a fixed regulator (vreg_cam_avdd) supplying avdd-supply.
+- Drop unneeded <linux/mod_devicetable.h> includes from s5k5e8.c and
+  ov12a10.c (suggested by Uwe Kleine-Koenig).
+- Fix runtime PM ordering, pm_runtime_get_if_in_use() <= 0 checks, active
+  state initialization (.init_state), v4l2_subdev_cleanup(), exposure range
+  updates on VBLANK change, test pattern enable bit, and endpoint/clock checks.
+- Drop undocumented interconnects from camss@1b00020 and sort nodes/pins.
 
-Both blocks are entirely on-SoC and have no board dependency, so they are
-enabled unconditionally like the other codec blocks in this file.
+Changes in v2:
+- Rebased onto linux-media/media-committers.git next branch.
+- Updated set_fmt and get_selection pad ops signatures for v7.4-rc.
+- Added MSM8953 SoC CAMSS node and MCLK pinctrl states to msm8953.dtsi.
 
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+Hikmah Gumelar (7):
+  clk: qcom: gcc-msm8953: fix csi_phytimer_clk_src 100MHz parent
+  media: dt-bindings: media: i2c: add Samsung S5K5E8
+  media: i2c: add s5k5e8 image sensor driver
+  media: dt-bindings: media: i2c: add OmniVision OV12A10
+  media: i2c: add ov12a10 image sensor driver
+  arm64: dts: qcom: msm8953: add CAMSS node and MCLK pinctrl states
+  arm64: dts: qcom: msm8953-xiaomi-tissot: enable front and rear cameras
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 376ad04e07869..cc53878502898 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1317,6 +1317,30 @@ rga: rga@fdb80000 {
- 		power-domains = <&power RK3588_PD_VDPU>;
- 	};
- 
-+	jpegd: video-codec@fdb90000 {
-+		compatible = "rockchip,rk3588-jpegd";
-+		reg = <0x0 0xfdb90000 0x0 0x400>;
-+		interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
-+		clock-names = "axi", "ahb";
-+		assigned-clocks = <&cru ACLK_JPEG_DECODER>;
-+		assigned-clock-rates = <600000000>;
-+		resets = <&cru SRST_A_JPEG_DECODER>, <&cru SRST_H_JPEG_DECODER>;
-+		reset-names = "axi", "ahb";
-+		iommus = <&jpegd_mmu>;
-+		power-domains = <&power RK3588_PD_VDPU>;
-+	};
-+
-+	jpegd_mmu: iommu@fdb90480 {
-+		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
-+		reg = <0x0 0xfdb90480 0x0 0x40>;
-+		interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
-+		clock-names = "aclk", "iface";
-+		power-domains = <&power RK3588_PD_VDPU>;
-+		#iommu-cells = <0>;
-+	};
-+
- 	vepu121_0: video-codec@fdba0000 {
- 		compatible = "rockchip,rk3588-vepu121";
- 		reg = <0x0 0xfdba0000 0x0 0x800>;
+ .../bindings/media/i2c/ovti,ov12a10.yaml      | 110 +++
+ .../bindings/media/i2c/samsung,s5k5e8.yaml    | 103 +++
+ .../boot/dts/qcom/msm8953-xiaomi-tissot.dts   | 119 +++
+ arch/arm64/boot/dts/qcom/msm8953.dtsi         | 145 ++++
+ drivers/clk/qcom/gcc-msm8953.c                |   2 +-
+ drivers/media/i2c/Kconfig                     |  22 +
+ drivers/media/i2c/Makefile                    |   2 +
+ drivers/media/i2c/ov12a10.c                   | 719 ++++++++++++++++++
+ drivers/media/i2c/s5k5e8.c                    | 555 ++++++++++++++
+ 9 files changed, 1776 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov12a10.yaml
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/samsung,s5k5e8.yaml
+ create mode 100644 drivers/media/i2c/ov12a10.c
+ create mode 100644 drivers/media/i2c/s5k5e8.c
 
 -- 
 2.47.3
