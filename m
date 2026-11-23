@@ -1,79 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795396914;
-	b=DFi8xgMvxnPdQOwpPq0n/okqLMN70/T+WIIzYQ99fmLFLEQl/2wwcax4UD8u/87Mg5qj
-	 qD4q5vW8urznimbA5muHDVJnohjSFOmCK8uAisez3aHVc++IzACLi3aSHB0dtiPaKJ/x+
-	 iwuX/pRGVWBJxYoeb/zEdE4HfRmua8iXKw61vPGJ0DH/4Ta97Udxaidcx4zNCDM/Sd77i
-	 N+OfH+OzYpKPM4xfZaZo+1pTifZntv8KBEYP3kbDNtjCythfIGglVxVoxPLDSL6CUWAMA
-	 /KAWI4cZXgE2TYkQjd9jexiTMszRYLC1NO9PPjtAmxh0r9X13L80JTTMVzr6LLc7+MA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795396914;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nJu2NNuYTEULSW5riysMo5NbTDgqpis/Y7tsuXDcHJ8=;
-	b=4GKAnpFLP+OYn2802XCleB1gz+pblqRNDnkUalOkt2l2dKhMK0mD0k/R6JlZcqKMDFfA
-	 Yyp5z0DtQl/dRkqOWLoGJPi3gE7tYM6wG2Eai2JedJpGlgoLNykkQFhOqAb0KhKsr/0fS
-	 7JaCDSMXqb5dRxGJ20RxGmX6SnEj9ehoNs1FsIOa3XQcx+eElhv+EEGpFOmDL2l4Z6Qgn
-	 zHtBm0pRUFrh36MHLRn4p48pSB2urXsv/Kks5n6f68cX3nY2e5weJmNF967vYUqJMSFNu
-	 AnTh1ba5u93LMD1qG8xul6J854USvmfAhZZ3ILlFlRKiL2WyfwiT4uxIK+rKQYd5WQw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Do8t4uGC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7BA2606A335;
-	Mon, 23 Nov 2026 01:21:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Do8t4uGC
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795396914;
-	b=YgbaMxl5ightBqgeb2/Dyhgkb0OYrREgB9D7tAGj3XfoshO8phMMSscM0yuzDVc1Kdp4
-	 Tg/ZYzcy/v8XVO0FTHcSMrz6gHM3lxt8hzItH//qRJxJe+gszCcJEIwdRprk9WIiEqOON
-	 QJjibET3o2EkNQJautpjUqZ+1s2euaXU9Hvoq9effrpj7goBJtol++Ab0JJBa5E0UTYiH
-	 sgPzOLfTzpY1c/yJcjHZl9jDUUwrt+C9LMxiev46FDeGl8RI2fpNBbJUI1f7VSzyNevNp
-	 cwMm4UDrNjM2I+9NH0g8n8A8R2IO3dSkoRx6VZW3j7GCh+jXBa2Jov+8y/Pn63TWaTg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795396914;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nJu2NNuYTEULSW5riysMo5NbTDgqpis/Y7tsuXDcHJ8=;
-	b=Qy8+4VHhZkmPw9/rj7nTBujcVMLeWK6DOvIWUIj86y7nbZkQgiMXo8iWBM5a6lfBZep5
-	 VMqW/E2xJIj5QbPFU1+kVl5m1pCObFdDm6Y6AW4CUr6kqc69h7QsApx/mhRUvgeJh80i/
-	 Dun/QcNRwPkD1X0bxeuklYQpOgw6IhN51N8M6CwWeY620PKv6JnGpNfFPev0HggAZdf8h
-	 zKZqXh9S1Foev8w9ODOVJnoHpWD2V9oTx/xShCCVMp/BvaI/d4yKpNnOOmQ1g4cFKDYHQ
-	 egMPHa+mrxvWfKgKAnKmSNDU34OYdEpqXj3pgWPiR/jpltTmv7n9WSX2LvjwN9dRp7w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.135
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795397308;
+	b=mNhnAiPll9hAriLylYsesTFiiFfKm0Vbt3t6gPgS3c/GtqhJGpq0ZyEpAMqlgLPlxMWI
+	 EE9lCMFnIjuYj4JIwrRIuwsy1lJggIWsPOzvT2MIADOFlzLbDiGg3HoHEBx5IsgeYNCgr
+	 cBHP4woMRO9FG3Ly+49H6hS7jXDY0vNAnNC7vamwAlIPbmLBMFXvrKu9SPvnHFGL07p3W
+	 n7h38esacTCvEHbb/O2eQUW3q3MMmpErJasHhmNJqVA9tShdNre8B+w3Z6bkKBtY2CC0Y
+	 HdWnUofZg5X7MB5WYy2M+ri+XEVOQLAI2V9MGfwCjziuABSLiRVHmIMdIiQhcbvmr0w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795397308;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=3nVlInPmwKkJl4MGaIbIDMUH25e+EWVO33tmlKLpUuQ=;
+	b=gEwnt2bExpZm3uxdQRLiUf74hIeoodKqdioniZmfZZ6msliIHOaAHCvGGdLCeAeUytSu
+	 6OdZQyd7z2SFlE3h/HMfJb9a0jIEWbxck5cVKZ/sf2EYX/vglsWUOPODoTH3GR0zSgcXZ
+	 hNhcLJu1iXwEdzLJKeTO3oReBv+qtmvCyD3MU21W8NDsjXiWUltXEbZymsZeUFjuOpARS
+	 hgSh6QZVdsojfT9NHvC9YHaDirsuRbfsZNprjxaa//K28O2UgeUrlsh1SMKozsdDEIo4r
+	 KpRX9iAlEvKl1qHPtRWhuE00GPQV8lGPQMxoKUzw6ovLntpC+AWm8cjb7XL0a4/CPIQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HFXJi+iV;
+	arc=none smtp.remote-ip=91.218.175.135
+Received: from mta0.migadu.com (out-135.mta0.migadu.com [91.218.175.135])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 889351F000CA;
-	Mon, 23 Nov 2026 01:21:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795396914;
-	bh=nJu2NNuYTEULSW5riysMo5NbTDgqpis/Y7tsuXDcHJ8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Do8t4uGCs3hSpxMbkklO+v0L2bQ5dKK7CSq4aE7LtDAbJd/LFB559bBmaDdI9obz2
-	 BXOvdRKoWhe7XSx5RzgMruFRqswi3wErwB21CPWALZaf2cHn2QEk6WIVGHSNnyM9qz
-	 M8nQUENuME3Z+L9MFYvSFeBwRTEA3YtOlRsO9/41ZtWDB2amwpsEOkNyk0HSbgmlsX
-	 z9SO2GU4fmuFK+h+CARzAuPz1XIs9sCkKhE9Vmi1s9Q5Xrljq5G/HgMasOHdPWfOyA
-	 6ICkuk1i5jdS/T1ts9Ai6QsMjyY1otzAlp0LyrEgXAaGMFejnIdqBCrmsKZtCzoKbI
-	 xGrG7sqIDsGAA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 149B14C2BC;
-	Mon, 23 Nov 2026 01:21:53 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 23 Nov 2026 02:21:48 +0100
-Subject: [PATCH 3/3] arm64: dts: qcom: sdm845-oneplus: Enable front and
- back camera
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED9E606A320
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 01:28:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AED9E606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HFXJi+iV
+X-Envelope-To: linux-media@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yfkDOFNangaKsew0JIB+tHmbNmAGU3mvMCj7TinFEwA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795397305; v=1; x=1796002105;
+ b=HFXJi+iVfgmqTCIRPIxX4n5w2KGjTayE6KuyYt42eqaZJ03ZOaxoubQ3tpkB/1aabwoJrRu1
+ l7vhJdqbDNb2WnBAJoEjY6D3PYH78e2KJ8WzrsY/mpOTbtVe5LeGG7MyJwPFRF9TQb0e7S7Ig/f
+ N8y/Hi81NRbbH4uD4jenQA5g=
+X-Envelope-To: linux-media@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 20b39d6dbaa3b65f;
+	Mon, 23 Nov 2026 01:28:25 +0000
+X-Mizu-Trace-ID: 20b39d6dbaa3b65f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <e9860ead-c5f3-4dd0-beaa-d92396c266d9@linux.dev>
+Date: Mon, 23 Nov 2026 09:28:07 +0800
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,408 +58,181 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-op6-upstream-cameras-v1-3-234fb3b7bb18@ixit.cz>
-References: <20261123-op6-upstream-cameras-v1-0-234fb3b7bb18@ixit.cz>
-In-Reply-To: <20261123-op6-upstream-cameras-v1-0-234fb3b7bb18@ixit.cz>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, 
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8366; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=vioKixhUcBrwwUTgGKdctZDr3XqKcyo5CZdW0NlSvjI=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrA5UvJrRVM3REvUFYaKzBnOFxLcevvLq8grDRj
- M1GP3jtwK+JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawOVLwAKCRBgAj/E00kg
- cgpGD/44GKgcdCRaD1DZKWalH+uHCn2hy86fK3Vnro7d6NGQJMJ48JIdoLQTO/ThAFX83QFGeK0
- tbTAK8RHzvoOkWy8oTerirZjeak7W1HXHh9kVFk+vz+ikUG4f6/KHIMnpkO2hiscX1HhdQmi2/c
- vo01zVS+hax37F4acHBDomMQImYOnFajiSTogt72SEZGifackT+VMXR3sC5kMKzaGRvfldNrl5f
- KFiivchLFksdcEuTYyD4PrNq24Pk1OAv9F/hvIFjip9IhNJPTUgtNguaRsUYZPZtvR4pDF4Zbzt
- hao+kz0hkNxPZcE8kVCe+gZkM42e4sMLeLZoGLbFdqdNKE5bCNzVSbmPZFG3j8kNvh11746en3i
- YWnMW4CQWxgGDuORde6/oR95sHONbRUZ63qBz3IiW/Xc18x9DT4vc6Z3kAZZWi7F58VMjLVIPoD
- vXMWo9RtwyuTpmyZyte5K8gvPH0pnr9zs6mBV1TXI4lFEOvEnVgTU48U7drHKIVFa4tdlP/CPE9
- QR2ZEpnsI2p+ExjALvkchdUVTFC/RXW3pBYUV4oLVJ2h6fkkOLEM8N5zTB97y1T3VfDNTNZ957z
- MfcJbGilaHmnfjCla41mvAz6Nl60Jkhv7v508UFpxsbLPUy/HrKvGZXU5QlIbB6Jxyge+U6i2rY
- 09u/6l91Ehqy2cw==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 6/8] fs: add FMODE_CAN_DMABUF_IO and require it for
+ dma-buf I/O contexts
+To: Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>
+Cc: Anuj Gupta <anuj1072538@gmail.com>, Nitesh Shetty
+ <nj.shetty@samsung.com>, Jens Axboe <axboe@kernel.dk>,
+ Sumit Semwal <sumit.semwal@linaro.org>, christian.koenig@amd.com,
+ Philipp Stanner <phasta@kernel.org>, Dan Williams <djbw@kernel.org>,
+ Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, tytso@mit.edu,
+ Andreas Dilger <adilger.kernel@dilger.ca>,
+ Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
+ <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Zhang Yi <yi.zhang@huawei.com>, asml.silence@gmail.com,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Li Wang <liwang@kylinos.cn>,
+ Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+References: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
+ <20261113070621.273953-7-mengmeng.zhao@linux.dev>
+ <20261120-faust-bohnenkraut-reduzieren-a30811186a15@brauner>
+From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
+In-Reply-To: <20261120-faust-bohnenkraut-reduzieren-a30811186a15@brauner>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-From: David Heidelberg <david@ixit.cz>
+On 11/20/26 17:55, Christian Brauner wrote:
+> On Fri, Nov 13, 2026 at 03:06:19PM +0800, Mengmeng Zhao wrote:
+>> From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+>>
+>> Add a file mode bit for files that can be the target of dma-buf I/O and
+>> require it when a buffer is registered.  Block device files set it when
+>> the backing disk supports dma-buf I/O, and filesystems can set it for
+>> inodes whose data can be reached without the page cache.  The bit is
+>> coarse: a driver that installs ->init_dma_buf_io_ctx for every
+>> namespace, like nvme, still decides per device at registration.
+>>
+>> dma_buf_io_ctx_create() is the only caller of ->init_dma_buf_io_ctx, so
+>> the capability and the O_DIRECT requirement are checked there for every
+>> file type rather than in each helper; O_DIRECT belongs at registration
+>> because F_SETFL can change it afterwards.  Add bdev_can_dmabuf_io() so
+>> the open-time and registration checks share one predicate.
+>>
+>> Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+>> Signed-off-by: Li Wang <liwang@kylinos.cn>
+>> ---
+>>  block/bdev.c                 |  8 ++++----
+>>  block/fops.c                 |  2 +-
+>>  drivers/dma-buf/dma-buf-io.c | 13 +++++++++----
+>>  include/linux/blkdev.h       |  7 ++++++-
+>>  include/linux/fs.h           |  8 +++++++-
+>>  5 files changed, 27 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/block/bdev.c b/block/bdev.c
+>> index 88e3f552f5d4..4e7a7f7e1e8b 100644
+>> --- a/block/bdev.c
+>> +++ b/block/bdev.c
+>> @@ -61,14 +61,12 @@ struct block_device *file_bdev(struct file *bdev_file)
+>>  }
+>>  EXPORT_SYMBOL(file_bdev);
+>>  
+>> -int bdev_init_dma_buf_io_ctx(struct file *file, struct block_device *bdev,
+>> +int bdev_init_dma_buf_io_ctx(struct block_device *bdev,
+>>  			     struct dma_buf_io_ctx *ctx)
+>>  {
+>> -	if (!(file->f_flags & O_DIRECT))
+>> -		return -EINVAL;
+>>  	if (ctx->dmabuf->size > UINT_MAX)
+>>  		return -EINVAL;
+>> -	if (!bdev->bd_disk->fops->init_dma_buf_io_ctx)
+>> +	if (!bdev_can_dmabuf_io(bdev))
+>>  		return -EOPNOTSUPP;
+>>  	return bdev->bd_disk->fops->init_dma_buf_io_ctx(bdev, ctx);
+>>  }
+>> @@ -1041,6 +1039,8 @@ int bdev_open(struct block_device *bdev, blk_mode_t mode, void *holder,
+>>  
+>>  	bdev_file->f_flags |= O_LARGEFILE;
+>>  	bdev_file->f_mode |= FMODE_CAN_ODIRECT;
+>> +	if (bdev_can_dmabuf_io(bdev))
+>> +		bdev_file->f_mode |= FMODE_CAN_DMABUF_IO;
+>>  	if (bdev_nowait(bdev))
+>>  		bdev_file->f_mode |= FMODE_NOWAIT;
+>>  	if (mode & BLK_OPEN_RESTRICT_WRITES)
+>> diff --git a/block/fops.c b/block/fops.c
+>> index 86bf1f298b79..7e5702e047a2 100644
+>> --- a/block/fops.c
+>> +++ b/block/fops.c
+>> @@ -1008,7 +1008,7 @@ static int blkdev_mmap_prepare(struct vm_area_desc *desc)
+>>  static int blkdev_init_dma_buf_io_ctx(struct file *file,
+>>  				      struct dma_buf_io_ctx *ctx)
+>>  {
+>> -	return bdev_init_dma_buf_io_ctx(file, file_bdev(file), ctx);
+>> +	return bdev_init_dma_buf_io_ctx(file_bdev(file), ctx);
+>>  }
+>>  
+>>  const struct file_operations def_blk_fops = {
+>> diff --git a/drivers/dma-buf/dma-buf-io.c b/drivers/dma-buf/dma-buf-io.c
+>> index 8440151de860..9575b7d65ec5 100644
+>> --- a/drivers/dma-buf/dma-buf-io.c
+>> +++ b/drivers/dma-buf/dma-buf-io.c
+>> @@ -152,9 +152,11 @@ static void dma_buf_io_ctx_shutdown(struct dma_buf_io_ctx *ctx)
+>>   * @out_ctx:	[out]	resulting ctx
+>>   *
+>>   * Create a new I/O context from the given DMA buffer for the given file.
+>> - * It only works with files implementing ->init_dma_buf_io_ctx and fails
+>> - * with -EOPNOTSUPP otherwise. Once created, the user can create a map
+>> - * and use it to issue I/O, such as read/write requests, to @file.
+>> + * It only works with files implementing ->init_dma_buf_io_ctx,
+>> + * advertising FMODE_CAN_DMABUF_IO and currently opened for direct I/O,
+>> + * and fails with -EOPNOTSUPP or -EINVAL otherwise. Once created, the
+>> + * user can create a map and use it to issue I/O, such as read/write
+>> + * requests, to @file.
+>>   */
+>>  int dma_buf_io_ctx_create(struct file *file,
+>>  			   struct dma_buf *dmabuf,
+>> @@ -164,8 +166,11 @@ int dma_buf_io_ctx_create(struct file *file,
+>>  	struct dma_buf_io_ctx *ctx;
+>>  	int ret;
+>>  
+>> -	if (!file->f_op->init_dma_buf_io_ctx)
+>> +	if (!file->f_op->init_dma_buf_io_ctx ||
+>> +	    !(file->f_mode & FMODE_CAN_DMABUF_IO))
+>>  		return -EOPNOTSUPP;
+>> +	if (!(file->f_flags & O_DIRECT))
+>> +		return -EINVAL;
+>>  
+>>  	ctx = kzalloc_obj(*ctx);
+>>  	if (!ctx)
+>> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+>> index b98f43478cc0..0cfb6fb6b4e2 100644
+>> --- a/include/linux/blkdev.h
+>> +++ b/include/linux/blkdev.h
+>> @@ -1610,9 +1610,14 @@ struct block_device_operations {
+>>  	int (*alternative_gpt_sector)(struct gendisk *disk, sector_t *sector);
+>>  };
+>>  
+>> -int bdev_init_dma_buf_io_ctx(struct file *file, struct block_device *bdev,
+>> +int bdev_init_dma_buf_io_ctx(struct block_device *bdev,
+>>  			     struct dma_buf_io_ctx *ctx);
+>>  
+>> +static inline bool bdev_can_dmabuf_io(struct block_device *bdev)
+>> +{
+>> +	return !!bdev->bd_disk->fops->init_dma_buf_io_ctx;
+>> +}
+>> +
+>>  #ifdef CONFIG_COMPAT
+>>  extern int blkdev_compat_ptr_ioctl(struct block_device *, blk_mode_t,
+>>  				      unsigned int, unsigned long);
+>> diff --git a/include/linux/fs.h b/include/linux/fs.h
+>> index 99caef43ff3c..f5524fc770d4 100644
+>> --- a/include/linux/fs.h
+>> +++ b/include/linux/fs.h
+>> @@ -121,7 +121,13 @@ typedef int (dio_iodone_t)(struct kiocb *iocb, loff_t offset,
+>>  /* File supports atomic writes */
+>>  #define FMODE_CAN_ATOMIC_WRITE	((__force fmode_t)(1 << 7))
+>>  
+>> -/* FMODE_* bit 8 */
+>> +/*
+>> + * File can be the target of dma-buf I/O.  Set it for files whose data can be
+>> + * reached with direct I/O without the page cache: a dma-buf iterator has no
+>> + * pages to copy, so a buffered path cannot serve it.  The bit is coarse; both
+>> + * the device behind it and O_DIRECT are checked when a buffer is registered.
+>> + */
+>> +#define FMODE_CAN_DMABUF_IO	((__force fmode_t)(1 << 8))
+> 
+> This is stealing yet another FMODE_* bit for special-purpose stuff.
+> We're really really short of them. Did Christoph suggest this?
+Hi Christian, thanks for pointing out this. If I understand correctly, 
+Christoph suggests a new file->f_mode to allow dma-buf check in RFC v1[1]. 
 
-OnePlus 6 and 6T now support one back and front camera using generic MIPI
-CCS driver.
+Hi Christoph, do you have any comments or suggestions? I'am happy to adjust
+this in the next version if there is a better approach.
 
- - Sony IMX376k (rear)
- - Sony IMX371 (front)
-
-Based on work of Robert Oscilowski.
-
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- .../arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 243 ++++++++++++++++++++-
- 1 file changed, 241 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-index 1df09da3c4d71..92317f23bdd15 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-@@ -3,18 +3,21 @@
-  * SDM845 OnePlus 6(T) (enchilada / fajita) common device tree source
-  *
-  * Copyright (c) 2020, The Linux Foundation. All rights reserved.
-  */
- 
- /dts-v1/;
- 
- #include <dt-bindings/arm/qcom,ids.h>
-+#include <dt-bindings/clock/qcom,camcc-sdm845.h>
- #include <dt-bindings/input/linux-event-codes.h>
- #include <dt-bindings/leds/common.h>
-+#include <dt-bindings/media/video-interface-devices.h>
-+#include <dt-bindings/media/video-interfaces.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include <dt-bindings/sound/qcom,q6afe.h>
- #include <dt-bindings/sound/qcom,q6asm.h>
- 
- #include "sdm845.dtsi"
- #include "sdm845-wcd9340.dtsi"
- #include "pm8998.dtsi"
- #include "pmi8998.dtsi"
-@@ -262,16 +265,68 @@ vreg_pmu_ch0: ldo3 {
- 				regulator-name = "vreg_pmu_ch0";
- 			};
- 
- 			vreg_pmu_ch1: ldo4 {
- 				regulator-name = "vreg_pmu_ch1";
- 			};
- 		};
- 	};
-+
-+	front_cam_vdig: front-cam-vdig-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "front_cam_vdig";
-+
-+		regulator-min-microvolt = <1050000>;
-+		regulator-max-microvolt = <1050000>;
-+
-+		gpio = <&tlmm 117 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		vin-supply = <&vreg_s3a_1p35>;
-+	};
-+
-+	front_cam_vana: front-cam-vana-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "front_cam_vana";
-+
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+
-+		gpio = <&tlmm 104 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		vin-supply = <&vreg_bob>;
-+	};
-+
-+	sub_cam_vana: sub-cam-vana-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "sub_cam_vana";
-+
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+
-+		gpio = <&tlmm 78 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		vin-supply = <&vreg_bob>;
-+	};
-+
-+	sub_cam_vdig: sub-cam-vdig-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "sub_cam_vdig";
-+
-+		regulator-min-microvolt = <1050000>;
-+		regulator-max-microvolt = <1050000>;
-+
-+		gpio = <&tlmm 79 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		vin-supply = <&vreg_s3a_1p35>;
-+	};
- };
- 
- &adsp_pas {
- 	firmware-name = "qcom/sdm845/OnePlus/enchilada/adsp.mbn";
- 
- 	status = "okay";
- };
- 
-@@ -405,16 +460,22 @@ vreg_l26a_1p2: ldo26 {
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 		};
- 
- 		vreg_l28a_3p0: ldo28 {
- 			regulator-min-microvolt = <2856000>;
- 			regulator-max-microvolt = <3008000>;
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 		};
-+
-+		cam_vio_1p8:
-+		vreg_lvs1_1p8: lvs1 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
- 	};
- 
- 	regulators-1 {
- 		compatible = "qcom,pmi8998-rpmh-regulators";
- 		qcom,pmic-id = "b";
- 
- 		vdd-bob-supply = <&vph_pwr>;
- 
-@@ -437,32 +498,118 @@ regulators-2 {
- 
- 		vreg_s3c_0p6: smps3 {
- 			regulator-min-microvolt = <600000>;
- 			regulator-max-microvolt = <600000>;
- 		};
- 	};
- };
- 
-+&camss {
-+	vdda-phy-supply = <&vreg_l1a_0p875>;
-+	vdda-pll-supply = <&vreg_l26a_1p2>;
-+
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@1 {
-+			reg = <1>;
-+			csiphy1_ep: endpoint {
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				data-lanes = <0 1 2 3>;
-+				remote-endpoint = <&imx376k_ep>;
-+			};
-+		};
-+
-+		port@2 {
-+			reg = <2>;
-+			csiphy2_ep: endpoint {
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				data-lanes = <0 1 2 3>;
-+				remote-endpoint = <&imx371_ep>;
-+			};
-+		};
-+	};
-+};
-+
- &cci {
- 	status = "okay";
- };
- 
- &cci_i2c0 {
--	/* front sony,imx371 @10 */
-+	front_cam: camera@10 {
-+		compatible = "sony,imx371", "mipi-ccs";
-+		reg = <0x10>;
-+
-+		reset-gpios = <&tlmm 9 GPIO_ACTIVE_LOW>;
-+		pinctrl-0 = <&front_cam_default &cam_mclk1_default>;
-+		pinctrl-1 = <&front_cam_sleep &cam_mclk1_sleep>;
-+		pinctrl-names = "default", "sleep";
-+
-+		clocks = <&clock_camcc CAM_CC_MCLK1_CLK>;
-+		assigned-clocks = <&clock_camcc CAM_CC_MCLK1_CLK>;
-+		assigned-clock-rates = <24000000>;
-+
-+		vana-supply = <&front_cam_vana>;
-+		vcore-supply = <&front_cam_vdig>;
-+		vio-supply = <&cam_vio_1p8>;
-+
-+		orientation = <MEDIA_ORIENTATION_FRONT>;
-+		rotation = <90>;
-+
-+		port {
-+			imx371_ep: endpoint {
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				data-lanes = <1 2 3 4>;
-+				link-frequencies = /bits/ 64 <654000000>;
-+				remote-endpoint = <&csiphy2_ep>;
-+			};
-+		};
-+	};
- 
- 	/* rear sony,imx519 @1a */
- 
- 	/* rear onnn,lc898217xc @72 */
- };
- 
- &cci_i2c1 {
- 	/* sa,sa3103 @0d */
- 
--	/* rear sony,imx376k @10 */
-+	sub_cam: camera@10 {
-+		compatible = "sony,imx376k", "mipi-ccs";
-+		reg = <0x10>;
-+
-+		reset-gpios = <&tlmm 23 GPIO_ACTIVE_LOW>;
-+		pinctrl-0 = <&sub_cam_default &cam_mclk2_default>;
-+		pinctrl-1 = <&sub_cam_sleep &cam_mclk2_sleep>;
-+		pinctrl-names = "default", "sleep";
-+
-+		clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
-+		assigned-clocks = <&clock_camcc CAM_CC_MCLK2_CLK>;
-+		assigned-clock-rates = <24000000>;
-+
-+		vana-supply = <&sub_cam_vana>;
-+		vcore-supply = <&sub_cam_vdig>;
-+		vio-supply = <&cam_vio_1p8>;
-+
-+		orientation = <MEDIA_ORIENTATION_BACK>;
-+		rotation = <270>;
-+
-+		port {
-+			imx376k_ep: endpoint {
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				data-lanes = <1 2 3 4>;
-+				link-frequencies = /bits/ 64 <500000000>;
-+				remote-endpoint = <&csiphy1_ep>;
-+			};
-+		};
-+	};
- 
- 	/* onnn,lc898217xc @74 */
- };
- 
- &cdsp_pas {
- 	firmware-name = "qcom/sdm845/OnePlus/enchilada/cdsp.mbn";
- 
- 	status = "okay";
-@@ -956,16 +1103,108 @@ &usb_1_hsphy {
- 	qcom,hstx-trim-value = <QUSB2_V2_HSTX_TRIM_21_6_MA>;
- 	qcom,preemphasis-level = <QUSB2_V2_PREEMPHASIS_5_PERCENT>;
- 	qcom,preemphasis-width = <QUSB2_V2_PREEMPHASIS_WIDTH_HALF_BIT>;
- };
- 
- &tlmm {
- 	gpio-reserved-ranges = <0 4>, <81 4>;
- 
-+	sub_cam_default: sub-cam-default-state {
-+		rst-pins {
-+			pins = "gpio23";
-+			function = "gpio";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		ana-pins {
-+			pins = "gpio78";
-+			function = "gpio";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		dig-pins {
-+			pins = "gpio79";
-+			function = "gpio";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+	};
-+
-+	sub_cam_sleep: sub-cam-sleep-state {
-+		rst-pins {
-+			pins = "gpio23";
-+			function = "gpio";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		ana-pins {
-+			pins = "gpio78";
-+			function = "gpio";
-+			bias-pull-down;
-+			drive-strength = <2>;
-+		};
-+
-+		dig-pins {
-+			pins = "gpio79";
-+			function = "gpio";
-+			bias-pull-down;
-+			drive-strength = <2>;
-+		};
-+	};
-+
-+	front_cam_default: front-cam-default-state {
-+		rst-pins {
-+			pins = "gpio9";
-+			function = "gpio";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		ana-pins {
-+			pins = "gpio104";
-+			function = "gpio";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		dig-pins {
-+			pins = "gpio117";
-+			function = "gpio";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+	};
-+
-+	front_cam_sleep: front-cam-sleep-state {
-+		rst-pins {
-+			pins = "gpio9";
-+			function = "gpio";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		ana-pins {
-+			pins = "gpio104";
-+			function = "gpio";
-+			bias-pull-down;
-+			drive-strength = <2>;
-+		};
-+
-+		dig-pins {
-+			pins = "gpio117";
-+			function = "gpio";
-+			bias-pull-down;
-+			drive-strength = <2>;
-+		};
-+	};
-+
- 	hall_sensor_default: hall-sensor-default-state {
- 		pins = "gpio124";
- 		function = "gpio";
- 		drive-strength = <2>;
- 		bias-disable;
- 	};
- 
- 	panel_vci_default: vci-state {
-
--- 
-2.55.0
-
-
+[1] https://lore.kernel.org/all/20261106104403.GC5668@lst.de/
