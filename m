@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795432472;
-	b=aG63UODaFBKxAZaJebg+/0dIxgy914roiwNQIQOakhAQe3MS78cR9RE9NXGytQuwODNH
-	 zlLd97X27FRrorolFzdiApiL3Evm9w9xh1ErWFrGNY5Q1BnBfcS8QfNqDXj/VVoqLUIJz
-	 HVDDq/nhADv0KMXWpEw3kakkYyvqZZv67WjhfoRfjENmLnzOuOTmwV4T5e0HWkXdN2cwn
-	 b+zLKt+QsPDjtP7IK2iq2HXzWQ0yksX+EDsu6GHOoHs8j6zCz2F2wGXh5dvO0XI3vZcWT
-	 VD6WuFLJ2myXM/FyFAIDjOXlJCpby3FdJIWaiLW6A49yshPFqS6N9H2pxZzJtU8lMNQ==
+	t=1795432894;
+	b=Qd9i2Y49EU+EszdqyXHJUOd60IIYZ6uAbrsEoRKGw9NqzxNDTF/Oifbq0SbmLov694PI
+	 0zFSfbWdfBEkvjN7VMOsyLoAAT/6o5yU1M1tzNUqXNCCEd8FjYlSD4wM2z/SA7avDL6Kv
+	 SDmzSymuVTqh2vL+ZpZ/Ryt47fneL+OLZy2Kpz2UdLOStwOFdcRkJS6/31BqZWC1xCK+3
+	 CvAs7H992yW/Mj8huC+dy9Nnko96vzsXlQMvfOCoyoTdMfX1mu2RdTkmwygTPqDWxLrH7
+	 7PksB/J+FHpK8A0c1VJrk9R0tkX/rEZssz3+5PgRisp3Fne8fI4BKy+Y2bWNflHM/mA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795432472;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795432894;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:X-TUID;
-	bh=M8BgEwiMtUwRuCgZnUVMTSSA8VV5wT5wVfxb83hMYt4=;
-	b=nbjU6Lec7pznlRBIHjtwsOytKl9DhXzzffvOKX7hNVwf5EZ7UwBqF0jc5GC33xiVPgQD
-	 kt/gXcjAhmiHagUh8M24H6FW+nKPP5Syd+Wqy7t8RgKo2tKNcoBLu3kgZLvKFfYwtJbH3
-	 bBi7Hebb6UqpTx/zIDBVcYiQv0OPgJCbuqYb2sv+GBSbLEixZUPAWunVrks2NKz4sx1jR
-	 Tx98lyYILorl10xnAtTDNVbfksUuxtYt9hFVPy94I11s9PDFWqv49HNYCkA53swFLGYE9
-	 DlCMkpxeLjWyE7s/OHkufXO1CzhFIYSXM1YwVdJkcFVu1w5relx/XlCylU7xk6I+l0w==
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=GbX6flQ02VkAIB6vD/jZQgC2nDjC28v9tILnTQJqHIs=;
+	b=NznEXx3f7fuB3yReGeHXg6Ky+TlR58gNGKJ0KED9I57Uj8MBI3iOiUHwVRvOnyi64Lfc
+	 xEe/0966VtyQo7Q29+D8+5LR/y/fVsJMWHGB/0qAx7343E6dUjGzUvBfKHC041Pz7xF3O
+	 O6HdDa+JIQNoKrHffP6ZYjfS1HNfWfl73jv/fpUGqsbqA6CbFq1XrNxvjLQ+/GaeLzchk
+	 zwXoDfpqSGL+Dr37korzDsbAKqDivFc/xXE0DjY0Rm88p3MVfWRzjhvY9NRwf9nLH4dQJ
+	 DSB/MSvljUE31JChF2L/W2Xv7T4nA1I5phN/37PgusBc3yipYDFY1ZfsmNC1ftOC8yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cUtfC1HA;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2BC69606A31A
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 11:14:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BC69606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Wq99awHH;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E42606A321;
+	Mon, 23 Nov 2026 11:21:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8E42606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=cUtfC1HA
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7A33E143D;
-	Mon, 23 Nov 2026 03:14:28 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1BA2F3F882;
-	Mon, 23 Nov 2026 03:14:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795432471; bh=4UDMjdKhEafTSrkfoMvLUzagh+R4A1yL+W6+zxTSE3g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cUtfC1HA2CZBX5GdLcjS9Fv5iD/xcSaWNNdEjaMRUj8xf0cmPTKcKav27v+CAPLkC
-	 w1bkGxtfk5N0ExzhPBYejU8PO0+4gtg8l1F7GJM4V1zbhqzbrPWAA1+BjvltqwmxMn
-	 LE7OlN/w/0fHifp9euPk5nQuLJbtKZlIitJWjJvE=
-Date: Mon, 23 Nov 2026 11:14:21 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: linux-coco@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
-	linaro-mm-sig@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
-	linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
-Subject: Re: [PATCH v10 01/13] mm: Add an allocator for CoCo shared memory
-Message-ID: <awQgDYK2Bq0QGpNU@arm.com>
-References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
- <20261116091137.94252-2-aneesh.kumar@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Wq99awHH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795432894; x=1826968894;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=k2mj3EEzXAMHzvPUuw/LfMnrNEHeM3dh64V7wG35asc=;
+  b=Wq99awHHFDoOBrbujzjmUW5d3rF05lfbQpwzrQnps5GvT5p8t8X4g4fR
+   ZC2YJSxq/ZXtwVSKXUpcOH5zwFULivsd8v+8Rt9kD6tSHXxQbutjzcqhQ
+   eheGSRahcSGLuRkJb37lgJjgmm3AHmfXAyjRX97Kr67iNjm1TGJK7Nvlg
+   pZb29iObD4tcMIh/GovDb6rMQo8WRHhZZzlRvRQmmk/ffwS2ibb/j7iBy
+   Rna5ae+ZOi3mJa0JYHdPnwb2ejAx+/efbTP7ck70EtUXMlrpWRz34stV6
+   gtuAU9KB1GSlAiMPkKIXWuQTIXAXzYBuD05mQtXkkjSZlw7YUuspTepDn
+   w==;
+X-CSE-ConnectionGUID: HyePCJpnRDme04Hap37bIQ==
+X-CSE-MsgGUID: SA8lzbv/S0+d1R3sLaAfKg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4073290"
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="4073290"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 03:21:32 -0800
+X-CSE-ConnectionGUID: fT2OWFF3S56AIDaFfS8yiw==
+X-CSE-MsgGUID: pzLlHaqQTrGMBWsUeYuNiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
+   d="scan'208";a="11590559"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 03:21:29 -0800
+Date: Mon, 23 Nov 2026 13:21:27 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Avishek Chaulagain <chaulagainavishek14@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: atomisp: Remove unused ISP vmem load/store
+ functions
+Message-ID: <awQht2Avu-PHs4l_@ashevche-desk.local>
+References: <20261122074552.545-1-chaulagainavishek14@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,32 +83,31 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261116091137.94252-2-aneesh.kumar@kernel.org>
-X-TUID: 696EyIiS0JVf
+In-Reply-To: <20261122074552.545-1-chaulagainavishek14@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 16, 2026 at 02:41:24PM +0530, Aneesh Kumar K.V (Arm) wrote:
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 3e626e45d432..5ce879ea2ef4 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -28553,6 +28553,8 @@ F:	drivers/pci/tsm/
->  F:	drivers/virt/coco/guest/
->  F:	drivers/virt/coco/tsm-core.c
->  F:	include/linux/*tsm*.h
-> +F:	include/linux/cc_shared.h
-> +F:	mm/cc_shared.c
+On Sun, Nov 22, 2026 at 07:45:52AM +0000, Avishek Chaulagain wrote:
+> 
+> isp_vmem_load(), isp_vmem_store(), isp_vmem_2d_load() and
+> isp_vmem_2d_store() are the only external functions provided by
+> vmem.c, and none of them has a caller anywhere in the tree. Every
+> other function in the file (load_vector()/store_vector() and the
+> hive_sim_wide pack/unpack helpers) exists solely to implement those
+> four, so the whole translation unit is dead.
+> 
+> Remove vmem.c along with its Makefile entry and the four prototypes
+> in vmem_local.h. The t_vmem_elem/t_svmem_elem typedefs and the
+> VMEM_ARRAY/SVMEM_ARRAY macros in that header are used elsewhere and
+> are kept.
 
-Would it make sense to put these under a separate CoCo memory sharing
-and encryption entry? It should also cover include/linux/mem_encrypt.h
-and include/linux/cc_platform.h. Both are shared interfaces with no
-specific MAINTAINERS entry.
-
-I don’t mind who maintains the entry but I’d list both linux-coco and
-linux-mm. We can leave include/linux/set_memory.h out for now since
-most of that header deals with page permissions and cacheability.
+Looks legit, if it compiles,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
 -- 
-Catalin
+With Best Regards,
+Andy Shevchenko
+
+
