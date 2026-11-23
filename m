@@ -1,90 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795444645;
-	b=3DsDBGFl+8Jf75OJ4G9LZN7Zmb5s5CCv//FYW1CKvwH8ADacALUkdDwd6RDIG1UUg6BZ
-	 KOpwtxjVthms7F96v7dipMAS5aWNZTfbwYlWNKWc8aNnAzgK6g0yuv2TgophiRBi781P2
-	 PuWJr/ZQoqruSiZQrp/M6sbZ3G9ppFjtnZZDLFjiZNdtL0Lj3ABVlRvJqvHkURrRzSHzM
-	 JIwAb7v2e0NmPeWogHQgMQjX1aCPEPT6ZgUcTntQF0iW2s15Cyl0BV88l4QMdCHul9VVn
-	 HgI+QyDPZ5pJUKeVv+26NhLi+POImZ3SQMql4tdlEAETcRWykXf4p3d5gxldncPBhog==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795444645;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:Subject:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=hnYJCBiRfz7yllErcSmEBCv6f1PEOQS5KfWCrNNzX9U=;
-	b=GMJ2zg2LZYkXEEXvdXAXvv4KcF1zrDqc4T9j3+hXBC2WdUmAiQnANpI3jDxk7eCrMn3C
-	 Yu0b8cluGoh5vFCb2B5AvFBqVnz+O5lKPW7RUH7Aq9v15SPPS+1ivG9LFtyFd5OhNVL2k
-	 pg8xqa3XAZTg6XV+XHaIXEbnd0G1MJsjUShImC096C/dWIiKhRlRJagsQzcCJlxII8mvZ
-	 dMbJNs0KumEegFj3xHkBmTpEdXZ9ByzCEifEcgo5w/0Geaq7HjNg9QtSsayz3HWvtlWwA
-	 cWQf58Y2D66WSXbh8Q/mPMLpjH/zII4aZVcmWTJ6QXF/ptadFL1mAIRnJsZtgp4bVZw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=alPWYmgy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795444834;
+	b=R6zisHH+0XOyQ74Yc5VHfprkM62QNvC0crQuZEGKf8szC/tF4ey1EWZZ3cDen6H/EeRQ
+	 NwUjp2eQ+4cT32DHiWFI8BbLLZ4UzuBouLcIXYQ9UxGybFnKGaJ66+ZUdyO8FhNq8KCp8
+	 Un3C9Jrfw3CxXoj4qFS6Zhdu/D2HJpdjmW7jCD74YpxDQMf+tHxU1wex6JT6nOtgx8lz9
+	 9jwnM64D9/DpJijHixke1tgwU08NskcAQO11eib8LUfu9iplRZuB0Jy5Vmu8p2rap1jcJ
+	 S8LC2fXIAvf7N57J3NEZMXYfhUg/GMKPLgr4pafubDOwwJ2vOV6jbHB3ZjFvRFLdevg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795444834;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=aMYXL7EonhTOs209JASQvI9ehnglaVQ947Zpfa+X+7k=;
+	b=RdqyIblKNyW0VZfvAiyuCZG2RaUaB9k0/7rvtfA90t2gmQ20ZBAsQqSWl5qaZx5DD45L
+	 Lvj4U1xXNSzkDFXOQqyUPKF/CGulRUKbUCAgn86UOoCEUZf8WPDh2sMfU3B/O1mxo6vxX
+	 OHY9Zy91uhkQgypaKy+Afd82fpGg1Ka1avUN5KyTQD3onSlW5Px6cn3W9YtiE5pFyJcV/
+	 E6//mKQbKY+lOHG5QgJrzmB+uKhpgiVdi2EST3zzEY9/QdiQUmb5VgbeyYLybKpQZbtno
+	 v5Lt2U3ziKv30BVajVH24mynAPzcxX4uLo/ueeNVkwtlEQPM6t6i0cz8EZwTY2IvV9Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="Xz/9lDZg";
+	arc=none smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9510F606A33A;
-	Mon, 23 Nov 2026 14:37:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9510F606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3FB606A31F
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 14:40:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D3FB606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=alPWYmgy
-Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5c0a:3200:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 784592020DC;
-	Mon, 23 Nov 2026 15:37:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795444638;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hnYJCBiRfz7yllErcSmEBCv6f1PEOQS5KfWCrNNzX9U=;
-	b=alPWYmgyip7ZtXwDQnfvGEFHT2Vf4GgtfehdO2x9jpPrZarvupKfolT6gdVOR7x/jMbvbx
-	l1g/ljk6KDsWPZSK4OdZsm7iyPL865uOgd5AgHGnxou8clgdNIJFULRWuikVEycxFH2a6O
-	G3kqr+X/5MTBlPP1jKphwJmFDzMVKy1tG54wY2L/3XfJI1Kfd0v49EsILrbVysVuAOw/u9
-	o/GebSmw3jzvQkUUsGv+YnlU/u4g8oIYrazFl5waNrmMAylMMLasdrmQnzNshf1ZxH0QN6
-	w7jkALJ8F3i+LbW6jywT/AG/5ourWOhFnXcipmNRb8JRq/epUXZr2neNRnZypA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795444638;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hnYJCBiRfz7yllErcSmEBCv6f1PEOQS5KfWCrNNzX9U=;
-	b=I/WTdnfLS/bKcKqhFAyV+yXnfcHSLyA2CeYu+0oJW3SFN6iZ7hhvDYL9v+6G7qi72AVGHv
-	cEmMnesQPScLxXt8KCpqzG4kzlh/uBRk/tV8GwmiQkBMuRpzwjtrJ9Zoc/GsRn5lAF29D0
-	3RVANz8+Hjn7pY9xwKhiJcbJ1ojuHMOTBMEMYeTia6JQZ+dtAgTwFU/8GaSTk6c3CYjjw+
-	YMQR0ugR/BEFu6m0KY4gS0NUjMlpKUkE2M+PTbTtf7yN/BErVLCaE8+8rPZygsli+jdbSI
-	JFE54AvvhJeoL2pHj13cH2uzk76GiaIEblxd8KHCB/FQpcyTz1UQ+xD77Lz/lw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795444638; a=rsa-sha256;
-	cv=none;
-	b=VyrsRtnBpkODZmAdxfMV+MoBNy3FPDmMTbrBEk0s5rZRo7/E1zC5LVRKwhyZcFAY9qYTr6
-	ggZNrY83tSAsakpMOzvnXRgDUgrWBZdSg94bzHJ3qJNpickakNtgBoKNxfe1rJTqClrVcP
-	W8RwQuvdOTTSd7Q/NWY1jLJiMazCNN4JY6RWVkCQ1gCNYqBPqtymk8TBFsRufaVEhYhjky
-	Y38VwMpcRLGyyB+A4nOctuFqz9tOjNmW6GQxi85/Hla7IBz6XV1TbBONUBO0BxongDQEIO
-	5nI8bcQ+wFluw3yxNs1Q077yjYvy+Vjid/us9cXw/5PLDDSs0q0mi75u97EWdA==
-Message-ID: <20c75d45-0b9b-4465-83aa-3ef24b90309b@pengutronix.de>
-From: "Sascha Hauer" <s.hauer@pengutronix.de>
-Subject: Re: [PATCH v7 2/4] media: rockchip: Add JPEG decoder driver
-To: "Philipp Zabel" <p.zabel@pengutronix.de>
-Cc: "Sascha Hauer" <s.hauer@pengutronix.de>, "Lucas Sinn" <lucas.sinn@wolfvision.net>, "Mauro
- Carvalho Chehab" <mchehab@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Heiko
- Stuebner" <heiko@sntech.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <266c9fe4a9aca943c2c2be39a7dc0f3bea2df362.camel@pengutronix.de>
-References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
- <20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
- <266c9fe4a9aca943c2c2be39a7dc0f3bea2df362.camel@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 23 Nov 2026 14:37:17 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Xz/9lDZg
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6ba38c41804so3802824a12.3
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 06:40:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795444832; x=1796049632; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aMYXL7EonhTOs209JASQvI9ehnglaVQ947Zpfa+X+7k=;
+        b=Xz/9lDZgTsFzA1LqJOSthRgb6ouD89i+1VlpyK8e5KROmVyCRY0C/414jV4ayO45xg
+         IbZ32k6q6VGU8ziQVlvvAoI6EX1sLg6tdGfOIrqo5SZClLp6fw3ReRGgyGJ+DJ22e/WM
+         TMZA0rrRZriHODZ4jJqiKJBB8xlCCd2vhyA3wCvwVpL21+Qn83ZEaYOQRWn4bDuq9mHx
+         q2Hh7ftU4siUfCEYgOKTCmOglYnunbPywKKuCainCzhcaghDh/QHCsPT/a0aJ7zz8WyR
+         C8rB59SLXyUQlnSEVt5rKJs1foS34OUAYkR6nz5ZLy8zjtx5Ci7qnB5mfRWE+iAlxvRL
+         du/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795444832; x=1796049632;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aMYXL7EonhTOs209JASQvI9ehnglaVQ947Zpfa+X+7k=;
+        b=I4cMYr0TTaXOHBrtPAVvfWD6BxBtdytWNce09BLE0TcWostIW46C7LoaQIS7SJs9mz
+         JK6D/6j8kgJYYG2d0Rm0CU6wHrJoSfjjPGBpOteGZ2v7tyuB3qIeyg1gQzEUR7TYOZI0
+         Q34R5Ht5lQuCOpEDhB9PRovq/m1ucxQzmHWA0jsZVJWMlX9CzTT50eTGwMqcj5oRldIz
+         4klMpmfxKVzMKG2DpGAeIKgTuVQDiw6BTFjTU2586F/CsuS/emynYpsYK4ra2Iz9X6KH
+         ViiaA6nlybAgCb9+CYs/aF6S1EneaFyZBNPSusY8xvwLOswczE6ihQtPETqbsilWXSl4
+         nBYA==
+X-Gm-Message-State: APuU4Z9Y7OgjhgdqwhLxFTf7KfL7D4As/62xkEohSM41CvwJhRTYg0wa
+	oycJVOSu7S7ZFbVcfzgSX7BI+SIszmx8SMntttTwb0uQuUyxkDOyvKUP1mkYeOrgMPU=
+X-Gm-Gg: AZFdTZd9PnJ/hpI8N3inkFw8HaUOvS0+1yrOGpC7hBcjOp8i2NlLIbbs4sWTfLPpF9o
+	DFLDtZWZOh1mxsGob66WAlsp9KuE937zM3Ny0pM/UnOo+e4IOvNJQU04VAQqiQAA/lOQPFUf0ng
+	QJZqkxnaAenuK8vmx0gUfAfyGI75nSJlBMb/HbPzaywYQyWjStAh3dSQz9AYRLjmDYeyCU47o42
+	NrLOxDGIUpPRewzXgHjL9j+JMkCiwYZCg++0jRmkqMxmEckFmjGCsjuGYax0gIozX3sRmAMHcuJ
+	ZMZkGb5w/anax/cYMyCTqoM6P6yIvnOxZz8frSdDSF2gAkyKke0p+Al2JQFP/HZxDK6rCDpydMj
+	wbD9nuACyIXL4Xe2veWelEhSapAVPDWG/Vacdkz82znQX/ChKodf0eoy2nFRdmmipZwpQH9Ubwd
+	Dssa04vF4GYtt97OqsnkH0MT5T7/r0BIMQ9a7jDqIc43wIU2AiDz8JL0n4hHZCLbeMirK5HBUQZ
+	dw4zVO1NM3fKKKhXfEBZ3yPfyPAINRQEZuljlvOKFUVtFzNqOiPP2gUjl1pEKffH3iH1tZ7PWBa
+	lBfHtppA7j/L23SDJN+hnkgJ05vbP5O3avCDQrTXyw==
+X-Received: by 2002:a05:6402:270f:b0:6ba:a614:2fa0 with SMTP id 4fb4d7f45d1cf-6baa6145b28mr2877843a12.32.1795444832491;
+        Mon, 23 Nov 2026 06:40:32 -0800 (PST)
+Received: from [192.168.0.167] ([64.43.130.133])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba37108c8esm5538942a12.31.2026.11.23.06.40.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Nov 2026 06:40:31 -0800 (PST)
+Message-ID: <60d0212d-717c-4776-a6f1-fc8c9661c408@linaro.org>
+Date: Mon, 23 Nov 2026 14:40:31 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,288 +88,89 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] media: qcom: camss: csid-gen2: fix RDI enable bit
+ manipulation
+To: robertijtsma@gmail.com, Vladimir Zapolskiy
+ <vladimir.zapolskiy@linaro.org>, Loic Poulain
+ <loic.poulain@oss.qualcomm.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20261122-camss-fixes-v1-0-9df4deb87ea2@gmail.com>
+ <20261122-camss-fixes-v1-2-9df4deb87ea2@gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261122-camss-fixes-v1-2-9df4deb87ea2@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2026-11-20 15:58, Philipp Zabel wrote:
-> > +
-> > +/* Error status bits used to decide whether a hardware reset is needed=
- */
-> > +#define VDPU720_ERR_MASK		(VDPU720_BUS_ERR | VDPU720_DEC_ERR | \
-> > +					 VDPU720_TIMEOUT | VDPU720_BUF_EMPTY)
-> > +
-> > +/*
-> > + * VPU720 IRQ clear mask.
-> > + *
-> > + * Some revisions require a two-step IRQ acknowledgment before checking
-> > + * VDPU720_IRQ_RAW: write the status back with only the enable and con=
-trol
-> > + * bits kept, then write 0 to fully clear.  The downstream BSP compute=
-s the
-> > + * first value as
-> > + *
-> > + *   clr =3D (~(0x00fe7f40 & status)) & (0xff0180bf & status)
-> > + *
-> > + * The two masks are complements, so that is status & 0xff0180bf: bits=
- 0-5,
-> > + * 7, 15, 16 and 24-31 are kept, IRQ_RAW and the status bits 8-14 drop=
-ped.
-> > + *
-> > + * It is applied unconditionally here.  The BSP gates it on the revisi=
-on in
-> > + * VDPU720_REG_VERSION matching 0xdb1f0006 exactly, and the RK3588 rep=
-orts
-> > + * 0xdb1f0005, so it is not needed on that part.  The extra write is
-> > + * harmless there and saves a revision check that would need silicon w=
-e do
-> > + * not have to validate.
-> > + */
-> > +#define VDPU720_IRQ_CLR_KEEP		0xff0180bf
-> > +
-> > +#define VDPU720_REG_SYS			0x008
-> > +#define VDPU720_FORCE_SOFTRST		BIT(17)	/* set when dec_e=3D0 before so=
-ft-reset */
-> > +#define VDPU720_FILL_DOWN_E		BIT(24)	/* fill bottom padding rows */
-> > +#define VDPU720_FILL_RIGHT_E		BIT(25)
-> > +#define VDPU720_OUT_SEQ			BIT(26)	/* 0=3Draster, 1=3Dtile */
-> > +#define VDPU720_YUV_OUT_FMT		GENMASK(29, 27)
-> > +#define VDPU720_YUV_OUT_FMT_NATIVE	0	/* no format conversion */
->=20
-> This is never used.
+On 22/11/2026 13:35, Robert Ijtsma via B4 Relay wrote:
+> From: Robert Ijtsma <robertijtsma@gmail.com>
+> 
+> In __csid_configure_rdi_stream(), shifting the u8 parameter `enable`
+> (promoted to signed int) left by RDI_CFG0_ENABLE (31) shifts into the
+> sign bit, and bitwise ORing never explicitly clears the enable bit when
+> `enable` is zero.
 
-It will be in v8 due to adding NV16 support ;)
+Sign bit is irrelevant to this patch please drop from the commit log.
 
->=20
-> > +#define VDPU720_YUV_OUT_FMT_NV12	3	/* output as NV12 */
-> > +
-> > +#define VDPU720_REG_PIC_SIZE		0x00c
-> > +#define VDPU720_PIC_W_M1		GENMASK(15, 0)
-> > +#define VDPU720_PIC_H_M1		GENMASK(31, 16)
-> > +
-> > +#define VDPU720_REG_PIC_FMT		0x010
-> > +#define VDPU720_JPEG_MODE		GENMASK(2, 0)
-> > +#define VDPU720_JPEG_MODE_YUV400	0
-> > +#define VDPU720_JPEG_MODE_YUV411	1
-> > +#define VDPU720_JPEG_MODE_YUV420	2
-> > +#define VDPU720_JPEG_MODE_YUV422	3
-> > +#define VDPU720_JPEG_MODE_YUV440	4
-> > +#define VDPU720_JPEG_MODE_YUV444	5
->=20
-> So the driver can decode 4:4:4 JPEGs but always subsamples and outputs
-> them as 4:2:0 (NV12)?
+> Use BIT(RDI_CFG0_ENABLE) to explicitly set or clear the bit depending
+> on `enable`, matching camss-csid-680.c.
+> 
+> Fixes: 729fc005c8e2 ("media: qcom: camss: Split testgen, RDI and RX for CSID 170")
+> Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
+> ---
+>   drivers/media/platform/qcom/camss/camss-csid-gen2.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen2.c b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
+> index eadcb2f..804c8fe 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csid-gen2.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
+> @@ -318,7 +318,10 @@ static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8
+>   	writel_relaxed(val, csid->base + CSID_RDI_CTRL(port));
+>   
+>   	val = readl_relaxed(csid->base + CSID_RDI_CFG0(port));
+> -	val |=  enable << RDI_CFG0_ENABLE;
+> +	if (enable)
+> +		val |= BIT(RDI_CFG0_ENABLE);
+> +	else
+> +		val &= ~BIT(RDI_CFG0_ENABLE);
+>   	writel_relaxed(val, csid->base + CSID_RDI_CFG0(port));
+>   }
+>   
+> 
 
-For simplicity, yes. I added NV16 support for 4:2:2 sampling for the
-next round, as that's a common format for webcams. I'll leave 4:4:4
-to NV24 for a later exercise.
+The bug is that val |= 0 does nothing, not that the sign bit matters
 
-> > +#include <media/v4l2-jpeg.h>
-> > +#include <media/v4l2-mem2mem.h>
-> > +#include <media/videobuf2-core.h>
-> > +#include <media/videobuf2-dma-contig.h>
-> > +
-> > +#include "rkjpegd-vdpu720-regs.h"
-> > +
-> > +#define RKJPEGD_NAME "rockchip-jpegd"
-> > +
-> > +/*
-> > + * The reference manual gives 48x48 to 65536x65536, and a frame header=
- cannot
-> > + * describe more than 65535.  The coded format steps in RKJPEGD_CODED_=
-STEP.
-> > + * Beyond that only the decoded frame has to fit a 32 bit sizeimage, s=
-ee
-> > + * rkjpegd_raw_fits().
-> > + */
-> > +#define RKJPEGD_MIN_WIDTH	48
-> > +#define RKJPEGD_MIN_HEIGHT	48
-> > +#define RKJPEGD_MAX_SIZE	65528
->=20
-> This seems inconsistent. Why not MIN_SIZE or MAX_WIDTH/HEIGHT?
+u32 val;
+u8 enable = 0;
 
-Ok, will change to RKJPEGD_MIN_SIZE
+val |= (int)enable << 1;
 
->=20
->=20
-> [...]
-> > +/* The capture format and crop a frame decodes to. */
-> > +static void rkjpegd_fill_hdr_fmt(struct v4l2_pix_format_mplane *pix_mp,
-> > +				 struct v4l2_rect *crop,
-> > +				 const struct v4l2_jpeg_header *hdr)
-> > +{
-> > +	rkjpegd_fill_raw_fmt(pix_mp, rkjpegd_raw_pixelformat(hdr),
-> > +			     ALIGN(hdr->frame.width, RKJPEGD_RAW_STEP),
-> > +			     ALIGN(hdr->frame.height, RKJPEGD_RAW_STEP));
->=20
-> Aligning to 16 is safe, but for e.g. grayscale (or YUV 4:4:4) I'd
-> expect aligning to 8 to be enough (see vdpu720_mcu_width/height()).
+enable is still zero => two's complement zero is still zero.
 
-The width has to stay at 16 pixel alignment, as the hardware takes its
-stride in units of 16 pixels.
+and
 
-For the height I'd say we have to play around with the FILL_DOWN_E bit.
-When set, the reference manual says: "Fill picture height to multiple of
-16 pixels". Right now we always have this bit set, same as the Rockchip
-driver does. I'd rather leave this up for a later exercise to dig deeper
-into that.
+enable = 1;
 
->=20
-> > +	crop->left =3D 0;
-> > +	crop->top =3D 0;
-> > +	crop->width =3D hdr->frame.width;
-> > +	crop->height =3D hdr->frame.height;
-> > +}
-> > +
-> [...]
-> > +/*
-> > + * The capture format as userspace sees it.  Once the decoder stopped =
-at a
-> > + * format change, that is the one of the frame it stopped in front of.
-> > + */
-> > +static void rkjpegd_get_cap_fmt(struct rkjpegd_ctx *ctx,
-> > +				struct v4l2_pix_format_mplane *pix_mp,
-> > +				struct v4l2_rect *crop)
-> > +{
-> > +	struct vb2_v4l2_buffer *src;
-> > +
-> > +	if (READ_ONCE(ctx->stopped_at_change)) {
->=20
-> Why does TRY_FMT depend on decoder state?
+val |= (int)enable << 31;
 
-The format is dictated by the JPEG stream. It depends on the decoder
-state to support a midstream format change. When stopped at a format
-change we have to report the new format, otherwise the current format.
+sets the sign bit but that's bit 31 => 0x80000000 which is what we want 
+to set...
 
->=20
-> > +		src =3D v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
-> > +		rkjpegd_fill_hdr_fmt(pix_mp, crop,
-> > +				     &vb2_to_rkjpegd_src_buf(&src->vb2_buf)->header);
-> > +		return;
-> > +	}
-> > +
-> > +	*pix_mp =3D ctx->dst_fmt;
-> > +	*crop =3D ctx->crop;
-> > +}
-> [...]
-> > +static int rkjpegd_enum_framesizes(struct file *file, void *priv,
-> > +				   struct v4l2_frmsizeenum *fsize)
-> > +{
-> > +	/* The decoded format follows the bitstream, nothing to enumerate. */
-> > +	if (fsize->pixel_format =3D=3D V4L2_PIX_FMT_NV12 ||
-> > +	    fsize->pixel_format =3D=3D V4L2_PIX_FMT_GREY)
-> > +		return -ENOTTY;
-> > +
-> > +	if (fsize->pixel_format !=3D V4L2_PIX_FMT_JPEG)
-> > +		return -EINVAL;
-> > +
-> > +	if (fsize->index)
-> > +		return -EINVAL;
-> > +
-> > +	fsize->type =3D V4L2_FRMSIZE_TYPE_STEPWISE;
-> > +	fsize->stepwise.min_width =3D RKJPEGD_MIN_WIDTH;
-> > +	fsize->stepwise.max_width =3D RKJPEGD_MAX_SIZE;
-> > +	fsize->stepwise.step_width =3D RKJPEGD_CODED_STEP;
-> > +	fsize->stepwise.min_height =3D RKJPEGD_MIN_HEIGHT;
-> > +	fsize->stepwise.max_height =3D RKJPEGD_MAX_SIZE;
-> > +	fsize->stepwise.step_height =3D RKJPEGD_CODED_STEP;
->=20
-> This is the coded size. I'd expect this to be continuous. You just have
-> to make sure that the decoded buffer is properly aligned and set the
-> PADDED selection rectangle accordingly.
+What's legitimate is
 
-Oh, yes. That can indeed be continuous. Will change.
+enable = 0;
 
-> > +
-> [...]
-> > +
-> > +	rkjpegd_irq_done(jpegd, state);
->=20
-> Why is this hidden in a separate function call?
+val |= enable << ANY_INT;
 
-Likely historic reasons. I'll inline the code here.
+will not twiddle any bit in val so please just stick to the bug 
+description in the commit log.
 
->=20
-> > +	return IRQ_HANDLED;
-> > +}
-> > +
-> > +static void rkjpegd_watchdog(struct work_struct *work)
-> > +{
-> > +	struct rkjpegd_dev *jpegd =3D container_of(to_delayed_work(work),
-> > +						 struct rkjpegd_dev,
-> > +						 watchdog_work);
-> > +	/* Only armed while a job runs, so there is always a context. */
-> > +	struct rkjpegd_ctx *ctx =3D v4l2_m2m_get_curr_priv(jpegd->m2m_dev);
-> > +
-> > +	dev_err(jpegd->dev, "frame processing timed out\n");
-> > +
-> > +	rkjpegd_vdpu720_reset(ctx);
-> > +	rkjpegd_job_finish(ctx, VB2_BUF_STATE_ERROR);
-> > +}
-> [...]
-> > +static int rkjpegd_buf_out_validate(struct vb2_buffer *vb)
-> > +{
-> > +	struct vb2_v4l2_buffer *vbuf =3D to_vb2_v4l2_buffer(vb);
-> > +
-> > +	vbuf->field =3D V4L2_FIELD_NONE;
->=20
-> Hmm, "drivers can use this to validate userspace-provided information".
-> Is this really validation?
->
-> It seems a lot of drivers have exactly the same function:
->=20
->   vpu_vb2_buf_out_validate()
->   cedrus_buf_out_validate()
->   mdp_m2m_buf_out_validate()
->   vb2ops_venc_buf_out_validate()
->   tegra_buf_out_validate()
->   dw100_buf_out_validate()
->   mxc_jpeg_buf_out_validate()
->   rkvdec_buf_out_validate()
->   hantro_buf_out_validate()
->   vicodec_buf_out_validate()
->   visl_buf_out_validate()
->=20
-> At least e5010_buf_out_validate() and
-> dma2d_buf_out_validate() warn or fail, respectively, if the field value
-> is invalid.
->=20
-> Is overwriting field to NONE what this callback was designed for, and
-> if so, does this warrant a common helper?
+Once fixed you can add my
 
-1f2f510753be ("media: vivid: add buf_out_validate callback") which Hans
-upstreamed along with the patch adding the buf_out_validate hook
-suggests it's really for validation rather than normalisation.
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-However, buf_out contains the coded stream. The field order has no
-meaning in a coded stream, which is why I think that most decoder
-drivers just normalize to a sane value.
-
-Yes, this sounds an opportunity to add a generic helper function. If
-that's desired I would add one as a separate series though.
-
->=20
-> > +
-> > +	return 0;
-> > +}
-> >=20
-> [...]
-> > +
-> > +static int rkjpegd_resume(struct device *dev)
-> > +{
-> > +	struct rkjpegd_dev *jpegd =3D dev_get_drvdata(dev);
-> > +	int ret;
-> > +
-> > +	ret =3D pm_runtime_force_resume(dev);
->=20
-> I'd expect this to not call v4l2_m2m_resume() if runtime PM resume
-> failed.
-
-Yes. Will change to return early when it fails.
-
-Regards,
-  Sascha
-
-
---=20
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
-
+---
+bod
