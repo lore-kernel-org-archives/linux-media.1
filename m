@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.29
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795391923;
-	b=EO0/UIU0YUUpLGpz8LSiWVGIBKtTk9V43MxaWkBqh9+R0j+EAc8HFOsRbni+ZYi1RL4e
-	 wDlgpl8sWBZwrdgyt1QoDz7qedOy9vcLgussQxkD3SXgJWjnbn9RfJx9hMgLR9naQNEMm
-	 toh1CuBsnzlUEB159W++fxnOLouv/3LljvLG2dGg6hFtRJ3lua+pFO7K8LumdpZ0y7hMl
-	 fjKgABFe3Ns8nxzURADgQaswGaVfNy3y2lJSog+lqsD2T75gBaKgL56e2OMnrFPKOV1W9
-	 GxmLq+UQZCFs69S63UsiHgoVyVHDScQslunciUB/q2QT02A4J10xBqSfaQgzD1dQIxw==
+	t=1795392696;
+	b=HYe+5qNj6g52mfBb2JUk8bnfa5eVSbIOTWWeVE4TeVvlp4jTFxpFBEVyDApdeTaoDG1p
+	 wltrQk13sTxG184PyCuo3234LmxETOY/n2CumPVcM4kCpqfS4uWrDhA/CSotOJS42EOMa
+	 HQijnhhaSfjdVwa6xqVTPadEwk5hIA8TiM4AvpnUHhBxCgkIlty08MchqsCSEMCiuHh2N
+	 jTVw2ITSbjH2gTTrL5qiHC54/XNRvR01gzq61uBXynBqT2N2bnF6ebRZJ7hf/qIdWua1E
+	 wF6aqLiDDQ7TI+YqygLNUF/LcZ70ZMw/J3+UkX/Chm1eGX9UR6RHzRqxXQms4+Zf8Ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795391923;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4gNy8roLwOc1L+J3BtP1HrH6hRU3IEez5wKIQNQ7iSM=;
-	b=z4/CPYs2NXW1U8Ji6nDW36IrlXG7+JGDPRlSTRZffVggm+QE8unTr4RuBJ4AEe//+Ldi
-	 0r9INT2HZyxp54zulOpBydMtbw+SRnxen6QGeOsxefYO2JKqPmDYqiBwcmpEz2XUhm5Yl
-	 dBLqR/i5szH6XQAqoLMkSNo9HtMcveJjQSKG+XNknxpxd0CRay7J4UJ2VBzTww8cXGAe+
-	 mX9yOWF9pL529Pj6PqdBTlmbFGRf842msmvR7duw+ZoOMvfTBCtR36UNA+Dj5eHH9R/LU
-	 /AfPM+TSyJh2+1Heejv/Ia6LMzj02vSutx80YFuRoN1p46VnnHevAvPl1XWKMSZH5TA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795392696;
+	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pzL1OdNmy4Sn4HuW7URSYpC45FZ9iIyQh9nhTGJnRkM=;
+	b=3RjcljCfZ7g4DQAJBgOmLWRGlIO0faj5Cr7Lo/DO0yImMgcYEnbrSUnx755bzpp1nMlL
+	 EOzSQo+yeqtAcaKqXaWYDD3jk5tV6GxffOjIidSG0NfLRSa4/tdaNPpNGIXRg70uzNgnq
+	 7Us0ky/CELNHZpyckOBm32zc0CE18LhxBkfYcgkTL1knQqB/RU+3fsmzXBBUNM5nqr9vU
+	 mdvrAmKkF6Y3XC6tV4iNRvjrUBEwl07kTZqY4DjW0XyzYaWnBB4MChr4XngNzLZrtl1rH
+	 x4viO7Bja/UTDkX+rRfPz6+27Xwg4HEikD9kAxf+17Y/p/5ki1JJHRAT836+xNKyXpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=Tcf8RxQ8;
-	arc=none smtp.remote-ip=79.135.106.29
-Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMZ+2RYj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A6D7606A32C
-	for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 23:58:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A6D7606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE15D606A31E
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 00:11:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=Tcf8RxQ8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1795391915; x=1795651115;
-	bh=4gNy8roLwOc1L+J3BtP1HrH6hRU3IEez5wKIQNQ7iSM=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Tcf8RxQ81NeFVPWjqoCo0gU05OmsowWNPtGHfubmin1MpzGGAXX7z1A37MRTsv6bP
-	 bAi48j7vteg4IjZlszEJv3/gdXIyo9kW55a/zsTxJ6idxvOoIDLFQya0unjbL1g1rN
-	 LTakutNajavIJdFfJrchVpYraKp/ArE9QNkVLcW7wBzb3z1gs8QDnrGNoljAsXYWsH
-	 P40EOjv1QzCZZRST4HWzKDp5yfP0bB3nic60dbtlph1qPULnKQzIiWB7gqod8AoL3a
-	 QaAJCLHF+UcvulQfYoq5W12EelQVPHnPCr3tnG3wQIbxnJCu5xUa+lLj+N173rrK30
-	 BZdaoBQU5zGOg==
-Date: Sun, 22 Nov 2026 23:58:33 +0000
-To: fernandezfernandezpol@gmail.com
-From: Bob Summerwill <bobsummerwill@protonmail.com>
-Cc: laurent.pinchart@ideasonboard.com, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: uvcvideo: add device entry for Logitech C920 (046d:08e5)
-Message-ID: <20261122184500.7c9f2e1a@protonmail.com>
-Feedback-ID: 475798:user:proton
-X-Pm-Message-ID: f05ee7a42ad6d3b376f96f1df81ab75ef3e4ea2e
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMZ+2RYj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112381F000EB
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 00:11:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795392696;
+	bh=pzL1OdNmy4Sn4HuW7URSYpC45FZ9iIyQh9nhTGJnRkM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ZMZ+2RYjViG2bmZiZGIipjwncVIeQyEHxkeGVgpmu22W7CUuIX0cycyklNR/CZaH8
+	 m6f2i1YqfBuIEb2bdZrvMtTbc5YwxvhgYBMZz474HCj4VJ6M5zYYTYj4yloOlz07vl
+	 TNjs8Us/HR2AOVtrtXEKS8MVZizK0oYiiP5mziUQ7qKadNIFQo81I1c9aKwALhYLJm
+	 aMVHWv1hV9oGaBZX5YQfQcFaAOi2zXwu7oh7qulZo+DbiiD45AQsN31YrdjUStWf4t
+	 Bwpfak1Ro35QHZVD4lJF1H9Ck0RoZPDePY6HxAAxP2WEnL4hkSLWsazJzZtSpkrDFW
+	 tV6EYfgs0+xYw==
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5be3d5927ceso4011601e87.3
+        for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 16:11:35 -0800 (PST)
+X-Gm-Message-State: APuU4Z/fPB+/6xTIlPt+S4k2hC1BdZ/lTVpuSEwZrYQKttJhxO99SYkw
+	j1HDr3kFLtVarNGvdcmWzKq+xrBFrVI0QGPHzgxLsJgikpN/4l2DqYm9m5dNKGcSx29josP60aX
+	lGwrLmrtSsUil9l4u/mmplUJIl3PyRVc=
+X-Received: by 2002:a05:6512:1391:b0:5c1:5a23:ec04 with SMTP id
+ 2adb3069b0e04-5c1bc85b7b6mr2662412e87.44.1795392694735; Sun, 22 Nov 2026
+ 16:11:34 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -61,35 +58,36 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20261105-mali-c55-renesas-dts-v6-0-7dff41bf7107@kernel.org>
+In-Reply-To: <20261105-mali-c55-renesas-dts-v6-0-7dff41bf7107@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 23 Nov 2026 01:11:22 +0100
+X-Gmail-Original-Message-ID: <CAD++jLndZTg0tk+GRo3aZrQ=0rVL+5CA=Swi7_KKQr=iBDs6Vg@mail.gmail.com>
+X-Gm-Features: Aa3M54rrgEQGFcFfn8yM1_2n_V2A0OA5mXHg_mnx-6IzawOxF5-bkLruJCdf87k
+Message-ID: <CAD++jLndZTg0tk+GRo3aZrQ=0rVL+5CA=Swi7_KKQr=iBDs6Vg@mail.gmail.com>
+Subject: Re: [PATCH v6 0/6] arm64: dts: renesas: Enable ISP and IVC on RZ/V2H EVK
+To: Daniel Scally <dan.scally@ideasonboard.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Thu, Nov 5, 2026 at 1:53=E2=80=AFPM Linus Walleij <linusw@kernel.org> wr=
+ote:
 
-Field confirmation of this series' diagnosis from a stock, unpatched
-kernel, in case it is useful when considering the patches.
+> Describe the optional ISP DMA line-tick and IVC frame-start/frame-stop
+> interrupts. Add the RZ/V2H(P) IVC and Arm Mali-C55 ISP nodes, connect the=
+ir
+> video endpoints, and enable both blocks on the RZ/V2H EVK.
 
-Device: Logitech HD Pro Webcam C920, 046d:08e5, bcdDevice 0.21,
-directly connected on USB 2.0 (no hub).
+Gentle ping on this series, everyone happy?
 
-Kernel: 7.2.15 (Arch "linux-omarchy" build). The camera has no
-device-table entry here, so it rides the generic UVC catch-all and
-uvc_no_drop_param is at its default of 1 (deliver error frames).
+I guess the DTS patches go to the
+renesas tree and Jacopo picks up the dt-bindings and the driver fix?
 
-Behaviour matches the commit message exactly: intermittent gray
-bands over the picture in applications using strict JPEG decoding.
-Setting the module parameter nodrop=3D0 -- the global equivalent of
-this series' UVC_QUIRK_DROP_STREAM_ERR -- makes the artifacts
-disappear entirely. With it in place, 300-frame MJPEG captures at
-both 1280x720 and 1920x1080 sustain ~27 fps, with per-frame mean
-luminance stable to within 1/255 across the burst. The camera has
-been in daily use since, artifact-free.
-
-To be explicit: this is confirmation of the failure mode and of the
-workaround on the affected hardware, not a Tested-by for the series
-itself -- I have not built these patches. I am happy to do a real
-out-of-tree build against 7.2.15 and follow up with a proper
-Tested-by if that would help the series along.
-
-Bob Summerwill
-
+Yours,
+Linus Walleij
