@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795448382;
-	b=Cd2DRcrN86n0jIUU8qs39s/vWow/VimJVBktldBn3t3gpNIYVVGGkdym7mxS3GBAlv3x
-	 2HLXfQqDqOXrK3QAlXW1zC2+V7w0Fdiy8IXZCNZI0SpSEFznLJOAbjc+/sX54PEJUIpcL
-	 zU6yNsN5KwRjH78W8ySMlXfzJ1qQdTp/axTvVrOZwLQ/cLg21oZLczyREgMYcgORSpxq8
-	 DrQowz1sKPFhkw16J+aB/ZvT8685pGEfBQSSZ1fJHWPZUNSkvPc3tj0zXN1DlnLAmI3xW
-	 TertzJ/XXqgyonihgql14rdo1K4yFQue1ldzUFIM7RQrPUw1f8it6b4CvG8vSUtzQBQ==
+	t=1795448385;
+	b=1hWhZC54iYqHojbY7G+FDijMZMOROr8NOzWyKgygo7L0PswDzlQLltiWf6mRHucrNoMM
+	 2seUeRB+QdNcjlKScUrJqLKIb2SajUGKezqnYlCDMgmFsAQcF9iIkpUSx8Oc2uAyF2BIB
+	 53w0FsBfQPVCw90qI9Tg9HeUy36G6asx3T6+dG4LzSnuJSO7gA4apfZsNGsKvewTPiO2I
+	 fkK8Ie31nra5yHPQQ7/1SDGIrVU7P4SsbVjzGhczoj+/AIajghawObnYaqGsC7N9aeIUk
+	 IxwvZSokFYT5dAvblRC2AIPCBcGFhhw8nYdO5W1GuptLq+Z3oG5aakmDZQA022js9Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795448382;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795448385;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=qIijkM6MY1bCZr/143mwHFpjqtMizBLsQ/aPcgegopA=;
-	b=NzgHbXsJWP7j4XtU32NQbLnawoNt4psZdkNsIaoEZj7r7hOQd0Rw6oa5M63wdNTLgLd8
-	 R6eDI8bP7BtabORn+SYb87LpZz7NaQflnDXdpSMOLs7QS9qLWW4G1ohVVna+JEQGjxAKv
-	 noxm1xjAbj4Kmh7cRwAlDlh5xDIH/7rTfyDsefTrlEAoW8ZkPYi81g8bl0BeBRqdE143z
-	 h720Cnek21M83iTX3EEYrUtagkP5h1hTgGl2pAYMolylPhd9olTpr3MbKjvJ8q2y8AHnF
-	 RZtxg7KD3F23dyaCZYxFdF7Wcz+ShMz6k21MQpgg1YZ+G1LL5CODNk7ti1SIlFeULsQ==
+	bh=gg6u6KS4BHnwCfzVFUldneMf5zb5FDtQCD09MbvPg5c=;
+	b=Ds+ICCK8Ujag+YbKEv4qgeCbrkkCyauB9er1JbVJX5GMdpV0ExRuq+9rSRKbj3y+ngTi
+	 6bqjYhtHAHcD9HyUexUhhzJIH5LjXa9MuTYsi1Wbii7l8ku+eS6M0vFoJPJC51kif64tJ
+	 VUn7RYJtrbTigr+Yf3N1xbperlLSAe2Cp8+QJruSkb6tqmzHFrZ63sRoTsvR3qkFYWg14
+	 jD0TiXWDAA62otCIqstZOSl3rUBsxK+I+XhcTLuBIcChxjldJGEPl8+VAVkt/FLje7N1u
+	 ipaFDqE0iVtbhFxYmIVjpViPr5wWkiR7P6hAEGW4UwA45npKS8WZOxohwwiIoTrJY+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Lbip2/cb";
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c2iJ6ygL;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5B0606A681
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 15:39:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC5B0606A681
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB24C606A693
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 15:39:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB24C606A693
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lbip2/cb
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b546061d58so7607703c88.1
-        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 07:39:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c2iJ6ygL
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-15ea896ddc8so5752765c88.0
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 07:39:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795448381; x=1796053181; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795448384; x=1796053184; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qIijkM6MY1bCZr/143mwHFpjqtMizBLsQ/aPcgegopA=;
-        b=Lbip2/cbBCna80zi2kx4R0NYJr3D9fkZfE/lw33PANiyGYyOh2KPFz6T3481cPPX0Y
-         Sk679aDN9vbIOFZGgNxeuFCrp6rbVkc4+nEod5w02Xe9RWOwuobOiu9B1VIVQ8Zm66hI
-         8bIBjYEK+2Fj01s8wAH8TzPmQpVRxKN7X5Ycfr7QP1sME+sG81pXGQZbsZxYxE1L/+ol
-         LfAyoQ08vkekzNEuxpvDdJSugbfXYm07iyamSqb82DrCVh87vOUiyQl85LMmYI/8hMnI
-         1LTtzMDBLJlbx4I72LDBroAQGjiutIdh9BWHA0Wn7lBV5MTTvsaYITkwjNyEQo+alJ6J
-         DCsA==
+        bh=gg6u6KS4BHnwCfzVFUldneMf5zb5FDtQCD09MbvPg5c=;
+        b=c2iJ6ygLdNkbsPoO18wGJ4JUpSyLeDAcswpF72m+U35OWh7PKn5Dq68bzfI7KlBlZe
+         kAuAMnXnUqH4plLvtGpzM8UCKYqD1r6699vGPzh1iYwaPVTlKLo92s6vtdUSpRXQAIy6
+         cVdNL+CxzgaHeBp6vfoxRv0De8lW913NS5s1GSzaUYIcCH/bQpFDYjEXjE4q02WABJzw
+         LrtPn+cBgRFYtQucFnEpJiwMOwY41QkA5bmJYqfsXQ6OO0ObWGT9bHesMSEo2sL37K7L
+         e547FWmnzriNz//piUx4sbKHV+kqFVP74Ll14+v+FT5zvFKz7m0lRziMu82aKo3dgdtf
+         4iRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795448381; x=1796053181;
+        d=1e100.net; s=20260707; t=1795448384; x=1796053184;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qIijkM6MY1bCZr/143mwHFpjqtMizBLsQ/aPcgegopA=;
-        b=WSny/VCu6VqEP+Dp0aPj7cS6vU7PpmwInmPO2XbAYHVZ3s/6G0BhhuzzYNxsQN5gEd
-         f1YBNAztB/JnjPjV1TwlLpRTtYhGHxIt3yQov67UN+1FdcsG247/PYt8HZKk5Q1tXOeU
-         vuCt6wjvB6nlrVu6GIdeD8sS3QTLH7i9X7XoZoqGSrjMX0q8/DZuos/uBP9SSWEdytTB
-         Pl8uMKjsMXRSK1KkUDtTGNqhd+JAPLsQnwjp2pSdaJ1K9Qs1IG+kRSFhVY5OgCruWiqR
-         1NzkvJGEwM/NCXOz31P5r4MqP02EBo2DN2u0F/1/UfmmOit6oLMUAIB1ceXcJ0qdKv1p
-         gs6g==
-X-Gm-Message-State: APuU4Z/QUewmvBbDjdCQKOpAPHjs5uNVmO6BswtgW2yZ2RUUzLE07Yef
-	z7b8EyqdBICnu3jO8QTz1gluItp5xG1GDQjy8pwGXwubK2+0wjrRzBu9
-X-Gm-Gg: AZFdTZdbWeQ4Wm8RYDA66hal8V913yOCfma18xMNpCXAR50jhC/sJ6AW59yvFQ7FMAo
-	I3sa41ALs5da8zRjSBPYPHduyaid3bRRj784OkdJSHcrsE26LDhi1PpFf9dqm8ufK7YBNU4wHPT
-	gZNswWYKJsYwUniZ+yub6tFqOMnQ8IV3m/Evr0vEmoq3ZnnJFzfoWPPsxmZJ4cd1w6Z65xwOiKF
-	N6nCdTH6MGn1AeVc/XxIEHR56pysv7mqVvZAI20n2qlfYh2dffxOoP1FDFsGcCt4QF+31V7vysq
-	ESC+Ie+X1ZjlHzV2nfLTs2NHl0iMQvUe77IdccXzdWwxlulXhirgLl8MtLHRi3t1q64ls7KWoMj
-	fAwTiIwhAKJFeMSMDXC6raAXg5HVXEWM3Os4EXldi0YojxE9tYlhNLFCs+OQOFI7PHwIM5LTgc9
-	vn0DFYWIXEu64g8+l0qRSuBn3MeCdv63+CP+PaYqVghD1V0JVxMc9a1dvDQVMzgTidXKTDSgogD
-	yChETEhx4Mm5ps+KzVH6UHwT/tTeEHNjlmrSa8PM28yEiqE2WX2ujx9vF7J5hU7TjHIcl5o7EDy
-	o/Pw+1q+zuprw57/WO0EksLvp9u1RBipkpLX2vuxDrRcY1kAxmN21XIKUwILH9rLvb0L
-X-Received: by 2002:a05:7022:ea8d:b0:1b2:6cba:7f48 with SMTP id a92af1059eb24-1b5568f6f77mr12668772c88.31.1795448380844;
-        Mon, 23 Nov 2026 07:39:40 -0800 (PST)
+        bh=gg6u6KS4BHnwCfzVFUldneMf5zb5FDtQCD09MbvPg5c=;
+        b=Bg3F5MRdHqW+SyOkCGDxvmo38LKgKrVV46cOCZHQotILAK7YL06auoLor0lLHqd1hn
+         iOLUP4zPUMwQVme/QdKzI/sNkKqdblYqI1HmBRo+4Lh9KEWV517y13gUE+8fXMkJ/v1K
+         TrR9+Wg7QMGpPW1WP6jTAaHCG7lOZ9+cOFgR9LDUvHSvyBmxdN0q0szPX6Y9c8lwhnC/
+         /Ft67m9LGuaZXYYXM6iQXf5to0Bf2KM5Mqg8TjH7LAtW4TDMcs/H6tfyxw4Xe5IKeVDg
+         YEKMSB6DNIieAzDDZAcgvZRDPMBrYPnAR+gup5t8aLbrwB36zP0JQnFEPD1Z9dTIna72
+         BzLA==
+X-Gm-Message-State: APuU4Z+eJdfWBtHIf5HwAk/AxsVdXKkfMZfLff7VWNzidR25dr2caTYC
+	3a0DggrTaEyayseV9Cw/1qDKTJOZG23Fx7CatGsX8syAKrI0zv/kfBy5puGIJA==
+X-Gm-Gg: AZFdTZeJ1kkF0yhzQjCiyBjufAUKTO/jor/5d6xGwdoxFp5bVSoivnFeyKI9LcO/T3i
+	XWVniM6pkRiwPVbdrHxwNixBgUAtvCqAf31Cza/NlyhcU/OC0JfKY16g5IdU7+YpzcmmJjisiw7
+	m14i1LGcIu1oSWQ+bVktI5y+143wDuR3wtp4+wzuQ/XgKWXZ0vZBHK870VeDAPW9WpzldLCeOv7
+	+E41PL8V+xizQwVdyZeS7Yox0UcGhzIrP7cc1GBCcvcAB88PK9uI4eZk0E8QcMMEJWyvrz97Svj
+	uhd/L6cjyO9etw8gFyG1klGXbh0oUIAl0F+Ny9FA4LKrcwF2p1ooCbhmrV7pY33lhrj7j9wT4ql
+	12OT6RKhB4uQeuBr7LA1g7AlGIGaLLD3K8/D9AZRLy6FDSe8ZerB+VxVnjBrmeyqwJRi66mGZlD
+	HJ+M0xZXqPS/3Ymt39ZenTJIUiKpQ9/qQktUR6B+ThixYYZqtipe2bLaqeEDt82/Cy9PjFYa1no
+	CsU7dJXKo9/AbpoIMey1vPDoHb2M5BzuE3W4tSvtMotds/W+ubCEGq7pydepsjfyCColZWfLo0e
+	exNHeHN1xPTQboNzwo1z5OXaq0An7EALwXevYhyFkTv6lyg/8CI+HMXpARW/WCKqhNo9
+X-Received: by 2002:a05:7022:290:b0:1b5:dc3:209b with SMTP id a92af1059eb24-1b5568ac6b0mr11352062c88.22.1795448383825;
+        Mon, 23 Nov 2026 07:39:43 -0800 (PST)
 Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5567ffa8csm33680067c88.7.2026.11.23.07.39.38
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5567ffa8csm33680067c88.7.2026.11.23.07.39.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 07:39:40 -0800 (PST)
+        Mon, 23 Nov 2026 07:39:43 -0800 (PST)
 From: Cong Nguyen <congnt264@gmail.com>
 To: sakari.ailus@linux.intel.com
 Cc: linux-media@vger.kernel.org,
@@ -84,10 +84,11 @@ Cc: linux-media@vger.kernel.org,
 	Tianshu Qiu <tian.shu.qiu@intel.com>,
 	Bingbu Cao <bingbu.cao@intel.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Shawn Tu <shawnx.tu@intel.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 03/16] media: i2c: ov2740: move remove() after the PM callbacks
-Date: Mon, 23 Nov 2026 22:39:14 +0700
-Message-Id: <20261123153927.2547169-4-congnt264@gmail.com>
+Subject: [PATCH v2 04/16] media: i2c: ov2740: power off the sensor on remove
+Date: Mon, 23 Nov 2026 22:39:15 +0700
+Message-Id: <20261123153927.2547169-5-congnt264@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261123153927.2547169-1-congnt264@gmail.com>
 References: <20261123153927.2547169-1-congnt264@gmail.com>
@@ -102,57 +103,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move ov2740_remove() below the runtime PM callbacks so that the following
-patch ("media: i2c: ov2740: power off the sensor on remove") can call
-them from it without a forward declaration.
+ov2740_set_stream() takes a runtime PM reference with
+pm_runtime_resume_and_get() when streaming starts and drops it when
+streaming stops. ov2740_remove() only calls pm_runtime_disable(), which
+does not run the runtime suspend callback, so a device that is still
+runtime active when the driver is unbound can keep its regulators and clock
+enabled and its reset and powerdown GPIOs released.
 
-No functional change.
+The probe error path already calls ov2740_suspend() when the sensor was
+powered on. After disabling runtime PM in remove(), do the same if the
+device is not runtime suspended, and set the runtime PM status to
+suspended. Avoid powering it off again when runtime suspend has already
+done so.
 
+This issue was found by auditing the driver with an LLM coding assistant.
+
+Fixes: 866edc895171 ("media: i2c: Add ov2740 image sensor driver")
 Signed-off-by: Cong Nguyen <congnt264@gmail.com>
 ---
- drivers/media/i2c/ov2740.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ drivers/media/i2c/ov2740.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
-index 31513d1524a3..ca2ea5d4e0a3 100644
+index ca2ea5d4e0a3..8e495c70b961 100644
 --- a/drivers/media/i2c/ov2740.c
 +++ b/drivers/media/i2c/ov2740.c
-@@ -1199,17 +1199,6 @@ static int ov2740_check_hwcfg(struct ov2740 *ov2740)
- 	return ret;
+@@ -1456,6 +1456,10 @@ static void ov2740_remove(struct i2c_client *client)
+ 	v4l2_subdev_cleanup(sd);
+ 	v4l2_ctrl_handler_free(sd->ctrl_handler);
+ 	pm_runtime_disable(&client->dev);
++	if (!pm_runtime_status_suspended(&client->dev)) {
++		ov2740_suspend(&client->dev);
++		pm_runtime_set_suspended(&client->dev);
++	}
  }
  
--static void ov2740_remove(struct i2c_client *client)
--{
--	struct v4l2_subdev *sd = i2c_get_clientdata(client);
--
--	v4l2_async_unregister_subdev(sd);
--	media_entity_cleanup(&sd->entity);
--	v4l2_subdev_cleanup(sd);
--	v4l2_ctrl_handler_free(sd->ctrl_handler);
--	pm_runtime_disable(&client->dev);
--}
--
- static int ov2740_nvmem_read(void *priv, unsigned int off, void *val,
- 			     size_t count)
- {
-@@ -1458,6 +1447,17 @@ static int ov2740_probe(struct i2c_client *client)
- 	return ret;
- }
- 
-+static void ov2740_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	media_entity_cleanup(&sd->entity);
-+	v4l2_subdev_cleanup(sd);
-+	v4l2_ctrl_handler_free(sd->ctrl_handler);
-+	pm_runtime_disable(&client->dev);
-+}
-+
  static DEFINE_RUNTIME_DEV_PM_OPS(ov2740_pm_ops, ov2740_suspend, ov2740_resume,
- 				 NULL);
- 
 -- 
 2.25.1
 
