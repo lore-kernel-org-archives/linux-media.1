@@ -1,109 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795447731;
-	b=RMkNbOVhlQugJpj1WGrEiDTuWrfOMhNH7Q9CMSFd6E6PHHJrkuLDdr2TP7/ZnM4bYNEV
-	 6Jx1VoP7zZPMN0eGLWFk3RWM3etxehxWT3ppXi4yGrkM7GunIq6zFgNcFoZkNh6puEZUH
-	 pWEzngUh7B7xd1KE0ecDXNt7ykuLNbk2ZodZSrlAgAlpc0Nnfy5qD4Haz9uFwLXzeiEPC
-	 I+/IqjTiYSrAqb1dzkvP+u1bjny9po7fZn40LqfnPy/it6HtlqIcYKAg2njOExT070zPt
-	 8e5FovxNks3Iww+hHNJcMNb9eBZM3K0aC+AvjinTbAsNHuB6UoUFHy8GZsEpc6vcbmA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795447731;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795448209;
+	b=GlyK2dr7wd69ZqM5JM51iUPka7JCkjPcGnP3ol/uG4bxznqpwanO/zWgEg4QL0olfeiu
+	 rFM62UQneCUHFsBqlUbh8smoeJUCBnWwfjLC8EKaHRAIaDlMuwVTHbp4GwzBmY4nAhySP
+	 /ga6G5W5dFin4V2YBUFq5XfFi4MkpMayVPMKbSBN3I3Kpae6uMjfQgoNwsezT1qDPObIO
+	 nI1NTcmTBhFZ2hW+vuLye/79x486wda3aCueGGDejFdIxFOtdwNEJhJ1JE/wZAO/Er7TF
+	 hGnrTteGgi6/Yks7dr7c7XYm62oxJytp/3fe9Rc0ESphsLSWD6CPOrWojYZEo1izVTw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795448209;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=xjPkJu8X2nBBkbwoz/3Q9ZztknethPFV/hq8GuXmGeg=;
-	b=LnnRG1Ly/2MKiz36SE36J03QlZNM08z2SocjU4LicisfHiHYNzChvqO26xb5cFAI6Db0
-	 wRxp/cKlPB8iiSe0iu2vUVSxB2aYvuwlLOmnXa4llkzkjw9TRNEwf1O+zRxFU0p2DhZjJ
-	 A/kiBruCb5Tr7cq1OEqd3D8soQzAcEgH6wh1/BUFdIYR392c11mH5dkrvG/WRSJBPKkbA
-	 m/AHuVsCw+nyU79utcIbmrNg2SvntZ2p7lf9kvapPl5YqrmdO5AFv40YiEJYMesolYdNf
-	 ugurF6fSB0JGkNFREuXT29FAR+bctjJqUi6vunNdc1hz3d27igFi6vBcPAo8k/F1/tg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7pmbTprJSDMNaET1p8KH97keYwTTHp2TnWKNbSbIQnY=;
+	b=AUxV81UK89EMM/nZVg7nzkFjvB4lss4YsqG7N/2FkDRpZlZYqyrBfruEOKFLtSrasuVz
+	 ocOUbSwqCc+00Jp9voDjXg4rKBimJZzKA6NzQC95i0BrUXazBYmRlGMc/Uhue/DfmJJ+S
+	 cTkUGuOV+9+nvGoejjE9JoIk/COog5XuYlyBMwmR4MdKD4ds0rhbzTxpUzOg0ip3Q98Qj
+	 evs0Q8gDTIDaHXPAbQotANNJBKLTPKsjUi/59s3jTqru6U0aFSVypgZTa1V9Olq6OFdn4
+	 tinr/CZUv8ynph3FskJ3nQ6pJ3oez/0G6SGi6Qd1eK1xxLWDdLPO3o1BadeVaoRhaDg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qaN8tz2s;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rhVeuiyD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CFDA606A321
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 15:28:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CFDA606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB88606A32D
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 15:36:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DB88606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qaN8tz2s
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-38699cf08dfso3298779eec.1
-        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 07:28:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rhVeuiyD
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-38699cf08dfso3315170eec.1
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 07:36:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795448208; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Pa3KixudA+5xmoYwPI5y0R6jy5MDkulflIICqE8lJKfL3DNzQ5gKOioxnTuDi2DHaL
+         u52vz7NX99cpThPawgJhpnWvFWVI28kEarO3dyMuMa1aXUUtnQmT/0iKk4npJ96KL+qb
+         /FyUazn4jH+sgFuGjhMf5mqQ8/j9JnvWq+LA5N6ZC9/cP3UjhXmHyHug/hec1Nk62VMj
+         97lFba1+qk1Ai7VGn7dTkUvv9KK0O62ScS+5/nj0z5TDGozYFICzm4yiDhHCERSvWPIJ
+         hAyMmjZkt4DYZ40YBcqTG4t4mf3pc/QwOo+4u3VgZMxruZK43eGdPLGFEGNcYzRi9DuJ
+         Q6BA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7pmbTprJSDMNaET1p8KH97keYwTTHp2TnWKNbSbIQnY=;
+        fh=cQfmRmWBw7qq5HaCoy/KvRyzFvomUeoic0oO5znkdLo=;
+        b=BJk8v9bask+fG8V9gmipAiW+6eD/0KjPKvbwbKb4vmpvacFx0GtPOdL/Aiu/eX6CzK
+         q+IrMelwBpwihAW9HoaENUd8CU9SZ5H+qaBq2SlttUSwgAU/RPe7ukoSPOybuKAIL+BV
+         adLgGnDSnqfZpclCbj1ESgu12Vg6HQpqt9fbh25SolfDQkE7A2Ji7cS4E1Wegz+mZuAL
+         fKpVOnCHINqyhsI76XwVR+yR4sGkXHgHZJlDK+q5vsbHxAr6CEn+v3H7cTexQl3KFNPg
+         UrPwl7lj/hpANCX/6rnrk+uNKLmJGFbxpV9RjOqT4pWJ8zBshlCu8iB42G6FE1zyrGA/
+         ERrA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795447730; x=1796052530; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xjPkJu8X2nBBkbwoz/3Q9ZztknethPFV/hq8GuXmGeg=;
-        b=qaN8tz2s6QjWaNTQiTog+fsjkYaL/oPgbb/v7AnoTrd8bU0uoUSwKkNT8dzhR+i73u
-         icf9jPTeOWH8XY+3QBmRu9W2BLgFcMzVH0jzRUTmx+5K480YeSVMjIMh6HMIEMLsuKjX
-         luCitgg41QLf0IW5yF5mKQ2rtXhnDhkUtd1hM1xT84fobvegCRgTXbKlMwK0Ai5GlV9g
-         9YRYCVwNlrXlDd8JsjOTLcLBpPZVBuznpXMjgSwx3qrxmUHZln8iwn54DRgbmz6Tt+jF
-         IkErDcjC2ELpglQszvZhQ9f/WhdcIcZ0fw3024FJMxh3bATjPaEMfhnF7WPeDWxuJXz2
-         tWKQ==
+        d=gmail.com; s=20260707; t=1795448208; x=1796053008; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7pmbTprJSDMNaET1p8KH97keYwTTHp2TnWKNbSbIQnY=;
+        b=rhVeuiyDGD6m7uUohgi9T0W/7eHgowCSzNgM6wFCIaF3tFDNkwX7vA3Ae2675ZGqR8
+         zB6651frVOqzOa68J7FiE29B0IyQMmWvjYyPZYUxc4c7V0P4XfXFAed6Ww6FwyAIBHXN
+         i0Gaexq7ulQrJBhDuPSVE2JVDW5nQYgL7VDuFrqsMlg4h1ZN+4tpb7QIsnoZNX7NuWl8
+         hyJKkfxmyGDo1tKTEzjKYm0/aQ7KGPBLo1SN6/HXQQa2lImCFF/O/58GXvDDk0qWo0f/
+         9qgqNhRcbxIqjiwJKCsQ4s7o1m+upIyOc5+6Oghf3OGv0MaSzHXP68pGCZJe3K11M1zS
+         VaEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795447730; x=1796052530;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xjPkJu8X2nBBkbwoz/3Q9ZztknethPFV/hq8GuXmGeg=;
-        b=XUtwGGvlxlkgqEi73lMNeS8zKSBy6tKLfFRX2tBJNDtIycqtHxRvsi79vNZ5yXKGfV
-         Kh70T69N99/9bkzGUzHW00kVqNZxySISGPdNyRiY3P7N5T4Zv0EFYEhWEBEfH/cZS4uJ
-         yguTvrTADCMyr3PFb7JX5ZWzR/GChjDio1CYDnt89/Q7mGCOBJOGMgRXcLn5FHV6Q4vk
-         YFOVizpxy6056+hvzKQ3VF010NRF3ToRUF4iK6Qyx2HvrzY7iF5SthPmnRyZESnVhQXK
-         kRaFJPArym6aANMhjPZ7a2xTb/w90cM+jGdtxmKgIcBse+TNc9BP2JGC+bc+w6lJ1q5p
-         F44A==
-X-Forwarded-Encrypted: i=1; AL+hErHiRixQN46k3J24YiVr4MYoHC6EBGWNXpZMWu7SsmhLE3sc8LPznqNGsFjNEpWOEBuARooq6IsI0K5FFA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OOuVKAUX7ZyN9LERefSEZlojNWBLgCxVIGBV5JjfCv2LxQ507
-	iMX4iBxHQV6dZKWEUG50UfOXY5Cecd9+heuwWVRS9ssxtS2uqOy2CYVH
-X-Gm-Gg: AZFdTZdQjPgUgXCJHtLypsaF9XaWUvwyhLwBlHZ/lU4FNmRBEn33YKzFDSyUiEXUjtG
-	vdA95YzbI+LJJPmn8fRXf5WggVIYHMrgCXkpkDUmzwQIVMkQpEYV+NoOQsK+AsJIZMtKgginFXm
-	vbflE9Iu8ZB77bDXmDea/XXJo4qudrIQtdK+pB+VgZ0aGATXhLprl6Al6SiyEz5xkRXg5DZ+R2l
-	2fYKcyx74axa0tBgkqaw1unVX2VQyLX0WiT7/dwN4Y2t95OcPRRIokelEEN+UzUwBDHizWXZdhw
-	Bf0dbd92AMJ2E+IHVyI/nEdN0Aj313l2haauYKf0pCg05cea2MzqMlBznHu8KND3Mmpk6liatJk
-	ekpuLMqMBMXmGv7NfTObFWlomfllfjtXKsmhqM9knFf6uPS4sY1NYeESgpYsawXRc+fXkFf5djM
-	x9mtyTOtFmfaxRDo4gJJlelWybYBR56KUcUmgAe+RfXOsPhDiiNFkksxxSuXtEdPgePBrce3Dty
-	PVVF+JXExqfTz3hGcHw0wLVUasI/bQrsUjX7DPGR7Wipi5LtvzdfsNpoWUDX8lUW6jNY7qgb9Qu
-	FuPGct5Kyk0Pr6V+fIkg854N1bebq5qVK8g3kz2N61wthQ==
-X-Received: by 2002:a05:693c:42d9:b0:386:bc40:1508 with SMTP id 5a478bee46e88-386bc40185bmr455177eec.14.1795447729747;
-        Mon, 23 Nov 2026 07:28:49 -0800 (PST)
-Received: from localhost.localdomain ([2404:c0:aa07:12b3:e89:dfdd:d14b:d911])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e99fdsm46569087eec.5.2026.11.23.07.28.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 07:28:49 -0800 (PST)
-From: Hikmah Gumelar <hikmahgumelar@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Hikmah Gumelar <hikmahgumelar@gmail.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Subject: [PATCH v3 7/7] arm64: dts: qcom: msm8953-xiaomi-tissot: enable front and rear cameras
-Date: Mon, 23 Nov 2026 22:27:22 +0700
-Message-ID: <20261123152722.168879-8-hikmahgumelar@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261123152722.168879-1-hikmahgumelar@gmail.com>
-References: <20261123123546.152162-1-hikmahgumelar@gmail.com>
- <20261123152722.168879-1-hikmahgumelar@gmail.com>
+        d=1e100.net; s=20260707; t=1795448208; x=1796053008;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7pmbTprJSDMNaET1p8KH97keYwTTHp2TnWKNbSbIQnY=;
+        b=vkUonLs36e1ZBjSChvjCR52sZ1ceXc6zVAA6C/4rBfB4iZVbXKsSANBejC+JR7OtEs
+         H9aozQglo+Jj8m2bRw/vYt5coG1KP6Oh8WxRjDA31mnJcLeNck9Ror6rTj47+TihjDbU
+         l3iF2/AQ10oqCY5Plbx6XBAHQv4PuQLiX4SluyoV0L6r/YEKs3T26dNeweZ1kkRugSde
+         /Ww48t5/WuRJzD3aJVGLS4Qf1UF/REQ73VbMHBF3zKMe7wKaeUKH6ZG8IEcESwCKpJeu
+         fQb6vP8GzRxiDyYkGdMpSrYsDiESQ0A8z6YimoXuKtxQI6eWA4fnZFPL9gt3M0lub3sK
+         dpHg==
+X-Forwarded-Encrypted: i=1; AL+hErHWrlxmd4U50gcTAmAwvolVR1o78DzvdMeJH4Tw1G6R9UQ32PU3GgTGtbodDwcf93bhVosBNdqN2DceGg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/qhlZKefwbv9g2LHyDwu1hP5sBgZS+TWW/Cs5wzCfLFrbcs3t/
+	xBJ1/7BncIyZW68yBG8iqM8Lat7BIQ3sOKvkwUo8AEIJKrKnNivA7C7ZWCWMjGKeySyDsOJvz9Z
+	S+FBzZNc8Ei1BU2OcrhmA0p6SanyCv7Y=
+X-Gm-Gg: AZFdTZdp3dEqlV2CYx1NVTA2fWURlTDmPFaHyCxpb7QwRKO5xJ4ycB61SY3nkcr8Ant
+	ioDKMVhTv5b9WaiIe/eVsySwPXkmxDmE/WcL3S61BBVr2ILgckjxmwybybXyGqDbokJqW0wCh2g
+	rEJawdkaaz+ZjqgbaTW3+YWpf4WuIFuj/WjgtZBXtrgnnj7udJPaBPwq2eDSoRBXFdbGD9O3yoM
+	7zvq//aKtV19DNkya7M8MmW2w4Qed+X20iQslk+qiBsUBdDjasFDzl1EPS1jIz3N8M15L5T/rev
+	tG/SjhaCvFMaKKR1As4NwHBpS/s94HLIF6G+z5NluRSmmoaJ2jk6FsPIqk6H71upg1ggZBslbij
+	AImume8qCypEtNLU2E4zfxUtYjFhxDWwgFwFf2pHKMwa/X7dTRbijAMSCyr1MkV8fumZUOg3O3s
+	Ihpn9VWJSuY7jPHb22Un9IB8cLQl78lyzDsTLw341JSMyZ69e+iDA=
+X-Received: by 2002:a05:7301:259a:b0:36e:800a:71fe with SMTP id
+ 5a478bee46e88-3856c4b844cmr11761769eec.1.1795448207689; Mon, 23 Nov 2026
+ 07:36:47 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -113,152 +105,66 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261113161819.36847-1-clamor95@gmail.com> <20261113161819.36847-3-clamor95@gmail.com>
+ <20261123145520.GA2412988-robh@kernel.org>
+In-Reply-To: <20261123145520.GA2412988-robh@kernel.org>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 23 Nov 2026 17:36:36 +0200
+X-Gm-Features: Aa3M54rUDkGOVQLPkkzUTzUHY6vBcwEurritNE5bPXzc3P_S34AV-IYkX1z3J3o
+Message-ID: <CAPVz0n1sOsC2N+MWEZXN3DYGBgLicS=+e-q53KjBYcJtLiWXRg@mail.gmail.com>
+Subject: Re: [PATCH v1 02/10] dt-bindings: display: tegra: Remove Tegra30 fallback
+To: Rob Herring <robh@kernel.org>
+Cc: Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Sowjanya Komatineni <skomatineni@nvidia.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Cong Nguyen <congnt264@gmail.com>, 
+	Faisal Mukhtar <mukhtarfaisal03@gmail.com>, Dan Carpenter <error27@gmail.com>, 
+	Hungyu Lin <dennylin0707@gmail.com>, Hao-Qun Huang <alvinhuang0603@gmail.com>, 
+	Yury Norov <ynorov@nvidia.com>, =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	linux-media@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Enable CAMSS, CCI, CSIPHY0/CSIPHY2 ports, and the OmniVision OV12A10 rear and Samsung S5K5E8 front image sensors on the Xiaomi Mi A1.
+=D0=BF=D0=BD, 23 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:5=
+5 Rob Herring <robh@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Fri, Nov 13, 2026 at 06:18:11PM +0200, Svyatoslav Ryhel wrote:
+> > After further investigation, I have found that Tegra30 requires a sligh=
+tly
+> > different programming model than Tegra20, the maximum VI clock differs =
+by
+> > nearly a factor of two. Additionally, Tegra30 does not require the
+> > APB_MISC workaround.
+>
+> If the clock rate is a function of the sensor or input resolution, then
+> wouldn't the h/w design prevent that scenario?
+>
 
-Signed-off-by: Hikmah Gumelar <hikmahgumelar@gmail.com>
----
- .../boot/dts/qcom/msm8953-xiaomi-tissot.dts   | 119 ++++++++++++++++++
- 1 file changed, 119 insertions(+)
+VI clock rate depends on hardware. If wrong clock is set HW may still
+work, but be unstable, which will result in unpredictable behavior.
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts b/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts
-index fccb9c4360ca..e41cbd4d01b2 100644
---- a/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8953-xiaomi-tissot.dts
-@@ -74,6 +74,104 @@ vph_pwr: vph-pwr-regulator {
- 		regulator-always-on;
- 		regulator-boot-on;
- 	};
-+	vreg_cam_avdd: regulator-cam-avdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vreg_cam_avdd";
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+		gpio = <&tlmm 62 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		pinctrl-0 = <&cam_vreg_avdd_default>;
-+		pinctrl-names = "default";
-+	};
-+};
-+
-+&camss {
-+	vdda-supply = <&pm8953_s3>;
-+	status = "okay";
-+
-+	ports {
-+		port@0 {
-+			reg = <0>;
-+
-+			csiphy0_ep: endpoint {
-+				clock-lanes = <7>;
-+				data-lanes = <1 2 3 4>;
-+				remote-endpoint = <&rear_cam_ep>;
-+			};
-+		};
-+
-+		port@2 {
-+			reg = <2>;
-+
-+			csiphy2_ep: endpoint {
-+				clock-lanes = <7>;
-+				data-lanes = <1 2>;
-+				remote-endpoint = <&front_cam_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci {
-+	status = "okay";
-+};
-+
-+&cci_i2c0 {
-+	camera@10 {
-+		compatible = "ovti,ov12a10";
-+		reg = <0x10>;
-+
-+		clocks = <&gcc GCC_CAMSS_MCLK0_CLK>;
-+		pinctrl-0 = <&cam_sensor_rear_default &camss_mclk0_default>;
-+		pinctrl-names = "default";
-+
-+		reset-gpios = <&tlmm 33 GPIO_ACTIVE_LOW>;
-+		powerdown-gpios = <&tlmm 39 GPIO_ACTIVE_LOW>;
-+
-+		avdd-supply = <&vreg_cam_avdd>;
-+		dvdd-supply = <&pm8953_l2>;
-+		dovdd-supply = <&pm8953_l6>;
-+
-+		rotation = <270>;
-+		orientation = <1>;
-+
-+		port {
-+			rear_cam_ep: endpoint {
-+				data-lanes = <1 2 3 4>;
-+				link-frequencies = /bits/ 64 <216000000>;
-+				remote-endpoint = <&csiphy0_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci_i2c1 {
-+	camera@2d {
-+		compatible = "samsung,s5k5e8";
-+		reg = <0x2d>;
-+
-+		clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
-+		pinctrl-0 = <&cam_sensor_front_default &camss_mclk1_default>;
-+		pinctrl-names = "default";
-+
-+		reset-gpios = <&tlmm 129 GPIO_ACTIVE_LOW>;
-+
-+		avdd-supply = <&pm8953_l22>;
-+		dvdd-supply = <&pm8953_l23>;
-+		dovdd-supply = <&pm8953_l6>;
-+
-+		rotation = <90>;
-+		orientation = <0>;
-+
-+		port {
-+			front_cam_ep: endpoint {
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64 <418000000>;
-+				remote-endpoint = <&csiphy2_ep>;
-+			};
-+		};
-+	};
- };
- 
- &hsusb_phy {
-@@ -302,6 +400,27 @@ gpio_hall_sensor_default: gpio-hall-sensor-state {
- 		bias-pull-up;
- 	};
- 
-+	cam_sensor_front_default: cam-sensor-front-default-state {
-+		pins = "gpio129";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	cam_sensor_rear_default: cam-sensor-rear-default-state {
-+		pins = "gpio33", "gpio39";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	cam_vreg_avdd_default: cam-vreg-avdd-default-state {
-+		pins = "gpio62";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
- 	ts_int_default: ts-int-default-state {
- 		pins = "gpio65";
- 		function = "gpio";
--- 
-2.47.3
+> Does having the APB_MISC workaround make things not work?
 
+It does work, but my main intention was fixing clocks since Tegra114
+does not work properly with 450MHz. That was why I even start digging
+into this. APB_MISC workaround remove for tegra30+ is more a side
+benefit.
+
+>
+> It sounds like things worked or could have worked with only knowledge
+> about nvidia,tegra20-vi, so I'm not sure this is really justified as it
+> is an ABI change.
+>
+> >
+> > Therefore, remove the fallback compatible and add a dedicated compatibl=
+e
+> > for Tegra30 VI.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  .../devicetree/bindings/display/tegra/nvidia,tegra20-vi.yaml | 5 +----
+> >  1 file changed, 1 insertion(+), 4 deletions(-)
