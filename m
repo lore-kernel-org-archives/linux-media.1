@@ -1,87 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795463767;
-	b=g/Wbm7bEOrqk5ml8Zbg0+PI4ts9t402/cJnbZkrpTM6FZ82m6OD6T9EzSJ56Rz46t9Mm
-	 i5EJR7EOy3efHVMplRotgPuSwy0aUYQ/7OimTixOsHXjWuxHr6YLlkRZyFi5Fjq8YdCd5
-	 tw1IrB1KFAkKa9m1IXbu7fqbPVCRjhZQa573rgo8EyclM06t09aSNghuH02jocXP8Ak7M
-	 hIu2FIkoPht8H3uz7uyI+IJvr0WqbzddyRURXkmMsyttN6zb7QdtxLiicCmUXEz//CcVj
-	 HUYpCQP9iBveXWGGDIHDIpNpMC1i83ootqhF7o78tVaV0TQdXxqmjfOUZpUyGFTkjzA==
+	t=1795464427;
+	b=vF3oiakLho8nuTSEmGjjl0Z0vU033yPMwIyBgAplpdvEQigrI8vFxB6B07A+TxCTCovM
+	 7oxX0rf4nuzUuYpnfZFA6fr/QzBrpucL6FuJFsXfax3bTdM68sSWCBdgw7jzEJKxes/TG
+	 24E1YMRMC+84tabL2ey2ODOgRnX5pXTb9KOZud/9gMZnR8qen8A66JldvlahY88WxT6Vr
+	 ErF13tz8X2fSH28Kzgck4bQT8QXSKXi6Q8GJXxcikUW2MPkeJDPvpJfQIlVltXgnK30+a
+	 j0NE6Im/iIgBKuMIqPUJ3nhsmIdVvIP0kMFyx/SvaEhS6bZqrV4nzYepAwGEy385y5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795463767;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=Lny4behPT6icoCVAkyq71pF7Sa0197S234mEpHRXxu4=;
-	b=5C40iEWCHeeJKlLlo99Xz91Dy9jOiQlE0q0ebqPbY9oMt9nDX1FtQFkeIf1dQXMXw7q8
-	 xoqOwRRt8y2xoU7ja3vuQDrbh6xQFogj78Pkv1kFg2rcp0HttGNil1gBAqyCPSgco6aCN
-	 FRvhTjrC9YLGH1bn6BcmU4sIDlv1v31VVyoJS6lr5lLqjZ/eIVlhHV8ooy5keUQyl13DQ
-	 5+Q+QBqYVpjvgvbp+kQ5KTL4DjEbyRVDClFc0mggu1zsJhtIgSdk0aWRjYqRilLYhgJrB
-	 sDUCnR/wG73jw4JVVDST7ujzOqZKhBaw2swhgkrAJbXt+pKwH1mxRDNM3h90vOea+fQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795464427;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=a2ziQehWCmdgrGG7cVUPIQm6dAT6aWiKHtE95x15y8o=;
+	b=XbJLn+n8wHi4YHjzQ9yVC7PPLqk5MtGvDqgjOiEcK0MogPFPyq3hxZaqnMAluHMfldQV
+	 kD1KfkKkmDGLjRJ6OCnQ9+yMjD+ePpKNG3vH0XyW7GA+4vPAL0FCPt0rJ7HkO9YKdoFrK
+	 VWhapIsfJLQLcSsGrgCpsyi2OvrDWJFZwqCfqaZI0d5nb/AyRDAMfYmKk7GC6FiflBfzo
+	 kM7Lo70dGrZtphxlT+I/QwBuow3XSKlyrXUv67PmHDhVnFCN0kueroS2jX7ftB0HXK+kc
+	 E6qJnEkMEJZS03naimU8pdOfxXJIrcgnh20LPUYqGCmtT1K4E/8LBO0/QGEnz8B1djw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=i4Y825zs;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BSe2t1Vx;
+	arc=none smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B76606A31F;
-	Mon, 23 Nov 2026 19:56:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56B76606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C0A606A326
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 20:07:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83C0A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=i4Y825zs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795463764;
-	bh=ej1A2i9QZRafCNfeT6JWyFzOuIrzj4KPCVhaGpxwfXk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=i4Y825zsyQV02ClJ7aP4vIcOI+J5pyZvmyHpYV2d2BjSn36TKXmQTm/xsRtFXreTA
-	 Lm8Rk7sHpRpehKcbXV31fXsB776xyOPwxqVhCMT14sqbjsRP5ZiqIYvspLnrKQe9QR
-	 aKjMOox2qWHUiK48Nw81CKsmdvWjWBH3nr2saKbUcGCF1ExXsCTwhG7OUVIYTNneP5
-	 05GSeOyFFuMXUfN3EJnTwmR1OocHPHFOsfjhfhka4RZwF85EhDiOpfmq6q0B6xaf1h
-	 mNsMoIN1WUbqr99SP/fWOwg2ct6RR4REEs/aGhgFOJu0+jRVUija8g0zD5PXtUFVoo
-	 pAo4rN4f8y8Eg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D89F417E0883;
-	Mon, 23 Nov 2026 20:56:02 +0100 (CET)
-Message-ID: <3bcac49dbe7d0510e2cbab0d56f319b14c0f5ca9.camel@collabora.com>
-Subject: Re: [PATCH] media: verisilicon: suspend the device before
- unregistering it on remove
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: shomenkow@gmail.com, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
-	 <hverkuil+cisco@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Frank Li
-	 <Frank.Li@nxp.com>, Tharit Tangkijwanichakul <tharitt97@gmail.com>, 
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Mon, 23 Nov 2026 14:56:01 -0500
-In-Reply-To: <20261106-hantro-remove-v1-1-d0a4678886d7@gmail.com>
-References: <20261106-hantro-remove-v1-1-d0a4678886d7@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Z+d3cBSs+hNXNcM5M5wA"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BSe2t1Vx
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2f04bea9a93so31319095ad.3
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 12:07:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795464427; x=1796069227; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a2ziQehWCmdgrGG7cVUPIQm6dAT6aWiKHtE95x15y8o=;
+        b=BSe2t1Vxxt/GUuaXF6Rle1jjuc26YmcHWoFPxyzA1scFiUmskTGduJNViX87Ro2WQm
+         SVftky6KMPlwmk8HRA/9q+ZU1eMYqQ6txsOPNwWFxgToZvnp4BwVh7PbU+OL8T99PdYk
+         Ttte9qUXz2nAwPZl8uKVeYgK6FXkoTVyfqBtABi34cj6OGKywl1rjdwfwXCKvI/ffadt
+         P24q3ZOXtEpNI8wV8wKsKQDCaibivK58M2Ub/f+CXn3aXo8RJ1Jr+/yvMqdgR17yFOQn
+         zD8XzPybhy/oTjGblfOQqZ9l4WIj3uhOaoodcWvs/dGmpd2OvL/CbGRtwdYQvGVmqMXe
+         RYZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795464427; x=1796069227;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a2ziQehWCmdgrGG7cVUPIQm6dAT6aWiKHtE95x15y8o=;
+        b=BHgDKxeSjFopWCl60rw05VVf46nc5bpLJGTWv86x/2QfwT9qrAFN5lwppe4pYget9x
+         MzsI1Y3yfdW+u4yFCnubCRYH+W2tbWO4iqByDiSUCIaSGrUPuQn4o48g8vZ7Jp8kYn49
+         iyn9MGXXLOey2iSGZHs598BCrgF1xE+tpDatZazcfj2VHTcH2zBFVyzP8CE1+mrIpvk3
+         /x6a1Dwmf1nd42ODeDDzN6ANqtrBF/k1wsvCnU94bXY+2Ei2nQKiCcEP1U1H0xr7rrFW
+         2pfXplN4ZkAq0IfyeTLVnzaOFltm49dQg1/a0yaCOUtRPDmr5ra8HiBimWawolCH5VBH
+         Sd8g==
+X-Forwarded-Encrypted: i=1; AL+hErFKKlhjpkEhK/nLEVyAn+9EGHyi0qPN0pzf47Z2fPt7CfP9G3us5QWVOyQ3r2r/XXyNkOKKhWYcqbBmWQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/qM6rdhuxoIDn+VEOdjNNrp2gjU0S+paNEBhSGaZSYfB8RcyOf
+	BJpVv/JfXUxh2w1ejMzQaDwwxhtP1d/mq3bTwYNir8UxC/uls0ZjICEerIy+XRh4
+X-Gm-Gg: AZFdTZcdipeK5c9EJ2o/ORx1vMMIITM+WofFKIAf5Q9aNLOcFxNwmpzM1pZThjk/Efc
+	lUD4YlCyoJDeNBMCkpZ4NOOJCWxWsvy6DPmjzRBVvpSHiQRltiGEmvvlcQ6vi+APGMHQ1JYgc1W
+	6tQWwlHE4n5i3vtyJbiRDlu70U/MLh+ztGIJCn/A26WddIInQbAyGli6+/4w9sfiTws2Z3vf6Bi
+	fFMBP8ha8c6CSc+pGGmZPuKDNksO8dEOuQ4Gcw4KxO/bbuW+DDW+Msi9XT5NYlDqsDGf/70vYV3
+	fk4jEJpAzefPLTIf2+cyIxU3O+oDBVO4kYC06+fjIetsdAR0b4EOG1MNdjWrX4oqCZsdlZPQRLl
+	Q3zgELDKWL+jkg04sTSjv+4XhEHIaabah0KuS8z/kxLjIqubis4TJkb1vRBqRzEBfZyNbhhkNCD
+	Qp1Ual9CDs8V55Y4GsROOdYMIwqzrlUOgA+vRAv70RzQljcBSSgENXanfjcTIEjmKBfbVMLZkgf
+	1RWf2EjrzplBD1LN/RTuoZuf/v8KYwIjtbVzWzi5YallYB0zQq6GIuicSWd4AfolY6GGcn77UTv
+	/Cq5TEDEmon1Y8uczuYXcUWb/06LzdlGjzSNIDMrFLXotpg9XTv1S7rhF0YkV+i2P6SsxXuCWw=
+	=
+X-Received: by 2002:a17:902:e80b:b0:2e9:660a:7944 with SMTP id d9443c01a7336-2f03f2689eemr126770635ad.58.1795464426593;
+        Mon, 23 Nov 2026 12:07:06 -0800 (PST)
+Received: from X.tail7c3ebe.ts.net ([103.190.40.77])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f0b8a43768sm3092515ad.31.2026.11.23.12.07.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 12:07:05 -0800 (PST)
+From: Abhishek Chaulagain <chaulagainavishek14@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Andy Shevchenko <andy@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Abhishek Chaulagain <chaulagainavishek14@gmail.com>
+Subject: [PATCH] media: atomisp: Remove unused timed controller code
+Date: Mon, 23 Nov 2026 20:06:58 +0000
+Message-ID: <20261123200658.449-1-chaulagainavishek14@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,120 +101,363 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---=-Z+d3cBSs+hNXNcM5M5wA
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The timed controller HAL module - timed_ctrl_snd_commnd(),
+timed_ctrl_snd_sp_commnd(), timed_ctrl_snd_gpio_commnd() and the inline
+timed_ctrl_reg_store() helper they used - has no callers anywhere in the
+tree. The only remaining reference was a stale #include in sh_css.c that
+pulled in none of its symbols.
 
-Hi,
+Remove the dead source file, its public/private/local/global headers and
+the timed_controller_defs.h definitions header (included only by this
+module), drop the object from the Makefile, and delete the unused include
+from sh_css.c.
 
-ack on your previous feedback.
+The timed_ctrl device identifiers (timed_ctrl_ID_t, TIMED_CTRL0_ID,
+N_TIMED_CTRL_ID, TIMED_CTRL_BASE) live in the shared system_global.h /
+system_local.* enumerations and are left untouched.
 
-Le vendredi 06 novembre 2026 =C3=A0 12:04 +0300, Sergei Khomenkov via B4 Re=
-lay a
-=C3=A9crit=C2=A0:
-> From: Sergei Khomenkov <shomenkow@gmail.com>
->=20
-> The clocks are enabled and disabled by the runtime PM callbacks.
-> hantro_remove() calls v4l2_device_unregister() and clk_bulk_unprepare()
-> first and only then pm_runtime_dont_use_autosuspend(), which suspends
-> an active device right away. By then v4l2_device_unregister() has
-> cleared the driver data (it points to the v4l2_device, the first member
-> of struct hantro_dev), so hantro_runtime_suspend() dereferences NULL.
->=20
-> The device is always active at that point: the driver core resumes it
-> before calling remove(), and its put only starts the 100 ms autosuspend
-> timer. So every unbind and every module unload, with or without a
-> decode before it, gives an "Unpreparing enabled" warning for each clock
-> and then that oops.
->=20
-> Stop runtime PM before the unregister and the unprepare. If runtime PM
-> is forbidden through sysfs (power/control set to "on"), the device is
-> still active after that, so disable its clocks and mark it suspended by
-> hand.
->=20
-> The probe error path unwinds in the same order. It can only hit this if
-> a job runs between the encoder node registration and a later probe
-> failure, so it is left for a follow-up.
->=20
-> Found with an LLM coding assistant while porting mainline Linux to a
-> Rockchip RK3026 board (G1, ID 0x6731); the assistant also drafted this
-> change. Tested on that board. Without this change, unloading the idle
-> module (runtime status "suspended") gives the warnings and the oops.
-> With it, the idle module unloads with no warning or oops, and so it does
-> right after an H.264 or VP8 decode with the autosuspend delay raised to
-> 10 s through sysfs; the clock enable and prepare counts are back to
-> their values before the load. The same holds with power/control set to
-> "on", over three load, decode and unload cycles on one boot. kmemleak
-> reports nothing after five load, decode and unload cycles. Built with
-> W=3D1 with and without CONFIG_PM. Not tested on other SoCs or with a
-> power domain.
+No functional change intended.
 
-I'll drop that paragraph.
+Signed-off-by: Abhishek Chaulagain <chaulagainavishek14@gmail.com>
+---
+ drivers/staging/media/atomisp/Makefile        |  1 -
+ .../pci/hive_isp_css_common/host/timed_ctrl.c | 66 -------------------
+ .../host/timed_ctrl_local.h                   | 12 ----
+ .../host/timed_ctrl_private.h                 | 26 --------
+ .../hive_isp_css_common/timed_ctrl_global.h   | 46 -------------
+ .../host/timed_ctrl_public.h                  | 51 --------------
+ .../pci/hive_isp_css_include/timed_ctrl.h     | 37 -----------
+ drivers/staging/media/atomisp/pci/sh_css.c    |  1 -
+ .../media/atomisp/pci/timed_controller_defs.h | 14 ----
+ 9 files changed, 254 deletions(-)
+ delete mode 100644 drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl.c
+ delete mode 100644 drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_local.h
+ delete mode 100644 drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_private.h
+ delete mode 100644 drivers/staging/media/atomisp/pci/hive_isp_css_common/timed_ctrl_global.h
+ delete mode 100644 drivers/staging/media/atomisp/pci/hive_isp_css_include/host/timed_ctrl_public.h
+ delete mode 100644 drivers/staging/media/atomisp/pci/hive_isp_css_include/timed_ctrl.h
+ delete mode 100644 drivers/staging/media/atomisp/pci/timed_controller_defs.h
 
->=20
-> Fixes: 556ab0b2741d ("media: hantro: release runtime resources when devic=
-e_run fails")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
-> ---
->  drivers/media/platform/verisilicon/hantro_drv.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/me=
-dia/platform/verisilicon/hantro_drv.c
-> index 26e5d5547466..8af47375d471 100644
-> --- a/drivers/media/platform/verisilicon/hantro_drv.c
-> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
-> @@ -1286,10 +1286,16 @@ static void hantro_remove(struct platform_device =
-*pdev)
->  =09hantro_remove_enc_func(vpu);
->  =09media_device_cleanup(&vpu->mdev);
->  =09v4l2_m2m_put(vpu->m2m_dev);
-> -=09v4l2_device_unregister(&vpu->v4l2_dev);
-> -=09clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
-> +=09/* Suspend first: v4l2_device_unregister() clears the driver data. */
->  =09pm_runtime_dont_use_autosuspend(vpu->dev);
->  =09pm_runtime_disable(vpu->dev);
-> +=09/* Runtime PM forbidden through sysfs: the device is still active. */
-> +=09if (IS_ENABLED(CONFIG_PM) && !pm_runtime_status_suspended(vpu->dev)) =
-{
-> +=09=09clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
-> +=09=09pm_runtime_set_suspended(vpu->dev);
+diff --git a/drivers/staging/media/atomisp/Makefile b/drivers/staging/media/atomisp/Makefile
+index 1d0fbe220..2680e40d9 100644
+--- a/drivers/staging/media/atomisp/Makefile
++++ b/drivers/staging/media/atomisp/Makefile
+@@ -145,7 +145,6 @@ atomisp-objs += \
+ 	pci/hive_isp_css_common/host/isp.o \
+ 	pci/hive_isp_css_common/host/mmu.o \
+ 	pci/hive_isp_css_common/host/sp.o \
+-	pci/hive_isp_css_common/host/timed_ctrl.o \
+ 	pci/hive_isp_css_common/host/vmem.o \
+ 	pci/hive_isp_css_shared/host/tag.o \
+ 	pci/system_local.o \
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl.c
+deleted file mode 100644
+index 948b0b0a0..000000000
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl.c
++++ /dev/null
+@@ -1,66 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-/*
+- * Support for Intel Camera Imaging ISP subsystem.
+- * Copyright (c) 2015, Intel Corporation.
+- */
+-
+-#include "timed_ctrl.h"
+-
+-#ifndef __INLINE_TIMED_CTRL__
+-#include "timed_ctrl_private.h"
+-#endif /* __INLINE_TIMED_CTRL__ */
+-
+-#include "assert_support.h"
+-
+-void timed_ctrl_snd_commnd(
+-    const timed_ctrl_ID_t			ID,
+-    hrt_data				mask,
+-    hrt_data				condition,
+-    hrt_data				counter,
+-    hrt_address				addr,
+-    hrt_data				value)
+-{
+-	OP___assert(ID == TIMED_CTRL0_ID);
+-	OP___assert(TIMED_CTRL_BASE[ID] != (hrt_address)-1);
+-
+-	timed_ctrl_reg_store(ID, _HRT_TIMED_CONTROLLER_CMD_REG_IDX, mask);
+-	timed_ctrl_reg_store(ID, _HRT_TIMED_CONTROLLER_CMD_REG_IDX, condition);
+-	timed_ctrl_reg_store(ID, _HRT_TIMED_CONTROLLER_CMD_REG_IDX, counter);
+-	timed_ctrl_reg_store(ID, _HRT_TIMED_CONTROLLER_CMD_REG_IDX, (hrt_data)addr);
+-	timed_ctrl_reg_store(ID, _HRT_TIMED_CONTROLLER_CMD_REG_IDX, value);
+-}
+-
+-/* pqiao TODO: make sure the following commands get
+-	correct BASE address both for csim and android */
+-
+-void timed_ctrl_snd_sp_commnd(
+-    const timed_ctrl_ID_t			ID,
+-    hrt_data				mask,
+-    hrt_data				condition,
+-    hrt_data				counter,
+-    const sp_ID_t				SP_ID,
+-    hrt_address				offset,
+-    hrt_data				value)
+-{
+-	OP___assert(SP_ID < N_SP_ID);
+-	OP___assert(SP_DMEM_BASE[SP_ID] != (hrt_address)-1);
+-
+-	timed_ctrl_snd_commnd(ID, mask, condition, counter,
+-			      SP_DMEM_BASE[SP_ID] + offset, value);
+-}
+-
+-void timed_ctrl_snd_gpio_commnd(
+-    const timed_ctrl_ID_t			ID,
+-    hrt_data				mask,
+-    hrt_data				condition,
+-    hrt_data				counter,
+-    const gpio_ID_t				GPIO_ID,
+-    hrt_address				offset,
+-    hrt_data				value)
+-{
+-	OP___assert(GPIO_ID < N_GPIO_ID);
+-	OP___assert(GPIO_BASE[GPIO_ID] != (hrt_address)-1);
+-
+-	timed_ctrl_snd_commnd(ID, mask, condition, counter,
+-			      GPIO_BASE[GPIO_ID] + offset, value);
+-}
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_local.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_local.h
+deleted file mode 100644
+index bf97f272a..000000000
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_local.h
++++ /dev/null
+@@ -1,12 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-/*
+- * Support for Intel Camera Imaging ISP subsystem.
+- * Copyright (c) 2010-2015, Intel Corporation.
+- */
+-
+-#ifndef __TIMED_CTRL_LOCAL_H_INCLUDED__
+-#define __TIMED_CTRL_LOCAL_H_INCLUDED__
+-
+-#include "timed_ctrl_global.h"
+-
+-#endif /* __TIMED_CTRL_LOCAL_H_INCLUDED__ */
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_private.h
+deleted file mode 100644
+index 7b90b4cf0..000000000
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_private.h
++++ /dev/null
+@@ -1,26 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-/*
+- * Support for Intel Camera Imaging ISP subsystem.
+- * Copyright (c) 2010-2015, Intel Corporation.
+- */
+-
+-#ifndef __TIMED_CTRL_PRIVATE_H_INCLUDED__
+-#define __TIMED_CTRL_PRIVATE_H_INCLUDED__
+-
+-#include "timed_ctrl_public.h"
+-
+-#include "device_access.h"
+-
+-#include "assert_support.h"
+-
+-STORAGE_CLASS_TIMED_CTRL_C void timed_ctrl_reg_store(
+-    const timed_ctrl_ID_t	ID,
+-    const unsigned int		reg,
+-    const hrt_data			value)
+-{
+-	OP___assert(ID < N_TIMED_CTRL_ID);
+-	OP___assert(TIMED_CTRL_BASE[ID] != (hrt_address) - 1);
+-	ia_css_device_store_uint32(TIMED_CTRL_BASE[ID] + reg * sizeof(hrt_data), value);
+-}
+-
+-#endif /* __GP_DEVICE_PRIVATE_H_INCLUDED__ */
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/timed_ctrl_global.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/timed_ctrl_global.h
+deleted file mode 100644
+index e4c136660..000000000
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/timed_ctrl_global.h
++++ /dev/null
+@@ -1,46 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-/*
+- * Support for Intel Camera Imaging ISP subsystem.
+- * Copyright (c) 2015, Intel Corporation.
+- */
+-
+-#ifndef __TIMED_CTRL_GLOBAL_H_INCLUDED__
+-#define __TIMED_CTRL_GLOBAL_H_INCLUDED__
+-
+-#define IS_TIMED_CTRL_VERSION_1
+-
+-#include "timed_controller_defs.h"
+-
+-/*
+- * Order of the input bits for the timed controller taken from
+- * ISP_CSS_2401 System Architecture Description valid for
+- * 2400, 2401.
+- *
+- * Check for other systems.
+- */
+-#define HIVE_TIMED_CTRL_GPIO_PIN_0_BIT_ID                       0
+-#define HIVE_TIMED_CTRL_GPIO_PIN_1_BIT_ID                       1
+-#define HIVE_TIMED_CTRL_GPIO_PIN_2_BIT_ID                       2
+-#define HIVE_TIMED_CTRL_GPIO_PIN_3_BIT_ID                       3
+-#define HIVE_TIMED_CTRL_GPIO_PIN_4_BIT_ID                       4
+-#define HIVE_TIMED_CTRL_GPIO_PIN_5_BIT_ID                       5
+-#define HIVE_TIMED_CTRL_GPIO_PIN_6_BIT_ID                       6
+-#define HIVE_TIMED_CTRL_GPIO_PIN_7_BIT_ID                       7
+-#define HIVE_TIMED_CTRL_GPIO_PIN_8_BIT_ID                       8
+-#define HIVE_TIMED_CTRL_GPIO_PIN_9_BIT_ID                       9
+-#define HIVE_TIMED_CTRL_GPIO_PIN_10_BIT_ID                      10
+-#define HIVE_TIMED_CTRL_GPIO_PIN_11_BIT_ID                      11
+-#define HIVE_TIMED_CTRL_IRQ_SP_BIT_ID                           12
+-#define HIVE_TIMED_CTRL_IRQ_ISP_BIT_ID                          13
+-#define HIVE_TIMED_CTRL_IRQ_INPUT_SYSTEM_BIT_ID                 14
+-#define HIVE_TIMED_CTRL_IRQ_INPUT_SELECTOR_BIT_ID               15
+-#define HIVE_TIMED_CTRL_IRQ_IF_BLOCK_BIT_ID                     16
+-#define HIVE_TIMED_CTRL_IRQ_GP_TIMER_0_BIT_ID                   17
+-#define HIVE_TIMED_CTRL_IRQ_GP_TIMER_1_BIT_ID                   18
+-#define HIVE_TIMED_CTRL_CSI_SOL_BIT_ID                          19
+-#define HIVE_TIMED_CTRL_CSI_EOL_BIT_ID                          20
+-#define HIVE_TIMED_CTRL_CSI_SOF_BIT_ID                          21
+-#define HIVE_TIMED_CTRL_CSI_EOF_BIT_ID                          22
+-#define HIVE_TIMED_CTRL_IRQ_IS_STREAMING_MONITOR_BIT_ID         23
+-
+-#endif /* __TIMED_CTRL_GLOBAL_H_INCLUDED__ */
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/timed_ctrl_public.h b/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/timed_ctrl_public.h
+deleted file mode 100644
+index 51e0bc0d0..000000000
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/timed_ctrl_public.h
++++ /dev/null
+@@ -1,51 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-/*
+- * Support for Intel Camera Imaging ISP subsystem.
+- * Copyright (c) 2015, Intel Corporation.
+- */
+-
+-#ifndef __TIMED_CTRL_PUBLIC_H_INCLUDED__
+-#define __TIMED_CTRL_PUBLIC_H_INCLUDED__
+-
+-#include "system_local.h"
+-
+-/*! Write to a control register of TIMED_CTRL[ID]
+-
+- \param	ID[in]				TIMED_CTRL identifier
+- \param	reg_addr[in]		register byte address
+- \param value[in]			The data to be written
+-
+- \return none, TIMED_CTRL[ID].ctrl[reg] = value
+- */
+-STORAGE_CLASS_TIMED_CTRL_H void timed_ctrl_reg_store(
+-    const timed_ctrl_ID_t	ID,
+-    const unsigned int		reg_addr,
+-    const hrt_data			value);
+-
+-void timed_ctrl_snd_commnd(
+-    const timed_ctrl_ID_t				ID,
+-    hrt_data				mask,
+-    hrt_data				condition,
+-    hrt_data				counter,
+-    hrt_address				addr,
+-    hrt_data				value);
+-
+-void timed_ctrl_snd_sp_commnd(
+-    const timed_ctrl_ID_t				ID,
+-    hrt_data				mask,
+-    hrt_data				condition,
+-    hrt_data				counter,
+-    const sp_ID_t			SP_ID,
+-    hrt_address				offset,
+-    hrt_data				value);
+-
+-void timed_ctrl_snd_gpio_commnd(
+-    const timed_ctrl_ID_t				ID,
+-    hrt_data				mask,
+-    hrt_data				condition,
+-    hrt_data				counter,
+-    const gpio_ID_t			GPIO_ID,
+-    hrt_address				offset,
+-    hrt_data				value);
+-
+-#endif /* __TIMED_CTRL_PUBLIC_H_INCLUDED__ */
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_include/timed_ctrl.h b/drivers/staging/media/atomisp/pci/hive_isp_css_include/timed_ctrl.h
+deleted file mode 100644
+index b8f48b3c9..000000000
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_include/timed_ctrl.h
++++ /dev/null
+@@ -1,37 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-/*
+- * Support for Intel Camera Imaging ISP subsystem.
+- * Copyright (c) 2015, Intel Corporation.
+- */
+-
+-#ifndef __TIMED_CTRL_H_INCLUDED__
+-#define __TIMED_CTRL_H_INCLUDED__
+-
+-/*
+- * This file is included on every cell {SP,ISP,host} and on every system
+- * that uses the input system device(s). It defines the API to DLI bridge
+- *
+- * System and cell specific interfaces and inline code are included
+- * conditionally through Makefile path settings.
+- *
+- *  - .        system and cell agnostic interfaces, constants and identifiers
+- *	- public:  system agnostic, cell specific interfaces
+- *	- private: system dependent, cell specific interfaces & inline implementations
+- *	- global:  system specific constants and identifiers
+- *	- local:   system and cell specific constants and identifiers
+- */
+-
+-#include "system_local.h"
+-#include "timed_ctrl_local.h"
+-
+-#ifndef __INLINE_TIMED_CTRL__
+-#define STORAGE_CLASS_TIMED_CTRL_H extern
+-#define STORAGE_CLASS_TIMED_CTRL_C
+-#include "timed_ctrl_public.h"
+-#else  /* __INLINE_TIMED_CTRL__ */
+-#define STORAGE_CLASS_TIMED_CTRL_H static inline
+-#define STORAGE_CLASS_TIMED_CTRL_C static inline
+-#include "timed_ctrl_private.h"
+-#endif /* __INLINE_TIMED_CTRL__ */
+-
+-#endif /* __TIMED_CTRL_H_INCLUDED__ */
+diff --git a/drivers/staging/media/atomisp/pci/sh_css.c b/drivers/staging/media/atomisp/pci/sh_css.c
+index 4a182dc38..e3942362c 100644
+--- a/drivers/staging/media/atomisp/pci/sh_css.c
++++ b/drivers/staging/media/atomisp/pci/sh_css.c
+@@ -60,7 +60,6 @@
+ #include "gp_device.h"		/* gp_device_reg_store() */
+ #include <gpio_global.h>
+ #include <gpio_private.h>
+-#include "timed_ctrl.h"
+ #include "ia_css_inputfifo.h"
+ #define WITH_PC_MONITORING  0
+ 
+diff --git a/drivers/staging/media/atomisp/pci/timed_controller_defs.h b/drivers/staging/media/atomisp/pci/timed_controller_defs.h
+deleted file mode 100644
+index 37a9226c6..000000000
+--- a/drivers/staging/media/atomisp/pci/timed_controller_defs.h
++++ /dev/null
+@@ -1,14 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-/*
+- * Support for Intel Camera Imaging ISP subsystem.
+- * Copyright (c) 2015, Intel Corporation.
+- */
+-
+-#ifndef _timed_controller_defs_h
+-#define _timed_controller_defs_h
+-
+-#define _HRT_TIMED_CONTROLLER_CMD_REG_IDX 0
+-
+-#define _HRT_TIMED_CONTROLLER_REG_ALIGN 4
+-
+-#endif /* _timed_controller_defs_h */
+-- 
+2.43.0
 
-I will edit to:
-=09=09hantro_runtime_suspend(vpu->dev);
-
-Its exactly the same, it just keep the implementation in one place, its mor=
-e
-future proof.
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-> +=09}
-> +=09v4l2_device_unregister(&vpu->v4l2_dev);
-> +=09clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
->  =09reset_control_assert(vpu->resets);
->  }
-> =20
->=20
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261106-hantro-remove-9afbc9b601f9
->=20
-> Best regards,
-
---=-Z+d3cBSs+hNXNcM5M5wA
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawSaUQAKCRDZQZRRKWBy
-9P+6AP9+UQyJTJdWEo+S5hFOtmylc/lWN2MktaCaDIIh1an/vQD9G3k8P9NpNa0W
-If8ZNN1ia4f/BFOVW2M6501nL1Jn8gs=
-=fTte
------END PGP SIGNATURE-----
-
---=-Z+d3cBSs+hNXNcM5M5wA--
