@@ -1,78 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795421697;
-	b=ZxV8Dx+xenPLqA1be8MLvKtizV8cRhONn12IGliyHD5f+QO/H5AL9PrHo8kY2Hq8M6Ca
-	 wN/xL3bo+JIC5/UUhIwtxd+GUCTJ1c78Tqa3c0UCFnNBeTlvxJwvpUNh1TBirNb43KmOi
-	 4IWla20bV5UuTBMnd4SdATtt7GwXG5sTpiojFIUK3XTxOEhd60dxmpf0aupJMtsE8tR/O
-	 OMShDDiS/d/3JRrzXuiFtUUn9qtcucxGgHsB1CHwJfdfDdOTm+1YIhPpRAQgJ5tKc19Xc
-	 gTK375DqU5cUtR7x2iOrL3YZxnD08fZ7ncS9B1pRg9dSsRg4ZLeHpMv78OoUkRUenoA==
+	t=1795421911;
+	b=g69qCX2EfFDU2swCxdBOUQ2seSLzXJO33QiYuu1ML/wkEb7A0B55F+myiC9Y3ibxeaNM
+	 Vhd98YAQ7YYDcjHOyYMSWGR7L1TQpGy4eblO2sEAqqW0n9f+kgS2hBGFgTozuvOUyhpLP
+	 gKX27UaiCZ4TvhViYfXpTGL9N4C+ZAhWzFsQXzTjkyaG+RktmHmw/0iS5PeF409GXBJ7R
+	 u+Bx3VHkKJmbx0OzZFHDofNZFMYEep4fU1BRfM4F2P0JgVPm1LIROe47TzMnWaADZFB1I
+	 ZmZ1aQCV/d0y5tVLmmbQPu1eN6Ha3EWukpDMJSyf1sffpkSrRC2CxW96sdQUF3ZCgPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795421697;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795421911;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To:Organization;
-	bh=jM/6JVbobDRmCf45+MFMYZ/SL9MMvwKPogohXIiiHBw=;
-	b=I0EeuBDOwOiSUONOdmmRK8fOElqDF0RHLJnzU9WicjQjcAtLmOnokYEz+gwQKHSMPFex
-	 0GZWJVIsn3aCrHyTsih7Kj4iutlsxiLlt54KR7sz7qkD9XqCWlGa7c+05+zrqRXGeJf/0
-	 77cfUKKwhWJq/rN3fcOfuQn1t1xZyuPrPWnO3HMQB99z6m/dW6O63E/bIVkCJ6jftGS2e
-	 u6PJ7UiA51116rnIdM9dcnVipljH1O4m2HLdRWIMyiNxiQIJD0kwEpWWQNNJCkKMFfOsB
-	 +xBMz4VCmL/7AizgCS8MI+2OKI1dVXuxUnNQIf0fRaM7I7lANV2OAIlzvjJY6fftPZg==
+	bh=pAi0FOlD7jecg0Jih3AEUeZr9uwQOqOruraPDjTwLmc=;
+	b=vw5+CV7ADiR6dHrLlJ6zqdCX7PAM8OvLxIRgnUrW9Zc+Ys5j85cluYRTYuLwkWzBtIrG
+	 R5mGa3tT5tvBHwePIxj8spVmNCXOtRjttg2Se6uA7D7kWe2lTV8lBFrVoiVYD+5DOP9O3
+	 lv2LGVps7OnCY/x8f75OAO03o+tdDAsVdV04nmQJ0s+b2Rwsa2chKiUoRduWchr5dHdWb
+	 /fRQVdh42dfc6be5OlYAaxv9//UkQxPBA9RaHdulELvGoY90+JNl0OjiZ8Aur3F+aJxdL
+	 NDdf4Sdj1ROuxMIKv2ZGIgEQfbPBNjgNFRTzRIevAxWf4Ov1uCNjF7Nc0mxV4q7W4Xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bR6vQdRn;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ff7Tu3cH;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A78606A321;
-	Mon, 23 Nov 2026 08:14:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86A78606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC71A606A321;
+	Mon, 23 Nov 2026 08:18:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC71A606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bR6vQdRn
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ff7Tu3cH
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795421696; x=1826957696;
+  t=1795421911; x=1826957911;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=hwuoL4O9UmiZoRvxwxIeG7CphJsVLt3GfOEkNhPNSMc=;
-  b=bR6vQdRnPLiE9qK0xIqkMW3sI3cihTvbsV6E4mE2OtG26X9OnjLQvUzh
-   qIIJ19Q+SEw+ghPMYI01rzIBm9lMF8FCM5JJhSrf4SS7sIe7r/OXwhpjU
-   UriQ8omBTyNOtwcPHagB6inyzLGrPOGaJlvuDGY4p9dOWBkmePge5l47H
-   9oXD3uG9hjXpdTDzQ8TdQ0FfxUVPnlmB8hksDkxwhzLMDxgNpO7BBx2LM
-   W6YoZsmO+/B/JMgb8MvKtxAWSpZ0OM5WeAjNAlW/9TAtg1Z/eR0m19+U7
-   EIwZUwAYAbu8NMBmDsePuo780l5I6U9ydeU8x9MM1GCmgfCh5wSwDLuTL
+  bh=YKa1djohSu06ZYy3q58kr/JnsMrhtdQAwwPmVBocZgw=;
+  b=Ff7Tu3cHqQlWas2ytOe0nSnPIrksEw1I6pqFCrsibu8YK0/n6InVtoC0
+   OuIcbPVxEcmxzNu43vuGf3SYWuIQfsKXsSoW5F7PlMp24e0x0IkwUYytV
+   XNBSwuvFY88EAVnC9thrJHGXBfDfRgpuZ70vyQHk6DrTwLfkxIr9E/VRy
+   9bQyt/Ikx6IKFrukRHiuivarVYhGCADz6yrFZssNOoPC1gRTf8yyOcDyO
+   8cI9J5RvmywxstDa7gjm/HRblC5N8Mld45Lk/2JXqz9FzLiHrl37hCON7
+   xF/dgQrdszTq9P4TzMG2WU9nxS6noXQzNA+DOS+TP03RwUImvsUENl7gG
    A==;
-X-CSE-ConnectionGUID: 38fSrhF3ROuvFkhqc34Gpw==
-X-CSE-MsgGUID: N9At0fwAQcOUAXKkSbFlNg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4228912"
+X-CSE-ConnectionGUID: Que+JSg0TUaTcZy3rpeHVg==
+X-CSE-MsgGUID: ONWSaUv1RnmUAu/zfs3fbQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4068633"
 X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="4228912"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 00:14:56 -0800
-X-CSE-ConnectionGUID: 2dEsCZphQfiVhTji56VSfQ==
-X-CSE-MsgGUID: CmvcWljeQzOyISOT7QH+tA==
+   d="scan'208";a="4068633"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 00:18:31 -0800
+X-CSE-ConnectionGUID: ep+NzUUMTlGojlella1x1g==
+X-CSE-MsgGUID: 6/T851vRRbK81n3gjfVcmg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="11111400"
+   d="scan'208";a="11562913"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.204])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 00:14:54 -0800
-Date: Mon, 23 Nov 2026 10:14:51 +0200
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Nov 2026 00:18:28 -0800
+Date: Mon, 23 Nov 2026 10:18:25 +0200
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Avishek Chaulagain <chaulagainavishek14@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, Andy Shevchenko <andy@kernel.org>,
+To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+Cc: Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: atomisp: Remove unused ISP state control functions
-Message-ID: <awP1-9CEdLzjDI4Z@ashevche-desk.local>
-References: <20261121122544.428-1-chaulagainavishek14@gmail.com>
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH] media: atomisp: Fix potential firmware leak after
+ partial loading
+Message-ID: <awP20Wbc1Fh2dWpN@ashevche-desk.local>
+References: <20261120173523.3923967-1-liguangshuo@mail.sdu.edu.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,22 +85,22 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261121122544.428-1-chaulagainavishek14@gmail.com>
+In-Reply-To: <20261120173523.3923967-1-liguangshuo@mail.sdu.edu.cn>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Nov 21, 2026 at 12:25:44PM +0000, Avishek Chaulagain wrote:
+On Sat, Nov 21, 2026 at 01:35:22AM +0800, Guangshuo Li wrote:
+> A failed firmware load can leave the minibuffer table and successfully
+> loaded blob parameters allocated. Probe skips firmware unload, and a
+> later retry overwrites the pointers to those allocations.
 > 
-> isp_is_ready(), isp_is_sleeping(), isp_start() and isp_wake() are
-> defined in isp.c and declared in isp_public.h, but have no callers
-> anywhere in the tree. Remove the four unused functions along with
-> their prototypes.
+> Unload partial firmware before freeing the IRQ. Clear all_binaries after
+> freeing it so cleanup after a later failed load cannot free the old
+> allocation again.
 > 
-> isp_wake() was the only user of udelay() in this file, so drop the
-> now-unused linux/delay.h include as well.
+> This issue was found by our static analysis tool under development.
 
-As long as it compiles,
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Please, test on a real HW.
 
 -- 
 With Best Regards,
