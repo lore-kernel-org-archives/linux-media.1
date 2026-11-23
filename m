@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795435370;
-	b=T/G8v35ONveoRZFN7lMEeM1TBXi1eK9XRfj9MXawsdWoYYspfcvwrPOSUbTV8j5R7S9t
-	 33geR4A1er/qSQ1bDnykjeIUngs6EweJXPVUCJUsmIYx3wVIylbQeinAhB6rYZaPBSnoW
-	 LctG3K7i7+lQU3Y486XujE43GowBQGukqrpe19ijpMoqwkEj5pu1AQbzL3TZIpAB4/rkc
-	 iSIZcSDef0SOocZCC8+de6koKuUcdle0wjjYxcw7+v/adzhUdbQpkBeDr7h84FOXBa2UP
-	 h4YVNk9aN5ZmP5bVFJfQdhmX+e1Dgw7wZbX9vbC1nfNVnWZ+e4RrThlprtDA8WgMpkA==
+	t=1795435372;
+	b=Yn1T7fdLFYKO3MXl7WGvu9AgsA+H5BeW0pG/eTXcwOwNF2d+I7Z59mujXYm0R4GP2cay
+	 /McZ53RkBL29G2TidkIx+wjhPJbjTU5ZetC/iFdoLzUij5qhlmK3S18mp8e5PjC0A6lXg
+	 6I/l6/YLx8ITbOyPwHuc/rO4FyrKdtGYQM1uuPLGXOVvgNB1IGYU+IcHnS/gfweHXb/j0
+	 mQqfNXFvG5TiqNWH5gfcpitrWuVrBYM7GBnAdC/hw5WkZAZiLo833uWzm7dH6eQSSzZtm
+	 qVSuC857B9eUUnMRMXwFYBVBolg3Do8TooqbVge/d1MtfA1J4/0gYWyHNejVMvdqFkg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795435370;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=oIsCXSlvijL/fB8tuHlLO5atilDXW0X3J0LGau/msBc=;
-	b=yf02DYeNrBFS+etPzBkFwccbMQ0p6JKLKS1cQi9AlbXLuwQeUT3NF4UcSljLfou5YtIc
-	 VBaYeEeDRwev6jMvMca1q02ucJK860Gr+zWaw9sO8LZitHnsNaB7TBRoFLXFlxuVjhnUx
-	 CwJgjUTS0wpEWt6hx8wVKU8OCHWNcIlmJkjjYfrL2k2ROiuhy9xUs8SNzbw3KOY7yqufJ
-	 iOhurfynnGvqLnqhxUPdFx2g8mcaLrYUeAdjZHXuesHPKk9xWdjfHbTrhV4F21CgKBzNS
-	 il1NmjTXd+arh2d4xf7kSc9/rRJPAiFjVk06PJLPsvvXlVKE8y3SRhx4Fr67xudiaDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795435372;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=YcLNY7J4JnGgFmyfGh59/EXYMEXxWZN2bT+XaQ1n4R0=;
+	b=Kx0gJN5Z0cZjVsUGO6+bUSCDilw04662qRVvD3k4OEa+spfbdf2i24YUUiB8wvew4oGL
+	 C/t/YxjYv27/vYsSADc8+ylHaqPpJJhIolBptYx7ZeCq9B5pRWrpNUPqEG31VwpQJV/da
+	 xg7iUFadb6cPXP76OXDcrTFf25wGzF3Kv/WeJm339lT5Czww13qSvEKFwGxnh1POP37iz
+	 sWBDQGFg7D6sCoolbO5AcCjBTjX+hX3fA4cBPseLrdHXNofQYFXmVTe+uuTWTfZU6IKkZ
+	 JFbXDkEMtjCqYpRBMJH0Y8VIunNtV3AZ+HpSm63CA6hNCTVHOpG2rgJMJWTR3Fv5Nqg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUsbpdZI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFp0H+Be;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E327D606A31E
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 12:02:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386F5606A31A
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 12:02:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FUsbpdZI
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFp0H+Be
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795435369;
-	b=PpCBAx5glMzO7iL7j/I9J1G2vXMUXSHpzC+XWyyrBaABT4+rp0tfichFC2RUIBNzZdpp
-	 2DT9OPDlcLmfCxqbCZlQllQamC9t0VcatHseFOzLf0pUQjlJ5mH2n1tmm55GF2CTrjg75
-	 k4QsyeTK8TT+D3TP6GMAL/gaDZ0xr4eD1fB4iEbbVymNXgh8yobk8cl8k0mNRkRlTo9qJ
-	 keNiN6fZcTxbYgTDl2YujsAN4YOHF9l6wtZnIHkuECs5r/RZx/TgnCyjRP43eK+KK9au5
-	 9piK2GLUMFZYmHUTr9eNePj+5E4jJHIYuOi1UChD9QkybyDAVjKbSO32FWFWQ2E4lgA==
+	t=1795435371;
+	b=xg9s5dTd4Kf8lq5X4ATZjjd+jazHRGxMoUp9+jN/kJKyyeomMEkWCQLaAnA+jRAI2nE9
+	 BwbgiiFX8vZ4JbiWGANIZL0UsQfMydNC35OgVm9X7oVXa/hcGTp6qnMAHEHgpuGfJhue4
+	 wxWdCg8i7OqDHgGS6WMplb+dIl39PRo4Ep2bD5zW1cOECAznYbEsPMXK+zYUYVxamxopA
+	 H6NV4ylamINCclXQ7jNmiFR1hB3iV1CcAooln9qK3a07JKNZqkN3ofuSqQqT6ZpmdwLLY
+	 zJBItTNn4nXeK/EjpLXnOQ5lU84QHeGVOo6rQHUHjjxKmVopAi4C0B4AWBW347rkifg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795435369;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=oIsCXSlvijL/fB8tuHlLO5atilDXW0X3J0LGau/msBc=;
-	b=efA/RAU3RHhu74RS5TbKSfx9VPqEwL4ZLkAGYH4azniAjJ4Gx4Z2LokjeG+Fa42v96d9
-	 jTC6RcLBIuu80zx2lrFuozxmRChTXogMVQeHbW9JaSwhE6fpaRLd4l+AvH2G47npJdnTs
-	 63iLnUKZu90B5xQhhLQfQcnnEiTNj0/CsU/HaflRqOVqoY/nmPMoF5IffS8C5kJNG33XZ
-	 fuFdem+YzuWC1L8qa/LnAyu9zFVATKNPH1E/CPyEJ0bn2fTq9pdXPyalsQWvwskDvlbS+
-	 BhKLDLPHCokozjgyWN9dPdLgCqFgGXvuuGFt8eq5wbc87En+Sl7MPV42u4pumYFCKSQ==
+	c=relaxed/relaxed; t=1795435371;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=YcLNY7J4JnGgFmyfGh59/EXYMEXxWZN2bT+XaQ1n4R0=;
+	b=xAb/GKHwELiuIByfyuRgLfcSYIFnn9XT6IXe6h2dDVSgt4Auc8/dvxq7K0ZFXP6OWHHc
+	 wy1nqCBIEurk0nel8I6q8sL/g5TczdgpJelFM3k7jC9jb0OnO4m5LsfDLvEr2OF+hqGDS
+	 SL00Op8eO6i61IkMb7CvxCXyU/hFrImMtUxQvTNaPpBmskOsOIcqw6ZZBzp7OXX1ls/4+
+	 B7RtPbpJA5R2NjEdBbzRzC1b9ZXrnsQPXoYUy04+bVcxEGCyUcnWZjdmSXrGbLmye6+yQ
+	 bbxE3hWVs2i1C/b2nFvC5KoJvqLlbxzcvTi3zJm+HNn3J7ve/NFyZWWvT6mezAyQHUQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id AA9651F000D0;
+	by smtp.kernel.org (Postfix) with ESMTPS id 78D281F000C0;
 	Mon, 23 Nov 2026 12:02:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795435369;
-	bh=oIsCXSlvijL/fB8tuHlLO5atilDXW0X3J0LGau/msBc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=FUsbpdZIt6f380W82ut03eJ5/MMLF1R/bNKv15KZvCifASXAceMuewHec2XnwGRC8
-	 pr+74ToWjGvaMuetyIAP3+8QHrLUusa+S7X0U7Hv79BSXc77KmGKzkrsye4ew7AK2a
-	 b+XMyu+vhiAQE4IK60jXPGX6f4rVxhevy+hgAQMxf3F5KC25HljdatH+4JrWhTX8ow
-	 BoEMdDzba0xdxrtD5OCzygJxbZ4aB1zAVewr+ZdAgsk2sLRBbx2reDC+IfyXSvF8z5
-	 +jZmXNE2ixGxo90Ll1z2gOknz7jcbuoXre48vhCIbJKoSd5SOlJZ1fD4wxY6fGW71R
-	 Dls3AWaMy8FNQ==
+	s=k20260515; t=1795435371;
+	bh=YcLNY7J4JnGgFmyfGh59/EXYMEXxWZN2bT+XaQ1n4R0=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=FFp0H+BelVDfLaAoXZSkpZUIF+9q3ss45OWGbrgnUwRuxbsx33NIaFDsuJoJN0vBK
+	 nynesIvH4hkncRl48HmnK4A8airqNZkNW8ngbdkdE1Nm47uHgAg/JSD2fligXrQfbT
+	 ZbdsgVgSWaPKo8JUbZFHO/ZX1HosbIaWU04KqkgqluHoEiKmHlfB1cf4UdrJUDjKwx
+	 eemO2ULXTDhzalY9EP/FaHX3H5JvQ7QM0dUp/nVmXeSQhpcNN1W8yl1tqaYGXOpNrs
+	 Fdt+c9mC6cV1HoBpe/QJUF2BDlbqbl3xtfCaH/RL9GJnkUw2t4VHZlOJLmCwp7JdZD
+	 7PwoLF040Idzw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3303C4C461;
-	Mon, 23 Nov 2026 12:02:41 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id CCC1D4C459;
+	Mon, 23 Nov 2026 12:02:40 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 23 Nov 2026 13:02:41 +0100
-Subject: [PATCH 3/4] media: ccs: Update PLL and blanking limits when
- pixel_array crop changes
+Subject: [PATCH 0/4] Various CCS fixes
+Date: Mon, 23 Nov 2026 13:02:38 +0100
+Message-Id: <20261123-ccs-clanked-fixes-v1-0-fb2bcc87a517@ixit.cz>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,82 +84,56 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261123-ccs-clanked-fixes-v1-3-fb2bcc87a517@ixit.cz>
-References: <20261123-ccs-clanked-fixes-v1-0-fb2bcc87a517@ixit.cz>
-In-Reply-To: <20261123-ccs-clanked-fixes-v1-0-fb2bcc87a517@ixit.cz>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBCF4auQWTtJWxDRqxAWdBhw0FTSAUJCu
+ DtVl19e/reDchRWeGQ7RF5F5RMS7CUDerZhYJQuGZxxpbUuRyJFerfhxR32srFiae7em9u1MK6
+ C1E2Rf0PK6uZvXfzINH+P4DhOO72qOXUAAAA=
+X-Change-ID: 20261123-ccs-clanked-fixes-609bb0754028
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Hans Verkuil <hverkuil@kernel.org>, 
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 Cc: linux-media@vger.kernel.org, David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1591; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=710; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=QGTTXuPwavl0KdtDE+/cVgC3PoTioJyQHFBbgY7e6Mk=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrBCtfrQZHr5QZNgqzaTA3wMqKow1YFr91SM4DR
- 2ld2lA5h/KJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawQrXwAKCRBgAj/E00kg
- cowoD/98zhQ4qAUK4OspU3IPh78f8LixDf4JaVX84noSwcQrQy0MZLz8wX2cpICq4Q4lz7Pmgsj
- xKBABRn7tQdWQjXQEoU0CtLO0vVI5bRInMGq/PxbTkK1WXYUvn/zMG2BARWR7jTSN+3vYV7FcGv
- rzNFPe4R+NQ1l0gPFuGcq9nZbPItohnT1miOH9gHZPiNOuWWWzHkBzzGrtYYLmjag4IH6BIPQOj
- ce/gdGz5ydHVoaYTZ3wN3tX7O0QBjsnDAcp+lM6GZYsGDg2j+q48iI6kK+yd3pqkREM5mftQSnm
- 2I7X0ffZgtukfEg38VwI8OvpYbXtJxvslrUz+aBdotWGYmbblM1y6YwdtBwwxfp5bxD8CHmkIAp
- FAtD/3FK2Wux6LO2J52RK3sZzHHUlsdXXMQKHSIU5TnLPqMzt8EbOR45VMnl8fBN+evzIF5UJ2j
- 6sYI3+raMNdpPk8wVNFEn2f9XLdq6dIUSBTqx7YZ9upgGzty9INSzX+PU3zRQjo75cO/P2g3KXR
- qBQaS6U5yfeJ1/bsEO/tik1l3Ea2Ba34k+BTTu8I5arIGeWt42cYl+G5mXSfIhLrpXmpkkC7x/m
- 1UiPRVTEDbeOwR4DxikItk5C1pMGy7VKrBZV6LnmxS6RLCBo1y6L2G1JhvUBcqnUeD6Ff7/hzUg
- yi79T1qs28+T/Ow==
+ bh=4jS0zlegs14tBmkkYCWRgSBLMv0d0gpAy+CK0t+l2YY=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrBCtfByf8u82W7vlbkVnFhTNe/cXBz1IUYhXn2
+ yz+6AEZUB2JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawQrXwAKCRBgAj/E00kg
+ ctwOEACv/n/56lzpRaDfQ02SNgDw42EkAfeayv8QApQ3JtYtLDI0uSkPpdsVmHOpy1qwEqUkwyJ
+ Ej5jib+hHeVNu06xElYdDb0OhEts93Mj9PnlygaLYXwrdncjpJh0JMrGUhKesnnbzPcK/f33YPL
+ NjCYn2PAQfassOsT0j6mo1A3bOwrtoG6bOCYKQe8m2I/OSnIsP0GchJ1vQSrf2mcTTJZCdWSMeJ
+ DqfzQhvyoHQDc2V8HPgQoMdLCAW+4OtwQXu99U0vCTWt8B9CGK3XALVjkwMCZk3ndyerUjrxI+y
+ s7Lq4jZdCX3LBf0dIewH6pUHmAOO69hINjgI1HhqHP9FX9IQx6/Pk78C/axpwV2ZtcDRd2TLT/k
+ Cd3fXDWggbetSF+l8piRRF09ZIgTcOnc4AgM6xs4HPGszQsK0ALiF7uco8SA5L0sPMDiGgAp9/e
+ mkb9NJb0bEp1zi3NBzwjGCJTWJVznLIThegXZejHZmGE+MGlQIKOFkOAiozmwKwQmQBDRBORHra
+ g2hu0OMObB7dOb1Aw8mHhRTiFFYGFVFenzJbUPnGpLeM4FQJol8HwZxLwW1sfl55wveTbkEUtt2
+ YfEitwyyce8HoWdIqjnfo6UTZXomjrYfJ/bEijWi6McHitGO2/L2YdO38U63dDtb1luIpGS5ycv
+ UlB496SNCdcmZ8A==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
 X-Original-From: David Heidelberg <david@ixit.cz>
 Reply-To: david@ixit.cz
-Content-Transfer-Encoding: 7bit
 
-From: David Heidelberg <david@ixit.cz>
+First two seems to be no-brainers. Next two seems to be correct too.
 
-ccs_update_blanking() and __ccs_update_exposure_limits() compute the
-VBLANK, HBLANK, and EXPOSURE control ranges relative to the pixel_array
-source crop rectangle (pa_src). While ccs_set_compose() calls
-ccs_pll_blanking_update() for active selections, ccs_set_crop() never
-does, leaving blanking and exposure ranges stale after changing the
-analog crop rectangle.
-
-Call ccs_pll_blanking_update() at the end of ccs_set_crop() when
-updating the active crop on the pixel_array sub-device.
-
-Fixes: ccfc97bdb5ae ("[media] smiapp: Add driver")
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/media/i2c/ccs/ccs-core.c | 4 ++++
- 1 file changed, 4 insertions(+)
+David Heidelberg (4):
+      media: ccs: Use dev_dbg() instead of dev_err() in ccs_enum_mbus_code()
+      media: ccs: Fix sub-device index in ccs_cleanup()
+      media: ccs: Update PLL and blanking limits when pixel_array crop changes
+      media: ccs: Set V4L2_CTRL_FLAG_MODIFY_LAYOUT on flip controls
 
-diff --git a/drivers/media/i2c/ccs/ccs-core.c b/drivers/media/i2c/ccs/ccs-core.c
-index df636b8df0b51..85748c6110ecc 100644
---- a/drivers/media/i2c/ccs/ccs-core.c
-+++ b/drivers/media/i2c/ccs/ccs-core.c
-@@ -2573,16 +2573,20 @@ static int ccs_set_crop(struct v4l2_subdev *subdev,
- 	sel->r.left = min_t(int, sel->r.left, src_size.width - sel->r.width);
- 	sel->r.top = min_t(int, sel->r.top, src_size.height - sel->r.height);
- 
- 	*crop = sel->r;
- 
- 	if (ssd != sensor->pixel_array && sel->pad == CCS_PAD_SINK)
- 		ccs_propagate(subdev, sd_state, V4L2_SEL_TGT_CROP);
- 
-+	if (ssd == sensor->pixel_array &&
-+	    sel->which == V4L2_SUBDEV_FORMAT_ACTIVE)
-+		return ccs_pll_blanking_update(sensor);
-+
- 	return 0;
- }
- 
- static void ccs_get_native_size(struct ccs_subdev *ssd, struct v4l2_rect *r)
- {
- 	r->top = 0;
- 	r->left = 0;
- 	r->width = CCS_LIM(ssd->sensor, X_ADDR_MAX) + 1;
+ drivers/media/i2c/ccs/ccs-core.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+---
+base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
+change-id: 20261123-ccs-clanked-fixes-609bb0754028
 
--- 
-2.55.0
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
 
