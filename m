@@ -1,75 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795397875;
-	b=RrE7e7Q2rIeJwjpQEnoN6o8w1nV++CmIJpkP+nAVowJg1G79WSEq3erwOolY2RRGOWWZ
-	 fqG/KDXFevn1gmg3gW7XITPzrtY8kiyYhvN5pLm2V3Z4px6OLzI8UBspaxdvbi00N7H7u
-	 kHXkWhb7pFr0D4MW0XuYaVBH6D2iZyacmJ6gB89557172IUCRe6o0TVwfAB+gl3qCfmTL
-	 IQ2Ff62hB51zQfeuCk7yhJw8PwBOLx+k/axLhrJfvf31+j/w+LwzPEV5BR1uWAP4HP7J9
-	 JTWDB/T/ExHrJB0V+Vr0RGI+fx0ZpvXoBBPXs1K6IjLCGR2ysU4MIZzrjVi0EUAnVww==
+	t=1795398400;
+	b=3oeaf09JUHAE9gtb1KNw7ihZUaYooDX9YaaOxU+L9MBF5ze3NfOd/kiXYAwKy/KezMXL
+	 mU9updO8Of1yLFbQbzqXt8RwyILgJBV5S0cZ1Udnl1SPf2DBtDnaL8XOlnTK2qg53gwtm
+	 HKlPd43Qx9kqe63TBim2RCTJynTDElWStA4CS/LwQ9o90Y+mNxqQLkAyMmPo4E49eGafO
+	 Mpa+VoljwAoZCbJ51a7aSXW19prvIG2wabFpNzGGdukvNZxENGOPAsVsTPfPwYMZtI4ON
+	 TXOsfOg0X0PdJv0eSE/3AIbeAVdMVli4S0LN1sE8itl8eNfYJtHsBrgydM7B7jlW7OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795397875;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=t7HP89qCv4f0VaWU6luj6srJ1B6pPh3Y7K09RSutBYE=;
-	b=EoXZLb/XQJfx3uOsVr9BqcBU1T+Gd0OHssTfIUTP3MBj22PL7okvtTsOyk0apusUEOOt
-	 nwmdiDFZ0f5jSR3ziBlQpXSzz4YOE5DtNFqUu5ZBdqzs2xox3H+b7yBopadRKk08MtMZ/
-	 kYOIFiiGGpWA6wa6pGZkF16xnIeTVR759RzHH5rd8S9t3vqt+3HdBc6JYpZGDijvArORm
-	 QRFCRTPu2YMFSlNXiyF8t9HehNA1p/1tlRkI0KiEr8gjEf+hL/mkq1PQzz3l1j6Yn4Ahu
-	 j3vA6A5uRaQfO7LJDtUqvNqPJ2435PXBGNX1PV4t5exS6U4e6SIjfW4P7Sf+3zWzy1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795398400;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=J7SM8IJEkihEJUb+/6O+/CyfvEJC1DOUd1MAPDV9+/g=;
+	b=Z6fpP6C8FyH/ESlcLYcjdxlGavwJMMXQE8ULptE7FetdXmo3duqOJyk7aKHZLB/zUO8J
+	 aLuT94NrvDdaQq09rcAHbDpSpROEcN+JWZl2grrDBpCjjGvKc3Ta/Dofn3bqPvmJ8Dd2F
+	 nyRXHi6RfnTHhy2tSDRXN8A6iCYlMN/BowWXg0PR+ffQ5E6MaBXDj1DqC9MSxS9KeZEaF
+	 oaWAvX27xmbowM7ZL81v9Tq2eefWacqykXWiPJJhRrwibnUwCLNXqCBd2X+AdGYIOp20H
+	 TyGWkY4MEW1dFZa+Tqc6YfSogBMOLGh3s5AFwzJ7ULe2PCd5Fzghw1xQEgmuw9Wc3eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K51SsqtW;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hyMUp7qt;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7C0606A31A
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 01:37:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F7C0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF228606A31A
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 01:46:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF228606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K51SsqtW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795397875; x=1826933875;
-  h=from:to:subject:date:message-id:in-reply-to:references:
-   mime-version:content-transfer-encoding;
-  bh=UvRPTgRa9MLmLa1gBhWTvCbSseQQhPyMH8R6KgnjI/8=;
-  b=K51SsqtWv3D4nYkm9Msq8012lf0PCKU9C0PHF8z4DD6RAYQNY0axH/8+
-   hSS/36L11hTg6HuvgwDvCEN17f+cCSXR9YQjCMzgSEjTVaEXlhrADUxmi
-   MDFn9it+Or6xNiybqsVFxmNjRrzqM/IW83+TR2PSUQww+nkbj7or4Uss+
-   nWrxtMDcKWqMxjWxXtk2D9irlQNz7Tb7aIfqjIIh6aVewaBxH7hPlufSJ
-   XS+yWXpQ45V8z+f9eIhEVh+9asri6Gjr8Zrhtn1+MuFfx9xmDw26WzNEu
-   MLZBncgJ9DSvhmQhyZs9Y6jqsJlCaMRi9QgXmhxsJZPTqcGJ2hs6ifEUi
-   A==;
-X-CSE-ConnectionGUID: ZFhzTev6SbO75KxNF5EfqA==
-X-CSE-MsgGUID: nMIcm605S7mX/xUTxzinEQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11974"; a="4091831"
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="4091831"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Nov 2026 17:37:55 -0800
-X-CSE-ConnectionGUID: vVQcmdQAT8akzZTVYbTtbw==
-X-CSE-MsgGUID: iJgZH0PhSa2lANrj6xXkqQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,227,1787036400"; 
-   d="scan'208";a="11173703"
-Received: from pg12hl01tchew6.png.intel.com ([10.107.246.123])
-  by orviesa006.jf.intel.com with ESMTP; 22 Nov 2026 17:37:54 -0800
-From: vunny.sodhi@intel.com
-To: linux-drivers-review@eclists.intel.com,
-	linux-media@vger.kernel.org
-Subject: [PATCH 3/3] media: i2c: maxim-serdes: resolve V4L2_FIELD_ANY in set_fmt
-Date: Mon, 23 Nov 2026 07:43:13 +0800
-Message-ID: <20261122234313.327866-4-vunny.sodhi@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261122234313.327866-1-vunny.sodhi@intel.com>
-References: <20261122234313.327866-1-vunny.sodhi@intel.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hyMUp7qt
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so23222735e9.2
+        for <linux-media@vger.kernel.org>; Sun, 22 Nov 2026 17:46:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795398398; x=1796003198; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=J7SM8IJEkihEJUb+/6O+/CyfvEJC1DOUd1MAPDV9+/g=;
+        b=hyMUp7qtXScGFjw5VJWtC8lxSVW/noa4jMYKoldsEQMVJJfY+9Sq7WvD/3a9YtO61f
+         t7q73AZbrv9pio+/1SqXRSNyPPVXOdXN2qLGCeDhkhj/M3o545TMI5DNs+JMIU+rn+59
+         hQrSx7HzWfe0FYJUWv1i66v/qdPGNjWAH94Kc2y60LmwbXqAu3pTLwEt0Y7VXZjulDd9
+         f3R3R90rtf+JjUpCnn3Nh06DQxr5tSV1hu2FtYCgas7hwt3CSBFvmT4DcRzxL4qqo/kh
+         7rMae1m40aaJN7SgoLmnR8MmEkIAzWHJuJwoMP16c+cMpV4AmIJUpPaareUMzlnzz8mQ
+         ZWmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795398398; x=1796003198;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=J7SM8IJEkihEJUb+/6O+/CyfvEJC1DOUd1MAPDV9+/g=;
+        b=FT40DXGDXd5aO/HEhgH1pejrfkRRpt20DDOHz4jY5zGtspc25RDdfthxKYL+x5ROHY
+         2+B+Sz2X9Y+J3JzQLjuXrCG3Vh4qpNhTPeb4bZY1D4LI7IH+2ZDGZwkeEPD+KPYigQKW
+         N8UMNenTihbtSUn9SgbXsCfGTFMBQIiA+o2DD1Hc8H0XzdIhJogU4eBJDKZ8ax+eRSby
+         i/C4QyjjXYvN1twqUWtnvHDr7jwBEv8iHzT0hY9jcWtk+57vxlFKgJnFP+ozVqoLh1YR
+         GtkbN9Vi1f3t2Z+4CIn03A7hLhXCtcw9xJ0+SQGMyImN6YObpwkSbQAv8KJ4B8VtiXAL
+         1Bbw==
+X-Forwarded-Encrypted: i=1; AL+hErHbT6HBNlqgOEToghu1jUUhZIGc8VCBHm3VsjjPKNDPZOYCW1ek2wMRsI2atbdleN7Ko1Y0kyoiIgJLIw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z89pRIw6uSceL48cKp1JNcwUflNMST2YTKy/3//j5bUeeuUgC+c
+	G97t+QypsB1m3lq/rtyc8weQpCFttrJi992elp1ouzk+Ah5Op1b65VejKoJbuuwEJyI=
+X-Gm-Gg: AZFdTZe1oHeyEIGBIJkYKYWaQw3Ojiri00LYPGOEMbuPPKdvSxDe+T8Wi37LgW+7cbs
+	OkPifhXS/8NBQpnU2SVC6KpscHzn6AHmksQqfzH4BKEFhkREeJFs2DO1FsWYHqvvFNH1uyRd6H7
+	oCtjmlH/ij50qC56ihEIsnTbG7dxukPKV0AMvU6XOFSuS6m7HlIR987qtEpNXsY9t8+qyBpSULf
+	U5gOc4D5uay76q+w8ALxkk+IYCf1V7Lm7aHVFVJohJ/CbuIf/iO3XYESsRI5qnaBXm3bDhXiKqm
+	WyBKJXmd4FVqKOSsNzg7hqehC4ytQ7wHkF8Vd6CvJ4+H0VLsCfdqJW/m1QTV15ddyoBWxF5yVKZ
+	P5tW7w0q6yLyt4TtVMcoRBH036toPJelFv4knvlBGPdHgR5y9ZIAK4rUqtybqZ7PRdI+iUx9FHP
+	1VJPO/8fwHdpq4GytD5gwYJI8bLtWUW8EOjoxQV63BAewm0f2lBpq1TMyafVNdZkpHoNM9AKIxf
+	SlnJE/L+54MhWxLH+N/Z7Y01hDm3BJb69X9gw3HuhHeva8xcbWDy1ToH7O+I2uXRYLU15WlsBio
+	ivD7pVHcyS74+YF+jn4Ac8ik4Ow9hPxoV2RGecueBw==
+X-Received: by 2002:a05:600c:840d:b0:4bb:6814:738c with SMTP id 5b1f17b1804b1-4bb88820cedmr210403515e9.22.1795398398283;
+        Sun, 22 Nov 2026 17:46:38 -0800 (PST)
+Received: from [192.168.0.167] ([109.77.88.117])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853a1e8bsm264872155e9.9.2026.11.22.17.46.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 22 Nov 2026 17:46:37 -0800 (PST)
+Message-ID: <e707a3ce-7e3f-480f-9166-3f048b02e7e3@linaro.org>
+Date: Mon, 23 Nov 2026 01:46:36 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -79,54 +90,45 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] media: qcom: camss: Add Glymur-specific resources
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261119-glymur_camss-v3-0-71ab966c41c9@oss.qualcomm.com>
+ <20261119-glymur_camss-v3-2-71ab966c41c9@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261119-glymur_camss-v3-2-71ab966c41c9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: "Sodhi, Vunny" <vunny.sodhi@intel.com>
+On 19/11/2026 15:04, Nihal Kumar Gupta wrote:
+> Glymur previously reused the X1E80100 CAMSS resources, where port@3
+> selected CSIPHY4 through x1e80100 csiphy_res[3].csiphy.id.
+> 
+> Add Glymur-specific CSIPHY resources so ports 0, 1 and 2 map to hardware
+> PHY ids 0, 1 and 4. The remaining CAMSS resources continue to reuse the
+> X1E80100 CAMSS resources.
+> 
+> Signed-off-by: Nihal Kumar Gupta<nihal.gupta@oss.qualcomm.com>
 
-max_ser_set_fmt() and max_des_set_fmt() store the requested format as
-is. When userspace leaves the field unset, V4L2_FIELD_ANY ends up in the
-pad state, while the sensor reports V4L2_FIELD_NONE. Link validation
-then fails with -EPIPE:
+I mean this is a bit of a convoluted way of describing this.
 
-  v4l2_subdev_link_validate_default: field does not match (source 1, sink 0)
+You have one less CSIPHY Hamoa has four Glymur has three according to 
+this patch.
 
-V4L2_FIELD_ANY is not a valid active field, so resolve it to
-V4L2_FIELD_NONE as done for the default formats.
+=> Fixes: tag
+=> A commit log that says this
 
-Signed-off-by: Sodhi, Vunny <vunny.sodhi@intel.com>
+Talking about the ports doesn't really describe what this patch is doing.
+
 ---
- drivers/media/i2c/maxim-serdes/max_des.c | 3 +++
- drivers/media/i2c/maxim-serdes/max_ser.c | 3 +++
- 2 files changed, 6 insertions(+)
-
-diff --git a/drivers/media/i2c/maxim-serdes/max_des.c b/drivers/media/i2c/maxim-serdes/max_des.c
-index 37f438608616..8e9ebfae0956 100644
---- a/drivers/media/i2c/maxim-serdes/max_des.c
-+++ b/drivers/media/i2c/maxim-serdes/max_des.c
-@@ -1923,6 +1923,9 @@ static int max_des_set_fmt(struct v4l2_subdev *sd,
- 	if (format->format.code == ~0U)
- 		format->format.code = MEDIA_BUS_FMT_UYVY8_1X16;
- 
-+	if (format->format.field == V4L2_FIELD_ANY)
-+		format->format.field = V4L2_FIELD_NONE;
-+
- 	fmt = v4l2_subdev_state_get_format(state, format->pad, format->stream);
- 	if (!fmt)
- 		return -EINVAL;
-diff --git a/drivers/media/i2c/maxim-serdes/max_ser.c b/drivers/media/i2c/maxim-serdes/max_ser.c
-index 1c4cec2efb95..b4c1afd6cad4 100644
---- a/drivers/media/i2c/maxim-serdes/max_ser.c
-+++ b/drivers/media/i2c/maxim-serdes/max_ser.c
-@@ -510,6 +510,9 @@ static int max_ser_set_fmt(struct v4l2_subdev *sd,
- 	if (format->format.code == ~0U)
- 		format->format.code = MEDIA_BUS_FMT_UYVY8_1X16;
- 
-+	if (format->format.field == V4L2_FIELD_ANY)
-+		format->format.field = V4L2_FIELD_NONE;
-+
- 	fmt = v4l2_subdev_state_get_format(state, format->pad, format->stream);
- 	if (!fmt)
- 		return -EINVAL;
--- 
-2.43.0
-
+bod
