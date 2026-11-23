@@ -1,93 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795448390;
-	b=eRlhBa6DkBfj96h3WETc3SO0OkXqaXOeOtGHG2KGaARZYXWFGss3eYzwosXQahKHSBuE
-	 W8aGRrCp5bQwvDUoMmfJlnGQGOfToaTj1IDBTbkMTjkEvNh29gQkox29eAYgp9RSMvXIk
-	 IU/dvp+zdzZMgoZ2D12bxBCg7Fucb+Pf9M8zYSIsl0xDJYMjIUZz9WYFY0UpslMNU5O0g
-	 vH56MbdglFr6JCRNprA9gY3AWmh83KEi2n8IDKg+MjeqmTufNVOgVaPKBA38V0aESq1sR
-	 DsiGjGoI6Cmejh6VmcXTGC66YoR4DoZaqEq9I4BN2O13Fu2pa6BJZoiuiWaJUKakHvQ==
+	t=1795448393;
+	b=PekOqDP3uSL1a1lDQSAh55gkf2huE3sQIm5tIfJKXyYsqp+jeJw0bzr1IxL3yuu4G0OF
+	 JX4ichKpfkgFzrcHIBizS8C6NdXGOI8f5mwyQfD30XsIbn8Dgj1mVLyZW1rp7UVhu5Swe
+	 B9s/yUMZJBEll4N0BbBvv3rk8O+Y2BeL7dnU0q4Dxt36BWZ3TH0vbm6pOx3Nv9xTEmuza
+	 oS5x78gU3l/BpnBe65NFP7xulp0w3wTPL1mMJxDFbFd5wDNIXB6W7fqjoP8UoHTrqIhI9
+	 7DQEha8Qi7Wt+XwrR+YLW8MkQoX8HpY3YEXezk7IA4BuaHLkSgZwjboznMb7DwGJGjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795448390;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795448393;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=4q37xjETul02efHg9agH08x5RvqSBItQGeKLb7Kc9eE=;
-	b=gG2Zd3NYVjJIXQrFxz9vSO0Nk+r/enRN1ZaoxBaXNSQlC9eFEbaZEGcvzyueNlR2IBxb
-	 2bxOckWMW4Op097EL97SvB7rDyWxqrAY6WjWkk0k3IeG79W9Pny1wbZ1NNAUbXI64Fcvv
-	 ZSZfLV6klMFN6OhemGH7eeIlQ5+g7s2OFFQeuOJgQy/VbTVg3ruqkrozXJs8qkm0F/ADp
-	 0XAYJR3VS4WcuIuMCHLOPcbFKR+khkRN35lZBSoHshAHdB5Ug0EOlzgRDVDOqMGCtJBst
-	 1/RbYk9XKkSaWgjxDfOeFtM4FOgIKJEJPcaIx5+8Wo9IREbkzRMXPNGNazykw2GVXtg==
+	bh=rnFtEm3Izxz1UaZJoPtPCYt5FC5hB7rMwqRB7aaszpY=;
+	b=rSsaXbK+agSIhYE2tm5jiVGX7ofGjjc7U6o/TDlCPdhoxF6v0q+GOAjRx55TPXi6umr7
+	 Ge3b4Tr90557t13DJXTiQGD9L4Gl2alLloU92zVyqkCUI25Mxaxd3J0Sg4Tno1ndIjfQA
+	 2wVgBndRvg5DAretWJ4FlKjrkkIbEH/hK5AKIbOk5uOBw2qqFKS6eyiouQeCDWnxTYK+c
+	 lt1Z9oDEjVo5rzRMghpvQwH5Qg6f/80wjVC/wFTl5KA5wvDoFaJPZlEV8HUunj7QukFYW
+	 Ryoqnos62NiKULr0gBiC2iQMvR+ngbjZyS4AJD3/kAmV+sb+YHXVinsCdRwCNpbIfIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tJ1oG13w;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ok5SYxjV;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1551F606A6A4
-	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 15:39:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1551F606A6A4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5BC5606A6BA
+	for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 15:39:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5BC5606A6BA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tJ1oG13w
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b546061d58so7608015c88.1
-        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 07:39:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ok5SYxjV
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15ea896ddc8so5753025c88.0
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 07:39:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795448389; x=1796053189; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795448392; x=1796053192; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4q37xjETul02efHg9agH08x5RvqSBItQGeKLb7Kc9eE=;
-        b=tJ1oG13wDf97si/lC54QovfpoYFyVvC4wRuI2/hakZDue577prlDbiYbJJBSjRmxlU
-         WSn918t7xP4SqJYePG4QXp8Jgiv932lfpSHLhznAFdklUVcwW6ZkLCjdGrTlGFt+5zaq
-         U+4brvT9EEvJAK+8NRPqKXciWxLS+7ZK5O3ApoYOXhmBaQML/tj+8I3I81oiXSYJuObw
-         FH8Bl9gYzglO2T+6BVaWM8B9xupN7SnQHlLFnXVSHTHA09Tx6+TuniO1T4b04NvO39o8
-         sUxJyeVVbyh65wKimwG9wrXm3VzmXo8M83qKGB4oO7VU5X0cRRhEfmjsm7/NC5aKyLou
-         PwIA==
+        bh=rnFtEm3Izxz1UaZJoPtPCYt5FC5hB7rMwqRB7aaszpY=;
+        b=ok5SYxjV6o8dq6DuX0zneZHfwHZjH8ALj/ltadv9dglVJX4zrQMhi1d+nSS6DDhxKq
+         FiXhxmJtgAQRaYKPyA3S3/vc9fmfFKvrMQF8ZDTbcpX14Gxzmzl+pKbG5oGcDtlj7vQ5
+         glScRIbIaP8sQlBqqtx39E6AUVB0oZ0h9+vB9tdFGyECbO45sKHKrZOFewP2P8s2b96r
+         QVb5JNQ2KETNfUUaUqkkGJEQB4AH9bOyj8w7PKaO7SVdvFglONOycMO3FBivnLhl5oUm
+         1lzYcACT1q76kH4Is+Oo8xpJbxKjTlGvHQqM0huRD7IlQmIXn6PGIEoDDXXKPETVHjTJ
+         MY6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795448389; x=1796053189;
+        d=1e100.net; s=20260707; t=1795448392; x=1796053192;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4q37xjETul02efHg9agH08x5RvqSBItQGeKLb7Kc9eE=;
-        b=KC4YMToIKW660PZKIkLwM81oaIKnxdVfEI25A+XT8DLQQJTWAgklEjuL2ADdWqu+SO
-         0is+CNwIWbHjYf9QN/gyvYoFmLe/FxJoyv+6kl8BbwnOpFQZqokBqyZIyghh3rQjrvrx
-         FMM62gu0nEYUaUAPKyvXkDdADBhtn3hXWpuXggfkgEYdVeLCpyvHJoSSAAnrS29QRqaq
-         7OcOrDjBdcthFhyMLqBZH9ssxOn3rB65I76SJe19ikMZ/DtX1eEu/V2Vz2djd7/A5bEi
-         jd5+ENzyzZW2DPgoli0T1IGmnqiOk4lAqijs9qM4eiQZ9hkJlIE8mfKc3i44k8ackCRP
-         pN2g==
-X-Gm-Message-State: APuU4Z/hn9TxHy7+zHiq8BZt+5mH5gmCHWhkYoi8JY2WjmtKodrp6ayH
-	SzZfBrWKDW2vl/5upVFa2oIDjDU1eVdy23n3ldm7gd0O7/Y2Uu55I7Xa
-X-Gm-Gg: AZFdTZdYdGZaZ69X/z07c1FAg/mIlyqnktd/PhrbJjBEebPOy20R3ODZonWjRHAaeA4
-	LQVl81hunYrUAJHo6HvQgQxYaq8s9l6UvyKB1Mo7b5smPPTTxeb9JgHH0cKmSI7aiZCR1B18pcY
-	nIkVLi2Y7apZQItAbqU5JEGlY0xkrs1MLArqEdPM0i3obgStb9ElZGv9NphxxHu9kVXFd3lAQ36
-	cZ2t5eFmWvUoEtinvQDdK0aSMWhamX0vbLkLWAfB9A9eOXzzYYAvjvv0Fq4bTd4TjyXf4/cHlCT
-	Jb6PBw/+7u0BNuCf9RGzK+2sVpcHRHFjX/63fkcstMEOJwLhVmCCVsZJjfLEjx/e2NDH3PgZXf4
-	QX0xa+C1NWDXO2m635cq5l1M3/1HQehtBLn0z9L5BI2jqV9C5kuI8X7xSmawm8NCLoNEEchbYtR
-	1Lzcp7AX/qU/Vn5JIFnDAsZ3aZXqKz5/tlrOzI7Ippfk4r48Rk4W6y49YH4+Q5w83dklXYdAM2t
-	804oHPsHZskH8VLllvWa4pexBpbhP+ewt4KLOSQo3WaAPcSP2/HcFH8Mpvi+Bvk+nii6xkMhwAC
-	6n7IEU4aLRhQIc6VFKl5hMJx260zzfc3Kd8HFb/MCV6TEiIrPYLslN5FebVtL8dHMsK0
-X-Received: by 2002:a05:7022:7f12:b0:1b5:4dff:8b67 with SMTP id a92af1059eb24-1b5568eeba1mr12061043c88.29.1795448389170;
-        Mon, 23 Nov 2026 07:39:49 -0800 (PST)
+        bh=rnFtEm3Izxz1UaZJoPtPCYt5FC5hB7rMwqRB7aaszpY=;
+        b=xHrHyWGgUpjjG7vF7uSp5dzGCe9WKTGqbqgvwOpJPS70N9tDoqalw3VYVvsyIpBqwM
+         vw6yL4TM8NE7Lv+F5Na5yxZqWx2exFIzzQ2gzTTJBu0fI/hq3WPL1+z42XVaLsJoGQzZ
+         NuiqccDhZszcaFoDNJmUTTiSoKoQnEzLS+CC+KHracCQCKFqLloUk3bQutyUIOF4qdQk
+         eRqPSm04OTuk7YqP1XyuluK9rxI4ZqyX8/uDhKNLff/QxdyCRxb78ycbZ/6zZrKgWpIv
+         eGURmDjPR5baYT4gJCliBUFXV9JC3RPwqv4PksKLmtxEjtt11u/YzQMFTLsawYj7hQ91
+         /4xQ==
+X-Gm-Message-State: APuU4Z9AkVh8oAuZobwWuO6mg+v5JnA31PI1seXW9n2c/UbQh0ivX4T3
+	RIDSJXpzmRlSbTgrU6pUGzY83Y95oNvmp63KodAMNlib8d+8WiBstv/E
+X-Gm-Gg: AZFdTZdXlUKd4ugcuHlsE6FCqId16zqxrrOM7BJyEYaVQES4nWMTHEWdnPYRZzf835S
+	dRXseD90A5dON+dbS94nw5kI6y3VudaAWqk2T+emEOPVE+hXB/1M90smrlTC3pn0OY2GpmwPTo8
+	RBcbrxSwruwQeJ2vG1S9+pgpxvvIf3qXV413XwNmMljJB/6C8HjOUir0iaSpZQQa35Jf1wm+s3d
+	n0EJu9Kcm3JhqzcKFlD/6MezNFvxZKwikh6z7HwA0iwEA1+e2yFEYmmyqyVUyMhWILMXMMXAhWn
+	iM8NeImrkwQ8VMs52NL+6tx5G0QNl42JLG3gm+LPR9qK9aUsbJvg1hjF89x1C0x3WhVzi3+nIho
+	f334X8RDSaC+cgfRWFupqRSzAh8eUPnkpX+f0uJC/EU3Uhl8m4SFcBvNv3BDOFm9A88qqPg1Czj
+	zaxJNVhGSHaIwXzi3k/ggIgYthrVvX5ZtDj4E4zGb46SCGNPbWtsyZzlOEwy47eyIwr0OiBXf5A
+	Apf0T2DFWxpJDJkzv1OgJy/mmb2RrdVvsj5cl2TuRCkErcEctVDAzSj+Ru/LWURX1pCF6xwl8pM
+	A0svhFNgEyo/sqAAbDQBjeak1Tm44O4Jt11Q2R+DxpI26vY=
+X-Received: by 2002:a05:7023:b12:b0:141:5281:8a41 with SMTP id a92af1059eb24-1b55687fbc9mr12426552c88.9.1795448391824;
+        Mon, 23 Nov 2026 07:39:51 -0800 (PST)
 Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5567ffa8csm33680067c88.7.2026.11.23.07.39.46
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5567ffa8csm33680067c88.7.2026.11.23.07.39.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Nov 2026 07:39:48 -0800 (PST)
+        Mon, 23 Nov 2026 07:39:51 -0800 (PST)
 From: Cong Nguyen <congnt264@gmail.com>
 To: sakari.ailus@linux.intel.com
 Cc: linux-media@vger.kernel.org,
 	Cong Nguyen <congnt264@gmail.com>,
-	Tianshu Qiu <tian.shu.qiu@intel.com>,
+	Arec Kao <arec.kao@intel.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Bingbu Cao <bingbu.cao@intel.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 06/16] media: i2c: ak7375: power off the lens driver on remove
-Date: Mon, 23 Nov 2026 22:39:17 +0700
-Message-Id: <20261123153927.2547169-7-congnt264@gmail.com>
+Subject: [PATCH v2 07/16] media: i2c: ov13b10: power off the sensor on remove
+Date: Mon, 23 Nov 2026 22:39:18 +0700
+Message-Id: <20261123153927.2547169-8-congnt264@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261123153927.2547169-1-congnt264@gmail.com>
 References: <20261123153927.2547169-1-congnt264@gmail.com>
@@ -102,44 +101,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ak7375_open() takes a runtime PM reference with
-pm_runtime_resume_and_get() and ak7375_close() drops it. ak7375_remove()
-only calls pm_runtime_disable() and pm_runtime_set_suspended(), which
-neither run the runtime suspend callback nor release the supplies, so a
-device that is still runtime active when the driver is unbound, for
-example because the subdev node is still open, can keep its regulators
-enabled.
+ov13b10_set_stream() takes a runtime PM reference with
+pm_runtime_resume_and_get() when streaming starts and drops it when
+streaming stops. ov13b10_remove() calls pm_runtime_disable() and
+pm_runtime_set_suspended() but never ov13b10_power_off(), so a device
+that is still runtime active when the driver is unbound can keep its clock
+and regulators enabled.
 
-After disabling runtime PM, call ak7375_vcm_suspend() if the device is
-not already runtime suspended. Do this before ak7375_subdev_cleanup(),
-because the suspend callback reads the focus control that the cleanup
-frees.
+After disabling runtime PM, call ov13b10_power_off() if the device is
+not already runtime suspended, and only then set the runtime PM status
+to suspended. Avoid powering it off again when runtime suspend has
+already done so.
 
 This issue was found by auditing the driver with an LLM coding assistant.
 
-Fixes: 90ee26fb2f50 ("media: ak7375: Add ak7375 lens voice coil driver")
+Fixes: 7ee850546822 ("media: Add sensor driver support for the ov13b10 camera.")
 Signed-off-by: Cong Nguyen <congnt264@gmail.com>
 ---
- drivers/media/i2c/ak7375.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ov13b10.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/i2c/ak7375.c b/drivers/media/i2c/ak7375.c
-index 2827fdb29298..a81cc1df81e7 100644
---- a/drivers/media/i2c/ak7375.c
-+++ b/drivers/media/i2c/ak7375.c
-@@ -329,9 +329,11 @@ static void ak7375_remove(struct i2c_client *client)
- 	struct v4l2_subdev *sd = i2c_get_clientdata(client);
- 	struct ak7375_device *ak7375_dev = sd_to_ak7375_vcm(sd);
+diff --git a/drivers/media/i2c/ov13b10.c b/drivers/media/i2c/ov13b10.c
+index f639a70f60dc..b4d67018c983 100644
+--- a/drivers/media/i2c/ov13b10.c
++++ b/drivers/media/i2c/ov13b10.c
+@@ -1689,7 +1689,10 @@ static void ov13b10_remove(struct i2c_client *client)
+ 	ov13b10_free_controls(ov13b);
  
--	ak7375_subdev_cleanup(ak7375_dev);
- 	pm_runtime_disable(&client->dev);
-+	if (!pm_runtime_status_suspended(&client->dev))
-+		ak7375_vcm_suspend(&client->dev);
- 	pm_runtime_set_suspended(&client->dev);
-+	ak7375_subdev_cleanup(ak7375_dev);
+ 	pm_runtime_disable(ov13b->dev);
+-	pm_runtime_set_suspended(ov13b->dev);
++	if (!pm_runtime_status_suspended(ov13b->dev)) {
++		ov13b10_power_off(ov13b->dev);
++		pm_runtime_set_suspended(ov13b->dev);
++	}
  }
  
- static const struct dev_pm_ops ak7375_pm_ops = {
+ static DEFINE_RUNTIME_DEV_PM_OPS(ov13b10_pm_ops, ov13b10_suspend,
 -- 
 2.25.1
 
