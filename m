@@ -1,111 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795527024;
-	b=kRFKMj0CqlV1BiTyXRyogBikLYBydgSDHbUaHZWiHqMn7xXxBORPwl8jeptbLqD2tUiv
-	 OWDgBRAhC0RxGz9Q+mkYUWNJ/uMAJnoDyxkgwXJN8oRLN8aAB8YZCALRAPvHVzchz0ZNp
-	 mqdS/3cIj49kU6ncui5xcOqukfuNYRLzhw6VV1VCu+kA9IR6PvpaHwNtOQl/M5kUFS3jd
-	 0L7vvzyBA5X8WGgPwcYjMh+0uawk4nvTflnXyvHLz23MPnEp7McyF733VjQyolV+zS7a5
-	 7qubxFYw8Mz6ZytaOgEaXL6i+axdnF1mrSOok5p9xeKosfpeqQASCvHNHaiiLIiV6DA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795527024;
-	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=5dHp9HTARdoHtxKAu6nPHPSzmPEU1mRqVl5Dy4Gq+ko=;
-	b=NuI2ESHs8C8X4SnNnVkNtSo/3bYap701aUypGHzxvzrNletSSbBIJe6emmn0kA4RpVoK
-	 ykBIQ5ARjXOOMR3y8qHbjleXA9YaHR6G0I4HxX3ljggnBzb+oCNyEQTmjfNQAfJ3tSvGd
-	 z79dfnrsemr22bfRPz5/LeqVk2TZqY+zkboq598mNdzV7/18Ye1gQWJ5f88QkWkXDqN71
-	 wWuymAdc/tbbxkAIa0GTS2b9o3K/n2glLFqPappKLzUWZaekxxEA4R6MFOM1i2QV8ECQn
-	 1eFyW3y1MTumBQy1qH1xTGKNHExoaFG2c58oVjG0K4QmQxRTvAAHLhFFhWl7vsK5+Lw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCqxzAJj;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795527627;
+	b=5OSfL2pCRL1gaDnZQ52zmXQjwrbZpB7UMNzfA3oCuqJdz6tZaiBzYeKz4faFCSPlo1s9
+	 kPL4R2QwUYIydy8MMqksdByUxGmZNtdJBsc5H5oIwk9z/3WEAdSK/FMO/tKWgRsuZI0mT
+	 afsClkw25Nfb0M7t/TR2mahceByXOLjIfLWBx+gSKJBvHhToHgIhz4ZvsnSlfo9zy2nld
+	 0UyZdv0cV3NPkWXMsndrjHGsm/MWiSlL8+bBwG8ijIUxKOrYOoWNR9yIzYEIx+QqZt8gu
+	 J+Jy4SQesVLKsR2bBOgmFchjcT7YQWu2IwktuNH2//l9XUtz4t95wJhYQLo/WAlbHxw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795527627;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=JhX6GJToIPCSWTgKM33kXD6qd9kkvSZE3MFHQwmpZfQ=;
+	b=YlFYXPIV1DiWDlYbFIWwI74tLNiSnIkuO8hHXBWfDUxWOyaeXo17IdpTv6Iou2pi6UFf
+	 XozEcGzUoMh/eWxnbJELkdQoqVmTaLWM3FEKvkTS96EuzOd8KuTC7M3iZDbP8is+UmIpb
+	 Bbm5LDVjauIliMSUSF/igt7Rp6XlYt4YaLzIEzDgCpiNNFahJAQAmPpIHX/lu1eVIFmbO
+	 5uuSJ4uFhZQSk/IF697C49HCkQdxfym7aqsrV6p7Y5EYQbN6iofX+DH3G5HKiISdyKOis
+	 O+676+uYl6u8/8IaC7eKg802LEB2Ey2sikr1UjKIUD0E049Kt1Js05tbmRn9j57pxww==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lRSOelAP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F5B0606A331;
-	Tue, 24 Nov 2026 13:30:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23ECD606A31E;
+	Tue, 24 Nov 2026 13:40:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCqxzAJj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1429B1F000C6;
-	Tue, 24 Nov 2026 13:30:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lRSOelAP
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795527626;
+	b=IKwLydFBd7+Kj9nc6xiATlMRJrZCdG01xvBYZCV4eFlxGCJ8Uj4A1NORVTrzfE8NBVE6
+	 6f12hBXGX82pTRAmDx89ZNy/dT1PwXZcIzTVq6kdrKjxBijwbPuOccrtzt4D+5jj67K4l
+	 ed2pkDTaAIS+XG+YoRERXa89HvBKqK/Njuiz4TLYLZgr9BhBgRkC7R1+AZe0a71pwMrjr
+	 yCrUaaIWvvRJ7k6dfnPsiTBmeVAW2GtGnc2cr/SxYEgyZwqk9mtLYGAs12giQzzZbusrj
+	 SCYCvFoCM0jpGBfGnsIUoDMdxhi83n/ebSJFZNqBXhy2vT9WUCeB+9TZC9I+nQFVayg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795527626;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=JhX6GJToIPCSWTgKM33kXD6qd9kkvSZE3MFHQwmpZfQ=;
+	b=Ghu9iPaA7s7D5t2xbwuTpiXrH2Fqu1VGyTV5sgzAAH+DXHD+Ht+xc/Emi0OkXQyjB8to
+	 q3eTcRJIp2eYvLEhLcmhI32GqjzL55fg3SpnR3y1lDiM4m3lf3FG5n0wuLivQmVejtmqP
+	 foDfA3e0jsHClAjJuOi8hIhMAnhoeS4hrgXrfXEvR1ZdBhd+cTQtoPhRzN2TbJoS9aPCh
+	 kcocjavUZwvldnAHlDJK0xyC/bI+WmtG+XTb10ThIrfxjjT5Z7UcRP3oclYKNnKOInoR4
+	 iFWx6H+tsqE/E0r/0NU4qD7rfrqO6KtS9YhHiXynz8a78eXKOir+xF96ZMC8o+r1SUw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id A76581F000C0;
+	Tue, 24 Nov 2026 13:40:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795527024;
-	bh=5dHp9HTARdoHtxKAu6nPHPSzmPEU1mRqVl5Dy4Gq+ko=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=jCqxzAJjVpIJjwovRyqxRWcIP/1B3dGdfwKBWeMKdR8HKyUrkxtLFRbPDJMQLyrXb
-	 owAqj3PB6cKHqac2gb0IwSUnm6Jz149LTaGXvIacdGk2W381ux3zvZoZXbN+neKPF3
-	 1PHEsfLA8kEDrjmujBkqVkHmbA0E8gDIOIkjgM6J5C2vcD1lMEU6JiYCBpy8r5CFJo
-	 cdhDHzPASzOI9GYVDMxu8Q3IH3tHuhugE5hCwGZ29K+jacyTfw/E4MwfT2i06O/AFL
-	 R4B/E6tiODpZWkUSH2LaCdCMjaXBhI2MO9cxeHkKmawVLpMcJRxhf31tfzXIRXcjR3
-	 N/DAqTlKmk0CQ==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: linux-coco@lists.linux.dev,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Christian K?nig <christian.koenig@amd.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Joerg Roedel <joro@8bytes.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Radu Rendec <radu@rendec.net>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
-	linaro-mm-sig@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-media@vger.kernel.org, linux-mm@kvack.org,
-	kvmarm@lists.linux.dev, patches@lists.linux.dev
-Subject: Re: [PATCH v10 04/13] irqchip/gic-v3-its: Allocate shared tables
- using CoCo shared memory allocator
-In-Reply-To: <awQd81MwZqi55gf8@arm.com>
-References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
- <20261116091137.94252-5-aneesh.kumar@kernel.org>
- <awQd81MwZqi55gf8@arm.com>
-Date: Tue, 24 Nov 2026 19:00:00 +0530
-Message-ID: <yq5aa4mybbmv.fsf@kernel.org>
+	s=k20260515; t=1795527626;
+	bh=JhX6GJToIPCSWTgKM33kXD6qd9kkvSZE3MFHQwmpZfQ=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=lRSOelAPN1fpJMrE92QGIFiQwGPIaaPyds/gGKQYpQhUqKatfXGEcPXwrlnMURK5M
+	 8cuy89KILRT9cUvgPHMTux8oRcgPmaKoPbhLAaz8w4M8MIyAeGc8c9ta13DBy7P85X
+	 l0gQtBAKxAnKkgO9n0tKKqsfy4aacLPQT2ZO4VMCKz8ABK4QOAySCiDqWLcmvAbKla
+	 UayrDaxVvpcgtj6IHE4vtyY2PuwZpSysXv0Y8UEnF7dx5ELk/gk0zHOTiiY6Zcctl/
+	 hcUEUugtHzIx76OLM267L+mSFoqtD1kDHBethUjWaHYymuZ+BDCdT8iWeqhqKB/b+1
+	 noGPwSFcLlo4Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3861A4CA5B;
+	Tue, 24 Nov 2026 13:40:21 +0000 (UTC)
+From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
+Subject: [PATCH v3 0/3] media: verisilicon: fix JPEG encoder writes past
+ the CAPTURE buffer
+Date: Tue, 24 Nov 2026 16:40:16 +0300
+Message-Id: <20261124-hantro-buflimit-v3-0-780903970ca0@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,127 +84,114 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNwQqDMBAFf0VybsomYjQ99T9KDxo3uqCmJDa0i
+ P/eKBQEj/Ng5i0soCcM7JYtzGOkQG5KkF8yZvp66pBTm5hJkEoIUDyNs3e8eduBRpo5FAVWIHW
+ DMmfJenm09NmLj2finsLs/Hc/iGJb/y19akXBgVtoKmVQCVTq3o01DVfjRra1ojz4As6+3Hxbl
+ hpatNqao7+u6w/R2YDI7gAAAA==
+X-Change-ID: 20261106-hantro-buflimit-055e8029be23
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Chen-Yu Tsai <wenst@chromium.org>, 
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795527620; l=3845;
+ i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=CS9Hh2KOnLAmmovBFtvM/OChuActMNOyzEIbmU8KbTc=;
+ b=y17AVohcoo/KohpGkVwr+Ely6dXWd6I4yYSnnuzNlvSkAMEJvfHGiBx1esxZ7X04A3R7vSKwQ
+ 3i8ptxwqT4MAbW5cmI5aHdACqvfkRQ5iPFh1yaZPPIAp6l2S+5UkOJs
+X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
+ pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
+X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
+ auth_id=1409
+X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
+Reply-To: shomenkow@gmail.com
 
-Catalin Marinas <catalin.marinas@arm.com> writes:
+The H1 and VEPU2 JPEG encoders are given their stream buffer limit in
+bytes, but the register counts 64-bit words, so a stream that does not
+fit the CAPTURE buffer is written past its end, up to eight times the
+buffer size. A quality 100 frame of noise does not fit the default
+sizeimage, and userspace can also set a smaller one.
 
-> Hi Aneesh,
->
-> I'm replying on this patch rather than on the one introducing the API. I
-> think it's more obvious here why I think we can make things simpler.
->
-> On Mon, Nov 16, 2026 at 02:41:27PM +0530, Aneesh Kumar K.V (Arm) wrote:
->>  static struct page *its_alloc_pages_node(int node, gfp_t gfp,
->>  					 unsigned int order)
->>  {
->> -	struct page *page;
->> -	int ret = 0;
->> +	struct cc_shared_pages mem;
->>  
->>  	if (node == NUMA_NO_NODE)
->>  		node = numa_mem_id();
->>  
->> -	page = alloc_pages_node(node, gfp | gfp_flags_quirk, order);
->> -
->> -	if (!page)
->> -		return NULL;
->> -
->> -	ret = set_memory_decrypted((unsigned long)page_address(page),
->> -				   1 << order);
->> -	/*
->> -	 * If set_memory_decrypted() fails then we don't know what state the
->> -	 * page is in, so we can't free it. Instead we leak it.
->> -	 * set_memory_decrypted() will already have WARNed.
->> -	 */
->> -	if (ret)
->> +	if (alloc_cc_shared_pages_node(node, gfp | gfp_flags_quirk,
->> +				       PAGE_SIZE << order, &mem))
->>  		return NULL;
->>  
->> -	return page;
->> +	return mem.page;
->
-> This part is mostly fine but I do wonder why not make this alloc
-> function the same as buddy alloc_pages_node() - return a struct page
-> pointer.
->
->>  static void its_free_pages(void *addr, unsigned int order)
->>  {
->> -	/*
->> -	 * If the memory cannot be encrypted again then we must leak the pages.
->> -	 * set_memory_encrypted() will already have WARNed.
->> -	 */
->> -	if (set_memory_encrypted((unsigned long)addr, 1 << order))
->> +	struct cc_shared_layout layout;
->> +	struct cc_shared_pages mem;
->> +
->> +	if (WARN_ON(cc_shared_calc_layout(PAGE_SIZE << order, &layout)))
->>  		return;
->> -	free_pages((unsigned long)addr, order);
->> +
->> +	mem.page = virt_to_page(addr);
->> +	mem.shared_size = layout.shared_size;
->> +	free_cc_shared_pages(&mem);
->>  }
->
-> Here it gets weird and I don't see why we can't have just a buddy-like
-> interface. The kernel-doc for alloc says that shared_size must be
-> retained for the corresponding free but without reading the source code,
-> you can't tell that cc_shared_calc_layout() gives you the same
-> shared_size populated by alloc. We have a similar pattern in dma-buf but
-> using the compound page order.
->
-> What's wrong with a simpler API:
->
-> struct page *alloc_cc_shared_pages_node(int nid, gfp_t gfp, unsigned int order);
-> struct page *alloc_cc_shared_pages(gfp_t gfp, unsigned int order);
-> void free_cc_shared_pages(struct page *page, unsigned int order);
->
-> Both alloc and free take the original request order and perform the
-> round up internally without exposing the details to the caller. Alloc
-> shares the whole resulting buddy block and free makes the same block
-> private before releasing it. We can document that free takes the
-> original requested order and releases the whole allocation. Partial
-> frees aren't supported.
->
-> We can get rid of layout and mem structures (or at least not as
-> part of the API). Of course, this assumes that the shared granule size
-> remains constant for a guest's lifetime but I don't think that's a
-> problem.
->
->> @@ -278,7 +267,8 @@ static void *itt_alloc_pool(int node, int size)
->>  		if (!page)
->>  			break;
->>  
->> -		gen_pool_add(itt_pool, (unsigned long)page_address(page), PAGE_SIZE, node);
->> +		gen_pool_add(itt_pool, (unsigned long)page_address(page),
->> +			     cc_shared_granule_size(), node);
->
-> Here we can introduce:
->
-> unsigned int cc_shared_page_order(unsigned int order);
->
-> and just use (PAGE_SIZE << cc_shared_page_order(0)) for gen_pool_add().
->
-> Was there a caller you had in mind that needs the common allocator to
-> share less than the whole buddy block?
->
+Patch 1 stops the encoder in the VEPU1 interrupt handler after a
+buffer-full interrupt, which leaves it paused. Patch 2 programs the
+limit in 64-bit words, rounded down to whole 64-byte bursts, on the H1
+and on the VEPU2. Patch 3 makes the smallest CAPTURE sizeimage of the
+JPEG encoders the 624-byte header plus one burst, set in the variant
+format data.
 
-No, I don't have a caller that needs to share less than the whole buddy
-block.
+Testing, on an RK3026 (its H1 is Rockchip's VEPU1) only: without the
+series the encoder wrote 230 KB past a default-sized 640x480 buffer and
+1.6 MB past a 1920x1088 one. With it, 17 overflowing frames, four of
+them queued back to back, stopped at the programmed limit without
+writing past the plane and came back with the ERROR flag, one interrupt
+each and no timeout; the jobs after them completed, and frames that fit
+are byte for byte the same as before. A sizeimage of 1 or 600 now reads
+back 688. v4l2-compliance 1.30.1 on the encoder node shows no new
+failures.
 
-Taking Jason's feedback into account, we could have the allocator
-request compound pages and recover the actual allocation order with
-compound_order(). That would avoid passing an order to free:
+I cannot test the VEPU2 or the STM32MP25 VENC. The VEPU2 gets patches 2
+and 3, but its interrupt handler is unchanged; Nicolas offered to test
+the VEPU2 part of patch 2. The STM32MP25 VENC runs the H1 code of patch
+2 and gets patch 3, but not the stop of patch 1.
 
-void *alloc_cc_shared_node(int nid, gfp_t gfp, unsigned int order);
-void *alloc_cc_shared(gfp_t gfp, unsigned int order);
-void free_cc_shared(void *addr);
+The bugs were found and the patches drafted with an LLM coding
+assistant while porting mainline Linux to an RK3026 board.
 
-Alloc would round up internally and share the entire buddy block; free
-would recover its order, make the whole block private, and release it.
+---
+Changes in v3:
+- Move the LLM and test notes below the --- line and add an
+  Assisted-by: tag (Nicolas).
+- 1/3: add Nicolas's Reviewed-by.
+- 2/3: program the VEPU2 JPEG encoder's limit in 64-bit words as well;
+  Nicolas offered to test it. Subject says "JPEG encoder", not "H1".
+- 3/3: move the header + 64 floor out of hantro_try_fmt() into a new
+  min_size field of struct hantro_fmt, set in the JPEG encoder formats
+  of the Rockchip and STM32MP25 variants (Nicolas).
+- Rebase on media next aa0f4c41d487.
+- Link to v2: https://lore.kernel.org/all/20261110-hantro-buflimit-v2-0-ff7790def9fc@gmail.com/
 
-As you noted, dma-buf would need virt_to_page() to obtain the pages for
-its scatterlist.
+Changes in v2:
+- Trim the commit messages and code comments (Nicolas).
+- 1/3: clear only the enable bit of H1_REG_ENC_CTRL instead of writing
+  0 to the register, and add a rate-limited warning per fault bit, as
+  hantro_g2_irq() does; add the H1_REG_INTERRUPT_* fault bits (Nicolas).
+- 3/3: keep max(): it is a floor of header + one burst, the 64-byte
+  rounding is on the stream limit in 2/3 (Nicolas).
+- Move the test numbers from the commit messages to this cover letter.
+- Link to v1: https://lore.kernel.org/r/20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com
 
--aneesh
+---
+Sergei Khomenkov (3):
+      media: verisilicon: stop the VEPU1 JPEG encoder after an unfinished frame
+      media: verisilicon: program the JPEG encoder stream limit in 64-bit words
+      media: verisilicon: leave room for the JPEG header and one stream burst
+
+ drivers/media/platform/verisilicon/hantro.h           |  2 ++
+ .../media/platform/verisilicon/hantro_h1_jpeg_enc.c   |  4 +++-
+ drivers/media/platform/verisilicon/hantro_h1_regs.h   |  4 ++++
+ drivers/media/platform/verisilicon/hantro_v4l2.c      |  3 +++
+ .../platform/verisilicon/rockchip_vpu2_hw_jpeg_enc.c  |  4 +++-
+ drivers/media/platform/verisilicon/rockchip_vpu_hw.c  | 19 +++++++++++++++++++
+ drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c |  1 +
+ 7 files changed, 35 insertions(+), 2 deletions(-)
+---
+base-commit: aa0f4c41d4870a18e65772a1817af16427200371
+change-id: 20261106-hantro-buflimit-055e8029be23
+
+Best regards,
+-- 
+Sergei Khomenkov <shomenkow@gmail.com>
+
+
