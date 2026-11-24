@@ -1,85 +1,85 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795514278;
-	b=GaAn2ReXVLqNn1Aj0btAToMqe48EpOqbMNHf1D0NyLcS409eVxefGhx+EuqKb1jXuGOA
-	 J6s3UBLfEgb1Jx/oW5oBeZDKUk/J0CRyNZOAZ86HGmNP9fz7pZVjh2Q+rDUSb/TnEFgUE
-	 aJo21OieeK+VHsdlzpE6UBjpddgsnrwGR//k5Dyte9OPyi+0+XYwBXwtKng2di2yd5KzU
-	 bMWZZWysYHrfgDG6IA1cYvXbQXQvSYTB9TrmD2/DBaGxQTMC6MZqj1kArGtSTMWKjlEXm
-	 MvoyY6ggAGxC1VzhUJMLNqfzpzdlubN24oweBsgr6ZZqPHuo9IDG5Ow/eSWRskufplQ==
+	t=1795514384;
+	b=t3IfWemjH/IgmMt1UvMLJS7G3AACki9DTimFasWYFydKAutU+FxzupNc7VCC4cBnDI7k
+	 UZPclPCpzdC9c2q+/zHLQHogKL4qRezgvgezP0LK+I2jx/XQSyZJLTeSE1ObJ4zdohDGJ
+	 XUPCHxyTufUSxovv6mWIW9LIGrG0JzIg254JD8hvT84l9ETgFgmB+q0VDcEOUQXhApLIO
+	 DT6+iRxTpojzgVUGYKFXEvgyg/+bWCYOGsN5fBg6ahdWbRJPgn4emLhg1um9gDqOl0ylW
+	 GZrWDuG44UoWOnVMjaX0EjeJeX0+KY+hFmFty/exp4+Ywag/ESU1+Qs2JMOH5BnBIuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795514278;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795514384;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
 	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
 	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=kXyUg3NoH8fdqsuK8DsovCC6A8tK75idYEl23ompiLQ=;
-	b=d5u2KTYcwocjYh0S/qx8iX0JgC7bfwaRdMgjlQdYuaTlJRFZuRsXzuvTXchkgkJz2P0z
-	 d7nB7zI9/sH0GkJJpfc1NbAnAH1CUtvLU+BfE1f2/xdMtb0VD0nVNhp4nDo1+/WXooYkO
-	 /FTjFrFDbNZ4fGoyIY9YYy4RMe5+uygSPMXJXycefKsn3rS20YQsS0ky17oTKMO+oxHbn
-	 xUW0FrS94ZbN9b0FUasw7vFdoC7OfoL9pB5BJMf/cfVVOPxcYb0eqjkKOCuMZemDXzHW5
-	 K5Gjlxm/heEyALVyPnmEZvspJn4ys7nX6SPCm1JT6mBY6iCORhksdokOI1OebzCjGFg==
+	bh=ah64LIQIXLTGPjDibRLYcaK6G0Dc/ReEzo5Y2FlN3Us=;
+	b=vnBmEqW5/oQTdlX0hvteTOkwfX5FGQly+W0PkODvVkVWRO03JApyhDIjqqzacX+J7lVU
+	 r3B3TySkg+aPHU4lsjtlGB538LcsD4C/S1HnDXMURaq7wdxG0fG0Re2Bbg/Rzqij455Aq
+	 U3APGLX7xRRKtxU1WyqEqz3Z5adY+2dxVfi5vOVj7vlsrMEy6FRs0mHvAOS6vQGVop56/
+	 v2z4/OB5d1ptOXmv2ktspm9BgCM3bPQVIBQjbjdVhsAMAm0LQQTuNmJ4edjMtrdFEkTNl
+	 s8kQ4xxwqHoRAO4+8sx7oyoYCJMogSahD2JMMmMBAhDWLdplJvcFIAC09+Ss5DfVVgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=t5feP5FS;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hSmIepVb;
 	arc=none smtp.remote-ip=209.85.218.54
 Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0942606A321
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 09:57:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0942606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B884606A338
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 09:59:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B884606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=t5feP5FS
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c50933bdf4bso858774866b.1
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 01:57:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hSmIepVb
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4395d31228so723471866b.1
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 01:59:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795514276; x=1796119076; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1795514382; x=1796119182; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kXyUg3NoH8fdqsuK8DsovCC6A8tK75idYEl23ompiLQ=;
-        b=t5feP5FSqUeh4OUPpz/G2qREcYdQLeO7DmoP0KcDpNlxLW5YDVPbm/4Y+9l5pIfOLg
-         VTJdJsniqfbvzKi32+gjtTylG+NLszNUoLK8grYIn7MZz/2KY/vNC4ikLKW3INcctV59
-         MlDfs9WlBH8JxRd+ehnBXj6MaJ8bZhRyk38kNrlsopV9B0bit7eK6ORPlBo7IpMN8DlL
-         n/qiTjcsvSQJuDp7OIdkYsVg/DnLTEg7M/S9v5ZG4wEJbXxoRaFKFfrT7EhT91u+EECX
-         4wv3o1IfjbwfPggyiQFREhKZWgfch+xyo2W1f/GlGAtwzj93Gz4SVLOV52hIZtWrXdNx
-         yQUg==
+        bh=ah64LIQIXLTGPjDibRLYcaK6G0Dc/ReEzo5Y2FlN3Us=;
+        b=hSmIepVbK9PWjrJBE1AprzX2N4p1wm7x2m2I4anFjoKv2cxG0XLVrsBXe5NIFEkEyS
+         N1kijXpvpVAN1QOMPlyRqhgOTpbYI2dzHaqAoJgWxpAkkhtP/f5iWwn9TTl7wD24X3EB
+         WxlV6AcGpKBEp2UfKtKPv5cEG83EaXrPouH3HCq1HYm8dq+s0DeWeySHJUhux/lzsOQU
+         968QwsVS4eWoqKrOqBrwPqrEZ0Qn1jTJPqZWc1wPIH36W6qEAhXYEFtpPDLNxQ1aVfiF
+         CbjZJRD7nsJlM5HtssYnsr/+Dt2Z9ZMa016YK5pVeoA31McodNBQihAv70Dw6snjGmXN
+         dLbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795514276; x=1796119076;
+        d=1e100.net; s=20260707; t=1795514382; x=1796119182;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kXyUg3NoH8fdqsuK8DsovCC6A8tK75idYEl23ompiLQ=;
-        b=WUqgzkgGhbGJjQsQR+/4s/N1a4AXPlzFjAmpzULoS1DbDR8vTXjz5NC6XyHiYdYwEn
-         UXU8tARMAh41vDBppoYq2AcMLzx1OMkUvPzeOISTN23JGH/lufEj9OkI0Sk8uc032KEk
-         x4IVGyV4TLBt4EAKsCwzPznJ0o8uy7+A2xLe8dCEnb1zHwcHcm+G6bUYB1d14UgzfDQq
-         Udc4dnHZgc9LBaI52MOSVKRFEinQ09FSUk+itYanEeBNXgWvlqP9nWm6QZdCZvnT5hOJ
-         9BOGhL88xaLpHEadF9L2xPFPM8YIYmnVcncR4MzrLhkh4Sj6YaQhMJmUOU/WpkwBbf+E
-         PBqw==
-X-Gm-Message-State: APuU4Z+Sgc8gG5rqNUYlfLZwY3vD/zY36DxijqfGWRSWnolca3eBz7ep
-	tujo8tYhh3MKZ0ul3NzXrOFgKPEtz8aFbyZk5wdpFf1w3ovkaLgNBa3b82iVufpkxs4=
-X-Gm-Gg: AZFdTZe5bs3H2OiLKQRUCR3jjnSqFG26ZlFNDt39BC/cyK9BN4uGcQ5Heff//jDD0vk
-	Y5yFyQ+Itif5tVk5tA4s17wJGZCH8QthbMXEAvix5oJhFwOt7SJsOnO+jWEHE52U90byd/IK1Tl
-	hYD9U6+VYO5fEMvMR3Sf+DQu+MR8GmBx0laHZDB9yZPBMIDTnn6bGJ8F9Cg4/2xKq3yS5qSDRDm
-	vEayxt/mDqsVeH/dBVqKJtI76C7gC9FQv0hDKlXgKnSEJyfM0KpYFL7Ll7kwJwTHcwL26wVmAK9
-	bt3EDF42yThvWZR/jo04h3TMZAMJuEC1gJ3o4T9RCrad2nEv0VH/zCaz0cCeTOEBaQMPJsVCsUU
-	7tf+Tdnkqx2j5cxG/5bWYAiW/qrArk8i9iyLE2wv1N0dRx2sSE9gyBSsbJajjYkXQIDwKaWX4th
-	n2bL9JZFaihfqk1nHnT/I2TimBLVK9GXoxSaz6crW4SAxMR1cYPyStSAtsuymcY34fbYQ87F3FV
-	BzdkFehhgaPud3agECUMhuU+uVUKvLRzcMHBOXKqoRfepfdDU8Fzu1D/rVBoi2kH5dKwerYuM4W
-	SFbz3x+1zTMkOGID1IT85oJJ4oDno+oLsRD55ZqBiGqb7jil7iVi8OG1kdT7UKx/
-X-Received: by 2002:a17:906:370b:b0:c51:34ae:dd7 with SMTP id a640c23a62f3a-c5134ae12d8mr835789566b.17.1795514276195;
-        Tue, 24 Nov 2026 01:57:56 -0800 (PST)
+        bh=ah64LIQIXLTGPjDibRLYcaK6G0Dc/ReEzo5Y2FlN3Us=;
+        b=NZfPHwmSbgEBBbAUowRwNpi4Sv68AmiIoe3/y0KUvJnLMcrOWH0QLIPuu8rvN29+lA
+         AZ2rRC6tR9F30EaA1kRHjb9rPNKXEEfJbuF4jHCRUAwHsXOkX22WSsI1+UYszc8SAQ83
+         3MLjo4twWtkKh3azRIRoBLvgS5ewG5KH3qkSOUYmU6vkM37ed6LIfRGGprkovia0nCob
+         +hAgbzjYnJCVUTasrA29p8XK0+l6Jbzj9f5saxRujjoif20SxBlH/u5CnYvK6hJdk9q/
+         f/Vi/nCwVZGC4yCoNsh39j93sRWG6scE16rjjMIiJlVhzH/x+8Tg3jPJiW3mNO1vHIpe
+         V6ug==
+X-Gm-Message-State: APuU4Z8ZcNzeDbOab738mY7Ier6nT7fRcScGBuvaHD1QwmWKeXfLXG30
+	jOr60G5lJWQhIRCby6/T1BX6KvB5sS2Ag5VWj9BFJKwOOjgoCCmbSBUCfbidxQZ1ATU=
+X-Gm-Gg: AZFdTZeYTOVwezEXq82DuxWGAe0fWmdMDz0oWaXkDPfIN+fv7BZ4y2A8WXRuOf+QsUo
+	bOesS70iMKckaqcLE5uUnBSb0Rpnh+u0Ir0kphtUL4aMwsVcLf6p+FNMzbsZSWdWWJjkd8h+jCV
+	0qcTzRVAYrR4rCJ0iotFsbCZHWLyG9JV+if/jlh4awvloRj3YN3t4L8M5CT8/y5sI/JlqFs+S8o
+	755wz6ENBX1DMJDHX3mLSDP+ZP7wfXLd5zZowF0e0aI7eXluuWoYXryzXWjiRTmeZBFFaVgzCn6
+	lskCgtLJt3pUasBoWYuggONiiDA8AQZ2boAYcdkv2eRFGUXY2MoheoMCuK9SMc6X7QAwlEOSB1u
+	yatPLdpkb/Gtl/NWypRANOkek0NDyOFokNbleoyy73q37+rPtVC4uJfFptn7VRL5AkYEuc9EX7r
+	NJaO9231Io33cAWHpXWwItBUFgMczs6UWAFNqXRwzF0LSPsvY/W872iUPRRxGUNXWBaJufwCmNH
+	4LZH9EZI0ebz44ioZPOPnyJrRANrsC4moRhwAGamwMYYSGtChbvz6btNHVINgqh/P/n/LCpiYfe
+	mqZixDOB6nAgIbQD9fKhJ51lXQo/L5fDTatBkCGuNzE=
+X-Received: by 2002:a17:906:f10a:b0:c49:b8ec:a9e3 with SMTP id a640c23a62f3a-c513aad202amr993480966b.43.1795514381642;
+        Tue, 24 Nov 2026 01:59:41 -0800 (PST)
 Received: from [192.168.0.167] ([109.76.241.250])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513b00117dsm492806766b.80.2026.11.24.01.57.55
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ad01b0bsm493902266b.10.2026.11.24.01.59.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 01:57:55 -0800 (PST)
-Message-ID: <c7fc67a6-e15f-40df-9c0a-7eae54e99d23@linaro.org>
-Date: Tue, 24 Nov 2026 09:57:54 +0000
+        Tue, 24 Nov 2026 01:59:41 -0800 (PST)
+Message-ID: <68bf8d15-8ebe-4d19-8f77-f49ca0cb5488@linaro.org>
+Date: Tue, 24 Nov 2026 09:59:40 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,50 +90,58 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] media: qcom: camss: csid-340: Report the hardware SOF
- timestamp
+Subject: Re: [PATCH 0/6] media: qcom: camss: Report the hardware SOF timestamp
 To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org
 References: <20261123-camss-hw-ts-v1-0-7b62dda6d7a9@oss.qualcomm.com>
- <20261123-camss-hw-ts-v1-3-7b62dda6d7a9@oss.qualcomm.com>
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-In-Reply-To: <20261123-camss-hw-ts-v1-3-7b62dda6d7a9@oss.qualcomm.com>
+In-Reply-To: <20261123-camss-hw-ts-v1-0-7b62dda6d7a9@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 23/11/2026 17:16, Loic Poulain wrote:
-> +static u64 __csid_sof_timestamp(struct csid_device *csid, enum csid_iface iface)
-> +{
-> +	u32 lo, hi;
-> +
-> +	/*
-> +	 * The pair is latched on SOF rather than counting, so it can be read
-> +	 * one word at a time without tearing.
-> +	 */
-> +	lo = readl_relaxed(csid->base + CSID_TIMESTAMP_CURR0_SOF(iface));
-> +	hi = readl_relaxed(csid->base + CSID_TIMESTAMP_CURR1_SOF(iface));
-> +
-> +	return csid_timestamp_to_monotonic(csid, ((u64)hi << 32) | lo);
-> +}
-> +
->   static irqreturn_t csid_isr(int irq, void *dev)
->   {
->   	struct csid_device *csid = dev;
-> @@ -207,7 +234,7 @@ static irqreturn_t csid_isr(int irq, void *dev)
->   		iface_val |= status;
->   
->   		if (status & CSID_IFACE_IRQ_INFO_INPUT_SOF)
-> -			csid_sof_event(csid, i, 0);
-> +			csid_sof_event(csid, i, __csid_sof_timestamp(csid, iface));
->   	}
+> The CAMSS CSID latches the ARM architected counter on every start of
+> frame. This series exposes that time to userspace, both through the
+> V4L2_EVENT_FRAME_SYNC event and as the buffer timestamp.
+> 
+> Until now both were taken when the interrupt was handled, or worse, when
+> the frame had finished being written out to memory, which is about a
+> frame period late. The hardware value is free of interrupt latency and
+> is directly comparable with CLOCK_MONOTONIC, so it can be correlated
+> with other timestamped data such as IMU samples.
+> 
+> Patch 1 lets a driver fill in the timestamp of a V4L2 event instead of
+> having the core take it. Patch 2 passes the SOF time down to the common
+> CSID event helper and adds the counter to CLOCK_MONOTONIC conversion.
+> Patches 3 to 5 read the registers on csid-340 and csid-gen2. Patch 6
+> uses the same time to stamp the captured buffers.
+> 
+> Patches 4 and 5 are picked from the timestamp support Bryan shared
+> earlier, with patch 5 adapted to use the conversion helper added in
+> patch 2 rather than its own.
+> 
+> Tested on QCM2290 (Arduino UNO Q) with an IMX219 sensor.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+> Bryan O'Donoghue (2):
+>        media: camss: Define timestamp registers for csid-gen2
+>        media: camss: csid-gen2: Report the hardware SOF timestamp
+> 
+> Loic Poulain (4):
+>        media: v4l2-event: Allow drivers to provide the event timestamp
+>        media: qcom: camss: csid: Pass the SOF time to csid_sof_event()
+>        media: qcom: camss: csid-340: Report the hardware SOF timestamp
+>        media: qcom: camss: Timestamp buffers at start of frame
+So I was offlining this change and kind of left it at comments I 
+received to make the type of timestamp selectable on a per-buffer basis.
 
-I think a callback in csid_sof_event() might be cleaner or some other 
-way to not have to replicate all of __csid_sof_timestamp() for each CSI 
-decoder.
+IDK if that's really required for a first pass but, its where my own 
+reviews were left at that time.
 
 ---
 bod
