@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540111;
-	b=oMMT6B+p0uuVJhdJOnWUDkT76r/y2a98Ia32byT/r0Xo+LsWlaFuQ2GLzPLduYdGyo5q
-	 dPA8pVniSUBi7Nu1BHltuyYHXsolUoSBT4U2JikcQubO5yCk1pbim/pqL6utdAkBAmFiV
-	 G+mlVMomfoUwhj+pDxU7+8VYFXAUm9PSGrDok1x4T414U6n9GX54dxhTM7Rotf0Kcgun8
-	 c+ce/cmYle4B24jx+pRlwZvAZAAxRTIJ0/rdZK1ma4OdJ8wOeRKqNZJkdnuS+kTM3QPZv
-	 78cZ13ZsgIcBC+sBd6VgGiMWMjzDs2dDbuTdPtO5tVnypYoV2V8J78ho7pgjeAOyktQ==
+	t=1795540107;
+	b=rAq8ZKOgTW84I+YiALC0bGje/352DyQmMZd31t+DgqQw8A4LBn0MdXYmwr0Y2r7WwmCA
+	 2A+EiP1U2pWmM/LJtcuunEkOSssFOtnNJnM+BDXR1abkF/ZYts4KUngjCX6m0yQH+B2JL
+	 toUwk2AJO7hWdhzDLgYw0vZEe02G1HLzUC+FpLrDPGNMkM1gLMUGdzRdGp7FwzricABp6
+	 8ymcLts+otLz5X8IRQtG25auhrwHYD3KW/Fvw/NWqSjowQIeoskznyElsQduGAWmWB75o
+	 D+ksB2ub2hGKQUJj7Fg84vKN7OhMYDckDe08ETUAJeCpdY6T+TxN/Q2XQg1DWLGs2NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540111;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540107;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=tB8UPYpS0AWq6MASaQ/UDNOpnZlTX7ZWOg26TuC2bgc=;
-	b=H8oGFepoN06hQPc9cKhfVdSriKyfz1qZ6Gqj17eC/VX8pbC4W8daKBJ8eO5du7XbtqsH
-	 ZQmJuqZ14ryQy0PabXdS9uvxOGC6AearH37hSro131yG3M9ePETiwqSjOj9x9w6mBj7On
-	 Bo4QefAht0tGZiGjtqNQRAG/SveXy2P/ZVlIJ8pHienjsrPysRwur9fZBX6U1osG7TRiK
-	 NF81gWML6bCtOd4RxOU5VN3nJTP5mFJNWAwxLWPWdGMwT/xMjZVSnoFtu0fbcHba2vF6G
-	 AAzADCejEqQMEnnaONP0uo0LDQScZlmfuhthOD6sFaXbpO9FBjcfvia95lKdKz0GROA==
+	bh=hiYBjCjArpzFgK70PoEzJFOkmbS4lpGeVrHK7K4QBAY=;
+	b=FAlXXvPhdp5P+5CRtQ+zXBbRNfinS2bTXRyifWn4SmS/Kum+9z/goJpua8qdtip0bkUI
+	 49pBxdbuF/812fOX/esc60VbkFQCvZeTuxX65QYYvnV4+blH6zBRmYhqTiwWbB8i3Ekc7
+	 4Tziif0XKFBqkEWyvBuNVtvS9hn2mETVno0qduVFiEcgZpDlTZHV8RalFtRidXh1Hm4RJ
+	 0UcDlunYL0hWtS7ltAoO4QAHh/wZ7H9Mvs1Fp1zd+GT/ES5N6fpx61txQsMfzw9nulnQd
+	 cD+b7dx5dh2sl4YNiqLny+vmY/6SMnKv9FFwURczpp+BwtrQSv4CjQb1+FbSFf4r4Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BDeNVquq;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=e8In4UGo;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0FB20606A321;
-	Tue, 24 Nov 2026 17:08:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FB20606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D609760A2633;
+	Tue, 24 Nov 2026 17:08:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D609760A2633
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BDeNVquq
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=e8In4UGo
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 970301A25;
-	Tue, 24 Nov 2026 09:08:27 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5E12A176B;
+	Tue, 24 Nov 2026 09:08:21 -0800 (PST)
 Received: from e126453.arm.com (e126453.arm.com [10.33.8.63])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BC2253F763;
-	Tue, 24 Nov 2026 09:08:27 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 742A03F763;
+	Tue, 24 Nov 2026 09:08:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795540110; bh=xVhbJmebUJi6iYSaq8O3fQYpqLCc16D+JXU1pZO1BJk=;
+	t=1795540104; bh=slN2JXMHBSLC+PGa3568y3VUHMRbuj6aFVptBXMtU8w=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=BDeNVquqt/GsZhF6pFw/hAp8GJnL+zoGhKxQS0jaSLMyt5qyC9WEU2GC4OwzKexpU
-	 3EvRH6pn/TD6RKV2lBqVKp9TbDEb31p6Mxnt1q4KxWOJu6kbsWcJyXSjjTVMwdtfPc
-	 wWV7w28PBVRYHzKArCu8dmg0idBx+f8fTkBNo5Jw=
+	b=e8In4UGo/pe9WpJBw6DvfAV6K6dsRS4Of6ybtWxw3c16W7IROATY4+rxBoCaoOnfz
+	 DFp14fNg1MByUTgdNIgEKbvcl0WWWbhFLcd4h2XUXkuNxojMsKl5nhWVDiGG70OIr6
+	 Cfgrb8afXC/5imt9aZ8WSZaWrY8v6WPfjIT7fBm4=
 From: Anthony McGivern <anthony.mcgivern@arm.com>
-Date: Tue, 24 Nov 2026 17:07:37 +0000
-Subject: [PATCH 09/24] media: mali-c720: Add input frontend subdevice
+Date: Tue, 24 Nov 2026 17:07:35 +0000
+Subject: [PATCH 07/24] media: mali-c720: Add hardware discovery support
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -57,7 +57,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-b4-initial-upstream-candidate-v1-9-0cb9bde1bd30@arm.com>
+Message-Id: <20261124-b4-initial-upstream-candidate-v1-7-0cb9bde1bd30@arm.com>
 References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
 In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
 To: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
@@ -75,113 +75,57 @@ Cc: Anthony McGivern <anthony.mcgivern@arm.com>,
  Conor Dooley <conor+dt@kernel.org>, 
  Anthony McGivern <Anthony.McGivern@arm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795540078; l=20950;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795540078; l=49859;
  i=Anthony.McGivern@arm.com; s=20261124; h=from:subject:message-id;
- bh=OpXQ+M7qczFeC9Zk+oPv17BstGe5WlsvgrYAoceVU5Q=;
- b=jjttJ5N3DGhtxuc0yQfLsgnDxWMz13suDv4Rf/52702aKD68EKyOTZQfoTd2RgWhzKObClP31
- EKKHC8yLFWnBDnfJGQIsntj3UZvXhi8uJkpdmXDtqS1bg6D7X7IpSiJ
+ bh=V8N8pp7w2I4GJpJNbE1ldVrJnBqxJa6cTN/MSUZ65PI=;
+ b=7raMQvpVX4rV0fxBpeV61L/HVdbz01lMaPNTeunlST9xW01VseZWjSv5wQD/XH1hNjDvUVvP7
+ l4H3N78M7YpCjvvluLuE7E8q7aNB5/dPDU0Qtc2Vs1wxTBsSf07fsoD
 X-Developer-Key: i=Anthony.McGivern@arm.com; a=ed25519;
  pk=cvw1HHVRuWpdkn55JpnRyCO2oGBkBWaBXcc2S3CmHTU=
 
 From: Anthony McGivern <Anthony.McGivern@arm.com>
 
-Add the subdevice connecting parallel input port 0 to a single context
-input through a fixed route. Support for the remaining inputs is planned
-when userspace routing ioctls are enabled.
+The Mali-C720 can be configured at synthesis time with different
+pipelines and processing modules. Its discovery table describes the
+resulting hardware configuration.
+
+Parse and validate this table during probe, cache its records and
+provide helpers to locate pipelines, modules, register addresses and
+memory tables.
 
 Signed-off-by: Anthony McGivern <Anthony.McGivern@arm.com>
 ---
- .../platform/arm/mali-c720/mali-c720-common.h      |  49 ++
- .../media/platform/arm/mali-c720/mali-c720-input.c | 598 +++++++++++++++++++++
- 2 files changed, 647 insertions(+)
+ .../platform/arm/mali-c720/mali-c720-common.h      |    2 +
+ .../platform/arm/mali-c720/mali-c720-discovery.c   | 1172 ++++++++++++++++++++
+ .../platform/arm/mali-c720/mali-c720-discovery.h   |  212 ++++
+ 3 files changed, 1386 insertions(+)
 
 diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-common.h b/drivers/media/platform/arm/mali-c720/mali-c720-common.h
-index 1808fdef149f8035394af122b348232be1ff51dd..6f5ddb94398d76888edb992000a4d6012e960675 100644
+index 4f8e2918937c1ca212a11ccc6c4a0edb72dca72c..3efbf7572e5015a57124b6f623ba5e1d757bf22a 100644
 --- a/drivers/media/platform/arm/mali-c720/mali-c720-common.h
 +++ b/drivers/media/platform/arm/mali-c720/mali-c720-common.h
-@@ -15,6 +15,9 @@
+@@ -14,6 +14,7 @@
  #include <linux/spinlock.h>
  #include <linux/videodev2.h>
  
-+#include <media/v4l2-device.h>
-+#include <media/v4l2-subdev.h>
-+
- #include "mali-c720-ctx-mgr.h"
- #include "mali-c720-discovery.h"
++#include "mali-c720-discovery.h"
  #include "mali-c720-formats.h"
-@@ -26,8 +29,46 @@
- #include "mali-c720-registers-ctx-mgr.h"
- #include "mali-c720-registers-modules.h"
+ #include "mali-c720-id.h"
+ #include "mali-c720-register-access.h"
+@@ -50,6 +51,7 @@ struct mali_c720 {
  
-+#define MALI_C720_MIN_INPUT_WIDTH	256
-+#define MALI_C720_MIN_INPUT_HEIGHT	256
-+#define MALI_C720_MAX_WIDTH		8192
-+#define MALI_C720_MAX_HEIGHT		4608
-+#define MALI_C720_DEFAULT_WIDTH		1920
-+#define MALI_C720_DEFAULT_HEIGHT	1080
-+
- #define MALI_C720_FRAME_TIMESTAMP_COUNT	256
- 
-+struct mali_c720_subdev {
-+	struct v4l2_subdev sd;
-+	struct mali_c720 *mali_c720;
-+};
-+
-+#define v4l2_sd_to_mali_c720_sd(_sd) \
-+	container_of(_sd, struct mali_c720_subdev, sd)
-+
-+#define mali_c720_sd_to_sd(_mdev, type) \
-+	container_of(_mdev, type, mdev)
-+
-+enum mali_c720_input_pads {
-+	MALI_C720_INPUT_PAD_SOURCE_SLOT_INPUT,
-+	MALI_C720_INPUT_PAD_SINK_INPUT0,
-+	MALI_C720_INPUT_NUM_PADS,
-+};
-+
-+struct mali_c720_slot_input {
-+	struct mali_c720_buffer_pool raw_buffer_desc;
-+	struct media_pad *sink_pad;
-+	struct media_pad *src_pad;
-+	u32 stream;
-+	bool prepared;
-+};
-+
-+struct mali_c720_input {
-+	struct mali_c720_subdev mdev;
-+	struct media_pad pads[MALI_C720_INPUT_NUM_PADS];
-+	struct mali_c720_slot_input slot_input;
-+};
-+
- enum mali_c720_cap_devs {
- 	MALI_C720_CAP_DEV_FR0_RGB,
- 	MALI_C720_CAP_DEV_FR0_YUV,
-@@ -82,6 +123,10 @@ struct mali_c720 {
- 	resource_size_t mmio_size;
- 	u32 top_base;
- 
-+	struct v4l2_device v4l2_dev;
-+
-+	struct mali_c720_input input;
-+
  	struct mali_c720_registers registers;
- 	u8 *default_regs;
  
-@@ -100,4 +145,8 @@ struct mali_c720 {
- 	spinlock_t irq_lock;
++	struct mali_c720_discovery discovery;
+ 	const struct mali_c720_hw_version *hw_version;
  };
  
-+int mali_c720_register_input(struct mali_c720 *mali_c720);
-+void mali_c720_unregister_input(struct mali_c720 *mali_c720);
-+void mali_c720_cleanup_input(struct mali_c720 *mali_c720);
-+
- #endif /* MALI_C720_COMMON_H */
-diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-input.c b/drivers/media/platform/arm/mali-c720/mali-c720-input.c
+diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-discovery.c b/drivers/media/platform/arm/mali-c720/mali-c720-discovery.c
 new file mode 100644
-index 0000000000000000000000000000000000000000..b0b92e456d9b2b386c7d2c4473cb3ccdb4b819a9
+index 0000000000000000000000000000000000000000..19d88481763092b5a8d8b8de58cb56f5bdacaaaf
 --- /dev/null
-+++ b/drivers/media/platform/arm/mali-c720/mali-c720-input.c
-@@ -0,0 +1,598 @@
++++ b/drivers/media/platform/arm/mali-c720/mali-c720-discovery.c
+@@ -0,0 +1,1172 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * ARM Mali-C720 ISP Driver - Image signal processor
@@ -189,597 +133,1389 @@ index 0000000000000000000000000000000000000000..b0b92e456d9b2b386c7d2c4473cb3ccd
 + * Copyright (C) 2026 Arm Ltd
 + */
 +
++#include <linux/bitfield.h>
 +#include <linux/bitops.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/minmax.h>
++#include <linux/crc-itu-t.h>
++#include <linux/dev_printk.h>
++#include <linux/kernel.h>
++#include <linux/slab.h>
 +#include <linux/string.h>
-+
-+#include <media/media-entity.h>
-+#include <media/v4l2-common.h>
 +
 +#include "mali-c720-common.h"
 +
-+/*
-+ * Return the active route for the provided sink pad and stream, or NULL if
-+ * there is none.
-+ */
-+static struct v4l2_subdev_route *
-+mali_c720_input_get_active_route(struct v4l2_subdev_state *state,
-+				 u32 sink_pad, u32 sink_stream)
-+{
-+	struct v4l2_subdev_krouting *routing = &state->routing;
-+	struct v4l2_subdev_route *route;
++#define CAPABILITY_DISCOVERY_HEADER_OFFSET		0x0
 +
-+	for_each_active_route(routing, route) {
-+		if (route->sink_pad == sink_pad &&
-+		    route->sink_stream == sink_stream)
-+			return route;
++#define MALI_C720_DISC_V1_FIELD_ID_MASK			GENMASK(7, 0)
++#define MALI_C720_DISC_V1_LIST_VERSION_MASK		GENMASK(11, 8)
++#define MALI_C720_DISC_V1_LIST_DESC_COUNT_MASK		GENMASK(31, 16)
++#define MALI_C720_DISC_V1_SUBPIPE_INSTANCE_MASK		GENMASK(10, 8)
++#define MALI_C720_DISC_V1_SUBPIPE_TYPE_MASK		GENMASK(15, 11)
++#define MALI_C720_DISC_V1_SUBPIPE_DESC_COUNT_MASK	GENMASK(31, 16)
++#define MALI_C720_DISC_V1_MODULE_INSTANCE_MASK		GENMASK(10, 8)
++#define MALI_C720_DISC_V1_MODULE_REMOVED_MASK		BIT(14)
++#define MALI_C720_DISC_V1_MODULE_OFFSET_MASK		GENMASK(31, 16)
++#define MALI_C720_DISC_V1_MEMORY_TABLE_ID_MASK		GENMASK(9, 8)
++#define MALI_C720_DISC_V1_MEMORY_SIZE_MASK		GENMASK(13, 10)
++#define MALI_C720_DISC_V1_MEMORY_SCALAR_SUFFIX_MASK	BIT(14)
++#define MALI_C720_DISC_V1_MEMORY_OFFSET_MASK		GENMASK(31, 16)
++#define MALI_C720_DISC_V1_PARAM_ID_MASK			GENMASK(15, 8)
++#define MALI_C720_DISC_V1_PARAM_VALUE_MASK		GENMASK(31, 16)
++#define MALI_C720_DISC_V1_VERSION_PATCH_MASK		GENMASK(15, 8)
++#define MALI_C720_DISC_V1_VERSION_MINOR_MASK		GENMASK(23, 16)
++#define MALI_C720_DISC_V1_VERSION_MAJOR_MASK		GENMASK(31, 24)
++#define MALI_C720_DISC_V1_FOOTER_CRC_MASK		GENMASK(31, 16)
++
++#define MALI_C720_DISC_V1_FIELD_LIST_HEADER		0xf0
++#define MALI_C720_DISC_V1_FIELD_SUBPIPE_HEADER		0xf1
++#define MALI_C720_DISC_V1_FIELD_SUBPIPE_FOOTER		0xf2
++#define MALI_C720_DISC_V1_FIELD_EXT_MEMORY		0xf8
++#define MALI_C720_DISC_V1_FIELD_EXT_VERSION		0xf9
++#define MALI_C720_DISC_V1_FIELD_EXT_PARAMETER		0xfa
++#define MALI_C720_DISC_V1_FIELD_LIST_FOOTER		0xff
++
++enum mali_c720_disc_v1_subpipe_id {
++	MALI_C720_DISC_V1_SUBPIPE_ID_INPUT,
++	MALI_C720_DISC_V1_SUBPIPE_ID_HV,
++	MALI_C720_DISC_V1_SUBPIPE_ID_CV,
++	MALI_C720_DISC_V1_SUBPIPE_ID_RAW_OUTPUT,
++	MALI_C720_DISC_V1_SUBPIPE_ID_FR_OUTPUT,
++	MALI_C720_DISC_V1_SUBPIPE_ID_PYR_OUTPUT,
++	MALI_C720_DISC_V1_SUBPIPE_ID_FOV_OUTPUT,
++	MALI_C720_DISC_V1_SUBPIPE_ID_STATS,
++	MALI_C720_DISC_V1_SUBPIPE_ID_TPG,
++	MALI_C720_DISC_V1_SUBPIPE_ID_MAX,
++};
++
++enum mali_c720_disc_v1_module_id {
++	MALI_C720_DISC_V1_MODULE_ID_CM_FULL = 0x00,
++	MALI_C720_DISC_V1_MODULE_ID_GLOBAL_ISP_CONTROL = 0x01,
++	MALI_C720_DISC_V1_MODULE_ID_INTERRUPT_CONTROLLER = 0x02,
++	MALI_C720_DISC_V1_MODULE_ID_FAULT_COLLECTOR = 0x03,
++	MALI_C720_DISC_V1_MODULE_ID_MODULE_BIST_CONTROL = 0x04,
++	MALI_C720_DISC_V1_MODULE_ID_MODULE_CRC_CONTROL = 0x05,
++	MALI_C720_DISC_V1_MODULE_ID_MODULE_CG_CONTROL = 0x06,
++	MALI_C720_DISC_V1_MODULE_ID_CM_CONTROL = 0x0f,
++	MALI_C720_DISC_V1_MODULE_ID_CM_SLOT_LOADABLE = 0x10,
++	MALI_C720_DISC_V1_MODULE_ID_PIPELINE_GLOBAL_CONTROL = 0x12,
++	MALI_C720_DISC_V1_MODULE_ID_DIGITAL_GAIN = 0x18,
++	MALI_C720_DISC_V1_MODULE_ID_GAIN_AND_OFFSET = 0x19,
++	MALI_C720_DISC_V1_MODULE_ID_BLACK_LEVEL = 0x1c,
++	MALI_C720_DISC_V1_MODULE_ID_WB_GAIN = 0x1d,
++	MALI_C720_DISC_V1_MODULE_ID_OFFSET = 0x1e,
++	MALI_C720_DISC_V1_MODULE_ID_SQUARE_ROOT_RAW = 0x20,
++	MALI_C720_DISC_V1_MODULE_ID_SQUARE_RAW = 0x21,
++	MALI_C720_DISC_V1_MODULE_ID_SQUARE_ROOT_RGB = 0x24,
++	MALI_C720_DISC_V1_MODULE_ID_SQUARE_RGB = 0x25,
++	MALI_C720_DISC_V1_MODULE_ID_DECOMPANDER = 0x28,
++	MALI_C720_DISC_V1_MODULE_ID_FRAME_STITCHING = 0x29,
++	MALI_C720_DISC_V1_MODULE_ID_DEFECT_PIXEL = 0x30,
++	MALI_C720_DISC_V1_MODULE_ID_RGBIR_REMOSAIC = 0x31,
++	MALI_C720_DISC_V1_MODULE_ID_CA_CORRECTION = 0x32,
++	MALI_C720_DISC_V1_MODULE_ID_TEMPER = 0x33,
++	MALI_C720_DISC_V1_MODULE_ID_SINTER = 0x34,
++	MALI_C720_DISC_V1_MODULE_ID_SMART_SHADING = 0x40,
++	MALI_C720_DISC_V1_MODULE_ID_RAW_TO_INTENSITY = 0x41,
++	MALI_C720_DISC_V1_MODULE_ID_DEHAZE = 0x42,
++	MALI_C720_DISC_V1_MODULE_ID_IRIDIX = 0x43,
++	MALI_C720_DISC_V1_MODULE_ID_DEMOSAIC_STD = 0x44,
++	MALI_C720_DISC_V1_MODULE_ID_DEMOSAIC_DFD = 0x45,
++	MALI_C720_DISC_V1_MODULE_ID_PURPLE_FRINGE = 0x46,
++	MALI_C720_DISC_V1_MODULE_ID_CCM = 0x47,
++	MALI_C720_DISC_V1_MODULE_ID_CNR = 0x48,
++	MALI_C720_DISC_V1_MODULE_ID_SCALER_RGB = 0x50,
++	MALI_C720_DISC_V1_MODULE_ID_SCALER_RAW = 0x51,
++	MALI_C720_DISC_V1_MODULE_ID_CROP = 0x54,
++	MALI_C720_DISC_V1_MODULE_ID_SHARPENING_RGB = 0x58,
++	MALI_C720_DISC_V1_MODULE_ID_SHARPENING_RAW = 0x59,
++	MALI_C720_DISC_V1_MODULE_ID_GAMMA = 0x5c,
++	MALI_C720_DISC_V1_MODULE_ID_TC_LUT_RGB = 0x5d,
++	MALI_C720_DISC_V1_MODULE_ID_TC_LUT_RAW = 0x5e,
++	MALI_C720_DISC_V1_MODULE_ID_OUTPUT_FORMATTER = 0x60,
++	MALI_C720_DISC_V1_MODULE_ID_OUTPUT_MULTIPLEXER = 0x61,
++	MALI_C720_DISC_V1_MODULE_ID_GAUSSIAN_PYRAMID = 0x62,
++	MALI_C720_DISC_V1_MODULE_ID_RAW_STREAM_PACKER = 0x63,
++	MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_MULTI = 0x67,
++	MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_SINGLE = 0x68,
++	MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_RGB_SINGLE = 0x69,
++	MALI_C720_DISC_V1_MODULE_ID_FGM = 0x6a,
++	MALI_C720_DISC_V1_MODULE_ID_FBIST_BRIDGE = 0x6b,
++	MALI_C720_DISC_V1_MODULE_ID_PIPELINE_CRC = 0x6c,
++	MALI_C720_DISC_V1_MODULE_ID_INPUT_CRC = 0x6d,
++	MALI_C720_DISC_V1_MODULE_ID_INTENSITY_STATS = 0x70,
++	MALI_C720_DISC_V1_MODULE_ID_HISTOGRAM_STATS = 0x71,
++	MALI_C720_DISC_V1_MODULE_ID_COLOR_STATS = 0x72,
++	MALI_C720_DISC_V1_MODULE_ID_AUTO_FOCUS_STATS = 0x73,
++};
++
++enum mali_c720_disc_v1_table_ca_correction_id {
++	MALI_C720_DISC_V1_TABLE_CA_CORRECTION_COORD_MEM_ID = 0,
++	MALI_C720_DISC_V1_TABLE_CA_CORRECTION_FILTER_MEM_ID,
++	MALI_C720_DISC_V1_TABLE_CA_CORRECTION_MAX_ID,
++};
++
++enum mali_c720_disc_v1_table_smart_shading_id {
++	MALI_C720_DISC_V1_TABLE_SMART_SHADING_MEM_ID = 0,
++	MALI_C720_DISC_V1_TABLE_SMART_SHADING_MAX_ID,
++};
++
++enum mali_c720_disc_v1_table_dehaze_id {
++	MALI_C720_DISC_V1_TABLE_DEHAZE_MEM_ID = 0,
++	MALI_C720_DISC_V1_TABLE_DEHAZE_MAX_ID,
++};
++
++enum mali_c720_disc_v1_table_scaler_rgb_id {
++	MALI_C720_DISC_V1_TABLE_SCALER_RGB_H_MEM_ID = 0,
++	MALI_C720_DISC_V1_TABLE_SCALER_RGB_V_MEM_ID,
++	MALI_C720_DISC_V1_TABLE_SCALER_RGB_MAX_ID,
++};
++
++struct mali_c720_disc_v1_subpipe_header {
++	u16 desc_count;
++	u8 type;
++	u8 instance_id;
++};
++
++static u8 mali_c720_discovery_field_id(u32 record)
++{
++	return (u8)FIELD_GET(MALI_C720_DISC_V1_FIELD_ID_MASK, record);
++}
++
++static bool mali_c720_discovery_is_module_id(u8 field_id)
++{
++	switch (field_id) {
++	case MALI_C720_DISC_V1_MODULE_ID_CM_FULL:
++	case MALI_C720_DISC_V1_MODULE_ID_GLOBAL_ISP_CONTROL:
++	case MALI_C720_DISC_V1_MODULE_ID_INTERRUPT_CONTROLLER:
++	case MALI_C720_DISC_V1_MODULE_ID_FAULT_COLLECTOR:
++	case MALI_C720_DISC_V1_MODULE_ID_MODULE_BIST_CONTROL:
++	case MALI_C720_DISC_V1_MODULE_ID_MODULE_CRC_CONTROL:
++	case MALI_C720_DISC_V1_MODULE_ID_MODULE_CG_CONTROL:
++	case MALI_C720_DISC_V1_MODULE_ID_CM_CONTROL:
++	case MALI_C720_DISC_V1_MODULE_ID_CM_SLOT_LOADABLE:
++	case MALI_C720_DISC_V1_MODULE_ID_PIPELINE_GLOBAL_CONTROL:
++	case MALI_C720_DISC_V1_MODULE_ID_DIGITAL_GAIN:
++	case MALI_C720_DISC_V1_MODULE_ID_GAIN_AND_OFFSET:
++	case MALI_C720_DISC_V1_MODULE_ID_BLACK_LEVEL:
++	case MALI_C720_DISC_V1_MODULE_ID_WB_GAIN:
++	case MALI_C720_DISC_V1_MODULE_ID_OFFSET:
++	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_ROOT_RAW:
++	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_RAW:
++	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_ROOT_RGB:
++	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_RGB:
++	case MALI_C720_DISC_V1_MODULE_ID_DECOMPANDER:
++	case MALI_C720_DISC_V1_MODULE_ID_FRAME_STITCHING:
++	case MALI_C720_DISC_V1_MODULE_ID_DEFECT_PIXEL:
++	case MALI_C720_DISC_V1_MODULE_ID_RGBIR_REMOSAIC:
++	case MALI_C720_DISC_V1_MODULE_ID_CA_CORRECTION:
++	case MALI_C720_DISC_V1_MODULE_ID_TEMPER:
++	case MALI_C720_DISC_V1_MODULE_ID_SINTER:
++	case MALI_C720_DISC_V1_MODULE_ID_SMART_SHADING:
++	case MALI_C720_DISC_V1_MODULE_ID_RAW_TO_INTENSITY:
++	case MALI_C720_DISC_V1_MODULE_ID_DEHAZE:
++	case MALI_C720_DISC_V1_MODULE_ID_IRIDIX:
++	case MALI_C720_DISC_V1_MODULE_ID_DEMOSAIC_STD:
++	case MALI_C720_DISC_V1_MODULE_ID_DEMOSAIC_DFD:
++	case MALI_C720_DISC_V1_MODULE_ID_PURPLE_FRINGE:
++	case MALI_C720_DISC_V1_MODULE_ID_CCM:
++	case MALI_C720_DISC_V1_MODULE_ID_CNR:
++	case MALI_C720_DISC_V1_MODULE_ID_SCALER_RGB:
++	case MALI_C720_DISC_V1_MODULE_ID_SCALER_RAW:
++	case MALI_C720_DISC_V1_MODULE_ID_CROP:
++	case MALI_C720_DISC_V1_MODULE_ID_SHARPENING_RGB:
++	case MALI_C720_DISC_V1_MODULE_ID_SHARPENING_RAW:
++	case MALI_C720_DISC_V1_MODULE_ID_GAMMA:
++	case MALI_C720_DISC_V1_MODULE_ID_TC_LUT_RGB:
++	case MALI_C720_DISC_V1_MODULE_ID_TC_LUT_RAW:
++	case MALI_C720_DISC_V1_MODULE_ID_OUTPUT_FORMATTER:
++	case MALI_C720_DISC_V1_MODULE_ID_OUTPUT_MULTIPLEXER:
++	case MALI_C720_DISC_V1_MODULE_ID_GAUSSIAN_PYRAMID:
++	case MALI_C720_DISC_V1_MODULE_ID_RAW_STREAM_PACKER:
++	case MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_MULTI:
++	case MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_SINGLE:
++	case MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_RGB_SINGLE:
++	case MALI_C720_DISC_V1_MODULE_ID_FGM:
++	case MALI_C720_DISC_V1_MODULE_ID_FBIST_BRIDGE:
++	case MALI_C720_DISC_V1_MODULE_ID_PIPELINE_CRC:
++	case MALI_C720_DISC_V1_MODULE_ID_INPUT_CRC:
++	case MALI_C720_DISC_V1_MODULE_ID_INTENSITY_STATS:
++	case MALI_C720_DISC_V1_MODULE_ID_HISTOGRAM_STATS:
++	case MALI_C720_DISC_V1_MODULE_ID_COLOR_STATS:
++	case MALI_C720_DISC_V1_MODULE_ID_AUTO_FOCUS_STATS:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static enum mali_c720_discovery_module_id
++mali_c720_discovery_module_id_from_v1_id(u8 v1_module_id)
++{
++	switch (v1_module_id) {
++	case MALI_C720_DISC_V1_MODULE_ID_CM_FULL:
++		return MALI_C720_DISC_MODULE_ID_CM_FULL;
++	case MALI_C720_DISC_V1_MODULE_ID_GLOBAL_ISP_CONTROL:
++		return MALI_C720_DISC_MODULE_ID_GLOBAL_ISP_CONTROL;
++	case MALI_C720_DISC_V1_MODULE_ID_INTERRUPT_CONTROLLER:
++		return MALI_C720_DISC_MODULE_ID_INTERRUPT_CONTROLLER;
++	case MALI_C720_DISC_V1_MODULE_ID_FAULT_COLLECTOR:
++		return MALI_C720_DISC_MODULE_ID_FAULT_COLLECTOR;
++	case MALI_C720_DISC_V1_MODULE_ID_MODULE_BIST_CONTROL:
++		return MALI_C720_DISC_MODULE_ID_MODULE_BIST_CONTROL;
++	case MALI_C720_DISC_V1_MODULE_ID_MODULE_CRC_CONTROL:
++		return MALI_C720_DISC_MODULE_ID_MODULE_CRC_CONTROL;
++	case MALI_C720_DISC_V1_MODULE_ID_MODULE_CG_CONTROL:
++		return MALI_C720_DISC_MODULE_ID_MODULE_CG_CONTROL;
++	case MALI_C720_DISC_V1_MODULE_ID_CM_CONTROL:
++		return MALI_C720_DISC_MODULE_ID_CM_CONTROL;
++	case MALI_C720_DISC_V1_MODULE_ID_CM_SLOT_LOADABLE:
++		return MALI_C720_DISC_MODULE_ID_CM_SLOT_LOADABLE;
++	case MALI_C720_DISC_V1_MODULE_ID_PIPELINE_GLOBAL_CONTROL:
++		return MALI_C720_DISC_MODULE_ID_PIPELINE_GLOBAL_CONTROL;
++	case MALI_C720_DISC_V1_MODULE_ID_DIGITAL_GAIN:
++		return MALI_C720_DISC_MODULE_ID_DIGITAL_GAIN;
++	case MALI_C720_DISC_V1_MODULE_ID_GAIN_AND_OFFSET:
++		return MALI_C720_DISC_MODULE_ID_GAIN_AND_OFFSET;
++	case MALI_C720_DISC_V1_MODULE_ID_BLACK_LEVEL:
++		return MALI_C720_DISC_MODULE_ID_BLACK_LEVEL;
++	case MALI_C720_DISC_V1_MODULE_ID_WB_GAIN:
++		return MALI_C720_DISC_MODULE_ID_WB_GAIN;
++	case MALI_C720_DISC_V1_MODULE_ID_OFFSET:
++		return MALI_C720_DISC_MODULE_ID_OFFSET;
++	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_ROOT_RAW:
++		return MALI_C720_DISC_MODULE_ID_SQUARE_ROOT_RAW;
++	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_RAW:
++		return MALI_C720_DISC_MODULE_ID_SQUARE_RAW;
++	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_ROOT_RGB:
++		return MALI_C720_DISC_MODULE_ID_SQUARE_ROOT_RGB;
++	case MALI_C720_DISC_V1_MODULE_ID_SQUARE_RGB:
++		return MALI_C720_DISC_MODULE_ID_SQUARE_RGB;
++	case MALI_C720_DISC_V1_MODULE_ID_DECOMPANDER:
++		return MALI_C720_DISC_MODULE_ID_DECOMPANDER;
++	case MALI_C720_DISC_V1_MODULE_ID_FRAME_STITCHING:
++		return MALI_C720_DISC_MODULE_ID_FRAME_STITCHING;
++	case MALI_C720_DISC_V1_MODULE_ID_DEFECT_PIXEL:
++		return MALI_C720_DISC_MODULE_ID_DEFECT_PIXEL;
++	case MALI_C720_DISC_V1_MODULE_ID_RGBIR_REMOSAIC:
++		return MALI_C720_DISC_MODULE_ID_RGBIR_REMOSAIC;
++	case MALI_C720_DISC_V1_MODULE_ID_CA_CORRECTION:
++		return MALI_C720_DISC_MODULE_ID_CA_CORRECTION;
++	case MALI_C720_DISC_V1_MODULE_ID_TEMPER:
++		return MALI_C720_DISC_MODULE_ID_TEMPER;
++	case MALI_C720_DISC_V1_MODULE_ID_SINTER:
++		return MALI_C720_DISC_MODULE_ID_SINTER;
++	case MALI_C720_DISC_V1_MODULE_ID_SMART_SHADING:
++		return MALI_C720_DISC_MODULE_ID_SMART_SHADING;
++	case MALI_C720_DISC_V1_MODULE_ID_RAW_TO_INTENSITY:
++		return MALI_C720_DISC_MODULE_ID_RAW_TO_INTENSITY;
++	case MALI_C720_DISC_V1_MODULE_ID_DEHAZE:
++		return MALI_C720_DISC_MODULE_ID_DEHAZE;
++	case MALI_C720_DISC_V1_MODULE_ID_IRIDIX:
++		return MALI_C720_DISC_MODULE_ID_IRIDIX;
++	case MALI_C720_DISC_V1_MODULE_ID_DEMOSAIC_STD:
++		return MALI_C720_DISC_MODULE_ID_DEMOSAIC_STD;
++	case MALI_C720_DISC_V1_MODULE_ID_DEMOSAIC_DFD:
++		return MALI_C720_DISC_MODULE_ID_DEMOSAIC_DFD;
++	case MALI_C720_DISC_V1_MODULE_ID_PURPLE_FRINGE:
++		return MALI_C720_DISC_MODULE_ID_PURPLE_FRINGE;
++	case MALI_C720_DISC_V1_MODULE_ID_CCM:
++		return MALI_C720_DISC_MODULE_ID_CCM;
++	case MALI_C720_DISC_V1_MODULE_ID_CNR:
++		return MALI_C720_DISC_MODULE_ID_CNR;
++	case MALI_C720_DISC_V1_MODULE_ID_SCALER_RGB:
++		return MALI_C720_DISC_MODULE_ID_SCALER_RGB;
++	case MALI_C720_DISC_V1_MODULE_ID_SCALER_RAW:
++		return MALI_C720_DISC_MODULE_ID_SCALER_RAW;
++	case MALI_C720_DISC_V1_MODULE_ID_CROP:
++		return MALI_C720_DISC_MODULE_ID_CROP;
++	case MALI_C720_DISC_V1_MODULE_ID_SHARPENING_RGB:
++		return MALI_C720_DISC_MODULE_ID_SHARPENING_RGB;
++	case MALI_C720_DISC_V1_MODULE_ID_SHARPENING_RAW:
++		return MALI_C720_DISC_MODULE_ID_SHARPENING_RAW;
++	case MALI_C720_DISC_V1_MODULE_ID_GAMMA:
++		return MALI_C720_DISC_MODULE_ID_GAMMA;
++	case MALI_C720_DISC_V1_MODULE_ID_TC_LUT_RGB:
++		return MALI_C720_DISC_MODULE_ID_TC_LUT_RGB;
++	case MALI_C720_DISC_V1_MODULE_ID_TC_LUT_RAW:
++		return MALI_C720_DISC_MODULE_ID_TC_LUT_RAW;
++	case MALI_C720_DISC_V1_MODULE_ID_OUTPUT_FORMATTER:
++		return MALI_C720_DISC_MODULE_ID_OUTPUT_FORMATTER;
++	case MALI_C720_DISC_V1_MODULE_ID_OUTPUT_MULTIPLEXER:
++		return MALI_C720_DISC_MODULE_ID_OUTPUT_MULTIPLEXER;
++	case MALI_C720_DISC_V1_MODULE_ID_GAUSSIAN_PYRAMID:
++		return MALI_C720_DISC_MODULE_ID_GAUSSIAN_PYRAMID;
++	case MALI_C720_DISC_V1_MODULE_ID_RAW_STREAM_PACKER:
++		return MALI_C720_DISC_MODULE_ID_RAW_STREAM_PACKER;
++	case MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_MULTI:
++		return MALI_C720_DISC_MODULE_ID_TPG_RAW_MULTI;
++	case MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_SINGLE:
++		return MALI_C720_DISC_MODULE_ID_TPG_RAW_SINGLE;
++	case MALI_C720_DISC_V1_MODULE_ID_TPG_RAW_RGB_SINGLE:
++		return MALI_C720_DISC_MODULE_ID_TPG_RAW_RGB_SINGLE;
++	case MALI_C720_DISC_V1_MODULE_ID_FGM:
++		return MALI_C720_DISC_MODULE_ID_FGM;
++	case MALI_C720_DISC_V1_MODULE_ID_FBIST_BRIDGE:
++		return MALI_C720_DISC_MODULE_ID_FBIST_BRIDGE;
++	case MALI_C720_DISC_V1_MODULE_ID_PIPELINE_CRC:
++		return MALI_C720_DISC_MODULE_ID_PIPELINE_CRC;
++	case MALI_C720_DISC_V1_MODULE_ID_INPUT_CRC:
++		return MALI_C720_DISC_MODULE_ID_INPUT_CRC;
++	case MALI_C720_DISC_V1_MODULE_ID_INTENSITY_STATS:
++		return MALI_C720_DISC_MODULE_ID_INTENSITY_STATS;
++	case MALI_C720_DISC_V1_MODULE_ID_HISTOGRAM_STATS:
++		return MALI_C720_DISC_MODULE_ID_HISTOGRAM_STATS;
++	case MALI_C720_DISC_V1_MODULE_ID_COLOR_STATS:
++		return MALI_C720_DISC_MODULE_ID_COLOR_STATS;
++	case MALI_C720_DISC_V1_MODULE_ID_AUTO_FOCUS_STATS:
++		return MALI_C720_DISC_MODULE_ID_AUTO_FOCUS_STATS;
++	default:
++		return MALI_C720_DISC_MODULE_ID_NONE;
++	}
++}
++
++static enum mali_c720_discovery_pipeline_id
++mali_c720_discovery_v1_subpipe_id_to_pipeline_id(u8 subpipe_id)
++{
++	switch (subpipe_id) {
++	case MALI_C720_DISC_V1_SUBPIPE_ID_INPUT:
++		return MALI_C720_DISC_PIPE_INPUT;
++	case MALI_C720_DISC_V1_SUBPIPE_ID_HV:
++		return MALI_C720_DISC_PIPE_HV;
++	case MALI_C720_DISC_V1_SUBPIPE_ID_CV:
++		return MALI_C720_DISC_PIPE_CV;
++	case MALI_C720_DISC_V1_SUBPIPE_ID_RAW_OUTPUT:
++		return MALI_C720_DISC_PIPE_RAW_OUTPUT;
++	case MALI_C720_DISC_V1_SUBPIPE_ID_FR_OUTPUT:
++		return MALI_C720_DISC_PIPE_FR_OUTPUT;
++	case MALI_C720_DISC_V1_SUBPIPE_ID_PYR_OUTPUT:
++		return MALI_C720_DISC_PIPE_PYR_OUTPUT;
++	case MALI_C720_DISC_V1_SUBPIPE_ID_FOV_OUTPUT:
++		return MALI_C720_DISC_PIPE_FOV_OUTPUT;
++	case MALI_C720_DISC_V1_SUBPIPE_ID_STATS:
++		return MALI_C720_DISC_PIPE_STATS;
++	case MALI_C720_DISC_V1_SUBPIPE_ID_TPG:
++		return MALI_C720_DISC_PIPE_TPG;
++	default:
++		return MALI_C720_DISC_PIPE_MAX;
++	}
++}
++
++static u16 mali_c720_discovery_crc16_ibm_3740(const __le32 *records, u16 count)
++{
++	u16 crc = 0xffff;
++	u16 i;
++
++	for (i = 0; i < count; i++) {
++		u32 v = le32_to_cpu(records[i]);
++
++		crc = crc_itu_t_byte(crc, (u8)(v >> 24));
++		crc = crc_itu_t_byte(crc, (u8)(v >> 16));
++		crc = crc_itu_t_byte(crc, (u8)(v >> 8));
++		crc = crc_itu_t_byte(crc, (u8)v);
++	}
++
++	return crc;
++}
++
++struct mali_c720_disc_v1_module_desc {
++	enum mali_c720_discovery_module_id id;
++	u32 offset;
++	u8 instance_id;
++	bool removed;
++};
++
++struct mali_c720_disc_v1_memory_desc {
++	u32 offset;
++	u32 size;
++	u8 table_id;
++};
++
++struct mali_c720_disc_v1_version_desc {
++	u8 major;
++	u8 minor;
++	u8 patch;
++};
++
++struct mali_c720_disc_v1_param_desc {
++	u8 id;
++	u16 value;
++};
++
++static struct mali_c720_discovery_pipeline *
++mali_c720_discovery_get_pipeline(struct mali_c720_discovery *discovery,
++				 enum mali_c720_discovery_pipeline_id pipeline_id,
++				 unsigned int instance_id)
++{
++	if (!discovery || pipeline_id >= MALI_C720_DISC_PIPE_MAX ||
++	    instance_id >= MALI_C720_DISCOVERY_MAX_PIPELINE_INSTANCES)
++		return NULL;
++
++	return &discovery->pipelines[pipeline_id][instance_id];
++}
++
++static struct mali_c720_discovery_module *
++mali_c720_discovery_alloc_module(struct mali_c720 *mali_c720,
++				 struct mali_c720_discovery *discovery)
++{
++	struct mali_c720_discovery_module *module;
++
++	if (discovery->next_module_id >= MALI_C720_DISCOVERY_MAX_MODULES) {
++		dev_err(mali_c720->dev, "Failed to allocate discovery module\n");
++		return NULL;
++	}
++
++	module = &discovery->modules[discovery->next_module_id++];
++	INIT_LIST_HEAD(&module->memories);
++	INIT_LIST_HEAD(&module->fbists);
++	INIT_LIST_HEAD(&module->mbists);
++	INIT_LIST_HEAD(&module->config_crcs);
++	INIT_LIST_HEAD(&module->clock_gating);
++	INIT_LIST_HEAD(&module->params);
++	INIT_LIST_HEAD(&module->node);
++
++	return module;
++}
++
++static struct mali_c720_discovery_table *
++mali_c720_discovery_alloc_memory(struct mali_c720 *mali_c720,
++				 struct mali_c720_discovery *discovery)
++{
++	struct mali_c720_discovery_table *memory;
++
++	if (discovery->next_memory_id >= MALI_C720_DISCOVERY_MAX_MEMORIES) {
++		dev_err(mali_c720->dev, "Failed to allocate discovery memory\n");
++		return NULL;
++	}
++
++	memory = &discovery->memories[discovery->next_memory_id++];
++	INIT_LIST_HEAD(&memory->node);
++
++	return memory;
++}
++
++static struct mali_c720_discovery_param *
++mali_c720_discovery_alloc_param(struct mali_c720 *mali_c720,
++				struct mali_c720_discovery *discovery)
++{
++	struct mali_c720_discovery_param *param;
++
++	if (discovery->next_param_id >= MALI_C720_DISCOVERY_MAX_PARAMS) {
++		dev_err(mali_c720->dev, "Failed to allocate discovery param\n");
++		return NULL;
++	}
++
++	param = &discovery->params[discovery->next_param_id++];
++	INIT_LIST_HEAD(&param->node);
++
++	return param;
++}
++
++static void
++mali_c720_discovery_link_pipeline_module(struct mali_c720_discovery_pipeline *pipeline,
++					 struct mali_c720_discovery_module *module)
++{
++	list_add_tail(&module->node, &pipeline->modules);
++}
++
++static void
++mali_c720_discovery_link_memory(struct mali_c720_discovery_module *module,
++				struct mali_c720_discovery_table *memory)
++{
++	list_add_tail(&memory->node, &module->memories);
++	module->num_memories++;
++}
++
++static void
++mali_c720_discovery_link_param(struct mali_c720_discovery_module *module,
++			       struct mali_c720_discovery_param *param)
++{
++	list_add_tail(&param->node, &module->params);
++	module->num_params++;
++}
++
++static void
++mali_c720_discovery_link_fbist(struct mali_c720_discovery_module *module,
++			       struct mali_c720_discovery_module *fbist)
++{
++	list_add_tail(&fbist->node, &module->fbists);
++	fbist->fbist_instance_id = module->num_fbists;
++	module->num_fbists++;
++}
++
++static void
++mali_c720_discovery_link_mbist(struct mali_c720_discovery_module *module,
++			       struct mali_c720_discovery_module *mbist)
++{
++	list_add_tail(&mbist->node, &module->mbists);
++	mbist->mbist_instance_id = module->num_mbists;
++	module->num_mbists++;
++}
++
++static void
++mali_c720_discovery_link_config_crc(struct mali_c720_discovery_module *module,
++				    struct mali_c720_discovery_module *config_crc)
++{
++	list_add_tail(&config_crc->node, &module->config_crcs);
++	config_crc->config_crc_instance_id = module->num_config_crcs;
++	module->num_config_crcs++;
++}
++
++static void
++mali_c720_discovery_link_clock_gating(struct mali_c720_discovery_module *module,
++				      struct mali_c720_discovery_module *clock_gating)
++{
++	list_add_tail(&clock_gating->node, &module->clock_gating);
++	clock_gating->clock_gating_instance_id = module->num_clock_gating;
++	module->num_clock_gating++;
++}
++
++static struct mali_c720_discovery_module *
++mali_c720_discovery_find_module(struct mali_c720_discovery_pipeline *pipeline,
++				enum mali_c720_discovery_module_id module_id,
++				unsigned int module_instance)
++{
++	struct mali_c720_discovery_module *module;
++
++	if (!pipeline)
++		return NULL;
++
++	list_for_each_entry(module, &pipeline->modules, node) {
++		if (module->id == module_id &&
++		    module->instance_id == module_instance)
++			return module;
 +	}
 +
 +	return NULL;
 +}
 +
-+static int mali_c720_input_enum_mbus_code(struct v4l2_subdev *sd,
-+					  struct v4l2_subdev_state *state,
-+					  struct v4l2_subdev_mbus_code_enum *code)
++static struct mali_c720_discovery_module *
++mali_c720_discovery_get_module(struct mali_c720_discovery *discovery,
++			       const struct mali_c720_discovery_target *target)
 +{
-+	const struct mali_c720_mbus_format_info *cfg;
-+	struct mali_c720_mbus_format_match match;
-+	struct v4l2_mbus_framefmt *sink_fmt;
-+	struct v4l2_subdev_route *route;
-+	bool found = false;
++	struct mali_c720_discovery_pipeline *pipeline;
 +
-+	/*
-+	 * Sink pads support all bayer formats.
-+	 * The source format is propagated from the sink pad, shifted to 24-bit.
-+	 */
-+	if (code->pad != MALI_C720_INPUT_PAD_SOURCE_SLOT_INPUT) {
-+		match.type_mask = MALI_C720_FORMAT_BAYER;
-+		match.depth_mask = MALI_C720_FORMAT_8BIT | MALI_C720_FORMAT_10BIT |
-+				   MALI_C720_FORMAT_12BIT | MALI_C720_FORMAT_14BIT |
-+				   MALI_C720_FORMAT_16BIT | MALI_C720_FORMAT_20BIT |
-+				   MALI_C720_FORMAT_24BIT;
++	if (target->module_id <= MALI_C720_DISC_MODULE_ID_NONE ||
++	    target->module_id >= MALI_C720_DISC_MODULE_ID_MAX ||
++	    target->module_instance >= MALI_C720_DISCOVERY_MAX_MODULE_INSTANCES)
++		return NULL;
 +
-+		cfg = mali_c720_get_mbus_config_by_matched_index(code->index, &match);
-+		if (!cfg)
-+			return -EINVAL;
++	pipeline = mali_c720_discovery_get_pipeline(discovery, target->pipeline_id,
++						    target->pipeline_instance);
++	if (!pipeline || !pipeline->present)
++		return NULL;
 +
-+		code->code = cfg->code;
++	return mali_c720_discovery_find_module(pipeline, target->module_id,
++					       target->module_instance);
++}
 +
-+		return 0;
++static const struct mali_c720_discovery_table *
++mali_c720_discovery_find_memory(const struct mali_c720_discovery_module *module,
++				unsigned int table_id)
++{
++	const struct mali_c720_discovery_table *memory;
++
++	list_for_each_entry(memory, &module->memories, node) {
++		if (memory->id == table_id)
++			return memory;
 +	}
 +
-+	if (code->index)
++	return NULL;
++}
++
++static int mali_c720_discovery_parse_module_record(struct mali_c720 *mali_c720,
++						   u32 record,
++						   struct mali_c720_disc_v1_module_desc *module)
++{
++	module->id =
++		mali_c720_discovery_module_id_from_v1_id(mali_c720_discovery_field_id(record));
++	module->instance_id =
++		FIELD_GET(MALI_C720_DISC_V1_MODULE_INSTANCE_MASK, record);
++	module->removed = !!(record & MALI_C720_DISC_V1_MODULE_REMOVED_MASK);
++	module->offset =
++		FIELD_GET(MALI_C720_DISC_V1_MODULE_OFFSET_MASK, record) << 4;
++
++	if ((u64)module->offset + sizeof(u32) > mali_c720->registers.context_size)
 +		return -EINVAL;
-+
-+	/*
-+	 * All routes from a source pad use the same format, so the first active
-+	 * route represents the source format.
-+	 */
-+	for_each_active_route(&state->routing, route) {
-+		if (route->source_pad == code->pad) {
-+			found = true;
-+			break;
-+		}
-+	}
-+
-+	if (!found)
-+		return -EINVAL;
-+
-+	sink_fmt = v4l2_subdev_state_get_format(state,
-+						route->sink_pad,
-+						route->sink_stream);
-+	if (!sink_fmt)
-+		return -EINVAL;
-+
-+	cfg = mali_c720_get_mbus_config_by_code(sink_fmt->code);
-+	if (!cfg)
-+		return -EINVAL;
-+
-+	cfg = mali_c720_shift_mbus_format(cfg, MALI_C720_FORMAT_24BIT);
-+	if (!cfg)
-+		return -EINVAL;
-+
-+	code->code = cfg->code;
 +
 +	return 0;
 +}
 +
-+static int mali_c720_input_enum_frame_size(struct v4l2_subdev *sd,
-+					   struct v4l2_subdev_state *state,
-+					   struct v4l2_subdev_frame_size_enum *fse)
++static int mali_c720_discovery_parse_memory_record(struct mali_c720 *mali_c720,
++						   u32 record,
++						   struct mali_c720_disc_v1_memory_desc *memory)
 +{
-+	const struct mali_c720_mbus_format_info *cfg;
-+	struct mali_c720_mbus_format_match match;
-+	struct v4l2_mbus_framefmt *sink_fmt;
-+	struct v4l2_subdev_route *route;
-+	bool found = false;
++	u32 log2_size;
++	u64 end;
 +
-+	if (fse->index)
++	memory->table_id =
++		FIELD_GET(MALI_C720_DISC_V1_MEMORY_TABLE_ID_MASK, record);
++	memory->offset =
++		FIELD_GET(MALI_C720_DISC_V1_MEMORY_OFFSET_MASK, record) << 4;
++
++	log2_size = FIELD_GET(MALI_C720_DISC_V1_MEMORY_SIZE_MASK, record);
++	if (log2_size > 10)
 +		return -EINVAL;
 +
-+	if (fse->pad != MALI_C720_INPUT_PAD_SOURCE_SLOT_INPUT) {
-+		match.type_mask = MALI_C720_FORMAT_BAYER;
-+		match.depth_mask = MALI_C720_FORMAT_8BIT | MALI_C720_FORMAT_10BIT |
-+				   MALI_C720_FORMAT_12BIT | MALI_C720_FORMAT_14BIT |
-+				   MALI_C720_FORMAT_16BIT | MALI_C720_FORMAT_20BIT |
-+				   MALI_C720_FORMAT_24BIT;
++	memory->size = 16U << log2_size;
++	if (record & MALI_C720_DISC_V1_MEMORY_SCALAR_SUFFIX_MASK)
++		memory->size += 32;
 +
-+		cfg = mali_c720_get_mbus_config_by_code(fse->code);
-+		if (!cfg || !mali_c720_validate_mbus_format_match(cfg, &match))
-+			return -EINVAL;
-+
-+		fse->min_width = MALI_C720_MIN_INPUT_WIDTH;
-+		fse->min_height = MALI_C720_MIN_INPUT_HEIGHT;
-+		fse->max_width = MALI_C720_MAX_WIDTH;
-+		fse->max_height = MALI_C720_MAX_HEIGHT;
-+
-+		return 0;
-+	}
-+
-+	for_each_active_route(&state->routing, route) {
-+		if (route->source_pad == fse->pad) {
-+			found = true;
-+			break;
-+		}
-+	}
-+
-+	if (!found)
++	end = (u64)memory->offset + memory->size;
++	if (end > mali_c720->registers.context_size)
 +		return -EINVAL;
-+
-+	sink_fmt = v4l2_subdev_state_get_format(state,
-+						route->sink_pad,
-+						route->sink_stream);
-+	if (!sink_fmt)
-+		return -EINVAL;
-+
-+	cfg = mali_c720_get_mbus_config_by_code(sink_fmt->code);
-+	if (!cfg)
-+		return -EINVAL;
-+
-+	cfg = mali_c720_shift_mbus_format(cfg, MALI_C720_FORMAT_24BIT);
-+	if (!cfg || fse->code != cfg->code)
-+		return -EINVAL;
-+
-+	fse->min_width = MALI_C720_MIN_INPUT_WIDTH;
-+	fse->min_height = MALI_C720_MIN_INPUT_HEIGHT;
-+	fse->max_width = MALI_C720_MAX_WIDTH;
-+	fse->max_height = MALI_C720_MAX_HEIGHT;
 +
 +	return 0;
 +}
 +
-+static int mali_c720_input_set_fmt(struct v4l2_subdev *sd,
-+				   const struct v4l2_subdev_client_info *ci,
-+				   struct v4l2_subdev_state *state,
-+				   struct v4l2_subdev_format *format)
++static void mali_c720_discovery_parse_version_record(u32 record,
++						     struct mali_c720_disc_v1_version_desc *version)
 +{
-+	struct v4l2_mbus_framefmt *fmt = &format->format;
-+	struct v4l2_mbus_framefmt *src_fmt, *sink_fmt;
-+	const struct mali_c720_mbus_format_info *cfg;
-+	struct mali_c720_mbus_format_match match;
-+	struct v4l2_subdev_route *active_route;
++	version->patch = FIELD_GET(MALI_C720_DISC_V1_VERSION_PATCH_MASK, record);
++	version->minor = FIELD_GET(MALI_C720_DISC_V1_VERSION_MINOR_MASK, record);
++	version->major = FIELD_GET(MALI_C720_DISC_V1_VERSION_MAJOR_MASK, record);
++}
 +
-+	if (format->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
-+	    media_entity_is_streaming(&sd->entity))
-+		return -EBUSY;
++static void mali_c720_discovery_parse_param_record(u32 record,
++						   struct mali_c720_disc_v1_param_desc *param)
++{
++	param->id = FIELD_GET(MALI_C720_DISC_V1_PARAM_ID_MASK, record);
++	param->value = FIELD_GET(MALI_C720_DISC_V1_PARAM_VALUE_MASK, record);
++}
 +
-+	/*
-+	 * Disallow set_fmt on the source pad; format is derived from the
-+	 * sink pad format.
-+	 */
-+	if (format->pad == MALI_C720_INPUT_PAD_SOURCE_SLOT_INPUT)
-+		return v4l2_subdev_get_fmt(sd, state, format);
++static int mali_c720_discovery_parse_subpipe_header(u32 record,
++						    struct mali_c720_disc_v1_subpipe_header *header)
++{
++	header->type = FIELD_GET(MALI_C720_DISC_V1_SUBPIPE_TYPE_MASK, record);
++	header->instance_id =
++		FIELD_GET(MALI_C720_DISC_V1_SUBPIPE_INSTANCE_MASK, record);
++	header->desc_count =
++		FIELD_GET(MALI_C720_DISC_V1_SUBPIPE_DESC_COUNT_MASK, record);
 +
-+	sink_fmt = v4l2_subdev_state_get_format(state,
-+						format->pad,
-+						format->stream);
-+	if (!sink_fmt)
++	if (header->type >= MALI_C720_DISC_V1_SUBPIPE_ID_MAX)
 +		return -EINVAL;
-+
-+	match.type_mask = MALI_C720_FORMAT_BAYER;
-+	match.depth_mask = MALI_C720_FORMAT_8BIT | MALI_C720_FORMAT_10BIT |
-+			   MALI_C720_FORMAT_12BIT | MALI_C720_FORMAT_14BIT |
-+			   MALI_C720_FORMAT_16BIT | MALI_C720_FORMAT_20BIT |
-+			   MALI_C720_FORMAT_24BIT;
-+
-+	cfg = mali_c720_get_mbus_config_by_code(fmt->code);
-+	if (!cfg || !mali_c720_validate_mbus_format_match(cfg, &match))
-+		cfg = mali_c720_get_mbus_config_by_code(MEDIA_BUS_FMT_SRGGB24_1X24);
-+
-+	sink_fmt->code = cfg->code;
-+
-+	sink_fmt->width = fmt->width;
-+	sink_fmt->height = fmt->height;
-+	v4l_bound_align_image(&sink_fmt->width, MALI_C720_MIN_INPUT_WIDTH,
-+			      MALI_C720_MAX_WIDTH, 2,
-+			      &sink_fmt->height, MALI_C720_MIN_INPUT_HEIGHT,
-+			      MALI_C720_MAX_HEIGHT, 2, 0);
-+
-+	*fmt = *sink_fmt;
-+
-+	/* The sink format should be propagated to the source pad
-+	 * if there is an active route between them.
-+	 * The data is shifted to 24-bits.
-+	 */
-+
-+	active_route = mali_c720_input_get_active_route(state,
-+							format->pad,
-+							format->stream);
-+	if (!active_route)
-+		return 0;
-+
-+	src_fmt = v4l2_subdev_state_get_format(state, active_route->source_pad);
-+	src_fmt->code = mali_c720_shift_mbus_format(cfg, MALI_C720_FORMAT_24BIT)->code;
-+	src_fmt->width = sink_fmt->width;
-+	src_fmt->height = sink_fmt->height;
 +
 +	return 0;
 +}
 +
-+static void mali_c720_free_input_ports(struct mali_c720_input *input)
++static int mali_c720_discovery_parse_v1(struct mali_c720 *mali_c720,
++					struct mali_c720_discovery *discovery,
++					const __le32 *records,
++					u16 desc_count)
 +{
-+	struct mali_c720 *mali_c720 = input->mdev.mali_c720;
-+	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
-+	struct mali_c720_slot_input *slot_input = &input->slot_input;
-+	struct mali_c720_buffer_pool *pool = &slot_input->raw_buffer_desc;
++	struct mali_c720_discovery_pipeline *pipeline;
++	struct mali_c720_discovery_pipeline *current_subpipe = NULL;
++	struct mali_c720_discovery_module *current_module = NULL;
++	struct mali_c720_discovery_module *last_module = NULL;
++	enum mali_c720_discovery_pipeline_id current_pipeline_id =
++		MALI_C720_DISC_PIPE_MAX;
++	unsigned int current_pipeline_instance = 0;
++	u16 subpipe_desc_count = 0;
 +	unsigned int i;
 +
-+	if (slot_input->prepared) {
-+		mali_c720_ctx_mgr_release_buffer_pool(ctx, pool);
++	pipeline = NULL;
 +
-+		for (i = 0; i < pool->num_buffers; i++) {
-+			dma_free_coherent(mali_c720->dev,
-+					  pool->buffer_size,
-+					  pool->mem[i].base,
-+					  pool->mem[i].addr);
++	for (i = 0; i <= desc_count; i++) {
++		struct mali_c720_discovery_module *module;
++		struct mali_c720_disc_v1_subpipe_header subpipe;
++		u32 record = le32_to_cpu(records[i]);
++		u8 field_id = mali_c720_discovery_field_id(record);
++		bool in_subpipe = current_subpipe;
++
++		switch (field_id) {
++		case MALI_C720_DISC_V1_FIELD_LIST_HEADER:
++			if (i) {
++				dev_err(mali_c720->dev,
++					"unexpected discovery list header at record %u\n", i);
++				return -EINVAL;
++			}
++
++			pipeline = mali_c720_discovery_get_pipeline(discovery,
++								    MALI_C720_DISC_PIPE_GLOBAL, 0);
++			if (!pipeline) {
++				dev_err(mali_c720->dev,
++					"Failed to fetch global pipeline\n");
++				return -EINVAL;
++			}
++
++			pipeline->present = true;
++			pipeline->id = MALI_C720_DISC_PIPE_GLOBAL;
++			pipeline->instance_id = 0;
++			current_module = NULL;
++			last_module = NULL;
++			current_pipeline_id = MALI_C720_DISC_PIPE_GLOBAL;
++			current_pipeline_instance = 0;
++			break;
++		case MALI_C720_DISC_V1_FIELD_LIST_FOOTER:
++			if (i != desc_count || current_subpipe) {
++				dev_err(mali_c720->dev,
++					"unexpected discovery list footer at record %u\n", i);
++				return -EINVAL;
++			}
++			break;
++		case MALI_C720_DISC_V1_FIELD_SUBPIPE_HEADER:
++		{
++			enum mali_c720_discovery_pipeline_id pipeline_id;
++
++			if (current_subpipe) {
++				dev_err(mali_c720->dev,
++					"nested sub-pipeline header at record %u\n", i);
++				return -EINVAL;
++			}
++
++			if (mali_c720_discovery_parse_subpipe_header(record, &subpipe)) {
++				dev_err(mali_c720->dev,
++					"invalid sub-pipeline header at record %u\n", i);
++					return -EINVAL;
++			}
++
++			if (!subpipe.desc_count) {
++				dev_err(mali_c720->dev,
++					"sub-pipeline descriptor count is zero at record %u\n", i);
++				return -EINVAL;
++			}
++
++			pipeline_id =
++				mali_c720_discovery_v1_subpipe_id_to_pipeline_id(subpipe.type);
++			if (pipeline_id >= MALI_C720_DISC_PIPE_MAX) {
++				dev_err(mali_c720->dev,
++					"unsupported v1 sub-pipeline type %u at record %u\n",
++					subpipe.type, i);
++				return -EINVAL;
++			}
++
++			pipeline = mali_c720_discovery_get_pipeline(discovery, pipeline_id,
++								    subpipe.instance_id);
++			if (!pipeline) {
++				dev_err(mali_c720->dev,
++					"Failed to fetch sub-pipeline type %u instance %u\n",
++					pipeline_id, subpipe.instance_id);
++				return -EINVAL;
++			}
++
++			pipeline->present = true;
++			pipeline->id = pipeline_id;
++			pipeline->instance_id = subpipe.instance_id;
++			subpipe_desc_count = subpipe.desc_count;
++			current_subpipe = pipeline;
++			current_module = NULL;
++			last_module = NULL;
++			current_pipeline_id = pipeline_id;
++			current_pipeline_instance = subpipe.instance_id;
++			break;
++		}
++		case MALI_C720_DISC_V1_FIELD_SUBPIPE_FOOTER:
++			if (!current_subpipe) {
++				dev_err(mali_c720->dev,
++					"sub-pipeline footer without matching header at record %u\n",
++					i);
++				return -EINVAL;
++			}
++
++			if (subpipe_desc_count - 1 != 0) {
++				dev_err(mali_c720->dev,
++					"sub-pipeline descriptor count mismatch at record %u\n",
++					i);
++				return -EINVAL;
++			}
++
++			current_subpipe = NULL;
++			pipeline = NULL;
++			current_module = NULL;
++			last_module = NULL;
++			current_pipeline_id = MALI_C720_DISC_PIPE_MAX;
++			current_pipeline_instance = 0;
++			break;
++		case MALI_C720_DISC_V1_FIELD_EXT_MEMORY:
++		{
++			struct mali_c720_discovery_table *memory_entry;
++			struct mali_c720_disc_v1_memory_desc memory;
++
++			if (!current_module) {
++				dev_err(mali_c720->dev,
++					"memory descriptor without active module at record %u\n",
++					i);
++				return -EINVAL;
++			}
++
++			if (mali_c720_discovery_parse_memory_record(mali_c720, record,
++								    &memory)) {
++				dev_err(mali_c720->dev,
++					"invalid memory descriptor at record %u\n", i);
++				return -EINVAL;
++			}
++
++			memory_entry = mali_c720_discovery_alloc_memory(mali_c720,
++									discovery);
++			if (!memory_entry)
++				return -ENOMEM;
++
++			memory_entry->id = memory.table_id;
++			memory_entry->base = memory.offset;
++			memory_entry->size = memory.size;
++			mali_c720_discovery_link_memory(current_module, memory_entry);
++
++			break;
++		}
++		case MALI_C720_DISC_V1_FIELD_EXT_VERSION:
++		{
++			struct mali_c720_disc_v1_version_desc version_desc;
++
++			if (!last_module) {
++				dev_err(mali_c720->dev,
++					"version descriptor without preceding module at record %u\n",
++					i);
++				return -EINVAL;
++			}
++
++			mali_c720_discovery_parse_version_record(record,
++								 &version_desc);
++
++			last_module->version.present = true;
++			last_module->version.major = version_desc.major;
++			last_module->version.minor = version_desc.minor;
++			last_module->version.patch = version_desc.patch;
++
++			break;
++		}
++		case MALI_C720_DISC_V1_FIELD_EXT_PARAMETER:
++		{
++			struct mali_c720_discovery_param *param_entry;
++			struct mali_c720_disc_v1_param_desc param_desc;
++
++			if (!last_module) {
++				dev_err(mali_c720->dev,
++					"parameter descriptor without preceding module at record %u\n",
++					i);
++				return -EINVAL;
++			}
++
++			param_entry = mali_c720_discovery_alloc_param(mali_c720,
++								      discovery);
++			if (!param_entry)
++				return -ENOMEM;
++
++			mali_c720_discovery_parse_param_record(record, &param_desc);
++			param_entry->id = param_desc.id;
++			param_entry->value = param_desc.value;
++			mali_c720_discovery_link_param(last_module, param_entry);
++
++			break;
++		}
++		case MALI_C720_DISC_V1_MODULE_ID_MODULE_BIST_CONTROL:
++		case MALI_C720_DISC_V1_MODULE_ID_MODULE_CRC_CONTROL:
++		case MALI_C720_DISC_V1_MODULE_ID_MODULE_CG_CONTROL:
++		{
++			struct mali_c720_disc_v1_module_desc module_desc;
++			struct mali_c720_discovery_module *control_module;
++
++			if (!current_module) {
++				dev_err(mali_c720->dev,
++					"control descriptor without active module at record %u\n",
++					i);
++				return -EINVAL;
++			}
++
++			if (mali_c720_discovery_parse_module_record(mali_c720, record,
++								    &module_desc)) {
++				dev_err(mali_c720->dev,
++					"invalid control module descriptor at record %u\n", i);
++				return -EINVAL;
++			}
++
++			control_module = mali_c720_discovery_alloc_module(mali_c720,
++									  discovery);
++			if (!control_module)
++				return -ENOMEM;
++
++			control_module->id = module_desc.id;
++			control_module->instance_id = module_desc.instance_id;
++			control_module->found = true;
++			control_module->present = !module_desc.removed;
++			control_module->base = module_desc.offset;
++
++			switch (field_id) {
++			case MALI_C720_DISC_V1_MODULE_ID_MODULE_BIST_CONTROL:
++				mali_c720_discovery_link_mbist(current_module,
++							       control_module);
++				break;
++			case MALI_C720_DISC_V1_MODULE_ID_MODULE_CRC_CONTROL:
++				mali_c720_discovery_link_config_crc(current_module,
++								    control_module);
++				break;
++			default:
++				mali_c720_discovery_link_clock_gating(current_module,
++								      control_module);
++				break;
++			}
++
++			last_module = control_module;
++
++			break;
++		}
++		default:
++		{
++			struct mali_c720_disc_v1_module_desc module_desc;
++
++			if (!mali_c720_discovery_is_module_id(field_id)) {
++				dev_err(mali_c720->dev,
++					"unknown discovery field id %u at record %u\n",
++					field_id, i);
++				return -EINVAL;
++			}
++			if (!pipeline) {
++				dev_err(mali_c720->dev,
++					"module descriptor without active pipeline at record %u\n",
++					i);
++				return -EINVAL;
++			}
++
++			if (mali_c720_discovery_parse_module_record(mali_c720, record,
++								    &module_desc)) {
++				dev_err(mali_c720->dev,
++					"invalid module descriptor at record %u\n", i);
++				return -EINVAL;
++			}
++			if (module_desc.id == MALI_C720_DISC_MODULE_ID_NONE) {
++				dev_err(mali_c720->dev,
++					"unsupported module id %u at record %u\n",
++					field_id, i);
++				return -EINVAL;
++			}
++
++			if (module_desc.instance_id >=
++			    MALI_C720_DISCOVERY_MAX_MODULE_INSTANCES) {
++				dev_err(mali_c720->dev,
++					"module %u instance %u exceeds supported limit %u at record %u\n",
++					module_desc.id,
++					module_desc.instance_id,
++					MALI_C720_DISCOVERY_MAX_MODULE_INSTANCES, i);
++				return -EINVAL;
++			}
++
++			module = mali_c720_discovery_alloc_module(mali_c720, discovery);
++			if (!module)
++				return -ENOMEM;
++
++			module->id = module_desc.id;
++			module->instance_id = module_desc.instance_id;
++			module->found = true;
++			module->present = !module_desc.removed;
++			module->base = module_desc.offset;
++
++			if (current_module) {
++				if (module_desc.id == MALI_C720_DISC_MODULE_ID_FBIST_BRIDGE &&
++				    current_module->id != MALI_C720_DISC_MODULE_ID_FBIST_BRIDGE) {
++					mali_c720_discovery_link_fbist(current_module,
++								       module);
++				} else {
++					mali_c720_discovery_link_pipeline_module(pipeline, module);
++					current_module = module;
++				}
++			} else if (list_empty(&pipeline->modules)) {
++				mali_c720_discovery_link_pipeline_module(pipeline, module);
++				current_module = module;
++			} else {
++				dev_err(mali_c720->dev,
++					"failed to link module id %u instance %u in pipeline %u instance %u\n",
++					module_desc.id, module_desc.instance_id,
++					current_pipeline_id, current_pipeline_instance);
++				return -EINVAL;
++			}
++
++			last_module = module;
++
++			break;
++		}
++		}
++
++		if (in_subpipe) {
++			if (!subpipe_desc_count) {
++				dev_err(mali_c720->dev,
++					"sub-pipeline descriptor count exhausted at record %u\n",
++					i);
++				return -EINVAL;
++			}
++
++			subpipe_desc_count--;
 +		}
 +	}
-+
-+	slot_input->prepared = false;
-+	slot_input->sink_pad = NULL;
-+	slot_input->src_pad = NULL;
-+	slot_input->stream = 0;
-+}
-+
-+static int mali_c720_prepare_input_port(struct mali_c720_input *input,
-+					struct v4l2_subdev_state *state,
-+					struct mali_c720_slot_input *slot_input,
-+					struct mali_c720_input_cfg *input_cfg)
-+{
-+	struct mali_c720 *mali_c720 = input->mdev.mali_c720;
-+	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
-+	struct mali_c720_buffer_pool *pool = &slot_input->raw_buffer_desc;
-+	const struct v4l2_mbus_framefmt *fmt;
-+	const struct mali_c720_mbus_format_info *cfg;
-+	struct mali_c720_buffer_request_info info;
-+	u32 pad = slot_input->sink_pad->index;
-+	u32 stream = slot_input->stream;
-+	unsigned int i;
-+	int ret;
-+
-+	fmt = v4l2_subdev_state_get_format(state, pad, stream);
-+	if (!fmt) {
-+		dev_err(mali_c720->dev,
-+			"Failed to get format for pad %u stream %u\n",
-+			pad, stream);
-+		return -EINVAL;
-+	}
-+
-+	cfg = mali_c720_get_mbus_config_by_code(fmt->code);
-+	if (!cfg) {
-+		dev_err(mali_c720->dev,
-+			"Failed to get mbus config for pad %u stream %u\n",
-+			pad, stream);
-+		return -EINVAL;
-+	}
-+
-+	memset(&info, 0, sizeof(info));
-+	info.type = MALI_C720_BUF_TYPE_RAW;
-+	info.sub_type = MALI_C720_RAW_BUF_SUBTYPE_NORMAL;
-+	info.width = fmt->width;
-+	info.height = fmt->height;
-+	info.line_offset[0] = ALIGN((fmt->width * cfg->bit_depth) / 8, 32);
-+	info.plane_size[0] = info.line_offset[0] * info.height;
-+	info.num_raw_buffers = 2;
-+	info.buffer_cfg = cfg->buffer_cfg;
-+
-+	ret = mali_c720_ctx_mgr_request_buffer_pool(ctx, &info, pool);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < pool->num_buffers; i++) {
-+		pool->mem[i].base = dma_alloc_coherent(mali_c720->dev,
-+						       pool->buffer_size,
-+						       &pool->mem[i].addr,
-+						       GFP_KERNEL);
-+		if (!pool->mem[i].base) {
-+			ret = -ENOMEM;
-+			goto release_buf_pool;
-+		}
-+
-+		mali_c720_ctx_mgr_update_buffer(ctx, pool, &pool->mem[i].addr, i);
-+	}
-+
-+	input_cfg->id = 0;
-+	input_cfg->bit_depth = cfg->bit_depth;
-+	input_cfg->pool_id = pool->pool_id;
 +
 +	return 0;
-+
-+release_buf_pool:
-+	mali_c720_ctx_mgr_release_buffer_pool(ctx, pool);
-+
-+	while (i--) {
-+		dma_free_coherent(mali_c720->dev,
-+				  pool->buffer_size,
-+				  pool->mem[i].base,
-+				  pool->mem[i].addr);
-+	}
-+
-+	return ret;
 +}
 +
-+static void mali_c720_stop_inputs(struct mali_c720_slot_input *slot_input)
++int mali_c720_discovery_init(struct mali_c720 *mali_c720, resource_size_t reg_size)
 +{
-+	struct v4l2_subdev *src_sd = media_entity_to_v4l2_subdev(slot_input->src_pad->entity);
-+
-+	v4l2_subdev_disable_streams(src_sd, slot_input->src_pad->index,
-+				    BIT(slot_input->stream));
-+}
-+
-+static int mali_c720_input_enable_streams(struct v4l2_subdev *sd,
-+					  struct v4l2_subdev_state *state, u32 pad,
-+					  u64 streams_mask)
-+{
-+	struct mali_c720_subdev *mdev = v4l2_sd_to_mali_c720_sd(sd);
-+	struct mali_c720 *mali_c720 = mdev->mali_c720;
-+	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
-+	struct mali_c720_input *input = mali_c720_sd_to_sd(mdev, struct mali_c720_input);
-+	struct mali_c720_input_cfg input_cfg = {0};
-+	struct mali_c720_slot_input *slot_input = &input->slot_input;
-+	struct v4l2_subdev_route *route;
-+	struct v4l2_subdev *src_sd;
++	struct mali_c720_discovery *discovery = &mali_c720->discovery;
++	__le32 *records;
++	u32 header;
++	u32 footer;
++	u16 desc_count;
++	u16 version;
++	u16 footer_crc;
++	u16 computed_crc;
++	unsigned int pipeline_id;
++	unsigned int instance_id;
++	size_t word_count;
 +	int ret;
 +
-+	for_each_active_route(&state->routing, route) {
-+		if (route->source_pad != pad)
-+			continue;
-+
-+		slot_input->sink_pad = &input->pads[route->sink_pad];
-+		slot_input->stream = route->sink_stream;
-+		break;
++	header = mali_c720_read_raw(mali_c720, CAPABILITY_DISCOVERY_HEADER_OFFSET);
++	if (mali_c720_discovery_field_id(header) !=
++	    MALI_C720_DISC_V1_FIELD_LIST_HEADER) {
++		dev_err(mali_c720->dev, "discovery header missing\n");
++		return -EINVAL;
 +	}
 +
-+	if (!slot_input->sink_pad) {
-+		dev_err(mali_c720->dev, "No active route for source pad %u\n", pad);
++	version = FIELD_GET(MALI_C720_DISC_V1_LIST_VERSION_MASK, header);
++	if (version != 1) {
++		dev_err(mali_c720->dev, "unsupported discovery version %u\n",
++			version);
++		return -EINVAL;
++	}
++
++	desc_count = FIELD_GET(MALI_C720_DISC_V1_LIST_DESC_COUNT_MASK, header);
++	if (desc_count < 2) {
++		dev_err(mali_c720->dev, "discovery descriptor count %u is invalid\n",
++			desc_count);
++		return -EINVAL;
++	}
++
++	word_count = (size_t)desc_count + 1;
++	if (word_count > reg_size / sizeof(u32)) {
++		dev_err(mali_c720->dev,
++			"discovery table exceeds mapped register space (%zu words > %pa bytes)\n",
++			word_count, &reg_size);
++		return -EINVAL;
++	}
++
++	records = kvcalloc(word_count, sizeof(*records), GFP_KERNEL);
++	if (!records)
++		return -ENOMEM;
++
++	memcpy_fromio(records, mali_c720->base, word_count * sizeof(*records));
++
++	footer = le32_to_cpu(records[desc_count]);
++	if (mali_c720_discovery_field_id(footer) !=
++	    MALI_C720_DISC_V1_FIELD_LIST_FOOTER) {
++		dev_err(mali_c720->dev, "discovery footer missing\n");
 +		ret = -EINVAL;
-+		goto err_free_input_ports;
++		goto out_free_records;
 +	}
 +
-+	slot_input->src_pad = media_pad_remote_pad_unique(slot_input->sink_pad);
-+	ret = PTR_ERR_OR_ZERO(slot_input->src_pad);
-+	if (ret) {
-+		dev_err(mali_c720->dev, "Input pad %u not connected\n",
-+			slot_input->sink_pad->index);
-+		goto err_free_input_ports;
++	footer_crc = FIELD_GET(MALI_C720_DISC_V1_FOOTER_CRC_MASK, footer);
++	computed_crc = mali_c720_discovery_crc16_ibm_3740(records, desc_count);
++	if (computed_crc != footer_crc) {
++		dev_err(mali_c720->dev,
++			"discovery CRC mismatch: computed 0x%04x expected 0x%04x\n",
++			computed_crc, footer_crc);
++		ret = -EINVAL;
++		goto out_free_records;
 +	}
 +
-+	ret = mali_c720_prepare_input_port(input, state, slot_input, &input_cfg);
-+	if (ret)
-+		goto err_free_input_ports;
++	memset(discovery, 0, sizeof(*discovery));
++	discovery->version = MALI_C720_DISCOVERY_VERSION_1;
++	for (pipeline_id = 0; pipeline_id < MALI_C720_DISC_PIPE_MAX; pipeline_id++)
++		for (instance_id = 0;
++		     instance_id < MALI_C720_DISCOVERY_MAX_PIPELINE_INSTANCES;
++		     instance_id++)
++			INIT_LIST_HEAD(&discovery->pipelines[pipeline_id][instance_id].modules);
 +
-+	slot_input->prepared = true;
-+	src_sd = media_entity_to_v4l2_subdev(slot_input->src_pad->entity);
-+	ret = v4l2_subdev_enable_streams(src_sd, slot_input->src_pad->index,
-+					 BIT(slot_input->stream));
-+	if (ret && ret != -EALREADY) {
-+		dev_err(mali_c720->dev, "Failed to start input source\n");
-+		goto err_stop_sources;
-+	}
++	ret = mali_c720_discovery_parse_v1(mali_c720, discovery, records,
++					   desc_count);
 +
-+	mali_c720_ctx_mgr_prepare_context(ctx, &input_cfg);
-+
-+	ret = mali_c720_ctx_mgr_start_context_inputs(ctx);
-+	if (ret)
-+		goto err_stop_context;
-+
-+	return 0;
-+
-+err_stop_context:
-+	mali_c720_ctx_mgr_stop_context(ctx);
-+	mali_c720_ctx_mgr_stop_context_inputs(ctx);
-+err_stop_sources:
-+	mali_c720_stop_inputs(slot_input);
-+err_free_input_ports:
-+	mali_c720_free_input_ports(input);
-+
++out_free_records:
++	kvfree(records);
 +	return ret;
 +}
 +
-+static int mali_c720_input_disable_streams(struct v4l2_subdev *sd,
-+					   struct v4l2_subdev_state *state, u32 pad,
-+					   u64 streams_mask)
++int mali_c720_discovery_get_module_base(struct mali_c720 *mali_c720,
++					const struct mali_c720_discovery_target *target,
++					u32 *base)
 +{
-+	struct mali_c720_subdev *mdev = v4l2_sd_to_mali_c720_sd(sd);
-+	struct mali_c720_input *input = mali_c720_sd_to_sd(mdev, struct mali_c720_input);
-+	struct mali_c720_context *ctx = mali_c720_get_active_context(mdev->mali_c720);
-+	struct mali_c720_slot_input *slot_input = &input->slot_input;
++	const struct mali_c720_discovery_module *module;
 +
-+	mali_c720_ctx_mgr_stop_context_inputs(ctx);
-+	mali_c720_stop_inputs(slot_input);
-+	mali_c720_free_input_ports(input);
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_pad_ops mali_c720_input_pad_ops = {
-+	.enum_mbus_code		= mali_c720_input_enum_mbus_code,
-+	.enum_frame_size	= mali_c720_input_enum_frame_size,
-+	.get_fmt		= v4l2_subdev_get_fmt,
-+	.set_fmt		= mali_c720_input_set_fmt,
-+	.link_validate		= v4l2_subdev_link_validate_default,
-+	.enable_streams		= mali_c720_input_enable_streams,
-+	.disable_streams	= mali_c720_input_disable_streams,
-+};
-+
-+static const struct v4l2_subdev_ops mali_c720_input_ops = {
-+	.pad	= &mali_c720_input_pad_ops,
-+};
-+
-+static int mali_c720_input_init_state(struct v4l2_subdev *sd,
-+				      struct v4l2_subdev_state *state)
-+{
-+	static const struct v4l2_mbus_framefmt format = {
-+		.width = MALI_C720_DEFAULT_WIDTH,
-+		.height = MALI_C720_DEFAULT_HEIGHT,
-+		.field = V4L2_FIELD_NONE,
-+		.code = MEDIA_BUS_FMT_SRGGB24_1X24,
-+		.colorspace = V4L2_COLORSPACE_RAW,
-+		.xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(V4L2_COLORSPACE_RAW),
-+		.ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(V4L2_COLORSPACE_RAW),
-+		.quantization = V4L2_QUANTIZATION_FULL_RANGE,
-+	};
-+	struct v4l2_subdev_route route = {
-+		.sink_pad = MALI_C720_INPUT_PAD_SINK_INPUT0,
-+		.sink_stream = 0,
-+		.source_pad = MALI_C720_INPUT_PAD_SOURCE_SLOT_INPUT,
-+		.source_stream = 0,
-+		.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE,
-+	};
-+	struct v4l2_subdev_krouting routing = {
-+		.num_routes = 1,
-+		.routes = &route,
-+	};
-+
-+	return v4l2_subdev_set_routing_with_fmt(sd, state, &routing, &format);
-+}
-+
-+static const struct v4l2_subdev_internal_ops mali_c720_input_internal_ops = {
-+	.init_state = mali_c720_input_init_state,
-+};
-+
-+static int mali_c720_input_subdev_link_setup(struct media_entity *entity,
-+					     const struct media_pad *local,
-+					     const struct media_pad *remote,
-+					     u32 flags)
-+{
-+	struct v4l2_subdev *sd = media_entity_to_v4l2_subdev(entity);
-+	struct mali_c720 *mali_c720 = v4l2_sd_to_mali_c720_sd(sd)->mali_c720;
-+	struct media_pad *remote_src;
-+
-+	/*
-+	 * Sink and source pads support only one enabled connection.
-+	 */
-+
-+	if (flags & MEDIA_LNK_FL_ENABLED) {
-+		remote_src = media_pad_remote_pad_unique(local);
-+
-+		/* No previous link connected */
-+		if (IS_ERR(remote_src))
-+			return 0;
-+
-+		if (remote_src != remote) {
-+			dev_err(mali_c720->dev,
-+				"Input pad %u is already connected to another pad\n",
-+				local->index);
-+			return -EBUSY;
-+		}
++	module = mali_c720_discovery_get_module(&mali_c720->discovery, target);
++	if (!module || !module->found) {
++		dev_warn_once(mali_c720->dev,
++			      "No module found for module id %u instance %u in pipeline %u instance %u\n",
++			      target->module_id, target->module_instance,
++			      target->pipeline_id, target->pipeline_instance);
++		return -ENOENT;
 +	}
 +
++	if (!module->present) {
++		dev_warn_once(mali_c720->dev,
++			      "module id %u instance %u in pipeline %u instance %u is not present\n",
++			      target->module_id, target->module_instance,
++			      target->pipeline_id, target->pipeline_instance);
++		return -ENODEV;
++	}
++
++	*base = module->base;
 +	return 0;
 +}
 +
-+static int mali_c720_input_get_fwnode_pad(struct media_entity *entity,
-+					  struct fwnode_endpoint *endpoint)
++int mali_c720_discovery_get_module_table_base(struct mali_c720 *mali_c720,
++					      const struct mali_c720_discovery_target *target,
++					      unsigned int table_id,
++					      u32 *base)
 +{
-+	int port;
++	const struct mali_c720_discovery_module *module;
++	const struct mali_c720_discovery_table *memory;
 +
-+	port = v4l2_subdev_get_fwnode_pad_1_to_1(entity, endpoint);
-+	if (port < 0)
-+		return port;
-+	if (port)
-+		return -EINVAL;
++	module = mali_c720_discovery_get_module(&mali_c720->discovery, target);
++	if (!module || !module->found) {
++		dev_warn_once(mali_c720->dev,
++			      "No module found for module id %u instance %u in pipeline %u instance %u\n",
++			      target->module_id, target->module_instance,
++			      target->pipeline_id, target->pipeline_instance);
++		return -ENOENT;
++	}
 +
-+	return MALI_C720_INPUT_PAD_SINK_INPUT0;
++	if (!module->present) {
++		dev_warn_once(mali_c720->dev,
++			      "module id %u instance %u in pipeline %u instance %u is not present\n",
++			      target->module_id, target->module_instance,
++			      target->pipeline_id, target->pipeline_instance);
++		return -ENODEV;
++	}
++
++	memory = mali_c720_discovery_find_memory(module, table_id);
++	if (!memory)
++		return -ENOENT;
++
++	*base = memory->base;
++
++	return 0;
 +}
 +
-+static const struct media_entity_operations mali_c720_input_media_ops = {
-+	.link_setup		= mali_c720_input_subdev_link_setup,
-+	.link_validate		= v4l2_subdev_link_validate,
-+	.get_fwnode_pad		= mali_c720_input_get_fwnode_pad,
++bool mali_c720_discovery_module_present(struct mali_c720 *mali_c720,
++					const struct mali_c720_discovery_target *target)
++{
++	const struct mali_c720_discovery_module *module;
++
++	module = mali_c720_discovery_get_module(&mali_c720->discovery, target);
++	if (!module || !module->found)
++		return false;
++
++	return module->present;
++}
+diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-discovery.h b/drivers/media/platform/arm/mali-c720/mali-c720-discovery.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..de52553876681feda4176682772b1432358b2bb7
+--- /dev/null
++++ b/drivers/media/platform/arm/mali-c720/mali-c720-discovery.h
+@@ -0,0 +1,212 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * ARM Mali-C720 ISP Driver - Capability discovery
++ *
++ * Copyright (C) 2026 Arm Ltd
++ */
++
++#ifndef MALI_C720_DISCOVERY_H
++#define MALI_C720_DISCOVERY_H
++
++#include <linux/bitops.h>
++#include <linux/list.h>
++#include <linux/types.h>
++
++/*
++ * Capability discovery describes the ISP configuration selected at hardware
++ * synthesis time, including module presence, instances, register addresses
++ * and memory tables. The driver parses it during probe and caches the
++ * configuration for runtime lookups. The hardware topology remains fixed
++ * at runtime.
++ *
++ * The discovery version refers to the format of the table. Future hardware
++ * revisions may introduce a new version.
++ */
++
++struct mali_c720;
++
++#define MALI_C720_DISCOVERY_MAX_MODULES		384
++#define MALI_C720_DISCOVERY_MAX_MEMORIES	32
++#define MALI_C720_DISCOVERY_MAX_PARAMS		32
++#define MALI_C720_DISCOVERY_MAX_PIPELINE_INSTANCES	4
++#define MALI_C720_DISCOVERY_MAX_MODULE_INSTANCES	8
++#define MALI_C720_DISCOVERY_MAX_TABLE_INSTANCES		4
++
++enum mali_c720_discovery_version_id {
++	MALI_C720_DISCOVERY_VERSION_INVALID,
++	MALI_C720_DISCOVERY_VERSION_1,
 +};
 +
-+int mali_c720_register_input(struct mali_c720 *mali_c720)
-+{
-+	struct mali_c720_input *input = &mali_c720->input;
-+	struct mali_c720_subdev *mdev = &input->mdev;
-+	struct v4l2_subdev *sd = &mdev->sd;
-+	int ret;
++enum mali_c720_discovery_pipeline_id {
++	MALI_C720_DISC_PIPE_GLOBAL,
++	MALI_C720_DISC_PIPE_INPUT,
++	MALI_C720_DISC_PIPE_HV,
++	MALI_C720_DISC_PIPE_CV,
++	MALI_C720_DISC_PIPE_RAW_OUTPUT,
++	MALI_C720_DISC_PIPE_FR_OUTPUT,
++	MALI_C720_DISC_PIPE_PYR_OUTPUT,
++	MALI_C720_DISC_PIPE_FOV_OUTPUT,
++	MALI_C720_DISC_PIPE_STATS,
++	MALI_C720_DISC_PIPE_TPG,
++	MALI_C720_DISC_PIPE_MAX,
++};
 +
-+	mdev->mali_c720 = mali_c720;
++enum mali_c720_discovery_module_id {
++	MALI_C720_DISC_MODULE_ID_NONE = 0,
++	MALI_C720_DISC_MODULE_ID_CM_FULL,
++	MALI_C720_DISC_MODULE_ID_GLOBAL_ISP_CONTROL,
++	MALI_C720_DISC_MODULE_ID_INTERRUPT_CONTROLLER,
++	MALI_C720_DISC_MODULE_ID_FAULT_COLLECTOR,
++	MALI_C720_DISC_MODULE_ID_MODULE_BIST_CONTROL,
++	MALI_C720_DISC_MODULE_ID_MODULE_CRC_CONTROL,
++	MALI_C720_DISC_MODULE_ID_MODULE_CG_CONTROL,
++	MALI_C720_DISC_MODULE_ID_CM_CONTROL,
++	MALI_C720_DISC_MODULE_ID_CM_SLOT_LOADABLE,
++	MALI_C720_DISC_MODULE_ID_PIPELINE_GLOBAL_CONTROL,
++	MALI_C720_DISC_MODULE_ID_DIGITAL_GAIN,
++	MALI_C720_DISC_MODULE_ID_GAIN_AND_OFFSET,
++	MALI_C720_DISC_MODULE_ID_BLACK_LEVEL,
++	MALI_C720_DISC_MODULE_ID_WB_GAIN,
++	MALI_C720_DISC_MODULE_ID_OFFSET,
++	MALI_C720_DISC_MODULE_ID_SQUARE_ROOT_RAW,
++	MALI_C720_DISC_MODULE_ID_SQUARE_RAW,
++	MALI_C720_DISC_MODULE_ID_SQUARE_ROOT_RGB,
++	MALI_C720_DISC_MODULE_ID_SQUARE_RGB,
++	MALI_C720_DISC_MODULE_ID_DECOMPANDER,
++	MALI_C720_DISC_MODULE_ID_FRAME_STITCHING,
++	MALI_C720_DISC_MODULE_ID_DEFECT_PIXEL,
++	MALI_C720_DISC_MODULE_ID_RGBIR_REMOSAIC,
++	MALI_C720_DISC_MODULE_ID_CA_CORRECTION,
++	MALI_C720_DISC_MODULE_ID_TEMPER,
++	MALI_C720_DISC_MODULE_ID_SINTER,
++	MALI_C720_DISC_MODULE_ID_SMART_SHADING,
++	MALI_C720_DISC_MODULE_ID_RAW_TO_INTENSITY,
++	MALI_C720_DISC_MODULE_ID_DEHAZE,
++	MALI_C720_DISC_MODULE_ID_IRIDIX,
++	MALI_C720_DISC_MODULE_ID_DEMOSAIC_STD,
++	MALI_C720_DISC_MODULE_ID_DEMOSAIC_DFD,
++	MALI_C720_DISC_MODULE_ID_PURPLE_FRINGE,
++	MALI_C720_DISC_MODULE_ID_CCM,
++	MALI_C720_DISC_MODULE_ID_CNR,
++	MALI_C720_DISC_MODULE_ID_SCALER_RGB,
++	MALI_C720_DISC_MODULE_ID_SCALER_RAW,
++	MALI_C720_DISC_MODULE_ID_CROP,
++	MALI_C720_DISC_MODULE_ID_SHARPENING_RGB,
++	MALI_C720_DISC_MODULE_ID_SHARPENING_RAW,
++	MALI_C720_DISC_MODULE_ID_GAMMA,
++	MALI_C720_DISC_MODULE_ID_TC_LUT_RGB,
++	MALI_C720_DISC_MODULE_ID_TC_LUT_RAW,
++	MALI_C720_DISC_MODULE_ID_OUTPUT_FORMATTER,
++	MALI_C720_DISC_MODULE_ID_OUTPUT_MULTIPLEXER,
++	MALI_C720_DISC_MODULE_ID_GAUSSIAN_PYRAMID,
++	MALI_C720_DISC_MODULE_ID_RAW_STREAM_PACKER,
++	MALI_C720_DISC_MODULE_ID_TPG_RAW_MULTI,
++	MALI_C720_DISC_MODULE_ID_TPG_RAW_SINGLE,
++	MALI_C720_DISC_MODULE_ID_TPG_RAW_RGB_SINGLE,
++	MALI_C720_DISC_MODULE_ID_FGM,
++	MALI_C720_DISC_MODULE_ID_FBIST_BRIDGE,
++	MALI_C720_DISC_MODULE_ID_PIPELINE_CRC,
++	MALI_C720_DISC_MODULE_ID_INPUT_CRC,
++	MALI_C720_DISC_MODULE_ID_INTENSITY_STATS,
++	MALI_C720_DISC_MODULE_ID_HISTOGRAM_STATS,
++	MALI_C720_DISC_MODULE_ID_COLOR_STATS,
++	MALI_C720_DISC_MODULE_ID_AUTO_FOCUS_STATS,
++	MALI_C720_DISC_MODULE_ID_MAX,
++};
 +
-+	v4l2_subdev_init(sd, &mali_c720_input_ops);
-+	sd->dev = mali_c720->dev;
-+	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE | V4L2_SUBDEV_FL_STREAMS;
-+	sd->entity.ops = &mali_c720_input_media_ops;
-+	sd->entity.function = MEDIA_ENT_F_PROC_VIDEO_ISP;
-+	sd->internal_ops = &mali_c720_input_internal_ops;
-+	strscpy(sd->name, "mali-c720 input", sizeof(sd->name));
++struct mali_c720_discovery_target {
++	enum mali_c720_discovery_module_id module_id;
++	u8 module_instance;
++	enum mali_c720_discovery_pipeline_id pipeline_id;
++	u8 pipeline_instance;
++};
 +
-+	input->pads[MALI_C720_INPUT_PAD_SINK_INPUT0].flags =
-+		MEDIA_PAD_FL_SINK | MEDIA_PAD_FL_MUST_CONNECT;
-+	input->pads[MALI_C720_INPUT_PAD_SOURCE_SLOT_INPUT].flags = MEDIA_PAD_FL_SOURCE;
++enum mali_c720_discovery_table_scaler_rgb_id {
++	MALI_C720_DISC_TABLE_SCALER_RGB_H_MEM_ID = 0,
++	MALI_C720_DISC_TABLE_SCALER_RGB_V_MEM_ID,
++	MALI_C720_DISC_TABLE_SCALER_RGB_MAX_ID,
++};
 +
-+	ret = media_entity_pads_init(&sd->entity,
-+				     MALI_C720_INPUT_NUM_PADS,
-+				     input->pads);
-+	if (ret)
-+		goto err_clear_parent;
++struct mali_c720_discovery_table {
++	u32 base;
++	u32 size;
++	unsigned int id;
++	struct list_head node;
++};
 +
-+	ret = v4l2_subdev_init_finalize(sd);
-+	if (ret)
-+		goto err_cleanup_media_entity;
++struct mali_c720_discovery_version {
++	bool present;
++	u8 major;
++	u8 minor;
++	u8 patch;
++};
 +
-+	ret = v4l2_device_register_subdev(&mali_c720->v4l2_dev, sd);
-+	if (ret)
-+		goto err_cleanup_subdev;
++struct mali_c720_discovery_param {
++	u8 id;
++	u16 value;
++	struct list_head node;
++};
 +
-+	return 0;
++struct mali_c720_discovery_module {
++	enum mali_c720_discovery_module_id id;
++	unsigned int instance_id;
++	bool found;
++	bool present;
++	u32 base;
++	struct mali_c720_discovery_version version;
++	struct list_head memories;
++	struct list_head fbists;
++	struct list_head mbists;
++	struct list_head config_crcs;
++	struct list_head clock_gating;
++	struct list_head params;
++	struct list_head node;
++	unsigned int num_memories;
++	unsigned int num_params;
++	unsigned int num_fbists;
++	unsigned int num_mbists;
++	unsigned int num_config_crcs;
++	unsigned int num_clock_gating;
++	unsigned int fbist_instance_id;
++	unsigned int mbist_instance_id;
++	unsigned int config_crc_instance_id;
++	unsigned int clock_gating_instance_id;
++};
 +
-+err_cleanup_subdev:
-+	v4l2_subdev_cleanup(sd);
-+err_cleanup_media_entity:
-+	media_entity_cleanup(&sd->entity);
-+err_clear_parent:
-+	mdev->mali_c720 = NULL;
++struct mali_c720_discovery_pipeline {
++	bool present;
++	unsigned int instance_id;
++	enum mali_c720_discovery_pipeline_id id;
++	struct list_head modules;
++};
 +
-+	return ret;
-+}
++struct mali_c720_discovery {
++	enum mali_c720_discovery_version_id version;
++	unsigned int next_module_id;
++	unsigned int next_memory_id;
++	unsigned int next_param_id;
++	struct mali_c720_discovery_module
++		modules[MALI_C720_DISCOVERY_MAX_MODULES];
++	struct mali_c720_discovery_table
++		memories[MALI_C720_DISCOVERY_MAX_MEMORIES];
++	struct mali_c720_discovery_param
++		params[MALI_C720_DISCOVERY_MAX_PARAMS];
++	struct mali_c720_discovery_pipeline
++		pipelines[MALI_C720_DISC_PIPE_MAX][MALI_C720_DISCOVERY_MAX_PIPELINE_INSTANCES];
++};
 +
-+void mali_c720_unregister_input(struct mali_c720 *mali_c720)
-+{
-+	struct mali_c720_input *input = &mali_c720->input;
-+	struct mali_c720_subdev *mdev = &input->mdev;
++int mali_c720_discovery_init(struct mali_c720 *mali_c720, resource_size_t reg_size);
 +
-+	if (!mdev->mali_c720)
-+		return;
++int mali_c720_discovery_get_module_base(struct mali_c720 *mali_c720,
++					const struct mali_c720_discovery_target *target,
++					u32 *base);
 +
-+	v4l2_device_unregister_subdev(&mdev->sd);
-+}
++int mali_c720_discovery_get_module_table_base(struct mali_c720 *mali_c720,
++					      const struct mali_c720_discovery_target *target,
++					      unsigned int table_id,
++					      u32 *base);
 +
-+void mali_c720_cleanup_input(struct mali_c720 *mali_c720)
-+{
-+	struct mali_c720_input *input = &mali_c720->input;
-+	struct mali_c720_subdev *mdev = &input->mdev;
++bool mali_c720_discovery_module_present(struct mali_c720 *mali_c720,
++					const struct mali_c720_discovery_target *target);
 +
-+	if (!mdev->mali_c720)
-+		return;
-+
-+	v4l2_subdev_cleanup(&mdev->sd);
-+	media_entity_cleanup(&mdev->sd.entity);
-+	mdev->mali_c720 = NULL;
-+}
++#endif /* MALI_C720_DISCOVERY_H */
 
 -- 
 2.55.0
