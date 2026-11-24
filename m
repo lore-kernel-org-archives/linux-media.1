@@ -1,91 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795546915;
-	b=SrhnL07vDSgpHyof48UFBoiuVTW4Y201eV495kckJpw96RLhHqrc4L+FZPGDjkeigtCA
-	 XpW2i1k0z+itifTAbgBJ9KeaLoWNkGjLNpN0PsMNFbF/uQCUNxZPRjksFu5H7QBmgqFYs
-	 8A+iRM8YCDUyYlkp1BJkwUVcekYaDnKoykhE0BVsmo8L4IEUcjfUVGzObMU1w0coWHX0W
-	 6hbPN+GYmknz5nvYWZgmzWC1kHECKM4aIbbdT4ForK65CcPRzcG1FtX54oxPtchAY1Vm2
-	 YQ5UxxUK+LEOdzz0BzBoeJChMNt3lSrGQaFI7VsvYBxJCkfRr4vesTvg7m7u/8Qz9WQ==
+	t=1795548143;
+	b=uiR2IFiqi4o85lOeoYVhiHn0bnLInOTiJ+g5uvGdmeeVc/sDYfwauTPZ5b85EfON3fi3
+	 Shb/2hVfZzOq1A6rE2CyU0vDSCsQPrVpiojjSWSqHNa/7JA2nGzYiNpyYW2zk9VYmWLIV
+	 Bch4cchpZSnKTzo6CbdeWCQZfq+4sv4/jpZvFwhhUzF8dV5qlCbynucQnNvSU4dM7JJ8u
+	 qG9tTDiH0qMDmfzsxONm22VzKDs7Ju0TR+x/WnwBLHZU19Dr2cbFo3C6tTC365npKDHqi
+	 o9EcGGxwj8adDs//An+v0Uu5QzdDx6y5LhZo6FfZvIlN7z7n4UnGYHoLNQ/nLIctwwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795546915;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=v/zeC8eyq6ykMNoigJa4vX8GQ35hbqzC3pORcHQ88dU=;
-	b=CMsPcEO8VU3FJyy0aN47g0jcQIgE+1Oog1jFtoeII5T7m35wHLxBIYl/SnzdDB4HXjBd
-	 yldPgYnD7BVdjY8KrusYaSxgmfv7hgc6gec9fENUPEviwUf2kruoIOr7NpkpBwqJjTX5F
-	 /8Hjs1CRkGNpx+15rpjDwNRUjBnDfTsgHjxFSRhvBlryFX+sqFbSKMoa26U4pg/taci6+
-	 3lHuteH7n1ixbfQRXVmlU1drXX6t2fMab2aAB7mjILXUoXw7rOxPleAdpdj3/2m27WrT9
-	 QiTDFQaeFBiXnMVD8NjgF0rNT+M333BmVdSrdYSGUYGnVdNY1Aet/uPAHqoxpzUOFLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795548143;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=+sqGc9BB0de+o0BtnP9Aq7Fkyx+O52AcgmtWyPr0TiA=;
+	b=bGLzqG3XH24s/PxHqQeKr68dOYcE8fApd+5v0aQEzf2Dz5HsuhrLh6xc3/Uiyq8zRqsN
+	 Zv3kO4VCQYQ/nDw+F7erF+YRFtgDCQfGGl+aBAT4VMaLc8LieNnGF7tgubZ4UcxeNoDWy
+	 qqCwVkhyBwe0VkFfhQ7suXYAyiAOmdBbdBbUpFWukw16MaX6+0Y7WZApA3gxOg/fGsBrn
+	 TP7iKPasjJ4RL2rlCnrQ3TMkLJhQrl30NZe4Rxs3Xa7INpweNLgSkPeP6x8YSF2WOChz6
+	 vFmnYO9OQv58M9T3t4yV21uY/qspSl+YKVLOy2w5z2+05eLx/ey9r+SJ9zFbFx/L3mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=IawfrXj0;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=nMZXZySt;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC850606A31E;
-	Tue, 24 Nov 2026 19:01:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC850606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE692606A321
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 19:22:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE692606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=IawfrXj0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795546913;
-	bh=v/zeC8eyq6ykMNoigJa4vX8GQ35hbqzC3pORcHQ88dU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=IawfrXj0A9bhAGD9kBd/giIzBNMaVyYpOJsSgqQZOkDhZt/+ALg3V0YuJAKCz5ez8
-	 KoX34MuneLaGb21dy6ynWSgyzzrwtIaPEiLTv9VkA/GBwBgRYWdTaedSMhreERe0JJ
-	 yMG6WMQBavwohYuPPyAXRUpvQvmXx0nTS6e/XkfFMsHKdSM6Kh4YumbfIkxzZyxLyT
-	 twpNCRDmAYCPr4ln3qqWmotmTJZ4wqjnRYfQPzkCJz9QKzT7YjxQ4DOPXO/KxJ7Hm/
-	 W3AdfljItE+HXhFimb73eycuAOQwccmUtao9ZiKwK+ldI8cD4kHVwJ/vTSuQx05L71
-	 dkkNbwnG0K1/w==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 89F4B17E0183;
-	Tue, 24 Nov 2026 20:01:51 +0100 (CET)
-Message-ID: <a12fc9eef54ee31cda73bc1912d44e508fb8c7b9.camel@collabora.com>
-Subject: Re: [PATCH 3/7] media: rkvdec: hevc: bound the RPS reads by the
- control size
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: Detlev Casanova <detlev.casanova@collabora.com>, Ezequiel Garcia	
- <ezequiel@vanguardiasur.com.ar>, Mauro Carvalho Chehab
- <mchehab@kernel.org>,  Heiko Stuebner	 <heiko@sntech.de>, Alex Bee
- <knaerzche@gmail.com>, Hans Verkuil	 <hverkuil+cisco@kernel.org>, Jonas
- Karlman <jonas@kwiboo.se>, Sebastian Fricke	
- <sebastian.fricke@collabora.com>, linux-media@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Date: Tue, 24 Nov 2026 14:01:49 -0500
-In-Reply-To: <awDWVpqEBcOGsCuu@makrotopia.org>
-References: <cover.1794645268.git.daniel@makrotopia.org>
-	 <bb9c44d0f56221874b105394169e5c377ef21b42.1794645268.git.daniel@makrotopia.org>
-	 <6ae6d1101d3f7095d11462579a5a3313153533e6.camel@collabora.com>
-	 <awDWVpqEBcOGsCuu@makrotopia.org>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Zq1j3KpLxB33TMTKA8Is"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=nMZXZySt
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b413997581so3967055a91.2
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 11:22:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795548142; x=1796152942; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+sqGc9BB0de+o0BtnP9Aq7Fkyx+O52AcgmtWyPr0TiA=;
+        b=nMZXZySt4kKuUEuezyaFKNG+BAgUNK3SZMQ+nMKDsk8BZHIKZ2NJxetVIz2mjjCPcz
+         949ZO2Du3YGV1JmJksnU4KbmvwPfm7lWkrR2UjC9vzBMOF7gcMQc7cx6wErOu8SaZvmX
+         gbGeOTyv7VU39/DmRGeT4f4zq7WOcyjS71esY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795548142; x=1796152942;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+sqGc9BB0de+o0BtnP9Aq7Fkyx+O52AcgmtWyPr0TiA=;
+        b=XEwVWWyhqCXPFLIiz7dnkX1SrkBwOaEhZoLw7AiS14W6pF1OAz+27JwDPXPflpZtGi
+         ami4SOg6aRfMnieM8ct5wG8XUmWa0CoZiwC7CJi5q6dGWh0uOtPcanERNuZjA4LEeK2I
+         DrQfOeiV5H9mC4wsmAbSa5u+Hy2XMSMDDxTA3TAs3PdGEAfVZGTqRB/+Ut+InCklYBQm
+         40ab8Ct/T9aHvqbv7wdkmWq+FcJK12ceyzo2louN8X9/cMTmP10VWt2z/ryEsOUydgoN
+         zGjpjKPt7hJJ0xCIIBFaRy32P93c7co5VNAnwBxCZP3FyFoFYDYnsYNl7pwhVehfrGPh
+         kl4Q==
+X-Gm-Message-State: APuU4Z+IG0AvkifxBVhjjOtD1blLb/OFzvSXyGCZJ35HkuiOYMferD3u
+	NZIXdbyjEcF+CUnsykPfeuRxNFHvuoDjHOs7QqPVjNpN19RBrxXSlQDtmG0o7sGj3yb3iqWD+3O
+	ggy9IRDhU
+X-Gm-Gg: AZFdTZe11bGqrhB6EZwp2ZoJQ7NCrpkK4XGXaFuOwkEfn3255/rIQEm0e3gE7jwIMhu
+	z2zydflL2wVUGvBe45itiJHPkrEmYrGkPD+OXH2xkDVhhQ/mnu0WDo7KjAhhg7US9HsyVL9ykA+
+	qONZcODVTOoeDDL70lmY4Gmsj3znjtZrC88fSmpgRT5KMCSoPWEg4pIbaxc/Q24sLnbGoVx5XSN
+	YwpFIpYp4vkdGJWt18cjkUTtKeq7GvEcXFmogGWSM6LMwqzFDBwee8j1V65GTZbwcsm2fA0Q1zt
+	DJKC66u1yUrGJOwTvdJNlwDjwPINesfx6sY0NlkKdIqL4h8SJYvacjGcmeUJccHzsfZK/wiWGbm
+	V3QOpASi0UruH7nl1XZrzKg8np1dBzOqym5Ur3A1TvSwyrcYFCbW4fDfuiTUQfFKdXXnM2CNwFz
+	rhrtUJKkunEseaIkkKbvF6E0Lki+oPvvqm3izWXDjtJvFfEREKOklx226i4DqSOmkWec7I2uG+a
+	2u7lcaVkJYnwu7QJUQ6A6dfbcyuEotUYxAn+iczow/rKxeatnynHVGQHcYHt9Jk7hHCsV2If1ck
+	De+MyCrDswufet0VUbLcdXZz18c3rGBf+8WVcF3kqKlcQd4BGHeuDPn6BXItXmXL4w==
+X-Received: by 2002:a17:90b:240f:b0:3b4:ab19:ae09 with SMTP id 98e67ed59e1d1-3b4ab19af51mr3588131a91.52.1795548142326;
+        Tue, 24 Nov 2026 11:22:22 -0800 (PST)
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com. [74.125.82.54])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b40f4312dfsm25474832a91.3.2026.11.24.11.22.21
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 11:22:21 -0800 (PST)
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15dd124bbe7so5374655c88.1
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 11:22:21 -0800 (PST)
+X-Received: by 2002:a05:7022:b908:b0:1b5:25e:9582 with SMTP id
+ a92af1059eb24-1b55691dbe2mr14081660c88.37.1795548139472; Tue, 24 Nov 2026
+ 11:22:19 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -95,39 +91,191 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
---=-Zq1j3KpLxB33TMTKA8Is
+References: <20261124100623.2227323-1-chris.bainbridge@canonical.com> <20261124100623.2227323-2-chris.bainbridge@canonical.com>
+In-Reply-To: <20261124100623.2227323-2-chris.bainbridge@canonical.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 24 Nov 2026 20:22:05 +0100
+X-Gmail-Original-Message-ID: <CANiDSCteP85q_nz+-_kG7+h9AkoE+uiVr4VwYHGm8Y+w8vNYKg@mail.gmail.com>
+X-Gm-Features: Aa3M54qZlBqKXV6xMS8voS7QdUfU25qdUIfEGZwbhyuEty5R7NTbFgGEiEWFQUo
+Message-ID: <CANiDSCteP85q_nz+-_kG7+h9AkoE+uiVr4VwYHGm8Y+w8vNYKg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] media: uvcvideo: Report the failing control when
+ restoring controls fails
+To: Chris Bainbridge <chris.bainbridge@canonical.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Le vendredi 20 novembre 2026 =C3=A0 23:23 +0000, Daniel Golle a =C3=A9crit=
-=C2=A0:
-> Rejecting when the control is set does not work, as the count and the
-> array are separate controls which can be set in any order, also in
-> different requests. The first point where both are known is when the
-> request is applied in device_run.
+Hi Chris
 
-Maybe we should have added validation in MEDIA_REQUEST_IOC_QUEUE ... Might =
-not
-be a totally missed opportunity, and would give an immediate result to user=
-.
-That being said, its does not invalidate your changes, so no action for thi=
-s
-specific comment.
+On Tue, 24 Nov 2026 at 11:10, Chris Bainbridge
+<chris.bainbridge@canonical.com> wrote:
+>
+> When uvc_ctrl_commit_entity() fails while restoring the controls after a
+> USB reset_resume, the only message visible at the default loglevel is
+> the generic "reset_resume error -5" from the USB core. The control that
+> caused the failure and the reason for it are only visible with the
+> uvcvideo trace parameter enabled (UVC_DBG_CONTROL), which makes the
+> problem almost impossible to diagnose in the field.
+>
+> On a Logitech C270 (046d:0825, USB_QUIRK_RESET_RESUME), the processing
+> unit restore fails with UVC error code 7 (Invalid Request), mapped to
+> -EIO, and the user only sees "reset_resume error -5". The restore order
+> suggests that WHITE_BALANCE_TEMPERATURE is written while auto white
+> balance is enabled, which the device rejects.
+>
+> Pass the err_ctrl out parameter of uvc_ctrl_commit_entity() and report
+> the name, the selector and the entity id of the failing control,
+> together with the error code, using a ratelimited warning. If the
+> failing control is not known, report the entity and the error code only.
+>
+> Also extend the "Control error %u" debug message in uvc_query_ctrl()
+> with the name of the UVC error code, the name of the request, the
+> selector and the unit, so that the cause of the STALL is visible in the
+> trace log.
+>
+> Signed-off-by: Chris Bainbridge <chris.bainbridge@canonical.com>
+> ---
+>  drivers/media/usb/uvc/uvc_ctrl.c  | 36 +++++++++++++++++++++++++++++--
+>  drivers/media/usb/uvc/uvc_video.c | 31 +++++++++++++++++++++++++-
+>  2 files changed, 64 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+> index d2f722bc3459..f70fa37800a4 100644
+> --- a/drivers/media/usb/uvc/uvc_ctrl.c
+> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
+> @@ -3199,6 +3199,34 @@ int uvc_xu_ctrl_query(struct uvc_video_chain *chain,
+>   * Suspend/resume
+>   */
+>
+> +/*
+> + * Report a failure to restore the controls of an entity. @err_ctrl points to
+> + * the control that failed, or is NULL if the failing control is not known.
+> + */
+> +static void uvc_ctrl_restore_error(struct uvc_device *dev,
+> +                                  const struct uvc_entity *entity,
+> +                                  struct uvc_control *err_ctrl, int ret)
+> +{
+> +       const struct uvc_control_mapping *mapping;
+> +       const char *name = "Unknown Control";
+> +
+> +       if (!err_ctrl) {
+> +               dev_warn_ratelimited(&dev->intf->dev,
+> +                                    "Failed to restore controls on unit %u: %d\n",
+> +                                    entity->id, ret);
+> +               return;
+> +       }
+Unless I made a mistake there i no case where err_ctrl can be NULL.
 
-Nicolas
+> +
+> +       mapping = list_first_entry_or_null(&err_ctrl->info.mappings,
+> +                                          struct uvc_control_mapping, list);
+> +       if (mapping)
+> +               name = uvc_map_get_name(mapping);
 
---=-Zq1j3KpLxB33TMTKA8Is
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+can you move this into a function uvc_ctrl_get_first_mapping_name(err_ctrl)
 
------BEGIN PGP SIGNATURE-----
+with that move this function would be so small that it is probably a
+good idea to squash it into uvc_ctrl_restore_values
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawXfHQAKCRDZQZRRKWBy
-9PDaAP9JaEXDrgjNqXnAwmBBQaZfMuTkdkQqNBmHX1kOtDP4BwEAgt7hfvp8zlOm
-PSX0WEH+LwnvYvPGc8YUY/1TlMsijAQ=
-=6jr1
------END PGP SIGNATURE-----
+> +
+> +       dev_warn_ratelimited(&dev->intf->dev,
+> +                            "Failed to restore control %s (selector %u on unit %u): %d\n",
+> +                            name, err_ctrl->info.selector, entity->id, ret);
+> +}
+> +
+>  /*
+>   * Restore control values after resume, skipping controls that haven't been
+>   * changed.
+> @@ -3210,6 +3238,7 @@ int uvc_xu_ctrl_query(struct uvc_video_chain *chain,
+>   */
+>  int uvc_ctrl_restore_values(struct uvc_device *dev)
+>  {
+> +       struct uvc_control *err_ctrl;
+please do err_ctrl = NULL here  and not in the loop. We probably do
+not need it here either, but will make the static analyzer happy.
 
---=-Zq1j3KpLxB33TMTKA8Is--
+>         struct uvc_control *ctrl;
+>         struct uvc_entity *entity;
+>         unsigned int i;
+> @@ -3230,9 +3259,12 @@ int uvc_ctrl_restore_values(struct uvc_device *dev)
+>                         ctrl->dirty = 1;
+>                 }
+>
+> -               ret = uvc_ctrl_commit_entity(dev, NULL, entity, 0, NULL);
+> -               if (ret < 0)
+> +               err_ctrl = NULL;
+> +               ret = uvc_ctrl_commit_entity(dev, NULL, entity, 0, &err_ctrl);
+> +               if (ret < 0) {
+> +                       uvc_ctrl_restore_error(dev, entity, err_ctrl, ret);
+>                         return ret;
+> +               }
+>         }
+>
+>         return 0;
+> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> index a92a986ab714..b10064defaf4 100644
+> --- a/drivers/media/usb/uvc/uvc_video.c
+> +++ b/drivers/media/usb/uvc/uvc_video.c
+> @@ -68,6 +68,32 @@ static const char *uvc_query_name(u8 query)
+>         }
+>  }
+>
+
+Maybe you could make a function
+
+static const char *uvc_ctrl_error_name_code(u8 error, int *code)
+
+and reuse it in uvc_query_ctrl() it is much more nicer to get the
+error name than the code
+
+(sorry to treat you like Santa :P)
+
+> +static const char *uvc_error_code_name(u8 error)
+> +{
+> +       switch (error) {
+> +       case 0:
+> +               return "No error";
+> +       case 1:
+> +               return "Not ready";
+> +       case 2:
+> +               return "Wrong state";
+> +       case 3:
+> +               return "Power";
+> +       case 4:
+> +               return "Out of range";
+> +       case 5:
+> +               return "Invalid unit";
+> +       case 6:
+> +               return "Invalid control";
+> +       case 7:
+> +               return "Invalid request";
+> +       case 8:
+> +               return "Invalid value within range";
+> +       default:
+> +               return "Unknown";
+> +       }
+> +}
+> +
+>  int uvc_query_ctrl(struct uvc_device *dev, u8 query, u8 unit,
+>                         u8 intfnum, u8 cs, void *data, u16 size)
+>  {
+> @@ -125,7 +151,10 @@ int uvc_query_ctrl(struct uvc_device *dev, u8 query, u8 unit,
+>                 return ret < 0 ? ret : -EPIPE;
+>         }
+>
+> -       uvc_dbg(dev, CONTROL, "Control error %u\n", error);
+> +       uvc_dbg(dev, CONTROL,
+> +               "Control error %u (%s) for %s control %u on unit %u\n",
+> +               error, uvc_error_code_name(error), uvc_query_name(query), cs,
+> +               unit);
+>
+>         switch (error) {
+>         case 0:
+> --
+> 2.53.0
+>
+>
+
+
+-- 
+Ricardo Ribalda
