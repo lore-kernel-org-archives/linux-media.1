@@ -1,69 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795542372;
-	b=Hf1LzFz1OIyt7m9CwaH3lXPdyQJr2o01ENoAfz54VuJZo8+xgnFKFsdAtEEjDbYfT9+c
-	 kMd0MiPHXAS6pJQWYPG0DsQCt+ypvqO/MAvPWeG7RB2YOhXq3Bb4K/VsALXnAQPjHq0CV
-	 8GvnkjdXHy/b48fKsqM3dH26E4barcURHbL0i4WHLUUp2E5WqAz+pGKUddjaQDZiH/me1
-	 d/PFX8TCaCv7L3X60LUqsiH2nVS2w1UIgdkvJDzXWvn2R6aCyDph5zdX92fRGpJbdYDIm
-	 hO8vs1KJbyZWcQ4eDXn/4vJ29b+AZ0VTCT6dHMvEw3lumYOdmDQRB16tPQG8jjt7Opg==
+	t=1795546915;
+	b=SrhnL07vDSgpHyof48UFBoiuVTW4Y201eV495kckJpw96RLhHqrc4L+FZPGDjkeigtCA
+	 XpW2i1k0z+itifTAbgBJ9KeaLoWNkGjLNpN0PsMNFbF/uQCUNxZPRjksFu5H7QBmgqFYs
+	 8A+iRM8YCDUyYlkp1BJkwUVcekYaDnKoykhE0BVsmo8L4IEUcjfUVGzObMU1w0coWHX0W
+	 6hbPN+GYmknz5nvYWZgmzWC1kHECKM4aIbbdT4ForK65CcPRzcG1FtX54oxPtchAY1Vm2
+	 YQ5UxxUK+LEOdzz0BzBoeJChMNt3lSrGQaFI7VsvYBxJCkfRr4vesTvg7m7u/8Qz9WQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795542372;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795546915;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
 	 User-Agent:MIME-Version;
-	bh=fIf2xE0G6RJC+KjMdQDd5uURjWfAdnrxVBZi50T61Wg=;
-	b=M9UnihqQDHKewrFdi1v5eZhh+buTTdbSUXC+CpDkoZecvDZFV45zlglwNhC1D7HeWOTq
-	 YIP9FRzgMMbGjo3xL5zfS85TG8zhixm7p1T0LpKEX732Fo0a7rgN1B9vKLHn1eneFtCUB
-	 4kcf5FXY38oPzT20ZykweLongHlAXuri6aZLnRqFP0lTKOZ1eZn9oblSu2uyg1zSw4WtT
-	 JYAYD7+gAxq6wvIpxrQ/8G1x1TlCGGL/ejNapetZiIeyEt1Dm/ytkW5xRyc9uQk3eWksj
-	 /hpOwoYXU413/v7CyLr+yvoHpMwLL/HgNCDHuI+TpPENBE+iNyrCis26tastObIdLng==
+	bh=v/zeC8eyq6ykMNoigJa4vX8GQ35hbqzC3pORcHQ88dU=;
+	b=CMsPcEO8VU3FJyy0aN47g0jcQIgE+1Oog1jFtoeII5T7m35wHLxBIYl/SnzdDB4HXjBd
+	 yldPgYnD7BVdjY8KrusYaSxgmfv7hgc6gec9fENUPEviwUf2kruoIOr7NpkpBwqJjTX5F
+	 /8Hjs1CRkGNpx+15rpjDwNRUjBnDfTsgHjxFSRhvBlryFX+sqFbSKMoa26U4pg/taci6+
+	 3lHuteH7n1ixbfQRXVmlU1drXX6t2fMab2aAB7mjILXUoXw7rOxPleAdpdj3/2m27WrT9
+	 QiTDFQaeFBiXnMVD8NjgF0rNT+M333BmVdSrdYSGUYGnVdNY1Aet/uPAHqoxpzUOFLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=eaVgWC6B;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=IawfrXj0;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC229606A321;
-	Tue, 24 Nov 2026 17:46:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC229606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC850606A31E;
+	Tue, 24 Nov 2026 19:01:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC850606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=eaVgWC6B
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=IawfrXj0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795542368;
-	bh=2vLDKHeR9lc9GUWK07uNhE/Yhexx0rV2NuuZG2KZ9/I=;
+	s=mail; t=1795546913;
+	bh=v/zeC8eyq6ykMNoigJa4vX8GQ35hbqzC3pORcHQ88dU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=eaVgWC6B//DD4cGJKhfbsx18rYHr/87i9c87YOiyJAC71sI3+pWaFp4GdElsa8VrD
-	 RtmQWqvKpPIv7kZx0S6ksxLe3mSHi3R67HbMk1Va3ktUKZPXI2MRUEI1Kt6Qu7Yyba
-	 gEv3zFZTvkq7ia3N3BNuq+w2xQcthZrlk1NqJ5oJhSlZG1eUsjWAitw/rV+OpXemth
-	 ohuP+/DTgAN34UvrOuZvrSQZEC6Xhr12LUxRodnvEvfjHVkE6Jpea2DSH17qCc/2A4
-	 tCzG4MruEX0C91p9dwa1hWZdkihNUxHHrpYuii9ugJgTrkxEMHvYDuHJ5qV9v+hVJs
-	 biyTaDtkxmYoA==
+	b=IawfrXj0A9bhAGD9kBd/giIzBNMaVyYpOJsSgqQZOkDhZt/+ALg3V0YuJAKCz5ez8
+	 KoX34MuneLaGb21dy6ynWSgyzzrwtIaPEiLTv9VkA/GBwBgRYWdTaedSMhreERe0JJ
+	 yMG6WMQBavwohYuPPyAXRUpvQvmXx0nTS6e/XkfFMsHKdSM6Kh4YumbfIkxzZyxLyT
+	 twpNCRDmAYCPr4ln3qqWmotmTJZ4wqjnRYfQPzkCJz9QKzT7YjxQ4DOPXO/KxJ7Hm/
+	 W3AdfljItE+HXhFimb73eycuAOQwccmUtao9ZiKwK+ldI8cD4kHVwJ/vTSuQx05L71
+	 dkkNbwnG0K1/w==
 Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 662AF17E0192;
-	Tue, 24 Nov 2026 18:46:07 +0100 (CET)
-Message-ID: <067d32d46788603e18f24040e2a8aabb1b749774.camel@collabora.com>
-Subject: Re: [PATCH] media: amphion: Enable non-coherent allocation for raw
- frame buffers
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 89F4B17E0183;
+	Tue, 24 Nov 2026 20:01:51 +0100 (CET)
+Message-ID: <a12fc9eef54ee31cda73bc1912d44e508fb8c7b9.camel@collabora.com>
+Subject: Re: [PATCH 3/7] media: rkvdec: hevc: bound the RPS reads by the
+ control size
 From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: "Ming Qian(OSS)" <ming.qian@oss.nxp.com>, Frank Li <Frank.li@oss.nxp.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil	
- <hverkuil@kernel.org>, Zhou Peng <eagle.zhou@nxp.com>, Frank Li
- <Frank.Li@nxp.com>, 	linux-imx@nxp.com, imx@lists.linux.dev,
- linux-media@vger.kernel.org, 	linux-kernel@vger.kernel.org
-Date: Tue, 24 Nov 2026 12:46:06 -0500
-In-Reply-To: <awUiZWa4ZTMhFeVL@lsvm11u0000189.swis.ap-northeast-2.aws.nxp.com>
-References: <20261119-amphion-non-coherent-v1-1-c3154395e448@oss.nxp.com>
-	 <awSn9NyulPPPIIT8@lizhi-Precision-Tower-5810>
-	 <awUiZWa4ZTMhFeVL@lsvm11u0000189.swis.ap-northeast-2.aws.nxp.com>
+To: Daniel Golle <daniel@makrotopia.org>
+Cc: Detlev Casanova <detlev.casanova@collabora.com>, Ezequiel Garcia	
+ <ezequiel@vanguardiasur.com.ar>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>,  Heiko Stuebner	 <heiko@sntech.de>, Alex Bee
+ <knaerzche@gmail.com>, Hans Verkuil	 <hverkuil+cisco@kernel.org>, Jonas
+ Karlman <jonas@kwiboo.se>, Sebastian Fricke	
+ <sebastian.fricke@collabora.com>, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Date: Tue, 24 Nov 2026 14:01:49 -0500
+In-Reply-To: <awDWVpqEBcOGsCuu@makrotopia.org>
+References: <cover.1794645268.git.daniel@makrotopia.org>
+	 <bb9c44d0f56221874b105394169e5c377ef21b42.1794645268.git.daniel@makrotopia.org>
+	 <6ae6d1101d3f7095d11462579a5a3313153533e6.camel@collabora.com>
+	 <awDWVpqEBcOGsCuu@makrotopia.org>
 Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -79,7 +84,7 @@ Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-YgqiAaeSiZb24V1NgmpQ"
+	protocol="application/pgp-signature"; boundary="=-Zq1j3KpLxB33TMTKA8Is"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -91,116 +96,38 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-YgqiAaeSiZb24V1NgmpQ
+--=-Zq1j3KpLxB33TMTKA8Is
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le mardi 24 novembre 2026 =C3=A0 14:42 +0900, Ming Qian(OSS) a =C3=A9crit=
+Le vendredi 20 novembre 2026 =C3=A0 23:23 +0000, Daniel Golle a =C3=A9crit=
 =C2=A0:
-> Hi Frank,
->=20
-> On Mon, Nov 23, 2026 at 03:54:12PM -0500, Frank Li wrote:
-> > On Thu, Nov 19, 2026 at 04:27:14PM +0900, Ming Qian wrote:
-> > > Allow applications to allocate raw frame buffers with
-> > > V4L2_MEMORY_FLAG_NON_COHERENT for efficient CPU access. The required
-> > > cache synchronization is handled by videobuf2 in its prepare() and
-> > > finish() methods.
-> > >=20
-> > > Set allow_cache_hints only for the encoder OUTPUT and decoder CAPTURE
-> > > queues. Leave it disabled for compressed bitstream queues, as the
-> > > driver may access their payloads through the CPU.
-> >=20
-> > "V4L2_MEMORY_FLAG_NON_COHERENT for efficient CPU access", but here
-> > "Leave it disabled for compressed bitstream queues, as the
-> >  driver may access their payloads through the CPU"
-> >=20
-> > Look like description is contradiction
-> >=20
-> > Frank
-> >=20
->=20
-> Sorry for the confusion. By "efficient CPU access", I meant userspace
-> access to linear frame buffers.
->=20
-> For linear frame buffers, V4L2_MEMORY_FLAG_NON_COHERENT enables cached
-> mmap access from userspace, while videobuf2 maintains coherency through
-> prepare()/finish() during QBUF/DQBUF processing.
->=20
-> For compressed buffers, the amphion driver copies data into the
-> internal ring stream buffer when decoding, and out of it when encoding.
-> Enabling non-coherent allocation for these buffers would require
-> additional synchronization around those CPU copies.
->=20
-> This patch therefore enables the option only for linear frame buffers
-> and leaves compressed bitstream queues unchanged.
+> Rejecting when the control is set does not work, as the count and the
+> array are separate controls which can be set in any order, also in
+> different requests. The first point where both are known is when the
+> request is applied in device_run.
 
-Maybe just state that other queues are using vmalloc which is already cacha=
-ble
-memory. What this feature does is allow not getting write combined mapping =
-for
-CPU access, which is terribly slow by letting application manage their own
-coherency (or by using DMABuf sync I believe, can't remember if that was fi=
-xed,
-there was a lot of issue in this API btw, so check its states and make sure=
- it
-working for you).
+Maybe we should have added validation in MEDIA_REQUEST_IOC_QUEUE ... Might =
+not
+be a totally missed opportunity, and would give an immediate result to user=
+.
+That being said, its does not invalidate your changes, so no action for thi=
+s
+specific comment.
 
 Nicolas
 
->=20
-> Regards,
-> Ming
->=20
-> > >=20
-> > > Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
-> > > ---
-> > >  drivers/media/platform/amphion/vpu_v4l2.c | 4 ++++
-> > >  1 file changed, 4 insertions(+)
-> > >=20
-> > > diff --git a/drivers/media/platform/amphion/vpu_v4l2.c b/drivers/medi=
-a/platform/amphion/vpu_v4l2.c
-> > > index 7cccc994fc50..c8d52f0af879 100644
-> > > --- a/drivers/media/platform/amphion/vpu_v4l2.c
-> > > +++ b/drivers/media/platform/amphion/vpu_v4l2.c
-> > > @@ -664,6 +664,8 @@ static int vpu_m2m_queue_init(void *priv, struct =
-vb2_queue *src_vq, struct vb2_q
-> > >  =09src_vq->mem_ops =3D &vb2_dma_contig_memops;
-> > >  =09if (inst->type =3D=3D VPU_CORE_TYPE_DEC && inst->use_stream_buffe=
-r)
-> > >  =09=09src_vq->mem_ops =3D &vb2_vmalloc_memops;
-> > > +=09if (inst->type =3D=3D VPU_CORE_TYPE_ENC)
-> > > +=09=09src_vq->allow_cache_hints =3D 1;
-> > >  =09src_vq->drv_priv =3D inst;
-> > >  =09src_vq->buf_struct_size =3D sizeof(struct vpu_vb2_buffer);
-> > >  =09src_vq->dev =3D inst->vpu->dev;
-> > > @@ -680,6 +682,8 @@ static int vpu_m2m_queue_init(void *priv, struct =
-vb2_queue *src_vq, struct vb2_q
-> > >  =09dst_vq->mem_ops =3D &vb2_dma_contig_memops;
-> > >  =09if (inst->type =3D=3D VPU_CORE_TYPE_ENC && inst->use_stream_buffe=
-r)
-> > >  =09=09dst_vq->mem_ops =3D &vb2_vmalloc_memops;
-> > > +=09if (inst->type =3D=3D VPU_CORE_TYPE_DEC)
-> > > +=09=09dst_vq->allow_cache_hints =3D 1;
-> > >  =09dst_vq->drv_priv =3D inst;
-> > >  =09dst_vq->buf_struct_size =3D sizeof(struct vpu_vb2_buffer);
-> > >  =09dst_vq->dev =3D inst->vpu->dev;
-> > >=20
-> > > ---
-> > > base-commit: 7969a6f407cf55b5254c824c87875452655ef11e
-> > > change-id: 20261119-amphion-non-coherent-f61009334dff
-> > >=20
-
---=-YgqiAaeSiZb24V1NgmpQ
+--=-Zq1j3KpLxB33TMTKA8Is
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawXNXgAKCRDZQZRRKWBy
-9GkwAPwNJIet0gUqj0ydjwWVNgkYu8wT8/u4PFCvg++Ui/l0KQEA6eoU6SiYf/UX
-F82EobmwaRaUijkbtDkl6BqNdlVYoAs=
-=1W/J
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawXfHQAKCRDZQZRRKWBy
+9PDaAP9JaEXDrgjNqXnAwmBBQaZfMuTkdkQqNBmHX1kOtDP4BwEAgt7hfvp8zlOm
+PSX0WEH+LwnvYvPGc8YUY/1TlMsijAQ=
+=6jr1
 -----END PGP SIGNATURE-----
 
---=-YgqiAaeSiZb24V1NgmpQ--
+--=-Zq1j3KpLxB33TMTKA8Is--
