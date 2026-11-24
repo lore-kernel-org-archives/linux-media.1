@@ -1,99 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795528213;
-	b=E11qVIog4srkBBZAak/qe6pG0E/m98j3GoOt+NC3b8AYAhGAZYar3o1tPz1FQoQL5zrR
-	 cSrFp5zCtzbms8z9jji51BuWHl3mkBETE4Pr7hxvCEYqWAe9VKzDnUPPRlmR7YlQRyh5x
-	 Z+bd34ZYuv5P12B4YcI7fcj/LOA/yhNb99xOOlLmikPwFEZ/nAHHW1UmD4GJpiYU6jtKx
-	 wq7tp9DseSEhsoA9ZFoZjKBB4+iGzGOby108OiJbJNNQ9fA350xbubEnNX+lPVGBVk0HR
-	 U9/LzSq6FrecC7SbShnjXr/lxEdrFmCuOsAkPAogUcmd4b6CYdCDbd0pE9YrIrfhiOA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795528213;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795528842;
+	b=mu3964oho4559jKTIyGF28x9aFrjbnLHoD1irAmZKA7pNInrPCtHAUM5YMUvmLxRbip2
+	 jAuPz8CNDYGLHI6CuiUMdTVXpfdsvj5/zBnNpO9PPsNOIqLHtt05t3CrkCH9GzUspYl8Q
+	 5+3z5//qZVvrm+egSpHlnQgrNvzgzdG3aAO4+XV3gINa9Ev/TgERSuuf8ZYUPO33oH/Bx
+	 ADVn61fkInNzFbxkIcrk6TJ+bgqGuv/ygtfWrti5IG7nlTV2GaryhahEUNrbERFcj9XUu
+	 yMR8NyvJjsSu2UZwL1Gpkjt8XHM/xeEPdRSUzepIt+HP3CXreVDWj4DX4e3F5zqQSBw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795528842;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=XTPCHg4unEN6vtUDvCIgxfYMZVabwQIC4dv3+3CL15w=;
-	b=4Q2k/BWWySYOyEXzAyHrsOs6S+6LZhHOq91G2Ezuo71INKcRSTHGLlkW7NJoeMPodl1h
-	 H71AfvfROMtiURUx5H3QfkayL3H+mJ18poXIawK0C8BQS3SGr3iHgAS6W7Co6KNO/XBOq
-	 StPJ8EPlvYVITFrXmJcUJ1U6WopBM+WSnnznz5j8eEv7jecNwNb9pEhvOvClOTC+HVjVR
-	 AKFRQgFvEgveQ28RktpF+hb6mk2t/iu9lOTKw9pT/rAmRXIuHrlymzo7TeInMfI6sf1Xk
-	 kEDgPjC5mfQRRtxcP6AIVS2vzXtpicFhiPpjg7BfU2uqj+pVm26mshU6dgOAtBEglwA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=A8I4Yhd3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=o+7iSwGfMjtzT2Y6Ygii4nLjUX3g93NcfuA7HOwwEkw=;
+	b=BcLVuLiHSIDvqbPcT1w8nOzN7cB/5mGeaZJ8p7+eruaYBmb/oS0hJDlRZ61p7mEO2CXc
+	 dB/VM65h+3tkW4BzThx5RVgTwJHztb7KVY/y8DPlCNDvOPGU/cjy0Qd3uRCgGd7+d+MRy
+	 s/3OuRbaNjyhXJHwLSvzDTcHlNPF9RHwwpVZ1Q2QHd+oRlN3/76P0ATO3QgXGhiTZw08D
+	 kRwYRmx5/ufzAZ/WCMZMc6TgWLUnpEI2Ry/nwW5mDwpd3QfYUVo+HpIQDYc8jZcSy3vih
+	 XQWTjJS6Sehu+tgj1CmKA7zzsKQbLVMFq033nMklehtzhTT/FqF1w58AJIF9V/EGIeg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=V30Q+iur;
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86AE9606A321
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 13:50:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86AE9606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E985B606A326
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 14:00:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E985B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=A8I4Yhd3
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-49412eb1474so2933771f8f.3
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 05:50:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795528211; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IQsjJf1cs8hmG2CawSRLC2c8F76rTSf0XVRDj9I+8KHIHEnUhmmkgu/zxbVsJ7vRna
-         TbvbzU9tMtM479xeBrRqzcf8xjFA4Aegnz9NixoxOUpVqA0o/pulJi38UEkHA/Iaqz3Q
-         ERJz0qmlIcOsdgZO25amgI7/Pd1QVgEFEmONBDT4DDL5WwyLEe+e4trK0i3HzI3DkRjD
-         YvgtZ9IqkHhUIxmxv/09Xbk/4/FlsjUxCByX1sFNguhYf2kPnq25PF0V15h2xOEmMjVZ
-         eYAoSXTCKa9ChoH59mRNfdY9r/8nxcTUuVxm9EBFXsFdPBWFZbPBa+dx8zSAm3ThfH9V
-         hVQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=XTPCHg4unEN6vtUDvCIgxfYMZVabwQIC4dv3+3CL15w=;
-        fh=tyz0QZZGjaYZ2ei6eJ/gZFwnVrSXJETwMtzIiayDjKI=;
-        b=XvZroZUxOu4o7piZ2b+TrggyvCQDVMit39vuqy14Ro3bSlKd69/Pl8XzfbKRRfjMFV
-         kNuwRhXWFt8DAjc6GfH+AIr0rv9Q6s3QFbqZy951ydF16af6azhckiiqdhEaOxyOeY7z
-         olzvv2S+hMqN2C5PKgg8qBeng13/XlnbqLoEMy3U4/Ry7bcsWwSSVrvRDwErGgfQQhq4
-         15/fDBMUMSWfi4yB8iPgZzXHq04MFFY4T9hdj9xw8cw6mZvKdE16jPX2phRSGWA7Rtb/
-         l6LMF0konGaNbtObWJw36fkdVRtycmN97FGwjMr7itjgCVQYRM52A16vzGi8rI72xcEB
-         STVA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=V30Q+iur
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c50933bdf4bso902231466b.1
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 06:00:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1795528211; x=1796133011; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XTPCHg4unEN6vtUDvCIgxfYMZVabwQIC4dv3+3CL15w=;
-        b=A8I4Yhd3hz3WrVqqp6QMzsDrRJ3HJpUPxahpoSPUafEcj3SFymXcsAZEIf+a8ALG0Y
-         V6s6xA+Ay4lWI9NhS7nxfL6F29mbmiE0uOfCYQxnOZUS20qgiOGqYoApJy9HRpK68tu/
-         HSDE3IpIQJQ4GKB5Z7mVIff3PBnaum/E2gzkgJ+jFNG6YlWz7P5hX0VEOjoFbkoF1lDn
-         8Ndrqr7MabRwOciYR7MGfzUJA7NWdJsl6TU8hPnym7YlbmO7JaMnO34+0kr0IDyXTgzd
-         2RYMtv2kGAXDO2iT8hQ8hVHgIcSefON4ja9k6LVugyoh7mCZfqIgxnZvX+r5RFBAMb5n
-         NOnw==
+        d=ziepe.ca; s=google; t=1795528840; x=1796133640; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o+7iSwGfMjtzT2Y6Ygii4nLjUX3g93NcfuA7HOwwEkw=;
+        b=V30Q+iurO56H29PrX9q7wVWHAj934LHyh9dyaSa8KHPs1wYEL79KlkRZ8Ndk67ZYFP
+         8Moy2ZuuvXyGxj6hxEU5MHXoHu4tO+Fkx1FOmb3i6VmcSl2yRSR7ozCFXelACXZQQdpH
+         73eeCdMmnAdK5bgaPJM2yLbbq+7EGbpzKQXhHQ+LiUd9gwn3Zcp08lnZgZpi+N/nP0qn
+         CCEUWkIh7w7v7yFw7Ka90+w4XwePfoZZMNmE95Z67q//yab58k2vPq4mUMHNrX/ny0rT
+         lztbpD17efmc4Yo1kTZgqTWxQyLSdMFoAnYsApctQXm4VrrSm5WoZqx2pG7gjDZXr6oU
+         zvzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795528211; x=1796133011;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XTPCHg4unEN6vtUDvCIgxfYMZVabwQIC4dv3+3CL15w=;
-        b=N/VmIl4nJ0x3F2JHUAxR2SvK/AEVcrDdsKE1MgLKd2H5Y4wDyuSqorsKls3N1bUj5X
-         Zjr1naRZHWtOB876gC+lE2mJzG5Xh77SZzkPs2KUFdQplrnhLI0o4HdDeGa6yRuKUim0
-         oVSAGB4/lgAFsnt8NXC2T3aR7VBHSOPSKyf7Bym657hRpcsjrnm5q4nQfDg3c1+lWIYm
-         ZT9yX1Ssm0qPCygCEzXvdI9/bGbA2txQCJvQ81qDb528t+MuBPNhPtVlGUzEVs1tUYGP
-         DZiH/gZDFw3wLSDfmAgPWVjiNM6wU7NUivNkURGDYh/8z8bmKRZlhOJbU5qP4EJeRkwj
-         tCVw==
-X-Forwarded-Encrypted: i=1; AL+hErFKkLmDdGurM2xnu0H8EHlhojIMqV3bFmZ53GVgcTJ9Li4Nx32obENsiiXraPA4kX89M4tmlALEH/dXig==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fT7/JQff2C1WWVniVPaPQ4yRrON4AZ1Bld+nXQZloREkiUY3F
-	uEZ8KjhqjZ3EvNkNkpnBRMBrMZ8LLHbuHteKrY5KLfhqk1Nl5mWErvK3Hl6te87haPJj1xh9jxX
-	uDsrPEBxQPovtfIAnTlm+L9SgQBgdXIA=
-X-Gm-Gg: AZFdTZdoME9Xn2ufqo1SfWoPUGqMteS0wTUU8up67dAqoLpCsa+JyUsCe3WTiT8eHZY
-	SzXRAa8haoLutJLJhGbz30dmBRytiLHM0JtWE8Nj+JG8OtZAhHQWRSvJ95yt4fO4JOeUqNwCPBq
-	ieiLm248BHBpOkAN9tjATXAOqbpCJ6RQTcrLgXBt7jspr7FXTkGPu/thkXRr4OEUZ727lpux9DV
-	qC/zdI1YDLO5PeQpJrkNX8y7/q6yCPfGTlujro9C2mC6Gi6W9SN3WRI44WSrrepNFMrsP0GJyeN
-	SVJTuPJ/rSqG1y4A201IxcghIH+j8kq2P4Ln3NcEzmjNmnaBSqG5tLQ/foqRZuczaoX24QWVE1e
-	mY43EQOI/STquZbK9sFMrx/xWHCvcQeKjgO+zREFUSntUhIwyTtif
-X-Received: by 2002:a05:600c:800e:b0:4bb:7757:fe58 with SMTP id
- 5b1f17b1804b1-4bb8881b9d7mr305306125e9.19.1795528210579; Tue, 24 Nov 2026
- 05:50:10 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795528840; x=1796133640;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=o+7iSwGfMjtzT2Y6Ygii4nLjUX3g93NcfuA7HOwwEkw=;
+        b=PeEIuJBuM0iq8vZ7J++SW7Y+rzxP0e2rlsa9BeaF4/PO4AFH0TnBx49YQqV5n8kwPj
+         ArJlb0IAZusScV/S61e3o0mpD/BcWVi6kuMGi7zoIPsuZe71lMkuxx8l/1d56BR5qYkT
+         4Algs7X14Mc8Df3asWLXs3h1NvW2QnrrKOlb6oJYGYn+BmHsGZgYe/hfQo/O1T+8lrdN
+         tY+0wz3U3y1siNR/cmB4gs2UF59oT8KMSGPCbLCjc9W7ZLqYyNsVpeb6MiDUm4IS/FgP
+         jkb/tRJ8f+aTW8yx+L8QceAACxhAtv+ASRU8P3xcIosZTaLRH9POnL2ieZWkD6OQz3pG
+         VVsw==
+X-Forwarded-Encrypted: i=1; AL+hErFnU8sWLl55J9ltMJ7KXJDkGUyH/YPQXN0IxaUnVe0O0/Rmt+xI0NrKa95mOsdNXssi2BNlQH1LUBBqIQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+IXJsi3tsrULgwAKkkQeRi/0SOQF9kPtHgPwQ5QPTzxBY0xGHX
+	Yt+wNIvF5xYSZI2GaOLJGQ4umYSANpEoPu57sWkAJs7NUHkT4c5ltevOgByiiUNrCaA=
+X-Gm-Gg: AZFdTZelfJtfKRXsOwskkXUop4qFcTOI/IlXS8b4WCUD8nTgRYmJRd6+iVyC5Kop3hh
+	8ohsjs1yiUnjfQowqK4dVVrEhqug9riz3tIRGNVVdbzk91JEi/kx50MM4AKtAU/xWmDczwPVZf3
+	pEazSW+ST+sNxcc28uc/ZjihKHdjlTLnpr1QyHcAb72imFCkI24+EHJbf/kSPIBxQrwemin5D2r
+	UrxFAlVyPn7GOnJjm4kDtOMjX5XbS8BmSRSeTExZpUxDnk4B+rYp3pxvcibmIUKTfjSmFq89hTp
+	rWLQ4gVBIanvmunlGjLZuM1hQH8CRkNkLC9LThyXtN4QTbCQ90oHU5o9/T1jFDiR1UTvfQ3gZ1q
+	FeGZJUpUxbVo6YwKdhkcXTX/GmWYXkrxyjAGVZOmpRG3Xl8Gt4hNlWIoKeLDHE6HtLl6Q0ZF/ro
+	Abpu5BOHmXrQwlYKFej4zbk6FrMLLr1XNWDG0PUwPFUkCMhTkTpJiYX+82OU+qGfTxJqrznZNSJ
+	nSdYwsj+GwAFZSmqf3UKZdq5MsTFMTanEWN82AtcaMVYY8Nmm1rFegQPxA1J2wBHgZfMsmx/rHR
+	Adhpxg==
+X-Received: by 2002:a17:907:3e86:b0:c36:777f:824c with SMTP id a640c23a62f3a-c51315851d7mr1405271066b.4.1795528839874;
+        Tue, 24 Nov 2026 06:00:39 -0800 (PST)
+Received: from ziepe.ca ([142.177.118.84])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba370cc257sm6492195a12.13.2026.11.24.06.00.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 06:00:39 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xVr4W-00000000QnE-3MAi;
+	Tue, 24 Nov 2026 10:00:36 -0400
+Date: Tue, 24 Nov 2026 10:00:36 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Alistair Popple <apopple@nvidia.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Dongwon Kim <dongwon.kim@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Baolu Lu <baolu.lu@linux.intel.com>,
+	Felix Kuehling <felix.kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	linux-nvme@lists.infradead.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+	Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com,
+	treding@nvidia.com, jhubbard@nvidia.com, chaitanyak@nvidia.com,
+	Leon Romanovsky <leon@kernel.org>
+Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
+Message-ID: <20261124140036.GM9566@ziepe.ca>
+References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+ <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
+ <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
+ <20261123165716.GM179082@ziepe.ca>
+ <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,133 +131,51 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261124-v2_20230123_tjmercier_google_com-v6-0-dce12fa03ad6@redhat.com>
- <20261124-v2_20230123_tjmercier_google_com-v6-6-dce12fa03ad6@redhat.com>
-In-Reply-To: <20261124-v2_20230123_tjmercier_google_com-v6-6-dce12fa03ad6@redhat.com>
-From: =?UTF-8?Q?Christian_G=C3=B6ttsche?= <cgzones@googlemail.com>
-Date: Tue, 24 Nov 2026 14:49:55 +0100
-X-Gm-Features: Aa3M54qkPJ8C4GRzLQzCC_QtBShd4rpGnT89RPbtOkkrzzkAiMVQPjTTZfQmmls
-Message-ID: <CAJ2a_DeDF+9pbLKS9pcX4Tot4xZZ-K7HydKnDjW6TWC5bvREzQ@mail.gmail.com>
-Subject: Re: [PATCH v6 6/7] selinux: Restrict cross-cgroup memcg charging
-To: Albert Esteve <aesteve@redhat.com>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, 
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
-	John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
-	Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
-	Stephen Smalley <stephen.smalley.work@gmail.com>, Shuah Khan <shuah@kernel.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
-	Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
-	Philipp Stanner <phasta@kernel.org>, airlied@gmail.com, cgroups@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org, 
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, op-tee@lists.trustedfirmware.org, 
-	echanude@redhat.com, mripard@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
 
-On Tue, 24 Nov 2026 at 14:05, Albert Esteve <aesteve@redhat.com> wrote:
->
-> The security_current_memcg_charge_task() and
-> security_current_memcg_charge_cgroup() hooks allow security modules to
-> control which processes may charge or transfer memcg memory to another
-> process's cgroup, named by a pidfd, or to an arbitrary cgroup named by
-> a cgroupfd, both passed in charge_fd. Without a policy implementation,
-> either hook is a no-op and the restriction is not enforced.
->
-> On SELinux-managed systems the only limit is CAP_SYS_RESOURCE. A
-> domain that holds both dma-heap access (today's only exporter that
-> opts-in) and that capability, can charge memory to any cgroup outside
-> its own subtree. Since the capability is all-or-nothing, SELinux
-> policy cannot express which targets such a domain may charge to.
->
-> Implement both selinux_memcg_charge_task() and
-> selinux_memcg_charge_cgroup() using avc_has_perm() with a new cgroup
-> object class and a new charge_to permission. Both charge_fd flavours
-> ultimately charge a cgroup, so one permission covers them and the
-> target type keeps the distinction: for the pidfd path the target is
-> the referred task's SID, as there is no cgroup object to take a label
-> from; for the cgroupfd path it is the cgroup directory's inode SID,
-> which comes from the genfscon entry for cgroupfs unless the directory
-> is relabeled.
->
-> The checks run when the charge target is resolved, before the
-> CAP_SYS_RESOURCE baseline is evaluated, and apply to every explicit
-> charge_fd target, including the caller's own subtree, so policy needs
-> a rule even for self-charging. Policy authors can then grant
-> cross-cgroup charging selectively, for example:
->
->   allow allocator_app_t client_app_t:cgroup charge_to;
->   allow allocator_app_t cgroup_t:cgroup charge_to;
->
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> ---
->  security/selinux/hooks.c            | 19 +++++++++++++++++++
->  security/selinux/include/classmap.h |  1 +
->  2 files changed, 20 insertions(+)
->
-> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> index 6c4c64d6e904..76a714107ae4 100644
-> --- a/security/selinux/hooks.c
-> +++ b/security/selinux/hooks.c
-> @@ -2204,6 +2204,23 @@ static int selinux_capable(const struct cred *cred, struct user_namespace *ns,
->         return cred_has_capability(cred, cap, opts, ns == &init_user_ns);
->  }
->
-> +static int selinux_memcg_charge_task(const struct cred *to)
-> +{
-> +       const struct cred *cred = current_cred();
-> +
-> +       return avc_has_perm(cred_sid(cred), cred_sid(to),
+On Mon, Nov 23, 2026 at 07:37:41PM +0100, Christian König wrote:
+> > Part of the design of this series was to allow the conversion away
+> > from SGT to be done incrementally without breaking compatibility.
+> 
+> Do you know the joke from the hitchhikers guide to the galaxy where
+> the dolphins are happy for exactly the same reasons?
+> 
+> I'm pushing against this plan for exactly the same reason because I
+> think it will make the conversation away from SGT even more
+> problematic than it already is.
 
-Small nit:
-`cred_sid(current_cred())` could be simplified using `current_sid()`
+I think it is well proven that trying to do big bang conversions in
+software doesn't work well. :(
+ 
+> > So it is effectively this:
+> > 
+> >> The framework should then either connect the SGT directly if both
+> >> importer and export are using the "classic" interface 
+> 
+> Yeah but that should not be a separate mapping type, it's rather
+> that we just convert back and forth from DMA addresses to SGT for
+> compatibility reasons.
 
-> +                           SECCLASS_CGROUP, CGROUP__CHARGE_TO, NULL);
-> +}
-> +
-> +static int selinux_memcg_charge_cgroup(const struct file *file)
-> +{
-> +       const struct cred *cred = current_cred();
-> +       struct inode_security_struct *isec = inode_security(file_inode(file));
-> +
-> +       return avc_has_perm(cred_sid(cred), isec->sid, SECCLASS_CGROUP,
-> +                           CGROUP__CHARGE_TO, NULL);
-> +}
-> +
->  static int selinux_quotactl(int cmds, int type, int id, const struct super_block *sb)
->  {
->         const struct cred *cred = current_cred();
-> @@ -7683,6 +7700,8 @@ static struct security_hook_list selinux_hooks[] __ro_after_init = {
->         LSM_HOOK_INIT(capget, selinux_capget),
->         LSM_HOOK_INIT(capset, selinux_capset),
->         LSM_HOOK_INIT(capable, selinux_capable),
-> +       LSM_HOOK_INIT(memcg_charge_task, selinux_memcg_charge_task),
-> +       LSM_HOOK_INIT(memcg_charge_cgroup, selinux_memcg_charge_cgroup),
->         LSM_HOOK_INIT(quotactl, selinux_quotactl),
->         LSM_HOOK_INIT(quota_on, selinux_quota_on),
->         LSM_HOOK_INIT(syslog, selinux_syslog),
-> diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
-> index 90cb61b16425..1f1f2fc4d35d 100644
-> --- a/security/selinux/include/classmap.h
-> +++ b/security/selinux/include/classmap.h
-> @@ -181,6 +181,7 @@ const struct security_class_mapping secclass_map[] = {
->         { "user_namespace", { "create", NULL } },
->         { "memfd_file",
->           { COMMON_FILE_PERMS, "execute_no_trans", "entrypoint", NULL } },
-> +       { "cgroup", { "charge_to", NULL } },
->         /* last one */ { NULL, {} }
->  };
->
->
-> --
-> 2.55.0
->
->
+The mapping type is to support ualink/etc that don't do "DMA".
+
+Only DMA API can create dma_addr_t's, you can't reuse those types for
+something else.
+
+And you still need a scheme to negotiate exactly what kind of
+connection you need. Focusing on the SGT is missing the big picture of
+why this was organized like this.
+
+> > As this is actually quite complicated and needs discussion exactly
+> > what it will look like.
+> 
+> Actually that is the easy step I think because quite a lot of
+> drivers already convert the SGT to a DMA addr array outside of the
+> DMA-buf framework anyway.
+
+Given the importer an array is not so bad. Getting the sgt out of the
+importer will be a debate.
+
+Jason
