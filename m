@@ -1,54 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795521704;
-	b=Q/isUAl1pKvxZGONUZsHIP+Hv0v9doqm5pobo/KmLVckju43pvyF8Rhj/d0/6taYoaU5
-	 eBCvoeEPskWWy4/D9gGHRXaUaGaG+t/wAkDtsoU+6iNgmofZ3uQIv3//18/q7150O+hmr
-	 gyZBCKSZn6gDHD6r8ABpRoy3vSj1KeLpoqJK16hdFqpD5fx+N/WWG6gq/gE/qVwJptN8S
-	 FPbP5pPWmGsDUppYD3jqPerqnk8fLXdYurTYl0PrXqkXj5PoA+7pxhmf/naKj+4cpbkvD
-	 W0OLXVib4zqnzXSo98Epn6h0OT01y17xUX38fvZ+X9Xa7Mm/sMesdfohbOADPHZELMA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795521704;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=B2aLh1Rb7EeAQdgB6X2lj4SKSG58JQu7NcueyZ/8jZk=;
-	b=07NVOnUez/fP/0e7lFZRdZxIvtHt7SDLui4St6QhMksUpesMFdlM/TLi/EX+9tR34mwc
-	 PcqY50cbRNae9qYDXjVA9Q/eF/WV0a9brKG+E5fkmQ15z4SKihp6L/XZBuwu1OkwkQsgv
-	 /owS5URyJHz98ibcSe7CerDMh6VRAVUMfHZRJtU4iPoc5nt284NUyMzV08HDZ8MuWpEas
-	 Dtb/gSYpHbec65Mt1q0TkMZyBLdMWxSyIbV9OUVHuVcIQKrXAfsjVEhBYmBvxNMO4m5RK
-	 Zl20tL2YDExUaxs81rs1eTc3NigYcDCCo7pLpuxv15bLncWLvZ758mxRHH9qlfYfCWA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=YjSMzvp4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.112
-Received: from sender6-pp-f112.zoho.com (sender6-pp-f112.zoho.com [165.173.180.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795521969;
+	b=QbAZkZjK78aeDZc9Qq8upphm2XoAmMHUeyYds1JPcvBH6yiXXV9xH1s1T/KDXJEhTNuQ
+	 P4BSIACVJ/EKrnj5wxl9G0KjJiqoxBZZy+qlGQ7mbRzjx06Mr8d71TJYNqoPDCmnXw64t
+	 BFXQoPn2XZMKLii8IO7BxRyst72HBSjzJCxl51RFeEGqc2VdOP9czn4hhF/F3kvEftott
+	 N2H7XoNxAnVvefYZlGaowqoUWDgo8AYEmlmB2c1xU4tid7K4Mq1nQzqOI8qhcllG4FyY9
+	 x85/L/sgliwlY3x+j7KhhDOMux53cn352ZLJZZEBVRYUzJn2/5g/qnsRaQy09uAY3TQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795521969;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=KOl2yz4M7C/s7a2F3laG5SJ8ROMJ5wzUSTSBiLclugA=;
+	b=lmhYviQLziWrsYQzNCw6pu00yT96Jr74xBU5noTNMwoRTkHT+zNpZ81tfKKKHxPoNrUK
+	 CYhgtbKM4wQpL7pBY1kaIda9m74W0BAUf7XZV4b0w9IMpGzw2qgX5lyjL5E2DuQDd+XO3
+	 1kegPoGQqqvN3HBjjHbSHlZXgqlsXzVHhGM1XQPQp9YfKxUzipg3KUGeqr17CBkwbSvq2
+	 4+39zQ5JzJKQSZCaEKefwMbPOzZeVVhZ2uP58soUyWx8sZdRxT9pMzfU1usomEW+7l9Zk
+	 qY+1JTsSslYtnyUlrnjNnPrx+NsiFqGp9QNu0Du/hWTKeDbULQqq6KBs8MpdRb568CQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="MQ/RXhgV";
+	arc=none smtp.remote-ip=209.85.167.47
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFEA3606A321;
-	Tue, 24 Nov 2026 12:01:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFEA3606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9457F606A335
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 12:06:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9457F606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=YjSMzvp4
-ARC-Seal: i=1; a=rsa-sha256; t=1795521679; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Pl+ihXuwYyUvtfSLd1N1Pbi3CQTgNWTthvC04yrOaz++2wfYYtJWTtKApPl+11KRmqT82ZVsVWYf+B/3FLjNyvFVmkWjoJLh2uVfjcSApyb/Sn/hMr+V3G6d065cU91XK93Z6REbc/GelW8uvN2UqnONHOX4bYcx0grBtKbum9Q=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795521679; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=B2aLh1Rb7EeAQdgB6X2lj4SKSG58JQu7NcueyZ/8jZk=; 
-	b=C9J7nEPPlm8RvIJastMZzoNxIfdFtPC1S1tryIq1ipsyj0JH4ktUL1rWJ9CjITyWHRmo2nvA6Baf9KWg/dblKEafxAb9mXVtU6bo5PD68vYKJKbQU/g6IJmXLwWhPRng/nRlNKKUGbSP1AqpEERJLGVHsMce2fjbNRs6Swea3HU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=YjSMzvp4ePpoQaOaxcLPjJ9Q5rgzP3v4D9r53X8EDK28J+aL4CTC2B8FFP0337/gTBria6q1Yv9sA18U67IosMMlj/NUKGXdb2xxz2hR+Z+C7SiF9NkSEODJfkrf/ozsOmNolzlzshgU11/b3kENSJY9+PDY7S9CmfU7UXdblck=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=B2aLh1Rb7EeAQdgB6X2lj4SKSG58JQu7NcueyZ/8jZk=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795521671464907.5657925737316;
-	Tue, 24 Nov 2026 04:01:11 -0800 (PST)
-Message-ID: <773b5d1b-6679-4f68-b15e-022842f5109a@collabora.com>
-Date: Tue, 24 Nov 2026 13:01:05 +0100
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MQ/RXhgV
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so4005711e87.1
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 04:06:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795521967; x=1796126767; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=KOl2yz4M7C/s7a2F3laG5SJ8ROMJ5wzUSTSBiLclugA=;
+        b=MQ/RXhgVqU5sAcBNnuTQ5U0+AZ6JbM/oIPEOQ2KoEQwTD+GMBeWAGs5HSHWf5LbnjY
+         0dlv/BunRCPGkSSliuOGd524M5yxjRd8aHmBHJJOuW5cL9ddleDulX+v9QfPjxrB12in
+         pehtr+vEznWV+PMiZ0Vz5rsflnAJ2nOcmL/ck=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795521967; x=1796126767;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KOl2yz4M7C/s7a2F3laG5SJ8ROMJ5wzUSTSBiLclugA=;
+        b=fEwdGzag6Fbh51vgVcWgzXmu69ZC3f/wTqBmkXsnplybv+6EkIue5H2mPhOHWVs/4P
+         SntOEoXdFr7Cq97Rdoo7Bv8cgOArIvgYQbbBaQ/kgpJmt8tLlDbUihYMgTyYhif3EJYy
+         U3WO6MdpVc1eTSevzAqLn1raCQlGbImkLNS01s2wB+0/ui+50rddXRDpvK+zVFS7Vl37
+         3PQqm0PtxqTY1cIARq+t7vAs71r8dXRkRcbjAcXaJN1mRL1/jvaavOYxqQJ7ij8SjRwI
+         piPpijVZxrHME12uUpOLxgTCoVS0NWbpUBK41xKZ5MyG6MBPBGcJJtSx8NyOQbwdvoop
+         QXpw==
+X-Gm-Message-State: APuU4Z9gadtzZiSwJPQ6/iVooSFQkIZ7WEJUO8mpi1TYuWInAzN75UJX
+	ZP8XGfz/YPPe5Q8OnK4ZndEHyWRXZoMZb8BwnsxJ0em4QpTk0N+cy0ZCPYuN07ahrw==
+X-Gm-Gg: AZFdTZcMaxESzRFohr8NFb7scNf/1iYa5aKJYq8ChAPUIiELn+/JjRyF5CE8CP7uNaB
+	fWJvYKxI3VszF+NKn4hYZ7nNwIOrf+MkYaqOTn4uGuPdVNQSboH9s/k8lbLYVGWVrAu2khYYNC2
+	y9zfTB2GVrEsRrHVxciFqHtYG2lglldms0/1HHZlKNbuFhO2erIiAfrLOKgf08QFWFoHyzsd7l1
+	Dizet/cPXmDRIHkuCTjPFLLUZaUU6OXZLvRYm8RPGTwkGG1i/oj5LkguKD/WB5JrM6ufED1IbQ5
+	xJhWSD10EjM2IwpoInVFtcsc47NQahLH5RWdTaVgAH/+yMmUGrYAIe00nSWnaKvPLxOe/zoL5yr
+	4urtpGxVLiC5nSemEsN83EGhwZSvLsHZe9mg3FRbyXZ8gBVwg6aJrvCPw0+ao2gRZEy5HYPu2D3
+	WGJVz32x75F2tHFUqWF0aX4Q24yUfs4jfLSpakwM1PSZv6uIJB5iVpsgh2N3cRcCAkV93AXQaIW
+	HodHbK8nfAkkygWHgvd43END9pqpl8y9JRB738ZnEMAXu8ZvWVosZHJUov6wSEHBEKqsB4XBhEu
+	K0NC7KLShLE5Ave//Tb9FJsjvWVQOjltsUAJQULUaaGJkNSOEZkjcFxHuh5+loaktQJJN+HOcZ/
+	prUBTp+LLSg==
+X-Received: by 2002:a05:6512:3087:b0:5c1:4a42:fb17 with SMTP id 2adb3069b0e04-5c1bc89ed7amr4414564e87.59.1795521966845;
+        Tue, 24 Nov 2026 04:06:06 -0800 (PST)
+Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bd01772esm3654675e87.39.2026.11.24.04.06.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 04:06:06 -0800 (PST)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Subject: [PATCH v3 0/2] media: uvcvideo: Fix race condition on metadata
+ buffers
+Date: Tue, 24 Nov 2026 12:06:03 +0000
+Message-Id: <20261124-uvc-racemeta-v3-0-f82822cbadb3@chromium.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,85 +89,66 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] phy: core: add generic MIPI C-PHY configuration API
-To: Bryan O'Donoghue <bod@kernel.org>,
- Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, david@ixit.cz,
- andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, vladimir.zapolskiy@linaro.org,
- loic.poulain@oss.qualcomm.com, mchehab@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
- jigarkumar.zala@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com,
- akapatra@quicinc.com, linux-media@vger.kernel.org,
- krzysztof.kozlowski@oss.qualcomm.com, daniel@quora.org,
- konrad.dybcio@oss.qualcomm.com, christopher.obbard@linaro.org,
- alex.vinarskis@gmail.com
-References: <20261017041733.3946816-1-anusha.nandi@oss.qualcomm.com>
- <20261017041733.3946816-2-anusha.nandi@oss.qualcomm.com>
- <a6d8514b-269c-441d-b280-4895b5f21fac@linaro.org>
- <f689ccfe-4adb-41f6-b492-97a48090413d@oss.qualcomm.com>
- <e3d322a0-43d5-4369-bd09-128152f4b233@linaro.org>
- <8741d667-efdd-4e3f-a1b2-2f04255d7c7d@oss.qualcomm.com>
- <3Qy0nxBJKeIHC6U9JocO-BGMDL8rLOkC_xTz4kT1GKMFKf86iv9Jhty6HHNLjO2CNSn6ZjK3G8TAXKLwckkhVg==@protonmail.internalid>
- <e579e40b-9ee7-48ba-92b7-78f9dfffbeb8@collabora.com>
- <fab551bc-5cd8-4ab0-b97b-f808027506ad@kernel.org>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <fab551bc-5cd8-4ab0-b97b-f808027506ad@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKt9BWsC/3XMQQ6DIBCF4asY1p0GsNLQVe/RdDHCoCyUBpS0M
+ d69aNKNSZfvJf+3sETRU2K3amGRsk8+jGXUp4qZHseOwNuymeSy4VdxgTkbiGhooAnBEUlSum2
+ dsawkr0jOv3fu8Sy792kK8bPrWWzvHygLEFArbosnGtR4N30Mg5+Hc4gd26wsf73iSupDL4GD4
+ KSFleha5Id+XdcvXrJgeOsAAAA=
+X-Change-ID: 20250714-uvc-racemeta-fee2e69bbfcd
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ricardo Ribalda <ribalda@chromium.org>, Georg Neis <neis@google.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-Hi Bryan,
+This series fixes a race condition when calling streamoff only on the
+metadata queue while streaming.
 
-On 11/24/26 12:51, Bryan O'Donoghue wrote:
-> On 24/11/2026 10:13, Michael Riesch wrote:
->> Hi Anusha, hi Bryan,
->>
->> Thanks for your work. I am working on CSI C-PHY support for the Rockchip
->> RK3588 MIPI D-PHY/C-PHY Combo PHY and would love to see this landing in
->> mainline.
->>
->> On 10/24/26 01:20, Anusha Arun Nandi wrote:
->>> [...]
->>>> The CSID needs to know the symbol rate - so that it can vote on the
->>>> appropriate NOC/CamNOC clocks/rails but... does the PHY driver itself
->>>> need to know that ? It does not, symbol_rate is not required in this
->>>> struct no more than it is in DPHY.
->>>>
->>> Yes agree. I was thinking the same. We would not need the symbol_rate in
->>> the struct.
->>
->> How would a timing calculation like in the Rockchip downstream [0] work
->> then? Can this table be implemented once in a common helper, and the
->> resulting values are passed via the struct?
->>
->> I am new to this spec so please bear with me, but it feels the symbol
->> rate should be in the struct?!
-> 
-> Might be the case alright. We have two approaches we can take. Something
-> like DPHY which populates just about everything in the configuration
-> struct or just add stuff in as needed.
-> 
-> Maybe the PHY does need to know the symbol rate.. In our case on qcom we
-> vote for bandwidth in on the CSI decoder side.
-> 
-> But maybe there's a use case for the PHY to know that rate..
+The first patch fixes the race condition and the second patch replaces a
+busy wait with a waitqueue. It is probably overkilled and this is why it
+is a follow-up patch.
 
-Fortunately, that is a kernel space API, so not *that* critical.
+Feel free to apply the first patch, both, or squash them into one patch.
 
-Then I guess we can put the symbol rate in there. If it is unused, there
-is not much damage done, I would say. Plus there is the possibility to
-remove it too, right.
+Regards!!
 
-Just my € 0.02.
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+Changes in v3:
+- Fix race condition in uvc_video_get_current_meta_buffer() by checking
+  stream->meta.streaming under stream->meta.irqlock before peeking the
+  metadata queue.
+- Introduce stream->meta.streaming set in uvc_start_streaming_meta() and
+  cleared in uvc_stop_streaming_meta() to prevent URB completions from
+  acquiring metadata buffers or starving stop_streaming.
+- Add Reported-by: Georg Neis <neis@google.com>, who also reported the
+  same bug internally and pointed at the race condition without
+  meta.streaming.
+- Link to v2: https://lore.kernel.org/r/20260629-uvc-racemeta-v2-0-10e91d2afba0@chromium.org
+
+Changes in v2:
+- Use a new flag in_flight to avoid keeping the spinlock for long
+  periods of time
+- Link to v1: https://lore.kernel.org/r/20250714-uvc-racemeta-v1-1-360de2e15a9a@chromium.org
+
+---
+Ricardo Ribalda (2):
+      media: uvcvideo: Fix race condition for meta buffer list
+      media: uvcvideo: Use wait queue for metadata streamoff
+
+ drivers/media/usb/uvc/uvc_queue.c | 27 ++++++++++++++++++++++++---
+ drivers/media/usb/uvc/uvc_video.c | 32 +++++++++++++++++++++++++++++++-
+ drivers/media/usb/uvc/uvcvideo.h  |  4 ++++
+ 3 files changed, 59 insertions(+), 4 deletions(-)
+---
+base-commit: b7ac871daee981f1963f632586ff9b9d898ce5dd
+change-id: 20250714-uvc-racemeta-fee2e69bbfcd
 
 Best regards,
-Michael
-
-> 
-> ---
-> bod
+-- 
+Ricardo Ribalda <ribalda@chromium.org>
 
