@@ -1,86 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.37.160.117
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795520876;
-	b=jXCcBWXKvhtoe42BR6FZ8tLIKeKiUTq/S36zj9bDi5eEZU0mwvLW1hjvVLOFIHbf8W+3
-	 GyK1HeNCz1P2FFWzrV9S+xT4+GqzXlV9kYAmP+ZU119sPgM9EpYVpNFcN3Ilihy96jZL5
-	 Ovz++LsaHtif16/KuT/GVai7yeA48XoVqJxsmEvyvhh1mJRcbBAsA+Ov+OUQRJ1UtvZbl
-	 exaeUvqHE4SRJqk1VmZleUlgAFaKK0IH6zcIxN1h73+w7vtEA2AhyGwBpnjXDNjv6s8bR
-	 QX0CIVR8PMbLcc9qwFyeciqRS2MHosgosWVphwz5E9eMTl5zkaBWsvRog95XzJWBSRg==
+	t=1795520884;
+	b=A5MeSuBgGyHeKHiQo1NZJuzfET7hIL0lNidA90jJdQ8/LxEOCXNEOcV3VgHmcCam/x7S
+	 w29NgXcsakA4x2eZwlbNBvTkWLO6yJmKDJX0v9ubu2pY8M8KO1ThASBFRAmvqnP4ypCXQ
+	 fB7Pu/BsTGMw0cLQvCvIQIrNNHA/5PXWKBv3yMCppwTTWxCMwxByZP8Py/6eORATcm9Xr
+	 LAHAJQSUyB5xXFifnQINhbbWdQyX/f26D4ZrpfQxcITCePbjPurYr/VQqRvSL/uaKkuGb
+	 V/X6Ucv/X0qspSlj9dwyXY9lGx2yqeowUdG6LwQulPGaXi+Q58cgFbMWynqNcZ9f9rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795520876;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=GY4X2427yKwcvmSccJzJO+cyNWHTwTN9g9RJkbIPSls=;
-	b=LBT0kF3Uh7urKzM7ju+SKQeL4yWBzxThNHZsJUL0DhWyjju5XZRwWQVkqZkMK7rVYvmH
-	 g56AI6GxZzXUHRzB9UnOPoYkJQDtauyI36uJ+7o5LtXMVa7bv2syMfQqmguyMlDRej90V
-	 WDpNwTz26scRgR/oR1ysgMPPn+DfRCbzvzTYVqDx/TS9++OK+ichb2tzFyoY4u2Q24Sse
-	 SiI4ICFUSO7o0E+OVpbgp1t25WN9nZvayPmFk16ffBqnNYTGi3tXte/an3/KTu5u/jvZY
-	 L93DFIzZdCl6ruJgf2+/1v5F9aUuZjk4jw+3JelG2gUS3k//WswOhmfFuVw6pEf3JIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795520884;
+	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:
+	 Subject:Message-ID:X-Sender:Content-Type:Content-Transfer-Encoding:
+	 Sender;
+	bh=7jqnNayOlZVScK3fMknBiwZmSXs78gMepzJkxenu5Vc=;
+	b=2a1wbMPlBKXjcyH/59oZUjpn9MNKexjGN5gpiLnncWgquvwA9sO/XjR449dGvhxywum7
+	 gfUke68edqk5GN0lZ3cxn6cv76vizqUDSNBsG36x8lA1Qg1HAPlAbXfJj78Q6KfWY9OC6
+	 ZFqkZSxtsnqJ4mauZOmKOvkQmi/8EsU1JAER6vLXXksNic54EweJhRtwRe5pvtvIRbfEb
+	 4eZXp3zgSNmkkUNSsqzSFNI3PrfBcklgMGF65rxQATJZPnmAuhiWecZKELFB72XQRH8e8
+	 5rZxWMrJYQPfFaq0wBFhngn1AYC2IwBc0pGd2CU3brQIrfVdcxqHWmQH6CJ/4e80dTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mek0rg0H;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=codethink.co.uk;
+	spf=pass smtp.mailfrom=codethink.co.uk;
+	dkim=pass header.d=codethink.co.uk header.i=@codethink.co.uk header.a=rsa-sha256 header.s=imap6-20260915 header.b=OaVrMikv;
+	arc=none smtp.remote-ip=46.37.160.117
+Received: from imap6.mcr3.codethink.co.uk (imap6.mcr3.codethink.co.uk [46.37.160.117])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CB3606A322
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 11:47:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31CB3606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA3F606A31E
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 11:48:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EA3F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=codethink.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codethink.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mek0rg0H
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-491971ac844so4028725f8f.2
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 03:47:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795520874; x=1796125674; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GY4X2427yKwcvmSccJzJO+cyNWHTwTN9g9RJkbIPSls=;
-        b=mek0rg0HoMDQQWqq3r+W+sp1S6saVIYENtmuVRsWObbg6ISEyXh7jzBRMYFADOwxT6
-         uZhHPGi2/jy225RsceAaiHdW2kehAopL5/4UNRFFtcWVAZZ73SIKlUYpCoujjBoaLg2z
-         2E10xdXgjgvnkA3mjDmbVEGQ1n5euxXYgZn5ikrml2L7HY0wYm63dVT7HIITxkGFNMSu
-         tbceSaVfgNMvO/btjSHL5ZaIiP9CBj0wtxDutWgeVQO4LPxUPnabrztcBuPD07NP/uHk
-         D2ZUnWrLl0Ne+RwfXmUH3JQb+whItJoxQY9K1jEjgguj6blAkvEtdNvS+pfrxxUQNRUB
-         kbHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795520874; x=1796125674;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GY4X2427yKwcvmSccJzJO+cyNWHTwTN9g9RJkbIPSls=;
-        b=lH94pAjiQEkgBtGl7xTkyqfEr9X2hIhRsLOl3vcBfq0R+HptzSJEk7WZaTvNckswvw
-         RKPjYL5CVJqwsxM0IgJ9XqRRLI2d0nKaL5B3WDDAE5HSZUwUq+277+VoSA6CvivaL/bx
-         p8nEr9fiPUgeZchQxgam2GTHxGmnavBUblNnETfETHK9zb0b5R9OP4cFcOJ7RnqdK741
-         IpSGAzqnj10yGRbMcWpX7AmDaifYo9fI/tib7nyFBXQlGmZjvsFoKMF2uUa/B/d4JFHu
-         hKM7R/j4jguISP6FXcUYe8UMSGfxUe/3TlyA0cJJjLe8ZxzUIFS6BAQZblzmlIUEtoCq
-         dFSQ==
-X-Forwarded-Encrypted: i=1; AL+hErE6qRdVE+MNbpdda6p1rgYQara2gqGVKQL6fqjg2I0nUfRZf+nskZEJ3S0CDJuUZBUc4vlnmyT48HXFog==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JuFqj5+ZgGlIuIOb0k2p9hHgge3oL9tpdi9NvHDYyBUA0M355
-	uYacuB8zFf7NBDT1cCPxarBVLMYLB7V4eLZn00mlkJe3EtLg2hlrjBzzUx1K0fSkMH4=
-X-Gm-Gg: AZFdTZdjhWWs2NKPeGjaY1+FdVxnxAWbx1UQacoMK5JanqyZIawhqDIWQqeuPdAc1eI
-	wtP/ZzpUeK2g/oSaK4I+t/vd20ZkedOEs+5JIDO6qZ9ZYHinWqcMB8sni5KLVJGTCzWQ8+QtFXG
-	vzq7sQ1iiwx9EGHo8Gu1mkUZvRBAw6xUzOMwgO+6VdreXA2QbXp62h1VpHRt7fG4CBEpuMjpPXi
-	+Vy2nbS47Qt3apK9mXOtEJZhI5gAhbVhtde/H/zinbp9kuiiAfuzTn7WM4phiyTOmVl3hn9EEd2
-	tQ/TIETLVIk3kShpx5bjwRO2PqNl7GXjaM/RWtB4qMa575tUhhs5bu6qiQ9l1Ru3JWw8diSXDqS
-	LJvvp8zwcKatSqH72jbInUt321yW0PxJvfQS4Srlft0eqN/xGIbNq8xSBD+VtspbxYgs4T5w16q
-	fHtvYizKLQRYIUMHKfHbM/ayOGCTECdA1/xRZi21oc1HHrBE5570+25Havc/uj+BgJA69nJSNAj
-	uOwNHByDp1dj9+E3dkP23zckIZG6y+sFCmliTsJoB/tF2vywoAA4DTItRks2DLEOCzTnHN1GZrw
-	kS/o+dJ5aqzx6R+6SX4elgXqgFfb2fqDvfI7l0QG5D5r
-X-Received: by 2002:a05:6000:2c05:b0:48e:870:7791 with SMTP id ffacd0b85a97d-4abb18cbe21mr28231125f8f.26.1795520874481;
-        Tue, 24 Nov 2026 03:47:54 -0800 (PST)
-Received: from [192.168.0.167] ([109.76.241.250])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4b70c05b9desm3362842f8f.54.2026.11.24.03.47.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 03:47:54 -0800 (PST)
-Message-ID: <d695ccb6-f8f3-40fb-8bb5-ba138bdd0814@linaro.org>
-Date: Tue, 24 Nov 2026 11:47:53 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=codethink.co.uk header.i=@codethink.co.uk header.a=rsa-sha256 header.s=imap6-20260915 header.b=OaVrMikv
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=codethink.co.uk; s=imap6-20260915; h=Sender:Content-Transfer-Encoding:
+	Message-ID:Subject:To:From:Date:MIME-Version:Reply-To:Cc:In-Reply-To:
+	References; bh=7jqnNayOlZVScK3fMknBiwZmSXs78gMepzJkxenu5Vc=; b=OaVrMikv+6kwWE
+	oWIYaQsq5TWCFsOAY++IkTnxtkDNd96DOathDu6afZhG5KAj/2ghKhGgr7YDtNKo7qULH9FmsG2xq
+	7dmuWLEBreCCrLWezYlk5FHIhSHQIYcOHog8m5lxRukA8eSfADE52r14K/2+pZ+gOBXLn5S3mIrRa
+	VRoaWJaMPXpHA4u24JkoP2+zE1jRHWabHlMAx6koM1w2iarEUhbZgW5yLetpFAI3rG2q2HR1QSnFN
+	iGxSCNA4p/jFrRoK9XNkUK6aPvToi6vLlvjStwUsjvnCW6DU3B3vsvu1lWtJZpnX8zk4cugCsoXge
+	H6O3dHJKTfqbmK9DTu1w==;
+Received: from 46.37.160.103.srvlist.ukfast.net ([46.37.160.103] helo=webmail.codethink.co.uk)
+	by imap6.mcr3.codethink.co.uk with esmtpsa  (Exim 4.94.2 #2 (Debian))
+	id 1xVp06-008Tkc-M2
+	for <linux-media@vger.kernel.org> ; Tue, 24 Nov 2026 11:47:54 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,83 +55,60 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] media: qcom: camss: Report the hardware SOF timestamp
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20261123-camss-hw-ts-v1-0-7b62dda6d7a9@oss.qualcomm.com>
- <68bf8d15-8ebe-4d19-8f77-f49ca0cb5488@linaro.org>
- <CAFEp6-3U+X3gE_AMqn5G0MFFsdqxRGHV+u04iiBJ0RLA_Sb8Mg@mail.gmail.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <CAFEp6-3U+X3gE_AMqn5G0MFFsdqxRGHV+u04iiBJ0RLA_Sb8Mg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Date: Tue, 24 Nov 2026 11:47:54 +0000
+From: paulo.constantino@codethink.co.uk
+To: linux-media@vger.kernel.org
+Subject: [PATCH v4l-utils] doc: Make Doxygen documentation reproducible
+Message-ID: <3dbb643b5fea57a3f0f12448db24ff25@codethink.co.uk>
+X-Sender: paulo.constantino@codethink.co.uk
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Sender: paulo.constantino@codethink.co.uk
 
-On 24/11/2026 10:21, Loic Poulain wrote:
-> On Tue, Nov 24, 2026 at 10:59 AM Bryan O'Donoghue
-> <bryan.odonoghue@linaro.org> wrote:
->>
->> On 23/11/2026 17:16, Loic Poulain wrote:
->>> The CAMSS CSID latches the ARM architected counter on every start of
->>> frame. This series exposes that time to userspace, both through the
->>> V4L2_EVENT_FRAME_SYNC event and as the buffer timestamp.
->>>
->>> Until now both were taken when the interrupt was handled, or worse, when
->>> the frame had finished being written out to memory, which is about a
->>> frame period late. The hardware value is free of interrupt latency and
->>> is directly comparable with CLOCK_MONOTONIC, so it can be correlated
->>> with other timestamped data such as IMU samples.
->>>
->>> Patch 1 lets a driver fill in the timestamp of a V4L2 event instead of
->>> having the core take it. Patch 2 passes the SOF time down to the common
->>> CSID event helper and adds the counter to CLOCK_MONOTONIC conversion.
->>> Patches 3 to 5 read the registers on csid-340 and csid-gen2. Patch 6
->>> uses the same time to stamp the captured buffers.
->>>
->>> Patches 4 and 5 are picked from the timestamp support Bryan shared
->>> earlier, with patch 5 adapted to use the conversion helper added in
->>> patch 2 rather than its own.
->>>
->>> Tested on QCM2290 (Arduino UNO Q) with an IMX219 sensor.
->>>
->>> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
->>> ---
->>> Bryan O'Donoghue (2):
->>>         media: camss: Define timestamp registers for csid-gen2
->>>         media: camss: csid-gen2: Report the hardware SOF timestamp
->>>
->>> Loic Poulain (4):
->>>         media: v4l2-event: Allow drivers to provide the event timestamp
->>>         media: qcom: camss: csid: Pass the SOF time to csid_sof_event()
->>>         media: qcom: camss: csid-340: Report the hardware SOF timestamp
->>>         media: qcom: camss: Timestamp buffers at start of frame
->> So I was offlining this change and kind of left it at comments I
->> received to make the type of timestamp selectable on a per-buffer basis.
->>
->> IDK if that's really required for a first pass but, its where my own
->> reviews were left at that time.
-> 
-> I can imagine this being useful in some scenarios, but today the
-> timestamp source is configured per queue, and there is no userspace
-> API to select or switch between timestamp source flags AFIK. So I
-> would consider support for that to be out of scope for this series.
-> 
->>
->> ---
->> bod
+Enable sorting of brief documentation by fully qualified names.
 
-It's on at least one branch I have its not finished but on the way
+Doxygen can generate group members in a nondeterministic order,
+particularly for nested and anonymous structures with similar names.
+This changes the generated HTML navigation indexes between builds.
 
-git://git.kernel.org/pub/scm/linux/kernel/git/bod/linux.git 
-linux-next-23-04-03-sm8250-typec-camss-qtimer
+Enabling SORT_BRIEF_DOCS and SORT_BY_SCOPE_NAME stabilizes the
+ordering without removing any documentation.
 
-That's where the other two commits you've picked up come from.
+Tested with freedesktop-sdk on aarch64:
+- release/26.08: 30 consecutive reproducible builds
+- master: 20 consecutive reproducible builds
 
-Please have a look.
-
+Signed-off-by: Paulo Constantino <pauloconstantino@codethink.co.uk>
 ---
-bod
+  doc/Doxyfile.in | 4 ++--
+  1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/doc/Doxyfile.in b/doc/Doxyfile.in
+index b7a76cb1..ac6ef62b 100644
+--- a/doc/Doxyfile.in
++++ b/doc/Doxyfile.in
+@@ -528,7 +528,7 @@ SORT_MEMBER_DOCS       = YES
+  # this will also influence the order of the classes in the class list.
+  # The default value is: NO.
+
+-SORT_BRIEF_DOCS        = NO
++SORT_BRIEF_DOCS        = YES
+
+  # If the SORT_MEMBERS_CTORS_1ST tag is set to YES then doxygen will 
+sort the
+  # (brief and detailed) documentation of class members so that 
+constructors and
+@@ -557,7 +557,7 @@ SORT_GROUP_NAMES       = NO
+  # list.
+  # The default value is: NO.
+
+-SORT_BY_SCOPE_NAME     = NO
++SORT_BY_SCOPE_NAME     = YES
+
+  # If the STRICT_PROTO_MATCHING option is enabled and doxygen fails to 
+do proper
+  # type resolution of all parameters of a function it will reject a 
+match between
+-- 
+2.47.3
