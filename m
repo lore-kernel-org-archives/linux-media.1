@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795540121;
-	b=Liy/Fg7jhG5dP9xgLynKnORpEvEb9Lr7HSRWoLTr+bNqck2E/tBZekhjPK1cRlLCISsR
-	 sz4hux4X93HI6tknLZ/+UAX7YxCinaJ+4gXzkQflxag+Yt92QQHgTUbFkcSwKBq/PGvQp
-	 q/68ATcjL/xcMQ/KEFYbUnUgsHGELV87ff7W1slekEX/ZfRllU5GbwD6Yil9C8rbKeBdH
-	 xT1h0pCd4Q9H/asONfsuu9Cw+iu48Oaq92CtWCl89qlJgoif80MLJa49m7uxOPsIvLzLX
-	 O1h/TuCSnIdfYGLwSEjh1doBtp/WHj3Dnn9htqCTjyfAtOeUkYqANPK3RnEdTJKMlBQ==
+	t=1795540118;
+	b=byQZWnWQCrpE3dg/dmjLA916m4ZKb+jP/6nPONFcJyuIrDoCFhEbTukZMg1YZm3UnfUG
+	 8IS52JLpGgT06Rbs3jL74q7nHMjK6TWhfIz3s9BWxCRUVh+hllHEus3herymeSyi0YYQO
+	 7AH9SSs2C9OYwVPcezBtdsjRR9GhaCsDp2/75Jvv29G6HNojzI4oWLOCKyCpNxZGBC9WS
+	 iOarPDFERQJZfTVVBX1NulJtuhhiKHNbapH4LLwvA+GXeCBVt6Le8GcRPpf8I39BTQ1H3
+	 A1yonebnKObmGrvPO+AhBut9AJO89AWKvVP2NdrZSXRrn+TvX3QNbUzFg1mpavhjk4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795540121;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795540118;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=ocrFwpMZbdzRZryFrrKMTs4wA7mdIpzQpMiPn0BnBKk=;
-	b=dvnBZqs+7DDaQSXexJuNeuCLo5tFCikU65msHaiygrixgjUBwViA+g2ep6jAETy2UpWj
-	 NSWIUqUBy1Q4HhflIzzc1EQfwNNW+bZmxFXZbMOti39cPZLM4s/Ocv1LED25b7jYIgBbo
-	 O+roveGqmx/VlRxCdxLoc8P9ePu0hdBH9UUPS6cSrVHryeoahvcDNUqeF6gWCj+LduVvb
-	 sYlZbEqfcOvYRlD7Pkmt+QYZDa8e5UG9oKh3hKH050UXaW77t7u9ZDMyPIbS8q0FCaGNt
-	 OC/yVR6aQknjGc4tjH6zaK0+fUH5iAYEBzEWDBH9JnT8UlAlHYIMJNzYYaRCk8BKVrA==
+	bh=ajYUQQBbL+Gre/VY4MXuXKporCwZduVT6bUpjggpyUA=;
+	b=XsMr8W0/Ecoedc+TKxvFpyEvLE3fVK4728PPaml7DGtFCwdhkPpF0VHXS1tPsYSUor0u
+	 Z2bPyyj0U2Sm4fE4ALitHYNupbqFEMH3Wt1981NceEW+bCuacA+TCffmXqw2El02Mo2Vf
+	 LoKwfnM4UTj6PkJLqBFTScFtEMMNWy1C3/AP2OM0cHKOcPPEgWbN6jpyE647L/VMyqiZO
+	 9STSM4QjXZCa5vR8TAZszbBcy1MwNMtdkG/K7D9ZDwmz0dmKYEc+Na3qnK2zQwTfC2vX9
+	 wIi7wQGSdthLs5v1XE0RJVxeVmAwoWX5y8CuLWXL+192Bn71n8loMtkBx8Ar8j2bOPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=M5NzDNuo;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=apdVAVm1;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3FF65606A697;
-	Tue, 24 Nov 2026 17:08:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FF65606A697
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 49D9E606A682;
+	Tue, 24 Nov 2026 17:08:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49D9E606A682
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=M5NzDNuo
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=apdVAVm1
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C0A361A9A;
-	Tue, 24 Nov 2026 09:08:36 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B19EB1A2D;
+	Tue, 24 Nov 2026 09:08:33 -0800 (PST)
 Received: from e126453.arm.com (e126453.arm.com [10.33.8.63])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E576A3F763;
-	Tue, 24 Nov 2026 09:08:36 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D76713F763;
+	Tue, 24 Nov 2026 09:08:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795540119; bh=ISfWUAL9J+4e4r9Zgj7Nbpa/58m7ol5QFQp7Gx2taMc=;
+	t=1795540116; bh=a4FGBQrHH6Dhi3KSN3ek2TPlUEDmzN4/DJ4dPMzlUMQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=M5NzDNuo6SFfNzuyjLfOjDTsJWfHGGpyN1uQ0wq5bvF1rHN1sCaHMJE2wJ09ajVV7
-	 bekjyqWuesWPfEE1uRkVFkpi6pTXBzCC7A++Lk2c9cwO6GnwA/fgX8v7k+MPn439ka
-	 h3VqoxGBcg19HwStp3L+kt1Nnp7712LHK93y7zfc=
+	b=apdVAVm1UBoiKUeI+pBf0xYfvhwTZXwiAdVnwtIxvLvWySKT0J/YBjY3uuraA/FeY
+	 VML97INx1t3z6cDMiCXPf77rW9X7K+YuW6P6airepbb68isECccUEJUUB5fJKcJ1y+
+	 bWp+C9og+5p9JrjZIJoptLoFL2VxgStNB6TAi1yk=
 From: Anthony McGivern <anthony.mcgivern@arm.com>
-Date: Tue, 24 Nov 2026 17:07:40 +0000
-Subject: [PATCH 12/24] media: mali-c720: Add video capture nodes
+Date: Tue, 24 Nov 2026 17:07:39 +0000
+Subject: [PATCH 11/24] media: mali-c720: Add full-resolution output
+ subdevice
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -57,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261124-b4-initial-upstream-candidate-v1-12-0cb9bde1bd30@arm.com>
+Message-Id: <20261124-b4-initial-upstream-candidate-v1-11-0cb9bde1bd30@arm.com>
 References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
 In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
 To: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
@@ -75,33 +76,129 @@ Cc: Anthony McGivern <anthony.mcgivern@arm.com>,
  Conor Dooley <conor+dt@kernel.org>, 
  Anthony McGivern <Anthony.McGivern@arm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795540078; l=28346;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795540078; l=48983;
  i=Anthony.McGivern@arm.com; s=20261124; h=from:subject:message-id;
- bh=4ubbnye/lCcnGWskwy7C1B2E9K9KD8y+8xQ6VOp0D3Y=;
- b=mMclsh3xgW/BmHVrIxrBPLhWbw03g4bKPqw6oU6f7jEHTbpsbBj+w3DLDzzLCXLDI3KjVABw/
- xenM0AtfVx7CSkmRe9MOu3/s7V4cSP8eCw5zLQKtBSH2kN+mLz+Gbcs
+ bh=vHeMaa1T+Z129/HTh+IomsFNJryxovEg3lz3XuN80Ms=;
+ b=DvZJCyHas2B5gZW8EWCf+Zcox6qea0H66mg4CoSJbEATzofQYsH3pXt9yNOhgoKnmnVGr7hJH
+ K8zJ9xcbNCMCt7d3CjKEKgzyGfFUVTqFNuVu6XP/xIKfvieYhcr0n71
 X-Developer-Key: i=Anthony.McGivern@arm.com; a=ed25519;
  pk=cvw1HHVRuWpdkn55JpnRyCO2oGBkBWaBXcc2S3CmHTU=
 
 From: Anthony McGivern <Anthony.McGivern@arm.com>
 
-Add RGB and YUV video capture nodes for the full-resolution output 0
-(FR0) subdevice. The capture-node implementation can be extended to
-support other subdevice outputs in the future, such as raw capture.
+Add the full-resolution output 0 (FR0) subdevice with RGB and YUV source
+pads. It is currently connected to the human vision (HV) pipeline.
+Support for additional full-resolution output pipelines and connections
+to the computer vision (CV) pipeline will be added in the future.
+
+Configure scaling through the sink-pad compose rectangle, followed by
+cropping on the source pads. Both outputs share the scaling and crop
+configuration.
+
+Provide default scaler coefficients and YUV output formatter settings.
 
 Signed-off-by: Anthony McGivern <Anthony.McGivern@arm.com>
 ---
- .../platform/arm/mali-c720/mali-c720-capture.c     | 747 +++++++++++++++++++++
- .../platform/arm/mali-c720/mali-c720-common.h      |  56 ++
- .../platform/arm/mali-c720/mali-c720-ctx-mgr.c     |   6 +
- 3 files changed, 809 insertions(+)
+ .../platform/arm/mali-c720/mali-c720-common.h      |   53 +
+ .../platform/arm/mali-c720/mali-c720-fr-pipe.c     | 1178 ++++++++++++++++++++
+ 2 files changed, 1231 insertions(+)
 
-diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-capture.c b/drivers/media/platform/arm/mali-c720/mali-c720-capture.c
+diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-common.h b/drivers/media/platform/arm/mali-c720/mali-c720-common.h
+index 1037949d45e4eb8520254cd9addcbfce45def92d..ca7e04ef27a6ae3c4b41144de579c668255bfcaa 100644
+--- a/drivers/media/platform/arm/mali-c720/mali-c720-common.h
++++ b/drivers/media/platform/arm/mali-c720/mali-c720-common.h
+@@ -31,11 +31,15 @@
+ 
+ #define MALI_C720_MIN_INPUT_WIDTH	256
+ #define MALI_C720_MIN_INPUT_HEIGHT	256
++#define MALI_C720_MIN_OUTPUT_WIDTH	64
++#define MALI_C720_MIN_OUTPUT_HEIGHT	64
+ #define MALI_C720_MAX_WIDTH		8192
+ #define MALI_C720_MAX_HEIGHT		4608
+ #define MALI_C720_DEFAULT_WIDTH		1920
+ #define MALI_C720_DEFAULT_HEIGHT	1080
+ 
++#define MALI_C720_MAX_DOWNSCALE_RATIO	0xffffff /* Q4.20 */
++
+ #define MALI_C720_FRAME_TIMESTAMP_COUNT	256
+ 
+ struct mali_c720_subdev {
+@@ -93,6 +97,48 @@ struct mali_c720_vision_pipe {
+ 	struct media_pad pads[MALI_C720_VISION_PIPE_NUM_PADS];
+ };
+ 
++enum mali_c720_fr_pipe_pads {
++	MALI_C720_FR_PIPE_PAD_SINK_VIDEO,
++	MALI_C720_FR_PIPE_PAD_SOURCE_RGB,
++	MALI_C720_FR_PIPE_PAD_SOURCE_YUV,
++	MALI_C720_FR_PIPE_NUM_PADS,
++};
++
++struct mali_c720_crop_config {
++	u32 start_x;
++	u32 start_y;
++	u32 size_x;
++	u32 size_y;
++	bool bypass;
++};
++
++struct mali_c720_fr_resizer_config {
++	struct mali_c720_crop_config crop;
++	u32 hfilt_tincr;
++	u32 vfilt_tincr;
++	unsigned int hbank;
++	unsigned int vbank;
++	bool hfilt_enable;
++	bool vfilt_enable;
++};
++
++struct mali_c720_fr_pipe {
++	struct mali_c720_subdev mdev;
++	struct media_pad pads[MALI_C720_FR_PIPE_NUM_PADS];
++	struct media_pad *remote_src;
++	u32 crop_base;
++	u32 scaler_base;
++	u32 scaler_hmem_base;
++	u32 scaler_vmem_base;
++	u32 output_formatter_base;
++
++	/* Protect resizer_config, resizer_updated and enabled_crops. */
++	spinlock_t resizer_lock;
++	struct mali_c720_fr_resizer_config resizer_config;
++	bool resizer_updated;
++	unsigned long enabled_crops;
++};
++
+ enum mali_c720_cap_devs {
+ 	MALI_C720_CAP_DEV_FR0_RGB,
+ 	MALI_C720_CAP_DEV_FR0_YUV,
+@@ -152,6 +198,7 @@ struct mali_c720 {
+ 	struct mali_c720_input input;
+ 	struct mali_c720_isp isp;
+ 	struct mali_c720_vision_pipe vision_pipe;
++	struct mali_c720_fr_pipe fr_pipe;
+ 
+ 	struct mali_c720_registers registers;
+ 	u8 *default_regs;
+@@ -185,6 +232,12 @@ int mali_c720_register_vision_pipe(struct mali_c720 *mali_c720);
+ void mali_c720_unregister_vision_pipe(struct mali_c720 *mali_c720);
+ void mali_c720_cleanup_vision_pipe(struct mali_c720 *mali_c720);
+ 
++int mali_c720_register_fr_pipe(struct mali_c720 *mali_c720);
++void mali_c720_unregister_fr_pipe(struct mali_c720 *mali_c720);
++void mali_c720_cleanup_fr_pipe(struct mali_c720 *mali_c720);
++
++void mali_c720_fr_pipe_apply_resizer_config(struct mali_c720_fr_pipe *pipe);
++
+ void mali_c720_isp_queue_event_sof(struct mali_c720 *mali_c720, u32 sequence);
+ 
+ #endif /* MALI_C720_COMMON_H */
+diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-fr-pipe.c b/drivers/media/platform/arm/mali-c720/mali-c720-fr-pipe.c
 new file mode 100644
-index 0000000000000000000000000000000000000000..78e9f5aba97d58c6e6aad5451262a34889e25624
+index 0000000000000000000000000000000000000000..a2f97ebce609b6d9434f942958c24aa3df40e69c
 --- /dev/null
-+++ b/drivers/media/platform/arm/mali-c720/mali-c720-capture.c
-@@ -0,0 +1,747 @@
++++ b/drivers/media/platform/arm/mali-c720/mali-c720-fr-pipe.c
+@@ -0,0 +1,1178 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * ARM Mali-C720 ISP Driver - Image signal processor
@@ -109,874 +206,1177 @@ index 0000000000000000000000000000000000000000..78e9f5aba97d58c6e6aad5451262a348
 + * Copyright (C) 2026 Arm Ltd
 + */
 +
-+#include <linux/align.h>
-+#include <linux/cleanup.h>
-+#include <linux/dev_printk.h>
++#include <linux/bitops.h>
++#include <linux/math.h>
 +#include <linux/minmax.h>
-+#include <linux/pm_runtime.h>
 +#include <linux/string.h>
 +
++#include <media/media-entity.h>
 +#include <media/v4l2-common.h>
-+#include <media/v4l2-event.h>
-+#include <media/v4l2-fh.h>
-+#include <media/v4l2-ioctl.h>
-+#include <media/videobuf2-dma-contig.h>
++#include <media/v4l2-rect.h>
 +
 +#include "mali-c720-common.h"
 +
-+static const char * const capture_device_names[] = {
-+	"mali-c720 fr0-rgb",
-+	"mali-c720 fr0-yuv",
++#define MALI_C720_SCALER_FACTOR		BIT(20)
++
++#define MALI_C720_RSZ_COEFS_BANKS	8
++#define MALI_C720_RSZ_COEFS_ENTRIES	64
++
++/* Set initial phase as 0.5 in Q4.20, for the best image quality */
++#define MALI_C720_SCALER_START_PHASE	0x80000
++
++/*
++ * Default coefficients for the 32-phase, 7-tap scaler filters.
++ * Eight banks are optimised for image quality at different scaling ratios,
++ * with independent bank selection for horizontal and vertical scaling.
++ * Each phase contains seven signed 8-bit coefficients packed into two
++ * 32-bit words.
++ */
++static const unsigned int
++mali_c720_rsz_filter_coeffs_h[MALI_C720_RSZ_COEFS_BANKS]
++			    [MALI_C720_RSZ_COEFS_ENTRIES] = {
++	{	/* Bank 0 */
++		0x24fc0000, 0x0000fc24, 0x27fc0000, 0x0000fc21,
++		0x28fc0000, 0x0000fd1f, 0x2cfb0000, 0x0000fd1c,
++		0x2efb0000, 0x0000fd1a, 0x30fb0000, 0x0000fe17,
++		0x32fb0000, 0x0000fe15, 0x35fb0000, 0x0000fe12,
++		0x35fc0000, 0x0000ff10, 0x37fc0000, 0x0000ff0e,
++		0x39fc0000, 0x0000ff0c, 0x3afd0000, 0x0000ff0a,
++		0x3afe0000, 0x00000008, 0x3cfe0000, 0x00000006,
++		0x3dff0000, 0x00000004, 0x3d000000, 0x00000003,
++		0x3c020000, 0x00000002, 0x3d030000, 0x00000000,
++		0x3d040000, 0x000000ff, 0x3c060000, 0x000000fe,
++		0x3a080000, 0x000000fe, 0x3a0aff00, 0x000000fd,
++		0x390cff00, 0x000000fc, 0x370eff00, 0x000000fc,
++		0x3510ff00, 0x000000fc, 0x3512fe00, 0x000000fb,
++		0x3215fe00, 0x000000fb, 0x3017fe00, 0x000000fb,
++		0x2e1afd00, 0x000000fb, 0x2c1cfd00, 0x000000fb,
++		0x281ffd00, 0x000000fc, 0x2721fc00, 0x000000fc,
++	},
++	{	/* Bank 1 */
++		0x25fb0000, 0x0000fb25, 0x27fb0000, 0x0000fb23,
++		0x29fb0000, 0x0000fb21, 0x2afc0000, 0x0000fb1f,
++		0x2cfc0000, 0x0000fb1d, 0x2efc0000, 0x0000fb1b,
++		0x2ffd0000, 0x0000fb19, 0x2ffe0000, 0x0000fc17,
++		0x31fe0000, 0x0000fc15, 0x32ff0000, 0x0000fc13,
++		0x3400ff00, 0x0000fc11, 0x3301ff00, 0x0000fd10,
++		0x3402ff00, 0x0000fd0e, 0x3503ff00, 0x0000fd0c,
++		0x3505ff00, 0x0000fd0a, 0x3506fe00, 0x0000fe09,
++		0x3607fe00, 0x0000fe07, 0x3509fe00, 0x0000fe06,
++		0x350afd00, 0x0000ff05, 0x350cfd00, 0x0000ff03,
++		0x340efd00, 0x0000ff02, 0x3310fd00, 0x0000ff01,
++		0x3411fc00, 0x0000ff00, 0x3213fc00, 0x000000ff,
++		0x3115fc00, 0x000000fe, 0x2f17fc00, 0x000000fe,
++		0x2f19fb00, 0x000000fd, 0x2e1bfb00, 0x000000fc,
++		0x2c1dfb00, 0x000000fc, 0x2a1ffb00, 0x000000fc,
++		0x2921fb00, 0x000000fb, 0x2723fb00, 0x000000fb,
++	},
++	{	/* Bank 2 */
++		0x1f010000, 0x0000011f, 0x21010000, 0x0000001e,
++		0x21020000, 0x0000001d, 0x22020000, 0x0000001c,
++		0x23030000, 0x0000ff1b, 0x2404ff00, 0x0000ff1a,
++		0x2504ff00, 0x0000ff19, 0x2505ff00, 0x0000ff18,
++		0x2606ff00, 0x0000fe17, 0x2607ff00, 0x0000fe16,
++		0x2708ff00, 0x0000fe14, 0x2709ff00, 0x0000fe13,
++		0x270aff00, 0x0000fe12, 0x280bfe00, 0x0000fe11,
++		0x280cfe00, 0x0000fe10, 0x280dfe00, 0x0000fe0f,
++		0x280efe00, 0x0000fe0e, 0x280ffe00, 0x0000fe0d,
++		0x2810fe00, 0x0000fe0c, 0x2811fe00, 0x0000fe0b,
++		0x2712fe00, 0x0000ff0a, 0x2713fe00, 0x0000ff09,
++		0x2714fe00, 0x0000ff08, 0x2616fe00, 0x0000ff07,
++		0x2617fe00, 0x0000ff06, 0x2518ff00, 0x0000ff05,
++		0x2519ff00, 0x0000ff04, 0x241aff00, 0x0000ff04,
++		0x231bff00, 0x00000003, 0x221c0000, 0x00000002,
++		0x211d0000, 0x00000002, 0x211e0000, 0x00000001,
++	},
++	{	/* Bank 3 */
++		0x1b06ff00, 0x00ff061b, 0x1b07ff00, 0x00ff061a,
++		0x1c07ff00, 0x00ff051a, 0x1c08ff00, 0x00ff0519,
++		0x1c09ff00, 0x00ff0419, 0x1d09ff00, 0x00ff0418,
++		0x1e0aff00, 0x00ff0317, 0x1e0aff00, 0x00ff0317,
++		0x1e0bff00, 0x00ff0316, 0x1f0cff00, 0x00ff0215,
++		0x1e0cff00, 0x00000215, 0x1e0dff00, 0x00000214,
++		0x1e0e0000, 0x00000113, 0x1e0e0000, 0x00000113,
++		0x1e0f0000, 0x00000112, 0x1f100000, 0x00000011,
++		0x20100000, 0x00000010, 0x1f110000, 0x00000010,
++		0x1e120100, 0x0000000f, 0x1e130100, 0x0000000e,
++		0x1e130100, 0x0000000e, 0x1e140200, 0x0000ff0d,
++		0x1e150200, 0x0000ff0c, 0x1f1502ff, 0x0000ff0c,
++		0x1e1603ff, 0x0000ff0b, 0x1e1703ff, 0x0000ff0a,
++		0x1e1703ff, 0x0000ff0a, 0x1d1804ff, 0x0000ff09,
++		0x1c1904ff, 0x0000ff09, 0x1c1905ff, 0x0000ff08,
++		0x1c1a05ff, 0x0000ff07, 0x1b1a06ff, 0x0000ff07,
++	},
++	{	/* Bank 4 */
++		0x17090000, 0x00000917, 0x18090000, 0x00000916,
++		0x170a0100, 0x00000816, 0x170a0100, 0x00000816,
++		0x180b0100, 0x00000715, 0x180b0100, 0x00000715,
++		0x170c0100, 0x00000715, 0x190c0100, 0x00000614,
++		0x180d0100, 0x00000614, 0x190d0200, 0x00000513,
++		0x180e0200, 0x00000513, 0x180e0200, 0x00000513,
++		0x1a0e0200, 0x00000412, 0x190f0200, 0x00000412,
++		0x190f0300, 0x00000411, 0x18100300, 0x00000411,
++		0x1a100300, 0x00000310, 0x18110400, 0x00000310,
++		0x19110400, 0x0000030f, 0x19120400, 0x0000020f,
++		0x1a120400, 0x0000020e, 0x18130500, 0x0000020e,
++		0x18130500, 0x0000020e, 0x19130500, 0x0000020d,
++		0x18140600, 0x0000010d, 0x19140600, 0x0000010c,
++		0x17150700, 0x0000010c, 0x18150700, 0x0000010b,
++		0x18150700, 0x0000010b, 0x17160800, 0x0000010a,
++		0x17160800, 0x0000010a, 0x18160900, 0x00000009,
++	},
++	{	/* Bank 5 */
++		0x120b0300, 0x00030b12, 0x120c0300, 0x00030b11,
++		0x110c0400, 0x00030b11, 0x110c0400, 0x00030b11,
++		0x130c0400, 0x00020a11, 0x120d0400, 0x00020a11,
++		0x110d0500, 0x00020a11, 0x110d0500, 0x00020a11,
++		0x130d0500, 0x00010911, 0x130e0500, 0x00010910,
++		0x120e0600, 0x00010910, 0x120e0600, 0x00010910,
++		0x130e0600, 0x00010810, 0x120f0600, 0x00010810,
++		0x120f0700, 0x00000810, 0x130f0700, 0x0000080f,
++		0x140f0700, 0x0000070f, 0x130f0800, 0x0000070f,
++		0x12100800, 0x0000070f, 0x12100801, 0x0000060f,
++		0x13100801, 0x0000060e, 0x12100901, 0x0000060e,
++		0x12100901, 0x0000060e, 0x13100901, 0x0000050e,
++		0x13110901, 0x0000050d, 0x11110a02, 0x0000050d,
++		0x11110a02, 0x0000050d, 0x12110a02, 0x0000040d,
++		0x13110a02, 0x0000040c, 0x11110b03, 0x0000040c,
++		0x11110b03, 0x0000040c, 0x12110b03, 0x0000030c,
++	},
++	{	/* Bank 6 */
++		0x0b0a0805, 0x00080a0c, 0x0b0a0805, 0x00080a0c,
++		0x0c0a0805, 0x00080a0b, 0x0c0a0805, 0x00080a0b,
++		0x0d0a0805, 0x00070a0b, 0x0d0a0805, 0x00070a0b,
++		0x0d0a0805, 0x00070a0b, 0x0c0a0806, 0x00070a0b,
++		0x0b0b0806, 0x00070a0b, 0x0c0b0806, 0x0007090b,
++		0x0b0b0906, 0x0007090b, 0x0b0b0906, 0x0007090b,
++		0x0b0b0906, 0x0007090b, 0x0b0b0906, 0x0007090b,
++		0x0b0b0906, 0x0007090b, 0x0c0b0906, 0x0006090b,
++		0x0c0b0906, 0x0006090b, 0x0c0b0906, 0x0006090b,
++		0x0b0b0907, 0x0006090b, 0x0b0b0907, 0x0006090b,
++		0x0b0b0907, 0x0006090b, 0x0b0b0907, 0x0006090b,
++		0x0b0b0907, 0x0006090b, 0x0c0b0907, 0x0006080b,
++		0x0b0b0a07, 0x0006080b, 0x0c0b0a07, 0x0006080a,
++		0x0d0b0a07, 0x0005080a, 0x0d0b0a07, 0x0005080a,
++		0x0d0b0a07, 0x0005080a, 0x0c0b0a08, 0x0005080a,
++		0x0c0b0a08, 0x0005080a, 0x0c0b0a08, 0x0005080a,
++	},
++	{	/* Bank 7 */
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++		0x0909090a, 0x00090909, 0x0909090a, 0x00090909,
++	}
 +};
 +
-+static int mali_c720_link_validate(struct media_link *link)
-+{
-+	struct video_device *vdev =
-+		media_entity_to_video_device(link->sink->entity);
-+	struct mali_c720_cap_dev *cap_dev = video_get_drvdata(vdev);
-+	struct v4l2_subdev *sd =
-+		media_entity_to_v4l2_subdev(link->source->entity);
-+	const struct v4l2_pix_format_mplane *pix_mp;
-+	const struct mali_c720_v4l2_format_info *cap_fmt;
-+	int ret;
-+
-+	struct v4l2_subdev_format sd_fmt = {
-+		.which = V4L2_SUBDEV_FORMAT_ACTIVE,
-+		.pad = link->source->index,
-+	};
-+
-+	ret = v4l2_subdev_call(sd, pad, get_fmt, NULL, &sd_fmt);
-+	if (ret)
-+		return ret;
-+
-+	pix_mp = &cap_dev->format.pix_mp;
-+	cap_fmt = cap_dev->format.info;
-+
-+	if (sd_fmt.format.width != pix_mp->width ||
-+	    sd_fmt.format.height != pix_mp->height) {
-+		dev_err(cap_dev->mali_c720->dev,
-+			"link '%s':%u -> '%s':%u not valid: %ux%u != %ux%u\n",
-+			link->source->entity->name, link->source->index,
-+			link->sink->entity->name, link->sink->index,
-+			sd_fmt.format.width, sd_fmt.format.height,
-+			pix_mp->width, pix_mp->height);
-+		return -EPIPE;
++static const unsigned int
++mali_c720_rsz_filter_coeffs_v[MALI_C720_RSZ_COEFS_BANKS]
++			    [MALI_C720_RSZ_COEFS_ENTRIES] = {
++	{	/* Bank 0 */
++		0x2424fc00, 0x000000fc, 0x2721fc00, 0x000000fc,
++		0x281ffd00, 0x000000fc, 0x2c1cfd00, 0x000000fb,
++		0x2e1afd00, 0x000000fb, 0x3017fe00, 0x000000fb,
++		0x3215fe00, 0x000000fb, 0x3512fe00, 0x000000fb,
++		0x3510ff00, 0x000000fc, 0x370eff00, 0x000000fc,
++		0x390cff00, 0x000000fc, 0x3a0aff00, 0x000000fd,
++		0x3a080000, 0x000000fe, 0x3c060000, 0x000000fe,
++		0x3d040000, 0x000000ff, 0x3d030000, 0x00000000,
++		0x3c020000, 0x00000002, 0x3d000000, 0x00000003,
++		0x3dff0000, 0x00000004, 0x3cfe0000, 0x00000006,
++		0x3afe0000, 0x00000008, 0x3afd0000, 0x0000ff0a,
++		0x39fc0000, 0x0000ff0c, 0x37fc0000, 0x0000ff0e,
++		0x35fc0000, 0x0000ff10, 0x35fb0000, 0x0000fe12,
++		0x32fb0000, 0x0000fe15, 0x30fb0000, 0x0000fe17,
++		0x2efb0000, 0x0000fd1a, 0x2cfb0000, 0x0000fd1c,
++		0x28fc0000, 0x0000fd1f, 0x27fc0000, 0x0000fc21,
++	},
++	{	/* Bank 1 */
++		0x2525fb00, 0x000000fb, 0x2723fb00, 0x000000fb,
++		0x2921fb00, 0x000000fb, 0x2a1ffb00, 0x000000fc,
++		0x2c1dfb00, 0x000000fc, 0x2e1bfb00, 0x000000fc,
++		0x2f19fb00, 0x000000fd, 0x2f17fc00, 0x000000fe,
++		0x3115fc00, 0x000000fe, 0x3213fc00, 0x000000ff,
++		0x3411fc00, 0x0000ff00, 0x3310fd00, 0x0000ff01,
++		0x340efd00, 0x0000ff02, 0x350cfd00, 0x0000ff03,
++		0x350afd00, 0x0000ff05, 0x3509fe00, 0x0000fe06,
++		0x3607fe00, 0x0000fe07, 0x3506fe00, 0x0000fe09,
++		0x3505ff00, 0x0000fd0a, 0x3503ff00, 0x0000fd0c,
++		0x3402ff00, 0x0000fd0e, 0x3301ff00, 0x0000fd10,
++		0x3400ff00, 0x0000fc11, 0x32ff0000, 0x0000fc13,
++		0x31fe0000, 0x0000fc15, 0x2ffe0000, 0x0000fc17,
++		0x2ffd0000, 0x0000fb19, 0x2efc0000, 0x0000fb1b,
++		0x2cfc0000, 0x0000fb1d, 0x2afc0000, 0x0000fb1f,
++		0x29fb0000, 0x0000fb21, 0x27fb0000, 0x0000fb23,
++	},
++	{	/* Bank 2 */
++		0x1f1f0100, 0x00000001, 0x211e0000, 0x00000001,
++		0x211d0000, 0x00000002, 0x221c0000, 0x00000002,
++		0x231bff00, 0x00000003, 0x241aff00, 0x0000ff04,
++		0x2519ff00, 0x0000ff04, 0x2518ff00, 0x0000ff05,
++		0x2617fe00, 0x0000ff06, 0x2616fe00, 0x0000ff07,
++		0x2714fe00, 0x0000ff08, 0x2713fe00, 0x0000ff09,
++		0x2712fe00, 0x0000ff0a, 0x2811fe00, 0x0000fe0b,
++		0x2810fe00, 0x0000fe0c, 0x280ffe00, 0x0000fe0d,
++		0x280efe00, 0x0000fe0e, 0x280dfe00, 0x0000fe0f,
++		0x280cfe00, 0x0000fe10, 0x280bfe00, 0x0000fe11,
++		0x270aff00, 0x0000fe12, 0x2709ff00, 0x0000fe13,
++		0x2708ff00, 0x0000fe14, 0x2607ff00, 0x0000fe16,
++		0x2606ff00, 0x0000fe17, 0x2505ff00, 0x0000ff18,
++		0x2504ff00, 0x0000ff19, 0x2404ff00, 0x0000ff1a,
++		0x23030000, 0x0000ff1b, 0x22020000, 0x0000001c,
++		0x21020000, 0x0000001d, 0x21010000, 0x0000001e,
++	},
++	{	/* Bank 3 */
++		0x1b1b06ff, 0x0000ff06, 0x1b1a06ff, 0x0000ff07,
++		0x1c1a05ff, 0x0000ff07, 0x1c1905ff, 0x0000ff08,
++		0x1c1904ff, 0x0000ff09, 0x1d1804ff, 0x0000ff09,
++		0x1e1703ff, 0x0000ff0a, 0x1e1703ff, 0x0000ff0a,
++		0x1e1603ff, 0x0000ff0b, 0x1f1502ff, 0x0000ff0c,
++		0x1e150200, 0x0000ff0c, 0x1e140200, 0x0000ff0d,
++		0x1e130100, 0x0000000e, 0x1e130100, 0x0000000e,
++		0x1e120100, 0x0000000f, 0x1f110000, 0x00000010,
++		0x20100000, 0x00000010, 0x1f100000, 0x00000011,
++		0x1e0f0000, 0x00000112, 0x1e0e0000, 0x00000113,
++		0x1e0e0000, 0x00000113, 0x1e0dff00, 0x00000214,
++		0x1e0cff00, 0x00000215, 0x1f0cff00, 0x00ff0215,
++		0x1e0bff00, 0x00ff0316, 0x1e0aff00, 0x00ff0317,
++		0x1e0aff00, 0x00ff0317, 0x1d09ff00, 0x00ff0418,
++		0x1c09ff00, 0x00ff0419, 0x1c08ff00, 0x00ff0519,
++		0x1c07ff00, 0x00ff051a, 0x1b07ff00, 0x00ff061a,
++	},
++	{	/* Bank 4 */
++		0x17170900, 0x00000009, 0x18160900, 0x00000009,
++		0x17160800, 0x0000010a, 0x17160800, 0x0000010a,
++		0x18150700, 0x0000010b, 0x18150700, 0x0000010b,
++		0x17150700, 0x0000010c, 0x19140600, 0x0000010c,
++		0x18140600, 0x0000010d, 0x19130500, 0x0000020d,
++		0x18130500, 0x0000020e, 0x18130500, 0x0000020e,
++		0x1a120400, 0x0000020e, 0x19120400, 0x0000020f,
++		0x19110400, 0x0000030f, 0x18110400, 0x00000310,
++		0x1a100300, 0x00000310, 0x18100300, 0x00000411,
++		0x190f0300, 0x00000411, 0x190f0200, 0x00000412,
++		0x1a0e0200, 0x00000412, 0x180e0200, 0x00000513,
++		0x180e0200, 0x00000513, 0x190d0200, 0x00000513,
++		0x180d0100, 0x00000614, 0x190c0100, 0x00000614,
++		0x170c0100, 0x00000715, 0x180b0100, 0x00000715,
++		0x180b0100, 0x00000715, 0x170a0100, 0x00000816,
++		0x170a0100, 0x00000816, 0x18090000, 0x00000916,
++	},
++	{	/* Bank 5 */
++		0x12120b03, 0x0000030b, 0x12110b03, 0x0000030c,
++		0x11110b03, 0x0000040c, 0x11110b03, 0x0000040c,
++		0x13110a02, 0x0000040c, 0x12110a02, 0x0000040d,
++		0x11110a02, 0x0000050d, 0x11110a02, 0x0000050d,
++		0x13110901, 0x0000050d, 0x13100901, 0x0000050e,
++		0x12100901, 0x0000060e, 0x12100901, 0x0000060e,
++		0x13100801, 0x0000060e, 0x12100801, 0x0000060f,
++		0x12100800, 0x0000070f, 0x130f0800, 0x0000070f,
++		0x140f0700, 0x0000070f, 0x130f0700, 0x0000080f,
++		0x120f0700, 0x00000810, 0x120f0600, 0x00010810,
++		0x130e0600, 0x00010810, 0x120e0600, 0x00010910,
++		0x120e0600, 0x00010910, 0x130e0500, 0x00010910,
++		0x130d0500, 0x00010911, 0x110d0500, 0x00020a11,
++		0x110d0500, 0x00020a11, 0x120d0400, 0x00020a11,
++		0x130c0400, 0x00020a11, 0x110c0400, 0x00030b11,
++		0x110c0400, 0x00030b11, 0x120c0300, 0x00030b11,
++	},
++	{	/* Bank 6 */
++		0x0b0c0a08, 0x0005080a, 0x0b0c0a08, 0x0005080a,
++		0x0c0b0a08, 0x0005080a, 0x0c0b0a08, 0x0005080a,
++		0x0d0b0a07, 0x0005080a, 0x0d0b0a07, 0x0005080a,
++		0x0d0b0a07, 0x0005080a, 0x0c0b0a07, 0x0006080a,
++		0x0b0b0a07, 0x0006080b, 0x0c0b0907, 0x0006080b,
++		0x0b0b0907, 0x0006090b, 0x0b0b0907, 0x0006090b,
++		0x0b0b0907, 0x0006090b, 0x0b0b0907, 0x0006090b,
++		0x0b0b0907, 0x0006090b, 0x0c0b0906, 0x0006090b,
++		0x0c0b0906, 0x0006090b, 0x0c0b0906, 0x0006090b,
++		0x0b0b0906, 0x0007090b, 0x0b0b0906, 0x0007090b,
++		0x0b0b0906, 0x0007090b, 0x0b0b0906, 0x0007090b,
++		0x0b0b0906, 0x0007090b, 0x0c0b0806, 0x0007090b,
++		0x0b0b0806, 0x00070a0b, 0x0c0a0806, 0x00070a0b,
++		0x0d0a0805, 0x00070a0b, 0x0d0a0805, 0x00070a0b,
++		0x0d0a0805, 0x00070a0b, 0x0c0a0805, 0x00080a0b,
++		0x0c0a0805, 0x00080a0b, 0x0c0a0805, 0x00080a0b,
++	},
++	{	/* Bank 7 */
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
++		0x09090909, 0x000a0909, 0x09090909, 0x000a0909,
 +	}
-+
-+	if (!mali_c720_mbus_code_supports_fmt(cap_fmt, sd_fmt.format.code)) {
-+		dev_err(cap_dev->mali_c720->dev,
-+			"link '%s':%u -> '%s':%u not valid: mbus_code 0x%04x cannot produce pixel format %p4cc\n",
-+			link->source->entity->name, link->source->index,
-+			link->sink->entity->name, link->sink->index,
-+			sd_fmt.format.code, &pix_mp->pixelformat);
-+		return -EPIPE;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct media_entity_operations mali_c720_media_ops = {
-+	.link_validate = mali_c720_link_validate,
 +};
 +
-+static int mali_c720_vb2_queue_setup(struct vb2_queue *q, unsigned int *num_buffers,
-+				     unsigned int *num_planes, unsigned int sizes[],
-+				     struct device *alloc_devs[])
++static const unsigned int mali_c720_rsz_coef_banks_range_start[] = {
++	770, 600, 460, 354, 273, 210, 162, 125
++};
++
++/*
++ * Select the filter coefficient bank from the output/input size ratio,
++ * using the sink compose rectangle and sink format respectively.
++ */
++static unsigned int mali_c720_rsz_calculate_bank(unsigned int rsz_in,
++						 unsigned int rsz_out)
 +{
-+	struct mali_c720_cap_dev *cap_dev = q->drv_priv;
++	unsigned int rsz_ratio = (rsz_out * 1000U) / rsz_in;
 +	unsigned int i;
 +
-+	if (*num_planes) {
-+		if (*num_planes != cap_dev->format.pix_mp.num_planes)
-+			return -EINVAL;
++	for (i = 0; i < ARRAY_SIZE(mali_c720_rsz_coef_banks_range_start) - 1; i++)
++		if (rsz_ratio >= mali_c720_rsz_coef_banks_range_start[i])
++			break;
 +
-+		for (i = 0; i < cap_dev->format.pix_mp.num_planes; i++)
-+			if (sizes[i] < cap_dev->format.pix_mp.plane_fmt[i].sizeimage)
-+				return -EINVAL;
++	return i;
++}
++
++static u32 mali_c720_fr_pipe_calculate_scaling_factor(unsigned int input_width,
++						      unsigned int output_width)
++{
++	u64 scale;
++
++	/* The scaling factor is in Q4.20 format */
++	scale = (u64)input_width * MALI_C720_SCALER_FACTOR -
++		MALI_C720_SCALER_START_PHASE - 1;
++	do_div(scale, output_width - 1);
++
++	return (u32)(scale & 0xFFFFFFFF);
++}
++
++static void mali_c720_fr_pipe_update_resizer_config(struct mali_c720_fr_pipe *pipe,
++						    struct v4l2_subdev_state *state)
++{
++	struct mali_c720_fr_resizer_config *config = &pipe->resizer_config;
++	const struct v4l2_mbus_framefmt *fmt;
++	const struct v4l2_rect *scale, *crop;
++
++	fmt = v4l2_subdev_state_get_format(state, MALI_C720_FR_PIPE_PAD_SINK_VIDEO, 0);
++	scale = v4l2_subdev_state_get_compose(state, MALI_C720_FR_PIPE_PAD_SINK_VIDEO, 0);
++	crop = v4l2_subdev_state_get_crop(state, MALI_C720_FR_PIPE_PAD_SOURCE_RGB, 0);
++
++	guard(spinlock)(&pipe->resizer_lock);
++
++	config->crop.start_x = (u32)crop->left;
++	config->crop.start_y = (u32)crop->top;
++	config->crop.size_x = crop->width;
++	config->crop.size_y = crop->height;
++	config->crop.bypass = crop->width == scale->width && crop->height == scale->height;
++	config->hfilt_enable = fmt->width != scale->width;
++	config->vfilt_enable = fmt->height != scale->height;
++	config->hfilt_tincr = 0;
++	config->vfilt_tincr = 0;
++	if (config->hfilt_enable)
++		config->hfilt_tincr = mali_c720_fr_pipe_calculate_scaling_factor(fmt->width,
++										 scale->width);
++	if (config->vfilt_enable)
++		config->vfilt_tincr = mali_c720_fr_pipe_calculate_scaling_factor(fmt->height,
++										 scale->height);
++	config->hbank = mali_c720_rsz_calculate_bank(fmt->width, scale->width);
++	config->vbank = mali_c720_rsz_calculate_bank(fmt->height, scale->height);
++
++	pipe->resizer_updated = true;
++}
++
++static void mali_c720_fr_pipe_bypass_scaler(struct mali_c720_context *ctx,
++					    unsigned int bypass)
++{
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_pipeline_regs *pipeline = mali_c720->registers.top->pipeline;
++
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_fr0_rgb_scaler, bypass);
++}
++
++static void
++mali_c720_fr_pipe_program_scaler_coefficients(struct mali_c720_fr_pipe *pipe,
++					      const struct mali_c720_fr_resizer_config *config)
++{
++	struct mali_c720 *mali_c720 = pipe->mdev.mali_c720;
++	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
++	unsigned int i;
++	u32 haddr = pipe->scaler_hmem_base;
++	u32 vaddr = pipe->scaler_vmem_base;
++
++	for (i = 0; i < MALI_C720_RSZ_COEFS_ENTRIES; i++) {
++		mali_c720_ctx_write_raw(ctx, haddr,
++					mali_c720_rsz_filter_coeffs_h[config->hbank][i]);
++		mali_c720_ctx_write_raw(ctx, vaddr,
++					mali_c720_rsz_filter_coeffs_v[config->vbank][i]);
++
++		haddr += sizeof(u32);
++		vaddr += sizeof(u32);
++	}
++}
++
++static void mali_c720_fr_pipe_program_scaler(struct mali_c720_fr_pipe *pipe,
++					     const struct mali_c720_fr_resizer_config *config)
++{
++	struct mali_c720 *mali_c720 = pipe->mdev.mali_c720;
++	const struct mali_c720_rgb_scaler_regs *rgb_scaler =
++		mali_c720->registers.modules->rgb_scaler;
++	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
++
++	if (!config->hfilt_enable && !config->vfilt_enable)
++		return mali_c720_fr_pipe_bypass_scaler(ctx, 1);
++
++	mali_c720_fr_pipe_program_scaler_coefficients(pipe, config);
++
++	if (!config->hfilt_enable) {
++		mali_c720_ctx_group_write(ctx, pipe->scaler_base,
++					  &rgb_scaler->hfilt_enable, 0);
 +	} else {
-+		*num_planes = cap_dev->format.pix_mp.num_planes;
-+		for (i = 0; i < cap_dev->format.pix_mp.num_planes; i++)
-+			sizes[i] = cap_dev->format.pix_mp.plane_fmt[i].sizeimage;
++		mali_c720_ctx_group_write(ctx, pipe->scaler_base,
++					  &rgb_scaler->hfilt_tincr,
++					  config->hfilt_tincr);
++		mali_c720_ctx_group_write(ctx, pipe->scaler_base,
++					  &rgb_scaler->hfilt_start_phase,
++					  MALI_C720_SCALER_START_PHASE);
++		mali_c720_ctx_group_write(ctx, pipe->scaler_base,
++					  &rgb_scaler->hfilt_enable, 1);
 +	}
 +
-+	return 0;
-+}
-+
-+static void mali_c720_buf_queue(struct vb2_buffer *vb)
-+{
-+	struct mali_c720_cap_dev *cap_dev = vb2_get_drv_priv(vb->vb2_queue);
-+	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
-+	struct mali_c720_cap_buffer *buf = container_of(vbuf,
-+						   struct mali_c720_cap_buffer, vb);
-+	unsigned int i;
-+
-+	for (i = 0; i < cap_dev->format.pix_mp.num_planes; i++) {
-+		unsigned long size = cap_dev->format.pix_mp.plane_fmt[i].sizeimage;
-+
-+		vb2_set_plane_payload(vb, i, size);
++	if (!config->vfilt_enable) {
++		mali_c720_ctx_group_write(ctx, pipe->scaler_base,
++					  &rgb_scaler->vfilt_enable, 0);
++	} else {
++		mali_c720_ctx_group_write(ctx, pipe->scaler_base,
++					  &rgb_scaler->vfilt_tincr,
++					  config->vfilt_tincr);
++		mali_c720_ctx_group_write(ctx, pipe->scaler_base,
++					  &rgb_scaler->vfilt_start_phase,
++					  MALI_C720_SCALER_START_PHASE);
++		mali_c720_ctx_group_write(ctx, pipe->scaler_base,
++					  &rgb_scaler->vfilt_enable, 1);
 +	}
 +
-+	buf->vb.field = V4L2_FIELD_NONE;
-+
-+	scoped_guard(spinlock, &cap_dev->buffers.lock)
-+		list_add_tail(&buf->queue, &cap_dev->buffers.input);
++	mali_c720_fr_pipe_bypass_scaler(ctx, 0);
 +}
 +
-+static int mali_c720_buf_init(struct vb2_buffer *vb)
++static void mali_c720_fr_pipe_bypass_crop(struct mali_c720_context *ctx,
++					  unsigned int bypass)
 +{
-+	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
-+	struct mali_c720_cap_buffer *buf = container_of(vbuf,
-+						   struct mali_c720_cap_buffer, vb);
++	struct mali_c720 *mali_c720 = ctx->mali_c720;
++	const struct mali_c720_pipeline_regs *pipeline = mali_c720->registers.top->pipeline;
 +
-+	buf->addr = vb2_dma_contig_plane_dma_addr(vb, 0);
-+	if (!IS_ALIGNED(buf->addr, 32)) {
-+		dev_dbg(vb->vb2_queue->dev,
-+			"Capture buffer DMA address is not 32-byte aligned\n");
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->bypass_fr0_crop, bypass);
++}
++
++static void mali_c720_fr_pipe_program_crop(struct mali_c720_fr_pipe *pipe,
++					   const struct mali_c720_crop_config *crop)
++{
++	struct mali_c720 *mali_c720 = pipe->mdev.mali_c720;
++	const struct mali_c720_crop_regs *crop_regs = mali_c720->registers.modules->crop;
++	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
++
++	if (crop->bypass)
++		return mali_c720_fr_pipe_bypass_crop(ctx, 1);
++
++	mali_c720_ctx_group_write(ctx, pipe->crop_base, &crop_regs->start_x, crop->start_x);
++	mali_c720_ctx_group_write(ctx, pipe->crop_base, &crop_regs->start_y, crop->start_y);
++	mali_c720_ctx_group_write(ctx, pipe->crop_base, &crop_regs->size_x, crop->size_x);
++	mali_c720_ctx_group_write(ctx, pipe->crop_base, &crop_regs->size_y, crop->size_y);
++	mali_c720_ctx_group_write(ctx, pipe->crop_base, &crop_regs->enable_crop, 1);
++
++	mali_c720_fr_pipe_bypass_crop(ctx, 0);
++}
++
++void mali_c720_fr_pipe_apply_resizer_config(struct mali_c720_fr_pipe *pipe)
++{
++	struct mali_c720_fr_resizer_config *config = &pipe->resizer_config;
++
++	if (!pipe->mdev.mali_c720)
++		return;
++
++	guard(spinlock)(&pipe->resizer_lock);
++	if (!pipe->enabled_crops || !pipe->resizer_updated)
++		return;
++
++	mali_c720_fr_pipe_program_scaler(pipe, config);
++	mali_c720_fr_pipe_program_crop(pipe, &config->crop);
++	pipe->resizer_updated = false;
++}
++
++static void mali_c720_fr_pipe_program_output_formatter(struct mali_c720_fr_pipe *pipe)
++{
++	struct mali_c720 *mali_c720 = pipe->mdev.mali_c720;
++	const struct mali_c720_out_format_regs *out_format =
++		mali_c720->registers.modules->out_format;
++	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
++	u32 base = pipe->output_formatter_base;
++
++	/* Default BT.709 limited-range RGB to YUV conversion in Q8 format. */
++	mali_c720_ctx_group_write(ctx, base, &out_format->coefft_11, 47);
++	mali_c720_ctx_group_write(ctx, base, &out_format->coefft_12, 157);
++	mali_c720_ctx_group_write(ctx, base, &out_format->coefft_13, 16);
++	mali_c720_ctx_group_write(ctx, base, &out_format->coefft_21, 32794);
++	mali_c720_ctx_group_write(ctx, base, &out_format->coefft_22, 32855);
++	mali_c720_ctx_group_write(ctx, base, &out_format->coefft_23, 112);
++	mali_c720_ctx_group_write(ctx, base, &out_format->coefft_31, 112);
++	mali_c720_ctx_group_write(ctx, base, &out_format->coefft_32, 32869);
++	mali_c720_ctx_group_write(ctx, base, &out_format->coefft_33, 32777);
++	mali_c720_ctx_group_write(ctx, base, &out_format->coefft_o1, 4129);
++	mali_c720_ctx_group_write(ctx, base, &out_format->coefft_o2, 32768);
++	mali_c720_ctx_group_write(ctx, base, &out_format->coefft_o3, 32768);
++	mali_c720_ctx_group_write(ctx, base, &out_format->clip_min_y, 0);
++	mali_c720_ctx_group_write(ctx, base, &out_format->clip_max_y, 65535);
++	mali_c720_ctx_group_write(ctx, base, &out_format->clip_min_uv, 0);
++	mali_c720_ctx_group_write(ctx, base, &out_format->clip_max_uv, 65535);
++}
++
++static unsigned int mali_c720_fr_pipe_min_output_size(unsigned int input_size)
++{
++	u64 size;
++
++	/* Invert the phase-increment calculation and round up to fit Q4.20. */
++	size = (u64)input_size * MALI_C720_SCALER_FACTOR -
++	       MALI_C720_SCALER_START_PHASE - 1;
++
++	return (unsigned int)DIV_ROUND_UP_ULL(size, MALI_C720_MAX_DOWNSCALE_RATIO) + 1;
++}
++
++static int mali_c720_fr_pipe_enum_mbus_code(struct v4l2_subdev *sd,
++					    struct v4l2_subdev_state *state,
++					    struct v4l2_subdev_mbus_code_enum *code)
++{
++	if (code->index)
++		return -EINVAL;
++
++	switch (code->pad) {
++	case MALI_C720_FR_PIPE_PAD_SINK_VIDEO:
++		code->code = MEDIA_BUS_FMT_RGB121212_1X36;
++		break;
++	case MALI_C720_FR_PIPE_PAD_SOURCE_RGB:
++		code->code = MEDIA_BUS_FMT_RGB161616_1X48;
++		break;
++	case MALI_C720_FR_PIPE_PAD_SOURCE_YUV:
++		/*
++		 * Chroma subsampling limits the UV planes to 12 bits of precision,
++		 * although the media bus width remains 16 bits.
++		 */
++		code->code = MEDIA_BUS_FMT_YUV16_1X48;
++		break;
++	default:
 +		return -EINVAL;
 +	}
 +
 +	return 0;
 +}
 +
-+static void mali_c720_buf_request_complete(struct vb2_buffer *vb)
++static int mali_c720_fr_pipe_enum_frame_size(struct v4l2_subdev *sd,
++					     struct v4l2_subdev_state *state,
++					     struct v4l2_subdev_frame_size_enum *fse)
 +{
-+}
++	struct v4l2_rect *crop;
 +
-+bool mali_c720_cap_dev_uses_requests(struct mali_c720_cap_dev *cap_dev)
-+{
-+	return video_is_registered(&cap_dev->vdev) &&
-+	       vb2_is_streaming(&cap_dev->queue) &&
-+	       cap_dev->queue.uses_requests;
-+}
++	if (fse->index)
++		return -EINVAL;
 +
-+struct media_request *mali_c720_cap_dev_get_request(struct mali_c720_cap_dev *cap_dev)
-+{
-+	struct mali_c720_cap_buffer *buf;
++	switch (fse->pad) {
++	case MALI_C720_FR_PIPE_PAD_SINK_VIDEO:
++		if (fse->code != MEDIA_BUS_FMT_RGB121212_1X36)
++			return -EINVAL;
 +
-+	if (!mali_c720_cap_dev_uses_requests(cap_dev))
-+		return NULL;
++		fse->min_width = MALI_C720_MIN_INPUT_WIDTH;
++		fse->min_height = MALI_C720_MIN_INPUT_HEIGHT;
++		fse->max_width = MALI_C720_MAX_WIDTH;
++		fse->max_height = MALI_C720_MAX_HEIGHT;
 +
-+	guard(spinlock)(&cap_dev->buffers.lock);
-+
-+	buf = list_first_entry_or_null(&cap_dev->buffers.input,
-+				       struct mali_c720_cap_buffer, queue);
-+
-+	return buf ? buf->vb.vb2_buf.request : NULL;
-+}
-+
-+int mali_c720_cap_dev_is_ready(struct mali_c720_cap_dev *cap_dev)
-+{
-+	struct mali_c720_cap_buffer *buf;
-+
-+	if (!video_is_registered(&cap_dev->vdev))
-+		return -ENODEV;
-+
-+	if (!vb2_is_streaming(&cap_dev->queue))
-+		return -ENODEV;
-+
-+	scoped_guard(spinlock, &cap_dev->buffers.lock) {
-+		buf = list_first_entry_or_null(&cap_dev->buffers.input,
-+					       struct mali_c720_cap_buffer, queue);
-+
-+		if (!buf)
-+			return -ENOENT;
++		return 0;
++	case MALI_C720_FR_PIPE_PAD_SOURCE_RGB:
++		if (fse->code != MEDIA_BUS_FMT_RGB161616_1X48)
++			return -EINVAL;
++		break;
++	case MALI_C720_FR_PIPE_PAD_SOURCE_YUV:
++		if (fse->code != MEDIA_BUS_FMT_YUV16_1X48)
++			return -EINVAL;
++		break;
++	default:
++		return -EINVAL;
 +	}
++
++	crop = v4l2_subdev_state_get_crop(state, fse->pad);
++
++	fse->min_width = crop->width;
++	fse->min_height = crop->height;
++	fse->max_width = crop->width;
++	fse->max_height = crop->height;
 +
 +	return 0;
 +}
 +
-+void mali_c720_cap_dev_set_next_buffer(struct mali_c720_cap_dev *cap_dev,
-+				       struct media_request *req)
++static int mali_c720_fr_pipe_set_fmt(struct v4l2_subdev *sd,
++				     const struct v4l2_subdev_client_info *ci,
++				     struct v4l2_subdev_state *state,
++				     struct v4l2_subdev_format *format)
 +{
-+	struct mali_c720 *mali_c720 = cap_dev->mali_c720;
-+	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
-+	struct mali_c720_buffer_pool *pool = &cap_dev->buffers.pool;
-+	struct mali_c720_cap_buffer *buf;
++	struct v4l2_mbus_framefmt *fmt = &format->format;
++	struct v4l2_mbus_framefmt *src_fmt, *sink_fmt;
++	struct v4l2_rect *compose;
 +
-+	if (!video_is_registered(&cap_dev->vdev))
-+		return;
++	if (format->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
++	    media_entity_is_streaming(&sd->entity))
++		return -EBUSY;
 +
-+	if (!vb2_is_streaming(&cap_dev->queue))
-+		return;
++	/*
++	 * Disallow set_fmt on the source pads; format is fixed and the size
++	 * is propagated from the sink pad.
++	 */
++	if (format->pad != MALI_C720_FR_PIPE_PAD_SINK_VIDEO)
++		return v4l2_subdev_get_fmt(sd, state, format);
 +
-+	scoped_guard(spinlock, &cap_dev->buffers.lock) {
-+		buf = list_first_entry_or_null(&cap_dev->buffers.input,
-+					       struct mali_c720_cap_buffer, queue);
++	sink_fmt = v4l2_subdev_state_get_format(state, MALI_C720_FR_PIPE_PAD_SINK_VIDEO);
 +
-+		if (buf && (!buf->vb.vb2_buf.request ||
-+			    buf->vb.vb2_buf.request == req)) {
-+			mali_c720_ctx_mgr_update_buffer(ctx, pool, &buf->addr, 0);
-+			list_move_tail(&buf->queue, &cap_dev->buffers.processing);
-+			return;
-+		}
-+	}
-+
-+	mali_c720_ctx_mgr_update_buffer(ctx, pool, NULL, 0);
-+}
-+
-+void mali_c720_cap_dev_buffer_done(struct mali_c720_cap_dev *cap_dev,
-+				   bool success)
-+{
-+	struct mali_c720 *mali_c720 = cap_dev->mali_c720;
-+	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
-+	struct mali_c720_cap_buffer *buf;
-+
-+	if (!video_is_registered(&cap_dev->vdev))
-+		return;
-+
-+	if (!vb2_is_streaming(&cap_dev->queue))
-+		return;
-+
-+	guard(spinlock)(&cap_dev->buffers.lock);
-+
-+	buf = list_first_entry_or_null(&cap_dev->buffers.processing,
-+				       struct mali_c720_cap_buffer, queue);
-+	if (!buf)
-+		return;
-+
-+	if (mali_c720_ctx_mgr_check_output_buffer_status(ctx, &cap_dev->buffers.pool))
-+		success = false;
-+
-+	if (success) {
-+		buf->vb.vb2_buf.timestamp = ctx->timestamp;
-+		buf->vb.sequence = ctx->frame_sequence;
-+	}
-+
-+	vb2_buffer_done(&buf->vb.vb2_buf, success ? VB2_BUF_STATE_DONE : VB2_BUF_STATE_ERROR);
-+	list_del(&buf->queue);
-+}
-+
-+static void mali_c720_cap_dev_return_buffers(struct mali_c720_cap_dev *cap_dev,
-+					     enum vb2_buffer_state state)
-+{
-+	struct mali_c720_cap_buffer *buf, *tmp;
-+
-+	guard(spinlock)(&cap_dev->buffers.lock);
-+
-+	list_for_each_entry_safe(buf, tmp, &cap_dev->buffers.input, queue) {
-+		list_del(&buf->queue);
-+		vb2_buffer_done(&buf->vb.vb2_buf, state);
-+	}
-+
-+	list_for_each_entry_safe(buf, tmp, &cap_dev->buffers.processing, queue) {
-+		list_del(&buf->queue);
-+		vb2_buffer_done(&buf->vb.vb2_buf, state);
-+	}
-+}
-+
-+static int mali_c720_cap_dev_buffer_pool_configure(struct mali_c720_cap_dev *cap_dev)
-+{
-+	struct mali_c720 *mali_c720 = cap_dev->mali_c720;
-+	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
-+	int ret;
-+
-+	ret = mali_c720_ctx_mgr_request_buffer_pool(ctx,
-+						    &cap_dev->format.buffer_request,
-+						    &cap_dev->buffers.pool);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static void mali_c720_cap_dev_release_buffer_pool(struct mali_c720_cap_dev *cap_dev)
-+{
-+	struct mali_c720 *mali_c720 = cap_dev->mali_c720;
-+	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
-+	struct mali_c720_buffer_pool *pool = &cap_dev->buffers.pool;
-+
-+	mali_c720_ctx_mgr_release_buffer_pool(ctx, pool);
-+}
-+
-+static int mali_c720_vb2_start_streaming(struct vb2_queue *q, unsigned int count)
-+{
-+	struct mali_c720_cap_dev *cap_dev = q->drv_priv;
-+	struct mali_c720 *mali_c720 = cap_dev->mali_c720;
-+	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
-+	int ret;
-+
-+	guard(mutex)(&mali_c720->device_lock);
-+
-+	if (!media_devnode_is_registered(mali_c720->media_dev.devnode)) {
-+		ret = -ENODEV;
-+		goto err_return_buffers;
-+	}
-+
-+	ret = pm_runtime_resume_and_get(mali_c720->dev);
-+	if (ret)
-+		goto err_return_buffers;
-+
-+	ret = video_device_pipeline_start(&cap_dev->vdev, &mali_c720->pipe);
-+	if (ret) {
-+		dev_err(mali_c720->dev, "%s failed to start media pipeline\n",
-+			cap_dev->vdev.name);
-+		goto err_pm_put;
-+	}
-+
-+	ret = mali_c720_alloc_context(ctx);
-+	if (ret)
-+		goto err_stop_video_pipeline;
-+
-+	ret = mali_c720_cap_dev_buffer_pool_configure(cap_dev);
-+	if (ret) {
-+		dev_err(mali_c720->dev, "%s failed to request output buffers\n",
-+			cap_dev->vdev.name);
-+		goto err_free_context;
-+	}
-+
-+	ret = v4l2_subdev_enable_streams(cap_dev->src_sd, cap_dev->src_pad,
-+					 BIT(0));
-+	if (ret && ret != -EALREADY) {
-+		dev_err(mali_c720->dev, "%s failed to start src subdev\n",
-+			cap_dev->vdev.name);
-+		goto err_release_buffer_pool;
-+	}
-+
-+	return 0;
-+
-+err_release_buffer_pool:
-+	mali_c720_cap_dev_release_buffer_pool(cap_dev);
-+err_free_context:
-+	mali_c720_free_context(ctx);
-+err_stop_video_pipeline:
-+	video_device_pipeline_stop(&cap_dev->vdev);
-+err_pm_put:
-+	pm_runtime_put(mali_c720->dev);
-+err_return_buffers:
-+	mali_c720_cap_dev_return_buffers(cap_dev, VB2_BUF_STATE_QUEUED);
-+
-+	return ret;
-+}
-+
-+static void mali_c720_vb2_stop_streaming(struct vb2_queue *q)
-+{
-+	struct mali_c720_cap_dev *cap_dev = q->drv_priv;
-+	struct mali_c720 *mali_c720 = cap_dev->mali_c720;
-+	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
-+	struct mali_c720_isp *isp = &mali_c720->isp;
-+	struct v4l2_subdev *isp_sd = &isp->mdev.sd;
-+
-+	guard(mutex)(&mali_c720->device_lock);
-+
-+	v4l2_subdev_disable_streams(isp_sd, MALI_C720_ISP_PAD_SOURCE_HV,
-+				    BIT(0));
-+	v4l2_subdev_disable_streams(cap_dev->src_sd, cap_dev->src_pad,
-+				    BIT(0));
-+	mali_c720_cap_dev_release_buffer_pool(cap_dev);
-+	mali_c720_cap_dev_return_buffers(cap_dev, VB2_BUF_STATE_ERROR);
-+
-+	mali_c720_free_context(ctx);
-+
-+	video_device_pipeline_stop(&cap_dev->vdev);
-+
-+	pm_runtime_put_autosuspend(mali_c720->dev);
-+	pm_runtime_mark_last_busy(mali_c720->dev);
-+}
-+
-+static const struct vb2_ops mali_c720_vb2_ops = {
-+	.queue_setup		= &mali_c720_vb2_queue_setup,
-+	.buf_queue		= &mali_c720_buf_queue,
-+	.buf_init		= &mali_c720_buf_init,
-+	.start_streaming	= &mali_c720_vb2_start_streaming,
-+	.stop_streaming		= &mali_c720_vb2_stop_streaming,
-+	.buf_request_complete	= &mali_c720_buf_request_complete,
-+};
-+
-+static const struct v4l2_file_operations mali_c720_v4l2_fops = {
-+	.owner = THIS_MODULE,
-+	.unlocked_ioctl = video_ioctl2,
-+	.open = v4l2_fh_open,
-+	.release = vb2_fop_release,
-+	.poll = vb2_fop_poll,
-+	.mmap = vb2_fop_mmap,
-+};
-+
-+static void mali_c720_try_fmt(struct mali_c720_cap_dev *cap_dev,
-+			      struct v4l2_pix_format_mplane *pix_mp)
-+{
-+	const struct mali_c720_v4l2_format_info *info;
-+	const struct mali_c720_mbus_format_info *cfg;
-+	struct v4l2_plane_pix_format *plane, *y_plane;
-+	u32 requested_stride = pix_mp->plane_fmt[0].bytesperline;
-+	unsigned int i;
-+
-+	info = mali_c720_get_v4l2_config_by_fourcc(pix_mp->pixelformat);
-+	if (!info || !mali_c720_format_supported_by_vdev(info, cap_dev->id))
-+		info = mali_c720_get_v4l2_config_by_fourcc(cap_dev->format.default_format);
-+
-+	cfg = mali_c720_get_mbus_config_by_code(info->mbus_code);
-+
-+	pix_mp->pixelformat = info->fourcc;
-+	v4l_bound_align_image(&pix_mp->width, MALI_C720_MIN_OUTPUT_WIDTH,
++	/*
++	 * Clamp to min/max and then reset crop and compose rectangles to the
++	 * newly applied size.
++	 */
++	sink_fmt->width = fmt->width;
++	sink_fmt->height = fmt->height;
++	v4l_bound_align_image(&sink_fmt->width, MALI_C720_MIN_INPUT_WIDTH,
 +			      MALI_C720_MAX_WIDTH, 1,
-+			      &pix_mp->height, MALI_C720_MIN_OUTPUT_HEIGHT,
++			      &sink_fmt->height, MALI_C720_MIN_INPUT_HEIGHT,
 +			      MALI_C720_MAX_HEIGHT, 1, 0);
 +
-+	pix_mp->field = V4L2_FIELD_NONE;
-+	if (cfg->type & (MALI_C720_FORMAT_RGB | MALI_C720_FORMAT_YUV))
-+		pix_mp->colorspace = V4L2_COLORSPACE_SRGB;
-+	else
-+		pix_mp->colorspace = V4L2_COLORSPACE_RAW;
++	*fmt = *sink_fmt;
 +
-+	pix_mp->xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(pix_mp->colorspace);
-+	if (cfg->type & MALI_C720_FORMAT_YUV)
-+		pix_mp->ycbcr_enc = V4L2_YCBCR_ENC_709;
-+	else
-+		pix_mp->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(pix_mp->colorspace);
++	compose = v4l2_subdev_state_get_compose(state, MALI_C720_FR_PIPE_PAD_SINK_VIDEO);
++	compose->left = 0;
++	compose->top = 0;
++	compose->width = sink_fmt->width;
++	compose->height = sink_fmt->height;
 +
-+	if (pix_mp->colorspace == V4L2_COLORSPACE_RAW)
-+		pix_mp->quantization = V4L2_QUANTIZATION_FULL_RANGE;
-+	else
-+		pix_mp->quantization =
-+			V4L2_MAP_QUANTIZATION_DEFAULT(cfg->type & MALI_C720_FORMAT_RGB,
-+						      pix_mp->colorspace,
-+						      pix_mp->ycbcr_enc);
++	*v4l2_subdev_state_get_crop(state, MALI_C720_FR_PIPE_PAD_SOURCE_RGB) = *compose;
++	*v4l2_subdev_state_get_crop(state, MALI_C720_FR_PIPE_PAD_SOURCE_YUV) = *compose;
 +
-+	/* Only contiguous multi-planar formats are supported. */
-+	pix_mp->num_planes = 1;
-+	memset(pix_mp->plane_fmt, 0, sizeof(pix_mp->plane_fmt));
++	/*
++	 * Propagate format to source pads. On the RGB output pad use
++	 * the internal RGB processed format, and on the YUV pad use the internal
++	 * YUV processed format. The sizes on both pads are the same as the shared source
++	 * crop rectangle. The "code" "field" "colorspace" fields are set in
++	 * .init_state() and fixed for both source pads.
++	 */
++	src_fmt = v4l2_subdev_state_get_format(state, MALI_C720_FR_PIPE_PAD_SOURCE_RGB);
++	src_fmt->width = compose->width;
++	src_fmt->height = compose->height;
 +
-+	y_plane = &pix_mp->plane_fmt[0];
-+	y_plane->bytesperline = clamp(requested_stride,
-+				      DIV_ROUND_UP(info->bpp[0] * pix_mp->width, 8),
-+				      65504U);
-+	y_plane->bytesperline = ALIGN(y_plane->bytesperline, 32);
-+	y_plane->sizeimage = y_plane->bytesperline * pix_mp->height;
-+
-+	for (i = 1; i < info->comp_planes; i++) {
-+		plane = &pix_mp->plane_fmt[i];
-+
-+		plane->bytesperline = y_plane->bytesperline;
-+		plane->sizeimage = DIV_ROUND_UP(plane->bytesperline * pix_mp->height,
-+						info->vdiv);
-+
-+		y_plane->sizeimage += plane->sizeimage;
-+	}
-+}
-+
-+static int mali_c720_try_fmt_vid_cap_mplane(struct file *file, void *fh,
-+					    struct v4l2_format *f)
-+{
-+	struct mali_c720_cap_dev *cap_dev = video_drvdata(file);
-+
-+	mali_c720_try_fmt(cap_dev, &f->fmt.pix_mp);
-+	return 0;
-+}
-+
-+static void mali_c720_set_format(struct mali_c720_cap_dev *cap_dev,
-+				 struct v4l2_pix_format_mplane *pix_mp)
-+{
-+	struct mali_c720_buffer_request_info *req = &cap_dev->format.buffer_request;
-+	const struct mali_c720_v4l2_format_info *info;
-+	unsigned int i;
-+
-+	mali_c720_try_fmt(cap_dev, pix_mp);
-+
-+	cap_dev->format.pix_mp = *pix_mp;
-+	cap_dev->format.info = mali_c720_get_v4l2_config_by_fourcc(pix_mp->pixelformat);
-+	info = cap_dev->format.info;
-+
-+	memset(req, 0, sizeof(*req));
-+	req->type = MALI_C720_BUF_TYPE_OUT;
-+	req->sub_type = cap_dev->id;
-+	req->width = pix_mp->width;
-+	req->height = pix_mp->height;
-+
-+	req->line_offset[0] = pix_mp->plane_fmt[0].bytesperline;
-+	req->plane_size[0] = pix_mp->plane_fmt[0].bytesperline * pix_mp->height;
-+	for (i = 1; i < info->comp_planes; i++) {
-+		req->line_offset[i] = pix_mp->plane_fmt[i].bytesperline;
-+		req->plane_size[i] = pix_mp->plane_fmt[i].sizeimage;
-+	}
-+
-+	req->num_out_planes = info->comp_planes;
-+	req->buffer_cfg = info->buffer_cfg;
-+}
-+
-+static int mali_c720_s_fmt_vid_cap_mplane(struct file *file, void *fh,
-+					  struct v4l2_format *f)
-+{
-+	struct mali_c720_cap_dev *cap_dev = video_drvdata(file);
-+
-+	if (media_entity_is_streaming(&cap_dev->vdev.entity))
-+		return -EBUSY;
-+
-+	if (vb2_is_busy(&cap_dev->queue))
-+		return -EBUSY;
-+
-+	mali_c720_set_format(cap_dev, &f->fmt.pix_mp);
-+	return 0;
-+}
-+
-+static int mali_c720_g_fmt_vid_cap_mplane(struct file *file, void *fh,
-+					  struct v4l2_format *f)
-+{
-+	struct mali_c720_cap_dev *cap_dev = video_drvdata(file);
-+
-+	f->fmt.pix_mp = cap_dev->format.pix_mp;
++	src_fmt = v4l2_subdev_state_get_format(state, MALI_C720_FR_PIPE_PAD_SOURCE_YUV);
++	src_fmt->width = compose->width;
++	src_fmt->height = compose->height;
 +
 +	return 0;
 +}
 +
-+static int mali_c720_enum_fmt_vid_cap_mplane(struct file *file, void *fh,
-+					     struct v4l2_fmtdesc *f)
++static int mali_c720_fr_pipe_get_selection(struct v4l2_subdev *sd,
++					   const struct v4l2_subdev_client_info *ci,
++					   struct v4l2_subdev_state *state,
++					   struct v4l2_subdev_selection *sel)
 +{
-+	struct mali_c720_cap_dev *cap_dev = video_drvdata(file);
-+	const struct mali_c720_v4l2_format_info *info;
-+	struct mali_c720_v4l2_format_match match;
++	const struct v4l2_mbus_framefmt *sink_fmt;
++	const struct v4l2_rect *compose;
 +
-+	match.dev_id = cap_dev->id;
-+	match.mbus_code = f->mbus_code;
++	switch (sel->target) {
++	case V4L2_SEL_TGT_CROP:
++		if (sel->pad != MALI_C720_FR_PIPE_PAD_SOURCE_RGB &&
++		    sel->pad != MALI_C720_FR_PIPE_PAD_SOURCE_YUV)
++			return -EINVAL;
 +
-+	info = mali_c720_get_v4l2_config_by_matched_index(f->index, &match);
-+	if (info) {
-+		f->pixelformat = info->fourcc;
-+		return 0;
++		sel->r = *v4l2_subdev_state_get_crop(state, sel->pad);
++		break;
++	case V4L2_SEL_TGT_COMPOSE:
++		if (sel->pad != MALI_C720_FR_PIPE_PAD_SINK_VIDEO)
++			return -EINVAL;
++
++		sel->r = *v4l2_subdev_state_get_compose(state, sel->pad);
++		break;
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++		if (sel->pad != MALI_C720_FR_PIPE_PAD_SOURCE_RGB &&
++		    sel->pad != MALI_C720_FR_PIPE_PAD_SOURCE_YUV)
++			return -EINVAL;
++
++		compose = v4l2_subdev_state_get_compose(state, MALI_C720_FR_PIPE_PAD_SINK_VIDEO);
++		sel->r = (struct v4l2_rect) {
++			.width = compose->width,
++			.height = compose->height,
++		};
++		break;
++	case V4L2_SEL_TGT_COMPOSE_BOUNDS:
++		if (sel->pad != MALI_C720_FR_PIPE_PAD_SINK_VIDEO)
++			return -EINVAL;
++
++		sink_fmt = v4l2_subdev_state_get_format(state, sel->pad);
++		sel->r = (struct v4l2_rect) {
++			.width = sink_fmt->width,
++			.height = sink_fmt->height,
++		};
++		break;
++	default:
++		return -EINVAL;
 +	}
++
++	return 0;
++}
++
++static int mali_c720_fr_pipe_set_crop(struct v4l2_subdev *sd,
++				      struct v4l2_subdev_state *state,
++				      struct v4l2_subdev_selection *sel)
++{
++	struct mali_c720_subdev *mdev = v4l2_sd_to_mali_c720_sd(sd);
++	struct mali_c720_fr_pipe *pipe = mali_c720_sd_to_sd(mdev, struct mali_c720_fr_pipe);
++	struct v4l2_mbus_framefmt *src_fmt;
++	struct v4l2_rect *compose, *crop, adjusted_size;
++	struct v4l2_rect requested_size = {
++		.width = sel->r.width,
++		.height = sel->r.height,
++	};
++
++	crop = v4l2_subdev_state_get_crop(state, MALI_C720_FR_PIPE_PAD_SOURCE_RGB);
++	compose = v4l2_subdev_state_get_compose(state, MALI_C720_FR_PIPE_PAD_SINK_VIDEO);
++
++	adjusted_size = requested_size;
++
++	/* Streaming fixes the output size, but crop offsets may still change. */
++	if (sel->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
++	    media_entity_is_streaming(&sd->entity)) {
++		v4l2_rect_set_size_to(&adjusted_size, crop);
++	} else {
++		/* The alignment helper rounds odd sizes up; LE alone needs down. */
++		if ((sel->flags & V4L2_SEL_FLAG_LE) && !(sel->flags & V4L2_SEL_FLAG_GE)) {
++			adjusted_size.width &= ~1U;
++			adjusted_size.height &= ~1U;
++		}
++
++		v4l_bound_align_image(&adjusted_size.width, MALI_C720_MIN_OUTPUT_WIDTH,
++				      compose->width, 1,
++				      &adjusted_size.height, MALI_C720_MIN_OUTPUT_HEIGHT,
++				      compose->height, 1, 0);
++	}
++
++	/* GE/LE constrain size independently of crop position. */
++	if ((sel->flags & V4L2_SEL_FLAG_GE) &&
++	    !v4l2_rect_enclosed(&requested_size, &adjusted_size))
++		return -ERANGE;
++	if ((sel->flags & V4L2_SEL_FLAG_LE) &&
++	    !v4l2_rect_enclosed(&adjusted_size, &requested_size))
++		return -ERANGE;
++
++	crop->left = sel->r.left;
++	crop->top = sel->r.top;
++	v4l2_rect_set_size_to(crop, &adjusted_size);
++
++	/* Constrain offsets within the compose window and align to even pixels. */
++	v4l2_rect_map_inside(crop, compose);
++	crop->left &= ~1;
++	crop->top &= ~1;
++
++	*v4l2_subdev_state_get_crop(state, MALI_C720_FR_PIPE_PAD_SOURCE_YUV) = *crop;
++
++	if (sel->which == V4L2_SUBDEV_FORMAT_TRY ||
++	    !media_entity_is_streaming(&sd->entity)) {
++		src_fmt = v4l2_subdev_state_get_format(state, MALI_C720_FR_PIPE_PAD_SOURCE_RGB);
++		src_fmt->width = crop->width;
++		src_fmt->height = crop->height;
++
++		src_fmt = v4l2_subdev_state_get_format(state, MALI_C720_FR_PIPE_PAD_SOURCE_YUV);
++		src_fmt->width = crop->width;
++		src_fmt->height = crop->height;
++	}
++
++	if (sel->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
++	    v4l2_subdev_is_streaming(sd))
++		mali_c720_fr_pipe_update_resizer_config(pipe, state);
++
++	sel->r = *crop;
++	return 0;
++}
++
++static int mali_c720_fr_pipe_set_compose(struct v4l2_subdev *sd,
++					 struct v4l2_subdev_state *state,
++					 struct v4l2_subdev_selection *sel)
++{
++	struct mali_c720_subdev *mdev = v4l2_sd_to_mali_c720_sd(sd);
++	struct mali_c720_fr_pipe *pipe = mali_c720_sd_to_sd(mdev, struct mali_c720_fr_pipe);
++	struct v4l2_mbus_framefmt *sink_fmt, *src_fmt;
++	struct v4l2_rect *crop, *compose, adjusted_size;
++	struct v4l2_rect requested_size = {
++		.width = sel->r.width,
++		.height = sel->r.height,
++	};
++	unsigned int min_width, min_height;
++
++	sink_fmt = v4l2_subdev_state_get_format(state, MALI_C720_FR_PIPE_PAD_SINK_VIDEO);
++	crop = v4l2_subdev_state_get_crop(state, MALI_C720_FR_PIPE_PAD_SOURCE_RGB);
++	compose = v4l2_subdev_state_get_compose(state, MALI_C720_FR_PIPE_PAD_SINK_VIDEO);
++
++	min_width = mali_c720_fr_pipe_min_output_size(sink_fmt->width);
++	min_height = mali_c720_fr_pipe_min_output_size(sink_fmt->height);
++
++	/* Preserve the output crop size while streaming and respect the scaler limit. */
++	if (sel->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
++	    media_entity_is_streaming(&sd->entity)) {
++		min_width = MAX(min_width, crop->width);
++		min_height = MAX(min_height, crop->height);
++	} else {
++		min_width = MAX(min_width, MALI_C720_MIN_OUTPUT_WIDTH);
++		min_height = MAX(min_height, MALI_C720_MIN_OUTPUT_HEIGHT);
++	}
++
++	/* The alignment helper rounds odd sizes up; LE alone needs down. */
++	adjusted_size = requested_size;
++	if ((sel->flags & V4L2_SEL_FLAG_LE) && !(sel->flags & V4L2_SEL_FLAG_GE)) {
++		adjusted_size.width &= ~1U;
++		adjusted_size.height &= ~1U;
++	}
++	v4l_bound_align_image(&adjusted_size.width, min_width, sink_fmt->width, 1,
++			      &adjusted_size.height, min_height, sink_fmt->height, 1, 0);
++
++	if ((sel->flags & V4L2_SEL_FLAG_GE) &&
++	    !v4l2_rect_enclosed(&requested_size, &adjusted_size))
++		return -ERANGE;
++	if ((sel->flags & V4L2_SEL_FLAG_LE) &&
++	    !v4l2_rect_enclosed(&adjusted_size, &requested_size))
++		return -ERANGE;
++
++	*compose = adjusted_size;
++
++	if (sel->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
++	    media_entity_is_streaming(&sd->entity)) {
++		/* Keep crop offsets inside the new compose bounds without resizing. */
++		v4l2_rect_map_inside(crop, compose);
++	} else {
++		*crop = *compose;
++	}
++
++	*v4l2_subdev_state_get_crop(state, MALI_C720_FR_PIPE_PAD_SOURCE_YUV) = *crop;
++
++	if (sel->which == V4L2_SUBDEV_FORMAT_TRY ||
++	    !media_entity_is_streaming(&sd->entity)) {
++		src_fmt = v4l2_subdev_state_get_format(state, MALI_C720_FR_PIPE_PAD_SOURCE_RGB);
++		src_fmt->width = compose->width;
++		src_fmt->height = compose->height;
++
++		src_fmt = v4l2_subdev_state_get_format(state, MALI_C720_FR_PIPE_PAD_SOURCE_YUV);
++		src_fmt->width = compose->width;
++		src_fmt->height = compose->height;
++	}
++
++	if (sel->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
++	    v4l2_subdev_is_streaming(sd))
++		mali_c720_fr_pipe_update_resizer_config(pipe, state);
++
++	sel->r = *compose;
++	return 0;
++}
++
++static int mali_c720_fr_pipe_set_selection(struct v4l2_subdev *sd,
++					   const struct v4l2_subdev_client_info *ci,
++					   struct v4l2_subdev_state *state,
++					   struct v4l2_subdev_selection *sel)
++{
++	/*
++	 * RGB and YUV share one post-scaler crop. Expose it on both source pads;
++	 * changing either updates the crop and output dimensions of both pads.
++	 */
++	if (sel->target == V4L2_SEL_TGT_CROP &&
++	    (sel->pad == MALI_C720_FR_PIPE_PAD_SOURCE_RGB ||
++	     sel->pad == MALI_C720_FR_PIPE_PAD_SOURCE_YUV))
++		return mali_c720_fr_pipe_set_crop(sd, state, sel);
++
++	if (sel->target == V4L2_SEL_TGT_COMPOSE &&
++	    sel->pad == MALI_C720_FR_PIPE_PAD_SINK_VIDEO)
++		return mali_c720_fr_pipe_set_compose(sd, state, sel);
 +
 +	return -EINVAL;
 +}
 +
-+static int mali_c720_enum_framesizes(struct file *file, void *fh,
-+				     struct v4l2_frmsizeenum *fsize)
++static int mali_c720_fr_pipe_enable_streams(struct v4l2_subdev *sd,
++					    struct v4l2_subdev_state *state, u32 pad,
++					    u64 streams_mask)
 +{
-+	struct mali_c720_cap_dev *cap_dev = video_drvdata(file);
-+	const struct mali_c720_v4l2_format_info *info;
-+
-+	if (fsize->index)
-+		return -EINVAL;
-+
-+	info = mali_c720_get_v4l2_config_by_fourcc(fsize->pixel_format);
-+	if (!info || !mali_c720_format_supported_by_vdev(info, cap_dev->id))
-+		return -EINVAL;
-+
-+	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
-+	fsize->stepwise.min_width = MALI_C720_MIN_OUTPUT_WIDTH;
-+	fsize->stepwise.max_width = MALI_C720_MAX_WIDTH;
-+	fsize->stepwise.step_width = 2;
-+	fsize->stepwise.min_height = MALI_C720_MIN_OUTPUT_HEIGHT;
-+	fsize->stepwise.max_height = MALI_C720_MAX_HEIGHT;
-+	fsize->stepwise.step_height = 2;
-+
-+	return 0;
-+}
-+
-+static int mali_c720_querycap(struct file *file, void *fh,
-+			      struct v4l2_capability *cap)
-+{
-+	strscpy(cap->driver, MALI_C720_DRIVER_NAME, sizeof(cap->driver));
-+	strscpy(cap->card, "ARM Mali-C720 ISP", sizeof(cap->card));
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_ioctl_ops mali_c720_v4l2_ioctl_ops = {
-+	.vidioc_reqbufs = vb2_ioctl_reqbufs,
-+	.vidioc_querybuf = vb2_ioctl_querybuf,
-+	.vidioc_create_bufs = vb2_ioctl_create_bufs,
-+	.vidioc_qbuf = vb2_ioctl_qbuf,
-+	.vidioc_expbuf = vb2_ioctl_expbuf,
-+	.vidioc_dqbuf = vb2_ioctl_dqbuf,
-+	.vidioc_prepare_buf = vb2_ioctl_prepare_buf,
-+	.vidioc_streamon = vb2_ioctl_streamon,
-+	.vidioc_streamoff = vb2_ioctl_streamoff,
-+	.vidioc_try_fmt_vid_cap_mplane = mali_c720_try_fmt_vid_cap_mplane,
-+	.vidioc_s_fmt_vid_cap_mplane = mali_c720_s_fmt_vid_cap_mplane,
-+	.vidioc_g_fmt_vid_cap_mplane = mali_c720_g_fmt_vid_cap_mplane,
-+	.vidioc_enum_fmt_vid_cap = mali_c720_enum_fmt_vid_cap_mplane,
-+	.vidioc_enum_framesizes = mali_c720_enum_framesizes,
-+	.vidioc_querycap = mali_c720_querycap,
-+	.vidioc_subscribe_event = v4l2_ctrl_subscribe_event,
-+	.vidioc_unsubscribe_event = v4l2_event_unsubscribe,
-+};
-+
-+static int mali_c720_register_cap_dev(struct mali_c720 *mali_c720,
-+				      enum mali_c720_cap_devs cap_dev_id)
-+{
-+	struct mali_c720_cap_dev *cap_dev = &mali_c720->cap_devs[cap_dev_id];
-+	struct v4l2_pix_format_mplane pix_mp;
-+	struct video_device *vdev;
-+	struct vb2_queue *vb2q;
++	struct mali_c720_subdev *mdev = v4l2_sd_to_mali_c720_sd(sd);
++	struct mali_c720 *mali_c720 = mdev->mali_c720;
++	const struct mali_c720_pipeline_regs *pipeline = mali_c720->registers.top->pipeline;
++	struct mali_c720_fr_pipe *pipe =
++		mali_c720_sd_to_sd(mdev, struct mali_c720_fr_pipe);
++	struct mali_c720_context *ctx = mali_c720_get_active_context(mali_c720);
++	struct v4l2_subdev *src_sd;
++	struct media_pad *sink_pad;
 +	int ret;
 +
-+	vdev = &cap_dev->vdev;
-+	vb2q = &cap_dev->queue;
-+
-+	cap_dev->id = cap_dev_id;
-+	cap_dev->mali_c720 = mali_c720;
-+	mutex_init(&cap_dev->lock);
-+	INIT_LIST_HEAD(&cap_dev->buffers.input);
-+	INIT_LIST_HEAD(&cap_dev->buffers.processing);
-+	spin_lock_init(&cap_dev->buffers.lock);
-+
-+	memset(&pix_mp, 0, sizeof(pix_mp));
-+
-+	pix_mp.width = MALI_C720_DEFAULT_WIDTH;
-+	pix_mp.height = MALI_C720_DEFAULT_HEIGHT;
-+
-+	switch (cap_dev->id) {
-+	case MALI_C720_CAP_DEV_FR0_RGB:
-+		cap_dev->src_sd =
-+			&mali_c720->fr_pipe.mdev.sd;
-+		cap_dev->src_pad = MALI_C720_FR_PIPE_PAD_SOURCE_RGB;
-+		cap_dev->format.default_format = V4L2_PIX_FMT_RGB24;
-+		break;
-+	case MALI_C720_CAP_DEV_FR0_YUV:
-+		cap_dev->src_sd =
-+			&mali_c720->fr_pipe.mdev.sd;
-+		cap_dev->src_pad = MALI_C720_FR_PIPE_PAD_SOURCE_YUV;
-+		cap_dev->format.default_format = V4L2_PIX_FMT_NV12;
-+		break;
-+	default:
-+		dev_warn_once(mali_c720->dev,
-+			      "Invalid capture device id %u\n", cap_dev->id);
-+		ret = -EINVAL;
-+		goto err_destroy_mutex;
++	sink_pad = &pipe->pads[MALI_C720_FR_PIPE_PAD_SINK_VIDEO];
++	pipe->remote_src = media_pad_remote_pad_unique(sink_pad);
++	if (IS_ERR(pipe->remote_src)) {
++		dev_err(mali_c720->dev,
++			"No remote source for fr 0 pipe\n");
++		return -EINVAL;
 +	}
 +
-+	cap_dev->pad.flags = MEDIA_PAD_FL_SINK | MEDIA_PAD_FL_MUST_CONNECT;
-+	ret = media_entity_pads_init(&cap_dev->vdev.entity, 1, &cap_dev->pad);
++	src_sd = media_entity_to_v4l2_subdev(pipe->remote_src->entity);
++	mali_c720_ctx_group_write(ctx, mali_c720->top_base,
++				  &pipeline->fr0_hv_cv_mux_sel,
++				  ISP_TOP_FR0_HV_CV_MUX_SEL_HV);
++
++	/* Enable the upstream subdevice unless another output already enabled it. */
++	ret = v4l2_subdev_enable_streams(src_sd, pipe->remote_src->index, BIT(0));
++	if (ret && ret != -EALREADY)
++		return ret;
++
++	mali_c720_fr_pipe_update_resizer_config(pipe, state);
++	if (pad == MALI_C720_FR_PIPE_PAD_SOURCE_YUV)
++		mali_c720_fr_pipe_program_output_formatter(pipe);
++
++	guard(spinlock)(&pipe->resizer_lock);
++	pipe->enabled_crops |= BIT(pad);
++
++	return 0;
++}
++
++static int mali_c720_fr_pipe_disable_streams(struct v4l2_subdev *sd,
++					     struct v4l2_subdev_state *state, u32 pad,
++					     u64 streams_mask)
++{
++	struct mali_c720_subdev *mdev = v4l2_sd_to_mali_c720_sd(sd);
++	struct mali_c720_fr_pipe *pipe =
++		mali_c720_sd_to_sd(mdev, struct mali_c720_fr_pipe);
++	struct v4l2_subdev *src_sd;
++
++	if (pipe->remote_src) {
++		src_sd = media_entity_to_v4l2_subdev(pipe->remote_src->entity);
++		v4l2_subdev_disable_streams(src_sd, pipe->remote_src->index,
++					    BIT(0));
++	}
++	pipe->remote_src = NULL;
++
++	guard(spinlock)(&pipe->resizer_lock);
++	pipe->enabled_crops &= ~BIT(pad);
++
++	return 0;
++}
++
++static const struct v4l2_subdev_pad_ops mali_c720_fr_pipe_pad_ops = {
++	.enum_mbus_code		= mali_c720_fr_pipe_enum_mbus_code,
++	.enum_frame_size	= mali_c720_fr_pipe_enum_frame_size,
++	.get_fmt		= v4l2_subdev_get_fmt,
++	.set_fmt		= mali_c720_fr_pipe_set_fmt,
++	.get_selection		= mali_c720_fr_pipe_get_selection,
++	.set_selection		= mali_c720_fr_pipe_set_selection,
++	.link_validate		= v4l2_subdev_link_validate_default,
++	.enable_streams		= mali_c720_fr_pipe_enable_streams,
++	.disable_streams	= mali_c720_fr_pipe_disable_streams,
++};
++
++static const struct v4l2_subdev_ops mali_c720_fr_pipe_ops = {
++	.pad	= &mali_c720_fr_pipe_pad_ops,
++};
++
++static int mali_c720_fr_pipe_init_state(struct v4l2_subdev *sd,
++					struct v4l2_subdev_state *state)
++{
++	struct v4l2_mbus_framefmt *sink_fmt, *src_fmt;
++	struct v4l2_rect *out_crop, *in_compose;
++
++	sink_fmt = v4l2_subdev_state_get_format(state, MALI_C720_FR_PIPE_PAD_SINK_VIDEO);
++	in_compose = v4l2_subdev_state_get_compose(state, MALI_C720_FR_PIPE_PAD_SINK_VIDEO);
++	out_crop = v4l2_subdev_state_get_crop(state, MALI_C720_FR_PIPE_PAD_SOURCE_RGB);
++
++	sink_fmt->width = MALI_C720_DEFAULT_WIDTH;
++	sink_fmt->height = MALI_C720_DEFAULT_HEIGHT;
++	sink_fmt->field = V4L2_FIELD_NONE;
++	sink_fmt->code = MEDIA_BUS_FMT_RGB121212_1X36;
++	sink_fmt->colorspace = V4L2_COLORSPACE_SRGB;
++	sink_fmt->xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(sink_fmt->colorspace);
++	sink_fmt->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(sink_fmt->colorspace);
++	sink_fmt->quantization =
++		V4L2_MAP_QUANTIZATION_DEFAULT(true, sink_fmt->colorspace,
++					      sink_fmt->ycbcr_enc);
++
++	in_compose->top = 0;
++	in_compose->left = 0;
++	in_compose->width = MALI_C720_DEFAULT_WIDTH;
++	in_compose->height = MALI_C720_DEFAULT_HEIGHT;
++
++	*out_crop = *in_compose;
++	*v4l2_subdev_state_get_crop(state, MALI_C720_FR_PIPE_PAD_SOURCE_YUV) = *out_crop;
++
++	src_fmt = v4l2_subdev_state_get_format(state, MALI_C720_FR_PIPE_PAD_SOURCE_RGB);
++	src_fmt->width = MALI_C720_DEFAULT_WIDTH;
++	src_fmt->height = MALI_C720_DEFAULT_HEIGHT;
++	src_fmt->field = V4L2_FIELD_NONE;
++	src_fmt->code = MEDIA_BUS_FMT_RGB161616_1X48;
++	src_fmt->colorspace = V4L2_COLORSPACE_SRGB;
++	src_fmt->xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(src_fmt->colorspace);
++	src_fmt->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(src_fmt->colorspace);
++	src_fmt->quantization =
++		V4L2_MAP_QUANTIZATION_DEFAULT(true, src_fmt->colorspace,
++					      src_fmt->ycbcr_enc);
++
++	src_fmt = v4l2_subdev_state_get_format(state, MALI_C720_FR_PIPE_PAD_SOURCE_YUV);
++	src_fmt->width = MALI_C720_DEFAULT_WIDTH;
++	src_fmt->height = MALI_C720_DEFAULT_HEIGHT;
++	src_fmt->field = V4L2_FIELD_NONE;
++	src_fmt->code = MEDIA_BUS_FMT_YUV16_1X48;
++	src_fmt->colorspace = V4L2_COLORSPACE_SRGB;
++	src_fmt->xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(src_fmt->colorspace);
++	src_fmt->ycbcr_enc = V4L2_YCBCR_ENC_709;
++	src_fmt->quantization =
++		V4L2_MAP_QUANTIZATION_DEFAULT(false, src_fmt->colorspace,
++					      src_fmt->ycbcr_enc);
++
++	return 0;
++}
++
++static const struct v4l2_subdev_internal_ops mali_c720_fr_pipe_internal_ops = {
++	.init_state = mali_c720_fr_pipe_init_state,
++};
++
++static int mali_c720_fr_pipe_fetch_discovery_data(struct mali_c720 *mali_c720,
++						  struct mali_c720_fr_pipe *pipe)
++{
++	const struct mali_c720_discovery_target crop = {
++		.module_id = MALI_C720_DISC_MODULE_ID_CROP,
++		.pipeline_id = MALI_C720_DISC_PIPE_FR_OUTPUT,
++	};
++	const struct mali_c720_discovery_target scaler = {
++		.module_id = MALI_C720_DISC_MODULE_ID_SCALER_RGB,
++		.pipeline_id = MALI_C720_DISC_PIPE_FR_OUTPUT,
++	};
++	const struct mali_c720_discovery_target output_formatter = {
++		.module_id = MALI_C720_DISC_MODULE_ID_OUTPUT_FORMATTER,
++		.pipeline_id = MALI_C720_DISC_PIPE_FR_OUTPUT,
++	};
++	int ret;
++
++	ret = mali_c720_discovery_get_module_base(mali_c720, &crop, &pipe->crop_base);
 +	if (ret)
-+		goto err_destroy_mutex;
++		return ret;
 +
-+	vb2q->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
-+	vb2q->io_modes = VB2_MMAP | VB2_DMABUF;
-+	vb2q->drv_priv = cap_dev;
-+	vb2q->mem_ops = &vb2_dma_contig_memops;
-+	vb2q->ops = &mali_c720_vb2_ops;
-+	vb2q->buf_struct_size = sizeof(struct mali_c720_cap_buffer);
-+	vb2q->min_queued_buffers = 0;
-+	vb2q->supports_requests = 1;
-+	vb2q->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC |
-+				V4L2_BUF_FLAG_TSTAMP_SRC_SOE;
-+	vb2q->lock = &cap_dev->lock;
-+	vb2q->dev = mali_c720->dev;
++	ret = mali_c720_discovery_get_module_base(mali_c720, &scaler,
++						  &pipe->scaler_base);
++	if (ret)
++		return ret;
 +
-+	ret = vb2_queue_init(vb2q);
-+	if (ret) {
-+		dev_err(mali_c720->dev, "%s vb2 queue init failed\n",
-+			cap_dev->vdev.name);
-+		goto err_cleanup_media_entity;
-+	}
++	ret = mali_c720_discovery_get_module_base(mali_c720, &output_formatter,
++						  &pipe->output_formatter_base);
++	if (ret)
++		return ret;
 +
-+	strscpy(cap_dev->vdev.name, capture_device_names[cap_dev_id],
-+		sizeof(cap_dev->vdev.name));
-+	vdev->release = video_device_release_empty;
-+	vdev->fops = &mali_c720_v4l2_fops;
-+	vdev->ioctl_ops = &mali_c720_v4l2_ioctl_ops;
-+	vdev->lock = &cap_dev->lock;
-+	vdev->v4l2_dev = &mali_c720->v4l2_dev;
-+	vdev->queue = &cap_dev->queue;
-+	vdev->device_caps = V4L2_CAP_VIDEO_CAPTURE_MPLANE |
-+				V4L2_CAP_STREAMING | V4L2_CAP_IO_MC;
-+	vdev->entity.ops = &mali_c720_media_ops;
-+	video_set_drvdata(vdev, cap_dev);
++	ret = mali_c720_discovery_get_module_table_base(mali_c720, &scaler,
++							MALI_C720_DISC_TABLE_SCALER_RGB_H_MEM_ID,
++							&pipe->scaler_hmem_base);
++	if (ret)
++		return ret;
 +
-+	pix_mp.pixelformat = cap_dev->format.default_format;
-+	mali_c720_set_format(cap_dev, &pix_mp);
++	ret = mali_c720_discovery_get_module_table_base(mali_c720, &scaler,
++							MALI_C720_DISC_TABLE_SCALER_RGB_V_MEM_ID,
++							&pipe->scaler_vmem_base);
++	if (ret)
++		return ret;
 +
-+	ret = video_register_device(vdev, VFL_TYPE_VIDEO, -1);
++	return 0;
++}
++
++static const struct media_entity_operations mali_c720_fr_pipe_media_ops = {
++	.link_validate		= v4l2_subdev_link_validate,
++};
++
++int mali_c720_register_fr_pipe(struct mali_c720 *mali_c720)
++{
++	struct mali_c720_fr_pipe *pipe = &mali_c720->fr_pipe;
++	struct mali_c720_subdev *mdev = &pipe->mdev;
++	struct v4l2_subdev *sd = &mdev->sd;
++	int ret;
++
++	ret = mali_c720_fr_pipe_fetch_discovery_data(mali_c720, pipe);
 +	if (ret) {
 +		dev_err(mali_c720->dev,
-+			"%s failed to register video device\n",
-+			cap_dev->vdev.name);
-+		goto err_release_vb2q;
++			"Failed to fetch discovery data for fr 0 pipe: %d\n", ret);
++		return ret;
 +	}
++
++	mdev->mali_c720 = mali_c720;
++
++	spin_lock_init(&pipe->resizer_lock);
++	v4l2_subdev_init(sd, &mali_c720_fr_pipe_ops);
++	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
++	sd->entity.ops = &mali_c720_fr_pipe_media_ops;
++	sd->entity.function = MEDIA_ENT_F_PROC_VIDEO_ISP;
++	sd->internal_ops = &mali_c720_fr_pipe_internal_ops;
++	strscpy(sd->name, "mali-c720 fr 0 pipe", sizeof(sd->name));
++
++	pipe->pads[MALI_C720_FR_PIPE_PAD_SINK_VIDEO].flags = MEDIA_PAD_FL_SINK |
++							     MEDIA_PAD_FL_MUST_CONNECT;
++	pipe->pads[MALI_C720_FR_PIPE_PAD_SOURCE_RGB].flags = MEDIA_PAD_FL_SOURCE;
++	pipe->pads[MALI_C720_FR_PIPE_PAD_SOURCE_YUV].flags = MEDIA_PAD_FL_SOURCE;
++	ret = media_entity_pads_init(&sd->entity,
++				     MALI_C720_FR_PIPE_NUM_PADS,
++				     pipe->pads);
++	if (ret)
++		goto err_clear_parent;
++
++	ret = v4l2_subdev_init_finalize(sd);
++	if (ret)
++		goto err_cleanup_media_entity;
++
++	ret = v4l2_device_register_subdev(&mali_c720->v4l2_dev, sd);
++	if (ret)
++		goto err_cleanup_subdev;
 +
 +	return 0;
 +
-+err_release_vb2q:
-+	vb2_queue_release(vb2q);
++err_cleanup_subdev:
++	v4l2_subdev_cleanup(sd);
 +err_cleanup_media_entity:
-+	media_entity_cleanup(&cap_dev->vdev.entity);
-+err_destroy_mutex:
-+	mutex_destroy(&cap_dev->lock);
-+	cap_dev->mali_c720 = NULL;
++	media_entity_cleanup(&sd->entity);
++err_clear_parent:
++	mdev->mali_c720 = NULL;
 +
 +	return ret;
 +}
 +
-+int mali_c720_register_capture_devs(struct mali_c720 *mali_c720)
++void mali_c720_unregister_fr_pipe(struct mali_c720 *mali_c720)
 +{
-+	unsigned int i;
-+	int ret;
++	struct mali_c720_fr_pipe *pipe = &mali_c720->fr_pipe;
++	struct mali_c720_subdev *mdev = &pipe->mdev;
 +
-+	for (i = 0; i < MALI_C720_MAX_NUM_CAP_DEVS; i++) {
-+		ret = mali_c720_register_cap_dev(mali_c720, i);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void mali_c720_unregister_cap_dev(struct mali_c720 *mali_c720,
-+					 enum mali_c720_cap_devs cap_dev_id)
-+{
-+	struct mali_c720_cap_dev *cap_dev = &mali_c720->cap_devs[cap_dev_id];
-+
-+	if (!video_is_registered(&cap_dev->vdev))
++	if (!mdev->mali_c720)
 +		return;
 +
-+	vb2_video_unregister_device(&cap_dev->vdev);
++	v4l2_device_unregister_subdev(&mdev->sd);
 +}
 +
-+static void mali_c720_cleanup_cap_dev(struct mali_c720 *mali_c720,
-+				      enum mali_c720_cap_devs cap_dev_id)
++void mali_c720_cleanup_fr_pipe(struct mali_c720 *mali_c720)
 +{
-+	struct mali_c720_cap_dev *cap_dev = &mali_c720->cap_devs[cap_dev_id];
++	struct mali_c720_fr_pipe *pipe = &mali_c720->fr_pipe;
++	struct mali_c720_subdev *mdev = &pipe->mdev;
 +
-+	if (!cap_dev->mali_c720)
++	if (!mdev->mali_c720)
 +		return;
 +
-+	media_entity_cleanup(&cap_dev->vdev.entity);
-+	mutex_destroy(&cap_dev->lock);
-+	cap_dev->mali_c720 = NULL;
++	v4l2_subdev_cleanup(&mdev->sd);
++	media_entity_cleanup(&mdev->sd.entity);
++	mdev->mali_c720 = NULL;
 +}
-+
-+void mali_c720_unregister_capture_devs(struct mali_c720 *mali_c720)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < MALI_C720_MAX_NUM_CAP_DEVS; i++)
-+		mali_c720_unregister_cap_dev(mali_c720, i);
-+}
-+
-+void mali_c720_cleanup_capture_devs(struct mali_c720 *mali_c720)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < MALI_C720_MAX_NUM_CAP_DEVS; i++)
-+		mali_c720_cleanup_cap_dev(mali_c720, i);
-+}
-diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-common.h b/drivers/media/platform/arm/mali-c720/mali-c720-common.h
-index ca7e04ef27a6ae3c4b41144de579c668255bfcaa..30aae3d8bed8c9e80b417941e8dce5c6e7275d7d 100644
---- a/drivers/media/platform/arm/mali-c720/mali-c720-common.h
-+++ b/drivers/media/platform/arm/mali-c720/mali-c720-common.h
-@@ -10,13 +10,19 @@
- 
- #include <linux/io.h>
- #include <linux/kfifo.h>
-+#include <linux/list.h>
- #include <linux/mutex.h>
- #include <linux/refcount.h>
- #include <linux/spinlock.h>
- #include <linux/videodev2.h>
- 
-+#include <media/media-device.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-dev.h>
- #include <media/v4l2-device.h>
- #include <media/v4l2-subdev.h>
-+#include <media/videobuf2-core.h>
-+#include <media/videobuf2-v4l2.h>
- 
- #include "mali-c720-ctx-mgr.h"
- #include "mali-c720-discovery.h"
-@@ -29,6 +35,8 @@
- #include "mali-c720-registers-ctx-mgr.h"
- #include "mali-c720-registers-modules.h"
- 
-+#define MALI_C720_DRIVER_NAME		"mali-c720"
-+
- #define MALI_C720_MIN_INPUT_WIDTH	256
- #define MALI_C720_MIN_INPUT_HEIGHT	256
- #define MALI_C720_MIN_OUTPUT_WIDTH	64
-@@ -145,6 +153,39 @@ enum mali_c720_cap_devs {
- 	MALI_C720_MAX_NUM_CAP_DEVS,
- };
- 
-+struct mali_c720_cap_buffer {
-+	struct vb2_v4l2_buffer vb;
-+	struct list_head queue;
-+	dma_addr_t addr;
-+};
-+
-+struct mali_c720_cap_dev {
-+	unsigned int id;
-+	struct mali_c720 *mali_c720;
-+	struct v4l2_subdev *src_sd;
-+	u32 src_pad;
-+	struct video_device vdev;
-+	struct media_pad pad;
-+	struct vb2_queue queue;
-+	/* Mutex to provide to vb2 */
-+	struct mutex lock;
-+
-+	struct {
-+		const struct mali_c720_v4l2_format_info *info;
-+		struct v4l2_pix_format_mplane pix_mp;
-+		struct mali_c720_buffer_request_info buffer_request;
-+		u32 default_format;
-+	} format;
-+
-+	struct {
-+		/* Spinlock to guard buffer queue */
-+		spinlock_t lock;
-+		struct list_head input;
-+		struct list_head processing;
-+		struct mali_c720_buffer_pool pool;
-+	} buffers;
-+};
-+
- struct mali_c720_context_regs {
- 	dma_addr_t dma_handle;
- 	u8 *base;
-@@ -193,12 +234,15 @@ struct mali_c720 {
- 	resource_size_t mmio_size;
- 	u32 top_base;
- 
-+	struct media_device media_dev;
- 	struct v4l2_device v4l2_dev;
-+	struct media_pipeline pipe;
- 
- 	struct mali_c720_input input;
- 	struct mali_c720_isp isp;
- 	struct mali_c720_vision_pipe vision_pipe;
- 	struct mali_c720_fr_pipe fr_pipe;
-+	struct mali_c720_cap_dev cap_devs[MALI_C720_MAX_NUM_CAP_DEVS];
- 
- 	struct mali_c720_registers registers;
- 	u8 *default_regs;
-@@ -236,8 +280,20 @@ int mali_c720_register_fr_pipe(struct mali_c720 *mali_c720);
- void mali_c720_unregister_fr_pipe(struct mali_c720 *mali_c720);
- void mali_c720_cleanup_fr_pipe(struct mali_c720 *mali_c720);
- 
-+int mali_c720_register_capture_devs(struct mali_c720 *mali_c720);
-+void mali_c720_unregister_capture_devs(struct mali_c720 *mali_c720);
-+void mali_c720_cleanup_capture_devs(struct mali_c720 *mali_c720);
-+
- void mali_c720_fr_pipe_apply_resizer_config(struct mali_c720_fr_pipe *pipe);
- 
-+bool mali_c720_cap_dev_uses_requests(struct mali_c720_cap_dev *cap_dev);
-+struct media_request *mali_c720_cap_dev_get_request(struct mali_c720_cap_dev *cap_dev);
-+int mali_c720_cap_dev_is_ready(struct mali_c720_cap_dev *cap_dev);
-+void mali_c720_cap_dev_set_next_buffer(struct mali_c720_cap_dev *cap_dev,
-+				       struct media_request *req);
-+void mali_c720_cap_dev_buffer_done(struct mali_c720_cap_dev *cap_dev,
-+				   bool success);
-+
- void mali_c720_isp_queue_event_sof(struct mali_c720 *mali_c720, u32 sequence);
- 
- #endif /* MALI_C720_COMMON_H */
-diff --git a/drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.c b/drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.c
-index 828a993c5da63619f6fbb99d28532846f969d663..9391b087f74eed7dbf7f3bc1e2abbe5f8969fe86 100644
---- a/drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.c
-+++ b/drivers/media/platform/arm/mali-c720/mali-c720-ctx-mgr.c
-@@ -1266,7 +1266,13 @@ void mali_c720_ctx_mgr_prepare_frame(struct mali_c720_context *ctx)
- 
- void mali_c720_ctx_mgr_buffer_done(struct mali_c720_context *ctx, bool success)
- {
-+	struct mali_c720 *mali_c720 = ctx->mali_c720;
-+	unsigned int i;
-+
- 	lockdep_assert_held(&ctx->state_lock);
-+
-+	for (i = 0; i < MALI_C720_MAX_NUM_CAP_DEVS; i++)
-+		mali_c720_cap_dev_buffer_done(&mali_c720->cap_devs[i], success);
- }
- 
- void mali_c720_ctx_mgr_handle_sw_ready(struct mali_c720_context *ctx)
 
 -- 
 2.55.0
