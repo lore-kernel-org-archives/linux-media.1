@@ -1,120 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.4
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795536211;
-	b=FKpD6bYoXZuyERAu1bUAeMIITdw9N6Y0eRL9V6OkjV2hBzWD17Os8eLVk0Y0zKR+6IWc
-	 /T2T8E7DAdt2NLCAPX9J3bRdrcns71DOAruLbjE5gzO5l6k25U2RHUNm0rI2BrYQ9xlgj
-	 /FC3BwTq7rVHEoU2M132CI8z5ErWEkYXGGZznzcv/VFtM50VJaOsimoCB0JEoauU7mPQN
-	 +oVNgxrqE+k6/SsOxSO/FX/NGmdSnKoLtMPUDgzTgjvrQ3Piv3FK71yPWGSgu/xHPOA3a
-	 hUlqZma7z/mo7tYnFpQ8KxevohcV3l6WvwR2s+pq4aOurKl2k5+Zbhz2XDbyBR2K7ug==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795536211;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=5bQJNMobLMqtuKHhwgVId/roqubolCM8LnRFW1vjp3o=;
-	b=CKqksOA4Y3FDOZH/FkXA9Sk5TJcrdrrl9GERA56zTohIK3tbA0RVLDGTWkMwAlnbbKxK
-	 aHRE0KBtM9jiahGfpU9EN/nM7SLSre7I7hShCOs7INtm7oC571PQ4aDLFP8ycGquLRVUB
-	 QlRDzl6Pua8AV+Tnf/5q1Z9Xbfm0i4t2HL3pZjwJCzTcWx2pEnn21jfdzVNMWNepeU1Hj
-	 aFQpj2plJwuI7I2totw7s1jL3loiJPZ4Vra5XIGPEw452fwC6mjhBc4RFYKChP/2w2X2Q
-	 Z4JUviutoeG0kjwp4ILZgBx0JobJbQMMK6HNdA5iDHoVqsXBCdXM5TpRQiHozEh2zCw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mbA21XMT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.4
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010004.outbound.protection.outlook.com [52.101.201.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A23E7606A31E;
-	Tue, 24 Nov 2026 16:03:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A23E7606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795537661;
+	b=HJYN387PDSlAMhtGoeHzXjk1CmCwPAXf2E8cwsp5nxFraU0tH8/FawJ/Twk/VupkZb0T
+	 dncI8eo5qM3AsSyqgLUItvrFgGQjbVC9dG0rL+y9nz72zNjS+jIfcw7O4w7gz++DDY5cY
+	 Pgk/lNtyXce7HcmosuGUYJA15vvSPtfli6El4uLdfl496kNIy9lVWAakiUReLKz7A3WmV
+	 jOaGqxGqHzo1bDlR8frfaN4NSfOiekOjiWdP8NqtT2v3qzB4ovonSG1tL5LKjajdkMJPc
+	 7EInsTDqh3BAbj9ILEL22m/LiYFsJxYtUGv1zcFvnax5PqSfyLGDwD2zS2h/16CWXiA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795537661;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=/4b+hKquXnrPxas17sH/CIlTC3nyBbdzPmcmTJtv4jk=;
+	b=ErBl2HyP+4nFsAvNHYIQk5EbnPeSaAF+dpG+KMg8F/DQ2YAI2KuX0S83EA7DqMUw/9e6
+	 Z4w1TAcZcXYhzFNk4xC08dZGgMlu0Y0g1vOo9G2sSJxUu+jD4Yt4VLq47UtWMEe3SRvcj
+	 35CmdES5vziIgpyTmRqy9QcvGRgLfvYhq7w/O5siofV4Q7Sus5UPddXn6Lo/UfIEJxjXb
+	 F1uNynGGNtNkxrIo+7tGJybe7vFukkPfee3JLYIfo5o/qD8TDrJewFCjGN1DlZqj4OtHR
+	 jUZV79IxOkhAOMSer5ad/l1a5OMsaazYoYhRe+LIx6E++WUvZbnNI2TXuTRHxOk9vTw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=r1eEUBLV;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B5621606A33C;
+	Tue, 24 Nov 2026 16:27:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5621606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mbA21XMT
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gq0Jh1gCOjTATy4Jm2MMKtHvk65tQl0FSyePRv/vKMI98tnlaTxQYUqJN7Bg2/zAgqSo7uYP6bGPxxrjal7rq8pugKcFPkw2Z8i7noD5LDOfR9+TRTsFRAlMKnI44DBx5V3qrqUR64NqkUYnqznZkyephAo8t3QWg7QrZFaRkQNz09ZqLu2hUuhhHeMmLVatvkIoccwlQDQ20F5vKUhWULQz02jdO76QJPFECk9p4W6UM2tOWtVwCpMDV3h/184/QlPcGT71golPOI70XwBWAK/lb1Dnhl8eeiU2FXayNCsnMcV6bXOjc47uNgQMX4IEc4E28AAix8PtLQIXNZ9J9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5bQJNMobLMqtuKHhwgVId/roqubolCM8LnRFW1vjp3o=;
- b=AnKh4GO2r58cT0mkgRyNQscqPeT9yQgLi/CSsPL1R265ulQHjKpd4a7ebxccUzyMCgDOR3XWuuT77Ec2JW3V+UWPq1mrGmNJ25MXm1JMHtMjSOUYq4OVbnQEbK938TRfKIPdNIcMntph/O3N9p5NLI6vhuiWNBPocMLSu4FKGLXCG2TDV7bNEaLI+7I6rK28gErgvOkiTtUBLI7E/qINIP4AqW2a8tWFVPD7N+6EUXMuzX+qmLyn75OwD7ZP42s5p7UYJITrkJKEBO/enAaKpg7s/Uxdyfb/kWmKz87IJpPBkJA8g2l8VSS0gR2LiKiv/PO3bU/68FCL92yG+J2+SA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5bQJNMobLMqtuKHhwgVId/roqubolCM8LnRFW1vjp3o=;
- b=mbA21XMT6a1VPpfZHwdu5BOyKuhRJTcSCb6hRPL8WD7/8XmyZpsqFYRaLUkd3xW3Iy8rgBgbb1QsGZq1c3ERQ8DK4O1YXZi2N69DIOBEz7zC32I60PLmbeTZvkh6TywNfBUssB++jOsWhkrGYIHceLI1Mju7cMAjBo1aMpegJHQ=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY5PR12MB6179.namprd12.prod.outlook.com (2603:10b6:930:24::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
- 2026 16:02:50 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 16:02:43 +0000
-Message-ID: <7a5a2d3a-e42e-4dc0-8d22-8dd1bd249501@amd.com>
-Date: Tue, 24 Nov 2026 17:02:31 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Alistair Popple <apopple@nvidia.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Xu Yilun <yilun.xu@linux.intel.com>,
- Karl Mehltretter <kmehltretter@gmail.com>,
- Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling
- <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
- Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com,
- jhubbard@nvidia.com, chaitanyak@nvidia.com, Leon Romanovsky <leon@kernel.org>
-References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
- <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
- <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
- <20261123165716.GM179082@ziepe.ca>
- <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
- <awT8prWsj11TBdmP@nvdebian.thelocal>
- <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
- <20261124142032.GN9566@ziepe.ca>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261124142032.GN9566@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0045.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::17) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=r1eEUBLV
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 959A9339;
+	Tue, 24 Nov 2026 08:27:36 -0800 (PST)
+Received: from [10.2.201.43] (e140322.arm.com [10.2.201.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B7B003F86C;
+	Tue, 24 Nov 2026 08:27:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795537659; bh=821rJ0g9HtpMoMuetVK6Nxwg+cBpAnfGyZshLAd+HLM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=r1eEUBLVzAo6010E4T6rWWsxESRfD92OZBhJIp5NCx2BdeNsW2kmJibj4aqGo2iTM
+	 fsTQiEQJHxUyYo52JNvhaBnNMmgw4NiYJJ/n+ncK2uKuYE60Tre1P7wjL9eHR4zIun
+	 msKtL5KKkIJxVH9DP7XBJidE/wsduMfxNcMgKcBQ=
+Message-ID: <39619b6c-7330-459b-aed3-9e8bf303f7dc@arm.com>
+Date: Tue, 24 Nov 2026 16:27:36 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -124,131 +53,132 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB6179:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee4f091b-b256-4438-2ade-08df4a445f68
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|261102130727099003|261026121527099003|10067099003|11063799006|5023799004|4143699003|56012099006|261028144727099003|261022105027099003|261026140227099003|261021121427099003|261102123227099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	CSGAM0gi8jGkyMss17S7FUuh3CUCJyHW0gDVBrOLeQ0Nvw8Jl5Sk3ZbSQIcxo4GZo3B+xZrZ0q4zz3OrX6pFQ35QoBEzId6zmMS9BEWiDlwEPFvkMc7cj906oA0/ui1++IUjt+GVu4Fsu1xw0Mzx0oMygVPKyS/wYdtts44UiZ2S4hxQ31oFxasqp1jMa5Zucrl5PD8Y4bV63rCbk0woTpUodga+GQlCWlJmBKXmFpEMMa30s2+nVk0h1EeYaQHgK5zUgMfPmNEmMneXMIpXm4139Iowqc/w76BRkgv9Ljp/icf+vcrOLuhPgY+S0aIwq78OgTzjEQ5WfM3MglJKo521Je34YAxKEm5ZZLzmf8mEerrVCeXObBEYUtpdwKXvapxQwpBmbL58qZOEY533WXVQk5KWUtS5t0ptHzvNVrhfx6kWUCT+Xa+GjAlebIgRApL3/W0LyvjCZAtch9soI2K/eBFh7dgSp6VorU6q3cHW49MyI1Lq57FFXhCxzRcdJTinY6sGBqliCbp93VTVSj1cwxQm2bR6n6hz54QAn2/7Bd6ejtVkGnDKqDaNCqPgDbA82EsPCFtHsJx4HdQ/qXyu+dcMybNI+k5+ICETjTOli1J0EhW6uJgTk4I80Uzi6/qNmpCreX6ct28iKbvz/rzjpurIPZbo9OV0vz5YNuc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(261102130727099003)(261026121527099003)(10067099003)(11063799006)(5023799004)(4143699003)(56012099006)(261028144727099003)(261022105027099003)(261026140227099003)(261021121427099003)(261102123227099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RHh0WmJ3VC84SUhURnlVclRMdzhPbVdVSDVXNmpwcEY5cFk5SElvY21DL01n?=
- =?utf-8?B?d003ckxkeXAxSjVHSENWR2IxS1ZOc09yODFYYnRrek9IZnZZZXFpR3hIYzda?=
- =?utf-8?B?L0pqU3lXQUk3eVVaWE9RdjBwSk14ZmZiQm1SYUtMcXIxeEtWMU9maXFBU3lr?=
- =?utf-8?B?V0VtU3ZhNUJrRmJlSUhPL0lEQjhHckthMWtDK1NucHpEWUJaRWR1N2hTcUxS?=
- =?utf-8?B?V3ZwRjFRT3lwc3ZYaENkSGZyRnVZSVR6Sy80YTRFbGQ2czJkNkRaRUxwcXpI?=
- =?utf-8?B?TjVLcDJEbk1aYVNuTGx4NFJYRmF0ajhscDA1M2dqc0RtUUV3aTlHZ1FZSHJj?=
- =?utf-8?B?VlJodm5PeWNwWVNYcmE1T3FsSk0yb1AzcndMQ2p3MnNKOHdnaG4yQWNhV1Y3?=
- =?utf-8?B?K2FIRWtaNEhlWVZ6UU5EUjVyUmRNVmFrQ213V2ppdGZCL1krOGRRbmV0S1hy?=
- =?utf-8?B?UVo0Q01JcngwY0F6VlV6S0lubndCR0FiMzYzMk4wOVFBRkJXTFNFRFBONm5q?=
- =?utf-8?B?elp6TG5vN3VCOUZ5a1I3ZFl1cFB1UFVObXgrWUQ5Qk80U20ycllweGw1Mk45?=
- =?utf-8?B?dlQ3MS80eWpwcVlneHVhdm8xSGl6MDl3UTV2enc0ZUhERzI0TEd3QTRVSHVV?=
- =?utf-8?B?S0Eyc3VuWHB0L0VUK1JsMHNmZEs1MzB3T2pjNGxGTDJoTUxkR0F0M3NhUFZJ?=
- =?utf-8?B?TDY3WldjUnJ4NlV4Y1EzbTFBZXVXeU1MelJzMDVuSjgyMW9wOXdTU2pOUWds?=
- =?utf-8?B?UHd4VTBXOWFQY3ViT0RGM0NORldwZXM5a056SVJ5cVc2Y0VycnUxQjc4VzZt?=
- =?utf-8?B?V3E3emJRdGQ1RTh2MHJSU09TL2RVTko5Yk9PWWJERkJSS3Qyb0pDZkNJSFpw?=
- =?utf-8?B?L0FLL0UxRmNNb09QY3NlRHh0VlVkb2Q2UmxDVEpLcTBHNnRYVVgwR09OTG5H?=
- =?utf-8?B?d2dLblFMaWZoZEhwUFpyZEJXSTVQbXd6YjhNNERGZHhyS3VWU3laTVlYb0pD?=
- =?utf-8?B?NGR1TjJ5d2pTRko2Qk5CUmRqVmg0Q2x6YUdYUEtBT0l6bU1mUXlnUWxCcFBk?=
- =?utf-8?B?VWU4M29HZmNvdjVKcTdDTmMxdGZoRlZOblRYUWp1Y1pZSjdHWXZBY3lHWDAw?=
- =?utf-8?B?T2ZkTm9zNFRmRUN6MEVlNXF2czhESFlqVHhSL0xoMGVhLy9zSDljb1RnNU1M?=
- =?utf-8?B?ZFdsOU5uWmJHc2d2K0R5K1ZlNGwyYnpwZlBoSzRheURtQzA4SXhaQXNkQ09G?=
- =?utf-8?B?cGRlWjRGMDdIMlBaSTUyV2M3WDkyb0hBN2lodUlqanpibFQ4c3M1d0tIZ0d4?=
- =?utf-8?B?ZURTL2l6TnF6WmlQa0o2YmtFOU1CTEEwQXBTYlFDTzdhVzRlWUNzQjFuMDhD?=
- =?utf-8?B?Mms0RDRXc0tYdkdFQ3RPeFlNOGltaUpwNC92Q3FBaE9GTVJuQ1k1SGFuZk9H?=
- =?utf-8?B?RGt4ckF4Z0Jsc0ZiTUZUdXZtaHRuQ3grcjdpWWVYZC9Xd1lxRlpOU0pJb2lM?=
- =?utf-8?B?OEJzTXpuZFRnQzc4Y2FjL0NybUl5MkhkbXhwZGphYUJGRXNLODhrUjlyQTRB?=
- =?utf-8?B?dlF2bCtXTjV5disvODM4Y3NNNld2WjFKOUFXc3l3WXdzM25nRUhxNWJ4U2RM?=
- =?utf-8?B?dkVMTVdiYmw5WnZITFNtU3JVVW4xYjhtQ0Uvd0JVWWIwMkhXMTIzQnZRMjdn?=
- =?utf-8?B?YmhCbFhKV3dDMEFzTGNVR2VLMThaQlMyZTZ5MmZUNVkxYjJpT2ZrZmdKWTJN?=
- =?utf-8?B?R1NqQzlUZnZFeTg4dERNOWFuS3hGU3UxZmw5VlhVR1ZaWVNocU82ZE5qbVVo?=
- =?utf-8?B?TTk3QVBoRDk5bnBUa1RiMXhoaVVpNnFuMkl4dERzMDRWdHR4aW1raDVWWVpK?=
- =?utf-8?B?OWo5dU9yQ1dkVGxVNERxM29GVUVuby81c3JPdjN5TE5sUGg0SjVaVmt3L1Zu?=
- =?utf-8?B?WCtxOFB4UG9rbkdpWlV5ZFZmZ0Q2dk1UQlVRck5NNll2WU50YXJyR0JIT0pl?=
- =?utf-8?B?ZEg3dERwWnJhSE9BWnJmdGIwMWJVRXBnSFlLdXN6RUR6VUYxSzVnbXJrMFVJ?=
- =?utf-8?B?N1FnQ2tPRU50UnRGcS8xVEhma1AvcE5keTMwOGdnYXM2aUNILzdwWnRIbmdF?=
- =?utf-8?B?VW9NeFBISlgzOFNuZkxzU1dlNis3eG5YWFdicDNYUk56akd4MjJzbndTdW8w?=
- =?utf-8?B?ZFhMV3pMVHBsUUpFOWM3c0ljbWltQWhJa2RQdVptamM4UG5tWUhTTFk1VVVN?=
- =?utf-8?B?LzUybk94WVBsSkNPanErL3Nqc0E2NUpFSjd4VlhnemszSUJOWHgrQWtBN2Zm?=
- =?utf-8?Q?2thNZKfYtt+Mr00oiP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee4f091b-b256-4438-2ade-08df4a445f68
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 16:02:43.2072
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HCJtcX6OJL5gLPJWv1WZrBnucO+5mrKnka3K10xkvL2RhEUSaVrMOP6mr1a+or3B
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6179
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 08/28] media: mali-vpu: register V76 decoder controls
+ and introduce UAPI controls
+To: Nicolas Dufresne <nicolas@ndufresne.ca>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
+ Shobhit Pandey <shobhit.pandey@arm.com>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
+ <20261119153758.1426673-9-charvi.mehta@arm.com>
+ <0cb2cae4075d3854ebb9c051d169ca121a8a360d.camel@ndufresne.ca>
+Content-Language: en-US
+From: Charvi Mehta <charvi.mehta@arm.com>
+In-Reply-To: <0cb2cae4075d3854ebb9c051d169ca121a8a360d.camel@ndufresne.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 11/24/26 15:20, Jason Gunthorpe wrote:
-> On Tue, Nov 24, 2026 at 01:36:21PM +0100, Christian König wrote:
->>> The core then negotiates compatible types and adds converters between them,
->>
->> I have strong objections to that plan and would potentially NAK it.
->>
->> DMA-buf should *NEVER* accept CPU physical addresses nor provide
->> conversion between different address types.
->>
->> Keep in mind that DMA-buf is solely a container for DMA addresses,
->> nothing else and it should not provide any mapping functionality
->> whatsoever.
-> 
-> dmabuf needs to provide support for drivers to help them use the
-> interface, and going from physical to dma_addr_t is absolutely a
-> common task every driver must do. I don't care how you call it, but it
-> is a service that must be provided by *something* and matched to the
-> needs of dmabuf.
-> 
-> I will definitely NAK any direction to open code dma mapping in every
-> driver again. If we are going away from SGT then we are fixing all the
-> DRM mistakes, including the wrong open coded DMA mapping, sketchy use
-> of SGT, and abuse of P2P that seems to be endemic in drm.
 
-Completely agree to that as well.
+On 11/19/26 21:06, Nicolas Dufresne wrote:
+>> Add Mali VPU userspace controls for NALU layout, stream escaping,
+>> intermediate buffer size, stream-header handling, frame reordering and
+>> firmware debug output. Also expose the standard read-only
+>> V4L2_CID_MIN_BUFFERS_FOR_CAPTURE control.
+> I would strongly recommend to keep each vendor control in its own patch. These
+> are API, and they need documentation. In practice, you'll prefer to not
+> introduce vendor control as a first introduction of your driver, its just a bad
+> idea. You completely missed Documentation/
+I had planned to add the documentation for these subsequently, but, I agree,
+it should accompany the controls. The initial driver series may not be 
+the right
+place for these vendor controls, so I’ll remove them and their UAPI 
+definitions
+from this patchset.
 
-> Meaing the exporter constructs a phys_addr list, gets a P2P provider,
-> and some common code constructs what is passed to the importer. I
-> don't care if this is in "dmabuf" or some "dmabuf library" or
-> *whatever* but it must exist as common shared code.
-> 
-> dma_buf_phys_vec_to_sgt() is the template how to implement this
-> transformation.
 
-Well what I disagree with the dma_buf_ prefix here.
+>> +		.cid = V4L2_CID_MALI_VPU_NALU_FORMAT,
+>> +		.type = V4L2_CTRL_TYPE_MENU,
+>> +		.name = "NALU format",
+>> +		.qmenu = mali_v76_nalu_format_qmenu,
+>> +		.min_val = MALI_VPU_NALU_FORMAT_START_CODES,
+>> +		.max_val = MALI_VPU_NALU_FORMAT_FOUR_BYTE_LENGTH_FIELD,
+>> +		.default_val = MALI_VPU_NALU_FORMAT_START_CODES,
+>> +		.step_or_mask = BIT(MALI_VPU_NALU_FORMAT_START_CODES) |
+>> +				BIT(MALI_VPU_NALU_FORMAT_ONE_NALU_PER_BUFFER) |
+>> +				BIT(MALI_VPU_NALU_FORMAT_ONE_BYTE_LENGTH_FIELD) |
+>> +				BIT(MALI_VPU_NALU_FORMAT_TWO_BYTE_LENGTH_FIELD) |
+>> +				BIT(MALI_VPU_NALU_FORMAT_FOUR_BYTE_LENGTH_FIELD),
+> This mixes alignment and NAL format. Its historical, but the format is bound to
+> V4L2_PIX_FMT_H264 and is documented as Annex B. If you want to add something
+> such as AVCc formata instead, you'd need a new pixel format. There is
+> V4L2_PIX_FMT_H264_SC, but its hill define, nobody knows what it was originally
+> suppose to do. Venus (Qualcomm) maps it as if it was the same, perhaps they have
+> a clue, but I would stay away.
+>
+> For the alignment, V4L2_CID_MPEG_VIDEO_HEADER_MODE does not cover your 1 buffer
+> per nalue case, it only does the split header like OMX IL was doing (sometimes,
+> interoperanility killed OMX).
+The firmware defaults to Annex B, which matches V4L2_PIX_FMT_H264, so
+this control is not needed for that input format. I'll drop this completely.
 
-DMA-buf is just the container of the result of this process and it shouldn't hold any code to actually generate the addresses. That is simply not part of the job of transferring those information between drivers.
 
-The whole conversion from phys_vec to DMA addresses is something some API should provide based on the data the exporter/importer have negotiated (e.g. p2pdma_provider for example). 
+>> +		.cid = V4L2_CID_MALI_VPU_INTBUF_SIZE,
+>> +		.type = V4L2_CTRL_TYPE_INTEGER,
+>> +		.name = "Internal buffer size",
+> No general equivalent, and to be fair, that seems like something the driver
+> should get correctly by itself, I'd say drop.
+The firmware already calculates the intermediate working-buffer size when
+no override is supplied. I’ll remove this control completely.
 
-I think we need something like a DMA P2P API which sits on top of the PCI and iova API.
 
-> 
->>> and having SGT as a type is what allows that. It only exists for unconverted
->>> exporters and importers and eventually goes away once everything is converted.
->>> The idea being we don't have to convert everything all at once, whilst also being
->>> able to add support for different interconnect types. Are you ok with the SGT
->>> type if it is just transitional?
->>
->> Not really, it just complicate things.
->>
->> What we should do with the mapping interface is to add the
->> information in which domain the DMA addresses are to be used.
-> 
-> You need to negotiate the actual C data types too, especially if you
-> want to do that nasty idea where dmabuf populates an iommu domain.
+>> +	},
+>> +	{
+>> +		.cid = V4L2_CID_MALI_VPU_STREAM_ESCAPING,
+> No doc, I suppose it was about emulation bytes. Nobody needs that drop.
+Yes, this controls emulation-prevention byte handling.
+Agreed that this can be dropped.
 
-Yeah agree as well, but to be honest that task is negligible. We first need to figure out where to put the code. 
 
-Christian.
+>> +	{
+>> +		.cid = V4L2_CID_MALI_VPU_HOST_PRINT_ENABLE,
+> Debugging goes into sysfs or debugfs, drop.
+Ack. I’ll use an appropriate interface as suggested when I reintroduce this.
 
-> 
-> Jason
 
+>> +	},
+>> +	{
+>> +		.cid = V4L2_CID_MALI_VPU_IGNORE_STREAM_HEADERS,
+> If userspace want that, it can just strip the headers itself. Its not like a
+> stateful decoder can work without headers according to the spec. It will always
+> break one way or another.
+This does not skip the initial headers; it retains existing SPS/PPS 
+entries rather
+than accepting replacements with the same ID. It was intended to prevent 
+a heavily
+corrupted stream from replacing valid settings, but it would also ignore 
+legitimate
+changes. Agreed to drop it.
+
+
+>> +	},
+>> +	{
+>> +		.cid = V4L2_CID_MALI_VPU_FRAME_REORDERING,
+> You can thank Samsung, instead you need
+> V4L2_CID_MPEG_VIDEO_DEC_DISPLAY_DELAY_ENABLE and add support for
+> V4L2_CID_MPEG_VIDEO_DEC_DISPLAY_DELAY 0. That will effectively disable
+> reordering. Some vendors calls this the thumbnail mode to add to the fun.
+Agreed, I’ll drop the vendor control. I’ll use the suggested standard 
+controls with a
+delay of zero, when I reintroduce this in subsequent patches.
+
+
+>> +/*
+>> + * The base for Arm Mali-VPU driver controls.
+>> + * We reserve 64 controls for this driver.
+>> + */
+>> +#define V4L2_CID_USER_MALI_VPU_BASE		(V4L2_CID_USER_BASE + 0x1260)
+>> +
+>>   /* MPEG-class control IDs */
+>>   /* The MPEG controls are applicable to all codec controls
+>>    * and the 'MPEG' part of the define is historical */
+> My recommendation, drop all the vendor controls, legacy users can use your
+> downstream kernels.
+I’ll drop the vendor controls from this series.
+
+Regards,
+Charvi
