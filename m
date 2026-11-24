@@ -1,112 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795551674;
-	b=NOsNckbncH79pzP6iOyywRpl4uUIlBPAZsODtpO4j9PeusST4W8tml0fukFpkleWWqaq
-	 SL24OHajOtXGT+wjnpU8ICb4oZHfAucCk7n2ZW7fRhbX74W4kSmw9GceZqzr543cz0v/I
-	 JijbveccXvbW2851TgQNlsZ9vRwCpwJiPtP+WLc658nBN033M/5WGswwjEOY2cMREUHTS
-	 KvUqPNE+HYBI9nmgtpWryciEERVRDDBlIWbDUMbdMdeSehM4qGLl0m9o244aw5QK7ctO4
-	 8LLVo+VmrfXNJmpcO/ufp9pU6LXI1H3J4V3j2jfBSYpSNjTlYm9lvSTGGvdk3RpZq4Q==
+	t=1795551799;
+	b=fTTWyMEOp6O4ELQd/qZH7UWLT7ynQ3m2z+PAmsD7FwXARPWG9WZMiPpCJ3Gmz78PkBKY
+	 Epz8157Korya5jXh3C/XWexdHE3hrYhexqouPxatOhA6urQbm8hOEbb5rdhRvG7siitWj
+	 GA3GGG4195/IQigGgUnmOkvnmGaTx7DuoCZSJQdNAhK676pTslxR7PMdH4MFXcA6GhPR8
+	 odldFQc9ZYXX7HONAtJ5w6lwysf4UxZROvKmiQx/uIJ4ZG2JESGkNFMq9LeBR/Zs09njy
+	 U1d/vBEL7etXiTUlBd4SNy8Rejv/HCwn23DiOKYxUeObx1GnAmNGscdcg3rHy8K1+oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795551674;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=IJh0gyj4tVyAUuSEvtY7JJfcpLPqqDKXWFndc290fQE=;
-	b=5QGIPfAHDLk2ZnrpROV/wzxVIDDLsIBrBIJSnCm6s/SYVVzunQbOsGl/AEDaZcHouJ3R
-	 WC6RoXvQmjhUqmPGx8xRKb1plK0g48EFrcj4KMoK9vjJh/F+GDCr3knTXa8a7VdBc1UfC
-	 D49GPWjqI73b2aQzf+2PKitLhVieRa7Iyp4u+s7l1BD46Bfy4mm7H10YDWJKBvIft/kQ/
-	 BnabymQHCxJJbH+Wu6km+WyfIxYgOy4vJYKQwSKmjBRiMEJViEGtJjBmSx+4dUqGXS63G
-	 zGelU6k5vL25VmOk7MnsNUL6ADrmHKK/khCE1gWA7duKEJvqPfOBBqPaTKfttb+lv1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795551799;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=4zofyjzfJerfRmeIkr2oNO0eYdNNEtzuwuP/HP6VIhk=;
+	b=wT8HfYKMwlK052jrMQVJgtpHMAtL86L108PSuyWGg2bU8bc134CBYNvcalCAq3no61pZ
+	 98bGn8P/tajyGIrjLC4FCCXvvkBFGxH0Cr+lDsTlNGnJffESJZnOa0CJ1iSZFhGEO6rtq
+	 gtX6bwX0ltteOVcbjARnC+AP55T1oa70qG2lHfhAQS1FqfLi1oWt1betR4ldiQS/Y3/r4
+	 jpAbeI4g8qqaLAuSLAWuW8cr5PqgxU56Ro3ZZqOxpRNt3fIS94qwB0wk2Cgr/KgRpYz4Y
+	 sPU0NvQrLbzIJoxo+EOtClXV7uZOP2hRyC9z+rj41gLeJaKjVztPt7ZgiDweIEA7Kdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=F6ssbANC;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iJ0d7Bok;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=M2tfoTTb;
+	arc=none smtp.remote-ip=209.85.215.173
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A6E606A323
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 20:21:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75A6E606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FE1606A31E
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 20:23:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77FE1606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=F6ssbANC;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iJ0d7Bok
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AOIXoQo365890
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 20:21:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IJh0gyj4tVyAUuSEvtY7JJfcpLPqqDKXWFndc290fQE=; b=F6ssbANCVPTVOG72
-	EKoURmpc+mvCputi/bjo0yyQXvf/+rGxUcga4jEuO0JEyOJdL/x3JwkHLgmsUlwg
-	FPuXy7zYY/N1Ib0CIhXnczuV318Feaw4fXHfJZUtp6PskgBEdOqcicWZP94wy/3K
-	8+qL5SFJ31FGpAS9zlWeigaA3kI6hVO4EoIZurWVX264ZIuot8+kFnK6arPtfP32
-	Kul/B8HGsdCgpThB5Op63FVpRc7ZSG7wakyxpyXQIX0w9Hoca9nrl+O78hLTdTpl
-	4ifp8J0b9GDyThFidr+pedmXGRd49B9QnH+sfQV/2tVGSiueREBP7NsjP/DulcrW
-	1XHg3A==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j54rhbt47-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 20:21:13 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3869865a304so4539395eec.0
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 12:21:13 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=M2tfoTTb
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdab8873d9dso2300577a12.1
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 12:23:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795551673; x=1796156473; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=chromium.org; s=google; t=1795551799; x=1796156599; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IJh0gyj4tVyAUuSEvtY7JJfcpLPqqDKXWFndc290fQE=;
-        b=iJ0d7BokKXSAtrRJzI8YyHoaoWukQkcFngDvKDzD0OD6txCzgtiJqo53aghUlH1BA4
-         AGKxRRMNjOE3116QmHc3Xy+oLzGzyVdXRdYe/3AXHuXhvEIZ6gBBgl8Qb6A3smThTZfZ
-         5mB+KBdNMItSyqoDGRaBrb2DyklGWxMILpUAuKq4T6KS/MmuKshsPkdjS9/AfGT8PVlf
-         +XGIFDtZ7vyzThObkx3e2QYGb2oRETTQjP57MVSVuihgBK5qfKgwcsx0f6zbo77sfqtV
-         juQ1tJ2rstufYSj8XtkFX/2C/gfrl2zvZJV4jC1NafthdBuWLTKNSYQ2CaBc1jKEeWhX
-         FFEw==
+        bh=4zofyjzfJerfRmeIkr2oNO0eYdNNEtzuwuP/HP6VIhk=;
+        b=M2tfoTTbXppfvrsHKX5jEq9hd/RCDdO9ryu9BnFXnsQDtOecdsz0rElCMUZkZhoROQ
+         4RHOZez2dc6erV+EetovQzmIAAhhr3n04P4ZczT13evqMNwzgwZRAxRZojbzwxK1aBs7
+         Iqd0kFSUS+BvcARLE1TT3HDqs2T5c2FZt911g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795551673; x=1796156473;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IJh0gyj4tVyAUuSEvtY7JJfcpLPqqDKXWFndc290fQE=;
-        b=tn4875pfV5cQHlWpvKsCyLhVgj7Yn3nZfcy+vm/zHneWjEmKIznXO3ZHXACYdx3sQk
-         9xPhcTm/8SAeWgVSl/JzOSlRK4H3jHrcDTIBNLzz6d43y5+CIz6RWH8QqArlV7oPBrRL
-         znS5USI2DYptdcM6XFGE6JxuV3DGIrmaWxl5DbKTyXn3eu6O7sWKRyvZ5HAJlGB34pOF
-         39hsvvnPBj5BiGTqtYbEv0OaG4Nfw21gKtpD3z7RNsjj87cKdsD9b+wgyI3QptHLtO4m
-         pJd40V4Co6hcZbfJkGDjADLKsXSmUC4DpOgVMB2jvdqrLXhD35V9o6MMzb6nxus4FSK4
-         8Wfg==
-X-Forwarded-Encrypted: i=1; AL+hErHMuWWK23/PS/x3ZwmhItutKihFHF0vcfOIY9/l2dg+R1m77i7nQt1LCMiAR+HYFhoZuqhwLg4QDtWlqQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/gOmmF2aseoVenu+JBb324ALRuAbv51ss5cONRvxjs75kZ3J8Q
-	0l6SxQX2vufUljFCB3iTyXCU6SmpVCSc8ihtx7qqztWg6r86+7FFa82BT5ti1E6FsdhxhSYO2YO
-	GonXyQOQJ5RrCbpMPMdK3duJi9Vj82W+C730w6zhvFOKodmobH6lHDfxjfqi5YdEjZg==
-X-Gm-Gg: AZFdTZe8K4r8EkB2lCKRFjD11BbEI3smm7JuOq1kHL+ysTwey5Xj9Qr4yLYBZ/ELR08
-	QVqhNWZOGMmv1qNIw+AjaD9rXfNe0sYmD5LlVpGnZsjs93YWLAQyNupgteuXDZDzO+xuhT7numv
-	EEbLV40KUCI/kFIxtUmoXTxzTGar2n0UB8ahtD0U/m5bFI08KYb021GJKzOBLbJSXUx+SSUVPV5
-	3EnYDloJqOUcic7HhaHJDbdxblc8MGJ+wIs804FvgCLTFS02gamllmNtuE/pR2L9tZsTpxrDei1
-	a4n3gdEyNmFg6GrLaITLuLOyFOabVTQkHMnmxW5LDIEx6vsZjTDhYpb1dc503SHrz2kJBYZXKMa
-	Qpf60gjkSNLNmnhYabLKMoDr7dO6L71t+0vvAV9BdBJtl2HhoJar3kOFDrVuPmLkB4mLgBL41i+
-	xAw7xQ3TBGsnJdbm2YVAQJt9RNX4npnNU=
-X-Received: by 2002:a05:693c:42c5:b0:386:bc42:b5bd with SMTP id 5a478bee46e88-386bc42b660mr4453668eec.25.1795551672707;
-        Tue, 24 Nov 2026 12:21:12 -0800 (PST)
-X-Received: by 2002:a05:693c:42c5:b0:386:bc42:b5bd with SMTP id 5a478bee46e88-386bc42b660mr4453629eec.25.1795551672001;
-        Tue, 24 Nov 2026 12:21:12 -0800 (PST)
-Received: from [10.71.181.181] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-385666e96bdsm44462979eec.7.2026.11.24.12.21.10
+        d=1e100.net; s=20260707; t=1795551799; x=1796156599;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4zofyjzfJerfRmeIkr2oNO0eYdNNEtzuwuP/HP6VIhk=;
+        b=ergGodQlKDuHZ7J6VmXcVMs+LOqIf2l7qZp9JXEj03xTpr0GZDlfpODDH+2UVnqRFh
+         KBAk6WHWC8b2kdRjBSSdVO33LiPSRGUfia5md+povy65HBelRNO4qmo03qca7lOlXIhj
+         i6+uoBkOp42QrhocfY9eej1eqho8/PyoiucSrr1IRedOd0b1eqviw2wLBNafSDdGuj+V
+         +ORKcjPb1mqKnRjT825xT6aV4THXKa+XdrwMooE4ozP4qAZuR05E7TMulDS0XQ9nuzvM
+         HcumoXv2Z3JXHyF3UzKGEW99I2nY9REjxk0Vevic6GT1X9OEzcicqGA2+FtwHswkIiTN
+         FTvw==
+X-Gm-Message-State: APuU4Z9YPMPB6KkvZnSYdlDrdUmt/ApVItRVXXdGl5yS5fq1/vuR3WEl
+	NPRc6/LG6d8XBSRlOPN46r/g2tVpL8eiUkdtVrWfRLQTxgrdnTYVw915gX/sp5ikRIyYu/8fbEI
+	fJxY+R9a8
+X-Gm-Gg: AZFdTZekOC/9OGlt55JMyB3l6vxSd54F6R6bKtDJFz2cBT42qVG69BRprshuMLC1qtP
+	JnVhWY3NApJ068Fw239/0MCdLsmFFR9lhs9rqTXbZUzo7neVE7b4b0w9EkFsPpImFdpv5qYzGK6
+	5PAlce7s4ethU0/U9ZW5Z9Im4/epJpOtj9ZFwkLUgGXnmOy4qtvSw+TeyA5TFB/BhnJkH84wHls
+	5HchBykkkT2zXnEWBuq9L9TObmcFo7BVWJM1/pWxkkwxozxR35PyrJEtKTgcvOLloVCSFXC4hBy
+	v4RYqN2Je4y624t26stY6pmNbdbTFehh4FIobeszho/AYj/pZ+UBK0MxER/ROot2vHUBg2r7zlP
+	XZWrv0BV5UjgUb6XeGSPuXNF8Bw3SOZ2PhqpVueseQZQKh/lzhsbsO2Lh2ypoOKC1Ol+a3VArQ7
+	6sHb+dd9el10YIOOi3Nkd5WUSEglsoqh8RESkrCo/Q3DyOCeWh+Sru3MbxUhtTD7MhCDCJrkYmr
+	jywUJiZOipmZTw71if5/vMIp94+R7zqKMoGignC+gplJRJ+4QXocWzma1JYaP9qbl5yqK+BBtUD
+	kjKEOjtWWVwxXB/oNZ2C0gDCyoaRk0BaL2VyHNOEW0nxBJHAi5HbmxBTlpb2+99z/Q==
+X-Received: by 2002:a17:90b:17cd:b0:3b3:ab8c:c7e5 with SMTP id 98e67ed59e1d1-3b41c95f65fmr14428253a91.56.1795551798470;
+        Tue, 24 Nov 2026 12:23:18 -0800 (PST)
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com. [74.125.82.50])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad0b52dsm26245205a91.5.2026.11.24.12.23.17
+        for <linux-media@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 12:21:11 -0800 (PST)
-Message-ID: <e6c4fe7d-8010-43b8-a407-157bbc09a619@oss.qualcomm.com>
-Date: Tue, 24 Nov 2026 12:21:09 -0800
+        Tue, 24 Nov 2026 12:23:18 -0800 (PST)
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1b3b4944a0eso3726985c88.0
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 12:23:17 -0800 (PST)
+X-Received: by 2002:a05:7022:e886:b0:1ac:2f6d:e1c6 with SMTP id
+ a92af1059eb24-1b5568a4f42mr19880063c88.6.1795551796265; Tue, 24 Nov 2026
+ 12:23:16 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -116,115 +91,307 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] phy: core: add generic MIPI C-PHY configuration API
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Michael Riesch <michael.riesch@collabora.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>, david@ixit.cz,
-        andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, vladimir.zapolskiy@linaro.org,
-        loic.poulain@oss.qualcomm.com, mchehab@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
-        jigarkumar.zala@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        linux-media@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com,
-        daniel@quora.org, konrad.dybcio@oss.qualcomm.com,
-        christopher.obbard@linaro.org, alex.vinarskis@gmail.com
-References: <20261017041733.3946816-1-anusha.nandi@oss.qualcomm.com>
- <20261017041733.3946816-2-anusha.nandi@oss.qualcomm.com>
- <a6d8514b-269c-441d-b280-4895b5f21fac@linaro.org>
- <f689ccfe-4adb-41f6-b492-97a48090413d@oss.qualcomm.com>
- <e3d322a0-43d5-4369-bd09-128152f4b233@linaro.org>
- <8741d667-efdd-4e3f-a1b2-2f04255d7c7d@oss.qualcomm.com>
- <3Qy0nxBJKeIHC6U9JocO-BGMDL8rLOkC_xTz4kT1GKMFKf86iv9Jhty6HHNLjO2CNSn6ZjK3G8TAXKLwckkhVg==@protonmail.internalid>
- <e579e40b-9ee7-48ba-92b7-78f9dfffbeb8@collabora.com>
- <fab551bc-5cd8-4ab0-b97b-f808027506ad@kernel.org>
- <P0DcNxFFqRzTkXdjBWhsf9xcIvjwIClQvC2dMKoQDIZGtFv8g9u78e5FJ7-sp7JxcMPiZROgk9a2niaSZwCztA==@protonmail.internalid>
- <773b5d1b-6679-4f68-b15e-022842f5109a@collabora.com>
- <b3adfac5-e9c7-484c-aebd-16c94f41f28f@kernel.org>
-Content-Language: en-US
-From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-In-Reply-To: <b3adfac5-e9c7-484c-aebd-16c94f41f28f@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=BKkmP1QG c=1 sm=1 tr=0 ts=6b05f1b9 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=lbkA2V-SW6yiuUp8BYEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDA4MCBTYWx0ZWRfX0L5+3lwICwBc
- u7335TrD9K0WxqNRwAQgqty7FGbpyZ2H1E8RMCyG1odcujk12vz2bnEqdJmnzWf/P2oyCadyohQ
- F9/saD6pzTC8iNyMxcT6/kcS/FVglPw=
-X-Proofpoint-GUID: PekN81zFbEJ0Jw4kwWGXJ3Gr8AeIXBBc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDA4MCBTYWx0ZWRfX7XH3FAidvnt7
- e3qpoM/YZSmwVtvtDDO1XZ4eMo78yr+Oh3fCOYqbVYM1cm2XMHCsPL93iEl8czCxOsmFWZB8iOy
- KAP1kHrbq+jVahgP72d3RKBHrZO8GS3YD8bwLud5FkUCtlHE323tC8VJ5GUAjRLK2rvQnWRRkR7
- ZHhc5kedwwDz3fHXDiVLavCdaTA7S+Aau4GcVGk6Hd5sRNWc1n/iBr/2/bqYMtQxG9RR98MD+BG
- kvguhMsZsZpKzBDHE276eDW+4gDUHkDRiHxa7TfDZdqsSiAijFpgXWcAXSSIDYnUdJDTBC3Kvf+
- /WdXqC/prWlBdn9ehMU3ZiQwpefpX29/Bc+riNBeyjLfBIeOJDB/pq5zdggS0t4Rf3dpRws/xy8
- USBhBMHPEK5RgQZntOSfxaxPIqbFcx1mBlGH4h9xekhvc68GxqEBwf1wuMd3AmFDrDUj4K/hh9J
- jsDvRf1qBEzB+y9zFiA==
-X-Proofpoint-ORIG-GUID: PekN81zFbEJ0Jw4kwWGXJ3Gr8AeIXBBc
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-24_05,2026-11-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 clxscore=1015 bulkscore=0 adultscore=0
- phishscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611240080
+References: <20261124100623.2227323-1-chris.bainbridge@canonical.com> <20261124100623.2227323-3-chris.bainbridge@canonical.com>
+In-Reply-To: <20261124100623.2227323-3-chris.bainbridge@canonical.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 24 Nov 2026 21:23:01 +0100
+X-Gmail-Original-Message-ID: <CANiDSCtF3jcJmqCpe_4G=w9KeXsmJ3Nu7BYguDmepcq1G-E9uQ@mail.gmail.com>
+X-Gm-Features: Aa3M54qMe1F_FiA7W1AJ5MMmW-l8mTpXaFw8QnR6ABNEwslDFeimszZj4ZbPMCY
+Message-ID: <CANiDSCtF3jcJmqCpe_4G=w9KeXsmJ3Nu7BYguDmepcq1G-E9uQ@mail.gmail.com>
+Subject: Re: [PATCH 2/3] media: uvcvideo: Restore auto controls first and skip
+ inactive slaves
+To: Chris Bainbridge <chris.bainbridge@canonical.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Michael, Hi Bryan,
+Hi Chris
 
-We are planning to send out a patch series that provides a unified
-framework for D-PHY, C-PHY and other supported PHY within a single
-driver, while keeping the design extensible for future PHY-specific
-requirements and enhancements.
+I think it would make a bit more sense to squash 2/3 and 3/3.
+Maybe split to 3/3 the functionality to continue even if there is a
+restore error.
 
-Best regards,
-Anusha
+That would make it much easier to review. Could you do that before we
+look into all the boring nits?
+(you might not be Santa... but it is almost Black Friday :P)
 
-On 11/24/2026 4:18 AM, Bryan O'Donoghue wrote:
-> On 24/11/2026 12:01, Michael Riesch wrote:
->>>> On 10/24/26 01:20, Anusha Arun Nandi wrote:
->>>>> [...]
->>>>>> The CSID needs to know the symbol rate - so that it can vote on the
->>>>>> appropriate NOC/CamNOC clocks/rails but... does the PHY driver itself
->>>>>> need to know that ? It does not, symbol_rate is not required in this
->>>>>> struct no more than it is in DPHY.
->>>>>>
->>>>> Yes agree. I was thinking the same. We would not need the
->>>>> symbol_rate in
->>>>> the struct.
->>>> How would a timing calculation like in the Rockchip downstream [0] work
->>>> then? Can this table be implemented once in a common helper, and the
->>>> resulting values are passed via the struct?
->>>>
->>>> I am new to this spec so please bear with me, but it feels the symbol
->>>> rate should be in the struct?!
->>> Might be the case alright. We have two approaches we can take. Something
->>> like DPHY which populates just about everything in the configuration
->>> struct or just add stuff in as needed.
->>>
->>> Maybe the PHY does need to know the symbol rate.. In our case on qcom we
->>> vote for bandwidth in on the CSI decoder side.
->>>
->>> But maybe there's a use case for the PHY to know that rate..
->> Fortunately, that is a kernel space API, so not*that* critical.
->>
->> Then I guess we can put the symbol rate in there. If it is unused, there
->> is not much damage done, I would say. Plus there is the possibility to
->> remove it too, right.
->>
->> Just my € 0.02.
->>
->> Best regards,
->> Michael
-> 
-> An equally valid argument sure.
-> 
+PS: You will also probably get more attention if you simplify your
+commit messages.
+
+Thanks!
+
+
+On Tue, 24 Nov 2026 at 11:07, Chris Bainbridge
+<chris.bainbridge@canonical.com> wrote:
+>
+> A UVC device rejects a SET_CUR request for a manual control while its
+> master auto control is enabled. On the Logitech C270 (046d:0825),
+> restoring WHITE_BALANCE_TEMPERATURE while WHITE_BALANCE_TEMPERATURE_AUTO
+> is enabled stalls the request with UVC error code 7 (Invalid Request)
+> and leaves automatic white balance wedged until power cycle, while
+> aborting the restoration of the remaining controls of the processing
+> unit. Two rules are needed to avoid this.
+>
+> First, restore the master controls before the other controls of each
+> entity. uvc_ctrl_commit_entity() sends the controls of an entity in
+> index order: Auto-Exposure Mode (index 1) precedes Exposure Time
+> (index 3) in the camera terminal, but Focus Absolute (index 5) precedes
+> Focus Auto (index 17), and in the processing unit Hue (index 2), White
+> Balance Temperature (index 6) and White Balance Component (index 7) all
+> precede their corresponding auto controls (indices 11, 12 and 13). After
+> a reset the device has auto white balance enabled at its default, so
+> even when the user has set the auto control to manual mode, the manual
+> value is written while the device still has auto enabled, and is
+> rejected. Restore the masters first (committing the first pass only when
+> at least one master is dirty), so that manual controls are written with
+> their master in its final state. A control is a master if any of its
+> mappings has a non-zero slave_ids[] entry.
+>
+> Second, skip the slave controls that are currently inactive. When the
+> master was restored in the first pass or is already loaded in the cache,
+> decode its value without generating any USB traffic; otherwise query the
+> master via GET_CUR using __uvc_ctrl_load_cur() (taking struct uvc_device
+> directly). If the master control is write-only or GET_CUR fails, treat
+> the slave as active rather than decoding an unpopulated zero buffer,
+> matching uvc_ctrl_is_accessible(). Clear ctrl->loaded when skipping an
+> inactive slave so that subsequent reads fetch the firmware-driven value
+> from the hardware, even on devices that omit UVC_CONTROL_CAP_AUTOUPDATE
+> in GET_INFO.
+>
+> This addresses the restore order concern noted in the TODO comment for
+> auto/manual control pairs.
+>
+> Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> Signed-off-by: Chris Bainbridge <chris.bainbridge@canonical.com>
 > ---
-> bod
+>  drivers/media/usb/uvc/uvc_ctrl.c | 152 +++++++++++++++++++++++++------
+>  1 file changed, 126 insertions(+), 26 deletions(-)
+>
+> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+> index f70fa37800a4..d11ad3da1d50 100644
+> --- a/drivers/media/usb/uvc/uvc_ctrl.c
+> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
+> @@ -1463,7 +1463,7 @@ static int uvc_ctrl_populate_cache(struct uvc_video_chain *chain,
+>         return 0;
+>  }
+>
+> -static int __uvc_ctrl_load_cur(struct uvc_video_chain *chain,
+> +static int __uvc_ctrl_load_cur(struct uvc_device *dev,
+>                                struct uvc_control *ctrl)
+>  {
+>         u8 *data;
+> @@ -1482,13 +1482,12 @@ static int __uvc_ctrl_load_cur(struct uvc_video_chain *chain,
+>         }
+>
+>         if (ctrl->entity->get_cur)
+> -               ret = ctrl->entity->get_cur(chain->dev, ctrl->entity,
+> +               ret = ctrl->entity->get_cur(dev, ctrl->entity,
+>                                             ctrl->info.selector, data,
+>                                             ctrl->info.size);
+>         else
+> -               ret = uvc_query_ctrl(chain->dev, UVC_GET_CUR,
+> -                                    ctrl->entity->id, chain->dev->intfnum,
+> -                                    ctrl->info.selector, data,
+> +               ret = uvc_query_ctrl(dev, UVC_GET_CUR, ctrl->entity->id,
+> +                                    dev->intfnum, ctrl->info.selector, data,
+>                                      ctrl->info.size);
+>
+>         if (ret < 0)
+> @@ -1509,7 +1508,7 @@ static int __uvc_ctrl_get(struct uvc_video_chain *chain,
+>         if ((ctrl->info.flags & UVC_CTRL_FLAG_GET_CUR) == 0)
+>                 return -EACCES;
+>
+> -       ret = __uvc_ctrl_load_cur(chain, ctrl);
+> +       ret = __uvc_ctrl_load_cur(chain->dev, ctrl);
+>         if (ret < 0)
+>                 return ret;
+>
+> @@ -2572,7 +2571,7 @@ static int uvc_mapping_get_xctrl_compound(struct uvc_video_chain *chain,
+>                 return -ENOMEM;
+>
+>         if (which == V4L2_CTRL_WHICH_CUR_VAL)
+> -               ret = __uvc_ctrl_load_cur(chain, ctrl);
+> +               ret = __uvc_ctrl_load_cur(chain->dev, ctrl);
+>         else
+>                 ret = uvc_ctrl_populate_cache(chain, ctrl);
+>
+> @@ -2816,7 +2815,7 @@ int uvc_ctrl_set(struct uvc_fh *handle, struct v4l2_ext_control *xctrl)
+>          * operation.
+>          */
+>         if ((ctrl->info.size * 8) != mapping->size) {
+> -               ret = __uvc_ctrl_load_cur(chain, ctrl);
+> +               ret = __uvc_ctrl_load_cur(chain->dev, ctrl);
+>                 if (ret < 0)
+>                         return ret;
+>         }
+> @@ -3227,43 +3226,144 @@ static void uvc_ctrl_restore_error(struct uvc_device *dev,
+>                              name, err_ctrl->info.selector, entity->id, ret);
+>  }
+>
+> +/*
+> + * Return true if the control is a master control, i.e. one of its mappings
+> + * has slave controls.
+> + */
+> +static bool uvc_ctrl_is_master(const struct uvc_control *ctrl)
+> +{
+> +       const struct uvc_control_mapping *mapping;
+> +       unsigned int i;
+> +
+> +       list_for_each_entry(mapping, &ctrl->info.mappings, list) {
+> +               for (i = 0; i < ARRAY_SIZE(mapping->slave_ids); ++i) {
+> +                       if (mapping->slave_ids[i])
+> +                               return true;
+> +               }
+> +       }
+> +
+> +       return false;
+> +}
+> +
+> +/*
+> + * Return true if the control is currently inactive, i.e. it is a slave
+> + * control whose master is not in manual mode.
+> + *
+> + * The master value is read from the driver's cache when available, or queried
+> + * from the device via GET_CUR if the master was neither restored in the first
+> + * pass nor loaded yet. If the master control cannot be found in the same
+> + * entity, is write-only, or fails GET_CUR, the control is considered active,
+> + * matching uvc_ctrl_is_accessible().
+> + */
+> +static bool uvc_ctrl_is_inactive(struct uvc_device *dev,
+> +                                struct uvc_entity *entity,
+> +                                struct uvc_control *ctrl)
+> +{
+> +       struct uvc_control_mapping *mapping;
+> +
+> +       list_for_each_entry(mapping, &ctrl->info.mappings, list) {
+> +               struct uvc_control_mapping *master_map = NULL;
+> +               struct uvc_control *master_ctrl = NULL;
+> +               s32 val;
+> +
+> +               if (!mapping->master_id)
+> +                       continue;
+> +
+> +               __uvc_find_control(entity, mapping->master_id, &master_map,
+> +                                  &master_ctrl, 0, 0);
+> +
+> +               if (!master_ctrl || uvc_ctrl_mapping_is_compound(master_map))
+> +                       continue;
+> +
+> +               if (!(master_ctrl->modified &&
+> +                     (master_ctrl->info.flags & UVC_CTRL_FLAG_RESTORE)) &&
+> +                   !master_ctrl->loaded) {
+> +                       if (!(master_ctrl->info.flags &
+> +                             UVC_CTRL_FLAG_GET_CUR) ||
+> +                           __uvc_ctrl_load_cur(dev, master_ctrl) < 0)
+> +                               continue;
+> +               }
+> +
+> +               val = uvc_mapping_get_s32(master_map, UVC_GET_CUR,
+> +                                         uvc_ctrl_data(master_ctrl,
+> +                                                       UVC_CTRL_DATA_CURRENT));
+> +               if (val != mapping->master_manual)
+> +                       return true;
+> +       }
+> +
+> +       return false;
+> +}
+> +
+>  /*
+>   * Restore control values after resume, skipping controls that haven't been
+>   * changed.
+>   *
+> + * The controls of each entity are restored in two passes: first the master
+> + * controls (the auto modes), then the remaining controls. This way a master
+> + * is set to its final state before its slaves are restored.
+> + *
+> + * Slave controls that are currently inactive, because their master is not
+> + * in manual mode, are not restored: devices reject SET_CUR requests for
+> + * them and some firmwares misbehave when written in auto mode. The manual
+> + * value only takes effect once the master is switched back to manual mode.
+> + *
+>   * TODO
+>   * - Don't restore modified controls that are back to their default value.
+> - * - Handle restore order (Auto-Exposure Mode should be restored before
+> - *   Exposure Time).
+>   */
+>  int uvc_ctrl_restore_values(struct uvc_device *dev)
+>  {
+>         struct uvc_control *err_ctrl;
+>         struct uvc_control *ctrl;
+>         struct uvc_entity *entity;
+> -       unsigned int i;
+> +       unsigned int i, pass;
+>         int ret;
+>
+>         /* Walk the entities list and restore controls when possible. */
+>         list_for_each_entry(entity, &dev->entities, list) {
+> +               for (pass = 0; pass < 2; ++pass) {
+> +                       bool master_pass = pass == 0;
+> +                       bool dirty = false;
+> +
+> +                       for (i = 0; i < entity->ncontrols; ++i) {
+> +                               ctrl = &entity->controls[i];
+> +
+> +                               if (!ctrl->initialized || !ctrl->modified ||
+> +                                   !(ctrl->info.flags & UVC_CTRL_FLAG_RESTORE))
+> +                                       continue;
+> +
+> +                               if (uvc_ctrl_is_master(ctrl) != master_pass)
+> +                                       continue;
+> +
+> +                               if (!master_pass &&
+> +                                   uvc_ctrl_is_inactive(dev, entity, ctrl)) {
+> +                                       uvc_dbg(dev, CONTROL,
+> +                                               "skipping restore of inactive control %pUl/%u/%u\n",
+> +                                               ctrl->info.entity,
+> +                                               ctrl->info.index,
+> +                                               ctrl->info.selector);
+> +                                       ctrl->loaded = 0;
+> +                                       continue;
+> +                               }
+> +
+> +                               uvc_dbg(dev, CONTROL,
+> +                                       "restoring control %pUl/%u/%u\n",
+> +                                       ctrl->info.entity, ctrl->info.index,
+> +                                       ctrl->info.selector);
+> +                               ctrl->dirty = 1;
+> +                               dirty = true;
+> +                       }
+>
+> -               for (i = 0; i < entity->ncontrols; ++i) {
+> -                       ctrl = &entity->controls[i];
+> -
+> -                       if (!ctrl->initialized || !ctrl->modified ||
+> -                           (ctrl->info.flags & UVC_CTRL_FLAG_RESTORE) == 0)
+> +                       if (master_pass && !dirty)
+>                                 continue;
+> -                       uvc_dbg(dev, CONTROL, "restoring control %pUl/%u/%u\n",
+> -                               ctrl->info.entity, ctrl->info.index,
+> -                               ctrl->info.selector);
+> -                       ctrl->dirty = 1;
+> -               }
+>
+> -               err_ctrl = NULL;
+> -               ret = uvc_ctrl_commit_entity(dev, NULL, entity, 0, &err_ctrl);
+> -               if (ret < 0) {
+> -                       uvc_ctrl_restore_error(dev, entity, err_ctrl, ret);
+> -                       return ret;
+> +                       err_ctrl = NULL;
+> +                       ret = uvc_ctrl_commit_entity(dev, NULL, entity, 0,
+> +                                                    &err_ctrl);
+> +                       if (ret < 0) {
+> +                               uvc_ctrl_restore_error(dev, entity, err_ctrl,
+> +                                                      ret);
+> +                               return ret;
+> +                       }
+>                 }
+>         }
+>
+> --
+> 2.53.0
+>
+>
 
+
+--
+Ricardo Ribalda
