@@ -1,79 +1,144 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795527633;
-	b=rkXpQTbb/0h9FkAx0T7SlSFBi6E0ayIRixdnfRtYKXtUNSvKYzcf9+ye2dp88SvEMpUS
-	 l5dYaExIL1lK5QNMvIZzgiwwo/asd8F4K6PU31TnzjXzU/LMSgMnfHicAT9OuPzenB+/I
-	 AaET2VHafbvTHECOYRmdcG1E8PBYDsuiVsiysDTo6UKG1h6rV2cZIuNxyUYk1jFPV/z3a
-	 ZbWyzCPP/hMjqAKl4/cuxYTeiJ96oT6VIcAu2xL3ebmMLvOxlLdPtCk+4DiiChDv9obHK
-	 +GBjLR1K7QIXl1zWiZHH3x9/MCzyQm3YOr6EbcfLvCeEI4tNo9dfbC8s6so9N2++3Eg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795527633;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=AFQUerxMoXa3m0Ev5SjHXNJUPKI3EK/dEbiXEl5C7iY=;
-	b=zfUdKN2ZxoaQyIFseiq5cmDSecugnW9pK7OmidB7ndu9ZYhm+2H77nwlSUr/9cDIwas/
-	 bVefxUzXBH0+GQvxkSr8DJ9GvjLgG19vmZIIVy8o47Em6WrBqhKMtq4SdG+iicIchlvPO
-	 hzpd5v5b8Fo8z3aGTmU7jvWmZuZqG3BX2XAZHZ7K2sTOoMz3PzJXrf22RT8yyauZBnpft
-	 K+GsshO0YOFHKkFNeD6q8a7Phdw3Zi/f8vYiHQmI0mI/KCocbGqiQZQESOln6h5Y8h+IB
-	 ddzv8/C0BxXDTJ+mSyytM10kG7ttFcWvSpdei6aUOVFsnJAH1laLEtpdKwDTWrqFuFg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kbbr6xbT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F45606A327;
-	Tue, 24 Nov 2026 13:40:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kbbr6xbT
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795527633;
-	b=PNOPpiQgehXUUX/cRf8fuBPGz8qym7ylZuHXT75p/Tyjgef3X/U78HV7A025y33XIlNp
-	 MrxgsbYYYNZ0UOz9BVDZWnCd9U8ZuC/9r6iaZs+GtUan9dWzCTF/sdasujzoToN+Zma48
-	 c+Q9Y9bIwZz90mhHJ70P3Zo/KJkiZATQGq4XI6YYvTgQFKOTb9ai8MUbDQ3IfUVHS2m7z
-	 64a16OMrPu1Cf9CsR4KjhBKlnbdZRuP7XmMuQ4u0LeicqNkIqzxs3Ydm7RJVCaf6TyJEe
-	 KlPMStE4ITDQqDotBdimh0UVgXpJ8nvWBsl+nmaTpxkWmUjTxgMcMwcWA55JY5Vvitg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795527633;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=AFQUerxMoXa3m0Ev5SjHXNJUPKI3EK/dEbiXEl5C7iY=;
-	b=kwImLeRk01VPxTUo2TCBnOaa1CItpApRh8P+Y8rkzK7kOPw+XPz2Rd3AjHY4icViwAqQ
-	 7E0sAp9poh59WIZuPVLwqfF0pKv4/uYnLmkfziL6Qm11p3CG24UxemDXMZ7MAm/DZebNr
-	 Aunzf7fwA9YTAm/PnKMEIrhxP3cJzR5m2/LuAWoN6zMPXkxNlXE+f50DSzGFiposUz7U+
-	 eAPiIuLTFcZS5QUMqaJFirquu+HRSxQNQud7AddaDeEwfCI8L4US5S7QGzZhIk07cfIH8
-	 xSHq5zVdKjt0YcyoZGFBuQdWH+V6LQBzvMYLh4WnZbCjr/TTeaguYMF0AAZ5GGLSVAQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795527984;
+	b=DV6bVfK0C38LOakrO9jp20xmicpXAJZOwNoFlbYWfJhaph6LRGUlUTD5a55bZ/QG6gIp
+	 mZ/xAdJ+A+XFtTsXony2WsaYhSuSrNhgpoKtIK8LHBwN2E8VbP+3Zs5lDYtAQou/Pjyvn
+	 QwyxaFB1fy57noMvUcp7E2DZH2FIrQGzSlkuI7pe4yyEb8r+iRCvHIhzi5e6tyGcDp6Ye
+	 p6nlHM4JYNi6bhvZ2a2DNp+Q0zdkG970sY+B8JXYssVTSResHVWGOCAZ7X+Y4+j75CubO
+	 yZDBvgNdKdKtamqneMIMdT5uEyj2eph/OjSKzonb+cwh1LXHT9fPWnYa2Vo+uD9/AtQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795527984;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Zc7zKgD/SDYnIbkY4MVpBd0Jo9DiJTva6Dv7og4GVfM=;
+	b=eYocY56SL8FFPEQlgS4+jnZ5v6u3t0KjPDh14H2d3mwPPQ2NWvjnNYr10XD41OMOjg08
+	 JB9W5V7sl3mbmMAALbil3yTk0aqibbkWffwTmk7olkHVLeC0KFWS2jwlOfFhZyj9CVjcT
+	 mOqyVbIZFHzUccX/Qf5m0OacTpo5Y2iHHVu0hqq/K6+EISQiDO+mF0FMZ48kJKW+l7Eba
+	 hIDW/jIbSE7hJSjUId5y0YGEUsRDIaapx3mbsm3LGdEP/eEDOYeH5m0xBv9MkpsDhrj+5
+	 KPLM1c0X1WOL9jdnvL0ocW56GNXu3Gabdn0gDppZNY606fGgH3w+dmqoco33oe1yHLg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=JjPDcJ9f;
+	arc=none smtp.remote-ip=209.85.160.173
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C832D1F000C6;
-	Tue, 24 Nov 2026 13:40:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795527633;
-	bh=AFQUerxMoXa3m0Ev5SjHXNJUPKI3EK/dEbiXEl5C7iY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Kbbr6xbTbCIARPzRq9g7tdXU82V1bfd7v0xRG5zGVrUhpfHIhQ/EkOAw/3RMe4IUF
-	 vZiBNWoCSnfVIM5ODCkH/T0pt+NhepzzFvxT+HDtt5d8Bj9+vGqSiuyGRV4vVpEtz/
-	 C4gafFKjxf2cgTxOd74ZSvbYfpBXmpdNLhAqGze6eD/qpNhhURwlf34ZRAJL2/Qw9L
-	 n8rv8CXROiTwAlKDy2ajqo0T0Kl8+aOhk/g2nJuECQX9TDrjrlRA0g6y/Or3qOvTdy
-	 tCkopPDVPtgUe/lb/lNlxtptLiNDy3gU5pnRJWkodsoAnJg1fQV4kTTH8eFyMYTH+7
-	 UERQoO87kT/Rw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5A6B24CA3F;
-	Tue, 24 Nov 2026 13:40:21 +0000 (UTC)
-From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
-Date: Tue, 24 Nov 2026 16:40:17 +0300
-Subject: [PATCH v3 1/3] media: verisilicon: stop the VEPU1 JPEG encoder
- after an unfinished frame
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1882606A337
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 13:46:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1882606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=JjPDcJ9f
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-53664b4860bso52277551cf.1
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 05:46:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1795527983; x=1796132783; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Zc7zKgD/SDYnIbkY4MVpBd0Jo9DiJTva6Dv7og4GVfM=;
+        b=JjPDcJ9fzA9Lvqxl0J4iEn7zSmwuVsnnmXso1DnQNI41aZL2tpMQ72Lr5D+eDc9J0K
+         YLa4xhXmyXe4x8403vG7oF8n+fB4Np0HDU2Lu4t5d+z17uO0EdOXbv6gFvinLmA7rMww
+         Id6NWuci0Wft6+qUf+pPVXjDOF7wC7eZ1WZJm+hoNsfMQ4LTRmgI/d4z1xCYTyELw1e4
+         lUSHK6uOwK3G7nCKBjbL3kUU3spyquCDXerxZOrA6OldDYWJ8jUL9KyLJJcf6XpNzFq/
+         W1zWNfihIE9SSp0nIPShw4W+G3kb4fl6I59AGFV6dXyF8YTNHzsi19TLjDGSrE4jBUgK
+         p8ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795527983; x=1796132783;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Zc7zKgD/SDYnIbkY4MVpBd0Jo9DiJTva6Dv7og4GVfM=;
+        b=yUtmrWACbHFl1w3xQ+wd77pOAzP5Vu/9HmpVoSk54iXipW2Tf777pJ8xVOzdvplPOO
+         UGQ1OqHloB9Tbg6NlvAu1Az/dGFjfbE0RqnserE4o/NBkU1BUEOWAMMgfFc+rPmPEj0c
+         oLRRNY1h3CVdHXpZ3h037G1R8ax/Xzi+bFFBxqYjPtyy9blV678go/trqhkdJ+gMyIK1
+         oS4VUjm3/jPgN9fXmDjx6dCXA8BeSrmV3+e3xayTlLYtYsc7onEC8hV2yxzJs8I7n4GI
+         xfSAakmRdVqIFisP3Ta4hLj6y3yAORV+Bs3CQdk+9qQMo511rNI5mQHPHdR/DduYto/T
+         aA3A==
+X-Forwarded-Encrypted: i=1; AL+hErE+a8A51G53eVjKO6B6UzWnDj6WxZiF8S1HDLrqihiagdQjA4kzZnDaC9vJlwVyp09BRVHv/xD2zfGJ/A==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/IglcegioPqBEky7gC0wJ0ZWTuoezhMAwp/x12mzGjSJsZreo8
+	UGEPS7en7LkOOOa1RZD78NAvLmYruaiPnQzQQyRbd0mvyZJMmfVVr4zuqMd1MdAtUGk=
+X-Gm-Gg: AZFdTZcIPVqUcjj1x/Bpr6YfGNOZVMZfyxZq1h/6y/E5h9/r2vLdAIt8pFSePjSvbKT
+	DWY8XSg1wFHcyaISMKvPaqwYf2CC820N3JoTBjRSizmktpvXiFTb4DrjZvwpRQe1GZDaaw98UfR
+	c4LDM6ZUJo/h532BoxF223n3d96hcj0gMjQwEzpSoZZp5NdN+JzP8uEPt5/mZ7cTgLZNi2z0s0s
+	ZgUNJNiAj81xtcJBIROB2mShl00XxVfqvxdxA+EmPBq4LoOXOoIF5sTbp8aylgioUfUFtNmf7wI
+	LVSQI7z3+igFExJf+wtMz/NzzbCYLaq9L6jNdJUFopBQACUt0nvFgPE1XypTsbrsZr26ldX/txz
+	z5dFQU8Yzp85vQtDyFDFTwvhkPUFlV08LnrEzvePrxX4t+ImKsr+1davjpcGqQREfjEMUIhyB2b
+	gMss/yaVHg2ugAgv8s9Gp4tmyF2Xl4o2jeoqW/duz2hpSx+PclEto1K4zGADF+lpI2CgjxHARaH
+	m+WXyvS40Pb8am39yA00M0qzP0IPw/HcghnOEihZ3G/D9sj+y5DVOb4VFY0aZJtghWn4FAQqZ8D
+	E+5SZw==
+X-Received: by 2002:a05:622a:120c:b0:535:a5f9:752e with SMTP id d75a77b69052e-55d76aed568mr264410241cf.77.1795527982900;
+        Tue, 24 Nov 2026 05:46:22 -0800 (PST)
+Received: from ziepe.ca ([142.177.118.84])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d78451407sm128368371cf.2.2026.11.24.05.46.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 05:46:22 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xVqqj-00000000QIG-3EJB;
+	Tue, 24 Nov 2026 09:46:21 -0400
+Date: Tue, 24 Nov 2026 09:46:21 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, linux-coco@lists.linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Christian K?nig <christian.koenig@amd.com>,
+	Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+	linaro-mm-sig@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+	linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
+Subject: Re: [PATCH v10 04/13] irqchip/gic-v3-its: Allocate shared tables
+ using CoCo shared memory allocator
+Message-ID: <20261124134621.GI9566@ziepe.ca>
+References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
+ <20261116091137.94252-5-aneesh.kumar@kernel.org>
+ <awQd81MwZqi55gf8@arm.com>
+ <yq5aa4mybbmv.fsf@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,111 +148,32 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261124-hantro-buflimit-v3-1-780903970ca0@gmail.com>
-References: <20261124-hantro-buflimit-v3-0-780903970ca0@gmail.com>
-In-Reply-To: <20261124-hantro-buflimit-v3-0-780903970ca0@gmail.com>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Chen-Yu Tsai <wenst@chromium.org>, 
- Hugues Fruchet <hugues.fruchet@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795527620; l=3188;
- i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
- bh=72wEzEpWvcZUPVzgCWpUbYv9ZbU47P8Ry3jsfvrX0JM=;
- b=923nxQwhaJv7x9wuorJha3YiDSdvwEjHRzr4yYbRoLPca94/xekCNsPlns5m4UMmyxuBWi5yg
- IMTJa230fFjAysnDMcDd/O4SEIwyDwVFJ1XqaG+tG2pJKgueKRZiqYe
-X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
- pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
-X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
- auth_id=1409
-X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
-Reply-To: shomenkow@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5aa4mybbmv.fsf@kernel.org>
 
-From: Sergei Khomenkov <shomenkow@gmail.com>
+On Tue, Nov 24, 2026 at 07:00:00PM +0530, Aneesh Kumar K.V wrote:
 
-When the JPEG stream reaches the stream buffer limit, the H1 raises a
-buffer-full interrupt and pauses with the enable bit of H1_REG_ENC_CTRL
-still set. rockchip_vpu1_vepu_irq() does not stop it, so the next job is
-programmed into the paused encoder and times out.
+> Taking Jason's feedback into account, we could have the allocator
+> request compound pages and recover the actual allocation order with
+> compound_order(). That would avoid passing an order to free:
+> 
+> void *alloc_cc_shared_node(int nid, gfp_t gfp, unsigned int order);
+> void *alloc_cc_shared(gfp_t gfp, unsigned int order);
+> void free_cc_shared(void *addr);
 
-Clear only the enable bit when an interrupt does not report a finished
-frame, and warn (rate limited) about each fault bit that is set, as
-hantro_g2_irq() does.
+It probably shouldn't be order here, that is hard to use. Just size_t
+len
 
-Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
-Cc: stable@vger.kernel.org
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
----
-Found with an LLM coding assistant while porting mainline Linux to a
-Rockchip RK3026 board; the assistant also drafted this change. Tested
-on that board, with the next patch applied: a frame that does not fit
-now ends with the ERROR flag and one interrupt, and the following jobs
-complete. Not tested on other SoCs.
----
- drivers/media/platform/verisilicon/hantro_h1_regs.h  |  4 ++++
- drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 18 ++++++++++++++++++
- 2 files changed, 22 insertions(+)
+And round up internally
 
-diff --git a/drivers/media/platform/verisilicon/hantro_h1_regs.h b/drivers/media/platform/verisilicon/hantro_h1_regs.h
-index 8650cc489392..a7f18683dac1 100644
---- a/drivers/media/platform/verisilicon/hantro_h1_regs.h
-+++ b/drivers/media/platform/verisilicon/hantro_h1_regs.h
-@@ -11,6 +11,10 @@
- 
- /* Encoder registers. */
- #define H1_REG_INTERRUPT				0x004
-+#define     H1_REG_INTERRUPT_TIMEOUT			BIT(6)
-+#define     H1_REG_INTERRUPT_BUFFER_FULL		BIT(5)
-+#define     H1_REG_INTERRUPT_RESET			BIT(4)
-+#define     H1_REG_INTERRUPT_BUS_ERROR			BIT(3)
- #define     H1_REG_INTERRUPT_FRAME_RDY			BIT(2)
- #define     H1_REG_INTERRUPT_DIS_BIT			BIT(1)
- #define     H1_REG_INTERRUPT_BIT			BIT(0)
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-index 02673be9878e..d201b058e5e8 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-@@ -376,6 +376,24 @@ static irqreturn_t rockchip_vpu1_vepu_irq(int irq, void *dev_id)
- 	state = (status & H1_REG_INTERRUPT_FRAME_RDY) ?
- 		VB2_BUF_STATE_DONE : VB2_BUF_STATE_ERROR;
- 
-+	if (status & H1_REG_INTERRUPT_BUFFER_FULL)
-+		dev_warn_ratelimited(vpu->dev, "stream buffer full\n");
-+	if (status & H1_REG_INTERRUPT_BUS_ERROR)
-+		dev_warn_ratelimited(vpu->dev, "bus error detected\n");
-+	if (status & H1_REG_INTERRUPT_TIMEOUT)
-+		dev_warn_ratelimited(vpu->dev, "frame encode timed out\n");
-+	if (status & H1_REG_INTERRUPT_RESET)
-+		dev_warn_ratelimited(vpu->dev, "encoder reset\n");
-+
-+	/* After a buffer full the encoder pauses, still enabled: stop it. */
-+	if (!(status & H1_REG_INTERRUPT_FRAME_RDY)) {
-+		u32 ctrl = vepu_read(vpu, H1_REG_ENC_CTRL);
-+
-+		if (ctrl & H1_REG_ENC_CTRL_EN_BIT)
-+			vepu_write(vpu, ctrl & ~H1_REG_ENC_CTRL_EN_BIT,
-+				   H1_REG_ENC_CTRL);
-+	}
-+
- 	vepu_write(vpu, 0, H1_REG_INTERRUPT);
- 	vepu_write(vpu, 0, H1_REG_AXI_CTRL);
- 
+If we ever want to do some kind of slab sharing scheme then the API is
+already set up for it.
 
--- 
-2.53.0
+> As you noted, dma-buf would need virt_to_page() to obtain the pages for
+> its scatterlist.
 
+I think that is fine, other places working with kalloc/vmap already do
+that.
 
+Jason
