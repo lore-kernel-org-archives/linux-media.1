@@ -1,85 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795514173;
-	b=R1EBDtPtQJzi7fqXb8YfbCA39JWjwgcfPlrFrACrQVgwXf8Yhs5z/7k4S4D7BBShXtMl
-	 hTfUefh8j54cOOkv7MTg+Yc4cml0qgv2axDpvmadWqEGoAvPaGfpdlmZDwLJOPg2xU1I4
-	 N8Kz1/dCU/ebA/gsC4XG/b9OTafuhsCqjHX2m3dLaOnDtTEa9pO+9K4WsHFQ9R9RoIXPU
-	 3aN7dUoGzrwquBXHFdAY6qE8leaoYFk21vSy3Qc2u1VKXA8DB+QuvawCoqJI/EZbKdX6W
-	 xxROpU/2HZl9GdGUcxhaimJKf/qN2uE+8he+KClMMc8UwIsLtD9t7iOeqcD7Tkg44gA==
+	t=1795514204;
+	b=XOmi4x42Sw0lzczWujNacB1DRdTNfk3DQgYco5CA37xON55GCrcV6EmXUcF9caiO9DeM
+	 x5uxM6D4qJAndtw7hKuDpUhL51Jc74B/DAWlu5W3wr/+b0v3IpuEoDM2t4smiJLDCwBuT
+	 ZDDfAA+fCUJKgAxgd6MTc0uhW9Qxd1ZExvqhulDImk3TDVIpHenhgNWPCuBiA26kwTEow
+	 E2GEgRIAvAf+yJp85AW7H8vFvki0FRBpYYBnr10IyL3+YRzF0PXzEWSyPxr67oYDLq/mY
+	 nfEWi4UgRy5XACLrBwtHTXyowQNJozZsKV5iufgiI+b+Zf+nO+7YoU3IIZpmHr7cT2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795514173;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=idxfymof9qrD80mDCSy8sLfMw7IHnfMauze7irnybMM=;
-	b=kMKIgqHHyHXpryMkTFUQ1yXar6RFARnV3dpbhIZBtlnvHgfignd++yLwLvQB/Hedl4um
-	 Kf47U5lJ0+OLOsuUZyrHmmi61HIsOC7klC+Ld2tztp5d4lsMxW5mPOcJxgSfOrQ7ccjz9
-	 AxeseZx6uogAQdDfECilxpR7GLodl3D+/mh1ktVQ/J6Og4HF7/qKIbeAhHESpQEenHCjn
-	 HZIVDQSsDkIipXxnFXCs717UwT8f2RmijZ1aQwQLSuMXjT4hLC3LNGosv9WDqoKnEF9Rn
-	 QMSj/IDLOm3qfvUtttqmsjt6cX1jDtwd8CgBLzO4xWVvnNau1MAeXvrqyy8D0UQSQwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795514204;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=/ZZne3LQwRaftQD4IyGSW5yitBBqCg3YIkMiN/Js5D0=;
+	b=lvuMw0K28i+dzOLDuq1VIlCAtH3Unav63NZBYMvOfTIISThUlqv7B1LCsozsjlG4l+La
+	 wdMpudKm6VMbGRwycLWVPbCOLgaBmONMexR1W8WUyJ87rjAvopeaF/TnFj7FgowLq2exz
+	 ViKql/8Wc7F/Qh0SjB8y3YkySt81dlB6hfEQsBixmiyrGJ/yJWC+sqBLYaJpBNChly1+k
+	 4JMJDuPvhevpA+1znK+itCn+MMTD6Aqo2fZ6t9vzgjSjh2VKwSQrSH4Zd4Rg19Yi0cBmq
+	 6woXfH0Acwhk7npjhTuWuZom3PQ22ozpkoJ/WVB5outlI//o9/GVRHg6OZanAoCsNMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="O/Q2gBA+";
-	arc=none smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A655606A682
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 09:56:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A655606A682
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=TmPJVihl;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C9C21606A33E;
+	Tue, 24 Nov 2026 09:56:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9C21606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=O/Q2gBA+
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6ba1e22ff4dso4949577a12.2
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 01:56:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795514170; x=1796118970; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=idxfymof9qrD80mDCSy8sLfMw7IHnfMauze7irnybMM=;
-        b=O/Q2gBA+rhMwstg5y938RN+PNof+guIwVSXQ2D4BlGB6ChOpIcCDqP+l9UIfXKeJgG
-         X4fK/+LjSo6q/p0914sAQTtkD29Y9wgXVqSVhqSWRcglLQ/7IeDtZUBQWXhLV170fpPY
-         wlxPU3lxc2pP9OK6kJAogOFqVCd0iao8JypNWp8uRjII3h55+FSskq9S+6svO2ShtI2E
-         gFbpSlFvoBiT6elxWr61tvu/S5XY/Cs0ZdXr9twWCFEBcMfhTI9frUVO2LSOqBLKjnoR
-         F5lEs/Hk9H4N+zaf8Oh2qDN2nwsEb3/dP9dOy/J4T2Mle2FskgZwW8R9YgBpC1AKUNf5
-         1ytQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795514170; x=1796118970;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=idxfymof9qrD80mDCSy8sLfMw7IHnfMauze7irnybMM=;
-        b=ZdzYy3AokyDbfOmqz1bfB4OhMJUXFoHowhVzD/2lKs65zHQS+cEWPqNxYQtGqC12LB
-         GhbnIQ54RfEAcbqP0sm/WtYCCvlQ4n+3a1yaBqk/zrqw82LxdhN+fa5k1ZB2vboG0BHm
-         Lsm5j6kqf/Umv4u4/H/uxfMlHbulI05Lib/A20HtDngylo17KYL1FAB0UMNX3gvWjEvs
-         8HaS1LxH+B1k+MYZQj6xV2BmIrxQqa5QOgQOmJQTUmVq7Qmky5KXfVVlFq4dqHYff28k
-         9JD8GEvV6bcV1CZ6cGmmZoQhk/5iMk0bSOqT4ixJ6e4erBeSWWctqTSVVuJ2zzTmUb90
-         8ZSw==
-X-Gm-Message-State: APuU4Z+O+2RYnOKdD9PDCDg6B4KmiihmkeOVea+JhJkaBbWRVGKSWxO8
-	15o9bzEQGzEjVrUjZpYvDthoZk/Ufl2C8rfNMgdGUxOfWWfO+SOvtd5sIOfd58inFOs=
-X-Gm-Gg: AZFdTZdhSDuUxXRPl+YIRHcBGkoEOnO5o/yDEsT5dwwe/GTLP6S0Z32pygNTvpWEXqW
-	tAwxjhTbfyDfTeKAup8haeqRYPKZ9Wf1y6yfdwoQGDiK3WcF4jeysr5M93SVBimAn66yfMYHZcP
-	qygpfCdgZ3FJKIkMmZnaXuDGpLVgVIKGJiWb4jIcJifzucuAAqaEBxp5hffZH2r4eXg9EmtoX2I
-	mYgrqBIamM7EI9EmjZFTPRNY3v5anfXnSv32ndr48e3ieYmiFb6YStGSbms6SBnylbPhOVa9GKn
-	1IlnxTDxX2KWHvlYd4ZEONvelONGSSfLFwYH2swRaxnUYAhe8GTLtwNbnyQC2lQjZKx0mY/YurC
-	VBIgX9X85p69OsxOvpHXJ6EK1FOmK3DxtIue4Fa5xXJmfIXrp1OPqlO0NzdxLV+6dWKukggotpH
-	f0OLYOb7yMdnhECEt210wSGWN2qaSCfLRqEf5+8omiAYT2BH5nqnAjYC+QXaus/rZJDz6zZd7Ja
-	yH3tu6cvps19yjB3//rFMXnU6CeCVQ9s71AqdFDsrwK9DCH5OIzcW96jNvgDnJR1/mnnkmdC3Mr
-	t9Gp7CUJDF+19A+3iQaJFem6d+QXoGRLRbeSuv+iq+g=
-X-Received: by 2002:a05:6402:400d:b0:6b3:f891:c2d4 with SMTP id 4fb4d7f45d1cf-6ba37ea5360mr9116423a12.29.1795514170370;
-        Tue, 24 Nov 2026 01:56:10 -0800 (PST)
-Received: from [192.168.0.167] ([109.76.241.250])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ba3710601esm6563505a12.27.2026.11.24.01.56.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 01:56:09 -0800 (PST)
-Message-ID: <089ec1af-b6ef-4a7e-846d-3f8ac5e72ef1@linaro.org>
-Date: Tue, 24 Nov 2026 09:56:08 +0000
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=TmPJVihl
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 67237339;
+	Tue, 24 Nov 2026 01:56:40 -0800 (PST)
+Received: from [10.2.201.43] (e140322.arm.com [10.2.201.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B6A413F86F;
+	Tue, 24 Nov 2026 01:56:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795514203; bh=xuCRjMCtyzZFdihFZbSvFStkGFaZ3+s/ycbhJit7JAA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=TmPJVihl6gkJNkbhZDHsVpOlC3oY3rgNcWBpjh1tcuLnVUaenYMwpmCrolkSCUezk
+	 BUXaMYQCmUvTFqnIbgcWhxJn65lYV382f/EdMJkBaKu6Xu4aVP4Ss79TQcP+ladIVL
+	 mD28ur3+U5REd/XJLqbPk/N4XJqp9x0rRaX6ZhY8=
+Message-ID: <e085a389-b590-4448-b8ba-1e084fddb815@arm.com>
+Date: Tue, 24 Nov 2026 09:56:40 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,30 +54,116 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] media: qcom: camss: csid: Pass the SOF time to
- csid_sof_event()
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20261123-camss-hw-ts-v1-0-7b62dda6d7a9@oss.qualcomm.com>
- <20261123-camss-hw-ts-v1-2-7b62dda6d7a9@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261123-camss-hw-ts-v1-2-7b62dda6d7a9@oss.qualcomm.com>
+Subject: Re: [RFC PATCH 02/28] media: mali-vpu: add Mali VPU platform driver
+To: Nicolas Dufresne <nicolas@ndufresne.ca>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
+ Shobhit Pandey <shobhit.pandey@arm.com>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
+ <20261119153758.1426673-3-charvi.mehta@arm.com>
+ <8ad5ec8847859937aef900a09ae8b3eddaa15464.camel@ndufresne.ca>
+Content-Language: en-US
+From: Charvi Mehta <charvi.mehta@arm.com>
+In-Reply-To: <8ad5ec8847859937aef900a09ae8b3eddaa15464.camel@ndufresne.ca>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23/11/2026 17:16, Loic Poulain wrote:
-> csid_sof_event() queues the frame sync event with no notion of when the
-> start-of-frame it reports actually happened, leaving the V4L2 core to
-> timestamp it at the moment the event is queued. Some CSID revisions latch
-> that time in hardware and can do considerably better, so take it as a
-> parameter and let it reach the event.
-> 
-> Every caller passes 0 for now, which keeps the existing behaviour of
-> timestamping at queue time.
-> 
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+
+On 11/19/26 20:04, Nicolas Dufresne wrote:
+>> +
+>> +/* VPU register access helpers */
+>> +static u32 mali_vpu_read_reg(void __iomem *regs_base, u32 off)
+>> +{
+>> +	return readl(regs_base + off);
+> That wrapper does nothing other then increasing the code length. Why not take a
+> vpu_dev as parameter?
+Passing the MMIO base keeps the helpers independent of the device structure,
+but taking `struct mali_vpu_dev *` would simplify the callers.
+I’ll make that change in v2.
+
+
+> You're chosen namespace is also very long, worth considering, but not strictly a
+> problem.
+
+I'd prefer to keep the `mali_vpu_` prefix for consistency with the 
+driver name and
+rest of the series.
+
+
+>> +static int mali_vpu_get_clocks(struct mali_vpu_dev *vpu_dev)
+>> +{
+>> +	int ret;
+>> +
+>> +	ret = devm_clk_bulk_get_all(vpu_dev->dev, &vpu_dev->clk_list);
+>> +	if (ret < 0)
+>> +		return dev_err_probe(vpu_dev->dev, ret, "failed to get clocks\n");
+>> +	if (!ret)
+>> +		return dev_err_probe(vpu_dev->dev, -EINVAL, "no clocks found\n");
+> I don't think the second check is required, that would mean you have zero clock
+> in your DT, which is invalid according to your binding.
+The VPU requires a core clock, but `devm_clk_bulk_get_all()` returns zero
+when none are found. Although this violates the binding, schema validation
+is not enabled by default or performed at runtime, and the bootloader can
+supply a separate DTB. I’d prefer to retain the check so probe reports the
+missing clock before attempting register access.
+
+
+>> +static int mali_vpu_enable_clk(struct mali_vpu_dev *vpu_dev)
+>> +{
+>> +	return clk_bulk_prepare_enable(vpu_dev->clk_count, vpu_dev->clk_list);
+>> +}
+>> +
+>> +static void mali_vpu_disable_clk(struct mali_vpu_dev *vpu_dev)
+>> +{
+>> +	clk_bulk_disable_unprepare(vpu_dev->clk_count, vpu_dev->clk_list);
+>> +}
+> The two wrapper above do nothing.
+Fair point. I’ll remove them and call the bulk clock APIs directly.
+
+
+>> +	ret = mali_vpu_get_resources(vpu_dev);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = mali_vpu_enable_clk(vpu_dev);
+>> +	if (ret) {
+>> +		dev_err(vpu_dev->dev, "failed to enable core clock\n");
+>> +		return ret;
+>> +	}
+>> +
+>> +	ret = mali_vpu_deassert_reset(vpu_dev);
+>> +	if (ret) {
+>> +		dev_err(vpu_dev->dev, "failed to deassert reset\n");
+>> +		goto err_clk;
+>> +	}
+> In practice the two above should be inside your PM runtime ops, not sure if
+> that's coming after, in which case just ignore. It best to do this early, PM as
+> after thought would be bad.
+Thanks, runtime PM support will follow in subsequent patches.
+
+
+>> +	mali_vpu_read_version(vpu_dev, &pid, &rev, &patch);
+>> +	dev_info(&pdev->dev, "Mali VPU device product ID: %#x, revision: %#x, patch: %#x\n",
+>> +		 pid, rev, patch);
+>> +
+>> +	if (pid != vpu_dev->variant->expected_hw_pid) {
+>> +		dev_err(vpu_dev->dev, "unexpected hardware product ID: %#x (expected %#x)\n",
+>> +			pid, vpu_dev->variant->expected_hw_pid);
+>> +		ret = -ENODEV;
+>> +		goto err_rst_clk;
+>> +	}
+> Both ways work, but you could also pick the variant based on the version
+> instead, and only depend on DT for the "families" (e.g. the version register
+> layout have changed but you still want this under the same driver).
+Thanks for the suggestion. For V76, I prefer to retain the DT-selected
+variant and use the product ID as a sanity check.
+I'll revisit product-ID-based variant selection when another variant is 
+added.
+
+
+Regards,
+Charvi
