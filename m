@@ -1,95 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.56
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795498954;
-	b=WiB7WYwmoh1xYLc5OuSib5E3v2D0zKdy6jD8a8lvSNHrk1XqjaAgbh2E0wLdLuX6CHh3
-	 wzb4fB7d/utid/V8pcq1bWjA1rh+qaIzQtnNLpbKiZzxGgMNWDyjOTAvQD8kmwzKUO8hy
-	 ajhDm2+xTEJ4sVXifzyh3mBSRZ6cyiUebsdb070b1wDPEMkA353JtdN+cYsFtIaYdltqb
-	 tzT17uCfEmJ8OlfhOqt126u6DuiT82YxucubVWjKM2+DsuZn3XoExWM5zrt+x+k9TDKrn
-	 6vGxtsFk/Kg8qfyDLclrCk3HeofHTfnHYG9Ol1T7CwCQBpIupRk4rXeJO1fvPFE3fAA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795498954;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=CsEkjb1uWfW/tcjvaGqkhVYdKeGuCnwy7Bq5a8rpit0=;
-	b=l2jD8VA3NnqyVLOYeIo3eeXZHbQYzKgfAedip3ffYP2kXOq+rXZZRrnV9Hvyl7Aa7W6k
-	 dHzxskrsvLDbBzdeVrQLu3nlmHFmdhT/xILuFjBYivxkWz0KUjjUUCepeI7rpRrh/0Mit
-	 QD40fiXYHT923Y7s/UDGPcLyfe+Kq57ulf7fj4KqwnxUTe3Xt+YY+9ff5kd4T8jqjt8RL
-	 yUFyJNVuD5JU+SIIQJTXvO7tRgUqHfVeF4lXnxOyLeXObmSf/BlRYeh/VwAQeQIuAbXpd
-	 mOYF/MYyvxDkEgnkfj6RR4DsXf6lfwo4InF/70pT4RbIFqY3M/kARCNg764BMmf741g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ZBSMcK7d;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.56
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013056.outbound.protection.outlook.com [52.101.72.56])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795502652;
+	b=SQXpmpEUtO17cFhdY6XhB0GLcBiDvZQtIiHa5fHNXQZSu7iWD4c6NITn+JYBs/EHDIb6
+	 yL6Skk8ppFK30ubq3Jx5qM3HS7MKWrtjE/JriTNP5eEJyVB3DQbI//v+YkiqnsqlZCdgF
+	 FlrAbDcnWm2OPub3UhZ/xgZZPGn/nOP+TZcAzuULrJm7od7X0++pQQH+BdTXsUDdn2YJS
+	 VsIgM8aRqUizTxK71ajf01D6Rc4VH2FU98PUas+iC0rGvVf09PAV1S+85vz4rDgcmElvW
+	 2tzX/SO65OPQ/OkUAeU12jEHEZW0D3vVbvtnh9SpJqbUj1ZeWXJyzekl+hcXaU2FMGg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795502652;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=r0ByY2X0iY4Mpi/euGIX6Z+pt0UGNEDDDpkbV82aFgU=;
+	b=hyVxfPlAmBWe0AWHt7qmeYOH9SVpLaAMN6V4AHtK3IUBWtVWBVq6P7qEWtt++S98HUSF
+	 Ja4FlO2E5lvHVXkmU0aOs4Ahqo0M3QQyK0W9T4/qQMQhVgjX8ArCrTgZXsUYC52jevnXY
+	 TMriWxq+2PIbRFWiZ6t8LREh9dyb2GN2leZsofINOhoK7P/gBUJ/U5jVjH/9Yoy085ZrH
+	 uWhOpZVBONrSgCB95ILuBLsTZCNxkIiog9pDi8OyKrV2atA4zRSjZhSCORgqOR5GJu7yj
+	 X04kHXJggwPphiUjmCXl+GF48WiKg99fHCODbC0hqRk2+FBEYo2519uBK5e3JgqcQfg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KeUZzUi8;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EbOwuS4C;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED703606A31E;
-	Tue, 24 Nov 2026 05:42:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED703606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0DE606A321
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 06:44:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D0DE606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ZBSMcK7d
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZN2IIjGzJ4DMoX6b3qIPB17WUp7iT9TH0JNRXax3ZAiRt9SX6MDjRSFtYMnmAUWJxFwv3M+Vig299oYrOWtDsSOX8qXMEEUDFwtdwE1CiAhm8/RjmjdRV36uvCE4H8WrB7geUX6Q1O/VUjl3xQjUnEjqd8teUeX82+92PXZhgOnu39nCbfWJN2byn8s87PbA1qKpRdobeDBUCH7mZ18hcOGv/BWNYMC+n1ShvvJQVYQ8059Uxb7T7WbhVQzsfBium+9ezmlmbRID5DJCuu2N5hD+45XRtZoVS087Yftr7IWxW0r8Ci3yAqmzLs/7WqZrucZYRJibmDoH5gXh01AA3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CsEkjb1uWfW/tcjvaGqkhVYdKeGuCnwy7Bq5a8rpit0=;
- b=y78MTYdGHnOXjnFGN5VngTdnE/eDs9AE9QClbHzoiI3f5lYrqucACsn4unlTIxoJ+hbGHUvCYqg4/shRgxmdaL3FOb7Quxzng0r1r0DpaABeCbxGhC1XGklhAbix9PDcTF6LkHOikHlKgb3TE/etxq3pMBd5KIhhVlV9eHoOR0VVW/qOKjLIrSwUcx5FpiyNaNZoFKv8uRbLFWrkWYsr5Oq0uT6SRCmmzcQntxtyCjqzz9pAX7zLBM/BN6Ow36tEpWJ7bC4FLFnA4IbbgBKpznaytcblSDmH9oXHIlcuM50lkIh1Au7t3UQxTUBrtbC7Ji6AemPBkSf2l7VbRT4+7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CsEkjb1uWfW/tcjvaGqkhVYdKeGuCnwy7Bq5a8rpit0=;
- b=ZBSMcK7d7IKh5d1UhbykEqR0j9NCZ2AbVHnZZ+ozSzwc2pZ3Ml6849tbpGIHUU0icaiKpGwJC4wuF1pIhRmD/fpte+ZpEvDF7+J110H/77pDUqKRoX7JetjfNpo63ihDtr0Q34yzUGGc7t24u89jUY3DIS0Y3eLplY5X0wOvyaz4ueqvJQ+uzcupFq/rtNmnPiOESbkgBBotdQeVoVpoW2fR7JEruqLOUNmt59DFd7swVoKvNwMujMUvdrd1KUAoj42dKB4hiPMJ/GyLRwQl+rU7WjK6uQlCj/SPXtIPzOxS99Fmk1S99pTvzSNXOMaSx3Xo/GWkGb5gKYRVRqpA4w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DB7PR04MB4698.eurprd04.prod.outlook.com (2603:10a6:10:1c::21)
- by GVXPR04MB11480.eurprd04.prod.outlook.com (2603:10a6:150:285::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
- 2026 05:42:28 +0000
-Received: from DB7PR04MB4698.eurprd04.prod.outlook.com
- ([fe80::c571:bdf2:afe7:c03c]) by DB7PR04MB4698.eurprd04.prod.outlook.com
- ([fe80::c571:bdf2:afe7:c03c%5]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 05:42:28 +0000
-Date: Tue, 24 Nov 2026 14:42:19 +0900
-From: "Ming Qian(OSS)" <ming.qian@oss.nxp.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
-	Zhou Peng <eagle.zhou@nxp.com>, Frank Li <Frank.Li@nxp.com>, linux-imx@nxp.com, 
-	imx@lists.linux.dev, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: amphion: Enable non-coherent allocation for raw
- frame buffers
-Message-ID: <awUiZWa4ZTMhFeVL@lsvm11u0000189.swis.ap-northeast-2.aws.nxp.com>
-References: <20261119-amphion-non-coherent-v1-1-c3154395e448@oss.nxp.com>
- <awSn9NyulPPPIIT8@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awSn9NyulPPPIIT8@lizhi-Precision-Tower-5810>
-X-ClientProxiedBy: SG2PR02CA0124.apcprd02.prod.outlook.com
- (2603:1096:4:188::9) To DB7PR04MB4698.eurprd04.prod.outlook.com
- (2603:10a6:10:1c::21)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KeUZzUi8;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EbOwuS4C
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AO5lsIQ2848168
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 06:44:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=r0ByY2X0iY4Mpi/euGIX6Z
+	+pt0UGNEDDDpkbV82aFgU=; b=KeUZzUi8LBi2ZjoH5n+PnElc2J7ns4yoGnGUXk
+	30iU0Cw+cM0uidj1aWkDFexzRMktgs9pzNaYxLOj+MOzZCnNBVK8lZ1x/Sf+2Cog
+	PbdzJm+t/SjepQ/OKITnPy9QoKyu/OAdRvUY29Ko6IeL2NpvrhhlYrlh84i523fu
+	s19Kxt+KyE9OVc/6GTZpE5gx5hr9NVjcGO8YTdx+py7/tFSTEJTkBwVQS9ZXfKlU
+	StLFVUFhsPUwkv3l/X5qV565+Ce4nqzOmAlRU8XNqH2SYWDv14L8IphNGfeHp6q7
+	c591O6AqiVWDwbLjfwBmY7Y9sE1nR2wODJlhmQuLUgm/rr7Q==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j54rh8630-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 06:44:11 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-384b6a33735so456379eec.3
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 22:44:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795502650; x=1796107450; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=r0ByY2X0iY4Mpi/euGIX6Z+pt0UGNEDDDpkbV82aFgU=;
+        b=EbOwuS4CtFRUYv0ASVyl18hgBmZWbjXl53GMgLRtstSVU0uOTCKXFJ/utAbp94tOSd
+         qLu235uuUqB2wsP+DNrRZsVdjaSzs2Plp0K+hyB5l7GbEeZ6k0/CK79pzo/vNWtBkagX
+         FeKjwv+be0OS0kw3JKqvkqPkPjG4ZmUT7Iv6n+2022uYfK+IpsxGZflQnWsxbr+kwW6l
+         nyev3RYJXU4tTrZARxrbw7b7YyfaM/VCDe3z2TvdKJZ8aZ9KEmYvAxUJxBwWPzv/7Ri7
+         t0yoGrwCSceW9fqQj//xAuXCuzeDp3VvykMxW9L+qSorfry9jbkvAtmIpAEa7zIRzAUr
+         lvOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795502650; x=1796107450;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=r0ByY2X0iY4Mpi/euGIX6Z+pt0UGNEDDDpkbV82aFgU=;
+        b=cwe5JeYzT4N3hWfgRq34WDq0nZA7xQx3+1r0jveLctkPpRkysA4evNKImv0ZNzdHmo
+         g7ZF25DyIUWzp3PPwX69CtRWTtF+UDT6lcqgCLckMy7I4ik/jBPcwkPNZ6f9wYfJzMy3
+         D6bw3J6gMnWs5wTPuZX3+NNcwlkNWt5eoOo4eN6UIyjHYpFGnixPjW2+1B3kCOgTcRYs
+         bH0bbluvEhqVw3hEZQcsk0cyWZmOIrD1+v/EHMO6unC2ad0a3B/5qdaNhadf8JI7pOhS
+         E1sUlSkex6YkF0pGB+rTiSa1EmTkuEDPzlf6L3AVJX0F2GMteQ+clRdsWWBo2mtXQkcJ
+         uQ5w==
+X-Gm-Message-State: APuU4Z/20VXCpuq4FRMPz6wKE2UK5bdpB+tV3nuQGafV9fmXgskDr5es
+	BjrJC0cSi+XTftmlbtMRfbA2oXKirpFaF5BamHZuITFp5XHUXg+adVHiQkeG/D0NjTEh5dccPSz
+	MCpoImni6CAPszGZBJZ5DiYblwGU+xaKYZmCl1NwNQypyHRJo0rOnqZVhgX4Ib54q6w==
+X-Gm-Gg: AZFdTZeVOyoDFa/nhCsUMw5gX5+aOb1dfBbJmrNdz3/uvImqOiMl8W2hGbKNRIouSkR
+	podqbSjkTjE/Q8NfPrNII/yV00kmGFWEDqCusabH9tfLofjU4WQhu+04tY+E/2Ag0DhCrG4Yn+p
+	sJBqtjK6Z4nGV/FEhX2mtF3dQbcwZBxV48GIQ90XuD7ue8bMix5pT5lhfvZ2eQ+9lqlW+DThTEz
+	1BX3qBVXMCY04PQafNFsmX+99rUwpiOXRQnPVCkLUTASibjPm6YRGrmUUhWi7s0hAy4oLJIc4VI
+	cRsVJ2L3wUUpgooZxpJqQwRsfnEJadAWS/BJZHoyRgb++wHFDvmA7fbYdEWvoFTI0tWytlVtQVM
+	cMGbNozmTG1crXuA9Q7dknRMqmzdmOOSttgplZHkyWFbZ5tGqXjYidzIWQkQkQuyQuEKHo4NtqE
+	z4mvKLPBnxmVvbuR26ctqyopYkXGPH1MTDPg==
+X-Received: by 2002:a05:693c:8211:b0:35f:ea17:d171 with SMTP id 5a478bee46e88-3856e74909fmr21860136eec.2.1795502650371;
+        Mon, 23 Nov 2026 22:44:10 -0800 (PST)
+X-Received: by 2002:a05:693c:8211:b0:35f:ea17:d171 with SMTP id 5a478bee46e88-3856e74909fmr21860096eec.2.1795502649741;
+        Mon, 23 Nov 2026 22:44:09 -0800 (PST)
+Received: from gu-dmadival-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38567ea2cc5sm39265484eec.29.2026.11.23.22.44.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 22:44:09 -0800 (PST)
+From: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+Subject: [PATCH v2 0/3] media: iris: Add support for mahua platform
+Date: Mon, 23 Nov 2026 22:44:02 -0800
+Message-Id: <20261123-mahua_iris_enable-v2-0-b1a16b16afca@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,131 +113,240 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB7PR04MB4698:EE_|GVXPR04MB11480:EE_
-X-MS-Office365-Filtering-Correlation-Id: 166f792f-f23f-458b-bc16-08df49edb9a0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|376014|23010399003|1800799024|18002099003|22082099003|3023799007|56012099006|11063799006|4143699003|261102123227099003|261028144727099003|261009223027099003|261026140227099003|261021121427099003|261022105027099003|261022075727099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	UiTJw13blnX/rNfxuivPwa5ugGSCLk5L9v/6ncD9osvJUMg/yF+OUvVuHCIOKpyMnVFupUiVxB/RSRje+G++Nv3bstnlalsb5uB4esps5635YDWSGHE8PI/VIBq6ydRqFikPDx1r0J8DInAQFFtf+OOeODQFcQqDRbmTiFQExBoygjKDbkZ5hU3fvtIthIFmpObG9FwLXiOTs4lEDiXBS3yWlZjr/F2vRrTJJ4i0+CW9d9+oePxQNGFJHfsSnkCVyImV6WxhuOkKDYahJ3uPqV4SMRMTbWuEq1e4fiMx5kpTqtpmZJbgPCUPNRyPmQaMRpWbEX5QRwXWAEToM1UeejoL8XO23gZJe29WCPH6bud8iPgtxCLrRXM6SCHuqEp7DIxjaHE0PoQ1euEKiHDIZ3ICYEtk1srNutVr/SYqxDmIv4HyyF1r6KiGDA3nz8ytR58Tvim6qO2tkATDACm0L1+vb3R0zJlsiWhK884AdFq33DJYMb4ZXZmir7OTzKsWS/z83xqXRulJtNyliy7XQ3fs5y5Z9w0qMCRcBI8Wl73hdya6Hi6zmMxh0r+ns3xZ6pudqhiwCp2EAPBzvzndl8RYfKX6PQGmrpkJtEswcx59SPJ/C031ePLFNcoQpSL7lrCjxkFN3OHCkToj8Auo5n/os1TCtyyn07EodVOlcys=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR04MB4698.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(4143699003)(261102123227099003)(261028144727099003)(261009223027099003)(261026140227099003)(261021121427099003)(261022105027099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Y8YUN1BP0OQJt4+xuddfZOy++39jVaD5Sibppn4pls5U1+aeOFv0R3YnV2b9?=
- =?us-ascii?Q?QnOv7vnPTw1hpv78G3cAMl5CDkHswIo52pXNFPbl3URmBSudFTLe8/iAwXlr?=
- =?us-ascii?Q?7NkEKThFF8PGFtsUCVzC9S3m5tC+S19ypSI3PO0+fdyCY+37U4Te/OL+YQUl?=
- =?us-ascii?Q?97/AUiYpcQxr54T3SIvo2ilwMQcU+i45CPCAaantw6TDxATyVpk30WX+36Bf?=
- =?us-ascii?Q?yhvAlBcoxrMEZ9e4rRnMg5VQXyaskqEB4uk59bUT1exLpjO4cfOrWqOxDIZy?=
- =?us-ascii?Q?6XlZ23uyR1UwqkaGNNTsWzoMpxaZTHZKU8wDM1WC3lGR1vnEty6w16H/U7J/?=
- =?us-ascii?Q?+gcLWOLWTua/MYrLXJuwo8OwfrtSt4yvtnY4NdV/acTdIRY/NPgT4aRu6V4b?=
- =?us-ascii?Q?13+wHWBADYUeTw53l/5RfTInnOJCN/hJyheL23ueMtpVKuUV9sb79myeyASR?=
- =?us-ascii?Q?+74yRzEPmnFsJcI1bwyk1hVBfoaIMRaNvzIVZ9vPmEQq5jYoner0EI2OCHqi?=
- =?us-ascii?Q?sjjdj0NMw+yPKeL4vxeOrYEe5RIhzGxrcuIboczbq2Pb2gDytwevr7un+pFZ?=
- =?us-ascii?Q?+0nrcbxWaWihj6MLto6Kej7KviVKKyQdnNAqyBxk10M4qkETNQFJ5HFB0vPC?=
- =?us-ascii?Q?uCbxbblWBK92VXHO1gj2tQ9+faRUqoRzMFiQg306P6DDerec1Zg+Xy/Q7Q6O?=
- =?us-ascii?Q?rvfGhdMwmUUTr8bRBCQDhLub5CjfNAKiS5HSjugcO9JxXxIzfp+DhbKP6ORR?=
- =?us-ascii?Q?HTeEDAxyKbCVQmLw+3Yx4JzUi6g378Sztx7qFsm3UvAEhDr+mmdxytOo4uy2?=
- =?us-ascii?Q?xql2DL2g30BfWTaY/ebrWKuNfDLYgDQmKvz/FZqYkzm/qEKO7Mu5yd32knOg?=
- =?us-ascii?Q?YLWDmuoM+mA/kDEUlShTcAjGDy8kZHcMOd4FyE0n4mWjEbQKBRvwZj6zpxEM?=
- =?us-ascii?Q?/WR1TW2MVAlyK5qF8Cv43F64GfnvB4ncF3YdIVNjN7jStc8X6uNuNfk2r4qm?=
- =?us-ascii?Q?w1fs9HTs84LHOIal9ybl+Tdd0W7Syb5qlz36b6UD/qjpM6+xYhIG+USVlKem?=
- =?us-ascii?Q?+6oxemf+Q0Va1OmBh2F00W6mUg7zTpPYq1tiXXQPMjey/1HhLjLt8HL1HEhM?=
- =?us-ascii?Q?5GfuJO8JYsR+x+CT+UMg/4Bm2IIAHsXDS1fVITseC6GG4646kMCw6+y5AdSF?=
- =?us-ascii?Q?eLAVnSRhXnHrV1a+klxAnWQpkzZJci+UVMuCfs2GrrVV98tVo0nKWcvrQlKZ?=
- =?us-ascii?Q?vReB7SaCoOa6oV7bHnspFKVGlxdfQE0nkf0i1bPDzirj3m0T668w3jDsR15t?=
- =?us-ascii?Q?XBbrHiGLnfwxExUYBAcevkLWYw1r3/qnNYUiXHV4bPqbwSc3JypOgiE228A0?=
- =?us-ascii?Q?j/JzKb/eC5x2BirFbbVZ8tFS56/KboR3azOPzXsuilkYnkDST1zlhFd35cl/?=
- =?us-ascii?Q?5hDTyY7EIhInzfAyhtjnkDCMxj8zmA7Oz/I9JeWpcbzEetIrnw0NQNWC1svs?=
- =?us-ascii?Q?c7HXZ2foO8NB5SJuZbleY17W/3HtL83DIh8q1TAxRwYA+pxWMuYIUvK2WqCM?=
- =?us-ascii?Q?aeVgJzYNfR/uuYQf4eDak3RVmJU9FaVfftpQC+2h3zYzVvjIjXgJrSocjmF3?=
- =?us-ascii?Q?omsiiKYkfiOTYacqTW2cftClPQ1VXnxvlYZdIRcp96Cn9v8ZjWjT4EdwrTUm?=
- =?us-ascii?Q?O/zKn58fS4Vl37Vi6thOjjwRzKwlsdxyChtZPVQOA90UUoDAr+757v0rcHWE?=
- =?us-ascii?Q?SXqIipJ7DCz+3nCWFWuyTSg49W173B7vnj15ahyhEUlK/6p41Sgy?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 166f792f-f23f-458b-bc16-08df49edb9a0
-X-MS-Exchange-CrossTenant-AuthSource: DB7PR04MB4698.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 05:42:28.2630
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: joKyc6yGGSwafjgmqIYnBmJoeql7r4LqS4ifFJlleA72HYZT5hW68VVGAILU5/cbM2QQ38Ol5u4kBKpYqyijg2hAtHlaSjPJCkASBxfyiyOd0LEjHJ4JGoC9WZfH/nGT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11480
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADIyBWsC/32P3YqDMBCFX0VyvSmZGI3Ksux7lFImyVgD/mwTl
+ Zbiu2+0lwt7M3DOMGe+82KRgqfImuzFAq0++mlMQn5kzHY43oh7lzSTQpYAkPMBuwWvPvh4pRF
+ NT7yiPC1RoVCKpbufQK1/HJnny1sHui8pen6bbKAY8Yhuss89WdSg+a1/DkvgKwAXnIStjK1Ba
+ SW/pxhP9wV7Ow3DKY2v/Y3BSHx3/NxkwtVOONPK1jnbtkVV1K6UOdXCos6tEoWSuiRgO1Dn4zy
+ F59F5hYPon3rrjmM0CE1gjUX8g8Mu27b9Atvn5X5KAQAA
+X-Change-ID: 20261113-mahua_iris_enable-8e3026a4a044
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795502648; l=7521;
+ i=deepa.madivalara@oss.qualcomm.com; s=20250814; h=from:subject:message-id;
+ bh=gUE63zVZIVeUvmErUr/TrSMTqv6lxRJ/fp5Y8KWuPVk=;
+ b=Y1VZuEAlW8OxZVs/P5hijwld5rvuRABQSv4jF35P3GPgC1wI0Liyvj8dL6a7vzpi+OfR+zpU2
+ uUCeSoFky6SDjvqu3IcD7+jiVH53dEAGSc6UTU98lk4nfCTFoXJT5nz
+X-Developer-Key: i=deepa.madivalara@oss.qualcomm.com; a=ed25519;
+ pk=MOEXgyokievn+bgpHdS6Ixh/KQYyS90z2mqIbQ822FQ=
+X-Authority-Analysis: v=2.4 cv=BKkmP1QG c=1 sm=1 tr=0 ts=6b05323b cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=NlngLaH3A2d4KlUMbl8A:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI0MDAyNiBTYWx0ZWRfXwtPHzHHOzddB
+ tcVR+IT4p9AFAajQp1pvlp2PteiLFKOwbGvDDngFrogdAchTnWaENqMSdAJLwe+wHXzZ9EowsJN
+ 8EfXKy90Ki54j4ePtaObqnDMd2re218=
+X-Proofpoint-GUID: kDySJFYooiZIthlyD9G2ptNsKDLu6wx3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI0MDAyNiBTYWx0ZWRfX4P+pTBiJOFLp
+ 3EcFpM9J91ncdcYxive626cNqutwUEQlVk/+J4ITYvImW0rLC4mknZ9dQ3fg7wB9P8gFD35lMww
+ o0Zy7CL1Efic9MYoLyIygHb4RsIfXk5MaFOJG9pfjVkoomZeRYivngXgs6w6u/L0iADm2ZtrysE
+ PZAjV3XRFlT/RxXTDHggccXYO2DIKB67FphohK2eYHQD0JFzhWr11JwrXiMb+GOdyoG0d1znOel
+ MjcXqmYELWKu/Q3zo4a3XXL0qRZuk01m/UiK6wJ7QEAfYZSmHcuKN9smoU6iWcp8pIAeq4LmjBL
+ P0oZkH8U6lKtvKAX7FbWqPqCCKtk6C84YJCfVbZ9wcbein9dsH3Tt9gO7wfVdXjO3xIAf34ekiA
+ 9aY95hfgvdLbW9Hr3myWP1beJotOs+Q1RdzmSUM15oyY4bTlWp+wzPnuEeV1+QlvUP8dD1pEhDa
+ zWapRq+tEs5oJYaCoAA==
+X-Proofpoint-ORIG-GUID: kDySJFYooiZIthlyD9G2ptNsKDLu6wx3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-24_01,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 bulkscore=0 adultscore=0
+ phishscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611240026
 
-Hi Frank,
+Mahua is a derivative of glymur video accelerator with single core.
+This series introduces qcom,mahua-iris video driver support.
 
-On Mon, Nov 23, 2026 at 03:54:12PM -0500, Frank Li wrote:
-> On Thu, Nov 19, 2026 at 04:27:14PM +0900, Ming Qian wrote:
-> > Allow applications to allocate raw frame buffers with
-> > V4L2_MEMORY_FLAG_NON_COHERENT for efficient CPU access. The required
-> > cache synchronization is handled by videobuf2 in its prepare() and
-> > finish() methods.
-> >
-> > Set allow_cache_hints only for the encoder OUTPUT and decoder CAPTURE
-> > queues. Leave it disabled for compressed bitstream queues, as the
-> > driver may access their payloads through the CPU.
-> 
-> "V4L2_MEMORY_FLAG_NON_COHERENT for efficient CPU access", but here
-> "Leave it disabled for compressed bitstream queues, as the
->  driver may access their payloads through the CPU"
-> 
-> Look like description is contradiction
-> 
-> Frank
-> 
+This series depends on the Glymur Iris enablement series:
+https://lore.kernel.org/linux-media/20260917-glymur-v11-0-e0c8bc914742@oss.qualcomm.com/
 
-Sorry for the confusion. By "efficient CPU access", I meant userspace
-access to linear frame buffers.
+In particular, the qcom,glymur-iris compatible and the corresponding
+Iris driver is introduced by the prerequisite Glymur series. Therefore,
+this Mahua series must be applied on top of the Glymur series.
 
-For linear frame buffers, V4L2_MEMORY_FLAG_NON_COHERENT enables cached
-mmap access from userspace, while videobuf2 maintains coherency through
-prepare()/finish() during QBUF/DQBUF processing.
+This series adds support for Mahua by:
+ - adding the qcom,mahua-iris devicetree binding
+ - adding Mahua Iris platform data for the single-core configuration
+ - adding the Mahua devicetree changes required for vcodec0
+   clocks, resets, power domains and operating points
 
-For compressed buffers, the amphion driver copies data into the
-internal ring stream buffer when decoding, and out of it when encoding.
-Enabling non-coherent allocation for these buffers would require
-additional synchronization around those CPU copies.
+The series was tested with the prerequisite Glymur series
+(and all glymur series' dependencies rebased) applied locally.
 
-This patch therefore enables the option only for linear frame buffers
-and leaves compressed bitstream queues unchanged.
+Compliance test for iris_driver device /dev/video16:
 
-Regards,
-Ming
+Driver Info:
+        Driver name      : iris_driver
+        Card type        : Iris Decoder
+        Bus info         : plat:aa00000.video-codec:dec
+        Driver version   : 7.3.0
+        Capabilities     : 0x84204000
+                Video Memory-to-Memory Multiplanar
+                Streaming
+                Extended Pix Format
+                Device Capabilities
+        Device Caps      : 0x04204000
+                Video Memory-to-Memory Multiplanar
+                Streaming
+                Extended Pix Format
+        Detected Stateful Decoder
 
-> >
-> > Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
-> > ---
-> >  drivers/media/platform/amphion/vpu_v4l2.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/drivers/media/platform/amphion/vpu_v4l2.c b/drivers/media/platform/amphion/vpu_v4l2.c
-> > index 7cccc994fc50..c8d52f0af879 100644
-> > --- a/drivers/media/platform/amphion/vpu_v4l2.c
-> > +++ b/drivers/media/platform/amphion/vpu_v4l2.c
-> > @@ -664,6 +664,8 @@ static int vpu_m2m_queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_q
-> >  	src_vq->mem_ops = &vb2_dma_contig_memops;
-> >  	if (inst->type == VPU_CORE_TYPE_DEC && inst->use_stream_buffer)
-> >  		src_vq->mem_ops = &vb2_vmalloc_memops;
-> > +	if (inst->type == VPU_CORE_TYPE_ENC)
-> > +		src_vq->allow_cache_hints = 1;
-> >  	src_vq->drv_priv = inst;
-> >  	src_vq->buf_struct_size = sizeof(struct vpu_vb2_buffer);
-> >  	src_vq->dev = inst->vpu->dev;
-> > @@ -680,6 +682,8 @@ static int vpu_m2m_queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_q
-> >  	dst_vq->mem_ops = &vb2_dma_contig_memops;
-> >  	if (inst->type == VPU_CORE_TYPE_ENC && inst->use_stream_buffer)
-> >  		dst_vq->mem_ops = &vb2_vmalloc_memops;
-> > +	if (inst->type == VPU_CORE_TYPE_DEC)
-> > +		dst_vq->allow_cache_hints = 1;
-> >  	dst_vq->drv_priv = inst;
-> >  	dst_vq->buf_struct_size = sizeof(struct vpu_vb2_buffer);
-> >  	dst_vq->dev = inst->vpu->dev;
-> >
-> > ---
-> > base-commit: 7969a6f407cf55b5254c824c87875452655ef11e
-> > change-id: 20261119-amphion-non-coherent-f61009334dff
-> >
+Required ioctls:
+        test VIDIOC_QUERYCAP: OK
+        test invalid ioctls: OK
+
+Allow for multiple opens:
+        test second /dev/video16 open: OK
+        test VIDIOC_QUERYCAP: OK
+        test VIDIOC_G/S_PRIORITY: OK
+        test for unlimited opens: OK
+
+Debug ioctls:
+        test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+        test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+        test VIDIOC_ENUMAUDIO: OK (Not Supported)
+        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDIO: OK (Not Supported)
+        Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+        test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+        Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+        test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+        test VIDIOC_QUERYCTRL: OK
+        test VIDIOC_G/S_CTRL: OK
+        test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+        Standard Controls: 12 Private Controls: 0
+
+Format ioctls:
+        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+        test VIDIOC_G/S_PARM: OK (Not Supported)
+        test VIDIOC_G_FBUF: OK (Not Supported)
+        test VIDIOC_G_FMT: OK
+        test VIDIOC_TRY_FMT: OK
+        test VIDIOC_S_FMT: OK
+        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+        test Cropping: OK
+        test Composing: OK
+        test Scaling: OK (Not Supported)
+
+Codec ioctls:
+        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+        test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+        test VIDIOC_(TRY_)DECODER_CMD: OK
+
+Buffer ioctls:
+        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+        test CREATE_BUFS maximum buffers: OK
+        test VIDIOC_REMOVE_BUFS: OK
+        test VIDIOC_EXPBUF: OK
+        test Requests: OK (Not Supported)
+        test blocking wait: OK
+
+Test input 0:
+
+Streaming ioctls:
+        test read/write: OK (Not Supported)
+        Video Capture Multiplanar: Captured 465 buffers
+        test MMAP (select, REQBUFS): OK
+        Video Capture Multiplanar: Captured 465 buffers
+        test MMAP (epoll, REQBUFS): OK
+the input file is smaller than 7077888 bytes
+        Video Capture Multiplanar: Captured 465 buffers
+        test MMAP (select, CREATE_BUFS): OK
+the input file is smaller than 7077888 bytes
+        Video Capture Multiplanar: Captured 465 buffers
+        test MMAP (epoll, CREATE_BUFS): OK
+        test USERPTR (select): OK (Not Supported)
+                warn: ../utils/v4l2-compliance/v4l2-test-buffers.cpp(2223): Cannot test DMABUF, specify --expbuf-device
+        test DMABUF (select): OK (Not Supported)
+
+Total for iris_driver device /dev/video16: 55, Succeeded: 55, Failed: 0, Warnings: 1
+
+Fluster test report:
+
+77/135 while testing JVT-AVC_V1 with GStreamer-H.264-V4L2-Gst1.0.JVT-AVC_V1
+141/147 tests passed while testing JCT-VC-HEVC_V1 with GStreamer-H.265-V4L2-Gst1.0
+234/305 testcases passed while testing VP9-TEST-VECTORS with GStreamer-VP9-V4L2-Gst1.0
+200/242 tests passed while tesing AV1-TEST-VECTORS -d GStreamer-AV1-V4L2-Gst1.0
+
+Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+---
+Changes in v2:
+- Use iommu-ranges instead of memory-region (Vishnu)
+- Fix dt-bindings (Krzysztof)
+- Fix order of patches and iris entry order in mahua.dtsi (Krzysztof)
+- Update to maintain alphabetical order (Vishnu & Krzysztof)
+- Update cover letter (Krzysztof)
+- Rebase onto latest linux-next
+- Link to v1: https://lore.kernel.org/r/20261113-mahua_iris_enable-v1-0-b7107e1cbcaa@oss.qualcomm.com
+
+---
+Deepa Guthyappa Madivalara (3):
+      dt-bindings: media: qcom,mahua-iris: Add Mahua video codec
+      media: iris: add mahua platform data and enable qcom,mahua-iris
+      arm64: dts: qcom: mahua: add iris video codec node
+
+ .../devicetree/bindings/media/qcom,mahua-iris.yaml | 200 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/mahua.dtsi                |  67 +++++++
+ drivers/media/platform/qcom/iris/Makefile          |   1 +
+ .../platform/qcom/iris/iris_platform_common.h      |   1 +
+ .../media/platform/qcom/iris/iris_platform_mahua.c |  44 +++++
+ .../media/platform/qcom/iris/iris_platform_mahua.h |  14 ++
+ .../media/platform/qcom/iris/iris_platform_vpu3x.c |  33 ++++
+ drivers/media/platform/qcom/iris/iris_probe.c      |   4 +
+ drivers/media/platform/qcom/iris/iris_vpu3x.c      |  10 ++
+ 9 files changed, 374 insertions(+)
+---
+base-commit: 0d9d0dbf2fddcff5859d623e90ca73c4054276e1
+change-id: 20261113-mahua_iris_enable-8e3026a4a044
+prerequisite-message-id: <20260917-glymur-v11-0-e0c8bc914742@oss.qualcomm.com>
+prerequisite-patch-id: c790c17f7113da72001a1b83fa0dc0fb82e22760
+prerequisite-patch-id: 5a2f89fdc7312d46f01aeb1507c3d179203c1357
+prerequisite-patch-id: 1e1b6daab984b81b7ad83108fb532ea25345638d
+prerequisite-patch-id: dc22e163717edf23b847a79af253c6b85bec58dc
+prerequisite-patch-id: 2cc01cddaccf18ead1c1e2506f0182193afc1dcf
+prerequisite-patch-id: a1e82173cdbb9c315bb6cce35108a7a4057cb235
+prerequisite-patch-id: 4ed1c23d97cb438c917ab31f4193c58e3deeecda
+prerequisite-patch-id: facfccd32a2f70f2bae3357106a3fe493b4c8c32
+prerequisite-patch-id: 59bcb5096aef6258f4732dc8f8789c3e846e16c0
+
+Best regards,
+-- 
+Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
+
