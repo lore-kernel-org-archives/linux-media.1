@@ -1,92 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.87.157.213
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795493068;
-	b=1wpKQeYXw7t+28cLh1rVNSnJzI+HTTzdVZtOmY29N5PwK39K2ernXlrSgepDEjhK800D
-	 qj5abVKd6yYzn/OT60fNKT4yhJDWJq0jSX+sBBvGT1rgnLrQiYfbF+bjj4udYpl4iNDFM
-	 RDSgMvjpiCU4zefTn6pn8qATYHvGmBcvMY/5vCr2dRKAPhJL2VGlkFIACXHbwbdC00ZpH
-	 Qq1+I2LTx3Y99G+YSD/NrExSsR2SUOMj5d1q6lQZlQoSjM28SJ9iI5DTfTwX5e3+L2SE4
-	 aURg0T/H89WLi2VHggDxUHXBL//mDINeBbmwmIgS+RAsS/rh13jOmjQgt2SLpn0pxRQ==
+	t=1795498648;
+	b=LdBwVUclx0ml/sSS/mYuuEpTGY5V43RH1gxpREPWAx5QKi7tZ4yCLHMcgGJkolZC5o30
+	 E88qzixkgvHdzNw3WWsJfyUqP6Muvalzelh3ZdKCIpruB00F/mZRp4BnEiipQaIwMdVc3
+	 b4CDEfJz98gFhu4pGbStxURdqDkzmfINi7rnDHLfL4WeJ4bU98semYCdrAhkW5bIwqsOi
+	 WRkoKbr228AhQIgF02rLBIzDp1hlcXoMOIy9peT81YoHupd/m63KNlLRt8f+zJBZatgEj
+	 ELmKDXwc66Uy/Z1/pS4OCYjh5rGJBsLQeJ+M1DS+f12viwNOj5BJE8WviFlnpSMzvVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795493068;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 Received:Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-originating-ip:x-tm-snts-smtp:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-MAIL;
-	bh=dEAWrCcLPoqiH1o+NThWPO02RVOnV+Cf+QRng64jUU0=;
-	b=SG/1LCiOIOUFHA4132wVVZf5pzX2IP5snfh05aJIA9upI92LxR5bEdut46ocdWsZQIF/
-	 TToqu8c8Ud/cpbOph+x1d0S96hmmKGkExwitCd8vdGAnrHEk4jybStjlTIiOWaPwrXBOU
-	 g0Bu2MQLSk9wEnmdjCuwT6feMaL4Lj72HOCbMqEG40DpZeagU+PJQdUKeV4YKm1X3+soO
-	 lE2HuiIbb1PoMWK7tKssuTqhE3cLzek5q4TTllwH+IK6D6DmSvjppN7acjdj+UoMY472y
-	 oin3HeiI80eWYwYFwykez33dQqKS/RrX5vPgiiy+7LA96SWBkDGlzbXrZWrgMoTEOiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795498648;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=5aErT2kLIK2X/FxAJIiabzmuR8QnG936yvowVUxXauc=;
+	b=LfGGAs3izxPPcq7FnTbbgbAAcQJy6KbR8hUaBJPKsspaJxVaC5LJqKNvlUz8LKELRB/d
+	 elNLiYdfyV+ceme/PzLkM4EeRdH6+JUlEp1ZW5iuYVW/XJwmRPZxMnKn4faUb/HfYN6fo
+	 Ejehx3/CNzYgDC4bXvUZ07mR3xW0Z600sQ44fEQnj7GlFNOKE3iPFd/hWApapSh6yIcO5
+	 TGbcMTv13aNnBiTsDQz0leTTwCPToqVYX6IWcj5Ee/F+nCtpBgGFfLk5kBTIysI4EMQrC
+	 8n+y86FcMl0CwqLPYWoa8QXauJFJSpsLoP1mDiOoxydiVzDJMCYT2KNAbgiTfHyuYzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ite.com.tw;
-	spf=pass smtp.mailfrom=ite.com.tw;
-	dkim=pass header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b="hhOo56/9";
-	arc=none smtp.remote-ip=219.87.157.213
-Received: from ironport.ite.com.tw (unknown [219.87.157.213])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D26nvVun;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C376606A322;
-	Tue, 24 Nov 2026 04:04:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C376606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A09606A322
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 05:37:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57A09606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=hhOo56/9
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D26nvVun
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a00so31948845e9.3
+        for <linux-media@vger.kernel.org>; Mon, 23 Nov 2026 21:37:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=dEAWrCcLPoqiH1o+NThWPO02RVOnV+Cf+QRng64jUU0=;
-  b=hhOo56/9ZFHFp9xNU6L7xYfJ5fU3DDsY02xJBOkfy0XNwKw0D1I6iZjb
-   QEd3Uz31rPRqkaIuqE23zvsyJvwXvFy2/Mhsva4ZeRNxXD5l1/Bn3HYGw
-   pWCqO8Rk3ZRohgOrvCIGMbBLi4AKuV5Ax1XKLDeNuoZnYcIZEtpmxRvpL
-   3R385ypE8mYJzOZc9oAJooiGmT4OO9P2oEiC4L8UPLKqEpBxlMfF9cFsl
-   TP2hSyoyf92NS2TutbdAPpPBVsXf8cdRd6ZedbbbO1Y6KYrOwDcW7VoZD
-   3bn8NVtah8GP0ahZJxDC/8KjOx05KwvWrm4L9BNW8tvum7Hn9zCPdb7iE
-   Q==;
-X-CSE-ConnectionGUID: h/fAIDetRKKIlsimI97AkQ==
-X-CSE-MsgGUID: oy362wzoRtajGhP9azZp3g==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 24 Nov 2026 12:04:20 +0800
-Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
-	by mse.ite.com.tw with ESMTP id 6AO44G8V056318;
-	Tue, 24 Nov 2026 12:04:16 +0800 (+08)
-	(envelope-from Hermes.Wu@ite.com.tw)
-Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
- TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 24 Nov 2026 12:04:16 +0800
-Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
- TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
- 15.02.2562.046; Tue, 24 Nov 2026 12:04:16 +0800
-From: <Hermes.Wu@ite.com.tw>
-To: <Hermes.Wu@ite.com.tw>, <mchehab@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <hverkuil+cisco@kernel.org>, <hverkuil@kernel.org>
-CC: <linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <broonie@kernel.org>,
-        <lgirdwood@gmail.com>, <linux-sound@vger.kernel.org>,
-        <linux-api@vger.kernel.org>
-Subject: RE: [PATCH v2 8/9] media: i2c: it6625: use the standard audio rate
- and present controls
-Thread-Topic: [PATCH v2 8/9] media: i2c: it6625: use the standard audio rate
- and present controls
-Thread-Index: AQGjzAf29/U6qc1EEeqYH4GUceBqBQDHK9mct6nASzA=
-Date: Tue, 24 Nov 2026 04:04:16 +0000
-Message-ID: <4529217252414e4aae7fae1fecf44940@ite.com.tw>
-References: <20261124-upstream-it6625-alsa-i2s-v2-0-a154685f6989@ite.com.tw>
- <20261124-upstream-it6625-alsa-i2s-v2-8-a154685f6989@ite.com.tw>
-In-Reply-To: <20261124-upstream-it6625-alsa-i2s-v2-8-a154685f6989@ite.com.tw>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-tm-snts-smtp: E2799EA8931143F52E15C7D03EFB0E4ECC717B7CDB651AF557A22ABE8DB3700B2002:8
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+        d=gmail.com; s=20260707; t=1795498646; x=1796103446; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5aErT2kLIK2X/FxAJIiabzmuR8QnG936yvowVUxXauc=;
+        b=D26nvVunAP4Mnwzx1Nr3m+BbLbW9FKUTChKaqL80TB3uvaZlClrfZBvBh1Mo3lLQTP
+         rbwcESdhw9k+QJ6YCLnNc8ocK3kw5iPJYysR2ICP3i0+z3s90c5e2OADn82CbFCLQ1v8
+         Ru08Jnjz4zxLWYIh97VXinLBiVDrd5SyIRXUiqN3CU12wGA7rpn8fbyAkjvSyrbrBz6L
+         tJJAeDZ7ro9Q2KbwtiYwMC1RBt1Dbcuk5NNFXXioBns/MTREoORvoklSj32uhdCC8BC/
+         ukWDNuKQ0bSwLanFvDbCeBvAQV7QiAu+BrQsS5VO6EribiTy71NzA6S252mIHbE3NL7D
+         k7cA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795498646; x=1796103446;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5aErT2kLIK2X/FxAJIiabzmuR8QnG936yvowVUxXauc=;
+        b=zYsT0Alk6OSAWx4zlkpBp+sh1AY8tXoHRk65w09J4Zjzo6sHleh0yplCJUfkDy7t7b
+         MzShiffcf19BrkEsXEpDA7/Q7azQTz9koqUFeJnlFAtpl6iLnhWjiiiXx/DPjC84qZbt
+         6baCtst6x+foRjGycWKruswLTsxbcnCmQWo0S0ZBTgBPtA+6w6ZqM4G6GhgnhhP3a3ma
+         hefiABpMbnU+c9vHEWM+Zevq8wOgFMPvJ7XhOIwGT8EjmnbVU/SR3kDWpBj4Vumz7+ml
+         DmYyd1X8YosW3uFZLgaEWTyRpaYnbX5kXqieQaEsvV6VWIsgFaOR4sxM7XWa308paTBq
+         nWtw==
+X-Gm-Message-State: APuU4Z9xBn7dRFAb0FaFWq3qAf5Q/H1tIRUklR6OWgWs4UoBceiEpoEp
+	yk5VXqxkvMJIxZi8l3iCVGtnTddsOXXpFs/QY5cf8GiOBcRU53jxsnUs
+X-Gm-Gg: AZFdTZf483xQcTimb/aTrG6cTHTpkjDfvg3gbMQswKSGzKanqrzPRbWPFNVMpbdZT7x
+	aiBvu5FkMSDLhikDHC780XqCuC8+35Yy1kNq8Wqxh6GCEjmFRYmSyfBDn/F9VPR81ayG2nz1Us2
+	OKiy/2Zs/pTtsxbO6S6dHG6lushRenUIRI5z/xwRUFP1VTmHvMU4Kua2yoBG7HsHdTpuDc/nuiB
+	PJE2xi4o5GxVEOOQNe0g2NBMEr+chm2Pfb4vlPFB+usDIjSXsq0cTK4TM82Qo2FDn0HpV81FpOz
+	KoKNxE+/S8DoAG/c0e19zss48rqMtBtKZrC/3D4ZYMq7xLWUtC5p1O/BhU6K8aVSp56WJ05fjgy
+	TBULfFgXriwVpovzyXs7dS+/a9Yil+VW9cq/x58i9YbJqLdz9GTA9v636iNGSR9+6kjFEWHRK/+
+	IHOaewcieSGS5cs+VG8O44l4Pt5AekcQKW0+AoBhnIeHIbMSMbGzR6qJEjin/x8NrhijUf6ahfw
+	kzyh3uKZaDim59iSqQdsD0IEhdHSSN8kDvLqs9qj1DqCHj0NElVd2Zbaz5ZvWyieY5Wc2rUSiS0
+	57DkstL14h7uRdgyQ2bqmpwHKJCc67r0kuxIDO2RvZxsrkKMCjStIYXzfrh2443oU/Z2xJ09Yov
+	YYrwqPPLfkDDXaX9Y9h/rd2l++8RVovVDRJtSJ9gZbj/Lelzym7WqRupIx3HEArjCq0s=
+X-Received: by 2002:a05:600c:4e43:b0:4bb:5bf3:8ee9 with SMTP id 5b1f17b1804b1-4bb8893c2d4mr277734055e9.31.1795498646496;
+        Mon, 23 Nov 2026 21:37:26 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb88402ce9sm323959585e9.0.2026.11.23.21.37.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Nov 2026 21:37:25 -0800 (PST)
+Date: Tue, 24 Nov 2026 08:37:21 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Jiaqi Shi <shijiaqi_develop@163.com>
+Cc: linux-media@vger.kernel.org, imx@lists.linux.dev,
+	linux-staging@lists.linux.dev, slongerbeam@gmail.com,
+	p.zabel@pengutronix.de, mchehab@kernel.org,
+	gregkh@linuxfoundation.org, Frank.Li@nxp.com, kernel@pengutronix.de,
+	festevam@gmail.com
+Subject: Re: [PATCH v6 0/2] media: imx: staging cleanup and FIM export to
+ v4l2-core
+Message-ID: <awUika9V8utfgFXc@stanley.mountain>
+References: <20261122114205.494704-1-shijiaqi_develop@163.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -96,9 +100,12 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MAIL:mse.ite.com.tw 6AO44G8V056318
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261122114205.494704-1-shijiaqi_develop@163.com>
 
-VGhlIFNpZ25lZC1vZmYtYnkgaXMgbWlzc2luZyBmcm9tIHRoaXMgcGF0Y2gsIHNvcnJ5IGFib3V0
-IHRoYXQ6DQoNClNpZ25lZC1vZmYtYnk6IEhlcm1lcyBXdSA8SGVybWVzLnd1QGl0ZS5jb20udHc+
-DQoNClRoZSBuZXh0IHZlcnNpb24gd2lsbCBjYXJyeSBpdCBpbiB0aGUgcGF0Y2ggaXRzZWxmLg0K
-DQpCZXN0IHJlZ2FyZHMsDQpIZXJtZXMNCg==
+Please wait 24 hours between resends...
+
+regards,
+dan carpenter
+
