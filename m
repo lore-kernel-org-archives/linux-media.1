@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795489527;
-	b=KR0q320l7TwcBfvpbxE5wr+PoUf5CwT0UVq2Z9Na9MTmOzDnQKlqiUcl3nqObXex6f3C
-	 6xDs0BLBoox3T8rHpXcG4NjGqN2VAy+NSDjV+U2zjKHdME7KJ5vhxmKnKaHuY2bwX0tEW
-	 QJGQEahO8huhbzPSmduMD/Nwt/jpN/1yYU0H4DCPSsCIIRD85rgamJdk6f+Wh/ple9/ql
-	 3AmdNS+NA9w4zcWETpOtEqPQ4d6MrSIn5n/vhqlVYoQhOCtVCXdziVNqwmXCl9nEXO0sf
-	 nEugtpPd8sNQzOMqEEDzqcgMaDYwLXJZxQo1LlDti3dOODEql2cTjXXJbt8XT6q6Vrg==
+	t=1795489524;
+	b=aBgbnpcchNdgW6T/e0QgXW7XDukKV2JxAyt5pJGKSCSWIzR6SOP4incRd97YCCTx2dCF
+	 Is5IJAoJtPfMEEeG3OjCAimi02uRX8qhwAKnYIUJb3J7a4zndHWR4+FMJn5/tkVHBz9Yz
+	 Tpct7db5fMaSxhoX4E7V2b27NG/4BHsCHKTqKUZSmBFOO6VeRq3y1oNxoD7WYbw2i2RsQ
+	 2LEwSviGubsR73ZmguRsEadwIqy3aEVJ9kfiP+d5Lil9joSvglfBelrjFFPBH1EHC/DF5
+	 aBf0bn6UZmQW2RDdNrIaUj7qii46md/mkpcWYdBaHDdSIRPGMdGLQwc+TPMVXH77UhA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795489527;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795489524;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=al+z87ufNXWaA/vy0OPeTYHPL2k+0pGDZQocxqmFWoc=;
-	b=y8q8B5S2ZssgKMXY8+2Kx+x9e0maZMLdT+G/cH8yX/ku7JpUpQfTfUoCIKk6j/klcMFh
-	 7U0uCekEaMPPssfEQBsbSFIIR+p19yVY03+wEVajRAZQv1St7C7W9i7O+4NLL7BvhOQuU
-	 YBUb65WVQ1TF4ZEAz0UZKyHgrXKZu7F0je48hUDJxOFBHh5TiLfvSKjS/0lWVRLT0RmMi
-	 b1BL0jp6V843mfBHInFhzkyC3jrenI6oRYE9wgD9Mxdyx+K4+7g+jxwwC/LXMuS3xodMd
-	 qc/F1gvPW81X4t08MP3UuOQiyxfOYHKPBrNdeqrb+wlJ+ctf49Ik5qSJ0YI3hoQFdMg==
+	bh=7Y0b+EXqWgsC/2mTNzo3FSSaaPYeFJP1R3fny40byqw=;
+	b=3SnZh9d/3NoLrDPkucrz8Nh6YCTAIjUHBc475LI8kozvh8uUjQOXpaCRahaGHlWWxoyH
+	 0aFp0pBCZGwJMmftJa9EylusV422FqLXOfwnB8aZEVw5nws0shbWYQGevykHQOvCVCjkb
+	 rwmxKaqG0mhar0dJleBgA1pzEdTJwjJ6w3pYHhNekDl4GDxi0sJjH6ERchOKHe4lSaZn4
+	 6NGM2O7vxfqrszm8CdNCzwpv5PDGthBgAJ3j7lU3hSeqN9dhC3s9s0E8epbJdpZLwf1p1
+	 bfTHcPfNHTDJGFUKAWQoK2Jase3fPypv5E9KMPT5mqnhQF3U+IYaaZu5lOneUg5fNVQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VZI/BuLE";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8hGT3pZ;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FEF4606A691;
-	Tue, 24 Nov 2026 03:05:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D0E7606A68F;
+	Tue, 24 Nov 2026 03:05:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZI/BuLE
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l8hGT3pZ
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795489527;
-	b=JFfIj+Y6Lg0wilyMCkD0TH6+OnvvaBFLkOVOwLEXDKxKTx8nwKU54su/G5zn7jJ5Y3Cj
-	 LMDjqtAVf2U+mYc6jDKoQttX3fjaBmqAWSbfLqXdBEFYWWuRSF2mMvsQeCrhxuQ53sNqM
-	 pm3fpL5Qy3nWNWTcPEQvWANJve5oLSLA5U9UVgR8DPi1XQf35uOdJwgQrDLYakgx2A8c4
-	 Y71aX2wsGyt/Y+XG7037JaH7LLAafn/GophdzALknEIhAeBJOo2704i9Titcjtqjcm2Ek
-	 5xjfYwu9mAkO1SPVX0DLlxtWUXRqf9EMyXpCUKzYlQE2v33t/cT60Gjd2Ng12wgQ+iA==
+	t=1795489523;
+	b=lHXcvvxuPKK8lC5WIyb3aJbeD7cJV6E50KzyGQLhpExNXL29Wd/nnZOIAQn+VLzyUp2j
+	 6zjivP/rH1hcF9TQ09f75bZDOl51en2mgY2tIB09XNZlQ9v9WASY8su4pazFAcmT5k3Ur
+	 duYwKufbhM/XlIlrrU8ynf0r2H+QvhAGGOMh3ObFeSBlazwRWDoY3NoBLhrjHrrPcGKIC
+	 yXf1HGXCqrxqtT/D1WSfE1GdOVsHvyn36yuQRcBzMmNzHgW9Ly/90xwcyb1YCeK/aS5Xz
+	 W3gIVP18icpHqDOnnRm2LQon0IDiZLzAQztbkx7HDQBWMr3oHxVj1uEEgP+iwGcMn7w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795489527;
+	c=relaxed/relaxed; t=1795489523;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=al+z87ufNXWaA/vy0OPeTYHPL2k+0pGDZQocxqmFWoc=;
-	b=SN8L5iHdrIooTVT0/VDajmXRIepiaddTkBK8VRwpWCkHMh11JzFF9OYB84koBESMI53b
-	 jG6dsGtf/yaC1pFu5RITtMoUSGtFs28LNtjG+RRYFnHeWBcPQ9pJKtUrwhDPqpsgHaZb/
-	 rhWNYG2Y+JtAit7YoiW3ydjJYBr4HtU2N1oLNz4IimZGT8kFd/h21oMIxdxIjwTNnRsF1
-	 AWtokq7PV00pamtVEGdNx3OrAgGvQpxYLPfnhk10il2KC7QaQ+LoKRz80UO1a/wEgvc/1
-	 LRSwfj7dJsDbxi53caAF/pf7h/Cf4pigBK5VE88kM8hRBCR1uas+7uJZqnAtA+P1zHQ==
+	bh=7Y0b+EXqWgsC/2mTNzo3FSSaaPYeFJP1R3fny40byqw=;
+	b=krSNT+1Z8Vt3v0A6j1ZXpS4WUnT1plhnZGfLzOEhaDXJmQqu3Vz8TFTS6+K5ONp/9AkG
+	 FVTZQkziaJro1nHd5K3y2GmniiT60W4397BBZ2s3Be++0SI9kiG1HRocmC7Ffu/XoICIb
+	 2K2RfptPdZ6SfApStjcIh4Ab8090Iqx7fPHYOMIE6i5FEG/pHtWKF7gSyilxdIJ4J7j3p
+	 Y8S3bcUW9XT+INHcz6yUAnX9LDzRVo0pbnYOELVW1wElnByQaDvtK2HZ6r7vsetEs6jR9
+	 IzerU+Ybz3odrS/qGaU4qdBnKhFl2770qHYAFWjPzmJkxE1/R+x1FkPJOUx1VN2VPJg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1A4261F000D8;
-	Tue, 24 Nov 2026 03:05:14 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 7AB101F000D1;
+	Tue, 24 Nov 2026 03:05:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795489527;
-	bh=al+z87ufNXWaA/vy0OPeTYHPL2k+0pGDZQocxqmFWoc=;
+	s=k20260515; t=1795489523;
+	bh=7Y0b+EXqWgsC/2mTNzo3FSSaaPYeFJP1R3fny40byqw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=VZI/BuLEwN9l5aHZAaVmCTzOXFKmxHIk74nFs6RfcwK6lNWPA4u0JB0aJOCY8JMeV
-	 l6SwSJqy2TgWHFtJnRfaNpFitAzM4Og43DJW7Kg5uSBOY8ByGLt6o7OpSPTy1A3Jh3
-	 i7n89m0bbdkeyoToNCmONpFsxkrFi35q3K6wQXQCHqqYCj9UNxtHbo/7A3bpmaMPzu
-	 0o/orhndrx/vdTLzmFtZi78DNqM15oEIVHZJ7Nju7U04BP1gvtUtjZA8zRPf9hfC46
-	 n/BU121lrwp4nljIjJClqQuggpJ5LtxfvXgIQep7wTP/1HxLDfSvr/BVhux7qon61G
-	 8SgNM7W8CzrWw==
+	b=l8hGT3pZACQGyJ5d5G3wZ3pFxxn748wpSS2O93SLgGF2+wM7oCQI197WfybTYL5Jq
+	 SSAPOlGP0UHBv4JghShy3WgrOY7U46UimlRwryW4qGaIe803eYPwcEeMeckasqP4RZ
+	 eXvJ0N06kS5OnDV39NY91GGPgfx4FjTETSeUC8xd8IG0tPyCRYhUBYLm4WVj8Jt/C/
+	 Dfj1E5cT4Trv6YzpJSmTF2Z0db2FOKZprM6mPGw+2aq/4hQDI0M6/blPghp3cCDNO9
+	 kOV9h73nlhSYly9gvKcP9YN3OHI3VS/J6saK8r6PMSoH+UFRBpISc3WcVausvqFo0f
+	 vuesooP+ouMCA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2658B4C86B;
+	by lkml.kernel.org (Postfix) with ESMTP id 07BCB4C867;
 	Tue, 24 Nov 2026 03:05:09 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Tue, 24 Nov 2026 11:04:42 +0800
-Subject: [PATCH v2 5/9] media: i2c: it6625: decode audio status fields with
- FIELD_GET()
+Date: Tue, 24 Nov 2026 11:04:41 +0800
+Subject: [PATCH v2 4/9] dt-bindings: media: ite,it6625: add audio DAI
+ properties
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261124-upstream-it6625-alsa-i2s-v2-5-a154685f6989@ite.com.tw>
+Message-Id: <20261124-upstream-it6625-alsa-i2s-v2-4-a154685f6989@ite.com.tw>
 References: <20261124-upstream-it6625-alsa-i2s-v2-0-a154685f6989@ite.com.tw>
 In-Reply-To: <20261124-upstream-it6625-alsa-i2s-v2-0-a154685f6989@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -96,13 +96,14 @@ To: Hermes Wu <Hermes.Wu@ite.com.tw>,
 Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
  Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org, 
- linux-api@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+ linux-api@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795489507; l=8899;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795489507; l=2454;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=WPk2YeGJwzNecWrsNwk3gR3OtFlVcXGJcpS5lV2f2b4=;
- b=WkjaNYjLCQElvm9sQTDxdzKHLv7QnjgTNMN/nvzEPF8VFTgP4izGThh6s0vUSMIBe5pmqkykP
- yqZifFHnqbACOkFvPzl6IU+RTwVoi/1BOJrIIg2UB4nFQPoQqZs3BVW
+ bh=N60t6qifQy8+4kcZ9BAZBOwk+hdXLMCBdE9iiMQSH94=;
+ b=HPrXDx5h7/ve3Dk3ljeUmxXH+JgyDvH5MNtJioTai6APjVXtmQ/ty+RDRfhtoIczssZivT9w8
+ 0LBp9CjNXM+AUDQBhiqsqBsTNPssT/WaO05kVJ4xxq1BNGSadWnuLmn
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -113,304 +114,76 @@ Content-Transfer-Encoding: 7bit
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-The sampling-rate control compares the whole HDMI_AUDIO_INFO1 byte
-against the AUD_FS code table, although AUD_FS occupies only bits
-[5:0]. Any set upper bit makes every rate read back as 0.
+IT6625 and IT6626 decode the HDMI audio stream and output it on an I2S
+interface, driving the bit and frame clocks themselves. The bridge has up
+to eight I2S data pins.
 
-Describe the audio registers with GENMASK() fields and decode them with
-FIELD_GET(). Collect the audio status in one helper that runs under
-it6625_lock: it reads RX_STATUS once, for both the video-stable and the
-audio-present bits, and reads the read-only stream description in
-0x6B-0x6E as a single 4-byte transfer only while audio is present. Both
-audio controls are then fed from that one sample.
-
-Drop the 0x6E alignment/delay/polarity/shift defines; they were unused,
-and the audio output framing is fixed by the firmware.
-
-Apart from masking AUD_FS, the controls behave as before: the rate
-reads 0 when there is no stable signal, no audio, an unknown code or a
-read error, and the present control follows the audio-present bit.
+Add '#sound-dai-cells' so the bridge can be referenced as an audio codec
+DAI, and 'ite,i2s-data-lanes' to describe which data pins are connected
+to the audio receiver, in HDMI channel-pair order. Without the property
+only SD0 is connected.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- drivers/media/i2c/it6625.c | 206 +++++++++++++++++++++++++++++----------------
- 1 file changed, 132 insertions(+), 74 deletions(-)
+ .../devicetree/bindings/media/i2c/ite,it6625.yaml  | 23 +++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index af6995dee8de2d820c593f4924adc6f7e031e61c..6ff5a5574b379c217138500887a041563158845a 100644
---- a/drivers/media/i2c/it6625.c
-+++ b/drivers/media/i2c/it6625.c
-@@ -83,25 +83,34 @@ MODULE_PARM_DESC(debug, "debug level (0-3)");
- #define REG_HDMI_VIDEO_INFO 0x6A
- #define B_COLOR_MODE  BIT(0)
- #define B_COLOR_DEPTH  BIT(4)
-+/*
-+ * 0x6B-0x6E describe the decoded HDMI audio stream that the firmware passes
-+ * through to the audio output. They are read-only and only meaningful while
-+ * REG_RX_STATUS reports audio present.
-+ */
- #define REG_HDMI_AUDIO_INFO1 0x6B
--#define B_AUD_FS  BIT(0)
-+#define M_AUD_FS  GENMASK(5, 0)
+diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+index b766f075dedd4668446856aceb854b24726a1266..d00a3d607e8a7893118bd25fa93136656b31703e 100644
+--- a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+@@ -43,6 +43,23 @@ properties:
+   ovdd-supply:
+     description: I/O supply voltage
  
- #define REG_HDMI_AUDIO_INFO2 0x6C
--#define B_AUD_CH  BIT(0)
--#define B_AUD_WL  BIT(4)
-+#define M_AUD_CH  GENMASK(3, 0)
-+#define M_AUD_WL  GENMASK(7, 4)
- 
- #define REG_HDMI_AUDIO_INFO3 0x6D
--#define B_AUD_TYPE  BIT(0)
-+#define M_AUD_TYPE  GENMASK(1, 0)
-+#define AUD_TYPE_LPCM 0
- #define B_AUD_MS  BIT(2)
- #define B_AUD_3D  BIT(3)
- 
- #define REG_AUDIO_FMT 0x6E
--#define B_I2S_WL  BIT(0)
--#define B_I2S_ALN BIT(2)
--#define B_I2S_DLY BIT(3)
--#define B_I2S_LR  BIT(4)
--#define B_I2S_SFT BIT(5)
--#define B_AUD_OUT_IF  BIT(6)
-+#define M_I2S_WL  GENMASK(1, 0)
-+#define I2S_WL_16BIT 0
-+#define I2S_WL_18BIT 1
-+#define I2S_WL_20BIT 2
-+#define I2S_WL_24BIT 3
-+#define M_AUD_OUT_IF  GENMASK(7, 6)
-+#define AUD_OUT_IF_I2S 0
++  '#sound-dai-cells':
++    const: 0
 +
-+#define AUDIO_INFO_LEN 4
- 
- #define REG_IF_LATCH_HB 0x6F
- #define REG_IF_DATA 0x70
-@@ -254,6 +263,28 @@ enum it6625_chip_type {
- 	IT6626_CHIP = 1,
- };
- 
-+/* decoded 0x6B-0x6E: the HDMI audio stream passed through to the output */
-+struct it6625_audio_stream {
-+	u8 fs_code;
-+	u8 channels;
-+	u8 type;
-+	bool multi_stream;
-+	bool is_3d;
-+	u8 i2s_wl;
-+	u8 out_if;
-+};
++  ite,i2s-data-lanes:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 1
++    maxItems: 8
++    uniqueItems: true
++    items:
++      enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
++    description:
++      I2S audio data pins (SD0 - SD7) that are connected to the audio
++      receiver, in HDMI channel-pair order. The first entry is the pin
++      carrying HDMI channels 1 and 2, the second the pin carrying channels 3
++      and 4, and so on. The bridge drives the I2S bit and frame clocks. If
++      the property is absent, only SD0 is connected.
 +
-+struct it6625_audio_info {
-+	/* false if any status read failed */
-+	bool read_ok;
-+	/* REG_RX_STATUS */
-+	bool vid_stable;
-+	bool present;
-+	bool avmute;
-+	/* only refreshed while present */
-+	struct it6625_audio_stream stream;
-+};
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+     properties:
+@@ -111,6 +128,7 @@ required:
+   - ovdd-supply
+ 
+ allOf:
++  - $ref: /schemas/sound/dai-common.yaml#
+   - if:
+       properties:
+         compatible:
+@@ -131,7 +149,7 @@ allOf:
+                   required:
+                     - bus-type
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
+@@ -153,6 +171,9 @@ examples:
+         vdd33-supply = <&vdd33_reg>;
+         ovdd-supply = <&ovdd_reg>;
+ 
++        #sound-dai-cells = <0>;
++        ite,i2s-data-lanes = <0 1 2 3>;
 +
- struct it6625 {
- 	struct device *dev;
- 	struct i2c_client *i2c_client;
-@@ -592,61 +623,94 @@ static inline bool no_signal(struct it6625 *it6625)
- 	return val < 0 ? true : !(val & B_RX_STABLE);
- }
- 
--static inline bool audio_present(struct it6625 *it6625)
-+static const struct it6625_audio_rate {
-+	u8 fs_code;
-+	u32 rate;
-+} it6625_audio_rates[] = {
-+	{ AUD32K,    32000 },
-+	{ AUD44K,    44100 },
-+	{ AUD48K,    48000 },
-+	{ AUD64K,    64000 },
-+	{ AUD88K,    88200 },
-+	{ AUD96K,    96000 },
-+
-+	{ AUD128K,  128000 },
-+	{ AUD176K,  176400 },
-+	{ AUD192K,  192000 },
-+	{ AUD256K,  256000 },
-+	{ AUD352K,  352800 },
-+	{ AUD384K,  384000 },
-+
-+	{ AUD512K,  512000 },
-+	{ AUD705K,  705600 },
-+	{ AUD768K,  768000 },
-+	{ AUD1024K, 1024000 },
-+	{ AUD1411K, 1411200 },
-+	{ AUD1536K, 1536000 },
-+};
-+
-+/* returns 0 for an unknown sampling-frequency code */
-+static u32 it6625_audio_fs_to_rate(u8 fs_code)
-+{
-+	for (unsigned int i = 0; i < ARRAY_SIZE(it6625_audio_rates); i++) {
-+		if (it6625_audio_rates[i].fs_code == fs_code)
-+			return it6625_audio_rates[i].rate;
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Sample the audio status. REG_RX_STATUS is always read; the stream
-+ * description in 0x6B-0x6E is only read while audio is present, otherwise
-+ * info->stream is left untouched. read_ok is false if any read failed.
-+ */
-+static void it6625_read_audio_info(struct it6625 *it6625,
-+				   struct it6625_audio_info *info)
- {
-+	u8 buf[AUDIO_INFO_LEN];
- 	int val;
- 
--	val = it6625_read_byte(it6625, REG_RX_STATUS);
--	return val < 0 ? false : val & B_RX_AUD_ON;
--}
--
--static int get_audio_sampling_rate(struct it6625 *it6625)
--{
--	static const struct fs_id_map {
--		u8 fs_id;
--		u32 freq;
--	} s_fsid_map[] = {
--		{ AUD32K,    32000 },
--		{ AUD44K,    44100 },
--		{ AUD48K,    48000 },
--		{ AUD64K,    64000 },
--		{ AUD88K,    88200 },
--		{ AUD96K,    96000 },
--
--		{ AUD128K,  128000 },
--		{ AUD176K,  176400 },
--		{ AUD192K,  192000 },
--		{ AUD256K,  256000 },
--		{ AUD352K,  352800 },
--		{ AUD384K,  384000 },
--
--		{ AUD512K,  512000 },
--		{ AUD705K,  705600 },
--		{ AUD768K,  768000 },
--		{ AUD1024K, 1024000 },
--		{ AUD1411K, 1411200 },
--		{ AUD1536K, 1536000 },
--	};
--	int fs_id;
--	int i, freq = 0;
-+	lockdep_assert_held(&it6625->it6625_lock);
- 
--	if (no_signal(it6625) || !audio_present(it6625))
--		return 0;
-+	val = it6625_read_byte(it6625, REG_RX_STATUS);
-+	if (val < 0) {
-+		info->read_ok = false;
-+		info->vid_stable = false;
-+		info->present = false;
-+		info->avmute = false;
-+		return;
-+	}
- 
--	guard(mutex)(&it6625->it6625_lock);
-+	info->read_ok = true;
-+	info->vid_stable = val & B_RX_STABLE;
-+	info->present = val & B_RX_AUD_ON;
-+	info->avmute = val & B_RX_AVMUTE;
- 
--	fs_id = it6625_read_byte(it6625, REG_HDMI_AUDIO_INFO1);
--	if (fs_id < 0)
--		return 0;
-+	if (!info->present)
-+		return;
- 
--	for (i = 0; i < ARRAY_SIZE(s_fsid_map); i++) {
--		if (s_fsid_map[i].fs_id == fs_id) {
--			freq = s_fsid_map[i].freq;
--			break;
--		}
-+	if (it6625_read_bytes(it6625, REG_HDMI_AUDIO_INFO1, buf, sizeof(buf))) {
-+		info->read_ok = false;
-+		return;
- 	}
- 
--	return freq;
-+	info->stream.fs_code = FIELD_GET(M_AUD_FS, buf[0]);
-+	info->stream.channels = FIELD_GET(M_AUD_CH, buf[1]);
-+	info->stream.type = FIELD_GET(M_AUD_TYPE, buf[2]);
-+	info->stream.multi_stream = buf[2] & B_AUD_MS;
-+	info->stream.is_3d = buf[2] & B_AUD_3D;
-+	info->stream.i2s_wl = FIELD_GET(M_I2S_WL, buf[3]);
-+	info->stream.out_if = FIELD_GET(M_AUD_OUT_IF, buf[3]);
-+}
-+
-+/* sampling rate for the V4L2 control: 0 means unavailable */
-+static u32 it6625_audio_info_rate(const struct it6625_audio_info *info)
-+{
-+	if (!info->read_ok || !info->vid_stable || !info->present)
-+		return 0;
-+
-+	return it6625_audio_fs_to_rate(info->stream.fs_code);
- }
- 
- static u64 it6625_get_pclk(struct it6625 *it6625)
-@@ -905,20 +969,21 @@ static int it6625_s_ctrl_detect_hdmi_5v(struct v4l2_subdev *sd)
- 				hdmi_5v_power_present(it6625));
- }
- 
--static int it6625_s_ctrl_audio_sampling_rate(struct v4l2_subdev *sd)
-+static int it6625_s_ctrl_audio(struct v4l2_subdev *sd)
- {
- 	struct it6625 *it6625 = sd_to_6625(sd);
-+	struct it6625_audio_info info = {};
-+	int ret;
- 
--	return v4l2_ctrl_s_ctrl(it6625->ctrl_audio_sampling_rate,
--				get_audio_sampling_rate(it6625));
--}
-+	scoped_guard(mutex, &it6625->it6625_lock)
-+		it6625_read_audio_info(it6625, &info);
- 
--static int it6625_s_ctrl_audio_present(struct v4l2_subdev *sd)
--{
--	struct it6625 *it6625 = sd_to_6625(sd);
-+	ret = v4l2_ctrl_s_ctrl(it6625->ctrl_audio_sampling_rate,
-+			       it6625_audio_info_rate(&info));
-+	if (ret)
-+		return ret;
- 
--	return v4l2_ctrl_s_ctrl(it6625->ctrl_audio_present,
--				audio_present(it6625));
-+	return v4l2_ctrl_s_ctrl(it6625->ctrl_audio_present, info.present);
- }
- 
- static int it6625_v4l2_sd_ctrl_update(struct v4l2_subdev *sd)
-@@ -929,11 +994,7 @@ static int it6625_v4l2_sd_ctrl_update(struct v4l2_subdev *sd)
- 	if (ret)
- 		return ret;
- 
--	ret = it6625_s_ctrl_audio_sampling_rate(sd);
--	if (ret)
--		return ret;
--
--	return it6625_s_ctrl_audio_present(sd);
-+	return it6625_s_ctrl_audio(sd);
- }
- 
- static int it6625_enable_stream_locked(struct it6625 *it6625, bool enable)
-@@ -1184,10 +1245,7 @@ static void it6625_irq_format_change(struct it6625 *it6625)
- 
- static void it6625_irq_hdmi_audio_change(struct it6625 *it6625)
- {
--	struct v4l2_subdev *sd = &it6625->sd;
--
--	it6625_s_ctrl_audio_sampling_rate(sd);
--	it6625_s_ctrl_audio_present(sd);
-+	it6625_s_ctrl_audio(&it6625->sd);
- }
- 
- static void it6625_get_timings(struct it6625 *it6625,
+         ports {
+           #address-cells = <1>;
+           #size-cells = <0>;
 
 -- 
 2.34.1
