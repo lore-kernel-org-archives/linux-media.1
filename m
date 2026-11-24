@@ -1,90 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795535768;
-	b=SQpJPsaT2gNczDsXl1jz7yfFdo1Akr8YwXrPURBU5o1JHJhurl2t8A9k37ZjibzfiQfM
-	 Z1KIdlYwqwy7HaUbvGrTkJEo9uGryysVZPn9IPs76RtxFIB4HdkEjri5KrRVUVbLE7fr6
-	 H+Kt/+IkD90zBWBb0ULnCvt1PlSldMw5ner7DICBjVA3xQvF7MVJDG6fMkziuwgMeH+/Y
-	 +/UzP2TA/f39TI3DOBi00ABH7DuIJ26ihAeHVwVaTq3Wf+nkAwbr6QcYQxez8IJqQ7D7I
-	 VgihfyxNQmYQH2ltZzKL26isWio7cj7WJWXi4e5fWPyb9Sd4m1YAtqVlrIS01+IQgoQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795535768;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=1FfVUciJC7SBDz64qLVYNqjkCG1iMZUPuQ/yeamSqyk=;
-	b=MMUXKekuzpQhXvzzN4YiNqa/6t+IyBZObBNGjJXt2whbS6rN3iXTuqaRZmnHB8xHDMI7
-	 Zo58b+ryJ3w0hPtH0TZ2YC6HBDEH3gih3HqWXWmzz6b1HYng3paMi/Ku15CjzivZ/VZvk
-	 wJqFZhNEAMNIOvCTksL1TfyWPFtzRbb+/NHz2kIdM4M/lLHHp9PcqJdJ8o9sRSZoHbvXK
-	 s/q+uP6FdpCGEMNkwTMxkAsepbWjzdCGBUYWBwpup4V0WALQfMpJlwuUmZpIswVUfUrBT
-	 zl/h5oHkTjyFkfAlRQcKviIXj5rpGNgc11WvTnad6CRaSJ06BKGawk2uJGF7oPvyUUQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ETofVZ8x;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.4
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795536211;
+	b=FKpD6bYoXZuyERAu1bUAeMIITdw9N6Y0eRL9V6OkjV2hBzWD17Os8eLVk0Y0zKR+6IWc
+	 /T2T8E7DAdt2NLCAPX9J3bRdrcns71DOAruLbjE5gzO5l6k25U2RHUNm0rI2BrYQ9xlgj
+	 /FC3BwTq7rVHEoU2M132CI8z5ErWEkYXGGZznzcv/VFtM50VJaOsimoCB0JEoauU7mPQN
+	 +oVNgxrqE+k6/SsOxSO/FX/NGmdSnKoLtMPUDgzTgjvrQ3Piv3FK71yPWGSgu/xHPOA3a
+	 hUlqZma7z/mo7tYnFpQ8KxevohcV3l6WvwR2s+pq4aOurKl2k5+Zbhz2XDbyBR2K7ug==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795536211;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=5bQJNMobLMqtuKHhwgVId/roqubolCM8LnRFW1vjp3o=;
+	b=CKqksOA4Y3FDOZH/FkXA9Sk5TJcrdrrl9GERA56zTohIK3tbA0RVLDGTWkMwAlnbbKxK
+	 aHRE0KBtM9jiahGfpU9EN/nM7SLSre7I7hShCOs7INtm7oC571PQ4aDLFP8ycGquLRVUB
+	 QlRDzl6Pua8AV+Tnf/5q1Z9Xbfm0i4t2HL3pZjwJCzTcWx2pEnn21jfdzVNMWNepeU1Hj
+	 aFQpj2plJwuI7I2totw7s1jL3loiJPZ4Vra5XIGPEw452fwC6mjhBc4RFYKChP/2w2X2Q
+	 Z4JUviutoeG0kjwp4ILZgBx0JobJbQMMK6HNdA5iDHoVqsXBCdXM5TpRQiHozEh2zCw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mbA21XMT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.4
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010004.outbound.protection.outlook.com [52.101.201.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B770A606A31E;
-	Tue, 24 Nov 2026 15:56:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B770A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A23E7606A31E;
+	Tue, 24 Nov 2026 16:03:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A23E7606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=ETofVZ8x
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795535765;
-	bh=ruxnBoOV6xGZY/CSfA+iq4Vpv8wHSpb/bh4/86Bx53I=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=ETofVZ8xrguINm0cpUpPyTjkAv/N0HvLyR9jy7i/Cds+ypgawZ8PCHZ+xw1nqYejH
-	 VVecFaUKipjF1VnW9ntnr86B73vMTdWvUnaWW4I8nrZttZNElnX0GMZAYow37r20Lf
-	 fPz4lx0hhUqLnKc8DAbKooL4kMDIvjdqKX7gk8e2ZeIXSK7l+Rn10aCugEWOrlud2B
-	 40VDiiLHhpHMg3E423NXFMY5acf8wQJWQFL0Vso5bLxbvPwTHeaSoD0/HHTcA0vAdl
-	 PRXrseaQwPz8NgO44BgPuYYbIXKRDQe6cmjL+YsfmpRrebxYvZIIFcMnaWKpCOkEQF
-	 n4KUwGbKDFmJQ==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9DB1217E0309;
-	Tue, 24 Nov 2026 16:56:03 +0100 (CET)
-Message-ID: <f963eac22ff18ac8df07a4654e41d27639ead883.camel@collabora.com>
-Subject: Re: [PATCH v3 0/3] media: verisilicon: fix JPEG encoder writes past
- the CAPTURE buffer
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: shomenkow@gmail.com, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil	
- <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Ezequiel Garcia	
- <ezequiel@vanguardiasur.com.ar>, Chen-Yu Tsai <wenst@chromium.org>, Hugues
- Fruchet <hugues.fruchet@foss.st.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, linux-media@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Tue, 24 Nov 2026 10:56:01 -0500
-In-Reply-To: <20261124-hantro-buflimit-v3-0-780903970ca0@gmail.com>
-References: <20261124-hantro-buflimit-v3-0-780903970ca0@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Yn3avyQi8rWR3+bBFHV/"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mbA21XMT
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gq0Jh1gCOjTATy4Jm2MMKtHvk65tQl0FSyePRv/vKMI98tnlaTxQYUqJN7Bg2/zAgqSo7uYP6bGPxxrjal7rq8pugKcFPkw2Z8i7noD5LDOfR9+TRTsFRAlMKnI44DBx5V3qrqUR64NqkUYnqznZkyephAo8t3QWg7QrZFaRkQNz09ZqLu2hUuhhHeMmLVatvkIoccwlQDQ20F5vKUhWULQz02jdO76QJPFECk9p4W6UM2tOWtVwCpMDV3h/184/QlPcGT71golPOI70XwBWAK/lb1Dnhl8eeiU2FXayNCsnMcV6bXOjc47uNgQMX4IEc4E28AAix8PtLQIXNZ9J9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5bQJNMobLMqtuKHhwgVId/roqubolCM8LnRFW1vjp3o=;
+ b=AnKh4GO2r58cT0mkgRyNQscqPeT9yQgLi/CSsPL1R265ulQHjKpd4a7ebxccUzyMCgDOR3XWuuT77Ec2JW3V+UWPq1mrGmNJ25MXm1JMHtMjSOUYq4OVbnQEbK938TRfKIPdNIcMntph/O3N9p5NLI6vhuiWNBPocMLSu4FKGLXCG2TDV7bNEaLI+7I6rK28gErgvOkiTtUBLI7E/qINIP4AqW2a8tWFVPD7N+6EUXMuzX+qmLyn75OwD7ZP42s5p7UYJITrkJKEBO/enAaKpg7s/Uxdyfb/kWmKz87IJpPBkJA8g2l8VSS0gR2LiKiv/PO3bU/68FCL92yG+J2+SA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5bQJNMobLMqtuKHhwgVId/roqubolCM8LnRFW1vjp3o=;
+ b=mbA21XMT6a1VPpfZHwdu5BOyKuhRJTcSCb6hRPL8WD7/8XmyZpsqFYRaLUkd3xW3Iy8rgBgbb1QsGZq1c3ERQ8DK4O1YXZi2N69DIOBEz7zC32I60PLmbeTZvkh6TywNfBUssB++jOsWhkrGYIHceLI1Mju7cMAjBo1aMpegJHQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY5PR12MB6179.namprd12.prod.outlook.com (2603:10b6:930:24::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
+ 2026 16:02:50 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
+ 16:02:43 +0000
+Message-ID: <7a5a2d3a-e42e-4dc0-8d22-8dd1bd249501@amd.com>
+Date: Tue, 24 Nov 2026 17:02:31 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Alistair Popple <apopple@nvidia.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling
+ <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com,
+ jhubbard@nvidia.com, chaitanyak@nvidia.com, Leon Romanovsky <leon@kernel.org>
+References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+ <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
+ <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
+ <20261123165716.GM179082@ziepe.ca>
+ <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
+ <awT8prWsj11TBdmP@nvdebian.thelocal>
+ <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
+ <20261124142032.GN9566@ziepe.ca>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261124142032.GN9566@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0045.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:92::17) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -94,118 +124,131 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB6179:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee4f091b-b256-4438-2ade-08df4a445f68
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|261102130727099003|261026121527099003|10067099003|11063799006|5023799004|4143699003|56012099006|261028144727099003|261022105027099003|261026140227099003|261021121427099003|261102123227099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	CSGAM0gi8jGkyMss17S7FUuh3CUCJyHW0gDVBrOLeQ0Nvw8Jl5Sk3ZbSQIcxo4GZo3B+xZrZ0q4zz3OrX6pFQ35QoBEzId6zmMS9BEWiDlwEPFvkMc7cj906oA0/ui1++IUjt+GVu4Fsu1xw0Mzx0oMygVPKyS/wYdtts44UiZ2S4hxQ31oFxasqp1jMa5Zucrl5PD8Y4bV63rCbk0woTpUodga+GQlCWlJmBKXmFpEMMa30s2+nVk0h1EeYaQHgK5zUgMfPmNEmMneXMIpXm4139Iowqc/w76BRkgv9Ljp/icf+vcrOLuhPgY+S0aIwq78OgTzjEQ5WfM3MglJKo521Je34YAxKEm5ZZLzmf8mEerrVCeXObBEYUtpdwKXvapxQwpBmbL58qZOEY533WXVQk5KWUtS5t0ptHzvNVrhfx6kWUCT+Xa+GjAlebIgRApL3/W0LyvjCZAtch9soI2K/eBFh7dgSp6VorU6q3cHW49MyI1Lq57FFXhCxzRcdJTinY6sGBqliCbp93VTVSj1cwxQm2bR6n6hz54QAn2/7Bd6ejtVkGnDKqDaNCqPgDbA82EsPCFtHsJx4HdQ/qXyu+dcMybNI+k5+ICETjTOli1J0EhW6uJgTk4I80Uzi6/qNmpCreX6ct28iKbvz/rzjpurIPZbo9OV0vz5YNuc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(261102130727099003)(261026121527099003)(10067099003)(11063799006)(5023799004)(4143699003)(56012099006)(261028144727099003)(261022105027099003)(261026140227099003)(261021121427099003)(261102123227099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RHh0WmJ3VC84SUhURnlVclRMdzhPbVdVSDVXNmpwcEY5cFk5SElvY21DL01n?=
+ =?utf-8?B?d003ckxkeXAxSjVHSENWR2IxS1ZOc09yODFYYnRrek9IZnZZZXFpR3hIYzda?=
+ =?utf-8?B?L0pqU3lXQUk3eVVaWE9RdjBwSk14ZmZiQm1SYUtMcXIxeEtWMU9maXFBU3lr?=
+ =?utf-8?B?V0VtU3ZhNUJrRmJlSUhPL0lEQjhHckthMWtDK1NucHpEWUJaRWR1N2hTcUxS?=
+ =?utf-8?B?V3ZwRjFRT3lwc3ZYaENkSGZyRnVZSVR6Sy80YTRFbGQ2czJkNkRaRUxwcXpI?=
+ =?utf-8?B?TjVLcDJEbk1aYVNuTGx4NFJYRmF0ajhscDA1M2dqc0RtUUV3aTlHZ1FZSHJj?=
+ =?utf-8?B?VlJodm5PeWNwWVNYcmE1T3FsSk0yb1AzcndMQ2p3MnNKOHdnaG4yQWNhV1Y3?=
+ =?utf-8?B?K2FIRWtaNEhlWVZ6UU5EUjVyUmRNVmFrQ213V2ppdGZCL1krOGRRbmV0S1hy?=
+ =?utf-8?B?UVo0Q01JcngwY0F6VlV6S0lubndCR0FiMzYzMk4wOVFBRkJXTFNFRFBONm5q?=
+ =?utf-8?B?elp6TG5vN3VCOUZ5a1I3ZFl1cFB1UFVObXgrWUQ5Qk80U20ycllweGw1Mk45?=
+ =?utf-8?B?dlQ3MS80eWpwcVlneHVhdm8xSGl6MDl3UTV2enc0ZUhERzI0TEd3QTRVSHVV?=
+ =?utf-8?B?S0Eyc3VuWHB0L0VUK1JsMHNmZEs1MzB3T2pjNGxGTDJoTUxkR0F0M3NhUFZJ?=
+ =?utf-8?B?TDY3WldjUnJ4NlV4Y1EzbTFBZXVXeU1MelJzMDVuSjgyMW9wOXdTU2pOUWds?=
+ =?utf-8?B?UHd4VTBXOWFQY3ViT0RGM0NORldwZXM5a056SVJ5cVc2Y0VycnUxQjc4VzZt?=
+ =?utf-8?B?V3E3emJRdGQ1RTh2MHJSU09TL2RVTko5Yk9PWWJERkJSS3Qyb0pDZkNJSFpw?=
+ =?utf-8?B?L0FLL0UxRmNNb09QY3NlRHh0VlVkb2Q2UmxDVEpLcTBHNnRYVVgwR09OTG5H?=
+ =?utf-8?B?d2dLblFMaWZoZEhwUFpyZEJXSTVQbXd6YjhNNERGZHhyS3VWU3laTVlYb0pD?=
+ =?utf-8?B?NGR1TjJ5d2pTRko2Qk5CUmRqVmg0Q2x6YUdYUEtBT0l6bU1mUXlnUWxCcFBk?=
+ =?utf-8?B?VWU4M29HZmNvdjVKcTdDTmMxdGZoRlZOblRYUWp1Y1pZSjdHWXZBY3lHWDAw?=
+ =?utf-8?B?T2ZkTm9zNFRmRUN6MEVlNXF2czhESFlqVHhSL0xoMGVhLy9zSDljb1RnNU1M?=
+ =?utf-8?B?ZFdsOU5uWmJHc2d2K0R5K1ZlNGwyYnpwZlBoSzRheURtQzA4SXhaQXNkQ09G?=
+ =?utf-8?B?cGRlWjRGMDdIMlBaSTUyV2M3WDkyb0hBN2lodUlqanpibFQ4c3M1d0tIZ0d4?=
+ =?utf-8?B?ZURTL2l6TnF6WmlQa0o2YmtFOU1CTEEwQXBTYlFDTzdhVzRlWUNzQjFuMDhD?=
+ =?utf-8?B?Mms0RDRXc0tYdkdFQ3RPeFlNOGltaUpwNC92Q3FBaE9GTVJuQ1k1SGFuZk9H?=
+ =?utf-8?B?RGt4ckF4Z0Jsc0ZiTUZUdXZtaHRuQ3grcjdpWWVYZC9Xd1lxRlpOU0pJb2lM?=
+ =?utf-8?B?OEJzTXpuZFRnQzc4Y2FjL0NybUl5MkhkbXhwZGphYUJGRXNLODhrUjlyQTRB?=
+ =?utf-8?B?dlF2bCtXTjV5disvODM4Y3NNNld2WjFKOUFXc3l3WXdzM25nRUhxNWJ4U2RM?=
+ =?utf-8?B?dkVMTVdiYmw5WnZITFNtU3JVVW4xYjhtQ0Uvd0JVWWIwMkhXMTIzQnZRMjdn?=
+ =?utf-8?B?YmhCbFhKV3dDMEFzTGNVR2VLMThaQlMyZTZ5MmZUNVkxYjJpT2ZrZmdKWTJN?=
+ =?utf-8?B?R1NqQzlUZnZFeTg4dERNOWFuS3hGU3UxZmw5VlhVR1ZaWVNocU82ZE5qbVVo?=
+ =?utf-8?B?TTk3QVBoRDk5bnBUa1RiMXhoaVVpNnFuMkl4dERzMDRWdHR4aW1raDVWWVpK?=
+ =?utf-8?B?OWo5dU9yQ1dkVGxVNERxM29GVUVuby81c3JPdjN5TE5sUGg0SjVaVmt3L1Zu?=
+ =?utf-8?B?WCtxOFB4UG9rbkdpWlV5ZFZmZ0Q2dk1UQlVRck5NNll2WU50YXJyR0JIT0pl?=
+ =?utf-8?B?ZEg3dERwWnJhSE9BWnJmdGIwMWJVRXBnSFlLdXN6RUR6VUYxSzVnbXJrMFVJ?=
+ =?utf-8?B?N1FnQ2tPRU50UnRGcS8xVEhma1AvcE5keTMwOGdnYXM2aUNILzdwWnRIbmdF?=
+ =?utf-8?B?VW9NeFBISlgzOFNuZkxzU1dlNis3eG5YWFdicDNYUk56akd4MjJzbndTdW8w?=
+ =?utf-8?B?ZFhMV3pMVHBsUUpFOWM3c0ljbWltQWhJa2RQdVptamM4UG5tWUhTTFk1VVVN?=
+ =?utf-8?B?LzUybk94WVBsSkNPanErL3Nqc0E2NUpFSjd4VlhnemszSUJOWHgrQWtBN2Zm?=
+ =?utf-8?Q?2thNZKfYtt+Mr00oiP?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee4f091b-b256-4438-2ade-08df4a445f68
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 16:02:43.2072
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HCJtcX6OJL5gLPJWv1WZrBnucO+5mrKnka3K10xkvL2RhEUSaVrMOP6mr1a+or3B
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6179
 
---=-Yn3avyQi8rWR3+bBFHV/
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 11/24/26 15:20, Jason Gunthorpe wrote:
+> On Tue, Nov 24, 2026 at 01:36:21PM +0100, Christian König wrote:
+>>> The core then negotiates compatible types and adds converters between them,
+>>
+>> I have strong objections to that plan and would potentially NAK it.
+>>
+>> DMA-buf should *NEVER* accept CPU physical addresses nor provide
+>> conversion between different address types.
+>>
+>> Keep in mind that DMA-buf is solely a container for DMA addresses,
+>> nothing else and it should not provide any mapping functionality
+>> whatsoever.
+> 
+> dmabuf needs to provide support for drivers to help them use the
+> interface, and going from physical to dma_addr_t is absolutely a
+> common task every driver must do. I don't care how you call it, but it
+> is a service that must be provided by *something* and matched to the
+> needs of dmabuf.
+> 
+> I will definitely NAK any direction to open code dma mapping in every
+> driver again. If we are going away from SGT then we are fixing all the
+> DRM mistakes, including the wrong open coded DMA mapping, sketchy use
+> of SGT, and abuse of P2P that seems to be endemic in drm.
 
-Le mardi 24 novembre 2026 =C3=A0 16:40 +0300, Sergei Khomenkov via B4 Relay=
- a =C3=A9crit=C2=A0:
-> The H1 and VEPU2 JPEG encoders are given their stream buffer limit in
-> bytes, but the register counts 64-bit words, so a stream that does not
-> fit the CAPTURE buffer is written past its end, up to eight times the
-> buffer size. A quality 100 frame of noise does not fit the default
-> sizeimage, and userspace can also set a smaller one.
->=20
-> Patch 1 stops the encoder in the VEPU1 interrupt handler after a
-> buffer-full interrupt, which leaves it paused. Patch 2 programs the
-> limit in 64-bit words, rounded down to whole 64-byte bursts, on the H1
-> and on the VEPU2. Patch 3 makes the smallest CAPTURE sizeimage of the
-> JPEG encoders the 624-byte header plus one burst, set in the variant
-> format data.
->=20
-> Testing, on an RK3026 (its H1 is Rockchip's VEPU1) only: without the
-> series the encoder wrote 230 KB past a default-sized 640x480 buffer and
-> 1.6 MB past a 1920x1088 one. With it, 17 overflowing frames, four of
-> them queued back to back, stopped at the programmed limit without
-> writing past the plane and came back with the ERROR flag, one interrupt
-> each and no timeout; the jobs after them completed, and frames that fit
-> are byte for byte the same as before. A sizeimage of 1 or 600 now reads
-> back 688. v4l2-compliance 1.30.1 on the encoder node shows no new
-> failures.
->=20
-> I cannot test the VEPU2 or the STM32MP25 VENC. The VEPU2 gets patches 2
-> and 3, but its interrupt handler is unchanged; Nicolas offered to test
-> the VEPU2 part of patch 2. The STM32MP25 VENC runs the H1 code of patch
-> 2 and gets patch 3, but not the stop of patch 1.
->=20
-> The bugs were found and the patches drafted with an LLM coding
-> assistant while porting mainline Linux to an RK3026 board.
->=20
-> ---
-> Changes in v3:
-> - Move the LLM and test notes below the --- line and add an
->   Assisted-by: tag (Nicolas).
+Completely agree to that as well.
 
-I've just learned today that we just don't do tagging anymore for this. So
-**if** you have to make a new version later on, just remove them.
+> Meaing the exporter constructs a phys_addr list, gets a P2P provider,
+> and some common code constructs what is passed to the importer. I
+> don't care if this is in "dmabuf" or some "dmabuf library" or
+> *whatever* but it must exist as common shared code.
+> 
+> dma_buf_phys_vec_to_sgt() is the template how to implement this
+> transformation.
 
-commit 1e035297ffdadf2184c3c773b8c098e372324aaf
-Author: Sasha Levin <sashal@kernel.org>
-Date:   Tue Oct 13 08:15:01 2026 -0400
+Well what I disagree with the dma_buf_ prefix here.
 
-    docs: remove Assisted-by references
+DMA-buf is just the container of the result of this process and it shouldn't hold any code to actually generate the addresses. That is simply not part of the job of transferring those information between drivers.
 
+The whole conversion from phys_vec to DMA addresses is something some API should provide based on the data the exporter/importer have negotiated (e.g. p2pdma_provider for example). 
 
-> - 1/3: add Nicolas's Reviewed-by.
-> - 2/3: program the VEPU2 JPEG encoder's limit in 64-bit words as well;
->   Nicolas offered to test it. Subject says "JPEG encoder", not "H1".
+I think we need something like a DMA P2P API which sits on top of the PCI and iova API.
 
-Yep, thanks, I'll do.
+> 
+>>> and having SGT as a type is what allows that. It only exists for unconverted
+>>> exporters and importers and eventually goes away once everything is converted.
+>>> The idea being we don't have to convert everything all at once, whilst also being
+>>> able to add support for different interconnect types. Are you ok with the SGT
+>>> type if it is just transitional?
+>>
+>> Not really, it just complicate things.
+>>
+>> What we should do with the mapping interface is to add the
+>> information in which domain the DMA addresses are to be used.
+> 
+> You need to negotiate the actual C data types too, especially if you
+> want to do that nasty idea where dmabuf populates an iommu domain.
 
-> - 3/3: move the header + 64 floor out of hantro_try_fmt() into a new
->   min_size field of struct hantro_fmt, set in the JPEG encoder formats
->   of the Rockchip and STM32MP25 variants (Nicolas).
-> - Rebase on media next aa0f4c41d487.
-> - Link to v2: https://lore.kernel.org/all/20261110-hantro-buflimit-v2-0-f=
-f7790def9fc@gmail.com/
->=20
-> Changes in v2:
-> - Trim the commit messages and code comments (Nicolas).
-> - 1/3: clear only the enable bit of H1_REG_ENC_CTRL instead of writing
->   0 to the register, and add a rate-limited warning per fault bit, as
->   hantro_g2_irq() does; add the H1_REG_INTERRUPT_* fault bits (Nicolas).
-> - 3/3: keep max(): it is a floor of header + one burst, the 64-byte
->   rounding is on the stream limit in 2/3 (Nicolas).
-> - Move the test numbers from the commit messages to this cover letter.
-> - Link to v1: https://lore.kernel.org/r/20261109-hantro-buflimit-v1-0-f0b=
-86ce61e66@gmail.com
->=20
-> ---
-> Sergei Khomenkov (3):
->       media: verisilicon: stop the VEPU1 JPEG encoder after an unfinished=
- frame
->       media: verisilicon: program the JPEG encoder stream limit in 64-bit=
- words
->       media: verisilicon: leave room for the JPEG header and one stream b=
-urst
->=20
->  drivers/media/platform/verisilicon/hantro.h           |  2 ++
->  .../media/platform/verisilicon/hantro_h1_jpeg_enc.c   |  4 +++-
->  drivers/media/platform/verisilicon/hantro_h1_regs.h   |  4 ++++
->  drivers/media/platform/verisilicon/hantro_v4l2.c      |  3 +++
->  .../platform/verisilicon/rockchip_vpu2_hw_jpeg_enc.c  |  4 +++-
->  drivers/media/platform/verisilicon/rockchip_vpu_hw.c  | 19 +++++++++++++=
-++++++
->  drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c |  1 +
->  7 files changed, 35 insertions(+), 2 deletions(-)
-> ---
-> base-commit: aa0f4c41d4870a18e65772a1817af16427200371
-> change-id: 20261106-hantro-buflimit-055e8029be23
->=20
-> Best regards,
+Yeah agree as well, but to be honest that task is negligible. We first need to figure out where to put the code. 
 
---=-Yn3avyQi8rWR3+bBFHV/
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Christian.
 
------BEGIN PGP SIGNATURE-----
+> 
+> Jason
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawWzkQAKCRDZQZRRKWBy
-9MdHAQDjvqhdhgvEC6yzU/xqI6jnBrGCFgk13OkznNveuqz5XwEA/akOGrITD/C6
-zKXV88e4lNC3w3pTzGblavFC3Rc3Wg0=
-=l58F
------END PGP SIGNATURE-----
-
---=-Yn3avyQi8rWR3+bBFHV/--
