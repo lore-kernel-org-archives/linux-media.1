@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795516046;
-	b=BDA9UMl/XGzgG/2pT0TGXstAWP6VIgWWh/T5b2yA0xnkPI4X7HUA+m5UETUAUBpmz9Hv
-	 puFs788TmSXb0+0k6oTZTyP6AkJhl1nJPvkNlbDjot90eriC3VCbCFgqOg404rKNwhKEK
-	 ariXlypPy17+6/uOeGwRifFj0Ar49Jt4c9VZ5y8mf/o1+m+ntkGSvZKojettC4IJsiBLl
-	 6cRq96S0D91F1XvlDh38YYgX9Sp8s8Wu5U59LKvQ993fvmhD2YAu6VWStITSYSXtb2/xx
-	 eDKwEeaIm7qKrAEFwewQsbWCQ8qhY5I3PqfnkRebmqP/QrVyfbkOWCk0++MP5ATmy2g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795516046;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=4A9LDC1Pxq66xRXpAnFLlD4joyJvsEB7ommipyTBSAU=;
-	b=0r296QIYyzrJN07yACv5naTLb6o2GSHcCCbgagodYMHzKv1cKX6vzRyhLJJGruFlqPvo
-	 rCr69hv0+j+Rzp9ckXY6S5wxzv3OgDdI4P3cXbQDK+rXf3XGa8j4swV61XivA8rwz78xH
-	 tOqzdDt9/LiHPLPxWGwzsozTHwwnz9pNqr5sCgE8QessUfVay6XS1tONEWqUIpUg9pOsE
-	 qO1COIE8++94ov3lYUBGuOY3PircjslCqFOKYDcFO4BmPgUH8MLOQ1KQFDgqSLFPiobBp
-	 t0rmxIiz3SQoyK1kS5KfSsEA7/Sh4oOlbDScWPZ+sff5f1zK1czJS30OvxbCr/Vy6cg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=IyJGpSNW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.112
-Received: from sender5-pp-f112.zoho.com (sender5-pp-f112.zoho.com [165.173.182.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84946606A31E;
-	Tue, 24 Nov 2026 10:27:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84946606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795516151;
+	b=SZkCc4WKUOUb+2XBBVCPQ4OMW5MsoLfVxw4uEpQioGVU0Lsh9I0uKUOCoWbU6gh0LpPn
+	 kt9axNGa1JEUbsqv13e/EHAjlhmnN8AhwK+z4pO9BDqwRKMZhJtbWvs3eMvym0i25a6+c
+	 vFq9DdqmFLEMmffeVP0MO127YRPakeP3VZFwND/srOwwlIFb4E3ODBblaWiuVe2QUxJFG
+	 VNpdEdbnLAGsAJc7UOdkYggypPEaln7i8ybk3YVlTWiOSTGP5YEyWEgDknm/2TwzXdhUu
+	 KWL5kMIBYrTv4IQGLoaO7WEp1z85ntSA5LiGhuncNW9eTTiTbRXXlTg7F/pOnq9DO0g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795516151;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=aOv2fgqUlerdJXBxK5Hav3YXg2qfWPCdNx3AT5SzyIA=;
+	b=uk5J/D/dkgpnFxGs4N+LxuEYTu87+0GQt2TI3Frf4uGFrNUFQL8KflNDeVkPNZ+ztl/W
+	 r+hXv7jMXY1/QmfljOm+ei/YhHm97w4A0lHrdR4HA9nUAt18YQ7diZd1CkLPvsOxP6IKZ
+	 dIN4bCuY+IhhzlYZ1cotVa7EoGTMQsoNW/gZIBplzr8UW20gZOMetvVB5qTpU1K1KJqUY
+	 yQcpKxGLjVcF0qixueKtjmvj15LqP/534qk+x8fWwqNDEnSDwqs4ge+sP+1ZSxLYRg8kj
+	 ZIkc1xZiciLOmiqD40tlZDy3s5TWqeBkgP6Fft/qAejd94e5XtMKhoAoLfRVFOgHCIA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=upkM9S0X;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E2E9B606A31E;
+	Tue, 24 Nov 2026 10:29:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2E9B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=IyJGpSNW
-ARC-Seal: i=1; a=rsa-sha256; t=1795516019; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=LfGiEdx8OjnCNigbjAA6/zn9RrTArJj2FDRUGgWVO5SPcAiahJmVxLsT627D3JaA8Igbqlk1yUjNWE7FultU3Bvjuzb7lmQFjH8Bltsder65QyePUvW12kIwQ2gD1J7Pm48uyCA6+GZGsGYkMcPrpWoVFDd0ThBLB7EqbRVig3A=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795516019; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=4A9LDC1Pxq66xRXpAnFLlD4joyJvsEB7ommipyTBSAU=; 
-	b=hPUujiE2ZP/ar4Z+UH5dqbDAOlu/PhBGp4xXAHQrjoOBPy0SqOKalskGYGBEDYLsnNLScobmFoTbeo1JD79xvbDAopeATWwr6kp+lgmkpB1lpo0xT+4lVe0wGqPJpDgkcgxjvN7idRhNZj7JKbfRXEYW6FhUTRxndJMcaQgIrzY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=IyJGpSNWB3Iy/ksv11xA0oHwGVyuEQzfVI+XPmi/aAJVMDKWAB3iuYQoMCoSwuI+OLtzXFjzqdUyIVoOUcKK8Ty899HJoO+qLXSiJ3Vusk85kW5XO6Xrtp9piULRsfRNBmr0mlJSrkVMRm7FRDOK/PvBotijXBWkz1DcEKOVRPo=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=4A9LDC1Pxq66xRXpAnFLlD4joyJvsEB7ommipyTBSAU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795515987257765.0607790829777;
-	Tue, 24 Nov 2026 02:26:27 -0800 (PST)
-Message-ID: <35884259-b669-46ed-a9e9-59cbfab926e1@collabora.com>
-Date: Tue, 24 Nov 2026 11:26:23 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=upkM9S0X
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0720B339;
+	Tue, 24 Nov 2026 02:29:07 -0800 (PST)
+Received: from [10.2.201.43] (e140322.arm.com [10.2.201.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 347AE3F882;
+	Tue, 24 Nov 2026 02:29:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795516149; bh=t1CXYGXa18yf8H8Y9wwtgRJEfot9MoDcp1L7I+Ri5fw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=upkM9S0XTGU7pt5JgU7w+TZdVWDdW9ldNet5OFgOg02pz/ashDdZ9I9itcYCIdoCe
+	 GwyqH5je5ozHWs1oaHktSKEm7/uFapHo1TN/MGVxucQ88JqqSaqjoPU5G5UMf7dhIj
+	 6w5z9TljkYOY8bUz6NgxJ76YX1d+QaZSyCAcu/S0=
+Message-ID: <5212782d-0474-4693-8a60-b4291e2a969e@arm.com>
+Date: Tue, 24 Nov 2026 10:29:06 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,79 +54,37 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] media: rockchip: rkcif: Filter enumerated formats
- by media bus code
-To: Faizel K B <faizel.kb@gmail.com>,
- Mehdi Djait <mehdi.djait@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, libcamera-devel@lists.libcamera.org,
- Robert Mader <robert.mader@collabora.com>
-References: <20261118203134.315591-1-faizel.kb@gmail.com>
- <20261118203134.315591-2-faizel.kb@gmail.com>
+Subject: Re: [RFC PATCH 03/28] media: mali-vpu: register V4L2 decoder device
+ and add querycap ioctl
+To: Nicolas Dufresne <nicolas@ndufresne.ca>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
+ Shobhit Pandey <shobhit.pandey@arm.com>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
+ <20261119153758.1426673-4-charvi.mehta@arm.com>
+ <91e8a132f2ddff24b30c244dff0a8389afa313fa.camel@ndufresne.ca>
 Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20261118203134.315591-2-faizel.kb@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+From: Charvi Mehta <charvi.mehta@arm.com>
+In-Reply-To: <91e8a132f2ddff24b30c244dff0a8389afa313fa.camel@ndufresne.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Faizel,
 
-Thanks for your patch.
+On 11/19/26 20:10, Nicolas Dufresne wrote:
+>>   .../platform/arm/mali-vpu/mali-vpu-vidioc.c   | 78 +++++++++++++++++++
+>>   .../platform/arm/mali-vpu/mali-vpu-vidioc.h   | 15 ++++
+> nit: I'd say rename to mali-vpu-v4l2.c to be consistent with nearly all other
+> drivers.
+>
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+The file also contains the V4L2 file operations and mem2mem callbacks,
+so mali-vpu-v4l2.c would indeed better describe its scope. I’ll rename 
+it in v2.
+Thanks for the review.
 
-On 11/18/26 21:31, Faizel K B wrote:
-> VIDIOC_ENUM_FMT ignores the mbus_code field and returns all formats,
-> although the video devices set V4L2_CAP_IO_MC. Return only the formats
-> that match the requested media bus code. The DVP output formats have no
-> media bus code, so they are still all returned.
-> 
-> Otherwise userspace can pick a pixel format that doesn't match the
-> media bus format, and then interprets the captured data in the wrong
-> format.
-> 
-> Signed-off-by: Faizel K B <faizel.kb@gmail.com>
-
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
-
-Best regards,
-Michael
-
-> ---
->  .../platform/rockchip/rkcif/rkcif-stream.c     | 18 ++++++++++++++----
->  1 file changed, 14 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-stream.c b/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
-> index 3130d420ad55..b117ba57bc75 100644
-> --- a/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
-> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-stream.c
-> @@ -395,13 +395,23 @@ static int rkcif_stream_enum_formats(struct file *file, void *priv,
->  				     struct v4l2_fmtdesc *f)
->  {
->  	struct rkcif_stream *stream = video_drvdata(file);
-> +	const struct rkcif_output_fmt *fmt;
-> +	unsigned int i, n = 0;
->  
-> -	if (f->index >= stream->out_fmts_num)
-> -		return -EINVAL;
-> +	for (i = 0; i < stream->out_fmts_num; i++) {
-> +		fmt = &stream->out_fmts[i];
->  
-> -	f->pixelformat = stream->out_fmts[f->index].fourcc;
-> +		if (f->mbus_code && fmt->mbus_code &&
-> +		    fmt->mbus_code != f->mbus_code)
-> +			continue;
->  
-> -	return 0;
-> +		if (n++ == f->index) {
-> +			f->pixelformat = fmt->fourcc;
-> +			return 0;
-> +		}
-> +	}
-> +
-> +	return -EINVAL;
->  }
->  
->  static int rkcif_stream_enum_framesizes(struct file *file, void *fh,
-
+Regards,
+Charvi
