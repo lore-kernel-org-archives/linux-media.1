@@ -1,90 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795489051;
-	b=b02Pr+8Hq/HYTQro8gKReGWDNT/9bCCTADcROHZkW7UZk+hSWyxJ/XYNcQKgA7ueAIKZ
-	 e7jRl07UJFoH2/nDqyra4t1KE2mpzC+KzbJH/mMIWdtRIG+Ni8ls6/K44DpeQbraVcSLq
-	 VG21GPaPoqeCHcx0ZfER10c00GDX2xT4E0XHUqPvkyiWmW1guhZzpFSQ1rp4tUkPr3PwT
-	 Y/W8MY+EF/7/1/MMkOT7w/RyssApiD7TL8MIKGrz36p1dop0BT+5BC5HqKE/R0r/Vn1lP
-	 wULTuNqmBOgfMJrQx7x4EwTh1rLFKZDONy6/haZCP5S2iDQVPXLYDc9yHoTNqinb1lg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795489051;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=kXq0Eheb2+1+jb0f/AeprT9shSL2ndw7j6GeQEw3A7I=;
-	b=VX8ZDDm3GnkhyZSgg4DtCrhOK6lm/XPNmrTZIw+oJp9Q1xH6kGzxHihefVnC0m9qORoe
-	 PjaR4xfsakfoEuYeRViBCr7d3BwJq/fu+l+J5aUIo45i5cXs0lLTfb526qXndTysoNZG+
-	 rcZGZdMNyQhsGGy+PPS5CxqbslPNIETClb6z+tLW8+UAU3aAJBAbhYpIWmZkRuxIGeutn
-	 dcqfvseDcbZpt20E5p6+tJToeBKQF8HLcHk560sOL5C0PNA+B/NGedM6v2SHoN1449vBh
-	 ERH+MSiA5miC4C9bLm2ndQsqKaOdkr8lZ2i9ZRFVkICnBbhNx0jAhxZDOURSm64Znmw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=pNpVseDq;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795489521;
+	b=KWOkNLfl41Lf44tuDKr3kjSrqhuMWejq3wiRqfPZXKSRrz7EBbKMSaeglML43LH1oLKn
+	 JPuO859u9w+V1jWSiosx3Ug8zn//Rkj6IBsN4oX8JQoreNGeSF28/ovjjJ9TzVTaiNzr9
+	 es8JlgV2BvLW4f8FHnuc0LLKEK+WxYS2bydHyBJFWyJjbDizCiGOtyTQOX6iRo96da6ca
+	 wmVXtw5lDi4sy4RPisKoDCIRodqimJsARGOxiEzVIKh9sKx+tT291xCP+Lt6GzGEwdpW7
+	 fxoQCovDDFGMIB0UjuwJmzABs1goDWybispyYb0E1qCLWmJ4PGdI+ltjNA1XfsCpwjw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795489521;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=UHVLcfEXWcKo5IQ2yszcnn0lWI8Jom8XqWiDSUae5Cc=;
+	b=BQXewR/cNyDSes1G2OsT+i5Uoh3plLuMJkUiZWh7ePrp+aZ6psyTnO0KQuvEvioWGXAK
+	 jd1fROSqdWigcerl6VG6Kx+/FOwEKFWdrChOLYSSSQtVQ9koIAM3deJDqx/xHcUENj00S
+	 gOnAk0rHucTmV6hSaMsvBV1v4hqfjKWgUIXrykEPxnqUeuThPUI5b1hkDsglYBCO2Vxu0
+	 YXcta5xhCWL0EbD/bf4JwwWj/WxHm82O+Mmgufltzc0jX7ikccqx+XEsBFMemYhi83C4s
+	 jLePDG7mArIbo9BDElDIEvAdnYmgIpWBclI6P/o3Jk+XmAXY0YDV2AW6Svww+jo8KSg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTO0D2mY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D42606A334;
-	Tue, 24 Nov 2026 02:57:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60D42606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A481606A680;
+	Tue, 24 Nov 2026 03:05:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=pNpVseDq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795489049;
-	bh=hBp4fEAeDQr7vaWjTTJLVZ0thKQS+kHTXID++ldMdgE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=pNpVseDqBYOSbhT6osS3YB5MY6gvkT82HwEeA8tS2yS2ptqubciruHGOQPPDndxXN
-	 p/MR6lTtO8+o0B9EAz2LtLuSnbfVCLQK2qbgCbrwMczmmi57ypTBo32kzeiQrrt00T
-	 o4Bi0LHmy/DkqWJ/U1WMuH81nvXDP7lC+B3wPZttFqe6GYFjH4u87lfmc2oIpykGkQ
-	 aYwK+m48UOUnQw6upl80KUvEtvbr8tYcieKqf/DgFzSYjcyXkat8yr3jI7URFmHSOD
-	 8KiLUTQrrb8BRXp8dDvffhBnuoHkAD4Yo/ZV/ndiLjjm/S26A8YvcO0AzBoo1JPApL
-	 6P3Zj95Otumpg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTO0D2mY
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795489520;
+	b=CIjkjkm0jR5Glz2ClrfyInJO239DXc/28wZJMFiL0WxXeosU+F6skrmZAGGWPJaIkgQU
+	 MOuYJqXhzZPe16KCxiZw9lBpKFesG6YK/RwlIVv4Vny+tbm+4Pgdd5ldE3rYUVvHjxlA8
+	 iWCU5OHoR8CexyZYI47YjfguZo5yCkgS+SrgBNswS9lk5/ZAFfTf4hxCOyuFMFiECbbyB
+	 dCRaKlTpZ0z4wjp4SgJB/FC6JP1aW1oSws7qQ+XHAD/ByKCnLDgUXcD9W01BTi+H8g3mu
+	 vN6xSWdKXA3pHkxGrofQRRvHLRRQCytzUAzwcu6cqwV3A0CCNUFS490kiXySgpOf/LQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795489520;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=UHVLcfEXWcKo5IQ2yszcnn0lWI8Jom8XqWiDSUae5Cc=;
+	b=1kErVA4DhYgaJWO5eRsCfkid+jqd08tDuRnHNIzpy7APVyWj2XR65fmeF5dCJn/SQ9CE
+	 /ajx0gnS3N2Hi9HYC9AAzmaImwxF/YS8JoN5qr4SQiEmsYhwD6MmjvpRJLeKYXkZbcihE
+	 +w1T2YtMyl+olTpKhL5yT3vNJnrHlHBIiOBqbDAwNIMOQ3BbQvNa4G8MqSteySuDlujQ+
+	 SIttZ8nVfhzGbWzK6Y6dQls4G0mA3IQSnFIGYhIdTE+mhcDd4RgMftFM1moHXu0nH3KsF
+	 fQlYxnQa+m8GPxgLQthcnophf0iYFjW+ZhRTSr12z2Jn0UBHmLRZ+ZVmAFBl3siGdVQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5367E17E00B2;
-	Tue, 24 Nov 2026 03:57:27 +0100 (CET)
-Message-ID: <03daf8e29ec2b53da4f626715b7bb08273237299.camel@collabora.com>
-Subject: Re: [PATCH v2 3/7] media: verisilicon: Keep the encoder coded size
- in sync with OUTPUT
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: aiyengar1990@gmail.com, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner	
- <heiko@sntech.de>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Hans
- Verkuil <hverkuil@kernel.org>, Boris Brezillon
- <boris.brezillon@collabora.com>, Andrzej Pietrasiewicz
- <andrzej.p@collabora.com>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, Sergei
- Khomenkov <shomenkow@gmail.com>
-Date: Mon, 23 Nov 2026 21:57:25 -0500
-In-Reply-To: <20261112-hantro-jpeg-enc-fixes-v2-3-de03e643c75d@gmail.com>
-References: <20261112-hantro-jpeg-enc-fixes-v2-0-de03e643c75d@gmail.com>
-	 <20261112-hantro-jpeg-enc-fixes-v2-3-de03e643c75d@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-uyQ3Q8y5bAy85ex1qmu0"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	by smtp.kernel.org (Postfix) with ESMTPS id 41D441F000CF;
+	Tue, 24 Nov 2026 03:05:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795489520;
+	bh=UHVLcfEXWcKo5IQ2yszcnn0lWI8Jom8XqWiDSUae5Cc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=LTO0D2mYf9jWHruGLWmfiHktZLa2bwG5p/UuBlOVYFTg54lOrDVyjdZydlOYUiCf2
+	 EiYAM23Qnryd9gkyVa2HXSfYceV0wVchev6Ns3g3HWOgSnjN+uJCQ0KCDfPYHCGPWc
+	 QX8EFQeiQMFVdpps4IMmyY/hkE34I9uF+VsCKKxdsHeV0zFzROBHOuA5BMDyIHQVxk
+	 L8LSvAvppt5vEL/BbBo67o989y+zIDd9coTmOf56e+2IWtiAKeh3pydYJP70dwTPGi
+	 8Jshm4EZa05ygDJQ3lDV6W6zE2qcspRf6AuGAYGAmi9GBuUFA9QOvTAaWCwg8A0Z8j
+	 LQRq23asfrGhw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C22404C85F;
+	Tue, 24 Nov 2026 03:05:08 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Tue, 24 Nov 2026 11:04:39 +0800
+Subject: [PATCH v2 2/9] media: v4l2-ctrls: add the DV RX audio type control
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -94,145 +82,156 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
---=-uyQ3Q8y5bAy85ex1qmu0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le jeudi 12 novembre 2026 =C3=A0 08:31 +0000, Arun Iyengar via B4 Relay a =
-=C3=A9crit=C2=A0:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->=20
-> On the encoder, setting the CAPTURE (coded) format resets the OUTPUT
-> (raw) format to the same size, but setting the OUTPUT format never
-> updates the CAPTURE format. Following the order mandated by the
-> stateful encoder specification (CAPTURE first, then OUTPUT) therefore
-> leaves the coded size at whatever it was before, e.g. the 96x32
-> default:
->=20
->   v4l2-ctl --set-fmt-video-out=3Dwidth=3D1920,height=3D1080,pixelformat=
-=3DNM12 \
->            --set-fmt-video=3Dpixelformat=3DJPEG --stream-out-mmap ...
->=20
-> ends up with a 1920x1088 OUTPUT format and a 96x32 CAPTURE format with
-> a 96x32 sized buffer. The JPEG encoders treat the difference between
-> the two as the crop inside the last macroblock, which is expected to be
-> below 16 pixels, and program the hardware with the full OUTPUT frame
-> size. On RK3588 this results in IOMMU page faults, a frame processing
-> timeout and a wedged encoder.
->=20
-> The specification says that the CAPTURE width and height are set by the
-> encoder from the OUTPUT format and selection rectangles, and that
-> setting the OUTPUT format resets the crop rectangle to the full frame.
-> Do that in hantro_set_fmt_out(): derive the coded format from the new
-> OUTPUT size, re-applying the CAPTURE constraints, including the minimum
-> sizeimage. As the coded format can now change from an OUTPUT S_FMT,
-> return -EBUSY if this would require bigger CAPTURE buffers than the
-> ones already allocated.
->=20
-> With this, the coded size can only differ from the OUTPUT size by the
-> crop set through VIDIOC_S_SELECTION, which is restricted to the last
-> macroblock.
->=20
-> Fixes: 953aaa1492c5 ("media: rockchip/vpu: Prepare things to support deco=
-ders")
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->  drivers/media/platform/verisilicon/hantro_v4l2.c | 26 ++++++++++++++++++=
-++++++
->  1 file changed, 26 insertions(+)
->=20
-> diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/m=
-edia/platform/verisilicon/hantro_v4l2.c
-> index c4e36a79eecc..e9d91504fab2 100644
-> --- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-> +++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-> @@ -542,6 +542,7 @@ static int hantro_set_fmt_out(struct hantro_ctx *ctx,
->  =09=09=09      struct v4l2_pix_format_mplane *pix_mp,
->  =09=09=09      bool need_postproc)
->  {
-> +=09struct v4l2_pix_format_mplane coded_fmt;
->  =09struct vb2_queue *vq;
->  =09int ret;
-> =20
-> @@ -561,16 +562,41 @@ static int hantro_set_fmt_out(struct hantro_ctx *ct=
-x,
->  =09=09=09return -EBUSY;
->  =09=09}
->  =09} else {
-
-You could fols the below if(busy) as:
-=09} else if (vb2_is_busy(vq)) {
-=09=09return -EBUSY;
-=09
-=09} else {
-> +=09=09struct vb2_queue *peer_vq;
-> +
->  =09=09/*
->  =09=09 * The encoder doesn't admit a format change if
->  =09=09 * there are OUTPUT buffers allocated.
->  =09=09 */
->  =09=09if (vb2_is_busy(vq))
->  =09=09=09return -EBUSY;
-> +
-> +=09=09/*
-> +=09=09 * Setting the OUTPUT format resets the crop rectangle to
-> +=09=09 * the full frame, so the coded size becomes the OUTPUT
-> +=09=09 * size. Refuse the change if it would need bigger
-> +=09=09 * CAPTURE buffers than the ones already allocated.
-> +=09=09 */
-> +=09=09coded_fmt =3D ctx->dst_fmt;
-> +=09=09coded_fmt.width =3D pix_mp->width;
-> +=09=09coded_fmt.height =3D pix_mp->height;
-> +=09=09ret =3D hantro_try_fmt(ctx, &coded_fmt,
-> +=09=09=09=09     V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
-> +=09=09if (ret)
-> +=09=09=09return ret;
-> +
-> +=09=09peer_vq =3D v4l2_m2m_get_vq(ctx->fh.m2m_ctx,
-> +=09=09=09=09=09  V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
-
-Its explicitly a capture queue, call the variable this way (or dst_vq);
-
-> +=09=09if (vb2_is_busy(peer_vq) &&
-> +=09=09    coded_fmt.plane_fmt[0].sizeimage >
-> +=09=09    ctx->dst_fmt.plane_fmt[0].sizeimage)
-> +=09=09=09return -EBUSY;
-
-Its a reflection I started on previous patch, but on memory constrained dev=
-ice,
-if application wants to pick a smaller size image and use lower quality, ma=
-ybe
-it should. Our newly introduce max size does not scale based on the quality=
-.
-
-In short, its a bit application fault if the buffers ended up too small. Wh=
-at
-the driver should focus is to prevent iommu fault, and too short shouldn't =
-do
-that. Are you sure you are fixing this the right way?
-
->  =09}
-> =20
->  =09ctx->vpu_src_fmt =3D hantro_find_format(ctx, pix_mp->pixelformat);
->  =09ctx->src_fmt =3D *pix_mp;
-> +=09if (ctx->is_encoder)
-> +=09=09ctx->dst_fmt =3D coded_fmt;
-> =20
->  =09/*
->  =09 * Current raw format might have become invalid with newly
-
---=-uyQ3Q8y5bAy85ex1qmu0
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261124-upstream-it6625-alsa-i2s-v2-2-a154685f6989@ite.com.tw>
+References: <20261124-upstream-it6625-alsa-i2s-v2-0-a154685f6989@ite.com.tw>
+In-Reply-To: <20261124-upstream-it6625-alsa-i2s-v2-0-a154685f6989@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org, 
+ linux-api@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795489507; l=5441;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=RNRg4EXuqjc+rzUxaNXgcFowld6CrgvTSSJCe7lTML4=;
+ b=tss+akdrZLs1Y6A2Ba9cLaDhT16sFldCf3WKa+iGPwco/VAETuXAWw0IBD9as/esGPfrPVAyY
+ 5LsW1bN5/xiAlxvCCJK1l3Ak1Gw8XYiX95MCmrB6FTaWnIPPcsGPIhQ
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawT9FQAKCRDZQZRRKWBy
-9EfkAP9KD+KaGFiGMk8f5D9OivNcABwldsFyIa4c2/citzNJ7gEAietLuEc3rV/j
-kkQZ2YINaHVfd3eTXOH9dyatN4CVfAc=
-=5zHI
------END PGP SIGNATURE-----
+An HDMI or DisplayPort receiver can pass on linear PCM, compressed audio
+in IEC 61937 format, high bit rate (HBR) compressed audio, or one bit
+(DSD) audio. Userspace capturing that audio needs to know which kind it
+is, for example to decide whether the samples can be played as PCM or
+must be passed through to a decoder.
 
---=-uyQ3Q8y5bAy85ex1qmu0--
+Add a standard read-only menu control, V4L2_CID_DV_RX_AUDIO_TYPE, to the
+DV control class with these four values. It describes how the audio is
+carried, not the codec: the codec of compressed audio is identified by
+the IEC 61937 data.
+---
+ .../userspace-api/media/v4l/ext-ctrls-dv.rst       | 25 ++++++++++++++++++++++
+ drivers/media/v4l2-core/v4l2-ctrls-defs.c          | 12 +++++++++++
+ include/uapi/linux/v4l2-controls.h                 |  7 ++++++
+ 3 files changed, 44 insertions(+)
+
+diff --git a/Documentation/userspace-api/media/v4l/ext-ctrls-dv.rst b/Documentation/userspace-api/media/v4l/ext-ctrls-dv.rst
+index a9117912e9cb255a2ce452147858d927e9e3c27a..feddf5dbe18665855f5ef362260e6439606bfc6b 100644
+--- a/Documentation/userspace-api/media/v4l/ext-ctrls-dv.rst
++++ b/Documentation/userspace-api/media/v4l/ext-ctrls-dv.rst
+@@ -168,3 +168,28 @@ enum v4l2_dv_it_content_type -
+ ``V4L2_CID_DV_RX_AUDIO_PRESENT (boolean)``
+     Detects whether the receiver receives audio from the source. This
+     read-only control is applicable to HDMI and DisplayPort connectors.
++
++``V4L2_CID_DV_RX_AUDIO_TYPE``
++    (enum)
++
++enum v4l2_dv_rx_audio_type -
++    Reads how the source sends the audio that the receiver receives. It
++    describes the kind of audio stream, not the codec of compressed
++    audio. The value is only meaningful while
++    ``V4L2_CID_DV_RX_AUDIO_PRESENT`` is set. This read-only control is
++    applicable to HDMI and DisplayPort connectors. Possible values are:
++
++.. flat-table::
++    :header-rows:  0
++    :stub-columns: 0
++
++    * - ``V4L2_DV_RX_AUDIO_TYPE_LPCM``
++      - Linear PCM audio.
++    * - ``V4L2_DV_RX_AUDIO_TYPE_IEC61937``
++      - Compressed audio carried as IEC 61937 data, for example AC-3 or
++	DTS. The codec is identified by the IEC 61937 data itself.
++    * - ``V4L2_DV_RX_AUDIO_TYPE_HBR``
++      - High bit rate compressed audio, carried as IEC 61937 data in HDMI
++	High Bit Rate audio packets.
++    * - ``V4L2_DV_RX_AUDIO_TYPE_ONE_BIT``
++      - One bit audio (DSD).
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-defs.c b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+index 579b2d297cc8246dddb4e8d4ab74aed1e6084744..05e8e781d964c488f3f8ce941c10b8474609e86f 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-defs.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-defs.c
+@@ -491,6 +491,13 @@ const char * const *v4l2_ctrl_get_menu(u32 id)
+ 		"No IT Content",
+ 		NULL,
+ 	};
++	static const char * const dv_rx_audio_type[] = {
++		"LPCM",
++		"IEC 61937",
++		"High Bit Rate",
++		"One Bit",
++		NULL,
++	};
+ 	static const char * const detect_md_mode[] = {
+ 		"Disabled",
+ 		"Global",
+@@ -722,6 +729,8 @@ const char * const *v4l2_ctrl_get_menu(u32 id)
+ 	case V4L2_CID_DV_TX_IT_CONTENT_TYPE:
+ 	case V4L2_CID_DV_RX_IT_CONTENT_TYPE:
+ 		return dv_it_content_type;
++	case V4L2_CID_DV_RX_AUDIO_TYPE:
++		return dv_rx_audio_type;
+ 	case V4L2_CID_DETECT_MD_MODE:
+ 		return detect_md_mode;
+ 	case V4L2_CID_MPEG_VIDEO_HEVC_PROFILE:
+@@ -1182,6 +1191,7 @@ const char *v4l2_ctrl_get_name(u32 id)
+ 	case V4L2_CID_DV_RX_IT_CONTENT_TYPE:	return "Rx IT Content Type";
+ 	case V4L2_CID_DV_RX_AUDIO_SAMPLING_RATE: return "Rx Audio Sampling Rate";
+ 	case V4L2_CID_DV_RX_AUDIO_PRESENT:	return "Rx Audio Present";
++	case V4L2_CID_DV_RX_AUDIO_TYPE:	return "Rx Audio Type";
+ 
+ 	case V4L2_CID_FM_RX_CLASS:		return "FM Radio Receiver Controls";
+ 	case V4L2_CID_TUNE_DEEMPHASIS:		return "De-Emphasis";
+@@ -1407,6 +1417,7 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
+ 	case V4L2_CID_DV_TX_IT_CONTENT_TYPE:
+ 	case V4L2_CID_DV_RX_RGB_RANGE:
+ 	case V4L2_CID_DV_RX_IT_CONTENT_TYPE:
++	case V4L2_CID_DV_RX_AUDIO_TYPE:
+ 	case V4L2_CID_TEST_PATTERN:
+ 	case V4L2_CID_DEINTERLACING_MODE:
+ 	case V4L2_CID_TUNE_DEEMPHASIS:
+@@ -1687,6 +1698,7 @@ void v4l2_ctrl_fill(u32 id, const char **name, enum v4l2_ctrl_type *type,
+ 	case V4L2_CID_DV_RX_IT_CONTENT_TYPE:
+ 	case V4L2_CID_DV_RX_AUDIO_SAMPLING_RATE:
+ 	case V4L2_CID_DV_RX_AUDIO_PRESENT:
++	case V4L2_CID_DV_RX_AUDIO_TYPE:
+ 	case V4L2_CID_RDS_RX_PTY:
+ 	case V4L2_CID_RDS_RX_PS_NAME:
+ 	case V4L2_CID_RDS_RX_RADIO_TEXT:
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index 52124b7acdeab787978029aa49ea75d0ad4cc534..942a1df3057e3e49c9111f6a27ec1883d964bf64 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -1303,6 +1303,13 @@ enum v4l2_dv_it_content_type {
+ #define V4L2_CID_DV_RX_IT_CONTENT_TYPE		(V4L2_CID_DV_CLASS_BASE + 102)
+ #define V4L2_CID_DV_RX_AUDIO_SAMPLING_RATE	(V4L2_CID_DV_CLASS_BASE + 103)
+ #define V4L2_CID_DV_RX_AUDIO_PRESENT		(V4L2_CID_DV_CLASS_BASE + 104)
++#define V4L2_CID_DV_RX_AUDIO_TYPE		(V4L2_CID_DV_CLASS_BASE + 105)
++enum v4l2_dv_rx_audio_type {
++	V4L2_DV_RX_AUDIO_TYPE_LPCM	= 0,
++	V4L2_DV_RX_AUDIO_TYPE_IEC61937	= 1,
++	V4L2_DV_RX_AUDIO_TYPE_HBR	= 2,
++	V4L2_DV_RX_AUDIO_TYPE_ONE_BIT	= 3,
++};
+ 
+ #define V4L2_CID_FM_RX_CLASS_BASE		(V4L2_CTRL_CLASS_FM_RX | 0x900)
+ #define V4L2_CID_FM_RX_CLASS			(V4L2_CTRL_CLASS_FM_RX | 1)
+
+-- 
+2.34.1
+
+
