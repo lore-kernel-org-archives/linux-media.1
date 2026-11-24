@@ -1,54 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795515248;
-	b=a3yKhGhQI7+gNZJZynJiMzZsIvdTUDzu5TDYrGYO/bpFNbQAkDGNK+FRvCHre52RuRDu
-	 GEf/uciWf1H50noDAbvUk4rq3fX/2tyUFYSOGRNZGMci+pGOug7Tb5oD6ZSReONH5RHyN
-	 RkU8UerfTUvdUlhkYnVAtYpfjzXeTxijDOXVjb5ptgrzrfAU28mXR5GmFtKOoCBdEncaG
-	 H+cjPi6iwBKqVaa1paF08M0Z9zHNTE7BwsATS4kNUel6DUzvrQiuXckUg1fpZdtY5652N
-	 vBRpvu4HwTmGYN1z3dRKIIyH6KPU4VqM9/ZFZ6J5xBrpJVrwFP6sdRDgvmEc3SeURvg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795515248;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=ggxALf/+oSv7/fUQNTwY+wOuX1VfxeKtlz/EiD0e6sY=;
-	b=Wx167FENbrnNKlEi0fZ5BynkRvBgKhtJsPlocGjWcpQ6mvb+5T7SoCN914Gw+ZfEsyVn
-	 FAHRx4nSx+YwwIby3V+rL9yFlLTzMFqzSYct14k++dguAHmnc+uf5/FzymiIHB8ot5C87
-	 ajFPRfq2LU2fQOZnuI1t6dqsrXqdYJNyuuHdthvd1g/0WlOT0HnSMPHISuPRXJQJrMraJ
-	 tXcUXXL8mPnEw3nSALJyQR6ckR4GSzYdftcA9FxpKZ+U/Zcms9iRTTfZeWGvmrKGMCK1n
-	 bxi8h4Twpbja9dhqsebssVh2oQq6PG0jadmjZPGooJI4ja+7br8FTJgAliDf8z8gQEA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hgQKAl8L;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.112
-Received: from sender6-pp-f112.zoho.com (sender6-pp-f112.zoho.com [165.173.180.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795515362;
+	b=DYDbwk5S1+laCQlUMp0cMMybJ9q6AruEbIjUk1mhWG18qhL/x5qVhF8QIfUgact6yquB
+	 wDOOwbTj5/j9kjIWohK/edy5AYLcrlqnDyi1NuuM6CCrKsZbnKfRGtW8Qmbym1gts4vIp
+	 IyLXzHgAgdoCW/1tzfbDNmi/kF7IAzuE3bjJ9ECtpetiqdEz7/qbfi3CBkZw/JOnvMRYr
+	 dGB49c0q9KrqTAathGN++8aJ0MM89pnMcOTv5ghFjRIRTo4uu0DnjvROGm7439hgmGZS2
+	 7OPADSJ4ustYtsOLZej/MKo/2etUvBPksQyD7PNVvIbbLKH6Axb3XYrRA2ICyJYhpOw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795515362;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=RrKfr9NI9CivHaA8pHjFoPu8oHwiXk5e1C77F3AOha0=;
+	b=QHTAzw7mxp2HqIfd8rTGhViQe2Qfd8USL6JQMDjzOjjjds3FphbAmuhl0K3m3fWigDJK
+	 dH1KnV9mRvsaN0tV9KCaM1x9qYO4eRvp8yYau1ETfvgDLzbnIiWDuAve6MM7xcT7NHINp
+	 k7b1nJVsgpEephdYTUFD8ly/DKrSEhiNmlX0agBOmj+OpHVsaqVVvROex9RfV0rg4mzUk
+	 xfAbWTBASo5n64qTBR7a9Wo+pcfqLUEk2IK0iaY3+jpctf0rLHkpf8LjEetA0fLnGgUJN
+	 62akeA3CO5rkLnJAW6jV0uo6hnF2pj+MAg87zV0FCGIhaqvJUfnotdZ3brQ5sDdQn3Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=BEzQ6evf;
+	arc=none smtp.remote-ip=209.85.208.181
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B765D606A332;
-	Tue, 24 Nov 2026 10:14:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B765D606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDE1606A327
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 10:16:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CDE1606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hgQKAl8L
-ARC-Seal: i=1; a=rsa-sha256; t=1795515220; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=C60D8F8WXN8UDjHKqr6llsekioU+KLgeLrzDyPom6k7c1gvWNOzoO3/3O8txC2crEIPXv+N+MAI5CyDInL3JEK5zJAXL3sa9tG5JUCfs7vngKOylZxy34Ht1el3Zv4U6aDB6SLGpYr3UrWsnGCsvL/IKvSkrPqGce+pA+472Blo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795515220; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ggxALf/+oSv7/fUQNTwY+wOuX1VfxeKtlz/EiD0e6sY=; 
-	b=AuJLV0+spDVt5VkLRGVqmCrA6EqEML/MlPzJAPv8BeGFi5Zw1KwHEazcdhYTTpMyi32GrCzmlYgR1GEZJ1gTmF4T/MwR2AEMSSRXdSlTziSvgsCxE/Kmf6CKWMciVgQqXqq9RNKnR4OWTT1lECu4JmTmmZq2J+nY3R0tVFyoB/w=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=hgQKAl8LTEx6YhT91goAVPs9yeYvUAj1FBJfHy5Da+QU+ea/LtMOg8etyjrNlBDOl/s8GCPtzEozW/7hS9/UsjrDxva1kGU20TunS35szgzpvvehXwY8U/TyUj6xuO4cxnvRchtZEtV+nVckm43Ts5CcNzrNLuJioBtPxg0VfA4=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=ggxALf/+oSv7/fUQNTwY+wOuX1VfxeKtlz/EiD0e6sY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795515217649395.0528793702906;
-	Tue, 24 Nov 2026 02:13:37 -0800 (PST)
-Message-ID: <e579e40b-9ee7-48ba-92b7-78f9dfffbeb8@collabora.com>
-Date: Tue, 24 Nov 2026 11:13:31 +0100
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=BEzQ6evf
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3adfe7a31dfso3017171fa.3
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 02:16:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795515360; x=1796120160; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RrKfr9NI9CivHaA8pHjFoPu8oHwiXk5e1C77F3AOha0=;
+        b=BEzQ6evfQL/UWxcO1jMemegBaiItWgXt7K3ICkbaB+XVjQx3epFSxALyZnr3KEcsHE
+         jmT41Y+/N5yi6qiRjAotOmDCy47AW8AmnIepEhRivFuxjhKXTwNLcNvRw6gyK0Blaj0B
+         16GA59m5BLke/QdOwHVVHRtC/49B+83NGxnh1loplB9EHrgNYfbZZiCp7kWgbUv8Q2fr
+         FNGNFC3FuI17j1Q/ivCovmgN0OgfUCrt5CpEnr4bQmq7sKX8fqYSXlzNYIl5e4T9EF5v
+         0TK6L/KUhPXEbbukolilaEUgXwdFwYnfy5KpOpJdNUgAson4KD5hmJi0wS1e4PPwblQ/
+         HzTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795515360; x=1796120160;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RrKfr9NI9CivHaA8pHjFoPu8oHwiXk5e1C77F3AOha0=;
+        b=Yv6tH2XpPI++/Ik0j+yJjXsHQO3QhsDglxI4XB4z3WUvzBwVPnAN3obZZO5nuK4YaH
+         +TzB92rnkHoGuVJ7jY01NDp+M+7BX5MYb3bBsMzqxdDDZtTQrVbyylIip8cOpjViZXNb
+         TmC1tMsWEH5ZayFglviL8VuYXRIvTOax203LM88eTSAkAl5YjwmT1oYld+2YYSj1Qk/4
+         Krh/Jx19b7gkG1eD/y/l9qLYZs+tEGH2aSvr95Lt6RA7Ou/PlZVAhWwReeE7b3pi6JpD
+         xmSolGwzSlH6A5VTKacpnBswxqr/IlReCuvZoaXFpy6GQW75Rh/mf8mtgpvZFe/Sg6Z/
+         yLKw==
+X-Forwarded-Encrypted: i=1; AL+hErFoZg2zYG8zzQqDvQhDHApzUJz/uO2bt/KWkAEWBtvDjL7wodd6BtCdMrBcY6IXUQqnym1aySy/1NEBqw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/La3tAJ2EGfcOsdm4OSxfWhGmN98/NFnyBsjthmdSI7kfX7x+B
+	i2USfpbt03HmofbWfWvNRyj3EKWT7vwoKDDe4slOlC+a4fkUCZ652F4MesmmlQPjP4A=
+X-Gm-Gg: AZFdTZeuE1TyhFwScq90FBJvG5LitmUBnaEqhHyV5G3awgXIOzsS5mBTFsQ/vdY5u97
+	KVuvLMhEDFaI620dWqc9COnWTwGav2c+uQPxVRVXWPYI5ytrCrZlREOb6IUvVsVc7XUdlmBBSOr
+	YnbwASw5lq8ZGWrMd+uvRnlB8o86X/0Cf+mmRfsjRYA0jeo+c5KkwIYhgFmkBjIm7RgXMZUGkYv
+	qWz031Hgiap2/Fbmo/z89jfJ/WzpjCVl9JeQORe+4rc1KwxY+Ut3f9they9R7pRl6ufVV5sCTIf
+	OA84lJStepDQ7/AMZrz/AaCRuDwhgkwKymiPn/Z92eMGfyBeBbGRT+LL9s0WKQ4mnFlW+gK36LR
+	v/wpHEaYjNTLszyDXYd7t16f60oCuBCDGn7y/1pnES/FYoMfM8MSHy79xrqUAjftcc1lmRgwhyo
+	nQxc3GbsSL5qsD1cTY2rGrcAqvWHeJVl919YK3DwOIxiDkdfb6iWbKhjEfm1+9hzx2w2xUUGshU
+	dlZUbXNE4Gml8WadgN0zLiSn9InrzF2+657QReQMD3EwyblFY2bCz0/zb9es+zgsqMxNMmSHQDy
+	mmf+yJp1IEa6K34Bfxq5kbif13uLCtyV5+t/2Tdj9YueOZYpJESV5NaUGJYbjYdLcBTtM/HVWGw
+	vfTjp8Wo=
+X-Received: by 2002:a05:651c:c011:10b0:3ac:dfad:319d with SMTP id 38308e7fff4ca-3ae7f9d6f4bmr30282431fa.1.1795515359820;
+        Tue, 24 Nov 2026 02:15:59 -0800 (PST)
+Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae8044e211sm38976231fa.2.2026.11.24.02.15.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 02:15:59 -0800 (PST)
+Message-ID: <a519c2ff-7d0c-4aac-9a17-b9e76913d659@linaro.org>
+Date: Tue, 24 Nov 2026 12:15:58 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,75 +92,110 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] phy: core: add generic MIPI C-PHY configuration API
-To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, david@ixit.cz,
- andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, bod@kernel.org,
- vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
- mchehab@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
- jigarkumar.zala@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com,
- akapatra@quicinc.com, linux-media@vger.kernel.org,
- krzysztof.kozlowski@oss.qualcomm.com, daniel@quora.org,
- konrad.dybcio@oss.qualcomm.com, christopher.obbard@linaro.org,
- alex.vinarskis@gmail.com
-References: <20261017041733.3946816-1-anusha.nandi@oss.qualcomm.com>
- <20261017041733.3946816-2-anusha.nandi@oss.qualcomm.com>
- <a6d8514b-269c-441d-b280-4895b5f21fac@linaro.org>
- <f689ccfe-4adb-41f6-b492-97a48090413d@oss.qualcomm.com>
- <e3d322a0-43d5-4369-bd09-128152f4b233@linaro.org>
- <8741d667-efdd-4e3f-a1b2-2f04255d7c7d@oss.qualcomm.com>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <8741d667-efdd-4e3f-a1b2-2f04255d7c7d@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Subject: Re: [PATCH v3 3/7] dt-bindings: phy: qcom,sm8150-csi2-phy: Add SM8150
+ CSI2 PHY
+To: Andrew Gigena <mail@andrewgigena.dev>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org
+References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
+ <20261106-sm8150-v7.4-rc1-camss-v3-3-0103e8a0bbcd@andrewgigena.dev>
+ <a9ab1add-5f04-4687-83bf-ca29a068ee33@linaro.org>
+ <f127954b-2255-482b-aa3c-cedd2311f77e@andrewgigena.dev>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <f127954b-2255-482b-aa3c-cedd2311f77e@andrewgigena.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Anusha, hi Bryan,
+Hi Andrew.
 
-Thanks for your work. I am working on CSI C-PHY support for the Rockchip
-RK3588 MIPI D-PHY/C-PHY Combo PHY and would love to see this landing in
-mainline.
+On 11/11/26 01:52, Andrew Gigena wrote:
+> Hi Vladimir,
+> 
+> Thanks for the review, replies below.
+> 
+>> Please double check if SM8150 CSIPHY v1.1 is capable of C-PHY:
+> 
+> The hardware can do combo mode, but the driver only implements D-PHY and
 
-On 10/24/26 01:20, Anusha Arun Nandi wrote:
-> [...]
->> The CSID needs to know the symbol rate - so that it can vote on the
->> appropriate NOC/CamNOC clocks/rails but... does the PHY driver itself
->> need to know that ? It does not, symbol_rate is not required in this
->> struct no more than it is in DPHY.
->>
-> Yes agree. I was thinking the same. We would not need the symbol_rate in
-> the struct.
+"The hardware can do ..." is necessary and sufficient, when you add
+a device tree binding description, anything else is irrelevant.
 
-How would a timing calculation like in the Rockchip downstream [0] work
-then? Can this table be implemented once in a common helper, and the
-resulting values are passed via the struct?
+> returns -EOPNOTSUPP for C-PHY, so the binding stays D-PHY. Would you
+> like it documented as "not yet supported" anyway?
 
-I am new to this spec so please bear with me, but it feels the symbol
-rate should be in the struct?!
+You may add a short note to a commit message, but definitely not to the
+hardware documentation. Hardware is not dependant on driver status.
 
->> Sample principle.
->>
->> So _really_ thinking about this I suggest
->>
->> - Following the DPHY example
->> - Including all of the CPHY specific timings
->>   The ones you posted, plus the few I found missing
->>   Any other relevant CPHY timings we may have missed
->> - Include the helper functions in drivers/phy/phy-core-mipi-cphy.c
->>   IMO we should use defines not hard-coded constants for the
->>   specification of the timings here, unlike the DPHY code
->>
-> These comments will be addressed in the next version.
+> 
+>> D-PHY combo mode is also supported on the SM8150 CSIPHY apparently,
+>> it shall be reflected in a way that two endpoints could be present.
+> 
+> Split mode is described in the binding, but the driver rejects it, so it
 
-Is there any ETA on that? (Just thinking about whether I should test
-base on top of this version or wait for the next one).
+Don't look at an incomplete driver at all, when you provide hardware
+description.
 
-Thanks and best regards,
-Michael
+> cannot be used today. Is it fine to keep it out until the driver
+> supports it?
 
-[0]
-https://github.com/rockchip-linux/kernel/blob/77168c8d5ab82399f65a80e9f807b50ba37cf483/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c#L237
+This change provides hardware description only, and anything related to
+one or another driver is irrelevant. However since downstream driver
+provides support of some hardware features, it tells about the hardware,
+and therefore this information should be represented in the dt bindings
+documentation.
+
+>> In downstream camcc-sm8150.c, PLL0 is on MX, and PLL0 supplies CSIPHY
+>> clocks. I believe MX shall be added to the list of 'power-domains'.
+> 
+> You are right that PLL0 uses the MX corner in camcc, but that corner is
+> internal to the clock controller, not a power domain of the CSIPHY. The
+
+Formally yes, but probably CAMCC driver should not enable the MX power
+domain, if I'm not mistaken, there were arguments against it and to
+delegate such logic to a clock consumer, which is CSIPHY here.
+
+> PHY only consumes the top GDSC; SM8150 uses legacy GDSCs, while on X1E
+> MX is a real power domain attached by the PHY driver.
+
+Here someone from Qualcomm may help to get better understanding.
+
+If MX is truly not needed, you may add an exception for SM8150 CSIPHY
+dt binding description.
+
+>> Still it would be preferred to get 'vdda-0p9-supply' and
+>> 'vdda-1p2-supply' properties.
+> 
+> Renamed in the binding on v4, the driver and the DTS, matching the X1E naming.
+> 
+
+Good.
+
+>> In general the change looks good, thank you, but likely it can be
+>> embedded into the scheme for X1E.
+> 
+> Clocks, register offset, power domains, lane table and timer all differ,
+> so folding it in would need if/then blocks for almost every property.
+> Would you still prefer that, or is a separate schema acceptable?
+> 
+
+I believe it is good enough to embed SM8150 CSIPHY dt bindings into X1E
+CSIPHY dt bindings.
+
+These two pieces of hardware are non-compatible, but they do belong to one
+class of devices and can be described by the same dt binding documentation.
+
+-- 
+Best wishes,
+Vladimir
