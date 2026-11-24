@@ -1,86 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795557336;
-	b=kh/3Km6XRsBorVpkR1qD6nP7nJ6w7HzXhJMC9a5GVpISbVokoQymClGFpJ3dSVbAOWVe
-	 LGRb+BwkIDwKmi3/IVixa2Ly3NTPhK+ZmisEhTPW3xLwGyFqGw5xy6GIzmY0g7G61WqqJ
-	 b/CRdbU88MLH/7kLpBUptAIsB5tAQuU2mO7t0oBCcyqsRkGDnoi8nXu9e1qoT/gbSafJe
-	 d6OZoc9g05PG5CVXNwD0yPRdrwIqNJBuRyFzKcL7YzwWgO6w4FLSZ+V+WOD0RSs7qBF2y
-	 EqFUpwpeI3YeARSLwek+JsdpnX3WFU8hJazj/2phlYC1P2gnf4S2gnaLhNWbtPM5V+A==
+	t=1795557493;
+	b=k3eiNujc7a6AwGIFLS8kldzTp7BmswtDxPxn8Lz6Qe/ZBeCsYpRi1aMEchXimcqPj9Ox
+	 pzjYP9imUj8+g5zrIwM5O7wvSNoGNPvW6xffJ10PgjYGUCQzt5ckCzeqm4+uz1/Mvwz9A
+	 TzeTe4Q2PPL2dzOq/lJkkVbCaXpw1dGpc+0TcaJi7TpOyvq6zNpQD+SZp9mjb9SVHuZ+z
+	 epnOb1YVq1favxz+Lz2o1n6tQ5Qr1cPkEEV7VWLlLVXQM6gYwKCvNBodI3BRlYrpvPWDN
+	 GXIdGMNs+vqD6QiQoQlSmn0FGGjDKI5gHvaO/fEK39Z8w6uH65Nwufhy6ykzyzVfffA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795557336;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795557493;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
 	 Content-Type:User-Agent:MIME-Version;
-	bh=kT+xuhaSl/fUoT3wmVVtDAie9WoGC5vXXYFsJEveQVY=;
-	b=iKoWczSnifa81+m5a5HBW1HXM7UPjncKv0REfvA9HTJfixj+sigx1/JgafG3V0+OZL5m
-	 z7hE4RlJ0je77z009fiJL5XUltRfR3lnYbYYLfnIB+ggmyQjQsCHWauEIEJ8+KfQ0WvA3
-	 D2pvkLUFlGTzRT4PhelLKF6RdhRXFHDKH2Q2gtxi1A1+Vvtf7EXNkSXEY58FrbUiKfXfS
-	 nNmLjHeLxvlY1H8pIFKYvLQKiFvmRpZ34AczWYUYc2tjk72Jhb/LaCL+KfVCjmkIoKPND
-	 dnA4WI+PFKO9tsV4PtSY3zgEIuDknSo+a0DCYbHILDMvWnkLncFFv20ho9wxaD7cwWA==
+	bh=aa7YPfOROhEx6JieLJ3TSEkUZ7Fh13WAPekCnuIIbKA=;
+	b=45FQS4mn7A9WJiymoOOQJkRx7gOxc86VlWgSps8EnlTY4olNy1/pjPzxR+YlyNHx/EXY
+	 W9xRWuFb7JXxH26gHi8KC7CMKLzB/JfhBUC3hOIANdsFSs4w7jQ3Zu1ew8MKDvYUx7C2B
+	 4ogjx0wXbw9XhUsfDGYeIa4x+q+7rxi+3n4DOBmAekxL8e7ZhUQ42bJoUUHUlu/wb0Icg
+	 CoO2EtJPJZW8YphOtguU6CmJeAN+IL8NrS2SQsC09nEI4K1aA5uRd3931cvp+LXa0j+Yc
+	 swhIiqOOoRH7d1//UTgAsmDqJt2tU4YC1TqQtdFZaFPp6uvNjbt1WA1fpi6liE64Isg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ndufresne.ca;
 	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=b8r1vJAF;
-	arc=none smtp.remote-ip=209.85.222.178
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="l/S5P4hq";
+	arc=none smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2450F606A327
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 21:55:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2450F606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58453606A321
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 21:58:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58453606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=b8r1vJAF
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-943e8d35f74so498576085a.0
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 13:55:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=l/S5P4hq
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-55d3563e50eso29114411cf.0
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 13:58:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795557335; x=1796162135; darn=vger.kernel.org;
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795557492; x=1796162292; darn=vger.kernel.org;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=kT+xuhaSl/fUoT3wmVVtDAie9WoGC5vXXYFsJEveQVY=;
-        b=b8r1vJAF+Qb4L1Yvt0Auw0Qcac4cSZd6TeLHZDe51IwU7fSXdMiHPtLGDcJajpUsvg
-         Hgf+ui8AD9NpuWm0GYgb2gW6Bju8FT+Z6s0QuurwRk0LH6HRxpSf/YTcMjVJqWBuKuYl
-         3U0PUugbkPtu0bdMjQm79Fkt/dmyYGYG8UzzODtXEZ9GDPqhOwv/XQsykqqBjJ1ZioVH
-         qKcDFAHb8sf0FK59ebLwlJaFpGnEWnOG+/h7bMsvDHclOHlMQ/YikdguL5pQakpK2ybK
-         2aava31jjsQLnon1iQ0wd2TKzrXc0r9vrdajsIy2v/fyTLE/4b3Btq9IvPXOA3X6QVwa
-         f0Nw==
+        bh=aa7YPfOROhEx6JieLJ3TSEkUZ7Fh13WAPekCnuIIbKA=;
+        b=l/S5P4hqCvL94AjUk5b9ne9H1xJd9oho6SRjlcv96sjrcFsyAc3OuboHG3NRfcyEdB
+         OFFkiLRZjiyy/ykt55VenVCHzbpuH431SsYd4RW3mDJJbMCtGzoLNGJzrPzUJ3QNzH+y
+         zNQyQSkclGcE8Z4yTWMNkwllmyc75jcpFC1OTK8er/7hlPqylIvaTUlerQ/6Kuuo7c2t
+         sI3ZjJSDwa424rWn+zMHw3YOZhQ7tYfEVdk9C6UuejjCcnmNQdDwcHZ2qgMniZ9688uv
+         bmQeljcPfVTU2UHO4Q8pCgUDRzWUhSyasb/5/2gGp3atWUG4fTjdFQhad8iUj9pDJPJt
+         7XiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795557335; x=1796162135;
+        d=1e100.net; s=20260707; t=1795557492; x=1796162292;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kT+xuhaSl/fUoT3wmVVtDAie9WoGC5vXXYFsJEveQVY=;
-        b=iZ/IK7lM6ZTun+GQvUAgrpbw7NX+9DtpE4CfK4wXC58dNRsdXAC6vxnbDbvR0+519z
-         TZ7hmIXVjAD5DsdPIaCW4oe6M6nN3eIa8ig/2WtJOWOzVp67YJSrtvwgRpLkMCGO6Ob6
-         OY1qOXzf7lB1QF9inR1Sz4/gS6gzIgoL0IuBdp9gDkXVvbV7tveC5tS+oLDAHex+4zrY
-         4j7r/mt7KlVAtdz8GmvPqQeNkZehDfjaayTl+oIDMfyYQbpMnNeSbfYbdhy8j2WX8R1X
-         sM3vC2jQSmiUee0ttufWs8iR+wxW/jYQT30J2lRuUiZTq0h+GHlUZNU9siAorOWEKiMW
-         O1oQ==
-X-Forwarded-Encrypted: i=1; AL+hErG+vHruQXj5hpm7b7IjYMZIe24FZouV16nvwRVOina5IPBpLhAnzPYYgkgQ8qzKF8Abjfz3AKQEYV3Yvw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CUC/lmFf7+7Mlb7ksAr1IHBZC0vbgOih+LLr9quOYDc5eOuLR
-	wOEo7mvaR+z15HPdSFfGmigz3sqbl4h1nISD+F+KwRVUHWWZd0Dz9+eQz2HUSwTUdp0=
-X-Gm-Gg: AZFdTZeu6ZPNnL7QL3WVsOb7m0D4U90HQiI4qgmXp+DO5ziiNzBLcStZ1Julw6E5lMr
-	cRK2BpMKq9iUlBVx85cMSM/pkt405x/sJzbmPdAPUa5EGmz6yR/yVIpc1lU8tfL9NHkwmpH5ibO
-	NFqob9i4uJBI1EGkdMxIBuoVchdzPd0ECzuutyr3n1gzLBJw31RyldBMj8tR4Zf9sfM+23j85sM
-	v9Y9/Uy8o1VHlEIuvODB79pic8LLwo6ULXdfkFQpIKLsBzdc16YmXFN7oJ/RjlcT7o6kSyd440u
-	w2BfqxJ9+g3uj/M3bcuxSQ1K2s8wDFpHPej14B0JShIpTNvFLGf3lP7YHVO36Vg8sOcuYWGG8H/
-	59G9Fd7lWl3gMRZ1pTq/nuQzGsvjz58NBIhiiKw73XnaBcvClPqvmU85URP1RJePdiJMUHw/aYn
-	H7bN8p5K4eXZez/vncmJbhiltwpuCJLCcJaC3gEvd3L8eca9fpdalOeTypwfZeuwcn4hjpnLvZZ
-	ocWCY4fFAEBbKuMn4sRIhx6Z87n/9EyvT2v+1lhDmxukAm26klbZ5sUuvyCmpBUjwEaLOpkEBPf
-	cattClcpFfQaINQpH4NE7J6ZASP3u9qQXFgO9TptDTxJ81sE3mV47So=
-X-Received: by 2002:a05:620a:1305:b0:949:74d8:46fb with SMTP id af79cd13be357-949ba9b385cmr2910405585a.41.1795557335002;
-        Tue, 24 Nov 2026 13:55:35 -0800 (PST)
+        bh=aa7YPfOROhEx6JieLJ3TSEkUZ7Fh13WAPekCnuIIbKA=;
+        b=KoHfECx2//N7cwyvLmcUQ+XW/NlWzdGKK4kXE02nT3O6JIJwGqS70FOOdcRN5FHnRh
+         eLoc4bM3OEYfli8rs6klJ2JgMexns6H7xmU3G98cdJeJKS6C9XoA7qqeK8OiMZpCer4z
+         4vDp5i9xQ/JC3clcbLf5ymSi7CkEsfztp7Dn+wsgn60rzGG/VWg3aFpZLEFOkVdNh0rT
+         PvrOoCj+AI8vwt1vLmqwA1ZIROZZVYD/A5UqJlGn6kx277CXPKSlgMbTaaw6MkyxiZEw
+         VrHHKe00vZuDHA9nMYS5m5EKlKevspMQP3Xn6MP3twwHVri+ikiTs6Xn8VgzYQ39r+3x
+         Yk8Q==
+X-Forwarded-Encrypted: i=1; AL+hErHj/9L/JIs83wwdHInpGW14FXougBAy91ZXB51oD5w55b0vHK55DGe1htd6ju5AH/p9ANGYwRtbnG1TYg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z80K8pnSiRuUWe1V34S5TFwL+2TDcedh7zTKTwyxvjiux89jHwJ
+	2mAglFXnQgnlefaBqoomt1pcgPPlQIT6iqKVH0d+Y3xawt3e2T5kJLL43jdxpGBqImg=
+X-Gm-Gg: AZFdTZdFtzm2FrSIM4Mj1TEUIWT/SGENZp+4tI2gfkzgur+9uIaozGnpsbaVI3K41Mz
+	Ll+GOvXAmdueTqdhhjRykuzriWRaxJBsCx4MU5l0NYQpUSYug2yCwvMp92Gb7NB+pBUGvXWM0ne
+	cXIJYUTmbFqun+7F/dYtdqDMOdVCM4YpXdo2F6b7vqwPuxDY2SliZhrCPzwOE8gGkhUtyJ8erYw
+	lVzFEhbZ0v3/33UFIovTAOqmdLBO6MDVWxvtbZzglo9CvOhg4aJfQFXCh60OXhYiumlCuv70zi9
+	htDtmfB2CrYUERnujXALdwBIBel30yCDhrYsfXAjjdNLcydKQ7Am/XhRAyXGhdK6pFkTJG6xWRA
+	Lzz+5pCD3DwunF9UZe/BM5cWMMI0kc6861tMr6K0Na9+tjswzFlbVqvCMh/zrSj8OnCLLyZDhFX
+	j+ZRotSvjHTTuXxAmtRp5IbIMmYNf8EI/KdpzKl+HT9yQt/cTtqDaHo+pck6OYnnkmCrX1OGo/0
+	y4UgfV9TtMJhDwxyeMl8C8iGhbRa0DIFwXCVxDDModOCkDs+cvVL/4v/GwLEqKFZSP9mXOdqwoK
+	mq906Dcv9ZmGo4ICjhQsWH7mKlJJYnOcmQp7s8eaSENTyFYbPF9aJM9QkgzSge+t7MJd6APTwUr
+	5
+X-Received: by 2002:ac8:5e53:0:b0:536:699d:9a22 with SMTP id d75a77b69052e-55d76aa8754mr292073611cf.57.1795557492035;
+        Tue, 24 Nov 2026 13:58:12 -0800 (PST)
 Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb3ba04bsm1169083785a.24.2026.11.24.13.55.33
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-921349f2186sm148298976d6.29.2026.11.24.13.58.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 13:55:34 -0800 (PST)
-Message-ID: <c592bdd6b31c6e6580876c5fb7a37591b0355157.camel@ndufresne.ca>
-Subject: Re: [PATCH v3 02/17] media: v4l2: Add P210 pixel format
+        Tue, 24 Nov 2026 13:58:11 -0800 (PST)
+Message-ID: <79df445f3906ef7147137d991e0fd14f7815d22c.camel@ndufresne.ca>
+Subject: Re: [PATCH v3 03/17] media: v4l2: Add Apple interchange pixel
+ formats
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
 To: Sofus Forstreuter <sofus.c@icloud.com>, Sven Peter <sven@kernel.org>, 
  Janne Grunau
@@ -91,10 +93,10 @@ To: Sofus Forstreuter <sofus.c@icloud.com>, Sven Peter <sven@kernel.org>,
 Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
 	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
-Date: Tue, 24 Nov 2026 16:55:33 -0500
-In-Reply-To: <20261020-avd-v3-2-85cbaa2125d8@icloud.com>
+Date: Tue, 24 Nov 2026 16:58:10 -0500
+In-Reply-To: <20261020-avd-v3-3-85cbaa2125d8@icloud.com>
 References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
-	 <20261020-avd-v3-2-85cbaa2125d8@icloud.com>
+	 <20261020-avd-v3-3-85cbaa2125d8@icloud.com>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -109,7 +111,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-CAwZvlptZ/R7neJeECDI"
+	protocol="application/pgp-signature"; boundary="=-0opacj9JZF7JzicRk9mL"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -121,139 +123,141 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-CAwZvlptZ/R7neJeECDI
+--=-0opacj9JZF7JzicRk9mL
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Le mardi 20 octobre 2026 =C3=A0 11:37 +0200, Sofus Forstreuter a =C3=A9crit=
 =C2=A0:
-> P210 is a YUV format with 10-bits per component with interleaved UV.
+> Apple Interchange is a compressed and tiled format modifier.
+>=20
+> Its intended use is for sharing buffers between hardware blocks (GPU,
+> display controller, video codecs) on Apple platforms.
+>=20
+> Add it to the v4l2_format_info table to help with calculating sizes.
 >=20
 > Reviewed-by: Neal Gompa <neal@gompa.dev>
 > Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
 > ---
->  .../userspace-api/media/v4l/pixfmt-yuv-planar.rst          | 14 ++++++++=
-++++--
->  drivers/media/v4l2-core/v4l2-common.c                      |  1 +
->  drivers/media/v4l2-core/v4l2-ioctl.c                       |  1 +
->  include/uapi/linux/videodev2.h                             |  1 +
->  4 files changed, 15 insertions(+), 2 deletions(-)
+>  drivers/media/v4l2-core/v4l2-common.c | 7 +++++++
+>  drivers/media/v4l2-core/v4l2-ioctl.c  | 6 ++++++
+>  include/uapi/linux/videodev2.h        | 8 ++++++++
+>  3 files changed, 21 insertions(+)
 >=20
-> diff --git a/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst =
-b/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
-> index 0631919bd667..f2d2e79698fa 100644
-> --- a/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
-> +++ b/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
-> @@ -138,6 +138,13 @@ All components are stored with the same number of bi=
-ts per component.
->        - Cb, Cr
->        - No
->        - Linear
-> +    * - V4L2_PIX_FMT_P210
-> +      - 'P210'
-> +      - 10
-> +      - 4:2:2
-> +      - Cb, Cr
-> +      - Yes
-> +      - Linear
->      * - V4L2_PIX_FMT_NV15
->        - 'NV15'
->        - 10
-> @@ -834,12 +841,15 @@ number of lines as the luma plane.
-> =20
->  .. _V4L2_PIX_FMT_P010:
->  .. _V4L2-PIX-FMT-P010-4L4:
-> +.. _V4L2-PIX-FMT-P210:
-> =20
-> -P010 and tiled P010
-> --------------------
-> +P010, tiled P010 and P210
-> +-------------------------
-> =20
->  P010 is like NV12 with 10 bits per component, expanded to 16 bits.
->  Data in the 10 high bits, zeros in the 6 low bits, arranged in little en=
-dian order.
-> +P210 is the same as P010 but the chroma plane is only subsampled by 2 in=
- the
-> +horizontal direction.
-> =20
->  .. flat-table:: Sample 4x4 P010 Image
->      :header-rows:  0
 > diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-c=
 ore/v4l2-common.c
-> index 11ab684024c5..43ef12d073a3 100644
+> index 43ef12d073a3..896c07d93032 100644
 > --- a/drivers/media/v4l2-core/v4l2-common.c
 > +++ b/drivers/media/v4l2-core/v4l2-common.c
-> @@ -325,6 +325,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 f=
-ormat)
->  =09=09{ .format =3D V4L2_PIX_FMT_NV42,    .pixel_enc =3D V4L2_PIXEL_ENC_=
-YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bpp_d=
+> @@ -336,6 +336,13 @@ const struct v4l2_format_info *v4l2_format_info(u32 =
+format)
+>  =09=09{ .format =3D V4L2_PIX_FMT_GREY,    .pixel_enc =3D V4L2_PIXEL_ENC_=
+YUV, .mem_planes =3D 1, .comp_planes =3D 1, .bpp =3D { 1, 0, 0, 0 }, .bpp_d=
 iv =3D { 1, 1, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
->  =09=09{ .format =3D V4L2_PIX_FMT_P010,    .pixel_enc =3D V4L2_PIXEL_ENC_=
-YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 2, 4, 0, 0 }, .bpp_d=
-iv =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
->  =09=09{ .format =3D V4L2_PIX_FMT_P012,    .pixel_enc =3D V4L2_PIXEL_ENC_=
-YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 2, 4, 0, 0 }, .bpp_d=
-iv =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
-> +=09=09{ .format =3D V4L2_PIX_FMT_P210,    .pixel_enc =3D V4L2_PIXEL_ENC_=
-YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 2, 4, 0, 0 }, .bpp_d=
-iv =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 1 },
+>  =09=09{ .format =3D V4L2_PIX_FMT_Y12,     .pixel_enc =3D V4L2_PIXEL_ENC_=
+YUV, .mem_planes =3D 1, .comp_planes =3D 1, .bpp =3D { 2, 0, 0, 0 }, .bpp_d=
+iv =3D { 1, 1, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
 > =20
->  =09=09{ .format =3D V4L2_PIX_FMT_YUV410,  .pixel_enc =3D V4L2_PIXEL_ENC_=
-YUV, .mem_planes =3D 1, .comp_planes =3D 3, .bpp =3D { 1, 1, 1, 0 }, .bpp_d=
-iv =3D { 1, 1, 1, 1 }, .hdiv =3D 4, .vdiv =3D 4 },
->  =09=09{ .format =3D V4L2_PIX_FMT_YVU410,  .pixel_enc =3D V4L2_PIXEL_ENC_=
-YUV, .mem_planes =3D 1, .comp_planes =3D 3, .bpp =3D { 1, 1, 1, 0 }, .bpp_d=
-iv =3D { 1, 1, 1, 1 }, .hdiv =3D 4, .vdiv =3D 4 },
+> +=09=09{ .format =3D V4L2_PIX_FMT_APPLE_AX12, .pixel_enc =3D V4L2_PIXEL_E=
+NC_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bp=
+p_div =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
+> +=09=09{ .format =3D V4L2_PIX_FMT_APPLE_AX16, .pixel_enc =3D V4L2_PIXEL_E=
+NC_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bp=
+p_div =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 1 },
+> +=09=09{ .format =3D V4L2_PIX_FMT_APPLE_AX24, .pixel_enc =3D V4L2_PIXEL_E=
+NC_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bp=
+p_div =3D { 1, 1, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
+> +=09=09{ .format =3D V4L2_PIX_FMT_APPLE_AX03, .pixel_enc =3D V4L2_PIXEL_E=
+NC_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 5, 10, 0, 0 }, .b=
+pp_div =3D { 4, 4, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
+> +=09=09{ .format =3D V4L2_PIX_FMT_APPLE_AX23, .pixel_enc =3D V4L2_PIXEL_E=
+NC_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 5, 10, 0, 0 }, .b=
+pp_div =3D { 4, 4, 1, 1 }, .hdiv =3D 2, .vdiv =3D 1 },
+> +=09=09{ .format =3D V4L2_PIX_FMT_APPLE_AX43, .pixel_enc =3D V4L2_PIXEL_E=
+NC_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 5, 10, 0, 0 }, .b=
+pp_div =3D { 4, 4, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
+> +
+>  =09=09/* Tiled YUV formats */
+>  =09=09{ .format =3D V4L2_PIX_FMT_NV12_4L4, .pixel_enc =3D V4L2_PIXEL_ENC=
+_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bpp_=
+div =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
+>  =09=09{ .format =3D V4L2_PIX_FMT_NV15_4L4, .pixel_enc =3D V4L2_PIXEL_ENC=
+_YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 5, 10, 0, 0 }, .bpp=
+_div =3D { 4, 4, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2,
 > diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-co=
 re/v4l2-ioctl.c
-> index 17ba1ae70735..1f2519ffeb2b 100644
+> index 1f2519ffeb2b..e40e2ebac241 100644
 > --- a/drivers/media/v4l2-core/v4l2-ioctl.c
 > +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-> @@ -1369,6 +1369,7 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *f=
-mt)
->  =09case V4L2_PIX_FMT_NV42:=09=09descr =3D "Y/VU 4:4:4"; break;
->  =09case V4L2_PIX_FMT_P010:=09=09descr =3D "10-bit Y/UV 4:2:0"; break;
->  =09case V4L2_PIX_FMT_P012:=09=09descr =3D "12-bit Y/UV 4:2:0"; break;
-> +=09case V4L2_PIX_FMT_P210:=09=09descr =3D "10-bit Y/UV 4:2:2"; break;
->  =09case V4L2_PIX_FMT_NV12_4L4:=09descr =3D "Y/UV 4:2:0 (4x4 Linear)"; br=
-eak;
->  =09case V4L2_PIX_FMT_NV12_16L16:=09descr =3D "Y/UV 4:2:0 (16x16 Linear)"=
+> @@ -1561,6 +1561,12 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *=
+fmt)
+>  =09=09case V4L2_PIX_FMT_PISP_COMP2_GBRG: descr =3D "PiSP 8b GBGB/RGRG mo=
+de2 compr"; break;
+>  =09=09case V4L2_PIX_FMT_PISP_COMP2_BGGR: descr =3D "PiSP 8b BGBG/GRGR mo=
+de2 compr"; break;
+>  =09=09case V4L2_PIX_FMT_PISP_COMP2_MONO: descr =3D "PiSP 8b monochrome m=
+ode2 compr"; break;
+> +=09=09case V4L2_PIX_FMT_APPLE_AX12:=09descr =3D "Apple Interchange NV12"=
 ; break;
->  =09case V4L2_PIX_FMT_NV12_32L32:   descr =3D "Y/UV 4:2:0 (32x32 Linear)"=
+> +=09=09case V4L2_PIX_FMT_APPLE_AX16:=09descr =3D "Apple Interchange NV16"=
 ; break;
+> +=09=09case V4L2_PIX_FMT_APPLE_AX24:=09descr =3D "Apple Interchange NV24"=
+; break;
+> +=09=09case V4L2_PIX_FMT_APPLE_AX03:=09descr =3D "Apple Interchange P030"=
+; break;
+> +=09=09case V4L2_PIX_FMT_APPLE_AX23:=09descr =3D "Apple Interchange P230"=
+; break;
+> +=09=09case V4L2_PIX_FMT_APPLE_AX43:=09descr =3D "Apple Interchange P430"=
+; break;
+>  =09=09default:
+>  =09=09=09if (fmt->description[0])
+>  =09=09=09=09return;
 > diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev=
 2.h
-> index 5373dba640fa..5472e433ed06 100644
+> index 5472e433ed06..f218f4fb26a4 100644
 > --- a/include/uapi/linux/videodev2.h
 > +++ b/include/uapi/linux/videodev2.h
-> @@ -659,6 +659,7 @@ struct v4l2_pix_format {
->  #define V4L2_PIX_FMT_NV42    v4l2_fourcc('N', 'V', '4', '2') /* 24  Y/Cr=
-Cb 4:4:4  */
->  #define V4L2_PIX_FMT_P010    v4l2_fourcc('P', '0', '1', '0') /* 24  Y/Cb=
-Cr 4:2:0 10-bit per component */
->  #define V4L2_PIX_FMT_P012    v4l2_fourcc('P', '0', '1', '2') /* 24  Y/Cb=
-Cr 4:2:0 12-bit per component */
-> +#define V4L2_PIX_FMT_P210    v4l2_fourcc('P', '2', '1', '0') /* 32  Y/Cb=
-Cr 4:2:2 10-bit per component */
+> @@ -842,6 +842,14 @@ struct v4l2_pix_format {
+>  #define V4L2_PIX_FMT_PISP_COMP2_BGGR=09v4l2_fourcc('P', 'C', '2', 'B') /=
+* PiSP 8-bit mode 2 compressed BGGR bayer */
+>  #define V4L2_PIX_FMT_PISP_COMP2_MONO=09v4l2_fourcc('P', 'C', '2', 'M') /=
+* PiSP 8-bit mode 2 compressed monochrome */
 > =20
->  /* two non contiguous planes - one Y, one Cr + Cb interleaved  */
->  #define V4L2_PIX_FMT_NV12M   v4l2_fourcc('N', 'M', '1', '2') /* 12  Y/Cb=
-Cr 4:2:0  */
+> +/* Apple Interchange, compressed and tiled formats */
+> +#define V4L2_PIX_FMT_APPLE_AX12=09v4l2_fourcc('A', 'X', '1', '2') /* App=
+le Interchange NV12 */
+> +#define V4L2_PIX_FMT_APPLE_AX16=09v4l2_fourcc('A', 'X', '1', '6') /* App=
+le Interchange NV16 */
+> +#define V4L2_PIX_FMT_APPLE_AX24=09v4l2_fourcc('A', 'X', '2', '4') /* App=
+le Interchange NV24 */
+> +#define V4L2_PIX_FMT_APPLE_AX03=09v4l2_fourcc('A', 'X', '0', '3') /* App=
+le Interchange P030 */
+> +#define V4L2_PIX_FMT_APPLE_AX23=09v4l2_fourcc('A', 'X', '2', '3') /* App=
+le Interchange P230 */
+> +#define V4L2_PIX_FMT_APPLE_AX43=09v4l2_fourcc('A', 'X', '4', '3') /* App=
+le Interchange P430 */
 
---=-CAwZvlptZ/R7neJeECDI
+These needs to be in Documentation/userspace-api/media/v4l/pixfmt-reserved.=
+rst
+
+Nicolas
+
+> +
+>  /* Renesas RZ/V2H CRU packed formats. 64-bit units with contiguous pixel=
+s */
+>  #define V4L2_PIX_FMT_RAW_CRU10=09v4l2_fourcc('C', 'R', '1', '0')
+>  #define V4L2_PIX_FMT_RAW_CRU12=09v4l2_fourcc('C', 'R', '1', '2')
+
+--=-0opacj9JZF7JzicRk9mL
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawYH1QAKCRDZQZRRKWBy
-9Hi5APwNsO/NocrcIJcIll1SPJxbqsKHJGgTqWhDD76gjdf7EQEAs6EtAl483env
-blqRUPQrAHH8q7BIoKoBtSv+UXwi4ww=
-=6io4
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawYIcgAKCRDZQZRRKWBy
+9LYlAP9eNt64YAYVi+3tdmO2eVOgxAxX3MBInpvFBV83Km5LlQEAva1+LKSeuhBa
+0jv5NXY7twZmCiEmTXSCAQrzfD7RsA8=
+=Z59I
 -----END PGP SIGNATURE-----
 
---=-CAwZvlptZ/R7neJeECDI--
+--=-0opacj9JZF7JzicRk9mL--
