@@ -1,47 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795522695;
-	b=NY7KxPtf51ADU8sz4Rp5p8L/YHxFyMnST/1+I5w6YldOVknQS/HECISLv+XjtDJjRP74
-	 yrGO8kaoufDPppcAZK4lJtEvXOJwMjbqb6RZsDzInpIiK3p4RZ6fr4p9uSr6bU/e+/RqM
-	 NFJhSgzsFMNCY/IFFSSi40U71hEat6zqTUNQ+i/3lovl1m8a+x0fjE6HeVuTlpKkpX4G1
-	 9/YEeouAq1zxdcWhSNMJLWB/FFpkhIXIVXAgWMt2ijv9Zcx4E2TFqZ+W5WVttOJH898Qn
-	 5+AW7petGl1eD/wVhlkea2AbpxdJls+jNTjG02VBu4i0PjLee+0H/YTKd4AJ2qoTXfA==
+	t=1795522773;
+	b=nDk9BfvjE+2MvsJAJ2KYu//7JGfFhUz7Q0M6UbTJOkdAspI3xsqkdaLv4oU6BaHBGH7S
+	 4HWGKCh5Oq/8JrvrtaV6xMjdir+dDXza9t+aQtvGT6kULlogHJ6HklUomlD/2U575xdvD
+	 RQMn0mP0DCWBiQiKdpdIvwNiP/DOxDJ7EfWbrqwGJSdWZ36m6aiIBP5NwsG5nymCsOYbB
+	 POVI6TXUs0hS6M4b+dJhs+Ut4PITSY7wgzgJlfZsKx/U2vkfcrFl1oCMQc+w3pEQLxIyy
+	 H4Jh6ShdcH4DJyYRvTGxxS2Sq40JQ5WVd7LO3JarZi7krgkqFgtgAC1g+uvqoGVeCJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795522695;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=juNGDvow2bSWni56kYLEiOct3N4elvig4X0mMlUwiPI=;
-	b=Q88IGCNEdQTvOizZpEd1I22ScyeiCha01Xwe+7t3F5w2ltcPaVRIPjitqyt71QTrY6j2
-	 g83kgE1QB1jhK2hW3KPCCzx/mj0DAl0pXAcULURSAatERNoiNkFj5QN19G5jOkGfPtIGc
-	 BBsaAnKy8jpyKSuNW4oFyckiXxeOV8FDsslTi/YpialzFTTaGQeD2R96oKZbsNqPlJys9
-	 Ap1kjPyBOvmW1LGWhHN+95EmUnNgZpvQU4K2avpsCgWtRyhXBW2TQQ4ySbSVgyWynuMTF
-	 tgk4bvfgoaKoxf7p7jSlsS89snbuFSMgslcbcXvY1Bwete0MFC4ETm2veGivBNj6BUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795522773;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=V8j/7x8rOY24muk9yPjpnNTz4+yzbaLuw/EWCrjOA/0=;
+	b=QNOtn8ZHU7u7pH3aoRw3UgeDJ1C/GnawvKvc4stOG0YuKF7eruED7+D1XAPQSXC1hoeh
+	 Z88p0PXVFHw8dRFBj/6/5nTStqZCQDOi6xhQq2GIjp3eS89llyWAhufgJ81rdSJeZ8fLp
+	 Du3j7HhnenNHKAEatoZmAsdCC3ChykwLCkwKLd/CnQCH6JYNlJX4VUoG8o6cigebm4JLW
+	 AhpI9KG+mMNLmdcXry3GEA/U7iH+aq0+AvWvAcRAqLPY2mUZT/TSO8PzVZNUOqnSwQ/Uq
+	 VCeBilrvpwI+nE/uwZjiIMRNPksl4Bc1kPRPK0yjU1fHoRzvbGb09fDLgf9fCwVueFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtDnjrng;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LSXIIhvf;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D61606A327;
-	Tue, 24 Nov 2026 12:18:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C61606A31E
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 12:19:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89C61606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtDnjrng
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7102B1F000C6;
-	Tue, 24 Nov 2026 12:18:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795522695;
-	bh=juNGDvow2bSWni56kYLEiOct3N4elvig4X0mMlUwiPI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dtDnjrnghRHgvDzsE0Z1hW/ssXRotKRlCMDH31E8ygsUHD24qrtTTYLaMvHqEODll
-	 aLUbP/lhBkOY8A0u8eP0zBAPYcrxjPY3CMdPvNUnX65a9YfmxMhheokvDHH1Xfpn6t
-	 Hk9R3Cxsyg0OhR0xYcrKVI480nCWqur/R6DXGamttY6kz6sRr/L7k3DOWVW5JJt/Db
-	 TzAVqLrXIRQEyt52LA7Eu1+zXouH91jKEdIJFEvJ7XXiFePRZsI7zQdjZvidWFSW7g
-	 Pn3U9wdNBWN9ZWiJMnAGc1cEL/OaZ7ut2omKOX28UyUYntIxaE8mgblpEzaCMUWg7w
-	 9Y1VJoa2D4efg==
-Message-ID: <b3adfac5-e9c7-484c-aebd-16c94f41f28f@kernel.org>
-Date: Tue, 24 Nov 2026 12:18:09 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LSXIIhvf
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33fb4680717so11687660eec.1
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 04:19:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795522772; x=1796127572; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V8j/7x8rOY24muk9yPjpnNTz4+yzbaLuw/EWCrjOA/0=;
+        b=LSXIIhvfDUn6KxtqknDVWtbk4AT5uBrpHhNoS11CBzz7o0ujd7HkanuJZDBhs2Mzwd
+         5Niv5ww8jtPhybLx9GO3l8F12HU+Hu7DJuthhPwg58Wzvi3cN1i5PG+VFpL21RzXTGAQ
+         B+39aBLj1i9uZRrnQ8VzOUP5dytUKRohe1vCUs8AIwvTOQc1CrInIIGcQfd5KPLpVJxO
+         ZL5yP90qCMzc+beCP9zDj+Dx9dC9mQMx3KzBPyJdQdk40xO0N1XNikFY2BmPKw4H24J0
+         qCufH5NIMwYxh6HpQuvS4xY+Z7VZc+uEjpHRDgTztJqwKaKg4GptrFNqB7W49bgUUig1
+         g07A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795522772; x=1796127572;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V8j/7x8rOY24muk9yPjpnNTz4+yzbaLuw/EWCrjOA/0=;
+        b=rGn5/VMWEvjwGHHMruzVTBBT0FosfS2n37aaGwTwqfsfAl2bMpcrthNMntfibL/Lv1
+         Oy/JdZlJxsIVvCVHG5G/Mr7YUm+T716fZvfeb7lvRqC3oxlGhfFmPD4e/d2Sq1KIdmNv
+         UuNNQwOvlZzx3wXAEQsexH0QCnQA9tNRrg4dykIF/HPkOBfLt7PQEU+FKeqaf8Mitb8X
+         1YYsRf5mvHgih3TrFx+SQ7/Fqhdm2UWd2JbculXavI/9p5gLMbwyUCtpvYcX8QHy3bE8
+         jKlviXlWbClkyqYRsRjInT2vRnPko2yfdOFLPIG+PXjfN4ilenIW2hTPvOwxYXZJ1QMg
+         D+WA==
+X-Gm-Message-State: APuU4Z9h5vhyuOcEILWJSKM2hXrXXdeXh8B6dgY97hcy7sNhUoWgl8bo
+	Yx6ASNYLXjxMKAJahwVxdNZBX0/00Xpg7Tuknr0ohg9QAMndcqqCMx6/
+X-Gm-Gg: AZFdTZdj6WD15nsIeHoiAbygyu/B/G+qmE99rOAjnx4VgSfdgEuf91QSBRtDG93iQun
+	9UiN/pbeQoDqtJV7UQUJu3Cnmud7Ev5/UTmHoMf1JUtgOvh6qSyDblh7Nc0Mkw5gGFf+1firoNO
+	BTC8gvRrhZr+5ka+OQOQh2DBkcokhiTRNaqMVbQEacoXc4A3yVQSwpuA0dJ+5snkT9qwFKQe1py
+	8yvnWQoDDcwk9XRxWIvP3adEbv+fvH9S+ktkUSdlt2KFCDiz2+PYfj8ycQuNv5+/8+/bJyrg3gd
+	YZZcU0XFuS5hH6EKgMX0ZOUzDwL0w9pm1M8jdz98Qep+BBwiaAWc19nXFK6K/bNM6R+L6arJTfS
+	v0uYSq8XygIJqZ4cYbGR7j9JoDdzvMGwMGdEemZsEcbNWhmILtqvqlM/zqJZ782uwJH5/1IYz3o
+	fe35N6cS9RUFQ5flR2SuL1FbwMBo8ANBxoz0SWqQFeK1eQHdwm3HSTYL1VOONz2+6jBQhRiNpJg
+	KAbi/erJIcKpIwtIPRbb1BW+8iMWkMEjt5uDsSYYs7zuPTbMIDMJBP7aSCvzfEAeR3oe328XoOI
+	w/nknRSWCuRnUAJKaM+O/NzOoyEv65HuC4v+RTJ2pdeRJGWrhK0SCcpyjxDVqoNcjzd79nhbx6x
+	4W9ejEBdaHNYxQ3T52dC+yRj3VhosjVQLl14=
+X-Received: by 2002:a05:7301:6582:b0:374:e25e:a533 with SMTP id 5a478bee46e88-38570154017mr27803686eec.35.1795522771545;
+        Tue, 24 Nov 2026 04:19:31 -0800 (PST)
+Received: from hyeonjun-ThinkPad-X13-Gen-1.. ([124.197.199.8])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-38566fdce48sm48153278eec.14.2026.11.24.04.19.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 04:19:31 -0800 (PST)
+From: Hyeonjun Hong <hyeonjunhong330@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Hyeonjun Hong <hyeonjunhong330@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: v4l2-ctrls: set handler error if array allocation fails
+Date: Tue, 24 Nov 2026 21:17:30 +0900
+Message-Id: <20261124121730.1598114-1-hyeonjunhong330@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,117 +98,66 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] phy: core: add generic MIPI C-PHY configuration API
-To: Michael Riesch <michael.riesch@collabora.com>,
- Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, david@ixit.cz,
- andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, vladimir.zapolskiy@linaro.org,
- loic.poulain@oss.qualcomm.com, mchehab@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
- jigarkumar.zala@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com,
- akapatra@quicinc.com, linux-media@vger.kernel.org,
- krzysztof.kozlowski@oss.qualcomm.com, daniel@quora.org,
- konrad.dybcio@oss.qualcomm.com, christopher.obbard@linaro.org,
- alex.vinarskis@gmail.com
-References: <20261017041733.3946816-1-anusha.nandi@oss.qualcomm.com>
- <20261017041733.3946816-2-anusha.nandi@oss.qualcomm.com>
- <a6d8514b-269c-441d-b280-4895b5f21fac@linaro.org>
- <f689ccfe-4adb-41f6-b492-97a48090413d@oss.qualcomm.com>
- <e3d322a0-43d5-4369-bd09-128152f4b233@linaro.org>
- <8741d667-efdd-4e3f-a1b2-2f04255d7c7d@oss.qualcomm.com>
- <3Qy0nxBJKeIHC6U9JocO-BGMDL8rLOkC_xTz4kT1GKMFKf86iv9Jhty6HHNLjO2CNSn6ZjK3G8TAXKLwckkhVg==@protonmail.internalid>
- <e579e40b-9ee7-48ba-92b7-78f9dfffbeb8@collabora.com>
- <fab551bc-5cd8-4ab0-b97b-f808027506ad@kernel.org>
- <P0DcNxFFqRzTkXdjBWhsf9xcIvjwIClQvC2dMKoQDIZGtFv8g9u78e5FJ7-sp7JxcMPiZROgk9a2niaSZwCztA==@protonmail.internalid>
- <773b5d1b-6679-4f68-b15e-022842f5109a@collabora.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <773b5d1b-6679-4f68-b15e-022842f5109a@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 24/11/2026 12:01, Michael Riesch wrote:
->>> On 10/24/26 01:20, Anusha Arun Nandi wrote:
->>>> [...]
->>>>> The CSID needs to know the symbol rate - so that it can vote on the
->>>>> appropriate NOC/CamNOC clocks/rails but... does the PHY driver itself
->>>>> need to know that ? It does not, symbol_rate is not required in this
->>>>> struct no more than it is in DPHY.
->>>>>
->>>> Yes agree. I was thinking the same. We would not need the symbol_rate in
->>>> the struct.
->>> How would a timing calculation like in the Rockchip downstream [0] work
->>> then? Can this table be implemented once in a common helper, and the
->>> resulting values are passed via the struct?
->>>
->>> I am new to this spec so please bear with me, but it feels the symbol
->>> rate should be in the struct?!
->> Might be the case alright. We have two approaches we can take. Something
->> like DPHY which populates just about everything in the configuration
->> struct or just add stuff in as needed.
->>
->> Maybe the PHY does need to know the symbol rate.. In our case on qcom we
->> vote for bandwidth in on the CSI decoder side.
->>
->> But maybe there's a use case for the PHY to know that rate..
-> Fortunately, that is a kernel space API, so not*that* critical.
-> 
-> Then I guess we can put the symbol rate in there. If it is unused, there
-> is not much damage done, I would say. Plus there is the possibility to
-> remove it too, right.
-> 
-> Just my € 0.02.
-> 
-> Best regards,
-> Michael
+The control framework lets drivers create controls without checking
+every call: a function that fails stores the error in hdl->error and
+returns NULL, and the driver checks hdl->error once at the end.
 
-An equally valid argument sure.
+v4l2_ctrl_new() does not follow this when the allocation of
+ctrl->p_array fails. It frees the control and returns NULL, but leaves
+hdl->error untouched, so the driver sees no error and carries on with a
+NULL control pointer.
 
+vivid hits this with its pixel array control. vivid_create_controls()
+returns 0, and vivid_create_instance() goes on to call
+vivid_update_format_cap(), which passes dev->pixel_array to
+v4l2_ctrl_modify_dimensions() and dereferences it in v4l2_ctrl_lock().
+
+Reproduced with fault injection (failslab and fail-nth) by failing that
+allocation while loading vivid:
+
+  KASAN: null-ptr-deref in range [0x0000000000000020-0x0000000000000027]
+  RIP: 0010:vivid_update_format_cap+0xc83/0x1b30 [vivid]
+  vivid_probe+0x37de/0x90b0 [vivid]
+  platform_probe+0x9e/0x140
+  really_probe+0x1cb/0x6b0
+
+The allocation was first added for dynamic arrays only. Commit
+5f2c5c69a61d ("media: v4l2-ctrls: allocate space for arrays") then
+extended it to all array controls.
+
+Set hdl->error to -ENOMEM in this error path, like the other allocation
+failures in v4l2_ctrl_new() do. The vivid probe then fails with -ENOMEM.
+
+Fixes: fb582cba4492 ("media: v4l2-ctrls: add support for dynamically allocated arrays.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyeonjun Hong <hyeonjunhong330@gmail.com>
 ---
-bod
+Found with a fault injection sweep over the vivid module load path
+(fail-nth, one failed allocation per load) on media-committers next.
+An LLM assistant helped with the sweep tooling, the analysis and the
+wording of this changelog.
+
+Tested by re-running the sweep with the fix applied: failing the
+p_array allocation, including the one for the pixel array control, now
+makes the vivid probe fail with -ENOMEM and no longer oopses.
+
+ drivers/media/v4l2-core/v4l2-ctrls-core.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+index 6e751a043a21..12a799824c44 100644
+--- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
++++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
+@@ -2263,6 +2263,7 @@ static struct v4l2_ctrl *v4l2_ctrl_new(struct v4l2_ctrl_handler *hdl,
+ 		ctrl->p_array = kvzalloc(2 * elems * elem_size, GFP_KERNEL);
+ 		if (!ctrl->p_array) {
+ 			kvfree(ctrl);
++			handler_set_err(hdl, -ENOMEM);
+ 			return NULL;
+ 		}
+ 		data = ctrl->p_array;
+-- 
+2.34.1
+
