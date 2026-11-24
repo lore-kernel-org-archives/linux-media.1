@@ -1,66 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795491645;
-	b=DCTSYBX20d1v2RRBxp0UZSGi0AH/XjqCfUdR8kHA1YUJm1OaXpKAYsulr+bJp0iRP7jq
-	 C9flHMyKQB70wANCEluekwmuMo/fw6wuwoe2ApzaFEQ8TMj2w2iffE6U8onV0DYWKsv4c
-	 hg+Te/TREKYzMrMWGUtz4ml/nDRlYHePQmBUwvY9TFPVqwPqLOjgg+QW7Z3bXOOQ80Evj
-	 hADDUnJY7st3u9FOPUC24GXph/U4yB0j5dfjPapEUYyrpfDrE+RD25hCDvKwuv9DPhI0J
-	 CTXKy3ML+MBT34hyFkKQeO4lYYuFLopNiUsxzJlco/QqOFKZz1cmd+ID8TVscSmma5w==
+	t=1795491875;
+	b=AEdZJjfuJqtxo70LS6wpnesMKIKdI21oXfVPQHtqYe2c5Zpx2nM5074NJo5r4P79km/7
+	 MxLl+PHkJ7ucnzlgQEb276u0LwZr5NPYZqED4pe0h++ty7vf4C1Fi5Ws2FgRE9fwMkNrw
+	 jKaNseamDfiYUsDotTGv9YxMT8VsNOxHZBmP8caxDOwtHS0PQPnAHhEJAwZsUZHDdmiKd
+	 4WmwWDFt15ySuC4TFRLw272PyY68TFHRdpZ1zox9KA5hnedhxBWsUPJ9RHwaZJ2I705GA
+	 E9v3wbP3ZZkyS7jY71fkIeVtxT58H3NlX+hWrbFc9AaXFQW3CbImyKdBTfw9T4KGJUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795491645;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795491875;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
 	 User-Agent:MIME-Version;
-	bh=/3sNuR4fYfduGSspGrUI+Nhd0G5pRFuRvvGEppI+8B8=;
-	b=hkl6nNGQt2M7ZBCkL1jcnB3hn4iDeXWP+B00Nv62tu0/WgVYB9ZP7TCnc8VjgmkrMhab
-	 AuAQzUsRZYY3GyqCu/tleiQBxf0/BLrs39HWnHaMe6qjvcvRcjUlX/fbgOjdn669oqpEe
-	 zukxLFll/9k+24bxVGGWBNJBaLkLtNCPR2GeomexBfS+pG34/7MOUaOGGVCVHb0ASIZnd
-	 AWr91sPXA6Uym5SKp6F1qW7c+a0usJX74O40POd58ccLRSvY7q3VKdb08m+3+MT0ABpTm
-	 yREskdcL4igkhPiZE4KSSNJW+DKIr1bUyj2R5UChURETtn+pBeWdj14/I/VG+a+xR9A==
+	bh=iXPJfQL37+lFuWrPBpgG/yJPGWXB8XjhyfXUrG6mrgA=;
+	b=VfQst1YQMw1Bl1tre+cZ0We9zV1/OkLPv/4ZK0VAdxOU1aL6KeMTgto7aUgvvo3wN/GH
+	 Tf3qKcs/AtdrRrmsJIIgvsji61bG7aNtJigiKxCftptT0UA/lF6MLRs01r376jKrOEvQv
+	 X2WR7HcjJ6Iq0aaEx5cWW95ZgtCCAQ3FUzZ4K+HwHPhSGL2ThsADin55QEztcFZbhOLRF
+	 Cx/n38nY2GPIoLyYHk1fHLp/zItL9siRagj1L9CysC52BSK4oCM55sAEDyQ8AfWL0SNZR
+	 CbqeGzceEXcmeqlF3FM5yJSs0EQFmH/IMuVlWNdv0Tl3jY6QEgM22YX2nMUKmLlRJNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=h6mdar+A;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Vj8u7L60;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F86606A31E;
-	Tue, 24 Nov 2026 03:40:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12F86606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F436606A31E;
+	Tue, 24 Nov 2026 03:44:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F436606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=h6mdar+A
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Vj8u7L60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795491643;
-	bh=QhqdYdT7M/jtRCJyOksKmWAlKfDFnwolfbIqPbeF2ZQ=;
+	s=mail; t=1795491873;
+	bh=nMy8A8dspKyD4GQcj7I09F4uoZ54ej+K/KIoy3ZgamU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=h6mdar+AFMHCToI32rjA1wBIRW0J4RGqS4fhfc8Yu1OxdPzFLH5DcYylsVe8Otx0v
-	 kKAs6rwagzY1zT1gTNxKIU+qFcqfk8hVPgaPQCpQJ6yAKXAkBhjkMxv9KK2gOrNKZp
-	 dZLPrPqQTvA+RseBr8ogAYrFMttuBXLmNV/3nNC7/7dTayvsN6/osYwH2Q5g0LIv/l
-	 blnuWIghjBRPqWyiZDNSMVDtEi3qZVm6TTxKxL2KbF4iKO3kdtFVCFeojLhF8v5ynp
-	 PwLFoMoJn7EdEVg5NCGJjbNamv2Sczyg/MfeUwqFXdOjPNzg0p3XgHPVM/eRJzupO0
-	 c8OytkyiiRc6A==
+	b=Vj8u7L60X2/fSBAqE7B8mTW5UwhE4nXuBjHrS8KCtkpKKcbMtxLHf4wtXLUaVvID4
+	 pL2YYg6FYFXWqafhzHVqx3wEoROA0OzKyGXOexhXeT1YfB9BK9+x06jILxkqXEzFok
+	 NYEbNoCeVMkFwW6aoqdiurnfGZ2A2sYgnjha9qYs72W13Io8qqFJoQdAT+P5LRB7WT
+	 XpiNaevNeVpLmZ0TOCcr5FYzIlxd1B0n5rjfvKvCEhsCkQyyrTh+Qs86hBhkqX27+f
+	 //D06V3rLOEYC21jgh9OzfR8iP32p6RmMLO64ixjChwNE5t+xBtF1vLm2vYH/zP/Zx
+	 aDBhywIK6GAog==
 Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange secp256r1)
 	(No client certificate requested)
 	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6637417E0CD7;
-	Tue, 24 Nov 2026 04:40:42 +0100 (CET)
-Message-ID: <542f7fd2973f4b32ec55bb5c3314535a2c4b82a6.camel@collabora.com>
-Subject: Re: [PATCH v3 0/7] media: verisilicon: simplify auxiliary buffers
- allocation
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6D4F517E0CD7;
+	Tue, 24 Nov 2026 04:44:32 +0100 (CET)
+Message-ID: <1e59911003612aa645607efcd502c010f1972a5e.camel@collabora.com>
+Subject: Re: [PATCH v7 2/3] media: verisilicon: AV1: Fix luma size
 From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 To: Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	p.zabel@pengutronix.de, mchehab@kernel.org
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Date: Mon, 23 Nov 2026 22:40:40 -0500
-In-Reply-To: <20261123095905.60622-1-benjamin.gaignard@collabora.com>
-References: <20261123095905.60622-1-benjamin.gaignard@collabora.com>
+	p.zabel@pengutronix.de, mchehab@kernel.org, heiko@sntech.de,
+ hverkuil@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Date: Mon, 23 Nov 2026 22:44:31 -0500
+In-Reply-To: <3dfe5ae59107fa77075676fc226ac818bc2700f9.camel@collabora.com>
+References: <20261120143135.71134-1-benjamin.gaignard@collabora.com>
+		 <20261120143135.71134-3-benjamin.gaignard@collabora.com>
+	 <3dfe5ae59107fa77075676fc226ac818bc2700f9.camel@collabora.com>
 Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -76,7 +78,7 @@ Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-d1+zo/NEbm+5SALSuWmp"
+	protocol="application/pgp-signature"; boundary="=-VHcejEzEPR4GHlk6YEht"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -88,81 +90,65 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-d1+zo/NEbm+5SALSuWmp
+--=-VHcejEzEPR4GHlk6YEht
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le lundi 23 novembre 2026 =C3=A0 10:58 +0100, Benjamin Gaignard a =C3=A9cri=
-t=C2=A0:
-> Verisilicon stateless video decoder driver allocates lot of auxiliary
-> buffers to decode bitstreams. These allocations duplicate a lot of code.
-> This series add helpers functions to allocate and free auxiliary
-> buffers. This simplify the driver code and will allow to implement more
-> easly incoming feature like disentanglement data buffers from mv and rfc=
-=20
-> buffers or adding reference frame support for more codecs.
->=20
-> This series has been tested with fluster on IMX8MP for h264, hevc, vp8=
-=20
-> and vp9 codecs, and on rk3588 for av1.
->=20
-> This series depends of this one:
-> https://patchwork.linuxtv.org/project/linux-media/list/?series=3D34366
+Since you need a v8 ...
 
-This is only pending the dependency, which one of the hidden changes had is=
-sues,
-please fix and update, ping me once ready.
+Le lundi 23 novembre 2026 =C3=A0 22:30 -0500, Nicolas Dufresne a =C3=A9crit=
+=C2=A0:
+> Le vendredi 20 novembre 2026 =C3=A0 15:31 +0100, Benjamin Gaignard a =C3=
+=A9crit=C2=A0:
+> > Use the values computed by v4l2 helpers to get luma size.
+> > Unlile before this will also take care of padding.
 
-Nicolas
+    Unlike
+
+> >=20
+> > Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+> > Fixes: 727a400686a2c ("media: verisilicon: Add Rockchip AV1 decoder")
+
+Fixes goes before Signed-off-by, does this need to be cc to stable?
 
 >=20
-> Regards,
-> Benjamin
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 >=20
-> changes in v3:
-> - As suggested by Philipp do not mask hantro_allocate_aux_buf() returned
->   value.
-> - In hantro_allocate_aux_buf() and hantro_free_aux_buf() only set vpu if
->   ctx isn't NULL.
->=20
-> changes in v2:
-> - rebase on top of media: verisilicon: Create AV1 helper library v7
-> - tag reviewed-by tag
-> - fix patch 1 and 7 commit messages
->=20
-> =20
-> Benjamin Gaignard (7):
->   media: verisilicon: Add helpers to allocate and free auxiliary buffers
->   media: verisilicon: AV1: Use alloc/free helpers for auxiliary buffers
->   media: verisilicon: h264: Use alloc/free helpers for auxiliary buffers
->   media: verisilicon: hevc: Use alloc/free helpers for auxiliary buffers
->   media: verisilicon: vp8: Use alloc/free helpers for auxiliary buffers
->   media: verisilicon: vp9: Use alloc/free helpers for auxiliary buffers
->   media: verisilicon: mpeg4: Use alloc/free helpers for auxiliary
->     buffers
->=20
->  drivers/media/platform/verisilicon/hantro.h   |   4 +
->  .../media/platform/verisilicon/hantro_av1.c   | 191 +++++-------------
->  .../media/platform/verisilicon/hantro_h264.c  |  13 +-
->  .../media/platform/verisilicon/hantro_hevc.c  | 133 ++++--------
->  .../media/platform/verisilicon/hantro_mpeg2.c |  19 +-
->  .../platform/verisilicon/hantro_postproc.c    |  21 +-
->  .../media/platform/verisilicon/hantro_v4l2.c  |  37 ++++
->  .../media/platform/verisilicon/hantro_vp8.c   |  36 +---
->  .../media/platform/verisilicon/hantro_vp9.c   |  42 ++--
->  9 files changed, 169 insertions(+), 327 deletions(-)
+> > ---
+> >  drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_=
+dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+> > index 5da59104a966..5e0cd5268f22 100644
+> > --- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+> > +++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+> > @@ -221,7 +221,7 @@ static void rockchip_vpu981_av1_dec_clean_refs(stru=
+ct hantro_ctx *ctx)
+> > =20
+> >  static size_t rockchip_vpu981_av1_dec_luma_size(struct hantro_ctx *ctx=
+)
+> >  {
+> > -=09return ctx->dst_fmt.width * ctx->dst_fmt.height * ctx->bit_depth / =
+8;
+> > +=09return ctx->ref_fmt.plane_fmt[0].bytesperline * ctx->ref_fmt.height=
+;
+> >  }
+> > =20
+> >  static size_t rockchip_vpu981_av1_dec_chroma_size(struct hantro_ctx *c=
+tx)
 
---=-d1+zo/NEbm+5SALSuWmp
+--=-VHcejEzEPR4GHlk6YEht
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawUHOQAKCRDZQZRRKWBy
-9F6EAQCwseq4NDQojK6PfR3v2YM5UAI7KZmdH0HcIjV+x6cdkQEAt4UtMeEuSbVm
-CWa7124MFpsFveeuJOqp6SHTfm/plgU=
-=AqRt
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawUIHwAKCRDZQZRRKWBy
+9AgzAQCYcZQsQXxWhzBG+rQkqaUoWlXfLw76Ec7suNYc7L3DYgD/WVROKXt7doP/
+gd9qyH1wa0gnWIXTtyOoUMoj8l+1TQY=
+=hkrb
 -----END PGP SIGNATURE-----
 
---=-d1+zo/NEbm+5SALSuWmp--
+--=-VHcejEzEPR4GHlk6YEht--
