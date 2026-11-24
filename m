@@ -1,129 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795530037;
-	b=cmQw9OvdOPCcKgkyUtRVdUsevsxwa2NJGVwHZ637hW8RTEFaIkJ2IceqfHZECq0p5LFx
-	 Ht9f9Ia/MgCPoPCFafjhviTyxjhqvY/S3pZN7E0AiU3VDsCgW1C40drvyIyidIohi57NK
-	 YpgyiP1F8I7CCePSWIk6lDjAUitSTeJ0IoXdbhmvdUp6hFPoCb0OpSreWmh7W00JvLALR
-	 CqRCOdewlSflMv+TMYC2fuUCBlikgeySaAGkIzPYX3kyejpECJAsyV2yB3gogzRR52e82
-	 OeggP2fgyOEfQk/5Ra2b1Na6d354iSecvGOQX8HTIFf/2Krka48fXjYtBDtI+KaFz4w==
+	t=1795532210;
+	b=YoG/32CSMGR3PRRZ61fecSPnE9JZ2D7Lvu8I6o7ZxkTMOQuxWcc0/DlYAR4rlUfs+7gv
+	 vr6ztRBehaMxvOekLWGBCqU+DNbR6hrEfNr1sgUcu1MsnRN3VfA6oHx25pX6pSObkb5dw
+	 3WCjJe1YYZDRJfKPzIYT9s9S7JQNN22AzwLZFxCrvoTogJfDpwYLEMeErZp3mCIh2CEzV
+	 JnLzYgb/BdXAn9+57D3f/C5VsKDWE0hvJ4XJ6jOcQyhCvRoEeTaZCeor1q19fCUOZIFnE
+	 1CUm7fpadVWFh7m2I23UxDM6JVKzaWP895AOH55yLKNOY1NtcDQGREaPfc1O8xlaO6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795530037;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=Hoa2uDGRiz+jXLxbcD4HBQF2SzMfWsHt0csEQeOTfAo=;
-	b=G/P542lB+sBuaZqwmakkiIldHNEBN+XM3Eyx97CJZRP5gNfCPocvFnUwyCnr7q1JGhMv
-	 FsNVZ2NIMVFpwMvG6rJMCf9vtxPxv6lz1fYUL/FMaUaVahNK5vbuq4qGzUWlFKOc1rQ7Q
-	 dX2ruT9wgNjJjgRXeChpvhS41YiOMB+vr7Ch1mWvCetGCkFa+UQxcDhM9GuCEpMUDGNUn
-	 Q6RrRAfQl5KmkWexvYCfO0X/4FYj1blOp7krLyOZC4EsqqC9dBTyNUhgovfAfKzRKgafZ
-	 TZunUjXuuA9U/CRpOiyr936wy2eEuiIUAcl4LjS+Mv+goQ2yKGR5GzaIcXjuk485Jiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795532210;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=MNeRqyRLNEInMXVEh5fr7Fiyd3zVkFC9dr39TesQaxg=;
+	b=z1SnEejdeO+Ft/nkTmal8s5ZVxP2DASS+mUMy/Ti9R7innLyQdvNJcYPjxXKVODu8hOi
+	 npA9yeHdS1Oh1AlbpFQA4PrbSRkUAarmqSuqjXidcMUZ9XDZA46vEpTM3beUh/ftWBWGQ
+	 Itdw21877RQIirrIhLX/iCm7hYyozyO1QwmP5LaDG1vALm1yyssM3oIubsMoXqMpF8/G6
+	 1MUjXh5GOIdEhfPm9fCo+BZxj6h1VyDH4NB/wWXCOx/nL4xkMya0SSFVe3i7UIc1kJz6l
+	 XqNxrMQlY/u2Rx0w/iN7U8LXeC27SAZkE8j/eIKRmUMCkUzLdBpXGGh6g1A9whyQkTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=jBiTgo2W;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA2D606A327
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 14:20:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BA2D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AJZpwZz7;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 31CA0606A338;
+	Tue, 24 Nov 2026 14:56:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31CA0606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=jBiTgo2W
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c5198302d38so83309066b.0
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 06:20:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1795530035; x=1796134835; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hoa2uDGRiz+jXLxbcD4HBQF2SzMfWsHt0csEQeOTfAo=;
-        b=jBiTgo2WnjFhpkgbIBu6On5by8ux66WiKBLBzWJdf4Pf6RCn1pmz1agYiK7SMfaxFg
-         3/2YrNhOySAcSPgNeJdOxPH8P45jGqKY5S64rDyy/GqimZuTwtSLFUBdu/5vJlpZdzzr
-         s4bwl1Rg4R2P3YXWI3cJVNf2474sYNB2WqyefKmd2Q9zmRyjanVGbBx1PSJBmR/NBbVb
-         Em8am7TBb+PrC/eYOYbEaS+JpnHnvhpW0bM+eu6neOm7LPUdBWC1Zs5EIHxnkkBtcy2S
-         FqTLqasaecjeohA6M/KuBjaSrElM71neIK7tdakJn6qod53aVVQSxRc62gnUmZLJzDVT
-         ZSLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795530035; x=1796134835;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Hoa2uDGRiz+jXLxbcD4HBQF2SzMfWsHt0csEQeOTfAo=;
-        b=2iI9mPolHYpeMwEDYBDtUROWbo9ZUdA+qy9rgf1eKzuZ8ooxZCBtj27uyH7Jt7ppIY
-         eGf+IcQmtaWgjHsjTo2XDg637vAB9P+CV8td+jADPJVQjrEcTxn5X+9n8w5SUVarW1if
-         Gtqi46TMt3QrrB7A+VYARRqhZuIrUPKzd+0Nqb+Tceyr2iFtedJoKMCtrPSZ8QNs/bwD
-         fZSSOX2ub202OuMikBhJIkiTkp8EdyUHeT5sqAhUWXYK+0xoxIJZsaYAGcccpF0ECbir
-         FHFWuzaMCbCgBBFEl2FeECFatOsKt4FxCl/8GLhmNGFsubMOq+XQEChTY966A15vAIwh
-         0wwQ==
-X-Forwarded-Encrypted: i=1; AL+hErHrFjL5HH20DCGmAdLA0i/7dzZpulv9n2wCfjfQT4kYxNU0OVeq+RkKpz4V+u44nVP1VvR6HqF/8M4bag==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jyCrHOoyxXBqtSc7DB5/bW8KQAB2Bu+uzCMFGVVol3EtQmM1L
-	zJj60ZXI6AJYN65AloJss7C4w53dqQ/N7K3rjWszL9rJuHf5cSK3jqgB+vPC9vmrA8U=
-X-Gm-Gg: AZFdTZevcblnmU8e2iPaXmpaaIuUwMQlxqaTuJF5lxhNoHCzZ/QzpEP0SCnEV28may0
-	0lnykb3w1Z1XwUehwlgiFCa9WQQSpyvVrI9euC2Kad5OKd3+CfEUJOYIU2tA4MXVRGKuuaRHGno
-	WoNmbNrTzfDiQFMfbq1QGI79cTRTvG8zdu1QKcaKXJpEgXpZ+ccseVt1fSecEIldYr42JOIG+Bm
-	RU3D+ozWyqQxsYTrLJdldlZJswKuOQGtLnWw/ff8y/qOQWeTx+lrkJyb5vD0znb0bmMSD+B/RmK
-	haAKxvHSc9lxPALsVM3btrajUEm0iJzpMgblwkbsBpkc5GtMbEo/Bel0CdS9ZQ8u/Z8rDVb6r4C
-	xzYGRNOuVFrOcw5FszWRt2d5TllvF1+VX2r8xE0o7HYMDvlTYvW/I+64F3KKrJV5W9y9b6XN0nr
-	82kO91ZDPyHPznlefdzpRJAfwfgRAusj/1V5nB4sT/BXMUi+clrLXTFz5IBC7TYvEu6aVHVM42Y
-	Cv/AvEttET85bFqTGnWdjKHb+aFbibEi+b9o5Q7V3j2A4T3l7D1gigCiO9dXwlUzQETFLNXbflL
-	RfDZPzjX+t+ScawrdBicXTApVk4=
-X-Received: by 2002:a17:906:eec9:b0:c51:5589:35a1 with SMTP id a640c23a62f3a-c515589d211mr891019366b.5.1795530034479;
-        Tue, 24 Nov 2026 06:20:34 -0800 (PST)
-Received: from ziepe.ca ([142.177.118.84])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ae8dc60sm518286266b.34.2026.11.24.06.20.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 06:20:33 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xVrNo-00000000RS3-1UVp;
-	Tue, 24 Nov 2026 10:20:32 -0400
-Date: Tue, 24 Nov 2026 10:20:32 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Alistair Popple <apopple@nvidia.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Simona Vetter <simona.vetter@ffwll.ch>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>,
-	Dongwon Kim <dongwon.kim@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Baolu Lu <baolu.lu@linux.intel.com>,
-	Felix Kuehling <felix.kuehling@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
-	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
-	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	linux-nvme@lists.infradead.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
-	Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com,
-	treding@nvidia.com, jhubbard@nvidia.com, chaitanyak@nvidia.com,
-	Leon Romanovsky <leon@kernel.org>
-Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
-Message-ID: <20261124142032.GN9566@ziepe.ca>
-References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
- <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
- <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
- <20261123165716.GM179082@ziepe.ca>
- <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
- <awT8prWsj11TBdmP@nvdebian.thelocal>
- <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AJZpwZz7
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A97AB339;
+	Tue, 24 Nov 2026 06:56:46 -0800 (PST)
+Received: from [10.2.201.43] (e140322.arm.com [10.2.201.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D01913F86C;
+	Tue, 24 Nov 2026 06:56:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795532209; bh=4/9nuLvHnv3HcCAvlF76Jnxm0bbYbkUtZm8PyQOh+Ks=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=AJZpwZz7bbtae+8Jy7ybd1Hwbx+tx38HccI4agjaJRXdLLGjIFPZnReJaQwKgvFZb
+	 iEi7LgYPnGZcA2HuxqQshQ0pNEgtVVfVDFzdKfcUJicTNOmirBsn2lB2ZFjyilriCz
+	 1NePzND053BJVFO1gpYhUupLUJYsgpFeS9w63MSg=
+Message-ID: <b152209e-6117-4a24-aa2d-59be913850b5@arm.com>
+Date: Tue, 24 Nov 2026 14:56:46 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -133,54 +53,125 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 04/28] media: mali-vpu: initialize decoder format
+ state
+To: Nicolas Dufresne <nicolas@ndufresne.ca>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Rathinavel Sankaralingam <rath.sankaralingam@arm.com>,
+ Shobhit Pandey <shobhit.pandey@arm.com>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
+ <20261119153758.1426673-5-charvi.mehta@arm.com>
+ <d1d53edeb358e1bdcd1c262e48074f7f1be276cf.camel@ndufresne.ca>
+Content-Language: en-US
+From: Charvi Mehta <charvi.mehta@arm.com>
+In-Reply-To: <d1d53edeb358e1bdcd1c262e48074f7f1be276cf.camel@ndufresne.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
 
-On Tue, Nov 24, 2026 at 01:36:21PM +0100, Christian König wrote:
-> > The core then negotiates compatible types and adds converters between them,
-> 
-> I have strong objections to that plan and would potentially NAK it.
-> 
-> DMA-buf should *NEVER* accept CPU physical addresses nor provide
-> conversion between different address types.
-> 
-> Keep in mind that DMA-buf is solely a container for DMA addresses,
-> nothing else and it should not provide any mapping functionality
-> whatsoever.
 
-dmabuf needs to provide support for drivers to help them use the
-interface, and going from physical to dma_addr_t is absolutely a
-common task every driver must do. I don't care how you call it, but it
-is a service that must be provided by *something* and matched to the
-needs of dmabuf.
+On 11/19/26 20:30, Nicolas Dufresne wrote:
+>> +void mali_vpu_session_init_dec(struct mali_vpu_session *sess)
+>> +{
+>> +	const struct mali_vpu_format_caps *variant_fmts = &sess->vpu_dev->variant->fmt_caps;
+>> +
+>> +	sess->port_src.supported_fmts = variant_fmts->dec_src;
+>> +	sess->port_dst.supported_fmts = variant_fmts->dec_dst;
+> Why? the variant are constant, you can just read the information from the
+> variant. Make a getter or point to it.
+The format arrays are already static const and shared; only the list 
+descriptor
+(the pointer and count) is copied. However, you’re right that each port 
+could
+simply point to the const list in the variant, avoiding that copy too.
+I’ll make that change.
 
-I will definitely NAK any direction to open code dma mapping in every
-driver again. If we are going away from SGT then we are fixing all the
-DRM mistakes, including the wrong open coded DMA mapping, sketchy use
-of SGT, and abuse of P2P that seems to be endemic in drm.
 
-Meaing the exporter constructs a phys_addr list, gets a P2P provider,
-and some common code constructs what is passed to the importer. I
-don't care if this is in "dmabuf" or some "dmabuf library" or
-*whatever* but it must exist as common shared code.
+> p.s. is that "port" like in OMX IL?
+Here, “port” just groups the format and streaming state for a V4L2 OUTPUT
+or CAPTURE queue.
 
-dma_buf_phys_vec_to_sgt() is the template how to implement this
-transformation.
 
-> > and having SGT as a type is what allows that. It only exists for unconverted
-> > exporters and importers and eventually goes away once everything is converted.
-> > The idea being we don't have to convert everything all at once, whilst also being
-> > able to add support for different interconnect types. Are you ok with the SGT
-> > type if it is just transitional?
-> 
-> Not really, it just complicate things.
-> 
-> What we should do with the mapping interface is to add the
-> information in which domain the DMA addresses are to be used.
+>> +static int mali_vpu_set_port_fmt(struct mali_vpu_port *port,
+>> +				 enum v4l2_buf_type type,
+>> +				 u32 width, u32 height)
+>> +{
+>> +	struct v4l2_pix_format_mplane *pix_mp = &port->curr_fmt.fmt.pix_mp;
+>> +	const struct mali_vpu_format_desc *fmt_default;
+>> +	int ret;
+>> +
+>> +	if (!port->supported_fmts.fmts || !port->supported_fmts.num_fmts)
+>> +		return -EINVAL;
+>> +
+>> +	fmt_default = &port->supported_fmts.fmts[0];
+>> +
+>> +	memset(&port->curr_fmt, 0, sizeof(port->curr_fmt));
+>> +	port->curr_fmt.type = type;
+>> +
+>> +	if (fmt_default->flags & V4L2_FMT_FLAG_COMPRESSED) {
+>> +		pix_mp->pixelformat = fmt_default->fourcc;
+>> +		pix_mp->num_planes = 1;
+>> +		pix_mp->width = width;
+>> +		pix_mp->height = height;
+>> +		pix_mp->plane_fmt[0].bytesperline = 0;
+>> +
+>> +		/*
+>> +		 * Use one byte per pixel as the default compressed sizeimage,
+>> +		 * with a minimum of one page, aligned to a page boundary.
+>> +		 */
+>> +		pix_mp->plane_fmt[0].sizeimage = PAGE_ALIGN(max_t(u32, PAGE_SIZE, width * height));
+>> +	} else {
+>> +		ret = v4l2_fill_pixfmt_mp(pix_mp, fmt_default->fourcc, width, height);
+>> +		if (ret)
+>> +			return ret;
+> I might have to come back to this code once we have TRY/SET_FMT in place,
+> meanwhile it seems more like a default setting helper then something that will
+> be part of the ioctl interface.
 
-You need to negotiate the actual C data types too, especially if you
-want to do that nasty idea where dmabuf populates an iommu domain.
+Thanks, yes, this helper initializes the queue’s default format.
+I’ll rename it to `mali_vpu_init_port_fmt()` to make that clear.
+Patch 7 extracts the format-filling logic into `mali_vpu_fill_pixmp_fmt()`,
+shared by initialization and TRY_FMT/S_FMT.
 
-Jason
+
+>>   struct mali_vpu_session {
+>>   	struct mali_vpu_dev		*vpu_dev;
+>>   	enum mali_vpu_session_role	role;
+>> +	struct mali_vpu_port		port_src;
+>> +	struct mali_vpu_port		port_dst;
+> Ok, its time to comment, src_port and dst_port is a lot easier to read imho.
+I’ve generally placed the direction last, as in dec_src/dec_dst and 
+pixmp_src/pixmp_dst.
+I’d prefer to retain port_src/port_dst to follow that pattern.
+
+
+>> +	},
+>> +	.frmsz_caps = {
+>> +		.stepwise = {
+>> +			.min_width = MALI_V76_MIN_FRAME_WIDTH,
+>> +			.max_width = MALI_V76_MAX_FRAME_WIDTH,
+>> +			.step_width = 2,
+>> +			.min_height = MALI_V76_MIN_FRAME_HEIGHT,
+>> +			.max_height = MALI_V76_MAX_FRAME_HEIGHT,
+>> +			.step_height = 2,
+>> +		},
+> Are you sure this will be the same for all codecs and all formats?
+These limits apply to H.264 and the three 8-bit YUV420 capture formats
+currently exposed by the driver. The plan is to introduce separate ranges
+when adding a codec or format that needs different limits.
+
+
+>> +struct mali_vpu_format_caps {
+>> +	const struct mali_vpu_format_list dec_src;
+>> +	const struct mali_vpu_format_list dec_dst;
+> Strange naming, perhaps src_formats/dst_formats?
+Here, dec identifies the decoder role and src/dst the queue direction;
+fmt_caps already provides the format context. I’d prefer to retain it.
+
+
+Regards,
+Charvi
