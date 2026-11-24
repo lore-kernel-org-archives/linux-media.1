@@ -1,87 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795548143;
-	b=uiR2IFiqi4o85lOeoYVhiHn0bnLInOTiJ+g5uvGdmeeVc/sDYfwauTPZ5b85EfON3fi3
-	 Shb/2hVfZzOq1A6rE2CyU0vDSCsQPrVpiojjSWSqHNa/7JA2nGzYiNpyYW2zk9VYmWLIV
-	 Bch4cchpZSnKTzo6CbdeWCQZfq+4sv4/jpZvFwhhUzF8dV5qlCbynucQnNvSU4dM7JJ8u
-	 qG9tTDiH0qMDmfzsxONm22VzKDs7Ju0TR+x/WnwBLHZU19Dr2cbFo3C6tTC365npKDHqi
-	 o9EcGGxwj8adDs//An+v0Uu5QzdDx6y5LhZo6FfZvIlN7z7n4UnGYHoLNQ/nLIctwwg==
+	t=1795549581;
+	b=hMUmvxgQdIp7RXVeaxHT7klD8Q/3FyCsmVluJWCUu/W4Zldgu4yKV2UupR+m7t/Ufx5h
+	 oZ9cwPDRrK826TjeONmLwmn03Y2b4Wg6PMLi25cAmmb8tCa9NMZzoqW199c+4+Gi/0I+k
+	 rK0oOYPIVzCqAlueG0ljs9n4mdWlP7dJ/XmHP11T391qdaM3ARxp5BPHRLi0nO4Lo7scL
+	 HfVoVf+sv5O1vWhEupCXscKEdUoZ+0vjoGq6MA4adO0+VXsrjQbflHlwXBKZ1FRFeAaxi
+	 790PEyxDBS6WpugG6sKUCEF7EXTFA6BS2ZxUZL1jexB0wkPCyNRul9oHQn/tdpUEINQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795548143;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795549581;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=+sqGc9BB0de+o0BtnP9Aq7Fkyx+O52AcgmtWyPr0TiA=;
-	b=bGLzqG3XH24s/PxHqQeKr68dOYcE8fApd+5v0aQEzf2Dz5HsuhrLh6xc3/Uiyq8zRqsN
-	 Zv3kO4VCQYQ/nDw+F7erF+YRFtgDCQfGGl+aBAT4VMaLc8LieNnGF7tgubZ4UcxeNoDWy
-	 qqCwVkhyBwe0VkFfhQ7suXYAyiAOmdBbdBbUpFWukw16MaX6+0Y7WZApA3gxOg/fGsBrn
-	 TP7iKPasjJ4RL2rlCnrQ3TMkLJhQrl30NZe4Rxs3Xa7INpweNLgSkPeP6x8YSF2WOChz6
-	 vFmnYO9OQv58M9T3t4yV21uY/qspSl+YKVLOy2w5z2+05eLx/ey9r+SJ9zFbFx/L3mQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=cCMOaZdag+2OcXEDMl2EbRqTcxfKhXeKWu4Qydoaad0=;
+	b=E9fmXvsYR+uQv7hWpZ6fYn2fCetEPRBpEnYAlqopvzR81b6yPIcSVtq58fUaulkeE01v
+	 J01E4UJj0cxp22vDJEejhT3hy6ezD2VkpCQrjsyWvEWIBD1luqfNWq0CHDxaUw18PUT5T
+	 xPsodWhQyyX3jPZQegQI/bVD94WsaaFiNXqzysMpe0xTZ4dnzIemv5JYM8WbUcjJ6a3z6
+	 Y4w0JzGUBUfQ7Xt0UgcqBzV9qRXxWtoDHV9C751ZEDw6IrpBWbvp7taWsxtn4W0dZCHUR
+	 oMWwa4iK4jk+Zm2PLBXE3dhTVjQQZv1hE7e7SBq5SDS5kfPZixdaF7+b+t2pniux02Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=nMZXZySt;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=hNzo9bKF;
+	arc=none smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE692606A321
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 19:22:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE692606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1CD0606A31E
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 19:46:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1CD0606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=nMZXZySt
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b413997581so3967055a91.2
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 11:22:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=hNzo9bKF
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-55b8cd4e2abso52807041cf.1
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 11:46:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1795548142; x=1796152942; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+sqGc9BB0de+o0BtnP9Aq7Fkyx+O52AcgmtWyPr0TiA=;
-        b=nMZXZySt4kKuUEuezyaFKNG+BAgUNK3SZMQ+nMKDsk8BZHIKZ2NJxetVIz2mjjCPcz
-         949ZO2Du3YGV1JmJksnU4KbmvwPfm7lWkrR2UjC9vzBMOF7gcMQc7cx6wErOu8SaZvmX
-         gbGeOTyv7VU39/DmRGeT4f4zq7WOcyjS71esY=
+        d=ziepe.ca; s=google; t=1795549580; x=1796154380; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cCMOaZdag+2OcXEDMl2EbRqTcxfKhXeKWu4Qydoaad0=;
+        b=hNzo9bKFfhVQc9qzPT4XFVGb8WWDhkAsWzEGNeoMtQsVv/UieKFHIx8duXK+pVyc+7
+         K5tuXAPvt7SnRa+oW1TYccovCbxEoQMg8PMSal3gZtNqnBkfc9eaI8iRduIFPXdXeGyC
+         7IqbxUGwhapkSK1PkTGpbVYuC07dIRe3KRRo51bldaV5T8p/83gXtSNREqT8fVb1HMZP
+         lRwnNEOCDprIXQY+fn4dNi7XyHXAEaKdOG2aZhU8DQiLg94XiGTcamJqB2smYFg1x/Sg
+         siI5MDO2hfLOudZP5xdAkje683/c7T63Kjq3de7kKz2KbuVb5db1oTFbL+o0yYQz2SQS
+         i3lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795548142; x=1796152942;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+sqGc9BB0de+o0BtnP9Aq7Fkyx+O52AcgmtWyPr0TiA=;
-        b=XEwVWWyhqCXPFLIiz7dnkX1SrkBwOaEhZoLw7AiS14W6pF1OAz+27JwDPXPflpZtGi
-         ami4SOg6aRfMnieM8ct5wG8XUmWa0CoZiwC7CJi5q6dGWh0uOtPcanERNuZjA4LEeK2I
-         DrQfOeiV5H9mC4wsmAbSa5u+Hy2XMSMDDxTA3TAs3PdGEAfVZGTqRB/+Ut+InCklYBQm
-         40ab8Ct/T9aHvqbv7wdkmWq+FcJK12ceyzo2louN8X9/cMTmP10VWt2z/ryEsOUydgoN
-         zGjpjKPt7hJJ0xCIIBFaRy32P93c7co5VNAnwBxCZP3FyFoFYDYnsYNl7pwhVehfrGPh
-         kl4Q==
-X-Gm-Message-State: APuU4Z+IG0AvkifxBVhjjOtD1blLb/OFzvSXyGCZJ35HkuiOYMferD3u
-	NZIXdbyjEcF+CUnsykPfeuRxNFHvuoDjHOs7QqPVjNpN19RBrxXSlQDtmG0o7sGj3yb3iqWD+3O
-	ggy9IRDhU
-X-Gm-Gg: AZFdTZe11bGqrhB6EZwp2ZoJQ7NCrpkK4XGXaFuOwkEfn3255/rIQEm0e3gE7jwIMhu
-	z2zydflL2wVUGvBe45itiJHPkrEmYrGkPD+OXH2xkDVhhQ/mnu0WDo7KjAhhg7US9HsyVL9ykA+
-	qONZcODVTOoeDDL70lmY4Gmsj3znjtZrC88fSmpgRT5KMCSoPWEg4pIbaxc/Q24sLnbGoVx5XSN
-	YwpFIpYp4vkdGJWt18cjkUTtKeq7GvEcXFmogGWSM6LMwqzFDBwee8j1V65GTZbwcsm2fA0Q1zt
-	DJKC66u1yUrGJOwTvdJNlwDjwPINesfx6sY0NlkKdIqL4h8SJYvacjGcmeUJccHzsfZK/wiWGbm
-	V3QOpASi0UruH7nl1XZrzKg8np1dBzOqym5Ur3A1TvSwyrcYFCbW4fDfuiTUQfFKdXXnM2CNwFz
-	rhrtUJKkunEseaIkkKbvF6E0Lki+oPvvqm3izWXDjtJvFfEREKOklx226i4DqSOmkWec7I2uG+a
-	2u7lcaVkJYnwu7QJUQ6A6dfbcyuEotUYxAn+iczow/rKxeatnynHVGQHcYHt9Jk7hHCsV2If1ck
-	De+MyCrDswufet0VUbLcdXZz18c3rGBf+8WVcF3kqKlcQd4BGHeuDPn6BXItXmXL4w==
-X-Received: by 2002:a17:90b:240f:b0:3b4:ab19:ae09 with SMTP id 98e67ed59e1d1-3b4ab19af51mr3588131a91.52.1795548142326;
-        Tue, 24 Nov 2026 11:22:22 -0800 (PST)
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com. [74.125.82.54])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b40f4312dfsm25474832a91.3.2026.11.24.11.22.21
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 11:22:21 -0800 (PST)
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15dd124bbe7so5374655c88.1
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 11:22:21 -0800 (PST)
-X-Received: by 2002:a05:7022:b908:b0:1b5:25e:9582 with SMTP id
- a92af1059eb24-1b55691dbe2mr14081660c88.37.1795548139472; Tue, 24 Nov 2026
- 11:22:19 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795549580; x=1796154380;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cCMOaZdag+2OcXEDMl2EbRqTcxfKhXeKWu4Qydoaad0=;
+        b=gmOYfc8J86gBUqu3xQaa8b7ppIc8bEMpBN/27DsDhf1579xfK47zM0RZaSVxRFNYuK
+         l+nzOAIbzAg0oWXpC9SoasmDc+vnO7opmaUwmlGE+nwq2Tk3SJr9dRne+5XQ16qBy5ZF
+         NXABxMKzL7a+ca1ns5zfqQsBEk5m5xN7j/I+p9PEBMZdSkLHWkAwZL9sKKrywQehiEml
+         yr1Pha/2UBP3rthJhiRDYBGZMP++rZPsJX2E5j0xAsnkSsnpmGLxDDefkQ4OcHZ/oxNr
+         6TyLQULQpQIqZd74N/nWt7+QOJOaLY4VFRVu6y+1/nPRvxq1KxU+II70IQP061wrk1IQ
+         UOVw==
+X-Forwarded-Encrypted: i=1; AL+hErEsVNdt3pghxWthABtK8uUONQgVovUo0ZCVTRjwXon7GswH0/CRdems52T03FYoiTOre6xm246mt6+UXg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z93lKlvIyYhYQ7GrGCwkJuaNlaTonW/thcNYmiGxqpinNEsU63m
+	mXKXggC4jqptbLvnpjNI/eVm1VoTc4xldGRIrtS9W5aENDO/+uTcmkYZlpGAHN76Eiw=
+X-Gm-Gg: AZFdTZfSbr0YNZnUcTFd0syDj7/SUnXkFSPwRhbMg3hfxW+9tGwc1MJY1xktcHb6RXp
+	DJ2H9uRnn1TGvVCzDtkgA4c2EGufwmsi2XbnxBWn1OvgeXO/2SeKcqEM3LPRaRsgXRBffTvi2nN
+	6ud5j/wW7EXpWmcVv/sTEPpmfKtR2bkZIu8AHLTWGD0GcJ73rcb/pA7qjBxUo7Ld7COFKOKWLq4
+	gdJPKNEpKKmcVGYBUq3S7VgvYqizdC5Qufc72D9UaySgXjkKbcylQt4lv79dYbyElntWUZrULUH
+	0ttFVvmTKV0LQylOY702gQQ8mseh8/SKmXvCpub2ntecsfve3UqRoaYKlQMQDRDbA/RbEpIBAzR
+	caWlXi81VYxi4TJydFtYanCxkvQma0UdWj2tQmF4ornvkpm+/onuXZtlxgIbsWT+IhbqsdbEAhc
+	WcnAJBCjvSWjSd4XWakXOugvePqvb3ioEAPiifEhvH/r9lYCOuHNtq1QD9eYd94Ayu0PpPWrmj8
+	XUPoZswWieqaPihat2b9U126z4z90DT+PFqh+3W2zkGtxSfArzzKx2VVLHXvyyehNletjMUG1wv
+	wNorGA==
+X-Received: by 2002:ac8:5c8a:0:b0:55c:66f0:5bfe with SMTP id d75a77b69052e-55d76a6f55fmr288174681cf.22.1795549579924;
+        Tue, 24 Nov 2026 11:46:19 -0800 (PST)
+Received: from ziepe.ca ([142.177.118.84])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d7882ea2dsm135596661cf.15.2026.11.24.11.46.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 11:46:19 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xVwT4-0000000113s-3B2s;
+	Tue, 24 Nov 2026 15:46:18 -0400
+Date: Tue, 24 Nov 2026 15:46:18 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Alistair Popple <apopple@nvidia.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Dongwon Kim <dongwon.kim@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Baolu Lu <baolu.lu@linux.intel.com>,
+	Felix Kuehling <felix.kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	linux-nvme@lists.infradead.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+	Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com,
+	treding@nvidia.com, jhubbard@nvidia.com, chaitanyak@nvidia.com,
+	Leon Romanovsky <leon@kernel.org>
+Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
+Message-ID: <20261124194618.GC114530@ziepe.ca>
+References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+ <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
+ <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
+ <20261123165716.GM179082@ziepe.ca>
+ <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
+ <awT8prWsj11TBdmP@nvdebian.thelocal>
+ <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
+ <20261124142032.GN9566@ziepe.ca>
+ <7a5a2d3a-e42e-4dc0-8d22-8dd1bd249501@amd.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,191 +135,36 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261124100623.2227323-1-chris.bainbridge@canonical.com> <20261124100623.2227323-2-chris.bainbridge@canonical.com>
-In-Reply-To: <20261124100623.2227323-2-chris.bainbridge@canonical.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Tue, 24 Nov 2026 20:22:05 +0100
-X-Gmail-Original-Message-ID: <CANiDSCteP85q_nz+-_kG7+h9AkoE+uiVr4VwYHGm8Y+w8vNYKg@mail.gmail.com>
-X-Gm-Features: Aa3M54qZlBqKXV6xMS8voS7QdUfU25qdUIfEGZwbhyuEty5R7NTbFgGEiEWFQUo
-Message-ID: <CANiDSCteP85q_nz+-_kG7+h9AkoE+uiVr4VwYHGm8Y+w8vNYKg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] media: uvcvideo: Report the failing control when
- restoring controls fails
-To: Chris Bainbridge <chris.bainbridge@canonical.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7a5a2d3a-e42e-4dc0-8d22-8dd1bd249501@amd.com>
 
-Hi Chris
+On Tue, Nov 24, 2026 at 05:02:31PM +0100, Christian König wrote:
+> The whole conversion from phys_vec to DMA addresses is something
+> some API should provide based on the data the exporter/importer have
+> negotiated (e.g. p2pdma_provider for example).
 
-On Tue, 24 Nov 2026 at 11:10, Chris Bainbridge
-<chris.bainbridge@canonical.com> wrote:
->
-> When uvc_ctrl_commit_entity() fails while restoring the controls after a
-> USB reset_resume, the only message visible at the default loglevel is
-> the generic "reset_resume error -5" from the USB core. The control that
-> caused the failure and the reason for it are only visible with the
-> uvcvideo trace parameter enabled (UVC_DBG_CONTROL), which makes the
-> problem almost impossible to diagnose in the field.
->
-> On a Logitech C270 (046d:0825, USB_QUIRK_RESET_RESUME), the processing
-> unit restore fails with UVC error code 7 (Invalid Request), mapped to
-> -EIO, and the user only sees "reset_resume error -5". The restore order
-> suggests that WHITE_BALANCE_TEMPERATURE is written while auto white
-> balance is enabled, which the device rejects.
->
-> Pass the err_ctrl out parameter of uvc_ctrl_commit_entity() and report
-> the name, the selector and the entity id of the failing control,
-> together with the error code, using a ratelimited warning. If the
-> failing control is not known, report the entity and the error code only.
->
-> Also extend the "Control error %u" debug message in uvc_query_ctrl()
-> with the name of the UVC error code, the name of the request, the
-> selector and the unit, so that the cause of the STALL is visible in the
-> trace log.
->
-> Signed-off-by: Chris Bainbridge <chris.bainbridge@canonical.com>
-> ---
->  drivers/media/usb/uvc/uvc_ctrl.c  | 36 +++++++++++++++++++++++++++++--
->  drivers/media/usb/uvc/uvc_video.c | 31 +++++++++++++++++++++++++-
->  2 files changed, 64 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index d2f722bc3459..f70fa37800a4 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -3199,6 +3199,34 @@ int uvc_xu_ctrl_query(struct uvc_video_chain *chain,
->   * Suspend/resume
->   */
->
-> +/*
-> + * Report a failure to restore the controls of an entity. @err_ctrl points to
-> + * the control that failed, or is NULL if the failing control is not known.
-> + */
-> +static void uvc_ctrl_restore_error(struct uvc_device *dev,
-> +                                  const struct uvc_entity *entity,
-> +                                  struct uvc_control *err_ctrl, int ret)
-> +{
-> +       const struct uvc_control_mapping *mapping;
-> +       const char *name = "Unknown Control";
-> +
-> +       if (!err_ctrl) {
-> +               dev_warn_ratelimited(&dev->intf->dev,
-> +                                    "Failed to restore controls on unit %u: %d\n",
-> +                                    entity->id, ret);
-> +               return;
-> +       }
-Unless I made a mistake there i no case where err_ctrl can be NULL.
+Yeah, probably, and this is exactly why I think it will take some
+time. Building a new something in lib/ like this is not a
+straightforward task.
 
-> +
-> +       mapping = list_first_entry_or_null(&err_ctrl->info.mappings,
-> +                                          struct uvc_control_mapping, list);
-> +       if (mapping)
-> +               name = uvc_map_get_name(mapping);
+But also, this:
 
-can you move this into a function uvc_ctrl_get_first_mapping_name(err_ctrl)
+> > You need to negotiate the actual C data types too, especially if you
+> > want to do that nasty idea where dmabuf populates an iommu domain.
+> 
+> Yeah agree as well, but to be honest that task is negligible. We
+> first need to figure out where to put the code.
 
-with that move this function would be so small that it is probably a
-good idea to squash it into uvc_ctrl_restore_values
+Means you need to get the phys_addr_t into the dma-buf code so it can
+do this conversion.
 
-> +
-> +       dev_warn_ratelimited(&dev->intf->dev,
-> +                            "Failed to restore control %s (selector %u on unit %u): %d\n",
-> +                            name, err_ctrl->info.selector, entity->id, ret);
-> +}
-> +
->  /*
->   * Restore control values after resume, skipping controls that haven't been
->   * changed.
-> @@ -3210,6 +3238,7 @@ int uvc_xu_ctrl_query(struct uvc_video_chain *chain,
->   */
->  int uvc_ctrl_restore_values(struct uvc_device *dev)
->  {
-> +       struct uvc_control *err_ctrl;
-please do err_ctrl = NULL here  and not in the loop. We probably do
-not need it here either, but will make the static analyzer happy.
+I'm still absolutely NAKity against allowing any DRM driver visibility
+to an importer's iommu_domain if we do this hack.
 
->         struct uvc_control *ctrl;
->         struct uvc_entity *entity;
->         unsigned int i;
-> @@ -3230,9 +3259,12 @@ int uvc_ctrl_restore_values(struct uvc_device *dev)
->                         ctrl->dirty = 1;
->                 }
->
-> -               ret = uvc_ctrl_commit_entity(dev, NULL, entity, 0, NULL);
-> -               if (ret < 0)
-> +               err_ctrl = NULL;
-> +               ret = uvc_ctrl_commit_entity(dev, NULL, entity, 0, &err_ctrl);
-> +               if (ret < 0) {
-> +                       uvc_ctrl_restore_error(dev, entity, err_ctrl, ret);
->                         return ret;
-> +               }
->         }
->
->         return 0;
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> index a92a986ab714..b10064defaf4 100644
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -68,6 +68,32 @@ static const char *uvc_query_name(u8 query)
->         }
->  }
->
+I don't see how to meet all these concerns without making dma-buf into
+a "converter" framework...
 
-Maybe you could make a function
-
-static const char *uvc_ctrl_error_name_code(u8 error, int *code)
-
-and reuse it in uvc_query_ctrl() it is much more nicer to get the
-error name than the code
-
-(sorry to treat you like Santa :P)
-
-> +static const char *uvc_error_code_name(u8 error)
-> +{
-> +       switch (error) {
-> +       case 0:
-> +               return "No error";
-> +       case 1:
-> +               return "Not ready";
-> +       case 2:
-> +               return "Wrong state";
-> +       case 3:
-> +               return "Power";
-> +       case 4:
-> +               return "Out of range";
-> +       case 5:
-> +               return "Invalid unit";
-> +       case 6:
-> +               return "Invalid control";
-> +       case 7:
-> +               return "Invalid request";
-> +       case 8:
-> +               return "Invalid value within range";
-> +       default:
-> +               return "Unknown";
-> +       }
-> +}
-> +
->  int uvc_query_ctrl(struct uvc_device *dev, u8 query, u8 unit,
->                         u8 intfnum, u8 cs, void *data, u16 size)
->  {
-> @@ -125,7 +151,10 @@ int uvc_query_ctrl(struct uvc_device *dev, u8 query, u8 unit,
->                 return ret < 0 ? ret : -EPIPE;
->         }
->
-> -       uvc_dbg(dev, CONTROL, "Control error %u\n", error);
-> +       uvc_dbg(dev, CONTROL,
-> +               "Control error %u (%s) for %s control %u on unit %u\n",
-> +               error, uvc_error_code_name(error), uvc_query_name(query), cs,
-> +               unit);
->
->         switch (error) {
->         case 0:
-> --
-> 2.53.0
->
->
-
-
--- 
-Ricardo Ribalda
+Regards,
+Jason
