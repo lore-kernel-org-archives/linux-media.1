@@ -1,86 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795523325;
-	b=eiGnCtYAQIY6LXTCdJyP1bs/2dImsB/YAz1Vg2YMtxaWW6N3iHhhGUVHbOhf02HwcQ5C
-	 L46FH+cV4R+pbRGNRxDTLKyLtEfrlPru5pxcuyr4CqbynEmfKTEohUov1GbRjzo9bxOfA
-	 B2JchdJ5MsECcxSc/xM+Sb0ihVcje9iUXc3vYRyXLdwnynjFgumKo0GDg+NaLZXSsKgZR
-	 re1yMZbtDh68bSNXI8lhjP13VTMRT2DzMNjQWRvbkeHewNj2mYrdWUTCuOuG/biRLjKpN
-	 VQxw2h7q3B8+n3ULsr5UHRMXBMd3w1LfvGYTqgjpozg2BaDxEFKZ+sDICEuhIznwcww==
+	t=1795523423;
+	b=kRv4sUwtyXMcXuHlIQ5PwP7jEky5jfIhRtM5DnmAkhzvDAHQBhoSxw5RMf5yrsizDOyq
+	 FGtV2m71eXHPMS+tHI3/Q8qdKD0XrZn7EHF8qpZvq6ikSnbN1oVV91RaXkwGfdwyRaKiU
+	 LTYCkZv8dKKbhqO553w9xA3xjAzjgSyAuibI+BeOjoH+ZIra8fGv7WM6hk0vZbupmqq42
+	 9Fd+Q43R9J3f2RxSq9zeHggoc2KyAtnMhaLjaRiLArB1Bb4b9MeHkOUbV7iOwi2ShhDVx
+	 93I06lKFQ9POrzmlpJUgbCzW+TWANrG4dqK4cC321n+2sO6x9iHgkP3wDy8HjL0ib0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795523325;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=eZhcQLcos0J5dvNvJuQcdaS5XfBtHybSILA8OS9MUy4=;
-	b=0qVcWIuMkDIjMZ5sOZFp0u24BNe2j0F0ptWwF1zTM9JXSIPSoME5dAwa2BT0iDFnulLT
-	 tz90CPW+nTF6KJCTI0nWQOpQNVhdwcFT2TwtVgYpmtMDrbCBPogTKIVL8Llw3rQRtvbE6
-	 RE0M4V3jYhq5dTEaiEncZV7BTApqtZU2FcwQAd2ou3AcLOUjTyTRgueTFwT1pMa/IbU96
-	 Tt1gBSFPwfiv0NVz9GpNsfYtaIkGCjqamOGUmCYjCLIfJIx0Fx04DYpI6dO1vfKoJjc9z
-	 7nznBDVfcsRWfeuAY3mriVYJ4lI6UQzQFsh/9IL3mkOeuCIFMRT6Ry4nxE09YrhMb1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795523423;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=VG8BxwmxK2eEGyGiTPMxLHYfSj68j9MEuEHEhkL+Yaw=;
+	b=PRgMmZ2NyySwMU7HLtoHEgU7H+BJSQO3ulpvSV3uZY4cLndbcjQOeMgBVvJMGXuigQbT
+	 6bKwJEt+zdBTC8Wy8Q+dDgsFReeijnixkS4+YldGkZnytYHa9nhz6O68/cu9G0ZFgj8GA
+	 wL8oWzXQGyZHBaFz2aSQtn9bKe3tuFhVeT+gqo3w5oYNTtFIjg/4tDqwNSd2YvvU0Cchy
+	 9n0TToTxg5zHXQy83vlUtkOyKOCiew0IDwKoQIn42K1qbDxI37g32PtDYUEDH20dJiYJ4
+	 S5WZZSvsASTX82X08HNmlvHvIdoewkCTbsf+yyWwZlgvED+yXNoJIVrLnzGb902LbtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mdeJc0zF;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OHAhYtW7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64132606A33D
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 12:28:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64132606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB8CC606A326;
+	Tue, 24 Nov 2026 12:30:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mdeJc0zF
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so40777955e9.2
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 04:28:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795523324; x=1796128124; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eZhcQLcos0J5dvNvJuQcdaS5XfBtHybSILA8OS9MUy4=;
-        b=mdeJc0zFgMONR/NIr7+cJFXQYT9CzjbZVK8K5bHdLs5owNebF6BU6Lbm+9OJDMU10Y
-         yt7f+5sLgqYmVZIDmBpJ4ksEtISJb/I97RIHZbwO6MvpHEzvTiAk3fxKdlhe4KnzcOzj
-         ZywLle01PUQKQXASCQztj/WDuBw56a373qOxXHDEI8c2CClJsa5dYMIz6SPbcBJ6fGs6
-         EE8HLW5oohacke5/5JVwZ14wuPmHOaO5S/x37gkYucadKC7fjdMmkrsfH7WTbEm7GF7b
-         +sIlmr+BFFRDH+eHJlg/ADSXxq72+jMtqdO3N/xPxEpd4/V0unSmakepAaTOry33TdW2
-         vypQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795523324; x=1796128124;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eZhcQLcos0J5dvNvJuQcdaS5XfBtHybSILA8OS9MUy4=;
-        b=CG1bgPCG0ysPAm+A1ujgIlqUVrVM6VzfALjdLV8AJgAyZuxDcwMAC+4Wuea4+rhRXK
-         8/ipqldIpgFN3HDgtwJSqnjfFjiFVx+Mb9wHdSqZf/C214DkSe+FaDNk4lKg1uWfBzes
-         YsSilO9dF0X2f1A8kjdO3ZSKXc5NGKOBQCOVIl+7inWVXJ3KWv02c7LXXY0dL3nwftMM
-         Rqya6+pMuRvPH64UXCVJnp8/CjHEsZMuUbwhQcG4IaGkzZgmhVO9me7W8QJwrhNc1x3C
-         6qLMGDP+NZGI0ZBlsEx0rPHKDzqEGyTCchnsNjV3u9PwMgDpp1WntJKuzNhnX6t+uRso
-         wtAQ==
-X-Forwarded-Encrypted: i=1; AL+hErFWtjIiXeowqVC5d1l8V+v4Mve77tm+VJGnX2LHZ9A4MH7fuf8fXdb0TJsz8tdrtH7+p8mOMS58ykBONw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/SKgAIkXmxc4PMow6f0EkSlbvPGO2Ou31k0MGV9wjEJQpuNgdM
-	KVOjJLgqMFoywG2a14Km7id9COklmMMp+6kFKEqTuw514tkB820ufLI50PwdOpluXJE=
-X-Gm-Gg: AZFdTZdGWck5kCwJNACYqg8d1Nv2KC4pGR2tgCHQmurN2TmL5nvCXFQbKCIqjc6EKdB
-	eOVuEq5Ej5Cb7qSeIdRDcXFxns0A529g61w2vUcja9FTlXTXiXxoYQMicWEeXUGWlg4zD/BCZvc
-	on5Lq44fahSCRBWs2LlXY1A6VrF3D6kcMseiC8C/NceS7SV0ye3dLjb9gooytuYovRfU8oAiMud
-	aXqo9SSqmbKSyJsjyAItNk1L99hO1n6AgG35ECy9gsRT41RDoSKPvOFlRM4U+BNOMDvYJ3UALWc
-	KgSqLDwBW4agMTkT1VtCSRlas2ko+z9DBYBqtMNCiacucX8rxAYMzZUgNtJx4dSkZrDpUL/k92z
-	VKneEZ2UEp+LrS5gj33ZZh42iVwj3H6Woc1kYvNtrhfGa6awTjT252zxEDkFFFuHiDIS71tAMIu
-	hRbMKgGUt3b1MOtMprp493F3nwrKXp/5jdC1b0+I+hdhRKItrQdb7dFaTY/hNARhH/M3ARomwdx
-	bOr0Qy7NWfDOkidlbr6yr6EWObsmiYq1PkWmmVWC2gvvHH+gCZE3/hXz56m4L184BwfaT6Gpi6S
-	cWcT2Ru5GZJmpin+9NY1drTtpAnNS6I+GuazFNNfst4=
-X-Received: by 2002:a05:600c:1911:b0:4a1:7c56:d4e2 with SMTP id 5b1f17b1804b1-4bb8880cf84mr300507395e9.16.1795523323754;
-        Tue, 24 Nov 2026 04:28:43 -0800 (PST)
-Received: from [192.168.0.167] ([109.76.241.250])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8538b2c5sm432306495e9.5.2026.11.24.04.28.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 04:28:43 -0800 (PST)
-Message-ID: <08b9a714-278b-4e1c-81c8-59a60dba5916@linaro.org>
-Date: Tue, 24 Nov 2026 12:28:42 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OHAhYtW7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 325981F000CF;
+	Tue, 24 Nov 2026 12:30:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795523423;
+	bh=VG8BxwmxK2eEGyGiTPMxLHYfSj68j9MEuEHEhkL+Yaw=;
+	h=From:To:Cc:Subject:Date;
+	b=OHAhYtW7ROWFK6+c+ktPF4Oqi42/OuyUcEwEabMdWWwFXxEvlkv6JwJKqJ0xsajr3
+	 sBCDSVsct1SwREWbbE6oy1t+4eM34eIS0gaqB5GI9da5Pq6H/NdK6Nb1hZ7IveZsz6
+	 mLA76U5yUuTAKMDsIHqRWPqCp71YNSnw0j54GltcApNScy7XNxi9Y5BGN0PiVVvYwk
+	 1Qp39dxEIQQ1FCv1ESm7XKETxZ6Hm2si1GzThbaXfvoGFv7USVpawKC37Q33indmow
+	 nnuv++EJpYHBs84WwLwv5hIVqGaw9VHBU7qUScU/uTLnkHNSrNyjw2vKK8cQFR7zwL
+	 VCXNwVDoohsVA==
+From: Philipp Stanner <phasta@kernel.org>
+To: Matthew Brost <matthew.brost@intel.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Philipp Stanner <phasta@kernel.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	"Paul E . McKenney" <paulmck@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org,
+	linux-media@vger.kernel.org
+Subject: [PATCH v2 00/10] rust: Add drm::JobQueue
+Date: Tue, 24 Nov 2026 13:29:42 +0100
+Message-ID: <20261124122951.878199-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,63 +78,120 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] media: qcom: camss: csid-340: Report the hardware SOF
- timestamp
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20261123-camss-hw-ts-v1-0-7b62dda6d7a9@oss.qualcomm.com>
- <20261123-camss-hw-ts-v1-3-7b62dda6d7a9@oss.qualcomm.com>
- <c7fc67a6-e15f-40df-9c0a-7eae54e99d23@linaro.org>
- <CAFEp6-1otVCjNJgWLTiOMQpdy1t4qJUP6_NK0CuifrN+cOTTcA@mail.gmail.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <CAFEp6-1otVCjNJgWLTiOMQpdy1t4qJUP6_NK0CuifrN+cOTTcA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24/11/2026 12:20, Loic Poulain wrote:
->> On 23/11/2026 17:16, Loic Poulain wrote:
->>> +static u64 __csid_sof_timestamp(struct csid_device *csid, enum csid_iface iface)
->>> +{
->>> +     u32 lo, hi;
->>> +
->>> +     /*
->>> +      * The pair is latched on SOF rather than counting, so it can be read
->>> +      * one word at a time without tearing.
->>> +      */
->>> +     lo = readl_relaxed(csid->base + CSID_TIMESTAMP_CURR0_SOF(iface));
->>> +     hi = readl_relaxed(csid->base + CSID_TIMESTAMP_CURR1_SOF(iface));
->>> +
->>> +     return csid_timestamp_to_monotonic(csid, ((u64)hi << 32) | lo);
->>> +}
->>> +
->>>    static irqreturn_t csid_isr(int irq, void *dev)
->>>    {
->>>        struct csid_device *csid = dev;
->>> @@ -207,7 +234,7 @@ static irqreturn_t csid_isr(int irq, void *dev)
->>>                iface_val |= status;
->>>
->>>                if (status & CSID_IFACE_IRQ_INFO_INPUT_SOF)
->>> -                     csid_sof_event(csid, i, 0);
->>> +                     csid_sof_event(csid, i, __csid_sof_timestamp(csid, iface));
->>>        }
->> I think a callback in csid_sof_event() might be cleaner or some other
->> way to not have to replicate all of __csid_sof_timestamp() for each CSI
->> decoder.
-> I added it as a parameter because it is provided in much the same way
-> as the sequence number, given that the timestamp is directly related
-> to and coupled with it. So it is not clearly obvious why the sequence
-> number should be passed as a parameter while the timestamp should not.
+Changes in v2:
+  - Fence:
+    - Use cond_synchronize_rcu() to speed up fence dropping. (Gary)
+    - status(): Don't lock anymore, since I fixed the misordering
+      in C [1].
+  - JQ:
+    - In v1, jobs could be forgotten without being submitted, causing
+      UAF. Fixed it by incrementing the atomic by 1, decremented then
+      later in submit.
+    - Fix bug where I was holding the lock while dropping stuff. (Younes)
+    - Add support for park() and unpark() for Tyr.
+    - Do not check for parked (revoked) in DropWorker, so that a
+      park()ed JQ can continue to drop. Is safe thx to drop order.
+    - Use our own workqueues, with MEM_RECLAIM flag set for the submit
+      workqueue.
+    - Rename SubmitWorker consistently to RunWorker. Now, submit always
+      means job.submit(), and run always means run_job().
+    - Add max_capacity, so you can never submit jobs that are too
+      expensive.
+    - Dependency fences:
+        - Do not kill the JQ anymore if dependencies got signaled with
+	  an error. Just run these jobs anyways, like drm_sched. (Boris)
+	- Thus, remove the kill() callback.
+	- In a future extension, we can pass the error codes through a
+	  suitable data structure to the driver in run_job().
+	- Why was this done? To be discussed in detail, but implementing
+	  it like this allows us for centralizing dep error handling in
+	  run_job(), *if* drivers should care. As far as can be seen in
+	  the DRM drivers, they don't.
+	  And if they do we would have to come to a common position
+	  about fences' errors' meaning.
+	  So the proposal is to upstream it like this for now to unblock
+	  Tyr. Dependency error checking can then be added once our
+	  discussions reached a common ground.
+  - Fix CLIPPY warnings.
+  - Update the docu to reflect the points above.
+  - Update the doctest examples accordingly.
 
-But pretty much every hardware implementation will have to do the above 
-function. I'm asking for more functional decomposition.
+Changes since RFCv7:
+  - Write a bunch of documentation, mostly about the kill() backend_ops.
+  - Add creations of own work_queues (requires some work with the life
+    times still; last relevant TODO AFAICS).
 
-You could pass the hi/lo for example and make the sof_timestamp() 
-function common - called once from inside of csid_sof_event()
+[1] https://lore.kernel.org/dri-devel/20261120111615.2940647-2-phasta@kernel.org/
 
----
-bod
+
+Depends on the workqueue series:
+https://lore.kernel.org/rust-for-linux/20261020-rust-workqueue-v3-0-ea7c74d02068@google.com/
+
+Besides based on drm-rust-next
+
+Daniel tested an earlier RFC (v6 I think) on Tyr and reports that it ran
+well. In v2 I want to have our own workqueues ready, perhaps after the
+workqueue has gone upstream.
+
+But I thought it's time to present this as v1 since we settled on the
+design, it's mostly working already and we can now begin diving out the
+remaining problems.
+
+So please review :)
+
+Thx again to everyone who helped with moving this forward.
+
+Last RFC:
+https://lore.kernel.org/dri-devel/20261103153138.1087330-2-phasta@kernel.org/
+
+Repo:
+https://gitlab.freedesktop.org/pstanner/linux-drm-work/-/tree/jobqueue-jobqueue-v1-2?ref_type=heads
+
+
+PS:
+Note that this version now obtains a fence->error under lock,
+because I strongly suspect that this pattern
+
+if (dma_fence_is_signaled(f))
+  pr_info("err: %i\n", f->error);
+
+is UB since there is no memory ordering between the reads (which would
+proof that fences' locks are not "just for the cb_list", as was sometimes
+suggested). My discussions regarding fixing that in C can be found here:
+
+https://lore.kernel.org/dri-devel/20261020100034.759183-2-phasta@kernel.org/
+https://lore.kernel.org/dri-devel/2db0f1b4-6628-465e-928e-d779b89f59dc@amd.com/
+
+Philipp Stanner (10):
+  rust: rcu: Add get_state_synchronize_rcu()
+  rust: rcu: Add cond_synchronize_rcu()
+  rust: DmaFence: Implement Deref for FenceContext
+  rust: DmaFence: Add ID accessor for FenceContext
+  rust: DmaFence: Don't drop on signal
+  rust: DmaFence: Replace call_rcu() with cond_synchronize_rcu()
+  rust: DmaFence: Replace is_signaled() with status()
+  rust: DmaFence: Pass result in callbacks
+  rust: drm: Add JobQueue
+  MAINTAINERS: Add drm::JobQueue to drm_sched's entry
+
+ MAINTAINERS                      |   1 +
+ rust/helpers/rcu.c               |   5 +
+ rust/kernel/dma_buf/dma_fence.rs | 261 +++++-----
+ rust/kernel/dma_buf/mod.rs       |   3 +-
+ rust/kernel/drm/job_queue.rs     | 863 +++++++++++++++++++++++++++++++
+ rust/kernel/drm/mod.rs           |   4 +
+ rust/kernel/sync/rcu.rs          |  23 +
+ 7 files changed, 1038 insertions(+), 122 deletions(-)
+ create mode 100644 rust/kernel/drm/job_queue.rs
+
+
+base-commit: 4325f4aad9727a6e8e7f10c5d2ebf490470cf938
+prerequisite-patch-id: f5e24f7b3717f2ab0445b5395c7f12b554861d78
+prerequisite-patch-id: e4ebcb108207c2d06130382c59c12ffe09a7a6db
+prerequisite-patch-id: e19d2e11fc6c6fc121d65c8502bfa557e1dfc5ec
+prerequisite-patch-id: 47301119dc7bc6fdc83256002e92c781a872b142
+-- 
+2.56.0
+
