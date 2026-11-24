@@ -1,95 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795552902;
-	b=gF0du9zegOEhKZJNeetcRPFt3YDSBxiaWHZF2NC8/4n2goYerVRpuFppGaS3RET5juco
-	 ko3cSmfzPvHPbmEN9tVy30dZpavMbh1yf0iVkB9LhHQJAeuf+Lsuxl+JR1iGOoXMZgqzs
-	 327ZoVHia7nniNMYImfRtuWpj6QyzgbOZeT4DLvlbw8QEJN7KWfdRUcuv9/OjrbT6qoif
-	 Q1PcCF1zW35lW75zPl0vez2RQt+7ZZVq8LYDpyKyisq9EwIS18bwUbiSu2lWtMV9HR3yz
-	 wwMXkt/zcgnwdyOsEVT72C6YLECs6hNdU1uNqK5aBwb3mrKA/937/Mwqo3MUqK2e8Ag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795552902;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795553072;
+	b=sIbfqf5auSxZOnzcrUjqM9amkZTqIxyB6MfumfDJA5B/FQsIxzqdI+uBOHiF4R4z2xAO
+	 QHrTc5whAwf1huWhPLy612HRv58m5u7Fp/q5cII5qtdzOrUHJusbuuYTDmTZUrVCfPhkT
+	 k7mhPsvhRWGBb1arJpcRT5dkOy32g8QudjF0XUY09ulX16+5WbUoINGb4lGEmgY6G3G/s
+	 smWKq020sO2qqqN23/A5BnUDGCFYufsE3NfPgD3QUKG6/jo3pB6zsU5b5o75qKYd2XEDB
+	 vPHcmkQzX/xcKG2jiBPHKrrkynonHo29Z0u+1bPVcve0xiwLPGDTGMBQhYAD07A/Ccw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795553072;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=cfQkHe8ct5z8k9K/wdTyaveFi/2r5qvAZtFfcD41pyw=;
-	b=JVwmQBxmK91bQlYDeb3sV5UVE6zCelSodHoAhZmMoJAh/JVa+rd66ngMQneIoc8vSiht
-	 cGH1ExFBkXxhk7NvCIjw0hZSZwmi5CDNFncL87lKZBk6kYtX9yuPbx+SIEGpz+uIZyaNu
-	 1f0KISmVE3KCp44rjd8OdYNXUNKcN+bRdT4Cgz5G0c1g0btDARI8akVXPWcROke/tZMPE
-	 u9XKminefED33XcU78DL0nQceyEmdxNrwdi5IcmN1CgQjoPcKVyElsH8B2EXiGnSsMYHF
-	 fMzwkN3Rtfne79gm16SICWRhy+ixko4r+kfGBC4hLV3ZNhNqcrDkLYqPJMhjxQZnr1Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u5Pagd8S;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=jyAVIemv4fWXyD+LtqEPdzMQSiUFyBaf0aWHkJ+3gZ0=;
+	b=jKgx5k+mroN79BbcvoAL/Vr8AIqoLLp14ub15Lwp7hbwrEs8Sxoomr3pxO3OZ7e957N8
+	 +UNCV3DtE/0D7QGSmSdQWcv7rJEguIokGhphjZfmSYzPFsIDtgyLty/t8XcoHQe/sdozK
+	 EKlg9DjtS1T8mA1eI9J0myFsykwrI0q8Lpyls4ym509VS7gDY2BwqJux+DhRJr7PbACoH
+	 QlSy8b85AuN8h0FypJzyUCfaDK3X4LZLd8z0jf7ZG/lJ0UscQKAxl77flnyVmvhycmM9D
+	 zw4znnDXUP/Ucj4EHEFiXWxpgd/VMMS8rz2wd/L/sslwUA7UkjcUi6YtLnYXVZZ5wTQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gKrPXqn3;
+	arc=none smtp.remote-ip=209.85.222.181
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB989606A330
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 20:41:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB989606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A33606A31E
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 20:44:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67A33606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u5Pagd8S
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c516a1623d0so452862566b.2
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 12:41:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795552900; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XvWpa5IYOZAqCW8tAGye1Td1d2Qj1RPSpXhhL/cthd9syKED8q2N1oxKi9XxZmTNMV
-         8mo2Bi1M7Qy526mkBI42jVGRjBrU8CUxV8W0NEXD7NFKBF384tTowDPJbdtjIvfGZL/t
-         GkwhvoYTpd0q3ZKPCmOxXGVYMlDaJLTMGAItMIoLWpqeMm9Ij+wgCt1aEzC2eZ1BViN/
-         u2ILRcffE5OW0/P3QJlQ/iU9KAFIsvP/9E+oA8qTTj4nJbtbHchYAMCZIVfgSpBg5LZs
-         8S7soBTyqxJW7ErlGkCyg/yCq3B0SXUu4NO+JcD/9Bfn4Yl/qg3SMByVqOrw3swNAglf
-         e1JA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=cfQkHe8ct5z8k9K/wdTyaveFi/2r5qvAZtFfcD41pyw=;
-        fh=VAn+cTnJ4gvejE9TAe7Sps2LkCz2Wrw/dqyjat2IDMM=;
-        b=US4i9iGrw7pies2PcqbwmBwsHPUyj4Eujrq4ySxOeCizNKwuqApi30XPoPjYAEAkBf
-         rVqNUw4YgaaQWcKVJ7AUI6pejEq84zJ30cvZDjYKN9M0bQLo1i9Tk5fGrS+jLT0gxZEa
-         I+Bs5cyY9nHqt4BwUhuc4PpPuuUnHhDTgbOcyqqcpSVNqyfIq2wYWS9nETdQtbhBB8aI
-         XA8FW1EG9fW5M0txklaYEIO2ExpXdkeURcOGoe8cNWOM6WDCjPmd22V1+Bw24UP89lkE
-         OjtMs1EFWYoagYjLKZtvFzR/gn28CB1vm7aAZLEXlcIsycsejPh/pTaLg/oL97PJJoIR
-         WX6A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gKrPXqn3
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-9496317b730so584641885a.1
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 12:44:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795552900; x=1796157700; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cfQkHe8ct5z8k9K/wdTyaveFi/2r5qvAZtFfcD41pyw=;
-        b=u5Pagd8SupwMgMxX/XhA7DbwbiqNwM4D/PL5rFs/LvW0GBWBFVJzAWwWU2TdC8k8+k
-         AC0cCx+YXDGfgPGIuE5dKnc67iw3dgaVwj1APo1QzLrmFZ8qqZUFy20h+abw0C0RxXZT
-         ojcKj0mZxslGDL+1d4ZhVxV1dpTGIKB3epYynBJjp+4ixyjiDWO9BsQMGenHMm0oUgUj
-         jzdxlyHsRzXOkOLFTJk44Jb6iW/V21VOhWMpVACodwBiOkdkPn+0R9kUmrbouMjJE5zW
-         z3+2mntt3jnYIyUrCBdVrZGsRCch/HPaICqjh+FnMpmWHO30yVFq8rNeaigaXRwLMn8k
-         Fklg==
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795553071; x=1796157871; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jyAVIemv4fWXyD+LtqEPdzMQSiUFyBaf0aWHkJ+3gZ0=;
+        b=gKrPXqn3hGkxNlxFMHASxpt3ERkdHVwCcv8vY5oT2YRf/Q2u6Lm7mac+dQ+XFHKGcG
+         TqvdelxNvsg7NLhtEhQc93CCKIommP3U5nr/nNj/XLNkKK94RVtUbDd6ijqw6l1EarS3
+         iudsnZW624SpDrUuRoK/R+pungt/2sJY+Pl/0+aLUaDMoWY7ht0CxrS/7ydVr2LZSvCk
+         jwvee1iugbWsvekuM+E7NyG/a3hDDQdWvBZ1igdMai6QrDnfkgjbnPY2ZjgJw46R0n2w
+         fzev0M7BUAVtyHLmTvROFQuxp94Ig6s5TDqpC1gCIYyhZawN7nrhJ/T3xeUJnhyV56N/
+         tC7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795552900; x=1796157700;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=cfQkHe8ct5z8k9K/wdTyaveFi/2r5qvAZtFfcD41pyw=;
-        b=odZeHEcdRBk2v22yNnsHQdx+K2o6Tuly4xByDPpySt5OHCf1hliEfmnEvbETqXesIL
-         58upRKfTNMJl7qK3pgIj6CwCffejLoFMUm+vYTmjx9Qrht7YzvDjowKO4rrpu9sA17C9
-         aEAEXF12nligwRQmInWUBnvL38hlbHsvy9+fxQK2daAcNfriM9AQb4dox7ty2Ux3adI5
-         cojoIFLKmfkCxIHRuMHJDYAfRtnSH4XOTNrdGc7SN2K+Jx2GMwpmWlwu2VAgR5P+mG70
-         XiNxcV7iHS+CSYUKN6Kl2+OSxNgXIZe/aqC8Mkp5pS2X6YUv/zEsn3Z/8CzJkmjGIPIL
-         EghA==
-X-Gm-Message-State: APuU4Z8XBkdyC6cJeNlBehAwALwxR9yALfutt7zvIOm8KwEhIVFywvHq
-	PWepHTdgHH6TpAt84NWDaUIaajzPiloa/eMaKrIPObSIMj5S8+nLGmzxdOa4iSpIz/EOg4gQi94
-	sk9xlO8Q9pPAw+aKT1NXLt8+ltGM190Q11gRm
-X-Gm-Gg: AZFdTZdXDPzI7JoIexxuALYao4MLhBXfI8rcYsc3JbGzV60k8a0Pj2IZclyCq7+RvNf
-	nPBY75yKiK7THWoUHl5KuzB8OYUTWY9upQ4uSG+ZpxAaEGjKWKXCCP4gOk6CPrIwm31dd6j4LMM
-	kXUpeH9EvtkBxUSy6qsMvfS0IKRPmtFi+cy9dJeZqvbsyuVpAuA+PbjQ2V9wccf5DrVQ+5vYmB4
-	2HexG7rmLygMm/ZHDzLdmfRra0+3I0TS+xg0z+f7v5KRTxpx4ESkJUpujVlJTmxkXkqIinBNiEu
-	YozHxeYj3IIorreij3OSXuuPC72lqvt6TtIwBaTNFI89WIuYaQ9hDupbLYcy+v94u8sKiuUpDsn
-	G9cCXr9Y+QdEOTJK1hmWHkZpKP0V44BOgd2QUqN/eFYQyJbmAKAp1F7/CFskH9hcxy4Jo
-X-Received: by 2002:a17:906:2419:b0:c50:750a:6a1b with SMTP id
- a640c23a62f3a-c513a878473mr1050695866b.29.1795552900114; Tue, 24 Nov 2026
- 12:41:40 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795553071; x=1796157871;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jyAVIemv4fWXyD+LtqEPdzMQSiUFyBaf0aWHkJ+3gZ0=;
+        b=y0OW2qNJv2n+0jc7Rj+ZUcVl+zKr1jEgH6A/gAHW1s8npnYyHlVq5jvYoYu8U7WeOe
+         zp8mOCuoPpCvnwWe3LXGKZF4AAAYY3o8Y0RcUjTr7NksEpqU4mcdPMkk/D10IVWAuT2X
+         vX5lARfFh14Snz5Sc3rtdWvJsUSYk2zRgL+9b/F4b+j/flJFS1d899uE5N21BRYhU/42
+         mu8xfUnQDlp70C0kTwnB1Sb7hxJmgyjbpAAH7pmF/OhP6JhLt7OdLMW2K42oKXDCB+JB
+         9LNv5mF8QZuwhSM0bUA/+aIhH1T3csScUOlOIpRK838aZtte0u2m6ycbJPKQbuceP94c
+         d8KA==
+X-Gm-Message-State: APuU4Z8feN8lv4IVNRJ7yFHW2Ktb7Fv3gTJfXSfC4DrN21oFQl0TbTOy
+	rq5FUG7Vj35cIE8TLBkIHPkqHCCYvoSTWFl/EzgeSi/VqsJEAiJ3b+lRE0KXzgnzZc8=
+X-Gm-Gg: AZFdTZfr5UnHSBtSv0Px4oSHENlfsd2/mtpZ1uq0APm28SF+fMPN2bih0dQBmxNI4/9
+	C+H0sxN2ygTOWvAzc6Wb7L3SRK5KxdcfZdaQUbnA0ZAdcS5Jlctwp6EiUTOir/a5DJ+7K6kEvZt
+	H/DimZfjZXXHXV03SrAif/MBJw4zyKq1gsL4hCJoeLcZnupq6RuAfDzs7B4ZSltGgT89VklA7Fw
+	OyS4ZA5HIJ3RBwi0viLr6Brxc0owABKwangPSGGxaFTRYJAtFxIXCauxbOBmPBftzHmJ+Rj+RXO
+	D/2S5U2srM47LIU9jnppJfNeXHBAeVLylKlpk16EQOqWaw+gY7rsLZPHwEfwY4yr7DOVlNJeuAf
+	5bx3/ZivfiWI5XxLVKR+4ABJbtHImkAOyFU975hjIOXoRasmD0p/ej2TxBKbVmTMWunjo49KltO
+	YvLkD7VsLgrY6eXEW5403CV0yctS5tp2smx1m3lMGI6rR4H4wgITS65kwBD0jvKT17wx59G/7b/
+	iukbegWzc6CbdFg1WHFGPBMXXBdukEO4Bsfm5UTTXzx6Zl1ZRzTBwhr6OrZuQq3pddAK0le7VTN
+	xSQBbqwlFgR682lsPkZemgX7twIxVLH0wJ7aKvN5exJLOtkrD1WFNWg=
+X-Received: by 2002:a05:620a:45a2:b0:946:2a0:a11b with SMTP id af79cd13be357-949ba9cddeamr2766829985a.35.1795553071093;
+        Tue, 24 Nov 2026 12:44:31 -0800 (PST)
+Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb418241sm1116481885a.38.2026.11.24.12.44.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 12:44:30 -0800 (PST)
+Message-ID: <31ccb07818b643bc483e07184d7ecaf918be84ca.camel@ndufresne.ca>
+Subject: Re: [PATCH v2 01/17] media: rockchip: rga: zero cmdbuf in shared
+ code
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
+	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Philipp Zabel
+	 <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	kernel@pengutronix.de, Detlev Casanova <detlev.casanova@collabora.com>, 
+ Michael Tretter <m.tretter@pengutronix.de>, Guangshuo Li
+ <lgs201920130244@gmail.com>
+Date: Tue, 24 Nov 2026 15:44:27 -0500
+In-Reply-To: <20260916-spu-rga3multicore-v2-1-23aa2cb74e61@pengutronix.de>
+References: <20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de>
+	 <20260916-spu-rga3multicore-v2-1-23aa2cb74e61@pengutronix.de>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-rmu7i0hUOnNVmWqXcZ0e"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,81 +121,97 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Tobias Wies <tobiaswies@gmail.com>
-Date: Tue, 24 Nov 2026 21:41:40 +0100
-X-Gm-Features: Aa3M54pGN3vUqX5byE60P-ZQfoxr8KphivqtiaL5bKlNwllNwEvkSzWWu68Cr-s
-Message-ID: <CAN8C2X1A=dhCX-f=TBR47D-AgUBh3Q1HtE6_DCJPwDnR2GW3LA@mail.gmail.com>
-Subject: [BUG] media: ipu-bridge: HIMX1092 entry prevents IPU6 RGB camera from
- working when no HM1092 driver binds (Dell Precision 5680)
-To: linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com
+
+--=-rmu7i0hUOnNVmWqXcZ0e
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Le mercredi 16 septembre 2026 =C3=A0 17:09 +0200, Sven P=C3=BCschel a =C3=
+=A9crit=C2=A0:
+> Zero the command buffer (cmdbuf) in the shared code instead of the
+> individual RGA2/RGA3 implementations. Besides centralizing the memset
+> operation this also uses the cmdbuf_size member for the memset size,
+> which is also used as the size for the actual allocation.
+>=20
+> Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
 
-Since ipu-bridge gained an entry for the Himax HM1092 IR sensor
-("media: ipu-bridge: Add Himax HM1092 IR sensor", 4fdb0342f05e),
-the RGB camera on my Dell Precision 5680 no longer works. The IPU6
-async notifier now waits for the HM1092, but no driver ever binds
-to it, so the notifier never completes and the sub-device node for
-the RGB sensor (ov02c10) is never created.
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-Hardware / software:
-- Dell Precision 5680, Intel Core i7-13700H (Raptor Lake), IPU6EP
-- RGB sensor: ov02c10 (OVTI02C1), behind the IVSC
-- IR sensor:  HM1092 (HIMX1092), used for face authentication
-- Kernel: 7.3.4 (Fedora 7.3.4-300.fc45), CONFIG_VIDEO_HM1092 not set
-- libcamera 0.7.2
+> ---
+>  drivers/media/platform/rockchip/rga/rga-hw.c  | 2 --
+>  drivers/media/platform/rockchip/rga/rga.c     | 1 +
+>  drivers/media/platform/rockchip/rga/rga.h     | 3 +++
+>  drivers/media/platform/rockchip/rga/rga3-hw.c | 2 --
+>  4 files changed, 4 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media=
+/platform/rockchip/rga/rga-hw.c
+> index be1bc8ddbd03b..4d7b0a03820a1 100644
+> --- a/drivers/media/platform/rockchip/rga/rga-hw.c
+> +++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+> @@ -443,8 +443,6 @@ static void rga_cmd_set(struct rga_ctx *ctx,
+> =20
+>  static void rga_hw_setup_cmdbuf(struct rga_ctx *ctx)
+>  {
+> -=09memset(ctx->cmdbuf_virt, 0, RGA_CMDBUF_SIZE);
+> -
+>  =09rga_cmd_set_mode(ctx);
+>  =09rga_cmd_set_trans_info(ctx);
+>  }
+> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
+atform/rockchip/rga/rga.c
+> index b3cb6bf8eb863..bd0afd33affe4 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.c
+> +++ b/drivers/media/platform/rockchip/rga/rga.c
+> @@ -41,6 +41,7 @@ static void device_run(void *prv)
+>  =09spin_lock_irqsave(&rga->ctrl_lock, flags);
+>  =09if (ctx->cmdbuf_dirty) {
+>  =09=09ctx->cmdbuf_dirty =3D false;
+> +=09=09memset(ctx->cmdbuf_virt, 0, rga->hw->cmdbuf_size);
+>  =09=09rga->hw->setup_cmdbuf(ctx);
+>  =09}
+>  =09spin_unlock_irqrestore(&rga->ctrl_lock, flags);
+> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/pl=
+atform/rockchip/rga/rga.h
+> index bd431534d0d39..2b4f5694375a4 100644
+> --- a/drivers/media/platform/rockchip/rga/rga.h
+> +++ b/drivers/media/platform/rockchip/rga/rga.h
+> @@ -152,6 +152,9 @@ struct rga_hw {
+>  =09u8 stride_alignment;
+>  =09u8 features;
+> =20
+> +=09/*
+> +=09 * Requires that the cmdbuf is already zeroed.
+> +=09 */
+>  =09void (*setup_cmdbuf)(struct rga_ctx *ctx);
+>  =09void (*start)(struct rockchip_rga *rga,
+>  =09=09      struct rga_vb_buffer *src, struct rga_vb_buffer *dst);
+> diff --git a/drivers/media/platform/rockchip/rga/rga3-hw.c b/drivers/medi=
+a/platform/rockchip/rga/rga3-hw.c
+> index c4a71306278ba..46ba6d270f232 100644
+> --- a/drivers/media/platform/rockchip/rga/rga3-hw.c
+> +++ b/drivers/media/platform/rockchip/rga/rga3-hw.c
+> @@ -261,8 +261,6 @@ static void rga3_cmd_set_wr_format(struct rga_ctx *ct=
+x)
+> =20
+>  static void rga3_hw_setup_cmdbuf(struct rga_ctx *ctx)
+>  {
+> -=09memset(ctx->cmdbuf_virt, 0, RGA3_CMDBUF_SIZE);
+> -
+>  =09rga3_cmd_set_win0_format(ctx);
+>  =09rga3_cmd_set_trans_info(ctx);
+>  =09rga3_cmd_set_wr_format(ctx);
 
-What happens:
+--=-rmu7i0hUOnNVmWqXcZ0e
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-ipu-bridge registers both sensors:
+-----BEGIN PGP SIGNATURE-----
 
-  intel-ipu6 0000:00:05.0: Found supported sensor HIMX1092:00
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
-  intel-ipu6 0000:00:05.0: Connected 2 cameras
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawX3LAAKCRDZQZRRKWBy
+9AhMAQCGhrDq6Wo05uGIwcgUspFxMR11dARVIwEBmUuM3LVIJwEAocRRq6OhxGmC
+mVkh4hNw4ukUg+HMXCrf96F1LggktwY=
+=ZVCJ
+-----END PGP SIGNATURE-----
 
-The ov02c10 driver probes and binds, and the media graph contains
-the full ov02c10 -> Intel IVSC CSI -> Intel IPU6 CSI2 2 chain, but
-the ov02c10 entity has no device node. Nothing binds to the HM1092
-I2C device (/sys/bus/i2c/devices/i2c-HIMX1092:00 has no driver), and
-the ipu6 notifier stays pending on it:
-
-  # cat /sys/kernel/debug/v4l2-async/pending_async_subdevices
-  ov02c10 20-0036:
-  Intel IVSC CSI:
-  ipu6:
-   [fwnode] dev=nil, node=HIMX1092-1/port@0/endpoint@0
-
-As a result, libcamera cannot open the sensor:
-
-  ERROR V4L2 v4l2_device.cpp:92 'ov02c10 20-0036': Failed to open
-        V4L2 device '': No such file or directory
-  ERROR SimplePipeline simple.cpp:1930 No valid pipeline for sensor
-        'ov02c10 20-0036', skipping
-
-Confirmation:
-
-Rebuilding ipu-bridge for the same kernel with only the HIMX1092
-entry removed fixes it: the pending list is empty, the ov02c10 gets
-/dev/v4l-subdev5, and libcamera streams from it at 30 fps.
-
-Expected behaviour:
-
-A sensor without a bound driver, especially a secondary IR sensor,
-should not keep the RGB camera on the same IPU from working. As far
-as I can tell, the HM1092 sensor driver is not in mainline yet, so
-every IPU6/IPU7 laptop that has this IR sensor in ACPI likely loses
-its RGB camera with current kernels.
-
-Possible fixes I can think of (you will know better):
-- Only add the HIMX1092 ipu-bridge entry once the HM1092 driver is
-  merged, or revert it until then.
-- More generally, avoid letting the notifier wait forever for a
-  sensor endpoint that no driver will ever bind.
-
-I'm happy to test patches on this machine and can provide full
-dmesg, media-ctl -p output or ACPI tables if useful.
-
-Thanks,
-Tobias
+--=-rmu7i0hUOnNVmWqXcZ0e--
