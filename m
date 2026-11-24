@@ -1,87 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795551799;
-	b=fTTWyMEOp6O4ELQd/qZH7UWLT7ynQ3m2z+PAmsD7FwXARPWG9WZMiPpCJ3Gmz78PkBKY
-	 Epz8157Korya5jXh3C/XWexdHE3hrYhexqouPxatOhA6urQbm8hOEbb5rdhRvG7siitWj
-	 GA3GGG4195/IQigGgUnmOkvnmGaTx7DuoCZSJQdNAhK676pTslxR7PMdH4MFXcA6GhPR8
-	 odldFQc9ZYXX7HONAtJ5w6lwysf4UxZROvKmiQx/uIJ4ZG2JESGkNFMq9LeBR/Zs09njy
-	 U1d/vBEL7etXiTUlBd4SNy8Rejv/HCwn23DiOKYxUeObx1GnAmNGscdcg3rHy8K1+oQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795551799;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795552902;
+	b=gF0du9zegOEhKZJNeetcRPFt3YDSBxiaWHZF2NC8/4n2goYerVRpuFppGaS3RET5juco
+	 ko3cSmfzPvHPbmEN9tVy30dZpavMbh1yf0iVkB9LhHQJAeuf+Lsuxl+JR1iGOoXMZgqzs
+	 327ZoVHia7nniNMYImfRtuWpj6QyzgbOZeT4DLvlbw8QEJN7KWfdRUcuv9/OjrbT6qoif
+	 Q1PcCF1zW35lW75zPl0vez2RQt+7ZZVq8LYDpyKyisq9EwIS18bwUbiSu2lWtMV9HR3yz
+	 wwMXkt/zcgnwdyOsEVT72C6YLECs6hNdU1uNqK5aBwb3mrKA/937/Mwqo3MUqK2e8Ag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795552902;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=4zofyjzfJerfRmeIkr2oNO0eYdNNEtzuwuP/HP6VIhk=;
-	b=wT8HfYKMwlK052jrMQVJgtpHMAtL86L108PSuyWGg2bU8bc134CBYNvcalCAq3no61pZ
-	 98bGn8P/tajyGIrjLC4FCCXvvkBFGxH0Cr+lDsTlNGnJffESJZnOa0CJ1iSZFhGEO6rtq
-	 gtX6bwX0ltteOVcbjARnC+AP55T1oa70qG2lHfhAQS1FqfLi1oWt1betR4ldiQS/Y3/r4
-	 jpAbeI4g8qqaLAuSLAWuW8cr5PqgxU56Ro3ZZqOxpRNt3fIS94qwB0wk2Cgr/KgRpYz4Y
-	 sPU0NvQrLbzIJoxo+EOtClXV7uZOP2hRyC9z+rj41gLeJaKjVztPt7ZgiDweIEA7Kdw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=M2tfoTTb;
-	arc=none smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=cfQkHe8ct5z8k9K/wdTyaveFi/2r5qvAZtFfcD41pyw=;
+	b=JVwmQBxmK91bQlYDeb3sV5UVE6zCelSodHoAhZmMoJAh/JVa+rd66ngMQneIoc8vSiht
+	 cGH1ExFBkXxhk7NvCIjw0hZSZwmi5CDNFncL87lKZBk6kYtX9yuPbx+SIEGpz+uIZyaNu
+	 1f0KISmVE3KCp44rjd8OdYNXUNKcN+bRdT4Cgz5G0c1g0btDARI8akVXPWcROke/tZMPE
+	 u9XKminefED33XcU78DL0nQceyEmdxNrwdi5IcmN1CgQjoPcKVyElsH8B2EXiGnSsMYHF
+	 fMzwkN3Rtfne79gm16SICWRhy+ixko4r+kfGBC4hLV3ZNhNqcrDkLYqPJMhjxQZnr1Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u5Pagd8S;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FE1606A31E
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 20:23:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77FE1606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB989606A330
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 20:41:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB989606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=M2tfoTTb
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdab8873d9dso2300577a12.1
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 12:23:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u5Pagd8S
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c516a1623d0so452862566b.2
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 12:41:41 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795552900; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XvWpa5IYOZAqCW8tAGye1Td1d2Qj1RPSpXhhL/cthd9syKED8q2N1oxKi9XxZmTNMV
+         8mo2Bi1M7Qy526mkBI42jVGRjBrU8CUxV8W0NEXD7NFKBF384tTowDPJbdtjIvfGZL/t
+         GkwhvoYTpd0q3ZKPCmOxXGVYMlDaJLTMGAItMIoLWpqeMm9Ij+wgCt1aEzC2eZ1BViN/
+         u2ILRcffE5OW0/P3QJlQ/iU9KAFIsvP/9E+oA8qTTj4nJbtbHchYAMCZIVfgSpBg5LZs
+         8S7soBTyqxJW7ErlGkCyg/yCq3B0SXUu4NO+JcD/9Bfn4Yl/qg3SMByVqOrw3swNAglf
+         e1JA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=cfQkHe8ct5z8k9K/wdTyaveFi/2r5qvAZtFfcD41pyw=;
+        fh=VAn+cTnJ4gvejE9TAe7Sps2LkCz2Wrw/dqyjat2IDMM=;
+        b=US4i9iGrw7pies2PcqbwmBwsHPUyj4Eujrq4ySxOeCizNKwuqApi30XPoPjYAEAkBf
+         rVqNUw4YgaaQWcKVJ7AUI6pejEq84zJ30cvZDjYKN9M0bQLo1i9Tk5fGrS+jLT0gxZEa
+         I+Bs5cyY9nHqt4BwUhuc4PpPuuUnHhDTgbOcyqqcpSVNqyfIq2wYWS9nETdQtbhBB8aI
+         XA8FW1EG9fW5M0txklaYEIO2ExpXdkeURcOGoe8cNWOM6WDCjPmd22V1+Bw24UP89lkE
+         OjtMs1EFWYoagYjLKZtvFzR/gn28CB1vm7aAZLEXlcIsycsejPh/pTaLg/oL97PJJoIR
+         WX6A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1795551799; x=1796156599; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4zofyjzfJerfRmeIkr2oNO0eYdNNEtzuwuP/HP6VIhk=;
-        b=M2tfoTTbXppfvrsHKX5jEq9hd/RCDdO9ryu9BnFXnsQDtOecdsz0rElCMUZkZhoROQ
-         4RHOZez2dc6erV+EetovQzmIAAhhr3n04P4ZczT13evqMNwzgwZRAxRZojbzwxK1aBs7
-         Iqd0kFSUS+BvcARLE1TT3HDqs2T5c2FZt911g=
+        d=gmail.com; s=20260707; t=1795552900; x=1796157700; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cfQkHe8ct5z8k9K/wdTyaveFi/2r5qvAZtFfcD41pyw=;
+        b=u5Pagd8SupwMgMxX/XhA7DbwbiqNwM4D/PL5rFs/LvW0GBWBFVJzAWwWU2TdC8k8+k
+         AC0cCx+YXDGfgPGIuE5dKnc67iw3dgaVwj1APo1QzLrmFZ8qqZUFy20h+abw0C0RxXZT
+         ojcKj0mZxslGDL+1d4ZhVxV1dpTGIKB3epYynBJjp+4ixyjiDWO9BsQMGenHMm0oUgUj
+         jzdxlyHsRzXOkOLFTJk44Jb6iW/V21VOhWMpVACodwBiOkdkPn+0R9kUmrbouMjJE5zW
+         z3+2mntt3jnYIyUrCBdVrZGsRCch/HPaICqjh+FnMpmWHO30yVFq8rNeaigaXRwLMn8k
+         Fklg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795551799; x=1796156599;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4zofyjzfJerfRmeIkr2oNO0eYdNNEtzuwuP/HP6VIhk=;
-        b=ergGodQlKDuHZ7J6VmXcVMs+LOqIf2l7qZp9JXEj03xTpr0GZDlfpODDH+2UVnqRFh
-         KBAk6WHWC8b2kdRjBSSdVO33LiPSRGUfia5md+povy65HBelRNO4qmo03qca7lOlXIhj
-         i6+uoBkOp42QrhocfY9eej1eqho8/PyoiucSrr1IRedOd0b1eqviw2wLBNafSDdGuj+V
-         +ORKcjPb1mqKnRjT825xT6aV4THXKa+XdrwMooE4ozP4qAZuR05E7TMulDS0XQ9nuzvM
-         HcumoXv2Z3JXHyF3UzKGEW99I2nY9REjxk0Vevic6GT1X9OEzcicqGA2+FtwHswkIiTN
-         FTvw==
-X-Gm-Message-State: APuU4Z9YPMPB6KkvZnSYdlDrdUmt/ApVItRVXXdGl5yS5fq1/vuR3WEl
-	NPRc6/LG6d8XBSRlOPN46r/g2tVpL8eiUkdtVrWfRLQTxgrdnTYVw915gX/sp5ikRIyYu/8fbEI
-	fJxY+R9a8
-X-Gm-Gg: AZFdTZekOC/9OGlt55JMyB3l6vxSd54F6R6bKtDJFz2cBT42qVG69BRprshuMLC1qtP
-	JnVhWY3NApJ068Fw239/0MCdLsmFFR9lhs9rqTXbZUzo7neVE7b4b0w9EkFsPpImFdpv5qYzGK6
-	5PAlce7s4ethU0/U9ZW5Z9Im4/epJpOtj9ZFwkLUgGXnmOy4qtvSw+TeyA5TFB/BhnJkH84wHls
-	5HchBykkkT2zXnEWBuq9L9TObmcFo7BVWJM1/pWxkkwxozxR35PyrJEtKTgcvOLloVCSFXC4hBy
-	v4RYqN2Je4y624t26stY6pmNbdbTFehh4FIobeszho/AYj/pZ+UBK0MxER/ROot2vHUBg2r7zlP
-	XZWrv0BV5UjgUb6XeGSPuXNF8Bw3SOZ2PhqpVueseQZQKh/lzhsbsO2Lh2ypoOKC1Ol+a3VArQ7
-	6sHb+dd9el10YIOOi3Nkd5WUSEglsoqh8RESkrCo/Q3DyOCeWh+Sru3MbxUhtTD7MhCDCJrkYmr
-	jywUJiZOipmZTw71if5/vMIp94+R7zqKMoGignC+gplJRJ+4QXocWzma1JYaP9qbl5yqK+BBtUD
-	kjKEOjtWWVwxXB/oNZ2C0gDCyoaRk0BaL2VyHNOEW0nxBJHAi5HbmxBTlpb2+99z/Q==
-X-Received: by 2002:a17:90b:17cd:b0:3b3:ab8c:c7e5 with SMTP id 98e67ed59e1d1-3b41c95f65fmr14428253a91.56.1795551798470;
-        Tue, 24 Nov 2026 12:23:18 -0800 (PST)
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com. [74.125.82.50])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b41ad0b52dsm26245205a91.5.2026.11.24.12.23.17
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 12:23:18 -0800 (PST)
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1b3b4944a0eso3726985c88.0
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 12:23:17 -0800 (PST)
-X-Received: by 2002:a05:7022:e886:b0:1ac:2f6d:e1c6 with SMTP id
- a92af1059eb24-1b5568a4f42mr19880063c88.6.1795551796265; Tue, 24 Nov 2026
- 12:23:16 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795552900; x=1796157700;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cfQkHe8ct5z8k9K/wdTyaveFi/2r5qvAZtFfcD41pyw=;
+        b=odZeHEcdRBk2v22yNnsHQdx+K2o6Tuly4xByDPpySt5OHCf1hliEfmnEvbETqXesIL
+         58upRKfTNMJl7qK3pgIj6CwCffejLoFMUm+vYTmjx9Qrht7YzvDjowKO4rrpu9sA17C9
+         aEAEXF12nligwRQmInWUBnvL38hlbHsvy9+fxQK2daAcNfriM9AQb4dox7ty2Ux3adI5
+         cojoIFLKmfkCxIHRuMHJDYAfRtnSH4XOTNrdGc7SN2K+Jx2GMwpmWlwu2VAgR5P+mG70
+         XiNxcV7iHS+CSYUKN6Kl2+OSxNgXIZe/aqC8Mkp5pS2X6YUv/zEsn3Z/8CzJkmjGIPIL
+         EghA==
+X-Gm-Message-State: APuU4Z8XBkdyC6cJeNlBehAwALwxR9yALfutt7zvIOm8KwEhIVFywvHq
+	PWepHTdgHH6TpAt84NWDaUIaajzPiloa/eMaKrIPObSIMj5S8+nLGmzxdOa4iSpIz/EOg4gQi94
+	sk9xlO8Q9pPAw+aKT1NXLt8+ltGM190Q11gRm
+X-Gm-Gg: AZFdTZdXDPzI7JoIexxuALYao4MLhBXfI8rcYsc3JbGzV60k8a0Pj2IZclyCq7+RvNf
+	nPBY75yKiK7THWoUHl5KuzB8OYUTWY9upQ4uSG+ZpxAaEGjKWKXCCP4gOk6CPrIwm31dd6j4LMM
+	kXUpeH9EvtkBxUSy6qsMvfS0IKRPmtFi+cy9dJeZqvbsyuVpAuA+PbjQ2V9wccf5DrVQ+5vYmB4
+	2HexG7rmLygMm/ZHDzLdmfRra0+3I0TS+xg0z+f7v5KRTxpx4ESkJUpujVlJTmxkXkqIinBNiEu
+	YozHxeYj3IIorreij3OSXuuPC72lqvt6TtIwBaTNFI89WIuYaQ9hDupbLYcy+v94u8sKiuUpDsn
+	G9cCXr9Y+QdEOTJK1hmWHkZpKP0V44BOgd2QUqN/eFYQyJbmAKAp1F7/CFskH9hcxy4Jo
+X-Received: by 2002:a17:906:2419:b0:c50:750a:6a1b with SMTP id
+ a640c23a62f3a-c513a878473mr1050695866b.29.1795552900114; Tue, 24 Nov 2026
+ 12:41:40 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,307 +99,81 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261124100623.2227323-1-chris.bainbridge@canonical.com> <20261124100623.2227323-3-chris.bainbridge@canonical.com>
-In-Reply-To: <20261124100623.2227323-3-chris.bainbridge@canonical.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Tue, 24 Nov 2026 21:23:01 +0100
-X-Gmail-Original-Message-ID: <CANiDSCtF3jcJmqCpe_4G=w9KeXsmJ3Nu7BYguDmepcq1G-E9uQ@mail.gmail.com>
-X-Gm-Features: Aa3M54qMe1F_FiA7W1AJ5MMmW-l8mTpXaFw8QnR6ABNEwslDFeimszZj4ZbPMCY
-Message-ID: <CANiDSCtF3jcJmqCpe_4G=w9KeXsmJ3Nu7BYguDmepcq1G-E9uQ@mail.gmail.com>
-Subject: Re: [PATCH 2/3] media: uvcvideo: Restore auto controls first and skip
- inactive slaves
-To: Chris Bainbridge <chris.bainbridge@canonical.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org
+From: Tobias Wies <tobiaswies@gmail.com>
+Date: Tue, 24 Nov 2026 21:41:40 +0100
+X-Gm-Features: Aa3M54pGN3vUqX5byE60P-ZQfoxr8KphivqtiaL5bKlNwllNwEvkSzWWu68Cr-s
+Message-ID: <CAN8C2X1A=dhCX-f=TBR47D-AgUBh3Q1HtE6_DCJPwDnR2GW3LA@mail.gmail.com>
+Subject: [BUG] media: ipu-bridge: HIMX1092 entry prevents IPU6 RGB camera from
+ working when no HM1092 driver binds (Dell Precision 5680)
+To: linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Chris
+Hi,
 
-I think it would make a bit more sense to squash 2/3 and 3/3.
-Maybe split to 3/3 the functionality to continue even if there is a
-restore error.
+Since ipu-bridge gained an entry for the Himax HM1092 IR sensor
+("media: ipu-bridge: Add Himax HM1092 IR sensor", 4fdb0342f05e),
+the RGB camera on my Dell Precision 5680 no longer works. The IPU6
+async notifier now waits for the HM1092, but no driver ever binds
+to it, so the notifier never completes and the sub-device node for
+the RGB sensor (ov02c10) is never created.
 
-That would make it much easier to review. Could you do that before we
-look into all the boring nits?
-(you might not be Santa... but it is almost Black Friday :P)
+Hardware / software:
+- Dell Precision 5680, Intel Core i7-13700H (Raptor Lake), IPU6EP
+- RGB sensor: ov02c10 (OVTI02C1), behind the IVSC
+- IR sensor:  HM1092 (HIMX1092), used for face authentication
+- Kernel: 7.3.4 (Fedora 7.3.4-300.fc45), CONFIG_VIDEO_HM1092 not set
+- libcamera 0.7.2
 
-PS: You will also probably get more attention if you simplify your
-commit messages.
+What happens:
 
-Thanks!
+ipu-bridge registers both sensors:
 
+  intel-ipu6 0000:00:05.0: Found supported sensor HIMX1092:00
+  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
+  intel-ipu6 0000:00:05.0: Connected 2 cameras
 
-On Tue, 24 Nov 2026 at 11:07, Chris Bainbridge
-<chris.bainbridge@canonical.com> wrote:
->
-> A UVC device rejects a SET_CUR request for a manual control while its
-> master auto control is enabled. On the Logitech C270 (046d:0825),
-> restoring WHITE_BALANCE_TEMPERATURE while WHITE_BALANCE_TEMPERATURE_AUTO
-> is enabled stalls the request with UVC error code 7 (Invalid Request)
-> and leaves automatic white balance wedged until power cycle, while
-> aborting the restoration of the remaining controls of the processing
-> unit. Two rules are needed to avoid this.
->
-> First, restore the master controls before the other controls of each
-> entity. uvc_ctrl_commit_entity() sends the controls of an entity in
-> index order: Auto-Exposure Mode (index 1) precedes Exposure Time
-> (index 3) in the camera terminal, but Focus Absolute (index 5) precedes
-> Focus Auto (index 17), and in the processing unit Hue (index 2), White
-> Balance Temperature (index 6) and White Balance Component (index 7) all
-> precede their corresponding auto controls (indices 11, 12 and 13). After
-> a reset the device has auto white balance enabled at its default, so
-> even when the user has set the auto control to manual mode, the manual
-> value is written while the device still has auto enabled, and is
-> rejected. Restore the masters first (committing the first pass only when
-> at least one master is dirty), so that manual controls are written with
-> their master in its final state. A control is a master if any of its
-> mappings has a non-zero slave_ids[] entry.
->
-> Second, skip the slave controls that are currently inactive. When the
-> master was restored in the first pass or is already loaded in the cache,
-> decode its value without generating any USB traffic; otherwise query the
-> master via GET_CUR using __uvc_ctrl_load_cur() (taking struct uvc_device
-> directly). If the master control is write-only or GET_CUR fails, treat
-> the slave as active rather than decoding an unpopulated zero buffer,
-> matching uvc_ctrl_is_accessible(). Clear ctrl->loaded when skipping an
-> inactive slave so that subsequent reads fetch the firmware-driven value
-> from the hardware, even on devices that omit UVC_CONTROL_CAP_AUTOUPDATE
-> in GET_INFO.
->
-> This addresses the restore order concern noted in the TODO comment for
-> auto/manual control pairs.
->
-> Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-> Signed-off-by: Chris Bainbridge <chris.bainbridge@canonical.com>
-> ---
->  drivers/media/usb/uvc/uvc_ctrl.c | 152 +++++++++++++++++++++++++------
->  1 file changed, 126 insertions(+), 26 deletions(-)
->
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index f70fa37800a4..d11ad3da1d50 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -1463,7 +1463,7 @@ static int uvc_ctrl_populate_cache(struct uvc_video_chain *chain,
->         return 0;
->  }
->
-> -static int __uvc_ctrl_load_cur(struct uvc_video_chain *chain,
-> +static int __uvc_ctrl_load_cur(struct uvc_device *dev,
->                                struct uvc_control *ctrl)
->  {
->         u8 *data;
-> @@ -1482,13 +1482,12 @@ static int __uvc_ctrl_load_cur(struct uvc_video_chain *chain,
->         }
->
->         if (ctrl->entity->get_cur)
-> -               ret = ctrl->entity->get_cur(chain->dev, ctrl->entity,
-> +               ret = ctrl->entity->get_cur(dev, ctrl->entity,
->                                             ctrl->info.selector, data,
->                                             ctrl->info.size);
->         else
-> -               ret = uvc_query_ctrl(chain->dev, UVC_GET_CUR,
-> -                                    ctrl->entity->id, chain->dev->intfnum,
-> -                                    ctrl->info.selector, data,
-> +               ret = uvc_query_ctrl(dev, UVC_GET_CUR, ctrl->entity->id,
-> +                                    dev->intfnum, ctrl->info.selector, data,
->                                      ctrl->info.size);
->
->         if (ret < 0)
-> @@ -1509,7 +1508,7 @@ static int __uvc_ctrl_get(struct uvc_video_chain *chain,
->         if ((ctrl->info.flags & UVC_CTRL_FLAG_GET_CUR) == 0)
->                 return -EACCES;
->
-> -       ret = __uvc_ctrl_load_cur(chain, ctrl);
-> +       ret = __uvc_ctrl_load_cur(chain->dev, ctrl);
->         if (ret < 0)
->                 return ret;
->
-> @@ -2572,7 +2571,7 @@ static int uvc_mapping_get_xctrl_compound(struct uvc_video_chain *chain,
->                 return -ENOMEM;
->
->         if (which == V4L2_CTRL_WHICH_CUR_VAL)
-> -               ret = __uvc_ctrl_load_cur(chain, ctrl);
-> +               ret = __uvc_ctrl_load_cur(chain->dev, ctrl);
->         else
->                 ret = uvc_ctrl_populate_cache(chain, ctrl);
->
-> @@ -2816,7 +2815,7 @@ int uvc_ctrl_set(struct uvc_fh *handle, struct v4l2_ext_control *xctrl)
->          * operation.
->          */
->         if ((ctrl->info.size * 8) != mapping->size) {
-> -               ret = __uvc_ctrl_load_cur(chain, ctrl);
-> +               ret = __uvc_ctrl_load_cur(chain->dev, ctrl);
->                 if (ret < 0)
->                         return ret;
->         }
-> @@ -3227,43 +3226,144 @@ static void uvc_ctrl_restore_error(struct uvc_device *dev,
->                              name, err_ctrl->info.selector, entity->id, ret);
->  }
->
-> +/*
-> + * Return true if the control is a master control, i.e. one of its mappings
-> + * has slave controls.
-> + */
-> +static bool uvc_ctrl_is_master(const struct uvc_control *ctrl)
-> +{
-> +       const struct uvc_control_mapping *mapping;
-> +       unsigned int i;
-> +
-> +       list_for_each_entry(mapping, &ctrl->info.mappings, list) {
-> +               for (i = 0; i < ARRAY_SIZE(mapping->slave_ids); ++i) {
-> +                       if (mapping->slave_ids[i])
-> +                               return true;
-> +               }
-> +       }
-> +
-> +       return false;
-> +}
-> +
-> +/*
-> + * Return true if the control is currently inactive, i.e. it is a slave
-> + * control whose master is not in manual mode.
-> + *
-> + * The master value is read from the driver's cache when available, or queried
-> + * from the device via GET_CUR if the master was neither restored in the first
-> + * pass nor loaded yet. If the master control cannot be found in the same
-> + * entity, is write-only, or fails GET_CUR, the control is considered active,
-> + * matching uvc_ctrl_is_accessible().
-> + */
-> +static bool uvc_ctrl_is_inactive(struct uvc_device *dev,
-> +                                struct uvc_entity *entity,
-> +                                struct uvc_control *ctrl)
-> +{
-> +       struct uvc_control_mapping *mapping;
-> +
-> +       list_for_each_entry(mapping, &ctrl->info.mappings, list) {
-> +               struct uvc_control_mapping *master_map = NULL;
-> +               struct uvc_control *master_ctrl = NULL;
-> +               s32 val;
-> +
-> +               if (!mapping->master_id)
-> +                       continue;
-> +
-> +               __uvc_find_control(entity, mapping->master_id, &master_map,
-> +                                  &master_ctrl, 0, 0);
-> +
-> +               if (!master_ctrl || uvc_ctrl_mapping_is_compound(master_map))
-> +                       continue;
-> +
-> +               if (!(master_ctrl->modified &&
-> +                     (master_ctrl->info.flags & UVC_CTRL_FLAG_RESTORE)) &&
-> +                   !master_ctrl->loaded) {
-> +                       if (!(master_ctrl->info.flags &
-> +                             UVC_CTRL_FLAG_GET_CUR) ||
-> +                           __uvc_ctrl_load_cur(dev, master_ctrl) < 0)
-> +                               continue;
-> +               }
-> +
-> +               val = uvc_mapping_get_s32(master_map, UVC_GET_CUR,
-> +                                         uvc_ctrl_data(master_ctrl,
-> +                                                       UVC_CTRL_DATA_CURRENT));
-> +               if (val != mapping->master_manual)
-> +                       return true;
-> +       }
-> +
-> +       return false;
-> +}
-> +
->  /*
->   * Restore control values after resume, skipping controls that haven't been
->   * changed.
->   *
-> + * The controls of each entity are restored in two passes: first the master
-> + * controls (the auto modes), then the remaining controls. This way a master
-> + * is set to its final state before its slaves are restored.
-> + *
-> + * Slave controls that are currently inactive, because their master is not
-> + * in manual mode, are not restored: devices reject SET_CUR requests for
-> + * them and some firmwares misbehave when written in auto mode. The manual
-> + * value only takes effect once the master is switched back to manual mode.
-> + *
->   * TODO
->   * - Don't restore modified controls that are back to their default value.
-> - * - Handle restore order (Auto-Exposure Mode should be restored before
-> - *   Exposure Time).
->   */
->  int uvc_ctrl_restore_values(struct uvc_device *dev)
->  {
->         struct uvc_control *err_ctrl;
->         struct uvc_control *ctrl;
->         struct uvc_entity *entity;
-> -       unsigned int i;
-> +       unsigned int i, pass;
->         int ret;
->
->         /* Walk the entities list and restore controls when possible. */
->         list_for_each_entry(entity, &dev->entities, list) {
-> +               for (pass = 0; pass < 2; ++pass) {
-> +                       bool master_pass = pass == 0;
-> +                       bool dirty = false;
-> +
-> +                       for (i = 0; i < entity->ncontrols; ++i) {
-> +                               ctrl = &entity->controls[i];
-> +
-> +                               if (!ctrl->initialized || !ctrl->modified ||
-> +                                   !(ctrl->info.flags & UVC_CTRL_FLAG_RESTORE))
-> +                                       continue;
-> +
-> +                               if (uvc_ctrl_is_master(ctrl) != master_pass)
-> +                                       continue;
-> +
-> +                               if (!master_pass &&
-> +                                   uvc_ctrl_is_inactive(dev, entity, ctrl)) {
-> +                                       uvc_dbg(dev, CONTROL,
-> +                                               "skipping restore of inactive control %pUl/%u/%u\n",
-> +                                               ctrl->info.entity,
-> +                                               ctrl->info.index,
-> +                                               ctrl->info.selector);
-> +                                       ctrl->loaded = 0;
-> +                                       continue;
-> +                               }
-> +
-> +                               uvc_dbg(dev, CONTROL,
-> +                                       "restoring control %pUl/%u/%u\n",
-> +                                       ctrl->info.entity, ctrl->info.index,
-> +                                       ctrl->info.selector);
-> +                               ctrl->dirty = 1;
-> +                               dirty = true;
-> +                       }
->
-> -               for (i = 0; i < entity->ncontrols; ++i) {
-> -                       ctrl = &entity->controls[i];
-> -
-> -                       if (!ctrl->initialized || !ctrl->modified ||
-> -                           (ctrl->info.flags & UVC_CTRL_FLAG_RESTORE) == 0)
-> +                       if (master_pass && !dirty)
->                                 continue;
-> -                       uvc_dbg(dev, CONTROL, "restoring control %pUl/%u/%u\n",
-> -                               ctrl->info.entity, ctrl->info.index,
-> -                               ctrl->info.selector);
-> -                       ctrl->dirty = 1;
-> -               }
->
-> -               err_ctrl = NULL;
-> -               ret = uvc_ctrl_commit_entity(dev, NULL, entity, 0, &err_ctrl);
-> -               if (ret < 0) {
-> -                       uvc_ctrl_restore_error(dev, entity, err_ctrl, ret);
-> -                       return ret;
-> +                       err_ctrl = NULL;
-> +                       ret = uvc_ctrl_commit_entity(dev, NULL, entity, 0,
-> +                                                    &err_ctrl);
-> +                       if (ret < 0) {
-> +                               uvc_ctrl_restore_error(dev, entity, err_ctrl,
-> +                                                      ret);
-> +                               return ret;
-> +                       }
->                 }
->         }
->
-> --
-> 2.53.0
->
->
+The ov02c10 driver probes and binds, and the media graph contains
+the full ov02c10 -> Intel IVSC CSI -> Intel IPU6 CSI2 2 chain, but
+the ov02c10 entity has no device node. Nothing binds to the HM1092
+I2C device (/sys/bus/i2c/devices/i2c-HIMX1092:00 has no driver), and
+the ipu6 notifier stays pending on it:
 
+  # cat /sys/kernel/debug/v4l2-async/pending_async_subdevices
+  ov02c10 20-0036:
+  Intel IVSC CSI:
+  ipu6:
+   [fwnode] dev=nil, node=HIMX1092-1/port@0/endpoint@0
 
---
-Ricardo Ribalda
+As a result, libcamera cannot open the sensor:
+
+  ERROR V4L2 v4l2_device.cpp:92 'ov02c10 20-0036': Failed to open
+        V4L2 device '': No such file or directory
+  ERROR SimplePipeline simple.cpp:1930 No valid pipeline for sensor
+        'ov02c10 20-0036', skipping
+
+Confirmation:
+
+Rebuilding ipu-bridge for the same kernel with only the HIMX1092
+entry removed fixes it: the pending list is empty, the ov02c10 gets
+/dev/v4l-subdev5, and libcamera streams from it at 30 fps.
+
+Expected behaviour:
+
+A sensor without a bound driver, especially a secondary IR sensor,
+should not keep the RGB camera on the same IPU from working. As far
+as I can tell, the HM1092 sensor driver is not in mainline yet, so
+every IPU6/IPU7 laptop that has this IR sensor in ACPI likely loses
+its RGB camera with current kernels.
+
+Possible fixes I can think of (you will know better):
+- Only add the HIMX1092 ipu-bridge entry once the HM1092 driver is
+  merged, or revert it until then.
+- More generally, avoid letting the notifier wait forever for a
+  sensor endpoint that no driver will ever bind.
+
+I'm happy to test patches on this machine and can provide full
+dmesg, media-ctl -p output or ACPI tables if useful.
+
+Thanks,
+Tobias
