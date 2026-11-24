@@ -1,47 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795519195;
-	b=HrA1PJkj78oF7OkCijjQrrGKremrqXIHBdqoOvlw3yJKT/d5y6DB4KyTZrb11aWobboK
-	 Be75852//VO0kRu37tEQ/ZyacQZxArwkk8Qihv0vXEZPOBjx7BbTeVsif+NVyD1FOmmkx
-	 keYUivEoL5MEoJp4+ndoxUBIurA50EPSYDOuctY+/kGo2ZJFEBfD5mV3ftBUhdWzIt0Dr
-	 GjTEWCrWiahpH/CiTGKcM+NyYZbDffL/9yIwYJ7Lo9xVwHVuUBl8dGXzHt4zAOLTC9Pez
-	 /9v2Y2i8w/fGp6WH0RrzYymJwb6o82XZB9A09+mGNvS1nTRlB0WFT9sYmzEjqBGrjsg==
+	t=1795519985;
+	b=WeuEmVHEQ5clc1x1Hvdi8yteMiVvOY/rxROfVmJFmll8lliiWrZ8/f8dLOQH4ZyAniml
+	 5rxrIEh9k9i3xKpFBHS6/C5APDXfFvV843MF0v0fC6stL+trqVVgBUvvl+Jrf2stN/tRz
+	 qU57KarBHhlqVxylmLlfJA2zuX2cO+KaaIvZAIkM6JhG0GmeGnO7Lc5D3cMfvw1Nn2hI6
+	 zA7fuXRO5MOBkCYD3NOqf5ySF9To3PXYII9HXPNx9B1CmJjC1/W3z1o+8caZ40P97gMCE
+	 OzHQuYfiOsdT1tyCfT1KPiJkbIwcAtUuf8uFG+/sIf9+rrC1NAsd+iN0yHRBc6SHo1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795519195;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=sflG/fP1L0m8J5CqwcBr6GqfGSpw4hKXmAR3ym1x14U=;
-	b=JDiQlx/Idvsrbs7OeporlnGsBkD6UVGGy5diV1C06fyC1ZTD3pTeldDUzVxnw3Y6iqWL
-	 yv/2L4ID7R2SKuirJfGmDZSH7P55vCUDuolB8r+SB6x7pq+k/eO+kolTIHupxG3o/VfDZ
-	 zK8Xrmw97zI7pyIYX9UKuGZqKqtp+nx31lnP3gC0/yE9RiM/FHJ7eRekRwyUSv4TcnMGg
-	 1PTB/qm/U7uQPOINbmpuinR51E6Bhstseyp6P0TNWExb7Ma2Wvkvj34ljlXDbEIxxpMR3
-	 A9uBVZez5vuDYCv2AmDUD5T/okRPrQDK0jf83NRPhZ/iQTg5txmzKLC9I54cCi9xMDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795519985;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=2wAI0U0Aw0/Hir5ZBaG+OuSVl8tgrjIkUBH/D+QX9qY=;
+	b=ljWaTVjy0LEk0pjI0V4L8nmE8Ib4qvoRF/DUmJ80Ta62MpuR2pAmlHCwv9jzT6NqToLB
+	 JyX7X0yN9ogxDWqH712moScRMh+tTGy09736LugnfqU1Nta21YehxEXPmMDRjx3q+yBnv
+	 BSQheiPfprqvbWkkyo27R+fZyPCGkjCY96fdSEsv1VmxI83MXHrM7PVPLLboa1T2OIdV3
+	 9RKJ0KWnwXl9c4AyF31D02q2Psp4qjrqAwSlGXfLHG3386PTks1OPid5dhcWwnUsc/Oma
+	 acTXncx9WaSQkg9d2rRNcWervVweSQaPiQ4gRagnNvDZxWBsdMrSrQO6Ob3q7uQLYEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RiCdDCpN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ixit.cz;
+	spf=pass smtp.mailfrom=ixit.cz;
+	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=MrtIoEdm;
+	arc=none smtp.remote-ip=84.42.129.46
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3493D606A31E;
-	Tue, 24 Nov 2026 11:19:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B017606A327;
+	Tue, 24 Nov 2026 11:33:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B017606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RiCdDCpN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D38601F000C4;
-	Tue, 24 Nov 2026 11:19:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795519194;
-	bh=sflG/fP1L0m8J5CqwcBr6GqfGSpw4hKXmAR3ym1x14U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RiCdDCpNmJMo4DvlLs1URU123IHwgsv7PD/iH4y2qNTauM6J1qA66t4fT+YA8f9wf
-	 5RbT4RTYvGGo6GpDd6EQL4Sv30GmyfQR5TjTdvhXWrIzMO3unnZXDrjQ33Dm0Y74e4
-	 JDJBM1kYMLdCUEfawCYdsT5dIqekng3MI9Trs/HTtytUof1SDeq+GwO3u4QmJFfN9A
-	 Zop0pL5epXBLCTpYI9ynA4gRbEnxlPlI8JHe2LBw15e2gg8wzo4FIlfakCwOw5cGb9
-	 HWfUn/h5gfLOcPn6TOsU4CYitt7L8rSeLI4w/tbv4p+zvfbjBvgoxqgHBkyzw2kSf2
-	 C8e/OnSRBJx+g==
-Message-ID: <452bd60f-2440-4935-8bde-6bcae872d40d@kernel.org>
-Date: Tue, 24 Nov 2026 12:19:50 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=MrtIoEdm
+Received: from [IPV6:2001:1aef:2a:b353:5e1d:f68d:d59c:573d] (2001-1aef-2a-b353-5e1d-f68d-d59c-573d.ip6.tmcz.cz [IPv6:2001:1aef:2a:b353:5e1d:f68d:d59c:573d])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 43FC1534031B;
+	Tue, 24 Nov 2026 12:32:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1795519976;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=2wAI0U0Aw0/Hir5ZBaG+OuSVl8tgrjIkUBH/D+QX9qY=;
+	b=MrtIoEdmb3J/NqCXE7NnWUVc+AA7w3GEgFuhFRdqShN9Mx1F7yJ9dlRtoUkzT6RqWU2vLQ
+	15mXrxlv1HqJZk0MUGLl3IFx4tlPDL2GuaU4g3AoeOivDdXWqbibaYIQw5OFlN/hnWlhfY
+	W7148AWAX08bqBAFI2ywcJ2w06FCKng=
+Message-ID: <6f6af2c9-bad8-4073-9589-c6c72bee37c2@ixit.cz>
+Date: Tue, 24 Nov 2026 12:32:55 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,54 +60,73 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/4] media: remove redundant
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] media: i2c: imx355: remove redundant
  pm_runtime_dont_use_autosuspend() calls
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+To: Joshua Crofts <crofts@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
  Dave Stevenson <dave.stevenson@raspberrypi.com>,
- David Heidelberg <david@ixit.cz>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
  Sylvain Petinot <sylvain.petinot@foss.st.com>
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
-Content-Language: en-US
-From: Joshua Crofts <crofts@kernel.org>
-In-Reply-To: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+ <20261110-media-remove-dont-use-autosuspend-v1-1-cc07e71b30f9@kernel.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20261110-media-remove-dont-use-autosuspend-v1-1-cc07e71b30f9@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10-Nov-26 15:03, Joshua Crofts wrote:
+On 10/11/2026 15:03, Joshua Crofts wrote:
 > Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
 > driver core is now responsible for undoing any
 > pm_runtime_use_autosuspend() calls on driver exit.
 > 
 > Remove the redundant function calls.
 > 
-> NOTE: Some drivers in drivers/media/ still keep their calls because they either
-> rely on pm_runtime_dont_use_autosuspend() before pm_runtime_disable() to flush
-> pending autosuspend delays and trigger synchronous runtime suspension,
-> or operate on a parent device rather than the platform device itself.
-> 
 > Signed-off-by: Joshua Crofts <crofts@kernel.org>
-> ---
-> Joshua Crofts (4):
->       media: i2c: imx355: remove redundant pm_runtime_dont_use_autosuspend() calls
->       media: i2c: tc358746: remove redundant pm_runtime_dont_use_autosuspend() calls
->       media: i2c: vd55g1: remove redundant pm_runtime_dont_use_autosuspend() calls
->       media: i2c: vd56g3: remove redundant pm_runtime_dont_use_autosuspend() calls
-> 
->  drivers/media/i2c/imx355.c   | 2 --
->  drivers/media/i2c/tc358746.c | 2 --
->  drivers/media/i2c/vd55g1.c   | 2 --
->  drivers/media/i2c/vd56g3.c   | 2 --
->  4 files changed, 8 deletions(-)
-> ---
-> base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-> change-id: 20261110-media-remove-dont-use-autosuspend-a8290b020d6f
-> 
-> Best regards,
-
-Hi, gentle ping on this patch.
-
--- 
-Kind regards,
-Joshua Crofts
+Reviewed-by: David Heidelberg <david@ixit.cz>
