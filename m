@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795557151;
-	b=iV1Om7uzIiB5pTDNnr/7f81eOnOUPNA/F/TXOUQEzGcKLGrTq/VRNn1pdwGYbw2ea0Uw
-	 cHx7vnop6LK3iibUvElYUEL2/YTDnr0FuE9Ap6UhO0jM/k1AZRE/kS8XQkC7mSz6beGQD
-	 pLEEIixuwFU9corgEU3R5LliqsFYYXSp0g0XaYXQ/TLV8Z2W3y4uKsqVu5Hnn+QcTOzj0
-	 6BfIpA9aVmupzGxwQ0We0yEO/SErrw5lp3NMbkV66fKVn7KUcvxEAc2jAUHt4+kNn3Pwv
-	 LMabCXV4q4LO7chreQdGR2aMFQyzkQ+ZYcsydOGclIkNToYqan+RUH5LxffxKl1ESeA==
+	t=1795557336;
+	b=kh/3Km6XRsBorVpkR1qD6nP7nJ6w7HzXhJMC9a5GVpISbVokoQymClGFpJ3dSVbAOWVe
+	 LGRb+BwkIDwKmi3/IVixa2Ly3NTPhK+ZmisEhTPW3xLwGyFqGw5xy6GIzmY0g7G61WqqJ
+	 b/CRdbU88MLH/7kLpBUptAIsB5tAQuU2mO7t0oBCcyqsRkGDnoi8nXu9e1qoT/gbSafJe
+	 d6OZoc9g05PG5CVXNwD0yPRdrwIqNJBuRyFzKcL7YzwWgO6w4FLSZ+V+WOD0RSs7qBF2y
+	 EqFUpwpeI3YeARSLwek+JsdpnX3WFU8hJazj/2phlYC1P2gnf4S2gnaLhNWbtPM5V+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795557151;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795557336;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=SoZPg/og+n6XZlBxBoY+E3d63ypK0pFhrHnI5qqIb58=;
-	b=Aw2N812RYKxsYDdbQsZmBhIU8vnrt1IqTETvUG2567dS7FoCQA3UYRlaEP8HbF8ffq3p
-	 1hf90SQg/HWdWX5nnj/bp66rhcMM+3IskH3dFRrm+ssk06QghOkpMtPDGLCBeWAtwHwkZ
-	 IJp5XV4RujHP0luKg6TyBK+XZfLmIq/ZfL6vjX2MjXkk7Th+gwth3zZMxQogB50lG65+J
-	 mySPqKuk2VKlZy2cXTY8VvuvFAqlOOfpP/tracBc5m1S82rSAy2IlUduk9lHb66fkW1dh
-	 5RwrqpbR6pOGET4tBnTlNlN9zpQDD+CMynGnuEzVm/Dnrm9QR98y4F0JS7Hh/jhfNJw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:User-Agent:MIME-Version;
+	bh=kT+xuhaSl/fUoT3wmVVtDAie9WoGC5vXXYFsJEveQVY=;
+	b=iKoWczSnifa81+m5a5HBW1HXM7UPjncKv0REfvA9HTJfixj+sigx1/JgafG3V0+OZL5m
+	 z7hE4RlJ0je77z009fiJL5XUltRfR3lnYbYYLfnIB+ggmyQjQsCHWauEIEJ8+KfQ0WvA3
+	 D2pvkLUFlGTzRT4PhelLKF6RdhRXFHDKH2Q2gtxi1A1+Vvtf7EXNkSXEY58FrbUiKfXfS
+	 nNmLjHeLxvlY1H8pIFKYvLQKiFvmRpZ34AczWYUYc2tjk72Jhb/LaCL+KfVCjmkIoKPND
+	 dnA4WI+PFKO9tsV4PtSY3zgEIuDknSo+a0DCYbHILDMvWnkLncFFv20ho9wxaD7cwWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ndufresne.ca;
 	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="sXBngM6/";
-	arc=none smtp.remote-ip=209.85.222.169
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=b8r1vJAF;
+	arc=none smtp.remote-ip=209.85.222.178
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE87606A32E
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 21:52:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AE87606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2450F606A327
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 21:55:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2450F606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=sXBngM6/
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-949b0d32315so425775585a.1
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 13:52:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=b8r1vJAF
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-943e8d35f74so498576085a.0
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 13:55:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795557150; x=1796161950; darn=vger.kernel.org;
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795557335; x=1796162135; darn=vger.kernel.org;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=SoZPg/og+n6XZlBxBoY+E3d63ypK0pFhrHnI5qqIb58=;
-        b=sXBngM6/0rsvC+V3z7M5RTUQcK3ro02Ylx+s+oMinZXzULOjzTLtZXp8nOaa4ykZW+
-         O8Dqr7W8yda9Chc77F0r0AuSWgrPIZ8dAkjxnrU05W+A/K1gOgaA1bh+0BLpLUJfcS3G
-         QRL0JGLa4AI5sPx+M1FZ4YzYRsRsUubMwuaVPDR+Rc8Ewhioe/OH8si8SL7vHHXO0Q1G
-         IYYgascTDzk4maegHL1n2LWy/yOVPCWaeP6yTtcqXWZNjLhieRMVp/sVBnfBNiQr6Ogd
-         PKbWcGbV16/M1WtZ3ECkagLRMH60Kxr6j7Uj+Z4KTrcT2Z30lJ/Hud9Vm5egodMXgZgy
-         lQ/A==
+        bh=kT+xuhaSl/fUoT3wmVVtDAie9WoGC5vXXYFsJEveQVY=;
+        b=b8r1vJAF+Qb4L1Yvt0Auw0Qcac4cSZd6TeLHZDe51IwU7fSXdMiHPtLGDcJajpUsvg
+         Hgf+ui8AD9NpuWm0GYgb2gW6Bju8FT+Z6s0QuurwRk0LH6HRxpSf/YTcMjVJqWBuKuYl
+         3U0PUugbkPtu0bdMjQm79Fkt/dmyYGYG8UzzODtXEZ9GDPqhOwv/XQsykqqBjJ1ZioVH
+         qKcDFAHb8sf0FK59ebLwlJaFpGnEWnOG+/h7bMsvDHclOHlMQ/YikdguL5pQakpK2ybK
+         2aava31jjsQLnon1iQ0wd2TKzrXc0r9vrdajsIy2v/fyTLE/4b3Btq9IvPXOA3X6QVwa
+         f0Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795557150; x=1796161950;
+        d=1e100.net; s=20260707; t=1795557335; x=1796162135;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SoZPg/og+n6XZlBxBoY+E3d63ypK0pFhrHnI5qqIb58=;
-        b=fA5b/1if4SAuyFhLW6AbYsSpIZNC3TZg+irb8eUMNmWldaq1dLoKMKDv+6QrboH5IX
-         MXSxRPrMNuSMWT8kEUUAwH04zC+2H5SqjdbD3k3Id2ltO9uxSgA+xCXbuC+TCnbBg/Wv
-         qtM3ci2vHy9vaK0+F+DVgqHUYcptOe1zFr3aVh8OSGw148Sfsdhe2LD1sMh31LpSSRee
-         GgGIVhAw6Uro28Tu41nQFLB8ULNjkR6SY1AYvPffGUmXnTuR4Z/edcUJ4drU9qD8AXQd
-         CcGEQbBQV0y60UMgTSMwMPo2y2+a5M/boGOxplOOZeneDjsReVVZ5JSVUyWfpZ9tv6+K
-         yCkw==
-X-Gm-Message-State: APuU4Z/KX8Yaxe0SYs5dkjUIrPd+OEspLHX+W3hBE8AWfz8F9PFFfywj
-	nb4zzRrBcinV9aCZ93RRDX0LymMoJcPA5LtK8R/KabG17/RenXUCuoIz5SAk4Bc5RACkS1xOOmH
-	33Syt
-X-Gm-Gg: AZFdTZc/Pm2QTF8MZB8D0cx3Fmpsn2eSePe89N6Y2VkWb4V2Fk+C4i9aXCcaaZs2DhK
-	PPprt7JGE5bA/LHXt6ElPdUMwOot0j+oJg3yD1+D8tARXWuBx3tmUTYUfZKajkSvmOISc4ce5rx
-	sMfL+1dqkTwxyHL8Vu7cQUzLj9KLcHhlOU0Pjwec7N8f2UgWmYEBvUKdfYeYKo5OeKS8hzBtOAa
-	TolBTPnXgGi2jG/7Acxh9EnngI7uj6pJay7EnlzM3hUfrQBJR37MBBap+IRAdewc1IW8e3oxfJv
-	wlPsy89VEqPC+vR/k1BgYAgonSomFspWOLih366T5kZlAW4dg5b9ZcDkeCqa9VUfp1DJyYyOAAn
-	0uVtSqLa7uHdBqSZGbsku9nSltpYkKeemkAqACTdL5KJM6xC3Jtx9zXNYHVi6JUXngjVB7/lhwD
-	XnL8Kbh1Pn/u8lrLXvHb/gKQ++fHCzQeC9YnxveZsuOV5UI3Dzs+HcBqzSZDk611ORvBm2IIQKm
-	v1Kwh8WTx0wiiWmZuxcRj6vUIMUj8QVKKois7hG+0sl3ZwNk55yf6JLd8NhGWvmKtSm82EJlUdR
-	LGsyq3qsszEDSYZ5BGx3twKf8vfeTIAtRSGWGFfvkiVrqsq+iO0u83gg
-X-Received: by 2002:a05:620a:458d:b0:939:6dea:4f1a with SMTP id af79cd13be357-949ba9c228amr2813987185a.48.1795557149846;
-        Tue, 24 Nov 2026 13:52:29 -0800 (PST)
+        bh=kT+xuhaSl/fUoT3wmVVtDAie9WoGC5vXXYFsJEveQVY=;
+        b=iZ/IK7lM6ZTun+GQvUAgrpbw7NX+9DtpE4CfK4wXC58dNRsdXAC6vxnbDbvR0+519z
+         TZ7hmIXVjAD5DsdPIaCW4oe6M6nN3eIa8ig/2WtJOWOzVp67YJSrtvwgRpLkMCGO6Ob6
+         OY1qOXzf7lB1QF9inR1Sz4/gS6gzIgoL0IuBdp9gDkXVvbV7tveC5tS+oLDAHex+4zrY
+         4j7r/mt7KlVAtdz8GmvPqQeNkZehDfjaayTl+oIDMfyYQbpMnNeSbfYbdhy8j2WX8R1X
+         sM3vC2jQSmiUee0ttufWs8iR+wxW/jYQT30J2lRuUiZTq0h+GHlUZNU9siAorOWEKiMW
+         O1oQ==
+X-Forwarded-Encrypted: i=1; AL+hErG+vHruQXj5hpm7b7IjYMZIe24FZouV16nvwRVOina5IPBpLhAnzPYYgkgQ8qzKF8Abjfz3AKQEYV3Yvw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CUC/lmFf7+7Mlb7ksAr1IHBZC0vbgOih+LLr9quOYDc5eOuLR
+	wOEo7mvaR+z15HPdSFfGmigz3sqbl4h1nISD+F+KwRVUHWWZd0Dz9+eQz2HUSwTUdp0=
+X-Gm-Gg: AZFdTZeu6ZPNnL7QL3WVsOb7m0D4U90HQiI4qgmXp+DO5ziiNzBLcStZ1Julw6E5lMr
+	cRK2BpMKq9iUlBVx85cMSM/pkt405x/sJzbmPdAPUa5EGmz6yR/yVIpc1lU8tfL9NHkwmpH5ibO
+	NFqob9i4uJBI1EGkdMxIBuoVchdzPd0ECzuutyr3n1gzLBJw31RyldBMj8tR4Zf9sfM+23j85sM
+	v9Y9/Uy8o1VHlEIuvODB79pic8LLwo6ULXdfkFQpIKLsBzdc16YmXFN7oJ/RjlcT7o6kSyd440u
+	w2BfqxJ9+g3uj/M3bcuxSQ1K2s8wDFpHPej14B0JShIpTNvFLGf3lP7YHVO36Vg8sOcuYWGG8H/
+	59G9Fd7lWl3gMRZ1pTq/nuQzGsvjz58NBIhiiKw73XnaBcvClPqvmU85URP1RJePdiJMUHw/aYn
+	H7bN8p5K4eXZez/vncmJbhiltwpuCJLCcJaC3gEvd3L8eca9fpdalOeTypwfZeuwcn4hjpnLvZZ
+	ocWCY4fFAEBbKuMn4sRIhx6Z87n/9EyvT2v+1lhDmxukAm26klbZ5sUuvyCmpBUjwEaLOpkEBPf
+	cattClcpFfQaINQpH4NE7J6ZASP3u9qQXFgO9TptDTxJ81sE3mV47So=
+X-Received: by 2002:a05:620a:1305:b0:949:74d8:46fb with SMTP id af79cd13be357-949ba9b385cmr2910405585a.41.1795557335002;
+        Tue, 24 Nov 2026 13:55:35 -0800 (PST)
 Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb34ac1esm1148155085a.15.2026.11.24.13.52.28
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb3ba04bsm1169083785a.24.2026.11.24.13.55.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 13:52:29 -0800 (PST)
-Message-ID: <71a121d6b863f31f625abcea20642269881d0b72.camel@ndufresne.ca>
-Subject: Re: [PATCH v2 17/17] media: rockchip: rga: schedule jobs to
- multiple cores
+        Tue, 24 Nov 2026 13:55:34 -0800 (PST)
+Message-ID: <c592bdd6b31c6e6580876c5fb7a37591b0355157.camel@ndufresne.ca>
+Subject: Re: [PATCH v3 02/17] media: v4l2: Add P210 pixel format
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sven =?ISO-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>, Jacob Chen
-	 <jacob-chen@iotwrt.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Philipp Zabel
-	 <p.zabel@pengutronix.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	kernel@pengutronix.de, Detlev Casanova <detlev.casanova@collabora.com>, 
- Michael Tretter <m.tretter@pengutronix.de>, Guangshuo Li
- <lgs201920130244@gmail.com>
-Date: Tue, 24 Nov 2026 16:52:28 -0500
-In-Reply-To: <20260916-spu-rga3multicore-v2-17-23aa2cb74e61@pengutronix.de>
-References: <20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de>
-	 <20260916-spu-rga3multicore-v2-17-23aa2cb74e61@pengutronix.de>
+To: Sofus Forstreuter <sofus.c@icloud.com>, Sven Peter <sven@kernel.org>, 
+ Janne Grunau
+	 <j@jannau.net>, Neal Gompa <neal@gompa.dev>, Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp Zabel
+	 <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
+Date: Tue, 24 Nov 2026 16:55:33 -0500
+In-Reply-To: <20261020-avd-v3-2-85cbaa2125d8@icloud.com>
+References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
+	 <20261020-avd-v3-2-85cbaa2125d8@icloud.com>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -111,7 +109,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-xervUYoD/U351QaeWOLl"
+	protocol="application/pgp-signature"; boundary="=-CAwZvlptZ/R7neJeECDI"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -123,169 +121,139 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-xervUYoD/U351QaeWOLl
+--=-CAwZvlptZ/R7neJeECDI
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le mercredi 16 septembre 2026 =C3=A0 17:09 +0200, Sven P=C3=BCschel a =C3=
-=A9crit=C2=A0:
-> Schedule jobs to multiple cores to utilize all RGA cores. To avoid race
-> conditions when selecting the next free core a dedicated spinlock is adde=
-d.
+Le mardi 20 octobre 2026 =C3=A0 11:37 +0200, Sofus Forstreuter a =C3=A9crit=
+=C2=A0:
+> P210 is a YUV format with 10-bits per component with interleaved UV.
 >=20
-> Note that this doesn't increase the max frame rate of a single
-> stream, as a context will wait for the job to finish before starting
-> the next device_run call.
->=20
-> Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
+> Reviewed-by: Neal Gompa <neal@gompa.dev>
+> Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
 
-I'll let you go through the Sashiko report here.
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
-Nicolas
-
->=20
 > ---
-> v2
-> - Set core->curr to null first in pm_runtime_resume_and_get error path
->   (https://sashiko.dev/#/patchset/20260606-spu-rga3multicore-v1-0-3ec2b15=
-675f7%40pengutronix.de?part=3D15)
-> - Also protect adding/removing cores with the spinlock in bind/unbind
-> ---
->  drivers/media/platform/rockchip/rga/rga.c | 30 +++++++++++++++++++++++++=
-++---
->  drivers/media/platform/rockchip/rga/rga.h |  1 +
->  2 files changed, 28 insertions(+), 3 deletions(-)
+>  .../userspace-api/media/v4l/pixfmt-yuv-planar.rst          | 14 ++++++++=
+++++--
+>  drivers/media/v4l2-core/v4l2-common.c                      |  1 +
+>  drivers/media/v4l2-core/v4l2-ioctl.c                       |  1 +
+>  include/uapi/linux/videodev2.h                             |  1 +
+>  4 files changed, 15 insertions(+), 2 deletions(-)
 >=20
-> diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/pl=
-atform/rockchip/rga/rga.c
-> index b2eeae0a61771..6294825eaacfd 100644
-> --- a/drivers/media/platform/rockchip/rga/rga.c
-> +++ b/drivers/media/platform/rockchip/rga/rga.c
-> @@ -38,13 +38,29 @@ static void device_run(void *prv)
->  {
->  =09struct rga_ctx *ctx =3D prv;
->  =09struct rockchip_rga *rga =3D ctx->rga;
-> -=09struct rga_core *core =3D rga->cores[0];
-> +=09struct rga_core *core =3D NULL;
->  =09struct vb2_v4l2_buffer *src, *dst;
->  =09unsigned long flags;
->  =09int ret;
-> +=09unsigned int i;
-> +
-> +=09spin_lock_irqsave(&rga->cores_lock, flags);
-> +=09for (i =3D 0; i < rga->num_cores; i++) {
-> +=09=09if (!rga->cores[i]->curr) {
-> +=09=09=09core =3D rga->cores[i];
-> +=09=09=09core->curr =3D ctx;
-> +=09=09=09break;
-> +=09=09}
-> +=09}
-> +=09spin_unlock_irqrestore(&rga->cores_lock, flags);
-> +
-> +=09WARN_ONCE(!core, "No free core although max parallel jobs matches the=
- core count!\n");
-> +=09if (!core)
-> +=09=09return;
+> diff --git a/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst =
+b/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
+> index 0631919bd667..f2d2e79698fa 100644
+> --- a/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
+> +++ b/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
+> @@ -138,6 +138,13 @@ All components are stored with the same number of bi=
+ts per component.
+>        - Cb, Cr
+>        - No
+>        - Linear
+> +    * - V4L2_PIX_FMT_P210
+> +      - 'P210'
+> +      - 10
+> +      - 4:2:2
+> +      - Cb, Cr
+> +      - Yes
+> +      - Linear
+>      * - V4L2_PIX_FMT_NV15
+>        - 'NV15'
+>        - 10
+> @@ -834,12 +841,15 @@ number of lines as the luma plane.
 > =20
->  =09ret =3D pm_runtime_resume_and_get(core->dev);
->  =09if (ret < 0) {
-> +=09=09core->curr =3D NULL;
->  =09=09v4l2_m2m_buf_done_and_job_finish(rga->m2m_dev, ctx->fh.m2m_ctx,
->  =09=09=09=09=09=09 VB2_BUF_STATE_ERROR);
->  =09=09return;
-> @@ -58,8 +74,6 @@ static void device_run(void *prv)
->  =09}
->  =09spin_unlock_irqrestore(&rga->ctrl_lock, flags);
+>  .. _V4L2_PIX_FMT_P010:
+>  .. _V4L2-PIX-FMT-P010-4L4:
+> +.. _V4L2-PIX-FMT-P210:
 > =20
-> -=09core->curr =3D ctx;
-> -
->  =09src =3D v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
->  =09src->sequence =3D ctx->osequence++;
+> -P010 and tiled P010
+> --------------------
+> +P010, tiled P010 and P210
+> +-------------------------
 > =20
-> @@ -748,6 +762,7 @@ static int rga_core_bind(struct device *dev, struct d=
-evice *master, void *data)
->  =09struct rockchip_rga *rga =3D data;
->  =09struct rga_core *core =3D dev_get_drvdata(dev);
->  =09struct rockchip_rga_version version;
-> +=09unsigned long flags;
->  =09int ret =3D 0;
+>  P010 is like NV12 with 10 bits per component, expanded to 16 bits.
+>  Data in the 10 high bits, zeros in the 6 low bits, arranged in little en=
+dian order.
+> +P210 is the same as P010 but the chroma plane is only subsampled by 2 in=
+ the
+> +horizontal direction.
 > =20
->  =09core->rga =3D rga;
-> @@ -785,7 +800,9 @@ static int rga_core_bind(struct device *dev, struct d=
-evice *master, void *data)
+>  .. flat-table:: Sample 4x4 P010 Image
+>      :header-rows:  0
+> diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-c=
+ore/v4l2-common.c
+> index 11ab684024c5..43ef12d073a3 100644
+> --- a/drivers/media/v4l2-core/v4l2-common.c
+> +++ b/drivers/media/v4l2-core/v4l2-common.c
+> @@ -325,6 +325,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 f=
+ormat)
+>  =09=09{ .format =3D V4L2_PIX_FMT_NV42,    .pixel_enc =3D V4L2_PIXEL_ENC_=
+YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bpp_d=
+iv =3D { 1, 1, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
+>  =09=09{ .format =3D V4L2_PIX_FMT_P010,    .pixel_enc =3D V4L2_PIXEL_ENC_=
+YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 2, 4, 0, 0 }, .bpp_d=
+iv =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
+>  =09=09{ .format =3D V4L2_PIX_FMT_P012,    .pixel_enc =3D V4L2_PIXEL_ENC_=
+YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 2, 4, 0, 0 }, .bpp_d=
+iv =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
+> +=09=09{ .format =3D V4L2_PIX_FMT_P210,    .pixel_enc =3D V4L2_PIXEL_ENC_=
+YUV, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 2, 4, 0, 0 }, .bpp_d=
+iv =3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 1 },
 > =20
->  =09pm_runtime_put(core->dev);
+>  =09=09{ .format =3D V4L2_PIX_FMT_YUV410,  .pixel_enc =3D V4L2_PIXEL_ENC_=
+YUV, .mem_planes =3D 1, .comp_planes =3D 3, .bpp =3D { 1, 1, 1, 0 }, .bpp_d=
+iv =3D { 1, 1, 1, 1 }, .hdiv =3D 4, .vdiv =3D 4 },
+>  =09=09{ .format =3D V4L2_PIX_FMT_YVU410,  .pixel_enc =3D V4L2_PIXEL_ENC_=
+YUV, .mem_planes =3D 1, .comp_planes =3D 3, .bpp =3D { 1, 1, 1, 0 }, .bpp_d=
+iv =3D { 1, 1, 1, 1 }, .hdiv =3D 4, .vdiv =3D 4 },
+> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-co=
+re/v4l2-ioctl.c
+> index 17ba1ae70735..1f2519ffeb2b 100644
+> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
+> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
+> @@ -1369,6 +1369,7 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *f=
+mt)
+>  =09case V4L2_PIX_FMT_NV42:=09=09descr =3D "Y/VU 4:4:4"; break;
+>  =09case V4L2_PIX_FMT_P010:=09=09descr =3D "10-bit Y/UV 4:2:0"; break;
+>  =09case V4L2_PIX_FMT_P012:=09=09descr =3D "12-bit Y/UV 4:2:0"; break;
+> +=09case V4L2_PIX_FMT_P210:=09=09descr =3D "10-bit Y/UV 4:2:2"; break;
+>  =09case V4L2_PIX_FMT_NV12_4L4:=09descr =3D "Y/UV 4:2:0 (4x4 Linear)"; br=
+eak;
+>  =09case V4L2_PIX_FMT_NV12_16L16:=09descr =3D "Y/UV 4:2:0 (16x16 Linear)"=
+; break;
+>  =09case V4L2_PIX_FMT_NV12_32L32:   descr =3D "Y/UV 4:2:0 (32x32 Linear)"=
+; break;
+> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev=
+2.h
+> index 5373dba640fa..5472e433ed06 100644
+> --- a/include/uapi/linux/videodev2.h
+> +++ b/include/uapi/linux/videodev2.h
+> @@ -659,6 +659,7 @@ struct v4l2_pix_format {
+>  #define V4L2_PIX_FMT_NV42    v4l2_fourcc('N', 'V', '4', '2') /* 24  Y/Cr=
+Cb 4:4:4  */
+>  #define V4L2_PIX_FMT_P010    v4l2_fourcc('P', '0', '1', '0') /* 24  Y/Cb=
+Cr 4:2:0 10-bit per component */
+>  #define V4L2_PIX_FMT_P012    v4l2_fourcc('P', '0', '1', '2') /* 24  Y/Cb=
+Cr 4:2:0 12-bit per component */
+> +#define V4L2_PIX_FMT_P210    v4l2_fourcc('P', '2', '1', '0') /* 32  Y/Cb=
+Cr 4:2:2 10-bit per component */
 > =20
-> +=09spin_lock_irqsave(&rga->cores_lock, flags);
->  =09rga->cores[rga->num_cores++] =3D core;
-> +=09spin_unlock_irqrestore(&rga->cores_lock, flags);
-> =20
->  =09return 0;
->  }
-> @@ -796,6 +813,7 @@ static void rga_core_unbind(struct device *dev, struc=
-t device *master,
->  =09struct rga_core *core =3D dev_get_drvdata(dev);
->  =09struct rockchip_rga *rga =3D core->rga;
->  =09u8 i;
-> +=09unsigned long flags;
-> =20
->  =09/* Remove our core from the list */
->  =09for (i =3D 0; i < rga->num_cores; i++) {
-> @@ -810,8 +828,10 @@ static void rga_core_unbind(struct device *dev, stru=
-ct device *master,
->  =09=09=09=09iommu_detach_device(domain, core->dev);
->  =09=09}
-> =20
-> +=09=09spin_lock_irqsave(&rga->cores_lock, flags);
->  =09=09rga->cores[i] =3D rga->cores[rga->num_cores - 1];
->  =09=09rga->num_cores--;
-> +=09=09spin_unlock_irqrestore(&rga->cores_lock, flags);
->  =09=09break;
->  =09}
-> =20
-> @@ -977,6 +997,9 @@ static int rga_bind(struct device *dev)
->  =09=09goto rel_m2m;
->  =09}
-> =20
-> +=09/* after binding all cores num_cores has the proper number of cores *=
-/
-> +=09v4l2_m2m_set_max_parallel_jobs(rga->m2m_dev, rga->num_cores);
-> +
->  =09v4l2_info(&rga->v4l2_dev, "Registered %s as /dev/%s\n",
->  =09=09  vfd->name, video_device_node_name(vfd));
-> =20
-> @@ -1047,6 +1070,7 @@ static int rga_probe(struct platform_device *pdev)
->  =09=09return dev_err_probe(dev, -ENODEV, "failed to get match data\n");
-> =20
->  =09spin_lock_init(&rga->ctrl_lock);
-> +=09spin_lock_init(&rga->cores_lock);
->  =09mutex_init(&rga->mutex);
-> =20
->  =09dev_set_drvdata(dev, rga);
-> diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/pl=
-atform/rockchip/rga/rga.h
-> index 522021c3e0249..b046083244bf6 100644
-> --- a/drivers/media/platform/rockchip/rga/rga.h
-> +++ b/drivers/media/platform/rockchip/rga/rga.h
-> @@ -86,6 +86,7 @@ struct rockchip_rga {
->  =09struct mutex mutex;
->  =09/* ctrl parm lock */
->  =09spinlock_t ctrl_lock;
-> +=09spinlock_t cores_lock;
-> =20
->  =09const struct rga_hw *hw;
-> =20
+>  /* two non contiguous planes - one Y, one Cr + Cb interleaved  */
+>  #define V4L2_PIX_FMT_NV12M   v4l2_fourcc('N', 'M', '1', '2') /* 12  Y/Cb=
+Cr 4:2:0  */
 
---=-xervUYoD/U351QaeWOLl
+--=-CAwZvlptZ/R7neJeECDI
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawYHHAAKCRDZQZRRKWBy
-9BkdAQDViMbWw7ZIgkMJFFddGVM8H0l7fqIrL1g/8RohkUjwyQEA4rRzp7+Odfyt
-Gc2+uGfr//xab4zmFlHvwWN8TkrIiAc=
-=pKUO
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawYH1QAKCRDZQZRRKWBy
+9Hi5APwNsO/NocrcIJcIll1SPJxbqsKHJGgTqWhDD76gjdf7EQEAs6EtAl483env
+blqRUPQrAHH8q7BIoKoBtSv+UXwi4ww=
+=6io4
 -----END PGP SIGNATURE-----
 
---=-xervUYoD/U351QaeWOLl--
+--=-CAwZvlptZ/R7neJeECDI--
