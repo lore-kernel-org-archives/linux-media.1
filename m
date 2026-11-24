@@ -1,86 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795523760;
-	b=uW1wFOw2N7VT+zYYEmSeRc4pLsjCniBxj0kA1/KLuTqSFf+N4cNyoqVZAojAewSxN9W/
-	 LDSRZu5Ot9BDudhP6nBG6ivRaou74QCUMb8uzXM64B9NEf5s34B1u5/MZ1WiiG18iMss/
-	 RTBuoTqZOIF4wEw0wRjGbA7vCYBDOjK4Hdyn5YIjbWmcgEE87tcGa7XXkWEkEVnFtZ9P4
-	 6E3HykiCHmSGtMBETCdoVChxwQzLamPI1YPIXPwZfPto730as3vN0UloVvwcHwPg/7b9b
-	 bVUDZb+FaDWpLplG4SDR/e8emoUvsXSIrPEY9zx0MQq9s4J6J4G83dD8Eg4pOphzDfA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795523760;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=A0JZ8rpuLBAnmoXP2EXMjipyYHstvEtP1ShZXzsUQ1o=;
-	b=y1wmkSDOUW5UlIBZq0N3zqDdF8nVSx8yIqGAzYr4FsoMUITa9zFI0MH8XdWd0iweXzfp
-	 V1bAyVqWtK5y5THcV+isjzYPPER4O5XpQUKTYOJa1FAk//6+PFZExUImdKLijww/owBU0
-	 WfW5U5LT/MU0vb6cOT1tN5lC6g/KJy5MhRX5HnbWLUpAygrm+bXkrWvYGmtq2cMgod66G
-	 NlsdbPtN4eJTGvl3271R4vBcfemjMecWtGPGkKbrmX3tn59olyyVJYUVE0w3HmpmmeDGf
-	 8LU5FIhYqTaD9uZBvNQLI4gWLkUxkYHKMALMe+jLxYNPnbAIoYC6m+pqa6uEQYRzDfQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=oGH5MxDT;
-	arc=none smtp.remote-ip=209.85.218.43
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795523802;
+	b=YTS3cpdbwYCv1YHrSKsJx/kEYhGWmz+CxjoSIdKZjeZ/6BRu4ItjaCPtx3VIcSJhyMgw
+	 DP6uwuZsQ+O1z1bAbW6RoEobzD3G8YVnfQDtJmZZOsErQzFGMIDqo+PZ4varM6tTZckgO
+	 hVP55I1v2mOhCJtYDsmV4WqgErPUA6xXiEP5G7HngDCjuVWZ0BYaFENLgLZWkRPEyCs1o
+	 0gRlEu5+ZUkcvUbA9U5YXZLJJ3IAJZaJD4svUkiYCRinn9SwcOCY0dXpXBn/KKju0aV0d
+	 nOi8QDnc6QeicTYrKZNcPY3WPb2ItkLvD25agDiVEmPT6G22noXMw09JRlsuyLmEoug==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795523802;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=wUqGi0asszbN4dhIxO+gZaZle9N/6uln8kH4AIJVyHo=;
+	b=0rWCER4wdQFAsSz1enrO4n5M2pqHuELpeHF3s25CD+XzTW1hc4+GkCymWTgLzNFrBRjm
+	 35/XBJiJjYt6tTBMjw2jTRVQzR5GrS/2C+xSirWCtWauM47JvRG1QsxXCY3DznejnuFWc
+	 PVG4zai4pHy+A7ddsRFzyiuEMR1u/X6yf5wkOq/fUFcudxsjWscSOcpC0U1BXAXIsavDG
+	 LgF7Lu/cJsEc3T8jHrjsnTNAvC4XtFwGURN7B9+hLPzenrs4eLREr6mO6b26phmLwPIYR
+	 X0z3q0HqRW6vbMGMBiNlDjIROzQGeEzbDqBb0Ig8WjdiPCJkak5Cm2f4hxP4bJLepmA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="19mX/iwC";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.50
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010050.outbound.protection.outlook.com [40.93.198.50])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9ED4606A31E
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 12:35:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9ED4606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8163B606A327;
+	Tue, 24 Nov 2026 12:36:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8163B606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=oGH5MxDT
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c51373ae637so672843366b.3
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 04:35:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795523758; x=1796128558; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A0JZ8rpuLBAnmoXP2EXMjipyYHstvEtP1ShZXzsUQ1o=;
-        b=oGH5MxDTn+d8EiD6of2XuA66WykMNo9n4h4Uhdx54Kkx1dFVHhUULXYgtpoF0BnCRm
-         TZUkYi/GO+ktBWCOSerzr6XrHk0LVdCMqIe3OdtCnkeq3z9NKCaO4djuexke7K5p0Ed2
-         1lhkV+ggicW+lB48KjNL865PrjwbpXuvgbAGdkR8xo5X1z7ZmiR3klPJLknVc/uW9x+T
-         +Zc4Y0z/DVdFQPg+aRynpcBYKhu1Bc93iRLPBefei4XLwR2GnBKMkkA5jmGtpyzA5xlJ
-         vStQJobCc31gcwxhJp+unl3iwmKyEpMNxL02QreicRUNs+WoQ84k+Tvg++TluZaOvLmZ
-         ZiHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795523758; x=1796128558;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A0JZ8rpuLBAnmoXP2EXMjipyYHstvEtP1ShZXzsUQ1o=;
-        b=rgGHzbkdMA5/+uR4OtkFrUM8f/OlAgpzEzOupWjZbIHaqyQlahG5uZ6nRmI0V8UjCU
-         KlWOIukvLJ5iRuKrgIZ3CYdL1w+gFKjwaDjZS4gtGaSkN4XhEw4wVLReWvtad6dGZy0T
-         5ZGyoJRYmO96zvcnPaKTU7zUQNfxtVKWgYjk+cFeD2QC0p/6B+Wo/Ct8SheasjL0bkcs
-         C0K7sxaRMtvqLFnzxd+SbGzW7OwipeJ2gR5wfxPJ0TqZhIKDzvBO5NrrAymVluUd08Lx
-         gP1h2/lZLh4UR4DQTK01FECD3FFPoNlroNNklxUZLVIMN4aedvyYpKS5JJ1sH70HrVeM
-         2ENw==
-X-Forwarded-Encrypted: i=1; AL+hErGu4mNQ9blrmAxcwwuXqnrobHcZqeImfQno57Y4o4xLMISZff+3DizrtImMcJ9C95nT5dzpoBp9qouz2g==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jg06CmipBD0TJPhD/EoMRJsKU8uAYBDfaCslyf7OiLBOnbjpa
-	vDVhcweR9P/qsPhxNxx7XQUrG7soYlccNfV939pDVVPRy/0kIFWbHHxeJTr45nlv0oY=
-X-Gm-Gg: AZFdTZfBH+Cg0H5jUpfnXH6WtTIyyHeCVZlBWHLbWfQiDTLDU8VHSZMISfFEMRroHne
-	Bi2w0s9UizW9XHjdsxERGgYKBrGQCE8h8SaWVlk5B3KBOa744PATLZkcNi6Ou4L6yVbRDk20Q8g
-	LqMHgFqKiPRmhUBI2cg1a96uLpmy+L2TgcfqZXyFopEnWhTi8nTIzZmQSgzZiF0NL1/hQdXfqvx
-	5KI/ps5HMk1JmGcH2pg/GWQ75ntXxO5eiBTF6sQ7P6guFfgqLJdsWjzlY1EUeoIhUiV9hluT1og
-	qYzBrWMuszIDsAply+8yStShBSRKoR6Pl9ZBK1+TDUPLuzYS5ZCmQjCC/43vnwb2rG/hBXY4MYy
-	TtUP9zOpbzgU+WUwcI4iBlw86BMN5nqj/gBhC0OJnCDyZRuiBoo8zFyhSq6ZJN30nNLue7SoxmB
-	uN9OO/O8Ri+fM2csyXm3AtJvlOVLsY9DLT5g4d/EzN/5g7oWS+btZRXW1r4O+QCubLgnIatEGvz
-	H5uF64xVq/pQ06/lx7CSTVYHVlVXbwml/XSvHGUaMJ5MMu7B14qxP/DT9EQQ+f+EpOry3hspjjX
-	Zg+jJgIW77nW25uFCqJIwPQrE/wy8/hWyt9QLtYuDx4=
-X-Received: by 2002:a17:907:f812:b0:c50:d92b:6f40 with SMTP id a640c23a62f3a-c513a88a6b1mr1121542166b.20.1795523758207;
-        Tue, 24 Nov 2026 04:35:58 -0800 (PST)
-Received: from [192.168.0.167] ([109.76.241.250])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513afc42bbsm503065066b.61.2026.11.24.04.35.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 04:35:57 -0800 (PST)
-Message-ID: <57fed113-9f79-41d3-96d8-725be5e58918@linaro.org>
-Date: Tue, 24 Nov 2026 12:35:56 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=19mX/iwC
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JbgVCZGIP6OwjitDGwHiW0cWDhtrRTigZR0Gv5RxkV+SDkZ0EuUf+kfCln99LexzQpLFkprCbBIKbiuugwdb+yaCDvEIyum3tZ8gMw6yI4/rwF+bMVhl9HxJFYZok00mUzv7GKTKK7fHbbNOAsA8Pq6L/JGpJ/IAZtMwB9WTm5EpxrTPIjZEpWubQ1O2FOTK8vQrIQyC8ZjqOW1A5CMfDAXqVf3HBUPgRKys6XVafrpIN/GCE4F4PxD41hmDwg9nxiyXJvHtmK3gn621QQ+eTOldgGHI7ISIE00cICFPviRPLcaA8WGQ+Wy2YqLIJEvqUUXOIYNG+pv4CYr6dM8TaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wUqGi0asszbN4dhIxO+gZaZle9N/6uln8kH4AIJVyHo=;
+ b=J+YUGzAS7fTcyVvuTyR7XOZRair4NM5ARI+PCbDUnkZKKOU9xmbHOEhSMTDAUAMBQTzzeQdia3xmHIrbXh7Crfn5W+dfolT7OskydAPPNkE5HAfM6oQrdF9oRBHM5bcs3RRMg5ZHQ0S1HzAagyRs9I4w2zk5lgI/Z/OKL80v2OMIVEyXy0RG3e5M/2EY/332F8x9yzBcf/EHGg0pOxK41Oa+nsPXODd5EhswNALcTgXjCjdhwNaj2h4YctvOvrMAOefTpp0/FHZQlDhAz8b3TxL4Y8d56wtad6AZH52fDsihhynOqB5u7W1kNqOHGA7ngpjefvyO3mvmLx5adjekIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wUqGi0asszbN4dhIxO+gZaZle9N/6uln8kH4AIJVyHo=;
+ b=19mX/iwClCI4bNSJyXNkfMdHOEijCNpn7pVx6AkrxxDyBRbaESQPO81OlnpDkQohQqcJ8XNqMO8I0/wpzzgIShUt9DRlzPBYR+m5jS1FYiVQf/MAEKkZOx4sE1ryI5R4nboI1FDBm0Dvf/zKEnmXMIdK31wlTceGS61a843n1/0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM6PR12MB4370.namprd12.prod.outlook.com (2603:10b6:5:2aa::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.4; Tue, 24 Nov
+ 2026 12:36:37 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
+ 12:36:37 +0000
+Message-ID: <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
+Date: Tue, 24 Nov 2026 13:36:21 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
+To: Alistair Popple <apopple@nvidia.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling
+ <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com,
+ jhubbard@nvidia.com, chaitanyak@nvidia.com, Leon Romanovsky <leon@kernel.org>
+References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+ <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
+ <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
+ <20261123165716.GM179082@ziepe.ca>
+ <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
+ <awT8prWsj11TBdmP@nvdebian.thelocal>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <awT8prWsj11TBdmP@nvdebian.thelocal>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0274.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e6::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,77 +121,194 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] media: qcom: camss: csid-340: Report the hardware SOF
- timestamp
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20261123-camss-hw-ts-v1-0-7b62dda6d7a9@oss.qualcomm.com>
- <20261123-camss-hw-ts-v1-3-7b62dda6d7a9@oss.qualcomm.com>
- <c7fc67a6-e15f-40df-9c0a-7eae54e99d23@linaro.org>
- <CAFEp6-1otVCjNJgWLTiOMQpdy1t4qJUP6_NK0CuifrN+cOTTcA@mail.gmail.com>
- <08b9a714-278b-4e1c-81c8-59a60dba5916@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <08b9a714-278b-4e1c-81c8-59a60dba5916@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4370:EE_
+X-MS-Office365-Filtering-Correlation-Id: da56025a-4a2f-4a47-7c3d-08df4a2794cd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|10067099003|5023799004|11063799006|4143699003|56012099006|261022075727099003|261022105027099003|261022115727099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|261102130727099003|261102123227099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	feCmSxzinazgK+ddzPvYJCrymh3A+htw6xwY9TOAvxpZo3FHL0t2REvOe0ILoVSrqD4pLy4vabNaTnFa3aquueicYxaj/0mNAsbxX8BXHUUvqgAMuWWALKHogVyS+jBs62ANsjhrwL8SFKeH8XA9A6UsoVoCC4rQ5otVNRE2N6PxmT8a50dmxoO27/yPUNlmcFP6yzpui2I//bKJHsuF1K/dP+v48jWVimNjV7Xq96gl5xI3wpmHEEa+xsBDf4sUmvm1P9pFnLjjd3kHWmgfkV6siyCqGxAKfx3UHJNQ0ieBc0kjw87rOxlKrku7EKdWSuUTrVntrYomhlCbiXW/SgMvCvSiQRNLrJdLvAXK6wWhMtAy2YRgke9GP7CDtnAs4Xe5rO8710sc6FaFnAHG835KuaRImPcGBPY3oIxbUP4zvPfcRHsUJnGjI6vaEkpmddp1pocJiUv9++dGUnl4qoFOnMcaQRo0R2IRChKWElulZqUtoY5JqZjCxYU+eKhZ5SCbrYGp6SblrPGT1Ha8itYECePcYWq3zH10sUv7y1y2cTdfLypLaQRBbDGtKpc7FZQ7g0MwFwnGFW5LZTlCVJv3N4hw8R7Xh7dGdh4tCRA/jhdyQkewFw+maHL8ek4Kbni7vg/M5fIj0Dd4BBDRxjZRgRxxuIiCdsy40kj91ks=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(10067099003)(5023799004)(11063799006)(4143699003)(56012099006)(261022075727099003)(261022105027099003)(261022115727099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102130727099003)(261102123227099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dUoxNTZ2dEN5Ym1NWEdHSExORXBCRklSc1lhc29pdExFNkhpeGNyNzNhY3Ba?=
+ =?utf-8?B?VmRETFRqYlN5b3ZyazRJUVh4enIvaE56YzljT0tPYWZiRTdsV1o3Z1V0ZUVp?=
+ =?utf-8?B?alF1UHpKcGlKcjdyMXZZbmtXMGZBbG15TCt0a1R0UXJUeXR6VG1sNmVzNFlu?=
+ =?utf-8?B?VW1zTEMvRUZRTkE2QW9sb05MenlCdTQwYmVKWmUvdDlyeW43ZVpCRXI4TWhz?=
+ =?utf-8?B?TDdJVEJNQzE2NGRvREw5bzZQdWp1TzllL0Z3T2xoL3EwaDBzZWtaVi95dnhN?=
+ =?utf-8?B?Z21lUDRhbUtjVGdWY040ckVUbDdtOGR0R2xDckpCQTZ1RUNOOTk0ZFJoMGdJ?=
+ =?utf-8?B?cjYvNHFqQWFhUythRGFGUHNQZmo5bWE5dWk4cnI5OVFNNThQZE1VSWZjczVN?=
+ =?utf-8?B?dGpWMWpxWUx1Nk1TRWs0a3g5U0htUUpjZWJ1YUVUM21ZVnBwTTlZN3hVcjE3?=
+ =?utf-8?B?VEM1Ym1UclRDV09uTXRDdEY1SSs3dVhuOENld1VnSHMwbXVvNUc1NW15QVpU?=
+ =?utf-8?B?M1BDekxqdXJMNm9tMnlBUVBCTFBXYWh4c3A1VXQzS0h4ZEc0ZmdWVnZ0Y1By?=
+ =?utf-8?B?bElVQjM0RmltRlNISkE1UVRmVVBackJJZERBbnY0WTBwd0tDYUxoMWxXTmQz?=
+ =?utf-8?B?WlJxcDVrQXc0Qkhmb0EyMlI1K0UrSkxyTWpnYUFFWWVCMERYZjM3UjdLKzZk?=
+ =?utf-8?B?Q05FUFJnOElzaTJyV2V6MzJmbFFqdUdwMURDdHZacjF1SU0xMjFqRS9waXds?=
+ =?utf-8?B?REVzUHl5SG50VUtPTmtvcU5jbk5VWmh5eEdKaWNyWEszdm9lS2NPMGxCNnlx?=
+ =?utf-8?B?L2pEMUtCcnc0NFgvd2VaTEF5L0tnMlJxNVBSRFcxWE1ISjBpYS9hYk5pYXMx?=
+ =?utf-8?B?eDZyODZWL0J3alZsckE3OUtDRlM5Mll5ekhhOFUvdU8zaXdsZzRENC9tY2Zh?=
+ =?utf-8?B?Qm41K3Z6WFYxVFVJTFV4QmRUR3JpYUIzQ0dkMFNROGNUU0VCVTljVWtlaGpT?=
+ =?utf-8?B?aWRtM1g1cHYzNGcvaTl4UGY5R0MweHRBYlRnWXowWjgvL25QNjY0NXVuMTEv?=
+ =?utf-8?B?ekE4eUk2KzFPbnZ2SzV1MFRBVXVjK0xvMWxPYzhRVFpDWGVYTldPdDJpcE1j?=
+ =?utf-8?B?YWlhWFlSVGgrQ3RWU3M4VmQzbVpyTVkzY0xqaE5jSTk5VFJYL1NnZXM5RW01?=
+ =?utf-8?B?T0Zya3JvYTZMd1dxYkdBNHRGS1BCMU5JYm9MWG9xa2xFYmM5SFRFUEY4amE0?=
+ =?utf-8?B?Z1Yzb2tNOUJ6S3BZN1Brd0pCb1UvUEtPeUJBcjlFZXdPUkZnZ3RuV0pMd1Nr?=
+ =?utf-8?B?blhMUDBhY1JFaWJNcEo0MVgyd3VlUjBJQ253NHJjZzl6MUJ3MGJhNDBoRjFa?=
+ =?utf-8?B?aktRT08vWkN5bXhYamhYcm1tMDY2S0wwc1dOR3phN2htZUg0ejI2T3JYZnFB?=
+ =?utf-8?B?VGRndGNNMDhYQzRhS0xwWGlYazBqSmkwSUJuU0wySE1vbkxzTC9nZlZpRWw3?=
+ =?utf-8?B?aXRTTGRRdGRmL0xoZVB2NkpyM1lzOVVUWUgyV3ZjYVIvTmZFaVMvUXMvM2tl?=
+ =?utf-8?B?a1dxbkRDN0JXUzdOWTgzTEJIdElLUGZDYXc4cWJ3VVhETzBWS0VsbDlEa3FU?=
+ =?utf-8?B?LzBpRFNwMG9URzJwVTl5WG9NTW1oR3FrQWVCd1pEa2FpTDJaWFhHRno1MVBm?=
+ =?utf-8?B?eGJZK0dnYW9WRUpqTmlpYzdsak5KNEJYa1Q3cEM0MTFSdm9BTkJ4WHZ0VFQ0?=
+ =?utf-8?B?WUdTVzVHVXhzN0hqdHp3KzdRRHhQNnlkamJhUGhsZElJK2FuRDJxWWRHbktH?=
+ =?utf-8?B?aGNIZVBMdzVqNndvTkVpRnRHSWVGK28rQkVZRFpJUTBYS1R3TkNmREZRbjNt?=
+ =?utf-8?B?by9mRzhTMXVXZnk0TjZWclVhR20vYW5VbWZrZXU3aTBMWFJERytmTEV1Z2E3?=
+ =?utf-8?B?L2gva0VvSXJOdzNRNjZNV0g0bkx1Z2w0QVdIZmFJSjcrakIyNk85VTJjWHp3?=
+ =?utf-8?B?RCtxeFkxQWZ6ZGxOZ3ZmMWNWc3BWZzNJNXlTcjd1c3R1RXQ0SkhUU04wRTRX?=
+ =?utf-8?B?bE0vVm1YRERhdG1BL0ZPb3NYdS8wNmt0dUk0OEt1MERlTDZNU1Vzb0kyelZ0?=
+ =?utf-8?B?U29EUEphWWxMNE5UMXBQd2cxbnY1RjhtRnlnRk0yODREVjFpVnVTRmt1Z0dG?=
+ =?utf-8?B?RWpkMmVxTldJRTljT0VBRXFTcko4ZDIrZENwK293UVFNNFoxbjYyUFB6cjBM?=
+ =?utf-8?B?L1RSbEk0eGFxanRVbityb3NWcXlTaE1SYXZkQlBmWks4LzUvczVzdmhjcjF5?=
+ =?utf-8?Q?I2A/JK5/bILZRRiFMj?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: da56025a-4a2f-4a47-7c3d-08df4a2794cd
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 12:36:37.2768
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 27sY3Rr2a0wztZlzHvLMGZIzFiy4Uq0kBGeO/HSHqWgvc9ki3obIq/Yx0pH+fYxx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4370
 
-On 24/11/2026 12:28, Bryan O'Donoghue wrote:
-> On 24/11/2026 12:20, Loic Poulain wrote:
->>> On 23/11/2026 17:16, Loic Poulain wrote:
->>>> +static u64 __csid_sof_timestamp(struct csid_device *csid, enum 
->>>> csid_iface iface)
->>>> +{
->>>> +     u32 lo, hi;
->>>> +
->>>> +     /*
->>>> +      * The pair is latched on SOF rather than counting, so it can 
->>>> be read
->>>> +      * one word at a time without tearing.
->>>> +      */
->>>> +     lo = readl_relaxed(csid->base + CSID_TIMESTAMP_CURR0_SOF(iface));
->>>> +     hi = readl_relaxed(csid->base + CSID_TIMESTAMP_CURR1_SOF(iface));
->>>> +
->>>> +     return csid_timestamp_to_monotonic(csid, ((u64)hi << 32) | lo);
->>>> +}
->>>> +
->>>>    static irqreturn_t csid_isr(int irq, void *dev)
->>>>    {
->>>>        struct csid_device *csid = dev;
->>>> @@ -207,7 +234,7 @@ static irqreturn_t csid_isr(int irq, void *dev)
->>>>                iface_val |= status;
+On 11/24/26 07:23, Alistair Popple wrote:
+> On 2026-11-24 at 05:37 +1100, Christian König <christian.koenig@amd.com> wrote...
+>> On 11/23/26 17:57, Jason Gunthorpe wrote:
+>>> On Mon, Nov 23, 2026 at 02:36:46PM +0100, Christian König wrote:
+>>>> On 11/20/26 06:55, Alistair Popple wrote:
+>>>>> From: Jason Gunthorpe <jgg@nvidia.com>
+>>>>>
+>>>>> The SGT (Scatter Gather Table) DMA mapping type represents the existing
+>>>>> sg_table/scatterlist based DMA mapping. For now it continues to use a
+>>>>> sg_table for map/unmap, but this will allow a future patch series to
+>>>>> convert to using a different data structure for importers without having
+>>>>> to convert all at once.
 >>>>
->>>>                if (status & CSID_IFACE_IRQ_INFO_INPUT_SOF)
->>>> -                     csid_sof_event(csid, i, 0);
->>>> +                     csid_sof_event(csid, i, 
->>>> __csid_sof_timestamp(csid, iface));
->>>>        }
->>> I think a callback in csid_sof_event() might be cleaner or some other
->>> way to not have to replicate all of __csid_sof_timestamp() for each CSI
->>> decoder.
->> I added it as a parameter because it is provided in much the same way
->> as the sequence number, given that the timestamp is directly related
->> to and coupled with it. So it is not clearly obvious why the sequence
->> number should be passed as a parameter while the timestamp should not.
+>>>> I strongly think we shouldn't have an SGT mapping type in the new DMA-buf mapping API.
+>>>>
+>>>> Instead we should have something like either an array or an xarray
+>>>> of DMA addresses.
+>>>
+>>> My plan was always to get there, but I don't think it is reasonable to
+>>> start there? There are too many places all over the place that are
+>>> just hardwired to do SGT right now.
 > 
-> But pretty much every hardware implementation will have to do the above 
-> function. I'm asking for more functional decomposition.
+> Right. There are around 70 drivers upstream that make use of the sg_table handed
+> down via a dma-buf import, so I don't think it's tractable to convert them all
+> in one go. So obviously we will need some way of phasing this in to give time
+> for each driver change to be implemented, reviewed, etc.
+
+My suggestion is not to convert all drivers in one go, but rather to come up with some sane representation of the DMA addresses instead of using an SGT in the new interface.
+
+> Obviously some of those will share a common structure/helper and conversions
+> will be similar, so that is an over-estimate. But based on an initial poke
+> around there are plenty of drivers that bake the sg_table more deeply into their
+> data structures.
 > 
-> You could pass the hi/lo for example and make the sof_timestamp() 
-> function common - called once from inside of csid_sof_event()
+>>> Part of the design of this series was to allow the conversion away
+>>> from SGT to be done incrementally without breaking compatibility.
+>>
+>> Do you know the joke from the hitchhikers guide to the galaxy where the dolphins are happy for exactly the same reasons?
+>>
+>> I'm pushing against this plan for exactly the same reason because I think it will make the conversation away from SGT even more problematic than it already is.
+>>
+>>> So it is effectively this:
+>>>
+>>>> The framework should then either connect the SGT directly if both
+>>>> importer and export are using the "classic" interface 
+>>
+>> Yeah but that should not be a separate mapping type, it's rather that we just convert back and forth from DMA addresses to SGT for compatibility reasons.
 > 
-> ---
-> bod
+> Right, I think this is actually fairly close to my plan, which is to provide a type
+> for each address class an exporter can produce - either a CPU physical address
+> or some device context + P2P/MMIO address but in future could be some other
+> interconnect type.
+> 
+> The core then negotiates compatible types and adds converters between them,
 
-Anyway yeah csid_sof_event() increments the seq_no itself so you could 
-just have a ts = csid->get_sof_ts(csid, ...); and functionally decompose 
-without passing hi/lo down the callstack too.
+I have strong objections to that plan and would potentially NAK it.
 
-Either option really.
+DMA-buf should *NEVER* accept CPU physical addresses nor provide conversion between different address types.
 
----
-bod
+Keep in mind that DMA-buf is solely a container for DMA addresses, nothing else and it should not provide any mapping functionality whatsoever.
+
+> and having SGT as a type is what allows that. It only exists for unconverted
+> exporters and importers and eventually goes away once everything is converted.
+> The idea being we don't have to convert everything all at once, whilst also being
+> able to add support for different interconnect types. Are you ok with the SGT
+> type if it is just transitional?
+
+Not really, it just complicate things.
+
+What we should do with the mapping interface is to add the information in which domain the DMA addresses are to be used.
+
+The conversion between SGT and DMA address array is an exception we can make to aid transition between the old and the new interface, but that is basically a 1 to 1 copy between different data structures.
+
+> As discussed a bit previously types also add enforcement of the rules around when
+> the exporter type/location can change.
+> 
+> I do have most of this coded up, so can post a mega series of all patches if
+> it's helpful to see the overall direction in code form. I didn't do that because
+> this conversion of exporters to not return sg_tables makes it quite a large
+> patch series, so I was going to post them as separate RFCs building on top of
+> this. Not sure if you have a preference there?
+
+I think we should have the core interface plus some test cases and at least one driver converted over as example of how the new interface would be used.
+
+>>> And this:
+>>>
+>>>> or convert
+>>>> from DMA-addr array to SGT and back if either of them are using this
+>>>> new interface.
+>>>look like 
+>>> Is something I imagined as a followup series.
+>>>
+>>> As this is actually quite complicated and needs discussion exactly
+>>> what it will look like.
+>>
+>> Actually that is the easy step I think because quite a lot of drivers already convert the SGT to a DMA addr array outside of the DMA-buf framework anyway.
+>>
+>> The more complicated one is then starting to come up with more bus types and doing optimization work.
+> 
+> Individually the actual data structure conversion isn't that hard, but there's
+> a lot of them and the mapping types allow you to do them incrementally without
+> breaking some unconverted importer importing from a converted exporter.
+
+Breaking classic users is actually completely intentional because we most likely still have people abusing the struct page inside the SGT.
+
+And those will need to be converted over to be using pure DMA addresses similar to how MSM has switched over recently.
+
+So the whole idea is when you have classic to classic interface pass along the SGT between exporter and importer. Then move as much as possible drivers over to the new interface and start identifying where and why some drivers have problems.
+
+Regards,
+Christian.
+
+> 
+> That is also why I think adding the types now rather than later is reasonable.
+> The rules for when an exporter may change type or placement are what most of the
+> previous review discussion has been about, and I didn't want to drop them.
+> 
+> Thanks for looking.
+> 
+>  - Alistair
+> 
+>> Christian.
+>>
+>>>
+>>> Jason
+>>
+
