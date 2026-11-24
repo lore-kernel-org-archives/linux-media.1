@@ -1,56 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795488348;
-	b=BviGYxMjFtxeWdltUv+DxiKBDUBQvY7ayQu5mYi+qMeiRCIiv/HJvaZd9Z5qgkxrs3j6
-	 yetdXkcHmgKrB6VFzDMYIz4O/Olb2HaaVzkjXyUBY59jjdqxmo2BVg49wGWhFSvexzSq+
-	 R+wKia8MVTaQoQck1A9wpEZz6aIrWB4B4cSTsqi08WChw06DM5rpcSq5vhaJFD1L7Q/q3
-	 iEL+KqOLUUajLq+weiQw099KjAet6TBIiWEl/HO/H4oPULm5Oi0WRYQuuIzH2xDXVafae
-	 28bM3lEFarFjvb0dI1LAI5G/H3KNxeIpgYeL0yTHDZzmK4p0OM7FASdqKaauv418UGA==
+	t=1795488351;
+	b=0JBP0V6DbMRwgRZubHR2l9VfM4PuKRJiG+Rim2dW7qbb8OP5L22OMr6eesrjXh61xtop
+	 fzpXjsRpUEVXDD7RI/z48P2jdtBGrJ1PN4rJIHx81bbchLwR+/pUwRZBgoXYUOKq0dD9c
+	 xTmN0nErhsTRqZSz+XxNOj2JWlouSwExE5ZPNjjZli3MtI0MqqdUU2Y1nHMF5TQSnAHBm
+	 P98FnEUVTdIkbsAo8OSTtBbUO+mtGrzvYCsyaJyJ1REoA4jJMS6y9aaKQ6AAQpovQN/z3
+	 oh5SmHCkLASnxAeh/XO7eb4zOhBxRtQLiofT4x/VrTL8gkBiJLNoCNV+3dygwMWQcBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795488348;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=yaYHO1oIUImCUU9cwe2iK7VU7fd58ViuOl0ZzvsW4bE=;
-	b=Xp20tbBWW9dOkUjNq5YgWl+H5sxd9MuifN9Zc0iL9bn9Irl5mOpYxoK8WR9shinuuvWQ
-	 GqBofpC0uXAwAuxUuZ/kCp9Bu0qqJlVY6KW0B3Pv89NGrugI9fIuS5K2dzi2L1pUZ5RE5
-	 BkRojneIvyW3EOrHigBkYVyTEbuVmeKwQcgrr1EiPTLqvFkR2+W/28OJnt773e+E26knU
-	 oVBwmoB6Y3VyXB4MxDMgCFhr/Zk1mautj8W1zGYfHctOMGt2lJ+I/XI1M1Kc9HjIUapOj
-	 +C5/2kQJEER4G1gXwybtXqBMnn8mh3LfE906TeeQ360J7/L+nP225ejPowF0gKAaY2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795488351;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=25hLlxTJQf/HNrXLL86Uy2x9BKppkKPY+LRi2SlkhQ8=;
+	b=2QtCtmCnmhrrtkoTutL4pmfRSo7o1wbcf6d/TqGV3lf4qBUHOgpFu6TLSdwXChf3TIii
+	 SjRlPoRiejZDC+ukKo2w9utARXtZd7xyk6alGhaB+sFMPdVyeM2kL6sdw6ut8dF9tg1xM
+	 yH21ZBMl5078Kl0slcAgUEcFnfmR5fymmDYUTqoeVEvUKmBnvvHneqObjBFWwMaR7c0kf
+	 sBFIPLC48913KcsEBZ7k1kr6WGugpR+iyqv83o+Bsib1sZtWAldYqUlp/6pve2ZXdVJNQ
+	 Ca/ir04ThT+UqImJvqfgDUaaz9JJ9OSXUN1/4jy8caFUEnyvBjIg1wB2eNk7Nr1TP1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l8bdwhGJ;
-	arc=none smtp.remote-ip=91.218.175.135
-Received: from mta0.migadu.com (out-135.mta0.migadu.com [91.218.175.135])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=BNJlh81v;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E82606A322
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 02:45:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85E82606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DD6606A31E;
+	Tue, 24 Nov 2026 02:45:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1DD6606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l8bdwhGJ
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qzpTQoDwS6cLGZFWNs52zI9mgbGStu6J7WvVy1Ad8aQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795488345; v=1; x=1796093145;
- b=l8bdwhGJOV2vct01XP7BGjpirV3yy9MLuJxOSpO/pWutOmkBQ8woLZD4t3VqUND22dlv6Xjl
- FxCDselGfgNpAJjZDpdp0/kSKPdLrRKHZF506N0nUs/VeKUAXDJkv6jH4eKQFTzJWT8QT5zNg7w
- WLamZUF7khKbloGN65oeE/oM=
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0ed6ca40b76e6384;
-	Tue, 24 Nov 2026 02:45:45 +0000
-X-Mizu-Trace-ID: 0ed6ca40b76e6384
-X-Migadu-Flow: FLOW_OUT
-From: Qiliang Yuan <qiliang.yuan@linux.dev>
-Date: Mon, 23 Nov 2026 21:45:02 -0500
-Subject: [PATCH v2 3/3] selftests/udmabuf: test mapping a huge page backed
- udmabuf
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=BNJlh81v
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795488349;
+	bh=hAWPWROczWYZNupwEyTrlKdHA0d8EAftyJ0z6GpDucA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=BNJlh81v/8EtCMnxtkuGdFNYcCZpwLd0Ci7dYykDdWza5ubw8zHIMuh0+h1wge8rd
+	 3AKDZwGENysd6nrDheXZsXzJQcSjz5eWG8om4NS/6McoyZkHrb/4dvLsfmH4b0sYA9
+	 gDhVafa04lj6V1BYwgM6/yo5ymAunV2zbgB7HCSTLHsizT/qZLbFAK++bMjONqvMHp
+	 ibAutszOnNFyUAGnjConVtKWfrsNzt4voG9yYc9DYyWPG0jflewPs2JW/vj98rTjro
+	 3EN6MRG0HHQTxgHS94jgfBvIsLN0EyWYz/Zgjr78UbSb4x7IgzuZ2q1dkjZxzJjaM3
+	 5ofAvY1wx7gYw==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1778117E0CF4;
+	Tue, 24 Nov 2026 03:45:46 +0100 (CET)
+Message-ID: <74db7a7fa49abac0a91fb8585703b90244428b02.camel@collabora.com>
+Subject: Re: [PATCH v2 2/7] media: verisilicon: Enforce a minimum CAPTURE
+ sizeimage for the encoder
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: aiyengar1990@gmail.com, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner	
+ <heiko@sntech.de>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Hans
+ Verkuil <hverkuil@kernel.org>, Boris Brezillon
+ <boris.brezillon@collabora.com>, Andrzej Pietrasiewicz
+ <andrzej.p@collabora.com>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, Sergei
+ Khomenkov <shomenkow@gmail.com>
+Date: Mon, 23 Nov 2026 21:45:44 -0500
+In-Reply-To: <20261112-hantro-jpeg-enc-fixes-v2-2-de03e643c75d@gmail.com>
+References: <20261112-hantro-jpeg-enc-fixes-v2-0-de03e643c75d@gmail.com>
+	 <20261112-hantro-jpeg-enc-fixes-v2-2-de03e643c75d@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-AdAYXv1YzTfNAtP30eeO"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -60,171 +94,98 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+
+--=-AdAYXv1YzTfNAtP30eeO
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le jeudi 12 novembre 2026 =C3=A0 08:31 +0000, Arun Iyengar via B4 Relay a =
+=C3=A9crit=C2=A0:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+> For coded formats hantro_try_fmt() only computes sizeimage when the
+> application passes 0, and otherwise accepts any value. On the encoder
+> that lets the CAPTURE buffers be far too small for the selected
+> resolution.
+>=20
+> This is easy to hit: "v4l2-ctl --set-fmt-video=3Dwidth=3D1920,height=3D10=
+80,
+> pixelformat=3DJPEG" does G_FMT, modifies the size and calls S_FMT, so it
+> passes back the 6768 byte sizeimage of the 96x32 default format. The
+> driver accepts it for 1920x1088, the hardware runs out of stream buffer
+> on every frame and the encoder only produces empty buffers.
+>=20
+> The stateful encoder specification lets the encoder adjust sizeimage to
+> match hardware requirements. For the encoder, clamp the requested
+> sizeimage up to the size already used as the default, while still
+> allowing applications to ask for larger buffers. The decoder behaviour
+> is unchanged.
+>=20
+> Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>  drivers/media/platform/verisilicon/hantro_v4l2.c | 17 ++++++++++++++---
+>  1 file changed, 14 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/m=
+edia/platform/verisilicon/hantro_v4l2.c
+> index d033fe0ecef6..c4e36a79eecc 100644
+> --- a/drivers/media/platform/verisilicon/hantro_v4l2.c
+> +++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
+> @@ -386,14 +386,25 @@ static int hantro_try_fmt(const struct hantro_ctx *=
+ctx,
+>  =09=09=09pix_mp->plane_fmt[0].sizeimage +=3D
+>  =09=09=09=09hantro_av1_mv_size(pix_mp->width,
+>  =09=09=09=09=09=09   pix_mp->height);
+> -=09} else if (!pix_mp->plane_fmt[0].sizeimage) {
+> +=09} else {
+> +=09=09u32 max_size =3D fmt->header_size +
+> +=09=09=09pix_mp->width * pix_mp->height * fmt->max_depth;
+> +=09=09u32 *sizeimage =3D &pix_mp->plane_fmt[0].sizeimage;
+> +
+>  =09=09/*
+>  =09=09 * For coded formats the application can specify
+>  =09=09 * sizeimage. If the application passes a zero sizeimage,
+>  =09=09 * let's default to the maximum frame size.
+> +=09=09 *
+> +=09=09 * On the encoder, a buffer that is too small for the
+> +=09=09 * current resolution only gives failed frames, so never
+> +=09=09 * let the application go below that default. Larger
+> +=09=09 * values are kept.
+>  =09=09 */
+> -=09=09pix_mp->plane_fmt[0].sizeimage =3D fmt->header_size +
+> -=09=09=09pix_mp->width * pix_mp->height * fmt->max_depth;
+> +=09=09if (ctx->is_encoder)
+> +=09=09=09*sizeimage =3D max(*sizeimage, max_size);
+> +=09=09else if (!*sizeimage)
+> +=09=09=09*sizeimage =3D max_size;
+
+I find this part a bit loaded, maye you could add a helper and do something=
+ such
+as:
+
+=09} else if (ctx->is_encoder) {
+=09=09u32 sizeimage =3D pix_mp->plane_fmt[0].sizeimage;
+=09=09u32 max_size =3D coded_max_size(pix_mp, fmt);
+=09=09pix_mp->plane_fmt[0].sizeimage =3D max(sizeimage, max_size);
+=09} else if (!pix_mp->plane_fmt[0].sizeimage) {
+=09=09pix_mp->plane_fmt[0].sizeimage =3D coded_max_size(pix_mp, fmt);
+=09}
+
+> =20
+>  =09return 0;
+
+--=-AdAYXv1YzTfNAtP30eeO
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261123-feat-udmabuf-huge-pfnmap-v2-3-3254f801fc36@linux.dev>
-References: <20261123-feat-udmabuf-huge-pfnmap-v2-0-3254f801fc36@linux.dev>
-In-Reply-To: <20261123-feat-udmabuf-huge-pfnmap-v2-0-3254f801fc36@linux.dev>
-To: Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Philipp Stanner <phasta@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, Shuah Khan <shuah@kernel.org>
-Cc: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- "T.J. Mercier" <tjmercier@google.com>, Philip Yang <Philip.Yang@amd.com>, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Qiliang Yuan <qiliang.yuan@linux.dev>, 
- Natalie Vock <nat@pixelcluster.dev>
-X-Mailer: b4 0.13.0
 
-udmabuf maps the ranges of a buffer that are backed by huge pages with
-PMDs, provided the mapping covers whole PMDs at an aligned address.
+-----BEGIN PGP SIGNATURE-----
 
-The existing tests of huge page backed buffers only map a few pages, so
-they never get a PMD mapping or check what is read through one.
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawT6WAAKCRDZQZRRKWBy
+9DN8AQDidI6brWMNg9iRjwOn80RNcWkk1i3HZpK9aFQ3oev3LwEArKEXDhNLzM7K
+p8Qsj0dhUHNC6p6kJMLcWFI4UQgjuww=
+=xex6
+-----END PGP SIGNATURE-----
 
-Map a 64 MiB udmabuf backed by 2 MiB huge pages and read back what was
-written to the memfd, with a different pattern in each huge page: through
-a mapping of the whole buffer, which must be PMD aligned for a 64-bit
-task when THP support is built in, through a mapping at an unaligned
-offset, and from a forked child that inherits the mapping of the whole
-buffer.
-
-Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
----
- tools/testing/selftests/drivers/dma-buf/udmabuf.c | 97 ++++++++++++++++++++++-
- 1 file changed, 96 insertions(+), 1 deletion(-)
-
-diff --git a/tools/testing/selftests/drivers/dma-buf/udmabuf.c b/tools/testing/selftests/drivers/dma-buf/udmabuf.c
-index d78aec662586b..6eaef1b3aee01 100644
---- a/tools/testing/selftests/drivers/dma-buf/udmabuf.c
-+++ b/tools/testing/selftests/drivers/dma-buf/udmabuf.c
-@@ -14,6 +14,7 @@
- #include <sys/ioctl.h>
- #include <sys/syscall.h>
- #include <sys/mman.h>
-+#include <sys/wait.h>
- #include <linux/memfd.h>
- #include <linux/udmabuf.h>
- #include "kselftest.h"
-@@ -130,6 +131,98 @@ static int compare_chunks(void *addr1, void *addr2, off64_t memfd_size)
- 	return ret;
- }
- 
-+#define HPAGE_SIZE	(2UL << 20)
-+#define HUGE_BUF_SIZE	(32 * HPAGE_SIZE)
-+
-+/* Check that @len bytes mapped at @addr match @mem at @off */
-+static bool check_huge_mapping(char *addr, char *mem, off_t off, size_t len)
-+{
-+	size_t i;
-+
-+	for (i = 0; i < len; i += getpagesize()) {
-+		if (addr[i] != mem[off + i])
-+			return false;
-+	}
-+	return true;
-+}
-+
-+/* Check that @len bytes of @buf at @off read back what was written to @mem */
-+static bool check_huge_range(int buf, char *mem, off_t off, size_t len)
-+{
-+	char *addr;
-+	bool ok;
-+
-+	addr = mmap(NULL, len, PROT_READ, MAP_SHARED, buf, off);
-+	if (addr == MAP_FAILED)
-+		return false;
-+
-+	ok = check_huge_mapping(addr, mem, off, len);
-+	munmap(addr, len);
-+	return ok;
-+}
-+
-+/*
-+ * Map a udmabuf backed by 2MB huge pages, which can be mapped with PMDs, and
-+ * read it back from a PMD-aligned address, a sub-range at an unaligned offset
-+ * and a forked child that inherits the mapping.
-+ */
-+static void test_huge_mapping(int devfd)
-+{
-+	struct udmabuf_create create = {};
-+	int memfd, buf, status;
-+	bool thp, aligned, ok;
-+	char *mem, *addr;
-+	pid_t pid;
-+	size_t i;
-+
-+	memfd = create_memfd_with_seals(HUGE_BUF_SIZE, true);
-+	mem = mmap_fd(memfd, HUGE_BUF_SIZE);
-+	/* Give each huge page its own pattern */
-+	for (i = 0; i < HUGE_BUF_SIZE; i += getpagesize())
-+		mem[i] = (char)(i / getpagesize() + i / HPAGE_SIZE);
-+
-+	create.memfd = memfd;
-+	create.size = HUGE_BUF_SIZE;
-+	buf = ioctl(devfd, UDMABUF_CREATE, &create);
-+	if (buf < 0) {
-+		ksft_test_result_fail("%s: [FAIL,test-8]\n", TEST_PREFIX);
-+		ksft_test_result_skip("%s: [SKIP,test-9]\n", TEST_PREFIX);
-+		goto out;
-+	}
-+
-+	/* The address is only aligned for 64-bit tasks with THP support */
-+	thp = sizeof(long) == 8 &&
-+	      !access("/sys/kernel/mm/transparent_hugepage", F_OK);
-+	addr = mmap(NULL, HUGE_BUF_SIZE, PROT_READ, MAP_SHARED, buf, 0);
-+	aligned = addr != MAP_FAILED &&
-+		  (!thp || !((unsigned long)addr % HPAGE_SIZE));
-+	ok = aligned && check_huge_mapping(addr, mem, 0, HUGE_BUF_SIZE);
-+	if (ok)
-+		ksft_test_result_pass("%s: [PASS,test-8]\n", TEST_PREFIX);
-+	else
-+		ksft_test_result_fail("%s: [FAIL,test-8]\n", TEST_PREFIX);
-+
-+	ok = check_huge_range(buf, mem, HPAGE_SIZE + getpagesize(),
-+			      5 * HPAGE_SIZE + 3 * getpagesize());
-+	pid = addr == MAP_FAILED ? -1 : fork();
-+	if (!pid)
-+		_exit(check_huge_mapping(addr, mem, 0, HUGE_BUF_SIZE) ? 0 : 1);
-+	if (pid < 0 || waitpid(pid, &status, 0) != pid ||
-+	    !WIFEXITED(status) || WEXITSTATUS(status))
-+		ok = false;
-+	if (addr != MAP_FAILED)
-+		munmap(addr, HUGE_BUF_SIZE);
-+	if (ok)
-+		ksft_test_result_pass("%s: [PASS,test-9]\n", TEST_PREFIX);
-+	else
-+		ksft_test_result_fail("%s: [FAIL,test-9]\n", TEST_PREFIX);
-+
-+	close(buf);
-+out:
-+	munmap(mem, HUGE_BUF_SIZE);
-+	close(memfd);
-+}
-+
- int main(int argc, char *argv[])
- {
- 	struct udmabuf_create create;
-@@ -138,7 +231,7 @@ int main(int argc, char *argv[])
- 	void *addr1, *addr2;
- 
- 	ksft_print_header();
--	ksft_set_plan(7);
-+	ksft_set_plan(9);
- 
- 	devfd = open("/dev/udmabuf", O_RDWR);
- 	if (devfd < 0) {
-@@ -268,6 +361,8 @@ int main(int argc, char *argv[])
- 
- 	close(buf);
- 	close(memfd);
-+
-+	test_huge_mapping(devfd);
- 	close(devfd);
- 
- 	ksft_print_msg("%s: ok\n", TEST_PREFIX);
-
--- 
-2.43.0
-
+--=-AdAYXv1YzTfNAtP30eeO--
