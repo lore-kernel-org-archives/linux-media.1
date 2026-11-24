@@ -1,91 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795541103;
-	b=5rqkufRAmgHFv0MY4A5/oP+I6S+Y9AL0HhT3q7XzOmejRfG5o0KnuU+K6Lv/SDAOwkyD
-	 TQlj2t+INtKVnhSCzg/KslI8QG1e/PuYwIkVHTHZ46Moqx0IW2afsg9X2bTSRlHwWj9ef
-	 4HoDdf0erbLaRbA9Q9N65xaU4hPy/tRIqGr8eu9P0W6BhYW4/xNStsNGFsYYc1GXIdO04
-	 T2beNoaQ+7BOfMfCAizFq/rqk/R+0vnLQauW/gOD+SrZrp15ZYRWAxByGSJCgpkUbJdQh
-	 iHNc72MAYXsnIYoGKMpSPbWxShkBlUivnxoTfM+F3EunwcD/clLB9suJOMtRHNoLkfQ==
+	t=1795541305;
+	b=oMsiMi80myHiaVuxGHISibFz3h/yRVxncfkscsh6fBGry+numWzqQbOh7toKon5TSfd3
+	 sSBIwhidLFkWkLCHpluMcSW9Xec54pXONltaGsOSlIi3/G2oW+xPLDzWHWFTsYcE8T4s5
+	 3lx1cLTpvXnD37BXiyEcw2TvjPrYcfghIijejDshUmMfwpcj8dErdgEcyMcxmkcbPrC8v
+	 uaB/0ZlMS3l7ru4ZC2lSDJi8ORvC9XahsxcR2Qoh2nDL3/cjyYT41lpPtNCNhyA9Me2eD
+	 hLB/lhuA+kuKd5k+A+8I3vNciCdMoq3SnRuUojgPFussu3yoNjmyQumqYCXinOT6x5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795541103;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=5+CTeAPHlaIrzOxsi+n6+brzSDzv5QqqwUg52jb6nl0=;
-	b=KKVYfy1tvhCMkkXnp68zFfLwdEntS11P8O+ZPcTtfI/7NRx7qVl0rIS5hC4wgK7FTyts
-	 sXnt/oDiO4h/QGpq8tkvFzGRXvN3syupV93Zt+I+0L7eJxGtmBkMA3U6Fcgre5dXZdFax
-	 aWZbPHhzjbF6R/eL9JEXC5w+cx2LU/YBD6jdrAAC4aYgzNHyxzKA1PnGzttI0GLshY1/e
-	 Tf8simmzkgeZbRBy2gR+Hbu6Q30ZCtuhigiF7fZ5I/shJoNeJQk4r+DDnZuX/IvkjGiUZ
-	 UEGKQ2RuYr7HQ03bL4HuKBEmHdHtaAMF1wLVeYKzetN83oiAmK084aME0Lvuaw/nTZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795541305;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=ffsNDG7rZ5R0j2yxFNZp26tEKpogV1MBod4g8hnw9Qk=;
+	b=wkmXMBbxKkeT/EtVzAgqJY2nZ6xkvB0X0hjz0cafb7FYzHhcI3tZv0icNQ2lSoQ3dspg
+	 gLKs5DquLEz9qjomZmCR35HS9pKVuShRaCVXMFfiIqdv/m7VKpITMt2mTflBw8mwkPEru
+	 jr391gDZ7PNKMG9UnVZYuL6uxTJhXqlmuEK8AUZHypXas7PHpCbzO4FkdRqn3DjRFegqU
+	 PgCvvB0lGowcohA/aolc1acTMf0f6/W64nDe2gj5pTXBrLmknkoep//QWnhzeS97e46Zv
+	 pt1uQ1JyJVr7i0dzaUoC31b9ccLNpFtdN8U5ssQaRn7B9gAR4RrikvXdwI70jBagVFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=PfClU7bE;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aX5e4SfQ;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CEE7606A31E;
-	Tue, 24 Nov 2026 17:25:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CEE7606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C883E606A333;
+	Tue, 24 Nov 2026 17:28:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C883E606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=PfClU7bE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795541101;
-	bh=m07kO0w39ZGOpJ7N1oAJdrXNCV6zROzJBkUq6TvKKEw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=PfClU7bENUiH3dPsxzpNT3P8oZ2zd+jYU51lg9/WdVuT8DtjQBOps63DLdwp+Td5B
-	 iYMvqXfK8xAQ9Qk2QPJI4x3FiOvlU0AxJq7hb/ky2j3WjaBrgvcAZvXHTBweUZ/qRR
-	 awgL3hY1rC4+/rjvTDGq4ndmJhCTKB4dNe537+Ln766hBvdiNrzEaiagzSOwZmYTYn
-	 kBeJFHuDVooR5zo+8V2J0SvqEVawXSg4CetbSYuH+EvUyGm7614o0VCKBfyN8w6np5
-	 8qLaEmdfDYZL62LVmBNnd+wSJfxjEKoDbK3tE+qzmLH0Sb0qKEo3ZCHsyk05liAg/4
-	 jjYzS0peNNuVA==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 433CC17E00E8;
-	Tue, 24 Nov 2026 18:24:59 +0100 (CET)
-Message-ID: <17ff7540be764241e6083ba2b6876f7a90787333.camel@collabora.com>
-Subject: Re: [PATCH v3 3/3] media: verisilicon: leave room for the JPEG
- header and one stream burst
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: shomenkow@gmail.com, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil	
- <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Ezequiel Garcia	
- <ezequiel@vanguardiasur.com.ar>, Chen-Yu Tsai <wenst@chromium.org>, Hugues
- Fruchet <hugues.fruchet@foss.st.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, linux-media@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Tue, 24 Nov 2026 12:24:57 -0500
-In-Reply-To: <20261124-hantro-buflimit-v3-3-780903970ca0@gmail.com>
-References: <20261124-hantro-buflimit-v3-0-780903970ca0@gmail.com>
-	 <20261124-hantro-buflimit-v3-3-780903970ca0@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-9hyBsZW3zMk+VaUuUSDf"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aX5e4SfQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795541305; x=1827077305;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=yJAlPXvrI00wm1acbN/uJcwx38S8ia1++yAKKe9BDs8=;
+  b=aX5e4SfQyTJoAXi1Sq/jtTcvM+9J5RMTD4hrHPDVOBLf3oKSEbH69oCJ
+   oOxQdMmZkT0zUEF9EXWHMKQSzs3v1ELqmFe+N0yraWjhlH+EG8aowb/y0
+   SxqctrL9xRn5lwH0LiJhXVWLV2hUF+x2JCJ+6pcc/fNyc3U/uYe2FENbW
+   /2RB026nNGigjjE/VUTfW9RNaElf7TntNiWIm/RAc91AHll0BRgVgf4gG
+   j0DHBO7EG9BSGpJ3cYXJ1jcgdA1++v1LOjjH8WLdlzQR3W80L3dvyUb5M
+   1LGSadyd+qGZWewMkVKP9OGh6bBs7EXFxI84R1lid2eT+T2MpCLqCYPQS
+   g==;
+X-CSE-ConnectionGUID: kY7K2RxtT0uJeorGU0KWtg==
+X-CSE-MsgGUID: iMp6MvcrQ9um1czvgEbvPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4284891"
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
+   d="scan'208";a="4284891"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 09:17:36 -0800
+X-CSE-ConnectionGUID: aZ0oM0a1TjiludAUk2BVKw==
+X-CSE-MsgGUID: XxGUKT6tR6GrVQVSHMwkSw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
+   d="scan'208";a="11497087"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.125])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Nov 2026 09:17:33 -0800
+Date: Tue, 24 Nov 2026 19:17:30 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Abhishek Chaulagain <chaulagainavishek14@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: atomisp: Remove unused timed controller code
+Message-ID: <awXGquBiO15OWx1-@ashevche-desk.local>
+References: <20261123200658.449-1-chaulagainavishek14@gmail.com>
+ <20261124164504.443-1-chaulagainavishek14@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -95,127 +84,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261124164504.443-1-chaulagainavishek14@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
---=-9hyBsZW3zMk+VaUuUSDf
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Tue, Nov 24, 2026 at 04:45:04PM +0000, Abhishek Chaulagain wrote:
+> The timed controller HAL module - timed_ctrl_snd_commnd(),
+> timed_ctrl_snd_sp_commnd(), timed_ctrl_snd_gpio_commnd() and the inline
+> timed_ctrl_reg_store() helper they used - has no callers anywhere in the
+> tree. The only remaining reference was a stale #include in sh_css.c that
+> pulled in none of its symbols.
+> 
+> Remove the dead source file, its public/private/local/global headers and
+> the timed_controller_defs.h definitions header (included only by this
+> module), drop the object from the Makefile, and delete the unused include
+> from sh_css.c.
+> 
+> With the module gone, the timed_ctrl_ID_t enumeration in system_global.h
+> and the TIMED_CTRL_BASE[] base-address table in system_local.{c,h} have
+> no remaining users, so remove them as well.
+> 
+> No functional change intended.
 
-Le mardi 24 novembre 2026 =C3=A0 16:40 +0300, Sergei Khomenkov via B4 Relay=
- a =C3=A9crit=C2=A0:
-> From: Sergei Khomenkov <shomenkow@gmail.com>
->=20
-> hantro_try_fmt() keeps any non-zero CAPTURE sizeimage of the JPEG
-> encoder, however small. The CPU writes the 624-byte header into the
-> plane, and on the RK3026 the H1 then writes at least one 64-byte burst
-> even with a stream limit of 0, so a smaller plane is written past its
-> end. A plane smaller than the header also makes the WARN_ON() in
-> hantro_h1_jpeg_enc_set_buffers() fire on every job.
->=20
-> Add a minimum plane size to struct hantro_fmt, set it to header_size +
-> 64 in the JPEG encoder formats of the Rockchip and STM32MP25 variants,
-> and raise a smaller coded sizeimage to it in hantro_try_fmt().
->=20
-> Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5-5
+Good cleanup if it compiles,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Drop if v4 needed.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-> ---
-> Found with an LLM coding assistant while porting mainline Linux to a
-> Rockchip RK3026 board; the assistant also drafted this change. Tested
-> on that board: a sizeimage of 1 or 600 now reads back 688, and frames
-> that do not fit a 688-byte plane stop exactly at its end. Not tested on
-> other SoCs.
-> ---
->  drivers/media/platform/verisilicon/hantro.h           | 2 ++
->  drivers/media/platform/verisilicon/hantro_v4l2.c      | 3 +++
->  drivers/media/platform/verisilicon/rockchip_vpu_hw.c  | 1 +
->  drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c | 1 +
->  4 files changed, 7 insertions(+)
->=20
-> diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/=
-platform/verisilicon/hantro.h
-> index 0353de154a1e..f51beae79f1f 100644
-> --- a/drivers/media/platform/verisilicon/hantro.h
-> +++ b/drivers/media/platform/verisilicon/hantro.h
-> @@ -286,6 +286,7 @@ struct hantro_ctx {
->   * @codec_mode:=09Codec mode related to this format. See
->   *=09=09enum hantro_codec_mode.
->   * @header_size: Optional header size. Currently used by JPEG encoder.
-> + * @min_size:=09Optional minimum sizeimage, for bitstream formats.
->   * @max_depth:=09Maximum depth, for bitstream formats
->   * @enc_fmt:=09Format identifier for encoder registers.
->   * @frmsize:=09Supported range of frame sizes (only for bitstream format=
-s).
-> @@ -297,6 +298,7 @@ struct hantro_fmt {
->  =09u32 fourcc;
->  =09enum hantro_codec_mode codec_mode;
->  =09int header_size;
-> +=09u32 min_size;
->  =09int max_depth;
->  =09enum hantro_enc_fmt enc_fmt;
->  =09struct v4l2_frmsize_stepwise frmsize;
-> diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/m=
-edia/platform/verisilicon/hantro_v4l2.c
-> index 83af9fa1ce94..b3dbc0629d25 100644
-> --- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-> +++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-> @@ -394,6 +394,9 @@ static int hantro_try_fmt(const struct hantro_ctx *ct=
-x,
->  =09=09 */
->  =09=09pix_mp->plane_fmt[0].sizeimage =3D fmt->header_size +
->  =09=09=09pix_mp->width * pix_mp->height * fmt->max_depth;
-> +=09} else {
-> +=09=09pix_mp->plane_fmt[0].sizeimage =3D
-> +=09=09=09max(pix_mp->plane_fmt[0].sizeimage, fmt->min_size);
->  =09}
-> =20
->  =09return 0;
-> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drive=
-rs/media/platform/verisilicon/rockchip_vpu_hw.c
-> index d201b058e5e8..ab5abe2c78ad 100644
-> --- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-> +++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-> @@ -50,6 +50,7 @@ static const struct hantro_fmt rockchip_vpu_enc_fmts[] =
-=3D {
->  =09=09.codec_mode =3D HANTRO_MODE_JPEG_ENC,
->  =09=09.max_depth =3D 2,
->  =09=09.header_size =3D JPEG_HEADER_SIZE,
-> +=09=09.min_size =3D JPEG_HEADER_SIZE + 64,=09/* header + one burst */
->  =09=09.frmsize =3D {
->  =09=09=09.min_width =3D 96,
->  =09=09=09.max_width =3D 8192,
-> diff --git a/drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c b/driv=
-ers/media/platform/verisilicon/stm32mp25_vpu_hw.c
-> index 833821120b20..3f337554e936 100644
-> --- a/drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c
-> +++ b/drivers/media/platform/verisilicon/stm32mp25_vpu_hw.c
-> @@ -83,6 +83,7 @@ static const struct hantro_fmt stm32mp25_venc_fmts[] =
-=3D {
->  =09=09.codec_mode =3D HANTRO_MODE_JPEG_ENC,
->  =09=09.max_depth =3D 2,
->  =09=09.header_size =3D JPEG_HEADER_SIZE,
-> +=09=09.min_size =3D JPEG_HEADER_SIZE + 64,=09/* header + one burst */
->  =09=09.frmsize =3D {
->  =09=09=09.min_width =3D 96,
->  =09=09=09.max_width =3D FMT_4K_WIDTH,
-
---=-9hyBsZW3zMk+VaUuUSDf
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawXIaQAKCRDZQZRRKWBy
-9BOUAQDB13SGsNUp9oo0GULFzOq8ooFbMD+D1z8pwpgBhY3I/gD7BBun+nzgWLRF
-kcm+xZkcOJAH6AFAmIgpuo+y1l8swgM=
-=tHV6
------END PGP SIGNATURE-----
-
---=-9hyBsZW3zMk+VaUuUSDf--
