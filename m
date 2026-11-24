@@ -1,101 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795538714;
-	b=GdBTXCB/tgrlZ65feNDo5rfTHQeXjIqZQ/kWl8smujwbCSFTY6UaPu9P60SR5Y/yB/Zx
-	 li9dbO+aCn5T+apb3pdh8MVY32i2IZn/jMr8+cJfYuRqWWRXrxCYKSXxbjT8WlboGIZ3q
-	 TC9LA0znmSa0CmPABW/DAGnvjpp62U2unpMryChWAX4EDM4IWRlRkjuzMFjC+MQuGmEDr
-	 7kLFUegM7CXe14Gp+aHM4RuMv3ZwPXJjHAXcZke6zP7VNzrHA5of7KtIEqFltAVbEY2TG
-	 dEH4qX76DA2sxoPNNz95rR4kn/fKJcw38BpyFrK5FC7bh8a2lQGLJ8uS48/9ybHcFcQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795538714;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8clXuzr2pVaGld1IP4PIdwifTriXaPZT/rMYgoCQtvI=;
-	b=FKmLk42f/ne4IA8Fnatt4DotZwkWa36UxHbZ2i+umucMdcBhzUsU6jXiTkpXkkayYW5b
-	 ZPAG7LTekMvpPQ+JrSGlA7BJTvJ5Id1KFtY0ye8E51G/74ulQCOJQSlWiS6h5WPk039/Q
-	 q2W7NwG00taWeb4762itvbdPXFeh50tnMazi1Z62D4etkJe3yiuVANjHh961IHUfQGMZi
-	 78Uz8Tgku89BfGJrr5sMLfby3gJgWT70Nwr7cW2QpkCnTfDPWGFuCnrWW+NGhirFsaDgq
-	 4xmEfWthT5U3ldw46ZR52b0YwOIEGW2bGowQW857+5THOtH466Ait14FTFhXYBSpmAQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WATsHt6p;
-	arc=none smtp.remote-ip=209.85.210.175
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.27
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795538756;
+	b=KaBMIZWUKHtJHQYVNCbzvZ3VvRR1WGW9SuyMq8kGPpRGGbwuCtnSgSGrqJPpRg89c8Mv
+	 K6roCmyfPLc4oIwVbLV8B89hkBEps6pNa3FCFLh3s2QcxtmUN4P7V6s7djHIAUGrNuDjB
+	 qq+/byR/xN2eiBwd4F8Ph8zOFUBKGiG6hmc67nTCjw9bci0TZZPT0+PGikJxfrfuNbMo9
+	 qYwb07jvrnCm7fEewwFPWOLD+ncZPcI4Gx9m8t5obgwpohYJcyEotSrug0RJt3mE4iSd2
+	 33GwaktVLbYxswVY0cMJg0ybBopws9ckkAgzbxXdENYri6L5UmxOJpxF0XqXrTjssuQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795538756;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=r2V3R9bNLExcyLesiJ7NJkcxy0xzdmySEw3xXRuoEmo=;
+	b=SQJy2nQ/9lGSccNj1O33NZm1e0IrpnqLH4LPadjegasi0JaKvs0fIVTCyA0OaBtvDIyr
+	 pGT9gPNhcJ/KZpXUKTRWsdvdR61z8Vyt/tL0zcEVKS3fDVprxS+gxPMEca0VYVehICRFT
+	 ybVefTZQ9ntNYpUgv/AxLbm7E3OsrGMqDi7/KGxTG4IV1LYfi6SBJLXEr1vFDjAGqvKUU
+	 QahNbAIa6XEXdALvPzbFWy9aONx8Ny6oqzlnA3Xg+Vv45x0bE+NN/c2u6/gpUxgNfgkDz
+	 MkZtDpSCFSkBRFMNznFmjnYUKmXqOSyGOG+irJgpleoxflLk/bTCAGT9wTOxVMkh2Ug==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=iv8eX3gN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.27
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011027.outbound.protection.outlook.com [52.101.70.27])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCD3606A323
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 16:45:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BCD3606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EFC606A33C;
+	Tue, 24 Nov 2026 16:45:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66EFC606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WATsHt6p
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8b3577deeb0so2121020b3a.3
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 08:45:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795538712; x=1796143512; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8clXuzr2pVaGld1IP4PIdwifTriXaPZT/rMYgoCQtvI=;
-        b=WATsHt6pDFxPsa0QuYYrSQzXcCNUgUdwEo9J+OZutSz/AozaZ43ZgAy4ZEYxx94XFB
-         pGEuN1CBRigGdzI+5P6pdMM+mL3cteuBYccgDpTUTYsZDnR+GPtXtw2NeTmOG/+gsSc0
-         cFyylDRJAcCW20kgwh6KnXXPJp/GtXAl5ZQc4q/W/RNANx3fJ0fdZWgiR9QyUI2Fn/k6
-         9R0TTeVklcbg0WE5/fXQBclFGyZYwy1e2yUOI0zLWR8xPlvAFd8rgA67D0HJ2jtZ/14D
-         q98lub68FioZjndq1QWCSxix6Z6lfYuycHbPJW1ESufGJgYARJgDgmgV+IeFJ4Kls4Mc
-         a9Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795538712; x=1796143512;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8clXuzr2pVaGld1IP4PIdwifTriXaPZT/rMYgoCQtvI=;
-        b=x9B2o12wytxcA0co5GXb/fzeBdL6tFHRkUKtdHOP4q2N+6kfzi0mVWhDkwcrIXtcIQ
-         EA6DGkZ8QGup9sVo4Kc5Sa1fQD0RxDW7c8r6HDy5cLmzfp873ScKebLMSYqSa7ehD0RX
-         SZxQChcoswmlla62IDcdeZWO+LKlriAz1x8d072u7om4LtRxfXWSSrbXrCVkDAGKw+GX
-         PG69tNSaCvogjD5zJ8wV90uBbFGi81NtSyDZ/rLdDbMBUI5yvjIiFCGF/+TxUWZmvFGN
-         Y95D/JQiFmkDV+uDEhuWZmV3i9HhPJ1PNRwL+daGvknPNIP4nbxDeP09eYtz5nqmFbXI
-         pd9w==
-X-Forwarded-Encrypted: i=1; AL+hErFzXSSIWlXHhSwaSHcYpS0N7sJUN1ORsE70dbnUAe327ebz/8vcXxmtlj5lHoVkR/RB/VdHOf0gOkxrww==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9I1uPFW7tqF82lSuNnKRAoRR5/z0KJfcYTBB36WALFAgr0T3ej
-	/HZyKZgIYC48xVOKKBhvIaomx4Zwsr1OESXThMel8w3thVQh9fDtoe3v
-X-Gm-Gg: AZFdTZdSNrEtyoHLGAJ503L+hT/065WIRfuz/Vd/B0bWYmSXW9P0h7Qy9L3lSzKwske
-	ubUWUfx7T4x8T+wblUmDECrHjvYU2yY8fTl6OCHStsVKB4vmqfyfPe7QT80RJcZkFSPblJoXYKo
-	RuM8SpregllRGMNYT5dhJUVBd0mVOhnlRoJrW59LTVUIbTXLyad/kgYTvUCtH9U98HHwe9RVceK
-	wVBNVAOHfhSXvGO3cZpKp9AobEUFeIL97cfH5Ule64XYvp2ySV7oMJfhUNWg9xWlgQeh8bADAy6
-	i0PviP8ONa6jbYqeKovmdMM0cb/sM0+cWSu55GllRgCMokrO54yZV+sODh7fq5KmyHKaMMXFx2P
-	olijUH+AuzG3BrNbSLiBlptpK3Wg+YBkxAjWT0rNHy6MqVAldU43S0hGEZlaOYksZGy0eRVZGkQ
-	6uBOFMDZPSProNsBlEaNdR7nZ7EKkJMK765b0ftQfpN7NBboFxyQMI4DGtVZMgBI6yRtCc1vo5L
-	72HSBpZC+10ezX8i5KL1grZhWepmDM7cTss/s9zt9C6lOa1kWelfnTrX9eaP5XIcxqvWHckNuM7
-	HJH5oSY7Qf6JoNZBN47A4NhO9SFWGLL+OBvcbby4MYJ7XvldbhARsodJNz5roe7PmQ69DbQm8g=
-	=
-X-Received: by 2002:a05:6a20:2448:b0:3eb:a890:5f8a with SMTP id adf61e73a8af0-4014e35c58fmr14924662637.86.1795538711452;
-        Tue, 24 Nov 2026 08:45:11 -0800 (PST)
-Received: from X.tail7c3ebe.ts.net ([103.190.40.197])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde7f91c6f5sm5186228a12.27.2026.11.24.08.45.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 08:45:10 -0800 (PST)
-From: Abhishek Chaulagain <chaulagainavishek14@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Abhishek Chaulagain <chaulagainavishek14@gmail.com>
-Subject: [PATCH v2] media: atomisp: Remove unused timed controller code
-Date: Tue, 24 Nov 2026 16:45:04 +0000
-Message-ID: <20261124164504.443-1-chaulagainavishek14@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261123200658.449-1-chaulagainavishek14@gmail.com>
-References: <20261123200658.449-1-chaulagainavishek14@gmail.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=iv8eX3gN
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WxQLJHdBuFeLFxIGShAFRJ0LmreDssHzzlVSLM3aM78z+LEbjgTu2kqYKFLIwZrJxm+qiSsY+dHcJSP2jV+5CSPnQ9mXzLdDyVmz+GuZl6rbXO75pMIw5PRMfy8tIBYU1WxEjDEm5rPGPPZLbvpKp1HDjQVXhLTiIFZSPTGr0NKt34ZGf8vOUTvRjDpzGbwJlbWFHPW6DO8m4xaF+R8lOCtrPA0hEJuU9kS0DOiU8B2CNFVj2rS73odZqCIgeekjjHA3eGdZ5g33eUgk9yYuGpF51FRmXzV6TFM85ufulpHRpuGZZkCc16FLCsbWSvCggWRY5n3fg9juA+cKkgtaXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r2V3R9bNLExcyLesiJ7NJkcxy0xzdmySEw3xXRuoEmo=;
+ b=GtZEOtjlW0oQsyeGnIkDDtsoPFIN165R99a/c+da1PlWfRn9wj/w3D+7Ye9O8y93mQ/igeOz5dEr1e/gcpyCP+AfMH+kv81mUy2COfzT+nVIRZZ1CFiG6ZKv4Vc06g7bG9+FKQTQfYWPUo4GnGPnySJkOQbJv7CLyzG+Xne2VGBdDnySxSiD12PrkrTbGein2WGWe8hCfAN9NlE6SLT1rhHzHoD/8kEVGB4DZHB1bZyXiV2e/LTei/6tZNoKvgk6/K2f74cu0W4x3St/5R3JyQ2ITrGmBBGvsvWMmg42RWrcdtklK43CdiLpbRotZSOlNXWB4cTj5GQFXcni0M/hVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r2V3R9bNLExcyLesiJ7NJkcxy0xzdmySEw3xXRuoEmo=;
+ b=iv8eX3gNxyB1oIimLLzyQxv0AxDp0/LpRTxcmrUzR2+n/qzLxWwc8sCG5Cg3QTTpE05bNkBynUy0zR6l86+a6CpHLmFzGSWSB4h6Sw2bjlFJ6NTJZHWL5QhXQt/IqJR9bnaestfAYRQYqwD5ivU5VkMfjjKJiUjN7yqv1aGmj7sAOv/4yQmotczUpD3Q+INSxyDUqti1PoulwSQekPJiL/zRh6/qmVYZLlvEL4MqsJX6kdiSTpiRAmcfffjbr3v6Oq7aPo6P40mQfToAC1I6iH4sc3HyuZauf3RzfKweBldKodbc0ngft1+vds1p/b593/SjBnQpxlJxtHujWD35+w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
+ (2603:10a6:20b:75e::21) by VE1PR04MB7359.eurprd04.prod.outlook.com
+ (2603:10a6:800:1a0::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Tue, 24 Nov
+ 2026 16:45:52 +0000
+Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
+ ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
+ ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
+ 16:45:52 +0000
+Date: Tue, 24 Nov 2026 10:45:45 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Ming Qian(OSS)" <ming.qian@oss.nxp.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Zhou Peng <eagle.zhou@nxp.com>, Frank Li <Frank.Li@nxp.com>,
+	linux-imx@nxp.com, imx@lists.linux.dev, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: amphion: Enable non-coherent allocation for raw
+ frame buffers
+Message-ID: <awW_OWQaGyRzNQ91@SMW015318>
+References: <20261119-amphion-non-coherent-v1-1-c3154395e448@oss.nxp.com>
+ <awSn9NyulPPPIIT8@lizhi-Precision-Tower-5810>
+ <awUiZWa4ZTMhFeVL@lsvm11u0000189.swis.ap-northeast-2.aws.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awUiZWa4ZTMhFeVL@lsvm11u0000189.swis.ap-northeast-2.aws.nxp.com>
+X-ClientProxiedBy: CPBP307CA0014.DNKP307.PROD.OUTLOOK.COM (2603:10a6:380:2::8)
+ To AMBPR04MB12445.eurprd04.prod.outlook.com (2603:10a6:20b:75e::21)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,418 +101,141 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|VE1PR04MB7359:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b62b45d-7107-4af5-11f0-08df4a4a66b6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|19092799006|10067099003|261028144727099003|11063799006|4143699003|261021121427099003|261009223027099003|56012099006|261022105027099003|261022075727099003|261102123227099003|261026140227099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	HcgTKFueRKVo3xvULfD6gqOmhDWTCAfAW+dR9Q+2P/KhrDrfgqK50GZQ78qNLVEbZ9jURFPJipKKAvOR2mOzMCRWDJ0Y6myS53if4qTSFT/iZ8/0YGzVlh2Cs9K1HZNKIyM4WVzFW9Yk4zPKbnGJQJ1NZJnKXTW2gCUJqgGfRYdK5hf0V11pdpkzFvZH1kY0vHDpf3qKh5dBkSchxB3SBMExRiH7ArII+bTYlSMovHQA09rCizcp2l6z0KWZ8xlzDFaz9I1ZgQJSbwFgB6h0nl7+3L+ZUH4ScwFPtlV3DDboaOfWE90+W8HZoE5/c2wDmK134jJ8lI/SA3e1xTw/KDhoYfaCCsZv6miZB3MBVj96mYgijx60kAI2fp7y6mGzKl+x0mzz8JxunzXBaEET0BnRHdPoZhdMz6+nw6QQACaHMwGIq2aG1HQQYP386A8d7eaFo8JJEiP1GKPEXj/T8J9mkpsmKdR2Xd+5t7N307icVoz3irohiGtYy8UNR4RCthGsJyYVLqW0fd3DpARf04j5/5z6SNVzbLLOfjkU6XFAbP536ZOjfNYJGh4croNTzJHE6Z35tU9GX+sEHG05FRZtggg0YvjZAXIDK3HJarDwLNE7mBGCRXxgK8aJugS4nZZEg2nH+uFJWyVoQRBvtZvPpdjdh5tFFTUOMuKKEkg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(19092799006)(10067099003)(261028144727099003)(11063799006)(4143699003)(261021121427099003)(261009223027099003)(56012099006)(261022105027099003)(261022075727099003)(261102123227099003)(261026140227099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+js7pYiJTVelx6OkZwDW75sd7XVe445mU9q475GN5qk6T9XK0VAT3Rd0x9RQ?=
+ =?us-ascii?Q?I3CQBt/OhGNVvTY4zdrRVs41YgGv7AzEfr0C9HNPwISurcCDtis40wKZEvT9?=
+ =?us-ascii?Q?F8NwWFMWWQVAX8U51a6xFm3UUVDQuhM0KX3dCAlas9KMj8lPM5iA7THSSAEQ?=
+ =?us-ascii?Q?0lve88A3arL9+9HkECXnDnII3yI8DfILW4L22co5GvqQFbOv+pXsyBJqRnDU?=
+ =?us-ascii?Q?/pwFGWRTdSvepVBG+ejNpjqi8cGpSNxusEdQqgeWTbSiwgX6WzOFyA7K6gZC?=
+ =?us-ascii?Q?8z1CFxVO/GTNLyay0ZEK8V9Y8L+VWSqg/QmlHjw5cPftRreH9B3u9Q9osOnt?=
+ =?us-ascii?Q?fGaLespReWHCVQNAB+Kow83zAdUcr+2q8Pb6VWCKUzE246OOXb0EKKVT4Vqz?=
+ =?us-ascii?Q?jPjidMBokTaHsDOzCBs51Q0wTLWXMKnloFZGgvoTSfqMkGpxFa+B3jIU4l2E?=
+ =?us-ascii?Q?Y5cVOUOlKczUJBqyJ6tkB9FlQzf8uAoTFCDSl1z4ai24NQqOIe9kVCkevSdV?=
+ =?us-ascii?Q?sZNTenYCmih3GJ7aB2L3EYSqVA//+U1J15DTcfD+AZZBdoq8CiYJFMePUuid?=
+ =?us-ascii?Q?w8sAYTMwODFCfpNCO1SmMQRrdCHu16Dlsrles/e4h7V1SSndjrBHQ7PpSWd0?=
+ =?us-ascii?Q?61zDgF2ugGPSn36z7+CfNojCGSliUTh3/ZbIPrSTRwDL42Lap52AyVQ/RYQ0?=
+ =?us-ascii?Q?XqO5iPE9sCJp12D3cjNc58J59/dKXXTY6bAzeu1XI/ewOhQmFOv9hxyqdbJl?=
+ =?us-ascii?Q?Td/83Wd0/HfyF64K3/67ErjXg7E5wiNgMmnXzj2azXlHb0PIzp+ung3DsRnt?=
+ =?us-ascii?Q?DijvV/9XWee37kTcfolUzy7u2/4FaktT4T4viWF7I2ElPFHfiQ8Yf1iJ6mtm?=
+ =?us-ascii?Q?3t9NmHKkXA6NEB94tYuwpERcJi2yKEcfSrrwGPBE6EGE0jTPGsbWApnxqMfG?=
+ =?us-ascii?Q?kSxV+WTINtU6SVl7oQGVzMle4Tso4uTqTM8dox/3lTgzxDxiTY1QIvL9jTcp?=
+ =?us-ascii?Q?2lD0Mm0xb+1ug2/3IrcRM/yJqLs4ObpcQ0lng53C9CATB99oMHLYbTkQByJR?=
+ =?us-ascii?Q?+RlTU7UqFitriDdIS7WrhJxQz9qQk82ELmxSQ4e624bycO6TzV7BFfn416WE?=
+ =?us-ascii?Q?x9gaKdEvAna0ORu6hNudv55gM5jLKgfyw0VxMJNy+vMmT+bpXeL7foPdT6BN?=
+ =?us-ascii?Q?2kOQ30bKMqDDUlxB6CA9C9vBLrQ3OsHSdBSqGGULfeJyHxdJxSc+Sf39deXv?=
+ =?us-ascii?Q?fxngcKnWA43MhHgB7u7lV5BqySd/rTMrqtRC7Q0DDAzdvqAIXjYuXfxvSm9J?=
+ =?us-ascii?Q?P/eHqbGz3YiCrZOwdcf4q59MO0ekXRzRPBORdgOjUOEaN5ukMTvSH7ndvw82?=
+ =?us-ascii?Q?RVVAAE1zphc8beMmRM0uCxZU9CMxvne2sz44Q3nWN98dYUaMYig9wa3DzUkg?=
+ =?us-ascii?Q?ShZz1lSwQocLE5jUr87LZ7K2A45xNfFBTU5x407Bc2ClKkOj/SRwntwYsPZu?=
+ =?us-ascii?Q?+g4jxYFXBjvEuBeS+QNVANK4PwuuXsYG8altgwKvmchrnzhfYexO/2s6eTSi?=
+ =?us-ascii?Q?XSpD0PonIhsBj67Fi/Q7078J+cVGn7ASgG2lfZ4vkpmYZ72CWLuppwl97gk6?=
+ =?us-ascii?Q?xSQsSWSvSdykiubhX6GOlkI+e+qo9IWgG8q3sKKpsZXLg9iq2rDbMq8E/mFu?=
+ =?us-ascii?Q?PuV+5flgTFogLOHBnpX15H94VbnPnyBhPg8Gp3cU9nVH5YGu/dm8uhKwTPHY?=
+ =?us-ascii?Q?7whPUQFRokQoY0g7VyEcIIF7MvCTRM2ZoLaIT4mCpYjNNBSwdZca?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b62b45d-7107-4af5-11f0-08df4a4a66b6
+X-MS-Exchange-CrossTenant-AuthSource: AMBPR04MB12445.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 16:45:52.3627
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pghgQQHN/GIbYtHgdhlgts6fxvKX2xeWbLsNXtmflDmDR3gEaaP+3fEky6GVfRUMJ8WnPrr+EY1rTZWqu8TtnIWaLHbASNijZ/xXo/y+hrhobVVo9aoArpTXnBSHIuMs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7359
 
-The timed controller HAL module - timed_ctrl_snd_commnd(),
-timed_ctrl_snd_sp_commnd(), timed_ctrl_snd_gpio_commnd() and the inline
-timed_ctrl_reg_store() helper they used - has no callers anywhere in the
-tree. The only remaining reference was a stale #include in sh_css.c that
-pulled in none of its symbols.
+On Tue, Nov 24, 2026 at 02:42:19PM +0900, Ming Qian(OSS) wrote:
+> Hi Frank,
+>
+> On Mon, Nov 23, 2026 at 03:54:12PM -0500, Frank Li wrote:
+> > On Thu, Nov 19, 2026 at 04:27:14PM +0900, Ming Qian wrote:
+> > > Allow applications to allocate raw frame buffers with
+> > > V4L2_MEMORY_FLAG_NON_COHERENT for efficient CPU access. The required
+> > > cache synchronization is handled by videobuf2 in its prepare() and
+> > > finish() methods.
+> > >
+> > > Set allow_cache_hints only for the encoder OUTPUT and decoder CAPTURE
+> > > queues. Leave it disabled for compressed bitstream queues, as the
+> > > driver may access their payloads through the CPU.
+> >
+> > "V4L2_MEMORY_FLAG_NON_COHERENT for efficient CPU access", but here
+> > "Leave it disabled for compressed bitstream queues, as the
+> >  driver may access their payloads through the CPU"
+> >
+> > Look like description is contradiction
+> >
+> > Frank
+> >
+>
+> Sorry for the confusion. By "efficient CPU access", I meant userspace
+> access to linear frame buffers.
+>
+> For linear frame buffers, V4L2_MEMORY_FLAG_NON_COHERENT enables cached
+> mmap access from userspace, while videobuf2 maintains coherency through
+> prepare()/finish() during QBUF/DQBUF processing.
+>
+> For compressed buffers, the amphion driver copies data into the
+> internal ring stream buffer when decoding, and out of it when encoding.
+> Enabling non-coherent allocation for these buffers would require
+> additional synchronization around those CPU copies.
+>
+> This patch therefore enables the option only for linear frame buffers
+> and leaves compressed bitstream queues unchanged.
 
-Remove the dead source file, its public/private/local/global headers and
-the timed_controller_defs.h definitions header (included only by this
-module), drop the object from the Makefile, and delete the unused include
-from sh_css.c.
+Okay, is it more clean
 
-With the module gone, the timed_ctrl_ID_t enumeration in system_global.h
-and the TIMED_CTRL_BASE[] base-address table in system_local.{c,h} have
-no remaining users, so remove them as well.
+For compressed buffers, driver simple copy data into internal buffer and
+non-coherent can't bring much benefit and involve additional
+synchronization.
 
-No functional change intended.
+Frank
 
-Signed-off-by: Abhishek Chaulagain <chaulagainavishek14@gmail.com>
----
-v2: Also remove the now-unused timed_ctrl_ID_t enum (system_global.h)
-    and the TIMED_CTRL_BASE[] base-address table (system_local.{c,h}),
-    which had no remaining users once the module was gone.  Raised by
-    Andy during review of v1 [1].
-
-[1] https://lore.kernel.org/all/20261123200658.449-1-chaulagainavishek14@gmail.com/
- drivers/staging/media/atomisp/Makefile        |  1 -
- .../pci/hive_isp_css_common/host/timed_ctrl.c | 66 -------------------
- .../host/timed_ctrl_local.h                   | 12 ----
- .../host/timed_ctrl_private.h                 | 26 --------
- .../hive_isp_css_common/timed_ctrl_global.h   | 46 -------------
- .../host/timed_ctrl_public.h                  | 51 --------------
- .../pci/hive_isp_css_include/timed_ctrl.h     | 37 -----------
- drivers/staging/media/atomisp/pci/sh_css.c    |  1 -
- .../staging/media/atomisp/pci/system_global.h |  5 --
- .../staging/media/atomisp/pci/system_local.c  |  5 --
- .../staging/media/atomisp/pci/system_local.h  |  3 -
- .../media/atomisp/pci/timed_controller_defs.h | 14 ----
- 12 files changed, 267 deletions(-)
- delete mode 100644 drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl.c
- delete mode 100644 drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_local.h
- delete mode 100644 drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_private.h
- delete mode 100644 drivers/staging/media/atomisp/pci/hive_isp_css_common/timed_ctrl_global.h
- delete mode 100644 drivers/staging/media/atomisp/pci/hive_isp_css_include/host/timed_ctrl_public.h
- delete mode 100644 drivers/staging/media/atomisp/pci/hive_isp_css_include/timed_ctrl.h
- delete mode 100644 drivers/staging/media/atomisp/pci/timed_controller_defs.h
-
-diff --git a/drivers/staging/media/atomisp/Makefile b/drivers/staging/media/atomisp/Makefile
-index 1d0fbe220..2680e40d9 100644
---- a/drivers/staging/media/atomisp/Makefile
-+++ b/drivers/staging/media/atomisp/Makefile
-@@ -145,7 +145,6 @@ atomisp-objs += \
- 	pci/hive_isp_css_common/host/isp.o \
- 	pci/hive_isp_css_common/host/mmu.o \
- 	pci/hive_isp_css_common/host/sp.o \
--	pci/hive_isp_css_common/host/timed_ctrl.o \
- 	pci/hive_isp_css_common/host/vmem.o \
- 	pci/hive_isp_css_shared/host/tag.o \
- 	pci/system_local.o \
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl.c
-deleted file mode 100644
-index 948b0b0a0..000000000
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl.c
-+++ /dev/null
-@@ -1,66 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/*
-- * Support for Intel Camera Imaging ISP subsystem.
-- * Copyright (c) 2015, Intel Corporation.
-- */
--
--#include "timed_ctrl.h"
--
--#ifndef __INLINE_TIMED_CTRL__
--#include "timed_ctrl_private.h"
--#endif /* __INLINE_TIMED_CTRL__ */
--
--#include "assert_support.h"
--
--void timed_ctrl_snd_commnd(
--    const timed_ctrl_ID_t			ID,
--    hrt_data				mask,
--    hrt_data				condition,
--    hrt_data				counter,
--    hrt_address				addr,
--    hrt_data				value)
--{
--	OP___assert(ID == TIMED_CTRL0_ID);
--	OP___assert(TIMED_CTRL_BASE[ID] != (hrt_address)-1);
--
--	timed_ctrl_reg_store(ID, _HRT_TIMED_CONTROLLER_CMD_REG_IDX, mask);
--	timed_ctrl_reg_store(ID, _HRT_TIMED_CONTROLLER_CMD_REG_IDX, condition);
--	timed_ctrl_reg_store(ID, _HRT_TIMED_CONTROLLER_CMD_REG_IDX, counter);
--	timed_ctrl_reg_store(ID, _HRT_TIMED_CONTROLLER_CMD_REG_IDX, (hrt_data)addr);
--	timed_ctrl_reg_store(ID, _HRT_TIMED_CONTROLLER_CMD_REG_IDX, value);
--}
--
--/* pqiao TODO: make sure the following commands get
--	correct BASE address both for csim and android */
--
--void timed_ctrl_snd_sp_commnd(
--    const timed_ctrl_ID_t			ID,
--    hrt_data				mask,
--    hrt_data				condition,
--    hrt_data				counter,
--    const sp_ID_t				SP_ID,
--    hrt_address				offset,
--    hrt_data				value)
--{
--	OP___assert(SP_ID < N_SP_ID);
--	OP___assert(SP_DMEM_BASE[SP_ID] != (hrt_address)-1);
--
--	timed_ctrl_snd_commnd(ID, mask, condition, counter,
--			      SP_DMEM_BASE[SP_ID] + offset, value);
--}
--
--void timed_ctrl_snd_gpio_commnd(
--    const timed_ctrl_ID_t			ID,
--    hrt_data				mask,
--    hrt_data				condition,
--    hrt_data				counter,
--    const gpio_ID_t				GPIO_ID,
--    hrt_address				offset,
--    hrt_data				value)
--{
--	OP___assert(GPIO_ID < N_GPIO_ID);
--	OP___assert(GPIO_BASE[GPIO_ID] != (hrt_address)-1);
--
--	timed_ctrl_snd_commnd(ID, mask, condition, counter,
--			      GPIO_BASE[GPIO_ID] + offset, value);
--}
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_local.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_local.h
-deleted file mode 100644
-index bf97f272a..000000000
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_local.h
-+++ /dev/null
-@@ -1,12 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/*
-- * Support for Intel Camera Imaging ISP subsystem.
-- * Copyright (c) 2010-2015, Intel Corporation.
-- */
--
--#ifndef __TIMED_CTRL_LOCAL_H_INCLUDED__
--#define __TIMED_CTRL_LOCAL_H_INCLUDED__
--
--#include "timed_ctrl_global.h"
--
--#endif /* __TIMED_CTRL_LOCAL_H_INCLUDED__ */
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_private.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_private.h
-deleted file mode 100644
-index 7b90b4cf0..000000000
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/timed_ctrl_private.h
-+++ /dev/null
-@@ -1,26 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/*
-- * Support for Intel Camera Imaging ISP subsystem.
-- * Copyright (c) 2010-2015, Intel Corporation.
-- */
--
--#ifndef __TIMED_CTRL_PRIVATE_H_INCLUDED__
--#define __TIMED_CTRL_PRIVATE_H_INCLUDED__
--
--#include "timed_ctrl_public.h"
--
--#include "device_access.h"
--
--#include "assert_support.h"
--
--STORAGE_CLASS_TIMED_CTRL_C void timed_ctrl_reg_store(
--    const timed_ctrl_ID_t	ID,
--    const unsigned int		reg,
--    const hrt_data			value)
--{
--	OP___assert(ID < N_TIMED_CTRL_ID);
--	OP___assert(TIMED_CTRL_BASE[ID] != (hrt_address) - 1);
--	ia_css_device_store_uint32(TIMED_CTRL_BASE[ID] + reg * sizeof(hrt_data), value);
--}
--
--#endif /* __GP_DEVICE_PRIVATE_H_INCLUDED__ */
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/timed_ctrl_global.h b/drivers/staging/media/atomisp/pci/hive_isp_css_common/timed_ctrl_global.h
-deleted file mode 100644
-index e4c136660..000000000
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/timed_ctrl_global.h
-+++ /dev/null
-@@ -1,46 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/*
-- * Support for Intel Camera Imaging ISP subsystem.
-- * Copyright (c) 2015, Intel Corporation.
-- */
--
--#ifndef __TIMED_CTRL_GLOBAL_H_INCLUDED__
--#define __TIMED_CTRL_GLOBAL_H_INCLUDED__
--
--#define IS_TIMED_CTRL_VERSION_1
--
--#include "timed_controller_defs.h"
--
--/*
-- * Order of the input bits for the timed controller taken from
-- * ISP_CSS_2401 System Architecture Description valid for
-- * 2400, 2401.
-- *
-- * Check for other systems.
-- */
--#define HIVE_TIMED_CTRL_GPIO_PIN_0_BIT_ID                       0
--#define HIVE_TIMED_CTRL_GPIO_PIN_1_BIT_ID                       1
--#define HIVE_TIMED_CTRL_GPIO_PIN_2_BIT_ID                       2
--#define HIVE_TIMED_CTRL_GPIO_PIN_3_BIT_ID                       3
--#define HIVE_TIMED_CTRL_GPIO_PIN_4_BIT_ID                       4
--#define HIVE_TIMED_CTRL_GPIO_PIN_5_BIT_ID                       5
--#define HIVE_TIMED_CTRL_GPIO_PIN_6_BIT_ID                       6
--#define HIVE_TIMED_CTRL_GPIO_PIN_7_BIT_ID                       7
--#define HIVE_TIMED_CTRL_GPIO_PIN_8_BIT_ID                       8
--#define HIVE_TIMED_CTRL_GPIO_PIN_9_BIT_ID                       9
--#define HIVE_TIMED_CTRL_GPIO_PIN_10_BIT_ID                      10
--#define HIVE_TIMED_CTRL_GPIO_PIN_11_BIT_ID                      11
--#define HIVE_TIMED_CTRL_IRQ_SP_BIT_ID                           12
--#define HIVE_TIMED_CTRL_IRQ_ISP_BIT_ID                          13
--#define HIVE_TIMED_CTRL_IRQ_INPUT_SYSTEM_BIT_ID                 14
--#define HIVE_TIMED_CTRL_IRQ_INPUT_SELECTOR_BIT_ID               15
--#define HIVE_TIMED_CTRL_IRQ_IF_BLOCK_BIT_ID                     16
--#define HIVE_TIMED_CTRL_IRQ_GP_TIMER_0_BIT_ID                   17
--#define HIVE_TIMED_CTRL_IRQ_GP_TIMER_1_BIT_ID                   18
--#define HIVE_TIMED_CTRL_CSI_SOL_BIT_ID                          19
--#define HIVE_TIMED_CTRL_CSI_EOL_BIT_ID                          20
--#define HIVE_TIMED_CTRL_CSI_SOF_BIT_ID                          21
--#define HIVE_TIMED_CTRL_CSI_EOF_BIT_ID                          22
--#define HIVE_TIMED_CTRL_IRQ_IS_STREAMING_MONITOR_BIT_ID         23
--
--#endif /* __TIMED_CTRL_GLOBAL_H_INCLUDED__ */
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/timed_ctrl_public.h b/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/timed_ctrl_public.h
-deleted file mode 100644
-index 51e0bc0d0..000000000
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_include/host/timed_ctrl_public.h
-+++ /dev/null
-@@ -1,51 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/*
-- * Support for Intel Camera Imaging ISP subsystem.
-- * Copyright (c) 2015, Intel Corporation.
-- */
--
--#ifndef __TIMED_CTRL_PUBLIC_H_INCLUDED__
--#define __TIMED_CTRL_PUBLIC_H_INCLUDED__
--
--#include "system_local.h"
--
--/*! Write to a control register of TIMED_CTRL[ID]
--
-- \param	ID[in]				TIMED_CTRL identifier
-- \param	reg_addr[in]		register byte address
-- \param value[in]			The data to be written
--
-- \return none, TIMED_CTRL[ID].ctrl[reg] = value
-- */
--STORAGE_CLASS_TIMED_CTRL_H void timed_ctrl_reg_store(
--    const timed_ctrl_ID_t	ID,
--    const unsigned int		reg_addr,
--    const hrt_data			value);
--
--void timed_ctrl_snd_commnd(
--    const timed_ctrl_ID_t				ID,
--    hrt_data				mask,
--    hrt_data				condition,
--    hrt_data				counter,
--    hrt_address				addr,
--    hrt_data				value);
--
--void timed_ctrl_snd_sp_commnd(
--    const timed_ctrl_ID_t				ID,
--    hrt_data				mask,
--    hrt_data				condition,
--    hrt_data				counter,
--    const sp_ID_t			SP_ID,
--    hrt_address				offset,
--    hrt_data				value);
--
--void timed_ctrl_snd_gpio_commnd(
--    const timed_ctrl_ID_t				ID,
--    hrt_data				mask,
--    hrt_data				condition,
--    hrt_data				counter,
--    const gpio_ID_t			GPIO_ID,
--    hrt_address				offset,
--    hrt_data				value);
--
--#endif /* __TIMED_CTRL_PUBLIC_H_INCLUDED__ */
-diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_include/timed_ctrl.h b/drivers/staging/media/atomisp/pci/hive_isp_css_include/timed_ctrl.h
-deleted file mode 100644
-index b8f48b3c9..000000000
---- a/drivers/staging/media/atomisp/pci/hive_isp_css_include/timed_ctrl.h
-+++ /dev/null
-@@ -1,37 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/*
-- * Support for Intel Camera Imaging ISP subsystem.
-- * Copyright (c) 2015, Intel Corporation.
-- */
--
--#ifndef __TIMED_CTRL_H_INCLUDED__
--#define __TIMED_CTRL_H_INCLUDED__
--
--/*
-- * This file is included on every cell {SP,ISP,host} and on every system
-- * that uses the input system device(s). It defines the API to DLI bridge
-- *
-- * System and cell specific interfaces and inline code are included
-- * conditionally through Makefile path settings.
-- *
-- *  - .        system and cell agnostic interfaces, constants and identifiers
-- *	- public:  system agnostic, cell specific interfaces
-- *	- private: system dependent, cell specific interfaces & inline implementations
-- *	- global:  system specific constants and identifiers
-- *	- local:   system and cell specific constants and identifiers
-- */
--
--#include "system_local.h"
--#include "timed_ctrl_local.h"
--
--#ifndef __INLINE_TIMED_CTRL__
--#define STORAGE_CLASS_TIMED_CTRL_H extern
--#define STORAGE_CLASS_TIMED_CTRL_C
--#include "timed_ctrl_public.h"
--#else  /* __INLINE_TIMED_CTRL__ */
--#define STORAGE_CLASS_TIMED_CTRL_H static inline
--#define STORAGE_CLASS_TIMED_CTRL_C static inline
--#include "timed_ctrl_private.h"
--#endif /* __INLINE_TIMED_CTRL__ */
--
--#endif /* __TIMED_CTRL_H_INCLUDED__ */
-diff --git a/drivers/staging/media/atomisp/pci/sh_css.c b/drivers/staging/media/atomisp/pci/sh_css.c
-index 4a182dc38..e3942362c 100644
---- a/drivers/staging/media/atomisp/pci/sh_css.c
-+++ b/drivers/staging/media/atomisp/pci/sh_css.c
-@@ -60,7 +60,6 @@
- #include "gp_device.h"		/* gp_device_reg_store() */
- #include <gpio_global.h>
- #include <gpio_private.h>
--#include "timed_ctrl.h"
- #include "ia_css_inputfifo.h"
- #define WITH_PC_MONITORING  0
- 
-diff --git a/drivers/staging/media/atomisp/pci/system_global.h b/drivers/staging/media/atomisp/pci/system_global.h
-index ee1d9b66c..c50efde99 100644
---- a/drivers/staging/media/atomisp/pci/system_global.h
-+++ b/drivers/staging/media/atomisp/pci/system_global.h
-@@ -158,11 +158,6 @@ typedef enum {
- 	N_GPIO_ID
- } gpio_ID_t;
- 
--typedef enum {
--	TIMED_CTRL0_ID = 0,
--	N_TIMED_CTRL_ID
--} timed_ctrl_ID_t;
--
- typedef enum {
- 	INPUT_FORMATTER0_ID = 0,
- 	INPUT_FORMATTER1_ID,
-diff --git a/drivers/staging/media/atomisp/pci/system_local.c b/drivers/staging/media/atomisp/pci/system_local.c
-index 69bcd557a..ba99075d2 100644
---- a/drivers/staging/media/atomisp/pci/system_local.c
-+++ b/drivers/staging/media/atomisp/pci/system_local.c
-@@ -93,11 +93,6 @@ const hrt_address GPIO_BASE[N_GPIO_ID] = {
- 	0x0000000000000400ULL
- };
- 
--/* TIMED_CTRL */
--const hrt_address TIMED_CTRL_BASE[N_TIMED_CTRL_ID] = {
--	0x0000000000000100ULL
--};
--
- /* INPUT_FORMATTER */
- const hrt_address INPUT_FORMATTER_BASE[N_INPUT_FORMATTER_ID] = {
- 	0x0000000000030000ULL,
-diff --git a/drivers/staging/media/atomisp/pci/system_local.h b/drivers/staging/media/atomisp/pci/system_local.h
-index 970f4ef99..cab0669a4 100644
---- a/drivers/staging/media/atomisp/pci/system_local.h
-+++ b/drivers/staging/media/atomisp/pci/system_local.h
-@@ -61,9 +61,6 @@ extern const hrt_address GP_TIMER_BASE;
- /* GPIO */
- extern const hrt_address GPIO_BASE[N_GPIO_ID];
- 
--/* TIMED_CTRL */
--extern const hrt_address TIMED_CTRL_BASE[N_TIMED_CTRL_ID];
--
- /* INPUT_FORMATTER */
- extern const hrt_address INPUT_FORMATTER_BASE[N_INPUT_FORMATTER_ID];
- 
-diff --git a/drivers/staging/media/atomisp/pci/timed_controller_defs.h b/drivers/staging/media/atomisp/pci/timed_controller_defs.h
-deleted file mode 100644
-index 37a9226c6..000000000
---- a/drivers/staging/media/atomisp/pci/timed_controller_defs.h
-+++ /dev/null
-@@ -1,14 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/*
-- * Support for Intel Camera Imaging ISP subsystem.
-- * Copyright (c) 2015, Intel Corporation.
-- */
--
--#ifndef _timed_controller_defs_h
--#define _timed_controller_defs_h
--
--#define _HRT_TIMED_CONTROLLER_CMD_REG_IDX 0
--
--#define _HRT_TIMED_CONTROLLER_REG_ALIGN 4
--
--#endif /* _timed_controller_defs_h */
--- 
-2.43.0
-
+>
+> Regards,
+> Ming
+>
+> > >
+> > > Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
+> > > ---
+> > >  drivers/media/platform/amphion/vpu_v4l2.c | 4 ++++
+> > >  1 file changed, 4 insertions(+)
+> > >
+> > > diff --git a/drivers/media/platform/amphion/vpu_v4l2.c b/drivers/media/platform/amphion/vpu_v4l2.c
+> > > index 7cccc994fc50..c8d52f0af879 100644
+> > > --- a/drivers/media/platform/amphion/vpu_v4l2.c
+> > > +++ b/drivers/media/platform/amphion/vpu_v4l2.c
+> > > @@ -664,6 +664,8 @@ static int vpu_m2m_queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_q
+> > >  	src_vq->mem_ops = &vb2_dma_contig_memops;
+> > >  	if (inst->type == VPU_CORE_TYPE_DEC && inst->use_stream_buffer)
+> > >  		src_vq->mem_ops = &vb2_vmalloc_memops;
+> > > +	if (inst->type == VPU_CORE_TYPE_ENC)
+> > > +		src_vq->allow_cache_hints = 1;
+> > >  	src_vq->drv_priv = inst;
+> > >  	src_vq->buf_struct_size = sizeof(struct vpu_vb2_buffer);
+> > >  	src_vq->dev = inst->vpu->dev;
+> > > @@ -680,6 +682,8 @@ static int vpu_m2m_queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_q
+> > >  	dst_vq->mem_ops = &vb2_dma_contig_memops;
+> > >  	if (inst->type == VPU_CORE_TYPE_ENC && inst->use_stream_buffer)
+> > >  		dst_vq->mem_ops = &vb2_vmalloc_memops;
+> > > +	if (inst->type == VPU_CORE_TYPE_DEC)
+> > > +		dst_vq->allow_cache_hints = 1;
+> > >  	dst_vq->drv_priv = inst;
+> > >  	dst_vq->buf_struct_size = sizeof(struct vpu_vb2_buffer);
+> > >  	dst_vq->dev = inst->vpu->dev;
+> > >
+> > > ---
+> > > base-commit: 7969a6f407cf55b5254c824c87875452655ef11e
+> > > change-id: 20261119-amphion-non-coherent-f61009334dff
+> > >
