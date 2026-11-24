@@ -1,102 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795541955;
-	b=ZF3mA5RWea9TZl7cxxS4JPKRJs7jtw1p6gkbIAi9ZoqAKzAVR/eaxLp8s16u4z9EKrkR
-	 ysJHLOohHtin7FGg19wdN0pwLIJTeucLqT5Frhkt7tZpzlVKBNS59pVJWtkjJWv/1fQ8X
-	 6udOHSm3OrfmGNwPLLfnKbbtYiNsI4RDFCZNPTbGlLU9oPT6KEyb0R3UApPHzj4zX3Fzf
-	 OKcBsfTZR6uXaxT4oknjFBTPyP6BFpfs3347S9cFFpl7bLcfWdahxahJsHtzI55RTUmT+
-	 KuuYMvMHTeJB0D15hdpNUJVjmt/cyihhmVRhLSIKMYiuR3BYWVHlNYXnOypQSIvr5nw==
+	t=1795542372;
+	b=Hf1LzFz1OIyt7m9CwaH3lXPdyQJr2o01ENoAfz54VuJZo8+xgnFKFsdAtEEjDbYfT9+c
+	 kMd0MiPHXAS6pJQWYPG0DsQCt+ypvqO/MAvPWeG7RB2YOhXq3Bb4K/VsALXnAQPjHq0CV
+	 8GvnkjdXHy/b48fKsqM3dH26E4barcURHbL0i4WHLUUp2E5WqAz+pGKUddjaQDZiH/me1
+	 d/PFX8TCaCv7L3X60LUqsiH2nVS2w1UIgdkvJDzXWvn2R6aCyDph5zdX92fRGpJbdYDIm
+	 hO8vs1KJbyZWcQ4eDXn/4vJ29b+AZ0VTCT6dHMvEw3lumYOdmDQRB16tPQG8jjt7Opg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795541955;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:User-Agent:MIME-Version;
-	bh=WBc309mYer5H7Xpcaba+ynW+B/78kXK1Bb+NRGqzY3M=;
-	b=ZdojOp7ijDrCLzs1sI8GrTwh7xlUfl07+Wl8YDOaWw7QUsEZyoBuEPk7lxTvCdyGcKhP
-	 fKFDnhZXPcXlzhawvnFTeoII74/fk0L2Pzcs/123twasz89/q1sCmHZTweBa2lgod5Z1n
-	 5h1VhKswfUoPmmslREzQ/xd4YaUTlgBvzaxQebNNGSaALz9oYq2638JYnKOzLHJLGHRUm
-	 UX22l5Ndi+M8JVErqG86QM1GsAvrKQZc5IhQJ+uhvo9dteIB+kysyP+riZWRfUqCrPPby
-	 QWeZtj5j7+orILfWS0H+lVP0X9jhWRqC95PmJne1KRrefcDSl1RnFMQk6znyE3Ay3ZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795542372;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=fIf2xE0G6RJC+KjMdQDd5uURjWfAdnrxVBZi50T61Wg=;
+	b=M9UnihqQDHKewrFdi1v5eZhh+buTTdbSUXC+CpDkoZecvDZFV45zlglwNhC1D7HeWOTq
+	 YIP9FRzgMMbGjo3xL5zfS85TG8zhixm7p1T0LpKEX732Fo0a7rgN1B9vKLHn1eneFtCUB
+	 4kcf5FXY38oPzT20ZykweLongHlAXuri6aZLnRqFP0lTKOZ1eZn9oblSu2uyg1zSw4WtT
+	 JYAYD7+gAxq6wvIpxrQ/8G1x1TlCGGL/ejNapetZiIeyEt1Dm/ytkW5xRyc9uQk3eWksj
+	 /hpOwoYXU413/v7CyLr+yvoHpMwLL/HgNCDHuI+TpPENBE+iNyrCis26tastObIdLng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=BbBJL9iX;
-	arc=none smtp.remote-ip=209.85.128.172
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=eaVgWC6B;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF663606A323
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 17:39:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF663606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC229606A321;
+	Tue, 24 Nov 2026 17:46:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC229606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=BbBJL9iX
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b4c2da74c0so30766957b3.1
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 09:39:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795541954; x=1796146754; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WBc309mYer5H7Xpcaba+ynW+B/78kXK1Bb+NRGqzY3M=;
-        b=BbBJL9iX19HFseLAZpNMrqk/cz7C7E4ItEZffQwvgffTsuM2UkPlOcyFFO+hg3yoPU
-         BUaZAoyQvJdVhcLwgpFfY8dI+Y7oT6holR3Hn3ahHvRGxrVlELlG8o7Q4jpq9nds3JZi
-         AEyDvCkLriXUxvZo7EiARVg7iHJsTN87EGyT7cub36IMWAs1LaZcY/JxYp76MWvRTPnA
-         AY6g8pwMQ2V1dd0/t3kXGJFoeuVNqD9EEZC4yzKLY6Y4BpombrpMwyNtGmiecVgsOyNX
-         zQE0g24FH43+nmbvst4iWIPtgaN6zibyjDMGN8AeSJ1FrzyFpd8cSNC5/G+qyhAsorMh
-         lb+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795541954; x=1796146754;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WBc309mYer5H7Xpcaba+ynW+B/78kXK1Bb+NRGqzY3M=;
-        b=TZoVOcEQ3xzJ95vWlsefYzIvRtSBWDQaB3+IFsE4EVqusfznPG0uyBmx6UZoLJ2axd
-         0u505q1EFzwmMF7SIucx/vHcuFfSeli6fyiOebYl7x2mO5lU6aAd1krYhkBUG6KnpIUC
-         OGy6CnfwL0aw/ZocWGBJrQ5szAJUgMlr64mioXBxZOsufyY8CoTcJDMGCB95gg3IP3ju
-         5nQUvHXLr8cBIUdQrGFkhI9tZfIrO2mHtHLzPvdv4QbQ6CDJ7e8w8f2Hg5Kjd1tvanQH
-         uHeMlET9OrosdNeew75FJNP+aTGzFVpttE+nU22PwCYga0EtUjYxI/R5TZkBr6WyYc2/
-         d+8Q==
-X-Forwarded-Encrypted: i=1; AL+hErEvqKkik/UwQbYzBrw8gJnW2enbDPeTbYNLoZmyezdv82SSflquW0ZoXSePf2UbM1nU+eyi+wwbqNQrEw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lFXum5XApDSEtIh9MORrqhKwtNv8IEvdRconBX20D7NhPrvBA
-	/dX0FwvE1lfPS7r51hm0z2HBH7cv/Tnww0zBm/AB/eKPX9uMK3fiSsbHEYH43zfDSlw=
-X-Gm-Gg: AZFdTZe1ZP/cbUDv+KSwLNBMHPdJXRQZ6vb0bNHUk3gnrfzMh+HFmduI6gUzBL990UF
-	mh5xWkJxcIa/fKJt3Mba6b0VZH8OsWC46EzHWJHdTb43CJuRp8rO08FFD4ebVTsie44bX4kkbgO
-	TsfiLL4EzdV27mkxRqZyibeDS4ZYQ2eK7QPfjGU+1HtW73/QWcQ4NZQXte7kmvWUVBGUtlVJJe/
-	MMVCCWTwxqqmsy7JvZ8jDZ0DYCsQmjbiX8i1POZM9ucffKf82MTMLoMNwpkewaGJYgyIz7nRtNc
-	l1es5awwUzNtmJ+xqVlGOMqheOCJJAU0QOAyNUyYbExCbZ2sYauZ9uTYFnpKOubfJgh5jrYODUo
-	ORARYrkNYjQ11Sg6HtYkQY/zta+Z19FYjbudVmGRBQYq5iFmoY/BanVdGYV0B5dUs2ZzyWCuQUU
-	k+VchLf9JMrGYq3dOP+leN3si8Jhm/saHTcUOrJMYmYsGKsfEn2GXJPd1hbwyeWZGrjnXUeA6j2
-	Hfgyy2SWNZAmUpSb5R26Zb99NhSI9M9+MqBKK+4RmcMoKWNBQ4IlMHzUIxbBquVzeOUlFru/hYW
-	266aKdxZROETbUprgc8s3tZ7SpMNKgdAKYcJiaHeGnKf7R/AbzD+buA=
-X-Received: by 2002:a05:690c:990:b0:8b5:6a83:5e0b with SMTP id 00721157ae682-8b56a835f62mr4475197b3.13.1795541953703;
-        Tue, 24 Nov 2026 09:39:13 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b520354be4sm61097717b3.43.2026.11.24.09.39.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 Nov 2026 09:39:13 -0800 (PST)
-Message-ID: <87e98f2bca7ceb60fe0b786a2bf63711ada2572c.camel@ndufresne.ca>
-Subject: Re: [RFC PATCH 07/28] media: mali-vpu: implement TRY_FMT and S_FMT
- ioctls
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Charvi Mehta <charvi.mehta@arm.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel	 <p.zabel@pengutronix.de>, Vincenzo
- Frascino <vincenzo.frascino@arm.com>,  Rathinavel Sankaralingam
- <rath.sankaralingam@arm.com>, Shobhit Pandey <shobhit.pandey@arm.com>
-Date: Tue, 24 Nov 2026 12:39:11 -0500
-In-Reply-To: <162bf4ec-c23a-49c6-ad7d-7485a5cce2b7@arm.com>
-References: <20261119153758.1426673-1-charvi.mehta@arm.com>
-	 <20261119153758.1426673-8-charvi.mehta@arm.com>
-	 <3415e7b52c3d05214ec125b2b4f8612129c53ae0.camel@ndufresne.ca>
-	 <162bf4ec-c23a-49c6-ad7d-7485a5cce2b7@arm.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=eaVgWC6B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795542368;
+	bh=2vLDKHeR9lc9GUWK07uNhE/Yhexx0rV2NuuZG2KZ9/I=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=eaVgWC6B//DD4cGJKhfbsx18rYHr/87i9c87YOiyJAC71sI3+pWaFp4GdElsa8VrD
+	 RtmQWqvKpPIv7kZx0S6ksxLe3mSHi3R67HbMk1Va3ktUKZPXI2MRUEI1Kt6Qu7Yyba
+	 gEv3zFZTvkq7ia3N3BNuq+w2xQcthZrlk1NqJ5oJhSlZG1eUsjWAitw/rV+OpXemth
+	 ohuP+/DTgAN34UvrOuZvrSQZEC6Xhr12LUxRodnvEvfjHVkE6Jpea2DSH17qCc/2A4
+	 tCzG4MruEX0C91p9dwa1hWZdkihNUxHHrpYuii9ugJgTrkxEMHvYDuHJ5qV9v+hVJs
+	 biyTaDtkxmYoA==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 662AF17E0192;
+	Tue, 24 Nov 2026 18:46:07 +0100 (CET)
+Message-ID: <067d32d46788603e18f24040e2a8aabb1b749774.camel@collabora.com>
+Subject: Re: [PATCH] media: amphion: Enable non-coherent allocation for raw
+ frame buffers
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: "Ming Qian(OSS)" <ming.qian@oss.nxp.com>, Frank Li <Frank.li@oss.nxp.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil	
+ <hverkuil@kernel.org>, Zhou Peng <eagle.zhou@nxp.com>, Frank Li
+ <Frank.Li@nxp.com>, 	linux-imx@nxp.com, imx@lists.linux.dev,
+ linux-media@vger.kernel.org, 	linux-kernel@vger.kernel.org
+Date: Tue, 24 Nov 2026 12:46:06 -0500
+In-Reply-To: <awUiZWa4ZTMhFeVL@lsvm11u0000189.swis.ap-northeast-2.aws.nxp.com>
+References: <20261119-amphion-non-coherent-v1-1-c3154395e448@oss.nxp.com>
+	 <awSn9NyulPPPIIT8@lizhi-Precision-Tower-5810>
+	 <awUiZWa4ZTMhFeVL@lsvm11u0000189.swis.ap-northeast-2.aws.nxp.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
  cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
@@ -109,8 +77,9 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-EcivsMOo8ZMd140z5HSW"
+	protocol="application/pgp-signature"; boundary="=-YgqiAaeSiZb24V1NgmpQ"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -122,44 +91,116 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-EcivsMOo8ZMd140z5HSW
+--=-YgqiAaeSiZb24V1NgmpQ
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le lundi 23 novembre 2026 =C3=A0 17:26 +0000, Charvi Mehta a =C3=A9crit=C2=
-=A0:
-> > This is suspicious, the vb queue already do some locking in most of the=
- vidioc
-> > call.
-> Both queues assign `&sess->vq_lock` to `vb2_queue::lock`, but=20
-> `video_device::lock`
-> is unset. The V4L2 core acquires it for queue-management ioctls marked
-> INFO_FL_QUEUE, but not for G_FMT, TRY_FMT or S_FMT.
+Le mardi 24 novembre 2026 =C3=A0 14:42 +0900, Ming Qian(OSS) a =C3=A9crit=
+=C2=A0:
+> Hi Frank,
 >=20
-> video_device::lock is unset, as this driver uses per-session locking and
-> format ioctls are not required to be serialized among different sessions.
-> The explicit locks therefore protect format access against queue operatio=
-ns
-> and asynchronous firmware updates, which use the same mutex. They do not
-> reacquire a lock already held by the ioctl core.
+> On Mon, Nov 23, 2026 at 03:54:12PM -0500, Frank Li wrote:
+> > On Thu, Nov 19, 2026 at 04:27:14PM +0900, Ming Qian wrote:
+> > > Allow applications to allocate raw frame buffers with
+> > > V4L2_MEMORY_FLAG_NON_COHERENT for efficient CPU access. The required
+> > > cache synchronization is handled by videobuf2 in its prepare() and
+> > > finish() methods.
+> > >=20
+> > > Set allow_cache_hints only for the encoder OUTPUT and decoder CAPTURE
+> > > queues. Leave it disabled for compressed bitstream queues, as the
+> > > driver may access their payloads through the CPU.
+> >=20
+> > "V4L2_MEMORY_FLAG_NON_COHERENT for efficient CPU access", but here
+> > "Leave it disabled for compressed bitstream queues, as the
+> >  driver may access their payloads through the CPU"
+> >=20
+> > Look like description is contradiction
+> >=20
+> > Frank
+> >=20
+>=20
+> Sorry for the confusion. By "efficient CPU access", I meant userspace
+> access to linear frame buffers.
+>=20
+> For linear frame buffers, V4L2_MEMORY_FLAG_NON_COHERENT enables cached
+> mmap access from userspace, while videobuf2 maintains coherency through
+> prepare()/finish() during QBUF/DQBUF processing.
+>=20
+> For compressed buffers, the amphion driver copies data into the
+> internal ring stream buffer when decoding, and out of it when encoding.
+> Enabling non-coherent allocation for these buffers would require
+> additional synchronization around those CPU copies.
+>=20
+> This patch therefore enables the option only for linear frame buffers
+> and leaves compressed bitstream queues unchanged.
 
-I missed that in the review, please document carefully your locking somewhe=
-re in
-text.
+Maybe just state that other queues are using vmalloc which is already cacha=
+ble
+memory. What this feature does is allow not getting write combined mapping =
+for
+CPU access, which is terribly slow by letting application manage their own
+coherency (or by using DMABuf sync I believe, can't remember if that was fi=
+xed,
+there was a lot of issue in this API btw, so check its states and make sure=
+ it
+working for you).
 
 Nicolas
 
+>=20
+> Regards,
+> Ming
+>=20
+> > >=20
+> > > Signed-off-by: Ming Qian <ming.qian@oss.nxp.com>
+> > > ---
+> > >  drivers/media/platform/amphion/vpu_v4l2.c | 4 ++++
+> > >  1 file changed, 4 insertions(+)
+> > >=20
+> > > diff --git a/drivers/media/platform/amphion/vpu_v4l2.c b/drivers/medi=
+a/platform/amphion/vpu_v4l2.c
+> > > index 7cccc994fc50..c8d52f0af879 100644
+> > > --- a/drivers/media/platform/amphion/vpu_v4l2.c
+> > > +++ b/drivers/media/platform/amphion/vpu_v4l2.c
+> > > @@ -664,6 +664,8 @@ static int vpu_m2m_queue_init(void *priv, struct =
+vb2_queue *src_vq, struct vb2_q
+> > >  =09src_vq->mem_ops =3D &vb2_dma_contig_memops;
+> > >  =09if (inst->type =3D=3D VPU_CORE_TYPE_DEC && inst->use_stream_buffe=
+r)
+> > >  =09=09src_vq->mem_ops =3D &vb2_vmalloc_memops;
+> > > +=09if (inst->type =3D=3D VPU_CORE_TYPE_ENC)
+> > > +=09=09src_vq->allow_cache_hints =3D 1;
+> > >  =09src_vq->drv_priv =3D inst;
+> > >  =09src_vq->buf_struct_size =3D sizeof(struct vpu_vb2_buffer);
+> > >  =09src_vq->dev =3D inst->vpu->dev;
+> > > @@ -680,6 +682,8 @@ static int vpu_m2m_queue_init(void *priv, struct =
+vb2_queue *src_vq, struct vb2_q
+> > >  =09dst_vq->mem_ops =3D &vb2_dma_contig_memops;
+> > >  =09if (inst->type =3D=3D VPU_CORE_TYPE_ENC && inst->use_stream_buffe=
+r)
+> > >  =09=09dst_vq->mem_ops =3D &vb2_vmalloc_memops;
+> > > +=09if (inst->type =3D=3D VPU_CORE_TYPE_DEC)
+> > > +=09=09dst_vq->allow_cache_hints =3D 1;
+> > >  =09dst_vq->drv_priv =3D inst;
+> > >  =09dst_vq->buf_struct_size =3D sizeof(struct vpu_vb2_buffer);
+> > >  =09dst_vq->dev =3D inst->vpu->dev;
+> > >=20
+> > > ---
+> > > base-commit: 7969a6f407cf55b5254c824c87875452655ef11e
+> > > change-id: 20261119-amphion-non-coherent-f61009334dff
+> > >=20
 
---=-EcivsMOo8ZMd140z5HSW
+--=-YgqiAaeSiZb24V1NgmpQ
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawXLvwAKCRDZQZRRKWBy
-9LX2AQDqtWe+/c2doI6o6r2GLVgta+8/CIYTXwIAm9OktAVFEgD+JCsYrreT/btu
-r+NQEKefI1SmP+05yKhjlmTDl1hgKgw=
-=bWwD
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawXNXgAKCRDZQZRRKWBy
+9GkwAPwNJIet0gUqj0ydjwWVNgkYu8wT8/u4PFCvg++Ui/l0KQEA6eoU6SiYf/UX
+F82EobmwaRaUijkbtDkl6BqNdlVYoAs=
+=1W/J
 -----END PGP SIGNATURE-----
 
---=-EcivsMOo8ZMd140z5HSW--
+--=-YgqiAaeSiZb24V1NgmpQ--
