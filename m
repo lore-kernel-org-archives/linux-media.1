@@ -1,85 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795514384;
-	b=t3IfWemjH/IgmMt1UvMLJS7G3AACki9DTimFasWYFydKAutU+FxzupNc7VCC4cBnDI7k
-	 UZPclPCpzdC9c2q+/zHLQHogKL4qRezgvgezP0LK+I2jx/XQSyZJLTeSE1ObJ4zdohDGJ
-	 XUPCHxyTufUSxovv6mWIW9LIGrG0JzIg254JD8hvT84l9ETgFgmB+q0VDcEOUQXhApLIO
-	 DT6+iRxTpojzgVUGYKFXEvgyg/+bWCYOGsN5fBg6ahdWbRJPgn4emLhg1um9gDqOl0ylW
-	 GZrWDuG44UoWOnVMjaX0EjeJeX0+KY+hFmFty/exp4+Ywag/ESU1+Qs2JMOH5BnBIuA==
+	t=1795514705;
+	b=BNznlcCq3HEmeIdmbGIzmRFiZIhGYqxvhhZGJ57Swx6ygzg+pSe7x3biGM3PSlNYiZbA
+	 +FuqHJ9F6IoHND4VG/85bokjTIyeIsnjFBaW6yvERGP/6c0ri96aUULB4F59XBFTqIYl4
+	 wIZYZp/M+Ds7BNptguq0xgpz/pd+XZluhdUH66cRgikOI4S8NpjuPYLIy+8sdpmgbYvsw
+	 ZudlhVjAIhy11JJTEljRhoDZcsaAXufA8XlF2Vm5hvw+dGQ0iEIpSY0SWTUivEtp2Sc5Q
+	 y5rZMk6CPwcGStbbbA7BIEe8MF98BALFi07FZ/zHxjrt6ykmwLzh/p11y8plV2v24BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795514384;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=ah64LIQIXLTGPjDibRLYcaK6G0Dc/ReEzo5Y2FlN3Us=;
-	b=vnBmEqW5/oQTdlX0hvteTOkwfX5FGQly+W0PkODvVkVWRO03JApyhDIjqqzacX+J7lVU
-	 r3B3TySkg+aPHU4lsjtlGB538LcsD4C/S1HnDXMURaq7wdxG0fG0Re2Bbg/Rzqij455Aq
-	 U3APGLX7xRRKtxU1WyqEqz3Z5adY+2dxVfi5vOVj7vlsrMEy6FRs0mHvAOS6vQGVop56/
-	 v2z4/OB5d1ptOXmv2ktspm9BgCM3bPQVIBQjbjdVhsAMAm0LQQTuNmJ4edjMtrdFEkTNl
-	 s8kQ4xxwqHoRAO4+8sx7oyoYCJMogSahD2JMMmMBAhDWLdplJvcFIAC09+Ss5DfVVgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795514705;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Wv9dA+sf5/8Q63ft+zrAakCfe38WDHhrpSJKBLpGMKY=;
+	b=z75t36muobOerjuTrNgxtfTV5w4iymCGabhFo6iY1WkYLsVf1oda9rbT7RBZVuV9Np5T
+	 vB3CKHHObW7Pw3ZiZ46wXGbgX7XBg+8WUGZkCZgDnB2IzVkv2rf5neVmek4+ikLV/fBbb
+	 1wY+dAkwkJJ8ZjrrvhMGiLPNZE2It0J2jcYAENDqzIufu4irOFuH+1OpJGBbZDE3m+UBR
+	 +btnVtH6DJXyt6EGF261p1CxMQLprU+n9VVa5a4oZ4Asr7B7A15J6kagXLjOFgcK+zVrb
+	 uw2ORaTguX8kl0GQ6fiYCGQRbyAZ80aPE9j2k7utUHaYMilevD1mh/rKiipYg8SXVIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hSmIepVb;
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AUIMs1Uq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B884606A338
-	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 09:59:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B884606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB6B606A322;
+	Tue, 24 Nov 2026 10:05:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hSmIepVb
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4395d31228so723471866b.1
-        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 01:59:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795514382; x=1796119182; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ah64LIQIXLTGPjDibRLYcaK6G0Dc/ReEzo5Y2FlN3Us=;
-        b=hSmIepVbK9PWjrJBE1AprzX2N4p1wm7x2m2I4anFjoKv2cxG0XLVrsBXe5NIFEkEyS
-         N1kijXpvpVAN1QOMPlyRqhgOTpbYI2dzHaqAoJgWxpAkkhtP/f5iWwn9TTl7wD24X3EB
-         WxlV6AcGpKBEp2UfKtKPv5cEG83EaXrPouH3HCq1HYm8dq+s0DeWeySHJUhux/lzsOQU
-         968QwsVS4eWoqKrOqBrwPqrEZ0Qn1jTJPqZWc1wPIH36W6qEAhXYEFtpPDLNxQ1aVfiF
-         CbjZJRD7nsJlM5HtssYnsr/+Dt2Z9ZMa016YK5pVeoA31McodNBQihAv70Dw6snjGmXN
-         dLbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795514382; x=1796119182;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ah64LIQIXLTGPjDibRLYcaK6G0Dc/ReEzo5Y2FlN3Us=;
-        b=NZfPHwmSbgEBBbAUowRwNpi4Sv68AmiIoe3/y0KUvJnLMcrOWH0QLIPuu8rvN29+lA
-         AZ2rRC6tR9F30EaA1kRHjb9rPNKXEEfJbuF4jHCRUAwHsXOkX22WSsI1+UYszc8SAQ83
-         3MLjo4twWtkKh3azRIRoBLvgS5ewG5KH3qkSOUYmU6vkM37ed6LIfRGGprkovia0nCob
-         +hAgbzjYnJCVUTasrA29p8XK0+l6Jbzj9f5saxRujjoif20SxBlH/u5CnYvK6hJdk9q/
-         f/Vi/nCwVZGC4yCoNsh39j93sRWG6scE16rjjMIiJlVhzH/x+8Tg3jPJiW3mNO1vHIpe
-         V6ug==
-X-Gm-Message-State: APuU4Z8ZcNzeDbOab738mY7Ier6nT7fRcScGBuvaHD1QwmWKeXfLXG30
-	jOr60G5lJWQhIRCby6/T1BX6KvB5sS2Ag5VWj9BFJKwOOjgoCCmbSBUCfbidxQZ1ATU=
-X-Gm-Gg: AZFdTZeYTOVwezEXq82DuxWGAe0fWmdMDz0oWaXkDPfIN+fv7BZ4y2A8WXRuOf+QsUo
-	bOesS70iMKckaqcLE5uUnBSb0Rpnh+u0Ir0kphtUL4aMwsVcLf6p+FNMzbsZSWdWWJjkd8h+jCV
-	0qcTzRVAYrR4rCJ0iotFsbCZHWLyG9JV+if/jlh4awvloRj3YN3t4L8M5CT8/y5sI/JlqFs+S8o
-	755wz6ENBX1DMJDHX3mLSDP+ZP7wfXLd5zZowF0e0aI7eXluuWoYXryzXWjiRTmeZBFFaVgzCn6
-	lskCgtLJt3pUasBoWYuggONiiDA8AQZ2boAYcdkv2eRFGUXY2MoheoMCuK9SMc6X7QAwlEOSB1u
-	yatPLdpkb/Gtl/NWypRANOkek0NDyOFokNbleoyy73q37+rPtVC4uJfFptn7VRL5AkYEuc9EX7r
-	NJaO9231Io33cAWHpXWwItBUFgMczs6UWAFNqXRwzF0LSPsvY/W872iUPRRxGUNXWBaJufwCmNH
-	4LZH9EZI0ebz44ioZPOPnyJrRANrsC4moRhwAGamwMYYSGtChbvz6btNHVINgqh/P/n/LCpiYfe
-	mqZixDOB6nAgIbQD9fKhJ51lXQo/L5fDTatBkCGuNzE=
-X-Received: by 2002:a17:906:f10a:b0:c49:b8ec:a9e3 with SMTP id a640c23a62f3a-c513aad202amr993480966b.43.1795514381642;
-        Tue, 24 Nov 2026 01:59:41 -0800 (PST)
-Received: from [192.168.0.167] ([109.76.241.250])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ad01b0bsm493902266b.10.2026.11.24.01.59.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Nov 2026 01:59:41 -0800 (PST)
-Message-ID: <68bf8d15-8ebe-4d19-8f77-f49ca0cb5488@linaro.org>
-Date: Tue, 24 Nov 2026 09:59:40 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AUIMs1Uq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 905BE1F000D2;
+	Tue, 24 Nov 2026 10:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795514705;
+	bh=Wv9dA+sf5/8Q63ft+zrAakCfe38WDHhrpSJKBLpGMKY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AUIMs1Uq/yugPsAAj5FDAinEXwZ6wdOBx9Va4DR+gBUuUttnzB0IvASNNQExy9RFv
+	 JMtmVsAXXwdT02bPRZWYk/i06vdDbnggoLwoKE6ohebCyH23uynEtEJCJBGJ0bijAN
+	 lf0yW/LFUMRw3BxXRpuBJo7JPPtlAFqQSIGJeywMae/S5WjXGjYoztjBbVBidx9v3D
+	 tTTBZs8/M4f0yjghamerYZ+WNy60Pm2HbYzRRPkcRmDNsuNVb1oVy1y2/6EGwfZpfp
+	 bGUtFncCvnw7bkzfnXp9/l6D7PpJbjta4n2LbSklnw5SxzQs/ltTe1+n6X4nBE1uIO
+	 IT2azGvsxpVZg==
+Message-ID: <8e9b2e56-2b63-4ece-92ed-968d41209790@kernel.org>
+Date: Tue, 24 Nov 2026 11:04:59 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,58 +52,83 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] media: qcom: camss: Report the hardware SOF timestamp
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20261123-camss-hw-ts-v1-0-7b62dda6d7a9@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261123-camss-hw-ts-v1-0-7b62dda6d7a9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v2 1/3] dt-bindings: media: qcom,mahua-iris: Add Mahua
+ video codec
+To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261123-mahua_iris_enable-v2-0-b1a16b16afca@oss.qualcomm.com>
+ <20261123-mahua_iris_enable-v2-1-b1a16b16afca@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261123-mahua_iris_enable-v2-1-b1a16b16afca@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23/11/2026 17:16, Loic Poulain wrote:
-> The CAMSS CSID latches the ARM architected counter on every start of
-> frame. This series exposes that time to userspace, both through the
-> V4L2_EVENT_FRAME_SYNC event and as the buffer timestamp.
+On 24/11/2026 07:44, Deepa Guthyappa Madivalara wrote:
+> Add a devicetree binding for the Iris3.9 video encoder and decoder block
+> found on the Qualcomm Mahua SoC. This is a single core derivative,
+> leveraging most of Glymur data with the clks, resets present only
+> for vcodec0 core.
 > 
-> Until now both were taken when the interrupt was handled, or worse, when
-> the frame had finished being written out to memory, which is about a
-> frame period late. The hardware value is free of interrupt latency and
-> is directly comparable with CLOCK_MONOTONIC, so it can be correlated
-> with other timestamped data such as IMU samples.
-> 
-> Patch 1 lets a driver fill in the timestamp of a V4L2 event instead of
-> having the core take it. Patch 2 passes the SOF time down to the common
-> CSID event helper and adds the counter to CLOCK_MONOTONIC conversion.
-> Patches 3 to 5 read the registers on csid-340 and csid-gen2. Patch 6
-> uses the same time to stamp the captured buffers.
-> 
-> Patches 4 and 5 are picked from the timestamp support Bryan shared
-> earlier, with patch 5 adapted to use the conversion helper added in
-> patch 2 rather than its own.
-> 
-> Tested on QCM2290 (Arduino UNO Q) with an IMX219 sensor.
-> 
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Signed-off-by: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>
 > ---
-> Bryan O'Donoghue (2):
->        media: camss: Define timestamp registers for csid-gen2
->        media: camss: csid-gen2: Report the hardware SOF timestamp
-> 
-> Loic Poulain (4):
->        media: v4l2-event: Allow drivers to provide the event timestamp
->        media: qcom: camss: csid: Pass the SOF time to csid_sof_event()
->        media: qcom: camss: csid-340: Report the hardware SOF timestamp
->        media: qcom: camss: Timestamp buffers at start of frame
-So I was offlining this change and kind of left it at comments I 
-received to make the type of timestamp selectable on a per-buffer basis.
+>  .../devicetree/bindings/media/qcom,mahua-iris.yaml | 200 +++++++++++++++++++++
+>  1 file changed, 200 insertions(+)
 
-IDK if that's really required for a first pass but, its where my own 
-reviews were left at that time.
+I have impression that there are like 5 different patchsets around
+Venus/Iris depending on each other or depending on something. Kind of
+same comment last time.
 
----
-bod
+Best regards,
+Krzysztof
