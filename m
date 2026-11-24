@@ -1,117 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795523802;
-	b=YTS3cpdbwYCv1YHrSKsJx/kEYhGWmz+CxjoSIdKZjeZ/6BRu4ItjaCPtx3VIcSJhyMgw
-	 DP6uwuZsQ+O1z1bAbW6RoEobzD3G8YVnfQDtJmZZOsErQzFGMIDqo+PZ4varM6tTZckgO
-	 hVP55I1v2mOhCJtYDsmV4WqgErPUA6xXiEP5G7HngDCjuVWZ0BYaFENLgLZWkRPEyCs1o
-	 0gRlEu5+ZUkcvUbA9U5YXZLJJ3IAJZaJD4svUkiYCRinn9SwcOCY0dXpXBn/KKju0aV0d
-	 nOi8QDnc6QeicTYrKZNcPY3WPb2ItkLvD25agDiVEmPT6G22noXMw09JRlsuyLmEoug==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795523802;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=wUqGi0asszbN4dhIxO+gZaZle9N/6uln8kH4AIJVyHo=;
-	b=0rWCER4wdQFAsSz1enrO4n5M2pqHuELpeHF3s25CD+XzTW1hc4+GkCymWTgLzNFrBRjm
-	 35/XBJiJjYt6tTBMjw2jTRVQzR5GrS/2C+xSirWCtWauM47JvRG1QsxXCY3DznejnuFWc
-	 PVG4zai4pHy+A7ddsRFzyiuEMR1u/X6yf5wkOq/fUFcudxsjWscSOcpC0U1BXAXIsavDG
-	 LgF7Lu/cJsEc3T8jHrjsnTNAvC4XtFwGURN7B9+hLPzenrs4eLREr6mO6b26phmLwPIYR
-	 X0z3q0HqRW6vbMGMBiNlDjIROzQGeEzbDqBb0Ig8WjdiPCJkak5Cm2f4hxP4bJLepmA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="19mX/iwC";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.50
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010050.outbound.protection.outlook.com [40.93.198.50])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795525462;
+	b=h9pSgPNzaCkZ6Nx2IINzQ78vvlQt9HA5KIAu+WIjsZO2Ufh+p8wMFNgAibAIJX8K0sdE
+	 8wm2AMBFFYwUMEWWn0xtj5XhPXArO92E+XiNzknpywltOaPTU3tMBMhBrqGBhX8Ci95/E
+	 qLFpxkAlffLUFTZDgKunjPxcCc21TH9tV4YYicTEksyhcYTajfDVnCT2Bn+uT4kGhywE3
+	 XVDrvh5Q/904z3mCwROvNEkXdK5COVyG3R8nrugmO9v2NOkkUMBQlHM+pX11qWi4+TidN
+	 X0PiaLxA30CO5NIyo30N9nUTXKTTfrCvChH8sv7C74fmxS5eBZ4uOvaK4nfUp5E7R5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795525462;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Developer-Signature:X-Developer-Key:X-Scanned-By;
+	bh=1VGhrilOrIVUd7NQcN6hWODsfVyfTY1/1MG6x6kIma0=;
+	b=0QUdTwZsZgnnzwmKqf1t2reR2hGYBQn4bZ+nSfvWQdpRwKgN6Kppyy27AlXC+GF3PYHs
+	 n/1S7YwbfM9w4EjyDoD6V0PlOx7MbSdXPSvnE92hVJf7HIIvJ2qyt19eGEkx4l9y2IXv9
+	 iSaRFmjN3NjpE57V1FC9iBpdhV0j/o6Ed3E+HudLXlmkssdYz2sW8fCIYkqKw4mIvaRu6
+	 z6u+d/62xBfOFtlyRY+quIJZmeMtqInTAEsoEpvkaiJ9Rbyvy3ULTIgtGzi7VRRmVRl4d
+	 HpbO86/b7GMfqv+r4pp8jRU1QcUm+u8haY7NRfAU9doxpKAyFLn/gmuzPM//lseksiA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iYA78xEB;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8163B606A327;
-	Tue, 24 Nov 2026 12:36:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8163B606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67853606A322
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 13:04:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67853606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=19mX/iwC
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JbgVCZGIP6OwjitDGwHiW0cWDhtrRTigZR0Gv5RxkV+SDkZ0EuUf+kfCln99LexzQpLFkprCbBIKbiuugwdb+yaCDvEIyum3tZ8gMw6yI4/rwF+bMVhl9HxJFYZok00mUzv7GKTKK7fHbbNOAsA8Pq6L/JGpJ/IAZtMwB9WTm5EpxrTPIjZEpWubQ1O2FOTK8vQrIQyC8ZjqOW1A5CMfDAXqVf3HBUPgRKys6XVafrpIN/GCE4F4PxD41hmDwg9nxiyXJvHtmK3gn621QQ+eTOldgGHI7ISIE00cICFPviRPLcaA8WGQ+Wy2YqLIJEvqUUXOIYNG+pv4CYr6dM8TaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wUqGi0asszbN4dhIxO+gZaZle9N/6uln8kH4AIJVyHo=;
- b=J+YUGzAS7fTcyVvuTyR7XOZRair4NM5ARI+PCbDUnkZKKOU9xmbHOEhSMTDAUAMBQTzzeQdia3xmHIrbXh7Crfn5W+dfolT7OskydAPPNkE5HAfM6oQrdF9oRBHM5bcs3RRMg5ZHQ0S1HzAagyRs9I4w2zk5lgI/Z/OKL80v2OMIVEyXy0RG3e5M/2EY/332F8x9yzBcf/EHGg0pOxK41Oa+nsPXODd5EhswNALcTgXjCjdhwNaj2h4YctvOvrMAOefTpp0/FHZQlDhAz8b3TxL4Y8d56wtad6AZH52fDsihhynOqB5u7W1kNqOHGA7ngpjefvyO3mvmLx5adjekIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wUqGi0asszbN4dhIxO+gZaZle9N/6uln8kH4AIJVyHo=;
- b=19mX/iwClCI4bNSJyXNkfMdHOEijCNpn7pVx6AkrxxDyBRbaESQPO81OlnpDkQohQqcJ8XNqMO8I0/wpzzgIShUt9DRlzPBYR+m5jS1FYiVQf/MAEKkZOx4sE1ryI5R4nboI1FDBm0Dvf/zKEnmXMIdK31wlTceGS61a843n1/0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM6PR12MB4370.namprd12.prod.outlook.com (2603:10b6:5:2aa::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.4; Tue, 24 Nov
- 2026 12:36:37 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0639.012; Tue, 24 Nov 2026
- 12:36:37 +0000
-Message-ID: <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
-Date: Tue, 24 Nov 2026 13:36:21 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
-To: Alistair Popple <apopple@nvidia.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Xu Yilun <yilun.xu@linux.intel.com>,
- Karl Mehltretter <kmehltretter@gmail.com>,
- Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling
- <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
- Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
- Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com,
- jhubbard@nvidia.com, chaitanyak@nvidia.com, Leon Romanovsky <leon@kernel.org>
-References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
- <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
- <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
- <20261123165716.GM179082@ziepe.ca>
- <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
- <awT8prWsj11TBdmP@nvdebian.thelocal>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <awT8prWsj11TBdmP@nvdebian.thelocal>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0274.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e6::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iYA78xEB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795525460;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=1VGhrilOrIVUd7NQcN6hWODsfVyfTY1/1MG6x6kIma0=;
+	b=iYA78xEBTLwFu/juY1o991mIqkTESiN3rrcxrEuLhnRpr6lpmHJiuzZlemXQX14O/AioVX
+	F9GEd+dnTWSy0IzHNFjORHOBl0L6xvjNqI9BwkcBq5F/bNk/9CuOm4Zm74uN2xXcc0viH7
+	g3b0EpuHN1NYEuFo424DbqPN36X2u5A=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-692-K65r4GWQN3uUAcKHjQCkKA-1; Tue,
+ 24 Nov 2026 13:04:15 +0000
+X-MC-Unique: K65r4GWQN3uUAcKHjQCkKA-1
+X-Mimecast-MFC-AGG-ID: K65r4GWQN3uUAcKHjQCkKA_1795525450
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D38B51944B1C;
+	Tue, 24 Nov 2026 13:03:57 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1F8AF1956087;
+	Tue, 24 Nov 2026 13:03:46 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v6 0/7] memcg: dma-buf cgroup accounting and charge
+ transfer
+Date: Tue, 24 Nov 2026 14:03:34 +0100
+Message-Id: <20261124-v2_20230123_tjmercier_google_com-v6-0-dce12fa03ad6@redhat.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -121,194 +73,233 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4370:EE_
-X-MS-Office365-Filtering-Correlation-Id: da56025a-4a2f-4a47-7c3d-08df4a2794cd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|10067099003|5023799004|11063799006|4143699003|56012099006|261022075727099003|261022105027099003|261022115727099003|261021121427099003|261026121527099003|261026140227099003|261028144727099003|261102130727099003|261102123227099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	feCmSxzinazgK+ddzPvYJCrymh3A+htw6xwY9TOAvxpZo3FHL0t2REvOe0ILoVSrqD4pLy4vabNaTnFa3aquueicYxaj/0mNAsbxX8BXHUUvqgAMuWWALKHogVyS+jBs62ANsjhrwL8SFKeH8XA9A6UsoVoCC4rQ5otVNRE2N6PxmT8a50dmxoO27/yPUNlmcFP6yzpui2I//bKJHsuF1K/dP+v48jWVimNjV7Xq96gl5xI3wpmHEEa+xsBDf4sUmvm1P9pFnLjjd3kHWmgfkV6siyCqGxAKfx3UHJNQ0ieBc0kjw87rOxlKrku7EKdWSuUTrVntrYomhlCbiXW/SgMvCvSiQRNLrJdLvAXK6wWhMtAy2YRgke9GP7CDtnAs4Xe5rO8710sc6FaFnAHG835KuaRImPcGBPY3oIxbUP4zvPfcRHsUJnGjI6vaEkpmddp1pocJiUv9++dGUnl4qoFOnMcaQRo0R2IRChKWElulZqUtoY5JqZjCxYU+eKhZ5SCbrYGp6SblrPGT1Ha8itYECePcYWq3zH10sUv7y1y2cTdfLypLaQRBbDGtKpc7FZQ7g0MwFwnGFW5LZTlCVJv3N4hw8R7Xh7dGdh4tCRA/jhdyQkewFw+maHL8ek4Kbni7vg/M5fIj0Dd4BBDRxjZRgRxxuIiCdsy40kj91ks=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(10067099003)(5023799004)(11063799006)(4143699003)(56012099006)(261022075727099003)(261022105027099003)(261022115727099003)(261021121427099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102130727099003)(261102123227099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dUoxNTZ2dEN5Ym1NWEdHSExORXBCRklSc1lhc29pdExFNkhpeGNyNzNhY3Ba?=
- =?utf-8?B?VmRETFRqYlN5b3ZyazRJUVh4enIvaE56YzljT0tPYWZiRTdsV1o3Z1V0ZUVp?=
- =?utf-8?B?alF1UHpKcGlKcjdyMXZZbmtXMGZBbG15TCt0a1R0UXJUeXR6VG1sNmVzNFlu?=
- =?utf-8?B?VW1zTEMvRUZRTkE2QW9sb05MenlCdTQwYmVKWmUvdDlyeW43ZVpCRXI4TWhz?=
- =?utf-8?B?TDdJVEJNQzE2NGRvREw5bzZQdWp1TzllL0Z3T2xoL3EwaDBzZWtaVi95dnhN?=
- =?utf-8?B?Z21lUDRhbUtjVGdWY040ckVUbDdtOGR0R2xDckpCQTZ1RUNOOTk0ZFJoMGdJ?=
- =?utf-8?B?cjYvNHFqQWFhUythRGFGUHNQZmo5bWE5dWk4cnI5OVFNNThQZE1VSWZjczVN?=
- =?utf-8?B?dGpWMWpxWUx1Nk1TRWs0a3g5U0htUUpjZWJ1YUVUM21ZVnBwTTlZN3hVcjE3?=
- =?utf-8?B?VEM1Ym1UclRDV09uTXRDdEY1SSs3dVhuOENld1VnSHMwbXVvNUc1NW15QVpU?=
- =?utf-8?B?M1BDekxqdXJMNm9tMnlBUVBCTFBXYWh4c3A1VXQzS0h4ZEc0ZmdWVnZ0Y1By?=
- =?utf-8?B?bElVQjM0RmltRlNISkE1UVRmVVBackJJZERBbnY0WTBwd0tDYUxoMWxXTmQz?=
- =?utf-8?B?WlJxcDVrQXc0Qkhmb0EyMlI1K0UrSkxyTWpnYUFFWWVCMERYZjM3UjdLKzZk?=
- =?utf-8?B?Q05FUFJnOElzaTJyV2V6MzJmbFFqdUdwMURDdHZacjF1SU0xMjFqRS9waXds?=
- =?utf-8?B?REVzUHl5SG50VUtPTmtvcU5jbk5VWmh5eEdKaWNyWEszdm9lS2NPMGxCNnlx?=
- =?utf-8?B?L2pEMUtCcnc0NFgvd2VaTEF5L0tnMlJxNVBSRFcxWE1ISjBpYS9hYk5pYXMx?=
- =?utf-8?B?eDZyODZWL0J3alZsckE3OUtDRlM5Mll5ekhhOFUvdU8zaXdsZzRENC9tY2Zh?=
- =?utf-8?B?Qm41K3Z6WFYxVFVJTFV4QmRUR3JpYUIzQ0dkMFNROGNUU0VCVTljVWtlaGpT?=
- =?utf-8?B?aWRtM1g1cHYzNGcvaTl4UGY5R0MweHRBYlRnWXowWjgvL25QNjY0NXVuMTEv?=
- =?utf-8?B?ekE4eUk2KzFPbnZ2SzV1MFRBVXVjK0xvMWxPYzhRVFpDWGVYTldPdDJpcE1j?=
- =?utf-8?B?YWlhWFlSVGgrQ3RWU3M4VmQzbVpyTVkzY0xqaE5jSTk5VFJYL1NnZXM5RW01?=
- =?utf-8?B?T0Zya3JvYTZMd1dxYkdBNHRGS1BCMU5JYm9MWG9xa2xFYmM5SFRFUEY4amE0?=
- =?utf-8?B?Z1Yzb2tNOUJ6S3BZN1Brd0pCb1UvUEtPeUJBcjlFZXdPUkZnZ3RuV0pMd1Nr?=
- =?utf-8?B?blhMUDBhY1JFaWJNcEo0MVgyd3VlUjBJQ253NHJjZzl6MUJ3MGJhNDBoRjFa?=
- =?utf-8?B?aktRT08vWkN5bXhYamhYcm1tMDY2S0wwc1dOR3phN2htZUg0ejI2T3JYZnFB?=
- =?utf-8?B?VGRndGNNMDhYQzRhS0xwWGlYazBqSmkwSUJuU0wySE1vbkxzTC9nZlZpRWw3?=
- =?utf-8?B?aXRTTGRRdGRmL0xoZVB2NkpyM1lzOVVUWUgyV3ZjYVIvTmZFaVMvUXMvM2tl?=
- =?utf-8?B?a1dxbkRDN0JXUzdOWTgzTEJIdElLUGZDYXc4cWJ3VVhETzBWS0VsbDlEa3FU?=
- =?utf-8?B?LzBpRFNwMG9URzJwVTl5WG9NTW1oR3FrQWVCd1pEa2FpTDJaWFhHRno1MVBm?=
- =?utf-8?B?eGJZK0dnYW9WRUpqTmlpYzdsak5KNEJYa1Q3cEM0MTFSdm9BTkJ4WHZ0VFQ0?=
- =?utf-8?B?WUdTVzVHVXhzN0hqdHp3KzdRRHhQNnlkamJhUGhsZElJK2FuRDJxWWRHbktH?=
- =?utf-8?B?aGNIZVBMdzVqNndvTkVpRnRHSWVGK28rQkVZRFpJUTBYS1R3TkNmREZRbjNt?=
- =?utf-8?B?by9mRzhTMXVXZnk0TjZWclVhR20vYW5VbWZrZXU3aTBMWFJERytmTEV1Z2E3?=
- =?utf-8?B?L2gva0VvSXJOdzNRNjZNV0g0bkx1Z2w0QVdIZmFJSjcrakIyNk85VTJjWHp3?=
- =?utf-8?B?RCtxeFkxQWZ6ZGxOZ3ZmMWNWc3BWZzNJNXlTcjd1c3R1RXQ0SkhUU04wRTRX?=
- =?utf-8?B?bE0vVm1YRERhdG1BL0ZPb3NYdS8wNmt0dUk0OEt1MERlTDZNU1Vzb0kyelZ0?=
- =?utf-8?B?U29EUEphWWxMNE5UMXBQd2cxbnY1RjhtRnlnRk0yODREVjFpVnVTRmt1Z0dG?=
- =?utf-8?B?RWpkMmVxTldJRTljT0VBRXFTcko4ZDIrZENwK293UVFNNFoxbjYyUFB6cjBM?=
- =?utf-8?B?L1RSbEk0eGFxanRVbityb3NWcXlTaE1SYXZkQlBmWks4LzUvczVzdmhjcjF5?=
- =?utf-8?Q?I2A/JK5/bILZRRiFMj?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da56025a-4a2f-4a47-7c3d-08df4a2794cd
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2026 12:36:37.2768
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 27sY3Rr2a0wztZlzHvLMGZIzFiy4Uq0kBGeO/HSHqWgvc9ki3obIq/Yx0pH+fYxx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4370
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43O3WrDMAwF4Fcpvl6GJP8lvdp7lBISW0481mY4I
+ WyUvPucMraOXCx3OhJ8Rzcxcoo8iuPhJhLPcYzDNQfzdBCub64dF9HnLAjIgIaymKnOswQkWU+
+ vF04ucqq7YejeuHbDpQhKBRdaNFqCyMx74hA/7hWnc859HKchfd4bZ1y33zjS//iMBRRGkrGAT
+ poKXxL7vpme81Gs+kw/IgLhDpGyyMEwk/el024jykfR7hBlFm3pySnXlkbZjah+RQS1Q1RZxBK
+ rBtACQLsR9YOIe37Uq+i4sjpQUzX+j7gsyxcDO6a/GQIAAA==
+X-Change-ID: 20260508-v2_20230123_tjmercier_google_com-f44fcfb16530
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
+ Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
+ Philipp Stanner <phasta@kernel.org>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
+Cc: airlied@gmail.com, cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
+ selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ op-tee@lists.trustedfirmware.org, Albert Esteve <aesteve@redhat.com>, 
+ echanude@redhat.com, mripard@kernel.org
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795525424; l=9579;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=si3R7b0kcAGLEUfejc/PsZKusnANP7SCv7uuLauSWDw=;
+ b=tJGGA22KuFlVrI5rdm5SUwjA4Gc4/fTVuyvaq/v/YYF5DA/eXjf40+QU/bS9kCDYD82+zs2Hm
+ Dxn5Vd7+N1LC5MIaX9NH1jtOk0iod58Bz11JySE6hKyVamsSmtm8lMS
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On 11/24/26 07:23, Alistair Popple wrote:
-> On 2026-11-24 at 05:37 +1100, Christian König <christian.koenig@amd.com> wrote...
->> On 11/23/26 17:57, Jason Gunthorpe wrote:
->>> On Mon, Nov 23, 2026 at 02:36:46PM +0100, Christian König wrote:
->>>> On 11/20/26 06:55, Alistair Popple wrote:
->>>>> From: Jason Gunthorpe <jgg@nvidia.com>
->>>>>
->>>>> The SGT (Scatter Gather Table) DMA mapping type represents the existing
->>>>> sg_table/scatterlist based DMA mapping. For now it continues to use a
->>>>> sg_table for map/unmap, but this will allow a future patch series to
->>>>> convert to using a different data structure for importers without having
->>>>> to convert all at once.
->>>>
->>>> I strongly think we shouldn't have an SGT mapping type in the new DMA-buf mapping API.
->>>>
->>>> Instead we should have something like either an array or an xarray
->>>> of DMA addresses.
->>>
->>> My plan was always to get there, but I don't think it is reasonable to
->>> start there? There are too many places all over the place that are
->>> just hardwired to do SGT right now.
-> 
-> Right. There are around 70 drivers upstream that make use of the sg_table handed
-> down via a dma-buf import, so I don't think it's tractable to convert them all
-> in one go. So obviously we will need some way of phasing this in to give time
-> for each driver change to be implemented, reviewed, etc.
+Shared-memory allocator services (e.g., Android's gralloc)
+allocate dma-bufs on behalf of client processes in different
+cgroups. Today those allocations are charged to the allocator's
+own cgroup, leaving client cgroups with no visibility into their
+actual memory consumption and defeating resource limits.
 
-My suggestion is not to convert all drivers in one go, but rather to come up with some sane representation of the DMA addresses instead of using an SGT in the new interface.
+This series adds memory cgroup accounting for dma-buf allocations,
+building on T.J. Mercier's earlier series [1] and incorporating
+feedback from previous versions and LPC discussions [2].
 
-> Obviously some of those will share a common structure/helper and conversions
-> will be similar, so that is an over-estimate. But based on an initial poke
-> around there are plenty of drivers that bake the sg_table more deeply into their
-> data structures.
-> 
->>> Part of the design of this series was to allow the conversion away
->>> from SGT to be done incrementally without breaking compatibility.
->>
->> Do you know the joke from the hitchhikers guide to the galaxy where the dolphins are happy for exactly the same reasons?
->>
->> I'm pushing against this plan for exactly the same reason because I think it will make the conversation away from SGT even more problematic than it already is.
->>
->>> So it is effectively this:
->>>
->>>> The framework should then either connect the SGT directly if both
->>>> importer and export are using the "classic" interface 
->>
->> Yeah but that should not be a separate mapping type, it's rather that we just convert back and forth from DMA addresses to SGT for compatibility reasons.
-> 
-> Right, I think this is actually fairly close to my plan, which is to provide a type
-> for each address class an exporter can produce - either a CPU physical address
-> or some device context + P2P/MMIO address but in future could be some other
-> interconnect type.
-> 
-> The core then negotiates compatible types and adds converters between them,
+Patch 1 introduces the MEMCG_DMABUF stat and the
+obj_cgroup_reserve_dmabuf()/obj_cgroup_cancel_dmabuf() and
+mem_cgroup_commit_dmabuf()/mem_cgroup_uncharge_dmabuf() helpers
+in mm/memcontrol.c
 
-I have strong objections to that plan and would potentially NAK it.
+Patch 2 wires up the charging policy: dma_buf_export() stores
+exp_info.objcg and updates the stat, a new charge_fd field in
+DMA_HEAP_IOCTL_ALLOC accepts a pidfd or cgroupfd to identify
+the target cgroup, and __GFP_ACCOUNT is removed from system-heap
+allocations to avoid double counting.
 
-DMA-buf should *NEVER* accept CPU physical addresses nor provide conversion between different address types.
+Patch 3 adds DMA_BUF_IOCTL_XFER_CHARGE, a general ioctl on any
+dma-buf fd to transfer charges post-allocation. This covers the
+double-hop allocator case (SurfaceFlinger -> gralloc -> kernel)
+and works for buffers from any exporter that opts in. Charging
+is gated by dmabuf->objcg being set at export time, ensuring that
+transfer is only applied for buffers backed by system memory where
+size reflects actual bytes. If the receiving cgroup lacks capacity
+for the charge, the ioctl returns -ENOMEM and the original charge
+is preserved.
 
-Keep in mind that DMA-buf is solely a container for DMA addresses, nothing else and it should not provide any mapping functionality whatsoever.
+Patches 4-6 add access control for cross-cgroup charging. Letting
+userspace decide who to charge needs to be a privileged operation
+because it has material impact on OOM decisions and resource limits.
+Charging outside the caller's own memcg subtree requires
+CAP_SYS_RESOURCE. On top of that, LSM hooks gate the two charge_fd
+flavours: security_current_memcg_charge_task() for the pidfd path
+and security_current_memcg_charge_cgroup() for the cgroupfd path.
 
-> and having SGT as a type is what allows that. It only exists for unconverted
-> exporters and importers and eventually goes away once everything is converted.
-> The idea being we don't have to convert everything all at once, whilst also being
-> able to add support for different interconnect types. Are you ok with the SGT
-> type if it is just transitional?
+Both flavours ultimately charge a cgroup, so the SELinux
+implementation gates the two with a single cgroup:charge_to
+permission. The target type keeps the distinction.
+The checks run at target resolution, before the CAP_SYS_RESOURCE
+baseline, and cover the caller's own subtree, so policy needs
+a rule even for self-charging. The SELinux controls are covered
+by new selinux-testsuite tests [4].
 
-Not really, it just complicate things.
+Patch 7 adds selftests. The tests and vmtest script were mostly
+written by an LLM, closely following the style of the surrounding
+tests and the virtme-ng setup. All code has been reviewed and tested.
 
-What we should do with the mapping interface is to add the information in which domain the DMA addresses are to be used.
+Known limitations:
 
-The conversion between SGT and DMA address array is an exception we can make to aid transition between the old and the new interface, but that is basically a 1 to 1 copy between different data structures.
+- Single-owner model: a dma-buf carries one memcg charge regardless
+  of how many processes share it. The owner is deterministic, set
+  at allocation time and moved only by an explicit XFER_CHARGE.
+- Only memcg accounting. CMA heaps would additionally need dmem
+  controller integration.
+- If a transfer fails (e.g., the receiving cgroup is at its limit),
+  the buffer remains charged to the original cgroup. The allocator
+  (userspace) is expected to handle failures (retry, free, ...).
+- The LSM hooks are intentionally narrow. Broader cgroup access
+  controls (e.g., for the memfd/kexec handover case [2]) could be
+  a separate effort reusing the same pattern.
+- Only system heap sets exp_info.objcg today. Other exporters
+  (DRM, V4L2, etc.) can opt in by setting it, but are not
+  covered by this series.
+- Related to the above: lazy backing-store allocation is not supported.
+  This can be extended later, e.g., by adding a flag on the dma-buf
+  struct for explicitly marking when memory is committed.
 
-> As discussed a bit previously types also add enforcement of the rules around when
-> the exporter type/location can change.
-> 
-> I do have most of this coded up, so can post a mega series of all patches if
-> it's helpful to see the overall direction in code form. I didn't do that because
-> this conversion of exporters to not return sg_tables makes it quite a large
-> patch series, so I was going to post them as separate RFCs building on top of
-> this. Not sure if you have a preference there?
+Note on TTM/GPU accounting [3]: that effort charges system memory
+allocated for GPU buffers per page, with its own stats (gpu_active
+and gpu_reclaim). This series charges at the dma-buf level, for
+memory with no memory.stat category of its own; exporters whose
+memory is already charged by their allocator must not opt in, so
+the two do not overlap.
 
-I think we should have the core interface plus some test cases and at least one driver converted over as example of how the new interface would be used.
+[1] https://lore.kernel.org/cgroups/20230109213809.418135-1-tjmercier@google.com/
+[2] https://lpc.events/event/20/contributions/2416/
+[3] https://lore.kernel.org/all/20260706052330.1110909-1-airlied@gmail.com/
+[4] https://github.com/SELinuxProject/selinux-testsuite/pull/111
 
->>> And this:
->>>
->>>> or convert
->>>> from DMA-addr array to SGT and back if either of them are using this
->>>> new interface.
->>>look like 
->>> Is something I imagined as a followup series.
->>>
->>> As this is actually quite complicated and needs discussion exactly
->>> what it will look like.
->>
->> Actually that is the easy step I think because quite a lot of drivers already convert the SGT to a DMA addr array outside of the DMA-buf framework anyway.
->>
->> The more complicated one is then starting to come up with more bus types and doing optimization work.
-> 
-> Individually the actual data structure conversion isn't that hard, but there's
-> a lot of them and the mapping types allow you to do them incrementally without
-> breaking some unconverted importer importing from a converted exporter.
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
+---
+Changes in v6:
+- Unify SELinux perms into cgroup:charge_to
+- Drop the current cred argument from the LSM hooks
+  and rename signatures to security_current_memcg_charge_*
+- Add selinux-testsuite coverage for the charge_to controls
+- Rebased to v7.4-rc4
+- Link to v5: https://patch.msgid.link/20261117-v2_20230123_tjmercier_google_com-v5-0-1ce975f2a9ad@redhat.com
 
-Breaking classic users is actually completely intentional because we most likely still have people abusing the struct page inside the SGT.
+Changes in v5:
+- Reject dma-buf reservations above INT_MAX pages to avoid
+  nr_pages truncation (Sashiko)
+- Require CAP_SYS_RESOURCE for charge requests targeting outside
+  caller's own memcg subtree (Sashiko)
+- Hold an obj_cgroup instead of a memcg in the dma-buf struct (Thomas Hellström)
+- Restore mem_cgroup_commit_dmabuf() so dma_buf_export() does not
+  reach into memcg stat internals
+- Resolve the cgroup and run the LSM check against the same file
+  in get_obj_cgroup_from_fd()
+- The cgroupfd hook now takes the file and checks the inode SID,
+  so genfscon-labeled cgroups are covered
+- Rename the LSM hooks to security_memcg_charge_{task,cgroup}()
+- Replace dma_buf object class in SELinux with process2:charge_to
+  and cgroup:charge_to
+- Link to v4: https://lore.kernel.org/r/20261104-v2_20230123_tjmercier_google_com-v4-0-1819a017000b@redhat.com
 
-And those will need to be converted over to be using pure DMA addresses similar to how MSM has switched over recently.
+Changes in v4:
+- Remove memcg_account flag; exp_info.memcg != NULL is the opt-in
+- Centralize memcg bookkeeping in dma_buf_export()
+- Drop mem_cgroup_commit_dmabuf()
+- Make mem_cgroup_transfer_charge() generic (not dma-buf specific)
+- Add EXPORT_SYMBOL_GPL for reserve/cancel (system_heap is tristate)
+- Reorder: move xfer ioctl before LSM patches
+- Serialize dmabuf->memcg updates with the dma-buf resv lock instead of cmpxchg
+- Link to v3: https://lore.kernel.org/r/20261027-v2_20230123_tjmercier_google_com-v3-0-78d2c4cb8647@redhat.com
 
-So the whole idea is when you have classic to classic interface pass along the SGT between exporter and importer. Then move as much as possible drivers over to the new interface and start identifying where and why some drivers have problems.
+Changes in v3:
+- Split mem_cgroup_charge_dmabuf() into reserve/commit/cancel three-phase API
+- Extract mem_cgroup_get_from_fd() helper shared by allocate and xfer paths
+- Rename __padding to flags in struct dma_buf_transfer_charge
+- Fix UAF race: move mod_memcg_state() before cmpxchg in transfer
+- Add memcg_account opt-in flag; xfer returns -EOPNOTSUPP if unset
+- Wrap dma_buf_charge_cgroup hook in #ifdef CONFIG_CGROUPS
+- Fix TOCTOU in SELinux charge_cgroup xattr length handling
+- Link to v2: https://lore.kernel.org/r/20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com
 
-Regards,
-Christian.
+Changes in v2:
+- Move charge_pid_fd to charge_fd, accepting cgroupfd in addition
+  to pidfd per Christian König.
+- New DMA_BUF_IOCTL_XFER_CHARGE ioctl for post-allocation charge
+  transfer on any dma-buf, not just dma-heap buffers per Christian König
+  and T.J. Mercier.
+- Moved __GFP_ACCOUNT removal to patch 1 per Barry Song.
+- dma-buf charge/uncharge helpers take struct dma_buf * directly
+  to avoid the need for caller to manage size calculations.
+- Added test_xfer_charge_cgroupfd_self to dmabuf-heap selftests.
+- Added LSM and SELinux hooks for cgroupfd-based charging.
+- Rebased to v7.3-rc7.
+- Link to v1: https://lore.kernel.org/r/20260512-v2_20230123_tjmercier_google_com-v1-0-6326701c3691@redhat.com
 
-> 
-> That is also why I think adding the types now rather than later is reasonable.
-> The rules for when an exporter may change type or placement are what most of the
-> previous review discussion has been about, and I didn't want to drop them.
-> 
-> Thanks for looking.
-> 
->  - Alistair
-> 
->> Christian.
->>
->>>
->>> Jason
->>
+---
+Albert Esteve (6):
+      dma-heap: charge dma-buf memory via explicit memcg
+      dma-buf: transfer objcg charges via DMA_BUF_IOCTL_XFER_CHARGE
+      lsm: Add memcg_charge_task LSM hook
+      lsm: Add memcg_charge_cgroup LSM hook
+      selinux: Restrict cross-cgroup memcg charging
+      selftests/dmabuf-heaps: Add dma-buf memcg accounting tests
+
+T.J. Mercier (1):
+      memcg: Add MEMCG_DMABUF accounting infrastructure
+
+ Documentation/admin-guide/cgroup-v2.rst            |   6 +
+ drivers/dma-buf/dma-buf.c                          |  45 +++
+ drivers/dma-buf/dma-heap.c                         |  27 +-
+ drivers/dma-buf/heaps/cma_heap.c                   |   3 +-
+ drivers/dma-buf/heaps/system_heap.c                |  19 +-
+ drivers/tee/tee_heap.c                             |   3 +-
+ include/linux/dma-buf.h                            |  10 +
+ include/linux/dma-heap.h                           |   4 +-
+ include/linux/lsm_hook_defs.h                      |   2 +
+ include/linux/memcontrol.h                         |  56 +++
+ include/linux/security.h                           |  12 +
+ include/uapi/linux/dma-buf.h                       |  26 ++
+ include/uapi/linux/dma-heap.h                      |   7 +
+ mm/memcontrol.c                                    | 271 +++++++++++++
+ security/security.c                                |  31 ++
+ security/selinux/hooks.c                           |  19 +
+ security/selinux/include/classmap.h                |   1 +
+ tools/testing/selftests/cgroup/Makefile            |   2 +-
+ tools/testing/selftests/cgroup/test_memcontrol.c   | 447 ++++++++++++++++++++-
+ tools/testing/selftests/dmabuf-heaps/config        |   1 +
+ tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 237 ++++++++++-
+ tools/testing/selftests/dmabuf-heaps/vmtest.sh     | 226 +++++++++++
+ 22 files changed, 1440 insertions(+), 15 deletions(-)
+---
+base-commit: 8d7fe9885c62fc9a95bf55d9db244d9672a8aadc
+change-id: 20260508-v2_20230123_tjmercier_google_com-f44fcfb16530
+
+Best regards,
+--  
+Albert Esteve <aesteve@redhat.com>
 
