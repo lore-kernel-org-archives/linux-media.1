@@ -1,56 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795519985;
-	b=WeuEmVHEQ5clc1x1Hvdi8yteMiVvOY/rxROfVmJFmll8lliiWrZ8/f8dLOQH4ZyAniml
-	 5rxrIEh9k9i3xKpFBHS6/C5APDXfFvV843MF0v0fC6stL+trqVVgBUvvl+Jrf2stN/tRz
-	 qU57KarBHhlqVxylmLlfJA2zuX2cO+KaaIvZAIkM6JhG0GmeGnO7Lc5D3cMfvw1Nn2hI6
-	 zA7fuXRO5MOBkCYD3NOqf5ySF9To3PXYII9HXPNx9B1CmJjC1/W3z1o+8caZ40P97gMCE
-	 OzHQuYfiOsdT1tyCfT1KPiJkbIwcAtUuf8uFG+/sIf9+rrC1NAsd+iN0yHRBc6SHo1w==
+	t=1795520876;
+	b=jXCcBWXKvhtoe42BR6FZ8tLIKeKiUTq/S36zj9bDi5eEZU0mwvLW1hjvVLOFIHbf8W+3
+	 GyK1HeNCz1P2FFWzrV9S+xT4+GqzXlV9kYAmP+ZU119sPgM9EpYVpNFcN3Ilihy96jZL5
+	 Ovz++LsaHtif16/KuT/GVai7yeA48XoVqJxsmEvyvhh1mJRcbBAsA+Ov+OUQRJ1UtvZbl
+	 exaeUvqHE4SRJqk1VmZleUlgAFaKK0IH6zcIxN1h73+w7vtEA2AhyGwBpnjXDNjv6s8bR
+	 QX0CIVR8PMbLcc9qwFyeciqRS2MHosgosWVphwz5E9eMTl5zkaBWsvRog95XzJWBSRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795519985;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=2wAI0U0Aw0/Hir5ZBaG+OuSVl8tgrjIkUBH/D+QX9qY=;
-	b=ljWaTVjy0LEk0pjI0V4L8nmE8Ib4qvoRF/DUmJ80Ta62MpuR2pAmlHCwv9jzT6NqToLB
-	 JyX7X0yN9ogxDWqH712moScRMh+tTGy09736LugnfqU1Nta21YehxEXPmMDRjx3q+yBnv
-	 BSQheiPfprqvbWkkyo27R+fZyPCGkjCY96fdSEsv1VmxI83MXHrM7PVPLLboa1T2OIdV3
-	 9RKJ0KWnwXl9c4AyF31D02q2Psp4qjrqAwSlGXfLHG3386PTks1OPid5dhcWwnUsc/Oma
-	 acTXncx9WaSQkg9d2rRNcWervVweSQaPiQ4gRagnNvDZxWBsdMrSrQO6Ob3q7uQLYEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795520876;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=GY4X2427yKwcvmSccJzJO+cyNWHTwTN9g9RJkbIPSls=;
+	b=LBT0kF3Uh7urKzM7ju+SKQeL4yWBzxThNHZsJUL0DhWyjju5XZRwWQVkqZkMK7rVYvmH
+	 g56AI6GxZzXUHRzB9UnOPoYkJQDtauyI36uJ+7o5LtXMVa7bv2syMfQqmguyMlDRej90V
+	 WDpNwTz26scRgR/oR1ysgMPPn+DfRCbzvzTYVqDx/TS9++OK+ichb2tzFyoY4u2Q24Sse
+	 SiI4ICFUSO7o0E+OVpbgp1t25WN9nZvayPmFk16ffBqnNYTGi3tXte/an3/KTu5u/jvZY
+	 L93DFIzZdCl6ruJgf2+/1v5F9aUuZjk4jw+3JelG2gUS3k//WswOhmfFuVw6pEf3JIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=MrtIoEdm;
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mek0rg0H;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B017606A327;
-	Tue, 24 Nov 2026 11:33:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B017606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CB3606A322
+	for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 11:47:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31CB3606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=MrtIoEdm
-Received: from [IPV6:2001:1aef:2a:b353:5e1d:f68d:d59c:573d] (2001-1aef-2a-b353-5e1d-f68d-d59c-573d.ip6.tmcz.cz [IPv6:2001:1aef:2a:b353:5e1d:f68d:d59c:573d])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 43FC1534031B;
-	Tue, 24 Nov 2026 12:32:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1795519976;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=2wAI0U0Aw0/Hir5ZBaG+OuSVl8tgrjIkUBH/D+QX9qY=;
-	b=MrtIoEdmb3J/NqCXE7NnWUVc+AA7w3GEgFuhFRdqShN9Mx1F7yJ9dlRtoUkzT6RqWU2vLQ
-	15mXrxlv1HqJZk0MUGLl3IFx4tlPDL2GuaU4g3AoeOivDdXWqbibaYIQw5OFlN/hnWlhfY
-	W7148AWAX08bqBAFI2ywcJ2w06FCKng=
-Message-ID: <6f6af2c9-bad8-4073-9589-c6c72bee37c2@ixit.cz>
-Date: Tue, 24 Nov 2026 12:32:55 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mek0rg0H
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-491971ac844so4028725f8f.2
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 03:47:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795520874; x=1796125674; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GY4X2427yKwcvmSccJzJO+cyNWHTwTN9g9RJkbIPSls=;
+        b=mek0rg0HoMDQQWqq3r+W+sp1S6saVIYENtmuVRsWObbg6ISEyXh7jzBRMYFADOwxT6
+         uZhHPGi2/jy225RsceAaiHdW2kehAopL5/4UNRFFtcWVAZZ73SIKlUYpCoujjBoaLg2z
+         2E10xdXgjgvnkA3mjDmbVEGQ1n5euxXYgZn5ikrml2L7HY0wYm63dVT7HIITxkGFNMSu
+         tbceSaVfgNMvO/btjSHL5ZaIiP9CBj0wtxDutWgeVQO4LPxUPnabrztcBuPD07NP/uHk
+         D2ZUnWrLl0Ne+RwfXmUH3JQb+whItJoxQY9K1jEjgguj6blAkvEtdNvS+pfrxxUQNRUB
+         kbHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795520874; x=1796125674;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GY4X2427yKwcvmSccJzJO+cyNWHTwTN9g9RJkbIPSls=;
+        b=lH94pAjiQEkgBtGl7xTkyqfEr9X2hIhRsLOl3vcBfq0R+HptzSJEk7WZaTvNckswvw
+         RKPjYL5CVJqwsxM0IgJ9XqRRLI2d0nKaL5B3WDDAE5HSZUwUq+277+VoSA6CvivaL/bx
+         p8nEr9fiPUgeZchQxgam2GTHxGmnavBUblNnETfETHK9zb0b5R9OP4cFcOJ7RnqdK741
+         IpSGAzqnj10yGRbMcWpX7AmDaifYo9fI/tib7nyFBXQlGmZjvsFoKMF2uUa/B/d4JFHu
+         hKM7R/j4jguISP6FXcUYe8UMSGfxUe/3TlyA0cJJjLe8ZxzUIFS6BAQZblzmlIUEtoCq
+         dFSQ==
+X-Forwarded-Encrypted: i=1; AL+hErE6qRdVE+MNbpdda6p1rgYQara2gqGVKQL6fqjg2I0nUfRZf+nskZEJ3S0CDJuUZBUc4vlnmyT48HXFog==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JuFqj5+ZgGlIuIOb0k2p9hHgge3oL9tpdi9NvHDYyBUA0M355
+	uYacuB8zFf7NBDT1cCPxarBVLMYLB7V4eLZn00mlkJe3EtLg2hlrjBzzUx1K0fSkMH4=
+X-Gm-Gg: AZFdTZdjhWWs2NKPeGjaY1+FdVxnxAWbx1UQacoMK5JanqyZIawhqDIWQqeuPdAc1eI
+	wtP/ZzpUeK2g/oSaK4I+t/vd20ZkedOEs+5JIDO6qZ9ZYHinWqcMB8sni5KLVJGTCzWQ8+QtFXG
+	vzq7sQ1iiwx9EGHo8Gu1mkUZvRBAw6xUzOMwgO+6VdreXA2QbXp62h1VpHRt7fG4CBEpuMjpPXi
+	+Vy2nbS47Qt3apK9mXOtEJZhI5gAhbVhtde/H/zinbp9kuiiAfuzTn7WM4phiyTOmVl3hn9EEd2
+	tQ/TIETLVIk3kShpx5bjwRO2PqNl7GXjaM/RWtB4qMa575tUhhs5bu6qiQ9l1Ru3JWw8diSXDqS
+	LJvvp8zwcKatSqH72jbInUt321yW0PxJvfQS4Srlft0eqN/xGIbNq8xSBD+VtspbxYgs4T5w16q
+	fHtvYizKLQRYIUMHKfHbM/ayOGCTECdA1/xRZi21oc1HHrBE5570+25Havc/uj+BgJA69nJSNAj
+	uOwNHByDp1dj9+E3dkP23zckIZG6y+sFCmliTsJoB/tF2vywoAA4DTItRks2DLEOCzTnHN1GZrw
+	kS/o+dJ5aqzx6R+6SX4elgXqgFfb2fqDvfI7l0QG5D5r
+X-Received: by 2002:a05:6000:2c05:b0:48e:870:7791 with SMTP id ffacd0b85a97d-4abb18cbe21mr28231125f8f.26.1795520874481;
+        Tue, 24 Nov 2026 03:47:54 -0800 (PST)
+Received: from [192.168.0.167] ([109.76.241.250])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4b70c05b9desm3362842f8f.54.2026.11.24.03.47.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Nov 2026 03:47:54 -0800 (PST)
+Message-ID: <d695ccb6-f8f3-40fb-8bb5-ba138bdd0814@linaro.org>
+Date: Tue, 24 Nov 2026 11:47:53 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -61,72 +91,82 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] media: i2c: imx355: remove redundant
- pm_runtime_dont_use_autosuspend() calls
-To: Joshua Crofts <crofts@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261110-media-remove-dont-use-autosuspend-v1-0-cc07e71b30f9@kernel.org>
- <20261110-media-remove-dont-use-autosuspend-v1-1-cc07e71b30f9@kernel.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20261110-media-remove-dont-use-autosuspend-v1-1-cc07e71b30f9@kernel.org>
+Subject: Re: [PATCH 0/6] media: qcom: camss: Report the hardware SOF timestamp
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20261123-camss-hw-ts-v1-0-7b62dda6d7a9@oss.qualcomm.com>
+ <68bf8d15-8ebe-4d19-8f77-f49ca0cb5488@linaro.org>
+ <CAFEp6-3U+X3gE_AMqn5G0MFFsdqxRGHV+u04iiBJ0RLA_Sb8Mg@mail.gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <CAFEp6-3U+X3gE_AMqn5G0MFFsdqxRGHV+u04iiBJ0RLA_Sb8Mg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/11/2026 15:03, Joshua Crofts wrote:
-> Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
-> driver core is now responsible for undoing any
-> pm_runtime_use_autosuspend() calls on driver exit.
+On 24/11/2026 10:21, Loic Poulain wrote:
+> On Tue, Nov 24, 2026 at 10:59 AM Bryan O'Donoghue
+> <bryan.odonoghue@linaro.org> wrote:
+>>
+>> On 23/11/2026 17:16, Loic Poulain wrote:
+>>> The CAMSS CSID latches the ARM architected counter on every start of
+>>> frame. This series exposes that time to userspace, both through the
+>>> V4L2_EVENT_FRAME_SYNC event and as the buffer timestamp.
+>>>
+>>> Until now both were taken when the interrupt was handled, or worse, when
+>>> the frame had finished being written out to memory, which is about a
+>>> frame period late. The hardware value is free of interrupt latency and
+>>> is directly comparable with CLOCK_MONOTONIC, so it can be correlated
+>>> with other timestamped data such as IMU samples.
+>>>
+>>> Patch 1 lets a driver fill in the timestamp of a V4L2 event instead of
+>>> having the core take it. Patch 2 passes the SOF time down to the common
+>>> CSID event helper and adds the counter to CLOCK_MONOTONIC conversion.
+>>> Patches 3 to 5 read the registers on csid-340 and csid-gen2. Patch 6
+>>> uses the same time to stamp the captured buffers.
+>>>
+>>> Patches 4 and 5 are picked from the timestamp support Bryan shared
+>>> earlier, with patch 5 adapted to use the conversion helper added in
+>>> patch 2 rather than its own.
+>>>
+>>> Tested on QCM2290 (Arduino UNO Q) with an IMX219 sensor.
+>>>
+>>> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+>>> ---
+>>> Bryan O'Donoghue (2):
+>>>         media: camss: Define timestamp registers for csid-gen2
+>>>         media: camss: csid-gen2: Report the hardware SOF timestamp
+>>>
+>>> Loic Poulain (4):
+>>>         media: v4l2-event: Allow drivers to provide the event timestamp
+>>>         media: qcom: camss: csid: Pass the SOF time to csid_sof_event()
+>>>         media: qcom: camss: csid-340: Report the hardware SOF timestamp
+>>>         media: qcom: camss: Timestamp buffers at start of frame
+>> So I was offlining this change and kind of left it at comments I
+>> received to make the type of timestamp selectable on a per-buffer basis.
+>>
+>> IDK if that's really required for a first pass but, its where my own
+>> reviews were left at that time.
 > 
-> Remove the redundant function calls.
+> I can imagine this being useful in some scenarios, but today the
+> timestamp source is configured per queue, and there is no userspace
+> API to select or switch between timestamp source flags AFIK. So I
+> would consider support for that to be out of scope for this series.
 > 
-> Signed-off-by: Joshua Crofts <crofts@kernel.org>
-Reviewed-by: David Heidelberg <david@ixit.cz>
+>>
+>> ---
+>> bod
+
+It's on at least one branch I have its not finished but on the way
+
+git://git.kernel.org/pub/scm/linux/kernel/git/bod/linux.git 
+linux-next-23-04-03-sm8250-typec-camss-qtimer
+
+That's where the other two commits you've picked up come from.
+
+Please have a look.
+
+---
+bod
