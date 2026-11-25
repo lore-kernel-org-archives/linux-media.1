@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795609984;
-	b=dhFqlQTb7CkU2/4jMhLv2rvhDI7VhYjXNEB84apDYWq4+satpNhmnke/8ZuaQsVuIqrl
-	 DHJvhc607pS5nRpUofnyshHUINYOe5OzSE5hA1d6Uy0SUObCEvSouZp3r8e2K3OPs5JrD
-	 wBV7VAaavh3lX3wkZ0F+I0DbmQ9Ja7RGa46ePnQBMk9UQDihb6Bk7mOTHlo31h5ES7kle
-	 bsvUmT0/3MPolYLzSOPQjHpekyhlceAitWtj085BRfxJA4RnwbmiJjCAXRQISRicQGGRV
-	 UTkBNLt/K4S4l7ptoVMZ8wyKMABDRr4VqRBU5FZOIarwYku2p/ufnUi5wzOUxEj+J/w==
+	t=1795609991;
+	b=Ryb11eCmkgRh8NyIksp0cQqu662UstQGquaGCNY8nnPkhn/Vj1DLgs72RP7ry+YkmPck
+	 iIpb+/HjsS8qqMy204RpNIGOo29OdeaANwFF9uiqwLYf8SBRtJtGI+GPJgc71PhqiMYuN
+	 jB24WM7FruYHrj0T+2ChXb+fZjiVWhGdjhduE2J19OBlhSUuPnC7NHhv7F0N6is2/dxqk
+	 vqWLD0RaoDEWQ2F//QyWKajinKuD8+PKDdrpV6AyamOJhvKCoizIrnSgji4DtfsHMiN1V
+	 E330lHtNrss4UGbAJ3nTBKLL395u98QM5tCALGktYJPDzTtHWPjKpOW/fPy8FJc6BEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795609984;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795609991;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=XrmiWN0RfmRYxAFHEnER/29ybDiYtON/+CSkIVSihoo=;
-	b=m3RP8njxq3iKTvuxRgLK7eDX1oJnn/PxXRWK8YBkMR2C6HbQWXl3qn5KutS4Us7gHe2F
-	 djvJXXQg2VDb3rxl21NVIl3SxaIFwPoy4J9VBjWK6PY/76pnnix0CXvjD6IDpHrYMOJWA
-	 8guCL4ZyQu41jP5tLblnV45lpa+Q8s0xNmI/twKQZp1WEyXp8Df0i/kxcxTxG6DCrRpwE
-	 KkXlTBrMYHUch9mt+51TPLhdRtZ2k/qE9keLARU2CwlvZf8Ax8eQEcQzOaIJlP5EsBRPd
-	 +NOcsUM98rou1kVqKkjlJ5NypXTCQY0koSUOrgbyeUYq/NnvUY9RXfw7c7FVpTwFEZw==
+	bh=mIOi4XotjSG5N0aylWyaQJUjmIRTPs8fHeL4rfibqSA=;
+	b=xPlMpBjGFDywQluYHAAxmicHvKsdbl+gf6/ow7I3oxDzSdOPk6/6J1KeR6HUYFg4Z6w5
+	 lHy7jO9VmvyGf6y2E/2zxdrLypWtZWsoODtj6f+KYhkixXvc42jpouWQM/blCe7BRatCI
+	 4b4mDaRuVXGvdT2J8Ial8rvCgoo0ozObBXcDCCYdjx2TkCRmk3Ga2wV9S3YHUSoPmBkXZ
+	 KGY34tGHwQ1KqoM9/tubOnX8i7KpcIMhkMY29oiSZE665ozW2R5pJot/iCYm9vp5sAMFn
+	 kXwUcH1JjS3gP/E/YVlNVqMbc8B0kvv4ALLLaUsxWthvxslykZHPxyrJn+T5x1qL4uQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pC7e4Tow;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=coF9vi33;
+	arc=none smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F6D606A32D
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 12:33:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07F6D606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D9F606A332
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 12:33:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25D9F606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pC7e4Tow
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b44bdcea8aso3105204a91.1
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 04:33:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=coF9vi33
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cddac941ed1so2479248a12.2
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 04:33:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795609983; x=1796214783; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795609989; x=1796214789; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XrmiWN0RfmRYxAFHEnER/29ybDiYtON/+CSkIVSihoo=;
-        b=pC7e4TowBq07iuZ4y/V2Azz8DZEBcz5f/ooB8HhwvMJ8b/JPiDLLSv6l4I8JNS9eXO
-         CAwqOcmn7TztolZqch7C1SGkgbX8Ms6bsJZC8jpba8z3Hh8jnqmPRBmNCZLLliSdYfO7
-         nHkG/ClMmYZnxBVH0ewd7HwA52vNZb8i90AbeDemAWjroBT3elNLNwvkPGtRhwJPK/t3
-         Nqvm+3txWbK41qNyVrLBzA61co+QHSAAoQMGWyyg6uqExUAtc8EQl2EazR3TRAoMMBow
-         u4/UrK/cSykDILQ7/427LXXZWM+9+oM6dv1TQ9OssOrqGkiRMjIbL7OYb7A7ahTc20he
-         K1YA==
+        bh=mIOi4XotjSG5N0aylWyaQJUjmIRTPs8fHeL4rfibqSA=;
+        b=coF9vi33SW4tbGka+gZC7pdGpyvIY0OtwIIMqCJW6vpl0uAXM6J7Dc9W2kSeYwyCPX
+         vM0U2N5kitDKak9f1DbQyMXw4taeVk6nLXeJ4JltlSKzQBPEtXHcJoiTegnw8Txj+zkq
+         0dpgRSgk8+Pnf7PFRT5Mdo7IrR7VeBUzba7Q4m13xsgciEGMxd+fA8czVgId49TI+GQR
+         rpsX3ijWrEAtMHym5qFNdSkOviJpeYV5UDF8U17c5P4nWNLLYz2kaHvV+txYkXyPYsu+
+         wRQ91DV59oa740lYbhXpNM2UjhvWiUUdtoADlXYyYNp3s9oedX/hyfaa2obE8JmwwlVc
+         mqgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795609983; x=1796214783;
+        d=1e100.net; s=20260707; t=1795609989; x=1796214789;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XrmiWN0RfmRYxAFHEnER/29ybDiYtON/+CSkIVSihoo=;
-        b=GeECbzgGeZ3vkr2G2Z4eHEeB1oogu/OhiRXk0SKZUkhP3+GgKIfCtbF4TyoKGAJ0hY
-         IIw6sEhDSzphiweO4PqFBiGRhBuHFagDkwgyWm/YYhSGQKnZLea+MkAEpAJpcl28Xcdl
-         NIGU65pMvZO6injYSCGfTjs56olqSCXEbkDByeAyNMZ5bYm28JQvjOC6upAucptsbq8m
-         fyfmamdUBobbNReSV7hcxucwp2meVx7y/17+M4Fh7OxN5eDpuuQ9yyZ5keDP/URxdFSi
-         gQjONaz/IHbpC1bflwvZvwd6CNe+snP+nPHsd7wgJLos8cHNuYmuBI18pP70nO3BZ97v
-         4MsQ==
-X-Gm-Message-State: APuU4Z8ecUx39XCBL7c8/D7HUTocVB6ozMcb8mEF86olI7v1HVKKMXQT
-	cNc7QCmD6UzbBds9FCiv7lut96i7K6XfA4OsoCtTI+6D1R1K0Dc/+vMO
-X-Gm-Gg: AZFdTZd+l6yu0xe2siGI66nK+qIES6gpjzueWfCrDoGAAz/DXQNZj0OVl0OJavjzMim
-	mQSlfhYS3kf4yUkOYbFQSgpo+EN7cvr7LrZZnhDukKv35KrtNu48vfE6OsfzN8O0TBXs2lAXHwV
-	JEQ+tXa9Nx9vlf1Sq6YbH6ETyvnQze9NkUL1mzjrUdu2Xj7Hy5Z3RA87hCEotmNRULj24xGYHp6
-	NBgS5QZJK8/bEff6ZOEvDDXmzb1rrx4D+PDPaZ7Ql3W6ykpm3u7dk4Y+1g39FCofP2l3vw/Z5hv
-	Oe3UDghbtv7F4Xl9dQZ9Vf2iWQfPYgLss/Ve2WGd07QlOHysoZFavKdo6eg6D9hgzV2p+BqXeH9
-	0iZZ4cNsfMsMNXAma5lGcsMRVm4gCZGYRXBGQjctDGp7phIPUmjQ6+cvtr4HdPDKrntKY3ZJzrt
-	NmMvrPLMJ1VS+Nj2RzagiN8Fz0rN8t9foBO5Qq1NJCmg+K/emsO/wg4J7Z2vhtOnz2Oxc9h0T5a
-	QatpifLJ+XmEPSYxOshIqp8SF3E0fa5AF4fGS1YQW7hbZXBWgw8OiafOSWNozS+JLoaVu6zcoO+
-	2JBV7eOJemqzxdqQXwDgUyyZ1Vdi3XX5V17+vMV1z9C58kY=
-X-Received: by 2002:a17:90b:248f:b0:3b4:fd89:5f58 with SMTP id 98e67ed59e1d1-3b4fd896972mr426410a91.15.1795609983333;
-        Wed, 25 Nov 2026 04:33:03 -0800 (PST)
+        bh=mIOi4XotjSG5N0aylWyaQJUjmIRTPs8fHeL4rfibqSA=;
+        b=mc/vTZUB9hO7yS5icK8DPS9A+SFfhc5bhxm+6If+CMnGb6dX41gl126Bge+VSvmCb5
+         j6rBy/DP2fxhbOL+lPyzlEks3Z26OMQwHo6k84UitBEF+b99oOvhEfnAYmRwUsWxqGmU
+         qpe8eUKlWWEtESKwBv/h0LcGKMlQlSzSdfWyWuA4TWviPEoCAvqE8qqCbytPxroePKt+
+         y9TJrrbHzhD0rTVGuRYc3A2/ykTtaO/1lHk/vMcz0KhsgXvLytVY/AaL+tKQafaSBX1H
+         cgX5ltplX6uNlHWUDeQlcZCWfoovUjlZt1WCE4TUheLAZ54J9WBY8Bcy62v4flhUY2JR
+         S6PA==
+X-Gm-Message-State: APuU4Z8ItIVTBNI14rs2E2JrVavBCKap/1X9jsVL9BpEhiHdhGtMAw/S
+	kZIOKj/Uy7ugxP5lJRIDOBQMFMeTUXKwFiK1Iv83O5FkDycrhrAAmWOR
+X-Gm-Gg: AZFdTZftqkOFZxrzYRFgLT6EkMmjscleO9s25xQkVQhJARzRMqwzSReLE6hHgdJfeqV
+	XxWZVXnI5/UMBkC0JXUnDpUe/MgRtYHdnebmJot34Ni1+SuTdRj3gyO9WJ7LTxuQTccU8bZYlIO
+	L1bpTOBawL7Ibifwy0xvO+Ek4eFHpsgay2r4oPwV/CbKioGNxEi6Lvn+3Qq/R9u5NuQCNkGloHW
+	Sw/pC+myAvzT/ZdtRbYCG4qbCJ0GlIh04F82xK7wjZxcQj1Obi9KzfJ+ldqQ9IQ1QsVk744bzLU
+	v+W0V+J68UbNhSH1juKYbm9TyNoXDu7PhsDrvA6JlE6jf3w8owAHSaVV56IsyWHlSL+HXJZgjFw
+	R9X1S655CWYnfi4V4unGqfF7NSPueiOV8avKgQbrz9RfDyGzQ2CEceZrPJuSLLxuFLvY5Rs9qfD
+	dDtQiq944MfrLmItqJk/29XIBTiawov7ca+PmggTgTPqGb62wQ+dQLdahvyyjNIdptpYKp/oSR4
+	eLYwFe5LFQmd0p+z0t8a8si8yIdYt9yBUpobyBWszXGdf5ApWr81SBBFUG+utkzUynm05aenBQo
+	ssEu3MeIEpUgUsTlmGjPg923QsCG/2+23ql+xvpfGGVe1Iw=
+X-Received: by 2002:a17:90b:4ccb:b0:3b0:9183:23ef with SMTP id 98e67ed59e1d1-3b41c7b67femr16891721a91.3.1795609989472;
+        Wed, 25 Nov 2026 04:33:09 -0800 (PST)
 Received: from localhost.localdomain ([103.118.130.202])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b792474sm12698366a91.3.2026.11.25.04.32.56
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b44b792474sm12698366a91.3.2026.11.25.04.33.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 04:33:02 -0800 (PST)
+        Wed, 25 Nov 2026 04:33:08 -0800 (PST)
 From: Hikmah Gumelar <hikmahgumelar@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -96,9 +96,9 @@ Cc: linux-media@vger.kernel.org,
 	linux-clk@vger.kernel.org,
 	u.kleine-koenig@baylibre.com,
 	Hikmah Gumelar <hikmahgumelar@gmail.com>
-Subject: [PATCH v4 5/7] media: i2c: add ov12a10 image sensor driver
-Date: Wed, 25 Nov 2026 19:31:44 +0700
-Message-ID: <20261125123146.379057-6-hikmahgumelar@gmail.com>
+Subject: [PATCH v4 6/7] arm64: dts: qcom: msm8953: add CAMSS node and MCLK pinctrl states
+Date: Wed, 25 Nov 2026 19:31:45 +0700
+Message-ID: <20261125123146.379057-7-hikmahgumelar@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261125123146.379057-1-hikmahgumelar@gmail.com>
 References: <20261125123146.379057-1-hikmahgumelar@gmail.com>
@@ -113,782 +113,178 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add V4L2 subdev driver for the OmniVision OV12A10 12-megapixel MIPI
+Add the camera subsystem (CAMSS) node and MCLK0/1/2 pin control states
 
-CSI-2 CMOS image sensor supporting 1280x720 binned 10-bit Bayer output.
+to the Qualcomm MSM8953 SoC Devicetree.
 
 Signed-off-by: Hikmah Gumelar <hikmahgumelar@gmail.com>
 ---
- drivers/media/i2c/ov12a10.c | 760 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 760 insertions(+)
- create mode 100644 drivers/media/i2c/ov12a10.c
+ arch/arm64/boot/dts/qcom/msm8953.dtsi | 145 ++++++++++++++++++++++++++
+ 1 file changed, 145 insertions(+)
 
-diff --git a/drivers/media/i2c/ov12a10.c b/drivers/media/i2c/ov12a10.c
-new file mode 100644
-index 000000000000..e314b0e2eba7
---- /dev/null
-+++ b/drivers/media/i2c/ov12a10.c
-@@ -0,0 +1,760 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/unaligned.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
-+#include <media/v4l2-fwnode.h>
-+
-+#define OV12A10_CHIP_ID_REG		0x300a
-+#define OV12A10_CHIP_ID			0x5612
-+#define OV12A10_REG_MODE_SELECT		0x0100
-+#define OV12A10_MODE_STANDBY		0x00
-+#define OV12A10_REG_VTS			0x380e
-+#define OV12A10_REG_EXPOSURE		0x3500
-+#define OV12A10_REG_ANALOG_GAIN		0x3508
-+#define OV12A10_REG_TEST_PATTERN		0x5080
-+#define OV12A10_XVCLK_FREQ		24000000
-+#define OV12A10_LINK_FREQ_216MHZ		216000000ULL
-+#define OV12A10_PIXEL_RATE		144000000ULL
-+
-+struct ov12a10_reg {
-+	u16 address;
-+	u8 val;
-+};
-+
-+struct ov12a10_mode {
-+	u32 width, height, hts_def, num_regs;
-+	const struct ov12a10_reg *regs;
-+};
-+
-+static const char * const ov12a10_supply_names[] = { "avdd", "dvdd", "dovdd" };
-+#define OV12A10_NUM_SUPPLIES ARRAY_SIZE(ov12a10_supply_names)
-+
-+/* Register initialization tables derived from Xiaomi Mi A1 vendor configuration */
-+static const struct ov12a10_reg ov12a10_common_regs[] = {
-+	{ 0x0103, 0x01 },
-+	{ 0x0302, 0x49 },
-+	{ 0x0303, 0x00 },
-+	{ 0x0304, 0x00 },
-+	{ 0x0305, 0x01 },
-+	{ 0x0312, 0x11 },
-+	{ 0x030b, 0x06 },
-+	{ 0x030c, 0x02 },
-+	{ 0x030d, 0x88 },
-+	{ 0x030e, 0x02 },
-+	{ 0x0313, 0x05 },
-+	{ 0x3002, 0x21 },
-+	{ 0x3012, 0x40 },
-+	{ 0x3013, 0x72 },
-+	{ 0x3016, 0x72 },
-+	{ 0x301b, 0xd0 },
-+	{ 0x301d, 0xf0 },
-+	{ 0x301f, 0xd0 },
-+	{ 0x3021, 0x23 },
-+	{ 0x3022, 0x01 },
-+	{ 0x3106, 0x15 },
-+	{ 0x3107, 0x23 },
-+	{ 0x3500, 0x00 },
-+	{ 0x3501, 0xd0 },
-+	{ 0x3502, 0x00 },
-+	{ 0x3505, 0x83 },
-+	{ 0x3508, 0x02 },
-+	{ 0x3509, 0x00 },
-+	{ 0x3600, 0x43 },
-+	{ 0x3611, 0x8a },
-+	{ 0x3613, 0x97 },
-+	{ 0x3620, 0x80 },
-+	{ 0x3624, 0x2c },
-+	{ 0x3625, 0xa0 },
-+	{ 0x3626, 0x00 },
-+	{ 0x3631, 0x60 },
-+	{ 0x3632, 0x00 },
-+	{ 0x3641, 0x80 },
-+	{ 0x3642, 0x12 },
-+	{ 0x3644, 0x78 },
-+	{ 0x3645, 0xa7 },
-+	{ 0x364e, 0x44 },
-+	{ 0x364f, 0x44 },
-+	{ 0x3650, 0x11 },
-+	{ 0x3654, 0x00 },
-+	{ 0x3657, 0x31 },
-+	{ 0x3659, 0x0c },
-+	{ 0x365f, 0x07 },
-+	{ 0x3661, 0x17 },
-+	{ 0x3662, 0x17 },
-+	{ 0x3663, 0x17 },
-+	{ 0x3664, 0x17 },
-+	{ 0x3666, 0x08 },
-+	{ 0x366b, 0x20 },
-+	{ 0x366c, 0xa4 },
-+	{ 0x366d, 0x20 },
-+	{ 0x366e, 0xa4 },
-+	{ 0x3680, 0x00 },
-+	{ 0x3714, 0x24 },
-+	{ 0x371a, 0x3e },
-+	{ 0x3737, 0x04 },
-+	{ 0x3739, 0x12 },
-+	{ 0x3765, 0x20 },
-+	{ 0x3767, 0x00 },
-+	{ 0x37a1, 0x3e },
-+	{ 0x37a8, 0x4d },
-+	{ 0x37ab, 0x2c },
-+	{ 0x37c2, 0x04 },
-+	{ 0x37d8, 0x03 },
-+	{ 0x37d9, 0x0c },
-+	{ 0x37e0, 0x00 },
-+	{ 0x37e1, 0x0a },
-+	{ 0x37e2, 0x14 },
-+	{ 0x37e3, 0x04 },
-+	{ 0x37e4, 0x2a },
-+	{ 0x37e5, 0x03 },
-+	{ 0x37e6, 0x04 },
-+	{ 0x3800, 0x00 },
-+	{ 0x3801, 0x00 },
-+	{ 0x3802, 0x00 },
-+	{ 0x3803, 0x00 },
-+	{ 0x3804, 0x10 },
-+	{ 0x3805, 0x0f },
-+	{ 0x3806, 0x0c },
-+	{ 0x3807, 0x0f },
-+	{ 0x3808, 0x10 },
-+	{ 0x3809, 0x00 },
-+	{ 0x380a, 0x0c },
-+	{ 0x380b, 0x00 },
-+	{ 0x380c, 0x04 },
-+	{ 0x380d, 0x28 },
-+	{ 0x380e, 0x0d },
-+	{ 0x380f, 0x12 },
-+	{ 0x3811, 0x0a },
-+	{ 0x3813, 0x08 },
-+	{ 0x3814, 0x01 },
-+	{ 0x3815, 0x01 },
-+	{ 0x3816, 0x01 },
-+	{ 0x3817, 0x01 },
-+	{ 0x3820, 0xa8 },
-+	{ 0x3821, 0x00 },
-+	{ 0x3822, 0x91 },
-+	{ 0x3823, 0x18 },
-+	{ 0x3826, 0x00 },
-+	{ 0x3827, 0x00 },
-+	{ 0x3829, 0x03 },
-+	{ 0x3832, 0x08 },
-+	{ 0x3833, 0x30 },
-+	{ 0x3c80, 0x00 },
-+	{ 0x3c87, 0x01 },
-+	{ 0x3c8c, 0x1a },
-+	{ 0x3c8d, 0x68 },
-+	{ 0x3c97, 0x02 },
-+	{ 0x3cc0, 0x40 },
-+	{ 0x3cc1, 0x54 },
-+	{ 0x3cc2, 0x34 },
-+	{ 0x3cc3, 0x04 },
-+	{ 0x3cc4, 0x00 },
-+	{ 0x3cc5, 0x00 },
-+	{ 0x3cc6, 0x00 },
-+	{ 0x3cc7, 0x00 },
-+	{ 0x3cc8, 0x00 },
-+	{ 0x3cc9, 0x00 },
-+	{ 0x3d8c, 0x73 },
-+	{ 0x3d8d, 0xc0 },
-+	{ 0x4001, 0x2b },
-+	{ 0x4008, 0x02 },
-+	{ 0x4009, 0x0f },
-+	{ 0x4011, 0xff },
-+	{ 0x4013, 0x08 },
-+	{ 0x4014, 0x08 },
-+	{ 0x4015, 0x08 },
-+	{ 0x4017, 0x08 },
-+	{ 0x401a, 0x58 },
-+	{ 0x4050, 0x04 },
-+	{ 0x4051, 0x0b },
-+	{ 0x405e, 0x20 },
-+	{ 0x4501, 0x00 },
-+	{ 0x4503, 0x00 },
-+	{ 0x450a, 0x04 },
-+	{ 0x4601, 0x30 },
-+	{ 0x4800, 0x24 },
-+	{ 0x481f, 0x30 },
-+	{ 0x4837, 0x0d },
-+	{ 0x483c, 0x0f },
-+	{ 0x484b, 0x01 },
-+	{ 0x4d00, 0x05 },
-+	{ 0x4d01, 0x19 },
-+	{ 0x4d02, 0xfd },
-+	{ 0x4d03, 0xd1 },
-+	{ 0x4d04, 0xff },
-+	{ 0x4d05, 0xff },
-+	{ 0x5000, 0x09 },
-+	{ 0x5001, 0x42 },
-+	{ 0x5002, 0x45 },
-+	{ 0x5005, 0x00 },
-+	{ 0x5081, 0x04 },
-+	{ 0x5180, 0x00 },
-+	{ 0x5181, 0x10 },
-+	{ 0x5182, 0x02 },
-+	{ 0x5183, 0x0f },
-+	{ 0x5185, 0x6c },
-+	{ 0x5200, 0x03 },
-+	{ 0x5203, 0x7c },
-+	{ 0x5204, 0x1f },
-+	{ 0x5205, 0x41 },
-+	{ 0x520b, 0x07 },
-+	{ 0x520c, 0x0f },
-+	{ 0x0300, 0x02 },
-+	{ 0x0302, 0x53 },
-+	{ 0x380c, 0x04 },
-+	{ 0x380d, 0x90 },
-+	{ 0x380e, 0x0c },
-+	{ 0x380f, 0xe6 },
-+	{ 0x4837, 0x10 },
-+};
-+
-+static const struct ov12a10_reg ov12a10_1280x720_regs[] = {
-+	{ 0x0300, 0x06 },
-+	{ 0x0301, 0x02 },
-+	{ 0x0302, 0x48 },
-+	{ 0x0307, 0x01 },
-+	{ 0x0303, 0x01 },
-+	{ 0x030b, 0x06 },
-+	{ 0x030c, 0x02 },
-+	{ 0x030d, 0x88 },
-+	{ 0x0312, 0x11 },
-+	{ 0x0313, 0x09 },
-+	{ 0x3642, 0x10 },
-+	{ 0x3666, 0x00 },
-+	{ 0x366b, 0xa4 },
-+	{ 0x366c, 0x20 },
-+	{ 0x366d, 0xa4 },
-+	{ 0x366e, 0x20 },
-+	{ 0x3714, 0x28 },
-+	{ 0x371a, 0x3e },
-+	{ 0x3737, 0x08 },
-+	{ 0x3739, 0x20 },
-+	{ 0x37c2, 0x14 },
-+	{ 0x37d9, 0x0c },
-+	{ 0x37e3, 0x08 },
-+	{ 0x37e4, 0x36 },
-+	{ 0x37e6, 0x08 },
-+	{ 0x3800, 0x03 },
-+	{ 0x3801, 0x20 },
-+	{ 0x3802, 0x03 },
-+	{ 0x3803, 0x68 },
-+	{ 0x3804, 0x0d },
-+	{ 0x3805, 0x3f },
-+	{ 0x3806, 0x09 },
-+	{ 0x3807, 0x27 },
-+	{ 0x3808, 0x05 },
-+	{ 0x3809, 0x00 },
-+	{ 0x380a, 0x02 },
-+	{ 0x380b, 0xd0 },
-+	{ 0x380c, 0x04 },
-+	{ 0x380d, 0x28 },
-+	{ 0x380e, 0x03 },
-+	{ 0x380f, 0x4c },
-+	{ 0x3810, 0x00 },
-+	{ 0x3811, 0x08 },
-+	{ 0x3813, 0x08 },
-+	{ 0x3814, 0x03 },
-+	{ 0x3816, 0x03 },
-+	{ 0x3820, 0xab },
-+	{ 0x4009, 0x0d },
-+	{ 0x4050, 0x04 },
-+	{ 0x4051, 0x0b },
-+	{ 0x4501, 0x00 },
-+	{ 0x4837, 0x1b },
-+	{ 0x5001, 0x42 },
-+	{ 0x5002, 0x45 },
-+	{ 0x3501, 0x34 },
-+	{ 0x3502, 0x00 },
-+	{ 0x4800, 0x24 },
-+};
-+
-+static const struct ov12a10_mode default_mode = {
-+		.width = 1280, .height = 720, .hts_def = 1440,
-+			.num_regs = ARRAY_SIZE(ov12a10_1280x720_regs),
-+		.regs = ov12a10_1280x720_regs,
-+	};
-+
-+static const s64 link_freq_menu_items[] = { OV12A10_LINK_FREQ_216MHZ };
-+
-+struct ov12a10 {
-+	struct device *dev;
-+	struct v4l2_subdev sd;
-+	struct media_pad pad;
-+	struct clk *xvclk;
-+	struct gpio_desc *reset_gpio, *pwdn_gpio;
-+	struct regulator_bulk_data supplies[OV12A10_NUM_SUPPLIES];
-+	struct v4l2_ctrl_handler ctrl_handler;
-+	struct v4l2_ctrl *link_freq, *hblank, *exposure;
-+	const struct ov12a10_mode *cur_mode;
-+	/* Serialize access to sensor registers and streaming state */
-+	struct mutex mutex;
-+	bool streaming;
-+};
-+
-+static inline struct ov12a10 *to_ov12a10(struct v4l2_subdev *sd)
-+{
-+	return container_of(sd, struct ov12a10, sd);
-+}
-+
-+static int ov12a10_read_reg(struct ov12a10 *ov12a10, u16 reg, u32 len, u32 *val)
-+{
-+	struct i2c_client *client = v4l2_get_subdevdata(&ov12a10->sd);
-+	struct i2c_msg msgs[2];
-+	u8 addr_buf[2], data_buf[4] = { 0 };
-+	int ret;
-+
-+	put_unaligned_be16(reg, addr_buf);
-+	msgs[0].addr = client->addr;
-+	msgs[0].flags = 0;
-+	msgs[0].len = 2;
-+	msgs[0].buf = addr_buf;
-+	msgs[1].addr = client->addr;
-+	msgs[1].flags = I2C_M_RD;
-+	msgs[1].len = len;
-+	msgs[1].buf = &data_buf[4 - len];
-+	ret = i2c_transfer(client->adapter, msgs, 2);
-+	if (ret != 2)
-+		return ret < 0 ? ret : -EIO;
-+	*val = get_unaligned_be32(data_buf);
-+	return 0;
-+}
-+
-+static int ov12a10_write_reg(struct ov12a10 *ov12a10, u16 reg, u32 len, u32 val)
-+{
-+	struct i2c_client *client = v4l2_get_subdevdata(&ov12a10->sd);
-+	u8 buf[6];
-+	int ret;
-+
-+	put_unaligned_be16(reg, buf);
-+	put_unaligned_be32(val << (8 * (4 - len)), buf + 2);
-+	ret = i2c_master_send(client, buf, len + 2);
-+	return ret == len + 2 ? 0 : (ret < 0 ? ret : -EIO);
-+}
-+
-+static int ov12a10_write_regs(struct ov12a10 *ov12a10, const struct ov12a10_reg *regs, u32 len)
-+{
-+	u32 i;
-+	int ret;
-+
-+	for (i = 0; i < len; i++) {
-+		ret = ov12a10_write_reg(ov12a10, regs[i].address, 1, regs[i].val);
-+		if (!ret && regs[i].address == 0x0103)
-+			usleep_range(5000, 6000);
-+		if (ret)
-+			return ret;
-+	}
-+	return 0;
-+}
-+
-+static int ov12a10_power_on(struct device *dev)
-+{
-+	struct ov12a10 *ov12a10 = to_ov12a10(dev_get_drvdata(dev));
-+	int ret;
-+
-+	ret = regulator_bulk_enable(OV12A10_NUM_SUPPLIES, ov12a10->supplies);
-+	if (ret)
-+		return ret;
-+
-+	ret = clk_prepare_enable(ov12a10->xvclk);
-+	if (ret) {
-+		regulator_bulk_disable(OV12A10_NUM_SUPPLIES, ov12a10->supplies);
-+		return ret;
-+	}
-+
-+	msleep(35);
-+	if (ov12a10->pwdn_gpio)
-+		gpiod_set_value_cansleep(ov12a10->pwdn_gpio, 0);
-+	if (ov12a10->reset_gpio) {
-+		gpiod_set_value_cansleep(ov12a10->reset_gpio, 1);
-+		usleep_range(3000, 5000);
-+		gpiod_set_value_cansleep(ov12a10->reset_gpio, 0);
-+		msleep(35);
-+	}
-+	return 0;
-+}
-+
-+static int ov12a10_power_off(struct device *dev)
-+{
-+	struct ov12a10 *ov12a10 = to_ov12a10(dev_get_drvdata(dev));
-+
-+	if (ov12a10->reset_gpio)
-+		gpiod_set_value_cansleep(ov12a10->reset_gpio, 1);
-+	if (ov12a10->pwdn_gpio)
-+		gpiod_set_value_cansleep(ov12a10->pwdn_gpio, 1);
-+	clk_disable_unprepare(ov12a10->xvclk);
-+	regulator_bulk_disable(OV12A10_NUM_SUPPLIES, ov12a10->supplies);
-+	return 0;
-+}
-+
-+static int ov12a10_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct ov12a10 *ov12a10 = container_of(ctrl->handler, struct ov12a10, ctrl_handler);
-+	int ret = 0;
-+
-+	if (ctrl->id == V4L2_CID_VBLANK) {
-+		s64 exp_max = ov12a10->cur_mode->height + ctrl->val - 4;
-+
-+		ret = __v4l2_ctrl_modify_range(ov12a10->exposure, 4, exp_max, 1,
-+					       min_t(s64, 2400, exp_max));
-+		if (ret)
-+			return ret;
-+	}
-+	if (pm_runtime_get_if_active(ov12a10->dev) <= 0)
-+		return 0;
-+	switch (ctrl->id) {
-+	case V4L2_CID_ANALOGUE_GAIN:
-+		ret = ov12a10_write_reg(ov12a10, OV12A10_REG_ANALOG_GAIN, 2, ctrl->val);
-+	break;
-+	case V4L2_CID_EXPOSURE:
-+		ret = ov12a10_write_reg(ov12a10, OV12A10_REG_EXPOSURE, 3, ctrl->val << 4);
-+	break;
-+	case V4L2_CID_VBLANK:
-+		ret = ov12a10_write_reg(ov12a10, OV12A10_REG_VTS, 2,
-+					ov12a10->cur_mode->height + ctrl->val);
-+	break;
-+	case V4L2_CID_TEST_PATTERN:
-+		ret = ov12a10_write_reg(ov12a10, OV12A10_REG_TEST_PATTERN, 1,
-+					ctrl->val ? ((ctrl->val - 1) | BIT(7)) : 0);
-+	break;
-+	}
-+	pm_runtime_put(ov12a10->dev);
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops ov12a10_ctrl_ops = { .s_ctrl = ov12a10_set_ctrl };
-+static const char * const ov12a10_test_pattern_menu[] = {
-+	"Disabled",
-+	"Solid Color",
-+	"100% Color Bars",
-+	"Fade to Grey",
-+	"PN9",
-+};
-+
-+static int ov12a10_init_controls(struct ov12a10 *ov12a10)
-+{
-+	struct v4l2_fwnode_device_properties props;
-+	struct v4l2_ctrl_handler *hdl = &ov12a10->ctrl_handler;
-+	s64 hblank = ov12a10->cur_mode->hts_def - ov12a10->cur_mode->width;
-+	int ret = v4l2_ctrl_handler_init(hdl, 8);
-+
-+	if (ret)
-+		return ret;
-+	hdl->lock = &ov12a10->mutex;
-+	ov12a10->link_freq = v4l2_ctrl_new_int_menu(hdl, &ov12a10_ctrl_ops, V4L2_CID_LINK_FREQ,
-+						    0, 0, link_freq_menu_items);
-+	if (ov12a10->link_freq)
-+		ov12a10->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	v4l2_ctrl_new_std(hdl, &ov12a10_ctrl_ops, V4L2_CID_PIXEL_RATE,
-+			  OV12A10_PIXEL_RATE, OV12A10_PIXEL_RATE, 1, OV12A10_PIXEL_RATE);
-+	v4l2_ctrl_new_std(hdl, &ov12a10_ctrl_ops, V4L2_CID_VBLANK, 124,
-+			  0x7fff - ov12a10->cur_mode->height, 1, 2656);
-+	ov12a10->hblank = v4l2_ctrl_new_std(hdl, &ov12a10_ctrl_ops, V4L2_CID_HBLANK, hblank,
-+					    hblank, 1, hblank);
-+	if (ov12a10->hblank)
-+		ov12a10->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	v4l2_ctrl_new_std(hdl, &ov12a10_ctrl_ops, V4L2_CID_ANALOGUE_GAIN, 0x80, 0x7ff, 1, 0x300);
-+	ov12a10->exposure = v4l2_ctrl_new_std(hdl, &ov12a10_ctrl_ops, V4L2_CID_EXPOSURE, 4,
-+					      3360, 1, 2400);
-+	v4l2_ctrl_new_std_menu_items(hdl, &ov12a10_ctrl_ops, V4L2_CID_TEST_PATTERN, 4, 0, 0,
-+				     ov12a10_test_pattern_menu);
-+	if (hdl->error) {
-+		ret = hdl->error;
-+		goto err;
-+	}
-+	ret = v4l2_fwnode_device_parse(ov12a10->dev, &props);
-+	if (ret)
-+		goto err;
-+	ret = v4l2_ctrl_new_fwnode_properties(hdl, &ov12a10_ctrl_ops, &props);
-+	if (ret)
-+		goto err;
-+	ov12a10->sd.ctrl_handler = hdl;
-+	return 0;
-+err:
-+	v4l2_ctrl_handler_free(hdl);
-+	return ret;
-+}
-+
-+static void ov12a10_update_pad_format(const struct ov12a10_mode *mode,
-+				      struct v4l2_mbus_framefmt *fmt)
-+{
-+	fmt->width = mode->width;
-+	fmt->height = mode->height;
-+	fmt->code = MEDIA_BUS_FMT_SRGGB10_1X10;
-+	fmt->field = V4L2_FIELD_NONE;
-+	fmt->colorspace = V4L2_COLORSPACE_SRGB;
-+	fmt->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(fmt->colorspace);
-+	fmt->quantization = V4L2_MAP_QUANTIZATION_DEFAULT(true, fmt->colorspace, fmt->ycbcr_enc);
-+	fmt->xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(fmt->colorspace);
-+}
-+
-+static int ov12a10_set_format(struct v4l2_subdev *sd,
-+			      const struct v4l2_subdev_client_info *ci,
-+			      struct v4l2_subdev_state *sd_state,
-+			      struct v4l2_subdev_format *fmt)
-+{
-+	struct ov12a10 *ov12a10 = to_ov12a10(sd);
-+
-+	ov12a10_update_pad_format(&default_mode, &fmt->format);
-+	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
-+		*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
-+	else
-+		ov12a10->cur_mode = &default_mode;
-+
-+	return 0;
-+}
-+
-+static int ov12a10_enum_mbus_code(struct v4l2_subdev *sd, struct v4l2_subdev_state *sd_state,
-+				  struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	if (code->index > 0)
-+		return -EINVAL;
-+	code->code = MEDIA_BUS_FMT_SRGGB10_1X10;
-+	return 0;
-+}
-+
-+static int ov12a10_enum_frame_size(struct v4l2_subdev *sd, struct v4l2_subdev_state *sd_state,
-+				   struct v4l2_subdev_frame_size_enum *fse)
-+{
-+	if (fse->index > 0 ||
-+	    fse->code != MEDIA_BUS_FMT_SRGGB10_1X10)
-+		return -EINVAL;
-+	fse->min_width = default_mode.width;
-+	fse->max_width = default_mode.width;
-+	fse->min_height = default_mode.height;
-+	fse->max_height = default_mode.height;
-+	return 0;
-+}
-+
-+static int ov12a10_set_stream(struct v4l2_subdev *sd, int enable)
-+{
-+	struct ov12a10 *ov12a10 = to_ov12a10(sd);
-+	int ret = 0;
-+
-+	mutex_lock(&ov12a10->mutex);
-+	if (ov12a10->streaming == enable) {
-+		mutex_unlock(&ov12a10->mutex);
-+		return 0;
-+	}
-+	if (enable) {
-+		ret = pm_runtime_resume_and_get(ov12a10->dev);
-+		if (ret < 0)
-+			goto out;
-+		ret = ov12a10_write_regs(ov12a10, ov12a10_common_regs,
-+					 ARRAY_SIZE(ov12a10_common_regs));
-+		if (!ret)
-+			ret = ov12a10_write_regs(ov12a10, ov12a10->cur_mode->regs,
-+						 ov12a10->cur_mode->num_regs);
-+		if (!ret)
-+			ret = __v4l2_ctrl_handler_setup(ov12a10->sd.ctrl_handler);
-+		if (!ret) {
-+			static const struct ov12a10_reg stream_on_regs[] = {
-+				{ 0x0100, 0x01 },
+diff --git a/arch/arm64/boot/dts/qcom/msm8953.dtsi b/arch/arm64/boot/dts/qcom/msm8953.dtsi
+index 753167c3f861..396472ba8f28 100644
+--- a/arch/arm64/boot/dts/qcom/msm8953.dtsi
++++ b/arch/arm64/boot/dts/qcom/msm8953.dtsi
+@@ -753,6 +753,27 @@ i2c_6_sleep: i2c-6-sleep-state {
+ 				bias-disable;
+ 			};
+ 
++			camss_mclk0_default: camss-mclk0-default-state {
++				pins = "gpio26";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
 +			};
-+			usleep_range(10000, 12000);
-+			ret = ov12a10_write_regs(ov12a10, stream_on_regs,
-+						 ARRAY_SIZE(stream_on_regs));
-+		}
-+		if (ret) {
-+			pm_runtime_put(ov12a10->dev);
-+			goto out;
-+		}
-+	} else {
-+		ov12a10_write_reg(ov12a10, OV12A10_REG_MODE_SELECT, 1, OV12A10_MODE_STANDBY);
-+		pm_runtime_put(ov12a10->dev);
-+	}
-+	ov12a10->streaming = enable;
-+out:
-+	mutex_unlock(&ov12a10->mutex);
-+	return ret;
-+}
 +
-+static int ov12a10_init_state(struct v4l2_subdev *sd,
-+			      struct v4l2_subdev_state *sd_state)
-+{
-+	ov12a10_update_pad_format(&default_mode,
-+				  v4l2_subdev_state_get_format(sd_state, 0));
-+	return 0;
-+}
++			camss_mclk1_default: camss-mclk1-default-state {
++				pins = "gpio27";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
 +
-+static const struct v4l2_subdev_video_ops ov12a10_video_ops = { .s_stream = ov12a10_set_stream };
++			camss_mclk2_default: camss-mclk2-default-state {
++				pins = "gpio28";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
 +
-+static int ov12a10_get_selection(struct v4l2_subdev *sd, const struct v4l2_subdev_client_info *ci,
-+				 struct v4l2_subdev_state *sd_state,
-+				struct v4l2_subdev_selection *sel)
-+{
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP:
-+		sel->r.left = 800;
-+		sel->r.top = 872;
-+		sel->r.width = 2592;
-+		sel->r.height = 1472;
-+		return 0;
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+		sel->r.left = 0;
-+		sel->r.top = 0;
-+		sel->r.width = 4096;
-+		sel->r.height = 3072;
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
+ 			cci0_default: cci0-default-state {
+ 				pins = "gpio29", "gpio30";
+ 				function = "cci_i2c";
+@@ -1214,6 +1235,130 @@ mdss_dsi1_phy: phy@1a96400 {
+ 			};
+ 		};
+ 
++		camss: camss@1b00020 {
++			compatible = "qcom,msm8953-camss";
 +
-+static const struct v4l2_subdev_pad_ops ov12a10_pad_ops = {
-+	.get_selection = ov12a10_get_selection,
-+	.set_fmt = ov12a10_set_format, .get_fmt = v4l2_subdev_get_fmt,
-+	.enum_mbus_code = ov12a10_enum_mbus_code, .enum_frame_size = ov12a10_enum_frame_size,
-+};
++			reg = <0x1b00020 0x10>,
++			      <0x1b30000 0x100>,
++			      <0x1b30400 0x100>,
++			      <0x1b30800 0x100>,
++			      <0x1b34000 0x1000>,
++			      <0x1b00030 0x4>,
++			      <0x1b35000 0x1000>,
++			      <0x1b00038 0x4>,
++			      <0x1b36000 0x1000>,
++			      <0x1b00040 0x4>,
++			      <0x1b31000 0x500>,
++			      <0x1b10000 0x1000>,
++			      <0x1b14000 0x1000>;
++			reg-names = "csi_clk_mux",
++				    "csid0",
++				    "csid1",
++				    "csid2",
++				    "csiphy0",
++				    "csiphy0_clk_mux",
++				    "csiphy1",
++				    "csiphy1_clk_mux",
++				    "csiphy2",
++				    "csiphy2_clk_mux",
++				    "ispif",
++				    "vfe0",
++				    "vfe1";
 +
-+static const struct v4l2_subdev_ops ov12a10_subdev_ops = {
-+	.video = &ov12a10_video_ops,
-+	.pad = &ov12a10_pad_ops,
-+};
++			clocks = <&gcc GCC_CAMSS_AHB_CLK>,
++				 <&gcc GCC_CAMSS_CSI0_CLK>,
++				 <&gcc GCC_CAMSS_CSI0_AHB_CLK>,
++				 <&gcc GCC_CAMSS_CSI0PHY_CLK>,
++				 <&gcc GCC_CAMSS_CSI0PIX_CLK>,
++				 <&gcc GCC_CAMSS_CSI0RDI_CLK>,
++				 <&gcc GCC_CAMSS_CSI1_CLK>,
++				 <&gcc GCC_CAMSS_CSI1_AHB_CLK>,
++				 <&gcc GCC_CAMSS_CSI1PHY_CLK>,
++				 <&gcc GCC_CAMSS_CSI1PIX_CLK>,
++				 <&gcc GCC_CAMSS_CSI1RDI_CLK>,
++				 <&gcc GCC_CAMSS_CSI2_CLK>,
++				 <&gcc GCC_CAMSS_CSI2_AHB_CLK>,
++				 <&gcc GCC_CAMSS_CSI2PHY_CLK>,
++				 <&gcc GCC_CAMSS_CSI2PIX_CLK>,
++				 <&gcc GCC_CAMSS_CSI2RDI_CLK>,
++				 <&gcc GCC_CAMSS_CSI_VFE0_CLK>,
++				 <&gcc GCC_CAMSS_CSI_VFE1_CLK>,
++				 <&gcc GCC_CAMSS_CSI0PHYTIMER_CLK>,
++				 <&gcc GCC_CAMSS_CSI1PHYTIMER_CLK>,
++				 <&gcc GCC_CAMSS_CSI2PHYTIMER_CLK>,
++				 <&gcc GCC_CAMSS_ISPIF_AHB_CLK>,
++				 <&gcc GCC_CAMSS_MICRO_AHB_CLK>,
++				 <&gcc GCC_CAMSS_TOP_AHB_CLK>,
++				 <&gcc GCC_CAMSS_VFE0_CLK>,
++				 <&gcc GCC_CAMSS_VFE0_AHB_CLK>,
++				 <&gcc GCC_CAMSS_VFE0_AXI_CLK>,
++				 <&gcc GCC_CAMSS_VFE1_CLK>,
++				 <&gcc GCC_CAMSS_VFE1_AHB_CLK>,
++				 <&gcc GCC_CAMSS_VFE1_AXI_CLK>;
++			clock-names = "ahb",
++				      "csi0",
++				      "csi0_ahb",
++				      "csi0_phy",
++				      "csi0_pix",
++				      "csi0_rdi",
++				      "csi1",
++				      "csi1_ahb",
++				      "csi1_phy",
++				      "csi1_pix",
++				      "csi1_rdi",
++				      "csi2",
++				      "csi2_ahb",
++				      "csi2_phy",
++				      "csi2_pix",
++				      "csi2_rdi",
++				      "csi_vfe0",
++				      "csi_vfe1",
++				      "csiphy0_timer",
++				      "csiphy1_timer",
++				      "csiphy2_timer",
++				      "ispif_ahb",
++				      "micro_ahb",
++				      "top_ahb",
++				      "vfe0",
++				      "vfe0_ahb",
++				      "vfe0_axi",
++				      "vfe1",
++				      "vfe1_ahb",
++				      "vfe1_axi";
 +
-+static const struct media_entity_operations ov12a10_entity_ops = {
-+	.link_validate = v4l2_subdev_link_validate,
-+};
++			interrupts = <GIC_SPI 51 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 52 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 153 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 78 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 79 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 315 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 55 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 57 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 29 IRQ_TYPE_EDGE_RISING>;
++			interrupt-names = "csid0",
++					  "csid1",
++					  "csid2",
++					  "csiphy0",
++					  "csiphy1",
++					  "csiphy2",
++					  "ispif",
++					  "vfe0",
++					  "vfe1";
 +
-+static const struct v4l2_subdev_internal_ops ov12a10_internal_ops = {
-+	.init_state = ov12a10_init_state,
-+};
++			iommus = <&apps_iommu 0x14>;
 +
-+static int ov12a10_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct fwnode_handle *endpoint;
-+	struct v4l2_fwnode_endpoint ep_cfg = {
-+		.bus_type = V4L2_MBUS_CSI2_DPHY,
-+	};
-+	struct ov12a10 *ov12a10;
-+	u32 val = 0;
-+	unsigned int i;
-+	int ret;
++			power-domains = <&gcc VFE0_GDSC>,
++					<&gcc VFE1_GDSC>;
++			power-domain-names = "vfe0", "vfe1";
 +
-+	endpoint = fwnode_graph_get_next_endpoint(dev_fwnode(dev), NULL);
-+	if (!endpoint)
-+		return dev_err_probe(dev, -EINVAL, "endpoint node not found\n");
++			status = "disabled";
 +
-+	ret = v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg);
-+	fwnode_handle_put(endpoint);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to parse endpoint\n");
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++		};
 +
-+	if (ep_cfg.bus.mipi_csi2.num_data_lanes != 4 ||
-+	    ep_cfg.nr_of_link_frequencies != 1 ||
-+	    ep_cfg.link_frequencies[0] != OV12A10_LINK_FREQ_216MHZ) {
-+		v4l2_fwnode_endpoint_free(&ep_cfg);
-+		return dev_err_probe(dev, -EINVAL,
-+				     "unsupported CSI-2 configuration\n");
-+	}
-+	v4l2_fwnode_endpoint_free(&ep_cfg);
-+
-+	ov12a10 = devm_kzalloc(dev, sizeof(*ov12a10), GFP_KERNEL);
-+	if (!ov12a10)
-+		return -ENOMEM;
-+	ov12a10->dev = dev;
-+	v4l2_i2c_subdev_init(&ov12a10->sd, client, &ov12a10_subdev_ops);
-+	ov12a10->xvclk = devm_v4l2_sensor_clk_get(dev, NULL);
-+	if (IS_ERR(ov12a10->xvclk))
-+		return dev_err_probe(dev, PTR_ERR(ov12a10->xvclk), "xvclk\n");
-+	if (clk_get_rate(ov12a10->xvclk) != OV12A10_XVCLK_FREQ)
-+		return dev_err_probe(dev, -EINVAL, "unexpected xvclk rate\n");
-+	ov12a10->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-+	ov12a10->pwdn_gpio = devm_gpiod_get_optional(dev, "powerdown", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ov12a10->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ov12a10->reset_gpio), "reset\n");
-+	if (IS_ERR(ov12a10->pwdn_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ov12a10->pwdn_gpio), "powerdown\n");
-+	for (i = 0; i < OV12A10_NUM_SUPPLIES; i++)
-+		ov12a10->supplies[i].supply = ov12a10_supply_names[i];
-+	ret = devm_regulator_bulk_get(dev, OV12A10_NUM_SUPPLIES, ov12a10->supplies);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "regulators\n");
-+	ret = ov12a10_power_on(dev);
-+	if (ret)
-+		return ret;
-+	ret = ov12a10_read_reg(ov12a10, OV12A10_CHIP_ID_REG, 2, &val);
-+	if (ret || val != OV12A10_CHIP_ID) {
-+		dev_err(dev, "failed to identify ov12a10 (ret=%d, id=0x%04x)\n", ret, val);
-+		ret = ret ? ret : -ENXIO;
-+		goto err_power;
-+	}
-+	dev_dbg(dev, "identified OmniVision OV12A10 sensor (0x%04x)\n", val);
-+	mutex_init(&ov12a10->mutex);
-+	ov12a10->cur_mode = &default_mode;
-+	ret = ov12a10_init_controls(ov12a10);
-+	if (ret)
-+		goto err_mutex;
-+	ov12a10->sd.internal_ops = &ov12a10_internal_ops;
-+	ov12a10->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	ov12a10->sd.entity.ops = &ov12a10_entity_ops;
-+	ov12a10->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-+	ov12a10->pad.flags = MEDIA_PAD_FL_SOURCE;
-+	ret = media_entity_pads_init(&ov12a10->sd.entity, 1, &ov12a10->pad);
-+	if (ret)
-+		goto err_ctrl;
-+	ov12a10->sd.state_lock = &ov12a10->mutex;
-+	ret = v4l2_subdev_init_finalize(&ov12a10->sd);
-+	if (ret)
-+		goto err_media;
-+	ret = v4l2_async_register_subdev_sensor(&ov12a10->sd);
-+	if (ret)
-+		goto err_media;
-+	pm_runtime_set_active(dev);
-+	pm_runtime_enable(dev);
-+	pm_runtime_idle(dev);
-+	return 0;
-+err_media:
-+	media_entity_cleanup(&ov12a10->sd.entity);
-+err_ctrl:
-+	v4l2_ctrl_handler_free(ov12a10->sd.ctrl_handler);
-+err_mutex:
-+	mutex_destroy(&ov12a10->mutex);
-+err_power:
-+	ov12a10_power_off(dev);
-+	return ret;
-+}
-+
-+static void ov12a10_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct ov12a10 *ov12a10 = to_ov12a10(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	v4l2_subdev_cleanup(sd);
-+	media_entity_cleanup(&sd->entity);
-+	v4l2_ctrl_handler_free(sd->ctrl_handler);
-+	mutex_destroy(&ov12a10->mutex);
-+	pm_runtime_disable(&client->dev);
-+	if (!pm_runtime_status_suspended(&client->dev))
-+		ov12a10_power_off(&client->dev);
-+	pm_runtime_set_suspended(&client->dev);
-+}
-+
-+static const struct dev_pm_ops ov12a10_pm_ops = { SET_RUNTIME_PM_OPS(ov12a10_power_off,
-+		ov12a10_power_on, NULL) };
-+static const struct of_device_id ov12a10_of_match[] = {
-+	{ .compatible = "ovti,ov12a10" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, ov12a10_of_match);
-+static struct i2c_driver ov12a10_i2c_driver = {
-+	.driver = {
-+		.name = "ov12a10",
-+		.pm = pm_ptr(&ov12a10_pm_ops),
-+		.of_match_table = ov12a10_of_match,
-+	},
-+	.probe = ov12a10_probe, .remove = ov12a10_remove,
-+};
-+module_i2c_driver(ov12a10_i2c_driver);
-+MODULE_DESCRIPTION("OmniVision OV12A10 12MP sensor driver");
-+MODULE_LICENSE("GPL");
+ 		cci: cci@1b0c000 {
+ 			compatible = "qcom,msm8953-cci";
+ 			reg = <0x1b0c000 0x4000>;
 -- 
 2.47.3
 
