@@ -1,89 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606811;
-	b=o//2/aDU+nGngoXAb9SPI4qkqu+3yWok8zaAFr2wp1N/nqSRyfGyL8LDOuvsS9a+p1u/
-	 zch7r9l8YTqQDnK7OtmD/SOqZx9vbU4MjzHEIkPgfdZfQz79yaoVouMy0XK5rZTtuMD4s
-	 sVURV2GDzhuviWbXwXACMdZ5sxWPfrAbgFfmqzU7mRwA9Wqtm3+vihQrx3S50ksko3JZL
-	 Iob6rOBKt+HMmH1pFsDztgFLjHxLiPF6CgitNaEUVlkXdskQDfq5PC4eBu+/bGC/4tWZG
-	 h623zoyNJOcdBzlD8X2yH8ce/xle1COkQFv1gzyobnrRbopzISb1FYD38eFmj1j0jeQ==
+	t=1795607535;
+	b=xaYZ4nmF+YchKohsk/JcSu13jqK5Ur64mzalCUB1MK0nMLwK0ZkVZCWHvqJToHrqtlQ1
+	 KoqY4fbVtxMOK+eG3n+8XYsJAEIwc3dAyGY9kczXvPTqrrMNiZfSMk2q067KUfp5vlbT8
+	 dKQW8S1CxnoJmyixCa36UMlZeRgphHVwnhXvLYkupbrSLbYGYD3P2aWBYydJrWQ3Fytvz
+	 uau/k8y2sMhYTMaJdLQyJaBDAaCiyZOHC+lFKZhvNvgCUzEws8MHd1nPQcZ1M5kxotafK
+	 bnFZVn7EN3411ao1ENmFa0dGsSyOWV1fRyD1MCWbt42RaoB//C1RCxtRt3uMcNEXIpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606811;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZHBAKn/6mnDMz3G6KYCfWnFqdTg254dkkOYHSR+PjqM=;
-	b=w3WMhEgv7SrozyOWzInFukGHYlT5YCDPzaxTvJqiFceFRzZTL+IhynYIzPzwWSmJOYGO
-	 24nC5JVCbtC/ev7VRIhRwInqnVwRlxj5XI43YjwXgaaBd6K851KlqpQvHrNZIGAE4D7Ro
-	 m24kQcVTtOmw2Xa+fXM7lrSODv2Mpi8ARI8qFNAGAGVNV2KdEjvRZhmJAJQ2oxwmb03ai
-	 FvpL70jvuhxQQYlxMDS2AJqakULuWJH/0VHWW5QM4MK6hMhiGvddtTSeiryrMwqTOuSKU
-	 fMhtR+KcWV7dJ8SQt7l6uoDZ+SPN7RDW+/mTJCCsf/q5aRGynbwOQauG0O66IPRpLfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795607535;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=zdbZ0y90ffhDUpo4lRLPwkdF0/IM99iMJ9dvdP488pE=;
+	b=r8Dv42/AMylfnfMxNChTV+w3UhrWYsU49b3WtVFcL6GxHGGk1iYOIX3+wq3ZV6+VASQH
+	 8YmFKJD5Ak22SQW2LjylkTdiiSCbtosuR8vBLgp0fWMhpfNtcP/f5MTYEZ6HEJWXthUt+
+	 006U3WUrTonwDmBglk7NImaSxJdhrfpdqmt/De9g7d8hLFU8zdZ6gxWqNDIUcrAHY13WQ
+	 jOkSVYy08+9jHY4MxR3rCGzL+WLtjiwtuUP2+4XXPmm6eurbENLYXcHrkUM6mHiuKVs2i
+	 WXkNPy0jn61iJZvythDXM8f4ltYLpuzc9AMHKWC4KTkDDcVWYM/5UW/vSkkVMMKrs1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a9gL3hGh;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E27606A31E;
-	Wed, 25 Nov 2026 11:40:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66E27606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BxK4qg48;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E140F606A31E
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 11:52:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E140F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a9gL3hGh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795606810; x=1827142810;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cOmxLcOtM4ej56pou+GrQe5UPufOSFf+f+fj4Cpa++g=;
-  b=a9gL3hGhLlCh6f32TRiD5oLAfbO0C3q7V02SivHsCsbO+JrJ4iPIOmLV
-   byLobcN9xa0Elb8ls7bAoWNrHXRKp/bsU2P3KDhFbBBjYbPT69PFBT/Im
-   2gUxVbf93+/s+ParZ4oeCJdtEB/zKlMy5OdAiBvP29uiX21V917qanrC8
-   v7ZRa7Dcl+UjYCLAhecv4ykgS93+4AxR8usuIe5MFEoEZNTLsiBlWkIod
-   n9zZQuh4TM7ecEm0pRSIRAMPdZ+ohHKBr418N+fQ0nQrOEQKkOCqwLKXK
-   6fafRFIU+dUbJvTzjbXNX2ethLnJULYBqa2CJmrq3ILffH9poN8PL6rrD
-   Q==;
-X-CSE-ConnectionGUID: TuDge/YORS2Nt1oUsZ3ncw==
-X-CSE-MsgGUID: xEB5yF4wTcKYiedYqTPVvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4340891"
-X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
-   d="scan'208";a="4340891"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 03:40:07 -0800
-X-CSE-ConnectionGUID: QneYRPHTRYiuHjMchAp8bA==
-X-CSE-MsgGUID: 1vU1F3/2TJiIKgXo4Psaeg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
-   d="scan'208";a="12062865"
-Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.36])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 03:40:04 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 089BD11F920;
-	Wed, 25 Nov 2026 13:40:08 +0200 (EET)
-Date: Wed, 25 Nov 2026 13:40:08 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Manik Bajpai <manik.bajpai@intel.com>,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	German Pablo Lindo <germanpapulindez@gmail.com>,
-	Christian Murphy <christian@themurphys.eu>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: staging/ipu7: snoop ISYS writes to capture buffers
-Message-ID: <awbJGGu0xANDKrhg@kekkonen.localdomain>
-References: <20261007183311.24637-1-lsa.uz@pm.me>
- <asaywQrMq-GSrI2r@kekkonen.localdomain>
- <20261110065119.20575-1-lsa.uz@pm.me>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BxK4qg48
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 61586339;
+	Wed, 25 Nov 2026 03:52:11 -0800 (PST)
+Received: from [10.2.201.43] (e140322.arm.com [10.2.201.43])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E480A3F86F;
+	Wed, 25 Nov 2026 03:52:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795607534; bh=MUXFKchOwPGZlz2/dR46ovDc379Oy8m4rWd0gZWHiTs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=BxK4qg48s4tlKVteQFoD3ZehEqTx9a2OtDMVSrpkXI/gz9Q6DxGP8rebvKfL8mHMO
+	 PB8JFqLuikbAJeIAUMQSlHtIvMvNHiYSC09tQ3RJc1PGCfVhtLScXx0b4oBwQ6n1rG
+	 CNxycpL54QFcEqvDbEmKO0NWxHSy3KSQmO1kFqCM=
+Message-ID: <373bd41c-2f98-4050-9fa6-725ad2a0eb14@arm.com>
+Date: Wed, 25 Nov 2026 11:52:12 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,36 +53,71 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110065119.20575-1-lsa.uz@pm.me>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC,00/28] media: add arm Mali-V76 video decoder driver
+To: linux-media@vger.kernel.org
+Cc: Linux Media CI <media-ci@linuxtv.org>
+References: <20261119153758.1426673-1-charvi.mehta@arm.com>
+ <6aff2650.7439f5ce.3bfe4b.cd09@mx.google.com>
+Content-Language: en-US
+From: Charvi Mehta <charvi.mehta@arm.com>
+In-Reply-To: <6aff2650.7439f5ce.3bfe4b.cd09@mx.google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Sergey,
+Hi,
 
-On Tue, Nov 10, 2026 at 06:51:25AM +0000, Sergey Lebedev wrote:
-> Hi Manik, Divyamani,
-> 
-> Sakari added you to this patch in October. Is is_snoop = 1 on the
-> capture pin right for IPU7, and for IPU 7.5, which I could not test?
-> 
-> Christian Murphy sent a different fix for the same rows in August,
-> which I missed: a clflush of each capture buffer in buf_prepare and
-> buf_finish, with is_snoop left at 0. If the snoop bit cannot be relied
-> on, his is the one to take:
-> https://lore.kernel.org/all/20260824224139.21256-1-christian@themurphys.eu/
-> 
-> With is_snoop = 1, frames holding rows of the buffer's previous fill
-> went from 301 of 698 and 684 of 697 to none, reading every frame with
-> the CPU, and 4224x3136 raw at about 790 MB/s still ran at 29.95 fps.
-> The patch applies to v7.4-rc1 unchanged.
-> 
-> It carries an Assisted-by tag, which 7.4-rc1 no longer accepts; Sakari,
-> please drop it when applying, or I will resend without it.
+On 11/19/26 16:39, Patchwork Integration wrote:
+> # Test virtme64:test-virtme
+> Error running test. Final Summary not found
+The virtme64 log shows vim2m passing all 68 compliance tests, including
+streaming tests. The kernel then panics in `kobject_delayed_cleanup` after
+unloading vim2m, before test-media can produce its final summary. This
+appears unrelated to mali-vpu. Not sure if this is a known issue.
 
-Thanks; both this one and Antti's corresponding ipu6 driver patches have
-been merged.
 
--- 
+> # Test build-basic:x86
+> In file included from ./include/linux/device.h:15,
+>                   from drivers/media/platform/arm/mali-vpu/mali-vpu-device.h:9,
+>                   from drivers/media/platform/arm/mali-vpu/mali-vpu-firmware-cache.c:9:
+> drivers/media/platform/arm/mali-vpu/mali-vpu-firmware-cache.c: In function ‘mali_vpu_fw_parse_header’:
+> drivers/media/platform/arm/mali-vpu/mali-vpu-firmware-cache.c:111:25: warning: format ‘%zu’ expects argument of type ‘size_t’, but argument 4 has type ‘long unsigned int’ [-Wformat=]
+>    111 |                         "invalid firmware BSS bitmap size: %u (max %zu)\n",
+>        |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> ./include/linux/dev_printk.h:110:30: note: in definition of macro ‘dev_printk_index_wrap’
+>    110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+>        |                              ^~~
+> ./include/linux/dev_printk.h:154:56: note: in expansion of macro ‘dev_fmt’
+>    154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+>        |                                                        ^~~~~~~
+> drivers/media/platform/arm/mali-vpu/mali-vpu-firmware-cache.c:110:17: note: in expansion of macro ‘dev_err’
+>    110 |                 dev_err(vpu_fw_bin->cache->dev,
+>        |                 ^~~~~~~
+> drivers/media/platform/arm/mali-vpu/mali-vpu-firmware-cache.c:111:70: note: format string is defined here
+>    111 |                         "invalid firmware BSS bitmap size: %u (max %zu)\n",
+>        |                                                                    ~~^
+>        |                                                                      |
+>        |                                                                      unsigned int
+>        |                                                                    %lu
+> drivers/media/platform/arm/mali-vpu/mali-vpu-firmware-cache.c:111:25: warning: format ‘%zu’ expects argument of type ‘size_t’, but argument 4 has type ‘long unsigned int’ [-Wformat=]
+This is a valid warning caused by the 32UL multiplier. I'll fix it in v2.
+
+> # Test cocci:test-coccinelle
+> ./platform/arm/mali-vpu/mali-vpu-session.c:1159:0-1: preceding lock on line 1084
+This looks like a false positive. In `mali_vpu_session_fw_bin_ready()`,
+both the lock and unlock are conditional on !same_thread. A synchronous
+callback runs with the caller's lock already held; an asynchronous
+callback acquires and releases it itself, including on error paths.
+
+> ./platform/arm/mali-vpu/mali-vpu-session.c:671:3-9: preceding lock on line 668
+Appears to be false positive as well. `mali_vpu_session_wait_pending()`
+requires `sess->vq_lock` to be held on entry and returns with it held.
+It temporarily releases the lock while waiting, then reacquires it before
+checking `sess->error` and returning. The reported return therefore 
+preserves
+the caller's lock ownership.
+
+> For more details, check the full report at:
+> https://linux-media.pages.freedesktop.org/-/users/patchwork/-/jobs/116657798/artifacts/report.htm .
 Regards,
-
-Sakari Ailus
+Charvi
