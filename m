@@ -1,79 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795613420;
-	b=U5h6tpkEg2BaJM48tkIi2lV5kS+hWWxyKBsstIwaF9NrFGDiujg04OraQSCFBTb3UO8x
-	 kb7bq9qPbL+RFQoCov/UEseWLL6gqMffit64Q5ZDa7exUIafLaGucf/DcZLAVkv7cZbWt
-	 l71BGQy9KIENdqA4yh5A+KgeERAHlZ+53W4odSBWg47K38e99z8XNC3VKuNM3krXcAAxW
-	 h/WVs96cmHDdnUAODYqhbZ4omtJCRZXtkRrw6kIjl/cemtwfdK9/+8y8oGkLR30+m4tmM
-	 gPJkfwIonajYBHbwAjNOKEZueU8P0OI74izZd8Kp29oK3afqtwjPtaXDyoA2t01oX3g==
+	t=1795613738;
+	b=aYM1MD76vY8IlO3oSTXyTevv7PNISKcHLPiAALOTY9OpugXHjyDVyKKuZR0fYQqXjbyy
+	 DmMYiTY0v71hwuPQWYwJmabY23sSeciFwqtYrHx0VvtizZcN15gBVjAlmKT1E1IuDFAAl
+	 cY4tE+KDC204B+E64smQD7nKScQSvP/aLDV0x96liyc+hLdLD0BcJX1nlYrCsK9EDTWLZ
+	 QdsJJKKVkueDj4wDdMVms9VTWoMY3lZF6uaw4kTwjmPyi5x2Ik+83K6XPxdVNGDbTlD/P
+	 n4iH9vT1CDCKbA2ynyXnGqKMuxNDJofIbUtUquOYxAy+Ifoh3JwubloedLgGym8J/Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795613420;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=s1Gh+4qSZNP9qOF38aqibpmIzblJfEpYYEOVY1Lb948=;
-	b=jsuGKipwiiSPbbD0iaQA1ML1ZlOrwPDGfP3wt/ozIBdvnR4U3+dcBIQ6lkulbqeu3U7w
-	 ol2oP7FXv2pCfI29jMF6tnLcLArw/4WRYEk5ytNqjrjgtgy/6MZtW59T/j2D8jmb/QCqw
-	 C3PsehEyKsvvFH3rCtBf+r9n7rKdDGW44AEXrByURq50YqkdQr6MebChZEeXp7gEwJBFY
-	 elmg88BDdBWCSQiBjp6hsbmsVSXEm4SJYHFseREN3qgNUSFyx4kOMFCMCQp/n8vPwjMxf
-	 ODlHqsq3mEhcJHoLdYvOtvVfzQvSh+knBtUkH+xTQq0ISdNaiW8i/PiiTWRDzpP9igw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795613738;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=b11yeBb8NsdwSRdCS1bEtxOsQoS49Dp8WAO/enSMFOI=;
+	b=N/q5VThAcK8Y9xNvmZe4tnJOp2XdsTQzV68mN5luMLyouulProBOqgykqz0cc3ZIKnFx
+	 7PT7R0U//TJrZHBcSipEeEiLV3e8k4Up+go7kKlA36ftKRUJueL6bQ3vNWyXYXTVEOTkC
+	 U8TmGOYamq0UvzbUtMLySL5gElDhGaBkuc68P5TQtfIqjH4tkecKUbYsI5sp0SctiBjK9
+	 hPFoseVZmAFtxHkJUG/EJknlkRKz556raFv/Pn0hhhzPKlxdpQWHJe94NGMgp4Yaq6kqM
+	 Yb3Xilk55cdQfZn2g4s9ebRLZ1lwI4n+/IFVddFW/rWgpbFD4M49wFYznnCbTQlIocQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=M0EGO2h3;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ApCYebdO;
+	arc=none smtp.remote-ip=209.85.167.54
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2FB606A31E
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 13:30:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB2FB606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A02606A339
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 13:35:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06A02606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=M0EGO2h3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795613421; x=1827149421;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=wRG9qP0UkWnDXx9rJR86vgrElIDwEqF+hnomFuNu2CU=;
-  b=M0EGO2h39aSHrMFCtKiaDljhXqEdNorU5s8WDSn+f5yzkjkt3/CZ64sQ
-   em63y6C0FPzN2zGuFkX884KzCmxteZ0ELw9UA3uRVQIGf1Gfe/ea1bXL0
-   8kgVagTBlyT+gqvh1wviQenX0dXZ/amn0uxpjXVgQabQ3mg463JQMAI4W
-   xCYFJeQcWzRSNH3+JnKfVofcj+qWDY0nLRPjdGSMVtFz9rGOAoiQo5Sb3
-   /gP4qJ58aniA4FgnwJInZYP/uDmU3so7c19P/aLPibZhJGfb7hXXKTjjJ
-   5hnqaWSjkr2RS2Woc/p+zpO+fpSBj5JbZCt21HJkhBN0iczNzvEtVJbGl
-   w==;
-X-CSE-ConnectionGUID: dcm+ZpKMQK2y7Qzja2Jhsg==
-X-CSE-MsgGUID: kPbH4D/xSdSgLwADeSR7MQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4482789"
-X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
-   d="scan'208";a="4482789"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 05:30:20 -0800
-X-CSE-ConnectionGUID: PrAAdWSSQbeF1E5DxPwOHg==
-X-CSE-MsgGUID: 7BAAd4jrSG2YlTtnQRpHRw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
-   d="scan'208";a="11742706"
-Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.36])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 05:30:18 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id E088111F920;
-	Wed, 25 Nov 2026 15:30:20 +0200 (EET)
-Date: Wed, 25 Nov 2026 15:30:20 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jizhou Tong <fqwqf@fqwqf.xyz>
-Cc: pm@petermarshall.ca, patchwork@media-ci.org, media-ci@linuxtv.org,
-	linux-media@vger.kernel.org, benjamin.mugnier@foss.st.com
-Subject: Re: media: i2c: vd55g1: correct VD55G0 register access widths
-Message-ID: <awbi7CelGQ5VibWb@kekkonen.localdomain>
-References: <6aca088f.a3c0497f.3c6821.df4f@mx.google.com>
- <010601a1332f4eaa-5932b837-0115-450a-8e70-a84086c38df4-000000@ap-northeast-1.amazonses.com>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ApCYebdO
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bcdae234ecso8040920e87.3
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 05:35:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1795613736; x=1796218536; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=b11yeBb8NsdwSRdCS1bEtxOsQoS49Dp8WAO/enSMFOI=;
+        b=ApCYebdOtS1Y5UDBm0SEKX1EGlk5nzWMdbuBJ+LtuWy8mEXW4L5c9OlaCIx9HF3HKz
+         Qu/vlaPip7Wm/HCXWNJV/tiZRaMIj7MZr+wyUug5syKufQ3bKyDlNsC8Dm/xDQKs6YMn
+         DxVb0Z8rJobRGoNig7l1k80LKQm8S5fRLJM8c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795613736; x=1796218536;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=b11yeBb8NsdwSRdCS1bEtxOsQoS49Dp8WAO/enSMFOI=;
+        b=OGvfI/TfwV2wtigFNCKlfXODISiVS9peAazri8BjXdVp6RbqRCqsEKMkGm3d97sUE6
+         CGtMoVUyyOATaedtciM08ttpo5+F1pbkrFTuRQZHufmmDO23JKAcOnuM3fegkhaM8i4Z
+         zUnrgAsRGLIdVSd42UFA1d+nfQJu0ur40DLCu5AYVaBcAj0ehw83+0gs1LsWnlUATsTg
+         3yZwMJ855nmHBoDq3zEGXo9v/Y3COhCVzU/WqE2MznDbpOZR7OHRy3u+loaR9GszjJO2
+         Hx6I8UZ/5aizi9U5mlnsCeV8dBB3zINUPuKF8xsqQde4yigA+NlHP2siapY6U8Yq76qD
+         vtyA==
+X-Gm-Message-State: APuU4Z9vf+JpLkcWocqH9lC9MojusWyS8AiYhzhldJm8ZVQWPZQ1JQoq
+	+PpxnjfouqvwmEw+FOiP2oW88ljTFEDojxgdul0raLl4pr2d2X1W8WcuwFsujcY5zO7CzO+8d9f
+	Ph2purg==
+X-Gm-Gg: AZFdTZcU2Me8/gKmB6rnZAshEupreoAtT798F1arL59tYJZHlU1wZISaTkO24DBz3ri
+	+KMPT90yXUs0JBgEpcpjYicqvTZAsVnxZMDT1cKn8li0rji38Wh5VZ8wTOXsTGo2+Rx2Su3yw8q
+	QShyHTaEktSKSWA1ipn16UG/mLEr8pZlZv1Kldsx7/J7AvxiW1uMRGHbkVG+g2ViMQFtbsCJteQ
+	xQtbWxfdL/KorurmU5J3Uf6B0HbYGaQZiDzeG2rDCofuoschw3o2zuzWGoyWjQMApw8wFOZ33eU
+	utDKkTVCkkmUgKzx55vBHYymdtVkFIBrsoXKKTpiaG+VqPTnGZsmrrQxCXds3e8+qPrz0VyjvPS
+	+NMvAH1mbfkBYtNVTox+Rq1jyufOnmTitY3rpRkD/kQFlv7VGiIKOr5qShZ0TpY4nZH+xLcFHz3
+	+eMskC9LD3amwDIaSR+nrYx9xG1aeRpvHZ193epgVA2v47nojbuf31zMUtrsq72eo7b4au2UkR3
+	DGhpzS7r/hkixZw2FCkWyCcKRo/h+DCmFQzYPAN9mmEL97VVfTDHaXDpgWBKUOwfaHQaQNA5LXK
+	+XNW+R5Cx/FC5lSwMfSx0OdMM2olzYtDJBaD3qf2ano1cdPVWfa9Zkgmyy0aHy8BcV8JIEUznfP
+	1LJbY+J6oSg==
+X-Received: by 2002:a05:6512:1315:b0:5c1:4c0a:49e8 with SMTP id 2adb3069b0e04-5c1bc80b081mr5630295e87.45.1795613736259;
+        Wed, 25 Nov 2026 05:35:36 -0800 (PST)
+Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bcff7d6bsm4505000e87.18.2026.11.25.05.35.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 05:35:35 -0800 (PST)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Wed, 25 Nov 2026 13:35:33 +0000
+Subject: [PATCH] media: uvcvideo: Return -EINVAL for ctrl_get errors on
+ disabled controls
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,18 +89,78 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <010601a1332f4eaa-5932b837-0115-450a-8e70-a84086c38df4-000000@ap-northeast-1.amazonses.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261125-uvc-invalid-einval-v1-1-57e34bd8ce06@chromium.org>
+X-B4-Tracking: v=1; b=H4sIACTkBmsC/x2MQQqAIBAAvxJ7bkENJfpKdLBcayEslCSQ/p54m
+ znMFEgUmRJMXYFImRNfoYrsO9gOG3ZCdtVBCWWkVBqfvCGHbE92SA3QiGEdvVid1QZqeEfy/Lb
+ pvHzfD8hqXKxkAAAA
+X-Change-ID: 20261125-uvc-invalid-einval-603b8f0bda56
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Nezul Tairus <radwolf.83@gmail.com>, Ricardo Ribalda <ribalda@chromium.org>
+X-Mailer: b4 0.14.3
 
-On Tue, Oct 13, 2026 at 02:55:00AM +0000, Jizhou Tong wrote:
-> The next revision includes explicit base/prerequisite patch IDs. The
-> dependency is still required; those tags do not make it a standalone
-> patch against media-next. Please evaluate it with the prerequisite
-> VD55G0 changes applied.
+Some non-compliant cameras fail boundary queries (e.g. GET_MIN), so
+uvcvideo marks those controls as disabled during enumeration. Due to
+legacy uAPI constraints, GET_CUR requests are still sent to the hardware
+for disabled controls.
 
-It'd be best to squash this fix into the bigger set that introduces the
-problem.
+However, userspace (e.g. PipeWire) expects -EINVAL for disabled controls
+and treats -EIO as a fatal error, which can cause it to disable the
+camera completely.
 
+Match the V4L2 control framework behaviour in uvc_ctrl_get() for
+VIDIOC_G_EXT_CTRLS returning -EINVAL directly for boundary queries
+(V4L2_CTRL_WHICH_{DEF,MIN,MAX}_VAL) on disabled controls, and converting
+-EIO from GET_CUR into -EINVAL. If GET_CUR succeeds, the value is still
+returned to the user.
+
+Reported-by: Nezul Tairus <radwolf.83@gmail.com>
+Closes: https://lore.kernel.org/linux-media/CAFDWN6LPcz6CBOZzBVN-VbCce3g2wOrPZ8V45_=8xv16VCqzsg@mail.gmail.com/T/#u
+Fixes: 649c033711d7 ("media: uvcvideo: Set V4L2_CTRL_FLAG_DISABLED during queryctrl errors")
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+ drivers/media/usb/uvc/uvc_ctrl.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+index d2f722bc3459..9390cb642d30 100644
+--- a/drivers/media/usb/uvc/uvc_ctrl.c
++++ b/drivers/media/usb/uvc/uvc_ctrl.c
+@@ -2645,6 +2645,7 @@ int uvc_ctrl_get(struct uvc_video_chain *chain, u32 which,
+ {
+ 	struct uvc_control *ctrl;
+ 	struct uvc_control_mapping *mapping;
++	int ret;
+ 
+ 	if (__uvc_query_v4l2_class(chain, xctrl->id, 0) >= 0)
+ 		return -EACCES;
+@@ -2653,7 +2654,14 @@ int uvc_ctrl_get(struct uvc_video_chain *chain, u32 which,
+ 	if (!ctrl)
+ 		return -EINVAL;
+ 
+-	return uvc_mapping_get_xctrl(chain, ctrl, mapping, which, xctrl);
++	if (mapping->disabled && which != V4L2_CTRL_WHICH_CUR_VAL)
++		return -EINVAL;
++
++	ret = uvc_mapping_get_xctrl(chain, ctrl, mapping, which, xctrl);
++	if (ret == -EIO && mapping->disabled)
++		return -EINVAL;
++
++	return ret;
+ }
+ 
+ static int uvc_ctrl_clamp(struct uvc_video_chain *chain,
+
+---
+base-commit: b7ac871daee981f1963f632586ff9b9d898ce5dd
+change-id: 20261125-uvc-invalid-einval-603b8f0bda56
+
+Best regards,
 -- 
-Sakari Ailus
+Ricardo Ribalda <ribalda@chromium.org>
+
