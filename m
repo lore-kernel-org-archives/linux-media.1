@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795592448;
-	b=LOvAQ2CqvyhUslS07sYB+ihQMzqzNk2lQZ1wNL0jn1RdEeMlQfDw2C7v1rjpdUIsDJ+y
-	 4bfmxRcM/W6vdbHZgWV3XjFaGcnJ3ePORIkLqkuuxtbQxYE4vKcPFmmOnjiaNivmE215k
-	 h1qagO7dA6ButQhiMAD1KhtCkKa35axOlHUJxrQSJaLNOhv1jZ09XueIScEJ8IPvWXDVc
-	 lox+A9l0p75dYkBPQaAefshg7aPApIjvMOIcXT3oIEk4+XJW1wh2s/AX7n0r7DeEL8lnv
-	 vVhu+UNHELkOo6kmmkxRcmhbtuIOhLwP+y8wxt4rB6ftEcFt3ZX9P0jrB3ikcWwLK/Q==
+	t=1795593448;
+	b=4ZgAwEg8HEz4R+bFCNsf8ipEODqSBX5H2LNIf8zsI3jWF+26G73SmMmo7ee+2DvWmd8T
+	 j4btLw+ted9Nq2DuyvfAxF+4wy6BzUpwtk4MB6bHdH/DP39IyQ7076qTsuNEEjJ+aTGjD
+	 h8XKbKZ+5BuyjkVjQjGJE2ibmRJ1TjLXFhrWrNCjE9H+ZuvJFhrfAzfbPux+TuCeRsoHr
+	 +8oVuCTEsozFmONuQEyRan4cxkgL7JzBTnKrzoLqve4wSPsFAztA7xP/NXJLyiehNWtCA
+	 FVzCk6lCVuy2FfdZyg3SgMH82MLX8YU7RgUFo6+l1Zui41mlxHXExjxeQKKD+nYRU1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795592448;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795593448;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
 	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=LGaDNR7nBTs/UabrOSGv8Fp+nUmQmdrdd/i7qM58HNE=;
-	b=ii9hqN2RzokJN8yAlhqM92r/LTFWWDgY1OqPx2yPAKZBpON3xdtit7h4d2EhlJO9cRQl
-	 EGB8ajfSVY59haKB0puJSxnS4/tycTAxxUqB9iOqAB83mlH8wA9f8NRNwiFYwtJBkQEKe
-	 Way0eG5StehyMaJJtcn8TZl9NrTSJhKGdsGz0nTMfLccIyN6O9HWQQWTmTywhzO5sL88L
-	 jhDw0zguyC4je2Uw5wPPbxFHgwR7xL3zTMaJXjBrtLOQlCw0UlCc90queLN/Q3CiwFL2D
-	 o/LIxdJF/ftfg0M7blT/sc7Ydc7i2OMXi9dTVU41MkV2oduo8nQpY21d9GXsLsQ86nw==
+	bh=dRKFkQXIG8m+atyaMLAkOlxeVT/IHF+910joBxs1ugY=;
+	b=sW8cjaM+77kvF8FK+zs31GLFW7o3MODZZf9AYuqAp6Aewk4k/xWlOP9RVHSKih6thjPF
+	 NlUzSA/YyadoEvO0TPmiD6RPdicbBTtH0D+4qoAicQc3d3MWJRp6W22VGlhpaheHCNEdG
+	 UU3P69QjTtG+fkKOkfYfKaJbbF9C2uUXF/SYINjEW6opnTFz5afFB16mnYNN5N5fWc5Bk
+	 sYRRZxSzVz1bkaPgqDL/wdJWHPpJ5lfSc8WwCl+IA9PSB3WRPhmhgNJd1bVuJ+3Bpa9og
+	 1+OSKjqO54LZYDnnGZV9wK0I7fvctZr7SW3J4PNTzINY55kP+oRYL95rjuIMbAZQjaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ji8pCcem;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cThvKIUX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DF1606A31E;
-	Wed, 25 Nov 2026 07:40:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF2D606A327;
+	Wed, 25 Nov 2026 07:57:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ji8pCcem
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561EF1F000C0;
-	Wed, 25 Nov 2026 07:40:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cThvKIUX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999411F000C6;
+	Wed, 25 Nov 2026 07:57:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795592448;
-	bh=LGaDNR7nBTs/UabrOSGv8Fp+nUmQmdrdd/i7qM58HNE=;
+	s=k20260515; t=1795593447;
+	bh=dRKFkQXIG8m+atyaMLAkOlxeVT/IHF+910joBxs1ugY=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=ji8pCcem+8F1a8auh5fNMdBTUdxFonVVLGT2G8SR3j0V2r5+jV7JUXiOGo+C2h0nx
-	 /QwGCogNjr20CTz2sVlrH2vcowx9T+fUzyyLhTAE/hPoDMNfqFYI0xXuq3eD9vaxvS
-	 uwgJXYNwb/dufNZZbBtLpHZArKPPeBNZYjPsZtVYPdVm9fzA1lNYvK73xeuuTkQlVQ
-	 BvCDmRs1+rvoTkrsY1q6auK+FvUu5MDQOnJirKU8MQ+Id8JNpKps+XPRoOJku8JWFT
-	 ClOD7KLOE0pQ5AvScb0lw7Q1+IBhseD09PZShF6S/Ej+NHdNe7JnO76LBVLJAgZNL/
-	 LYec9vz++ZZUg==
-Message-ID: <403ad923-6430-42bc-9e16-f02033743a70@kernel.org>
-Date: Wed, 25 Nov 2026 08:40:45 +0100
+	b=cThvKIUXt5RbRExeoZf2vOWO5eK3ixrpANH8wYZ5BgxiicLtyakgP4lZUnhYGm2uz
+	 TiddNuXsbF9f6fXPFGmRpdT4JhA6qFFRP+ofJTqq6PCARmRPkcl9xNPUcnZ2yD+fp6
+	 gZnLYn292ZGWeLXz1YhjxfrAo5EkobiFcyBYJ6NiLGIuAtEOkqKfCzvx3k0Ua/scZ0
+	 +YIWW48RBrV/2eOTXYv3EL/37NTVh8EKL4u2sK/o+UCWBkeZh+//Hmu6U+1g6eBRWz
+	 WjNcrEbQxSwFoy5HCIeGF6rNnCexkNdJM2pY5t6ZiH++4Z3R9yzBXUXNbu1IAms5Yx
+	 JVZngA0kX3c/g==
+Message-ID: <f8ade8c0-d967-412c-8046-96588ba0672c@kernel.org>
+Date: Wed, 25 Nov 2026 08:57:25 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -53,106 +53,87 @@ Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v2 1/2] media: em28xx: defer media_device cleanup and free
- to em28xx_free_device()
-To: Arbab Haider <arbabhaider649@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261122222325.41868-2-arbabhaider649@gmail.com>
+Subject: Re: [PATCH] media: i2c: cx25840: guard media_entity_cleanup() calls
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Zixin Wang <w1355457260@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Biren Pandya <birenpandya@gmail.com>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261112085251.734109-1-w1355457260@gmail.com>
+ <avWDGi-IPsVEdyby@kekkonen.localdomain>
 Content-Language: en-US, nl
-In-Reply-To: <20261122222325.41868-2-arbabhaider649@gmail.com>
+In-Reply-To: <avWDGi-IPsVEdyby@kekkonen.localdomain>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22/11/2026 23:23, Arbab Haider wrote:
-> When a USB em28xx device is disconnected while a V4L2 device node
-> (e.g. /dev/video0) is still open, em28xx_usb_disconnect() calls
-> em28xx_release_resources() -> em28xx_unregister_media_device(), which
-> calls media_device_cleanup() and kfree(dev->media_dev) immediately.
+On 12/11/2026 10:12, Sakari Ailus wrote:
+> Hi Zixin,
 > 
-> However, struct em28xx_v4l2 remains alive until the last open file
-> handle is closed, and v4l2->v4l2_dev.mdev still points to the freed
-> media_device.  When userspace subsequently closes /dev/video0,
-> v4l2_release() calls v4l2_device_supports_requests(vdev->v4l2_dev),
-> dereferencing vdev->v4l2_dev->mdev->ops and triggering a KASAN
-> slab-use-after-free:
+> On Thu, Nov 12, 2026 at 04:52:51PM +0800, Zixin Wang wrote:
+>> sd->entity only exists when CONFIG_MEDIA_CONTROLLER is enabled, but the
+>> two media_entity_cleanup() calls added by commit 634be628b5cc
+>> ("media: i2c: cx25840-core: Add missing media_entity_cleanup()") are
+>> unconditional.  Building with CONFIG_MEDIA_CONTROLLER=n therefore fails:
+>>
+>>   drivers/media/i2c/cx25840/cx25840-core.c:3964:41: error:
+>>   'struct v4l2_subdev' has no member named 'entity'
 > 
->   BUG: KASAN: slab-use-after-free in v4l2_release+0x325/0x380
->   Read of size 8 at addr ffff88800787a260 by task test_em28xx_uaf/53
->   ...
->   Freed by task 30:
->    kfree+0x162/0x410
->    em28xx_unregister_media_device+0xa4/0xe0
->    em28xx_release_resources+0x70/0x170
->    em28xx_usb_disconnect.cold+0x107/0x2a3
-> 
-> Split em28xx_unregister_media_device() so it only calls
-> media_device_unregister(dev->media_dev) on disconnect, and move
-> media_device_cleanup() and kfree(dev->media_dev) into a new
-> em28xx_cleanup_media_device() helper called from em28xx_free_device()
-> (once the last dev->ref reference, including em28xx_free_v4l2(), has
-> been dropped) and from em28xx_init_dev()'s error path.
-> 
-> Tested locally in QEMU (x86_64, KASAN+UBSAN) using dummy_hcd and
-> raw-gadget emulating an EM2820 device across open->disconnect->close,
-> repeated disconnect, dual-fd open->disconnect->close, and normal
-> open->close->disconnect scenarios (8/8 passed, 0 KASAN reports).
-> 
-> Fixes: 37ecc7b1278f ("[media] em28xx: add media controller support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
+> How about instead turning media_entity_cleanup() into a macro that does
+> nothing with the arguments if MC is disabled?
 
-This patch no longer applies, can you rebase it on top of
-https://gitlab.freedesktop.org/linux-media/media-committers, next branch?
+That would be inconsistent with the way the current include/media/media-entity.h
+header works.
 
-Thank you,
+I'll take this patch rather than changing the header.
+
+Regards,
 
 	Hans
 
-> ---
-> Changes in v2:
-> - Add Fixes: tag as requested by Media CI.
 > 
->  drivers/media/usb/em28xx/em28xx-cards.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
+>>
+>> Guard both calls with #if defined(CONFIG_MEDIA_CONTROLLER), matching the
+>> existing media entity setup in cx25840_probe().
+>>
+>> The failure was reproduced with CONFIG_MEDIA_CONTROLLER=n.  After the
+>> change the driver builds with both CONFIG_MEDIA_CONTROLLER=n and =y.
+>>
+>> AI assistance: the fix and this changelog were drafted with the Qoder
+>> coding assistant; the sender reviewed the change and ran the builds.
 > 
-> diff --git a/drivers/media/usb/em28xx/em28xx-cards.c b/drivers/media/usb/em28xx/em28xx-cards.c
-> index 1d4f30cba..d8f2e40b7 100644
-> --- a/drivers/media/usb/em28xx/em28xx-cards.c
-> +++ b/drivers/media/usb/em28xx/em28xx-cards.c
-> @@ -3773,8 +3773,15 @@ static int em28xx_media_device_init(struct em28xx *dev,
->  static void em28xx_unregister_media_device(struct em28xx *dev)
->  {
->  #ifdef CONFIG_MEDIA_CONTROLLER
-> -	if (dev->media_dev) {
-> +	if (dev->media_dev)
->  		media_device_unregister(dev->media_dev);
-> +#endif
-> +}
-> +
-> +static void em28xx_cleanup_media_device(struct em28xx *dev)
-> +{
-> +#ifdef CONFIG_MEDIA_CONTROLLER
-> +	if (dev->media_dev) {
->  		media_device_cleanup(dev->media_dev);
->  		kfree(dev->media_dev);
->  		dev->media_dev = NULL;
-> @@ -3826,6 +3833,8 @@ void em28xx_free_device(struct kref *ref)
->  	if (!dev->disconnected)
->  		em28xx_release_resources(dev);
->  
-> +	em28xx_cleanup_media_device(dev);
-> +
->  	if (dev->ts == PRIMARY_TS)
->  		kfree(dev->alt_max_pkt_size_isoc);
->  
-> @@ -3997,6 +4006,7 @@ static int em28xx_init_dev(struct em28xx *dev, struct usb_device *udev,
->  	em28xx_i2c_unregister(dev, 0);
->  err_deinit_media:
->  	em28xx_unregister_media_device(dev);
-> +	em28xx_cleanup_media_device(dev);
->  	return retval;
->  }
->  
+> This goes below the '---' line.
+> 
+>>
+>> Fixes: 634be628b5cc ("media: i2c: cx25840-core: Add missing media_entity_cleanup()")
+>> Link: https://bugzilla.kernel.org/show_bug.cgi?id=222245
+>> Signed-off-by: Zixin Wang <w1355457260@gmail.com>
+>> ---
+>>  drivers/media/i2c/cx25840/cx25840-core.c | 4 ++++
+>>  1 file changed, 4 insertions(+)
+>>
+>> diff --git a/drivers/media/i2c/cx25840/cx25840-core.c b/drivers/media/i2c/cx25840/cx25840-core.c
+>> index 7066b2252afd..91794ec59e2d 100644
+>> --- a/drivers/media/i2c/cx25840/cx25840-core.c
+>> +++ b/drivers/media/i2c/cx25840/cx25840-core.c
+>> @@ -3961,7 +3961,9 @@ static int cx25840_probe(struct i2c_client *client)
+>>  		int err = state->hdl.error;
+>>  
+>>  		v4l2_ctrl_handler_free(&state->hdl);
+>> +#if defined(CONFIG_MEDIA_CONTROLLER)
+>>  		media_entity_cleanup(&sd->entity);
+>> +#endif
+>>  		return err;
+>>  	}
+>>  	if (!is_cx2583x(state))
+>> @@ -3986,7 +3988,9 @@ static void cx25840_remove(struct i2c_client *client)
+>>  	cx25840_ir_remove(sd);
+>>  	v4l2_device_unregister_subdev(sd);
+>>  	v4l2_ctrl_handler_free(&state->hdl);
+>> +#if defined(CONFIG_MEDIA_CONTROLLER)
+>>  	media_entity_cleanup(&sd->entity);
+>> +#endif
+>>  }
+>>  
+>>  static const struct i2c_device_id cx25840_id[] = {
+> 
 
