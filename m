@@ -1,107 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795631035;
-	b=wwGfV0fJQIUMe1mC+wsrj+QFECfjE8Bg77apM4If7RTBUoCbOLmtbd2mptc87gcXwkHS
-	 fA+h7bR18MISkHXeNaYiwF2DxnZAjsnSEUvRTkyk7dHQkiykDHj5NEJAl2vYvun037eiC
-	 A2RT8Wbun2ndFSz2gxVrC2XQ6sKkGK31hTd5TkgHrXm2fgBm2qXSN91NubB4j7rQnsN11
-	 1V0XIsp3qYV79Ij8Xu67f8lAxaS8V+uUpN+/Nqj0CGrluzq5mzwFD++hM7hhr2IMaclp2
-	 cRKbBp8HVdN8bQqI7aLz7xlyCPi4r2a4lmU/CB+2U2pdydAxiRZBf8K4/vYoxcZzx5Q==
+	t=1795631036;
+	b=iUPTxnG8Y8U+ow7SXn868QJYtxYt9cQLrG/G+c2x9yGOGa5hNb7PeyGamEk0NEe6ZV53
+	 MGEGZuo7TAHddQdK3xNh2oHzMv1IQK2GaFUkHYTOS56tNFjo01fr8oePuFTNZhO8eH0JL
+	 ZHtOdsQJdwjT7+rQQBuesCeFpqo84PlhUKvhyzsLOk1fHIqZ8+2QZ/LsJK6CD8bOhg2Bi
+	 qbqQB4pJXhR6K1eJEriT7TOa0tg64zQ4pn7Z2HKwj2g9B0bW0xGxPCcBy54ukXQZ3+z4l
+	 lYA81nLNtsRXmlPI4um1uIWf+yeRneyNfKU31FCTBQjUPK1NP8hDl9b96nV0Es0uUkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795631035;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795631036;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
 	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
 	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=FSIe11hSyoXB1+nhTSFM3l4wJHg/CQn47ZxMfkhh/Hk=;
-	b=baceq4tbeeFjtquKsIQFEyiuMfvxsPe8J42lW6KFchafaMBhVxmdY0AjSRNildQrwVUm
-	 dFAUZ+mO7UE4MFPBSXGjzbtZkjfOCnif2N2H4TKqM4h/gSKQlpUux+ArIdjb2x2++d4Cv
-	 8QabOu2K+GNKmIVUtscYrDFe3103CFIvED5pyK/2Py2Ctmc5EQw/Uu9qkOQYs+mqh/lMH
-	 hmElBgQx0Z5cBVbtoj0UVSSLtjxUxozpyEGvqObPNaCgGcWQiKAZJObHVNC+ny8h8y6gn
-	 sqxjO2Xdk+qtMSM8GkEYhOYznpvSOwTsufhTNrLRcIARIHHmS4R9FjingvOb/D3G+ng==
+	bh=NK6/PcS8uONbf6TCuKFByfP7rgK+6K5oJPKTjEJwaEI=;
+	b=TSxRAJ18c2gL672TL9/3MRg2lN1LRHvvax1IIzVuarDnJ4XuWXm/H7UBZaWcas2CJhmF
+	 lK2863+AHE10meN67Zs4TAV4FpIwgGyu8ryc3NDtGWyyvIolFffvesbpolG82LB3e5eVX
+	 WX+XzTjPFbmiUQz9yEzHwv0/AH3LUrDdjWFcspcfCjltO/v1VnEYyhDlFS3SI9bx9S4TR
+	 nrjKOTrVbgv+CnwLMYKYjdqSiCha/+mQrGlzi7pkL332vwhSwl0uaI7ni0+YUtrsTGAD2
+	 k7oScPVIVBD2j41HTFWWzqDEDp84yNhozOLefyEsYPWhOAUfNZEq0i1/Dj4uiygQ0gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=C5cE4MHM;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c4axgHvy;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eY7Ec61I;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aTpvIyAi;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC24606A33C
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 18:23:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EC24606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B94606A690
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 18:23:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B94606A690
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=C5cE4MHM;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=c4axgHvy
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6APGQWI3454276
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 18:23:53 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eY7Ec61I;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aTpvIyAi
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6APGQ4o6291082
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 18:23:55 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=FSIe11hSyoX
-	B1+nhTSFM3l4wJHg/CQn47ZxMfkhh/Hk=; b=C5cE4MHMRlwy/52XN+a21opf0KN
-	tJVQRlVfgq3Yim2ndea9EQm0QXadX2NyGOcUneX3mwErzzUmo9So7xjXdCOCmCdn
-	L2mcQF6CLUy5iiKE45OKIw2KJTCvCokMt8aXuUddvcMhOjyre6L/W07CnyWkT4rw
-	yVHROzf1yls4TWLnuEFSBPp59iaqM7jDyMD9eWRI0FUxlVzdMMqwt7k1+hZEcDDS
-	PpFHLZzbH6zXVU7jCiT7jGrSU3D5EKG8Q/mR+XS/S4nfHvehUF5nZbCZ0chPrrOY
-	wgemrGvqKKjrRqLY0jwxq3+Xcyx9pKZVMd/mKW7y4IV7MnzsZGywjRIvoHQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5vv2t7g9-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=NK6/PcS8uON
+	bf6TCuKFByfP7rgK+6K5oJPKTjEJwaEI=; b=eY7Ec61IJ+CmA8Lt65gBegNBa4I
+	BxYkj5bRXnfLiHRGZxAQzZ7hqwc4RyHU3SyvY2X1R/nLQFmtpASUDwZj3rG6iVTT
+	X97S+E3gufkMOpS2G62yjADsEO/4QcfVOIQq8gyha8AMIAQ7NcvME8plBHNJov3C
+	no9gzR/djQBjOI/+BYbgTcMTnjnRGFbSsPLQlY0a/aLus589nWVDjJgcr/SReK4+
+	aOgMafToHq67lmANs88/v3z7OJ2UNbV5PfdWSPnt7ut2vu+zyL2Mwcodcv+G2mjz
+	ZUmd+wnlM46f77ZU0JWieKifGA5Iv7tl1RBLuFo1+J+lRqJj+g2ZjDNxNow==
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com [209.85.128.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j61ahs0aw-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 18:23:53 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93e92aad34aso1059194685a.0
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 10:23:53 -0800 (PST)
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 18:23:55 +0000 (GMT)
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-8b3030bd581so87463207b3.3
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 10:23:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795631033; x=1796235833; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1795631035; x=1796235835; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FSIe11hSyoXB1+nhTSFM3l4wJHg/CQn47ZxMfkhh/Hk=;
-        b=c4axgHvyvMCnrIzCvvaamS7kDT+eD/Q2Nz5tjfe0yAMf6JYIBYVsliMwbadeUon3Ky
-         OeD+9preZXKQQLG/xe8CowVbCpEL+zhSvfUPIMxeKDFiycvkTcl61BiAOJt7Kt5/j+zP
-         nJiMbeGWST9kGqgJLPvH1mMk3e/M8Twcl4dEffkk4yQtH3trldecy1RZ734mcv8xeKid
-         V8gd/RPfMjm4rNzz2j+gu52+QI3xUtpbOt5Emfevxj+P6KY+sO+737dshAqTC9e9aDJ8
-         v271JVNR3nlThdhvPJgqBnvglFah914zGSE8IyxG/NhigUlOS//XDLeXN0HbE5QsShty
-         COtg==
+        bh=NK6/PcS8uONbf6TCuKFByfP7rgK+6K5oJPKTjEJwaEI=;
+        b=aTpvIyAipjoeeyNTeFB6PavG8YiT9suGFr8GMumzmRvPGv5y0KE4v6JSbR7OKLNboQ
+         /G9g7feljOs8eNT64uaAQIpXBPKquJVvsRYj2VcpGpRtX5EDtjH0qxYR2Aj2EjaTuZgP
+         4OG3phSDQKupptE26a5iMbJfanCKc5xVWzcjDN9CCZh+zbqyM+qdFX4lnACSksVOHS+j
+         jEVE9rB08+jUPr6owZbT7xsmwXbRCQ5nK35YAn1i2qTCCGuBZsfm++v63TUB2Xuapfss
+         wG1eqJbX9SmwoZdYrTWd9CK4+efiZRDZvqBEVQaf/mrM6mAIDiZV58LUfLC3wfwRooOn
+         3H4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795631033; x=1796235833;
+        d=1e100.net; s=20260707; t=1795631035; x=1796235835;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FSIe11hSyoXB1+nhTSFM3l4wJHg/CQn47ZxMfkhh/Hk=;
-        b=GU7kzoF+JIhVkp0MKL7uuEk8VqVahFDuihqAM0dOZcWsJtp3tuKFmoXyEN4HjTKswz
-         rCINi3ouEY5k4MTMGxdPFgz3XqLwExq1EUnv5oYmsFyshrPWo5qdG/d/Gpxb0jPLk8qE
-         huCC9vf9nIgYcKCc1SkDwaOpNdRdpyFCBeFNjV6GXZhjPtUult40qwfPdimLnG5B5N9Y
-         6t6foIcaRCGakt2EWvmS/VO1RNUg5TDLEnH5Qwg+kgRPNFQwcfVZ5bIL0nRCjneZPsEU
-         YVRMh3H5tAAZHshmP65AhLf4G1Dx9t9/AX3I/X5So/qFNaO0MoE2DEo4agsX5CgFcSpo
-         q09Q==
-X-Forwarded-Encrypted: i=1; AL+hErFeVyJOlHFq22NRwYifj1IRb0Rf/lglwA3b2CzisLjn1kUSkHn0shwrusHwCrC/s8sKD6H1ZelWu5RC4A==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Z2LdZ1THhLkoRLlxR6QXM3eMdvi8AuIZFZgMttgOc7EXRdwQj
-	XV5JeyKq09pO4T33XTvmqrl99DRMng/tD1ByKAXfacTHpI4GB/IxcPWaDATMIu4t8qoQOcEocTa
-	+uQYdquA1jmC/zvI7SJy2a6mZIS/EDtjOwddgaLs5314se7AzyvzxMpGNFkMXvcSpoElZZPWHrY
-	e+
-X-Gm-Gg: AZFdTZcd+BD/wHW7ThuF4SMRhr387sfewn/FuF2irsjP1sbv0twW8DdUVB9gJ7xhx0R
-	Zis8+KWSGikIz5izWNXQj98ru0+e5aABaUjga+QJPjAkF/w3hWNfbXGjBl+hGXxVh2Hw9XyuRim
-	I2zjqtnfurZ/wyjXbE9DK+ZMYzSPLsJJwbLe09GMdw6F2hhJLNGaMeAmAa/6eMeepC1MoJjkbWH
-	7kBW5DsWS2tE1wgGEvga9qjxMtNBcGCKZCIS4ZJ7bxQemDHZRvA3WmrTDu8n0+Lu01+1kG92tv/
-	vkne1y5A/0kb5eG5SxybupHwpeesmdQ4mQtGPnbm89FbZcTdXpMOggQC32/DSLf8UMYHTKPn2DE
-	Qnjdga7AJp6APuR3UfU8IcT0QS9iiXevNMMCHcICMKlvLVtSjsMw92kwNJScZhO8JEp3YEER95+
-	Gd25S3
-X-Received: by 2002:a05:620a:199b:b0:949:7502:69c with SMTP id af79cd13be357-949bab7ee59mr3410032985a.73.1795631032531;
-        Wed, 25 Nov 2026 10:23:52 -0800 (PST)
-X-Received: by 2002:a05:620a:199b:b0:949:7502:69c with SMTP id af79cd13be357-949bab7ee59mr3410024585a.73.1795631031802;
-        Wed, 25 Nov 2026 10:23:51 -0800 (PST)
+        bh=NK6/PcS8uONbf6TCuKFByfP7rgK+6K5oJPKTjEJwaEI=;
+        b=rUIF0nLurEgkF8PnCLYv9P5fSxDd1FSf1TP2FkoJ2rhA55YvvlZMSP/80CEntcg003
+         R+8frkec5k5jL5QlYA0Y8p95QUpggN5/nvPjKyU7V+mv+ZqsajGAMxQ0aH3JXNL14mH4
+         OOqjzyPutzPamHpOCTnTlg1k63cIL+dEGYivnAtlUVW/w4x8mzNKnmuOXCyzYtJ7jgWz
+         33yzM2yN+DGDB0/mq3v3PMxdXS1bV/rJWygIXQNQlLfKpQloxs/yL7qa77ZeJVc9YqaZ
+         a5KloGfU0wZB/LA1C9pyKs/X0mmqYd723SRWOlD7sXFKfaQi1UOc+VoI4o1Z1xEQXHWn
+         d/BQ==
+X-Forwarded-Encrypted: i=1; AL+hErGf1NPbncQHj9Ln1rYZy7rlZp31c+SU/NDjm3AR07YLkBQNd7TstKxqxgqQyfh0ZnFeGc5NeuIW4tM3Fg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9W8VLPYiZNz6Io50wpB38rjK7ByLSqFpDOO2actljfgTAIsVDW
+	IUKemuFuhHYS0F5Pi1njaTI0QXqM7v89D20HG9dA7o3YgVZcS97P1a2NZtGSwXXSJKyRFTRF5bY
+	ASEgB8hm8z/UsX54TLAI/39kq46QFOA+ZTdCZRc5/CFP6Kxg42oXMl5WlcPgabuIw2Q==
+X-Gm-Gg: AZFdTZeUTzcR1iRs40R5mthYi/xGSbybNQxiM6F39MRKw8sNNpIkvvDt5WePsJks6iQ
+	FMwz+3AnnE21dgWMM2Rq+XtHskdbGtnKFiBRlA6ZQRV1lHCB4ft6WQBxTtdCGg6+BMXVAOWr8N+
+	PtTpNGgkeW7OvGi99cWuRwy0f2c8HQIsRosczQsDAy7Q/0uj1r79W7JbGHvo5wR8GnMvcybmZRD
+	tF2BpuqWMXksE1tHE3Sp/plod27lnTZWPfenzcjZHJfHadEkKYxhHew28kKkPmT7SuT/AUXrVPX
+	8X7ERykf9cVxfdIIukQsZaHSkydNcRS3i2x+MKSN3OD4wW3l6SsOr9fQopthZ8iNXV5qEaIqCDD
+	Y7hk/MWV/ZILr2TtoI5BEAyGO/9xLvnYEKgIU2xPA2vl4xZquUYvXtqQk7ELFCU6L4484xxsLdh
+	aporiK
+X-Received: by 2002:a05:690c:3749:b0:8a9:d5f2:f5a6 with SMTP id 00721157ae682-8b5204cd1b8mr67206507b3.67.1795631034232;
+        Wed, 25 Nov 2026 10:23:54 -0800 (PST)
+X-Received: by 2002:a05:690c:3749:b0:8a9:d5f2:f5a6 with SMTP id 00721157ae682-8b5204cd1b8mr67206397b3.67.1795631033569;
+        Wed, 25 Nov 2026 10:23:53 -0800 (PST)
 Received: from lin-0843.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab65cb42absm37185609f8f.1.2026.11.25.10.23.50
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab65cb42absm37185609f8f.1.2026.11.25.10.23.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 10:23:51 -0800 (PST)
+        Wed, 25 Nov 2026 10:23:52 -0800 (PST)
 From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -112,9 +111,9 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
         Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
         Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-Subject: [PATCH RESEND v2 06/12] media: qcom: camss: Add streams API support in CSID subdevice
-Date: Wed, 25 Nov 2026 20:23:20 +0200
-Message-Id: <20261125182326.2767771-7-gjorgji.rosikopulos@oss.qualcomm.com>
+Subject: [PATCH RESEND v2 07/12] media: qcom: camss: Add streams API support in tpg subdev
+Date: Wed, 25 Nov 2026 20:23:21 +0200
+Message-Id: <20261125182326.2767771-8-gjorgji.rosikopulos@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261125182326.2767771-1-gjorgji.rosikopulos@oss.qualcomm.com>
 References: <20261125182326.2767771-1-gjorgji.rosikopulos@oss.qualcomm.com>
@@ -128,582 +127,391 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA3MyBTYWx0ZWRfXwIaOWXoVXWLU
- DZHOUB0LJHmoWE/PyzKSO+0hjXgA096plbCeKB2N631Jl+AXLqZmEOPR2BnsNU1eQ9DpHidww9F
- 9zHnLSiNUPPo5CWnX4AtbGqRk0besVU=
-X-Proofpoint-GUID: fKebBLJnPpMOh0KLllPqAcU6fDcYzHjg
-X-Proofpoint-ORIG-GUID: fKebBLJnPpMOh0KLllPqAcU6fDcYzHjg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA3MyBTYWx0ZWRfXyQGXtyoAWlTy
- 6q04uGYO59/oBsxKExKPB+WgTqvDIoeHTVcG6cZXQbZtM3PECgCjM0A/BCKWbiY7p5I3bgAwH/1
- wTLWxEvVorJ7NDztGn81sKMRmidgY4oXL+ARSBRRP96PctiIALmtEEPciydPSvrBP2Z0jZPQUqZ
- MTmzlt0oyomZseyI41g0tudB5SD1EZG2CRJJf2mPTqeC5quGIiFJmwwIyNEEOtGkaNtIc0GcAen
- xX4xr+pZzRFNElcz73h2YO8iA4oDJDmhI2Nqu1lXkIyRTR0QG+0kfkfzk2nK0Z1oB/oV2m5JY3l
- PGBqhc3Z7m4dAzn06UD3QOmklzIg7aiW49eS/QWzBEaLXyyLcRJEf9oYOVQLg0c1MuTuvzXg9Un
- usfNiF/OD6wleXawkOf8wtanuS+D9CGCHSadAx24slkyqh9AEwAlYllQlOMNi8gPFKn+6O7oPmb
- 3zv22oUUnjMn+awbZHA==
-X-Authority-Analysis: v=2.4 cv=A/z5rKWG c=1 sm=1 tr=0 ts=6b0727b9 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+X-Proofpoint-GUID: augzxwSD8XFo-QypLnfjqIfaXjIz8uEo
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA3MyBTYWx0ZWRfX5zPjM/N6NpV6
+ 8m6UHfbDheCL3MXucd10aep/WYLXQKUduuUlcgHmZe4FYfuqTmluFsWixtiJnYERom4G2kJfckz
+ rCqZzsN1/nBo3KIPsULuF3IJW0Mbm6M=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA3MyBTYWx0ZWRfX8M6KfFyO0ubR
+ ogu1fbQYbJMVnRrU5qE3FYyf0/c29fAXk9P4uDtD4KhSWZYwjWEbn5JGRGxflh5A4YTGVMpZ3a+
+ uqUFGbSRasZqkf7kz73A7r7/2q+T2COTGx9eP/fnY8YJeeAd45lN8tvh4Qzhak6Ciz1WV5+4xLH
+ LlEGdFzbz2bd0pi6pH3j38msZ/Eu5HE5dAAGh3Smq/OckryDsPbwtemUBDNPXKiNg7iDYGlxWGU
+ 31weH9n3I/1ilYZkrUmL/ym8NOfIkMt1VBtLaiCOfCieiqfCa8HNimi9LximUiF1leICypHL51A
+ rmUU/Tu/NbvWCt8WqpdwEYrS/n3Hkh3yNWLcstAhgsa+ctTx6TiSz4/EgE/f/P/7CWhEPk+tdnk
+ tni/Jqjcp2/+s67uFyXsjpzz3S1/sSs1SPkuL4eJYyd0nGefXgWNe6aZJruA2wTc/Gx8vqT3QkH
+ MizbrvUNu1MPDQ9A1DQ==
+X-Proofpoint-ORIG-GUID: augzxwSD8XFo-QypLnfjqIfaXjIz8uEo
+X-Authority-Analysis: v=2.4 cv=BbxNQbt2 c=1 sm=1 tr=0 ts=6b0727bb cx=c_pps
+ a=0mLRTIufkjop4KoA/9S1MA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=ZovgdgjKAAAA:8
- a=EUspDBNiAAAA:8 a=Apnq_Eyu-EHfnSaQfaYA:9 a=bTQJ7kPSJx9SKPbeHEYW:22
- a=VOxKbm1zgHvARWIDjr3b:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=B3zJfmbLvRk507KYyW4A:9 a=WgItmB6HBUc_1uVUp3mg:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-25_04,2026-11-25_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 priorityscore=1501 impostorscore=0
- suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611250073
+ clxscore=1015 bulkscore=0 adultscore=0 suspectscore=0 impostorscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250073
 
-Implement the V4L2 subdev streams API (enable_streams/disable_streams,
-set_routing, get/set_fmt) on the CSID subdevice, selected per SoC via
-camss->res->streams_enable.
+Add support for the TPG subdevice to generate multiple concurrent
+virtual channels under the streams API. Replace the single fmt field
+with a per-stream array sized MSM_TPG_MAX_STREAMS and track the set
+of active streams in a new enabled_streams bitmask.
 
-Each CSID source pad carries a single stream fanned out from the sink
-pad by default; a multi-VC sensor is supported by remapping a route's
-sink_stream via .set_routing, leaving source_pad/source_stream
-untouched. The virtual channel and data type programmed into the
-hardware are discovered from the remote subdev's CSI-2 frame
-descriptor when available, falling back to the format's data type
-otherwise.
+Add tpg_pad_enable_streams()/tpg_pad_disable_streams() pad ops that
+update enabled_streams and (re)configure the hardware, a
+tpg_get_frame_desc() implementation that reports one CSI-2 frame
+descriptor entry per active route with VC equal to the stream index,
+and a tpg_init_state() internal op that sets up one default route per
+stream.
 
-The Rx front-end and, where present, the test-pattern generator's
-v4l2 controls are synced once, on the transition from no active sink
-streams to at least one; propagation to the sensor and teardown are
-likewise only done when no other source pad still references a given
-sink stream.
-
-The full IFE's pix pad/route is still excluded on non-lite CSIDs
-pending a correctness fix for the non-functional pix path; this is a
-known limitation carried over from the non-streams driver, not
-specific to the streams API.
-
-Co-developed-by: Hitesh Patel <hitesh@ebytelogic.com>
-Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
 Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 ---
- .../media/platform/qcom/camss/camss-csid.c    | 490 +++++++++++++++++-
- .../media/platform/qcom/camss/camss-csid.h    |   1 +
- 2 files changed, 486 insertions(+), 5 deletions(-)
+ .../platform/qcom/camss/camss-tpg-gen1.c      |  63 +++---
+ drivers/media/platform/qcom/camss/camss-tpg.c | 179 +++++++++++++++++-
+ drivers/media/platform/qcom/camss/camss-tpg.h |   6 +-
+ 3 files changed, 205 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index 2efaeef83606..652c4dd31093 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid.c
-@@ -1432,10 +1432,469 @@ static const struct v4l2_subdev_ops csid_v4l2_ops = {
- 	.pad = &csid_pad_ops,
- };
+diff --git a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c b/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
+index d29de5f93c18..22fdeef8e76f 100644
+--- a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
++++ b/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
+@@ -5,6 +5,7 @@
+  *
+  * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+  */
++#include <linux/bitops.h>
+ #include <linux/io.h>
+ #include <linux/kernel.h>
  
-+/*
-+ * csid_fill_port_configs - Discover and populate the virtual channel/data
-+ *			    type to program for every actively routed port
-+ * @csid: CSID device
-+ * @state: V4L2 subdevice state
-+ * @remote_pad: Remote pad linked on the CSID sink pad, or NULL if unlinked
-+ *
-+ * Fetches the frame descriptor from the remote subdev linked on the sink pad
-+ * once, then walks every active route to populate csid->port_cfg[] for each
-+ * routed source pad, falling back to {0, format_dt} when no frame descriptor
-+ * is available.
+@@ -106,13 +107,16 @@ static int tpg_stream_on(struct tpg_device *tpg)
+ 	u8 payload_mode = (tg->mode > TPG_PAYLOAD_MODE_DISABLED) ?
+ 			   tg->mode - 1 : 0;
+ 	u8 lane_cnt = tpg->res->lane_cnt;
+-	u8 vc, dt, last_vc = 0;
++	u8 vc, last_vc = fls64(tpg->enabled_streams) - 1;
+ 	u32 val;
+ 
+-	for (vc = 0; vc <= MSM_TPG_ACTIVE_VC; vc++) {
+-		last_vc = vc;
+-
+-		input_format = &tpg->fmt;
++	/*
++	 * The hardware generates traffic for VC 0 up to last_vc as a
++	 * contiguous block, so every VC in that range must be configured
++	 * with a valid format, not just the ones actually streaming.
++	 */
++	for (vc = 0; vc <= last_vc; vc++) {
++		input_format = &tpg->fmt[vc];
+ 		format = tpg_get_fmt_entry(tpg->res->formats->formats,
+ 					   tpg->res->formats->nformats,
+ 					   input_format->code);
+@@ -120,7 +124,8 @@ static int tpg_stream_on(struct tpg_device *tpg)
+ 			return -EINVAL;
+ 
+ 		/* VC configuration */
+-		val = FIELD_PREP(TPG_VC_n_CFG0_NUM_ACTIVE_DT, MSM_TPG_ACTIVE_DT) |
++		val = FIELD_PREP(TPG_VC_n_CFG0_VC_NUM, vc) |
++		      FIELD_PREP(TPG_VC_n_CFG0_NUM_ACTIVE_DT, 0) |
+ 		      FIELD_PREP(TPG_VC_n_CFG0_NUM_FRAMES, 0);
+ 		writel(val, tpg->base + TPG_VC_n_CFG0(vc));
+ 
+@@ -136,31 +141,29 @@ static int tpg_stream_on(struct tpg_device *tpg)
+ 		writel(TPG_COLOR_BARS_CFG_STANDARD, tpg->base + TPG_VC_n_COLOR_BARS_CFG(vc));
+ 
+ 		/* DT configuration */
+-		for (dt = 0; dt <= MSM_TPG_ACTIVE_DT; dt++) {
+-			val = FIELD_PREP(TPG_VC_m_DT_n_CFG_0_FRAME_HEIGHT,
+-					 input_format->height & 0xffff) |
+-			      FIELD_PREP(TPG_VC_m_DT_n_CFG_0_FRAME_WIDTH,
+-					 input_format->width & 0xffff);
+-			writel(val, tpg->base + TPG_VC_m_DT_n_CFG_0(vc, dt));
+-
+-			val = FIELD_PREP(TPG_VC_m_DT_n_CFG_1_DATA_TYPE, format->data_type);
+-			writel(val, tpg->base + TPG_VC_m_DT_n_CFG_1(vc, dt));
+-
+-			if (tpg->hw_version == TPG_HW_VER_2_0_0) {
+-				val = FIELD_PREP(TPG_VC_m_DT_n_CFG_2_PAYLOAD_MODE, payload_mode) |
+-				      FIELD_PREP(TPG_V2_0_0_VC_m_DT_n_CFG_2_USER_SPECIFIED_PAYLOAD,
+-						 TPG_USER_SPECIFIED_PAYLOAD_DEFAULT) |
+-				      FIELD_PREP(TPG_V2_0_0_VC_m_DT_n_CFG_2_ENCODE_FORMAT,
+-						 format->encode_format);
+-			} else if (tpg->hw_version >= TPG_HW_VER_2_1_0) {
+-				val = FIELD_PREP(TPG_VC_m_DT_n_CFG_2_PAYLOAD_MODE, payload_mode) |
+-				      FIELD_PREP(TPG_V2_1_0_VC_m_DT_n_CFG_2_USER_SPECIFIED_PAYLOAD,
+-						 TPG_USER_SPECIFIED_PAYLOAD_DEFAULT) |
+-				      FIELD_PREP(TPG_V2_1_0_VC_m_DT_n_CFG_2_ENCODE_FORMAT,
+-						 format->encode_format);
+-			}
+-			writel(val, tpg->base + TPG_VC_m_DT_n_CFG_2(vc, dt));
++		val = FIELD_PREP(TPG_VC_m_DT_n_CFG_0_FRAME_HEIGHT,
++				 input_format->height & 0xffff) |
++		      FIELD_PREP(TPG_VC_m_DT_n_CFG_0_FRAME_WIDTH,
++				 input_format->width & 0xffff);
++		writel(val, tpg->base + TPG_VC_m_DT_n_CFG_0(vc, 0));
 +
-+ * Return 0 on success, error otherwise.
-+ */
-+static int csid_fill_port_configs(struct csid_device *csid, struct v4l2_subdev_state *state,
-+				  struct media_pad *remote_pad)
++		val = FIELD_PREP(TPG_VC_m_DT_n_CFG_1_DATA_TYPE, format->data_type);
++		writel(val, tpg->base + TPG_VC_m_DT_n_CFG_1(vc, 0));
++
++		if (tpg->hw_version == TPG_HW_VER_2_0_0) {
++			val = FIELD_PREP(TPG_VC_m_DT_n_CFG_2_PAYLOAD_MODE, payload_mode) |
++			      FIELD_PREP(TPG_V2_0_0_VC_m_DT_n_CFG_2_USER_SPECIFIED_PAYLOAD,
++					 TPG_USER_SPECIFIED_PAYLOAD_DEFAULT) |
++			      FIELD_PREP(TPG_V2_0_0_VC_m_DT_n_CFG_2_ENCODE_FORMAT,
++					 format->encode_format);
++		} else if (tpg->hw_version >= TPG_HW_VER_2_1_0) {
++			val = FIELD_PREP(TPG_VC_m_DT_n_CFG_2_PAYLOAD_MODE, payload_mode) |
++			      FIELD_PREP(TPG_V2_1_0_VC_m_DT_n_CFG_2_USER_SPECIFIED_PAYLOAD,
++					 TPG_USER_SPECIFIED_PAYLOAD_DEFAULT) |
++			      FIELD_PREP(TPG_V2_1_0_VC_m_DT_n_CFG_2_ENCODE_FORMAT,
++					 format->encode_format);
+ 		}
++		writel(val, tpg->base + TPG_VC_m_DT_n_CFG_2(vc, 0));
+ 	}
+ 
+ 	/* Global TPG control */
+diff --git a/drivers/media/platform/qcom/camss/camss-tpg.c b/drivers/media/platform/qcom/camss/camss-tpg.c
+index 5764a60fa34c..a7ef6d2bb4e8 100644
+--- a/drivers/media/platform/qcom/camss/camss-tpg.c
++++ b/drivers/media/platform/qcom/camss/camss-tpg.c
+@@ -200,22 +200,78 @@ static int tpg_set_stream(struct v4l2_subdev *sd, int enable)
+ 				"could not sync v4l2 controls: %d\n", ret);
+ 			return ret;
+ 		}
++
++		tpg->enabled_streams = BIT_ULL(0);
++	} else {
++		tpg->enabled_streams = 0;
+ 	}
+ 
+ 	return tpg->res->hw_ops->configure_stream(tpg, enable);
+ }
+ 
++static int tpg_pad_enable_streams(struct v4l2_subdev *sd,
++				  struct v4l2_subdev_state *state,
++				  u32 pad, u64 streams_mask)
 +{
-+	struct v4l2_mbus_frame_desc frame_desc = { };
-+	struct v4l2_subdev_route *route;
++	struct tpg_device *tpg = v4l2_get_subdevdata(sd);
++	bool start = !tpg->enabled_streams;
 +	int ret;
 +
-+	if (remote_pad) {
-+		struct v4l2_subdev *sd = media_entity_to_v4l2_subdev(remote_pad->entity);
++	if (pad != MSM_TPG_PAD_SRC)
++		return -EINVAL;
 +
-+		ret = v4l2_subdev_call(sd, pad, get_frame_desc,
-+				       remote_pad->index, &frame_desc);
-+		if (ret)
-+			return ret;
-+		/* Only csi2 frame descriptors are supported for now */
-+		if (frame_desc.type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2)
-+			return -EINVAL;
-+		/* Frame descriptor of type csi2 should contain entries! */
-+		if (!frame_desc.num_entries)
-+			return -EINVAL;
++	tpg->enabled_streams |= streams_mask;
++	if (!start)
++		return tpg->res->hw_ops->configure_stream(tpg, 1);
++
++	ret = v4l2_ctrl_handler_setup(&tpg->ctrls);
++	if (ret < 0) {
++		tpg->enabled_streams &= ~streams_mask;
++		return ret;
 +	}
 +
-+	for_each_active_route(&state->routing, route) {
-+		int src_port = csid_pad_to_port(route->source_pad);
-+		struct csid_port_config *port_cfg = &csid->port_cfg[src_port];
-+		const struct csid_format_info *pad_fmt;
-+		u32 sink_stream;
-+		unsigned int i;
++	ret = tpg->res->hw_ops->configure_stream(tpg, 1);
++	if (ret)
++		tpg->enabled_streams &= ~streams_mask;
 +
-+		pad_fmt = csid_get_fmt_entry(csid->res->formats->formats,
-+					     csid->res->formats->nformats,
-+					     csid->fmt[route->source_pad].code);
-+		/* If there are no entries fill dt from the format */
-+		if (!frame_desc.num_entries) {
-+			port_cfg->vc = 0;
-+			port_cfg->dt = pad_fmt->data_type;
-+			continue;
-+		}
-+
-+		ret = v4l2_subdev_routing_find_opposite_end(&state->routing,
-+							    route->source_pad, 0, NULL,
-+							    &sink_stream);
-+		/* This should never fail, anyways handle error cases */
-+		if (ret)
-+			return ret;
-+
-+		for (i = 0; i < frame_desc.num_entries; i++) {
-+			if (frame_desc.entry[i].stream != sink_stream)
-+				continue;
-+
-+			port_cfg->vc = frame_desc.entry[i].bus.csi2.vc;
-+			port_cfg->dt = frame_desc.entry[i].bus.csi2.dt;
-+
-+			if (port_cfg->dt != pad_fmt->data_type) {
-+				dev_warn(csid->camss->dev,
-+					 "Sink stream %u dt mismatch %u, %u\n",
-+					 sink_stream, port_cfg->dt,
-+					 pad_fmt->data_type);
-+				return -EINVAL;
-+			}
-+			break;
-+		}
-+		if (i == frame_desc.num_entries) {
-+			dev_warn(csid->camss->dev,
-+				 "Cannot find CSI2 desc for sink stream %u\n",
-+				 sink_stream);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	return 0;
++	return ret;
 +}
 +
-+/*
-+ * csid_pad_enable_streams - Enable one or more streams on a source pad
-+ * @sd: CSID V4L2 subdevice
-+ * @state: V4L2 subdevice state
-+ * @pad: Pad number
-+ * @streams_mask: Bitmask of v4l2 streams to enable
-+ *
-+ * The v4l2 core only calls this on a source pad (v4l2_subdev_enable_streams()
-+ * rejects sink pads with -EOPNOTSUPP before reaching the driver), so @pad is
-+ * not checked here. Each source pad only ever carries stream 0.
-+ *
-+ * The shared sink stream(s) are propagated upstream only once, on the
-+ * transition from no active sink streams to at least one, so that a second
-+ * consumer of the same shared sink stream never triggers a second, redundant
-+ * propagation to the sensor.
-+ *
-+ * Return 0 on success, -ENOLINK if there is no remote sink link and the test
-+ * generator is disabled, or another negative error code otherwise
-+ */
-+static int csid_pad_enable_streams(struct v4l2_subdev *sd,
++static int tpg_pad_disable_streams(struct v4l2_subdev *sd,
 +				   struct v4l2_subdev_state *state,
 +				   u32 pad, u64 streams_mask)
 +{
-+	struct csid_device *csid = v4l2_get_subdevdata(sd);
-+	const struct csid_hw_ops *hw_ops = csid->res->hw_ops;
-+	struct media_pad *remote_pad = media_pad_remote_pad_first(&csid->pads[MSM_CSID_PAD_SINK]);
-+	unsigned int hw_port = csid_pad_to_port(pad);
-+	u64 sink_streams, propagate_mask;
-+	int ret;
++	struct tpg_device *tpg = v4l2_get_subdevdata(sd);
 +
-+	if (!csid->testgen.enabled && !remote_pad)
-+		return -ENOLINK;
++	if (pad != MSM_TPG_PAD_SRC)
++		return -EINVAL;
 +
-+	sink_streams = v4l2_subdev_state_xlate_streams(state, pad, MSM_CSID_PAD_SINK,
-+						       &streams_mask);
-+	if (!csid->enabled_sink_streams) {
-+		if (csid->testgen.nmodes != CSID_PAYLOAD_MODE_DISABLED) {
-+			/*
-+			 * sd->state_lock is aliased to csid->ctrls.lock, and is
-+			 * already held here by the v4l2_subdev_enable_streams()
-+			 * caller, so use the lock-free variant to avoid
-+			 * self-deadlocking on the same mutex.
-+			 */
-+			ret = __v4l2_ctrl_handler_setup(&csid->ctrls);
-+			if (ret < 0) {
-+				dev_err(csid->camss->dev,
-+					"could not sync v4l2 controls: %d\n", ret);
-+				return ret;
-+			}
-+		}
++	tpg->enabled_streams &= ~streams_mask;
 +
-+		/* Routing cannot change while any sink stream is enabled */
-+		ret = csid_fill_port_configs(csid, state, remote_pad);
-+		if (ret)
-+			return ret;
-+	}
++	/*
++	 * Growing the active VC range live is safe, but shrinking it while
++	 * the generator is still running for the remaining VCs corrupts its
++	 * state machine. Only touch the hardware when the last VC disables.
++	 */
++	if (tpg->enabled_streams)
++		return 0;
 +
-+	/* If sink streams are already active elsewhere don't need to re-propagate */
-+	propagate_mask = sink_streams & ~csid->enabled_sink_streams;
-+	csid->enabled_sink_streams |= sink_streams;
-+
-+	hw_ops->configure_stream(csid, BIT(hw_port), csid->port_cfg, 1);
-+	csid->enabled_ports |= BIT(hw_port);
-+	if (propagate_mask && remote_pad) {
-+		ret = v4l2_subdev_enable_streams(media_entity_to_v4l2_subdev(remote_pad->entity),
-+						 remote_pad->index, propagate_mask);
-+		if (ret) {
-+			csid->enabled_sink_streams &= ~propagate_mask;
-+
-+			hw_ops->configure_stream(csid, BIT(hw_port), NULL, 0);
-+			csid->enabled_ports &= ~BIT(hw_port);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
++	return tpg->res->hw_ops->configure_stream(tpg, 0);
 +}
 +
-+/*
-+ * csid_sink_streams_in_use - Compute the subset of sink streams still
-+ *			      referenced by a source pad other than @pad
-+ * @csid: CSID device
-+ * @state: V4L2 subdevice state
-+ * @pad: Source pad to exclude from the check
-+ * @sink_streams: Candidate sink streams to check
-+ *
-+ * Return the subset of @sink_streams still referenced by some other source
-+ * pad
-+ */
-+static u64 csid_sink_streams_in_use(struct csid_device *csid, struct v4l2_subdev_state *state,
-+				    u32 pad, u64 sink_streams)
-+{
-+	u64 in_use = 0;
-+	unsigned int i;
+ static struct v4l2_mbus_framefmt *
+ __tpg_get_format(struct tpg_device *tpg,
+ 		 struct v4l2_subdev_state *sd_state,
+-		 unsigned int pad,
++		 unsigned int pad, u32 stream,
+ 		 enum v4l2_subdev_format_whence which)
+ {
++	if (pad != MSM_TPG_PAD_SRC || stream >= MSM_TPG_MAX_STREAMS)
++		return NULL;
 +
-+	for (i = MSM_CSID_PAD_FIRST_SRC; i < MSM_CSID_PADS_NUM; i++) {
-+		u64 other_streams;
-+		u64 other_sink_streams;
-+
-+		if (i == pad)
-+			continue;
-+
-+		other_streams = !!(csid->enabled_ports & BIT(csid_pad_to_port(i)));
-+
-+		other_sink_streams = v4l2_subdev_state_xlate_streams(state, i, MSM_CSID_PAD_SINK,
-+								     &other_streams);
-+		in_use |= sink_streams & other_sink_streams;
-+	}
-+
-+	return in_use;
-+}
-+
-+/*
-+ * csid_pad_disable_streams - Disable one or more streams on a source pad
-+ * @sd: CSID V4L2 subdevice
-+ * @state: V4L2 subdevice state
-+ * @pad: Pad number
-+ * @streams_mask: Bitmask of v4l2 streams to disable
-+ *
-+ * The v4l2 core only calls this on a source pad (v4l2_subdev_disable_streams()
-+ * rejects sink pads with -EOPNOTSUPP before reaching the driver), so @pad is
-+ * not checked here. Each source pad only ever carries stream 0.
-+ *
-+ * A sink stream is only disabled, and propagated upstream to disable it there
-+ * too, once no source pad references it any more.
-+ *
-+ * Return 0 on success or a negative error code otherwise
-+ */
-+static int csid_pad_disable_streams(struct v4l2_subdev *sd,
-+				    struct v4l2_subdev_state *state,
-+				    u32 pad, u64 streams_mask)
-+{
-+	struct csid_device *csid = v4l2_get_subdevdata(sd);
-+	const struct csid_hw_ops *hw_ops = csid->res->hw_ops;
-+	unsigned int hw_port = csid_pad_to_port(pad);
-+	u64 sink_streams, disable_sink_streams, streams_in_use;
-+	struct media_pad *remote_pad;
-+	int ret = 0;
-+
-+	sink_streams = v4l2_subdev_state_xlate_streams(state, pad, MSM_CSID_PAD_SINK,
-+						       &streams_mask);
-+
-+	/* Keep a sink stream active as long as any other source pad still uses it. */
-+	streams_in_use = csid_sink_streams_in_use(csid, state, pad, sink_streams);
-+	disable_sink_streams = sink_streams & ~streams_in_use;
-+
-+	hw_ops->configure_stream(csid, BIT(hw_port), NULL, 0);
-+
-+	remote_pad = media_pad_remote_pad_first(&csid->pads[MSM_CSID_PAD_SINK]);
-+	if (disable_sink_streams && remote_pad) {
-+		ret = v4l2_subdev_disable_streams(media_entity_to_v4l2_subdev(remote_pad->entity),
-+						  remote_pad->index, disable_sink_streams);
-+		if (ret)
-+			dev_err(csid->camss->dev,
-+				"Failed to disable stream on remote pad: %d\n", ret);
-+	}
-+
-+	csid->enabled_ports &= ~BIT(hw_port);
-+	csid->enabled_sink_streams &= ~disable_sink_streams;
-+
-+	return ret;
-+}
-+
-+static const struct v4l2_mbus_framefmt csid_default_format = {
-+	.code = MEDIA_BUS_FMT_UYVY8_1X16,
-+	.width = 1920,
-+	.height = 1080,
-+	.field = V4L2_FIELD_NONE,
-+	.colorspace = V4L2_COLORSPACE_SRGB,
-+};
-+
-+/*
-+ * csid_set_routing - Handle setting of routing table
-+ * @sd: CSID V4L2 subdevice
-+ * @state: V4L2 subdevice state
-+ * @which: TRY or ACTIVE routing
-+ * @routing: Routing table to set
-+ *
-+ * Return 0 on success or a negative error code otherwise
-+ */
-+static int csid_set_routing(struct v4l2_subdev *sd,
-+			    struct v4l2_subdev_state *state,
-+			    enum v4l2_subdev_format_whence which,
-+			    struct v4l2_subdev_krouting *routing)
-+{
-+	struct csid_device *csid = v4l2_get_subdevdata(sd);
-+	unsigned int i;
-+	int ret;
-+
-+	if (which == V4L2_SUBDEV_FORMAT_ACTIVE && csid->enabled_sink_streams)
-+		return -EBUSY;
-+
-+	for (i = 0; i < routing->num_routes; i++)
-+		if (routing->routes[i].source_stream != 0)
-+			return -EINVAL;
-+
-+	ret = v4l2_subdev_routing_validate(sd, routing,
-+					   V4L2_SUBDEV_ROUTING_NO_SOURCE_STREAM_MIX |
-+					   V4L2_SUBDEV_ROUTING_NO_SOURCE_MULTIPLEXING |
-+					   V4L2_SUBDEV_ROUTING_NO_N_TO_1);
-+	if (ret)
-+		return ret;
-+
-+	return v4l2_subdev_set_routing_with_fmt(sd, state, routing, &csid_default_format);
-+}
-+
-+/*
-+ * __csid_get_stream_format - Get pointer to per-stream format structure
-+ * @csid: CSID device
-+ * @sd_state: V4L2 subdev state
-+ * @pad: pad from which format is requested
-+ * @stream: stream from which format is requested
-+ * @which: TRY or ACTIVE format
-+ *
-+ * Same as __csid_get_format(), but honors @stream for TRY-state lookups.
-+ * For ACTIVE state, csid->fmt[] is indexed by pad + stream. @stream is
-+ * always 0 and @pad selects the RDI channel (0-3).
-+ *
-+ * Return pointer to TRY or ACTIVE format structure
-+ */
-+static struct v4l2_mbus_framefmt *
-+__csid_get_stream_format(struct csid_device *csid,
-+			 struct v4l2_subdev_state *sd_state,
-+			 unsigned int pad, u32 stream,
-+			 enum v4l2_subdev_format_whence which)
-+{
-+	if (which == V4L2_SUBDEV_FORMAT_TRY)
+ 	if (which == V4L2_SUBDEV_FORMAT_TRY)
+-		return v4l2_subdev_state_get_format(sd_state,
+-						    pad);
 +		return v4l2_subdev_state_get_format(sd_state, pad, stream);
-+
-+	if (pad == MSM_CSID_PAD_SINK)
-+		return &csid->fmt[MSM_CSID_PAD_SINK];
-+
-+	return &csid->fmt[pad + stream];
-+}
-+
-+/*
-+ * csid_streams_get_format - Handle get format by pads subdev method
-+ * @sd: CSID V4L2 subdevice
-+ * @sd_state: V4L2 subdev state
-+ * @fmt: pointer to v4l2 subdev format structure
-+ *
-+ * Return -EINVAL or zero on success
-+ */
-+static int csid_streams_get_format(struct v4l2_subdev *sd,
-+				   struct v4l2_subdev_state *sd_state,
-+				   struct v4l2_subdev_format *fmt)
-+{
-+	struct csid_device *csid = v4l2_get_subdevdata(sd);
-+	struct v4l2_mbus_framefmt *format;
-+
-+	format = __csid_get_stream_format(csid, sd_state, fmt->pad, fmt->stream, fmt->which);
-+	if (!format)
-+		return -EINVAL;
-+
-+	fmt->format = *format;
-+
-+	return 0;
-+}
-+
-+/*
-+ * csid_streams_set_format - Handle set format by pads subdev method
-+ * @sd: CSID V4L2 subdevice
-+ * @sd_state: V4L2 subdev state
-+ * @fmt: pointer to v4l2 subdev format structure
-+ *
-+ * Return -EINVAL or zero on success
-+ */
-+static int csid_streams_set_format(struct v4l2_subdev *sd,
-+				   const struct v4l2_subdev_client_info *ci,
-+				   struct v4l2_subdev_state *sd_state,
-+				   struct v4l2_subdev_format *fmt)
-+{
-+	struct csid_device *csid = v4l2_get_subdevdata(sd);
-+	struct v4l2_mbus_framefmt *format;
-+	struct v4l2_subdev_route *route;
-+
-+	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE && csid->enabled_sink_streams)
+ 
+-	return &tpg->fmt;
++	return &tpg->fmt[stream];
+ }
+ 
+ static void tpg_try_format(struct tpg_device *tpg,
+@@ -282,7 +338,7 @@ static int tpg_get_format(struct v4l2_subdev *sd,
+ 	struct tpg_device *tpg = v4l2_get_subdevdata(sd);
+ 	struct v4l2_mbus_framefmt *format;
+ 
+-	format = __tpg_get_format(tpg, sd_state, fmt->pad, fmt->which);
++	format = __tpg_get_format(tpg, sd_state, fmt->pad, fmt->stream, fmt->which);
+ 	if (!format)
+ 		return -EINVAL;
+ 
+@@ -299,10 +355,13 @@ static int tpg_set_format(struct v4l2_subdev *sd,
+ 	struct tpg_device *tpg = v4l2_get_subdevdata(sd);
+ 	struct v4l2_mbus_framefmt *format;
+ 
+-	format = __tpg_get_format(tpg, sd_state, fmt->pad, fmt->which);
++	format = __tpg_get_format(tpg, sd_state, fmt->pad, fmt->stream, fmt->which);
+ 	if (!format)
+ 		return -EINVAL;
+ 
++	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE && tpg->enabled_streams)
 +		return -EBUSY;
 +
-+	format = __csid_get_stream_format(csid, sd_state, fmt->pad, fmt->stream, fmt->which);
-+	if (!format)
+ 	tpg_try_format(tpg, &fmt->format);
+ 	*format = fmt->format;
+ 
+@@ -326,6 +385,69 @@ static int tpg_init_formats(struct v4l2_subdev *sd,
+ 	return tpg_set_format(sd, NULL, fh ? fh->state : NULL, &format);
+ }
+ 
++static int tpg_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
++			      struct v4l2_mbus_frame_desc *fd)
++{
++	struct tpg_device *tpg = v4l2_get_subdevdata(sd);
++	struct v4l2_subdev_state *state;
++	struct v4l2_subdev_route *route;
++	unsigned int i = 0;
++
++	if (pad != MSM_TPG_PAD_SRC)
 +		return -EINVAL;
 +
-+	csid_try_format(csid, sd_state, fmt->pad, &fmt->format, fmt->which);
-+	*format = fmt->format;
++	state = v4l2_subdev_lock_and_get_active_state(sd);
++	fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
 +
-+	/* Propagate the format from the sink stream to every source stream it feeds */
-+	for_each_active_route(&sd_state->routing, route) {
-+		struct v4l2_mbus_framefmt *src_format;
++	for_each_active_route(&state->routing, route) {
++		const struct tpg_format_info *format;
 +
-+		if (route->sink_pad != fmt->pad || route->sink_stream != fmt->stream)
++		format = tpg_get_fmt_entry(tpg->res->formats->formats,
++					   tpg->res->formats->nformats,
++					   tpg->fmt[route->source_stream].code);
++		if (IS_ERR(format))
 +			continue;
 +
-+		src_format = __csid_get_stream_format(csid, sd_state, route->source_pad,
-+						      route->source_stream, fmt->which);
-+		if (!src_format)
-+			continue;
-+
-+		*src_format = fmt->format;
-+		csid_try_format(csid, sd_state, route->source_pad, src_format, fmt->which);
++		fd->entry[i].stream = route->source_stream;
++		fd->entry[i].flags = 0;
++		fd->entry[i].bus.csi2.vc = route->source_stream;
++		fd->entry[i].bus.csi2.dt = format->data_type;
++		i++;
 +	}
++
++	fd->num_entries = i;
++	v4l2_subdev_unlock_state(state);
 +
 +	return 0;
 +}
 +
-+static const struct v4l2_subdev_pad_ops csid_streams_pad_ops = {
-+	.enum_mbus_code = csid_enum_mbus_code,
-+	.enum_frame_size = csid_enum_frame_size,
-+	.get_fmt = csid_streams_get_format,
-+	.set_fmt = csid_streams_set_format,
-+	.set_routing = csid_set_routing,
-+	.enable_streams = csid_pad_enable_streams,
-+	.disable_streams = csid_pad_disable_streams,
-+};
-+
-+static const struct v4l2_subdev_video_ops csid_streams_video_ops = {
-+	.s_stream = v4l2_subdev_s_stream_helper,
-+};
-+
-+static const struct v4l2_subdev_ops csid_streams_v4l2_ops = {
-+	.core = &csid_core_ops,
-+	.pad = &csid_streams_pad_ops,
-+	.video = &csid_streams_video_ops,
-+};
-+
-+/*
-+ * csid_init_state - Initialize the routing table for the streams API subdev
-+ * @sd: CSID V4L2 subdevice
-+ * @state: V4L2 subdev state
-+ *
-+ * source_stream is always 0: each source pad MSM_CSID_PAD_FIRST_SRC + i
-+ * links to its own independent downstream subdev, and a link's sink side is
-+ * validated against the implicit stream 0 exposed by any subdev without
-+ * V4L2_SUBDEV_FL_STREAMS (see v4l2_link_validate_get_streams()) -- every
-+ * downstream VFE line is such a subdev.
-+ *
-+ * All source pads route from sink_stream 0 by default, fanning the single
-+ * incoming stream out to every port; a multi-VC source is supported by
-+ * remapping each route's sink_stream via .set_routing, leaving
-+ * source_pad/source_stream untouched.
-+ *
-+ * Return 0 on success or a negative error code otherwise
-+ */
-+static int csid_init_state(struct v4l2_subdev *sd, struct v4l2_subdev_state *state)
++static int tpg_init_state(struct v4l2_subdev *sd, struct v4l2_subdev_state *state)
 +{
-+	struct csid_device *csid = v4l2_get_subdevdata(sd);
-+	struct v4l2_subdev_route routes[MSM_CSID_MAX_SRC_STREAMS];
-+	struct v4l2_subdev_krouting routing = { };
-+	unsigned int num_routes = MSM_CSID_MAX_SRC_STREAMS;
-+	int i, ret;
++	struct tpg_device *tpg = v4l2_get_subdevdata(sd);
++	struct v4l2_subdev_route routes[MSM_TPG_MAX_STREAMS];
++	struct v4l2_subdev_krouting routing = {
++		.num_routes = ARRAY_SIZE(routes),
++		.routes = routes,
++	};
++	struct v4l2_mbus_framefmt fmt = {
++		.code = MEDIA_BUS_FMT_SBGGR8_1X8,
++		.width = 1920,
++		.height = 1080,
++	};
++	unsigned int i;
 +
-+	for (i = 0; i < num_routes; i++) {
-+		routes[i].sink_pad = MSM_CSID_PAD_SINK;
-+		routes[i].sink_stream = 0;
-+		routes[i].source_pad = MSM_CSID_PAD_FIRST_SRC + i;
-+		routes[i].source_stream = 0;
++	for (i = 0; i < ARRAY_SIZE(routes); i++) {
++		routes[i].sink_pad = MSM_TPG_PAD_SRC;
++		routes[i].sink_stream = i;
++		routes[i].source_pad = MSM_TPG_PAD_SRC;
++		routes[i].source_stream = i;
 +		routes[i].flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE;
++		tpg->fmt[i] = fmt;
 +	}
 +
-+	routing.num_routes = num_routes;
-+	routing.routes = routes;
-+	ret = v4l2_subdev_set_routing_with_fmt(sd, state, &routing, &csid_default_format);
-+	if (ret)
-+		dev_err(csid->camss->dev, "Failed to set routing: %d\n", ret);
-+
-+	return ret;
++	return v4l2_subdev_set_routing_with_fmt(sd, state, &routing, &fmt);
 +}
 +
- static const struct v4l2_subdev_internal_ops csid_v4l2_internal_ops = {
- 	.open = csid_init_formats,
+ static int tpg_s_ctrl(struct v4l2_ctrl *ctrl)
+ {
+ 	struct tpg_device *tpg = container_of(ctrl->handler,
+@@ -433,16 +555,36 @@ static const struct v4l2_subdev_pad_ops tpg_pad_ops = {
+ 	.set_fmt = tpg_set_format,
  };
  
-+static const struct v4l2_subdev_internal_ops csid_streams_internal_ops = {
-+	.init_state = csid_init_state,
++static const struct v4l2_subdev_pad_ops tpg_streams_pad_ops = {
++	.enum_mbus_code = tpg_enum_mbus_code,
++	.enum_frame_size = tpg_enum_frame_size,
++	.get_fmt = tpg_get_format,
++	.set_fmt = tpg_set_format,
++	.get_frame_desc = tpg_get_frame_desc,
++	.enable_streams = tpg_pad_enable_streams,
++	.disable_streams = tpg_pad_disable_streams,
 +};
 +
- static const struct media_entity_operations csid_media_ops = {
- 	.link_setup = csid_link_setup,
+ static const struct v4l2_subdev_ops tpg_v4l2_ops = {
+ 	.core = &tpg_core_ops,
+ 	.video = &tpg_video_ops,
+ 	.pad = &tpg_pad_ops,
+ };
+ 
++static const struct v4l2_subdev_ops tpg_streams_v4l2_ops = {
++	.core = &tpg_core_ops,
++	.video = &tpg_video_ops,
++	.pad = &tpg_streams_pad_ops,
++};
++
+ static const struct v4l2_subdev_internal_ops tpg_v4l2_internal_ops = {
+ 	.open = tpg_init_formats,
+ };
+ 
++static const struct v4l2_subdev_internal_ops tpg_streams_internal_ops = {
++	.init_state = tpg_init_state,
++};
++
+ static const struct media_entity_operations tpg_media_ops = {
+ 	.link_setup = tpg_link_setup,
  	.link_validate = v4l2_subdev_link_validate,
-@@ -1454,13 +1913,18 @@ int msm_csid_register_entity(struct csid_device *csid,
- 	struct v4l2_subdev *sd = &csid->subdev;
- 	struct media_pad *pads = csid->pads;
- 	struct device *dev = csid->camss->dev;
-+	bool streams_api = csid->camss->res->streams_enable;
-+	unsigned int num_pads = MSM_CSID_PADS_NUM;
- 	int i;
+@@ -453,12 +595,15 @@ int msm_tpg_register_entity(struct tpg_device *tpg,
+ {
+ 	struct v4l2_subdev *sd = &tpg->subdev;
+ 	struct device *dev = tpg->camss->dev;
++	bool streams_api = tpg->camss->res->streams_enable;
  	int ret;
  
--	v4l2_subdev_init(sd, &csid_v4l2_ops);
--	sd->internal_ops = &csid_v4l2_internal_ops;
-+	v4l2_subdev_init(sd, streams_api ? &csid_streams_v4l2_ops : &csid_v4l2_ops);
-+	sd->internal_ops = streams_api ? &csid_streams_internal_ops
-+					: &csid_v4l2_internal_ops;
+-	v4l2_subdev_init(sd, &tpg_v4l2_ops);
+-	sd->internal_ops = &tpg_v4l2_internal_ops;
++	v4l2_subdev_init(sd, streams_api ? &tpg_streams_v4l2_ops : &tpg_v4l2_ops);
++	sd->internal_ops = streams_api ? &tpg_streams_internal_ops : &tpg_v4l2_internal_ops;
  	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE |
  		     V4L2_SUBDEV_FL_HAS_EVENTS;
 +	if (streams_api)
 +		sd->flags |= V4L2_SUBDEV_FL_STREAMS;
  	snprintf(sd->name, ARRAY_SIZE(sd->name), "%s%d",
- 		 MSM_CSID_NAME, csid->id);
- 	v4l2_set_subdevdata(sd, csid);
-@@ -1494,25 +1958,39 @@ int msm_csid_register_entity(struct csid_device *csid,
- 	}
- 
- 	pads[MSM_CSID_PAD_SINK].flags = MEDIA_PAD_FL_SINK;
--	for (i = MSM_CSID_PAD_FIRST_SRC; i < MSM_CSID_PADS_NUM; ++i)
-+	for (i = MSM_CSID_PAD_FIRST_SRC; i < num_pads; ++i)
- 		pads[i].flags = MEDIA_PAD_FL_SOURCE;
- 
- 	sd->entity.function = MEDIA_ENT_F_PROC_VIDEO_PIXEL_FORMATTER;
- 	sd->entity.ops = &csid_media_ops;
--	ret = media_entity_pads_init(&sd->entity, MSM_CSID_PADS_NUM, pads);
-+	ret = media_entity_pads_init(&sd->entity, num_pads, pads);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to init media entity: %d\n", ret);
+ 		 "msm_tpg", tpg->id);
+ 	sd->grp_id = TPG_GRP_ID;
+@@ -497,15 +642,27 @@ int msm_tpg_register_entity(struct tpg_device *tpg,
  		goto free_ctrl;
  	}
  
 +	if (streams_api) {
-+		if (csid->testgen.nmodes != CSID_PAYLOAD_MODE_DISABLED)
-+			sd->state_lock = csid->ctrls.lock;
-+
 +		ret = v4l2_subdev_init_finalize(sd);
 +		if (ret) {
 +			dev_err(dev, "Failed to finalize subdev: %d\n", ret);
@@ -714,7 +522,8 @@ index 2efaeef83606..652c4dd31093 100644
  	ret = v4l2_device_register_subdev(v4l2_dev, sd);
  	if (ret < 0) {
  		dev_err(dev, "Failed to register subdev: %d\n", ret);
--		goto media_cleanup;
+-		media_entity_cleanup(&sd->entity);
+-		goto free_ctrl;
 +		goto subdev_cleanup;
  	}
  
@@ -723,27 +532,45 @@ index 2efaeef83606..652c4dd31093 100644
 +subdev_cleanup:
 +	if (streams_api)
 +		v4l2_subdev_cleanup(sd);
- media_cleanup:
- 	media_entity_cleanup(&sd->entity);
++media_cleanup:
++	media_entity_cleanup(&sd->entity);
  free_ctrl:
-@@ -1529,6 +2007,8 @@ int msm_csid_register_entity(struct csid_device *csid,
- void msm_csid_unregister_entity(struct csid_device *csid)
+ 	v4l2_ctrl_handler_free(&tpg->ctrls);
+ 
+@@ -515,6 +672,8 @@ int msm_tpg_register_entity(struct tpg_device *tpg,
+ void msm_tpg_unregister_entity(struct tpg_device *tpg)
  {
- 	v4l2_device_unregister_subdev(&csid->subdev);
-+	if (csid->camss->res->streams_enable)
-+		v4l2_subdev_cleanup(&csid->subdev);
- 	media_entity_cleanup(&csid->subdev.entity);
- 	if (csid->testgen.nmodes != CSID_PAYLOAD_MODE_DISABLED)
- 		v4l2_ctrl_handler_free(&csid->ctrls);
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
-index 5f09beffa5f5..70bb4e34cad8 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.h
-+++ b/drivers/media/platform/qcom/camss/camss-csid.h
-@@ -187,6 +187,7 @@ struct csid_device {
- 	atomic_t sof_seq[MSM_CSID_MAX_SRC_STREAMS];
- 	struct csid_port_config port_cfg[MSM_CSID_MAX_SRC_STREAMS];
- 	u32 enabled_ports;
-+	u64 enabled_sink_streams;
+ 	v4l2_device_unregister_subdev(&tpg->subdev);
++	if (tpg->camss->res->streams_enable)
++		v4l2_subdev_cleanup(&tpg->subdev);
+ 	media_entity_cleanup(&tpg->subdev.entity);
+ 	v4l2_ctrl_handler_free(&tpg->ctrls);
+ }
+diff --git a/drivers/media/platform/qcom/camss/camss-tpg.h b/drivers/media/platform/qcom/camss/camss-tpg.h
+index 7fb35a97dd06..5a6e9e726716 100644
+--- a/drivers/media/platform/qcom/camss/camss-tpg.h
++++ b/drivers/media/platform/qcom/camss/camss-tpg.h
+@@ -26,8 +26,7 @@
+ #define ENCODE_FORMAT_UNCOMPRESSED_24_BIT	0x7
+ 
+ #define MSM_TPG_PAD_SRC		0
+-#define MSM_TPG_ACTIVE_VC		0
+-#define MSM_TPG_ACTIVE_DT		0
++#define MSM_TPG_MAX_STREAMS		4
+ 
+ #define TPG_MIN_WIDTH   1
+ #define TPG_MIN_HEIGHT  1
+@@ -89,11 +88,12 @@ struct tpg_device {
+ 	struct camss_clock *clock;
+ 	int nclocks;
+ 	struct tpg_testgen_config testgen;
+-	struct v4l2_mbus_framefmt fmt;
++	struct v4l2_mbus_framefmt fmt[MSM_TPG_MAX_STREAMS];
+ 	struct v4l2_ctrl_handler ctrls;
+ 	struct v4l2_ctrl *testgen_mode;
+ 	const struct tpg_subdev_resources *res;
+ 	u32 hw_version;
++	u64 enabled_streams;
  };
  
  struct camss_subdev_resources;
