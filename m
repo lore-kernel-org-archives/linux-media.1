@@ -1,124 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795612879;
-	b=mOKKgb6tS4jVOuOr0NYLS63oVhuhTu4MxRpYzUWj76jFYwdCNU7GYvIz19K30Ep6VPfA
-	 ePXXtV+OZjp6JJP3CtEieTCF/Y47yVczwlBsVLi0jvvQRQme9DF8gdELcgKEwx9mdXfWD
-	 XYCnbUtZLiaMYsJxJHeWw8hDqURseHLhFTv/2wivgU78a48in+wAinahN343cnSSflSaw
-	 nFQF3Nx8LhR5KWV6pJFFIp/noSWQp2jPH7dU/ubAsPywIhWpkDFgynWqEnWvoMZRNE7bZ
-	 oL/kBfvbxzUeL6z9m8LRKfEGZLxaA1pli3Q2TqGfpz3EqTMxHeDDao+inkma/U/6u+Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795612879;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=FMM3/1V+TPrp69ktuSmnb4C6jU1C5VP8C2Ed2evV8Fg=;
-	b=pMDMxTHjWdr9mo0xdJ4+lADAzpUnryjy81EK99uizR46OSHL8XWMvwahulnyVNKySIgB
-	 VcE7aXJUBoinAHlLk+E5etYko6rfcCobuik16Mq1HTKXP56eD88dbnpyJgu0x+dFjBcjq
-	 TdQJlu2tVTsi1L80S5lcrVl3TEaKgSIzj1cCdW9sd9yAqBZLvMyEIp/bt5R9TBFmfzcIQ
-	 hrsqqmyj+cUtjbfwZEdc5QKvCVNT5WFWg7bE5RmUh4GOJS1jk75Kk0iEWJJmO4BWAMlyM
-	 FcS0VpzaH8g0DkOniPjjt3/YSeMxgl6HO8CXCkSNSQVM6d1ZNekpkE+tUpo1Zx/KTQg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IqjpJqd+;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="N/TGBesm";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795612891;
+	b=XWUe9yK/Ac6smrUXArQJ4QMp/bVCcFJgyTRUqhsJNZddtxvfi/7tOlUcjIM+kLUE188h
+	 gD/PzcLOgvYtZ9HwGSwrcX9BtbwEWIcUUYqIJ0y5wNWhNi1T1Hl71DMfTitfe0U+wv/z9
+	 GGe9MLyCy03SnI2nzxFigHE7vJZC0xEq1Muzne1DeweGCqpmCA9/njwUoNNo5J/4+DV0B
+	 yCQQXGk+VBE+vj3fC64N9KCrLMBUIF9i9XnRytd0vFasYtg2lZMdfIv3qLYPxp9nTpxXB
+	 Gy/6xMrFhMPD4IWZQ2gqQgb0vyoyMmFjPcvDRyChYaH97Wlljy+imT6wMsjkrFiPPUw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795612891;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=bZO8S47yAZzPRZIjGfd7EOC+0a47KkXc3My8VRvZEho=;
+	b=ucnv19u4Ri+FMuSct/+OMNz2gEwqO1WIx8VXWK5gi5jy+t/U7WkyLfoGCEjSq0zfgQ3q
+	 i7D+BU3hXwXSycE57fzBz0XP7QsWQehJwSTVuY/i8YM9INZ4+H4I9hwN7PdIKpSQGmEbX
+	 g+ODQtlSyOa7lh61/PlgpAwf7ZCuoTz6uqicbxpNFuK6VOIzu7BQYCwRwhtQ5C0v2lBJ1
+	 nGhVZAOvwiT2DB4dgqGVoskXzZQYgD8GaMnmoMav65A1+zK1PHST5DM27ipdBkQ1CDJTH
+	 BX9qmHtuHWH04arMUzRsTcCDT1Z4G+/uZhn8V5TdHu9VSdvqS6cn3XMT5TxFMoqBjsg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=QVp6mueg;
+	arc=none smtp.remote-ip=209.85.208.179
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D23ED606A327
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 13:21:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D23ED606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558EC606A323
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 13:21:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 558EC606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IqjpJqd+;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=N/TGBesm
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP9mBkD4130800
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 13:21:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	FMM3/1V+TPrp69ktuSmnb4C6jU1C5VP8C2Ed2evV8Fg=; b=IqjpJqd+ckLujgOU
-	9BQIiufg7z1y26vjEwkjciJynHVumXiC00BEFpuqSRinmo7ZbE1u9/ksMCjl2N25
-	JxRVpEB6zc2MdRujdoulVAqrbq3xjJEv/vvEcLXDMZmJmAEtYm7wzac5y3bPC8mL
-	9p/UswZjCHyiI2R/8MqTUyRCx7EQ9B+HKH1uq2AW7z6eKGXzpJ0jYntH8LzQNaRR
-	ASmmYIrp9S2kJGVt1zfJPOw0+5ckSDuflsXgUiPUztcCwwTqcxH7OQhTM5FvMCjG
-	fhWEJEH4ap/iRtMuSrpROzujUtbFCqpWITl+lA5YzgkDQl10Z0kW5d6B6zrw/nSu
-	CCCDkQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5vuhs100-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 13:21:17 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f5844cb60so1006196285a.0
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 05:21:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795612877; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YZUhLxbdPAwv9cPtL3h3cgmbRyZqBqVTzOLxNyAMFSwEEm97Lkl2NiMUqgURWvt1BY
-         CP9QXRoipQiqVu1M3a363ndkKv7dELiE1UEag0x/NnzvtrIXgFrlESOmOrwk8W9L7yM/
-         ytyhdyjMUnXMRjjkpo0ZuPWgbs8szehYN1955G5ER+1vAuA+QoCQTcKCQa7odjUphzHR
-         3e6Z5EUGMiQTdf5tPbuwVgddvmiP6XJyeJdkQUzthBcl+DqBYrFRagRla9GZ7ajTgqNf
-         NS+KAhYZo9yFjk5lqFBpD8/ZQdAgkW95fjBOIhy85nn7zaH320nMh8ntym7la0LrGXTu
-         Q0Lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FMM3/1V+TPrp69ktuSmnb4C6jU1C5VP8C2Ed2evV8Fg=;
-        fh=peYCmTkLPsnjuxPRc6Wm6gwm9xZHYp2/jktHZXp/7fY=;
-        b=rU1IAxUai/LdCWFz3omJ+STCth630o9g/8iLNslIwBz4FT1PpTa/I+LwlgyOTBeruY
-         NOHCu+xk5ePNHvlXs3U+3O8h75tSe+bZIsdA2TU1cgU6oyYl03qdfZ9DL+VbNsAcqEp7
-         wEdLtKng9bCmz1w2+0k32vg8BFgweDpghSwxB5fCJ8d/CuMteJ9YobEQ0k4qeK7UvtgH
-         YSb7v1vUNoou7zrEi80sI7YPYwtFGNvgA+Aue6hlOqS7otAH1HpKMZFtNeD2VPjAwBRh
-         t35GpniugGsZaaIQyrGyR5ZbUSZAdljMv/RXcb4iHjwRzoCFK1A+UbAeDOMt4tZKgZHs
-         fPTg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=QVp6mueg
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3ad3ef75223so3854791fa.1
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 05:21:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795612877; x=1796217677; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FMM3/1V+TPrp69ktuSmnb4C6jU1C5VP8C2Ed2evV8Fg=;
-        b=N/TGBesmMzeXNwu4VY5Nudq/5uC+GM84p573SYScN44CyaH9vyeobwrT+yz9T6RrhI
-         5laz+AprxcbMcNswcL3Fhiomkmqa/kvdzQN8bdEVw7JvQivKXIXU/l5d3yAl0eFTo9ED
-         njs1vZzetP7crQjhciiHb7pQsuw5Fqq1ZaFzeOFpKbt6rHUNme7rQc/DB7GGSfuycaYC
-         v6KOtm/AMA+acfOe8jWagvxJyZKq4JJ+TY5H2H72OvWjkfhEYPmXj/wnQRf1IXSwAg0t
-         iCC5pNyPdpdoQ8vlqLo7Ig0RHpiY2ESB/A9Dz2x4nHevWTG+w0XWIDoQgbLJYfg2yx/1
-         wIug==
+        d=linaro.org; s=google; t=1795612889; x=1796217689; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bZO8S47yAZzPRZIjGfd7EOC+0a47KkXc3My8VRvZEho=;
+        b=QVp6muegU5Z6It5m9kYa3Srv4/OZjR98s3uEzmj17g4dG+5YeQ2V/jvzYt7ybUimHl
+         diaFpnHrB/Tr2sVTUON782bU6HLeiVyg3zxH3CGn78hp7vQSzl/JVSB715MCEfNLGfGP
+         SLOFssV5STRwm3FmAYX4GkFbKWGkG8wEOhbWSq0HmnByA+DTYLgwE+3wdIGQCA3/GBvh
+         h1TljZ/Ue7hx6ZWc9frUBXHyPQuEdZtIBuWTduUkRvfF3zTJMd/WCXbBqkFTsHwcnAyV
+         6SxiDJrbdz5PwuucLh+6q7M361R8DlTuKSxqhwn3Bzlryhm2rjhltIsdBHKteTfbLz7+
+         S1Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795612877; x=1796217677;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1795612889; x=1796217689;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FMM3/1V+TPrp69ktuSmnb4C6jU1C5VP8C2Ed2evV8Fg=;
-        b=lowF+5012I3t2xAGgGbgZxS9a06LgilcT4F1NF2vLTB7lq1TYOFw0dD3tpji5f8QrY
-         d732p+vmKrR+LFTFnM8vQrwRcyc0XhWhneEw2ci0ATEqkjQTmOV8VYHtGKwhHQh8j0ua
-         2DuKsBNG/OMHYjoR0RlQhqz3LAi7EDaED6yXvkxfWLqi9T/sITx9sJNiqRhTsFmQy1co
-         ExDYQE5OCVxRhXY/ilvdI1aOnqM2ztPQS5hws3lOeqXzx8lX+BftJtmVOqAvj4vbxHqt
-         WBUTy/BSLQzj6qvaA8ib8afQQnmPB1UK6wffkc7tMqZtSIjtWNwrlvuh0APzX9hQ19UM
-         6Cpw==
-X-Forwarded-Encrypted: i=1; AL+hErGX3vU8h2L6OKX041TbOgWr4Rx0gJKG7D74ctsdtQW1LtWlRZmHAIy+qDwD7E7uOHoSOAEfwnyttslAKA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3VbqGYbXw45io/qNsmZSmrK/sLPET8re85ZPy1UWDYjPIq3Ck
-	q6l/G+SVeaKf/5R1qTKFHsDZ6EjLb0RFMxXYvx4Pf8vWl42ZbG/7NNrE4K7bFpzO4OxxVTqjR7D
-	U2GoZEXBb/9FzyHKCbksk3VmVPiOSa5KaZqFaZGWL5UdrLy0s/UKCNkJeO4T7BIcRDDkbhLkyik
-	bNrQ3sYHl2r803RXZWiW7CpMRzvP7q0vfvRdxpGnlG
-X-Gm-Gg: AZFdTZdabZVAwSIZhvsLA8YLAo56gZMY9tSGf6f3HSXAOK+pdUQFPMVsqr+51FJquFY
-	D0QWf7m1lcBsnBL5Y5RR5sWbtoeJP1AiGFah5ZFZYlY4ZIC7AbcS+ZAfo/fPKNXlnj1UmtcPcJT
-	0rDn5mL8MFxu5k4UvwwHQ31FodnsIpCVcTA7uUrVcVbON1CDhDk42YtjSOIeKKAtADfNeaLY12f
-	LF9PD39mpWd/OGq6Jw3D1IYHTd+Ge8fNNGJM3yDUBg+y17b1qwqjy1r9u4cA1HExUtEzbfJc9c=
-X-Received: by 2002:a05:620a:8705:10b0:949:cabf:fbc4 with SMTP id af79cd13be357-949cabffc8dmr1217684685a.11.1795612876832;
-        Wed, 25 Nov 2026 05:21:16 -0800 (PST)
-X-Received: by 2002:a05:620a:8705:10b0:949:cabf:fbc4 with SMTP id
- af79cd13be357-949cabffc8dmr1217682285a.11.1795612876384; Wed, 25 Nov 2026
- 05:21:16 -0800 (PST)
+        bh=bZO8S47yAZzPRZIjGfd7EOC+0a47KkXc3My8VRvZEho=;
+        b=oDYs2uiUUwWQhYoiRz3dEmyt8vFMHUGQjcHnQAs45ihaKe4WXBr64+yEsyrZqKYFsV
+         K78N2kwj1YPqVGsTdf/9Db/jqYL412P4Fdw8lvNEUHBHi0iSdLONGmmS8U7zg/abZSQq
+         +aHEZPSAF9xo8NZXPfFLEii5BztXI9KxmCY997G2NabCH8SJiI/49jKiyZsjoVKKKwUR
+         EU3/NE24iMo/WqQsnHcwmIqS9RP1SgjMtEy7qQMw2tjtLU/1clVtjlmwp78PcIXYMwA7
+         QUzN6a7NaE64N6vSbB6ukdr8d8dOOUOQD6xiPoOc6eYCW9QOPo4SPBuS1J/M4nsawg2/
+         ycJw==
+X-Forwarded-Encrypted: i=1; AL+hErFWitg51R2/Y6zV7+qXe42nsj9F52dah4lPU5Fu0OcUy8j7LZXSPJOF9LFztyV6p4GM2+UBvsp1R4zQcw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Ii2VR/TAao5jvpi02kG4ykL2XjYei4MesdWiw728Sjw89K77r
+	vNZjDexBPR/XDGgDDrfE/vSTyKlRiaEwMy9mOacOLU5HA3HTk+CRmzxG+YWDhbLiY98=
+X-Gm-Gg: AZFdTZdigUkdbi52wFz+oobNNwSQRL/T6DToCK+FpAYt1tkWiDcpvrlqtK7JAkLpHEK
+	Cb5EHoXgh4BiZ18OhaWhfCxCUz+joFVqYKrcYn66BnQZjC5f+QXHd/D5GB6AEUBI+Owq/yA06Ji
+	OQds5e0WEeT3GtYnD6HXcft708cO49bRdRt1wsjZa+C9CZ+rEO3iJ6/oqVBj0UeSdkzdKQTkXeP
+	Ooo+/PppdVypoF1TUDVihHn6SbS0q7lRBrDIEmc2CBcXM3i/0eRYvTfRUpu5/jYT+MWZHf6nkpz
+	T0RRE3G+7c+Zhyi8dI1Jr2VAvfhbLcIH6zb/cgRuki7aOgPM1DqSW7nt+Tg/oDlHXkbGENVRh8j
+	dZeCu7OQ1qmrMYS847Xp9torXswRzMMigUb2EczOjVDrYWKKAPMqZbzvmW4xiTBCb4l54S+RUWd
+	4RSK+HmvEOJrtj68w3ZsmtRc3uT+NFxc1Qdc2e1YksnDSGuc+gKx1nKQgGQBawtt3sWZjsVtOl5
+	y17x3O6CZo6b+v+PDZl7TV6a19ebO9ORxXRSyLUll3ylSc1vmz5QkJnK1nt4cPZ3xT6m2MA9k2B
+	kngdXVZAPbJH224Ng1wfSiKsHwwrubnRF2PHinwyrWXq2m5ctWnJeD907gY7MP37ZD3V+bgx/1s
+	XE9xoC3c=
+X-Received: by 2002:a05:6512:4481:b0:5c0:ca1:46d3 with SMTP id 2adb3069b0e04-5c1bc7c5ee5mr4971577e87.5.1795612889486;
+        Wed, 25 Nov 2026 05:21:29 -0800 (PST)
+Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1bcff8bd3sm4567229e87.27.2026.11.25.05.21.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 05:21:29 -0800 (PST)
+Message-ID: <8dc492bc-2727-4448-855f-caf13d4b2bd6@linaro.org>
+Date: Wed, 25 Nov 2026 15:21:28 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -128,184 +91,148 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261125-camss-hw-ts-v2-0-24c955e43d75@oss.qualcomm.com>
- <20261125-camss-hw-ts-v2-1-24c955e43d75@oss.qualcomm.com> <3dd61a59-2376-414d-a136-287e2c26a3d6@oss.qualcomm.com>
-In-Reply-To: <3dd61a59-2376-414d-a136-287e2c26a3d6@oss.qualcomm.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Wed, 25 Nov 2026 14:21:04 +0100
-X-Gm-Features: Aa3M54rfrmnDvucflOAGULsItU8-QDhBEWytAHLR80QfBQzJ43vNB3ZDATrOiZk
-Message-ID: <CAFEp6-35qT9Ow8SOWWBxf75geq6s169+SPJmw27TnkkD3o0wow@mail.gmail.com>
-Subject: Re: [PATCH v2 1/7] media: v4l2-event: Allow drivers to provide the
- event timestamp
-To: "Gjorgji Rosikopulos (Consultant)" <gjorgji.rosikopulos@oss.qualcomm.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=FPmOVOos c=1 sm=1 tr=0 ts=6b06e0cd cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=JFttdC-cvXLWoZU56GIA:9
- a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: srE5NFHPj8cThaPQ0ZuO1dq0zFx7CMHn
-X-Proofpoint-ORIG-GUID: srE5NFHPj8cThaPQ0ZuO1dq0zFx7CMHn
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA1MyBTYWx0ZWRfX+Soh5lLJXGo1
- oTHpbq0iFfwKWEoziDBl0tORVanOs53hEZtE4BYLCbXykzFWPVWP65psmJwIAmMivh843tACiyc
- 2ta9QtFkyiv3AZKpNPLp6avRAZMTay4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA1MyBTYWx0ZWRfX/7rvqYNbYSLs
- LthcqMaW+i4aKkfO1q84lSjQH2k+tkOQcmDWuNcInneXE5+jjKXDn0DwuXSUvvRt11tlH+6sxya
- hwB569IkWSea5gcu93SGJpPoUEgV5T0WGDJ74r+a5CkCh0aFBFFmkf8jWBHNFsZJvygNQ0zb7sx
- +cbZgmwL8+agq93YICRvXdDREDsYGRYXy31VWd3dbLGqCc13LWQ2t6dH9MbrOxAPTIhDawhEagy
- U1QkNj1mDBDY+Ll2dMGD/vIY+ZZW9T6/OJFKASh+s4PH2bshBKNhYZTtRy4b/TAUpQPeMCHMhJ2
- EPfgcegzkDu1bsZb5YEuAw4URF/yTSUnqyl4cEMI9tOiC+qyOVpi3MzszTR48I6NGknjF+Y6yE0
- MjWYaElngu2CHTRXNkEey/3NtXmepGjs2mhhE/vR3oVP4ZeB+pPSZzZjse85fAkbDJn9EigegUb
- Y0HMs1wfB86I+XJ2tOg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-25_03,2026-11-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 suspectscore=0 impostorscore=0
- priorityscore=1501 adultscore=0 phishscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250053
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 22/23] arm64: dts: qcom: eliza-mtp: Enable rear camera
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
+References: <20261114-add-support-for-camss-on-sm8750-v7-0-8ff2a11835f6@oss.qualcomm.com>
+ <20261114-add-support-for-camss-on-sm8750-v7-22-8ff2a11835f6@oss.qualcomm.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20261114-add-support-for-camss-on-sm8750-v7-22-8ff2a11835f6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Gjorgji,
+On 11/14/26 13:29, Wenmeng Liu wrote:
+> Enable the rear camera on the Eliza MTP: a Samsung S5KJN1 on CCI1 I2C
+> bus 0, connected to CSIPHY2 over four data lanes. The sensor takes MCLK2
+> at 24 MHz, is powered from the PM8010 regulators added in the previous
+> patch and is reset through GPIO125.
+> 
+> Also enable CAMSS, CSIPHY2 and CCI1.
+> 
+> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> ---
+>   arch/arm64/boot/dts/qcom/eliza-mtp.dts | 72 ++++++++++++++++++++++++++++++++++
+>   1 file changed, 72 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/eliza-mtp.dts b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
+> index af7450fa2020d29a4ce98eb958dabd0cd8c61860..cd14b44cf0aef33a7939075949916d054cd77659 100644
+> --- a/arch/arm64/boot/dts/qcom/eliza-mtp.dts
+> +++ b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
+> @@ -6,6 +6,7 @@
+>   /dts-v1/;
+>   
+>   #include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/media/video-interfaces.h>
+>   #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+>   #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+>   #include "eliza.dtsi"
+> @@ -538,6 +539,70 @@ vreg_l7n: ldo7 {
+>   	};
+>   };
+>   
+> +&camss {
+> +	status = "okay";
+> +};
+> +
+> +&camss_csiphy2_in_port {
+> +	camss_csiphy2_inep: endpoint {
+> +		data-lanes = <1 2 3 4>;
+> +		remote-endpoint = <&csiphy2_out_ep>;
+> +	};
+> +};
+> +
+> +&cci1 {
+> +	status = "okay";
+> +};
+> +
+> +&cci1_i2c0 {
+> +	camera@56 {
+> +		compatible = "samsung,s5kjn1";
+> +		reg = <0x56>;
+> +
+> +		reset-gpios = <&tlmm 125 GPIO_ACTIVE_LOW>;
+> +		pinctrl-0 = <&cam_mclk2_default &cam2_reset_default>;
+> +		pinctrl-names = "default";
+> +
+> +		clocks = <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK2_CLK>;
+> +		assigned-clocks = <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK2_CLK>;
+> +		assigned-clock-rates = <24000000>;
+> +
+> +		vdda-supply = <&vreg_l4m>;
+> +		vddd-supply = <&vreg_l2m>;
+> +		vddio-supply = <&vreg_l5n>;
+> +
+> +		port {
+> +			s5kjn1_out_ep: endpoint {
+> +				data-lanes = <1 2 3 4>;
 
-On Wed, Nov 25, 2026 at 1:29=E2=80=AFPM Gjorgji Rosikopulos (Consultant)
-<gjorgji.rosikopulos@oss.qualcomm.com> wrote:
->
-> Hello,
->
-> On 11/25/2026 12:19 PM, Loic Poulain wrote:
-> > The timestamp reported to userspace for a V4L2 event is taken when the
-> > event is queued, which for an event signalling a hardware occurrence is
-> > only as good as the latency between the two. A CSI decoder able to latc=
-h
-> > the start-of-frame against the system counter knows that time to within=
- a
-> > few microseconds, whereas the interrupt handler that gets to queue the
-> > event can be hundreds of microseconds late and is not consistent about
-> > it.
-> >
-> > Take the timestamp from the event when the driver filled it in, falling
-> > back to the current time when the field is cleared. Drivers have had no
-> > reason to set it so far, and every in-tree caller either uses a
-> > designated initialiser or memsets the event, so the field reads as zero
-> > everywhere today.
-> >
-> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> > ---
-> >  drivers/media/v4l2-core/v4l2-event.c | 20 ++++++++++++++++++--
-> >  include/media/v4l2-event.h           |  9 ++++++++-
-> >  2 files changed, 26 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/media/v4l2-core/v4l2-event.c b/drivers/media/v4l2-=
-core/v4l2-event.c
-> > index 9dd2aaa95a67406bda3a257325442888895ed088..a35646c3a5c89febeb072d6=
-91ffd7853d9af714a 100644
-> > --- a/drivers/media/v4l2-core/v4l2-event.c
-> > +++ b/drivers/media/v4l2-core/v4l2-event.c
-> > @@ -150,6 +150,22 @@ static void __v4l2_event_queue_fh(struct v4l2_fh *=
-fh,
-> >       wake_up_all(&fh->wait);
-> >  }
-> >
-> > +/*
-> > + * Hardware able to timestamp the event itself reports that time in th=
-e event,
-> > + * which is more accurate than the moment the driver gets to queue it.=
- Fall
-> > + * back to the current time for the drivers that leave the field clear=
-ed.
-> > + */
-> > +static u64 v4l2_event_ts(const struct v4l2_event *ev)
-> > +{
-> > +     struct timespec64 ts =3D {
-> > +             .tv_sec =3D ev->timestamp.tv_sec,
-> > +             .tv_nsec =3D ev->timestamp.tv_nsec,
-> > +     };
-> > +     u64 ns =3D timespec64_to_ns(&ts);
-> > +
-> > +     return ns ? ns : ktime_get_ns();
-> > +}
->
-> I think it makes sense to add an additional field for hardware-based time=
-stamps.
-> Converting the timestamp to the monotonic time domain introduces precisio=
-n loss,
-> so it's better to expose both to userspace and let userspace decide what =
-to do with
-> them.
+'data-lanes' property can be dropped from here.
 
-There is no loss of precision. The timestamp is actually more tightly
-aligned with the actual event. So I don't see the point of having two
-values, with one being less precise than the other.
+> +				link-frequencies = /bits/ 64 <700000000>;
+> +				remote-endpoint = <&csiphy2_in_ep>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&csiphy2 {
+> +	vdda-0p9-supply = <&vreg_l2b>;
+> +	vdda-1p2-supply = <&vreg_l4b>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&csiphy2_in_port {
+> +	csiphy2_in_ep: endpoint {
+> +		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
+> +		clock-lanes = <0>;
+> +		data-lanes = <1 2 3 4>;
+> +		remote-endpoint = <&s5kjn1_out_ep>;
+> +	};
+> +};
+> +
+> +&csiphy2_out_port {
+> +	csiphy2_out_ep: endpoint {
+> +		remote-endpoint = <&camss_csiphy2_inep>;
+> +	};
+> +};
+> +
+>   &gpu {
+>   	status = "okay";
+>   };
+> @@ -657,6 +722,13 @@ &tlmm {
+>   			       <111 2>,  /* WCN UART1 */
+>   			       <118 1>;  /* NFC Secure I/O */
+>   
+> +	cam2_reset_default: cam2-reset-default-state {
+> +		pins = "gpio125";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-disable;
+> +	};
+> +
+>   	disp0_reset_n_active: disp0-reset-n-active-state {
+>   		pins = "gpio12";
+>   		function = "gpio";
+> 
 
->
-> > +
-> >  void v4l2_event_queue(struct video_device *vdev, const struct v4l2_eve=
-nt *ev)
-> >  {
-> >       struct v4l2_fh *fh;
-> > @@ -159,7 +175,7 @@ void v4l2_event_queue(struct video_device *vdev, co=
-nst struct v4l2_event *ev)
-> >       if (vdev =3D=3D NULL)
-> >               return;
-> >
-> > -     ts =3D ktime_get_ns();
-> > +     ts =3D v4l2_event_ts(ev);
-> >
-> >       spin_lock_irqsave(&vdev->fh_lock, flags);
-> >
-> > @@ -173,7 +189,7 @@ EXPORT_SYMBOL_GPL(v4l2_event_queue);
-> >  void v4l2_event_queue_fh(struct v4l2_fh *fh, const struct v4l2_event *=
-ev)
-> >  {
-> >       unsigned long flags;
-> > -     u64 ts =3D ktime_get_ns();
-> > +     u64 ts =3D v4l2_event_ts(ev);
-> >
-> >       spin_lock_irqsave(&fh->vdev->fh_lock, flags);
-> >       __v4l2_event_queue_fh(fh, ev, ts);
-> > diff --git a/include/media/v4l2-event.h b/include/media/v4l2-event.h
-> > index 3a0e2588361cf451b3dbfc63dfab99550d13cf6a..076f788e0469ae4666c6034=
-4e5ea73a698352134 100644
-> > --- a/include/media/v4l2-event.h
-> > +++ b/include/media/v4l2-event.h
-> > @@ -102,6 +102,11 @@ int v4l2_event_dequeue(struct v4l2_fh *fh, struct =
-v4l2_event *event,
-> >   * .. note::
-> >   *    The driver's only responsibility is to fill in the type and the =
-data
-> >   *    fields. The other fields will be filled in by V4L2.
-> > + *
-> > + *    Drivers whose hardware timestamps the event more accurately than=
- the
-> > + *    moment the driver gets to handle it may also fill in the timesta=
-mp
-> > + *    field, as a CLOCK_MONOTONIC time. It is left alone if non-zero, =
-so such
-> > + *    drivers must zero-initialize the whole &struct v4l2_event.
-> >   */
-> >  void v4l2_event_queue(struct video_device *vdev, const struct v4l2_eve=
-nt *ev);
-> >
-> > @@ -116,7 +121,9 @@ void v4l2_event_queue(struct video_device *vdev, co=
-nst struct v4l2_event *ev);
-> >   *
-> >   * .. note::
-> >   *    The driver's only responsibility is to fill in the type and the =
-data
-> > - *    fields. The other fields will be filled in by V4L2.
-> > + *    fields. The other fields will be filled in by V4L2. As for
-> > + *    v4l2_event_queue(), a non-zero timestamp field is taken as the
-> > + *    CLOCK_MONOTONIC time of the event.
-> >   */
-> >  void v4l2_event_queue_fh(struct v4l2_fh *fh, const struct v4l2_event *=
-ev);
-> >
-> >
->
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+
+-- 
+Best wishes,
+Vladimir
