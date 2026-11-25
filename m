@@ -1,105 +1,106 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795631025;
-	b=MM6Qthb8Zb2YSPMNC6ebtdqLthebe0MU6aF0tpYgO3olVaC0tYcV4T6qFhcCnw60FkaR
-	 ye7w9GhrbOZ3KbVVAi4eDZIktGjUu5hS4msWNCmRZiDiDBlA4Tsi0VlJtMH3FBBXDG5CN
-	 gUPuqpX2FaqDblxROXJhBuk0lWiHE39G6jyrpQQqIDgiHCwqdbk6CDvGrQnScI9ctmmzs
-	 8IkZ6pTbqw4oqwtYlsZDG9fjqMZDlLxsynih685AcucqmzYOoPCLVaybzEP6QooKxUPCd
-	 ec73IpcQkeD+xNjJkaH2vL0tMFCycDZ8QzqVlhKP9myflY3dqBj6rV3g9fhlgGGq1QA==
+	t=1795631026;
+	b=2ycl9pkr4mGdkB1Su0U5KUcs5ZppGbandbhByuW/MKyhBNLd1wpeyS5CMYV2jPY7yI+1
+	 owyNdwWyR4NX/qeiV+6lyLFuzkJmHOUA+O+q4D+gbKeLFV9eVGGXip2vR4qSsLiOYincM
+	 ST6wWL4ZY1fVg4OPY8eCSSAseMxFkc98cUMKFyvieGPPLhM39t42kvrU1j8AT7kp5bMWR
+	 lgquCgk6Sr7d0wCTm+LSslo/s6wG6+9EAqWWys4QbpuWHtzcQz48jxY9jyQoXyJ+XcuPx
+	 iyaFsUhzlc04PKC1SP+I/piaKZCT8vxgkIlukAOZulbfmnViCU+Pfp17xjkjCIAv6ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795631025;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795631026;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=IC4djXm6L2p/iwP9n7CVqinEoxYFhJbTA5LwbAw9uO0=;
-	b=PY2n1kuPSaiH+9WjkggLi3Uj6/28PBN+pg2cHdArQ5XD/XWAM22KsONbfskbCHOUKcMY
-	 lif3rj/FuYiQ+t5QlBhKqW8tDbMYSElsOgQ9NrUceQWO81QZ0Et1E9hbuBOALHFwugXFQ
-	 cmbh99d8xchxBjrmokJ3Icfzxr5FbQA3qOfgYtvA9HqGTUvBnN1PM1VUpbpQJLd2TCKN1
-	 WXkC5fXFZUDtOJjE7oq39mT27vacyP/gIwqQpQJDeKhY6yWcNZJD7TUZNRZb8oifLF0rn
-	 Phit04WefKrN5WixTr5AchmlDSYyRoYUZdP1zwSfcBktWYKzjW3+7dDSY10DafQ40og==
+	bh=zcxcyO7W33ZSQAndGKlwVO1qNMckslR3XsjorsVb4MM=;
+	b=Iss437a0JXzsHL1W6p7oNAR+++B7t2VnQaNMmErVaqiTx4XtbDqki9eJZp/WPGK1Y4/M
+	 VtI8foAfmO8XYrz9/QxSznd5jMyAA0o7UlrDXOT/hPIJiqRQXCD9jWcwEZsFyauT+3hRl
+	 RGRWvX/S/ZACqBX/9KxcbNKT7frXOE/vVSB+ylynzCHyH3J0JjutAH3jZp5szhexSEDP8
+	 7VNd+2cTjPQPbbW5otFAein+SuC5MGjxRxB1h1W9TpRJfMW+61wwljpGIxd89AIODB7by
+	 RbuMzw6nb2c6+k7Tj9J4f2mxxszKtR1uuVKlmi7QLI0c3ktnZUpHs4oL8+Adg4LUy1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g+HunghM;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jqGy1TUz;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k0aY4Vg1;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RL5MmXub;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFD2606A326
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 18:23:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CFD2606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D93606A32E
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 18:23:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93D93606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g+HunghM;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jqGy1TUz
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6APGQFJG3007864
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 18:23:43 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=k0aY4Vg1;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RL5MmXub
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6APGQTsP326990
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 18:23:44 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=IC4djXm6L2p/iwP9n7CVqinEoxYFhJbTA5L
-	wbAw9uO0=; b=g+HunghMs3bxPzio1WjQTZriwJ2nUm0DWSCRZd3oaRY7s6HRIb3
-	a+dtw+nBHiZNeYSLsuQmwfW1ga23GC5cV6+zwe1w8EQntXvjAun/m3igEufMVFiF
-	qxQ4Y6gUsynfa4caDLRnSftnUMI91cxm66E0KMFgHA9cbv7oIGyppatZ8tO79VI9
-	9qBmau4hM2TDv9lcC46/PUoppSec3es313lgOkUjk4es5wX7n0tL8taiXUA3QAbE
-	FFdc1+fMUOrsGDbY9F3cw43k1TbAJMreRhggIf7gmgRx9OusfKP6yWPpNcIyvFUF
-	3wgErypcJqyl9turRXIzWARIG/98vcFiyKA==
-Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com [209.85.128.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5vukt8pj-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=zcxcyO7W33Z
+	SQAndGKlwVO1qNMckslR3XsjorsVb4MM=; b=k0aY4Vg1HwiQ/gbBgycxg6aYJHC
+	uJrIkohCP+S0UTSPQbOMfkZVWBYaGloG5MtsEutJLNnN76WpHsSfC+9MYAReECkz
+	wKz9KA+36gbZNgs2QlLav5WXS8x5jourGZTuK1nbMDmO8AjtZwBaKdVfFaoNmWd7
+	zGvBRFnRS0WojSJqv419BthJqv7TerKPzcpbX9KArrBb0ft5roQvkGuanxaTUL7E
+	VaiYn/B2hfqEuIJPVgfZ9HG9X0p55fPHZulb4H4wTBOWchFijLZQ9NAxCJJaTGB0
+	7oUXNroA/olP0DyvZGLvLjsC4EuCkp0J9u1+3IRjnStCUtaacaU7mY5liTg==
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5mc2c95j-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 18:23:43 +0000 (GMT)
-Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-869553205a7so81577397b3.1
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 10:23:43 -0800 (PST)
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 18:23:44 +0000 (GMT)
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8b0d978e4faso18330607b3.0
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 10:23:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795631023; x=1796235823; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IC4djXm6L2p/iwP9n7CVqinEoxYFhJbTA5LwbAw9uO0=;
-        b=jqGy1TUzbUR4VajLwvZEkLaF7rCqIi7iGVX7kxuq1jyFnx43sBtff02FKQWlqedNoo
-         umgIEo6Lv8pAwjbMcIEwf2/gScaTpnEhn+KtQyNm4904WJF53X6GmuKNbJ3dpYdSunuI
-         IN4BA6Ou0ROSqPKQOcG7A+umTy+oDHAEdGQ8U5eMh0IcvaFgsh0/Y8ZRpTopMljbaFVj
-         3D8725P6i8A+Dy0nVGBzm383rMjDG305ciztQmLcI+NWyMdzOK8rOlYFX47i6NH/4gfl
-         aDAR8mmFfOEaPjMkMMY2ROwCfMkdJ9H14Nz3yP0cFB30PSZwjVRywadpg4jJ65k/6m2P
-         zo6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795631023; x=1796235823;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1795631024; x=1796235824; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IC4djXm6L2p/iwP9n7CVqinEoxYFhJbTA5LwbAw9uO0=;
-        b=D5H3u7Uof+xber5f89fsbIEu0mKLD41N38KEe+aPwrWbQ8ylxosV24MSvVM+DT/Qg0
-         ZgYTlSbdbqd+gLoC+2KRJkgrdh78bDfhhy69aubIGGhJEeTRum8NPczMsfjIehnIqxW8
-         z7NZFu4JOSeFBx/hs0FfEB2lMaUI3SLWADI5F1eN4JBywMZMqFHFcgzWsMae1px3cNmS
-         8QFgXNeTHt7DYmUTwHO9Q5buNhTytAjef5BIUwVUSvP26RfPI87tNAwkcXfAS3EaxY5o
-         N08vQKai71B0dWCPuXkU4FLzbUUB8vVQH21iKsDXLODN8KrmUD82FT+PpNUsJKtTKao6
-         1LeQ==
-X-Forwarded-Encrypted: i=1; AL+hErECUIOUGG4bIK5RIeEOKf5Yf+F5u4ZgbMg8zErsWkdk9x5AW+Eay5cqumAbdvDqsW3SpASUux4UZ8yWIQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jW13wf3LZlsipLxjSYCQ0Xbq/6aQasXwfxKLxyNUr1QbLYbGM
-	vETe1QnBcADiZzY+ImIQ4YQS4IugAcBFMCP/gakUxedz9gBrVDXKuy/tCsn6+0dCCklKbIB9WB4
-	XPiImdQkk4+N8Wt10b1oHwpZ/E7pawgLpfCEjpDU1Srf5F+X+0jUw4PEMb9uVShU5hw==
-X-Gm-Gg: AZFdTZdGzBF3bskeid23JwqDcNzgSmu/WBIr8TjmWc3HW5wc7F0nahLN3N9M2RTOubw
-	Y71pkJUz6HvDrMGlsZw5P7y4CJbxwL/gqwDk5XfTpkdiF+U4ji36GIOgdUGcI0AKfZ5p/LRCb7n
-	ENVf6p/eLXWxgHPbrQvwQNY4krGg9icOfHNtZZdf1GyDhSSIh7xZbxdVYHGVo6EPMDPuZFjJv4y
-	tAxDdLKR7v8j8Gy/ZR2f49m3OVeU+DNCEt4IzNaCYWfdAq7MZoow18AwlNJG2s1F+zTq57jYLjg
-	GfnOj27ypkJdBgPILs35WrAyJRPXebkirpqhS61Gq4qAq2hkVajw0pj9fMQzWUWAKNh8EXaCnh6
-	z7Mi3WCgFf101wYLZVgwKWTSDQ8U4ZLbsKX7Hq2RHTV/e0uPj6t9gOb1czXhJJ94nTvm+x1h57/
-	jBR4Lm
-X-Received: by 2002:a05:690c:c86:b0:8b3:4deb:7ce1 with SMTP id 00721157ae682-8b5204403c4mr101680747b3.14.1795631022316;
-        Wed, 25 Nov 2026 10:23:42 -0800 (PST)
-X-Received: by 2002:a05:690c:c86:b0:8b3:4deb:7ce1 with SMTP id 00721157ae682-8b5204403c4mr101680607b3.14.1795631021566;
-        Wed, 25 Nov 2026 10:23:41 -0800 (PST)
+        bh=zcxcyO7W33ZSQAndGKlwVO1qNMckslR3XsjorsVb4MM=;
+        b=RL5MmXubXji0BboE4jl/XScGiRIYKaRltxwmv9e6sCZQzSGCCM0N9gVGSuBk3O/e7m
+         IhHExs6Z8fbbvXHf4kPer0r/6urg2wKYUanTSgqI1MI/QMdRCHHtQcFMyQHkUp7XXWQM
+         eiC4KbRlZS4WB+1l/WPrKIgaI+oLWC0GMzGE76r4TRscVbcqD0TJJK2glj5W2TfuuWz2
+         ybDy5DQwpXhW99FV3+EubPBNdkqXqUxM1E6kPAO5A7+qvREy6dHobdTeqMSiTEkXp0tp
+         oF8wwQ8rKXCv4xs8IcicIYPNgx1NnAxHiBGeZ2xlzNOodXPm6pi0MmRDGPyX+7wR6wJL
+         uFEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795631024; x=1796235824;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zcxcyO7W33ZSQAndGKlwVO1qNMckslR3XsjorsVb4MM=;
+        b=FfmA6N645uSX2SmeaxVyFS+WA/BQi8yFvvCa0+P8NrQc9363j7JKjDYMyeICt+WgHI
+         8cF/Rnd3G3y4TJklM5nlBRC7FkGFDATh+jwlocRq8goX0x27QzOjtXpKGHgTQ9up+spY
+         foTOGy5lAVXAcMZlk6M7Q6mgIs/OQdCxs80+Q+g6MHUiMqxVSnmwkHr9ZbmKPFFTJ9AL
+         apRcm6KCIpjXdFGZuSeYMShE8JQ9VXkvCohmuYk9X5KHD+2tlYa02zlaExq1lAE2q51w
+         8ZTEm82KRcV4ahJ8b/tFBcOfGivzv2jJ//9v/nRQwLITlO9kuGj1grJ9XEWMI64u0hPG
+         9t6g==
+X-Forwarded-Encrypted: i=1; AL+hErHvhoDxZBKOWPim0qBKogpOZ34GKcotMYhEMoZIzlre4dOkU84Fp7OBlQzU7ln2u1ls5RSaJg0Hc4q4Hg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FXePKkAwbzTvV6amr6DeATZZ6VN9KYhiGd/7+Wio32W5FV8Eg
+	D55mJ1NBQPCGd7FiDc8LBNyosJAvdZWy5jagFwcj2fZFditxro6aejP+HaIiaoH6qbj3t6yjLnu
+	BQ3tQGW36cXaQf8Yo+9Y+3EQT+KyjRDDBGoVq5pGLgmPPrkgaYrnzkxRfwM5PlN+IiA==
+X-Gm-Gg: AZFdTZdLf19B2PUnARqleBiquGYoAsUcIOJZUBqvxgxAacC5bFxcH4/GiFRfXCuf58n
+	QO7u1jQtJ4m2fFOk3Ntl9S7Jkh4E7SNgDfrBsoZRcyg2c08a4m296xAyhZJ5VpJFW8Wvz8IdEUm
+	7dXQfAJ2gNR5BgXsYZpyR12+5LLeFXet14zaYF+zHKPh5sVyM4LXOtb0rOLvYAP81Hvd7W6a1ro
+	hc2uHIjIfXoYI9atk0a/UkKt1bbN/nTxvB9LrenwnKpJ0+BJDpOF7pO5LA1lI1hoLbY4zbA+m4F
+	+WUcv1QSt35umaWhZsRZN6rUVf20Kq3ekt5K/rW5BMqKgeB1+Gfp0H1wgjJIQP99h48G5nzOeA1
+	GCR4cMl0B6yu5G6hZlYqltgAHUAEwAMakPCJWwAkkfOhpXMqvC/rFLUCyDBmjhA248rbBotFhb/
+	lJLAQ+
+X-Received: by 2002:a05:690c:6307:b0:8b3:22c:b40c with SMTP id 00721157ae682-8b520329badmr85103837b3.7.1795631023962;
+        Wed, 25 Nov 2026 10:23:43 -0800 (PST)
+X-Received: by 2002:a05:690c:6307:b0:8b3:22c:b40c with SMTP id 00721157ae682-8b520329badmr85103667b3.7.1795631023298;
+        Wed, 25 Nov 2026 10:23:43 -0800 (PST)
 Received: from lin-0843.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab65cb42absm37185609f8f.1.2026.11.25.10.23.39
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab65cb42absm37185609f8f.1.2026.11.25.10.23.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 10:23:40 -0800 (PST)
+        Wed, 25 Nov 2026 10:23:42 -0800 (PST)
 From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -110,10 +111,12 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
         Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
         Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-Subject: [PATCH RESEND v2 00/12] media: qcom: camss: add V4L2 subdev streams API support
-Date: Wed, 25 Nov 2026 20:23:14 +0200
-Message-Id: <20261125182326.2767771-1-gjorgji.rosikopulos@oss.qualcomm.com>
+Subject: [PATCH RESEND v2 01/12] media: qcom: camss: csid_gen3: Fix multi-VC buf-done IRQ mask
+Date: Wed, 25 Nov 2026 20:23:15 +0200
+Message-Id: <20261125182326.2767771-2-gjorgji.rosikopulos@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261125182326.2767771-1-gjorgji.rosikopulos@oss.qualcomm.com>
+References: <20261125182326.2767771-1-gjorgji.rosikopulos@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -124,205 +127,83 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=KfVHIgYD c=1 sm=1 tr=0 ts=6b0727af cx=c_pps
- a=0mLRTIufkjop4KoA/9S1MA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+X-Authority-Analysis: v=2.4 cv=aPJlOr9m c=1 sm=1 tr=0 ts=6b0727b0 cx=c_pps
+ a=72HoHk1woDtn7btP4rdmlg==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
- a=E6DQNbHbvE415lZ9EzgA:9 a=WgItmB6HBUc_1uVUp3mg:22
-X-Proofpoint-ORIG-GUID: cegXck0OPeBDrgc-1g-AbydqiNTwXnQU
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA3MyBTYWx0ZWRfX32fqK59gH9sr
- xdprJJBYGRGc3Yr6ARsy4HCS3qrLa0rzLuzdUUgvis9m7DgBKVf0yJg8VSe/J8IVyWSuEh8kQvM
- zxqjzQSusoCtO7P9ExH7+7LcaZLvuRI=
-X-Proofpoint-GUID: cegXck0OPeBDrgc-1g-AbydqiNTwXnQU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA3MyBTYWx0ZWRfXyWli/NIIEp7o
- 8PCihdt6dMWutk0zdpuzPRvT60AyB9MbRpSAYBBc9k43W5K2bj1Mheq+SuA/7ys+lCnuceUErQf
- koxLxuvVaI1893tAcvsgLKWMLpvrskyOAEZe72wfd2xXbPIr7YyBY9H3xEn2beJ0+50d3U64Ljx
- r4pLuCHfuHIbpAGxbtNtpCNMQR+gHOj5cFh2IR5p9AQhRJteQ3//zN5QrsWFBGB+v/65w7Exy7u
- h1DcaaXNB+9LmDSlQ+d82xmZFXpeHK2OgEafNblaT37W1+dhP0m7kvfyZR6K9Yl080kF7klFK26
- C5AzrZ1cppZb+5l5GPx5/TXyTpS50crfsrM2ITQftEVs12Wrdhq27QBxJr59RcfDCUK0qjqmc0v
- euqbJl6hHZlW3l1lHVO8kiZbZU4OqaAXWWcfy7V0I7ADeaUY1jXumyUkhVfU+TDbcpihxVdEvc+
- 2B1N0UoLoTMYKdA5ExQ==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=-miQo-2tu4ND6FEhOZYA:9 a=kA6IBgd4cpdPkAWqgNAz:22
+X-Proofpoint-GUID: GvXtot3rVWftpkZ7Bh4H-8UESZzwcnVa
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA3MyBTYWx0ZWRfX9McXzLw0yGDE
+ lNFSfhzmTqKa5YPSJWdAvI02rkuB78kBsmsJthZxAryJ+wY5dQO7gpfx9XCb8UoVS/MLuiTd47K
+ OA9W2qsv7JFqW47umT//fGWzXmDSATyO5iGxf0LWMiAofIZdeyRtXnIG+YMF7UF74Nv34wHjAMd
+ CQ34iGXkV9S96689RDpEpXK5coohqH61LDlUQAmG/F9LDsBzzMbNZYF3x/LmE+qNRpB1QU+OZ3n
+ WB6sa/zWHZej8G1wCSekm94KmJSfehsnt7QZUKMuXtlnkwtszeHJoYA5O4ZmHjev+x8bp0Sleni
+ Rv/OkkBPDRDMvQuB1TrZpL7jKa0U3xt4oetEhvKbdlENMIvLY/M8K4X1phfOi///gPi6gqqlE9l
+ 4HIHnTaZooBrcSLrE2cr6gw/yA3mvTZ9kPmnZA5Xtn45DtdzYsqZQIWJwnQKvqdJaB007Lypy1u
+ xrEysIqUe0yXa9PM20g==
+X-Proofpoint-ORIG-GUID: GvXtot3rVWftpkZ7Bh4H-8UESZzwcnVa
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA3MyBTYWx0ZWRfX6zDxjaQzoRwP
+ 68G12MQS9t2J6K6trKVeYTTmtoWln4m6vGMARKrth1SqRhmcHfv2nqUpAGOIfX2WtYqpNO9pe6i
+ M+ZA1NuxzqNculjIcpPZ4VnFLXxDlvg=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-25_04,2026-11-25_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
- impostorscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250073
+ priorityscore=1501 impostorscore=0 phishscore=0 lowpriorityscore=0
+ adultscore=0 spamscore=0 clxscore=1015 malwarescore=0 bulkscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611250073
 
-This series adds V4L2 subdev streams API support to the CAMSS driver.
+Csid reset programs CSID_BUF_DONE_IRQ_MASK with a separate write
+per enabled VC instead of accumulating the bits.
+This change removes the not needed for cycle and write regs
+in one pass.
 
-Each subdevice gains streams-aware enable_streams/disable_streams pad
-ops alongside the existing legacy (non-streams) subdev ops, guarded by
-a new per-instance streams_enable resource flag.
+Confirmed on RB8/SA8775P hardware during TPG multi-VC capture
+testing.
 
-Patch 1 is a standalone bug fix on CSID gen3, found during RB8 multi-VC
-testing: CSID reset used to program CSID_BUF_DONE_IRQ_MASK with one
-write per enabled VC instead of accumulating the bits into a single
-write.
+Fixes: d96fe1808dcc ("media: qcom: camss: Add CSID 780 support")
+Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+---
+ .../media/platform/qcom/camss/camss-csid-gen3.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
-Patch 2 factors a pad-to-port helper out of csid_get_sof_seq(), used by
-later patches.
-
-Patches 3-9 add the CSIPHY/CSID/TPG/VFE/camss-video mechanism:
- - CSIPHY: passthrough routing and shared D-PHY lane enable/disable
-   gated on stream-count transitions, dispatching between the generic
-   PHY framework and the legacy PHY backend.
- - CSID: configure_stream() is reworked to take a port_mask and a
-   per-port {vc, dt} config array shared by all six CSID backends
-   (gen2, gen3, 340, 4-1, 4-7, 680), then the CSID subdev itself gains
-   per-source-pad routing (a single sink stream propagated to every
-   source pad by default, remappable for multi-VC sensors) and VC/DT
-   discovery via get_frame_desc.
- - TPG: the single fmt field becomes a per-stream array, so the
-   generator can drive several concurrent virtual channels, with one
-   get_frame_desc entry per active route.
- - VFE: streams-aware pad ops. VFE lines are inherently single-consumer
-   (vfe_link_setup() enforces one link per pad), so no refcounting is
-   needed there.
- - camss-video: the video device pipeline walk now checks, via
-   v4l2_subdev_has_op(), whether the directly-connected subdev supports
-   enable_streams/disable_streams; if so it issues a single top-level
-   call instead of manually walking the pipeline one subdev at a time
-   with .s_stream(). Falls back to the existing legacy path unchanged
-   when the remote subdev doesn't support the streams API, so no other
-   platform is affected.
-
-Patches 10-12 set streams_enable per SoC: SM8250, SA8775P, and SC7280
-(dispatched through the legacy PHY backend on SC7280, since it has no
-camss child node named "phy", so camss_detect_legacy_phy() puts it in
-legacy PHY mode). Every other platform keeps using the legacy
-non-streams subdev ops, so these are a no-op everywhere else.
-
-A practical benefit of the CSID routing change (patch 6) is routing
-flexibility for multi-VC sensors: the CSID's routing table maps sink
-streams to source pads/streams via userspace-configurable
-v4l2_subdev_route entries instead of a fixed pad<->VC assignment, so a
-sensor emitting multiple virtual channels can have each VC directed to
-a different RDI output (and thus a different VFE line/video node)
-with a set_routing call, rather than being constrained to whatever
-fixed mapping the driver hardcodes.
-
-When a sink stream is shared by multiple source pads/streams, CSID
-only enables the corresponding upstream CSIPHY stream on the first
-source stream that needs it, and only disables it once the last
-remaining source stream using it is disabled. Enabling or disabling
-additional consumers of an already-active shared stream is a no-op
-upstream, so no consumer can double-enable or prematurely disable a
-stream still in use by another. This also avoids ever hitting v4l2
-core's own -EALREADY re-enable gate.
-
-Verified on RB8/SA8775P hardware, driving the CSID test-pattern
-generator directly (no sensor), for 1, 2 and 3 concurrent virtual
-channels through CSID to separate VFE RDI lines. Entity/video node
-names below are resolved via `media-ctl -d /dev/media0 -e <entity>`.
-
-NOTE: the V4L2 subdev streams API is disabled by default with the
-static bool v4l2_subdev_enable_streams_api in
-drivers/media/v4l2-core/v4l2-subdev.c. it must be set to true to
-use the stream API and reproduce the testing below:
-
-1 VC:
-  media-ctl -d /dev/media0 --reset
-  media-ctl -d /dev/media0 -l '"msm_tpg0":0->"msm_csid0":0[1]'
-  media-ctl -d /dev/media0 -R '"msm_csid0"[0/0->1/0[1]]'
-  media-ctl -d /dev/media0 -V '"msm_tpg0":0/0[fmt:SBGGR8/1920x1080]'
-  media-ctl -d /dev/media0 -V '"msm_csid0":0/0[fmt:SBGGR8/1920x1080]'
-  media-ctl -d /dev/media0 -V '"msm_csid0":1/0[fmt:SBGGR8/1920x1080]'
-  media-ctl -d /dev/media0 -l '"msm_csid0":1->"msm_vfe0_rdi0":0[1]'
-  media-ctl -d /dev/media0 -V '"msm_vfe0_rdi0":0[fmt:SBGGR8/1920x1080]'
-  v4l2-ctl -d <tpg-subdev> --set-ctrl=test_pattern=9
-  v4l2-ctl -d <rdi0-video> --set-fmt-video=width=1920,height=1080,\
-    pixelformat=BA81 --stream-mmap=5 --stream-count=20 \
-    --stream-to=vc0.raw
-
-2 VCs (vc1 added in parallel):
-  media-ctl -d /dev/media0 --reset
-  media-ctl -d /dev/media0 -l '"msm_tpg0":0->"msm_csid0":0[1]'
-  media-ctl -d /dev/media0 -R '"msm_csid0"[0/0->1/0[1],0/1->2/0[1]]'
-  media-ctl -d /dev/media0 -V '"msm_tpg0":0/0[fmt:SBGGR8/1920x1080]'
-  media-ctl -d /dev/media0 -V '"msm_tpg0":0/1[fmt:SBGGR8/1920x1080]'
-  media-ctl -d /dev/media0 -V '"msm_csid0":0/0[fmt:SBGGR8/1920x1080]'
-  media-ctl -d /dev/media0 -V '"msm_csid0":0/1[fmt:SBGGR8/1920x1080]'
-  media-ctl -d /dev/media0 -V '"msm_csid0":1/0[fmt:SBGGR8/1920x1080]'
-  media-ctl -d /dev/media0 -l '"msm_csid0":1->"msm_vfe0_rdi0":0[1]'
-  media-ctl -d /dev/media0 -V '"msm_vfe0_rdi0":0[fmt:SBGGR8/1920x1080]'
-  media-ctl -d /dev/media0 -V '"msm_csid0":2/0[fmt:SBGGR8/1920x1080]'
-  media-ctl -d /dev/media0 -l '"msm_csid0":2->"msm_vfe0_rdi1":0[1]'
-  media-ctl -d /dev/media0 -V '"msm_vfe0_rdi1":0[fmt:SBGGR8/1920x1080]'
-  v4l2-ctl -d <tpg-subdev> --set-ctrl=test_pattern=9
-  v4l2-ctl -d <rdi0-video> --set-fmt-video=width=1920,height=1080,\
-    pixelformat=BA81 --stream-mmap=5 --stream-count=20 \
-    --stream-to=vc0.raw &
-  v4l2-ctl -d <rdi1-video> --set-fmt-video=width=1920,height=1080,\
-    pixelformat=BA81 --stream-mmap=5 --stream-count=20 \
-    --stream-to=vc1.raw &
-  wait
-
-3 VCs: same as the 2 VC case, plus a third route
-'0/2->3/0[1]' from "msm_csid0":3 to "msm_vfe0_rdi2", and a third,
-concurrently-started v4l2-ctl capture on that line's video node
-(vc2.raw).
-
-All three cases captured the expected, exact frame byte count on
-every VC with no dmesg Oops/BUG/WARNING/overflow output. Additional
-early-stop and staggered-start variants of the 3 VC case (one VC
-starting/stopping while the others keep streaming) were also run and
-passed.
-
-These changes apply on top of v7.4-rc1.
-
-Changes since v1:
-- Incorporate Loic comment for csid and extend configure_stream
-  instead of adding new enable/disable stream api.
-- Incorporate Bryan comment for moving stream_enable in per SoC
-  resources.
-- Add Hitesh changes for SC7280
-- Drop the fix for csid to each vfe link. It is part of another
-  series:
-  Link: https://lore.kernel.org/all/20261122-camss-routing-fixes-v1-0-0deeeaca2622@kernel.org/
-- Incorporate Bryan comment and remove csid lite check for port
-  mapping and add route to each port. Although not functional for
-  full VFE/IFEs, this is more likely to be fixed in the near future.
-
-Depends-on:https://lore.kernel.org/all/20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org/
-
-Gjorgji Rosikopulos (11):
-  media: qcom: camss: csid_gen3: Fix multi-VC buf-done IRQ mask
-  media: qcom: camss: Add csid pad to port helper
-  media: qcom: camss: Add streams enable field to camss resources
-  media: qcom: camss: Add streams API support for CSIPHY
-  media: qcom: camss: Add per-port config to CSID configure_stream
-  media: qcom: camss: Add streams API support in CSID subdevice
-  media: qcom: camss: Add streams API support in tpg subdev
-  media: qcom: camss: Add streams API support for VFE
-  media: qcom: camss: Add streams API support in camss-video
-  media: qcom: camss: Enable streams API on SM8250
-  media: qcom: camss: Enable streams API on SA8775P
-
-Hitesh Patel (1):
-  media: qcom: camss: Enable streams API on SC7280
-
- .../platform/qcom/camss/camss-csid-340.c      |   5 +-
- .../platform/qcom/camss/camss-csid-4-1.c      |   3 +-
- .../platform/qcom/camss/camss-csid-4-7.c      |   3 +-
- .../platform/qcom/camss/camss-csid-680.c      |   7 +-
- .../platform/qcom/camss/camss-csid-gen2.c     |  54 +-
- .../platform/qcom/camss/camss-csid-gen3.c     |  51 +-
- .../media/platform/qcom/camss/camss-csid.c    | 521 +++++++++++++++++-
- .../media/platform/qcom/camss/camss-csid.h    |  22 +-
- .../media/platform/qcom/camss/camss-csiphy.c  | 249 ++++++++-
- .../media/platform/qcom/camss/camss-csiphy.h  |   1 +
- .../platform/qcom/camss/camss-tpg-gen1.c      |  63 ++-
- drivers/media/platform/qcom/camss/camss-tpg.c | 179 +++++-
- drivers/media/platform/qcom/camss/camss-tpg.h |   6 +-
- drivers/media/platform/qcom/camss/camss-vfe.c | 119 +++-
- .../media/platform/qcom/camss/camss-video.c   | 119 +++-
- drivers/media/platform/qcom/camss/camss.c     |   3 +
- drivers/media/platform/qcom/camss/camss.h     |   1 +
- 17 files changed, 1273 insertions(+), 133 deletions(-)
-
+diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen3.c b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
+index 6a538d825f78..231b53d3e44e 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid-gen3.c
++++ b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
+@@ -339,7 +339,6 @@ static int csid_reset(struct csid_device *csid)
+ {
+ 	unsigned long time;
+ 	u32 val;
+-	int i;
+ 
+ 	reinit_completion(&csid->reset_complete);
+ 
+@@ -347,14 +346,14 @@ static int csid_reset(struct csid_device *csid)
+ 	writel(1, csid->base + CSID_IRQ_CMD);
+ 	writel(1, csid->base + CSID_TOP_IRQ_MASK);
+ 
+-	for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS; i++)
+-		if (csid->phy.en_vc & BIT(i)) {
+-			writel(BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i),
+-			       csid->base + CSID_BUF_DONE_IRQ_CLEAR);
+-			writel(IRQ_CMD_CLEAR, csid->base + CSID_IRQ_CMD);
+-			writel(BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i),
+-			       csid->base + CSID_BUF_DONE_IRQ_MASK);
+-		}
++	if (csid->phy.en_vc) {
++		u32 vc_mask = GENMASK(MSM_CSID_MAX_SRC_STREAMS - 1, 0);
++
++		val = (csid->phy.en_vc & vc_mask) << BUF_DONE_IRQ_STATUS_RDI_OFFSET;
++		writel(val, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
++		writel(IRQ_CMD_CLEAR, csid->base + CSID_IRQ_CMD);
++		writel(val, csid->base + CSID_BUF_DONE_IRQ_MASK);
++	}
+ 
+ 	/* preserve registers */
+ 	val = RST_LOCATION | RST_MODE;
 -- 
 2.34.1
 
