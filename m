@@ -1,125 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795639814;
-	b=JHNUnCLac5amG7lxwXr/OCoRJNLTn4zymcy60rqNqxcA6Hvrnfd+XOAEjPb31Qv836Dk
-	 5EDlr9cKBte0SIIjPwWSw0Wb5rqcstUjqe3RBLZb3sags2VtRRUgjyBje1IxEP6tSDhmV
-	 WkCnKLpUxl1IfT2aWa2PX1D746wj6dRbr9uA/AHlelV5AdFTSdMoW+qHHwVY+bB6qGGeA
-	 hX3phb8KGo4sbPiJW4xhqtZUgtT2D+o3OfWqdNgKWFsGVCh72wRah8yqtOn396mDptTcC
-	 hWdND1nK9GSx1IUY5m4k+7L3+oZw5hSzuaScSR5oNm4hfdGZipg5NOnzq/giBjoTEvQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795639814;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=OWc6U6uCl1ugTE+RqE60F8R5GakoN7oFfbCV9Fjoy+0=;
-	b=zEFpop/VQimHv4Lk36oL/ZVbbuQ5f2MLUThyvyyFZU8/IEr4Wp9GrIGjg47zv/ulM4JU
-	 2vKh2qKp3mxVgEFNl5rYBWet2jG729y21DAsLcwF2KRVmBhpIbLR1nHnOV937bRc70W8h
-	 vyavmH4npTv/RO9wFuGUqCVU3IGDpHt2xkY0zh/dMV1DcGFMmjBKtfmgSXwVUdwgk0d9Y
-	 aKn9dX9eCeblaeqLVuPoP3VzVQn3m+6WtbeAbc2gLxG0j+N7kktUlMBj5t5BN6ixI7q6p
-	 FJvZ843pEZkbAxo9Svs7TrohFJ5mfIuhiBKY5oZ0z5tZcNxYKe/JZYeAqzvRp1oygSA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=L3KjOgZB;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=erL4VWoR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795641399;
+	b=HiT9nOpF3btdbLPASCqREFTyhuwIlGkbFiNxQow5qWkhXZAZuQUEqGl0oXrEDme4OshQ
+	 aS91AE+OOUfGuO9rVbadrFMfudvncRpZli+jEEdtMjFkGvR6S0MaHgaqAuh0IVwCUDSNI
+	 OEtwhFVA8BLFpDlifbRU0jevEg5vQQTAbCKNFjaffmh1BB0aB0J+CpJ0lIlAnTle3IV0x
+	 Skn/1b5zxkjYFknyYYk4yuc6Bj5p8+gs/NN+o5TCUVPE+eH5H4JBdc+V+S0n6LnwscDmT
+	 /0a5J3MCx8H7+WUP+XSCCzHooZnkUT7GhCTVX7j6url2v+82jXTIsK6xbn2k8ZdW/cg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795641399;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=ER0yHM5O5GqEO5chNXvtZnc3KsEHdcqrL05ZLV075RI=;
+	b=XeTtNEq7AS0odCTmEoQmw9eiSdV/UiievZFcGu5E4zBzjlX+hlbf9rb4Cy37BIS+nF5g
+	 +eTiucK3POFTZk6Y2EFoj1TH1ULD10jw/FHVzhxEfgVNCgcbK1l9hxNunFmMI/SaQtBKl
+	 /scTxW5uWIGbBihT17wl5dJAyc/AiTDbYdaNEWyNiYXZSSOboW3EMeYtpHGsPyk4YcjFG
+	 vxrnwNdUJ3GYfjKH2VvJJNAvscajS2dth8x35/RzM9+qn1/tjQAwxGUEv3kNdf9IY1svp
+	 VkjxT55TJRN0PM2220VkSrsTP/HqGgtKL7vCttTyvBi486HUrL25dd6okTRo8Znf/mg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CC7jnVMz;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B482F606A323
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 20:50:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B482F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A5D606A323;
+	Wed, 25 Nov 2026 21:16:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6A5D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=L3KjOgZB;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=erL4VWoR
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6APJAs451177492
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 20:50:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	OWc6U6uCl1ugTE+RqE60F8R5GakoN7oFfbCV9Fjoy+0=; b=L3KjOgZB78vnDg2A
-	baIrgnhBdVc0qeP90ncluFInuDz8yg8x5HxOFjcy4cnYt19ME9F/hJBw1GVgc+bw
-	QdLB3Wf7V/bu1keMiQR7Xr+QM/jdxtZAveg7U1u2HmnSBpDnUejSA2IT8b6546XH
-	bXX8eIZsDOlG5scZXWl2ZKNdzpmkUT7MSxPE+QeUNNoJHOjxrcwVJCtYEacXm0LO
-	EJHj9X/n2o4d1dF1Q4+wS+j21CJTdh8qY94FPPDqh5biOS04x/k2s8sil7L2yivI
-	t9MxXiTK0LrNRwpmC9w4m/bAAg/UVo0Mpvi8yO1d0i9QtU1lgEzBKwfrx77vQLgw
-	K707nQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5vuhtsc5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 20:50:12 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9495c71055bso272464985a.2
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 12:50:12 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795639812; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gHokpRRrW/oh3cTSdFtUKXg+yWpwCQbud6cN8fZ3Gp1UlsEdv7vYYKck5NUtFh48vT
-         UYqznYxlrzRqFUzDUu186RkLF5qVM+jqn6xgSxc9ZcLM6677bL1RYj9HiXoZwSuG3uwV
-         /x6s1/lYTuQDjQ1pORaz1MoofvlBZEOFWDU7frx0ha2QWU/gNvvIVVNewaib6OlF38s5
-         oQDbmFscVlC7N5/11TDx+OP5AzpiVk1OfyTl28F0YyJxw9CYxEKo9rP1G8BQc6FlFr+X
-         m+pPbXA4EJ9xNxCQN4mxMd4fAvNeUriPlmlAuorlMmomJfHwgUBWxdwQRLpycfyXmnjq
-         N+NA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OWc6U6uCl1ugTE+RqE60F8R5GakoN7oFfbCV9Fjoy+0=;
-        fh=xXI2LpSFK0gfhwKCXDErF4fYuq1olNoO8tSqTdo1/A4=;
-        b=os/ZhVD2XU9VApI05suvbWom76564GjYZZlsUkSRp6PK4jM9pfX/x7+hvvub7oZRzz
-         X1z1P+7QLDAHwLcRp2fFxakkN8l4hMQNy9lmm0S9gc7MNUg6zDF4643snl0YX8CQBYtp
-         veSFPb5R4cLa/b+cQq9DaUMwKCbpGpVpufqAdXZFvZA8fkRLMuhfiWjj/eP0+l2aAMTQ
-         Qy/iiI5bam2uEA+T+qAnuVQCcLDUZi+WDV12wHrQI8HaQ08WDbUS3E8YLp2HindLMwzp
-         jIsIwHPWlOfVYjydn0auzAqrPxe64fve7R7IQ7lE1eI4AEId+rtR00AAqPDLLZvVdiN6
-         hYxA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795639812; x=1796244612; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OWc6U6uCl1ugTE+RqE60F8R5GakoN7oFfbCV9Fjoy+0=;
-        b=erL4VWoR333+SGGowJLUl03vdR7j9gv/4yGrXRxCwgZM9QH6g6kufYcT1PqI/Yr6hQ
-         4TZOxteKGvx4tOFDYhMRYFiPYF7Q2hEDP0MrUMjpzH4Z2L1T5szSY/vA+krpUCgFZJ0f
-         DnQXepyhlEhaoyYEuzdDextySiXm+M6x/NSss4Sy/Z35RA0eFTtGvfCgxC2zatwlVs5g
-         86zjTfy0nnKSPfaSKk7XT+d0/BPaKTsIa6BnuGQtOzRbp9TmNiWnQjXkeJTB4oapLn+B
-         wRsHxoAEK/617mesLWiYpnz/Np08lj+pNRCswN+I82tfHd1ETOcKbLtqF+OyUZemESxL
-         JTGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795639812; x=1796244612;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OWc6U6uCl1ugTE+RqE60F8R5GakoN7oFfbCV9Fjoy+0=;
-        b=Dafky8N/oIh51ze1t9OUmuGYxA+HBHWscFL+Rq9OXFWHWAtDYc24pchuph87NOebsk
-         z0d+WySXKT+Q6tNBY/qlvEntL0TVPSSbErtisI3EJec7UGQ5WMUL7K2dGpx0To6pANn1
-         tTQSaYUmY4U1rr4S4o9G9w5TaNtS/pTkQzL0GJ/748sjd/7aC53fPQRMTpwEmEBCd3xR
-         CF5v9SzB+hLrtb3JmADFKqUac/LYdMkmP6RHK88I+uklobqIUKBW1h0v2hp6m0btY7k6
-         kOe7mBARZvA1cn5inXStimkaDhYoFlR/KbHp0Bk/sLJhsz28Wm7Oyg+/vzcl5XV7s/eZ
-         umvA==
-X-Forwarded-Encrypted: i=1; AL+hErHNkFfGL+RqwPp3SM3E/vX/NpULCn/cQGxM1zEPNfwOU6Ac4iV0XzXd6Qqf8X50rTlN4A6Qmb4PsAL4UA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+7ZuAvObW5b9wvUjvpuMSSIQTEhvvdBR9yXXzkyW6AY7qZX5Hq
-	vnngkkxO5o3yBD6Z8/VxN+E73cWy9ZJD4NgosGnN8JUWvU2x7p3mjAGgQ5PL+oITqtOQ5fRyB9j
-	7H8vCuFwyWI1IgxlmQBEbpRQpTuuCbLshIHJpnbktnuXbmLEopLjx2k77jqQcWTeFels0XDjWRM
-	RnpK1nlutCP/friMtJS5cqaIVmuieGyMKbrxFDl5ZT
-X-Gm-Gg: AZFdTZdpHWSOfGMbs9U85H9o0plVWfPnLyEnxPq25YuukSYi0F/1A++uYx5A2PLMc2j
-	p8KQk0qdDI+4XcgGUJwiSDCeSf94acN9soAL7FLyYeu1ZuNOIkZRojaD4MneDKYT30LgYMn4PUN
-	L1wmrL0vuvbC0Bx/JWPQVwZbrxJHFHjCmVoCSuzB3knBGiziMu9rzF0R4UlWv4MO9DReaY5+8pw
-	j5Vq3VSo8uKmpnKSXFdaHhIlY7wP7pCCut2kHlVJWOAYtTP1Tll3gh0xgOc3KaQvnyzN33q1uWX
-	yo8R5Rm0sxszhy2cJBfB869IomdR
-X-Received: by 2002:a05:620a:19a2:b0:93f:5f83:2ca3 with SMTP id af79cd13be357-949bab4704emr3161346185a.54.1795639811743;
-        Wed, 25 Nov 2026 12:50:11 -0800 (PST)
-X-Received: by 2002:a05:620a:19a2:b0:93f:5f83:2ca3 with SMTP id
- af79cd13be357-949bab4704emr3161340885a.54.1795639811253; Wed, 25 Nov 2026
- 12:50:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CC7jnVMz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795641399; x=1827177399;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=aJsn4yhVh63zpfNygBfk8wAhAtcIyT5bj7Sk7IhYui8=;
+  b=CC7jnVMzIA4mGtnRQzTA8i2Mj52Uw3CUUDAdkW2sAwXTvCYlS20GTY2a
+   lIh3fglfT69QaHDi8S/Zx+kSrqVRI0g9Hy+gZPKKYLCULxvKo7nQeZc+r
+   LQ7aR7/HO+DQ7YQnrqy5Qp4XoOE9WYe3X6tTjXF7Rb9uGoe21hGy7sng6
+   vYz3eU4ZpQXwTwYimdzYLhvOcm3ee6KU4hEBQ2XgVQmdh2Ph6NLjMQ92J
+   RxrgbVbMj8dxN/BtpStOxygDKq/Cx1lXIlsehoofan/JS/xugROWheWXn
+   2+JM3iakQZ2RPMto3M4LubTmO0sdob/qWFvpHN7WCgHmCUynMFO/3XG5S
+   Q==;
+X-CSE-ConnectionGUID: pMhya9g5Qia7sONHE1zpmg==
+X-CSE-MsgGUID: YVCDh0UCTbat7/Be+/k7yQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4550177"
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="4550177"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 13:16:38 -0800
+X-CSE-ConnectionGUID: 6C8URDGxSZ+kOjUe4+NxQg==
+X-CSE-MsgGUID: dzmsQjFMRCSGcaAoL2QwhQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
+   d="scan'208";a="11997210"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa006.jf.intel.com with ESMTP; 25 Nov 2026 13:16:34 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xWKLv-00000001SeY-2IWO;
+	Wed, 25 Nov 2026 21:16:31 +0000
+Date: Thu, 26 Nov 2026 05:16:07 +0800
+From: kernel test robot <lkp@intel.com>
+To: Hikmah Gumelar <hikmahgumelar@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+	u.kleine-koenig@baylibre.com,
+	Hikmah Gumelar <hikmahgumelar@gmail.com>
+Subject: Re: [PATCH v4 3/7] media: i2c: add s5k5e8 image sensor driver
+Message-ID: <20261126050920.4VswFHsj-lkp@intel.com>
+References: <20261125123146.379057-4-hikmahgumelar@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -129,167 +95,198 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261125-camss-hw-ts-v2-0-24c955e43d75@oss.qualcomm.com>
- <20261125-camss-hw-ts-v2-1-24c955e43d75@oss.qualcomm.com> <3dd61a59-2376-414d-a136-287e2c26a3d6@oss.qualcomm.com>
- <CAFEp6-35qT9Ow8SOWWBxf75geq6s169+SPJmw27TnkkD3o0wow@mail.gmail.com>
- <ff986bbe-7cb6-4733-9f95-bf788f4f1f07@linaro.org> <1f16534b-6d41-47b0-93a5-9aaadfc9402c@oss.qualcomm.com>
-In-Reply-To: <1f16534b-6d41-47b0-93a5-9aaadfc9402c@oss.qualcomm.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Wed, 25 Nov 2026 21:50:00 +0100
-X-Gm-Features: Aa3M54r5e4YtrpiKqlTGITgZpLV-C59D4ietV_KMYBl2cdChQY5r1W2JV88JQmM
-Message-ID: <CAFEp6-17q7nH_WYrNAg6bUMjmg0OZuxMt2E-i6aMA8huNpnHHw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/7] media: v4l2-event: Allow drivers to provide the
- event timestamp
-To: "Gjorgji Rosikopulos (Consultant)" <gjorgji.rosikopulos@oss.qualcomm.com>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
-        linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=FPmOVOos c=1 sm=1 tr=0 ts=6b074a04 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=4mQD8COH9B449bK-myMA:9
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: qMhFWIt1Yq35BoFPyGU1CWCvP5QcAwgY
-X-Proofpoint-ORIG-GUID: qMhFWIt1Yq35BoFPyGU1CWCvP5QcAwgY
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA4MiBTYWx0ZWRfX7gK1PFVyjIJy
- xclWBbJZexKBqbdLfDNZaHvOfMREkLNwnmL3NG6CFnOi8urJkMHH9Yftb3zlPQwWm+/GcGC8P2/
- 2OZCVnccct/Rwmcr2K6hyVkUxoZVw60=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA4MiBTYWx0ZWRfX2SXC++EtO/bw
- x1u2By+9EAKNDHPm8NJXYc8JdvUbRgu0IG5VlQ+u2BVJ+pdKSfZMrJKBC4ZZ/JTlmT3jxyy/oRs
- ZYle7AHlxPq57FBAlWse33WHCv78gzFaqm55K6u1jmLiKloxMG2CXWVopp1GbObKdkC7pbrUysi
- U0CJNzVFEnSbSGMc71NCSAR/hkx19AtDWj3/n7Pdxhvfc42RbJs1PQus6hPpTw01H3+aHG7E37W
- oV7kl+CFkpe0w/gWboTWhDKnUEfwUxF653IMNHW49uf9ozMd0ORbl6BQAJsgB4es+Mbt64ryUzj
- xRaHX/KH5EMgYNGNgcpRlxz7JcQERoA35ulD0I70VxBK+Vc1iYBUdlqKGvuYqs83bW2SgvdQtEf
- uWOC9Zwf5h8Z2kAFdokIp8DZDUZZmKQfPu/+yBEFPVySokx/IETsWzJ8EVLLgroQrZkhQ7hVHbu
- sQMksa1GHDaYXowJBhQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-25_05,2026-11-25_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 suspectscore=0 impostorscore=0
- priorityscore=1501 adultscore=0 phishscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250082
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261125123146.379057-4-hikmahgumelar@gmail.com>
 
-On Wed, Nov 25, 2026 at 8:53=E2=80=AFPM Gjorgji Rosikopulos (Consultant)
-<gjorgji.rosikopulos@oss.qualcomm.com> wrote:
->
-> Hi Loic, Vlad,
->
-> On 11/25/2026 9:39 PM, Vladimir Zapolskiy wrote:
-> > On 11/25/26 15:21, Loic Poulain wrote:
-> >> Hi Gjorgji,
-> >>
-> >> On Wed, Nov 25, 2026 at 1:29=E2=80=AFPM Gjorgji Rosikopulos (Consultan=
-t)
-> >> <gjorgji.rosikopulos@oss.qualcomm.com> wrote:
-> >>>
-> >>> Hello,
-> >>>
-> >>> On 11/25/2026 12:19 PM, Loic Poulain wrote:
-> >>>> The timestamp reported to userspace for a V4L2 event is taken when t=
-he
-> >>>> event is queued, which for an event signalling a hardware occurrence=
- is
-> >>>> only as good as the latency between the two. A CSI decoder able to l=
-atch
-> >>>> the start-of-frame against the system counter knows that time to wit=
-hin a
-> >>>> few microseconds, whereas the interrupt handler that gets to queue t=
-he
-> >>>> event can be hundreds of microseconds late and is not consistent abo=
-ut
-> >>>> it.
-> >>>>
-> >>>> Take the timestamp from the event when the driver filled it in, fall=
-ing
-> >>>> back to the current time when the field is cleared. Drivers have had=
- no
-> >>>> reason to set it so far, and every in-tree caller either uses a
-> >>>> designated initialiser or memsets the event, so the field reads as z=
-ero
-> >>>> everywhere today.
-> >>>>
-> >>>> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> >>>> ---
-> >>>>   drivers/media/v4l2-core/v4l2-event.c | 20 ++++++++++++++++++--
-> >>>>   include/media/v4l2-event.h           |  9 ++++++++-
-> >>>>   2 files changed, 26 insertions(+), 3 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/media/v4l2-core/v4l2-event.c b/drivers/media/v4=
-l2-core/v4l2-event.c
-> >>>> index 9dd2aaa95a67406bda3a257325442888895ed088..a35646c3a5c89febeb07=
-2d691ffd7853d9af714a 100644
-> >>>> --- a/drivers/media/v4l2-core/v4l2-event.c
-> >>>> +++ b/drivers/media/v4l2-core/v4l2-event.c
-> >>>> @@ -150,6 +150,22 @@ static void __v4l2_event_queue_fh(struct v4l2_f=
-h *fh,
-> >>>>        wake_up_all(&fh->wait);
-> >>>>   }
-> >>>>
-> >>>> +/*
-> >>>> + * Hardware able to timestamp the event itself reports that time in=
- the event,
-> >>>> + * which is more accurate than the moment the driver gets to queue =
-it. Fall
-> >>>> + * back to the current time for the drivers that leave the field cl=
-eared.
-> >>>> + */
-> >>>> +static u64 v4l2_event_ts(const struct v4l2_event *ev)
-> >>>> +{
-> >>>> +     struct timespec64 ts =3D {
-> >>>> +             .tv_sec =3D ev->timestamp.tv_sec,
-> >>>> +             .tv_nsec =3D ev->timestamp.tv_nsec,
-> >>>> +     };
-> >>>> +     u64 ns =3D timespec64_to_ns(&ts);
-> >>>> +
-> >>>> +     return ns ? ns : ktime_get_ns();
-> >>>> +}
-> >>>
-> >>> I think it makes sense to add an additional field for hardware-based =
-timestamps.
-> >>> Converting the timestamp to the monotonic time domain introduces prec=
-ision loss,
-> >>> so it's better to expose both to userspace and let userspace decide w=
-hat to do with
-> >>> them.
-> >>
-> >> There is no loss of precision. The timestamp is actually more tightly
-> >> aligned with the actual event. So I don't see the point of having two
-> >> values, with one being less precise than the other.
->
-> One does not exclude the other, since there is a way for this platform
-> to convert to monotonic time maybe is not an issue, but i am sure that
-> there are platforms which has separate clock just for the camera hw and
-> maybe make sense to propagate that to userspace.
-> And if there is a hw block which can generate sync signal for other senso=
-rs on
-> using camera clock domain i think make sense the whole camera to operate =
-on
-> that domain. But those are just assumptions no real usecase as of today
-> for this driver maybe.
->
->
-> >
-> > The hardware produced timestamp may serve as another unique id associat=
-ed
-> > with a data buffer, under the circumstances it might be helpful to rece=
-ive
-> > and rely on this kind of information.
->
-> Yes this is another aspect which might be helpful.
+Hi Hikmah,
 
-Okay, I see what you both mean. However, the goal here is not to
-change the meaning or UAPI of this timestamp. It is still referenced
-as a monotonic-based timestamp, and we are not changing that.
+kernel test robot noticed the following build errors:
 
-The only change is to allow drivers that can provide a more precise
-monotonic event reference to do so. Adding hardware-specific reference
-timestamps is out of scope here.
+[auto build test ERROR on next-20261124]
+[cannot apply to robh/for-next linuxtv-media-pending/master media-tree/master linus/master v7.4-rc4 v7.4-rc3 v7.4-rc2 v7.4-rc4]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Regards,
-Loic
+url:    https://github.com/intel-lab-lkp/linux/commits/Hikmah-Gumelar/clk-qcom-gcc-msm8953-fix-csi_phytimer_clk_src-100MHz-parent/20261125-193140
+base:   next-20261124
+patch link:    https://lore.kernel.org/r/20261125123146.379057-4-hikmahgumelar%40gmail.com
+patch subject: [PATCH v4 3/7] media: i2c: add s5k5e8 image sensor driver
+config: arm64-defconfig (https://download.01.org/0day-ci/archive/20261126/20261126050920.4VswFHsj-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261126/20261126050920.4VswFHsj-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/20261126050920.4VswFHsj-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/media/i2c/imx219.c: In function 'imx219_probe':
+>> drivers/media/i2c/imx219.c:1209:26: error: implicit declaration of function 'devm_cci_regmap_init_i2c' [-Wimplicit-function-declaration]
+    1209 |         imx219->regmap = devm_cci_regmap_init_i2c(client, 16);
+         |                          ^~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/media/i2c/imx219.c:1209:24: error: assignment to 'struct regmap *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+    1209 |         imx219->regmap = devm_cci_regmap_init_i2c(client, 16);
+         |                        ^
+--
+   drivers/media/i2c/imx412.c: In function 'imx412_probe':
+>> drivers/media/i2c/imx412.c:995:23: error: implicit declaration of function 'devm_cci_regmap_init_i2c' [-Wimplicit-function-declaration]
+     995 |         imx412->cci = devm_cci_regmap_init_i2c(client, 16);
+         |                       ^~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/media/i2c/imx412.c:995:21: error: assignment to 'struct regmap *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     995 |         imx412->cci = devm_cci_regmap_init_i2c(client, 16);
+         |                     ^
+--
+   drivers/media/i2c/s5kjn1.c: In function 's5kjn1_probe':
+>> drivers/media/i2c/s5kjn1.c:1305:26: error: implicit declaration of function 'devm_cci_regmap_init_i2c' [-Wimplicit-function-declaration]
+    1305 |         s5kjn1->regmap = devm_cci_regmap_init_i2c(client, 16);
+         |                          ^~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/media/i2c/s5kjn1.c:1305:24: error: assignment to 'struct regmap *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+    1305 |         s5kjn1->regmap = devm_cci_regmap_init_i2c(client, 16);
+         |                        ^
+
+
+vim +/devm_cci_regmap_init_i2c +1209 drivers/media/i2c/imx219.c
+
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1191  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1192  static int imx219_probe(struct i2c_client *client)
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1193  {
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1194  	struct device *dev = &client->dev;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1195  	struct imx219 *imx219;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1196  	int ret;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1197  
+4dd10fbbeb9c33 Kees Cook        2026-10-28  1198  	imx219 = devm_kzalloc_obj(&client->dev, *imx219);
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1199  	if (!imx219)
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1200  		return -ENOMEM;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1201  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1202  	v4l2_i2c_subdev_init(&imx219->sd, client, &imx219_subdev_ops);
+5755be5f15d9e6 Laurent Pinchart 2023-11-27  1203  	imx219->sd.internal_ops = &imx219_internal_ops;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1204  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1205  	/* Check the hardware configuration in device tree */
+ceddfd4493b334 Adam Ford        2022-12-20  1206  	if (imx219_check_hwcfg(dev, imx219))
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1207  		return -EINVAL;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1208  
+852798cc8a4536 Laurent Pinchart 2023-09-24 @1209  	imx219->regmap = devm_cci_regmap_init_i2c(client, 16);
+03479d5673138b Umang Jain       2024-03-20  1210  	if (IS_ERR(imx219->regmap))
+03479d5673138b Umang Jain       2024-03-20  1211  		return dev_err_probe(dev, PTR_ERR(imx219->regmap),
+03479d5673138b Umang Jain       2024-03-20  1212  				     "failed to initialize CCI\n");
+852798cc8a4536 Laurent Pinchart 2023-09-24  1213  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1214  	/* Get system clock (xclk) */
+33cce53627a5e0 Mehdi Djait      2025-06-26  1215  	imx219->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
+03479d5673138b Umang Jain       2024-03-20  1216  	if (IS_ERR(imx219->xclk))
+03479d5673138b Umang Jain       2024-03-20  1217  		return dev_err_probe(dev, PTR_ERR(imx219->xclk),
+03479d5673138b Umang Jain       2024-03-20  1218  				     "failed to get xclk\n");
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1219  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1220  	imx219->xclk_freq = clk_get_rate(imx219->xclk);
+03479d5673138b Umang Jain       2024-03-20  1221  	if (imx219->xclk_freq != IMX219_XCLK_FREQ)
+03479d5673138b Umang Jain       2024-03-20  1222  		return dev_err_probe(dev, -EINVAL,
+03479d5673138b Umang Jain       2024-03-20  1223  				     "xclk frequency not supported: %d Hz\n",
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1224  				     imx219->xclk_freq);
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1225  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1226  	ret = imx219_get_regulators(imx219);
+03479d5673138b Umang Jain       2024-03-20  1227  	if (ret)
+03479d5673138b Umang Jain       2024-03-20  1228  		return dev_err_probe(dev, ret, "failed to get regulators\n");
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1229  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1230  	/* Request optional enable pin */
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1231  	imx219->reset_gpio = devm_gpiod_get_optional(dev, "reset",
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1232  						     GPIOD_OUT_HIGH);
+943b1f27a3eead Chen Ni          2026-02-04  1233  	if (IS_ERR(imx219->reset_gpio))
+943b1f27a3eead Chen Ni          2026-02-04  1234  		return dev_err_probe(dev, PTR_ERR(imx219->reset_gpio),
+943b1f27a3eead Chen Ni          2026-02-04  1235  				     "failed to get reset gpio\n");
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1236  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1237  	/*
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1238  	 * The sensor must be powered for imx219_identify_module()
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1239  	 * to be able to read the CHIP_ID register
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1240  	 */
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1241  	ret = imx219_power_on(dev);
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1242  	if (ret)
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1243  		return ret;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1244  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1245  	ret = imx219_identify_module(imx219);
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1246  	if (ret)
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1247  		goto error_power_off;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1248  
+e3e5d172d5fce9 Laurent Pinchart 2023-09-24  1249  	/*
+e3e5d172d5fce9 Laurent Pinchart 2023-09-24  1250  	 * Sensor doesn't enter LP-11 state upon power up until and unless
+ca45448a56659c Lad Prabhakar    2020-03-10  1251  	 * streaming is started, so upon power up switch the modes to:
+ca45448a56659c Lad Prabhakar    2020-03-10  1252  	 * streaming -> standby
+ca45448a56659c Lad Prabhakar    2020-03-10  1253  	 */
+852798cc8a4536 Laurent Pinchart 2023-09-24  1254  	ret = cci_write(imx219->regmap, IMX219_REG_MODE_SELECT,
+852798cc8a4536 Laurent Pinchart 2023-09-24  1255  			IMX219_MODE_STREAMING, NULL);
+ca45448a56659c Lad Prabhakar    2020-03-10  1256  	if (ret < 0)
+ca45448a56659c Lad Prabhakar    2020-03-10  1257  		goto error_power_off;
+852798cc8a4536 Laurent Pinchart 2023-09-24  1258  
+ca45448a56659c Lad Prabhakar    2020-03-10  1259  	usleep_range(100, 110);
+ca45448a56659c Lad Prabhakar    2020-03-10  1260  
+ca45448a56659c Lad Prabhakar    2020-03-10  1261  	/* put sensor back to standby mode */
+852798cc8a4536 Laurent Pinchart 2023-09-24  1262  	ret = cci_write(imx219->regmap, IMX219_REG_MODE_SELECT,
+852798cc8a4536 Laurent Pinchart 2023-09-24  1263  			IMX219_MODE_STANDBY, NULL);
+ca45448a56659c Lad Prabhakar    2020-03-10  1264  	if (ret < 0)
+ca45448a56659c Lad Prabhakar    2020-03-10  1265  		goto error_power_off;
+852798cc8a4536 Laurent Pinchart 2023-09-24  1266  
+ca45448a56659c Lad Prabhakar    2020-03-10  1267  	usleep_range(100, 110);
+ca45448a56659c Lad Prabhakar    2020-03-10  1268  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1269  	ret = imx219_init_controls(imx219);
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1270  	if (ret)
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1271  		goto error_power_off;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1272  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1273  	/* Initialize subdev */
+17971a430ff90d Tommaso Merciai  2024-10-29  1274  	imx219->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1275  	imx219->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1276  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1277  	/* Initialize source pad */
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1278  	imx219->pad.flags = MEDIA_PAD_FL_SOURCE;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1279  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1280  	ret = media_entity_pads_init(&imx219->sd.entity, 1, &imx219->pad);
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1281  	if (ret) {
+03479d5673138b Umang Jain       2024-03-20  1282  		dev_err_probe(dev, ret, "failed to init entity pads\n");
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1283  		goto error_handler_free;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1284  	}
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1285  
+e8a5b1df000e1a Jacopo Mondi     2023-07-10  1286  	imx219->sd.state_lock = imx219->ctrl_handler.lock;
+e8a5b1df000e1a Jacopo Mondi     2023-07-10  1287  	ret = v4l2_subdev_init_finalize(&imx219->sd);
+e8a5b1df000e1a Jacopo Mondi     2023-07-10  1288  	if (ret < 0) {
+03479d5673138b Umang Jain       2024-03-20  1289  		dev_err_probe(dev, ret, "subdev init error\n");
+e8a5b1df000e1a Jacopo Mondi     2023-07-10  1290  		goto error_media_entity;
+e8a5b1df000e1a Jacopo Mondi     2023-07-10  1291  	}
+e8a5b1df000e1a Jacopo Mondi     2023-07-10  1292  
+42eceae9793566 Sakari Ailus     2025-01-10  1293  	pm_runtime_set_active(dev);
+42eceae9793566 Sakari Ailus     2025-01-10  1294  	pm_runtime_enable(dev);
+42eceae9793566 Sakari Ailus     2025-01-10  1295  
+15786f7b564eff Sakari Ailus     2021-03-05  1296  	ret = v4l2_async_register_subdev_sensor(&imx219->sd);
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1297  	if (ret < 0) {
+03479d5673138b Umang Jain       2024-03-20  1298  		dev_err_probe(dev, ret,
+03479d5673138b Umang Jain       2024-03-20  1299  			      "failed to register sensor sub-device\n");
+e8a5b1df000e1a Jacopo Mondi     2023-07-10  1300  		goto error_subdev_cleanup;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1301  	}
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1302  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1303  	pm_runtime_idle(dev);
+5bd6b8c1bb2d49 Tarang Raval     2025-03-06  1304  	pm_runtime_set_autosuspend_delay(dev, 1000);
+5bd6b8c1bb2d49 Tarang Raval     2025-03-06  1305  	pm_runtime_use_autosuspend(dev);
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1306  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1307  	return 0;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1308  
+e8a5b1df000e1a Jacopo Mondi     2023-07-10  1309  error_subdev_cleanup:
+e8a5b1df000e1a Jacopo Mondi     2023-07-10  1310  	v4l2_subdev_cleanup(&imx219->sd);
+42eceae9793566 Sakari Ailus     2025-01-10  1311  	pm_runtime_disable(dev);
+42eceae9793566 Sakari Ailus     2025-01-10  1312  	pm_runtime_set_suspended(dev);
+e8a5b1df000e1a Jacopo Mondi     2023-07-10  1313  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1314  error_media_entity:
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1315  	media_entity_cleanup(&imx219->sd.entity);
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1316  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1317  error_handler_free:
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1318  	imx219_free_controls(imx219);
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1319  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1320  error_power_off:
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1321  	imx219_power_off(dev);
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1322  
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1323  	return ret;
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1324  }
+1283b3b8f82b90 Dave Stevenson   2020-01-20  1325  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
