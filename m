@@ -1,75 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.11
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795638825;
-	b=5eYYLJuiFU1QrOLd1rHct+1mVZ6BEHA6NnV7w9lWtKTI4TZdMioyN/6/rztU4Hf8eRy5
-	 WpswC7P/8Dhl3OBmXzCHt8aMpgiI09fxAaGtfwVjDM8kX0supqgMpNKzX1vCFxpqYDRK7
-	 09tOgRdLqvioavU4bA1MY936PbSz3hkqMppJKhKxUp0Ijri1f8S19CDg/AMsixdNa0FjI
-	 d0xiU1WR4wNyvZ9Wpkre0GK/qv/4EwozvAQgdGhdSDuIKpFUj6c7lPGmNRFLgWg74VNR8
-	 lVRJedccOuOZq738114jakGt0mtJ+yp/1ZfJ8t2dz5ECWBk68yKjKtUB54IDqfngSlA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795638825;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:To:
-	 Cc:References:Subject:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=V8FUCiGNj/oDwlyphyr1vjzx3mc0o+zaEblUbM0v+Ak=;
-	b=nMF86lp08t8kOYsaINMCS+ZWULwqhBUX+mAHtAV0y8qiPmSUHXmA1VpdGeod7lfrIJjS
-	 quK0cRQukai8XHe14oT2eOHXOVqDleJfQVyfBwc7QV5Vn4anGGixTVr7/p2JzsyNz+Wjy
-	 BwpJELAEqgGg7qxLUPRK9iIxDKx1/dLdarYtKAHBaq//iN6jJ1rqXkouJ5P1eR5mrV/Ue
-	 2O3aMUVaf4WM0C+xHoHk7ahzRxaXe5Q6ZY3fZ0HYAwRQZ51OCApYqCYzCrMX61xEYS+DO
-	 KkKfv3RmkIxUimkamW80gwfQm9yHrR3D1zqSJzEAb+qhILKK/qCjuBJBk3gDgia1diA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=web.de;
-	spf=pass smtp.mailfrom=web.de;
-	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=S2+QYLaH;
-	arc=none smtp.remote-ip=212.227.17.11
-Received: from mout.web.de (mout.web.de [212.227.17.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795639814;
+	b=JHNUnCLac5amG7lxwXr/OCoRJNLTn4zymcy60rqNqxcA6Hvrnfd+XOAEjPb31Qv836Dk
+	 5EDlr9cKBte0SIIjPwWSw0Wb5rqcstUjqe3RBLZb3sags2VtRRUgjyBje1IxEP6tSDhmV
+	 WkCnKLpUxl1IfT2aWa2PX1D746wj6dRbr9uA/AHlelV5AdFTSdMoW+qHHwVY+bB6qGGeA
+	 hX3phb8KGo4sbPiJW4xhqtZUgtT2D+o3OfWqdNgKWFsGVCh72wRah8yqtOn396mDptTcC
+	 hWdND1nK9GSx1IUY5m4k+7L3+oZw5hSzuaScSR5oNm4hfdGZipg5NOnzq/giBjoTEvQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795639814;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=OWc6U6uCl1ugTE+RqE60F8R5GakoN7oFfbCV9Fjoy+0=;
+	b=zEFpop/VQimHv4Lk36oL/ZVbbuQ5f2MLUThyvyyFZU8/IEr4Wp9GrIGjg47zv/ulM4JU
+	 2vKh2qKp3mxVgEFNl5rYBWet2jG729y21DAsLcwF2KRVmBhpIbLR1nHnOV937bRc70W8h
+	 vyavmH4npTv/RO9wFuGUqCVU3IGDpHt2xkY0zh/dMV1DcGFMmjBKtfmgSXwVUdwgk0d9Y
+	 aKn9dX9eCeblaeqLVuPoP3VzVQn3m+6WtbeAbc2gLxG0j+N7kktUlMBj5t5BN6ixI7q6p
+	 FJvZ843pEZkbAxo9Svs7TrohFJ5mfIuhiBKY5oZ0z5tZcNxYKe/JZYeAqzvRp1oygSA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=L3KjOgZB;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=erL4VWoR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C96606A323
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 20:33:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55C96606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B482F606A323
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 20:50:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B482F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=S2+QYLaH
-DKIM2-Signature:  i=1; m=1; t=1795638822;
- mf=PE1hcmt1cy5FbGZyaW5nQHdlYi5kZT4=;
- rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
- d=web.de;
- s=s29768273:rsa-sha256:rrUfrWO8dh41LKZcEjHmWdz+7BEi
-   1VmSakn3IJZ/mJRzLERHDwfk6FctJjpL35LrM+Gn6osyrCCzhE95z0EjjcrW78yDsfG0lwPl3Ba
-   NNz9aInh3B99QEWsldFwrjUySF44Qi/p1SQbNxdYGS+NR8nNC2mp8YTnQGkXv0M7n4Iyer0Ug4S
-   QApyYakpwts+1PNW8UA8G2tWYAYrLi9W4mz4IXGo6DEZYaB6gaVTJXA3kZcIJicsY4JvahHLtXP
-   fRVc6OqDZoggNl0vb1ob4w6gNGjjkZvjS8mQtH4anL+AFAr6HBI64IlT85gvOaInXRNE2AQpoSJ
-   Lh39VIDlDBPyGg==;
-Message-Instance:  m=1;
- h=sha256:
-   BDaCLlZbTJ62ZmT4Pfcv0uAQURBMaWqnEH9az8VDjYs=:
-   fqT10FfGs6yot3MOB7Y0XMN0loe5YXb5Pvu6HBRa5ig=,
-  sha512:
-   X5us1RuUASJEfMF4wv74euL2JL19DCx0wC2YcLGj/iSN3wudQtLfxHEyOP5nyg3mOjkQu7u311oss++t9GkHXA==:
-   MctCrrGfu7zvcBXht78lsauMTfD0lpexoWuWYNZmRo+Rx3JkOrO7ss4tyjC+ZLV/3gn4exWhrK1o5b0zQoBYhg==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1795638811; x=1796243611; i=markus.elfring@web.de;
-	bh=V8FUCiGNj/oDwlyphyr1vjzx3mc0o+zaEblUbM0v+Ak=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=S2+QYLaHUwS+Qsi3BzrLvPycK0Zm0QjjzNxNJex8wlGPWQtN8Hud4UrTa+FS67n6
-	 uHxlqi4TfIv2+i9LJ1n8wKObdX+6nF/JoAKXPyLa9GOkE6TvyI1W32pk2HXz0V+Nw
-	 sadj7qMYcbjQRGSGu9QVnufNosDWSMFaQbSKSjY6U54Kx6Axg15ZVKzAcbVY+1K6D
-	 d2c7kShrBHhA/HAaUhc6y7gkrxDtYOE57MASpsE0WEEcTLKLT4DHmdqZdcf1Mxx7v
-	 B9oMI/lTFNebs0oa1aBKHHPL5d0gecKtwQmiiIdFbnt3UzmERR1W5hcXUxzjO68Ud
-	 WxesM7MLGpWOGsbocg==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MbTGt-1y7aRG0nJh-00g5zT; Wed, 25
- Nov 2026 21:33:31 +0100
-Message-ID: <4e958c1a-3a7f-49ab-bd1f-a41b804043b6@web.de>
-Date: Wed, 25 Nov 2026 21:33:29 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=L3KjOgZB;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=erL4VWoR
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6APJAs451177492
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 20:50:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	OWc6U6uCl1ugTE+RqE60F8R5GakoN7oFfbCV9Fjoy+0=; b=L3KjOgZB78vnDg2A
+	baIrgnhBdVc0qeP90ncluFInuDz8yg8x5HxOFjcy4cnYt19ME9F/hJBw1GVgc+bw
+	QdLB3Wf7V/bu1keMiQR7Xr+QM/jdxtZAveg7U1u2HmnSBpDnUejSA2IT8b6546XH
+	bXX8eIZsDOlG5scZXWl2ZKNdzpmkUT7MSxPE+QeUNNoJHOjxrcwVJCtYEacXm0LO
+	EJHj9X/n2o4d1dF1Q4+wS+j21CJTdh8qY94FPPDqh5biOS04x/k2s8sil7L2yivI
+	t9MxXiTK0LrNRwpmC9w4m/bAAg/UVo0Mpvi8yO1d0i9QtU1lgEzBKwfrx77vQLgw
+	K707nQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5vuhtsc5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 20:50:12 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9495c71055bso272464985a.2
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 12:50:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795639812; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gHokpRRrW/oh3cTSdFtUKXg+yWpwCQbud6cN8fZ3Gp1UlsEdv7vYYKck5NUtFh48vT
+         UYqznYxlrzRqFUzDUu186RkLF5qVM+jqn6xgSxc9ZcLM6677bL1RYj9HiXoZwSuG3uwV
+         /x6s1/lYTuQDjQ1pORaz1MoofvlBZEOFWDU7frx0ha2QWU/gNvvIVVNewaib6OlF38s5
+         oQDbmFscVlC7N5/11TDx+OP5AzpiVk1OfyTl28F0YyJxw9CYxEKo9rP1G8BQc6FlFr+X
+         m+pPbXA4EJ9xNxCQN4mxMd4fAvNeUriPlmlAuorlMmomJfHwgUBWxdwQRLpycfyXmnjq
+         N+NA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OWc6U6uCl1ugTE+RqE60F8R5GakoN7oFfbCV9Fjoy+0=;
+        fh=xXI2LpSFK0gfhwKCXDErF4fYuq1olNoO8tSqTdo1/A4=;
+        b=os/ZhVD2XU9VApI05suvbWom76564GjYZZlsUkSRp6PK4jM9pfX/x7+hvvub7oZRzz
+         X1z1P+7QLDAHwLcRp2fFxakkN8l4hMQNy9lmm0S9gc7MNUg6zDF4643snl0YX8CQBYtp
+         veSFPb5R4cLa/b+cQq9DaUMwKCbpGpVpufqAdXZFvZA8fkRLMuhfiWjj/eP0+l2aAMTQ
+         Qy/iiI5bam2uEA+T+qAnuVQCcLDUZi+WDV12wHrQI8HaQ08WDbUS3E8YLp2HindLMwzp
+         jIsIwHPWlOfVYjydn0auzAqrPxe64fve7R7IQ7lE1eI4AEId+rtR00AAqPDLLZvVdiN6
+         hYxA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795639812; x=1796244612; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OWc6U6uCl1ugTE+RqE60F8R5GakoN7oFfbCV9Fjoy+0=;
+        b=erL4VWoR333+SGGowJLUl03vdR7j9gv/4yGrXRxCwgZM9QH6g6kufYcT1PqI/Yr6hQ
+         4TZOxteKGvx4tOFDYhMRYFiPYF7Q2hEDP0MrUMjpzH4Z2L1T5szSY/vA+krpUCgFZJ0f
+         DnQXepyhlEhaoyYEuzdDextySiXm+M6x/NSss4Sy/Z35RA0eFTtGvfCgxC2zatwlVs5g
+         86zjTfy0nnKSPfaSKk7XT+d0/BPaKTsIa6BnuGQtOzRbp9TmNiWnQjXkeJTB4oapLn+B
+         wRsHxoAEK/617mesLWiYpnz/Np08lj+pNRCswN+I82tfHd1ETOcKbLtqF+OyUZemESxL
+         JTGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795639812; x=1796244612;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OWc6U6uCl1ugTE+RqE60F8R5GakoN7oFfbCV9Fjoy+0=;
+        b=Dafky8N/oIh51ze1t9OUmuGYxA+HBHWscFL+Rq9OXFWHWAtDYc24pchuph87NOebsk
+         z0d+WySXKT+Q6tNBY/qlvEntL0TVPSSbErtisI3EJec7UGQ5WMUL7K2dGpx0To6pANn1
+         tTQSaYUmY4U1rr4S4o9G9w5TaNtS/pTkQzL0GJ/748sjd/7aC53fPQRMTpwEmEBCd3xR
+         CF5v9SzB+hLrtb3JmADFKqUac/LYdMkmP6RHK88I+uklobqIUKBW1h0v2hp6m0btY7k6
+         kOe7mBARZvA1cn5inXStimkaDhYoFlR/KbHp0Bk/sLJhsz28Wm7Oyg+/vzcl5XV7s/eZ
+         umvA==
+X-Forwarded-Encrypted: i=1; AL+hErHNkFfGL+RqwPp3SM3E/vX/NpULCn/cQGxM1zEPNfwOU6Ac4iV0XzXd6Qqf8X50rTlN4A6Qmb4PsAL4UA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+7ZuAvObW5b9wvUjvpuMSSIQTEhvvdBR9yXXzkyW6AY7qZX5Hq
+	vnngkkxO5o3yBD6Z8/VxN+E73cWy9ZJD4NgosGnN8JUWvU2x7p3mjAGgQ5PL+oITqtOQ5fRyB9j
+	7H8vCuFwyWI1IgxlmQBEbpRQpTuuCbLshIHJpnbktnuXbmLEopLjx2k77jqQcWTeFels0XDjWRM
+	RnpK1nlutCP/friMtJS5cqaIVmuieGyMKbrxFDl5ZT
+X-Gm-Gg: AZFdTZdpHWSOfGMbs9U85H9o0plVWfPnLyEnxPq25YuukSYi0F/1A++uYx5A2PLMc2j
+	p8KQk0qdDI+4XcgGUJwiSDCeSf94acN9soAL7FLyYeu1ZuNOIkZRojaD4MneDKYT30LgYMn4PUN
+	L1wmrL0vuvbC0Bx/JWPQVwZbrxJHFHjCmVoCSuzB3knBGiziMu9rzF0R4UlWv4MO9DReaY5+8pw
+	j5Vq3VSo8uKmpnKSXFdaHhIlY7wP7pCCut2kHlVJWOAYtTP1Tll3gh0xgOc3KaQvnyzN33q1uWX
+	yo8R5Rm0sxszhy2cJBfB869IomdR
+X-Received: by 2002:a05:620a:19a2:b0:93f:5f83:2ca3 with SMTP id af79cd13be357-949bab4704emr3161346185a.54.1795639811743;
+        Wed, 25 Nov 2026 12:50:11 -0800 (PST)
+X-Received: by 2002:a05:620a:19a2:b0:93f:5f83:2ca3 with SMTP id
+ af79cd13be357-949bab4704emr3161340885a.54.1795639811253; Wed, 25 Nov 2026
+ 12:50:11 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -79,137 +129,167 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Matthew Laux <matthew.laux@gmail.com>, linux-media@vger.kernel.org
-Cc: LKML <linux-kernel@vger.kernel.org>, Hans Verkuil <hverkuil@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Mehdi Djait <mehdi.djait@bootlin.com>
-References: <20261125194951.19072-1-matthew.laux@gmail.com>
-Subject: Re: [PATCH v8 00/12] Add driver for StarTech USB3HDCAP capture device
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20261125194951.19072-1-matthew.laux@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+References: <20261125-camss-hw-ts-v2-0-24c955e43d75@oss.qualcomm.com>
+ <20261125-camss-hw-ts-v2-1-24c955e43d75@oss.qualcomm.com> <3dd61a59-2376-414d-a136-287e2c26a3d6@oss.qualcomm.com>
+ <CAFEp6-35qT9Ow8SOWWBxf75geq6s169+SPJmw27TnkkD3o0wow@mail.gmail.com>
+ <ff986bbe-7cb6-4733-9f95-bf788f4f1f07@linaro.org> <1f16534b-6d41-47b0-93a5-9aaadfc9402c@oss.qualcomm.com>
+In-Reply-To: <1f16534b-6d41-47b0-93a5-9aaadfc9402c@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Wed, 25 Nov 2026 21:50:00 +0100
+X-Gm-Features: Aa3M54r5e4YtrpiKqlTGITgZpLV-C59D4ietV_KMYBl2cdChQY5r1W2JV88JQmM
+Message-ID: <CAFEp6-17q7nH_WYrNAg6bUMjmg0OZuxMt2E-i6aMA8huNpnHHw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/7] media: v4l2-event: Allow drivers to provide the
+ event timestamp
+To: "Gjorgji Rosikopulos (Consultant)" <gjorgji.rosikopulos@oss.qualcomm.com>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:0hL48C2QvgvmjEYvD5PbrExr5PXUi1is91Uww3Pv0fJS3fdHKTn
- P1JREW0u9+84/nWR1buKmXmyL+sO0bizOv2jXPi062cl9FF+r49E6dwE2PlFJ5A4kCccgI6
- xj2AOe6Hn3z3FssMgL1AtDgms5EAl4i6t3wBp5nr0XQNDpg8RgJjg/xLoBnizlJ46TShZ68
- aps7CK0GfUQYVKEmBECTQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:EG8YYPSqiOw=;fD9Ccc5kc5dyrTBx2gUfPBsF83E
- 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
- qR2gdcSVrYjDVeewqJJqIjL0DXw==
+X-Authority-Analysis: v=2.4 cv=FPmOVOos c=1 sm=1 tr=0 ts=6b074a04 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=4mQD8COH9B449bK-myMA:9
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: qMhFWIt1Yq35BoFPyGU1CWCvP5QcAwgY
+X-Proofpoint-ORIG-GUID: qMhFWIt1Yq35BoFPyGU1CWCvP5QcAwgY
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA4MiBTYWx0ZWRfX7gK1PFVyjIJy
+ xclWBbJZexKBqbdLfDNZaHvOfMREkLNwnmL3NG6CFnOi8urJkMHH9Yftb3zlPQwWm+/GcGC8P2/
+ 2OZCVnccct/Rwmcr2K6hyVkUxoZVw60=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA4MiBTYWx0ZWRfX2SXC++EtO/bw
+ x1u2By+9EAKNDHPm8NJXYc8JdvUbRgu0IG5VlQ+u2BVJ+pdKSfZMrJKBC4ZZ/JTlmT3jxyy/oRs
+ ZYle7AHlxPq57FBAlWse33WHCv78gzFaqm55K6u1jmLiKloxMG2CXWVopp1GbObKdkC7pbrUysi
+ U0CJNzVFEnSbSGMc71NCSAR/hkx19AtDWj3/n7Pdxhvfc42RbJs1PQus6hPpTw01H3+aHG7E37W
+ oV7kl+CFkpe0w/gWboTWhDKnUEfwUxF653IMNHW49uf9ozMd0ORbl6BQAJsgB4es+Mbt64ryUzj
+ xRaHX/KH5EMgYNGNgcpRlxz7JcQERoA35ulD0I70VxBK+Vc1iYBUdlqKGvuYqs83bW2SgvdQtEf
+ uWOC9Zwf5h8Z2kAFdokIp8DZDUZZmKQfPu/+yBEFPVySokx/IETsWzJ8EVLLgroQrZkhQ7hVHbu
+ sQMksa1GHDaYXowJBhQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-25_05,2026-11-25_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 suspectscore=0 impostorscore=0
+ priorityscore=1501 adultscore=0 phishscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250082
 
-=E2=80=A6
-> Changelog:
->=20
-> v8: remove RX power control
-=E2=80=A6
->     use scoped_guard in tw9900 progressive commit
-=E2=80=A6
+On Wed, Nov 25, 2026 at 8:53=E2=80=AFPM Gjorgji Rosikopulos (Consultant)
+<gjorgji.rosikopulos@oss.qualcomm.com> wrote:
+>
+> Hi Loic, Vlad,
+>
+> On 11/25/2026 9:39 PM, Vladimir Zapolskiy wrote:
+> > On 11/25/26 15:21, Loic Poulain wrote:
+> >> Hi Gjorgji,
+> >>
+> >> On Wed, Nov 25, 2026 at 1:29=E2=80=AFPM Gjorgji Rosikopulos (Consultan=
+t)
+> >> <gjorgji.rosikopulos@oss.qualcomm.com> wrote:
+> >>>
+> >>> Hello,
+> >>>
+> >>> On 11/25/2026 12:19 PM, Loic Poulain wrote:
+> >>>> The timestamp reported to userspace for a V4L2 event is taken when t=
+he
+> >>>> event is queued, which for an event signalling a hardware occurrence=
+ is
+> >>>> only as good as the latency between the two. A CSI decoder able to l=
+atch
+> >>>> the start-of-frame against the system counter knows that time to wit=
+hin a
+> >>>> few microseconds, whereas the interrupt handler that gets to queue t=
+he
+> >>>> event can be hundreds of microseconds late and is not consistent abo=
+ut
+> >>>> it.
+> >>>>
+> >>>> Take the timestamp from the event when the driver filled it in, fall=
+ing
+> >>>> back to the current time when the field is cleared. Drivers have had=
+ no
+> >>>> reason to set it so far, and every in-tree caller either uses a
+> >>>> designated initialiser or memsets the event, so the field reads as z=
+ero
+> >>>> everywhere today.
+> >>>>
+> >>>> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> >>>> ---
+> >>>>   drivers/media/v4l2-core/v4l2-event.c | 20 ++++++++++++++++++--
+> >>>>   include/media/v4l2-event.h           |  9 ++++++++-
+> >>>>   2 files changed, 26 insertions(+), 3 deletions(-)
+> >>>>
+> >>>> diff --git a/drivers/media/v4l2-core/v4l2-event.c b/drivers/media/v4=
+l2-core/v4l2-event.c
+> >>>> index 9dd2aaa95a67406bda3a257325442888895ed088..a35646c3a5c89febeb07=
+2d691ffd7853d9af714a 100644
+> >>>> --- a/drivers/media/v4l2-core/v4l2-event.c
+> >>>> +++ b/drivers/media/v4l2-core/v4l2-event.c
+> >>>> @@ -150,6 +150,22 @@ static void __v4l2_event_queue_fh(struct v4l2_f=
+h *fh,
+> >>>>        wake_up_all(&fh->wait);
+> >>>>   }
+> >>>>
+> >>>> +/*
+> >>>> + * Hardware able to timestamp the event itself reports that time in=
+ the event,
+> >>>> + * which is more accurate than the moment the driver gets to queue =
+it. Fall
+> >>>> + * back to the current time for the drivers that leave the field cl=
+eared.
+> >>>> + */
+> >>>> +static u64 v4l2_event_ts(const struct v4l2_event *ev)
+> >>>> +{
+> >>>> +     struct timespec64 ts =3D {
+> >>>> +             .tv_sec =3D ev->timestamp.tv_sec,
+> >>>> +             .tv_nsec =3D ev->timestamp.tv_nsec,
+> >>>> +     };
+> >>>> +     u64 ns =3D timespec64_to_ns(&ts);
+> >>>> +
+> >>>> +     return ns ? ns : ktime_get_ns();
+> >>>> +}
+> >>>
+> >>> I think it makes sense to add an additional field for hardware-based =
+timestamps.
+> >>> Converting the timestamp to the monotonic time domain introduces prec=
+ision loss,
+> >>> so it's better to expose both to userspace and let userspace decide w=
+hat to do with
+> >>> them.
+> >>
+> >> There is no loss of precision. The timestamp is actually more tightly
+> >> aligned with the actual event. So I don't see the point of having two
+> >> values, with one being less precise than the other.
+>
+> One does not exclude the other, since there is a way for this platform
+> to convert to monotonic time maybe is not an issue, but i am sure that
+> there are platforms which has separate clock just for the camera hw and
+> maybe make sense to propagate that to userspace.
+> And if there is a hw block which can generate sync signal for other senso=
+rs on
+> using camera clock domain i think make sense the whole camera to operate =
+on
+> that domain. But those are just assumptions no real usecase as of today
+> for this driver maybe.
+>
+>
+> >
+> > The hardware produced timestamp may serve as another unique id associat=
+ed
+> > with a data buffer, under the circumstances it might be helpful to rece=
+ive
+> > and rely on this kind of information.
+>
+> Yes this is another aspect which might be helpful.
 
-tw9900_s_routing()?
+Okay, I see what you both mean. However, the goal here is not to
+change the meaning or UAPI of this timestamp. It is still referenced
+as a monotonic-based timestamp, and we are not changing that.
 
-What did hinder you to apply lock guards at further source code places?
-
-How do you think about to extend applications of scope-based resource mana=
-gement
-any more?
+The only change is to allow drivers that can provide a more precise
+monotonic event reference to do so. Adding hardware-specific reference
+timestamps is out of scope here.
 
 Regards,
-Markus
+Loic
