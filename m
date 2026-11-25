@@ -1,49 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795587402;
-	b=D9WPOw0vcvEFBwe2b3fjcOhpv0NJDiyQTUWIwr/pT7FgpMg3rZikl6gQKHcSgQ+FtsZK
-	 UOKR788dMxgHY3QirmUgd3397oE9vLV9BeKnu/TGCPGmNhdO5NhstjbSxNy5UgwmHomGE
-	 hINtZjJE/0P/jg/NA3Ir9eojwWN4HMsomYCepMKc+JgcDJOZNKTW+ZFb5Teeocq6gu6uD
-	 XVgQkPucZz9uKu1qC30JTmLlsKwUd0iJII0cjk9tB7eNq+8Yo9CTV1PmfWqCN1Z1F/r9R
-	 R2C0dU2SUJMeputuvjF8bhHO3q0a8wTo59cZ/0tSPojWFnqkb1ckVqRZSNsx8chsT7g==
+	t=1795587398;
+	b=pcf0BH2VzSU+DtRJ5fbDL/qcilJEzgzTekIbYORMj4PqFDDKFOLwEtPbOt+XTVkdOynH
+	 PbsUhg9LbOhhlr4uupFPJe48EcJt/SDEPdG9fFiJnIHFcBssamhxIQZGkWhT0CWwgnh4U
+	 tFdJ49ggJGPet1yEnAhRYr7Arhuk+/2ERJvUS99ejX6YAotb9/SbgWBOU4btbAMmuZFh4
+	 ElUOa8k6V4GRsVJc6ONR2l+s87ujN6FUZMVN4VhBSu1eYINp2DSH+tDaiyv3T+38l2oNv
+	 VX4AohbSPmzZX8W6IMlHoJvHh9rmRxZTVboindxb66vMwWje2BZKnGspDMws0Zg3cVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795587402;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795587398;
 	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
 	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
 	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 Content-Type:X-MTK;
-	bh=y3zhTjpPZpXjLDk8y+TcI0f+3J+puzNWogbkrOaTR3c=;
-	b=xDtUDUF/yyLAvzaWa1TsbM99sjDBOn+gLhZ/bBYlEwgVZWlJ3ZLn0OJieHy+RlsehiAU
-	 O44lWpQNJ1UJNZB9xnr+6opp9kSiOi49wyIWc0FEl5u3fgLNZDxAFrizSEFsZlpFSXyf+
-	 l7Ae9N/gkI6Slr1ebZQeg0+VtbGn6whmYIeVvVvw0WEBYudQxlmP+sI8/+yhWS+tLnzFw
-	 d9GnFIYsOC2277skTmAfxBUHj2tMJNTCXSGO4HGMOMkyh1R8Xbqa3dxRH8N5MPYK6ABYG
-	 gNzk6J3U5tn0tDgW9CWWN19cVbi6qQVj5OFh+CGWx0Vc5EYfXccDoMkvx0KW2VLwPaQ==
+	bh=qT4jukooijkn9oVFANgSEWWyX/Wb2Pv/yUrB34irBsY=;
+	b=gCBY+W4mZQHwgOs99yl2QB58yHOZDLI5mC9WolYd6adpE8MEvpbLxcVQ0x3Q8Vfo9btC
+	 Vlzn01p7nXqS350r3ZSZmQ3Dm6Wgkn0Hw5P+g7mbo2a3V28zOblROFaj3rN2+Ki/NSDKy
+	 zYcT7Uctig0Psx38jopRAWM4sty9z5gHmmqv/Ox0Zfo0UsMEuoiPHK0PZdUIIuzNP78A+
+	 YJhvvlUofMU8mLuYnEA87bewSO20Tq1yGVWsIBAuL0SE9+NhTrpAm2USxjFbu4h434zaW
+	 SDQaZurG1f9D4qrgB1GGx3Ug+W9e0k6jekkBgTtsqcw0B0VPildpdlCtuKImWS9WXBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mediatek.com;
 	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=df1wUcnN;
-	arc=none smtp.remote-ip=60.244.123.138
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=CHVVM57v;
+	arc=none smtp.remote-ip=210.61.82.184
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E056077BC6;
-	Wed, 25 Nov 2026 06:16:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3E056077BC6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A61C6072DA3;
+	Wed, 25 Nov 2026 06:16:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A61C6072DA3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=df1wUcnN
-X-UUID: c40466bce89711f1b1788b6acf885367-20261125
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=CHVVM57v
+X-UUID: c111d12ee89711f18dc8c9802ae25ab1-20261125
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=y3zhTjpPZpXjLDk8y+TcI0f+3J+puzNWogbkrOaTR3c=;
-	b=df1wUcnNv4n870bwSxQcqVvUg5N19NAkavWXCfX/KSBRmQtwnRA5kldzltOY8L0xhYpbM1cVxJBXbMM/20vSw04N9vB1A4vPP6c4q1MOsbMtLpxTHMmsd9oqFui3clqEGHScZZ2bNtegFhn39EWwjSrGy3t1mHakjj5KSE5H+2o=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=qT4jukooijkn9oVFANgSEWWyX/Wb2Pv/yUrB34irBsY=;
+	b=CHVVM57vdo1uIpXg9KK5Mte37CObBGESTgeZfMjBCsw1c5ZOwBQzIJy+7rjCntXPAwMxbrYORI3vMTDOJ4auzgwmOEEhlUqkhGK8IRo0Cjf1YNkks8RHh4gJ6ghqYMmtHV39+9sOJJJePzG3l/TEFxiK4QSVrw09dPrN//h4Bpw=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:33d0351c-ce89-4d1c-b7b5-3547384aa716,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:b0318ac,CLOUDID:c8bc081a-ae4c-4a2b-b1c4-72e411efd0c9,B
+X-CID-O-INFO: VERSION:1.3.21,REQID:018ae8a4-9fdf-459d-971f-849abab44351,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:b0318ac,CLOUDID:a4bc081a-ae4c-4a2b-b1c4-72e411efd0c9,B
 	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
 	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
 	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
@@ -51,18 +51,18 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c40466bce89711f1b1788b6acf885367-20261125
-Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw01.mediatek.com
+X-UUID: c111d12ee89711f18dc8c9802ae25ab1-20261125
+Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw02.mediatek.com
 	(envelope-from <kyrie.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 26215831; Wed, 25 Nov 2026 14:16:35 +0800
+	with ESMTP id 695043930; Wed, 25 Nov 2026 14:16:30 +0800
 Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 25 Nov 2026 14:16:34 +0800
+ 15.2.2562.56; Wed, 25 Nov 2026 14:16:29 +0800
 Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
  mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.56 via Frontend Transport; Wed, 25 Nov 2026 14:16:33 +0800
+ 15.2.2562.56 via Frontend Transport; Wed, 25 Nov 2026 14:16:28 +0800
 From: Kyrie Wu <kyrie.wu@mediatek.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
@@ -74,9 +74,9 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
 	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
 CC: Kyrie Wu <kyrie.wu@mediatek.com>
-Subject: [PATCH v20 13/15] dt-bindings: media: mediatek,jpeg: Add MT8196 encoder SMMU configuration
-Date: Wed, 25 Nov 2026 14:16:16 +0800
-Message-ID: <20261125061618.2544386-14-kyrie.wu@mediatek.com>
+Subject: [PATCH v20 08/15] media: mediatek: jpeg: fix remove buffer removal timing for multi-core
+Date: Wed, 25 Nov 2026 14:16:11 +0800
+Message-ID: <20261125061618.2544386-9-kyrie.wu@mediatek.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261125061618.2544386-1-kyrie.wu@mediatek.com>
 References: <20261125061618.2544386-1-kyrie.wu@mediatek.com>
@@ -93,74 +93,42 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-MTK: N
 
-Describe the mediatek,smmu-config phandle to the MT8196 JPEG SMMU
-configuration syscon used to program an encoder core's GUSER_ID fields.
-Require the property for MT8196 encoder cores.
+Remove prepared source and destination buffers from the M2M ready
+queues in the multi-core decoder after destination preparation succeeds
+and before arming the timeout or starting hardware, matching the encoder
+flow. Completion can then return buffers without leaving them linked
+in a ready queue. Preparation failures keep the existing cleanup path.
 
-Document SMMU stream IDs for MT8196 in the parent and child iommus
-descriptions while retaining the MT8195 hardware master-port description.
-
+Fixes: 86379bd9d399 ("media: mtk-jpeg: Fixes jpeg enc&dec worker sw flow")
 Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
 ---
- .../media/mediatek,mt8195-jpegenc.yaml        | 31 ++++++++++++++++---
- 1 file changed, 26 insertions(+), 5 deletions(-)
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegenc.yaml b/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegenc.yaml
-index e2d772ea0..46597003e 100644
---- a/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegenc.yaml
-+++ b/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegenc.yaml
-@@ -24,9 +24,11 @@ properties:
-   iommus:
-     maxItems: 4
-     description:
--      Points to the respective IOMMU block with master port as argument, see
--      Documentation/devicetree/bindings/iommu/mediatek,iommu.yaml for details.
--      Ports are according to the HW.
-+      Phandles to the respective IOMMU blocks. For MT8195, the argument is
-+      a hardware master port; see
-+      Documentation/devicetree/bindings/iommu/mediatek,iommu.yaml.
-+      For MT8196, the argument is an SMMU stream ID; see
-+      Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml.
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index 199d15828..7e4fd36dd 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1768,9 +1768,6 @@ retry_select:
+ 		goto dec_end;
+ 	}
  
-   "#address-cells":
-     const: 2
-@@ -57,8 +59,11 @@ patternProperties:
-         minItems: 1
-         maxItems: 32
-         description:
--          List of the hardware port in respective IOMMU block for current Socs.
--          Refer to bindings/iommu/mediatek,iommu.yaml.
-+          Phandles to the respective IOMMU blocks. For MT8195, the argument is
-+          a hardware master port; see
-+          Documentation/devicetree/bindings/iommu/mediatek,iommu.yaml.
-+          For MT8196, the argument is an SMMU stream ID; see
-+          Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml.
+-	v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
+-	v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
+-
+ 	mtk_jpeg_set_dec_src(ctx, &src_buf->vb2_buf, &bs);
+ 	if (mtk_jpeg_set_dec_dst(ctx,
+ 				 &jpeg_src_buf->dec_param,
+@@ -1785,6 +1782,9 @@ retry_select:
+ 	jpeg_dst_buf->frame_num = ctx->total_frame_num;
+ 	ctx->total_frame_num++;
  
-       interrupts:
-         maxItems: 1
-@@ -73,6 +78,22 @@ patternProperties:
-       power-domains:
-         maxItems: 1
- 
-+      mediatek,smmu-config:
-+        $ref: /schemas/types.yaml#/definitions/phandle
-+        description:
-+          Phandle to the MT8196 JPEG SMMU configuration syscon used to
-+          program this encoder's GUSER_ID fields.
++	v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
++	v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
 +
-+    allOf:
-+      - if:
-+          properties:
-+            compatible:
-+              contains:
-+                const: mediatek,mt8196-jpgenc-hw
-+        then:
-+          required:
-+            - mediatek,smmu-config
-+
-     required:
-       - compatible
-       - reg
+ 	schedule_delayed_work(&comp_jpeg[hw_id]->job_timeout_work,
+ 			      msecs_to_jiffies(MTK_JPEG_HW_TIMEOUT_MSEC));
+ 
 -- 
 2.51.0.windows.2
 
