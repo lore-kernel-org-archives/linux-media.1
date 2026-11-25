@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795637780;
-	b=uE0Ka+YnU3q2qIcGu5xQVDkkmvF0BEZyGz3ucZJWUKPVWM4ItWDdwLoxRWybcweWpv0d
-	 FXbl4Deo5j0NS/wPJkDYNR1VDjIO44LYnemIkofCM6PSh9jY3KBfYOgj/HwdJVvw6WWkN
-	 QZztHa2Ccrvqu1YU6ALMLmZP1F9OejksABjqTczjHEr8Qisvy0lXi3OIQUlKiLX1Hr4Sy
-	 6MxSDg+6aZzS+4s+SsksF8tTxPq8x/waa/Z2Th9aoQiN16biKzVAQUlz+NDQfzrUllbYn
-	 R/DodqChuxXXqV8Lg3IXh+jFDoWzhimAF/768PXRlGcX7AR9O0GgKmdQhQLeiX/i7Pg==
+	t=1795637782;
+	b=OFXzca5CKtTf60wW+tAEb0L5XO79EK6rFO2fNk8KMQkEVcIhZ+hoO3xnFpLJ8EJd2ciB
+	 Yc8+lxNLyDRk/4GmPXXiT/DGg249JhdZbt15lXTyBoog3vIk7R+xG2wU+veKcojCYX151
+	 wM0IwlSSoHl/6HKurWhBr1q696ChF3xke09FmH2EiiVlpBVb28sOeE7dPOVniU+HxrNQG
+	 J8Y/3+uU+WXt3WEX/4X2tnJWvkksXxGAqfYW5LrN0rqg68CvnVt00u/UOCCtZpybQwQ0f
+	 oqBB22jij0mwLOOtX3bVtUSZmfy0O0iDCqIf50BZZDDoMxuTlwuf7lm9o++/jFTsFLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795637780;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795637782;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=GyPhjArj1GTlQH9QXFfb0KZ+rjDTIHoFzQ0QuyYeR+o=;
-	b=ctOIDumyBirXmrQYyLdR0/l+KoHMy6HTEtf9H1ViGdaGvMEKTfSjjJekMUq1Lum/+jT2
-	 eQ2+qskVN5TKCPEdwT8UEzc8PzIpZ9pBm5BL6RrpaUwUUdjQl2Hz/5q7nzDnPw2SXPVAZ
-	 vcir3sZI7o4GNnSUnxubx/X8DfUIZyLQKALT1HF2m4IEgIgsrmO8WVboCaE5JJIada3aG
-	 CD++8UwAQlgIn0keaYnGX97XLRnNEUON05YjV18t93GkJBpMYviJVbZCINJ/IKbWqJ0wJ
-	 CLtflHYS9T1doV3YEy5SuBVWzIyLcDUFe95qcL/oPgZ+DyeNF7M7Ig9vt6XhX78nFQA==
+	bh=O3cn42cRp9ta80RYl78FVY9fV9o47ecym0lO2qR+MbY=;
+	b=5p2YQH281pWNpvDrjty8GEWY54Ooz/kgjVZFCx5qmcet4+NPhewJVMDzRF29TDpCbqpP
+	 gmSwyj3tunCj/7uN1k1FK9TWwIGHMYa06HnorxPVwK5AlxGpy7sGge1y0cY8aUTq6WUSw
+	 OW4x8Zf36plyE/UHc0yRMTP6rDv78HZfsBtDao0D8lnBMDXIxWo6iAFl9CnZXAK1LSfY0
+	 uD7LHfdR9XJOWsxHvsAQU0EGRLj4QFsOgPBnngsV1Xjx42QKTcD+altk46/7XGRUnH0hO
+	 mhQA9bG020f6yq6zjWqEZyha5sU2qLxKQBrigyI1Ve4O8rzu11vQoXud0AJIFfI2sNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rmad3ysY;
-	arc=none smtp.remote-ip=74.125.231.138
-Received: from mail-oo2-f10.google.com (mail-oo2-f10.google.com [74.125.231.138])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nKAzz4ZO;
+	arc=none smtp.remote-ip=74.125.231.128
+Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E061E606A692
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 20:16:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E061E606A692
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F9A606A692
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 20:16:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2F9A606A692
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rmad3ysY
-Received: by mail-oo2-f10.google.com with SMTP id 006d021491bc7-716d85c01f6so2191072eaf.0
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 12:16:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nKAzz4ZO
+Received: by mail-oo2-f0.google.com with SMTP id 006d021491bc7-71b1c6cb11fso1150905eaf.0
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 12:16:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795637779; x=1796242579; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795637780; x=1796242580; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GyPhjArj1GTlQH9QXFfb0KZ+rjDTIHoFzQ0QuyYeR+o=;
-        b=rmad3ysYlD5E8k3XGr7qiiv+0FP1Uvn1yYVvd1LZEtVkfpe32/Xvo7hBN24ypO6fVo
-         ikWlxRWNnICMSP4cbBlGHav6O0R9t7dwoxJ/6b6CMwgOajHPlvqG1Hv5VQj4+KdG2DMa
-         q22Wa24FJPc19bDY2jDydM6h+lyq/v8rbmUd5aoKSsBkaItEckqKAKD7PWNK2XrPL3GU
-         V3MNmHQ2icfxk+BSw9RQ/oX0Z92Cpu/x7bJajTWndHFP4FG+PonuoMu7jCyS6Cb12N8C
-         CxSJ0l88ot/NpUZJyzXCkPw7iqSViifj8YxShvobQEsujsmYc9c+jE4FyrSxXaDN4eMA
-         ImXw==
+        bh=O3cn42cRp9ta80RYl78FVY9fV9o47ecym0lO2qR+MbY=;
+        b=nKAzz4ZOIyu2lk6/PfYMWGjZbp9w/OPXD53ga00wpC/vdxf98iATXlCBnfgMlXJqre
+         E8pz8Cb4075PCb1MyfI6/WeSH5zbyBnTu+kYLAIufOm5bQoC6w7uKhA+8hs//dSTkMYj
+         ETulmwYwu6sd63Q2IzYT57IJiFOGIAfnaM6qQE0IOzPDh797M1ATVhMiqOs8r4KOIkE8
+         bffgcblNDmvs4LdaGh0xh6oOx9lgGACUsp6JtQggJgjoZYMZZt4rotKpcgjXHerAPdqx
+         kT47vb+TIRTsgMsjNgLrgpoXuYu3zt2X2TxozqgSExghWZJFiEKHkw2jIQZgaWfaruWP
+         mATw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795637779; x=1796242579;
+        d=1e100.net; s=20260707; t=1795637780; x=1796242580;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GyPhjArj1GTlQH9QXFfb0KZ+rjDTIHoFzQ0QuyYeR+o=;
-        b=y2hpOq4ALA+aw4Ooixtshz568ZahOEEdWUL3zFbdMtbYTjVbMjidJrtaP88Nr49477
-         p62ayCycyUZxhp0ivh9lBUt6mFcc7yiT3JbFGna2+TktJCLLe43YhZaFOg+3SujWtuHa
-         8ESjEkzzSaZsRr6GZvuQEBEfFmetMq87rmv8LbSJBCIt8vy0/O7gNFAplvq6hLyP+evZ
-         ddMNAnlB9sWGxQEHJsSk95rI1sXTRX+lHev4dGqiOw0jbkf4mePRMWCHGM80KgvYk2fo
-         wvWXMQmrB2cL8oTiJsMcjfn9LGT1MKzgCnQnlhLQJp/ojdCxYySB2OYn63rppGBKqcGC
-         W75Q==
-X-Forwarded-Encrypted: i=1; AL+hErHs6q2/mneKl59FfS3cypAD4G4+QcJ22jcFupQP0zCYyzT1g6z3YEBopuao6UrjiXZsIZIwYY/ndWvkxQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9CrNddhK6BhZng7C4Fpx+8ZQMQVsslof9+pZylBR9eUu0idpA2
-	DDor8WOQq4984Bc/2LRzJCsylp1Ryk3Yk4F7qYxRLNatOlAW+xEuUp6W
-X-Gm-Gg: AZFdTZflKYnM2ZP7UiKram9zwyXdsRSXbdx8UNC9bRDVGBPaBPOZ/gVIrNwrWA15qxn
-	6yjNcvtdwQbgBGKnUPAEjqjDDyGtKssFIWwUiIOjn2ayAqPv3a7szPnlDkLInBJI0NV8T+VnWn0
-	bhdgVTvEHcOjHEorM5PNfWrnRjeal9msbpRtxiz3UacsTJD53PBa0G1U26+SWtab47Rb0DT3vxX
-	iuhg9EB+OJ55KnQHCnBiNq7SHOJCJGnomoZeDIZaeBnpQYRfBn6n35JHqhQUwTbqw0hGSsi1gtv
-	7oCjjdiBAgB9GDldXyHJukoCfci4k3EfHHkM7scJy03HtZtw0EDztSeWagHAS9hFr5uhOH8oydj
-	KRpmPahroKOA3g/dFiZDb+gSAJADBMv8G3qrga0uZsAupKMeBdrlcf9S62JV7b/Cbeu1uGkn6cI
-	A2BvcJpcV8e969bqZOJxAYAzWez4O1xKU0ozi3djSPK1Cpfz+cOA7VfJF5Oq18m6YKxbEMOpWv/
-	YWBCk5ZxtNul9XRSaJDBLQW84CvI8oIfijvN+tbPGAisQZwd/3RXDCJXOCrWnsJnMrXQdvztHdD
-	Y13VyH8dJQ6eaJt2AnfC/3hRvX+Lr9EZPGs=
-X-Received: by 2002:a05:6820:f028:b0:71b:85a5:c19e with SMTP id 006d021491bc7-71b85a5cb82mr1092887eaf.38.1795637778946;
-        Wed, 25 Nov 2026 12:16:18 -0800 (PST)
+        bh=O3cn42cRp9ta80RYl78FVY9fV9o47ecym0lO2qR+MbY=;
+        b=BP5BfJSTETrXIwD4FHRsKduGMKgM9PkytylD4IrwxKq4RCKabmPng2XMnMDFYBFQdC
+         08b3L7SGLsc47KLAbpUZjIO8wJp0RiocKX24/nJLA+UFgKuiXCJkCK8L8gHri7ORTMMK
+         s5rk8YPcxgIqhooi93k3wua813BsavQJGUUytGVee296hppFxGIxXGyX4Ec4DD4Y8Cyk
+         tOVcEi20zffs3Mho83v0UMvvm4xFgQeiJ+nYgkvZmNkewAwADDvVY71ec1tbly1kw0r7
+         LAt7HEkCdXLRoXZEtgCqayUAASJ3Wt3DtG1jlsODIiAzfkeTSujgmm6crbFJqCzbpEp8
+         IfBg==
+X-Forwarded-Encrypted: i=1; AL+hErH/ysSsiqO9bC3cRH4rnGasGL/IOxW9DArlBAqaGZiBxySNsVrFENCKnilpA6zVEMwSkCWjfbBsyN9vGQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/meQVpOzezxwDhYjguB7HjxHmnxBj9Xt/cEGsi2LWDvsvK33PC
+	k2W+M+i84ujgwXWAbiegWjMcEzxuIGYHTl/+VcxLUle+43ucYvLTGHCh
+X-Gm-Gg: AZFdTZdWdtugE9EE1E9TfGsyi6cCZCPDBxFJNc27Z8qlbJbwQhQe8Ggh1lW14UvyxAw
+	gvXK8TCsjkcx53ZHJAHeDtlHCRiUXyjhCr2np06qpyYyCesx3yP+17Q54wDKzBs2Aw+7sSf5JA0
+	l3aa8S/bI+j4m4onR03Eo4/8AxKqNWMjaPCf9WjcOjN59qYDQPWp0xckVUPH3nvdxzLkJkh3+bk
+	plLpxKjLv7K0FttlcPnBc3eD+XMYDuvXFE2Nu6ZLHuf9vytuwCQh7uuehs0UIOFLpws+vLUDWHO
+	FaSRNmIZT6utGAcFp+G5EXdFsGJqx8xyDpHPxOnaxDPN2TkWQOanCH36ceNO3DA0kwxbYjNQWSR
+	uFeDGYst4QJmbO9LBr1zMzERBSB6q86gTKpmSFoGc5ro0caAVABluHN7ayAki9OjvK3ISDMuk06
+	KUwgYv5QIr2BTycy/jjLw6VphZnuH1zVb/y5z9XSJ7zBZ+xQQKcCalYEEwn/gK9ELptDX9s0y/4
+	qPxuoDfYy/wObbg8FbwtSIP9xGSpy3vbiP9sacX1DPitGsFSMlZlroJk6HXpOprjsF60xfNb6/F
+	+02G/QwFkj5gXq6/Yy9NeZmLqRGFrvi1GsA=
+X-Received: by 2002:a05:6820:829:b0:71b:845a:3340 with SMTP id 006d021491bc7-71b845a3cacmr1304758eaf.67.1795637780542;
+        Wed, 25 Nov 2026 12:16:20 -0800 (PST)
 Received: from [192.168.0.98] ([50.26.120.197])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b380b6f82sm11341859eaf.10.2026.11.25.12.16.15
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b380b6f82sm11341859eaf.10.2026.11.25.12.16.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 12:16:17 -0800 (PST)
+        Wed, 25 Nov 2026 12:16:20 -0800 (PST)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Wed, 25 Nov 2026 14:16:08 -0600
-Subject: [PATCH v2 5/9] media: mtk-mdp: Do not refuse a crop for the other
- side's size
+Date: Wed, 25 Nov 2026 14:16:09 -0600
+Subject: [PATCH v2 6/9] media: mtk-mdp: Check buffer plane sizes against
+ the format
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-rbrue-suez-upstreaming-mtk-vcodec-mdp-fixes-v2-5-fdc047cf75a5@gmail.com>
+Message-Id: <20261125-rbrue-suez-upstreaming-mtk-vcodec-mdp-fixes-v2-6-fdc047cf75a5@gmail.com>
 References: <20261125-rbrue-suez-upstreaming-mtk-vcodec-mdp-fixes-v2-0-fdc047cf75a5@gmail.com>
 In-Reply-To: <20261125-rbrue-suez-upstreaming-mtk-vcodec-mdp-fixes-v2-0-fdc047cf75a5@gmail.com>
 To: Tiffany Lin <tiffany.lin@mediatek.com>, 
@@ -117,212 +117,63 @@ Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
  Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
  Ryan Brue <ryanbrue.dev@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795637766; l=6625;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795637766; l=1943;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=XOuHOSCr36tTQQTtaJ/3AJtVCp6ht5DQgA+DZFALOF4=;
- b=oaY2l5fays5eGSgaftJoWFoJ4IlX4oBaWoCZfHIUCCGgMM7EJzAGJOd6x8CAiH2/wyYOR+0aW
- LXre/yGAFy6BcP+ZV8WACa1tQ3KIGheFu71qB+Cz89/035gbPYmetph
+ bh=cuEbWTB4pH0BRk1X8WiZhDbNCpoA3GtHpeZU0Znpd0c=;
+ b=Fk4k0A+X9pfrp5/bZ/6fIHGtDbMlWMdQhCZTNBXGLqrrhv8Zz0b1rhsC2ajbotj6wJD+CmQrL
+ vLFuz3wryijAdlRCk9T/dEZW1Z9zxE7eokb6NXV/ZzUIE3EVelyj1qk
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-Setting the source crop checks the scaling ratio against the destination
-as it stands: the 32x32 default that open() sets, or whatever a client
-set while probing. GStreamer sets the source format and crop first, and
-a 1280x720 crop was refused with -EINVAL against that 32x32 destination.
-The same holds for the compose rectangle and the source, and for the
-rotation control.
+queue_setup() ignores the number of planes and their sizes that come with
+VIDIOC_CREATE_BUFS and always answers with the current format, so a
+client can allocate buffers too small for it, which v4l2-compliance
+reports:
 
-Check the ratio once both queues are streaming, when both sizes are
-settled: at VIDIOC_STREAMON, and for a crop, compose or rotation change
-made while streaming. VIDIOC_STREAMON is the first point where both
-sizes are known: before it a client may still set either side in any
-order, and checking there leaves the queues untouched on refusal. Log a
-refusal at debug level, since any client can trigger it.
+  fail: v4l2-test-buffers.cpp(872): q.create_bufs(node, 1, &fmt) != EINVAL
 
-Fixes: 0d1e342a17f5 ("media: mtk-mdp: Remove states for format checks")
+Refuse a request with a different number of planes or a plane smaller
+than the format needs, as vb2 expects of queue_setup(), and check each
+buffer's planes in buf_prepare() as well.
+
+Fixes: c8eb2d7e8202 ("[media] media: Add Mediatek MDP Driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
- drivers/media/platform/mediatek/mdp/mtk_mdp_m2m.c | 121 +++++++++++++---------
- 1 file changed, 73 insertions(+), 48 deletions(-)
+ drivers/media/platform/mediatek/mdp/mtk_mdp_m2m.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
 diff --git a/drivers/media/platform/mediatek/mdp/mtk_mdp_m2m.c b/drivers/media/platform/mediatek/mdp/mtk_mdp_m2m.c
-index 34d02de4453d..a40bcf61b7ca 100644
+index a40bcf61b7ca..e0627127430b 100644
 --- a/drivers/media/platform/mediatek/mdp/mtk_mdp_m2m.c
 +++ b/drivers/media/platform/mediatek/mdp/mtk_mdp_m2m.c
-@@ -727,10 +727,40 @@ static int mtk_mdp_m2m_reqbufs(struct file *file, void *fh,
- 	return v4l2_m2m_reqbufs(file, ctx->m2m_ctx, reqbufs);
- }
+@@ -546,6 +546,15 @@ static int mtk_mdp_m2m_queue_setup(struct vb2_queue *vq,
+ 	int i;
  
-+static int mtk_mdp_check_scaler_ratio(struct mtk_mdp_variant *var, int src_w,
-+				      int src_h, int dst_w, int dst_h, int rot)
-+{
-+	int tmp_w, tmp_h;
-+
-+	if (rot == 90 || rot == 270) {
-+		tmp_w = dst_h;
-+		tmp_h = dst_w;
-+	} else {
-+		tmp_w = dst_w;
-+		tmp_h = dst_h;
-+	}
-+
-+	if ((src_w / tmp_w) > var->h_scale_down_max ||
-+	    (src_h / tmp_h) > var->v_scale_down_max ||
-+	    (tmp_w / src_w) > var->h_scale_up_max ||
-+	    (tmp_h / src_h) > var->v_scale_up_max)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+/* Both sizes are settled once both queues are streaming */
-+static bool mtk_mdp_ctx_streaming(struct mtk_mdp_ctx *ctx)
-+{
-+	return vb2_is_streaming(v4l2_m2m_get_src_vq(ctx->m2m_ctx)) &&
-+	       vb2_is_streaming(v4l2_m2m_get_dst_vq(ctx->m2m_ctx));
-+}
-+
- static int mtk_mdp_m2m_streamon(struct file *file, void *fh,
- 				enum v4l2_buf_type type)
- {
- 	struct mtk_mdp_ctx *ctx = file_to_ctx(file);
-+	struct vb2_queue *other;
- 	int ret;
- 
- 	if (!mtk_mdp_ctx_state_is_set(ctx, MTK_MDP_VPU_INIT)) {
-@@ -744,6 +774,21 @@ static int mtk_mdp_m2m_streamon(struct file *file, void *fh,
- 		mtk_mdp_ctx_state_lock_set(ctx, MTK_MDP_VPU_INIT);
- 	}
- 
-+	/* the queue that starts second checks the ratio */
-+	other = v4l2_m2m_get_vq(ctx->m2m_ctx, V4L2_TYPE_IS_OUTPUT(type) ?
-+				V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE :
-+				V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
-+	if (vb2_is_streaming(other) &&
-+	    mtk_mdp_check_scaler_ratio(ctx->mdp_dev->variant,
-+				       ctx->s_frame.crop.width,
-+				       ctx->s_frame.crop.height,
-+				       ctx->d_frame.crop.width,
-+				       ctx->d_frame.crop.height,
-+				       ctx->ctrls.rotate->val)) {
-+		dev_dbg(&ctx->mdp_dev->pdev->dev, "Out of scaler range\n");
-+		return -EINVAL;
-+	}
-+
- 	return v4l2_m2m_streamon(file, ctx->m2m_ctx, type);
- }
- 
-@@ -810,35 +855,12 @@ static int mtk_mdp_m2m_g_selection(struct file *file, void *fh,
- 	return -EINVAL;
- }
- 
--static int mtk_mdp_check_scaler_ratio(struct mtk_mdp_variant *var, int src_w,
--				      int src_h, int dst_w, int dst_h, int rot)
--{
--	int tmp_w, tmp_h;
--
--	if (rot == 90 || rot == 270) {
--		tmp_w = dst_h;
--		tmp_h = dst_w;
--	} else {
--		tmp_w = dst_w;
--		tmp_h = dst_h;
--	}
--
--	if ((src_w / tmp_w) > var->h_scale_down_max ||
--	    (src_h / tmp_h) > var->v_scale_down_max ||
--	    (tmp_w / src_w) > var->h_scale_up_max ||
--	    (tmp_h / src_h) > var->v_scale_up_max)
--		return -EINVAL;
--
--	return 0;
--}
--
- static int mtk_mdp_m2m_s_selection(struct file *file, void *fh,
- 				   struct v4l2_selection *s)
- {
- 	struct mtk_mdp_ctx *ctx = file_to_ctx(file);
- 	struct mtk_mdp_frame *frame;
- 	struct v4l2_rect new_r;
--	struct mtk_mdp_variant *variant = ctx->mdp_dev->variant;
- 	int ret;
- 	bool valid = false;
- 
-@@ -865,22 +887,27 @@ static int mtk_mdp_m2m_s_selection(struct file *file, void *fh,
- 	else
- 		frame = &ctx->d_frame;
- 
--	/* Check to see if scaling ratio is within supported range */
--	if (V4L2_TYPE_IS_OUTPUT(s->type))
--		ret = mtk_mdp_check_scaler_ratio(variant, new_r.width,
--			new_r.height, ctx->d_frame.crop.width,
--			ctx->d_frame.crop.height,
--			ctx->ctrls.rotate->val);
--	else
--		ret = mtk_mdp_check_scaler_ratio(variant,
--			ctx->s_frame.crop.width,
--			ctx->s_frame.crop.height, new_r.width,
--			new_r.height, ctx->ctrls.rotate->val);
--
--	if (ret) {
--		dev_info(&ctx->mdp_dev->pdev->dev,
--			"Out of scaler range");
--		return -EINVAL;
-+	/*
-+	 * Until both queues are streaming the other side's size may still
-+	 * change, and VIDIOC_STREAMON checks the scaling ratio.
-+	 */
-+	if (mtk_mdp_ctx_streaming(ctx)) {
-+		struct v4l2_rect *src = &ctx->s_frame.crop;
-+		struct v4l2_rect *dst = &ctx->d_frame.crop;
-+
-+		if (V4L2_TYPE_IS_OUTPUT(s->type))
-+			src = &new_r;
-+		else
-+			dst = &new_r;
-+
-+		if (mtk_mdp_check_scaler_ratio(ctx->mdp_dev->variant,
-+					       src->width, src->height,
-+					       dst->width, dst->height,
-+					       ctx->ctrls.rotate->val)) {
-+			dev_dbg(&ctx->mdp_dev->pdev->dev,
-+				"Out of scaler range\n");
+ 	frame = mtk_mdp_ctx_get_frame(ctx, vq->type);
++	if (*num_planes) {
++		if (*num_planes != frame->fmt->num_planes)
 +			return -EINVAL;
-+		}
- 	}
++		for (i = 0; i < frame->fmt->num_planes; i++)
++			if (sizes[i] < frame->payload[i])
++				return -EINVAL;
++		return 0;
++	}
++
+ 	*num_planes = frame->fmt->num_planes;
+ 	for (i = 0; i < frame->fmt->num_planes; i++)
+ 		sizes[i] = frame->payload[i];
+@@ -563,6 +572,10 @@ static int mtk_mdp_m2m_buf_prepare(struct vb2_buffer *vb)
  
- 	s->r = new_r;
-@@ -953,7 +980,6 @@ static int mtk_mdp_s_ctrl(struct v4l2_ctrl *ctrl)
- 	struct mtk_mdp_ctx *ctx = ctrl_to_ctx(ctrl);
- 	struct mtk_mdp_dev *mdp = ctx->mdp_dev;
- 	struct mtk_mdp_variant *variant = mdp->variant;
--	int ret = 0;
+ 	frame = mtk_mdp_ctx_get_frame(ctx, vb->vb2_queue->type);
  
- 	if (ctrl->flags & V4L2_CTRL_FLAG_INACTIVE)
- 		return 0;
-@@ -966,14 +992,13 @@ static int mtk_mdp_s_ctrl(struct v4l2_ctrl *ctrl)
- 		ctx->vflip = ctrl->val;
- 		break;
- 	case V4L2_CID_ROTATE:
--		ret = mtk_mdp_check_scaler_ratio(variant,
--				ctx->s_frame.crop.width,
--				ctx->s_frame.crop.height,
--				ctx->d_frame.crop.width,
--				ctx->d_frame.crop.height,
--				ctx->ctrls.rotate->val);
--
--		if (ret)
-+		if (mtk_mdp_ctx_streaming(ctx) &&
-+		    mtk_mdp_check_scaler_ratio(variant,
-+					       ctx->s_frame.crop.width,
-+					       ctx->s_frame.crop.height,
-+					       ctx->d_frame.crop.width,
-+					       ctx->d_frame.crop.height,
-+					       ctx->ctrls.rotate->val))
- 			return -EINVAL;
- 
- 		ctx->rotation = ctrl->val;
++	for (i = 0; i < frame->fmt->num_planes; i++)
++		if (vb2_plane_size(vb, i) < frame->payload[i])
++			return -EINVAL;
++
+ 	if (!V4L2_TYPE_IS_OUTPUT(vb->vb2_queue->type)) {
+ 		for (i = 0; i < frame->fmt->num_planes; i++)
+ 			vb2_set_plane_payload(vb, i, frame->payload[i]);
 
 -- 
 2.56.1
