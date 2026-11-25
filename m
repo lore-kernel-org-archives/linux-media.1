@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795636254;
-	b=XFVNj2HltquM2zUFUbOB4ZmoPXiC5TQ4vitVWlElA3kPRuMO2sq8JkZyz8mnIAYDg6fd
-	 AFv1/RtdVO6Odw6taXdFWBANfIOnL8AYntZYKDrYy12zHUK+k8gYDYtrtkxPn/ohv7EBv
-	 fPZCeOKtt3xZt3i85wfcW0jPjlf5L8sT5TM4x1iZpaFSaPTLoRkiJZxQjy4DMdXr9OJd+
-	 is/k09hkrcgJP/6a2JOHWQolU3UPczrJ7CucB/gGbbzbJeh1n086R70ln7h2ZR98k6+HC
-	 +gOI1PGc2Be0owMgZYsKtv+CW0gesTSyE6m9EDiQoBVx22KlwfuwvHO8mAjbbdnma0Q==
+	t=1795636257;
+	b=ZbT2HB9m8wEPrcgQL19BzGBE8RzGKh7ryO+s2dBQNz1f3MKLyzBUfolyewA6c7y7BoDs
+	 3kyl+sloeliuKPPyjEWJLClYqSglH7EcAXnsmlk7/c2xDazzbAyW8X2Y7N0TfnUAH952c
+	 Sg8nEipSOzpPi5EyzG1Ytqzlqcxr/kBANg5mQGyvR6ESanw5M49sM81TuqXpXlM9NL0jJ
+	 11q0M6mRMU3kLVn6bF7043V/BV7JoOpcAphyD2TXNWfUtV+mKmIATbQtlPa1SILQ8Fvlx
+	 HMXYddtKuM1r00b3/STciq2wXlYnykETpuMMCpKbhBsS5EYaD1odbgWF1utWaMGX7wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795636254;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795636257;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=f26y5jc9tp63kZFVuaY6BdCWgQ3qpYUmHrk3jnvaA64=;
-	b=nt1GVdVdOGGWbn60ZJBwhb5TH/bOSHym2BGQzBJrZ8k1Qcxnp17GG6nebFwy3GI4c3bz
-	 FnNFwEWmbPa6y/CCQTatDQKAMYNaCp4COcYwCBC6/AJXfnc+6K6WYGPWezhns3jE4CGCd
-	 bJbgT6OHX7GxqBH6wn9xKqX41Ggqz9C75QmZ9GBQHsL0x47ee1+yJ5xWNHNI5y73DkUGX
-	 foWm2K6cldHhwSvDaNbZ4nh/dDr2j3kTsK0wj+HLdh9PivnciWuneJOnDpBvLIc/OOPLP
-	 2PZPb0iZz7xM63nXd5GsgZeOh9f+QPN1s+Wbt6SChK9LghJHJVq0YkI8mUnJAkStpeA==
+	bh=EPnxhmlYfB/5e13ND1JsrZD0QHbGBLqSmWEbuVGGmkg=;
+	b=e37LsK66Qbrbe6rlpWJCgzoejpAzeh6U9mm52SRPvV+yDoKHQBb6yzjwo8jFLlSCOIPM
+	 CdKUfdud8htkV0wfRIE7sqC9CHCpnMMolDCtI12gnTHeX/ec4RTaNEKkuBoNv6p14XNdy
+	 XIg/Yn5hECWNzAWFw6J2EOraX0HmB1nGVXATyYahGUUf+FW7eGNkR3JF/d7RzFtcPcpKq
+	 wEygM5I1U6iW8XcWZHb4erF+ziBuPEhq/nMgEC64ERQaqOQp8A//yYBkUopmo7HyzqoRN
+	 0uiXuvkQSzl/FN9hE3tbmqu/dkP+fmodVCkDKPveKG8y99I/tbiLupSFgqNG5EIVvOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q049bUN8;
-	arc=none smtp.remote-ip=209.85.167.176
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com [209.85.167.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v2PFv0l6;
+	arc=none smtp.remote-ip=209.85.160.52
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4377B606A31E
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 19:50:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4377B606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC38606A682
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 19:50:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEC38606A682
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q049bUN8
-Received: by mail-oi1-f176.google.com with SMTP id 5614622812f47-53ec92375d2so3761994b6e.1
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 11:50:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v2PFv0l6
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4ad881b6517so4192377fac.2
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 11:50:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795636253; x=1796241053; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795636256; x=1796241056; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=f26y5jc9tp63kZFVuaY6BdCWgQ3qpYUmHrk3jnvaA64=;
-        b=Q049bUN8nj8oNdzlXd0gXC7uw3IDXMZErYyqE2Z+bzNGf0NXUTZsQpY2WDv1wxDPBv
-         YO3L8ru3Yyu7HjYZl5NeN5nQFkpncAltnqsHHmidt2aim96uLGU4ar+b9OXBpo4bfLGi
-         kek1k9xMli2PfEq0rIJCVVhyrmjCHaF3MKFMxt/FgYJqLpp4+gf5SO/u7MvTRFcwZGxK
-         PA6krLQ77SG/0k0ESZFje64oh4yLOvptrVnTqhV1JtJXiMptupPTCHdtAf4aprUy5hET
-         QbVnIi/2Dn+sUCaCnB7QuUXRUFlBf6BvsbDq8CntrvwDO0swwBXcRS9MbwvpxIG1/qgP
-         pldg==
+        bh=EPnxhmlYfB/5e13ND1JsrZD0QHbGBLqSmWEbuVGGmkg=;
+        b=v2PFv0l6OPudhCfDi6Y+NqNFWvn8dGkGt/YsK+k+imhZkvnl0Hqgo0HN0t3OJktqve
+         DebPyHsKdN/ZLIteIgDnWxfiTOcVlN2o+Q7Y71pbK5F7n0+f/DySbDHipqYSQTRaIez/
+         qntaOV/+x0Qnj8dyVemhFcpgE3VPmFrjX33wgDqdYSux2yep8EhGvrHO6O4Mz3YmWqI5
+         PNWWb2SZR/DpNBfMwchd2CHMz08VyqY6Tv4joOqV9nputWYZUW5YccwI9gM2to1RuQMG
+         K0o57/XNlvucej0nPHPrhwDItp7M9xN8zeDTLZBX+g3YPmRv8Nt65Ojn3djPdu3CMgeE
+         RmWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795636253; x=1796241053;
+        d=1e100.net; s=20260707; t=1795636256; x=1796241056;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f26y5jc9tp63kZFVuaY6BdCWgQ3qpYUmHrk3jnvaA64=;
-        b=ySyluKAFJV6asCIeVJ3EY0dck3xZDeXmNBO/iXTAKJgI0ZanS8pRoWHCxUmGScks2e
-         jXfXpyovhBfdshaTmmGaj87pDmd3xNEQiccrVJ1d5tXBLN5yYm/KEZG100xZ5GTjMIh5
-         RGULR8/5SjLlMe3smnkQkqu+ATfg4rvPlqcgljmufpbsteBa0zLIPwxdlOaIyLvTC3sV
-         IyMEBA4Shi6aaU5EU20DYa4I2bXBacE8dPbj6zaZjgRnGMaMG6kuBgmtbVku5cPuOO3H
-         WE0tCRlalMrxL7TaL8+Jg9NWC0ow9VR+U+2RoY9W60SHRSSATeOSSM8MlZtE1Tfw+6m+
-         f7wg==
-X-Forwarded-Encrypted: i=1; AL+hErGE+Oh3hM2uQ+vdsm/O3Qm1hHXRIbL3idXY97qLxDdzLlh0jaGDdKEoUoXC5B3O7RRKnxZFYczZGsUROg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+whdEPk7Ltp/+ZhN4u4Kdw9rkfEFTYswUnZNh5kKMS++8TfORM
-	asjDtmseSqEkFQ+l7YbcXUyYDFKZAzYOy0QQq0K0ppu00IWYhNVXrsg=
-X-Gm-Gg: AZFdTZcZwjJfWxwxbWNtQbBSvMPehCGHyQWlyU8N8aqL0uMeOJsmcn0OZwOigk5Ylpi
-	NAG6M2bMjhra+wRZWjkiZXFsAD+abAhCgSVxKg6G3yekWFCdHi7uqSUPw1rjVfamXpxtHEKNgKr
-	VrSRUzfGWaNlBT/4T/NXyU/Jnice+O3a0tQl5ufgIq5JZpgopA+U/87I2cI7qWV3QCv2eGWiEXN
-	9f5mrJl9sYY4f/IfMo3Rti3sxdLyWngvJf6m5W3ZdMEje/qQDB87/jBafoNMHSQwYT6IRL56Nxf
-	pPRko+YDXPgiNoIRzjjWmYhrlOPyYqyGIp8Rv4LMQGTN3+wwqdBHjhR1Ilw2dxPBUrdbEgeorQs
-	s0Al3Apby78DxVta99HHg+7z/UgpU9+h+tbS2LFi+PeaVdkm08uyE1WiVxOwqlkaoUUosk3T2l4
-	9X0wgDLjCdDqfcw8f1sKn4U6JuEAfIGO+haLycZ/aF0Bco73E86R6iUer15/yFZ7WO7pGQDOAE5
-	Cy0j5oT3BQUDwmst+d+XpzFwUnyf1PZDkxlhru2TqnnnrlO/imBKI4d+YDSM2C7TRCRK+USt3xG
-	H3Wq0PhhQkpebvEnfSzs2Ou9uNbECtAE6tWBIpF6m806UGdi20d1TxDA
-X-Received: by 2002:a05:6808:3088:b0:567:c44d:c1fa with SMTP id 5614622812f47-57a0a60d7f3mr22430239b6e.16.1795636253124;
-        Wed, 25 Nov 2026 11:50:53 -0800 (PST)
+        bh=EPnxhmlYfB/5e13ND1JsrZD0QHbGBLqSmWEbuVGGmkg=;
+        b=usxlf39OJND1TkI9+ox3L1PgY64FxPOUeqYj7wx6ocDa3a5sS0jvNfh5VNUqBTH996
+         HzR3NE3VeQ6oSUsifEpczEZwV6zITWAP1bh0tnWdmr8zNpSSK6LCCNRgWSRymHp8bltX
+         zl6uuRtJgeuWpRb7C9+Is4gIM3ITTtntAUyigYn0lOOKOv6zPeR5WKBByVSNyKIrpG6X
+         A+Yb9SsNCxkSTdTvooQJr5jlp8GYtVK39iwzEF4Rf6f4b4NcxQm6+gJHpfQnoDgxxj0d
+         h4Jur/4U6mKnr5SGJO1RkGsO4hf7I7WK9HlKN+PDufgKwE5VMdu7aohCfb1jPQsldg8M
+         IaXQ==
+X-Forwarded-Encrypted: i=1; AL+hErHfrHTZvJrS/xzVKYfsiT1d6cxmyS2g/lphUQfSCU4rXO2jrguOSeeV+QZIIjUf0Xe9BZvI8BiyHHdflg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z98Sxhx5Jjv3Ls9yiM9vgwPbjsbrLM8t0R1LhnkefHfEJBrk8ZK
+	0hgnPMzAmr+uEBaIaNkrj7gdwH9ehcy4nyXHtt/a9z3eXaR+7cXWrZA=
+X-Gm-Gg: AZFdTZdeRu979y/dM+jt5dE3HH7FkTwu6omCwZ5L8ou0wxpoE2fp7iaXz5FweLdEjh7
+	4EBiQB2LYK5sNyM67ysgzVNPCYt5O+AjJHuz1ttDGhZiMQv921ILXvalsn8JmahckW+U/r9Mi4I
+	Z0TJvMhalbdPs0Um0vXIRn7qyfNxnka0GUHB61Rj8lXochyYyL2xpJAG6EVB424Z5XXHF0yH5BS
+	36o6rGAF+KjzOpToYYIgbIWzw/1M2fAJZyRUcoOT9DtZ0BZKaMr0zjY4Mcp+gSDDBII7MtkrtKJ
+	SZglrVABap/JJucVMWrBvClnma/Ao/gLbSHS+l7kHKek2uFhMCtOodfv1nIMgo1bRsA2mGZ3jGd
+	8tPWTiDddUo51GBQ3VmMBqj0Y50IKYbjkarj/krlGPLAA8zW/3DnR3rt3LgYwujlD8udDnOGyX7
+	SKJ/GCTDqiVu6dZEdQNRy7PuzFa3XDTegvIBPadUG/RxIKAmR7tP7iBZfRseB1I4AID6IjZ2ifp
+	ID4yp46NJOprib6qbOnUtEZMMAXGy/cGI2JvuBOwtvVuON1s0uckpZlD1mQgxfwf3KFvaRxYkyu
+	JSwd2BQBrMKxPiFkgT+zrvRUGoVzMLJ6bmLsk7oslQHT7poohu8KlvXF+dOyy8YToHfABKXDjIy
+	Jtg==
+X-Received: by 2002:a05:6809:1d1:20b0:57e:6f22:6430 with SMTP id 5614622812f47-57e6f227deamr1069244b6e.3.1795636255691;
+        Wed, 25 Nov 2026 11:50:55 -0800 (PST)
 Received: from miso.lan ([136.62.61.36])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-57a3485e3ecsm13783728b6e.9.2026.11.25.11.50.52
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-57a3485e3ecsm13783728b6e.9.2026.11.25.11.50.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 11:50:52 -0800 (PST)
+        Wed, 25 Nov 2026 11:50:54 -0800 (PST)
 From: Matthew Laux <matthew.laux@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil@kernel.org>,
@@ -85,9 +86,9 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 Cc: linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	Matthew Laux <matthew.laux@gmail.com>
-Subject: [PATCH v8 04/12] media: tw9900: add saturation, hue and sharpness controls
-Date: Wed, 25 Nov 2026 13:49:43 -0600
-Message-ID: <20261125194951.19072-5-matthew.laux@gmail.com>
+Subject: [PATCH v8 05/12] media: tw9900: program all mode registers in the PAL table
+Date: Wed, 25 Nov 2026 13:49:44 -0600
+Message-ID: <20261125194951.19072-6-matthew.laux@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261125194951.19072-1-matthew.laux@gmail.com>
 References: <20261125194951.19072-1-matthew.laux@gmail.com>
@@ -102,79 +103,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add additional V4L2 controls for the tw9900 that modify the appropriate
-registers for saturation, hue, and sharpness, sourced from the datasheet.
+tw9900_ntsc_regs set VDELAY_LO, VACTIVE_LO, CROP_HI, HACTIVE_LO and
+VBI_CNTL, but tw9900_pal_regs only set the standard register. PAL
+capture therefore relied on a runtime resume having reset the chip and
+rewritten the init table since the last NTSC stream. Make the PAL table
+write the same registers as the NTSC table.
 
+Fixes: 918b14a26b12 ("media: i2c: Introduce a driver for the Techwell TW9900 decoder")
 Signed-off-by: Matthew Laux <matthew.laux@gmail.com>
 ---
- drivers/media/i2c/tw9900.c | 33 ++++++++++++++++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
+ drivers/media/i2c/tw9900.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/media/i2c/tw9900.c b/drivers/media/i2c/tw9900.c
-index df8c7b1f3450..42fc2afbbc77 100644
+index 42fc2afbbc77..6309d9eda243 100644
 --- a/drivers/media/i2c/tw9900.c
 +++ b/drivers/media/i2c/tw9900.c
-@@ -41,6 +41,11 @@
- #define TW9900_REG_CNTRL1			0x0C
- #define TW9900_REG_BRIGHT_CTL			0x10
- #define TW9900_REG_CONTRAST_CTL			0x11
-+#define TW9900_REG_SHARPNESS			0x12
-+#define TW9900_REG_SHARPNESS_MASK		GENMASK(3, 0)
-+#define TW9900_REG_SAT_U			0x13
-+#define TW9900_REG_SAT_V			0x14
-+#define TW9900_REG_HUE				0x15
- #define TW9900_REG_VBI_CNTL			0x19
- #define TW9900_REG_ANAL_CTL_II			0x1A
- #define TW9900_REG_OUT_CTRL_II			0x1B
-@@ -252,6 +257,26 @@ static int tw9900_s_ctrl(struct v4l2_ctrl *ctrl)
- 		ret = tw9900_write_reg(tw9900->client, TW9900_REG_CONTRAST_CTL,
- 				       (u8)ctrl->val);
- 		break;
-+	case V4L2_CID_SATURATION:
-+		ret = tw9900_write_reg(tw9900->client, TW9900_REG_SAT_U,
-+				       (u8)ctrl->val);
-+		if (ret)
-+			break;
-+		ret = tw9900_write_reg(tw9900->client, TW9900_REG_SAT_V,
-+				       (u8)ctrl->val);
-+		break;
-+	case V4L2_CID_HUE:
-+		ret = tw9900_write_reg(tw9900->client, TW9900_REG_HUE,
-+				       (u8)ctrl->val);
-+		break;
-+	case V4L2_CID_SHARPNESS:
-+		ret = tw9900_read_reg(tw9900->client, TW9900_REG_SHARPNESS);
-+		if (ret < 0)
-+			break;
-+		ret = tw9900_write_reg(tw9900->client, TW9900_REG_SHARPNESS,
-+				       (ret & ~TW9900_REG_SHARPNESS_MASK) |
-+				       ctrl->val);
-+		break;
- 	default:
- 		ret = -EINVAL;
- 		break;
-@@ -701,7 +726,7 @@ static int tw9900_probe(struct i2c_client *client)
+@@ -112,6 +112,12 @@ static const struct regval tw9900_init_regs[] = {
+ };
  
- 	hdl = &tw9900->hdl;
+ static const struct regval tw9900_pal_regs[] = {
++	{ TW9900_REG_OUT_FMT_CTL,	0xA7 },
++	{ TW9900_REG_VDELAY_LO,		0x19 },
++	{ TW9900_REG_VACTIVE_LO,	0xF0 },
++	{ TW9900_REG_CROP_HI,		0x02 },
++	{ TW9900_REG_HACTIVE_LO,	0xD0 },
++	{ TW9900_REG_VBI_CNTL,		0x58 },
+ 	{ TW9900_REG_STD,		0x01 },
+ };
  
--	ret = v4l2_ctrl_handler_init(hdl, 2);
-+	ret = v4l2_ctrl_handler_init(hdl, 5);
- 	if (ret)
- 		goto err_destory_mutex;
- 
-@@ -711,6 +736,12 @@ static int tw9900_probe(struct i2c_client *client)
- 			  -128, 127, 1, 0);
- 	v4l2_ctrl_new_std(hdl, &tw9900_ctrl_ops, V4L2_CID_CONTRAST,
- 			  0, 255, 1, 0x60);
-+	v4l2_ctrl_new_std(hdl, &tw9900_ctrl_ops, V4L2_CID_SATURATION,
-+			  0, 255, 1, 0x80);
-+	v4l2_ctrl_new_std(hdl, &tw9900_ctrl_ops, V4L2_CID_HUE,
-+			  -128, 127, 1, 0);
-+	v4l2_ctrl_new_std(hdl, &tw9900_ctrl_ops, V4L2_CID_SHARPNESS,
-+			  0, 15, 1, 1);
- 
- 	tw9900->subdev.ctrl_handler = hdl;
- 	if (hdl->error) {
 -- 
 2.47.3
 
