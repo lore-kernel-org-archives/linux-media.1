@@ -1,111 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795621729;
-	b=ebLYKohCngiM5ZCjYjjf8mTXAaOEYZvII1WH3HHnAl/7dBGPDkT6MQ+DbybzHQkygi7S
-	 Recz7UlVREChcJ3RxSjygfilNsghydUpTqHwEM8gfcCI0eX0VwtmiRIZU0nlLzUgZztwX
-	 W3224wwF7u8mQsIE3kmaMhQObkW+q4ZTMkdGCzCn+NGI7HlYMRJJvLYLr3Z8IFmh0OSLz
-	 pNYDj67oVusc5uehV82yXErZBNi5riYjrp4wq+iPQjie51jtWkkIOZKLGaxdmbiFSPBjK
-	 pQhBhguOTVJmnzt2tCPyuAGkB0vPdN1sRhaVFbinMyL8KEtqWwLnlPeZuTDvxdcevWQ==
+	t=1795622032;
+	b=fghCPKSNzqyjR1aq2HSW1p3MIclUVgNq1fzAs/MigNnmCCB7KwY2uREE/Z/XiGymUCKq
+	 6gMYVdLlrHCFDgwgh9EQhqdJ0jkq5yaSl3OdoRCwhJopNhi/tRlnwUblDS0kugW78Vbqb
+	 ykECuOCWSO8lg61oaUJ1SIDPBjRKpmQAYfgax5hA59oa5WSuE/thCUGa9SdoINvAfRNRc
+	 8NwmWP4WAF3dLeqNnZd7tanPT3KpDOTla5xlkhHnAMlKrFlMn6j1ATvp/Vi4HGo7ti43P
+	 3VfkIPhC4dYxaB+Ggo7qcxpCatIvQf6Oo31wt3dtiTI1CMHBryjYIvGynTp8/Tc2M+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795621729;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=wxSVRwxGNjXl2Dx/xEhoHx9TtGEitCgAjQW8e9eF30M=;
-	b=3Pmwtg414rca2czUFn02SsyKyjnfa+CgCsCPObfF46PfWDywNh7/N96x20WnrsPU5P41
-	 fCkQJM9kgCyTUcKVs65Br72LHb5BMjftG8abrOuBaiB2k4wVnHKXeVDc+AGR1SIyOqCpl
-	 tvB9yruE4YnUnp1H97TPTE48sIY19BkwgSyg3jxBSAHSOQ2bqJrdJYyBy1Gf5QucRghCE
-	 Naihgt4NSyYN4CY+SlaYsgEZu5PKXIZPumAdAPvse6KdDwMsEd40WIR38SYhvvZiMkCAc
-	 eerj0i3Ou1vwWnmFuMNTrzePk0DrEikTRwDFyAnrsIgnyPOQHncTVDO2QoE+ZWS+xnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622032;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=/QyiPsXELdVcU8h8SMClaBGSEvaC+/rJrAPi6gmrO6o=;
+	b=XjDANdl37sFVWwE37wRJBOxUWwaxZEFMtGeMJYEpEabJJdhG6c5wmu3PHuhbnhPVi6im
+	 gA85BIPwuhKW1HGK2uYiBLrWWs/oCqNCOxa4O4vlQyNb1h9Pc3s9iLPUz1WVRu71zrnO6
+	 IIH2Ndq9z6yzUe9kdg7Fv/CpdSlNbq2IC1GGZn8jvH0JzD/FwilU3zCc95JzYEkxXTO+M
+	 TxEtQq0oThqA7hFZAvgKflx19mPJe4PQyIbKQipm9Uwf4obv2eSIvgcrHy341SrCoRSI9
+	 rmihiVoLKmMGAZIARbm7JokaV5EdCa2RFOAsYptr2+yIGVQ2EyxxZpUuCZVadbjoXpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=On7xl3rC;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=g2yhE1mA;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ajte+QQg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6025606A327
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 15:48:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6025606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2E4606A326
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 15:53:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=On7xl3rC;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=g2yhE1mA
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6APEM90k2729871
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 15:48:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=wxSVRwxGNjXl2Dx/xEhoHx
-	9TtGEitCgAjQW8e9eF30M=; b=On7xl3rCZxS1PJ8IlMfo5mBJyNyqprp5iTw+1V
-	FFFYEaY9KsCabhupBBUEA8V++vCArdve91Nl4ybEEfvGWRMOwUia6sxW6fptp25Q
-	AO/bfmH4HV1F1LqqEPt9z7zcukTSKKfdDzXXbI7BOpO6/dlJY8uJ6+ga4N368aEv
-	897YV6wWratNtQeuarvhRxw988KkadCnkRBd4PGItiXRElpFBt6EN71gBKCF0Pkw
-	3tDfy0sVQWvxOB2QYVqK9V3FO94Chkufmvfud1Ve/MQgwzKjU9KjnlymZ5yuiDz6
-	Byf5UmXS8onEjrVuH2OQq8TzfcpbfQDg4IOYFyvzFHBMpQTg==
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5vuksmfa-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 15:48:46 +0000 (GMT)
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8b0f1c06332so88556767b3.3
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 07:48:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795621726; x=1796226526; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wxSVRwxGNjXl2Dx/xEhoHx9TtGEitCgAjQW8e9eF30M=;
-        b=g2yhE1mAs92exKhfCFRGEpfUPSAsE5ovIKp7iD6+F4a98x3gm1nAApFLDUuxcQLAy/
-         ZnJtJzy25g+tpoXSz2Iz4NE//APA1GjZKD3Tl/w3zWUN+YsdJQe/Bzy1OcXpDI+6mgoA
-         2V7QKqIDrHySVYhP6VgGzlO4h146zG1LpDJVpBi4sy268MUYWY6yqALd/x6O0g/95Wv4
-         r8RyJC/YsRj3vVQxjF6IgAmtXfWynz86ogqBa8oXPehAGk2wJxvp62vaMhM+lpbu2BNS
-         5In4cyCd52D/icIJaGEe6aNRZnaQMWrh3lgtQfPIRakwHI8+v302BjCciuAdxQVak7Fo
-         MkPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795621726; x=1796226526;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=wxSVRwxGNjXl2Dx/xEhoHx9TtGEitCgAjQW8e9eF30M=;
-        b=qKWBBB+lQ2ygfAqTiEVylTVp65uSsWTbxoyYnFtq16ENq1YHAvZqKXowQ1jRsTJ/YW
-         BKXii+8A2w+s7OR20CEfCkCGvr+b7mIiGaeM/VmlMW1SAcGP4WKC+PeK9AvhZPSPVBtX
-         lrZXUPkk/Y/5NrgDX3mCbuOJNHPAHNojpLcorqSnh+f3SZ9hkt8IzXHHd4bH0PCGOlDK
-         1xaPQQsCuOOTSLdI6Ua34VdWpoY+Kq2xu3PDW0AYDLRe4II5hcYbSzYtDwmUK07bBHCz
-         9LNDx3EWFSGcPabKq6SAQQnyy+D3J8iKNeSaHq5lExZmtVFo0dqe1lpJEWti0U51YYb1
-         9CMw==
-X-Forwarded-Encrypted: i=1; AL+hErEmk1NUHK4NHwyu5ExrL7x0YdMMyvP5vZB+lfYszHpnyeLdyD1OzHgxhZPEbamqPsSeHE7QatBU9Xrb8Q==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/XdyEB3hStWh32SdqoLTOpmRkSvcqBgtErhHd/Fkf9c+8YMn9G
-	WIrJ3n6hUWbn6z70LcyRgoHqG3RjFikFNibL0HfC1uEnFZT1INrCJ/DacrWaf3pwm/sVNxVzjaX
-	PV+oxiK4vrvDbPgDsTGMh+/40OX6ED6ZvTbK2BkGtK5fYElxVxBd48kOIU4HzOeDTAQ==
-X-Gm-Gg: AZFdTZfRDNhMZjjoeYeMHuBR+Q7xERlVn+7rgoLV7a23P4YzNd9ms2LJayxoRbXxfjC
-	6xiYJ1Igu1k6HkW6RyTdNs3iul1zFJfYwS6NDv3qG22am1X5epJY/3t5Hri4aie/LsD+bHuJD+q
-	8c8CyIwroosh/FYaH677enVepFEtsLlaRtQH5mK6PDAIQlGXnLMJTPKqe6OoYKjRWPJRHwoIswr
-	U7TUgXrC+lio/GpFrn0UQJPtLwXbShakewVNIQnXPS1nfCeCfy+mIV9fbXh9WcPpZ8pMfFLKJcA
-	rBJiaIurx9v/EXrIBjoVTATioNgYW+b+nW6XN+cflPOpXF/EDOS716h4I65fTPyvpcWZon12YsE
-	qkZ9OpDt8PkVC3yz7h7ws60Dg0psEchose5ApHycWkEAPFDqGaTgxygjAVbk17PCamySG2NkPMO
-	GapuntLXI=
-X-Received: by 2002:a05:690c:2a45:b0:8b0:d438:a024 with SMTP id 00721157ae682-8b5204b538amr66569287b3.37.1795621726261;
-        Wed, 25 Nov 2026 07:48:46 -0800 (PST)
-X-Received: by 2002:a05:690c:2a45:b0:8b0:d438:a024 with SMTP id 00721157ae682-8b5204b538amr66569157b3.37.1795621725807;
-        Wed, 25 Nov 2026 07:48:45 -0800 (PST)
-Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b5202f90casm73274637b3.28.2026.11.25.07.48.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 07:48:45 -0800 (PST)
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Date: Wed, 25 Nov 2026 21:18:38 +0530
-Subject: [PATCH v2] media: iris: Fix VSP clock calculation for high bitrate
- streams
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ajte+QQg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7447E1F000EF
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 15:53:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795622032;
+	bh=/QyiPsXELdVcU8h8SMClaBGSEvaC+/rJrAPi6gmrO6o=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Ajte+QQgdCvyL5yKctsd8Z7EZxDbaxER6jE5Vt9tSb6N3b0CuQEt0CNTjW0eR/avj
+	 Du27j6wgkzhwuLh8wHXreOV+jtHAMt66zyL9WY1VXZ81OVroo+AyfPIqTnG+NjbOsh
+	 UGsw87nP7s3YrHAgJBQG0et8fUHWVGb9cwQLk96evoW+/rFroI8OfsL4WEf2bP1QFs
+	 pOfBr8ZOx1olk0rcXwcmIdty5Djn8Unj9t8/VltsfQ0Zr0OJCe3ZOhU4zH7NJ3Rh5V
+	 V0NwbYkeRUSZ1mmVhKUa5Yxk2yQM7AvywafkSQGj5VwzcKOVh/JiVZXjZFpJ9FUc4B
+	 glVZcJaxFhwYA==
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5c14a204305so4046103e87.3
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 07:53:52 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErE0ZVlP/94xkCzPN+kqOT/zYBmSrkMIrcD6mYfnT1syxflYJh4bon1c13w58zmOd9AzIJwbsbtOb6GmvA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8y9WNAFbjiGMEv8JUi97DPCMrOBKr+VELpqkeFRco3iLFLUNP
+	ssNm8gqZQ7FaNE/OtS4qq9szDK+goJxqMBRezwulLXs7yJc7MumgTFA3oy8hTVDkBthbTR/Erri
+	cjkQGw3JSWvHT8pcI4r4DbFJ7X7GTG8U=
+X-Received: by 2002:ac2:4e07:0:b0:5c1:4f54:a6c6 with SMTP id
+ 2adb3069b0e04-5c1bc7cb0f6mr5811261e87.30.1795622030011; Wed, 25 Nov 2026
+ 07:53:50 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,140 +59,210 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-fix-vsp-freq-calc-v2-1-9825a64d2a88@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAFUDB2sC/22NwQ6CMAxAf4XsbAkb2WCe/A/DAUaRGXGwwqIh/
- LsD481Lk5e+vq6M0Fskdk5W5jFYsu4ZQZwSZvr6eUOwbWQmMqF4lkno7AsCjdB5nMDUDwNcN1o
- VTaFRCRbvRo9ROprX6su0NHc08x7ajd7S7Pz7eBr47v366k8/cOAgc5mLttR5KcXFEaXTEnduG
- NI4WLVt2we3dy9bywAAAA==
-X-Change-ID: 20261005-fix-vsp-freq-calc-19b967b79e62
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795621720; l=3154;
- i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
- bh=zQeiaIxtG0nlXCeoXnxDDCFVPvGkd7BtMIJ10iaZjBE=;
- b=mggLX9MZX+5QLFPAH0Zh2Xz/tyYotKGuCWyFHDTUqoS0XASXSduU19rXMolkj9ccYwO4uZOdG
- eIUlPhyjNWdCKzcVrZ4A3x2Y8y4cqwmdWzLjNMEmqoJoancrc8ZDxJ8
-X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
- pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
-X-Authority-Analysis: v=2.4 cv=KfVHIgYD c=1 sm=1 tr=0 ts=6b07035e cx=c_pps
- a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=bD6gx3CI9Ee8KLyf7M8A:9
- a=QEXdDO2ut3YA:10 a=kLokIza1BN8a-hAJ3hfR:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-ORIG-GUID: SDnqlVsRqerYwaVpwCG0GolfRIG98Agl
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA2MiBTYWx0ZWRfX/4U2HCi+8xXX
- v+ccGvbMLN3//yjlRXgwt2wfMfOvikM1dMqfFMA3aaLvsbEpDSNfTDRsGTa4KwAz49bM6savKVQ
- +H40QVi7KYZ0eZ23sMXLqyk5iVIQVxs=
-X-Proofpoint-GUID: SDnqlVsRqerYwaVpwCG0GolfRIG98Agl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA2MiBTYWx0ZWRfX/7a0WQavY8XH
- ibuWzvF2K7Ulmgp7MXqdNtv+CuNQsLT8c9Hr34uDGxgnXhCeeX6OIMeaPhf9k0Hm+swFTCuq1tE
- DSo/CmEAZrQ1qNSOrjyMnVotqeGugoh5gdVpXwm7urVeFA1k2y5/x5uwzicPsrXfnBuT8VRgkYm
- hw09WraFqoFneKL5watMXj9yUkL8e6XH6mq4UxBdPXAkjB4YRD1Qr5zvXot9nDxP3RERlOMJYbJ
- +MLk2oUc3Vt6I2lCP1cXftZYyvljYflzU4B3L0jwM9bTgVdYWJwRkDeMyW8Rar7x3oAsJvTyxhJ
- TGUlxy9p+eqetzNOdOXN1Dvip++5M6z6skYb0LgB3XXTsq+ZW4noTQilVnc50iPOJkTiWH0kjW7
- Ai6FB3sfG5e+nTREk/tM2gmY48LffEFYTU0llGAc5Cb1TzkLdjQHsbKHAteQFr7F9Sgzrl6xKUI
- clOxDKhHgcKo5IWDF2w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-25_04,2026-11-23_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
- impostorscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250062
+References: <20261117173738.1073856-1-Frank.Li@oss.nxp.com>
+ <20261117173738.1073856-2-Frank.Li@oss.nxp.com> <CAPx+jO9RwkpSKwq6vq00uoXK-mcovJ2LMH7b_ByRnxOUj8nH8w@mail.gmail.com>
+In-Reply-To: <CAPx+jO9RwkpSKwq6vq00uoXK-mcovJ2LMH7b_ByRnxOUj8nH8w@mail.gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 25 Nov 2026 16:53:35 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jsnLjEBxa1R4Q3hZLZKrCUW0xSE9SqLB8bd4tNAhXTAQ@mail.gmail.com>
+X-Gm-Features: Aa3M54pn_ud7xKJ4Sp9_9mJsafRFGsiuNY-zMFg468C0_97OrWEf728wG9SLJbM
+Message-ID: <CAJZ5v0jsnLjEBxa1R4Q3hZLZKrCUW0xSE9SqLB8bd4tNAhXTAQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] PM: runtime: fix stub pm_runtime_get_if_in_use()
+ for !CONFIG_PM
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Frank.Li@oss.nxp.com, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Heiko Stuebner <heiko@sntech.de>, 
+	Ulf Hansson <ulfh@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	Matthew Auld <matthew.auld@intel.com>, Hans de Goede <hansg@kernel.org>, 
+	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Mark Brown <broonie@kernel.org>, 
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, Yong Wu <yong.wu@mediatek.com>, 
+	Will Deacon <will@kernel.org>, Tomasz Figa <tfiga@chromium.org>, Marek Vasut <marex@denx.de>, 
+	Michael Tretter <m.tretter@pengutronix.de>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Hans Verkuil <hverkuil@kernel.org>, 
+	"open list:POWER MANAGEMENT CORE" <linux-pm@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
+	"moderated list:ARM/Mediatek SoC support:Keyword:mediatek" <linux-arm-kernel@lists.infradead.org>, 
+	"moderated list:ARM/Mediatek SoC support:Keyword:mediatek" <linux-mediatek@lists.infradead.org>, 
+	"open list:ARM/Rockchip SoC support:Keyword:b[Rr]ock[Cc]hipb" <linux-rockchip@lists.infradead.org>, imx@lists.linux.dev, 
+	Frank Li <Frank.Li@nxp.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>, Simona Vetter <simona@ffwll.ch>, 
+	David Airlie <airlied@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Alessio Belle <alessio.belle@imgtec.com>, 
+	Luigi Santivetti <luigi.santivetti@imgtec.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Bard Liao <yung-chuan.liao@linux.intel.com>, 
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>, Robin Murphy <robin.murphy@arm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Dafna Hirschfeld <dafna@fastmail.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Daniel Baluta <daniel.baluta@nxp.com>, 
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>, dri-devel@lists.freedesktop.org, 
+	imagination@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+	intel-xe@lists.freedesktop.org, iommu@lists.linux.dev, 
+	linux-media@vger.kernel.org, linux-sound@vger.kernel.org, 
+	sound-open-firmware@alsa-project.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Frame drops were observed during high-resolution streams decoded at high
-bitrates, as well as concurrent decode sessions. Analysis showed that the
-Video Signal Processor (VSP) clock requirement was underestimated for
-these workloads, resulting in insufficient clock scaling and reduced
-processing throughput.
+On Wed, Nov 25, 2026 at 4:07=E2=80=AFPM Ulf Hansson
+<ulf.hansson@oss.qualcomm.com> wrote:
+>
+> On Tue, Nov 17, 2026 at 6:38=E2=80=AFPM <Frank.Li@oss.nxp.com> wrote:
+> >
+> > From: Frank Li <Frank.Li@nxp.com>
+> >
+> > The stub for pm_runtime_get_if_in_use() under !CONFIG_PM currently
+> > returns -EINVAL.  The real implementation returns:
+> >   1  - device is active and its usage counter is non-zero (bumped)
+> >   0  - device is not in use or not active (counter not bumped)
+> >  -EINVAL - runtime PM disabled for this device
+> >
+> > When CONFIG_PM is not set every device is permanently "active" and
+> > always considered "in use", so the stub must return 1, mirroring
+> > __pm_runtime_resume() which already returns 1 in the same build.
+> >
+> > Returning -EINVAL breaks callers that test the return value with
+> > comparisons other than "!=3D 0 / =3D=3D 0":
+> >
+> > drivers/gpu/drm/i915/intel_runtime_pm.c:
+> >   if (intel_runtime_pm_get_if_in_use(rpm))
+> >   which wraps to: ret =3D pm_runtime_get_if_in_use(); return ret > 0;
+> >   With -EINVAL the wrapper returns false, causing an incorrect error
+> >   path in the GT fence revocation code.
+> >
+> > drivers/gpu/drm/xe/xe_pm.c:
+> >   if (pm_runtime_get_if_in_use(xe->drm.dev) > 0)
+> >   With -EINVAL the condition is false; xe_pm_runtime_get_if_in_use()
+> >   returns false, so callers believe the device is not usable.
+> >
+> > drivers/gpu/drm/gma500/power.c:
+> >   return pm_runtime_get_if_in_use(dev) =3D=3D 1;
+> >   -EINVAL !=3D 1, so the helper always returns false when !CONFIG_PM.
+> >
+> > drivers/gpu/drm/imagination/pvr_power.c:
+> >   if (pm_runtime_get_if_in_use(...) <=3D 0)
+> >   -EINVAL <=3D 0 is true, so the driver always takes the "requeue" erro=
+r
+> >   path instead of proceeding with the active device.
+> >
+> > sound/soc/sof/debug.c:
+> >   if (pm_runtime_get_if_in_use(sdev->dev) =3D=3D 1)
+> >   -EINVAL !=3D 1, so d3_prevented is never set, corrupting exception
+> >   debug accounting.
+> >
+> > drivers/iommu/mtk_iommu.c:
+> >   if (pm_runtime_get_if_in_use(dom->plat_dev->dev) <=3D 0)
+> >   -EINVAL <=3D 0 skips the TLB flush, leaving stale IOMMU mappings.
+> >
+> > drivers/iommu/rockchip-iommu.c:
+> >   Three call sites use WARN_ON_ONCE(err < 0) or similar patterns.
+> >   -EINVAL < 0 triggers a spurious WARNING on every call.
+> >
+> > drivers/media/i2c/isl7998x.c:
+> >   if (pm_runtime_get_if_in_use(dev) <=3D 0)  (two call sites)
+> >   -EINVAL <=3D 0 causes the driver to always skip register programming
+> >   when !CONFIG_PM.
+> >
+> > drivers/media/platform/rockchip/rkisp1/rkisp1-debug.c:
+> >   if (pm_runtime_get_if_in_use(dev) <=3D 0)  (two call sites)
+> >   -EINVAL <=3D 0 prevents any debug statistics from being collected.
+> >
+> > Fixes: a436b6a19f57 ("PM / runtime: Add new helper for conditional usag=
+e count incrementation")
+> > Fixes: 3b85b7bcccf4 ("drm/xe: Fix display runtime_pm handling")
+> > Fixes: 672c473576ca ("drm/gma500: Rewrite power management code")
+> > Fixes: b30289e7fa92 ("ASoC: SOF: Fix runtime pm usage counter balance a=
+fter fw exception")
+> > Fixes: c0b57581b73b ("iommu/mediatek: Add power-domain operation")
+> > Fixes: 51ef2be546e2 ("media: i2c: isl7998x: Add driver for Intersil ISL=
+7998x")
+> > Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> > ---
+> > Change in v3
+> > - drop tag: cbb819c363c5 ("media: rkisp1: debug: Collect input status b=
+y sampling ISP_FLAGS_SHD")
+> > selected PM at arch config
+> > - drop tag: 0f181d3cf7d9 ("iommu/rockchip: Add runtime PM support")
+> > selected PM at arch config
+> > - drop tag: 9d58aa46291d ("drm/i915: Fix the GT fence revocation runtim=
+e PM logic")
+> > guard by CONFIG_PM
+> > - drop tag 727538a4bbff ("drm/imagination: Implement power management")
+> > depend on PM
+> > `
+> > Change in v2
+> > - new patches.
+> >
+> > Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+> > Cc: linux-pm@vger.kernel.org
+> > Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Cc: Maxime Ripard <mripard@kernel.org>
+> > Cc: "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>
+> > Cc: Simona Vetter <simona@ffwll.ch>
+> > Cc: David Airlie <airlied@gmail.com>
+> > Cc: Matthew Brost <matthew.brost@intel.com>
+> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> > Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+> > Cc: Alessio Belle <alessio.belle@imgtec.com>
+> > Cc: Luigi Santivetti <luigi.santivetti@imgtec.com>
+> > Cc: Liam Girdwood <lgirdwood@gmail.com>
+> > Cc: Mark Brown <broonie@kernel.org>
+> > Cc: Jaroslav Kysela <perex@perex.cz>
+> > Cc: Takashi Iwai <tiwai@suse.com>
+> > Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
+> > Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+> > Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> > Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> > Cc: Robin Murphy <robin.murphy@arm.com>
+> > Cc: Yong Wu <yong.wu@mediatek.com>
+> > Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com=
+>
+> > Cc: Matthias Brugger <matthias.bgg@gmail.com>
+> > Cc: Heiko Stuebner <heiko@sntech.de>
+> > Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> > Cc: Dafna Hirschfeld <dafna@fastmail.com>
+> > Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > Cc: Michael Tretter <m.tretter@pengutronix.de>
+> > Cc: Daniel Baluta <daniel.baluta@nxp.com>
+> > Cc: Will Deacon <will@kernel.org>
+> > Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+> > Cc: dri-devel@lists.freedesktop.org
+> > Cc: imagination@lists.freedesktop.org
+> > Cc: intel-gfx@lists.freedesktop.org
+> > Cc: intel-xe@lists.freedesktop.org
+> > Cc: iommu@lists.linux.dev
+> > Cc: linux-arm-kernel@lists.infradead.org
+> > Cc: linux-mediatek@lists.infradead.org
+> > Cc: linux-media@vger.kernel.org
+> > Cc: linux-rockchip@lists.infradead.org
+> > Cc: linux-sound@vger.kernel.org
+> > Cc: sound-open-firmware@alsa-project.org
+> > Cc: imx@lists.linux.dev
+> > ---
+> >  include/linux/pm_runtime.h | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
+> > index de9e7518ecef2..1d983fe55a16a 100644
+> > --- a/include/linux/pm_runtime.h
+> > +++ b/include/linux/pm_runtime.h
+> > @@ -276,7 +276,7 @@ static inline int pm_schedule_suspend(struct device=
+ *dev, unsigned int delay)
+> >  }
+> >  static inline int pm_runtime_get_if_in_use(struct device *dev)
+> >  {
+> > -       return -EINVAL;
+> > +       return 1;
+>
+> This should be return 0, as we did not bump the usage count.
 
-Update the VSP frequency calculation to more accurately reflect the
-processing requirements of different codecs and bitrates, ensuring that
-the requested clock frequency is sufficient to sustain the workload and
-prevent frame drops.
+This is kind of moot because there is no usage counter.
 
-Fixes: 82b96a8d8d6e ("media: iris: Move vpu35 specific api to common to use for vpu4")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
----
-Changes in v2:
-- Used the configured bitrate for the encoder VSP clock calculation (Vikash)
-- Link to v1: https://patch.msgid.link/20261006-fix-vsp-freq-calc-v1-1-53532d893852@oss.qualcomm.com
----
- drivers/media/platform/qcom/iris/iris_vpu_common.c | 32 ++++++++++++++++++++--
- 1 file changed, 30 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-index 243bd845349f..376ea758c5dd 100644
---- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
-+++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-@@ -454,9 +454,24 @@ u64 iris_vpu2_calculate_frequency(struct iris_inst *inst, size_t data_size)
- 	return max(vpp_freq, vsp_freq);
- }
- 
-+static u64 iris_get_vsp_ref_bitrate(struct iris_inst *inst)
-+{
-+	switch (inst->codec) {
-+	case V4L2_PIX_FMT_VP9:
-+		return 70;
-+	case V4L2_PIX_FMT_AV1:
-+		return 100;
-+	case V4L2_PIX_FMT_H264:
-+	case V4L2_PIX_FMT_HEVC:
-+	default:
-+		return 150;
-+	}
-+}
-+
- u64 iris_vpu3x_vpu4x_calculate_frequency(struct iris_inst *inst, size_t data_size)
- {
- 	struct platform_inst_caps *caps = inst->core->iris_platform_data->inst_caps;
-+	u64 vsp_bitrate, vsp_ref_bitrate, vsp_ref_freq;
- 	struct v4l2_format *inp_f = inst->fmt_src;
- 	u32 height, width, mbs_per_second, mbpf;
- 	u64 fw_cycles, fw_vpp_cycles;
-@@ -484,8 +499,21 @@ u64 iris_vpu3x_vpu4x_calculate_frequency(struct iris_inst *inst, size_t data_siz
- 	if (inst->fw_caps[STAGE].value == STAGE_2)
- 		vpp_cycles += div_u64(vpp_cycles * 5, 100);
- 
--	vsp_cycles = fps * data_size * 8;
--	vsp_cycles = div_u64(vsp_cycles, 2);
-+	if (inst->domain == DECODER) {
-+		vsp_bitrate = fps * data_size * 8;
-+	} else {
-+		vsp_bitrate = inst->fw_caps[BITRATE].value;
-+		if (inst->operating_rate > fps)
-+			vsp_bitrate = div_u64(vsp_bitrate * inst->operating_rate, fps);
-+	}
-+
-+	vsp_ref_bitrate = iris_get_vsp_ref_bitrate(inst);
-+	vsp_ref_freq = inst->codec == V4L2_PIX_FMT_AV1 ? 533 : 480;
-+	vsp_cycles = div_u64(vsp_ref_freq * vsp_bitrate, vsp_ref_bitrate);
-+
-+	/* VSP FW SW offset */
-+	vsp_cycles = div_u64(vsp_cycles * 1000, 1055);
-+
- 	/* VSP FW overhead 1.05 */
- 	vsp_cycles = div_u64(vsp_cycles * 21, 20);
- 
-
----
-base-commit: 3dd8c790a7b7027abdd568e36db5e82ffaea7c77
-change-id: 20261005-fix-vsp-freq-calc-19b967b79e62
-
-Best regards,
---  
-Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-
+However, the caller may always take the opportunistic "in use" path
+because there are no potential costs related to it.
