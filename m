@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795632304;
-	b=P9Hm0/sLFd0b0U0uWQ3LG1/WKht/KBHn8ljiMuJnmxARtFVKx0MGmU3iNCFHlX/Rj7D2
-	 2MdJT0pFG79yn4d2DLWACmfnHzMIn3g5R2VU+j91VrL8h7qS6JvUZAdaLDpntKa7gre59
-	 hE+rQegBs1NVmsDwD+63zgCc9lrkFPfDSs98qJ2xFzBdDX10R0dVAJaspKp5kfMzDz986
-	 auZS6yU47sICRgVtUy3l0asndGCPNL6J0xvDdLckUH3pq1C8RPbWfUczJ294pLTSCgpNr
-	 dYf035repCLmZOn3PNJgX7OccnD4l/bCmIkUvkex8QlBR711GzdCRXM5U66v7gkUAJQ==
+	t=1795632306;
+	b=1Y3ae7S8Kd+vKFOE1HyY/XvzGaPgp2Rz5r830X33J4Dpde+cZGPKA717ArHn/Wl+13ZD
+	 Fv0d1Fh00FKtXkakXrSCZqhBR7jkaQDj2yNz5UsToBsxHp4LdOP1d+neNWgcWFtzfY3sD
+	 FPa22zTbbsSH8Op2ucoO8N/c0xV+WPpQCvmA/d2Ue4m+SqwAlqou4EYInhROw553FLpZ8
+	 +TpnLEb6esr7O/rPuZwWF0Kp3Ep9797+fJS3iT+ONe2fjKnk10VIYjjNVAJbtWuSCRHuv
+	 lTOgYAFeE7jQuCAdmshKiX9cicwlR1KdTVsJcq3cT8xdYkTwDOQ0tqLBZcfCmQwGGtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795632304;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795632306;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=x271shXrnQtZ5N50kHdir9WArwxUBnNDZma76/NqmL8=;
-	b=SPG9SJjJzYLB2sAvrW5iPDW4coLVf9wRL+koDFgSlGaXl1qkxGIu9ZhLunqemLwYWlwd
-	 n2YilTpmR8ruQo42WTFepnvS6uAURSSq1tjeFwLZHyp7X/vgNBBmhQ2oqQXcx/4ymULVm
-	 AdAJwk25+gyZKNwUbf+vGOYQuuyYkVPmTRgyUdwhEycjrant2Gw7DiSfTdNEoL7NoyIom
-	 OQOGvetBy2Npq6rUYyCDCpZJRlQ3+fNey1vSob6Yuf0wy3tUbWpsEYxOPUdfyDNE7rekL
-	 xneitTTvWRy2Z/94hBAQaVkalFB++4DpTsUBYdu79nXRVXoUwvEWVDL9Hp+ri09kknw==
+	bh=BTvd7VIbBg1p/dh97oMGLopVdTDaC1qAlcNdO6Nm7V0=;
+	b=bNlh8mvKX8SeOfiaaOn5KYT/amcGExay9L9kaVdeZnXvWcDwKFv4zJUunsXWcDWlTzxc
+	 9E1XfNKdYDqN4fgnDAXqOUKMJkpR+j1hwgv0kJNcCG+/zuj3KeTVFpb92vQsdzRCcXJRg
+	 30jVbDukoEzzo/NY9M+qLlIGtL7QpV0n4n66vLPnQz2XKkKHtNNrOyTUsL02JMSqGqp/l
+	 9zWXwWErWRL8nKv3G9PL0qZL5zLGZ53eOqh9hFCACSNbuT+1V7q2Z1kIL3OHmyzt6fIhd
+	 Th5YUw8D1ZNjT6vIFpSBRr6ixIXdZxY/Ays7qeq/ZXKs6W+yY2c6N+QKne5Df5HxwFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="XNm/q/ks";
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=jbhIKLEx;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F002460A260F;
-	Wed, 25 Nov 2026 18:45:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F002460A260F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A73160A2617;
+	Wed, 25 Nov 2026 18:45:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A73160A2617
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=XNm/q/ks
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=jbhIKLEx
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795632302;
-	bh=ra0owAXuDG8SEFgv0wVHmtX1rNjs4shQHkS5a3cIqxs=;
+	s=mail; t=1795632304;
+	bh=NGbc8Fxp/m2XrR8id2lX4uwCcm+j1OUYcrLHIZ7FIAQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=XNm/q/ks0Ig4efkSG4o7vsRfGAgjsVK3OUmtxb+SSahwdTRElHpXaWv7JDq3xToA8
-	 fvvo+cijDWnkQ0AtzXEboI/wgvR8lWG4/m4867SyyNzGWyxMk1EaWd0/nasG+e8FgW
-	 Tk3HC1DygFG/N20b/uQb7WZYUn62ZazYZv0k18waqtfG8wuf5MTLZQcJWbxdHc1rv7
-	 R0BxmLBMbSRJgRi6XYMIOE74GNoMcDHsXxZL/PgRDwp3Sdy4tqgeZ6yCOjrdUIhznU
-	 2laK7sOx4++d8AwuGo1bJJeaZM2PiEkMowis3iQl6hQVHjWlX/h7+GNFD1T4f6RHDs
-	 ugF03RIZyMXZw==
+	b=jbhIKLExcreI/0djbaObu7/K+HNhuJMQ3BnOmVeaKy9upMVSJQvGBflGX3teVXJXg
+	 O08hNGd0vyZ24iy0Htc2tlx5pkk0U2g3NWsSHSE1fkhk1IB2tN04Svo+fB6Tev2XG4
+	 JeMBXiAqFDI7gfBylK3JsSK9aGwdR5AIWAI5Iw0SpZYfFkm0l20H3USxzoOIigP6DG
+	 Ctc/2lXiRczMk+fGT4oo2Mq7GS74YTynM/w42jHC3XrZoTIA1tg4YonQpTN8rs92U2
+	 S/8QFgUt5eNhoyheZk/dU2p8xyrMDFSsWJpJ5J8oGFvMLX/NHAO1EzKacsbw/D1HJM
+	 VH3/6r7BVYe9g==
 Received: from [192.168.0.15] (unknown [100.64.0.170])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: detlev)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 99F2D17E120C;
-	Wed, 25 Nov 2026 19:45:00 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id DB22C17E1296;
+	Wed, 25 Nov 2026 19:45:02 +0100 (CET)
 From: Detlev Casanova <detlev.casanova@collabora.com>
-Date: Wed, 25 Nov 2026 13:33:28 -0500
-Subject: [PATCH v3 6/9] media: Trace the stateless controls when set in
- v4l2-ctrls-core.c
+Date: Wed, 25 Nov 2026 13:33:29 -0500
+Subject: [PATCH v3 7/9] media: Add stream on/off traces and run them in the
+ ioctl
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -65,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-v4l2-add-ftrace-v3-6-1d1db48372ed@collabora.com>
+Message-Id: <20261125-v4l2-add-ftrace-v3-7-1d1db48372ed@collabora.com>
 References: <20261125-v4l2-add-ftrace-v3-0-1d1db48372ed@collabora.com>
 In-Reply-To: <20261125-v4l2-add-ftrace-v3-0-1d1db48372ed@collabora.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
@@ -82,326 +82,95 @@ Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
  Detlev Casanova <detlev.casanova@collabora.com>
 X-Mailer: b4 0.15.2
 
-Also remove the trace from visl as the generic v4l2-requests traces can
-now be used instead.
-
-It allows all stateless drivers to inherit traceability, with just a small
-overhead when disabled in userspace.
+This will automatically add stream on/off tracing for all v4l2 drivers.
 
 Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
 ---
- drivers/media/test-drivers/visl/visl-dec.c |  74 -------------------
- drivers/media/v4l2-core/v4l2-ctrls-api.c   |  10 +++
- drivers/media/v4l2-core/v4l2-ctrls-core.c  | 113 +++++++++++++++++++++++++++++
- include/media/v4l2-ctrls.h                 |  15 ++++
- 4 files changed, 138 insertions(+), 74 deletions(-)
+ drivers/media/v4l2-core/v4l2-ioctl.c | 20 ++++++++++++++++++--
+ include/trace/events/v4l2.h          | 34 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 52 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/test-drivers/visl/visl-dec.c b/drivers/media/test-drivers/visl/visl-dec.c
-index 2a065a6249ad..9517830fb3e8 100644
---- a/drivers/media/test-drivers/visl/visl-dec.c
-+++ b/drivers/media/test-drivers/visl/visl-dec.c
-@@ -12,7 +12,6 @@
- #include <linux/workqueue.h>
- #include <media/v4l2-mem2mem.h>
- #include <media/tpg/v4l2-tpg.h>
--#include <trace/events/v4l2_controls.h>
- 
- #define LAST_BUF_IDX (V4L2_AV1_REF_LAST_FRAME - V4L2_AV1_REF_LAST_FRAME)
- #define LAST2_BUF_IDX (V4L2_AV1_REF_LAST2_FRAME - V4L2_AV1_REF_LAST_FRAME)
-@@ -486,78 +485,6 @@ static void visl_tpg_fill(struct visl_ctx *ctx, struct visl_run *run)
- 	}
- }
- 
--static void visl_trace_ctrls(struct visl_ctx *ctx, struct visl_run *run)
--{
--	int i;
--	struct v4l2_fh *fh = &ctx->fh;
--
--	switch (ctx->current_codec) {
--	default:
--	case VISL_CODEC_NONE:
--		break;
--	case VISL_CODEC_FWHT:
--		trace_v4l2_ctrl_fwht_params(fh->tgid, fh->fd, run->fwht.params);
--		break;
--	case VISL_CODEC_MPEG2:
--		trace_v4l2_ctrl_mpeg2_sequence(fh->tgid, fh->fd, run->mpeg2.seq);
--		trace_v4l2_ctrl_mpeg2_picture(fh->tgid, fh->fd, run->mpeg2.pic);
--		trace_v4l2_ctrl_mpeg2_quantisation(fh->tgid, fh->fd, run->mpeg2.quant);
--		break;
--	case VISL_CODEC_VP8:
--		trace_v4l2_ctrl_vp8_frame(fh->tgid, fh->fd, run->vp8.frame);
--		trace_v4l2_ctrl_vp8_entropy(fh->tgid, fh->fd, run->vp8.frame);
--		break;
--	case VISL_CODEC_VP9:
--		trace_v4l2_ctrl_vp9_frame(fh->tgid, fh->fd, run->vp9.frame);
--		trace_v4l2_ctrl_vp9_compressed_hdr(fh->tgid, fh->fd, run->vp9.probs);
--		trace_v4l2_ctrl_vp9_compressed_coeff(fh->tgid, fh->fd, run->vp9.probs);
--		trace_v4l2_vp9_mv_probs(fh->tgid, fh->fd, &run->vp9.probs->mv);
--		break;
--	case VISL_CODEC_H264:
--		trace_v4l2_ctrl_h264_sps(fh->tgid, fh->fd, run->h264.sps);
--		trace_v4l2_ctrl_h264_pps(fh->tgid, fh->fd, run->h264.pps);
--		trace_v4l2_ctrl_h264_scaling_matrix(fh->tgid, fh->fd, run->h264.sm);
--		trace_v4l2_ctrl_h264_slice_params(fh->tgid, fh->fd, run->h264.spram);
--
--		for (i = 0; i < ARRAY_SIZE(run->h264.spram->ref_pic_list0); i++)
--			trace_v4l2_h264_ref_pic_list0(fh->tgid, fh->fd,
--						      &run->h264.spram->ref_pic_list0[i], i);
--		for (i = 0; i < ARRAY_SIZE(run->h264.spram->ref_pic_list0); i++)
--			trace_v4l2_h264_ref_pic_list1(fh->tgid, fh->fd,
--						      &run->h264.spram->ref_pic_list1[i], i);
--
--		trace_v4l2_ctrl_h264_decode_params(fh->tgid, fh->fd, run->h264.dpram);
--
--		for (i = 0; i < ARRAY_SIZE(run->h264.dpram->dpb); i++)
--			trace_v4l2_h264_dpb_entry(fh->tgid, fh->fd, &run->h264.dpram->dpb[i], i);
--
--		trace_v4l2_ctrl_h264_pred_weights(fh->tgid, fh->fd, run->h264.pwht);
--		break;
--	case VISL_CODEC_HEVC:
--		trace_v4l2_ctrl_hevc_sps(fh->tgid, fh->fd, run->hevc.sps);
--		trace_v4l2_ctrl_hevc_pps(fh->tgid, fh->fd, run->hevc.pps);
--		trace_v4l2_ctrl_hevc_slice_params(fh->tgid, fh->fd, run->hevc.spram);
--		trace_v4l2_ctrl_hevc_scaling_matrix(fh->tgid, fh->fd, run->hevc.sm);
--		trace_v4l2_ctrl_hevc_decode_params(fh->tgid, fh->fd, run->hevc.dpram);
--
--		for (i = 0; i < ARRAY_SIZE(run->hevc.dpram->dpb); i++)
--			trace_v4l2_hevc_dpb_entry(fh->tgid, fh->fd, &run->hevc.dpram->dpb[i]);
--
--
--		trace_v4l2_hevc_pred_weight_table(fh->tgid, fh->fd,
--						  &run->hevc.spram->pred_weight_table);
--		trace_v4l2_ctrl_hevc_ext_sps_lt_rps(fh->tgid, fh->fd, run->hevc.rps_lt);
--		trace_v4l2_ctrl_hevc_ext_sps_st_rps(fh->tgid, fh->fd, run->hevc.rps_st);
--		break;
--	case VISL_CODEC_AV1:
--		trace_v4l2_ctrl_av1_sequence(fh->tgid, fh->fd, run->av1.seq);
--		trace_v4l2_ctrl_av1_frame(fh->tgid, fh->fd, run->av1.frame);
--		trace_v4l2_ctrl_av1_film_grain(fh->tgid, fh->fd, run->av1.grain);
--		trace_v4l2_ctrl_av1_tile_group_entry(fh->tgid, fh->fd, run->av1.tge);
--		break;
--	}
--}
--
- void visl_device_run(void *priv)
+diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
+index 5d7fbaa1b41a..09e8bc9df132 100644
+--- a/drivers/media/v4l2-core/v4l2-ioctl.c
++++ b/drivers/media/v4l2-core/v4l2-ioctl.c
+@@ -1965,13 +1965,29 @@ static int v4l_try_fmt(const struct v4l2_ioctl_ops *ops, struct file *file,
+ static int v4l_streamon(const struct v4l2_ioctl_ops *ops, struct file *file,
+ 			void *arg)
  {
- 	struct visl_ctx *ctx = priv;
-@@ -634,7 +561,6 @@ void visl_device_run(void *priv)
- 		      run.dst->sequence, run.dst->vb2_buf.timestamp);
- 
- 	visl_tpg_fill(ctx, &run);
--	visl_trace_ctrls(ctx, &run);
- 
- 	if (bitstream_trace_frame_start > -1 &&
- 	    run.dst->sequence >= bitstream_trace_frame_start &&
-diff --git a/drivers/media/v4l2-core/v4l2-ctrls-api.c b/drivers/media/v4l2-core/v4l2-ctrls-api.c
-index 93d8d4012d0f..c44578828b21 100644
---- a/drivers/media/v4l2-core/v4l2-ctrls-api.c
-+++ b/drivers/media/v4l2-core/v4l2-ctrls-api.c
-@@ -523,6 +523,12 @@ int v4l2_g_ext_ctrls(struct v4l2_ctrl_handler *hdl, struct video_device *vdev,
- }
- EXPORT_SYMBOL(v4l2_g_ext_ctrls);
- 
-+static void trace_ext_ctrl(struct v4l2_fh *fh, const struct v4l2_ctrl *ctrl)
-+{
-+	if (ctrl->type_ops->trace)
-+		ctrl->type_ops->trace(fh, ctrl, ctrl->p_cur);
-+}
+-	return ops->vidioc_streamon(file, NULL, *(unsigned int *)arg);
++	struct v4l2_fh *fh = file_to_v4l2_fh(file);
++	int err;
 +
- /* Validate a new control */
- static int validate_new(const struct v4l2_ctrl *ctrl, union v4l2_ctrl_ptr p_new)
++	err = ops->vidioc_streamon(file, NULL, *(unsigned int *)arg);
++
++	if (!err)
++		trace_v4l2_streamon(fh->tgid, fh->fd);
++
++	return err;
+ }
+ 
+ static int v4l_streamoff(const struct v4l2_ioctl_ops *ops, struct file *file,
+ 			 void *arg)
  {
-@@ -711,6 +717,10 @@ int try_set_ext_ctrls_common(struct v4l2_fh *fh,
- 				idx = helpers[idx].next;
- 			} while (!ret && idx);
- 		}
+-	return ops->vidioc_streamoff(file, NULL, *(unsigned int *)arg);
++	struct v4l2_fh *fh = file_to_v4l2_fh(file);
++	int err;
 +
-+		if (set)
-+			trace_ext_ctrl(fh, master);
++	err = ops->vidioc_streamoff(file, NULL, *(unsigned int *)arg);
 +
- 		v4l2_ctrl_unlock(master);
- 	}
- 
-diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-index 6e751a043a21..28ca9ce2ca6f 100644
---- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
-+++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-@@ -10,8 +10,11 @@
- #include <linux/slab.h>
- #include <media/v4l2-ctrls.h>
- #include <media/v4l2-event.h>
-+#include <media/v4l2-fh.h>
- #include <media/v4l2-fwnode.h>
- 
-+#include <trace/events/v4l2_controls.h>
++	if (!err)
++		trace_v4l2_streamoff(fh->tgid, fh->fd);
 +
- #include "v4l2-ctrls-priv.h"
- 
- static const union v4l2_ctrl_ptr ptr_null;
-@@ -1546,12 +1549,122 @@ int v4l2_ctrl_type_op_validate(const struct v4l2_ctrl *ctrl,
++	return err;
  }
- EXPORT_SYMBOL(v4l2_ctrl_type_op_validate);
  
-+void v4l2_ctrl_type_op_trace(const struct v4l2_fh *fh,
-+			     const struct v4l2_ctrl *ctrl, union v4l2_ctrl_ptr ptr)
-+{
-+	int i = 0;
-+
-+	switch ((u32)ctrl->type) {
-+	case V4L2_CTRL_TYPE_FWHT_PARAMS:
-+		trace_v4l2_ctrl_fwht_params(fh->tgid, fh->fd, ptr.p_fwht_params);
-+		break;
-+	case V4L2_CTRL_TYPE_MPEG2_SEQUENCE:
-+		trace_v4l2_ctrl_mpeg2_sequence(fh->tgid, fh->fd, ptr.p_mpeg2_sequence);
-+		break;
-+	case V4L2_CTRL_TYPE_MPEG2_PICTURE:
-+		trace_v4l2_ctrl_mpeg2_picture(fh->tgid, fh->fd, ptr.p_mpeg2_picture);
-+		break;
-+	case V4L2_CTRL_TYPE_MPEG2_QUANTISATION:
-+		trace_v4l2_ctrl_mpeg2_quantisation(fh->tgid, fh->fd, ptr.p_mpeg2_quantisation);
-+		break;
-+	case V4L2_CTRL_TYPE_VP8_FRAME:
-+		trace_v4l2_ctrl_vp8_frame(fh->tgid, fh->fd, ptr.p_vp8_frame);
-+		trace_v4l2_ctrl_vp8_entropy(fh->tgid, fh->fd, ptr.p_vp8_frame);
-+		break;
-+	case V4L2_CTRL_TYPE_VP9_FRAME:
-+		trace_v4l2_ctrl_vp9_frame(fh->tgid, fh->fd, ptr.p_vp9_frame);
-+		break;
-+	case V4L2_CTRL_TYPE_VP9_COMPRESSED_HDR:
-+		trace_v4l2_ctrl_vp9_compressed_hdr(fh->tgid, fh->fd,
-+						   ptr.p_vp9_compressed_hdr_probs);
-+		trace_v4l2_ctrl_vp9_compressed_coeff(fh->tgid, fh->fd,
-+						     ptr.p_vp9_compressed_hdr_probs);
-+		trace_v4l2_vp9_mv_probs(fh->tgid, fh->fd, &ptr.p_vp9_compressed_hdr_probs->mv);
-+		break;
-+	case V4L2_CTRL_TYPE_H264_SPS:
-+		trace_v4l2_ctrl_h264_sps(fh->tgid, fh->fd, ptr.p_h264_sps);
-+		break;
-+	case V4L2_CTRL_TYPE_H264_PPS:
-+		trace_v4l2_ctrl_h264_pps(fh->tgid, fh->fd, ptr.p_h264_pps);
-+		break;
-+	case V4L2_CTRL_TYPE_H264_SCALING_MATRIX:
-+		trace_v4l2_ctrl_h264_scaling_matrix(fh->tgid, fh->fd, ptr.p_h264_scaling_matrix);
-+		break;
-+	case V4L2_CTRL_TYPE_H264_SLICE_PARAMS:
-+	{
-+		struct v4l2_ctrl_h264_slice_params *sp = ptr.p_h264_slice_params;
-+
-+		trace_v4l2_ctrl_h264_slice_params(fh->tgid, fh->fd, sp);
-+
-+		for (i = 0; i < ARRAY_SIZE(sp->ref_pic_list0); i++)
-+			trace_v4l2_h264_ref_pic_list0(fh->tgid, fh->fd, &sp->ref_pic_list0[i], i);
-+		for (i = 0; i < ARRAY_SIZE(sp->ref_pic_list1); i++)
-+			trace_v4l2_h264_ref_pic_list1(fh->tgid, fh->fd, &sp->ref_pic_list1[i], i);
-+
-+		break;
-+	}
-+	case V4L2_CTRL_TYPE_H264_DECODE_PARAMS:
-+	{
-+		struct v4l2_ctrl_h264_decode_params *dp = ptr.p_h264_decode_params;
-+
-+		trace_v4l2_ctrl_h264_decode_params(fh->tgid, fh->fd, dp);
-+
-+		for (i = 0; i < ARRAY_SIZE(dp->dpb); i++)
-+			trace_v4l2_h264_dpb_entry(fh->tgid, fh->fd, &dp->dpb[i], i);
-+
-+		break;
-+	}
-+	case V4L2_CTRL_TYPE_H264_PRED_WEIGHTS:
-+		trace_v4l2_ctrl_h264_pred_weights(fh->tgid, fh->fd, ptr.p_h264_pred_weights);
-+		break;
-+	case V4L2_CTRL_TYPE_HEVC_SPS:
-+		trace_v4l2_ctrl_hevc_sps(fh->tgid, fh->fd, ptr.p_hevc_sps);
-+		break;
-+	case V4L2_CTRL_TYPE_HEVC_PPS:
-+		trace_v4l2_ctrl_hevc_pps(fh->tgid, fh->fd, ptr.p_hevc_pps);
-+		break;
-+	case V4L2_CTRL_TYPE_HEVC_SLICE_PARAMS:
-+		trace_v4l2_ctrl_hevc_slice_params(fh->tgid, fh->fd, ptr.p_hevc_slice_params);
-+		trace_v4l2_hevc_pred_weight_table(fh->tgid, fh->fd,
-+						  &ptr.p_hevc_slice_params->pred_weight_table);
-+		break;
-+	case V4L2_CTRL_TYPE_HEVC_SCALING_MATRIX:
-+		trace_v4l2_ctrl_hevc_scaling_matrix(fh->tgid, fh->fd, ptr.p_hevc_scaling_matrix);
-+		break;
-+	case V4L2_CTRL_TYPE_HEVC_DECODE_PARAMS:
-+	{
-+		struct v4l2_ctrl_hevc_decode_params *dp = ptr.p_hevc_decode_params;
-+
-+		trace_v4l2_ctrl_hevc_decode_params(fh->tgid, fh->fd, dp);
-+
-+		for (i = 0; i < ARRAY_SIZE(dp->dpb); i++)
-+			trace_v4l2_hevc_dpb_entry(fh->tgid, fh->fd, &dp->dpb[i]);
-+
-+		break;
-+	}
-+	case V4L2_CTRL_TYPE_AV1_SEQUENCE:
-+		trace_v4l2_ctrl_av1_sequence(fh->tgid, fh->fd, ptr.p_av1_sequence);
-+		break;
-+	case V4L2_CTRL_TYPE_AV1_FRAME:
-+		trace_v4l2_ctrl_av1_frame(fh->tgid, fh->fd, ptr.p_av1_frame);
-+		break;
-+	case V4L2_CTRL_TYPE_AV1_FILM_GRAIN:
-+		trace_v4l2_ctrl_av1_film_grain(fh->tgid, fh->fd, ptr.p_av1_film_grain);
-+		break;
-+	case V4L2_CTRL_TYPE_AV1_TILE_GROUP_ENTRY:
-+		trace_v4l2_ctrl_av1_tile_group_entry(fh->tgid, fh->fd, ptr.p_av1_tile_group_entry);
-+		break;
-+	}
-+}
-+EXPORT_SYMBOL(v4l2_ctrl_type_op_trace);
-+
- static const struct v4l2_ctrl_type_ops std_type_ops = {
- 	.equal = v4l2_ctrl_type_op_equal,
- 	.init = v4l2_ctrl_type_op_init,
- 	.minimum = v4l2_ctrl_type_op_minimum,
- 	.maximum = v4l2_ctrl_type_op_maximum,
- 	.log = v4l2_ctrl_type_op_log,
-+	.trace = v4l2_ctrl_type_op_trace,
- 	.validate = v4l2_ctrl_type_op_validate,
- };
+ static int v4l_g_tuner(const struct v4l2_ioctl_ops *ops, struct file *file,
+diff --git a/include/trace/events/v4l2.h b/include/trace/events/v4l2.h
+index 248bc09bfc99..089c5ff0b3af 100644
+--- a/include/trace/events/v4l2.h
++++ b/include/trace/events/v4l2.h
+@@ -262,6 +262,40 @@ DEFINE_EVENT(vb2_v4l2_event_class, vb2_v4l2_qbuf,
+ 	TP_ARGS(q, vb)
+ );
  
-diff --git a/include/media/v4l2-ctrls.h b/include/media/v4l2-ctrls.h
-index 6e363262c868..976f9b05af9a 100644
---- a/include/media/v4l2-ctrls.h
-+++ b/include/media/v4l2-ctrls.h
-@@ -140,6 +140,7 @@ struct v4l2_ctrl_ops {
-  * @minimum: set the value to the minimum value of the control.
-  * @maximum: set the value to the maximum value of the control.
-  * @log: log the value.
-+ * @trace: trace the value of the control with Ftrace.
-  * @validate: validate the value for ctrl->new_elems array elements.
-  *	Return 0 on success and a negative value otherwise.
-  */
-@@ -153,6 +154,8 @@ struct v4l2_ctrl_type_ops {
- 	void (*maximum)(const struct v4l2_ctrl *ctrl, u32 idx,
- 			union v4l2_ctrl_ptr ptr);
- 	void (*log)(const struct v4l2_ctrl *ctrl);
-+	void (*trace)(const struct v4l2_fh *fh,
-+		      const struct v4l2_ctrl *ctrl, union v4l2_ctrl_ptr ptr);
- 	int (*validate)(const struct v4l2_ctrl *ctrl, union v4l2_ctrl_ptr ptr);
- };
- 
-@@ -1633,6 +1636,18 @@ void v4l2_ctrl_type_op_init(const struct v4l2_ctrl *ctrl, u32 from_idx,
-  */
- void v4l2_ctrl_type_op_log(const struct v4l2_ctrl *ctrl);
- 
-+/**
-+ * v4l2_ctrl_type_op_trace - Default v4l2_ctrl_type_ops trace callback.
++/* Events for stream on/off.
 + *
-+ * @fh: The v4l2_fh of the current context.
-+ * @ctrl: The v4l2_ctrl pointer.
-+ * @ptr: The v4l2 control value.
++ * These events will be fired every time userspace starts or stops a stream.
++ * tgid and fd are used to identify the process that opened the video device.
 + *
-+ * Return: void
++ * Note that this even can be fired multiple times for a given tgid/fd pair.
++ * E.g.: mem2mem drivers expect stream on/off on both output and capture queues.
 + */
-+void v4l2_ctrl_type_op_trace(const struct v4l2_fh *fh,
-+			     const struct v4l2_ctrl *ctrl, union v4l2_ctrl_ptr ptr);
++DECLARE_EVENT_CLASS(v4l2_stream_class,
++	TP_PROTO(u32 tgid, u32 fd),
++	TP_ARGS(tgid, fd),
 +
- /**
-  * v4l2_ctrl_type_op_validate - Default v4l2_ctrl_type_ops validate callback.
-  *
++	TP_STRUCT__entry(__field(u32, tgid)
++			 __field(u32, fd)
++	),
++
++	TP_fast_assign(__entry->tgid = tgid;
++		       __entry->fd = fd;
++	),
++
++	TP_printk("tgid = %u, fd = %u",
++		  __entry->tgid, __entry->fd)
++);
++
++DEFINE_EVENT(v4l2_stream_class, v4l2_streamon,
++	TP_PROTO(u32 tgid, u32 fd),
++	TP_ARGS(tgid, fd)
++);
++
++DEFINE_EVENT(v4l2_stream_class, v4l2_streamoff,
++	TP_PROTO(u32 tgid, u32 fd),
++	TP_ARGS(tgid, fd)
++);
++
+ #endif /* if !defined(_TRACE_V4L2_H) || defined(TRACE_HEADER_MULTI_READ) */
+ 
+ /* This part must be outside protection */
 
 -- 
 2.56.1
