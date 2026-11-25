@@ -1,91 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795593612;
-	b=wueJ3BmxvP9x/FpgHQslbkhCcQYkHYW3qd5wqP+GDOd39/4ev2qHHEjQ8MZ0gyCwjgDI
-	 ladvef78dXK/qC5Ybf++56CB6kj4B8t1Yn9guVB0Em5KSWKjRNeJvWEcmCt3vFa1DtZZ4
-	 PEQSwGa7DtZdSxrfN6Q83toRqOyHhYvaB091ZA1KcYrFGN0yD86sSDbKE19NjQ/Ye1Xa7
-	 cU3eZHxJB/cH/j8mTh9Q4gau3BWd3/VUBlbK7CUDYdIDM0jEWXAcznuhVb1GmY7NwRnFh
-	 fR98Qh5gtmETcnVQw1/VOZHdFGMKjmZYVCYkI6D4MfZ7Xi/PRr2TAqScI9lOmtc4lCw==
+	t=1795593614;
+	b=OUtqfhg732hts9to+yo17n83pWYPn6Qpm4SWFz3uTIKRjb2s1nSRxCNk9KTsFeumm8qi
+	 X2jKzl9/HMMD29xiTFKWSndgwfVB0VLNwHY/H8RNBDf86rg6In3Or30VZwBeGiZwXqwU0
+	 w7ceup+oyfqbAfrWBz7xObQ7z0SvHrVKnSCNVK1YN7JNkV21fkAuN2EjFvbQr/QNaZYmT
+	 q0UZEeZ2EFsn0eBLVo4mzLcz/bRwR2AzI80EunjZwoKnSzB6YZl5m5ZhpwvxawIEBrze0
+	 1z1CoFykTMmTGHn2FWzrUyKLhA9MMxKRpPNZwLjdp+XrxE1nyyQl6nz9caMTtSTy8WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795593612;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795593614;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
 	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
 	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=QZqenHJHuvpcFmonw/+lrZ9R12/PrmorwdB0s5e0yt0=;
-	b=NlhZUExTC0wOClOQRWEVRwVaQngBeuVOzmH6/Zy290vLN8LTqaH7Muh0n2c4CCjoAYPo
-	 TnBjHOLkurO8iazmhp8FL6K3oTeiqHKRReDmSr9gXYP5IR4BSsBjgX8USb5hcgUK2ZXXw
-	 ZVBN/MYsmKP1+7IwbHTTy7F/QgIYpEqVeAdwoW8gIKEI6dgoRedp//L5KtApGULescZkL
-	 DY0EMpn+0/8kCMnKZRasSwlm915M6UsHmALrqdoFKGMgSFUe2wxdPA6soov22EK8yz57h
-	 ReQ0AhLPHW8ajkMdC7BuY7Gb7nmg1GT3PUhef2AoTIYyCvUfPGdArWJ+qhBKIdpzfMA==
+	bh=RaTpNYsU+pyqZ2JhTEPeBrlnqy0P3FMeT5rLYhp+Ceg=;
+	b=HEAwHp5QDdyuKPHWFmY7WUqpJ0aBCmMg8lRxfCp8xVBmEzF0QpK4Pf7qLZeFPlH0hCOi
+	 I8LxBZ3HeHI/rZVDObvNodIyB+A05XFMfOGW5TfK7IvpLWhhvPFgqSsny7lBC4fCi3ghM
+	 rh68TQPCSlRBRzy+Vhs8/SFSSGNdXlNsNCx6aZvyHHmFfFv4Rt88jDQzisoDyG5hoiw6w
+	 CQZ2AEZcKhO5ZPDxHjYQTp+xxin/StLdog/QCMwQWdQ7K0xX+QKJuwDiRieVdw4F253rQ
+	 lL5ORw2MXvScEBQevXGw87wx4eRojMHlho6hkvrtS15wlQIqdfABauqT7NIB1+BLxmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=fail reason="signature verification failed" header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bCYvtYsx;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=fail reason="signature verification failed" header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eUeM2dHb;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15354606A695
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 08:00:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15354606A695
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05107606A32C
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 08:00:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05107606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bCYvtYsx
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP68Z4v300019
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 08:00:11 GMT
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eUeM2dHb
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP68bDb3630235
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 08:00:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=QZqenHJHuvp
-	cFmonw/+lrZ9R12/PrmorwdB0s5e0yt0=; b=bCYvtYsxLXNYdxwoJyQIm/UCcVH
-	zW5DnjDxvUPYxBNJD7oo2ivT9ftJOT7BttbJIU1rEjDANjmw3T85K7OA3Lpe2VlT
-	MNxq2ACPtnl5Gbvgq9LXl0hFQkdQncOGbJqAIjG25dmaLrQ/0myNcZqbDfslkju/
-	/XaJG263TiFeocOecLwI31eEBq8OZg+nyK4inU01GkL51wG6iI/jstZGGgdY1p5d
-	N3NiSXg1ZvPjsJ0MkIyjvn1en68sBW4SyxJieYPWxoDIEcnK69DMBkp9Znu1qZv7
-	zrRxA8+RFAkJFqIdxEnExaZm8iKdoAww6rYB8c0XTtNtGXLHXRg3Zp+yyXQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5n6rsf8t-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=RaTpNYsU+py
+	qZ2JhTEPeBrlnqy0P3FMeT5rLYhp+Ceg=; b=eUeM2dHbZEp6XUeYtUL56y5X27a
+	opEmPFJwRR7WZeGDAx92O1N3PsrgIIx9enWpGXvnAywGHAuY7cqe4ssMJcahb5cb
+	FNhuVwq7rrINqRMvE91uLvFddSSrvFoIT/VvDNVhmrAOHa24+uvhppcXfS+7cHnh
+	LpGL442RrRzH07obaI67WcieFYfrEPgAm3Lv/MT3gulq9/MB+JCWXXLUzJWkzzxP
+	5uXZfthwGfaHMRTaXFMpQGAEZshzMNjNhVDumBpqwbNQM+TIjlQ3vX72wyBA0nlg
+	kDfxFmtKQ2c+ibSpliALIcIID/xUdEwRuWkSd3Sa7Wjwi+eyfzRqxJWsg8g==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5b8047np-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 08:00:11 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9495a1f5e47so857194485a.1
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 00:00:11 -0800 (PST)
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 08:00:12 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-946038e22f5so136339285a.0
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 00:00:12 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795593610; x=1796198410;
+        d=1e100.net; s=20260707; t=1795593612; x=1796198412;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QZqenHJHuvpcFmonw/+lrZ9R12/PrmorwdB0s5e0yt0=;
-        b=bBU2gfwCnE4UiK64hFo/e2fY1ZXAzD2+THkTplHHb+s4W8TTVfn+LRXMwhVnLin5Gc
-         tlSkIcEEbJTY2vEKHEaSoqnhXhdap7vN2mEuSxNJubCl2CkkeIMEw5MU5tNpMQ2MR1Qr
-         Qy8saGNvD7ZP6a9Dx/dZzqcUaFYN1R4w4yiBgzkg+bsVEaEQttc6LOe3Nsrbe2rIZfuF
-         ekl1wm2wpl8dHj7S2dPefekDGo4BgxUJeJK2zjmR1xMlesrlRccUPAdaoe5E+zz+2sNa
-         8mu8HyTAXJ2x/elp4lBaBhc9gIMwFUfuUeGAqF4MzXJz32hwiXQwVXG566Tcb8SedRmH
-         lYVg==
-X-Forwarded-Encrypted: i=1; AL+hErFNKJf2i6QKJcQy09DpHFyLwL81ZNwtEQS2zVy5FfboTEUDlljjffdt7cuH2L4eA6qbrS5lfPriqfRB5g==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8VrpbLFQn09i+0pJ+vpUvP3XU/mjaftkhGpIe+6QzjJBRWj+6I
-	py48DsakdoinEl52W58R83tTr7guPFIOdjpVCKWyCoNdsw+o4NpnTIzs94KHC8qLutBIiW96uuf
-	s8s+RzUpUO/DA+bMVKJ5QFy7OQtaJP9aC3YGalkrzKR3kH+Yqrvlv06pP4crhOHHtnA==
-X-Gm-Gg: AZFdTZd4+rqYsf1Bv91WCbZS7fhSdYONDV0SorCWcD8M5g6J1FN2U91lYdGZZCZKctQ
-	x6apX0UasnxZWPLFN9K+dB8/3sWdYro+axBDIgSL10P7rX5XiEzagkQ8h5CpS9uSZNLTUnmGQCt
-	ihGO2kDcbYKTn4sho1868pvpMvZWkchl9HrZwRT3hD+itxPnrd/CWQVQ9u7NBcMRt8KNv6OiJZC
-	In36Uy990bSFfo5yBE9duxQ6Q67HsesG09LN9KalA0tlHOcu74Zjt5HkZh0j9h4Jyl8+uZ1QuhI
-	NuBBWQF5T3UHAQHECAQeY8J8loqLgQyQHwCZy29oNhs8J4nyDJ6a1rJBuEYtTFxkCcHlb9UVcDK
-	dQJvMv6FxmuJMREkx8cNTz7nmL7sAeSd/
-X-Received: by 2002:a05:620a:6602:b0:949:74d8:4706 with SMTP id af79cd13be357-949bab2a981mr2985233085a.72.1795593610430;
-        Wed, 25 Nov 2026 00:00:10 -0800 (PST)
-X-Received: by 2002:a05:620a:6602:b0:949:74d8:4706 with SMTP id af79cd13be357-949bab2a981mr2985229785a.72.1795593609971;
-        Wed, 25 Nov 2026 00:00:09 -0800 (PST)
+        bh=RaTpNYsU+pyqZ2JhTEPeBrlnqy0P3FMeT5rLYhp+Ceg=;
+        b=Yk0o8csx92zeb7AZLUIsGs3weu1F9xefUfPA2wBhG9BRIg+5pY/m8J1rd6nFpHL9by
+         QiFOPu/ara1XF9PGFbLaEi5M8pHlHxa6AZuMtdNFlyOqW54CEUVBm7VSgNy3cUecpCho
+         8iZ3s4eoYHKFeXdiDF7HadSJDR6sk4Jbku5LiEN7x7q030l1+6g1RzoPeWoaIULWMTQp
+         IhW6xH/PcAIuBx55zM1VSvf7ST51VM9u8Viacg3xVTlFZOx7h4S0IdhavT3vdjQFkInO
+         rYl+mcebkbpgPu0dqHxeglg/qNM8kN9/Xbq5Rhybideye6yl/JZwdxDpr+D+OIYCSDUG
+         M8bg==
+X-Forwarded-Encrypted: i=1; AL+hErE5gbChJshtujL+SJG8x/hZw0VncrSX8EuUaFO6OpFxnccHdenZYKARVjROuve0DjbPp92LzGqTRWWAmw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z83X1vlHHrE0XnyBEYlrwdP0ATFATElGwHEn4o/XSrQIDWRbAJ9
+	GFP7Fju5BPvXn+P1DMm07a+ncOlCYd75ivjWLUeyVP3o+YTS0bbzg/JNhfitEHNp5SbzkvqN2wp
+	7kOydpzXGFkVT7xdoRW7g86bgqmrN6/d+qVR2TYVukZjDFuWDjSJIntpjzW/uYqMNAw==
+X-Gm-Gg: AZFdTZf9bxdqD7P/69xt8GWnQmJHJhss1i0yuFtZw0+f/aMA3DTzaZBWy3BLLdCtojN
+	/4o5ZimTvfjJJG0LpbbgqeG1Ify3dhSMxHwv7m1ylk2s8IvoptIu4SYDVqpj0ZsBypSCa048k0W
+	p/GCUuHxWE76rGf8d8S9Eo+OD34JCBcROVS8Fq1pdsOCIzoEpCgt61k2Wu1UwdosaXgITzhtRBd
+	JNWlrLt6pWogIn9259mZfZusClm/8xdczxDikxBNPWshA7FLrZFHwChLg46qFmFHhhUVzcojNhc
+	z8wRfVIL9NFsxmfgcjyfmYbMI/mo7/TzGKv9wa/ID2pz0KyP7GGVjDKlGAMXvaWdGzAY9lAm4Iy
+	w3sTwY/DctNbDlKRdp2485FmQmwI10Bd4
+X-Received: by 2002:a05:620a:8015:b0:945:fe1c:82bf with SMTP id af79cd13be357-949bab54098mr2838319385a.61.1795593612414;
+        Wed, 25 Nov 2026 00:00:12 -0800 (PST)
+X-Received: by 2002:a05:620a:8015:b0:945:fe1c:82bf with SMTP id af79cd13be357-949bab54098mr2838314485a.61.1795593611865;
+        Wed, 25 Nov 2026 00:00:11 -0800 (PST)
 Received: from lin-0843.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853a9846sm585912015e9.11.2026.11.25.00.00.08
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb853a9846sm585912015e9.11.2026.11.25.00.00.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 00:00:09 -0800 (PST)
+        Wed, 25 Nov 2026 00:00:10 -0800 (PST)
 From: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -96,9 +96,9 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
         Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
         Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-Subject: [PATCH v2 02/12] media: qcom: camss: Add csid pad to port helper
-Date: Wed, 25 Nov 2026 09:59:51 +0200
-Message-Id: <20261125080001.2540101-3-gjorgji.rosikopulos@oss.qualcomm.com>
+Subject: [PATCH v2 03/12] media: qcom: camss: Add streams enable field to camss resources
+Date: Wed, 25 Nov 2026 09:59:52 +0200
+Message-Id: <20261125080001.2540101-4-gjorgji.rosikopulos@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261125080001.2540101-1-gjorgji.rosikopulos@oss.qualcomm.com>
 References: <20261125080001.2540101-1-gjorgji.rosikopulos@oss.qualcomm.com>
@@ -112,75 +112,57 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDAzMSBTYWx0ZWRfX9WlyVcCZUB1K
- yYgDl8Av2iFfpRjakm9H1XE2cFyuTXluydvIEf/eTTCOqsl7EAGtudRq4g5VJut22U2PC0HWBbp
- 9VpEoZ1gZQ/ibOSXtlumUOXutZ+v+IGylebavf9/aWRkVt8jP+7qjfjbmo5hF023BlE47PvlMgN
- vOlqSpmDsYW3ZqVsIzLck5VKLb0WKQXQpB7vYnVv6bmho+ShQbjf13M/qFXrOSNzLf2j9gOoKlG
- WAP+4E+IkYCeSV8ipbbrC5+qj+9Ig5SZ0j3DlMM23g4elRSOBn7xSfUR//ubl8KCqCtokHzXm1f
- 3d3sb1siAhqeaX9Ee5ouq/+JguVpaq20MXRcqiZyMzteaosDj0hl7De47qkIeZNQiPf63aMbUCj
- gevVSxMg3/HGSuonZt+ZiTXOfyqFoeBdMzNjLQxGCk9YMxrCe+kr6qdg7PoTNcCaC31xBhCPZxs
- XZMMDB1YIVR+TL/tFOw==
-X-Authority-Analysis: v=2.4 cv=Voa2kO2n c=1 sm=1 tr=0 ts=6b06958b cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDAzMSBTYWx0ZWRfX/Oz0dlJZ0CKa
+ tEGeg4oCJEoxXQiiyK0WPgcUtykqYc4zfpYb1iQsvUyA3jlKAXuxOigJTfG4NLR94MdrDbX8tv7
+ Y02lHw/9UpaNEKTyDezeMu1m/PIxn0UADbkUenDe3MvtMVt9UOl+5eahIq+B3F1JgZ9Dwo4dqN/
+ 9+unIx5UvHoWxcIyKEcJZK7niL+x+WZgRkMSnpS+PIEy8kou+a5j1pUbCZZ8pATJv7Xv/+kHRVa
+ AgPoU4H9KAMO4vJ9g5DDZIy/7H3fgCAkIcd/0aYMTU4O4m92x4sXOyPh1ngW1Vi94oXjwA9QoVX
+ yREQI9Aepys/mpqm4JuXlfpETYzDPKHzjBBWvYcwkcPKNSH307v3g8F0dreD8CIBdK4z0nsQS03
+ O/tFKyyh5x0zk9DSQHTIMOQasmSWiHL4WrKLjwg4JLbltISQISs3WmYvJ47ywReNMRTitMXBR6G
+ iuuU7taRYSN2KEMjMvA==
+X-Authority-Analysis: v=2.4 cv=K5W3jCWI c=1 sm=1 tr=0 ts=6b06958c cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8 a=gL8YbPdMY_OOZm72eTgA:9
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: 68kxOKbngZ_cafqi7coFKMoli3u6D-9o
-X-Proofpoint-ORIG-GUID: 68kxOKbngZ_cafqi7coFKMoli3u6D-9o
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDAzMSBTYWx0ZWRfX0v24RIWEf5jB
- bsuqqJnFOY/1+PUxUd7r709k3wpFboPmRB/HIlrN4cR7WKhd8MuLuhEGNwhSEhTZjZkIIsDFuNk
- WGjk0j4BLeOkBxU04mda+CZGX35CGVM=
+ a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
+ a=Zc0e2cZeo9r8mepgbREA:9 a=IoWCM6iH3mJn3m4BftBB:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: loX5Tfa1jMN_mXJJ0WE4iTL6YNU8VSwZ
+X-Proofpoint-GUID: loX5Tfa1jMN_mXJJ0WE4iTL6YNU8VSwZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDAzMSBTYWx0ZWRfX1baHcTMso+dV
+ QvamLOr0yfldSqnLz8AvlufSOGrtoLAaol3lDFyKq6yVfwt4ZW/DVbsvYxZys1NgYlPHo7jmFzh
+ EbOWSlbp7aM2hZfNtdu0cTNq3jfojWU=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-25_02,2026-11-23_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0
- adultscore=0 spamscore=0 priorityscore=1501 suspectscore=0 phishscore=0
+ adultscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 suspectscore=0 phishscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250031
 
 From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 
-The function to convert a source pad number to its port
-index, and use it in csid_get_sof_seq instead of the inline
-subtraction.
+Add a per-SoC streams_enable field to struct camss_resources, used by
+subsequent subdevices to select between the legacy s_stream()-based
+pipeline and the V4L2 subdev streams API.
 
+Suggested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/camss/camss-csid.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/media/platform/qcom/camss/camss.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index 588122beec85..0f819c34e760 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid.c
-@@ -1356,6 +1356,17 @@ static int csid_subscribe_event(struct v4l2_subdev *sd, struct v4l2_fh *fh,
- 	return v4l2_event_subscribe(fh, sub, 0, &csid_frame_sync_ops);
- }
+diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+index 7564a7c46fa2..621ea2e3eba1 100644
+--- a/drivers/media/platform/qcom/camss/camss.h
++++ b/drivers/media/platform/qcom/camss/camss.h
+@@ -121,6 +121,7 @@ struct camss_resources {
+ 	const unsigned int tpg_num;
+ 	const unsigned int csid_num;
+ 	const unsigned int vfe_num;
++	const bool streams_enable;
+ };
  
-+/*
-+ * csid_pad_to_port - Convert a CSID source pad number to its port index
-+ * @pad: Source pad number (MSM_CSID_PAD_FIRST_SRC or greater)
-+ *
-+ * Return the zero-based port index corresponding to @pad
-+ */
-+static inline unsigned int csid_pad_to_port(u32 pad)
-+{
-+	return pad - MSM_CSID_PAD_FIRST_SRC;
-+}
-+
- atomic_t *csid_get_sof_seq(struct media_pad *pad)
- {
- 	struct csid_device *csid;
-@@ -1367,7 +1378,7 @@ atomic_t *csid_get_sof_seq(struct media_pad *pad)
- 	if (!csid->res->frame_sync_en)
- 		return NULL;
- 
--	return &csid->sof_seq[pad->index - MSM_CSID_PAD_FIRST_SRC];
-+	return &csid->sof_seq[csid_pad_to_port(pad->index)];
- }
- 
- void csid_sof_event(struct csid_device *csid, unsigned int id)
+ struct camss {
 -- 
 2.34.1
 
