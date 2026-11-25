@@ -1,45 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596951;
-	b=gABgtewMIJMmb45SjW5iMmCcauXGRUUSUnkkhO7FKYW8QOqrRj+Fp3oy0Vel150nDZpo
-	 yHnLOYfpkzDOfPhrA89xMgqu9xlPbxFFLj44ltpGPOKBH1t6UI1eCwMLOdRni1EzVbqPJ
-	 HuOsWQSTbfUSUCyKlBa+PfTDa1TkfJz12kN+F0Q9DTYqj26Y+4nd+OYKCY1S31iU2XnwV
-	 TZSk+il3Xf9zEc7ljwE3KTV7aWVkie+UOrT1gOxqNxiosC3A2pTqwWRkFXW3CF4uKHD8f
-	 qoXfCso+qdUseYFw0OoaGwil2W5aZYYFL8ciEL5Qh0FQgNndcNCKjdF4cFc2cVK4OIQ==
+	t=1795597271;
+	b=JxJZuCmH6kjUywh/LhZADd8+41klOKz+BALxqK/QtJxRGvodcMVU30CTRmjJ5QhQmPGn
+	 2UEDuWrBFTfAoIf6N5rs9OWz4YdZmxmvCBqM/hA3CPvrtJjDxsDU3CR+Zdbb7wCcxM+LJ
+	 LuFIn5jWYqu/7EqkNnct+eCO65qC2kjWoQUBCvSdnZA5rMAtPmHm3MYRrwpsC2UoxfSWL
+	 d64WeE1bntinWxf2hBVh9o54qAMhwtmPNUc38l+VV+eNwTc5qIbM7u7AaJnLldCvq2SGr
+	 mkMeKMKI6NJkuDNZybVm1aZmjFf10+zveRRj4DV0AlogZeb/ag5nrBwyJaIb7v1ZrHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596951;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer;
-	bh=vgsYe7KPFry5vGAlJY0NmB0rWIeyx9jEZizFH8iUmvE=;
-	b=aHoyQ9fi2NW0kyXgI6wlFQ1LublTMNFTbs8EAaOchXMNwLsz5yXBi/SFvbg9TNpWThcc
-	 Mv6rcFbEww2YVk6Ni/0kDatrlSriTj/4h+ZCLSJ+0Nel1IygJ3ymRBWCtqwxuN5q4YavR
-	 y9GY9Djj4uiazA0QU5USrondloL3HcrS6CR5BpFr+YOEtT3Np3SAB0LcAI6itOo4Gm3KI
-	 bEV7GNx4kp1dUHnHWiiwXHigAnqMBeSo50GZWQg2pfkImTNBWJpqfIt+flUYYE0g6uLxG
-	 uZbsMhafC20jae5UAVL+zCMt6Dk5dTEKIKXkGRYU3oGBrb4LqEBPG5qFpohMTnrQWng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597271;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=qEYCHONLfjiDlaQnUG/xCKXVK/LoPfBJywqJSXoNvis=;
+	b=F19cpKDZELn6LRQXPxiaoVadMcv3jGvNad/LSuwlLgG2y2kR0W3Pyw494/wAnI1qGtke
+	 uLlhZtbykbILom6wSE/o5rxLNZFBLHGVBkrhJ6WM2DjnGlywx0UwcRAByaeAz4zLXPq+5
+	 /cRBT2Ke/qsZF95/kOCNPGnAKog5spWEVUiCOlEKTJLT05AkYzPd1nQIEmPfj3upzV5F1
+	 RyQJki0UMxGBy+mDMIJwkVV2R41j1gNWZettEdF2XoA5vTOw2FicdBKsk1+CqzErYSTPY
+	 //vc1qtOkNYYBwoCq/Fjc9RoHispK4d9RHxZnACG4GoNh9CJiHBDCeSBkuZUq+yT/OQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mnu8MBVo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fTeakWP5;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hSi3IEmQ;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D369606A31E;
-	Wed, 25 Nov 2026 08:55:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92486606A31E
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 09:01:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92486606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mnu8MBVo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19D211F000C6;
-	Wed, 25 Nov 2026 08:55:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795596950;
-	bh=vgsYe7KPFry5vGAlJY0NmB0rWIeyx9jEZizFH8iUmvE=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=Mnu8MBVoxumYqteWsAstS9zqXGLgKPyadSkd8o1fkNxDWdBwZwF4hwXzQro0llQzP
-	 Z7dBpQFx7C/kUmA1dy9G9uypc3QNuE9Ykf50FNAG0EqzE/V965Ma1KyBdo1U4tAPSz
-	 WKG2rt2aXNX/1l7sVRHEolrpOheHimrlcMMEvdmDkEKcIB2H3u+gOyL6aCSBkOmeWE
-	 HzUyuNsk/XByWquPy2g8QzLoQaAH5WUX534bYO0/EjwKMwP5WgByBTddNPPO1ZPHTt
-	 zqOUH+caFdZV0rOTu38IBn3+IjhL1yBpu+NAqbLQQLFDtOdJoUr6izCommDJ0/Pf47
-	 L7YOyALKmKq8g==
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fTeakWP5;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hSi3IEmQ
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP68Y9b2629373
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 09:01:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qEYCHONLfjiDlaQnUG/xCKXVK/LoPfBJywqJSXoNvis=; b=fTeakWP5KilBgsyo
+	J9Kjs8DqJVco9O+MIsxMaEU2KcXohMAyrGpV50tRJMCKr6j/vbCQxZ2YFJwElEY+
+	0nrJ6NdlIDsFzgsAdePFxVI0KJ0aqErCicJ9uIfN/gFZJ2xfjHEEis5VQm8Dw8Nh
+	0wERmjZEHi5E0fBah9M4OpUenQx5ZB3QThdh+E+NdlkK4Jc88+vGF3JoacJpnMHM
+	RD4ojEsd7G/FYo1I+4JtUZ2TDYaJ1tpRPr7j9u/2oqi9wrifCkFLco7b/o0ycPlf
+	niWAuqs2qPGqDeaM08XlXuUpAL9+dbkb6S3z8r4O0OdMkvmxzVIkVoCTy4h34M65
+	AlLNAA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5eydb8tf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 09:01:09 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f33438950so957128485a.1
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 01:01:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795597269; x=1796202069; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qEYCHONLfjiDlaQnUG/xCKXVK/LoPfBJywqJSXoNvis=;
+        b=hSi3IEmQtTXfq9mCLyDxmW5j4v4M3cVH0GR6VXGpjAMpN57M2bXyB1VJs4s/KSoTUp
+         SOZIR7UtEdFXSp1Zyrqi0pJYzzPqD0Dtz8SDxZRw7tE8dL341Hu3bKCJJXhlE0ACaf0+
+         J+WkRos3pSK6rgWZDAiCw8Nju3NWn5EZ7SDGi6zVr6PsratPS1WK/Rw2Om1+dKNioWP1
+         dELc7aA+x8vcjUO7Jd+HfnSgpflEBIXO9Quz+NrY05UcO/ItEUiLNbfVS4DOwxBoT1zN
+         PF8mqE4STdypdmIrbyeRA5b7gIFyHQMV3hG6frviBnwYPglGjhz+T8CP8GGnE3mLC1gV
+         111Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795597269; x=1796202069;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qEYCHONLfjiDlaQnUG/xCKXVK/LoPfBJywqJSXoNvis=;
+        b=HH1WW3oZ+lxT+Y/b3cLLfJ2Whi/EZqswjO2pSR027YOgoa7/aYfkj+SRwMcp3TyU0o
+         EzcvAbOiqiDDo3YSg/X+UF15PZQOKNuuXZkB7bkfrCjoKfXAEDM+ItZ4RjAMWT6/s7m4
+         iIAQoNclXOw7PGuvfaZ6istfGpp1IRELT/NDdlcJNbUILr1ttb+P/XNu/x+RD9adi8X5
+         5zs3jgv04ziUh6cwr9DSkpk+G65/mtEpb2Y3kOA6Pc31ArDS/r9tk+42ZPV4S3ipvCif
+         EHukq4LUHwvY20TExMXL1DdjWVTvH15ceXmoZ4cSWIn65BG8Qd/2mm7wEa7GTAgctypq
+         sCJA==
+X-Gm-Message-State: APuU4Z8wryieRD2PfBaCUr5bQ5JCZIEnNRVypN7/BioDjcPM9894JLgS
+	hJ5uI1FteaRX2XMhU5DYtkDVXdq5Knl2owXyTSCaQxhke1QG92hE7AuFW37qOkEOPFUe3w9YHvD
+	ecmUFM4D8EzTEQd3GpCo2UC6hVvRRFJIh0E0xiLeVR4v7YbrOYudKMGM6rbb148WAaQ==
+X-Gm-Gg: AZFdTZfSqz2Sz6Pmae3p3eSo0rs2EJno0qeibeWNC+PZGeLbfXwK4x06au0InIa4MHF
+	lHEsctw3mu4vGSG9yE8HABtZmMbijG44TPO/a4PkMsq5IlHA9Df9Xez3Vf0X4xeSoZ4kVfM8Qog
+	GKkbLmby4DHbKr2cwpCRd90wlz7brms1oYTcC9iuO9hRtDZ4y7qUBo7M3dRHOfmK14Kp58GFXg6
+	AxfZU6xoBTVCYvfTA4UrSmj7LmiARkLB+UA5cjurz8HQ4qGmtyun0hLOFmM48ggqC5nFYHlGdoA
+	8jdHTHmoSZedoF1Ci8pXlfBSSEusrKbYtkiblCSy6aIucPtzBrg3OX57gIrpX/y7LWsgdkmAPn8
+	Ma4E+94fqTlx75ttoDYGU4mRGF2NGVNHcp8ydUBo5p3neBJj9fTr7IdP+PVTgOV9chSCJWefz5D
+	ajc0PPfEwyLRJHoA==
+X-Received: by 2002:a05:620a:4491:b0:939:a0f3:6aef with SMTP id af79cd13be357-949ba95e8e4mr3024913885a.23.1795597268732;
+        Wed, 25 Nov 2026 01:01:08 -0800 (PST)
+X-Received: by 2002:a05:620a:4491:b0:939:a0f3:6aef with SMTP id af79cd13be357-949ba95e8e4mr3024908485a.23.1795597268240;
+        Wed, 25 Nov 2026 01:01:08 -0800 (PST)
+Received: from [192.168.25.64] ([94.155.124.210])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884911e3sm606266235e9.6.2026.11.25.01.01.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 01:01:07 -0800 (PST)
+Message-ID: <0c0b3af6-4fea-422a-a7dc-76e36a3f5db4@oss.qualcomm.com>
+Date: Wed, 25 Nov 2026 11:01:06 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -49,214 +114,110 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6] media: qcom: camss: Report the hardware SOF timestamp
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+References: <20261123-camss-hw-ts-v1-0-7b62dda6d7a9@oss.qualcomm.com>
+Content-Language: en-US
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <20261123-camss-hw-ts-v1-0-7b62dda6d7a9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 13/24] media: mali-c720: Add Mali-C720 ISP driver
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Anthony McGivern <anthony.mcgivern@arm.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>, 
- Nayden Kanchev <nayden.kanchev@arm.com>, 
- Konstantin Babin <konstantin.babin@arm.com>, 
- Linus Walleij <linusw@kernel.org>, jacopo.mondi@ideasonboard.com, 
- kieran.bingham@ideasonboard.com, laurent.pinchart@ideasonboard.com, 
- dan.scally@ideasonboard.com, Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Rob Herring <robh@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-13-0cb9bde1bd30@arm.com>
-References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
- <20261124-b4-initial-upstream-candidate-v1-13-0cb9bde1bd30@arm.com>
-Date: Wed, 25 Nov 2026 09:55:47 +0100
-Message-Id: <179559694752.14607.4218343265884065337.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDAzNSBTYWx0ZWRfXyKSQDeznok1O
+ O2PGoV4JWdSimgLllrzDQSPLDT5X8E/X6Y+7Pdw+D6mjqjnmtH1k7tJi4bk/8PpyKiDGp/uKji/
+ GmYgpClunsJTG3beVANgmNyrysFI/tY=
+X-Proofpoint-ORIG-GUID: RYuLETizm-q7Vy6fXV-D7av_jcVoIsNf
+X-Proofpoint-GUID: RYuLETizm-q7Vy6fXV-D7av_jcVoIsNf
+X-Authority-Analysis: v=2.4 cv=GIGdgeNK c=1 sm=1 tr=0 ts=6b06a3d5 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=eGCDHFSXubCXFTSSGhjuOA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=mMDk5lcDQkvegnXiA_gA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDAzNSBTYWx0ZWRfXw/LdsV7HGrLl
+ qbyRjd7jWESAegY3nvCfeUgA2sMXpFEvgvN83/10Nn7AQVWNPdcAZVX1HGPnxE8fa0abKaGwXBs
+ xVpCfepte3kfdkK/uWOJ4ljkbaOIuWE+AdM4pI9FTpFWyRVFq7oP5aAffJtl+l2nq1ZyvNnOq5K
+ GMML6l1lTPFZNeMNODcdUd6fJ/ooeJ1R8DKxsVJX2NB5GMz0pcvCD5JpDohZqtGHupi3vtmc0WZ
+ nSAdbUDH0gvyUdO8B9kBwmjzRQ57w/TqQeK4fZNsxxUnFhRyyRzE6LlsXHWly7CdtDDC0iQwV+W
+ h98jawpf8d9tT091QfXaDWSyvJEKWqxlc0JG0LXlROD/y/qZG8JLjXjIBAI3KC5s4g5eu8Xp3dl
+ dGF6wdClTP6E0NEfsmuhLGhnFWM6GVCKzEWInI+t9UyNIjjmXtBz5uVNCule0Salxkk8BZQR8aO
+ rktT+hHxBWPCOt9MXrA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-25_02,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
+ spamscore=0 priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250035
 
-On 2026-11-24 17:07 +0000, Anthony McGivern wrote:
-> +
-> +static int mali_c720_probe(struct platform_device *pdev)
-> +{
-> +	const struct mali_c720_discovery_target top = {
-> +		.module_id = MALI_C720_DISC_MODULE_ID_PIPELINE_GLOBAL_CONTROL,
-> +		.pipeline_id = MALI_C720_DISC_PIPE_GLOBAL,
-> +	};
-> +	struct device *dev = &pdev->dev;
-> +	struct mali_c720 *mali_c720;
-> +	struct resource *res;
-> +	unsigned int irq;
-> +	int ret;
-> +
-> +	mali_c720 = kvzalloc_obj(*mali_c720, GFP_KERNEL);
+Hi Loic,
 
-Why absolutely nothing here is resource managed?
-
-> +	if (!mali_c720)
-> +		return -ENOMEM;
-> +
-> +	mali_c720->dev = get_device(dev);
-> +	platform_set_drvdata(pdev, mali_c720);
-> +
-> +	mutex_init(&mali_c720->device_lock);
-> +
-> +	mali_c720->base = devm_platform_get_and_ioremap_resource(pdev, 0,
-> +								 &res);
-> +	ret = PTR_ERR_OR_ZERO(mali_c720->base);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "failed to map IO memory\n");
-> +		goto err_free;
-> +	}
-> +
-> +	mali_c720->mmio_size = resource_size(res);
-> +
-> +	if (resource_size(res) < MALI_C720_ID_SIZE) {
-> +		ret = dev_err_probe(dev, -EINVAL,
-> +				    "IO memory resource %pR is too small (minimum %#x bytes)\n",
-> +				    res, MALI_C720_ID_SIZE);
-> +		goto err_free;
-> +	}
-> +
-> +	mali_c720->clk = devm_clk_get(dev, "vclk");
-> +	ret = PTR_ERR_OR_ZERO(mali_c720->clk);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "failed to acquire clock\n");
-> +		goto err_free;
-> +	}
-> +
-> +	mali_c720->reset = devm_reset_control_get_optional_shared(dev, "reset");
-> +	ret = PTR_ERR_OR_ZERO(mali_c720->reset);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "failed to acquire reset\n");
-> +		goto err_free;
-> +	}
-> +
-> +	ret = of_reserved_mem_device_init(dev);
-> +	if (ret && ret != -ENODEV) {
-> +		dev_err_probe(dev, ret, "failed to initialize reserved memory\n");
-> +		goto err_free;
-> +	}
-> +
-> +	ret = vb2_dma_contig_set_max_seg_size(dev, UINT_MAX);
-> +	if (ret)
-> +		goto err_release_mem;
-> +
-> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(48));
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "failed to set DMA mask\n");
-> +		goto err_release_mem;
-> +	}
-> +
-> +	ret = mali_c720_power_on(mali_c720);
-> +	if (ret) {
-> +		dev_err(dev, "failed to power on: %d\n", ret);
-> +		goto err_release_mem;
-> +	}
-> +
-> +	mali_c720->registers.id = mali_c720_get_id_regs();
-> +	ret = mali_c720_identify_hw(mali_c720);
-> +	if (ret)
-> +		goto err_power_off;
-> +
-> +	ret = mali_c720_get_registers(mali_c720->hw_version->id, &mali_c720->registers);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "unsupported register layout\n");
-> +		goto err_power_off;
-> +	}
-> +
-> +	if (resource_size(res) < mali_c720->registers.context_size) {
-> +		ret = dev_err_probe(dev, -EINVAL,
-> +				    "IO memory resource %pR is too small (minimum %#x bytes)\n",
-> +				    res, mali_c720->registers.context_size);
-> +		goto err_power_off;
-> +	}
-> +
-> +	ret = mali_c720_discovery_init(mali_c720, resource_size(res));
-> +	if (ret) {
-> +		dev_err(dev, "failed to parse capability discovery data\n");
-> +		goto err_power_off;
-> +	}
-> +
-> +	ret = mali_c720_discovery_get_module_base(mali_c720, &top, &mali_c720->top_base);
-> +	if (ret) {
-> +		dev_err(dev, "failed to get top base address from discovery data\n");
-> +		goto err_power_off;
-> +	}
-> +
-> +	ret = mali_c720_init_contexts(mali_c720);
-> +	if (ret)
-> +		goto err_power_off;
-> +
-> +	ret = mali_c720_init_ctx_mgr(mali_c720);
-> +	if (ret)
-> +		goto err_power_off;
-> +
-> +	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
-> +	pm_runtime_use_autosuspend(&pdev->dev);
-> +	pm_runtime_set_active(&pdev->dev);
-> +	pm_runtime_enable(&pdev->dev);
-> +
-> +	ret = platform_get_irq_byname(pdev, "isp");
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to get interrupt\n");
-
-Please use modern Linux drivers as an example for your code. All this
-should be dev_err_probe or dropped, because core takes care of.
+On 11/23/2026 7:16 PM, Loic Poulain wrote:
+> The CAMSS CSID latches the ARM architected counter on every start of
+> frame. This series exposes that time to userspace, both through the
+> V4L2_EVENT_FRAME_SYNC event and as the buffer timestamp.
+> 
+> Until now both were taken when the interrupt was handled, or worse, when
+> the frame had finished being written out to memory, which is about a
+> frame period late. The hardware value is free of interrupt latency and
+> is directly comparable with CLOCK_MONOTONIC, so it can be correlated
+> with other timestamped data such as IMU samples.
 
 
-> +		goto err_pm_runtime_disable;
-> +	}
-> +	irq = (unsigned int)ret;
-> +
-> +	spin_lock_init(&mali_c720->irq_lock);
-> +	INIT_KFIFO(mali_c720->irq_fifo);
-> +	ret = devm_request_threaded_irq(&pdev->dev, irq,
-> +					mali_c720_isr_top, mali_c720_isr,
-> +					0,
-> +					dev_driver_string(&pdev->dev),
-> +					&pdev->dev);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to request threaded IRQ\n");
-> +		goto err_pm_runtime_disable;
-> +	}
-> +	mali_c720->irq = irq;
-> +
-> +	mali_c720->media_dev.dev = dev;
-> +	mali_c720->media_dev.ops = &mali_c720_media_device_ops;
-> +	ret = mali_c720_media_frameworks_init(mali_c720);
-> +	if (ret)
-> +		goto err_free_irq;
-> +
-> +	pm_runtime_idle(&pdev->dev);
-> +
-> +	dev_info(&pdev->dev, "Media frameworks and entities registered successfully\n");
+Directly comparable with CLOCK_MONOTONIC, does this means
+that csid timestamp is in monotonic time domain? 
+In camss video the flag V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC so either we need
+to provide timestamp in that domain or convert in the driver.
 
-Drop, drivers should  be silent on success.
+~Gjorgji
 
-> +
-> +	return 0;
-> +
-> +err_free_irq:
-> +	devm_free_irq(dev, mali_c720->irq, dev);
-> +err_pm_runtime_disable:
-> +	pm_runtime_disable(&pdev->dev);
-> +	pm_runtime_set_suspended(&pdev->dev);
-> +err_power_off:
-> +	mali_c720_power_off(mali_c720);
-> +err_release_mem:
-> +	of_reserved_mem_device_release(dev);
-> +err_free:
-> +	platform_set_drvdata(pdev, NULL);
-> +	if (mali_c720->v4l2_dev.release)
-> +		v4l2_device_put(&mali_c720->v4l2_dev);
-> +	else
-> +		mali_c720_free(mali_c720);
-> +
-> +	return ret;
-> +}
-> +
+> 
+> Patch 1 lets a driver fill in the timestamp of a V4L2 event instead of
+> having the core take it. Patch 2 passes the SOF time down to the common
+> CSID event helper and adds the counter to CLOCK_MONOTONIC conversion.
+> Patches 3 to 5 read the registers on csid-340 and csid-gen2. Patch 6
+> uses the same time to stamp the captured buffers.
+> 
+> Patches 4 and 5 are picked from the timestamp support Bryan shared
+> earlier, with patch 5 adapted to use the conversion helper added in
+> patch 2 rather than its own.
+> 
+> Tested on QCM2290 (Arduino UNO Q) with an IMX219 sensor.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+> Bryan O'Donoghue (2):
+>       media: camss: Define timestamp registers for csid-gen2
+>       media: camss: csid-gen2: Report the hardware SOF timestamp
+> 
+> Loic Poulain (4):
+>       media: v4l2-event: Allow drivers to provide the event timestamp
+>       media: qcom: camss: csid: Pass the SOF time to csid_sof_event()
+>       media: qcom: camss: csid-340: Report the hardware SOF timestamp
+>       media: qcom: camss: Timestamp buffers at start of frame
+> 
+>  drivers/media/platform/qcom/camss/camss-csid-340.c | 37 ++++++++--
+>  drivers/media/platform/qcom/camss/camss-csid-680.c |  2 +-
+>  .../media/platform/qcom/camss/camss-csid-gen2.c    | 32 ++++++++-
+>  .../media/platform/qcom/camss/camss-csid-gen3.c    |  2 +-
+>  drivers/media/platform/qcom/camss/camss-csid.c     | 81 +++++++++++++++++++++-
+>  drivers/media/platform/qcom/camss/camss-csid.h     | 25 ++++++-
+>  drivers/media/platform/qcom/camss/camss-vfe-17x.c  |  7 +-
+>  drivers/media/platform/qcom/camss/camss-vfe.c      |  8 ++-
+>  drivers/media/platform/qcom/camss/camss-vfe.h      |  1 +
+>  drivers/media/v4l2-core/v4l2-event.c               | 20 +++++-
+>  include/media/v4l2-event.h                         |  9 ++-
+>  11 files changed, 205 insertions(+), 19 deletions(-)
+> ---
+> base-commit: 2ad58ca589da80990b7afbcff018777851577f89
+> change-id: 20261123-camss-hw-ts-e0297adb69d9
+> 
+> Best regards,
 
-Best regards,
-Krzysztof
-
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
