@@ -1,87 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795617119;
-	b=A1yDcLKvrZM/gEechUJpzufS1xxtZM66HcT3765r0EjDbxtIQBgvO/WwBCsDuYoSQvDF
-	 0vwUdWwqO2EKIRwODgywLzzTg6Cyo08HlszH5pvVdLfC5SIv/k9LIuYHW5Wa5+1eQtQnn
-	 ZgWEK3/HceUGTRte6L8hYj9G0th53PkzNz/5Ku6swyyUralRs/ohzsjWkW8gFZX548kh+
-	 ECK+GuKOY6hwniQeGr9jLsJlr0fDwr8EVsKN8xBHllP4tQvaegV/6NsC8MrGy9xjGWjCM
-	 5QJ+Hwu4HyVq+sTrrmQgw7laBExKBDcobkLfFM0YACcgx8j0J0EBg44FJS7s9/wokgw==
+	t=1795617514;
+	b=3hwy9EF9TTD58dbRabMh+lDmlM+zvYiYZUIiFg6HSiiRMr+sLBFV6UrbTDDdiiJTT31R
+	 EJvG5zJ61mYKvluJ9H4n7hI2yD9hkRauQpMbm+rksGzgJrqLzi2LXY4PUTG06mUYGCOdv
+	 zd5JYkoa4d9kVmr3Xqjyk9T0kdWJ2+RQl0aHhw3xu9YbR+X8a8EGJb52loq+5K/fR5LWW
+	 ZxoLlY7hrHASy3JOnU5bXG/EQRa6nXamwktQKxEOXRf8PtaeS0RMT7hWMb0htibqLR3lw
+	 snOiTwf8YvCK6/vXreXMMUHQX5nLPlCocE5clAy9u0KxK6PlBcGSIbDq8b0oKPDYwBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795617119;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=zKfRowNSGjVA87CJ4mW494zsgUl/v5ojHBz8f5BNf/0=;
-	b=uDJ1w7nCXKwM2Pf3K1rGQkOJmV6T80vWmgXVshif4kOf0pFBxTXmqSyQWU+iul4CDMOK
-	 3aqiWIyjYlFJzQz3uDES6ggUPhn99axWSo8FR0nGAe/EKP/PKTM9LFkK1WGVh6opFIwq1
-	 U8ujorVC4BNoK/4WLrXAQmWFzrAQlrXA8w4OpmYoS0YJufNoM/Zm6FxVDbFpcCSP+zkJs
-	 u47kN7eW8yVxlshjDF8IzqsgKX2/tlBAlugvvTqz/7PMrkamDWd8PRg+0ySsPiLm2SeCC
-	 LNfqF98kD0Hw5r3yw9Tj44spOBIKAOQztggorL7+9VOGdeFe3+/zkpcVFtcNjxUpXfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795617514;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:To:
+	 Cc:References:Subject:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=V+SWYMrsgQDDOyJAzdmFdi2RZ/LBOyWTLZc7ss8N4j8=;
+	b=mgLAp4f4syZjv4T/scRlnp4MzKRCx7RDakW9ANPS5NGGEC/+vM7eVJorhQQS744KKhAi
+	 g5O+VrCIg3YhhsXV2WPLKNDjiil1q+I3pAna/oFFFcMvVlbbBpNcX53yPTvG1bOtCOS+C
+	 g0aGnWDOM4oispL7ZKUo4ef3Kgh5YgwrtrjR2PdU5soka31xKREJvoRh4VPbu1b5MLhg0
+	 8vcFB5+55pRXy/xjnZFFOaYTZ1yZ2MiR+7ybbvQLm3NnJ+VkYSq2UV8wuLNzosDpJtGfF
+	 U7dZcEHYn8s7EGF5eYWzbws40rtaHjC8kLgxiksYvhyCpruD4Z/FCX2UN+xEiFsBFBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AdI7v2p2;
-	arc=none smtp.remote-ip=209.85.208.182
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=p0ervYHU;
+	arc=none smtp.remote-ip=212.227.17.12
+Received: from mout.web.de (mout.web.de [212.227.17.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D866606A326
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 14:31:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D866606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 478B7606A329
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 14:38:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 478B7606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AdI7v2p2
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3adfb0c9e3cso4821831fa.3
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 06:31:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795617117; x=1796221917; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zKfRowNSGjVA87CJ4mW494zsgUl/v5ojHBz8f5BNf/0=;
-        b=AdI7v2p2DEnGcimvFHEZ5FVOQzGh9kkiGvTi8IyruIj4NZ9mtrDkotiCBgY8hdHcFJ
-         J5vpTFTxElIV3Bfd2gJcR1dSzv9XNkGP/Y0is5nM+gHP5MukTCaUJCZEQ8hSJseL55RE
-         9pbRCy1oNY2TNyYScIOM1eRVC1Hri+fvfQDSLHPgqTwElpBzAVbJA8jxApn2x2T8VfsP
-         IGHTrD/GtpvO070Qkv/SUBdfTuZ0JEoOhcQ3FIPntQb1Op/aFvCZBb4v2QSDSv+JGXbj
-         R/+TsbRhLAZNI5ttbtA0lnVW62/WUQaEZ8x3ikZL6ByIq294H0YzOwl+eW6ZmxOTGZbq
-         aPXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795617117; x=1796221917;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zKfRowNSGjVA87CJ4mW494zsgUl/v5ojHBz8f5BNf/0=;
-        b=vv6zzjr1RCrkwhWtkgHcctcD2s9qfFLTOE75EPkEP3EkgQRaOaTtB1OFBEOeMosOeD
-         KAn9BkPB37V4Ov2bmJ/q1cg28qgUoycppkNb5ISrOsvY9JAuPJRkt+x5mbusahAdzLSY
-         J+4VzciGxTvK+J/rzqO0AMyfCAdpCIJbLDnzMr4CCgjPBZBVP5hMpb7KLvdEH+sBEKwl
-         qGDfosA+MSgOe6lfv6HLJ23OvAZPpRUUq1pNssAwW9UeLGTSmxqeGpRSxuhtPtKKS2BO
-         MhR+//ixW0j6eOWh7yIYELgNSzehMJFGgrvqfoTQ0jBrUZ3SbBFLd1nLAlnT/L/1av36
-         jaPg==
-X-Forwarded-Encrypted: i=1; AL+hErHqzBC7DI/4ONnqNa92xvi5te5d4EysxrOW28e6M/gQBG3hA1DEgXWlFVVOUWfhTo3gliWdinkTnOrBZQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/eUCOnw919R/Cgzl9aE4FOwtY3PdTM9amQAxypSHeTGtHMDyBI
-	OxauRhdU6nOWiO+/ztUiZiJmdTV3FQpfFPpC778EZqlpZQEw9MrxCq9Q4T5XSzvFxHM=
-X-Gm-Gg: AZFdTZfzBOYcc6KEZXKJB8SNjyJMeTYd2fYGETfDt5yVhCUuk/CwD6EVsu3xUHXayKU
-	GdZIg/4BKztsOyQwCHxJ63qapARUwZeLK6uv2pGX2IjlChxl2kEh6s0lXLWFThZNzJDilCeOukc
-	TKGPVHBfydOAof3gL1HRvHCyMJK6t02PdAG2OYglmeBWJ3cJEqU+Qs6ewfQrIEV1TA1Y5DT4Wbh
-	gYI8ks3KDbZ3eKwybYrYn0sGA05G8wochTm0KCGk+sGLMx5x+Pm2LqkFi6wjk120nxF/4Ke2Y04
-	rIset4htLfejzuCgjGDqvq5ht2foqiMRpKmYfOwCcYDC+ll/XV92acBK6MUa8x+CGecG8H/VxJl
-	CChiR1RYRgrtTeH65wqZj+L7DlKeR+tzG5rveJYro/8CEMkXUlo/mCwUE7spkm2ny9siQ4XUvpY
-	uWJ4eoQMKVzNbVqJmMo99T9w/+H9/0zyruvVlqPkuk07Tdr6jEBQbFVTxOY8wWbGyj8KIgFham9
-	46vNXApyH3N+ZKl5TbKNb0IA4igHMk+gFWQ0kCvSa/CQ0ECfosIJp2M47+prKea/Py1Au9iIBS3
-	fv/gSjnZVMv7wyj9hpOrN+XFqC0StH5fi7CwI8AHErPgK80xUTIM2rxuVmC9J/V2f+zC8ffaHNG
-	FUXL327g=
-X-Received: by 2002:a2e:a28e:0:b0:3ac:dec0:158e with SMTP id 38308e7fff4ca-3ae7f9f3418mr40722721fa.2.1795617116747;
-        Wed, 25 Nov 2026 06:31:56 -0800 (PST)
-Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae8053568esm50069981fa.25.2026.11.25.06.31.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 06:31:56 -0800 (PST)
-Message-ID: <bac87368-6a84-4c75-ad25-b2fdea432b72@linaro.org>
-Date: Wed, 25 Nov 2026 16:31:55 +0200
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=p0ervYHU
+DKIM2-Signature:  i=1; m=1; t=1795617511;
+ mf=PE1hcmt1cy5FbGZyaW5nQHdlYi5kZT4=;
+ rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+ d=web.de;
+ s=s29768273:rsa-sha256:l++4yv2tKsCy9LMLBOl6P8eSDMiD
+   7QIwFyjbLwJxkB70HnK9PrwDe0lCKlsthEkCxCOtAW4ERb3OEvST+3b2L1tU1C3Su3GIJ2laQ1n
+   huJMyshjX+NfApIwPM/LI5myN24wlJOIItIe7e6NdMRqBX0cUSWxJi/Gk84A6njPT/lyre2UISh
+   kNd2m4Mh3GH8Q8aMgV/e7w1y7neda4ekPpY4DgtkasqPvewuMsdbrps4XVvAU4Dswevp3rCdLV+
+   UrrmAXrhhCRrX56oRNSBj1a6RHVnSsg70kZt4R6Hsd4DFmTTUhfIu3txzkqDakd1stEjdzSCpaP
+   Gf+GEQrdEuEpXw==;
+Message-Instance:  m=1;
+ h=sha256:
+   fF/XZeyUxy8FHjCHBzXgXM1gwwBvjTgNwVFzDafx8C8=:
+   KvYEXE+cubTibDFFZRlF86cMR9D9ms2+WRSgzpVl4G8=,
+  sha512:
+   yHE8dCB/5Zh4cEawczJzWHi1XBZG+o3PAoD+FXir22ti75+Y0BYo/9xNRVcLVJ/RjCHH+DM1xSUy+6UwC/dkIg==:
+   IK6FEubpsiP9RyqNSC2HG3YKUhQNJfYdklEHC5T081CpoLHOK0sGzv+Q2odalZU3BsZlZQbKwuuFYhPyGLKn7A==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1795617483; x=1796222283; i=markus.elfring@web.de;
+	bh=V+SWYMrsgQDDOyJAzdmFdi2RZ/LBOyWTLZc7ss8N4j8=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=p0ervYHUQiczczlgIiMcfDphWzspc2hHWZPrhbRhvbVxV5JXG0g0HfelD1tf1dhd
+	 qQUwZp6eWgiVFu8suVfZBn6dw8vjKCkhbwdF83E88iCtL9GPDimEjInZKYRAJFUFv
+	 a0AtrI66MjoP5xF0kzDdL7D9cGQ88JMKPsE5Dm05sPxb8SZfwp5he/gUs3MUikYbw
+	 aNk8s8QRx7XxUW5vgc4Tppm+1a8prW5bOil0jnM8f3Cyslhb3YMYc4iVZwRgq4C2s
+	 37Nvgrbr79en43fzaAuME6/taAm49K3ujWyJImFQy9IpF974/XWkNEf/LMaqa5/VV
+	 MDrOVrduYyIyeljEXQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MzkSZ-1yRTWU0a13-00yduM; Wed, 25
+ Nov 2026 15:38:03 +0100
+Message-ID: <5ff7af23-de12-40cc-a8a9-29d787873837@web.de>
+Date: Wed, 25 Nov 2026 15:38:01 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -92,367 +80,155 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] dt-bindings: media: qcom,glymur-camss: Add Glymur
- CAMSS
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260925-glymur_camss-v4-0-d7c2983d6d7b@oss.qualcomm.com>
- <20260925-glymur_camss-v4-2-d7c2983d6d7b@oss.qualcomm.com>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20260925-glymur_camss-v4-2-d7c2983d6d7b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: Matthew Laux <matthew.laux@gmail.com>, linux-media@vger.kernel.org,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Mehdi Djait <mehdi.djait@bootlin.com>
+Cc: LKML <linux-kernel@vger.kernel.org>
+References: <20261121035523.26764-11-matthew.laux@gmail.com>
+Subject: Re: [PATCH v7 10/12] media: tw9900: add S-Video input and progressive
+ source detection
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20261121035523.26764-11-matthew.laux@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:r7M3hiurwiZ498JuLbLD040PvBBtMSuao+pfsYh0EEyKcz2fm8E
+ /lA5sbD2RtAY7nXRrm16p1mHglhHFjEV/0BinCOHDWIenxmwSYZyKBhVGDrlRw1JBstldsB
+ bYETdLQPxgro/HjZpPp1+vyKky6ixJA5+cUQzjSlH6PMRzOAFJ4vR4VwMVKGrC7V/ZfvX1n
+ Tp3EEhNB+25jf5/ItlMvQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:KhjKszN8ApM=;/5XVeEYZgrvX2T/21NR3Nv78s0Z
+ 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
 
-On 9/25/26 08:48, Nihal Kumar Gupta wrote:
-> Glymur uses only the new PHY API via standalone phy@ child nodes,
-> so per-CSIPHY clocks, interrupts and supplies are absent here.
-> 
-> X1E80100 has four CSIPHY instances while Glymur has three
-> (CSIPHY0, CSIPHY1, CSIPHY4).
-> 
-> Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-> Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
->   .../bindings/media/qcom,glymur-camss.yaml          | 300 +++++++++++++++++++++
->   1 file changed, 300 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml b/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..a0b77edc212319fad69113f3d55ca24f184d4b23
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml
-> @@ -0,0 +1,300 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/qcom,glymur-camss.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+=E2=80=A6
+> +++ b/drivers/media/i2c/tw9900.c
+=E2=80=A6
+> +static int tw9900_s_routing(struct v4l2_subdev *sd, u32 input, u32 outp=
+ut,
+> +			    u32 config)
+> +{
+=E2=80=A6
+> +	mutex_lock(&tw9900->mutex);
+> +	ret =3D tw9900_apply_input(tw9900);
+> +	mutex_unlock(&tw9900->mutex);
 > +
-> +title: Qualcomm Glymur Camera Subsystem (CAMSS)
+> +	pm_runtime_put_autosuspend(&tw9900->client->dev);
 > +
-> +maintainers:
-> +  - Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> +
-> +description:
-> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,glymur-camss
-> +
-> +  reg:
-> +    maxItems: 13
-> +
-> +  reg-names:
-> +    items:
-> +      - const: csid_wrapper
-> +      - const: csid0
-> +      - const: csid1
-> +      - const: csid2
-> +      - const: csid_lite0
-> +      - const: csid_lite1
-> +      - const: csitpg0
-> +      - const: csitpg1
-> +      - const: csitpg2
+> +	return ret;
+> +}
+=E2=80=A6
 
-I believe CAMSS on SM8350 and before has TPG as a CSID IP function, but
-since then TPGs are seperate I/O blocks. It might be more appropriate
-to give "tpgX" names (like it's done for sa8775p and qcs8300), and I do
-understand that "csitpgX" were selected just to get a compatibility with
-the reused X1E TPG names, which might be not a good enough reason...
+Under which circumstances would you become interested to apply a macro cal=
+l
+like =E2=80=9Cscoped_guard(mutex, &tw9900->mutex)=E2=80=9D?
+https://elixir.bootlin.com/linux/v7.4-rc1/source/include/linux/cleanup.h#L=
+325-L328
 
-> +      - const: vfe0
-> +      - const: vfe1
-> +      - const: vfe_lite0
-> +      - const: vfe_lite1
-> +
-> +  clocks:
-> +    maxItems: 20
-> +
-> +  clock-names:
-> +    items:
-> +      - const: camnoc_nrt_axi
-> +      - const: camnoc_rt_axi
-> +      - const: core_ahb
-> +      - const: cpas_ahb
-> +      - const: cpas_fast_ahb
-> +      - const: cpas_vfe0
-> +      - const: cpas_vfe1
-> +      - const: cpas_vfe_lite
-> +      - const: csid
-> +      - const: csid_csiphy_rx
-> +      - const: gcc_axi_hf
-> +      - const: gcc_axi_sf
-> +      - const: vfe0
-> +      - const: vfe0_fast_ahb
-> +      - const: vfe1
-> +      - const: vfe1_fast_ahb
-> +      - const: vfe_lite
-> +      - const: vfe_lite_ahb
-> +      - const: vfe_lite_cphy_rx
-> +      - const: vfe_lite_csid
-> +
-> +  interrupts:
-> +    maxItems: 9
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: csid0
-> +      - const: csid1
-> +      - const: csid2
-> +      - const: csid_lite0
-> +      - const: csid_lite1
-> +      - const: vfe0
-> +      - const: vfe1
-> +      - const: vfe_lite0
-> +      - const: vfe_lite1
-> +
-> +  interconnects:
-> +    maxItems: 4
-> +
-> +  interconnect-names:
-> +    items:
-> +      - const: ahb
-> +      - const: hf_mnoc
-> +      - const: sf_mnoc
-> +      - const: sf_icp_mnoc
-> +
-> +  iommus:
-> +    items:
-> +      - description: S1 HLOS IFE and IFE_LITE non-protected
-> +
-> +  power-domains:
-> +    items:
-> +      - description: IFE0 GDSC - Image Front End, Global Distributed Switch Controller.
-> +      - description: IFE1 GDSC - Image Front End, Global Distributed Switch Controller.
-> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
-> +
-> +  power-domain-names:
-> +    items:
-> +      - const: ife0
-> +      - const: ife1
-> +      - const: top
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    description:
-> +      CSI input ports.
-> +
-> +    patternProperties:
-> +      "^port@[0-3]$":
-
-Reading the commit message, I develop a feeling that it might make sense
-to change the regexp to [014] or something like that.
-
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +
-> +        description:
-> +          Input port for receiving CSI data.
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
-> +  - interrupt-names
-> +  - interconnects
-> +  - interconnect-names
-> +  - iommus
-> +  - power-domains
-> +  - power-domain-names
-> +  - ports
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/qcom,glymur-gcc.h>
-> +    #include <dt-bindings/clock/qcom,glymur-camcc.h>
-> +    #include <dt-bindings/interconnect/qcom,glymur-rpmh.h>
-> +    #include <dt-bindings/interconnect/qcom,icc.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/power/qcom-rpmpd.h>
-> +
-> +    soc {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +
-> +        camss: isp@acb6000 {
-> +            compatible = "qcom,glymur-camss";
-> +
-> +            reg = <0x0 0x0acb6000 0x0 0x1000>,
-> +                  <0x0 0x0acb7000 0x0 0x2000>,
-> +                  <0x0 0x0acb9000 0x0 0x2000>,
-> +                  <0x0 0x0acbb000 0x0 0x2000>,
-> +                  <0x0 0x0acc6000 0x0 0x1000>,
-> +                  <0x0 0x0acca000 0x0 0x1000>,
-> +                  <0x0 0x0acf6000 0x0 0x1000>,
-> +                  <0x0 0x0acf7000 0x0 0x1000>,
-> +                  <0x0 0x0acf8000 0x0 0x1000>,
-> +                  <0x0 0x0ac62000 0x0 0xf000>,
-> +                  <0x0 0x0ac71000 0x0 0xf000>,
-> +                  <0x0 0x0acc7000 0x0 0x2000>,
-> +                  <0x0 0x0accb000 0x0 0x2000>;
-> +            reg-names = "csid_wrapper",
-> +                        "csid0",
-> +                        "csid1",
-> +                        "csid2",
-> +                        "csid_lite0",
-> +                        "csid_lite1",
-> +                        "csitpg0",
-> +                        "csitpg1",
-> +                        "csitpg2",
-> +                        "vfe0",
-> +                        "vfe1",
-> +                        "vfe_lite0",
-> +                        "vfe_lite1";
-> +
-> +            clocks = <&camcc CAM_CC_CAMNOC_AXI_NRT_CLK>,
-> +                     <&camcc CAM_CC_CAMNOC_AXI_RT_CLK>,
-> +                     <&camcc CAM_CC_CORE_AHB_CLK>,
-> +                     <&camcc CAM_CC_CPAS_AHB_CLK>,
-> +                     <&camcc CAM_CC_CPAS_FAST_AHB_CLK>,
-> +                     <&camcc CAM_CC_CPAS_IFE_0_CLK>,
-> +                     <&camcc CAM_CC_CPAS_IFE_1_CLK>,
-> +                     <&camcc CAM_CC_CPAS_IFE_LITE_CLK>,
-> +                     <&camcc CAM_CC_CSID_CLK>,
-> +                     <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>,
-> +                     <&gcc GCC_CAMERA_HF_AXI_CLK>,
-> +                     <&gcc GCC_CAMERA_SF_AXI_CLK>,
-> +                     <&camcc CAM_CC_IFE_0_CLK>,
-> +                     <&camcc CAM_CC_IFE_0_FAST_AHB_CLK>,
-> +                     <&camcc CAM_CC_IFE_1_CLK>,
-> +                     <&camcc CAM_CC_IFE_1_FAST_AHB_CLK>,
-> +                     <&camcc CAM_CC_IFE_LITE_CLK>,
-> +                     <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
-> +                     <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
-> +                     <&camcc CAM_CC_IFE_LITE_CSID_CLK>;
-> +            clock-names = "camnoc_nrt_axi",
-> +                          "camnoc_rt_axi",
-> +                          "core_ahb",
-> +                          "cpas_ahb",
-> +                          "cpas_fast_ahb",
-> +                          "cpas_vfe0",
-> +                          "cpas_vfe1",
-> +                          "cpas_vfe_lite",
-> +                          "csid",
-> +                          "csid_csiphy_rx",
-> +                          "gcc_axi_hf",
-> +                          "gcc_axi_sf",
-> +                          "vfe0",
-> +                          "vfe0_fast_ahb",
-> +                          "vfe1",
-> +                          "vfe1_fast_ahb",
-> +                          "vfe_lite",
-> +                          "vfe_lite_ahb",
-> +                          "vfe_lite_cphy_rx",
-> +                          "vfe_lite_csid";
-> +
-> +            interrupts = <GIC_SPI 601 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 603 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 431 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 457 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 436 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 270 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 271 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 458 IRQ_TYPE_EDGE_RISING>,
-> +                         <GIC_SPI 860 IRQ_TYPE_EDGE_RISING>;
-> +            interrupt-names = "csid0",
-> +                              "csid1",
-> +                              "csid2",
-> +                              "csid_lite0",
-> +                              "csid_lite1",
-> +                              "vfe0",
-> +                              "vfe1",
-> +                              "vfe_lite0",
-> +                              "vfe_lite1";
-> +
-> +            interconnects = <&hsc_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> +                             &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
-> +                            <&mmss_noc MASTER_CAMNOC_HF QCOM_ICC_TAG_ALWAYS
-> +                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-> +                            <&mmss_noc MASTER_CAMNOC_SF QCOM_ICC_TAG_ALWAYS
-> +                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-> +                            <&mmss_noc MASTER_CAMNOC_ICP QCOM_ICC_TAG_ALWAYS
-> +                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-> +            interconnect-names = "ahb",
-> +                                 "hf_mnoc",
-> +                                 "sf_mnoc",
-> +                                 "sf_icp_mnoc";
-> +
-> +            iommus = <&apps_smmu 0x800 0x20>;
-> +
-> +            power-domains = <&camcc CAM_CC_IFE_0_GDSC>,
-> +                            <&camcc CAM_CC_IFE_1_GDSC>,
-> +                            <&camcc CAM_CC_TITAN_TOP_GDSC>;
-> +            power-domain-names = "ife0",
-> +                                 "ife1",
-> +                                 "top";
-> +
-> +            ports {
-> +                #address-cells = <1>;
-> +                #size-cells = <0>;
-> +
-> +                port@0 {
-> +                    reg = <0>;
-> +                    camss_csiphy0_ep: endpoint {
-> +                        data-lanes = <1 2 3 4>;
-> +                        remote-endpoint = <&csiphy0_out>;
-> +                    };
-> +                };
-> +
-> +                port@1 {
-> +                    reg = <1>;
-> +                    camss_csiphy1_ep: endpoint {
-> +                        data-lanes = <1 2 3 4>;
-> +                        remote-endpoint = <&csiphy1_out>;
-> +                    };
-> +                };
-> +
-> +                port@3 {
-> +                    reg = <3>;
-> +                    camss_csiphy4_ep: endpoint {
-
-Here is a mismatch between port number and link name, please
-double check, if it is intended.
-
-> +                        data-lanes = <1 2 3 4>;
-> +                        remote-endpoint = <&csiphy4_out>;
-> +                    };
-> +                };
-> +            };
-> +        };
-> +    };
-> 
-
--- 
-Best wishes,
-Vladimir
+Regards,
+Markus
