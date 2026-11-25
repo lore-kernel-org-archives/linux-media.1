@@ -1,55 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795622032;
-	b=fghCPKSNzqyjR1aq2HSW1p3MIclUVgNq1fzAs/MigNnmCCB7KwY2uREE/Z/XiGymUCKq
-	 6gMYVdLlrHCFDgwgh9EQhqdJ0jkq5yaSl3OdoRCwhJopNhi/tRlnwUblDS0kugW78Vbqb
-	 ykECuOCWSO8lg61oaUJ1SIDPBjRKpmQAYfgax5hA59oa5WSuE/thCUGa9SdoINvAfRNRc
-	 8NwmWP4WAF3dLeqNnZd7tanPT3KpDOTla5xlkhHnAMlKrFlMn6j1ATvp/Vi4HGo7ti43P
-	 3VfkIPhC4dYxaB+Ggo7qcxpCatIvQf6Oo31wt3dtiTI1CMHBryjYIvGynTp8/Tc2M+w==
+	t=1795622162;
+	b=zezoGw0XESfLNYA4LAKjkF5NvwM04lSmU1kbIqZoUfE41K6h1tnL3IShstK2WcWs+HsS
+	 jfRvrQhuN5W4FAUkE+OX1H2FXyJruegFrVPQ0tb5P4BOKW6Hv7ebpL+zmo6/8fTZ4PKaI
+	 LlB3VOcw0uSVh1qecrs18bVpn724ZPl+7ZszXGc6jNPb5iQ4BhtssQLJVydvfL7xBNCbl
+	 4/AJnVBMPzzJkLSptarny2gtOgTaQ+DXJGVJ5t68HWGWCKlU4+XUdW/mI0W635VJeIuKV
+	 IIMu/alnVmdRxoPjwrxsY5E5e/0+Kj+b14yd27dmNeC7fso0dQLV8gg4/xgOylnEm7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622032;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/QyiPsXELdVcU8h8SMClaBGSEvaC+/rJrAPi6gmrO6o=;
-	b=XjDANdl37sFVWwE37wRJBOxUWwaxZEFMtGeMJYEpEabJJdhG6c5wmu3PHuhbnhPVi6im
-	 gA85BIPwuhKW1HGK2uYiBLrWWs/oCqNCOxa4O4vlQyNb1h9Pc3s9iLPUz1WVRu71zrnO6
-	 IIH2Ndq9z6yzUe9kdg7Fv/CpdSlNbq2IC1GGZn8jvH0JzD/FwilU3zCc95JzYEkxXTO+M
-	 TxEtQq0oThqA7hFZAvgKflx19mPJe4PQyIbKQipm9Uwf4obv2eSIvgcrHy341SrCoRSI9
-	 rmihiVoLKmMGAZIARbm7JokaV5EdCa2RFOAsYptr2+yIGVQ2EyxxZpUuCZVadbjoXpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622162;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=EFVYxWaHZcfOFQ3BpTu3S3Fo2WDIpYYjIvIe38jWEXE=;
+	b=zsADfrMftSBZ6qTMUcttTeJGNhYVKFkNXGINKyNrgG6C3F1DUH6m4atH5g82J4KgwcmV
+	 yNlI6V4UW1n6BISJzxElxq/Ff5ZU7Rm0FQ3uWz1IPwPjDIkakyzwoYevyew3zM0oTtrXI
+	 qAjwbnudUuZUwDUiVAmMFvyybz+hYoFKL7p8ISzKZVewTkaCOJ7LIbRILZuTsH0kZXk4n
+	 TMRf2dIQZKSgMb5xg1YTROh0+HU+sJR7FVfEPGkh0YCnTCHMBgbYOImhROOW+lVzl6kt3
+	 o8q8GtAOAYwnZ4mJ6iO0qt1drflV45K9pHxEAAguHIcl5eGknTB6mysyAtE3ci7I51Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ajte+QQg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=ZafjRjo7;
+	arc=none smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2E4606A326
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 15:53:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5E92606A680
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 15:56:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5E92606A680
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ajte+QQg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7447E1F000EF
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 15:53:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795622032;
-	bh=/QyiPsXELdVcU8h8SMClaBGSEvaC+/rJrAPi6gmrO6o=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Ajte+QQgdCvyL5yKctsd8Z7EZxDbaxER6jE5Vt9tSb6N3b0CuQEt0CNTjW0eR/avj
-	 Du27j6wgkzhwuLh8wHXreOV+jtHAMt66zyL9WY1VXZ81OVroo+AyfPIqTnG+NjbOsh
-	 UGsw87nP7s3YrHAgJBQG0et8fUHWVGb9cwQLk96evoW+/rFroI8OfsL4WEf2bP1QFs
-	 pOfBr8ZOx1olk0rcXwcmIdty5Djn8Unj9t8/VltsfQ0Zr0OJCe3ZOhU4zH7NJ3Rh5V
-	 V0NwbYkeRUSZ1mmVhKUa5Yxk2yQM7AvywafkSQGj5VwzcKOVh/JiVZXjZFpJ9FUc4B
-	 glVZcJaxFhwYA==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5c14a204305so4046103e87.3
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 07:53:52 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErE0ZVlP/94xkCzPN+kqOT/zYBmSrkMIrcD6mYfnT1syxflYJh4bon1c13w58zmOd9AzIJwbsbtOb6GmvA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8y9WNAFbjiGMEv8JUi97DPCMrOBKr+VELpqkeFRco3iLFLUNP
-	ssNm8gqZQ7FaNE/OtS4qq9szDK+goJxqMBRezwulLXs7yJc7MumgTFA3oy8hTVDkBthbTR/Erri
-	cjkQGw3JSWvHT8pcI4r4DbFJ7X7GTG8U=
-X-Received: by 2002:ac2:4e07:0:b0:5c1:4f54:a6c6 with SMTP id
- 2adb3069b0e04-5c1bc7cb0f6mr5811261e87.30.1795622030011; Wed, 25 Nov 2026
- 07:53:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=ZafjRjo7
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-537548b811aso49245091cf.3
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 07:56:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1795622161; x=1796226961; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EFVYxWaHZcfOFQ3BpTu3S3Fo2WDIpYYjIvIe38jWEXE=;
+        b=ZafjRjo7W2swqvbVLMShNOn6PDDj0qTv2rs5oMVx3juJiLQQo5ZhjRQwmHTBemSoGU
+         qxVb2u/osdtt/RqeGAyOC/X/ZgIngv1ammzsHuJ0txE6EK5q1yNLAfRfXtQ662q5E3M8
+         wuMiMVBgKlNgN5ocneb/Gh+UwB29zWTZEeuP7+e45N2BL73MmuQiPeeWBFMGYlRo2jws
+         0HoEgP+heVGG3/3V5VsZN6n/L2yu1KmcZv451RPdZ7XI5l4paWonhOCo2tVMtrBIHjX+
+         QRHNM1/6yrJikuSE9dBT5dyYIl1GIjqR1DopQ3+RNmQ0Vgo5xfSer75sZRikLrqLUjjG
+         NpuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795622161; x=1796226961;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EFVYxWaHZcfOFQ3BpTu3S3Fo2WDIpYYjIvIe38jWEXE=;
+        b=AiXHKy2hUxXl9JrP6cMEWwmAuMc4AoA/kEFiWYjxM0TWjKEUlVHapAb2zxkX5GMgBQ
+         UJuxLY6zZ9vkYnyhRauJRCKNTBLqdDCM4TFO5BSCHgPiYjKvafmo4kjGtyeupQNwNVD2
+         fnBYaQvYJ1XfoqdO5h/L2XO28cGycFxjl8seT7H1yHfcze02IAT4CLvrV5UdOcaXmeuu
+         DwEjPyJk+MH+sjUdp2n16X0OMqGEAgnvltmGQUE5rh9H9zMJ8jdVfPF3glW53wA7HBpk
+         fs9Eydez17CQFXpOayVye1V82sOlLcGNYhR+r/fq8w/jlX/hLHqMysGW9bumF6EBQEV8
+         +4Vg==
+X-Forwarded-Encrypted: i=1; AL+hErFs3nN0GtC1IA0xl1DPX9LEYl9HS+Q14uJLItHG8P2zrIpj6vAQLNyy/ddqbQY9dmCIHNQam1bvJpZvEQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z87XQjQbPp0A+V3qqHpnMRS64nE4+LQpOf+U5kVtMatoZNxOpTQ
+	hQWXOuA8Mj5zkWdtf8IX0akNmpHRUZNCPlGuPMHrBGvdxGyoBCE+JPtXT91mww5kGW0=
+X-Gm-Gg: AZFdTZdlC1g0TZpCx5Z34nJs6PRuk49KgTEJEoMTjvPBnxOYPcL9WGXcpHuKWBQQVaf
+	ABN1yLVC5QM/hHHnH+Ds4bnBf5aXP5NXvEspX7jTxcJK952iOo6EmbHmAzEUfRr8ls7yYjgAfyb
+	iHp6fq8USTSdHXiWTb/JkIWPIYf2FRiEfMQhFUAkjWSqIIf6N2oxdapXuBmjTQtqXMGRN7HXGlY
+	NUpwv0uM/HpQ0/litR6sJperEYj1XuU66XyRYQJqdhwg92+n3YgZj2gX0GAb9EcxYeBNiWGO5Vg
+	bLeC2maNzEpY9GLhKSV3dlR8IX+8f2mYMI1Ix9AsypdqVZmNx+qY4ianTrGUwopzvBY7fw5S6yh
+	zAskHjFrmIe8WtoUkZQ1MXhAvcFEXVfxoxP1lp/bfncdLWDslop8Exdvm8y5I2nHAxWPajkyI0+
+	6qUB+3Ot5kxVQnvJ7SGNg9080Nejw1Gy0y8WNkNQliFyxJ8XQ5FHsQii8vSgYBYCaz6bDklce1N
+	qPpvbO9cbc2DQ244xzkOgMvrC05XlBwdHy3Y+nuVJPFa72rz9hORxoArWhyMvUxVMJeZs4bm2bV
+	oAZRtMfmMG6zGaW5DZ8g3V0Xnxk=
+X-Received: by 2002:ac8:5d89:0:b0:536:5696:e8c8 with SMTP id d75a77b69052e-55d769e4561mr347501161cf.28.1795622160509;
+        Wed, 25 Nov 2026 07:56:00 -0800 (PST)
+Received: from ziepe.ca ([142.177.118.84])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d7882bf70sm160274901cf.11.2026.11.25.07.55.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Nov 2026 07:55:59 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xWFLj-00000001uyg-0aUM;
+	Wed, 25 Nov 2026 11:55:59 -0400
+Date: Wed, 25 Nov 2026 11:55:59 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Alistair Popple <apopple@nvidia.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Dongwon Kim <dongwon.kim@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Baolu Lu <baolu.lu@linux.intel.com>,
+	Felix Kuehling <felix.kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	linux-nvme@lists.infradead.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+	Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com,
+	treding@nvidia.com, jhubbard@nvidia.com, chaitanyak@nvidia.com,
+	Leon Romanovsky <leon@kernel.org>
+Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
+Message-ID: <20261125155559.GL246011@ziepe.ca>
+References: <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
+ <20261123165716.GM179082@ziepe.ca>
+ <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
+ <awT8prWsj11TBdmP@nvdebian.thelocal>
+ <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
+ <20261124142032.GN9566@ziepe.ca>
+ <7a5a2d3a-e42e-4dc0-8d22-8dd1bd249501@amd.com>
+ <20261124194618.GC114530@ziepe.ca>
+ <awZ_Os1pXelOGaFP@nvdebian.thelocal>
+ <fb9a6b12-c134-4e40-86a5-dbcb59c0b91b@amd.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,210 +136,98 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117173738.1073856-1-Frank.Li@oss.nxp.com>
- <20261117173738.1073856-2-Frank.Li@oss.nxp.com> <CAPx+jO9RwkpSKwq6vq00uoXK-mcovJ2LMH7b_ByRnxOUj8nH8w@mail.gmail.com>
-In-Reply-To: <CAPx+jO9RwkpSKwq6vq00uoXK-mcovJ2LMH7b_ByRnxOUj8nH8w@mail.gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 25 Nov 2026 16:53:35 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jsnLjEBxa1R4Q3hZLZKrCUW0xSE9SqLB8bd4tNAhXTAQ@mail.gmail.com>
-X-Gm-Features: Aa3M54pn_ud7xKJ4Sp9_9mJsafRFGsiuNY-zMFg468C0_97OrWEf728wG9SLJbM
-Message-ID: <CAJZ5v0jsnLjEBxa1R4Q3hZLZKrCUW0xSE9SqLB8bd4tNAhXTAQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] PM: runtime: fix stub pm_runtime_get_if_in_use()
- for !CONFIG_PM
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: Frank.Li@oss.nxp.com, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Heiko Stuebner <heiko@sntech.de>, 
-	Ulf Hansson <ulfh@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Matthew Auld <matthew.auld@intel.com>, Hans de Goede <hansg@kernel.org>, 
-	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Mark Brown <broonie@kernel.org>, 
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, Yong Wu <yong.wu@mediatek.com>, 
-	Will Deacon <will@kernel.org>, Tomasz Figa <tfiga@chromium.org>, Marek Vasut <marex@denx.de>, 
-	Michael Tretter <m.tretter@pengutronix.de>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Hans Verkuil <hverkuil@kernel.org>, 
-	"open list:POWER MANAGEMENT CORE" <linux-pm@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	"moderated list:ARM/Mediatek SoC support:Keyword:mediatek" <linux-arm-kernel@lists.infradead.org>, 
-	"moderated list:ARM/Mediatek SoC support:Keyword:mediatek" <linux-mediatek@lists.infradead.org>, 
-	"open list:ARM/Rockchip SoC support:Keyword:b[Rr]ock[Cc]hipb" <linux-rockchip@lists.infradead.org>, imx@lists.linux.dev, 
-	Frank Li <Frank.Li@nxp.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>, Simona Vetter <simona@ffwll.ch>, 
-	David Airlie <airlied@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Alessio Belle <alessio.belle@imgtec.com>, 
-	Luigi Santivetti <luigi.santivetti@imgtec.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Bard Liao <yung-chuan.liao@linux.intel.com>, 
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>, Robin Murphy <robin.murphy@arm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Dafna Hirschfeld <dafna@fastmail.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Daniel Baluta <daniel.baluta@nxp.com>, 
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>, dri-devel@lists.freedesktop.org, 
-	imagination@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
-	intel-xe@lists.freedesktop.org, iommu@lists.linux.dev, 
-	linux-media@vger.kernel.org, linux-sound@vger.kernel.org, 
-	sound-open-firmware@alsa-project.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fb9a6b12-c134-4e40-86a5-dbcb59c0b91b@amd.com>
 
-On Wed, Nov 25, 2026 at 4:07=E2=80=AFPM Ulf Hansson
-<ulf.hansson@oss.qualcomm.com> wrote:
->
-> On Tue, Nov 17, 2026 at 6:38=E2=80=AFPM <Frank.Li@oss.nxp.com> wrote:
-> >
-> > From: Frank Li <Frank.Li@nxp.com>
-> >
-> > The stub for pm_runtime_get_if_in_use() under !CONFIG_PM currently
-> > returns -EINVAL.  The real implementation returns:
-> >   1  - device is active and its usage counter is non-zero (bumped)
-> >   0  - device is not in use or not active (counter not bumped)
-> >  -EINVAL - runtime PM disabled for this device
-> >
-> > When CONFIG_PM is not set every device is permanently "active" and
-> > always considered "in use", so the stub must return 1, mirroring
-> > __pm_runtime_resume() which already returns 1 in the same build.
-> >
-> > Returning -EINVAL breaks callers that test the return value with
-> > comparisons other than "!=3D 0 / =3D=3D 0":
-> >
-> > drivers/gpu/drm/i915/intel_runtime_pm.c:
-> >   if (intel_runtime_pm_get_if_in_use(rpm))
-> >   which wraps to: ret =3D pm_runtime_get_if_in_use(); return ret > 0;
-> >   With -EINVAL the wrapper returns false, causing an incorrect error
-> >   path in the GT fence revocation code.
-> >
-> > drivers/gpu/drm/xe/xe_pm.c:
-> >   if (pm_runtime_get_if_in_use(xe->drm.dev) > 0)
-> >   With -EINVAL the condition is false; xe_pm_runtime_get_if_in_use()
-> >   returns false, so callers believe the device is not usable.
-> >
-> > drivers/gpu/drm/gma500/power.c:
-> >   return pm_runtime_get_if_in_use(dev) =3D=3D 1;
-> >   -EINVAL !=3D 1, so the helper always returns false when !CONFIG_PM.
-> >
-> > drivers/gpu/drm/imagination/pvr_power.c:
-> >   if (pm_runtime_get_if_in_use(...) <=3D 0)
-> >   -EINVAL <=3D 0 is true, so the driver always takes the "requeue" erro=
-r
-> >   path instead of proceeding with the active device.
-> >
-> > sound/soc/sof/debug.c:
-> >   if (pm_runtime_get_if_in_use(sdev->dev) =3D=3D 1)
-> >   -EINVAL !=3D 1, so d3_prevented is never set, corrupting exception
-> >   debug accounting.
-> >
-> > drivers/iommu/mtk_iommu.c:
-> >   if (pm_runtime_get_if_in_use(dom->plat_dev->dev) <=3D 0)
-> >   -EINVAL <=3D 0 skips the TLB flush, leaving stale IOMMU mappings.
-> >
-> > drivers/iommu/rockchip-iommu.c:
-> >   Three call sites use WARN_ON_ONCE(err < 0) or similar patterns.
-> >   -EINVAL < 0 triggers a spurious WARNING on every call.
-> >
-> > drivers/media/i2c/isl7998x.c:
-> >   if (pm_runtime_get_if_in_use(dev) <=3D 0)  (two call sites)
-> >   -EINVAL <=3D 0 causes the driver to always skip register programming
-> >   when !CONFIG_PM.
-> >
-> > drivers/media/platform/rockchip/rkisp1/rkisp1-debug.c:
-> >   if (pm_runtime_get_if_in_use(dev) <=3D 0)  (two call sites)
-> >   -EINVAL <=3D 0 prevents any debug statistics from being collected.
-> >
-> > Fixes: a436b6a19f57 ("PM / runtime: Add new helper for conditional usag=
-e count incrementation")
-> > Fixes: 3b85b7bcccf4 ("drm/xe: Fix display runtime_pm handling")
-> > Fixes: 672c473576ca ("drm/gma500: Rewrite power management code")
-> > Fixes: b30289e7fa92 ("ASoC: SOF: Fix runtime pm usage counter balance a=
-fter fw exception")
-> > Fixes: c0b57581b73b ("iommu/mediatek: Add power-domain operation")
-> > Fixes: 51ef2be546e2 ("media: i2c: isl7998x: Add driver for Intersil ISL=
-7998x")
-> > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > ---
-> > Change in v3
-> > - drop tag: cbb819c363c5 ("media: rkisp1: debug: Collect input status b=
-y sampling ISP_FLAGS_SHD")
-> > selected PM at arch config
-> > - drop tag: 0f181d3cf7d9 ("iommu/rockchip: Add runtime PM support")
-> > selected PM at arch config
-> > - drop tag: 9d58aa46291d ("drm/i915: Fix the GT fence revocation runtim=
-e PM logic")
-> > guard by CONFIG_PM
-> > - drop tag 727538a4bbff ("drm/imagination: Implement power management")
-> > depend on PM
-> > `
-> > Change in v2
-> > - new patches.
-> >
-> > Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-> > Cc: linux-pm@vger.kernel.org
-> > Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > Cc: Maxime Ripard <mripard@kernel.org>
-> > Cc: "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>
-> > Cc: Simona Vetter <simona@ffwll.ch>
-> > Cc: David Airlie <airlied@gmail.com>
-> > Cc: Matthew Brost <matthew.brost@intel.com>
-> > Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> > Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-> > Cc: Alessio Belle <alessio.belle@imgtec.com>
-> > Cc: Luigi Santivetti <luigi.santivetti@imgtec.com>
-> > Cc: Liam Girdwood <lgirdwood@gmail.com>
-> > Cc: Mark Brown <broonie@kernel.org>
-> > Cc: Jaroslav Kysela <perex@perex.cz>
-> > Cc: Takashi Iwai <tiwai@suse.com>
-> > Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
-> > Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-> > Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-> > Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> > Cc: Robin Murphy <robin.murphy@arm.com>
-> > Cc: Yong Wu <yong.wu@mediatek.com>
-> > Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com=
->
-> > Cc: Matthias Brugger <matthias.bgg@gmail.com>
-> > Cc: Heiko Stuebner <heiko@sntech.de>
-> > Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> > Cc: Dafna Hirschfeld <dafna@fastmail.com>
-> > Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > Cc: Michael Tretter <m.tretter@pengutronix.de>
-> > Cc: Daniel Baluta <daniel.baluta@nxp.com>
-> > Cc: Will Deacon <will@kernel.org>
-> > Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-> > Cc: dri-devel@lists.freedesktop.org
-> > Cc: imagination@lists.freedesktop.org
-> > Cc: intel-gfx@lists.freedesktop.org
-> > Cc: intel-xe@lists.freedesktop.org
-> > Cc: iommu@lists.linux.dev
-> > Cc: linux-arm-kernel@lists.infradead.org
-> > Cc: linux-mediatek@lists.infradead.org
-> > Cc: linux-media@vger.kernel.org
-> > Cc: linux-rockchip@lists.infradead.org
-> > Cc: linux-sound@vger.kernel.org
-> > Cc: sound-open-firmware@alsa-project.org
-> > Cc: imx@lists.linux.dev
-> > ---
-> >  include/linux/pm_runtime.h | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
-> > index de9e7518ecef2..1d983fe55a16a 100644
-> > --- a/include/linux/pm_runtime.h
-> > +++ b/include/linux/pm_runtime.h
-> > @@ -276,7 +276,7 @@ static inline int pm_schedule_suspend(struct device=
- *dev, unsigned int delay)
-> >  }
-> >  static inline int pm_runtime_get_if_in_use(struct device *dev)
-> >  {
-> > -       return -EINVAL;
-> > +       return 1;
->
-> This should be return 0, as we did not bump the usage count.
+On Wed, Nov 25, 2026 at 12:19:08PM +0100, Christian König wrote:
+> The low level API which talks for example to the IOMMU driver for
+> creating the information how to access the buffer is simply not the
+> task at hand for that framework. The stuff we already handle is more
+> than complicated enough.
 
-This is kind of moot because there is no usage counter.
+No matter what name you give it we need something in the middle that
+can see the phys_addr_t and the iommu_domain..
 
-However, the caller may always take the opportunistic "in use" path
-because there are no potential costs related to it.
+If you don't want DMABUF to be that thing, then I'm not sure what you
+have in mind.
+
+> > If I drop the type/placement negotiation for now and focus on SGT removal I can
+> > simplify things a lot. Plan would be something like:
+> > 
+> > 1) Introduce a new C data type (dma_phys_list?) for exporters to pass physical
+> >    location info and context for mapping.
+> 
+> Something like this maybe?
+> 
+> struct {
+> 	u32	mapping_type;
+> 	u32	num_entries;
+> 	union {
+> 		dma_addr_t	*dma_addr;
+> 		u64		*generic_64bit_addr;
+> 		...
+> 	};
+> }
+> ....
+
+"phsyical location info" means phys_addr_t and related, not
+dma_addr_t. Step #3 has it as the *input* to dma_phys_list_to_sgt().
+
+The flow today has the exporter get a phys_addr_t (ie a struct page),
+build a scatterlist and directly invoke the DMA API.
+
+The primary issue here is the exporter *direct* call to the DMA API!
+
+We cannot disconnect this from the DMA API, ie to use an iommu domain
+or ualink, if exporting drivers are hardwiring calls into it.
+
+Fundamentally the need is for the driver to get the phys_addr list,
+exactly like today, and then pass it to an op which formats that into
+the right data structure for the importer. Be it dma_addr[],
+iommu_domain, or some ualink_addr[] - or whatever.
+
+This is the main issue here, disconnecting the exporters from being
+hardwired to the DMA API.
+
+That's what Alistair is explaining. This sequence:
+
+> > 2) Introduce two new dma_buf_ops - map_dma_phys_list() and unmap_dma_phys_list()
+> >    - which are replacements for {un}map_dma_buf that converted exporters use to
+> >    return a dma_phys_list instead of returning a sg_table.
+> >
+> > 3) Move dma_buf_phys_vec_to_sgt() somewhere other than drivers/dma-buf and
+> >    rename it dma_phys_list_to_sgt().
+
+> > 4) Update dma_buf_{un}map_sgt() to call the new map_dma_phys_list() ops and
+> >    dma_phys_list_to_sgt() to create an sg_table for unconverted importers
+> >    importing from a converted exporter.
+
+Effectively converts all the exporters to produce a phys_addr_t, and
+then moves the DMA mapping action into one single place in common
+code.
+
+With one single place we can figure out how to replace it with a call
+that does an iommu_domain:
+
+> > 5) Add dma_buf_iommu_map() taking a IOMMU domain/iova/offset/size to be called
+> >    from iommufd for mapping an attachment into an IOMMU domain.
+
+But that relies on iommu_map having access to the dma_phys_list *which
+is true physical*
+
+> I think a whole bunch of other drivers would be really happy to use
+> that interface as well, yes.
+
+Right, that is clear now, that it is not just iommufd that wants a
+dma_buf_iommu_map()
+
+But I don't understand at all how you imagine to implement
+dma_buf_iommu_map() if you don't want this in the DMABUF core code.
+
+> That totally sounds like a plan to me.
+
+I'm confused if you agreed to what Alistair said :(
+
+Jason
