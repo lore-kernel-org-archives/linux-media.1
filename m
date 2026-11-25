@@ -1,104 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795604922;
-	b=vL2fyxuamUqx96tpmyk/TbqYPXR5W0t9FgRGAjojzgwSaRxCXEzeWMt+6ASU8fRGpL43
-	 LWHVcXS2syf67xP1x6wvhqq1rKJ6EkxgvgF2eUlQPJml2O906o5ULFzboaPDBWl7ufs6J
-	 2aoxhhYencj5OnJxeXnBloeYJtruaBIIVHuitBOo2wBJWZavVV+WVgZxEcXz36sD69iDA
-	 9ICgJuN1xj8dk5pT95mdDz3kMD6uDcMZf5LPWJH9BJWDPIm2jphkfP6nrrZNPChIWm5+9
-	 VewbNvEX3HjkBHURCH2ARBwmUOt/xCz8dSzsF59yir0H7NapDY+gIucsQRyWx6vuAIw==
+	t=1795605372;
+	b=HE3Hdzs2frI5JBzljfCvgdFRtEDEFEwJ9cNjS4dK0gXsbtCaB4QJrN+GqdpaPLX6mC5C
+	 Qz5PY3KDi+vhgFk637ey7oGBTx1C3fhhKrGoesTNbAN2DGy0oeEx1TXPP25HXkjmKBuQ+
+	 vrSIehWNI8Jc4ly+O0sQUY1wrMfu/+ojWJE/9Nhp4aAjPW3j2dnxJr+lA8NSos6IB9tFz
+	 Lfu3FQtkLbP4fEGZcO0TfOyqHY+go82yFdNCAsmfYjdFGjYiyd11UnsQksoSBw7x4oj9P
+	 BuvisCp30W+qF3zlzN16V2/gpOHyKdG+eckObcXZGvUPlz1Dr2dOXWbxfGm87gaSWgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795604922;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NM1ahoT0Xghla9vcxTFJwnAsEHzEgH5Nw3CBVxZQulg=;
-	b=JJWbgkWmcHXL6Z/c8/L0dlWYnlghdZDcDevIKaHE4MqAMuJcAVSduYCi2x2T8K2kWOAj
-	 z3aYwIhRr1YRNPB84zByjNhagkbsoDGKOns/tfCB7SsXYxrmBivTvadwtA0hz3GTdY2mo
-	 p7GkMT8BsLXNk1ra8M/xNoKvzlarX8C6iKQQtjYSOqpA78WvXTcgaBsgUs+VrV6f6cA6N
-	 Dzw2RbIdqQk4xWncynXMuAHjOax1H810wvaeNmRPyuGrczD/11dCP6M/eivcGwzBso47S
-	 LhQaJ7tEDnhooSr4iqIwYu1BPLk68Zt58PVo42KUsvMsvAmEwyGA7FS3dEyvihM5j6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795605372;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=vx7YNc78s95n9tQ4kGlT5XpPau9zDZptlxnEIpP/bA8=;
+	b=bkAzRRz1kQze1JlD3AIeJuyCYc6dRZJOedhVG2zDvqfuIUQT1hWY5JSARxCxfGP13ky+
+	 ynB9PGEwIX1vSTcnDGTB1cmEz0H3fFSMFK+b8no6ua5oUR1uz9s7sQpVm5B3RCg+0qTYT
+	 XAWDJROTjLiHb+LAr+af3Ua4Oeeez7vrK/knqQrQg3PCtBBbG+YlKbnrtVpUhcjwVtEOu
+	 S7FiN1BwCooS4gY0oP3tup7lJFII89psmJOY3YCy75uWKmtXRX5wkHk4PKl5BZufF6AU0
+	 gNI29ahW06oVStZj97+Qg/07PwcEguAB7MP5aKDPNgYJ0kqxo43aMy99mz+8hNqgTBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YJYdb58p;
-	arc=none smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NmXQ0rp0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B014860A2611
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 11:08:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B014860A2611
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84895606A321;
+	Wed, 25 Nov 2026 11:16:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YJYdb58p
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4d581da0aaso782743666b.2
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 03:08:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795604919; x=1796209719; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NM1ahoT0Xghla9vcxTFJwnAsEHzEgH5Nw3CBVxZQulg=;
-        b=YJYdb58pATWnK3y4qZJ3yF8Y0RfSUfDxyY+3QQ4uiDk4WChVS0DAkrUXVj5wZ9rMGm
-         sL80yanT+91GSbIk90/ieT8rLvuqHCwXwEf6Jr+hNa2dHDCNhDgPeh048VnxOmdP8Tjw
-         LSJSyJ3oeh3R62wkBgczzhfT06iKgHBGMqovnflXsmd7WL80/Jm5bQHB3Ah1+LK3DJXv
-         DFpdhT/x+GpX5Z9ONtrCLT50GtuJ+UJru+NpyDEEYjYNneG5KZOLi/8RqCWbu9V/n4Gh
-         FwavPl0D0UxIVogsOnjx3+t5R9jrni4RrAV5ldHTP7F2XMr4d9amadxvhu00brBRdtkg
-         2glw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795604919; x=1796209719;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NM1ahoT0Xghla9vcxTFJwnAsEHzEgH5Nw3CBVxZQulg=;
-        b=v2YwEmqtKck59Sc8KBkwR6ihI8rR4Ol4di3OjwhLWG91KOg7kWhBd9+x+zMZl3UJ6g
-         Xtl9rnJafxgRooZm1GQbFfR1CZdpwiWh0han8G7skNvMBn1xzUl8r9Ow+jKPJvcV0rIq
-         l0mJoUlB4hQe3uaLs3SMWXHlN/EoPTaD80Bz0LkVJo3ONsv7CWs8q0xK4xIdoow8QFl9
-         seL3+xC0nLTyq6/Dxjo+Mg2ZXmVNVdW1/Y0E/++M58oekPUjKBm/qOt24d3TEJso2ehJ
-         b77g/C6e9f06SjZWOW8T83dOOQU5Ao/NmjNSKGnHxtv0BQ3flJqFSP2pa37yE23MQPsm
-         4O6A==
-X-Forwarded-Encrypted: i=1; AL+hErFcRz2MKB+1ux3hM8Qn8O0YUFwcTXhQyhl94qGU0y1tRwnlmEfWevJqJTwed1HL/voRavWYUupJoFGYag==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ivX095F7RVgoSoRmGMhHpZraQ4k3EjYNbEmO3P1sW2oW4tril
-	fjde3tyIRzdM6EmrdBQzUqRe83+QRmtOrylYgPS6Zkp1Fu77d6gkkCu7
-X-Gm-Gg: AZFdTZeXz6bg3+Cm6cMh84zOWhjXSSmwYnhTu64MObiS1MX2lY40CUlTVZK6fEp5JGM
-	vztnGbDtsQRN/4ysJyT/dt6UUWdKarsZLUZ8qKvEkfDgWqVLxUr8dDxDwhZDDW+JNk13ngf+w2r
-	i0ifyl2pL3WYhkriGGbaDnRKvLHSRRZd3XqHikxK7OaRZZlFvrAlpaCGBIKlzmxGuoJvWBUIXoH
-	Vv9NgG0zA10i3Why90Z7Mo3rYVF7ZFnBSqvtPX1TCGtKb/Hh4mVZfRfQwLy+c15WNwKMcDma8sU
-	tRxFRIOsSg/NSBNqX6IcPXVNKqzNCh5Kq6OscXdG3VEbZq9IldBy2yE8/R1cGdBuYxuyeE6tdXw
-	GFVAOYTTbnTCFR2C3NqWpYgpX81cqmu9sU5lO5zmzmS3VfK/VAdtBWpIJd4XRu7ROfSm5Gy94LQ
-	X67e/giBldpJoTeTAn5Tm1A9kyvxuFi9CvbIy38DgrZPlfHF4H8J9otIOq/+hwdaHQQjc/F4Jep
-	w3qzsW9OlKj3AomQiCA7KFoBZmn56yIGY31SyB6lvEdO9lZl8WaC9yg5+BZ93GNZM+8uDFzMP9N
-	Doyyuen771AtM/scA/PTq/KQok7r8sDcfXS17zquUtxDa2ge2TnONDH8U6P2tsUoZDQl0xKlpvb
-	4pZHHhztVwQ==
-X-Received: by 2002:a17:907:3dab:b0:c4d:212a:192a with SMTP id a640c23a62f3a-c51a2a75817mr234496566b.48.1795604918938;
-        Wed, 25 Nov 2026 03:08:38 -0800 (PST)
-Received: from xeon ([188.163.112.54])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513acfeda1sm654562066b.6.2026.11.25.03.08.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 03:08:38 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Mikko Perttunen <mperttunen@nvidia.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Subject: [PATCH v1 13/13] media: tegra-video: vip: Add pad and media operations for VIP subdev
-Date: Wed, 25 Nov 2026 13:07:50 +0200
-Message-ID: <20261125110750.223628-14-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125110750.223628-1-clamor95@gmail.com>
-References: <20261125110750.223628-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NmXQ0rp0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E44C41F000D4;
+	Wed, 25 Nov 2026 11:16:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795605371;
+	bh=vx7YNc78s95n9tQ4kGlT5XpPau9zDZptlxnEIpP/bA8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NmXQ0rp0GCmYIzoTBH1XYK61oKTsXtVzDFpEKL0QMRGNCRP4BTHt1YnQ7axvFIzpK
+	 SJKDwZ0HLTw7PgTA2uuaEutrmu2xqP0i6HxLOQJQ1vAupIHWukj1kz6/uaEpXt/ykp
+	 lmITD3IcKEyIwX6gqS7d6quiqTOU0Y4cmymUApZwXVkkJD6Ll7ESqYgYWTSW84oljt
+	 bF16GRsy60D7y4mX6QlpEqz12juE8FRbRlMxa+L+7rSKN+ow/1gQ5d5ahPvqPSEI35
+	 qEGpvi95lnfJsEp8CrkRxN2y+3qdjhYt96RjAx57fA4VNsnYTdX6DDkxsL30lOX/a/
+	 Mlzmh85IddnvQ==
+Message-ID: <84ecba76-5fe7-4bb2-b18f-efc7cda2247c@kernel.org>
+Date: Wed, 25 Nov 2026 12:16:08 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -108,151 +51,147 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] platform/x86: int3472: Use actual clock frequency for
+ DSM method
+To: Sergey Lebedev <lsa.uz@pm.me>, Daniel Scally
+ <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Hao Yao <hao.yao@intel.com>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>, Bingbu Cao <bingbu.cao@amd.com>,
+ Fernando Rimoli <fernandorimoli11@gmail.com>,
+ platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261125090921.46652-1-lsa.uz@pm.me>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261125090921.46652-1-lsa.uz@pm.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Implement pad media bus format enumeration and format setting clamped to
-SoC limits via vi_fmt_align(), and attach v4l2_subdev_link_validate()
-to the VIP subdevice entity operations.
+Hi,
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- .../media/platform/nvidia/tegra-video/vip.c   | 101 +++++++++++++++++-
- 1 file changed, 100 insertions(+), 1 deletion(-)
+On 25-Nov-26 10:09, Sergey Lebedev wrote:
+> From: Hao Yao <hao.yao@intel.com>
+> 
+> The third argument (args[2]) to the _DSM method was hardcoded to 1,
+> which selects 19.2MHz. A sensor whose SSDB asks for 24MHz therefore
+> runs from 19.2MHz, and everything it derives from its clock runs at
+> four fifths of the expected rate.
+> 
+> Pass the frequency from the SSDB instead, with 19.2MHz as the default.
+> 1 selects 19.2MHz everywhere, but the value for 24MHz depends on the
+> platform. Where the frequency field is one bit wide (Tiger Lake, Jasper
+> Lake, Alder Lake, Raptor Lake) it is 0, and 3 would also set the clock's
+> enable bit again when the clock is turned off. From Meteor Lake on the
+> field is two bits wide and it is 3; 0 and 2 leave the clock unchanged
+> there, as measured with an oscilloscope.
+> 
+> Fixes: e4543de8b6ff ("platform/x86: int3472: Evaluate device's _DSM method to control imaging clock")
+> Signed-off-by: Hao Yao <hao.yao@intel.com>
+> [Sergey: pick the 24MHz value per platform]
+> Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
 
-diff --git a/drivers/media/platform/nvidia/tegra-video/vip.c b/drivers/media/platform/nvidia/tegra-video/vip.c
-index 040776775aacc..969966f3227f2 100644
---- a/drivers/media/platform/nvidia/tegra-video/vip.c
-+++ b/drivers/media/platform/nvidia/tegra-video/vip.c
-@@ -21,6 +21,14 @@
- #include "vip.h"
- #include "video.h"
- 
-+static const u32 tegra_vip_mbus_formats[] = {
-+	/* YUV422 */
-+	MEDIA_BUS_FMT_UYVY8_2X8,
-+	MEDIA_BUS_FMT_VYUY8_2X8,
-+	MEDIA_BUS_FMT_YUYV8_2X8,
-+	MEDIA_BUS_FMT_YVYU8_2X8,
-+};
-+
- static inline struct tegra_vip *host1x_client_to_vip(struct host1x_client *client)
- {
- 	return container_of(client, struct tegra_vip, client);
-@@ -48,6 +56,85 @@ static struct v4l2_subdev *tegra_vip_channel_get_prev_subdev(struct tegra_vip_ch
- 	return media_entity_to_v4l2_subdev(remote_pad->entity);
- }
- 
-+static u32 tegra_vip_get_format_code(u32 code)
-+{
-+	u32 i;
-+
-+	for (i = 0; i < ARRAY_SIZE(tegra_vip_mbus_formats); i++)
-+		if (tegra_vip_mbus_formats[i] == code)
-+			break;
-+
-+	if (i >= ARRAY_SIZE(tegra_vip_mbus_formats))
-+		i = 0;
-+
-+	return tegra_vip_mbus_formats[i];
-+}
-+
-+/*
-+ * V4L2 Subdevice Operations
-+ */
-+static int tegra_vip_enum_bus_code(struct v4l2_subdev *subdev,
-+				   struct v4l2_subdev_state *state,
-+				   struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	if (code->pad == TEGRA_VIP_PAD_SOURCE) {
-+		const struct v4l2_mbus_framefmt *sink_fmt;
-+
-+		if (code->index)
-+			return -EINVAL;
-+
-+		sink_fmt = v4l2_subdev_state_get_format(state,
-+							TEGRA_VIP_PAD_SINK);
-+		code->code = sink_fmt->code;
-+
-+		return 0;
-+	}
-+
-+	code->code = tegra_vip_get_format_code(code->index);
-+
-+	return 0;
-+}
-+
-+static int tegra_vip_set_format(struct v4l2_subdev *subdev,
-+				const struct v4l2_subdev_client_info *ci,
-+				struct v4l2_subdev_state *state,
-+				struct v4l2_subdev_format *format)
-+{
-+	struct tegra_vi_channel *chan = v4l2_get_subdev_hostdata(subdev);
-+	struct v4l2_mbus_framefmt *mbus_fmt = &format->format;
-+	struct v4l2_mbus_framefmt *sink_fmt, *src_fmt;
-+	struct v4l2_frmsize_stepwise stepwise = { };
-+	struct tegra_vi *vi = chan->vi;
-+
-+	/* The format on the source pad always matches the sink pad. */
-+	if (format->pad == TEGRA_VIP_PAD_SOURCE)
-+		return v4l2_subdev_get_fmt(subdev, state, format);
-+
-+	sink_fmt = v4l2_subdev_state_get_format(state, TEGRA_VIP_PAD_SINK);
-+	src_fmt = v4l2_subdev_state_get_format(state, TEGRA_VIP_PAD_SOURCE);
-+	if (!sink_fmt || !src_fmt)
-+		return -EINVAL;
-+
-+	mbus_fmt->code = tegra_vip_get_format_code(mbus_fmt->code);
-+	mbus_fmt->field = V4L2_FIELD_NONE;
-+
-+	/*
-+	 * VIP and VI have same size restrictions but they are SoC specific.
-+	 * Use VI operation to get them.
-+	 */
-+	vi->ops->vi_fmt_align(NULL, &stepwise, 0);
-+
-+	mbus_fmt->width = clamp_t(u32, mbus_fmt->width, stepwise.min_width,
-+				  stepwise.max_width);
-+	mbus_fmt->height = clamp_t(u32, mbus_fmt->height, stepwise.min_height,
-+				   stepwise.max_height);
-+
-+	*sink_fmt = *mbus_fmt;
-+	*src_fmt = *mbus_fmt;
-+
-+	return 0;
-+}
-+
- static int tegra_vip_enable_stream(struct v4l2_subdev *subdev)
- {
- 	struct tegra_vip_channel *vip_chan = subdev_to_vip_channel(subdev);
-@@ -104,8 +191,19 @@ static const struct v4l2_subdev_video_ops tegra_vip_video_ops = {
- 	.s_stream = tegra_vip_s_stream,
- };
- 
-+static const struct v4l2_subdev_pad_ops tegra_vip_pad_ops = {
-+	.enum_mbus_code = tegra_vip_enum_bus_code,
-+	.get_fmt = v4l2_subdev_get_fmt,
-+	.set_fmt = tegra_vip_set_format,
-+};
-+
- static const struct v4l2_subdev_ops tegra_vip_ops = {
--	.video  = &tegra_vip_video_ops,
-+	.video = &tegra_vip_video_ops,
-+	.pad = &tegra_vip_pad_ops,
-+};
-+
-+static const struct media_entity_operations tegra_vip_media_ops = {
-+	.link_validate = v4l2_subdev_link_validate,
- };
- 
- static int tegra_vip_channel_of_parse(struct tegra_vip *vip)
-@@ -165,6 +263,7 @@ static int tegra_vip_channel_init(struct tegra_vip *vip)
- 	v4l2_set_subdevdata(subdev, &vip->chan);
- 	subdev->fwnode = of_fwnode_handle(vip->chan.of_node);
- 	subdev->entity.function = MEDIA_ENT_F_VID_IF_BRIDGE;
-+	subdev->entity.ops = &tegra_vip_media_ops;
- 	subdev->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
- 
- 	err = media_entity_pads_init(&subdev->entity, TEGRA_VIP_PADS_NUM, vip->chan.pads);
--- 
-2.53.0
+Thanks, patch looks good to me:
+
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+
+Regards,
+
+Hans
+
+
+
+> ---
+> v3, sent by me as offered in the v2 thread, with Hao as the author:
+> - The 24MHz value is chosen per platform. On a Surface Pro 9 (Alder
+>   Lake) Fernando Rimoli measured that 3 gives 19.2MHz and 0 gives 24MHz
+>   [1]. coreboot's camera_clock_ctl.asl has a one-bit frequency field for
+>   Tiger Lake, Jasper Lake and Alder Lake (which covers Raptor Lake) and
+>   a two-bit one for Meteor Lake, Panther Lake and Nova Lake.
+> - The Fixes: tag and the note on 0 and 2 that Ilpo asked for.
+> - v2's Reviewed-by and Acked-by tags dropped, since the code changed.
+> 
+> Tested on a Surface Pro 11 (Lunar Lake), with the module built from
+> Ubuntu's 7.0 source, where this file is the same as in media-committers
+> next. The VD55G0, whose SSDB asks for 24MHz, streams at 59.14 fps as
+> its controls give, against 47.29 fps without the patch. The two 19.2MHz
+> sensors are unchanged. The Alder Lake branch has not run as posted.
+> 
+> v2: https://lore.kernel.org/all/20251208035122.2147678-1-hao.yao@intel.com/
+> [1] https://lore.kernel.org/all/20261026111012.33347-1-fernandorimoli11@gmail.com/
+> 
+> Tool use, per Documentation/process/generated-content.rst (Assisted-by
+> tags in commits were dropped in 7.4-rc1):
+> 
+> * My contributions to this series were prepared with Claude Code
+>   (claude-opus-5-5); work by others in it is their own.
+> * This replaces any Assisted-by tags in earlier versions.
+> 
+>  .../x86/intel/int3472/clk_and_regulator.c     | 39 ++++++++++++++++++-
+>  1 file changed, 38 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/platform/x86/intel/int3472/clk_and_regulator.c b/drivers/platform/x86/intel/int3472/clk_and_regulator.c
+> index 9e052b164a1..47dc23c5184 100644
+> --- a/drivers/platform/x86/intel/int3472/clk_and_regulator.c
+> +++ b/drivers/platform/x86/intel/int3472/clk_and_regulator.c
+> @@ -10,6 +10,9 @@
+>  #include <linux/regulator/driver.h>
+>  #include <linux/slab.h>
+>  
+> +#include <asm/cpu_device_id.h>
+> +#include <asm/intel-family.h>
+> +
+>  /*
+>   * 82c0d13a-78c5-4244-9bb1-eb8b539a8d11
+>   * This _DSM GUID allows controlling the sensor clk when it is not controlled
+> @@ -19,6 +22,40 @@ static const guid_t img_clk_guid =
+>  	GUID_INIT(0x82c0d13a, 0x78c5, 0x4244,
+>  		  0x9b, 0xb1, 0xeb, 0x8b, 0x53, 0x9a, 0x8d, 0x11);
+>  
+> +/*
+> + * The third argument to the _DSM method selects the clock frequency. 1 is
+> + * 19.2MHz everywhere. 24MHz is 0 where the frequency field is one bit wide
+> + * (Tiger Lake, Jasper Lake, Alder Lake, Raptor Lake) and 3 where it is two
+> + * bits wide (Meteor Lake and later).
+> + */
+> +#define INT3472_DSM_CLK_FREQ_19M2	1
+> +#define INT3472_DSM_CLK_FREQ_24M	3
+> +#define INT3472_DSM_CLK_FREQ_24M_1BIT	0
+> +
+> +static const struct x86_cpu_id int3472_dsm_clk_freq_1bit_ids[] = {
+> +	X86_MATCH_VFM(INTEL_TIGERLAKE_L, NULL),
+> +	X86_MATCH_VFM(INTEL_TIGERLAKE, NULL),
+> +	X86_MATCH_VFM(INTEL_ATOM_TREMONT_L, NULL),
+> +	X86_MATCH_VFM(INTEL_ALDERLAKE, NULL),
+> +	X86_MATCH_VFM(INTEL_ALDERLAKE_L, NULL),
+> +	X86_MATCH_VFM(INTEL_ATOM_GRACEMONT, NULL),
+> +	X86_MATCH_VFM(INTEL_RAPTORLAKE, NULL),
+> +	X86_MATCH_VFM(INTEL_RAPTORLAKE_P, NULL),
+> +	X86_MATCH_VFM(INTEL_RAPTORLAKE_S, NULL),
+> +	{}
+> +};
+> +
+> +static u32 skl_int3472_dsm_clk_freq(struct int3472_clock *clk)
+> +{
+> +	if (clk->frequency != 24000000)
+> +		return INT3472_DSM_CLK_FREQ_19M2;
+> +
+> +	if (x86_match_cpu(int3472_dsm_clk_freq_1bit_ids))
+> +		return INT3472_DSM_CLK_FREQ_24M_1BIT;
+> +
+> +	return INT3472_DSM_CLK_FREQ_24M;
+> +}
+> +
+>  static void skl_int3472_enable_clk(struct int3472_clock *clk, int enable)
+>  {
+>  	struct int3472_discrete_device *int3472 = to_int3472_device(clk);
+> @@ -35,7 +72,7 @@ static void skl_int3472_enable_clk(struct int3472_clock *clk, int enable)
+>  	args[1].integer.type = ACPI_TYPE_INTEGER;
+>  	args[1].integer.value = enable;
+>  	args[2].integer.type = ACPI_TYPE_INTEGER;
+> -	args[2].integer.value = 1;
+> +	args[2].integer.value = skl_int3472_dsm_clk_freq(clk);
+>  
+>  	argv4.type = ACPI_TYPE_PACKAGE;
+>  	argv4.package.count = 3;
 
