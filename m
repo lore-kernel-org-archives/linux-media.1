@@ -1,47 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795586906;
-	b=VZgWjqeKGOIMyjdbJLlTZ+Qn+Ek2vAB+b9hAHp48fc5qSq/xfA626YYT3avhg4HBkP6j
-	 QY0jALH4eSkgV1KjPQ8o1tVvdjYFTEOcRXUGJeZTslCh19pwm7Ra60uhR50yNiIOdIOgU
-	 ViHAFQI6m9/QI86a/ypgIYWHTfJ9EI2QB4tNQQER44tKFUF4G+28WMyjj7PwRal/HT+LG
-	 VWEfTdDLDeDgMOoWLJTJliZL1hg+xMpJo2kowCQDKoEJkFV1/4+CRBUQ+Ad8c5zs72NmF
-	 bYuVsBd59vMV9nZ0u7CKMZyM4jbep0hpwRphg5mXKERfFayJOMEM4+uhLzIfbzHZCNw==
+	t=1795587121;
+	b=qsbyHUfAhrqa/2NGqDjrJ/iA/IwGINJ4bcqO2SwBX7F9fG03Z4Y8z3dPvah5tI5kBXod
+	 /IO1X7qt/IyKCnafaVVERGfkBVfja5fiysyh9jUuX00zZuaeugdI9BAC8s3ua1QKPeNhG
+	 olsudOQdqdez2tlyxd7nK8KVNAAJ/g7yzDc26JLbgRAbp3I6LH2mGOyB7hSXGquFb2Ajm
+	 uedGlgeXKYYyZRBC0XoxGBx2Rf2/d9EUXJfzhBbe1Z0BBXd0Z0fdpq4lihe7BU0mMsGDC
+	 fRpd/kE7N4zdKourPDT9WN4RKIcFaVV1kR4AqvPF4LqqLg4sErMkCLoU5IWfzuSkiVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795586906;
-	h=Received:DKIM-Signature:Date:To:Cc:From:Message-Id:Subject;
-	bh=kQDlvqoHvx/TepUXKp2Bc67pNE0dmF5SNegpoPGciXc=;
-	b=3nTO3TYhmMpxO3PtNCx99y6Gewz2BaDqQ1gVIE6rc0irQL52LUrUh4fVtPJ06rTRVF7A
-	 04oRkQw5AWqXb2asuWEPwPS+v1UQmVPsLVRgrTWqv01emA4d8+J0loeEml86EMvDW8NcV
-	 ecSZXScpjxiuY9HlX9Ot8NDjHOoIFPoFSWMrgQpwjfwKnbPGRHUoTOz06xMBih3650ky2
-	 omcJpoGQFk3JSbNaiFPONz4X2784UBFg2x6R3oqpXGVHjy6rW2hvkjjit7n825q+pvrqq
-	 Xc9M3YJU/uW+D4ywG4OgR/KvUJsidpd0vMbOs9+cl5GExS6oYTIHaJK2Orlc10UOTWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795587121;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=QFqAXcQkxOquMyWdhHaXd2jZau8ELeRT34k6c5WkgOA=;
+	b=Htnq4LLnlr8XRafUkVKtSSV/tNHWL5y0q3Zxvo4plcga49BTXmhKfs/GZ0afFxBgO39Q
+	 dmvdsEqraqhgFafscBPaG42O7sLMMV6TzoEg+PwPdNGombySATAdrWTZ/CVG+gHiNLUmN
+	 1Qq1aB/q2iX4BvGNpvBKuDxEcP4bXVty8ZKKvxoL8HsnyQjWXWePri4gdlfdtsKPdWTGQ
+	 ihw32TaburbFkIIqYZKCyuRKFOoy3Y+O4uUdXUOKK0Ue1hXa5zoR8VTf6UMRau+Y0r34I
+	 ztMMOu0ouNAgjJC2QKqK8urTftXF6+zDlcNYpbnKyqrH8I8g7UCIZ+zVl6xYYYJfXsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mV+BySkP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CEC2606A31E
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 06:08:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mV+BySkP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A901C1F000C0;
-	Wed, 25 Nov 2026 06:08:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795586905;
-	bh=kQDlvqoHvx/TepUXKp2Bc67pNE0dmF5SNegpoPGciXc=;
-	h=Date:To:Cc:From:Subject;
-	b=mV+BySkPWa9ZZkXNO1CpBe2jOcdV5QSqd+AU3B+PHG0KVUuHdBZKKDY9hFgLTGO2G
-	 RNylnV6j7bE4mgROnIlNtn5J/tjlE26zjJKY5tcPAvuidzshYY8hos1DH0Vf4AWyOp
-	 1YDhCJVM4/lr81ryirYrb/VIsCTtuH8kJT97CEI8=
-Date: Tue, 24 Nov 2026 22:08:25 -0800
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Daniel Almeida <daniel.almeida@collabora.com>
-From: Andrew Morton <akpm@linux-foundation.org>
-Message-Id: <382debd29a1a4e649039f61dfad4d34b.1@linux-foundation.org>
-Subject: [PATCH] drivers/media/v4l2-core/v4l2-vp9.c: reduce inlining
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA656606A31E;
+	Wed, 25 Nov 2026 06:12:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA656606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 4D49468AFE; Wed, 25 Nov 2026 07:11:54 +0100 (CET)
+Date: Wed, 25 Nov 2026 07:11:54 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Mengmeng Zhao <mengmeng.zhao@linux.dev>
+Cc: Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>,
+	Anuj Gupta <anuj1072538@gmail.com>,
+	Nitesh Shetty <nj.shetty@samsung.com>, Jens Axboe <axboe@kernel.dk>,
+	Sumit Semwal <sumit.semwal@linaro.org>, christian.koenig@amd.com,
+	Philipp Stanner <phasta@kernel.org>, Dan Williams <djbw@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, tytso@mit.edu,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>, asml.silence@gmail.com,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
+	linux-xfs@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, Li Wang <liwang@kylinos.cn>,
+	Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+Subject: Re: [RFC PATCH v2 6/8] fs: add FMODE_CAN_DMABUF_IO and require it
+ for dma-buf I/O contexts
+Message-ID: <20261125061154.GA20910@lst.de>
+References: <20261113070621.273953-1-mengmeng.zhao@linux.dev> <20261113070621.273953-7-mengmeng.zhao@linux.dev> <20261120-faust-bohnenkraut-reduzieren-a30811186a15@brauner> <e9860ead-c5f3-4dd0-beaa-d92396c266d9@linux.dev>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -50,142 +66,21 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e9860ead-c5f3-4dd0-beaa-d92396c266d9@linux.dev>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: drivers/media/v4l2-core/v4l2-vp9.c: reduce inlining
-Date: Tue May 26 03:14:09 PM PDT 2026
+On Mon, Nov 23, 2026 at 09:28:07AM +0800, Mengmeng Zhao wrote:
+> > This is stealing yet another FMODE_* bit for special-purpose stuff.
+> > We're really really short of them. Did Christoph suggest this?
+> Hi Christian, thanks for pointing out this. If I understand correctly, 
+> Christoph suggests a new file->f_mode to allow dma-buf check in RFC v1[1]. 
+> 
+> Hi Christoph, do you have any comments or suggestions? I'am happy to adjust
+> this in the next version if there is a better approach.
 
-csky allmodconfig, gcc-15.2.0:
+I didn't suggest a particular approach, but the FMODE_ bits seems very
+fitting here as it sorts out the support issue very well.
 
-drivers/media/v4l2-core/v4l2-vp9.c: In function 'v4l2_vp9_adapt_noncoef_probs':
-drivers/media/v4l2-core/v4l2-vp9.c:1834:1: error: the frame size of 1436 bytes is larger than 1280 bytes [-Werror=frame-larger-than=]
-
-The amount of inlining in there is simply nuts.  This patch semi-randomly
-uninlines various things and fixes the above.
-
-Ad the .text size reduction is tremendous:
-
-ts:/usr/src/25> size drivers/media/v4l2-core/v4l2-vp9.o
-   text	   data	    bss	    dec	    hex	filename
-  22450	     36	      0	  22486	   57d6	drivers/media/v4l2-core/v4l2-vp9.o-before
-  16144	     36	      0	  16180	   3f34	drivers/media/v4l2-core/v4l2-vp9.o-after
-
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-
- drivers/media/v4l2-core/v4l2-vp9.c |   30 +++++++++++++--------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
-
---- a/drivers/media/v4l2-core/v4l2-vp9.c~drivers-media-v4l2-core-v4l2-vp9c-reduce-inlining
-+++ a/drivers/media/v4l2-core/v4l2-vp9.c
-@@ -1582,25 +1582,25 @@ static inline u8 noncoef_merge_prob(u8 p
-  *	merge_prob(p[9], c[9], [10])
-  */
- 
--static inline void merge_probs_variant_a(u8 *p, const u32 *c, u16 count_sat, u32 update_factor)
-+static noinline_for_stack void merge_probs_variant_a(u8 *p, const u32 *c, u16 count_sat, u32 update_factor)
- {
- 	p[1] = merge_prob(p[1], c[0], c[1] + c[2], count_sat, update_factor);
- 	p[2] = merge_prob(p[2], c[1], c[2], count_sat, update_factor);
- }
- 
--static inline void merge_probs_variant_b(u8 *p, const u32 *c, u16 count_sat, u32 update_factor)
-+static noinline_for_stack void merge_probs_variant_b(u8 *p, const u32 *c, u16 count_sat, u32 update_factor)
- {
- 	p[0] = merge_prob(p[0], c[0], c[1], count_sat, update_factor);
- }
- 
--static inline void merge_probs_variant_c(u8 *p, const u32 *c)
-+static noinline_for_stack void merge_probs_variant_c(u8 *p, const u32 *c)
- {
- 	p[0] = noncoef_merge_prob(p[0], c[2], c[1] + c[0] + c[3]);
- 	p[1] = noncoef_merge_prob(p[1], c[0], c[1] + c[3]);
- 	p[2] = noncoef_merge_prob(p[2], c[1], c[3]);
- }
- 
--static void merge_probs_variant_d(u8 *p, const u32 *c)
-+static noinline_for_stack void merge_probs_variant_d(u8 *p, const u32 *c)
- {
- 	u32 sum = 0, s2;
- 
-@@ -1624,20 +1624,20 @@ static void merge_probs_variant_d(u8 *p,
- 	p[8] = noncoef_merge_prob(p[8], c[6], c[7]);
- }
- 
--static inline void merge_probs_variant_e(u8 *p, const u32 *c)
-+static noinline_for_stack void merge_probs_variant_e(u8 *p, const u32 *c)
- {
- 	p[0] = noncoef_merge_prob(p[0], c[0], c[1] + c[2] + c[3]);
- 	p[1] = noncoef_merge_prob(p[1], c[1], c[2] + c[3]);
- 	p[2] = noncoef_merge_prob(p[2], c[2], c[3]);
- }
- 
--static inline void merge_probs_variant_f(u8 *p, const u32 *c)
-+static noinline_for_stack void merge_probs_variant_f(u8 *p, const u32 *c)
- {
- 	p[0] = noncoef_merge_prob(p[0], c[0], c[1] + c[2]);
- 	p[1] = noncoef_merge_prob(p[1], c[1], c[2]);
- }
- 
--static void merge_probs_variant_g(u8 *p, const u32 *c)
-+static noinline_for_stack void merge_probs_variant_g(u8 *p, const u32 *c)
- {
- 	u32 sum;
- 
-@@ -1659,12 +1659,12 @@ static void merge_probs_variant_g(u8 *p,
- }
- 
- /* 8.4.3 Coefficient probability adaptation process */
--static inline void adapt_probs_variant_a_coef(u8 *p, const u32 *c, u32 update_factor)
-+static noinline_for_stack void adapt_probs_variant_a_coef(u8 *p, const u32 *c, u32 update_factor)
- {
- 	merge_probs_variant_a(p, c, 24, update_factor);
- }
- 
--static inline void adapt_probs_variant_b_coef(u8 *p, const u32 *c, u32 update_factor)
-+static noinline_for_stack void adapt_probs_variant_b_coef(u8 *p, const u32 *c, u32 update_factor)
- {
- 	merge_probs_variant_b(p, c, 24, update_factor);
- }
-@@ -1724,33 +1724,33 @@ static inline void adapt_probs_variant_b
- 	merge_probs_variant_b(p, c, 20, 128);
- }
- 
--static inline void adapt_probs_variant_c(u8 *p, const u32 *c)
-+static noinline_for_stack void adapt_probs_variant_c(u8 *p, const u32 *c)
- {
- 	merge_probs_variant_c(p, c);
- }
- 
--static inline void adapt_probs_variant_d(u8 *p, const u32 *c)
-+static noinline_for_stack void adapt_probs_variant_d(u8 *p, const u32 *c)
- {
- 	merge_probs_variant_d(p, c);
- }
- 
--static inline void adapt_probs_variant_e(u8 *p, const u32 *c)
-+static noinline_for_stack void adapt_probs_variant_e(u8 *p, const u32 *c)
- {
- 	merge_probs_variant_e(p, c);
- }
- 
--static inline void adapt_probs_variant_f(u8 *p, const u32 *c)
-+static noinline_for_stack void adapt_probs_variant_f(u8 *p, const u32 *c)
- {
- 	merge_probs_variant_f(p, c);
- }
- 
--static inline void adapt_probs_variant_g(u8 *p, const u32 *c)
-+static noinline_for_stack void adapt_probs_variant_g(u8 *p, const u32 *c)
- {
- 	merge_probs_variant_g(p, c);
- }
- 
- /* 8.4.4 Non coefficient probability adaptation process, adapt_prob() */
--static inline u8 adapt_prob(u8 prob, const u32 counts[2])
-+static noinline_for_stack u8 adapt_prob(u8 prob, const u32 counts[2])
- {
- 	return noncoef_merge_prob(prob, counts[0], counts[1]);
- }
-_
