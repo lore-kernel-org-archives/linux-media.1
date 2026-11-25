@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795632291;
-	b=v6sHWXzqnvrsS9HzIRJ56eKg1QFJRIpjuBCcseLvKTBKaRE41Mou+EnKPA9CLrIfxcxp
-	 E3pEJhah276OpWrFT2IJ1+4DTRnu7SWhOeVW3Iet/WiFWIQA4FwNzlTiLJQK6oBQYh7Ry
-	 OGYt7grpNsDjM909Bfe6X5Guc7DzbZQrZomHLETShgPHjr21cUI/xC3bz5ruHPJGsNym8
-	 BL/MkKGnZ7jTiBryqee+uFq/UmX/ZR9/elD5mUgC3JbgdypLhPZLeqCvSqTjK9HTlb7gp
-	 cjsrwWgUWIttEAXzUN3S04cQK8+X/stgXVXcyFV3zRalAhW2OXfjfJeqzWdvjvQ4ZuQ==
+	t=1795632297;
+	b=BT+DNoC9TdKdZsAOrp9LM/1nK3vRvgcb6Kn613pn4jWaIAmhe0nECShuwEf8lK6NiAu0
+	 SSGPVHzT+ZGt47lGPgthYqTraeSAEa0vrFA40XvfLTuSeiTcW0M7UR+y+2qwUvXq7HYRm
+	 pRYJQFT29CI2mBP/Kbrwm/c1QebJ3nFF6ZS+lWu4fx4/wv7NoEI6W81wroFXyao4BsGf6
+	 RtVxUnR0v1gmJ61l60v8DzgshNXgj3B/sUh1mVGZnzkM5sOP+Es/+1tuc3XZAgJx6Udzg
+	 eqzGZgLB2gx0RSKB52mTQwLtD2z4aP25F0XfbFRgzDIJ98soPrd19kOvjhGQc24kE3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795632291;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=6F84u6ZBVj7ALWr80TaqS6VtUD2KAvnZJ83oz57lmZc=;
-	b=xqWTlnqKk3Aoh674pWFwExlqX1skXEzMfjBemA7OgpmxQTb0hatHoQgBk9fAunVMKU6G
-	 AQROCxPvcJNQJF2+F8czhsb4HZ+w6eOGbmNB7PbM7JScALVOJSzLbRbcZWDBits05sWTH
-	 FVPihYaCU5eoN3mjd+zdU5UTtNdNDvYfMPIH9jPJiFbJDX6sPufMkJao2MofNA+GR4/0H
-	 TfZuQhRUfySKo84K6KO1nqjpGd3wcDntIY5jZxy5ompqfmvJ6sjTHVTxHrQkyJRrSYY41
-	 7CddjAFwGnjQgOeD4RGigwpmJT+XRyj9w9T3Tc5SAzDYm7UI2VA8Cey0h8HvI1ahLEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795632297;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=lztRdkoEfHXfPLjrWU6dsJpmXlIzrR9WYIGBZGJqNOI=;
+	b=uAgrsTUFs7CaiSCBzHN9Wt0/6T2vLtSUdnThG5Oav1DSUU8DWLQWQkCgRBI4cRYoKVLv
+	 jG9WGAJ9mDUwGgr2NnQ6DHz0+AthNstxobWoT+ZqkAAAWEng9PNSKxEkRFgnhcjDnt6Jp
+	 xsvYtYXu1Z1LIBJdPRcZBIKA/zZh/tnmHOzDcnJIH3M2wbZRUpIaoDSkEaiHU7BYsrtKO
+	 75OT9C8CjsIH5htk93BATBtUbTCVPwZmJRYwENNUvrawC3v+iB+mRHU9t7W8hACCW6UBU
+	 hxfHlHlDjhH9NoIQlqmgJ7gbenh/txBQNAXrplNT5LVvgxYGlhJiFfzptGm5gB1Rhhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=pOXUaG3v;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=H+0tWgFZ;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46956606A31E;
-	Wed, 25 Nov 2026 18:44:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46956606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35537606A68E;
+	Wed, 25 Nov 2026 18:44:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35537606A68E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=pOXUaG3v
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=H+0tWgFZ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795632288;
-	bh=yxfmqiNlPULeAg2Eo0frbq3KoaSsflm2PJoZO/n5BNA=;
-	h=From:Subject:Date:To:Cc:From;
-	b=pOXUaG3v2Oir5YLQg3e8qaSg8cOpi+BVPlyEixuHDKm8Vb4bBZHFhxz6+NcyBpsME
-	 kEOZ+8VbX4Shx21q3CEOf4Ez8aOlri87czxNs7uZQr3FxmZwQ+QZayqsfe0+F25yOQ
-	 tV8wnYHb1V/c6k+LcFA4J5HYiFem/0Wj1L5Ez4U2kUGrg5CnlVlcVaFwIwBPPfWNM3
-	 pKovJSbPyTo1zlp5Gcqzq/CIPzsOZS9Y8wS5zWm/NMIV0GvvUiV07jrVZMZabqVqK8
-	 gGi4cEa2LEWewI81tXM0uDQFhasyPLu7ypiWnapyZtv9/43K9Y26MdEUfwkfnSaqoD
-	 gmIumRH1lBt2w==
+	s=mail; t=1795632295;
+	bh=/9vfGQcY27HGY4BnTzA1JyrGpZYrrGs5WU0br6myPH8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=H+0tWgFZHaXyTs0SeNGvu9d+37Lsgps8h+kvZ5ttWpoJww4ses4gXabpCnihydBLu
+	 Y7ffi4NKRTKrR3bx6ajJYvpqsI7lSN/KiWb+I8quemZnXuB5gzAMKGGGc3orXNgxWN
+	 rJaTfDFnR66FD1jKCkWTJz+Bzc3fVl36ZX892b7gUwScaoydzaIz3BoEjh+Rg5YMKK
+	 xFc6Gs/SGAguFwlnV49CLBfr2QSZWbTw18odj5x+1M/chtVIOK+tAQb+Pt6pw1mc23
+	 THZab79pYejPYq18ycRun7f9qUBh/Py+rwdrG6N/Z2IMevsWIVsQPdcDPG2LqwFes+
+	 RgIVQIfpy9c4Q==
 Received: from [192.168.0.15] (unknown [100.64.0.170])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: detlev)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 674EF17E0EBF;
-	Wed, 25 Nov 2026 19:44:46 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id BB30A17E10D0;
+	Wed, 25 Nov 2026 19:44:53 +0100 (CET)
 From: Detlev Casanova <detlev.casanova@collabora.com>
-Subject: [PATCH v3 0/9] v4l2: Add tracing for stateless codecs
-Date: Wed, 25 Nov 2026 13:33:22 -0500
-Message-Id: <20261125-v4l2-add-ftrace-v3-0-1d1db48372ed@collabora.com>
+Date: Wed, 25 Nov 2026 13:33:25 -0500
+Subject: [PATCH v3 3/9] media: Add tgid and fd fields in v4l2_fh struct
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -65,11 +64,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNQQ6CMBBFr2Jm7ZhStagr72FYDNOp1CA1LTYaw
- t0FdOfyJe+/P0CS6CXBaTVAlOyTD90E2/UKuKHuKujtxKCVNsqoA+Zdq5GsRddHYkESNlI6o8g
- wTKtHFOdfS/FSfTk965twP2dmo/GpD/G9XGY9e796of7qWaPCY7k3Yl2piYszh7alOkTacLhDN
- Y7jB48EffjEAAAA
-X-Change-ID: 20260608-v4l2-add-ftrace-aec6e7f60a6c
+Message-Id: <20261125-v4l2-add-ftrace-v3-3-1d1db48372ed@collabora.com>
+References: <20261125-v4l2-add-ftrace-v3-0-1d1db48372ed@collabora.com>
+In-Reply-To: <20261125-v4l2-add-ftrace-v3-0-1d1db48372ed@collabora.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Steven Rostedt <rostedt@goodmis.org>, 
@@ -84,109 +81,105 @@ Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
  Detlev Casanova <detlev.casanova@collabora.com>
 X-Mailer: b4 0.15.2
 
-Hi !
+These fields will be used in traces to help userspace tracing tools
+identify streams.
 
-This patchset aims to improve codec event tracing in v4l2.
+The tgid field will keep the PID of the process that opened the video
+file.
+That is needed because trace calls can happen in IRQs, for which there is
+no current PID.
 
-The traces added in visl by Daniel Almeida are moved to the global trace
-events.
-They are adapted to trace each each field separately and not just the
-whole struct so that userspace can filter on different fields and
-libraries like libtracefs and libtraceevent can be used to list the
-fields instead of parsing the trace printk's.
-
-The trace event templates are also reworked to avoid long lines, but
-quoted string splits are kept as they don't cut words.
-
-To each trace event are also added a tgid and fd fields, helping
-userspace track different decoding sessions (contexts) based on the given
-file descriptor used by the given process id.
-
-Also for better tracking, stream on and stream off events are added as
-well as HW run and HW done events to track decoder core usage.
-
-The main focus is to be able to generate perfetto traces to show VPU usage,
-a perfetto producer using this can be found at [1] (it will be renamed to
-match the more generic approach than hantro).
-Other controls can be traced later as well, this patch set only focuses on
-mem2mem type drivers.
-
-[1]:
-https://gitlab.collabora.com/detlev/hantro-perf/-/tree/hantro-improved-info
+The fd field helps identify the context in case the same process opens the
+video device multiple times.
+Note that the fd field is set in the __video_do_ioctl() function.
+That is because the file descriptor has not been allocated yet when
+v4l2_open() is called.
 
 Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 ---
-Changes in v3:
-- Rebased on master
-- Fixed sps_st field size in traces
-- Fixed checkpatch issues (except parenthesis alignment in trace headers)
-- Link to v2: https://patch.msgid.link/20260610-v4l2-add-ftrace-v2-0-9756edf72ac1@collabora.com
+ drivers/media/v4l2-core/v4l2-fh.c    |  1 +
+ drivers/media/v4l2-core/v4l2-ioctl.c | 17 +++++++++++++++++
+ include/media/v4l2-fh.h              |  4 ++++
+ 3 files changed, 22 insertions(+)
 
-Changes in v2:
-- Don't modify the printk format
-- Trace all fields of the structs instead of the whole struct as a buffer
-- Remove fdinfo patches (they will come in another patch set)
-- Fix long lines
-- Rename v4l2_requests.h trace header to v4l2_controls.h
-- Add basic documentation
+diff --git a/drivers/media/v4l2-core/v4l2-fh.c b/drivers/media/v4l2-core/v4l2-fh.c
+index b184bed8aca9..9c2ddd1c2137 100644
+--- a/drivers/media/v4l2-core/v4l2-fh.c
++++ b/drivers/media/v4l2-core/v4l2-fh.c
+@@ -37,6 +37,7 @@ void v4l2_fh_init(struct v4l2_fh *fh, struct video_device *vdev)
+ 	INIT_LIST_HEAD(&fh->available);
+ 	INIT_LIST_HEAD(&fh->subscribed);
+ 	fh->sequence = -1;
++	fh->tgid = current->tgid;
+ 	mutex_init(&fh->subscribe_lock);
+ }
+ EXPORT_SYMBOL_GPL(v4l2_fh_init);
+diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
+index 17ba1ae70735..5d7fbaa1b41a 100644
+--- a/drivers/media/v4l2-core/v4l2-ioctl.c
++++ b/drivers/media/v4l2-core/v4l2-ioctl.c
+@@ -9,6 +9,7 @@
+  */
+ 
+ #include <linux/compat.h>
++#include <linux/fdtable.h>
+ #include <linux/mm.h>
+ #include <linux/module.h>
+ #include <linux/slab.h>
+@@ -3063,6 +3064,16 @@ void v4l_printk_ioctl(const char *prefix, unsigned int cmd)
+ }
+ EXPORT_SYMBOL(v4l_printk_ioctl);
+ 
++static int _file_iterate(const void *priv, struct file *filp, unsigned int fd)
++{
++	const struct file *fh_filp = priv;
++
++	if (fh_filp == filp)
++		return fd;
++
++	return 0;
++}
++
+ static long __video_do_ioctl(struct file *file,
+ 		unsigned int cmd, void *arg)
+ {
+@@ -3083,6 +3094,12 @@ static long __video_do_ioctl(struct file *file,
+ 		return ret;
+ 	}
+ 
++	if (unlikely(!vfh->fd)) {
++		vfh->fd = iterate_fd(current->files, 0, _file_iterate, file);
++		if (!vfh->fd)
++			vfh->fd = -1;
++	}
++
+ 	/*
+ 	 * We need to serialize streamon/off/reqbufs with queueing new requests.
+ 	 * These ioctls may trigger the cancellation of a streaming
+diff --git a/include/media/v4l2-fh.h b/include/media/v4l2-fh.h
+index aad4b3689d7e..080cb00e3867 100644
+--- a/include/media/v4l2-fh.h
++++ b/include/media/v4l2-fh.h
+@@ -28,6 +28,8 @@ struct v4l2_ctrl_handler;
+  * @vdev: pointer to &struct video_device
+  * @ctrl_handler: pointer to &struct v4l2_ctrl_handler
+  * @prio: priority of the file handler, as defined by &enum v4l2_priority
++ * @tgid: process id that initialized the v4l2_fh
++ * @fd: file descriptor associated to this v4l2_fh for the process id in tgid
+  *
+  * @wait: event' s wait queue
+  * @subscribe_lock: serialise changes to the subscribed list; guarantee that
+@@ -44,6 +46,8 @@ struct v4l2_fh {
+ 	struct video_device	*vdev;
+ 	struct v4l2_ctrl_handler *ctrl_handler;
+ 	enum v4l2_priority	prio;
++	u32			tgid;
++	int			fd;
+ 
+ 	/* Events */
+ 	wait_queue_head_t	wait;
 
-To: Daniel Almeida <daniel.almeida@collabora.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-To: Masami Hiramatsu <mhiramat@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: kernel@collabora.com
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-media@vger.kernel.org
-Cc: linux-trace-kernel@vger.kernel.org
-Cc: linux-rockchip@lists.infradead.org
-Cc: linux-arm-kernel@lists.infradead.org
-
----
-Detlev Casanova (9):
-      media: Move visl traces to v4l2-core
-      media: Map each struct field to its own trace field
-      media: Add tgid and fd fields in v4l2_fh struct
-      media: Add tgid and fd to the v4l2-requests trace fields
-      media: Add missing types to v4l2_ctrl_ptr
-      media: Trace the stateless controls when set in v4l2-ctrls-core.c
-      media: Add stream on/off traces and run them in the ioctl
-      media: Add HW run/done trace events
-      media: hantro: Add v4l2_hw run/done traces
-
- drivers/media/platform/verisilicon/hantro.h        |    1 +
- drivers/media/platform/verisilicon/hantro_drv.c    |   14 +-
- .../platform/verisilicon/rockchip_vpu981_regs.h    |    1 +
- .../media/platform/verisilicon/rockchip_vpu_hw.c   |    4 +
- drivers/media/test-drivers/visl/Makefile           |    2 +-
- drivers/media/test-drivers/visl/visl-dec.c         |   76 -
- drivers/media/test-drivers/visl/visl-trace-av1.h   |  314 ---
- drivers/media/test-drivers/visl/visl-trace-fwht.h  |   66 -
- drivers/media/test-drivers/visl/visl-trace-h264.h  |  349 ---
- drivers/media/test-drivers/visl/visl-trace-hevc.h  |  464 ----
- drivers/media/test-drivers/visl/visl-trace-mpeg2.h |   99 -
- .../media/test-drivers/visl/visl-trace-points.c    |   11 -
- drivers/media/test-drivers/visl/visl-trace-vp8.h   |  156 --
- drivers/media/test-drivers/visl/visl-trace-vp9.h   |  292 ---
- drivers/media/v4l2-core/v4l2-ctrls-api.c           |   10 +
- drivers/media/v4l2-core/v4l2-ctrls-core.c          |  113 +
- drivers/media/v4l2-core/v4l2-fh.c                  |    1 +
- drivers/media/v4l2-core/v4l2-ioctl.c               |   37 +-
- drivers/media/v4l2-core/v4l2-trace.c               |   48 +
- include/media/v4l2-ctrls.h                         |   19 +
- include/media/v4l2-fh.h                            |    4 +
- include/trace/events/v4l2.h                        |   71 +
- include/trace/events/v4l2_controls.h               | 2705 ++++++++++++++++++++
- 23 files changed, 3026 insertions(+), 1831 deletions(-)
----
-base-commit: 8d7fe9885c62fc9a95bf55d9db244d9672a8aadc
-change-id: 20260608-v4l2-add-ftrace-aec6e7f60a6c
-
-Best regards,
---  
-Detlev Casanova <detlev.casanova@collabora.com>
+-- 
+2.56.1
 
