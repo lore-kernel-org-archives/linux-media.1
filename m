@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795637782;
-	b=OFXzca5CKtTf60wW+tAEb0L5XO79EK6rFO2fNk8KMQkEVcIhZ+hoO3xnFpLJ8EJd2ciB
-	 Yc8+lxNLyDRk/4GmPXXiT/DGg249JhdZbt15lXTyBoog3vIk7R+xG2wU+veKcojCYX151
-	 wM0IwlSSoHl/6HKurWhBr1q696ChF3xke09FmH2EiiVlpBVb28sOeE7dPOVniU+HxrNQG
-	 J8Y/3+uU+WXt3WEX/4X2tnJWvkksXxGAqfYW5LrN0rqg68CvnVt00u/UOCCtZpybQwQ0f
-	 oqBB22jij0mwLOOtX3bVtUSZmfy0O0iDCqIf50BZZDDoMxuTlwuf7lm9o++/jFTsFLQ==
+	t=1795637785;
+	b=5eKbGUq6Q5M2De9F/g+bWaRbPHyh7SnLn9zp/46AWHcOvjPZLcWKE3ctjB0XcoPLDGsz
+	 9HzRxfsC8EM0kOzdp3sR1hdRedQUY556jx2jrvqJjEu5m27N2xXHx4liXardE8BFd7wJ9
+	 zNn2+mY+WXgwEIRCoOOdVZdL9nr+c8IfsWHbatmlzrL9z1zL8lP53GyfHdo3B2a6r2hy2
+	 IH9YTlyssRGNp/YIyf4aNqfzzB/zO7prJbtBI5M5IKFB0lAcF9e5bl3UyKKeiVevgjG40
+	 37/FFXlH5SFhNeHYpCQVVrnPSErdJMqj6B7tGWRX/DAnS6VD7++cfwUDMQvpOvxKMhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795637782;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795637785;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=O3cn42cRp9ta80RYl78FVY9fV9o47ecym0lO2qR+MbY=;
-	b=5p2YQH281pWNpvDrjty8GEWY54Ooz/kgjVZFCx5qmcet4+NPhewJVMDzRF29TDpCbqpP
-	 gmSwyj3tunCj/7uN1k1FK9TWwIGHMYa06HnorxPVwK5AlxGpy7sGge1y0cY8aUTq6WUSw
-	 OW4x8Zf36plyE/UHc0yRMTP6rDv78HZfsBtDao0D8lnBMDXIxWo6iAFl9CnZXAK1LSfY0
-	 uD7LHfdR9XJOWsxHvsAQU0EGRLj4QFsOgPBnngsV1Xjx42QKTcD+altk46/7XGRUnH0hO
-	 mhQA9bG020f6yq6zjWqEZyha5sU2qLxKQBrigyI1Ve4O8rzu11vQoXud0AJIFfI2sNA==
+	bh=moswij1DxNlgtZ2psQp6vB5WbP0Zx8EDmr2Dk41oG4M=;
+	b=oLEwZPk7++edijH1oa+ZqUlcDLbP7S1jjbwF9jb+Q66i6q9hshJ5+JSifBJXMdwmVrzE
+	 mNs9Ib63Lq027Ip7RV6gEoTOR7sPv96AElWS5xTxTg18S9M5xJrBtlAFYyyNPhDxqOm2y
+	 zBwZDlZ/8xtCU5wBS5+RnSgXGzkh1Mr/NuBsyk7UGty6wBu8j0J4bV9ahEnAPJAutArl4
+	 dH82VdplVtagT5nQpHHMJOTCO0u+YJC/Ye7BJRHaqU5WTWvKSHln+akPWx/pUdANeRDUf
+	 3Dejjj4yYAj1VoChkn1F1MZsSrIPDc1phKGBoARxS8Gsc0SXQMI2SCUCBKz35aUpHfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nKAzz4ZO;
-	arc=none smtp.remote-ip=74.125.231.128
-Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qi04bJaQ;
+	arc=none smtp.remote-ip=74.125.231.133
+Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F9A606A692
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 20:16:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2F9A606A692
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2409F606A329
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 20:16:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2409F606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nKAzz4ZO
-Received: by mail-oo2-f0.google.com with SMTP id 006d021491bc7-71b1c6cb11fso1150905eaf.0
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 12:16:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qi04bJaQ
+Received: by mail-oo2-f5.google.com with SMTP id 006d021491bc7-7033e26cb19so1878160eaf.0
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 12:16:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795637780; x=1796242580; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795637783; x=1796242583; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O3cn42cRp9ta80RYl78FVY9fV9o47ecym0lO2qR+MbY=;
-        b=nKAzz4ZOIyu2lk6/PfYMWGjZbp9w/OPXD53ga00wpC/vdxf98iATXlCBnfgMlXJqre
-         E8pz8Cb4075PCb1MyfI6/WeSH5zbyBnTu+kYLAIufOm5bQoC6w7uKhA+8hs//dSTkMYj
-         ETulmwYwu6sd63Q2IzYT57IJiFOGIAfnaM6qQE0IOzPDh797M1ATVhMiqOs8r4KOIkE8
-         bffgcblNDmvs4LdaGh0xh6oOx9lgGACUsp6JtQggJgjoZYMZZt4rotKpcgjXHerAPdqx
-         kT47vb+TIRTsgMsjNgLrgpoXuYu3zt2X2TxozqgSExghWZJFiEKHkw2jIQZgaWfaruWP
-         mATw==
+        bh=moswij1DxNlgtZ2psQp6vB5WbP0Zx8EDmr2Dk41oG4M=;
+        b=Qi04bJaQ4HhiSJ//koZXkew6zDX/nHhlJInUxqfzQYe7eKa/6O8j71LniMHfnIzz6p
+         M/UGrlWpRLDobK2L+3YOCH3Xxx7w36xy1nTSjgB/cWPAmYaXB1ntuZU7JH6oPEKWaYxv
+         MrvH2+bnW0VfLTGfohB3OjgBEoL/sF0IfRcUrDpkCMILCwdkWUvmPu6TX9UDk2l9J2xm
+         GKpWoHkF3U2r/5+iBIcbtcbbpO0NflYhrzN/KBrRypqfW15C3MmSF2R5eu3F5tehHTf4
+         9C4y9RwBpu70nqwd03wpoT9Y+N+ZJJYlUNuiSjKHD4p9nbS0o1Cif4Cpe3kTcErFgR7z
+         u0yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795637780; x=1796242580;
+        d=1e100.net; s=20260707; t=1795637783; x=1796242583;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=O3cn42cRp9ta80RYl78FVY9fV9o47ecym0lO2qR+MbY=;
-        b=BP5BfJSTETrXIwD4FHRsKduGMKgM9PkytylD4IrwxKq4RCKabmPng2XMnMDFYBFQdC
-         08b3L7SGLsc47KLAbpUZjIO8wJp0RiocKX24/nJLA+UFgKuiXCJkCK8L8gHri7ORTMMK
-         s5rk8YPcxgIqhooi93k3wua813BsavQJGUUytGVee296hppFxGIxXGyX4Ec4DD4Y8Cyk
-         tOVcEi20zffs3Mho83v0UMvvm4xFgQeiJ+nYgkvZmNkewAwADDvVY71ec1tbly1kw0r7
-         LAt7HEkCdXLRoXZEtgCqayUAASJ3Wt3DtG1jlsODIiAzfkeTSujgmm6crbFJqCzbpEp8
-         IfBg==
-X-Forwarded-Encrypted: i=1; AL+hErH/ysSsiqO9bC3cRH4rnGasGL/IOxW9DArlBAqaGZiBxySNsVrFENCKnilpA6zVEMwSkCWjfbBsyN9vGQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/meQVpOzezxwDhYjguB7HjxHmnxBj9Xt/cEGsi2LWDvsvK33PC
-	k2W+M+i84ujgwXWAbiegWjMcEzxuIGYHTl/+VcxLUle+43ucYvLTGHCh
-X-Gm-Gg: AZFdTZdWdtugE9EE1E9TfGsyi6cCZCPDBxFJNc27Z8qlbJbwQhQe8Ggh1lW14UvyxAw
-	gvXK8TCsjkcx53ZHJAHeDtlHCRiUXyjhCr2np06qpyYyCesx3yP+17Q54wDKzBs2Aw+7sSf5JA0
-	l3aa8S/bI+j4m4onR03Eo4/8AxKqNWMjaPCf9WjcOjN59qYDQPWp0xckVUPH3nvdxzLkJkh3+bk
-	plLpxKjLv7K0FttlcPnBc3eD+XMYDuvXFE2Nu6ZLHuf9vytuwCQh7uuehs0UIOFLpws+vLUDWHO
-	FaSRNmIZT6utGAcFp+G5EXdFsGJqx8xyDpHPxOnaxDPN2TkWQOanCH36ceNO3DA0kwxbYjNQWSR
-	uFeDGYst4QJmbO9LBr1zMzERBSB6q86gTKpmSFoGc5ro0caAVABluHN7ayAki9OjvK3ISDMuk06
-	KUwgYv5QIr2BTycy/jjLw6VphZnuH1zVb/y5z9XSJ7zBZ+xQQKcCalYEEwn/gK9ELptDX9s0y/4
-	qPxuoDfYy/wObbg8FbwtSIP9xGSpy3vbiP9sacX1DPitGsFSMlZlroJk6HXpOprjsF60xfNb6/F
-	+02G/QwFkj5gXq6/Yy9NeZmLqRGFrvi1GsA=
-X-Received: by 2002:a05:6820:829:b0:71b:845a:3340 with SMTP id 006d021491bc7-71b845a3cacmr1304758eaf.67.1795637780542;
-        Wed, 25 Nov 2026 12:16:20 -0800 (PST)
+        bh=moswij1DxNlgtZ2psQp6vB5WbP0Zx8EDmr2Dk41oG4M=;
+        b=tOuS5Vhy3XQNGL5BkSadwUFVROiRcqiS1GENbn4yctcy4b+I9SE5ajUQwnm1PcGluB
+         iktBZBRUucbtqygCzhtJkkB3fpiKCTn4htVW3z0AVpDCzedjL9odIIIHatXb0Bj2x7A3
+         c4bFgBMJ4HnBllZ/vyRv1CM9MRzXGj6uHgmSbkNUvN7QsTgyGhYyKqH/TWXcheBwAk7c
+         f7Lr91jrFhSab7Iam44BPwQmgXxwNis/H3nUgyUar51ga2dMaB/u96Ghs14igZLOqM5O
+         o6OADV8sNJW4BcdQvMtPRiWZaL0q1PjSKP0N/MF46f6jRRoBlAl2O8LWTSK68FR3JpUQ
+         rffQ==
+X-Forwarded-Encrypted: i=1; AL+hErHNMNq5NCK5VoZ9zHPLgfXbLHI87v5h4nLz/8bh3AlcwUgVWSlvMwVxIoFGrCPTV3DJHQvFD8EMn+c/Vg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8zbgt9Um3/RMBC5GYv6UTHFhfW1u6l3HzlqndwzcPS/pWVt3+Q
+	xy7EudncqWsqo2GviHYYNVVOI8VejCzZEdUqfy+vjo7cujoSNkeoMWJZ
+X-Gm-Gg: AZFdTZeZ7bP3xfNhtHQNQBiuSK94425EHHH/DGcXZU2W9ISDSATQEWRnPz43qe6eFuK
+	icabk1/tBiyv0MbzqJZO55pvBiItwZPtdpDB30Rf0JnbYMIlb8qj5JF6q+4NjOWu2IbQqrLy1m0
+	nuHuFOOjwGkiU4/oAYJSlHYYMRtLsOUV9PVPqBZB0oXNhyugMlXf13jlcLf60zToVflf+zdpLtt
+	nw3ExaT2Xg4KZmMvfSwkccr3SYK0ZLAhyIRbrVdkSA+T+1SxnNBQ2uITzFLIjwBFDe2dlpev41A
+	jWHahZxo1QirJXb5us5JjilYGsG8oc7mykRGZS3LJcNoEw/dkUTEZRidsmHCMyffNO0Pbe75VEZ
+	oL9HnN7o9hIad4T/GR8FWqgutweCbVJRg/PemO1dPjBGIfdg7rA6THKev/0LZ+D04zVC9fiowAN
+	HWKgwmdcVep2VW54SX1KCSXfOARtlbzuaUPP6jonv/L2yGRJEZsas2IyEH30h2WUGzI7B+q7Ap5
+	6lUuQsS8ShHzyv+Qx0M7X+AawpcwScLfIZymN5ezDgONRbrQSiU8OGZvCPhw2k81ZCPMeGmjrp9
+	YK2kdk4u6GCcDkYTn5jO44M3A3qYSOnZSBrdZ54zj+ftShSdMcavT2Iz
+X-Received: by 2002:a05:6820:1c92:b0:71b:7929:cb54 with SMTP id 006d021491bc7-71b7929d44fmr3615961eaf.38.1795637783065;
+        Wed, 25 Nov 2026 12:16:23 -0800 (PST)
 Received: from [192.168.0.98] ([50.26.120.197])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b380b6f82sm11341859eaf.10.2026.11.25.12.16.19
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71b380b6f82sm11341859eaf.10.2026.11.25.12.16.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 12:16:20 -0800 (PST)
+        Wed, 25 Nov 2026 12:16:22 -0800 (PST)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Wed, 25 Nov 2026 14:16:09 -0600
-Subject: [PATCH v2 6/9] media: mtk-mdp: Check buffer plane sizes against
- the format
+Date: Wed, 25 Nov 2026 14:16:10 -0600
+Subject: [PATCH v2 7/9] media: mtk-mdp: Refuse a format change once buffers
+ are allocated
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-rbrue-suez-upstreaming-mtk-vcodec-mdp-fixes-v2-6-fdc047cf75a5@gmail.com>
+Message-Id: <20261125-rbrue-suez-upstreaming-mtk-vcodec-mdp-fixes-v2-7-fdc047cf75a5@gmail.com>
 References: <20261125-rbrue-suez-upstreaming-mtk-vcodec-mdp-fixes-v2-0-fdc047cf75a5@gmail.com>
 In-Reply-To: <20261125-rbrue-suez-upstreaming-mtk-vcodec-mdp-fixes-v2-0-fdc047cf75a5@gmail.com>
 To: Tiffany Lin <tiffany.lin@mediatek.com>, 
@@ -117,63 +117,62 @@ Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
  Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
  Ryan Brue <ryanbrue.dev@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795637766; l=1943;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795637766; l=1974;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=cuEbWTB4pH0BRk1X8WiZhDbNCpoA3GtHpeZU0Znpd0c=;
- b=Fk4k0A+X9pfrp5/bZ/6fIHGtDbMlWMdQhCZTNBXGLqrrhv8Zz0b1rhsC2ajbotj6wJD+CmQrL
- vLFuz3wryijAdlRCk9T/dEZW1Z9zxE7eokb6NXV/ZzUIE3EVelyj1qk
+ bh=ToIzGemh2HZYfPM+0fU+WVM5fBqJcWgALuaETYVwNso=;
+ b=YyKMx+idzrYsHi5C/jJHDCr8A4+FV3/lteY93PlNVBFkvn2Yc532M5WpbprdE0h37qx239ObY
+ NbKcfOxO94bBh6twJeOGkYBw44Fa9nxQDmOu8P83mq+1flUeTlwmTUz
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-queue_setup() ignores the number of planes and their sizes that come with
-VIDIOC_CREATE_BUFS and always answers with the current format, so a
-client can allocate buffers too small for it, which v4l2-compliance
-reports:
+VIDIOC_S_FMT stores the new format in the frame before it checks whether
+the queue is streaming, so a refused change still takes effect: a client
+switching a streaming CAPTURE queue from NV12M to YUV420M gets -EBUSY,
+and the next frame is set up for three planes in buffers that have two.
+And the check is for streaming only, so a format set after
+VIDIOC_REQBUFS can need more than the buffers already allocated.
 
-  fail: v4l2-test-buffers.cpp(872): q.create_bufs(node, 1, &fmt) != EINVAL
-
-Refuse a request with a different number of planes or a plane smaller
-than the format needs, as vb2 expects of queue_setup(), and check each
-buffer's planes in buf_prepare() as well.
+Check first, and refuse once the queue has buffers, as vb2_is_busy()
+does for other drivers, logging it at debug level since any client can
+trigger it.
 
 Fixes: c8eb2d7e8202 ("[media] media: Add Mediatek MDP Driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
- drivers/media/platform/mediatek/mdp/mtk_mdp_m2m.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/media/platform/mediatek/mdp/mtk_mdp_m2m.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/media/platform/mediatek/mdp/mtk_mdp_m2m.c b/drivers/media/platform/mediatek/mdp/mtk_mdp_m2m.c
-index a40bcf61b7ca..e0627127430b 100644
+index e0627127430b..1be0f44fe1b2 100644
 --- a/drivers/media/platform/mediatek/mdp/mtk_mdp_m2m.c
 +++ b/drivers/media/platform/mediatek/mdp/mtk_mdp_m2m.c
-@@ -546,6 +546,15 @@ static int mtk_mdp_m2m_queue_setup(struct vb2_queue *vq,
- 	int i;
+@@ -698,6 +698,12 @@ static int mtk_mdp_m2m_s_fmt_mplane(struct file *file, void *fh,
  
- 	frame = mtk_mdp_ctx_get_frame(ctx, vq->type);
-+	if (*num_planes) {
-+		if (*num_planes != frame->fmt->num_planes)
-+			return -EINVAL;
-+		for (i = 0; i < frame->fmt->num_planes; i++)
-+			if (sizes[i] < frame->payload[i])
-+				return -EINVAL;
-+		return 0;
+ 	mtk_mdp_dbg(2, "[%d] type:%d", ctx->id, f->type);
+ 
++	vq = v4l2_m2m_get_vq(ctx->m2m_ctx, f->type);
++	if (vb2_is_busy(vq)) {
++		dev_dbg(&ctx->mdp_dev->pdev->dev, "queue %d busy\n", f->type);
++		return -EBUSY;
 +	}
 +
- 	*num_planes = frame->fmt->num_planes;
- 	for (i = 0; i < frame->fmt->num_planes; i++)
- 		sizes[i] = frame->payload[i];
-@@ -563,6 +572,10 @@ static int mtk_mdp_m2m_buf_prepare(struct vb2_buffer *vb)
+ 	frame = mtk_mdp_ctx_get_frame(ctx, f->type);
+ 	fmt = mtk_mdp_try_fmt_mplane(ctx, f);
+ 	if (!fmt) {
+@@ -706,12 +712,6 @@ static int mtk_mdp_m2m_s_fmt_mplane(struct file *file, void *fh,
+ 	}
+ 	frame->fmt = fmt;
  
- 	frame = mtk_mdp_ctx_get_frame(ctx, vb->vb2_queue->type);
- 
-+	for (i = 0; i < frame->fmt->num_planes; i++)
-+		if (vb2_plane_size(vb, i) < frame->payload[i])
-+			return -EINVAL;
-+
- 	if (!V4L2_TYPE_IS_OUTPUT(vb->vb2_queue->type)) {
- 		for (i = 0; i < frame->fmt->num_planes; i++)
- 			vb2_set_plane_payload(vb, i, frame->payload[i]);
+-	vq = v4l2_m2m_get_vq(ctx->m2m_ctx, f->type);
+-	if (vb2_is_streaming(vq)) {
+-		dev_info(&ctx->mdp_dev->pdev->dev, "queue %d busy", f->type);
+-		return -EBUSY;
+-	}
+-
+ 	pix_mp = &f->fmt.pix_mp;
+ 	for (i = 0; i < frame->fmt->num_planes; i++) {
+ 		frame->payload[i] = pix_mp->plane_fmt[i].sizeimage;
 
 -- 
 2.56.1
