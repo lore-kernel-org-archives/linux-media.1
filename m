@@ -1,112 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795626590;
-	b=VzXNcduxO3qPrsOISDT/5cBpTBiqkeMRuyMJVMPw+xNYgXlTt+ezQ6vXns995nJmliaQ
-	 rQv6zRzBu9/eExtT3kLAGY+806RART7cY5ScO1qe/UbZ9uL1i4aSAky0hEL01wfO7/LYb
-	 95wBH2wW2bTfIXsoH/sjnbsy/bgfsOwnqbWj2BFXWm1sGxl50VZwyHL4FfCod2eeGz1RT
-	 mhd1B5e/XH1sQpMIhE2KGQ/N6qGTYBsd7XHWFrhL69wMsISgRrf2hFdKg4Csgg49rSqK4
-	 khWgAUkh7RtZ2FgwMJe8e8ioDTO4oxFphQzO5iVrlXQDVD/HI+T+i1pgir/EWBewwPw==
+	t=1795627019;
+	b=c+EzvMM0YvHwbO60JoXgEoihdVC7f/mPAqkWzpvaUKkYN6WTeqUYs3mRXaUES5rADHFB
+	 VA2vObjTMqgK7orXOOZeWA+56+HhUscIFz56qhmAztB+0L9PjE5eJnAIKAFfMMaC53xD6
+	 kDkWshWKz5ZjCVnqEF3I6/ljhT+oqavxDd8tsTnwoC011Z76jyijjk3qJksxCNFwh70ta
+	 lRZQiOXOuXjNyq8wUH+tIC2/W81rmlSzwyf9xqf7q6CQTENqXJlG0/kggaLilOR1sTVJE
+	 uE6e3NZ0Y5oUn48ujsSEX3L4ohH2dmAtj0Yv+wDJIVljyngyTwhe1Bq7O4D1JYNF61A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795626590;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Ffacn7nRNS6dp+vdW4d5BImSYl5nd9SJIwmzdMpCXn0=;
-	b=zd4/y6yVVPPDg70EsBw/WWsQGTMOkSKEU+U9dbVwcA4FPVx1agCx5awfb6latF1ODs/w
-	 gQ70Rd9aKKb53mB5Xj2gTS1HJqqG8YLp4CSyOEe1u5tO84lgm3MO2CHnB5fZ3/M3taufA
-	 6i8d8WFQH8wC/0zWoNIc8v2SxHA8NmrxsHU9zgmL+RY6XDh7S/CBA3H+8/mBuCBk0rcYF
-	 4i4lpkrLM4Ncp8ypZBMM53tZHdtj/5BqNSo6QTSSH/wzcZEzyE3F1yipHcADAGRrLKq9+
-	 4hiDIuy18UetQ6jEquDW1FqBt7jAPOO8jLQoFj3QHt3WMxIuuSLB9HZ90UpSjfNz1Nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795627019;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=306Y2BAJ0mk9ljp12eAtknlDVkrB39bi49HCqrOE2pE=;
+	b=RO0TnvTKzXEh0OkNS+sNlXOfNluXAjO0lnYQTJP/PIStCJ33EncU+aCrCcTrOw+sNIII
+	 8Yx3mfGfK1fN20pWUMW9onl2k6PnywPdWIoJrtBJTWlWum5WnR3jwEJPzSW99sKHuyQzw
+	 oFlcDu30j4hHwBCghKnIVJgq4Hg8RNi6YMDN4fgeh8psrdq+sbBxnYGQPxcfUmjjdkEMH
+	 A7BGssPSVHox2cA2nC4kw30HVBDvAes6p9+R3QxZMxXTtmcgmpyWDZd3PdlV9eF4hBYEV
+	 yQoU/Ada7wm+OaJ54W2Ql5llDUL/PBjC8GopkvfIlbK4Q8LT+oAUdR2RwGMRvrrDCoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dEq1AXIv;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=g8W78Mqa;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=a7snv.com;
+	spf=pass smtp.mailfrom=a7snv.com;
+	dkim=pass header.d=a7snv.com header.i=@a7snv.com header.a=rsa-sha256 header.s=protonmail header.b=Isn+fec1;
+	arc=none smtp.remote-ip=185.70.43.18
+Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8BD606A323
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 17:09:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE8BD606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA29D606A321;
+	Wed, 25 Nov 2026 17:16:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA29D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=a7snv.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=a7snv.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dEq1AXIv;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=g8W78Mqa
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6APGQERr3007855
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 17:09:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ffacn7nRNS6dp+vdW4d5BImSYl5nd9SJIwmzdMpCXn0=; b=dEq1AXIvkaQYtT2F
-	PQYrsoXWszTV7fsnNozEcnSX/a/6jZfyskL4ChCPeN6L1rvRUE5B2/H1Ek2+UM3H
-	ykoNpBhh0iO4smAzQ7SOe73/EHdCN8LsbbCRfDeE2WROnLaoibVR7a3d6Nd5XOMb
-	C91RusYZniwsKcvB/n422rECp08LMhIC48UiOKrNwshtdReIJWTnOVi5hYXXfVOO
-	XR4rzSECQQvLozkP5ltDg5cIADh746d9AShqIdmHSqx6KRIFkSopUA4sSTayZPv4
-	9HJ886IJ7aAodA8adUjOQCXoR6QHtP/g/TOTasXwBNkmDRtSh0ZEpFC2/1LjEVmN
-	iAgb/g==
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5vuksy6s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 17:09:47 +0000 (GMT)
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8b3ad09ad82so80380997b3.3
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 09:09:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795626587; x=1796231387; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ffacn7nRNS6dp+vdW4d5BImSYl5nd9SJIwmzdMpCXn0=;
-        b=g8W78Mqa8iHavISiyrUXt5jKRrWyEGScHZP8L64BXjl3zptiPOCYiV0OqBfniSP0Sl
-         EBFil6yycGg1XUHSU3ianHCdiESSCR+tFmoOp3xy9/GCnVDU7mm6VQnAfjZng6CzG1Jv
-         V5eJfizLi7Rv12fuGsEPtCfW88VnRmeQY9GcE16NKrGWltQwutPf07mZZds/M8ofnz7Z
-         t5htaGtYemmj0o2dx/xa2ZcZOJAmlJt4K9jsCRY6IaMPEBrI9kwR1Uwe9dr2aeEaGAri
-         aPnSTlfw6u5mDZZa+SkpTSMDL6kq32XwV8i1G0F261NV+DOWr/b2xCerJ/RMLmGSRElz
-         16eQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795626587; x=1796231387;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ffacn7nRNS6dp+vdW4d5BImSYl5nd9SJIwmzdMpCXn0=;
-        b=dfwjXsSrMtkwg+HxmptfZ6cO6YOe/ikLJGlRlq23pWFGbqNwuDtcfxNUPTWi+Ad0q1
-         BwZSMuUBiCSbmKieD5aYw3zWsACOO21Op59Rv4FpsVKYMMx+N5ZY8fYt6mOmuqP2Qgr3
-         yDm7KcoapgYDjfYxyEQWoTtPfO4y1CHN51IqaxRWU43e3YubSrmE+7PiGFABq4YvHk8+
-         GEyIW0ZE++IEoP6grNl5c1zXZ/oBthQIAZ4CINFIP2P4juf66/JBxwZn30FCbTIW3wOm
-         ncMvqcyCszxqjjG3lUI3Z9k6bjEX6ANb32k3pjtxMU1krWTBLh6NkgqgwqucRPvqQ9pA
-         S5Cw==
-X-Forwarded-Encrypted: i=1; AL+hErHRPz1c6Fg3LHQJTCfuSmKkABbCd3PthrITRaVFuVtjgzRYzwrKNg/TM+hg9DXkV6U7mwUUSCGmqBFXdA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/6RMRvNchZ2fGlWZ/UZRsks6x5J5TcvxvsLMLQkRuY//RrDMob
-	9Ynh17AQ6RRlxRkKDynQi2xd5Sa/dbYQOUKP59jJ82lKo2KthVVNQVWuaxmRV8aCvY+osuv/SAP
-	sw2iZPqczVfWwX48M19EFt08pQxDZMkN7G8DrA4CEjXSKXo8+0zY3B3mSCaGu0697IQ==
-X-Gm-Gg: AZFdTZcOYsLiuobnDaHEYyCj1vEfYreoNW3hp/m8tiigJcNelyLTVLIaRW4rtgheGeB
-	IbNmJTuCzn2ghGDaMev1SvX0dZeltU0zfjQEgAcFjc3CALFMzuU2n2fTJUdYijQlBumESX9ahpj
-	NqLtLH3RzbiMO1a26tyKhWxD6XqXAcpUCXXspZpQOwdP6j2hbJLGS2H1Q5CYJ9zz6R79om8KeQa
-	iocLEXp9nzOzANyTzrAXQSmDzWxAQkmq4aJ/bCtGmGHgigtjfjE95tCxOCrWuKGMRc3RHo3IqXM
-	bEKctRprjGzWS8IosPfPAP8rps7m/P9/jc1Mcm/ReW9pgyJ62vz7zD1SmRgR4EpmdJKYTYmvbCV
-	dv9ZHqXwRvgwDWZWMkSKNO4JYFPkPLw05ixGAfnqoaIw1xVfGc2FzJWGCS7EwRTgQPKdVVZr79A
-	ZL1nE76wX9ORwh
-X-Received: by 2002:a05:690c:7342:b0:8b1:46a1:2893 with SMTP id 00721157ae682-8b520319b8bmr69712117b3.6.1795626587242;
-        Wed, 25 Nov 2026 09:09:47 -0800 (PST)
-X-Received: by 2002:a05:690c:7342:b0:8b1:46a1:2893 with SMTP id 00721157ae682-8b520319b8bmr69712047b3.6.1795626586828;
-        Wed, 25 Nov 2026 09:09:46 -0800 (PST)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4b34e9c3ffesm19399409f8f.19.2026.11.25.09.09.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 09:09:46 -0800 (PST)
-Message-ID: <f255486c-d4bf-4076-8fb8-7c6caccfdfd0@oss.qualcomm.com>
-Date: Wed, 25 Nov 2026 19:09:44 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=a7snv.com header.i=@a7snv.com header.a=rsa-sha256 header.s=protonmail header.b=Isn+fec1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=a7snv.com;
+	s=protonmail; t=1795627004; x=1795886204;
+	bh=306Y2BAJ0mk9ljp12eAtknlDVkrB39bi49HCqrOE2pE=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Isn+fec1ecOxy1pHM8uYQ2tCVBhQsV3SY7qVL+OD6TT25GSpjBygkLsgXcAooSS/z
+	 f4TztsrhUXRHoYkbUDWzk/wrbiOCgFnPZ2aWMuDVIfaJvhypaK7JiWeFt2PHvIJkad
+	 zl6zmCNft9hgo+9H6dSp3r3d31vWneEExVaLfCv950INz1tUBSV1mw464DWNqU3p/y
+	 lpq7RNBIwC/hwanegqotjj68CdEsDhlwHHjDfipBcm2B/InGkFFeZYjtGOjUIxM5pE
+	 dmhet2534yuefhIkBSmvCHG5Zplu/DngDDKHbgeYvEIrDUQp0GJ8kxYzIEQa9Mn1W1
+	 A7UrtyIBBesPA==
+Date: Wed, 25 Nov 2026 17:16:25 +0000
+To: Mengmeng Zhao <mengmeng.zhao@linux.dev>
+From: Yun Wang <arsenova@a7snv.com>
+Cc: hch@lst.de, anuj1072538@gmail.com, anuj20.g@samsung.com, nj.shetty@samsung.com, axboe@kernel.dk, sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, djbw@kernel.org, willy@infradead.org, jack@suse.cz, viro@zeniv.linux.org.uk, brauner@kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com, yi.zhang@huawei.com, asml.silence@gmail.com, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, liwang@kylinos.cn, zhaomengmeng@kylinos.cn, mcgrof@kernel.org, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org, linux-doc@vger.kernel.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
+Subject: Re: [RFC PATCH v2 2/8] iomap: add dma-buf direct I/O guards
+Message-ID: <20261125171600.4053585-1-arsenova@a7snv.com>
+Feedback-ID: 235448903:user:proton
+X-Pm-Message-ID: 37ce9f54f53aabca1ce9dc5fb89af8077900c77a
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -116,88 +61,387 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/12] media: qcom: camss: Add streams enable field to
- camss resources
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        linux-kernel@vger.kernel.org, Hitesh Patel <hitesh@ebytelogic.com>,
-        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
-References: <20261125080001.2540101-1-gjorgji.rosikopulos@oss.qualcomm.com>
- <20261125080001.2540101-4-gjorgji.rosikopulos@oss.qualcomm.com>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <20261125080001.2540101-4-gjorgji.rosikopulos@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=KfVHIgYD c=1 sm=1 tr=0 ts=6b07165b cx=c_pps
- a=72HoHk1woDtn7btP4rdmlg==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=gmv_cWQL6D0Jf28gQFwA:9 a=QEXdDO2ut3YA:10
- a=kA6IBgd4cpdPkAWqgNAz:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: f0iTxIMtiDfqQuW8A3GygVDtZyF-lSyG
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA2OCBTYWx0ZWRfXypFjer3JCjpD
- XCgsl2syiQ8LyBJWQMz8XlUyedVVblCwz8A/w3AtDe9nEscDxavTtTzQhXuxSYq8hQKGbUK+35B
- JpAZHMMjC7nx/RPIabXhwQU5iB4m2t8=
-X-Proofpoint-GUID: f0iTxIMtiDfqQuW8A3GygVDtZyF-lSyG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA2OCBTYWx0ZWRfX1zh63685SvKz
- mam4a+lIuuUwfRvd5F2q/Y/cm9N1i9sn5o+SEpae0mD/raGL3rLh3jgpE2f2i0mkTqNKfHqSMRz
- cZCnmJ8pyVI+VY0+eSbG6dJHpMQHFGU+Xm4ebkmEHyDVeW9FLGjY6OvhIjld7fJCCVECdc3vImc
- MakONNQ6wWP5eVYjIxji+XhYSBqA7URZwo73l004AxxWqfEJ32ymny1SsrO5dzhMDbmEpRuFq19
- DT2y8fBFiBgfsJCLaz0n99PwUtAkblEhC6wLF4bbdZ06iU0JwaoHSjAqizSWYJSox580rsO24T0
- kHZAPnDbLGEvUgB0Cl5ebgrVuHktPR5uNHFhaGNtkVuq2+X9srNpmkaH+ee+bp/Jy/cp3ul4Ygq
- AVST0d89hzBsItLhd/X362RgYsjzHnjwFPz/10C56YJwIbQNgKNshwPsqVnXueSjLSd5Nk1re9+
- 8f5ODnRlBKHa6nSag9Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-25_04,2026-11-25_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
- impostorscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250068
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Nov 13, 2026 at 03:06:15PM +0800, Mengmeng Zhao wrote:
+>  static int iomap_dio_hole_iter(struct iomap_iter *iter, struct iomap_dio=
+ *dio)
+>  {
+> -=09loff_t copied =3D iov_iter_zero(iomap_length(iter), dio->submit.iter)=
+;
+> +=09loff_t copied;
+> +
+> +=09/* zero-filling walks the data pages */
+> +=09if (iov_iter_is_dmabuf_map(dio->submit.iter))
+> +=09=09return -EOPNOTSUPP;
 
+This also fails reads that run past EOF.  The filesystem maps the range
+beyond the last block as a hole too, so a dma-buf read that starts
+before EOF and ends past the last block of the file fails as a whole,
+while the same O_DIRECT read into user memory returns the bytes up to
+EOF.
 
-On 11/25/2026 9:59 AM, "Gjorgji Rosikopulos gjorgji.rosikopulos"@oss.qualcomm.com wrote:
-> From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-> 
-> Add a per-SoC streams_enable field to struct camss_resources, used by
-> subsequent subdevices to select between the legacy s_stream()-based
-> pipeline and the V4L2 subdev streams API.
-> 
-> Suggested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/camss/camss.h | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-> index 7564a7c46fa2..621ea2e3eba1 100644
-> --- a/drivers/media/platform/qcom/camss/camss.h
-> +++ b/drivers/media/platform/qcom/camss/camss.h
-> @@ -121,6 +121,7 @@ struct camss_resources {
->  	const unsigned int tpg_num;
->  	const unsigned int csid_num;
->  	const unsigned int vfe_num;
-> +	const bool streams_enable;
+I found it while testing the series for fastsafetensors' dma-buf copier
+[1], which loads model weights from NVMe into GPU memory with READ_FIXED
+into registered dma-bufs.  I ran v2 on top of v7.4-rc2 in a QEMU guest
+with an emulated NVMe namespace, reading into udmabufs.  With a
+5000-byte file on ext4 with 4 KiB blocks, reading [4096, 12288):
 
-If all agree i plan to drop streams_enable and use stream api as default, v4l2_core handles
-compatibility with non-stream api so i think we should be fine. Just that we need to verify
-on all the supported hw's.
-Keeping old non-streams and streams in parallel in sub-devices implementations really adds
-complexity and duplication of the code which is general.
+  READ_FIXED into a registered udmabuf -> -EOPNOTSUPP
+  O_DIRECT pread() into user memory    -> 904
 
-~Gjorgji
+It fails the same way whether the read is the first one on the buffer,
+is issued inline once the map exists, or is forced to io-wq with
+IOSQE_ASYNC.
 
+Reading a file in fixed-size chunks hits this on the last chunk unless
+the file size is a multiple of the chunk size.  With 1 KiB blocks it
+also breaks the copier's normal pattern, 4 KiB-aligned reads up to
+round_up(i_size, 4096): the last read fails.
 
->  };
->  
->  struct camss {
+Nothing past EOF is reported to the caller anyway: __iomap_dio_rw()
+reverts the iterator to i_size and iomap_dio_complete() truncates the
+result to it.  So a hole that starts at or after EOF can be stepped
+over; a hole inside the file still needs zeroes and still fails.
+Something like this on top of the series, or folded into this patch:
+
+diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
+index 83fda6973bb9..2de6d379f811 100644
+--- a/fs/iomap/direct-io.c
++++ b/fs/iomap/direct-io.c
+@@ -596,9 +596,20 @@ static int iomap_dio_hole_iter(struct iomap_iter *iter=
+, struct iomap_dio *dio)
+ {
+ =09loff_t copied;
+=20
+-=09/* zero-filling walks the data pages */
+-=09if (iov_iter_is_dmabuf_map(dio->submit.iter))
+-=09=09return -EOPNOTSUPP;
++=09if (iov_iter_is_dmabuf_map(dio->submit.iter)) {
++=09=09u64 length =3D iomap_length(iter);
++
++=09=09/* zero-filling walks the data pages */
++=09=09if (iter->pos < dio->i_size)
++=09=09=09return -EOPNOTSUPP;
++=09=09/*
++=09=09 * Past EOF there is nothing to zero: the read is truncated to
++=09=09 * i_size before it is reported, so step over the hole.
++=09=09 */
++=09=09iov_iter_advance(dio->submit.iter, length);
++=09=09dio->size +=3D length;
++=09=09return iomap_iter_advance(iter, length);
++=09}
+=20
+ =09copied =3D iov_iter_zero(iomap_length(iter), dio->submit.iter);
+=20
+
+Signed-off-by: Yun Wang <arsenova@a7snv.com>
+
+With it, the read above returns 904 with the right data in all three
+cases.  Holes and unwritten extents inside the file still return
+-EOPNOTSUPP, including a hole that straddles EOF after the file was
+extended with ftruncate().
+
+The rest of the series behaved as the cover letter describes in that
+setup, with 4 KiB and 1 KiB blocks: registration on an O_DIRECT file,
+reads into arbitrary offsets of the buffer, reads through a dup()ed fd,
+-EBADF through another file's slot, -EINVAL when registering a buffered
+fd, -EOPNOTSUPP after F_SETFL clears O_DIRECT and success again once it
+is set back, WRITE_FIXED including a write that extends the file, and a
+clean e2fsck afterwards.  I have not run it on real NVMe hardware or
+xfstests yet.
+
+This report and the reproducer below were drafted with the help of an
+AI coding assistant (Claude Opus 5.5); the fix is mine.
+
+[1] https://github.com/foundation-model-stack/fastsafetensors/issues/139
+
+Thanks,
+Yun
+
+Reproducer.  It needs /dev/udmabuf and a filesystem with this series
+on an NVMe namespace:
+
+  head -c 5000 /dev/urandom > /mnt/f && sync
+  ./dmabuf_eof_read /mnt/f 4096 8192             # first read on the buffer
+  ./dmabuf_eof_read /mnt/f 4096 8192 warm        # map exists, inline issue
+  ./dmabuf_eof_read /mnt/f 4096 8192 warm async  # IOSQE_ASYNC
+
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Read a file range into a udmabuf that is registered against the file as
+ * an io_uring fixed buffer, and compare with an O_DIRECT pread() of the
+ * same range into user memory.
+ *
+ *   dmabuf_eof_read <file> <offset> <length> [warm] [async]
+ *
+ *   warm   first read [0, 4096) through the same buffer, so the dma-buf ma=
+p
+ *          exists and the measured read can be issued inline (nonblocking)
+ *   async  set IOSQE_ASYNC on the measured read (issue it from io-wq)
+ *
+ * Exits 0 when READ_FIXED returns what pread() returns and the bytes match=
+.
+ * Needs /dev/udmabuf, and a kernel and filesystem with io_uring dma-buf
+ * registered buffers.  The UAPI bits are declared locally because they are
+ * newer than most installed headers.
+ */
+#define _GNU_SOURCE
+#include <errno.h>
+#include <fcntl.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <sys/syscall.h>
+#include <unistd.h>
+#include <linux/udmabuf.h>
+
+#define IORING_OFF_SQ_RING=09=090ULL
+#define IORING_OFF_SQES=09=09=090x10000000ULL
+#define IORING_ENTER_GETEVENTS=09=09(1U << 0)
+#define IORING_REGISTER_BUFFERS2=0915
+#define IORING_REGISTER_BUFFERS_UPDATE=0916
+#define IORING_RSRC_REGISTER_SPARSE=09(1U << 0)
+#define IORING_RSRC_UPDATE_EXTENDED=09(1U << 1)
+#define IO_REGBUF_TYPE_DMABUF=09=092
+#define IORING_OP_READ_FIXED=09=094
+#define IOSQE_ASYNC=09=09=09(1U << 4)
+
+struct sqe {
+=09uint8_t opcode, flags;
+=09uint16_t ioprio;
+=09int32_t fd;
+=09uint64_t off, addr;
+=09uint32_t len, rw_flags;
+=09uint64_t user_data;
+=09uint16_t buf_index, personality;
+=09int32_t splice_fd_in;
+=09uint64_t addr3, pad2;
+};
+
+struct cqe {
+=09uint64_t user_data;
+=09int32_t res;
+=09uint32_t flags;
+};
+
+struct sq_offsets {
+=09uint32_t head, tail, ring_mask, ring_entries, flags, dropped, array, res=
+v1;
+=09uint64_t user_addr;
+};
+
+struct cq_offsets {
+=09uint32_t head, tail, ring_mask, ring_entries, overflow, cqes, flags, res=
+v1;
+=09uint64_t user_addr;
+};
+
+struct params {
+=09uint32_t sq_entries, cq_entries, flags, sq_thread_cpu, sq_thread_idle;
+=09uint32_t features, wq_fd, resv[3];
+=09struct sq_offsets sq_off;
+=09struct cq_offsets cq_off;
+};
+
+struct rsrc_register {
+=09uint32_t nr, flags;
+=09uint64_t resv2, data, tags;
+};
+
+struct rsrc_update2 {
+=09uint32_t offset, flags;
+=09uint64_t data, tags;
+=09uint32_t nr, resv2;
+};
+
+struct regbuf_desc {
+=09uint32_t type, flags;
+=09uint64_t size, uaddr;
+=09int32_t dmabuf_fd, target_fd;
+=09uint64_t resv[6];
+};
+
+_Static_assert(sizeof(struct sqe) =3D=3D 64, "io_uring_sqe");
+_Static_assert(sizeof(struct cqe) =3D=3D 16, "io_uring_cqe");
+_Static_assert(sizeof(struct params) =3D=3D 120, "io_uring_params");
+_Static_assert(sizeof(struct rsrc_register) =3D=3D 32, "io_uring_rsrc_regis=
+ter");
+_Static_assert(sizeof(struct rsrc_update2) =3D=3D 32, "io_uring_rsrc_update=
+2");
+_Static_assert(sizeof(struct regbuf_desc) =3D=3D 80, "io_uring_regbuf_desc"=
+);
+
+struct ring {
+=09int fd;
+=09struct params p;
+=09char *rings;
+=09struct sqe *sqes;
+};
+
+static void die(const char *what)
+{
+=09perror(what);
+=09exit(2);
+}
+
+static void ring_init(struct ring *r)
+{
+=09size_t sq_size, cq_size;
+
+=09memset(r, 0, sizeof(*r));
+=09r->fd =3D syscall(SYS_io_uring_setup, 4, &r->p);
+=09if (r->fd < 0)
+=09=09die("io_uring_setup");
+=09sq_size =3D r->p.sq_off.array + r->p.sq_entries * sizeof(uint32_t);
+=09cq_size =3D r->p.cq_off.cqes + r->p.cq_entries * sizeof(struct cqe);
+=09/* SQ and CQ rings share one mapping (IORING_FEAT_SINGLE_MMAP) */
+=09r->rings =3D mmap(NULL, sq_size > cq_size ? sq_size : cq_size,
+=09=09=09PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, r->fd,
+=09=09=09IORING_OFF_SQ_RING);
+=09r->sqes =3D mmap(NULL, r->p.sq_entries * sizeof(struct sqe),
+=09=09       PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, r->fd,
+=09=09       IORING_OFF_SQES);
+=09if (r->rings =3D=3D MAP_FAILED || r->sqes =3D=3D MAP_FAILED)
+=09=09die("mmap ring");
+}
+
+/* one READ_FIXED from slot 0; addr is the byte offset into the dma-buf */
+static int read_fixed(struct ring *r, int fd, off_t off, size_t len,
+=09=09      uint64_t buf_off, uint8_t sqe_flags)
+{
+=09uint32_t *sq_tail =3D (uint32_t *)(r->rings + r->p.sq_off.tail);
+=09uint32_t sq_mask =3D *(uint32_t *)(r->rings + r->p.sq_off.ring_mask);
+=09uint32_t *sq_array =3D (uint32_t *)(r->rings + r->p.sq_off.array);
+=09uint32_t *cq_head =3D (uint32_t *)(r->rings + r->p.cq_off.head);
+=09uint32_t *cq_tail =3D (uint32_t *)(r->rings + r->p.cq_off.tail);
+=09uint32_t cq_mask =3D *(uint32_t *)(r->rings + r->p.cq_off.ring_mask);
+=09uint32_t tail =3D *sq_tail, idx =3D tail & sq_mask, head;
+=09struct cqe *cqe;
+=09int res;
+
+=09memset(&r->sqes[idx], 0, sizeof(struct sqe));
+=09r->sqes[idx].opcode =3D IORING_OP_READ_FIXED;
+=09r->sqes[idx].flags =3D sqe_flags;
+=09r->sqes[idx].fd =3D fd;
+=09r->sqes[idx].off =3D off;
+=09r->sqes[idx].addr =3D buf_off;
+=09r->sqes[idx].len =3D len;
+=09r->sqes[idx].buf_index =3D 0;
+=09sq_array[idx] =3D idx;
+=09__atomic_store_n(sq_tail, tail + 1, __ATOMIC_RELEASE);
+=09if (syscall(SYS_io_uring_enter, r->fd, 1, 1, IORING_ENTER_GETEVENTS,
+=09=09    NULL, 0) < 0)
+=09=09die("io_uring_enter");
+=09head =3D *cq_head;
+=09if (head =3D=3D __atomic_load_n(cq_tail, __ATOMIC_ACQUIRE)) {
+=09=09fprintf(stderr, "no completion\n");
+=09=09exit(2);
+=09}
+=09cqe =3D (struct cqe *)(r->rings + r->p.cq_off.cqes) + (head & cq_mask);
+=09res =3D cqe->res;
+=09__atomic_store_n(cq_head, head + 1, __ATOMIC_RELEASE);
+=09return res;
+}
+
+int main(int argc, char **argv)
+{
+=09struct rsrc_register reg =3D { .nr =3D 1, .flags =3D IORING_RSRC_REGISTE=
+R_SPARSE };
+=09struct regbuf_desc desc =3D { .type =3D IO_REGBUF_TYPE_DMABUF };
+=09struct rsrc_update2 up =3D { .flags =3D IORING_RSRC_UPDATE_EXTENDED, .nr=
+ =3D 1 };
+=09struct udmabuf_create create =3D { .flags =3D UDMABUF_FLAGS_CLOEXEC };
+=09int fd, ufd, memfd, dmabuf, res, warm =3D 0, async =3D 0, i;
+=09unsigned char *view, *host;
+=09size_t length, size;
+=09ssize_t expect;
+=09struct ring r;
+=09off_t offset;
+
+=09if (argc < 4) {
+=09=09fprintf(stderr, "usage: %s <file> <offset> <length> [warm] [async]\n"=
+,
+=09=09=09argv[0]);
+=09=09return 2;
+=09}
+=09for (i =3D 4; i < argc; i++) {
+=09=09if (!strcmp(argv[i], "warm"))
+=09=09=09warm =3D 1;
+=09=09else if (!strcmp(argv[i], "async"))
+=09=09=09async =3D 1;
+=09}
+=09offset =3D strtoll(argv[2], NULL, 0);
+=09length =3D strtoull(argv[3], NULL, 0);
+=09size =3D (length + 4095) & ~4095UL;
+=09if (size < 4096)
+=09=09size =3D 4096;
+
+=09fd =3D open(argv[1], O_RDONLY | O_DIRECT);
+=09if (fd < 0)
+=09=09die("open");
+
+=09/* the reference: the same range read into user memory */
+=09if (posix_memalign((void **)&host, 4096, size))
+=09=09die("posix_memalign");
+=09expect =3D pread(fd, host, length, offset);
+=09if (expect < 0)
+=09=09die("pread");
+
+=09/* a udmabuf over a sealed memfd */
+=09memfd =3D memfd_create("dmabuf-eof", MFD_ALLOW_SEALING);
+=09if (memfd < 0 || ftruncate(memfd, size) ||
+=09    fcntl(memfd, F_ADD_SEALS, F_SEAL_SHRINK))
+=09=09die("memfd");
+=09view =3D mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, 0);
+=09if (view =3D=3D MAP_FAILED)
+=09=09die("mmap memfd");
+=09ufd =3D open("/dev/udmabuf", O_RDWR);
+=09if (ufd < 0)
+=09=09die("open /dev/udmabuf");
+=09create.memfd =3D memfd;
+=09create.size =3D size;
+=09dmabuf =3D ioctl(ufd, UDMABUF_CREATE, &create);
+=09if (dmabuf < 0)
+=09=09die("UDMABUF_CREATE");
+
+=09/* a ring with one sparse buffer slot holding the dma-buf */
+=09ring_init(&r);
+=09if (syscall(SYS_io_uring_register, r.fd, IORING_REGISTER_BUFFERS2, &reg,
+=09=09    sizeof(reg)) < 0)
+=09=09die("IORING_REGISTER_BUFFERS2");
+=09desc.dmabuf_fd =3D dmabuf;
+=09desc.target_fd =3D fd;
+=09up.data =3D (uint64_t)(uintptr_t)&desc;
+=09if (syscall(SYS_io_uring_register, r.fd, IORING_REGISTER_BUFFERS_UPDATE,
+=09=09    &up, sizeof(up)) < 0)
+=09=09die("register dma-buf");
+
+=09if (warm) {
+=09=09res =3D read_fixed(&r, fd, 0, 4096, 0, 0);
+=09=09if (res !=3D 4096) {
+=09=09=09fprintf(stderr, "warm-up read returned %d\n", res);
+=09=09=09return 2;
+=09=09}
+=09}
+=09memset(view, 0xa5, size);
+=09res =3D read_fixed(&r, fd, offset, length, 0, async ? IOSQE_ASYNC : 0);
+
+=09printf("READ_FIXED into dma-buf (%s, %s): %d%s%s, O_DIRECT pread(): %zd\=
+n",
+=09       warm ? "map ready" : "first read", async ? "IOSQE_ASYNC" : "inlin=
+e",
+=09       res, res < 0 ? " " : "", res < 0 ? strerror(-res) : "", expect);
+=09if (res !=3D expect)
+=09=09return 1;
+=09if (res > 0 && memcmp(view, host, res)) {
+=09=09printf("data differs\n");
+=09=09return 1;
+=09}
+=09return 0;
+}
 
