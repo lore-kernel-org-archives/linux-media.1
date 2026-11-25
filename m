@@ -1,57 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795597779;
-	b=4nxUsaumTkpiOEZBHa5r9TYyYgjD3r2yTmBPk2i4v/Ds3hXmnjx4S5KICdk98GDc2goo
-	 9cV2oF2Iovx+ymuHfTymbB5/zj6LFQNdqT/55lwFRnUfmmj1pBbxpV42D2IsCX3kcCq1Q
-	 eWEXK/7sqTcKmxfP4aGaU2ThHEi15qXdbvtXXiTtGVVoAcILlyqaBgw4iwdQ4pF6T7rMt
-	 2LSavftG1fGTZeXktN18jVYEmWwj4LadAjR1jBakMHQFEVsTCAy/k3nDmtA8IZazjIXGM
-	 R2gVl3PgJibF5Zzkut3AsQu2mANCAZUO1+Mv/Fa8E3LiZ9vaXuIcZibaiC5mB7TW+Fg==
+	t=1795597842;
+	b=ria49bbcNF+goafmJly8hUiAHctwxnAiysuN9ipiGIOwcximeazvhK1ufnRDQB4qNl6r
+	 dRydIv9SVc/ClTZ1n/ZeSUGWJAXTrN99R77PzVlBrIIAiGKZEwVrjNUL2twkZLsuSGC4E
+	 +FMuMFrJDPAVzVI5hog+4h7MLfd+KbC/9Ism6lNalo47wxu9Rb+ZrJ8mcI0VEBMxBG8Bp
+	 YoALRiSaqaW2naxYBcfzzz3dDdg/39SO8aQo6YdG+6OlgwYbD+3jtMN9UQf/uhmO7qEz0
+	 l6L8LHDh7mA+Nop44GjRbaTRPWVhgtuke5REBbHIi96KxHSJM3gIDcUiwYhGE1J+UfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795597779;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=atA20MoJCKOu8hezGD9x11s/X5t0L0tiUzUV7Xg5yA0=;
-	b=gvBwdWg7vy1m03WO9908OY1giEcwWEwpH5IHWUbinTSY2pjwr+tnReobtuS4zoLQck9M
-	 GQRHEZMasVDNzox8YIIsN4+c71DsHYc2TkinTv/vkXHZQ0GSHIY5TBDN64HrJmCM48wYP
-	 vVWieOFAzCOqRSxPoJrhXrZthMlYedkV3juwQOLvM5U++Q+ZbV7qPpM7sVAxfL+BU2X9C
-	 ray3E+oxCBCY1tIpPIk+apWq3mAhrlj00GAEFlybt3i7EHHX/vaFxMxtCqQyuJ1FDG497
-	 H1gfo3gRmNY/SjSWbXHQ3dsG+qVVUuu6V9d3OAi/bwwmeUrHragibcOFL2efTyEh6Yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795597842;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=NCdpM3lYLmW1+CJuRlqZci1R9M8SZdltum5UAnZZX60=;
+	b=qS7IxXH18h8tpJ3urB+OnCJDobPSZRLjv54+sRDsnHYGXfGWf+1PcX1v9hpnIoR69EZA
+	 G5iHfIkQ7/hSwSP7D27MFfyu0k8J8MbNpBJxZdBeTgn/7B+02eafVaSh8YPUqUme0Wl14
+	 rt2NQ4NLroZC/tOdOC0PS3kFdqyX4FFhPclDjXkeQnYzLFlrQBMAKEZP/tQ2u7a8BVoJB
+	 faUUEyN8yPgpksFSf5hA/lPI08GBAJwWWGNLYRTEK+yHKM0GZVkC6Cmsq2vbzbEx+z9gz
+	 GQzKp260JJULtmk2cYsM7EFIU/v6loUHNkx/kh3HkSCt3ZyRzK2N1M3ZQ47OFyJqhkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="rQhU9a2/";
-	arc=none smtp.remote-ip=79.135.106.118
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LokNliiQ;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32902606A330
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 09:09:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32902606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74075606A321
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 09:10:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74075606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=rQhU9a2/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1795597776; x=1795856976;
-	bh=atA20MoJCKOu8hezGD9x11s/X5t0L0tiUzUV7Xg5yA0=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=rQhU9a2/ZrgHQcCSn7A+tDJRx7mN2T8RvxF6JMmcj9/9MflOI4cpPhTwZ6Acu8zq6
-	 zFkedFpYp5HFS0fOSoDbq5JBSOuCMygSfDtHuhcTPEwanrI7tru6tZkK7AA8LpHvg2
-	 IMy2nJU+hHe6OkUi3ID7jHfkzOthET3Q1iotYlzqHW0vaPsa2yCT4G5hr1zjudGMBR
-	 G62G5FWE1lVnZ6TcT0J28bvHCv1yfrZ5VB44eYCWFhZG2zhNYFL9lbEIJaRvEVBAoH
-	 15WB84B2Q8GAdA92PPPjQWO12pyVinAdaM+fQmcQUNdk6Gfa5I+UkNZGpZaa8gM4nm
-	 5yx4qu7AkEU7A==
-Date: Wed, 25 Nov 2026 09:09:28 +0000
-To: Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hao Yao <hao.yao@intel.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Bingbu Cao <bingbu.cao@amd.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3] platform/x86: int3472: Use actual clock frequency for DSM method
-Message-ID: <20261125090921.46652-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 30ca2397b51263ce57e2d4ad33e31b19f083b272
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LokNliiQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795597841; x=1827133841;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JDov9zzyvuQ9BfTqbjm2wIEFdZcFuJW74vJtlyELi2c=;
+  b=LokNliiQv8AhWWXmp8xv8Z1Yrja8DYSXY1uIblmTqQ1NnV6frDCVAddn
+   3RPXrWSAviow17WprrEJ/viN0W42ZwEky51FynNivxi9AWt1yEcIGyS4m
+   /EIkg1/ZT8HnWQbHxaBk7UQxZjrN7wjYqBJGRFBrzJqNFY01a8lSCFywX
+   Kh4VSsOYCxMbwTpDgmtIVvcLrMr/D8BQGk2CAZRAw/fC16wML/1DXTgnN
+   ccyCNWmp4dNztlFSgOk7UVQbe4gN1mE1714LHZwf9ozEAJTLUtGTRM4M1
+   B0zvd8vtTa/ATcUSkB6b57MYbX1QkFN+ZocEhMzk29uP2SXvSwtkzqlDW
+   Q==;
+X-CSE-ConnectionGUID: eh+NFF/FSZOI/3Qe4taXvg==
+X-CSE-MsgGUID: wXwepKW1SWmISe0lkjjNsQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4368852"
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="4368852"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 01:10:27 -0800
+X-CSE-ConnectionGUID: S3zvZ3WaTIOD7UN6k+ZCfA==
+X-CSE-MsgGUID: xieTa/vwRYGFoABiW4M0Jg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="12028676"
+Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.36])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 01:10:25 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id AD68611F739;
+	Wed, 25 Nov 2026 11:10:29 +0200 (EET)
+Date: Wed, 25 Nov 2026 11:10:29 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Tobias Wies <tobiaswies@gmail.com>
+Cc: linux-media@vger.kernel.org
+Subject: Re: [BUG] media: ipu-bridge: HIMX1092 entry prevents IPU6 RGB camera
+ from working when no HM1092 driver binds (Dell Precision 5680)
+Message-ID: <awamBS3INWs2kydH@kekkonen.localdomain>
+References: <CAN8C2X1qgNpFjKqS1GwZw8C8HkZQcMmpfmpy8chYnCBo0Y2hWg@mail.gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -61,129 +82,27 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAN8C2X1qgNpFjKqS1GwZw8C8HkZQcMmpfmpy8chYnCBo0Y2hWg@mail.gmail.com>
 
-From: Hao Yao <hao.yao@intel.com>
+Hi Tobias,
 
-The third argument (args[2]) to the _DSM method was hardcoded to 1,
-which selects 19.2MHz. A sensor whose SSDB asks for 24MHz therefore
-runs from 19.2MHz, and everything it derives from its clock runs at
-four fifths of the expected rate.
+On Tue, Nov 24, 2026 at 09:31:09PM +0100, Tobias Wies wrote:
+> Hi,
+> 
+> Since ipu-bridge gained an entry for the Himax HM1092 IR sensor
+> ("media: ipu-bridge: Add Himax HM1092 IR sensor", 4fdb0342f05e),
+> the RGB camera on my Dell Precision 5680 no longer works. The IPU6
+> async notifier now waits for the HM1092, but no driver ever binds
+> to it, so the notifier never completes and the sub-device node for
+> the RGB sensor (ov02c10) is never created.
 
-Pass the frequency from the SSDB instead, with 19.2MHz as the default.
-1 selects 19.2MHz everywhere, but the value for 24MHz depends on the
-platform. Where the frequency field is one bit wide (Tiger Lake, Jasper
-Lake, Alder Lake, Raptor Lake) it is 0, and 3 would also set the clock's
-enable bit again when the clock is turned off. From Meteor Lake on the
-field is two bits wide and it is 3; 0 and 2 leave the clock unchanged
-there, as measured with an oscilloscope.
+I believe this has been fixed by commit
+7260f78c05051fdcfaf337eb1ebef69ec0436c3c in the fixes branch of the
+media-committers tree (not yet in Linus's tree though).
 
-Fixes: e4543de8b6ff ("platform/x86: int3472: Evaluate device's _DSM method =
-to control imaging clock")
-Signed-off-by: Hao Yao <hao.yao@intel.com>
-[Sergey: pick the 24MHz value per platform]
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
-v3, sent by me as offered in the v2 thread, with Hao as the author:
-- The 24MHz value is chosen per platform. On a Surface Pro 9 (Alder
-  Lake) Fernando Rimoli measured that 3 gives 19.2MHz and 0 gives 24MHz
-  [1]. coreboot's camera_clock_ctl.asl has a one-bit frequency field for
-  Tiger Lake, Jasper Lake and Alder Lake (which covers Raptor Lake) and
-  a two-bit one for Meteor Lake, Panther Lake and Nova Lake.
-- The Fixes: tag and the note on 0 and 2 that Ilpo asked for.
-- v2's Reviewed-by and Acked-by tags dropped, since the code changed.
+-- 
+Regards,
 
-Tested on a Surface Pro 11 (Lunar Lake), with the module built from
-Ubuntu's 7.0 source, where this file is the same as in media-committers
-next. The VD55G0, whose SSDB asks for 24MHz, streams at 59.14 fps as
-its controls give, against 47.29 fps without the patch. The two 19.2MHz
-sensors are unchanged. The Alder Lake branch has not run as posted.
-
-v2: https://lore.kernel.org/all/20251208035122.2147678-1-hao.yao@intel.com/
-[1] https://lore.kernel.org/all/20261026111012.33347-1-fernandorimoli11@gma=
-il.com/
-
-Tool use, per Documentation/process/generated-content.rst (Assisted-by
-tags in commits were dropped in 7.4-rc1):
-
-* My contributions to this series were prepared with Claude Code
-  (claude-opus-5-5); work by others in it is their own.
-* This replaces any Assisted-by tags in earlier versions.
-
- .../x86/intel/int3472/clk_and_regulator.c     | 39 ++++++++++++++++++-
- 1 file changed, 38 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/platform/x86/intel/int3472/clk_and_regulator.c b/drive=
-rs/platform/x86/intel/int3472/clk_and_regulator.c
-index 9e052b164a1..47dc23c5184 100644
---- a/drivers/platform/x86/intel/int3472/clk_and_regulator.c
-+++ b/drivers/platform/x86/intel/int3472/clk_and_regulator.c
-@@ -10,6 +10,9 @@
- #include <linux/regulator/driver.h>
- #include <linux/slab.h>
-=20
-+#include <asm/cpu_device_id.h>
-+#include <asm/intel-family.h>
-+
- /*
-  * 82c0d13a-78c5-4244-9bb1-eb8b539a8d11
-  * This _DSM GUID allows controlling the sensor clk when it is not control=
-led
-@@ -19,6 +22,40 @@ static const guid_t img_clk_guid =3D
- =09GUID_INIT(0x82c0d13a, 0x78c5, 0x4244,
- =09=09  0x9b, 0xb1, 0xeb, 0x8b, 0x53, 0x9a, 0x8d, 0x11);
-=20
-+/*
-+ * The third argument to the _DSM method selects the clock frequency. 1 is
-+ * 19.2MHz everywhere. 24MHz is 0 where the frequency field is one bit wid=
-e
-+ * (Tiger Lake, Jasper Lake, Alder Lake, Raptor Lake) and 3 where it is tw=
-o
-+ * bits wide (Meteor Lake and later).
-+ */
-+#define INT3472_DSM_CLK_FREQ_19M2=091
-+#define INT3472_DSM_CLK_FREQ_24M=093
-+#define INT3472_DSM_CLK_FREQ_24M_1BIT=090
-+
-+static const struct x86_cpu_id int3472_dsm_clk_freq_1bit_ids[] =3D {
-+=09X86_MATCH_VFM(INTEL_TIGERLAKE_L, NULL),
-+=09X86_MATCH_VFM(INTEL_TIGERLAKE, NULL),
-+=09X86_MATCH_VFM(INTEL_ATOM_TREMONT_L, NULL),
-+=09X86_MATCH_VFM(INTEL_ALDERLAKE, NULL),
-+=09X86_MATCH_VFM(INTEL_ALDERLAKE_L, NULL),
-+=09X86_MATCH_VFM(INTEL_ATOM_GRACEMONT, NULL),
-+=09X86_MATCH_VFM(INTEL_RAPTORLAKE, NULL),
-+=09X86_MATCH_VFM(INTEL_RAPTORLAKE_P, NULL),
-+=09X86_MATCH_VFM(INTEL_RAPTORLAKE_S, NULL),
-+=09{}
-+};
-+
-+static u32 skl_int3472_dsm_clk_freq(struct int3472_clock *clk)
-+{
-+=09if (clk->frequency !=3D 24000000)
-+=09=09return INT3472_DSM_CLK_FREQ_19M2;
-+
-+=09if (x86_match_cpu(int3472_dsm_clk_freq_1bit_ids))
-+=09=09return INT3472_DSM_CLK_FREQ_24M_1BIT;
-+
-+=09return INT3472_DSM_CLK_FREQ_24M;
-+}
-+
- static void skl_int3472_enable_clk(struct int3472_clock *clk, int enable)
- {
- =09struct int3472_discrete_device *int3472 =3D to_int3472_device(clk);
-@@ -35,7 +72,7 @@ static void skl_int3472_enable_clk(struct int3472_clock *=
-clk, int enable)
- =09args[1].integer.type =3D ACPI_TYPE_INTEGER;
- =09args[1].integer.value =3D enable;
- =09args[2].integer.type =3D ACPI_TYPE_INTEGER;
--=09args[2].integer.value =3D 1;
-+=09args[2].integer.value =3D skl_int3472_dsm_clk_freq(clk);
-=20
- =09argv4.type =3D ACPI_TYPE_PACKAGE;
- =09argv4.package.count =3D 3;
---=20
-2.54.0
-
-
+Sakari Ailus
