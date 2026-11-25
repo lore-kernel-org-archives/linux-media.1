@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795612184;
-	b=ImIJUlXp1n65RqqDnCzFaP52dg43ol8uqo61xtgZRBKZpB689mxcAg3YGpNuhru+FZKW
-	 WldorwBOqKvTHGs9cQAQu/A8YQNtnaISmMtcjqScPHM2pplxMmTv//Gj2lAl8rBYGkm/X
-	 NizlXcU6xUPF52Slq9fn+0s0QuyfPZAaQ/9jclqpCx14r+mFARRJ5aOW7q/x8eLi0YfXH
-	 JN75jvIhtTS/pwZvNK3qI+hC0qL32q+D2P4OYbhSpgAkNsqu7Xkl+9BS6tW+v59+sorU6
-	 2hDE5g2rqRq9NMCLe2rS39B4BJ0AkBTXwmxPeCh3zhT4g/c79fn/sZbnfz9JJISf6NA==
+	t=1795612186;
+	b=jJTcR4mD0lfoIN0eCM+WUdbeU3FgBeC9XoyaULe6ZSsw+AKRR0nQid+H105mTc/FaLjX
+	 6ObLORtIojNgCy9zJqrGUCOZ7x3hwQu8yylOAVnblB/VpAQXza1776wIx8r9asbFhTP3Y
+	 s1LVyzUOu6VCl8VF0EDyz5kLTmogMTXPTXj+dZFR6qBSMhsJmgxXbgoI81SgXERk28fE+
+	 9vtmc2x7Va3e4tJA71sG/Va8NsK6qKBnEpuh7qj+x9QEFRLTLuXF0+9c17TGX/L58a4M1
+	 oYhwAsOBiGNNkhnETMLAlwZE+QZsnq8ek7bySDRy546ClvuF4YHy1lcbtwEyyg3YkLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795612184;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795612186;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=5hJOZPh/5l5UdrXHXCid+x1ivyDC+76FSFPhdCC5yu0=;
-	b=RTeBwaic7s0eokCZvxLSF7i1BlNteybuS62Q5D1q/gsYx90o9oVhnSH4t80RGHBXPZYD
-	 6Cuc1iPl7vj0iaz8LENPSzDI/jB0Mw/4jgvlv0hTFLGJSMC9r0EWGD3ficpCDX6ud+32D
-	 MYnrSs3gxpPt8TRAB05uw5jc2uPVxQAOzc8h0L/zM82e/ahILMdLBG+JHPQ3r52zIz1rT
-	 qPnUJ8jd2u8tZESbWs1YfPvhUXhocCI1FkWKqwH4NiIqd18SUaeBAD+X9qFuLKBdrZuRr
-	 YEA/57BAYZC1CrKa70ihI3P6uSoOFnxwUvZkDP3oWIoNFWUR6z7bfYXjiSkkT7sXX4Q==
+	bh=ypqh5JLbCUVt2KcUVLNuP+rQ4zNQNHHdmlYnlEePayU=;
+	b=b3sd2USb5aZ8JmQwei5DK6CYYVhoHQ04ejtEPURvxedStMHMpg0meQuu3n0Z16i2M39r
+	 OENb3Zpf9YcWsahzwcIHOdvqXZjA5e1ldJkjLZfygomlxsrj7s8pwX7Ahu295rOFbWASc
+	 uSusH23ykj5r6y/9w5OmTWTclq5Zrrij++5ACt7dUSIpyDKb3xOgk7Mh0eYnkhUfxbM35
+	 E1I/aFjKvxz/6a668ZX50fuN/fh1EUSeY/yNW2RCgzPOeo1WczAU3fpSQPPRe0SfAbns7
+	 HrNI0XrMzy/mOaf4PlK+juUHcEPyq9qqwIxiliCik0V7pyDmiLNqRKvrxPZRf1KhDnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=g1nQPDDX;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ydfbX6EE;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B09C6606A686
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 13:09:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B09C6606A686
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910C8606A334
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 13:09:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 910C8606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=g1nQPDDX
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-490d59c3edaso3920198f8f.1
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 05:09:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ydfbX6EE
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-498f5fa5103so3416929f8f.2
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 05:09:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1795612182; x=1796216982; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1795612184; x=1796216984; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5hJOZPh/5l5UdrXHXCid+x1ivyDC+76FSFPhdCC5yu0=;
-        b=g1nQPDDX04Vxpww6Er2sE9ytuJNuAQ9lJtgYioCqmn0L7hVF/hiZ6BBZE8SWDabzUL
-         XLZnYfLxiGTnV9Z6EXekUZkeONoYtSAncfaiHBI0f3wzugckAa/BoKdoOIPHGl65nAC1
-         +x9c931pcN/lqSkd0nU4gssrSMeHHN+4W+e/Hr7dy+6WJb+5si/J2cbvE5PIbg3g9+SW
-         8brArqIxDrowvKqDyK40FBHP8oJkry5mwQigkzU658nvRTUD+ZylJiwj9y3g9MV+r4+e
-         rZkwtdun2HAEbBkPhtE3j6ZFJsXKGMAr1GbHL8XtR3DwueoHSxM6OVrGYZMz23Xj2RUR
-         fj2g==
+        bh=ypqh5JLbCUVt2KcUVLNuP+rQ4zNQNHHdmlYnlEePayU=;
+        b=ydfbX6EEUyA6kOfo5SHQSouYrbT+xJHGNZP6kIP6FfHZnn4Tl02dL13W2DNy4a17+l
+         RdtsOXVJg7FwXNBC9T48uLY594gNMNws0s9iqgC/iz51ukAox8gRgPNzRXUXnVneLQSr
+         ImQUB840GSE1RnoPF9f5WbVZY6R/SKKm1OVyfmufTL1pSaIvfFImt1GFAGo4dM00yp7d
+         KmriN234kDfLJKOuRNwDZli9KzVea1cmsCQ5Y6/PZ70SqochQGX1+QX9gN3X2qxmsrqF
+         0bWieMhw5/D7eXbS10m4uYSVY7eeYiEW76iCvdF9patEY72cDhYVAWPS62l05Q2vRHw/
+         Wl9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795612182; x=1796216982;
+        d=1e100.net; s=20260707; t=1795612184; x=1796216984;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5hJOZPh/5l5UdrXHXCid+x1ivyDC+76FSFPhdCC5yu0=;
-        b=sOBK5lEPUMESZ6RZsdoI2KBn6HVqns0+JF1ur/FP9eX4xILb/ARdgCbDqRnuJR6QkU
-         V+rwL1ckPpdXAW7et7fC22wwug2pIuwv/JxYFSxbi7D0rCWy3ouv3yJWMB80vu3yjT98
-         hvp3A/5GQlTPNyVYqUUcBkBD9+esFqRCaRYeadzp94Z5kVWKBfIIjhSe536zjXTLmt4t
-         SObJL0QXFeS+TOrfI74UuVbn8uZLsx+YPeWDKb+tBX6yX+UagKKYmMcit1lQaQcxpJSY
-         ZlFw3CvtTqN32fybhxxXoTG/6Q8RSY70DUUzWEvtV5uQVZwhnFwoyR+s+9AIBnf1gBPT
-         SUKg==
-X-Gm-Message-State: APuU4Z+iRctNlYpm2ToYJa5IEsy1iHHrPx+VoDYSC0qfHjpws4MeX+GK
-	aNpwbDlzm3hOBVxHcTOU7ZrsLtgBedT043aTzJLBrc5A5II6os43a4QxzDL1EYfuzsA=
-X-Gm-Gg: AZFdTZe447qud5NFndurFV66sypDj5Dc5+Bd1wO/y4o2syCZU4NhFtx/VWBtMI36xwu
-	ytuBhGy9sSqnUnLqud1a57FZgqkhyrmvEzD84P/sule/UZZYj+YwAZyjH2LSGffOzLKTP1m2bk9
-	1aI6UT0lPVTZcVxFSQwZ5eXKBH9sAlTQsv2zVe5NLtRo96IWLK92nyZHzFe1j/iCi74jmw5uwhK
-	tSAhbRPkjOhMO8gvUc+KtgawqV1RL3wFuXSTTxc/ird5N/3uhXnVFqPA/ZM8TM0BEo7i9NI7CeZ
-	xtofXymZBW8JWo0MUB7VNKpZdq93Efe4WZBda2433UiKMjhulbdgeCXSV7b2yjLGJZy/mSJG/g9
-	j+NjcVaOq58etXTVf2UBW1Q7HWoeGe57GYCTxapZM+MgKC0X/spiK66U3UPj0jeTr+Bb3uYHNXq
-	Q+5Ay69qxg9VirUAhVmowkVzdgFh0XyeZ0NCkzeS0uebhmAHW+38n9EQSPzDGCqIJMjm5i2mvds
-	I9g5OXZE+xE9RFpmZNQrPatTcSfibEuxpU6jeQTylz7Ew7NyeefuaCMAnmCwOxnaYp7hcwyFNa8
-	/o3fMG0XixEy86Yf7yLAhR8dIkJ+xpkjIigTKbemuY9ePvhevQ==
-X-Received: by 2002:a05:6000:29d2:b0:4ab:240a:1728 with SMTP id ffacd0b85a97d-4ab240a175fmr29526374f8f.14.1795612181767;
-        Wed, 25 Nov 2026 05:09:41 -0800 (PST)
+        bh=ypqh5JLbCUVt2KcUVLNuP+rQ4zNQNHHdmlYnlEePayU=;
+        b=JyYqU9hOOCxqz+1OXQPutfm7knYyHwGQtTF82VkXGD0Cpq/u+jnM+SJbSz4SAKttPC
+         hH//uUxKXCqsIkpQdW3T8Usy4UrEH20UztxX9SyBSfKgDCXcWkHcDLXcV3iPewldo3GK
+         JoJrxC4HmFWNxG/JlnZajNIF9s/cTSHc2QzoSJ0XjZkMTBxpYLTdTRp7cuUqm5llm+eS
+         elsKs1vrMC8AyfrRZoKLbsb6xCAcSYfO1rxXTgHBqN0zMP3cZsn52lsMiC5Hyner2xWi
+         h1PMBZ1aYNa7lLQXn0CrnB/Tk9U4ceZi3YF3sOyACjKVQgy+Pvzxk6ZQKiHvKwCg3RV1
+         90dw==
+X-Gm-Message-State: APuU4Z8A1qdEStUDlc7oGmUnvVo+FIbh21d+KYz+MTb4fvQgj7WPlmBt
+	xM4zVAsXtMU/Xj8TiwGfCYytDjX1ObjeTNtamlw/Npdxc+3vyl7IoSjop+T8Jb/I3Sg=
+X-Gm-Gg: AZFdTZczmIY5QTAYCds9k2o8pI05b9fr2/RMMMLYDsanpzsGptxFndw4P8R5UDEy10u
+	ImuXTaFbVmFzGTgO7Tau3HGQS2FnmrLou3aBf/jh3GZ0pntMuZqtuT8jfWm46xGcEmCbZQNYfnl
+	Jwdludw3IJcsV9NL+ZwxugDUNMp7VO2JfpegxK7VweIb60DF9mox0NDXF5v46YNtqcPJxi7dsvL
+	Zbui8eTkBISzAG7lUYq12qTQwJyrgIobmKTjHOyukhCSSpOibLl+N6VJ9DlCn/dCa8XySvJ1zr3
+	gSgIsumEf0MNQQwb44I+QENUor6STl+0e0qe9ihQzSuXHrfi6QUVdUu9tk7bOYArFmNflQ9bzvs
+	bLeika3eFOHaEl/sj2W1YFXq02ys8jh1VAzcbf17q9zz89mn5zTRKIOvInnABO1dVsdbLna1hw8
+	V5fTYhwv4RWYxIsma7KXiE3ynsiT2AiJLgHgibRfnLUBAcwEOUkK51isZu28t9DusF6izfOL7Zs
+	PunJCNXZ1iM6WSGRvFgbjYWVzZ+qcYy/QKvfAw+b2IX2KlPMv/XNx0axmY6XXG122o+tAGQnL3S
+	mKcT45zfXAJKAvNLXRIHr5YeVVYK+fKhR/AvVAqToZTLwbesFsGblVsHyC2cetiYz1qhDf4=
+X-Received: by 2002:a05:6000:2b87:b0:487:13f:f612 with SMTP id ffacd0b85a97d-4abb6095d9bmr20744901f8f.37.1795612183928;
+        Wed, 25 Nov 2026 05:09:43 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab658e2c8csm35240355f8f.2.2026.11.25.05.09.41
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab658e2c8csm35240355f8f.2.2026.11.25.05.09.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 05:09:41 -0800 (PST)
+        Wed, 25 Nov 2026 05:09:43 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 25 Nov 2026 14:09:34 +0100
-Subject: [PATCH 07/11] media: iris: vdec: keep the visible rectangle on
- S_FMT(CAPTURE)
+Date: Wed, 25 Nov 2026 14:09:37 +0100
+Subject: [PATCH 10/11] media: iris: vdec: complete an unchanged first
+ settings change for FFmpeg
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-topic-iris-decoder-drc-fixes-v1-7-58b9f6b3fe86@linaro.org>
+Message-Id: <20261125-topic-iris-decoder-drc-fixes-v1-10-58b9f6b3fe86@linaro.org>
 References: <20261125-topic-iris-decoder-drc-fixes-v1-0-58b9f6b3fe86@linaro.org>
 In-Reply-To: <20261125-topic-iris-decoder-drc-fixes-v1-0-58b9f6b3fe86@linaro.org>
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
@@ -109,64 +109,208 @@ Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1966;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8134;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=fzj9jbO7RKAl1gqzXLKKHSc4/O1EN7DAcCHOZIrHtSI=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBrBt4NlY15xlYI4xJlC/oMKF/paFhgg5A803Z7aHNZ
- omc0bGuJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCawbeDQAKCRB33NvayMhJ0YdpEA
- DOBoSQpULuewnBlrfApGT/Ahko9iO59t5gI7NZg1vU8Ooq/tQM69Sy3+I8wgJms1h5V6bVsBMvBPY4
- gf575wqAF9kKVlIg7onxmVDIiRrhyuWdmzmOPVrWrg5tISrucHPJubkl7wrzTMAVtCqKpSpDblZX/R
- r/9vxOn3q3f/bLDVZB8oldWlgQPd5geOW++ByLlj6XJyxsTG30UjC/PB1Pvs/stHwJrKVgmOCpsjXQ
- pqv28k740GLsQwt4PE2m14WnvmkXFDyJY7NkZ0E+BbxyFGBDyPtXbKrp6BNEuNVAtuz1BPKPiEelHu
- 9M/+NTeBNE4wS8iMMWFyLEx8aV8V1CyH7uq/dqVbP/Wz5zZM+M2p45eswUC+XKglHuR3eAsp8wCsay
- ug9et7J0st6oNpf0JW3lLuFZ7vRqAIv+ygMZcZcxsHTnFHydD3+sRkH+nHlVN6Sl3PrSoBO/RsDuiu
- Hv/ANhN4QWUQitXVIdhw1HSf26kZLCxYtk0u23jfVtNIKkGQH3wwXbUsnthn8Yfsm25RhYBONEIZ1r
- CJAS4TmL5SN+W+sa/FxipTSFiEs+Kjx9KvxPWYkTN87PAE9N5B8ORZ6vusH6mMyXH+zHvQSEGlRqdO
- Dp6vF3b+N8uaCADaywC/QCNN1nIq6/EZn0Jqt+lFg3eXi+MzRgsYIm7dC1bw==
+ bh=y134dMdSyY/lJDzxDWcwo8wMGRX8FYxyYyA/TkY9KNY=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBrBt4PmLaXF1N15brpwa/cavzXN1kWHbTEC1dk0BHO
+ /3IEcFKJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCawbeDwAKCRB33NvayMhJ0bWaD/
+ 4xyXWwuq9ZBHQz5LQIWqLR9yaTDoG0bcO9XdgUbDvsk3eyTmlCk+9hpkLX+UZ/FaKQr9D61mw8OXfN
+ kbPs6sg4KogikrXzgrAu27w3Sb8km+vCFXtbEPLGmtmetwncr0DQ6+PR13nlzHxzCTs+sOQoIDdWnD
+ 65uwAu8ThhK9GWw2RZ277luXIcUWRea1Iuq/ETiWcZmSvKIqcNT7jM+XL8KTzj4XOg1PcjT47u8ZpT
+ /WPvlzFs4tqPIsc/QOXO0w0UG5BeMw03sK3h9J/KPuztwNj2nuAkDTEe8jQOsfZDfMGklnBBfLJKw7
+ phBnKmE6kDTVemKKZjFJaJBpHQLlV/FHFpZroivzQO+Z0CMAkazNhlwl7cweVqbae7Ecq3ID53ioDl
+ R/UFk1Xok/cgmTo2mWxofzTCfxZCQfnJR5GpCSKy27MNkKMN4BaHEwBwhJbMItYQsFZp/s/u/TprLK
+ mau9zETLk1oggdmxe+kiXC+GmxkFxz9z5eeGYNqiyr27YnFEWz7qaLeM0p24WVC96mZTjsVVd3Jsqy
+ nU1ASNmrkKnkEg6s6ET9ric7aSEF+vhCWzrzWt76+JBG4zA9XN2QlK2SC5EbGF9yKoqVQR/tdFiyx+
+ G04mr3VvdBbaXSXhwykyiSDcxTfL8F6YBCZ4uBgezP3+wdbHMBvBgFLOM22A==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-S_FMT(CAPTURE) sets inst->crop to the requested CAPTURE size, which
-try_fmt sets to the coded resolution. inst->crop is the visible rectangle
-of the stream: VIDIOC_G_SELECTION returns it for the CROP and COMPOSE
-targets, and gen2 sends it as input crop offsets on STREAMON(OUTPUT).
+FFmpeg starts CAPTURE with the size from the container, before the
+decoder reports the stream format. When the firmware parses the first
+sequence header after that, its settings change pauses the output port
+and ends with a PSC_LAST buffer, and the driver signals a source change
+even if the CAPTURE format did not change.
 
-A client following the specification calls S_FMT(CAPTURE) with the
-format from G_FMT after a source change. The selection targets then
-return the coded resolution instead of the visible rectangle, e.g.
-1920x1088 for a 1920x1080 H.264 stream, and the next STREAMON(OUTPUT),
-e.g. for a seek, programs crop offsets that do not match the stream.
+FFmpeg then sees an unchanged format and sends V4L2_DEC_CMD_START at
+once, which fails with -EBUSY as the LAST buffer did not come yet, and
+takes the LAST buffer for the end of the stream: it outputs an empty
+frame and stops decoding.
 
-Only bound the visible rectangle by the new CAPTURE size.
+When the first settings change after such an early STREAMON(CAPTURE)
+leaves the CAPTURE format unchanged and the allocated CAPTURE buffers
+sufficient, do not signal it, and complete it on its PSC_LAST buffer as
+V4L2_DEC_CMD_START does. The visible rectangle and the colorimetry, which
+the client could not know yet, are updated without an event. If a queue
+is stopped before the PSC_LAST buffer, signal the source change.
 
-Fixes: b530b95de22c ("media: iris: implement s_fmt, g_fmt and try_fmt ioctls")
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- drivers/media/platform/qcom/iris/iris_vdec.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ .../platform/qcom/iris/iris_hfi_gen2_response.c    | 16 ++++++++++
+ drivers/media/platform/qcom/iris/iris_instance.h   |  4 +++
+ drivers/media/platform/qcom/iris/iris_vb2.c        |  5 +++
+ drivers/media/platform/qcom/iris/iris_vdec.c       | 37 ++++++++++++++++++++++
+ drivers/media/platform/qcom/iris/iris_vdec.h       |  3 ++
+ 5 files changed, 65 insertions(+)
 
+diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+index 4f685efbeae9..b1c4e68de2db 100644
+--- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
++++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
+@@ -368,11 +368,18 @@ static int iris_hfi_gen2_handle_output_buffer(struct iris_inst *inst,
+ 		if (ret)
+ 			return ret;
+ 		unsignalled_psc_last = true;
++	} else if ((hfi_buffer->flags & HFI_BUF_FW_FLAG_PSC_LAST) && inst->drc_unsignalled) {
++		ret = iris_vdec_src_change_complete(inst);
++		if (ret)
++			return ret;
++		unsignalled_psc_last = true;
+ 	} else if (hfi_buffer->flags & HFI_BUF_FW_FLAG_PSC_LAST) {
+ 		ret = iris_inst_sub_state_change_drc_last(inst);
+ 		if (ret)
+ 			return ret;
+ 	}
++	if (hfi_buffer->data_size)
++		inst->early_capture = false;
+ 
+ 	v4l2_m2m_for_each_dst_buf_safe(m2m_ctx, m2m_buffer, n) {
+ 		buf = to_iris_buffer(&m2m_buffer->vb);
+@@ -686,11 +693,15 @@ static int iris_hfi_gen2_handle_src_change(struct iris_inst *inst,
+ 	struct v4l2_pix_format_mplane old_fmt = inst->fmt_dst->fmt.pix_mp;
+ 	u32 old_min_count = inst->buffers[BUF_OUTPUT].min_count;
+ 	struct iris_hfi_rect_desc old_crop = inst->crop;
++	bool early_capture;
+ 	int ret;
+ 
+ 	if (pkt->port != HFI_PORT_BITSTREAM)
+ 		return 0;
+ 
++	early_capture = inst->early_capture;
++	inst->early_capture = false;
++
+ 	ret = iris_inst_sub_state_change_drc(inst);
+ 	if (ret)
+ 		return ret;
+@@ -699,6 +710,11 @@ static int iris_hfi_gen2_handle_src_change(struct iris_inst *inst,
+ 	if (iris_vdec_src_change_after_seek(inst, &old_fmt, &old_crop, old_min_count))
+ 		return iris_vdec_src_change_resume_input(inst);
+ 
++	if (early_capture && iris_vdec_first_src_change_unchanged(inst, &old_fmt)) {
++		inst->drc_unsignalled = true;
++		return 0;
++	}
++
+ 	iris_vdec_src_change(inst);
+ 
+ 	return 0;
+diff --git a/drivers/media/platform/qcom/iris/iris_instance.h b/drivers/media/platform/qcom/iris/iris_instance.h
+index 53693bc53a8e..b85f7ad460bf 100644
+--- a/drivers/media/platform/qcom/iris/iris_instance.h
++++ b/drivers/media/platform/qcom/iris/iris_instance.h
+@@ -60,6 +60,8 @@ struct iris_hfi_session_ops;
+  * @vp9_seek_psc: a VP9 seek may raise a settings change that changes nothing
+  * @drc_resumed_in_place: a settings change was not signalled, its PSC_LAST may follow
+  * @input_stopping: STREAMOFF(OUTPUT) waits for the firmware to stop the input
++ * @early_capture: CAPTURE was started before the first settings change
++ * @drc_unsignalled: an unsignalled settings change waits for its PSC_LAST
+  * @drc_wq: woken when IRIS_INST_SUB_DRC_LAST is set
+  * @last_buf_ns: start time of received input buffer for current one second FPS window
+  * @frame_counter: input buffer counter for current one second FPS window
+@@ -112,6 +114,8 @@ struct iris_inst {
+ 	bool				vp9_seek_psc;
+ 	bool				drc_resumed_in_place;
+ 	bool				input_stopping;
++	bool				early_capture;
++	bool				drc_unsignalled;
+ 	wait_queue_head_t		drc_wq;
+ 	u64				last_buf_ns;
+ 	u32				frame_counter;
+diff --git a/drivers/media/platform/qcom/iris/iris_vb2.c b/drivers/media/platform/qcom/iris/iris_vb2.c
+index c19de89945e3..f83ea1a5f5ba 100644
+--- a/drivers/media/platform/qcom/iris/iris_vb2.c
++++ b/drivers/media/platform/qcom/iris/iris_vb2.c
+@@ -263,6 +263,11 @@ void iris_vb2_stop_streaming(struct vb2_queue *q)
+ 	mutex_lock(&inst->lock);
+ 
+ 	inst->drc_resumed_in_place = false;
++	inst->early_capture = false;
++	if (inst->drc_unsignalled) {
++		inst->drc_unsignalled = false;
++		iris_vdec_src_change(inst);
++	}
+ 
+ 	if (!V4L2_TYPE_IS_OUTPUT(q->type) &&
+ 	    !V4L2_TYPE_IS_CAPTURE(q->type))
 diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
-index 6369370a04a2..f7f3171ed6ad 100644
+index edd58c0dd4a5..8512693e3ff3 100644
 --- a/drivers/media/platform/qcom/iris/iris_vdec.c
 +++ b/drivers/media/platform/qcom/iris/iris_vdec.c
-@@ -327,10 +327,13 @@ int iris_vdec_s_fmt(struct iris_inst *inst, struct v4l2_format *f)
- 					   f->fmt.pix_mp.height);
- 		iris_vdec_update_min_capture_bufs(inst);
+@@ -429,6 +429,36 @@ int iris_vdec_src_change_resume_input(struct iris_inst *inst)
+ 	return iris_inst_change_sub_state(inst, IRIS_INST_SUB_DRC | IRIS_INST_SUB_INPUT_PAUSE, 0);
+ }
  
--		inst->crop.top = 0;
--		inst->crop.left = 0;
--		inst->crop.width = f->fmt.pix_mp.width;
--		inst->crop.height = f->fmt.pix_mp.height;
-+		/* inst->crop is the visible rectangle of the stream */
-+		inst->crop.left = min(inst->crop.left, fmt->fmt.pix_mp.width);
-+		inst->crop.top = min(inst->crop.top, fmt->fmt.pix_mp.height);
-+		inst->crop.width = min(inst->crop.width,
-+				       fmt->fmt.pix_mp.width - inst->crop.left);
-+		inst->crop.height = min(inst->crop.height,
-+					fmt->fmt.pix_mp.height - inst->crop.top);
- 		break;
- 	default:
- 		return -EINVAL;
++/*
++ * A client may start CAPTURE before the first settings change, with the size
++ * from the container as FFmpeg does. That settings change pauses the output
++ * port and ends with a PSC_LAST buffer even if it changes nothing.
++ */
++bool iris_vdec_first_src_change_unchanged(struct iris_inst *inst,
++					  const struct v4l2_pix_format_mplane *old_fmt)
++{
++	struct vb2_queue *dst_q = v4l2_m2m_get_dst_vq(inst->m2m_ctx);
++
++	return inst->state == IRIS_INST_STREAMING &&
++	       inst->sub_state == (IRIS_INST_SUB_DRC | IRIS_INST_SUB_INPUT_PAUSE) &&
++	       iris_vdec_capture_fmt_unchanged(inst, old_fmt) &&
++	       inst->buffers[BUF_OUTPUT].min_count <= vb2_get_num_buffers(dst_q);
++}
++
++/* Complete an unsignalled settings change on its PSC_LAST buffer */
++int iris_vdec_src_change_complete(struct iris_inst *inst)
++{
++	int ret;
++
++	inst->drc_unsignalled = false;
++
++	ret = iris_inst_sub_state_change_drc_last(inst);
++	if (ret)
++		return ret;
++
++	return iris_vdec_start_cmd(inst);
++}
++
+ void iris_vdec_src_change(struct iris_inst *inst)
+ {
+ 	struct v4l2_m2m_ctx *m2m_ctx = inst->m2m_ctx;
+@@ -483,6 +513,13 @@ int iris_vdec_streamon_output(struct iris_inst *inst)
+ 	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
+ 	int ret;
+ 
++	/* On gen2, fw_min_count is only set by a settings change */
++	inst->early_capture = inst->state == IRIS_INST_INPUT_STREAMING &&
++			      !inst->fw_min_count &&
++			      !(inst->sub_state & (IRIS_INST_SUB_FIRST_IPSC |
++						   IRIS_INST_SUB_DRC |
++						   IRIS_INST_SUB_DRAIN));
++
+ 	ret = hfi_ops->session_set_config_params(inst, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/media/platform/qcom/iris/iris_vdec.h b/drivers/media/platform/qcom/iris/iris_vdec.h
+index 5b55354cc25f..24dadee0a19c 100644
+--- a/drivers/media/platform/qcom/iris/iris_vdec.h
++++ b/drivers/media/platform/qcom/iris/iris_vdec.h
+@@ -20,6 +20,9 @@ bool iris_vdec_src_change_after_seek(struct iris_inst *inst,
+ 				     const struct iris_hfi_rect_desc *old_crop,
+ 				     u32 old_min_count);
+ int iris_vdec_src_change_resume_input(struct iris_inst *inst);
++bool iris_vdec_first_src_change_unchanged(struct iris_inst *inst,
++					  const struct v4l2_pix_format_mplane *old_fmt);
++int iris_vdec_src_change_complete(struct iris_inst *inst);
+ void iris_vdec_update_min_capture_bufs(struct iris_inst *inst);
+ int iris_vdec_streamon_input(struct iris_inst *inst);
+ int iris_vdec_streamon_output(struct iris_inst *inst);
 
 -- 
 2.34.1
