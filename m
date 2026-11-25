@@ -1,72 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.70.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795598279;
-	b=w2Y/GTv732gMouTbYULQYwkow1q+DG90scbi84IBUkmN7Dw6082Z3gLx3UJqTAdfmj/r
-	 USuDph0Ufjy3qA83GU9Mk7gYt3GZKn40Q3tholg5KvAfDsn0Q6DCStvTF6IsiQHRJOw/w
-	 jf6BgHCE75jEOi11nKgwdantssmO+E9rfnHhd3PGOKuOs4VdSWouFKp/B9i3T6tlIjkDq
-	 vkE/IfRLZI690IWzc1pOkmcbJhnC96OcghlFGGzFwqDuXmZHpTuaHcAg9hHPRh1jB847p
-	 zngtV9upCDiSZH0/iXMOu+pUeW0dHVHyUhfYYhWX4IIhrnCyvjbfYqhd0+G94J+5ivw==
+	t=1795598289;
+	b=2H2L7zWnSprs7IdDwuQGIKDomKWSX8FdMxIFu8FzrB+XAjwIrj/T79dIuh9Krv9zCZwl
+	 72+33FtqPtIWRq55vGefXVf4MNp00gv/MsZcbKQ1AACttwFWvSO6uclw2CMSQbknSAKvX
+	 L+B7WnygJU5Mlz89+cCNBQNFIoXm4hoJkPN6c6wKM/+LlC3jKl2cdyYuekupFwSZZO30K
+	 Ck4zWtzrzSxHQG9heH+QneG/lpiujxMI84HVMmMJMeNofsFxB/AYRIrMgCGQoYTJTukal
+	 0umR1L5EA7Op133GlWd5B4DJWx5s3IIIKWGRCG3iU0QuqnueG2LPUR8bqDCjpI9U01w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795598279;
-	h=DMARC-Filter:Received:Received:X-ICL-RepId:X-Suspected-Spam:
-	 Dkim-Signature:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Info-Out:X-JNJ;
-	bh=RE4nSzhPu6nNuyJJSMGMQ9YMNE34TPzHguxazmS11yg=;
-	b=yrrpcXElfr8pvZjTuya0o4AmQ/mdf3GtYg/YWVGR20qihBHBT0Xz6dbHrWLF+lZ1sHyG
-	 X7I6ahsLdIjyUMMfR3UDiOnlOX3H/3x54L10v5QUTe+zwf4hbBXrawFMLe0gu+hTu4k1U
-	 7OBMqB+JJqEqYJMYzfbJ6t4u/055ikI4aZaPNb892cQ4M+R6I72lGCpurAXNEAGMkH1iq
-	 4UVea5QNBT3+TYYFMYHkqxxYtIq4mTPUcJ1R/UqSpduEJZf1qjSUpCnaDn06oRYH6z8Q7
-	 tc1f0RrRWjgAjk8KC2PceKQFAwz/2HycQGgbZKEQAZJQU6Fx1eMVB+xOrmW8GfTg4kQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795598289;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=huflbJ1cgWLwqtARw8n3+33IaRue5jo2Oaf8/KKbjC4=;
+	b=gwe0obHipqnuRceOL/G0OdTyN5q2MJIPkjjIZqVbCEMdZ9obV6K/MwgtI1qkrW71O9a/
+	 ky9i6OQCeF0H3qMV7vAPIGTQptQs9Po1AbS9glkOtX5TwpTiUR8BEH0SVALcc9WsPyIwC
+	 9NdI5BQn5oroKydCWTSYj/DWhfvU1ONs5TVqApaFiLssTpf+R4j+R4hrnN3hXc4mMNN+o
+	 eiPeZ4rY+fWsE5AfawSifgROtLASUg/CSdTOw2NIqN9fYvlSkX6s7AO0jje7i+66wiBnP
+	 7VulD84k+hjXtlMy5BQ/C6xrZKVQejVjR9hOCz9iCiq3JvtjoiD/TTcOrnU9p3Sr4ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icloud.com;
-	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=R+g2sAN+;
-	arc=none smtp.remote-ip=57.103.70.199
-Received: from outbound.ms.icloud.com (npq-west2-cluster1-host3-snip4-8.eps.apple.com [57.103.70.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EBB0606A686
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 09:17:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EBB0606A686
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=R+g2sAN+
-Received: from outbound.ms.icloud.com (unknown [100.84.204.149])
-	by p00-icloudmta-junk-forwarder-us-west-3d-0 (Postfix) with ESMTPS id 5C421180009A;
-	Wed, 25 Nov 2026 09:17:57 +0000 (UTC)
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-1 (Postfix) with ESMTPS id E998A1800126;
-	Wed, 25 Nov 2026 09:17:54 +0000 (UTC)
-X-ICL-RepId: 01a211ff-5133-705e-a341-6f0496d6e762
-X-Suspected-Spam: true
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1795598277; x=1827134277; bh=RE4nSzhPu6nNuyJJSMGMQ9YMNE34TPzHguxazmS11yg=; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=R+g2sAN+dX9ZQzhX0AsjOBTVxobIJJVbgjIELwrmupiccO8iMYq3cHwkRX0nE+2W/HuoBSVNkYnf24cCHr+tyPGIjAD6ZPvQY/oj4peQBXNT//LDpKJkARo+TLHMfUlS8HJsrFntpMoo7nTIOwce8Jf+4NVPWPp63IaPIBwZyw15+MIR0CJ4b2MekLU2p5BJsClg0ThuP4CZ9VRiiUpX6YAev2NCspXARDbdaL2gecKS6cmruwcTzsBpGr28pf8wOEJJSFmYpCa6VLJ0vAJT7xSreLzjGhnC6OgmZldYfJCtsDSXJwglTRlrcEa+loNQMVIEDDzpw6MkgxowPsEwvg==
-Received: from m3 (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-1 (Postfix) with ESMTPSA id 01BD4180011A;
-	Wed, 25 Nov 2026 09:17:50 +0000 (UTC)
-Date: Wed, 25 Nov 2026 10:17:46 +0100
-From: Sofus Forstreuter <sofus.c@icloud.com>
-To: Nicolas Dufresne <nicolas@ndufresne.ca>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Heiko Stuebner <heiko@sntech.de>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v3 05/17] media: v4l2-ctrls: validate vp9 tile_rows_log2
-Message-ID: <awanusdfmrjYpdHT@m3>
-References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
- <20261020-avd-v3-5-85cbaa2125d8@icloud.com>
- <4c54e652e8fb714600852a3028b892c6a292c6cd.camel@ndufresne.ca>
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BB3BE606A684;
+	Wed, 25 Nov 2026 09:18:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB3BE606A684
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=huflbJ1cgW
+	LwqtARw8n3+33IaRue5jo2Oaf8/KKbjC4=; b=wIP/c41pBeCDbQWacMspd0eetK
+	2Qu1YUryGbwRy9hvfD+TwxzVGDPDAP8I0E5GiQu5oPEDXAcuNW+rjYajoH8kbhYt
+	4nuIRfDILjWxPg5N9py/R4lqqZ1jA1vk3FaDQHJ+bbMEropxTB4mI1tiUhIze1B/
+	56OCGjHiLjThd2//0=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.108])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkC2_gO0pwZrgwE0Ag--.13180S3;
+	Wed, 25 Nov 2026 17:17:53 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH v3 1/2] media: go7007: return queued buffers on start_streaming() failure
+Date: Wed, 25 Nov 2026 17:17:38 +0800
+Message-Id: <20261125091739.5866-2-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -76,79 +58,85 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4c54e652e8fb714600852a3028b892c6a292c6cd.camel@ndufresne.ca>
-X-Proofpoint-ORIG-GUID: 7L-1DbM7PFVkvAA3Ve1k7TBSWwo3SVaA
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDAzNiBTYWx0ZWRfX29jAdByKWjWC
- MNQIzTlmJrKNzVWV54m2//FbR2nhduOrYoFf4zjYOzjVek/OANeigkcGew+NNcfHysAca1ezJ4B
- Bbh+Ryd+eKnwz1vny6jmPBSGUMbb8VU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDAzNiBTYWx0ZWRfX1ew1RDQihZ4U
- gqzd9wpFsKesraYPQpkpbJFUUWr4MInreF89q9QWG2aGtO5Vk2mOAXlZWsKUgiKuMJBPOxxkaCv
- ep7ZuOICgu4lxbHoX3hPd32qe9BYOvNPKzP0ox/mOBTRv8LBVP06a+G6uJmxDg+LJex4zRhfF64
- VlwNOqGLRNbgfRNypDje5q8juEFk9tyQ6I03hpyKNul/xeKsqJ6cNfCEuRl8CG4bKVy/uFzVxO/
- yyOk4WrTjWwdpk0MYvWewMUSxNSZSpkrRZc1e8ttGRKX/S9iTWGfyMrh1THuaFbhebXOAWy0+7g
- 2v3LP1cX27qGbcfXZlWIcLsqjHCZeiFWQhS0TSKOe0r9v29l/hdgbGGr3toy7Q=
-X-Proofpoint-GUID: 7L-1DbM7PFVkvAA3Ve1k7TBSWwo3SVaA
-X-Authority-Info-Out: v=2.4 cv=W4GtxhWk c=1 sm=1 tr=0 ts=6b06a7c4
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=8nJEP1OIZ-IA:10 a=zJRp6_cAMcgA:10
- a=x7bEGLp0ZPQA:10 a=kLM9Tyy99jAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=HxOO8S7qDNDRVQTpMkN7:22 a=Da-wPGOzCPo0rgK0bsWi:22 a=v3ZZPjhaAAAA:8
- a=LAvkwPmW8R6kQSckoZUA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
-X-JNJ: AAAAAAABC8pesed8V/geFCW1TZj2dJcUbicq2KvDcOZ9YrjKbx3sY7Ya8S3qw3RhF2FYCF
- Wj9Jn4ryX6e+jO/Q19iIPcfeg57ZI75FynxP/ofNbtRs47aaEayS9jO+6hlhqeXrZnGdEm
- IKMb88Q+eU20dkCih9U9S4DURvAeiDp7qEwxxCjPjVkvFZCWWYUm3KjidPxqviR3/xVSZU
- oIatsaGkkESdfZiVm+ZcLbbObwqgwb6kbZH8+p1n+Xl77iAiGnPuKj0ZQjB9kZNYVdB/Wn
- VvvHHH0kXQYyiknz2FTnCgWYWD9x53HOkCu1ITiXg92iv6nVpv2SQaWI2Zoiyum6vmh4Mb
- 1KThVeuKNHMzbFZKX8FWjHyTepdVvoTA8gSwSUVihYaGRN8sDdgDoaVth3X3w19pQlp22b
- WHqz95BucgpkEwPlbd2pGIIijs6kOdufEgwJE3BVAxSGGbx/jZ64Mw35Vfz7NE1xD9FWVl
- M5eJOhUETZ/VSOs8MtU3ABK9JUlqFv3mclEsFPJoHb6K/jeMKPg4Gqf98WEvCBfnwAi0kV
- KpDlD3XJFC0nH4BzTTje2tVRNSyFL1tRAMtZlxy1czc9HmoYEq4jPf2pCoShKk8WK1adyx
- SUomRl4hUiNSvUuIhGXYJAspwTDJWZM+mgWzq8BQXqE+VBil7QOnBWsCNd4d7kmih7M9L0
- 9g1FStN7225K4qeDpRETWWlQnL9NzeArOnWpxcBw23o+ppYXncnXEg/g/kY940PhBaU1mo
- UYogYhVwbfsofxd3CcLadpAK+fzfrNLbKT6bH6i3Cg8wjaoZdLA6TcArjBzlwGDRVCstZw
- HAf8uKzRxnBMxA0Mkx4rWfskcT1L3GVUZu1RjwVMa8fv2W3NTCTYGdfUOq8YfzQ/CC7AaW
- e0+rgmEcyRi1NZwMTvPNmCYCu2DaTYBV6BtJ9foOLkLzoOFqLLJVmgx/3eaTCf82/av42P
- PbgSFtv+vW+xY5QSeKE9Q8oMTB+BCZKu3D5YeolV2CAu79zJ88K6EpUUN7qr7vWq0L1FbS
- 2dlUeeooCl2tvXyJk1oueUjXQZmlhd2VURiIfpAcElFZR1lt1T54svOfeLlFrd6mUZqLAt
- 6abvPX8acEf6qm0N3JsFNhBw9gQ3qRkKXyZwBTOVYRgUyGV/fFWjOVYRMR3iqZ2b3gsza/
- n2tkwaMTMOMwPstG6ifC6c0V1AoC5BMM4rK/OO7U0xlLk7SdHGYrd553+cnAIUb5cPvFvj
- DmYg6CFFMV6hDEmFFF/iIc4yE6Gn8JAbMHkwOpqsAWGnZ3aiWkmzv7P43uekQkQTGLSbqm
- ZZI5aLtlC0wzoxLZY6o/LMlf/ZAbjG4OZYC02wj1N7g7eTf+uVgvk9yh5QhpEhIYvhQ8TV
- ZvCmUD+6EHH1sNEpTxhwJw6Tcu0FJgMkg+hExXpUwFOghj7TUmNHW6MG1oCWtlgDynLGQC
- 1r4A==
+X-CM-TRANSID:BLQMCkC2_gO0pwZrgwE0Ag--.13180S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxWw4rAFWxGFykXF4ftFW3Awb_yoW5Jw4rpF
+	yFvFWayrWDtF4Uua13Gw1ag3W5C3Z7A347CayrWwn5Zrn8JFZ8urW0qayDKr1qka47Zr17
+	AryUCFW3Ca1jyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmqb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv
+	6xkF7I0E14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcV
+	AaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0E
+	x4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x
+	0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_GFWl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC
+	6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWw
+	C2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_
+	JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJV
+	WUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIY
+	CTnIWIevJa73UjIFyTuYvjxU4HGQUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUID2sFqsq2zgABs3
 
-On Tue, Nov 24, 2026 at 05:16:47PM -0500, Nicolas Dufresne wrote:
-> Le mardi 20 octobre 2026 à 11:37 +0200, Sofus Forstreuter a écrit :
-> > Reviewed-by: Neal Gompa <neal@gompa.dev>
-> > Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
-> > ---
-> >  drivers/media/v4l2-core/v4l2-ctrls-core.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> > index 922cf74c4eb8..384ff77771ea 100644
-> > --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> > +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> > @@ -638,7 +638,7 @@ validate_vp9_frame(struct v4l2_ctrl_vp9_frame *frame)
-> >  	 * According to the spec, tile_cols_log2 shall be less than or equal
-> >  	 * to 6.
-> >  	 */
-> > -	if (frame->tile_cols_log2 > 6)
-> > +	if (frame->tile_cols_log2 > 6 || frame->tile_rows_log2 > 2)
->
-> Shouldn't this be 6 too? (log2(64)).
->
+The vb2 framework hands ownership of every queued buffer to the driver
+through the buf_queue() callback before start_streaming() is called.  If
+start_streaming() then returns an error, the driver must return those
+buffers to vb2 with vb2_buffer_done() and VB2_BUF_STATE_QUEUED.
+Otherwise vb2_start_streaming() fires WARN_ON(owned_by_drv_count) and
+forcibly reclaims the buffers.
 
-The max for tile_rows_log2 is derived from the spec (6.2.13 Tile info syntax):
+go7007_start_streaming() returns -EIO when go7007_start_encoder() fails,
+which happens for example when a USB transfer cannot be submitted because
+the device has been disconnected:
 
-tile_rows_log2 = f(1)
-if (tile_rows_log2 == 1)
-  tile_rows_log2 += f(1)
+    go7007 1-1:1.0: error submitting audio urb 5: -2
+    go7007 1-1:1.0: error starting stream transfer
+    WARNING: drivers/media/common/videobuf2/videobuf2-core.c:1797 at vb2_start_streaming
 
-This is also what eg. gstreamer does. I will add that to the commit message.
+but it leaves the already queued buffers on go->vidq_active.  Return them
+to vb2 with VB2_BUF_STATE_QUEUED before bailing out.
 
-Best regards,
-Sofus
+Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/media/usb/go7007/go7007-v4l2.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/go7007/go7007-v4l2.c b/drivers/media/usb/go7007/go7007-v4l2.c
+index 2087ffcb85a5..0b32cb58142b 100644
+--- a/drivers/media/usb/go7007/go7007-v4l2.c
++++ b/drivers/media/usb/go7007/go7007-v4l2.c
+@@ -409,8 +409,23 @@ static int go7007_start_streaming(struct vb2_queue *q, unsigned int count)
+ 	else
+ 		ret = 0;
+ 	mutex_unlock(&go->hw_lock);
+-	if (ret)
++	if (ret) {
++		struct go7007_buffer *vb, *tmp;
++		unsigned long flags;
++
++		/*
++		 * The queued buffers were handed over to the driver before
++		 * start_streaming() was called, so they have to be returned
++		 * with VB2_BUF_STATE_QUEUED.
++		 */
++		spin_lock_irqsave(&go->spinlock, flags);
++		list_for_each_entry_safe(vb, tmp, &go->vidq_active, list) {
++			list_del(&vb->list);
++			vb2_buffer_done(&vb->vb.vb2_buf, VB2_BUF_STATE_QUEUED);
++		}
++		spin_unlock_irqrestore(&go->spinlock, flags);
+ 		return ret;
++	}
+ 	call_all(&go->v4l2_dev, video, s_stream, 1);
+ 	v4l2_ctrl_grab(go->mpeg_video_gop_size, true);
+ 	v4l2_ctrl_grab(go->mpeg_video_gop_closure, true);
+-- 
+2.34.1
+
