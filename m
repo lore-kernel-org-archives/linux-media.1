@@ -1,47 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.66.244
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795601738;
-	b=3k4VXxs4FL91iFGZMHvXX7kH53V4051htQTuxkBmvm1juoh5vNV3yxnoSby2dW5vqav1
-	 mdGSTvvpQqhfce90yOlnYwQ7t01R2ZyPcfnb1DZBDwgx7JqFOayMqSQORYMGPQNYjVnF/
-	 r9oRTHaT4/RNmXLvdXODf2yWrlwc3P1LTDfSD3fWc3IHXWOZMx06mdq28EesKNvAuT3Mr
-	 nkWlQGmPoDhpdy0c/D67ZCa3VZM29e6mdifomDTe9IaSbgkVmHJ9GyhRTIN4YW+ZwDTEm
-	 oeZbdDU5zZ5oq2QimmX5Rpq2ry5pJipDaNqsJxdGSimc3jgTTN1Yh1+LP2CtEoJWrAg==
+	t=1795601877;
+	b=kvgasFn41NZ2+fIjZyHda+d5T99DOg7gKdyHMjFG27iPIRmNmHFrmNiO83INa4LM8uzN
+	 wHlzMrbqRL8MhofZMNYCiNxOzKr/vs7ayVDn0pAgE8rA98nq9CoYhwvwMvLNwBLzKooDl
+	 TXLX1VHe8TFTkomELtGGrnG3Jou5SgKKCOUjMzz/HQSu1bEyTsHoIuiVy3K42wzNvLGTV
+	 TVALpFA37zZZXCKajsHp5sVeZYlFquUIFlQYmFhrF3ZDTy67sVvBSAwGJcsdiArwrIioh
+	 ksCooSokbo2GOlSQe4+JFtrEWy02KaQIsJJaonCsmsbAj++7i19y6CcMOXai12BU2iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795601738;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eqHXyc8WJEin7dgT8XNE7C77zQYt4IAJAZzyBASlFd8=;
-	b=VJKCbd/JkxLbW34CgO/NMnkPnP7Y7bEAuaFwE+W3xub5r4mEnEQNfNrR3FyU3mgaldAc
-	 g/8PBOFqcZktX3K60KTe1aRmMSoXx8AJLCWjqW9hTcV32Db19a1h/0+6gqwdtRycAJAMH
-	 uzgrnFcjbL9sglt+2tTCazgfHhET9HAD9yhyoQm9nKzGzj/0TpmA3VvbzFHIEnk5juBcU
-	 pzxQri/Ih0IetxoI8+PZ2XqzpqAeoCuXJY8oBNLk0Tda9JBgKT3uPTKL2QmRHFgru6x48
-	 yP4PXQHUvpTcpstLnCw6ICbqBGi+onmnKgvd0JKVTGtcyKTwVGtrSKzYTb3+4ShU3MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795601877;
+	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Info-Out:X-JNJ;
+	bh=HMgjFT/9KLQi4aDCvbmUqhl56xbnFHYqNdOa5U4XbKs=;
+	b=QtYdUozyXENJqlWuDNrwkbox98wj3wLQauZVpNTResySSatT+5I5nh0biMwye8T5GkKf
+	 EtIt2SjORltT9D7wHaEtvNhzvM8La6LEGMKqC60QUkTfmB7/U0isi42yiDUJrvA5pL+J0
+	 oBbK/8F3xGmR2rZySIw9I862TgZkOERtot0vCllqVZofTbp9cEMpXS/OpXHZSoSOsh8bT
+	 16RncAxB9hMhHw9ArKzSGRuvVt+RqfzkglcvzhPLaovSCmH3xjvLxKUYJGiF5hj5xjU2k
+	 2e1+v4vfb50IGi6BG/s6si3lFTtzsmCBNZgWrqgpOF1xHx8o0EhbGd38kRuaKnT8wpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHQjKMNv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=LIp9YqfN;
+	arc=none smtp.remote-ip=57.103.66.244
+Received: from outbound.pv.icloud.com (pv-2005h-snip4-3.eps.apple.com [57.103.66.244])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD658606A335;
-	Wed, 25 Nov 2026 10:15:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2A7606A329
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 10:17:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D2A7606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHQjKMNv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0AD41F000C6;
-	Wed, 25 Nov 2026 10:15:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795601738;
-	bh=eqHXyc8WJEin7dgT8XNE7C77zQYt4IAJAZzyBASlFd8=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=UHQjKMNvOiHYUyjVzNV0kB45H4NH1B6EaI9P4mzK4PUeT+a4j4j7Wqvjv7AcA20a9
-	 NG9dG2KeGflAE+/JYN+XvSdydgMLmGIZSKJs2sLj9NX6k2fdlkrML8ASlHrnXemiIi
-	 27X3b3lRP2aZWPVo3WFzurKKIxHugrkrgjYrf4kiLgChbtVhPfEjJ/soW5Yci20fa7
-	 JyylEBJw+8jJNdQGWOHo08+sQgSpnFQj9LPOkImtVHizwfHaHccN2K3OofBi5jNUX1
-	 OAYlWueVzsadXA7b6UK9CRC6d/tEF4YpKePH5DEhmzCWGl+fPt5zDHUEdqE0AiWbe3
-	 YBpBwVqBf94Xw==
-Message-ID: <99e34b24-95b2-4153-9d65-1fded8f746cf@kernel.org>
-Date: Wed, 25 Nov 2026 11:15:35 +0100
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=LIp9YqfN
+Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-1a-60-percent-1 (Postfix) with ESMTPS id BC4611800165;
+	Wed, 25 Nov 2026 10:17:54 +0000 (UTC)
+X-ICL-RepId: 01a21236-3f25-7455-9e56-d9f773a07330
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1795601877; x=1827137877; bh=HMgjFT/9KLQi4aDCvbmUqhl56xbnFHYqNdOa5U4XbKs=; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=LIp9YqfN5cW/9Pf/yT3+AH8LGeNpg89M/IHIvr7vyTY3gfWaL56Z43Q+WzgSBQBiNNR6FOD22vOuq6sHbZHOL4ARu/4oGsEN7lIRj0iw8ZZP5HlSTdTpA2jm2htB/hZKMS1wjm0qGjiodgjN4kBR0Vu2poC8eZzioJzRR+WKmSDlTGzPhzSA/30Yt4KpEr5sL4ifGB+fHZf4nlaUoZT+oLAChyvZSViCHHdGjqdksjYkjjebUIWcJq5b94sPF/TX6CUyx/hvgXiCSUPvulNpNwRsuR/djEnEEoZQPfGchfkFGfUglzyjHer7ZbDIPWvvp7PMcMD1ClXd/i0P4Bg6BA==
+Received: from m3 (unknown [17.156.192.29])
+	by p00-icloudmta-asmtp-us-west-1a-60-percent-1 (Postfix) with ESMTPSA id 493231800249;
+	Wed, 25 Nov 2026 10:17:51 +0000 (UTC)
+Date: Wed, 25 Nov 2026 11:17:47 +0100
+From: Sofus Forstreuter <sofus.c@icloud.com>
+To: Nicolas Dufresne <nicolas@ndufresne.ca>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Heiko Stuebner <heiko@sntech.de>, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH v3 06/17] media: apple: add avd driver
+Message-ID: <awa1y_1q65mUKIKU@m3>
+References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
+ <20261020-avd-v3-6-85cbaa2125d8@icloud.com>
+ <4bf91d773c7c2bd8c3b04210eff7869169f1f382.camel@ndufresne.ca>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,261 +71,82 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v5] media: hdpvr: fix out-of-bounds read in hdpvr_read()
-To: 25031212351@stu.xidian.edu.cn,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>,
- Cheng Wen <wencheng@xidian.edu.cn>
-References: <20261121102551.11263-1-25031212351@stu.xidian.edu.cn>
-Content-Language: en-US, nl
-In-Reply-To: <20261121102551.11263-1-25031212351@stu.xidian.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4bf91d773c7c2bd8c3b04210eff7869169f1f382.camel@ndufresne.ca>
+X-Proofpoint-ORIG-GUID: NEQx70V1N0Ja9yPvIJ3YL5qSTmGOPOQY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA0MCBTYWx0ZWRfXyoWAECU6s1bZ
+ gZq28LPc52XeJoLBdsCYNXwtYp1EJsRfmbnnlGL7GHXSwj256jibx/Xc6Jy1iCNG4nhr2npBedS
+ heuYdvk+Xqu4wIHJFRlfz29FgwHuMtEf1FAckL8DWXT8jq4wvlbnYhnIPTD8k7wMn2h8in9g2fx
+ 9CZidMjyDcFkIpzS02y/B09lREnSgi9yzrr14QlhBK/mcS8RrFrTO3ZY3f8RjNIKibHGTDENkb+
+ rfNt5JWOEbOgCE8jBK/hO8Dq3+VSdTh2SF3abhrSLtcyTNYEbgAU7c5g+qX4yo/ow3biHC7kx+3
+ 2sIUTyw9SOlNQLPTsl7kJwxAVQ500n1Fs6YidWcF0DhtP0g4tlq0qGECirkOzQ=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA0MCBTYWx0ZWRfX6ikqT2+wpUF/
+ TovpS48W4Ut6NTtF2phFPOnzN4hXzcwWKkkpy5viS7kylq/Ua0yhOIuOFr7x9d2gfisAfh0zGwM
+ JC7ECyGhABqijjP2OyKh6UQ/yz0GcnM=
+X-Proofpoint-GUID: NEQx70V1N0Ja9yPvIJ3YL5qSTmGOPOQY
+X-Authority-Info-Out: v=2.4 cv=OJCyTiaB c=1 sm=1 tr=0 ts=6b06b5d3
+ cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
+ a=aW9mcIavGNWWFvFFKOxBSA==:17 a=8nJEP1OIZ-IA:10 a=zJRp6_cAMcgA:10
+ a=x7bEGLp0ZPQA:10 a=kLM9Tyy99jAA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Lz8lNifEoAKVmCoaIBl5:22 a=zaE7u2tvhngv6054aE9a:22 a=v3ZZPjhaAAAA:8
+ a=bBvFI2eh8D1WkcQH2k8A:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
+X-JNJ: AAAAAAABgCjae5fMQLpZjBaYf+jzoBTVz5u0ZwFF4w8kqRziAbbEfLMnJnOPXI+A8K/0Pw
+ P38Am+4gdLvPDvalinQ91qt93WniZIllG4dV6OIF312OWIyXS5PPJ94ioYAsuRTQhbH32t
+ 6P/aOtEk4PNwfHMgiAiQlBXjRkeJk7rqZqIIsb3fKJ3BBHUMY14B2AO8z9KDb9rQvGwUDt
+ fYAdqBHbEhMi2N0gyYP0a7Mf0LmMPkS601QCiJOUxKR8bRCwhfFm6DljjvnW1va2bQ0CXp
+ E3k+y7nAvuWjqE5E4WYVWHtT2SEgV2UABRGCJuHT2ADeySbacAlKjHzqEsXePc3Z8/pzib
+ xiQmz4KKTEQuh2xrnK9eisuL5mBxUdSkgeVC5ybH0vYgAjOTAqqz4bjK1uxOKl74zADv3g
+ H12Jr5+zkPZPYMUQk7Jf3/Jy5QJIIRbFSUitzzqH06McQhuPe7uMu9q3u5iJ/2RJlR8TJM
+ BNPw4pTPi0wKTAO4IB1rfdIx9Vv5+ik2M+93z37fc9ptxuRqDyAC1+VWKD0OSMq1dMfJNg
+ GLGOyhIfUJH7vUzuyx2FF/pyUbSRRooy7kaaREW8areBbR5LvC9pwAlNL+zZ8rLVo5XFD7
+ ZHw8mry0gPvT6DfTWyhvaKwZ9kR3UlvWNN8vxBdo7ypw7BirmXb3xXTueWrzDruKB9yUoK
+ 3J2XK+E2KrlnNGdW5Gkt4CNnOze0YS0cs49Sk7EK8oYmW0b/dOrbtenImWFNKSP64P7K/n
+ oN8dP5saoiWgtJJO7f5BZqz+LukOckTDpZ1YSMMoRjo6w9Y41SQBZdK7IJUEkyU+6EiqAB
+ 0mllD0zNutHBhjoMREzuVN2YlVND4F7T1d+cItbrBlv3xc938sW6vLlbrGpG2/8YlSatIJ
+ jAy1mGbb2Y4CdrTiflgTSGvJDkW3vup8WYE0Z9RjOwc8lOPmNA4wlrwi4PWHD5Ddn65yZ/
+ /sLT0eZk2nYUnRxk8FXe2uOIXvM40dHzoGS46CtonvjZ8SdC4tg0Sa4FGYs6bDTXKEWVJy
+ bEAB2PF5EnAnxwVv1RPq7Loi6H5tC3J8PsInN4D1PPuLFYlvSkb7t3Mu/TbMrTQbg5Hse2
+ MvUqqYcrpLnYscnU/okkLA1c0YtpvHuAe1aQckqIc0arKl3cwUXXPjX/PIvkOXbjPYn3UL
+ r/xZE0DpoRGnswLfwNN4p8ddfZa1wzEWtZKlp/LdBT3SX4eKYZeEQk+lrtn6cUNM0Dm/Vo
+ 1fmPFCLMDsjy9zT9n8UjSkQa4SjwqU8lKDgOmMpDjNDylLptqvcwJdRqY0ZLwkCftwkVBT
+ lGUOTKjLL4iPRRGHXzZoqf9FiLBjEq5S52Dz0a46oXFHXzQqDQ8gZQhwKstq6E1IdAD+iD
+ iwESP4tx85I2lvqJ3x+4QebsgywREiOQ
 
-On 21/11/2026 11:25, 25031212351@stu.xidian.edu.cn wrote:
-> From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-> 
-> hdpvr_read() computes the number of bytes left in the current buffer as
-> urb->actual_length - buf->pos and uses that as the length for
-> copy_to_user(). buf->pos is a plain unsigned int that is neither reset
-> when hdpvr_cancel_queue() recycles a buffer nor protected by
-> dev->io_mutex.
-> 
-> After hdpvr_stop_streaming() has killed the URBs, the buffers are put
-> back on the free list with their old position, and the worker resubmits
-> them with urb->actual_length reset to 0. If the next transfer completes
-> with less data than the position a reader has already consumed, the
-> subtraction yields a negative value. As rem is an int and count is a
-> size_t, the comparison "rem > count" is then true, so cnt becomes count
-> and copy_to_user() copies count bytes starting at
-> transfer_buffer + buf->pos, which can be past the end of the 8192 byte
-> transfer buffer. Two readers of the same video device can corrupt each
-> other's position in the same way, and buf->pos is read twice, once for
-> rem and once for the source address.
+On Tue, Nov 24, 2026 at 05:26:56PM -0500, Nicolas Dufresne wrote:
+> Le mardi 20 octobre 2026 à 11:37 +0200, Sofus Forstreuter a écrit :
+> > Add the AVD (Apple Video Decoder) driver with V4L2 M2M stateless
+> > support based largely on rockchips implementation.
+> >
+> > Reviewed-by: Neal Gompa <neal@gompa.dev>
+> > Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
+>
+> Check you Sashiko report, and below...
+>
 
-There cannot be two readers active at the same time. I think that is
-actually the core bug: hdpvr_read does not return -EBUSY if another
-reader is already active.
+I will check Sashiko's report, drop the double blank line and add defines
 
-vidioc_encoder_cmd has those checks, but it is missing in hdpvr_read().
+> > +MODULE_FIRMWARE("apple/avd-fw-v2-t0.bin");
+> > +MODULE_FIRMWARE("apple/avd-fw-v3-t0.bin");
+> > +MODULE_FIRMWARE("apple/avd-fw-v3-t1.bin");
+> > +MODULE_FIRMWARE("apple/avd-fw-v3-t2.bin");
+> > +MODULE_FIRMWARE("apple/avd-fw-v4-t0.bin");
+> > +MODULE_FIRMWARE("apple/avd-fw-v5-t0.bin");
+> > +MODULE_FIRMWARE("apple/avd-fw-v5-t1.bin");
+>
+> I believe these are made by you, did you publish them into linux-framework? or
+> do you expect them to be built from source ? Should be part of the cover.
+>
 
-I did some testing on my HDPVR, and I can confirm that it incorrectly
-allows for two simultaneous reads.
+The plan is to submit them to linux-firmware. As of now they need to be built
+from source. Will add it to the cover.
 
-This must be fixed.
+> Did a light pass for now.
+>
+> Nicolas
 
-That will probably address most/all issues that this patch tries to correct.
+Thanks for the review!
 
-So make sure you can't have two readers at the same time, and see if that
-fixes the kasan issue. It might be that you still need to init buf->pos to 0
-in a few places, but most of this patch can be dropped.
-
-Regards,
-
-	Hans
-
-> 
-> A KASAN slab-use-after-free read of 4096 bytes was observed in
-> hdpvr_read() with the source address 1281 bytes past the end of the
-> transfer buffer; the pages following the buffer had been recycled as
-> slab pages. A second report with a 42 byte copy was 25 bytes past the
-> end of the buffer.
-> 
-> Fix this by reading the position once, by using min_t() so that a
-> negative remainder cannot be turned into a full-size copy, and by
-> accounting the consumed bytes in hdpvr_account_buffer(), which recycles
-> the buffer once it has been read completely: the position, the status
-> and the buffer lists are updated in the same critical section.
-> 
-> The helper only acts when the buffer still holds the transfer that was
-> read from. A reader can sleep in copy_to_user() while another reader or
-> a stream restart recycles and resubmits the buffer, and the new transfer
-> may start at offset 0 as well, so every buffer carries a generation that
-> is bumped on submission and is checked along with the position. For the
-> same reason the head of the receive list is re-read after each copy
-> instead of keeping a buffer that may meanwhile have been queued behind
-> the reader's back.
-> 
-> Reset buf->pos when hdpvr_cancel_queue() discards the buffers as well,
-> otherwise a restarted stream either skips the first bytes of the new
-> transfer or drops it entirely.
-> 
-> The buffer status is printed while dev->io_mutex is still held, as
-> print_buffer_status() walks both buffer lists.
-> 
-> Fixes: 9aba42efe85b ("V4L/DVB (11096): V4L2 Driver for the Hauppauge HD PVR usb capture device")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-> ---
-> v5:
->  - Bump a generation on every submission and check it when accounting the
->    consumed bytes: a reader that slept through a recycle and resubmission
->    could mistake the new transfer for the one it was reading, as both start
->    at offset 0.
->  - Re-read the head of the receive list after each copy instead of keeping
->    the buffer, so a reader never waits on a buffer that has been recycled
->    and resubmitted behind its back.
->  drivers/media/usb/hdpvr/hdpvr-video.c | 86 +++++++++++++++++++++------
->  drivers/media/usb/hdpvr/hdpvr.h       |  3 +
->  2 files changed, 70 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/media/usb/hdpvr/hdpvr-video.c b/drivers/media/usb/hdpvr/hdpvr-video.c
-> index 4290b2367fa3..c7b55962d986 100644
-> --- a/drivers/media/usb/hdpvr/hdpvr-video.c
-> +++ b/drivers/media/usb/hdpvr/hdpvr-video.c
-> @@ -92,6 +92,8 @@ int hdpvr_cancel_queue(struct hdpvr_device *dev)
->  	list_for_each_entry(buf, &dev->rec_buff_list, buff_list) {
->  		usb_kill_urb(buf->urb);
->  		buf->status = BUFSTAT_AVAILABLE;
-> +		/* the data is discarded, the next transfer starts at 0 */
-> +		buf->pos = 0;
->  	}
->  
->  	list_splice_init(&dev->rec_buff_list, dev->free_buff_list.prev);
-> @@ -210,6 +212,8 @@ static int hdpvr_submit_buffers(struct hdpvr_device *dev)
->  		urb = buf->urb;
->  		urb->status = 0;
->  		urb->actual_length = 0;
-> +		buf->pos = 0;
-> +		buf->generation++;
->  		ret = usb_submit_urb(urb, GFP_KERNEL);
->  		if (ret) {
->  			v4l2_err(&dev->v4l2_dev,
-> @@ -246,6 +250,42 @@ static struct hdpvr_buffer *hdpvr_get_next_buffer(struct hdpvr_device *dev)
->  	return buf;
->  }
->  
-> +/*
-> + * Account the bytes consumed from a buffer and hand it back to the worker
-> + * once it has been read completely.
-> + *
-> + * The buffer may have been recycled and resubmitted, either by another
-> + * reader or after a stream restart, while copy_to_user() slept. Its
-> + * position and its place in the buffer lists then belong to the newer
-> + * transfer and must not be touched, so only act if the buffer still holds
-> + * the transfer that was read from. The generation tells the transfers
-> + * apart even when both of them started at offset 0.
-> + */
-> +static void hdpvr_account_buffer(struct hdpvr_device *dev,
-> +				 struct hdpvr_buffer *buf,
-> +				 unsigned int generation, unsigned int pos,
-> +				 unsigned int new_pos)
-> +{
-> +	bool recycled = false;
-> +
-> +	mutex_lock(&dev->io_mutex);
-> +	if (buf->generation == generation && buf->status == BUFSTAT_READY &&
-> +	    buf->pos == pos) {
-> +		buf->pos = new_pos;
-> +		if (new_pos >= buf->urb->actual_length) {
-> +			buf->pos = 0;
-> +			buf->status = BUFSTAT_AVAILABLE;
-> +			list_move_tail(&buf->buff_list, &dev->free_buff_list);
-> +			print_buffer_status();
-> +			recycled = true;
-> +		}
-> +	}
-> +	mutex_unlock(&dev->io_mutex);
-> +
-> +	if (recycled)
-> +		wake_up_interruptible(&dev->wait_buffer);
-> +}
-> +
->  static void hdpvr_transmit_buffers(struct work_struct *work)
->  {
->  	struct hdpvr_device *dev = container_of(work, struct hdpvr_device,
-> @@ -415,6 +455,7 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
->  	struct urb *urb;
->  	int ret = 0;
->  	int rem, cnt;
-> +	unsigned int generation, buf_pos;
->  
->  	if (*pos)
->  		return -ESPIPE;
-> @@ -488,10 +529,25 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
->  
->  		/* set remaining bytes to copy */
->  		urb = buf->urb;
-> -		rem = urb->actual_length - buf->pos;
-> -		cnt = rem > count ? count : rem;
-> +		generation = buf->generation;
-> +		buf_pos = buf->pos;
-> +		rem = urb->actual_length - buf_pos;
-> +		if (rem <= 0) {
-> +			/*
-> +			 * The buffer was recycled and refilled with less data
-> +			 * than this reader already consumed from it, so there
-> +			 * is nothing left to copy. Give it back to the worker
-> +			 * if it is still the buffer we were reading from.
-> +			 */
-> +			hdpvr_account_buffer(dev, buf, generation, buf_pos,
-> +					     buf_pos);
-> +
-> +			buf = hdpvr_get_next_buffer(dev);
-> +			continue;
-> +		}
-> +		cnt = min_t(int, rem, count);
->  
-> -		if (copy_to_user(buffer, urb->transfer_buffer + buf->pos,
-> +		if (copy_to_user(buffer, urb->transfer_buffer + buf_pos,
->  				 cnt)) {
->  			v4l2_err(&dev->v4l2_dev, "read: copy_to_user failed\n");
->  			if (!ret)
-> @@ -499,27 +555,19 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
->  			goto err;
->  		}
->  
-> -		buf->pos += cnt;
->  		count -= cnt;
->  		buffer += cnt;
->  		ret += cnt;
->  
-> -		/* finished, take next buffer */
-> -		if (buf->pos == urb->actual_length) {
-> -			mutex_lock(&dev->io_mutex);
-> -			buf->pos = 0;
-> -			buf->status = BUFSTAT_AVAILABLE;
-> -
-> -			list_move_tail(&buf->buff_list, &dev->free_buff_list);
-> -
-> -			print_buffer_status();
-> +		hdpvr_account_buffer(dev, buf, generation, buf_pos,
-> +				     buf_pos + cnt);
->  
-> -			mutex_unlock(&dev->io_mutex);
-> -
-> -			wake_up_interruptible(&dev->wait_buffer);
-> -
-> -			buf = hdpvr_get_next_buffer(dev);
-> -		}
-> +		/*
-> +		 * The buffer may have been recycled and resubmitted to the
-> +		 * tail of the list while we copied, so re-read the head
-> +		 * instead of keeping it.
-> +		 */
-> +		buf = hdpvr_get_next_buffer(dev);
->  	}
->  err:
->  	if (!ret && !buf)
-> diff --git a/drivers/media/usb/hdpvr/hdpvr.h b/drivers/media/usb/hdpvr/hdpvr.h
-> index 84519c962cb4..4504fb58855a 100644
-> --- a/drivers/media/usb/hdpvr/hdpvr.h
-> +++ b/drivers/media/usb/hdpvr/hdpvr.h
-> @@ -139,6 +139,9 @@ struct hdpvr_buffer {
->  
->  	uint			pos;
->  
-> +	/* bumped every time a new transfer is started on the buffer */
-> +	unsigned int		generation;
-> +
->  	__u8			status;
->  };
->  
-
+Best regards,
+Sofus
