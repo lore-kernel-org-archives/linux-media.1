@@ -1,88 +1,88 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795612181;
-	b=5JRgXJKZ0FuMmvPA2CL115YoXQyHLDShPkfS2pArIoefVajsZLHmMnEnP9Ff55X8miiz
-	 nif5MNyvisFEsXFHXwriGqos4bNqg/3eUMPVhFZIom7oN7GCrSJm9Kwu6b1jTxx3A2gMb
-	 2UqPI2TQ5I8P3OXduXqi2XswJRcFZAieHQMXy0APYlRFwoeMEig4ctZ+7zvVC9989dnWT
-	 OMQOpitYSB63pGJde/8B1cis8hdZCmkgxZ1Q62WSPifpJCVdhA9D3KrTHGcNaHG4ORD1i
-	 ZYmsj8VmenUTaEoUTpzEEYEgSEa1p5isiV664W4VHna6X8sWH4bWS7nDxhCvs7wDGEA==
+	t=1795612182;
+	b=nhHdBGUNIFGL4nSBvjG9ZJWNJgGRPuKf3wr3rXxT/ua6bmFl+l6NtB9GWhoGAG1nk+rw
+	 ubRyJ0XPEVttmd8xTQAIO3jBbTNZsw0H2w7i3uFZLy1n70kITyzOzbfH9nrDdslSmwBSr
+	 e7ovHQMRMyrh3eGXa64nlsZ3ZyZ1Cyja3r6Mz09vtfB51gqFOWDeHpmh/E0kxVPiKP+Q/
+	 wSq3WyuCOIlbWoBeFxYEZ5d9hEpKCwS2UbWMs17dZ0ENRkUIBcGp78dyBlSG9KwfRM02N
+	 CyLWp2M++tJYeAo+DO1Af4haNUYoyouwbRlTEi2naG1XFt+4Tf5uWEAwXG72+QTKy/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795612181;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795612182;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=ZywXvAFwEUemsHrXzBdGIC783yZetHpR4bFqH72y36I=;
-	b=yauQZPdKNrbJ8zi/DENGqi7zNtBb21SnqDa5nZ9//IJsnJAR+/uuo4TzZ0aJUKpNrEmY
-	 iJjTh/Lg2s1F9G/Ti8o9DfPlofItE6Y7GDvTTrksLEKdFnciiEmoh6cnj7GOhiAbF7KWp
-	 cFooCIk04Rs69XSBOvcrwrSzxjNMRZwHsnFzIZpCChkxRIfZvhJHPPGR1ESRZOphNdpKX
-	 jZM2l/cAGaS78lMux8wirOpK+2FLytNNFv4tDC2wRiQk5dtefcG+lPZxDct28rAoHQKS2
-	 0rv81YDrrfQw7p8vuLmmarbV+FiBi2DqSDO9FBzJQbHC/AUrwk28A25yKR/iA6WqLww==
+	bh=2EHKdHn/evGY492frENpI73JPa/bXks6zV07Z8DP8Pw=;
+	b=3lU5x86LgDWha2xu4PCbbv8jajhGpPbslZHPQZ5S6IhxlTNjgtqwRLlJ3zClPLxfHpJt
+	 dJNHNLl2UmAo8i6gLsTHJNNIqtWCsGTYJaq9gooSlBT+aqi+ISKZ+srNmgl0igNALqJ1+
+	 aY3mVt5kuOI9olk15pYuLv9HbdMCSXK45iDWE74nQJ8Ub4+px+L1l63eXFEl8zJ59rj1a
+	 N307wsKVD9iXDu486Y3blClKwHwrbd1Cs/L5tAJMKsachdw8y3VTgF3iD5buh7AsEnu9p
+	 cSBon1J3X8Yb18jdm9Ce51yRNWEtEF+WVuuCb978TD/qMIDT4ros4yJoYfXG3k3jK/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zJ6rQHCP;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=vYA1hCDh;
 	arc=none smtp.remote-ip=209.85.221.50
 Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C98606A68C
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 13:09:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63C98606A68C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 150BC606A696
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 13:09:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 150BC606A696
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zJ6rQHCP
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4a32576da88so3309500f8f.3
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=vYA1hCDh
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so3737516f8f.3
         for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 05:09:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google; t=1795612180; x=1796216980; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZywXvAFwEUemsHrXzBdGIC783yZetHpR4bFqH72y36I=;
-        b=zJ6rQHCPTWeIZccDhVH8VVgj6p5RW2zDrOgCbmsXc8UsmGoV9gQZatNWBwGL0guapv
-         tkgTWJSV6lKpsiwyc+yee2I8+cJXUrNoro2q4hgqSyAFnCAEjPd5h1oLlyFdffW3Y4ZD
-         /2LnlTOJ6ad1PdnH1cr0NRLmv+Jztq+XB1XMRaDPoUQGSo/LCtPNg/fw3ndTnPLaZg6u
-         FVUaxFOzaSuAjVIe9WpmDpVbVFioYRYzrlT8RLGz4PaSkfaP836fFrdbiskG5+rmVerR
-         WrV1xhpyrcAqeaVJLb2Q8M9rn4nbOhXQNlSJlxC08CCMe6HhO+KBoD33pxU2IuFEe8uQ
-         noBA==
+        bh=2EHKdHn/evGY492frENpI73JPa/bXks6zV07Z8DP8Pw=;
+        b=vYA1hCDhxbqq8jX8v6q4FvQcD93zZWBJJHXYAYeBP5c2mK3U3/hl2LnFmPwyROHNtx
+         6DpZbwAlederrAA1sq4fYGgBaDqHKfjoouMfKijW9rJgbMtkGyxNsgB4smlJaPrr7XL2
+         pR0fBbTDILsqlBU+c9HSs/N6fP1nWaer+d3k9yXQYBT09TjuF7xQt0SZ+YQHx653vZm+
+         /2CyEzRkJMCv/X8m1CewFLHq7IlClY5KIYexjseoa0seYGoqzpmku0CTSZr8uofgXoML
+         X24RIES7iNZ389hc18/EzFwaFHZzI61Zt9nQIov3trM7+JCJSPUrCJ4Z/ybmLLTeNaSR
+         RRvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1795612180; x=1796216980;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZywXvAFwEUemsHrXzBdGIC783yZetHpR4bFqH72y36I=;
-        b=FEr6RdOP5HO4Mj6W3PQMxnYFq6MG2UkQiscYerMObrrFQRxXcI54qMgzUWiyqzp5nH
-         0XBmijbJtUhVqP96oUC+BC/XxpYfiLpnhDw4p4VLH3cI7FC746L0YQziAmnlZRw4RCH1
-         v0x9gUYWjchyK2WP3DgfhxP5JvxdEHPK6I/ARNf07Ms8c2QNpdSL91f3TxjAjImVxKTE
-         Asniw1kGUr4xn4OQQusMG7Unkipd5Ck9TAPMYBwxk8oEL/9+GTAF+E25jAyzgOEI3UiT
-         kxfYxJf7dLKp/g8XlTCBSGumifVGroHhCp4zI3T2P18aGyrgNxLhYIbNce/H1aBJadr7
-         RiMA==
-X-Gm-Message-State: APuU4Z9qsnEfl+f3Z0jKs/ZBKRNHG+VH1pqP1WH6Gco1u2z6T8TUgwY3
-	uj/Qn8impdyuges5rq8rbJdcLRpKphba+X3i1yKFCSF3RoUPYpQ2p/VyMONnf5B5uXA=
-X-Gm-Gg: AZFdTZe1tOHLmt00wDpCqPPf0flFIwEW9Qs/l4kyFHqnKIGJoSOm15t9QUZwKT3PNAw
-	I/snWnBZ/ftEvUNV+qZfmz43kl9ksxvqSed/IlvOf8CKxG3zcr9hTFCoT3WJ22V4zbfTLCzStue
-	GSh8qGKnfWW1OCyT7VHgErTqgQb6AL6hwxb4iUAtiDjkcX3gWyoDKAaJlFp7047OsJQeOgV8Hy7
-	OOpzBt9mc45YwWwtmvE2v/WWrCPsEWcbjaJr3qbR/0cPfoxAtpPSsxpOERK30Fl3q5Yu7L6W02N
-	WVd4j8XvHRTfHEZ9qIIsytCP+yA4lAJZ2ZKluqa/gNSUKqGW4GuppUIBOPlqMLmLZtk++DlhXcg
-	Z1Vhqx2Fw1c4thFO4EkjClDmDuB/ZuJLR7eVqBRbP+EmbzsZR8t1cS+aqRKWux4z4ZN042r9R87
-	ryjArldycpw6h4EvwdBT5KZ16DkFxghl1wt9K/+CGbK4JkBl4Sa1hmx/04Zo8N5Jgd5sOVIvAgy
-	1uRHo5973kHJAobcZvklZEKCiqvxLhrwWN/i2HFbdKnN0kjOq26BYD0+Tn+zW3sKO2Ly9vsJTNu
-	r+VRZEJhl4mpXNnCL1G+3S7eTOJL+5Ql72WgoxwRzhm304Qh7Hjy3tR1+IyPoaTFtX6NJG8=
-X-Received: by 2002:a05:6000:2385:b0:497:9e2a:b1e with SMTP id ffacd0b85a97d-4abb36787a4mr37263053f8f.9.1795612179580;
-        Wed, 25 Nov 2026 05:09:39 -0800 (PST)
+        bh=2EHKdHn/evGY492frENpI73JPa/bXks6zV07Z8DP8Pw=;
+        b=UxcD40W6t+Y2LfKYDvhYoy9/kel4P7x3w3jfmFV113rzC4oFfxsDCv5fLH95CzFk2v
+         8YlTgj/9ui76DX5dHIL4W7w3qjoCz/CYkbSRz8saX8ThQZoUY9eMAT8TsYlN124mLw4e
+         Bv6F1uUqzDSL05kWiAbBUjdDKy0fvgqOXhfaUETosRFOls7vXKoXjjzvaz02Kv3gUUsd
+         0VjlR+jkjHC032Eg1uC1muvdvIiWYJjbXj18HJW080SyFN27AxufoGxVoizCEG4QnUMe
+         O22a39Ge8Vjamx957vZfc2w++Mps+uqmo+Wcknh9N/nHprp+N6e30H/WqLOQcxoyCyoQ
+         rLzA==
+X-Gm-Message-State: APuU4Z82UmHQfoWS68Ik3YjZPIeQxjOzcDVAQh1jumKu8cj6PRGvhZLJ
+	v+GcC+5tIIN5/mNnLuQDnhokxIKPZVDWIrULSGFjZXAGNTPnSxHRkHyy9E9KztYjX0U=
+X-Gm-Gg: AZFdTZd9J4iVkZFG/rTrOmbv46WSrfAhjAy1h/fCd+Z7MF/R/vSR5G+dROm6vyCo73A
+	Ur6KAyhUJNeJFQV3REWlMDqYDsbiwbeN6XQbRUnYARSl9EwsTGJJLXz7BznrYYuX4mai9X26Wrs
+	rmtAgnjKku/A9C2pHAkzZKyKkMJjtT4+RKVSRUgnOTi2d5xgidzLGnO0oYV34L99wKv3gQUbyzz
+	3sF0nhF7NFY4PTT9D3tzZrC7sVG2oOSzVxM9fnrOoC/MkUNycKVKhs0BrMfXoN55/hfOE4QG6sN
+	KyPbmSpf589R4i2lOTzYx4q51D0GWQzFbVWUYYwOxGV9Qe7wGXD55tl7c7gHQaYTRGQOqiHwRdY
+	4oa50fMQTUUvUY9NRUlwHlTOm5VL/v/eZSJ70fhg1Uph7kc5VD5tcx71Yq/xjtNlUWHhjKCjxDM
+	nSI/xHhIbnrEw/TP4C80PEqd7hLSGQv0QYxvC4h53+pFSF2NMPV/FpYSJbu1nazKR7iSZFEbvuQ
+	aYijIPfXvteR1HGjNBAjZ8ddL+E5cXBbItBhI6KMKjxgflmamP+FcSNrXVZmV3Th+5c9cX7QzEK
+	IF0HGDtp21i2/rU2aBt+nmbgDxBeaDH0NsAltZoNH7dtib55Lg==
+X-Received: by 2002:a05:6000:2903:b0:4b7:70aa:4553 with SMTP id ffacd0b85a97d-4b770aa4574mr10550337f8f.38.1795612180312;
+        Wed, 25 Nov 2026 05:09:40 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab658e2c8csm35240355f8f.2.2026.11.25.05.09.38
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab658e2c8csm35240355f8f.2.2026.11.25.05.09.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 05:09:39 -0800 (PST)
+        Wed, 25 Nov 2026 05:09:40 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 25 Nov 2026 14:09:31 +0100
-Subject: [PATCH 04/11] media: iris: vdec: reconfigure the decoder on START
- after a source change
+Date: Wed, 25 Nov 2026 14:09:32 +0100
+Subject: [PATCH 05/11] media: iris: clear the stopped state when the
+ decoder resumes
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-topic-iris-decoder-drc-fixes-v1-4-58b9f6b3fe86@linaro.org>
+Message-Id: <20261125-topic-iris-decoder-drc-fixes-v1-5-58b9f6b3fe86@linaro.org>
 References: <20261125-topic-iris-decoder-drc-fixes-v1-0-58b9f6b3fe86@linaro.org>
 In-Reply-To: <20261125-topic-iris-decoder-drc-fixes-v1-0-58b9f6b3fe86@linaro.org>
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
@@ -109,156 +109,74 @@ Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5363;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2030;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=BQVsChRVKEsJHf555U+Pt2d3yuSUpYK6rZfR2Io/x8U=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBrBt4M0rmGalmZwbvcuBax3f7Sn+I5qKyFHbxoUCKq
- f85qjVqJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCawbeDAAKCRB33NvayMhJ0aRaD/
- 4sS8XwmgW1nY7NeT9lwRAmWJTGVRDqqmoFzKzJxsK5+ubCT3REyeTYgMWT9weJF4TwAJt8kqAVWAHF
- 3N6LbMogWbeKWPwByCxFx0/Ah5YWUENjAaj3ApWHE9LjBr3mkLy5eyIVlnL22pGfJSGLiEhI6gtmkw
- aqoOMnrazNALDNrhpeF96+/CuuU8es6FOXzTWZ0IIOhaam2y3f7cCpz6FfHt9tWi6j+5s1UA6Ncrnx
- wPVR3J7gxCPrFvWfKhPyA2O16BbWST1oYjGWVmk9KjrOM2IJxFlaygU1KzspFXnCrsG0U1FrKQnM0Q
- ZG6KMJ2Co9XurxqhtEOzDH7FRF4uTKzA/LkbOBA/FrHCmljNRcz0A8fW0HlwlB3ntBkU2E3NVsBqvM
- 4jB5raNFvAiQZ20sbX+HkNXb2aSCEEZD/rgBkGZrHZ01KrPum3IDowCGiaDO3ohtJDW38uY4DeEaB5
- qs+d3gsTjFoBGZFjfVZ6Kq+6X+OmgXwq5YzZr0DLsPkTBAPyu/P83f4nyCMTBmk8Gq405L9zzqLjOy
- NMLF5QNxusJPNp8eX3olguZmHcAU6txRCeECKATzk6a+hadnnlunZYnxs5siuQx/ZPNxFDb30HQNTQ
- /32NPRKyAGKsr5kc3NZEA1d/hN/XvseRBbk/T/liz985lG2winYrE0YsbSmw==
+ bh=f3feV/1DMgSfL2CmzIHAP9+r71wRu+v9Ez6CcCCVkxs=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBrBt4MfTtWqMX7j9xdtH+gM3bx8COMHUn9f775o8YT
+ TYEMpjOJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCawbeDAAKCRB33NvayMhJ0SZrD/
+ 4896I7D8wrXyxCNszgiSlEvqG7vrw5O+eNY4f+lErpVTdGJNplXM7tNsFXj5fzdfa9v/mpwpGLHTSQ
+ 6Q3zojETOdDH1osgRbayKKmlzjl+mQwxew7O/FSEeGOhBu0BBh8h5kOT3O9/Ui5d0lqG83IqiJdBxE
+ 40guhE2NyR5r1WJnBiawQqddxDogbkFw2hqoo0GMn3GB+OOoGQzcZS12GKl9NrtjANXcTHfJchJ4Y2
+ cDDjj6QjdkCHgYbs75rrmCS1UN3cOweIQS93ro1Ep0bxuwiIaxOzP0i3dlRRSjsrMMJz4c3yT1i5as
+ yz8RA+Qm+GeW9atog85dadQkIHVy6Vwt29lB20S5ROxFEFDOJuDLb6zdLiHGVW2Pqn7U0UC8TFsjIC
+ 9C6BxNz+5Tbc7wKAypjnBwNqDvz1XFKz2TwFFdAu2u8T2XJOwL+6eoMJNqK0NgG3Z09Lmu8G15Mnxc
+ CtkwMoTbDerlvAeDICg3LxMMYsoxxUs9rODxDjfaS83GKNsmqaa0zCi2AI4x5dg+pSqTb1wwog0C96
+ aS8TC4zKVbK6YYEVPzNcyy4cWJeSuSif8DSJVPIQjEUOsazUmq7frVCD+4QEargK1fn6Aqk3VrKaYz
+ l+RNoIIPtVBZ9dFlVJ435IIdY/Ho79qNx/bcFTJ6oHleSQ0EwKjwBGp9vaHw==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-The specification lets the client complete a source change with
-V4L2_DEC_CMD_START when the allocated CAPTURE buffers fit the new format.
-iris_vdec_start_cmd() then only resumes the firmware ports, without the
-configuration STREAMON(CAPTURE) sends for the new stream, and the
-decoder:
+V4L2_DEC_CMD_START resumes the decoder after a drain or a source change
+but leaves inst->last_buffer_dequeued and the m2m stopped state set, and
+STREAMON(CAPTURE) leaves the m2m stopped state set:
 
-- writes the following frames with the stride and scanline of the
-  previous resolution;
-- fails to resume with HFI_ERROR_INSUFFICIENT_RESOURCES when the input
-  internal buffers are too small for the new resolution, and the instance
-  goes to the error state.
+- the LAST buffer of the next drain or source change is not flagged on
+  gen1, and iris_vb2_buf_queue() does not return one either;
+- iris_vb2_signal_eos() does not signal V4L2_EVENT_EOS at the end of the
+  next drain.
 
-Before resuming, send the CAPTURE port configuration, reallocate the input
-internal buffers, set stage and pipe, and add DPB buffers of the new size
-up to the minimum count of the new stream. The attached DPB buffers are
-kept: the firmware fails to release them while the CAPTURE port is
-paused.
+Clear both on START, and the m2m stopped state on STREAMON(CAPTURE),
+which already clears inst->last_buffer_dequeued.
 
-Fixes: 84e17adae3e3 ("media: iris: add support for dynamic resolution change")
+Fixes: d09100763bed ("media: iris: add support for drain sequence")
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- drivers/media/platform/qcom/iris/iris_buffer.c | 37 ++++++++++++++++++++++++++
- drivers/media/platform/qcom/iris/iris_buffer.h |  1 +
- drivers/media/platform/qcom/iris/iris_vdec.c   | 29 ++++++++++++++++++++
- 3 files changed, 67 insertions(+)
+ drivers/media/platform/qcom/iris/iris_common.c | 1 +
+ drivers/media/platform/qcom/iris/iris_vdec.c   | 9 ++++++++-
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
-index 178e50eadcf7..38bdf366b384 100644
---- a/drivers/media/platform/qcom/iris/iris_buffer.c
-+++ b/drivers/media/platform/qcom/iris/iris_buffer.c
-@@ -747,6 +747,43 @@ static int iris_release_input_internal_buffers(struct iris_inst *inst)
- 	return 0;
- }
+diff --git a/drivers/media/platform/qcom/iris/iris_common.c b/drivers/media/platform/qcom/iris/iris_common.c
+index 25836561bcf3..61634df56797 100644
+--- a/drivers/media/platform/qcom/iris/iris_common.c
++++ b/drivers/media/platform/qcom/iris/iris_common.c
+@@ -151,6 +151,7 @@ int iris_process_streamon_output(struct iris_inst *inst)
+ 		return ret;
  
-+/*
-+ * Buffers the firmware holds are kept: it fails to release them while the
-+ * CAPTURE port is paused. Only buffers of the new size count for the minimum.
-+ */
-+int iris_alloc_and_queue_additional_output_int_bufs(struct iris_inst *inst)
-+{
-+	u32 internal_buffer_count, i, count, fit;
-+	const u32 *internal_buf_type;
-+	struct iris_buffers *buffers;
-+	struct iris_buffer *buf;
-+	int ret;
-+
-+	iris_get_int_buf_tbl(inst, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE,
-+			     &internal_buf_type, &internal_buffer_count);
-+
-+	for (i = 0; i < internal_buffer_count; i++) {
-+		buffers = &inst->buffers[internal_buf_type[i]];
-+		iris_fill_internal_buf_info(inst, internal_buf_type[i]);
-+
-+		count = 0;
-+		fit = 0;
-+		list_for_each_entry(buf, &buffers->list, list) {
-+			count++;
-+			if (buf->buffer_size >= buffers->size)
-+				fit++;
-+		}
-+
-+		for (; fit < buffers->min_count; fit++, count++) {
-+			ret = iris_create_internal_buffer(inst, internal_buf_type[i], count);
-+			if (ret)
-+				return ret;
-+		}
-+	}
-+
-+	return iris_queue_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
-+}
-+
- int iris_alloc_and_queue_persist_bufs(struct iris_inst *inst, enum iris_buffer_type buffer_type)
- {
- 	struct iris_buffers *buffers = &inst->buffers[buffer_type];
-diff --git a/drivers/media/platform/qcom/iris/iris_buffer.h b/drivers/media/platform/qcom/iris/iris_buffer.h
-index a8d2002e00ee..7cf69046f036 100644
---- a/drivers/media/platform/qcom/iris/iris_buffer.h
-+++ b/drivers/media/platform/qcom/iris/iris_buffer.h
-@@ -117,6 +117,7 @@ int iris_destroy_all_internal_buffers(struct iris_inst *inst, u32 plane);
- int iris_destroy_dequeued_internal_buffers(struct iris_inst *inst, u32 plane);
- int iris_alloc_and_queue_persist_bufs(struct iris_inst *inst, enum iris_buffer_type buf_type);
- int iris_alloc_and_queue_input_int_bufs(struct iris_inst *inst);
-+int iris_alloc_and_queue_additional_output_int_bufs(struct iris_inst *inst);
- int iris_queue_buffer(struct iris_inst *inst, struct iris_buffer *buf);
- int iris_queue_deferred_buffers(struct iris_inst *inst, enum iris_buffer_type buf_type);
- int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf);
+ 	inst->last_buffer_dequeued = false;
++	v4l2_m2m_clear_state(inst->m2m_ctx);
+ 
+ 	return iris_inst_change_sub_state(inst, clear_sub_state, 0);
+ }
 diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
-index 656e69d2c942..d35a1eb62d30 100644
+index d35a1eb62d30..6369370a04a2 100644
 --- a/drivers/media/platform/qcom/iris/iris_vdec.c
 +++ b/drivers/media/platform/qcom/iris/iris_vdec.c
-@@ -495,6 +495,31 @@ int iris_vdec_qbuf(struct iris_inst *inst, struct vb2_v4l2_buffer *vbuf)
- 	return iris_queue_buffer(inst, buf);
+@@ -584,7 +584,14 @@ int iris_vdec_start_cmd(struct iris_inst *inst)
+ 		return -EBUSY;
+ 	}
+ 
+-	return iris_inst_change_sub_state(inst, clear_sub_state, 0);
++	ret = iris_inst_change_sub_state(inst, clear_sub_state, 0);
++	if (ret)
++		return ret;
++
++	inst->last_buffer_dequeued = false;
++	v4l2_m2m_clear_state(inst->m2m_ctx);
++
++	return 0;
  }
  
-+/* Configure the firmware for the new stream, as on STREAMON(CAPTURE) */
-+static int iris_vdec_drc_reconfigure(struct iris_inst *inst)
-+{
-+	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
-+	int ret;
-+
-+	ret = hfi_ops->session_set_config_params(inst, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
-+	if (ret)
-+		return ret;
-+
-+	ret = iris_alloc_and_queue_input_int_bufs(inst);
-+	if (ret)
-+		return ret;
-+
-+	ret = iris_set_stage(inst, STAGE);
-+	if (ret)
-+		return ret;
-+
-+	ret = iris_set_pipe(inst, PIPE);
-+	if (ret)
-+		return ret;
-+
-+	return iris_alloc_and_queue_additional_output_int_bufs(inst);
-+}
-+
- int iris_vdec_start_cmd(struct iris_inst *inst)
- {
- 	const struct iris_hfi_session_ops *hfi_ops = inst->hfi_session_ops;
-@@ -506,6 +531,10 @@ int iris_vdec_start_cmd(struct iris_inst *inst)
- 
- 	if (inst->sub_state & IRIS_INST_SUB_DRC &&
- 	    inst->sub_state & IRIS_INST_SUB_DRC_LAST) {
-+		ret = iris_vdec_drc_reconfigure(inst);
-+		if (ret)
-+			return ret;
-+
- 		vb2_clear_last_buffer_dequeued(dst_vq);
- 		clear_sub_state = IRIS_INST_SUB_DRC | IRIS_INST_SUB_DRC_LAST;
- 
+ int iris_vdec_stop_cmd(struct iris_inst *inst)
 
 -- 
 2.34.1
