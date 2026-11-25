@@ -1,100 +1,142 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.64
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.32
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795622314;
-	b=UE4GS/Md6SmtE2BjoRdj3fApbbZCo4ap4HjQDT61l1MjSpjEvq/xjAZFeC4uPXWjhuU4
-	 6LOqDO0yZR+ikFsG5oZtdorzI+Ilu0ZfzQGVuMjFVblNcg1G2wL7eagxfzxBLu2wM7mJC
-	 3icxargBxuKfkOrIk2WMsRU4/5QILNSz8pkWiwM4+4D4w7XnHCSM51TmfJWdB1Lx3xDDi
-	 5VsQj68JAHPVWEoH61PV9PoKITNPgfw9tOPddrmnnPnPBoTWKUWbLuJh6df7MMZHbhxZ/
-	 2hjFn3gsitZNYtoMhkZDwZUzm48kesPObuqtxffKuJKWtGvbyOHmpsBuuWqzmtuXQhw==
+	t=1795622463;
+	b=ul5lzZYOQDqDRnv/1vabk7mMZ+dabuxzOErG4wo+yHE1bFvht9sGCFoTVgyiTZDlpp5+
+	 OnHnVJfHNtLjTfDrdXFlgvZWEPAZqDlwJRTZGzzDoJN+WhjjyajSzZfXDKuXJPAAKck4u
+	 lSvL041SCTVFY6/It9A3tYjF25vY/nEf2TpXOu18qwiTBXZcv+++r+DpMYUmVB9MJH/M5
+	 WroPJKf7N0ze3p4qQ3GYhX5elssyF4gzoVvm/FhpUFZ2rz3cDtlreY0urRaHyIK9EYhG7
+	 ba3ClRkA93YW/RSCNdy0bPaMH4AiIWMMhJGv+nIdvHP2EF2i5EOlA+S34mle4vUexUQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795622314;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795622463;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=3os6OJ3R92oD2fbICFlSvVddNzf23MQ7FMWbwwvNVRo=;
-	b=n8dfHsH/pwV53g4mG41zNaDZOcllJnfAv5RlOrm1wbrQmc9TRAom4/TJ2NsiSFG6O60D
-	 EfdM+4JKx8yxWb0wBNBRZaeTu8UHQJ1PKGfz2B9tASEkveWolJ+84h51At8H3jWakQBq9
-	 i6hZ2M65BZ3dewmj9vN48ESou7x43nNgoSxrGC6RD6sVc6zLfm0GuPCYQqZtV+bbuJLY2
-	 3wSlk5mhLLnjrpWgXA6NVkANqou1GHl8ORIu5MlnNjIsexKAPahx2e6Df8s4KS++DP/04
-	 Q7f/+dBFpM/QZOuYmd/KLJjEM8B3YVQekGWKe1ekat5Mgdlp2n3ZtEmCiWdIcXs67HA==
+	bh=ktvN5VccKKw5i08DfYGBrc6a93lAsKwOjSIw93pxbgM=;
+	b=EyHdz5g2q3VT7N7x+nKfLuFgZihpMdV65HENQBnjSTJZOKdAhF3GD36ANPzbYoKHE3rE
+	 en3zhp+bVbe7KmQSvsZkkepZyVJWSeNdUFPsKg5IjIUhH+0xqkZ+D9MiirAfJdqRs2hED
+	 h2DTqzkyGeu1fI6kCbLAmyqdvkRwVdD2ttGuGX2cefrkqhvn0uQv/FFXh+1zDHn4oRnZH
+	 v6QHYedyN835GM+e6HpV6ZQKuNzutmWEgtLaoxPstchk/DZA9vsq1NpzHe2Lea/wGemnu
+	 1CRBxF4XJ4cM3gnK+BCuRK1KnZVK8ZQOWm+s/H6/ClGUsMImJgetIC5K8KUbrk75kOw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b="MRhP/2mV";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.64
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013064.outbound.protection.outlook.com [52.101.72.64])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="h/azBYeY";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.32
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011032.outbound.protection.outlook.com [52.101.70.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 824C0606A6B7;
-	Wed, 25 Nov 2026 15:58:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 824C0606A6B7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528EF606A335;
+	Wed, 25 Nov 2026 16:01:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 528EF606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=MRhP/2mV
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=h/azBYeY
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mggttwu4tni1ARCqyMmkY/+ZHTa0sI3JQba1fdpOQTwys3jv8loXydHsa8AeX55aTK0Z7kg/EE31ukMSksFikWz3k5+/8pDDEyStdC4HpVQ8boRuAkc1fCn+dZvMvL6Vkpd8XFtT54SgN2icjC0n0IB9RtO37nyLwO8lGUWDyK8ozpaQnq08puNXEu2EkH+DJEIDnh2aILXXSOcQoeykV7R99n7IAJqjGswuq5/O9N1vrruab4iUJ8hIXe9v/ZNXIZDPaCflxIimPaBiWFy8K6akK1itKJGM7roS2A8XGh8F+fM5G2Vm8la0W6D1FYAvUNUZixFTLJw5D0CM9aj4fw==
+ b=pmIj9F7X+uSbDI69ts8l+L17FdfkPyAkEMqn0dG9KuEgTOpGQR4sLVBesiXE6Zh16s65V/0vIDmqxxaLiyGdKgz+W0OhQn4kuQRt+IFqsFnxeYohPQfgerROvksO3vtG0sHdeEm5t1xzUuxB6o/iFO5GQPb87vWWP0H6aQPJEcJpzoyVMqKqB6qYXuCRNFuMqMwSXL6gK7DSOoWd936Ik+SDp0GCX77J79UQx4r/G2AldQ0uoBouPjE4r81AXTg6MPcWNM7daIP54aTaSsaBWYU/V72Ko9gDtEY0Ls6BQaXkmYV+v8JeUwMM3gqnxEiKWJQ3HP2b+daUVvj3yi+w+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3os6OJ3R92oD2fbICFlSvVddNzf23MQ7FMWbwwvNVRo=;
- b=BgsklVzi6TbqfBWVtGl3T5ThG85tbStM+9ZUGCuiXOq6YM6ch7rZrP2vt9k0UoukblUUvXOj4O/7/P+8VBA+93osCsIuAXeOEC6m70N4StZxr/8yTHxDUzRpLD468Ofkapn5EE6hvyYqwuhhOXBUUgX0Pwb1CyPRBXWrtl/IrwW+/4RQAqZzw7hm1yLYUSy9rT4kPH9DV9/uwrPCTjNAfY60AZQFOD+I7LNXmFfAlhVNkK3Czl5Jta75y4pdyVEivOtJ17mOaQZ1CtjdYTV3BMMGgtC0AgyHz3l1LZXOmwYu0lV5dxNz1micFWmSV1P1/Scp+8I3Ovq7stqbzryWWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
+ bh=ktvN5VccKKw5i08DfYGBrc6a93lAsKwOjSIw93pxbgM=;
+ b=RmBadnbGD6ubpSeXBZRTHudoe/4pa8ym/tOBPcmnV+pH72LbHyhyJ9h0BM9I7GXOfoyUMawXvh/lOjKK0hggK+E6g6aPNG/IupJ4rsYixX3o2rX1I396V0+wTMueod/0AHefCdgLep5k+f8IHayVanxJoEa0U+xKp/005XHPtZ98zcN5KebVxCaO9wB01CrWFjcEjHQAKNsrk1Zlyhp1O8gpKIIJAjLd6XQ7qCWY/LEapNvDc9k8pO2hTmaMKN5u1UYxCH2tP0df9Kl/bSaCUGU9tg/S6HiEaFGjS2zK9VPgQU8YyQ+B7xdVOeWEWnXoF6QHMGhzUDGJUFQHdeH0Hg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3os6OJ3R92oD2fbICFlSvVddNzf23MQ7FMWbwwvNVRo=;
- b=MRhP/2mVVcAaDPFeLTnNRwEEtqBz/LKwkNdobXvfkV84dJfLEyXvFcDeXGKktIN98YLm05xLAS/ih+25G7u/YTsZGKOog04aH2xMX1ooJUf6qNDvIcQBJQtSMt1wZiD8UCLdypL5RbhLbth7bR2KkAeamde4KXCMyxPZ6/duCsIpHAmKiF2qdvwGoxm9DG2VKpatv/1vx2KzwAx2K9igLN48UX0QhyX9HFFn7kxIofdH4dT61PxAKCfoQogojjlNz88WBiFJ9zUXYenWYR99XzDU7QUyp6RCrM+F0UkPgrLO1n5GIHP1lwfOwgf3aGZbfgXZKOUSP0geUH95uwnVYA==
-Received: from DB9PR01CA0020.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:1d8::25) by VE1PR10MB3759.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:800:168::19) with Microsoft SMTP Server (version=TLS1_2,
+ bh=ktvN5VccKKw5i08DfYGBrc6a93lAsKwOjSIw93pxbgM=;
+ b=h/azBYeY457SocdCvH02G8TmyoWt0WoUAjQCniOSPa0qnOj+/OQEhAxTzPSQa2H3QFfNeN74abwxWeS6wrsmgU4ODQlAm11KMozXzO/6WlXGv6IfeNnxTSlrFdU5O6Wt1elgD9OY7Jn4NDIOeqTHP8qbwmZr+T6OEyZPmAnon6W2vrJ0so5yGKXrg1mjmmYFOBFBXF4yzOsFNwwXUsNHYtIgHWO30EgI22008WGYQxjGUvHlkziRW72uFiokrHwASTwUq+jZN6p/F4mw1t8GQHIWZSub0Jc9HJku2XA0AmYdCqZ7LvPySNkMRyLs3YP1YdZpzaHZ64HtGEZyVksyzw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GVXPR04MB9735.eurprd04.prod.outlook.com (2603:10a6:150:118::12) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Wed, 25 Nov
- 2026 15:58:27 +0000
-Received: from MAD0EPF000008AB.eurprd04.prod.outlook.com
- (2603:10a6:10:1d8:cafe::6c) by DB9PR01CA0020.outlook.office365.com
- (2603:10a6:10:1d8::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.7 via Frontend Transport; Wed, 25
- Nov 2026 15:58:27 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- MAD0EPF000008AB.mail.protection.outlook.com (10.167.241.183) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.662.3 via Frontend Transport; Wed, 25 Nov 2026 15:58:26 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 25 Nov
- 2026 16:59:31 +0100
-Received: from [10.252.2.245] (10.252.2.245) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 25 Nov
- 2026 16:58:23 +0100
-Message-ID: <a11d734e-3c08-405b-86ac-96cc10bd6a34@foss.st.com>
-Date: Wed, 25 Nov 2026 16:58:22 +0100
+ 2026 16:00:55 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0662.004; Wed, 25 Nov 2026
+ 16:00:55 +0000
+Date: Wed, 25 Nov 2026 10:00:32 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Heiko Stuebner <heiko@sntech.de>, Ulf Hansson <ulfh@kernel.org>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Yong Wu <yong.wu@mediatek.com>, Will Deacon <will@kernel.org>,
+	Tomasz Figa <tfiga@chromium.org>, Marek Vasut <marex@denx.de>,
+	Michael Tretter <m.tretter@pengutronix.de>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	"open list:POWER MANAGEMENT CORE" <linux-pm@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"moderated list:ARM/Mediatek SoC support:Keyword:mediatek" <linux-arm-kernel@lists.infradead.org>,
+	"moderated list:ARM/Mediatek SoC support:Keyword:mediatek" <linux-mediatek@lists.infradead.org>,
+	"open list:ARM/Rockchip SoC support:Keyword:b[Rr]ock[Cc]hipb" <linux-rockchip@lists.infradead.org>,
+	imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+	Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Alessio Belle <alessio.belle@imgtec.com>,
+	Luigi Santivetti <luigi.santivetti@imgtec.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dafna Hirschfeld <dafna@fastmail.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	dri-devel@lists.freedesktop.org, imagination@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+	iommu@lists.linux.dev, linux-media@vger.kernel.org,
+	linux-sound@vger.kernel.org, sound-open-firmware@alsa-project.org
+Subject: Re: [PATCH v3 2/2] PM: runtime: fix stub pm_runtime_get_if_in_use()
+ for !CONFIG_PM
+Message-ID: <awcGINOZKcD-cTvy@SMW015318>
+References: <20261117173738.1073856-1-Frank.Li@oss.nxp.com>
+ <20261117173738.1073856-2-Frank.Li@oss.nxp.com>
+ <CAPx+jO9RwkpSKwq6vq00uoXK-mcovJ2LMH7b_ByRnxOUj8nH8w@mail.gmail.com>
+ <CAJZ5v0jsnLjEBxa1R4Q3hZLZKrCUW0xSE9SqLB8bd4tNAhXTAQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJZ5v0jsnLjEBxa1R4Q3hZLZKrCUW0xSE9SqLB8bd4tNAhXTAQ@mail.gmail.com>
+X-ClientProxiedBy: PH8P220CA0050.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d9::24) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,469 +146,229 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/11] dt-bindings: iio: adc: add stm32mp2 mdf filter
-To: Conor Dooley <conor@kernel.org>
-CC: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
-	<alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>,
-	"Sumit Semwal" <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?=
-	<christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>, "Arnaud
- Pouliquen" <arnaud.pouliquen@foss.st.com>, Liam Girdwood
-	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
-	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Fabrice Gasnier
-	<fabrice.gasnier@foss.st.com>, <linux-iio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
-	<linaro-mm-sig@lists.linaro.org>, <linux-sound@vger.kernel.org>
-References: <20261118-upstream_mdf_v2-v2-0-7939d3c3720a@foss.st.com>
- <20261118-upstream_mdf_v2-v2-1-7939d3c3720a@foss.st.com>
- <20261123-barbecue-trickily-4ae8d9f01b3d@spud>
-Content-Language: en-US
-From: Olivier MOYSAN <olivier.moysan@foss.st.com>
-In-Reply-To: <20261123-barbecue-trickily-4ae8d9f01b3d@spud>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MAD0EPF000008AB:EE_|VE1PR10MB3759:EE_
-X-MS-Office365-Filtering-Correlation-Id: 81cd9bf1-554a-4bd6-9fed-08df4b0cf138
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GVXPR04MB9735:EE_
+X-MS-Office365-Filtering-Correlation-Id: 957e1111-1b15-4336-235b-08df4b0d49b5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|7416014|376014|4143699003|18002099003|6133799003|261009223027099003|22082099003|3023799007|13003099007|10067099003|56012099006|11063799006|261102123227099003|261026140227099003|261022105027099003|261026121527099003|261028144727099003|261022075727099003|261021121427099003|261021135927099003|261021123027099003;
+	BCL:0;ARA:13230040|1800799024|19092799006|23010399003|376014|7416014|366016|6133799003|261009223027099003|18002099003|22082099003|4143699003|11063799006|10067099003|56012099006|261102123227099003|261026121527099003|261021123027099003|261026140227099003|261022105027099003|261022115727099003|261022075727099003|261021121427099003|261028144727099003;
 X-Microsoft-Antispam-Message-Info:
-	TTJf5SmVY7rSeM+q7j9PlRyPRHRLvJhpeae9sFJAGsvAnF8nwLKBI86/f1DKixrWsEJisxWfJXKHKSFsEaRqpIBmunUR/ydxqrv0sbRy4cQE7wt7hVGTPJrA+Vci/6FuY+b6tL3/pNuHPsaStEX6F/6ec8IBVDBTorOvTvJ5uvSj6uHpvPzQTBKgFUwyTTgUmMWpiIsrgTprXw8vHqOyQhnKM+u/ZmmIFCrLHlnNoV8AUT50A/3vwbnNT6jZ5nvyC07paTGwOd9lIa6b+lah7TIQubwPANdiOfGjzsIK8WClO118lmfSGIgU/KN263KOOQtVM9dJgLxgbqKh0LV4ODgRojCIFmRXtIP3G0iqHJCc3U+w+ZcG1rhXvH+ndAFgLSuQQtfJbMYUfcDscgQDAdhoY4SofE5g3JctYr/m5RwT8wwHQyb1qjRID/aH0YZG0QxgUtt5u5pNf4orjvlallcIUHj1pUbC9UXA9GGhZtPnCbxb5NVbQNYFPWSqHmUkL4ZQCqoERr8wUEVga5NBna/T5NjBuViVLNN+UL1F5AZnwoUyMK0aX2FXmaTpk9BYgcyH4hbr782A+/zRal9k6p6ypFrcRIX5lB/hgzgQcbgQknT3nXKNdYegH+mk0yGidlZvwg3s2alC6or+Rc0WnQ==
+	NqBWBKjhmOlNIW2l15T7ZmpE7lXkQLhngmyGCozcsWjz/umSbddPpn3j6gNlEvAwg7RZ1x5kK2dp0eC5iS7u84Ok4QDPkpChN3aXXEsJgrWc21iW+W5Tf7R7zhEUWY9CZo1/YCE0iD/1deZokcFFTvF5lSYza1HTCrnQfUa4E5/qFhB6Ux7niCbjkweNs0CM8g5yrJhiO0uSKsL0XAI2HSYikcTfrIYQcMKai60kVy9YpVfK0oB9fnj9Y6IPLx01aZVyWK+XcHGVAI4ihaH4AaYqAxQ1KwP/ps8JliH7XbbNNXUD+QWf/RAjjXJXAb5Aa0zgCZLtugH0Kl1sLJjkmB2J6kZIBAgZ3qv3XPgLUYeWBDiiqsA3VkWKx5+0Sg9V9Ic+nRNJcd6TymwFjYBmBJZju/VpSTF5zkx5o+jL2Lk4N3qtzsjjY9Cg9YGSuTM6AXmPKDhMMe39HG5hLzXQcyrf5I+//tFMHY/7JGtwuwO7y4l6tMsVFOCdcHcxPGPdRPJgqFjNck8CWbgirDVTGIhp22wGPA411n9dIHlBz2K/fzFtj/HrvTDfsb4v+mJufC6xnPpMPOkyWE2Y+QrAFJcoef8v58kZWypy4HjFgfASf6s922FUvBDmulhvHLomkEQFspG6eA1Eyn52Ox8K4A==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(7416014)(376014)(4143699003)(18002099003)(6133799003)(261009223027099003)(22082099003)(3023799007)(13003099007)(10067099003)(56012099006)(11063799006)(261102123227099003)(261026140227099003)(261022105027099003)(261026121527099003)(261028144727099003)(261022075727099003)(261021121427099003)(261021135927099003)(261021123027099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(23010399003)(376014)(7416014)(366016)(6133799003)(261009223027099003)(18002099003)(22082099003)(4143699003)(11063799006)(10067099003)(56012099006)(261102123227099003)(261026121527099003)(261021123027099003)(261026140227099003)(261022105027099003)(261022115727099003)(261022075727099003)(261021121427099003)(261028144727099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	H0GA9IuB1Dvuku9h7sybaBQoms2+eA6aaf+vSbQgnJhDEhR3Fpzcbx1wdFIdWhalHE3lbmO/5k5/MJbI+ExQ+iJNi6uayaCF78hkVHu1KuDxQj67hCbe7YkvjyQzBjvwI2S5yVthFf6HQFYgiOdIhzoIVjFDCPzpf60ahbHESm4Q077FnBzf2amMKWIweFwgjTwqsoyBDoT/29E53+idjVjOx1BaG0HUNJH6qFNgCtO/5QGQ71U0Esycu6Hcs1ut9BtYDMoBFS7SYYRma7wE9pEtI+nWSCFdLdIe4exSS9MOVjpGA+EIgEmuIgqSZOrlCd/CFoanX3PHml135lr71VSsXWGjYJORkyp1BYn/Iwe15mAMLbaPhgrjYxNHoMt0nbdEmcGJQgiPD3z0FWxXFj/HMUL7Ycx+KDUj9+UXSBqeGCCBkmkKmLWx036mpBw5
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 15:58:26.7548
+	=?utf-8?B?VXJLWWU4NFJaek5MQWVPRkdYNVZ3Z2ZxdkgzTjkrY0wwbHpaMDk2OXd3ckwy?=
+ =?utf-8?B?Q05JSk9EQ0JNWTYrU2ZXZ3hVV2tDQk96R3pockd5bWdVMjRoTGFvNDMvMEhN?=
+ =?utf-8?B?VHZwN1hZQnUzYjlnb3M5QzFXY2lzZXo5WkdPSFRFREo2MDd2ZEsrZGNoMWtD?=
+ =?utf-8?B?WEdjOGZTZG5NWkgvaXU4Zlg4MHZBVEFrWVJ0bHVXQjU1bGJrSklMSmlYQ3hH?=
+ =?utf-8?B?eUsrTUhxZUN6UWx6VFNKd2w2aVV5N3ptUWdtcThWNVR5MTAvN2cxaEJISEJ4?=
+ =?utf-8?B?N2pNNWpmRG1xVk53RFZUV2Jxbjlnbm54RndXekFIa1R1aDV3VFQ3dnZEbTY1?=
+ =?utf-8?B?NHp2L0dxV3lqWnJQeERrNzc4eWFQaFhZUkxuTXJGSjhYZFNvUGZXMHI2UWtS?=
+ =?utf-8?B?bEg2NXhnTzVFcnpGWE1ZaWlhTDNtMVZRN3VvRGx1aHpQQ2E0VTREbDhLaSt0?=
+ =?utf-8?B?U0sreGFXUWtOVTBMYnVQSHdCdW5PRENrZkJZSEsvdC9QTWl6ZEFzNFRkUTFu?=
+ =?utf-8?B?cnBHbHJoOXhDd1RXVFozdnJFMzNXa0JNQ2JvMEpneC9QdE9vN1o2R3FXYktr?=
+ =?utf-8?B?V1BQdHBhdGxpQUdnZ3hHeUlESGY4UGt0aFJha0Jtc2ZTN2RINHhqYW13czZL?=
+ =?utf-8?B?aXIxektFMnZzdUZrQnk3b3FJVXJwZ0dDTEFsa1kxVytDdS9xZUYvcnl4N3JP?=
+ =?utf-8?B?NmJXRCt0eUtRTFJFcTRWN0FQTUxVcFFESjBkenVGdEJhTVB5R0UvUmJyZ1o1?=
+ =?utf-8?B?Z0NBNlh2aXRCSU85ZzVCOVJScGtUYUFOOFp3ZVk1TE0wbkkzcUhMbHBtWmRO?=
+ =?utf-8?B?VVhlT3pZaUR4dDVhK2Y2RGZwSTk4RTRxSGFhbFlaU2JzVGRodVVGdjgySGow?=
+ =?utf-8?B?dmRzcSs2cWI4NGU2SC9GTlBGbXJscnRNUUR4WWZJSFE2Z0ZpT2hPSUxPNzdi?=
+ =?utf-8?B?RnRBZ0J5bTF1VXhXRnNESEVoZms3bnNFMnlBbzBxc0V0bFI5V05UYisyUzJq?=
+ =?utf-8?B?VzU0WnhBdDF0bDc3Z1VNT2diOTY5VjV6SmcyMnp1TExPYy83eVo1d0FaQVZT?=
+ =?utf-8?B?LzRDb24rbU5Gb1VIc1B5SXVYSTVoa0NIQ25ORWd0d1I2aVZ5eEZrVVVPVEpR?=
+ =?utf-8?B?ZlFicEFoSXVVSGtkcC9pK0p0N3Vac0w3Y3p0TTJGSzZ1Y0s2ZWxkMERQc3B3?=
+ =?utf-8?B?VFFDSjVUd3FzbmpWWkJlN2Yxb3VESDhBaldxM2drWXRJMDYvNW9Nd0R3aHlj?=
+ =?utf-8?B?blh2dXhkUnQ5VVpQN0EwM2piNWREakNEUm1lUzNaVGZZMWVibitoN2Z0N0VV?=
+ =?utf-8?B?b1FIVWtLdDFzTVNXTmdCMnV2SnI5ZW1Xc0lyUUhrY3gxNDlaSkpSMU1UUXN1?=
+ =?utf-8?B?TFl0NUFyM1poN2dPYjhBV290azVRK3d0S3BvRTJpWW90VEtQaUg0OGVtVVFE?=
+ =?utf-8?B?QmhDTE13WVVIV0hpL1RWQVVBRzhSc1ozN1RhZnRXQTVXZzlaZHlja05aRWs2?=
+ =?utf-8?B?aGh1MXh3eEJrRStkWHluY3ZmS2w1bTlCR1hjc1BPcWFEaUJKUmxEa3JXODJH?=
+ =?utf-8?B?M0tEM0s2Mk9YZlZwRHRwVDBCZ29iRUJHbUxUWWZlb2VyL2tvTSsxSHczTHM1?=
+ =?utf-8?B?a2tKUno3eGRSTndPNERRL0MwTVB6d2g5NU5LZTJ4QXZJc2xOTWI4NDhmUVdF?=
+ =?utf-8?B?OENiWkFKUy9adGJ0dnk2bDQySDY4cWgranhoeXlYSno5MGluanpSdUNtU3Uy?=
+ =?utf-8?B?Z1k2UkVCZXR3VUVTTENjdmRmU3BCUXF5OXl5VnJ1a2Urb0ZPNzJVWTRMSW1H?=
+ =?utf-8?B?cWViN2hPQ2lxZTVFKytuZEhoRzVnUWxMbTVhWWhyRFlpYXRzNjYxbDJKTVZQ?=
+ =?utf-8?B?UHllWHJ1Q2huNG53bDNRc3RmQ0t4U01MWENPUFdxSld2K1JTZnVXWFloM2o1?=
+ =?utf-8?B?K2l6Y1BuYVRYQ3lrZUF2WEhBSVdwSndOd2lTRHNkbUtDMUdoQnhvRWdaajZv?=
+ =?utf-8?B?UXZNR0hUMTJQbk1raHVrYlNydU81NE1DczBQMFhPT3Z6aGQwWTV6cE9PMXA5?=
+ =?utf-8?B?NDREK1AwWEJ4T0lmYVBZa09XTnhIZjIvdFV5NnZ4cHN6YWJoZEVrZ3pXSERO?=
+ =?utf-8?B?RWpZdVhzWVE4ellSUEpucEpOazlLOHBMWm9sSzRKQWJnVWVOMUFEVjM5Qzd2?=
+ =?utf-8?B?M1hFVkdEOXlmTXNvMWFyNDNZb3RucDV5Yk5JdXM0ZXhxQms0UUZNV0pUNUJG?=
+ =?utf-8?B?Z1haM2pZWGFvMFVLNE8vYXhKUlpTa0MvczR1NnRCMU55ZzNtd3NGR3pHMWxV?=
+ =?utf-8?B?cFJQNDhJSXJHcndLc0hzWmsxMkhiNkZrR3JTVXJlalptWlVOZ2w4aW9WaHBv?=
+ =?utf-8?Q?YXIYGIKmiKf3QIwT+239zOqXBAYHTZf2JhrA3?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 957e1111-1b15-4336-235b-08df4b0d49b5
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 16:00:55.5685
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 81cd9bf1-554a-4bd6-9fed-08df4b0cf138
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MAD0EPF000008AB.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR10MB3759
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VgMtB6ytRFYj0OYuxVXIxz51RwRfWFTz5mK3PWZkD9as33wlRmsMShOkak5WEW9bVHktNzisSswo0u/bJdDMHFxpaliSDcQy9+T6Ip+EXQXT3yAIR1wZWsV88yf8OVW3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9735
 
-Hi Conor,
-
-On 11/23/26 18:30, Conor Dooley wrote:
-> With an eye to accepting something of this nature, rather than a rework,
-> I have some initial questions before suggesting some remodeling of what
-> is here.
-> 
-> On Wed, Nov 18, 2026 at 04:17:46PM +0100, Olivier Moysan wrote:
->> Add bindings that describes STM32 MDF settings to support
->> digital filtering for Pulse Density Modulation (PDM) microphones
->> and analog sigma delta modulators, on STM32MP2 SoCs.
->>
->> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
->> ---
->>   .../bindings/iio/adc/st,stm32mp25-mdf.yaml         | 341 +++++++++++++++++++++
->>   1 file changed, 341 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32mp25-mdf.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32mp25-mdf.yaml
->> new file mode 100644
->> index 000000000000..e4925a38012d
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32mp25-mdf.yaml
->> @@ -0,0 +1,341 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/iio/adc/st,stm32mp25-mdf.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: STMicroelectronics STM32 Multi-function Digital Filter (MDF) ADC
->> +
->> +maintainers:
->> +  - Olivier Moysan <olivier.moysan@foss.st.com>
->> +
->> +description: |
->> +  STM32 MDF ADC is a sigma delta analog-to-digital converter dedicated to
->> +  interface external sigma delta modulators to STM32 micro controllers.
->> +
->> +properties:
->> +  compatible:
->> +    enum:
->> +      - st,stm32mp23-mdf
->> +      - st,stm32mp25-mdf
->> +
->> +  reg:
->> +    minItems: 1
->> +    maxItems: 2
->> +
->> +  clocks:
->> +    maxItems: 1
->> +
->> +  "#clock-cells":
->> +    enum: [0, 1]
->> +
->> +  clock-output-names:
->> +    description: |
->> +      CCK0 and CCK1 are optional output clocks, which share the same clock frequency,
->> +      but can be gated independently to save power.
->> +    minItems: 1
->> +    items:
->> +      - enum: [cck0, cck1]
->> +      - const: cck1
->> +
->> +  "#address-cells":
->> +    const: 1
->> +
->> +  "#size-cells":
->> +    const: 1
->> +
->> +  ranges: true
->> +
->> +  resets:
->> +    maxItems: 1
->> +
->> +  access-controllers:
->> +    maxItems: 1
->> +
->> +  power-domains:
->> +    maxItems: 1
->> +
->> +  st,interleave:
->> +    description: |
->> +      Number of interleaved filters, starting from filter 0. For a value N,
->> +      filters 0 through N - 1 participate in interleaving. Their samples are
->> +      multiplexed into a single channel and retrieved through the device
->> +      associated with filter 0. Filters 1 through N - 1 must be enabled and
->> +      inherit their configuration from filter 0. If absent, interleaving is
->> +      disabled.
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    minimum: 2
->> +    maximum: 8
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - ranges
->> +  - clocks
->> +  - "#address-cells"
->> +  - "#size-cells"
->> +
->> +additionalProperties: false
->> +
->> +patternProperties:
->> +  "^sitf@[0-9]+$":
->> +    type: object
->> +    description: |
->> +      Serial interface configuration, managed by the MDF core. Pin control
->> +      states for the serial interface pins belong to the MDF parent node.
->> +
->> +    properties:
->> +      reg:
->> +        description: Specify the SITF serial interface instance
->> +        maxItems: 1
->> +
->> +      clocks:
->> +        description: |
->> +          Serial interface clock (optional depending on interface mode)
->> +        maxItems: 1
->> +
->> +      st,sitf-mode:
->> +        description: |
->> +          Select serial interface protocol
->> +          - spi: SPI mode
->> +          - lf_spi: low frequency SPI mode for low power applications
->> +        $ref: /schemas/types.yaml#/definitions/string
->> +        enum:
->> +          - spi
->> +          - lf_spi
->> +
->> +    required:
->> +      - reg
->> +      - st,sitf-mode
->> +
->> +    additionalProperties: false
->> +
->> +  "^filter@[0-9]+$":
->> +    type: object
->> +    description: Digital filter path child node
->> +
->> +    properties:
->> +      compatible:
->> +        enum:
->> +          - st,stm32mp25-mdf-dmic
->> +          - st,stm32mp25-mdf-adc
-> 
-> These two compatibles don't represent different hardware, just different
-> roles from the same hardware, right?
-> 
-
-Yes, both compatibles refer to the same MDF filter hardware. They 
-distinguish two uses of that filter: IIO data acquisition and digital 
-microphone audio capture through ASoC framework.
-
->> +
->> +      reg:
->> +        description: Specify the MDF filter instance
->> +        maxItems: 1
->> +
->> +      interrupts:
->> +        maxItems: 1
->> +
->> +      dmas:
->> +        maxItems: 1
->> +
->> +      dma-names:
->> +        items:
->> +          - const: rx
->> +
->> +      "#io-channel-cells":
->> +        const: 1
->> +
->> +      '#address-cells':
->> +        const: 1
->> +
->> +      '#size-cells':
->> +        const: 0
->> +
->> +      st,cic-mode:
->> +        description: |
->> +          Cascaded-integrator-comb (CIC) filter configuration
->> +          - 0: MCIC & ACIC filters in FastSinc mode
->> +          - [1-3]: MCIC & ACIC filters in Sinc mode order 1 to 3
->> +          - [4-5]: Single CIC filter in Sinc mode order 4 to 5
->> +          For audio purpose it is recommended to use CIC Sinc4 or Sinc5
->> +          This property is mandatory for filter 0 or filters not used in interleave mode.
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        minimum: 0
->> +        maximum: 5
->> +
->> +      st,delay:
->> +        description: Filter delay in samples
->> +        $ref: /schemas/types.yaml#/definitions/uint32
->> +        maximum: 127
->> +
->> +      st,rs-filter-bypass:
->> +        description: Bypass RSFLT reshaping filter.
->> +        $ref: /schemas/types.yaml#/definitions/flag
->> +
->> +      st,hpf-filter-cutoff-bp:
->> +        description: |
->> +          High Pass Filter (HPF) cut-off frequency expressed as a fraction of the PCM sampling rate.
->> +          Cut-off frequency = st,hpf-filter-cutoff-bp x Fpcm / 10000.
->> +          If this property is not defined the HPF is disabled.
->> +        enum: [625, 1250, 2500, 9500]
->> +
->> +      st,sync:
->> +        description:
->> +          Synchronize to another filter.
->> +          Must contain the phandle of the filter providing the synchronization.
->> +        allOf:
->> +          - $ref: /schemas/types.yaml#/definitions/phandle-array
->> +          - maxItems: 1
->> +
-> 
->> +      st,sitf:
->> +        $ref: /schemas/types.yaml#/definitions/phandle-array
->> +        items:
->> +          - items:
->> +              - description: Phandle of the serial interface connected to the digital filter
->> +              - description: |
->> +                  The phandle's argument selects the bitstream on the falling or rising edge
->> +                  of the serial interface clock:
->> +                  - 0: rising edge
->> +                  - 1: falling edge
->> +                enum: [0, 1]
->> +                default: 0
->> +        description:
->> +          Should be phandle/bitstream pair.
-> 
-> Can this ever be more than a single phandle?
+On Wed, Nov 25, 2026 at 04:53:35PM +0100, Rafael J. Wysocki (Intel) wrote:
+> On Wed, Nov 25, 2026 at 4:07 PM Ulf Hansson
+> <ulf.hansson@oss.qualcomm.com> wrote:
+> >
+> > On Tue, Nov 17, 2026 at 6:38 PM <Frank.Li@oss.nxp.com> wrote:
+> > >
+> > > From: Frank Li <Frank.Li@nxp.com>
+> > >
+> > > The stub for pm_runtime_get_if_in_use() under !CONFIG_PM currently
+> > > returns -EINVAL.  The real implementation returns:
+> > >   1  - device is active and its usage counter is non-zero (bumped)
+> > >   0  - device is not in use or not active (counter not bumped)
+> > >  -EINVAL - runtime PM disabled for this device
+> > >
+> > > When CONFIG_PM is not set every device is permanently "active" and
+> > > always considered "in use", so the stub must return 1, mirroring
+> > > __pm_runtime_resume() which already returns 1 in the same build.
+> > >
+> > > Returning -EINVAL breaks callers that test the return value with
+> > > comparisons other than "!= 0 / == 0":
+> > >
+> > > drivers/gpu/drm/i915/intel_runtime_pm.c:
+> > >   if (intel_runtime_pm_get_if_in_use(rpm))
+> > >   which wraps to: ret = pm_runtime_get_if_in_use(); return ret > 0;
+> > >   With -EINVAL the wrapper returns false, causing an incorrect error
+> > >   path in the GT fence revocation code.
+> > >
+> > > drivers/gpu/drm/xe/xe_pm.c:
+> > >   if (pm_runtime_get_if_in_use(xe->drm.dev) > 0)
+> > >   With -EINVAL the condition is false; xe_pm_runtime_get_if_in_use()
+> > >   returns false, so callers believe the device is not usable.
+> > >
+> > > drivers/gpu/drm/gma500/power.c:
+> > >   return pm_runtime_get_if_in_use(dev) == 1;
+> > >   -EINVAL != 1, so the helper always returns false when !CONFIG_PM.
+> > >
+> > > drivers/gpu/drm/imagination/pvr_power.c:
+> > >   if (pm_runtime_get_if_in_use(...) <= 0)
+> > >   -EINVAL <= 0 is true, so the driver always takes the "requeue" error
+> > >   path instead of proceeding with the active device.
+> > >
+> > > sound/soc/sof/debug.c:
+> > >   if (pm_runtime_get_if_in_use(sdev->dev) == 1)
+> > >   -EINVAL != 1, so d3_prevented is never set, corrupting exception
+> > >   debug accounting.
+> > >
+> > > drivers/iommu/mtk_iommu.c:
+> > >   if (pm_runtime_get_if_in_use(dom->plat_dev->dev) <= 0)
+> > >   -EINVAL <= 0 skips the TLB flush, leaving stale IOMMU mappings.
+> > >
+> > > drivers/iommu/rockchip-iommu.c:
+> > >   Three call sites use WARN_ON_ONCE(err < 0) or similar patterns.
+> > >   -EINVAL < 0 triggers a spurious WARNING on every call.
+> > >
+> > > drivers/media/i2c/isl7998x.c:
+> > >   if (pm_runtime_get_if_in_use(dev) <= 0)  (two call sites)
+> > >   -EINVAL <= 0 causes the driver to always skip register programming
+> > >   when !CONFIG_PM.
+> > >
+> > > drivers/media/platform/rockchip/rkisp1/rkisp1-debug.c:
+> > >   if (pm_runtime_get_if_in_use(dev) <= 0)  (two call sites)
+> > >   -EINVAL <= 0 prevents any debug statistics from being collected.
+> > >
+> > > Fixes: a436b6a19f57 ("PM / runtime: Add new helper for conditional usage count incrementation")
+> > > Fixes: 3b85b7bcccf4 ("drm/xe: Fix display runtime_pm handling")
+> > > Fixes: 672c473576ca ("drm/gma500: Rewrite power management code")
+> > > Fixes: b30289e7fa92 ("ASoC: SOF: Fix runtime pm usage counter balance after fw exception")
+> > > Fixes: c0b57581b73b ("iommu/mediatek: Add power-domain operation")
+> > > Fixes: 51ef2be546e2 ("media: i2c: isl7998x: Add driver for Intersil ISL7998x")
+> > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> > > ---
+> > > Change in v3
+> > > - drop tag: cbb819c363c5 ("media: rkisp1: debug: Collect input status by sampling ISP_FLAGS_SHD")
+> > > selected PM at arch config
+> > > - drop tag: 0f181d3cf7d9 ("iommu/rockchip: Add runtime PM support")
+> > > selected PM at arch config
+> > > - drop tag: 9d58aa46291d ("drm/i915: Fix the GT fence revocation runtime PM logic")
+> > > guard by CONFIG_PM
+> > > - drop tag 727538a4bbff ("drm/imagination: Implement power management")
+> > > depend on PM
+> > > `
+> > > Change in v2
+> > > - new patches.
+> > >
+> > > Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+> > > Cc: linux-pm@vger.kernel.org
+> > > Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> > > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> > > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > > Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+> > > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > > Cc: Maxime Ripard <mripard@kernel.org>
+> > > Cc: "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>
+> > > Cc: Simona Vetter <simona@ffwll.ch>
+> > > Cc: David Airlie <airlied@gmail.com>
+> > > Cc: Matthew Brost <matthew.brost@intel.com>
+> > > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> > > Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+> > > Cc: Alessio Belle <alessio.belle@imgtec.com>
+> > > Cc: Luigi Santivetti <luigi.santivetti@imgtec.com>
+> > > Cc: Liam Girdwood <lgirdwood@gmail.com>
+> > > Cc: Mark Brown <broonie@kernel.org>
+> > > Cc: Jaroslav Kysela <perex@perex.cz>
+> > > Cc: Takashi Iwai <tiwai@suse.com>
+> > > Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
+> > > Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+> > > Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> > > Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> > > Cc: Robin Murphy <robin.murphy@arm.com>
+> > > Cc: Yong Wu <yong.wu@mediatek.com>
+> > > Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> > > Cc: Matthias Brugger <matthias.bgg@gmail.com>
+> > > Cc: Heiko Stuebner <heiko@sntech.de>
+> > > Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> > > Cc: Dafna Hirschfeld <dafna@fastmail.com>
+> > > Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > > Cc: Michael Tretter <m.tretter@pengutronix.de>
+> > > Cc: Daniel Baluta <daniel.baluta@nxp.com>
+> > > Cc: Will Deacon <will@kernel.org>
+> > > Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+> > > Cc: dri-devel@lists.freedesktop.org
+> > > Cc: imagination@lists.freedesktop.org
+> > > Cc: intel-gfx@lists.freedesktop.org
+> > > Cc: intel-xe@lists.freedesktop.org
+> > > Cc: iommu@lists.linux.dev
+> > > Cc: linux-arm-kernel@lists.infradead.org
+> > > Cc: linux-mediatek@lists.infradead.org
+> > > Cc: linux-media@vger.kernel.org
+> > > Cc: linux-rockchip@lists.infradead.org
+> > > Cc: linux-sound@vger.kernel.org
+> > > Cc: sound-open-firmware@alsa-project.org
+> > > Cc: imx@lists.linux.dev
+> > > ---
+> > >  include/linux/pm_runtime.h | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > >
+> > > diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
+> > > index de9e7518ecef2..1d983fe55a16a 100644
+> > > --- a/include/linux/pm_runtime.h
+> > > +++ b/include/linux/pm_runtime.h
+> > > @@ -276,7 +276,7 @@ static inline int pm_schedule_suspend(struct device *dev, unsigned int delay)
+> > >  }
+> > >  static inline int pm_runtime_get_if_in_use(struct device *dev)
+> > >  {
+> > > -       return -EINVAL;
+> > > +       return 1;
+> >
+> > This should be return 0, as we did not bump the usage count.
 >
+> This is kind of moot because there is no usage counter.
+>
+> However, the caller may always take the opportunistic "in use" path
+> because there are no potential costs related to it.
 
-Each MDF filter selects a single bitstream from one serial interface. 
-The property contains only one phandle plus one argument that selects 
-the rising or falling clock edge.
+When !CONFIG_PM, all device is active state, which should be equal to bump
+usage count case.
 
->> +
->> +      mdf-dai:
->> +        type: object
->> +        description: Audio interface for the MDF filter
->> +
->> +        properties:
->> +          compatible:
->> +            const: st,stm32mp25-mdf-dai
->> +
->> +          "#sound-dai-cells":
->> +            const: 0
->> +
->> +          io-channels:
->> +            description:
->> +              From common IIO binding. Used to pipe external sigma delta
->> +              modulator or internal ADC output to MDF channel.
->> +
->> +          power-domains:
->> +            maxItems: 1
->> +
->> +          port:
->> +            $ref: /schemas/sound/audio-graph-port.yaml#
->> +            unevaluatedProperties: false
->> +
->> +        required:
->> +          - compatible
->> +          - "#sound-dai-cells"
->> +          - io-channels
->> +
->> +        additionalProperties: false
->> +
->> +    required:
->> +      - compatible
->> +      - reg
->> +      - interrupts
->> +      - dmas
->> +      - dma-names
->> +      - "#io-channel-cells"
->> +      - "#address-cells"
->> +      - "#size-cells"
->> +      - st,sitf
->> +
->> +    patternProperties:
->> +      "^channel@([0-7])$":
->> +        type: object
->> +        $ref: adc.yaml
->> +        description: Represents the external channel which is connected to the MDF.
->> +
->> +        properties:
->> +          reg:
->> +            maximum: 7
->> +
->> +          io-backends:
->> +            description:
->> +              Used to pipe external sigma delta modulator or internal ADC backend to MDF
->> +              channel.
->> +            maxItems: 1
->> +
->> +        required:
->> +          - reg
->> +
->> +        unevaluatedProperties: false
->> +
->> +    allOf:
->> +      - if:
->> +          properties:
->> +            compatible:
->> +              contains:
->> +                const: st,stm32mp25-mdf-adc
->> +
->> +        then:
->> +          patternProperties:
->> +            "^channel@[0-7]$":
->> +              required:
->> +                - io-backends
->> +          properties:
->> +            mdf-dai: false
->> +
->> +    unevaluatedProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/clock/st,stm32mp25-rcc.h>
->> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->> +    mdf1: filter@504d0000 {
->> +      compatible = "st,stm32mp25-mdf";
->> +      ranges = <0 0x504d0000 0x1000>;
->> +      reg = <0x504d0000 0x8>, <0x504d0ff0 0x10>;
->> +      #address-cells = <1>;
->> +      #size-cells = <1>;
->> +      clocks = <&rcc CK_KER_MDF1>;
->> +      #clock-cells = <1>;
->> +      clock-output-names = "cck0", "cck1";
->> +
->> +      sitf5: sitf@300 {
->> +        reg = <0x300 0x4>;
->> +        st,sitf-mode = "spi";
->> +        clocks = <&mdf1 0>;
->> +        assigned-clocks = <&mdf1 0>;
->> +        assigned-clock-rates = <2048000>;
->> +      };
->> +
->> +      filter0: filter@84 {
->> +        compatible = "st,stm32mp25-mdf-dmic";
->> +        reg = <0x84 0x70>;
->> +        #io-channel-cells = <1>;
->> +        interrupts = <GIC_SPI 184 IRQ_TYPE_LEVEL_HIGH>;
->> +        dmas = <&hpdma 63 0x63 0x12 0>;
->> +        dma-names = "rx";
->> +        st,cic-mode = <5>;
->> +        st,sitf = <&sitf5 0>;
->> +        #address-cells = <1>;
->> +        #size-cells = <0>;
->> +
->> +        channel@0 {
->> +          reg = <0>;
->> +        };
->> +
->> +        mdf-dai {
->> +          compatible = "st,stm32mp25-mdf-dai";
->> +          #sound-dai-cells = <0>;
->> +          io-channels = <&filter0 0>;
->> +        };
->> +      };
->> +
->> +      filter@104 {
->> +        compatible = "st,stm32mp25-mdf-adc";
->> +        reg = <0x104 0x70>;
->> +        #io-channel-cells = <1>;
->> +        interrupts = <GIC_SPI 185 IRQ_TYPE_LEVEL_HIGH>;
->> +        dmas = <&hpdma 64 0x63 0x12 0>;
->> +        dma-names = "rx";
->> +        st,cic-mode = <2>;
->> +        st,sitf = <&sitf5 1>;
-> 
-> Is this a realistic example, with multiple devices connected to the same
-> sitf? I assume it is technically possible, given what I have seen in the
-> docs but would anyone do this in reality?
-> 
+And it'd better return the same value of pm_runtime_get().
 
-Yes, sharing the same SITF clock and data line for stereo audio capture 
-is a realistic use case. The microphones drive the data line on opposite 
-clock edges, so two MDF filters can capture the two channels 
-independently. This use case is documented here:
-https://wiki.st.com/stm32mpu/wiki/MDF_device_tree_configuration#MDF_audio_example
-
-What is probably not realistic in the example, is to mix audio and 
-analog use cases (through st,stm32mp25-mdf-dmic and 
-st,stm32mp25-mdf-adc). This was done to shorten the example. Maybe it 
-would be worth splitting the audio and analog use cases.
-
-Regards
-Olivier
-
-> Cheers,
-> Conor.
-> 
->> +        #address-cells = <1>;
->> +        #size-cells = <0>;
->> +
->> +        channel@1 {
->> +          reg = <1>;
->> +          settling-time-us = <1000>;
->> +          io-backends = <&sd_adc1>;
->> +        };
->> +      };
->> +    };
->> +
->> +...
->>
->> -- 
->> 2.43.0
->>
+Frank
 
