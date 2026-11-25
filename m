@@ -1,95 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795607600;
-	b=B2Z3S7/siwC41EQIRADzmdcfFAa1KBFaQd92En8hotH0+DWRymMJCS5x2BWfHTi0QRI1
-	 MTJM25Zvoiw6mctizSUraWX0W5Kc4rU48152eKr6A48iobJTQLO9q9xRLuaFXusjKc4tT
-	 rmJt9pDgLHXZYpeV5IeRKM+BaxIX/sHV3QC4BHg/iLZE3zvRkLV0qWjPNji8y+cvtc89+
-	 QWH10xycLdMChf9apFI648GstB9bKUgzxqTlDXmDulvqiQjWHwzn3vQGyJJAyxvzx7dNf
-	 4CszsuvYRhH3b/dgnkJNBIv+mf8GezhJWc250dAwuOOJb72fVzQSs7i47KIRZRShkcw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795607600;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=nZYqcXr2GdukwpFTErUn0OmrkaYloPVQ2+2wDZ49QlA=;
-	b=rdm1Wl154qMmNlbL4/3NQcvA45mB6YhA67e7DQPbWxbLkKvUROYvWKXkDiCqVMNGLVC1
-	 7Gwp4Rxf+Gish9sMMbXkU1pNjP6hSp+qrQWW/3p3tCx7catFQIP+y/sj6DLKFhyU8nMSG
-	 eKmu1Wz07thWh50urdeYhOroSjYSQQX/w0jkR0o1LA4euqRiTXj7l+xa91BSuSxM1tRJR
-	 dTNTNZDcXzqomwxAOHGQNYZ3BEm2Ps0Z3q/F8PwDn0x6zdGO1uaTFSP3ezYuGShSXU6Yt
-	 Ej9xkQM4MrW5AiUBf4gjgJao78NwO2XjQMPDrKir1tud20WnuVDxSaTBbktEo/LqQnw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PbHBDqbp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795608132;
+	b=esLr0OststwRn99oB+9sgPN2gKfN7QGpqeWT7PgfvfoD/MExRrko8QJZFLmaYOwHwhe0
+	 uoAcwjiLPWndUM8apR28VGqcVRQqZm6wvzPLXxPdSEMaUctdw1jgDRNS2fQYa27n1YbIs
+	 EtoumPXQE2ugu5DdvpllxzbMODHyyPQ1fFdYCIYNXitaZFbH1+zbOZ3K183Rh2gAfBBCI
+	 KWB7iXPI16GAHgW1/Hozc/rx9aikA1hd3ERDEFmvxanYPpbGH3dyC8OteHENySuAQiBeO
+	 KA6jzQEdvWEt/5f+AZ8UvmnVXyhiwxytCOkSyESyYGS0E90eO2CLt5GGuWNIDX0m5ug==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795608132;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=i3jYSnSdn2u/GLu3Pa6dvx+oEPdp+Zst7Dskdp50SrE=;
+	b=LsQbK8s6uaeLCkXPn0qg7KucDv+HLDFBlcT6EcsKBxobmnt/x6T9JBBy1CGHmJgSa5JZ
+	 B1OnYtBhyw28ONJ59ScC0iCERBImrXFXtzvorHCBsHa45HYSo5Psafjxi/QEXgPxeWuyI
+	 LrCTYXCINYBytPMcB4pQbSPtBA6MPbgTWpp/9Qsh+uDqso3Qt5enbIlfvnBEqKbI2fP/P
+	 GZEPuBKPINV+jIXrZwytmN0FWM22Uj2Y3DFdvQTXD3GRbc8yFTIE+gHIJgRBGGi8uWVmQ
+	 j0PHYXsZqQKljkUAn65He5oiaIo0DS0AzwbTUjz+VVlSndaB3kmD7+FcFvm3X94o2Rg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FWZlc+cD;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XbHjhbtL;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5604E606A326;
-	Wed, 25 Nov 2026 11:53:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5604E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B575D606A332
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 12:02:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B575D606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PbHBDqbp
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 709292001A0;
-	Wed, 25 Nov 2026 12:53:17 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795607597;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nZYqcXr2GdukwpFTErUn0OmrkaYloPVQ2+2wDZ49QlA=;
-	b=PbHBDqbpyGECAjnBhCSKie8KEBk6a64mLAmKCjN9MhceQnQLcrCHIv1lWy4dsHMLH7XhCE
-	i7TA6RhFLtxLEYbEcwf2HFA7Wj6CaJArkV2lWfdP7+mK3TnTwq1S492/LHQcYz6WFJfcEz
-	md1WEtrCvehRoL5KdmhAT2MVjrjHEAeI4cw6ZbS689B+l2BuHRBFpNNGc+NiSCYtQRlhwL
-	j9UGlcSG4SAdQW921O5UwKs9uJDhEHmWyrIJ7Vl7YDRTGdqSgxpd98m6+B2ZxtWN8Pvkdc
-	O3LLlXqK2U0/6XEkJvWj1XM0g8rOe270BkncmUe3DVie5FNUD0fVaWDv50EBwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1795607597;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nZYqcXr2GdukwpFTErUn0OmrkaYloPVQ2+2wDZ49QlA=;
-	b=ZhsFPfuflVaq19jR2oqz2SK81or7T0A+XwZ885vj4fQnX06TrUCuu9viC+91pNH6aZ9aEv
-	2dmw2g7OkMPZtoX7RKV3h5LUyUZNehorlLp2NK/Fh/UXKGvyYxxHU2nwTQxkU+WkyL7cqg
-	t30DTWkVXMmeZ0jVrCCjiylTlJxhl3y+2kAWKVSaKvqqdx8XViS8Bn35snJOjfbK3YyA1y
-	Yy5CJMn2OzkLeosZkGYLyc288kswAWlpVN/doYIeKms8D4aCPzqySQJG+yK4BsDgtNIirm
-	3mKg4+XezcAMutGh2r8v3GC1+521es9LvbJCj9q/eNluFzykQUfSGIU4R5kpaQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795607597; a=rsa-sha256;
-	cv=none;
-	b=MHanYjsJA6XhzZw6heWfVaTzUOjh7E20PH1/UuZqp4HPoLzaCZg1z7NsXKK1B/evAW8uhN
-	2zseWkcyNBN4sCXpUi8n8CempZWiJ3UYvL8DYeukJdzD//9IHUbKdOI465jvu1tRBeg1S/
-	kZ+BCVqfozR0dUkbR02T+KZEMq/AFTVuS1KlQ/TFpA+b+6ukmpP2ZDSZkTFw2ZrLbdtPwd
-	CKzJZaS7s3aGxHFt2MZS9n6YtMK/R+n8bXgan/wwzKnHSDDfTqlo1rghERn+LGRHva9tf+
-	g9g/aTsiUWczsocRZfHA77NFkH2rTJ2kEvOnFEZH+aL6a3uSehBH1E6nnO85yA==
-Message-ID: <508510a91e4b23d5d78f2844edaa0176a0a0d7d2.camel@pengutronix.de>
-Subject: Re: Re: [PATCH] media: coda: Fix potential use-after-free after
- VDOA removal
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: =?UTF-8?Q?=E6=9D=8E=E5=B9=BF=E7=A1=95?= <liguangshuo@mail.sdu.edu.cn>, 
- Frank Li <Frank.li@oss.nxp.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-  Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
- <kernel@pengutronix.de>, Fabio Estevam	 <festevam@gmail.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Date: Wed, 25 Nov 2026 12:53:17 +0100
-In-Reply-To: <AFIAnACwLNbQUd1pcUL4gqo0.3.1795528942002.Hmail.202321181@mail.sdu.edu.cn>
-References: <20261107-0d0c29e10a-media-coda-1@mail.sdu.edu.cn>
-	 <av9mwwAmlRoDdU0d@lizhi-Precision-Tower-5810>
-	 <AFIAnACwLNbQUd1pcUL4gqo0.3.1795528942002.Hmail.202321181@mail.sdu.edu.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FWZlc+cD;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XbHjhbtL
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6APC26Jn416040
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 12:02:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	i3jYSnSdn2u/GLu3Pa6dvx+oEPdp+Zst7Dskdp50SrE=; b=FWZlc+cDremacKft
+	cqyuED4wIryfBVbpSPhjMFZ/b68Mrl3eIGreRGL6BWues1c67G/LjonhsTQi9Ojj
+	pv1NENGBoJtxsViOjN6OWXfWH6BlHdzIQGTNmfyFu3xVhHUvYODgvFCfClQBwXV4
+	+MKg2zUFO5uPTyydfqBixUp6WoluO9SjBG/r2feDeL/JV6+NNXF/BL7hL2eqPI19
+	Wgs2v8cyhsnyzNJujss6cHH72c97N/bcIYIeCdYqxW6h9nvCLqPyb0ewOA8HskSB
+	CfNAfEvJwLihiHbxVQMfuZ/Q2pGI8VvLc3/RF8BIvoM1BMGWnpnMBqSfVMVvRHDn
+	IjQNww==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5yaxr00x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 12:02:10 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-997cb8c122fso75757241.2
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 04:02:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795608129; x=1796212929; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i3jYSnSdn2u/GLu3Pa6dvx+oEPdp+Zst7Dskdp50SrE=;
+        b=XbHjhbtLJfJMCNTHQAZt3L5oqLHkmdq1b1dA+4GB9ujriHR8MzSDoHRlN0LnWTj9NZ
+         BaukfZrnQ6d2Ixi6KqVboCJSMYD8LOp1TWFLmU2I2qZ2AVgGJOE4A7jHM5NB2oaj1owA
+         FcrzrXyDxX9sga1/+9I0o5B0+nG93tnpnznZAYZ6zAE8CI2C03/aFwTL+K2Ya6GFLwr/
+         M5rAu+D4sNsr863b4glNaoj0cN6i10rp5dxWn0QYB1ciL/9ydfUiKxdlCxgqCjtZuG3d
+         jmZfeok/HKLSImfqy9ZnmbKhQrbVk1a3bFyG9M0d5tXRvz8O3VyFbxpTtQUNThp9PCxv
+         uT+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795608129; x=1796212929;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i3jYSnSdn2u/GLu3Pa6dvx+oEPdp+Zst7Dskdp50SrE=;
+        b=r+o9HJ2vX823K6zrZIvsinKpZCH/g5p7yU74wSgRlfLb7NIpdAKVaE2zzGKX2RszGQ
+         /wqxMIkYQaSinHQNaTYFt5KUrxKSckgFk3is9C5cI234WZZhyfEO34hUd4z5wVUlXfwf
+         IyGOadFTsKU35rNZp3Zo0UpGjkt11P4P2khs7S4o18sT+sH6AW3H1lDqC2OZRKv0jwSr
+         aVAhKwgm68F4tZ9TncEzROZsv234tKlwdjqbwNDXom6NY2JWL1iBmjWliHJGj8FA5a9F
+         ebdCOhevYAn0Eq7vjibmq1VFzE4oTy/Nf7CMmXhhO2rOh9ef6lVk1pIjJ6IdL5SCy/XD
+         /XKg==
+X-Forwarded-Encrypted: i=1; AL+hErHWbiRS7EuytWethlFr5v0NdG9jIA19Q0befk+V2+YQ7+eZn71ixwhgFZjUcdV+Jf3of/QJG0SUkJ8aNg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xjXFiNUS1Gt3ZyHQhEw1R3W12qxM0iFgAXDUrVJB55VHagpKP
+	hEUqyc5qu+sacct9LtINZFVBiBIDBWWUeA6DSr44IcFoXtOylNtI03XOFUKmVY2jNR59H60qGRi
+	PVm8VaT0x7Nh7JBqf+2br3v6At2qUsaW4WDIv3ETLOgTBMpMl1kIt1rrRIAdAJk0zoQ==
+X-Gm-Gg: AZFdTZdW95gr8LZp01qoOJ4uzZPtETFWwBe0xi8xN0+V+37FBs3GCMyrmo67Yrb3NqP
+	+CAHIsI6MGkkjMeR29YYO5fVVgeJzE0dUZaSphsu1fH1JHDNA7CP+8EKKp+fsKV1rVUO9MqvwkZ
+	MbBW6TmL0i3XkockWO5+uzauXfKbrDhqlBxvAsp5kwVGMUoyqi9GbXhf5OJR1d5Y6EAfrT9QTB2
+	ob//ByX0fTJlse4NhcWby4K6au1JmpTCMJCVq/S796x6EIBDl+NtgHFHC0s/yV6hl5yQsHewWjw
+	x3CKLEJumqb+pm8hf99i2nHNO7nZGslSDGZmcUks48BWhkqfGpHdxe6VJcIvsF7k1Si4s6g0AUq
+	Kod+x46o73/HKEdCZzisn5+VB+2uE7jO0RmtC572vNBQxRPQORZwxe9NZWwrwtjQs1Wf44q4=
+X-Received: by 2002:ac5:c00a:0:20b0:5cf:ad27:3a67 with SMTP id 71dfb90a1353d-5ee8af8d7bfmr11581600e0c.5.1795608127969;
+        Wed, 25 Nov 2026 04:02:07 -0800 (PST)
+X-Received: by 2002:ac5:c00a:0:20b0:5cf:ad27:3a67 with SMTP id 71dfb90a1353d-5ee8af8d7bfmr11581553e0c.5.1795608127342;
+        Wed, 25 Nov 2026 04:02:07 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513acff65bsm648949266b.4.2026.11.25.04.02.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 04:02:06 -0800 (PST)
+Message-ID: <e1b4fff2-d7f2-4647-bacc-df55343031ea@oss.qualcomm.com>
+Date: Wed, 25 Nov 2026 13:02:02 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,418 +115,89 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/3] phy: qcom-mipi-csi2: Add Hawi support
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org,
+        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+References: <20261125-hawi-maili-camss-v5-0-1483b7f68dce@oss.qualcomm.com>
+ <20261125-hawi-maili-camss-v5-3-1483b7f68dce@oss.qualcomm.com>
+ <15cde6af-0b9f-4a0f-9d21-4e5ca9107a67@oss.qualcomm.com>
+ <e93eee16-df8d-4d49-ae56-3e6ba9c31167@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <e93eee16-df8d-4d49-ae56-3e6ba9c31167@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 77PhSwANCM2L8M0Xtlm1KiSTKZf8wqD3
+X-Proofpoint-ORIG-GUID: 77PhSwANCM2L8M0Xtlm1KiSTKZf8wqD3
+X-Authority-Analysis: v=2.4 cv=ULpIjyfy c=1 sm=1 tr=0 ts=6b06ce42 cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=yOYrsbgnHfbpD3x4ck8A:9 a=QEXdDO2ut3YA:10 a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA0NyBTYWx0ZWRfXzh/x4mFo+Fnt
+ pcWKO2+vJqr+XgXald3XZjNTmMJ8xrPlYcRA/gcUG8FQMdMyqqH+fKha4YE4Rt4Ta4LDk03pGCH
+ 78sw7lMQ1qhbw8FzD3I2FRCW0+YOpmuO3MWZinTulQ2pEsLhk0sgMhleVOQYMRc2SifBtmwRS42
+ FFlS+0DSndSRnN8ukJPZFvfLG6SnR2NV4LPXDjMXIpbD27X8ag4gVwoNOnxp3+Vc1LZBdFsPwjJ
+ JjpX7x5pQGiloob9sFNqPkbsezTdjZbG0XEy6fQUnifjp88zf9tzLYa6hEZwTLcmiGY0arBoJ3f
+ 0FCRP2+QIV/4KRCjXnQlYWzygj733CqM6+BdTFglQ0kRip5vIDlL2KzGp0w9AiIwd93tUZcGpjs
+ uykKB4ZPg8ld+PwLiCrSfdjYdhG1/RJR80e7quv3AcmpRCUIp9cfq0h4l/QjhnkMPZfg/ZBmo6z
+ fijDB+jierqdPetudog==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA0NyBTYWx0ZWRfX++99qqQoBIDc
+ iDBXQdbc+wilmtlO657raV/lUyLgcjsnfXEEtnJNsLAPpvXVzDeca/kHnAqHpvelurfYxhDsfH4
+ pZOibWh2On0+3WErveCTM/rhvhDsmSI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-25_03,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0
+ bulkscore=0 spamscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250047
 
-On Di, 2026-11-24 at 22:02 +0800, =E6=9D=8E=E5=B9=BF=E7=A1=95 wrote:
-> Hi Frank,
->=20
-> Thanks for the review.
->=20
-> From: Frank Li <Frank.li@oss.nxp.com>
-> Date: 2026-11-20 05:14:43
-> To:  Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-> Cc:  Philipp Zabel <p.zabel@pengutronix.de>,Mauro Carvalho Chehab <mcheha=
-b@kernel.org>,Frank Li <Frank.Li@nxp.com>,Sascha Hauer <s.hauer@pengutronix=
-.de>,Pengutronix Kernel Team <kernel@pengutronix.de>,Fabio Estevam <festeva=
-m@gmail.com>,linux-media@vger.kernel.org,linux-kernel@vger.kernel.org,imx@l=
-ists.linux.dev,linux-arm-kernel@lists.infradead.org
-> Subject: Re: [PATCH] media: coda: Fix potential use-after-free after VDOA=
- removal>On Sat, Nov 07, 2026 at 02:54:30PM +0800, Guangshuo Li wrote:
-> > > VDOA can be unbound while CODA still holds its driver data and open
-> > > contexts. Their next transfer or close then accesses released state
-> > > and device-managed resources.
-> > >=20
-> > > Retain the VDOA state for its consumers and contexts. Serialize hardw=
-are
-> > > access with removal, stop outstanding transfers and balance the clock
-> > > references before disconnecting the retained contexts. Also release a
-> > > VDOA context when opening CODA fails.
-> > >=20
-> > > This issue was found by our static analysis tool under development.
-> > >=20
-> > > Fixes: e7f3c5481035 ("[media] coda: use VDOA for un-tiling custom mac=
-roblock format")
-> > > Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-> > > ---
-> > > Validation: x86-64 GCC W=3D1 changed-object compilation passed. An
-> > > extracted-code test with mocked services reports an ASan failure befo=
-re
-> > > the fix and passes after it; this is not a kernel reproducer. No
-> > > hardware test, ARM64 build or full linked-kernel build.
-> > > OpenAI Codex assisted with source review, patch implementation and
-> > > commit-message drafting. The submitter has reviewed the changes.
-> > >=20
-> > >  .../platform/chips-media/coda/coda-common.c   |  14 +-
-> > >  .../platform/chips-media/coda/imx-vdoa.c      | 133 ++++++++++++++++=
---
-> > >  .../platform/chips-media/coda/imx-vdoa.h      |   8 ++
-> > >  3 files changed, 134 insertions(+), 21 deletions(-)
-> > >=20
-> > > diff --git a/drivers/media/platform/chips-media/coda/coda-common.c b/=
-drivers/media/platform/chips-media/coda/coda-common.c
-> > > index be37ea568bfe..b519cf8541de 100644
-> > > --- a/drivers/media/platform/chips-media/coda/coda-common.c
-> > > +++ b/drivers/media/platform/chips-media/coda/coda-common.c
-> > > @@ -396,7 +396,7 @@ const char *coda_product_name(int product)
-> > >  	}
-> > >  }
-> > >=20
-> > > -static struct vdoa_data *coda_get_vdoa_data(void)
-> > > +static struct vdoa_data *coda_get_vdoa_data(struct device *dev)
-> > >  {
-> > >  	struct device_node *vdoa_node;
-> > >  	struct platform_device *vdoa_pdev;
-> > > @@ -410,9 +410,7 @@ static struct vdoa_data *coda_get_vdoa_data(void)
-> > >  	if (!vdoa_pdev)
-> > >  		goto out;
-> > >=20
-> > > -	vdoa_data =3D platform_get_drvdata(vdoa_pdev);
-> > > -	if (!vdoa_data)
-> > > -		vdoa_data =3D ERR_PTR(-EPROBE_DEFER);
-> > > +	vdoa_data =3D devm_vdoa_get(dev, &vdoa_pdev->dev);
-> > >=20
-> > >  	put_device(&vdoa_pdev->dev);
-> > >  out:
-> > > @@ -2721,6 +2719,8 @@ static int coda_open(struct file *file)
-> > >  err_clk_enable:
-> > >  	pm_runtime_put_sync(dev->dev);
-> > >  err_pm_get:
-> > > +	if (ctx->vdoa)
-> > > +		vdoa_context_destroy(ctx->vdoa);
-> > >  	v4l2_fh_del(&ctx->fh, file);
-> > >  	v4l2_fh_exit(&ctx->fh);
-> > >  err_coda_name_init:
-> > > @@ -3220,9 +3220,9 @@ static int coda_probe(struct platform_device *p=
-dev)
-> > >  	dev->iram_pool =3D pool;
-> > >=20
-> > >  	/* Get vdoa_data if supported by the platform */
-> > > -	dev->vdoa =3D coda_get_vdoa_data();
-> > > -	if (PTR_ERR(dev->vdoa) =3D=3D -EPROBE_DEFER)
-> > > -		return -EPROBE_DEFER;
-> > > +	dev->vdoa =3D coda_get_vdoa_data(&pdev->dev);
-> > > +	if (IS_ERR(dev->vdoa))
-> > > +		return PTR_ERR(dev->vdoa);
-> > >=20
-> > >  	ret =3D v4l2_device_register(&pdev->dev, &dev->v4l2_dev);
-> > >  	if (ret)
-> > > diff --git a/drivers/media/platform/chips-media/coda/imx-vdoa.c b/dri=
-vers/media/platform/chips-media/coda/imx-vdoa.c
-> > > index cd085c1c73f4..d9249c943dfa 100644
-> > > --- a/drivers/media/platform/chips-media/coda/imx-vdoa.c
-> > > +++ b/drivers/media/platform/chips-media/coda/imx-vdoa.c
-> > > @@ -9,7 +9,9 @@
-> > >  #include <linux/clk.h>
-> > >  #include <linux/device.h>
-> > >  #include <linux/interrupt.h>
-> > > +#include <linux/kref.h>
-> > >  #include <linux/module.h>
-> > > +#include <linux/mutex.h>
-> > >  #include <linux/dma-mapping.h>
-> > >  #include <linux/platform_device.h>
-> > >  #include <linux/videodev2.h>
-> > > @@ -74,6 +76,12 @@ enum {
-> > >  };
-> > >=20
-> > >  struct vdoa_data {
-> > > +	struct kref		ref;
-> > > +	/* Serializes context hardware access with removal. */
-> > > +	struct mutex		lock;
-> > > +	unsigned int		num_contexts;
-> > > +	bool			removed;
-> > > +	int			irq;
-> > >  	struct vdoa_ctx		*curr_ctx;
-> > >  	struct device		*dev;
-> > >  	struct clk		*vdoa_clk;
-> > > @@ -126,7 +134,7 @@ static irqreturn_t vdoa_irq_handler(int irq, void=
- *data)
-> > >  	return IRQ_HANDLED;
-> > >  }
-> > >=20
-> > > -int vdoa_wait_for_completion(struct vdoa_ctx *ctx)
-> > > +static int vdoa_wait(struct vdoa_ctx *ctx)
-> > >  {
-> > >  	struct vdoa_data *vdoa =3D ctx->vdoa;
-> > >=20
-> > > @@ -142,17 +150,43 @@ int vdoa_wait_for_completion(struct vdoa_ctx *c=
-tx)
-> > >=20
-> > >  	return 0;
-> > >  }
-> > > +
-> > > +int vdoa_wait_for_completion(struct vdoa_ctx *ctx)
-> > > +{
-> > > +	struct vdoa_data *vdoa =3D ctx->vdoa;
-> > > +	int ret;
-> > > +
-> > > +	mutex_lock(&vdoa->lock);
-> > > +	ret =3D vdoa->removed ? -ENODEV : vdoa_wait(ctx);
-> > > +	mutex_unlock(&vdoa->lock);
-> > > +
-> > > +	return ret;
-> > > +}
-> > >  EXPORT_SYMBOL(vdoa_wait_for_completion);
-> > >=20
-> > > +static void vdoa_stop(struct vdoa_data *vdoa)
-> > > +{
-> > > +	if (!vdoa->curr_ctx)
-> > > +		return;
-> > > +
-> > > +	if (vdoa_wait(vdoa->curr_ctx))
-> > > +		writel(VDOASRR_SWRST, vdoa->regs + VDOASRR);
-> > > +	writel(0, vdoa->regs + VDOAIE);
-> > > +	synchronize_irq(vdoa->irq);
-> > > +	vdoa->curr_ctx =3D NULL;
-> > > +}
-> > > +
-> > >  void vdoa_device_run(struct vdoa_ctx *ctx, dma_addr_t dst, dma_addr_=
-t src)
-> > >  {
-> > >  	struct vdoa_q_data *src_q_data, *dst_q_data;
-> > >  	struct vdoa_data *vdoa =3D ctx->vdoa;
-> > >  	u32 val;
-> > >=20
-> > > -	if (vdoa->curr_ctx)
-> > > -		vdoa_wait_for_completion(vdoa->curr_ctx);
-> > > +	mutex_lock(&vdoa->lock);
-> >=20
-> > use cleanup guard()
-> >=20
-> > > +	if (vdoa->removed)
-> > > +		goto out_unlock;
-> > >=20
-> > > +	vdoa_stop(vdoa);
-> > >  	vdoa->curr_ctx =3D ctx;
-> > >=20
-> > >  	reinit_completion(&ctx->completion);
-> > > @@ -192,9 +226,44 @@ void vdoa_device_run(struct vdoa_ctx *ctx, dma_a=
-ddr_t dst, dma_addr_t src)
-> > >  	/* Enable interrupts and start transfer */
-> > >  	writel(VDOAIE_EITERR | VDOAIE_EIEOT, vdoa->regs + VDOAIE);
-> > >  	writel(VDOASRR_START, vdoa->regs + VDOASRR);
-> > > +out_unlock:
-> > > +	mutex_unlock(&vdoa->lock);
-> > >  }
-> > >  EXPORT_SYMBOL(vdoa_device_run);
-> > >=20
-> > > +static void vdoa_release(struct kref *ref)
-> > > +{
-> > > +	struct vdoa_data *vdoa =3D container_of(ref, struct vdoa_data, ref)=
-;
-> > > +
-> > > +	put_device(vdoa->dev);
-> > > +	kfree(vdoa);
-> > > +}
-> > > +
-> > > +static void vdoa_put(void *data)
-> > > +{
-> > > +	struct vdoa_data *vdoa =3D data;
-> > > +
-> > > +	kref_put(&vdoa->ref, vdoa_release);
-> > > +}
-> > > +
-> > > +struct vdoa_data *devm_vdoa_get(struct device *dev, struct device *s=
-upplier)
-> > > +{
-> > > +	struct vdoa_data *vdoa;
-> > > +	int ret;
-> > > +
-> > > +	device_lock(supplier);
-> >=20
-> > why not use device link ?
-> >=20
-> > > +	vdoa =3D dev_get_drvdata(supplier);
-> > > +	if (vdoa)
-> > > +		kref_get(&vdoa->ref);
-> > > +	device_unlock(supplier);
-> > > +	if (!vdoa)
-> > > +		return ERR_PTR(-EPROBE_DEFER);
-> > > +
-> > > +	ret =3D devm_add_action_or_reset(dev, vdoa_put, vdoa);
-> > > +	return ret ? ERR_PTR(ret) : vdoa;
-> > > +}
-> > > +EXPORT_SYMBOL(devm_vdoa_get);
-> > > +
-> > >  struct vdoa_ctx *vdoa_context_create(struct vdoa_data *vdoa)
-> > >  {
-> > >  	struct vdoa_ctx *ctx;
-> > > @@ -204,16 +273,26 @@ struct vdoa_ctx *vdoa_context_create(struct vdo=
-a_data *vdoa)
-> > >  	if (!ctx)
-> > >  		return NULL;
-> > >=20
-> > > +	mutex_lock(&vdoa->lock);
-> > > +	if (vdoa->removed)
-> > > +		goto err_unlock;
-> > > +
-> > >  	err =3D clk_prepare_enable(vdoa->vdoa_clk);
-> > > -	if (err) {
-> > > -		kfree(ctx);
-> > > -		return NULL;
-> > > -	}
-> > > +	if (err)
-> > > +		goto err_unlock;
-> > >=20
-> > > +	kref_get(&vdoa->ref);
-> > > +	vdoa->num_contexts++;
-> > >  	init_completion(&ctx->completion);
-> > >  	ctx->vdoa =3D vdoa;
-> > > +	mutex_unlock(&vdoa->lock);
-> > >=20
-> > >  	return ctx;
-> > > +
-> > > +err_unlock:
-> > > +	mutex_unlock(&vdoa->lock);
-> > > +	kfree(ctx);
-> > > +	return NULL;
-> > >  }
-> > >  EXPORT_SYMBOL(vdoa_context_create);
-> > >=20
-> > > @@ -221,12 +300,15 @@ void vdoa_context_destroy(struct vdoa_ctx *ctx)
-> > >  {
-> > >  	struct vdoa_data *vdoa =3D ctx->vdoa;
-> > >=20
-> > > -	if (vdoa->curr_ctx =3D=3D ctx) {
-> > > -		vdoa_wait_for_completion(vdoa->curr_ctx);
-> > > -		vdoa->curr_ctx =3D NULL;
-> > > +	mutex_lock(&vdoa->lock);
-> > > +	if (!vdoa->removed) {
-> > > +		if (vdoa->curr_ctx =3D=3D ctx)
-> > > +			vdoa_stop(vdoa);
-> > > +		clk_disable_unprepare(vdoa->vdoa_clk);
-> > > +		vdoa->num_contexts--;
-> > >  	}
-> > > -
-> > > -	clk_disable_unprepare(vdoa->vdoa_clk);
-> > > +	mutex_unlock(&vdoa->lock);
-> > > +	vdoa_put(vdoa);
-> > >  	kfree(ctx);
-> > >  }
-> > >  EXPORT_SYMBOL(vdoa_context_destroy);
-> > > @@ -291,11 +373,16 @@ static int vdoa_probe(struct platform_device *p=
-dev)
-> > >  		return ret;
-> > >  	}
-> > >=20
-> > > -	vdoa =3D devm_kzalloc(&pdev->dev, sizeof(*vdoa), GFP_KERNEL);
-> > > +	vdoa =3D kzalloc_obj(*vdoa);
-> > >  	if (!vdoa)
-> > >  		return -ENOMEM;
-> > >=20
-> > > -	vdoa->dev =3D &pdev->dev;
-> > > +	vdoa->dev =3D get_device(&pdev->dev);
-> > > +	kref_init(&vdoa->ref);
-> > > +	mutex_init(&vdoa->lock);
-> >=20
-> > devm_mutex_init();
-> >=20
-> > Frank
-> > > +	ret =3D devm_add_action_or_reset(&pdev->dev, vdoa_put, vdoa);
-> > > +	if (ret)
-> > > +		return ret;
-> > >=20
-> > >  	vdoa->vdoa_clk =3D devm_clk_get(vdoa->dev, NULL);
-> > >  	if (IS_ERR(vdoa->vdoa_clk)) {
-> > > @@ -310,6 +397,7 @@ static int vdoa_probe(struct platform_device *pde=
-v)
-> > >  	ret =3D platform_get_irq(pdev, 0);
-> > >  	if (ret < 0)
-> > >  		return ret;
-> > > +	vdoa->irq =3D ret;
-> > >  	ret =3D devm_request_threaded_irq(&pdev->dev, ret, NULL,
-> > >  					vdoa_irq_handler, IRQF_ONESHOT,
-> > >  					"vdoa", vdoa);
-> > > @@ -323,6 +411,22 @@ static int vdoa_probe(struct platform_device *pd=
-ev)
-> > >  	return 0;
-> > >  }
-> > >=20
-> > > +static void vdoa_remove(struct platform_device *pdev)
-> > > +{
-> > > +	struct vdoa_data *vdoa =3D platform_get_drvdata(pdev);
-> > > +
-> > > +	platform_set_drvdata(pdev, NULL);
-> > > +	mutex_lock(&vdoa->lock);
-> > > +	vdoa_stop(vdoa);
-> > > +	disable_irq(vdoa->irq);
-> > > +	while (vdoa->num_contexts) {
-> > > +		clk_disable_unprepare(vdoa->vdoa_clk);
-> > > +		vdoa->num_contexts--;
-> > > +	}
-> > > +	vdoa->removed =3D true;
-> > > +	mutex_unlock(&vdoa->lock);
-> > > +}
-> > > +
-> > >  static const struct of_device_id vdoa_dt_ids[] =3D {
-> > >  	{ .compatible =3D "fsl,imx6q-vdoa" },
-> > >  	{}
-> > > @@ -331,6 +435,7 @@ MODULE_DEVICE_TABLE(of, vdoa_dt_ids);
-> > >=20
-> > >  static struct platform_driver vdoa_driver =3D {
-> > >  	.probe		=3D vdoa_probe,
-> > > +	.remove		=3D vdoa_remove,
-> > >  	.driver		=3D {
-> > >  		.name	=3D VDOA_NAME,
-> > >  		.of_match_table =3D vdoa_dt_ids,
-> > > diff --git a/drivers/media/platform/chips-media/coda/imx-vdoa.h b/dri=
-vers/media/platform/chips-media/coda/imx-vdoa.h
-> > > index a62eab476d58..e0ab414ddf5a 100644
-> > > --- a/drivers/media/platform/chips-media/coda/imx-vdoa.h
-> > > +++ b/drivers/media/platform/chips-media/coda/imx-vdoa.h
-> > > @@ -6,11 +6,13 @@
-> > >  #ifndef IMX_VDOA_H
-> > >  #define IMX_VDOA_H
-> > >=20
-> > > +struct device;
-> > >  struct vdoa_data;
-> > >  struct vdoa_ctx;
-> > >=20
-> > >  #if (defined CONFIG_VIDEO_IMX_VDOA || defined CONFIG_VIDEO_IMX_VDOA_=
-MODULE)
-> > >=20
-> > > +struct vdoa_data *devm_vdoa_get(struct device *dev, struct device *s=
-upplier);
-> > >  struct vdoa_ctx *vdoa_context_create(struct vdoa_data *vdoa);
-> > >  int vdoa_context_configure(struct vdoa_ctx *ctx,
-> > >  			   unsigned int width, unsigned int height,
-> > > @@ -22,6 +24,12 @@ int vdoa_wait_for_completion(struct vdoa_ctx *ctx)=
-;
-> > >=20
-> > >  #else
-> > >=20
-> > > +static inline struct vdoa_data *devm_vdoa_get(struct device *dev,
-> > > +					      struct device *supplier)
-> > > +{
-> > > +	return NULL;
-> > > +}
-> > > +
-> > >  static inline struct vdoa_ctx *vdoa_context_create(struct vdoa_data =
-*vdoa)
-> > >  {
-> > >  	return NULL;
-> > >=20
-> > > base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-> >=20
->=20
->=20
-> A device link would unbind CODA before VDOA.
+On 11/25/26 1:00 PM, Nihal Kumar Gupta wrote:
+> Hi Konrad,
+> 
+> On 25-11-2026 16:23, Konrad Dybcio wrote:
+>>> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+>>> index ed40934d67eaeba0c6ac7ac75324ac6292fe7d9e..5d91303e0df2e8c5bca3ea8fa2bb831429a8f1ff 100644
+>>> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+>>> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+>>> @@ -162,6 +162,126 @@ mipi_csi2phy_lane_regs lane_regs_x1e80100[] = {
+>>>  	{.reg_addr = 0x0c64, .reg_data = 0x7f, .param_type = CSIPHY_SKEW_CAL},
+>>>  };
+>>>  
+>>> +/* 2nm 2PH 2p5Gbps 4 lane DPHY mode, Kaanapali table with data-lane CTRL0 0x8c */
+>> nit: 2ph and DPHY are synonymous, if you rename the struct to something
+>> like lane_regs_hawi_dphy, we no longer need this comment.
+> ACK
+> 
+>>
+>> As for the override, if its meaning is well-known (the difference is bit1
+>> being set or not), we can add some sort of a booelan override instead of
+>> duplicating the table, maybe
+> This is not a boolean difference. Bit 7 enables PGM delay in both
+> values. The difference is the programmed delay value:
+> X1E uses 0x0e, Hawi uses 0x0c.
+> 
+> Since this may vary with other PHY tuning values, I would keep the
+> SoC-specific table.
 
-That would be correct, I think. Without it, we suddenly have
-unsupported formats when VDOA is unbound.
+OK that works 
 
-> However, coda_remove() does
-> not drain open file handles, so their VDOA contexts can outlive that
-> unbind. Those contexts still need the retained VDOA state and its lock;
-> a devm mutex would be destroyed too early.
->=20
-> Would it be reasonable to keep that lifetime handling, use guard() for
-> locking, and destroy the mutex with the last VDOA reference in v2?
-
-I don't think extending vdoa_data lifetime with reference counting is
-the right solution.
-
-vdoa_ctx lifetime is already controlled by the caller (coda), so
-couldn't we just detach them from vdoa_data by clearing their vdoa_ctx-
->vdoa pointer on vdoa_remove()?
-
-regards
-Philipp
+Konrad
