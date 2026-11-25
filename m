@@ -1,123 +1,123 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795619194;
-	b=xyxaZ2VaJc7kTHCqfNwphLxdP17PmN240a+su7H9Ol6PN+3djdorZ1jqU3TvZ/bkerDB
-	 +2Ta8F+afAgr8lmcokFDdO7ETgXCZqhzNkQ8RbN5or6ISIwapFf+M2a34R3MrwZLJvNg/
-	 UV43Vpe9RmKlAi03uKyv12O6wZS4y9lsl9swXEN7lfzk8p9NiKc1p8qdxL/tGBMrtB4Wx
-	 77aHKGitsgSJcFlmqEdyyNyOsUlkhzilaLVbyhijfY/KHk/haO3AMySr+bHeESBju+y7P
-	 d1pGqOPUVKncMdTmXVSdkLSI+z4PSm07GJK8wDwHHk9nR9W5kyVRwlotPPtduy2NwLg==
+	t=1795619254;
+	b=onUNY72U774ACM/ZFlHHRdphn9EtXQZ9b6NC6Hz+Btv2ZPtKE++++hn7P6JQMDvC7c63
+	 6vbry9q4CAiMcVl/h0+GFf/0QMyG3qJbyd62/9PLtSCi1XhDX8p/5KQHWXfLnO0MR1x/X
+	 7JbRZw6oPVLDB1bqqdGqrnnI9QYZeVjEWXryJjgJ7Cz2KhGk6GIq8J9XsGXQ4JxuP28dA
+	 OgV7hRjNycvvrxCbbQI3A6kGHJnwgJMJmvK7U1yHHkINAVg1662Sa/Fce/2wZqbdSsGLn
+	 r20+JuU4NY0pXyRJt+/3njORntOZpIf+6z9vXXHhlSEbiXT+u98Y4uNuJZiKMNBt2bQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795619194;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795619254;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
 	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=F8Fmq8LWA4bhtyNOLWl2S9LNOHs1l6eqA9F+R8NUX+A=;
-	b=uLWMO5rSXyY8v6oMYLzhXa1d5qzcGoaZI4zB3xztUP0Mf9xwGPwDu8F1ZCVKrznTPMOl
-	 6L3uXFxuKqx45lwLlwriis8By7a+lcWAdoCVlEqD4PwFG0ST6nAO6qvo9bb17RihnRWMJ
-	 2Vs0AADWc8twP5oM3m1v0V09mn1IVs90e7wJOt/sgT5d+VQTSnqo90IG1VJl/1ncADFh4
-	 qW9geAKnQqNlQyb1HltQEPa3LJs0bdvFoYEoi/aBNRUPjFv0VtJ4Sdk8eveteVL5EBNu/
-	 qo1Qke90uQBlQg1PvEsI4Cps99M3RflpU4MCptsFRu2oUEIt24/VBBndBRW9ekb48Uw==
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=db+Ha9wyQwvqpCYlhHffmTpkau51LqeWzqMbVXiyKQ4=;
+	b=zbF4na28UrN9mNV3c4dF9/raQBp6OQUTS/OaPi/FxOLMU9AcQ+6tE/b4qDJPHkrt5lSp
+	 ECrJNgXA/FaS7FDAwUD7I62iHw9lP8O+opbt6afjMfht0t89EUNtMgrWHH+0Oc2FlFiL6
+	 MkF/p53VV2oF79k1C2tfaBJ0v/VM0pPO9wLcjbyATK5PuEnoxh+KlEOa2dY1SfxFwvJxH
+	 KqXS+cpB0LcN0bw0WbQ+rYcq7ddB0bOanfgkm3993cSsncvQrh3IC/PuhxMZQzZsG3A96
+	 j2MNFw33Vm1dfSFQAq44w7686XkOlirTZ4xHL50mlGZD0xfmpNf8X5jtAE2/wdTs96Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Nzjcr1Jv;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Tm0T52eB;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g1iGMU5+;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f2gFOVpc;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCEB606A326
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 15:06:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDCEB606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327E2606A329
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 15:07:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 327E2606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Nzjcr1Jv;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Tm0T52eB
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6APEME1W2099763
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 15:06:33 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g1iGMU5+;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f2gFOVpc
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6APEMIrH175467
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 15:07:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	F8Fmq8LWA4bhtyNOLWl2S9LNOHs1l6eqA9F+R8NUX+A=; b=Nzjcr1JvAe8O3y2M
-	nRk02gsmzckXBcRxfri+XHtkdUIEszeIzfFyQQgR/BocgtLFL+n+eCBxHRzQ6Yfq
-	qFzg8RINXEMwOvBf0/oUkncHMiBTksHiHC9BqK7fPOJQt+fer1msKMHomuVFo02M
-	HWlOZeJFWN/NORls8UyWol1U9y/9hHAW4fZgccoU7/Sbqi2bbTFG+4vjo+f4z3En
-	x0PMMHwz77Py3aOkFJX8N0yFo4LC9oqXKJIiDzifeX/5Vv+KdoJ8lIpcubq7K9D4
-	SMLEBhZdEr0PMudXVoqY9KyOzziQXsPFG/RnejlYfRIxAoE94rHnRlkzkztqvvLf
-	0Vovvw==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j61arg757-1
+	db+Ha9wyQwvqpCYlhHffmTpkau51LqeWzqMbVXiyKQ4=; b=g1iGMU5+iI+taWPx
+	yLKnXluxP0uaMQZ6O5vPH2iEJkzvOVHnbjFOxlUKSgN9I0PnTwKk9RPx0tz5phAE
+	cWXakaxrTlDBuo7Ig0ayxg17cVaHRUvakyzifrARLhcIgTZpCsEH6XS8Zm9/J4wZ
+	RXv0fAKx89tE2ZoK/4K+jz6tuSEyQjzpKoEat/afA6amSKDrjYvpqTeB9cRZsJbX
+	pRXFEREHLj3Q0aKAwidv2GoSEMoP/vmxEhm0axosUN/os6TTs9KZmu04624uM7Nr
+	ASb1nzQhhyAYBm/r0M49GHRkHxqW+wg42e+m20IdMGvKqw2YgnMNycX1SM6phLCC
+	sLz5Lg==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5vv2sd9x-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 15:06:32 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cdea3a64d1bso1519691a12.1
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 07:06:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795619191; cv=none;
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 15:07:32 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ae7faf4ff7so7093474a91.3
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 07:07:32 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795619252; cv=none;
         d=google.com; s=arc-20260327;
-        b=azKfX1S6sob8FqxYiBy1oAJBvfbTYI0x63XLxue1IUfikwECB4fBH8sepWo0juGHWc
-         tT71GSowYbkJ9rnW4zpHi4Az4Hiz3TPs86JoN49pIakZ6GXwSbu/0G9eXqtPd6OaIZFp
-         EjsgKrsnfjAuwRPiWnRsuB+bCRmldEObEs5ua0ZaHIAxnHrhZOQPMI2IBqpWWJGjUYxP
-         7xy5OMI2vPIFvP6cMy/ldDZhkEYW1eppyAkfX2iOt8/1IAKNu424yYZiG4SXt8IPqxca
-         j/yNgw/Qnwu9QIw9ErJzcRFLh9xUqLi4PkoBKdKLjoNuqFMZkz1WstCX2vkiL2B3ulyO
-         m78g==
+        b=JizWpLTb7I0aaaS1oQcQc4GLqhrqqD1QvMmsUy3/skUNgDrNM4/GxA/N0YQFkmNb2J
+         jSe5w+0ccJYgD1qlsKZVxFxB/nhifCXaTYdXOmpeIp1EwPTVNNwbSaccefkRKubJaDrv
+         LtX0zpP2i9S48PosY0qpSqsTPlWWLnA9761K+3osjme1jNm0l7AwBy7quHchnFiVbV36
+         1T2HwoRp5nKKlm3s2Udv7oxC4XKED3mNlnRoC4Q1K2bB0lLMHi+sIPLJazd87NNzDtWy
+         PRBgo8zFaD7iSyvwXRDuW6frTyS/ZdRJSH5XnnMe9rcxmUxl3+C/+njzaJiorpQVjBpb
+         oO5g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=F8Fmq8LWA4bhtyNOLWl2S9LNOHs1l6eqA9F+R8NUX+A=;
-        fh=G2CXNnLqEGIWSmVdYWVS7HPEjxBDNVCjrJXXA7KoAxA=;
-        b=lLofxvXbLrOu0BiCmkTea1NZV6v6u15RtZoL5JsdwHG4P2j32hhgYTisM5aImTd5NS
-         NLmnz3fykwTA52Fu+9ciE1qlmVR2If56vrOBMKbVsgQOpU0aG9TTrnfswidmSCUBMiUf
-         CBINQ/72s9EhaR5VFc6M7JMQpww4hBtJ1SOm/h4ppSZH/73UdzcetWvDfuDKkccRuxJI
-         BqrAZcRXWaRwwhQMPpEXx1r+erbPsrEb/w9uhPqv7Rp1JTf/MalH8ErBYPeZSY2XihCG
-         nAT3oQy0q45+83NgRiPA9h1+Du1iqVSKVKYpCEJJV3w2K9pZn2Ez9B2qp0B0sxT2jFI/
-         2cKA==;
+        bh=db+Ha9wyQwvqpCYlhHffmTpkau51LqeWzqMbVXiyKQ4=;
+        fh=UZBIysasdT7+2VW5XRHRPCI5PqYrzVGEjs+kryT39Wo=;
+        b=NEEPZExIohhXEqP6zRxHssGv8jGw4xY8p1s8vMAeD8udTk14PpXivlkCi9T5yWTrkx
+         rWTl/1azLVc2X8U1G7FNjJDTGnuk9ehjY3qD9JiUZ/70kXcl+TJyK7PSM1Ly5XOtOFjI
+         HhI//Hn4E0maqCza50cxTIvGhOkFXBRh3p1mFHk0TPv/4qxcYXDm6Yc2EPygHekHn7iS
+         e9yCdnBWFlc2N8Eu4BWQB0Q2Dx95VtufU9zaM+L2A7sczMRlZFEpy/RYNKfTYay8JK9K
+         abnCjYo85pv5TpfqafiqKpLRHfs50Aja9EQ1MrQHcGfsuGW0RYlXcD39LulZBZtmGmnW
+         JkGw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795619191; x=1796223991; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1795619252; x=1796224052; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=F8Fmq8LWA4bhtyNOLWl2S9LNOHs1l6eqA9F+R8NUX+A=;
-        b=Tm0T52eB+3K2/VKo61GPHg/qO857dlNheqkKLINH6e1+xLC75HYZH0AmvGZXxaBRP8
-         e9euYzi8mPQx/3zoPbYcQ5rQlCAF1e5F569tTkZUjCFTHMeKShdfb1nMAXujozYNkmCZ
-         TUr7GXj87gMCfFdXtP3RZzhVjhejC1K2DGDnsRzj3ntofvdwvX6kwhxjp6b40ZMiuxIE
-         Ewi8pYTKJodyUePyGjfwjzQXEQ45DSZxkTulAybb8aWicVIsj+tsIdJZ1GwuLIu6J+PP
-         O17mqMvHvBNttkKuXIqIUzbgXs15LVO5iLst29Wiw29PSAUr+MBPNu1qhXQnHYa5lCJK
-         fkNw==
+        bh=db+Ha9wyQwvqpCYlhHffmTpkau51LqeWzqMbVXiyKQ4=;
+        b=f2gFOVpcbCOJ9yOFdfJGpHBsYXJZMz2NDVhtSnnMTPrHds3LU7u/YvvkyRZGa0LSVv
+         R7DdyC143HQvXgIkiLVGwnCNorseDG1DJtAYA5KzBqjmvGKYJicR67M6Go00IETewbuK
+         pAsEsAv6UCJ8L05g6eovbM+/d63ZUw+/UFYqIG2qovwneMZIyRG5/DSQcHnM7GLKekLM
+         SgxDoQ4qiKuXhseZDoB+hOLxVQlzZTRgCVNh3C+G32RRHBR/kUbkEdQUaNcpPG10KkHH
+         l/XBa3wj4z1eqvoDU/7sfgyVCn9S9MjcqtE8n+GbX1f5zvz+MuuKFMwk+xgh8J6mt9wX
+         B8vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795619191; x=1796223991;
+        d=1e100.net; s=20260707; t=1795619252; x=1796224052;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=F8Fmq8LWA4bhtyNOLWl2S9LNOHs1l6eqA9F+R8NUX+A=;
-        b=ZCZbjLeeMqS/s0sWJ89LjPowp187i4285ttFlmSSsPVYS33febumQrTeeNVfol0AK0
-         HPGKj8sFOgfUY9BSG8T3M4vCteyV0Dtlx7ROAilDHTVpv4zILZ4r1pcqi0jTbIaEqIjc
-         fia8nngJRboUf+Lcc6n/uXM/MhQjUIGdI1f1+EtFANd9o5s0JtmBwDqkmSdPPUpP+l58
-         ut2g9EXE5uwHLC1hOZlLp/K6seym9rgfGXlO9zynyAIxbueFbGgIyNE17jN/jTmIp/+4
-         WWxCGOIGkj6rsWWuiwx4SeBlCql5dRn07ZQLAAjWyj4/Sh2pRZybWvqBF4ayOEAvyEIP
-         JWow==
-X-Forwarded-Encrypted: i=1; AL+hErFI3l1dX0gvUxNn1y6jIpXwgU4/m7yKu8zl2IRVLx71YLaabL3lbKo47o1oXU5VJbZdHOitxpTy+LKFXA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8VFL+ZY69sidw7lc9xH75MD1KkrMpNy21h/fzmJVOcd0eTQIyp
-	UsX9zr5FNqcveHIA9NdLSr66iiKjcOubDVNXwq6GNDWasZSSGgUUT0FW3HSOUPD6ggnxnAshjmO
-	Sz7xRjnnrbVXuhUrRxMD0T7jZ/MfhLdqe9jXTl63NxVqb4oypqSvDRCHl1/3f166OEJLVfpEWxX
-	/eg6fK4FsegGg3ufn+LRxxiPWlLH/QdvwHwuC0TsLr
-X-Gm-Gg: AZFdTZfSNtf6W6cAcf3zSnGcJG6iz/9r/PEA4oB3XOzGDJVJ5FZ269JNMTWT+NLGsLt
-	DiKE1JSjMIxyc8sYU7iSfKznQzqeH6B/Wq9Nc2KcXc4GI6PcvTrbc0j7bED8g4+ZrU2Qau7zhEw
-	VNIXLNMFoRwqQgk2aLrXT0i/U/ma3q8Y6++yKFmB9VmLLz+lSpvUFx2ODPHA==
-X-Received: by 2002:a05:6300:8095:b0:3dd:a196:69e4 with SMTP id adf61e73a8af0-4014d14d2d3mr16907615637.63.1795619191498;
-        Wed, 25 Nov 2026 07:06:31 -0800 (PST)
-X-Received: by 2002:a05:6300:8095:b0:3dd:a196:69e4 with SMTP id
- adf61e73a8af0-4014d14d2d3mr16907537637.63.1795619190966; Wed, 25 Nov 2026
- 07:06:30 -0800 (PST)
+        bh=db+Ha9wyQwvqpCYlhHffmTpkau51LqeWzqMbVXiyKQ4=;
+        b=SFa15bIMCTj9OR6KY2sMPYlCSbuSZ+FA9fH4VM8Kn1vUU7KoRHjbA4AqBD4jmOyBD4
+         bhGzrjmOHkv5Ku9dm0EFbxX6ZF3rJ9/aYmi1QZjX6JRlvm+ai2pgmIE/wbEOOL8l6Ej6
+         UYlvE95IyT2/oHcSTuI7WK0X5zvgYzLBVQMOYiIvhBglGKd+HPNyVlNsu2LipVfxyKYO
+         mpybqCH1Ie9Xiwzo4IQP0tEqpetHtcN9jSmiiGFrUgx2lQuH9b6UcXce5U6sR3v7ZRi5
+         PmW/19JU8n13aWLeXXTam5F3PjymfnL1ag0uGKfrjf/XTzSt9j3vWOploPiZj9CPMK8F
+         gY1A==
+X-Forwarded-Encrypted: i=1; AL+hErESXrtRnt/ThXCwxEWWgTVGwPC6iOPg+u2VSca5INd4ge2VhajEo1QlXD4tLZ57WSz6rVuJdvlUqM9ZiQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HCXWaL98ATHX203svW8EXqo4mVT0tsF9wZpfZAlEtrmstZVam
+	jCa2Ygm9cF7nM+kHRFtNyPsVRtblbpG3t47149IJvW/eawL+1hTJBKXZM+t1+YRHX3hP5Lo1HXu
+	aTMmSjKxE39o1atZlVVR5D6vV6bBhVYWBgh8yonCqSuu4hSweraJDQXfAhMGlF8RSsT4xzXZG6r
+	Ot7gfBpHsttlw7ZdNZhKTDHuxrpqqVhqBH2xL2Cmcd
+X-Gm-Gg: AZFdTZdCdf4nmo+q+NwTdR4bEnV300RnZA55N8ZJrHosGCcyBGixG/eHZnP96phVK6O
+	SlxC8E8GnmN8Oa+mq0N///3b4/D6YYOOIEmr3TTOkluIi8plxJY8i4Wl9Tb6jhFsxxYdlAIMtWr
+	27NY0s2wPDRRpq2rPr2BeCJG9jV0iWzHVkqzDHs2rpXRTJRn2XDk2CTO2lHA==
+X-Received: by 2002:a17:90b:4983:b0:3b0:97b8:d6b7 with SMTP id 98e67ed59e1d1-3b41c931d29mr17812827a91.42.1795619251749;
+        Wed, 25 Nov 2026 07:07:31 -0800 (PST)
+X-Received: by 2002:a17:90b:4983:b0:3b0:97b8:d6b7 with SMTP id
+ 98e67ed59e1d1-3b41c931d29mr17812748a91.42.1795619251127; Wed, 25 Nov 2026
+ 07:07:31 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -127,236 +127,257 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117173738.1073856-1-Frank.Li@oss.nxp.com>
-In-Reply-To: <20261117173738.1073856-1-Frank.Li@oss.nxp.com>
+References: <20261117173738.1073856-1-Frank.Li@oss.nxp.com> <20261117173738.1073856-2-Frank.Li@oss.nxp.com>
+In-Reply-To: <20261117173738.1073856-2-Frank.Li@oss.nxp.com>
 From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Wed, 25 Nov 2026 16:06:19 +0100
-X-Gm-Features: Aa3M54qxdRmYOsZoBrTl4IfLXTc7pY51UNG7OdOGBQV2sjgdmvbFz8dtj3UY-KM
-Message-ID: <CAPx+jO8oqBcGCSUReJJVMjsnQg+xCv_X8LhFVaGk0NDuOqmEiw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] PM: runtime: fix stub pm_runtime_get_if_active()
+Date: Wed, 25 Nov 2026 16:07:19 +0100
+X-Gm-Features: Aa3M54qdNdgAc_JRldH76LdEJD_mei5kpsUzvFW9k6ee3hswc_FKGO5qrF_F3iw
+Message-ID: <CAPx+jO9RwkpSKwq6vq00uoXK-mcovJ2LMH7b_ByRnxOUj8nH8w@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] PM: runtime: fix stub pm_runtime_get_if_in_use()
  for !CONFIG_PM
 To: Frank.Li@oss.nxp.com
 Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Heiko Stuebner <heiko@sntech.de>, Ulf Hansson <ulfh@kernel.org>,
         Rodrigo Vivi <rodrigo.vivi@intel.com>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>,
-        Alex Elder <elder@kernel.org>, Guan-Yu Lin <guanyulin@google.com>,
-        Mathias Nyman <mathias.nyman@linux.intel.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Andrzej Kacprowski <Andrzej.Kacprowski@intel.com>,
-        Maciej Falkowski <maciej.falkowski@linux.intel.com>,
-        =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-        "David S. Miller" <davem@davemloft.net>, Will Deacon <will@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Connor Abbott <cwabbott0@gmail.com>,
+        Matthew Auld <matthew.auld@intel.com>,
+        Hans de Goede <hansg@kernel.org>,
+        Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+        Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+        Mark Brown <broonie@kernel.org>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+        Yong Wu <yong.wu@mediatek.com>, Will Deacon <will@kernel.org>,
+        Tomasz Figa <tfiga@chromium.org>, Marek Vasut <marex@denx.de>,
+        Michael Tretter <m.tretter@pengutronix.de>,
         Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Hans Verkuil <hverkuil+cisco@kernel.org>,
-        Bingbu Cao <bingbu.cao@intel.com>,
+        Hans Verkuil <hverkuil@kernel.org>,
         "open list:POWER MANAGEMENT CORE" <linux-pm@vger.kernel.org>,
-        open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev,
-        Frank Li <Frank.Li@nxp.com>, Alex Elder <elder@riscstar.com>,
-        Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
-        Karol Wachowski <karol.wachowski@linux.intel.com>,
-        Oded Gabbay <ogabbay@kernel.org>,
+        open list <linux-kernel@vger.kernel.org>,
+        "moderated list:ARM/Mediatek SoC support:Keyword:mediatek" <linux-arm-kernel@lists.infradead.org>,
+        "moderated list:ARM/Mediatek SoC support:Keyword:mediatek" <linux-mediatek@lists.infradead.org>,
+        "open list:ARM/Rockchip SoC support:Keyword:b[Rr]ock[Cc]hipb" <linux-rockchip@lists.infradead.org>,
+        imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>,
         Jani Nikula <jani.nikula@linux.intel.com>,
         Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
         Tvrtko Ursulin <tursulin@ursulin.net>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+        Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
         Matthew Brost <matthew.brost@intel.com>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti <luigi.santivetti@imgtec.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+        Robin Murphy <robin.murphy@arm.com>,
         Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Guenter Roeck <linux@roeck-us.net>, linux-usb@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
-        intel-xe@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        linux-staging@lists.linux.dev, netdev@vger.kernel.org
+        Dafna Hirschfeld <dafna@fastmail.com>,
+        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Daniel Baluta <daniel.baluta@nxp.com>,
+        Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+        dri-devel@lists.freedesktop.org, imagination@lists.freedesktop.org,
+        intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+        iommu@lists.linux.dev, linux-media@vger.kernel.org,
+        linux-sound@vger.kernel.org, sound-open-firmware@alsa-project.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: y1Ob4anAK1NYGE8WO1HHXuyw8wMapkwe
-X-Authority-Analysis: v=2.4 cv=OIOyTiaB c=1 sm=1 tr=0 ts=6b06f978 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA2MCBTYWx0ZWRfX72OlOVzX7SbT
+ 7fW04siOul+BU+sPZdmNM/Ape9Sqfz/4ZOiawCLe/0JSsucfy3Rm3La6/0JDfVnIatOJrWzIgid
+ 0UTAsqDwkSj6jfz+q+2p+YSQFvpsVdc=
+X-Proofpoint-GUID: RxkFYHsJR9IVy2VsDYKiiZdArAXyfd5F
+X-Proofpoint-ORIG-GUID: RxkFYHsJR9IVy2VsDYKiiZdArAXyfd5F
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA2MCBTYWx0ZWRfX1MUwIPPj5sSl
+ fzMpn8/LCBQtqgEasmEmsxar+hHrlE0w/wDUaIxb/tC01p8+JBazmQ1c3OeOHSM6WiJAkChIgxc
+ rsNCJHqSeBC+3UJQCQ5f4M9BhEYBzyP0zESpVsh/Z1hPMRO7ituwA1XvYyScbGzLhYlTzZhKzqy
+ xmsz5Z/EXKx+fihX44Xh47zi5aywrXzaoru+eRIm6CROkvrrbM261f3HNa8kc72GUxApJB1L1yw
+ pg55wFPtN6OXVOA38eQK563cJl4fyG9vsiUDxEn66CCfMafTJ2rqnLTERF7KOwXLO1/rNUXjZEl
+ cFaizcdBatjXHk5T3ZWNqjAMDVFz2CNgMVb66mbBvlbTc5aCYTqUUyiv5mVegZ04zz0Y9xJYjE0
+ PtP4Yq645jcdv8kxelnJ268NeCIxKK+6XRQLUyVivlDgllgkAo+x77sDxNps3Z7LJBNwuZSzZ2y
+ ubSUoDgU5+ZtrJDNfsw==
+X-Authority-Analysis: v=2.4 cv=A/z5rKWG c=1 sm=1 tr=0 ts=6b06f9b4 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
  a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=3WHJM1ZQz_JShphwDgj5:22 a=8AirrxEcAAAA:8 a=ee_2aqc6AAAA:8 a=VwQbUJbxAAAA:8
- a=ag1SF4gXAAAA:8 a=QyXUC8HyAAAA:8 a=GFqr32JmAAAA:8 a=pGLkceISAAAA:8
- a=7CQSdrXTAAAA:8 a=tA7aZXjiAAAA:8 a=EUspDBNiAAAA:8 a=_jlGtV7tAAAA:8
- a=1XWaLZrsAAAA:8 a=e5mUnYsNAAAA:8 a=JfrnYn6hAAAA:8 a=f3U7k-wd2kzf4Rf19YkA:9
- a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22 a=ST-jHhOKWsTCqRlWije3:22
- a=VOpmJXOdbJOWo2YY3GeN:22 a=Yupwre4RP9_Eg_Bd0iYG:22 a=f02Ha7HRcztGgdyUxOxW:22
- a=a-qgeE7W1pNrGK8U0ZQC:22 a=kIIFJ0VLUOy1gFZzwZHL:22 a=nlm17XC03S6CtCLSeiRr:22
- a=Vxmtnl_E_bksehYqCbjh:22 a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-ORIG-GUID: y1Ob4anAK1NYGE8WO1HHXuyw8wMapkwe
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA2MCBTYWx0ZWRfX0JxqKMiQdVFt
- eEJ/CeUlvGTVCiOaaNb3S/dYm1zvMqHNR9pjLAyLGL8vSbavn5RkfpjnM86i2sCbkz7NXXY4wjw
- R4t8divAl/BdJxboqDhPDdqnFrT9K3s=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA2MCBTYWx0ZWRfXyglSrQPY+LLc
- EMnTQniS53klo5tzqzCLh40OjX1yh2EScQQBhwD1szyHLslrxySoVVsriOJq8i3voDGmheC9zcX
- jT4i6z36vyMWhYmZX/rKlwLrghqw85SnTh2Mv5b6wYeLfRGWI8BVUlASi2+IVk1tmCco2pb4+0R
- F80m9iW4+m9iJNYMHTFf6WhGzaa/zJ8fafRakFlL72qKvJbR96tPiitnqxaYSYi4xtZ39Cm2ECI
- MFM5Kpw20+rvncS6WhoyoPI1KEtlJB7x7YbSeIRIJx7PZvhDiVsvBJZuFTJB6Y7yhlth3TUVTQr
- 6MtjmIah5is/GB4SdQLXFhHEHLAb2+v0ix5/HrphJRBwPzGnoedp67YHy1DNbToLOFTe0Fi5TEN
- Ufrs3/ur4dQtsji2WyMq2cISFecwxtnNEh2RceknZtIe+0JevXwRMDODDWg0EvI13t02HC+MPD5
- hqzGP2LI7TJ3M59kNQA==
+ a=ZpdpYltYx_vBUK5n70dp:22 a=8AirrxEcAAAA:8 a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8
+ a=GFqr32JmAAAA:8 a=pGLkceISAAAA:8 a=r_1tXGB3AAAA:8 a=iox4zFpeAAAA:8
+ a=7CQSdrXTAAAA:8 a=mpaa-ttXAAAA:8 a=QX4gbG5DAAAA:8 a=ZLGELXoPAAAA:8
+ a=P1BnusSwAAAA:8 a=zd2uoN0lAAAA:8 a=e5mUnYsNAAAA:8 a=JfrnYn6hAAAA:8
+ a=foHCeV_ZAAAA:8 a=Idd5WaZmN1QeKTrTtQEA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22 a=ST-jHhOKWsTCqRlWije3:22 a=f02Ha7HRcztGgdyUxOxW:22
+ a=t8nPyN_e6usw4ciXM-Pk:22 a=WzC6qhA0u3u7Ye7llzcV:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+ a=AbAUZ8qAyYyZVLSsDulk:22 a=CFiPc5v16LZhaT-MVE1c:22 a=D0XLA9XvdZm18NrgonBM:22
+ a=Vxmtnl_E_bksehYqCbjh:22 a=1CNFftbPRP8L7MoqJWF3:22 a=h8a9FgHX5U4dIE3jaWyr:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-25_04,2026-11-23_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 bulkscore=0 clxscore=1015 phishscore=0
- adultscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250060
+ clxscore=1011 lowpriorityscore=0 priorityscore=1501 impostorscore=0
+ suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611250060
 
-On Tue, Nov 17, 2026 at 6:37=E2=80=AFPM <Frank.Li@oss.nxp.com> wrote:
+On Tue, Nov 17, 2026 at 6:38=E2=80=AFPM <Frank.Li@oss.nxp.com> wrote:
 >
 > From: Frank Li <Frank.Li@nxp.com>
 >
-> When CONFIG_PM is not enabled, should be treated as if runtime PM were
-> enabled for the device and the runtime status is active.
+> The stub for pm_runtime_get_if_in_use() under !CONFIG_PM currently
+> returns -EINVAL.  The real implementation returns:
+>   1  - device is active and its usage counter is non-zero (bumped)
+>   0  - device is not in use or not active (counter not bumped)
+>  -EINVAL - runtime PM disabled for this device
 >
-> It's a subtle distinction but the previous behavior returned -EINVAL, whi=
-ch
-> means "runtime PM is disabled for the device"
+> When CONFIG_PM is not set every device is permanently "active" and
+> always considered "in use", so the stub must return 1, mirroring
+> __pm_runtime_resume() which already returns 1 in the same build.
 >
-> __pm_runtime_resume() returns 1 (called by pm_runtime_get()).
-> pm_runtime_get_if_active() is the try-and-get version of pm_runtime_get()=
-.
-> stub pm_runtime_active() also returns true. So pm_runtime_get_if_active()
-> should return the same value as the stub pm_runtime_get(), which is 1.
+> Returning -EINVAL breaks callers that test the return value with
+> comparisons other than "!=3D 0 / =3D=3D 0":
 >
-> Analysis of all callers and their behavior with old (-EINVAL) vs new (1):
+> drivers/gpu/drm/i915/intel_runtime_pm.c:
+>   if (intel_runtime_pm_get_if_in_use(rpm))
+>   which wraps to: ret =3D pm_runtime_get_if_in_use(); return ret > 0;
+>   With -EINVAL the wrapper returns false, causing an incorrect error
+>   path in the GT fence revocation code.
 >
-> Pattern A: if (!pm_runtime_get_if_active(dev)) -- no impact
->   Both -EINVAL and 1 are non-zero, so !ret is false in both cases.
->   Callers: drivers/accel/ethosu/ethosu_perfmon.c,
->            drivers/gpu/drm/msm/adreno/a6xx_gmu.c,
->            drivers/gpu/drm/msm/msm_perfcntr.c,
->            drivers/gpu/drm/v3d/v3d_mmu.c,
->            drivers/gpu/drm/v3d/v3d_perfmon.c (x4),
->            drivers/media/i2c/gc08a3.c gc05a2.c og0ve1b.c ov6211.c,
->            drivers/media/i2c/ccs/ccs-core.c s5kjn1.c lm3560.c (x2),
->            drivers/media/i2c/s5k3m5.c thp7312.c imx283.c ov64a40.c,
->            drivers/media/pci/intel/ipu6/ipu6-buttress.c,
->            sound/hda/core/device.c
+> drivers/gpu/drm/xe/xe_pm.c:
+>   if (pm_runtime_get_if_in_use(xe->drm.dev) > 0)
+>   With -EINVAL the condition is false; xe_pm_runtime_get_if_in_use()
+>   returns false, so callers believe the device is not usable.
 >
-> Pattern B: if (!ret) after get -- no impact
->   Both -EINVAL and 1 are non-zero, !ret is false in both cases.
->   drivers/gpu/drm/amd/pm/amdgpu_pm.c (comment says "allow access"
->     in kernels without CONFIG_PM), drivers/pci/pci.c
+> drivers/gpu/drm/gma500/power.c:
+>   return pm_runtime_get_if_in_use(dev) =3D=3D 1;
+>   -EINVAL !=3D 1, so the helper always returns false when !CONFIG_PM.
 >
-> Pattern C: ret > 0 / ret <=3D 0 / ret !=3D 1 checks -- FIXED
->   drivers/usb/core/offload.c: checks (!=3D 1), old -EINVAL caused
->     -EBUSY even with !CONFIG_PM. Fixed: now returns 1, proceeds.
->   drivers/accel/ivpu/ivpu_job.c: drm_WARN_ON(<=3D 0), old -EINVAL
->     spuriously triggered WARN. Fixed: 1 > 0, no warn.
->   drivers/gpu/drm/i915/intel_runtime_pm.c: checks (<=3D 0), old
->     -EINVAL triggered error path. Fixed: 1 > 0, correct path.
->   drivers/accel/ivpu/ivpu_sysfs.c: (> 0), old skipped freq read.
->     Fixed: proceeds correctly without CONFIG_PM.
->   drivers/gpu/drm/xe/xe_pm.c: wraps (> 0), all xe callers
->     (xe_bo.c, xe_shrinker.c, xe_vsec.c, xe_ggtt.c, xe_guc_ct.c,
->     xe_pxp.c) now correctly treat !CONFIG_PM as active.
->   drivers/net/ipa/ipa_smp2p.c: power_on =3D (> 0), now correctly true.
->   drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c: (> 0), now correctly
->     executes stall register update.
->   drivers/staging/media/ipu7/ipu7-buttress.c: active (<=3D 0) early
->     return now skipped, correctly proceeds.
+> drivers/gpu/drm/imagination/pvr_power.c:
+>   if (pm_runtime_get_if_in_use(...) <=3D 0)
+>   -EINVAL <=3D 0 is true, so the driver always takes the "requeue" error
+>   path instead of proceeding with the active device.
 >
-> Pattern D: explicit -EINVAL check
->   drivers/hwmon/prom21-xhci.c: checks (> 0) then (=3D=3D -EINVAL).
->     Old: took -EINVAL fallback. New: takes (> 0) fast path.
->     Both succeed when CONFIG_PM is disabled; functionally equivalent.
->   drivers/hwmon/eic7700-pvt.c: call is guarded by IS_ENABLED(CONFIG_PM),
->     stub is never reached. No impact.
+> sound/soc/sof/debug.c:
+>   if (pm_runtime_get_if_in_use(sdev->dev) =3D=3D 1)
+>   -EINVAL !=3D 1, so d3_prevented is never set, corrupting exception
+>   debug accounting.
 >
-> Fixes: c0ef3df8dbaef ("PM: runtime: Simplify pm_runtime_get_if_active() u=
-sage")
-> Fixes: bd3d245b0fef5 ("usb: core: use dedicated spinlock for offload stat=
-e")
-> Fixes: 7806bad76ac39 ("accel/ivpu: Prevent runtime suspend during context=
- abort work")
-> Fixes: 1524c28b99527 ("accel/ivpu: Show NPU frequency in sysfs")
-> Fixes: 46edb0a3eb16c ("drm/xe: Fix xe_pm_runtime_get_if_active return")
-> Fixes: a71aeff3dd0a7 ("net: ipa: kill IPA clock reference count")
-> Fixes: 70892277ca2db ("iommu/arm-smmu-qcom: Make set_stall work when the =
-device is on")
-> Fixes: 9ad65684b9285 ("media: staging/ipu7: Ignore interrupts when device=
- is suspended")
-> Acked-by: Alex Elder <elder@riscstar.com>
+> drivers/iommu/mtk_iommu.c:
+>   if (pm_runtime_get_if_in_use(dom->plat_dev->dev) <=3D 0)
+>   -EINVAL <=3D 0 skips the TLB flush, leaving stale IOMMU mappings.
+>
+> drivers/iommu/rockchip-iommu.c:
+>   Three call sites use WARN_ON_ONCE(err < 0) or similar patterns.
+>   -EINVAL < 0 triggers a spurious WARNING on every call.
+>
+> drivers/media/i2c/isl7998x.c:
+>   if (pm_runtime_get_if_in_use(dev) <=3D 0)  (two call sites)
+>   -EINVAL <=3D 0 causes the driver to always skip register programming
+>   when !CONFIG_PM.
+>
+> drivers/media/platform/rockchip/rkisp1/rkisp1-debug.c:
+>   if (pm_runtime_get_if_in_use(dev) <=3D 0)  (two call sites)
+>   -EINVAL <=3D 0 prevents any debug statistics from being collected.
+>
+> Fixes: a436b6a19f57 ("PM / runtime: Add new helper for conditional usage =
+count incrementation")
+> Fixes: 3b85b7bcccf4 ("drm/xe: Fix display runtime_pm handling")
+> Fixes: 672c473576ca ("drm/gma500: Rewrite power management code")
+> Fixes: b30289e7fa92 ("ASoC: SOF: Fix runtime pm usage counter balance aft=
+er fw exception")
+> Fixes: c0b57581b73b ("iommu/mediatek: Add power-domain operation")
+> Fixes: 51ef2be546e2 ("media: i2c: isl7998x: Add driver for Intersil ISL79=
+98x")
 > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-
-Reviewed-by: Ulf Hansson <ulfh@kernel.org
-
-Kind regards
-Uffe
-
 > ---
 > Change in v3
-> - fix drm/xe fixes tag hash (sashiko)
-> - drop i915 fix tag because guard by CONFIG_PM (sashiko)
-> - fix net ipa fixes tag hash (sashiko)
-> - Add c0ef3df8dbae ("PM: runtime: Simplify pm_runtime_get_if_active() usa=
-ge" (sashiko)
->
+> - drop tag: cbb819c363c5 ("media: rkisp1: debug: Collect input status by =
+sampling ISP_FLAGS_SHD")
+> selected PM at arch config
+> - drop tag: 0f181d3cf7d9 ("iommu/rockchip: Add runtime PM support")
+> selected PM at arch config
+> - drop tag: 9d58aa46291d ("drm/i915: Fix the GT fence revocation runtime =
+PM logic")
+> guard by CONFIG_PM
+> - drop tag 727538a4bbff ("drm/imagination: Implement power management")
+> depend on PM
+> `
 > Change in v2
-> - add fixes tag for patten C.
-> - add Alex Elder ack tags
-> - change subject to fix stub pm_runtime_get_if_active()
+> - new patches.
 >
 > Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-> Cc: Karol Wachowski <karol.wachowski@linux.intel.com>
-> Cc: Oded Gabbay <ogabbay@kernel.org>
+> Cc: linux-pm@vger.kernel.org
 > Cc: Jani Nikula <jani.nikula@linux.intel.com>
 > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 > Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
 > Cc: "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>
-> Cc: David Airlie <airlied@gmail.com>
 > Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Alex Elder <elder@kernel.org>
-> Cc: Will Deacon <will@kernel.org>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+> Cc: Alessio Belle <alessio.belle@imgtec.com>
+> Cc: Luigi Santivetti <luigi.santivetti@imgtec.com>
+> Cc: Liam Girdwood <lgirdwood@gmail.com>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: Jaroslav Kysela <perex@perex.cz>
+> Cc: Takashi Iwai <tiwai@suse.com>
+> Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
+> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+> Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 > Cc: Robin Murphy <robin.murphy@arm.com>
-> Cc: "Joerg Roedel" <joro@8bytes.org>
-> Cc: Rob Clark <robin.clark@oss.qualcomm.com>
-> Cc: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Cc: Yong Wu <yong.wu@mediatek.com>
+> Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Cc: Matthias Brugger <matthias.bgg@gmail.com>
+> Cc: Heiko Stuebner <heiko@sntech.de>
 > Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Cc: Guenter Roeck <linux@roeck-us.net>
-> Cc: Guan-Yu Lin <guanyulin@google.com>
-> Cc: Mathias Nyman <mathias.nyman@linux.intel.com>
-> Cc: linux-pm@vger.kernel.org
-> Cc: linux-usb@vger.kernel.org
+> Cc: Dafna Hirschfeld <dafna@fastmail.com>
+> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Cc: Michael Tretter <m.tretter@pengutronix.de>
+> Cc: Daniel Baluta <daniel.baluta@nxp.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 > Cc: dri-devel@lists.freedesktop.org
+> Cc: imagination@lists.freedesktop.org
 > Cc: intel-gfx@lists.freedesktop.org
 > Cc: intel-xe@lists.freedesktop.org
-> Cc: linux-hwmon@vger.kernel.org
-> Cc: linux-arm-kernel@lists.infradead.org
 > Cc: iommu@lists.linux.dev
-> Cc: linux-arm-msm@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-mediatek@lists.infradead.org
 > Cc: linux-media@vger.kernel.org
-> Cc: linux-staging@lists.linux.dev
-> Cc: netdev@vger.kernel.org
+> Cc: linux-rockchip@lists.infradead.org
+> Cc: linux-sound@vger.kernel.org
+> Cc: sound-open-firmware@alsa-project.org
 > Cc: imx@lists.linux.dev
 > ---
 >  include/linux/pm_runtime.h | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
 >
 > diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
-> index 64921b10ac74f..de9e7518ecef2 100644
+> index de9e7518ecef2..1d983fe55a16a 100644
 > --- a/include/linux/pm_runtime.h
 > +++ b/include/linux/pm_runtime.h
-> @@ -280,7 +280,7 @@ static inline int pm_runtime_get_if_in_use(struct dev=
-ice *dev)
+> @@ -276,7 +276,7 @@ static inline int pm_schedule_suspend(struct device *=
+dev, unsigned int delay)
 >  }
->  static inline int pm_runtime_get_if_active(struct device *dev)
+>  static inline int pm_runtime_get_if_in_use(struct device *dev)
 >  {
 > -       return -EINVAL;
 > +       return 1;
+
+This should be return 0, as we did not bump the usage count.
+
 >  }
->  static inline int __pm_runtime_set_status(struct device *dev,
->                                             unsigned int status) { return=
- 0; }
+>  static inline int pm_runtime_get_if_active(struct device *dev)
+>  {
 > --
 > 2.43.0
+>
+
+Kind regards
+Uffe
