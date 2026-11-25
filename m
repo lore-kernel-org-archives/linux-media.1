@@ -1,85 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795587397;
-	b=NLvnMli9nkTlwXsiPyGICtuOwANLiMmFJL6DFt1vabcdCtgt/qbNM5HFm/j/TeqJRA2I
-	 Rg1RyvhqauwjW0hQPgNYTIBpZg8ugq40RMiK/4SSWLk6z+GfWRbZjT9WetXcEA3ZyIELB
-	 TjKM9UB5x3JxZfOgMk6jaTdmQmvcLNuo0EEy2qwnWSwHOpvZFCdOrCQLYtYwh8vNyS5ZC
-	 ozVlpR8KEvjRRapgLPqEv6Gr4RbcUMRdlmhKTPAuVHV4gmo4Q/H/CUSC6k8G+MmnMsa+e
-	 vcc+83/cEIbV11TaTiuknQDQSuC7WfRNxxHP0aLDWG6e/36bSTiA/sAixcx/Y9LMnlg==
+	t=1795587957;
+	b=zYjY8tLK8J83ImLRg0QxTGkIAgOcrf738E24rugLYHegcMeKmX1MVfvaB7LaUfOdmpbF
+	 YvvcYXxV8uoSpRdtcwD2uBrxsWDYq+4KB2+DPoXJXXOoJFSZDOrza/6ap8FMDTdQ9gng1
+	 y6XrPwQ40pEa7jMgujrp2kJ4SEfdrArdAsj2+fRbH1rU2n1UQntE/H/soY9T6fG28Sdmd
+	 5FbrZ2ArlpB9TWOYlk1R7N13DH+MbxcQGTEInpLzKsfo5J5kyD2Qqg69JOHiJMj3/y/NO
+	 RF4Q1iOm96syjSchuo1yDTAVlxt9DCU+B29gYMjEZGyeQ11RI2JJ+rafIL0BMGsQulQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795587397;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-MTK;
-	bh=GQIyhrWituSo4khzwwk6ifkbTQSv4OQVU4aUUyh4K54=;
-	b=zUhnDngRfp39XK9YfhywUdw99v7QDholvHGP4J0tjBVaRzynuIHD5N2MTVE3xD9VuoVE
-	 Z3bre1qOhnHjHJiNkptwdqQJbzXK4Rkr69KxJDxvIS2ZJnKmT/p+bkzx39l+jtpr5vQ4b
-	 Af8sR2C6l5Mz+U16q8lYkO92ChAeUTgk8EQLcJtTf+oISWgCFoQ+5zResYNoc/XvSHoTa
-	 jBXcaG1pdbMTJkrSjUqNm5Hiu/gMbqUEfwFQaIOfs+IyE/E99RzFGZVo06YVOGio3j+eb
-	 qcvHwEOLQbUMQddq00MYawSWnTct/dcc2LeRFBjgLbeYgMuiWhmGkJXaMl++TDdbcPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795587957;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=pzpfeVEavQj7EiIXq7kDg+d9nbgzFa46wq2EternaVo=;
+	b=QuljddYlwktBQR+foh5axsvB25FcSNQbnOcoRAIyCK/GLNnOQ6HqOVXuRp8DWRL5Jxfh
+	 em5+plCm3Bvfj5vNmcQiYX0d3ZHpN85Q+1oOpQGl1fbeB1yI9uBwabVGjw5MCDBw4wmyd
+	 zQTTvz0Dk7IVyedQ73urH12aMRXm9KZwqyuK7v9DhgBESXDkRV974ospf7gSHouDIp5iN
+	 YnCHnony0Zxgu1PhWC65+iHTqval3rhecZcrvTdS5j7sSmvwj1sBvKq3ZptkttU+IjUcj
+	 F4ZSjhMbeCVqEQsD6W28MJaSHQaTkSPcdiCdnSZoH7XJcPw0UwZ5q0n43rK/t0JWbGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Q0LS2Ymo;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oFInxtcL;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KR4n7zMM;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B6A606A68C;
-	Wed, 25 Nov 2026 06:16:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49B6A606A68C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CB4606A31E
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 06:25:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99CB4606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Q0LS2Ymo
-X-UUID: be25c40ce89711f18dc8c9802ae25ab1-20261125
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=GQIyhrWituSo4khzwwk6ifkbTQSv4OQVU4aUUyh4K54=;
-	b=Q0LS2YmobVViZaqHcUvBiGAqTQmPhQUMT4ENj2GKY2uFV35yJLYdHOzHqtXatgwkRuF9GJ6/zBoyquH01rGdvATfzM+YObHvxfkxThp6K86JdrbnDQlMwQp9emScoAoCQk4XfYMpjbDi3T4o1BZx1M4gfhvVjQigA/9YMTgZoyQ=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:a5fcebfe-e6c1-4130-afcf-3d1b15e84953,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:b0318ac,CLOUDID:61f9f2bd-9e04-43bc-9c07-a2d8d8315d7e,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: be25c40ce89711f18dc8c9802ae25ab1-20261125
-Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw02.mediatek.com
-	(envelope-from <kyrie.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 265563208; Wed, 25 Nov 2026 14:16:25 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 25 Nov 2026 14:16:25 +0800
-Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.56 via Frontend Transport; Wed, 25 Nov 2026 14:16:24 +0800
-From: Kyrie Wu <kyrie.wu@mediatek.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Bin Liu <bin.liu@mediatek.com>,
-	kyrie wu <kyrie.wu@mediatek.corp-partner.google.com>, Hans Verkuil
-	<hverkuil@kernel.org>, irui wang <irui.wang@mediatek.com>, Nicolas Dufresne
-	<nicolas.dufresne@collabora.com>, <linux-media@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
-CC: Kyrie Wu <kyrie.wu@mediatek.com>
-Subject: [PATCH v20 04/15] media: mediatek: jpeg: Fix buffer completion on multi-core streaming stop
-Date: Wed, 25 Nov 2026 14:16:07 +0800
-Message-ID: <20261125061618.2544386-5-kyrie.wu@mediatek.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261125061618.2544386-1-kyrie.wu@mediatek.com>
-References: <20261125061618.2544386-1-kyrie.wu@mediatek.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oFInxtcL;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KR4n7zMM
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AP68TCE2629330
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 06:25:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=pzpfeVEavQj7EiIXq7kDg+
+	d9nbgzFa46wq2EternaVo=; b=oFInxtcLKRoWuETwDbqmV2hPLqrZy7CHA8CuoH
+	EBvNOG81/+vRy/GaA/fBdT2Q+vM9KMu525D6VV2CI9kMdTRQX5Fe5hyKZr/gFFaQ
+	GPEX7CWQyD4yD7fKGk8mW8KZXctuigzuY7V4nlBj3Ywrp6Xb/dScFwIKW0hYjNpJ
+	JB/1p8fEhY8hUjACoFuckzX1LUnUd6r7KOn/wRslbv38sfdapzrrHMqN6u4vgSwa
+	29rKdwEnIULCNAH7ArkVPsS9tMW/H1EDyJ2pD6crehMLU7/+/MuMxUwSoDULxj9W
+	POyywNPrJK0ARmUfXcPpQEVcLwacLryieFDCUKBPchu4iM5w==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5eydak0y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 06:25:50 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a0619b1fe5so4497217b3a.3
+        for <linux-media@vger.kernel.org>; Tue, 24 Nov 2026 22:25:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795587950; x=1796192750; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pzpfeVEavQj7EiIXq7kDg+d9nbgzFa46wq2EternaVo=;
+        b=KR4n7zMMGY2XJaDVRfZ3iwPvhPyi4BBogPK+KU8LrQl5EUwXkOH7QHVsuzW32Tme1T
+         aFg2EslHyW1MWJt85fE8ZVAFfAUQNWVa55GYcuRJ1BP8S1XJdSq4mNhQ5BZWCtvRfwE0
+         XW1ccitzmyWztlZJjvMWnxvrCL+5s6U+Vfwb8PtCDfLCWb0BUpidAI1LGJwlrFTzP+np
+         m2NmgjVSG+ibYBerY1GSDJWRDRO2UBWRBCy0aynyNR4VB7X4ZsY02v8VG4zVZFUD+jMo
+         k9jEnu6JUgW3nkLTzVGIZRAv3OMdQx2ieA+s+aIRLQktzLjYlzBc8+ReEQYXx8MrJu0n
+         IwjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795587950; x=1796192750;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pzpfeVEavQj7EiIXq7kDg+d9nbgzFa46wq2EternaVo=;
+        b=nVNRwcxB9bJrF9XYblsEHYY3BQIC6IiVAy3zia1cir4DUyehc1z5cxx5NE9HcqFN5X
+         zyxmwmvzdhYwNwxkfr5S4wn+1TM4e5WdGz/WANK66nsRYt43qqEh1LgsTQgTsfdI5wU5
+         TNZKAcr6qvzeB/b/x0QbiikxcTxp9ZmUAoVH70Drz3jxMucym5AZdiV7qc5zDlu2GAFy
+         p4xyg7maRzB8LfFQqOgOmVHbSYcw6aR6MS/AksJsDwW+E8xNalJDhBqoIwczCAsQ42f4
+         zBwvt4DRlc1J8gZAALxfvsN3ZRXcCyBvv9wserEaRMxTVCVqCbC+/zoaw5gtx94duGME
+         GuJg==
+X-Forwarded-Encrypted: i=1; AL+hErHOguCQRxDobVsJ3D3FSeQZaFAoRGkwXLmrBJ/Wg7C/ka1qHx4YhtnTTV6pEQ954vHN8UlYHk8jpufRGw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8rBYejdKRW/L5imlJlL9/szmh2rFDcV/MHkgOIuRVmn1UNgIPh
+	4QmV1tFjUwT1akRGqbTAWGaANs1pwYkSSlG2sVD91cb5e6c2lV3HOB49khIeId9IdY5rW5lgQZ0
+	Ao2UdxFnYKYRvcTSQPg5OYPHQ1oTcrAPiWnQ7ianz7opt1JdE04AFaXKHbouaV6YIXA==
+X-Gm-Gg: AZFdTZcxCYQNKaDE0oYLvAi/RKZVFd6Pve7E7EZQohzEkawpxohw1crZWJDA3WGC5O6
+	B01izmI62rQnPrCCSlgbXu06Jym74NNz+Fo5dFuUrmFNEDyiA05jCsgvcVxTSYPaBgS4EzaIgqT
+	LWGG8U07Kns3OmFjS2/6aRgMm7hB73jNErHwH7dLMMzY9FqGTLuat7KBJlZ7jyheBLcQwapbLfm
+	eQJ731n6PGmtAxnF0vASTkArYP9jv4jwNAO7P6SKNfIMcmhvN0KSy/uc7QuQyTdy3vJJbSRPh01
+	BJMrczeVo22D/95Oy8h5NRrz6fNWstvw9OzRai3CtlxDBOQYSaSIIBveZiiY/dPPKcRAjxMhQWE
+	lDBhQ/X0ye1go7F92yMrBJo4VdgM8RX4z99OUblkRteQxVk5qzkpzpYOGxFnzRwGGMRCBw0TDRr
+	xgl4zM
+X-Received: by 2002:a05:6a00:1d93:b0:89a:5:92c1 with SMTP id d2e1a72fcca58-8c87d51b324mr14173224b3a.56.1795587949796;
+        Tue, 24 Nov 2026 22:25:49 -0800 (PST)
+X-Received: by 2002:a05:6a00:1d93:b0:89a:5:92c1 with SMTP id d2e1a72fcca58-8c87d51b324mr14173189b3a.56.1795587949291;
+        Tue, 24 Nov 2026 22:25:49 -0800 (PST)
+Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c87077944bsm8385066b3a.2.2026.11.24.22.25.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2026 22:25:48 -0800 (PST)
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Subject: [PATCH v5 0/3] Add Qualcomm Hawi I2C CCI and Hawi/Maili CSI-2 PHY
+ support
+Date: Wed, 25 Nov 2026 11:55:40 +0530
+Message-Id: <20261125-hawi-maili-camss-v5-0-1483b7f68dce@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,77 +116,178 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGR/BmsC/33RwW7CMAwG4FdBOS8ocVLacOI9ph0Sx10tUQoJF
+ BDquxPYtO1QdrH0W/Jnyb6JTIkpi/XiJhKNnHnYlVC9LQR2fvdJkmPJAhSslAMjO39m2XveskT
+ f5yxDFdEarxRFEGVsn6jly5N8/yi543wc0vW5YdSP7j/YqKWSGEKwQJWx1G6GnJeHk9/i0PfLU
+ sTDHOHH0UrPOVCcFp0BgOgbhy8c88cxasYxxXG1hYC+QWrhhWN/Ha1WM44tTqygwdrXrg52xpm
+ +jpfocCpvOH5fcJruFlWBuqQBAAA=
+X-Change-ID: 20260923-hawi-maili-camss-b5dc43a00ed2
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Wolfram Sang <wsa+renesas@sang-engineering.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795587942; l=5267;
+ i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
+ bh=9X/7nIs1WLTe0qV0OiMWh+UZ+GNApBiRWSnm81zHmmk=;
+ b=0NXaFfnI30tyWyVu/ub8D+DzkJcv0nueHNtG7UFABXbpELymKwic0g8wInlL0f8csbqqX4QwL
+ OveYpACmum6Dy/xHkW7iHFyjQA9nYNqOuztZCVBA2S97CPykn+KgPmC
+X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
+ pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDAyNSBTYWx0ZWRfX2nXp6Nr9s2Rr
+ HtkLp7eiim1RltABwSYV8sVFrUb9NW8ac9s2QtmFRI6iKF0TsAWL9XM0v3WDdymsZ84ZJhGkS8a
+ XcOCD8z1DS7e4nY+5VdfUA9Ruph4G7Y=
+X-Proofpoint-ORIG-GUID: tnoeOLPejajTikA7exWoayXbfo94sIHb
+X-Proofpoint-GUID: tnoeOLPejajTikA7exWoayXbfo94sIHb
+X-Authority-Analysis: v=2.4 cv=GIGdgeNK c=1 sm=1 tr=0 ts=6b067f6e cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=MdiNbCTM_Z-SUpbbCTEA:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDAyNSBTYWx0ZWRfX0y3y4VyWAWOi
+ WiWOJkoYJnk+qHNOb/zf4HcClm0QMJbpL4UVjEFsuSMEg/r9dzqYll+dlmkXBKV5dLAg/KCr2v6
+ PSXvZ3ml3Sd+AeKPUxduNiTGsjumTenuhhw2nVdJutVHs5/YyiQWAM9BFqpEkpfOwyI7xck63+4
+ Scvx2ChyOeNdZcFdq7GG4wKEow9grekMVSzVHJAhZeZbedtEnsKg0oUnTSYuH+1hIBwT6AL0+cA
+ 8zhbIMe5XTJnTxJZgGPWVXWkXDVLJXo/FdiyiKABRZjc5he3Ral/oGj6XOj+KSQ8BebV+mzNddn
+ QfhFa9aCuyYGoSsVp6BUYYwQiJuH+lGWTEytxkKLPcQVJSMUbBP+t8uXKFQG14BBVP/+PaLyBFX
+ WeH9WWYmtlZmNMGf7iuJ1JNUCZU2tQfd5ocYn+yA+kGkoAgCRgZKd7i+4U/5nr5WkVXl/bZ6Krw
+ GWbly9Uzw8c8TgDDcFg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-25_02,2026-11-23_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
+ spamscore=0 priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250025
 
-Enhances the Mediatek JPEG driver's stability and reliability by ensuring
-that all queued buffers are processed before stopping the streaming in
-multi-core environments. It introduces a call to
-`vb2_wait_for_all_buffers()` in the `mtk_jpeg_enc_stop_streaming()` and
-`mtk_jpeg_dec_stop_streaming()` functions when the `multi_core` variant
-is enabled. This change ensures that no buffers are left unprocessed,
-preventing potential data loss or corruption during multi-core flow.
+Hawi and Maili are recently announced Qualcomm Snapdragon SoCs [1].
+This series adds the I2C CCI binding for Qualcomm Hawi and CSI-2 PHY
+support for Qualcomm Hawi and Maili.
 
-Fixes: 0fa49df4222f ("media: mtk-jpegdec: support jpegdec multi-hardware")
-Fixes: dedc21500334 ("media: mtk-jpegdec: add jpeg decode worker interface")
-Fixes: 934e8bccac95 ("mtk-jpegenc: support jpegenc multi-hardware")
-Fixes: 5fb1c2361e56 ("mtk-jpegenc: add jpeg encode worker interface")
-Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+This is a continuation of the previous combined CAMSS series, now split by
+subsystem. This series carries only the I2C CCI binding and CSI-2 PHY
+patches, which do not depend on the Kaanapali/KNP CAMSS media patches.
+
+The CAMSS/media patches from the previous series will be posted separately
+against the media tree where the required KNP CAMSS prerequisites are present.
+
+[1] https://www.qualcomm.com/smartphones/products/8-series/snapdragon-8-elite-gen-6-mobile-platform
+
+Used following tools for the sanity check of these changes.
+- make -j32 W=1
+- checkpatch.pl
+- make DT_CHECKER_FLAGS=-m W=1 DT_SCHEMA_FILES=i2c/qcom,i2c-cci.yaml dt_binding_check
+- make DT_CHECKER_FLAGS=-m W=1 DT_SCHEMA_FILES=phy/qcom,x1e80100-csi2-phy.yaml dt_binding_check
+
+Patch grouping
+------------
+I2C CCI bindings part for maintainer Loic/Robert/Andi (1):
+[1] dt-bindings: i2c: qcom,i2c-cci: Add Hawi compatible
+
+PHY driver part for maintainer Vinod Koul (2):
+[2] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Hawi and Maili compatibles
+[3] phy: qcom-mipi-csi2: Add Hawi support
+
+CAMSS changes will be posted separately because they depend on Kaanapali
+media patches.
+
 ---
- .../media/platform/mediatek/jpeg/mtk_jpeg_core.c   | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+Changes in v5:
+- Fix correct patch history in commits - Krzysztof
+- Rebased on next-20261124
+- Split the I2C/PHY patches out from the CAMSS/media patches.
+- Drop the Kaanapali CAMSS media dependency for this I2C/PHY series.
+- No functional changes in the I2C/PHY patches since v4.
+- Collected Wolfram Sang RB
+- CAMSS changes will be posted separately because they depend on Kaanapali
+  media patches.
+- Link to v4: https://lore.kernel.org/r/20261106-hawi-maili-camss-v4-0-d528c7a797b4@oss.qualcomm.com
 
-diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-index 16798b2c7..6386f9004 100644
---- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-+++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-@@ -850,22 +850,33 @@ static struct vb2_v4l2_buffer *mtk_jpeg_buf_remove(struct mtk_jpeg_ctx *ctx,
- static void mtk_jpeg_enc_stop_streaming(struct vb2_queue *q)
- {
- 	struct mtk_jpeg_ctx *ctx = vb2_get_drv_priv(q);
-+	struct mtk_jpeg_dev *jpeg = ctx->jpeg;
- 	struct vb2_v4l2_buffer *vb;
- 
- 	while ((vb = mtk_jpeg_buf_remove(ctx, q->type)))
- 		v4l2_m2m_buf_done(vb, VB2_BUF_STATE_ERROR);
-+
-+	if (jpeg->variant->multi_core)
-+		vb2_wait_for_all_buffers(q);
- }
- 
- static void mtk_jpeg_dec_stop_streaming(struct vb2_queue *q)
- {
- 	struct mtk_jpeg_ctx *ctx = vb2_get_drv_priv(q);
-+	struct mtk_jpeg_dev *jpeg = ctx->jpeg;
- 	struct vb2_v4l2_buffer *vb;
- 
-+	while ((vb = mtk_jpeg_buf_remove(ctx, q->type)))
-+		v4l2_m2m_buf_done(vb, VB2_BUF_STATE_ERROR);
-+
- 	/*
- 	 * STREAMOFF is an acknowledgment for source change event.
- 	 * Before STREAMOFF, we still have to return the old resolution and
- 	 * subsampling. Update capture queue when the stream is off.
- 	 */
-+	if (jpeg->variant->multi_core)
-+		vb2_wait_for_all_buffers(q);
-+
- 	if (ctx->state == MTK_JPEG_SOURCE_CHANGE &&
- 	    V4L2_TYPE_IS_CAPTURE(q->type)) {
- 		struct mtk_jpeg_src_buf *src_buf;
-@@ -877,9 +888,6 @@ static void mtk_jpeg_dec_stop_streaming(struct vb2_queue *q)
- 	} else if (V4L2_TYPE_IS_OUTPUT(q->type)) {
- 		ctx->state = MTK_JPEG_INIT;
- 	}
--
--	while ((vb = mtk_jpeg_buf_remove(ctx, q->type)))
--		v4l2_m2m_buf_done(vb, VB2_BUF_STATE_ERROR);
- }
- 
- static const struct vb2_ops mtk_jpeg_dec_qops = {
+Changes in v4:
+- Rebase on next-20261104
+- Collected Krzysztof, Loic RB's tags
+- Added Loic patch to Scale the CSID clocks with the CSI-2 link rate
+- Use 8775p TPG resources instead of x1e resources
+- Align tpgX and csiphy_rx clock names with the 8775p platform - Vladimir
+- Remove redundant CSIPHY resource definitions by introducing
+  compatible-specific code and keeping .csiphy_num instead in the
+  resource list to denotes the CSIPHY number - Vladimir
+- Example Address should match your first reg addr in Hawi bindings - Loic
+- Link to v3: https://lore.kernel.org/r/20261030-hawi-maili-camss-v3-0-9742bca8cef2@oss.qualcomm.com
+
+Changes in v3:
+- Rebase on next-20261029
+- Squash Hawi and Maili CAMSS binding as a whole - Krzysztof
+- Add description for IFE and IFE_LITE IOMMU in CAMSS binding - bod
+- Correct the lane count variable fallback path - Sashiko
+- Add CAMSS top region to binding and DT - Loic
+- Use split addr_update/reg_update in CSID and VFE 1190 - Loic/bod
+- Add SOF and EOF enable bits with top level RDI status offset to
+  allow their corresponding interrupts but not configured on - bod
+- Move the common CPAS/GCC AHB and AXI clocks to the pm_clks array
+  drop them from the VFE clock lists - Loic
+- Use the GPIO function with bias disabled for CCI sleep states - Loic
+- Collect RBs from Loic, Krzysztof and bod
+- Link to v2: https://lore.kernel.org/r/20261013-hawi-maili-camss-v2-0-fc93222da89c@oss.qualcomm.com
+
+Changes in v2:
+- Not an RFC anymore
+- Rebase on next-20261012 and drop the external CSI2 PHY series dependency. 
+- Drop DTS patches; they will be posted separately with Maili DTS dependency.
+- Collect Reviewed-by from Konrad, Abel, Bryan
+- Split CSID and VFE 1190 into individual files rather than in separate
+  combined Gen4 files - bod
+- Remove reduandant is_lite condition in CAMSS CSID and VFE resources - bod
+- Replace bias-pull-up and bias-pull-down with bias-disable for the
+  SCL/SDA pins of CCI nodes in TLMM, as internal weak pull is inproper
+  with existing board level pull up resistors - Loic
+- Drop the unused reg_update_after_csid_config flag
+- Add lane count fallback path for CSID RX configuration
+- Add Hawi DPHY support by tuning register table, which prevents
+  potential stream stalls and SMMU faults.
+- Add a standalone Hawi CSI2 PHY compatible and make Maili fall back to it.
+- Resolve conflicts introduced by Glymur in CSI2 PHY binding.
+- Link to v1: https://lore.kernel.org/r/20260923-hawi-maili-camss-v1-0-cbbb42e534ef@oss.qualcomm.com
+
+Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+
+---
+Hangxiang Ma (2):
+      dt-bindings: i2c: qcom,i2c-cci: Add Hawi compatible
+      phy: qcom-mipi-csi2: Add Hawi support
+
+Nihal Kumar Gupta (1):
+      dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Hawi and Maili compatibles
+
+ .../devicetree/bindings/i2c/qcom,i2c-cci.yaml      |   2 +
+ .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       |   5 +
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 136 +++++++++++++++++++++
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     |   1 +
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |   1 +
+ 5 files changed, 145 insertions(+)
+---
+base-commit: 3dd8c790a7b7027abdd568e36db5e82ffaea7c77
+change-id: 20260923-hawi-maili-camss-b5dc43a00ed2
+
+Best regards,
 -- 
-2.51.0.windows.2
+Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
 
