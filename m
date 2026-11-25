@@ -1,45 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795596722;
-	b=isXiRlmnWx91iEEhYwnviGl2jMcg2v10Zfb0Jj7P6kLFxQCj/NU9ynMZPjukL4YA24xa
-	 3ByEPMYKzVkpd6ulpWYyWGJ3ss/S2QKgo7HQW9aJdxZ7/axPgZFnddq9aEX/34CCeedzG
-	 zqycHN1RwMdLzOkd8cXoBrzJMImEKp2dcNRsnMIvII/TvDm7Y+a4ahLIMt2EAvwDJL8rI
-	 4Syr9M7v40U1/GBQ3yY3jwYlDPitw2sazvistjTLte6DfRvUw4OLIZ3bRNicBb3G73rR+
-	 B7xY51v9r7CC7Nm58yR4/Lb4R/PTZC+HPQ7vmJ6BgxFf0vFwX0w8oIzrs+ZMZnSdAOA==
+	t=1795596768;
+	b=Vn6sc65Htz+tQouuXZjch6f/IpsRDVk+YOHpIOZ8bbcF4DFEBQyixR0jHkxwHnJM8lBm
+	 1HvLdu+P4FmYM3b1CV3Bs0fJJaJQ4nZS6jusuXWGNSEeJzQd8oL0X8OamZDIP0ChO3gAn
+	 +KJ0oCNUUktna8BtfbtIo6zdVkh7Ffr0OEu1eVkorSSn5v0d29ep8TbCJ9PzSVf25UH4J
+	 j0RYzV9NJ4TwlMmzBgXfX8SWwf/kJ5/Mvk3e7jbIdGuDVdVA+BEdx7dAZETyuL8EeTcoC
+	 wIFaD9WuFXYCo5ZyXpfXvWKKn4RZPFC+llLuLjpLte+11RZ8SWDJk50Hj8yS1I3+p2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795596722;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer;
-	bh=nAo3k7IN6MFlua5noogKuUzTuJs2qKHfA/Yw66Nd6Ng=;
-	b=TQ1qygaBoMdhuKCxsGvvpoYkrzB3j395buwxTH6D6pbuJSOfOyT0wAQt9cDqWDwYtPgv
-	 wd+m9mRcP1qmpcJhCzCbWtflCCyj3N/d7DIREFGEB4yCo8YE2O4PnjiqBY4kReto1dhbg
-	 lCcqo7ERNXU8zl9WlLN5HM1gw5P9nX33CnnthYrEpSoFUUa70A9u0hI6GnoiqwhSha8AV
-	 dIW/owgoJ13lU8tWzIUXJqDP0qTgFlyDYRQXj9CYPtaYFd6m+7uzx3sQ8bLnXmykE1RYW
-	 cSDIRa/sMGqgMJwymPOyM9eKbEsSKn8c4nefYH+jIPbCMGrTC7pTdvHXwaVpYdyI2sQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795596768;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Q3lKpz2ipOOP0omCIbHOv++J2MjbYMuVpWHGa/q6ZSY=;
+	b=CozfuzqqgTfjAz2W9C4FJB1LdmrXPR2zXFJrI9ULqgnjn6oQMigLPNmoIP+O5Ku5o4a8
+	 VIXVLUWB32E9YXkqX9ixBesn0MFQ2rPKI5YxAhkNXzofzsAJhIAFoeAoqRe1GiSQlFCbm
+	 EswHrCfp2RRAUj/waFWVHT3IAcfS/LjeYY+9tHRoK0ycnFOi9QhLwE6sWZgdtMAAhfA/f
+	 kV0ZCZhu7LVaYxPRWticQK9WWtYzX3wiZs6CQmFkC8woAz2TNIkPVkOu7M1znkr40xlsd
+	 6bdFj/CkhuJMUaMUMNsVG30eSRA+D9e5BkZTlRGdfEEf2sL6Kow/AMEc8Zc3X4I0EnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WIu5xo20;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Vwgi/s4B";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1784B606A689;
-	Wed, 25 Nov 2026 08:52:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D56606A326;
+	Wed, 25 Nov 2026 08:52:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WIu5xo20
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DDA21F000C6;
-	Wed, 25 Nov 2026 08:52:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vwgi/s4B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3FA51F000C4;
+	Wed, 25 Nov 2026 08:52:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795596721;
-	bh=nAo3k7IN6MFlua5noogKuUzTuJs2qKHfA/Yw66Nd6Ng=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=WIu5xo20Zcvt/DHS9FcFcsBfvdprdo1bbZDD05a7A5V9ZkHSt9VJ7u0UlRr+4OnwU
-	 Uxebq7l1HxT/jCJqiR3vj7qilZS/AAoqVdLhxozKb3Vi+kqHWORNF7Wj6qBjh+VFEO
-	 HhbnVBsnFblLNY8qUc7rf72vT28J0s9tLlozBT2De1MNmfHgZNH6LAqIaXSFDK73gE
-	 SNAu9yAnaeKzhDcoAV+44FwfoKy57EHNyFs+3ltXknRqGENcTQVWrb1t2ZBe8d1ve8
-	 s70GmeHR38PnIVMbjBALc+a5S4eUliwLI9cvhq5zcIDeDWnZLjGlzP8mSIAaIvRt3z
-	 nuyqvTYKZRThg==
+	s=k20260515; t=1795596767;
+	bh=Q3lKpz2ipOOP0omCIbHOv++J2MjbYMuVpWHGa/q6ZSY=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=Vwgi/s4BgqpM1wnT1yOBVqSVV9uOCMtqJ7cD3SI79O6iy+di3kvZhBnTp+1G82ujV
+	 rsqlSCVBUNXOuOg/5he8xry8YW04XuwQ6Kr3MyXamJS9wG/A9ds/hDOxl0qIdtRC1/
+	 mkMCDfMPoS9S4R9LHUpo0IVuAvD/Du2g+pV0Kz8JxgTebaL5ngOSWXeeXCEghdMHlJ
+	 djLpH0F65kB+IGkK3QKx80Nz3Eiu15bBb0wl9obGcX+cctOg2OtUXJgTVHOvn8KVpJ
+	 0KW3VwD8oNCZ/5XA++cpdwZPalpJ5iiTNxcflLTOmkX9XHmDb6Ld3Hli0RoM+69PCk
+	 1EpzJhXY2eUGw==
+Message-ID: <54864d0a-4356-4f00-9b0b-8b9b22329afe@kernel.org>
+Date: Wed, 25 Nov 2026 09:52:44 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -49,184 +51,103 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v2] media: go7007: return queued buffers on
+ start_streaming() failure
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>,
+ Cheng Wen <wencheng@xidian.edu.cn>
+References: <20261112140556.5230-1-25031212351@stu.xidian.edu.cn>
+Content-Language: en-US, nl
+In-Reply-To: <20261112140556.5230-1-25031212351@stu.xidian.edu.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 02/24] dt-bindings: media: Add bindings for Arm
- Mali-C720
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Anthony McGivern <anthony.mcgivern@arm.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>, 
- Nayden Kanchev <nayden.kanchev@arm.com>, 
- Konstantin Babin <konstantin.babin@arm.com>, 
- Linus Walleij <linusw@kernel.org>, jacopo.mondi@ideasonboard.com, 
- kieran.bingham@ideasonboard.com, laurent.pinchart@ideasonboard.com, 
- dan.scally@ideasonboard.com, Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Rob Herring <robh@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20261124-b4-initial-upstream-candidate-v1-2-0cb9bde1bd30@arm.com>
-References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
- <20261124-b4-initial-upstream-candidate-v1-2-0cb9bde1bd30@arm.com>
-Date: Wed, 25 Nov 2026 09:51:57 +0100
-Message-Id: <179559671799.14607.10622707622371448283.b4-reply@b4>
-X-Mailer: b4 0.17-dev
 
-On 2026-11-24 17:07 +0000, Anthony McGivern wrote:
-> From: Anthony McGivern <Anthony.McGivern@arm.com>
+On 12/11/2026 15:05, YuanZhe Liu wrote:
+> The vb2 framework hands ownership of every queued buffer to the driver
+> through the buf_queue() callback before start_streaming() is called.  If
+> start_streaming() then returns an error, the driver must return those
+> buffers to vb2 with vb2_buffer_done() and VB2_BUF_STATE_QUEUED.
+> Otherwise vb2_start_streaming() fires WARN_ON(owned_by_drv_count) and
+> forcibly reclaims the buffers.
 > 
-> Add the device tree binding for the Arm Mali-C720 Image Signal
-> Processor.
+> go7007_start_streaming() returns -EIO when go7007_start_encoder() fails,
+> which happens for example when a USB transfer cannot be submitted because
+> the device has been disconnected:
 > 
-
-A nit, subject: drop second/last, redundant "bindings". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
-
-> Signed-off-by: Anthony McGivern <Anthony.McGivern@arm.com>
+>     go7007 1-1:1.0: error submitting audio urb 5: -2
+>     go7007 1-1:1.0: error starting stream transfer
+>     WARNING: drivers/media/common/videobuf2/videobuf2-core.c:1797 at vb2_start_streaming
+> 
+> but it leaves the already queued buffers on go->vidq_active.  Give them
+> back to vb2 with VB2_BUF_STATE_QUEUED before bailing out.
+> 
+> Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 > ---
->  .../devicetree/bindings/media/arm,mali-c720.yaml   | 134 +++++++++++++++++++++
->  1 file changed, 134 insertions(+)
+> Changes in v2:
+> - Inline the buffer return into go7007_start_streaming() as requested and
+>   drop the separate helper.
+> - Drop the redundant go->active_buf = NULL: active_buf is still NULL when
+>   go7007_start_encoder() fails.
 > 
-> diff --git a/Documentation/devicetree/bindings/media/arm,mali-c720.yaml b/Documentation/devicetree/bindings/media/arm,mali-c720.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..3bd261bcefbe371b7b4610afdde8e556b2a2ae22
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/arm,mali-c720.yaml
-> @@ -0,0 +1,134 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/arm,mali-c720.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>  drivers/media/usb/go7007/go7007-v4l2.c | 20 +++++++++++++++++++-
+>  1 file changed, 19 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/usb/go7007/go7007-v4l2.c b/drivers/media/usb/go7007/go7007-v4l2.c
+> index 2087ffcb85a5..030a127cb9ea 100644
+> --- a/drivers/media/usb/go7007/go7007-v4l2.c
+> +++ b/drivers/media/usb/go7007/go7007-v4l2.c
+> @@ -409,8 +409,26 @@ static int go7007_start_streaming(struct vb2_queue *q, unsigned int count)
+>  	else
+>  		ret = 0;
+>  	mutex_unlock(&go->hw_lock);
+> -	if (ret)
+> +	if (ret) {
+> +		struct go7007_buffer *vb, *tmp;
+> +		unsigned long flags;
+> +		LIST_HEAD(buffers);
 > +
-> +title: ARM Mali-C720 Image Signal Processor
+> +		/*
+> +		 * The queued buffers were handed over to the driver before
+> +		 * start_streaming() was called, so they have to be returned
+> +		 * with VB2_BUF_STATE_QUEUED.
+> +		 */
+> +		spin_lock_irqsave(&go->spinlock, flags);
+> +		list_splice_init(&go->vidq_active, &buffers);
+> +		spin_unlock_irqrestore(&go->spinlock, flags);
 > +
-> +maintainers:
-> +  - Anthony McGivern <anthony.mcgivern@arm.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: arm,mali-c720
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    minItems: 1
+> +		list_for_each_entry_safe(vb, tmp, &buffers, list) {
 
-Why is this flexible?
+Why not just walk go->vidq_active? There is no need for list_splice_init AFAICS.
+Keep it simple.
 
-> +    items:
-> +      - description: ISP main interrupt
-> +      - description: ISP fault interrupt
-> +
-> +  interrupt-names:
-> +    minItems: 1
-> +    items:
-> +      - const: isp
-> +      - const: fault
-> +
-> +  iommus:
-> +    minItems: 1
-> +    maxItems: 3
+> +			list_del(&vb->list);
+> +			vb2_buffer_done(&vb->vb.vb2_buf, VB2_BUF_STATE_QUEUED);
 
-Same question. List items with description instead.
+Looking a bit closer, it seems that go7007_stop_streaming() fails to return any
+pending buffers to state VB2_BUF_STATE_ERROR. It just re-inits go->vidq_active
+instead of properly returning any queued buffers.
 
-> +
-> +  clocks:
-> +    items:
-> +      - description: ISP main processing clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: vclk
-> +
-> +  resets:
-> +    items:
-> +      - description: ISP main processing clock domain reset
-> +
-> +  reset-names:
-> +    items:
-> +      - const: reset
+Can you fix that as well?
 
-Drop names
+Regards,
 
-> +
-> +  memory-region:
-> +    maxItems: 1
-> +    description: Reserved memory pool for ISP DMA allocations.
-> +
-> +  power-domains:
-> +    description: Power domain containing the ISP.
+	Hans
 
-Drop description
+> +		}
+>  		return ret;
+> +	}
+>  	call_all(&go->v4l2_dev, video, s_stream, 1);
+>  	v4l2_ctrl_grab(go->mpeg_video_gop_size, true);
+>  	v4l2_ctrl_grab(go->mpeg_video_gop_closure, true);
 
-> +    maxItems: 1
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +    description: Parallel video input ports.
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Input port 0
-> +
-> +        properties:
-> +          reg:
-> +            const: 0
-
-Drop properties, should not be needed, same in places below.
-
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Input port 1
-> +
-> +        properties:
-> +          reg:
-> +            const: 1
-> +
-> +      port@2:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Input port 2
-> +
-> +        properties:
-> +          reg:
-> +            const: 2
-> +
-> +      port@3:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Input port 3
-> +
-> +        properties:
-> +          reg:
-> +            const: 3
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - interrupt-names
-> +  - clocks
-> +  - clock-names
-> +  - resets
-> +  - reset-names
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    mali_c720: isp@400000 {
-
-Drop unused label
-
-Best regards,
-Krzysztof
-
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
