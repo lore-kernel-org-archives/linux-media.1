@@ -1,113 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795627677;
-	b=0SYPTCl9rvipGnhyyA91JV4MZGCI/pc2npkG/Sm+PoPTl/aoaZHlOMqN0pCpveHViMFa
-	 G2o79Wq+bPuvjrMeWxBUbyF3oWBmBYr8WZaLq8pdOKQ+RTVbonAMeu87q+wh+9KGnLZCX
-	 EcxivEwBckxWnBv5GmJyHyj2UJxyR4ItXSZwtqqMDNy3b9sdDtp8ZbbkxrXtMrDAC1A+Q
-	 G21J+1YuioX4KoWA+G8MhllFvHBHyE+86GhIpQvS8aXnxuSp7W+la9WC4e+MN5TcDcvEN
-	 foZZj87vmVV+HR0SXmO7IIg6M6TmmrIW43ThrUZxRUj0zIrIgCYcEI1S+E/joiq0eRg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795627677;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Hxe1hUMQD6Om17EZrzzZYp5JnZNWIVHMAuKszjIh1ys=;
-	b=MQhrd3hqRxunowmi73VX7hjDiOlllku6B6pnItpL1EfiOiHcxTSEq0eljOH0l1vbDsA5
-	 hSETGXsymgbjJ8eBQ2V2K0jAUv9JkF/Jc6KhO+7Zapo1XHrpG3nctZULTFq08as/R+lqY
-	 51uFm6yxKnEwqa7WWeT1W+g3/itK5YqlaOjMjc/9vG3V4KIlE8g69Rc7iV3rKGE9Dzeg2
-	 PPjkeYCqMAa/e1Tnteuy/4p/l73E8DeIF+7SMk8RYvtZhGphP1g8w16ufnoVJgUnH+D4X
-	 jebbHRq28lSyEntrAhOzJjpJw78t2rxkpbHju/lny5ICkVc50E2JZCauejAbbD+EErA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nb4Awnp0;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XoX02d1B;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795630691;
+	b=3D1oQiy61R1ngua1fzf5b9KvGZzNiuj9e97+OzvriFnZEwtL5g5S7Hbu4zufFCkQiQop
+	 3D+gu6z+jrttmon9wDQpdM0jPRVwc/Ob687Io04ktjWQTExpketfBWpcUpro4iUkLIWJv
+	 zsab0avQRto64VPMcL1uShO9Qd8uyCCCDPcpGjFm9ChlLbkkAp9togoBm1IH9TnvKiBQy
+	 lTV38JtB0piCtkW1njD6zNcdgihKIUo80x2hVRf//PslYjdxnK8q4HYoSo8m7NwIqKsIc
+	 qDaWA+VSg9qJGNjP3DXCY+zPJXfvpwZ649Gy0KtNwDJpkWj+z8b8hRBai00nTTmIkNg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795630691;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=fVZN/fdJ6gAxdrH6s93CyLZ1X49Wg0BRNkGXljCGlbc=;
+	b=OmNfjdFaXTek6SvUETCocDRoba78THsu54GK8+VNpBkcOSx9d+mQ92BkvFBSKh37gyVr
+	 wVOQkZ1qJGYBdBSaDa6DLX6+LHUOzt7e3nqSzmGBpcG1zVbwOO6tWZqyRy2Vsw2GIF1ka
+	 0HXD8Vy+lPz03gEGDVJmC/1Wc3+6KIXbS65MY5V+xtN3dYoOiMFycAlan8NTXG6l1cooD
+	 PJO9l+eNmhwK/umuzAk8qWNOZRiP5bkDgYoBgO+m3CwtX7yQBOABIzMsW74YFNWlscp++
+	 hr2jlhAiAkMUu2DUnURrKYeKcYaewnJLDqmnlFMSiV2YzUG2r3XzWLnhq8FzGsRazXQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gDzgqeMf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.15
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010015.outbound.protection.outlook.com [52.101.193.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F88606A31E
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 17:27:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8F88606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B51606A327;
+	Wed, 25 Nov 2026 18:18:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06B51606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nb4Awnp0;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XoX02d1B
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6APGQBqN715308
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 17:27:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Hxe1hUMQD6Om17EZrzzZYp5JnZNWIVHMAuKszjIh1ys=; b=nb4Awnp0hqP/e/hi
-	3Vw3PzSH44nAdrLZHbko8m0uhZhOldbE4fozp4vbp/Sn4glQ9o2t9btxPEu1ykoq
-	XFYnMDT3R1MESVFuv1E2cm+14zmci0ZMTSXE+v0ZHWM3+MgPQa5U5q9m9uk1U7Wz
-	nmLA0iArnAfqPfySix1tcgGNpsFkzatgIIHjfeYzWx/YJxeigXqCU45sMUWRrmU4
-	w3kCYpjOpfzFlXQ8THClL51LlTiPomW8ta3knvWKCe50ZUQjKLtLdmL9D7Uxs7Tk
-	StaQrT3CZSVkcXv6dFTseicfkWcT3+Z1j8Dsh45PCEbDixSrsA0OOZ5J2yKtirWQ
-	tn6QeA==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5mqbky0a-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 17:27:56 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5eabb3a1bb8so2115331e0c.2
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 09:27:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795627675; x=1796232475; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Hxe1hUMQD6Om17EZrzzZYp5JnZNWIVHMAuKszjIh1ys=;
-        b=XoX02d1BEZUlKyBKzCoWWZfww18njx9MWnIKeaDOsEpX0fOjX3znrqghysYe3ccrSi
-         G25/P30C+hYL7PCnGXGKguV+rNogDR/bcF5tQJt2BEri+ptSSOnOFTE2PYD4U1d1j1FA
-         Ekn98msX9Pax2A2GAlnjhOKesrL00IEc8oaZ6HeiXPTnY8z//vmiu9dYwLj4nhf3p2D6
-         Nv+6an40QgDoAA8v5J7BfRS7u67swaJ5NEpae4uvVY/rHh4y8h0ZBaMjjgJuW3ENGHzT
-         HxG5485aBpRoKXUb/T53clZavf6ogDMn2Ra19FypG8adS3nyn9bhacLERlBPZAFLPvRB
-         BU5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795627675; x=1796232475;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Hxe1hUMQD6Om17EZrzzZYp5JnZNWIVHMAuKszjIh1ys=;
-        b=L01oMCBh+HmSZJDBtO5bameUAV8daibssvRY6nyQPgSNKijsIviugB/dGfeAPkDr/5
-         /lXTXuepTT1Q5psTiw2/nGFey6d1MNRhsVW5tJR7SPzLTvJOEwH1qMRlqjtLMpXx8LGs
-         A+KCsruLLaiqjSYEgooNgRjp5xAIY9I23SPi2Ab4MdXQgqJBf2FX/4XTLBapR97iImE5
-         2dX/mv70drCvCUNbnMiFzm8GKV+FXW4CQx5cmhG1BRvuHzu2Hr4KAxEt2qMU2IPewKT9
-         uvcGtkjpcI/5GA2Z4+nCvsjwlHyzeWqLu9RfRtfAyPRtqq0GH/NwO5k4kmhz4sR8o8HZ
-         IbNw==
-X-Forwarded-Encrypted: i=1; AL+hErHiJn7OzjLBh1/ZTsP4op13Eq47TB71IYjXpBgjsI3T0D8RwQBjBzs6McIWnkZjrkmMy1zUUtMEHfcdmQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Bw3CIk15EqvP46h//S/4L/foA8B5dIMP5V2TAjVd5ZlpVN0Mw
-	/lnAmevwJ+QY/2ceUl7T2LWhO/ExVRg35gV36o5zcR9REwSYNhZ1NAvijABZo3BT0tXrsW5QAWt
-	wWFiD3ub2o3/8JX5Jz30Z7J4R1FdwgcTaiq7GmAIpDBSjP6s1Y3YRQVEnPjdABFRvrOrLUoPO87
-	IE
-X-Gm-Gg: AZFdTZeDxfVe9Tb7u4E+pIUABKSRAckGTbpW/UcN81W43H+th6b0XCmbQXNwKpSmCBW
-	DAH9in0ihvAweTScT8HDYjWTzIkmX97PFgdcDd6juiEmDlpy8u2GxRPHn9jH6TkbWX/W1IyD6SU
-	cBy1wNtDL6DVItfwr4ZBwZ5BuuxGVYb/y6uqXHmkR3bsY/Z6hSK3P93NPhRP/S7jiKF1El6EklH
-	uoo3j3MPmBMJJu6nlqu/x1KbtWHj8UyV44gadqcrjCVlCpqCT6exEVTZUCD0c21W/RWTxYWbf3f
-	J33kW8b2IhYUcz9scWXFBppNtCuiM93r88b2n13mCWjWGpgp4ONQcsP3hvURYWj10bFaK2Zq3Gc
-	XK++YxxIl7laGQm0foTjNopO4304+0uTHrm67viZpttSFtt298/SmsWrZVQgQV0nPRjh4CU6ppn
-	QrmjMbUneB7gPg
-X-Received: by 2002:a05:6122:1352:b0:5ec:e7e:27d6 with SMTP id 71dfb90a1353d-5ee8aeb4a3bmr10304546e0c.4.1795627674974;
-        Wed, 25 Nov 2026 09:27:54 -0800 (PST)
-X-Received: by 2002:a05:6122:1352:b0:5ec:e7e:27d6 with SMTP id 71dfb90a1353d-5ee8aeb4a3bmr10304533e0c.4.1795627674371;
-        Wed, 25 Nov 2026 09:27:54 -0800 (PST)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513acff65bsm695470466b.4.2026.11.25.09.27.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 09:27:53 -0800 (PST)
-Message-ID: <f53cfee8-3fee-443a-aad9-cf0c36e21848@oss.qualcomm.com>
-Date: Wed, 25 Nov 2026 19:27:52 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gDzgqeMf
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hVk4CyMeRsQNU0aopVQKwDICODcQx0rdiw2Zq/6LJmDL+NXvTBv9zq395HTWNo4LIp4l2DHNpFV5jZ3lERRYObECUhp8rkq2vaSrtuhlSvbaA7fY558uXp7Iz4Ek8JaIm7NtOqJFRkV15LHAFuXkAiym6pZxp1elT5ksc0nfsRvXhfvndCIcLURgYlhm93RubwJ8drZiG5+rxteOdTjUIHvbLYdJFVuaPLWU7D7jO6Uo+UkWjtV/p/X3Ws36srKTc46EmWleFYsl9p3wFAmLOVhxa8DqQph8fAQSd2FChw4rD2azm7H0h6sOZWxOc5ayFKsWcWoO5CkHFWeAtBWgGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fVZN/fdJ6gAxdrH6s93CyLZ1X49Wg0BRNkGXljCGlbc=;
+ b=xFVxjq87z8xot6B93yD2a4rw3h05RkEiLqp25f3efN2S25MUQsUwZiu7NPTPiJ2/wN6NMlNR8QOJWbYZksQ0x2pj5Y287kKDEwKaxQ/DRKm8PfsuAMO+xmqemOf6LkCBltDy0d5JiNEqBFh/j8WuOmpVRGD84ZsvA+n/GaEN3iAQSzseXH0MeIUmt0nkEtoiKGLMffNsYbJC7Yk3PoRhlAK6xRo9+Nm6x174iatexqIlwnAgT9kJyDcPOFSXfCsmqn4XmhEQoIwrVKjir+Fsrdi25m6+3cB3sXl7OUzgKb14PJP+kUYYg2+ACfgX5U6FEZlEM3fsWzm9TAf3yHFYUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fVZN/fdJ6gAxdrH6s93CyLZ1X49Wg0BRNkGXljCGlbc=;
+ b=gDzgqeMfN05HN3SBG0+uk2+/sRprdsXEntGRAvmzAFqzyOeFMTu5aJ6cpn8XEzGTjBESydLptGlwXPWKYRlnBClZ+EXhOYdREjDNpODcXUJW5nIOiE6qSnji3wgDJG5egT9K4o0tHWb91IOf4HIsLGBrpP38NXXyAyF/M0iDi5U=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
+ by PH7PR12MB6609.namprd12.prod.outlook.com (2603:10b6:510:213::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Wed, 25 Nov
+ 2026 18:18:05 +0000
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68%4]) with mapi id 15.21.0662.001; Wed, 25 Nov 2026
+ 18:18:05 +0000
+Message-ID: <5fb8bb60-7d9f-49b1-899c-40a890fdc14b@amd.com>
+Date: Wed, 25 Nov 2026 19:17:51 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Alistair Popple <apopple@nvidia.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling
+ <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com,
+ jhubbard@nvidia.com, chaitanyak@nvidia.com, Leon Romanovsky <leon@kernel.org>
+References: <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
+ <20261123165716.GM179082@ziepe.ca>
+ <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
+ <awT8prWsj11TBdmP@nvdebian.thelocal>
+ <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
+ <20261124142032.GN9566@ziepe.ca>
+ <7a5a2d3a-e42e-4dc0-8d22-8dd1bd249501@amd.com>
+ <20261124194618.GC114530@ziepe.ca> <awZ_Os1pXelOGaFP@nvdebian.thelocal>
+ <fb9a6b12-c134-4e40-86a5-dbcb59c0b91b@amd.com>
+ <20261125155559.GL246011@ziepe.ca>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261125155559.GL246011@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0170.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b7::11) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -117,229 +126,183 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/12] media: qcom: camss: add V4L2 subdev streams API
- support
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        linux-kernel@vger.kernel.org, Hitesh Patel <hitesh@ebytelogic.com>,
-        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
-References: <20261125080001.2540101-1-gjorgji.rosikopulos@oss.qualcomm.com>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <20261125080001.2540101-1-gjorgji.rosikopulos@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA2OSBTYWx0ZWRfX9P/IpI61Y9Io
- gY88qdzzVM45hOvySKvefhM6gwBQNwl7GBfktuQF9A2MDmzhRVK1M8xxYmYMne7mpCSy1N7XLg3
- TXaf4eAai5i6CC0mWSCAt7NKpBamnZQ=
-X-Authority-Analysis: v=2.4 cv=Bb9NQbt2 c=1 sm=1 tr=0 ts=6b071a9c cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=GL0DwK9HbhsTW42qer0A:9 a=QEXdDO2ut3YA:10
- a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA2OSBTYWx0ZWRfX5iOwgbkh2j92
- x4LTAkDlIqLewQ8UJPBVZtSRucCbaLupZQefm6W0dL/tMIRLOw4vvpEhlyLWN3DwftRlOEoK7Ry
- 9FaMnjdHgfMUqZy2cHETSNK/eAB/rtsazGFHjCfpnw57G6NzJE+SSP2bhTFU1c2JoB7xouCg8V0
- 5v/m2JYVZt0aiywTUpOD7iANRtmWyea5hN/rhDjmkVloMN2HK7TmLAHKuJ0U5ORFLpfmpefEtRK
- X5DlrE43PHzI7Tts7Egqj12gOmVYxMExL19cL0JI3FR60il22XkuGKVBovr65x/idLcd7OV8Gw1
- UY12Uo3YpUYJtR3k3cKSdtwEu/46VzVStzH7QeFx1DYtZD6v4dLV3L/dUiNSl6jLXXQ5fnlMAB3
- NP26FbwJDIELfbXQXdlqClxLUPyOTKD5UtRJ9q6ddqg+qiOGylmNVoPdWNPA+kj4NqhRin+Sov9
- AI8k9ldMuFYwQDhJ3hg==
-X-Proofpoint-ORIG-GUID: BqE9psTo1Je3b36Mc6IZslMLnvNR65MS
-X-Proofpoint-GUID: BqE9psTo1Je3b36Mc6IZslMLnvNR65MS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-25_04,2026-11-25_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250069
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|PH7PR12MB6609:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6663ed0-833a-4f71-8223-08df4b2072e0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|366016|261022115727099003|261028144727099003|261026121527099003|261022075727099003|261022105027099003|261026140227099003|4143699003|5023799004|56012099006|10067099003|261102130727099003|11063799006|261021123027099003|261102123227099003|261021121427099003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	JmSPTPyL4snGzAzwmSyNoAQA3FggNief9Q+beqh+vxcQw5/BcmdjG3K36jgaWBEyXWQKY1HepbV/uB4FTF7CSfDB8hYbyXtv6blTUiwTjFCh7HuBcOUYuB/LzeDvu0oEcwX7f0VNK5GWXImi7mVN614M0ro153zLlYJGN2znBFATQ+tx9S2+1Socz2x5vnurRlnw4hzj+OAI3Bx1iKwoz8E8WtUUcvpnN6zkZXgGHe5YWfjmuKUZcFWOKXkp7ZoA6Mcf6EoTgpKmYRUxrwvu5SIWXYyaw37QQLW9RUMbqOgiGZYtGNhxF5w0Iu3MCJrrmFQWhWC8A9QFjbnct3dNf4fZPotcRgol94VTiGsv8mrvxdJR5egt77iRaq5gS5xChcCfFc5AQ65xIPOglCsNzTwbXWk8lLTrE1w2dJiFrbk0dkm3MfT2qxHBSHXC4xqf2357CVukSexs8fR4RKbNZNyen1OE1LIPKlRAVPRKZ+/bbIF6rDg51S/3NhwKKDjOnIi0KeRk+235pjnxV78u/hCEY6BWPkC4Lxt/Pr5bixEtsf0fRRbx7pvcviJnVZOQkCQgDw1JFBAGU+fPTEdwcIh/FNHzxdaVymlXLTvtshfOAXVOcjbmkrhhguEvbSWggBhhL74S+DpZXGUfXdX4rPM7DdSGDWjmpVpNUCVGJqY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR12MB5673.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(366016)(261022115727099003)(261028144727099003)(261026121527099003)(261022075727099003)(261022105027099003)(261026140227099003)(4143699003)(5023799004)(56012099006)(10067099003)(261102130727099003)(11063799006)(261021123027099003)(261102123227099003)(261021121427099003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?di9uYUEvMzM1ZUUvWG11cXo4L0dGN3hTQ1lVU21EWG5GOEhzUGZZUkJ5ZzVN?=
+ =?utf-8?B?aWRJaGxnSmd4R3FBSGNNOGZrM1MxMnl0anJKTXFqcWt4U1pxNUQzOWZTc1dG?=
+ =?utf-8?B?MTgwdFBuNmVYOTU0TGV0VUNFMFJJNWJlVEtrZU1oZ3h5em5mZUF5NXdJbnNi?=
+ =?utf-8?B?OVJUTlF3SmRweWQxaFEySEVlcWFPMGRnbE1Lam1LamZTMUJaUS9DUENFR2NZ?=
+ =?utf-8?B?cng2SXV1Qm5iQ240WC8yNjRRRkNLdStRVktoeHNuVUppM0phUHRQT1ZoTzBJ?=
+ =?utf-8?B?bm5ka1U4TXVMQURtUmtPNElCQzZDMi9VRjNta1UwTkVqTGVKNG9tdnF2c1d6?=
+ =?utf-8?B?UzJpcWRuTVplSTdkMnhMSVROZ0xveFlpR3kzWWhlbXZJNkIzclZORFNYaG1n?=
+ =?utf-8?B?R2pHWlRvREpBT3VTbWR2OEpPdDJER01uKzc5QjBNcXJ3R21MZTdiOTFtRWlw?=
+ =?utf-8?B?d0JnbUJUbWFCU01QT2ROakVKSHlJOE9xbEJNQncySVVEaERkTGsxKy9hVzJp?=
+ =?utf-8?B?UXZlSUdUdlA3Q0ZRa0s5YUJUNzFXeGZSelNGcjJEb1lrWk8zOWppUUV3ekRq?=
+ =?utf-8?B?bnJCVXJ0N1BITTQzbjVzT0VNQ1BGaGl1VnBaK0dVZXA2MW01d1BwV3g3WVRW?=
+ =?utf-8?B?bmoyT1oxMjJHQU90dUFYeUkyZVBLZUxGZDJ3bWFUMHBmcUdmckJ0VkxCSEJY?=
+ =?utf-8?B?MnJrVllsVWpkbjNJN2hFRWF5ZExKTTJ3dC9BQ3ZjWll3VExyR2IwR2Nub2lu?=
+ =?utf-8?B?L2RoMGVCRUN5cTgvN21Ya1ZUcFczeVFFRVI2U3ZmMElpWi9rTDVtN293NzhC?=
+ =?utf-8?B?REI2UTRydlhINVVRTWorYXoxeVZud1JBcUhWUHVpbGczUjNpMXB0aG96d05p?=
+ =?utf-8?B?VGpCWmE1NlRySExpNjRRY1hDVDVVOU1yUXJXeVpoK0dnUWovdUt3ZE1nZERS?=
+ =?utf-8?B?V2daaXRnc1A2Z0tzWG13YnM2bEVNaTFjTXZhdWNWTmlPYnExYWYrdTFnMFpR?=
+ =?utf-8?B?Q25sa29aYWFBUUU3WnFUR0ZLMzdZZm5lQlBOc2hTSDM0UjJqekF6NmdVU24v?=
+ =?utf-8?B?aXVOY2g3YmNKeExVdVVjaDRqdDNmN2pIcllEMEdtZkNlV2hLd3dpODZibXJx?=
+ =?utf-8?B?TjNMcU8rVnVCVHBWeXhmZ01vbnFjSnZzYjR0ZVZVWTNTSFNPUm9EaktCdnhz?=
+ =?utf-8?B?SzVlazVIRzZ1TFRXQWR6bDFlUU9lS2ZJUWVIbUZvdWd1MmhsSSs2S3QrYzdQ?=
+ =?utf-8?B?NmdiRFJLRkdQek53bDl5bW4vekk3MHFMQVorR2lUbjJvK0hDQ016S3J1UHJv?=
+ =?utf-8?B?cWpKSmRSa1V3bGdkYUxCNitwQTlDQnk3aU1GQW9hMnRvV3A1N1hQem9LMG5J?=
+ =?utf-8?B?c2NDbkNiZ0w0MUNYS0hkU21WUVNub0RROGRlbFVQbFhzcTU1U1RRcEJhZ3N2?=
+ =?utf-8?B?ZEs5Q0pJWFFtdmpldHdzaHphaGFOTERjMkxUQjN6Sm81V3RaSWN1eXVQOG9k?=
+ =?utf-8?B?cU1LUjZtTmgzZVZBR3pBVnZIbCttRGJtNENDRHdBRWUwYmo0VW9oTHpQb2dW?=
+ =?utf-8?B?TmZaOXJuMVdMRVhudXNieXBScFNiYXVOK2pCNXVhMU9qRDd6RHZPYU8wa3NK?=
+ =?utf-8?B?dEJBcmp0NldTYzdNZXZ0T29TKzQ4dENBZTh0bWxUbVpZU1NLWEpIcWhzK29J?=
+ =?utf-8?B?Z1ZKbk1iQ1BtbkVDcitBWlM3WTlkN3l5TjhTMXcyYTY0UC9UNUplNUlnRU93?=
+ =?utf-8?B?amRvcmp2ZnNPYU5CNTZFc1hIWUJFMmdoV05zTnVLZU9TdVVoYmFYM0daRGFK?=
+ =?utf-8?B?OXd0Q1NTVFVQVjlSWDZocExMMFZWU0JsR3lSZ0hwY2Jzb2taUG1aMlppdUxS?=
+ =?utf-8?B?M0dYdlVQdGVhZFZxcmtsYjJZVWRSVWRyZmh4NHEyU3VTVXR6ZlkxY2JJVmdY?=
+ =?utf-8?B?TWZHblhIck41TWVIRVFzamsyUjFQWHFEZDIvQU55ZVVibE1yUWt1WHBpME1q?=
+ =?utf-8?B?QSs2a1JPcGtwYmhJT1RMcUMwNkdnaEVMUlZJNDl4OXdIZ3NhTElja0hHRVRH?=
+ =?utf-8?B?U29KOFJWdzJRVUZudmVPNFVMRmlDNzJuamxyd3BXRmlIaUpjNy9rMmcvcnNn?=
+ =?utf-8?B?QS83U1N1TXNWMzJ5NzR3Wk9TY2E3a1d1NG4xTndZVlEvR3RDOGNhRDZ0eUVL?=
+ =?utf-8?B?N2pJaDNBbnczK2Y1QWRyVWdkU3BtUE9TeDdBZmdQWDhkcGNPMHE4Q1c3UEJh?=
+ =?utf-8?B?L2FDSHZUK1luVXpkU004UlNtdFNYNHBhMVFtZEJkTGk0cVpEUlNrUUZOR2FY?=
+ =?utf-8?Q?lyJSRbwRoDqA4NuSt4?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6663ed0-833a-4f71-8223-08df4b2072e0
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 18:18:05.1243
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LRPOz1HssV9UudqDQuPsXwYtJPdHkmaQeFq9nqYmRUjTPnFAhYVNN+DG69ejg/pd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6609
 
-I will RESEND the series it seems my from entry in gitconfig was somehow corrupted...
+On 11/25/26 16:55, Jason Gunthorpe wrote:
+> On Wed, Nov 25, 2026 at 12:19:08PM +0100, Christian König wrote:
+>> The low level API which talks for example to the IOMMU driver for
+>> creating the information how to access the buffer is simply not the
+>> task at hand for that framework. The stuff we already handle is more
+>> than complicated enough.
+> 
+> No matter what name you give it we need something in the middle that
+> can see the phys_addr_t and the iommu_domain..
 
-Apologies for that.
+No, absolutely not. That should be given to the exporter so that the exporter can call the DMA API to create the DMA addresses for the importer.
 
-On 11/25/2026 9:59 AM, "Gjorgji Rosikopulos gjorgji.rosikopulos"@oss.qualcomm.com wrote:
-> From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+The idea here is that the importer give all the information to the exporter so that the exporter can do the mapping on behalves of the importer.
+
+> If you don't want DMABUF to be that thing, then I'm not sure what you
+> have in mind.
+
+A P2P DMA API the exporter can use to create the addresses for the importer.
+
+>>> If I drop the type/placement negotiation for now and focus on SGT removal I can
+>>> simplify things a lot. Plan would be something like:
+>>>
+>>> 1) Introduce a new C data type (dma_phys_list?) for exporters to pass physical
+>>>    location info and context for mapping.
+>>
+>> Something like this maybe?
+>>
+>> struct {
+>> 	u32	mapping_type;
+>> 	u32	num_entries;
+>> 	union {
+>> 		dma_addr_t	*dma_addr;
+>> 		u64		*generic_64bit_addr;
+>> 		...
+>> 	};
+>> }
+>> ....
 > 
-> This series adds V4L2 subdev streams API support to the CAMSS driver.
+> "phsyical location info" means phys_addr_t and related, not
+> dma_addr_t. Step #3 has it as the *input* to dma_phys_list_to_sgt().
 > 
-> Each subdevice gains streams-aware enable_streams/disable_streams pad
-> ops alongside the existing legacy (non-streams) subdev ops, guarded by
-> a new per-instance streams_enable resource flag.
+> The flow today has the exporter get a phys_addr_t (ie a struct page),
+> build a scatterlist and directly invoke the DMA API.
+
+Yeah and that is completely correct and should stay that way.
+
+> The primary issue here is the exporter *direct* call to the DMA API!
+
+Why?
+
+> We cannot disconnect this from the DMA API, ie to use an iommu domain
+> or ualink, if exporting drivers are hardwiring calls into it.
+
+Well the plan is to not disconnect it at all. The exporting drivers just says to the underlying API here is my buffer please map that for this importer and that result is then given back to the importer through the DMA API again.
+
+> Fundamentally the need is for the driver to get the phys_addr list,
+> exactly like today, and then pass it to an op which formats that into
+> the right data structure for the importer. Be it dma_addr[],
+> iommu_domain, or some ualink_addr[] - or whatever.
+
+No, the phys_addr type should only ever been seen by the DMA API and not by DMA-buf.
+
+Otherwise DMA-buf becomes the middle layer for creating the DMA mapping and that was I want to avoid.
+
+> This is the main issue here, disconnecting the exporters from being
+> hardwired to the DMA API.
 > 
-> Patch 1 is a standalone bug fix on CSID gen3, found during RB8 multi-VC
-> testing: CSID reset used to program CSID_BUF_DONE_IRQ_MASK with one
-> write per enabled VC instead of accumulating the bits into a single
-> write.
+> That's what Alistair is explaining. This sequence:
 > 
-> Patch 2 factors a pad-to-port helper out of csid_get_sof_seq(), used by
-> later patches.
+>>> 2) Introduce two new dma_buf_ops - map_dma_phys_list() and unmap_dma_phys_list()
+>>>    - which are replacements for {un}map_dma_buf that converted exporters use to
+>>>    return a dma_phys_list instead of returning a sg_table.
+>>>
+>>> 3) Move dma_buf_phys_vec_to_sgt() somewhere other than drivers/dma-buf and
+>>>    rename it dma_phys_list_to_sgt().
 > 
-> Patches 3-9 add the CSIPHY/CSID/TPG/VFE/camss-video mechanism:
->  - CSIPHY: passthrough routing and shared D-PHY lane enable/disable
->    gated on stream-count transitions, dispatching between the generic
->    PHY framework and the legacy PHY backend.
->  - CSID: configure_stream() is reworked to take a port_mask and a
->    per-port {vc, dt} config array shared by all six CSID backends
->    (gen2, gen3, 340, 4-1, 4-7, 680), then the CSID subdev itself gains
->    per-source-pad routing (a single sink stream propagated to every
->    source pad by default, remappable for multi-VC sensors) and VC/DT
->    discovery via get_frame_desc.
->  - TPG: the single fmt field becomes a per-stream array, so the
->    generator can drive several concurrent virtual channels, with one
->    get_frame_desc entry per active route.
->  - VFE: streams-aware pad ops. VFE lines are inherently single-consumer
->    (vfe_link_setup() enforces one link per pad), so no refcounting is
->    needed there.
->  - camss-video: the video device pipeline walk now checks, via
->    v4l2_subdev_has_op(), whether the directly-connected subdev supports
->    enable_streams/disable_streams; if so it issues a single top-level
->    call instead of manually walking the pipeline one subdev at a time
->    with .s_stream(). Falls back to the existing legacy path unchanged
->    when the remote subdev doesn't support the streams API, so no other
->    platform is affected.
+>>> 4) Update dma_buf_{un}map_sgt() to call the new map_dma_phys_list() ops and
+>>>    dma_phys_list_to_sgt() to create an sg_table for unconverted importers
+>>>    importing from a converted exporter.
 > 
-> Patches 10-12 set streams_enable per SoC: SM8250, SA8775P, and SC7280
-> (dispatched through the legacy PHY backend on SC7280, since it has no
-> camss child node named "phy", so camss_detect_legacy_phy() puts it in
-> legacy PHY mode). Every other platform keeps using the legacy
-> non-streams subdev ops, so these are a no-op everywhere else.
+> Effectively converts all the exporters to produce a phys_addr_t, and
+> then moves the DMA mapping action into one single place in common
+> code.
+
+Ok in that case I have misunderstood that and that is still a clear NO-GO from my side.
+
+The exporter should talk to the DMA API and create the mapping on behalves of the importer.
+
+Regards,
+Christian.
+
 > 
-> A practical benefit of the CSID routing change (patch 6) is routing
-> flexibility for multi-VC sensors: the CSID's routing table maps sink
-> streams to source pads/streams via userspace-configurable
-> v4l2_subdev_route entries instead of a fixed pad<->VC assignment, so a
-> sensor emitting multiple virtual channels can have each VC directed to
-> a different RDI output (and thus a different VFE line/video node)
-> with a set_routing call, rather than being constrained to whatever
-> fixed mapping the driver hardcodes.
+> With one single place we can figure out how to replace it with a call
+> that does an iommu_domain:
 > 
-> When a sink stream is shared by multiple source pads/streams, CSID
-> only enables the corresponding upstream CSIPHY stream on the first
-> source stream that needs it, and only disables it once the last
-> remaining source stream using it is disabled. Enabling or disabling
-> additional consumers of an already-active shared stream is a no-op
-> upstream, so no consumer can double-enable or prematurely disable a
-> stream still in use by another. This also avoids ever hitting v4l2
-> core's own -EALREADY re-enable gate.
+>>> 5) Add dma_buf_iommu_map() taking a IOMMU domain/iova/offset/size to be called
+>>>    from iommufd for mapping an attachment into an IOMMU domain.
 > 
-> Verified on RB8/SA8775P hardware, driving the CSID test-pattern
-> generator directly (no sensor), for 1, 2 and 3 concurrent virtual
-> channels through CSID to separate VFE RDI lines. Entity/video node
-> names below are resolved via `media-ctl -d /dev/media0 -e <entity>`.
+> But that relies on iommu_map having access to the dma_phys_list *which
+> is true physical*
 > 
-> NOTE: the V4L2 subdev streams API is disabled by default with the
-> static bool v4l2_subdev_enable_streams_api in
-> drivers/media/v4l2-core/v4l2-subdev.c. it must be set to true to
-> use the stream API and reproduce the testing below:
+>> I think a whole bunch of other drivers would be really happy to use
+>> that interface as well, yes.
 > 
-> 1 VC:
->   media-ctl -d /dev/media0 --reset
->   media-ctl -d /dev/media0 -l '"msm_tpg0":0->"msm_csid0":0[1]'
->   media-ctl -d /dev/media0 -R '"msm_csid0"[0/0->1/0[1]]'
->   media-ctl -d /dev/media0 -V '"msm_tpg0":0/0[fmt:SBGGR8/1920x1080]'
->   media-ctl -d /dev/media0 -V '"msm_csid0":0/0[fmt:SBGGR8/1920x1080]'
->   media-ctl -d /dev/media0 -V '"msm_csid0":1/0[fmt:SBGGR8/1920x1080]'
->   media-ctl -d /dev/media0 -l '"msm_csid0":1->"msm_vfe0_rdi0":0[1]'
->   media-ctl -d /dev/media0 -V '"msm_vfe0_rdi0":0[fmt:SBGGR8/1920x1080]'
->   v4l2-ctl -d <tpg-subdev> --set-ctrl=test_pattern=9
->   v4l2-ctl -d <rdi0-video> --set-fmt-video=width=1920,height=1080,\
->     pixelformat=BA81 --stream-mmap=5 --stream-count=20 \
->     --stream-to=vc0.raw
+> Right, that is clear now, that it is not just iommufd that wants a
+> dma_buf_iommu_map()
 > 
-> 2 VCs (vc1 added in parallel):
->   media-ctl -d /dev/media0 --reset
->   media-ctl -d /dev/media0 -l '"msm_tpg0":0->"msm_csid0":0[1]'
->   media-ctl -d /dev/media0 -R '"msm_csid0"[0/0->1/0[1],0/1->2/0[1]]'
->   media-ctl -d /dev/media0 -V '"msm_tpg0":0/0[fmt:SBGGR8/1920x1080]'
->   media-ctl -d /dev/media0 -V '"msm_tpg0":0/1[fmt:SBGGR8/1920x1080]'
->   media-ctl -d /dev/media0 -V '"msm_csid0":0/0[fmt:SBGGR8/1920x1080]'
->   media-ctl -d /dev/media0 -V '"msm_csid0":0/1[fmt:SBGGR8/1920x1080]'
->   media-ctl -d /dev/media0 -V '"msm_csid0":1/0[fmt:SBGGR8/1920x1080]'
->   media-ctl -d /dev/media0 -l '"msm_csid0":1->"msm_vfe0_rdi0":0[1]'
->   media-ctl -d /dev/media0 -V '"msm_vfe0_rdi0":0[fmt:SBGGR8/1920x1080]'
->   media-ctl -d /dev/media0 -V '"msm_csid0":2/0[fmt:SBGGR8/1920x1080]'
->   media-ctl -d /dev/media0 -l '"msm_csid0":2->"msm_vfe0_rdi1":0[1]'
->   media-ctl -d /dev/media0 -V '"msm_vfe0_rdi1":0[fmt:SBGGR8/1920x1080]'
->   v4l2-ctl -d <tpg-subdev> --set-ctrl=test_pattern=9
->   v4l2-ctl -d <rdi0-video> --set-fmt-video=width=1920,height=1080,\
->     pixelformat=BA81 --stream-mmap=5 --stream-count=20 \
->     --stream-to=vc0.raw &
->   v4l2-ctl -d <rdi1-video> --set-fmt-video=width=1920,height=1080,\
->     pixelformat=BA81 --stream-mmap=5 --stream-count=20 \
->     --stream-to=vc1.raw &
->   wait
+> But I don't understand at all how you imagine to implement
+> dma_buf_iommu_map() if you don't want this in the DMABUF core code.
 > 
-> 3 VCs: same as the 2 VC case, plus a third route
-> '0/2->3/0[1]' from "msm_csid0":3 to "msm_vfe0_rdi2", and a third,
-> concurrently-started v4l2-ctl capture on that line's video node
-> (vc2.raw).
+>> That totally sounds like a plan to me.
 > 
-> All three cases captured the expected, exact frame byte count on
-> every VC with no dmesg Oops/BUG/WARNING/overflow output. Additional
-> early-stop and staggered-start variants of the 3 VC case (one VC
-> starting/stopping while the others keep streaming) were also run and
-> passed.
+> I'm confused if you agreed to what Alistair said :(
 > 
-> These changes apply on top of v7.4-rc1.
-> 
-> Changes since v1:
-> - Incorporate Loic comment for csid and extend configure_stream
->   instead of adding new enable/disable stream api.
-> - Incorporate Bryan comment for moving stream_enable in per SoC
->   resources.
-> - Add Hitesh changes for SC7280
-> - Drop the fix for csid to each vfe link. It is part of another
->   series:
->   Link: https://lore.kernel.org/all/20261122-camss-routing-fixes-v1-0-0deeeaca2622@kernel.org/
-> - Incorporate Bryan comment and remove csid lite check for port
->   mapping and add route to each port. Although not functional for
->   full VFE/IFEs, this is more likely to be fixed in the near future.
-> 
-> Depends-on:https://lore.kernel.org/all/20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org/
-> 
-> Gjorgji Rosikopulos (11):
->   media: qcom: camss: csid_gen3: Fix multi-VC buf-done IRQ mask
->   media: qcom: camss: Add csid pad to port helper
->   media: qcom: camss: Add streams enable field to camss resources
->   media: qcom: camss: Add streams API support for CSIPHY
->   media: qcom: camss: Add per-port config to CSID configure_stream
->   media: qcom: camss: Add streams API support in CSID subdevice
->   media: qcom: camss: Add streams API support in tpg subdev
->   media: qcom: camss: Add streams API support for VFE
->   media: qcom: camss: Add streams API support in camss-video
->   media: qcom: camss: Enable streams API on SM8250
->   media: qcom: camss: Enable streams API on SA8775P
-> 
-> Hitesh Patel (1):
->   media: qcom: camss: Enable streams API on SC7280
-> 
->  .../platform/qcom/camss/camss-csid-340.c      |   5 +-
->  .../platform/qcom/camss/camss-csid-4-1.c      |   3 +-
->  .../platform/qcom/camss/camss-csid-4-7.c      |   3 +-
->  .../platform/qcom/camss/camss-csid-680.c      |   7 +-
->  .../platform/qcom/camss/camss-csid-gen2.c     |  54 +-
->  .../platform/qcom/camss/camss-csid-gen3.c     |  51 +-
->  .../media/platform/qcom/camss/camss-csid.c    | 521 +++++++++++++++++-
->  .../media/platform/qcom/camss/camss-csid.h    |  22 +-
->  .../media/platform/qcom/camss/camss-csiphy.c  | 249 ++++++++-
->  .../media/platform/qcom/camss/camss-csiphy.h  |   1 +
->  .../platform/qcom/camss/camss-tpg-gen1.c      |  63 ++-
->  drivers/media/platform/qcom/camss/camss-tpg.c | 179 +++++-
->  drivers/media/platform/qcom/camss/camss-tpg.h |   6 +-
->  drivers/media/platform/qcom/camss/camss-vfe.c | 119 +++-
->  .../media/platform/qcom/camss/camss-video.c   | 119 +++-
->  drivers/media/platform/qcom/camss/camss.c     |   3 +
->  drivers/media/platform/qcom/camss/camss.h     |   1 +
->  17 files changed, 1273 insertions(+), 133 deletions(-)
-> 
+> Jason
 
