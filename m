@@ -1,108 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795606001;
-	b=nVl4BX9HyllmV43/W/RkiJMBZNs8L+yh0h085iqmuESHccU0ebXpCzYSPCaQYbuNj5hn
-	 +GzVO/8yY0WUHt61WlRhhCMHDV7o8bRwmhHUAXrgc83lh+nPaX8xJ6Qrxu3VmjmbVRa0h
-	 1QX4GY8b3gUGppjrH2LEaoeD2gbTUoHroaK2QAzzS/wMpvgXFB2u/fSz2a1fb8LXhJ4XF
-	 sgIkceN0hcG5InByuoeli2jaMg2kGOupcY/5QJEIaUSBkRyScwMcn7tgQ0EaX5d7261Ow
-	 KtKqQg6rhqyQtn4GTOKwyZO426PIjPv6wjuWGZgFUdRfWTN3YP+894ZawirPMy8ZgeQ==
+	t=1795606811;
+	b=o//2/aDU+nGngoXAb9SPI4qkqu+3yWok8zaAFr2wp1N/nqSRyfGyL8LDOuvsS9a+p1u/
+	 zch7r9l8YTqQDnK7OtmD/SOqZx9vbU4MjzHEIkPgfdZfQz79yaoVouMy0XK5rZTtuMD4s
+	 sVURV2GDzhuviWbXwXACMdZ5sxWPfrAbgFfmqzU7mRwA9Wqtm3+vihQrx3S50ksko3JZL
+	 Iob6rOBKt+HMmH1pFsDztgFLjHxLiPF6CgitNaEUVlkXdskQDfq5PC4eBu+/bGC/4tWZG
+	 h623zoyNJOcdBzlD8X2yH8ce/xle1COkQFv1gzyobnrRbopzISb1FYD38eFmj1j0jeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795606001;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=mQWld2rf0aUSCLxpuKReQRUF3uIzkNsM8ey4gCHu/88=;
-	b=rnOATAL2L1LY1UpLmfXie+JohFiCAGq0tHdW+6Y5ipSqmoS3QkH4m7fGcjmJ86n4Ge45
-	 56d3cwm77F4D0o8ANo2WLVlGuyLpYDEHnqAHjgHPbYe4M4iD6+8yJ3VnyMTzCBEFRzKV0
-	 0gLAk+frDCp6lJRBye/x6y4LvRnnCJ4s2BcGED+oXQIkz9UOYRpOKHLpWQNcALk2oz/5j
-	 Lur3CIPzRtA57X9A3HCvtuWetDWjl4R+fRq3GAmk2nkveCFhHXfB0DX1LHjLgisVdPabo
-	 08gcXeRVoZmAPgY8zWmj3+jCZgRtIFtfLi0V91JtV+hw4G7PMJEpwAH4B83r1AP/NFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795606811;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ZHBAKn/6mnDMz3G6KYCfWnFqdTg254dkkOYHSR+PjqM=;
+	b=w3WMhEgv7SrozyOWzInFukGHYlT5YCDPzaxTvJqiFceFRzZTL+IhynYIzPzwWSmJOYGO
+	 24nC5JVCbtC/ev7VRIhRwInqnVwRlxj5XI43YjwXgaaBd6K851KlqpQvHrNZIGAE4D7Ro
+	 m24kQcVTtOmw2Xa+fXM7lrSODv2Mpi8ARI8qFNAGAGVNV2KdEjvRZhmJAJQ2oxwmb03ai
+	 FvpL70jvuhxQQYlxMDS2AJqakULuWJH/0VHWW5QM4MK6hMhiGvddtTSeiryrMwqTOuSKU
+	 fMhtR+KcWV7dJ8SQt7l6uoDZ+SPN7RDW+/mTJCCsf/q5aRGynbwOQauG0O66IPRpLfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TlDfi6Fz;
-	arc=none smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a9gL3hGh;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A10D60A383F
-	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 11:26:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A10D60A383F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E27606A31E;
+	Wed, 25 Nov 2026 11:40:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66E27606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TlDfi6Fz
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b4bd3d98bfso7167757a12.1
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 03:26:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795605999; x=1796210799; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mQWld2rf0aUSCLxpuKReQRUF3uIzkNsM8ey4gCHu/88=;
-        b=TlDfi6FzLVQEOp+ixHcB5vNlbsGUZwa4mcaeOkjd0jh97u/dAQPOd+fuIXap9g6xTE
-         AwLzQC2AQVty73GXcw/9igtE6XHnnlMq9jJ4lgp+wwa99Tl5lQn/dXuLJ84uHaT/PFST
-         Egd2SPXKhqhF7vOSWOPQ+XEVOyF7I9XoxILp+628qqpwvs1XkoL/LGvq+wQbbkVdtOVt
-         38te5+rV7/JDiIkqpzLnigVcVLJsMttZn858RdW7lL2aBk9ZtNMwRkW3WNUdKbwaF1Lm
-         +tOC+jz/q1dgHHIfaPAr4ZUYHn7ha59kQ3smCkNx7N0u1KROSCXcFhJ6IJsGV3QxTAlj
-         CXog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795605999; x=1796210799;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mQWld2rf0aUSCLxpuKReQRUF3uIzkNsM8ey4gCHu/88=;
-        b=BBZi1gsIXHUU/sNNK1fEhr0YtNqEP9DRUGeojEeaby09xkC7h0j9UnK177PBAb3xBx
-         48ZAhGOupNB5YCpzlNeqQ1BevvQRBR1QdFEi02pR8Obr0GkgxAg5kvUtDZE/X1LF3mOH
-         XPLCkhfu2310QgIXLSG9+6fkjJmuN/6MHwrkAMMHCABuVc3u77F8bu2F2VWwGRPlyzcF
-         PlIqicEoIxX0HpHrT9iLCa1wUPjrwvQHgP4W/oyslj9NkgGC36/EvWtQF6+f/n06ByTt
-         Wa9dzn8gIRm16AUV/7EvxCTwn7g2563xr5vQudabK5AqAoXV00pt91Su/FIAjr9qo32I
-         SSPQ==
-X-Gm-Message-State: APuU4Z9eXDYOR8TfpqniKkk0jKMkk4n1AmyecQpmJUmDXTdUpEblRniW
-	TSrL4jc/QebeQi7bPz4q7AhPo4Te+sx1VV8Gj4WA5cnI7cwVNu6DkQ8O
-X-Gm-Gg: AZFdTZdN7sCjEskx+asaDkEndIqZm4aDo+SUH0WO8Xea9JtT+qbYZGDcaAvmNl05zT+
-	N5aB9VZxf8zSsT+/8mACMifrS8S0RLjFK/Asm0xP6y5WWaUXCCsNuPzk9f5gI/zlzJJjtzXcLHz
-	0i8ioegLQoCZhAwhJgzs4MFDieE+ys8PCMxDgZ14jdeDYSZzJxm13Lxc7Mjndev3ETamocSONvH
-	gTNMKHutszeIVI9MqYPzaTu3CqEav8kRsc1OYW/CUj5u7vWOyrIaD3Z3KLxjTUhP1X49c/xF6Ir
-	HbGXHt5usbYET4dccb7rOcvucxUnPiGRsyK+MQhttoz+D13CAsCxxZ6FAn8Q0TP778swR9x4W9u
-	nSuJn7g3dd35ZZGbMFDvinCjHOIx/QlPTHkNRmGWuLvffui9h8lgptS6x5BI6IU5c81xCunFenF
-	HYuMQhJldjdSrmQ7nzG82qiLP3qQ1henQwJgGylzS+h9yYToK5d7z9/F7uoNezYHXd5Ew0OH3qI
-	nT8mIcXwkd/T4BFAWGdjvKm2yhGpej9I/vUvB4k0yqugac4wvpILI3jcK5DuwkHiXlwXLreFvhw
-	aiy2GBbd6pObh2WkVW+yK/wpZclldVkYj1xH1tjBFcFuF+3U1ckXCC0i7q4w9q9ZeSHmUt8H+Yq
-	7RMCjvrqDmg==
-X-Received: by 2002:a05:6402:4009:b0:6b9:c43e:19df with SMTP id 4fb4d7f45d1cf-6ba37ed9a8bmr12269161a12.41.1795605998897;
-        Wed, 25 Nov 2026 03:26:38 -0800 (PST)
-Received: from xeon ([188.163.112.54])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6bb1b93a8efsm1202907a12.7.2026.11.25.03.26.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Nov 2026 03:26:38 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a9gL3hGh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795606810; x=1827142810;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cOmxLcOtM4ej56pou+GrQe5UPufOSFf+f+fj4Cpa++g=;
+  b=a9gL3hGhLlCh6f32TRiD5oLAfbO0C3q7V02SivHsCsbO+JrJ4iPIOmLV
+   byLobcN9xa0Elb8ls7bAoWNrHXRKp/bsU2P3KDhFbBBjYbPT69PFBT/Im
+   2gUxVbf93+/s+ParZ4oeCJdtEB/zKlMy5OdAiBvP29uiX21V917qanrC8
+   v7ZRa7Dcl+UjYCLAhecv4ykgS93+4AxR8usuIe5MFEoEZNTLsiBlWkIod
+   n9zZQuh4TM7ecEm0pRSIRAMPdZ+ohHKBr418N+fQ0nQrOEQKkOCqwLKXK
+   6fafRFIU+dUbJvTzjbXNX2ethLnJULYBqa2CJmrq3ILffH9poN8PL6rrD
+   Q==;
+X-CSE-ConnectionGUID: TuDge/YORS2Nt1oUsZ3ncw==
+X-CSE-MsgGUID: xEB5yF4wTcKYiedYqTPVvg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4340891"
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="4340891"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 03:40:07 -0800
+X-CSE-ConnectionGUID: QneYRPHTRYiuHjMchAp8bA==
+X-CSE-MsgGUID: 1vU1F3/2TJiIKgXo4Psaeg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="12062865"
+Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.36])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Nov 2026 03:40:04 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 089BD11F920;
+	Wed, 25 Nov 2026 13:40:08 +0200 (EET)
+Date: Wed, 25 Nov 2026 13:40:08 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Manik Bajpai <manik.bajpai@intel.com>,
+	Divyamani Tripathi <divyamani.tripathi@intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	German Pablo Lindo <germanpapulindez@gmail.com>,
+	Christian Murphy <christian@themurphys.eu>,
+	Hans Verkuil <hverkuil@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Subject: [PATCH v2 7/7] ARM: tegra: Add CSI node for Tegra114
-Date: Wed, 25 Nov 2026 13:26:13 +0200
-Message-ID: <20261125112613.237333-8-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261125112613.237333-1-clamor95@gmail.com>
-References: <20261125112613.237333-1-clamor95@gmail.com>
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: staging/ipu7: snoop ISYS writes to capture buffers
+Message-ID: <awbJGGu0xANDKrhg@kekkonen.localdomain>
+References: <20261007183311.24637-1-lsa.uz@pm.me>
+ <asaywQrMq-GSrI2r@kekkonen.localdomain>
+ <20261110065119.20575-1-lsa.uz@pm.me>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -112,67 +93,36 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110065119.20575-1-lsa.uz@pm.me>
 
-Add CSI node to Tegra114 device tree.
+Hi Sergey,
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- arch/arm/boot/dts/nvidia/tegra114.dtsi | 34 +++++++++++++++++++++++++-
- 1 file changed, 33 insertions(+), 1 deletion(-)
+On Tue, Nov 10, 2026 at 06:51:25AM +0000, Sergey Lebedev wrote:
+> Hi Manik, Divyamani,
+> 
+> Sakari added you to this patch in October. Is is_snoop = 1 on the
+> capture pin right for IPU7, and for IPU 7.5, which I could not test?
+> 
+> Christian Murphy sent a different fix for the same rows in August,
+> which I missed: a clflush of each capture buffer in buf_prepare and
+> buf_finish, with is_snoop left at 0. If the snoop bit cannot be relied
+> on, his is the one to take:
+> https://lore.kernel.org/all/20260824224139.21256-1-christian@themurphys.eu/
+> 
+> With is_snoop = 1, frames holding rows of the buffer's previous fill
+> went from 301 of 698 and 684 of 697 to none, reading every frame with
+> the CPU, and 4224x3136 raw at about 790 MB/s still ran at 29.95 fps.
+> The patch applies to v7.4-rc1 unchanged.
+> 
+> It carries an Assisted-by tag, which 7.4-rc1 no longer accepts; Sakari,
+> please drop it when applying, or I will resend without it.
 
-diff --git a/arch/arm/boot/dts/nvidia/tegra114.dtsi b/arch/arm/boot/dts/nvidia/tegra114.dtsi
-index f2766c11ee6c3..61120658f0687 100644
---- a/arch/arm/boot/dts/nvidia/tegra114.dtsi
-+++ b/arch/arm/boot/dts/nvidia/tegra114.dtsi
-@@ -53,7 +53,7 @@ host1x@50000000 {
- 
- 		vi@54080000 {
- 			compatible = "nvidia,tegra114-vi";
--			reg = <0x54080000 0x00040000>;
-+			reg = <0x54080000 0x00000800>;
- 			interrupts = <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&tegra_car TEGRA114_CLK_VI>;
- 			resets = <&tegra_car 20>;
-@@ -64,6 +64,38 @@ vi@54080000 {
- 			iommus = <&mc TEGRA_SWGROUP_VI>;
- 
- 			status = "disabled";
-+
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			ranges = <0x0 0x54080000 0x4000>;
-+
-+			csi@800 {
-+				compatible = "nvidia,tegra114-csi";
-+				reg = <0x800 0x200>;
-+				clocks = <&tegra_car TEGRA114_CLK_CSI>,
-+					 <&tegra_car TEGRA114_CLK_CSIA_PAD>,
-+					 <&tegra_car TEGRA114_CLK_CSIB_PAD>,
-+					 <&tegra_car TEGRA114_CLK_CILAB>,
-+					 <&tegra_car TEGRA114_CLK_CILCD>,
-+					 <&tegra_car TEGRA114_CLK_CILE>;
-+				clock-names = "csi", "csia-pad", "csib-pad",
-+					      "cilab", "cilcd", "cile";
-+				power-domains = <&pd_venc>;
-+
-+				assigned-clocks = <&tegra_car TEGRA114_CLK_CILAB>,
-+						  <&tegra_car TEGRA114_CLK_CILCD>,
-+						  <&tegra_car TEGRA114_CLK_CILE>;
-+				assigned-clock-parents = <&tegra_car TEGRA114_CLK_PLL_P>,
-+							 <&tegra_car TEGRA114_CLK_PLL_P>,
-+							 <&tegra_car TEGRA114_CLK_PLL_P>;
-+				assigned-clock-rates = <102000000>, <102000000>, <102000000>;
-+
-+				status = "disabled";
-+
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
- 		};
- 
- 		epp@540c0000 {
+Thanks; both this one and Antti's corresponding ipu6 driver patches have
+been merged.
+
 -- 
-2.53.0
+Regards,
 
+Sakari Ailus
