@@ -1,116 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.83.65
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1795635445;
-	b=PN97BBt05Z/EMy2xJzXtcNQkURGJFT6r2bvAmXCeG/CN2Q8B+BNFEvFrFgKv3cNTZm5t
-	 2gVn7tmGPbGiaIW4RJgtEYWjznmSIXbHlwNrOBZXNXEOtagKwyvN6UnspF0a/3U68sr4n
-	 DCPUnTlIXblJNO9gM99p2l+iNyvNnE7TbwZU3RSDF/mRgyRxfcNcTcsxsc3KfRGEcdGm2
-	 ZDI5HZap3x5kFA5uKUHPdHafuDWXizPlMBeaUZYQg6p4Uk/sC5YvwrKwn6jsokfJmZHg6
-	 EVRkbqQe2ngIqDGxhsb3TGmPlmCMO/DbrBkfpFkZeEK/czPmuPjRjguUH50X4GXbIog==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795635445;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=0ZGk6pHsDzYNq6XXNAeCO9uqaleGWSllomdqlMyf7IM=;
-	b=Or7r/IViu453/vWTxD/qNULekLiVk2btaselWzE2PqBIMIgrC7sKOQ7OkBZ/JWBejWD0
-	 zLNvyAtIZ6RDODuC67yzZIZYogT3zDUWDqnaou10Xz5x1e59xNsxHio85PLrJhPbTYvWz
-	 q6B6Jb38pCPZ5k/MCbPGLWALN7rPhgQ+PMmxuGcl+bxqy8JcZxQgD+9BVZEhsz9b2qmOZ
-	 jI+7RE5j6XrXdK2Y9KYAMefbo8Jm/dR7r2r1iFM8Ln+XM49TgVeAvtwyFWsHsnPtiEzi+
-	 jBnWhGH+kCEw9aqu7JoyYC2OKvegNrAooD6eAQCkngbRsC3b4NKUDhQp7BcYIh4tM8A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=fail reason="signature verification failed" header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=RLSPiJm3;
-	arc=fail smtp.remote-ip=52.101.83.65
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013065.outbound.protection.outlook.com [52.101.83.65])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795635500;
+	b=3eaozir5FLvh4FNuS0HQSQppRsXSRzH8G5drzwLZdVo1JRaBlgOhn7tKNMrHer26Qo1J
+	 ikkAWNjAHzSgIQru2zQFjqnLVgfV+BRuS4PhRWyKo6babvmBicqtJRR5/oe4JO+xQbuJN
+	 JEbVqRw2Ezoj5FBaSUpsoVM5T4Y7sHXKBhycaUbK1fucxvbhud1SEEX5Anm4NOjn+h6sv
+	 +VaGg/GSOji/ddLd0NhhuGDViyOlJclDv583QlE/0sOFvzzJxfAxvTgjz7ipOJkiNhGH0
+	 zArJhldCELD13ArCBBc9syr11C1l0S4YPgrKrMnyzRMgSEepstb5ZwlTlXD+DIXoczg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795635500;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=dXKYI3EJxaQV5jIHUv9yi8G36X/Qj3DOc1D0IScmz1Y=;
+	b=rgHuciEKR0mGSr4u+qNs+B1CnEzgGJ0t9BaPlhxASFasEz/nR0114Qq+1Hr8HzlVt/sD
+	 mQg4OGISWsA40LTyDv+aZBBnnwS12rerT7hxZ3aUrXLqrkz6Q5mnhDgU2swTE19KyYEYt
+	 t25d6LQJNGkMhVRS1vyIovLdT1XBWVT3fTmJ4MD6rHNoOQU0KAEC6MYunTkgEQITwkhAK
+	 D1NBi9uJ2XeNc4jfGJk5K+130BXPdKhdUmeZhfU6pn4lTa7hVbRCGyU/QvWGzIq9YcBwt
+	 F4QQ4MZl9tLgGa1ldf+88oUiPQctWR3ZJqGcJU/wLy6EW0OqzLmFJCrzfml/JSdMGew==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MwpqHJf9;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5F1606A321;
-	Wed, 25 Nov 2026 19:37:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA5F1606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F19606A334
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 19:38:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0F19606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=RLSPiJm3
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ycY0lCxzDa7uhuinD8ncOBqfNz87x92caxxt7ay79Tbhi9tFbuzl79K2Dn9B9YTIhDY36dI4AwixjLsDMrMgRUdZtii6cHYp1YbLa+NrT6jzZtbUMrPDBo+cl1MK0CSGGAJHVo9sFEgW2Am/LqJ4AWDTpcvVJmeYiIXMZM5qpJ4kTjjaCXjm8htcWvWYPlH6fbbhIGl5binJROIyqvkQSIy2QIkxpOT20TBm4PjyqhvfSUXdCNbXWFObQjmDofsg06giMhuEXUSn71rjTrc6bhzTa3WLshlE9dqptY0arJHmaEVwADKzf+dSHw4m9+2+Ct6RkenVTNDsoXw5guRkkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cGyqogHU300/drFrM4sNEmFXB6oM/jL3gCEqeCH2DC0=;
- b=ChAwhXAIbgAiiVfJnMcO3vLNtj5HrGNNSu379IR5+NS6Tuy1cYCpO1ldk8j01PIDYdwLJlUdE5RSn0RJovadaTcuSlEtsJsH1TIphFnKPmbRQXQ+vdfwnJswa2/Y2Ih76zD5JPDJB5SZy4Xi+Di+2H8HfYL6yvCgjlSmYOuxu+XNtrsFbLPO9mHKZ5ALoyFbH7IzHq3EmJeQzryjG/7UODhiIC+kddkPIgkw8T5YlTpAV+EIXQ5C5oDuhwgCXK3Lqz69sWJRf8znvMb9bpebz6ZMvoyODJu7MXY3BJPGat3xK6LyGuqrPfvDqLoyJYdMY39h+NXy2sUaV+pCQ3RDFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cGyqogHU300/drFrM4sNEmFXB6oM/jL3gCEqeCH2DC0=;
- b=RLSPiJm3JUmulxBKTm4yvGRQV8fU08zspa6tEdY7rmwj37HpoGfjSqW6zRkcDrdgqsYTeFGXcBvVSyohKsnCnVHmj9bxeWtRsgin6qsb4ubQyBttiTcKZyWTEpDb2DyNjj3auOPdxI7Wrct5Cmgbs2s38E7UGazIOFwKl5mraXJ71OX9f7R8CAEbGSsCNtKbwxTOQ8SqAZN/Iqy+B/KvJMqR9O5zJwGTrCwcJSZ04xCfaLWxswbYwXLNsRCe1Bqm6iC9sH2o2HLjJoLwAeNNju+NNKijmcXE0txi9UTi2rL2J9od08hyuRgOXhmcsXTOeqr/4GshOwovnCKQiV0UWA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PA4PR04MB7597.eurprd04.prod.outlook.com (2603:10a6:102:e0::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Wed, 25 Nov
- 2026 19:37:19 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0662.004; Wed, 25 Nov 2026
- 19:37:19 +0000
-Date: Wed, 25 Nov 2026 13:37:05 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Nas Chung <nas.chung@chipsnmedia.com>
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Detlev Casanova <detlev.casanova@collabora.com>,
-	"mchehab@kernel.org" <mchehab@kernel.org>,
-	"hverkuil@kernel.org" <hverkuil@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"Frank.Li@nxp.com" <Frank.Li@nxp.com>,
-	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"festevam@gmail.com" <festevam@gmail.com>,
-	"kernel@pengutronix.de" <kernel@pengutronix.de>,
-	"ming.qian@oss.nxp.com" <ming.qian@oss.nxp.com>,
-	"marek.vasut@mailbox.org" <marek.vasut@mailbox.org>,
-	"jackson.lee" <jackson.lee@chipsnmedia.com>,
-	"lafley.kim" <lafley.kim@chipsnmedia.com>
-Subject: Re: [PATCH v8 09/11] media: chips-media: wave6: Add performance
- profiling
-Message-ID: <awc44XyssnfAyyjs@SMW015318>
-References: <cover.1795075577.git.nas.chung@chipsnmedia.com>
- <5702baa6ed97eb30dec14bddba2919252ec8f3c8.1795075582.git.nas.chung@chipsnmedia.com>
- <av9iadpXveXGb0R0@SMW015318>
- <SL2P216MB244104B49860D6D6B3A92821FB452@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
- <8624fb6a39e5e13466882f01ea54842252f154af.camel@collabora.com>
- <SL2P216MB244180F5C6B16CEA1CA94589FB432@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <SL2P216MB244180F5C6B16CEA1CA94589FB432@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
-X-ClientProxiedBy: PH7P221CA0010.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:32a::18) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MwpqHJf9
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso61876455e9.1
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 11:38:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795635498; x=1796240298; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dXKYI3EJxaQV5jIHUv9yi8G36X/Qj3DOc1D0IScmz1Y=;
+        b=MwpqHJf9Zki+TsDgpLUnfz3iPp40YjADzk8uJKW4iaX/Zwuc4txSCT2qW0hS2BEx0g
+         /x3x00L9fmJk9L1f3P/+zNZgVjAK7GGPAHL9jBT+GA3jPx3nQB9eBXxZwvr3N+gnJ25E
+         tpHQbwzTSIeeg5HB1JboF7LiGiPMCWAFUBCpIn17A1jiKAjPJaid+SYLvzVCGPHySIAH
+         Afslz28eQ9JW3GidBgF9AKbS4Jtxw3FLREt8UnXWrX4dta9VcZnn2M9Pwcp19XNVXK+X
+         wYHW9PG5er9VAQSOhaovy3hIrSQzULFNUcJhK0a29YC6TicyUh2bwN85kNEBLTxwugTk
+         mxAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795635498; x=1796240298;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dXKYI3EJxaQV5jIHUv9yi8G36X/Qj3DOc1D0IScmz1Y=;
+        b=BaXSf3wzB8XtvJZTYCSCxyzYeClF23O94jw2K4yQyUouEFwwuaDBZXlq/IvMO8f+R8
+         ehpLwEegdlBRJu+Qmy7CnwZypQCDUinMoLgVfmHZ/teh2ChlTLyJg9YuYmlk8nJmwqyt
+         jr7HLLuDZJr5zoCH8+jM3A3XJkyRmi/6NkvevSXXyE/TGh7UcGE1pqkaqD8Ys4WsoyVW
+         PdTuEJ2ZApyN2/0bYvih4OZ3rjj2NKoZdX9fYgL81b4dJvpCS+qX/fYZHR0Pv7fdhDCz
+         WiKMA42EXIwkYmzbBmmzHnqVAOfqqFUQgQvTEVoNwDaQM7xJgQ5P7G3U9HSLuLHlELcf
+         x8zA==
+X-Forwarded-Encrypted: i=1; AL+hErHCpqvLtflx0AtMHCfO73AOP441Ih1jPRmhIC0wQLJalYonlODzRGOPGxT1JAl2DQZeSaGCowRK2DbTHw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/feBEHdg6BtU+uAmjibc0SePeeEoO2ctOk8zBfhScC8Xmu+86E
+	+08bn0ClUmXvV/Nu+kK6n3UzYIXS4O/DiofW/rzVKI9OGS9aewUO2cc+
+X-Gm-Gg: AZFdTZe1HIVBpX5ZOmuGTaPyebJGROuulGGxw3VieALyweRf/HwL8dbGra385Oc1M8A
+	HuMErbVIdrmbjK1XcuyQvgAyMTmqxmB4RaA41cVH3RhhobUDxu8AtIzgQCsN0LwkemsfWKrvsST
+	NpNSVbq1OrmvJ/T7/oFL+gQvGhTOD1qK2/Mk8/OWxla/Bv2iRV7xiIvfy7QXcS5KX90n1tmnLSP
+	yNOVlBTeXxKLNkH4Iia1YZqWusZrBdhKirrkLijwDZo/+pEJveeZnaR6Ihuw4Yjesk+DZJcMzV3
+	tsAu6YXewlhucUGEPPD/+X7N1FJyBoV86E3APHnrxjO4HttZPtj4Uh/NhmrlDJloFyPxPfL+JQv
+	G48zsx4wGAtruFpsGPt1N0rm2/5kdMpk+tWt07pOuBKuq7eqFAkfZtWesWs2O2RUrrkRwIhwl2Q
+	rgnghxRGV2jlm+fpqjY5OUA25WTqgLe984bv4DP9vzZ/EjjB83kPoSoeVdW+eJEVlf14vr8RuXa
+	a/K0CA5nZe1t9MF+7Sh4GpER/OiZRdxoEl1xuPVFGRG99Xi25MftBsNtyeGod49Xhs2PkiS7mQQ
+	dKkqNhZIPpeMzbnY0UXKLHqW2GYmZNiXAhwj9kVMuw==
+X-Received: by 2002:a05:600c:1549:b0:4bb:741d:ea8 with SMTP id 5b1f17b1804b1-4bb8880ad4amr366178805e9.7.1795635498187;
+        Wed, 25 Nov 2026 11:38:18 -0800 (PST)
+Received: from foxbook (bfh118.neoplus.adsl.tpnet.pl. [83.28.45.118])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884b8429sm848261515e9.14.2026.11.25.11.38.17
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Wed, 25 Nov 2026 11:38:18 -0800 (PST)
+Date: Wed, 25 Nov 2026 20:38:23 +0100
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Kettler Christian <christian.kettler@stiftung-kifa.ch>
+Cc: "stern@rowland.harvard.edu" <stern@rowland.harvard.edu>,
+ "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>
+Subject: Re: Logitech BRIO (046d:085e) stops answering control requests when
+ hot-plugged together with a USB-C hub; usbhid probe blocks hub_wq for 60 s
+Message-ID: <20261125203823.15fc4478.michal.pecio@gmail.com>
+In-Reply-To: <2ced9c1fb45e08a94f56b0f569b01369044b5553.camel@stiftung-kifa.ch>
+References: <3cd5f994a6260960cf7751d6383f2b9afc1baeb5.camel@stiftung-kifa.ch>
+	<6118ad01-65a0-4357-8118-3122479b554d@rowland.harvard.edu>
+	<2ced9c1fb45e08a94f56b0f569b01369044b5553.camel@stiftung-kifa.ch>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -120,160 +103,31 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA4PR04MB7597:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3660842f-c80f-404f-480d-08df4b2b849c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|1800799024|366016|23010399003|376014|7416014|6133799003|18002099003|22082099003|3023799007|4143699003|56012099006|11063799006|261022075727099003|261022105027099003|261028144727099003|261026121527099003|261026140227099003|261102123227099003|261021121427099003|261009223027099003|261021135927099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	oq92TcXIyk8wlgc0csoKjvYt5wJgGeACcXLArltwzHiLWgvKTTueYwQjoP/0QJqMXRLaB8aXNkC5A9v85nsA1VoWZWlmFGo+/T8Hrj8Gbcwn7OSU7i/NGuqD2f5/Omj+wkycMnGUux9xF/jblBw3xy2rnTMmhHatI2gw0ex/rB3F1HqV2DWu80TTk9Z5L6a0ysocsf6N64ZVS0TnMnHdRWfz1WNj6gM/oyeVmWnqv5zdOguXx8cdT11hVOLkatiIJbCtmjdAljuK1s+ZWCAq3NbUCqBgl1/JbaD/e5oYOfuv7XiDYb7i4zn1I14LeH5LHKgKnqcV4qI+lVp3LJeyz8JgiM0I4L7CbwbDatZ59h2ln+nqTcE1ZHXQkZqJ7ERH/5Ef8w39OgYIubEuucfHxkaR2E2w+vwrYMyJ7zIt9USWTDiQQn8J0n0LKBGFFxbRN/+wk8uZGK9D6KB3jXS1lBmJPeYVW1R0PsQOFo1YdfPgNXVbDqwRAE0yelmfvdCpzYGWX2G628AfspfqKb+DNzFM+qXBSLSjO616D4JpSXGGCp1ka2K7bwWePMTAJZXCK21q8pqds+c66nJnMZWwhVNPf0mm4jUZr7oZ+Gw7sKqJH0erSoMKVcw4XdJpumBL
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(366016)(23010399003)(376014)(7416014)(6133799003)(18002099003)(22082099003)(3023799007)(4143699003)(56012099006)(11063799006)(261022075727099003)(261022105027099003)(261028144727099003)(261026121527099003)(261026140227099003)(261102123227099003)(261021121427099003)(261009223027099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?iMVVzTVY7sjTH+dziKS6tq/d+M9cGAcPJES0u/cLB7Vb71Z3URAZ3YsiLq?=
- =?iso-8859-1?Q?lWfSTArTEPoGxuMAUljZeDHgMYZmBj1DOLGi8zE92AY/z6VWF1FyUtxdF8?=
- =?iso-8859-1?Q?dt11iE5+giYeN+PrEK2rUoZQ75wUYKrF5mUHRtmV9YNPklZqOpwQqUQ6Rh?=
- =?iso-8859-1?Q?l+sv1jnpo+WDuQQXiKGboOjuYJPiO5PyTGf+6FXeaFrQ4IVNq9BbH8uciB?=
- =?iso-8859-1?Q?8OxFYcBRZ1z/JneUdvT/nyti/CAC+WkrBWmfVFPtQwek5Tu8m6nzt48yZb?=
- =?iso-8859-1?Q?Cz0/hFIzo+/ZBrNLRiCaOZXQtSqmbJY3B6uRUqpQoHSRIAQNUAsM3w5c0C?=
- =?iso-8859-1?Q?mx8y/ykzZon1XgG4M4UlXWiGZfDCSprQ4q4DZIBOJkM4PKsNC9FSdBBmew?=
- =?iso-8859-1?Q?8C/7f5WmBhMbUY6kpZqUZkTWWFb7523e6fpLFaZJDwA3eLv3oGPkNke9CB?=
- =?iso-8859-1?Q?AR3B//DI8Z+syVE2TMR9vIWqFne6P2UJJLZNYJw1t6VTBZtSwjPvCcH/bz?=
- =?iso-8859-1?Q?a3pDweJcu8u3ISgFCXIHuW5K46OgXJu422+CH+yEYJcCjc+giX2BwD6q3h?=
- =?iso-8859-1?Q?0QBIieBnJZZcJ9D9G8YHVQgsPxdNoAh5Uz3N+o9B5PgYCOO71hQ3wn2L0V?=
- =?iso-8859-1?Q?vA31LQD7aYrb/mBP/U+OjDyncF5TePocwW365QxlkEQKc8/oXdQTilj6Cv?=
- =?iso-8859-1?Q?B76V3DlyD0zjHt+Fa0gZXHBTP09XWoo2GtVFh1PCuk2t/3g0nkxUXU+EpA?=
- =?iso-8859-1?Q?49jSVky02rAoFy7WjrIBE7TYHDBaaW273+/lQn0+V+a12j18maj63EfWaZ?=
- =?iso-8859-1?Q?YZ+lHl+e8BE2mgEykj7uLfZyIHetdtzvw1AlapTA6BPgUpoVm7x7+J1q+I?=
- =?iso-8859-1?Q?buz1b4AvgMd+K7J4+IeJnAfT1joUggnftvuc4IfrmtfDtZe2JIOBD9vpX5?=
- =?iso-8859-1?Q?Cp24hTvt37xS5rA7lBc5InQLzVSs2hn0yQDBpUDJ3utYNqw/QnkSeSWNLy?=
- =?iso-8859-1?Q?+PJ8xeV89tbn0vFoxyUT+gyRyCgrEoXKzpeW7yr9MM0dyI9cNaKpx3kx2V?=
- =?iso-8859-1?Q?mb5YAjDGHnAFF9C8A0IeZjYywgePzheYhidBCfO+e8CbnRrDjHO5OeLPmf?=
- =?iso-8859-1?Q?BH6PM0Rq34w7szxNy9+okvtnSIktgXRmcjlMpLZ73fcXO5fNZgInJTA2h4?=
- =?iso-8859-1?Q?OI9ZQ8rMT50HkDqJimLVK3coFh/08IELHZ/xrOF+HMSRzo6MWAsqWXbi8D?=
- =?iso-8859-1?Q?jmM5jztKa48qU2TAllBCZP10q/C/tB8UOU6WLewnuSz7kolHSv3La+Wmqi?=
- =?iso-8859-1?Q?RTiwpPsrlAJ221Ae4QIfHnjtD1rRH621Pm3/Yv+rA0feusYrzx4rRWHl6k?=
- =?iso-8859-1?Q?Wgq4Qi/z3UHXJfxQ88In7gg4ygRc2Dr/bnxcbx0DwKwzfzWXNjCx7WAn+H?=
- =?iso-8859-1?Q?LO+hNMdmC4EUdwNbJd2cFy/+1ifVXnefGpMWiXFQvADteKETvigGlJIk4z?=
- =?iso-8859-1?Q?SoeDSc1xGwfcPeN5vSSAVgxcNYkI9nZZpgtQ86LJN7iRhD7+OuUIy/8FIR?=
- =?iso-8859-1?Q?lIT8mPRVzVCL280sT8AfI/VpCZE80sVz0NEvi3lOt3P1+odzVIPH/+FG9D?=
- =?iso-8859-1?Q?5h5d1yxiGjRjHyDOZUzanWWKb0aaRGLtSKTx+K3qDhlP96TRZ1RBcHVw6U?=
- =?iso-8859-1?Q?kPWwxIt5duEj3Cuu5eHIumbpOc4bc7e6brt3ski7cpAoiZxh66GF2SAVZd?=
- =?iso-8859-1?Q?3g//8a0KT3obQNqm76kO4v5SvDOKCTwMHDpwfr7+KH8Dn5+hjrqWvLgF4T?=
- =?iso-8859-1?Q?YjM82OdJnhgCrVwJ1/L8LGTYBA5988zjVLwlg6txLfcC3H3Pmhet?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3660842f-c80f-404f-480d-08df4b2b849c
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 19:37:19.2527
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EN9810hmuMyu9IguhCr5TEiD00VFr4X3y2UF5HzObkl0YIwlmrXl/BDah/TNPT6NhQ1lkNUMF2sqFqYaAnZpK981ZTD8JEmLV39SIJ9l9oDPcU+uF3uN+JtEzravCaGE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7597
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 25, 2026 at 06:06:05AM +0000, Nas Chung wrote:
-> Hi, Nicolas.
->
-> >-----Original Message-----
-> >From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-> >Sent: Tuesday, November 24, 2026 5:26 AM
-> >To: Nas Chung <nas.chung@chipsnmedia.com>; Frank Li <Frank.li@oss.nxp.com>;
-> >Detlev Casanova <detlev.casanova@collabora.com>
-> >Cc: mchehab@kernel.org; hverkuil@kernel.org; robh@kernel.org;
-> >krzk+dt@kernel.org; conor+dt@kernel.org; Frank.Li@nxp.com;
-> >s.hauer@pengutronix.de; linux-media@vger.kernel.org;
-> >devicetree@vger.kernel.org; linux-kernel@vger.kernel.org;
-> >imx@lists.linux.dev; linux-arm-kernel@lists.infradead.org;
-> >festevam@gmail.com; kernel@pengutronix.de; ming.qian@oss.nxp.com;
-> >marek.vasut@mailbox.org; jackson.lee <jackson.lee@chipsnmedia.com>;
-> >lafley.kim <lafley.kim@chipsnmedia.com>
-> >Subject: Re: [PATCH v8 09/11] media: chips-media: wave6: Add performance
-> >profiling
-> >
-> >Hi,
-> >
-> >Le lundi 23 novembre 2026 à 09:18 +0000, Nas Chung a écrit :
-> >> Hi, Frank.
-> >>
-> >> > -----Original Message-----
-> >> > From: Frank Li <Frank.li@oss.nxp.com>
-> >> > Sent: Friday, November 20, 2026 5:56 AM
-> >> > To: Nas Chung <nas.chung@chipsnmedia.com>
-> >> > Cc: mchehab@kernel.org; hverkuil@kernel.org; robh@kernel.org;
-> >> > krzk+dt@kernel.org; conor+dt@kernel.org; Frank.Li@nxp.com;
-> >> > s.hauer@pengutronix.de; linux-media@vger.kernel.org;
-> >> > devicetree@vger.kernel.org; linux-kernel@vger.kernel.org;
-> >> > imx@lists.linux.dev; linux-arm-kernel@lists.infradead.org;
-> >> > festevam@gmail.com; kernel@pengutronix.de;
-> >nicolas.dufresne@collabora.com;
-> >> > ming.qian@oss.nxp.com; marek.vasut@mailbox.org; jackson.lee
-> >> > <jackson.lee@chipsnmedia.com>; lafley.kim <lafley.kim@chipsnmedia.com>
-> >> > Subject: Re: [PATCH v8 09/11] media: chips-media: wave6: Add
-> >performance
-> >> > profiling
-> >> >
-> >> > On Thu, Nov 19, 2026 at 06:00:03PM +0900, Nas Chung wrote:
-> >> > > Add per-instance performance profiling to help identify whether a
-> >> > > throughput problem comes from the firmware or from the host side.
-> >> >
-> >> > why not register as perf interface?
-> >>
-> >> The numbers are kept per instance (per open file). Each instance has
-> >> its own fps, latency and min/max frame time, and they are updated each
-> >> time one of its frames is done.
-> >>
-> >> As far as I know, perf can only count per CPU or per task, and a device
-> >> PMU usually counts for the whole system. So perf would only show the
-> >> total of all instances, and we could not get the min/max frame time
-> >> from it.
-> >
-> >My preference would then go toward .fdinfo() then instead of custom debug
-> >fs. It
-> >gives the FD owner the right to see the statistics and not just root.
-> >Here's an
-> >example of in progress attempt. The idea is that some key would be
-> >generalized
-> >and documented and some other key would be driver specific (e.g. wave6-
-> >prefix).
->
-> Agreed, fdinfo fits better since the owner of the file handle can
-> read the statistics, not only root. Common keys would also let tools
-> like v4l2top read the same statistics across V4L2 drivers.
->
-> >
-> >https://lore.kernel.org/all/20260706-v4l2-add-fdinfo-v3-0-
-> >d556568cf38e@collabora.com/
-> >
-> >Then once we've upstream v4l2top, one can track the performance live, and
-> >you
-> >can even add driver specific metrics.
->
-> As V4L2 fdinfo is not merged yet, I'd like to keep the debugfs file
-> in the series for now. I'll follow the fdinfo series, and once it is
-> merged, I'll switch the statistics to fdinfo and drop the debugfs
-> output.
+On Wed, 25 Nov 2026 15:09:52 +0000, Kettler Christian wrote:
+> The timeouts are not limited to the BRIO, though. During these runs
+> the hub itself (VIA 2109:0824) once failed with "device descriptor
+> read/all, error -110", the Realtek LAN adapter inside the hub got a
+> -110 and was reset, and the hub's card reader was reset as well.
+> Re-authorizing the hub (authorized 0/1) never triggers the hang, only
+> physically plugging it in does. On the laptop's own ports the BRIO
+> never hung (14 plugs, 4 of them on the USB-C port on the same xHCI
+> controller, with the same cable and plug adapter).
+> 
+> So this looks like a problem with this hub rather than with the
+> camera. I'm using the BRIO directly on the laptop now and consider
+> this closed on my side.
 
-statistics is not credital part for function. It'd better skip statistics
-information patch in series, and add it later after fdinfo merged.
+Hi,
 
-Frank
+Multiple devices misbehaving could be the hub or perhaps the xHCI
+controller (looks like some Intel chipset?). You could try a different
+one if you have an opportunity.
 
->
-> Thanks.
-> Nas.
->
-> >
-> >Nicolas
-> >
-> >>
-> >> Thanks.
-> >> Nas.
-> >>
-> >> >
-> >> > Frank
-> >> >
+Though I have no explanation why the camera works on the same port if
+the hub is removed from the chain. It may be the hub after all.
+
+Regards,
+Michal
