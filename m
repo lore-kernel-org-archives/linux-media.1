@@ -1,57 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795627019;
-	b=c+EzvMM0YvHwbO60JoXgEoihdVC7f/mPAqkWzpvaUKkYN6WTeqUYs3mRXaUES5rADHFB
-	 VA2vObjTMqgK7orXOOZeWA+56+HhUscIFz56qhmAztB+0L9PjE5eJnAIKAFfMMaC53xD6
-	 kDkWshWKz5ZjCVnqEF3I6/ljhT+oqavxDd8tsTnwoC011Z76jyijjk3qJksxCNFwh70ta
-	 lRZQiOXOuXjNyq8wUH+tIC2/W81rmlSzwyf9xqf7q6CQTENqXJlG0/kggaLilOR1sTVJE
-	 uE6e3NZ0Y5oUn48ujsSEX3L4ohH2dmAtj0Yv+wDJIVljyngyTwhe1Bq7O4D1JYNF61A==
+	t=1795627427;
+	b=RX9dka3uhxUZiZVFmhQIIVUqQSDZjKGhbceuCu3bykFbzqGcppT7JOO8EPxw4cywObWh
+	 9u0mJYb1uQ5x8cj5FOXgkGi3rn96jPyrD28+WyAa7jppb9//3t+zmsvaQ8Q06X/4VP9/+
+	 MfDpjb8yDq1+KlZrsgKCYYu5ri2fklMufnZbJzPWOoxJzjhqs3SnfFbIK7I1MdgDbAgrq
+	 zGY79OAuS1CuniUteN3G0BRtp05+e/IiAcLpUWD8g7qo1I6In9wdnKm9J53she/BD406w
+	 PqhyI3yFsJH8c+L46kxclptanr2FjiO67kL/kqIZ/lHtD4DsQef8oq09lrjr+9ZiRFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795627019;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=306Y2BAJ0mk9ljp12eAtknlDVkrB39bi49HCqrOE2pE=;
-	b=RO0TnvTKzXEh0OkNS+sNlXOfNluXAjO0lnYQTJP/PIStCJ33EncU+aCrCcTrOw+sNIII
-	 8Yx3mfGfK1fN20pWUMW9onl2k6PnywPdWIoJrtBJTWlWum5WnR3jwEJPzSW99sKHuyQzw
-	 oFlcDu30j4hHwBCghKnIVJgq4Hg8RNi6YMDN4fgeh8psrdq+sbBxnYGQPxcfUmjjdkEMH
-	 A7BGssPSVHox2cA2nC4kw30HVBDvAes6p9+R3QxZMxXTtmcgmpyWDZd3PdlV9eF4hBYEV
-	 yQoU/Ada7wm+OaJ54W2Ql5llDUL/PBjC8GopkvfIlbK4Q8LT+oAUdR2RwGMRvrrDCoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795627427;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=aw3rwrSPsVLcrl9Ot0gID0+ufM4TfMctEXtb0aQaDo8=;
+	b=Y8tGFomThW5yMF4WdXDlKwop1t1YuZQjJOOXNJvkSZ1mIrgqcqTitUiuGz2JNChn6djc
+	 SSNDNZXZ+dyXt6vZUd4oUrX5gRHilpPvdrWGu8rR16iXpgyuZTJJVcJhr2t8n1FLdA4nw
+	 a6FYmNK96J/3c90fDbTILzsqTl5LBcQkNXUlslBBuiHP8ooTZjJaRgL+UqCNBThb6VbHr
+	 WAgDLfhsrXeWvr8yH3GjFv95rKi5rpS1pbRUMAspikVYNakSGfQM/wCKBEIhF8djBTd6r
+	 NAu+pnnhIyhrkAUwjCFd3iQ7oeN9ZRxhzIiyfkgoLxG73FNpNwvybAaRVR13/OsWaWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=a7snv.com;
-	spf=pass smtp.mailfrom=a7snv.com;
-	dkim=pass header.d=a7snv.com header.i=@a7snv.com header.a=rsa-sha256 header.s=protonmail header.b=Isn+fec1;
-	arc=none smtp.remote-ip=185.70.43.18
-Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="UtCft/fq";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S65oxcug;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA29D606A321;
-	Wed, 25 Nov 2026 17:16:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA29D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=a7snv.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=a7snv.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BE1606A333
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 17:23:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8BE1606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=a7snv.com header.i=@a7snv.com header.a=rsa-sha256 header.s=protonmail header.b=Isn+fec1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=a7snv.com;
-	s=protonmail; t=1795627004; x=1795886204;
-	bh=306Y2BAJ0mk9ljp12eAtknlDVkrB39bi49HCqrOE2pE=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Isn+fec1ecOxy1pHM8uYQ2tCVBhQsV3SY7qVL+OD6TT25GSpjBygkLsgXcAooSS/z
-	 f4TztsrhUXRHoYkbUDWzk/wrbiOCgFnPZ2aWMuDVIfaJvhypaK7JiWeFt2PHvIJkad
-	 zl6zmCNft9hgo+9H6dSp3r3d31vWneEExVaLfCv950INz1tUBSV1mw464DWNqU3p/y
-	 lpq7RNBIwC/hwanegqotjj68CdEsDhlwHHjDfipBcm2B/InGkFFeZYjtGOjUIxM5pE
-	 dmhet2534yuefhIkBSmvCHG5Zplu/DngDDKHbgeYvEIrDUQp0GJ8kxYzIEQa9Mn1W1
-	 A7UrtyIBBesPA==
-Date: Wed, 25 Nov 2026 17:16:25 +0000
-To: Mengmeng Zhao <mengmeng.zhao@linux.dev>
-From: Yun Wang <arsenova@a7snv.com>
-Cc: hch@lst.de, anuj1072538@gmail.com, anuj20.g@samsung.com, nj.shetty@samsung.com, axboe@kernel.dk, sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, djbw@kernel.org, willy@infradead.org, jack@suse.cz, viro@zeniv.linux.org.uk, brauner@kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com, yi.zhang@huawei.com, asml.silence@gmail.com, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, liwang@kylinos.cn, zhaomengmeng@kylinos.cn, mcgrof@kernel.org, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org, linux-xfs@vger.kernel.org, linux-doc@vger.kernel.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-Subject: Re: [RFC PATCH v2 2/8] iomap: add dma-buf direct I/O guards
-Message-ID: <20261125171600.4053585-1-arsenova@a7snv.com>
-Feedback-ID: 235448903:user:proton
-X-Pm-Message-ID: 37ce9f54f53aabca1ce9dc5fb89af8077900c77a
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UtCft/fq;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S65oxcug
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6APGQ2TX999444
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 17:23:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	aw3rwrSPsVLcrl9Ot0gID0+ufM4TfMctEXtb0aQaDo8=; b=UtCft/fqEK+XlqLE
+	a4oH3JsIqz8HZOoKxhNV/2aKy9RyaCJEWG1E3BnB2xttZ/14GsaXr4jjxaINhRlx
+	kyEWtNX3kye8bGKNvspbj0mDrmaKm9Rzh3/kSY10e4iWgudgdok9swhGTDzuID/T
+	6JN6tVDgCxPbiFCZZdEJdEnrzHB2IWBxfm55l9DXnldpUCL4k618Mxax8qmreeYl
+	7qTQaV9+7APzmZ/ZXviEEMrv/hwA/k8mexneaZB3tpJvU8aKAQVLbjOo8UpQkcO0
+	sKWQee1p6C6BlAVb5LJbjl7zzbAVzH5YElUKIX1+mlcC/wU3BaKxRpSm/eUO0xMH
+	0POelA==
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com [209.85.128.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5yaxs8xp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 17:23:45 +0000 (GMT)
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-869553205a7so80814257b3.1
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 09:23:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1795627425; x=1796232225; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aw3rwrSPsVLcrl9Ot0gID0+ufM4TfMctEXtb0aQaDo8=;
+        b=S65oxcugSJ2lx///pLeEp9NrvnpShuHhgHNkIoJAtU14MIzXHsEtMXNZ15XQHH9EbQ
+         NcP7YCFgn4LOWURxVKT72K2k1Dzjvy2V9Bc0hTpeZnSZ0T8HWA3YjAdUe4PcVYR+HzlP
+         YiejjAvjZaXEeCyDp0SkD60/g/0db+6dpsgVKnWSLSP581RE1REBhdOG/osxTXIVo9+H
+         dNt/LbUd2eACRdh1AtvcOjHrKNpzGmhFA9NX1UoH2xTuyCRIs3QKuFh/HqaVgXLD8g4J
+         0dmVedfbtjTJCW2Zg8Sg+GeReEYiDXf6XS42SUxrBL2PGEZqUTrMEzFSaYZxOyPyVN0N
+         bMVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795627425; x=1796232225;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aw3rwrSPsVLcrl9Ot0gID0+ufM4TfMctEXtb0aQaDo8=;
+        b=xZRMg7HKMU6Ud+y4NuRlzw+76hoyNMNwfNKMRVG1dGmj46oYBiJjmsIeCVgxmnCRMO
+         ZYa1SGbP45AwqxQ1FrYNHpqxNgx1yu82TiEDUzVTOWpp/aup3qhKvl3aAok8jktNK89h
+         mJWctiS0+Zd2gElSTiMAtPOCHuC1qq+v2bi8uFb2KgMEY5xLcmvTHUdYJ9yYqnOyGUzW
+         +yiuO38vIndXsLJXooA5hegiiioDUC5rv5cQTlHG+ZzQlIDU//NiHAbGM9MaYXa8s0Ye
+         o9gYCcUEDxFst+ooLOrB7XL/B024NAMcNODXI7EhECrjnFupLI2zFlr/yYBbchjq/y2m
+         uV3w==
+X-Forwarded-Encrypted: i=1; AL+hErGkLvLgnZkxXVdEKo4o6gsJADWzFTcgB12yM79dHj+7GCxn/luoWI0rL5qM7LCyafv/ekehPEp5GsGtqA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CRqJUoR7FtwZ4FQ1dNaTQbtTIhndJdrznBXcUO5Wo+IHRkvvf
+	n9q39BUY3VDxf2ccJAbKFGYUFd0cMzYJss3kfbq1iJN1Yy/qmvl6TU571BAdam1AhROtZTBBTCl
+	iaQGWQiMLPnnSLCTjkV8Lj+Z54Vb8P/tSN5pv9MBZT2nzI0Rz01jaNBfGYggLcY6g2Q==
+X-Gm-Gg: AZFdTZdsK3eYJG3zEjZjXbVVeHDFHDNmXZFXq91yJSPpQ5GJJE2Iz1J/o6yUM8lY/5D
+	OhS0b1133xaBrUP/PUKKKPZfk+/ngFZF7yJB3MoB1rpjwSJu8QAkHwfq8BdiUXfpmt6F7tGiKoz
+	SWAMUITEfNxEg0224TjCQmQSmR2AdN9I4w4RZojad9SQIIvcmntk0c303NcMYiMb/dOEnOeRBLN
+	rRYhYva0HOAzVNPSZIvQT4q0MyYV+az1Xm1qLC1VEd/kS8+TEQnG4QTRunkldYXWgO1IuVN0LbA
+	HuuTyXM3JxSXQtWeKnUDgv2pDUIq3xMQ5Xw/1sTVHNmpCb1ERIxhKm7BglwwuZs2eYBpfhp5uaF
+	Ayu9izt1g13c5kzOlV3FRIIld0d9PCrAsALEP/ewoKVHqYSPT2n6zJsrq1rSwetB41RmqKb2OVf
+	DNnqBeh7EHgsGI
+X-Received: by 2002:a05:690c:e1da:10b0:8b1:43b7:e2e0 with SMTP id 00721157ae682-8b530a71019mr43495687b3.50.1795627424660;
+        Wed, 25 Nov 2026 09:23:44 -0800 (PST)
+X-Received: by 2002:a05:690c:e1da:10b0:8b1:43b7:e2e0 with SMTP id 00721157ae682-8b530a71019mr43495597b3.50.1795627424101;
+        Wed, 25 Nov 2026 09:23:44 -0800 (PST)
+Received: from [192.168.1.31] ([85.196.172.179])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4b8e564e39asm5813780f8f.57.2026.11.25.09.23.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 25 Nov 2026 09:23:43 -0800 (PST)
+Message-ID: <d56b1e2b-ff7a-4587-b45e-2607ab85861d@oss.qualcomm.com>
+Date: Wed, 25 Nov 2026 19:23:42 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -61,387 +116,309 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/7] media: qcom: camss: csid: Add an operation to read
+ the SOF timestamp
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+References: <20261125-camss-hw-ts-v2-0-24c955e43d75@oss.qualcomm.com>
+ <20261125-camss-hw-ts-v2-2-24c955e43d75@oss.qualcomm.com>
+ <8808df3f-e090-4dba-af7d-a51146290d48@oss.qualcomm.com>
+ <c5ec6619-7001-4ab4-9035-405dcaa3b739@oss.qualcomm.com>
+ <CAFEp6-2kW9-Cq9kz-T9Rdz5EKL92TW=QzcSPGBPqLNfcLeDYMg@mail.gmail.com>
+ <b962afd1-9e66-4780-a7ac-43426bca1a67@oss.qualcomm.com>
+ <CAFEp6-1Sk1rjhqsdm+-GHBESdExWr4vVX5wMcFzEpMt8zQJhsA@mail.gmail.com>
+Content-Language: en-US
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <CAFEp6-1Sk1rjhqsdm+-GHBESdExWr4vVX5wMcFzEpMt8zQJhsA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: D1mbZyl9NWbNt7BrQvixbWrc-JFlOqrM
+X-Proofpoint-ORIG-GUID: D1mbZyl9NWbNt7BrQvixbWrc-JFlOqrM
+X-Authority-Analysis: v=2.4 cv=ULpIjyfy c=1 sm=1 tr=0 ts=6b0719a1 cx=c_pps
+ a=0mLRTIufkjop4KoA/9S1MA==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
+ a=n8IlR8rfZ27013JM:21 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=tSMG9UjVsoGyTiA_F3gA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=WgItmB6HBUc_1uVUp3mg:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA2OSBTYWx0ZWRfX2rfsGP7bd4AS
+ ol00YtTm4XP6WoYrSRs4Brv8U3b8BSoHtSHQJwFeMVhDxYMBob5RrvmYLyrvK0K6bUgxm2ciyHs
+ /1nHerPGNYn1SkOYhXZcJvYRettS20c1uujJxv6xcN7MFuO0W6hcW/spewjJ5ZoG4HOnIbNd4Cj
+ 5gcUCVS8R6hbJli2YgLVhi3qtSdm0+XfXkQfmTTbK0xiVzEbW0oj4hgXj14kaUu3dkDL0Gjarlv
+ LUlDQ37mf2G4qQitp8gU+TPskMMpoMQzYo9Gea4tIh2LvA6BiMK+NQoXei6JrrgzBE5MOske51/
+ iq+dekoLBF13EBdr7Doe73AhyPvsN9o6cCkqwcijexAUNHYo7ZLsqBojin0U5U9rw1B7UEq97Bt
+ alpz1vIS7ohWoMe9bLpN2jauFc/klZovhavctwNAD913nSouKgMZVyLItLp6mImO+EoM/OPYFb8
+ P0CVb6cBZP4mgrToRxg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA2OSBTYWx0ZWRfX0v3QQgKskQ76
+ eljMZyCKZItbafsOKDAFCIT/BbjA1FAec3yEHRDIP19SOXbahsd4JyEw9ar6jSNUry2/W2uXRfD
+ qU3M/C4Yyv9I49xrHMaQhF2ZX+4Mub0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-25_04,2026-11-25_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0
+ bulkscore=0 spamscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611250069
 
-On Fri, Nov 13, 2026 at 03:06:15PM +0800, Mengmeng Zhao wrote:
->  static int iomap_dio_hole_iter(struct iomap_iter *iter, struct iomap_dio=
- *dio)
->  {
-> -=09loff_t copied =3D iov_iter_zero(iomap_length(iter), dio->submit.iter)=
-;
-> +=09loff_t copied;
-> +
-> +=09/* zero-filling walks the data pages */
-> +=09if (iov_iter_is_dmabuf_map(dio->submit.iter))
-> +=09=09return -EOPNOTSUPP;
 
-This also fails reads that run past EOF.  The filesystem maps the range
-beyond the last block as a hole too, so a dma-buf read that starts
-before EOF and ends past the last block of the file fails as a whole,
-while the same O_DIRECT read into user memory returns the bytes up to
-EOF.
 
-I found it while testing the series for fastsafetensors' dma-buf copier
-[1], which loads model weights from NVMe into GPU memory with READ_FIXED
-into registered dma-bufs.  I ran v2 on top of v7.4-rc2 in a QEMU guest
-with an emulated NVMe namespace, reading into udmabufs.  With a
-5000-byte file on ext4 with 4 KiB blocks, reading [4096, 12288):
+On 11/25/2026 6:21 PM, Loic Poulain wrote:
+> On Wed, Nov 25, 2026 at 4:01 PM Gjorgji Rosikopulos (Consultant)
+> <gjorgji.rosikopulos@oss.qualcomm.com> wrote:
+>>
+>>
+>>
+>> On 11/25/2026 3:18 PM, Loic Poulain wrote:
+>>> On Wed, Nov 25, 2026 at 1:06 PM Gjorgji Rosikopulos (Consultant)
+>>> <gjorgji.rosikopulos@oss.qualcomm.com> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 11/25/2026 2:04 PM, Gjorgji Rosikopulos (Consultant) wrote:
+>>>>> Hi Loic,
+>>>>>
+>>>>> On 11/25/2026 12:19 PM, Loic Poulain wrote:
+>>>>>> Modern CSID revisions latch the global timestamp counter at SOF. That
+>>>>>> counter is the ARM architected counter, so correlating it with
+>>>>>> CLOCK_MONOTONIC through ktime_get_snapshot_id() turns the latched value
+>>>>>> into the time the frame actually started, rather than the time the
+>>>>>> interrupt handler ran.
+>>>>>>
+>>>>>> Add a hardware operation returning that counter value and do the
+>>>>>> correlation in one place, leaving a CSID revision with nothing to do but
+>>>>>> read its own registers. Revisions not implementing it keep being
+>>>>>> timestamped at queue time.
+>>>>>>
+>>>>>> Suggested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>>>>>> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+>>>>>> ---
+>>>>>>  drivers/media/platform/qcom/camss/camss-csid.c | 72 ++++++++++++++++++++++++++
+>>>>>>  drivers/media/platform/qcom/camss/camss-csid.h |  9 ++++
+>>>>>>  2 files changed, 81 insertions(+)
+>>>>>>
+>>>>>> diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
+>>>>>> index 588122beec854ae5b78de9997b68c7a81d4207e1..0d9b4f7dd768aeaed65d01da58b4dd8a3a425cbc 100644
+>>>>>> --- a/drivers/media/platform/qcom/camss/camss-csid.c
+>>>>>> +++ b/drivers/media/platform/qcom/camss/camss-csid.c
+>>>>>> @@ -8,14 +8,17 @@
+>>>>>>   * Copyright (C) 2015-2018 Linaro Ltd.
+>>>>>>   */
+>>>>>>  #include <linux/clk.h>
+>>>>>> +#include <linux/clocksource_ids.h>
+>>>>>>  #include <linux/completion.h>
+>>>>>>  #include <linux/interrupt.h>
+>>>>>>  #include <linux/io.h>
+>>>>>>  #include <linux/kernel.h>
+>>>>>> +#include <linux/math64.h>
+>>>>>>  #include <linux/of.h>
+>>>>>>  #include <linux/platform_device.h>
+>>>>>>  #include <linux/pm_runtime.h>
+>>>>>>  #include <linux/regulator/consumer.h>
+>>>>>> +#include <linux/timekeeping.h>
+>>>>>>  #include <media/media-entity.h>
+>>>>>>  #include <media/mipi-csi2.h>
+>>>>>>  #include <media/v4l2-device.h>
+>>>>>> @@ -37,6 +40,16 @@
+>>>>>>
+>>>>>>  #define LANE_CFG_BITWIDTH 4
+>>>>>>
+>>>>>> +/*
+>>>>>> + * The CSID latches the global timestamp counter on SOF. That counter is
+>>>>>> + * the ARM architected counter, 56 bit wide and ticking at 19.2 MHz.
+>>>>>> + */
+>>>>>> +#define CSID_TIMESTAMP_WIDTH        56
+>>>>>> +#define CSID_TIMESTAMP_MASK GENMASK_ULL(CSID_TIMESTAMP_WIDTH - 1, 0)
+>>>>>> +#define CSID_TIMESTAMP_NS_MUL       10000   /* NSEC_PER_SEC / 19.2 MHz, reduced */
+>>>>>> +#define CSID_TIMESTAMP_NS_DIV       192
+>>>>>> +#define CSID_TIMESTAMP_MAX_AGE_NS   (2 * NSEC_PER_MSEC)
+>>>>>> +
+>>>>>>  #define MSM_CSID_NAME "msm_csid"
+>>>>>>
+>>>>>>  const char * const csid_testgen_modes[] = {
+>>>>>> @@ -1370,12 +1383,71 @@ atomic_t *csid_get_sof_seq(struct media_pad *pad)
+>>>>>>      return &csid->sof_seq[pad->index - MSM_CSID_PAD_FIRST_SRC];
+>>>>>>  }
+>>>>>>
+>>>>>> +static u64 csid_timestamp_to_ns(u64 ticks)
+>>>>>> +{
+>>>>>> +    return mul_u64_u32_div(ticks, CSID_TIMESTAMP_NS_MUL, CSID_TIMESTAMP_NS_DIV);
+>>>>>> +}
+>>>>>> +
+>>>>>> +static u64 csid_timestamp_to_monotonic(struct csid_device *csid, u64 ticks)
+>>>>>> +{
+>>>>>> +    struct system_time_snapshot snap;
+>>>>>> +    u64 delta, delta_ns, now;
+>>>>>> +
+>>>>>> +    ktime_get_snapshot_id(CLOCK_MONOTONIC, &snap);
+>>>>>> +
+>>>>>> +    /*
+>>>>>> +     * Translating requires reading the counter the CSID latched from.
+>>>>>> +     * If timekeeping is driven by something else there is nothing to
+>>>>>> +     * correlate against, so let the caller fall back to IRQ time.
+>>>>>> +     */
+>>>>>> +    if (!snap.valid || snap.cs_id != CSID_ARM_ARCH_COUNTER) {
+>>>>>> +            dev_warn_once(csid->camss->dev,
+>>>>>> +                          "CSID%u: Can't use hardware timestamp, invalid clock source (%d)\n",
+>>>>>> +                          csid->id, snap.cs_id);
+>>>>>> +            return 0;
+>>>>>> +    }
+>>>>>> +
+>>>>>> +    /* How long ago, in counter ticks, the timestamp was latched */
+>>>>>> +    delta = (snap.cycles - ticks) & CSID_TIMESTAMP_MASK;
+>>>>>> +    delta_ns = csid_timestamp_to_ns(delta);
+>>>>>> +    now = ktime_to_ns(snap.systime);
+>>>>>> +
+>>>>>> +    /* Fall back rather than reporting a nonsensical timestamp */
+>>>>>> +    if (delta_ns > now) {
+>>>>>> +            dev_warn_once(csid->camss->dev,
+>>>>>> +                          "CSID%u: SOF timestamp predates CLOCK_MONOTONIC, ignoring\n",
+>>>>>> +                          csid->id);
+>>>>>> +            return 0;
+>>>>>> +    }
+>>>>>> +
+>>>>>> +    if (delta_ns > CSID_TIMESTAMP_MAX_AGE_NS)
+>>>>>> +            dev_warn_ratelimited(csid->camss->dev,
+>>>>>> +                                 "CSID%u: Too slow! SOF timestamp is %llu us old\n",
+>>>>>> +                                 csid->id, delta_ns / NSEC_PER_USEC);
+>>>>>> +
+>>>>>> +    return now - delta_ns;
+>>>>>> +}
+>>>>>> +
+>>>>>> +static u64 csid_hw_sof_ts(struct csid_device *csid, unsigned int id)
+>>>>>> +{
+>>>>>> +    const struct csid_hw_ops *hw_ops = csid->res->hw_ops;
+>>>>>> +
+>>>>>> +    if (!hw_ops->sof_ts)
+>>>>>> +            return 0;
+>>>>>> +
+>>>>>> +    return csid_timestamp_to_monotonic(csid, hw_ops->sof_ts(csid, id));
+>>>>>
+>>>>> I am not sure if we need to do this every SOF. Most probably the delta will
+>>>>> remain the same during the streaming, so I think it's best to use the delta within
+>>>>> tolerance and then apply that for the whole streaming session. Also, I think it's better
+>>>>> to have a constant delta from the monotonic clock rather than a fluctuating one.
+>>>>
+>>>> I think it will be the best to send both timestamps to userspace, and give the freedom
+>>>> to userspace to decide by him self. But the API is not allowing that as discussed.
+>>>
+>>> No, the delta is not constant. In fact, that's precisely why we use
+>>> it, it captures the variable CPU and software latencies between the
+>>> hardware event and the timestamp acquisition. By combining the
+>>> captured hardware timestamp with the current system timing
+>>> information, we can reconstruct an accurate event timestamp that
+>>> remains aligned with the Sensor/CSI timing, rather than being affected
+>>> by software scheduling and processing delays. According to my testing,
+>>> the resulting timing error is below 1 µs, from which we can derive an
+>>> accurate sensor framerate.
+>>>
+>>> --
+>>> watching /dev/v4l-subdev2 (msm_csid0), id 0
+>>> id0    478 ev   60.06 fps   16.650 ms
+>>>   events           : 478
+>>>   timestamp (mono) : 180.160315690 .. 188.102256050
+>>>   duration         : 7.942 s
+>>>   frame rate       : 60.061 fps
+>>>   frame_sequence   : 539 .. 1016 (missing: 0)
+>>>   interval (ms)    : mean 16.650  median 16.650  min 16.650  max 16.650
+>>>                      p95 16.650  p99 16.650
+>>> ---
+>>
+>> Ok i will test the changes on my side. Just for other people we have conflicting names
+>> CSID (stands from clock fw perspective to Clock Source ID, and from camss for the
+>> csi decoder). If you are sure that the for csi decoder the CSID_ARM_ARCH_COUNTER
+>> is always the clock source this will work i agree.
+>> But if that is not the case and we end up with big delta what is the idea to do
+>> that every frame. It is kind of confusing to me at least. Also i think we need
+>> to check for the other platforms if the clock source is always the same.
+> 
+> Yes, the camera hardware always snapshots the architecture counter. If
+> we detect that the monotonic clock is not derived from the same timer,
+> we simply fall back to the traditional IRQ timestamping path. The same
+> fallback is used if the computed delta is found to be inconsistent.
 
-  READ_FIXED into a registered udmabuf -> -EOPNOTSUPP
-  O_DIRECT pread() into user memory    -> 904
+If the both clocks are from same timer there are two checks:
 
-It fails the same way whether the read is the first one on the buffer,
-is issued inline once the map exists, or is forced to io-wq with
-IOSQE_ASYNC.
+1. Big delta big delta something is completely wrong,
+   most probably the csid timestamp has some stall data.
+2. snap.cs_id != CSID_ARM_ARCH_COUNTER. If that is true do 
+   we need to check on every SOF, most probably every time
+   you will get the same result.
 
-Reading a file in fixed-size chunks hits this on the last chunk unless
-the file size is a multiple of the chunk size.  With 1 KiB blocks it
-also breaks the copier's normal pattern, 4 KiB-aligned reads up to
-round_up(i_size, 4096): the last read fails.
+If the error can be recovered on next SOF maybe make sense
+to enter this function. But i think in both cases most probably
+you will end up there for every SOF, which is for each pipeline.
+If all all streaming 4 times per frame.
 
-Nothing past EOF is reported to the caller anyway: __iomap_dio_rw()
-reverts the iterator to i_size and iomap_dio_complete() truncates the
-result to it.  So a hole that starts at or after EOF can be stepped
-over; a hole inside the file still needs zeroes and still fails.
-Something like this on top of the series, or folded into this patch:
-
-diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-index 83fda6973bb9..2de6d379f811 100644
---- a/fs/iomap/direct-io.c
-+++ b/fs/iomap/direct-io.c
-@@ -596,9 +596,20 @@ static int iomap_dio_hole_iter(struct iomap_iter *iter=
-, struct iomap_dio *dio)
- {
- =09loff_t copied;
-=20
--=09/* zero-filling walks the data pages */
--=09if (iov_iter_is_dmabuf_map(dio->submit.iter))
--=09=09return -EOPNOTSUPP;
-+=09if (iov_iter_is_dmabuf_map(dio->submit.iter)) {
-+=09=09u64 length =3D iomap_length(iter);
-+
-+=09=09/* zero-filling walks the data pages */
-+=09=09if (iter->pos < dio->i_size)
-+=09=09=09return -EOPNOTSUPP;
-+=09=09/*
-+=09=09 * Past EOF there is nothing to zero: the read is truncated to
-+=09=09 * i_size before it is reported, so step over the hole.
-+=09=09 */
-+=09=09iov_iter_advance(dio->submit.iter, length);
-+=09=09dio->size +=3D length;
-+=09=09return iomap_iter_advance(iter, length);
-+=09}
-=20
- =09copied =3D iov_iter_zero(iomap_length(iter), dio->submit.iter);
-=20
-
-Signed-off-by: Yun Wang <arsenova@a7snv.com>
-
-With it, the read above returns 904 with the right data in all three
-cases.  Holes and unwritten extents inside the file still return
--EOPNOTSUPP, including a hole that straddles EOF after the file was
-extended with ftruncate().
-
-The rest of the series behaved as the cover letter describes in that
-setup, with 4 KiB and 1 KiB blocks: registration on an O_DIRECT file,
-reads into arbitrary offsets of the buffer, reads through a dup()ed fd,
--EBADF through another file's slot, -EINVAL when registering a buffered
-fd, -EOPNOTSUPP after F_SETFL clears O_DIRECT and success again once it
-is set back, WRITE_FIXED including a write that extends the file, and a
-clean e2fsck afterwards.  I have not run it on real NVMe hardware or
-xfstests yet.
-
-This report and the reproducer below were drafted with the help of an
-AI coding assistant (Claude Opus 5.5); the fix is mine.
-
-[1] https://github.com/foundation-model-stack/fastsafetensors/issues/139
-
-Thanks,
-Yun
-
-Reproducer.  It needs /dev/udmabuf and a filesystem with this series
-on an NVMe namespace:
-
-  head -c 5000 /dev/urandom > /mnt/f && sync
-  ./dmabuf_eof_read /mnt/f 4096 8192             # first read on the buffer
-  ./dmabuf_eof_read /mnt/f 4096 8192 warm        # map exists, inline issue
-  ./dmabuf_eof_read /mnt/f 4096 8192 warm async  # IOSQE_ASYNC
-
-// SPDX-License-Identifier: GPL-2.0
-/*
- * Read a file range into a udmabuf that is registered against the file as
- * an io_uring fixed buffer, and compare with an O_DIRECT pread() of the
- * same range into user memory.
- *
- *   dmabuf_eof_read <file> <offset> <length> [warm] [async]
- *
- *   warm   first read [0, 4096) through the same buffer, so the dma-buf ma=
-p
- *          exists and the measured read can be issued inline (nonblocking)
- *   async  set IOSQE_ASYNC on the measured read (issue it from io-wq)
- *
- * Exits 0 when READ_FIXED returns what pread() returns and the bytes match=
-.
- * Needs /dev/udmabuf, and a kernel and filesystem with io_uring dma-buf
- * registered buffers.  The UAPI bits are declared locally because they are
- * newer than most installed headers.
- */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/ioctl.h>
-#include <sys/mman.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-#include <linux/udmabuf.h>
-
-#define IORING_OFF_SQ_RING=09=090ULL
-#define IORING_OFF_SQES=09=09=090x10000000ULL
-#define IORING_ENTER_GETEVENTS=09=09(1U << 0)
-#define IORING_REGISTER_BUFFERS2=0915
-#define IORING_REGISTER_BUFFERS_UPDATE=0916
-#define IORING_RSRC_REGISTER_SPARSE=09(1U << 0)
-#define IORING_RSRC_UPDATE_EXTENDED=09(1U << 1)
-#define IO_REGBUF_TYPE_DMABUF=09=092
-#define IORING_OP_READ_FIXED=09=094
-#define IOSQE_ASYNC=09=09=09(1U << 4)
-
-struct sqe {
-=09uint8_t opcode, flags;
-=09uint16_t ioprio;
-=09int32_t fd;
-=09uint64_t off, addr;
-=09uint32_t len, rw_flags;
-=09uint64_t user_data;
-=09uint16_t buf_index, personality;
-=09int32_t splice_fd_in;
-=09uint64_t addr3, pad2;
-};
-
-struct cqe {
-=09uint64_t user_data;
-=09int32_t res;
-=09uint32_t flags;
-};
-
-struct sq_offsets {
-=09uint32_t head, tail, ring_mask, ring_entries, flags, dropped, array, res=
-v1;
-=09uint64_t user_addr;
-};
-
-struct cq_offsets {
-=09uint32_t head, tail, ring_mask, ring_entries, overflow, cqes, flags, res=
-v1;
-=09uint64_t user_addr;
-};
-
-struct params {
-=09uint32_t sq_entries, cq_entries, flags, sq_thread_cpu, sq_thread_idle;
-=09uint32_t features, wq_fd, resv[3];
-=09struct sq_offsets sq_off;
-=09struct cq_offsets cq_off;
-};
-
-struct rsrc_register {
-=09uint32_t nr, flags;
-=09uint64_t resv2, data, tags;
-};
-
-struct rsrc_update2 {
-=09uint32_t offset, flags;
-=09uint64_t data, tags;
-=09uint32_t nr, resv2;
-};
-
-struct regbuf_desc {
-=09uint32_t type, flags;
-=09uint64_t size, uaddr;
-=09int32_t dmabuf_fd, target_fd;
-=09uint64_t resv[6];
-};
-
-_Static_assert(sizeof(struct sqe) =3D=3D 64, "io_uring_sqe");
-_Static_assert(sizeof(struct cqe) =3D=3D 16, "io_uring_cqe");
-_Static_assert(sizeof(struct params) =3D=3D 120, "io_uring_params");
-_Static_assert(sizeof(struct rsrc_register) =3D=3D 32, "io_uring_rsrc_regis=
-ter");
-_Static_assert(sizeof(struct rsrc_update2) =3D=3D 32, "io_uring_rsrc_update=
-2");
-_Static_assert(sizeof(struct regbuf_desc) =3D=3D 80, "io_uring_regbuf_desc"=
-);
-
-struct ring {
-=09int fd;
-=09struct params p;
-=09char *rings;
-=09struct sqe *sqes;
-};
-
-static void die(const char *what)
-{
-=09perror(what);
-=09exit(2);
-}
-
-static void ring_init(struct ring *r)
-{
-=09size_t sq_size, cq_size;
-
-=09memset(r, 0, sizeof(*r));
-=09r->fd =3D syscall(SYS_io_uring_setup, 4, &r->p);
-=09if (r->fd < 0)
-=09=09die("io_uring_setup");
-=09sq_size =3D r->p.sq_off.array + r->p.sq_entries * sizeof(uint32_t);
-=09cq_size =3D r->p.cq_off.cqes + r->p.cq_entries * sizeof(struct cqe);
-=09/* SQ and CQ rings share one mapping (IORING_FEAT_SINGLE_MMAP) */
-=09r->rings =3D mmap(NULL, sq_size > cq_size ? sq_size : cq_size,
-=09=09=09PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, r->fd,
-=09=09=09IORING_OFF_SQ_RING);
-=09r->sqes =3D mmap(NULL, r->p.sq_entries * sizeof(struct sqe),
-=09=09       PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, r->fd,
-=09=09       IORING_OFF_SQES);
-=09if (r->rings =3D=3D MAP_FAILED || r->sqes =3D=3D MAP_FAILED)
-=09=09die("mmap ring");
-}
-
-/* one READ_FIXED from slot 0; addr is the byte offset into the dma-buf */
-static int read_fixed(struct ring *r, int fd, off_t off, size_t len,
-=09=09      uint64_t buf_off, uint8_t sqe_flags)
-{
-=09uint32_t *sq_tail =3D (uint32_t *)(r->rings + r->p.sq_off.tail);
-=09uint32_t sq_mask =3D *(uint32_t *)(r->rings + r->p.sq_off.ring_mask);
-=09uint32_t *sq_array =3D (uint32_t *)(r->rings + r->p.sq_off.array);
-=09uint32_t *cq_head =3D (uint32_t *)(r->rings + r->p.cq_off.head);
-=09uint32_t *cq_tail =3D (uint32_t *)(r->rings + r->p.cq_off.tail);
-=09uint32_t cq_mask =3D *(uint32_t *)(r->rings + r->p.cq_off.ring_mask);
-=09uint32_t tail =3D *sq_tail, idx =3D tail & sq_mask, head;
-=09struct cqe *cqe;
-=09int res;
-
-=09memset(&r->sqes[idx], 0, sizeof(struct sqe));
-=09r->sqes[idx].opcode =3D IORING_OP_READ_FIXED;
-=09r->sqes[idx].flags =3D sqe_flags;
-=09r->sqes[idx].fd =3D fd;
-=09r->sqes[idx].off =3D off;
-=09r->sqes[idx].addr =3D buf_off;
-=09r->sqes[idx].len =3D len;
-=09r->sqes[idx].buf_index =3D 0;
-=09sq_array[idx] =3D idx;
-=09__atomic_store_n(sq_tail, tail + 1, __ATOMIC_RELEASE);
-=09if (syscall(SYS_io_uring_enter, r->fd, 1, 1, IORING_ENTER_GETEVENTS,
-=09=09    NULL, 0) < 0)
-=09=09die("io_uring_enter");
-=09head =3D *cq_head;
-=09if (head =3D=3D __atomic_load_n(cq_tail, __ATOMIC_ACQUIRE)) {
-=09=09fprintf(stderr, "no completion\n");
-=09=09exit(2);
-=09}
-=09cqe =3D (struct cqe *)(r->rings + r->p.cq_off.cqes) + (head & cq_mask);
-=09res =3D cqe->res;
-=09__atomic_store_n(cq_head, head + 1, __ATOMIC_RELEASE);
-=09return res;
-}
-
-int main(int argc, char **argv)
-{
-=09struct rsrc_register reg =3D { .nr =3D 1, .flags =3D IORING_RSRC_REGISTE=
-R_SPARSE };
-=09struct regbuf_desc desc =3D { .type =3D IO_REGBUF_TYPE_DMABUF };
-=09struct rsrc_update2 up =3D { .flags =3D IORING_RSRC_UPDATE_EXTENDED, .nr=
- =3D 1 };
-=09struct udmabuf_create create =3D { .flags =3D UDMABUF_FLAGS_CLOEXEC };
-=09int fd, ufd, memfd, dmabuf, res, warm =3D 0, async =3D 0, i;
-=09unsigned char *view, *host;
-=09size_t length, size;
-=09ssize_t expect;
-=09struct ring r;
-=09off_t offset;
-
-=09if (argc < 4) {
-=09=09fprintf(stderr, "usage: %s <file> <offset> <length> [warm] [async]\n"=
-,
-=09=09=09argv[0]);
-=09=09return 2;
-=09}
-=09for (i =3D 4; i < argc; i++) {
-=09=09if (!strcmp(argv[i], "warm"))
-=09=09=09warm =3D 1;
-=09=09else if (!strcmp(argv[i], "async"))
-=09=09=09async =3D 1;
-=09}
-=09offset =3D strtoll(argv[2], NULL, 0);
-=09length =3D strtoull(argv[3], NULL, 0);
-=09size =3D (length + 4095) & ~4095UL;
-=09if (size < 4096)
-=09=09size =3D 4096;
-
-=09fd =3D open(argv[1], O_RDONLY | O_DIRECT);
-=09if (fd < 0)
-=09=09die("open");
-
-=09/* the reference: the same range read into user memory */
-=09if (posix_memalign((void **)&host, 4096, size))
-=09=09die("posix_memalign");
-=09expect =3D pread(fd, host, length, offset);
-=09if (expect < 0)
-=09=09die("pread");
-
-=09/* a udmabuf over a sealed memfd */
-=09memfd =3D memfd_create("dmabuf-eof", MFD_ALLOW_SEALING);
-=09if (memfd < 0 || ftruncate(memfd, size) ||
-=09    fcntl(memfd, F_ADD_SEALS, F_SEAL_SHRINK))
-=09=09die("memfd");
-=09view =3D mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, 0);
-=09if (view =3D=3D MAP_FAILED)
-=09=09die("mmap memfd");
-=09ufd =3D open("/dev/udmabuf", O_RDWR);
-=09if (ufd < 0)
-=09=09die("open /dev/udmabuf");
-=09create.memfd =3D memfd;
-=09create.size =3D size;
-=09dmabuf =3D ioctl(ufd, UDMABUF_CREATE, &create);
-=09if (dmabuf < 0)
-=09=09die("UDMABUF_CREATE");
-
-=09/* a ring with one sparse buffer slot holding the dma-buf */
-=09ring_init(&r);
-=09if (syscall(SYS_io_uring_register, r.fd, IORING_REGISTER_BUFFERS2, &reg,
-=09=09    sizeof(reg)) < 0)
-=09=09die("IORING_REGISTER_BUFFERS2");
-=09desc.dmabuf_fd =3D dmabuf;
-=09desc.target_fd =3D fd;
-=09up.data =3D (uint64_t)(uintptr_t)&desc;
-=09if (syscall(SYS_io_uring_register, r.fd, IORING_REGISTER_BUFFERS_UPDATE,
-=09=09    &up, sizeof(up)) < 0)
-=09=09die("register dma-buf");
-
-=09if (warm) {
-=09=09res =3D read_fixed(&r, fd, 0, 4096, 0, 0);
-=09=09if (res !=3D 4096) {
-=09=09=09fprintf(stderr, "warm-up read returned %d\n", res);
-=09=09=09return 2;
-=09=09}
-=09}
-=09memset(view, 0xa5, size);
-=09res =3D read_fixed(&r, fd, offset, length, 0, async ? IOSQE_ASYNC : 0);
-
-=09printf("READ_FIXED into dma-buf (%s, %s): %d%s%s, O_DIRECT pread(): %zd\=
-n",
-=09       warm ? "map ready" : "first read", async ? "IOSQE_ASYNC" : "inlin=
-e",
-=09       res, res < 0 ? " " : "", res < 0 ? strerror(-res) : "", expect);
-=09if (res !=3D expect)
-=09=09return 1;
-=09if (res > 0 && memcmp(view, host, res)) {
-=09=09printf("data differs\n");
-=09=09return 1;
-=09}
-=09return 0;
-}
+> 
+> When Linux receives the interrupt, we know:
+> - The counter value now (C_NOW)
+> - The Linux timestamp now (T_NOW)
+> - The counter value captured by hardware when the frame started (C_SOF)
+> 
+> Since the Linux monotonic clock and the camera counter both come from
+> the same hardware timer, we can convert the difference between C_NOW
+> and C_SOF into time (T()) and "rewind" from T_NOW back to the
+> **exact** frame start time:
+> 
+> T_SOF = T_NOW - T(C_NOW - C_SOF)
+> 
+> Regards,
+> Loic
+> 
+>>
+>> ~Gjorgji
+>>
+>>>
+>>> Regards,
+>>> Loic
+>>>
+>>>>
+>>>>>
+>>>>> ~Gjorgji
+>>>>>
+>>>>>> +}
+>>>>>> +
+>>>>>>  void csid_sof_event(struct csid_device *csid, unsigned int id)
+>>>>>>  {
+>>>>>> +    u64 ts = csid_hw_sof_ts(csid, id);
+>>>>>> +    struct timespec64 sof = ns_to_timespec64(ts);
+>>>>>>      struct v4l2_event event = {
+>>>>>>              .type = V4L2_EVENT_FRAME_SYNC,
+>>>>>>              .u.frame_sync.frame_sequence =
+>>>>>>                      atomic_inc_return(&csid->sof_seq[id]),
+>>>>>> +            .timestamp.tv_sec = sof.tv_sec,
+>>>>>> +            .timestamp.tv_nsec = sof.tv_nsec,
+>>>>>>      };
+>>>>>>
+>>>>>>      if (atomic_read(&csid->frame_sync_users))
+>>>>>> diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
+>>>>>> index ccafdbf3a9fe0c282da68ccdd04661b3fab81ff5..17cc3b42c8d83180d6abfcc3efe22178dcc2f2e7 100644
+>>>>>> --- a/drivers/media/platform/qcom/camss/camss-csid.h
+>>>>>> +++ b/drivers/media/platform/qcom/camss/camss-csid.h
+>>>>>> @@ -111,6 +111,15 @@ struct csid_hw_ops {
+>>>>>>       */
+>>>>>>      int (*reset)(struct csid_device *csid);
+>>>>>>
+>>>>>> +    /*
+>>>>>> +     * sof_ts - Read the counter value the hardware latched at SOF
+>>>>>> +     * @csid: CSID device
+>>>>>> +     * @id: CSID src-stream ID
+>>>>>> +     *
+>>>>>> +     * Return the raw counter value of the most recent SOF
+>>>>>> +     */
+>>>>>> +    u64 (*sof_ts)(struct csid_device *csid, unsigned int id);
+>>>>>> +
+>>>>>>      /*
+>>>>>>       * src_pad_code - Pick an output/src format based on the input/sink format
+>>>>>>       * @csid: CSID device
+>>>>>>
+>>>>>
+>>>>
+>>
 
