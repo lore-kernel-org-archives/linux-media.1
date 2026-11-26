@@ -1,54 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795709932;
-	b=fZdqM+NVfL2ZKW0lvPwfkbj5FBbC8u1UobLueLbtkw0p86ppIMvhA/HkduHgMnsZe5H9
-	 3yg2D8nZRSIugO1Tj4ZUvsN0G6swm1edt6tC47qkrU3DRT07iJbzhw8UilNFQVVLXGuhq
-	 TxDsuwWnEl5YOJI1L0Bzbl1NedNk+JSeGYZVAD/c1uaLaoqVtzTneKXtLe7JzuAaNoVmE
-	 lOUvqlRHV2ypBb3NEMC6FGdjhQiO2S8mjnJIW7hUN07wZsn2vukHpUtfpQ/xMEZeK4TcR
-	 3xfVFiuNIlC33MMCci58BUgDqDzHU5r8uxy9b828MvM/gOMrPEWB0UBNtqKVsY8C12Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795709932;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=Sheh8Re0PVDjBdVA3EltFLk4JbLOu8Er8OMJmYxJgaY=;
-	b=ssNClvzuq2iXTrEap2+WbBFmIwqI3b9uylYkH3gVWK3B61qXo1b9X873hXA/VJ4F9DEq
-	 5NITNryOWJlLyZQk1gh+orJcf42orS9Ow7+mEfsfDCqiqYkMmhPxaX+iVmKj71cQ5gOKB
-	 6lQxa+2jTAdBFaXSI6xRI542CWq3O6Q6TCBQSXgOCH7C0sSVimm+QEmiUiRmJbayaDwsj
-	 3WtVMF/mN72V4prrw7a0p/BnUBTx4KqJ5mgwim420EqqGDrYBBbmpT3iycqbRi1EOsIa/
-	 f1KRruoWy1iDx+OOJWy7IRSGmsFbQApw/zTkMt6m4lW4qWaM2vZS8AAlWsUS38QFxYA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=N4eJIi74;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795710136;
+	b=e1iWU/+MWgayDb4nnBM+OvOiH3gz6jQu1fgxu5lr7XIV7RoDuBAF3VB6zAPWPCuOcNvK
+	 c+xABMDDjSw6jMjkcZaYN98b6K/jDZBTzAusnthNzF+hcOrTUtDO1pRgRzdNzuzn0rr9U
+	 CjqI+0gOzwZkzsWlJaCliLBVOZXJmdDOAKQbgq7mlPVuKIwTnA3Trw/PzsHl+N/S4GdJk
+	 KFDUaMtS/kajG/timc3EPD5XkHxTX0dpwF1y279vCxgrHbYOlvlmy1r1q3v4EgZEYM6T/
+	 EA6o5RuBDqLjrJvQd7e/3uLCgG+cQpsbZSzPi/ujk3QW97rS7X65ZhF3PcR7/B8rm4g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795710136;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=LhXW6WWxyK5q9TLN7DF86Y32xXd7qR1sGyUm/tXFhic=;
+	b=rT0B94FkKTCfeQknyf87H9NgVOX32fkgHkVdZtZoiIABDoDNqdYJ+34rcRHLFBQSl7W6
+	 bD7FyHa/KdPA61huungrPkQCOcplibokCWHReAh67y1eogRJ53mUoryN8rwn7Zi3Y1XtZ
+	 WUiSG4ro+PCavdoE0i4FL2zCoHXGORHFYZTK6DNvXEfs2JbyM3qrNKukXcqo3l45MKVua
+	 1ni05gHteW4P0J/H9JPaTLBRZ/Y9YGpORHkzRIH2/4iKrSpyD0Fyf/4YbnsNF2uJ+81fc
+	 I6vK/e18I/AleLPTajLwLMrVfKd9pAqipbXiHzhCXsPnxlAUwhkpZRxBn0+SI8tq7Ng==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=sTXcBPYS;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A47C606A31C;
-	Thu, 26 Nov 2026 16:18:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A47C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F232D606A323
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 16:22:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F232D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=N4eJIi74
-ARC-Seal: i=1; a=rsa-sha256; t=1795709910; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=n8GT9DA/b/dufTX9LgvVofXdLlN3BC36O6/ydE/f9tMvhoEMheukiFTToQBb4e9KQwOr44+F71kpXAld8Ii9NNkvYn1IOcGODw93chYAUEr/q1noGfazPFSh5sVu+8ROoCgaJi+9s20n8qbNlQczS9scdv5tveLXC7h/JQT168I=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1795709910; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Sheh8Re0PVDjBdVA3EltFLk4JbLOu8Er8OMJmYxJgaY=; 
-	b=flgEM/ggFBn4Sb+vjKM13wy3NygJ3i6HrKodCIWijtTmfXA5iUPbDb287PWYb0lS85KeoDsrnwhs7BzONfduUxuCYamOKgAWRhfvxb3tfjXbT8O79FR7eXOxegYVKXb14yb3hQcdcubFVqoVEFSH1VILgf4C+0vHfNifsZqBgcQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=N4eJIi74vkSqP+pvXtfONpD3X2GWHG+f2PvYihGlAhDv/yO1ArA4Nek1pPPe3pewoUVF+TD7BVefLCVau7ny1vP2cUYFpXSx4DGZ9q+EgU5YlTDXf+meF8uGbfBGlQ7FzFlLGA3/spmGCa/io7yFhUtsFvnM2qCLWl7mUcIJi3k=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=Sheh8Re0PVDjBdVA3EltFLk4JbLOu8Er8OMJmYxJgaY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795709907264444.03070160972027;
-	Thu, 26 Nov 2026 08:18:27 -0800 (PST)
-Message-ID: <b79882a0-d438-4798-9a28-5019ae3be4c0@collabora.com>
-Date: Thu, 26 Nov 2026 19:18:23 +0300
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=sTXcBPYS
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso52370795e9.2
+        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 08:22:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1795710134; x=1796314934; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LhXW6WWxyK5q9TLN7DF86Y32xXd7qR1sGyUm/tXFhic=;
+        b=sTXcBPYSeisnxxEwCZoFkwQP+w7rdOFVMnhCKwiTziMru4eR0LHtPa3aha6YYT1ceV
+         CpmeE513GLsWm9+qqjK7wKXB7vapqRlPYKpQoB2Ffc9EdCY+CCjbwfy+QZtVgr+irFW7
+         t7ufYEZ20H0Co2XeU4yJTf+3t5lazV15Y+cqlO2YwdB+787Modeuo0nGWcjCuGYRXVs4
+         1akr24E0Xmdr7WT1m0mICXL/8lEGMedXGadIfV4wgf3HNI8HwypKypK5K0gSj5mGxN/v
+         JA8ugjrD5VOLGnQbchT19EMbtRo1ALPIhUVBZwx+eaKKg/diWEezfOsKAZtwL1w1todn
+         U0rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795710134; x=1796314934;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LhXW6WWxyK5q9TLN7DF86Y32xXd7qR1sGyUm/tXFhic=;
+        b=zAgOWcFOzttnqH2mmZjfqzTilQVQbVySFrkd11BmniOC+ehcjs0nx86hofk1lLw0Pv
+         Szez5Za9XpHez2+DoAUnUOVxwGssKk2lhVxPwUJoveq7eZcP4mVSYhE0oS4iuStjdp+v
+         5Jz6p3NEe3/BfcOcse0V2xsL+sixC3+JZHJI9VEn+RKT8t5W6ErpyzgkX231PNzYsyWE
+         jMG9+yu6bHZp7/oRI1Z8r1EDzrNomaF5pWUUqxzBZsJ2FNtqG+JzJ0jO6GuqBYi5glZL
+         WPUTH1igVjfhH4nfE4v8QgSdVoHY9dakxQ2ExjhLx93dj1jO7Mwi3PSoo2jhqjyAo7F8
+         3yaA==
+X-Gm-Message-State: APuU4Z+Kz1ZKdhRcv3Ty8mJckv+rI8eErEXyT9jBEMamwzoRB9nuhsnz
+	Z+3kVx0Iw3EOpNGt/ZW3xOd0DqL3T7CRaBuBR2WCN5cDn2910ejufxoPLHZwZ1MJLcg=
+X-Gm-Gg: AZFdTZc3Tq48kwuWnFNOoLPZq4YsFPYbyNlwOooe+YAzSJ5dcpcQ3bnK3iw49PxykNk
+	gBqXhJGiD9UUxTfXVZFDky3Bwy1Ub35i/ixFIZp+Z7UV72UdpQb0/mdyPkYWipboTfFDLlm9mDN
+	jNcCfYDTXffkxVWJEi7VfyfgNa+oXP2H+zaX7q+uiugQye8fCe8IRijV5pzNpY67FpHvdK5byJE
+	NiaVF68pxHnMOP3MBDTkQM+/Vqbx2dxYvPMUntqU3mee/DRVhBNbbAibOCVYcsQDChIdLrnVjkL
+	JO46Eb/zXxLMGqPHPs/Mdxden/80/QZWhrUJXA1qgrGyls2kZRurZ18EDGQtWkYPPlGo9CYveHS
+	+zw0PH4sy4ATJPOYb7S9GFealFr9zFuwh1khWmt+sFSPDy0LSbwoa3Ys1/UmRK8d17vsrlUIKkE
+	G/xy3uac1b5197hpfgHBWRSIk3Lr1BtecaJ/dVs9xAYYImIyWY4VS2BPVHAy8m1Xcl3DZwv1RVf
+	Fi/96nA9IB+ZmT/FoMUtShTHVUSe6tQdN6otOK+9K4PSTGw+PadUROgchJSrU9nP3cS1+cQe8lB
+	yKAGUjYCggSLSynp1JVeo817+XQ2WdscTWKetK9g1W7Kzm7VggVun6oLwDmsCNc=
+X-Received: by 2002:a05:600c:4e02:b0:4bb:5d39:95fa with SMTP id 5b1f17b1804b1-4bb88811c82mr422575235e9.12.1795710134157;
+        Thu, 26 Nov 2026 08:22:14 -0800 (PST)
+Received: from [192.168.0.167] ([109.77.24.219])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab658e2c8csm42722484f8f.2.2026.11.26.08.22.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2026 08:22:13 -0800 (PST)
+Message-ID: <c7e1b25b-23c4-4598-9a22-577e105cacf0@linaro.org>
+Date: Thu, 26 Nov 2026 16:22:12 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,81 +90,78 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: synopsys: hdmirx: move the reset bulk data out of
- the driver data
-To: Sascha Hauer <s.hauer@pengutronix.de>,
+Subject: Re: [PATCH 1/3] media: qcom: camss: x1e80100: Fix CSID2 routing to
+ nowhere
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261116-hdmirx-resets-uaf-v1-1-1903146a3118@pengutronix.de>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20261116-hdmirx-resets-uaf-v1-1-1903146a3118@pengutronix.de>
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+References: <20261122-camss-routing-fixes-v1-0-0deeeaca2622@kernel.org>
+ <20261122-camss-routing-fixes-v1-1-0deeeaca2622@kernel.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261122-camss-routing-fixes-v1-1-0deeeaca2622@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 11/16/26 18:06, Sascha Hauer wrote:
-> devm_reset_control_bulk_get_exclusive() keeps a pointer to the bulk data
-> it is handed and releases the controls through it when devres is torn
-> down. Since the driver data is freed from the v4l2_device release
-> callback, remove() and the probe error paths may free it before that
-> happens: on every unbind without an open file descriptor, and on every
-> probe that fails after hdmirx_parse_dt(), in practice a deferral.
-> devm_reset_control_bulk_release() then reads the controls from freed
-> memory. KASAN reports the use-after-free, the controls stay claimed, and
-> the deferred probe fails for good with -EBUSY on the exclusive get.
+On 22/11/2026 02:10, bryan.odonoghue@linaro.org wrote:
+> From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > 
-> Give the array an allocation of its own with devm_kcalloc(), so it lives
-> exactly as long as devres needs it.
+> CSID2 doesn't actually have a corresponding VFE it can receive CSIPHY input
+> and raise an interrupt but it can't drive any VFE write-master. This is
+> basically useless and not worth coding around in the upstream driver. If we
+> find a real use for this we can turn this back on. In the meantime drop the
+> definition, it only confuses things.
 > 
-> Fixes: 03ec4aa9817b ("media: synopsys: hdmirx: free the driver data when the last user is gone")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+> Fixes: 1830cf0f56c3 ("media: qcom: camss: Add x1e80100 specific support")
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > ---
-> Hans, this fixes the patch you applied from v3 of the hdmirx bridge
-> series. Sashiko pointed out the use-after-free on v3, and the fix was
-> meant to go into v4 of that patch. If you can still replace 03ec4aa9817b
-> in your tree, please squash this into it; otherwise it applies on top.
+>   drivers/media/platform/qcom/camss/camss.c | 21 ---------------------
+>   1 file changed, 21 deletions(-)
 > 
-> The remaining patches of the series will follow as v4, rebased onto this
-> and with the v4l2-compliance output you asked for.
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+> index 26e3f2aa3ef24..aa6d01d8fcb2a 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -4515,27 +4515,6 @@ static const struct camss_subdev_resources csid_res_x1e80100[] = {
+>   			.formats = &csid_formats_gen2
+>   		},
+>   	},
+> -	/* CSID2 */
+> -	{
+> -		.regulators = {},
+> -		.clock = { "gcc_axi_hf", "gcc_axi_sf", "cpas_ahb",
+> -			   "cpas_fast_ahb", "csid", "csid_csiphy_rx" },
+> -		.clock_rate = { { 0 },
+> -				{ 0 },
+> -				{ 64000000, 80000000 },
+> -				{ 80000000,  100000000, 200000000,
+> -				  300000000, 400000000 },
+> -				{ 300000000, 400000000, 480000000 },
+> -				{ 300000000, 400000000, 480000000 }, },
+> -		.reg = { "csid2" },
+> -		.interrupt = { "csid2" },
+> -		.csid = {
+> -			.frame_sync_en = true,
+> -			.hw_ops = &csid_ops_680,
+> -			.parent_dev_ops = &vfe_parent_dev_ops,
+> -			.formats = &csid_formats_gen2
+> -		},
+> -	},
+>   	/* CSID_LITE0 */
+>   	{
+>   		.regulators = {},
 > 
-> The fix was developed with the help of an AI coding assistant (Claude),
-> which also drafted this message.
-> ---
->   drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c | 9 ++++++++-
->   1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> index a241761b1bcd9..8a5304603c00d 100644
-> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> @@ -144,7 +144,8 @@ struct snps_hdmirx_dev {
->   	struct mutex phy_rw_lock; /* to protect phy r/w configuration */
->   	struct mutex stream_lock; /* to lock video stream capture */
->   	struct mutex work_lock; /* to lock the critical section of hotplug event */
-> -	struct reset_control_bulk_data resets[HDMIRX_NUM_RST];
-> +	/* devres may release these after the driver data is freed */
-> +	struct reset_control_bulk_data *resets;
->   	struct clk_bulk_data *clks;
->   	struct regmap *grf;
->   	struct regmap *vo1_grf;
-> @@ -2296,6 +2297,12 @@ static int hdmirx_parse_dt(struct snps_hdmirx_dev *hdmirx_dev)
->   		}
->   	}
->   
-> +	hdmirx_dev->resets = devm_kcalloc(dev, HDMIRX_NUM_RST,
-> +					  sizeof(*hdmirx_dev->resets),
-> +					  GFP_KERNEL);
-> +	if (!hdmirx_dev->resets)
-> +		return -ENOMEM;
 
-hdmirx_dev->resets array is a part of hdmirx_dev struct, the hdmirx_dev 
-is used by hdmirx_v4l2_release(). This looks like a slop, what am I missing?
+This patch is too naive, it leads to:
 
--- 
-Best regards,
-Dmitry
+20261126-purwa_camss-v6-2-5ab97aea3832@oss.qualcomm.com
+
+I'm going to NAK myself here and do something better.
+
+v2 incoming
+
+---
+bod
