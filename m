@@ -1,47 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795704483;
-	b=e8dBIx4KM4XMrM2iO/JSpJAkk5/WPuR+dyWqy/uclm/DwZdxEPkN7tSaqjpkB1H/8gee
-	 AZGkLNMbklbPO/QNr+61PX7TPkBBlqQLEHvUn2qzfF3Ry+w+tzFVi3i03vsMtbSHpIog7
-	 UKgDGXNl1Xj22uVeJvCJgifJQ12mebcVstjVU5FQV7AzaJn9fINHL+cvR/tnaqV2wawhg
-	 YzXaPYWUH6bnUIRyf7oiPMHbvzeD362l637Q3v3gOtXDOKJOkVIuy2SA029TorXh7jG9H
-	 gH4Uzo0YPEgSvCc/Hz0GLBvuN4IBKgH3MDs2VDMnFWEvkbDQcDD8WvVo9rntcH5NawA==
+	t=1795704947;
+	b=EQ2ARWRUr7QdtYbpt0Rcg1z6JvsR1+jg+8naFolQONpdBV6KRTLKGRdoZtzMXXrnsmS8
+	 82MhfluXW9Vkd/fGVvBGMFpnhHb3FCc0Baokp3F2Gzvw9QwEVY6jXXvMY3484mnhfkc4w
+	 LtJecMsw9Z4l9mXxf+YboigTP3e6J1D3AVuiJNKjFiB6oz67nDtnNnCIfgKZ5EoJj/G9r
+	 Gw3JT75fA7KOHnyKek8SYE0OMr9bD/Y9eLD1QAewVvaxO9cZFp12al9IqXhv7j2TJGOQv
+	 9yelEeSOxvhIRzWePtJDBWNo6KQcqxIitGrM6Vn6GyfDkVxeU0otkjmSQck+f44gB0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795704483;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=6PCKePMp0WsW5LQ7DmpgIr6EaLlpF4H71hTwqLP8NAw=;
-	b=JLyWibW1yWVqs2/cg93tGhrU8iWBiuSTk+VrQztD1XKKtrEuYhX8nU73l2Dm4CTfVxa+
-	 gk85Br06eKfpgcsF/jsli5fYyTavTVRpM5W88K1l1J4SFthzf+iSmvD3jT3OEUtb81UbA
-	 yqXGtW5RPP9Tx5AfgbOuJtzOAVXUnN7AHKDu9dxhVNnHa44krXVtXfgxFnV2FHIW9QfOk
-	 oG9BSk0Gxnh6Boe0q8ZOwXlCfKm6go9Jj6qrqxDWYhDywGrXw1nQuMn2ZdkzZv+dKQb0r
-	 3B+aQ5+4vKGxw4Q2/nZmLqwppd0K0NNATt3e8XXfuiXjDcBYd/J+60MKbY4hhS/wHbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795704947;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=m1EK5Kg1DHSLtMSU2tHQsWHX71zGSAKbIU1tLCzsNOs=;
+	b=5GfJjk9sKOSj+l+UDLhDZv75IbZTKZfryx82DJR+dKFIDF5nn3VTSubadYASh+3AZRig
+	 qOai74rnztEwjg8yNTiXVLho4MCS7wWgMc93IwZPn0S5cpG0EuZ3PRV33iJ8Il9KFMU34
+	 tUBPEydRvBTw8Zb0e4k2CceYD7CW3jMhnf1g1mXHK+FEQElSzZo8xFDAzS8DUcH/eclOI
+	 ks4mC+xAv2GHSlCZfteQIqp+5rP1eCVMPowhPps2gwr7av227edBfclaXTtKS++Qzabs/
+	 QerFDBJLbVTcAiLN6w8siW5+paw3VtjmuBWnSYxuGDivRoIMgUspOG5Mj/NaADAG2VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PS1tCHgm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F40606A332;
-	Thu, 26 Nov 2026 14:48:03 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=TmlDV4Fi;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76FA5606A326;
+	Thu, 26 Nov 2026 14:55:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76FA5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PS1tCHgm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC4731F000CF;
-	Thu, 26 Nov 2026 14:47:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795704483;
-	bh=6PCKePMp0WsW5LQ7DmpgIr6EaLlpF4H71hTwqLP8NAw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PS1tCHgm3FWxzgMo4KpK85PcZzCDiniLHdmeDBge2IXcdc6CgIWg3rsoXlg/oIvyT
-	 yt2IEa3IJd+asHpvsuOabeIrHOBr2XQAzV/SH+4oGe2FB8c6a+HSEKWtHFVqd5AVim
-	 VsoUCWi8cQA51kBEe0HxRKDJnwwDc2SQ8ntGf5FON5OCB/V1rQFilKcwbnXRXnDNs8
-	 V5zDXzJ4uE3VF1bIIRyxQFYVtk5orpWgWhNHVtajwvk250kFWRIyT7KSpIad3CvVNe
-	 cta5U88WIXc+CpcIjwQhoBghfY/uha77vXKhExoACQBA3/NKmtFIHAYnl2q/33O6ir
-	 Yp6/esIzgxyqA==
-Message-ID: <8db659d9-bcae-4ab6-846d-6be9ad1cc54a@kernel.org>
-Date: Thu, 26 Nov 2026 15:47:57 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=TmlDV4Fi
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DB1D01BA8;
+	Thu, 26 Nov 2026 06:55:42 -0800 (PST)
+Received: from [10.33.48.93] (GM14V85S.arm.com [10.33.48.93])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9091E3F86F;
+	Thu, 26 Nov 2026 06:55:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795704945; bh=SvlCtrr/3AS4+5pYzT1k9dDLoH3VLB5hGYKVGoOtsN0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=TmlDV4FiQUtQv962BjjuYR9pnZajoHuThd6FyEr+tHqwPGNjq8WLAciv0R0sVn6Iq
+	 7Cbpv0qOqyu4PqDxJrJ129vi9CYr+47Hia/CnX5K+hYcXCp/2fynBHWXiUDcqy9QJw
+	 gXWwO7C6piEaX5LzzH7Q8ilOBfWGp0FXmQzpUwBU=
+Message-ID: <0543d134-04d3-4e51-acd1-4fc39a0e522b@arm.com>
+Date: Thu, 26 Nov 2026 14:55:40 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,70 +54,214 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: defconfig: enable STM32 camera drivers
-To: Alain Volmat <alain.volmat@foss.st.com>,
- Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: linux-media@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261126-stm32-enable-arm64-csi-dcmi-dcmipp-v1-1-da9aba5785e8@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261126-stm32-enable-arm64-csi-dcmi-dcmipp-v1-1-da9aba5785e8@foss.st.com>
+Subject: Re: [PATCH 02/24] dt-bindings: media: Add bindings for Arm Mali-C720
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Nayden Kanchev <nayden.kanchev@arm.com>,
+ Konstantin Babin <konstantin.babin@arm.com>,
+ Linus Walleij <linusw@kernel.org>, jacopo.mondi@ideasonboard.com,
+ kieran.bingham@ideasonboard.com, laurent.pinchart@ideasonboard.com,
+ dan.scally@ideasonboard.com, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Rob Herring <robh@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
+ <20261124-b4-initial-upstream-candidate-v1-2-0cb9bde1bd30@arm.com>
+ <179559671799.14607.10622707622371448283.b4-reply@b4>
+Content-Language: en-GB
+From: Anthony McGivern <anthony.mcgivern@arm.com>
+In-Reply-To: <179559671799.14607.10622707622371448283.b4-reply@b4>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26/11/2026 09:55, Alain Volmat wrote:
-> Enable all STM32 camera drivers (CSI, DCMI and DCMIPP) as modules.
-> Those are being used on stm32mp2x platforms.
+Hi, thanks for the review.
 
-Is that SoC? Or company? Please list at least ONE upstream actual board
-using these.
+On 25/11/2026 08:51, Krzysztof Kozlowski wrote:
+> On 2026-11-24 17:07 +0000, Anthony McGivern wrote:
+>> From: Anthony McGivern <Anthony.McGivern@arm.com>
+>>
+>> Add the device tree binding for the Arm Mali-C720 Image Signal
+>> Processor.
+>>
+> 
+> A nit, subject: drop second/last, redundant "bindings". The
+> "dt-bindings" prefix is already stating that these are bindings.
+> See also:
+> https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+> 
 
-Best regards,
-Krzysztof
+Yeah my mistake, I will update this in a V2 series.
+
+>> Signed-off-by: Anthony McGivern <Anthony.McGivern@arm.com>
+>> ---
+>>  .../devicetree/bindings/media/arm,mali-c720.yaml   | 134 +++++++++++++++++++++
+>>  1 file changed, 134 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/media/arm,mali-c720.yaml b/Documentation/devicetree/bindings/media/arm,mali-c720.yaml
+>> new file mode 100644
+>> index 0000000000000000000000000000000000000000..3bd261bcefbe371b7b4610afdde8e556b2a2ae22
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/media/arm,mali-c720.yaml
+>> @@ -0,0 +1,134 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/media/arm,mali-c720.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: ARM Mali-C720 Image Signal Processor
+>> +
+>> +maintainers:
+>> +  - Anthony McGivern <anthony.mcgivern@arm.com>
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: arm,mali-c720
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  interrupts:
+>> +    minItems: 1
+> 
+> Why is this flexible?
+
+The ISP has two interrupts - Main and fault. Currently the driver only
+uses the main interrupt, though we may wish to enable the fault
+interrupt in the future to detect errors on HW side. I will update
+this in V2 to use descriptions for each interrupt.
+
+> 
+>> +    items:
+>> +      - description: ISP main interrupt
+>> +      - description: ISP fault interrupt
+>> +
+>> +  interrupt-names:
+>> +    minItems: 1
+>> +    items:
+>> +      - const: isp
+>> +      - const: fault
+>> +
+>> +  iommus:
+>> +    minItems: 1
+>> +    maxItems: 3
+> 
+> Same question. List items with description instead.
+
+The ISP has three AXI masters which may be connected to different
+IOMMU ports. Initially I made this flexible since those masters
+could be merged onto the same port, but better to be explicit here
+and just define all three. In V2 I will remove the flexibility and
+add a description for each port.
+
+> 
+>> +
+>> +  clocks:
+>> +    items:
+>> +      - description: ISP main processing clock
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: vclk
+>> +
+>> +  resets:
+>> +    items:
+>> +      - description: ISP main processing clock domain reset
+>> +
+>> +  reset-names:
+>> +    items:
+>> +      - const: reset
+> 
+> Drop names
+
+Will do
+
+> 
+>> +
+>> +  memory-region:
+>> +    maxItems: 1
+>> +    description: Reserved memory pool for ISP DMA allocations.
+>> +
+>> +  power-domains:
+>> +    description: Power domain containing the ISP.
+> 
+> Drop description
+
+Same here
+
+> 
+>> +    maxItems: 1
+>> +
+>> +  ports:
+>> +    $ref: /schemas/graph.yaml#/properties/ports
+>> +    description: Parallel video input ports.
+>> +
+>> +    properties:
+>> +      port@0:
+>> +        $ref: /schemas/graph.yaml#/properties/port
+>> +        description: Input port 0
+>> +
+>> +        properties:
+>> +          reg:
+>> +            const: 0
+> 
+> Drop properties, should not be needed, same in places below.
+
+Ditto
+
+> 
+>> +
+>> +      port@1:
+>> +        $ref: /schemas/graph.yaml#/properties/port
+>> +        description: Input port 1
+>> +
+>> +        properties:
+>> +          reg:
+>> +            const: 1
+>> +
+>> +      port@2:
+>> +        $ref: /schemas/graph.yaml#/properties/port
+>> +        description: Input port 2
+>> +
+>> +        properties:
+>> +          reg:
+>> +            const: 2
+>> +
+>> +      port@3:
+>> +        $ref: /schemas/graph.yaml#/properties/port
+>> +        description: Input port 3
+>> +
+>> +        properties:
+>> +          reg:
+>> +            const: 3
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - interrupts
+>> +  - interrupt-names
+>> +  - clocks
+>> +  - clock-names
+>> +  - resets
+>> +  - reset-names
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    mali_c720: isp@400000 {
+> 
+> Drop unused label
+
+Ditto
+
+> 
+> Best regards,
+> Krzysztof
+> 
+
+Thanks,
+Anthony
+
