@@ -1,95 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795731077;
-	b=1N1kwOOd/3KCADvehtFUZGPh3VWIw+C6FAzi8pv+1JoCht1mjYL5oh2OBlMLwt39/Xo1
-	 lyoq/G43P/K0EENoHctuDS/RujqqO8Y1AyQL12G2UbD7Iy2sVz0BZrSFjy3hkc8hx/jK5
-	 Zz7bsaoadHbM4icgRzt5jIACW5yrtgHKVX9Ku3LeaEXm0TnM19nr1WaCwDx6di6ixQf7k
-	 7rSrfEtNuFD9LYjgCocEakR9geIE2jL1Y2IRqj5hGc3TQ5HzO4SILrkmWAxcYxRW/J6OR
-	 wnjJrAM3Df74LeAAmoaQzARCDQWA62cRqRkIx+/YyVzEXh+HLGlLEI5YXoy+hYzVtPA==
+	t=1795731591;
+	b=5rJAHHS1wAiNDKm5pZf4eoyDyEnfjPn4b68DsAnitnFLahoSwPis1hzMOuUGERVMCgP4
+	 PyKlTNHEMQieRSE0nfzztRMLLf2ETHk8s/ctMsGL5/W/GLTHp5hdhfA8C+BPKVvlxcdim
+	 DxEOVD7b2drQaO1VjlZb/nCEDFIVYxG7Dz8wie84XhWmE6DiJJB+uHlr1fKg3kdglRAVq
+	 BsOlXLHhr/cIelGTJNfOiAQosvJkTLfPts+dqEi3fyr6Mz59rUjXEtpksg2AFTAkkObky
+	 R7dMSE+Th8fpVya4ft8t56K0a+Np5ndwyQR1+KI228+4z28aJvbqwSHqKzMhSaNbcGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795731077;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795731591;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=EBJHUco/hzG0Sju8J8Gd4qY5V0VOeKsMcHwF08fQyis=;
-	b=OwhYVSV0OTgKiveYW2epH4KOF1irl2FpRY4RGxvQeNwrsAJaJ/RhZ6TIKC+ug7+W3x+p
-	 KZJJiVY1dLlBQ+g6wTw9AarXQBaqqx+011XUyZPri1Z6dFPCZRMFJ4iuMviDUnxzn4JQO
-	 HABYePKF+IKtDUhpd3153RXGtKGS0r46hJVRl1uZWorMd5KEVkxf3La3zFzMXeS/8E0rb
-	 gsu2vhy7Qmk78SjXY+L+GjypNXuIK+qLgRcQQm1oDMFn2oCbjKIr7Ydchxt85MYwKsj+L
-	 xk/YqkT3dYT3yK7TNRqukO0QnFuZocoPa/KtRNZZFTF3rVHmU2eNGHI+OFLESB5mSHQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:User-Agent:MIME-Version;
+	bh=/gSiBV6drlTbocMgCCg5biesF+T1YQl3nT64qn/PW44=;
+	b=TLJjDOCsq8Z+c63T4W/eYWejGpaHZnm2e233ABGJxfgsjEqMrX9hsZOHwiPD5KEHE9NV
+	 3grIbuMhQgs2ZecQFR96J4Yrp4mupSX7wrMkuVLNUgcQhD8nfSMcp6w7c0Nx0oAUjnpCb
+	 PMe9Cl80GZGhxUrgCdLo6lKD2nWRH6gPQduN5g3pwuJKFOVPkUAiMOHfh0XfJfIB2uZTJ
+	 xH7bndRSZQTubosYpyQXan6CZFKuHjnB+IBHejUhp79cRLnFx4dc7zdKqCFKAr8xPKAlV
+	 RkqEmJZVV9aYP9YlC/3fccczIwnZ6MhZsHr0f5BGcPQEsIeeaV5T6AQ8NcXL+Z7gfxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ndufresne.ca;
 	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=K4P0sV8o;
-	arc=none smtp.remote-ip=209.85.222.176
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=PBz421Up;
+	arc=none smtp.remote-ip=209.85.222.181
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DFC606A32A
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 22:11:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26DFC606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A36E606A326
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 22:19:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A36E606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=K4P0sV8o
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-9495e8ae23aso609605685a.2
-        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 14:11:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=PBz421Up
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-94958650b09so711883285a.1
+        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 14:19:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795731076; x=1796335876; darn=vger.kernel.org;
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795731590; x=1796336390; darn=vger.kernel.org;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=EBJHUco/hzG0Sju8J8Gd4qY5V0VOeKsMcHwF08fQyis=;
-        b=K4P0sV8oBUN1OFFzIPzXx/xgERW0VP6DhJf5sKWY44lG7EQAHJ9qJbf2ooJlb3eIjd
-         rdgM7ThXyX6p4Eyz+vf6nCL4fXqXhEjzyVXUP2GCuyraTnu9TV7PZncrs2fbMRvBNZE2
-         0opeX4MjYwds8ARwXT4Z73tO8cKEfglFh/+evyj6552eO2xS0Ub3fAiHyC7ICpP5KwZm
-         OTvyAYtKilWlZ5Kwy4ilsR4BHXfnP1FehQiNfLwIAf9aD3nAxu5NQSo6hRk21HKlToGu
-         ZgyG3MVcI4SueOB5jXtePjBcs5CMmlMDcu84Tjhl25y5zS5ncfemajvMOociU9yLADU+
-         9Mzw==
+        bh=/gSiBV6drlTbocMgCCg5biesF+T1YQl3nT64qn/PW44=;
+        b=PBz421UpukIzl1hcCoOV46JH10EFBKC5FM1pbm4U8BYAeaFTBseoz6Wqt1gLxP7lqf
+         +Xe3po5Gst65oNIYI9r42Ny9KBwTExRHbHCJHj2yMJpEdwCaMEtWKHKqbSMovLfNAJo+
+         dp0ljJGar8c5Rt8s4EUI48/znO5VlGDTj6JKfI/STe7Sy7Unyvo0MwmXdUD9r2PY1Ef7
+         veX5ciX+xhzzGdNF7XL5abjGzGVxcu28jJOKCVGPrLfodIxwfbUlTDRypXzEwGRXhjeW
+         3ILYTl+H7sqd4dmgbIkDxuzRySZJW3U6200VnVhGeeWlu5q5mOkpfFCq2DqC/qoiV/2m
+         IKRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795731076; x=1796335876;
+        d=1e100.net; s=20260707; t=1795731590; x=1796336390;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EBJHUco/hzG0Sju8J8Gd4qY5V0VOeKsMcHwF08fQyis=;
-        b=BjA3rPQgxGUFoeRL6kwO6eEyG05qneP4ECLKewA7B6fOc/4zjZSSuh0yOW4NzJ+LMw
-         GaZgaXqUoTlmTEjsF+yDF/PC9P9w0Z9gMkLgly79Rxn76OS41+L1er+AcEe+S29hEY1d
-         NmqadijKZLwTgg/lUa4FxJLSZL4+CvmTbp1PAWXmNJ2r8tEmXUoOEy36EQRPcyCCAvFU
-         75/BIKWAFDD0EYKL4A3toOoIFclmWS/cDUnCEqe6FYEENByoW/vXHJ+PYH3HwvpHTsqS
-         /syu4dUALt8T123e6TkHG1ExA3sI+o8aN/VD4cduxPbj2eLkJe+Hoe3px5C8e/dItXFX
-         fCSg==
-X-Gm-Message-State: APuU4Z/A/TVhl/+xuxmQSX0UVfuin2LCc0HYGzQXXzWETbZxv/OO8WM4
-	bWAC2AAOW8TY4QqQc+MUKs1GNy/nRaf3VhJ8hCOpiKI1bbDTXSDW8x/wPdmUXysoSL8=
-X-Gm-Gg: AZFdTZdYkklR9pD0DkfRZb3c9IU7VizWkCRlfRlShE6wgfYnDrzwNR0szkLasF6pBKn
-	VMesR4Nljmy4F2/vzJEOmkJRp2zO0mqVCZlSU/gF//UhLKqV37Nfn0wgzOLDuiLgkKYrmMOo72c
-	KEPcL+eejgR6T9l0In+w0xfH4CO/0UGgwQRI3uxsYVk/HPdnlrkvJs4RpERWB8OfzIcUZjwY4TD
-	VAtX54TtgWT6cqaBoV57vpPTQP7DSGtZLC5rFEqB4UflxrOCOyHF/UPS8BCqPk7FjJdp61bKg1n
-	5LMIqX9/4RZS7Dfscp5334UxHjVc2MQgBavn3TeMYSkPJgpAd7Ea8zUE9C+PMvgX+vMpRXgLcNL
-	g0A40N4LBlbeT5EU07taw98Va86SgyL7NaoajNxW7uhWph4tLHoX2ziGCr9uS4I89sSX0oCGGra
-	S8JmasdvpZAHKDogG4FCiE/cpZ0nh4oGgo6xam9kH1ZuUVuqvDOVRxQIvb/uaI2JAotQRZ3DqpU
-	FOuJ6RE5gGU9D3NYNKBlJ4oGTDPtn45z7E4LL4KuVA6rQiSFzXRc4bTWm3F9IymispgGs4FUgs4
-	nmzMYL2BaZs3tNDoUKbiug1xnvnGE+7nrz3lJkDlKvE0Fdg5vdtCnoM=
-X-Received: by 2002:a05:620a:270d:b0:949:3ea1:3021 with SMTP id af79cd13be357-949bab6d711mr3910620985a.68.1795731075981;
-        Thu, 26 Nov 2026 14:11:15 -0800 (PST)
+        bh=/gSiBV6drlTbocMgCCg5biesF+T1YQl3nT64qn/PW44=;
+        b=GyAhsJxBQHH/Ra9Fl0RAnuouDzs13LdZWYUz0m7RnVN2P35YhcdQ3VMpVsxgrUxti9
+         VryKH9bokbu7zFtRzk0xQHGdniZtFWqWun7EquiPW+9qnmB5fespsUDQVfSEGUoGUX35
+         akxHCL3o7DjLE/H5H3SDwBNIYfBhjpkflHQYkbQ+WZULTqC6yIhk5TCCjLbUVskSZNo9
+         7xYiqewRdTj/b53EviEDbfBq4B5+AEG7VCnERWxTvgOpzeK7GZp462RPiOmHqs3LPBeI
+         h5k1Tqf2XJUXB1K3tBIwDIQLLscOay+igqh6NnyJScT0j0xCjBJlJMtPn63hDJ9+9i7B
+         rdQQ==
+X-Forwarded-Encrypted: i=1; AL+hErHHgI/wmNGRrdRJcgvjjMIdWJlTjng/hOZn3i6uVFMNyuZyLzK2DVjRHj7lBptQYzod5Wil9rhS0cKx2g==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+zT/Zq+wB0aYa7MzHoH90lSTxDotRE3StavMjYZC2eRXGqAFuT
+	YHGEqU77iLg10dgfzBvlfa48VEWVUesOiri/0Yy0HuvGta06i+CU62c88+PZq6pBJpY=
+X-Gm-Gg: AZFdTZdkA/GcN1U6PPQjHYCban2NBG7+CrXURj9wyDO6o5XF6PDCZ1KKpgCFMu5CTwP
+	AllYWcSp9MonnXUlJEmRkxcCa3MROgi665mW5ySXL+UvBvkqkP+jT+qCpPNvqG+P9SwoMbUbQgD
+	b00KpPw1U57imHn7L+Y6c+1Akic0KnZENYTZuBoZ5HfrLkIDTFAPeWqcLeluZSVEb2JQ0N2f5SQ
+	Cv6rRsh9CR65/lLB25hG2w4Bxn7dPVyyb+MEEeH6EGEBNtXn1/cw+pP0Tvyrgkko1/JGJBK5Q1s
+	Ae8BmNYg5cn5UuHvFD0fSvXr8ok0vimZm5Hq8/APTMUgWPpLc5xpPywI/0GgUJ3bNGXappWv4Fp
+	179brpA7kfmQzDSXUDX4U8O5zLduUEhfqCevULGUzzLBmpIsMcOWg9wVezz6f+48gHOcqUez6QJ
+	AihfckrfWwzvoSSGlMKSPfzmhBSJxtKU/iqBYaHv3Am8YAKP6boBw/omfIZCi8y0Q/p6e6xidMx
+	tm2dzF1tqj5ls7tp+XNWaANmyfod7J0wg5jn9PQyFrFa6WCVP8SQNFAVvsO//U7QPwQsxSorSGn
+	e68gnPNMnKneuepsz7LRRnZ2D8Fq27V/+XIEEkvkme/rwOW/EBhrGxA=
+X-Received: by 2002:a05:620a:3188:b0:947:3673:f902 with SMTP id af79cd13be357-949ba9e9297mr3983731285a.55.1795731590418;
+        Thu, 26 Nov 2026 14:19:50 -0800 (PST)
 Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb3a646fsm1686563185a.22.2026.11.26.14.11.14
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94a09477acfsm454257385a.32.2026.11.26.14.19.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 14:11:15 -0800 (PST)
-Message-ID: <d44dd85413d264b3536dcc2938ce7066a9fa0004.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: sti: hva: Remove bogus mutex_unlock() in
- hva_hw_get_ip_version()
+        Thu, 26 Nov 2026 14:19:49 -0800 (PST)
+Message-ID: <c2ac221b70cc33e550f550ab21c1a5a5967d4676.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: mediatek: vcodec: Free encoder controls when
+ setup fails
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>, Jean-Christophe Trotin	
- <jean-christophe.trotin@foss.st.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 26 Nov 2026 17:11:14 -0500
-In-Reply-To: <20261117011400.1667-1-laixiangwu@cmss.chinamobile.com>
-References: <20261103013440.1138-1-laixiangwu@cmss.chinamobile.com>
-	 <20261117011400.1667-1-laixiangwu@cmss.chinamobile.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, tiffany.lin@mediatek.com, 
+	andrew-ct.chen@mediatek.com, yunfei.dong@mediatek.com
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 26 Nov 2026 17:19:48 -0500
+In-Reply-To: <20261103083533.1176842-1-vulab@iscas.ac.cn>
+References: <20261103083533.1176842-1-vulab@iscas.ac.cn>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -104,7 +105,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-8ZFNuaxoCdWsEFtb942r"
+	protocol="application/pgp-signature"; boundary="=-v7c+rvNTZeeZDaQiPqM0"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -116,52 +117,68 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-8ZFNuaxoCdWsEFtb942r
+--=-v7c+rvNTZeeZDaQiPqM0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le mardi 17 novembre 2026 =C3=A0 09:13 +0800, Xiangwu Lai a =C3=A9crit=C2=
+Le mardi 03 novembre 2026 =C3=A0 08:35 +0000, Wentao Liang a =C3=A9crit=C2=
 =A0:
-> Hi,
+> mtk_vcodec_enc_ctrls_setup() can fail after creating some controls. On
+> that error, fops_vcodec_open() jumps past the control handler cleanup and
+> frees the context, leaking the handler's controls and allocation.
 >=20
-> gentle ping for:
+> Use the same control handler cleanup as the later m2m context creation
+> failure, and remove the now-unused label. No m2m context is released on
+> this path because its initialization has not been attempted yet.
 >=20
->   media: sti: hva: Remove bogus mutex_unlock() in hva_hw_get_ip_version()
->   https://lore.kernel.org/all/20261103013440.1138-1-laixiangwu@cmss.china=
-mobile.com/
+> Fixes: 4e855a6efa54 ("[media] vcodec: mediatek: Add Mediatek V4L2 Video E=
+ncoder Driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  .../platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c      | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 >=20
-> When runtime resume fails, hva_hw_get_ip_version() unlocks
-> protect_mutex, but the only caller (hva_hw_probe()) never took that
-> lock; the line was copied from the encode path which does run under
-> the lock.  The patch removes the bogus unlock.
->=20
-> Is there anything blocking this patch, or does it just need more
-> time?
+> diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_en=
+c_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv=
+.c
+> index 4e4541b2fc8e..dd47feea6acd 100644
+> --- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+> +++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+> @@ -140,7 +140,7 @@ static int fops_vcodec_open(struct file *file)
+>  =09ret =3D mtk_vcodec_enc_ctrls_setup(ctx);
+>  =09if (ret) {
+>  =09=09mtk_v4l2_venc_err(ctx, "Failed to setup controls() (%d)", ret);
+> -=09=09goto err_ctrls_setup;
+> +=09=09goto err_m2m_ctx_init;
+>  =09}
+>  =09ctx->m2m_ctx =3D v4l2_m2m_ctx_init(dev->m2m_dev_enc, ctx,
+>  =09=09=09=09=09 &mtk_vcodec_enc_queue_init);
+> @@ -191,7 +191,6 @@ static int fops_vcodec_open(struct file *file)
+>  =09v4l2_m2m_ctx_release(ctx->m2m_ctx);
+>  err_m2m_ctx_init:
+>  =09v4l2_ctrl_handler_free(&ctx->ctrl_hdl);
+> -err_ctrls_setup:
 
-I'm trying to figure-out if its even worth the time to keep applying patche=
-s, if
-there is no ST reply next week, I'll send a patch to remove it, and that sh=
-ould
-also fix the issue.
+Fix mtk_vcodec_enc_ctrls_setup() instead.
 
 Nicolas
 
->=20
-> Best regards,
-> Xiangwu Lai
->=20
->=20
+>  =09v4l2_fh_del(&ctx->fh, file);
+>  =09v4l2_fh_exit(&ctx->fh);
+>  =09kfree(ctx);
 
---=-8ZFNuaxoCdWsEFtb942r
+--=-v7c+rvNTZeeZDaQiPqM0
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawiuggAKCRDZQZRRKWBy
-9GJKAP40X/F3Jok+Mf+mGyPEt9dc4YPrSePyENDVB5NhmdUlBgD9G+Xkv+NsCBfL
-wi/Et2PiHfDw4fFbZgFDQaYC+XR4Vwg=
-=Cnt+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawiwhAAKCRDZQZRRKWBy
+9OypAQDmjeaO3tv2K1mt6YGlWFssP0QrnOt96UUjRwEVvDQy0AD+NPHYtKJ2HV/T
+EhM1Fwjl1AFFmsIQcqTGIoFBfxMBkgw=
+=EM4e
 -----END PGP SIGNATURE-----
 
---=-8ZFNuaxoCdWsEFtb942r--
+--=-v7c+rvNTZeeZDaQiPqM0--
