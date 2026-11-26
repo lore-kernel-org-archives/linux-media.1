@@ -1,57 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.202.87.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795657000;
-	b=0ThxjbIm7pZChcu9MZreRibO76u6vX1U1f0zWpqd7LGPtmxczz6lQXSCmvWItdWVPuiE
-	 1gM2nQm56SNyRw6KLxx2j9DD8Ydy+5w+2hq91pbjbajuuEzYPqmXnip5Xq3piMYhcTcv+
-	 uk3UMMbrx3V9eMoIjzOLV1mgNay3204S1xlE8wuJ9VCjrjvm0r2lwtfFvwIDMDuR0VUrt
-	 6ijlB7iCOx8NLNPbTRglG6Vj0gHD6S68EwBf8LIHsG8qjbAoB4y6mEDJwCtjdw01MjPf1
-	 LC9a+RKlHWJ3pbY/wxLpawV1GUvirNsu3TENnfglqntT3T3u4HT43oKJPbwylces9oQ==
+	t=1795659373;
+	b=Rxd6JHmYdLhb2b+XDw7VXs6FFRGNm6KeP008s/U+wa9o2fc58vC39AM74LswSfZJ03Ps
+	 ZahaI0Iy2+FqXhcXvS9KOxLgjew2kAMdscofBcbpJlI327paIGmAFyKwm6gk5Daak0qcE
+	 ZE9iFJakB4xtgHXQKEpYUwjCT/6ic2pv/HeQ1Pte5MFoxbqlybwE4S/L6d18v5oZk9r08
+	 wRX+rwUIVbzYbeDfQ6LvA7AA9IFvPng6dlfeaBGwzBdrPEvWyDii7gLD9yK/xoMELpeUh
+	 W0WGoGYDUT6UXwfMqUv0aqWKD0CV7OhD9pqGU+szs0IeEfCD9l+KS4yR9kPOUFSye5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795657000;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DpPR4Lgudy4Xn24waxb/0v4e1jw2nsNC4nh9F+XHgf4=;
-	b=vEXtsvqHN9d9WNUlMyg4qJVLSqHIPm3KxsMVupvKOEiUAgYfdocdtWY768k5IyUtN5YX
-	 DT/eoa1nwi2YhU/pQw5aaw0+EW7RyWYOQzJ/+khE4Y42Nql9zBKieMIzfdnzR0y+M8+tU
-	 2QwY9PNny75N4rPPsK9TLsgMIezU1I76Dff7IIzrSDWN4c2sunTgV1gTsfj6zyxt90dHa
-	 qtFSZTFh7nWlE91C5SjBo6aCEiaadeHzqGoi4Y2TTxF5vcK3SzQCeN84myz2h25Yr0mX4
-	 XlPCVMNEjJCAJDc6skWgQn0gHDpVbmQqjvdvPVGNm/CWeD4P60GfEIZmyyVy79Qk0bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795659373;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 Received:Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-originating-ip:x-tm-snts-smtp:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-MAIL;
+	bh=FBGOdv8sbSGqy+s2KiFSS234niBKjQ6B3apGvG33pGY=;
+	b=TOMOoR87ZQPTlrUuqO4yoHGRhU4G3WsZFuo/XxI3BpH5zm+vdyMH71dcwnUpfey8nkOq
+	 R/m4NzIH6qcSIvyYwRkWuWD1rnIyR3uY/xm/Vl9t9gOTnpcNFkj5DSMqwOXmpaCszI8Mx
+	 yQh0pBnHyXkVsqlVLuRrforNwa0UoQiNypQ2mWR/Y31WEkdPlIGThyrq21gcqVVXoVHXB
+	 ejmwqznwa/tYo9Now/yor5/60iUiZDzKuMToqPy4/bXG6vxuHGjE22/cAE+dhoJh/N1wW
+	 O4Q5Mh8oxl/L+EtW9Z1GRuUmCPziQJb4QKaoah0f0roDlfT6Vm8UOPaLYQjUDnbWXXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=innora.ai;
-	spf=pass smtp.mailfrom=innora.ai;
-	dkim=pass header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=je4hLDKD;
-	arc=none smtp.remote-ip=185.70.43.23
-Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ite.com.tw;
+	spf=pass smtp.mailfrom=ite.com.tw;
+	dkim=pass header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=Nrv+x5z9;
+	arc=none smtp.remote-ip=210.202.87.179
+Received: from ironport.ite.com.tw (unknown [210.202.87.179])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B02606A323
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 01:36:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04B02606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innora.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innora.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A6AC606A321;
+	Thu, 26 Nov 2026 02:16:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A6AC606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=je4hLDKD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=innora.ai;
-	s=protonmail3; t=1795656997; x=1795916197;
-	bh=DpPR4Lgudy4Xn24waxb/0v4e1jw2nsNC4nh9F+XHgf4=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=je4hLDKDtTJ7UfwAh5rXTWOykyeXGhmvrV6vgCexebLRz+SvVCCd/K88omVptlSEv
-	 WTkCUte3O8B22JCEm8UURGXraRq2/QmSVcJ4iDarsiIi49gtjOqCoMy9qIuWOo3S01
-	 Zd0i6F8vHIcRA/s6qh0I/3ikjI/i6fksBBs5Y4U3wf6D49uXseLE9PlWBFaB2y80B/
-	 Hbhq6x4VH6u/nwgzwSW2uG5UpIEFJRnebToRyNen40ASCorFiHTLzX0PFfvTIpL/l/
-	 3amIj2k84AvEVtiXF/l1iMej6mahU84Us8h4HE67x3/qCcu/TVgMXu3JOLtcfUJvt4
-	 0eDyf+4L8OB3w==
-Date: Thu, 26 Nov 2026 01:36:34 +0000
-To: linux-media@vger.kernel.org
-From: Feng Ning <feng@innora.ai>
-Cc: linux-staging@lists.linux.dev, Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH] staging: media: atomisp: don't free the current DVS 6-axis table on error
-Message-ID: <20261126013631.53654-1-feng@innora.ai>
-Feedback-ID: 140578448:user:proton
-X-Pm-Message-ID: 18dac58aad0ed82082464985013203f839a7f7a0
+	dkim=pass (2048-bit key, unprotected) header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=Nrv+x5z9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=FBGOdv8sbSGqy+s2KiFSS234niBKjQ6B3apGvG33pGY=;
+  b=Nrv+x5z90ZA5ONj8lx/bfr9C5ZwWR9JjWf0urio756W2oG6Y7bmHvxN2
+   UYAFOoQ6+bPa4zscTHvxfqCQ4KkAX/h6SiLYZRc8dJ+nXtqfWbxBt1GkO
+   m8xfx6FBayvfSdyzFYjIdMsuAG8de5E8jCYY+3dFSL3L83dj6a2dJAlmb
+   PZG4pvCZ2ZERtxesfsa0RtrmQ7AEF7vCw22cgfQEwhp3e5EnSzvP2TNtF
+   VLpQH1zOQia6TKMD//M9udsNwJJvVHdeth2Iqf/Ks6HKcL7SUQt21fsMN
+   xQ0qzaMKHQe7gvtQP1ULVzzhqfEkoyp3+9UMqMHQQC9tl4VqViIpsgk+6
+   w==;
+X-CSE-ConnectionGUID: zjAILwc2QkKFGynlc3UlSg==
+X-CSE-MsgGUID: 57j3kFIKRuGKBL+ZgtO/3g==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 26 Nov 2026 10:16:03 +0800
+Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
+	by mse.ite.com.tw with ESMTP id 6AQ2G1qE099082;
+	Thu, 26 Nov 2026 10:16:01 +0800 (+08)
+	(envelope-from Hermes.Wu@ite.com.tw)
+Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
+ TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 26 Nov 2026 10:16:00 +0800
+Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
+ TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
+ 15.02.2562.046; Thu, 26 Nov 2026 10:16:00 +0800
+From: <Hermes.Wu@ite.com.tw>
+To: <hverkuil+cisco@kernel.org>, <mchehab@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <hverkuil@kernel.org>
+CC: <linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <broonie@kernel.org>,
+        <lgirdwood@gmail.com>, <linux-sound@vger.kernel.org>,
+        <linux-api@vger.kernel.org>
+Subject: RE: [PATCH v2 1/9] media: v4l2-ctrls: add DV RX audio sampling rate
+ and present controls
+Thread-Topic: [PATCH v2 1/9] media: v4l2-ctrls: add DV RX audio sampling rate
+ and present controls
+Thread-Index: AQHdfNng9/U6qc1EEeqYH4GUceBqBbc/njcA
+Date: Thu, 26 Nov 2026 02:16:00 +0000
+Message-ID: <aacbf13f25774be5bf599661202360e2@ite.com.tw>
+References: <20261124-upstream-it6625-alsa-i2s-v2-0-a154685f6989@ite.com.tw>
+ <20261124-upstream-it6625-alsa-i2s-v2-1-a154685f6989@ite.com.tw>
+ <6dba4041-fd5c-448d-9f9d-e3c1dcff8185@kernel.org>
+In-Reply-To: <6dba4041-fd5c-448d-9f9d-e3c1dcff8185@kernel.org>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tm-snts-smtp: E25FC086321F315CA2AA2582423C583D50719BB9EBB7574CE2488192CC74B8E92002:8
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -61,44 +96,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MAIL:mse.ite.com.tw 6AQ2G1qE099082
 
-When the new DVS 6-axis config has the same dimensions as the current
-one, atomisp_cp_dvs_6axis_config() reuses css_param->dvs_6axis instead
-of allocating a new table.  If one of the following copies fails, the
-error path frees that table while css_param->dvs_6axis still points to
-it.
-
-atomisp_set_parameters() handles the error by calling
-atomisp_free_css_parameters() on the same css_param, which frees
-css_param->dvs_6axis a second time.
-
-Only free the table on error if it was allocated by this call, and
-leave the current table to its owner.
-
-Fixes: ad85094b293e ("Revert "media: staging: atomisp: Remove driver"")
-Signed-off-by: Feng Ning <feng@innora.ai>
----
- drivers/staging/media/atomisp/pci/atomisp_cmd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c b/drivers/stag=
-ing/media/atomisp/pci/atomisp_cmd.c
-index e66a7d1..afc7dc5 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-@@ -2718,7 +2718,7 @@ int atomisp_cp_dvs_6axis_config(struct atomisp_sub_de=
-vice *asd,
- =09return 0;
-=20
- error:
--=09if (dvs_6axis_config)
-+=09if (dvs_6axis_config && dvs_6axis_config !=3D css_param->dvs_6axis)
- =09=09ia_css_dvs2_6axis_config_free(dvs_6axis_config);
- =09return ret;
- }
---=20
-2.55.0
-
-
+SGkgSGFucywNCg0KT24gMjUvMTEvMjAyNiAxMzozOCwgSGFucyBWZXJrdWlsIHdyb3RlOg0KPj4g
+K2BgVjRMMl9DSURfRFZfUlhfQVVESU9fU0FNUExJTkdfUkFURSAoaW50ZWdlcilgYA0KPj4gKyAg
+ICBSZWFkcyB0aGUgc2FtcGxpbmcgcmF0ZSwgaW4gSHosIG9mIHRoZSBhdWRpbyB0aGF0IHRoZSBy
+ZWNlaXZlcg0KPj4gKyAgICByZWNlaXZlcyBmcm9tIHRoZSBzb3VyY2UuIEl0IGlzIDAgaWYgbm8g
+YXVkaW8gaXMgcmVjZWl2ZWQsIG9yIGlmIHRoZQ0KPg0KPiByZWNlaXZlZCAtPiBwcmVzZW50DQo+
+DQo+IElzIHRoaXMgaW5kZWVkIHRoZSBjYXNlLCB0aGF0IGl0IGlzIDAgaWYgVjRMMl9DSURfRFZf
+UlhfQVVESU9fUFJFU0VOVCBpcw0KPiBmYWxzZT8gSSB0aGluayBib3RoIHRoZSB0YzM1ODc0MyBh
+bmQgdGhpcyBkcml2ZXIgYWN0dWFsbHkgZG8gbm90IHNldCB0aGUNCj4gc2FtcGxpbmcgcmF0ZSB0
+byAwIGlmIGF1ZGlvIGRpc2FwcGVhcnMuIChNaWdodCBiZSB3cm9uZywgSSBkaWRuJ3QgZGlnIGRl
+ZXBseQ0KPiBpbnRvIHRoaXMpDQoNCllvdSdyZSByaWdodCBhYm91dCB0YzM1ODc0MzogaXRzIHJh
+dGUgY29udHJvbCBjYW4ga2VlcCB0aGUgcHJldmlvdXMgdmFsdWUNCmFmdGVyIHRoZSBhdWRpbyBk
+aXNhcHBlYXJzLiBJVDY2MjUgZG9lcyBzZXQgaXQgdG8gMCwgYnV0IHRoZSBkb2N1bWVudGF0aW9u
+DQpzaG91bGRuJ3QgcmVxdWlyZSB0aGF0Lg0KDQo+IEknbSBpbmNsaW5lZCB0byBkcm9wIHRoYXQg
+cmVxdWlyZW1lbnQsIGFuZCBpbnN0ZWFkLi4uDQo+DQo+PiArICAgIHJlY2VpdmVyIGNhbm5vdCBk
+ZXRlcm1pbmUgdGhlIHNhbXBsaW5nIHJhdGUuIFRoaXMgcmVhZC1vbmx5IGNvbnRyb2wNCj4+ICsg
+ICAgaXMgYXBwbGljYWJsZSB0byBIRE1JIGFuZCBEaXNwbGF5UG9ydCBjb25uZWN0b3JzLg0KPg0K
+PiAuLi5hZGQgJ1RoZSB2YWx1ZSBpcyBvbmx5IG1lYW5pbmdmdWwgd2hpbGUgYGBWNEwyX0NJRF9E
+Vl9SWF9BVURJT19QUkVTRU5UYGAgaXMgc2V0LicNCj4gdG8gdGhlIGRlc2NyaXB0aW9uLg0KPg0K
+PiBTbyAnMCcgaXMgc3BlY2lmaWMgdG8gdGhlIGNhc2UgdGhhdCB0aGVyZSBpcyBhdWRpbyBwcmVz
+ZW50LCBidXQgdGhlIHNhbXBsaW5nIHJhdGUNCj4gY2Fubm90IGJlIGRldGVybWluZWQuIElmIHRo
+ZXJlIGlzIG5vIGF1ZGlvIHByZXNlbnQsIHRoZW4sIGp1c3QgbGlrZSBBVURJT19UWVBFLCB0aGUN
+Cj4gdmFsdWUgaXMgbm90IG1lYW5pbmdmdWwuIEkuZS4sIGl0IHNob3VsZCBiZSBpZ25vcmVkLg0K
+DQpBZ3JlZWQuIEluIHYzIHRoZSBkZXNjcmlwdGlvbiB3aWxsIHJlYWQ6DQoNCiAgUmVhZHMgdGhl
+IHNhbXBsaW5nIHJhdGUsIGluIEh6LCBvZiB0aGUgYXVkaW8gdGhhdCBpcyBwcmVzZW50IG9uIHRo
+ZQ0KICByZWNlaXZlcidzIGlucHV0LiBJdCBpcyAwIGlmIGF1ZGlvIGlzIHByZXNlbnQgYnV0IHRo
+ZSByZWNlaXZlciBjYW5ub3QNCiAgZGV0ZXJtaW5lIHRoZSBzYW1wbGluZyByYXRlLiBUaGUgdmFs
+dWUgaXMgb25seSBtZWFuaW5nZnVsIHdoaWxlDQogIGBgVjRMMl9DSURfRFZfUlhfQVVESU9fUFJF
+U0VOVGBgIGlzIHNldC4gVGhpcyByZWFkLW9ubHkgY29udHJvbCBpcw0KICBhcHBsaWNhYmxlIHRv
+IEhETUkgYW5kIERpc3BsYXlQb3J0IGNvbm5lY3RvcnMuDQoNCmFuZCBJJ2xsIHVwZGF0ZSB0aGUg
+Y29tbWl0IG1lc3NhZ2UgdG8gbWF0Y2guDQoNCkJlc3QgcmVnYXJkcywNCkhlcm1lcw0K
