@@ -1,112 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795731997;
-	b=zGpaH/AcOkd9WHjznyMHR+6oIoBikR7qgVUWxSbeu5IkSk8yLxLZFJcnVZdN2DUTuoI9
-	 2xv0UktWS8gVgMK1bFW8VziPR054Wgw9btSatTqG06B7BgBZZC3X6dALhAbo6JTntmAf2
-	 FGWTDPwhrHq6yzbR1wkvEc/NZkjfy9bLvoHQXcPxa/cl9wR8V9Hj0nqDLaf9jR0kJEdwX
-	 7HASzr0YYRBrzWTZ6bnt/tUDQ1IUoBB7Onv0b2JtI7RyZF91z/ucPpoxrjCQthPT18AyJ
-	 VceNPdvcvczsWUuccqWIXqeNvUgg/AGEvHeiDAUTLaGPihwndaeOb3YG+xheQ1JeMbA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795731997;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795732202;
+	b=K9781HXVXVYkwMzYA0/gn3NI2NDAXzBfI6vbEYRYLqVNT1xSKjkAWfdoJ9ah7uUmhshb
+	 WD6TlKq6ura63BGFzedakECOxWpyIQPXWfQ2NmvM0buC8Yd1Kfd7w4H8e/txNBLBGuwxH
+	 e8D/8kTL0nQCsIoauZyXKpbXOYWtj3mhzYAylxsp2ioQV2JLB8IwaHSM/mID3TXfyVYPp
+	 scATMnBhV1iWpGV98ObpWp8GxpvGuNO/KETXVw/jHK6u2SRFAYl2l4NYTeLk2395oe4FA
+	 Z08j3v7G4KdDLLpz+x1AMBRpQIx4iJG//5vXi5ySH69YFg5JszKSCVmf1WTROVQbCrQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795732202;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=DXV3jwg1vEpIFRKy3B1iiTGO2c9okEZN1fkPq1gh+eA=;
-	b=uchesqk1hA0q+v/gL6ryrQV4R4INVpGK60AaEbTV/2bMkWNw2oB+oJ5tkaF8boAPZh66
-	 Bjr4sur+XbNK237aHnM3My6Cn8cOBXUWLUJOR+YYXxtta8lIShbH1scTrPydMAmSMMVTM
-	 /g4RPtpxpXPZ5aN6rKk+E2lV6likN1ALBi6i3BMob1Fzxu40v0F3I01CR1JFZCtcSC1MA
-	 LNxXdSJOJYBw3nnxgfdvMTg1sVXNV5xizfrvxLbJ29LA+GsHlWiuDyYWi3MskgTeKg9WG
-	 ARMblwsLcnDqb0AbOcMIChrm34b08d9IlrMpYLqIwtANRBHPlX7SYB0iKqe26Svpdrg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=cmjOsy9q;
-	arc=none smtp.remote-ip=209.85.222.172
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=MUCXb4AyKiyK8pPk+hGYGeIEyQmwImYeURjhzfVH220=;
+	b=lqGKMG8EF6zK80buywLy5IZ55fpaZma1+kJSnEzr/UTUm+l7nHAwWGOm/15SnHd2jIfV
+	 ctwARdglqASCG8v0hjVEWf1P+WWeyplDznGDnJeYM5+FI/k0UPHBJ+feM3zcWmmK1oD9q
+	 4IHy6Brpix4U2O5Rtf/HeVTEKy9Y3tXwXMRjJ/32L1C9DTnv1CVUMtBoD34VcOr0lP/Kc
+	 AlI/78KrmPgZZUfyKdkokko6C7ejHpcyjj7H14WmpeigI//PfPlYquk6/uPMapxwB/AYK
+	 o9N/CiB4KWRLC94Vh3HGdS4YE75cr1skCsPMZGt2A2JSYpR0lHh4VyUKatVycMHSJUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wc3hcrgp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.53
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6DA606A31E
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 22:26:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F6DA606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3DE606A321
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 22:30:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B3DE606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=cmjOsy9q
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-9496577d4c4so821631385a.1
-        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 14:26:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wc3hcrgp
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-921342fae7eso76144416d6.3
+        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 14:30:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795732201; cv=none;
+        d=google.com; s=arc-20260327;
+        b=e+do5K0ErB5FrnF67GlHfZAFwDb6WctTytuTWDQlFRc02rFkXWYvJi75XmDS7euCaC
+         8ltoe1ly2jKSzWfB9zKZICi9AumF1Ym7thM8TgwLcx36uHvuzn0/nSa6M6tqQ//HzLMZ
+         9tx/DMKto9YzrwdDsN5/z3Oyxx8n8YtO1fLaLK3eJ2RsgVFX3UmGIzuZ76Qz94dtWj5+
+         gOwcTQ8KM6GlhUwKoEP9FfCTJa4ISvBvvfs30OacccBk0gQIgwBHIGvmqWadCzvr2n+z
+         CX7Xn2AwOoCoeixv3tLGMJx9aLErZ/Ql8klw1iLiuLoFbYeNxhiF232suh9k2hwmtE+x
+         +dSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MUCXb4AyKiyK8pPk+hGYGeIEyQmwImYeURjhzfVH220=;
+        fh=vwkkpZ9w0YYjq8rUQW6cHH0bMrfvI8UZvy2cCklYYdI=;
+        b=AL+ZMWk7S/SyCNd/31P7kWtoMeuAU6XDdeB7EaaQlArRHeyMwgomcFu9J+oxiFk6Me
+         L+fxzWOqbLF8owxA72QCP7X0n++OE7BGTDVIpsYJl0JYdVzwSmUgBdzSC9noTIcZ4D13
+         v5q90fW+Ie6UQkTNYK4n+JLhXbpugjeOKgwSdpACx3nB/OtZ1j3GrPG4nV3IJKf6f7ZZ
+         9qsSZyigB/bSmxBsxbKwlRgdAuUnsfs12jEaxGevf20z/a7X/SKITGHWFi4P3W3tIGoR
+         xeWbZc2VCR89nQrxB3XHAlRfLbcEBQ6AtBuv2NSAXrU8OQYC9MmhP4kUkMcEB30i1Ub4
+         Y1tA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795731996; x=1796336796; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1795732201; x=1796337001; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=DXV3jwg1vEpIFRKy3B1iiTGO2c9okEZN1fkPq1gh+eA=;
-        b=cmjOsy9qs2WoFRV/0DQ6AkkCqNJ4/YpwpYv/JPvgqKUJPJs1rRfP1sXjPD2Bezw+Lg
-         +5+nLqIlzz5nlcPe0sXo73Dej/DOrnmvnAueHttrZi6OJYvAxRCrdOcrFwixcx6JUQ+q
-         n+3H2iFhvFbWmafMPVuv6R55L+a2hiU11msuvLEsY7gppItGalchjFZnG/ukwgFNfZV1
-         2VsWKqseuOgIEexDc/8jTSITmiG13kW14MKcuivZhjmT60TeoKdKE4mWoK/8prEiCLpR
-         6ZDQk0+7dMhEepvx8u23dnoD3Uqe6Qp8OUvu+ekKTuYQjY/ssCMnMQVbjK2sknjdeGSw
-         tSGA==
+        bh=MUCXb4AyKiyK8pPk+hGYGeIEyQmwImYeURjhzfVH220=;
+        b=wc3hcrgpQyGy3NzEGt5a1A+uGla3D/nfNujGZRFuKyIiFzGqOi21KC7DS2glXgMkkm
+         9h+Y4LWOCdhZ4sEeYplSgjFWfGOy0iCWIPHuZnevX4/R3jFDvCOgmtppJtyFtx1IxNdH
+         eXAQ2kMqLigrG3VQ7L3vaBZAxoIJsEIOVBSmO4v+20XWj5DUiAY/3UBMNyfrzs40DHnk
+         r46jDcx/WuEV9uFDWfB6U3jrMvrhigI8lr20ob33mdCUncAOmSF/tRl+SKLEvXo5d4my
+         7a5UMj4aKiGjOk5KCF0X2jdUx9ks4t5/JZk8hoF6YckdILXvMPn98jKHI73lbTL6bDfW
+         9Dzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795731996; x=1796336796;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1795732201; x=1796337001;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DXV3jwg1vEpIFRKy3B1iiTGO2c9okEZN1fkPq1gh+eA=;
-        b=OIC2Tb5OwX2oCeKfFIRR5sRmMkGQ+qVTIEzVALC2iMI0Pq2wxf7bzV/GSWh6O6D2wr
-         xTOE4Gq3plS7JOhf3s3VxA8p5iWMWm+JAPDgRP/T+5oCAj5HICO+/OQe/IDvKF/G3Z/d
-         k3fbVQhY+uVfM75rfpKyxjJICJya3LnwR6r88hpZ/Zb1/gHnla3SC5a5F3phqrM2XAN8
-         7cMYCZtcvBuf0qkrdP9TcLcLy451TI4sbXpuBk6XUSHZMVrDPG53ITFHkw7DY6bA1fa3
-         x2g7NSsoJsgbUt8Ps0KYxxmpcJHdkAhvUwGzlGFbPwK8fDZV1zjBIGEuktPkgY4gDsJX
-         UI/g==
-X-Gm-Message-State: APuU4Z8yI/m8uba/SxLFebpXvCT3heMvoGtVOQ738G8/svu2oJR8vHNi
-	QxNQ5U+GSVKvciYH95NMQUhEIDHGJeMF9eiV04xhrQDEQML5CtOQ8cBhYnqqMK/tDro=
-X-Gm-Gg: AZFdTZdLCOPYoaOQcaaqHv5qE7H/txCx80Jr4rJKjXl2oBopSZvka4/16KRG8gK75ow
-	Zq2UD0NnPpRe7Qh5+yAj69ow3bJwIiUjuNj2+ySzVBUsNnNMUTsWmrJzSMGE1+dPa5ER9EjLWVx
-	i/mwtsYGXG2ZalkcqQNZBuaSSglQXrYIZnIreEp/2aYsrEgFAXSjF2DUULyKoDNugAsPNGJDU2+
-	IUViXcOCC5pAntu6cz0/DTXlVJmxKPnr1C2IPEDBTM2/UrG6vCAiX6QNzTLjqiqVnKDFAJPF1t4
-	10y3892C3sHRZM0gYK1minYqhJn9fy1YvV1VMCOSQvsxHhfWqj25uzWoR+zja4MehF2YcJzeMnj
-	jINbsaHivhV8RGBL3e67CitVQptbcEHorMpkaVtpGldcT5lW2ZSzrFpHBIcwoHJ/RwXmTg7q8xC
-	AGKdTweqc9nA0sxSfg4jkqCbbV5XgE3RuUsYeWO1cAN+XoEA6NaQftFZBNg93fBEDTL+DNE7eL5
-	FxhuryJUggdKx23rEZtudgKZ4QW/ajd3fDBwMO+GKj4qBL9Eye/bUQNdOdLvirrgRN8dPhmtmIp
-	zE+q1AZ38OJm4mF2y9z+hmaX9M1g3+XILlqKnTP2VZf1J8imeIMRk+cP
-X-Received: by 2002:a05:620a:372b:b0:949:70c5:c0ce with SMTP id af79cd13be357-949b35ac8e0mr4145462985a.19.1795731996315;
-        Thu, 26 Nov 2026 14:26:36 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb34ac11sm1681287985a.14.2026.11.26.14.26.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 14:26:35 -0800 (PST)
-Message-ID: <f41c7d6471f41d7fcc2109e14289e47091610822.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: sun8i-di: Don't sleep while waiting for
- coefficient access
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Samuel Holland
-	 <samuel@sholland.org>, Hans Verkuil <hverkuil@kernel.org>, Maxime Ripard
-	 <mripard@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Date: Thu, 26 Nov 2026 17:26:34 -0500
-In-Reply-To: <20261104185930.885203-1-jernej.skrabec@gmail.com>
-References: <20261104185930.885203-1-jernej.skrabec@gmail.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-i1ae5NoATxMPm6Cs3hN+"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+        bh=MUCXb4AyKiyK8pPk+hGYGeIEyQmwImYeURjhzfVH220=;
+        b=EzKbypQwgB7a35vjjQg3ujJvGnCWJxl7Jo7bQCyZ5VA+/0c87s5i13E0j2PQIQdCvt
+         V3sAVe4eXgjfst8bbHd1KEpBpFh/ZrY5A2UuekeB5HMDk/uT9Ra3OhmK/N+MUcRJaPlM
+         lCcGDsx9nT3t7DJVKxgZwpM/GLXRAnba81QqB6A2wNGAfo/nxW6mQpmx4yMOc3nyZCU+
+         kI2xxXL4l4SFXCYKn9Ilvar9OZB2s3lqNwewR7xPERcmCSPo68tGtGnRiolFfYSEzC0f
+         /XKezgYvaI52e0UWDIYc50DKQbSGL4fZpzD7ZE3nv/YKwtPb+YZlssNdNlwIcieHdQGG
+         kKhg==
+X-Forwarded-Encrypted: i=1; AL+hErFjFOTg/V0gPg8cFca2uFKwni+sf4b/E8qfcSR5ZWCqNrL3gmJmWInhtH+dVYX+dMouHb2CmJQTBDPsQA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JbAKxE7/pz7tU835PCvknFaza6nRhwtCHnLhEeDfWX/dCDx/g
+	vM9tSCwsugldMx8b2elHfS17GoCncBbLfX5ZxXZkpfsMQWeJavDQ3hiMxEdPj4BOlGU0ZhjrQem
+	0p+wGDrf8IWnvdqD/0S2bUvR80Y6BTO8=
+X-Gm-Gg: AZFdTZch0zQbxmjNzkVz8Y2b/7QgkhuxjaIogAALOoipWW4HZr55VgGUaPZJN9+yHGK
+	ygVITEw9LATRo8Qw1QcgDsFjNDa8/PFsOjNTPctcoWQIRuaoQEnf2cx1MXP9HPccCRD4IZO2GFT
+	pnY782RO7VtpSqvTQ8pXB358GkUC7C5E+Pz0KVPFZJUl40Jv3CsL5VLazRJXVCFsjzTbBIwfJ1q
+	hL9GS90jVa/BPIgCmyiL6KDrzkkDvifqBVj5MS+31OxShH+pTNXxOIj6PO8z+QXeEKmZTyGmVMo
+	UizRRu+I3suNsAg+XpLOGn9Or69AiedzWbb08JQRvM7OCSVLosKaSCU6dc0LKND3XEn6bk0AmJ/
+	s8m1//nszQK49FCAimKqWQMm+EYY88LbRhmwSfBUtrlLHyLCHsYijFi96XrLtCeRctUyfthUxkY
+	iksLJAbcfnFGpEWG9O2vMjEQ==
+X-Received: by 2002:ad4:5d61:0:b0:91e:8bb3:82 with SMTP id 6a1803df08f44-92134988818mr432424486d6.4.1795732201165;
+ Thu, 26 Nov 2026 14:30:01 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -116,58 +104,143 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
---=-i1ae5NoATxMPm6Cs3hN+
+References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+ <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
+ <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com> <20261123165716.GM179082@ziepe.ca>
+ <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com> <awT8prWsj11TBdmP@nvdebian.thelocal>
+ <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
+In-Reply-To: <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Fri, 27 Nov 2026 08:29:49 +1000
+X-Gm-Features: Aa3M54rvnH00v1NCtGrc73zPMs4ZrSy5Ip3saymlbe4-GLTg5bt7TBC0zEJEFjg
+Message-ID: <CAPM=9txheaE3=fp7=n4fYh-xshxOm+Tv=eQn9wvHVAc-b1JKDQ@mail.gmail.com>
+Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alistair Popple <apopple@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, 
+	=?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+	Simona Vetter <simona.vetter@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>, 
+	Vivek Kasireddy <vivek.kasireddy@intel.com>, Dongwon Kim <dongwon.kim@intel.com>, 
+	Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>, 
+	Karl Mehltretter <kmehltretter@gmail.com>, Baolu Lu <baolu.lu@linux.intel.com>, 
+	Felix Kuehling <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+	linux-rdma@vger.kernel.org, iommu@lists.linux.dev, 
+	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
+	Sagi Grimberg <sagi@grimberg.me>, linux-nvme@lists.infradead.org, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org, 
+	Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com, 
+	chaitanyak@nvidia.com, Leon Romanovsky <leon@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le mercredi 04 novembre 2026 =C3=A0 19:59 +0100, Jernej Skrabec a =C3=A9cri=
-t=C2=A0:
-> deinterlace_irq() calls deinterlace_device_run() to start processing
-> the second field, so it runs in hard interrupt context. However,
-> deinterlace_device_run() waits for coefficient access with
-> readl_poll_timeout(), which may sleep.
->=20
-> Use readl_poll_timeout_atomic() instead.
->=20
-> Fixes: a4260ea49547 ("media: sun4i: Add H3 deinterlace driver")
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+On Thu, 26 Nov 2026 at 03:26, Christian K=C3=B6nig <christian.koenig@amd.co=
+m> wrote:
+>
+> On 11/24/26 07:23, Alistair Popple wrote:
+> > On 2026-11-24 at 05:37 +1100, Christian K=C3=B6nig <christian.koenig@am=
+d.com> wrote...
+> >> On 11/23/26 17:57, Jason Gunthorpe wrote:
+> >>> On Mon, Nov 23, 2026 at 02:36:46PM +0100, Christian K=C3=B6nig wrote:
+> >>>> On 11/20/26 06:55, Alistair Popple wrote:
+> >>>>> From: Jason Gunthorpe <jgg@nvidia.com>
+> >>>>>
+> >>>>> The SGT (Scatter Gather Table) DMA mapping type represents the exis=
+ting
+> >>>>> sg_table/scatterlist based DMA mapping. For now it continues to use=
+ a
+> >>>>> sg_table for map/unmap, but this will allow a future patch series t=
+o
+> >>>>> convert to using a different data structure for importers without h=
+aving
+> >>>>> to convert all at once.
+> >>>>
+> >>>> I strongly think we shouldn't have an SGT mapping type in the new DM=
+A-buf mapping API.
+> >>>>
+> >>>> Instead we should have something like either an array or an xarray
+> >>>> of DMA addresses.
+> >>>
+> >>> My plan was always to get there, but I don't think it is reasonable t=
+o
+> >>> start there? There are too many places all over the place that are
+> >>> just hardwired to do SGT right now.
+> >
+> > Right. There are around 70 drivers upstream that make use of the sg_tab=
+le handed
+> > down via a dma-buf import, so I don't think it's tractable to convert t=
+hem all
+> > in one go. So obviously we will need some way of phasing this in to giv=
+e time
+> > for each driver change to be implemented, reviewed, etc.
+>
+> My suggestion is not to convert all drivers in one go, but rather to come=
+ up with some sane representation of the DMA addresses instead of using an =
+SGT in the new interface.
+>
+> > Obviously some of those will share a common structure/helper and conver=
+sions
+> > will be similar, so that is an over-estimate. But based on an initial p=
+oke
+> > around there are plenty of drivers that bake the sg_table more deeply i=
+nto their
+> > data structures.
+> >
+> >>> Part of the design of this series was to allow the conversion away
+> >>> from SGT to be done incrementally without breaking compatibility.
+> >>
+> >> Do you know the joke from the hitchhikers guide to the galaxy where th=
+e dolphins are happy for exactly the same reasons?
+> >>
+> >> I'm pushing against this plan for exactly the same reason because I th=
+ink it will make the conversation away from SGT even more problematic than =
+it already is.
+> >>
+> >>> So it is effectively this:
+> >>>
+> >>>> The framework should then either connect the SGT directly if both
+> >>>> importer and export are using the "classic" interface
+> >>
+> >> Yeah but that should not be a separate mapping type, it's rather that =
+we just convert back and forth from DMA addresses to SGT for compatibility =
+reasons.
+> >
+> > Right, I think this is actually fairly close to my plan, which is to pr=
+ovide a type
+> > for each address class an exporter can produce - either a CPU physical =
+address
+> > or some device context + P2P/MMIO address but in future could be some o=
+ther
+> > interconnect type.
+> >
+> > The core then negotiates compatible types and adds converters between t=
+hem,
+>
+> I have strong objections to that plan and would potentially NAK it.
+>
+> DMA-buf should *NEVER* accept CPU physical addresses nor provide conversi=
+on between different address types.
+>
+> Keep in mind that DMA-buf is solely a container for DMA addresses, nothin=
+g else and it should not provide any mapping functionality whatsoever.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Is that because it's called dma-buf, if we just called it's shared-buf
+would that alleviate things? I just feel like there are use-cases
+where it containing CPU physical addresses might be what is optimal
+for a certain scenario, and re-creating a whole parallel
+infrastructure that ends up being 'I-can't-believe-it's-not-dma-buf'
+would end up being bad.
 
-> ---
->  drivers/media/platform/sunxi/sun8i-di/sun8i-di.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/media/platform/sunxi/sun8i-di/sun8i-di.c b/drivers/m=
-edia/platform/sunxi/sun8i-di/sun8i-di.c
-> index 65bc426e5aac..bb90e0efa4d1 100644
-> --- a/drivers/media/platform/sunxi/sun8i-di/sun8i-di.c
-> +++ b/drivers/media/platform/sunxi/sun8i-di/sun8i-di.c
-> @@ -163,8 +163,8 @@ static void deinterlace_device_run(void *priv)
->  =09/* neutral filter coefficients */
->  =09deinterlace_set_bits(dev, DEINTERLACE_FRM_CTRL,
->  =09=09=09     DEINTERLACE_FRM_CTRL_COEF_ACCESS);
-> -=09readl_poll_timeout(dev->base + DEINTERLACE_STATUS, val,
-> -=09=09=09   val & DEINTERLACE_STATUS_COEF_STATUS, 2, 40);
-> +=09readl_poll_timeout_atomic(dev->base + DEINTERLACE_STATUS, val,
-> +=09=09=09=09  val & DEINTERLACE_STATUS_COEF_STATUS, 2, 40);
-> =20
->  =09for (i =3D 0; i < 32; i++) {
->  =09=09deinterlace_write(dev, DEINTERLACE_CH0_HORZ_COEF0 + i * 4,
->=20
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+If we need to shared object backings and have clearly typed and
+negotiated on what the backing contains then we should allow it.
+However I mostly agree on the mapping thing, I'd want drivers to
+negotiate and natively support whatever backings they can rather than
+having an intermediate trying to handle the conversions Not saying the
+code doing the conversions can't be a helper, bit it shouldn't ever be
+autoamtic or outside driver control.
 
---=-i1ae5NoATxMPm6Cs3hN+
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawiyGgAKCRDZQZRRKWBy
-9MOtAP4lcK/xSN3c+U7uRq10fy5MnpVhec9Sqx0NG67DpPGZAgEA8d3GOhpIEGXC
-xicNBf+fQ7gEyX7c665ziueulfyRVAg=
-=8HHY
------END PGP SIGNATURE-----
-
---=-i1ae5NoATxMPm6Cs3hN+--
+Dave.
