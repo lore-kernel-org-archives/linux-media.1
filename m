@@ -1,99 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795689220;
-	b=tcMaj4dREPTv9AxgREQ0IO3mKNBqaddxKKDjFBq2LHAbPiIRN2AdpaFhQkPSxxI5F6Ca
-	 0OMW4hyHP6fpyKnsBugIk0l9B/WVHfhjlaAzKJctrRRs9aM2icuH+DkdCJsxeNNSBn5k1
-	 FMWSCBN2Ha+XbQgeOTDVZpDUUjcSUTsxujfozOVknx5lCaJdU6VwozSbRpRJeNWJAofoe
-	 KLA9qkKe5+M74tXD3MzvCnYHQxLmSqEYzVMHbHxy1kppkbrdWR3vf/E5aWpSgT7V+YRyc
-	 7uaemAHtoWnymFx4FnTfbcz42Ql3GQDqeDA91/VXsCrG2D+jEOVPzdoWDcpmFV5Dm9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795689220;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795689901;
+	b=hTDXHwySCf1zDgEVoDw2+Qgvt4+QuBQyLIlW3m6Mk5GYRyTBappOkmOmylhxM3SfSBAh
+	 1n7tICr2yBkhhGXt3FvAnoddjASmLTBACyWsdmXsl1NpixRR2EVFp6gI0yQaOAHGpkOID
+	 u7iRxpWzebe0lZhJnFz6dxD5bO+sojdFnLAV9h5d2GVPphUtAL6EGwj+B6SXNsXqNxW+S
+	 575G5Qxqz2EQ5YFKKUNCNkaOyJGCTH9Rg/y8Cfj1ieNGDlB8VdWqL5uefnyp+3Hcc5tLW
+	 RYPSpWNbvST8GkIP+43x6D10D3LxNrrxwpNFCVMP/l1Lefj/HLAAhhNP9CcJptN9L7A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795689901;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=CjQ8gPON54ImxNch/vz81iv8pHWJvCH/N5cvF02jvyA=;
-	b=tK9Y5vhCJdAPEptQNBd7XegUv+F2qgpLVAA2r1M9ciJfE4WDryippSgPl6r6rQ7+V1Xn
-	 +nOGbo6ZJ84UmUsaqxXT72TEtA0vjY33BVXdzC4DytVLkjNtG1zq8BICLGdNlLooQXaMZ
-	 +v44W86caZKTyM2OySt0HSsCmyyrIyZ3u/2ov6EZk2M++vuITIHGZ6Lfgk5dunVABokFq
-	 DfDCVpxro7zw23eUCdYccSa36YAhGf9tvw4RSjD8SK8QYC4b7ixrwiCt6IdEsdOMHtQ5l
-	 LX9ZCSEQCkzw6Cxjfgn64z0f0bHW6gV2Riv9sFkJZR96AHPnBEqR1XUEk2Of2cclf9Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dTzX6/OrqoSYIYFMnL47MVuXS44X2MuyVzOdV4a6oao=;
+	b=xGbierdjuFsEBgwljorqwokZWFPnzAfUGSvpIXlwNpiklMd8HsUXhHRZzUsF1a0GkNRM
+	 iIUPjI7/z+yBfqVUy8HAFqCK9VAgtYzohIWJMNfgMGd2Fgeeu/r4KaRdcJEBJSG216iHc
+	 74myjAp6Worj45U3/BQ8BQFVBf09YdLTQp1x4LV7rIMmVTzs5Q8Iy6HXlKGAfcP96ZLen
+	 NBe8hwPNmaOKFNE6aFFHpLJYRNQmvWUfVEquHcmc4n7pKEBBg0Q04XjeBg5TzPnKMYmlS
+	 9bSDp5GmyaDmPl4uOYZDVJKGo3N6ro/P3jv0TiwRDX6Ts0Ln7G7o8Ls1BAa1UMwSmVA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=De4U3Nri;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="tR/VI8cP";
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005DD606A31E
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 10:33:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 005DD606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ACD2606A32D
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 10:45:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ACD2606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=De4U3Nri
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cdb2dfcca94so2879400a12.1
-        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 02:33:38 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795689218; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZF3DAbV3WuBhogoWEfsDR8Z5n2UwytKNopwCBiv3BGCebTKe9M1ffCJcvKE+A9RZUL
-         QW9p4m7NggoV3uOhQOThrP+mMQQwJNd5/BMVMaDb96x1uqMKvtvqEEST5MnvYp4FXX9z
-         j26PPTtlTOyuq6jsRDT/jMQhy08FlISkfIe/rWn1ebiVEGrbXi1LT4Cz+PjyrB+juHW8
-         pSFA0Mh/CH06WrN08+ljE0kqziZKi10yTYYv0DGgoVeDeYuQUzf302zN4P7shlGyGAKp
-         seUapyRUI4v7gE+x4lqHt8XuUSM9C0mfduai4LwSAO8muPE0OFQcQXsJX6rdh7woupZV
-         nB1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=CjQ8gPON54ImxNch/vz81iv8pHWJvCH/N5cvF02jvyA=;
-        fh=WsKtICdqjS380khVgyR9p0NkFSIISGI2ZLHHK+mp/+E=;
-        b=CxmL3BsK2VLXP7ersr3x0mRTttgUk8UblEZoon2x+fvuJK5Ka1ckLhhKVwiObCRsuX
-         hM9BDK2i4prNYPZHeqSyKIERj5SscNQTpTbTdmhnBRNeeQMZRhNq1e/6pzs+lPhkhgQK
-         yuB8Pu+5vhYN/E0KSUs8r8GqII5AR2QiavINUdgionDr7076pQYkawTnfs7skOT+Xq9X
-         ofVa9/FzfmkJA3hXNsOsJ5cd+C6kmkSMXrJ19Jhckw3eevNed/FbkgfFiA79NYp9XpI2
-         YkebZsBCyY5hw/sHnLgKOxP9uq/zqctUTlukJyASV3Kdae4+4jIJ8IdVnNiZHmfh2Ijz
-         1hsA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tR/VI8cP
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4a32576da88so3922207f8f.3
+        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 02:45:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795689218; x=1796294018; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1795689899; x=1796294699; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CjQ8gPON54ImxNch/vz81iv8pHWJvCH/N5cvF02jvyA=;
-        b=De4U3NriG0pnU5n61Rds0bGZ4V4UfHP8EPTjilbt+dGMz8sXOFX8ozPnVhuRkEl2Tt
-         f6hSadLeVrHVyfqbY4XiA7LNkgGGqFSuF6t+umXE1r0hBHy8hCbpY03LMx7YEJswSNkv
-         MeuWhnXmoZ7DJUuK/7MD34oP9RlXx3Kr+QRPRP6qVEfPLn1ZB/IOGCutz9AebD+FZtgz
-         G89s27EsVAEkWBF3o+DQH33KX2quV9uDdZMdGBJDZLxGQwCO+3ezu0FN2DSYzCu5BWZa
-         BNFJGHqP696CfMb0NbfcSRRF19SQowj79qbb32iZbjDSvSnaVJgRZJzN24rnzo02rit/
-         i0iA==
+        bh=dTzX6/OrqoSYIYFMnL47MVuXS44X2MuyVzOdV4a6oao=;
+        b=tR/VI8cPcpG5hymT+T1jcM5A1W7L8XQdJUT+lNdQZXkVX5/qwTisGBB28S9PUlJsJ3
+         07xKsPLkA0fzaUCLNWHD6ptTWhEJyZ/YpopYg50jdi4XQiqSpBJEduMI9nMjK3kLW/dc
+         SK2nfH7/vFX/59Ji2uVyc0V1+f2jvFsSc+bR5DsewBYNgIFkASD7O2uYPV2xtYditdqh
+         08vGmNfJZQeDPhdI+4ijTOI+LRWnffKfBLoVsVB1lfqZ0iTk02RXZm27biW8v74SGE0Q
+         1fUak9psa8IkZFIMAsMVsPq5d0hSKpbhVb4lo3tv0klvXAWVqs1YAK7Xoz0HGESm7LTS
+         hhBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795689218; x=1796294018;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CjQ8gPON54ImxNch/vz81iv8pHWJvCH/N5cvF02jvyA=;
-        b=LbfPWK84uLsp0oyyM0pER/MHMTrHdL9sT5gHEhosyJR+R+btY4jXfsYmyed9U3ivEv
-         ezJ1SqzAxai1qhFc5eH8grGqx2xbWSbfLA4/TqH8UCEOBLR2IAolOhBwtvdpXdBskaXz
-         lp01KgkxqOJZYNJ/TqRhdWfOQ3xpjSBhdjtwUaRgXFBYPb/+ypVvsjSnl3iiJ7TgtN3z
-         tK3OJuaHbatB3X29eISlMIjw9l1Bl9B3G79v5iBeLFP2RMZG7AqiD3b7Wqp0R/hlAHUR
-         b2tZs9hGh4Qb6UiQrPBML22Ehdz9mkB+63iF06+p5LamKbS9Nz3xCN4AY/1Sg7zoPGUc
-         T5vw==
-X-Forwarded-Encrypted: i=1; AL+hErFPlaBZ+FsAEeXBiGD+UKyxefz4EiwqScMsKGOLSIXhmVCZbwA1w6Dobtc9HfTPCepzgepi2eYZ5rSsFQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iD4JYwUE3B5o0TCp68H0O3rUAXBk0lU4RGKZn4/UFoAQsbP0M
-	z45Qo55R6uj7gvrST4tZdl13jUERPPdi5PAbc/mjVn8o8xXHnEKgSObcLvAicFaSkkL6zBdwA4h
-	yiGClsucY64elELhytZCz4zx3ci9VZ8M=
-X-Gm-Gg: AZFdTZcg7LXKF8U8Inr4YqXSpVDx7IHAppO4m0nIHkei88Y6HrjiK1r1aLVOIj6AcAw
-	7sYK0+azA08s3zsk+XiRShGWT0v3joOZh1Lv6CbXqaDFRjECZRHOo82OnzNRIodrrvWOw4wQp3f
-	J3hQNcJdERGpTo6cD8WMjT6zJyOs159uW5C7fT35RRkcEiRU/f4zHTH9CAqtkjRiFEa6IMOzswK
-	0M1ZP/hEKmaOgtNzww6GfpYGkR0nLnjTHWb9XuGC/c7ipGS5sJFbisPUshyKG3NlR48ee18S2vE
-	fVZDJv6Lxz2pt5v2Ioe9S73YOhocVrqwkMtDlDeT16xl0J7RcvaS5OGcLx3ZwuFQEDUIN94+tzX
-	TMR1PK0tgIV9kFBP9tDUknuuR6/HPOjY/E/Ca6e32dKP7aZT4HsFc6PVvTw==
-X-Received: by 2002:a17:90b:2f8c:b0:3a2:b16d:928b with SMTP id
- 98e67ed59e1d1-3b41c95aec8mr18512828a91.46.1795689218173; Thu, 26 Nov 2026
- 02:33:38 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795689899; x=1796294699;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dTzX6/OrqoSYIYFMnL47MVuXS44X2MuyVzOdV4a6oao=;
+        b=X+Gu5nv+ZX3JoPp+OYr3DQMPDFphKGdcIEp8K0S1moknK0RHZ8ZFWnsQzHjX9xITdo
+         PobRCoWW4H2/5EIElyyWJqQmLMLDGr7tX5QAaBT/nbGcPUnQMnstO7pTgMgoZqIre4M2
+         jihWitqjWUGmA/AAPSRo6yBKsLWRQcUy6Fb4Yx4rkoIHrRMGOVrNn4gR/2GXZgCWDgcn
+         9X7/sZLnNxitN3g33K/Q+4wOXhHPqQyISrc2s6JOilwKoGwvbua1TEpSluS1VNsJa0Qf
+         0KBYEGxZMDvia5Msewinou7HNrogWFCXJmiRgh9Cp4H2JmqDvydjuDPT4NzfjDSfiXCQ
+         o+JA==
+X-Forwarded-Encrypted: i=1; AL+hErEHPhw5tBAuUbilW/hyj62zav95N7cU6GyrYIsyoy2MbxOyi4hdDwjRByR/iTNi0QH2zpJO3TcxNwciqw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/BM2qZ+Wz7V7BSA+3T+mkoWUhtxx69DKW8iaEd5HRGA/679aAP
+	Cf4Ek8y33lfFC5TekpAP91Ua8cEW3PccXWxBlHlboTkL6il5zjEZLcPA
+X-Gm-Gg: AZFdTZfQQ517j2OjzZUdo+JOHz/ZuCvB2EhCX36AGZ3tlGu810XGMsMNnlsSL9fkm2P
+	zHtjaLU1Gi/wl62TEePT/out6b0UP60msfrA8fbBtAY1KxT73OYIfywVp6MGqbm2dQqON3ncyLf
+	AMrVh+V2jRd0immgl9uzGtwUXcEJmG7DfCNstLeNHlS01M2pVn4JibLCyjbGPYKWT3Y0gUEeFKl
+	9ceBmpjkM4bydBkOA3Ozu2ukWMK8p6VNZZN5dGI9/nBECN6IOHdjkPDNwGx+xBx3JcNWnIQhs5S
+	nq+wQtshtwryCWSctTOqT5MF1IU9spqPfkRHEeEOBTQqVNgcSArFh7vA0T/mDCoVHXjzSRer52k
+	Vu//iStXnvqA9uX2FfNfmBbsU0iTSj+3eOVjEQozHlg3BFoCnheHL8uj6crMxyQiJnjRHIeVPAk
+	DT/dAmmUsxnsHzBppqRHkSzJOAh8d+dBZ7AlizSBKSt47eZtI5whkOLISKeEiLOixc8zWgLV0D/
+	FSIAcAHva9UAHpVIpyA+HDG/HqvvlLucQNYTnxAF4TjDV7yd2esqZW5/YhULhcwB9AyoD55f3IB
+	WSzUEFL6iYQNFNB190JJBw+jwz1vtiy+ym+AcVb3u/gHmk/SgaDvcvDyIBn+8tMLoP/PzNn3PLQ
+	YqnBpqGKxGxaPuCVgUdK4QV4G0lCkcuIxY9xGgKui1nSMkppRxZ5gQlcq/9uu0TcrszlqWbo9cE
+	nSUdo=
+X-Received: by 2002:a5d:5888:0:b0:490:a481:7ac8 with SMTP id ffacd0b85a97d-4abb532ea79mr37997103f8f.29.1795689899355;
+        Thu, 26 Nov 2026 02:44:59 -0800 (PST)
+Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4ab658e2c8csm40898578f8f.2.2026.11.26.02.44.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 26 Nov 2026 02:44:58 -0800 (PST)
+Message-ID: <0b76171b-7f2e-41d2-8a5c-102dbe4cb85b@gmail.com>
+Date: Thu, 26 Nov 2026 10:44:53 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,175 +94,84 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261122190008.21278-2-arbabhaider649@gmail.com> <4724fb41-06a0-457c-be3a-25ad9e49e25f@kernel.org>
-In-Reply-To: <4724fb41-06a0-457c-be3a-25ad9e49e25f@kernel.org>
-From: Arbab Haider <arbabhaider649@gmail.com>
-Date: Thu, 26 Nov 2026 15:33:26 +0500
-X-Gm-Features: Aa3M54r0J6MsPFv-FI2m1pPxneDAzgN4uFfUfog5-WhTsHNyfmVJ8PwjCWIuLXE
-Message-ID: <CAHPLoh+1WDe2YFxuyP65MHtCbSmmg6FORnk-bJ8FxTgq-PQW8A@mail.gmail.com>
-Subject: Re: [PATCH] media: em28xx: clear dev->v4l2 on init failure and fini
- to avoid double put
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+fb0d2df09b56117605fc@syzkaller.appspotmail.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 0/8] ext4: Add dma-buf read/write support
+To: Mengmeng Zhao <mengmeng.zhao@linux.dev>, Anuj Gupta
+ <anuj20.g@samsung.com>, Christoph Hellwig <hch@lst.de>,
+ Christian Brauner <brauner@kernel.org>
+Cc: Anuj Gupta <anuj1072538@gmail.com>, Nitesh Shetty
+ <nj.shetty@samsung.com>, Jens Axboe <axboe@kernel.dk>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, Dan Williams <djbw@kernel.org>,
+ Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Theodore Ts'o <tytso@mit.edu>,
+ Andreas Dilger <adilger.kernel@dilger.ca>,
+ Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
+ <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>,
+ Zhang Yi <yi.zhang@huawei.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Li Wang <liwang@kylinos.cn>,
+ Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+References: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
+ <20261120154153.GC28611@lst.de>
+ <361c4312-f77b-495f-9ee4-e0b9612b4463@linux.dev>
+ <CGME20261124084131epcas5p3098eab1bc134da7aefcc83c646b54a9d@epcas5p3.samsung.com>
+ <20261124084025.2101804-1-anuj20.g@samsung.com>
+ <3bce3a69-e41c-4683-b1ca-9477dd41a7e0@linux.dev>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <3bce3a69-e41c-4683-b1ca-9477dd41a7e0@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Hans,
+On 11/26/26 01:25, Mengmeng Zhao wrote:
+> On 11/24/26 16:40, Anuj Gupta wrote:
+>> On Mon, Nov 23, 2026 at 09:51:41AM +0800, Mengmeng Zhao wrote:
+>>> Hi Anuj, I'd be happy to help pull our patches together into a single
+>>> unified series and send it out for review, if you're okay with that—and
+>>> would appreciate your review once it's posted as well. Please let me know how
+>>> you'd like to coordinate, or if you have any updates in progress on your
+>>> side before I put the series together.
+>>
+>> Hi Mengmeng,
+>>
+>> We already have updates in progress on the XFS side.
+>>
+>> We will consolidate the combined series along with your ext4 work and
+>> related patches, keeping your authorship.
+>>
+>> One more thing that we are looking at combining is the ability to share
+>> the registration across files. Pavel had mentioned this earlier in our
+>> xfs series [1] and posted a series too [2] which needs some more work.
+>>
+>> FWIW, we also had ext4 changes, but intentionally started with one
+>> filesystem (XFS) so that the common interface could settle first.
+>>
+>> [1] https://lore.kernel.org/linux-block/4649a20f-aba9-418e-987f-66f21ab24410@gmail.com/
+>> [2] https://lore.kernel.org/linux-block/cover.1793751001.git.asml.silence@gmail.com/
+> 
+> Hi Anuj,
+> 
+> Sounds good, that makes sense given the ongoing XFS and shared registration
+> updates. Thanks for including our ext4 patches and keeping the authorship.
+> Feel free to loop me in once you post the combined series—I'd be happy to
+> help review and test it.
+> 
+> I looked at Pavel's patchset as well, and noticed it adds a new f_dma_io_tag
+> field to struct file, whereas Christoph and Christian want to avoid bloating
+> struct file. Did I miss something, or do you have a different approach in mind
+> to avoid adding fields to struct file?
 
-I checked media-committers/next at b4e3c4b6a36f. The init error path
-already clears dev->v4l2 under dev->lock before dropping the initial
-reference, and em28xx_v4l2_fini() checks the pointer under the same
-lock. That covers the double put this patch was meant to fix, so
-I'm dropping the standalone patch.
+I'll resend it later, how to store the tag is the least interesting
+part, it can just move inside the block/ext4/etc code, which would
+be uglier, but whatever.
 
-Thanks,
-Arbab
+-- 
+Pavel Begunkov
 
-
-On Wed, 25 Nov 2026 at 12:40, Hans Verkuil <hverkuil+cisco@kernel.org> wrote:
->
-> On 22/11/2026 20:00, Arbab Haider wrote:
-> > Commit 288254383674 ("media: em28xx: use v4l2_device release callback")
-> > switched em28xx_v4l2 teardown to v4l2_device reference counting, where
-> > dev->v4l2 is only cleared inside em28xx_free_v4l2() once the refcount
-> > reaches zero.
-> >
-> > If em28xx_v4l2_init() fails after video_register_device() (for example,
-> > when v4l2_mc_create_media_graph() returns -EINVAL) while userspace has
-> > opened the video node, the unregister_dev error path calls
-> > v4l2_device_put(&v4l2->v4l2_dev) to drop the initial reference, but
-> > em28xx_free_v4l2() does not run yet because the open file handle still
-> > holds a reference, leaving dev->v4l2 non-NULL.
-> >
-> > When the USB device is subsequently disconnected, em28xx_v4l2_fini()
-> > sees dev->v4l2 != NULL and calls v4l2_device_put(&v4l2->v4l2_dev) a
-> > second time for the initial reference, freeing struct em28xx_v4l2 while
-> > the video device node is still referenced and causing a
-> > slab-use-after-free in media_device_unregister() /
-> > __media_entity_remove_links().
-> >
-> > Fix this by:
-> > - Calling v4l2_device_disconnect() and clearing dev->v4l2 = NULL under
-> >   dev->lock in em28xx_v4l2_init()'s unregister_dev path before dropping
-> >   the initial v4l2_device reference.
-> > - Checking and clearing dev->v4l2 under dev->lock in em28xx_v4l2_fini()
-> >   so the initial reference is dropped at most once.
-> > - Reading dev->v4l2 under dev->lock and checking for !v4l2 in
-> >   em28xx_v4l2_close() so a close racing with teardown cannot dereference
-> >   a NULL pointer.
-> >
-> > Tested locally in QEMU (x86_64, KASAN+UBSAN) using dummy_hcd and
-> > raw-gadget emulating an EM2820 device with failed media graph creation
-> > and concurrent /dev/video0 open/disconnect.
-> >
-> > Reported-by: syzbot+fb0d2df09b56117605fc@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=fb0d2df09b56117605fc
-> > Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
->
-> This patch no longer applies, can you rebase it on top of
-> https://gitlab.freedesktop.org/linux-media/media-committers, next branch?
->
-> This patch might not be needed anymore, it's unclear.
->
-> Regards,
->
->         Hans
->
-> > ---
-> >  drivers/media/usb/em28xx/em28xx-video.c | 23 ++++++++++++++++-------
-> >  1 file changed, 16 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-> > index 84424284d..50998aa1c 100644
-> > --- a/drivers/media/usb/em28xx/em28xx-video.c
-> > +++ b/drivers/media/usb/em28xx/em28xx-video.c
-> > @@ -2333,7 +2333,6 @@ static void em28xx_free_v4l2(struct v4l2_device *v4l2_dev)
-> >
-> >       v4l2_ctrl_handler_free(&v4l2->ctrl_handler);
-> >       v4l2_device_unregister(v4l2_dev);
-> > -     dev->v4l2 = NULL;
-> >       kfree(v4l2);
-> >       kref_put(&dev->ref, em28xx_free_device);
-> >  }
-> > @@ -2414,7 +2413,7 @@ static int em28xx_v4l2_open(struct file *filp)
-> >   */
-> >  static int em28xx_v4l2_fini(struct em28xx *dev)
-> >  {
-> > -     struct em28xx_v4l2 *v4l2 = dev->v4l2;
-> > +     struct em28xx_v4l2 *v4l2;
-> >
-> >       if (dev->is_audio_only) {
-> >               /* Shouldn't initialize IR for this interface */
-> > @@ -2426,13 +2425,16 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
-> >               return 0;
-> >       }
-> >
-> > -     if (!v4l2)
-> > +     mutex_lock(&dev->lock);
-> > +
-> > +     v4l2 = dev->v4l2;
-> > +     if (!v4l2) {
-> > +             mutex_unlock(&dev->lock);
-> >               return 0;
-> > +     }
-> >
-> >       dev_info(&dev->intf->dev, "Closing video extension\n");
-> >
-> > -     mutex_lock(&dev->lock);
-> > -
-> >       v4l2_device_disconnect(&v4l2->v4l2_dev);
-> >
-> >       em28xx_uninit_usb_xfer(dev, EM28XX_ANALOG_MODE);
-> > @@ -2455,6 +2457,8 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
-> >               vb2_video_unregister_device(&v4l2->vdev);
-> >       }
-> >
-> > +     dev->v4l2 = NULL;
-> > +
-> >       mutex_unlock(&dev->lock);
-> >
-> >       /*
-> > @@ -2502,18 +2506,19 @@ static int em28xx_v4l2_close(struct file *filp)
-> >  {
-> >       struct video_device   *vdev = video_devdata(filp);
-> >       struct em28xx         *dev  = video_drvdata(filp);
-> > -     struct em28xx_v4l2    *v4l2 = dev->v4l2;
-> > +     struct em28xx_v4l2    *v4l2;
-> >       struct usb_device *udev = interface_to_usbdev(dev->intf);
-> >       int              err;
-> >       bool last_user;
-> >
-> >       mutex_lock(&dev->lock);
-> > +     v4l2 = dev->v4l2;
-> >       last_user = v4l2_fh_is_singular_file(filp);
-> >       _vb2_fop_release(filp, vdev->queue->lock);
-> >
-> >       if (last_user) {
-> >               /* No sense to try to write to the device */
-> > -             if (dev->disconnected)
-> > +             if (dev->disconnected || !v4l2)
-> >                       goto exit;
-> >
-> >               /* Save some power by putting tuner to sleep */
-> > @@ -3110,6 +3115,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
-> >       return 0;
-> >
-> >  unregister_dev:
-> > +     v4l2_device_disconnect(&v4l2->v4l2_dev);
-> > +
-> >       if (video_is_registered(&v4l2->radio_dev)) {
-> >               dev_info(&dev->intf->dev,
-> >                        "V4L2 device %s deregistered\n",
-> > @@ -3129,6 +3136,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
-> >               vb2_video_unregister_device(&v4l2->vdev);
-> >       }
-> >
-> > +     dev->v4l2 = NULL;
-> > +
-> >       mutex_unlock(&dev->lock);
-> >
-> >       /*
->
