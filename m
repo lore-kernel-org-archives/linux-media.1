@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795712462;
-	b=LahwrhLZqS4scPRlt/Qj9TPkUAXnB1DEGwFmRQJmrcl7xXKDmAc0RiulTgHwnMe4yl/P
-	 DP3T/X9jlsEL/nLGLhBhY1yRlNw70QK2pK8I/prsvAu9T30JhJ9fkLahbIRjA9S+Kc545
-	 79MdjZ5tGO+/s2u7OAx2exV+K+0US/JPQWVgsDzR7St1AI/gBkKOu05mvaXjhI75jJVhD
-	 +MOORyn4R+u5Ruf4wrOJByQG8zbPvZbH4vhRWAalw2GX5LhytLtQIP2RwvSr7R1fgAbvo
-	 IlABbZIJJfYDzueiscxE/02W+7XegojjUVerP+0xA/gPV7EoTeIvDeViQKZ/6DU4Ltw==
+	t=1795712466;
+	b=44qIIy4SplYmKyFUtUcqJplFVI2jpz+Egk63Lo51AZKpWdQd8dkzS7N8Qu9T16eH0eui
+	 sumPBOVKx8rmdt/KkLNpHwwbjTDFHMlTHB1aV8gbIsiUzEGoLCZ5OaowvB2kxC6NtWV4Y
+	 +jkQoeZ0ljTMBBwj2tWzAVtDfUGfSRUL4jx+ZoAXhSohkPrEiktbcBuNOcJsUuAG96jJt
+	 1X0l588hMQhyvCSbpadEj+1KvpQsRha2eINaRvfQESIm0c7Z3AAUES0oTalKcyhOhg3uB
+	 0Y5QTnFBm7huGUPMrcftyLsOx8L9qM7ylUY9OtPMc5uH5brmXNq6zAgEdcYiyeonhSw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795712462;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795712466;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=n51tRsSR1uv4ce5V1bvi8pKtqFtfK02ZhkRTz+VN5TU=;
-	b=vZNvLiFMzkVHedjXRTMKPPst8uOQ4fvQCjEXWFOyCpiSp29K0iSV+GFjweS6BYd+C9hc
-	 t7qoacyKtdCD+2O07Gjx31Hw/ost5W4qui3l5uy8fh8p3JTOd/J3phbxUdxUIFfH4ONAR
-	 bqTXJ1cwFOxe9diSv90/UKWj2Fe44Ob+om5iotOyptwSoXXB2qf3uqZr9oBIqzpV4apgs
-	 tlGPE+7hsmX7dIKrX5+7qkY+0dwu1C+6IzmQ1SNkmGKmVDkYlHqxbs4XrtX+RRIiV4Oh1
-	 tErk8hpNbzluztDYZTMcgqMxZ2O4v1RM5UBCcdo0O2PwzsXvZOlbT9s1R7YhUe709RQ==
+	bh=hbkau+Lk5dpxesTjMuO6qlJZUIP3DJh+aDfaxG+Hca4=;
+	b=ysvPP/eMvcgJSiQ04COAXHltP6CGL9Sc+h1gU1QQc95+3CTvCnN/Mwsb7t0btPo5dPc1
+	 XqjXUpg+36nvWOj/FUWJPbTIDyZ6zBb8hhUg3UYLKifoga82T7pBCyOyuWJPz9Vx5Rfq+
+	 /em6wDfIh1D/HSIDatSd/UFUb+xzuPi8L70BrcHSqdoc8s99AsH9olpvaBBnk9IKjwBmp
+	 3nhYJMclKF0lMZCMY8NdPVblKz69wNme4PVITd3Ty+iwPIoKgcvNkw/fpNAwbDwGV5xSk
+	 CGg9KvhMOD7Oe0oLu9MuCg1Qda8c+p1IS3ZDHX8EDS3ucqo49xQBZ8s7J1u8qc13YeA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aFUosOlt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Axr6ng/e";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CB1B606A31E;
-	Thu, 26 Nov 2026 17:01:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8B9A606A33E;
+	Thu, 26 Nov 2026 17:01:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aFUosOlt
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Axr6ng/e
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795712462;
-	b=kQNR8UhkHKEhzRavm4oI6GSItwtkRSAFs9Rhz4eDSWRCxPR7Nb+kc0KlqosXi54s0S7e
-	 Dz2SEEvbgz0gEsp+UQS5gnIp4iIbuAtUZPbGtASvxzxIZ5JxcbWRXmdXT3mfw06RuaGF0
-	 xlFamz4LgHqC7NxDUhrs7OcShWPT9hiVTxzFfHI8SEGwHVG3v+lfRteFN9XslNoten1Ur
-	 YwIsXQNfRagZWXgSnz9Yd9UugSQVrvgUVqlG+WKzhmHcud6NQwYQ9CmppFbe/YtX5Ja6d
-	 pLOd1cJe1sx9OtxsM5yd1H9f+/m21iphTfSd/GGx+qma0kqIZZWx+fKQ0i5PFA4hpcg==
+	t=1795712466;
+	b=BEKoULBeRPnlcgeBsKzQWZwOc0IJNdN3re5HZyMGSvzMp/MwOIYxNg8aWmkQnZI6nbRT
+	 Dnapml6czHJD6xLtr12/mYUCqgUzY+DmlS/63ms+CdzGpYVCoO0631wqjWwhvbJDExjpt
+	 AFx5ccQQq7+mO9bfRMsygUE1xck+PeZleZlQ91DNlXyA/i1g7XdLKViRTXP8h16jHnq2E
+	 auJw2GlRJ7QOGUAYiTWQcobSRR0Ll/9F4qFcLmeO79sbVZmcJAIU/CBWbCQKFQOyKINoz
+	 t/fQ9Z/EtJM94/0wVll2PwxiNNpHRYluW0KEaFD7rvdWY847gjWXSY2vx3crf25MxVA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795712462;
+	c=relaxed/relaxed; t=1795712466;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=n51tRsSR1uv4ce5V1bvi8pKtqFtfK02ZhkRTz+VN5TU=;
-	b=wActME7RlSpROiTA9FvZYnf6udKq/O0JvV7KnvjzA3xrnIcogLdlkm9LI2u0xYXTRE/2
-	 aUXuMsAG62kohSJk8ldHvk3RZwM8DL7n7limfXJ8V31xpQqsppw6RZqmkSPWVA9bnTiTK
-	 xrutRYNtVfjqOdhFKsuiic0iwXvDYZ2q1MvUU978yuMQc5ISV2m6tilbtNC2+Skj4bmNR
-	 3KUCbZQU9RlRYtejxScUTOu/vWnYfGJlxClOAHOYawz+cK8rLaelzvciRDR8D0txoscMd
-	 taHTpjhGujvrw+79KTr65NFL37Ykfqx6fgVJ1DXIidffRJM96u+bytSFFx83xBv+wNQ==
+	bh=hbkau+Lk5dpxesTjMuO6qlJZUIP3DJh+aDfaxG+Hca4=;
+	b=nWVF/qPFqG5Sk4zddcrkLVLW3doLmTd1Abh7ogBZqDjZ3cN6G8aR2aLgzw6GjU+DeXYM
+	 jByyJo/8vtI1/oiCw7JJNSCt1inaIkju2xZ4Q12xmg/MP6gv7vTD1uUUKnyDZjE3uTFKE
+	 qNf2jO92zQbQ8ROdDNavT01fjmRuyoRNtdzGOyG1LWo6nNzegv1lU826YORKGcbCqp+Tf
+	 uIOnRVFxnFd5KoNZTI19D5CjE6b5FZwVaj296k3m3wVZhSJFFqL/5IdVW6pHPSTuh28Ze
+	 qm9IkR1mUE9rKRPj6njEtE0flAI7KRalnXchAFRPcMgnLNmvd2dd/miMvRUTN05oVcQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8C1A41F000D4;
-	Thu, 26 Nov 2026 17:00:56 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 45C0C1F000CF;
+	Thu, 26 Nov 2026 17:00:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795712462;
-	bh=n51tRsSR1uv4ce5V1bvi8pKtqFtfK02ZhkRTz+VN5TU=;
+	s=k20260515; t=1795712466;
+	bh=hbkau+Lk5dpxesTjMuO6qlJZUIP3DJh+aDfaxG+Hca4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=aFUosOltN0N3sS9lbhVGvad2KurYAe6SrVlIH1C1LcdjUoob3pqD0FPkAx5uFzfZ4
-	 D/FMn+kry3SlTe4WaxhYYHr6/ABMukj5lEjmsbmsSqUSa6y3nnAJFM9VPPan5+zcFU
-	 2Phk4CAV+TFdoReRSq51oeqBGKo87+B3RtaQmmDHVvxnm1SyboXqAY63Y9W2Wd/TiV
-	 8JM4css8n51UrDC/dvTTU/w6T/D25eXV02N9n7fteCu7sy5khdx/o77cwwT9u3d66z
-	 lUgUz7t9VHom39NSwVLGzA04gVnAZN55iim1HqFtNxkqttOF+ejWYGvLxuePrW326d
-	 8d7pvbaowmnOQ==
+	b=Axr6ng/eWRNqH7IxrFL+kqLLOZahqP4dmwYX5zsUBfbT4oDnZDiA284n4XsV8xf2W
+	 5U3ahDC1CUSY511OgxvbrKSWb1EnlU4zHhEimQdh01ViM7GYB89s9Y40MzYlYsiw9v
+	 8q/KlAJLAOrmd0BdbqTV6rjxc9L38+xGUPECL1ZxKZAeh8TT5aunkz3sf93n6a2FF9
+	 lHMvr2C86S3jNml5r6soosUjZUzynbIt8YtyIGWuSlHz96nhFbjuOgYOkKfTmHSzvM
+	 jYlkqWdubPXjYB4mSxo/+OLvRWlSMiaUfhcSdRNY+TpQ6NIEvvtgy8bF//tl4oZy+6
+	 Ej2WhQCNyEEDg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E1E534D75B;
+	by lkml.kernel.org (Postfix) with ESMTP id C1ACA4D757;
 	Thu, 26 Nov 2026 17:00:53 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 26 Nov 2026 17:00:57 +0000
-Subject: [PATCH v3 5/5] media: verisilicon: rockchip: Limit the JPEG
- encoder to 8176x8176
+Date: Thu, 26 Nov 2026 17:00:56 +0000
+Subject: [PATCH v3 4/5] media: verisilicon: Restore the encoder raw format
+ when its reset fails
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261126-hantro-jpeg-enc-fixes-v3-5-07357d84a64b@gmail.com>
+Message-Id: <20261126-hantro-jpeg-enc-fixes-v3-4-07357d84a64b@gmail.com>
 References: <20261126-hantro-jpeg-enc-fixes-v3-0-07357d84a64b@gmail.com>
 In-Reply-To: <20261126-hantro-jpeg-enc-fixes-v3-0-07357d84a64b@gmail.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
@@ -101,11 +101,11 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Sergei Khomenkov <shomenkow@gmail.com>, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795712452; l=1336;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795712452; l=1799;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=Ov3GnRRy9PGD1C66aiFxQPkVwaFypntQvwUeWFjwO4M=;
- b=4zCWrSusBdi/YNvGLj4TcvK+ryXPUWYhee6coY44Tddp6uv3l9Pn7/UgsfTYaqYX7oIZMcVzY
- uUANa/519+nBeuhjtcGEb6b9NgxTHX5AAYByreDRTCoFaq2NEhPlcOd
+ bh=T4JxJzrpJHZ7bcC2wFn6o1S3mEh6CI2vghqlDg9OD7U=;
+ b=ryypf3/xIzVrNPoN9rN4vu2bdfqVXd85Gr/I4tuCQaAXlLpV/0aPDjaYFtCEM9drV8h8hlwra
+ BGr2IFX8va8AYYWgYws9LjNpF5bptF6PSpeZy7D0EOagqZ5fytNFpJb
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -116,43 +116,48 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The VEPU2 and H1 JPEG encoders take the picture size in 9-bit
-macroblock counts: 8192 pixels is programmed as 0 on VEPU2 and runs
-into the width field on H1. Limit both dimensions to 511 macroblocks.
+hantro_reset_raw_fmt() sets ctx->vpu_src_fmt to the default raw format
+before hantro_set_fmt_out(), which fails while OUTPUT buffers exist. A
+CAPTURE S_FMT then leaves NM12 in ctx->src_fmt and YM12 in
+ctx->vpu_src_fmt, and the next job reads the third plane from IOVA 0
+(v4l2-ctl --stream-mmap). Restore ctx->vpu_src_fmt on failure.
 
-Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
+Fixes: 14b4bd01f8e5 ("media: verisilicon: Additional fix for the crash when opening the driver")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/media/platform/verisilicon/hantro_v4l2.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-index 02673be9878e..d295e9571a8e 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
-@@ -20,6 +20,9 @@
+diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
+index b91c0ef9b6a3..69e1ef985bff 100644
+--- a/drivers/media/platform/verisilicon/hantro_v4l2.c
++++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
+@@ -455,7 +455,7 @@ hantro_reset_encoded_fmt(struct hantro_ctx *ctx)
+ int
+ hantro_reset_raw_fmt(struct hantro_ctx *ctx, int bit_depth, bool need_postproc)
+ {
+-	const struct hantro_fmt *raw_vpu_fmt;
++	const struct hantro_fmt *raw_vpu_fmt, *old_vpu_src_fmt = NULL;
+ 	struct v4l2_pix_format_mplane raw_fmt, *encoded_fmt;
+ 	int ret;
  
- #define ROCKCHIP_VPU981_MIN_SIZE 64
+@@ -465,6 +465,7 @@ hantro_reset_raw_fmt(struct hantro_ctx *ctx, int bit_depth, bool need_postproc)
  
-+/* 9-bit macroblock counts */
-+#define ROCKCHIP_VPU_JPEG_ENC_MAX_SIZE (511 * MB_DIM)
-+
- /*
-  * Supported formats.
-  */
-@@ -52,10 +55,10 @@ static const struct hantro_fmt rockchip_vpu_enc_fmts[] = {
- 		.header_size = JPEG_HEADER_SIZE,
- 		.frmsize = {
- 			.min_width = 96,
--			.max_width = 8192,
-+			.max_width = ROCKCHIP_VPU_JPEG_ENC_MAX_SIZE,
- 			.step_width = MB_DIM,
- 			.min_height = 32,
--			.max_height = 8192,
-+			.max_height = ROCKCHIP_VPU_JPEG_ENC_MAX_SIZE,
- 			.step_height = MB_DIM,
- 		},
- 	},
+ 	if (ctx->is_encoder) {
+ 		encoded_fmt = &ctx->dst_fmt;
++		old_vpu_src_fmt = ctx->vpu_src_fmt;
+ 		ctx->vpu_src_fmt = raw_vpu_fmt;
+ 	} else {
+ 		encoded_fmt = &ctx->src_fmt;
+@@ -481,6 +482,8 @@ hantro_reset_raw_fmt(struct hantro_ctx *ctx, int bit_depth, bool need_postproc)
+ 	if (!ret) {
+ 		ctx->bit_depth = bit_depth;
+ 		ctx->need_postproc = need_postproc;
++	} else if (ctx->is_encoder) {
++		ctx->vpu_src_fmt = old_vpu_src_fmt;
+ 	}
+ 
+ 	return ret;
 
 -- 
 2.55.0
