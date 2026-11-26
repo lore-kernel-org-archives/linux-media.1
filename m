@@ -1,64 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795708286;
-	b=vIpbUX3WlKZ6UXp3tOM3gTjKJmKXIiimWWsIggVtaVN7VkGoySUEKlghwKxQRGxvbwTD
-	 qTBShGD04JjeHNebHOMFskATnE4blvFvNiPe9y78jMEFV0nHLBasfaFyG8FRhcnIDRl8T
-	 RnEbp8QgwMCCv9TPWVPOKnPoBl/zjfwDb6XLQWc8t+bzdpdGSd/JdOhVAMOddqd0KsfFF
-	 KHf3L6Q/xqamRSVjndvQux9xpPYhm/viKmxY4s/oXDLzHzJ77jILjxbo2oPmtMbII4a2V
-	 AyRS8cW/WUBGiVe0REthZIZ95yg+VnDQLRT60vUSgM4b1bHzkf75wadmAL0GOhuFllw==
+	t=1795708332;
+	b=YxYXGtxBo2dMAlxLMaNoccooffLLEa+tS9r5JBXuw0KHGk/OBznnOagXoO8ChqHTe6Ia
+	 Ay7Lg9FpAPwjXL/T89d2zcintx7Nv+UAjscq7SnTWWcN8kY9zlaIr6FfbwOL9FGPuAkGH
+	 tht8wPVeRvZK6PJqt/8iW6FxJ68T5T3gvCj42yU8TypBZRP+MrhQ1VYdKLI/2e9Ku8jB7
+	 LVPnlTbofmz+/mYXTbMXSPgs+9oIIdtQqWU/DJmknmOEUwSy83BxipdIjtrkHUlyqWpHi
+	 J/5HCFQnGfLxVIPsRfwa4Mjl9FD2W4bWpLvgDwSRNbKD4s4Od+TnZdKLAfM6fVD7MbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795708286;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=1TRXzjh8btjWBqT8trhtxhaLFDwxWXLEZlGiipk1iA8=;
-	b=m5wnixspOtWsbc2SGkejfUrhRJ0Vv4a5A6eldNpprrL7ioX5wwe07dY3l9fwVLolClHQ
-	 0u/Fdl4rH6DbpLOU2LGMDiSMcwBF0G4YIM/iFCV3gePKeShsDj8BeLEDhhGSv1jGDGHmy
-	 EpmKZtPYPnNw+xVQQ9mTR3mZ2OC1emTU7OzdPpkRMhZvBwad4QqYTdyPrk/Zht7/07nPd
-	 htl63uHfA+kV8wX6gOnrJIU3sWQIbYQVIpwjx/IRIKZqwHRaAk4qx/JlVrSIzBnq7llIy
-	 FiZYs6CASJRW/DOepijfjr7j4W+w4y2eCpOqYknX+opBO2euZcdPicevJbJXA37gAuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795708332;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=PsJrhw/qD5kUJUapuNeSh8uHKjzWdiRgnqrKaM1xuOk=;
+	b=HGWV4rgjr6ifpv1rdw8hSB3+YyN7PiH9YTy/TS8FumzT0MHnyYOilmwXo9uTyHlnOFpF
+	 +I1wcw1neOQm0tLUvZAHX6LwF7+PXrnA5TwcqV6TKZV9vzF08fFS7DKoTSFv/nhwRGcLE
+	 yy6SraHgsg11W3zSUmLXUZIasc56bg7cQSDBsREhs/zCz7tSQxZiEbfo/hllAizv7me9Y
+	 qC5V4+22ucgdVSSFYLPck9Ks7oSEGNBH/R0vdgIERBZrD9OxBGdSmZVyH2aZpNBiWVEBT
+	 QnaSPudf/sYBeWopMO2RJBLwlyWZ/fCcUkYV6iX4aSl/wvHpI/2v7P0hgDXK4tkWYyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBGaOCFv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 280E3606A31E;
-	Thu, 26 Nov 2026 15:51:25 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=So+WdnWi;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8304D606A323
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 15:52:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8304D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBGaOCFv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C53331F000CF;
-	Thu, 26 Nov 2026 15:51:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795708285;
-	bh=1TRXzjh8btjWBqT8trhtxhaLFDwxWXLEZlGiipk1iA8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=QBGaOCFvc0jIYYOdM26RV8FDVYKSfpwyRBuc3GeOKMiHLkW4EUxjtddtPfNkRnBdz
-	 bGZrqaFj91fld0mIq/ZhiDHKZXV6NaWdZXzDlcanvF+9A8kj2jijC0QGKIUh052gzr
-	 /nU0jKmdIygnkTzzGwjUvV1XHgDyNvoDSI24gAbsExMM3nnr/kXF1H96zPySEkitME
-	 fE8VS1+N9AcNobg794un/Om3k4nvHW2RxnOmMYtKELr1QTp3h9rGPEy5VDaGBLwFUa
-	 ssgC91ADbNaYqHFP0I9HJDPeyZWBK7UnMQv7vtctMN26DOUxMIeOzjJ27hDsCC+n+5
-	 iI0qVkpratW2w==
-From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>, Sakari Ailus
- <sakari.ailus@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Kieran Bingham
- <kieran.bingham@ideasonboard.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, Dave
- Stevenson <dave.stevenson@raspberrypi.com>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
-In-Reply-To: <3066a335-12b9-4031-84bf-af851c8e03c0@kernel.org>
-References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
- <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
- <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org> <avMM6a6xcDHT-zCR@houat>
- <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org> <avMgJ7MFks0sKD7T@houat>
- <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
- <avWd9y7c1FVbUB7E@kekkonen.localdomain>
- <3066a335-12b9-4031-84bf-af851c8e03c0@kernel.org>
-Date: Thu, 26 Nov 2026 16:51:22 +0100
-Message-ID: <xhkdbzeuvy4jp.fsf@mkorpers-koolstof.csb>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=So+WdnWi
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EE6AD1C2B;
+	Thu, 26 Nov 2026 07:52:07 -0800 (PST)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8D9373F632;
+	Thu, 26 Nov 2026 07:52:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795708330; bh=t/iAXo76mNWOYi6NXRXLm9HYRbfENwEmeSuVZl+vjQ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=So+WdnWiITxUEA+zPA0qZrHfIgEWB8UDt3yn4IEO5THcFQuUupbSyZ38WSbYLlzZO
+	 Rdd4TpDOmHWWTHsRW+t1aSXOFu6+xeusbEXx8t6R4TR3fxZ+3I/eAfWH7BVYVPd6hg
+	 fcIkARwHaaJVtuaYyOlwbtgwfzyTh/vzHdKQd+qA=
+Date: Thu, 26 Nov 2026 15:52:00 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	linux-coco@lists.linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Christian K?nig <christian.koenig@amd.com>,
+	Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+	linaro-mm-sig@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+	linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
+Subject: Re: [PATCH v10 04/13] irqchip/gic-v3-its: Allocate shared tables
+ using CoCo shared memory allocator
+Message-ID: <awhVoDXluqpncgcd@arm.com>
+References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
+ <20261116091137.94252-5-aneesh.kumar@kernel.org>
+ <awQd81MwZqi55gf8@arm.com>
+ <yq5aa4mybbmv.fsf@kernel.org>
+ <20261124134621.GI9566@ziepe.ca>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -68,171 +109,31 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261124134621.GI9566@ziepe.ca>
 
-Hi Hans,
+On Tue, Nov 24, 2026 at 09:46:21AM -0400, Jason Gunthorpe wrote:
+> On Tue, Nov 24, 2026 at 07:00:00PM +0530, Aneesh Kumar K.V wrote:
+> 
+> > Taking Jason's feedback into account, we could have the allocator
+> > request compound pages and recover the actual allocation order with
+> > compound_order(). That would avoid passing an order to free:
+> > 
+> > void *alloc_cc_shared_node(int nid, gfp_t gfp, unsigned int order);
+> > void *alloc_cc_shared(gfp_t gfp, unsigned int order);
+> > void free_cc_shared(void *addr);
+> 
+> It probably shouldn't be order here, that is hard to use. Just size_t
+> len
+> 
+> And round up internally
 
-On Thu, Nov 12, 2026 at 13:43, Hans Verkuil <hverkuil+cisco@kernel.org> wrote:
+Minor point in favour of keeping the '_pages' naming and order is that
+it makes it more obvious what alignment is returned for code that needs
+it like the ITS. Otherwise we can just document it, I don't have a
+strong opinion either way (only that it's simpler than what was proposed
+earlier).
 
-> On 12/11/2026 12:07, Sakari Ailus wrote:
->> Hi Hans, others,
->> 
->> On Tue, Nov 10, 2026 at 03:43:59PM +0100, Hans Verkuil wrote:
->>> On 10/11/2026 15:17, Maxime Ripard wrote:
->>>> On Tue, Nov 10, 2026 at 02:30:51PM +0100, Hans Verkuil wrote:
->>>>> On 10/11/2026 13:33, Maxime Ripard wrote:
->>>>>> Hi Hans,
->>>>>>
->>>>>> On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
->>>>>>> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
->>>>>>>> Hi everyone,
->>>>>>>>
->>>>>>>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@kernel.org> wrote:
->>>>>>>>
->>>>>>>>> On media-centric camera pipelines, every entity is known at boot time
->>>>>>>>> and described statically (for example via device-tree).
->>>>>>>>>
->>>>>>>>> The V4L2 framework assumes that every entity of the camera
->>>>>>>>> pipeline is always present. This is a reasonable assumption for
->>>>>>>>> integrated cameras in laptops or phones. However, in automotive systems,
->>>>>>>>> cameras (e.g. rear-view or surround-view) can be damaged or disconnected.
->>>>>>>>> When the framework assumes all sensors are present, a single missing
->>>>>>>>> camera can prevent the entire pipeline from operating.
->>>>>>>>
->>>>>>>> This series has been discussed at the Camera & ISP "unconference" in
->>>>>>>> Pragues (during Linux Plumbers)
->>>>>>>>
->>>>>>>> The notes can be found here:
->>>>>>>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus.ideasonboard.com/T/#u
->>>>>>>
->>>>>>> What is missing in this discussion is how userspace can indicate that it
->>>>>>> actually can handle partially instantiated pipelines.
->>>>>>>
->>>>>>> Today if one or more parts do not come up, the devices nodes are also not
->>>>>>> created. This is typically exactly what you want.
->>>>>>
->>>>>> That's very arguable? We have plenty of other examples where we allow to
->>>>>> show a software representation of something that isn't available in
->>>>>> hardware, starting with virtually any memory buffer allocation, but also
->>>>>> disabled CPUs, swapped pages, etc.
->>>>>>
->>>>>> For things a bit more related to drivers, things like USB root hubs are
->>>>>> also pretty analogous. The "root" device will always be created, even if
->>>>>> devices connected to it are non-functional, missing or whatever. It's
->>>>>> the primary interface that these devices might or might not attach to.
->>>>>>
->>>>>> So it's a bit hard to understand why the device nodes not showing up is
->>>>>> exactly what we always want.
->>>>>
->>>>> It's simply how V4L2 works today: video devices do not appear until
->>>>> all components are instantiated.
->> 
->> I think I've mentioned this before, but I do it once more: there's no
->> concept of creating device nodes at the same time. It may happen roughly
->> around the same time, but not atomically. There's always a chance that
->> accessing device nodes of a device exposing multiple nodes fails for a
->> reason or another. It may also be udev rules used different permissions for
->> different set of nodes so the application can only access some of them.
->
-> That's why the media device should ideally be the last device that is
-> registered. I think that is usually the case.
->
-> But even then, when e.g. em28xx creates the video device for video capture,
-> it can be used right away. Everything it depends on is there.
->
->> 
->>>>
->>>> Sure but that's exactly what we're trying to change.
->>>>
->>>>> Most video devices consist of multiple devices (bridges, i2c devices,
->>>>> etc.) and unless all are found and initialized, you can't capture. So
->>>>> bridge drivers postpone creating the video/media devices until
->>>>> everything is there.
->> 
->> That's not the case obviously. If you have, say, three different cameras
->> and one of them happens to be missing a driver in Kconfig, there's nothing
->> that would technically prevent streaming video from the two others: it's a
->> policy.
->
-> But in that case you wouldn't create the third video device for the missing
-> driver. It's up to the bridge driver to decide whether to bail out if that
-> driver can't be found, or continue with the others and just skip that video
-> device.
->
->> 
->> And supposedly, there could be an application that *needs* all these three
->> cameras to function, but does it then matter how that application is going
->> to fail, is it because it lacks access to all of the hardware or just one
->> piece of it?
->
-> That's up to the application. That's not relevant for this discussion.
-> What is relevant is that today, if a video device is registered, then it is
-> functional. The application can assume that everything it depends on is there.
->
-> And applications really do this: the video device appears and they start
-> streaming at once.
->
->> 
->> I'm in favour for making this reasonably easy for the user space to figure
->> out, but we currently have no APIs that cover this (and so could be used by
->> existing applications) so it's new behaviour that we're introducing. If we
->> can't do better, then I'd introduce a Kconfig option, but I'd select that
->> by default. I've seen tonnes of issues because of the current behaviour but
->> no evidence creating device nodes proactively could be actually harmful.
->> 
->> So what I'd concentrate on is to provide information to the userspace on
->> the device readiness status, so the userspace can figure out all devices in
->> a Media device complex have been registered.
->> 
->> Functional safety adds the requirement of detecting failures and how that
->> is being done is probably fairly implementation specific. New APIs will
->> very probably be needed for that as well (and they indeed should be behind
->> a specific Kconfig option).
->
-> Remember that there are more devices than just ISPs that use the MC: codecs,
-> various video capture drivers. Typically the MC is there primarily to help
-> understand the hardware, and the topology is usually (but not always) fixed.
->
-> Applications usually ignore the MC and just open a video device to start
-> streaming.
->
->> 
->>>>>
->>>>> That also means that applications can safely assume that if a video device appears,
->>>>> it is functioning.
->>>>
->>>> Ish. The only safe assumption you can make about this is that it was
->>>> functional at probe time. Anything after that is very much up in the
->>>> air. If the device broken after probe for example, or if we have no way
->>>> to tell if it's functional to begin with, that assumption is no longer
->>>> true. So sure, that's what applications have been doing so far because
->>>> there was no better way to do it, but I wouldn't qualify it as a "safe"
->>>> assumption.
->>>>
->>>>> If we add fault tolerance, and you allow video devices to appear even if they are
->>>>> not functioning (or partially functioning), then that contract breaks.
->>>>>
->>>>>>
->>>>>>> But here you allow partial instantiation, and how does userspace
->>>>>>> signal that? It must be an 'opt-in' mechanism, but how is that done?
->>>>>>> There are no devices yet, so that can't be used, so what alternatives
->>>>>>> are there?
->>>>>>>
->>>>>>> We've been discussion Fault Tolerant V4L2 for many years now, and every time
->>>>>>> I raise this issue, but I never received any proposals.
->>>>>>>
->>>>>>> This must be solved.
-
-Thank you for explaining this.
-Sorry you had to repeat yourself
-
-I've added an 'opt-in' mechanism for v2 RFC using a module parameter
-here:
-
-https://lore.kernel.org/all/20261118-v4l2-sensor-detect-v2-0-1bb1a445b556@kernel.org/
-
-And thanks everyone for the discussion, I hope we can continue on the v2
-
-Regards
-Mattijs
-
+-- 
+Catalin
