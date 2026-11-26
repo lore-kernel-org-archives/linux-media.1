@@ -1,110 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795676423;
-	b=bEVj8KHZ65w7wMqb10SlzT5hYK0WEelG2XR+UXMmkgo1K552PQIVfh7cLW7I8/KzJjNd
-	 xxCaoevD8I3rojPd1nJgBkZuZlA5VklgiNNg9gS6s/4Ur8UpenRB7BAcaCKyLvRIo94eg
-	 NfzhIz4pq2Kz4OP1IkmG4i5WwzCyRf4KNNe83JIMY86Fx1pGtrbQtZA1tDSHBNOj+z2GF
-	 Re7NAwS1gjvjIVAWNtOi+EJqH/EYD/GnX3y3wPuaruaJ/bVtGj7qSHFX7BlcFOXLGXv8/
-	 bN7vPQrFD35DP7vyI5eL9YAbKE6m8b+UkzhOGr80ueLWXN8szxSpzK6NYcVJNU2YM1g==
+	t=1795677405;
+	b=sK3AYcojNIRqr95UGOQyBVh1rBsdVeCS2YkoWf9+MmlH5dNqQL8JVmV0gSrZqcOEI7s5
+	 /uj/LVnU0tXanTCQfBkCdJK1AYWKWmF1d6T64Lqb8vuHnxx0/JgpU/X5TJ4deIXCLeTeG
+	 89krLT1qvXpn07uFsFPEhxxs6PKGBzc2Q9zWVYLW/VjCZgs44h4FrY0vpVAKL4Kg11Pi1
+	 yef9SLC3dlcoPD4O0zo21QT3W6P/nZh7/BS3BGiIeRjmlrdavKjBkJpIdFOijdmLOltg8
+	 44GDqF4VXh+2Amltd/81DotaXah9yw4QIv6yxQ2FaBpJYIus0zFp8GJGsCuJ+D31D7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795676423;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=NAGZI9h77fAEVJOMFwdusvDKaYM8J+TbnUlWkWl59RI=;
-	b=knPe4DBIN18Y7FDFKynhdZs8tHa/88w2ta3uVEZoPYyRp8rFIEVnEvm/TCWqkvKEiu4G
-	 ckHndqPzXA97BDM/zr5x7OKj5FgQs2f0WZAzLaakqioY6gOzGVkCMLfj+4sMYHrQeD/QX
-	 6scCqowCMT1906Gk18mZEHnMQ6ziy/2d10TyhprrBP5fHxGlFSRo0on8mbofmhAMzycQA
-	 +V+gCzbSr+7ml4c0vHJKIw0mZE/vWSrh+O8/KiAEAeH5II6aw6rrco6Kcnc2hTnIEPpGi
-	 UEUO1VXvCrGtx9jaIurWzkG84clrK97xPrv+HvFKe672pgj8zQ6FPVcnI1EgXSw68og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795677405;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:To:
+	 Cc:References:Subject:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=A13iVFhKsOqS5BKj17I53QfPWzjsNUiWBaXY5KItOgQ=;
+	b=KMw6VBxn1+9uCh7CvkrRTCLA0ketMEPz3zMzvM+I+JjVwSV6CdSthoES7Bu626jZ0VS4
+	 BvOIjMB3/NW2C9kKE6nl8ML1YOki0RctULgRI392o9rAZXNNmwy4xv+bBqSTQd3WnSOzN
+	 A9V4AasA7tTTKtck1R/PvJN4UwjrIInqqbHBIp2FU4nk+XGJqdfobmNAskQ0P2kw7/TQs
+	 g44GUn5o6ifC2TlbZAffpnfNSKYz7SgwXf41Pr1R+KcEZNHEDxId/du1P4toTSBFQrTMJ
+	 xy7ed0WymNUoysJ+gCXtIuyMsMr1yicMjjf5NYWsNwhYcieY2MP4hP3ueQxrBQOKJZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jOQHE9ns;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Wf5eHh4x;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=LjJQzD9Z;
+	arc=none smtp.remote-ip=212.227.17.12
+Received: from mout.web.de (mout.web.de [212.227.17.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930A0606A32A
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 07:00:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 930A0606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA79606A337
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 07:16:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EA79606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jOQHE9ns;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Wf5eHh4x
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ36RJF1686572
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 07:00:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NAGZI9h77fAEVJOMFwdusvDKaYM8J+TbnUlWkWl59RI=; b=jOQHE9nsO934AjXL
-	6eI4s2hT3Ut9arcgad+qRKj3BXHkJVD6xsI1JUtqOs128cq/N4bQ8O4Jy/H+2O2t
-	t+ZAsxHf6+tYOcPHJA6jDyPHYb9lo5Lv/EJlc46OHzRk/Zf9A/hqVc0iou+X+Bls
-	YuNJ2Wuax9S7ba576miO0lwqI3nDRu/wCsknRXenidp3WnEXS6yfEpcw34PORZpX
-	ccMONITFfJbFTkcXB+75vdirU/9umBwaA7oWgc9HopQiupKzkfXOvGPAa2v9hBF5
-	K6BuTr834ZHhWs35WCOJgwxqTK9YsrF38H0SzE06VuROOCsgBBngS33wodVmZWuT
-	qkLX/g==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j66qf9q32-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 07:00:16 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f6f4fe531so1012356585a.0
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 23:00:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795676415; x=1796281215; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NAGZI9h77fAEVJOMFwdusvDKaYM8J+TbnUlWkWl59RI=;
-        b=Wf5eHh4xkmMmBf7S2ekVF8nKLgHYoRSR89EvlKxilxqr2durEr6xZnD8lKVfdt2mX1
-         +NkmcV/srVJ5uQsKEIElSKpdv96Pgcil31YRKsiS6SWqhQM26GTVrA0YxnUIH6jQhC1v
-         3zqBdPgADHgdKytuphrn67n4lb/FDyX1RCg/yq3Qi6wkR+66MqwUpUcJkoMwb594e9CY
-         l9iXfm9Tkgk+EaT5u0ffLkjFPRvcEmCNVLWJ+WtvTwbSlzfEkRe25rl6QHlneVsNv1ip
-         kOHNWTI2IcdYKaYhA7y2SHPPXZH0XsCKbJ96EBt+cZuo+wqHEMCzQ5nkpyDMwebw7bLG
-         kjkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795676415; x=1796281215;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NAGZI9h77fAEVJOMFwdusvDKaYM8J+TbnUlWkWl59RI=;
-        b=TPWcovQeB7bcQcUWW6oyKLq2AkTU9Xp8Ax5F/6eUNsA+OhbHBlL55SE9ZT1MV4JAJk
-         nIATAwkgxGepn2TqFwxEdt4t13A73kfxML3oMncczgulaaUsXPZ0Yzl3BrbfoCJApizV
-         nj9IWl2gAGG8bLkAhOgd9b9jONR/Gv70a2IL7Z6Xb5BnOPiQD11S96PD0DCP3e1tSha8
-         lkpzCd06T6oxRokZLc4uzYer73I4kSgALnM+2A7SA866I5S4kM7JzHVUKDjTpllsI0im
-         YgR19YD3/tdRqmjAwwTzjn5vKRNARcH8JhYQWvg1u0w1xCOuZlnUYx5yMbJXOCyoq+QS
-         h26A==
-X-Gm-Message-State: APuU4Z9twp2brSbuUI45lRT2l2F5s2RGHytgWLUiI9cBkkcjL1pz5TNj
-	uJAnfFU7pCaQncPydBv365nj9rZKP4hk1JzT70lfh0XlYi3d5sHnNZUKvw6GR/B+raDonDq/fas
-	niwTDJfFdBBl1kDQoSvI3KyiIb231YoXu/LYK+oxVfuegAObQzXHE8Idt1ejSL9sGug==
-X-Gm-Gg: AZFdTZfNzh9CASv914Ic6PrlBjumAhHPm1bRga0c5Bj/+NG2Wk4chfPdJp/eNPuGyQx
-	9tquU+B0YZOixA0em5Ye2qqGGXsjw3vGuMRKTvP4Xy9y4cRNHVFYnUH7vKyn35fPTwigA102zYD
-	GXx0MXp5Nw+waBGtkV/I3Iuq1phX8nPIG6++/aXBUsVSFAu639oMGmGwyKnx/2Rc2KxtdzGIw7/
-	FCqtsBlEM8q+bBZ+Fr5Kq2D80AZ4l6rPWO3tImpFiYlX4AXJ1WDWgVb5CybG9axr+kicZ8KHK1F
-	9qTej2U8/5T6tI0bjrwjdURe9bZZqR84wgVlKeECdaYGPG6ySMCZE5uCss2Nag9Z2Johp5C6qT/
-	k9dbKxfgwcZM+65xsguImKnFQVNJhaYQOmnbCSuDIs4okwc9Lz1QTJ1ZVTwdaLfCVvazocF4FGQ
-	w=
-X-Received: by 2002:a05:620a:8802:b0:945:b967:475f with SMTP id af79cd13be357-949ba956648mr3487517385a.16.1795676414307;
-        Wed, 25 Nov 2026 23:00:14 -0800 (PST)
-X-Received: by 2002:a05:620a:8802:b0:945:b967:475f with SMTP id af79cd13be357-949ba956648mr3487505985a.16.1795676413443;
-        Wed, 25 Nov 2026 23:00:13 -0800 (PST)
-Received: from [192.168.25.64] ([94.155.124.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb884b7515sm794422335e9.13.2026.11.25.23.00.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 23:00:12 -0800 (PST)
-Message-ID: <9b858d24-f783-44e5-a7e6-85b59e054f37@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 09:00:11 +0200
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=LjJQzD9Z
+DKIM2-Signature:  i=1; m=1; t=1795677402;
+ mf=PE1hcmt1cy5FbGZyaW5nQHdlYi5kZT4=;
+ rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+ d=web.de;
+ s=s29768273:rsa-sha256:mXA3lVvfSv4hgPeOE4jyEjpN7QsA
+   LOmOWMKOQNzmmLnFgcYmuJ8KqT/3U5hM47ovZPRWAz1pNPdrPVjDJ3FcsAzMsTEJlB2R1mIVs4M
+   Qh3d7ut4eSCOSpfuwE+Sj2R9BN0UC+93JLxbSATgM+6Lx7oadjzTpAxKlkMt4ses5NyXs21Pw/n
+   ciNSKu8pLzA6I76ymAnOfxCmMPZsXZf6xPTKCMOzWDdxIiln8GJhy2B2TxFlo3AkINN5piJtGZa
+   Yzb9TQgi+HswBGk8M2irlDmq1KjiqOpZeHAgxPLU+7RkV7bLHtlLl+o3HL9FuXN6Twu4QOBbcXo
+   BspJ/NWwhxZOwQ==;
+Message-Instance:  m=1;
+ h=sha256:
+   d/qJGz5KCP9yA3Fx105Fqw+cOZ8gYr0OWILTFujTwQU=:
+   WhjiKZ+f3Xf0R96skEKz78BsYW5angEWPQfCIkUR2AI=,
+  sha512:
+   gopQWUwthgGjQJAGA+D32oLis7D7khAwvdL/YpOCYdhBvwUmsejJ6wKAGz2P85FibdH0+iBzjXVdr+v+HlueYA==:
+   BEsRCqyPWYj/nIDC5i9cxnZrBKyaMMF9LvTq/u0SbSO6KE71TbeuqJxRpZFBUmR0DrHSf1/YW0RpXhijnJNhng==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1795677374; x=1796282174; i=markus.elfring@web.de;
+	bh=A13iVFhKsOqS5BKj17I53QfPWzjsNUiWBaXY5KItOgQ=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=LjJQzD9ZbypCbY08aS/yyhTP/mEkPH+l1ysKUedvkqGMghdLwFDdwqY8jXlsni0k
+	 EEFGWBblCeOzvcNxstkkDSeygeXfiT9A1aPBSNVNvSyy+yipbzovrycZPqAP7x5jg
+	 o+/jL6VzUvzqxKXhNjF8qMIQCl6omQwoRpESzJfD4uygJFti9RarOy9aGMKdVfrbz
+	 gbvmZXfvAujnmb++/LL0+x45UoIcYbKo84y8by3zrWxj52x7RqYUnkNw86ivG8EAZ
+	 AI1YFRaIMV4J7dHMRlWEoDs91RKTDh97o3DVnbVKOrD6iGCTL/SYelib4A+4bCq6F
+	 ssb9dJ6s46Evx133Vw==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mfc8o-1yC6z82yFM-00bP3y; Thu, 26
+ Nov 2026 08:16:14 +0100
+Message-ID: <5ee6ea11-d1f5-4871-ac88-e59fc88cf15e@web.de>
+Date: Thu, 26 Nov 2026 08:16:01 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,162 +80,152 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] media: v4l2-event: Allow drivers to provide the
- event timestamp
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-References: <20261125-camss-hw-ts-v2-0-24c955e43d75@oss.qualcomm.com>
- <20261125-camss-hw-ts-v2-1-24c955e43d75@oss.qualcomm.com>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <20261125-camss-hw-ts-v2-1-24c955e43d75@oss.qualcomm.com>
+To: Matthew Laux <matthew.laux@gmail.com>, linux-media@vger.kernel.org,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Mehdi Djait <mehdi.djait@bootlin.com>
+Cc: LKML <linux-kernel@vger.kernel.org>
+References: <20261125194951.19072-13-matthew.laux@gmail.com>
+Subject: Re: [PATCH v8 12/12] media: add driver for StarTech USB3HDCAP
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20261125194951.19072-13-matthew.laux@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: gCObRQQIFHEro8EOa2KP1aBhzNt1bHA-
-X-Proofpoint-GUID: gCObRQQIFHEro8EOa2KP1aBhzNt1bHA-
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAyNiBTYWx0ZWRfX2IVcduJ3TBbs
- 6Qqq6qdGw2dnHDNVf3VtYjQA9Yl3Oymi9GZeFycsLXxrkBXp+DRFxh2Avy2fdMLHvIMuJNgRdzV
- e2h7hleWNZdyzY24hcn+VA/lTcOq0k4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAyNiBTYWx0ZWRfX2vir1VfkdBkf
- zZehTlR0dXblR1tOT8uinjhYu0NDhuxCT1Bw46s9J4Ha3ICU04nKwWueBPkfwynb/AoUk33gWMY
- Ya8ePsUWx4poZ8V4Am+QE+jO9xlODDziTtzOxUhAby4IacSwWuz85fbda8c1+0gWrj3OSmjzQZt
- QHApaPWNO0O88Ce/N/0gqB3Q8aszIeuIMhGEOzVmR0ilWLW3N74HVVSTJnA0Hsm6kIgTu6YR26P
- e05yTSIBSLTsll/q9ppDYD8F6BjakAKJ+9xApm3XC3H+hFVYEbTXLq0J2Z4/CN9vHTrutI9cemZ
- QDtRPr5RqRS2TtSXllurCfUuFxkuC+agYABuPtr5h1KbTRKJ63u3WxelkWHBokgmIVTR3LwqOWl
- hm29ZcBOmGp9BDeKGxR9abxRXSjAKNgK8iMKzFjGrBwprntdD7sopDWiMJeqMn6+VgriUiIHdJ/
- LCkuDzw9oBBxZ1PEeDQ==
-X-Authority-Analysis: v=2.4 cv=Q5VHcI2a c=1 sm=1 tr=0 ts=6b07d900 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=eGCDHFSXubCXFTSSGhjuOA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=H5SKo5UfUjvo3ROSXWYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_01,2026-11-25_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0
- priorityscore=1501 suspectscore=0 malwarescore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260026
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:VH5Nvk1Rjl8XYxHDK56TuFsCJNlKjl29lBEsB4GIO/VI/Gp18CL
+ i5fb8tSd8FlqVMoPWoow3MgCPrD86ee/Sztak9TP9fcBm8MWP0MUFtk4iqQvVbPQwSYj9Tv
+ QcU4dGwMqhZ3XaM2uSN/UaNLebrCWQ3PJVNw33ittKxEHoNDyFlSWecX42EuL+PpQ0B9NT1
+ LmcEZRIVQ/Jj2hlmJXhzg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:wGK0vbd9Ulk=;nBoUWqdig4ZhNQGyrvHE6Y0CNKw
+ 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
+ ySvlsChX15LnfTwhcqA==
 
-Hi Loic,
+=E2=80=A6
+> +++ b/drivers/media/usb/usb3hdcap/usb3hdcap.h
+> @@ -0,0 +1,238 @@
+=E2=80=A6
+> +/* TW9900 registers */
+> +#define TW9900_CSTATUS    0x01
+> +#define TW9900_INFORM     0x02
+> +#define TW9900_OPFORM     0x03
+=E2=80=A6
+> +/* CS53L21 registers */
+> +#define CS53L21_MIC_PWR_CTL  0x03
+> +#define CS53L21_IFACE_CTL    0x04
+> +#define CS53L21_ADC_IN_SEL   0x07
+=E2=80=A6
+> +/* Vendor request codes */
+> +#define REQ_I2C    0xc0
+> +#define REQ_GPIO   0xc1
+> +#define REQ_INIT   0xc2
+> +#define REQ_WATCH  0xc6
+=E2=80=A6
 
-Apart from hw timestamp propagation some other comments.
+Would any enumerations become helpful for such constant values?
 
-On 11/25/2026 12:19 PM, Loic Poulain wrote:
-> The timestamp reported to userspace for a V4L2 event is taken when the
-> event is queued, which for an event signalling a hardware occurrence is
-> only as good as the latency between the two. A CSI decoder able to latch
-> the start-of-frame against the system counter knows that time to within a
-> few microseconds, whereas the interrupt handler that gets to queue the
-> event can be hundreds of microseconds late and is not consistent about
-> it.
-> 
-> Take the timestamp from the event when the driver filled it in, falling
-> back to the current time when the field is cleared. Drivers have had no
-> reason to set it so far, and every in-tree caller either uses a
-> designated initialiser or memsets the event, so the field reads as zero
-> everywhere today.
-> 
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
->  drivers/media/v4l2-core/v4l2-event.c | 20 ++++++++++++++++++--
->  include/media/v4l2-event.h           |  9 ++++++++-
->  2 files changed, 26 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/v4l2-core/v4l2-event.c b/drivers/media/v4l2-core/v4l2-event.c
-> index 9dd2aaa95a67406bda3a257325442888895ed088..a35646c3a5c89febeb072d691ffd7853d9af714a 100644
-> --- a/drivers/media/v4l2-core/v4l2-event.c
-> +++ b/drivers/media/v4l2-core/v4l2-event.c
-> @@ -150,6 +150,22 @@ static void __v4l2_event_queue_fh(struct v4l2_fh *fh,
->  	wake_up_all(&fh->wait);
->  }
->  
-> +/*
-> + * Hardware able to timestamp the event itself reports that time in the event,
-> + * which is more accurate than the moment the driver gets to queue it. Fall
-> + * back to the current time for the drivers that leave the field cleared.
-> + */
-> +static u64 v4l2_event_ts(const struct v4l2_event *ev)
-> +{
-> +	struct timespec64 ts = {
-> +		.tv_sec = ev->timestamp.tv_sec,
-> +		.tv_nsec = ev->timestamp.tv_nsec,
-> +	};
-> +	u64 ns = timespec64_to_ns(&ts);
-> +
-> +	return ns ? ns : ktime_get_ns();
-> +}
-> +
->  void v4l2_event_queue(struct video_device *vdev, const struct v4l2_event *ev)
->  {
->  	struct v4l2_fh *fh;
-> @@ -159,7 +175,7 @@ void v4l2_event_queue(struct video_device *vdev, const struct v4l2_event *ev)
->  	if (vdev == NULL)
->  		return;
->  
-> -	ts = ktime_get_ns();
-> +	ts = v4l2_event_ts(ev);
-
-The documentation states that:
- 
-"In order to queue events to video device, drivers should call:
-
-v4l2_event_queue (vdev, ev)
-
-The driver’s only responsibility is to fill in the type and the data fields. 
-The other fields will be filled in by V4L2. All other fields are filled from the v4l2. "
-
-So here we are changing the driver-api. I am sure that there are drivers
-which does not set initialize the whole event struct. This will introduce new bugs with
-some uninitiated data send to userspace as timestamp.
-
-~Gjorgji
-
->  
->  	spin_lock_irqsave(&vdev->fh_lock, flags);
->  
-> @@ -173,7 +189,7 @@ EXPORT_SYMBOL_GPL(v4l2_event_queue);
->  void v4l2_event_queue_fh(struct v4l2_fh *fh, const struct v4l2_event *ev)
->  {
->  	unsigned long flags;
-> -	u64 ts = ktime_get_ns();
-> +	u64 ts = v4l2_event_ts(ev);
->  
->  	spin_lock_irqsave(&fh->vdev->fh_lock, flags);
->  	__v4l2_event_queue_fh(fh, ev, ts);
-> diff --git a/include/media/v4l2-event.h b/include/media/v4l2-event.h
-> index 3a0e2588361cf451b3dbfc63dfab99550d13cf6a..076f788e0469ae4666c60344e5ea73a698352134 100644
-> --- a/include/media/v4l2-event.h
-> +++ b/include/media/v4l2-event.h
-> @@ -102,6 +102,11 @@ int v4l2_event_dequeue(struct v4l2_fh *fh, struct v4l2_event *event,
->   * .. note::
->   *    The driver's only responsibility is to fill in the type and the data
->   *    fields. The other fields will be filled in by V4L2.
-> + *
-> + *    Drivers whose hardware timestamps the event more accurately than the
-> + *    moment the driver gets to handle it may also fill in the timestamp
-> + *    field, as a CLOCK_MONOTONIC time. It is left alone if non-zero, so such
-> + *    drivers must zero-initialize the whole &struct v4l2_event.
->   */
->  void v4l2_event_queue(struct video_device *vdev, const struct v4l2_event *ev);
->  
-> @@ -116,7 +121,9 @@ void v4l2_event_queue(struct video_device *vdev, const struct v4l2_event *ev);
->   *
->   * .. note::
->   *    The driver's only responsibility is to fill in the type and the data
-> - *    fields. The other fields will be filled in by V4L2.
-> + *    fields. The other fields will be filled in by V4L2. As for
-> + *    v4l2_event_queue(), a non-zero timestamp field is taken as the
-> + *    CLOCK_MONOTONIC time of the event.
->   */
->  void v4l2_event_queue_fh(struct v4l2_fh *fh, const struct v4l2_event *ev);
->  
-> 
-
+Regards,
+Markus
