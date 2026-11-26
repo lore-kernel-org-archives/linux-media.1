@@ -1,110 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795699301;
-	b=5GEu6T5xL7cy+gYroNTHZHmg6n+jG7POq8YSbX7o3s7p2XCXCokaMwybsBpcbgmDP5B6
-	 Z2nj1qQ9x1LAlOdPqHwqsbg5zE7oIvq1Ptc53/pXuL1qG3SXA79cxidzcKSrPZ8lQKed6
-	 n6a4IlnVpMr4cXwrEMLItlXLH+liKrfJ/l16Rd6loyukZIfDy7K2e2jHpdT4ih2kBP1x2
-	 ta7KZTdfUpz5xfyQiuY8+dCZU0hSpPDctUEcZ+9ei00V1+BnmE0VvNZQkrLgkLLPj0JeM
-	 W+QIj+UltaBlb2p/ny5tFMxT9hdRQIoyLGWKVuH9+dCOf9B8eiVgBzGuCsMYZoAo+Dw==
+	t=1795700565;
+	b=ZVCRvBRdI5zbQiXb+hYWERlsqWD361QGGyrXarVK66fVgehO3pNOTyo2TJU7Db6h/ccG
+	 LhZ7siq6l/vmQTGrD73zWUk8pFNT7zjn8JGkCrjAoNPf6wNqVIP7TAB8ANwmoBG8iS+9j
+	 dMuCbmw9sTANTM9SoaGKrkpZsgXVvRm1nMI0O8BdSIgdVAAo2K1T3iUXzq1QXNRvjfwRD
+	 QaLLnKpo5szxGRKdIEtiLBMkAixQERq9UbimdNHQREgHI/CoxL0ywJW1I6wDQOi+VtXFd
+	 Nupsxwg7gF6LRKYzN3TLj6DJiiFd4UZS8MN+cJABq3SenB/Xbpl2s7uTDbGJc97EQyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795699301;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=ASi9w2G7r/NBiKc+aQ4v78OboFde+sNbqo7EtDF+qdo=;
-	b=tCO26cH/BB9kLIbNS3YZKzsRm3RpWGz6mHp7clD0OS/lui4upBM3UCRO8lwOpVAbHcpx
-	 gR9j4YC7n6bbv056PrIWvus/hG7mujWvww6g9n//XrvhJ52nxGDe3hTaOcc6tUdNC3Up5
-	 OH/A3OartkhZtpLA8FaJb7aIjGSE2KPjcRljGeXQ1oLHF0MsgkpGlX9fYzfZ54MaDwTkt
-	 auCOAfFyYgpy2UUFyMUelTA65YLVJruLPIr5bnPKZ5Ly/y/YY9WgOn2VrclWozRPzOo1C
-	 G5dn2TceLqJrFimnsJI3UepGafLIOM5q4gWN9VIYiY84nxilDqoYNiMCSf/EzYebptg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795700565;
+	h=Received:DKIM-Signature:From:To:Subject:In-Reply-To:References:Date:
+	 Message-ID:MIME-Version:Content-Type;
+	bh=7UohWGYrgb5unULELNqv7/Zf0JQWouauZ8dcJPMNMyU=;
+	b=IfOBPlpFdCJC9flT6y1X32D6NvhVqp96Oi181Q96eYGmveWCALu9zbQ2GqZhnzYX64LJ
+	 mGA0DhzePqNCVHUrAGZQMV90f+8mOQiAnDtK0vau3zRASqe2Jihda7yf1ks7AN32Kmmh1
+	 8rKc2hT+C0dQ/siTLU6gPDY5GXMuIER/JLB2fbDfA/4eSuwV6hiymPc6OWsZBL4fKV3Q3
+	 drUy6UwIZaMOh60NL4wKWdm/N0UKYpCXUO+OomSZWdTFW0+oVxGcpyy1Dew4ERrik3gaC
+	 Ni8rOSA9ODHel16YBqDCmojBQMstWme9wOpWY3JC3KhWKh115mwSOjd7nF+lKIH6ESA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ACZnDq3M;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BDkdwBDC;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HZHh9EV2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46616606A31C
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 13:21:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46616606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DFD606A339
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 13:42:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ACZnDq3M;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BDkdwBDC
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQBVNt34128433
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 13:21:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=ASi9w2G7r/NBiKc+aQ4v78
-	OboFde+sNbqo7EtDF+qdo=; b=ACZnDq3MC8yaqyoqDKebck6HUKexUs6HjmnTxy
-	nuIz3EIPwCvEI1xnxfwdsmsP8t8al5JIVUNtebcXinRFlWU81yxI3Ba6YcbDNrR8
-	fr/ICr5UWqrYWTbfs561SWkfU8RngPYxt3SivuzE6erFzOSLpEQkSOQVoeuIhTwC
-	pOr0z6FI5g6kgW7NWO78QkySrk1JiAiOOylE2YrbK3YCe+SGyd6wxLGvgz8aENmx
-	SvQ+aDLMvyss4gpk15+SUUlOfuPk7CvWq5mk+Ne9c5Zj8Dmyjo5TK65fUUQZZrsr
-	e02ZZaXqlD3ommXV7ut18FIiuyX++bVk9TY4pnAaE0FWzl2A==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j62vav2xg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 13:21:40 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2f03aa5ff3bso89432965ad.1
-        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 05:21:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795699300; x=1796304100; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ASi9w2G7r/NBiKc+aQ4v78OboFde+sNbqo7EtDF+qdo=;
-        b=BDkdwBDCCfUnIaJmCGPidLo/YqPGws5tvEmmKPDoHYfyo+ej1DUAFOd5FAHEp8NrVY
-         Luq7x2APCCH4V2T+sRVhOVCD3XqW5qr+I+6uWtcdaubzofqLE+CCHas8/HXvhPudu8Th
-         S/HMmwb2oOdwM3qNXoXsP1ZjHj7aYUuRDzZm6cbO4yEoDQel7kdrG5wnGef4nh7tzTnD
-         quDQNz2wbR8UuRQgDEeigySO9OsuAdP+XsLUjcEbdnSPuZYsxxYzkDP7COwCQyb+Ay+g
-         7hH9kV2cWIio1TwluaoyAMDuSRen+NWmiQu534BEw3PdCSArmCp1v44epffpInEMOyhp
-         Xm/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795699300; x=1796304100;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ASi9w2G7r/NBiKc+aQ4v78OboFde+sNbqo7EtDF+qdo=;
-        b=a0ncqpRocgejaD61xQtDINebOZ+wVu+5cFMsyYDYQM4JqwsJ1ldojZyJCYQO1jGId0
-         ywyp8ekore5lAfLxXSa69MuKBFspYVhAymzC22o3sbOAgwVXaHy3eNcFIcEJe2AmJi6s
-         QMe9iNQ/uuIaUr5bSoFQTWfjr1MgIATiFRnHKeWWb08sxIgC3QJc2TO3G42zcmj+Iymo
-         qEFaYowtgiEObCrg7SiN0ONIYGB1mXG2vyecs/72sC1icrNJmghI6/Pv3nmVyB4gEfdk
-         NJb/QrvQBhf1ueyq+1sFltSygvyOnxTncAZbra90cVtD3RJIWp+YaakRNYeOwYabauxU
-         g4eQ==
-X-Gm-Message-State: APuU4Z9k8oN0nSJCgnaTMW/k1Osdr6H7SKuViu6y/YGg82oa70L9/k8/
-	ty1KZn8dGDSVAJCTC91KL2UgYqn2+v+thfSRsl6wr8VhhBBVLXttwe3l4Liz/iEjAyl+Cm7KHqj
-	e47ytuEkRWq9aB8nf1AdIqSpMh4gXbezhth1taapOsKzHhgEUlF0pKLHTBN58Xc6RhnbGlead6A
-	==
-X-Gm-Gg: AZFdTZcnZYfpfoEXoLUwWcouF3xkMn+cLmMkqIRmuSLTwn7+P5Q016CoCWRDhtDVR0r
-	6JCiyJ5PGtKF5PXJxSK0WlZ9+mFhN5Lu8vM3/AFNHH46DFubQ3mRt5Myhss5r7kuiKiYofbf7gy
-	ssK93Gusj1+iz1soOp0AvJxsmVOT1IW4NLv/S2cBSb8PCEJtwfrhr5fG9w1VI/pj8KR0fad5nOu
-	uarauNrudrT1ajeXI201PkVzXZAquzG85jNBySw/6ghu1mD5V3UYOfT+F9bRTAh0FBldQ02mgN7
-	2e/6AXSbfyNelC6E31LMHDSLhyYYHnFKWKGrtJHhlYzvr+8PJYtdzRs4BK840O4BRLnN8hCCK5y
-	FoPw/YFNY6kZji3wB0ieo5jmP/r/oZNiu8bZRiIIp3aQlGDccZHFJRXNcb9jxYIT/QeK+YLk/bM
-	/zmNYB
-X-Received: by 2002:a17:903:1c3:b0:2f0:41c7:9a3c with SMTP id d9443c01a7336-2f041c7b2ebmr216491585ad.8.1795699299711;
-        Thu, 26 Nov 2026 05:21:39 -0800 (PST)
-X-Received: by 2002:a17:903:1c3:b0:2f0:41c7:9a3c with SMTP id d9443c01a7336-2f041c7b2ebmr216491145ad.8.1795699299241;
-        Thu, 26 Nov 2026 05:21:39 -0800 (PST)
-Received: from hu-gouravk-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f0c2091sm102542225ad.20.2026.11.26.05.21.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 05:21:38 -0800 (PST)
-From: Gourav Kumar <gourav.kumar@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 18:49:27 +0530
-Subject: [PATCH v2] dt-bindings: media: qcom,nord-iris: Add nord video
- codec
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HZHh9EV2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81EE31F000C4;
+	Thu, 26 Nov 2026 13:42:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795700565;
+	bh=7UohWGYrgb5unULELNqv7/Zf0JQWouauZ8dcJPMNMyU=;
+	h=From:To:Subject:In-Reply-To:References:Date;
+	b=HZHh9EV2DSvh0w8Qlg9SW0X11H7PBCCiB34Jll+BCCwCckgk5S5LpIEAkYy0jLZxy
+	 ZnaTWbUnsD3CDMWj7q8kjs07HTfPtCYcKi0NZrOcE+jj49R4HLS5VK10WS3JPZE/Mf
+	 QRlxy4dY8HPYT//mqyncZiCV6Wl4mRwdxj0cdQ6Jmegz5sLB3rgMmTHBPE8U9p+j8Y
+	 9yribrZe0WZvJpKA2qzmW1og82BLwkCup+X7bIvZqS2WTTYKliaFXkgZZg0ra8ddRN
+	 44aqBOFvf3Zw81ECSFZtyc+rWJ+zK8kIMpfydp4AP2Nb+H2KS94caORox6G74nIpa9
+	 rA2dUCQhQN67A==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: linux-media@vger.kernel.org, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>
+Subject: Re: [yavta] [PATCH] COPYING.GPL: Fix license text to match gnu.org
+In-Reply-To: <20261104155613.764306-1-mkorpershoek@kernel.org>
+References: <20261104155613.764306-1-mkorpershoek@kernel.org>
+Date: Thu, 26 Nov 2026 14:42:42 +0100
+Message-ID: <xhkdb33snzp2l.fsf@mkorpers-koolstof.csb>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -114,110 +56,118 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-nord-iris-binding-v2-1-95c960de80ff@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAN4xCGsC/yXMywrCQAxG4VcpWRvojFAvryIu5pLW30UqiRWh9
- N0ddfktzlnJxSBO524lkxccszbEXUfllnQSRm2m2MchhDiwzlYZBucMrdCJ0176YzmE8ZQyte5
- hMuL9e16uf/uS71Ke3xFt2wdiyN9TdQAAAA==
-X-Change-ID: 20261126-nord-iris-binding-a3e08c71f9ab
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Gourav Kumar <gourav.kumar@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795699294; l=1952;
- i=gourav.kumar@oss.qualcomm.com; s=20260921; h=from:subject:message-id;
- bh=rwX2X/KJkEINyry/GicIz/WsvjLRsBN0nV+dyEuYIMA=;
- b=rcwY/jvWWf043otwYuucp8QOsqWmrZ2NrtAO9aH7h6sP7KfVUFUlc4AA0l8teCPK21aQDs8A3
- sD+W7kjoTFZDuHCE9PzKzON6qvRzL+ulh8cLUD8J6SwuAbJ69cbDZYk
-X-Developer-Key: i=gourav.kumar@oss.qualcomm.com; a=ed25519;
- pk=pp/OfJjGYucjyEYKqArAaVDesbfWZ44Dom+QtAdDZ8E=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA1MiBTYWx0ZWRfX8M4OCBgSlLqC
- i/nasHWEV35lgerJZe0ICI1aKQHHp49ZXwJI2KOAA3wQm738EolTBlp+mcTKfDfgZe5qw3WVeyz
- A1FMvvQ+lYCucQIfH+VCS3uSZbRMpwU=
-X-Proofpoint-ORIG-GUID: ajaJwaP2-ivmirPIpDnnXr5mO8Hekew9
-X-Proofpoint-GUID: ajaJwaP2-ivmirPIpDnnXr5mO8Hekew9
-X-Authority-Analysis: v=2.4 cv=QZPzLcbv c=1 sm=1 tr=0 ts=6b083264 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ba9tQSLWzef1rn2_u0MA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA1MiBTYWx0ZWRfX3ZM4kz1ZxAfu
- q/lTXRHWOcFy0/ZZUDUVXA1dR7rUCP0DvO+mBQRpAEWGx7cCx1h10VFJKYKYJu4QlC76qh+txCH
- 6Eo7Sf6r6Ze0lNUuKcd/keIx54SZRg2Tn+kL4YLlNmvP53Sjk8S4s6922ZvjonuilJvHsTsvOl6
- hja8oVHbyCGBj4JvvfXt/aD0YLxR2BeP72qhxhs0LDwimPHRscXRE7tjsXooZkqJUWzthJL3rEs
- FZhD9GMEim4qGJZCr1+T+wrS3rn6L8g/FrM0wEjTH3nqjREwbPVlGdrwDTm3KqfIHeHGe79wrxC
- TeiPBkeHrpo9pw/j7nz3Q5nB1QwsO2L3dwUDokD4GtJ11gLTmSmzwrx2NZsEGkGQ8p1JibwQD/s
- rmqCN0zuhhaARCxYahMdMh+rQzHFfCzHZ59yqsR2USI0eS3AjiegWLo/i82PmSOPHSHsK1jNBIA
- vEMiuzUhLBBxraBrnlw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_03,2026-11-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0 phishscore=0
- adultscore=0 malwarescore=0 impostorscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260052
+Content-Type: text/plain
 
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Hi Laurent,
 
-The nord platform uses the same dual-core iris video codec hardware as
-glymur, with matching clocks and power domains. Add a qcom,nord-iris
-compatible string that falls back to qcom,glymur-iris, allowing nord to
-reuse the existing glymur iris devicetree schema.
+On Wed, Nov 04, 2026 at 16:56, Mattijs Korpershoek <mkorpershoek@kernel.org> wrote:
 
-Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Co-developed-by: Gourav Kumar <gourav.kumar@oss.qualcomm.com>
-Signed-off-by: Gourav Kumar <gourav.kumar@oss.qualcomm.com>
----
-This is the dt-bindings patch of the v1 series, sent on its own so it can
-go through the media tree. The matching DTS patches enabling iris on the
-Nord Ride Embedded and Nord RRD boards are sent as a separate series.
+> When packing this for fedora, rpmlint complains about the license:
+>
+>   yavta.x86_64: E: incorrect-fsf-address /usr/share/licenses/yavta/COPYING.GPL
+>
+> Update the license file with the new address. This has been generated
+> with the following command:
+>
+> $ wget https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt \
+>        -O COPYING.GPL
+>
+> Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
 
-Depends on the glymur iris binding, which provides qcom,glymur-iris.yaml:
-https://lore.kernel.org/all/20261125-glymur-v12-0-5c34dfd73fc2@oss.qualcomm.com/
+I've submitted yavta for inclusion in fedora here:
+https://bugzilla.redhat.com/show_bug.cgi?id=2572963#c2
 
-Changes in v2:
-- Split out of the v1 series and sent on its own, so it can go through the media tree (Shawn).
-- Link to v1: https://lore.kernel.org/all/20260919-nord-iris-v1-0-94428761ec06@oss.qualcomm.com/
----
- Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Upon package review, it seems that there are still some discrepancies
+with the licensing.
 
-diff --git a/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
-index 9c34829a451ba..73c2d54a5498f 100644
---- a/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
-+++ b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
-@@ -15,7 +15,11 @@ description:
- 
- properties:
-   compatible:
--    const: qcom,glymur-iris
-+    oneOf:
-+      - items:
-+          - const: qcom,nord-iris
-+          - const: qcom,glymur-iris
-+      - const: qcom,glymur-iris
- 
-   clocks:
-     maxItems: 9
+I used "GPL-2.0-only" as licence (because this matches the COPYING.GPL)
+file but the yavta code uses "GPL-2.0-or-later" (or GPL-2.0+).
 
----
-base-commit: f1df3263878748f8995d25f3ae566c49c20ab155
-change-id: 20261126-nord-iris-binding-a3e08c71f9ab
+Do you agree that this code is GPL-2.0-or-later?
 
-Best regards,
---  
-Gourav Kumar <gourav.kumar@oss.qualcomm.com>
+I do think that the COPYING.GPL is still correct here, since it's only
+the license header that changes between
+- https://spdx.org/licenses/GPL-2.0-only.html
+- https://spdx.org/licenses/GPL-2.0-or-later.html
 
+Thanks
+Mattijs
+
+> ---
+>  COPYING.GPL | 23 +++++++++++------------
+>  1 file changed, 11 insertions(+), 12 deletions(-)
+>
+> diff --git a/COPYING.GPL b/COPYING.GPL
+> index d511905c1647..9efa6fbc9628 100644
+> --- a/COPYING.GPL
+> +++ b/COPYING.GPL
+> @@ -1,12 +1,12 @@
+> -		    GNU GENERAL PUBLIC LICENSE
+> -		       Version 2, June 1991
+> +                    GNU GENERAL PUBLIC LICENSE
+> +                       Version 2, June 1991
+>  
+>   Copyright (C) 1989, 1991 Free Software Foundation, Inc.,
+> - 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+> + <https://fsf.org/>
+>   Everyone is permitted to copy and distribute verbatim copies
+>   of this license document, but changing it is not allowed.
+>  
+> -			    Preamble
+> +                            Preamble
+>  
+>    The licenses for most software are designed to take away your
+>  freedom to share and change it.  By contrast, the GNU General Public
+> @@ -56,7 +56,7 @@ patent must be licensed for everyone's free use or not licensed at all.
+>    The precise terms and conditions for copying, distribution and
+>  modification follow.
+>  
+> -		    GNU GENERAL PUBLIC LICENSE
+> +                    GNU GENERAL PUBLIC LICENSE
+>     TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+>  
+>    0. This License applies to any program or other work which contains
+> @@ -255,7 +255,7 @@ make exceptions for this.  Our decision will be guided by the two goals
+>  of preserving the free status of all derivatives of our free software and
+>  of promoting the sharing and reuse of software generally.
+>  
+> -			    NO WARRANTY
+> +                            NO WARRANTY
+>  
+>    11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
+>  FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN
+> @@ -277,9 +277,9 @@ YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
+>  PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
+>  POSSIBILITY OF SUCH DAMAGES.
+>  
+> -		     END OF TERMS AND CONDITIONS
+> +                     END OF TERMS AND CONDITIONS
+>  
+> -	    How to Apply These Terms to Your New Programs
+> +            How to Apply These Terms to Your New Programs
+>  
+>    If you develop a new program, and you want it to be of the greatest
+>  possible use to the public, the best way to achieve this is to make it
+> @@ -304,8 +304,7 @@ the "copyright" line and a pointer to where the full notice is found.
+>      GNU General Public License for more details.
+>  
+>      You should have received a copy of the GNU General Public License along
+> -    with this program; if not, write to the Free Software Foundation, Inc.,
+> -    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+> +    with this program; if not, see <https://www.gnu.org/licenses/>.
+>  
+>  Also add information on how to contact you by electronic and paper mail.
+>  
+> @@ -329,8 +328,8 @@ necessary.  Here is a sample; alter the names:
+>    Yoyodyne, Inc., hereby disclaims all copyright interest in the program
+>    `Gnomovision' (which makes passes at compilers) written by James Hacker.
+>  
+> -  <signature of Ty Coon>, 1 April 1989
+> -  Ty Coon, President of Vice
+> +  <signature of Moe Ghoul>, 1 April 1989
+> +  Moe Ghoul, President of Vice
+>  
+>  This General Public License does not permit incorporating your program into
+>  proprietary programs.  If your program is a subroutine library, you may
+> -- 
+> 2.56.0
