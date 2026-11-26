@@ -1,49 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795708439;
-	b=5bQBFXt4Ri6vj98i1VF/PEU2C8o1lJsGwKUtRJ8K9aNBjKGWRxdnt5/h8e13UZILzW60
-	 f8gGEe1uTJE2lyLjHsXU5sBQEvSTwsbLEvmlaubbAJ3cPCrVRbk0o+Oq382cMtl7Dyupb
-	 6UqpcDgdFuI2l+Xr8vG6mmVv/aIE4J+7+/Al0jLelyxIP+8raEr/JpHCvT8xjExzx/grx
-	 CldtZkGgayhBdBx96TQkoXo5XXcNQ56mt+pJTvXcQsHgpJ69oE9Ix3OTQqCGHd6fHG6Cn
-	 PCeH/wHqWdFgrFYCE8G8drrtuH9QJ4fZhrT5ulWXrLAFl5U4O//QDzoLzjKk04jQ/9A==
+	t=1795708494;
+	b=Q+yljGyNguYFAuw4jrJ6DmcjC2zQx8z5M/AgGiRWlUU7Cp12yF7q3i2ja9SzYR1WXXi9
+	 iDFfgcVoKluW6aa6RWWld3Sfg+Ou7t3Gjs65+VISR3DgZ9MxI2BUPAiK1FaQn2uwrHJ7g
+	 XYjiRE8lfrs+PlUYt7i6lszfn6IWY39ZvtGyhD1WDZMzIpGyKc5nJJkFKFNsxx2e37iml
+	 /1XzLFQgwSc6ILLq2dcyedNAhKdPc3cvAtgPfRMg2L8cSxtSOWqXWkaOwwABXA4kAH/oI
+	 WeyJpPotrQDYEeCz8Ylo5pfG+24qG7EmVrO8uNjwXRmWyotibtcRW0phyTA1YuajlCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795708439;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=xt6CCzegwx57gwXIIUhPxJVYT1/6mmRsfjTCNrJQl+4=;
-	b=IGDWVwOwF/qBpbaIlBmGBSUvRKuXrY+2y0oWooGTSRvu7yt0/u5vh8ZUem9mQxnXPq6/
-	 tajGY5s5ijdro7SHQl2zyXdMWVX/cFgGAFq7he/w4LKqAT0DITg8C4p5rNRfjOC9DyT9J
-	 Zzhe1YRWNAwvCkSYWu+YMgZivscDqFRbBvPvOfmZn9YeMYPAGM1tj5HI7Dl6Nahu/xexM
-	 wN6nAOZe8B3P5o5SWiA7wQZ8CRs6QJJW55EoFbNqRNyMx7XWD/PKMps3mCIUyAU/6TBhV
-	 1bEZWsdT+B2zUDMkgu5lPPIcsGKWGAbqo5eI8pG7Uv5OPTB9Y6a6RsAWmAUFykpKSMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795708494;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:Date:From:To:Cc:Subject:Message-ID:MIME-Version:
+	 In-Reply-To:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-Sendblock-Type:CMS-TYPE:cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:
+	 References;
+	bh=5M9xtfTWt/rD6V3Yq9/gJOzmL0PuY9q0JOmTonMrkYc=;
+	b=tTMXDsUPkUve7LOve57bQ+wovpB8krKhrLyTc2oyUo8bfPs8UHFbmkkco6wY5rUJEBCc
+	 lE+81OIQ7Ujy+oNovCftuduV39P0ZmAG49Ss5d/+y9n7difPoAhPry+QMhEoKV6Huu17k
+	 tq8APb3vqE5uV3xVgtma9mFc+kD96vEUiyg4L/6TCmwFPkoqlZmIE0eM5pDVi5d/QJLQO
+	 b2XRjuLzax61GYeJkPbDoMG98zNLcW4Fy3Hz8UpeEYmB1BwFV/a4nw3YGWN3k7pXmCoRg
+	 j7w9xpNL7V6XUdK4uONuQzToO5ywGHZ7UIeTlrJmuLhhJLhuX1x/697xHlzApjUmR1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CUQVUqxn;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 33D59606A31C;
-	Thu, 26 Nov 2026 15:53:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33D59606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=S8Q+2CV4;
+	arc=none smtp.remote-ip=203.254.224.33
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A23606A31E;
+	Thu, 26 Nov 2026 15:54:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03A23606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CUQVUqxn
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9548E1BA8;
-	Thu, 26 Nov 2026 07:53:55 -0800 (PST)
-Received: from [10.33.48.93] (GM14V85S.arm.com [10.33.48.93])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0B6AE3F632;
-	Thu, 26 Nov 2026 07:53:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795708438; bh=qbAONIy/SeoYIBUEJb8afeuxKQ5lwUfOP98bjEHX8p4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CUQVUqxnGGQTk+61T4guFif1c5Zq0E0q0/8haQhNzZdcdZ+cYfuvGRnqiNqAUZAPo
-	 q7QmEGGu+9/g6vyoxNkL1b+rLVgweF2mFPBXSZFfRQ+UvZxvprKaxIksccyBP43okb
-	 //IPYb8gQajT8VurUJ1G2L2yIlSRokqPjanO296I=
-Message-ID: <1757ee89-1c08-49d6-9a85-e9b516c889df@arm.com>
-Date: Thu, 26 Nov 2026 15:53:53 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=S8Q+2CV4
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261126155444epoutp03dcd4ec9596cec66ed694dc1c2cd611a1~ro1pFr0S32621526215epoutp032;
+	Thu, 26 Nov 2026 15:54:44 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261126155444epoutp03dcd4ec9596cec66ed694dc1c2cd611a1~ro1pFr0S32621526215epoutp032
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1795708484;
+	bh=5M9xtfTWt/rD6V3Yq9/gJOzmL0PuY9q0JOmTonMrkYc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=S8Q+2CV47r+jcyB/hxRZQoNdHuxQ/gWyvqpTmqCCGD4I8E1N/8Sp5R2e+BT1h5Dit
+	 Id45RW2ZS5AZJEl/R4M3H3tcJ9xLhuBNVHLz9LrKcWbkmclmhrryoUfbwW/+ukJYtW
+	 oFWXu+LFCdF+trLev1upv67SG1axo8gAriR3T9dQ=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261126155443epcas5p3efe33a75b41143a93560ac14ae0acd78~ro1oKmgN02527325273epcas5p3D;
+	Thu, 26 Nov 2026 15:54:43 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.95]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4jb1MQ68Ssz3hhT3; Thu, 26 Nov
+	2026 15:54:42 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261126140745epcas5p4f87a6186091785f4d3de4b69734aed88~rnYO8DwMQ2019420194epcas5p43;
+	Thu, 26 Nov 2026 14:07:45 +0000 (GMT)
+Received: from green245.gost (unknown [107.99.41.245]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261126140741epsmtip24d507cb1363ab8b6b8b6b2fe8c81b878~rnYK24Eeh1787017870epsmtip2c;
+	Thu, 26 Nov 2026 14:07:41 +0000 (GMT)
+Date: Thu, 26 Nov 2026 19:36:51 +0530
+From: Nitesh Shetty <nj.shetty@samsung.com>
+To: Pavel Begunkov <asml.silence@gmail.com>
+Cc: Mengmeng Zhao <mengmeng.zhao@linux.dev>, Anuj Gupta
+	<anuj20.g@samsung.com>, Christoph Hellwig <hch@lst.de>, Christian Brauner
+	<brauner@kernel.org>, Anuj Gupta <anuj1072538@gmail.com>, Jens Axboe
+	<axboe@kernel.dk>, Sumit Semwal <sumit.semwal@linaro.org>, Christian Koenig
+	<christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>, Dan
+	Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, Jan Kara
+	<jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, Theodore Ts'o
+	<tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li
+	<libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh
+	Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, Jonathan
+	Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy
+	Dunlap <rdunlap@infradead.org>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
+	linux-xfs@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, Li Wang <liwang@kylinos.cn>, Mengmeng Zhao
+	<zhaomengmeng@kylinos.cn>
+Subject: Re: [RFC PATCH v2 0/8] ext4: Add dma-buf read/write support
+Message-ID: <20261126140651.vzs2gdwajemvf6kt@green245.gost>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -53,240 +92,43 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 13/24] media: mali-c720: Add Mali-C720 ISP driver
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Nayden Kanchev <nayden.kanchev@arm.com>,
- Konstantin Babin <konstantin.babin@arm.com>,
- Linus Walleij <linusw@kernel.org>, jacopo.mondi@ideasonboard.com,
- kieran.bingham@ideasonboard.com, laurent.pinchart@ideasonboard.com,
- dan.scally@ideasonboard.com, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Rob Herring <robh@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
- <20261124-b4-initial-upstream-candidate-v1-13-0cb9bde1bd30@arm.com>
- <179559694752.14607.4218343265884065337.b4-reply@b4>
-Content-Language: en-GB
-From: Anthony McGivern <anthony.mcgivern@arm.com>
-In-Reply-To: <179559694752.14607.4218343265884065337.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <0b76171b-7f2e-41d2-8a5c-102dbe4cb85b@gmail.com>
+X-CMS-MailID: 20261126140745epcas5p4f87a6186091785f4d3de4b69734aed88
+X-Msg-Generator: CA
+Content-Type: multipart/mixed;
+	boundary="----sfnc.NZyIOBfLTiZTLswaXBSL0w4GQC52Zj1LhBq2cHN2.MV=_ad66_"
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261124084131epcas5p3098eab1bc134da7aefcc83c646b54a9d
+References: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
+	<20261120154153.GC28611@lst.de>
+	<361c4312-f77b-495f-9ee4-e0b9612b4463@linux.dev>
+	<CGME20261124084131epcas5p3098eab1bc134da7aefcc83c646b54a9d@epcas5p3.samsung.com>
+	<20261124084025.2101804-1-anuj20.g@samsung.com>
+	<3bce3a69-e41c-4683-b1ca-9477dd41a7e0@linux.dev>
+	<0b76171b-7f2e-41d2-8a5c-102dbe4cb85b@gmail.com>
 
-Hi, thanks for the review,
+------sfnc.NZyIOBfLTiZTLswaXBSL0w4GQC52Zj1LhBq2cHN2.MV=_ad66_
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Disposition: inline
 
-On 25/11/2026 08:55, Krzysztof Kozlowski wrote:
-> On 2026-11-24 17:07 +0000, Anthony McGivern wrote:
->> +
->> +static int mali_c720_probe(struct platform_device *pdev)
->> +{
->> +	const struct mali_c720_discovery_target top = {
->> +		.module_id = MALI_C720_DISC_MODULE_ID_PIPELINE_GLOBAL_CONTROL,
->> +		.pipeline_id = MALI_C720_DISC_PIPE_GLOBAL,
->> +	};
->> +	struct device *dev = &pdev->dev;
->> +	struct mali_c720 *mali_c720;
->> +	struct resource *res;
->> +	unsigned int irq;
->> +	int ret;
->> +
->> +	mali_c720 = kvzalloc_obj(*mali_c720, GFP_KERNEL);
-> 
-> Why absolutely nothing here is resource managed?
+On 26/11/26 10:44AM, Pavel Begunkov wrote:
+>I'll resend it later, how to store the tag is the least interesting
+>part, it can just move inside the block/ext4/etc code, which would
+>be uglier, but whatever.
+>
 
-These allocations are explicit to allow the driver state to outlive
-unbind, since userspace may still hold file descriptors to video
-devices. We use the v4l2_device.release callback to free this state
-once all references have been dropped.
+What about the f_op method instead of storing the
+tag in multiple users that we support now i.e., block/ext4/xfs code?
+We refined your patches with this approach and it seemed to fit well.
 
-The relevant lifetime management is described in:
-Documentation/driver-api/media/v4l2-device.rst
+--
+Nitesh
 
-Although the documentation mainly discusses hotpluggable devices,
-our device is not hotpluggable, so this is primarily to handle
-the case of an explicit unbind, for example via sysfs. This was
-added for completeness, but I would welcome guidance on whether
-supporting this case is necessary or whether we should simplify.
+------sfnc.NZyIOBfLTiZTLswaXBSL0w4GQC52Zj1LhBq2cHN2.MV=_ad66_
+Content-Type: text/plain; charset="utf-8"
 
-> 
->> +	if (!mali_c720)
->> +		return -ENOMEM;
->> +
->> +	mali_c720->dev = get_device(dev);
->> +	platform_set_drvdata(pdev, mali_c720);
->> +
->> +	mutex_init(&mali_c720->device_lock);
->> +
->> +	mali_c720->base = devm_platform_get_and_ioremap_resource(pdev, 0,
->> +								 &res);
->> +	ret = PTR_ERR_OR_ZERO(mali_c720->base);
->> +	if (ret) {
->> +		dev_err_probe(dev, ret, "failed to map IO memory\n");
->> +		goto err_free;
->> +	}
->> +
->> +	mali_c720->mmio_size = resource_size(res);
->> +
->> +	if (resource_size(res) < MALI_C720_ID_SIZE) {
->> +		ret = dev_err_probe(dev, -EINVAL,
->> +				    "IO memory resource %pR is too small (minimum %#x bytes)\n",
->> +				    res, MALI_C720_ID_SIZE);
->> +		goto err_free;
->> +	}
->> +
->> +	mali_c720->clk = devm_clk_get(dev, "vclk");
->> +	ret = PTR_ERR_OR_ZERO(mali_c720->clk);
->> +	if (ret) {
->> +		dev_err_probe(dev, ret, "failed to acquire clock\n");
->> +		goto err_free;
->> +	}
->> +
->> +	mali_c720->reset = devm_reset_control_get_optional_shared(dev, "reset");
->> +	ret = PTR_ERR_OR_ZERO(mali_c720->reset);
->> +	if (ret) {
->> +		dev_err_probe(dev, ret, "failed to acquire reset\n");
->> +		goto err_free;
->> +	}
->> +
->> +	ret = of_reserved_mem_device_init(dev);
->> +	if (ret && ret != -ENODEV) {
->> +		dev_err_probe(dev, ret, "failed to initialize reserved memory\n");
->> +		goto err_free;
->> +	}
->> +
->> +	ret = vb2_dma_contig_set_max_seg_size(dev, UINT_MAX);
->> +	if (ret)
->> +		goto err_release_mem;
->> +
->> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(48));
->> +	if (ret) {
->> +		dev_err_probe(dev, ret, "failed to set DMA mask\n");
->> +		goto err_release_mem;
->> +	}
->> +
->> +	ret = mali_c720_power_on(mali_c720);
->> +	if (ret) {
->> +		dev_err(dev, "failed to power on: %d\n", ret);
->> +		goto err_release_mem;
->> +	}
->> +
->> +	mali_c720->registers.id = mali_c720_get_id_regs();
->> +	ret = mali_c720_identify_hw(mali_c720);
->> +	if (ret)
->> +		goto err_power_off;
->> +
->> +	ret = mali_c720_get_registers(mali_c720->hw_version->id, &mali_c720->registers);
->> +	if (ret) {
->> +		dev_err_probe(dev, ret, "unsupported register layout\n");
->> +		goto err_power_off;
->> +	}
->> +
->> +	if (resource_size(res) < mali_c720->registers.context_size) {
->> +		ret = dev_err_probe(dev, -EINVAL,
->> +				    "IO memory resource %pR is too small (minimum %#x bytes)\n",
->> +				    res, mali_c720->registers.context_size);
->> +		goto err_power_off;
->> +	}
->> +
->> +	ret = mali_c720_discovery_init(mali_c720, resource_size(res));
->> +	if (ret) {
->> +		dev_err(dev, "failed to parse capability discovery data\n");
->> +		goto err_power_off;
->> +	}
->> +
->> +	ret = mali_c720_discovery_get_module_base(mali_c720, &top, &mali_c720->top_base);
->> +	if (ret) {
->> +		dev_err(dev, "failed to get top base address from discovery data\n");
->> +		goto err_power_off;
->> +	}
->> +
->> +	ret = mali_c720_init_contexts(mali_c720);
->> +	if (ret)
->> +		goto err_power_off;
->> +
->> +	ret = mali_c720_init_ctx_mgr(mali_c720);
->> +	if (ret)
->> +		goto err_power_off;
->> +
->> +	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
->> +	pm_runtime_use_autosuspend(&pdev->dev);
->> +	pm_runtime_set_active(&pdev->dev);
->> +	pm_runtime_enable(&pdev->dev);
->> +
->> +	ret = platform_get_irq_byname(pdev, "isp");
->> +	if (ret < 0) {
->> +		dev_err(dev, "Failed to get interrupt\n");
-> 
-> Please use modern Linux drivers as an example for your code. All this
-> should be dev_err_probe or dropped, because core takes care of.
-> 
 
-In V2 I will replace these with dev_err_probe within the
-probe function.
-
-> 
->> +		goto err_pm_runtime_disable;
->> +	}
->> +	irq = (unsigned int)ret;
->> +
->> +	spin_lock_init(&mali_c720->irq_lock);
->> +	INIT_KFIFO(mali_c720->irq_fifo);
->> +	ret = devm_request_threaded_irq(&pdev->dev, irq,
->> +					mali_c720_isr_top, mali_c720_isr,
->> +					0,
->> +					dev_driver_string(&pdev->dev),
->> +					&pdev->dev);
->> +	if (ret) {
->> +		dev_err(dev, "Failed to request threaded IRQ\n");
->> +		goto err_pm_runtime_disable;
->> +	}
->> +	mali_c720->irq = irq;
->> +
->> +	mali_c720->media_dev.dev = dev;
->> +	mali_c720->media_dev.ops = &mali_c720_media_device_ops;
->> +	ret = mali_c720_media_frameworks_init(mali_c720);
->> +	if (ret)
->> +		goto err_free_irq;
->> +
->> +	pm_runtime_idle(&pdev->dev);
->> +
->> +	dev_info(&pdev->dev, "Media frameworks and entities registered successfully\n");
-> 
-> Drop, drivers should  be silent on success.
-
-Agreed
-
-> 
->> +
->> +	return 0;
->> +
->> +err_free_irq:
->> +	devm_free_irq(dev, mali_c720->irq, dev);
->> +err_pm_runtime_disable:
->> +	pm_runtime_disable(&pdev->dev);
->> +	pm_runtime_set_suspended(&pdev->dev);
->> +err_power_off:
->> +	mali_c720_power_off(mali_c720);
->> +err_release_mem:
->> +	of_reserved_mem_device_release(dev);
->> +err_free:
->> +	platform_set_drvdata(pdev, NULL);
->> +	if (mali_c720->v4l2_dev.release)
->> +		v4l2_device_put(&mali_c720->v4l2_dev);
->> +	else
->> +		mali_c720_free(mali_c720);
->> +
->> +	return ret;
->> +}
->> +
-> 
-> Best regards,
-> Krzysztof
-> 
-
-Thanks,
-Anthony
-
+------sfnc.NZyIOBfLTiZTLswaXBSL0w4GQC52Zj1LhBq2cHN2.MV=_ad66_--
