@@ -1,105 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795708332;
-	b=YxYXGtxBo2dMAlxLMaNoccooffLLEa+tS9r5JBXuw0KHGk/OBznnOagXoO8ChqHTe6Ia
-	 Ay7Lg9FpAPwjXL/T89d2zcintx7Nv+UAjscq7SnTWWcN8kY9zlaIr6FfbwOL9FGPuAkGH
-	 tht8wPVeRvZK6PJqt/8iW6FxJ68T5T3gvCj42yU8TypBZRP+MrhQ1VYdKLI/2e9Ku8jB7
-	 LVPnlTbofmz+/mYXTbMXSPgs+9oIIdtQqWU/DJmknmOEUwSy83BxipdIjtrkHUlyqWpHi
-	 J/5HCFQnGfLxVIPsRfwa4Mjl9FD2W4bWpLvgDwSRNbKD4s4Od+TnZdKLAfM6fVD7MbQ==
+	t=1795708439;
+	b=5bQBFXt4Ri6vj98i1VF/PEU2C8o1lJsGwKUtRJ8K9aNBjKGWRxdnt5/h8e13UZILzW60
+	 f8gGEe1uTJE2lyLjHsXU5sBQEvSTwsbLEvmlaubbAJ3cPCrVRbk0o+Oq382cMtl7Dyupb
+	 6UqpcDgdFuI2l+Xr8vG6mmVv/aIE4J+7+/Al0jLelyxIP+8raEr/JpHCvT8xjExzx/grx
+	 CldtZkGgayhBdBx96TQkoXo5XXcNQ56mt+pJTvXcQsHgpJ69oE9Ix3OTQqCGHd6fHG6Cn
+	 PCeH/wHqWdFgrFYCE8G8drrtuH9QJ4fZhrT5ulWXrLAFl5U4O//QDzoLzjKk04jQ/9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795708332;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=PsJrhw/qD5kUJUapuNeSh8uHKjzWdiRgnqrKaM1xuOk=;
-	b=HGWV4rgjr6ifpv1rdw8hSB3+YyN7PiH9YTy/TS8FumzT0MHnyYOilmwXo9uTyHlnOFpF
-	 +I1wcw1neOQm0tLUvZAHX6LwF7+PXrnA5TwcqV6TKZV9vzF08fFS7DKoTSFv/nhwRGcLE
-	 yy6SraHgsg11W3zSUmLXUZIasc56bg7cQSDBsREhs/zCz7tSQxZiEbfo/hllAizv7me9Y
-	 qC5V4+22ucgdVSSFYLPck9Ks7oSEGNBH/R0vdgIERBZrD9OxBGdSmZVyH2aZpNBiWVEBT
-	 QnaSPudf/sYBeWopMO2RJBLwlyWZ/fCcUkYV6iX4aSl/wvHpI/2v7P0hgDXK4tkWYyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795708439;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=xt6CCzegwx57gwXIIUhPxJVYT1/6mmRsfjTCNrJQl+4=;
+	b=IGDWVwOwF/qBpbaIlBmGBSUvRKuXrY+2y0oWooGTSRvu7yt0/u5vh8ZUem9mQxnXPq6/
+	 tajGY5s5ijdro7SHQl2zyXdMWVX/cFgGAFq7he/w4LKqAT0DITg8C4p5rNRfjOC9DyT9J
+	 Zzhe1YRWNAwvCkSYWu+YMgZivscDqFRbBvPvOfmZn9YeMYPAGM1tj5HI7Dl6Nahu/xexM
+	 wN6nAOZe8B3P5o5SWiA7wQZ8CRs6QJJW55EoFbNqRNyMx7XWD/PKMps3mCIUyAU/6TBhV
+	 1bEZWsdT+B2zUDMkgu5lPPIcsGKWGAbqo5eI8pG7Uv5OPTB9Y6a6RsAWmAUFykpKSMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=So+WdnWi;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CUQVUqxn;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8304D606A323
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 15:52:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8304D606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 33D59606A31C;
+	Thu, 26 Nov 2026 15:53:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33D59606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=So+WdnWi
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CUQVUqxn
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EE6AD1C2B;
-	Thu, 26 Nov 2026 07:52:07 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8D9373F632;
-	Thu, 26 Nov 2026 07:52:03 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9548E1BA8;
+	Thu, 26 Nov 2026 07:53:55 -0800 (PST)
+Received: from [10.33.48.93] (GM14V85S.arm.com [10.33.48.93])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0B6AE3F632;
+	Thu, 26 Nov 2026 07:53:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795708330; bh=t/iAXo76mNWOYi6NXRXLm9HYRbfENwEmeSuVZl+vjQ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=So+WdnWiITxUEA+zPA0qZrHfIgEWB8UDt3yn4IEO5THcFQuUupbSyZ38WSbYLlzZO
-	 Rdd4TpDOmHWWTHsRW+t1aSXOFu6+xeusbEXx8t6R4TR3fxZ+3I/eAfWH7BVYVPd6hg
-	 fcIkARwHaaJVtuaYyOlwbtgwfzyTh/vzHdKQd+qA=
-Date: Thu, 26 Nov 2026 15:52:00 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	linux-coco@lists.linux.dev,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Christian K?nig <christian.koenig@amd.com>,
-	Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
-	linaro-mm-sig@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
-	linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
-Subject: Re: [PATCH v10 04/13] irqchip/gic-v3-its: Allocate shared tables
- using CoCo shared memory allocator
-Message-ID: <awhVoDXluqpncgcd@arm.com>
-References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
- <20261116091137.94252-5-aneesh.kumar@kernel.org>
- <awQd81MwZqi55gf8@arm.com>
- <yq5aa4mybbmv.fsf@kernel.org>
- <20261124134621.GI9566@ziepe.ca>
+	t=1795708438; bh=qbAONIy/SeoYIBUEJb8afeuxKQ5lwUfOP98bjEHX8p4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=CUQVUqxnGGQTk+61T4guFif1c5Zq0E0q0/8haQhNzZdcdZ+cYfuvGRnqiNqAUZAPo
+	 q7QmEGGu+9/g6vyoxNkL1b+rLVgweF2mFPBXSZFfRQ+UvZxvprKaxIksccyBP43okb
+	 //IPYb8gQajT8VurUJ1G2L2yIlSRokqPjanO296I=
+Message-ID: <1757ee89-1c08-49d6-9a85-e9b516c889df@arm.com>
+Date: Thu, 26 Nov 2026 15:53:53 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -109,31 +53,240 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261124134621.GI9566@ziepe.ca>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 13/24] media: mali-c720: Add Mali-C720 ISP driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Nayden Kanchev <nayden.kanchev@arm.com>,
+ Konstantin Babin <konstantin.babin@arm.com>,
+ Linus Walleij <linusw@kernel.org>, jacopo.mondi@ideasonboard.com,
+ kieran.bingham@ideasonboard.com, laurent.pinchart@ideasonboard.com,
+ dan.scally@ideasonboard.com, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Rob Herring <robh@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+References: <20261124-b4-initial-upstream-candidate-v1-0-0cb9bde1bd30@arm.com>
+ <20261124-b4-initial-upstream-candidate-v1-13-0cb9bde1bd30@arm.com>
+ <179559694752.14607.4218343265884065337.b4-reply@b4>
+Content-Language: en-GB
+From: Anthony McGivern <anthony.mcgivern@arm.com>
+In-Reply-To: <179559694752.14607.4218343265884065337.b4-reply@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 24, 2026 at 09:46:21AM -0400, Jason Gunthorpe wrote:
-> On Tue, Nov 24, 2026 at 07:00:00PM +0530, Aneesh Kumar K.V wrote:
-> 
-> > Taking Jason's feedback into account, we could have the allocator
-> > request compound pages and recover the actual allocation order with
-> > compound_order(). That would avoid passing an order to free:
-> > 
-> > void *alloc_cc_shared_node(int nid, gfp_t gfp, unsigned int order);
-> > void *alloc_cc_shared(gfp_t gfp, unsigned int order);
-> > void free_cc_shared(void *addr);
-> 
-> It probably shouldn't be order here, that is hard to use. Just size_t
-> len
-> 
-> And round up internally
+Hi, thanks for the review,
 
-Minor point in favour of keeping the '_pages' naming and order is that
-it makes it more obvious what alignment is returned for code that needs
-it like the ITS. Otherwise we can just document it, I don't have a
-strong opinion either way (only that it's simpler than what was proposed
-earlier).
+On 25/11/2026 08:55, Krzysztof Kozlowski wrote:
+> On 2026-11-24 17:07 +0000, Anthony McGivern wrote:
+>> +
+>> +static int mali_c720_probe(struct platform_device *pdev)
+>> +{
+>> +	const struct mali_c720_discovery_target top = {
+>> +		.module_id = MALI_C720_DISC_MODULE_ID_PIPELINE_GLOBAL_CONTROL,
+>> +		.pipeline_id = MALI_C720_DISC_PIPE_GLOBAL,
+>> +	};
+>> +	struct device *dev = &pdev->dev;
+>> +	struct mali_c720 *mali_c720;
+>> +	struct resource *res;
+>> +	unsigned int irq;
+>> +	int ret;
+>> +
+>> +	mali_c720 = kvzalloc_obj(*mali_c720, GFP_KERNEL);
+> 
+> Why absolutely nothing here is resource managed?
 
--- 
-Catalin
+These allocations are explicit to allow the driver state to outlive
+unbind, since userspace may still hold file descriptors to video
+devices. We use the v4l2_device.release callback to free this state
+once all references have been dropped.
+
+The relevant lifetime management is described in:
+Documentation/driver-api/media/v4l2-device.rst
+
+Although the documentation mainly discusses hotpluggable devices,
+our device is not hotpluggable, so this is primarily to handle
+the case of an explicit unbind, for example via sysfs. This was
+added for completeness, but I would welcome guidance on whether
+supporting this case is necessary or whether we should simplify.
+
+> 
+>> +	if (!mali_c720)
+>> +		return -ENOMEM;
+>> +
+>> +	mali_c720->dev = get_device(dev);
+>> +	platform_set_drvdata(pdev, mali_c720);
+>> +
+>> +	mutex_init(&mali_c720->device_lock);
+>> +
+>> +	mali_c720->base = devm_platform_get_and_ioremap_resource(pdev, 0,
+>> +								 &res);
+>> +	ret = PTR_ERR_OR_ZERO(mali_c720->base);
+>> +	if (ret) {
+>> +		dev_err_probe(dev, ret, "failed to map IO memory\n");
+>> +		goto err_free;
+>> +	}
+>> +
+>> +	mali_c720->mmio_size = resource_size(res);
+>> +
+>> +	if (resource_size(res) < MALI_C720_ID_SIZE) {
+>> +		ret = dev_err_probe(dev, -EINVAL,
+>> +				    "IO memory resource %pR is too small (minimum %#x bytes)\n",
+>> +				    res, MALI_C720_ID_SIZE);
+>> +		goto err_free;
+>> +	}
+>> +
+>> +	mali_c720->clk = devm_clk_get(dev, "vclk");
+>> +	ret = PTR_ERR_OR_ZERO(mali_c720->clk);
+>> +	if (ret) {
+>> +		dev_err_probe(dev, ret, "failed to acquire clock\n");
+>> +		goto err_free;
+>> +	}
+>> +
+>> +	mali_c720->reset = devm_reset_control_get_optional_shared(dev, "reset");
+>> +	ret = PTR_ERR_OR_ZERO(mali_c720->reset);
+>> +	if (ret) {
+>> +		dev_err_probe(dev, ret, "failed to acquire reset\n");
+>> +		goto err_free;
+>> +	}
+>> +
+>> +	ret = of_reserved_mem_device_init(dev);
+>> +	if (ret && ret != -ENODEV) {
+>> +		dev_err_probe(dev, ret, "failed to initialize reserved memory\n");
+>> +		goto err_free;
+>> +	}
+>> +
+>> +	ret = vb2_dma_contig_set_max_seg_size(dev, UINT_MAX);
+>> +	if (ret)
+>> +		goto err_release_mem;
+>> +
+>> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(48));
+>> +	if (ret) {
+>> +		dev_err_probe(dev, ret, "failed to set DMA mask\n");
+>> +		goto err_release_mem;
+>> +	}
+>> +
+>> +	ret = mali_c720_power_on(mali_c720);
+>> +	if (ret) {
+>> +		dev_err(dev, "failed to power on: %d\n", ret);
+>> +		goto err_release_mem;
+>> +	}
+>> +
+>> +	mali_c720->registers.id = mali_c720_get_id_regs();
+>> +	ret = mali_c720_identify_hw(mali_c720);
+>> +	if (ret)
+>> +		goto err_power_off;
+>> +
+>> +	ret = mali_c720_get_registers(mali_c720->hw_version->id, &mali_c720->registers);
+>> +	if (ret) {
+>> +		dev_err_probe(dev, ret, "unsupported register layout\n");
+>> +		goto err_power_off;
+>> +	}
+>> +
+>> +	if (resource_size(res) < mali_c720->registers.context_size) {
+>> +		ret = dev_err_probe(dev, -EINVAL,
+>> +				    "IO memory resource %pR is too small (minimum %#x bytes)\n",
+>> +				    res, mali_c720->registers.context_size);
+>> +		goto err_power_off;
+>> +	}
+>> +
+>> +	ret = mali_c720_discovery_init(mali_c720, resource_size(res));
+>> +	if (ret) {
+>> +		dev_err(dev, "failed to parse capability discovery data\n");
+>> +		goto err_power_off;
+>> +	}
+>> +
+>> +	ret = mali_c720_discovery_get_module_base(mali_c720, &top, &mali_c720->top_base);
+>> +	if (ret) {
+>> +		dev_err(dev, "failed to get top base address from discovery data\n");
+>> +		goto err_power_off;
+>> +	}
+>> +
+>> +	ret = mali_c720_init_contexts(mali_c720);
+>> +	if (ret)
+>> +		goto err_power_off;
+>> +
+>> +	ret = mali_c720_init_ctx_mgr(mali_c720);
+>> +	if (ret)
+>> +		goto err_power_off;
+>> +
+>> +	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
+>> +	pm_runtime_use_autosuspend(&pdev->dev);
+>> +	pm_runtime_set_active(&pdev->dev);
+>> +	pm_runtime_enable(&pdev->dev);
+>> +
+>> +	ret = platform_get_irq_byname(pdev, "isp");
+>> +	if (ret < 0) {
+>> +		dev_err(dev, "Failed to get interrupt\n");
+> 
+> Please use modern Linux drivers as an example for your code. All this
+> should be dev_err_probe or dropped, because core takes care of.
+> 
+
+In V2 I will replace these with dev_err_probe within the
+probe function.
+
+> 
+>> +		goto err_pm_runtime_disable;
+>> +	}
+>> +	irq = (unsigned int)ret;
+>> +
+>> +	spin_lock_init(&mali_c720->irq_lock);
+>> +	INIT_KFIFO(mali_c720->irq_fifo);
+>> +	ret = devm_request_threaded_irq(&pdev->dev, irq,
+>> +					mali_c720_isr_top, mali_c720_isr,
+>> +					0,
+>> +					dev_driver_string(&pdev->dev),
+>> +					&pdev->dev);
+>> +	if (ret) {
+>> +		dev_err(dev, "Failed to request threaded IRQ\n");
+>> +		goto err_pm_runtime_disable;
+>> +	}
+>> +	mali_c720->irq = irq;
+>> +
+>> +	mali_c720->media_dev.dev = dev;
+>> +	mali_c720->media_dev.ops = &mali_c720_media_device_ops;
+>> +	ret = mali_c720_media_frameworks_init(mali_c720);
+>> +	if (ret)
+>> +		goto err_free_irq;
+>> +
+>> +	pm_runtime_idle(&pdev->dev);
+>> +
+>> +	dev_info(&pdev->dev, "Media frameworks and entities registered successfully\n");
+> 
+> Drop, drivers should  be silent on success.
+
+Agreed
+
+> 
+>> +
+>> +	return 0;
+>> +
+>> +err_free_irq:
+>> +	devm_free_irq(dev, mali_c720->irq, dev);
+>> +err_pm_runtime_disable:
+>> +	pm_runtime_disable(&pdev->dev);
+>> +	pm_runtime_set_suspended(&pdev->dev);
+>> +err_power_off:
+>> +	mali_c720_power_off(mali_c720);
+>> +err_release_mem:
+>> +	of_reserved_mem_device_release(dev);
+>> +err_free:
+>> +	platform_set_drvdata(pdev, NULL);
+>> +	if (mali_c720->v4l2_dev.release)
+>> +		v4l2_device_put(&mali_c720->v4l2_dev);
+>> +	else
+>> +		mali_c720_free(mali_c720);
+>> +
+>> +	return ret;
+>> +}
+>> +
+> 
+> Best regards,
+> Krzysztof
+> 
+
+Thanks,
+Anthony
+
