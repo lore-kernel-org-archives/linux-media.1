@@ -1,96 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795731591;
-	b=5rJAHHS1wAiNDKm5pZf4eoyDyEnfjPn4b68DsAnitnFLahoSwPis1hzMOuUGERVMCgP4
-	 PyKlTNHEMQieRSE0nfzztRMLLf2ETHk8s/ctMsGL5/W/GLTHp5hdhfA8C+BPKVvlxcdim
-	 DxEOVD7b2drQaO1VjlZb/nCEDFIVYxG7Dz8wie84XhWmE6DiJJB+uHlr1fKg3kdglRAVq
-	 BsOlXLHhr/cIelGTJNfOiAQosvJkTLfPts+dqEi3fyr6Mz59rUjXEtpksg2AFTAkkObky
-	 R7dMSE+Th8fpVya4ft8t56K0a+Np5ndwyQR1+KI228+4z28aJvbqwSHqKzMhSaNbcGA==
+	t=1795731997;
+	b=zGpaH/AcOkd9WHjznyMHR+6oIoBikR7qgVUWxSbeu5IkSk8yLxLZFJcnVZdN2DUTuoI9
+	 2xv0UktWS8gVgMK1bFW8VziPR054Wgw9btSatTqG06B7BgBZZC3X6dALhAbo6JTntmAf2
+	 FGWTDPwhrHq6yzbR1wkvEc/NZkjfy9bLvoHQXcPxa/cl9wR8V9Hj0nqDLaf9jR0kJEdwX
+	 7HASzr0YYRBrzWTZ6bnt/tUDQ1IUoBB7Onv0b2JtI7RyZF91z/ucPpoxrjCQthPT18AyJ
+	 VceNPdvcvczsWUuccqWIXqeNvUgg/AGEvHeiDAUTLaGPihwndaeOb3YG+xheQ1JeMbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795731591;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795731997;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:User-Agent:MIME-Version;
-	bh=/gSiBV6drlTbocMgCCg5biesF+T1YQl3nT64qn/PW44=;
-	b=TLJjDOCsq8Z+c63T4W/eYWejGpaHZnm2e233ABGJxfgsjEqMrX9hsZOHwiPD5KEHE9NV
-	 3grIbuMhQgs2ZecQFR96J4Yrp4mupSX7wrMkuVLNUgcQhD8nfSMcp6w7c0Nx0oAUjnpCb
-	 PMe9Cl80GZGhxUrgCdLo6lKD2nWRH6gPQduN5g3pwuJKFOVPkUAiMOHfh0XfJfIB2uZTJ
-	 xH7bndRSZQTubosYpyQXan6CZFKuHjnB+IBHejUhp79cRLnFx4dc7zdKqCFKAr8xPKAlV
-	 RkqEmJZVV9aYP9YlC/3fccczIwnZ6MhZsHr0f5BGcPQEsIeeaV5T6AQ8NcXL+Z7gfxw==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=DXV3jwg1vEpIFRKy3B1iiTGO2c9okEZN1fkPq1gh+eA=;
+	b=uchesqk1hA0q+v/gL6ryrQV4R4INVpGK60AaEbTV/2bMkWNw2oB+oJ5tkaF8boAPZh66
+	 Bjr4sur+XbNK237aHnM3My6Cn8cOBXUWLUJOR+YYXxtta8lIShbH1scTrPydMAmSMMVTM
+	 /g4RPtpxpXPZ5aN6rKk+E2lV6likN1ALBi6i3BMob1Fzxu40v0F3I01CR1JFZCtcSC1MA
+	 LNxXdSJOJYBw3nnxgfdvMTg1sVXNV5xizfrvxLbJ29LA+GsHlWiuDyYWi3MskgTeKg9WG
+	 ARMblwsLcnDqb0AbOcMIChrm34b08d9IlrMpYLqIwtANRBHPlX7SYB0iKqe26Svpdrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ndufresne.ca;
 	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=PBz421Up;
-	arc=none smtp.remote-ip=209.85.222.181
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=cmjOsy9q;
+	arc=none smtp.remote-ip=209.85.222.172
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A36E606A326
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 22:19:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A36E606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6DA606A31E
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 22:26:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F6DA606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=PBz421Up
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-94958650b09so711883285a.1
-        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 14:19:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=cmjOsy9q
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-9496577d4c4so821631385a.1
+        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 14:26:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795731590; x=1796336390; darn=vger.kernel.org;
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795731996; x=1796336796; darn=vger.kernel.org;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=/gSiBV6drlTbocMgCCg5biesF+T1YQl3nT64qn/PW44=;
-        b=PBz421UpukIzl1hcCoOV46JH10EFBKC5FM1pbm4U8BYAeaFTBseoz6Wqt1gLxP7lqf
-         +Xe3po5Gst65oNIYI9r42Ny9KBwTExRHbHCJHj2yMJpEdwCaMEtWKHKqbSMovLfNAJo+
-         dp0ljJGar8c5Rt8s4EUI48/znO5VlGDTj6JKfI/STe7Sy7Unyvo0MwmXdUD9r2PY1Ef7
-         veX5ciX+xhzzGdNF7XL5abjGzGVxcu28jJOKCVGPrLfodIxwfbUlTDRypXzEwGRXhjeW
-         3ILYTl+H7sqd4dmgbIkDxuzRySZJW3U6200VnVhGeeWlu5q5mOkpfFCq2DqC/qoiV/2m
-         IKRQ==
+        bh=DXV3jwg1vEpIFRKy3B1iiTGO2c9okEZN1fkPq1gh+eA=;
+        b=cmjOsy9qs2WoFRV/0DQ6AkkCqNJ4/YpwpYv/JPvgqKUJPJs1rRfP1sXjPD2Bezw+Lg
+         +5+nLqIlzz5nlcPe0sXo73Dej/DOrnmvnAueHttrZi6OJYvAxRCrdOcrFwixcx6JUQ+q
+         n+3H2iFhvFbWmafMPVuv6R55L+a2hiU11msuvLEsY7gppItGalchjFZnG/ukwgFNfZV1
+         2VsWKqseuOgIEexDc/8jTSITmiG13kW14MKcuivZhjmT60TeoKdKE4mWoK/8prEiCLpR
+         6ZDQk0+7dMhEepvx8u23dnoD3Uqe6Qp8OUvu+ekKTuYQjY/ssCMnMQVbjK2sknjdeGSw
+         tSGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795731590; x=1796336390;
+        d=1e100.net; s=20260707; t=1795731996; x=1796336796;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/gSiBV6drlTbocMgCCg5biesF+T1YQl3nT64qn/PW44=;
-        b=GyAhsJxBQHH/Ra9Fl0RAnuouDzs13LdZWYUz0m7RnVN2P35YhcdQ3VMpVsxgrUxti9
-         VryKH9bokbu7zFtRzk0xQHGdniZtFWqWun7EquiPW+9qnmB5fespsUDQVfSEGUoGUX35
-         akxHCL3o7DjLE/H5H3SDwBNIYfBhjpkflHQYkbQ+WZULTqC6yIhk5TCCjLbUVskSZNo9
-         7xYiqewRdTj/b53EviEDbfBq4B5+AEG7VCnERWxTvgOpzeK7GZp462RPiOmHqs3LPBeI
-         h5k1Tqf2XJUXB1K3tBIwDIQLLscOay+igqh6NnyJScT0j0xCjBJlJMtPn63hDJ9+9i7B
-         rdQQ==
-X-Forwarded-Encrypted: i=1; AL+hErHHgI/wmNGRrdRJcgvjjMIdWJlTjng/hOZn3i6uVFMNyuZyLzK2DVjRHj7lBptQYzod5Wil9rhS0cKx2g==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+zT/Zq+wB0aYa7MzHoH90lSTxDotRE3StavMjYZC2eRXGqAFuT
-	YHGEqU77iLg10dgfzBvlfa48VEWVUesOiri/0Yy0HuvGta06i+CU62c88+PZq6pBJpY=
-X-Gm-Gg: AZFdTZdkA/GcN1U6PPQjHYCban2NBG7+CrXURj9wyDO6o5XF6PDCZ1KKpgCFMu5CTwP
-	AllYWcSp9MonnXUlJEmRkxcCa3MROgi665mW5ySXL+UvBvkqkP+jT+qCpPNvqG+P9SwoMbUbQgD
-	b00KpPw1U57imHn7L+Y6c+1Akic0KnZENYTZuBoZ5HfrLkIDTFAPeWqcLeluZSVEb2JQ0N2f5SQ
-	Cv6rRsh9CR65/lLB25hG2w4Bxn7dPVyyb+MEEeH6EGEBNtXn1/cw+pP0Tvyrgkko1/JGJBK5Q1s
-	Ae8BmNYg5cn5UuHvFD0fSvXr8ok0vimZm5Hq8/APTMUgWPpLc5xpPywI/0GgUJ3bNGXappWv4Fp
-	179brpA7kfmQzDSXUDX4U8O5zLduUEhfqCevULGUzzLBmpIsMcOWg9wVezz6f+48gHOcqUez6QJ
-	AihfckrfWwzvoSSGlMKSPfzmhBSJxtKU/iqBYaHv3Am8YAKP6boBw/omfIZCi8y0Q/p6e6xidMx
-	tm2dzF1tqj5ls7tp+XNWaANmyfod7J0wg5jn9PQyFrFa6WCVP8SQNFAVvsO//U7QPwQsxSorSGn
-	e68gnPNMnKneuepsz7LRRnZ2D8Fq27V/+XIEEkvkme/rwOW/EBhrGxA=
-X-Received: by 2002:a05:620a:3188:b0:947:3673:f902 with SMTP id af79cd13be357-949ba9e9297mr3983731285a.55.1795731590418;
-        Thu, 26 Nov 2026 14:19:50 -0800 (PST)
+        bh=DXV3jwg1vEpIFRKy3B1iiTGO2c9okEZN1fkPq1gh+eA=;
+        b=OIC2Tb5OwX2oCeKfFIRR5sRmMkGQ+qVTIEzVALC2iMI0Pq2wxf7bzV/GSWh6O6D2wr
+         xTOE4Gq3plS7JOhf3s3VxA8p5iWMWm+JAPDgRP/T+5oCAj5HICO+/OQe/IDvKF/G3Z/d
+         k3fbVQhY+uVfM75rfpKyxjJICJya3LnwR6r88hpZ/Zb1/gHnla3SC5a5F3phqrM2XAN8
+         7cMYCZtcvBuf0qkrdP9TcLcLy451TI4sbXpuBk6XUSHZMVrDPG53ITFHkw7DY6bA1fa3
+         x2g7NSsoJsgbUt8Ps0KYxxmpcJHdkAhvUwGzlGFbPwK8fDZV1zjBIGEuktPkgY4gDsJX
+         UI/g==
+X-Gm-Message-State: APuU4Z8yI/m8uba/SxLFebpXvCT3heMvoGtVOQ738G8/svu2oJR8vHNi
+	QxNQ5U+GSVKvciYH95NMQUhEIDHGJeMF9eiV04xhrQDEQML5CtOQ8cBhYnqqMK/tDro=
+X-Gm-Gg: AZFdTZdLCOPYoaOQcaaqHv5qE7H/txCx80Jr4rJKjXl2oBopSZvka4/16KRG8gK75ow
+	Zq2UD0NnPpRe7Qh5+yAj69ow3bJwIiUjuNj2+ySzVBUsNnNMUTsWmrJzSMGE1+dPa5ER9EjLWVx
+	i/mwtsYGXG2ZalkcqQNZBuaSSglQXrYIZnIreEp/2aYsrEgFAXSjF2DUULyKoDNugAsPNGJDU2+
+	IUViXcOCC5pAntu6cz0/DTXlVJmxKPnr1C2IPEDBTM2/UrG6vCAiX6QNzTLjqiqVnKDFAJPF1t4
+	10y3892C3sHRZM0gYK1minYqhJn9fy1YvV1VMCOSQvsxHhfWqj25uzWoR+zja4MehF2YcJzeMnj
+	jINbsaHivhV8RGBL3e67CitVQptbcEHorMpkaVtpGldcT5lW2ZSzrFpHBIcwoHJ/RwXmTg7q8xC
+	AGKdTweqc9nA0sxSfg4jkqCbbV5XgE3RuUsYeWO1cAN+XoEA6NaQftFZBNg93fBEDTL+DNE7eL5
+	FxhuryJUggdKx23rEZtudgKZ4QW/ajd3fDBwMO+GKj4qBL9Eye/bUQNdOdLvirrgRN8dPhmtmIp
+	zE+q1AZ38OJm4mF2y9z+hmaX9M1g3+XILlqKnTP2VZf1J8imeIMRk+cP
+X-Received: by 2002:a05:620a:372b:b0:949:70c5:c0ce with SMTP id af79cd13be357-949b35ac8e0mr4145462985a.19.1795731996315;
+        Thu, 26 Nov 2026 14:26:36 -0800 (PST)
 Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94a09477acfsm454257385a.32.2026.11.26.14.19.48
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb34ac11sm1681287985a.14.2026.11.26.14.26.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Nov 2026 14:19:49 -0800 (PST)
-Message-ID: <c2ac221b70cc33e550f550ab21c1a5a5967d4676.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: mediatek: vcodec: Free encoder controls when
- setup fails
+        Thu, 26 Nov 2026 14:26:35 -0800 (PST)
+Message-ID: <f41c7d6471f41d7fcc2109e14289e47091610822.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: sun8i-di: Don't sleep while waiting for
+ coefficient access
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Wentao Liang <vulab@iscas.ac.cn>, tiffany.lin@mediatek.com, 
-	andrew-ct.chen@mediatek.com, yunfei.dong@mediatek.com
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 26 Nov 2026 17:19:48 -0500
-In-Reply-To: <20261103083533.1176842-1-vulab@iscas.ac.cn>
-References: <20261103083533.1176842-1-vulab@iscas.ac.cn>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>, Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Samuel Holland
+	 <samuel@sholland.org>, Hans Verkuil <hverkuil@kernel.org>, Maxime Ripard
+	 <mripard@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Date: Thu, 26 Nov 2026 17:26:34 -0500
+In-Reply-To: <20261104185930.885203-1-jernej.skrabec@gmail.com>
+References: <20261104185930.885203-1-jernej.skrabec@gmail.com>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -105,7 +105,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-v7c+rvNTZeeZDaQiPqM0"
+	protocol="application/pgp-signature"; boundary="=-i1ae5NoATxMPm6Cs3hN+"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -117,68 +117,57 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-v7c+rvNTZeeZDaQiPqM0
+--=-i1ae5NoATxMPm6Cs3hN+
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le mardi 03 novembre 2026 =C3=A0 08:35 +0000, Wentao Liang a =C3=A9crit=C2=
-=A0:
-> mtk_vcodec_enc_ctrls_setup() can fail after creating some controls. On
-> that error, fops_vcodec_open() jumps past the control handler cleanup and
-> frees the context, leaking the handler's controls and allocation.
+Le mercredi 04 novembre 2026 =C3=A0 19:59 +0100, Jernej Skrabec a =C3=A9cri=
+t=C2=A0:
+> deinterlace_irq() calls deinterlace_device_run() to start processing
+> the second field, so it runs in hard interrupt context. However,
+> deinterlace_device_run() waits for coefficient access with
+> readl_poll_timeout(), which may sleep.
 >=20
-> Use the same control handler cleanup as the later m2m context creation
-> failure, and remove the now-unused label. No m2m context is released on
-> this path because its initialization has not been attempted yet.
+> Use readl_poll_timeout_atomic() instead.
 >=20
-> Fixes: 4e855a6efa54 ("[media] vcodec: mediatek: Add Mediatek V4L2 Video E=
-ncoder Driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> Fixes: a4260ea49547 ("media: sun4i: Add H3 deinterlace driver")
+> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
 > ---
->  .../platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c      | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+>  drivers/media/platform/sunxi/sun8i-di/sun8i-di.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >=20
-> diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_en=
-c_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv=
-.c
-> index 4e4541b2fc8e..dd47feea6acd 100644
-> --- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-> +++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-> @@ -140,7 +140,7 @@ static int fops_vcodec_open(struct file *file)
->  =09ret =3D mtk_vcodec_enc_ctrls_setup(ctx);
->  =09if (ret) {
->  =09=09mtk_v4l2_venc_err(ctx, "Failed to setup controls() (%d)", ret);
-> -=09=09goto err_ctrls_setup;
-> +=09=09goto err_m2m_ctx_init;
->  =09}
->  =09ctx->m2m_ctx =3D v4l2_m2m_ctx_init(dev->m2m_dev_enc, ctx,
->  =09=09=09=09=09 &mtk_vcodec_enc_queue_init);
-> @@ -191,7 +191,6 @@ static int fops_vcodec_open(struct file *file)
->  =09v4l2_m2m_ctx_release(ctx->m2m_ctx);
->  err_m2m_ctx_init:
->  =09v4l2_ctrl_handler_free(&ctx->ctrl_hdl);
-> -err_ctrls_setup:
+> diff --git a/drivers/media/platform/sunxi/sun8i-di/sun8i-di.c b/drivers/m=
+edia/platform/sunxi/sun8i-di/sun8i-di.c
+> index 65bc426e5aac..bb90e0efa4d1 100644
+> --- a/drivers/media/platform/sunxi/sun8i-di/sun8i-di.c
+> +++ b/drivers/media/platform/sunxi/sun8i-di/sun8i-di.c
+> @@ -163,8 +163,8 @@ static void deinterlace_device_run(void *priv)
+>  =09/* neutral filter coefficients */
+>  =09deinterlace_set_bits(dev, DEINTERLACE_FRM_CTRL,
+>  =09=09=09     DEINTERLACE_FRM_CTRL_COEF_ACCESS);
+> -=09readl_poll_timeout(dev->base + DEINTERLACE_STATUS, val,
+> -=09=09=09   val & DEINTERLACE_STATUS_COEF_STATUS, 2, 40);
+> +=09readl_poll_timeout_atomic(dev->base + DEINTERLACE_STATUS, val,
+> +=09=09=09=09  val & DEINTERLACE_STATUS_COEF_STATUS, 2, 40);
+> =20
+>  =09for (i =3D 0; i < 32; i++) {
+>  =09=09deinterlace_write(dev, DEINTERLACE_CH0_HORZ_COEF0 + i * 4,
+>=20
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 
-Fix mtk_vcodec_enc_ctrls_setup() instead.
-
-Nicolas
-
->  =09v4l2_fh_del(&ctx->fh, file);
->  =09v4l2_fh_exit(&ctx->fh);
->  =09kfree(ctx);
-
---=-v7c+rvNTZeeZDaQiPqM0
+--=-i1ae5NoATxMPm6Cs3hN+
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawiwhAAKCRDZQZRRKWBy
-9OypAQDmjeaO3tv2K1mt6YGlWFssP0QrnOt96UUjRwEVvDQy0AD+NPHYtKJ2HV/T
-EhM1Fwjl1AFFmsIQcqTGIoFBfxMBkgw=
-=EM4e
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawiyGgAKCRDZQZRRKWBy
+9MOtAP4lcK/xSN3c+U7uRq10fy5MnpVhec9Sqx0NG67DpPGZAgEA8d3GOhpIEGXC
+xicNBf+fQ7gEyX7c665ziueulfyRVAg=
+=8HHY
 -----END PGP SIGNATURE-----
 
---=-v7c+rvNTZeeZDaQiPqM0--
+--=-i1ae5NoATxMPm6Cs3hN+--
