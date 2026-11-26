@@ -1,111 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795706665;
-	b=0afFdzUQ58tSsDsCjwLme+ikvOR3cF3B7uv825fGQ1orFNXo4pBDZJRFtRq0tHWF/y37
-	 Uk9CtMghae8OC+OIJ42eX+iTWkbqvpSi9DbP37ecWOhZzkFyXc9SvvCwHJ4TpTtPIIt/w
-	 lNEKtsrtkpBHmmNyr5yHrA1BQcBt2DyrQeKx5Te+rwsRmkeANQMEqem/v4DAq5u8OdK20
-	 HYKLMeiFehC0ec+9nB9DW05Wwjp6Ad673JjJYggSS5uVVZAimUThcEyKs9u7437Q6hhir
-	 FG4OWJ8RlkZN/64cRffjbvyrMomg/SWgsulisv8n8vk9UKdNA7UYZvuueyMyDhEU6Ew==
+	t=1795708286;
+	b=vIpbUX3WlKZ6UXp3tOM3gTjKJmKXIiimWWsIggVtaVN7VkGoySUEKlghwKxQRGxvbwTD
+	 qTBShGD04JjeHNebHOMFskATnE4blvFvNiPe9y78jMEFV0nHLBasfaFyG8FRhcnIDRl8T
+	 RnEbp8QgwMCCv9TPWVPOKnPoBl/zjfwDb6XLQWc8t+bzdpdGSd/JdOhVAMOddqd0KsfFF
+	 KHf3L6Q/xqamRSVjndvQux9xpPYhm/viKmxY4s/oXDLzHzJ77jILjxbo2oPmtMbII4a2V
+	 AyRS8cW/WUBGiVe0REthZIZ95yg+VnDQLRT60vUSgM4b1bHzkf75wadmAL0GOhuFllw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795706665;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=ddeSWRJiwf5WvSlmpCixetWSsoiQ/GzJgm/q8yfJVbk=;
-	b=yytxj8AtKJqw7QHFoxyDAaS8xpSYBbFjeTcIPd74uhgli1GpGDQZVem4KAeGKIenzwyx
-	 7I4oB9cgD8g3EyZje2D9VoyLKMUYC8wDsM1/3+BgtG4n2IEQTARR6Bv87N2pg4qdfF/jv
-	 Gdr+buknV5hsTuVr9gNINoPGtk7J3G3tfQdMgyy+GKiLpekcButsd9oI96fyxKBjJvhNs
-	 NhuiDkNUveiuJE9bQTFBVFYBJCN9YGD5HNqMdFXp8/hQMEttolTwQGZQvkQ4rEUICVxVo
-	 z3PfYh69Dj6huwKuxjsZ1rTm3UFJGF+iwRDBjyiKoHsFxttcGF4bo6iIt80WofY/vQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795708286;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=1TRXzjh8btjWBqT8trhtxhaLFDwxWXLEZlGiipk1iA8=;
+	b=m5wnixspOtWsbc2SGkejfUrhRJ0Vv4a5A6eldNpprrL7ioX5wwe07dY3l9fwVLolClHQ
+	 0u/Fdl4rH6DbpLOU2LGMDiSMcwBF0G4YIM/iFCV3gePKeShsDj8BeLEDhhGSv1jGDGHmy
+	 EpmKZtPYPnNw+xVQQ9mTR3mZ2OC1emTU7OzdPpkRMhZvBwad4QqYTdyPrk/Zht7/07nPd
+	 htl63uHfA+kV8wX6gOnrJIU3sWQIbYQVIpwjx/IRIKZqwHRaAk4qx/JlVrSIzBnq7llIy
+	 FiZYs6CASJRW/DOepijfjr7j4W+w4y2eCpOqYknX+opBO2euZcdPicevJbJXA37gAuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HMZn3wmA;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ECnW0BvP;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBGaOCFv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE83606A33A
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 15:24:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACE83606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 280E3606A31E;
+	Thu, 26 Nov 2026 15:51:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HMZn3wmA;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ECnW0BvP
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQEUsYb088352
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 15:24:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ddeSWRJiwf5WvSlmpCixetWSsoiQ/GzJgm/q8yfJVbk=; b=HMZn3wmA0wZXV+co
-	kEEjut5SBIKnG2l8a3tc0xXzgztLSWul/gruZ4XlZRK9pF03iIRt5qCK7iXnp3mp
-	gHm6XD/2vGq035joUC5QBAxbk3OgBsUB15/pZ838ic+KFyATqel+3QbmsAiXy2K2
-	i+jersnRlrp8NLjGlNIl7RE87mNML1FUUPWu5qU6YwonLKxE0riJTRFM8G2rcMST
-	u4axiocEu6OxJujgj1+i59w4egJPevhilAgCGF9KzN+nvu9txF1xvzo9HKlV/Fra
-	cwDpPa8qceF185j2aXZQAtFqbh670YVVb5ChPQGGhzMRddpqHjBFS4PKj9ccWeWv
-	19r/Ig==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6hm81cpv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 15:24:23 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9495f7e03b9so72698785a.2
-        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 07:24:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795706662; x=1796311462; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ddeSWRJiwf5WvSlmpCixetWSsoiQ/GzJgm/q8yfJVbk=;
-        b=ECnW0BvPj2WJs8CFhKhE8CLSVmm+PMeOpBNHgOLbSLvhO6Y2Pk5ycmEXxAitFOtGgI
-         2QASRdQKskkfQzPEQqTRy4qaBYs4m2iEofsMy1BzY7z1LjPgflkG5ijgkNwyJvSPE2mq
-         +g9VJevZzDWSsWyXA/7iuufzhVhIISqS+VTEKzk55IbIYwddwdQeeDqgYOMYZkyceAzB
-         gIw2Ewt+LIhfzhrOgLjLdpSLhkrixvGk9wMAwxRHqwCOJlAGQolyCNaGULaFYmmjalZY
-         mS6Mbjqx1gRyZE2msmiugVcTNxIXrutQOZJqfmj1hjSwJzSANikCl1A3jzzINnq67VOR
-         Iz+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795706662; x=1796311462;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ddeSWRJiwf5WvSlmpCixetWSsoiQ/GzJgm/q8yfJVbk=;
-        b=Zq27uPd/0/kSa3DeV4sHNG1o4YjX8ozyjEX0G7XgFkuvuAjDad6xKxCtKzkZ0YO5Om
-         e8MXj7XN8kk9YuKw7WJjqyG+0aP418wZur9zHxefKsSQ5lh/fBbKv5wrw2HpjxrUpjl1
-         aRdbN6fIunHvwmHW9r8hjCG5anMUpiJnXuGa+FSxLg+dQX2sC+wKm9qYgQWby9A6GqFy
-         DwUFnXQWmY35rOwRW633vTsk28uXpltRhozDktX5RrMugHUq7vfCmcIn7yx+AgREyN3T
-         /4WHS5tlzs7v/NOpA2tlDwiC9UPibzL8Nbzy5F/6gd+jLcVvuBLZbC3Hw82JLwuQprRr
-         VDWg==
-X-Forwarded-Encrypted: i=1; AL+hErGWKPA4GJNIwIs9RI2auMVNgO/dWzg2zWQ61G4711yBJVEbLou41PLx0KuxwFJ2/L8jXon7rWodAL+DNQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9OJvs2ucNYl58wKgw6UyYXcHGQKHylMsxCti7YwYNaqPnwGNXD
-	XOioNfj6WjpqoV9MQVtAaH79OQCQQMzsTe19G1/eseaf0LUd5mdF9SrD6/06fB6NViwugi4Wa9d
-	dcpMvoD/sKwtJm5zJwTbfxD+MEguH9jxB1HFLpxoksPZg6gdk8FL1swPJC5D8lBMGNA==
-X-Gm-Gg: AZFdTZfIQj3g3RUoJNbl4f4VSWtAl6M59+IZwapWxNRk+kS8y9GU4nWwBqslHrNo4vf
-	ji23jUdwm7GrCOyk2a2G0Af5xJ5Mb9OjmUGFxHK4h22LkCZUVDTVhI7mya+IjmptVfZ8/lxxbkC
-	SqEhpA0x+7VU/DzneDZMZfG/xARnxF4cYafJIwygEJKMYrGWfWeey4sa2yTES66hgRU/18oB7qN
-	BJcfXcQY/yaIuFa7eREoyfPpBAgWw0UVmaU2VMSJmV0QQtzyp0FemCLXVHJTj1ghCbvdHxM9F29
-	XB/R/TKExpJ0qlOAli1gNTKY9bKr4nZeuDdozG8Dnk1frT+DccxaQWqzVaiki2B8ee4cHoS517z
-	143g2MXOSRMKjSJIr8uj0q94GdE5HJcBJAQUBKSkZYpsu2T3SGLc842XLU2WoeAdDY1f/yI8=
-X-Received: by 2002:a05:620a:6f82:10b0:93f:1eb0:88bc with SMTP id af79cd13be357-949ba7fc843mr3540534285a.1.1795706661793;
-        Thu, 26 Nov 2026 07:24:21 -0800 (PST)
-X-Received: by 2002:a05:620a:6f82:10b0:93f:1eb0:88bc with SMTP id af79cd13be357-949ba7fc843mr3540530785a.1.1795706661313;
-        Thu, 26 Nov 2026 07:24:21 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c513ae6872asm744107866b.13.2026.11.26.07.24.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 26 Nov 2026 07:24:20 -0800 (PST)
-Message-ID: <9bc0e617-6840-4be8-93c9-3a4429bfa3a2@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 16:24:18 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBGaOCFv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C53331F000CF;
+	Thu, 26 Nov 2026 15:51:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795708285;
+	bh=1TRXzjh8btjWBqT8trhtxhaLFDwxWXLEZlGiipk1iA8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=QBGaOCFvc0jIYYOdM26RV8FDVYKSfpwyRBuc3GeOKMiHLkW4EUxjtddtPfNkRnBdz
+	 bGZrqaFj91fld0mIq/ZhiDHKZXV6NaWdZXzDlcanvF+9A8kj2jijC0QGKIUh052gzr
+	 /nU0jKmdIygnkTzzGwjUvV1XHgDyNvoDSI24gAbsExMM3nnr/kXF1H96zPySEkitME
+	 fE8VS1+N9AcNobg794un/Om3k4nvHW2RxnOmMYtKELr1QTp3h9rGPEy5VDaGBLwFUa
+	 ssgC91ADbNaYqHFP0I9HJDPeyZWBK7UnMQv7vtctMN26DOUxMIeOzjJ27hDsCC+n+5
+	 iI0qVkpratW2w==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, Kieran Bingham
+ <kieran.bingham@ideasonboard.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, Dave
+ Stevenson <dave.stevenson@raspberrypi.com>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/5] media: Fault-Tolerant V4L2
+In-Reply-To: <3066a335-12b9-4031-84bf-af851c8e03c0@kernel.org>
+References: <20261001-v4l2-sensor-detect-v1-0-a45993be17b8@kernel.org>
+ <xhkdby0boob5n.fsf@mkorpers-koolstof.csb>
+ <685c60fb-f209-42e8-8d75-7e65ca5353c9@kernel.org> <avMM6a6xcDHT-zCR@houat>
+ <5bb26065-d876-4ed9-bb80-a9567a369b5c@kernel.org> <avMgJ7MFks0sKD7T@houat>
+ <eb8ac54c-a357-4378-8d85-d14855a094e8@kernel.org>
+ <avWd9y7c1FVbUB7E@kekkonen.localdomain>
+ <3066a335-12b9-4031-84bf-af851c8e03c0@kernel.org>
+Date: Thu, 26 Nov 2026 16:51:22 +0100
+Message-ID: <xhkdbzeuvy4jp.fsf@mkorpers-koolstof.csb>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,82 +68,171 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] media: iris: check the packet size after reading from
- shared memory
-To: Hungyu Lin <dennylin0707@gmail.com>, vikash.garodia@oss.qualcomm.com,
-        dikshita.agarwal@oss.qualcomm.com
-Cc: abhinav.kumar@linux.dev, bod@kernel.org, mchehab@kernel.org,
-        hverkuil@kernel.org, stefan.schmidt@linaro.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261117204946.21359-1-dennylin0707@gmail.com>
- <20261117204946.21359-2-dennylin0707@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261117204946.21359-2-dennylin0707@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: Kb4u9hlsVAnUDtNJxyWiyDibuEIqYI6j
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA2MCBTYWx0ZWRfXzpiZ8Me7KxID
- MtMJqZScienZgSBMb09ArdxMac6geDDKQVLKad9FEg9pfM3lpQwCeN543irzzbj8z7q108nfEQQ
- 9J8iZmYEQYm90QLGNVMVN/Betzu7+4g=
-X-Proofpoint-GUID: Kb4u9hlsVAnUDtNJxyWiyDibuEIqYI6j
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA2MCBTYWx0ZWRfX+spBFXM+0P+a
- S/hRkS41WijBzhtyiHmQkTyJAYaBTruFexxp0b7s4RlqWgnfHm6zuRuSDkSTlQ374MUAqi+BsdQ
- pc0nXZ19XY3MXXaKktCnrXl1LYu4MoRANiY5CrqUJQZdZFyDWBnfDz7ho93QvmrCHoSLRzseoyd
- dUTN5ZSr6C9Lc3SvaEHgMAeLeyKtYwEWFqzbzuzjqXI66c+AMQrqxXtyeAIa8etwSPGf8cEwh3b
- pWPELXYhieYMpdIalWrxlsatQfALZQpRLxq5ywXGlaGOZaxI/3LsUjqcMXm/OsbJXRJAB3ldLX7
- E/Pqt1FuRRZyMbtQI7oD1E5sRBsoqpRoMQR1ltWzN5q9pWZF1iU+TNvMwsWDyV0VfKzIY1ddUCi
- e2mNudy3hm+p1G+4Lcm0MUrnadq3Ba7H3SuHvdiycrJFWXqkv/P3yqBruZmWKSp2NHI3jURgnrS
- y5HuMEzZvjotO+hAurg==
-X-Authority-Analysis: v=2.4 cv=O/usLx9W c=1 sm=1 tr=0 ts=6b084f27 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=s5JhuylEIwHktN9E_WEA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_03,2026-11-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 bulkscore=0 adultscore=0 clxscore=1015
- impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260060
+Content-Type: text/plain
 
-On 11/17/26 9:49 PM, Hungyu Lin wrote:
-> iris_hfi_queue_read() takes the size of a packet from the first word of
-> the packet in the shared queue and then copies that many bytes, including
-> that word, out of the queue. The firmware can change the word in between,
-> so the size field of the copy can be larger than what was copied. The
-> gen1 response handlers use that field as the length of the packet, for
-> example to walk the buffer requirements in
-> iris_hfi_gen1_session_property_info().
-> 
-> venus got the same check in commit 49befc830daa ("media: venus: Add a
-> check for packet size after reading from shared memory"). Compare the
-> size field of the copy with the size that was used for the copy and fail
-> the read if they differ.
-> 
-> Fixes: fb583a214337 ("media: iris: introduce host firmware interface with necessary hooks")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_hfi_queue.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_queue.c b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-> index bf6db23b53e2..5d3315f71623 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-> @@ -95,6 +95,8 @@ static int iris_hfi_queue_read(struct iris_iface_q_info *qinfo, void *packet)
->  			       qinfo->kernel_vaddr, residue);
->  			new_read_idx = residue;
->  		}
-> +		if (*(u32 *)packet != packet_size)
-> +			return -EINVAL;
+Hi Hans,
 
-Sashiko has a concern
+On Thu, Nov 12, 2026 at 13:43, Hans Verkuil <hverkuil+cisco@kernel.org> wrote:
 
-Konrad
+> On 12/11/2026 12:07, Sakari Ailus wrote:
+>> Hi Hans, others,
+>> 
+>> On Tue, Nov 10, 2026 at 03:43:59PM +0100, Hans Verkuil wrote:
+>>> On 10/11/2026 15:17, Maxime Ripard wrote:
+>>>> On Tue, Nov 10, 2026 at 02:30:51PM +0100, Hans Verkuil wrote:
+>>>>> On 10/11/2026 13:33, Maxime Ripard wrote:
+>>>>>> Hi Hans,
+>>>>>>
+>>>>>> On Tue, Nov 10, 2026 at 01:08:05PM +0100, Hans Verkuil wrote:
+>>>>>>> On 23/10/2026 14:26, Mattijs Korpershoek wrote:
+>>>>>>>> Hi everyone,
+>>>>>>>>
+>>>>>>>> On Thu, Oct 01, 2026 at 14:55, Mattijs Korpershoek <mkorpershoek@kernel.org> wrote:
+>>>>>>>>
+>>>>>>>>> On media-centric camera pipelines, every entity is known at boot time
+>>>>>>>>> and described statically (for example via device-tree).
+>>>>>>>>>
+>>>>>>>>> The V4L2 framework assumes that every entity of the camera
+>>>>>>>>> pipeline is always present. This is a reasonable assumption for
+>>>>>>>>> integrated cameras in laptops or phones. However, in automotive systems,
+>>>>>>>>> cameras (e.g. rear-view or surround-view) can be damaged or disconnected.
+>>>>>>>>> When the framework assumes all sensors are present, a single missing
+>>>>>>>>> camera can prevent the entire pipeline from operating.
+>>>>>>>>
+>>>>>>>> This series has been discussed at the Camera & ISP "unconference" in
+>>>>>>>> Pragues (during Linux Plumbers)
+>>>>>>>>
+>>>>>>>> The notes can be found here:
+>>>>>>>> https://lore.kernel.org/linux-media/20261021224119.GA383235@killaraus.ideasonboard.com/T/#u
+>>>>>>>
+>>>>>>> What is missing in this discussion is how userspace can indicate that it
+>>>>>>> actually can handle partially instantiated pipelines.
+>>>>>>>
+>>>>>>> Today if one or more parts do not come up, the devices nodes are also not
+>>>>>>> created. This is typically exactly what you want.
+>>>>>>
+>>>>>> That's very arguable? We have plenty of other examples where we allow to
+>>>>>> show a software representation of something that isn't available in
+>>>>>> hardware, starting with virtually any memory buffer allocation, but also
+>>>>>> disabled CPUs, swapped pages, etc.
+>>>>>>
+>>>>>> For things a bit more related to drivers, things like USB root hubs are
+>>>>>> also pretty analogous. The "root" device will always be created, even if
+>>>>>> devices connected to it are non-functional, missing or whatever. It's
+>>>>>> the primary interface that these devices might or might not attach to.
+>>>>>>
+>>>>>> So it's a bit hard to understand why the device nodes not showing up is
+>>>>>> exactly what we always want.
+>>>>>
+>>>>> It's simply how V4L2 works today: video devices do not appear until
+>>>>> all components are instantiated.
+>> 
+>> I think I've mentioned this before, but I do it once more: there's no
+>> concept of creating device nodes at the same time. It may happen roughly
+>> around the same time, but not atomically. There's always a chance that
+>> accessing device nodes of a device exposing multiple nodes fails for a
+>> reason or another. It may also be udev rules used different permissions for
+>> different set of nodes so the application can only access some of them.
+>
+> That's why the media device should ideally be the last device that is
+> registered. I think that is usually the case.
+>
+> But even then, when e.g. em28xx creates the video device for video capture,
+> it can be used right away. Everything it depends on is there.
+>
+>> 
+>>>>
+>>>> Sure but that's exactly what we're trying to change.
+>>>>
+>>>>> Most video devices consist of multiple devices (bridges, i2c devices,
+>>>>> etc.) and unless all are found and initialized, you can't capture. So
+>>>>> bridge drivers postpone creating the video/media devices until
+>>>>> everything is there.
+>> 
+>> That's not the case obviously. If you have, say, three different cameras
+>> and one of them happens to be missing a driver in Kconfig, there's nothing
+>> that would technically prevent streaming video from the two others: it's a
+>> policy.
+>
+> But in that case you wouldn't create the third video device for the missing
+> driver. It's up to the bridge driver to decide whether to bail out if that
+> driver can't be found, or continue with the others and just skip that video
+> device.
+>
+>> 
+>> And supposedly, there could be an application that *needs* all these three
+>> cameras to function, but does it then matter how that application is going
+>> to fail, is it because it lacks access to all of the hardware or just one
+>> piece of it?
+>
+> That's up to the application. That's not relevant for this discussion.
+> What is relevant is that today, if a video device is registered, then it is
+> functional. The application can assume that everything it depends on is there.
+>
+> And applications really do this: the video device appears and they start
+> streaming at once.
+>
+>> 
+>> I'm in favour for making this reasonably easy for the user space to figure
+>> out, but we currently have no APIs that cover this (and so could be used by
+>> existing applications) so it's new behaviour that we're introducing. If we
+>> can't do better, then I'd introduce a Kconfig option, but I'd select that
+>> by default. I've seen tonnes of issues because of the current behaviour but
+>> no evidence creating device nodes proactively could be actually harmful.
+>> 
+>> So what I'd concentrate on is to provide information to the userspace on
+>> the device readiness status, so the userspace can figure out all devices in
+>> a Media device complex have been registered.
+>> 
+>> Functional safety adds the requirement of detecting failures and how that
+>> is being done is probably fairly implementation specific. New APIs will
+>> very probably be needed for that as well (and they indeed should be behind
+>> a specific Kconfig option).
+>
+> Remember that there are more devices than just ISPs that use the MC: codecs,
+> various video capture drivers. Typically the MC is there primarily to help
+> understand the hardware, and the topology is usually (but not always) fixed.
+>
+> Applications usually ignore the MC and just open a video device to start
+> streaming.
+>
+>> 
+>>>>>
+>>>>> That also means that applications can safely assume that if a video device appears,
+>>>>> it is functioning.
+>>>>
+>>>> Ish. The only safe assumption you can make about this is that it was
+>>>> functional at probe time. Anything after that is very much up in the
+>>>> air. If the device broken after probe for example, or if we have no way
+>>>> to tell if it's functional to begin with, that assumption is no longer
+>>>> true. So sure, that's what applications have been doing so far because
+>>>> there was no better way to do it, but I wouldn't qualify it as a "safe"
+>>>> assumption.
+>>>>
+>>>>> If we add fault tolerance, and you allow video devices to appear even if they are
+>>>>> not functioning (or partially functioning), then that contract breaks.
+>>>>>
+>>>>>>
+>>>>>>> But here you allow partial instantiation, and how does userspace
+>>>>>>> signal that? It must be an 'opt-in' mechanism, but how is that done?
+>>>>>>> There are no devices yet, so that can't be used, so what alternatives
+>>>>>>> are there?
+>>>>>>>
+>>>>>>> We've been discussion Fault Tolerant V4L2 for many years now, and every time
+>>>>>>> I raise this issue, but I never received any proposals.
+>>>>>>>
+>>>>>>> This must be solved.
+
+Thank you for explaining this.
+Sorry you had to repeat yourself
+
+I've added an 'opt-in' mechanism for v2 RFC using a module parameter
+here:
+
+https://lore.kernel.org/all/20261118-v4l2-sensor-detect-v2-0-1bb1a445b556@kernel.org/
+
+And thanks everyone for the discussion, I hope we can continue on the v2
+
+Regards
+Mattijs
+
