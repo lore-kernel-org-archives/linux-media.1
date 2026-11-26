@@ -1,54 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795688610;
-	b=Nah5FFq9Y2cyJzWTX+Xdf+3VzU1eHMd9J8Zn9J4u28GW0WS5nEtlmYGd4virVy893UKE
-	 OQpUG6uV1z3jn5FoprwgegfhIMgMdBg6oSVbreJ+EVHWUepgrXbngO7TxdLvRAOq53/6L
-	 aPSfHeEY2oehBqF52+lsiRnQSFTEJDH1MAHz+/HZQI09PSJ02zlKLId0S1ERjrQz2rCeh
-	 SjJXGFTD+9hCXXcXUTSTo+9vc6CdAWKl1ian8BmKgNcc5PNP3k00Ba+0TmvYQ9mmKM+2s
-	 iSi5tX0dVDOTDPhTlvfTx5Lpc6TWQxuMbkfEVzG6Ykz8ojkCZb8hFe9rS4ISic7g4Ew==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795688610;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Djjd1SsMnHYhF1VCm8h+rLsGfSQLvywA+Lvp0R6m6sE=;
-	b=KtFYRs0cyAcvsRIYPVAtNgZvfJ6uqKWgHh46rBwPj0DV/464ZR0QgwJactBD1rmVjEXs
-	 euul4YGRDVjG10P+21y/XIt9cFmhzCGehVOebsQGqrLfekQ6pI04E6q4k/9NbHl0YFTt0
-	 iuorv7I+KXxiO4EqSDTE29HZ9urtL4hBjdVFP0zOBmdqafNmeE8Lc9xuZQbyK4Ia8bK6J
-	 6KP+s4dCVTstKQenm6IT81uKCO9zc3Fjn+XPByVKwOSr78Tt3z5CAo+HrnT3Y0EDL+nCj
-	 lAKJ47chRLMkcYy+xU9rgdswgaplzRkckXJB8LrWhRGnMZfKN8Yw25zt/mZZWIU7e5A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l9AqAR9u;
-	arc=none smtp.remote-ip=91.218.175.124
-Received: from mta0.migadu.com (out-124.mta0.migadu.com [91.218.175.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795689220;
+	b=tcMaj4dREPTv9AxgREQ0IO3mKNBqaddxKKDjFBq2LHAbPiIRN2AdpaFhQkPSxxI5F6Ca
+	 0OMW4hyHP6fpyKnsBugIk0l9B/WVHfhjlaAzKJctrRRs9aM2icuH+DkdCJsxeNNSBn5k1
+	 FMWSCBN2Ha+XbQgeOTDVZpDUUjcSUTsxujfozOVknx5lCaJdU6VwozSbRpRJeNWJAofoe
+	 KLA9qkKe5+M74tXD3MzvCnYHQxLmSqEYzVMHbHxy1kppkbrdWR3vf/E5aWpSgT7V+YRyc
+	 7uaemAHtoWnymFx4FnTfbcz42Ql3GQDqeDA91/VXsCrG2D+jEOVPzdoWDcpmFV5Dm9w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795689220;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=CjQ8gPON54ImxNch/vz81iv8pHWJvCH/N5cvF02jvyA=;
+	b=tK9Y5vhCJdAPEptQNBd7XegUv+F2qgpLVAA2r1M9ciJfE4WDryippSgPl6r6rQ7+V1Xn
+	 +nOGbo6ZJ84UmUsaqxXT72TEtA0vjY33BVXdzC4DytVLkjNtG1zq8BICLGdNlLooQXaMZ
+	 +v44W86caZKTyM2OySt0HSsCmyyrIyZ3u/2ov6EZk2M++vuITIHGZ6Lfgk5dunVABokFq
+	 DfDCVpxro7zw23eUCdYccSa36YAhGf9tvw4RSjD8SK8QYC4b7ixrwiCt6IdEsdOMHtQ5l
+	 LX9ZCSEQCkzw6Cxjfgn64z0f0bHW6gV2Riv9sFkJZR96AHPnBEqR1XUEk2Of2cclf9Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=De4U3Nri;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.175
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1670A606A323
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 10:23:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1670A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005DD606A31E
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 10:33:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 005DD606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l9AqAR9u
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SE31xivb4Of1jeX735no3fJM75rqVpEISS9wXSOvIas=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795688607; v=1; x=1796293407;
- b=l9AqAR9u+/WktkK8Ufk+89zPdDwdnfu3yMpOqTNJajQnxkN46LfFVJJ0twZovbWmwUcN6Ytm
- H4OCMyxgV5X0LKk1x6UH17JqW/mL+Rt0FHCQ8StH+GTaYe+qijjpdPT5Rdibpg0rkkQUoxDCbKS
- GOZKsXZdPB+5OxchguUycy94=
-X-Envelope-To: linux-media@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 433cdf8521d10379;
-	Thu, 26 Nov 2026 10:23:26 +0000
-X-Mizu-Trace-ID: 433cdf8521d10379
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <bff85d7b-84dd-4f4a-91c1-7f5c9ef2e51a@linux.dev>
-Date: Thu, 26 Nov 2026 18:23:06 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=De4U3Nri
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cdb2dfcca94so2879400a12.1
+        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 02:33:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795689218; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZF3DAbV3WuBhogoWEfsDR8Z5n2UwytKNopwCBiv3BGCebTKe9M1ffCJcvKE+A9RZUL
+         QW9p4m7NggoV3uOhQOThrP+mMQQwJNd5/BMVMaDb96x1uqMKvtvqEEST5MnvYp4FXX9z
+         j26PPTtlTOyuq6jsRDT/jMQhy08FlISkfIe/rWn1ebiVEGrbXi1LT4Cz+PjyrB+juHW8
+         pSFA0Mh/CH06WrN08+ljE0kqziZKi10yTYYv0DGgoVeDeYuQUzf302zN4P7shlGyGAKp
+         seUapyRUI4v7gE+x4lqHt8XuUSM9C0mfduai4LwSAO8muPE0OFQcQXsJX6rdh7woupZV
+         nB1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=CjQ8gPON54ImxNch/vz81iv8pHWJvCH/N5cvF02jvyA=;
+        fh=WsKtICdqjS380khVgyR9p0NkFSIISGI2ZLHHK+mp/+E=;
+        b=CxmL3BsK2VLXP7ersr3x0mRTttgUk8UblEZoon2x+fvuJK5Ka1ckLhhKVwiObCRsuX
+         hM9BDK2i4prNYPZHeqSyKIERj5SscNQTpTbTdmhnBRNeeQMZRhNq1e/6pzs+lPhkhgQK
+         yuB8Pu+5vhYN/E0KSUs8r8GqII5AR2QiavINUdgionDr7076pQYkawTnfs7skOT+Xq9X
+         ofVa9/FzfmkJA3hXNsOsJ5cd+C6kmkSMXrJ19Jhckw3eevNed/FbkgfFiA79NYp9XpI2
+         YkebZsBCyY5hw/sHnLgKOxP9uq/zqctUTlukJyASV3Kdae4+4jIJ8IdVnNiZHmfh2Ijz
+         1hsA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795689218; x=1796294018; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CjQ8gPON54ImxNch/vz81iv8pHWJvCH/N5cvF02jvyA=;
+        b=De4U3NriG0pnU5n61Rds0bGZ4V4UfHP8EPTjilbt+dGMz8sXOFX8ozPnVhuRkEl2Tt
+         f6hSadLeVrHVyfqbY4XiA7LNkgGGqFSuF6t+umXE1r0hBHy8hCbpY03LMx7YEJswSNkv
+         MeuWhnXmoZ7DJUuK/7MD34oP9RlXx3Kr+QRPRP6qVEfPLn1ZB/IOGCutz9AebD+FZtgz
+         G89s27EsVAEkWBF3o+DQH33KX2quV9uDdZMdGBJDZLxGQwCO+3ezu0FN2DSYzCu5BWZa
+         BNFJGHqP696CfMb0NbfcSRRF19SQowj79qbb32iZbjDSvSnaVJgRZJzN24rnzo02rit/
+         i0iA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795689218; x=1796294018;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CjQ8gPON54ImxNch/vz81iv8pHWJvCH/N5cvF02jvyA=;
+        b=LbfPWK84uLsp0oyyM0pER/MHMTrHdL9sT5gHEhosyJR+R+btY4jXfsYmyed9U3ivEv
+         ezJ1SqzAxai1qhFc5eH8grGqx2xbWSbfLA4/TqH8UCEOBLR2IAolOhBwtvdpXdBskaXz
+         lp01KgkxqOJZYNJ/TqRhdWfOQ3xpjSBhdjtwUaRgXFBYPb/+ypVvsjSnl3iiJ7TgtN3z
+         tK3OJuaHbatB3X29eISlMIjw9l1Bl9B3G79v5iBeLFP2RMZG7AqiD3b7Wqp0R/hlAHUR
+         b2tZs9hGh4Qb6UiQrPBML22Ehdz9mkB+63iF06+p5LamKbS9Nz3xCN4AY/1Sg7zoPGUc
+         T5vw==
+X-Forwarded-Encrypted: i=1; AL+hErFPlaBZ+FsAEeXBiGD+UKyxefz4EiwqScMsKGOLSIXhmVCZbwA1w6Dobtc9HfTPCepzgepi2eYZ5rSsFQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9iD4JYwUE3B5o0TCp68H0O3rUAXBk0lU4RGKZn4/UFoAQsbP0M
+	z45Qo55R6uj7gvrST4tZdl13jUERPPdi5PAbc/mjVn8o8xXHnEKgSObcLvAicFaSkkL6zBdwA4h
+	yiGClsucY64elELhytZCz4zx3ci9VZ8M=
+X-Gm-Gg: AZFdTZcg7LXKF8U8Inr4YqXSpVDx7IHAppO4m0nIHkei88Y6HrjiK1r1aLVOIj6AcAw
+	7sYK0+azA08s3zsk+XiRShGWT0v3joOZh1Lv6CbXqaDFRjECZRHOo82OnzNRIodrrvWOw4wQp3f
+	J3hQNcJdERGpTo6cD8WMjT6zJyOs159uW5C7fT35RRkcEiRU/f4zHTH9CAqtkjRiFEa6IMOzswK
+	0M1ZP/hEKmaOgtNzww6GfpYGkR0nLnjTHWb9XuGC/c7ipGS5sJFbisPUshyKG3NlR48ee18S2vE
+	fVZDJv6Lxz2pt5v2Ioe9S73YOhocVrqwkMtDlDeT16xl0J7RcvaS5OGcLx3ZwuFQEDUIN94+tzX
+	TMR1PK0tgIV9kFBP9tDUknuuR6/HPOjY/E/Ca6e32dKP7aZT4HsFc6PVvTw==
+X-Received: by 2002:a17:90b:2f8c:b0:3a2:b16d:928b with SMTP id
+ 98e67ed59e1d1-3b41c95aec8mr18512828a91.46.1795689218173; Thu, 26 Nov 2026
+ 02:33:38 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,418 +103,175 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 2/8] iomap: add dma-buf direct I/O guards
-To: Yun Wang <arsenova@a7snv.com>, Anuj Gupta <anuj1072538@gmail.com>,
- Nitesh Shetty <nj.shetty@samsung.com>
-Cc: hch@lst.de, anuj20.g@samsung.com, axboe@kernel.dk,
- sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org,
- djbw@kernel.org, willy@infradead.org, jack@suse.cz, viro@zeniv.linux.org.uk,
- brauner@kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
- libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com,
- yi.zhang@huawei.com, asml.silence@gmail.com, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, liwang@kylinos.cn,
- zhaomengmeng@kylinos.cn, mcgrof@kernel.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-References: <20261125171600.4053585-1-arsenova@a7snv.com>
-From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
-In-Reply-To: <20261125171600.4053585-1-arsenova@a7snv.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261122190008.21278-2-arbabhaider649@gmail.com> <4724fb41-06a0-457c-be3a-25ad9e49e25f@kernel.org>
+In-Reply-To: <4724fb41-06a0-457c-be3a-25ad9e49e25f@kernel.org>
+From: Arbab Haider <arbabhaider649@gmail.com>
+Date: Thu, 26 Nov 2026 15:33:26 +0500
+X-Gm-Features: Aa3M54r0J6MsPFv-FI2m1pPxneDAzgN4uFfUfog5-WhTsHNyfmVJ8PwjCWIuLXE
+Message-ID: <CAHPLoh+1WDe2YFxuyP65MHtCbSmmg6FORnk-bJ8FxTgq-PQW8A@mail.gmail.com>
+Subject: Re: [PATCH] media: em28xx: clear dev->v4l2 on init failure and fini
+ to avoid double put
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+fb0d2df09b56117605fc@syzkaller.appspotmail.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/26/26 01:16, Yun Wang wrote:
-> On Fri, Nov 13, 2026 at 03:06:15PM +0800, Mengmeng Zhao wrote:
->>  static int iomap_dio_hole_iter(struct iomap_iter *iter, struct iomap_dio *dio)
->>  {
->> -	loff_t copied = iov_iter_zero(iomap_length(iter), dio->submit.iter);
->> +	loff_t copied;
->> +
->> +	/* zero-filling walks the data pages */
->> +	if (iov_iter_is_dmabuf_map(dio->submit.iter))
->> +		return -EOPNOTSUPP;
-> 
-> This also fails reads that run past EOF.  The filesystem maps the range
-> beyond the last block as a hole too, so a dma-buf read that starts
-> before EOF and ends past the last block of the file fails as a whole,
-> while the same O_DIRECT read into user memory returns the bytes up to
-> EOF.
-> 
-> I found it while testing the series for fastsafetensors' dma-buf copier
-> [1], which loads model weights from NVMe into GPU memory with READ_FIXED
-> into registered dma-bufs.  I ran v2 on top of v7.4-rc2 in a QEMU guest
-> with an emulated NVMe namespace, reading into udmabufs.  With a
-> 5000-byte file on ext4 with 4 KiB blocks, reading [4096, 12288):
-> 
->   READ_FIXED into a registered udmabuf -> -EOPNOTSUPP
->   O_DIRECT pread() into user memory    -> 904
-> 
-> It fails the same way whether the read is the first one on the buffer,
-> is issued inline once the map exists, or is forced to io-wq with
-> IOSQE_ASYNC.
-> 
-> Reading a file in fixed-size chunks hits this on the last chunk unless
-> the file size is a multiple of the chunk size.  With 1 KiB blocks it
-> also breaks the copier's normal pattern, 4 KiB-aligned reads up to
-> round_up(i_size, 4096): the last read fails.
-> 
-> Nothing past EOF is reported to the caller anyway: __iomap_dio_rw()
-> reverts the iterator to i_size and iomap_dio_complete() truncates the
-> result to it.  So a hole that starts at or after EOF can be stepped
-> over; a hole inside the file still needs zeroes and still fails.
-> Something like this on top of the series, or folded into this patch:
-> 
-> diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-> index 83fda6973bb9..2de6d379f811 100644
-> --- a/fs/iomap/direct-io.c
-> +++ b/fs/iomap/direct-io.c
-> @@ -596,9 +596,20 @@ static int iomap_dio_hole_iter(struct iomap_iter *iter, struct iomap_dio *dio)
->  {
->  	loff_t copied;
->  
-> -	/* zero-filling walks the data pages */
-> -	if (iov_iter_is_dmabuf_map(dio->submit.iter))
-> -		return -EOPNOTSUPP;
-> +	if (iov_iter_is_dmabuf_map(dio->submit.iter)) {
-> +		u64 length = iomap_length(iter);
-> +
-> +		/* zero-filling walks the data pages */
-> +		if (iter->pos < dio->i_size)
-> +			return -EOPNOTSUPP;
-> +		/*
-> +		 * Past EOF there is nothing to zero: the read is truncated to
-> +		 * i_size before it is reported, so step over the hole.
-> +		 */
-> +		iov_iter_advance(dio->submit.iter, length);
-> +		dio->size += length;
-> +		return iomap_iter_advance(iter, length);
-> +	}
->  
->  	copied = iov_iter_zero(iomap_length(iter), dio->submit.iter);
->  
-> 
-> Signed-off-by: Yun Wang <arsenova@a7snv.com>
-> 
-> With it, the read above returns 904 with the right data in all three
-> cases.  Holes and unwritten extents inside the file still return
-> -EOPNOTSUPP, including a hole that straddles EOF after the file was
-> extended with ftruncate().
-> 
-> The rest of the series behaved as the cover letter describes in that
-> setup, with 4 KiB and 1 KiB blocks: registration on an O_DIRECT file,
-> reads into arbitrary offsets of the buffer, reads through a dup()ed fd,
-> -EBADF through another file's slot, -EINVAL when registering a buffered
-> fd, -EOPNOTSUPP after F_SETFL clears O_DIRECT and success again once it
-> is set back, WRITE_FIXED including a write that extends the file, and a
-> clean e2fsck afterwards.  I have not run it on real NVMe hardware or
-> xfstests yet.
-> 
-> This report and the reproducer below were drafted with the help of an
-> AI coding assistant (Claude Opus 5.5); the fix is mine.
-> 
-> [1] https://github.com/foundation-model-stack/fastsafetensors/issues/139
-> 
-> Thanks,
-> Yun
-> 
-> Reproducer.  It needs /dev/udmabuf and a filesystem with this series
-> on an NVMe namespace:
-> 
->   head -c 5000 /dev/urandom > /mnt/f && sync
->   ./dmabuf_eof_read /mnt/f 4096 8192             # first read on the buffer
->   ./dmabuf_eof_read /mnt/f 4096 8192 warm        # map exists, inline issue
->   ./dmabuf_eof_read /mnt/f 4096 8192 warm async  # IOSQE_ASYNC
-> 
-> // SPDX-License-Identifier: GPL-2.0
-> /*
->  * Read a file range into a udmabuf that is registered against the file as
->  * an io_uring fixed buffer, and compare with an O_DIRECT pread() of the
->  * same range into user memory.
->  *
->  *   dmabuf_eof_read <file> <offset> <length> [warm] [async]
->  *
->  *   warm   first read [0, 4096) through the same buffer, so the dma-buf map
->  *          exists and the measured read can be issued inline (nonblocking)
->  *   async  set IOSQE_ASYNC on the measured read (issue it from io-wq)
->  *
->  * Exits 0 when READ_FIXED returns what pread() returns and the bytes match.
->  * Needs /dev/udmabuf, and a kernel and filesystem with io_uring dma-buf
->  * registered buffers.  The UAPI bits are declared locally because they are
->  * newer than most installed headers.
->  */
-> #define _GNU_SOURCE
-> #include <errno.h>
-> #include <fcntl.h>
-> #include <stdint.h>
-> #include <stdio.h>
-> #include <stdlib.h>
-> #include <string.h>
-> #include <sys/ioctl.h>
-> #include <sys/mman.h>
-> #include <sys/syscall.h>
-> #include <unistd.h>
-> #include <linux/udmabuf.h>
-> 
-> #define IORING_OFF_SQ_RING		0ULL
-> #define IORING_OFF_SQES			0x10000000ULL
-> #define IORING_ENTER_GETEVENTS		(1U << 0)
-> #define IORING_REGISTER_BUFFERS2	15
-> #define IORING_REGISTER_BUFFERS_UPDATE	16
-> #define IORING_RSRC_REGISTER_SPARSE	(1U << 0)
-> #define IORING_RSRC_UPDATE_EXTENDED	(1U << 1)
-> #define IO_REGBUF_TYPE_DMABUF		2
-> #define IORING_OP_READ_FIXED		4
-> #define IOSQE_ASYNC			(1U << 4)
-> 
-> struct sqe {
-> 	uint8_t opcode, flags;
-> 	uint16_t ioprio;
-> 	int32_t fd;
-> 	uint64_t off, addr;
-> 	uint32_t len, rw_flags;
-> 	uint64_t user_data;
-> 	uint16_t buf_index, personality;
-> 	int32_t splice_fd_in;
-> 	uint64_t addr3, pad2;
-> };
-> 
-> struct cqe {
-> 	uint64_t user_data;
-> 	int32_t res;
-> 	uint32_t flags;
-> };
-> 
-> struct sq_offsets {
-> 	uint32_t head, tail, ring_mask, ring_entries, flags, dropped, array, resv1;
-> 	uint64_t user_addr;
-> };
-> 
-> struct cq_offsets {
-> 	uint32_t head, tail, ring_mask, ring_entries, overflow, cqes, flags, resv1;
-> 	uint64_t user_addr;
-> };
-> 
-> struct params {
-> 	uint32_t sq_entries, cq_entries, flags, sq_thread_cpu, sq_thread_idle;
-> 	uint32_t features, wq_fd, resv[3];
-> 	struct sq_offsets sq_off;
-> 	struct cq_offsets cq_off;
-> };
-> 
-> struct rsrc_register {
-> 	uint32_t nr, flags;
-> 	uint64_t resv2, data, tags;
-> };
-> 
-> struct rsrc_update2 {
-> 	uint32_t offset, flags;
-> 	uint64_t data, tags;
-> 	uint32_t nr, resv2;
-> };
-> 
-> struct regbuf_desc {
-> 	uint32_t type, flags;
-> 	uint64_t size, uaddr;
-> 	int32_t dmabuf_fd, target_fd;
-> 	uint64_t resv[6];
-> };
-> 
-> _Static_assert(sizeof(struct sqe) == 64, "io_uring_sqe");
-> _Static_assert(sizeof(struct cqe) == 16, "io_uring_cqe");
-> _Static_assert(sizeof(struct params) == 120, "io_uring_params");
-> _Static_assert(sizeof(struct rsrc_register) == 32, "io_uring_rsrc_register");
-> _Static_assert(sizeof(struct rsrc_update2) == 32, "io_uring_rsrc_update2");
-> _Static_assert(sizeof(struct regbuf_desc) == 80, "io_uring_regbuf_desc");
-> 
-> struct ring {
-> 	int fd;
-> 	struct params p;
-> 	char *rings;
-> 	struct sqe *sqes;
-> };
-> 
-> static void die(const char *what)
-> {
-> 	perror(what);
-> 	exit(2);
-> }
-> 
-> static void ring_init(struct ring *r)
-> {
-> 	size_t sq_size, cq_size;
-> 
-> 	memset(r, 0, sizeof(*r));
-> 	r->fd = syscall(SYS_io_uring_setup, 4, &r->p);
-> 	if (r->fd < 0)
-> 		die("io_uring_setup");
-> 	sq_size = r->p.sq_off.array + r->p.sq_entries * sizeof(uint32_t);
-> 	cq_size = r->p.cq_off.cqes + r->p.cq_entries * sizeof(struct cqe);
-> 	/* SQ and CQ rings share one mapping (IORING_FEAT_SINGLE_MMAP) */
-> 	r->rings = mmap(NULL, sq_size > cq_size ? sq_size : cq_size,
-> 			PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, r->fd,
-> 			IORING_OFF_SQ_RING);
-> 	r->sqes = mmap(NULL, r->p.sq_entries * sizeof(struct sqe),
-> 		       PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, r->fd,
-> 		       IORING_OFF_SQES);
-> 	if (r->rings == MAP_FAILED || r->sqes == MAP_FAILED)
-> 		die("mmap ring");
-> }
-> 
-> /* one READ_FIXED from slot 0; addr is the byte offset into the dma-buf */
-> static int read_fixed(struct ring *r, int fd, off_t off, size_t len,
-> 		      uint64_t buf_off, uint8_t sqe_flags)
-> {
-> 	uint32_t *sq_tail = (uint32_t *)(r->rings + r->p.sq_off.tail);
-> 	uint32_t sq_mask = *(uint32_t *)(r->rings + r->p.sq_off.ring_mask);
-> 	uint32_t *sq_array = (uint32_t *)(r->rings + r->p.sq_off.array);
-> 	uint32_t *cq_head = (uint32_t *)(r->rings + r->p.cq_off.head);
-> 	uint32_t *cq_tail = (uint32_t *)(r->rings + r->p.cq_off.tail);
-> 	uint32_t cq_mask = *(uint32_t *)(r->rings + r->p.cq_off.ring_mask);
-> 	uint32_t tail = *sq_tail, idx = tail & sq_mask, head;
-> 	struct cqe *cqe;
-> 	int res;
-> 
-> 	memset(&r->sqes[idx], 0, sizeof(struct sqe));
-> 	r->sqes[idx].opcode = IORING_OP_READ_FIXED;
-> 	r->sqes[idx].flags = sqe_flags;
-> 	r->sqes[idx].fd = fd;
-> 	r->sqes[idx].off = off;
-> 	r->sqes[idx].addr = buf_off;
-> 	r->sqes[idx].len = len;
-> 	r->sqes[idx].buf_index = 0;
-> 	sq_array[idx] = idx;
-> 	__atomic_store_n(sq_tail, tail + 1, __ATOMIC_RELEASE);
-> 	if (syscall(SYS_io_uring_enter, r->fd, 1, 1, IORING_ENTER_GETEVENTS,
-> 		    NULL, 0) < 0)
-> 		die("io_uring_enter");
-> 	head = *cq_head;
-> 	if (head == __atomic_load_n(cq_tail, __ATOMIC_ACQUIRE)) {
-> 		fprintf(stderr, "no completion\n");
-> 		exit(2);
-> 	}
-> 	cqe = (struct cqe *)(r->rings + r->p.cq_off.cqes) + (head & cq_mask);
-> 	res = cqe->res;
-> 	__atomic_store_n(cq_head, head + 1, __ATOMIC_RELEASE);
-> 	return res;
-> }
-> 
-> int main(int argc, char **argv)
-> {
-> 	struct rsrc_register reg = { .nr = 1, .flags = IORING_RSRC_REGISTER_SPARSE };
-> 	struct regbuf_desc desc = { .type = IO_REGBUF_TYPE_DMABUF };
-> 	struct rsrc_update2 up = { .flags = IORING_RSRC_UPDATE_EXTENDED, .nr = 1 };
-> 	struct udmabuf_create create = { .flags = UDMABUF_FLAGS_CLOEXEC };
-> 	int fd, ufd, memfd, dmabuf, res, warm = 0, async = 0, i;
-> 	unsigned char *view, *host;
-> 	size_t length, size;
-> 	ssize_t expect;
-> 	struct ring r;
-> 	off_t offset;
-> 
-> 	if (argc < 4) {
-> 		fprintf(stderr, "usage: %s <file> <offset> <length> [warm] [async]\n",
-> 			argv[0]);
-> 		return 2;
-> 	}
-> 	for (i = 4; i < argc; i++) {
-> 		if (!strcmp(argv[i], "warm"))
-> 			warm = 1;
-> 		else if (!strcmp(argv[i], "async"))
-> 			async = 1;
-> 	}
-> 	offset = strtoll(argv[2], NULL, 0);
-> 	length = strtoull(argv[3], NULL, 0);
-> 	size = (length + 4095) & ~4095UL;
-> 	if (size < 4096)
-> 		size = 4096;
-> 
-> 	fd = open(argv[1], O_RDONLY | O_DIRECT);
-> 	if (fd < 0)
-> 		die("open");
-> 
-> 	/* the reference: the same range read into user memory */
-> 	if (posix_memalign((void **)&host, 4096, size))
-> 		die("posix_memalign");
-> 	expect = pread(fd, host, length, offset);
-> 	if (expect < 0)
-> 		die("pread");
-> 
-> 	/* a udmabuf over a sealed memfd */
-> 	memfd = memfd_create("dmabuf-eof", MFD_ALLOW_SEALING);
-> 	if (memfd < 0 || ftruncate(memfd, size) ||
-> 	    fcntl(memfd, F_ADD_SEALS, F_SEAL_SHRINK))
-> 		die("memfd");
-> 	view = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, memfd, 0);
-> 	if (view == MAP_FAILED)
-> 		die("mmap memfd");
-> 	ufd = open("/dev/udmabuf", O_RDWR);
-> 	if (ufd < 0)
-> 		die("open /dev/udmabuf");
-> 	create.memfd = memfd;
-> 	create.size = size;
-> 	dmabuf = ioctl(ufd, UDMABUF_CREATE, &create);
-> 	if (dmabuf < 0)
-> 		die("UDMABUF_CREATE");
-> 
-> 	/* a ring with one sparse buffer slot holding the dma-buf */
-> 	ring_init(&r);
-> 	if (syscall(SYS_io_uring_register, r.fd, IORING_REGISTER_BUFFERS2, &reg,
-> 		    sizeof(reg)) < 0)
-> 		die("IORING_REGISTER_BUFFERS2");
-> 	desc.dmabuf_fd = dmabuf;
-> 	desc.target_fd = fd;
-> 	up.data = (uint64_t)(uintptr_t)&desc;
-> 	if (syscall(SYS_io_uring_register, r.fd, IORING_REGISTER_BUFFERS_UPDATE,
-> 		    &up, sizeof(up)) < 0)
-> 		die("register dma-buf");
-> 
-> 	if (warm) {
-> 		res = read_fixed(&r, fd, 0, 4096, 0, 0);
-> 		if (res != 4096) {
-> 			fprintf(stderr, "warm-up read returned %d\n", res);
-> 			return 2;
-> 		}
-> 	}
-> 	memset(view, 0xa5, size);
-> 	res = read_fixed(&r, fd, offset, length, 0, async ? IOSQE_ASYNC : 0);
-> 
-> 	printf("READ_FIXED into dma-buf (%s, %s): %d%s%s, O_DIRECT pread(): %zd\n",
-> 	       warm ? "map ready" : "first read", async ? "IOSQE_ASYNC" : "inline",
-> 	       res, res < 0 ? " " : "", res < 0 ? strerror(-res) : "", expect);
-> 	if (res != expect)
-> 		return 1;
-> 	if (res > 0 && memcmp(view, host, res)) {
-> 		printf("data differs\n");
-> 		return 1;
-> 	}
-> 	return 0;
-> }
-> 
-Hi Yun,
+Hi Hans,
 
-Thanks a lot for testing the series against fastsafetensors, and for the
-detailed report, reproducer, and fix!
+I checked media-committers/next at b4e3c4b6a36f. The init error path
+already clears dev->v4l2 under dev->lock before dropping the initial
+reference, and em28xx_v4l2_fini() checks the pointer under the same
+lock. That covers the double put this patch was meant to fix, so
+I'm dropping the standalone patch.
 
-You are completely right — this is a real oversight in patch 2/8.
-I reproduced it and validated your fix on real NVMe (nvme-pci, ext4 4KiB
-blocks, udmabuf) and passed the tests. 
+Thanks,
+Arbab
 
-Since Anuj is currently consolidating the XFS and ext4 dma-buf work
-(along with the cross-file registration sharing updates) into a unified
-series, I fold your diff into this patch and send a seperated V3 version
-with your Co-developed-by and Signed-off-by (if you're okay with that)[1]. 
 
-Hi Anuj, please make sure to include Yun's fix above when you put the 
-unified series together. 
-
-Thanks again, Yun, for the thorough testing across 4 KiB and 1 KiB
-block sizes and all the edge cases!
-
-[1] https://lore.kernel.org/all/20261126100721.313677-1-mengmeng.zhao@linux.dev/
-
-Best regards,
-Mengmeng
-
+On Wed, 25 Nov 2026 at 12:40, Hans Verkuil <hverkuil+cisco@kernel.org> wrote:
+>
+> On 22/11/2026 20:00, Arbab Haider wrote:
+> > Commit 288254383674 ("media: em28xx: use v4l2_device release callback")
+> > switched em28xx_v4l2 teardown to v4l2_device reference counting, where
+> > dev->v4l2 is only cleared inside em28xx_free_v4l2() once the refcount
+> > reaches zero.
+> >
+> > If em28xx_v4l2_init() fails after video_register_device() (for example,
+> > when v4l2_mc_create_media_graph() returns -EINVAL) while userspace has
+> > opened the video node, the unregister_dev error path calls
+> > v4l2_device_put(&v4l2->v4l2_dev) to drop the initial reference, but
+> > em28xx_free_v4l2() does not run yet because the open file handle still
+> > holds a reference, leaving dev->v4l2 non-NULL.
+> >
+> > When the USB device is subsequently disconnected, em28xx_v4l2_fini()
+> > sees dev->v4l2 != NULL and calls v4l2_device_put(&v4l2->v4l2_dev) a
+> > second time for the initial reference, freeing struct em28xx_v4l2 while
+> > the video device node is still referenced and causing a
+> > slab-use-after-free in media_device_unregister() /
+> > __media_entity_remove_links().
+> >
+> > Fix this by:
+> > - Calling v4l2_device_disconnect() and clearing dev->v4l2 = NULL under
+> >   dev->lock in em28xx_v4l2_init()'s unregister_dev path before dropping
+> >   the initial v4l2_device reference.
+> > - Checking and clearing dev->v4l2 under dev->lock in em28xx_v4l2_fini()
+> >   so the initial reference is dropped at most once.
+> > - Reading dev->v4l2 under dev->lock and checking for !v4l2 in
+> >   em28xx_v4l2_close() so a close racing with teardown cannot dereference
+> >   a NULL pointer.
+> >
+> > Tested locally in QEMU (x86_64, KASAN+UBSAN) using dummy_hcd and
+> > raw-gadget emulating an EM2820 device with failed media graph creation
+> > and concurrent /dev/video0 open/disconnect.
+> >
+> > Reported-by: syzbot+fb0d2df09b56117605fc@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=fb0d2df09b56117605fc
+> > Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Arbab Haider <arbabhaider649@gmail.com>
+>
+> This patch no longer applies, can you rebase it on top of
+> https://gitlab.freedesktop.org/linux-media/media-committers, next branch?
+>
+> This patch might not be needed anymore, it's unclear.
+>
+> Regards,
+>
+>         Hans
+>
+> > ---
+> >  drivers/media/usb/em28xx/em28xx-video.c | 23 ++++++++++++++++-------
+> >  1 file changed, 16 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+> > index 84424284d..50998aa1c 100644
+> > --- a/drivers/media/usb/em28xx/em28xx-video.c
+> > +++ b/drivers/media/usb/em28xx/em28xx-video.c
+> > @@ -2333,7 +2333,6 @@ static void em28xx_free_v4l2(struct v4l2_device *v4l2_dev)
+> >
+> >       v4l2_ctrl_handler_free(&v4l2->ctrl_handler);
+> >       v4l2_device_unregister(v4l2_dev);
+> > -     dev->v4l2 = NULL;
+> >       kfree(v4l2);
+> >       kref_put(&dev->ref, em28xx_free_device);
+> >  }
+> > @@ -2414,7 +2413,7 @@ static int em28xx_v4l2_open(struct file *filp)
+> >   */
+> >  static int em28xx_v4l2_fini(struct em28xx *dev)
+> >  {
+> > -     struct em28xx_v4l2 *v4l2 = dev->v4l2;
+> > +     struct em28xx_v4l2 *v4l2;
+> >
+> >       if (dev->is_audio_only) {
+> >               /* Shouldn't initialize IR for this interface */
+> > @@ -2426,13 +2425,16 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
+> >               return 0;
+> >       }
+> >
+> > -     if (!v4l2)
+> > +     mutex_lock(&dev->lock);
+> > +
+> > +     v4l2 = dev->v4l2;
+> > +     if (!v4l2) {
+> > +             mutex_unlock(&dev->lock);
+> >               return 0;
+> > +     }
+> >
+> >       dev_info(&dev->intf->dev, "Closing video extension\n");
+> >
+> > -     mutex_lock(&dev->lock);
+> > -
+> >       v4l2_device_disconnect(&v4l2->v4l2_dev);
+> >
+> >       em28xx_uninit_usb_xfer(dev, EM28XX_ANALOG_MODE);
+> > @@ -2455,6 +2457,8 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
+> >               vb2_video_unregister_device(&v4l2->vdev);
+> >       }
+> >
+> > +     dev->v4l2 = NULL;
+> > +
+> >       mutex_unlock(&dev->lock);
+> >
+> >       /*
+> > @@ -2502,18 +2506,19 @@ static int em28xx_v4l2_close(struct file *filp)
+> >  {
+> >       struct video_device   *vdev = video_devdata(filp);
+> >       struct em28xx         *dev  = video_drvdata(filp);
+> > -     struct em28xx_v4l2    *v4l2 = dev->v4l2;
+> > +     struct em28xx_v4l2    *v4l2;
+> >       struct usb_device *udev = interface_to_usbdev(dev->intf);
+> >       int              err;
+> >       bool last_user;
+> >
+> >       mutex_lock(&dev->lock);
+> > +     v4l2 = dev->v4l2;
+> >       last_user = v4l2_fh_is_singular_file(filp);
+> >       _vb2_fop_release(filp, vdev->queue->lock);
+> >
+> >       if (last_user) {
+> >               /* No sense to try to write to the device */
+> > -             if (dev->disconnected)
+> > +             if (dev->disconnected || !v4l2)
+> >                       goto exit;
+> >
+> >               /* Save some power by putting tuner to sleep */
+> > @@ -3110,6 +3115,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+> >       return 0;
+> >
+> >  unregister_dev:
+> > +     v4l2_device_disconnect(&v4l2->v4l2_dev);
+> > +
+> >       if (video_is_registered(&v4l2->radio_dev)) {
+> >               dev_info(&dev->intf->dev,
+> >                        "V4L2 device %s deregistered\n",
+> > @@ -3129,6 +3136,8 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+> >               vb2_video_unregister_device(&v4l2->vdev);
+> >       }
+> >
+> > +     dev->v4l2 = NULL;
+> > +
+> >       mutex_unlock(&dev->lock);
+> >
+> >       /*
+>
