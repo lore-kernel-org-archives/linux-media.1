@@ -1,54 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795729478;
-	b=p4YOeMsA+TwGnr/X+8DceucHTf/jqZ62vqoI+cOnHNrlTGhTZXTifh5b+aPGRNl/2rMj
-	 D4riVIZlyyT47GfKIxctDfmB+MX+jHCQvtvamCUK4xf0G/QEhvTR5TMOgwg7UixoZNUSc
-	 Qz7GCJzRJzOso37BBLNdu1QxYofsfMswcbIdjiZVXctWpl3g6fRq5EA9bvfZeqCTvzUqg
-	 e7qktEHjBZ7xxMoU0TOQ1U9Q7uZ/ERtX+Ax9Wtp5I9NDkqHKJ5t5n18VEr9CbmV+mHq4u
-	 s4j2AHPEo3LSxIqd5GBPGDBSgQNoE8G8hszllnUPvn49BGddjMK11EEGvb1LuI7CPiQ==
+	t=1795729653;
+	b=VO/c2PBvyWzLYSdrRQRDYechP60B2iQh+ZHBBud5Bu3F2mqS+EwDpdB6xHyPojXAU+Su
+	 qjeE2NkLqcyaZHUhtpeQTvBi5T91KUdzaT/suqhTRM3dIIIQe216RlNSver+bdnmmVtb8
+	 zQg3jeShqMoE21tEUb9929dkY5LCjKMy4BHGbowDuojGv01wjc4CeCaTcVGFbSq2hTwhd
+	 qG+jZFdlw+32neePOKmzWCNxcb7hAp0T2rQ0imrAjPiXDQHPI+re4E/jL+oAAtnbkDpdc
+	 HFqXNMXl7lW1eqGE5IviBPEDuBc4v/Hqmrd3Gh/wTpctWQuFwB32Hjm/x4NdXiPv3Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795729478;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=VuD/knKdWaeBdTXh9LaA+EVb2zYgv6k7/haIr1KiUK4=;
-	b=ldmX4dLV3ZsQmqYJpjm4K2KSDksMroWeebe3Q2DJQzPfJvsfbAHWcUCsdKmGUyWe+JyJ
-	 54so6f2SgjXfoeEt+ExbYLUbe1WsDQTmr6mEyZ9HjW/HX08pvUSsNrkagyVOI3dE702n2
-	 U/2cf8vXHEb7fUx2eeGSreN+ln/OMmQ7BTbTJEiXdlBxNoJB9FsGYimoWuz/X79hT2D5V
-	 8vGGh+ILHT0RRhL78MUP0EInqjrsYDd1ge7SBTh3yFf+Ljx1YH3ShGbiKyJOU3v9/7t1e
-	 Px5rhT0YZbhkP36rH+3njnTizFGjrjm8Oe+fsbtQai+CQkxyYdtAWAX6dtfDdMqXyfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795729653;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:User-Agent:MIME-Version;
+	bh=4WhzaWPljb0SrZHlQ+9mxsjwiIar78ZdlRX5uWCA24c=;
+	b=F8FyAYXkuewiuhYsBBJsgFrKxdQqKG2oxifivBrC5r05FQlmk7POERHVs/m+Fx3NrVlf
+	 GCjWINoihNlwlGWVjeHsjckfMC6mKtAm8Z7eF7cGbr0rFNoqih/ajjNY4LDvokp88E1QB
+	 Lcw067DzxbWzG3n4Hsb6SWs5vpL0yfDtt1Nyil5PylAJRdik8Ivd0CtA9VyEC17q3w+CV
+	 Eo5Gm6iQMouiK008PUCFx8YJz4Vp/b7e1uoylixZS1Ke8d1t6TMWIg/wSUKLOMsdtcIYr
+	 qbEAZ8IbHhVHnhuNo7noSnZEQbAW8ObAbjK0A4j4CLzJU8NHPYsgXZs4An1G1WY6Vog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.160.69
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gfAv9hgm;
+	arc=none smtp.remote-ip=209.85.222.175
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C441606A32F
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 21:44:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C441606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-4ae40674bd0so4124069fac.2
-        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 13:44:37 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8A6606A31E
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 21:47:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD8A6606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gfAv9hgm
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-9495f083657so806184085a.0
+        for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 13:47:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1795729647; x=1796334447; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4WhzaWPljb0SrZHlQ+9mxsjwiIar78ZdlRX5uWCA24c=;
+        b=gfAv9hgmCUfUhVt9yp1cqZC3M+vVpjuvorFSUJ8lZZK7Yz6RfXYnP0V+3Tnok443+K
+         bqPmsTHPQIg7G9Rst9BYY43B9uOOIGtdiRXGOQvNjM4lATa+EX7DhmE7r5a0VwuYRKRJ
+         groWQvzoTpcB6PwuAG86bCI9eieAnAN3pxhauqOGR2VOVv5y9W8NqzMX+FGjTXr19KEI
+         gAt0batfBCQziImW9g0m1NzpoSWJ1j35W4PBT8pXvwJ4Sgq/fuFZBKqvT2qK2pgxtSUn
+         mwuekw1hX67rYb/Snknm/t7SPGami937f7gwI11amehttNorP2u1oHYu+kplgs/qtfTI
+         cthg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795729476; x=1796334276;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=VuD/knKdWaeBdTXh9LaA+EVb2zYgv6k7/haIr1KiUK4=;
-        b=dMItyXyvgnJRV5PQAZmel/QASA/SjIEElAFH2gwEI7aW76dWEqgjvpsXrXsO9Jq3dx
-         SCTeFfLo0sGLY/yJkFU5FW61k2Xiod/pTYpKC98yKI2o87QO9RBD0Zv/6k+dJ89FvOql
-         lRvzSZC2wNoBtKacQAAknyDNWesM1gY2p+enVLy+seIuMMIZadNXxwXOu44zJ6tQ2Q84
-         XwxDLBc+CS7J72oqC8UyVABUZcPF8Q7X+i/qtZjq91wQLsnftTISgzxKgxY1bPmHxvya
-         FIFz9q418L669UDGEyJcHi4P0EilNvtZ4TvljbkoRw4HOdFxanm7VUdGWlNojn9hZ4JN
-         9IqQ==
-X-Forwarded-Encrypted: i=1; AL+hErH5eqNcC8jwksqGi2dT8EipTlxa+YqTVWp+6Z+x4tR1CGwvhoDlmWbSnaJMegHQMb8DbyXOE9uonj/gCw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ybaTRML8G3v0s4wZ5pmuYxsm4q/VgnSZ7t1NgxJnpShdr1avX
-	TjVcdK3ywLWh+REgSEjHu744je+MeFmx447dxWga67YQw2Kqbuka7bWASk/OMmD2E+d9x9Qwg7J
-	3dQ+TPehST4Adti7uQOEFJaNfU/0VvwmMk32tKPvz7Yyu0wrV4LI1CVuVi/w=
+        d=1e100.net; s=20260707; t=1795729647; x=1796334447;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4WhzaWPljb0SrZHlQ+9mxsjwiIar78ZdlRX5uWCA24c=;
+        b=h4SAVzCiC4KfI4FfReWdmKfRJbbBYj6OUpXs5Tmv2/1OeUBiCp3899f9eJh1qV6srH
+         U72zSPynH3/oKy4vvx/WpusKB0mKTY0K5tLWhDNKmK671ATagvy0x8E6J+RcPZV3oYNW
+         wkzAQDmfTTmM0pClGPbauCDsFfd65uonWclQXptPiq6d0jNMO2QiD/J9JOyjl4CqsNUF
+         ncjqPim3bvMWhY6A9n0DnSrvo/uTinMDn/CbmNWonNWZBHDTWpjWWXT4wqUOupf/W4kB
+         EaBnfi5C+JyqqJCkFrIOYNBPuWXcict/72ZaGPEewHnCm8LE+S2g5Flpn03a2h72BDPK
+         UgFQ==
+X-Forwarded-Encrypted: i=1; AL+hErFcXQJ0WPo1nXguInUtMB09beWhSHE2fgDL7eeQ1SmqJnwUjchhW1j6XP/0I1toRvvWiTg6z5ZCJ8X98g==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Dbl+qn6DcC0zUPpGMHigiYuIa2ZAEO9jhC+XwPfSLFCtiLxjG
+	uhRUTCrbVIMv9FudA5bShiZpzYoZ7Hr95KguCWfhavBHsA2NWr4J15jzzM9Qy5hCQjw=
+X-Gm-Gg: AZFdTZfMFJmtk1uMg0O7LL+WLrDCGCKKGUFBdJOWIfDRClclErzcA2fkBDzgC2zVO4M
+	L0DyLvsu1fJsiH3xcQQThuMu2d159O9kYp7b14nrXmIjYd8xvznKoBumA2tOO1FippNSvIcDnHn
+	GYwgkcfYa6155crTid+/lCrS/RO8UyBhCtTDBbJ4hacFZAojFH/s0165KLbEJ0vS0+8bkVdgU1o
+	H56GPP97ZD6BP06GPWZizZyt6Rs7Xw8KsrQ8KIQYius23YCDwA4+KGK3p5C3IQKIQWr0bO+0j+J
+	pBz0cQYr21pCj+fYht8XZ/c/3ZsFhuI8+aZICWauxF4PRx/9P5ss6OFaDLv+5GdDVFXEYwfGF2n
+	Z3bj66W4HVZ1QZADuctBcDKHk8Vfjwo1i5rQsH/kpCTdILB3sbm8XtwFb9gy6oMHZ1UTHDZvSQU
+	NngEAAGGFIi9/xyju8RRW6d5IKSNqtQKb0DWFxa6C1ZhwFg4IfFsaNBB+HnG6zQNRy/EWdg4WaG
+	MShXeWLeiQWUe+21LObbyX1NiTVMm0ipNDMOpAn3MW4SXYvgCLANkDrtfXFT2PXEJzS3j2k8+i7
+	8oWfGHqwgXq0sUxTfDBnwkIaZ/rA6xnbZ/ALNUVorwAW25E2Q6pcDIxnvvk5trOxsg6buchgjgO
+	4
+X-Received: by 2002:a05:620a:1a0e:b0:93c:a40d:e3cf with SMTP id af79cd13be357-949ba828099mr4010614885a.1.1795729646763;
+        Thu, 26 Nov 2026 13:47:26 -0800 (PST)
+Received: from ?IPv6:2606:6d00:11:8ec9::c41? ([2606:6d00:11:8ec9::c41])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-949bb41a341sm1673622885a.37.2026.11.26.13.47.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 26 Nov 2026 13:47:26 -0800 (PST)
+Message-ID: <efe647d6ebb9583696527ee044093ba54ff0b9a7.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: st-delta: fix decoder use-after-free on release
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Sicong Huang <congei42@163.com>, linux-media@vger.kernel.org, 
+ "hugues.fruchet" <hugues.fruchet@foss.st.com>
+Cc: mchehab@kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 26 Nov 2026 16:47:24 -0500
+In-Reply-To: <20261028074439.2515928-1-congei42@163.com>
+References: <20261028074439.2515928-1-congei42@163.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-ZnfXehKJCjfHNFCFp1+S"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,130 +114,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f48:b0:573:6ee8:2399 with SMTP id
- 5614622812f47-57a0a211c71mr24272371b6e.19.1795729476694; Thu, 26 Nov 2026
- 13:44:36 -0800 (PST)
-Date: Thu, 26 Nov 2026 13:44:36 -0800
-In-Reply-To: <6b088253.28411dd9.2968b4.0009.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6b08a844.904258e1.78503.0026.GAE@google.com>
-Subject: Re: [syzbot] [media?] general protection fault in __media_device_register
-From: syzbot <syzbot+8769efb8c3d52870334c@syzkaller.appspotmail.com>
-To: laurent.pinchart@ideasonboard.com, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, mchehab@kernel.org, mchehab@osg.samsung.com, 
-	sakari.ailus@linux.intel.com, syzkaller-bugs@googlegroups.com
+
+--=-ZnfXehKJCjfHNFCFp1+S
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-syzbot has found a reproducer for the following issue on:
+Hi,
 
-HEAD commit:    25faec9ce61c net: dpaa2-eth: fix objtool warning and logic..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=16d5e153580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=fbd0fc734eea62ed
-dashboard link: https://syzkaller.appspot.com/bug?extid=8769efb8c3d52870334c
-compiler:       Debian clang version 22.1.8 (1~deb13u5), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17cdca6d580000
+Le mercredi 28 octobre 2026 =C3=A0 15:44 +0800, Sicong Huang a =C3=A9crit=
+=C2=A0:
+> Found by code inspection.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/98fce4d0b21b/non_bootable_disk-25faec9c.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/4c1927657be7/vmlinux-25faec9c.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/6fda75e8de56/bzImage-25faec9c.xz
+All the changes in this driver since 2022 (and even there I'm not sure) are
+"found by code inspection". Is there any users left of this? Shall we just
+remove this driver ?
 
-The issue was bisected by AI to:
+I'll hold on any changes until I ear back from Hugues or someone at ST.
 
-commit 37ecc7b1278f4184a6869504f7074b4a54f112c5
-Author: Mauro Carvalho Chehab <mchehab@osg.samsung.com>
-Date:   Wed Jan 27 09:07:24 2016 +0000
+Nicolas
 
-    [media] em28xx: add media controller support
+--=-ZnfXehKJCjfHNFCFp1+S
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-reasoning:      https://syzkaller.appspot.com/ai_job?id=cc710625-e1fd-46cf-b43b-f649c55c924b
+-----BEGIN PGP SIGNATURE-----
 
-AI-generated root cause summary:
-In drivers/media/usb/em28xx/em28xx-cards.c, em28xx_init_dev() calls
-em28xx_media_device_init() without checking its return value. When the
-kzalloc_obj(*mdev) allocation in em28xx_media_device_init() fails and returns
--ENOMEM, dev->media_dev remains NULL while device initialization continues.
-Later in em28xx_usb_probe(), media_device_register(dev->media_dev) is called
-unconditionally with dev->media_dev == NULL, triggering a NULL-pointer
-dereference in __media_device_register() at mdev->devnode = devnode.
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawio7AAKCRDZQZRRKWBy
+9GH+AP9Oqg4ss3SaCoTvoVSD5gtzy2jhoZwSztR/b+sN5AhqhQD/U00yLZRBQByA
+DzpUMteYjIWOXG0T5S+VF5c1A5P2wQY=
+=+D6r
+-----END PGP SIGNATURE-----
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=8769efb8c3d52870334c
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+8769efb8c3d52870334c@syzkaller.appspotmail.com
-
-The bisection result may be wrong.
-If you agree with it, please also add:
-Fixes: 37ecc7b1278f ("[media] em28xx: add media controller support")
-
-em28xx 5-1:0.0: AC97 chip type couldn't be determined
-em28xx 5-1:0.0: No AC97 audio processor
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-CPU: 0 UID: 0 PID: 5823 Comm: syz.2.20 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:__media_device_register+0x6e/0x3c0 drivers/media/mc/mc-device.c:745
-Code: c0 0b 6f 06 ba 60 05 00 00 be c0 0d 00 00 e8 29 84 0d fa 48 85 c0 0f 84 7a 01 00 00 49 89 c6 4d 8d 6f 08 4d 89 ec 49 c1 ec 03 <41> 80 3c 1c 00 74 08 4c 89 ef e8 43 85 19 fa 4c 89 2c 24 4d 89 75
-RSP: 0018:ffffc90001be77c0 EFLAGS: 00010202
-RAX: ffff888043791000 RBX: dffffc0000000000 RCX: 786b3eff022cc500
-RDX: 00000000000016bf RSI: ffffffff8e6b0089 RDI: 00000000ffffffff
-RBP: 0000000000000000 R08: ffffffff91be6dbf R09: 1ffffffff237cdb7
-R10: dffffc0000000000 R11: fffffbfff237cdb8 R12: 0000000000000001
-R13: 0000000000000008 R14: ffff888043791000 R15: 0000000000000000
-FS:  00007f844c7226c0(0000) GS:ffff88808a9e9000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f013c26444c CR3: 0000000054794000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- em28xx_usb_probe+0x1c5e/0x2dd0 drivers/media/usb/em28xx/em28xx-cards.c:4444
- usb_probe_interface+0x751/0xe00 drivers/usb/core/driver.c:399
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:707
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:869
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:899
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1027
- bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2bd/0x430 drivers/base/dd.c:1131
- proc_ioctl+0x409/0x660 drivers/usb/core/devio.c:2370
- proc_ioctl_default+0xc4/0x110 drivers/usb/core/devio.c:2405
- usbdev_do_ioctl drivers/usb/core/devio.c:2769 [inline]
- usbdev_ioctl+0x139d/0x21a0 drivers/usb/core/devio.c:2829
- vfs_ioctl fs/ioctl.c:52 [inline]
- __do_sys_ioctl fs/ioctl.c:598 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:584
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f844b7a9a99
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f844c722028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f844ba36190 RCX: 00007f844b7a9a99
-RDX: 0000200000000140 RSI: 00000000c0105512 RDI: 0000000000000005
-RBP: 00007f844c722090 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000002
-R13: 00007f844ba36228 R14: 00007f844ba36190 R15: 00007ffcd010b238
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-----------------
-Code disassembly (best guess), 1 bytes skipped:
-   0:	0b 6f 06             	or     0x6(%rdi),%ebp
-   3:	ba 60 05 00 00       	mov    $0x560,%edx
-   8:	be c0 0d 00 00       	mov    $0xdc0,%esi
-   d:	e8 29 84 0d fa       	call   0xfa0d843b
-  12:	48 85 c0             	test   %rax,%rax
-  15:	0f 84 7a 01 00 00    	je     0x195
-  1b:	49 89 c6             	mov    %rax,%r14
-  1e:	4d 8d 6f 08          	lea    0x8(%r15),%r13
-  22:	4d 89 ec             	mov    %r13,%r12
-  25:	49 c1 ec 03          	shr    $0x3,%r12
-* 29:	41 80 3c 1c 00       	cmpb   $0x0,(%r12,%rbx,1) <-- trapping instruction
-  2e:	74 08                	je     0x38
-  30:	4c 89 ef             	mov    %r13,%rdi
-  33:	e8 43 85 19 fa       	call   0xfa19857b
-  38:	4c 89 2c 24          	mov    %r13,(%rsp)
-  3c:	4d                   	rex.WRB
-  3d:	89                   	.byte 0x89
-  3e:	75                   	.byte 0x75
+--=-ZnfXehKJCjfHNFCFp1+S--
