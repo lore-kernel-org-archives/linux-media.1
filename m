@@ -1,111 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795664351;
-	b=kfn4Ck/D9e8HRyocaVseKfWd3xm9thNWF+QZSXC0sLEFTEa6ZZ99fgCL5ERPHIYCFThl
-	 AfJuldtTS80L3HCXwCvJ0SdK2APgGQwk1FSxqxPntGXoKQsxQWrb7FPmuspM4PBqcX83u
-	 sCw9iW1xHeaA6bvsWtTCMK6obBcoEAGF13LivKSq0cOVYgduzxnZBWcXtUHWenrR85Qvq
-	 MMGWd3ADimiJSoC6Pm2noKsrUKDZsNFVNLL9IR8z4jnS4cwI8NcawXTnWsyLJc0x2DaQJ
-	 p7e+5LSxFxSiJ+E8PFlJrZX21evIrtxUwTk2k2UaJH1DhdCPSSpXmzKJTJVJgPFXlMg==
+	t=1795670521;
+	b=B3B9rjHT2Z18yzNNPMfcjybyQgBQWr+obUg8eNggCedj8a9rpH4IiL0ECaPVBCcXORpv
+	 fFpeM4Atz26qPvmKCbvbkKnZiWNi10HuV1tC1HITku24y2iwJI5k8CmvwwY3zqfNG/9zO
+	 S/e8qso4kwCr6NPz8P/z89XPKKOl6P02yWEnXLZnx6A+twTTRYmQl2kUUACIlzF2nLtQR
+	 RPcamhxY4im7VTyc/4jGmhR85+3xoAT1t96omQtGBpxRPAUQckt1/gxX2d0XC6DRagpCD
+	 gWNExyjdLsCWA1V2r/+4Scc7lEi7Os45Ew3JsFFmMShejK/cKeLMf+u0nbov8g29MRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795664351;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ig1Q3yBjVbivSP+2rdgIubsjNnhUPE3NszY437oJ1oU=;
-	b=t2uiem6thDbwXbnLfdt1IpoFSM2Pu8TWPhOwxbRTW4qp+yyTea6oyozsEnS9URNZSgfV
-	 gtBUpCShtKEG3PZqzp5oSK2qHpjOb+R9fqMGYJlq5EJKH+BX7Rppz5GL03MOfq0G1uX+E
-	 bqCcxWv2y9ZTRsD0rET0j5ZWECNGokSg7bZkejOtuFmOXN9M7fW79wwAjW56H/8+ANwns
-	 Iw7OpjjZdA27kQDgdj6eAawVYU83AsvDrbquOR4RwDHml81czfzQedRGJpZpeLv40I1s5
-	 4afDRC1Qun9KqD/gs2dnIvReQiz/uOwQkxGUpL/ahTKD6IUBGLh0Do2Bw10kV4GjZWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795670521;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=onk+iKTNJvSLjSgmayiHFki7AAkKSNYYZ+ceWP4cnXQ=;
+	b=yx8t7FzUnYn4AoFMtebFiUEtdj2Ys1K4wvStAPT7KvM5IlWD+ewI6Y0THxYqqjEj1nj7
+	 RGoYu9ZLFrlrBjSMzqennLUoRMseykT09CBcIBxqqb6ctJVwuGerXaxX3X4AhSmGEVbx6
+	 p3IuUo656JMHcVLnlQDn6uhqZ0sT2SwbADe0hWnX+p6TaZWIPmS62uUeLOpXZn2h/OK1F
+	 zrAiOp6cTkxPIuUL9zZizbFW6YPZjRTukx2aHURlMkDnOhRwppd3FlP8gYnDTUovPxqSr
+	 0st92BKkJWYDfIOZYB/YS7VE5oJiYmyAa4Y4/ytGHepRWf17coWLt+PM/NPz1T4st9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fTqPv4mg;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FeJWzvv6;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f8PbKIi1;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F90606A32A
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 03:39:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0F90606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028BC606A31C
+	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 05:22:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 028BC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fTqPv4mg;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FeJWzvv6
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AQ36fY1170293
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 03:39:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ig1Q3yBjVbivSP+2rdgIubsjNnhUPE3NszY437oJ1oU=; b=fTqPv4mge0M+6zzG
-	qngl6WCXjIHyaudlNy2Naa6s4hHhbVkmTkgbAJ33kmEX0Arwc6gdNHTwJX0+J5wJ
-	3vHLloD///qDRtTUquvRDXJvMs1FDEKz049ZYd20cFl0CpJIBauKgXbTW3Ey1On2
-	207yFO0QCmcKyPKAm1lMmYhVIUqIc9j0VQxQvjeM/Hd67s5doGkgULtgtTger/mA
-	CAGaQ4OyyaQ5sipNwBQhXYt9OPypgrmH+LrURECwE4qoNNqd/sZXIoPb2ZBOzfqd
-	6v+pNDjgpqUivD4Y9X7W87ALaoF+GDpru3rLpW2tlrzgOj5iZGknDJZLEQr7ysHs
-	sfEnuA==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5vukusf8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 26 Nov 2026 03:39:09 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-386ad819860so3315623eec.0
-        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 19:39:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f8PbKIi1
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cdab8873d9dso3167654a12.1
+        for <linux-media@vger.kernel.org>; Wed, 25 Nov 2026 21:22:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795664349; x=1796269149; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ig1Q3yBjVbivSP+2rdgIubsjNnhUPE3NszY437oJ1oU=;
-        b=FeJWzvv6urYxZHM0K9+fweIo22z1+Fqv/xtKKn5jl39wDlXHMg/C+1+UMykN5jAMZE
-         iOF2TX1fc5vRB4oxrwfafmn6RT94QS/rbJgE2aEm7CTYAhFWLdOJjNgJBZrRCc5cLz40
-         wFsTx5CYfakxuGK4k0n2OU6G1POytMaM2DvfDgXZJhQ31reyPlcECEuGHXM6/T0VFHiJ
-         z9KMPK0BisyYBgMpvYYVUp3/6qcCoBV7bnSlrBkDRLS79vipqrXJblrqWwx1TB+m/ZSh
-         cYkNFG4EzUwVT2Fj5YHV4in1RlKA8jGOQx+whIaTyEtNFkpwcxze5sdYMleHAXWi73HA
-         LYSQ==
+        d=gmail.com; s=20260707; t=1795670520; x=1796275320; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=onk+iKTNJvSLjSgmayiHFki7AAkKSNYYZ+ceWP4cnXQ=;
+        b=f8PbKIi1CS5x5lIZiSjkTRACKg5FurJS/mPBBYSYZaIX8dTrczQ7LJ2qu+6LiGIh4p
+         Xl/G/MeG05PpIydrx1aIFbqSuMO3ETiogNEdPKAbORlFhoV81bYdgdpjt4BVonHiBPNo
+         WoavpEqaog7RTBG5jiqeCynsSXT0+HU7Yh/mWECo5NH88B+WvDpqnf+dHwVDLgUYaK9u
+         BPQEz2GeMIS2CuM4jjRK8N6BxA26UbwU6kyO32ON8uhKbKQ7metU9ozuoyMBSzEmhhzU
+         zFIfezvZnZW1Ek6PuUhwSY2CFoCE50Zz4XUNvqc3TX+QUYd6PKcV8TZi19oqrICNMLm4
+         17lQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795664349; x=1796269149;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1795670520; x=1796275320;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ig1Q3yBjVbivSP+2rdgIubsjNnhUPE3NszY437oJ1oU=;
-        b=TO3x0mlCZUO9zRGdCivT88nLZjReXao4/uSsgdOKevLNAJqeTc9bYZrqy96UBONvd4
-         rlMNWUtnO/bwWLacdZFEno4F6+8epxtwZ3xg0JBqejdS70QJs0LNbvi/1K0SWAk5cU3U
-         g0gAPjgVAwb3075Cy9zqG5TPNkpp9RzpcNx9XkL39ZIjmj9nkrc6pRUSxycH5tysJPir
-         qjRKLGHZKDW3puJIuhfYMBTPgPFV9DynUFcGiT/iRxWMZ9o0H1sydngtDOFlV/cxMSHF
-         5frhXyg9Z2Iu7Mm+JIsuQbn8tasRpR6Cz83buDXrFbHVlhhvrcTo9D3qrDDjqFdUVaIC
-         MhEg==
-X-Gm-Message-State: APuU4Z/c2xxCWM+OmXYbwssA4f4m0G4qfkZntPCvwiIxDvMLSfD+LtqN
-	KrRgRd7LeVH72HugfY0+4e/WLtpzqwQtDsZfmAuO0Wci31gRai8Q4ala+DnKETAaGCyVw5jtYHB
-	q0Tu0g/epx+DgN/Oy/RXBGGBuvA9y04h770xO22VAJno0dNBkxoIg6ewf/lIVKVPCdL3JMv9vtg
-	==
-X-Gm-Gg: AZFdTZc/SV4aCS2ArbRNFXl/I9EFOuNQs3Yp3rGz5dAdFSpwYp+yP0Vu38Z8t7OJV+p
-	K8rcBDyk33WGaJ4ur/lgWr/zZYRlG4m2HeKcnkmjCvPlW885zEeZtRngTrlxXpf8s1NM3D8T8T7
-	2S/bgwzh231gaFwhJ8/pgkeOi9fNnld1kwdzL45i4VsFtsRdzd5Cm7BROqJUFUvMDOkKh7F0f03
-	5DsIBiio8RIQ5gnUkxBsr1pCZsmVFj32Keuh4FskwsnVkOIHOHQlWAe6bBQIv0wHgyXAIEDwL9V
-	OrUkf+/35+kJseytLjyHkQuKZBPYP6L6YubGvNrSx4rs14oo8kK0HcV3mQSHkEG+rBHKzQhrk1q
-	ktbVLeYMKCJgPrgs7kMf0kMYHvMmRITSkagObZ3ImMIy6YCNBGIY1sJiOiaAHWytqZCcSJBDpzg
-	4Ix+dK
-X-Received: by 2002:a05:7301:1a84:b0:386:abfb:4a2 with SMTP id 5a478bee46e88-386abfb1a83mr12744966eec.11.1795664348600;
-        Wed, 25 Nov 2026 19:39:08 -0800 (PST)
-X-Received: by 2002:a05:7301:1a84:b0:386:abfb:4a2 with SMTP id 5a478bee46e88-386abfb1a83mr12744935eec.11.1795664347990;
-        Wed, 25 Nov 2026 19:39:07 -0800 (PST)
-Received: from [10.204.100.41] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3866f299d0bsm49729022eec.19.2026.11.25.19.39.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 25 Nov 2026 19:39:06 -0800 (PST)
-Message-ID: <3c7382f6-8665-1632-acf0-b380aa8c5aeb@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 09:09:01 +0530
+        bh=onk+iKTNJvSLjSgmayiHFki7AAkKSNYYZ+ceWP4cnXQ=;
+        b=Q6KVbo02NFnjnEHDil55d/Ebj6EwOaoA46rdrviU21f2g+9/kRVdGIYUsUKUKTPAnU
+         KnjSI8+CGcrD7ki4Z1tcMNJudpIglZQdZIm00QaqMgPSkP0m0Le+t5ORjLCnslLSGJzr
+         4MXQBw78UHduz4xKgtg8kLADxTDQI28IKJDH7JirpnswzE/vyjFrFm2CVLTfeljbFbgt
+         BvfFq9671Eua+dj4Uxy0ZHCYN4eB8aB+9JEAM4tbzZqBvd+8XwVhvAswdrwGDyD7dRfv
+         6IBAPtmN66daIlGvsj4k/6UeFct8mJjyVQmS3PqdI7uUViS/wA49hiCqBRr/qhpzBUk3
+         k2Og==
+X-Forwarded-Encrypted: i=1; AL+hErFdPCcvjEr8IEmCPIQmFwvl4jlMzYEm8hDMbiub2imulMZs+zYL6xbf9wXCw0o33jcw+OXbCf4MRm9W+A==@vger.kernel.org
+X-Gm-Message-State: APuU4Z87F4eVFDCJQAkrubQnRDeJc3OUCv/m1n6y8CtK8MERx26bLcyW
+	HATIfuY+wJilRa4Ig9TzMgBDZAK4szsvYNEVZ/Ng8H928zAWE3dgXgk=
+X-Gm-Gg: AZFdTZfpzglXlU1aNLPy93dQ8uZtppObGcBYBqKUOPfyE2k/bCJEjlxeIRj9GXcVsvm
+	NOwWtBWSESDrDo0wrr0Tf0GZXc1qKWkJYatygnes8IYnbws+X7GmzhNVQpv7IX9CdUyDMrMnIbG
+	PMCehrW3mCvRone5YrAAZ7UZOcPY4v7A7eRRnAiJVI1IWXTG5DbpciLMFbDEG2Ox+3KbDYTn9V0
+	EuaoAKK/EaBQxhXnL2vcWYULETKotq7YUHPcPhvdn1Q3JwIXNGSmKXZlUFU1jHBR6IZL9utx/D+
+	/1KG6ws0DOKuI5A7hQU9Dxz5HWuf94HOUW9A4ZfhJn4mQDd5kjIlmLOnwOQSI6bf2NNOiRZVfKQ
+	BZFpw6RRb89PlN8VKJ/zylYzV0KJnhUIIo3ZFZgcdP6mVlKG0/UHvuf5GcJfCUp9tEnpWYuZ8av
+	yfTEjAkrBEd7iyyzTvbzo75E51C+GNT6p5f3qjdNsOH8P30YaayDl+OUVtRtc0hrUdSxVNIqU7i
+	wjo/gFp3GYwiMDsKbs+K8gbqP08PKnprtZfg62517Ze+kTDe+0ACafOhugPHLkej2vpU7vhhOhl
+	i057SPbXWMW53snhw31vdGqWGtuIWib78GDDZWvM1urMCbV8h8POL515IEMgtCoq41MHOESBQA/
+	ayveCIZw3641W
+X-Received: by 2002:a17:90b:2f8f:b0:3b0:9bfa:72b1 with SMTP id 98e67ed59e1d1-3b41c942d13mr19705625a91.49.1795670520219;
+        Wed, 25 Nov 2026 21:22:00 -0800 (PST)
+Received: from localhost.localdomain ([2406:3003:2002:639c:a06e:23f:85ed:4cfe])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ecbd0bsm33748176a91.15.2026.11.25.21.21.58
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 25 Nov 2026 21:21:59 -0800 (PST)
+From: Yige Jiang <yigejiang86@gmail.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Yige Jiang <yigejiang86@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] media: coda: Release firmware if code buffer allocation fails
+Date: Thu, 26 Nov 2026 13:21:54 +0800
+Message-ID: <rc-b1-20261126-vc-161-779570fc1703@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,72 +98,49 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] media: qcom: iris: fix PAS ID passed to set_remote_state
-To: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com,
-        abhinav.kumar@linux.dev, bod@kernel.org, mchehab@kernel.org,
-        hverkuil@kernel.org, stefan.schmidt@linaro.org
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261020204630.1175058-1-jorge.ramirez@oss.qualcomm.com>
-Content-Language: en-US
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <20261020204630.1175058-1-jorge.ramirez@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=KfVHIgYD c=1 sm=1 tr=0 ts=6b07a9dd cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=RiDGyf5vU9R3Kc8e4UgA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-ORIG-GUID: YhtZaLf10WeQ4wsc8SZDNj-X0GIYm4tf
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAxMyBTYWx0ZWRfXxe9QVupbL3qq
- TIG9snorc8hmTSaw8QVpM8cMekDejYCBNveACL+9sQJHnsXyACBcVnrH5YQSrQ0dWo2FF1A1Jkn
- QXe3jFeG7P+RYDTWEpyszOu/si/5qxs=
-X-Proofpoint-GUID: YhtZaLf10WeQ4wsc8SZDNj-X0GIYm4tf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAxMyBTYWx0ZWRfX++BQzg++u9hq
- 815jVt1oxA6+4PVxXo3n9dVOrq9P2mrLRC4+wWFkvCmDclpi4AOhXPC6H25n5XXp9cb35uUbHtY
- 3Sk/gBjLn3BuD6r6gczfkNMHiNP3kkIxN93Bmfc4kOKCC0Di4NeQ4dcoGyQc+SM8HuQ47dOsPmD
- T3z0LZjheedfwCVggfKVoOGRkMMqv7AGFksHSRH7TsOA4yeMkCo+lWq6j5TNg8JpEVFKvZyjYOK
- CkLnOF+v4v1K2BnYwcr//v91iCozlx3GZhXiUUGVUn9GRc/Gvqp2++j1knjd6Iea0TSjTdq/tlT
- OKgF5Lp/yobuj40lOvMCWO7U6HTGsbXbYazx0WD4juqmWk9Rao2fNeUa4/ed65d1XARJPqE6uSk
- 62OAzpltdv7aasZXT9+Ldgd9AcqA4bjcO8cMWI8vVy0b83u4Z+l96pe0xpkDWEcjb2NbqhVoT2L
- eY5SfpJi7zwe9b4ZRYw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_01,2026-11-25_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
- impostorscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260013
+Content-Transfer-Encoding: 8bit
 
+coda_fw_callback() owns the firmware passed to it by
+request_firmware_nowait(). It normally releases the firmware after copying
+it into the BIT processor's code buffer. If allocating that buffer fails,
+the callback jumps to put_pm and skips release_firmware(), leaking the
+firmware and its associated resources.
 
-On 10/21/2026 2:15 AM, Jorge Ramirez-Ortiz wrote:
-> A PAS ID of 0 does not identify the iris peripheral, so the
-> remote-state update never reached it. Pass IRIS_PAS_ID, as every
-> other PAS call in this file does.
->
-> Fixes: bb8a95aa038e ("media: iris: implement power management")
-> Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_firmware.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
-> index 21cdf1c39835..6ff5eefff391 100644
-> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
-> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-> @@ -195,5 +195,5 @@ int iris_fw_unload(struct iris_core *core)
->  
->  int iris_set_hw_state(struct iris_core *core, bool resume)
->  {
-> -	return qcom_pas_set_remote_state(resume, 0);
-> +	return qcom_pas_set_remote_state(resume, IRIS_PAS_ID);
->  }
+Release the firmware before jumping to put_pm, which drops the runtime PM
+reference taken in coda_probe().
 
-Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+An AI coding assistant helped identify the leak during review of static
+analysis results and helped draft the fix and commit message.
 
+Fixes: 186b250a0725 ("[media] media: coda: Add driver for Coda video codec")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+---
+Based on linux-next next-20261109 (630059a5a632).
+Compile-tested: arm64 coda-common.o with GCC 14.2 and W=1,
+CONFIG_COMPILE_TEST=y, CONFIG_ARCH_MXC=y and CONFIG_VIDEO_CODA=m.
+The baseline and patched object builds both produced 0 warnings.
+No hardware or runtime test was performed.
+The path needs the coherent DMA allocation of the code buffer to fail in the async firmware callback (OOM or fault injection).
+
+ drivers/media/platform/chips-media/coda/coda-common.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/chips-media/coda/coda-common.c b/drivers/media/platform/chips-media/coda/coda-common.c
+index 3fe33c4..ca8f953 100644
+--- a/drivers/media/platform/chips-media/coda/coda-common.c
++++ b/drivers/media/platform/chips-media/coda/coda-common.c
+@@ -3004,8 +3004,10 @@ static void coda_fw_callback(const struct firmware *fw, void *context)
+ 	/* allocate auxiliary per-device code buffer for the BIT processor */
+ 	ret = coda_alloc_aux_buf(dev, &dev->codebuf, fw->size, "codebuf",
+ 				 dev->debugfs_root);
+-	if (ret < 0)
++	if (ret < 0) {
++		release_firmware(fw);
+ 		goto put_pm;
++	}
+ 
+ 	coda_copy_firmware(dev, fw->data, fw->size);
+ 	release_firmware(fw);
+
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
